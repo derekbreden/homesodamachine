@@ -352,37 +352,37 @@ routes = _routes()
 # --- Drawing one -------------------------------------------------------------
 
 
-def _drop_collinear(points):
-    """Points with every straight-through vertex removed — three in a line have no corner
-    to turn, and a zero-radius arc is not a curve."""
-    kept = [cq.Vector(*points[0])]
+def _route_points(points):
+    """The source points with duplicate and straight-through vertices removed."""
+    kept = [tuple(points[0])]
     for p in points[1:]:
-        v = cq.Vector(*p)
-        if (v - kept[-1]).Length < 1e-9:
+        v = tuple(p)
+        if _route_length(_route_sub(v,kept[-1])) < 1e-9:
             continue
         if len(kept) >= 2:
             a, b = kept[-2], kept[-1]
-            if ((b - a).normalized().cross((v - b).normalized())).Length < 1e-9:
+            if _route_length(_route_cross(_route_unit(_route_sub(b,a)),
+                                           _route_unit(_route_sub(v,b)))) < 1e-9:
                 kept[-1] = v
                 continue
         kept.append(v)
     return kept
 
 
-def corner_radii(points, bend_radius):
+def _corner_data(points, bend_radius):
     """The radius each interior corner actually turns at.
 
     Every corner wants `bend_radius`, and what stops one is the leg it shares: two corners
     on a short leg cannot both set back what they want, so the pair gives up the same
     fraction until they fit. A corner that comes back under the stock arc is a corner the
     reach bought with, and `report_routes` is where that shows."""
-    v = _drop_collinear(points)
+    v = _route_points(points)
     n = len(v)
     half = [0.0] * n
     for i in range(1, n - 1):
-        u = (v[i - 1] - v[i]).normalized()
-        w = (v[i + 1] - v[i]).normalized()
-        half[i] = math.acos(max(-1.0, min(1.0, u.dot(w)))) / 2.0
+        u = _route_unit(_route_sub(v[i-1],v[i]))
+        w = _route_unit(_route_sub(v[i+1],v[i]))
+        half[i] = math.acos(max(-1.0, min(1.0, _route_dot(u,w)))) / 2.0
     radius = [0.0] * n
     for i in range(1, n - 1):
         radius[i] = bend_radius
@@ -390,7 +390,7 @@ def corner_radii(points, bend_radius):
         setback = [radius[i] / math.tan(half[i]) if half[i] > 1e-9 else 0.0 for i in range(n)]
         worst = 1.0
         for i in range(n - 1):
-            leg = (v[i + 1] - v[i]).Length
+            leg = _route_length(_route_sub(v[i+1],v[i]))
             want = setback[i] + setback[i + 1]
             if want > leg:
                 worst = min(worst, leg / want)
@@ -580,3 +580,57 @@ def report_routes(fitted, obstacles, *, measurements=None):
     print("    no line meets another" if not crossed else "    ** LINES CROSS **")
     print("    every corner at the stock arc" if not short else
           "    under the %.4g mm stock arc: %s" % (route_bend_radius, "; ".join(short)))
+
+
+def _route_sub(a, b): return tuple(x-y for x,y in zip(a,b))
+
+def _route_add(a, b): return tuple(x+y for x,y in zip(a,b))
+
+def _route_mul(a, scale): return tuple(x*scale for x in a)
+
+def _route_dot(a, b): return sum(x*y for x,y in zip(a,b))
+
+def _route_length(a): return math.sqrt(_route_dot(a,a))
+
+def _route_unit(a): return _route_mul(a,1./_route_length(a))
+
+def _route_cross(a, b):
+    return (a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0])
+
+def route_segments(points, bend_radius=route_bend_radius):
+    """The bore's fitted lines and circular arcs as numbers in source order."""
+    points,radii = _corner_data(points,bend_radius)
+    segments=[];tail=points[0]
+    def line(end):
+        segments.append({'kind':'line','start_mm':tail,'end_mm':end,
+                         'length_mm':_route_length(_route_sub(end,tail))})
+    for i in range(1,len(points)-1):
+        u=_route_unit(_route_sub(points[i-1],points[i]))
+        w=_route_unit(_route_sub(points[i+1],points[i]))
+        half=math.acos(max(-1.,min(1.,_route_dot(u,w))))/2.
+        setback=radii[i]/math.tan(half)
+        incoming=_route_add(points[i],_route_mul(u,setback))
+        outgoing=_route_add(points[i],_route_mul(w,setback))
+        centre=_route_add(points[i],_route_mul(_route_unit(_route_add(u,w)),
+                                             radii[i]/math.sin(half)))
+        mid=_route_add(centre,_route_mul(_route_unit(_route_sub(points[i],centre)),radii[i]))
+        if _route_length(_route_sub(incoming,tail)) > 1e-7:
+            line(incoming)
+        angle=math.pi-2.*half
+        segments.append({'kind':'arc','start_mm':incoming,'end_mm':outgoing,
+                         'midpoint_mm':mid,'radius_mm':radii[i],
+                         'angle_radians':angle,'length_mm':radii[i]*angle})
+        tail=outgoing
+    if _route_length(_route_sub(points[-1],tail)) > 1e-7:
+        line(points[-1])
+    return segments
+
+
+def _drop_collinear(points):
+    return [cq.Vector(*point) for point in _route_points(points)]
+
+
+def corner_radii(points, bend_radius):
+    """The fitted source corner radii, with vectors for native geometry callers."""
+    points,radii = _corner_data(points,bend_radius)
+    return [cq.Vector(*point) for point in points],radii

@@ -1,0 +1,23 @@
+{
+  "schema": 1,
+  "units": "mm",
+  "frame": "Reference source XYZ",
+  "references": {
+    "beduan-solenoid.step": {
+      "step_sha256": "fcf554f470667fc739c49119942e3142ae25eaf417ab920f8168ff6e3c15c818",
+      "fine_model_sha256": "83901131e5f5190be4e2f8b0a8cd0efe0a5d2e4a59bf35e2a8e93ae6cb0f5703",
+      "bounds_mm": [
+        [
+          -16.75,
+          -29.75,
+          0.0
+        ],
+        [
+          16.75,
+          29.75,
+          57.299999999813735
+        ]
+      ]
+    }
+  }
+}
