@@ -1,0 +1,143 @@
+{
+  "source": {
+    "commit": "30bb5cb2d5b95f18f43637bd9be26daced05f1f5",
+    "path": "hardware/reference/beduan-solenoid/beduan_solenoid.py",
+    "sha256": "c215ca2dd4f899be5d4c07d378bc0f26be2c2213f765f026063690537738a23f"
+  },
+  "members": {
+    "beduan-solenoid.step": "fcf554f470667fc739c49119942e3142ae25eaf417ab920f8168ff6e3c15c818",
+    "beduan-solenoid.step.mesh": "0efb104ae9230290c247a8ca0d7fed0838e6199be900d11c6e6afef799bf7127"
+  },
+  "fine_payload": {
+    "source_step_sha256": "fcf554f470667fc739c49119942e3142ae25eaf417ab920f8168ff6e3c15c818",
+    "path": "beduan-solenoid.step.mesh",
+    "sha256": "0efb104ae9230290c247a8ca0d7fed0838e6199be900d11c6e6afef799bf7127",
+    "linear_mm": 0.005,
+    "angular_rad": 0.05,
+    "producer": "hardware/scripts/_rust_part.py:_tessellate",
+    "origin": "new one-time immutable published STEP conversion",
+    "meshes": [
+      {
+        "name": "body",
+        "color": [
+          0.9300000033732306,
+          0.9300000033732306,
+          0.9100000088894052
+        ],
+        "vertices": 201745,
+        "triangles": 362858,
+        "face_ranges": 158
+      },
+      {
+        "name": "collets/1",
+        "color": [
+          0.9300000033732306,
+          0.9300000033732306,
+          0.9100000088894052
+        ],
+        "vertices": 29643,
+        "triangles": 54158,
+        "face_ranges": 17
+      },
+      {
+        "name": "collets/2",
+        "color": [
+          0.9300000033732306,
+          0.9300000033732306,
+          0.9100000088894052
+        ],
+        "vertices": 33354,
+        "triangles": 61720,
+        "face_ranges": 17
+      },
+      {
+        "name": "screw-heads/1",
+        "color": [
+          0.7299999951670297,
+          0.7500000009342138,
+          0.7600000136009657
+        ],
+        "vertices": 17202,
+        "triangles": 32756,
+        "face_ranges": 4
+      },
+      {
+        "name": "screw-heads/2",
+        "color": [
+          0.7299999951670297,
+          0.7500000009342138,
+          0.7600000136009657
+        ],
+        "vertices": 17202,
+        "triangles": 32756,
+        "face_ranges": 4
+      },
+      {
+        "name": "screw-heads/3",
+        "color": [
+          0.7299999951670297,
+          0.7500000009342138,
+          0.7600000136009657
+        ],
+        "vertices": 17202,
+        "triangles": 32756,
+        "face_ranges": 4
+      },
+      {
+        "name": "screw-heads/4",
+        "color": [
+          0.7299999951670297,
+          0.7500000009342138,
+          0.7600000136009657
+        ],
+        "vertices": 17202,
+        "triangles": 32756,
+        "face_ranges": 4
+      },
+      {
+        "name": "terminals/1",
+        "color": [
+          0.780000001770022,
+          0.7899999959075178,
+          0.800000010877486
+        ],
+        "vertices": 2050,
+        "triangles": 2032,
+        "face_ranges": 11
+      },
+      {
+        "name": "terminals/2",
+        "color": [
+          0.780000001770022,
+          0.7899999959075178,
+          0.800000010877486
+        ],
+        "vertices": 2050,
+        "triangles": 2032,
+        "face_ranges": 11
+      },
+      {
+        "name": "winding",
+        "color": [
+          0.07500000072856278,
+          0.07500000072856278,
+          0.08499999944115914
+        ],
+        "vertices": 70322,
+        "triangles": 131264,
+        "face_ranges": 69
+      },
+      {
+        "name": "yoke",
+        "color": [
+          0.7299999951670297,
+          0.7500000009342138,
+          0.7600000136009657
+        ],
+        "vertices": 3168,
+        "triangles": 3104,
+        "face_ranges": 34
+      }
+    ]
+  }
+}
