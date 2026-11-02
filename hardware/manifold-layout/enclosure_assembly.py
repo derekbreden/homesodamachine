@@ -5381,7 +5381,7 @@ def build_funnel_cover():
     return funnel_cover.build()
 
 
-def build_enclosure_assembly(*, require_box_spec=False) -> cq.Assembly:
+def build_enclosure_assembly(*, require_box_spec=False, kernel_wiring=False) -> cq.Assembly:
     """The pack, what is seated in the walls, and the four printable pieces of the box."""
     a, _p, live_box = machine()
     box = live_box
@@ -5526,7 +5526,7 @@ def build_enclosure_assembly(*, require_box_spec=False) -> cq.Assembly:
     if str(_hw.parent) not in sys.path:
         sys.path.insert(0, str(_hw.parent))
     from hardware.wiring.installed.build import attach
-    attach(a, sys.modules[__name__])
+    attach(a, sys.modules[__name__], kernel=kernel_wiring)
     return a
 
 
@@ -5892,7 +5892,7 @@ def main():
     # neither variable and always rebuild the live Box and cold core from source.
     action = bool(os.environ.get("HSM_INPUT_DIGEST")
                   or os.environ.get("HSM_BUILD_SOURCE") == "trace")
-    a = build_enclosure_assembly(require_box_spec=action)
+    a = build_enclosure_assembly(require_box_spec=action, kernel_wiring=True)
     out = _here.parent / "enclosure-assembly.step"
     meshcad = sys.modules.get("meshcad")
     on_meshes = meshcad is not None and meshcad.mesh_mode()
