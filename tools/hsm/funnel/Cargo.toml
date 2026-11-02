@@ -22,9 +22,19 @@ path = "../../../hardware/printed-parts/zone-c/funnel/elbow_cradle.rs"
 name = "cradle-trial"
 path = "../../../hardware/printed-parts/zone-c/funnel/cradle-trial/cradle_trial.rs"
 
+[[bin]]
+name = "funnel-mold"
+path = "../../../hardware/printed-parts/zone-c/funnel-mold/funnel_mold.rs"
+
+[[bin]]
+name = "funnel"
+path = "../../../hardware/printed-parts/zone-c/funnel/funnel.rs"
+
 [dependencies]
 anyhow.workspace = true
 hsm-kernel = { path = "../kernel" }
 hsm-geometry = { path = "../geometry" }
+serde.workspace = true
 serde_json.workspace = true
 sha2.workspace = true
+manifold-csg = { version = "0.4.1", default-features = false, features = ["parallel"] }
