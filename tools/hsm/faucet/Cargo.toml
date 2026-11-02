@@ -47,6 +47,14 @@ path = "../../../hardware/faucet-layout/faucet_metrics.rs"
 name = "umbilical-organizer"
 path = "../../../hardware/printed-parts/faucet/umbilical-organizer/umbilical_organizer.rs"
 
+[[bin]]
+name = "lever-replica"
+path = "../../../hardware/printed-parts/faucet/lever-replica/lever_replica.rs"
+
+[[bin]]
+name = "tube-collar"
+path = "../../../hardware/printed-parts/faucet/tube-collar/tube_collar.rs"
+
 [dependencies]
 anyhow.workspace = true
 hsm-kernel = { path = "../kernel" }
