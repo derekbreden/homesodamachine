@@ -1,0 +1,52 @@
+{
+  "pump": {
+    "trial_sha256": "b9dddd7fdcdcaee595985d1ccfb09e1cdc70c0689a44154a4968052980d63cb3",
+    "production_sha256": "69bafa7242a96d061fee530a14c7abd4a2a39d58c26fccb9e9d4080b5f381f52",
+    "production_path": "hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.stl",
+    "trial_watertight": true,
+    "production_watertight": true,
+    "bounds_max_difference_mm": 6.764366844436154e-12,
+    "trial_volume_mm3": 62618.78800900358,
+    "production_volume_mm3": 62628.43428298704
+  },
+  "asse": {
+    "trial_sha256": "d21dd54a566fca64ef0fd7698942d764e8f14cc17eb49cfb92c5b6467cebfd91",
+    "production_sha256": "22f42b426429ba9ded707e6d0397f0a5a268ed49a24c7b013a15f24a72cbd22b",
+    "production_path": "hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.stl",
+    "trial_watertight": true,
+    "production_watertight": true,
+    "bounds_max_difference_mm": 1.621929074709517e-15,
+    "trial_volume_mm3": 16726.335998273335,
+    "production_volume_mm3": 16726.56763490476
+  },
+  "pisco": {
+    "trial_sha256": "902d19b1fe6d50728c5cf47ea305c27d607273af7636968f82ff934a4c9aba48",
+    "production_sha256": "4552be3bda1644605f8b93353b1cc263883ddca37b54a0900fca76dc499d71c1",
+    "production_path": "hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.stl",
+    "trial_watertight": true,
+    "production_watertight": true,
+    "bounds_max_difference_mm": 9.881550948930896e-16,
+    "trial_volume_mm3": 4103.637292010505,
+    "production_volume_mm3": 4104.037635957568
+  },
+  "meter": {
+    "trial_sha256": "c398da1681afec79a3b61816b1b6f35db012978d356379235124d02ff55d26ae",
+    "production_sha256": "e96e897f9d59b3518f66565285b4da105c7056702dfd864ef97fe3d59ed7427f",
+    "production_path": "hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.stl",
+    "trial_watertight": true,
+    "production_watertight": true,
+    "bounds_max_difference_mm": 9.999996564147295e-08,
+    "trial_volume_mm3": 26892.3307042566,
+    "production_volume_mm3": 26892.415411516613
+  },
+  "regulator": {
+    "trial_sha256": "8e1b6162aeab004bc8cdd099c8d82cac596945ff8023036f58c6cb0cbb8fd7a8",
+    "production_sha256": "273f434d9e3712c6af2fc48829d6ed51e0edc4ed7a19a6f6e56c1d5d958086c8",
+    "production_path": "hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.stl",
+    "trial_watertight": true,
+    "production_watertight": true,
+    "bounds_max_difference_mm": 1.000001930151484e-07,
+    "trial_volume_mm3": 16763.250963995964,
+    "production_volume_mm3": 16764.03299598668
+  }
+}

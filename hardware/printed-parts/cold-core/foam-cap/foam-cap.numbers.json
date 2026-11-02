@@ -2585,21 +2585,24 @@
     "snap_station": {
      "axis_x": -15.181429835394722,
      "bearing": 21.85,
-     "catch": 22.5,
-     "ceiling": 25.6,
+     "catch": 22.25,
+     "ceiling": 25.35,
      "hook": 31.479180708991777,
      "inner": 34.57918070899178,
      "ledge": 34.07918070899178,
      "neck": 31.229180708991777,
      "nose_land": 0.6,
-     "outer": 37.17918070899178,
+     "outer": 36.57918070899178,
+     "pry_height": 1.0,
+     "pry_width": 5.0,
      "root": 0.0,
+     "root_radius": 1.5,
      "split": 0.0,
-     "tip": 25.1,
+     "tip": 24.85,
      "y0": 388.0680504420662,
      "y1": 442.5680504420662
     },
-    "stock_half_width_mm": 37.17918070899178
+    "stock_half_width_mm": 36.57918070899178
    }
   ],
   "centre_world_mm": [
@@ -2716,21 +2719,24 @@
   "snap_station": {
    "axis_x": -15.181429835394722,
    "bearing": 21.85,
-   "catch": 22.5,
-   "ceiling": 25.6,
+   "catch": 22.25,
+   "ceiling": 25.35,
    "hook": 31.479180708991777,
    "inner": 34.57918070899178,
    "ledge": 34.07918070899178,
    "neck": 31.229180708991777,
    "nose_land": 0.6,
-   "outer": 37.17918070899178,
+   "outer": 36.57918070899178,
+   "pry_height": 1.0,
+   "pry_width": 5.0,
    "root": 0.0,
+   "root_radius": 1.5,
    "split": 0.0,
-   "tip": 25.1,
+   "tip": 24.85,
    "y0": 388.0680504420662,
    "y1": 442.5680504420662
   },
-  "stock_half_width_mm": 37.17918070899178
+  "stock_half_width_mm": 36.57918070899178
  },
  "relief_radius": 5.312571253013435,
  "reliefs": {
@@ -2759,11 +2765,11 @@
  "screw_radius": 2.6,
  "slip": 0.15,
  "snap": {
-  "CATCH": 0.65,
+  "CATCH": 0.4,
   "HOOK": 2.6,
   "LEDGE": 3.0,
   "REACH": 2.6,
-  "WING": 2.6
+  "WING": 2.0
  },
  "straight_guides": [
   {

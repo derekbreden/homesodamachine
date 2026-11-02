@@ -93,6 +93,7 @@ def numbers():
                     min(lower[1],lo[1]-snaps.THREAD)-c,
                     max(upper[1],hi[1]+snaps.THREAD)+c,lower[2]-1.,axis[1]))
     caps = [{'name':'asse-snap-cap','section':snaps.cap_section(st,axis[1],None,axis[1],True),
+             'pry':[box(*b) for b in snaps.pry_bounds(st)],
              'cuts':cuts,'print_rotate_x':90.}]
 
     axis,frame = datums['pisco_axis'],plan['gas_frame']
@@ -104,12 +105,14 @@ def numbers():
     cap_y = (datums['mouth_y']-collet[0]+c+.01,datums['mouth_y']-fitting[0]-2.6)
     widest = max(r for y0,y1,r in seat if y1>=cap_y[0]-.25 and y0<=cap_y[1]+.25)
     st = snaps.pisco_station(axis[0],widest,axis[1],*cap_y)
-    body_r = max(r for z,r in profile if datums['mouth_y']-cap_y[1]-1.<=z<=neck_z)+s+snaps.PISCO_RADIAL_RELIEF
-    neck_r = max(r for z,r in profile if z>neck_z)+c+snaps.PISCO_RADIAL_RELIEF
+    body_r = max(r for z,r in profile if datums['mouth_y']-cap_y[1]-1.<=z<=neck_z)+snaps.PISCO_CAP_AIR
+    neck_r = max(r for z,r in profile if neck_z<=z<=collet[0])+snaps.PISCO_CAP_AIR
     lip = datums['mouth_y']-neck_z-s
     cuts = [turned([(cap_y[0]-1.,lip,neck_r),(lip,cap_y[1]+1.,body_r)],axis)]
     caps.append({'name':'pisco-snap-cap',
                  'section':snaps.cap_section(st,st['root'],axis[1]-body_r-snaps.WALL),
+                 'stock':[box(*b) for b in snaps.pisco_grip_stock(st,axis[1],body_r,neck_r,lip)],
+                 'pry':[box(*b) for b in snaps.pry_bounds(st)],
                  'cuts':cuts,'print_rotate_x':90.})
 
     meter = rear_plumbing.reference('cap_digiten','reference/digiten-flow-sensor/digiten_flow_sensor.py')
@@ -130,21 +133,29 @@ def numbers():
     core,west = wx(meter.boss_y_range[0])-air,wx(meter.underside_y)
     st = snaps.station(0.,soda[1]+collar+air-mz+snaps.WALL,
                        *cap_y,split=0.,wing_root=west-air-mx)
-    cuts = [{'op':'stadium-x','centre':(my,mz),'radius':15.45+air,'fore':0.,'aft':snaps.VAR,
+    cap_air=snaps.METER_CAP_AIR
+    cuts = [{'op':'stadium-x','centre':(my,mz),'radius':15.45+cap_air,'fore':0.,'aft':cap_air,
              'span':(wx(-8.1),core+1.)},
-            {'op':'stadium-x','centre':(my,mz),'radius':15.1+air,'fore':0.,'aft':snaps.VAR,
-             'span':(west-air,wx(-8.1)+.01)},
-            {'op':'cylinder-y','centre':soda,'radius':meter.port_neck_radius+air,'span':seat_y}]
+            {'op':'stadium-x','centre':(my,mz),'radius':15.1+cap_air,'fore':0.,'aft':cap_air,
+             'span':(west-cap_air,wx(-8.1)+.01)},
+            {'op':'cylinder-y','centre':soda,'radius':meter.port_neck_radius+cap_air,'span':seat_y}]
+    bottom=west-air-snaps.METER_BACK-mx
+    half=st['inner']-snaps.ROOT_RADIUS-.5
     caps.append({'name':'meter-snap-cap',
-                 'section':snaps.cap_section(st,st['root'],west-air-snaps.METER_BACK-mx),
+                 'section':snaps.cap_section(st,st['root'],bottom),
+                 'stock':[box(-half,half,*cap_y,bottom,st['root']+snaps.METER_BEARING_DEPTH)],
+                 'pry':[box(*b) for b in snaps.pry_bounds(st)],
                  'placement':{'rotate_y':90.,'translation':(mx,0.,mz)},
                  'cuts':cuts,'print_rotate_x':90.})
 
-    mount = plan['regulator_mount']
+    mount = rear_plumbing.regulator_datums()
     st,axis = mount['station'],mount['axis']
     caps.append({'name':'regulator-snap-cap',
                  'section':snaps.cap_section(st,st['root'],mount['cap_bottom']),
-                 'cuts':[turned(mount['cap_runs'],axis)],'rotate_z':90.,'print_rotate_y':90.})
+                 'stock':[box(*b) for b in mount['cap_stock']],
+                 'pry':[box(*b) for b in snaps.pry_bounds(st)],
+                 'cuts':[{'op':'radial-profile','points':mount['cap_profile'],'frame':mount['profile_frame']}],
+                 'rotate_z':90.,'print_rotate_y':90.})
     return {'caps':caps,'color':linear(M_PETGF_BLACK)}
 
 

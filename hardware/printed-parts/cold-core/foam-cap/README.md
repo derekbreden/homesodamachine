@@ -44,8 +44,11 @@ the lid face, leaving a 4.9 mm floor. A single fore plane clears both head lugs.
 are 3.419 mm and 3.329 mm wide.
 One continuous 54.5 mm filled box half-pipe spans native X20–74.5, with a
 6.2 mm crown and one straight east shoulder for ASSE clearance. Independent
-2.6 mm spring leaves have 22.5 mm free bending lengths and 2.6 mm flat catches.
-Insertion ramps sit above the complete flat retaining faces. Its continuous side pockets
+2.0 mm spring leaves have 1.5 mm inside root blends and 22.25 mm root-to-catch
+lengths. Their flat catches have 2.6 mm overlap outside centered 5 mm-wide by
+1 mm-high flathead entries. Nominal catch clearance is 0.4 mm. Ease each leaf
+outward through its tool entry before withdrawing the cap. Insertion ramps
+sit above the flat retaining faces. Its continuous side pockets
 span X19.75–74.75; the seat leaves
 3 mm of solid axial stock at each end. The clip closes after seating the bare
 motor and prints on one axial end with a constant outside profile.

@@ -1,9 +1,11 @@
 # Rear equipment snap fit samples
 
-The selected [reinforced end-down trial](v2/README.md) uses 2.6 mm leaves,
-21.5–22.5 mm free bending lengths, insertion ramps above full flat catches,
-PISCO and meter clearance corrections, complete meter leaves and the larger
-water-regulator span. The [first trial's physical result](physical-result/physical-result.json)
+The selected [intermediate-leaf trial](v3/README.md) uses 2.0 mm leaves,
+rounded roots, centered flathead entries and shaped hardware bearings. The
+[reinforced trial's physical result](v2/physical-result/physical-result.json)
+records the accepted pump, ASSE and meter-receiver fits, concentrated root
+bending, PISCO retention failure and water-regulator play.
+The [first trial's physical result](physical-result/physical-result.json)
 records wing fractures and fit failures. Its frozen geometry and print records
 below identify those tested pieces.
 

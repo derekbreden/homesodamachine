@@ -17,7 +17,8 @@
     "pump": {
       "fit": "Derek reports the pump snap and base fit are very good; retain them.",
       "spring": "Only complaint is leaf bending concentrated at the corners; use an intermediate thickness.",
-      "status": "Hardware fit accepted; spring compliance needs revision."
+      "status": "Hardware fit accepted; spring compliance needs revision.",
+      "base_fracture_observation": "The base broke before the snaps during removal. Record only; Derek explicitly requests no geometry change based on this observation."
     },
     "meter": {
       "receiver": "Derek reports a very good fit, including room for the wire. Preserve the receiver hardware cavity.",
@@ -148,6 +149,26 @@
       "photo": 10,
       "sha256": "d7f55162e831dff34a29a64541959d44769ef5e524b8717bba66da84763b8373",
       "bytes": 1282375
+    },
+    {
+      "batch": "pump-removal",
+      "photo": 1,
+      "sha256": "be7e855f86730a09d4d11bcd2f7fe8eb3584c23816683ec34af49f7e89636527",
+      "bytes": 1903882,
+      "retained_photo": "pump-pry-location.jpg"
+    },
+    {
+      "batch": "pump-removal",
+      "photo": 2,
+      "sha256": "2c70cc278f33707c5254abff1151ba865895e8bd705f92849e09e473032273b3",
+      "bytes": 1948228,
+      "retained_photo": "pump-base-fracture.jpg"
     }
-  ]
+  ],
+  "release_tool_request": {
+    "feature": "Centered flathead slot for cap removal.",
+    "location": "Centered along the cap; the photo illustrates the purpose rather than the exact position.",
+    "tool_required": "A flathead screwdriver is acceptable.",
+    "shape": "Use the simplest functional slot."
+  }
 }

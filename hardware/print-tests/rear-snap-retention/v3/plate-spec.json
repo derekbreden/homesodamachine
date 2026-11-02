@@ -1,0 +1,192 @@
+{
+  "schema": 1,
+  "profile": "hardware/printed-parts/petgf.3mf",
+  "filament_mapping": {
+    "extruder_ams_count": [
+      "1#0|4#0",
+      "1#0|4#0"
+    ],
+    "support_filament": "1",
+    "support_interface_filament": "1",
+    "flush_into_support": "0"
+  },
+  "printers": {
+    "Mark1": {
+      "connection_key": "H2C",
+      "z_trim_mm": 0.18,
+      "filament_colour": "#000000"
+    },
+    "Mark2": {
+      "z_trim_mm": 0.04,
+      "filament_colour": "#161616"
+    }
+  },
+  "pieces": {
+    "rear-retention-mark1": {
+      "printer": "Mark1",
+      "nozzle": {
+        "side": "left",
+        "diameter_mm": 0.4,
+        "flow": "Standard",
+        "hardened": true,
+        "reason": "Every abrasive stock runs on the left hotend (hardware/ledger/tools.md, Which hotends fit an H2C). Mark2's 2026-10-24 jobs ran black PET-GF on its fixed left hardened 0.4 mm Standard-flow hotend (faucet/industrial/prints/2026-10-24-buttons-sculpted-bands020-mark2/README.md, task 1372253517)."
+      },
+      "material": "Polymaker Fiberon PET-GF15, black",
+      "parts": [
+        {
+          "name": "pump-seat",
+          "stl": "hardware/print-tests/rear-snap-retention/v3/parts/pump-seat.stl"
+        },
+        {
+          "name": "asse-seat",
+          "stl": "hardware/print-tests/rear-snap-retention/v3/parts/asse-seat.stl"
+        },
+        {
+          "name": "asse-cap",
+          "stl": "hardware/print-tests/rear-snap-retention/v3/parts/asse-cap.stl",
+          "object_settings": {
+            "sparse_infill_density": {
+              "value": "100%",
+              "reason": "Solid stock through each retaining cap and spring root."
+            },
+            "sparse_infill_pattern": {
+              "value": "zig-zag",
+              "reason": "Solid cap deposition."
+            }
+          }
+        },
+        {
+          "name": "pisco-seat",
+          "stl": "hardware/print-tests/rear-snap-retention/v3/parts/pisco-seat.stl"
+        },
+        {
+          "name": "pisco-cap",
+          "stl": "hardware/print-tests/rear-snap-retention/v3/parts/pisco-cap.stl",
+          "object_settings": {
+            "sparse_infill_density": {
+              "value": "100%",
+              "reason": "Solid stock through each retaining cap and spring root."
+            },
+            "sparse_infill_pattern": {
+              "value": "zig-zag",
+              "reason": "Solid cap deposition."
+            }
+          }
+        }
+      ],
+      "spacing_mm": 12.0,
+      "plate_border_mm": 40.0,
+      "pose_reason": "Each full receiver and cap retains its production print orientation; XY yaw only packs the comparison.",
+      "settings": {
+        "wall_loops": {
+          "value": "3",
+          "reason": "Three Classic walls with solid stock through the 2.0 mm spring leaves."
+        },
+        "wall_generator": {
+          "value": "classic",
+          "reason": "Retain the production fixed-width wall recipe."
+        },
+        "sparse_infill_density": {
+          "value": "15%",
+          "reason": "Production receiver bulk recipe; caps have a local solid override."
+        },
+        "sparse_infill_pattern": {
+          "value": "gyroid",
+          "reason": "Production receiver bulk recipe."
+        },
+        "enable_support": {
+          "value": "1",
+          "reason": "Tree(auto)/Default supports the actual retention ceilings in production orientation."
+        }
+      }
+    },
+    "rear-retention-mark2": {
+      "printer": "Mark2",
+      "nozzle": {
+        "side": "left",
+        "diameter_mm": 0.4,
+        "flow": "Standard",
+        "hardened": true,
+        "reason": "Every abrasive stock runs on the left hotend (hardware/ledger/tools.md, Which hotends fit an H2C). Mark2's 2026-10-24 jobs ran black PET-GF on its fixed left hardened 0.4 mm Standard-flow hotend (faucet/industrial/prints/2026-10-24-buttons-sculpted-bands020-mark2/README.md, task 1372253517)."
+      },
+      "material": "Polymaker Fiberon PET-GF15, black",
+      "parts": [
+        {
+          "name": "pump-cap",
+          "stl": "hardware/print-tests/rear-snap-retention/v3/parts/pump-cap.stl",
+          "object_settings": {
+            "sparse_infill_density": {
+              "value": "100%",
+              "reason": "Solid stock through each retaining cap and spring root."
+            },
+            "sparse_infill_pattern": {
+              "value": "zig-zag",
+              "reason": "Solid cap deposition."
+            }
+          }
+        },
+        {
+          "name": "meter-seat",
+          "stl": "hardware/print-tests/rear-snap-retention/v3/parts/meter-seat.stl"
+        },
+        {
+          "name": "meter-cap",
+          "stl": "hardware/print-tests/rear-snap-retention/v3/parts/meter-cap.stl",
+          "object_settings": {
+            "sparse_infill_density": {
+              "value": "100%",
+              "reason": "Solid stock through each retaining cap and spring root."
+            },
+            "sparse_infill_pattern": {
+              "value": "zig-zag",
+              "reason": "Solid cap deposition."
+            }
+          }
+        },
+        {
+          "name": "regulator-seat",
+          "stl": "hardware/print-tests/rear-snap-retention/v3/parts/regulator-seat.stl"
+        },
+        {
+          "name": "regulator-cap",
+          "stl": "hardware/print-tests/rear-snap-retention/v3/parts/regulator-cap.stl",
+          "object_settings": {
+            "sparse_infill_density": {
+              "value": "100%",
+              "reason": "Solid stock through each retaining cap and spring root."
+            },
+            "sparse_infill_pattern": {
+              "value": "zig-zag",
+              "reason": "Solid cap deposition."
+            }
+          }
+        }
+      ],
+      "spacing_mm": 12.0,
+      "plate_border_mm": 40.0,
+      "pose_reason": "Each full receiver and cap retains its production print orientation; XY yaw only packs the comparison.",
+      "settings": {
+        "wall_loops": {
+          "value": "3",
+          "reason": "Three Classic walls with solid stock through the 2.0 mm spring leaves."
+        },
+        "wall_generator": {
+          "value": "classic",
+          "reason": "Retain the production fixed-width wall recipe."
+        },
+        "sparse_infill_density": {
+          "value": "15%",
+          "reason": "Production receiver bulk recipe; caps have a local solid override."
+        },
+        "sparse_infill_pattern": {
+          "value": "gyroid",
+          "reason": "Production receiver bulk recipe."
+        },
+        "enable_support": {
+          "value": "1",
+          "reason": "Tree(auto)/Default supports the actual retention ceilings in production orientation."
+        }
+      }
+    }
+  }
+}
