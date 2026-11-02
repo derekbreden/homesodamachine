@@ -1,0 +1,13 @@
+{
+  "source": {
+    "commit": "7320c7c39a9d4e1485cb7dbcc3b95aa85d0802fb",
+    "path": "hardware/reference/branch-stem-tees/branch_stem_tees.py",
+    "sha256": "ef00dac0ad3a55c83484e58377898aa673afc92ba80dea1c1d9d6f883f048ae9"
+  },
+  "members": {
+    "john-guest-ci580808w-estimate.step": "7f33972a6f884f5d7b6e77db92be35d9e8e0dae4233bb33cf6aee0366b7935c2",
+    "john-guest-ci580808w-estimate.step.mesh": "df3be3fc40513ebb9047925a0b92e6060e6f3091658b3fc780a4deddd6f62f85",
+    "neofit-atbu444-e-estimate.step": "b3d52d71eef55a5210d5c426def3a8b7e27309a3a63d880c363a2a18b6b0c2a5",
+    "neofit-atbu444-e-estimate.step.mesh": "a32b411b55657eebe6091c75f7d54e131ed1735561c21c929ef88b0dd5c06379"
+  }
+}

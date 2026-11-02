@@ -47,7 +47,7 @@ fn join_rounded(v: DVec3, places: usize) -> String {
 /// inside every cutting plane.
 pub struct Pick {
     pub px: [f64; 2],
-    pub hit: Option<(usize, DVec3, f64)>,
+    pub hit: Option<pick::Hit>,
 }
 
 pub fn pick(scene: &Scene, plan: &Plan, camera: &Camera, clips: &[[f64; 4]], px: [f64; 2]) -> Pick {
@@ -60,8 +60,7 @@ pub fn pick(scene: &Scene, plan: &Plan, camera: &Camera, clips: &[[f64; 4]], px:
     };
     let hit = pick::cast(scene, from, dir, f64::INFINITY, true, faced)
         .into_iter()
-        .find(|h| kept(clips, h.point))
-        .map(|h| (scene.meshes[h.mesh].body, h.point, h.distance));
+        .find(|h| kept(clips, h.point));
     Pick { px, hit }
 }
 
@@ -71,7 +70,7 @@ pub struct Cast {
     pub from: [f64; 3],
     pub dir: [f64; 3],
     pub limit: f64,
-    pub hit: Option<(usize, f64)>,
+    pub hit: Option<pick::Hit>,
     pub end: DVec3,
 }
 
@@ -87,7 +86,7 @@ pub fn cast(scene: &Scene, plan: &Plan, from: [f64; 3], dir: [f64; 3], limit: f6
         from,
         dir,
         limit,
-        hit: first.map(|h| (scene.meshes[h.mesh].body, h.distance)),
+        hit: first,
         end: first.map_or(origin + d * limit, |h| h.point),
     }
 }
@@ -233,6 +232,10 @@ impl Look<'_> {
         }
     }
 
+    fn hit_name(&self, hit: pick::Hit) -> String {
+        self.body_name(self.scene.meshes[hit.mesh].body)
+    }
+
     fn body_name(&self, b: usize) -> String {
         let n = &self.scene.bodies[b].name;
         if n.is_empty() { "(unnamed)".into() } else { n.clone() }
@@ -326,7 +329,7 @@ impl Look<'_> {
                     line,
                     hit: c.hit.is_some(),
                     text: match c.hit {
-                        Some((b, mm)) => format!("{} mm → {}", js(rounded(mm, 2)), self.body_name(b)),
+                        Some(h) => format!("{} mm → {}", js(rounded(h.distance, 2)), self.hit_name(h)),
                         None => format!("{} mm no contact", js(c.limit)),
                     },
                 })
@@ -338,7 +341,7 @@ impl Look<'_> {
             .map(|p| PickMark {
                 x: p.px[0],
                 y: p.px[1],
-                name: p.hit.map(|(b, _, _)| self.body_name(b)),
+                name: p.hit.map(|h| self.hit_name(h)),
             })
             .collect();
 
@@ -414,12 +417,12 @@ impl Look<'_> {
         }
         for c in self.casts {
             legend.push(match c.hit {
-                Some((b, mm)) => format!(
+                Some(h) => format!(
                     "ray  {} → {}  {} mm to {} at {}",
                     join(&c.from),
                     join(&c.dir),
-                    js(rounded(mm, 2)),
-                    self.body_name(b),
+                    js(rounded(h.distance, 2)),
+                    self.hit_name(h),
                     join_rounded(c.end, 2)
                 ),
                 None => format!(
@@ -432,12 +435,12 @@ impl Look<'_> {
         }
         for p in self.picks {
             legend.push(match p.hit {
-                Some((b, at, mm)) => format!(
+                Some(h) => format!(
                     "pick  {} px → {} — AMBER — at {}, {} mm from the eye",
                     join(&p.px),
-                    self.body_name(b),
-                    join_rounded(at, 2),
-                    js(rounded(mm, 2))
+                    self.hit_name(h),
+                    join_rounded(h.point, 2),
+                    js(rounded(h.distance, 2))
                 ),
                 None => format!("pick  {} px → nothing; the frame is empty at that pixel", join(&p.px)),
             });

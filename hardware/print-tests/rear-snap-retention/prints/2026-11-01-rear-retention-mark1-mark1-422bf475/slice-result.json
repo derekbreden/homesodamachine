@@ -1,0 +1,126 @@
+{
+  "error_string": "Success.",
+  "export_time": 1499,
+  "layer_height": 0.23999999463558197,
+  "plate_index": 0,
+  "prepare_time": 19,
+  "return_code": 0,
+  "sliced_plates": [
+    {
+      "feature_type_times": {
+        "Bottom surface": 377.69696044921875,
+        "Bridge": 1163.994140625,
+        "Brim": 19.346853256225586,
+        "Custom": 303.75567626953125,
+        "Flush": 15.0,
+        "Gap infill": 100.96743774414062,
+        "Inner wall": 1563.9423828125,
+        "Internal solid infill": 1578.6063232421875,
+        "Outer wall": 1204.0501708984375,
+        "Overhang wall": 95.40518951416016,
+        "Sparse infill": 4330.96142578125,
+        "Support": 767.9520874023438,
+        "Support interface": 30.314186096191406,
+        "Top surface": 305.6037902832031,
+        "Travel": 1262.203369140625,
+        "Undefined": 1254.1673583984375
+      },
+      "filament_change_times": 0,
+      "filaments": [
+        {
+          "filament_id": "GFT01",
+          "id": 1,
+          "main_used_g": 120.61013793945312,
+          "total_used_g": 120.61013793945312
+        }
+      ],
+      "generate_support_material_time": 256,
+      "id": 1,
+      "infill_time": 265,
+      "layer_filament_change": 0,
+      "main_predication": 12783.2119140625,
+      "make_perimeters_time": 53,
+      "obj_cached_cnt": 0,
+      "objects": [
+        {
+          "bbox": {
+            "depth": 77.75836181640625,
+            "height": 38.52934646606445,
+            "width": 95.4000015258789,
+            "x": 87.969482421875,
+            "y": 90.67267608642578,
+            "z": -3.2226665780399344e-11
+          },
+          "id": 5,
+          "name": "pump-seat",
+          "triangle_count": 412
+        },
+        {
+          "bbox": {
+            "depth": 48.89627456665039,
+            "height": 21.25,
+            "width": 72.59674835205078,
+            "x": 90.13909912109375,
+            "y": 180.43104553222656,
+            "z": 0.0
+          },
+          "id": 9,
+          "name": "asse-seat",
+          "triangle_count": 1822
+        },
+        {
+          "bbox": {
+            "depth": 48.896278381347656,
+            "height": 35.6627082824707,
+            "width": 41.66104507446289,
+            "x": 195.36947631835938,
+            "y": 105.10372161865234,
+            "z": -2.35353070365818e-10
+          },
+          "id": 13,
+          "name": "asse-cap",
+          "triangle_count": 1700
+        },
+        {
+          "bbox": {
+            "depth": 48.70428466796875,
+            "height": 14.5,
+            "width": 32.470760345458984,
+            "x": 174.73585510253906,
+            "y": 180.52703857421875,
+            "z": 0.0
+          },
+          "id": 17,
+          "name": "pisco-seat",
+          "triangle_count": 952
+        },
+        {
+          "bbox": {
+            "depth": 32.47076416015625,
+            "height": 28.046899795532227,
+            "width": 15.654277801513672,
+            "x": 219.2066192626953,
+            "y": 188.643798828125,
+            "z": 2.338875759733128e-10
+          },
+          "id": 21,
+          "name": "pisco-cap",
+          "triangle_count": 1384
+        }
+      ],
+      "sliced_time": 2254,
+      "sliced_time_with_cache": 1580,
+      "total_predication": 13108.931640625,
+      "triangle_count": 6270,
+      "warning_message": ""
+    }
+  ],
+  "sparse_infill_density": 15.0,
+  "upward_compatible_machine": [
+    "Bambu Lab H2S 0.4 nozzle",
+    "Bambu Lab H2D 0.4 nozzle",
+    "Bambu Lab H2D Pro 0.4 nozzle",
+    "Bambu Lab A2L 0.4 nozzle"
+  ],
+  "wall_loops": 3
+}

@@ -14,7 +14,7 @@ use std::sync::Mutex;
 /// it, or the file it was read from (`file_src`).
 pub type Src = &'static dyn Source;
 
-/// A file, and the line in it when the face came from a generator's line.
+/// A recorded file/line or an immutable contributor set for an imported displayed range.
 pub trait Source: fmt::Debug + Sync {
     /// A generator's file as rustc names it, or a read file by the name its reader gave it.
     fn file(&self) -> &str;
@@ -24,6 +24,8 @@ pub trait Source: fmt::Debug + Sync {
     fn repo_relative(&self) -> bool { false }
     /// False when the producer explicitly recorded no source (`null`).
     fn recorded(&self) -> bool { true }
+    /// The complete contributor set of an imported displayed range, without a primary owner.
+    fn contributors(&self) -> Option<&[Value]> { None }
 }
 
 impl Source for Location<'static> {
@@ -40,8 +42,9 @@ impl Source for Location<'static> {
 
 impl PartialEq for dyn Source {
     fn eq(&self, other: &Self) -> bool {
-        self.file() == other.file() && self.line() == other.line() && self.column() == other.column()
-            && self.recorded() == other.recorded()
+        std::ptr::eq(self, other) || (self.file() == other.file() && self.line() == other.line() && self.column() == other.column()
+            && self.recorded() == other.recorded() && self.contributors() == other.contributors()
+        )
     }
 }
 
@@ -65,6 +68,56 @@ impl Source for UnknownSource {
 pub fn unknown_src() -> Src {
     static UNKNOWN: UnknownSource = UnknownSource;
     &UNKNOWN
+}
+
+#[derive(Debug)]
+struct ContributorSource {
+    records: Vec<Value>,
+}
+
+impl Source for ContributorSource {
+    fn file(&self) -> &str { "" }
+    fn line(&self) -> Option<u32> { None }
+    fn column(&self) -> Option<u32> { None }
+    fn recorded(&self) -> bool { false }
+    fn contributors(&self) -> Option<&[Value]> { Some(&self.records) }
+}
+
+/// One immutable allocation per distinct complete set. Src is process-lived; repeated reads of
+/// the same data reuse it, including reordered members. Distinct inputs retain distinct sets.
+fn contributor_src(value: &Value) -> Result<Src> {
+    let records = value.as_array().context("contributors are an array")?;
+    let source = |v: &Value| v.is_null() || v.is_string();
+    for record in records.iter().filter(|record| !record.is_null()) {
+        let record = record.as_object().context("a contributor is an object or null")?;
+        ensure!(record.get("src").is_some_and(source), "contributor source is not text or null");
+        ensure!(record.get("op").is_some_and(Value::is_string), "contributor operation is not text");
+        if let Some(via) = record.get("via").filter(|v| !v.is_null()) {
+            ensure!(via.is_object() && via.get("src").is_some_and(source)
+                && via.get("op").is_some_and(Value::is_string), "contributor via is not an operation/source pair");
+        }
+    }
+    fn canonical(value: &Value) -> Value {
+        match value {
+            Value::Object(fields) => {
+                let sorted: BTreeMap<_, _> = fields.iter().map(|(key, value)| (key.clone(), canonical(value))).collect();
+                Value::Object(sorted.into_iter().collect())
+            }
+            Value::Array(values) => Value::Array(values.iter().map(canonical).collect()),
+            value => value.clone(),
+        }
+    }
+    let mut keyed: Vec<_> = records.iter().map(canonical).map(|record| (record.to_string(), record)).collect();
+    keyed.sort_by(|a, b| a.0.cmp(&b.0));
+    keyed.dedup_by(|a, b| a.0 == b.0);
+    let records: Vec<_> = keyed.into_iter().map(|(_, record)| record).collect();
+    let key = serde_json::to_string(&records)?;
+    static SETS: Mutex<BTreeMap<String, &'static ContributorSource>> = Mutex::new(BTreeMap::new());
+    let mut sets = SETS.lock().unwrap_or_else(|e| e.into_inner());
+    if let Some(&source) = sets.get(&key) { return Ok(source); }
+    let source: &'static ContributorSource = Box::leak(Box::new(ContributorSource { records }));
+    sets.insert(key, source);
+    Ok(source)
 }
 
 impl Source for ReadFile {
@@ -330,23 +383,44 @@ pub struct Via {
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct Face {
     pub surface: Surface,
-    /// The builder that made the face: "box", "extrude", "revolve", "cylinder", "sweep", …
+    /// The recorded builder; empty for an imported range with no primary owner.
     pub op: &'static str,
     pub src: Src,
     pub via: Option<Via>,
+    /// The complete model record was null, distinct from an object's nullable source.
+    pub record_null: bool,
 }
 
 impl Face {
     pub fn new(surface: Surface, op: &'static str, src: Src) -> Face {
-        Face { surface, op, src, via: None }
+        Face { surface, op, src, via: None, record_null: false }
     }
 
     pub fn transformed(&self, t: &Affine) -> Face {
         Face { surface: self.surface.transformed(t), ..*self }
     }
 
+    /// Keep the analytic surface, with the entire input range's contributor set as provenance.
+    pub fn with_contributors(self, records: &Value) -> Result<Face> {
+        let src = contributor_src(records)?;
+        if self.record_null {
+            ensure!(src.contributors() == Some(&[Value::Null][..]), "whole-null record conflicts with contributors");
+            return Ok(self);
+        }
+        Ok(Face { src, op: "", via: None, ..self })
+    }
+
     /// The analytic surface and source record written by `write::face_json` or meshcad.
     pub fn from_json(record: &Value) -> Result<Face> {
+        if record.is_null() {
+            return Ok(Face {
+                surface: Surface::Free { kind: "" },
+                op: "",
+                src: unknown_src(),
+                via: None,
+                record_null: true,
+            });
+        }
         let number = |key: &str| -> Result<f64> {
             let value = record[key].as_f64().with_context(|| format!("face has no numeric {key}"))?;
             ensure!(value.is_finite(), "face {key} is not finite");
@@ -376,6 +450,10 @@ impl Face {
             else { record_src(source.as_str().context("face source is not text or null")?) };
         let mut face = Face::new(surface,
             intern(record["op"].as_str().context("face has no builder")?), source);
+        if let Some(records) = record.get("contributors") {
+            ensure!(record["src"].is_null() && record["op"] == "", "a contributor set has no primary owner");
+            face = face.with_contributors(records)?;
+        }
         if let Some(via) = record.get("via").filter(|v| !v.is_null()) {
             let (op, src) = via.as_str().and_then(|v| v.split_once(" at "))
                 .context("face via is not 'operation at source'")?;

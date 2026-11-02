@@ -1,7 +1,7 @@
 {
   "project": "umbilical-organizer-petgf.3mf",
   "settings_source": "hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer-petgf.3mf",
-  "settings_source_sha256": "4b01a918054c9dab191055a99bb24866739c747e73bc9e6c4bb3594509251975",
+  "settings_source_sha256": "86e1e493751401434e5305b44c048b941b130b67f2dfc261432dfadb5d3e4792",
   "settings_sha256": "c0f49e3a2aa401d2c9a91ad25d7e70aa28822da5a8f6c2e73eebb449d52edb74",
   "source_settings_sha256": "c0f49e3a2aa401d2c9a91ad25d7e70aa28822da5a8f6c2e73eebb449d52edb74",
   "settings_changes": {},
@@ -54,11 +54,11 @@
       "member": "3D/Objects/object_1.model",
       "identify_id": 1901,
       "source": "hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer.stl",
-      "stl_sha256": "5cc18e3f8ecc95259ed6c2cba9df7e685c6aeb79c3d458130af1c9891f085f39",
-      "triangles": 6344,
+      "stl_sha256": "87641a741b3d2cb750984c325a9175adc10e82833c6fdffcc45ab55302001fc6",
+      "triangles": 6176,
       "rotation_x_degrees": 0.0,
       "source_center_mm": [
-        0.0035805702209472656,
+        0.0,
         0.0,
         5.0
       ],
@@ -88,21 +88,23 @@
       ],
       "plate_bounds_mm": [
         [
-          161.50358057022095,
-          144.0017900466919,
+          161.5,
+          144.0,
           0.0
         ],
         [
-          193.49641942977905,
-          175.9982099533081,
+          193.5,
+          176.0,
           10.0
         ]
       ],
       "watertight": true,
       "body_count": 1,
-      "embedded_vertex_error_mm": 4.99755792304768e-10
+      "embedded_vertex_error_mm": 5.000000413701855e-10
     }
   ],
-  "project_sha256": "86e1e493751401434e5305b44c048b941b130b67f2dfc261432dfadb5d3e4792",
-  "settings_preserved_byte_for_byte": true
+  "project_sha256": "32ab20b87103dc1248939cf9598a7fa67bc3e019a7de37dcb9b1c7230dadaf83",
+  "settings_preserved_byte_for_byte": true,
+  "status": "Editable project for current source mesh; dated printed archives and their acceptance records are retained separately.",
+  "pose": "Round stock upright, passages vertical, flat bottom face on the bed."
 }

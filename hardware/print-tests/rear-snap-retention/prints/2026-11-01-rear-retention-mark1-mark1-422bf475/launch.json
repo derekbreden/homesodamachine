@@ -1,0 +1,30 @@
+{
+  "printer": "H2C",
+  "observed_at": "2026-11-01T22:03:50.358701+00:00",
+  "archive": {
+    "name": "2026-11-01-rear-retention-mark1-mark1-422bf475-print-only.gcode.3mf",
+    "sha256": "32bb85a4a552bea90abb0a15f1dad19306b68ae6331b0f4b27c745b4750d78e1",
+    "gcode_sha256": "672e96ba69c825100b6c8fe22139bb1cde4fc7016eacaccd418cb7b7c4f33adb",
+    "slots": {
+      "1": {
+        "type": "PET-CF",
+        "colour": "000000"
+      }
+    },
+    "objects": [
+      "pump-seat",
+      "asse-seat",
+      "asse-cap",
+      "pisco-seat",
+      "pisco-cap"
+    ]
+  },
+  "printer_task_id": "1398257516",
+  "gcode_state": "PREPARE",
+  "subtask_name": "2026-11-01-rear-retention-mark1-mark1-422bf475-print-only.gcode.3mf",
+  "print_error": 0,
+  "hms": [],
+  "layer_num": 160,
+  "total_layer_num": 160,
+  "mc_remaining_time": 0
+}

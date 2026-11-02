@@ -56,6 +56,7 @@ from _card import Check, grade_of, verdict                # noqa: E402
 from _cold_scorecard import Scorecard                     # noqa: E402
 
 STEP_OUT = _here.parent / "cold-core-assembly.step"
+MODEL_OUT = _here.parent / "cold-core-assembly.scene.npz"
 # The OTHER model of this same core: three casing pieces and the faces the enclosure loads
 # (`foam_assembly`). It is not superseded — `enclosure_assembly` places THAT, not this — but a
 # reader who opens it is looking at the cold core, and the cold core has one verdict. So the
@@ -176,6 +177,14 @@ MADE_UP_ON = {
 
 
 def _load(path: Path):
+    if Path(path).parent == _cold / "reservoir":
+        import reservoir
+        return reservoir.import_part(path)
+    if Path(path).parent == _cold / "reed-bridge":
+        import reed_bridge
+        return reed_bridge.import_part(path)
+    if Path(path).parent == _cold / "prv-shroud":
+        return _shroud.import_part(path)
     return import_step(str(path)).val()
 
 
@@ -363,6 +372,33 @@ def build_assembly():
     a.points = trimmed_routes()
     a.core_body_names = frozenset(placed)
     return a
+
+
+def write_model(a, path=MODEL_OUT):
+    """The ordered source-frame bodies and colors consumed by the machine assembly."""
+    import os
+    from OCP.Quantity import Quantity_TypeOfColor
+    from meshcad import scene
+    from _cadq_export import note_write
+
+    bodies = [
+        (child.name, child.obj,
+         (list(child.color.wrapped.GetRGB().Values(Quantity_TypeOfColor.Quantity_TOC_RGB))
+          if child.color is not None else None))
+        for child in a.children
+    ]
+    document = {
+        "frame": "foam assembly source",
+        "schema": "hsm-cold-core-model-1",
+        "alpha_by_name": {child.name: float(child.color.wrapped.Alpha())
+                          for child in a.children if child.color is not None},
+    }
+    path = Path(path)
+    temporary = path.with_name(f".{path.name}.{os.getpid()}.tmp")
+    scene.write(bodies, temporary, document, preserve_partitions=True)
+    os.replace(temporary, path)
+    note_write(path)
+    return path
 
 
 # --- the card ----------------------------------------------------------------

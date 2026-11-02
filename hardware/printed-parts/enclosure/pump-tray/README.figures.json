@@ -6,14 +6,9 @@
     "CASE_W": "70",
     "HEAD_D": "47.88",
     "HEAD_W": "62.61",
-    "RAMP_H": "18",
     "REAR_AXIS_Y_SHIFT": "1",
-    "SHOULDER": "3",
     "SOCKET_LEDGE": "1.5",
     "SOCKET_SPAN": "53",
-    "TRAY_COUNT": "2",
-    "TRAY_D": "24",
-    "TRAY_L": "70.759",
-    "TRAY_W": "70"
+    "TRAY_COUNT": "2"
   }
 }

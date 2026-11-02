@@ -5,101 +5,101 @@
   "native_faces": 26565,
   "probes": [
     {
-      "name": "flat-cover-1.0",
+      "name": "sloped-cover-1.0",
       "point_mm": [
         1.0,
         0.0,
-        4.190582841597397
+        3.206050745696391
       ],
       "inside_rigid_body": false,
       "expected_inside": false
     },
     {
-      "name": "flat-cover-1.0",
+      "name": "sloped-cover-1.0",
       "point_mm": [
         1.0,
         0.0,
-        4.230582841597396
+        3.246050745696391
       ],
       "inside_rigid_body": true,
       "expected_inside": true
     },
     {
-      "name": "flat-cover-5.0",
+      "name": "sloped-cover-5.0",
       "point_mm": [
         5.0,
         0.0,
-        4.190582841597397
+        3.2679223620923694
       ],
       "inside_rigid_body": false,
       "expected_inside": false
     },
     {
-      "name": "flat-cover-5.0",
+      "name": "sloped-cover-5.0",
       "point_mm": [
         5.0,
         0.0,
-        4.230582841597396
+        3.3079223620923695
       ],
       "inside_rigid_body": true,
       "expected_inside": true
     },
     {
-      "name": "flat-cover-30.0",
+      "name": "sloped-cover-30.0",
       "point_mm": [
         30.0,
         0.0,
-        4.190582841597397
+        3.6546199645672344
       ],
       "inside_rigid_body": false,
       "expected_inside": false
     },
     {
-      "name": "flat-cover-30.0",
+      "name": "sloped-cover-30.0",
       "point_mm": [
         30.0,
         0.0,
-        4.230582841597396
+        3.6946199645672344
       ],
       "inside_rigid_body": true,
       "expected_inside": true
     },
     {
-      "name": "flat-cover-60.0",
+      "name": "sloped-cover-60.0",
       "point_mm": [
         60.0,
         0.0,
-        4.190582841597397
+        4.1186570875370725
       ],
       "inside_rigid_body": false,
       "expected_inside": false
     },
     {
-      "name": "flat-cover-60.0",
+      "name": "sloped-cover-60.0",
       "point_mm": [
         60.0,
         0.0,
-        4.230582841597396
+        4.158657087537072
       ],
       "inside_rigid_body": true,
       "expected_inside": true
     },
     {
-      "name": "flat-cover-64.6",
+      "name": "sloped-cover-64.6",
       "point_mm": [
         64.6,
         0.0,
-        4.190582841597397
+        4.189809446392447
       ],
       "inside_rigid_body": false,
       "expected_inside": false
     },
     {
-      "name": "flat-cover-64.6",
+      "name": "sloped-cover-64.6",
       "point_mm": [
         64.6,
         0.0,
-        4.230582841597396
+        4.229809446392446
       ],
       "inside_rigid_body": true,
       "expected_inside": true
@@ -155,12 +155,13 @@
       "expected_inside": true
     }
   ],
-  "reference_parameters_sha256": "69ac39b3b5ec8a4de1c5b6abee49ef0335d3b96df61e358c5b2db1f23d808ffe",
-  "native_sha256": "ffea366a5eba8773098bc15700056268a4f1b0f577571f4e791555b457e754a4",
-  "payload_sha256": "6c7e82cec104661f3eec463f5351bf620caf9b88fe6ec0f409bf96fcdcf4c05e",
+  "reference_parameters_sha256": "3b91bd7ff1216bc5dc8b9806d53f4f2f7bd038323b201c6d6cc6e029e42fc591",
+  "native_sha256": "ddc4998ac00337c8fff9bc09c815f38a7e10c02e753afc9a5f944f29e0b14e52",
+  "payload_sha256": "06207208c2f507976fd9ece114973ce65bfcbbda8376d27a62acf9653605d079",
   "payload_matches_step": true,
-  "bare_min_z_mm": 4.210582741597396,
-  "flat_cover_z_mm": 4.210582841597397,
-  "elapsed_seconds": 18.922543292006594,
-  "scope": "Purchased reference geometry only. The center cable-cover lower face is level at its rear datum. Installed mount, movement and snap validation belong to the layout owner."
+  "bare_min_z_mm": 3.2260506456963913,
+  "front_cover_z_mm": 3.2105828415973967,
+  "rear_cover_z_mm": 4.210582841597397,
+  "elapsed_seconds": 16.28403850000177,
+  "scope": "Purchased reference geometry only. The center cable-cover projects 1 mm farther down at its front than its rear datum. Installed mount, movement and snap validation belong to the layout owner."
 }

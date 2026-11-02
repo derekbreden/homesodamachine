@@ -1,14 +1,15 @@
-"""One square-cut length of owned CARGEN foam around the vertical soda riser."""
-from pathlib import Path
-import sys
+"""One square-cut length of owned CARGEN foam around the vertical soda riser.
 
-import cadquery as cq
+Geometry is in the frozen STEP and display payload beside this module.
+`frozen-asset.json` records their bytes and source snapshot.
+"""
+from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 HW = HERE.parents[1]
-sys.path.insert(0, str(HW / 'scripts'))
-from _cadq_export import export_assembly
-from _materials import M_NITRILE_BLACK, one_body
+STEP_PATH = HERE / "soda-rise-insulation.step"
+PAYLOAD_PATH = HERE / "soda-rise-insulation.step.mesh"
+ASSET_MANIFEST_PATH = HERE / "frozen-asset.json"
 
 NAME = 'soda-rise-insulation'
 CENTER_XY = (50., 354.3696)
@@ -18,17 +19,11 @@ INSIDE_DIAMETER = 6.35
 OUTSIDE_DIAMETER = 25.4
 
 
-def build():
-    """Nominal uncompressed stock in the installed enclosure-world frame."""
-    return (cq.Workplane('XY').workplane(offset=BOTTOM_Z)
-            .center(*CENTER_XY).circle(OUTSIDE_DIAMETER / 2.)
-            .circle(INSIDE_DIAMETER / 2.).extrude(LENGTH).val())
-
-
 def main():
-    export_assembly(one_body(build(), NAME, M_NITRILE_BLACK),
-                    str(HERE / (NAME + '.step')))
+    print("soda-rise-insulation")
+    print(f"  STEP: {STEP_PATH}")
+    print(f"  Display payload: {PAYLOAD_PATH}")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

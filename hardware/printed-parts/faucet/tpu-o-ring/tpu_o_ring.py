@@ -1,18 +1,26 @@
 """TPU o-ring — printed-TPU thimble that seals the 3/8" soda faucet tube
-into the harvested Westbrass's top water port. See README.md."""
+into the harvested Westbrass's top water port. See README.md.
+
+The numbers below drive `tpu_o_ring.rs`; `build_o_ring` also supplies the
+CadQuery body used by the insertion guide and native assembly readers.
+"""
+
+from __future__ import annotations
 
 import sys
 from pathlib import Path
-
-import cadquery as cq
 
 _here = Path(__file__).resolve().parent
 sys.path.insert(0, str(next(p for p in _here.parents if p.name == "hardware") / "scripts"))
 sys.path.insert(0, str(next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"))
 sys.path.insert(0, str(next(p for p in _here.parents if p.name == "printed-parts") / "cadlib"))
 
-from _cadq_export import export_assembly
-from _materials import M_TPU_BLACK, one_body
+if __name__ == "__main__":
+    import _rust_part
+    _rust_part.start()
+
+import cadquery as cq
+from _materials import M_TPU_BLACK, linear
 from docgen import substitute_md, substitute_py_comments
 from world_workplane import xy_plane_z_up
 
@@ -60,10 +68,21 @@ def build_o_ring() -> cq.Workplane:
     return body
 
 
+def numbers():
+    """The stepped sleeve and cap, in its upright print frame."""
+    return {
+        "name": "tpu-o-ring", "color": list(linear(M_TPU_BLACK)),
+        "outer_radius": outer_diameter / 2.0, "inner_radius": inner_diameter / 2.0,
+        "cap_hole_radius": cap_hole_diameter / 2.0,
+        "cap_thickness": cap_thickness, "total_height": total_height,
+    }
+
+
 def main():
-    o_ring = build_o_ring()
-    export_assembly(one_body(o_ring, "tpu-o-ring", M_TPU_BLACK), str(_here / "tpu-o-ring.step"))
-    print("-> tpu-o-ring.step")
+    import _rust_part
+
+    said = _rust_part.cut("faucet", "tpu-o-ring", numbers(), _here)
+    print("-> " + ", ".join(said["files"]))
 
     variables = {
         "ORING_INNER_D": f"{inner_diameter:.4g} mm",
