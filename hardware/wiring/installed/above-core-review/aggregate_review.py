@@ -25,7 +25,7 @@ from hardware.wiring.installed.step_merge import base_document
 HERE=Path(__file__).resolve().parent
 CLOSURES=frozenset(('enclosure-front-top','enclosure-back-top','enclosure-front-bottom',
                     'enclosure-back-bottom','enclosure-pump-retainer',
-                    'foam-cap-top','foam-cap-lid-top','funnel-frame'))
+                    'foam-cap-bottom','foam-cap-lid-top','funnel-frame'))
 METER_WIRES=frozenset(('wire-J4-V5','wire-J4-IO25','wire-flow-GND'))
 B_FILL=frozenset()  # B-fill is carried by the integral cup/lid passage.
 EMPTY_J4_CONTACTS=('J4.IO23','J4.IO27')
