@@ -36,9 +36,6 @@ def main(argv=None):
     args=parser.parse_args(argv)
     if args.reuse_fixture and not args.fine_index:args.fine_index=TEMP/'fine/index.json'
     context=current_fine(args);manifest=context.manifest
-    caps={}
-    if args.cap_cup or args.cap_lid or args.cap_frames:
-        caps=cap_trial_replacements(context,args.cap_cup,args.cap_lid,args.cap_frames)
     source=wire_source_reading(context)
     names=list(context.names())
     if args.pack_fixture:
@@ -48,6 +45,9 @@ def main(argv=None):
     if args.obstacles:
         wanted={context.resolve(name)[1]for name in args.obstacles}
         names=[name for name in names if name in wanted]
+    caps={}
+    if args.cap_cup or args.cap_lid or args.cap_frames:
+        caps=cap_trial_replacements(context,args.cap_cup,args.cap_lid,args.cap_frames)
     routes=manifest['routes'];terminals=manifest['terminals']
     if args.contact_wires and set(args.contact_wires)-{row['id']for row in routes}:
         raise ValueError('Unknown current conductor IDs')
