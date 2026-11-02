@@ -645,6 +645,11 @@ def run(crate: str, name: str, *args) -> str:
     said = _engine(crate, name, args)
     if said is not None:
         _READ_TARGETS.update(said["sources"])
+        if receipt := os.environ.get("HSM_GENERATOR_READS"):
+            with open(receipt, "a") as stream:
+                stream.write(json.dumps({"root": str(ROOT.resolve()),
+                    "workspace": str(_workspace()), "reads": said["reads"],
+                    "key": said["key"], "code": said["code"], "hit": said["hit"]}) + "\n")
         sys.stderr.write(said["stderr"])
         took = ("kept" if said["hit"] else
                 f"{said['program_seconds']:.2f} s, {said['peak_bytes'] / 2 ** 20:.0f} MB at its peak")
