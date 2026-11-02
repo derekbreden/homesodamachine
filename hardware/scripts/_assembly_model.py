@@ -213,6 +213,54 @@ def measure(instances, queries, *, component_names=()):
                             inputs)
 
 
+def measure_groups(references, queries):
+    """Query named fine selections, retaining each selection's original entry order.
+
+    A reference is an existing instance specification with explicit ``indices``.
+    Query endpoints name those references. Fine-mask stages name small authored
+    tool references under ``references`` as well. No geometry is read in Python.
+    """
+    used = dict.fromkeys(name for query in queries for name in
+        (query['a'], query['b'], *(name for stage in query.get('fine_mask_stages', ())
+                                  for name in stage['references'])))
+
+    def source_key(ref):
+        return json.dumps({key: value for key, value in ref.items() if key != 'indices'},
+                          separators=(',', ':'), sort_keys=True)
+
+    sources, selections = {}, {}
+    for name in used:
+        ref = references[name]
+        key = source_key(ref)
+        sources.setdefault(key, {k: value for k, value in ref.items() if k != 'indices'})
+        selections.setdefault(key, set()).update(ref['indices'])
+    instances, slots, offset = [], {}, 0
+    for key, ref in sources.items():
+        indices = sorted(selections[key])
+        instances.append({**ref, 'indices': indices})
+        for index in indices:
+            slots[key, index] = offset
+            offset += 1
+
+    def operand(name):
+        ref = references[name]
+        key = source_key(ref)
+        indices = [slots[key, index] for index in ref['indices']]
+        return indices[0] if len(indices) == 1 else indices
+
+    numbered = []
+    for query in queries:
+        row = {**query, 'a': operand(query['a']), 'b': operand(query['b'])}
+        if 'fine_mask_stages' in query:
+            row['fine_mask_stages'] = [
+                {**{key: value for key, value in stage.items() if key != 'references'},
+                 'indices': [index for name in stage['references'] for index in
+                             ([operand(name)] if isinstance(operand(name), int) else operand(name))]}
+                for stage in query['fine_mask_stages']]
+        numbered.append(row)
+    return measure(instances, numbered)['queries'] if numbered else []
+
+
 def location(location):
     """The exact three by four matrix carried by an installed CQ location."""
     transform = location.wrapped.Transformation()
