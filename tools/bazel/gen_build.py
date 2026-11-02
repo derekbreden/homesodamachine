@@ -304,19 +304,18 @@ def generator_argv(gens: tuple) -> list:
 
 
 def render(gens: tuple, arts: list, srcs: list, optional: list, docs: list, rewritten: set,
-           name: str, producers: dict, support: dict = None) -> str:
+           name: str, declaration: dict, support: dict = None) -> str:
     # THE OUTPUT KEEPS THE PATH THE TREE KEEPS IT UNDER, so `sync_tree` strips one prefix and
     # has the file to carry it back to. Twenty generators cut a `README.md`, and a basename is
     # not a name for any of them.
-    outs = [f"out/{name}/{a}" for a in (*arts, *docs)]
+    outs = declaration["outs"]
     cargo = _needs_cargo(srcs)
     work = f"work-{name}" if cargo else "work"
     lines = [f'genrule(', f'    name = "{name}",', "    srcs = ["]
-    lines += [f'        "{read_from(s, rewritten, producers, name, support)}",' for s in srcs]
+    lines += [f'        "{source}",' for source in declaration["srcs"]]
     # NODE RESOLVES ITS OWN IMPORTS, below Python and out of the tracer's sight. The trace sees
     # the entrypoint on the command line; its runtime group carries the packages and served
     # resources that entrypoint reaches. An unknown entrypoint gets the broad fallback.
-    lines += [f'        "{runtime}",' for runtime in _node_runtimes(gens, srcs)]
     if optional:
         lines += ["    ] + glob(", "        ["]
         lines += [f'            "{s}",' for s in optional]
@@ -479,42 +478,88 @@ def action_plan(only: str = None) -> tuple:
     return actions, inv
 
 
-def render_build(only: str = None) -> tuple:
-    """The whole of BUILD.bazel as text, and the steps it was rendered from."""
-    actions, inv = action_plan(only)
-    blocks, comments_out = [], set()
-    for name, action in actions.items():
-        comments_out.update(action["stripped"])
-        blocks.append(render(tuple(action["generators"]), action["solids"], action["reads"],
-                             action["optional"], action["docs"], set(action["rewritten_python"]),
-                             name, action["producers"], action["support_inputs"]))
+def dependency_rules(actions: dict) -> dict:
+    """The declared inputs and outputs of actions and their build support rules.
 
-    used_support = {output for action in actions.values()
-                    for output in action["support_inputs"].values()}
+    BUILD rendering and affected discovery use these same labels. Producer outputs,
+    stripped Python, optional files and runtime globs retain their declared edges.
+    """
+    rules, comments_out, used_support = {}, set(), set()
+    for name, action in actions.items():
+        rewritten = set(action["rewritten_python"])
+        rules[name] = {
+            "kind": "action",
+            "srcs": [read_from(source, rewritten, action["producers"], name,
+                               action["support_inputs"]) for source in action["reads"]]
+                    + action["node_runtimes"],
+            "outs": [f"out/{name}/{path}" for path in (*action["solids"], *action["docs"])],
+            "globs": [(action["optional"], [])] if action["optional"] else [],
+        }
+        comments_out.update(action["stripped"])
+        used_support.update(action["support_inputs"].values())
+
     for output in sorted(used_support):
         generator, _consumers = GRAPH_SUPPORT[output]
-        blocks.append(
-            f'genrule(\n    name = "support-{Path(output).stem}",\n'
-            '    srcs = ["tools/bazel/graph.json"],\n'
-            f'    outs = ["{output}"],\n'
-            '    tools = ["tools/bazel/gen_build.py"],\n'
-            f'    cmd = "{VENV} $(location tools/bazel/gen_build.py) --project-graph '
-            f'{generator} $(location tools/bazel/graph.json) $@",\n)')
+        rules[f"support-{Path(output).stem}"] = {
+            "kind": "graph", "generator": generator,
+            "srcs": ["tools/bazel/graph.json"], "outs": [output],
+            "tools": ["tools/bazel/gen_build.py"],
+        }
 
     # ONE STRIPPED SOURCE PER ACTION. A single multi-output action made every Python edit an
     # input to every consumer of any stripped source, so `rdeps(display_cover.py)` became almost
     # the whole graph. Each tiny action keeps the exact edge and lets an affected build stay a
     # slice. The output path remains stable; only the rule that produces it is split.
-    comments_out = sorted(comments_out)
-    for source in comments_out:
+    for source in sorted(comments_out):
         digest = hashlib.sha256(source.encode()).hexdigest()[:12]
-        blocks.append(
-            f'genrule(\n    name = "{PYSRC}-{digest}",\n'
-            + f'    srcs = ["{source}"],\n'
-            + f'    outs = ["{PYSRC}/{source}"],\n'
-            + '    tools = ["tools/bazel/pysrc.py"],\n'
-            + f'    cmd = "{VENV} $(location tools/bazel/pysrc.py)'
-            + f' $(RULEDIR)/{PYSRC} $(SRCS)",\n)')
+        rules[f"{PYSRC}-{digest}"] = {
+            "kind": "pysrc", "srcs": [source], "outs": [f"{PYSRC}/{source}"],
+            "tools": ["tools/bazel/pysrc.py"],
+        }
+
+    # Runtime groups include changed paths directly, including a newly added member.
+    rules["render-card-runtime"] = {
+        "kind": "runtime", "globs": [(["tools/render/node_modules/**"], [])],
+    }
+    rules["node-packages"] = {
+        "kind": "runtime", "globs": [(["tools/render/**", "web/**"], [])],
+    }
+    rules["everything"] = {"kind": "aggregate", "srcs": [":" + name for name in actions]}
+    return rules
+
+
+def render_build(only: str = None) -> tuple:
+    """The whole of BUILD.bazel as text, and the steps it was rendered from."""
+    actions, inv = action_plan(only)
+    rules = dependency_rules(actions)
+    blocks = []
+    for name, action in actions.items():
+        blocks.append(render(tuple(action["generators"]), action["solids"], action["reads"],
+                             action["optional"], action["docs"], set(action["rewritten_python"]),
+                             name, rules[name], action["support_inputs"]))
+    for name, rule in rules.items():
+        if rule["kind"] == "graph":
+            source, = rule["srcs"]
+            output, = rule["outs"]
+            tool, = rule["tools"]
+            blocks.append(
+                f'genrule(\n    name = "{name}",\n'
+                f'    srcs = ["{source}"],\n'
+                f'    outs = ["{output}"],\n'
+                f'    tools = ["{tool}"],\n'
+                f'    cmd = "{VENV} $(location {tool}) --project-graph '
+                f'{rule["generator"]} $(location {source}) $@",\n)')
+        elif rule["kind"] == "pysrc":
+            source, = rule["srcs"]
+            output, = rule["outs"]
+            tool, = rule["tools"]
+            blocks.append(
+                f'genrule(\n    name = "{name}",\n'
+                + f'    srcs = ["{source}"],\n'
+                + f'    outs = ["{output}"],\n'
+                + f'    tools = ["{tool}"],\n'
+                + f'    cmd = "{VENV} $(location {tool})'
+                + f' $(RULEDIR)/{PYSRC} $(SRCS)",\n)')
 
     head = (
         "# The appliance's geometry, docs and pictures — one action per generator. Written by\n"
@@ -530,7 +575,7 @@ def render_build(only: str = None) -> tuple:
     # browser helper and package manifests remain ordinary action inputs above.
     blocks.append(
         'filegroup(\n    name = "render-card-runtime",\n    srcs = glob(\n'
-        '        ["tools/render/node_modules/**"],\n'
+        f'        {json.dumps(rules["render-card-runtime"]["globs"][0][0])},\n'
         '        allow_empty = True,\n    ),\n)')
 
     # A renderer not yet classified above keeps the old whole-runtime boundary. A new tool can
@@ -538,15 +583,15 @@ def render_build(only: str = None) -> tuple:
     blocks.append(
         'filegroup(\n    name = "node-packages",\n    srcs = glob(\n'
         '        [\n'
-        '            "tools/render/**",\n'
-        '            "web/**",\n'
-        '        ],\n'
+        + "".join(f'            "{pattern}",\n'
+                  for pattern in rules["node-packages"]["globs"][0][0])
+        + '        ],\n'
         '        allow_empty = True,\n    ),\n)')
 
     # ONE NAME FOR THE WHOLE TREE, so what a commit owes is `bazel build //:everything` and
     # what it carries is `sync_tree --write`.
     blocks.append("filegroup(\n    name = \"everything\",\n    srcs = [\n"
-                  + "".join('        ":%s",\n' % name for name in actions)
+                  + "".join('        "%s",\n' % source for source in rules["everything"]["srcs"])
                   + "    ],\n)")
     return head + "\n" + "\n\n".join(blocks) + "\n", inv
 
