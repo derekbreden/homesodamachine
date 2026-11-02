@@ -50,6 +50,27 @@ class _Shape:
                         for v in self.bounds[2*k:2*k+2]) if self.bounds is not None else None)
         return self.graph.add('translate', [self.index], delta=delta, bounds=bounds)
 
+    def rotate(self, origin, end, angle):
+        import math
+        from itertools import product
+        axis = [b-a for a, b in zip(origin, end)]
+        length = math.sqrt(sum(a*a for a in axis))
+        axis = [a/length for a in axis]
+        c, s = math.cos(math.radians(angle)), math.sin(math.radians(angle))
+        def point(p):
+            q = [a-b for a, b in zip(p, origin)]
+            cross = (axis[1]*q[2]-axis[2]*q[1], axis[2]*q[0]-axis[0]*q[2],
+                     axis[0]*q[1]-axis[1]*q[0])
+            dot = sum(a*b for a, b in zip(axis, q))
+            return [origin[k]+c*q[k]+s*cross[k]+(1-c)*dot*axis[k] for k in range(3)]
+        corners = ([point(p) for p in product(*(self.bounds[2*k:2*k+2] for k in range(3)))]
+                   if self.bounds is not None else None)
+        bounds = (tuple(v for k in range(3) for v in
+                        (min(p[k] for p in corners), max(p[k] for p in corners)))
+                  if corners is not None else None)
+        return self.graph.add('rotate', [self.index], origin=origin, end=end,
+                              angle=angle, bounds=bounds)
+
     def mirror(self, plane):
         axis = {'YZ': 0, 'XZ': 1, 'XY': 2}[plane]
         bounds = list(self.bounds) if self.bounds is not None else None
@@ -62,6 +83,13 @@ class _Shape:
 
     def val(self):
         return self
+
+    def BoundingBox(self):
+        from types import SimpleNamespace
+        if self.bounds is None:
+            raise ValueError('this private feature has no conservative numeric bounds')
+        return SimpleNamespace(**{key: self.bounds[2*k+i]
+            for k, axis in enumerate('xyz') for i, key in enumerate((axis+'min',axis+'max'))})
 
     def Solids(self):
         return [self]
@@ -116,7 +144,7 @@ class _Graph:
             raise ValueError('the enclosure standing round belongs to rectangular stock')
         return self.add('rounded-box', box=shape.bounds, radius=radius, bounds=shape.bounds)
 
-    def document(self, result):
+    def document(self, result, extras=None):
         reachable = set()
         def visit(index):
             if index in reachable:
@@ -125,10 +153,15 @@ class _Graph:
             for child in self.nodes[index]['inputs']:
                 visit(child)
         visit(result.index)
+        for shape in (extras or {}).values():
+            visit(shape.index)
         order = sorted(reachable)
         remap = {old: new for new, old in enumerate(order)}
-        return dict(nodes=[dict(self.nodes[i], inputs=[remap[k] for k in self.nodes[i]['inputs']])
-                           for i in order], result=remap[result.index])
+        out = dict(nodes=[dict(self.nodes[i], inputs=[remap[k] for k in self.nodes[i]['inputs']])
+                          for i in order], result=remap[result.index])
+        if extras:
+            out['extras'] = {key:remap[shape.index] for key,shape in extras.items()}
+        return out
 
 
 @contextmanager

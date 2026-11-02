@@ -56,7 +56,7 @@ Use the scanned [PP0308E elbow](/hardware/reference/jg-pp0308e-elbow/README.md).
 - The cradle goes home by hand with the wings pinched in, and comes back out the same way.
 - No wing cracks, whitens at its root, or stays bent after release.
 - Hanging from its hooks, the cradle holds the elbow's nose against, or within
-  [0.8 mm](TRIAL_NOSE) of, the receiver's underside, with the collet standing up the hole.
+  [0.798 mm](TRIAL_NOSE) of, the receiver's underside, with the collet standing up the hole.
 - Pulled down by hand, the cradle stays on its hooks.
 
 Record the result in `physical-acceptance.json` beside this file.

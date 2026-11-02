@@ -53,6 +53,19 @@ pub struct Payload {
     pub meshes: Vec<Mesh>,
 }
 
+impl Mesh {
+    /// A query mesh from exact f64 model coordinates, without a viewer-payload round trip.
+    pub fn from_arrays(name: impl Into<String>, vertices: Vec<[f64; 3]>, indices: Vec<[u32; 3]>) -> Result<Self> {
+        let name = name.into();
+        ensure!(vertices.iter().flatten().all(|v| v.is_finite()), "non-finite coordinate in {name}");
+        ensure!(indices.iter().flatten().all(|&i| (i as usize) < vertices.len()),
+                "vertex index outside {name}");
+        let points = vertices.into_iter().map(|p| Point::new(p[0], p[1], p[2])).collect();
+        let shape = TriMesh::new(points, indices).map_err(|error| anyhow::anyhow!("{name}: {error}"))?;
+        Ok(Self { name, color: None, shape, faces: Vec::new(), face_sources: None, solid: OnceLock::new() })
+    }
+}
+
 fn array(blob: &[u8], [offset, count]: [usize; 2]) -> Result<&[u8]> {
     ensure!(offset % 4 == 0, "unaligned payload array");
     let end = count
