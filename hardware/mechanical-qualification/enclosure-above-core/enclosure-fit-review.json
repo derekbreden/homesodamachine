@@ -1,8 +1,8 @@
 {
   "schema": "enclosure-fit-review/3",
   "scope": "Artifact-bound current enclosure geometry and assembly. Complete native static contact readings, finite mounting stock, cap loading/removal and exact printed quadrant motion are bound separately. WAGO and wire completion follows the published mechanical layout. Physical force, actual spring life, bearing finish and purchased-part tolerances require the physical articles.",
-  "assembly_step_sha256": "4e5166c4d9d280390cd13dde4280c381343cefb2547a8cba8ec80d59bf07d5a1",
-  "assembly_mesh_sha256": "98d8a1c1c637da00811ef25075231a2a0c5bd7090b6a036c64ada2fa0e3d6341",
+  "assembly_step_sha256": "ff11386038451f6ee6a9d21fd64e45d444139b29a681fefafdc4f3b1b1499e82",
+  "assembly_mesh_sha256": "49b0cb66bc1cd7f50da993ade8cfd4e7d51b00a7b22a4dc6275fc544e2e52a60",
   "integration_record": "hardware/mechanical-qualification/enclosure-above-core/retention-integration-review.json",
   "native_contacts": [
     {
@@ -42,13 +42,226 @@
         "wago-n",
         "foam-cap-lid-top"
       ],
-      "native_overlap_mm3": 86.9,
-      "required_action": "Move the neutral junction and its holder after publishing the settled mechanics."
+      "mesh_overlap_mm3": 73.51575177210209,
+      "required_action": "Place the neutral junction and its holder around the completed mechanics."
     }
   ],
   "all_queried_unconnected_material_contacts_clear": false,
   "physical_qualification": {
-    "record": "hardware/print-tests/rear-snap-retention/v2",
-    "state": "The reinforced v2 trial accepts the pump and ASSE hardware fits and the meter receiver/wire room. The2.6mm leaves bend at their roots. Pisco has excessive play without useful retention; the water regulator has an incorrect outlet-shoulder envelope and its cap misses smaller sections. Coordinator2 is revising the clamping bodies, meter cap, spring roots and release access. Current snap retention remains unqualified."
+    "record": "hardware/print-tests/rear-snap-retention/v3",
+    "state": "The current modeled joints use 2.0 mm leaves, R1.5 roots, solid hook noses above centered screwdriver entries, shaped PISCO and meter bearing stock and the measured regulator shoulder. Current native seated contacts, positive nominal capture, neighboring bodies and released extraction paths pass. Physical retention, insertion/release force, distributed bending, repeated use and pump vibration remain unqualified."
+  },
+  "current_snap_geometry": {
+    "record": "hardware/print-tests/rear-snap-retention/v3/geometry.json",
+    "record_sha256": "ad9823a25a921f6b54934c01c1d4b68b9816a101d09c7ead13ab3a37e54c911f",
+    "native_review_sha256": "656d9b66fa7fd5c0dfe509ce915c076e99ddd3154ca7cb021b448d8eb55407c4",
+    "families": {
+      "pump": {
+        "station": {
+          "axis_x": -15.181429835394722,
+          "y0": 388.0680504420662,
+          "y1": 442.5680504420662,
+          "split": 0.0,
+          "neck": 31.229180708991777,
+          "ledge": 34.07918070899178,
+          "inner": 34.57918070899178,
+          "outer": 36.57918070899178,
+          "hook": 31.479180708991777,
+          "bearing": 21.85,
+          "catch": 22.25,
+          "tip": 24.85,
+          "ceiling": 25.35,
+          "root": 0.0,
+          "nose_land": 1.6,
+          "root_radius": 1.5,
+          "pry_width": 5.0,
+          "pry_height": 1.0
+        },
+        "seated_intersection_mm3": 0.0,
+        "removal_direction": [
+          -0.0,
+          -0.0,
+          1.0
+        ],
+        "pullout_travel_mm": 0.5,
+        "blocked_pullout_intersection_mm3": 25.74000000000586,
+        "effective_horizontal_bearing_mm2": 257.4000000000586,
+        "physical_result": "Awaiting this fit trial.",
+        "installed_hardware_overlap": {
+          "g-ganen-pump": {
+            "receiver_mm3": 0.0,
+            "cap_mm3": 0.0
+          }
+        }
+      },
+      "asse": {
+        "station": null,
+        "seated_intersection_mm3": 0.0,
+        "removal_direction": [
+          -0.0,
+          -0.0,
+          -1.0
+        ],
+        "pullout_travel_mm": 0.5,
+        "blocked_pullout_intersection_mm3": 19.06373993311824,
+        "effective_horizontal_bearing_mm2": 190.63739933118237,
+        "physical_result": "Awaiting this fit trial.",
+        "installed_hardware_overlap": {
+          "bulkhead-water": {
+            "receiver_mm3": 0.0,
+            "cap_mm3": 0.0
+          },
+          "gagira-coupling": {
+            "receiver_mm3": 0.0,
+            "cap_mm3": 0.0
+          },
+          "asse1022-assembly": {
+            "receiver_mm3": 0.0,
+            "cap_mm3": 0.0
+          },
+          "jg-pi4512f6s": {
+            "receiver_mm3": 0.0,
+            "cap_mm3": 0.0
+          },
+          "jg-pp061208w": {
+            "receiver_mm3": 0.0,
+            "cap_mm3": 0.0
+          }
+        }
+      },
+      "pisco": {
+        "station": null,
+        "seated_intersection_mm3": 0.0,
+        "removal_direction": [
+          -0.0,
+          -0.0,
+          -1.0
+        ],
+        "pullout_travel_mm": 0.5,
+        "blocked_pullout_intersection_mm3": 5.4102270547530615,
+        "effective_horizontal_bearing_mm2": 54.102270547530615,
+        "physical_result": "Awaiting this fit trial.",
+        "installed_hardware_overlap": {
+          "gas-regulator": {
+            "receiver_mm3": 0.0,
+            "cap_mm3": 0.0
+          },
+          "co2-inlet": {
+            "receiver_mm3": 0.0,
+            "cap_mm3": 0.0
+          },
+          "gas-check": {
+            "receiver_mm3": 0.0,
+            "cap_mm3": 0.0
+          }
+        }
+      },
+      "regulator": {
+        "station": {
+          "axis_x": 307.6568368739953,
+          "y0": 19.323910303880005,
+          "y1": 55.32391030388001,
+          "split": 335.0,
+          "neck": 15.70320315899729,
+          "ledge": 18.55320315899729,
+          "inner": 19.05320315899729,
+          "outer": 21.05320315899729,
+          "hook": 15.953203158997292,
+          "bearing": 339.81514607709613,
+          "catch": 340.2151460770961,
+          "tip": 342.81514607709613,
+          "ceiling": 343.31514607709613,
+          "root": 318.9651460770961,
+          "nose_land": 1.6,
+          "root_radius": 1.5
+        },
+        "seated_intersection_mm3": 0.0,
+        "removal_direction": [
+          -0.0,
+          -0.0,
+          -1.0
+        ],
+        "pullout_travel_mm": 0.5,
+        "blocked_pullout_intersection_mm3": 16.120000000003824,
+        "effective_horizontal_bearing_mm2": 161.20000000003822,
+        "physical_result": "Awaiting this fit trial.",
+        "installed_hardware_overlap": {
+          "flow-regulator": {
+            "receiver_mm3": 0.0,
+            "cap_mm3": 0.0
+          }
+        }
+      },
+      "meter": {
+        "station": null,
+        "seated_intersection_mm3": 0.0,
+        "removal_direction": [
+          -1.0,
+          -0.0,
+          -0.0
+        ],
+        "pullout_travel_mm": 0.5,
+        "blocked_pullout_intersection_mm3": 17.160000000000373,
+        "effective_horizontal_bearing_mm2": 171.60000000000372,
+        "physical_result": "Awaiting this fit trial.",
+        "installed_hardware_overlap": {
+          "digiten-flow": {
+            "receiver_mm3": 0.0,
+            "cap_mm3": 0.0
+          }
+        },
+        "forward_insertion_overlap_mm3": {
+          "0.0": 0.0,
+          "4.0": 0.0,
+          "8.0": 0.0,
+          "12.0": 0.0,
+          "16.0": 0.0
+        }
+      }
+    },
+    "hardware_travel_intersections_mm3": {
+      "pisco": {
+        "x-1.0": 4.387125125122081,
+        "x-0.5": 0.0,
+        "x+0.5": 0.0,
+        "x+1.0": 4.387123094877238,
+        "y-1.0": 69.29018245379568,
+        "y-0.5": 21.26322555176643,
+        "y+0.5": 1.4998885055248146,
+        "y+1.0": 11.948323392018349,
+        "z-1.0": 62.21247294044294,
+        "z-0.5": 1.1180179942311197,
+        "z+0.5": 8.842501406465733e-07,
+        "z+1.0": 72.44295961194257
+      },
+      "regulator": {
+        "x-1.0": 252.80012488163678,
+        "x-0.5": 71.94343456759921,
+        "x+0.5": 14.47510076836003,
+        "x+1.0": 84.45191772666931,
+        "y-1.0": 467.23757213327247,
+        "y-0.5": 94.60645314670171,
+        "y+0.5": 95.5098392582338,
+        "y+1.0": 468.769760026,
+        "z-1.0": 470.01631639232335,
+        "z-0.5": 116.93374650420134,
+        "z+0.5": 27.385940601264195,
+        "z+1.0": 148.90902415580842
+      },
+      "meter": {
+        "x-1.0": 257.4035062505261,
+        "x-0.5": 77.23260181894891,
+        "x+0.5": 0.0,
+        "x+1.0": 57.80918214626628,
+        "y-1.0": 21.96938749701163,
+        "y-0.5": 0.5341876333399949,
+        "y+0.5": 0.0,
+        "y+1.0": 10.530291524401932,
+        "z-1.0": 29.396088152211433,
+        "z-0.5": 0.799987935515448,
+        "z+0.5": 0.7996249550480026,
+        "z+1.0": 40.307623435826216
+      }
+    }
   }
 }
