@@ -172,6 +172,22 @@ fn common(a: &Solid, b: &Solid, query: &Value) -> Result<Value> {
     Ok(json!({"raw":raw,"stages":stages,"residual":residual(&hit)}))
 }
 
+fn box_operand(value: &Value) -> Result<Solid> {
+    let points = value.as_array().context("a box operand has its low and high points")?;
+    ensure!(points.len() == 2, "a box operand has two points");
+    let mut xyz = [[0.0; 3]; 2];
+    for (i, point) in points.iter().enumerate() {
+        let coordinates = point.as_array().context("a box point is a three-vector")?;
+        ensure!(coordinates.len() == 3, "a box point has three coordinates");
+        for (k, coordinate) in coordinates.iter().enumerate() {
+            xyz[i][k] = coordinate.as_f64().filter(|v| v.is_finite())
+                .context("a box coordinate is finite")?;
+        }
+    }
+    ensure!((0..3).all(|k| xyz[1][k] > xyz[0][k]), "a box operand has positive spans");
+    Ok(Solid::cuboid(V3::from(xyz[0]), V3::from(xyz[1])))
+}
+
 fn query(parts: &mut [Imported], queries: &Value) -> Result<Vec<Value>> {
     let mut gap_meshes = BTreeMap::new();
     queries
@@ -192,9 +208,20 @@ fn query(parts: &mut [Imported], queries: &Value) -> Result<Vec<Value>> {
                 );
                 Ok(index)
             };
-            let (a, b) = (at("a")?, at("b")?);
+            let a = at("a")?;
             let kind = text(value, "kind")?;
             if kind == "common" {
+                if let Some(bounds) = value.get("b_box") {
+                    ensure!(value.get("b").is_none(), "a common query has one b operand");
+                    let reading = box_operand(bounds).and_then(|tool| common(&parts[a].solid, &tool, value));
+                    let result = match reading {
+                        Ok(result) => json!({"a":a,"b_box":bounds,"kind":kind,"common":result}),
+                        Err(error) => json!({"a":a,"b_box":bounds,"kind":kind,"error":format!("{error:#}")}),
+                    };
+                    parts[a].solid.forget_backend();
+                    return Ok(result);
+                }
+                let b = at("b")?;
                 let result = match common(&parts[a].solid, &parts[b].solid, value) {
                     Ok(result) => json!({"a":a,"b":b,"kind":kind,"common":result}),
                     Err(error) => json!({"a":a,"b":b,"kind":kind,"error":format!("{error:#}")}),
@@ -203,6 +230,7 @@ fn query(parts: &mut [Imported], queries: &Value) -> Result<Vec<Value>> {
                 parts[b].solid.forget_backend();
                 return Ok(result);
             }
+            let b = at("b")?;
             let result = match kind {
                 "gap" if a == b => {
                     ensure!(!parts[a].solid.is_empty(), "a gap needs two nonempty solids");

@@ -63,6 +63,43 @@ def measure(instances, queries, *, component_names=()):
                             inputs)
 
 
+def box_commons(model, requests, *, transform=None):
+    """Fine common readings for explicit source-authored axis-aligned box tools.
+
+    Each request names original model entry `indices` and a `box` (low/high
+    three-vectors). The kernel constructs that exact tool at its builder grid;
+    the already authored body coordinates retain their raw f64 values.
+    """
+    requests=list(requests)
+    if not requests:
+        return []
+    if any(not row['indices']for row in requests):
+        raise ValueError('A box common needs a fine model entry')
+    selected=sorted({index for row in requests for index in row['indices']})
+    slots={index:i for i,index in enumerate(selected)}
+    queries=[];owners=[]
+    for owner,row in enumerate(requests):
+        for index in row['indices']:
+            queries.append({'kind':'common','a':slots[index],'b_box':row['box']})
+            owners.append(owner)
+    said=measure([instance(model,indices=selected,transform=transform)],queries)['queries']
+    if len(said)!=len(queries):
+        raise ValueError('Box common coverage differs from the requested entries')
+    grouped=[[]for _ in requests]
+    for owner,row in zip(owners,said):
+        if 'error'in row:
+            raise ValueError(row['error'])
+        grouped[owner].append(row['common']['raw'])
+    result=[]
+    for request,rows in zip(requests,grouped):
+        material=[row for row in rows if row['min']is not None]
+        result.append({'indices':list(request['indices']),'box':request['box'],
+            'raw':{'volume_mm3':sum(row['volume_mm3']for row in rows),
+                   'min':[min(row['min'][k]for row in material)for k in range(3)]if material else None,
+                   'max':[max(row['max'][k]for row in material)for k in range(3)]if material else None}})
+    return result
+
+
 def location(location):
     """The exact three by four matrix carried by an installed CQ location."""
     transform = location.wrapped.Transformation()
