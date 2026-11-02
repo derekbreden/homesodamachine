@@ -512,9 +512,10 @@ def _selected_mounts() -> tuple:
         rows.extend((f'{side}-{part}', f'{side}-tube', 'clamped-joint')
                     for part in ('reducer', 'barb-clamp', 'barb-key', 'stem-clamp', 'stem-key'))
         rows.append((side+'-tube', 'g-ganen-pump', 'barb'))
-    for name in ('psu', 'relay-1', 'relay-2'):
-        stations = range(1, 5) if name == 'psu' else (1, 4)
-        for i in stations:
+    for name, plan in enc._above_core_shell.wall_mount_datums().items():
+        for i, station in enumerate(plan['stations'],1):
+            if not station['threaded']:
+                continue
             rows.extend(((f'{name}-screw-{i}', 'enclosure-back-top', 'thread'),
                          (f'{name}-insert-{i}', 'enclosure-back-top', 'heat-set')))
     for names in layout.specification()['fluid_grid']['assignment']:
@@ -1192,6 +1193,9 @@ def selected_mate_contacts(a, placed, clashes) -> dict:
         ('tube-soda-core-rise', 'digiten-flow', 'inlet', 15.7),
         ('tube-above-core-pump-check-link', 'discharge-chain', 'inlet',
          selected_parts.check_reference().socket_depth('inlet')),
+        ('tube-above-core-pump-inlet-link', 'suction-reducer', 'tube',
+         __import__('rear_plumbing').joint().reducer.TUBE_INSERTION_DEPTH),
+        ('tube-above-core-pump-inlet-link', 'lower-pump-elbow', 'socket', 16.891),
     )
     closure_hosts = {f'funnel-frame-{column}-{side}': f'enclosure-{column}-top'
                      for column in ('front', 'back') for side in ('west', 'east')}
@@ -1236,15 +1240,19 @@ def selected_mate_contacts(a, placed, clashes) -> dict:
         inward = tuple(-value for value in outward)
         radius = frame.diam(port) / 2
         basis = f'{host}.{port}: Ø{frame.diam(port):g} × {depth:g} mm nominal insertion'
-        if tube == 'tube-above-core-tee-vk-link' and host == 'tee-fold':
-            # This selected flexible stub curves inside the socket as the tee
-            # follows V-K's small rise. Bound its sag over this receiving depth;
-            # the mask ends at the socket mouth and tube stop.
-            import above_core as layout
-            bend = layout.specification()['rear_plumbing']['flex_links']['tee-vk-link']['minimum_radius_mm']
-            sag = bend - math.sqrt(bend*bend - depth*depth)
-            radius += sag
-            basis += f'; selected R{bend:.3f} curved stub, {sag:.6f} mm maximum radial sag'
+        if tube in ('tube-above-core-tee-vk-link','tube-above-core-tee-regulator',
+                    'tube-above-core-pump-inlet-link'):
+            # Bound this selected flexible stub's sag within its own receiving
+            # depth. The mask ends at the socket mouth and tube stop.
+            import rear_plumbing
+            route = getattr(a,'native_route_specs',{}).get(tube.removeprefix('tube-'))
+            if route is None:
+                route = rear_plumbing.route_specs()[tube.removeprefix('tube-')]
+            bend = route['minimum_radius_mm']
+            if bend is not None and bend > depth:
+                sag = depth*depth / (bend + math.sqrt(bend*bend - depth*depth))
+                radius += sag
+                basis += f'; selected R{bend:.3f} curved stub, {sag:.6f} mm maximum radial sag'
         regions[pair] = cylinder(radius, mouth, inward, depth), basis
 
     import rear_plumbing

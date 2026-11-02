@@ -49,12 +49,13 @@ and leads, release both hooks and
 lift the pump vertically. The snap cap prints on one axial end, keeping the
 filled body, leaves and hooks vertical, with three Classic loops and a solid core.
 
-The discharge group follows the pump datum. The suction PVC bend has a
-13.050841 mm free span on two tangent arcs of at least R23.369 and unchanged
-receiving lengths. Both water male fittings retain 0.4 mm of exposed shaft
-outside their complete receiving depths. Its
-connector rolls about its existing V-K stem axis; the opposed sockets retain
-a straight 0.25 mm exposed stub. The
+The pump origin is (−15.181430, 368.068050, 247.947963) mm. Its body retains
+the enclosure axes. The suction PVC has a 12.119053 mm free span on two
+tangent arcs of at least R27.343, with unchanged barb and stem seating lengths.
+The inlet elbow rotates 3.307° about its seated V-K stem. Both water male
+fittings retain 0.4 mm of exposed shaft outside their complete receiving
+depths. The outlet elbow and reducer rotate 4.745° about the fixed check stem,
+leaving a 10.289° PVC cuff bend. The
 check outlet's two opposed bends retain at least **R14.246** and reach the straight water-in guide at
 **(−82.5, 420, 253.4) mm**. The regulator, ASSE and large valves
 retain their orthogonal placement.

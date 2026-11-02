@@ -103,8 +103,7 @@ def numbers():
     neck_z = next(z for z,r in profile if z>fitting[0] and r<6.5)
     cap_y = (datums['mouth_y']-collet[0]+c+.01,datums['mouth_y']-fitting[0]-2.6)
     widest = max(r for y0,y1,r in seat if y1>=cap_y[0]-.25 and y0<=cap_y[1]+.25)
-    st = snaps.station(axis[0],snaps.half_width(widest,snaps.SPLIT,axis[1])+snaps.WALL,
-                       *cap_y,wing_root=axis[1]-snaps.REAR_ROOT_DROP)
+    st = snaps.pisco_station(axis[0],widest,axis[1],*cap_y)
     body_r = max(r for z,r in profile if datums['mouth_y']-cap_y[1]-1.<=z<=neck_z)+s+snaps.PISCO_RADIAL_RELIEF
     neck_r = max(r for z,r in profile if z>neck_z)+c+snaps.PISCO_RADIAL_RELIEF
     lip = datums['mouth_y']-neck_z-s

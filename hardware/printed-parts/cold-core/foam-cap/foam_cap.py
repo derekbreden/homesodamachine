@@ -490,8 +490,9 @@ def numbers():
         'conduits': {name:xy for name,xy in core.cap_conduits.items()
                      if name not in ('reservoir-b-fill','water-in','carb-water-out')},
         'reliefs': {name:xy for name,xy in core.cap_conduits.items()
-                    if name not in ('reservoir-b-fill','water-in','sensor-cable')},
+                    if name not in ('reservoir-b-fill','water-in','sensor-cable',*core.cap_conduit_bore_radii)},
         'conduit_radius': core.cap_conduit_bore_radius,
+        'conduit_radii': core.cap_conduit_bore_radii,
         'relief_radius': core.cap_conduit_entry_relief_radius,
         'deck_columns': [{'xy':xy, 'top':deck_boss_z_top(name)}
                          for name in core.deck_mounts for xy in core.deck_mount_xy(name)],

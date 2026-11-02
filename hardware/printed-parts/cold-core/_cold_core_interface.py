@@ -574,6 +574,9 @@ def cap_cradle_room(name):
 # service bay stands on that face.
 lldpe_tube_od = 6.35                         # the 1/4" line every fluid port on the core takes
 cap_conduit_bore_radius = port_hole_radius   # the ⌀[7.5](PORT_HOLE_DIAMETER) every shell penetration takes
+# The A-fill tube completes its offset below the lid's outer face. Its
+# larger straight through-hole clears that bend without a blind cavity.
+cap_conduit_bore_radii = {"reservoir-a-fill": 5.5}
 cap_conduit_wall = wall_thickness
 cap_conduit_boss_radius = cap_conduit_bore_radius + cap_conduit_wall
 cap_conduit_lid_slip = deck_mount_lid_slip   # per side, a standing column to the lid's clearance hole
@@ -721,7 +724,8 @@ cap_cable_floor_conduits = {
 cap_cable_conduits = {name: _above_mounts.cap_guide_xy(name, xy)
                       for name, xy in cap_cable_floor_conduits.items()}
 cap_conduits = {**cap_fluid_conduits, **cap_cable_conduits}
-# Water, soda, A-fill, both draws and gas have aligned straight cap entries.
+# Water, soda, both draws and gas have aligned straight cap entries. A-fill
+# uses a straight 11 mm lid opening above its tangent below-lid offset.
 # B-fill enters the cap's front face and turns to its retained lower reservoir seat.
 # Both cable guides stand directly above their floor entries.
 cap_conduit_floor_xy = {
@@ -733,7 +737,7 @@ cap_conduit_floor_xy = {
     "reservoir-b-fill": reservoir_fill_conduit_xy(-1),
     "carb-water-out": cap_conduits["carb-water-out"],
 }
-cap_passive_guides = ()
+cap_passive_guides = ("reservoir-a-fill",)
 cap_cable_guides = tuple(cap_cable_conduits)
 # A full-height web closes a foam gap between two columns too narrow to pour; the bore axes and
 # their 7.5 mm clear passages are independent of that stock. Every pair here stands the pour gap

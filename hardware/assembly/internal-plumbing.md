@@ -80,7 +80,11 @@ Fit the ACVUS-44 stem check directly into the PISCO regulator's outlet, followin
 both flow arrows. With back-top inverted, lower the pair into its seat 16 mm
 forward and slide it aft. The regulator's inlet neck passes the CO2 hole;
 its external release face is the rear tube station. Fit the lower snap cap
-with its lip ahead of the outlet neck's shoulder.
+with its lip ahead of the outlet neck's shoulder. Load the cap 45 mm fore
+and 3.6 mm below its final station, slide it aft through the fore flank
+exits, then press upward into its catches. For service, remove the ASSE
+and meter caps first, spread the Pisco leaves, lower 3.6 mm and withdraw
+45 mm fore with the leaves held open.
 
 Insert the continuous red tube into the check. It leaves forward in one bend,
 then an S reaches the straight cap guide at X59.101/Y354.664/Z253.4. The same
@@ -99,7 +103,12 @@ plate with its inlet above its outlet.
 
 1. Make up the ASSE threaded chain, keeping the two wrench flats aligned.
    Lower it into its swept hex seat 16 mm forward, slide it aft and fit the
-   lower hex cap. The cap bears against the inlet coupling and passes the vent.
+   lower hex cap after fitting the meter cap. The cap bears against the inlet
+   coupling and passes the vent. Populate these seats with back-top inverted
+   on the bench and separated from the cold core. The meter cap loads 20 mm
+   west and 40 mm fore of its station, slides aft, then presses east. Removal
+   reverses this path after removing the ASSE cap and dressing the disconnected
+   tubes and leads aside.
 2. Seat the regulator upward and close its lower snap cap. Fit V-A and V-K,
    their stem elbows, the tee and the three short header links. Keep release
    collets accessible. Both opposed regulator links contain their receiving
@@ -112,12 +121,13 @@ plate with its inlet above its outlet.
    elbow and quarter-inch link loose while closing the rear column over the
    core. Clock the round joints and seat that link through the open funnel
    aperture after the column is home.
-4. The discharge joint bends down 15 degrees. Clock its stem clamp to the
+4. The discharge PVC cuff bends 10.289 degrees. Clock its stem clamp to the
    selected clear position, fit the trimmed stem elbow and insert the ACVUS-44
    check directly into that elbow. Follow the check's arrow away from the pump.
-5. Fasten the pump while all four driver approaches are open. The continuous
-   white inlet turns R14 from the check into the straight core guide at
-   X−80.417/Y402.999/Z253.4, then reaches the carbonator's existing water
+5. Seat the bare pump in the lid's rail seats and engage both upper-cap hooks
+   before fitting the PCB. The continuous white inlet turns at least R14.246
+   from the check into the straight core guide at
+   X−82.5/Y420/Z253.4, then reaches the carbonator's existing water
    fitting. The cap guide adds no joint or tube cut.
 6. Fit the downward vent cup, its two ties and the direct white 4 mm return
    to OVER. Its [assembly record](asse-drain.md) defines the open faucet outlet.
@@ -248,9 +258,9 @@ sections inside remain free
 Reservoir A’s two continuous tubes use two integral fore C2 clips on one broad base
 and one aft tied seat. Draw is west of fill: their centreline X stations are
 50.5/64.0 mm at the fore clips, Y209.75 and Z258.5 mm, and approximately X45.584/Z267.4 and X61.144/Z259.5 at the aft
-saddle, Y390 mm. Its open grooves follow the actual curved paths. Press each tube down through its clip's open +Z mouth.
+saddle, Y390.5 mm. Its open grooves follow the actual curved paths. Press each tube down through its clip's open +Z mouth.
 For removal, release the exposed jaws and lift the tube upward.
-At the aft saddle, Y390 mm, thread one four-inch narrow tie through the empty transverse
+At the aft saddle, Y390.5 mm, thread one four-inch narrow tie through the empty transverse
 slot before laying in the pair; retain both tubes there with that shared tie on the
 open core.
 Leave the front valve ends free during the column slide and dress the
@@ -306,7 +316,7 @@ V-J on `fluid-28`. Complete these routes in §4.
 The soda outlet is the middle-right rear fitting. One continuous blue tube
 runs from the carbonator's bottom outlet through the straight guide at
 X77.5/Y359.51/Z253.4, around the accepted R14 holder and into the DIGITEN inlet.
-The holder stands 9 mm from the meter mouth. Slide one square-cut 61 mm piece
+The holder stands 7.75 mm from the meter mouth. Slide one square-cut 56 mm piece
 of ID6.35/OD25.4 foam over the tube and holder before connecting the meter.
 Keep both square ends. The occupied foam model describes local compression.
 
@@ -316,18 +326,21 @@ then fit its cap from the west. Its label faces east and its lead root faces
 down. The outlet stub occupies both receiving sockets with no exposed span.
 Use the actual seating marks for the meter and union depths.
 
-Flavor A runs from V-G to X77.5/Z264; flavor B runs from V-J to X37.25/Z264.
+Flavor A runs from V-G to X76.5/Z264; flavor B runs from V-J to X28.8/Z264.
 Both use black 4 mm tubing with R25 or larger bends. Their free fore runs
 cross below the funnel frame, use the pump's east aisle and enter the rear
-sockets below the meter. Flavor A passes through the relief in the meter
-cap's lower wing. Load their straight rear spans into the upward-opening lid
-snaps at X70/Y412/Z257 and X35/Y414/Z264 before positioning back-top.
+sockets below the meter. Flavor A completes its descent ahead of the meter
+and passes above its complete lower wing. Load its crossover span into the
+upward-opening snap at X26.5/Y266/Z296 and flavor B's rear span into the
+snap at X35/Y414/Z264 before positioning back-top.
 The 4.10 mm bores and 1.52 mm wings are the selected modeled 4 mm section.
 
 The reservoir A pair retains its fore and aft anchors. Follow the free aft
 bends in [reservoir-a-routes.json](/hardware/manifold-layout/reservoir-a-routes.json):
 they pass the V-K outlet and the east side of the soda foam before returning
-to their original reservoir mouths. Keep the paired tie and both collets
+to their original reservoir mouths. The fill tube enters the 11 mm straight lid passage at X56/Y426.3
+and follows an R14 S bend to the fixed reservoir bore. The passage through
+the printed lid is straight and open at both ends. Keep the paired tie and both collets
 accessible while the core is open.
 
 Carry the loose front dispense ends while positioning back-top. Connect V-G
