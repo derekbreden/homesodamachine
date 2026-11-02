@@ -58,6 +58,10 @@ path = "../../../hardware/printed-parts/asse-drain-adapter/asse_drain_adapter.rs
 name = "asse-straight-cuffs"
 path = "../../../hardware/printed-parts/asse-straight-cuffs/asse_straight_cuffs.rs"
 
+[[bin]]
+name = "tee-valve-bow-trial"
+path = "../../../hardware/printed-parts/fixtures/tee-valve-bow-trial/tee_valve_bow_trial.rs"
+
 [dependencies]
 anyhow.workspace = true
 hsm-kernel = { path = "../kernel" }
