@@ -329,8 +329,8 @@ def render(gens: tuple, arts: list, srcs: list, optional: list, docs: list, rewr
     return "\n".join(lines)
 
 
-def render_build(only: str = None) -> tuple:
-    """The whole of BUILD.bazel as text, and the steps it was rendered from."""
+def action_plan(only: str = None) -> tuple:
+    """Declared generator actions and their inventory, shared by BUILD and the part engine."""
     _check_node_runtime_map()
     files = tracked()
     all_inv = inventory(files)
@@ -362,7 +362,7 @@ def render_build(only: str = None) -> tuple:
         raise SystemExit(f"  a tracked path holds /{PYSRC}/, which is where a stripped source"
                          f" lands — the staging loop cannot tell the two apart")
 
-    blocks, comments_out, wants = [], set(), {}
+    actions, wants = {}, {}
     for gens, made in sorted(inv.items()):
         # A doc is read to be rewritten, so it is on both sides — named as a src under its own
         # path and handed back under the target's own, which `sync_tree` carries into the tree.
@@ -393,13 +393,30 @@ def render_build(only: str = None) -> tuple:
         srcs = sorted(s for s in srcs if s in held)
         optional = sorted(d for d in made["docs"] if d.endswith((".png", ".json")))
         rewritten = {d for d in made["docs"] if d.endswith(".py")}
-        comments_out |= {s for s in srcs if comments_come_out(s, rewritten, names[gens])}
         wants[names[gens]] = {producers[s] for s in srcs
                               if producers.get(s) and producers[s] != names[gens]}
-        blocks.append(render(gens, made["solids"], srcs, optional, made["docs"], rewritten,
-                             names[gens], producers))
+        actions[names[gens]] = {
+            "generators": list(gens), "solids": made["solids"], "docs": made["docs"],
+            "reads": srcs, "optional": optional, "rewritten_python": sorted(rewritten),
+            "stripped": [s for s in srcs if comments_come_out(s, rewritten, names[gens])],
+            "producers": {s: producers[s] for s in srcs if s in producers},
+            "dependencies": sorted(wants[names[gens]]),
+            "node_runtimes": list(_node_runtimes(gens, srcs)),
+        }
 
     _no_cycles(wants)
+    return actions, inv
+
+
+def render_build(only: str = None) -> tuple:
+    """The whole of BUILD.bazel as text, and the steps it was rendered from."""
+    actions, inv = action_plan(only)
+    blocks, comments_out = [], set()
+    for name, action in actions.items():
+        comments_out.update(action["stripped"])
+        blocks.append(render(tuple(action["generators"]), action["solids"], action["reads"],
+                             action["optional"], action["docs"], set(action["rewritten_python"]),
+                             name, action["producers"]))
 
     # ONE STRIPPED SOURCE PER ACTION. A single multi-output action made every Python edit an
     # input to every consumer of any stripped source, so `rdeps(display_cover.py)` became almost
@@ -446,7 +463,7 @@ def render_build(only: str = None) -> tuple:
     # ONE NAME FOR THE WHOLE TREE, so what a commit owes is `bazel build //:everything` and
     # what it carries is `sync_tree --write`.
     blocks.append("filegroup(\n    name = \"everything\",\n    srcs = [\n"
-                  + "".join('        ":%s",\n' % target_name(g[0], shared) for g in sorted(inv))
+                  + "".join('        ":%s",\n' % name for name in actions)
                   + "    ],\n)")
     return head + "\n" + "\n\n".join(blocks) + "\n", inv
 
