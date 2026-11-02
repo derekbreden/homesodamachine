@@ -6,6 +6,7 @@ import { state } from "./state.js";
 import { scene, camera, resetCamera, fitCameraDepth, fitFog, BG_COLOR } from "./scene.js";
 import * as xray from "./xray.js";
 import { getOcct, getThumbnailRuntime, stepRuntime } from "./step-runtime.js";
+import { beginCadLoad, disposeCadGroup } from "./cad-resources.js";
 import { setActiveEdges } from "./edge-picker.js";
 import { clearPickFind } from "./pick-find.js";
 import { dropHighlight } from "./part-highlight.js";
@@ -300,7 +301,7 @@ export function setFaucetFinish(finishId) {
 // without one reads the STEP and shows the same thing.
 // `mounted` says this file is the one already in the scene. It carries the caller's
 // If-None-Match and gates the store's own unchanged answer.
-async function fetchMeshes(file, headers, { mounted = false } = {}) {
+async function fetchMeshes(file, headers, { mounted = false, signal } = {}) {
   file = stepLocation(file).file;
   try {
     // THE STORE ANSWERS FIRST WHERE IT HAS THESE BYTES. Its URL carries their hash, so a URL
@@ -311,12 +312,12 @@ async function fetchMeshes(file, headers, { mounted = false } = {}) {
     if (url) {
       if (mounted && memberLoaded(`${file}.mesh`, url)) return { unchanged: true };
       try {
-        bytes = await fetchMember(url);
+        bytes = await fetchMember(url, { signal });
       } catch { /* the site's route has the same member */ }
     }
     let resp = null;
     if (!bytes) {
-      resp = await fetch(`/meshes/${file}.mesh`, { headers });
+      resp = await fetch(`/meshes/${file}.mesh`, { headers, signal });
       if (resp.status === 304) return { unchanged: true };
       if (!resp.ok) return null;
       bytes = new Uint8Array(await resp.arrayBuffer());
@@ -354,11 +355,10 @@ function nameSurface(file, surface) {
 
 export async function loadStepFile(file, { preserveCamera = false } = {}) {
   const location = stepLocation(file);
-  const seq = ++state.stepLoadSeq;
-  const wrapper = state.currentCadWrapper;
-  const current = () => seq === state.stepLoadSeq && (!wrapper || wrapper === state.currentCadWrapper);
+  const load = beginCadLoad();
+  const { current, signal } = load;
   await loadFinishes();   // before any material is built, so none is built at the default
-  if (!current()) return;
+  if (!current()) { load.finish(); return; }
   // Loading pill lives inside the current step wrapper (or none if the
   // headless tool drove loadStepFile directly). Tolerate either.
   const loadingEl = state.currentCadWrapper && state.currentCadWrapper.querySelector(".cad-loading");
@@ -395,7 +395,7 @@ export async function loadStepFile(file, { preserveCamera = false } = {}) {
     // `pack.BUNDLED_PAYLOAD_DIRS` the payload carries flutes the solid does not, so a reader
     // told only the STEP's name is told the wrong file. The edge picker states this.
     let surface = "step";
-    const meshed = await fetchMeshes(file, headers, { mounted });
+    const meshed = await fetchMeshes(file, headers, { mounted, signal });
     if (!current()) return;
     if (meshed?.unchanged) { landed = true; onTubeModelLoaded(file); return; }
     if (meshed) {
@@ -409,12 +409,12 @@ export async function loadStepFile(file, { preserveCamera = false } = {}) {
       if (url) {
         if (mounted && memberLoaded(location.file, url)) { landed = true; onTubeModelLoaded(file); return; }
         try {
-          text = await fetchMember(url);
+          text = await fetchMember(url, { signal });
           rememberMember(location.file, url);
         } catch { /* the site's route has the same member */ }
       }
       if (!text) {
-        const resp = await fetch(`/steps/${file}`, { headers });
+        const resp = await fetch(`/steps/${file}`, { headers, signal });
         if (resp.status === 304) { landed = true; onTubeModelLoaded(file); return; }
         if (!resp.ok) { failed(`Couldn't load ${file} — ${resp.status}`); return; }
         const etag = resp.headers.get("etag");
@@ -433,8 +433,7 @@ export async function loadStepFile(file, { preserveCamera = false } = {}) {
 
     if (state.currentGroup) {
       scene.remove(state.currentGroup);
-      xray.disposeXray?.(state.currentGroup);
-      state.currentGroup.traverse((c) => { if (c.geometry) c.geometry.dispose(); });
+      disposeCadGroup(state.currentGroup);
     }
 
     state.currentGroup = buildMesh(result, file);
@@ -463,10 +462,13 @@ export async function loadStepFile(file, { preserveCamera = false } = {}) {
     if (style) window.dispatchEvent(new CustomEvent(HSM_EVENTS.FAUCET_OPTIONS));
     landed = true;
   } catch (err) {
-    failed(`Couldn't read ${file}`);
-    console.warn("loadStepFile:", err);
+    if (err.name !== "AbortError") {
+      failed(`Couldn't read ${file}`);
+      console.warn("loadStepFile:", err);
+    }
   } finally {
     if (loadingEl && landed && current()) loadingEl.style.display = "none";
+    load.finish();
   }
 }
 
@@ -516,9 +518,6 @@ function snapThumbnail(group, px = THUMB_SIZE, presentation = "viewer") {
   thumbRenderer.render(thumbScene, thumbCam);
   const dataURL = thumbRenderer.domElement.toDataURL();
 
-  thumbScene.remove(group);
-  xray.disposeXray?.(group);
-  group.traverse((c) => { if (c.geometry) c.geometry.dispose(); });
   return dataURL;
 }
 
@@ -526,8 +525,13 @@ function snapThumbnail(group, px = THUMB_SIZE, presentation = "viewer") {
 // so where the meshes came from can't change how the part looks.
 export function renderMeshes(result, px, file = null, finishId = state.faucetFinish, presentation = "viewer") {
   const group = buildMesh(result, file, finishId);
-  applyXray(group);
-  return snapThumbnail(group, px, presentation);
+  try {
+    applyXray(group);
+    return snapThumbnail(group, px, presentation);
+  } finally {
+    group.removeFromParent();
+    disposeCadGroup(group);
+  }
 }
 
 // THE THUMBNAIL DRAWS WHAT THE DETAIL VIEW DRAWS. `loadStepFile` answers off the payload beside
