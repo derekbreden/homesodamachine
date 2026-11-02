@@ -42,14 +42,6 @@ of the open mouth to the cable clip on the dry flank below the slot. Draw the
 pan west until the plate is reachable, lift the plate from the pan, then draw
 the pan the rest of the way out.
 
-## Regenerate
+## Source availability
 
-```sh
-tools/cad-venv/bin/python hardware/printed-parts/enclosure/asse-drip-pan/asse_drip_pan.py
-```
-
-This writes the STEP solid and printable STL.
-
-## Sources
-[value](NAME) texts are updated by:
-- `/hardware/printed-parts/enclosure/asse-drip-pan/asse_drip_pan.py`
+The [authored source snapshot](https://github.com/derekbreden/homesodamachine/blob/abcc5fea68ac87cf460142323977bbb66d5fed1b/hardware/printed-parts/enclosure/asse-drip-pan/asse_drip_pan.py) is retained in Git at `abcc5fea68ac87cf460142323977bbb66d5fed1b`. This directory retains its geometry and evidence.

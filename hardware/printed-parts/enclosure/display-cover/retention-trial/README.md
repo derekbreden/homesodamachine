@@ -2,7 +2,9 @@
 
 This receiver is paired with the selected [0.75 mm extra-arm-reach cover](../retention-reach-trial/README.md),
 which snaps cleanly, has no noticeable bow and passes shaking. The dimensions below
-describe this folder's 0.50 mm cover and the fixed receiver.
+describe this folder's 0.50 mm cover and the fixed receiver. The [production cover](../README.md)
+uses the accepted horizontal wings. This retained trial also supplies helpers to the
+[face-up trial](../face-up-trial/face_up_trial.py).
 
 One complete cover and a matching receiver surround. The cover is symmetric across
 both screen axes. Its two [1.3 mm](WALL) leaves each run [75 mm](SPAN), centered along
