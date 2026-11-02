@@ -12,6 +12,29 @@ its own bodies off. `enclosure_assembly` places THAT, as one solid with a port t
 model supersedes the other, so **the card below is written beside both STEPs**: open either at
 `/3d` and the bottom bar reads the same verdict.
 
+
+## Generated geometry
+
+Python supplies the live part dimensions, placements, materials and route stations to the
+Rust assembly producer. Its files share the foam assembly's source frame:
+
+| File | Use |
+|---|---|
+| `cold-core-assembly.step.npz` | authoritative fine float64 geometry, ordered component names, colors and face records |
+| `cold-core-assembly.scene.npz` | byte-identical fine-model handoff to the machine assembly |
+| `cold-core-assembly.step` | reduced drawing geometry |
+| `cold-core-assembly.step.mesh` | viewer presentation, including the accepted printed surfaces in their authored placements |
+| `cold-core-assembly.scorecard.json` | the existing assembly readings and qualification status |
+
+The fine model's document records its frame, schema, component opacity and the final
+presentation's relative path and SHA-256. Printed presentation arrays retain their facet
+order, face ranges and source metadata through the source-frame carry.
+
+`import_bodies()` supplies the fine model to mesh geometry readers and the construction
+bodies to native readers. `build_assembly()` and `write_model()` retain the native source
+API. The casing's corresponding query API is `foam_assembly.import_body()`; its producer
+writes fine models and presentations for both the casing and the installed internal routes.
+
 ## Frame
 
 The foam shell's own: Z up, with its floor's outer face at Z0 and its rim at

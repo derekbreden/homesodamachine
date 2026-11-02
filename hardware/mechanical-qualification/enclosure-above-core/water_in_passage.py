@@ -72,8 +72,8 @@ def main():
            .moved(layout.frame_location(layout.cap_lid_pose())))
     lid = (import_step(cap_dir/'foam-cap-lid-top.step').val()
            .moved(layout.frame_location(layout.cap_lid_pose())))
-    cca_path = ROOT/'hardware/cold-core-layout/cold-core-assembly.step'
-    actual = import_assembly(cca_path)
+    cca_path = assembly.MODEL_OUT
+    actual = assembly.import_bodies(cca_path)
     named = {name.rsplit('/',1)[-1]:shell_world_shape(shape)
              for name,(shape,_color) in actual.items()}
     points = [shell_world_point(point) for point in assembly.trimmed_routes()['water-in']]
@@ -155,6 +155,8 @@ def main():
                'tube_contact_mm3':volume(nominal_tube.intersect(lid)),
                'missing_named_sleeve_stock_mm3':volume(lid_stock.cut(lid))},
         'exported_internal_tube':{'body':'line-water-in','valid':exported_tube.isValid(),
+            'geometry_basis': ('fine model' if getattr(cq, 'MESH', False)
+                               else 'retained native construction; the fine model is artifact context'),
             'solids':len(exported_tube.Solids()),'bounds_world_mm':bounds(exported_tube),
             'solid_tube_volume_mm3':volume(exported_tube),
             'segmented_nominal_volume_mm3':volume(nominal_tube),
@@ -186,8 +188,8 @@ def main():
     for rel in ['hardware/printed-parts/cold-core/foam-shell/foam-shell.step',
                 'hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step',
                 'hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step',
-                'hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step',
-                'hardware/cold-core-layout/cold-core-assembly.step']:
+                'hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step.npz',
+                'hardware/cold-core-layout/cold-core-assembly.scene.npz']:
         report['exported_solids_sha256'][rel]=sha(ROOT/rel)
     args.output.write_text(json.dumps(report,indent=2)+'\n')
     print(json.dumps({key:report[key] for key in ('cup','lid','sensor_passage_wall_mm',
