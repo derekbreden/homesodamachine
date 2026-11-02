@@ -32,7 +32,7 @@
 import { execFile } from "node:child_process";
 import { createHash } from "node:crypto";
 import { createReadStream } from "node:fs";
-import { mkdir, readFile, rm, writeFile } from "node:fs/promises";
+import { mkdir, readFile, rm, stat, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { pipeline } from "node:stream/promises";
 import { fileURLToPath } from "node:url";
@@ -102,6 +102,16 @@ export function pointersMoved(have, pointers) {
   if (!have) return true;
   if (have.bundle?.sha256 !== pointers.bundle?.sha256) return true;
   return JSON.stringify(have.solids ?? {}) !== JSON.stringify(pointers.solids ?? {});
+}
+
+async function solidsPresent(pointers) {
+  for (const rel of Object.keys(pointers.solids ?? {})) {
+    if (isCommittedDocumentFile(rel) || isArchivedDocumentFile(rel)) continue;
+    try {
+      if (!(await stat(path.join(ROOT, rel))).isFile()) return false;
+    } catch { return false; }
+  }
+  return true;
 }
 
 // Removed model parts must leave the directory the viewer walks. Only paths named by the
@@ -272,15 +282,17 @@ async function adopt({ broadcast, setRecent, commit, hardwareDir, detect }) {
     console.error(`[artifacts-live] ${line} — the bar is the one already here`);
   }
 
-  if (!pointersMoved(have, pointers)) {
-    failedAdoption = null;
-    return { moved: false, scorecards: sidecars.carried.length };
-  }
-
   const key = createHash("sha256").update(JSON.stringify(pointers)).digest("hex");
   if (failedAdoption?.key !== key) failedAdoption = null;
   if (failedAdoption && Date.now() < failedAdoption.retryAt) {
     return { moved: false, scorecards: sidecars.carried.length, retryAt: failedAdoption.retryAt };
+  }
+
+  // A partial startup keeps its current pointer file while some named files are absent.
+  // The same publication remains recoverable when its objects become available.
+  if (!pointersMoved(have, pointers) && await solidsPresent(pointers)) {
+    failedAdoption = null;
+    return { moved: false, scorecards: sidecars.carried.length };
   }
 
   await writeFile(POINTERS, JSON.stringify(pointers, null, 2) + "\n");
