@@ -623,7 +623,8 @@ def check(crate: str, name: str, numbers: dict):
 
 def cut(crate: str, name: str, numbers: dict, part_dir, *, numbers_name: str | None = None) -> dict:
     """Write `numbers`, build `tools/hsm/<crate>`'s program `name` and run it into `part_dir`,
-    and return what it says it wrote. `numbers_name` sets the numbers file's stem; by default
+    and return what it says it wrote. `results` retains each complete JSON record, alongside
+    the aggregated `files` and `bodies`. `numbers_name` sets the numbers file's stem; by default
     it is the program's `name`."""
     global _CUT
     part_dir = Path(part_dir)
@@ -633,12 +634,13 @@ def cut(crate: str, name: str, numbers: dict, part_dir, *, numbers_name: str | N
         numbers_path.write_text(text)
     _WRITE_TARGETS.add(_relative(numbers_path))
 
-    said = {"files": [], "bodies": []}
+    said = {"files": [], "bodies": [], "results": []}
     for line in run(crate, name, numbers_path.resolve(), part_dir.resolve()).splitlines():
         if line.strip():
             each = json.loads(line)
             said["files"] += each["files"]
             said["bodies"] += each["bodies"]
+            said["results"].append(each)
     wrote = {_relative(numbers_path)} | {_relative(part_dir / f) for f in said["files"]}
     _WRITE_TARGETS.update(wrote)
     _CUT = True
