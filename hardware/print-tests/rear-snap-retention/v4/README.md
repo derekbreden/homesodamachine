@@ -35,3 +35,10 @@ PEI G-code emits Z0.16 and Z0.02 respectively.
 Mark1 accepted task **1400544434** and Mark2 accepted task **1400555954**,
 more than three minutes apart. Both report RUNNING with zero print errors and
 no HMS alerts in their launch receipts.
+
+Post-publication inspection identifies the specified 2.0 mm PISCO flexures,
+the hook insertion profile and the centered screwdriver-entry ceilings. Their
+[lint answers](../../../printed-parts/lint-answers/enclosure/rear-equipment-caps/pisco-snap-cap.lint-answers)
+anchor the printed surfaces. Whole-panel lint also reports existing Z347 roof
+recess steps and 0.1 mm rear-wall relief steps at Z252, outside the PISCO seat;
+the [inspection record](geometry-lint.txt) retains those findings.

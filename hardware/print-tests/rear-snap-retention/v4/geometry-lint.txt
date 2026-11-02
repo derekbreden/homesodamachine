@@ -1,0 +1,77 @@
+pisco-snap-cap.stl · 784 printed facets · 10 findings
+answers: hardware/printed-parts/lint-answers/enclosure/rear-equipment-caps/pisco-snap-cap.lint-answers · read hardware/printed-parts/lint-answers/AGENTS.md before writing one
+
+  [thin] 0.719 mm of material at its thinnest · 24.9 mm² of surface under 1.6 mm · spans 2.6 × 1.5 × 4.9 mm
+    file: hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.step
+    click: x=-9.674 y=-13.657 z=21.804
+    click: x=-9.674 y=-12.939 z=21.804
+
+  [thin] 0.719 mm of material at its thinnest · 24.9 mm² of surface under 1.6 mm · spans 2.6 × 1.5 × 4.9 mm
+    file: hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.step
+    click: x=9.674 y=-13.657 z=19.900
+    click: x=9.674 y=-12.939 z=19.900
+
+  [thin] 1.909 mm of material at its thinnest · 29.8 mm² of surface under 2.5 mm · spans 1.8 × 0.6 × 14.8 mm
+    file: hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.step
+    click: x=-10.265 y=-13.848 z=7.167
+    click: x=-10.265 y=-11.939 z=7.167
+
+  [thin] 1.909 mm of material at its thinnest · 29.8 mm² of surface under 2.5 mm · spans 1.8 × 0.6 × 14.8 mm
+    file: hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.step
+    click: x=10.265 y=-13.848 z=34.537
+    click: x=10.265 y=-11.939 z=34.537
+
+  [thin] 1.918 mm of material at its thinnest · 30.7 mm² of surface under 2.5 mm · spans 1.8 × 0.6 × 15.3 mm
+    file: hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.step
+    click: x=-10.290 y=-13.856 z=40.736
+    click: x=-10.290 y=-11.939 z=40.736
+
+  [thin] 1.918 mm of material at its thinnest · 30.7 mm² of surface under 2.5 mm · spans 1.8 × 0.6 × 15.3 mm
+    file: hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.step
+    click: x=10.290 y=-13.856 z=0.968
+    click: x=10.290 y=-11.939 z=0.968
+
+  [thin] 2.000 mm of material at its thinnest · 913.4 mm² of surface under 2.5 mm · spans 0.0 × 23.2 × 39.3 mm
+    file: hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.step
+    click: x=-14.406 y=-11.784 z=36.384
+    click: x=-12.406 y=-11.784 z=36.384
+
+  [thin] 2.000 mm of material at its thinnest · 913.4 mm² of surface under 2.5 mm · spans 0.0 × 23.2 × 39.3 mm
+    file: hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.step
+    click: x=14.406 y=8.661 z=38.183
+    click: x=12.406 y=8.661 z=38.183
+
+  [ledge] 3.10 mm² flat face 0° off facing the bed · 3.1 × 1.0 mm · 23.4 mm up
+    file: hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.step
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=-11.372 y=-12.272 z=23.352
+    click: x=-11.372 y=-12.272 z=23.352
+
+  [ledge] 3.10 mm² flat face 0° off facing the bed · 3.1 × 1.0 mm · 23.4 mm up
+    file: hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.step
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=10.339 y=-12.605 z=23.352
+    click: x=10.339 y=-12.605 z=23.352
+
+enclosure-back-top.stl · 837834 printed facets · 37 findings · 46 answered · top 4 (--all for every one)
+answers: hardware/printed-parts/lint-answers/enclosure/enclosure/enclosure-back-top.lint-answers · read hardware/printed-parts/lint-answers/AGENTS.md before writing one
+
+  [step] Δ0.250 mm between parallel planes · footprint met 10.0 × 10.0 mm
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+    faceA: plane · n x=0.000 y=0.000 z=-1.000 · thru x=-26.024 y=398.800 z=347.250
+    faceB: plane · n x=0.000 y=0.000 z=-1.000 · thru x=-9.898 y=349.800 z=347.000
+    click: x=-7.542 y=349.154 z=347.000
+
+  [step] Δ1.000 mm between parallel planes · footprint met 10.0 × 10.0 mm
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+    faceA: plane · n x=0.000 y=0.000 z=-1.000 · thru x=-9.898 y=349.800 z=347.000
+    faceB: plane · n x=0.000 y=0.000 z=-1.000 · thru x=0.000 y=368.346 z=346.000
+    click: x=-7.542 y=349.154 z=347.000
+
+  [bump] 0.100 mm bump off a flat face · 103.0 × 2.0 mm
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+    faceA: plane · n x=0.000 y=-1.000 z=0.000 · thru x=52.650 y=471.300 z=303.500
+    click: x=43.336 y=471.200 z=252.000
+
+  [bump] 0.100 mm bump off a flat face · 103.0 × 2.1 mm
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+    faceA: plane · n x=0.000 y=-1.000 z=0.000 · thru x=52.650 y=471.300 z=303.500
+    click: x=91.036 y=471.200 z=252.000
