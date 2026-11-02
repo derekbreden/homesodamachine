@@ -875,14 +875,14 @@
       "method": "Producer centerline; circular arcs and cubic curvature extrema",
       "passed": true
     },
-    "tube-fluid-28": {
+    "tube-fluid-18": {
       "centerline_radii_mm": [
         25.0
       ],
       "stock_minimum_mm": 25.0,
       "passed": true
     },
-    "tube-fluid-18": {
+    "tube-fluid-28": {
       "centerline_radii_mm": [
         25.0
       ],
@@ -899,7 +899,7 @@
     "hardware/manifold-layout/above-core.json": "e0b80674504eabcbfa8ce36559b94b30c737d80f2a99b782dd45cbb7cec05dec",
     "hardware/reference/neofit-drain-bulkhead/neofit_drain_bulkhead.py": "df79886e90630cf93cce916d7f7a1f95b189a298619ac7b7cc53a3cdcc5817a7",
     "hardware/reference/asse1022-assembly/asse1022_assembly.py": "8aaf9cc6d16062a5536d8ea6c8e6d0d79abe965eed761b2017e803f61298f081",
-    "hardware/printed-parts/asse-drain-adapter/asse_drain_adapter.py": "b88e381e40981d903ed0c384c9db6f518c88368d3ab80c3e6252b4d2e820f72e"
+    "hardware/printed-parts/asse-drain-adapter/asse_drain_adapter.py": "115d59155216f206d8fb799f68c9468c88595ec2a576d967bd0be922c67590ed"
   },
   "passed": true
 }
