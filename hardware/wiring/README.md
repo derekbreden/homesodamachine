@@ -194,6 +194,10 @@ python3 tools/run.py -- tools/cad-venv/bin/python hardware/wiring/installed/buil
 It writes the fine wiring to `enclosure-wiring.step.npz` and appends its STEP and
 viewer bodies to the populated enclosure. The physical fine model stays unchanged.
 The manifest binds the physical fine input, route numbers and fine wiring by SHA-256.
+It retains source byte hashes and records Python source identities with
+`_realized.code_digest`, so Bazel's stripped sources and the checkout share the
+same code identity. Comments leave that identity unchanged; code and docstring
+changes invalidate it.
 
 The normal `enclosure_assembly.py` CLI resolves wiring from its placed hardware,
 exports the physical fine model, then builds the Rust wiring and installs its
