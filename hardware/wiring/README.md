@@ -243,8 +243,9 @@ installed bodies. It excludes wire-to-wire and wire-to-tube contacts and
 keeps intended contact local to its named attachment. Its preparation budget
 covers individual pieces and continuous commons across local taps.
 
-The [installed native binding](installed/above-core-review/installed-wiring-binding.json)
-compares the current source curves and bodies with both standalone and
-installed STEP readback. Source validity, geometric agreement and the reader's
-exchange-validity result remain separate fields. Terminal fidelity, physical
-harness handling and closing motion retain their documented scopes.
+The [installed wiring binding](installed/above-core-review/installed-wiring-binding.json)
+records the current producer sources, closed fine-model solids and exact
+standalone-to-installed viewer arrays. The production mesh-kernel wiring
+export is attached to the retained native physical assembly. All 100 conductors
+and 19 termination/jacket bodies are closed connected solids. Terminal fidelity,
+physical harness handling and closing motion retain their documented scopes.

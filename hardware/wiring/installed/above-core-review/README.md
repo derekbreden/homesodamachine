@@ -4,14 +4,13 @@ Current routing checks wires and cable jackets against larger installed bodies.
 Wire-to-wire and wire-to-tube contacts are excluded. Endpoint contacts remain
 local to each named attachment. The review and route search are manual commands.
 
-The [installed-wiring binding](installed-wiring-binding.json) compares the
-materialized standalone wiring STEP and manifest with the current electrical
-graph and native source bodies. It records conductor and housing counts from
-that graph, source-curve agreement, geometric signatures and STEP reader
-validity separately. The current graph contains 119 wiring bodies and 100
-conductor curves. The [full routing screen](../routing-review.json) and
-[native contact follow-up](../contact-review.json) identify their exact exported
-artifacts and distinguish native-zero witnesses from local endpoint contact.
+The [installed-wiring binding](installed-wiring-binding.json) records the current
+producer sources, materialized manifest, closed fine-model solids and exact
+standalone-to-installed viewer arrays. The production mesh-kernel wiring is
+attached to the retained native physical assembly. The current graph contains
+119 wiring bodies and 100 conductor curves. The [full routing screen](../routing-review.json)
+and [closed-solid contact follow-up](../contact-review.json) identify their exact
+exported artifacts and distinguish zero-volume witnesses from local endpoint contact.
 The [mounted junction reading](junction-review.json) covers the nine rooted
 WAGOs; the [final-junction reading](../final-junction-review.json) covers the
 three free joins beneath the funnel opening.
@@ -21,14 +20,11 @@ Run the manual reader after the appliance and its wiring are materialized:
 ```sh
 python3 tools/run.py --cad -- tools/cad-venv/bin/python hardware/wiring/installed/review.py
 python3 tools/run.py --cad -- tools/cad-venv/bin/python hardware/wiring/installed/review.py --native
-python3 tools/run.py --cad -- tools/cad-venv/bin/python hardware/wiring/installed/above-core-review/installed_wiring_binding.py
 ```
 
-Use the workstation CAD queue. The optional `--source-cache PATH` reuses
-explicitly bound native source solids after matching current curves,
-termination metadata, jacket geometry and generator hashes. All actual wiring
-bodies are still read back. The default composes only the source wiring; it
-does not regenerate mechanical parts.
+Use the workstation CAD queue. The `--native` reader uses the production fine
+model beside the wiring STEP when present and compares its viewer arrays with
+the installed assembly. It does not regenerate mechanical parts.
 
 The wire/source reader does not repeat the mesh contact screen. A contact
 follow-up must query the exact wire and obstacle bodies named by the current
