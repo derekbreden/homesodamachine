@@ -174,12 +174,12 @@ def main():
                   'soda-continuous-insulation': soda_inlet.foam_occupied(warm)}
     signatures = {name: signature(shape) for name, shape in shapes.items()
                   if name != 'soda-foam-stock'}
-    print('Reading actual appliance and current exported core', flush=True)
+    print('Reading actual appliance and current core geometry', flush=True)
     ea_path = ROOT/'hardware/manifold-layout/enclosure-assembly.step'
-    cca_path = ROOT/'hardware/cold-core-layout/cold-core-assembly.step'
+    cca_path = assembly.MODEL_OUT
     placed = flat_names(import_assembly(ea_path))
     core_bodies = {name: shell_world_shape(shape)
-                   for name, shape in flat_names(import_assembly(cca_path)).items()}
+                   for name, shape in flat_names(assembly.import_bodies(cca_path)).items()}
     source_signatures = signatures
     signatures = {name: signature(placed[name]) for name in source_signatures}
     placed.update(core_bodies)
@@ -299,7 +299,9 @@ def main():
                  ROOT/'hardware/printed-parts/soda-bend-holder/soda-bend-holder.step']
     report = {
         'schema': 1, 'reviewed_date': '2026-10-24',
-        'scope': 'Manual source-current native inlet fixture, actual exported core/cup/lid and recorded appliance context. Rigid contacts and nominal full-stock foam contacts are distinct. No physical fit, insertion force, retained tube roundness, pressure, sealing, thermal or lifetime qualification.',
+        'scope': 'Manual source-current native inlet fixture, core geometry, exported cup/lid and recorded appliance context. Rigid contacts and nominal full-stock foam contacts are distinct. No physical fit, insertion force, retained tube roundness, pressure, sealing, thermal or lifetime qualification.',
+        'core_geometry_basis': ('fine model' if getattr(cq, 'MESH', False)
+                                else 'retained native construction; the fine model is artifact context'),
         'reproduce': 'tools/cad-venv/bin/python hardware/mechanical-qualification/enclosure-above-core/soda_inlet_review.py',
         'state': 'Current exported appliance inlet and separate core passage geometry.',
         'plan': plan, 'component_signatures': signatures,

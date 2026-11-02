@@ -10,8 +10,6 @@ populated cold-core assembly, not this casing-only assembly.
 import sys
 from pathlib import Path
 
-import cadquery as cq
-
 _here = Path(__file__).resolve()
 _repo = next(p for p in _here.parents if (p / "hardware" / "scripts" / "_cadq_export.py").is_file())
 _hw = _repo / "hardware"
@@ -19,6 +17,13 @@ _cold_core = _hw / "printed-parts" / "cold-core"
 sys.path.insert(0, str(_hw / "scripts"))
 sys.path.insert(0, str(_cold_core))
 sys.path.insert(0, str(_hw / "printed-parts" / "cadlib"))
+
+if __name__ == '__main__':
+    import _rust_part
+    _rust_part.start()
+
+import cadquery as cq
+
 from _cadq_export import export_assembly, import_step
 from _foam_shell import import_shell
 from _cold_core_interface import (
@@ -206,10 +211,37 @@ def build():
     return assy,placed
 
 
-def _report(placed):
+def import_bodies(path=None):
+    """Named fine casing bodies for mesh readers, construction solids for native readers."""
+    if not getattr(cq, 'MESH', False):
+        return build()[1]
+    from meshcad import scene
+    from _cadq_export import note_read
+
+    path = Path(path) if path is not None else _here.parent / 'foam-assembly.step.npz'
+    note_read(path)
+    return {name: (shape, cq.Color(*rgb, 1., False) if rgb is not None else None)
+            for name, (shape, rgb) in scene.load(path, snap=False, presentation=True).items()}
+
+
+def import_body(path=None):
+    """The casing's authoritative query compound."""
+    return cq.Compound.makeCompound([shape for shape, _color in import_bodies(path).values()])
+
+
+def _report(placed, *, measurements=None):
+    def bounds(name):
+        if measurements is None:
+            return placed[name][0].BoundingBox()
+        from types import SimpleNamespace
+        low, high = measurements['bounds'][name]
+        return SimpleNamespace(xmin=low[0], ymin=low[1], zmin=low[2],
+                               xmax=high[0], ymax=high[1], zmax=high[2],
+                               xlen=high[0]-low[0], ylen=high[1]-low[1], zlen=high[2]-low[2])
+
     print("  part                  X range            Y range            Z range")
     for name, (shape, _c) in placed.items():
-        b = shape.BoundingBox()
+        b = bounds(name)
         print(
             "  %-19s [%7.1f,%7.1f]  [%7.1f,%7.1f]  [%7.1f,%7.1f]"
             % (name, b.xmin, b.xmax, b.ymin, b.ymax, b.zmin, b.zmax)
@@ -222,8 +254,8 @@ def _report(placed):
     # The two planes the machine reads off this stack, held against the stack that came out.
     # The cap face is a LID FACE and not the box's top, so it is read as the top lid's own
     # plate rather than as whatever stands on it.
-    floor = placed["foam-cap-bottom"][0].BoundingBox().zmin
-    face = placed["foam-cap-lid-top"][0].BoundingBox().zmin + lid_total_height
+    floor = bounds("foam-cap-bottom").zmin
+    face = bounds("foam-cap-lid-top").zmin + lid_total_height
     assert abs(floor - stack_floor_z) < 1e-6 and abs(face - cap_face_z) < 1e-6, (
         f"the stack stands on {floor:.4f} and presents its cap face at {face:.4f}, against the "
         f"{stack_floor_z:.4f} / {cap_face_z:.4f} this module tells the machine to expect")
@@ -237,12 +269,19 @@ def _report(placed):
     # whole line; what is probed here is the one leg a fitting depends on.
     probe_r = co2_inlet_tube_radius - 0.3
     shell_solid = placed["foam-shell"][0]
-    start, end = routes.route_legs(routes.routes["co2-in"])[-1]
-    reach = end - start
-    probe = cq.Solid.makeCylinder(probe_r, reach.Length, start, reach.normalized())
-    blocked = shell_solid.intersect(probe).Volume()
+    if measurements is None:
+        start, end = routes.route_legs(routes.routes["co2-in"])[-1]
+        reach = end - start
+        probe = cq.Solid.makeCylinder(probe_r, reach.Length, start, reach.normalized())
+        blocked = shell_solid.intersect(probe).Volume()
+        reach_xy = (start.x, start.y, end.x, end.y)
+        reach_length = reach.Length
+    else:
+        reading = measurements['co2']
+        reach_xy = (*reading['start'][:2], *reading['end'][:2])
+        reach_length, blocked = reading['length'], reading['blocked']
     print("  CO2 reach in: (%.2f, %.2f) .. (%.2f, %.2f) at z %.2f, %.1f mm straight — %s"
-          % (start.x, start.y, end.x, end.y, co2_inlet_xyz[2], reach.Length,
+          % (*reach_xy, co2_inlet_xyz[2], reach_length,
              "clear  OK" if blocked <= 1e-6 else "** BLOCKED by %.3f mm^3" % blocked))
 
     # Read each actual passage, including the cable detours and B-fill's
@@ -252,17 +291,22 @@ def _report(placed):
         # The R14 B-fill channel uses the holder's D6.8 section rather than
         # the ordinary D7.5 vertical guide. Read its actual tube envelope.
         radius = routes.line_radius if cname == 'reservoir-b-fill' else probe_r
-        probe = cap_passage_probe(cname, radius)
-        blocked = {name: placed[name][0].intersect(probe).Volume()
-                   for name in ("foam-shell", "foam-cap-lid-top")}
-        lower_x, lower_y = spin_xy(cap_conduit_floor_xy[cname])
-        for name in ("foam-cap-bottom",):
-            solid = placed[name][0]
-            b = solid.BoundingBox()
+        if measurements is None:
+            probe = cap_passage_probe(cname, radius)
+            blocked = {name: placed[name][0].intersect(probe).Volume()
+                       for name in ("foam-shell", "foam-cap-lid-top")}
+            lower_x, lower_y = spin_xy(cap_conduit_floor_xy[cname])
+            solid = placed['foam-cap-bottom'][0]
+            b = bounds('foam-cap-bottom')
             lower = cq.Solid.makeCylinder(probe_r,b.zlen+4.,
                 cq.Vector(lower_x,lower_y,b.zmin-2.))
-            if solid.intersect(lower).Volume() <= 1e-6:
-                print(f"  ** {name} is open on {cname}'s lower entry")
+            bottom_open = solid.intersect(lower).Volume() <= 1e-6
+        else:
+            reading = next(row for row in measurements['passages'] if row['name'] == cname)
+            blocked = {row['name']: row['volume'] for row in reading['blocked']}
+            bottom_open = reading['bottom_open']
+        if bottom_open:
+            print(f"  ** foam-cap-bottom is open on {cname}'s lower entry")
         for name, volume in blocked.items():
             if volume > 1e-6:
                 print(f"  ** {name} blocks {cname}'s actual passage by {volume:.3f} mm^3")
@@ -277,12 +321,17 @@ def _report(placed):
     clear = True
     for name in ("foam-cap-lid-top", "foam-cap-bottom"):
         solid = placed[name][0]
-        b = solid.BoundingBox()
+        b = bounds(name)
         for x, y in P:
-            probe = cq.Solid.makeCylinder(
-                probe_r, b.zlen + 4, cq.Vector(x, y, b.zmin - 2), cq.Vector(0, 0, 1)
-            )
-            if solid.intersect(probe).Volume() > 1e-6:
+            if measurements is None:
+                probe = cq.Solid.makeCylinder(
+                    probe_r, b.zlen + 4, cq.Vector(x, y, b.zmin - 2), cq.Vector(0, 0, 1)
+                )
+                blocked = solid.intersect(probe).Volume()
+            else:
+                blocked = next(row['blocked'] for row in measurements['screw_paths']
+                               if row['name'] == name and tuple(row['xy']) == (x, y))
+            if blocked > 1e-6:
                 clear = False
                 print("  ** screw path BLOCKED in %s at (%.1f, %.1f)" % (name, x, y))
     print(
@@ -298,7 +347,9 @@ def _report(placed):
     for i in range(len(names)):
         for j in range(i + 1, len(names)):
             a, b = placed[names[i]][0], placed[names[j]][0]
-            vol = a.intersect(b).Volume()
+            vol = (a.intersect(b).Volume() if measurements is None else
+                   next(row['volume'] for row in measurements['clashes']
+                        if row['a'] == names[i] and row['b'] == names[j]))
             if vol > 1e-3:
                 clash = True
                 print("  ** SOLID clash %s / %s = %.2f mm^3" % (names[i], names[j], vol))
@@ -337,9 +388,34 @@ def build_internal_routes(placed):
     return assy
 
 
-def main():
+def rust_main(output=None):
+    """Write the casing and installed routes from their authoritative fine models."""
+    import _rust_part
+    import foam_numbers
+    output = Path(output) if output is not None else _here.parent
+    output.mkdir(parents=True, exist_ok=True)
+    numbers = foam_numbers.numbers()
+    result = _rust_part.cut('cold-core', 'foam-assembly', numbers, output)
+    casing = [row for row in result['bodies'] if row['name'] in COLORS or row['name'] == 'foam-shell']
+    measurements = casing[0]['assembly_report']
+    measurements['bounds'] = {row['name']: (row['min'], row['max']) for row in casing}
+    _report({row['name']: (None, None) for row in casing}, measurements=measurements)
+    routes_reading = next(row['route_report'] for row in result['bodies'] if 'route_report' in row)
+    fitted = {row['name']: (row['bend'], None) for row in routes_reading['routes']}
+    obstacles = {row['name']: None for row in routes_reading['routes'][0]['blocked']}
+    routes.report_routes(fitted, obstacles, measurements=routes_reading)
+    sys.path.insert(0, str(_hw / 'cold-core-layout'))
+    from _core_presentation import finish
+    finish(output / 'foam-assembly.step', numbers['models'])
+    return result
+
+
+def native_main(output=None):
+    """Construction geometry and reports for native readers and reference runs."""
+    output = Path(output) if output is not None else _here.parent
+    output.mkdir(parents=True, exist_ok=True)
     assy, placed = build()
-    out = _here.parent / "foam-assembly.step"
+    out = output / "foam-assembly.step"
     export_assembly(assy, str(out))
     # AND THE FLUTED SURFACES INTO THE PAYLOAD THE VIEWER READS. The shell and both caps carry a
     # show skin that is in the printed mesh and not in the solid (`cold-core/_show_skin.py`), so
@@ -360,8 +436,20 @@ def main():
     print("-> foam-assembly.step")
     _report(placed)
 
-    export_assembly(build_internal_routes(placed), str(_here.parent / "internal-routes.step"))
+    export_assembly(build_internal_routes(placed), str(output / "internal-routes.step"))
     print("-> internal-routes.step")
+
+
+def main(argv=None):
+    import argparse
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--output', type=Path, help='directory for generated assembly files')
+    parser.add_argument('--native', action='store_true', help='use the construction-geometry builder')
+    args = parser.parse_args(argv)
+    if args.native:
+        native_main(args.output)
+    else:
+        rust_main(args.output)
 
 
 if __name__ == "__main__":
