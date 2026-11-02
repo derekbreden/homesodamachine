@@ -15,5 +15,5 @@ click: x=136.050 y=60.000 z=5.400
 [thin] Specified 2 mm floor and 2.38 mm standing casing section. Derek selected these sections and the 253.4 mm assembled cold-core height. The sampled pair spans the ordinary floor, rather than a cut remnant or a tapered fin. All ten M5 head pads and their wall/floor roots have separate 100% solid deposition modifiers.
 alternatives: A 3 mm floor raises the retained stack by 1 mm or reduces the foam depth by 1 mm; that changes the specified floor and stack. Additional local head-bearing stock is already part of the M5 pads and their solid root regions.
 file: hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step
-click: x=-137.843 y=-82.565 z=0.000
-click: x=-137.843 y=-82.565 z=2.000
+click: x=-136.916 y=-67.227 z=0.000
+click: x=-136.916 y=-67.227 z=2.000

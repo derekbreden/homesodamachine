@@ -1,8 +1,8 @@
 {
   "schema": "enclosure-fit-review/3",
   "scope": "Artifact-bound current enclosure geometry and assembly. Complete native static contact readings, finite mounting stock, cap loading/removal and exact printed quadrant motion are bound separately. WAGO and wire completion follows the published mechanical layout. Physical force, actual spring life, bearing finish and purchased-part tolerances require the physical articles.",
-  "assembly_step_sha256": "49d075a4791460c0c02461bd159d0f352e1d699d0ba5d37db18d3db57f911a40",
-  "assembly_mesh_sha256": "cf83a85e35d9c394882987f1664f7d507be7446c8351f43dee6a7d0f9cd55906",
+  "assembly_step_sha256": "4e5166c4d9d280390cd13dde4280c381343cefb2547a8cba8ec80d59bf07d5a1",
+  "assembly_mesh_sha256": "98d8a1c1c637da00811ef25075231a2a0c5bd7090b6a036c64ada2fa0e3d6341",
   "integration_record": "hardware/mechanical-qualification/enclosure-above-core/retention-integration-review.json",
   "native_contacts": [
     {
