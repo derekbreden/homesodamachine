@@ -6,12 +6,12 @@
   },
   "members": {
     "neofit-bulkhead.step": "2184e37910d99200d94f279cd777914a5b886843388bba8ebf9f99580cf8bf54",
-    "neofit-bulkhead.step.mesh": "1a6c255ded4a65f2fc9c219971a5c84bc63d8aa0f937837a6a669f6b75302d31"
+    "neofit-bulkhead.step.mesh": "da43fdc97323cc39846139be89796877ddc7ada47c5bee95de018054917323ae"
   },
   "fine_payload": {
     "source_step_sha256": "2184e37910d99200d94f279cd777914a5b886843388bba8ebf9f99580cf8bf54",
     "path": "neofit-bulkhead.step.mesh",
-    "sha256": "1a6c255ded4a65f2fc9c219971a5c84bc63d8aa0f937837a6a669f6b75302d31",
+    "sha256": "da43fdc97323cc39846139be89796877ddc7ada47c5bee95de018054917323ae",
     "linear_mm": 0.005,
     "angular_rad": 0.05,
     "producer": "hardware/scripts/_rust_part.py:_tessellate",
@@ -19,14 +19,15 @@
       {
         "name": "neofit-bulkhead",
         "color": [
-          0.13999999784656367,
-          0.13999999784656367,
-          0.14999999780761628
+          0.017389101907610893,
+          0.017389101907610893,
+          0.01960664801299572
         ],
         "vertices": 4040,
         "triangles": 4032,
         "face_ranges": 8
       }
-    ]
+    ],
+    "color_space": "linear-rgb"
   }
 }
