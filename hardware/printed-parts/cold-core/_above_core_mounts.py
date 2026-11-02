@@ -323,6 +323,12 @@ def pump_cradle():
     for cap in d['caps']:
         for pocket in rear_snaps.pockets(dict(cap['snap_station'],outer=wide)):
             body = body.cut(_pump_cap_to_world(pocket, cap))
+    corner = selected['aft_east_corner_chamfer_mm']
+    east, aft = cx+wide, fy+rear[1]
+    clearance = (cq.Workplane('XY',origin=(0.,0.,face-.2))
+        .polyline([(east+.1,aft-corner-.1),(east+.1,aft+.1),
+                   (east-corner-.1,aft+.1)]).close().extrude(cz-face+.4).val())
+    body = body.cut(clearance)
     return body.clean()
 
 

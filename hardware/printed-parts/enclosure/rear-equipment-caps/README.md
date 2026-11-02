@@ -24,6 +24,20 @@ flat and retains the complete 2.6 mm overlap.
 ASSE, Pisco and meter enter their seats 16 mm forward and slide aft. The
 regulator enters directly upward. The caps close after their bodies seat.
 
+Fit the meter cap before the ASSE cap, with back-top ceiling-down on the
+bench and separated from the cold core. Load the meter cap 20 mm west and
+40 mm fore of its station, slide aft, then press east into its catches.
+For removal, disconnect and dress the tubes and leads aside, remove the
+ASSE cap, spread the meter leaves and withdraw 20 mm west. Relax the leaves
+and move the cap 40 mm fore. Opening the meter's lower leaf requires the
+cold core to be absent.
+
+Remove the Pisco cap after the meter and ASSE caps. Spread its leaves,
+lower it 3.6 mm and slide it 45 mm fore with the leaves held open. The fore flank
+exits end at the hook-bearing plane; the solid stops above that plane
+retain the installed cap. Its receiver has full 3 mm side walls. Fit it by
+reversing this path.
+
 The standalone STEP and STL files use the print frame, with one axial end
 on Z0 and spring bending within the layer plane. The appliance uses their installed frames.
 Use the shared PET-GF Tree(auto)/Default support policy. These fits describe
