@@ -13,10 +13,11 @@
     "blade": "Flathead blade no wider than 5 mm and no thicker than 1 mm."
   },
   "insertion_ramp": {
-    "height_mm": 2.0,
-    "inner_solid_nose_mm": 0.6,
+    "height_mm": 1.0,
+    "inner_solid_nose_mm": 1.6,
     "flat_retention_overlap_mm": 2.6,
-    "catch_air_mm": 0.4
+    "catch_air_mm": 0.4,
+    "solid_nose_above_pry_entry_mm": 0.6
   },
   "pisco": {
     "receiver_radial_air_mm": 0.5,
@@ -60,7 +61,8 @@
       "native_radius_mm": 6.35,
       "tested_cavity_radius_mm": 13.058,
       "finding": "The broad stepped receiver envelope extends past the true body shoulder and the low cap bridge misses the hardware. The scan scale is retained; the cavity uses the measured linear profile in its actual installed frame."
-    }
+    },
+    "central_bearing_outlet_setback_mm": 1.0
   },
   "pump": {
     "body_crown_mm": 6.2,
@@ -73,10 +75,10 @@
   "print_orientation": "All five caps stand on an axial end; wing bending lies in the layer plane. Receivers retain parent production orientation.",
   "post_processing": "Retain accessible automatic cavity supports. Remove them with a tiny flathead screwdriver that fits inside the cavity; preserve the hook bearings.",
   "trial_source_sha256": {
-    "hardware/manifold-layout/rear_snaps.py": "7cb545fa4d37b32eb39806ad5e1d1744386cbf3816dd356ce16ef00028c0826b",
-    "hardware/manifold-layout/rear_plumbing.py": "86866affe962942d9b1c88dc2b61a95795d601224661205b9e0c70da37614a6d",
-    "hardware/manifold-layout/above-core.json": "13d3ee90e6efba0bc429e1dad8dfb9f79c3c3d99a6db4c6b198da756ebf749b2",
-    "hardware/printed-parts/cold-core/_above_core_mounts.py": "e03447e1c25bb3c307eed1234dd5ec1f119c54bb0910953d998cb667dad4319d",
+    "hardware/manifold-layout/rear_snaps.py": "1177b591f6cdc74f1e5ba68f4f800b46c35de723d70b7cefe8b50a7ae1a3b907",
+    "hardware/manifold-layout/rear_plumbing.py": "b4a00edd8a642e2796d04505652ec1296ef6d7865ae477a3c1de3fe7f24c7f0b",
+    "hardware/manifold-layout/above-core.json": "a9377dbf138f2d2de1a2816d1158eadca88f32f405066df5a887611511251df0",
+    "hardware/printed-parts/cold-core/_above_core_mounts.py": "1e4db81fbbbf48ac60365de03e037a79ec0941f61037e7187cd7307b5925d8eb",
     "hardware/reference/g-ganen-pump/reference-parameters.json": "3b91bd7ff1216bc5dc8b9806d53f4f2f7bd038323b201c6d6cc6e029e42fc591",
     "hardware/reference/yzmsz-water-regulator/reference-parameters.json": "078df0097af8af534ce1b0701e27d9ea7e109f75af1bcb8a6d5517fe5c810816",
     "hardware/reference/compact-inline-candidates/dimensions.json": "d7df0bb6120d808979aaa5594bacd28925cbd194b775fc94199550aabe2dc161"

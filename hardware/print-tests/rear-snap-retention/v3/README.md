@@ -3,6 +3,8 @@
 Five complete receiver/cap pairs test 2.0 mm spring leaves, R1.5 inside root
 transitions and a centered 5 × 1 mm screwdriver entry beneath each hook.
 The hook's 2.6 mm flat overlap continues on either side of the tool entry.
+A 1.6 mm nose leaves 0.6 mm of solid purchase above the entry; the lead-in
+ramp rises 1 mm to the hook tip.
 Root-to-catch length is 22.25 mm, with a 21.25 mm water-regulator exception;
 the straight wall above the root blend is 20.75 mm and 19.75 mm respectively.
 All five caps stand on an axial end so the wing bending lies in the layer
@@ -22,7 +24,8 @@ its actual installed axis. Receiver radial air is 0.30 mm, cap radial air
 0.25 mm and axial air 0.25 mm. The profile preserves the housing-to-neck
 shoulder; its reduction can enlarge the clearance envelope by at most
 0.06 mm. The cap's central bearing stock reaches the hardware axis while
-the spring leaves retain their independent length. The lowest cap face
+the spring leaves retain their independent length. This central stock ends
+1 mm short of the spring ends beside the outlet release collet. The lowest cap face
 remains Z315.924 mm. [revision.json](revision.json) records the fit
 investigation and the selected dimensions.
 
@@ -43,15 +46,15 @@ All 447 unrelated appliance viewer members retain their exact arrays.
 
 | Printer | Samples | Native estimate | PET-GF | Minimum bead margin |
 | --- | --- | --- | --- | --- |
-| Mark1 | Pump receiver, ASSE pair, PISCO pair | 3 h 13 min | 112.16 g | 86.522 mm |
-| Mark2 | Pump cap, meter pair, water regulator pair | 4 h 24 min | 173.85 g | 96.222 mm |
+| Mark1 | Pump receiver, ASSE pair, PISCO pair | 3 h 14 min | 112.60 g | 86.546 mm |
+| Mark2 | Pump cap, meter pair, water regulator pair | 4 h 23 min | 173.12 g | 96.222 mm |
 
 [print-jobs.json](print-jobs.json) binds the prepared plates and unchanged
 G-code in their print-only archives, and records whether each job has been
 accepted. PET-GF uses three Classic walls, solid cap infill, 15% gyroid
 receiver infill, Tree(auto)/Default supports, 0.20 mm first layers and
 0.24 mm normal layers with localized cooling. First-to-second-layer bead
-overlap is at least 91.5% on Mark1 and 91.1% on Mark2. Textured-plate trims
+overlap is at least 91.3% on Mark1 and 90.9% on Mark2. Textured-plate trims
 emitted in the G-code are Z0.16 and Z0.02 respectively.
 Both plates are prepared. Neither new job has been accepted: Connect drops
 the imports and Studio stops responding during sender setup. The recorded

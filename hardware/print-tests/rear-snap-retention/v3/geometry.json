@@ -6,13 +6,13 @@
     "hook_mm": 2.6,
     "default_leaf_length_mm": 22.25,
     "regulator_leaf_length_mm": 21.25,
-    "catch_gap_mm": 0.4,
-    "hook_nose_land_mm": 0.6,
     "root_radius_mm": 1.5,
     "centered_pry_slot_mm": [
       5.0,
       1.0
-    ]
+    ],
+    "catch_gap_mm": 0.4,
+    "hook_nose_land_mm": 1.6
   },
   "scope": "Full object-fit trial seats and caps. Physical retention, insertion force, fatigue and pump vibration remain to be tested.",
   "families": {
@@ -32,7 +32,7 @@
         "tip": 24.85,
         "ceiling": 25.35,
         "root": 0.0,
-        "nose_land": 0.6,
+        "nose_land": 1.6,
         "root_radius": 1.5,
         "pry_width": 5.0,
         "pry_height": 1.0
@@ -44,8 +44,8 @@
         1.0
       ],
       "pullout_travel_mm": 0.5,
-      "blocked_pullout_intersection_mm3": 25.740000000005857,
-      "effective_horizontal_bearing_mm2": 257.4000000000585,
+      "blocked_pullout_intersection_mm3": 25.74000000000586,
+      "effective_horizontal_bearing_mm2": 257.4000000000586,
       "physical_result": "Awaiting this fit trial.",
       "installed_hardware_overlap": {
         "g-ganen-pump": {
@@ -63,8 +63,8 @@
         -1.0
       ],
       "pullout_travel_mm": 0.5,
-      "blocked_pullout_intersection_mm3": 19.06373993311823,
-      "effective_horizontal_bearing_mm2": 190.6373993311823,
+      "blocked_pullout_intersection_mm3": 19.06373993311824,
+      "effective_horizontal_bearing_mm2": 190.63739933118237,
       "physical_result": "Awaiting this fit trial.",
       "installed_hardware_overlap": {
         "bulkhead-water": {
@@ -98,8 +98,8 @@
         -1.0
       ],
       "pullout_travel_mm": 0.5,
-      "blocked_pullout_intersection_mm3": 5.410227054753058,
-      "effective_horizontal_bearing_mm2": 54.10227054753058,
+      "blocked_pullout_intersection_mm3": 5.4102270547530615,
+      "effective_horizontal_bearing_mm2": 54.102270547530615,
       "physical_result": "Awaiting this fit trial.",
       "installed_hardware_overlap": {
         "gas-regulator": {
@@ -132,7 +132,7 @@
         "tip": 342.81514607709613,
         "ceiling": 343.31514607709613,
         "root": 318.9651460770961,
-        "nose_land": 0.6,
+        "nose_land": 1.6,
         "root_radius": 1.5
       },
       "seated_intersection_mm3": 0.0,
@@ -142,8 +142,8 @@
         -1.0
       ],
       "pullout_travel_mm": 0.5,
-      "blocked_pullout_intersection_mm3": 16.12000000000382,
-      "effective_horizontal_bearing_mm2": 161.2000000000382,
+      "blocked_pullout_intersection_mm3": 16.120000000003824,
+      "effective_horizontal_bearing_mm2": 161.20000000003822,
       "physical_result": "Awaiting this fit trial.",
       "installed_hardware_overlap": {
         "flow-regulator": {
@@ -161,8 +161,8 @@
         -0.0
       ],
       "pullout_travel_mm": 0.5,
-      "blocked_pullout_intersection_mm3": 17.16000000000038,
-      "effective_horizontal_bearing_mm2": 171.6000000000038,
+      "blocked_pullout_intersection_mm3": 17.160000000000373,
+      "effective_horizontal_bearing_mm2": 171.60000000000372,
       "physical_result": "Awaiting this fit trial.",
       "installed_hardware_overlap": {
         "digiten-flow": {
@@ -184,7 +184,7 @@
       "name": "pump-seat",
       "stl": "hardware/print-tests/rear-snap-retention/v3/parts/pump-seat.stl",
       "step": "hardware/print-tests/rear-snap-retention/v3/parts/pump-seat.step",
-      "stl_sha256": "fa61dff232ca7ec64d4bc00fe48ee11a682a71fe822c33f4c9fb46bbfa1fe5a1",
+      "stl_sha256": "95faacd41a214360fdad5f5cf6ed671d8ea8782f3e58eb413fb33fd4eb882e12",
       "bounds_mm": [
         [
           -39.57918167114258,
@@ -197,7 +197,7 @@
           36.02934646606445
         ]
       ],
-      "volume_mm3": 87214.75034282864,
+      "volume_mm3": 87583.00413070788,
       "valid": true,
       "solids": 1,
       "watertight": true,
@@ -207,12 +207,12 @@
       "name": "pump-cap",
       "stl": "hardware/print-tests/rear-snap-retention/v3/parts/pump-cap.stl",
       "step": "hardware/print-tests/rear-snap-retention/v3/parts/pump-cap.step",
-      "stl_sha256": "b9dddd7fdcdcaee595985d1ccfb09e1cdc70c0689a44154a4968052980d63cb3",
+      "stl_sha256": "3ed80fb158d15cc2d3f78d75e83940c7c31dbc7fe104fa515d428dfee01c1d83",
       "bounds_mm": [
         [
           -36.57918167114258,
           -28.029752731323242,
-          6.764366844436154e-12
+          6.821210263296962e-12
         ],
         [
           36.57918167114258,
@@ -220,7 +220,7 @@
           54.5
         ]
       ],
-      "volume_mm3": 62614.61633372703,
+      "volume_mm3": 62782.32633371863,
       "valid": true,
       "solids": 1,
       "watertight": true,
@@ -253,7 +253,7 @@
       "name": "asse-cap",
       "stl": "hardware/print-tests/rear-snap-retention/v3/parts/asse-cap.stl",
       "step": "hardware/print-tests/rear-snap-retention/v3/parts/asse-cap.step",
-      "stl_sha256": "d21dd54a566fca64ef0fd7698942d764e8f14cc17eb49cfb92c5b6467cebfd91",
+      "stl_sha256": "0ff28366e65edebfcb2eb50d26d9617a541bb092208e7b2afbe6c034c6a39f3a",
       "bounds_mm": [
         [
           -25.14813995361328,
@@ -266,7 +266,7 @@
           41.66103744506836
         ]
       ],
-      "volume_mm3": 16726.286894051795,
+      "volume_mm3": 16854.196112883776,
       "valid": true,
       "solids": 1,
       "watertight": true,
@@ -276,7 +276,7 @@
       "name": "pisco-seat",
       "stl": "hardware/print-tests/rear-snap-retention/v3/parts/pisco-seat.stl",
       "step": "hardware/print-tests/rear-snap-retention/v3/parts/pisco-seat.step",
-      "stl_sha256": "3899ce687e50c1d25f0f60466dab6e5462a5629d397e9f00cadd3bf478491721",
+      "stl_sha256": "a690f17045d59b1f4edbb181bbfc4bc4db62c4fa674027e01e75310942ad0b59",
       "bounds_mm": [
         [
           -14.40561580657959,
@@ -289,7 +289,7 @@
           14.5
         ]
       ],
-      "volume_mm3": 16749.200909067044,
+      "volume_mm3": 16608.26927597558,
       "valid": true,
       "solids": 1,
       "watertight": true,
@@ -299,7 +299,7 @@
       "name": "pisco-cap",
       "stl": "hardware/print-tests/rear-snap-retention/v3/parts/pisco-cap.stl",
       "step": "hardware/print-tests/rear-snap-retention/v3/parts/pisco-cap.step",
-      "stl_sha256": "902d19b1fe6d50728c5cf47ea305c27d607273af7636968f82ff934a4c9aba48",
+      "stl_sha256": "8fb47423ba9465ce7c90ba26da7c153cf98b32e12837f67a994ef1076fb67d68",
       "bounds_mm": [
         [
           -14.40561580657959,
@@ -312,7 +312,7 @@
           15.654282569885254
         ]
       ],
-      "volume_mm3": 4103.499503841681,
+      "volume_mm3": 4150.78778051424,
       "valid": true,
       "solids": 1,
       "watertight": true,
@@ -345,7 +345,7 @@
       "name": "regulator-cap",
       "stl": "hardware/print-tests/rear-snap-retention/v3/parts/regulator-cap.stl",
       "step": "hardware/print-tests/rear-snap-retention/v3/parts/regulator-cap.step",
-      "stl_sha256": "8e1b6162aeab004bc8cdd099c8d82cac596945ff8023036f58c6cb0cbb8fd7a8",
+      "stl_sha256": "580767579da95e50a4f85c424c493b351497fcca35c3f1b48a8bac9fb4f6849a",
       "bounds_mm": [
         [
           -13.445504188537598,
@@ -358,7 +358,7 @@
           36.0
         ]
       ],
-      "volume_mm3": 16760.922709661852,
+      "volume_mm3": 16574.204696948753,
       "valid": true,
       "solids": 1,
       "watertight": true,
@@ -368,7 +368,7 @@
       "name": "meter-seat",
       "stl": "hardware/print-tests/rear-snap-retention/v3/parts/meter-seat.stl",
       "step": "hardware/print-tests/rear-snap-retention/v3/parts/meter-seat.step",
-      "stl_sha256": "12facb59debaece6ebd606b14ed83e97883565671de6c4bb0f9f633f4100463c",
+      "stl_sha256": "4bd434a21037376bf099da1686bbad12515b1cf549720a9c7236c92d9c4aa3d4",
       "bounds_mm": [
         [
           -9.225000381469727,
@@ -381,7 +381,7 @@
           54.29999923706055
         ]
       ],
-      "volume_mm3": 34170.95579776866,
+      "volume_mm3": 33862.255790499956,
       "valid": true,
       "solids": 1,
       "watertight": true,
@@ -391,7 +391,7 @@
       "name": "meter-cap",
       "stl": "hardware/print-tests/rear-snap-retention/v3/parts/meter-cap.stl",
       "step": "hardware/print-tests/rear-snap-retention/v3/parts/meter-cap.step",
-      "stl_sha256": "c398da1681afec79a3b61816b1b6f35db012978d356379235124d02ff55d26ae",
+      "stl_sha256": "df1bf9de41cdb74ea8117ea97bfbe8a7486a315aee36a58c29a6964d089eb96f",
       "bounds_mm": [
         [
           -16.924999237060547,
@@ -404,7 +404,7 @@
           38.0
         ]
       ],
-      "volume_mm3": 26892.062388372215,
+      "volume_mm3": 27008.62238080009,
       "valid": true,
       "solids": 1,
       "watertight": true,
@@ -417,13 +417,11 @@
     "pump_origin_z_mm": 247.9479625149461
   },
   "input_sha256": {
-    "hardware/manifold-layout/rear_snaps.py": "7cb545fa4d37b32eb39806ad5e1d1744386cbf3816dd356ce16ef00028c0826b",
-    "hardware/manifold-layout/rear_plumbing.py": "86866affe962942d9b1c88dc2b61a95795d601224661205b9e0c70da37614a6d",
-    "hardware/manifold-layout/above-core.json": "13d3ee90e6efba0bc429e1dad8dfb9f79c3c3d99a6db4c6b198da756ebf749b2",
-    "hardware/printed-parts/cold-core/_above_core_mounts.py": "e03447e1c25bb3c307eed1234dd5ec1f119c54bb0910953d998cb667dad4319d",
-    "hardware/reference/g-ganen-pump/reference-parameters.json": "3b91bd7ff1216bc5dc8b9806d53f4f2f7bd038323b201c6d6cc6e029e42fc591",
-    "hardware/reference/yzmsz-water-regulator/reference-parameters.json": "078df0097af8af534ce1b0701e27d9ea7e109f75af1bcb8a6d5517fe5c810816",
-    "hardware/reference/compact-inline-candidates/dimensions.json": "d7df0bb6120d808979aaa5594bacd28925cbd194b775fc94199550aabe2dc161"
+    "hardware/manifold-layout/rear_snaps.py": "1177b591f6cdc74f1e5ba68f4f800b46c35de723d70b7cefe8b50a7ae1a3b907",
+    "hardware/manifold-layout/rear_plumbing.py": "b4a00edd8a642e2796d04505652ec1296ef6d7865ae477a3c1de3fe7f24c7f0b",
+    "hardware/manifold-layout/above-core.json": "a9377dbf138f2d2de1a2816d1158eadca88f32f405066df5a887611511251df0",
+    "hardware/printed-parts/cold-core/_above_core_mounts.py": "1e4db81fbbbf48ac60365de03e037a79ec0941f61037e7187cd7307b5925d8eb",
+    "hardware/reference/g-ganen-pump/reference-parameters.json": "3b91bd7ff1216bc5dc8b9806d53f4f2f7bd038323b201c6d6cc6e029e42fc591"
   },
-  "elapsed_seconds": 21.156837541027926
+  "elapsed_seconds": 24.4488199170155
 }
