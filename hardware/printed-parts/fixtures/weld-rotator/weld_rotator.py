@@ -19,11 +19,11 @@ tooth zone and leaves the pulley's outer face 0.85 mm beyond the nominal
 every other stationary member stays outside the belt's swept path.
 """
 
+import argparse
 import math
 import sys
 from pathlib import Path
 
-import cadquery as cq
 
 
 _here = Path(__file__).resolve()
@@ -35,18 +35,35 @@ sys.path.insert(0, str(_here.parent))
 sys.path.insert(0, str(_hw / 'printed-parts/cadlib'))
 import fits
 
-from _cadq_export import export_assembly  # noqa: E402
-from _material_base import (  # noqa: E402
-    M_ALUMINIUM,
-    M_COPPER,
-    M_PETGF_BLACK,
-    M_STAINLESS,
-    M_TPU_BLACK,
-    one_body,
-)
 from docgen import substitute_md, substitute_py_comments  # noqa: E402
 
 import _rotator_interface as interface  # noqa: E402
+
+
+if __name__ == "__main__":
+    import _rust_part
+    _rust_part.start()
+
+
+def _native():
+    """Load the retained native construction API when a builder is called."""
+    if "cq" in globals():
+        return
+    import cadquery as cq
+    from _cadq_export import export_assembly
+    import _material_base
+    globals().update(cq=cq, export_assembly=export_assembly)
+    for name in ("M_ALUMINIUM", "M_COPPER", "M_PETGF_BLACK", "M_STAINLESS",
+                 "M_TPU_BLACK", "one_body"):
+        globals()[name] = getattr(_material_base, name)
+
+
+def __getattr__(name):
+    if name not in {"cq", "export_assembly", "M_ALUMINIUM", "M_COPPER",
+                    "M_PETGF_BLACK", "M_STAINLESS", "M_TPU_BLACK", "one_body"}:
+        raise AttributeError(name)
+    _native()
+    return globals()[name]
 
 
 # Stationary footprint — one H2C-bed print, with the tube axis left of centre
@@ -377,6 +394,7 @@ def _ring(section):
 
 
 def _annulus(outer_r: float, inner_r: float, height: float, z0: float = 0.0):
+    _native()
     return (
         cq.Workplane("XY", origin=(0.0, 0.0, z0))
         .circle(outer_r)
@@ -391,6 +409,7 @@ def _radial_cylinder(angle: float,
                      diameter: float,
                      depth: float,
                      inward: bool = True):
+    _native()
     theta = math.radians(angle)
     direction = -1.0 if inward else 1.0
     return cq.Workplane(
@@ -410,6 +429,7 @@ def _teardrop_y(radius: float, x: float, z: float, y0: float, y1: float):
     a round screw or heat-set insert still has its specified fit without an
     unsupported circular crown.
     """
+    _native()
     a = math.radians(GROUND_TEARDROP_ROOF_ANGLE)
     half = radius * math.sin(a)
     tangent = z + radius * math.cos(a)
@@ -436,6 +456,7 @@ def _teardrop_y(radius: float, x: float, z: float, y0: float, y1: float):
 
 
 def _vertical_slot(x0: float, x1: float, y: float, diameter: float, z0: float, h: float):
+    _native()
     r = diameter / 2.0
     body = cq.Workplane("XY", origin=(0.0, 0.0, z0)).box(x1 - x0, diameter, h,
                                                                    centered=(True, True, False))
@@ -448,6 +469,7 @@ def _vertical_slot(x0: float, x1: float, y: float, diameter: float, z0: float, h
 
 
 def _sector(outer_r: float, inner_r: float, half_angle: float, height: float, z0: float):
+    _native()
     reach = outer_r + 5.0
     a = math.radians(half_angle)
     wedge = (
@@ -466,6 +488,7 @@ def _sector(outer_r: float, inner_r: float, half_angle: float, height: float, z0
 def _annular_sector(cx: float, cy: float, outer_r: float, inner_r: float,
                     a0: float, a1: float, z0: float, height: float):
     """Annulus about (cx, cy) kept between angles a0 and a1, counter-clockwise."""
+    _native()
     ring = (
         cq.Workplane("XY", origin=(cx, cy, z0))
         .circle(outer_r)
@@ -493,6 +516,7 @@ def _annular_sector(cx: float, cy: float, outer_r: float, inner_r: float,
 def _belt_solid(center: float, z0: float, z1: float, margin: float = 0.0):
     """The closed belt around both pulleys for a motor at `center`: two wraps
     and two straight spans, from tooth tips to back, grown by `margin`."""
+    _native()
     inner = interface.belt_inner_offset() + margin
     outer = interface.belt_outer_offset() + margin
     a = interface.span_tangent_angle(center)
@@ -536,6 +560,7 @@ def _belt_in_carriage_frame(center: float, z0: float, z1: float, margin: float =
 def _counterbored_m3(x: float, y: float, z_head: float, through: float, from_below: bool):
     """M3 shank plus head recess.  `z_head` is the head's seating face; the
     shank runs `through` millimetres away from the head."""
+    _native()
     if from_below:
         shank = (
             cq.Workplane("XY", origin=(x, y, z_head))
@@ -563,6 +588,7 @@ def _polar(radius: float, angle: float):
 
 
 def build_base():
+    _native()
     base = (
         cq.Workplane("XY")
         .box(BASE_X, BASE_Y, BASE_Z, centered=(True, True, False))
@@ -631,6 +657,7 @@ def build_base():
 
 
 def build_base_foot():
+    _native()
     foot = (
         cq.Workplane("XY")
         .box(BASE_FOOT_X, BASE_FOOT_Y, BASE_FOOT_H,
@@ -664,6 +691,7 @@ def _groove_half_width(radius: float) -> float:
 
 
 def _pulley_grooves():
+    _native()
     r_out = PULLEY_TIP_R + GROOVE_OVERCUT
     r_in = PULLEY_ROOT_R - GROOVE_UNDERCUT
     groove = (
@@ -696,6 +724,7 @@ def _toothed_ring():
 
 
 def build_turntable():
+    _native()
     platter = _annulus(PLATTER_R, SERVICE_BORE_D / 2.0,
                        PLATTER_Z1 - PLATTER_Z0, PLATTER_Z0)
     pedestal = _annulus(PEDESTAL_R, SERVICE_BORE_D / 2.0,
@@ -736,6 +765,7 @@ def build_turntable():
 
 
 def build_race_ring():
+    _native()
     ring = _annulus(RACE_RING_OUTER_R, RACE_RING_INNER_R, RACE_RING_H, RACE_RING_Z0)
     race = cq.Workplane(
         obj=cq.Solid.makeTorus(
@@ -782,6 +812,7 @@ def build_pulley_coupon():
 
 
 def build_cage():
+    _native()
     cage = _annulus(CAGE_OUTER_R, CAGE_INNER_R, CAGE_H, CAGE_Z)
     points = [
         _polar(BALL_RACE_R, 360.0 * i / BALL_COUNT) for i in range(BALL_COUNT)
@@ -796,6 +827,7 @@ def build_cage():
 
 
 def build_nest():
+    _native()
     base = _annulus(NEST_OD / 2.0, NEST_CENTER_BORE_D / 2.0, NEST_BASE_H)
     socket_inner_r = NEST_CENTER_BORE_D / 2.0
     socket_outer_r = (REGISTER_OD + REGISTER_SLIP) / 2.0
@@ -861,6 +893,7 @@ def build_nest():
 
 
 def build_motor_tower():
+    _native()
     tower = None
     for sign in (-1.0, 1.0):
         foot = (
@@ -927,6 +960,7 @@ def _motor_mount_screws(offset: float = 0.0):
     """The two rear flange screws as installed, for a carriage displaced
     `offset` along X.  They run from the countersink's top face up through the
     motor's flange holes into the square nuts in its corner channels."""
+    _native()
     screws = None
     for sign in (-1.0, 1.0):
         screw = cq.Workplane(
@@ -943,6 +977,7 @@ def _motor_mount_screws(offset: float = 0.0):
 
 
 def build_motor_carriage():
+    _native()
     center = MOTOR_CENTER_NOMINAL
     x_mid = (CARRIAGE_X0 + CARRIAGE_X1) / 2.0
     arms = (
@@ -1036,6 +1071,7 @@ def build_motor_carriage():
 
 
 def build_motor_clamp_pad():
+    _native()
     pad = (
         cq.Workplane("XY")
         .box(MOTOR_CLAMP_PAD_X, MOTOR_CLAMP_PAD_Y, MOTOR_CLAMP_PAD_Z,
@@ -1055,6 +1091,7 @@ def build_motor_clamp_pad():
 
 
 def build_ground_tower():
+    _native()
     foot = (
         cq.Workplane("XY", origin=((GROUND_FOOT_X0 + GROUND_FOOT_X1) / 2.0,
                                     (GROUND_FOOT_Y0 + GROUND_FOOT_Y1) / 2.0,
@@ -1099,6 +1136,7 @@ def build_ground_tower():
 
 
 def build_ground_arm():
+    _native()
     pad = (
         cq.Workplane("XY", origin=((GROUND_PAD_X0 + GROUND_PAD_X1) / 2.0,
                                     (GROUND_PAD_Y0 + GROUND_PAD_Y1) / 2.0,
@@ -1237,6 +1275,7 @@ def build_ground_arm():
 
 
 def build_ground_shoe_proxy():
+    _native()
     return (
         cq.Workplane("XY", origin=((GROUND_SHOE_BACK_X + GROUND_SHOE_FRONT_X) / 2.0,
                                     0.0,
@@ -1249,6 +1288,7 @@ def build_ground_shoe_proxy():
 
 
 def build_motor_proxy(center: float = MOTOR_CENTER_NOMINAL):
+    _native()
     body = (
         cq.Workplane("XY", origin=(center, 0.0, MOTOR_FACE_Z))
         .box(interface.MOTOR_FRAME, interface.MOTOR_FRAME,
@@ -1271,6 +1311,7 @@ def build_motor_proxy(center: float = MOTOR_CENTER_NOMINAL):
 
 
 def build_motor_pulley_proxy(center: float = MOTOR_CENTER_NOMINAL):
+    _native()
     flange_h = interface.MOTOR_PULLEY_FLANGE_LENGTH
     core = (
         cq.Workplane("XY", origin=(center, 0.0, MOTOR_LAND_Z0))
@@ -1295,6 +1336,7 @@ def build_belt_proxy(center: float = MOTOR_CENTER_NOMINAL):
 
 
 def build_tube_proxy():
+    _native()
     return (
         cq.Workplane("XY", origin=(0.0, 0.0, NEST_SEAT_Z + NEST_BASE_H))
         .circle(interface.TUBE_OD / 2.0)
@@ -1304,6 +1346,7 @@ def build_tube_proxy():
 
 
 def build_balls_proxy():
+    _native()
     balls = []
     for i in range(BALL_COUNT):
         x, y = _polar(BALL_RACE_R, 360.0 * i / BALL_COUNT)
@@ -1329,6 +1372,7 @@ def _overlap(a, b) -> float:
 
 
 def selftest():
+    _native()
     parts = {
         "base": build_base(),
         "base-foot": build_base_foot(),
@@ -1577,6 +1621,7 @@ def selftest():
 
 
 def _assembly(parts):
+    _native()
     assembly = cq.Assembly(name="weld-rotator")
     for index, (x, y) in enumerate(BASE_FOOT_CENTERS):
         assembly.add(
@@ -1623,8 +1668,11 @@ def _assembly(parts):
     return assembly
 
 
-def main():
+def _native_main(output=None):
+    _native()
     parts = selftest()
+    out = Path(output) if output is not None else _here.parent
+    out.mkdir(parents=True, exist_ok=True)
     outputs = {
         "base": "weld-rotator-base.step",
         "base-foot": "weld-rotator-base-foot.step",
@@ -1643,19 +1691,52 @@ def main():
     for name, filename in outputs.items():
         export_assembly(
             one_body(parts[name], name, M_PETGF_BLACK),
-            str(_here.parent / filename),
+            str(out / filename),
         )
         print(f"-> {filename}")
 
     export_assembly(
         one_body(parts["ground-shoe"], "c110-ground-shoe", M_COPPER),
-        str(_here.parent / "weld-rotator-ground-shoe.step"),
+        str(out / "weld-rotator-ground-shoe.step"),
     )
     print("-> weld-rotator-ground-shoe.step")
 
-    export_assembly(_assembly(parts), str(_here.parent / "weld-rotator-assembly.step"))
+    export_assembly(_assembly(parts), str(out / "weld-rotator-assembly.step"))
     print("-> weld-rotator-assembly.step")
 
+    _document()
+
+    for name, part in parts.items():
+        bb = part.val().BoundingBox()
+        print(
+            f"{name:14s} {bb.xlen:7.2f} × {bb.ylen:7.2f} × {bb.zlen:7.2f} mm  "
+            f"{part.val().Volume() / 1000.0:8.1f} cm³"
+        )
+
+
+
+def numbers():
+    """The authored dimensions, source material colors and display rule."""
+    import _rust_part
+    _rust_part.start()
+    import _material_base
+    from _payload_rules import LINEAR_DEFLECTION_RATIO
+    from _mesh_payload import ANGULAR_DEFLECTION
+    values = {key: value for key, value in vars(interface).items()
+              if key.isupper() and isinstance(value, (int, float, tuple))}
+    values.update({key: value for key, value in globals().items()
+                   if key.isupper() and isinstance(value, (int, float, tuple))})
+    # Deferred project colors expose the same stored linear RGBA as OCCT.
+    from _materials import linear
+    values["colors"] = {name: list(linear(getattr(_material_base, name)))
+                        for name in ("M_ALUMINIUM", "M_COPPER", "M_PETGF_BLACK",
+                                     "M_STAINLESS", "M_TPU_BLACK")}
+    values["presentation_ratio"] = LINEAR_DEFLECTION_RATIO
+    values["presentation_angle"] = ANGULAR_DEFLECTION
+    return values
+
+
+def _document():
     pilot_clearance = (interface.TUBE_ID - PILOT_OD) / 2.0
     outer_clearance = (OUTER_BORE_D - interface.TUBE_OD) / 2.0
     ball_pitch = 2.0 * math.pi * BALL_RACE_R / BALL_COUNT
@@ -1721,17 +1802,27 @@ def main():
     substitute_md(_here.parent / "README.md", variables=variables)
     print("-> README.md")
 
-    for name, part in parts.items():
-        bb = part.val().BoundingBox()
-        print(
-            f"{name:14s} {bb.xlen:7.2f} × {bb.ylen:7.2f} × {bb.zlen:7.2f} mm  "
-            f"{part.val().Volume() / 1000.0:8.1f} cm³"
-        )
+
+
+def main(output=None, native=False):
+    if native:
+        return _native_main(output)
+    import _rust_part
+    out = Path(output) if output is not None else _here.parent
+    out.mkdir(parents=True, exist_ok=True)
+    result = _rust_part.cut("tooling", "weld-rotator", numbers(), out)
+    _document()
+    print(f"-> weld rotator: {len(result['files'])} files")
 
 
 if __name__ == "__main__":
-    if len(sys.argv) > 1 and sys.argv[1] == "selftest":
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("command", nargs="?", choices=["selftest"])
+    parser.add_argument("--native", action="store_true")
+    parser.add_argument("--output", type=Path)
+    options = parser.parse_args()
+    if options.command == "selftest":
         selftest()
         print("weld rotator selftest: pass")
     else:
-        main()
+        main(options.output, options.native)

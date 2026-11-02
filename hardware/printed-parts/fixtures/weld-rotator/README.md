@@ -23,21 +23,23 @@ adjustment and never a reprint.
 
 | File | Qty | Function |
 |---|---:|---|
-| `weld-rotator-base.step` | 1 | Stationary bed, lower bearing race, bench-clamp holes, motor-tower and ground-tower inserts |
-| `weld-rotator-base-foot.step` | 4 | Raises the base above the bench without obstructing the lower-port service path |
-| `weld-rotator-motor-tower.step` | 1 | Two rails and a rear wall outside the belt's swept path; carries the carriage on four M3 inserts |
-| `weld-rotator-motor-carriage.step` | 1 | Sliding pilot skin, flange-bolt stations and clamp walls for the purchased 23HS30-2804S motor |
-| `weld-rotator-motor-clamp-pad.step` | 2 | Load-spreading pads for the carriage's four M3 side screws |
-| `weld-rotator-ground-tower.step` | 1 | Stationary support for the continuity shoe |
-| `weld-rotator-ground-arm.step` | 1 | Replaceable [5.0](WR_GROUND_BEAM_T) mm in-plane leaf spring that holds the copper shoe on the tube |
-| `weld-rotator-turntable-90t.step` | 1 | Moving disk, 90T pulley, nest register, purge bore; flat underside carries the race ring and spool |
-| `weld-rotator-race-ring.step` | 1 | Upper bearing race, printed groove-up and screwed groove-down to the turntable |
-| `weld-rotator-spool.step` | 1 | Hub and lift-catch flange, inserted through the base and screwed up into the turntable |
-| `weld-rotator-pulley-coupon.step` | 1 first | Twelve grooves and both flanges; verifies the actual belt before the turntable print |
-| `weld-rotator-ball-cage.step` | 1 | Spaces the [36](WR_BALLS) stock Ø[10](WR_BALL_D) mm PP balls |
-| `weld-rotator-tube-nest.step` | 1 | Replaceable dual-surface register for the 5-inch tube end |
+| `weld-rotator-base.stl` | 1 | Stationary bed, lower bearing race, bench-clamp holes, motor-tower and ground-tower inserts |
+| `weld-rotator-base-foot.stl` | 4 | Raises the base above the bench without obstructing the lower-port service path |
+| `weld-rotator-motor-tower.stl` | 1 | Two rails and a rear wall outside the belt's swept path; carries the carriage on four M3 inserts |
+| `weld-rotator-motor-carriage.stl` | 1 | Sliding pilot skin, flange-bolt stations and clamp walls for the purchased 23HS30-2804S motor |
+| `weld-rotator-motor-clamp-pad.stl` | 2 | Load-spreading pads for the carriage's four M3 side screws |
+| `weld-rotator-ground-tower.stl` | 1 | Stationary support for the continuity shoe |
+| `weld-rotator-ground-arm.stl` | 1 | Replaceable [5.0](WR_GROUND_BEAM_T) mm in-plane leaf spring that holds the copper shoe on the tube |
+| `weld-rotator-turntable-90t.stl` | 1 | Moving disk, 90T pulley, nest register, purge bore; flat underside carries the race ring and spool |
+| `weld-rotator-race-ring.stl` | 1 | Upper bearing race, printed groove-up and screwed groove-down to the turntable |
+| `weld-rotator-spool.stl` | 1 | Hub and lift-catch flange, inserted through the base and screwed up into the turntable |
+| `weld-rotator-pulley-coupon.stl` | 1 first | Twelve grooves and both flanges; verifies the actual belt before the turntable print |
+| `weld-rotator-ball-cage.stl` | 1 | Spaces the [36](WR_BALLS) stock Ø[10](WR_BALL_D) mm PP balls |
+| `weld-rotator-tube-nest.stl` | 1 | Replaceable dual-surface register for the 5-inch tube end |
 | `weld-rotator-ground-shoe.step` | 1 C110 | [6](WR_GROUND_SHOE_T) × [25](WR_GROUND_SHOE_W) × [50](WR_GROUND_SHOE_Z) mm stationary contact: one crosscut from the acquired nominal 1/4 × 2 inch bar, with the stock width stood vertically |
 | `weld-rotator-assembly.step` | — | Reference assembly with tube, balls, belt, motor, and 20T pulley proxies |
+The STLs retain each part's authored print frame. Each has a sibling STEP and
+fine model; the assembly pairs its fine model with a separate display surface.
 
 All thirteen printable shapes are PET-GF. The base is deliberately a single
 large print: the [165](WR_BALL_RACE) mm race and the motor-tower mounting
