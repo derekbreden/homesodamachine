@@ -45,25 +45,32 @@ def write(bodies, path, document=None, *, preserve_partitions=False):
         write_npz(f, items)
 
 
-def load(path, *, snap=True, presentation=False):
+def load(path, *, snap=True, presentation=False, indices=None):
     """{name: (shape, linear rgb or None)}, in the order they were written. A name written
     for several solids comes back as one compound of them. `snap=False` retains the exact f64
     coordinates of an already placed model. `presentation=True` also carries its
-    explicitly bound display surfaces through placement and export."""
+    explicitly bound display surfaces through placement and export. `indices`
+    selects archive entries in their source order without reading other geometry."""
     from .imports import load_model
     from .solids import MeshCompound
     from .write import model_identity
     if presentation and snap:
         raise ValueError("a paired presentation requires snap=False")
-    solids = load_model(path, snap=snap)
+    selected = None if indices is None else set(indices)
+    solids = load_model(path, snap=snap, indices=selected)
     if presentation:
         from .presentation import surfaces
         shown = surfaces(path)
         if shown is not None:
+            if selected is not None:
+                shown = [surface for i, surface in enumerate(shown) if i in selected]
             for solid, surface in zip(solids, shown, strict=True):
                 solid._presentation = surface
     out = {}
-    for s, (name, rgb) in zip(solids, model_identity(path)):
+    identity = model_identity(path)
+    if selected is not None:
+        identity = [row for i, row in enumerate(identity) if i in selected]
+    for s, (name, rgb) in zip(solids, identity):
         out.setdefault(name, ([], rgb))[0].append(s)
     return {name: (ss[0] if len(ss) == 1 else MeshCompound(ss), rgb) for name, (ss, rgb) in out.items()}
 
