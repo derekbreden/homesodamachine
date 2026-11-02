@@ -220,9 +220,6 @@ IMPLICIT_SOLIDS = {
         "hardware/printed-parts/zone-c/funnel/cradle-trial/test-receiver.step.mesh",
         "hardware/printed-parts/zone-c/funnel/cradle-trial/test-cradle.step.mesh",
     ),
-    "hardware/printed-parts/enclosure/asse-drip-pan/asse_drip_pan.py": (
-        "hardware/printed-parts/enclosure/asse-drip-pan/asse-drip-pan.stl",
-    ),
     "hardware/printed-parts/enclosure/display-cover/display_cover.py": (
         "hardware/printed-parts/enclosure/display-cover/display-cover.stl",
     ),

@@ -59,7 +59,6 @@ genrule(
         "pysrc/hardware/scripts/_document_export.py",
         "pysrc/hardware/scripts/_material_base.py",
         "pysrc/hardware/scripts/_materials.py",
-        "pysrc/hardware/scripts/_measuring.py",
         "pysrc/hardware/scripts/_meshes.py",
         "pysrc/hardware/scripts/_overlap.py",
         "pysrc/hardware/scripts/_realized.py",
@@ -193,7 +192,6 @@ genrule(
         "pysrc/hardware/scripts/_document_export.py",
         "pysrc/hardware/scripts/_material_base.py",
         "pysrc/hardware/scripts/_materials.py",
-        "pysrc/hardware/scripts/_measuring.py",
         "pysrc/hardware/scripts/_meshes.py",
         "pysrc/hardware/scripts/_overlap.py",
         "pysrc/hardware/scripts/_realized.py",
@@ -710,7 +708,6 @@ genrule(
         "pysrc/hardware/scripts/_facts.py",
         "pysrc/hardware/scripts/_material_base.py",
         "pysrc/hardware/scripts/_materials.py",
-        "pysrc/hardware/scripts/_measuring.py",
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_meshes.py",
         "pysrc/hardware/scripts/_occt_color.py",
@@ -1083,7 +1080,6 @@ genrule(
         "pysrc/hardware/scripts/_document_export.py",
         "pysrc/hardware/scripts/_material_base.py",
         "pysrc/hardware/scripts/_materials.py",
-        "pysrc/hardware/scripts/_measuring.py",
         "pysrc/hardware/scripts/_meshes.py",
         "pysrc/hardware/scripts/_overlap.py",
         "pysrc/hardware/scripts/_realized.py",
@@ -1456,7 +1452,6 @@ genrule(
         "pysrc/hardware/scripts/_facts.py",
         "pysrc/hardware/scripts/_material_base.py",
         "pysrc/hardware/scripts/_materials.py",
-        "pysrc/hardware/scripts/_measuring.py",
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_meshes.py",
         "pysrc/hardware/scripts/_occt_color.py",
@@ -4501,7 +4496,6 @@ genrule(
         "pysrc/hardware/scripts/_machine.py",
         "pysrc/hardware/scripts/_material_base.py",
         "pysrc/hardware/scripts/_materials.py",
-        "pysrc/hardware/scripts/_measuring.py",
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_meshes.py",
         "pysrc/hardware/scripts/_occt_color.py",
@@ -4550,10 +4544,14 @@ genrule(
         "hardware/wiring/installed/wire_components.rs",
         "pysrc/hardware/wiring/installed/wire_geometry.py",
         "hardware/wiring/installed/wire_geometry.rs",
-        "tools/bazel/graph.json",
+        ":support/enclosure-assembly-graph.json",
         "pysrc/tools/docgen/__init__.py",
         "tools/hsm/Cargo.lock",
         "tools/hsm/Cargo.toml",
+        "tools/hsm/geometry/Cargo.toml",
+        "tools/hsm/geometry/src/lib.rs",
+        "tools/hsm/geometry/src/payload.rs",
+        "tools/hsm/geometry/src/queries.rs",
         "tools/hsm/kernel/Cargo.toml",
         "tools/hsm/kernel/src/boolean.rs",
         "tools/hsm/kernel/src/build.rs",
@@ -4693,6 +4691,7 @@ rm -rf work-enclosure-assembly
 for f in $(SRCS); do
   case $$f in
     */node_modules/*) continue;;
+    */bin/support/enclosure-assembly-graph.json) t=tools/bazel/graph.json;;
     */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
     */pysrc/*) t=$${f##*/pysrc/};;
     *) t=$$f;;
@@ -4974,7 +4973,6 @@ genrule(
         "pysrc/hardware/scripts/_document_export.py",
         "pysrc/hardware/scripts/_material_base.py",
         "pysrc/hardware/scripts/_materials.py",
-        "pysrc/hardware/scripts/_measuring.py",
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_meshes.py",
         "pysrc/hardware/scripts/_occt_color.py",
@@ -5005,6 +5003,10 @@ genrule(
         "pysrc/tools/docgen/__init__.py",
         "tools/hsm/Cargo.lock",
         "tools/hsm/Cargo.toml",
+        "tools/hsm/geometry/Cargo.toml",
+        "tools/hsm/geometry/src/lib.rs",
+        "tools/hsm/geometry/src/payload.rs",
+        "tools/hsm/geometry/src/queries.rs",
         "tools/hsm/kernel/Cargo.toml",
         "tools/hsm/kernel/src/boolean.rs",
         "tools/hsm/kernel/src/build.rs",
@@ -5162,6 +5164,10 @@ genrule(
         "pysrc/tools/docgen/__init__.py",
         "tools/hsm/Cargo.lock",
         "tools/hsm/Cargo.toml",
+        "tools/hsm/geometry/Cargo.toml",
+        "tools/hsm/geometry/src/lib.rs",
+        "tools/hsm/geometry/src/payload.rs",
+        "tools/hsm/geometry/src/queries.rs",
         "tools/hsm/kernel/Cargo.toml",
         "tools/hsm/kernel/src/boolean.rs",
         "tools/hsm/kernel/src/build.rs",
@@ -8068,7 +8074,6 @@ genrule(
         "pysrc/hardware/scripts/_facts.py",
         "pysrc/hardware/scripts/_material_base.py",
         "pysrc/hardware/scripts/_materials.py",
-        "pysrc/hardware/scripts/_measuring.py",
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_meshes.py",
         "pysrc/hardware/scripts/_occt_color.py",
@@ -8139,87 +8144,6 @@ D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.
 HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/enclosure/_enclosure_dimensions.py > /dev/null
 copy_file hardware/printed-parts/enclosure/README.figures.json "$$O0"
 copy_file hardware/printed-parts/enclosure/README.md "$$O1"
-""",
-)
-
-genrule(
-    name = "asse-drip-pan",
-    srcs = [
-        "pysrc/hardware/printed-parts/cadlib/fits.py",
-        "pysrc/hardware/printed-parts/cadlib/overhang_round.py",
-        "hardware/printed-parts/enclosure/asse-drip-pan/README.md",
-        "pysrc/hardware/printed-parts/enclosure/asse-drip-pan/asse_drip_pan.py",
-        "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
-        "pysrc/hardware/reference/shutao-moisture-plate/shutao_moisture_plate.py",
-        "pysrc/hardware/scripts/_cadq_export.py",
-        "pysrc/hardware/scripts/_document_export.py",
-        "pysrc/hardware/scripts/_material_base.py",
-        "pysrc/hardware/scripts/_materials.py",
-        "pysrc/hardware/scripts/_realized.py",
-        "pysrc/hardware/scripts/_run_lock.py",
-        "pysrc/hardware/scripts/_run_slots.py",
-        "pysrc/tools/docgen/__init__.py",
-        "tools/hsm/run-slots.defaults.json",
-        "tools/run-slots.mjs",
-        "pysrc/tools/run.py",
-    ] + glob(
-        [
-            "hardware/printed-parts/enclosure/asse-drip-pan/README.figures.json",
-        ],
-        allow_empty = True,
-    ),
-    outs = [
-        "out/asse-drip-pan/hardware/printed-parts/enclosure/asse-drip-pan/asse-drip-pan.step",
-        "out/asse-drip-pan/hardware/printed-parts/enclosure/asse-drip-pan/asse-drip-pan.stl",
-        "out/asse-drip-pan/hardware/printed-parts/enclosure/asse-drip-pan/README.figures.json",
-        "out/asse-drip-pan/hardware/printed-parts/enclosure/asse-drip-pan/README.md",
-    ],
-    cmd = """
-set -e
-case "$$(uname -s)" in
-  Darwin)
-    copy_mask=$$((8#$$(umask)))
-    copy_bits=("" x w wx r rx rw rwx)
-    copy_mode="u-$${copy_bits[$$((copy_mask >> 6 & 7))]},g-$${copy_bits[$$((copy_mask >> 3 & 7))]},o-$${copy_bits[$$((copy_mask & 7))]}"
-    copy_file() {
-      local copy_dest="$${!#}" copy_target copy_permissions="$$copy_mode"
-      if [ -e "$$copy_dest" ] || [ -L "$$copy_dest" ]; then
-        if [ ! -f "$$copy_dest" ] || [ -L "$$copy_dest" ]; then cp "$$@"; return; fi
-        copy_permissions=$$(stat -f %Lp "$$copy_dest")
-        copy_target=$$(mktemp "$$copy_dest.hsm-copy.XXXXXX")
-      else copy_target="$$copy_dest"; fi
-      if cp -c "$${@:1:$$(( $$# - 1 ))}" "$$copy_target" 2>/dev/null; then
-        chmod "$$copy_permissions" "$$copy_target"
-        touch "$$copy_target"
-        if [ "$$copy_target" != "$$copy_dest" ]; then mv -f "$$copy_target" "$$copy_dest"; fi
-      else rm -f "$$copy_target"; cp "$$@"; fi
-    };;
-  *) copy_file() { cp "$$@"; };;
-esac
-O0=$$PWD/$(location out/asse-drip-pan/hardware/printed-parts/enclosure/asse-drip-pan/asse-drip-pan.step)
-O1=$$PWD/$(location out/asse-drip-pan/hardware/printed-parts/enclosure/asse-drip-pan/asse-drip-pan.stl)
-O2=$$PWD/$(location out/asse-drip-pan/hardware/printed-parts/enclosure/asse-drip-pan/README.figures.json)
-O3=$$PWD/$(location out/asse-drip-pan/hardware/printed-parts/enclosure/asse-drip-pan/README.md)
-for f in $(SRCS); do
-  case $$f in
-    */node_modules/*) continue;;
-    */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
-    */pysrc/*) t=$${f##*/pysrc/};;
-    *) t=$$f;;
-  esac
-  mkdir -p "work/$$(dirname "$$t")"; copy_file -L "$$f" "work/$$t"
-done
-for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
-  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
-done
-cd work
-ln -sfn $$HSM_WORKSPACE/.cache .cache
-D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/enclosure/asse-drip-pan/asse_drip_pan.py > /dev/null
-copy_file hardware/printed-parts/enclosure/asse-drip-pan/asse-drip-pan.step "$$O0"
-copy_file hardware/printed-parts/enclosure/asse-drip-pan/asse-drip-pan.stl "$$O1"
-copy_file hardware/printed-parts/enclosure/asse-drip-pan/README.figures.json "$$O2"
-copy_file hardware/printed-parts/enclosure/asse-drip-pan/README.md "$$O3"
 """,
 )
 
@@ -8750,356 +8674,6 @@ copy_file hardware/printed-parts/enclosure/display-cover/display-cover.stl "$$O4
 copy_file hardware/printed-parts/enclosure/display-cover/README.figures.json "$$O5"
 copy_file hardware/printed-parts/enclosure/display-cover/README.md "$$O6"
 cd .. && rm -rf work-display-cover
-""",
-)
-
-genrule(
-    name = "cover-reach-trial",
-    srcs = [
-        "pysrc/hardware/printed-parts/cadlib/fits.py",
-        "pysrc/hardware/printed-parts/enclosure/display-cover/display_cover.py",
-        "pysrc/hardware/printed-parts/enclosure/display-cover/reach-trial/cover_reach_trial.py",
-        "pysrc/hardware/printed-parts/enclosure/enclosure/_display_retention.py",
-        "pysrc/hardware/printed-parts/enclosure/enclosure/_display_wing_interface.py",
-        "pysrc/hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py",
-        "pysrc/hardware/printed-parts/enclosure/enclosure/_nameplate_interface.py",
-        "pysrc/hardware/printed-parts/enclosure/enclosure/_swept_top.py",
-        "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
-        "pysrc/hardware/scripts/_cadq_export.py",
-        "pysrc/hardware/scripts/_document_export.py",
-        "pysrc/hardware/scripts/_material_base.py",
-        "pysrc/hardware/scripts/_materials.py",
-        "pysrc/hardware/scripts/_mesh_payload.py",
-        "pysrc/hardware/scripts/_occt_color.py",
-        "pysrc/hardware/scripts/_payload_rules.py",
-        "pysrc/hardware/scripts/_run_lock.py",
-        "pysrc/hardware/scripts/_run_slots.py",
-        "pysrc/hardware/scripts/_stated_bounds.py",
-        "pysrc/hardware/scripts/flute_payload.py",
-        "pysrc/tools/docgen/__init__.py",
-        "tools/hsm/run-slots.defaults.json",
-        "tools/run-slots.mjs",
-        "pysrc/tools/run.py",
-    ],
-    outs = [
-        "out/cover-reach-trial/hardware/printed-parts/enclosure/display-cover/reach-trial/display-cover-reach-05.step",
-        "out/cover-reach-trial/hardware/printed-parts/enclosure/display-cover/reach-trial/display-cover-reach-05.step.mesh",
-        "out/cover-reach-trial/hardware/printed-parts/enclosure/display-cover/reach-trial/display-cover-reach-05.stl",
-        "out/cover-reach-trial/hardware/printed-parts/enclosure/display-cover/reach-trial/display-cover-reach-10.step",
-        "out/cover-reach-trial/hardware/printed-parts/enclosure/display-cover/reach-trial/display-cover-reach-10.step.mesh",
-        "out/cover-reach-trial/hardware/printed-parts/enclosure/display-cover/reach-trial/display-cover-reach-10.stl",
-    ],
-    cmd = """
-set -e
-case "$$(uname -s)" in
-  Darwin)
-    copy_mask=$$((8#$$(umask)))
-    copy_bits=("" x w wx r rx rw rwx)
-    copy_mode="u-$${copy_bits[$$((copy_mask >> 6 & 7))]},g-$${copy_bits[$$((copy_mask >> 3 & 7))]},o-$${copy_bits[$$((copy_mask & 7))]}"
-    copy_file() {
-      local copy_dest="$${!#}" copy_target copy_permissions="$$copy_mode"
-      if [ -e "$$copy_dest" ] || [ -L "$$copy_dest" ]; then
-        if [ ! -f "$$copy_dest" ] || [ -L "$$copy_dest" ]; then cp "$$@"; return; fi
-        copy_permissions=$$(stat -f %Lp "$$copy_dest")
-        copy_target=$$(mktemp "$$copy_dest.hsm-copy.XXXXXX")
-      else copy_target="$$copy_dest"; fi
-      if cp -c "$${@:1:$$(( $$# - 1 ))}" "$$copy_target" 2>/dev/null; then
-        chmod "$$copy_permissions" "$$copy_target"
-        touch "$$copy_target"
-        if [ "$$copy_target" != "$$copy_dest" ]; then mv -f "$$copy_target" "$$copy_dest"; fi
-      else rm -f "$$copy_target"; cp "$$@"; fi
-    };;
-  *) copy_file() { cp "$$@"; };;
-esac
-O0=$$PWD/$(location out/cover-reach-trial/hardware/printed-parts/enclosure/display-cover/reach-trial/display-cover-reach-05.step)
-O1=$$PWD/$(location out/cover-reach-trial/hardware/printed-parts/enclosure/display-cover/reach-trial/display-cover-reach-05.step.mesh)
-O2=$$PWD/$(location out/cover-reach-trial/hardware/printed-parts/enclosure/display-cover/reach-trial/display-cover-reach-05.stl)
-O3=$$PWD/$(location out/cover-reach-trial/hardware/printed-parts/enclosure/display-cover/reach-trial/display-cover-reach-10.step)
-O4=$$PWD/$(location out/cover-reach-trial/hardware/printed-parts/enclosure/display-cover/reach-trial/display-cover-reach-10.step.mesh)
-O5=$$PWD/$(location out/cover-reach-trial/hardware/printed-parts/enclosure/display-cover/reach-trial/display-cover-reach-10.stl)
-for f in $(SRCS); do
-  case $$f in
-    */node_modules/*) continue;;
-    */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
-    */pysrc/*) t=$${f##*/pysrc/};;
-    *) t=$$f;;
-  esac
-  mkdir -p "work/$$(dirname "$$t")"; copy_file -L "$$f" "work/$$t"
-done
-for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
-  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
-done
-cd work
-ln -sfn $$HSM_WORKSPACE/.cache .cache
-D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/enclosure/display-cover/reach-trial/cover_reach_trial.py > /dev/null
-copy_file hardware/printed-parts/enclosure/display-cover/reach-trial/display-cover-reach-05.step "$$O0"
-copy_file hardware/printed-parts/enclosure/display-cover/reach-trial/display-cover-reach-05.step.mesh "$$O1"
-copy_file hardware/printed-parts/enclosure/display-cover/reach-trial/display-cover-reach-05.stl "$$O2"
-copy_file hardware/printed-parts/enclosure/display-cover/reach-trial/display-cover-reach-10.step "$$O3"
-copy_file hardware/printed-parts/enclosure/display-cover/reach-trial/display-cover-reach-10.step.mesh "$$O4"
-copy_file hardware/printed-parts/enclosure/display-cover/reach-trial/display-cover-reach-10.stl "$$O5"
-""",
-)
-
-genrule(
-    name = "display-receiver-trial",
-    srcs = [
-        "pysrc/hardware/printed-parts/cadlib/fits.py",
-        "pysrc/hardware/printed-parts/enclosure/display-cover/receiver-trial/display_receiver_trial.py",
-        "pysrc/hardware/printed-parts/enclosure/enclosure/_display_retention.py",
-        "pysrc/hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py",
-        "pysrc/hardware/printed-parts/enclosure/enclosure/_nameplate_interface.py",
-        "pysrc/hardware/printed-parts/enclosure/enclosure/_swept_top.py",
-        "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
-        "pysrc/hardware/scripts/_cadq_export.py",
-        "pysrc/hardware/scripts/_document_export.py",
-        "pysrc/hardware/scripts/_material_base.py",
-        "pysrc/hardware/scripts/_materials.py",
-        "pysrc/hardware/scripts/_mesh_payload.py",
-        "pysrc/hardware/scripts/_occt_color.py",
-        "pysrc/hardware/scripts/_payload_rules.py",
-        "pysrc/hardware/scripts/_run_lock.py",
-        "pysrc/hardware/scripts/_run_slots.py",
-        "pysrc/hardware/scripts/flute_payload.py",
-        "pysrc/tools/docgen/__init__.py",
-        "tools/hsm/run-slots.defaults.json",
-        "tools/run-slots.mjs",
-        "pysrc/tools/run.py",
-    ],
-    outs = [
-        "out/display-receiver-trial/hardware/printed-parts/enclosure/display-cover/receiver-trial/display-receiver-trial-v1.step",
-        "out/display-receiver-trial/hardware/printed-parts/enclosure/display-cover/receiver-trial/display-receiver-trial-v1.step.mesh",
-        "out/display-receiver-trial/hardware/printed-parts/enclosure/display-cover/receiver-trial/display-receiver-trial-v1.stl",
-    ],
-    cmd = """
-set -e
-case "$$(uname -s)" in
-  Darwin)
-    copy_mask=$$((8#$$(umask)))
-    copy_bits=("" x w wx r rx rw rwx)
-    copy_mode="u-$${copy_bits[$$((copy_mask >> 6 & 7))]},g-$${copy_bits[$$((copy_mask >> 3 & 7))]},o-$${copy_bits[$$((copy_mask & 7))]}"
-    copy_file() {
-      local copy_dest="$${!#}" copy_target copy_permissions="$$copy_mode"
-      if [ -e "$$copy_dest" ] || [ -L "$$copy_dest" ]; then
-        if [ ! -f "$$copy_dest" ] || [ -L "$$copy_dest" ]; then cp "$$@"; return; fi
-        copy_permissions=$$(stat -f %Lp "$$copy_dest")
-        copy_target=$$(mktemp "$$copy_dest.hsm-copy.XXXXXX")
-      else copy_target="$$copy_dest"; fi
-      if cp -c "$${@:1:$$(( $$# - 1 ))}" "$$copy_target" 2>/dev/null; then
-        chmod "$$copy_permissions" "$$copy_target"
-        touch "$$copy_target"
-        if [ "$$copy_target" != "$$copy_dest" ]; then mv -f "$$copy_target" "$$copy_dest"; fi
-      else rm -f "$$copy_target"; cp "$$@"; fi
-    };;
-  *) copy_file() { cp "$$@"; };;
-esac
-O0=$$PWD/$(location out/display-receiver-trial/hardware/printed-parts/enclosure/display-cover/receiver-trial/display-receiver-trial-v1.step)
-O1=$$PWD/$(location out/display-receiver-trial/hardware/printed-parts/enclosure/display-cover/receiver-trial/display-receiver-trial-v1.step.mesh)
-O2=$$PWD/$(location out/display-receiver-trial/hardware/printed-parts/enclosure/display-cover/receiver-trial/display-receiver-trial-v1.stl)
-for f in $(SRCS); do
-  case $$f in
-    */node_modules/*) continue;;
-    */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
-    */pysrc/*) t=$${f##*/pysrc/};;
-    *) t=$$f;;
-  esac
-  mkdir -p "work/$$(dirname "$$t")"; copy_file -L "$$f" "work/$$t"
-done
-for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
-  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
-done
-cd work
-ln -sfn $$HSM_WORKSPACE/.cache .cache
-D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/enclosure/display-cover/receiver-trial/display_receiver_trial.py > /dev/null
-copy_file hardware/printed-parts/enclosure/display-cover/receiver-trial/display-receiver-trial-v1.step "$$O0"
-copy_file hardware/printed-parts/enclosure/display-cover/receiver-trial/display-receiver-trial-v1.step.mesh "$$O1"
-copy_file hardware/printed-parts/enclosure/display-cover/receiver-trial/display-receiver-trial-v1.stl "$$O2"
-""",
-)
-
-genrule(
-    name = "retention-reach-trial",
-    srcs = [
-        "pysrc/hardware/printed-parts/cadlib/fits.py",
-        "pysrc/hardware/printed-parts/enclosure/display-cover/display_cover.py",
-        "pysrc/hardware/printed-parts/enclosure/display-cover/retention-reach-trial/retention_reach_trial.py",
-        "pysrc/hardware/printed-parts/enclosure/display-cover/retention-trial/retention_trial.py",
-        "pysrc/hardware/printed-parts/enclosure/enclosure/_display_retention.py",
-        "pysrc/hardware/printed-parts/enclosure/enclosure/_display_wing_interface.py",
-        "pysrc/hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py",
-        "pysrc/hardware/printed-parts/enclosure/enclosure/_nameplate_interface.py",
-        "pysrc/hardware/printed-parts/enclosure/enclosure/_swept_top.py",
-        "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
-        "pysrc/hardware/scripts/_cadq_export.py",
-        "pysrc/hardware/scripts/_document_export.py",
-        "pysrc/hardware/scripts/_material_base.py",
-        "pysrc/hardware/scripts/_materials.py",
-        "pysrc/hardware/scripts/_mesh_payload.py",
-        "pysrc/hardware/scripts/_occt_color.py",
-        "pysrc/hardware/scripts/_payload_rules.py",
-        "pysrc/hardware/scripts/_run_lock.py",
-        "pysrc/hardware/scripts/_run_slots.py",
-        "pysrc/hardware/scripts/_stated_bounds.py",
-        "pysrc/hardware/scripts/flute_payload.py",
-        "pysrc/tools/docgen/__init__.py",
-        "tools/hsm/run-slots.defaults.json",
-        "tools/run-slots.mjs",
-        "pysrc/tools/run.py",
-    ],
-    outs = [
-        "out/retention-reach-trial/hardware/printed-parts/enclosure/display-cover/retention-reach-trial/display-cover-retention-reach-060.step",
-        "out/retention-reach-trial/hardware/printed-parts/enclosure/display-cover/retention-reach-trial/display-cover-retention-reach-060.step.mesh",
-        "out/retention-reach-trial/hardware/printed-parts/enclosure/display-cover/retention-reach-trial/display-cover-retention-reach-060.stl",
-        "out/retention-reach-trial/hardware/printed-parts/enclosure/display-cover/retention-reach-trial/display-cover-retention-reach-075.step",
-        "out/retention-reach-trial/hardware/printed-parts/enclosure/display-cover/retention-reach-trial/display-cover-retention-reach-075.step.mesh",
-        "out/retention-reach-trial/hardware/printed-parts/enclosure/display-cover/retention-reach-trial/display-cover-retention-reach-075.stl",
-    ],
-    cmd = """
-set -e
-case "$$(uname -s)" in
-  Darwin)
-    copy_mask=$$((8#$$(umask)))
-    copy_bits=("" x w wx r rx rw rwx)
-    copy_mode="u-$${copy_bits[$$((copy_mask >> 6 & 7))]},g-$${copy_bits[$$((copy_mask >> 3 & 7))]},o-$${copy_bits[$$((copy_mask & 7))]}"
-    copy_file() {
-      local copy_dest="$${!#}" copy_target copy_permissions="$$copy_mode"
-      if [ -e "$$copy_dest" ] || [ -L "$$copy_dest" ]; then
-        if [ ! -f "$$copy_dest" ] || [ -L "$$copy_dest" ]; then cp "$$@"; return; fi
-        copy_permissions=$$(stat -f %Lp "$$copy_dest")
-        copy_target=$$(mktemp "$$copy_dest.hsm-copy.XXXXXX")
-      else copy_target="$$copy_dest"; fi
-      if cp -c "$${@:1:$$(( $$# - 1 ))}" "$$copy_target" 2>/dev/null; then
-        chmod "$$copy_permissions" "$$copy_target"
-        touch "$$copy_target"
-        if [ "$$copy_target" != "$$copy_dest" ]; then mv -f "$$copy_target" "$$copy_dest"; fi
-      else rm -f "$$copy_target"; cp "$$@"; fi
-    };;
-  *) copy_file() { cp "$$@"; };;
-esac
-O0=$$PWD/$(location out/retention-reach-trial/hardware/printed-parts/enclosure/display-cover/retention-reach-trial/display-cover-retention-reach-060.step)
-O1=$$PWD/$(location out/retention-reach-trial/hardware/printed-parts/enclosure/display-cover/retention-reach-trial/display-cover-retention-reach-060.step.mesh)
-O2=$$PWD/$(location out/retention-reach-trial/hardware/printed-parts/enclosure/display-cover/retention-reach-trial/display-cover-retention-reach-060.stl)
-O3=$$PWD/$(location out/retention-reach-trial/hardware/printed-parts/enclosure/display-cover/retention-reach-trial/display-cover-retention-reach-075.step)
-O4=$$PWD/$(location out/retention-reach-trial/hardware/printed-parts/enclosure/display-cover/retention-reach-trial/display-cover-retention-reach-075.step.mesh)
-O5=$$PWD/$(location out/retention-reach-trial/hardware/printed-parts/enclosure/display-cover/retention-reach-trial/display-cover-retention-reach-075.stl)
-for f in $(SRCS); do
-  case $$f in
-    */node_modules/*) continue;;
-    */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
-    */pysrc/*) t=$${f##*/pysrc/};;
-    *) t=$$f;;
-  esac
-  mkdir -p "work/$$(dirname "$$t")"; copy_file -L "$$f" "work/$$t"
-done
-for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
-  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
-done
-cd work
-ln -sfn $$HSM_WORKSPACE/.cache .cache
-D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/enclosure/display-cover/retention-reach-trial/retention_reach_trial.py > /dev/null
-copy_file hardware/printed-parts/enclosure/display-cover/retention-reach-trial/display-cover-retention-reach-060.step "$$O0"
-copy_file hardware/printed-parts/enclosure/display-cover/retention-reach-trial/display-cover-retention-reach-060.step.mesh "$$O1"
-copy_file hardware/printed-parts/enclosure/display-cover/retention-reach-trial/display-cover-retention-reach-060.stl "$$O2"
-copy_file hardware/printed-parts/enclosure/display-cover/retention-reach-trial/display-cover-retention-reach-075.step "$$O3"
-copy_file hardware/printed-parts/enclosure/display-cover/retention-reach-trial/display-cover-retention-reach-075.step.mesh "$$O4"
-copy_file hardware/printed-parts/enclosure/display-cover/retention-reach-trial/display-cover-retention-reach-075.stl "$$O5"
-""",
-)
-
-genrule(
-    name = "retention-trial",
-    srcs = [
-        "pysrc/hardware/printed-parts/cadlib/fits.py",
-        "pysrc/hardware/printed-parts/enclosure/display-cover/display_cover.py",
-        "hardware/printed-parts/enclosure/display-cover/retention-trial/README.md",
-        "pysrc/hardware/printed-parts/enclosure/display-cover/retention-trial/retention_trial.py",
-        "pysrc/hardware/printed-parts/enclosure/enclosure/_display_retention.py",
-        "pysrc/hardware/printed-parts/enclosure/enclosure/_display_wing_interface.py",
-        "pysrc/hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py",
-        "pysrc/hardware/printed-parts/enclosure/enclosure/_nameplate_interface.py",
-        "pysrc/hardware/printed-parts/enclosure/enclosure/_swept_top.py",
-        "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
-        "pysrc/hardware/scripts/_cadq_export.py",
-        "pysrc/hardware/scripts/_document_export.py",
-        "pysrc/hardware/scripts/_material_base.py",
-        "pysrc/hardware/scripts/_materials.py",
-        "pysrc/hardware/scripts/_mesh_payload.py",
-        "pysrc/hardware/scripts/_occt_color.py",
-        "pysrc/hardware/scripts/_payload_rules.py",
-        "pysrc/hardware/scripts/_realized.py",
-        "pysrc/hardware/scripts/_run_lock.py",
-        "pysrc/hardware/scripts/_run_slots.py",
-        "pysrc/hardware/scripts/_stated_bounds.py",
-        "pysrc/hardware/scripts/flute_payload.py",
-        "pysrc/tools/docgen/__init__.py",
-        "tools/hsm/run-slots.defaults.json",
-        "tools/run-slots.mjs",
-        "pysrc/tools/run.py",
-    ],
-    outs = [
-        "out/retention-trial/hardware/printed-parts/enclosure/display-cover/retention-trial/display-cover-retention-v2.step",
-        "out/retention-trial/hardware/printed-parts/enclosure/display-cover/retention-trial/display-cover-retention-v2.step.mesh",
-        "out/retention-trial/hardware/printed-parts/enclosure/display-cover/retention-trial/display-cover-retention-v2.stl",
-        "out/retention-trial/hardware/printed-parts/enclosure/display-cover/retention-trial/display-receiver-retention-v2.step",
-        "out/retention-trial/hardware/printed-parts/enclosure/display-cover/retention-trial/display-receiver-retention-v2.step.mesh",
-        "out/retention-trial/hardware/printed-parts/enclosure/display-cover/retention-trial/display-receiver-retention-v2.stl",
-        "out/retention-trial/hardware/printed-parts/enclosure/display-cover/retention-trial/README.md",
-    ],
-    cmd = """
-set -e
-case "$$(uname -s)" in
-  Darwin)
-    copy_mask=$$((8#$$(umask)))
-    copy_bits=("" x w wx r rx rw rwx)
-    copy_mode="u-$${copy_bits[$$((copy_mask >> 6 & 7))]},g-$${copy_bits[$$((copy_mask >> 3 & 7))]},o-$${copy_bits[$$((copy_mask & 7))]}"
-    copy_file() {
-      local copy_dest="$${!#}" copy_target copy_permissions="$$copy_mode"
-      if [ -e "$$copy_dest" ] || [ -L "$$copy_dest" ]; then
-        if [ ! -f "$$copy_dest" ] || [ -L "$$copy_dest" ]; then cp "$$@"; return; fi
-        copy_permissions=$$(stat -f %Lp "$$copy_dest")
-        copy_target=$$(mktemp "$$copy_dest.hsm-copy.XXXXXX")
-      else copy_target="$$copy_dest"; fi
-      if cp -c "$${@:1:$$(( $$# - 1 ))}" "$$copy_target" 2>/dev/null; then
-        chmod "$$copy_permissions" "$$copy_target"
-        touch "$$copy_target"
-        if [ "$$copy_target" != "$$copy_dest" ]; then mv -f "$$copy_target" "$$copy_dest"; fi
-      else rm -f "$$copy_target"; cp "$$@"; fi
-    };;
-  *) copy_file() { cp "$$@"; };;
-esac
-O0=$$PWD/$(location out/retention-trial/hardware/printed-parts/enclosure/display-cover/retention-trial/display-cover-retention-v2.step)
-O1=$$PWD/$(location out/retention-trial/hardware/printed-parts/enclosure/display-cover/retention-trial/display-cover-retention-v2.step.mesh)
-O2=$$PWD/$(location out/retention-trial/hardware/printed-parts/enclosure/display-cover/retention-trial/display-cover-retention-v2.stl)
-O3=$$PWD/$(location out/retention-trial/hardware/printed-parts/enclosure/display-cover/retention-trial/display-receiver-retention-v2.step)
-O4=$$PWD/$(location out/retention-trial/hardware/printed-parts/enclosure/display-cover/retention-trial/display-receiver-retention-v2.step.mesh)
-O5=$$PWD/$(location out/retention-trial/hardware/printed-parts/enclosure/display-cover/retention-trial/display-receiver-retention-v2.stl)
-O6=$$PWD/$(location out/retention-trial/hardware/printed-parts/enclosure/display-cover/retention-trial/README.md)
-for f in $(SRCS); do
-  case $$f in
-    */node_modules/*) continue;;
-    */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
-    */pysrc/*) t=$${f##*/pysrc/};;
-    *) t=$$f;;
-  esac
-  mkdir -p "work/$$(dirname "$$t")"; copy_file -L "$$f" "work/$$t"
-done
-for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
-  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
-done
-cd work
-ln -sfn $$HSM_WORKSPACE/.cache .cache
-D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/enclosure/display-cover/retention-trial/retention_trial.py > /dev/null
-copy_file hardware/printed-parts/enclosure/display-cover/retention-trial/display-cover-retention-v2.step "$$O0"
-copy_file hardware/printed-parts/enclosure/display-cover/retention-trial/display-cover-retention-v2.step.mesh "$$O1"
-copy_file hardware/printed-parts/enclosure/display-cover/retention-trial/display-cover-retention-v2.stl "$$O2"
-copy_file hardware/printed-parts/enclosure/display-cover/retention-trial/display-receiver-retention-v2.step "$$O3"
-copy_file hardware/printed-parts/enclosure/display-cover/retention-trial/display-receiver-retention-v2.step.mesh "$$O4"
-copy_file hardware/printed-parts/enclosure/display-cover/retention-trial/display-receiver-retention-v2.stl "$$O5"
-copy_file hardware/printed-parts/enclosure/display-cover/retention-trial/README.md "$$O6"
 """,
 )
 
@@ -12920,86 +12494,93 @@ cd .. && rm -rf work-tube-miter-box
 genrule(
     name = "valve-socket-fit",
     srcs = [
-        "pysrc/hardware/cold-core-layout/_carbonator_stock.py",
-        "hardware/manifold-layout/above-core.json",
-        "pysrc/hardware/manifold-layout/above_core.py",
-        "pysrc/hardware/printed-parts/cadlib/cable_clip.py",
         "pysrc/hardware/printed-parts/cadlib/fits.py",
-        "pysrc/hardware/printed-parts/cadlib/flute_skin.py",
-        "pysrc/hardware/printed-parts/cadlib/overhang_round.py",
-        "pysrc/hardware/printed-parts/cadlib/port_chip.py",
-        "pysrc/hardware/printed-parts/cadlib/reeding.py",
-        "pysrc/hardware/printed-parts/cadlib/snap.py",
-        "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
-        "pysrc/hardware/printed-parts/cold-core/_cold_core_interface.py",
-        "pysrc/hardware/printed-parts/enclosure/enclosure/_above_core_shell.py",
-        "pysrc/hardware/printed-parts/enclosure/enclosure/_anchor_cap_interface.py",
-        "pysrc/hardware/printed-parts/enclosure/enclosure/_data_wing_interface.py",
-        "pysrc/hardware/printed-parts/enclosure/enclosure/_display_wing_interface.py",
-        "pysrc/hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py",
-        "pysrc/hardware/printed-parts/enclosure/enclosure/_fixed_pump_mount.py",
-        "pysrc/hardware/printed-parts/enclosure/enclosure/_grip_interface.py",
-        "pysrc/hardware/printed-parts/enclosure/enclosure/_nameplate_interface.py",
-        "pysrc/hardware/printed-parts/enclosure/enclosure/_nameplate_wing_interface.py",
-        "pysrc/hardware/printed-parts/enclosure/enclosure/_swept_top.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/enclosure.py",
-        "pysrc/hardware/printed-parts/enclosure/pump-dock/dock_structure.py",
-        "pysrc/hardware/printed-parts/enclosure/pump-dock/fixed_returns.py",
-        "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_case.py",
-        "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_tray.py",
-        "pysrc/hardware/printed-parts/enclosure/tee-carrier/tee_carrier.py",
         "pysrc/hardware/printed-parts/enclosure/valve-tray/valve_tray.py",
         "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
         "pysrc/hardware/printed-parts/fixtures/valve-socket-fit/valve_socket_fit.py",
+        "hardware/printed-parts/fixtures/valve-socket-fit/valve_socket_fit.rs",
         "pysrc/hardware/printed-parts/valve-seat/valve_seat.py",
-        "pysrc/hardware/printed-parts/zone-c/funnel/elbow_cradle.py",
-        "pysrc/hardware/printed-parts/zone-c/funnel/funnel.py",
-        "pysrc/hardware/printed-parts/zone-c/funnel/funnel_frame.py",
         "pysrc/hardware/reference/beduan-solenoid/beduan_solenoid.py",
-        "pysrc/hardware/reference/g-ganen-pump/common-foot/g_ganen_foot.py",
-        "pysrc/hardware/reference/g-ganen-pump/g_ganen_pump.py",
-        "pysrc/hardware/reference/g-ganen-pump/installation/g_ganen_installation.py",
-        "pysrc/hardware/reference/g-ganen-pump/integration-envelope/g_ganen_integration.py",
-        "pysrc/hardware/reference/g-ganen-pump/integration-envelope/native_queries.py",
-        "hardware/reference/g-ganen-pump/reference-parameters.json",
-        "pysrc/hardware/reference/iec-c14-inlet/iec_c14_inlet.py",
-        "pysrc/hardware/reference/jg-bulkhead-union/jg_bulkhead_union.py",
-        "hardware/reference/jg-pp0208e-tee/branch-operating-measurements.json",
-        "pysrc/hardware/reference/jg-pp0308e-elbow/elbow.py",
-        "hardware/reference/jg-pp0308e-elbow/scan-measurements.json",
-        "pysrc/hardware/reference/kamoer-kphm400/kamoer_kphm400.py",
-        "pysrc/hardware/reference/mq6-gas-sensor/mq6_gas_sensor.py",
-        "pysrc/hardware/reference/neofit-stem-elbow/neofit_stem_elbow.py",
-        "hardware/reference/neofit-stem-elbow/reference-parameters.json",
-        "pysrc/hardware/reference/riteav-keystone/riteav_keystone.py",
-        "pysrc/hardware/reference/tee-connector/tee_connector.py",
-        "pysrc/hardware/reference/wago-221/wago_221.py",
-        "pysrc/hardware/reference/yyfkgcp-pogo-4p/yyfkgcp_pogo_4p.py",
-        "pysrc/hardware/scripts/_boxes.py",
-        "pysrc/hardware/scripts/_cadq_export.py",
-        "pysrc/hardware/scripts/_document_export.py",
+        "hardware/reference/beduan-solenoid/frozen-asset.json",
         "pysrc/hardware/scripts/_material_base.py",
         "pysrc/hardware/scripts/_materials.py",
-        "pysrc/hardware/scripts/_measuring.py",
-        "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_occt_color.py",
-        "pysrc/hardware/scripts/_payload_rules.py",
-        "pysrc/hardware/scripts/_realized.py",
         "pysrc/hardware/scripts/_run_lock.py",
         "pysrc/hardware/scripts/_run_slots.py",
-        "pysrc/hardware/scripts/_stated_bounds.py",
-        "pysrc/hardware/scripts/flute_payload.py",
+        "pysrc/hardware/scripts/_rust_part.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/Cargo.lock",
+        "tools/hsm/Cargo.toml",
+        "tools/hsm/kernel/Cargo.toml",
+        "tools/hsm/kernel/src/boolean.rs",
+        "tools/hsm/kernel/src/build.rs",
+        "tools/hsm/kernel/src/dxf.rs",
+        "tools/hsm/kernel/src/edge.rs",
+        "tools/hsm/kernel/src/face.rs",
+        "tools/hsm/kernel/src/import.rs",
+        "tools/hsm/kernel/src/lib.rs",
+        "tools/hsm/kernel/src/mapped.rs",
+        "tools/hsm/kernel/src/mass.rs",
+        "tools/hsm/kernel/src/math.rs",
+        "tools/hsm/kernel/src/part.rs",
+        "tools/hsm/kernel/src/plane.rs",
+        "tools/hsm/kernel/src/profile.rs",
+        "tools/hsm/kernel/src/reads.rs",
+        "tools/hsm/kernel/src/round.rs",
+        "tools/hsm/kernel/src/round/rolled.rs",
+        "tools/hsm/kernel/src/rule.rs",
+        "tools/hsm/kernel/src/screw.rs",
+        "tools/hsm/kernel/src/sketch_hull.rs",
+        "tools/hsm/kernel/src/solid.rs",
+        "tools/hsm/kernel/src/spline.rs",
+        "tools/hsm/kernel/src/step.rs",
+        "tools/hsm/kernel/src/step/analytic.rs",
+        "tools/hsm/kernel/src/sweep.rs",
+        "tools/hsm/kernel/src/text.rs",
+        "tools/hsm/kernel/src/thru.rs",
+        "tools/hsm/kernel/src/topo.rs",
+        "tools/hsm/kernel/src/triangulate.rs",
+        "tools/hsm/kernel/src/write.rs",
         "tools/hsm/run-slots.defaults.json",
+        "tools/hsm/run-slots/Cargo.toml",
+        "tools/hsm/run-slots/src/ipc.rs",
+        "tools/hsm/run-slots/src/lib.rs",
+        "tools/hsm/tooling/Cargo.toml",
+        "tools/hsm/vendor/manifold-csg-sys/.cargo_vcs_info.json",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.lock",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.toml",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.toml.orig",
+        "tools/hsm/vendor/manifold-csg-sys/LICENSE-APACHE",
+        "tools/hsm/vendor/manifold-csg-sys/LICENSE-MIT",
+        "tools/hsm/vendor/manifold-csg-sys/README.md",
+        "tools/hsm/vendor/manifold-csg-sys/build.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/build.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/fetch.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/patch.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/wasm.rs",
+        "tools/hsm/vendor/manifold-csg-sys/cache-version",
+        "tools/hsm/vendor/manifold-csg-sys/patches/README.md",
+        "tools/hsm/vendor/manifold-csg-sys/src/lib.rs",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/CMakeLists.txt",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/diagnose.sh",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/__assertion_handler",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/__config_site",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/memory",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/mutex",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/libcxx-extras.cpp",
         "tools/run-slots.mjs",
         "pysrc/tools/run.py",
     ],
     outs = [
-        "out/valve-socket-fit/hardware/printed-parts/fixtures/valve-socket-fit/geometry-check.json",
+        "out/valve-socket-fit/hardware/printed-parts/fixtures/valve-socket-fit/kernel-geometry-check.json",
+        "out/valve-socket-fit/hardware/printed-parts/fixtures/valve-socket-fit/valve-socket-fit.numbers.json",
         "out/valve-socket-fit/hardware/printed-parts/fixtures/valve-socket-fit/valve-socket-fit.step",
         "out/valve-socket-fit/hardware/printed-parts/fixtures/valve-socket-fit/valve-socket-fit.step.mesh",
+        "out/valve-socket-fit/hardware/printed-parts/fixtures/valve-socket-fit/valve-socket-fit.step.npz",
         "out/valve-socket-fit/hardware/printed-parts/fixtures/valve-socket-fit/valve-socket-fit.stl",
     ],
+    tags = ["no-sandbox"],
     cmd = """
 set -e
 case "$$(uname -s)" in
@@ -13022,10 +12603,13 @@ case "$$(uname -s)" in
     };;
   *) copy_file() { cp "$$@"; };;
 esac
-O0=$$PWD/$(location out/valve-socket-fit/hardware/printed-parts/fixtures/valve-socket-fit/geometry-check.json)
-O1=$$PWD/$(location out/valve-socket-fit/hardware/printed-parts/fixtures/valve-socket-fit/valve-socket-fit.step)
-O2=$$PWD/$(location out/valve-socket-fit/hardware/printed-parts/fixtures/valve-socket-fit/valve-socket-fit.step.mesh)
-O3=$$PWD/$(location out/valve-socket-fit/hardware/printed-parts/fixtures/valve-socket-fit/valve-socket-fit.stl)
+O0=$$PWD/$(location out/valve-socket-fit/hardware/printed-parts/fixtures/valve-socket-fit/kernel-geometry-check.json)
+O1=$$PWD/$(location out/valve-socket-fit/hardware/printed-parts/fixtures/valve-socket-fit/valve-socket-fit.numbers.json)
+O2=$$PWD/$(location out/valve-socket-fit/hardware/printed-parts/fixtures/valve-socket-fit/valve-socket-fit.step)
+O3=$$PWD/$(location out/valve-socket-fit/hardware/printed-parts/fixtures/valve-socket-fit/valve-socket-fit.step.mesh)
+O4=$$PWD/$(location out/valve-socket-fit/hardware/printed-parts/fixtures/valve-socket-fit/valve-socket-fit.step.npz)
+O5=$$PWD/$(location out/valve-socket-fit/hardware/printed-parts/fixtures/valve-socket-fit/valve-socket-fit.stl)
+rm -rf work-valve-socket-fit
 for f in $(SRCS); do
   case $$f in
     */node_modules/*) continue;;
@@ -13033,19 +12617,22 @@ for f in $(SRCS); do
     */pysrc/*) t=$${f##*/pysrc/};;
     *) t=$$f;;
   esac
-  mkdir -p "work/$$(dirname "$$t")"; copy_file -L "$$f" "work/$$t"
+  mkdir -p "work-valve-socket-fit/$$(dirname "$$t")"; copy_file -L "$$f" "work-valve-socket-fit/$$t"
 done
 for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
-  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
+  if [ -d $$d ]; then mkdir -p work-valve-socket-fit/$$(dirname $$d); ln -sfn $$PWD/$$d work-valve-socket-fit/$$d; fi
 done
-cd work
+cd work-valve-socket-fit
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
 HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/fixtures/valve-socket-fit/valve_socket_fit.py > /dev/null
-copy_file hardware/printed-parts/fixtures/valve-socket-fit/geometry-check.json "$$O0"
-copy_file hardware/printed-parts/fixtures/valve-socket-fit/valve-socket-fit.step "$$O1"
-copy_file hardware/printed-parts/fixtures/valve-socket-fit/valve-socket-fit.step.mesh "$$O2"
-copy_file hardware/printed-parts/fixtures/valve-socket-fit/valve-socket-fit.stl "$$O3"
+copy_file hardware/printed-parts/fixtures/valve-socket-fit/kernel-geometry-check.json "$$O0"
+copy_file hardware/printed-parts/fixtures/valve-socket-fit/valve-socket-fit.numbers.json "$$O1"
+copy_file hardware/printed-parts/fixtures/valve-socket-fit/valve-socket-fit.step "$$O2"
+copy_file hardware/printed-parts/fixtures/valve-socket-fit/valve-socket-fit.step.mesh "$$O3"
+copy_file hardware/printed-parts/fixtures/valve-socket-fit/valve-socket-fit.step.npz "$$O4"
+copy_file hardware/printed-parts/fixtures/valve-socket-fit/valve-socket-fit.stl "$$O5"
+cd .. && rm -rf work-valve-socket-fit
 """,
 )
 
@@ -15691,7 +15278,6 @@ genrule(
         "pysrc/hardware/scripts/_machine_time.py",
         "pysrc/hardware/scripts/_material_base.py",
         "pysrc/hardware/scripts/_materials.py",
-        "pysrc/hardware/scripts/_measuring.py",
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_meshes.py",
         "pysrc/hardware/scripts/_occt_color.py",
@@ -16428,7 +16014,6 @@ genrule(
         ":out/pcba-assembly/hardware/printed-parts/electronics/pcba-tray/pcba-board.step",
         ":out/pcba-assembly/hardware/printed-parts/electronics/pcba-tray/pcba-board.step.npz",
         "hardware/printed-parts/electronics/pcba-tray/pcba_tray.py",
-        "hardware/printed-parts/enclosure/asse-drip-pan/asse_drip_pan.py",
         ":out/bulkhead-ring/hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-carb.step",
         ":out/bulkhead-ring/hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-carb.step.npz",
         ":out/bulkhead-ring/hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-co2.step",
@@ -16718,7 +16303,6 @@ genrule(
         "hardware/scripts/_machine.py",
         "hardware/scripts/_material_base.py",
         "hardware/scripts/_materials.py",
-        "hardware/scripts/_measuring.py",
         "hardware/scripts/_mesh_payload.py",
         "hardware/scripts/_meshes.py",
         "hardware/scripts/_occt_color.py",
@@ -16772,10 +16356,14 @@ genrule(
         "hardware/wiring/installed/wire_components.rs",
         "hardware/wiring/installed/wire_geometry.py",
         "hardware/wiring/installed/wire_geometry.rs",
-        "tools/bazel/graph.json",
+        ":support/enclosure-assembly-graph.json",
         "tools/docgen/__init__.py",
         "tools/hsm/Cargo.lock",
         "tools/hsm/Cargo.toml",
+        "tools/hsm/geometry/Cargo.toml",
+        "tools/hsm/geometry/src/lib.rs",
+        "tools/hsm/geometry/src/payload.rs",
+        "tools/hsm/geometry/src/queries.rs",
         "tools/hsm/kernel/Cargo.toml",
         "tools/hsm/kernel/src/boolean.rs",
         "tools/hsm/kernel/src/build.rs",
@@ -16867,6 +16455,7 @@ rm -rf work-tube-routes
 for f in $(SRCS); do
   case $$f in
     */node_modules/*) continue;;
+    */bin/support/enclosure-assembly-graph.json) t=tools/bazel/graph.json;;
     */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
     */pysrc/*) t=$${f##*/pysrc/};;
     *) t=$$f;;
@@ -17072,7 +16661,6 @@ genrule(
         "pysrc/hardware/scripts/_facts.py",
         "pysrc/hardware/scripts/_material_base.py",
         "pysrc/hardware/scripts/_materials.py",
-        "pysrc/hardware/scripts/_measuring.py",
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_meshes.py",
         "pysrc/hardware/scripts/_occt_color.py",
@@ -17355,6 +16943,7 @@ genrule(
     srcs = [
         "hardware/cut-parts/faucet/under-counter-plate/stock-profile.json",
         ":out/under-counter-plate/hardware/cut-parts/faucet/under-counter-plate/under-counter-plate.dxf",
+        "pysrc/hardware/cut-parts/faucet/under-counter-plate/under_counter_plate.py",
         "pysrc/hardware/faucet-layout/faucet_assembly.py",
         "hardware/install-guide/assets/brand/mark-1024.png",
         "hardware/install-guide/assets/fill-scene-inputs.json",
@@ -17378,6 +16967,7 @@ genrule(
         ":out/opening-scene/hardware/install-guide/assets/print-resolution.json",
         "hardware/install-guide/assets/steps/co2-ready.png",
         "hardware/install-guide/assets/steps/connect-rear-open.png",
+        "hardware/install-guide/assets/steps/fill-closed.png",
         "hardware/install-guide/assets/steps/fill-ready.png",
         "hardware/install-guide/assets/steps/modern-tee-assembly-ready.png",
         "hardware/install-guide/assets/steps/modern-tee-complete.png",
@@ -17888,6 +17478,14 @@ copy_file hardware/install-guide/assets/opening.png "$$O1"
 copy_file hardware/install-guide/assets/print-resolution.json "$$O2"
 cd .. && rm -rf work-opening-scene
 """,
+)
+
+genrule(
+    name = "support-enclosure-assembly-graph",
+    srcs = ["tools/bazel/graph.json"],
+    outs = ["support/enclosure-assembly-graph.json"],
+    tools = ["tools/bazel/gen_build.py"],
+    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/gen_build.py) --project-graph hardware/manifold-layout/enclosure_assembly.py $(location tools/bazel/graph.json) $@",
 )
 
 genrule(
@@ -18787,14 +18385,6 @@ genrule(
 )
 
 genrule(
-    name = "pysrc-cdd0eefe2907",
-    srcs = ["hardware/printed-parts/enclosure/asse-drip-pan/asse_drip_pan.py"],
-    outs = ["pysrc/hardware/printed-parts/enclosure/asse-drip-pan/asse_drip_pan.py"],
-    tools = ["tools/bazel/pysrc.py"],
-    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
-)
-
-genrule(
     name = "pysrc-64369c8f9b98",
     srcs = ["hardware/printed-parts/enclosure/bulkhead-ring/bulkhead_ring.py"],
     outs = ["pysrc/hardware/printed-parts/enclosure/bulkhead-ring/bulkhead_ring.py"],
@@ -18814,38 +18404,6 @@ genrule(
     name = "pysrc-f4432f766306",
     srcs = ["hardware/printed-parts/enclosure/display-cover/display_cover.py"],
     outs = ["pysrc/hardware/printed-parts/enclosure/display-cover/display_cover.py"],
-    tools = ["tools/bazel/pysrc.py"],
-    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
-)
-
-genrule(
-    name = "pysrc-3ee472b1f93a",
-    srcs = ["hardware/printed-parts/enclosure/display-cover/reach-trial/cover_reach_trial.py"],
-    outs = ["pysrc/hardware/printed-parts/enclosure/display-cover/reach-trial/cover_reach_trial.py"],
-    tools = ["tools/bazel/pysrc.py"],
-    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
-)
-
-genrule(
-    name = "pysrc-643322b07a9e",
-    srcs = ["hardware/printed-parts/enclosure/display-cover/receiver-trial/display_receiver_trial.py"],
-    outs = ["pysrc/hardware/printed-parts/enclosure/display-cover/receiver-trial/display_receiver_trial.py"],
-    tools = ["tools/bazel/pysrc.py"],
-    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
-)
-
-genrule(
-    name = "pysrc-7be2e3636b87",
-    srcs = ["hardware/printed-parts/enclosure/display-cover/retention-reach-trial/retention_reach_trial.py"],
-    outs = ["pysrc/hardware/printed-parts/enclosure/display-cover/retention-reach-trial/retention_reach_trial.py"],
-    tools = ["tools/bazel/pysrc.py"],
-    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
-)
-
-genrule(
-    name = "pysrc-cff1ecd88031",
-    srcs = ["hardware/printed-parts/enclosure/display-cover/retention-trial/retention_trial.py"],
-    outs = ["pysrc/hardware/printed-parts/enclosure/display-cover/retention-trial/retention_trial.py"],
     tools = ["tools/bazel/pysrc.py"],
     cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
 )
@@ -19102,14 +18660,6 @@ genrule(
     name = "pysrc-7617b122bd8c",
     srcs = ["hardware/printed-parts/enclosure/rear-identification/rear_identification.py"],
     outs = ["pysrc/hardware/printed-parts/enclosure/rear-identification/rear_identification.py"],
-    tools = ["tools/bazel/pysrc.py"],
-    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
-)
-
-genrule(
-    name = "pysrc-a33f8695c6b9",
-    srcs = ["hardware/printed-parts/enclosure/tee-carrier/tee_carrier.py"],
-    outs = ["pysrc/hardware/printed-parts/enclosure/tee-carrier/tee_carrier.py"],
     tools = ["tools/bazel/pysrc.py"],
     cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
 )
@@ -19731,14 +19281,6 @@ genrule(
 )
 
 genrule(
-    name = "pysrc-0285b4a438a7",
-    srcs = ["hardware/reference/shutao-moisture-plate/shutao_moisture_plate.py"],
-    outs = ["pysrc/hardware/reference/shutao-moisture-plate/shutao_moisture_plate.py"],
-    tools = ["tools/bazel/pysrc.py"],
-    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
-)
-
-genrule(
     name = "pysrc-f2dd19d25181",
     srcs = ["hardware/reference/taprite-3741-regulator/taprite_3741_regulator.py"],
     outs = ["pysrc/hardware/reference/taprite-3741-regulator/taprite_3741_regulator.py"],
@@ -19982,14 +19524,6 @@ genrule(
     name = "pysrc-b14903e27d48",
     srcs = ["hardware/scripts/_materials.py"],
     outs = ["pysrc/hardware/scripts/_materials.py"],
-    tools = ["tools/bazel/pysrc.py"],
-    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
-)
-
-genrule(
-    name = "pysrc-8c8bf89c99cf",
-    srcs = ["hardware/scripts/_measuring.py"],
-    outs = ["pysrc/hardware/scripts/_measuring.py"],
     tools = ["tools/bazel/pysrc.py"],
     cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
 )
@@ -20544,14 +20078,9 @@ filegroup(
         ":pcba-assembly",
         ":pcba-tray",
         ":enclosure-dimensions",
-        ":asse-drip-pan",
         ":bulkhead-ring",
         ":data-ring",
         ":display-cover",
-        ":cover-reach-trial",
-        ":display-receiver-trial",
-        ":retention-reach-trial",
-        ":retention-trial",
         ":display-gasket",
         ":enclosure",
         ":nameplate-dimensions",
