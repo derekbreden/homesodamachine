@@ -21,30 +21,32 @@ def tm(s):
     v,f=s.tessellate(.12,.15)
     m=trimesh.Trimesh([p.toTuple() for p in v],f,process=True);m.fix_normals();return m
 def saved(z):return {k[:-3]:trimesh.Trimesh(z[k],z[k[:-3]+'__f'],process=True)for k in z.files if k.endswith('__v')}
+ROTATOR_MODEL=ROOT/'hardware/printed-parts/fixtures/weld-rotator/weld-rotator-assembly.step.npz'
+def rotator_meshes():
+    """The rotator producer's placed fine bodies, with the native assembly names."""
+    grouped={}
+    with np.load(ROTATOR_MODEL,allow_pickle=False) as z:
+        names=json.loads(bytes(z['names']).decode())
+        for i,name in enumerate(names):
+            name=name.rsplit('/',1)[0] if name.rsplit('/',1)[-1].isdigit() else name
+            grouped.setdefault(name,[]).append(trimesh.Trimesh(z[f'V{i}'],z[f'T{i}'],process=False))
+    return {'rotator:weld-rotator/'+name:trimesh.util.concatenate(parts)
+            for name,parts in grouped.items()}
 def references():
     files=[ROOT/'hardware/reference/xlaserlab-sup29f-xh/xlaserlab_sup29f_xh.py',
            ROOT/'hardware/reference/xlaserlab-sup29f-xh/source/reconstructed-surfaces.npz',
-           ROOT/'hardware/printed-parts/fixtures/weld-rotator/weld_rotator.py',
-           ROOT/'hardware/printed-parts/fixtures/weld-rotator/_rotator_interface.py']
+           ROTATOR_MODEL]
     hashes={str(p.relative_to(ROOT)):sha(p)for p in files}
     cache=HERE/'reference-meshes.npz';receipt=HERE/'reference-source.json'
     if cache.exists() and receipt.exists() and json.loads(receipt.read_text())['sources']==hashes:
         return saved(np.load(cache))
-    print('building gun and existing rotator reference meshes',flush=True)
+    print('building gun reference meshes and reading the rotator fine model',flush=True)
     gun=module('pgfun_gun_reference',files[0]);parts=gun.build_parts()
     mesh={k:tm(s)for k,s in parts.items()if k!='housing' and
           (not k.startswith('wire-feed-')or k in ('wire-feed-front-nut','wire-feed-thread-envelope'))}
     mesh.update(saved(np.load(files[1])))
     meshes={'gun:'+k:m for k,m in mesh.items()}
-    r=module('pgfun_rotator_reference',files[2])
-    builders={'base':r.build_base,'base-foot':r.build_base_foot,'motor-tower':r.build_motor_tower,
-        'motor-carriage':r.build_motor_carriage,'motor-clamp-pad':r.build_motor_clamp_pad,
-        'ground-tower':r.build_ground_tower,'ground-arm':r.build_ground_arm,
-        'ground-shoe':r.build_ground_shoe_proxy,'turntable':r.build_turntable,'race-ring':r.build_race_ring,
-        'ball-cage':r.build_cage,'spool':r.build_spool,'tube-nest':r.build_nest}
-    solids={k:f()for k,f in builders.items()}
-    for obj,name,loc,color in r._assembly(solids):
-        meshes['rotator:'+name]=tm(obj.moved(loc))
+    meshes.update(rotator_meshes())
     # Recessed cap face is the measured 208.05 mm joint plane.
     cap=trimesh.creation.cylinder(radius=123.698/2,height=3.175,sections=192)
     cap.apply_translation([0,0,D['aim'][2]-3.175/2]);meshes['rotator:recessed-cap']=cap
