@@ -179,6 +179,10 @@ From the repository root:
 tools/cad-venv/bin/python hardware/printed-parts/shop-storage/holders.py
 ```
 
+The build reads the [stock Gridfinity profiles](gridfinity-stock/README.md), extends
+their straight walls to each catalog height, and cuts the troughs, slots and bores on
+the geometry kernel. Python supplies the catalog dimensions and layouts.
+
 That cuts every holder, runs its shape's own checks against everything it is said to
 take, writes one coloured STEP per holder into [`holders/`](holders/), and rewrites this
 README's figures. A holder whose contents do not fit does not export: the check raises

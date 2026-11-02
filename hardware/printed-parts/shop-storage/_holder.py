@@ -25,6 +25,10 @@ reads `Env.size` for every bore, so a parcel offered to one is refused at build 
 import sys
 from pathlib import Path
 
+sys.path.insert(0, str(next(p for p in Path(__file__).resolve().parents if p.name == "hardware") / "scripts"))
+import _rust_part
+_rust_part.start()
+
 import cadquery as cq
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
@@ -166,6 +170,21 @@ def assert_heap_fits(name, env, x_u, y_u, height_u, length_div=0, width_div=0):
 # CRADLE — A V-TROUGH FOR ANYTHING ROUND
 # ============================================================
 
+def cradle_profile(x_u, y_u, height_u, end_wall=wall, vertex_flat=2.0):
+    """The authored V cutter profile and its clear run."""
+    top_z = _kit.top_reference_z(height_u)
+    half_mouth, depth, length = cradle_trough(x_u, y_u, height_u, end_wall, vertex_flat)
+    half_mouth /= 2.0
+
+    profile = [
+        (-half_mouth, top_z + 0.2),
+        (-vertex_flat / 2.0, top_z - depth),
+        (vertex_flat / 2.0, top_z - depth),
+        (half_mouth, top_z + 0.2),
+    ]
+    return profile, length
+
+
 def cradle(x_u, y_u, height_u, end_wall=wall, vertex_flat=2.0):
     """A solid blank with a 90-degree V cut along X, and an end wall at each end of it.
 
@@ -179,16 +198,7 @@ def cradle(x_u, y_u, height_u, end_wall=wall, vertex_flat=2.0):
     beside a narrow one.
     """
     blank = _kit.blank_body(x_u, y_u, height_u)
-    top_z = _kit.top_reference_z(height_u)
-    half_mouth, depth, length = cradle_trough(x_u, y_u, height_u, end_wall, vertex_flat)
-    half_mouth /= 2.0
-
-    profile = [
-        (-half_mouth, top_z + 0.2),
-        (-vertex_flat / 2.0, top_z - depth),
-        (vertex_flat / 2.0, top_z - depth),
-        (half_mouth, top_z + 0.2),
-    ]
+    profile, length = cradle_profile(x_u, y_u, height_u, end_wall, vertex_flat)
     cutter = (
         cq.Workplane("YZ")
         .polyline(profile)
@@ -258,6 +268,19 @@ def assert_cradle_takes(name, env, x_u, y_u, height_u, end_wall=wall):
     return rides
 
 
+def spacer_profile(width, x_u, y_u, height_u, end_wall=wall, vertex_flat=2.0):
+    """The authored sliding V profile, in its flat-face-down print pose."""
+    mouth, depth, _ = cradle_trough(x_u, y_u, height_u, end_wall, vertex_flat)
+    half_mouth = mouth / 2.0 - 0.4
+    profile = [
+        (-half_mouth, 0.0),
+        (-vertex_flat / 2.0, depth),
+        (vertex_flat / 2.0, depth),
+        (half_mouth, 0.0),
+    ]
+    return profile
+
+
 def spacer(width, x_u, y_u, height_u, end_wall=wall, vertex_flat=2.0):
     """A block that drops into a cradle's trough beside a narrow reel and takes up its run.
 
@@ -268,14 +291,7 @@ def spacer(width, x_u, y_u, height_u, end_wall=wall, vertex_flat=2.0):
     it prints flat-face-down with the ridge in the air and needs no support; in the
     trough it goes the other way up, ridge into the V.
     """
-    mouth, depth, _ = cradle_trough(x_u, y_u, height_u, end_wall, vertex_flat)
-    half_mouth = mouth / 2.0 - 0.4
-    profile = [
-        (-half_mouth, 0.0),
-        (-vertex_flat / 2.0, depth),
-        (vertex_flat / 2.0, depth),
-        (half_mouth, 0.0),
-    ]
+    profile = spacer_profile(width, x_u, y_u, height_u, end_wall, vertex_flat)
     return (
         cq.Workplane("YZ")
         .polyline(profile)
@@ -298,21 +314,8 @@ def slot_mouth_for(env, clearance=2.0, least=8.0):
     return max(least, env.thinnest + clearance)
 
 
-def comb(x_u, y_u, height_u, mouths, root=slot_root, floor=slot_floor, taper=slot_taper):
-    """A solid blank with one slot per tool, cut along Y and packed across X.
-
-    A slot runs its own `mouth` across from the plateau down a parallel throat, then
-    closes to `root` over the last `taper` of its depth. A tool goes in head down and
-    descends until its own thickness meets the taper: a crimper head stops at the bottom
-    of the throat with the whole throat around it, a tweezer runs on to the root and is
-    pinched there.
-
-    Each slot is cut to the tool it takes rather than to the widest of the family, so a
-    15 mm pliers wrench is not rattling in a 46 mm mouth beside a 41 mm tubing cutter.
-    The taper leans about 45 degrees and the throat is vertical: the whole slot prints
-    as drawn.
-    """
-    blank = _kit.blank_body(x_u, y_u, height_u)
+def comb_layout(x_u, y_u, height_u, mouths, root=slot_root, floor=slot_floor, taper=slot_taper):
+    """Slot profiles and clear run, shared by the native builder and kernel."""
     top_z = _kit.top_reference_z(height_u)
     floor_z = _kit.bin_floor_z + floor
     throat_z = floor_z + taper
@@ -329,7 +332,7 @@ def comb(x_u, y_u, height_u, mouths, root=slot_root, floor=slot_floor, taper=slo
             f"{len(mouths)} slots run {span:.1f} mm over a {run:.1f} mm plateau"
         )
 
-    cutter = None
+    profiles = []
     x = -span / 2.0
     for mouth in mouths:
         x += mouth / 2.0
@@ -341,6 +344,29 @@ def comb(x_u, y_u, height_u, mouths, root=slot_root, floor=slot_floor, taper=slo
             (x + mouth / 2.0, throat_z),
             (x + mouth / 2.0, top_z + 0.2),
         ]
+        profiles.append(profile)
+        x += mouth / 2.0 + wall
+    return profiles, length
+
+
+def comb(x_u, y_u, height_u, mouths, root=slot_root, floor=slot_floor, taper=slot_taper):
+    """A solid blank with one slot per tool, cut along Y and packed across X.
+
+    A slot runs its own `mouth` across from the plateau down a parallel throat, then
+    closes to `root` over the last `taper` of its depth. A tool goes in head down and
+    descends until its own thickness meets the taper: a crimper head stops at the bottom
+    of the throat with the whole throat around it, a tweezer runs on to the root and is
+    pinched there.
+
+    Each slot is cut to the tool it takes rather than to the widest of the family, so a
+    15 mm pliers wrench is not rattling in a 46 mm mouth beside a 41 mm tubing cutter.
+    The taper leans about 45 degrees and the throat is vertical: the whole slot prints
+    as drawn.
+    """
+    blank = _kit.blank_body(x_u, y_u, height_u)
+    profiles, length = comb_layout(x_u, y_u, height_u, mouths, root, floor, taper)
+    cutter = None
+    for profile in profiles:
         one = (
             cq.Workplane("XZ")
             .polyline(profile)
@@ -348,7 +374,6 @@ def comb(x_u, y_u, height_u, mouths, root=slot_root, floor=slot_floor, taper=slo
             .extrude(length / 2.0, both=True)
         )
         cutter = one if cutter is None else cutter.union(one)
-        x += mouth / 2.0 + wall
     return blank.cut(cutter)
 
 
@@ -404,18 +429,8 @@ def assert_comb_takes(name, env, y_u, height_u, mouth,
 # INDEX — BORES AT A NOMINAL SIZE
 # ============================================================
 
-def index(x_u, y_u, height_u, rows, depth=None, floor=4.0):
-    """A solid blank bored for things whose diameter is a standard.
-
-    `rows` reads front to back; each row is a list of `(env, count)` and each row is
-    pitched on its own bores, so a row of twelve 3.6 mm drills packs tight in front of a
-    row of five countersinks stepping 1/4 to 3/4 inch. Within a row, neighbours stand a
-    wall apart whatever their two diameters, and a row is only as deep as its widest bore.
-
-    Every `env` is read with `Env.size`, so an index built on a parcel's figure does not
-    build: a bore is cut *to* a thing, and a parcel says only what box it came in.
-    """
-    blank = _kit.blank_body(x_u, y_u, height_u)
+def index_layout(x_u, y_u, height_u, rows, depth=None, floor=4.0):
+    """Nominal bore positions and floor, shared by native and kernel builders."""
     top_z = _kit.top_reference_z(height_u)
     floor_z = _kit.bin_floor_z + floor
     if depth is not None:
@@ -447,17 +462,33 @@ def index(x_u, y_u, height_u, rows, depth=None, floor=4.0):
             f"{len(laid)} rows stand {height:.1f} mm over a {2.0 * reach_y:.1f} mm plateau"
         )
 
-    cutter = None
     placed = []
     y = height / 2.0
     for placed_row, row_depth in laid:
         y -= row_depth / 2.0
         for env, x, diameter in placed_row:
-            one = _kit.round_pocket(diameter, x, y, floor_z, top_z)
-            cutter = one if cutter is None else cutter.union(one)
             placed.append((env, x, y, diameter))
         y -= row_depth / 2.0 + wall
+    return floor_z, top_z, placed
 
+
+def index(x_u, y_u, height_u, rows, depth=None, floor=4.0):
+    """A solid blank bored for things whose diameter is a standard.
+
+    `rows` reads front to back; each row is a list of `(env, count)` and each row is
+    pitched on its own bores, so a row of twelve 3.6 mm drills packs tight in front of a
+    row of five countersinks stepping 1/4 to 3/4 inch. Within a row, neighbours stand a
+    wall apart whatever their two diameters, and a row is only as deep as its widest bore.
+
+    Every `env` is read with `Env.size`, so an index built on a parcel's figure does not
+    build: a bore is cut *to* a thing, and a parcel says only what box it came in.
+    """
+    blank = _kit.blank_body(x_u, y_u, height_u)
+    floor_z, top_z, placed = index_layout(x_u, y_u, height_u, rows, depth, floor)
+    cutter = None
+    for env, x, y, diameter in placed:
+        one = _kit.round_pocket(diameter, x, y, floor_z, top_z)
+        cutter = one if cutter is None else cutter.union(one)
     return blank.cut(cutter), placed
 
 
