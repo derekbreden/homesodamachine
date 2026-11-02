@@ -4,7 +4,7 @@
 //! drawing reduction remain separate, so importing a fine model cannot silently
 //! change the approved display mesh or any printed surface.
 use anyhow::{Context, Result, bail, ensure};
-use hsm_kernel::{Affine, Imported, part, step, write::Body};
+use hsm_kernel::{Affine, Imported, Solid, V3, part, step, write::Body};
 use serde_json::{Value, json};
 use std::collections::BTreeSet;
 use std::path::Path;
@@ -54,7 +54,6 @@ fn assemble(instances: &Value) -> Result<Vec<Imported>> {
         .context("instances is an ordered array")?
     {
         let model = text(instance, "model")?;
-        let imported = hsm_kernel::import::model(model)?;
         let selected: Option<BTreeSet<usize>> = instance
             .get("indices")
             .map(|value| -> Result<_> {
@@ -67,11 +66,6 @@ fn assemble(instances: &Value) -> Result<Vec<Imported>> {
                             .as_u64()
                             .and_then(|n| usize::try_from(n).ok())
                             .context("an entry index is a nonnegative integer")?;
-                        ensure!(
-                            index < imported.len(),
-                            "entry {index} is outside {model}'s {} solids",
-                            imported.len()
-                        );
                         Ok(index)
                     })
                     .collect()
@@ -107,12 +101,12 @@ fn assemble(instances: &Value) -> Result<Vec<Imported>> {
                 Ok(Some(rgb))
             })
             .transpose()?;
-        for (index, mut part) in imported.into_iter().enumerate() {
+        let count = hsm_kernel::import::visit_model(model, |index, mut part| {
             if selected
                 .as_ref()
                 .is_some_and(|indices| !indices.contains(&index))
             {
-                continue;
+                return Ok(());
             }
             part.name = match name {
                 Some(name) => name.to_owned(),
@@ -125,12 +119,59 @@ fn assemble(instances: &Value) -> Result<Vec<Imported>> {
                 part.solid = part.solid.transformed(frame);
             }
             placed.push(part);
+            Ok(())
+        })?;
+        if let Some(selected) = &selected {
+            ensure!(selected.iter().all(|&index| index < count),
+                    "a selected entry is outside {model}'s {count} solids");
         }
     }
     Ok(placed)
 }
 
-fn query(parts: &[Imported], queries: &Value) -> Result<Vec<Value>> {
+fn residual(solid: &Solid) -> Value {
+    if solid.is_empty() {
+        json!({"volume_mm3":0.0,"min":null,"max":null})
+    } else {
+        let bounds = solid.bounds();
+        json!({"volume_mm3":solid.volume(),"min":bounds.min.to_array(),"max":bounds.max.to_array()})
+    }
+}
+
+fn common(a: &Solid, b: &Solid, query: &Value) -> Result<Value> {
+    let mut hit = a.intersect(b)?;
+    let raw = residual(&hit);
+    let threshold = query.get("mask_above_mm3").map(|v| {
+        v.as_f64().filter(|v| v.is_finite() && *v >= 0.0)
+            .context("mask threshold is finite and nonnegative")
+    }).transpose()?.unwrap_or(0.0);
+    let apply_masks = hit.volume() > threshold;
+    let mut stages = Vec::new();
+    if let Some(values) = query.get("mask_stages") {
+        for stage in values.as_array().context("mask stages is an array")? {
+            let spheres = stage["spheres"].as_array().context("mask spheres is an array")?;
+            for sphere in spheres {
+                let center = sphere["center_mm"].as_array().context("sphere center is a three-vector")?;
+                ensure!(center.len() == 3, "sphere center has {} coordinates", center.len());
+                let mut point = [0.0; 3];
+                for (i, value) in center.iter().enumerate() {
+                    point[i] = value.as_f64().filter(|v| v.is_finite())
+                        .context("sphere center is not finite")?;
+                }
+                let radius = sphere["radius_mm"].as_f64()
+                    .filter(|v| v.is_finite() && *v > 0.0).context("sphere radius must be positive and finite")?;
+                if apply_masks && hit.volume() >= 1e-12 {
+                    hit = hit.cut(&Solid::sphere(V3::from(point), radius)?)?;
+                }
+            }
+            stages.push(json!({"name":text(stage,"name")?,"spheres":spheres,
+                               "residual":residual(&hit),"masks_applied":apply_masks}));
+        }
+    }
+    Ok(json!({"raw":raw,"stages":stages,"residual":residual(&hit)}))
+}
+
+fn query(parts: &mut [Imported], queries: &Value) -> Result<Vec<Value>> {
     queries
         .as_array()
         .context("queries is an ordered array")?
@@ -151,6 +192,15 @@ fn query(parts: &[Imported], queries: &Value) -> Result<Vec<Value>> {
             };
             let (a, b) = (at("a")?, at("b")?);
             let kind = text(value, "kind")?;
+            if kind == "common" {
+                let result = match common(&parts[a].solid, &parts[b].solid, value) {
+                    Ok(result) => json!({"a":a,"b":b,"kind":kind,"common":result}),
+                    Err(error) => json!({"a":a,"b":b,"kind":kind,"error":format!("{error:#}")}),
+                };
+                parts[a].solid.forget_backend();
+                parts[b].solid.forget_backend();
+                return Ok(result);
+            }
             let result = match kind {
                 "gap" => parts[a].solid.gap(&parts[b].solid)?,
                 "shared_volume" => parts[a].solid.shared_volume(&parts[b].solid)?,
@@ -165,7 +215,8 @@ fn summary(part: &Imported) -> Value {
     let bounds = part.solid.bounds();
     json!({"name":part.name,"color":part.color,"vertices":part.solid.verts().len(),
            "triangles":part.solid.tris().len(),"faces":part.solid.faces().len(),
-           "volume":part.solid.volume(),"min":bounds.min.to_array(),"max":bounds.max.to_array()})
+           "volume":part.solid.volume(),"center":part.solid.centroid().to_array(),
+           "min":bounds.min.to_array(),"max":bounds.max.to_array()})
 }
 
 fn model_summaries(instances: &Value) -> Result<Option<Vec<Value>>> {
@@ -212,8 +263,8 @@ fn main() -> Result<()> {
             return Ok(());
         }
     }
-    let parts = assemble(numbers.get("instances")?)?;
-    let readings = query(&parts, queries)?;
+    let mut parts = assemble(numbers.get("instances")?)?;
+    let readings = query(&mut parts, queries)?;
     let bodies: Vec<Body<'_>> = parts
         .iter()
         .map(|part| Body {
