@@ -10,6 +10,10 @@ publish = false
 name = "funnel-cover"
 path = "../../../hardware/printed-parts/zone-c/funnel-cover/funnel_cover.rs"
 
+[[bin]]
+name = "elbow-cradle"
+path = "../../../hardware/printed-parts/zone-c/funnel/elbow_cradle.rs"
+
 [dependencies]
 anyhow.workspace = true
 hsm-kernel = { path = "../kernel" }

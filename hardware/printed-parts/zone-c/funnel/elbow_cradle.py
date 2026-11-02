@@ -22,6 +22,7 @@ a slot and a wall.
 """
 
 import functools
+import hashlib
 import json
 import math
 import sys
@@ -368,7 +369,81 @@ def selftest(cradle=None):
     return s
 
 
-def main():
+def _turn_profile(points):
+    raw = [(0.0, points[0][0])] + [(r, t) for t, r in points] + [(0.0, points[-1][0])]
+    pts = []
+    for p in raw:
+        if not pts or abs(p[0] - pts[-1][0]) > 1e-6 or abs(p[1] - pts[-1][1]) > 1e-6:
+            pts.append(p)
+    k = 1
+    while k < len(pts) - 1:
+        (x0, y0), (x1, y1), (x2, y2) = pts[k - 1], pts[k], pts[k + 1]
+        if abs((x1 - x0) * (y2 - y0) - (y1 - y0) * (x2 - x0)) < 1e-9:
+            pts.pop(k)
+        else:
+            k += 1
+    return pts
+
+
+def numbers():
+    """Scanned pocket, block and snap stations for the authored kernel cradle."""
+    from _materials import M_PETGF_BLACK, linear
+    b = block()
+    s = stations()
+    top = b[4] + 2.0
+    h = top - elbow_z()
+    zb, zc = _profiles('z')
+    yb, yc = _profiles('y')
+    run, reach = [], 0.0
+    for station, radius in zb + zc[1:]:
+        reach = max(reach, radius)
+        run.append((station, reach + SLIP))
+    run.append((max(h + 1.0, run[-1][0]), run[-1][1]))
+    mouth_radius = max(yb[-1][1], *(r for _s, r in yc))
+    horizontal = yb + [(yc[-1][0] + SLIP, mouth_radius)]
+    lower, reach = [], 0.0
+    for station, radius in horizontal:
+        reach = max(reach, radius)
+        lower.append((station - SLIP, reach + SLIP))
+    plan, reach = [], 0.0
+    for station, radius in horizontal:
+        reach = max(reach, radius + SLIP)
+        plan.append((reach, station))
+    radius = CORE_R + SLIP
+    tangents = []
+    for index, (x, y) in enumerate(plan):
+        d2 = x*x + y*y
+        if d2 > radius*radius:
+            a, c = radius*radius/d2, radius*math.sqrt(d2-radius*radius)/d2
+            tangent = (a*x+c*y, a*y-c*x)
+            tangents.append((math.atan2(tangent[1], tangent[0]), index, tangent))
+    _angle, start, tangent = min(tangents)
+    edge = [tangent]
+    for point in plan[start:]:
+        while len(edge) > 1:
+            a, c = edge[-2:]
+            if ((c[0]-a[0])*(point[1]-c[1]) - (c[1]-a[1])*(point[0]-c[0])) > 1e-12:
+                break
+            edge.pop()
+        edge.append(point)
+    payload = _hw/'reference/neofit-stem-elbow/neofit-stem-elbow.fine.step.mesh'
+    return {
+        'block': b, 'elbow_z': elbow_z(),
+        'vertical_profile': _turn_profile([(0.0, run[0][1])] + run),
+        'horizontal_profile': _turn_profile(lower),
+        'mouth_tangent': tangent, 'mouth_chain': edge,
+        'mouth_lift': max(0.0, WING_ROOT_Z-elbow_z()), 'shadow_height': h+1.0,
+        'shadow_core_radius': max(CORE_R, run[0][1]-SLIP, horizontal[0][1])+SLIP,
+        'lower_side_relief': LOWER_SIDE_RELIEF, 'root_stock': ROOT_STOCK,
+        'wing_x': (s['w_in'], s['w_out']), 'hook_tip': s['hook_tip'],
+        'hook_face': s['face'], 'hook_top': s['hook_top'], 'catch_gap': CATCH_GAP,
+        'color': linear(M_PETGF_BLACK),
+        'elbow_payload': 'hardware/reference/neofit-stem-elbow/neofit-stem-elbow.fine.step.mesh',
+        'elbow_payload_sha256': hashlib.sha256(payload.read_bytes()).hexdigest(),
+    }
+
+
+def _native_main():
     import cadquery as cq
     from _cadq_export import export_assembly
     from _materials import M_PETGF_BLACK, one_body
@@ -381,7 +456,16 @@ def main():
                     str(step))
     cq.exporters.export(print_shape, str(stl), tolerance=0.05, angularTolerance=0.15)
     cut(step, stl)
+    _document(s)
     b = s["bend"]
+    print(f"-> {step.name}, {stl.name}; {cradle.Volume():.1f} mm3; wings "
+          f"{s['hook_top'] - s['top']:.2f} mm, hook bends {b['hook_deflection']:.2f} mm over "
+          f"{b['free_length']:.2f} mm ({100 * b['root_strain']:.1f}% nominal root strain); "
+          f"lane {s['lane']:.2f} mm")
+
+
+def _document(s):
+    b = s['bend']
     from docgen import substitute_md
     substitute_md(_here.parent / "README.md", variables={
         "CRADLE_SLIP": f"{SLIP:g} mm",
@@ -401,17 +485,25 @@ def main():
         "CRADLE_SOCKET_CORNER": f"{SOCKET_CORNER:g} mm",
         "CRADLE_WEB": f"{s['slot_in'] - HOLE_D / 2:.2f} mm",
     })
-    print(f"-> {step.name}, {stl.name}; {cradle.Volume():.1f} mm3; wings "
-          f"{s['hook_top'] - s['top']:.2f} mm, hook bends {b['hook_deflection']:.2f} mm over "
-          f"{b['free_length']:.2f} mm ({100 * b['root_strain']:.1f}% nominal root strain); "
-          f"lane {s['lane']:.2f} mm")
+
+
+def main():
+    import _rust_part
+    said = _rust_part.cut('funnel', 'elbow-cradle', numbers(), _here.parent)
+    _document(stations())
+    print(f"-> elbow-cradle STEP, model, payload and STL; {said['bodies'][0]['volume']:.1f} mm3")
 
 
 if __name__ == "__main__":
+    import _rust_part
+    _rust_part.start()
     if sys.argv[1:] == ["selftest"]:
-        s = selftest()
+        _rust_part.check('funnel', 'elbow-cradle', numbers())
+        s = stations()
         print(f"  the elbow drops straight in and both wings stand on the body; the hook bends "
               f"{s['bend']['hook_deflection']:.2f} mm into a {s['lane']:.2f} mm lane")
         print("elbow_cradle selftest OK")
+    elif sys.argv[1:] == ['--native']:
+        _native_main()
     else:
         main()
