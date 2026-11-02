@@ -433,10 +433,14 @@
     ]
   },
   "current_parent_binding": {
-    "assembly_step_sha256": "d534a641b9b7018890fb103416b73c468f2f60b20d35982ac9f089d9e4168923",
-    "assembly_mesh_sha256": "f9b8d9c352483a94529ea85fc5d5bdd71e03e637809dd12d57fa65e49d5b13b2",
-    "scope": "Previously measured component poses, fastener seats, vent paths and connector stages retain their geometry. The neutral-holder delta is aft of all connector stages, clear of the whole neighboring scene and clear over complete rear closure. Front manifold mouths remove stock only. All final wire routes clear larger bodies.",
-    "exact_physical_delta_record": "hardware/mechanical-qualification/enclosure-above-core/retention-integration-review.json"
+    "assembly_step_sha256": "bb4d7807285bdd7d6fb4495d3a9a415600ba6717f94b291489f78fb8708cbb5a",
+    "assembly_mesh_sha256": "9c0247fb4ec0826f175fb84615660a09b3a8a863d745045c24b5dc510de623de",
+    "physical_step_sha256": "500579f42d5aa3edec3542fa65d33711a52cd19626838114cc63a6eab82d0c3d",
+    "physical_mesh_sha256": "fb05b9fce452fbd92c169a46dcc932274fecbee66358aa97b5b68b512df69530",
+    "record": "hardware/mechanical-qualification/enclosure-above-core/retention-integration-review.json",
+    "section": "completed_junction_and_wire_integration.current_solid_level_roof",
+    "proof_sha256": "62241b4abe3fdb45a5c5b2c30d52c6d610a007d3da421e2d01ee723adb02c7e0",
+    "scope": "The central reading binds the complete roof addition, unchanged physical/wire members, native contacts, all 100 conductors, ten lever envelopes and the complete rear closing interval."
   },
   "current_rear_equipment_delta": {
     "assembly_step_sha256": "7a174b60fbc0498134e5348ca72007363e067d33dd1fddf98c316b96ecd407f0",

@@ -187,7 +187,7 @@
     "hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py": "264bb52da73675dcd41f7fff8bc5fce6eabd06336fc3cf8b7a9b8560c21e5040",
     "hardware/printed-parts/enclosure/enclosure/_fixed_pump_mount.py": "2ab38f68b8640c1e29d4066467cb26652959850a1cdfe1969268fda78e4f43cc",
     "hardware/manifold-layout/enclosure-box.json": "030ef2fe087dbafc5a55f68f12a03421321604b4054a651cf5c850d1695ae307",
-    "hardware/printed-parts/enclosure/enclosure/_above_core_shell.py": "447fb6dfeea463868ffc9490b518cc9242025014ed677676dd5ddf285fbe2a73",
+    "hardware/printed-parts/enclosure/enclosure/_above_core_shell.py": "ec6cccfe85a7d0ed5773a33fc0688a1d292828052a396eb743cd7d1d6e0324df",
     "hardware/manifold-layout/above_core.py": "4ae1006309cfc55676c11ac286d0506a77d8fecd1b107818b2d6a665b787654e",
     "hardware/manifold-layout/above-core.json": "e0b80674504eabcbfa8ce36559b94b30c737d80f2a99b782dd45cbb7cec05dec",
     "hardware/reference/meanwell-irm90/meanwell_irm90.py": "8db724ca45d590af40a82f9f505a2aaedf9f7381f930deb54fda3cc637b771d5",
@@ -212,8 +212,8 @@
       ".stl": "c9fa5fb8726465cd7cae16075fc3ece8f8ada0c045defb4822a197b637b6c5c2"
     },
     "back-top": {
-      ".step": "1e9798e233d95b3634788593d9c7a1b99305b5d3d7e251ebc82223c8fa2c72e7",
-      ".stl": "da7d9922dee9e5e7b7d4ab20fb88fe5b0069a4e9dba92798c4162f0fbcc54980"
+      ".step": "c2cb1a447af3fa0691c3518e98a2384a446d86f88e949ac1d3b7fed66ffb2dc7",
+      ".stl": "b09196f41a6a0ac2b67ec14ad77c2d17af4747feca3649ecdcd862361eb09c68"
     },
     "pump-retainer": {
       ".step": "44feb1792f4aaeb46cbe0f136d5274ac98776ecee5a93cc4412acb47f6957de2",
