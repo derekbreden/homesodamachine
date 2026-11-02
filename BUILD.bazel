@@ -3809,6 +3809,9 @@ genrule(
         "pysrc/hardware/wiring/installed/step_merge.py",
         "pysrc/hardware/wiring/installed/terminals.py",
         "pysrc/hardware/wiring/installed/terminations.py",
+        "hardware/wiring/installed/wire_components.rs",
+        "pysrc/hardware/wiring/installed/wire_geometry.py",
+        "hardware/wiring/installed/wire_geometry.rs",
         "tools/bazel/graph.json",
         "pysrc/tools/docgen/__init__.py",
         "tools/hsm/Cargo.lock",
@@ -3894,6 +3897,7 @@ genrule(
         "out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.step.npz",
         "out/enclosure-assembly/hardware/wiring/enclosure-wiring.csv",
         "out/enclosure-assembly/hardware/wiring/enclosure-wiring.json",
+        "out/enclosure-assembly/hardware/wiring/enclosure-wiring.numbers.json",
         "out/enclosure-assembly/hardware/wiring/enclosure-wiring.step",
         "out/enclosure-assembly/hardware/wiring/enclosure-wiring.step.mesh",
         "out/enclosure-assembly/hardware/wiring/enclosure-wiring.step.npz",
@@ -3922,10 +3926,11 @@ O16=$$PWD/$(location out/enclosure-assembly/hardware/manifold-layout/enclosure-a
 O17=$$PWD/$(location out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.step.npz)
 O18=$$PWD/$(location out/enclosure-assembly/hardware/wiring/enclosure-wiring.csv)
 O19=$$PWD/$(location out/enclosure-assembly/hardware/wiring/enclosure-wiring.json)
-O20=$$PWD/$(location out/enclosure-assembly/hardware/wiring/enclosure-wiring.step)
-O21=$$PWD/$(location out/enclosure-assembly/hardware/wiring/enclosure-wiring.step.mesh)
-O22=$$PWD/$(location out/enclosure-assembly/hardware/wiring/enclosure-wiring.step.npz)
-O23=$$PWD/$(location out/enclosure-assembly/hardware/wiring/installed/integration-review.json)
+O20=$$PWD/$(location out/enclosure-assembly/hardware/wiring/enclosure-wiring.numbers.json)
+O21=$$PWD/$(location out/enclosure-assembly/hardware/wiring/enclosure-wiring.step)
+O22=$$PWD/$(location out/enclosure-assembly/hardware/wiring/enclosure-wiring.step.mesh)
+O23=$$PWD/$(location out/enclosure-assembly/hardware/wiring/enclosure-wiring.step.npz)
+O24=$$PWD/$(location out/enclosure-assembly/hardware/wiring/installed/integration-review.json)
 rm -rf work-enclosure-assembly
 for f in $(SRCS); do
   case $$f in
@@ -3943,7 +3948,6 @@ cd work-enclosure-assembly
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
 HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py > /dev/null
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/wiring/installed/build.py > /dev/null
 cp hardware/assembly/scenes/glb/back-half.glb $$O0
 cp hardware/assembly/scenes/glb/back-top.glb $$O1
 cp hardware/assembly/scenes/glb/cap-lid-fill.glb $$O2
@@ -3964,10 +3968,11 @@ cp hardware/manifold-layout/enclosure-assembly.step.mesh $$O16
 cp hardware/manifold-layout/enclosure-assembly.step.npz $$O17
 cp hardware/wiring/enclosure-wiring.csv $$O18
 cp hardware/wiring/enclosure-wiring.json $$O19
-cp hardware/wiring/enclosure-wiring.step $$O20
-cp hardware/wiring/enclosure-wiring.step.mesh $$O21
-cp hardware/wiring/enclosure-wiring.step.npz $$O22
-cp hardware/wiring/installed/integration-review.json $$O23
+cp hardware/wiring/enclosure-wiring.numbers.json $$O20
+cp hardware/wiring/enclosure-wiring.step $$O21
+cp hardware/wiring/enclosure-wiring.step.mesh $$O22
+cp hardware/wiring/enclosure-wiring.step.npz $$O23
+cp hardware/wiring/installed/integration-review.json $$O24
 cd .. && rm -rf work-enclosure-assembly
 """,
 )
@@ -17730,6 +17735,14 @@ genrule(
     name = "pysrc-04316b74c04b",
     srcs = ["hardware/wiring/installed/terminations.py"],
     outs = ["pysrc/hardware/wiring/installed/terminations.py"],
+    tools = ["tools/bazel/pysrc.py"],
+    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
+)
+
+genrule(
+    name = "pysrc-9eab891361f2",
+    srcs = ["hardware/wiring/installed/wire_geometry.py"],
+    outs = ["pysrc/hardware/wiring/installed/wire_geometry.py"],
     tools = ["tools/bazel/pysrc.py"],
     cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
 )
