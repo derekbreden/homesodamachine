@@ -768,6 +768,7 @@ dependencies = [
  "manifold-csg",
  "serde",
  "serde_json",
+ "sha2",
 ]
 
 [[package]]
