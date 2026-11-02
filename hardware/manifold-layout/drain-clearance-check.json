@@ -1,5 +1,5 @@
 {
-  "scope": "Nominal mesh clearance (every body within 0.005 mm of its exact surface) of the direct TPU ASSE sleeve and dedicated drain against the complete installed assembly population, including cold-core bodies and retained flavor returns. Connected interfaces are excluded. Tubes exclude flexible conductors and jackets as obstacles; connector housings remain. The white 4 mm return requires at least 1 mm to every other unconnected body. Pump occupied envelopes are read per component. The sleeve's expanded shape is an occupancy approximation. Hardware tolerances, zip-tie heads, actual bending, seals and vent performance are unmeasured.",
+  "scope": "Nominal authoritative fine model clearance of the direct TPU ASSE sleeve and dedicated drain against the complete installed assembly population, including cold-core bodies and retained flavor returns. Connected interfaces are excluded. Tubes exclude flexible conductors and jackets as obstacles; connector housings remain. The white 4 mm return requires at least 1 mm to every other unconnected body. Pump occupied envelopes are read per component. The sleeve expanded shape is an occupancy approximation. Hardware tolerances, zip-tie heads, actual bending, seals and vent performance are unmeasured.",
   "conservative_cold_core_envelope_included": true,
   "installed_body_count": 295,
   "checked_members": [
@@ -35,6 +35,11 @@
           "overlap_mm3": 0.0
         },
         {
+          "name": "cold-core/foam-cap-lid-top",
+          "gap_mm": 4.9260612,
+          "overlap_mm3": 0.0
+        },
+        {
           "name": "g-ganen-pump",
           "gap_mm": 12.2446293,
           "overlap_mm3": 0.0
@@ -51,11 +56,6 @@
         },
         {
           "name": "foam-assembly",
-          "gap_mm": 4.9260612,
-          "overlap_mm3": 0.0
-        },
-        {
-          "name": "cold-core/foam-cap-lid-top",
           "gap_mm": 4.9260612,
           "overlap_mm3": 0.0
         }
@@ -83,17 +83,17 @@
           "overlap_mm3": 0.0
         },
         {
+          "name": "cold-core/foam-cap-lid-top",
+          "gap_mm": 9.6303952,
+          "overlap_mm3": 0.0
+        },
+        {
           "name": "enclosure-back-top",
           "gap_mm": 7.8566433,
           "overlap_mm3": 0.0
         },
         {
           "name": "foam-assembly",
-          "gap_mm": 9.6303952,
-          "overlap_mm3": 0.0
-        },
-        {
-          "name": "cold-core/foam-cap-lid-top",
           "gap_mm": 9.6303952,
           "overlap_mm3": 0.0
         }
@@ -271,6 +271,86 @@
           "overlap_mm3": 0.0
         },
         {
+          "name": "cold-core/cap-clamp-top-1",
+          "gap_mm": 19.8675219,
+          "overlap_mm3": 0.0
+        },
+        {
+          "name": "cold-core/cap-clamp-top-2",
+          "gap_mm": 43.1109208,
+          "overlap_mm3": 0.0
+        },
+        {
+          "name": "cold-core/cap-clamp-top-4",
+          "gap_mm": 14.2980735,
+          "overlap_mm3": 0.0
+        },
+        {
+          "name": "cold-core/cap-clamp-top-5",
+          "gap_mm": 71.04596,
+          "overlap_mm3": 0.0
+        },
+        {
+          "name": "cold-core/reservoir-b-fill-guide",
+          "gap_mm": 39.4290736,
+          "overlap_mm3": 0.0
+        },
+        {
+          "name": "cold-core/foam-shell",
+          "gap_mm": 14.2859982,
+          "overlap_mm3": 0.0
+        },
+        {
+          "name": "cold-core/foam-cap-lid-top",
+          "gap_mm": 0.0493746,
+          "overlap_mm3": 0.0
+        },
+        {
+          "name": "cold-core/tube-reservoir-air-a",
+          "gap_mm": 46.6429236,
+          "overlap_mm3": 0.0
+        },
+        {
+          "name": "cold-core/tube-reservoir-air-b",
+          "gap_mm": 59.3444354,
+          "overlap_mm3": 0.0
+        },
+        {
+          "name": "cold-core/line-carb-water-out",
+          "gap_mm": 24.6677593,
+          "overlap_mm3": 0.0
+        },
+        {
+          "name": "cold-core/line-co2-in",
+          "gap_mm": 21.1005631,
+          "overlap_mm3": 0.0
+        },
+        {
+          "name": "cold-core/line-reservoir-a",
+          "gap_mm": 27.4378352,
+          "overlap_mm3": 0.0
+        },
+        {
+          "name": "cold-core/line-reservoir-a-fill",
+          "gap_mm": 17.3421143,
+          "overlap_mm3": 0.0
+        },
+        {
+          "name": "cold-core/line-reservoir-b",
+          "gap_mm": 46.8093372,
+          "overlap_mm3": 0.0
+        },
+        {
+          "name": "cold-core/line-reservoir-b-fill",
+          "gap_mm": 35.8074419,
+          "overlap_mm3": 0.0
+        },
+        {
+          "name": "cold-core/line-water-in",
+          "gap_mm": 73.947606,
+          "overlap_mm3": 0.0
+        },
+        {
           "name": "discharge-barb-clamp",
           "gap_mm": 60.1098371,
           "overlap_mm3": 0.0
@@ -409,86 +489,6 @@
           "name": "foam-assembly",
           "gap_mm": 0.0493746,
           "overlap_mm3": 0.0
-        },
-        {
-          "name": "cold-core/cap-clamp-top-1",
-          "gap_mm": 19.8675219,
-          "overlap_mm3": 0.0
-        },
-        {
-          "name": "cold-core/cap-clamp-top-2",
-          "gap_mm": 43.1109208,
-          "overlap_mm3": 0.0
-        },
-        {
-          "name": "cold-core/cap-clamp-top-4",
-          "gap_mm": 14.2980735,
-          "overlap_mm3": 0.0
-        },
-        {
-          "name": "cold-core/cap-clamp-top-5",
-          "gap_mm": 71.04596,
-          "overlap_mm3": 0.0
-        },
-        {
-          "name": "cold-core/reservoir-b-fill-guide",
-          "gap_mm": 39.4290736,
-          "overlap_mm3": 0.0
-        },
-        {
-          "name": "cold-core/foam-shell",
-          "gap_mm": 14.2859982,
-          "overlap_mm3": 0.0
-        },
-        {
-          "name": "cold-core/foam-cap-lid-top",
-          "gap_mm": 0.0493746,
-          "overlap_mm3": 0.0
-        },
-        {
-          "name": "cold-core/tube-reservoir-air-a",
-          "gap_mm": 46.6429236,
-          "overlap_mm3": 0.0
-        },
-        {
-          "name": "cold-core/tube-reservoir-air-b",
-          "gap_mm": 59.3444354,
-          "overlap_mm3": 0.0
-        },
-        {
-          "name": "cold-core/line-carb-water-out",
-          "gap_mm": 24.6677593,
-          "overlap_mm3": 0.0
-        },
-        {
-          "name": "cold-core/line-co2-in",
-          "gap_mm": 21.1005631,
-          "overlap_mm3": 0.0
-        },
-        {
-          "name": "cold-core/line-reservoir-a",
-          "gap_mm": 27.4378352,
-          "overlap_mm3": 0.0
-        },
-        {
-          "name": "cold-core/line-reservoir-a-fill",
-          "gap_mm": 17.3421143,
-          "overlap_mm3": 0.0
-        },
-        {
-          "name": "cold-core/line-reservoir-b",
-          "gap_mm": 46.8093372,
-          "overlap_mm3": 0.0
-        },
-        {
-          "name": "cold-core/line-reservoir-b-fill",
-          "gap_mm": 35.8074419,
-          "overlap_mm3": 0.0
-        },
-        {
-          "name": "cold-core/line-water-in",
-          "gap_mm": 73.947606,
-          "overlap_mm3": 0.0
         }
       ],
       "passed": true
@@ -626,6 +626,76 @@
         {
           "name": "tube-fluid-24",
           "gap_mm": 13.9353595,
+          "overlap_mm3": 0.0
+        },
+        {
+          "name": "cold-core/cap-clamp-top-2",
+          "gap_mm": 63.70765,
+          "overlap_mm3": 0.0
+        },
+        {
+          "name": "cold-core/cap-clamp-top-3",
+          "gap_mm": 19.8675219,
+          "overlap_mm3": 0.0
+        },
+        {
+          "name": "cold-core/cap-clamp-top-5",
+          "gap_mm": 24.800899,
+          "overlap_mm3": 0.0
+        },
+        {
+          "name": "cold-core/cap-clamp-top-6",
+          "gap_mm": 83.2310994,
+          "overlap_mm3": 0.0
+        },
+        {
+          "name": "cold-core/reservoir-b-fill-guide",
+          "gap_mm": 37.0186678,
+          "overlap_mm3": 0.0
+        },
+        {
+          "name": "cold-core/foam-shell",
+          "gap_mm": 14.36,
+          "overlap_mm3": 0.0
+        },
+        {
+          "name": "cold-core/foam-cap-lid-top",
+          "gap_mm": 0.0499849,
+          "overlap_mm3": 0.0
+        },
+        {
+          "name": "cold-core/tube-reservoir-air-a",
+          "gap_mm": 2.8229404,
+          "overlap_mm3": 0.0
+        },
+        {
+          "name": "cold-core/tube-reservoir-air-b",
+          "gap_mm": 66.9027678,
+          "overlap_mm3": 0.0
+        },
+        {
+          "name": "cold-core/line-carb-water-out",
+          "gap_mm": 45.2046158,
+          "overlap_mm3": 0.0
+        },
+        {
+          "name": "cold-core/line-co2-in",
+          "gap_mm": 33.9396018,
+          "overlap_mm3": 0.0
+        },
+        {
+          "name": "cold-core/line-reservoir-b",
+          "gap_mm": 48.5858132,
+          "overlap_mm3": 0.0
+        },
+        {
+          "name": "cold-core/line-reservoir-b-fill",
+          "gap_mm": 29.6938642,
+          "overlap_mm3": 0.0
+        },
+        {
+          "name": "cold-core/line-water-in",
+          "gap_mm": 69.1344148,
           "overlap_mm3": 0.0
         },
         {
@@ -792,94 +862,24 @@
           "name": "foam-assembly",
           "gap_mm": 0.0499849,
           "overlap_mm3": 0.0
-        },
-        {
-          "name": "cold-core/cap-clamp-top-2",
-          "gap_mm": 63.70765,
-          "overlap_mm3": 0.0
-        },
-        {
-          "name": "cold-core/cap-clamp-top-3",
-          "gap_mm": 19.8675219,
-          "overlap_mm3": 0.0
-        },
-        {
-          "name": "cold-core/cap-clamp-top-5",
-          "gap_mm": 24.800899,
-          "overlap_mm3": 0.0
-        },
-        {
-          "name": "cold-core/cap-clamp-top-6",
-          "gap_mm": 83.2310994,
-          "overlap_mm3": 0.0
-        },
-        {
-          "name": "cold-core/reservoir-b-fill-guide",
-          "gap_mm": 37.0186678,
-          "overlap_mm3": 0.0
-        },
-        {
-          "name": "cold-core/foam-shell",
-          "gap_mm": 14.36,
-          "overlap_mm3": 0.0
-        },
-        {
-          "name": "cold-core/foam-cap-lid-top",
-          "gap_mm": 0.0499849,
-          "overlap_mm3": 0.0
-        },
-        {
-          "name": "cold-core/tube-reservoir-air-a",
-          "gap_mm": 2.8229404,
-          "overlap_mm3": 0.0
-        },
-        {
-          "name": "cold-core/tube-reservoir-air-b",
-          "gap_mm": 66.9027678,
-          "overlap_mm3": 0.0
-        },
-        {
-          "name": "cold-core/line-carb-water-out",
-          "gap_mm": 45.2046158,
-          "overlap_mm3": 0.0
-        },
-        {
-          "name": "cold-core/line-co2-in",
-          "gap_mm": 33.9396018,
-          "overlap_mm3": 0.0
-        },
-        {
-          "name": "cold-core/line-reservoir-b",
-          "gap_mm": 48.5858132,
-          "overlap_mm3": 0.0
-        },
-        {
-          "name": "cold-core/line-reservoir-b-fill",
-          "gap_mm": 29.6938642,
-          "overlap_mm3": 0.0
-        },
-        {
-          "name": "cold-core/line-water-in",
-          "gap_mm": 69.1344148,
-          "overlap_mm3": 0.0
         }
       ],
       "passed": true
     }
   },
   "bend_radii": {
-    "tube-drain-vent": {
-      "centerline_radii_mm": [
-        55.6741128
-      ],
-      "method": "Producer centerline; circular arcs and cubic curvature extrema",
-      "passed": true
-    },
     "tube-fluid-18": {
       "centerline_radii_mm": [
         25.0
       ],
       "stock_minimum_mm": 25.0,
+      "passed": true
+    },
+    "tube-drain-vent": {
+      "centerline_radii_mm": [
+        55.6741128
+      ],
+      "method": "Producer centerline; circular arcs and cubic curvature extrema",
       "passed": true
     },
     "tube-fluid-28": {
@@ -891,15 +891,4520 @@
     }
   },
   "source_sha256": {
-    "hardware/scripts/check_asse_drain.py": "98f96d2592225a96edbe22d945c40ee2a89b5f454b3951d53f24f23c9b76c575",
+    "hardware/scripts/check_asse_drain.py": "dbcc26e7236b251f4603174452b50c43e7150ce7d2bc0f4e00a21b8e954ac638",
     "hardware/manifold-layout/_drain.py": "fe820671a5415fbd7cdbc7bd63af8690a9a6412b0b22b9ff30f2f902cdc16d36",
-    "hardware/manifold-layout/enclosure_assembly.py": "15935e96f081ccb56e1c3eece6ace14272b7311558ce6f2fa9997b35ed20b971",
+    "hardware/manifold-layout/enclosure_assembly.py": "38e5b3284b635c2bb7db4598d4739fe519d8658a96fad6f9a74f1eb51c46083d",
     "hardware/manifold-layout/_lines.py": "029fc0a760a4dadb581f93d0df17c23453197355e4d86d68754079057b292733",
     "hardware/manifold-layout/rear_plumbing.py": "b22eb3e36d67788a379c7c819cb04a9a35d6d1eb4491eaba28c29e9c40fade1f",
     "hardware/manifold-layout/above-core.json": "e0b80674504eabcbfa8ce36559b94b30c737d80f2a99b782dd45cbb7cec05dec",
     "hardware/reference/neofit-drain-bulkhead/neofit_drain_bulkhead.py": "df79886e90630cf93cce916d7f7a1f95b189a298619ac7b7cc53a3cdcc5817a7",
     "hardware/reference/asse1022-assembly/asse1022_assembly.py": "8aaf9cc6d16062a5536d8ea6c8e6d0d79abe965eed761b2017e803f61298f081",
-    "hardware/printed-parts/asse-drain-adapter/asse_drain_adapter.py": "115d59155216f206d8fb799f68c9468c88595ec2a576d967bd0be922c67590ed"
+    "hardware/printed-parts/asse-drain-adapter/asse_drain_adapter.py": "115d59155216f206d8fb799f68c9468c88595ec2a576d967bd0be922c67590ed",
+    "hardware/scripts/_assembly_model.py": "735778293e4f7d5c18518c50dfe7a7d42a5da5100eaa028e65e9c7a23eb7b767",
+    "hardware/manifold-layout/enclosure_assembly.rs": "9f3635f7120ee3d519b9f16a862c50696af711ac9b6937418043eb5884dba2da"
   },
+  "fine_inputs": {
+    "physical": {
+      "path": "hardware/manifold-layout/enclosure-assembly.step.npz",
+      "sha256": "47c8fbc3c781721a2b998e4e44277fac0e4414a015375b014cab18fb1f498344"
+    },
+    "envelope": {
+      "path": "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step.npz",
+      "sha256": "cb684a2cc8c3142591aed744617b6d4bc19647a3758e6c9bcf0b77e6b70cd36b",
+      "transform": [
+        [
+          1.1102230246251565e-16,
+          -1.0,
+          0.0,
+          8.664376103967524e-15
+        ],
+        [
+          1.0,
+          1.1102230246251565e-16,
+          0.0,
+          323.79999999962746
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          19.999999999999996
+        ]
+      ],
+      "qualified_names": [
+        "foam-shell",
+        "foam-cap-lid-top",
+        "foam-cap-bottom"
+      ]
+    },
+    "population": {
+      "compressor": [
+        {
+          "model": "physical",
+          "entry_index": 0,
+          "qualified_name": "compressor/1"
+        },
+        {
+          "model": "physical",
+          "entry_index": 1,
+          "qualified_name": "compressor/2"
+        }
+      ],
+      "condenser+fan": [
+        {
+          "model": "physical",
+          "entry_index": 2,
+          "qualified_name": "condenser+fan"
+        }
+      ],
+      "mq6-sensor": [
+        {
+          "model": "physical",
+          "entry_index": 3,
+          "qualified_name": "mq6-sensor"
+        }
+      ],
+      "thermal-fuse": [
+        {
+          "model": "physical",
+          "entry_index": 4,
+          "qualified_name": "thermal-fuse"
+        }
+      ],
+      "fuse-clamp": [
+        {
+          "model": "physical",
+          "entry_index": 5,
+          "qualified_name": "fuse-clamp"
+        }
+      ],
+      "tee-y-a": [
+        {
+          "model": "physical",
+          "entry_index": 6,
+          "qualified_name": "tee-y-a"
+        }
+      ],
+      "valve-v-c": [
+        {
+          "model": "physical",
+          "entry_index": 7,
+          "qualified_name": "valve-v-c"
+        }
+      ],
+      "coil-v-c": [
+        {
+          "model": "physical",
+          "entry_index": 8,
+          "qualified_name": "coil-v-c"
+        }
+      ],
+      "valve-v-e": [
+        {
+          "model": "physical",
+          "entry_index": 9,
+          "qualified_name": "valve-v-e"
+        }
+      ],
+      "coil-v-e": [
+        {
+          "model": "physical",
+          "entry_index": 10,
+          "qualified_name": "coil-v-e"
+        }
+      ],
+      "valve-v-g": [
+        {
+          "model": "physical",
+          "entry_index": 11,
+          "qualified_name": "valve-v-g"
+        }
+      ],
+      "coil-v-g": [
+        {
+          "model": "physical",
+          "entry_index": 12,
+          "qualified_name": "coil-v-g"
+        }
+      ],
+      "valve-v-f": [
+        {
+          "model": "physical",
+          "entry_index": 13,
+          "qualified_name": "valve-v-f"
+        }
+      ],
+      "coil-v-f": [
+        {
+          "model": "physical",
+          "entry_index": 14,
+          "qualified_name": "coil-v-f"
+        }
+      ],
+      "tee-y-b": [
+        {
+          "model": "physical",
+          "entry_index": 15,
+          "qualified_name": "tee-y-b"
+        }
+      ],
+      "valve-v-d": [
+        {
+          "model": "physical",
+          "entry_index": 16,
+          "qualified_name": "valve-v-d"
+        }
+      ],
+      "coil-v-d": [
+        {
+          "model": "physical",
+          "entry_index": 17,
+          "qualified_name": "coil-v-d"
+        }
+      ],
+      "valve-v-h": [
+        {
+          "model": "physical",
+          "entry_index": 18,
+          "qualified_name": "valve-v-h"
+        }
+      ],
+      "coil-v-h": [
+        {
+          "model": "physical",
+          "entry_index": 19,
+          "qualified_name": "coil-v-h"
+        }
+      ],
+      "valve-v-j": [
+        {
+          "model": "physical",
+          "entry_index": 20,
+          "qualified_name": "valve-v-j"
+        }
+      ],
+      "coil-v-j": [
+        {
+          "model": "physical",
+          "entry_index": 21,
+          "qualified_name": "coil-v-j"
+        }
+      ],
+      "valve-v-i": [
+        {
+          "model": "physical",
+          "entry_index": 22,
+          "qualified_name": "valve-v-i"
+        }
+      ],
+      "coil-v-i": [
+        {
+          "model": "physical",
+          "entry_index": 23,
+          "qualified_name": "coil-v-i"
+        }
+      ],
+      "pump-a-head": [
+        {
+          "model": "physical",
+          "entry_index": 24,
+          "qualified_name": "pump-a-head"
+        }
+      ],
+      "pump-a-boss": [
+        {
+          "model": "physical",
+          "entry_index": 25,
+          "qualified_name": "pump-a-boss"
+        }
+      ],
+      "pump-a-motor": [
+        {
+          "model": "physical",
+          "entry_index": 26,
+          "qualified_name": "pump-a-motor"
+        }
+      ],
+      "pump-b-head": [
+        {
+          "model": "physical",
+          "entry_index": 27,
+          "qualified_name": "pump-b-head"
+        }
+      ],
+      "pump-b-boss": [
+        {
+          "model": "physical",
+          "entry_index": 28,
+          "qualified_name": "pump-b-boss"
+        }
+      ],
+      "pump-b-motor": [
+        {
+          "model": "physical",
+          "entry_index": 29,
+          "qualified_name": "pump-b-motor"
+        }
+      ],
+      "tube-fluid-10": [
+        {
+          "model": "physical",
+          "entry_index": 30,
+          "qualified_name": "tube-fluid-10"
+        }
+      ],
+      "tube-fluid-11": [
+        {
+          "model": "physical",
+          "entry_index": 31,
+          "qualified_name": "tube-fluid-11"
+        }
+      ],
+      "tube-fluid-12": [
+        {
+          "model": "physical",
+          "entry_index": 32,
+          "qualified_name": "tube-fluid-12"
+        }
+      ],
+      "tube-fluid-13": [
+        {
+          "model": "physical",
+          "entry_index": 33,
+          "qualified_name": "tube-fluid-13"
+        }
+      ],
+      "tube-fluid-20": [
+        {
+          "model": "physical",
+          "entry_index": 34,
+          "qualified_name": "tube-fluid-20"
+        }
+      ],
+      "tube-fluid-21": [
+        {
+          "model": "physical",
+          "entry_index": 35,
+          "qualified_name": "tube-fluid-21"
+        }
+      ],
+      "tube-fluid-22": [
+        {
+          "model": "physical",
+          "entry_index": 36,
+          "qualified_name": "tube-fluid-22"
+        }
+      ],
+      "tube-fluid-23": [
+        {
+          "model": "physical",
+          "entry_index": 37,
+          "qualified_name": "tube-fluid-23"
+        }
+      ],
+      "tube-fluid-9": [
+        {
+          "model": "physical",
+          "entry_index": 38,
+          "qualified_name": "tube-fluid-9"
+        }
+      ],
+      "tube-fluid-17": [
+        {
+          "model": "physical",
+          "entry_index": 39,
+          "qualified_name": "tube-fluid-17"
+        }
+      ],
+      "tube-fluid-19": [
+        {
+          "model": "physical",
+          "entry_index": 40,
+          "qualified_name": "tube-fluid-19"
+        }
+      ],
+      "tube-fluid-27": [
+        {
+          "model": "physical",
+          "entry_index": 41,
+          "qualified_name": "tube-fluid-27"
+        }
+      ],
+      "flavor-reducer-v-g": [
+        {
+          "model": "physical",
+          "entry_index": 42,
+          "qualified_name": "flavor-reducer-v-g"
+        }
+      ],
+      "flavor-reducer-v-j": [
+        {
+          "model": "physical",
+          "entry_index": 43,
+          "qualified_name": "flavor-reducer-v-j"
+        }
+      ],
+      "psu": [
+        {
+          "model": "physical",
+          "entry_index": 44,
+          "qualified_name": "psu"
+        }
+      ],
+      "relay-1": [
+        {
+          "model": "physical",
+          "entry_index": 45,
+          "qualified_name": "relay-1"
+        }
+      ],
+      "relay-2": [
+        {
+          "model": "physical",
+          "entry_index": 46,
+          "qualified_name": "relay-2"
+        }
+      ],
+      "c14-inlet": [
+        {
+          "model": "physical",
+          "entry_index": 47,
+          "qualified_name": "c14-inlet"
+        }
+      ],
+      "asse1022-assembly": [
+        {
+          "model": "physical",
+          "entry_index": 48,
+          "qualified_name": "asse1022-assembly"
+        }
+      ],
+      "digiten-flow": [
+        {
+          "model": "physical",
+          "entry_index": 49,
+          "qualified_name": "digiten-flow/1"
+        },
+        {
+          "model": "physical",
+          "entry_index": 50,
+          "qualified_name": "digiten-flow/2"
+        },
+        {
+          "model": "physical",
+          "entry_index": 51,
+          "qualified_name": "digiten-flow/3"
+        },
+        {
+          "model": "physical",
+          "entry_index": 52,
+          "qualified_name": "digiten-flow/4"
+        },
+        {
+          "model": "physical",
+          "entry_index": 53,
+          "qualified_name": "digiten-flow/5"
+        },
+        {
+          "model": "physical",
+          "entry_index": 54,
+          "qualified_name": "digiten-flow/6"
+        },
+        {
+          "model": "physical",
+          "entry_index": 55,
+          "qualified_name": "digiten-flow/7"
+        },
+        {
+          "model": "physical",
+          "entry_index": 56,
+          "qualified_name": "digiten-flow/8"
+        },
+        {
+          "model": "physical",
+          "entry_index": 57,
+          "qualified_name": "digiten-flow/9"
+        },
+        {
+          "model": "physical",
+          "entry_index": 58,
+          "qualified_name": "digiten-flow/10"
+        },
+        {
+          "model": "physical",
+          "entry_index": 59,
+          "qualified_name": "digiten-flow/11"
+        },
+        {
+          "model": "physical",
+          "entry_index": 60,
+          "qualified_name": "digiten-flow/12"
+        }
+      ],
+      "valve-v-a": [
+        {
+          "model": "physical",
+          "entry_index": 61,
+          "qualified_name": "valve-v-a/1"
+        },
+        {
+          "model": "physical",
+          "entry_index": 62,
+          "qualified_name": "valve-v-a/2"
+        },
+        {
+          "model": "physical",
+          "entry_index": 63,
+          "qualified_name": "valve-v-a/3"
+        },
+        {
+          "model": "physical",
+          "entry_index": 64,
+          "qualified_name": "valve-v-a/4"
+        },
+        {
+          "model": "physical",
+          "entry_index": 65,
+          "qualified_name": "valve-v-a/5"
+        },
+        {
+          "model": "physical",
+          "entry_index": 66,
+          "qualified_name": "valve-v-a/6"
+        },
+        {
+          "model": "physical",
+          "entry_index": 67,
+          "qualified_name": "valve-v-a/7"
+        },
+        {
+          "model": "physical",
+          "entry_index": 68,
+          "qualified_name": "valve-v-a/8"
+        },
+        {
+          "model": "physical",
+          "entry_index": 69,
+          "qualified_name": "valve-v-a/9"
+        },
+        {
+          "model": "physical",
+          "entry_index": 70,
+          "qualified_name": "valve-v-a/10"
+        },
+        {
+          "model": "physical",
+          "entry_index": 71,
+          "qualified_name": "valve-v-a/11"
+        }
+      ],
+      "vk-solenoid": [
+        {
+          "model": "physical",
+          "entry_index": 72,
+          "qualified_name": "vk-solenoid/1"
+        },
+        {
+          "model": "physical",
+          "entry_index": 73,
+          "qualified_name": "vk-solenoid/2"
+        },
+        {
+          "model": "physical",
+          "entry_index": 74,
+          "qualified_name": "vk-solenoid/3"
+        },
+        {
+          "model": "physical",
+          "entry_index": 75,
+          "qualified_name": "vk-solenoid/4"
+        },
+        {
+          "model": "physical",
+          "entry_index": 76,
+          "qualified_name": "vk-solenoid/5"
+        },
+        {
+          "model": "physical",
+          "entry_index": 77,
+          "qualified_name": "vk-solenoid/6"
+        },
+        {
+          "model": "physical",
+          "entry_index": 78,
+          "qualified_name": "vk-solenoid/7"
+        },
+        {
+          "model": "physical",
+          "entry_index": 79,
+          "qualified_name": "vk-solenoid/8"
+        },
+        {
+          "model": "physical",
+          "entry_index": 80,
+          "qualified_name": "vk-solenoid/9"
+        },
+        {
+          "model": "physical",
+          "entry_index": 81,
+          "qualified_name": "vk-solenoid/10"
+        },
+        {
+          "model": "physical",
+          "entry_index": 82,
+          "qualified_name": "vk-solenoid/11"
+        }
+      ],
+      "asse-drain-adapter": [
+        {
+          "model": "physical",
+          "entry_index": 83,
+          "qualified_name": "asse-drain-adapter"
+        }
+      ],
+      "bulkhead-water": [
+        {
+          "model": "physical",
+          "entry_index": 84,
+          "qualified_name": "bulkhead-water"
+        }
+      ],
+      "gagira-coupling": [
+        {
+          "model": "physical",
+          "entry_index": 85,
+          "qualified_name": "gagira-coupling"
+        }
+      ],
+      "jg-pi4512f6s": [
+        {
+          "model": "physical",
+          "entry_index": 86,
+          "qualified_name": "jg-pi4512f6s"
+        }
+      ],
+      "jg-pp061208w": [
+        {
+          "model": "physical",
+          "entry_index": 87,
+          "qualified_name": "jg-pp061208w"
+        }
+      ],
+      "water-split": [
+        {
+          "model": "physical",
+          "entry_index": 88,
+          "qualified_name": "water-split"
+        }
+      ],
+      "flow-regulator": [
+        {
+          "model": "physical",
+          "entry_index": 89,
+          "qualified_name": "flow-regulator"
+        }
+      ],
+      "co2-inlet": [
+        {
+          "model": "physical",
+          "entry_index": 90,
+          "qualified_name": "co2-inlet"
+        }
+      ],
+      "gas-regulator": [
+        {
+          "model": "physical",
+          "entry_index": 91,
+          "qualified_name": "gas-regulator/1"
+        },
+        {
+          "model": "physical",
+          "entry_index": 92,
+          "qualified_name": "gas-regulator/2"
+        },
+        {
+          "model": "physical",
+          "entry_index": 93,
+          "qualified_name": "gas-regulator/3"
+        }
+      ],
+      "gas-check": [
+        {
+          "model": "physical",
+          "entry_index": 94,
+          "qualified_name": "gas-check"
+        }
+      ],
+      "keystone-jack": [
+        {
+          "model": "physical",
+          "entry_index": 95,
+          "qualified_name": "keystone-jack"
+        }
+      ],
+      "tee-fold": [
+        {
+          "model": "physical",
+          "entry_index": 96,
+          "qualified_name": "tee-fold/1"
+        },
+        {
+          "model": "physical",
+          "entry_index": 97,
+          "qualified_name": "tee-fold/2"
+        }
+      ],
+      "lower-valve-elbow": [
+        {
+          "model": "physical",
+          "entry_index": 98,
+          "qualified_name": "lower-valve-elbow/1"
+        },
+        {
+          "model": "physical",
+          "entry_index": 99,
+          "qualified_name": "lower-valve-elbow/2"
+        }
+      ],
+      "reg-va-elbow": [
+        {
+          "model": "physical",
+          "entry_index": 100,
+          "qualified_name": "reg-va-elbow/1"
+        },
+        {
+          "model": "physical",
+          "entry_index": 101,
+          "qualified_name": "reg-va-elbow/2"
+        }
+      ],
+      "va-outlet-elbow": [
+        {
+          "model": "physical",
+          "entry_index": 102,
+          "qualified_name": "va-outlet-elbow/1"
+        },
+        {
+          "model": "physical",
+          "entry_index": 103,
+          "qualified_name": "va-outlet-elbow/2"
+        }
+      ],
+      "va-south-elbow": [
+        {
+          "model": "physical",
+          "entry_index": 104,
+          "qualified_name": "va-south-elbow/1"
+        },
+        {
+          "model": "physical",
+          "entry_index": 105,
+          "qualified_name": "va-south-elbow/2"
+        }
+      ],
+      "ya-stem-elbow": [
+        {
+          "model": "physical",
+          "entry_index": 106,
+          "qualified_name": "ya-stem-elbow/1"
+        },
+        {
+          "model": "physical",
+          "entry_index": 107,
+          "qualified_name": "ya-stem-elbow/2"
+        }
+      ],
+      "drain-outlet-stem": [
+        {
+          "model": "physical",
+          "entry_index": 108,
+          "qualified_name": "drain-outlet-stem/1"
+        },
+        {
+          "model": "physical",
+          "entry_index": 109,
+          "qualified_name": "drain-outlet-stem/2"
+        }
+      ],
+      "yb-stem-elbow": [
+        {
+          "model": "physical",
+          "entry_index": 110,
+          "qualified_name": "yb-stem-elbow/1"
+        },
+        {
+          "model": "physical",
+          "entry_index": 111,
+          "qualified_name": "yb-stem-elbow/2"
+        }
+      ],
+      "reservoir-a-fill-turn": [
+        {
+          "model": "physical",
+          "entry_index": 112,
+          "qualified_name": "reservoir-a-fill-turn/1"
+        },
+        {
+          "model": "physical",
+          "entry_index": 113,
+          "qualified_name": "reservoir-a-fill-turn/2"
+        }
+      ],
+      "reservoir-a-draw-turn": [
+        {
+          "model": "physical",
+          "entry_index": 114,
+          "qualified_name": "reservoir-a-draw-turn/1"
+        },
+        {
+          "model": "physical",
+          "entry_index": 115,
+          "qualified_name": "reservoir-a-draw-turn/2"
+        }
+      ],
+      "reservoir-b-fill-turn": [
+        {
+          "model": "physical",
+          "entry_index": 116,
+          "qualified_name": "reservoir-b-fill-turn/1"
+        },
+        {
+          "model": "physical",
+          "entry_index": 117,
+          "qualified_name": "reservoir-b-fill-turn/2"
+        }
+      ],
+      "soda-bend-holder": [
+        {
+          "model": "physical",
+          "entry_index": 118,
+          "qualified_name": "soda-bend-holder"
+        }
+      ],
+      "soda-continuous-insulation": [
+        {
+          "model": "physical",
+          "entry_index": 119,
+          "qualified_name": "soda-continuous-insulation"
+        }
+      ],
+      "bulkhead-drain": [
+        {
+          "model": "physical",
+          "entry_index": 120,
+          "qualified_name": "bulkhead-drain"
+        }
+      ],
+      "bulkhead-drain-nut": [
+        {
+          "model": "physical",
+          "entry_index": 121,
+          "qualified_name": "bulkhead-drain-nut"
+        }
+      ],
+      "bulkhead-carb": [
+        {
+          "model": "physical",
+          "entry_index": 122,
+          "qualified_name": "bulkhead-carb"
+        }
+      ],
+      "bulkhead-carb-nut": [
+        {
+          "model": "physical",
+          "entry_index": 123,
+          "qualified_name": "bulkhead-carb-nut"
+        }
+      ],
+      "bulkhead-flavor-b": [
+        {
+          "model": "physical",
+          "entry_index": 124,
+          "qualified_name": "bulkhead-flavor-b"
+        }
+      ],
+      "bulkhead-flavor-b-nut": [
+        {
+          "model": "physical",
+          "entry_index": 125,
+          "qualified_name": "bulkhead-flavor-b-nut"
+        }
+      ],
+      "bulkhead-flavor-a": [
+        {
+          "model": "physical",
+          "entry_index": 126,
+          "qualified_name": "bulkhead-flavor-a"
+        }
+      ],
+      "bulkhead-flavor-a-nut": [
+        {
+          "model": "physical",
+          "entry_index": 127,
+          "qualified_name": "bulkhead-flavor-a-nut"
+        }
+      ],
+      "asse-snap-cap": [
+        {
+          "model": "physical",
+          "entry_index": 128,
+          "qualified_name": "asse-snap-cap"
+        }
+      ],
+      "pisco-snap-cap": [
+        {
+          "model": "physical",
+          "entry_index": 129,
+          "qualified_name": "pisco-snap-cap"
+        }
+      ],
+      "meter-snap-cap": [
+        {
+          "model": "physical",
+          "entry_index": 130,
+          "qualified_name": "meter-snap-cap"
+        }
+      ],
+      "regulator-snap-cap": [
+        {
+          "model": "physical",
+          "entry_index": 131,
+          "qualified_name": "regulator-snap-cap"
+        }
+      ],
+      "psu-screw-1": [
+        {
+          "model": "physical",
+          "entry_index": 132,
+          "qualified_name": "psu-screw-1"
+        }
+      ],
+      "psu-insert-1": [
+        {
+          "model": "physical",
+          "entry_index": 133,
+          "qualified_name": "psu-insert-1"
+        }
+      ],
+      "psu-screw-2": [
+        {
+          "model": "physical",
+          "entry_index": 134,
+          "qualified_name": "psu-screw-2"
+        }
+      ],
+      "psu-insert-2": [
+        {
+          "model": "physical",
+          "entry_index": 135,
+          "qualified_name": "psu-insert-2"
+        }
+      ],
+      "psu-screw-3": [
+        {
+          "model": "physical",
+          "entry_index": 136,
+          "qualified_name": "psu-screw-3"
+        }
+      ],
+      "psu-insert-3": [
+        {
+          "model": "physical",
+          "entry_index": 137,
+          "qualified_name": "psu-insert-3"
+        }
+      ],
+      "psu-screw-4": [
+        {
+          "model": "physical",
+          "entry_index": 138,
+          "qualified_name": "psu-screw-4"
+        }
+      ],
+      "psu-insert-4": [
+        {
+          "model": "physical",
+          "entry_index": 139,
+          "qualified_name": "psu-insert-4"
+        }
+      ],
+      "relay-1-screw-1": [
+        {
+          "model": "physical",
+          "entry_index": 140,
+          "qualified_name": "relay-1-screw-1"
+        }
+      ],
+      "relay-1-insert-1": [
+        {
+          "model": "physical",
+          "entry_index": 141,
+          "qualified_name": "relay-1-insert-1"
+        }
+      ],
+      "relay-1-screw-2": [
+        {
+          "model": "physical",
+          "entry_index": 142,
+          "qualified_name": "relay-1-screw-2"
+        }
+      ],
+      "relay-1-insert-2": [
+        {
+          "model": "physical",
+          "entry_index": 143,
+          "qualified_name": "relay-1-insert-2"
+        }
+      ],
+      "relay-2-screw-1": [
+        {
+          "model": "physical",
+          "entry_index": 144,
+          "qualified_name": "relay-2-screw-1"
+        }
+      ],
+      "relay-2-insert-1": [
+        {
+          "model": "physical",
+          "entry_index": 145,
+          "qualified_name": "relay-2-insert-1"
+        }
+      ],
+      "relay-2-screw-2": [
+        {
+          "model": "physical",
+          "entry_index": 146,
+          "qualified_name": "relay-2-screw-2"
+        }
+      ],
+      "relay-2-insert-2": [
+        {
+          "model": "physical",
+          "entry_index": 147,
+          "qualified_name": "relay-2-insert-2"
+        }
+      ],
+      "wago-h": [
+        {
+          "model": "physical",
+          "entry_index": 148,
+          "qualified_name": "wago-h"
+        }
+      ],
+      "wago-g": [
+        {
+          "model": "physical",
+          "entry_index": 149,
+          "qualified_name": "wago-g"
+        }
+      ],
+      "wago-n": [
+        {
+          "model": "physical",
+          "entry_index": 150,
+          "qualified_name": "wago-n"
+        }
+      ],
+      "wago-mana": [
+        {
+          "model": "physical",
+          "entry_index": 151,
+          "qualified_name": "wago-mana"
+        }
+      ],
+      "wago-manb": [
+        {
+          "model": "physical",
+          "entry_index": 152,
+          "qualified_name": "wago-manb"
+        }
+      ],
+      "tube-refrig-1": [
+        {
+          "model": "physical",
+          "entry_index": 153,
+          "qualified_name": "tube-refrig-1"
+        }
+      ],
+      "tube-refrig-2": [
+        {
+          "model": "physical",
+          "entry_index": 154,
+          "qualified_name": "tube-refrig-2"
+        }
+      ],
+      "tube-refrig-3": [
+        {
+          "model": "physical",
+          "entry_index": 155,
+          "qualified_name": "tube-refrig-3"
+        }
+      ],
+      "tube-above-core-drain-vb-east-link": [
+        {
+          "model": "physical",
+          "entry_index": 156,
+          "qualified_name": "tube-above-core-drain-vb-east-link"
+        }
+      ],
+      "tube-above-core-vb-yb-link": [
+        {
+          "model": "physical",
+          "entry_index": 157,
+          "qualified_name": "tube-above-core-vb-yb-link"
+        }
+      ],
+      "tube-above-core-water-split-stub": [
+        {
+          "model": "physical",
+          "entry_index": 158,
+          "qualified_name": "tube-above-core-water-split-stub"
+        }
+      ],
+      "tube-above-core-tee-vk-link": [
+        {
+          "model": "physical",
+          "entry_index": 159,
+          "qualified_name": "tube-above-core-tee-vk-link"
+        }
+      ],
+      "tube-above-core-reg-va-link": [
+        {
+          "model": "physical",
+          "entry_index": 160,
+          "qualified_name": "tube-above-core-reg-va-link"
+        }
+      ],
+      "tube-above-core-tee-regulator": [
+        {
+          "model": "physical",
+          "entry_index": 161,
+          "qualified_name": "tube-above-core-tee-regulator"
+        }
+      ],
+      "tube-soda-core-rise": [
+        {
+          "model": "physical",
+          "entry_index": 162,
+          "qualified_name": "tube-soda-core-rise"
+        }
+      ],
+      "tube-soda-meter-bulkhead": [
+        {
+          "model": "physical",
+          "entry_index": 163,
+          "qualified_name": "tube-soda-meter-bulkhead"
+        }
+      ],
+      "tube-above-core-gas-core-drop": [
+        {
+          "model": "physical",
+          "entry_index": 164,
+          "qualified_name": "tube-above-core-gas-core-drop"
+        }
+      ],
+      "tube-above-core-va-fore-feed": [
+        {
+          "model": "physical",
+          "entry_index": 165,
+          "qualified_name": "tube-above-core-va-fore-feed"
+        }
+      ],
+      "tube-drain-vent": [
+        {
+          "model": "physical",
+          "entry_index": 166,
+          "qualified_name": "tube-drain-vent"
+        }
+      ],
+      "tube-fluid-18": [
+        {
+          "model": "physical",
+          "entry_index": 167,
+          "qualified_name": "tube-fluid-18"
+        }
+      ],
+      "tube-fluid-28": [
+        {
+          "model": "physical",
+          "entry_index": 168,
+          "qualified_name": "tube-fluid-28"
+        }
+      ],
+      "tube-fluid-14": [
+        {
+          "model": "physical",
+          "entry_index": 169,
+          "qualified_name": "tube-fluid-14"
+        }
+      ],
+      "tube-fluid-16": [
+        {
+          "model": "physical",
+          "entry_index": 170,
+          "qualified_name": "tube-fluid-16"
+        }
+      ],
+      "tube-fluid-26": [
+        {
+          "model": "physical",
+          "entry_index": 171,
+          "qualified_name": "tube-fluid-26"
+        }
+      ],
+      "tube-fluid-24": [
+        {
+          "model": "physical",
+          "entry_index": 172,
+          "qualified_name": "tube-fluid-24"
+        }
+      ],
+      "cold-core/cap-clamp-top-1": [
+        {
+          "model": "physical",
+          "entry_index": 173,
+          "qualified_name": "cold-core/cap-clamp-top-1"
+        }
+      ],
+      "cold-core/cap-clamp-top-2": [
+        {
+          "model": "physical",
+          "entry_index": 174,
+          "qualified_name": "cold-core/cap-clamp-top-2"
+        }
+      ],
+      "cold-core/cap-clamp-top-3": [
+        {
+          "model": "physical",
+          "entry_index": 175,
+          "qualified_name": "cold-core/cap-clamp-top-3"
+        }
+      ],
+      "cold-core/cap-clamp-top-4": [
+        {
+          "model": "physical",
+          "entry_index": 176,
+          "qualified_name": "cold-core/cap-clamp-top-4"
+        }
+      ],
+      "cold-core/cap-clamp-top-5": [
+        {
+          "model": "physical",
+          "entry_index": 177,
+          "qualified_name": "cold-core/cap-clamp-top-5"
+        }
+      ],
+      "cold-core/cap-clamp-top-6": [
+        {
+          "model": "physical",
+          "entry_index": 178,
+          "qualified_name": "cold-core/cap-clamp-top-6"
+        }
+      ],
+      "cold-core/cap-clamp-top-7": [
+        {
+          "model": "physical",
+          "entry_index": 179,
+          "qualified_name": "cold-core/cap-clamp-top-7"
+        }
+      ],
+      "cold-core/cap-clamp-top-8": [
+        {
+          "model": "physical",
+          "entry_index": 180,
+          "qualified_name": "cold-core/cap-clamp-top-8"
+        }
+      ],
+      "cold-core/cap-clamp-top-9": [
+        {
+          "model": "physical",
+          "entry_index": 181,
+          "qualified_name": "cold-core/cap-clamp-top-9"
+        }
+      ],
+      "cold-core/cap-clamp-top-10": [
+        {
+          "model": "physical",
+          "entry_index": 182,
+          "qualified_name": "cold-core/cap-clamp-top-10"
+        }
+      ],
+      "cold-core/cap-clamp-bottom-1": [
+        {
+          "model": "physical",
+          "entry_index": 183,
+          "qualified_name": "cold-core/cap-clamp-bottom-1"
+        }
+      ],
+      "cold-core/cap-clamp-bottom-2": [
+        {
+          "model": "physical",
+          "entry_index": 184,
+          "qualified_name": "cold-core/cap-clamp-bottom-2"
+        }
+      ],
+      "cold-core/cap-clamp-bottom-3": [
+        {
+          "model": "physical",
+          "entry_index": 185,
+          "qualified_name": "cold-core/cap-clamp-bottom-3"
+        }
+      ],
+      "cold-core/cap-clamp-bottom-4": [
+        {
+          "model": "physical",
+          "entry_index": 186,
+          "qualified_name": "cold-core/cap-clamp-bottom-4"
+        }
+      ],
+      "cold-core/cap-clamp-bottom-5": [
+        {
+          "model": "physical",
+          "entry_index": 187,
+          "qualified_name": "cold-core/cap-clamp-bottom-5"
+        }
+      ],
+      "cold-core/cap-clamp-bottom-6": [
+        {
+          "model": "physical",
+          "entry_index": 188,
+          "qualified_name": "cold-core/cap-clamp-bottom-6"
+        }
+      ],
+      "cold-core/cap-clamp-bottom-7": [
+        {
+          "model": "physical",
+          "entry_index": 189,
+          "qualified_name": "cold-core/cap-clamp-bottom-7"
+        }
+      ],
+      "cold-core/cap-clamp-bottom-8": [
+        {
+          "model": "physical",
+          "entry_index": 190,
+          "qualified_name": "cold-core/cap-clamp-bottom-8"
+        }
+      ],
+      "cold-core/cap-clamp-bottom-9": [
+        {
+          "model": "physical",
+          "entry_index": 191,
+          "qualified_name": "cold-core/cap-clamp-bottom-9"
+        }
+      ],
+      "cold-core/cap-clamp-bottom-10": [
+        {
+          "model": "physical",
+          "entry_index": 192,
+          "qualified_name": "cold-core/cap-clamp-bottom-10"
+        }
+      ],
+      "cold-core/reservoir-b-fill-guide": [
+        {
+          "model": "physical",
+          "entry_index": 193,
+          "qualified_name": "cold-core/reservoir-b-fill-guide"
+        }
+      ],
+      "cold-core/foam-shell": [
+        {
+          "model": "physical",
+          "entry_index": 194,
+          "qualified_name": "cold-core/foam-shell"
+        }
+      ],
+      "cold-core/foam-cap-lid-top": [
+        {
+          "model": "physical",
+          "entry_index": 195,
+          "qualified_name": "cold-core/foam-cap-lid-top"
+        }
+      ],
+      "cold-core/foam-cap-bottom": [
+        {
+          "model": "physical",
+          "entry_index": 196,
+          "qualified_name": "cold-core/foam-cap-bottom"
+        }
+      ],
+      "cold-core/carbonator-tube": [
+        {
+          "model": "physical",
+          "entry_index": 197,
+          "qualified_name": "cold-core/carbonator-tube"
+        }
+      ],
+      "cold-core/endcap-bottom": [
+        {
+          "model": "physical",
+          "entry_index": 198,
+          "qualified_name": "cold-core/endcap-bottom"
+        }
+      ],
+      "cold-core/endcap-top": [
+        {
+          "model": "physical",
+          "entry_index": 199,
+          "qualified_name": "cold-core/endcap-top"
+        }
+      ],
+      "cold-core/float-rod-carb": [
+        {
+          "model": "physical",
+          "entry_index": 200,
+          "qualified_name": "cold-core/float-rod-carb"
+        }
+      ],
+      "cold-core/float-stop-carb-top": [
+        {
+          "model": "physical",
+          "entry_index": 201,
+          "qualified_name": "cold-core/float-stop-carb-top"
+        }
+      ],
+      "cold-core/carbonator-earth-screw": [
+        {
+          "model": "physical",
+          "entry_index": 202,
+          "qualified_name": "cold-core/carbonator-earth-screw"
+        }
+      ],
+      "cold-core/carbonator-earth-lockwasher": [
+        {
+          "model": "physical",
+          "entry_index": 203,
+          "qualified_name": "cold-core/carbonator-earth-lockwasher"
+        }
+      ],
+      "cold-core/carbonator-elbow-co2-in": [
+        {
+          "model": "physical",
+          "entry_index": 204,
+          "qualified_name": "cold-core/carbonator-elbow-co2-in"
+        }
+      ],
+      "cold-core/carbonator-elbow-carb-water-out": [
+        {
+          "model": "physical",
+          "entry_index": 205,
+          "qualified_name": "cold-core/carbonator-elbow-carb-water-out"
+        }
+      ],
+      "cold-core/carbonator-elbow-water-in": [
+        {
+          "model": "physical",
+          "entry_index": 206,
+          "qualified_name": "cold-core/carbonator-elbow-water-in"
+        }
+      ],
+      "cold-core/carbonator-elbow-prv": [
+        {
+          "model": "physical",
+          "entry_index": 207,
+          "qualified_name": "cold-core/carbonator-elbow-prv"
+        }
+      ],
+      "cold-core/reservoir-a": [
+        {
+          "model": "physical",
+          "entry_index": 208,
+          "qualified_name": "cold-core/reservoir-a"
+        }
+      ],
+      "cold-core/reservoir-a-cap": [
+        {
+          "model": "physical",
+          "entry_index": 209,
+          "qualified_name": "cold-core/reservoir-a-cap"
+        }
+      ],
+      "cold-core/reservoir-a-gasket": [
+        {
+          "model": "physical",
+          "entry_index": 210,
+          "qualified_name": "cold-core/reservoir-a-gasket"
+        }
+      ],
+      "cold-core/reservoir-b": [
+        {
+          "model": "physical",
+          "entry_index": 211,
+          "qualified_name": "cold-core/reservoir-b"
+        }
+      ],
+      "cold-core/reservoir-b-cap": [
+        {
+          "model": "physical",
+          "entry_index": 212,
+          "qualified_name": "cold-core/reservoir-b-cap"
+        }
+      ],
+      "cold-core/reservoir-b-gasket": [
+        {
+          "model": "physical",
+          "entry_index": 213,
+          "qualified_name": "cold-core/reservoir-b-gasket"
+        }
+      ],
+      "cold-core/reservoir-grip-a-fill": [
+        {
+          "model": "physical",
+          "entry_index": 214,
+          "qualified_name": "cold-core/reservoir-grip-a-fill"
+        }
+      ],
+      "cold-core/reservoir-grip-a-draw": [
+        {
+          "model": "physical",
+          "entry_index": 215,
+          "qualified_name": "cold-core/reservoir-grip-a-draw"
+        }
+      ],
+      "cold-core/reservoir-grip-a-air": [
+        {
+          "model": "physical",
+          "entry_index": 216,
+          "qualified_name": "cold-core/reservoir-grip-a-air"
+        }
+      ],
+      "cold-core/tube-reservoir-air-a": [
+        {
+          "model": "physical",
+          "entry_index": 217,
+          "qualified_name": "cold-core/tube-reservoir-air-a"
+        }
+      ],
+      "cold-core/reservoir-grip-b-fill": [
+        {
+          "model": "physical",
+          "entry_index": 218,
+          "qualified_name": "cold-core/reservoir-grip-b-fill"
+        }
+      ],
+      "cold-core/reservoir-grip-b-draw": [
+        {
+          "model": "physical",
+          "entry_index": 219,
+          "qualified_name": "cold-core/reservoir-grip-b-draw"
+        }
+      ],
+      "cold-core/reservoir-grip-b-air": [
+        {
+          "model": "physical",
+          "entry_index": 220,
+          "qualified_name": "cold-core/reservoir-grip-b-air"
+        }
+      ],
+      "cold-core/tube-reservoir-air-b": [
+        {
+          "model": "physical",
+          "entry_index": 221,
+          "qualified_name": "cold-core/tube-reservoir-air-b"
+        }
+      ],
+      "cold-core/evap-coil": [
+        {
+          "model": "physical",
+          "entry_index": 222,
+          "qualified_name": "cold-core/evap-coil"
+        }
+      ],
+      "cold-core/evap-tail-inlet": [
+        {
+          "model": "physical",
+          "entry_index": 223,
+          "qualified_name": "cold-core/evap-tail-inlet"
+        }
+      ],
+      "cold-core/evap-tail-outlet": [
+        {
+          "model": "physical",
+          "entry_index": 224,
+          "qualified_name": "cold-core/evap-tail-outlet"
+        }
+      ],
+      "cold-core/water-inlet-jet-cap-nominal": [
+        {
+          "model": "physical",
+          "entry_index": 225,
+          "qualified_name": "cold-core/water-inlet-jet-cap-nominal"
+        }
+      ],
+      "cold-core/collet-water-in": [
+        {
+          "model": "physical",
+          "entry_index": 226,
+          "qualified_name": "cold-core/collet-water-in"
+        }
+      ],
+      "cold-core/float-carb": [
+        {
+          "model": "physical",
+          "entry_index": 227,
+          "qualified_name": "cold-core/float-carb/1"
+        },
+        {
+          "model": "physical",
+          "entry_index": 228,
+          "qualified_name": "cold-core/float-carb/2"
+        }
+      ],
+      "cold-core/reed-carb-1": [
+        {
+          "model": "physical",
+          "entry_index": 229,
+          "qualified_name": "cold-core/reed-carb-1"
+        }
+      ],
+      "cold-core/reed-carb-2": [
+        {
+          "model": "physical",
+          "entry_index": 230,
+          "qualified_name": "cold-core/reed-carb-2"
+        }
+      ],
+      "cold-core/float-rod-a": [
+        {
+          "model": "physical",
+          "entry_index": 231,
+          "qualified_name": "cold-core/float-rod-a"
+        }
+      ],
+      "cold-core/float-a": [
+        {
+          "model": "physical",
+          "entry_index": 232,
+          "qualified_name": "cold-core/float-a/1"
+        },
+        {
+          "model": "physical",
+          "entry_index": 233,
+          "qualified_name": "cold-core/float-a/2"
+        }
+      ],
+      "cold-core/reed-a-1": [
+        {
+          "model": "physical",
+          "entry_index": 234,
+          "qualified_name": "cold-core/reed-a-1"
+        }
+      ],
+      "cold-core/reed-a-2": [
+        {
+          "model": "physical",
+          "entry_index": 235,
+          "qualified_name": "cold-core/reed-a-2"
+        }
+      ],
+      "cold-core/reed-a-3": [
+        {
+          "model": "physical",
+          "entry_index": 236,
+          "qualified_name": "cold-core/reed-a-3"
+        }
+      ],
+      "cold-core/reed-a-4": [
+        {
+          "model": "physical",
+          "entry_index": 237,
+          "qualified_name": "cold-core/reed-a-4"
+        }
+      ],
+      "cold-core/float-rod-b": [
+        {
+          "model": "physical",
+          "entry_index": 238,
+          "qualified_name": "cold-core/float-rod-b"
+        }
+      ],
+      "cold-core/float-b": [
+        {
+          "model": "physical",
+          "entry_index": 239,
+          "qualified_name": "cold-core/float-b/1"
+        },
+        {
+          "model": "physical",
+          "entry_index": 240,
+          "qualified_name": "cold-core/float-b/2"
+        }
+      ],
+      "cold-core/reed-b-1": [
+        {
+          "model": "physical",
+          "entry_index": 241,
+          "qualified_name": "cold-core/reed-b-1"
+        }
+      ],
+      "cold-core/reed-b-2": [
+        {
+          "model": "physical",
+          "entry_index": 242,
+          "qualified_name": "cold-core/reed-b-2"
+        }
+      ],
+      "cold-core/reed-b-3": [
+        {
+          "model": "physical",
+          "entry_index": 243,
+          "qualified_name": "cold-core/reed-b-3"
+        }
+      ],
+      "cold-core/reed-b-4": [
+        {
+          "model": "physical",
+          "entry_index": 244,
+          "qualified_name": "cold-core/reed-b-4"
+        }
+      ],
+      "cold-core/probe-carbonator-ds18b20": [
+        {
+          "model": "physical",
+          "entry_index": 245,
+          "qualified_name": "cold-core/probe-carbonator-ds18b20"
+        }
+      ],
+      "cold-core/probe-coil-ds18s20": [
+        {
+          "model": "physical",
+          "entry_index": 246,
+          "qualified_name": "cold-core/probe-coil-ds18s20"
+        }
+      ],
+      "cold-core/prv-sv125": [
+        {
+          "model": "physical",
+          "entry_index": 247,
+          "qualified_name": "cold-core/prv-sv125"
+        }
+      ],
+      "cold-core/prv-shroud": [
+        {
+          "model": "physical",
+          "entry_index": 248,
+          "qualified_name": "cold-core/prv-shroud"
+        }
+      ],
+      "cold-core/reed-bridge": [
+        {
+          "model": "physical",
+          "entry_index": 249,
+          "qualified_name": "cold-core/reed-bridge"
+        }
+      ],
+      "cold-core/line-carb-water-out": [
+        {
+          "model": "physical",
+          "entry_index": 250,
+          "qualified_name": "cold-core/line-carb-water-out"
+        }
+      ],
+      "cold-core/line-co2-in": [
+        {
+          "model": "physical",
+          "entry_index": 251,
+          "qualified_name": "cold-core/line-co2-in"
+        }
+      ],
+      "cold-core/line-prv-vent": [
+        {
+          "model": "physical",
+          "entry_index": 252,
+          "qualified_name": "cold-core/line-prv-vent"
+        }
+      ],
+      "cold-core/line-reservoir-a": [
+        {
+          "model": "physical",
+          "entry_index": 253,
+          "qualified_name": "cold-core/line-reservoir-a"
+        }
+      ],
+      "cold-core/line-reservoir-a-fill": [
+        {
+          "model": "physical",
+          "entry_index": 254,
+          "qualified_name": "cold-core/line-reservoir-a-fill"
+        }
+      ],
+      "cold-core/line-reservoir-b": [
+        {
+          "model": "physical",
+          "entry_index": 255,
+          "qualified_name": "cold-core/line-reservoir-b"
+        }
+      ],
+      "cold-core/line-reservoir-b-fill": [
+        {
+          "model": "physical",
+          "entry_index": 256,
+          "qualified_name": "cold-core/line-reservoir-b-fill"
+        }
+      ],
+      "cold-core/line-water-in": [
+        {
+          "model": "physical",
+          "entry_index": 257,
+          "qualified_name": "cold-core/line-water-in"
+        }
+      ],
+      "carbonator-fold": [
+        {
+          "model": "physical",
+          "entry_index": 258,
+          "qualified_name": "cold-core/carbonator-fold/1"
+        },
+        {
+          "model": "physical",
+          "entry_index": 259,
+          "qualified_name": "cold-core/carbonator-fold/2"
+        }
+      ],
+      "discharge-barb-clamp": [
+        {
+          "model": "physical",
+          "entry_index": 260,
+          "qualified_name": "cold-core/discharge-barb-clamp"
+        }
+      ],
+      "discharge-barb-key": [
+        {
+          "model": "physical",
+          "entry_index": 261,
+          "qualified_name": "cold-core/discharge-barb-key"
+        }
+      ],
+      "discharge-chain": [
+        {
+          "model": "physical",
+          "entry_index": 262,
+          "qualified_name": "cold-core/discharge-chain"
+        }
+      ],
+      "discharge-reducer": [
+        {
+          "model": "physical",
+          "entry_index": 263,
+          "qualified_name": "cold-core/discharge-reducer/1"
+        },
+        {
+          "model": "physical",
+          "entry_index": 264,
+          "qualified_name": "cold-core/discharge-reducer/2"
+        }
+      ],
+      "discharge-stem-clamp": [
+        {
+          "model": "physical",
+          "entry_index": 265,
+          "qualified_name": "cold-core/discharge-stem-clamp"
+        }
+      ],
+      "discharge-stem-key": [
+        {
+          "model": "physical",
+          "entry_index": 266,
+          "qualified_name": "cold-core/discharge-stem-key"
+        }
+      ],
+      "discharge-tube": [
+        {
+          "model": "physical",
+          "entry_index": 267,
+          "qualified_name": "cold-core/discharge-tube"
+        }
+      ],
+      "g-ganen-pump": [
+        {
+          "model": "physical",
+          "entry_index": 268,
+          "qualified_name": "cold-core/g-ganen-pump/1"
+        },
+        {
+          "model": "physical",
+          "entry_index": 269,
+          "qualified_name": "cold-core/g-ganen-pump/2"
+        },
+        {
+          "model": "physical",
+          "entry_index": 270,
+          "qualified_name": "cold-core/g-ganen-pump/3"
+        },
+        {
+          "model": "physical",
+          "entry_index": 271,
+          "qualified_name": "cold-core/g-ganen-pump/4"
+        },
+        {
+          "model": "physical",
+          "entry_index": 272,
+          "qualified_name": "cold-core/g-ganen-pump/5"
+        },
+        {
+          "model": "physical",
+          "entry_index": 273,
+          "qualified_name": "cold-core/g-ganen-pump/6"
+        },
+        {
+          "model": "physical",
+          "entry_index": 274,
+          "qualified_name": "cold-core/g-ganen-pump/7"
+        },
+        {
+          "model": "physical",
+          "entry_index": 275,
+          "qualified_name": "cold-core/g-ganen-pump/8"
+        },
+        {
+          "model": "physical",
+          "entry_index": 276,
+          "qualified_name": "cold-core/g-ganen-pump/9"
+        },
+        {
+          "model": "physical",
+          "entry_index": 277,
+          "qualified_name": "cold-core/g-ganen-pump/10"
+        },
+        {
+          "model": "physical",
+          "entry_index": 278,
+          "qualified_name": "cold-core/g-ganen-pump/11"
+        },
+        {
+          "model": "physical",
+          "entry_index": 279,
+          "qualified_name": "cold-core/g-ganen-pump/12"
+        },
+        {
+          "model": "physical",
+          "entry_index": 280,
+          "qualified_name": "cold-core/g-ganen-pump/13"
+        },
+        {
+          "model": "physical",
+          "entry_index": 281,
+          "qualified_name": "cold-core/g-ganen-pump/14"
+        },
+        {
+          "model": "physical",
+          "entry_index": 282,
+          "qualified_name": "cold-core/g-ganen-pump/15"
+        },
+        {
+          "model": "physical",
+          "entry_index": 283,
+          "qualified_name": "cold-core/g-ganen-pump/16"
+        },
+        {
+          "model": "physical",
+          "entry_index": 284,
+          "qualified_name": "cold-core/g-ganen-pump/17"
+        },
+        {
+          "model": "physical",
+          "entry_index": 285,
+          "qualified_name": "cold-core/g-ganen-pump/18"
+        },
+        {
+          "model": "physical",
+          "entry_index": 286,
+          "qualified_name": "cold-core/g-ganen-pump/19"
+        },
+        {
+          "model": "physical",
+          "entry_index": 287,
+          "qualified_name": "cold-core/g-ganen-pump/20"
+        },
+        {
+          "model": "physical",
+          "entry_index": 288,
+          "qualified_name": "cold-core/g-ganen-pump/21"
+        }
+      ],
+      "lower-pump-elbow": [
+        {
+          "model": "physical",
+          "entry_index": 289,
+          "qualified_name": "cold-core/lower-pump-elbow/1"
+        },
+        {
+          "model": "physical",
+          "entry_index": 290,
+          "qualified_name": "cold-core/lower-pump-elbow/2"
+        }
+      ],
+      "pcba": [
+        {
+          "model": "physical",
+          "entry_index": 291,
+          "qualified_name": "cold-core/pcba"
+        }
+      ],
+      "pump-snap-cap": [
+        {
+          "model": "physical",
+          "entry_index": 292,
+          "qualified_name": "cold-core/pump-snap-cap"
+        }
+      ],
+      "suction-barb-clamp": [
+        {
+          "model": "physical",
+          "entry_index": 293,
+          "qualified_name": "cold-core/suction-barb-clamp"
+        }
+      ],
+      "suction-barb-key": [
+        {
+          "model": "physical",
+          "entry_index": 294,
+          "qualified_name": "cold-core/suction-barb-key"
+        }
+      ],
+      "suction-reducer": [
+        {
+          "model": "physical",
+          "entry_index": 295,
+          "qualified_name": "cold-core/suction-reducer/1"
+        },
+        {
+          "model": "physical",
+          "entry_index": 296,
+          "qualified_name": "cold-core/suction-reducer/2"
+        }
+      ],
+      "suction-stem-clamp": [
+        {
+          "model": "physical",
+          "entry_index": 297,
+          "qualified_name": "cold-core/suction-stem-clamp"
+        }
+      ],
+      "suction-stem-key": [
+        {
+          "model": "physical",
+          "entry_index": 298,
+          "qualified_name": "cold-core/suction-stem-key"
+        }
+      ],
+      "suction-tube": [
+        {
+          "model": "physical",
+          "entry_index": 299,
+          "qualified_name": "cold-core/suction-tube"
+        }
+      ],
+      "valve-v-b": [
+        {
+          "model": "physical",
+          "entry_index": 300,
+          "qualified_name": "cold-core/valve-v-b/1"
+        },
+        {
+          "model": "physical",
+          "entry_index": 301,
+          "qualified_name": "cold-core/valve-v-b/2"
+        },
+        {
+          "model": "physical",
+          "entry_index": 302,
+          "qualified_name": "cold-core/valve-v-b/3"
+        },
+        {
+          "model": "physical",
+          "entry_index": 303,
+          "qualified_name": "cold-core/valve-v-b/4"
+        },
+        {
+          "model": "physical",
+          "entry_index": 304,
+          "qualified_name": "cold-core/valve-v-b/5"
+        },
+        {
+          "model": "physical",
+          "entry_index": 305,
+          "qualified_name": "cold-core/valve-v-b/6"
+        },
+        {
+          "model": "physical",
+          "entry_index": 306,
+          "qualified_name": "cold-core/valve-v-b/7"
+        },
+        {
+          "model": "physical",
+          "entry_index": 307,
+          "qualified_name": "cold-core/valve-v-b/8"
+        },
+        {
+          "model": "physical",
+          "entry_index": 308,
+          "qualified_name": "cold-core/valve-v-b/9"
+        },
+        {
+          "model": "physical",
+          "entry_index": 309,
+          "qualified_name": "cold-core/valve-v-b/10"
+        },
+        {
+          "model": "physical",
+          "entry_index": 310,
+          "qualified_name": "cold-core/valve-v-b/11"
+        }
+      ],
+      "vb-inlet-turn": [
+        {
+          "model": "physical",
+          "entry_index": 311,
+          "qualified_name": "cold-core/vb-inlet-turn/1"
+        },
+        {
+          "model": "physical",
+          "entry_index": 312,
+          "qualified_name": "cold-core/vb-inlet-turn/2"
+        }
+      ],
+      "vb-outlet-return": [
+        {
+          "model": "physical",
+          "entry_index": 313,
+          "qualified_name": "cold-core/vb-outlet-return/1"
+        },
+        {
+          "model": "physical",
+          "entry_index": 314,
+          "qualified_name": "cold-core/vb-outlet-return/2"
+        },
+        {
+          "model": "physical",
+          "entry_index": 315,
+          "qualified_name": "cold-core/vb-outlet-return/3"
+        }
+      ],
+      "vb-outlet-stem": [
+        {
+          "model": "physical",
+          "entry_index": 316,
+          "qualified_name": "cold-core/vb-outlet-stem/1"
+        },
+        {
+          "model": "physical",
+          "entry_index": 317,
+          "qualified_name": "cold-core/vb-outlet-stem/2"
+        }
+      ],
+      "wago-sensors": [
+        {
+          "model": "physical",
+          "entry_index": 318,
+          "qualified_name": "cold-core/wago-sensors"
+        }
+      ],
+      "wago-v12": [
+        {
+          "model": "physical",
+          "entry_index": 319,
+          "qualified_name": "cold-core/wago-v12"
+        }
+      ],
+      "wago-gnd": [
+        {
+          "model": "physical",
+          "entry_index": 320,
+          "qualified_name": "cold-core/wago-gnd"
+        }
+      ],
+      "wago-reeds-b": [
+        {
+          "model": "physical",
+          "entry_index": 321,
+          "qualified_name": "cold-core/wago-reeds-b"
+        }
+      ],
+      "tube-above-core-vb-yb-cross": [
+        {
+          "model": "physical",
+          "entry_index": 322,
+          "qualified_name": "cold-core/tube-above-core-vb-yb-cross"
+        }
+      ],
+      "tube-above-core-pump-inlet-link": [
+        {
+          "model": "physical",
+          "entry_index": 323,
+          "qualified_name": "cold-core/tube-above-core-pump-inlet-link"
+        }
+      ],
+      "tube-water-5": [
+        {
+          "model": "physical",
+          "entry_index": 324,
+          "qualified_name": "cold-core/tube-water-5"
+        }
+      ],
+      "funnel": [
+        {
+          "model": "physical",
+          "entry_index": 325,
+          "qualified_name": "funnel"
+        }
+      ],
+      "funnel-cover": [
+        {
+          "model": "physical",
+          "entry_index": 326,
+          "qualified_name": "funnel-cover"
+        }
+      ],
+      "funnel-frame": [
+        {
+          "model": "physical",
+          "entry_index": 327,
+          "qualified_name": "funnel-frame"
+        }
+      ],
+      "bulkhead-ring-water": [
+        {
+          "model": "physical",
+          "entry_index": 328,
+          "qualified_name": "bulkhead-ring-water"
+        }
+      ],
+      "bulkhead-ring-water-word": [
+        {
+          "model": "physical",
+          "entry_index": 329,
+          "qualified_name": "bulkhead-ring-water-word/1"
+        },
+        {
+          "model": "physical",
+          "entry_index": 330,
+          "qualified_name": "bulkhead-ring-water-word/2"
+        },
+        {
+          "model": "physical",
+          "entry_index": 331,
+          "qualified_name": "bulkhead-ring-water-word/3"
+        }
+      ],
+      "bulkhead-ring-co2": [
+        {
+          "model": "physical",
+          "entry_index": 332,
+          "qualified_name": "bulkhead-ring-co2"
+        }
+      ],
+      "bulkhead-ring-co2-word": [
+        {
+          "model": "physical",
+          "entry_index": 333,
+          "qualified_name": "bulkhead-ring-co2-word/1"
+        },
+        {
+          "model": "physical",
+          "entry_index": 334,
+          "qualified_name": "bulkhead-ring-co2-word/2"
+        },
+        {
+          "model": "physical",
+          "entry_index": 335,
+          "qualified_name": "bulkhead-ring-co2-word/3"
+        }
+      ],
+      "bulkhead-ring-drain": [
+        {
+          "model": "physical",
+          "entry_index": 336,
+          "qualified_name": "bulkhead-ring-drain"
+        }
+      ],
+      "bulkhead-ring-drain-word": [
+        {
+          "model": "physical",
+          "entry_index": 337,
+          "qualified_name": "bulkhead-ring-drain-word/1"
+        },
+        {
+          "model": "physical",
+          "entry_index": 338,
+          "qualified_name": "bulkhead-ring-drain-word/2"
+        },
+        {
+          "model": "physical",
+          "entry_index": 339,
+          "qualified_name": "bulkhead-ring-drain-word/3"
+        },
+        {
+          "model": "physical",
+          "entry_index": 340,
+          "qualified_name": "bulkhead-ring-drain-word/4"
+        }
+      ],
+      "bulkhead-ring-carb": [
+        {
+          "model": "physical",
+          "entry_index": 341,
+          "qualified_name": "bulkhead-ring-carb"
+        }
+      ],
+      "bulkhead-ring-carb-word": [
+        {
+          "model": "physical",
+          "entry_index": 342,
+          "qualified_name": "bulkhead-ring-carb-word/1"
+        },
+        {
+          "model": "physical",
+          "entry_index": 343,
+          "qualified_name": "bulkhead-ring-carb-word/2"
+        },
+        {
+          "model": "physical",
+          "entry_index": 344,
+          "qualified_name": "bulkhead-ring-carb-word/3"
+        },
+        {
+          "model": "physical",
+          "entry_index": 345,
+          "qualified_name": "bulkhead-ring-carb-word/4"
+        }
+      ],
+      "bulkhead-ring-flavor-b": [
+        {
+          "model": "physical",
+          "entry_index": 346,
+          "qualified_name": "bulkhead-ring-flavor-b"
+        }
+      ],
+      "bulkhead-ring-flavor-b-word": [
+        {
+          "model": "physical",
+          "entry_index": 347,
+          "qualified_name": "bulkhead-ring-flavor-b-word/1"
+        },
+        {
+          "model": "physical",
+          "entry_index": 348,
+          "qualified_name": "bulkhead-ring-flavor-b-word/2"
+        },
+        {
+          "model": "physical",
+          "entry_index": 349,
+          "qualified_name": "bulkhead-ring-flavor-b-word/3"
+        },
+        {
+          "model": "physical",
+          "entry_index": 350,
+          "qualified_name": "bulkhead-ring-flavor-b-word/4"
+        },
+        {
+          "model": "physical",
+          "entry_index": 351,
+          "qualified_name": "bulkhead-ring-flavor-b-word/5"
+        },
+        {
+          "model": "physical",
+          "entry_index": 352,
+          "qualified_name": "bulkhead-ring-flavor-b-word/6"
+        }
+      ],
+      "bulkhead-ring-flavor-a": [
+        {
+          "model": "physical",
+          "entry_index": 353,
+          "qualified_name": "bulkhead-ring-flavor-a"
+        }
+      ],
+      "bulkhead-ring-flavor-a-word": [
+        {
+          "model": "physical",
+          "entry_index": 354,
+          "qualified_name": "bulkhead-ring-flavor-a-word/1"
+        },
+        {
+          "model": "physical",
+          "entry_index": 355,
+          "qualified_name": "bulkhead-ring-flavor-a-word/2"
+        },
+        {
+          "model": "physical",
+          "entry_index": 356,
+          "qualified_name": "bulkhead-ring-flavor-a-word/3"
+        },
+        {
+          "model": "physical",
+          "entry_index": 357,
+          "qualified_name": "bulkhead-ring-flavor-a-word/4"
+        },
+        {
+          "model": "physical",
+          "entry_index": 358,
+          "qualified_name": "bulkhead-ring-flavor-a-word/5"
+        },
+        {
+          "model": "physical",
+          "entry_index": 359,
+          "qualified_name": "bulkhead-ring-flavor-a-word/6"
+        }
+      ],
+      "nameplate": [
+        {
+          "model": "physical",
+          "entry_index": 360,
+          "qualified_name": "nameplate"
+        }
+      ],
+      "nameplate-ink": [
+        {
+          "model": "physical",
+          "entry_index": 361,
+          "qualified_name": "nameplate-ink/1"
+        },
+        {
+          "model": "physical",
+          "entry_index": 362,
+          "qualified_name": "nameplate-ink/2"
+        },
+        {
+          "model": "physical",
+          "entry_index": 363,
+          "qualified_name": "nameplate-ink/3"
+        },
+        {
+          "model": "physical",
+          "entry_index": 364,
+          "qualified_name": "nameplate-ink/4"
+        },
+        {
+          "model": "physical",
+          "entry_index": 365,
+          "qualified_name": "nameplate-ink/5"
+        },
+        {
+          "model": "physical",
+          "entry_index": 366,
+          "qualified_name": "nameplate-ink/6"
+        },
+        {
+          "model": "physical",
+          "entry_index": 367,
+          "qualified_name": "nameplate-ink/7"
+        },
+        {
+          "model": "physical",
+          "entry_index": 368,
+          "qualified_name": "nameplate-ink/8"
+        },
+        {
+          "model": "physical",
+          "entry_index": 369,
+          "qualified_name": "nameplate-ink/9"
+        },
+        {
+          "model": "physical",
+          "entry_index": 370,
+          "qualified_name": "nameplate-ink/10"
+        },
+        {
+          "model": "physical",
+          "entry_index": 371,
+          "qualified_name": "nameplate-ink/11"
+        },
+        {
+          "model": "physical",
+          "entry_index": 372,
+          "qualified_name": "nameplate-ink/12"
+        },
+        {
+          "model": "physical",
+          "entry_index": 373,
+          "qualified_name": "nameplate-ink/13"
+        },
+        {
+          "model": "physical",
+          "entry_index": 374,
+          "qualified_name": "nameplate-ink/14"
+        },
+        {
+          "model": "physical",
+          "entry_index": 375,
+          "qualified_name": "nameplate-ink/15"
+        },
+        {
+          "model": "physical",
+          "entry_index": 376,
+          "qualified_name": "nameplate-ink/16"
+        },
+        {
+          "model": "physical",
+          "entry_index": 377,
+          "qualified_name": "nameplate-ink/17"
+        },
+        {
+          "model": "physical",
+          "entry_index": 378,
+          "qualified_name": "nameplate-ink/18"
+        },
+        {
+          "model": "physical",
+          "entry_index": 379,
+          "qualified_name": "nameplate-ink/19"
+        },
+        {
+          "model": "physical",
+          "entry_index": 380,
+          "qualified_name": "nameplate-ink/20"
+        },
+        {
+          "model": "physical",
+          "entry_index": 381,
+          "qualified_name": "nameplate-ink/21"
+        },
+        {
+          "model": "physical",
+          "entry_index": 382,
+          "qualified_name": "nameplate-ink/22"
+        },
+        {
+          "model": "physical",
+          "entry_index": 383,
+          "qualified_name": "nameplate-ink/23"
+        },
+        {
+          "model": "physical",
+          "entry_index": 384,
+          "qualified_name": "nameplate-ink/24"
+        },
+        {
+          "model": "physical",
+          "entry_index": 385,
+          "qualified_name": "nameplate-ink/25"
+        },
+        {
+          "model": "physical",
+          "entry_index": 386,
+          "qualified_name": "nameplate-ink/26"
+        },
+        {
+          "model": "physical",
+          "entry_index": 387,
+          "qualified_name": "nameplate-ink/27"
+        },
+        {
+          "model": "physical",
+          "entry_index": 388,
+          "qualified_name": "nameplate-ink/28"
+        },
+        {
+          "model": "physical",
+          "entry_index": 389,
+          "qualified_name": "nameplate-ink/29"
+        }
+      ],
+      "funnel-frame-front-west-screw": [
+        {
+          "model": "physical",
+          "entry_index": 390,
+          "qualified_name": "funnel-frame-front-west-screw"
+        }
+      ],
+      "funnel-frame-front-west-insert": [
+        {
+          "model": "physical",
+          "entry_index": 391,
+          "qualified_name": "funnel-frame-front-west-insert"
+        }
+      ],
+      "funnel-frame-front-east-screw": [
+        {
+          "model": "physical",
+          "entry_index": 392,
+          "qualified_name": "funnel-frame-front-east-screw"
+        }
+      ],
+      "funnel-frame-front-east-insert": [
+        {
+          "model": "physical",
+          "entry_index": 393,
+          "qualified_name": "funnel-frame-front-east-insert"
+        }
+      ],
+      "funnel-frame-back-west-screw": [
+        {
+          "model": "physical",
+          "entry_index": 394,
+          "qualified_name": "funnel-frame-back-west-screw"
+        }
+      ],
+      "funnel-frame-back-west-insert": [
+        {
+          "model": "physical",
+          "entry_index": 395,
+          "qualified_name": "funnel-frame-back-west-insert"
+        }
+      ],
+      "funnel-frame-back-east-screw": [
+        {
+          "model": "physical",
+          "entry_index": 396,
+          "qualified_name": "funnel-frame-back-east-screw"
+        }
+      ],
+      "funnel-frame-back-east-insert": [
+        {
+          "model": "physical",
+          "entry_index": 397,
+          "qualified_name": "funnel-frame-back-east-insert"
+        }
+      ],
+      "elbow-cradle": [
+        {
+          "model": "physical",
+          "entry_index": 398,
+          "qualified_name": "elbow-cradle"
+        }
+      ],
+      "funnel-drain-union": [
+        {
+          "model": "physical",
+          "entry_index": 399,
+          "qualified_name": "funnel-drain-union/1"
+        },
+        {
+          "model": "physical",
+          "entry_index": 400,
+          "qualified_name": "funnel-drain-union/2"
+        }
+      ],
+      "display": [
+        {
+          "model": "physical",
+          "entry_index": 401,
+          "qualified_name": "display/1"
+        },
+        {
+          "model": "physical",
+          "entry_index": 402,
+          "qualified_name": "display/2"
+        }
+      ],
+      "display-cover": [
+        {
+          "model": "physical",
+          "entry_index": 403,
+          "qualified_name": "display-cover"
+        }
+      ],
+      "display-gasket": [
+        {
+          "model": "physical",
+          "entry_index": 404,
+          "qualified_name": "display-gasket"
+        }
+      ],
+      "enclosure-front-bottom": [
+        {
+          "model": "physical",
+          "entry_index": 405,
+          "qualified_name": "enclosure-front-bottom"
+        }
+      ],
+      "enclosure-front-top": [
+        {
+          "model": "physical",
+          "entry_index": 406,
+          "qualified_name": "enclosure-front-top"
+        }
+      ],
+      "enclosure-back-bottom": [
+        {
+          "model": "physical",
+          "entry_index": 407,
+          "qualified_name": "enclosure-back-bottom"
+        }
+      ],
+      "enclosure-back-top": [
+        {
+          "model": "physical",
+          "entry_index": 408,
+          "qualified_name": "enclosure-back-top"
+        }
+      ],
+      "enclosure-pump-retainer": [
+        {
+          "model": "physical",
+          "entry_index": 409,
+          "qualified_name": "enclosure-pump-retainer"
+        }
+      ],
+      "y-seam-west-lower-screw": [
+        {
+          "model": "physical",
+          "entry_index": 410,
+          "qualified_name": "y-seam-west-lower-screw"
+        }
+      ],
+      "y-seam-west-lower-insert": [
+        {
+          "model": "physical",
+          "entry_index": 411,
+          "qualified_name": "y-seam-west-lower-insert"
+        }
+      ],
+      "y-seam-west-upper-screw": [
+        {
+          "model": "physical",
+          "entry_index": 412,
+          "qualified_name": "y-seam-west-upper-screw"
+        }
+      ],
+      "y-seam-west-upper-insert": [
+        {
+          "model": "physical",
+          "entry_index": 413,
+          "qualified_name": "y-seam-west-upper-insert"
+        }
+      ],
+      "y-seam-east-lower-screw": [
+        {
+          "model": "physical",
+          "entry_index": 414,
+          "qualified_name": "y-seam-east-lower-screw"
+        }
+      ],
+      "y-seam-east-lower-insert": [
+        {
+          "model": "physical",
+          "entry_index": 415,
+          "qualified_name": "y-seam-east-lower-insert"
+        }
+      ],
+      "y-seam-east-upper-screw": [
+        {
+          "model": "physical",
+          "entry_index": 416,
+          "qualified_name": "y-seam-east-upper-screw"
+        }
+      ],
+      "y-seam-east-upper-insert": [
+        {
+          "model": "physical",
+          "entry_index": 417,
+          "qualified_name": "y-seam-east-upper-insert"
+        }
+      ],
+      "tee-y-g": [
+        {
+          "model": "physical",
+          "entry_index": 418,
+          "qualified_name": "tee-y-g"
+        }
+      ],
+      "stem-elbow-y-g": [
+        {
+          "model": "physical",
+          "entry_index": 419,
+          "qualified_name": "stem-elbow-y-g/1"
+        },
+        {
+          "model": "physical",
+          "entry_index": 420,
+          "qualified_name": "stem-elbow-y-g/2"
+        }
+      ],
+      "stem-elbow-v-j": [
+        {
+          "model": "physical",
+          "entry_index": 421,
+          "qualified_name": "stem-elbow-v-j/1"
+        },
+        {
+          "model": "physical",
+          "entry_index": 422,
+          "qualified_name": "stem-elbow-v-j/2"
+        }
+      ],
+      "tee-y-f": [
+        {
+          "model": "physical",
+          "entry_index": 423,
+          "qualified_name": "tee-y-f"
+        }
+      ],
+      "stem-elbow-y-f": [
+        {
+          "model": "physical",
+          "entry_index": 424,
+          "qualified_name": "stem-elbow-y-f/1"
+        },
+        {
+          "model": "physical",
+          "entry_index": 425,
+          "qualified_name": "stem-elbow-y-f/2"
+        }
+      ],
+      "stem-elbow-v-d": [
+        {
+          "model": "physical",
+          "entry_index": 426,
+          "qualified_name": "stem-elbow-v-d/1"
+        },
+        {
+          "model": "physical",
+          "entry_index": 427,
+          "qualified_name": "stem-elbow-v-d/2"
+        }
+      ],
+      "tee-y-c": [
+        {
+          "model": "physical",
+          "entry_index": 428,
+          "qualified_name": "tee-y-c"
+        }
+      ],
+      "stem-elbow-y-c": [
+        {
+          "model": "physical",
+          "entry_index": 429,
+          "qualified_name": "stem-elbow-y-c/1"
+        },
+        {
+          "model": "physical",
+          "entry_index": 430,
+          "qualified_name": "stem-elbow-y-c/2"
+        }
+      ],
+      "stem-elbow-v-c": [
+        {
+          "model": "physical",
+          "entry_index": 431,
+          "qualified_name": "stem-elbow-v-c/1"
+        },
+        {
+          "model": "physical",
+          "entry_index": 432,
+          "qualified_name": "stem-elbow-v-c/2"
+        }
+      ],
+      "tee-y-d": [
+        {
+          "model": "physical",
+          "entry_index": 433,
+          "qualified_name": "tee-y-d"
+        }
+      ],
+      "stem-elbow-y-d": [
+        {
+          "model": "physical",
+          "entry_index": 434,
+          "qualified_name": "stem-elbow-y-d/1"
+        },
+        {
+          "model": "physical",
+          "entry_index": 435,
+          "qualified_name": "stem-elbow-y-d/2"
+        }
+      ],
+      "stem-elbow-v-g": [
+        {
+          "model": "physical",
+          "entry_index": 436,
+          "qualified_name": "stem-elbow-v-g/1"
+        },
+        {
+          "model": "physical",
+          "entry_index": 437,
+          "qualified_name": "stem-elbow-v-g/2"
+        }
+      ],
+      "foam-assembly": [
+        {
+          "model": "envelope",
+          "entry_index": 0,
+          "qualified_name": "foam-shell"
+        },
+        {
+          "model": "envelope",
+          "entry_index": 1,
+          "qualified_name": "foam-cap-lid-top"
+        },
+        {
+          "model": "envelope",
+          "entry_index": 2,
+          "qualified_name": "foam-cap-bottom"
+        }
+      ]
+    },
+    "aliases": {
+      "cold-core/carbonator-fold": "carbonator-fold",
+      "cold-core/discharge-barb-clamp": "discharge-barb-clamp",
+      "cold-core/discharge-barb-key": "discharge-barb-key",
+      "cold-core/discharge-chain": "discharge-chain",
+      "cold-core/discharge-reducer": "discharge-reducer",
+      "cold-core/discharge-stem-clamp": "discharge-stem-clamp",
+      "cold-core/discharge-stem-key": "discharge-stem-key",
+      "cold-core/discharge-tube": "discharge-tube",
+      "cold-core/g-ganen-pump": "g-ganen-pump",
+      "cold-core/lower-pump-elbow": "lower-pump-elbow",
+      "cold-core/pcba": "pcba",
+      "cold-core/pump-snap-cap": "pump-snap-cap",
+      "cold-core/suction-barb-clamp": "suction-barb-clamp",
+      "cold-core/suction-barb-key": "suction-barb-key",
+      "cold-core/suction-reducer": "suction-reducer",
+      "cold-core/suction-stem-clamp": "suction-stem-clamp",
+      "cold-core/suction-stem-key": "suction-stem-key",
+      "cold-core/suction-tube": "suction-tube",
+      "cold-core/valve-v-b": "valve-v-b",
+      "cold-core/vb-inlet-turn": "vb-inlet-turn",
+      "cold-core/vb-outlet-return": "vb-outlet-return",
+      "cold-core/vb-outlet-stem": "vb-outlet-stem",
+      "cold-core/wago-sensors": "wago-sensors",
+      "cold-core/wago-v12": "wago-v12",
+      "cold-core/wago-gnd": "wago-gnd",
+      "cold-core/wago-reeds-b": "wago-reeds-b",
+      "cold-core/tube-above-core-vb-yb-cross": "tube-above-core-vb-yb-cross",
+      "cold-core/tube-above-core-pump-inlet-link": "tube-above-core-pump-inlet-link",
+      "cold-core/tube-water-5": "tube-water-5"
+    },
+    "bend_surface_records": {
+      "tube-fluid-18": [
+        {
+          "entry_index": 167,
+          "qualified_name": "tube-fluid-18",
+          "face_index": 0,
+          "record": {
+            "kind": "TORUS",
+            "src": "hardware/manifold-layout/above_core_parts.py:457",
+            "op": "sweep",
+            "c": [
+              -20.0,
+              181.0,
+              288.5
+            ],
+            "d": [
+              0.0,
+              0.0,
+              -1.0
+            ],
+            "R": 25.0,
+            "r": 2.0
+          }
+        },
+        {
+          "entry_index": 167,
+          "qualified_name": "tube-fluid-18",
+          "face_index": 1,
+          "record": {
+            "kind": "TORUS",
+            "src": "hardware/manifold-layout/above_core_parts.py:457",
+            "op": "sweep",
+            "c": [
+              -20.0,
+              181.0,
+              288.5
+            ],
+            "d": [
+              0.0,
+              0.0,
+              -1.0
+            ],
+            "R": 25.0,
+            "r": 1.25
+          }
+        },
+        {
+          "entry_index": 167,
+          "qualified_name": "tube-fluid-18",
+          "face_index": 73,
+          "record": {
+            "kind": "TORUS",
+            "src": "hardware/manifold-layout/above_core_parts.py:457",
+            "op": "sweep",
+            "c": [
+              -8.0,
+              241.0,
+              296.0
+            ],
+            "d": [
+              0.0,
+              0.0,
+              -1.0
+            ],
+            "R": 25.0,
+            "r": 2.0
+          }
+        },
+        {
+          "entry_index": 167,
+          "qualified_name": "tube-fluid-18",
+          "face_index": 75,
+          "record": {
+            "kind": "TORUS",
+            "src": "hardware/manifold-layout/above_core_parts.py:457",
+            "op": "sweep",
+            "c": [
+              -8.0,
+              241.0,
+              296.0
+            ],
+            "d": [
+              0.0,
+              0.0,
+              -1.0
+            ],
+            "R": 25.0,
+            "r": 1.25
+          }
+        },
+        {
+          "entry_index": 167,
+          "qualified_name": "tube-fluid-18",
+          "face_index": 83,
+          "record": {
+            "kind": "TORUS",
+            "src": "hardware/manifold-layout/above_core_parts.py:457",
+            "op": "sweep",
+            "c": [
+              49.646851058,
+              159.863569161,
+              264.885432082
+            ],
+            "d": [
+              0.255057234,
+              -0.966925958,
+              0.0
+            ],
+            "R": 25.0,
+            "r": 2.0
+          }
+        },
+        {
+          "entry_index": 167,
+          "qualified_name": "tube-fluid-18",
+          "face_index": 84,
+          "record": {
+            "kind": "TORUS",
+            "src": "hardware/manifold-layout/above_core_parts.py:457",
+            "op": "sweep",
+            "c": [
+              49.646851058,
+              159.863569161,
+              264.885432082
+            ],
+            "d": [
+              0.255057234,
+              -0.966925958,
+              0.0
+            ],
+            "R": 25.0,
+            "r": 1.25
+          }
+        },
+        {
+          "entry_index": 167,
+          "qualified_name": "tube-fluid-18",
+          "face_index": 85,
+          "record": {
+            "kind": "TORUS",
+            "src": "hardware/manifold-layout/above_core_parts.py:457",
+            "op": "sweep",
+            "c": [
+              31.528358502,
+              179.286433737,
+              297.596263179
+            ],
+            "d": [
+              -0.0,
+              0.363850527,
+              -0.931457349
+            ],
+            "R": 25.0,
+            "r": 2.0
+          }
+        },
+        {
+          "entry_index": 167,
+          "qualified_name": "tube-fluid-18",
+          "face_index": 86,
+          "record": {
+            "kind": "TORUS",
+            "src": "hardware/manifold-layout/above_core_parts.py:457",
+            "op": "sweep",
+            "c": [
+              31.528358502,
+              179.286433737,
+              297.596263179
+            ],
+            "d": [
+              -0.0,
+              0.363850527,
+              -0.931457349
+            ],
+            "R": 25.0,
+            "r": 1.25
+          }
+        },
+        {
+          "entry_index": 167,
+          "qualified_name": "tube-fluid-18",
+          "face_index": 89,
+          "record": {
+            "kind": "TORUS",
+            "src": "hardware/manifold-layout/above_core_parts.py:457",
+            "op": "sweep",
+            "c": [
+              30.5,
+              291.0,
+              296.0
+            ],
+            "d": [
+              0.0,
+              0.0,
+              1.0
+            ],
+            "R": 25.0,
+            "r": 2.0
+          }
+        },
+        {
+          "entry_index": 167,
+          "qualified_name": "tube-fluid-18",
+          "face_index": 90,
+          "record": {
+            "kind": "TORUS",
+            "src": "hardware/manifold-layout/above_core_parts.py:457",
+            "op": "sweep",
+            "c": [
+              30.5,
+              291.0,
+              296.0
+            ],
+            "d": [
+              0.0,
+              0.0,
+              1.0
+            ],
+            "R": 25.0,
+            "r": 1.25
+          }
+        },
+        {
+          "entry_index": 167,
+          "qualified_name": "tube-fluid-18",
+          "face_index": 91,
+          "record": {
+            "kind": "TORUS",
+            "src": "hardware/manifold-layout/above_core_parts.py:457",
+            "op": "sweep",
+            "c": [
+              62.286504126,
+              291.0,
+              271.9387581
+            ],
+            "d": [
+              -0.962449676,
+              0.0,
+              -0.271460165
+            ],
+            "R": 25.0,
+            "r": 2.0
+          }
+        },
+        {
+          "entry_index": 167,
+          "qualified_name": "tube-fluid-18",
+          "face_index": 92,
+          "record": {
+            "kind": "TORUS",
+            "src": "hardware/manifold-layout/above_core_parts.py:457",
+            "op": "sweep",
+            "c": [
+              62.286504126,
+              291.0,
+              271.9387581
+            ],
+            "d": [
+              -0.962449676,
+              0.0,
+              -0.271460165
+            ],
+            "R": 25.0,
+            "r": 1.25
+          }
+        },
+        {
+          "entry_index": 167,
+          "qualified_name": "tube-fluid-18",
+          "face_index": 93,
+          "record": {
+            "kind": "TORUS",
+            "src": "hardware/manifold-layout/above_core_parts.py:457",
+            "op": "sweep",
+            "c": [
+              58.243214662,
+              410.390078597,
+              279.078928219
+            ],
+            "d": [
+              0.683157129,
+              0.0,
+              0.730271414
+            ],
+            "R": 25.0,
+            "r": 2.0
+          }
+        },
+        {
+          "entry_index": 167,
+          "qualified_name": "tube-fluid-18",
+          "face_index": 94,
+          "record": {
+            "kind": "TORUS",
+            "src": "hardware/manifold-layout/above_core_parts.py:457",
+            "op": "sweep",
+            "c": [
+              58.243214662,
+              410.390078597,
+              279.078928219
+            ],
+            "d": [
+              0.683157129,
+              0.0,
+              0.730271414
+            ],
+            "R": 25.0,
+            "r": 1.25
+          }
+        },
+        {
+          "entry_index": 167,
+          "qualified_name": "tube-fluid-18",
+          "face_index": 97,
+          "record": {
+            "kind": "TORUS",
+            "src": "hardware/manifold-layout/above_core_parts.py:457",
+            "op": "sweep",
+            "c": [
+              76.5,
+              435.838903925,
+              287.0
+            ],
+            "d": [
+              1.0,
+              0.0,
+              0.0
+            ],
+            "R": 25.0,
+            "r": 2.0
+          }
+        },
+        {
+          "entry_index": 167,
+          "qualified_name": "tube-fluid-18",
+          "face_index": 98,
+          "record": {
+            "kind": "TORUS",
+            "src": "hardware/manifold-layout/above_core_parts.py:457",
+            "op": "sweep",
+            "c": [
+              76.5,
+              435.838903925,
+              287.0
+            ],
+            "d": [
+              1.0,
+              0.0,
+              0.0
+            ],
+            "R": 25.0,
+            "r": 1.25
+          }
+        },
+        {
+          "entry_index": 167,
+          "qualified_name": "tube-fluid-18",
+          "face_index": 99,
+          "record": {
+            "kind": "TORUS",
+            "src": "hardware/manifold-layout/above_core_parts.py:457",
+            "op": "sweep",
+            "c": [
+              76.5,
+              449.838903925,
+              239.0
+            ],
+            "d": [
+              -1.0,
+              0.0,
+              0.0
+            ],
+            "R": 25.0,
+            "r": 2.0
+          }
+        },
+        {
+          "entry_index": 167,
+          "qualified_name": "tube-fluid-18",
+          "face_index": 100,
+          "record": {
+            "kind": "TORUS",
+            "src": "hardware/manifold-layout/above_core_parts.py:457",
+            "op": "sweep",
+            "c": [
+              76.5,
+              449.838903925,
+              239.0
+            ],
+            "d": [
+              -1.0,
+              0.0,
+              0.0
+            ],
+            "R": 25.0,
+            "r": 1.25
+          }
+        },
+        {
+          "entry_index": 167,
+          "qualified_name": "tube-fluid-18",
+          "face_index": 104,
+          "record": {
+            "kind": "TORUS",
+            "src": "hardware/manifold-layout/above_core_parts.py:457",
+            "op": "sweep",
+            "c": [
+              54.213495874,
+              331.194277689,
+              300.5612419
+            ],
+            "d": [
+              0.962449676,
+              -0.0,
+              0.271460165
+            ],
+            "R": 25.0,
+            "r": 2.0
+          }
+        },
+        {
+          "entry_index": 167,
+          "qualified_name": "tube-fluid-18",
+          "face_index": 106,
+          "record": {
+            "kind": "TORUS",
+            "src": "hardware/manifold-layout/above_core_parts.py:457",
+            "op": "sweep",
+            "c": [
+              54.213495874,
+              331.194277689,
+              300.5612419
+            ],
+            "d": [
+              0.962449676,
+              -0.0,
+              0.271460165
+            ],
+            "R": 25.0,
+            "r": 1.25
+          }
+        },
+        {
+          "entry_index": 167,
+          "qualified_name": "tube-fluid-18",
+          "face_index": 108,
+          "record": {
+            "kind": "TORUS",
+            "src": "hardware/manifold-layout/above_core_parts.py:457",
+            "op": "sweep",
+            "c": [
+              79.256785338,
+              369.5,
+              259.421071781
+            ],
+            "d": [
+              -0.683157129,
+              -0.0,
+              -0.730271414
+            ],
+            "R": 25.0,
+            "r": 2.0
+          }
+        },
+        {
+          "entry_index": 167,
+          "qualified_name": "tube-fluid-18",
+          "face_index": 109,
+          "record": {
+            "kind": "TORUS",
+            "src": "hardware/manifold-layout/above_core_parts.py:457",
+            "op": "sweep",
+            "c": [
+              79.256785338,
+              369.5,
+              259.421071781
+            ],
+            "d": [
+              -0.683157129,
+              -0.0,
+              -0.730271414
+            ],
+            "R": 25.0,
+            "r": 1.25
+          }
+        }
+      ],
+      "tube-fluid-28": [
+        {
+          "entry_index": 168,
+          "qualified_name": "tube-fluid-28",
+          "face_index": 3,
+          "record": {
+            "kind": "TORUS",
+            "src": "hardware/manifold-layout/above_core_parts.py:457",
+            "op": "sweep",
+            "c": [
+              -73.82,
+              191.24,
+              263.5
+            ],
+            "d": [
+              -1.0,
+              0.0,
+              0.0
+            ],
+            "R": 25.0,
+            "r": 2.0
+          }
+        },
+        {
+          "entry_index": 168,
+          "qualified_name": "tube-fluid-28",
+          "face_index": 4,
+          "record": {
+            "kind": "TORUS",
+            "src": "hardware/manifold-layout/above_core_parts.py:457",
+            "op": "sweep",
+            "c": [
+              -73.82,
+              191.24,
+              263.5
+            ],
+            "d": [
+              -1.0,
+              0.0,
+              0.0
+            ],
+            "R": 25.0,
+            "r": 1.25
+          }
+        },
+        {
+          "entry_index": 168,
+          "qualified_name": "tube-fluid-28",
+          "face_index": 5,
+          "record": {
+            "kind": "TORUS",
+            "src": "hardware/manifold-layout/above_core_parts.py:457",
+            "op": "sweep",
+            "c": [
+              -49.038407456,
+              191.24,
+              291.797373343
+            ],
+            "d": [
+              0.131894934,
+              0.0,
+              -0.991263702
+            ],
+            "R": 25.0,
+            "r": 2.0
+          }
+        },
+        {
+          "entry_index": 168,
+          "qualified_name": "tube-fluid-28",
+          "face_index": 6,
+          "record": {
+            "kind": "TORUS",
+            "src": "hardware/manifold-layout/above_core_parts.py:457",
+            "op": "sweep",
+            "c": [
+              -49.038407456,
+              191.24,
+              291.797373343
+            ],
+            "d": [
+              0.131894934,
+              0.0,
+              -0.991263702
+            ],
+            "R": 25.0,
+            "r": 1.25
+          }
+        },
+        {
+          "entry_index": 168,
+          "qualified_name": "tube-fluid-28",
+          "face_index": 7,
+          "record": {
+            "kind": "TORUS",
+            "src": "hardware/manifold-layout/above_core_parts.py:457",
+            "op": "sweep",
+            "c": [
+              -64.781592544,
+              238.650591217,
+              289.702626657
+            ],
+            "d": [
+              -0.131894934,
+              -0.0,
+              0.991263702
+            ],
+            "R": 25.0,
+            "r": 1.25
+          }
+        },
+        {
+          "entry_index": 168,
+          "qualified_name": "tube-fluid-28",
+          "face_index": 8,
+          "record": {
+            "kind": "TORUS",
+            "src": "hardware/manifold-layout/above_core_parts.py:457",
+            "op": "sweep",
+            "c": [
+              -64.781592544,
+              238.650591217,
+              289.702626657
+            ],
+            "d": [
+              -0.131894934,
+              -0.0,
+              0.991263702
+            ],
+            "R": 25.0,
+            "r": 2.0
+          }
+        },
+        {
+          "entry_index": 168,
+          "qualified_name": "tube-fluid-28",
+          "face_index": 11,
+          "record": {
+            "kind": "TORUS",
+            "src": "hardware/manifold-layout/above_core_parts.py:457",
+            "op": "sweep",
+            "c": [
+              -15.0,
+              249.0,
+              293.0
+            ],
+            "d": [
+              0.0,
+              0.0,
+              -1.0
+            ],
+            "R": 25.0,
+            "r": 2.0
+          }
+        },
+        {
+          "entry_index": 168,
+          "qualified_name": "tube-fluid-28",
+          "face_index": 12,
+          "record": {
+            "kind": "TORUS",
+            "src": "hardware/manifold-layout/above_core_parts.py:457",
+            "op": "sweep",
+            "c": [
+              -15.0,
+              249.0,
+              293.0
+            ],
+            "d": [
+              0.0,
+              0.0,
+              -1.0
+            ],
+            "R": 25.0,
+            "r": 1.25
+          }
+        },
+        {
+          "entry_index": 168,
+          "qualified_name": "tube-fluid-28",
+          "face_index": 15,
+          "record": {
+            "kind": "TORUS",
+            "src": "hardware/manifold-layout/above_core_parts.py:457",
+            "op": "sweep",
+            "c": [
+              10.0,
+              299.0,
+              293.0
+            ],
+            "d": [
+              0.0,
+              0.0,
+              1.0
+            ],
+            "R": 25.0,
+            "r": 2.0
+          }
+        },
+        {
+          "entry_index": 168,
+          "qualified_name": "tube-fluid-28",
+          "face_index": 16,
+          "record": {
+            "kind": "TORUS",
+            "src": "hardware/manifold-layout/above_core_parts.py:457",
+            "op": "sweep",
+            "c": [
+              10.0,
+              299.0,
+              293.0
+            ],
+            "d": [
+              0.0,
+              0.0,
+              1.0
+            ],
+            "R": 25.0,
+            "r": 1.25
+          }
+        },
+        {
+          "entry_index": 168,
+          "qualified_name": "tube-fluid-28",
+          "face_index": 17,
+          "record": {
+            "kind": "TORUS",
+            "src": "hardware/manifold-layout/above_core_parts.py:457",
+            "op": "sweep",
+            "c": [
+              35.0,
+              299.0,
+              318.0
+            ],
+            "d": [
+              1.0,
+              0.0,
+              0.0
+            ],
+            "R": 25.0,
+            "r": 2.0
+          }
+        },
+        {
+          "entry_index": 168,
+          "qualified_name": "tube-fluid-28",
+          "face_index": 18,
+          "record": {
+            "kind": "TORUS",
+            "src": "hardware/manifold-layout/above_core_parts.py:457",
+            "op": "sweep",
+            "c": [
+              35.0,
+              299.0,
+              318.0
+            ],
+            "d": [
+              1.0,
+              0.0,
+              0.0
+            ],
+            "R": 25.0,
+            "r": 1.25
+          }
+        },
+        {
+          "entry_index": 168,
+          "qualified_name": "tube-fluid-28",
+          "face_index": 19,
+          "record": {
+            "kind": "TORUS",
+            "src": "hardware/manifold-layout/above_core_parts.py:457",
+            "op": "sweep",
+            "c": [
+              35.0,
+              396.885069295,
+              289.0
+            ],
+            "d": [
+              1.0,
+              0.0,
+              0.0
+            ],
+            "R": 25.0,
+            "r": 2.0
+          }
+        },
+        {
+          "entry_index": 168,
+          "qualified_name": "tube-fluid-28",
+          "face_index": 20,
+          "record": {
+            "kind": "TORUS",
+            "src": "hardware/manifold-layout/above_core_parts.py:457",
+            "op": "sweep",
+            "c": [
+              35.0,
+              396.885069295,
+              289.0
+            ],
+            "d": [
+              1.0,
+              0.0,
+              0.0
+            ],
+            "R": 25.0,
+            "r": 1.25
+          }
+        },
+        {
+          "entry_index": 168,
+          "qualified_name": "tube-fluid-28",
+          "face_index": 23,
+          "record": {
+            "kind": "TORUS",
+            "src": "hardware/manifold-layout/above_core_parts.py:457",
+            "op": "sweep",
+            "c": [
+              53.799998871,
+              449.838903925,
+              264.0
+            ],
+            "d": [
+              0.0,
+              0.0,
+              -1.0
+            ],
+            "R": 25.0,
+            "r": 2.0
+          }
+        },
+        {
+          "entry_index": 168,
+          "qualified_name": "tube-fluid-28",
+          "face_index": 26,
+          "record": {
+            "kind": "TORUS",
+            "src": "hardware/manifold-layout/above_core_parts.py:457",
+            "op": "sweep",
+            "c": [
+              10.0,
+              425.723346729,
+              264.0
+            ],
+            "d": [
+              0.0,
+              0.0,
+              1.0
+            ],
+            "R": 25.0,
+            "r": 2.0
+          }
+        },
+        {
+          "entry_index": 168,
+          "qualified_name": "tube-fluid-28",
+          "face_index": 27,
+          "record": {
+            "kind": "TORUS",
+            "src": "hardware/manifold-layout/above_core_parts.py:457",
+            "op": "sweep",
+            "c": [
+              53.799998871,
+              449.838903925,
+              264.0
+            ],
+            "d": [
+              0.0,
+              0.0,
+              -1.0
+            ],
+            "R": 25.0,
+            "r": 1.25
+          }
+        },
+        {
+          "entry_index": 168,
+          "qualified_name": "tube-fluid-28",
+          "face_index": 29,
+          "record": {
+            "kind": "TORUS",
+            "src": "hardware/manifold-layout/above_core_parts.py:457",
+            "op": "sweep",
+            "c": [
+              10.0,
+              425.723346729,
+              264.0
+            ],
+            "d": [
+              0.0,
+              0.0,
+              1.0
+            ],
+            "R": 25.0,
+            "r": 1.25
+          }
+        },
+        {
+          "entry_index": 168,
+          "qualified_name": "tube-fluid-28",
+          "face_index": 30,
+          "record": {
+            "kind": "TORUS",
+            "src": "hardware/manifold-layout/above_core_parts.py:457",
+            "op": "sweep",
+            "c": [
+              35.0,
+              348.0,
+              278.5
+            ],
+            "d": [
+              -1.0,
+              0.0,
+              0.0
+            ],
+            "R": 25.0,
+            "r": 2.0
+          }
+        },
+        {
+          "entry_index": 168,
+          "qualified_name": "tube-fluid-28",
+          "face_index": 31,
+          "record": {
+            "kind": "TORUS",
+            "src": "hardware/manifold-layout/above_core_parts.py:457",
+            "op": "sweep",
+            "c": [
+              35.0,
+              348.0,
+              278.5
+            ],
+            "d": [
+              -1.0,
+              0.0,
+              0.0
+            ],
+            "R": 25.0,
+            "r": 1.25
+          }
+        },
+        {
+          "entry_index": 168,
+          "qualified_name": "tube-fluid-28",
+          "face_index": 32,
+          "record": {
+            "kind": "TORUS",
+            "src": "hardware/manifold-layout/above_core_parts.py:457",
+            "op": "sweep",
+            "c": [
+              35.0,
+              329.655342112,
+              278.5
+            ],
+            "d": [
+              -1.0,
+              0.0,
+              0.0
+            ],
+            "R": 25.0,
+            "r": 2.0
+          }
+        },
+        {
+          "entry_index": 168,
+          "qualified_name": "tube-fluid-28",
+          "face_index": 33,
+          "record": {
+            "kind": "TORUS",
+            "src": "hardware/manifold-layout/above_core_parts.py:457",
+            "op": "sweep",
+            "c": [
+              35.0,
+              329.655342112,
+              278.5
+            ],
+            "d": [
+              -1.0,
+              0.0,
+              0.0
+            ],
+            "R": 25.0,
+            "r": 1.25
+          }
+        }
+      ]
+    },
+    "route_specs_sha256": "942e7c6fcf3f37aa90f7d4ae774e4a9042bb631efbb7f058353d362cb30395aa"
+  },
+  "fine_query_count": 614,
+  "candidate_pairs": [
+    [
+      "asse-drain-adapter",
+      "asse-snap-cap"
+    ],
+    [
+      "asse-drain-adapter",
+      "tube-fluid-18"
+    ],
+    [
+      "asse-drain-adapter",
+      "tube-fluid-28"
+    ],
+    [
+      "asse-drain-adapter",
+      "tube-fluid-14"
+    ],
+    [
+      "asse-drain-adapter",
+      "cold-core/foam-cap-lid-top"
+    ],
+    [
+      "asse-drain-adapter",
+      "g-ganen-pump"
+    ],
+    [
+      "asse-drain-adapter",
+      "pump-snap-cap"
+    ],
+    [
+      "asse-drain-adapter",
+      "enclosure-back-top"
+    ],
+    [
+      "asse-drain-adapter",
+      "foam-assembly"
+    ],
+    [
+      "tube-drain-vent",
+      "bulkhead-drain-nut"
+    ],
+    [
+      "tube-drain-vent",
+      "tube-fluid-18"
+    ],
+    [
+      "tube-drain-vent",
+      "tube-fluid-28"
+    ],
+    [
+      "tube-drain-vent",
+      "cold-core/foam-cap-lid-top"
+    ],
+    [
+      "tube-drain-vent",
+      "enclosure-back-top"
+    ],
+    [
+      "tube-drain-vent",
+      "foam-assembly"
+    ],
+    [
+      "tube-fluid-18",
+      "tee-y-a"
+    ],
+    [
+      "tube-fluid-18",
+      "coil-v-e"
+    ],
+    [
+      "tube-fluid-18",
+      "coil-v-f"
+    ],
+    [
+      "tube-fluid-18",
+      "tee-y-b"
+    ],
+    [
+      "tube-fluid-18",
+      "coil-v-h"
+    ],
+    [
+      "tube-fluid-18",
+      "digiten-flow"
+    ],
+    [
+      "tube-fluid-18",
+      "vk-solenoid"
+    ],
+    [
+      "tube-fluid-18",
+      "asse-drain-adapter"
+    ],
+    [
+      "tube-fluid-18",
+      "lower-valve-elbow"
+    ],
+    [
+      "tube-fluid-18",
+      "ya-stem-elbow"
+    ],
+    [
+      "tube-fluid-18",
+      "drain-outlet-stem"
+    ],
+    [
+      "tube-fluid-18",
+      "yb-stem-elbow"
+    ],
+    [
+      "tube-fluid-18",
+      "soda-bend-holder"
+    ],
+    [
+      "tube-fluid-18",
+      "soda-continuous-insulation"
+    ],
+    [
+      "tube-fluid-18",
+      "bulkhead-drain"
+    ],
+    [
+      "tube-fluid-18",
+      "bulkhead-drain-nut"
+    ],
+    [
+      "tube-fluid-18",
+      "bulkhead-carb"
+    ],
+    [
+      "tube-fluid-18",
+      "bulkhead-flavor-b"
+    ],
+    [
+      "tube-fluid-18",
+      "bulkhead-flavor-b-nut"
+    ],
+    [
+      "tube-fluid-18",
+      "bulkhead-flavor-a-nut"
+    ],
+    [
+      "tube-fluid-18",
+      "meter-snap-cap"
+    ],
+    [
+      "tube-fluid-18",
+      "tube-above-core-drain-vb-east-link"
+    ],
+    [
+      "tube-fluid-18",
+      "tube-above-core-vb-yb-link"
+    ],
+    [
+      "tube-fluid-18",
+      "tube-soda-core-rise"
+    ],
+    [
+      "tube-fluid-18",
+      "tube-soda-meter-bulkhead"
+    ],
+    [
+      "tube-fluid-18",
+      "tube-above-core-gas-core-drop"
+    ],
+    [
+      "tube-fluid-18",
+      "tube-above-core-va-fore-feed"
+    ],
+    [
+      "tube-fluid-18",
+      "tube-drain-vent"
+    ],
+    [
+      "tube-fluid-18",
+      "tube-fluid-28"
+    ],
+    [
+      "tube-fluid-18",
+      "tube-fluid-14"
+    ],
+    [
+      "tube-fluid-18",
+      "tube-fluid-16"
+    ],
+    [
+      "tube-fluid-18",
+      "tube-fluid-26"
+    ],
+    [
+      "tube-fluid-18",
+      "tube-fluid-24"
+    ],
+    [
+      "tube-fluid-18",
+      "cold-core/cap-clamp-top-1"
+    ],
+    [
+      "tube-fluid-18",
+      "cold-core/cap-clamp-top-2"
+    ],
+    [
+      "tube-fluid-18",
+      "cold-core/cap-clamp-top-4"
+    ],
+    [
+      "tube-fluid-18",
+      "cold-core/cap-clamp-top-5"
+    ],
+    [
+      "tube-fluid-18",
+      "cold-core/reservoir-b-fill-guide"
+    ],
+    [
+      "tube-fluid-18",
+      "cold-core/foam-shell"
+    ],
+    [
+      "tube-fluid-18",
+      "cold-core/foam-cap-lid-top"
+    ],
+    [
+      "tube-fluid-18",
+      "cold-core/tube-reservoir-air-a"
+    ],
+    [
+      "tube-fluid-18",
+      "cold-core/tube-reservoir-air-b"
+    ],
+    [
+      "tube-fluid-18",
+      "cold-core/line-carb-water-out"
+    ],
+    [
+      "tube-fluid-18",
+      "cold-core/line-co2-in"
+    ],
+    [
+      "tube-fluid-18",
+      "cold-core/line-reservoir-a"
+    ],
+    [
+      "tube-fluid-18",
+      "cold-core/line-reservoir-a-fill"
+    ],
+    [
+      "tube-fluid-18",
+      "cold-core/line-reservoir-b"
+    ],
+    [
+      "tube-fluid-18",
+      "cold-core/line-reservoir-b-fill"
+    ],
+    [
+      "tube-fluid-18",
+      "cold-core/line-water-in"
+    ],
+    [
+      "tube-fluid-18",
+      "discharge-barb-clamp"
+    ],
+    [
+      "tube-fluid-18",
+      "discharge-barb-key"
+    ],
+    [
+      "tube-fluid-18",
+      "discharge-tube"
+    ],
+    [
+      "tube-fluid-18",
+      "g-ganen-pump"
+    ],
+    [
+      "tube-fluid-18",
+      "lower-pump-elbow"
+    ],
+    [
+      "tube-fluid-18",
+      "pcba"
+    ],
+    [
+      "tube-fluid-18",
+      "pump-snap-cap"
+    ],
+    [
+      "tube-fluid-18",
+      "suction-barb-clamp"
+    ],
+    [
+      "tube-fluid-18",
+      "suction-barb-key"
+    ],
+    [
+      "tube-fluid-18",
+      "suction-reducer"
+    ],
+    [
+      "tube-fluid-18",
+      "suction-stem-clamp"
+    ],
+    [
+      "tube-fluid-18",
+      "suction-stem-key"
+    ],
+    [
+      "tube-fluid-18",
+      "suction-tube"
+    ],
+    [
+      "tube-fluid-18",
+      "valve-v-b"
+    ],
+    [
+      "tube-fluid-18",
+      "vb-inlet-turn"
+    ],
+    [
+      "tube-fluid-18",
+      "vb-outlet-return"
+    ],
+    [
+      "tube-fluid-18",
+      "vb-outlet-stem"
+    ],
+    [
+      "tube-fluid-18",
+      "wago-sensors"
+    ],
+    [
+      "tube-fluid-18",
+      "wago-v12"
+    ],
+    [
+      "tube-fluid-18",
+      "wago-gnd"
+    ],
+    [
+      "tube-fluid-18",
+      "wago-reeds-b"
+    ],
+    [
+      "tube-fluid-18",
+      "tube-above-core-vb-yb-cross"
+    ],
+    [
+      "tube-fluid-18",
+      "tube-above-core-pump-inlet-link"
+    ],
+    [
+      "tube-fluid-18",
+      "elbow-cradle"
+    ],
+    [
+      "tube-fluid-18",
+      "funnel-drain-union"
+    ],
+    [
+      "tube-fluid-18",
+      "enclosure-front-top"
+    ],
+    [
+      "tube-fluid-18",
+      "enclosure-back-top"
+    ],
+    [
+      "tube-fluid-18",
+      "foam-assembly"
+    ],
+    [
+      "tube-fluid-28",
+      "tee-y-a"
+    ],
+    [
+      "tube-fluid-28",
+      "tee-y-b"
+    ],
+    [
+      "tube-fluid-28",
+      "asse1022-assembly"
+    ],
+    [
+      "tube-fluid-28",
+      "valve-v-a"
+    ],
+    [
+      "tube-fluid-28",
+      "asse-drain-adapter"
+    ],
+    [
+      "tube-fluid-28",
+      "keystone-jack"
+    ],
+    [
+      "tube-fluid-28",
+      "va-south-elbow"
+    ],
+    [
+      "tube-fluid-28",
+      "ya-stem-elbow"
+    ],
+    [
+      "tube-fluid-28",
+      "drain-outlet-stem"
+    ],
+    [
+      "tube-fluid-28",
+      "yb-stem-elbow"
+    ],
+    [
+      "tube-fluid-28",
+      "bulkhead-drain"
+    ],
+    [
+      "tube-fluid-28",
+      "bulkhead-drain-nut"
+    ],
+    [
+      "tube-fluid-28",
+      "bulkhead-flavor-b-nut"
+    ],
+    [
+      "tube-fluid-28",
+      "asse-snap-cap"
+    ],
+    [
+      "tube-fluid-28",
+      "wago-h"
+    ],
+    [
+      "tube-fluid-28",
+      "wago-g"
+    ],
+    [
+      "tube-fluid-28",
+      "wago-n"
+    ],
+    [
+      "tube-fluid-28",
+      "tube-above-core-drain-vb-east-link"
+    ],
+    [
+      "tube-fluid-28",
+      "tube-above-core-vb-yb-link"
+    ],
+    [
+      "tube-fluid-28",
+      "tube-above-core-va-fore-feed"
+    ],
+    [
+      "tube-fluid-28",
+      "tube-drain-vent"
+    ],
+    [
+      "tube-fluid-28",
+      "tube-fluid-18"
+    ],
+    [
+      "tube-fluid-28",
+      "tube-fluid-14"
+    ],
+    [
+      "tube-fluid-28",
+      "tube-fluid-16"
+    ],
+    [
+      "tube-fluid-28",
+      "tube-fluid-26"
+    ],
+    [
+      "tube-fluid-28",
+      "tube-fluid-24"
+    ],
+    [
+      "tube-fluid-28",
+      "cold-core/cap-clamp-top-2"
+    ],
+    [
+      "tube-fluid-28",
+      "cold-core/cap-clamp-top-3"
+    ],
+    [
+      "tube-fluid-28",
+      "cold-core/cap-clamp-top-5"
+    ],
+    [
+      "tube-fluid-28",
+      "cold-core/cap-clamp-top-6"
+    ],
+    [
+      "tube-fluid-28",
+      "cold-core/reservoir-b-fill-guide"
+    ],
+    [
+      "tube-fluid-28",
+      "cold-core/foam-shell"
+    ],
+    [
+      "tube-fluid-28",
+      "cold-core/foam-cap-lid-top"
+    ],
+    [
+      "tube-fluid-28",
+      "cold-core/tube-reservoir-air-a"
+    ],
+    [
+      "tube-fluid-28",
+      "cold-core/tube-reservoir-air-b"
+    ],
+    [
+      "tube-fluid-28",
+      "cold-core/line-carb-water-out"
+    ],
+    [
+      "tube-fluid-28",
+      "cold-core/line-co2-in"
+    ],
+    [
+      "tube-fluid-28",
+      "cold-core/line-reservoir-b"
+    ],
+    [
+      "tube-fluid-28",
+      "cold-core/line-reservoir-b-fill"
+    ],
+    [
+      "tube-fluid-28",
+      "cold-core/line-water-in"
+    ],
+    [
+      "tube-fluid-28",
+      "carbonator-fold"
+    ],
+    [
+      "tube-fluid-28",
+      "discharge-barb-clamp"
+    ],
+    [
+      "tube-fluid-28",
+      "discharge-barb-key"
+    ],
+    [
+      "tube-fluid-28",
+      "discharge-chain"
+    ],
+    [
+      "tube-fluid-28",
+      "discharge-reducer"
+    ],
+    [
+      "tube-fluid-28",
+      "discharge-stem-clamp"
+    ],
+    [
+      "tube-fluid-28",
+      "discharge-stem-key"
+    ],
+    [
+      "tube-fluid-28",
+      "discharge-tube"
+    ],
+    [
+      "tube-fluid-28",
+      "g-ganen-pump"
+    ],
+    [
+      "tube-fluid-28",
+      "pcba"
+    ],
+    [
+      "tube-fluid-28",
+      "pump-snap-cap"
+    ],
+    [
+      "tube-fluid-28",
+      "suction-barb-clamp"
+    ],
+    [
+      "tube-fluid-28",
+      "suction-barb-key"
+    ],
+    [
+      "tube-fluid-28",
+      "suction-reducer"
+    ],
+    [
+      "tube-fluid-28",
+      "suction-stem-clamp"
+    ],
+    [
+      "tube-fluid-28",
+      "suction-stem-key"
+    ],
+    [
+      "tube-fluid-28",
+      "suction-tube"
+    ],
+    [
+      "tube-fluid-28",
+      "valve-v-b"
+    ],
+    [
+      "tube-fluid-28",
+      "vb-inlet-turn"
+    ],
+    [
+      "tube-fluid-28",
+      "vb-outlet-return"
+    ],
+    [
+      "tube-fluid-28",
+      "vb-outlet-stem"
+    ],
+    [
+      "tube-fluid-28",
+      "wago-sensors"
+    ],
+    [
+      "tube-fluid-28",
+      "wago-v12"
+    ],
+    [
+      "tube-fluid-28",
+      "wago-gnd"
+    ],
+    [
+      "tube-fluid-28",
+      "wago-reeds-b"
+    ],
+    [
+      "tube-fluid-28",
+      "tube-above-core-vb-yb-cross"
+    ],
+    [
+      "tube-fluid-28",
+      "funnel"
+    ],
+    [
+      "tube-fluid-28",
+      "funnel-frame"
+    ],
+    [
+      "tube-fluid-28",
+      "elbow-cradle"
+    ],
+    [
+      "tube-fluid-28",
+      "funnel-drain-union"
+    ],
+    [
+      "tube-fluid-28",
+      "enclosure-front-top"
+    ],
+    [
+      "tube-fluid-28",
+      "enclosure-back-top"
+    ],
+    [
+      "tube-fluid-28",
+      "foam-assembly"
+    ]
+  ],
+  "selected_obstacles": null,
+  "errors": [],
   "passed": true
 }

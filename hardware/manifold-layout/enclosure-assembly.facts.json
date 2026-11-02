@@ -7927,12 +7927,12 @@
   }
  ],
  "schema": 2,
- "sources": "85f229a9c060d3019f8998133cc9a679",
+ "sources": "f0d2f6bff37fc5b933a1a3c89f80530c",
  "step": "58ccf6a2e0f81ef78b8269c3aa24f7c4",
  "tube_export": {
   "fine_model": {
    "path": "hardware/manifold-layout/enclosure-assembly.step.npz",
-   "sha256": "2b4aa2445e7a12702f9c1a6873e17129a26a6b649a12424ed5c2178b29fbdbce"
+   "sha256": "47c8fbc3c781721a2b998e4e44277fac0e4414a015375b014cab18fb1f498344"
   },
   "routing": {
    "anchor_sites": [
@@ -40700,7 +40700,7 @@
   },
   "scene": {
    "path": "hardware/manifold-layout/enclosure-assembly.scene.npz",
-   "sha256": "416b5cfedf8090be50dd4f99cbf01e4a4be37f87c97c2d50ef26b5b698bd018c"
+   "sha256": "336bfb7d3454d3d54ba6109fa57e2e26ee1e20af7b5e795b7d0fb6f406577986"
   },
   "schema": 1,
   "step": {
