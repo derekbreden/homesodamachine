@@ -11769,6 +11769,7 @@ genrule(
         "pysrc/hardware/scripts/_run_lock.py",
         "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/hardware/scripts/_rust_part.py",
+        "pysrc/tools/docgen/__init__.py",
         "tools/hsm/run-slots.defaults.json",
         "tools/run-slots.mjs",
         "pysrc/tools/run.py",
