@@ -19,13 +19,60 @@
   0.0,
   0.0
  ],
+ "forming_air": 0.3,
  "forming_clip_z": [
   3.0,
   49.10000000000002
  ],
- "forming_payload": "hardware/printed-parts/zone-c/funnel/forming-clearance/forming-clearance.step.mesh",
  "front": -86.19575792328128,
  "front_head_inside": 89.75,
+ "funnel": {
+  "apron_radius": 6.0,
+  "apron_size": [
+   215.0,
+   190.39151584656256
+  ],
+  "apron_y": 3.0,
+  "apron_z": [
+   6.0,
+   9.0
+  ],
+  "bore_radius": 3.0,
+  "bore_size": [
+   153.0,
+   146.39151584656256
+  ],
+  "brim_height": 6.0,
+  "brim_radius": 27.0,
+  "brim_size": [
+   179.0,
+   172.39151584656256
+  ],
+  "collar_wall": 6.0,
+  "color": [
+   0.007194409146904945,
+   0.007194409146904945,
+   0.007194409146904945
+  ],
+  "drain_xy": [
+   0.0,
+   0.0
+  ],
+  "end_z": -42.95,
+  "mouth_radius": 14.0,
+  "plug_height": 12.85,
+  "plug_size": [
+   36.0,
+   41.02478
+  ],
+  "ramp_z": [
+   -17.485946291005064,
+   -31.68517935471506
+  ],
+  "spout_radius": 7.5,
+  "top_z": 9.0,
+  "viewer_deflection_ratio": 0.001
+ },
  "head_radius": 2.9,
  "hole_radius": 5.625,
  "ledge_pad_half_y": 6.0,
