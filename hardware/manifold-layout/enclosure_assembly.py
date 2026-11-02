@@ -717,8 +717,9 @@ def build_foam(front_y: float):
     Returns `(placed, carry)` like every other seated body, so the cap's conduit mouths ride the
     placement — a line reaching one is drawn to where the bore actually comes out."""
     f = import_step(str(FOAM_STEP)).val()
-    shell = box(import_step(str(_foam.SHELL_STEP)).val())
-    datum = (_cci.front_wall_x, (shell.ymin + shell.ymax) / 2.0, _foam.stack_floor_z)
+    # The shell is authored about Y0. Its construction frame seats the core;
+    # tessellation and exterior details do not redefine that frame.
+    datum = (_cci.front_wall_x, 0.0, _foam.stack_floor_z)
     return seat_body(f, (((0.0, 0.0, 1.0), FOAM_YAW),), seat="foam-assembly",
                      station=((datum, (-1.0, 0.0, 0.0)), (0.0, front_y, 0.0)))
 

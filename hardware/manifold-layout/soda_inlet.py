@@ -223,7 +223,7 @@ def tube():
 
 @cache
 def foam_stock():
-    """Nominal one-piece61mm stock envelope before local compression."""
+    """Nominal one-piece stock envelope before local compression."""
     p = plan()
     return sweep(p['foam_segments'], p['nominal_foam_od_mm']/2., p['nominal_foam_id_mm']/2.)
 
