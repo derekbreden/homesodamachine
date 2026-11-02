@@ -261,7 +261,10 @@ def _core_contract(entries):
             raise ValueError(
                 f"{CORE_MESH}: {name!r} leaves are {leaf_names!r}, expected {want!r}")
         for entry in leaves:
-            if entry["color"] is None or tuple(entry["color"]) != rgba[name][:3]:
+            # OCCT and the material catalogue store linear RGB as float32. JSON can
+            # round the same colour to an adjacent float64 value during a Rust read.
+            if (entry["color"] is None
+                    or struct.pack("<3f", *entry["color"]) != struct.pack("<3f", *rgba[name][:3])):
                 raise ValueError(
                     f"{CORE_MESH}: {entry['name']!r} linear RGB differs from its source style")
     return rgba
