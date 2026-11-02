@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Compute bom.md §7's printed-part masses from each part's own CAD solid and
+"""Compute bom.md §7's printed-part masses from each part's own fine model and
 write them into the Mass + $ cells — so "derived" is a property of the table
 rather than a claim about it.
 
@@ -12,7 +12,7 @@ column of §7 and the $ that follows from it.
 WHAT A PRINT LAYS IS NOT THE SOLID. Two wall loops per face and 15 % grid between
 them, on a box whose pieces are mostly air by volume: the front-top's 1379 cm³ of
 geometry comes off the plate as 456. So the mass here is SHELL PLUS INFILL, taken
-off the part's own volume and area — both read from the one STEP — under the
+off the part's own volume and area — both read from its fine model — under the
 shared base recipes. Local dense enclosure reinforcement modifiers are not
 included in this estimate; their native projects carry a separate path review.
 PROFILES below holds the base settings and states
@@ -24,7 +24,7 @@ there, a row in neither list, or a material with no density is an ERROR, not a
 skipped row — a printed part cannot enter the table without the solid that gives
 it a mass and the profile that says how much of it is laid.
 
-Masses describe the STEPs they read. Regenerate changed parts before deriving
+Masses describe the models the parts export. Regenerate changed parts before deriving
 their current rows; the geometric estimate does not establish native slice mass.
 
 Run:  tools/cad-venv/bin/python hardware/scripts/_bom_masses.py            # write
@@ -32,8 +32,6 @@ Run:  tools/cad-venv/bin/python hardware/scripts/_bom_masses.py            # wri
 
 Then `_bom_totals.py` to carry the new line costs into the section + grand totals.
 """
-import hashlib
-import json
 import re
 import sys
 from pathlib import Path
@@ -42,17 +40,8 @@ REPO = next(p for p in Path(__file__).resolve().parents if (p / "hardware").is_d
 sys.path.insert(0, str(REPO / "tools"))
 from docgen import cells                                        # noqa: E402
 
-# Run as a script, the masses are read on the mesh kernel (`hardware/scripts/meshcad`).
-if __name__ == "__main__":
-    import meshcad  # noqa: E402
-    meshcad.activate()
-
 BOM = REPO / "hardware" / "ledger" / "bom.md"
 PARTS_DIR = REPO / "hardware" / "printed-parts"
-
-# Volume and area are functions of the solid's bytes, and are held under a hash
-# of them.
-_VOL_CACHE = REPO / ".cache" / "bom-volumes.json"
 
 # Density (g/cm³) and price ($/kg), both as §7's own prose states them. Colour
 # changes what a part looks like, not what it costs, so translucent PETG is PETG.
@@ -218,6 +207,11 @@ PARTS = {
     "Funnel drain-elbow cradle": ["zone-c/funnel/elbow-cradle.step"],
 }
 
+# Each owned STEP identity names its producer's authoritative fine model. Analytic
+# manufacturing STEPs and tessellated STEPs have the same model pairing; neither
+# the presentation payload nor the textured print surface supplies a mass.
+MODEL_OF = {step: step + ".npz" for parts in PARTS.values() for step in parts}
+
 # §7 row-name fragment -> the PROFILES key that row ships on. Every row must match
 # exactly one, here and in `_machine_time.py`, which imports this list to price the
 # same rows in hours: a printed part cannot enter §7 without saying what plate it
@@ -255,45 +249,17 @@ PRINTED = "<!--@printed-->"
 _SOLIDS: dict[str, tuple] = {}
 
 
-def _held():
-    """What the cache holds: sha256 of a STEP -> [volume cm³, area cm²]."""
-    try:
-        return json.loads(_VOL_CACHE.read_text())
-    except (OSError, ValueError):
-        return {}
-
-
-def _hold(held):
-    """Keep what the cache learned, where there is somewhere to keep it.
-
-    A SANDBOX REACHES THE WORKSPACE'S OWN `.cache`. Ninety-five genrule commands symlink it in
-    — `ln -sfn $HSM_WORKSPACE/.cache .cache`, `//:bom-masses` among them — and it is a declared
-    input of none of them. So this is one mutable store shared by every sandboxed action and
-    named in no action key, and an entry in it is named by the sha256 of the STEP it was
-    measured from. `//:pysrc` stages this file without the symlink, and there the write is the
-    miss the `except` below carries."""
-    try:
-        _VOL_CACHE.parent.mkdir(parents=True, exist_ok=True)
-        _VOL_CACHE.write_text(json.dumps(held, indent=1, sort_keys=True))
-    except OSError:
-        pass
-
-
 def _drawn(path):
-    """(volume mm³, area mm²) off the model file beside a STEP the mesh kernel wrote, or None
-    for a STEP OCCT reads.
+    """(volume mm³, area mm²) from an owned part's declared fine model.
 
-    A MESH-KERNEL STEP IS TRIANGLES, and `import_step` refuses one on OCCT, whose reading of it
-    takes the area right and the volume wrong. The model file beside it (`<name>.step.npz`)
-    holds the closed solids the STEP was drawn from, and those are what is measured, on every
-    run and past the cache, so the model file is among the reads of every run the trace sees."""
-    with open(path, "rb") as f:
-        if b"meshcad tessellated" not in f.read(200):
-            return None
+    Every body's closed float64 triangles supply both readings. The arrays are read
+    on each process's first measurement, so a changed model changes the answer even
+    when its analytic manufacturing STEP retains the same bytes.
+    """
     import numpy as np
 
     volume = area = 0.0
-    with np.load(path.with_name(path.name + ".npz"), allow_pickle=False) as model:
+    with np.load(path, allow_pickle=False) as model:
         for key in (k for k in model.files if k.startswith("V")):
             v, t = model[key], model["T" + key[1:]].astype(np.int64)
             a, b, c = v[t[:, 0]], v[t[:, 1]], v[t[:, 2]]
@@ -305,29 +271,16 @@ def _drawn(path):
 def measure(rel):
     """(volume cm³, area cm²) for the solid, memoized — a piece may appear in more
     than one row. AREA IS THE SECOND HALF OF A MASS: `laid_cm3` needs the surface
-    the wall loops run around as much as the volume they enclose, and one import
-    answers both. An entry the cache holds as a bare volume is a reading from
-    before the area was wanted, and is re-measured rather than half-believed."""
+    the wall loops run around as much as the volume they enclose, and one model
+    supplies both readings."""
     if rel not in _SOLIDS:
         path = PARTS_DIR / rel
         if not path.exists():
             sys.exit(f"_bom_masses: {rel} has no STEP at {path}")
-        drawn = _drawn(path)
-        if drawn is not None:
-            _SOLIDS[rel] = (drawn[0] / 1000.0, drawn[1] / 100.0)
-            return _SOLIDS[rel]
-        key = hashlib.sha256(path.read_bytes()).hexdigest()
-        held = _held()
-        got = held.get(key)
-        if isinstance(got, list) and len(got) == 2:
-            _SOLIDS[rel] = tuple(got)
-        else:
-            from _cadq_export import import_step
-
-            solid = import_step(str(path)).val()
-            _SOLIDS[rel] = (solid.Volume() / 1000.0, solid.Area() / 100.0)
-            held[key] = list(_SOLIDS[rel])
-            _hold(held)
+        if rel not in MODEL_OF:
+            sys.exit(f"_bom_masses: {rel} names no owned fine model")
+        drawn = _drawn(PARTS_DIR / MODEL_OF[rel])
+        _SOLIDS[rel] = (drawn[0] / 1000.0, drawn[1] / 100.0)
     return _SOLIDS[rel]
 
 
