@@ -1,0 +1,77 @@
+{
+  "source_commit": "e457351db6baff393fc0ff4e94032131f11889ee",
+  "scope": "The longer PISCO cap and its back-top receiver only; production Box and unrelated native bodies, viewer arrays and pointer rows are retained. Full retention samples are printing on both machines.",
+  "members": {
+    "hardware/manifold-layout/enclosure-assembly.step": "c38edb1304a08ce36a34f250bd05f06c8c292876c4830a25fa2bb44ffabd386b",
+    "hardware/manifold-layout/enclosure-assembly.step.mesh": "f55f20e073af4bfa70c0bda6c58753632a423a970ac8cd9abfe5dc2fc0cfb5aa",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.step": "eac4ed81a273ebef0cf25acb9977217b2bb919ec6da11c180ddc44f2c95108d2",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh": "0fa1ee698e7428cf7c8a9483981f0b8e6916c1707430e4d8e794c3fb36e31c45",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step": "5e8d45e19c3eb4b5d00c522d6fa41e155ee5b88cc25bd7cfca21cadcd2b6b0f2",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh": "28338ded2322bd4426414da3e5a5d36c02c4d2179a123003a8fc273a5183077a",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl": "6d4cb790b5f5fc040e8419491c787206d373a80de1a2bf764ff34922986f5b15",
+    "hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.step": "72c5e16c093d5eb7ce2604a925f65093576fcce15d573cd50305ed0639da6320",
+    "hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.step.mesh": "0e1082b1fb2174297bcacf6e7195255e252ef1c28b3e81e71137b53fe62db61e",
+    "hardware/printed-parts/enclosure/rear-equipment-caps/rear-equipment-caps-installed.step": "c8cd0c2902105eb162abcb15bdb6dff831badaee926071f4543d29274956c36c",
+    "hardware/printed-parts/enclosure/rear-equipment-caps/rear-equipment-caps-installed.step.mesh": "6cf58dddec87af11adc9c863c73de48608ca9c5b70c7c742c717c1987698edd0"
+  },
+  "made": {
+    "hardware/manifold-layout/enclosure-assembly.step": {
+      "commit": "e457351db6baff393fc0ff4e94032131f11889ee",
+      "unproven": true
+    },
+    "hardware/manifold-layout/enclosure-assembly.step.mesh": {
+      "commit": "e457351db6baff393fc0ff4e94032131f11889ee",
+      "unproven": true
+    },
+    "hardware/printed-parts/enclosure/enclosure/enclosure.step": {
+      "commit": "e457351db6baff393fc0ff4e94032131f11889ee",
+      "unproven": true
+    },
+    "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh": {
+      "commit": "e457351db6baff393fc0ff4e94032131f11889ee",
+      "unproven": true
+    },
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step": {
+      "commit": "e457351db6baff393fc0ff4e94032131f11889ee",
+      "unproven": true
+    },
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh": {
+      "commit": "e457351db6baff393fc0ff4e94032131f11889ee",
+      "unproven": true
+    },
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl": {
+      "commit": "e457351db6baff393fc0ff4e94032131f11889ee",
+      "unproven": true
+    },
+    "hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.step": {
+      "commit": "e457351db6baff393fc0ff4e94032131f11889ee",
+      "unproven": true
+    },
+    "hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.step.mesh": {
+      "commit": "e457351db6baff393fc0ff4e94032131f11889ee",
+      "unproven": true
+    },
+    "hardware/printed-parts/enclosure/rear-equipment-caps/rear-equipment-caps-installed.step": {
+      "commit": "e457351db6baff393fc0ff4e94032131f11889ee",
+      "unproven": true
+    },
+    "hardware/printed-parts/enclosure/rear-equipment-caps/rear-equipment-caps-installed.step.mesh": {
+      "commit": "e457351db6baff393fc0ff4e94032131f11889ee",
+      "unproven": true
+    }
+  },
+  "readback_verified": [
+    "hardware/manifold-layout/enclosure-assembly.step",
+    "hardware/manifold-layout/enclosure-assembly.step.mesh",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.step",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl",
+    "hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.step",
+    "hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.step.mesh",
+    "hardware/printed-parts/enclosure/rear-equipment-caps/rear-equipment-caps-installed.step",
+    "hardware/printed-parts/enclosure/rear-equipment-caps/rear-equipment-caps-installed.step.mesh"
+  ],
+  "unrelated_pointer_rows_preserved": true
+}

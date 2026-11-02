@@ -7,7 +7,9 @@ seats share [rear_snaps.py](../../../manifold-layout/rear_snaps.py) and
 The ASSE cap holds the lower halves of both hexes, bears against the inlet
 coupling, and passes the downward vent cup through its bottom flat. The Pisco
 cap has a raised lip around the short outlet fitting's neck and a broad body
-bearing between its independent leaves. The meter cap enters from the west
+bearing between its independent leaves. It spans 41.704 mm in Y, ending at
+Y462.05 before a full 3 mm receiver end wall and the rear CO2 bulkhead bore.
+The meter cap enters from the west
 and has a solid 9 mm spine, shaped bearing stock extending toward the housing,
 and two complete 38 mm-long leaves. A 6 mm lower outside corner bevel clears
 the A-fill tube while retaining the 9 mm central spine, full fitted bearing

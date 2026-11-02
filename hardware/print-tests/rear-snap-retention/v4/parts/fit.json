@@ -1,0 +1,285 @@
+{
+  "asse": {
+    "blocked_pullout_intersection_mm3": 19.064901282787584,
+    "crop_max": [
+      56.94813977833837,
+      474.2999877929687,
+      355.0
+    ],
+    "crop_min": [
+      0.6518602222204208,
+      390.20325459353626,
+      303.22107209451497
+    ],
+    "hardware_overlap_mm3": {
+      "asse-drain-adapter": {
+        "cap": 0.0,
+        "seat": 0.0
+      },
+      "asse1022-assembly": {
+        "cap": 0.0,
+        "seat": 0.0
+      },
+      "bulkhead-water": {
+        "cap": 0.0,
+        "seat": 0.0
+      },
+      "gagira-coupling": {
+        "cap": 0.0,
+        "seat": 0.0
+      },
+      "jg-pi4512f6s": {
+        "cap": 0.0,
+        "seat": 0.0
+      },
+      "jg-pp061208w": {
+        "cap": 0.0,
+        "seat": 0.0
+      }
+    },
+    "physical_result": "Awaiting this trial.",
+    "pullout_travel_mm": 0.5,
+    "retention_scope": "Complete front and rear shoulders, spring pockets, actual roof and full rear bulkhead bore.",
+    "seated_intersection_mm3": 0.0
+  },
+  "meter": {
+    "blocked_pullout_intersection_mm3": 17.15943606957795,
+    "crop_max": [
+      107.5,
+      474.2999877929687,
+      312.25000000037255
+    ],
+    "crop_min": [
+      54.34999999981373,
+      383.0,
+      251.9499999996275
+    ],
+    "hardware_overlap_mm3": {
+      "bulkhead-carb": {
+        "cap": 0.0,
+        "seat": 0.0
+      },
+      "bulkhead-carb-nut": {
+        "cap": 0.0,
+        "seat": 0.0013137536138835637
+      },
+      "digiten-flow/1": {
+        "cap": 0.0,
+        "seat": 0.0
+      },
+      "digiten-flow/10": {
+        "cap": 0.0,
+        "seat": 0.0
+      },
+      "digiten-flow/11": {
+        "cap": 0.0,
+        "seat": 0.0
+      },
+      "digiten-flow/12": {
+        "cap": 0.0,
+        "seat": 0.0
+      },
+      "digiten-flow/2": {
+        "cap": 0.0,
+        "seat": 0.0
+      },
+      "digiten-flow/3": {
+        "cap": 0.0,
+        "seat": 0.0
+      },
+      "digiten-flow/4": {
+        "cap": 0.0,
+        "seat": 0.0
+      },
+      "digiten-flow/5": {
+        "cap": 0.0,
+        "seat": 0.0
+      },
+      "digiten-flow/6": {
+        "cap": 0.0,
+        "seat": 0.0
+      },
+      "digiten-flow/7": {
+        "cap": 0.0,
+        "seat": 0.0
+      },
+      "digiten-flow/8": {
+        "cap": 0.0,
+        "seat": 0.0
+      },
+      "digiten-flow/9": {
+        "cap": 0.0,
+        "seat": 0.0
+      }
+    },
+    "physical_result": "Awaiting this trial.",
+    "pullout_travel_mm": 0.5,
+    "retention_scope": "Complete meter cup, wire exit, port collars, spring pockets, side wall and rear soda bulkhead bore.",
+    "seated_intersection_mm3": 0.0
+  },
+  "pisco": {
+    "blocked_pullout_intersection_mm3": 18.957399191634877,
+    "crop_max": [
+      93.9056156873703,
+      474.2999877929687,
+      355.0
+    ],
+    "crop_min": [
+      59.0943843126297,
+      414.0957172019407,
+      310.7725999997929
+    ],
+    "hardware_overlap_mm3": {
+      "co2-inlet": {
+        "cap": 0.0,
+        "seat": 0.0
+      },
+      "gas-check": {
+        "cap": 0.0,
+        "seat": 0.0
+      },
+      "gas-regulator/1": {
+        "cap": 0.0,
+        "seat": 0.0
+      },
+      "gas-regulator/2": {
+        "cap": 0.0,
+        "seat": 0.0
+      },
+      "gas-regulator/3": {
+        "cap": 0.0,
+        "seat": 0.0
+      }
+    },
+    "physical_result": "Awaiting this trial.",
+    "pullout_travel_mm": 0.5,
+    "retention_scope": "Complete front and rear shoulders, spring pockets, actual roof and full rear bulkhead bore.",
+    "seated_intersection_mm3": 0.0
+  },
+  "pump": {
+    "blocked_pullout_intersection_mm3": 25.74007812951995,
+    "crop_max": [
+      24.397750873597055,
+      454.0680504420662,
+      313.23885248166715
+    ],
+    "crop_min": [
+      -54.7606105443865,
+      358.6680504420662,
+      246.0
+    ],
+    "hardware_overlap_mm3": {
+      "cold-core/g-ganen-pump/1": {
+        "cap": 0.0,
+        "seat": 0.0
+      },
+      "cold-core/g-ganen-pump/10": {
+        "cap": 0.0,
+        "seat": 0.0
+      },
+      "cold-core/g-ganen-pump/11": {
+        "cap": 0.0,
+        "seat": 0.0
+      },
+      "cold-core/g-ganen-pump/12": {
+        "cap": 0.0,
+        "seat": 0.0
+      },
+      "cold-core/g-ganen-pump/13": {
+        "cap": 0.0,
+        "seat": 0.0
+      },
+      "cold-core/g-ganen-pump/14": {
+        "cap": 0.0,
+        "seat": 0.0
+      },
+      "cold-core/g-ganen-pump/15": {
+        "cap": 0.0,
+        "seat": 0.0
+      },
+      "cold-core/g-ganen-pump/16": {
+        "cap": 0.0,
+        "seat": 0.0
+      },
+      "cold-core/g-ganen-pump/17": {
+        "cap": 0.0,
+        "seat": 0.0
+      },
+      "cold-core/g-ganen-pump/18": {
+        "cap": 0.0,
+        "seat": 0.0
+      },
+      "cold-core/g-ganen-pump/19": {
+        "cap": 0.0,
+        "seat": 0.0
+      },
+      "cold-core/g-ganen-pump/2": {
+        "cap": 0.0,
+        "seat": 0.0
+      },
+      "cold-core/g-ganen-pump/20": {
+        "cap": 0.0,
+        "seat": 0.0
+      },
+      "cold-core/g-ganen-pump/21": {
+        "cap": 0.0,
+        "seat": 0.0
+      },
+      "cold-core/g-ganen-pump/3": {
+        "cap": 0.0,
+        "seat": 0.0
+      },
+      "cold-core/g-ganen-pump/4": {
+        "cap": 0.0,
+        "seat": 0.0
+      },
+      "cold-core/g-ganen-pump/5": {
+        "cap": 0.0,
+        "seat": 0.0
+      },
+      "cold-core/g-ganen-pump/6": {
+        "cap": 0.0,
+        "seat": 0.0
+      },
+      "cold-core/g-ganen-pump/7": {
+        "cap": 0.0,
+        "seat": 0.0
+      },
+      "cold-core/g-ganen-pump/8": {
+        "cap": 0.0,
+        "seat": 0.0
+      },
+      "cold-core/g-ganen-pump/9": {
+        "cap": 0.0,
+        "seat": 0.0
+      }
+    },
+    "physical_result": "Awaiting this trial.",
+    "pullout_travel_mm": 0.5,
+    "retention_scope": "Both fixed motor-rail stops, cradle, complete spring pockets and actual lid stock.",
+    "seated_intersection_mm3": 0.0
+  },
+  "regulator": {
+    "blocked_pullout_intersection_mm3": 16.121469413252356,
+    "crop_max": [
+      1.3760896961199958,
+      331.7100400329926,
+      355.0
+    ],
+    "crop_min": [
+      -61.57391030388001,
+      283.603633714998,
+      312.92413759604096
+    ],
+    "hardware_overlap_mm3": {
+      "flow-regulator": {
+        "cap": 0.0,
+        "seat": 0.0
+      }
+    },
+    "physical_result": "Awaiting this trial.",
+    "pullout_travel_mm": 0.5,
+    "retention_scope": "Full measured axial profile, both end shoulders, spring pockets and actual roof.",
+    "seated_intersection_mm3": 0.0
+  }
+}

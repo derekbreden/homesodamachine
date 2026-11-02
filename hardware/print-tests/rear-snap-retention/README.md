@@ -1,6 +1,8 @@
 # Rear equipment snap fit samples
 
-The selected [intermediate-leaf trial](v3/README.md) uses 2.0 mm leaves,
+The [complete-retention trial](v4/README.md) includes the actual surrounding
+walls and end stops, a 41.7 mm PISCO cap and the full rear port bores. It uses
+2.0 mm leaves,
 rounded roots, centered flathead entries and shaped hardware bearings. The
 [reinforced trial's physical result](v2/physical-result/physical-result.json)
 records the accepted pump, ASSE and meter-receiver fits, concentrated root
