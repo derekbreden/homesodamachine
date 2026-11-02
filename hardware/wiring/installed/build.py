@@ -160,7 +160,7 @@ def _attach_kernel(assembly,numbers,manifest,*,output=OUT,sources=()):
     }
 
 
-def export_enclosure(assembly, target):
+def export_enclosure(assembly, target, *, physical_export=None):
     """One physical export followed by the separately replaceable wiring block."""
     import cadquery as cq
     from _cadq_export import export_assembly
@@ -170,7 +170,10 @@ def export_enclosure(assembly, target):
     for child in assembly.children:
         if child.name=='installed-wiring':wires=child
         else:physical.add(child,name=child.name)
-    export_assembly(physical,str(target))
+    if physical_export is None:
+        export_assembly(physical,str(target))
+    else:
+        physical_export(physical,target)
     pending=getattr(assembly,'wiring_kernel_pending',None)
     if pending is not None:
         from hardware.wiring.installed._model_input import read, measurements
