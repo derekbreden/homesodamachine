@@ -71,11 +71,7 @@ def numbers():
     st = snaps.station(axis[0],snaps.half_width(widest,split,axis[1])+snaps.WALL,
                        *cap_y,split=split,wing_root=axis[1]-snaps.REAR_ROOT_DROP)
     profile = snaps.asse_cap_profile(wrenches,s)
-    radius = profile['apothem']/math.cos(math.pi/6)
-    points = [(axis[0]+radius*math.sin(math.radians(profile['clock']+60*i)),
-               axis[1]-radius*math.cos(math.radians(profile['clock']+60*i))) for i in range(6)]
-    cuts = [{'op':'hex','points':points,'axis':axis,'corner':profile['corner'],
-             'span':(cap_y[0]-.01,cap_y[1]+.01)}]
+    cuts = [{'op':'section', **snaps.asse_cap_room(axis,profile,cap_y)}]
     lo,hi = _world_bounds(layout.pose('asse1022-assembly'),
                           *cap_profiles['asse']['vent_bounds'])
     cuts.append(box(lo[0]-c,hi[0]+c,lo[1]-snaps.THREAD-c,hi[1]+snaps.THREAD+c,

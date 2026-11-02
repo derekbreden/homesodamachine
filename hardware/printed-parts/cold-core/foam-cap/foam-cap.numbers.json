@@ -2549,7 +2549,6 @@
     ],
     "seat_bore_radius_mm": 25.696989753350408,
     "selected": {
-     "aft_east_corner_chamfer_mm": 4.0,
      "axial_end_stock_mm": 3.0,
      "cap_arch_wall_mm": 6.2,
      "cap_east_roof_half_width_mm": 20.0,
@@ -2683,7 +2682,6 @@
   ],
   "seat_bore_radius_mm": 25.696989753350408,
   "selected": {
-   "aft_east_corner_chamfer_mm": 4.0,
    "axial_end_stock_mm": 3.0,
    "cap_arch_wall_mm": 6.2,
    "cap_east_roof_half_width_mm": 20.0,

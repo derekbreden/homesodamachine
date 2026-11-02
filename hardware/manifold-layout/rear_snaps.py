@@ -47,6 +47,7 @@ HOOK = 2.6          # leading ramp above the complete flat retaining face
 NOSE_LAND = PRY_HEIGHT + 0.6  # solid 0.6 mm nose remains over the blade entry
 CATCH = fits.clearance(supported=True)
 VAR = 0.5           # how far the stub's seat in the soda union may leave the meter aft of its station
+METER_COLLAR_AXIAL_AIR = VAR + fits.slip
 
 CHAIN = ('jg-pp010822e', 'gagira-coupling', 'multiplex-asse1022', 'jg-pi4512f6s', 'jg-pp061208w')
 SOLIDS = ('asse-seat', 'asse-snap-cap', 'pisco-seat', 'pisco-snap-cap', 'meter-seat', 'meter-snap-cap')
@@ -148,13 +149,22 @@ def hex_prism(axis, apothem, clock_deg, y0, y1, corner):
 
 
 def asse_cap_profile(wrenches, air):
-    """One rounded wrench envelope through the cap's complete axial span."""
+    """One wrench envelope through the cap's complete axial span."""
     clock = sum(k for _y, _a, k, _r in wrenches) / len(wrenches)
     apothem = max(a * (math.cos(math.radians(k-clock))
                       + math.tan(math.pi/6) * abs(math.sin(math.radians(k-clock))))
                    for _y, a, k, _r in wrenches)
-    return dict(apothem=math.ceil((apothem+air)*10.)/10., clock=clock,
-                corner=max(r for _y, _a, _k, r in wrenches)+air)
+    return dict(apothem=math.ceil((apothem+air)*10.)/10., clock=clock)
+
+
+def asse_cap_room(axis, profile, span):
+    """Six continuous bearing flats with open corners around the rounded hardware."""
+    radius = profile['apothem']/math.cos(math.pi/6)
+    points = [(axis[0]+radius*math.sin(math.radians(profile['clock']+60*i)),
+               axis[1]-radius*math.cos(math.radians(profile['clock']+60*i))) for i in range(6)]
+    return {'segments': [{'line': (a,b)} for a,b in
+                         zip(points, points[1:]+points[:1])],
+            'span': (span[0]-.01,span[1]+.01)}
 
 
 def meter_cap_corner_room(west, centre_z, span):
@@ -413,12 +423,11 @@ def build(parts, asse_axis, asse_at, asse_turn, pisco_axis, mouth_y, ceiling, re
     widest = max(cav[m].max(), *(corner + c for *_, corner in wrenches))
     st_a = station(asse_axis[0], half_width(widest, split, asse_axis[1]) + WALL,
                    *cap_y, split=split, wing_root=asse_axis[1]-REAR_ROOT_DROP)
-    # One fitted rounded hex continues through the cap; its bottom slot clears the vent.
+    # One fitted hex continues through the cap; its bottom slot clears the vent.
     cap_profile = asse_cap_profile(wrenches, s)
     v_lo, v_hi = vent.min(axis=0), vent.max(axis=0)
-    snap = cap(st_a, asse_axis[1], None, asse_axis[1], hexed=True).cut(hex_prism(
-        asse_axis, cap_profile['apothem'], cap_profile['clock'],
-        cap_y[0]-.01, cap_y[1]+.01, cap_profile['corner']))
+    snap = cap(st_a, asse_axis[1], None, asse_axis[1], hexed=True).cut(section_solid(
+        asse_cap_room(asse_axis, cap_profile, cap_y)))
     slot = box(v_lo[0] - c, v_hi[0] + c, v_lo[1] - THREAD - c, v_hi[1] + THREAD + c, v_lo[2] - 1., asse_axis[1])
     out['asse-snap-cap'] = snap.cut(slot).clean()
     W = st_a['outer']
@@ -500,7 +509,8 @@ def build(parts, asse_axis, asse_at, asse_turn, pisco_axis, mouth_y, ceiling, re
     r_collar = max(meter.port_collar_radii)
     for sign in (-1., 1.):
         ya, yb = sorted((wy(sign * meter.port_neck_end), wy(sign * meter.port_collar_end)))
-        collar = cq.Solid.makeCylinder(r_collar + METER_AIR, (yb + aft + METER_AIR) - (ya - fore - METER_AIR),
+        collar_end = yb + METER_COLLAR_AXIAL_AIR
+        collar = cq.Solid.makeCylinder(r_collar + METER_AIR, collar_end - (ya - fore - METER_AIR),
                                        cq.Vector(soda_axis[0], ya - fore - METER_AIR, soda_axis[1]), cq.Vector(0, 1, 0))
         cup = cup.fuse(collar.intersect(box(x0, soda_axis[0] + r_collar + 1., ya - fore - 2., yb + aft + 2.,
                                             soda_axis[1] - r_collar - 1., soda_axis[1] + r_collar + 1.)))
