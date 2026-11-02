@@ -144,8 +144,8 @@ def frozen_assets(root: Path = _ROOT) -> dict:
     """Frozen reference members by repo-relative path and recorded sha256.
 
     These are static inputs fetched through the artifact pointer, including when this checkout
-    has not fetched them yet. A `.step.mesh` here is the viewer payload; the kernel's finer
-    import mesh is separate.
+    has not fetched them yet. A `.step.mesh` may be a viewer payload or, when `fine_payload`
+    declares the kernel's tessellation budget, its immutable fine import input.
     """
     members = {}
     for manifest in sorted((root / "hardware" / "reference").rglob("frozen-asset.json")):
