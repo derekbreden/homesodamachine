@@ -195,7 +195,8 @@ fn main() -> Result<()> {
             .map(|((s, name), color)| {
                 let b = s.bounds();
                 json!({"name":name,"color":color,"min":b.min.to_array(),"max":b.max.to_array(),
-                   "volume":s.volume(),"vertices":s.verts().len(),"triangles":s.tris().len(),
+                   "volume":s.volume(),"center":s.centroid().to_array(),
+                   "vertices":s.verts().len(),"triangles":s.tris().len(),
                    "faces":s.faces().len()})
             })
             .collect();
