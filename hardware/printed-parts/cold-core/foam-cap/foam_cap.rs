@@ -424,15 +424,12 @@ fn pump_cradle(n: &Numbers) -> Result<Solid> {
             body=body.cut(&pump_cap_world(&relief,cap)?)?;
         }
     }
-    let corner = f(selected, "aft_east_corner_chamfer_mm")?;
     let (east, aft) = (c.x + wide, fy + rear1);
-    let clearance = Plane::XY.offset(face - 0.2).extrude(
-        &Profile::polygon(&[
-            v2(east + 0.1, aft - corner - 0.1),
-            v2(east + 0.1, aft + 0.1),
-            v2(east - corner - 0.1, aft + 0.1),
-        ]), c.z - face + 0.4,
-    )?;
+    let cap_end = a(&d["caps"])? .iter().map(|cap| f(&cap["snap_station"], "y1"))
+        .collect::<Result<Vec<_>>>()?.into_iter().fold(f64::NEG_INFINITY, f64::max)
+        + n.f("running")?;
+    let clearance = box3(c.x+f(d,"stock_half_width_mm")?,east+0.1,
+        cap_end,aft+0.1,face-0.2,c.z+0.2);
     Ok(body.cut(&clearance)?.transformed(&world_to_cap(n)?))
 }
 fn pump_snap(n: &Numbers) -> Result<Solid> {

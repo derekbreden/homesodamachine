@@ -324,11 +324,13 @@ def pump_cradle():
     for cap in d['caps']:
         for pocket in rear_snaps.pockets(dict(cap['snap_station'],outer=wide)):
             body = body.cut(_pump_cap_to_world(pocket, cap))
-    corner = selected['aft_east_corner_chamfer_mm']
     east, aft = cx+wide, fy+rear[1]
-    clearance = (cq.Workplane('XY',origin=(0.,0.,face-.2))
-        .polyline([(east+.1,aft-corner-.1),(east+.1,aft+.1),
-                   (east-corner-.1,aft+.1)]).close().extrude(cz-face+.4).val())
+    cap_end = max(cap['snap_station']['y1'] for cap in d['caps']) + fits.running
+    # The air passage opens through this outside corner behind the cap.
+    # The complete bearing lands remain inboard of the spring's outer face.
+    clearance = cq.Solid.makeBox(east-(cx+d['stock_half_width_mm'])+.1,
+        aft-cap_end+.1, cz-face+.4,
+        cq.Vector(cx+d['stock_half_width_mm'],cap_end,face-.2))
     body = body.cut(clearance)
     return body.clean()
 
