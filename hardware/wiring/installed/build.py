@@ -173,10 +173,12 @@ def export_enclosure(assembly, target):
     export_assembly(physical,str(target))
     pending=getattr(assembly,'wiring_kernel_pending',None)
     if pending is not None:
-        from hardware.wiring.installed._model_input import read
+        from hardware.wiring.installed._model_input import read, measurements
+        from check_asse_drain import NAMES as drain_members
         model=Path(str(target)+'.npz')
-        numbers,manifest=numeric_inputs(read(model),pending['module'])
-        numbers['physical_fine_model_sha256']=digest(model)
+        assembly.physical_fine_reading=measurements(model,component_names=drain_members)
+        numbers,manifest=numeric_inputs(read(model,reading=assembly.physical_fine_reading),pending['module'])
+        numbers['physical_fine_model_sha256']=assembly.physical_fine_reading['sha256']
         _attach_kernel(assembly,numbers,manifest,output=pending['output'],
                        sources=numeric_source_paths(numbers))
         del assembly.wiring_kernel_pending
