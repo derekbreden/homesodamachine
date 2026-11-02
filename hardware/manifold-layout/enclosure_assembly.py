@@ -4167,8 +4167,41 @@ def manifold_carry(lift: float):
     return carry
 
 
-def posed_manifold(carrier_offset: float) -> list:
-    """Every fixed manifold leaf in enclosure orientation; offset retained for call compatibility."""
+def manifold_pump_trays(carry) -> tuple:
+    """The authored head bracket datums in the installed manifold frame."""
+    head_y = -ml.BARB_INSET + ml.PUMP_Y - ml.kp.head_front_z + ml.kp.base_plane_z
+    head_z = ml.PUMP_BARB_Z - ml.kp.body_y_face + ml.kp.cy
+    stations = []
+    for _name, px in sorted(ml.PUMPS.items()):
+        centre = list(carry(((px, head_y, head_z), (0., 1., 0.)))[0])
+        centre[2] += _enc._interface.pump_seated_drop
+        stations.append(tuple(round(value, 6) for value in centre))
+    return tuple(stations)
+
+
+def posed_manifold(carrier_offset: float, *, model=None, exclude=(), offset=None) -> list:
+    """Fixed leaves in enclosure orientation, optionally from a placed fine model."""
+    if model is not None:
+        import _assembly_model
+        from meshcad import scene
+        from meshcad.write import model_identity
+
+        omitted = set(exclude) | {ml.body_name(name) for name in ml.PUMP_JUNCTIONS}
+        omitted.update(f"stem-elbow-{host.lower()}"
+                       for name in ml.PUMP_JUNCTIONS
+                       for host in (name, ml.PUMP_VALVES[name][1]))
+        indices = [index for index, (name, _rgb) in enumerate(model_identity(model))
+                   if name not in omitted]
+        turn = (cq.Location(cq.Vector(), cq.Vector(0., 0., 1.), 180.)
+                * cq.Location(cq.Vector(), cq.Vector(1., 0., 0.), 90.))
+        if offset is not None:
+            turn = cq.Location(cq.Vector(*offset)) * turn
+        inputs = [_assembly_model.instance(model, indices=indices,
+                    transform=_assembly_model.location(turn))]
+        with _assembly_model.placed(inputs, presentation=True) as placed:
+            bodies = scene.load(placed, snap=False, presentation=True)
+        return [(name, shape, cq.Color(*rgb, 1., False) if rgb is not None else None)
+                for name, (shape, rgb) in bodies.items()]
     return [
         (child.name,
          pose_manifold((child.obj.val() if hasattr(child.obj, "val") else child.obj).moved(
@@ -4183,7 +4216,7 @@ def posed_manifold(carrier_offset: float) -> list:
 PUMP_FACE_Z = ml.PUMP_Y - ml.BARB_INSET
 
 
-def build_pack(*, core_model=None) -> cq.Assembly:
+def build_pack(*, core_model=None, manifold_model=None) -> cq.Assembly:
     """The bodies, with no box around them. `enclosure` sizes itself off this, so it
     cannot be in it."""
     a = cq.Assembly(name="enclosure-assembly")
@@ -4221,15 +4254,20 @@ def build_pack(*, core_model=None) -> cq.Assembly:
 
     # Preserve the fitted pump/bracket station independently of fixed plumbing.
     lift = ml.WORLD_LIFT
-    posed = posed_manifold(ml.CARRIER_PARK)
     # The pack's own stations in world, from the moment it is stood: a run anchors on these, and
     # so does anything the machine stands ON one of them.
     mcarry = manifold_carry(lift)
     source_parts = {'valve-v-a', 'coil-v-a', 'valve-v-b', 'coil-v-b',
                     'step-fluid-3', 'step-fluid-5', 'turn-fluid-3', 'turn-fluid-5',
                     'stub-fluid-2', 'stub-fluid-4'}
-    stood = [(n, s.translate(cq.Vector(0.0, PACK_Y, lift)), c)
-             for n, s, c in posed if n not in source_parts]
+    if manifold_model is None:
+        posed = posed_manifold(ml.CARRIER_PARK)
+        stood = [(n, s.translate(cq.Vector(0.0, PACK_Y, lift)), c)
+                 for n, s, c in posed if n not in source_parts]
+    else:
+        excluded = source_parts | {f"stub-{cid}" for cid in _lines.authored()}
+        stood = posed_manifold(ml.CARRIER_PARK, model=manifold_model,
+                              exclude=excluded, offset=(0., PACK_Y, lift))
     in_pack = []
     for name, solid, color in stood:
         # A MOUTH THAT HAS A RUN ON IT IS NOT A FREE MOUTH. `manifold_layout` draws one bend
@@ -4259,9 +4297,10 @@ def build_pack(*, core_model=None) -> cq.Assembly:
     # columns its seats stand on are the placed valves', and nothing here is a chosen number.
     # `enclosure._valve_trays` is what fuses each plate into the piece that owns its band.
     a.valve_trays = valve_tray_stations({n: s for n, s, _c in stood})
-    # AND THE TWO PUMP STATIONS, on the faces the fold left each Kamoer's head standing its boss
-    # off. Read straight off the pack the same way; the lower cradle and top clamp consume them.
-    a.pump_trays = pump_tray_stations({n: s for n, s, _c in stood})
+    # The two pump stations locate the lower cradle and top clamp on the head's bracket face.
+    # The fine handoff carries this authored datum independently of the sampled vertices.
+    a.pump_trays = (pump_tray_stations({n: s for n, s, _c in stood})
+                   if manifold_model is None else manifold_pump_trays(mcarry))
     a.collet_plate = collet_plate_spec(mcarry, a.pump_trays, a.valve_trays)
     # THE CORE IS PACKED AGAINST THE BACK. It is the body `rear_seam_clear` is written about —
     # the rearmost content, seated flush on the inner face of the rear Z-seam lip that hangs off
@@ -5318,13 +5357,13 @@ def _seated(box):
 RIDGE_REACH = 60.0
 
 
-def machine(*, core_model=None):
+def machine(*, core_model=None, manifold_model=None):
     """The pack, and the box around it. One build: the box is sized on the pack's bodies,
     and then carries the stations they seat in its walls.
 
     The box is SEATED before its ledger is carried, so the card holds the throat's row whether
     or not a wall is ever cut from this box."""
-    a = build_pack(core_model=core_model)
+    a = build_pack(core_model=core_model, manifold_model=manifold_model)
     p = pack(a)
     box = _seated(_enc.stated_box(p))
     carry_enclosure_bounds()
@@ -5386,7 +5425,9 @@ def build_funnel_cover():
 
 def build_enclosure_assembly(*, require_box_spec=False) -> cq.Assembly:
     """The pack, what is seated in the walls, and the four printable pieces of the box."""
-    a, _p, live_box = machine()
+    manifold_model = (_here.parent / "manifold-layout.step.npz"
+                      if require_box_spec and getattr(cq, "MESH", False) else None)
+    a, _p, live_box = machine(manifold_model=manifold_model)
     box = live_box
     if require_box_spec:
         import _box_spec
