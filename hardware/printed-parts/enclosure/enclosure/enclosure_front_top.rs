@@ -29,14 +29,22 @@ fn main() -> Result<()> {
         }],
     )?;
     if n.get("field").is_ok() {
-        let shape = skin::flute_solid(&solid.simplified()?, &n, &[])?;
+        let print_model = solid.simplified()?;
+        let mut sources = flute_sources::Sources::new(&print_model);
+        let shape = skin::flute_solid_observed(&print_model, &n, &[], &mut sources)?;
         plan::write_print_stl(&out.join("enclosure-front-top.stl"), &shape)?;
+        let source_file = "enclosure-front-top.stl.sources.json";
+        std::fs::write(out.join(source_file), serde_json::to_vec(&sources.document())?)?;
         said["files"]
             .as_array_mut()
             .context("part files")?
             .push(serde_json::json!("enclosure-front-top.stl"));
+        said["files"].as_array_mut().unwrap().push(source_file.into());
         said["print"] = serde_json::json!({"volume":shape.volume(),"triangles":shape.num_tri()});
     }
     println!("{said}");
     Ok(())
 }
+
+#[path = "enclosure_flute_sources.rs"]
+mod flute_sources;
