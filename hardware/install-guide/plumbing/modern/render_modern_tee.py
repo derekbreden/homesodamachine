@@ -28,8 +28,14 @@ from __future__ import annotations
 import os
 import sys
 import tempfile
+import shutil
 from dataclasses import dataclass
 from pathlib import Path
+
+if __name__ == "__main__":
+    sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "scripts"))
+    import _rust_part
+    _rust_part.start()
 
 import cadquery as cq
 from PIL import Image
@@ -42,6 +48,7 @@ ART = HERE / "art"
 
 os.environ.setdefault("HSM_NO_BUILD_LOCK", "1")
 sys.path.insert(0, str(HARDWARE / "scripts"))
+sys.path.insert(0, str(HARDWARE / "install-guide"))
 sys.path.insert(0, str(HARDWARE / "reference" / "jg-pp0408w"))
 from _cadq_export import _atomic_write, _per_solid_color, _write_mesh_payload, import_step, note_write  # noqa: E402
 import _hsm_render  # noqa: E402
@@ -625,15 +632,17 @@ def main() -> None:
     outputs: list[Path] = []
     with tempfile.TemporaryDirectory(prefix=".modern-pushfit-", dir=HERE) as directory:
         work = Path(directory)
+        from _plumbing_art_mesh import export
+        steps = export(sys.modules[__name__], [name for name, _, _ in SCENES], work, modern=True)
         jobs = []
-        for name, builder, view in SCENES:
-            scene = builder()
+        for name, _builder, view in SCENES:
             step = (shared if name == "modern-water-on" else work) / f"{name}.step"
             output = ART / f"{name}.png"
-            _export_scene(scene, step)
             if name == "modern-water-on":
-                note_write(step)
-                note_write(Path(f"{step}.mesh"))
+                for suffix in ("", ".mesh", ".npz"):
+                    target = Path(f"{step}{suffix}")
+                    shutil.copyfile(Path(f"{steps[name]}{suffix}"), target)
+                    note_write(target)
             jobs.append(_job(step, output, view))
             outputs.append(output)
 

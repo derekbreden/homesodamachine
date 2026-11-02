@@ -12,8 +12,8 @@ exact touched parts and makes four deliberate presentation cuts:
   no source CAD. Their family installation geometry is shown without using them as dimensional
   authority.
 
-All generated STEP intermediates and their render payloads live in a temporary directory under
-``hardware/``. Only the final PNGs land in ``art/``.
+The scene payload intermediates live in a temporary directory under ``hardware/``.
+Only the final PNGs land in ``art/``.
 
 ``--mount-studies`` renders only the registered mount frames into ``out/mount-studies/`` for fast
 visual review without touching the checked-in artwork.
@@ -29,6 +29,11 @@ import subprocess
 import sys
 import tempfile
 from pathlib import Path
+
+if __name__ == "__main__":
+    sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
+    import _rust_part
+    _rust_part.start()
 
 import cadquery as cq
 from PIL import Image
@@ -883,6 +888,7 @@ def _job(
         output = ART / output
     job = {
         "step": str(step.relative_to(HARDWARE)),
+        "payload": str(Path(f"{step}.mesh")),
         "out": str(output),
         "cam": cam,
         "up": (0, 0, 1),
@@ -1017,13 +1023,14 @@ def main(*, mount_studies: bool = False) -> None:
     ART.mkdir(parents=True, exist_ok=True)
     OUT.mkdir(parents=True, exist_ok=True)
     if not mount_studies:
-        note_read(MACHINE_STEP)
         note_read(MACHINE_MESH)
     with tempfile.TemporaryDirectory(prefix="installation-cad-", dir=OUT) as directory:
         work = Path(directory)
-        steps = _build_steps(work)
+        from _cad_art_mesh import build_steps, build_connection_steps
+        this = sys.modules[__name__]
+        steps = build_steps(this, work)
         if not mount_studies:
-            steps.update(_build_connection_steps(work))
+            steps.update(build_connection_steps(this, work))
         mount_jobs = [
             _job(steps["mount-drop"], "mount-drop.png", MOUNT_CAM, target=MOUNT_TARGET),
             _job(steps["mount-seated"], "mount-seated.png", MOUNT_CAM, target=MOUNT_TARGET),

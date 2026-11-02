@@ -25,6 +25,11 @@ import math
 import sys
 from pathlib import Path
 
+if __name__ == "__main__":
+    sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "scripts"))
+    import _rust_part
+    _rust_part.start()
+
 import cadquery as cq
 from PIL import Image
 
@@ -36,6 +41,7 @@ OUT = HERE / "out"
 ART = HERE / "art"
 
 sys.path.insert(0, str(HARDWARE / "scripts"))
+sys.path.insert(0, str(HARDWARE / "install-guide"))
 from _cadq_export import _payload_current, _per_solid_color, _write_mesh_payload, export_assembly, note_write  # noqa: E402
 import _hsm_render  # noqa: E402
 
@@ -637,29 +643,8 @@ def main() -> None:
     output_dir = args.out_dir.resolve()
     output_dir.mkdir(parents=True, exist_ok=True)
 
-    scenes = build_scenes()
-    if tuple(scenes) != SCENE_NAMES:
-        raise RuntimeError(f"scene order/name drift: {tuple(scenes)}")
-
-    step_paths = {}
-    for name, scene in scenes.items():
-        compound = scene.toCompound()
-        if not compound.isValid():
-            raise RuntimeError(f"invalid scene compound: {name}")
-        bounds = compound.BoundingBox()
-        path = output_dir / f"{name}.step"
-        export_assembly(scene, str(path))
-        # The install pictures select these same bodies without rebuilding the scene.
-        if not _payload_current(path, Path(f"{path}.mesh")):
-            _write_mesh_payload(path, _per_solid_color(scene))
-        note_write(Path(f"{path}.mesh"))
-        step_paths[name] = path
-        print(
-            f"{name}: "
-            f"X[{bounds.xmin:.1f},{bounds.xmax:.1f}] "
-            f"Y[{bounds.ymin:.1f},{bounds.ymax:.1f}] "
-            f"Z[{bounds.zmin:.1f},{bounds.zmax:.1f}] -> {path}"
-        )
+    from _plumbing_art_mesh import export
+    step_paths = export(sys.modules[__name__], SCENE_NAMES, output_dir)
 
     if args.render:
         art_dir = args.art_dir.resolve()
