@@ -1788,22 +1788,22 @@
     }
   ],
   "physical_trial": {
-    "record": "hardware/print-tests/rear-snap-retention/v2",
-    "state": "The reinforced v2 trial accepts the pump and ASSE hardware fits and the meter receiver/wire room. The2.6mm leaves bend at their roots. Pisco has excessive play without useful retention; the water regulator has an incorrect outlet-shoulder envelope and its cap misses smaller sections. Coordinator2 is revising the clamping bodies, meter cap, spring roots and release access. Current snap retention remains unqualified."
+    "record": "hardware/print-tests/rear-snap-retention/v3",
+    "state": "The current modeled joints use 2.0 mm leaves, R1.5 roots, centered tool entries, shaped PISCO and meter cap bearing stock, and the measured water-regulator shoulder. Native seated contacts and hardware clearances are recorded for v3; physical retention, distributed bending, hand force and repeated release remain unqualified. The v2 physical observations are retained in their trial record."
   },
   "build_context": {
     "box_specification": "hardware/manifold-layout/enclosure-box.json",
     "box_sha256": "030ef2fe087dbafc5a55f68f12a03421321604b4054a651cf5c850d1695ae307",
     "published_source_context": "9d86331183e89b6ab8961b2186a89e6e3880b1ba",
-    "scope": "The production box is read from its recorded Pack. Do not derive a new pack while integrating rear equipment. The current back-top includes the restored full core-hold root, bore-free relay header ledges, joined meter lead chamber and plain Pisco service exit.",
+    "scope": "The recorded production Box is retained. The back-top and equipment lid use the current source; five revised caps close their receivers. The integration reuses every unrelated native member and preserves all 447 unrelated appliance viewer arrays exactly.",
     "back_top_native_basis": "/Users/derekbredensteiner/Developer/hsm-approved-asse/.cache/retention-integration/back-top-cleanup.brep",
     "back_top_physical_export": ".cache/enclosure-review-work/recut_cleanup_backtop_print.py",
     "declared_box_binding": "materialize_pump_cartridge._declared_box reads hardware/manifold-layout/enclosure-box.json; recut_cleanup_backtop_print.py uses that declared Box and Pack for the physical print.",
     "root_integration": ".cache/enclosure-review-work/install_surface_cleanup_parts.py replaces only the changed native bodies and their matching physical viewer arrays in the current retained root and aggregates.",
     "current_lid_integration": ".cache/enclosure-review-work/install_final_lid_surface.py",
     "current_native_bindings": {
-      "assembly_step_sha256": "49d075a4791460c0c02461bd159d0f352e1d699d0ba5d37db18d3db57f911a40",
-      "assembly_mesh_sha256": "cf83a85e35d9c394882987f1664f7d507be7446c8351f43dee6a7d0f9cd55906"
+      "assembly_step_sha256": "57ef16eaf91e7100904001f98b61d82179ba211f2ede98527a76e1fd8effe379",
+      "assembly_mesh_sha256": "3a91ff0d88457a19bcd80c713ab9c13ae5a3deac7fcbcb965388cf4e82398069"
     },
     "pending_source_paths": [],
     "canonical_core_assets": {
@@ -1816,6 +1816,7 @@
       "hardware/printed-parts/cold-core/foam-cap/reservoir-b-fill-guide.step": "d1503dc41b490a05b6d636e46868485c2929dfebcd6dc70aba1131ee36df07c0",
       "hardware/printed-parts/cold-core/foam-cap/reservoir-b-fill-guide.stl": "3f1fb479bf4599050149102ac96e540a2d1ca1892a99460c8f63ab4cb62c4987",
       "hardware/printed-parts/cold-core/foam-cap/reservoir-b-fill-guide.step.mesh": "35da35866aa64d8f768d4756f9f8c6d7efd74dd048ad4db01d1f5a66c8670e10"
-    }
+    },
+    "snap_integration_record": "hardware/print-tests/rear-snap-retention/v3/assembly-integration.json"
   }
 }
