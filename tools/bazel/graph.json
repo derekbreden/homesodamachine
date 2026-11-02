@@ -8178,6 +8178,8 @@
       "hardware/printed-parts/fixtures/valve-socket-fit/valve_socket_fit.py",
       "hardware/printed-parts/fixtures/valve-socket-fit/valve_socket_fit.rs",
       "hardware/printed-parts/valve-seat/valve_seat.py",
+      "hardware/reference/beduan-solenoid/beduan-solenoid.step",
+      "hardware/reference/beduan-solenoid/beduan-solenoid.step.mesh",
       "hardware/reference/beduan-solenoid/beduan_solenoid.py",
       "hardware/reference/beduan-solenoid/frozen-asset.json",
       "hardware/scripts/_material_base.py",
