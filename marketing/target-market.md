@@ -171,7 +171,7 @@ machine ([`finish-pack-ship.md`](/hardware/assembly/finish-pack-ship.md)), and s
 personal install consultation. It is the only tier until the run is committed out.
 
 A unit costs [12 h](LAB_HM) of attended hand work. The printers, the bottleneck machine at
-[195.7](MT_H_PRINT) printer-hours a unit, give [~58](MT_UNITS_YEAR) units a year at the
+[189.4](MT_H_PRINT) printer-hours a unit, give [~60](MT_UNITS_YEAR) units a year at the
 [65 %](MT_DUTY) duty the ledger carries. That is the machines' ceiling and not the shop's: what
 one person builds beside a day job is fewer, and the tree does not guess how many. The ledgers
 are [`labor.md`](/hardware/ledger/labor.md) and
@@ -190,7 +190,7 @@ lead time as production scales. Standard opens once the Founder Edition run is c
 
 ### What a unit costs to build
 
-Per-unit parts are [$1,432.57](BOM_GRAND) ([`bom.md`](/hardware/ledger/bom.md)). Attended build
+Per-unit parts are [$1,439.50](BOM_GRAND) ([`bom.md`](/hardware/ledger/bom.md)). Attended build
 time is [12 h](LAB_HM), which [`labor.md`](/hardware/ledger/labor.md) prices at
 [$100](LABOR_RATE)/hr — [$1,199.67](LAB_USD). Roughly [$2,600](UNIT_COST) of parts and hands
 stands behind each machine, before tools, freight, warranty, or any of the design that got here.

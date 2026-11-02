@@ -180,7 +180,7 @@
     "cavity_corner_radius_mm": 22.424999999999997,
     "base_thickness_mm": 5.0,
     "corbel_run_per_rise": 0.5,
-    "corbel_angle_from_bed_deg": 63.43494882292202,
+    "corbel_angle_from_bed_deg": 63.43494882292201,
     "corbel_print_z_mm": [
       5.0,
       54.150000000000006

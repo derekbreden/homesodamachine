@@ -39,16 +39,16 @@
   "print_orientation": "Enclosure +Z up; four socket axes horizontal on Y; port channel vertical and open at both ends.",
   "source_sha256": {
     "hardware/printed-parts/fixtures/valve-socket-fit/valve_socket_fit.py": "1856481c1189e2c8608c74d2944091d0178f6700224e67100d9ee17cd15bbbb3",
-    "hardware/printed-parts/valve-seat/valve_seat.py": "724fb1287ddeae87c1fbebdd723c6c9c3f4cb98241e0e4249082e05936ce7e36",
+    "hardware/printed-parts/valve-seat/valve_seat.py": "12e6a96cfee2a3555bf8635aef47030a3fad1ea2de2a0c7d496174464833b91e",
     "hardware/reference/beduan-solenoid/beduan_solenoid.py": "55845b47daab17ee4dbe92dfde433b4214cbe0f7c1b1f12ab36b5cdeab726e51",
-    "hardware/printed-parts/enclosure/valve-tray/valve_tray.py": "6b34a4bf4bae12e53e294a263072d7460e990c165ff55f0e988a2f3b20f2a817",
+    "hardware/printed-parts/enclosure/valve-tray/valve_tray.py": "111c74e5584b6c5aae13c1f318780759f501e8ad9cb8cca001c4df7ebbace0fb",
     "hardware/printed-parts/cadlib/fits.py": "1c363ac3995e32a313b6a842cf9f55b43dacacc96857fb00dddc9205e9411edd"
   },
   "production_function_ast_sha256": {
     "enclosure._valve_socket_cutters": "e4c5e908ec84c7383ff1f4424c4d427c4f751ba1d3f58188ab0609bce86e092f",
     "enclosure._teardrop_y": "f1a8fd458777c091e6ab65da631c8c4e1c34e0da7e3951c98d333cc9c7cb74bb",
-    "valve_tray.build_body_clearance": "c412544cbff57082e6d251a2ae41a3f42281abb1f9dc17fdba24e57e4f0b3836",
-    "valve_tray.build_port_channel": "2ba753ed384d67f8643173aa78e0c6bedfe5f9f8a12505f9146cdb25b6d2307e"
+    "valve_tray.build_body_clearance": "e2daf9a5b02f16d6467526161effdae5ef82eeace999975625b81b5ecbcec301",
+    "valve_tray.build_port_channel": "6d92919427fbadb8cbfde472379e5c320fd4162f0ed5c2403ffe31ab36d24d41"
   },
   "artifacts": {
     "hardware/printed-parts/fixtures/valve-socket-fit/valve-socket-fit.step": "ce99fb9c09f4d88db17124a6a040604151cebef8569daf4fac006b10d452f9b9",
