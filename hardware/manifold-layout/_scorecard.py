@@ -1569,6 +1569,63 @@ def selected_clearance_joints(a) -> set:
     return {pair for pair in pairs if pair <= present}
 
 
+def _clearance_box(shape):
+    """Candidate bounds from fine children without constructing their query backends."""
+    meshcad = sys.modules.get("meshcad")
+    if meshcad is None or not meshcad.mesh_mode():
+        return _boxes.loose(shape)
+    from meshcad.solids import MeshCompound, MeshModelSolid
+
+    if not isinstance(shape, MeshCompound):
+        return _boxes.loose(shape)
+    bounds = None
+    for child in shape._solids():
+        if isinstance(child, MeshModelSolid):
+            if not len(child.model_arrays()[1]):
+                continue
+        elif child.m.is_empty():
+            continue
+        box = child.BoundingBox()
+        bounds = box if bounds is None else bounds.add(box)
+    return bounds if bounds is not None else _boxes.loose(shape)
+
+
+def _clearance_rows(pairs):
+    """Measure ordered candidates, retaining shared query backends through their final use."""
+    meshcad = sys.modules.get("meshcad")
+    release = {}
+    if meshcad is not None and meshcad.mesh_mode():
+        from meshcad.solids import MeshCompound, MeshModelSolid
+
+        dependencies, last = {}, {}
+        for index, (_x, _y, a, b, _allowed) in enumerate(pairs):
+            for shape in (a, b):
+                if shape not in dependencies:
+                    held = [shape] if isinstance(shape, (MeshCompound, MeshModelSolid)) else []
+                    if isinstance(shape, MeshCompound):
+                        held.extend(s for s in shape._solids() if isinstance(s, MeshModelSolid))
+                    dependencies[shape] = tuple(dict.fromkeys(held))
+                for held in dependencies[shape]:
+                    last[held] = index
+        for held, index in last.items():
+            release.setdefault(index, []).append(held)
+    out = []
+    try:
+        for index, (x, y, a, b, allowed) in enumerate(pairs):
+            try:
+                gap = _clearing.gap(a, b, REPORT_NEAR)
+            finally:
+                for shape in release.pop(index, ()):
+                    meshcad.forget(shape)
+            if gap < REPORT_NEAR:
+                out.append((x, y, gap, allowed))
+    finally:
+        for shapes in release.values():
+            for shape in shapes:
+                meshcad.forget(shape)
+    return out
+
+
 def part_clearances(a, runs=()) -> list[tuple]:
     """Every pair standing nearer than `REPORT_NEAR`, tightest first, as `(a, b, gap, allowed)`.
     `allowed` marks a named fitted joint's exclusion from the global pack floor.
@@ -1600,18 +1657,17 @@ def part_clearances(a, runs=()) -> list[tuple]:
     touching = TOUCHING_OK | selected_clearance_joints(a)
     pack = pack_bodies()
     names = list(bodies)
-    boxes = {n: _boxes.loose(bodies[n]) for n in names}
-    out = []
+    boxes = {n: _clearance_box(bodies[n]) for n in names}
+    pairs = []
     for i, x in enumerate(names):
         for y in names[i + 1:]:
             if x in pack and y in pack:
                 continue
             if _clearing.box_gap(boxes[x], boxes[y]) >= REPORT_NEAR:
                 continue
-            g = _clearing.gap(bodies[x], bodies[y], REPORT_NEAR)
-            if g < REPORT_NEAR:
-                out.append((x, y, g, frozenset((x, y)) in touching))
-    out += run_clearances(a, runs)
+            pairs.append((x, y, bodies[x], bodies[y], frozenset((x, y)) in touching))
+    pairs.extend(_run_clearance_pairs(a, runs))
+    out = _clearance_rows(pairs)
     out.sort(key=lambda r: r[2])
     return out
 
@@ -1627,32 +1683,33 @@ def run_clearances(a, runs) -> list[tuple]:
     tube at its seat slip — is in `TOUCHING_OK` by the run's own connection id, the same
     declaration a body pair makes, and `anchored_pairs` makes it off the sites that build
     those ribs."""
+    return _clearance_rows(_run_clearance_pairs(a, runs))
+
+
+def _run_clearance_pairs(a, runs):
+    """The run pass's ordered candidates and fitted-interface allowances."""
     anchored = anchored_pairs(a, runs)
     touching = TOUCHING_OK | selected_clearance_joints(a)
     touching = {frozenset(name.removeprefix('tube-') for name in pair)
                 for pair in touching}
     tubes, ends, rest = run_world(a, runs)
-    tbb = {i: _boxes.loose(t) for i, t in tubes.items()}
-    rbb = {n: _boxes.loose(s) for n, s in rest.items()}
-    out = []
+    tbb = {i: _clearance_box(t) for i, t in tubes.items()}
+    rbb = {n: _clearance_box(s) for n, s in rest.items()}
+    pairs = []
     ids = list(tubes)
     for i, x in enumerate(ids):
         for y in ids[i + 1:]:
             if _clearing.box_gap(tbb[x], tbb[y]) >= REPORT_NEAR:
                 continue
-            g = _clearing.gap(tubes[x], tubes[y], REPORT_NEAR)
-            if g < REPORT_NEAR:
-                out.append((x, y, g, False))
+            pairs.append((x, y, tubes[x], tubes[y], False))
     for i in ids:
         for name, solid in rest.items():
             if name in ends[i] or _clearing.box_gap(tbb[i], rbb[name]) >= REPORT_NEAR:
                 continue
-            g = _clearing.gap(tubes[i], solid, REPORT_NEAR)
-            if g < REPORT_NEAR:
-                out.append((i, name, g,
-                            frozenset((i, name)) in touching
-                            or frozenset((i, name)) in anchored))
-    return out
+            pairs.append((i, name, tubes[i], solid,
+                          frozenset((i, name)) in touching
+                          or frozenset((i, name)) in anchored))
+    return pairs
 
 
 def anchored_pairs(a=None, runs=()) -> set:
