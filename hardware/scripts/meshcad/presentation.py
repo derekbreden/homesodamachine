@@ -66,7 +66,8 @@ def carried(surface, matrix):
     linear, offset = matrix[:, :3], matrix[:, 3]
     result = {**surface,
               "pos": (np.asarray(surface["pos"], float).reshape(-1, 3) @ linear.T + offset).ravel(),
-              "nrm": (np.asarray(surface["nrm"], float).reshape(-1, 3) @ np.linalg.inv(linear)).ravel()}
+              "nrm": (surface["nrm"] if np.array_equal(linear, np.eye(3)) else
+                      (np.asarray(surface["nrm"], float).reshape(-1, 3) @ np.linalg.inv(linear)).ravel())}
     if np.linalg.det(linear) < 0:
         result["idx"] = np.asarray(surface["idx"]).reshape(-1, 3)[:, [0, 2, 1]].ravel()
     return result
