@@ -132,7 +132,7 @@ def route_metadata(a):
 
 
 def load(facts_path, scene_path, model_path):
-    """Read one producer cohort's routes and full fine bodies, without standing it.
+    """Read one producer cohort's routes, body names and fine tube bodies.
 
     The facts file is written after the STEP, scene and fine model. Its hashes
     bind the small routing handoff to those exact outputs.
@@ -164,10 +164,7 @@ def load(facts_path, scene_path, model_path):
     if metadata.get("schema") != 1:
         raise ValueError(f"{facts_path.name} has an unsupported tube-route document")
     anchors = _machine._tupled(document["anchors"])
-    from meshcad.solids import MeshCompound
-    grouped = {}
-    for name, (shape, _rgb) in scene.load(model_path, snap=False).items():
-        grouped.setdefault(re.sub(r"/\d+$", "", name), []).append(shape)
+    leaves, leaf_names = _route_bodies(model_path, (row['id'] for row in document['runs']))
     return types.SimpleNamespace(
         runs=[_machine._run(row) for row in document["runs"]],
         native_route_specs=metadata["native_route_specs"],
@@ -175,8 +172,7 @@ def load(facts_path, scene_path, model_path):
         tube_anchors=anchors["tube_anchors"], cap_tube_anchors=anchors["cap_tube_anchors"],
         route_metadata=metadata,
         producer_handoff=handoff,
-        leaves={name: shapes[0] if len(shapes) == 1 else MeshCompound(shapes)
-                for name, shapes in grouped.items()},
+        leaves=leaves, leaf_names=leaf_names,
     )
 
 
@@ -195,7 +191,8 @@ def export(a):
     leaves = (a.leaves if metadata is not None else
               {name: shape for name, shape, _c in ea.ml.placed_leaves(a)})
     lap("placed_leaves")
-    sleeve_like = sorted(n for n in leaves
+    leaf_names = getattr(a, 'leaf_names', leaves)
+    sleeve_like = sorted(n for n in leaf_names
                          if any(k in n.lower() for k in ("insul", "sleeve", "cargen")))
     print("sleeve-like leaf names:", sleeve_like or "none")
 
@@ -781,3 +778,21 @@ def export(a):
     }
     return doc, table, {"length_mismatch": length_mismatch, "unclassified": unclassified,
                         "unmatched": unmatched, "align_budget_hit": align_budget_hit}
+
+
+def _route_bodies(model_path, run_ids):
+    """Keep the complete name census and load only the fine tubes read by export."""
+    from meshcad import scene
+    from meshcad.solids import MeshCompound
+    from meshcad.write import model_identity
+
+    identity = model_identity(model_path)
+    names = [re.sub(r"/\d+$", "", name) for name, _rgb in identity]
+    wanted = {'tube-'+name for name in run_ids}
+    indices = [index for index, name in enumerate(names)
+               if name in wanted or name.rsplit('/',1)[-1] in wanted]
+    grouped = {}
+    for name, (shape, _rgb) in scene.load(model_path, snap=False, indices=indices).items():
+        grouped.setdefault(re.sub(r"/\d+$", "", name), []).append(shape)
+    return ({name: shapes[0] if len(shapes)==1 else MeshCompound(shapes)
+             for name, shapes in grouped.items()}, tuple(dict.fromkeys(names)))

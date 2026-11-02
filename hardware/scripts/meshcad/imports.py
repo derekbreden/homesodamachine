@@ -9,6 +9,7 @@ under the digest of its bytes, so the next read is a file load.
 
 import hashlib
 import json
+import operator
 from pathlib import Path
 
 import manifold3d as m3d
@@ -23,7 +24,7 @@ CACHE = _ROOT / ".cache" / "meshcad" / "import"
 IMPORT_VERSION = 2
 
 
-def load_model(path, *, snap=True):
+def load_model(path, *, snap=True, indices=None):
     """[MeshSolid] from a model file or bytes, optionally retaining raw f64 coordinates."""
     import io
     from .solids import MeshModelSolid, MeshSolid
@@ -31,8 +32,14 @@ def load_model(path, *, snap=True):
         path = io.BytesIO(path)
     with np.load(path, allow_pickle=False) as z:
         records = json.loads(bytes(z["records"]).decode())
+        names = json.loads(bytes(z["names"]).decode())
+        selected = None if indices is None else {operator.index(i) for i in indices}
+        if selected is not None and any(i < 0 or i >= len(names) for i in selected):
+            raise ValueError('a selected model entry is outside the archive')
         solids = []
-        for i, name in enumerate(json.loads(bytes(z["names"]).decode())):
+        for i, name in enumerate(names):
+            if selected is not None and i not in selected:
+                continue
             V, T, F = z[f"V{i}"], z[f"T{i}"].astype(np.int64), z[f"F{i}"].astype(np.int64)
             recs = [_unjson(r) for r in records[i]]
             part = build.Part(V, T, F, recs)
