@@ -11,12 +11,12 @@
     "SEAM_INSERTS": "4",
     "SEAM_RODS": "4",
     "SHELF_INSERTS": "4",
-    "SHELF_SCREWS": "28",
+    "SHELF_SCREWS": "12",
     "SOLENOIDS": "10",
-    "TOTAL_INSERTS": "79",
-    "TOTAL_M3_INSERTS": "51",
+    "TOTAL_INSERTS": "63",
+    "TOTAL_M3_INSERTS": "35",
     "TOTAL_M5_INSERTS": "28",
-    "TOTAL_SCREWS": "79",
+    "TOTAL_SCREWS": "63",
     "TOUCHFLO_SCREWS": "3"
   },
   "/hardware/scripts/_labor_totals.py": {
