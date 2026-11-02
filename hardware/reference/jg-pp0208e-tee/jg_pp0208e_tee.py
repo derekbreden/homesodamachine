@@ -24,6 +24,9 @@ Coordinate frame
 
 Run:
     tools/cad-venv/bin/python hardware/reference/jg-pp0208e-tee/jg_pp0208e_tee.py
+
+Geometry is held in the frozen STEP and fine payload beside this module.
+`frozen-asset.json` records their bytes and source snapshot.
 """
 
 from __future__ import annotations
@@ -31,13 +34,10 @@ from __future__ import annotations
 import sys
 from pathlib import Path
 
-import cadquery as cq
 
 _here = Path(__file__).resolve()
 _hw = next(p for p in _here.parents if p.name == "hardware")
 sys.path.insert(0, str(_hw / "scripts"))
-from _cadq_export import export_assembly, import_step
-from _materials import M_JG_BLACK_PP, one_body
 
 STEP = _here.parent / "jg-pp0208e-tee.step"
 
@@ -97,6 +97,7 @@ def envelope() -> tuple:
 
 def _cyl(d: float, axis, near: float, far: float) -> cq.Solid:
     """A cylinder of `d` on `axis`, between two stations measured from the body centre."""
+    import cadquery as cq
     direction = cq.Vector(*axis)
     return cq.Solid.makeCylinder(
         d / 2.0, far - near, direction.multiply(near), direction)
@@ -115,6 +116,7 @@ def _arm(axis) -> cq.Solid:
 def build_jg_pp0208e_tee() -> cq.Workplane:
     """The tee as a single solid: a hub the three arms leave, each bored the tube's socket, and
     the through passage between them at the bore of the tube itself."""
+    import cadquery as cq
     solid = cq.Solid.makeSphere(ARM_D / 2.0, cq.Vector(0, 0, 0), angleDegrees1=-90)
     sockets = None
     for axis, _name in ARMS:
@@ -132,6 +134,7 @@ def stations_hold():
     The three collet faces are extents of the solid's own box, and so is the collar that carries
     `COLLAR_D`. `BRANCH_ENVELOPE` is the one figure that is neither: it spans the branch face to
     the far side of the run body, which is the box's whole Y."""
+    from _cadq_export import export_assembly, import_step
     solid = import_step(str(STEP)).val()
     bb = solid.BoundingBox()
     for what, claimed, actual in (
@@ -148,7 +151,9 @@ def stations_hold():
                 f"there.")
 
 
-def main():
+def _native_main():
+    from _cadq_export import export_assembly, import_step
+    from _materials import M_JG_BLACK_PP, one_body
     part = build_jg_pp0208e_tee()
     bb = part.val().BoundingBox()
     print("John Guest PP0208E — 1/4\" push-to-connect union tee, black polypropylene")
@@ -163,6 +168,38 @@ def main():
     export_assembly(one_body(part, "jg-pp0208e-tee", M_JG_BLACK_PP), str(STEP))
     print(f"-> {STEP.name}")
     stations_hold()
+
+
+
+
+_FROZEN_DIR = Path(__file__).resolve().parent
+STEP_PATH = _FROZEN_DIR / 'jg-pp0208e-tee.step'
+PAYLOAD_PATH = _FROZEN_DIR / 'jg-pp0208e-tee.step.mesh'
+ASSET_MANIFEST_PATH = _FROZEN_DIR / "frozen-asset.json"
+
+
+def __getattr__(name):
+    if name in globals():
+        return globals()[name]
+    if name in ('cq',):
+        import cadquery as cq
+        value = locals()[name]
+    elif name in ('export_assembly', 'import_step'):
+        from _cadq_export import export_assembly, import_step
+        value = locals()[name]
+    elif name in ('M_JG_BLACK_PP', 'one_body'):
+        from _materials import M_JG_BLACK_PP, one_body
+        value = locals()[name]
+    else:
+        raise AttributeError(name)
+    globals()[name] = value
+    return value
+
+
+def main():
+    print('jg-pp0208e-tee frozen reference')
+    print(f"  STEP: {STEP_PATH}")
+    print(f"  Fine/display payload: {PAYLOAD_PATH}")
 
 
 if __name__ == "__main__":

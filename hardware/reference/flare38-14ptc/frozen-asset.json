@@ -1,0 +1,43 @@
+{
+  "source": {
+    "commit": "a40b1dc0d4a41ea4dab2b765f997a841ed8b6678",
+    "path": "hardware/reference/flare38-14ptc/flare38_14ptc.py",
+    "sha256": "76008e6a6280fcf895e989d21b6086cd2b2d388ba48de709995e7f6a357dc630"
+  },
+  "members": {
+    "flare38-14ptc.step": "ca5d990edd15f5cd363a1105cef956cd959f1e43646a509d44d070df3232172c",
+    "flare38-14ptc.step.mesh": "6b82186d80fa9e36725dba8854b33736481f28e44e63722bac787ce717791bce"
+  },
+  "fine_payload": {
+    "source_step_sha256": "ca5d990edd15f5cd363a1105cef956cd959f1e43646a509d44d070df3232172c",
+    "path": "flare38-14ptc.step.mesh",
+    "sha256": "6b82186d80fa9e36725dba8854b33736481f28e44e63722bac787ce717791bce",
+    "linear_mm": 0.005,
+    "angular_rad": 0.05,
+    "producer": "hardware/scripts/_rust_part.py:_tessellate",
+    "meshes": [
+      {
+        "name": "flare38-14ptc/1",
+        "color": [
+          0.5500000090900438,
+          0.5600000132598123,
+          0.5699999996012601
+        ],
+        "vertices": 3536,
+        "triangles": 3524,
+        "face_ranges": 8
+      },
+      {
+        "name": "flare38-14ptc/2",
+        "color": [
+          0.5500000090900438,
+          0.5600000132598123,
+          0.5699999996012601
+        ],
+        "vertices": 1046,
+        "triangles": 1032,
+        "face_ranges": 9
+      }
+    ]
+  }
+}

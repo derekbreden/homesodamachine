@@ -6,18 +6,20 @@ The thread crests use a smooth envelope; visible mouths are shallow display bore
 Internal pressure-control geometry and made-up NPT engagement are unmeasured.
 
 Frame: inlet face at the origin, flow along +Y, barrel centred on X/Z.
+
+Geometry is held in the frozen STEP and fine payload beside this module.
+`frozen-asset.json` records their bytes and source snapshot.
 """
+
+from __future__ import annotations
 
 import sys
 from pathlib import Path
 
-import cadquery as cq
 
 _here = Path(__file__).resolve()
 _hw = next(p for p in _here.parents if p.name == "hardware")
 sys.path.insert(0, str(_hw / "scripts"))
-from _cadq_export import export_assembly, import_step
-from _materials import M_ALUMINIUM, one_body
 
 STEP = _here.parent / "wr1110-regulator.step"
 
@@ -79,12 +81,14 @@ def stations() -> dict:
 
 def _turned(profile):
     """An axial radius profile revolved about +Z before the final frame turn."""
+    import cadquery as cq
     outline = [(0, profile[0][0]), *((r, y) for y, r in profile),
                (0, profile[-1][0])]
     return cq.Workplane("XZ").polyline(outline).close().revolve(360, (0, 0), (0, 1))
 
 
 def _wrench(profile, across_flats, clock=0.0):
+    import cadquery as cq
     import math
     prism = (cq.Workplane("XY").workplane(offset=profile[0][0])
              .polygon(6, across_flats / math.cos(math.pi / 6))
@@ -95,6 +99,7 @@ def _wrench(profile, across_flats, clock=0.0):
 
 def build():
     """Analytic exterior, clipped wrench hexes and observed open mouths."""
+    import cadquery as cq
     body = (cq.Workplane("XY").workplane(offset=BODY_START)
             .circle(BODY_D / 2).extrude(BODY_LENGTH))
     part = (_wrench(INLET_PROFILE, INLET_HEX_AF).union(body)
@@ -107,7 +112,9 @@ def build():
     return part.cut(inlet_mouth).cut(outlet_mouth).rotate((0, 0, 0), (1, 0, 0), -90)
 
 
-def main():
+def _native_main():
+    from _cadq_export import export_assembly, import_step
+    from _materials import M_ALUMINIUM, one_body
     part = build()
     bb = part.val().BoundingBox()
     print("Interstate Pneumatics WR1110 secondary regulator")
@@ -119,6 +126,38 @@ def main():
         print(f"  {label}: ({pos[0]:7.2f}, {pos[1]:6.2f}, {pos[2]:7.2f})  out {axis}")
     export_assembly(one_body(part, "wr1110-regulator", M_ALUMINIUM), str(STEP))
     print(f"-> {STEP.name}")
+
+
+
+
+_FROZEN_DIR = Path(__file__).resolve().parent
+STEP_PATH = _FROZEN_DIR / 'wr1110-regulator.step'
+PAYLOAD_PATH = _FROZEN_DIR / 'wr1110-regulator.step.mesh'
+ASSET_MANIFEST_PATH = _FROZEN_DIR / "frozen-asset.json"
+
+
+def __getattr__(name):
+    if name in globals():
+        return globals()[name]
+    if name in ('cq',):
+        import cadquery as cq
+        value = locals()[name]
+    elif name in ('export_assembly', 'import_step'):
+        from _cadq_export import export_assembly, import_step
+        value = locals()[name]
+    elif name in ('M_ALUMINIUM', 'one_body'):
+        from _materials import M_ALUMINIUM, one_body
+        value = locals()[name]
+    else:
+        raise AttributeError(name)
+    globals()[name] = value
+    return value
+
+
+def main():
+    print('wr1110-regulator frozen reference')
+    print(f"  STEP: {STEP_PATH}")
+    print(f"  Fine/display payload: {PAYLOAD_PATH}")
 
 
 if __name__ == "__main__":
