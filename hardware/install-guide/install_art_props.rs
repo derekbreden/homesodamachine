@@ -6,6 +6,7 @@ use serde_json::Value;
 
 mod cad_art_props;
 mod plumbing_art_props;
+mod kit_art_props;
 
 type Shown = Vec<(String, Solid, [f64; 3])>;
 
@@ -202,6 +203,9 @@ fn c13(n: &hsm_kernel::part::Numbers, out: &mut Shown) -> Result<()> {
 
 fn main() -> Result<()> {
     let (n, directory) = args()?;
+    if n.get("kit_art").is_ok() {
+        return kit_art_props::write(&n, &directory);
+    }
     if let Ok(scenes) = n.get("surface_scenes") {
         for scene in scenes.as_array().context("surface scenes")? {
             let imported = import::payload(scene["payload"].as_str().context("scene payload")?)?;

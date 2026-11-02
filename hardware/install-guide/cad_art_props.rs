@@ -57,7 +57,7 @@ fn legs(value: &Value) -> Result<Path> {
     path.context("empty signal path")
 }
 
-fn lever(parameters: &[f64]) -> Result<(Solid, Solid)> {
+pub(super) fn lever(parameters: &[f64]) -> Result<(Solid, Solid)> {
     let [plateau, port_y, tube_r, pivot_y, pivot_z, pressed_angle] = *parameters else {
         anyhow::bail!("lever dimensions")
     };
