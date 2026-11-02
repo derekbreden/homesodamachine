@@ -119,7 +119,7 @@ def bind_printed_floor_delta(path, output):
     datums = shell.wall_mount_datums()
     printed = printed_pilot_floors(path,datums,('relay-1','relay-2'))
     original = report.get('contact_fixture_plans',report.get('plans'))
-    outer_keys = ('boss_radius_mm','bearing_tip_radius_mm','bearing_tip_height_mm',
+    outer_keys = ('boss_radius_mm','insert_face_setback_mm',
                   'screw_clearance_radius_mm','active_hole_indices')
     preserved = {}
     for name in NAMES:
@@ -350,7 +350,7 @@ def main():
                 'complete3mm_insert_wall_missing_mm3': volume(wall.cut(coupon)),
                 'complete3mm_blind_floor_missing_mm3': volume(floor.cut(coupon)),
                 'nominal_head_diameter_mm':5.5, 'nominal_head_height_mm':3.,
-                'short_bearing_tip_mm':plan.get('bearing_tip_height_mm',0.)})
+                'insert_face_setback_mm':plan.get('insert_face_setback_mm',0.)})
 
     sources = [ROOT/'hardware/manifold-layout/above-core.json',
         Path(shell.__file__), Path(parts.__file__),

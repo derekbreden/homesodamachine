@@ -296,6 +296,11 @@ def pump_cradle():
     body = body.cut(cq.Solid.makeBox(2.*half, rear[1]-fore[0]+.2, cz-face+1.,
         cq.Vector(cx-half, fy+fore[0]-.1, face)))
     import fits
+    # The nonbearing inner corners of the fore stop share one wider lead
+    # opening; the measured rail-end contact bands remain complete.
+    fore_half=min(abs(y)for y in selected['rail_stop_contact_native_y_mm'])-2*fits.running
+    body=body.cut(cq.Solid.makeBox(2*fore_half,fore[1]-fore[0]+.2,cz-face+1.,
+        cq.Vector(cx-fore_half,fy+fore[0]-.1,face)))
     for rail in d['rail_rooms']:
         a, b, c = rail['floor_planes'][0]
         c -= fits.running*math.sqrt(1.+a*a+b*b)
@@ -323,6 +328,12 @@ def pump_cradle():
     for cap in d['caps']:
         for pocket in rear_snaps.pockets(dict(cap['snap_station'],outer=wide)):
             body = body.cut(_pump_cap_to_world(pocket, cap))
+    corner = selected['aft_east_corner_chamfer_mm']
+    east, aft = cx+wide, fy+rear[1]
+    clearance = (cq.Workplane('XY',origin=(0.,0.,face-.2))
+        .polyline([(east+.1,aft-corner-.1),(east+.1,aft+.1),
+                   (east-corner-.1,aft+.1)]).close().extrude(cz-face+.4).val())
+    body = body.cut(clearance)
     return body.clean()
 
 

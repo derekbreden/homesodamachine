@@ -17,17 +17,17 @@ of tip air. The four blind pilots end below the full 3 mm roof show skin.
 | Equipment | Arrangement | Support |
 |---|---|---|
 | Multiplex ASSE 1022 | Threaded inlet chain fore–aft on TAP; both wrench flats horizontal; vent down | Integral swept hex seat and lower hex snap cap |
-| PISCO RVFUP1/4-1/4-0.3 | Its own inlet neck crosses the upper-right rear hole; ACVUS-44 stem check directly in its outlet | Integral slide seat and neck-catching snap cap |
+| PISCO RVFUP1/4-1/4-0.3 | Its own inlet neck crosses the upper-right rear hole; ACVUS-44 stem check directly in its outlet | Integral slide seat and lower cap; current neck capture remains unresolved |
 | DIGITEN meter | Outlet directly against the soda union; larger housing side down, label east | Integral east-wall slide seat and west-entering snap cap |
 | JG PP0208E water split | Raised on one gentle bend in the ASSE outlet stub | Connected header; V-K and regulator have their own mounts |
 | YZMSZ water regulator | East–west, above the pump | Integral ceiling seat and lower snap cap |
 | V-A | Hangs from the ceiling, its four posts upward; outlet turns east and then fore | Full-width integral socket plinth |
 | V-K | Beside the east wall, inlet up and outlet down | Integral full socket wall |
-| G Ganen pump | Motor fore–aft, suction east, discharge west; complete rubber feet and legs removed | Lid half pipe, continuous 54.5 mm upper clip and rail-end stops |
+| G Ganen pump | Motor fore–aft, suction east, discharge west; complete rubber feet and legs removed | Two rail seats, continuous 54.5 mm filled box cap and bilateral rail-end stops |
 | Pump joints | Reinforced 3/8-inch PVC, trimmed PP061208W reducers and two butterfly clamps per barb | Clamped barb and reducer engagements |
 | Pump discharge check | ACVUS-44 stem directly in the discharge elbow | Discharge joint; continuous inlet enters the core guide |
 | Mean Well IRM-90 | Base upward in its shallow ceiling well, AC end aft | Four integral ceiling hosts |
-| Teyleten relays | One above the other on the west wall | Two filled end bars, four bearing tips per PCB and two diagonal screws |
+| Teyleten relays | One above the other on the west wall | Four edge ledges, rigid terminal-end rails and two header-end screws |
 | PCB and V-B | Board flat and connector-up; V-B on its side east of it | Core columns and the integral V-B socket wall |
 
 ASSE, Pisco and meter enter their seats 16 mm fore of their stations and slide
@@ -38,16 +38,24 @@ slip fit. The four separate caps are in
 
 V-K stands upright with 17.57 mm to the continuous ceiling. Its lower elbow
 clears the plain lid by 1.59 mm. The water-split run has a 3.39° tilt; its
-short V-K and regulator links retain full receiving depths on gentle R555
-and R531 bends. ASSE, regulator and V-A retain their aligned frames. The
+short V-K and regulator links retain full receiving depths on tangent bends. ASSE, regulator and V-A retain their aligned frames. The
 [native local fit](../mechanical-qualification/enclosure-above-core/vk-local-fit-review.json)
 records the body clearances and tube extrema.
 
 The water elbows retain 0.4 mm exposed male shoulder lands outside their full
-receiving depths. The suction PVC uses two tangent arcs, minimum R33.030,
-while the bare pump and V-K keep their aligned body frames.
+receiving depths. The suction PVC has a 12.119 mm free span on two tangent
+arcs, minimum R27.343. Its elbow rotates 3.307° around the seated V-K stem.
+The discharge elbow rotates 4.745° around the check's seated stem; the PVC
+cuff bends 10.289°. The check and core water guide keep their fixed frames.
+The bare pump and V-K keep their aligned body frames.
 
-The port columns are X37.25 and X77.5; rows are Z328, Z296 and Z264. TAP's bore
+The pump cap has a 6.2 mm filled crown, one east clearance shoulder and two
+independent 2.6 mm spring leaves with 22.5 mm free lengths. Its flat catches overlap by 2.6 mm. The
+straight 49.62 mm cover channel is recessed 2.5 mm, retaining 4.9 mm of lid
+floor. The four rear snap caps use the same flat-catch section; their leaves
+have 3.2 mm of outward release travel.
+
+The port columns are X28.8 and X76.5; rows are Z328, Z291 and Z264. TAP's bore
 follows the scanned inlet adapter's axis. The top row is TAP/CO2, the middle
 OVER/SODA, and the bottom flavor B/flavor A. The 1.8 mm identification tiles
 slide into continuous channels between side rails and stand on the channel
@@ -64,17 +72,19 @@ mouths stand 3.749 mm lower. The funnel return descends from V-B to Y-B.
 The soda guide is X77.5/Y359.51/Z253.4. The same blue tube runs from the
 carbonator's bottom outlet, through the cap and the accepted R14 holder, into
 the meter. The holder has 2 mm walls and 3 mm legs; it stands 7.75 mm from the
-meter mouth. A tangent S transition offsets the tube 1.25 mm from the fixed
-core guide into the holder, with a minimum-radius lower bound of 109.061 mm.
-One square-cut 61 mm piece of ID6.35/OD25.4 foam covers the
+meter mouth. A tangent S transition carries the tube from the fixed core
+guide into the holder. One square-cut 56 mm piece of ID6.35/OD25.4 foam covers the
 external inlet and holder. The meter and soda union share a concealed tube.
 
 The gas check's socket feeds one bend, then an S to the guide at
 X59.101/Y354.664. The gas tube remains continuous to the carbonator's gas
-fitting and support-ring lane. The water check feeds two tangent bends, minimum R15.055, into the
+fitting and support-ring lane. The gas bend retains at least R24.7. The water
+check feeds two tangent bends, minimum R14.246, into the
 straight guide at X−82.5/Y420. Neither guide adds a socket or tube cut.
 
-V-A's feed crosses above the pump and descends east of the regulator. Its
+V-A's outlet union clocks 50° downward about the seated valve connection;
+the nested stem elbow clocks 15° outward. Both full stem engagements remain
+coaxial. Its feed crosses above the pump and passes beneath the regulator. Its
 continuous tangent bends pass above the PCB before entering the fore lane.
 The upward-opening snap at X16.608/Y207.300/Z268.970 has one filled root on
 the lid. Y-A's stem elbow points east, keeping the connector on XYZ axes
@@ -93,13 +103,14 @@ The two black 4 mm dispense lines use the east pump aisle and approach the
 Z264 rear sockets from below the meter. Flavor A has an upward-opening crossover snap at
 X26.5/Y266/Z296, backed into V-B’s full wall. Flavor B has its filled
 upward-opening rear snap at X35/Y414/Z264. Their 4.10 mm bores and 1.52 mm spring walls
-retain the selected modeled 4 mm section. Flavor A passes through a relief
-in the meter cap's lower wing. All free 4 mm bends are R25 or larger.
+retain the selected modeled 4 mm section. Flavor A descends ahead of the meter and runs above its complete lower wing. All free 4 mm bends are R25 or larger.
 
 Reservoir A uses its fore paired C2 snaps and a filled, open paired saddle
-at Y390, inside the casing footprint. One tie holds both existing curved
+at Y390.5, inside the casing footprint. One tie holds both existing curved
 paths in their unequal-height seats. The front valve fittings and reservoir
-mouths retain their datums. Its free aft bends pass outside the soda foam.
+mouths retain their datums. The fill entry in the equipment lid is X56/Y426.3;
+an internal R14 S bend joins the fixed reservoir bore through the open space
+beneath the lid. Its external aft seat follows the fill tube 5 mm west. Its free aft bends pass outside the soda foam.
 [reservoir-a-routes.json](reservoir-a-routes.json) owns their exact R14 segments.
 The two routes remain continuous through their core guides. Reservoir B's draw
 line steps 13 mm east above its core mouth on two R14 bends before joining the
@@ -114,11 +125,20 @@ open over the bowl.
 
 ## Assembly
 
-Populate back-top ceiling-down on the bench. Install inserts and electronics,
-slide in the threaded ASSE and Pisco/check groups, and close their caps. Fit the
-regulator and V-A/V-K header. Prepare the meter with its continuous inlet,
-holder, foam and concealed outlet tube, slide it onto the soda union and fit
-its west cap. Fit the vent cup and direct OVER return with both ties accessible.
+Populate back-top ceiling-down on the bench, separated from the cold core.
+Install inserts and electronics, then the Pisco/check group and regulator.
+Prepare the meter with its continuous inlet, holder, foam and concealed outlet
+tube, and slide it onto the soda union. Load its cap 20 mm west and 40 mm fore
+of its station, slide it aft and press it east into the catches. Fit the ASSE
+group's lower cap after the meter cap. Fit the V-A/V-K header, vent cup and
+direct OVER return with both ties accessible.
+
+Service the rear caps with back-top separated from the core. Disconnect and
+dress their tubing and leads aside. Remove the ASSE cap first. Spread the
+meter cap's leaves, withdraw it 20 mm west, relax the leaves, then move it
+40 mm fore. The cold core must be absent to open the meter's lower leaf.
+With the meter and ASSE caps removed, spread the Pisco cap's leaves, lower
+it 3.6 mm and slide it 45 mm fore through the flank exits with the leaves held open.
 
 Lower the bare pump into its half-pipe cradle on the open core and close the upper
 clip. Fit its clamped joints before loading tubes into the lid snaps. Complete the below-lid tube routes
@@ -131,3 +151,9 @@ The [internal plumbing procedure](../assembly/internal-plumbing.md) gives the
 part sequence and actual insertion-mark method. Native CAD describes placement
 and fit; the named physical acceptance records retain their material and part
 scope.
+
+The relay boards stand 20.5 mm apart on four edge ledges each. Two M3×8
+screws retain each header end; solid 3 mm rails capture the terminal end.
+Load the boards 6.5 mm fore of their seated positions and slide aft into
+the open-ended rails before tightening the screws. Their insert faces
+stand 2.5 mm behind the PCB underside, clear of the pins.

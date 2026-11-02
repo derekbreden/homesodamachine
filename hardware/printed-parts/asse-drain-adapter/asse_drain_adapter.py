@@ -22,7 +22,7 @@ import multiplex_asse1022 as bfp
 BARB_BORE = 6.10
 TUBE_BORE = 3.80
 TUBE_DEPTH = 14.0
-REDUCER_LENGTH = .50  # Open taper below the vent tip, before the turn.
+REDUCER_LENGTH = 5.50  # Open taper below the vent tip, before the turn.
 MIN_WALL = 3.45  # Shared relaxed radial minimum, under both tie lands.
 GROOVE_DEPTH = .50
 BARB_OD = BARB_BORE + 2 * (MIN_WALL + GROOVE_DEPTH)

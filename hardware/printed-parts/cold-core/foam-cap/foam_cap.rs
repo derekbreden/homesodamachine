@@ -366,6 +366,11 @@ fn pump_cradle(n: &Numbers) -> Result<Solid> {
         face,
         c.z + 1.,
     ))?;
+    let fore_half = a(&selected["rail_stop_contact_native_y_mm"])?.iter()
+        .map(|v|v.as_f64().unwrap_or(0.).abs()).fold(f64::INFINITY,f64::min)
+        -2.*n.f("running")?;
+    body=body.cut(&box3(c.x-fore_half,c.x+fore_half,fy+fore0-0.1,
+        fy+fore1+0.1,face,c.z+1.))?;
     for rail in a(&d["rail_rooms"])? {
         let plane = p3(&rail["floor_planes"][0])?;
         let (a, b, k) = (plane.x, plane.y,
@@ -416,7 +421,16 @@ fn pump_cradle(n: &Numbers) -> Result<Solid> {
             }
         }
     }
-    Ok(body.transformed(&world_to_cap(n)?))
+    let corner = f(selected, "aft_east_corner_chamfer_mm")?;
+    let (east, aft) = (c.x + wide, fy + rear1);
+    let clearance = Plane::XY.offset(face - 0.2).extrude(
+        &Profile::polygon(&[
+            v2(east + 0.1, aft - corner - 0.1),
+            v2(east + 0.1, aft + 0.1),
+            v2(east - corner - 0.1, aft + 0.1),
+        ]), c.z - face + 0.4,
+    )?;
+    Ok(body.cut(&clearance)?.transformed(&world_to_cap(n)?))
 }
 fn pump_snap(n: &Numbers) -> Result<Solid> {
     let d = &n.get("pump")?["caps"][0];
@@ -797,12 +811,14 @@ fn top_lid(n: &Numbers) -> Result<Solid> {
             n.f("screw_radius")?,
         )?);
     }
-    for xy in n.get("conduits")?.as_object().context("conduits")?.values() {
+    for (name, xy) in n.get("conduits")?.as_object().context("conduits")? {
+        let radius = n.get("conduit_radii")?.get(name).and_then(Value::as_f64)
+            .unwrap_or(n.f("conduit_radius")?);
         cuts.push(cylinder(
             p2(xy)?,
             0.,
             h + n.f("floor")?,
-            n.f("conduit_radius")?,
+            radius,
         )?);
     }
     for xy in n.get("reliefs")?.as_object().context("reliefs")?.values() {
