@@ -19,7 +19,6 @@ target's inputs or newly added to a graph that has not been regenerated.
 """
 
 import argparse
-import ast
 import io
 import importlib.util
 import json
@@ -33,7 +32,7 @@ from pathlib import Path, PurePosixPath
 _ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(_ROOT / "tools" / "bazel"))
 
-from gen_build import render_build, target_name  # noqa: E402
+from gen_build import action_plan, dependency_rules, render_build, target_name  # noqa: E402
 from inventory import IMPLICIT_SOLIDS, build_inert, inventory, tracked  # noqa: E402
 
 
@@ -355,12 +354,11 @@ def targets(paths: list) -> list:
 
 
 def manifest_targets(paths: list) -> tuple[list, list]:
-    """Reverse dependencies from the generated BUILD, without starting Bazel.
+    """Reverse dependencies from the shared action declarations, without starting Bazel.
 
-    Generated-file labels resolve through their producer just as they do in
-    Bazel. Generated literal lists, list concatenation and globs are supported.
-    Globs match the changed paths directly, without walking dependency trees.
-    Unsupported Starlark is an error. This reader never executes BUILD code.
+    Generated files resolve through their producer, including the stripped-source
+    and support transformations BUILD uses. Optional files and runtime globs match
+    changed paths directly, without walking dependency trees or reading BUILD text.
     """
     from collections import defaultdict, deque
     from fnmatch import fnmatchcase
@@ -389,41 +387,14 @@ def manifest_targets(paths: list) -> tuple[list, list]:
 
         return matches
 
-    def dependencies(node):
-        if isinstance(node, ast.BinOp) and isinstance(node.op, ast.Add):
-            a, ag = dependencies(node.left)
-            b, bg = dependencies(node.right)
-            return a + b, ag + bg
-        if isinstance(node, ast.Call) and isinstance(node.func, ast.Name) and node.func.id == "glob":
-            includes = ast.literal_eval(node.args[0])
-            excludes = next((ast.literal_eval(kw.value) for kw in node.keywords if kw.arg == "exclude"), [])
-            if len(node.args) != 1 or any(kw.arg not in {"exclude", "allow_empty"} for kw in node.keywords):
-                raise ValueError("unsupported publish manifest glob")
-            return [], [(includes, excludes)]
-        value = ast.literal_eval(node)
-        if not isinstance(value, list) or not all(isinstance(p, str) for p in value):
-            raise ValueError("publish manifest dependency must be a list of paths")
-        return value, []
-
-    rules, owners, globs = {}, {}, []
-    for statement in ast.parse((_ROOT / _BUILD).read_text()).body:
-        if not (isinstance(statement, ast.Expr)
-                and isinstance(statement.value, ast.Call)
-                and isinstance(statement.value.func, ast.Name)
-                and statement.value.func.id in {"genrule", "filegroup"}):
-            raise ValueError("publish manifest requires literal genrule/filegroup declarations")
-        call = statement.value
-        fields = {kw.arg: ast.literal_eval(kw.value) for kw in call.keywords
-                  if kw.arg in {"name", "outs"}}
-        name = fields["name"]
-        for kw in call.keywords:
-            if kw.arg in {"srcs", "tools", "data"}:
-                fields[kw.arg], patterns = dependencies(kw.value)
-                globs.extend((name, [glob_matcher(p) for p in includes],
-                              [glob_matcher(p) for p in excludes])
-                             for includes, excludes in patterns)
-        rules[name] = fields
-        for path in fields.get("outs", ()):
+    actions, _ = action_plan()
+    rules = dependency_rules(actions)
+    owners, globs = {}, []
+    for name, rule in rules.items():
+        globs.extend((name, [glob_matcher(p) for p in includes],
+                      [glob_matcher(p) for p in excludes])
+                     for includes, excludes in rule.get("globs", ()))
+        for path in rule.get("outs", ()):
             owners[path] = name
     readers = defaultdict(set)
     artifact_rules = set()
@@ -910,7 +881,7 @@ def main(argv) -> int:
     ap.add_argument("--artifacts", action="store_true",
                     help="print only rules that publish members of the CAD bundle")
     ap.add_argument("--manifest", action="store_true",
-                    help="with --artifacts, read the generated BUILD without starting Bazel")
+                    help="with --artifacts, read the shared action plan without starting Bazel")
     ap.add_argument("--all-artifacts", action="store_true",
                     help="print every rule that publishes a CAD bundle member")
     args = ap.parse_args(argv)
