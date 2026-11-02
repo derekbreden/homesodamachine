@@ -5,6 +5,8 @@
     tools/cad-venv/bin/python tools/bazel/sync_tree.py --write    # and copy it in
     tools/cad-venv/bin/python tools/bazel/sync_tree.py --write \
         --targets //:display-cover                                # one built slice
+    tools/cad-venv/bin/python tools/bazel/sync_tree.py --write --derived-only
+    tools/cad-venv/bin/python tools/bazel/sync_tree.py --derived-only --stage
     tools/cad-venv/bin/python tools/bazel/sync_tree.py selftest   # the carry, on fixtures
 
 Bazel cuts into `bazel-bin/`, while the artifact packer and derived-doc tools read the tree.
@@ -38,7 +40,7 @@ from pathlib import Path
 _HERE = Path(__file__).resolve()
 _ROOT = _HERE.parents[2]
 sys.path.insert(0, str(_HERE.parent))
-from inventory import ACTION_INTERMEDIATE                 # noqa: E402
+from inventory import ACTION_INTERMEDIATE, build_inert    # noqa: E402
 
 
 #: An output is `…/bin/out/<target>/<the path the tree keeps it under>`. The query answers with
@@ -56,6 +58,64 @@ _PUBLIC_EVIDENCE = (".scorecard.json",)
 
 def _runtime_output(path: str) -> bool:
     return path.endswith(_SOLID_OUTPUTS + _PUBLIC_EVIDENCE)
+
+
+#: The publisher carries model bytes and the metadata belonging to that cut. The cloud
+#: derive carries documents, figures and media while leaving this cohort in the tree.
+_MODEL_METADATA = frozenset({
+    "hardware/cad-artifacts.json",
+    "hardware/manifold-layout/drain-clearance-check.json",
+    "hardware/wiring/enclosure-wiring.json",
+    "hardware/wiring/installed/integration-review.json",
+    "web/public/tube-routes.json",
+})
+
+
+def _publisher_owned(path: str) -> bool:
+    """Model outputs and print records that travel with the publisher's own cut."""
+    return (_runtime_output(path)
+            or path.endswith((".npz", ".facts.json", ".numbers.json",
+                              ".print.json", ".readiness.json"))
+            or path in _MODEL_METADATA
+            or (path.startswith("hardware/")
+                and Path(path).name in {"design.json", "geometry-check.json"})
+            or (path.startswith("hardware/print-tests/")
+                and "/prints/" in path and path.endswith(".json"))
+            or build_inert(path))
+
+
+def stage_derived() -> int:
+    """Stage derived files and retain the committed model cohort for commit-back's rebase."""
+    status = subprocess.run(
+        ["git", "-c", "status.renames=false", "status", "--porcelain=v1", "-z",
+         "--untracked-files=all"], cwd=_ROOT, capture_output=True, check=True)
+    paths, held, staged, tracked = [], [], [], []
+    for entry in status.stdout.split(b"\0"):
+        if not entry:
+            continue
+        path = entry[3:]
+        if _publisher_owned(os.fsdecode(path)):
+            held.append(path)
+            if entry[0:1] not in (b" ", b"?"):
+                staged.append(path)
+            if entry[:2] != b"??" and entry[0:1] != b"A":
+                tracked.append(path)
+        else:
+            paths.append(path)
+
+    def change(command, selected):
+        if selected:
+            subprocess.run(["git", "--literal-pathspecs", *command,
+                            "--pathspec-from-file=-", "--pathspec-file-nul"],
+                           cwd=_ROOT, input=b"\0".join(selected) + b"\0", check=True)
+
+    change(["restore", "--staged"], staged)
+    change(["add", "-A"], paths)
+    # The commit-back rebases after its commit. Tracked publisher files keep HEAD's cohort;
+    # new publisher outputs stay untracked rather than joining the derived commit.
+    change(["restore", "--worktree", "--source=HEAD"], tracked)
+    print(f"{len(paths)} derived path(s) staged; {len(held)} publisher-owned path(s) left out")
+    return 0
 
 #: HOW A REWRITTEN MEDIUM IS CARRIED. `_SPLICE` names the three whose text is partly their own,
 #: each with a scope a substituter writes in and everything outside it authored; `_WHOLE` names
@@ -253,7 +313,15 @@ def main() -> int:
     scope.add_argument("--solids-only", "--runtime-only", dest="runtime_only",
                        action="store_true",
                        help="carry publishable viewer outputs, leaving derived work in bazel-bin")
+    scope.add_argument("--derived-only", action="store_true",
+                       help="carry docs and media, retaining publisher-owned models and metadata")
+    ap.add_argument("--stage", action="store_true",
+                    help="stage derived changes and retain the committed model cohort; requires --derived-only")
     args = ap.parse_args()
+    if args.stage:
+        if not args.derived_only or args.write or args.failed or args.targets:
+            ap.error("--stage is used only with --derived-only")
+        return stage_derived()
     failed = {t.strip().lstrip("/").lstrip(":") for t in args.failed.split(",") if t.strip()}
     labels = _labels(args.targets)
 
@@ -298,6 +366,13 @@ def main() -> int:
     pairs = _targets(labels)
     if args.runtime_only:
         pairs = {built: tree for built, tree in pairs.items() if _runtime_output(tree)}
+    if args.derived_only and pairs:
+        selected = {built: tree for built, tree in pairs.items() if not _publisher_owned(tree)}
+        print(f"  {len(pairs) - len(selected)} publisher-owned output(s) left in the tree")
+        pairs = selected
+        if not pairs:
+            print("  no derived outputs in the requested slice")
+            return 0
     if not pairs:
         print("  nothing built — run the requested `bazel build` first")
         return 1
