@@ -344,7 +344,8 @@ def solids(root: Path) -> list:
     payloads = tuple(f"{d}/" for d in BUNDLED_PAYLOAD_DIRS)
     art = tuple(f"{d}/" for d in BUNDLED_ART_DIRS)
     boards = tuple(f"{d}/" for d in BUNDLED_BOARD_DIRS)
-    singles = set(BUNDLED_PAYLOAD_FILES) | set(BUNDLED_ART_FILES) | set(frozen_assets(root))
+    frozen = set(frozen_assets(root))
+    singles = set(BUNDLED_PAYLOAD_FILES) | set(BUNDLED_ART_FILES) | frozen
     listings = Listings(root)
     out, todo = [], ["hardware"]
     while todo:
@@ -361,7 +362,7 @@ def solids(root: Path) -> list:
                 todo.append(rel)
         for name in files:
             rel = f"{here}/{name}"
-            if rel in HARVESTED:
+            if rel in HARVESTED and rel not in frozen:
                 continue
             # A board directory carries its whole rendered set, so what a suffix says about
             # a file elsewhere says nothing there. The two it does not carry are named.
