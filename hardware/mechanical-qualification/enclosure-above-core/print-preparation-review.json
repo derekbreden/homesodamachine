@@ -1,7 +1,7 @@
 {
   "scope": "Manual native print-preparation reading of the enclosure quadrants, relaxed retainer, three-piece cold-core casing, continuous pump clip, separate B-fill guide, funnel frame and rear equipment caps. Each slice is bound to the exact physical STL, including all emitted support bodies and unlabeled contacts. This establishes deposited paths and nominal removal access, not a physical support-removal result, bearing finish or strength qualification. No printer was contacted by this review.",
   "recipe": "hardware/printed-parts/enclosure/trial-preparation/pieces.json",
-  "recipe_sha256": "7d2e4a1f2d6b3d1a8003b6610b826390fc85df9e33911b704a33a61f557a3826",
+  "recipe_sha256": "0b23dad19c95310a76045a83a8a92b90b74f781f6bc08ff2db1bca217b9ca357",
   "parts": {
     "front-top": {
       "preparation_directory": ".cache/prints/enclosure-final-circuits/2026-10-31-front-top-mark1-a2fd25ca",
@@ -1242,8 +1242,8 @@
       "tie_window_support_crossings": []
     },
     "back-top": {
-      "preparation_directory": ".cache/retention-integration/slices-v2-cleanup/2026-11-02-back-top-mark2-2a2890ff",
-      "preparation_record_sha256": "910ffa5a7179bce67b0c951f1a7372a64c28670c511fff3b0d9480e378650d8a",
+      "preparation_directory": ".cache/retention-integration/slices-v3-final/2026-11-02-back-top-mark2-de889162",
+      "preparation_record_sha256": "3f1ed6a476e87b25654912f51a1a77338b9775a7bd3a620a68ae4084366bba94",
       "profile_sha256": "45c16e8c8517e0a205107d7b9f7412d013f51a8de7ecf86125cc940079d37ed0",
       "printer": "Mark2",
       "nozzle": {
@@ -1262,11 +1262,11 @@
           "identify_id": 1901,
           "object_id": 2,
           "stl": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl",
-          "stl_sha256": "ba82248ab1025a8f9936917beb3e7baae3bec01b82fa1cad31ac040cb303f3fe",
-          "step_sha256": "4d490ce9c41e0ee2d93c9633d05d37a7acebbb9949a7a947407753ef749fcc03",
-          "facets": 866278,
+          "stl_sha256": "f7055fb29a45aaa7cfab18379b4987424554a3aa09335d614995cc7e1cf6271b",
+          "step_sha256": "0102c575c2e2d0db921d911036f1422638709c0895dd257ccfd18d65da4479d0",
+          "facets": 879502,
           "closed": {
-            "edges": 1299417,
+            "edges": 1319253,
             "boundary_edges": 0,
             "nonmanifold_edges": 0,
             "inconsistent_edges": 0,
@@ -1354,8 +1354,8 @@
               "chamfer_area_mm2": 1830.7088311418402,
               "wall_loops": 6,
               "painted": {
-                "faces": 5078,
-                "area_mm2": 2805.289,
+                "faces": 5080,
+                "area_mm2": 2805.291,
                 "bounds_print_mm": [
                   [
                     -107.5,
@@ -2763,12 +2763,12 @@
           "fins": [],
           "regions": {
             "record": "hardware/printed-parts/enclosure/enclosure/heat-set-review/print-regions.json",
-            "record_sha256": "14847caec68856ceb34f44672c4e215ec46f5fc5b1eda638f1ac9543eb14afb1",
+            "record_sha256": "1b5ded00ec1012901f533835f4520453147ea59cc1c12f63789cb68de13cb0a6",
             "part_process_overrides": null
           }
         }
       ],
-      "archive_sha256": "b68e87d9a6e02a882b24b748427ce231205ed44f9433a0f212869106a293d7f7",
+      "archive_sha256": "e8655ca8edc8fb778606eb97bfa3a898f513dde646dd32d3e2d97b4d28db8484",
       "checks": {
         "archive": true,
         "z_trim": true,
@@ -2783,16 +2783,16 @@
       "bed_border_mm": 20.0,
       "support_audits": [
         {
-          "record_sha256": "d26152bbeba55f504e22fc141a9541c648d7d868b9844597222ab6b76bd02340",
+          "record_sha256": "654a0bf8f3e404fe7f863826ac7a161057f1fb7bcf35d9bdbd8aa2d19e451b7b",
           "schema": 1,
           "piece": "enclosure-back-top",
           "inputs": {
             "gcode": "support-labels-1901.gcode",
-            "gcode_sha256": "5ba60b981dc6a1484db4d7ab49d770ab2c2ed361acbca9fdb74f0af430eddc11",
+            "gcode_sha256": "0e3219b36bc4d7fb42c2a5f3c90bb7676dfea1e6779048cb023c4fd9f710ff73",
             "model": "/Users/derekbredensteiner/Developer/hsm-approved-asse/hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl",
-            "model_sha256": "ba82248ab1025a8f9936917beb3e7baae3bec01b82fa1cad31ac040cb303f3fe",
-            "profile": ".cache/retention-integration/slices-v2-cleanup/2026-11-02-back-top-mark2-2a2890ff/2026-11-02-back-top-mark2-2a2890ff.3mf",
-            "profile_sha256": "c299001835ef0eed03c9c3a1bbf783019a2721f9efe8cb0abd9093ab5a50db90"
+            "model_sha256": "f7055fb29a45aaa7cfab18379b4987424554a3aa09335d614995cc7e1cf6271b",
+            "profile": ".cache/retention-integration/slices-v3-final/2026-11-02-back-top-mark2-de889162/2026-11-02-back-top-mark2-de889162.3mf",
+            "profile_sha256": "84dbff6ee2b14e819ffd8ff1c2b46b7b5fac60acf59c70289d058855d018a84f"
           },
           "slicer": "BambuStudio 02.08.02.61",
           "first_layer_z_mm": 0.2,
@@ -2830,10 +2830,10 @@
             "interface_islands": 31,
             "bed_rooted_bodies": 8,
             "model_rooted_bodies": 8,
-            "shortest_build_up_mm": 2.16,
+            "shortest_build_up_mm": 1.92,
             "bodies_without_interface_labels": 0,
             "explicit_interface_islands": 31,
-            "shortest_labelled_build_up_mm": 2.16
+            "shortest_labelled_build_up_mm": 1.92
           },
           "trees": [
             {
@@ -3009,11 +3009,11 @@
               "id": "tree-7",
               "root": "model",
               "base_z_mm": 9.56,
-              "first_interface_z_mm": 44.12,
-              "shortest_build_up_mm": 34.56,
-              "top_z_mm": 44.6,
+              "first_interface_z_mm": 44.84,
+              "shortest_build_up_mm": 35.28,
+              "top_z_mm": 45.32,
               "bbox_xy_mm": [
-                206.8,
+                207.2,
                 242.8,
                 267.2,
                 258.0
@@ -3024,8 +3024,8 @@
               "interface_reading": "explicit_feature",
               "bbox_cad_xyz_mm": [
                 82.8,
-                385.775,
-                310.4,
+                386.175,
+                309.68,
                 98.0,
                 446.175,
                 345.44
@@ -3064,54 +3064,54 @@
             {
               "id": "tree-9",
               "root": "model",
-              "base_z_mm": 11.96,
+              "base_z_mm": 12.2,
               "first_interface_z_mm": 14.12,
-              "shortest_build_up_mm": 2.16,
+              "shortest_build_up_mm": 1.92,
               "top_z_mm": 14.6,
               "bbox_xy_mm": [
                 241.6,
-                223.2,
-                256.4,
-                226.0
+                223.6,
+                256.8,
+                226.4
               ],
               "interfaces": [
                 "interface-3"
               ],
               "interface_reading": "explicit_feature",
               "bbox_cad_xyz_mm": [
-                63.2,
+                63.6,
                 420.575,
                 340.4,
-                66.0,
-                435.375,
-                343.04
+                66.4,
+                435.775,
+                342.8
               ],
               "removal_lane": "Open inboard ceiling/equipment seats and fore seam mouths, ceiling-down on the bench before populating back-top."
             },
             {
               "id": "tree-10",
               "root": "model",
-              "base_z_mm": 11.96,
+              "base_z_mm": 12.2,
               "first_interface_z_mm": 14.12,
-              "shortest_build_up_mm": 2.16,
+              "shortest_build_up_mm": 1.92,
               "top_z_mm": 14.6,
               "bbox_xy_mm": [
                 241.6,
-                246.8,
-                256.4,
-                250.0
+                246.4,
+                256.0,
+                249.2
               ],
               "interfaces": [
                 "interface-4"
               ],
               "interface_reading": "explicit_feature",
               "bbox_cad_xyz_mm": [
-                86.8,
+                86.4,
                 420.575,
                 340.4,
-                90.0,
-                435.375,
-                343.04
+                89.2,
+                434.975,
+                342.8
               ],
               "removal_lane": "Open west-facing interior of the east equipment seats before hardware and snap caps are fitted."
             },
@@ -3208,7 +3208,7 @@
               "top_z_mm": 104.6,
               "bbox_xy_mm": [
                 283.2,
-                230.8,
+                231.2,
                 301.6,
                 249.2
               ],
@@ -3218,7 +3218,7 @@
               ],
               "interface_reading": "explicit_feature",
               "bbox_cad_xyz_mm": [
-                70.8,
+                71.2,
                 462.175,
                 250.4,
                 89.2,
@@ -3238,7 +3238,7 @@
                 285.6,
                 72.0,
                 303.2,
-                194.4
+                195.6
               ],
               "interfaces": [
                 "interface-14",
@@ -3251,7 +3251,7 @@
                 -88.0,
                 464.575,
                 209.12,
-                34.4,
+                35.6,
                 482.175,
                 354.8
               ],
@@ -3334,18 +3334,18 @@
               "last_z_mm": 14.6,
               "bbox_xy_mm": [
                 241.6,
-                224.0,
-                256.4,
+                224.4,
+                256.8,
                 226.0
               ],
               "tree": "tree-9",
-              "build_up_mm": 2.16,
+              "build_up_mm": 1.92,
               "bbox_cad_xyz_mm": [
-                64.0,
+                64.4,
                 420.575,
                 340.4,
                 66.0,
-                435.375,
+                435.775,
                 340.88
               ]
             },
@@ -3355,18 +3355,18 @@
               "last_z_mm": 14.6,
               "bbox_xy_mm": [
                 241.6,
-                246.8,
-                256.4,
-                249.2
+                246.4,
+                256.0,
+                248.8
               ],
               "tree": "tree-10",
-              "build_up_mm": 2.16,
+              "build_up_mm": 1.92,
               "bbox_cad_xyz_mm": [
-                86.8,
+                86.4,
                 420.575,
                 340.4,
-                89.2,
-                435.375,
+                88.8,
+                434.975,
                 340.88
               ]
             },
@@ -3613,23 +3613,23 @@
             },
             {
               "id": "interface-16",
-              "first_z_mm": 44.12,
-              "last_z_mm": 44.6,
+              "first_z_mm": 44.84,
+              "last_z_mm": 45.32,
               "bbox_xy_mm": [
-                206.8,
+                207.2,
                 243.2,
                 266.8,
                 258.0
               ],
               "tree": "tree-7",
-              "build_up_mm": 34.56,
+              "build_up_mm": 35.28,
               "bbox_cad_xyz_mm": [
                 83.2,
-                385.775,
-                310.4,
+                386.175,
+                309.68,
                 98.0,
                 445.775,
-                310.88
+                310.16
               ]
             },
             {
@@ -3743,6 +3743,27 @@
               "last_z_mm": 71.0,
               "bbox_xy_mm": [
                 286.0,
+                186.4,
+                290.8,
+                188.0
+              ],
+              "tree": "tree-15",
+              "build_up_mm": 70.32,
+              "bbox_cad_xyz_mm": [
+                26.4,
+                464.975,
+                284.0,
+                28.0,
+                469.775,
+                284.48
+              ]
+            },
+            {
+              "id": "interface-23",
+              "first_z_mm": 70.52,
+              "last_z_mm": 71.0,
+              "bbox_xy_mm": [
+                286.0,
                 189.6,
                 290.8,
                 191.6
@@ -3754,27 +3775,6 @@
                 464.975,
                 284.0,
                 31.6,
-                469.775,
-                284.48
-              ]
-            },
-            {
-              "id": "interface-23",
-              "first_z_mm": 70.52,
-              "last_z_mm": 71.0,
-              "bbox_xy_mm": [
-                286.4,
-                186.0,
-                290.8,
-                188.0
-              ],
-              "tree": "tree-15",
-              "build_up_mm": 70.32,
-              "bbox_cad_xyz_mm": [
-                26.0,
-                465.375,
-                284.0,
-                28.0,
                 469.775,
                 284.48
               ]
@@ -3826,18 +3826,18 @@
               "first_z_mm": 93.8,
               "last_z_mm": 94.28,
               "bbox_xy_mm": [
-                217.6,
-                250.8,
+                218.4,
+                247.6,
                 240.4,
-                252.8
+                249.6
               ],
               "tree": "tree-8",
               "build_up_mm": 38.64,
               "bbox_cad_xyz_mm": [
-                90.8,
-                396.575,
+                87.6,
+                397.375,
                 260.72,
-                92.8,
+                89.6,
                 419.375,
                 261.2
               ]
@@ -3847,19 +3847,19 @@
               "first_z_mm": 93.8,
               "last_z_mm": 94.28,
               "bbox_xy_mm": [
-                218.0,
-                247.6,
-                240.4,
-                249.2
+                218.4,
+                250.8,
+                240.0,
+                252.4
               ],
               "tree": "tree-8",
               "build_up_mm": 38.64,
               "bbox_cad_xyz_mm": [
-                87.6,
-                396.975,
+                90.8,
+                397.375,
                 260.72,
-                89.2,
-                419.375,
+                92.4,
+                418.975,
                 261.2
               ]
             },
@@ -3957,17 +3957,17 @@
           "interface_islands": 31,
           "bed_rooted_bodies": 8,
           "model_rooted_bodies": 8,
-          "shortest_build_up_mm": 2.16,
+          "shortest_build_up_mm": 1.92,
           "bodies_without_interface_labels": 0,
           "explicit_interface_islands": 31,
-          "shortest_labelled_build_up_mm": 2.16
+          "shortest_labelled_build_up_mm": 1.92
         }
       },
       "first_second_layer_stack": {
         "1901": {
-          "second_layer_model_bead_area_mm2": 42712.86508923249,
-          "fraction_over_first_layer": 0.9983611542868219,
-          "second_layer_centerline_outside_first_mm": 40.331082145282075
+          "second_layer_model_bead_area_mm2": 42712.864687591835,
+          "fraction_over_first_layer": 0.9983611680573338,
+          "second_layer_centerline_outside_first_mm": 40.32134948020631
         }
       },
       "settings_changes": {
@@ -6203,8 +6203,8 @@
       "tie_window_support_crossings": []
     },
     "foam-cap-lid-top": {
-      "preparation_directory": ".cache/retention-integration/slices-v2-final-surface/2026-11-02-foam-cap-lid-top-mark1-9d1f0e9b",
-      "preparation_record_sha256": "e5dbc61828438ad7999ca3e0485e437938c1b3ec630e55216827999c9899e914",
+      "preparation_directory": ".cache/retention-integration/slices-v3-final/2026-11-02-foam-cap-lid-top-mark1-c146a5b6",
+      "preparation_record_sha256": "423100343a2496ec3d39f78c71e06e1823fd67489f58fd943ddd8557d873afac",
       "profile_sha256": "45c16e8c8517e0a205107d7b9f7412d013f51a8de7ecf86125cc940079d37ed0",
       "printer": "Mark1",
       "nozzle": {
@@ -6223,11 +6223,11 @@
           "identify_id": 1901,
           "object_id": 2,
           "stl": "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.stl",
-          "stl_sha256": "db0925913946d7d7d03a5fff06bc574df3b7a7cf329de71f29c6829abe5e2a63",
-          "step_sha256": "080494bdb415ba1ca30ee8fe829b200459c449cf9ae0691b7527396a8e910963",
-          "facets": 37504,
+          "stl_sha256": "b86e8875e4ee060bac65e7a90bb038b1a78be4f94455697d7ca85f0f5baa5ac1",
+          "step_sha256": "7659ea711ff9926c8c851e79329b4458de56dc14faba5e9e55f6c5268bfb2b21",
+          "facets": 37528,
           "closed": {
-            "edges": 56256,
+            "edges": 56292,
             "boundary_edges": 0,
             "nonmanifold_edges": 0,
             "inconsistent_edges": 0,
@@ -6778,12 +6778,12 @@
           "fins": [],
           "regions": {
             "record": "hardware/printed-parts/cold-core/foam-cap/fore-snap-print-regions.json",
-            "record_sha256": "6f677eb729732ae3d20a94b1ba055b086b94cbccede8345c0cffeb6db8c4741d",
+            "record_sha256": "8d196ff711d01e85b39bee98614ab1d081fea0efef592b2411d370eacc78e1c6",
             "part_process_overrides": null
           }
         }
       ],
-      "archive_sha256": "385f3d6115c1abeddb6ae89359f083c7e0933225a977a8f1b9c54463d3ee0cad",
+      "archive_sha256": "1250863718936a245eb4babbdec931359e1a0f77663757354c3fbd0dfc7fb49e",
       "checks": {
         "archive": true,
         "z_trim": true,
@@ -6794,20 +6794,20 @@
         "ribbons_support_free_and_printed": true,
         "solid_hosts_sampled": true
       },
-      "minimum_bed_margin_mm": 20.187428,
+      "minimum_bed_margin_mm": 20.196003,
       "bed_border_mm": 20.0,
       "support_audits": [
         {
-          "record_sha256": "eed346bbef46808d5ba1b564ddde2c8656f1fec144a83b67bbca6f75efba4c08",
+          "record_sha256": "5562b6ef05a7c305b3da9fd71465bbc1f85e957119a850f5e1ef27b6e95b72e0",
           "schema": 1,
           "piece": "foam-cap-lid-top",
           "inputs": {
             "gcode": "support-labels-1901.gcode",
-            "gcode_sha256": "89ece2f0f554d8ad8ed21d170abc857029335168df5c08789f7adb7cdb4587f1",
+            "gcode_sha256": "89da75cc9f68f4aaa27fc15f597c71743ae9f128ffa248b24c619baf82e708c2",
             "model": "/Users/derekbredensteiner/Developer/hsm-approved-asse/hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.stl",
-            "model_sha256": "db0925913946d7d7d03a5fff06bc574df3b7a7cf329de71f29c6829abe5e2a63",
-            "profile": ".cache/retention-integration/slices-v2-final-surface/2026-11-02-foam-cap-lid-top-mark1-9d1f0e9b/2026-11-02-foam-cap-lid-top-mark1-9d1f0e9b.3mf",
-            "profile_sha256": "967631c764e4e2974251cd4eb46ffc87cc3034c7193bed8c569258721fcbb516"
+            "model_sha256": "b86e8875e4ee060bac65e7a90bb038b1a78be4f94455697d7ca85f0f5baa5ac1",
+            "profile": ".cache/retention-integration/slices-v3-final/2026-11-02-foam-cap-lid-top-mark1-c146a5b6/2026-11-02-foam-cap-lid-top-mark1-c146a5b6.3mf",
+            "profile_sha256": "f4c1853242e0c59fec77e9170f8cd0cdfda6787e8261a35153b4ac846af104f4"
           },
           "slicer": "BambuStudio 02.08.02.61",
           "first_layer_z_mm": 0.2,
@@ -6850,24 +6850,24 @@
             "interface_islands": 9,
             "bed_rooted_bodies": 1,
             "model_rooted_bodies": 6,
-            "shortest_build_up_mm": 2.16,
+            "shortest_build_up_mm": 1.92,
             "bodies_without_interface_labels": 0,
             "explicit_interface_islands": 9,
-            "shortest_labelled_build_up_mm": 2.16
+            "shortest_labelled_build_up_mm": 1.92
           },
           "trees": [
             {
               "id": "tree-1",
               "root": "model",
-              "base_z_mm": 11.0,
+              "base_z_mm": 11.24,
               "first_interface_z_mm": 13.16,
-              "shortest_build_up_mm": 2.16,
+              "shortest_build_up_mm": 1.92,
               "top_z_mm": 13.64,
               "bbox_xy_mm": [
                 43.2,
                 110.8,
                 96.8,
-                113.2
+                112.8
               ],
               "interfaces": [
                 "interface-2"
@@ -6876,9 +6876,9 @@
               "bbox_cad_xyz_mm": [
                 -118.3,
                 -49.2,
-                11.0,
+                11.24,
                 -64.7,
-                -46.8,
+                -47.2,
                 13.64
               ],
               "removal_lane": "Open motor saddle and rail-bearing rooms, with the pump absent. Remove the catch supports through the outward-open spring pockets and the bearing supports through their broad vertical/axial mouths before seating the pump. The central cover room opens to the plain lid."
@@ -6886,9 +6886,9 @@
             {
               "id": "tree-2",
               "root": "model",
-              "base_z_mm": 11.0,
+              "base_z_mm": 11.24,
               "first_interface_z_mm": 13.16,
-              "shortest_build_up_mm": 2.16,
+              "shortest_build_up_mm": 1.92,
               "top_z_mm": 13.64,
               "bbox_xy_mm": [
                 43.2,
@@ -6903,7 +6903,7 @@
               "bbox_cad_xyz_mm": [
                 -118.3,
                 16.8,
-                11.0,
+                11.24,
                 -64.7,
                 19.2,
                 13.64
@@ -7078,16 +7078,16 @@
                 43.2,
                 111.2,
                 96.8,
-                113.2
+                112.8
               ],
               "tree": "tree-1",
-              "build_up_mm": 2.16,
+              "build_up_mm": 1.92,
               "bbox_cad_xyz_mm": [
                 -118.3,
                 -48.8,
                 13.16,
                 -64.7,
-                -46.8,
+                -47.2,
                 13.64
               ]
             },
@@ -7102,7 +7102,7 @@
                 179.2
               ],
               "tree": "tree-2",
-              "build_up_mm": 2.16,
+              "build_up_mm": 1.92,
               "bbox_cad_xyz_mm": [
                 -118.3,
                 16.8,
@@ -7248,17 +7248,17 @@
           "interface_islands": 9,
           "bed_rooted_bodies": 1,
           "model_rooted_bodies": 6,
-          "shortest_build_up_mm": 2.16,
+          "shortest_build_up_mm": 1.92,
           "bodies_without_interface_labels": 0,
           "explicit_interface_islands": 9,
-          "shortest_labelled_build_up_mm": 2.16
+          "shortest_labelled_build_up_mm": 1.92
         }
       },
       "first_second_layer_stack": {
         "1901": {
-          "second_layer_model_bead_area_mm2": 49677.9210054967,
-          "fraction_over_first_layer": 0.9953677536860238,
-          "second_layer_centerline_outside_first_mm": 58.785060682193915
+          "second_layer_model_bead_area_mm2": 49677.91944526041,
+          "fraction_over_first_layer": 0.9953677769878778,
+          "second_layer_centerline_outside_first_mm": 58.78406068219393
         }
       },
       "settings_changes": {
@@ -7604,8 +7604,8 @@
       "tie_window_support_crossings": []
     },
     "rear-equipment-caps": {
-      "preparation_directory": ".cache/retention-integration/slices-v2-service-centered/2026-11-01-rear-equipment-caps-mark2-ddb76c3e",
-      "preparation_record_sha256": "ab482284d167dff7718a855e1a37a1d3b8269de636a516e982ea3b95a0a1a539",
+      "preparation_directory": ".cache/retention-integration/slices-v3-final/2026-11-02-rear-equipment-caps-mark2-39ab10c1",
+      "preparation_record_sha256": "05081ab779523294daefd0a5b510fd43a53e49ccf329f868805855740980a44a",
       "profile_sha256": "45c16e8c8517e0a205107d7b9f7412d013f51a8de7ecf86125cc940079d37ed0",
       "printer": "Mark2",
       "nozzle": {
@@ -7624,11 +7624,11 @@
           "identify_id": 1901,
           "object_id": 2,
           "stl": "hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.stl",
-          "stl_sha256": "9f8075f4d73fa306ff5ab6818bf9b3e6629d979afe77c74f34720af118c6dc4d",
-          "step_sha256": "fc7afbde96fda85032aeb9034c79fe927d50b206fb5a3cce19c8e8842863411e",
-          "facets": 220,
+          "stl_sha256": "3233bbfa06a77e93fc0a793c6ff59a038f0b538f550308b30ab36f68364db6b3",
+          "step_sha256": "a117675713f42248a666964ab7bd84a5414b8add8c2fda240a75e5fafbd9b1de",
+          "facets": 516,
           "closed": {
-            "edges": 330,
+            "edges": 774,
             "boundary_edges": 0,
             "nonmanifold_edges": 0,
             "inconsistent_edges": 0,
@@ -7677,23 +7677,23 @@
             ]
           ],
           "translation_mm": [
-            206.62050437927246,
-            137.7965497970581,
+            185.96488761901855,
+            160.0,
             20.83051872253418
           ],
           "plate_bounds_mm": [
             [
-              180.87236404418945,
-              119.09727764129639,
+              160.81674766540527,
+              141.6855354309082,
               0.0
             ],
             [
-              232.36864471435547,
-              156.49582195281982,
+              211.11302757263184,
+              178.3144645690918,
               41.66103744506836
             ]
           ],
-          "model_bed_margin_mm": 92.63135528564453,
+          "model_bed_margin_mm": 113.88697242736816,
           "seam_enforcer": null,
           "object_settings": {},
           "features": [],
@@ -7709,11 +7709,11 @@
           "identify_id": 1902,
           "object_id": 4,
           "stl": "hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.stl",
-          "stl_sha256": "cbd22ed3694c21c855780327fca4ba66ec9d22f95ae8b2d47a6e2c2f528b92b5",
-          "step_sha256": "a7709bbc85b5fcf50ef12a59c1a349e8bf9f273e870d20e7b6f65cd97941e996",
-          "facets": 144,
+          "stl_sha256": "42f2075d1be4bdeba9c7a4d6cd687f3827aba1a253ac045b018817c90cac4c65",
+          "step_sha256": "ca0730a07b582e4835fd8a349dd3912bd49814907004f38aeb3af6825da7e792",
+          "facets": 790,
           "closed": {
-            "edges": 216,
+            "edges": 1185,
             "boundary_edges": 0,
             "nonmanifold_edges": 0,
             "inconsistent_edges": 0,
@@ -7762,23 +7762,23 @@
             ]
           ],
           "translation_mm": [
-            162.5,
-            195.25,
+            240.51864337921143,
+            160.0,
             7.827141284942627
           ],
           "plate_bounds_mm": [
             [
-              146.86651229858398,
-              180.5465497970581,
+              226.11302757263184,
+              145.6715497970581,
               0.0
             ],
             [
-              178.13348770141602,
-              209.9534502029419,
+              254.92425918579102,
+              174.3284502029419,
               15.654282569885254
             ]
           ],
-          "model_bed_margin_mm": 110.0465497970581,
+          "model_bed_margin_mm": 70.07574081420898,
           "seam_enforcer": null,
           "object_settings": {},
           "features": [],
@@ -7794,11 +7794,11 @@
           "identify_id": 1903,
           "object_id": 6,
           "stl": "hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.stl",
-          "stl_sha256": "4f21387c86efb06b1d90a2b5999a94faf307d5884cc17fe45c567904e8234fff",
-          "step_sha256": "208369d8b472f8481f3a0b8b7d94c1dbde2be29c3229138d2cdc580f921a0c61",
-          "facets": 80,
+          "stl_sha256": "29c43a5f314e7dae558ba1a796062b50379838ddd5e1961c25d727198dccd587",
+          "step_sha256": "144f1f73fd1a96ee8f62c4015a3b3f143d29e3bc99657aab81099a70557290e2",
+          "facets": 4258,
           "closed": {
-            "edges": 120,
+            "edges": 6387,
             "boundary_edges": 0,
             "nonmanifold_edges": 0,
             "inconsistent_edges": 0,
@@ -7847,23 +7847,23 @@
             ]
           ],
           "translation_mm": [
-            152.30185985565186,
-            137.7965497970581,
+            132.37124347686768,
+            160.0,
             18.0
           ],
           "plate_bounds_mm": [
             [
-              138.73135566711426,
-              116.1433458328247,
+              118.92573928833008,
+              138.94679641723633,
               0.0
             ],
             [
-              165.87236404418945,
-              159.4497537612915,
+              145.81674766540527,
+              181.05320358276367,
               36.0
             ]
           ],
-          "model_bed_margin_mm": 116.1433458328247,
+          "model_bed_margin_mm": 118.92573928833008,
           "seam_enforcer": null,
           "object_settings": {},
           "features": [],
@@ -7879,11 +7879,11 @@
           "identify_id": 1904,
           "object_id": 8,
           "stl": "hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.stl",
-          "stl_sha256": "737b1f83867d599f5b5653a7541d412f6a2d83ac4bfcffcedb40bbd083823824",
-          "step_sha256": "40a35ad206feea1f491db49be8fe746474a1c809baf1764460e119afc084a320",
-          "facets": 576,
+          "stl_sha256": "698312c8bf71ec309de4c94ab67482808eab58e2496fdfc6c5875293c78cddfe",
+          "step_sha256": "961e15f5d836f5c89dde12b5a68eb3bddb2a51962434b641722cd4cbb42fb793",
+          "facets": 2876,
           "closed": {
-            "edges": 864,
+            "edges": 4314,
             "boundary_edges": 0,
             "nonmanifold_edges": 0,
             "inconsistent_edges": 0,
@@ -7932,23 +7932,23 @@
             ]
           ],
           "translation_mm": [
-            108.1813554763794,
-            137.7965497970581,
+            87.00074005126953,
+            160.0,
             19.0
           ],
           "plate_bounds_mm": [
             [
-              92.63135528564453,
-              110.0465497970581,
+              70.07574081420898,
+              132.85000038146973,
               0.0
             ],
             [
-              123.73135566711426,
-              165.5465497970581,
+              103.92573928833008,
+              187.14999961853027,
               38.0
             ]
           ],
-          "model_bed_margin_mm": 92.63135528564453,
+          "model_bed_margin_mm": 70.07574081420898,
           "seam_enforcer": null,
           "object_settings": {},
           "features": [],
@@ -7960,7 +7960,7 @@
           "fins": []
         }
       ],
-      "archive_sha256": "d8b8b791f21e448e9a5fb82e61e5a6e8cfc8307f8914304476d6667d48e1d292",
+      "archive_sha256": "398e0a04a75205217454b3b56a4de42d6a7cf7d400b68d905f9dc47b9e2ab8c7",
       "checks": {
         "archive": true,
         "z_trim": true,
@@ -7971,20 +7971,20 @@
         "ribbons_support_free_and_printed": true,
         "solid_hosts_sampled": true
       },
-      "minimum_bed_margin_mm": 92.485968,
-      "bed_border_mm": 80.0,
+      "minimum_bed_margin_mm": 69.932556,
+      "bed_border_mm": 20.0,
       "support_audits": [
         {
-          "record_sha256": "9d05ea154e0b497b33e3bced6ba00a9ca12f4d1b9abc6a45d8bab26c4bb560b6",
+          "record_sha256": "2301d28b984cbb84d509decbcb2b43419d7f6451d6d179cc8bf862fe9cea0cbb",
           "schema": 1,
           "piece": "asse-snap-cap",
           "inputs": {
             "gcode": "support-labels-1901.gcode",
-            "gcode_sha256": "d66b9e8141a4fb1ffb3baa99272f5024d7c703923834042bee8d6d0c1a14623f",
+            "gcode_sha256": "503c6f23d9344531ee511a3bb0272da7aba090aa0abc6238b566bcc2e8986b4a",
             "model": "/Users/derekbredensteiner/Developer/hsm-approved-asse/hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.stl",
-            "model_sha256": "9f8075f4d73fa306ff5ab6818bf9b3e6629d979afe77c74f34720af118c6dc4d",
-            "profile": ".cache/retention-integration/slices-v2-service-centered/2026-11-01-rear-equipment-caps-mark2-ddb76c3e/2026-11-01-rear-equipment-caps-mark2-ddb76c3e.3mf",
-            "profile_sha256": "be8bae8922eef33b5b303ae2d8dd90cad75b6bd23e154515d84326808497adfb"
+            "model_sha256": "3233bbfa06a77e93fc0a793c6ff59a038f0b538f550308b30ab36f68364db6b3",
+            "profile": ".cache/retention-integration/slices-v3-final/2026-11-02-rear-equipment-caps-mark2-39ab10c1/2026-11-02-rear-equipment-caps-mark2-39ab10c1.3mf",
+            "profile_sha256": "8e5d3e9399c642949b5aaff350051edffa314d82ddff33fcdfc010dab93567f3"
           },
           "slicer": "BambuStudio 02.08.02.61",
           "first_layer_z_mm": 0.2,
@@ -7999,13 +7999,13 @@
               0.0,
               0.0,
               1.0,
-              -206.620504379,
-              -137.796549797,
+              -185.964887619,
+              -160.0,
               -0.0
             ],
             "plate_to_cad_translation_mm": [
-              -206.620504,
-              -137.79655,
+              -185.964888,
+              -160.0,
               -0.0
             ]
           },
@@ -8037,16 +8037,16 @@
           "interface_feature_policy": "All support bodies are retained; unlabelled interfaces have unknown contact count and build-up."
         },
         {
-          "record_sha256": "83e685dc7d40b5adc164988363aa1a84970a2a569316613ccce0998ebfb4295c",
+          "record_sha256": "8548b5e9485cb08a240c6d4709ca4b2c05c0d8af99f43e1bcb0d172a83f80307",
           "schema": 1,
           "piece": "pisco-snap-cap",
           "inputs": {
             "gcode": "support-labels-1902.gcode",
-            "gcode_sha256": "3be34925a03704881d8e10791b6bc26125ee498b69a93bd7159dbdeaf30b9243",
+            "gcode_sha256": "39dcdada637e0d86f137e0ea5676402a257e07e4013bef508fe4f66a276bc798",
             "model": "/Users/derekbredensteiner/Developer/hsm-approved-asse/hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.stl",
-            "model_sha256": "cbd22ed3694c21c855780327fca4ba66ec9d22f95ae8b2d47a6e2c2f528b92b5",
-            "profile": ".cache/retention-integration/slices-v2-service-centered/2026-11-01-rear-equipment-caps-mark2-ddb76c3e/2026-11-01-rear-equipment-caps-mark2-ddb76c3e.3mf",
-            "profile_sha256": "be8bae8922eef33b5b303ae2d8dd90cad75b6bd23e154515d84326808497adfb"
+            "model_sha256": "42f2075d1be4bdeba9c7a4d6cd687f3827aba1a253ac045b018817c90cac4c65",
+            "profile": ".cache/retention-integration/slices-v3-final/2026-11-02-rear-equipment-caps-mark2-39ab10c1/2026-11-02-rear-equipment-caps-mark2-39ab10c1.3mf",
+            "profile_sha256": "8e5d3e9399c642949b5aaff350051edffa314d82ddff33fcdfc010dab93567f3"
           },
           "slicer": "BambuStudio 02.08.02.61",
           "first_layer_z_mm": 0.2,
@@ -8061,13 +8061,13 @@
               0.0,
               0.0,
               1.0,
-              -162.5,
-              -195.25,
+              -240.518643379,
+              -160.0,
               -0.0
             ],
             "plate_to_cad_translation_mm": [
-              -162.5,
-              -195.25,
+              -240.518643,
+              -160.0,
               -0.0
             ]
           },
@@ -8099,16 +8099,16 @@
           "interface_feature_policy": "All support bodies are retained; unlabelled interfaces have unknown contact count and build-up."
         },
         {
-          "record_sha256": "81fca0af88298acf57de5dd249e0189b5cd37b38323078429a94ead2c8b8c1c3",
+          "record_sha256": "42cbf790e658e9679b64d56a3eb7fe33d46934a3ebdff1b04bb2d25338e74d35",
           "schema": 1,
           "piece": "regulator-snap-cap",
           "inputs": {
             "gcode": "support-labels-1903.gcode",
-            "gcode_sha256": "17dc254cc7df6477f489360b948f2510db5254c89951c7916e99c933b46709a9",
+            "gcode_sha256": "21eca3641646e0e41fc298d38df4592f916eee7f4a2bc9942d9fd9fd2dd4e7ae",
             "model": "/Users/derekbredensteiner/Developer/hsm-approved-asse/hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.stl",
-            "model_sha256": "4f21387c86efb06b1d90a2b5999a94faf307d5884cc17fe45c567904e8234fff",
-            "profile": ".cache/retention-integration/slices-v2-service-centered/2026-11-01-rear-equipment-caps-mark2-ddb76c3e/2026-11-01-rear-equipment-caps-mark2-ddb76c3e.3mf",
-            "profile_sha256": "be8bae8922eef33b5b303ae2d8dd90cad75b6bd23e154515d84326808497adfb"
+            "model_sha256": "29c43a5f314e7dae558ba1a796062b50379838ddd5e1961c25d727198dccd587",
+            "profile": ".cache/retention-integration/slices-v3-final/2026-11-02-rear-equipment-caps-mark2-39ab10c1/2026-11-02-rear-equipment-caps-mark2-39ab10c1.3mf",
+            "profile_sha256": "8e5d3e9399c642949b5aaff350051edffa314d82ddff33fcdfc010dab93567f3"
           },
           "slicer": "BambuStudio 02.08.02.61",
           "first_layer_z_mm": 0.2,
@@ -8123,13 +8123,13 @@
               0.0,
               0.0,
               1.0,
-              -152.301859856,
-              -137.796549797,
+              -132.371243477,
+              -160.0,
               0.0
             ],
             "plate_to_cad_translation_mm": [
-              -152.30186,
-              -137.79655,
+              -132.371243,
+              -160.0,
               0.0
             ]
           },
@@ -8147,30 +8147,80 @@
             "support_type": "tree(auto)"
           },
           "summary": {
-            "support_bodies": 0,
-            "interface_islands": 0,
-            "bed_rooted_bodies": 0,
+            "support_bodies": 1,
+            "interface_islands": 1,
+            "bed_rooted_bodies": 1,
             "model_rooted_bodies": 0,
-            "shortest_build_up_mm": null,
+            "shortest_build_up_mm": 20.16,
             "bodies_without_interface_labels": 0,
-            "explicit_interface_islands": 0,
-            "shortest_labelled_build_up_mm": null
+            "explicit_interface_islands": 1,
+            "shortest_labelled_build_up_mm": 20.16
           },
-          "trees": [],
-          "interfaces": [],
+          "trees": [
+            {
+              "id": "tree-1",
+              "root": "bed",
+              "base_z_mm": 0.2,
+              "first_interface_z_mm": 20.36,
+              "shortest_build_up_mm": 20.16,
+              "top_z_mm": 21.32,
+              "bbox_xy_mm": [
+                123.2,
+                148.4,
+                134.8,
+                171.6
+              ],
+              "interfaces": [
+                "interface-1"
+              ],
+              "interface_reading": "explicit_feature",
+              "bbox_cad_xyz_mm": [
+                -9.171,
+                -11.6,
+                0.2,
+                2.429,
+                11.6,
+                21.32
+              ],
+              "removal_lane": "Open socket/capture mouths and outside faces of the separate caps, before sliding or snapping them onto the equipment."
+            }
+          ],
+          "interfaces": [
+            {
+              "id": "interface-1",
+              "first_z_mm": 20.36,
+              "last_z_mm": 21.08,
+              "bbox_xy_mm": [
+                123.2,
+                148.4,
+                134.8,
+                171.6
+              ],
+              "tree": "tree-1",
+              "build_up_mm": 20.16,
+              "bbox_cad_xyz_mm": [
+                -9.171,
+                -11.6,
+                20.36,
+                2.429,
+                11.6,
+                21.08
+              ]
+            }
+          ],
           "interface_feature_policy": "All support bodies are retained; unlabelled interfaces have unknown contact count and build-up."
         },
         {
-          "record_sha256": "028a0bfc64c3c2374d2d91e86c9fe8dcf0a0561d685fb5ef17adc9bc769a92d6",
+          "record_sha256": "903d0f6d7dc54dd4b608746a5d0af91dd466d5c07ecce6e706540c2e8b862817",
           "schema": 1,
           "piece": "meter-snap-cap",
           "inputs": {
             "gcode": "support-labels-1904.gcode",
-            "gcode_sha256": "6e6028cbe6750a21c0409cc23ffd732b078c3946260fddeca5fa4bdf2c03c7cd",
+            "gcode_sha256": "0cf6b14df3bf604259fff9fd23e036d0075787a0eb49f11b4a7b16a230c358cd",
             "model": "/Users/derekbredensteiner/Developer/hsm-approved-asse/hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.stl",
-            "model_sha256": "737b1f83867d599f5b5653a7541d412f6a2d83ac4bfcffcedb40bbd083823824",
-            "profile": ".cache/retention-integration/slices-v2-service-centered/2026-11-01-rear-equipment-caps-mark2-ddb76c3e/2026-11-01-rear-equipment-caps-mark2-ddb76c3e.3mf",
-            "profile_sha256": "be8bae8922eef33b5b303ae2d8dd90cad75b6bd23e154515d84326808497adfb"
+            "model_sha256": "698312c8bf71ec309de4c94ab67482808eab58e2496fdfc6c5875293c78cddfe",
+            "profile": ".cache/retention-integration/slices-v3-final/2026-11-02-rear-equipment-caps-mark2-39ab10c1/2026-11-02-rear-equipment-caps-mark2-39ab10c1.3mf",
+            "profile_sha256": "8e5d3e9399c642949b5aaff350051edffa314d82ddff33fcdfc010dab93567f3"
           },
           "slicer": "BambuStudio 02.08.02.61",
           "first_layer_z_mm": 0.2,
@@ -8185,13 +8235,13 @@
               0.0,
               0.0,
               1.0,
-              -108.181355476,
-              -137.796549797,
+              -87.000740051,
+              -160.0,
               0.0
             ],
             "plate_to_cad_translation_mm": [
-              -108.181355,
-              -137.79655,
+              -87.00074,
+              -160.0,
               0.0
             ]
           },
@@ -8209,17 +8259,67 @@
             "support_type": "tree(auto)"
           },
           "summary": {
-            "support_bodies": 0,
-            "interface_islands": 0,
-            "bed_rooted_bodies": 0,
+            "support_bodies": 1,
+            "interface_islands": 1,
+            "bed_rooted_bodies": 1,
             "model_rooted_bodies": 0,
-            "shortest_build_up_mm": null,
+            "shortest_build_up_mm": 33.36,
             "bodies_without_interface_labels": 0,
-            "explicit_interface_islands": 0,
-            "shortest_labelled_build_up_mm": null
+            "explicit_interface_islands": 1,
+            "shortest_labelled_build_up_mm": 33.36
           },
-          "trees": [],
-          "interfaces": [],
+          "trees": [
+            {
+              "id": "tree-1",
+              "root": "bed",
+              "base_z_mm": 0.2,
+              "first_interface_z_mm": 33.56,
+              "shortest_build_up_mm": 33.36,
+              "top_z_mm": 34.52,
+              "bbox_xy_mm": [
+                80.0,
+                157.2,
+                94.8,
+                169.2
+              ],
+              "interfaces": [
+                "interface-1"
+              ],
+              "interface_reading": "explicit_feature",
+              "bbox_cad_xyz_mm": [
+                -7.001,
+                -2.8,
+                0.2,
+                7.799,
+                9.2,
+                34.52
+              ],
+              "removal_lane": "Open socket/capture mouths and outside faces of the separate caps, before sliding or snapping them onto the equipment."
+            }
+          ],
+          "interfaces": [
+            {
+              "id": "interface-1",
+              "first_z_mm": 33.56,
+              "last_z_mm": 34.52,
+              "bbox_xy_mm": [
+                80.0,
+                157.2,
+                83.2,
+                163.6
+              ],
+              "tree": "tree-1",
+              "build_up_mm": 33.36,
+              "bbox_cad_xyz_mm": [
+                -7.001,
+                -2.8,
+                33.56,
+                -3.801,
+                3.6,
+                34.52
+              ]
+            }
+          ],
           "interface_feature_policy": "All support bodies are retained; unlabelled interfaces have unknown contact count and build-up."
         }
       ],
@@ -8245,46 +8345,46 @@
           "shortest_labelled_build_up_mm": null
         },
         "1903": {
-          "support_bodies": 0,
-          "interface_islands": 0,
-          "bed_rooted_bodies": 0,
+          "support_bodies": 1,
+          "interface_islands": 1,
+          "bed_rooted_bodies": 1,
           "model_rooted_bodies": 0,
-          "shortest_build_up_mm": null,
+          "shortest_build_up_mm": 20.16,
           "bodies_without_interface_labels": 0,
-          "explicit_interface_islands": 0,
-          "shortest_labelled_build_up_mm": null
+          "explicit_interface_islands": 1,
+          "shortest_labelled_build_up_mm": 20.16
         },
         "1904": {
-          "support_bodies": 0,
-          "interface_islands": 0,
-          "bed_rooted_bodies": 0,
+          "support_bodies": 1,
+          "interface_islands": 1,
+          "bed_rooted_bodies": 1,
           "model_rooted_bodies": 0,
-          "shortest_build_up_mm": null,
+          "shortest_build_up_mm": 33.36,
           "bodies_without_interface_labels": 0,
-          "explicit_interface_islands": 0,
-          "shortest_labelled_build_up_mm": null
+          "explicit_interface_islands": 1,
+          "shortest_labelled_build_up_mm": 33.36
         }
       },
       "first_second_layer_stack": {
         "1901": {
-          "second_layer_model_bead_area_mm2": 525.2749914843423,
-          "fraction_over_first_layer": 0.9284879664358918,
-          "second_layer_centerline_outside_first_mm": 9.91421674130371
+          "second_layer_model_bead_area_mm2": 468.6483335607908,
+          "fraction_over_first_layer": 0.9217036848962891,
+          "second_layer_centerline_outside_first_mm": 8.123833931852673
         },
         "1902": {
-          "second_layer_model_bead_area_mm2": 274.29316930886665,
-          "fraction_over_first_layer": 0.8987359185750698,
-          "second_layer_centerline_outside_first_mm": 1.210156373102602
+          "second_layer_model_bead_area_mm2": 367.8354873282711,
+          "fraction_over_first_layer": 0.9133190727928895,
+          "second_layer_centerline_outside_first_mm": 5.05826662727545
         },
         "1903": {
-          "second_layer_model_bead_area_mm2": 266.115104993662,
-          "fraction_over_first_layer": 0.8893564486932687,
-          "second_layer_centerline_outside_first_mm": 0.5438298721990691
+          "second_layer_model_bead_area_mm2": 415.864650465551,
+          "fraction_over_first_layer": 0.9099726244291313,
+          "second_layer_centerline_outside_first_mm": 5.1925279483779745
         },
         "1904": {
-          "second_layer_model_bead_area_mm2": 472.68430483728935,
-          "fraction_over_first_layer": 0.9231342368116155,
-          "second_layer_centerline_outside_first_mm": 1.4760561273295991
+          "second_layer_model_bead_area_mm2": 770.8326405892335,
+          "fraction_over_first_layer": 0.9491362866682144,
+          "second_layer_centerline_outside_first_mm": 6.981017605493415
         }
       },
       "settings_changes": {
@@ -8326,7 +8426,7 @@
         "wall_loops": {
           "from": "2",
           "to": "3",
-          "reason": "Three Classic loops and solid infill retain the complete2.6mm spring section."
+          "reason": "Three Classic loops and solid infill retain the complete 2.0 mm spring section."
         },
         "wall_generator": {
           "from": "classic",
@@ -9931,8 +10031,8 @@
       }
     },
     "pump-snap-cap": {
-      "preparation_directory": ".cache/retention-integration/slices-v2-final/2026-11-01-pump-snap-cap-mark2-0e994511",
-      "preparation_record_sha256": "d531ce1cde695c6a0246f696b825dbe33503c974ac1756cc2fb6de879177dcaa",
+      "preparation_directory": ".cache/retention-integration/slices-v3-final/2026-11-02-pump-snap-cap-mark2-5715edf5",
+      "preparation_record_sha256": "5b61216167b054edf1f03257fe76a5a52aaf533a2aee9e03ef67f9f9749593ed",
       "profile_sha256": "45c16e8c8517e0a205107d7b9f7412d013f51a8de7ecf86125cc940079d37ed0",
       "printer": "Mark2",
       "nozzle": {
@@ -9951,11 +10051,11 @@
           "identify_id": 1901,
           "object_id": 2,
           "stl": "hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.stl",
-          "stl_sha256": "0095d97a55071447da524c820f031e90092a66d668dc12d56f3848ea82a6bd29",
-          "step_sha256": "9dcc0ca3b7ae7928446d49a7f99dce43faf41c3fb362d7b79262e1957922e983",
-          "facets": 384,
+          "stl_sha256": "7daefd30519fc9562806f44b6ccdfa737c8c1fbb5e13a96ebaa881ff655e3e5a",
+          "step_sha256": "e218ab7622d05f35092c7f42efb173d50b62edc8860e0125aaeab632b1262d77",
+          "facets": 680,
           "closed": {
-            "edges": 576,
+            "edges": 1020,
             "boundary_edges": 0,
             "nonmanifold_edges": 0,
             "inconsistent_edges": 0,
@@ -10010,17 +10110,17 @@
           ],
           "plate_bounds_mm": [
             [
-              125.32081985473633,
-              131.84524726867676,
+              125.92081832885742,
+              131.97024726867676,
               0.0
             ],
             [
-              199.67918014526367,
-              188.15475273132324,
+              199.07918167114258,
+              188.02975273132324,
               54.5
             ]
           ],
-          "model_bed_margin_mm": 125.32081985473633,
+          "model_bed_margin_mm": 125.92081832885742,
           "seam_enforcer": null,
           "object_settings": {},
           "features": [],
@@ -10032,7 +10132,7 @@
           "fins": []
         }
       ],
-      "archive_sha256": "60ff06c208c0aa6b0281b536316462eedda63c18a4bba98e0bc8c2d743d542fd",
+      "archive_sha256": "56cf8b79bfe3d6801f2dffaae4e2ba75f35f12b73bb0fdba524829a6d6a19997",
       "checks": {
         "archive": true,
         "z_trim": true,
@@ -10043,20 +10143,20 @@
         "ribbons_support_free_and_printed": true,
         "solid_hosts_sampled": true
       },
-      "minimum_bed_margin_mm": 125.30600000000001,
+      "minimum_bed_margin_mm": 125.863953,
       "bed_border_mm": 80.0,
       "support_audits": [
         {
-          "record_sha256": "ca27afff6ff8f0ce02b9813d5fcce27b4436f692be2095ad5841d328859e1405",
+          "record_sha256": "621cd341a418353f22e8315015a7340959578e7ae0a3e78ea9c4425553ccc088",
           "schema": 1,
           "piece": "pump-snap-cap",
           "inputs": {
             "gcode": "support-labels-1901.gcode",
-            "gcode_sha256": "82ad692ad8d8e271133fcec860408f2ccd9b66aa765316ee2e712a11d4e9625f",
+            "gcode_sha256": "ccfbbd19e8c599d7774f6cbf1f548bd3aa2832a66d95d0f54c0d44b4a070ea34",
             "model": "/Users/derekbredensteiner/Developer/hsm-approved-asse/hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.stl",
-            "model_sha256": "0095d97a55071447da524c820f031e90092a66d668dc12d56f3848ea82a6bd29",
-            "profile": ".cache/retention-integration/slices-v2-final/2026-11-01-pump-snap-cap-mark2-0e994511/2026-11-01-pump-snap-cap-mark2-0e994511.3mf",
-            "profile_sha256": "985f606b8b76696e64ec869c902399c09727ac8ef3f023b88bc9c3ae595d5aac"
+            "model_sha256": "7daefd30519fc9562806f44b6ccdfa737c8c1fbb5e13a96ebaa881ff655e3e5a",
+            "profile": ".cache/retention-integration/slices-v3-final/2026-11-02-pump-snap-cap-mark2-5715edf5/2026-11-02-pump-snap-cap-mark2-5715edf5.3mf",
+            "profile_sha256": "5641c0fdca37768db5cd9bd16c81367c807aee34b975b480fde98d91652b4dd5"
           },
           "slicer": "BambuStudio 02.08.02.61",
           "first_layer_z_mm": 0.2,
@@ -10123,9 +10223,9 @@
       },
       "first_second_layer_stack": {
         "1901": {
-          "second_layer_model_bead_area_mm2": 1200.79728200239,
-          "fraction_over_first_layer": 0.9545292240818736,
-          "second_layer_centerline_outside_first_mm": 12.250935696152714
+          "second_layer_model_bead_area_mm2": 1146.8317584826389,
+          "fraction_over_first_layer": 0.9522476574902765,
+          "second_layer_centerline_outside_first_mm": 12.579409624633993
         }
       },
       "settings_changes": {
@@ -10167,7 +10267,7 @@
         "wall_loops": {
           "from": "2",
           "to": "3",
-          "reason": "Three Classic outer loops and solid infill retain the full2.6mm spring leaf section."
+          "reason": "Three Classic outer loops and solid infill retain the full 2.0 mm spring leaf section."
         },
         "wall_generator": {
           "from": "classic",
@@ -10413,25 +10513,27 @@
     }
   },
   "aft_saddle_tie_passage": {
+    "physical_stl_sha256": "b86e8875e4ee060bac65e7a90bb038b1a78be4f94455697d7ca85f0f5baa5ac1",
+    "archive_sha256": "1250863718936a245eb4babbdec931359e1a0f77663757354c3fbd0dfc7fb49e",
     "window_plate_mm": [
       [
-        93.69999694824219,
-        205.58359146118164,
+        93.19999694824219,
+        205.4445571899414,
         5.600000190734863
       ],
       [
-        96.9000015258789,
-        221.14359283447266,
+        96.4000015258789,
+        216.0805892944336,
         7.175000190734863
       ]
     ],
-    "bridge_road_count": 36,
+    "bridge_road_count": 22,
     "bridge_layer_z_mm": [
       7.4
     ],
     "road_span_range_mm": [
-      5.043999999999997,
-      5.254000000000005
+      5.135999999999996,
+      5.302000000000007
     ],
     "bridge_roads": [
       {
@@ -10439,13 +10541,13 @@
         "layer_height_mm": 0.24,
         "feature": "Bridge",
         "road_mm": [
-          97.905,
-          206.902,
-          92.861,
-          206.902
+          97.534,
+          206.768,
+          92.232,
+          206.768
         ],
-        "length_mm": 5.043999999999997,
-        "width_mm": 0.420744,
+        "length_mm": 5.302000000000007,
+        "width_mm": 0.431904,
         "angle_deg": 180.0
       },
       {
@@ -10453,13 +10555,13 @@
         "layer_height_mm": 0.24,
         "feature": "Bridge",
         "road_mm": [
-          92.673,
-          207.271,
-          97.927,
-          207.271
+          92.232,
+          207.149,
+          97.368,
+          207.149
         ],
-        "length_mm": 5.254000000000005,
-        "width_mm": 0.420744,
+        "length_mm": 5.135999999999996,
+        "width_mm": 0.431904,
         "angle_deg": 0.0
       },
       {
@@ -10467,13 +10569,13 @@
         "layer_height_mm": 0.24,
         "feature": "Bridge",
         "road_mm": [
-          97.927,
-          207.64,
-          92.673,
-          207.64
+          97.368,
+          207.529,
+          92.232,
+          207.529
         ],
-        "length_mm": 5.254000000000005,
-        "width_mm": 0.420744,
+        "length_mm": 5.135999999999996,
+        "width_mm": 0.431904,
         "angle_deg": 180.0
       },
       {
@@ -10481,13 +10583,13 @@
         "layer_height_mm": 0.24,
         "feature": "Bridge",
         "road_mm": [
-          92.673,
-          208.01,
-          97.927,
-          208.01
+          92.232,
+          207.91,
+          97.368,
+          207.91
         ],
-        "length_mm": 5.254000000000005,
-        "width_mm": 0.420744,
+        "length_mm": 5.135999999999996,
+        "width_mm": 0.431904,
         "angle_deg": 0.0
       },
       {
@@ -10495,13 +10597,13 @@
         "layer_height_mm": 0.24,
         "feature": "Bridge",
         "road_mm": [
-          97.927,
-          208.379,
-          92.673,
-          208.379
+          97.368,
+          208.29,
+          92.232,
+          208.29
         ],
-        "length_mm": 5.254000000000005,
-        "width_mm": 0.420744,
+        "length_mm": 5.135999999999996,
+        "width_mm": 0.431904,
         "angle_deg": 180.0
       },
       {
@@ -10509,13 +10611,13 @@
         "layer_height_mm": 0.24,
         "feature": "Bridge",
         "road_mm": [
-          92.673,
-          208.748,
-          97.927,
-          208.748
+          92.232,
+          208.67,
+          97.368,
+          208.67
         ],
-        "length_mm": 5.254000000000005,
-        "width_mm": 0.420744,
+        "length_mm": 5.135999999999996,
+        "width_mm": 0.431904,
         "angle_deg": 0.0
       },
       {
@@ -10523,13 +10625,13 @@
         "layer_height_mm": 0.24,
         "feature": "Bridge",
         "road_mm": [
-          97.927,
-          209.117,
-          92.673,
-          209.117
+          97.368,
+          209.051,
+          92.232,
+          209.051
         ],
-        "length_mm": 5.254000000000005,
-        "width_mm": 0.420744,
+        "length_mm": 5.135999999999996,
+        "width_mm": 0.431904,
         "angle_deg": 180.0
       },
       {
@@ -10537,13 +10639,13 @@
         "layer_height_mm": 0.24,
         "feature": "Bridge",
         "road_mm": [
-          92.673,
-          209.487,
-          97.927,
-          209.487
+          92.232,
+          209.431,
+          97.368,
+          209.431
         ],
-        "length_mm": 5.254000000000005,
-        "width_mm": 0.420744,
+        "length_mm": 5.135999999999996,
+        "width_mm": 0.431904,
         "angle_deg": 0.0
       },
       {
@@ -10551,13 +10653,13 @@
         "layer_height_mm": 0.24,
         "feature": "Bridge",
         "road_mm": [
-          97.927,
-          209.856,
-          92.673,
-          209.856
+          97.368,
+          209.812,
+          92.232,
+          209.812
         ],
-        "length_mm": 5.254000000000005,
-        "width_mm": 0.420744,
+        "length_mm": 5.135999999999996,
+        "width_mm": 0.431904,
         "angle_deg": 180.0
       },
       {
@@ -10565,13 +10667,13 @@
         "layer_height_mm": 0.24,
         "feature": "Bridge",
         "road_mm": [
-          92.673,
-          210.225,
-          97.927,
-          210.225
+          92.232,
+          210.192,
+          97.368,
+          210.192
         ],
-        "length_mm": 5.254000000000005,
-        "width_mm": 0.420744,
+        "length_mm": 5.135999999999996,
+        "width_mm": 0.431904,
         "angle_deg": 0.0
       },
       {
@@ -10579,13 +10681,13 @@
         "layer_height_mm": 0.24,
         "feature": "Bridge",
         "road_mm": [
-          97.927,
-          210.594,
-          92.673,
-          210.594
+          97.368,
+          210.572,
+          92.232,
+          210.572
         ],
-        "length_mm": 5.254000000000005,
-        "width_mm": 0.420744,
+        "length_mm": 5.135999999999996,
+        "width_mm": 0.431904,
         "angle_deg": 180.0
       },
       {
@@ -10593,13 +10695,13 @@
         "layer_height_mm": 0.24,
         "feature": "Bridge",
         "road_mm": [
-          92.673,
-          210.964,
-          97.927,
-          210.964
+          92.232,
+          210.953,
+          97.368,
+          210.953
         ],
-        "length_mm": 5.254000000000005,
-        "width_mm": 0.420744,
+        "length_mm": 5.135999999999996,
+        "width_mm": 0.431904,
         "angle_deg": 0.0
       },
       {
@@ -10607,13 +10709,13 @@
         "layer_height_mm": 0.24,
         "feature": "Bridge",
         "road_mm": [
-          97.927,
+          97.368,
           211.333,
-          92.673,
+          92.232,
           211.333
         ],
-        "length_mm": 5.254000000000005,
-        "width_mm": 0.420744,
+        "length_mm": 5.135999999999996,
+        "width_mm": 0.431904,
         "angle_deg": 180.0
       },
       {
@@ -10621,13 +10723,13 @@
         "layer_height_mm": 0.24,
         "feature": "Bridge",
         "road_mm": [
-          92.673,
-          211.702,
-          97.927,
-          211.702
+          92.232,
+          211.714,
+          97.368,
+          211.714
         ],
-        "length_mm": 5.254000000000005,
-        "width_mm": 0.420744,
+        "length_mm": 5.135999999999996,
+        "width_mm": 0.431904,
         "angle_deg": 0.0
       },
       {
@@ -10635,13 +10737,13 @@
         "layer_height_mm": 0.24,
         "feature": "Bridge",
         "road_mm": [
-          97.927,
-          212.071,
-          92.673,
-          212.071
+          97.368,
+          212.094,
+          92.232,
+          212.094
         ],
-        "length_mm": 5.254000000000005,
-        "width_mm": 0.420744,
+        "length_mm": 5.135999999999996,
+        "width_mm": 0.431904,
         "angle_deg": 180.0
       },
       {
@@ -10649,13 +10751,13 @@
         "layer_height_mm": 0.24,
         "feature": "Bridge",
         "road_mm": [
-          92.673,
-          212.44,
-          97.927,
-          212.44
+          92.232,
+          212.474,
+          97.368,
+          212.474
         ],
-        "length_mm": 5.254000000000005,
-        "width_mm": 0.420744,
+        "length_mm": 5.135999999999996,
+        "width_mm": 0.431904,
         "angle_deg": 0.0
       },
       {
@@ -10663,13 +10765,13 @@
         "layer_height_mm": 0.24,
         "feature": "Bridge",
         "road_mm": [
-          97.927,
-          212.81,
-          92.673,
-          212.81
+          97.368,
+          212.855,
+          92.232,
+          212.855
         ],
-        "length_mm": 5.254000000000005,
-        "width_mm": 0.420744,
+        "length_mm": 5.135999999999996,
+        "width_mm": 0.431904,
         "angle_deg": 180.0
       },
       {
@@ -10677,13 +10779,13 @@
         "layer_height_mm": 0.24,
         "feature": "Bridge",
         "road_mm": [
-          92.673,
-          213.179,
-          97.927,
-          213.179
+          92.232,
+          213.235,
+          97.368,
+          213.235
         ],
-        "length_mm": 5.254000000000005,
-        "width_mm": 0.420744,
+        "length_mm": 5.135999999999996,
+        "width_mm": 0.431904,
         "angle_deg": 0.0
       },
       {
@@ -10691,13 +10793,13 @@
         "layer_height_mm": 0.24,
         "feature": "Bridge",
         "road_mm": [
-          97.927,
-          213.548,
-          92.673,
-          213.548
+          97.368,
+          213.616,
+          92.232,
+          213.616
         ],
-        "length_mm": 5.254000000000005,
-        "width_mm": 0.420744,
+        "length_mm": 5.135999999999996,
+        "width_mm": 0.431904,
         "angle_deg": 180.0
       },
       {
@@ -10705,13 +10807,13 @@
         "layer_height_mm": 0.24,
         "feature": "Bridge",
         "road_mm": [
-          92.673,
-          213.917,
-          97.927,
-          213.917
+          92.232,
+          213.996,
+          97.368,
+          213.996
         ],
-        "length_mm": 5.254000000000005,
-        "width_mm": 0.420744,
+        "length_mm": 5.135999999999996,
+        "width_mm": 0.431904,
         "angle_deg": 0.0
       },
       {
@@ -10719,13 +10821,13 @@
         "layer_height_mm": 0.24,
         "feature": "Bridge",
         "road_mm": [
-          97.927,
-          214.287,
-          92.673,
-          214.287
+          97.368,
+          214.376,
+          92.232,
+          214.376
         ],
-        "length_mm": 5.254000000000005,
-        "width_mm": 0.420744,
+        "length_mm": 5.135999999999996,
+        "width_mm": 0.431904,
         "angle_deg": 180.0
       },
       {
@@ -10733,214 +10835,18 @@
         "layer_height_mm": 0.24,
         "feature": "Bridge",
         "road_mm": [
-          92.673,
-          214.656,
-          97.927,
-          214.656
+          92.232,
+          214.757,
+          97.534,
+          214.757
         ],
-        "length_mm": 5.254000000000005,
-        "width_mm": 0.420744,
-        "angle_deg": 0.0
-      },
-      {
-        "z_mm": 7.4,
-        "layer_height_mm": 0.24,
-        "feature": "Bridge",
-        "road_mm": [
-          97.927,
-          215.025,
-          92.673,
-          215.025
-        ],
-        "length_mm": 5.254000000000005,
-        "width_mm": 0.420744,
-        "angle_deg": 180.0
-      },
-      {
-        "z_mm": 7.4,
-        "layer_height_mm": 0.24,
-        "feature": "Bridge",
-        "road_mm": [
-          92.673,
-          215.394,
-          97.927,
-          215.394
-        ],
-        "length_mm": 5.254000000000005,
-        "width_mm": 0.420744,
-        "angle_deg": 0.0
-      },
-      {
-        "z_mm": 7.4,
-        "layer_height_mm": 0.24,
-        "feature": "Bridge",
-        "road_mm": [
-          97.927,
-          215.764,
-          92.673,
-          215.764
-        ],
-        "length_mm": 5.254000000000005,
-        "width_mm": 0.420744,
-        "angle_deg": 180.0
-      },
-      {
-        "z_mm": 7.4,
-        "layer_height_mm": 0.24,
-        "feature": "Bridge",
-        "road_mm": [
-          92.673,
-          216.133,
-          97.927,
-          216.133
-        ],
-        "length_mm": 5.254000000000005,
-        "width_mm": 0.420744,
-        "angle_deg": 0.0
-      },
-      {
-        "z_mm": 7.4,
-        "layer_height_mm": 0.24,
-        "feature": "Bridge",
-        "road_mm": [
-          97.927,
-          216.502,
-          92.673,
-          216.502
-        ],
-        "length_mm": 5.254000000000005,
-        "width_mm": 0.420744,
-        "angle_deg": 180.0
-      },
-      {
-        "z_mm": 7.4,
-        "layer_height_mm": 0.24,
-        "feature": "Bridge",
-        "road_mm": [
-          92.673,
-          216.871,
-          97.927,
-          216.871
-        ],
-        "length_mm": 5.254000000000005,
-        "width_mm": 0.420744,
-        "angle_deg": 0.0
-      },
-      {
-        "z_mm": 7.4,
-        "layer_height_mm": 0.24,
-        "feature": "Bridge",
-        "road_mm": [
-          97.927,
-          217.241,
-          92.673,
-          217.241
-        ],
-        "length_mm": 5.254000000000005,
-        "width_mm": 0.420744,
-        "angle_deg": 180.0
-      },
-      {
-        "z_mm": 7.4,
-        "layer_height_mm": 0.24,
-        "feature": "Bridge",
-        "road_mm": [
-          92.673,
-          217.61,
-          97.927,
-          217.61
-        ],
-        "length_mm": 5.254000000000005,
-        "width_mm": 0.420744,
-        "angle_deg": 0.0
-      },
-      {
-        "z_mm": 7.4,
-        "layer_height_mm": 0.24,
-        "feature": "Bridge",
-        "road_mm": [
-          97.927,
-          217.979,
-          92.673,
-          217.979
-        ],
-        "length_mm": 5.254000000000005,
-        "width_mm": 0.420744,
-        "angle_deg": 180.0
-      },
-      {
-        "z_mm": 7.4,
-        "layer_height_mm": 0.24,
-        "feature": "Bridge",
-        "road_mm": [
-          92.673,
-          218.348,
-          97.927,
-          218.348
-        ],
-        "length_mm": 5.254000000000005,
-        "width_mm": 0.420744,
-        "angle_deg": 0.0
-      },
-      {
-        "z_mm": 7.4,
-        "layer_height_mm": 0.24,
-        "feature": "Bridge",
-        "road_mm": [
-          97.927,
-          218.718,
-          92.673,
-          218.718
-        ],
-        "length_mm": 5.254000000000005,
-        "width_mm": 0.420744,
-        "angle_deg": 180.0
-      },
-      {
-        "z_mm": 7.4,
-        "layer_height_mm": 0.24,
-        "feature": "Bridge",
-        "road_mm": [
-          92.673,
-          219.087,
-          97.927,
-          219.087
-        ],
-        "length_mm": 5.254000000000005,
-        "width_mm": 0.420744,
-        "angle_deg": 0.0
-      },
-      {
-        "z_mm": 7.4,
-        "layer_height_mm": 0.24,
-        "feature": "Bridge",
-        "road_mm": [
-          97.927,
-          219.456,
-          92.673,
-          219.456
-        ],
-        "length_mm": 5.254000000000005,
-        "width_mm": 0.420744,
-        "angle_deg": 180.0
-      },
-      {
-        "z_mm": 7.4,
-        "layer_height_mm": 0.24,
-        "feature": "Bridge",
-        "road_mm": [
-          92.861,
-          219.825,
-          97.905,
-          219.825
-        ],
-        "length_mm": 5.043999999999997,
-        "width_mm": 0.420744,
+        "length_mm": 5.302000000000007,
+        "width_mm": 0.431904,
         "angle_deg": 0.0
       }
     ],
-    "direction": "Across the short X width, with anchorage in the complete stock on both sides.",
+    "direction": "Across the short X width, anchored in complete stock on both sides.",
     "support_crossings": [],
-    "blocker_scope": "Only this 3.2 mm wide passage, with 0.85 mm overlap into its requesting roof. Automatic Tree(auto)/Default decisions are retained elsewhere."
+    "blocker_scope": "Only the 3.2 mm passage, with 0.85 mm roof overlap. Tree(auto)/Default decisions elsewhere are retained."
   }
 }
