@@ -1,8 +1,8 @@
-//! The removable frame, in its printed underside's coordinates. Its native funnel
-//! forming offset is an explicit input until the funnel has an authored kernel port.
+//! The removable frame and authored funnel forming air, in the printed underside's coordinates.
+mod funnel_geometry;
 use anyhow::{Context, Result};
 use hsm_kernel::part::{Numbers, args};
-use hsm_kernel::{Body, Loop, Plane, Profile, Seg, Solid, V2, V3, import, v2, v3};
+use hsm_kernel::{Body, Loop, Plane, Profile, Seg, Solid, V2, V3, v2, v3};
 use hsm_kernel::write::PrintOutput;
 use serde_json::json;
 use sha2::{Digest, Sha256};
@@ -146,9 +146,9 @@ fn build(n: &Numbers) -> Result<Solid> {
     }
     body = body.cut_all(&cuts)?.union(&roof)?;
 
-    let imported = import::payload(n.text("forming_payload")?)?;
-    let forming = imported.first().context("the native forming provider has a solid")?
-        .solid.translate(v3(0.0, 0.0, seat));
+    let dimensions = funnel_geometry::Dimensions::from_value(n.get("funnel")?)?;
+    let (forming, _cavity) = funnel_geometry::build_solids(&dimensions, n.f("forming_air")?, false, false)?;
+    let forming = forming.translate(v3(0.0, 0.0, seat));
     let (clip0, clip1) = n.pair("forming_clip_z")?;
     let forming = forming.intersect(&block(-200.0, 200.0, -200.0, 200.0, clip0, clip1))?;
     let (dx, dy) = n.pair("drain_xy")?;
@@ -197,7 +197,7 @@ fn main() -> Result<()> {
         "path":payload_name,"sha256":format!("{:x}",Sha256::digest(&payload)),
         "tolerance_mm":display_tolerance,
     }});
-    let printed = solid.simplified()?;
+    let printed = funnel_geometry::fabrication_copy(&solid,"FUNNEL frame fabrication copy")?;
     let printed = PrintOutput::new(&[Body { name,color,solid:&printed }]);
     let stl_name = format!("{name}.stl");
     let fine = [Body { name,color,solid:&solid }];
