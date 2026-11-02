@@ -1,8 +1,9 @@
 # Machine display receiver trial
 
 The [+0.5 mm reach cover](../reach-trial/README.md), whose skirts sit 0.9 mm inward
-per side, pops out intact from this receiver when shaken. The active matching pair is
-the [retention trial](../retention-trial/README.md).
+per side, pops out intact from this receiver when shaken. The broad-leaf pairing is recorded in
+the [retention trial](../retention-trial/README.md). The [production cover](../README.md)
+uses the accepted horizontal wings.
 
 One rigid, full-width surround for the machine display cover. The receiver datums
 and clearances below use the 1.2 mm skirt-inset reference cover; the reach-trial pairing's
@@ -25,6 +26,6 @@ then check whether both hooks resist lifting. The hooks are accessible through
 the underside for release. A test with the display and gasket installed also
 includes their effect on seating.
 
-`display_receiver_trial.py` writes the STEP, STL and viewer payload. The
+The [authored source snapshot](https://github.com/derekbreden/homesodamachine/blob/abcc5fea68ac87cf460142323977bbb66d5fed1b/hardware/printed-parts/enclosure/display-cover/receiver-trial/display_receiver_trial.py) is retained in Git at `abcc5fea68ac87cf460142323977bbb66d5fed1b`. This directory retains its geometry and evidence. The
 [geometry reading](geometry-check.json) measures the seat and both hooks against
 the existing cover. The [Mark2 print record](../../tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-25-display-receiver-trial-mark2-v1/README.md) identifies the source and native slice; its estimate is 2 h 42 min.

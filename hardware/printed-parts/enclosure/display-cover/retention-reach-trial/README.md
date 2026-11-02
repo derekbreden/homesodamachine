@@ -1,6 +1,6 @@
 # Display-cover low-force clearance
 
-The **0.75 mm extra-arm-reach cover is the selected fit** with the existing broad-leaf
+The **0.75 mm extra-arm-reach specimen** fits the retained broad-leaf
 receiver. Derek reports a clean snap, no noticeable bow and a passing shake test.
 The [physical acceptance record](../physical-acceptance.json) identifies the exact cover,
 receiver and print geometry. Its nominal hook-to-catch gap is **1.23 mm**; 0.75 mm names
@@ -36,9 +36,9 @@ additional 0.50 mm on the identified low-force gap after counting its ordinary s
 clearance and each rough mating face. For two rough faces this gives 1.25 mm, close
 to this cover's accepted 1.23 mm gap. The accepted cover retains its exact dimensions.
 
-The accepted cover and matching receiver still require integration into the main
-display-cover generator and enclosure front-top. These trial artifacts define the
-selected fit; the current main-model snap geometry is not its equivalent.
+These artifacts record the broad-leaf fit. The [production display cover](../README.md)
+uses the accepted horizontal wings and their matching front-top pockets.
+This module remains a manual trial recipe; its source and print records retain their scope.
 
 `retention_reach_trial.py` writes both cover STEP/STL/viewer triplets. The existing
 receiver remains the test fixture. Printer starts use the three-minute minimum stagger.
