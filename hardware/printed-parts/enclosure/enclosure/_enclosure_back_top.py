@@ -595,7 +595,7 @@ def _fluid_supports(graph):
     collar = max(meter.port_collar_radii)
     for sign in (-1.,1.):
         ya,yb = sorted((wy(sign*meter.port_neck_end),wy(sign*meter.port_collar_end)))
-        sleeve = graph.cylinder(1,collar+air,*soda,ya-fore-air,yb+aft+air)
+        sleeve = graph.cylinder(1,collar+air,*soda,ya-fore-air,yb+snaps.METER_COLLAR_AXIAL_AIR)
         cup = cup.fuse(sleeve.intersect(graph.box(x0,soda[0]+collar+1.,
             ya-fore-2.,yb+aft+2.,soda[1]-collar-1.,soda[1]+collar+1.)))
     root = at(meter.wire_root)
