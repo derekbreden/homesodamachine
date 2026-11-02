@@ -1,15 +1,7 @@
-# THE ENVIRONMENT A RUNNER CANNOT BE ASKED TO ASSEMBLE, assembled once.
+# Shared CAD, image and browser environment for repository tools.
 #
-# Six things broke the first six CI runs and every one of them was state one laptop had and
-# no clean machine does — the CadQuery pin, the renderer lockfile, the sandbox mount pairs,
-# the reference solids, puppeteer's Chromium, express. This image is where the ones that are
-# INSTALLS rather than fetches now live: they are paid at image-build time, keyed on the
-# files that name them, and a derive run pulls the answer instead of computing it.
-#
-# IT IS ALSO THE ONLY WAY THE FULL GRAPH BUILDS AT ALL. `//:appliance-model` shells out to
-# blender for the line-art SVGs and `freestyle-sieve` shells out to rsvg-convert; a stock
-# `ubuntu-latest` has neither, so those targets fail on a runner however long you give them.
-# The image is a correctness fix that happens to also be a speed fix.
+# The image carries the pinned CAD toolchain, renderer dependencies, Chromium, scene-server
+# runtime and sandbox tools. Blender supports the manual kitchen illustrations and studio film.
 #
 # manylinux_2_31 IS THE FLOOR THE WHEELS SET. `cadquery-ocp 7.8.1.1.post1` publishes cp313
 # for macosx arm64, macosx x86_64, manylinux_2_31_x86_64 and win_amd64 — no linux aarch64 —
@@ -20,10 +12,7 @@ ENV DEBIAN_FRONTEND=noninteractive \
     PYTHONDONTWRITEBYTECODE=1 \
     PIP_DISABLE_PIP_VERSION_CHECK=1
 
-# NOTHING HERE IS THE BUILD'S CHOICE — it is what the build already reaches for by name.
-# `_blender_render.py` resolves `blender` off PATH, `sieve.py` calls `rsvg-convert`, the quick
-# start clears connected render backgrounds with ImageMagick, and `actions/cache` needs tar and
-# zstd to unpack into a container.
+# Image tools and shared libraries for the browser, Blender and runner archive handling.
 # python3.13 is not in noble, so deadsnakes carries it; the venv's own pin does the rest.
 RUN apt-get update && apt-get install -y --no-install-recommends \
       ca-certificates curl gnupg git tar zstd unzip xz-utils sudo \
@@ -37,53 +26,12 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
       libxkbcommon0 libsm6 libice6 libx11-6 \
     && rm -rf /var/lib/apt/lists/*
 
-# BLENDER IS A PIN, NOT A PACKAGE, for the same reason `cadquery-ocp` is. noble ships 4.0.2,
-# and `_blender_scene.py` enables the Freestyle SVG exporter through the extension namespace
-# 4.2 introduced — on 4.0.2 that is `ModuleNotFoundError: No module named 'bl_ext.blender_org'`
-# and a line-art target that cannot run whatever else is on the disk. The version here is the
-# one the Mac that draws these cuts them with, because a different Blender is different pixels
-# in files this repo commits.
+# The manual kitchen illustrations and studio film use this pinned Blender runtime.
 ARG BLENDER_VERSION=5.1.2
 RUN curl -fsSL "https://download.blender.org/release/Blender${BLENDER_VERSION%.*}/blender-${BLENDER_VERSION}-linux-x64.tar.xz" \
       | tar -xJ -C /opt \
     && mv "/opt/blender-${BLENDER_VERSION}-linux-x64" /opt/blender \
     && ln -s /opt/blender/blender /usr/local/bin/blender
-
-# THE EXPORTER IS AN EXTENSION AND BLENDER DOES NOT SHIP IT. `_blender_scene.py:205` sets
-# `linestyle.use_export_strokes`, an attribute the Freestyle SVG exporter ADDS to
-# FreestyleLineStyle when it registers — so a Blender without it does not fail at import, it
-# fails on a missing attribute several steps later. The Mac that draws these has it from
-# extensions.blender.org under `blender_org`, so the image takes it from the same place.
-#
-# `BLENDER_USER_RESOURCES` for the same reason `BAZELISK_HOME` is here: the default lives
-# under $HOME, and this image is built as root and run as /github/home.
-ENV BLENDER_USER_RESOURCES=/opt/hsm/blender
-# `--online-mode` BECAUSE BLENDER SHIPS OFFLINE. Online access is a System preference that
-# defaults OFF, and the subcommand refuses without it — "Online access required to check for
-# updates", raised by the operator's poll rather than by the network. The flag is the
-# non-interactive yes, and it buys one fetch at build time and none at run time.
-# `-s` syncs the remote listing before installing and `-e` enables after, which is the whole
-# job in one invocation; `install` takes packages positionally and has no `--repo`.
-RUN mkdir -p "$BLENDER_USER_RESOURCES" \
-    && blender --background --online-mode --command extension install -s -e freestyle_svg_exporter \
-    && find "$BLENDER_USER_RESOURCES" -maxdepth 5 -name "*freestyle_svg_exporter*" -print | grep .
-
-# AND THE PROPERTY IS ASKED FOR, in its own layer, because the whole point of the extension is
-# one attribute. `_blender_scene.py:205` sets `linestyle.use_export_strokes`, which exists only
-# once the exporter has registered — so this makes a linestyle and asks. A failure here costs
-# one image layer; the same failure at graph time costs a 774 s full-graph run and reads as
-# "blender render failed (rc=0)", naming neither blender's exit code nor the missing extension.
-#
-# `sys.exit`, NOT `assert`, AND THAT IS THE WHOLE DIFFERENCE. Blender exits 0 on an uncaught
-# script exception — measured on 5.1.2, a failing assert and a raised RuntimeError both leave
-# it 0, and only `sys.exit(1)` reaches the shell. A `RUN` layer reads an exit code, so a probe
-# written as an assert passes whatever it finds and guarantees nothing.
-#
-# AND IT ENABLES THE EXTENSION THE WAY THE BUILD DOES. Installing with `-e` leaves it enabled
-# in `userpref.blend` so it auto-loads, but `_blender_scene.py` calls `addon_utils.enable`
-# itself; a probe that only reads the auto-loaded state tests the neighbouring path.
-RUN blender --background --python-expr \
-      "import sys, bpy, addon_utils; m = addon_utils.enable('bl_ext.blender_org.freestyle_svg_exporter'); ls = bpy.data.linestyles.new('probe'); ok = m is not None and hasattr(ls, 'use_export_strokes'); print('use_export_strokes:', 'present' if ok else 'MISSING'); sys.exit(0 if ok else 1)"
 
 # NODE 22, WHICH IS WHAT THE LOCKFILES ACTUALLY ASK FOR. `tools/render/package.json` says
 # `>=20`, but its own lock pins puppeteer, puppeteer-core and @puppeteer/browsers at
@@ -201,10 +149,7 @@ ENV HSM_CAD_VENV=/opt/hsm/cad-venv \
     HSM_RENDER_MODULES=/opt/hsm/render/node_modules \
     HSM_WEB_MODULES=/opt/hsm/web/node_modules
 
-# NO PIPES HERE, AND THAT IS THE POINT. A `RUN` layer runs under `/bin/sh` with no pipefail,
-# and `a | b` returns B's status — so `blender --version | head -1` reports whatever `head`
-# reports, which is 0 whether or not blender exists. This line was written to prove the image
-# carries its tools and proved nothing; every command now stands alone under `set -e`.
+# Report the installed tools, preserving each command's exit status.
 RUN set -eu; \
     blender --version; \
     convert -version; \
