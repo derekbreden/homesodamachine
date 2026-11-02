@@ -10,9 +10,159 @@ from __future__ import annotations
 from contextlib import contextmanager
 import json
 from pathlib import Path
+import shutil
 import tempfile
+import zipfile
 
 _KEEP_COLOR = object()
+
+
+def document(model):
+    """A fine archive's small document, without loading its geometry."""
+    import numpy as np
+
+    with np.load(model, allow_pickle=False) as archive:
+        return (json.loads(archive['document'].tobytes())
+                if 'document' in archive.files else {})
+
+
+def identity(model):
+    """The stored per-entry names and linear colours, without loading geometry."""
+    import numpy as np
+
+    with np.load(model, allow_pickle=False) as archive:
+        return list(zip(json.loads(archive['names'].tobytes()),
+                        json.loads(archive['colors'].tobytes()), strict=True))
+
+
+@contextmanager
+def array_reader(model):
+    """Read one fine entry at a time; no solid or query backend is constructed."""
+    import numpy as np
+
+    with np.load(model, allow_pickle=False) as archive:
+        records = json.loads(archive['records'].tobytes())
+
+        def read(index):
+            recs = [None if record is None else {
+                key: np.asarray(value, float) if isinstance(value, list) else value
+                for key, value in record.items()} for record in records[index]]
+            return (archive[f'V{index}'], archive[f'T{index}'], archive[f'F{index}'], recs)
+
+        yield read
+
+
+def write_entries(entries, output, *, document=None, transforms=None):
+    """Stream ordered (model, index, name, color) references into one fine archive.
+
+    Numeric members without an explicit frame are copied unchanged. Installed frames
+    map one entry at a time. Names, colours, records and the optional document are small
+    tables; no mesh or whole-model byte buffer is constructed.
+    """
+    from contextlib import ExitStack
+    import numpy as np
+
+    def placed_record(record, matrix):
+        if record is None:
+            return None
+        linear, offset = matrix[:, :3], matrix[:, 3]
+        scale = abs(np.linalg.det(linear)) ** (1 / 3)
+        result = dict(record)
+        for key in ('p', 'c'):
+            if key in record:
+                result[key] = linear @ np.asarray(record[key], float) + offset
+        if 'd' in record:
+            direction = linear @ np.asarray(record['d'], float)
+            result['d'] = direction / np.linalg.norm(direction)
+            if 'slope' in record and np.dot(result['d'], linear @ np.asarray(record['d'], float)) < 0:
+                result['slope'] = -record['slope']
+        if 'n' in record:
+            normal = np.linalg.inv(linear).T @ np.asarray(record['n'], float)
+            result['n'] = normal / np.linalg.norm(normal)
+        for key in ('r', 'R'):
+            if key in record:
+                result[key] = record[key] * scale
+        return {key: value.round(9).tolist() if isinstance(value, np.ndarray) else
+                round(float(value), 9) if isinstance(value, (float, np.floating)) else value
+                for key, value in result.items()}
+
+    def text(archive, key):
+        with archive.open(key + '.npy') as source:
+            return np.load(source, allow_pickle=False).tobytes().decode()
+
+    def record_spans(value):
+        decoder = json.JSONDecoder()
+        position, spans = 1, []
+        while True:
+            while value[position].isspace() or value[position] == ',':
+                position += 1
+            if value[position] == ']':
+                return spans
+            start = position
+            _record, position = decoder.raw_decode(value, position)
+            spans.append((start, position))
+
+    def info(key):
+        return zipfile.ZipInfo(key + '.npy', (1980, 1, 1, 0, 0, 0))
+
+    with ExitStack() as stack:
+        sources, tables = {}, {}
+        for model, _index, _name, _color in entries:
+            model = str(model)
+            if model not in sources:
+                sources[model] = stack.enter_context(zipfile.ZipFile(model))
+                value = text(sources[model], 'records')
+                tables[model] = (value, record_spans(value))
+        with zipfile.ZipFile(output, 'w', zipfile.ZIP_STORED) as archive:
+            records = []
+            for ordinal, (model, index, _name, _color) in enumerate(entries):
+                model = str(model)
+                value, spans = tables[model]
+                start, end = spans[index]
+                frame = (transforms or {}).get(ordinal)
+                if frame is None:
+                    for kind in 'VTF':
+                        with sources[model].open(f'{kind}{index}.npy') as source, \
+                                archive.open(info(f'{kind}{ordinal}'), 'w') as target:
+                            shutil.copyfileobj(source, target, length=1024 * 1024)
+                    records.append((value, start, end))
+                else:
+                    frame = np.asarray(frame, float).reshape(3, 4)
+                    for kind in 'VTF':
+                        with sources[model].open(f'{kind}{index}.npy') as source:
+                            values = np.load(source, allow_pickle=False)
+                        if kind == 'V':
+                            values = values @ frame[:, :3].T + frame[:, 3]
+                        elif kind == 'T' and np.linalg.det(frame[:, :3]) < 0:
+                            values = values[:, [0, 2, 1]]
+                        with archive.open(info(f'{kind}{ordinal}'), 'w') as target:
+                            np.lib.format.write_array(target, values, allow_pickle=False)
+                    mapped = json.dumps([placed_record(record, frame)
+                        for record in json.loads(value[start:end])], separators=(',', ':'))
+                    records.append((mapped, 0, len(mapped)))
+
+            def array(key, value):
+                with archive.open(info(key), 'w') as target:
+                    np.lib.format.write_array(target, np.frombuffer(value.encode(), np.uint8),
+                                              allow_pickle=False)
+
+            array('names', json.dumps([name for _model, _index, name, _color in entries]))
+            array('colors', json.dumps([None if color is None else
+                  [round(float(channel), 9) for channel in color]
+                  for _model, _index, _name, color in entries]))
+            length = 2 + max(0, len(records) - 1) + sum(
+                len(value[start:end].encode()) for value, start, end in records)
+            with archive.open(info('records'), 'w') as target:
+                np.lib.format.write_array_header_1_0(target, {
+                    'descr': '|u1', 'fortran_order': False, 'shape': (length,)})
+                target.write(b'[')
+                for index, (value, start, end) in enumerate(records):
+                    if index:
+                        target.write(b',')
+                    target.write(value[start:end].encode())
+                target.write(b']')
+            if document is not None:
+                array('document', json.dumps(document, separators=(',', ':'), sort_keys=True))
 
 
 def instance(model, *, name=None, prefix="", indices=None, transform=None,
@@ -71,17 +221,20 @@ def location(location):
 
 
 @contextmanager
-def placed(instances, *, presentation=False):
-    """A temporary fine model assembled by Rust, available until the reader exits."""
+def placed(instances, *, presentation=False, summaries=False):
+    """A temporary fine model assembled by Rust, available until the reader exits.
+
+    `summaries=True` also returns the body's scalar readings from the same program run.
+    """
     import _rust_part
 
     with tempfile.TemporaryDirectory(prefix="hsm-placed-model-") as directory:
         output = Path(directory)
         path = output / "placed.numbers.json"
         path.write_text(json.dumps(numbers(instances, name="placed"), sort_keys=True) + "\n")
-        _rust_part.run("machine", "machine-assembly-model", path, output)
+        readings = _rust_part.run("machine", "machine-assembly-model", path, output)
         model = output / "placed.step.npz"
         if presentation:
             from meshcad.presentation import placed as carry_presentation
             carry_presentation(instances, model)
-        yield model
+        yield (model, json.loads(readings)['bodies']) if summaries else model

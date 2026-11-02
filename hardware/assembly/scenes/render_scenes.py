@@ -296,7 +296,7 @@ def _linear_rgba(color):
 
 
 def _assembly_rgba(assembly):
-    """Every named body colour in a live assembly, however deep it nests.
+    """Every named body's colour, including explicit referenced-core material metadata.
 
     A SUB-ASSEMBLY HAS NO COLOUR AND OWES NONE. `cold-core` is a node the machine holds and not
     a body anybody draws, so what carries a colour is the leaves inside it. Reading `children`
@@ -313,6 +313,10 @@ def _assembly_rgba(assembly):
         if name in out and out[name] != rgba:
             raise ValueError(f"{name!r}: its solids carry different scene colours")
         out[name] = rgba
+    for name, rgba in getattr(assembly, 'referenced_core_rgba', {}).items():
+        if rgba is None:
+            raise ValueError(f"{name!r}: scene body has no colour")
+        out[name] = tuple(rgba)
     return out
 
 

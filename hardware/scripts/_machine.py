@@ -138,7 +138,7 @@ def _rgb(colour):
     return list(colour.wrapped.GetRGB().Values(Quantity_TypeOfColor.Quantity_TOC_RGB))
 
 
-def document(a, taken=None, card=None, drain=None) -> dict:
+def document(a, taken=None, card=None, drain=None, *, solids=None, core=None) -> dict:
     """What a reader of the built assembly `a` needs that its bodies do not say, and what its
     checks read off them."""
     import _box_spec
@@ -151,8 +151,8 @@ def document(a, taken=None, card=None, drain=None) -> dict:
         "schema": SCHEMA,
         "taken": time.time() if taken is None else taken,
         "sources": stamps(),
-        "solids": list(ea._solids(a)),
-        "core": list(ea._core_solids(a)),
+        "solids": list(ea._solids(a)) if solids is None else list(solids),
+        "core": list(ea._core_solids(a)) if core is None else list(core),
         "runs": [_plain(dataclasses.asdict(r)) for r in getattr(a, "runs", ())],
         "frames": frames,
         "box": None if box is None else _box_spec.document(ea._enc.documented(box)),
@@ -176,6 +176,39 @@ def write(a, path=PATH, *, card=None, drain=None) -> Path:
     tmp = path.with_name(f".{path.name}.{os.getpid()}.tmp")
     scene.write(bodies, tmp, document(a, taken, card, drain))
     os.replace(tmp, path)
+    return path
+
+
+def write_from_fine(model, path=PATH, *, aliases, envelope, document) -> Path:
+    """The physical fine export and exact foam instance as the machine's scene.
+
+    Core interiors remain file references. Numeric members pass straight from the
+    completed fine model into this archive; the scene changes their public names and
+    adds the separate packing envelope and the build's scalar document.
+    """
+    import re
+    import _assembly_model
+
+    outer, inner = {}, {}
+    for index, (name, color) in enumerate(_assembly_model.identity(model)):
+        name = re.sub(r'/\d+$', '', name)
+        name = aliases.get(name, name)
+        groups = inner if name.startswith('cold-core/') else outer
+        groups.setdefault(name, []).append((model, index, name, color))
+    entries = [entry for group in outer.values() for entry in group]
+    transforms = {}
+    for index, (_name, _color) in enumerate(_assembly_model.identity(envelope['path'])):
+        transforms[len(entries)] = envelope['transform']
+        entries.append((envelope['path'], index, 'foam-assembly', envelope['color']))
+    entries.extend(entry for group in inner.values() for entry in group)
+    path = Path(path)
+    tmp = path.with_name(f".{path.name}.{os.getpid()}.tmp")
+    try:
+        doc = {**document, 'solids': [*outer, 'foam-assembly'], 'core': list(inner)}
+        _assembly_model.write_entries(entries, tmp, document=doc, transforms=transforms)
+        os.replace(tmp, path)
+    finally:
+        tmp.unlink(missing_ok=True)
     return path
 
 
