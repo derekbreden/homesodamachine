@@ -14,7 +14,7 @@ straight and does not make that turn.
 | Internal bore transition | [5.50](REDUCER_LENGTH) mm conical reducer before the turn |
 | Printed drain turn | R4.05 mm, Ø3.8 mm passage |
 | Tie lands | Two, 2.8 mm wide with 0.5 mm recesses |
-| Solid CAD volume | [4.923](VOLUME) cm³ |
+| Solid CAD volume | [4.922](VOLUME) cm³ |
 
 The installed barb mouth stops below the vent hex, with 8.6 mm of stem
 engagement and a [5.50](REDUCER_LENGTH) mm open taper below its tip. The ASSE snap cap has a
