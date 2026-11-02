@@ -90,22 +90,22 @@ def manifold(shape):
 
 
 def forget(shape=None):
-    """Let go of the unions compounds keep (`manifold`, `intersect`'s tool) and the triangles
-    `distance` keeps of the bodies it read last: a run done with a pass of checks hands their
-    memory back before the next pass, or the writes, take theirs.
+    """Let go of disposable query backends and cached distance triangles.
 
-    With `shape`, release only its unions, retaining other shapes and the distance cache.
-    Without it, release every held union and the distance cache."""
-    from .solids import HOLDING
+    Immutable fine arrays and paired presentation stay on their model bodies.
+    With `shape`, retain other shapes and the distance cache. Without it,
+    release every held backend and the distance cache."""
+    from .solids import HOLDING, MeshModelSolid
     if shape is not None:
         shape.__dict__.pop("_composed", None)
         shape.__dict__.pop("_fused_m", None)
+        if isinstance(shape, MeshModelSolid):
+            shape._forget_backend()
         HOLDING.discard(shape)
         return
     from . import build
     for shape in list(HOLDING):
-        shape.__dict__.pop("_composed", None)
-        shape.__dict__.pop("_fused_m", None)
+        forget(shape)
     HOLDING.clear()
     build._SOUPS.clear()
 
