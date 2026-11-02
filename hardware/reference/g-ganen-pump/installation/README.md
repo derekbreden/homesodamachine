@@ -16,7 +16,7 @@ and connected fitting frames belong to [above-core.json](../../../manifold-layou
 
 The lid-integrated half pipe supports the motor over native X16.75–77.75. Its
 continuous 54.5 mm upper clip spans X20–74.5. It is a filled box half-pipe with a
-6.2 mm crown, one straight east clearance shoulder, 1.3 mm spring leaves and
+6.2 mm crown, one straight east clearance shoulder, 2.6 mm spring leaves and
 2.6 mm flat hook engagement. The upper motor bore clears the largest retained upper
 barrel high spot with the shared 0.15 mm per-face static allowance. The lower
 seat gives the admitted barrel 0.25 mm running clearance. Open rooms admit the complete fixed rails and molded wire cover
@@ -37,8 +37,9 @@ the complete seat.
 
 Slide all four complete foot-and-leg assemblies off their fixed rails. Complete
 the lid's ten M5 clamps while its equipment mounts are empty. Lower
-the bare pump vertically into the open cradle. Spread the cap's leaves outward,
-lower the cap, and release both flat hooks over their ledges, then fit the PCB. The spring pockets remain accessible
+the bare pump vertically into the open cradle. Lower the cap over the motor;
+the hooks' leading ramps open the 22.5 mm-long leaves over their ledges.
+Both retaining undersides remain flat. Fit the PCB after both hooks seat. The spring pockets remain accessible
 with back-top separated from the core. Fit
 the two clamped PVC joints and discharge check while the core is open. Keep the
 suction elbow and its short inlet link loose for the populated rear-shell

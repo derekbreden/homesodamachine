@@ -236,6 +236,9 @@ fn main() -> Result<()> {
             .as_str()
             .ok_or_else(|| anyhow!("a cap has a name"))?;
         installed.push((name, body.clone()));
+        if let Some(angle) = cap.get("print_rotate_x") {
+            body = body.rotate(V3::ZERO, V3::X, f(angle)?);
+        }
         if let Some(angle) = cap.get("print_rotate_y") {
             body = body.rotate(V3::ZERO, V3::Y, f(angle)?);
         }

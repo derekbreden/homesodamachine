@@ -172,8 +172,11 @@ def ports(name):
 
 def snap_datums():
     """The integral rear seats' axes and supporting wall planes."""
-    return {'asse_axis':(37.25,328.), 'asse_turn':90., 'pisco_axis':(77.5,328.),
-            'mouth_y':480.8, 'ceiling':346., 'rear':465.3, 'side':98.5}
+    data=plan()
+    c=layout.point(data['chain_frame'],(0.,0.,chain().bfp.BODY_CENTER_Z))
+    p=layout.point(data['gas_frame'],(0.,0.,0.))
+    return {'asse_axis':(c[0],c[2]), 'asse_turn':90., 'pisco_axis':(p[0],p[2]),
+            'mouth_y':p[1], 'ceiling':346., 'rear':465.3, 'side':98.5}
 
 
 @cache
@@ -194,15 +197,16 @@ def seats():
         group = [s for s in native.Solids() if lo <= s.Center().z <= hi]
         rows['pisco-'+n.replace('_','-')] = (parts._compound(group).moved(layout.frame_location(plan()['gas_frame'])), selected['gas-regulator'][1])
     meter = parts._module('rear_digiten','reference/digiten-flow-sensor/digiten_flow_sensor.py')
-    result,numbers = snaps.build(rows,(37.25,328.),layout.frame_location(plan()['chain_frame']),90.,
-                           (77.5,328.),480.8,346.,465.3,98.5,meter,layout.location('digiten-flow'))
+    d=snap_datums()
+    result,numbers = snaps.build(rows,d['asse_axis'],layout.frame_location(plan()['chain_frame']),d['asse_turn'],
+                           d['pisco_axis'],d['mouth_y'],d['ceiling'],d['rear'],d['side'],meter,layout.location('digiten-flow'))
     mount = plan()['regulator_mount']
     st, axis = mount['station'], mount['axis']
     a,b = mount['seat_y']; width = st['outer']
     b = max(b,st['y1']+fits.running+snaps.WALL)
     seat = snaps.box(axis[0]-width,axis[0]+width,a,b,snaps.SPLIT,346.5).cut(snaps.turned(mount['seat_runs'],axis))
     for pocket in snaps.pockets(st): seat = seat.cut(pocket)
-    cap = snaps.cap(st,axis[1],mount['cap_bottom'],axis[1]).cut(snaps.turned(mount['cap_runs'],axis))
+    cap = snaps.cap(st,st['root'],mount['cap_bottom']).cut(snaps.turned(mount['cap_runs'],axis))
     result['regulator-seat'] = seat.clean().rotate((0,0,0),(0,0,1),90.)
     result['regulator-snap-cap'] = cap.clean().rotate((0,0,0),(0,0,1),90.)
     # Clear the installed vent sleeve and its two tie lands through the cap.
@@ -213,20 +217,6 @@ def seats():
                           min(b.ymin,lo[1]-snaps.THREAD)-fits.running,
                           max(b.ymax,hi[1]+snaps.THREAD)+fits.running,b.zmin-1.,328.)
     result['asse-snap-cap'] = result['asse-snap-cap'].cut(vent_room).clean()
-    # The flavor-A tube crosses beneath the meter's housing. Its curved
-    # passage opens only the lower snap wing, retaining the west spine.
-    import above_core_routes as routes
-    bulkhead = selected['bulkhead-flavor-a']
-    source = parts._grid_module(next(r for r in parts._grid() if r['name']=='bulkhead-flavor-a'))
-    destination,_ = bulkhead[2](source.port(-1.))
-    segments = _flavor_rear('a', destination)
-    path = parts.route_wire({'segments':segments})
-    corridor = (cq.Workplane(cq.Plane(origin=segments[0]['points_mm'][0],normal=(0.,1.,0.)))
-                .circle(2.5).sweep(path,isFrenet=False,clean=False).val())
-    # Open the fore end of the lower wing beneath the descending tube. The
-    # aft bearing and both spring catches retain their complete sections.
-    corner = snaps.box(71.25,80.,396.,403.75,260.,267.)
-    result['meter-snap-cap'] = result['meter-snap-cap'].cut(corridor,corner).clean()
     return result
 
 
@@ -239,6 +229,15 @@ def caps():
         return {name:_world(shape,M_PETGF_BLACK)
                 for name,(shape,_color) in import_assembly(path).items()}
     return {name:_world(shape,M_PETGF_BLACK) for name,shape in seats().items() if name.endswith('snap-cap')}
+
+
+def printable_cap(name, shape=None):
+    """Stand the axial end down so each spring bends within the printed layers."""
+    if shape is None:shape=seats()[name]
+    axis=(0.,1.,0.) if name=='regulator-snap-cap' else (1.,0.,0.)
+    shape=shape.rotate((0.,0.,0.),axis,90.)
+    b=shape.BoundingBox()
+    return shape.translate((-(b.xmin+b.xmax)/2.,-(b.ymin+b.ymax)/2.,-b.zmin))
 
 
 def route_specs():

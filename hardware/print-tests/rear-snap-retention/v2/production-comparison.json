@@ -1,0 +1,180 @@
+{
+  "scope": "Native CadQuery trial mesh and production Rust export. The print-frame bounds match to float precision. Curved-face tessellation and sampled ASSE cavity profiles account for small volume differences; this is not physical fit qualification.",
+  "caps": [
+    {
+      "family": "pump",
+      "sample_stl": "hardware/print-tests/rear-snap-retention/v2/parts/pump-cap.stl",
+      "sample_sha256": "61c67f51b02224c23add1dc21ffca37543afa7e24adde1c84257cef136ba142f",
+      "production_stl": "hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.stl",
+      "production_sha256": "0095d97a55071447da524c820f031e90092a66d668dc12d56f3848ea82a6bd29",
+      "sample_bounds_mm": [
+        [
+          -37.17918014526367,
+          -28.154752731323242,
+          6.764366844436154e-12
+        ],
+        [
+          37.17918014526367,
+          28.154752731323242,
+          54.5
+        ]
+      ],
+      "production_bounds_mm": [
+        [
+          -37.17918014526367,
+          -28.154752731323242,
+          0.0
+        ],
+        [
+          37.17918014526367,
+          28.154752731323242,
+          54.5
+        ]
+      ],
+      "sample_watertight": true,
+      "production_watertight": true,
+      "sample_mesh_volume_mm3": 65822.75506991007,
+      "production_mesh_volume_mm3": 65832.3438238612
+    },
+    {
+      "family": "asse",
+      "sample_stl": "hardware/print-tests/rear-snap-retention/v2/parts/asse-cap.stl",
+      "sample_sha256": "42a0e8938b3f74fb2c9a945bc7f15e5ba22420502d4e89753db5b688a62a5282",
+      "production_stl": "hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.stl",
+      "production_sha256": "9037477e27c4dc6d1e178ab274c6379728975879b251b848bfd80692f9b6ef80",
+      "sample_bounds_mm": [
+        [
+          -25.748140335083008,
+          -18.69927215576172,
+          -1.621929074709517e-15
+        ],
+        [
+          25.748140335083008,
+          18.69927215576172,
+          41.66103744506836
+        ]
+      ],
+      "production_bounds_mm": [
+        [
+          -25.748140335083008,
+          -18.69927215576172,
+          0.0
+        ],
+        [
+          25.748140335083008,
+          18.69927215576172,
+          41.66103744506836
+        ]
+      ],
+      "sample_watertight": true,
+      "production_watertight": true,
+      "sample_mesh_volume_mm3": 19082.018500984777,
+      "production_mesh_volume_mm3": 19082.202040965563
+    },
+    {
+      "family": "pisco",
+      "sample_stl": "hardware/print-tests/rear-snap-retention/v2/parts/pisco-cap.stl",
+      "sample_sha256": "d5bd5c192e557fe4206b7fbd57149ad05fc9c1d99b00c4d6f38dd684401d662d",
+      "production_stl": "hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.stl",
+      "production_sha256": "a39d73f7635a80682286a12fa48362dffdfe103a3eac45ed598d766269845ac8",
+      "sample_bounds_mm": [
+        [
+          -18.483488082885742,
+          -14.703450202941895,
+          0.0
+        ],
+        [
+          18.483488082885742,
+          14.703450202941895,
+          15.654282569885254
+        ]
+      ],
+      "production_bounds_mm": [
+        [
+          -18.483488082885742,
+          -14.703450202941895,
+          0.0
+        ],
+        [
+          18.483488082885742,
+          14.703450202941895,
+          15.654282569885254
+        ]
+      ],
+      "sample_watertight": true,
+      "production_watertight": true,
+      "sample_mesh_volume_mm3": 4578.083898928295,
+      "production_mesh_volume_mm3": 4578.3106165439885
+    },
+    {
+      "family": "regulator",
+      "sample_stl": "hardware/print-tests/rear-snap-retention/v2/parts/regulator-cap.stl",
+      "sample_sha256": "c4f725859d08a84eaa211047385d7e358d150d7ba375c0af1ccd83f8698316a1",
+      "production_stl": "hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.stl",
+      "production_sha256": "4f21387c86efb06b1d90a2b5999a94faf307d5884cc17fe45c567904e8234fff",
+      "sample_bounds_mm": [
+        [
+          -13.570504188537598,
+          -21.6532039642334,
+          -1.6106762420052437e-15
+        ],
+        [
+          13.570504188537598,
+          21.6532039642334,
+          36.0
+        ]
+      ],
+      "production_bounds_mm": [
+        [
+          -13.570504188537598,
+          -21.6532039642334,
+          0.0
+        ],
+        [
+          13.570504188537598,
+          21.6532039642334,
+          36.0
+        ]
+      ],
+      "sample_watertight": true,
+      "production_watertight": true,
+      "sample_mesh_volume_mm3": 9608.386198375352,
+      "production_mesh_volume_mm3": 9608.4846849842
+    },
+    {
+      "family": "meter",
+      "sample_stl": "hardware/print-tests/rear-snap-retention/v2/parts/meter-cap.stl",
+      "sample_sha256": "79c7d791e64095af91f82a3bb8b785cd794ca6b1b6876241281b27d60dd58877",
+      "production_stl": "hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.stl",
+      "production_sha256": "737b1f83867d599f5b5653a7541d412f6a2d83ac4bfcffcedb40bbd083823824",
+      "sample_bounds_mm": [
+        [
+          -15.550000190734863,
+          -27.75,
+          0.0
+        ],
+        [
+          15.550000190734863,
+          27.75,
+          38.0
+        ]
+      ],
+      "production_bounds_mm": [
+        [
+          -15.550000190734863,
+          -27.75,
+          0.0
+        ],
+        [
+          15.550000190734863,
+          27.75,
+          38.0
+        ]
+      ],
+      "sample_watertight": true,
+      "production_watertight": true,
+      "sample_mesh_volume_mm3": 17990.720939331073,
+      "production_mesh_volume_mm3": 17990.72093933108
+    }
+  ]
+}

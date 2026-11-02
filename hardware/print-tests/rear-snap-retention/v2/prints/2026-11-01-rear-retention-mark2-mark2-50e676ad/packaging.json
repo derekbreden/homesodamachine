@@ -1,0 +1,23 @@
+{
+  "source_archive": "/Users/derekbredensteiner/Developer/hsm-pump-underside/hardware/print-tests/rear-snap-retention/v2/prints/2026-11-01-rear-retention-mark2-mark2-50e676ad/2026-11-01-rear-retention-mark2-mark2-50e676ad.gcode.3mf",
+  "source_archive_sha256": "8f5e371cff4f503b131b8d0698c78d74eeafadb0c45f213a88ad50bbb5f6a699",
+  "print_only_archive": "/Users/derekbredensteiner/Developer/hsm-pump-underside/hardware/print-tests/rear-snap-retention/v2/prints/2026-11-01-rear-retention-mark2-mark2-50e676ad/2026-11-01-rear-retention-mark2-mark2-50e676ad-print-only.gcode.3mf",
+  "print_only_archive_sha256": "ea6d61603a3d14b77bc193ea49de293eec37242d6ee8bb06379fa11e227636fc",
+  "gcode_sha256": {
+    "Metadata/plate_1.gcode": "74f52e2a5b4aa80a36e4be5625f7fc26e04e24f8a0cd7da233a1baf898ad6a31"
+  },
+  "gcode_byte_identical": true,
+  "changed_container_entries": [
+    "3D/3dmodel.model",
+    "Metadata/model_settings.config"
+  ],
+  "omitted_editable_geometry_entries": [
+    "3D/Objects/object_1.model",
+    "3D/Objects/object_2.model",
+    "3D/Objects/object_3.model",
+    "3D/Objects/object_4.model",
+    "3D/Objects/object_5.model",
+    "3D/_rels/3dmodel.model.rels",
+    "Metadata/cut_information.xml"
+  ]
+}
