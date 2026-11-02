@@ -2,6 +2,8 @@
 
 Run: tools/cad-venv/bin/python hardware/wiring/_run_lengths.py
 
+The named bodies come from the enclosure producer's full fine model.
+
 This tool multiplies board-to-device centre distance by the recorded DC-5
 400/273 routing factor. It does not locate terminals, follow installed wires,
 or check clearance. The factor applies one mock-up observation to other runs;
@@ -13,15 +15,18 @@ and qualifications in manifold-junction-clearance-check.json. This tool's
 corresponding rows remain reach estimates, not those routed cut lengths.
 """
 
+from contextlib import redirect_stdout
 import math
 import sys
 from pathlib import Path
 
 _here = Path(__file__).resolve().parent
 _root = next(p for p in _here.parents if (p / "tools" / "docgen").is_dir())
-sys.path.insert(0, str(_root / "hardware" / "manifold-layout"))
+for _p in (_root, _root / "hardware" / "scripts"):
+    if str(_p) not in sys.path:
+        sys.path.insert(0, str(_p))
 
-import enclosure_assembly as _ea  # noqa: E402
+MODEL = _root / "hardware/manifold-layout/enclosure-assembly.step.npz"
 
 # The measured cabinet routing calibration: 273 mm of direct reach carries a 400 mm cut.
 CAL_REACH = 273.0
@@ -41,7 +46,7 @@ LEGS = {
                    ("GND → 221-415", 1, ["wago-sensors"])],
     "J5 RELAYS": [("all four", 4, ["relay-1", "relay-2"])],
     "J6 REEDS A": [("RA1–RA4", 4, [f"cold-core/reed-a-{i}" for i in (1, 2, 3, 4)]),
-                   ("GND → 221-415", 1, ["wago-reeds-a"])],
+                   ("GND → reed A4", 1, ["cold-core/reed-a-4"])],
     "J7 REEDS B": [("RB1–RB4", 4, [f"cold-core/reed-b-{i}" for i in (1, 2, 3, 4)]),
                    ("CLO, CHI", 2, ["cold-core/reed-carb-1", "cold-core/reed-carb-2"]),
                    ("GND → 221-420", 1, ["wago-reeds-b"])],
@@ -68,10 +73,30 @@ def centres(assembly):
     return out
 
 
+def fine_centres(path):
+    """Named component centres from the producer's unrounded f64 bounds."""
+    import _assembly_model
+    from hardware.wiring.installed._model_input import bodies
+
+    with redirect_stdout(sys.stderr):
+        result = _assembly_model.measure([_assembly_model.instance(path)], ())
+    return {name: tuple((lo + hi) / 2.0 for lo, hi in zip(body.lower, body.upper))
+            for name, (body, _color) in bodies(result["bodies"]).items()}
+
+
+def _centre(pos, name):
+    if name in pos:
+        return pos[name]
+    matches = [point for body, point in pos.items() if body.endswith("/" + name)]
+    if len(matches) != 1:
+        raise KeyError(f"{name}: expected one fine-model body, found {len(matches)}")
+    return matches[0]
+
+
 def measure():
-    pos = centres(_ea.build_enclosure_assembly())
-    board = pos["pcba"]
-    reach = lambda name: math.dist(board, pos[name])
+    pos = fine_centres(MODEL)
+    board = _centre(pos, "pcba")
+    reach = lambda name: math.dist(board, _centre(pos, name))
     factor = CAL_CUT / CAL_REACH
 
     rows, total = [], 0
