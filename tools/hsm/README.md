@@ -528,6 +528,34 @@ program with cargo and runs it itself, and the files hold the same bytes. Native
 once by starting the installed `hsm`; when that one doesn't know it either, `_rust_part` runs the
 program itself.
 
+### Declared generator actions
+
+`hsm generate water-inlet-jet-fixture` runs the jet's Python generator through the same
+part store. `--root` selects its checkout; `--python /path/to/cad-venv/bin/python` supplies
+the interpreter when that worktree has no `tools/cad-venv`. `--output DIRECTORY` places
+the eleven declared outputs under that directory's repository-relative paths; its default
+is the checkout. This slice supports only the jet. Other actions and their dependency
+execution remain with the normal build.
+
+`tools/bazel/gen_build.py::action_plan` supplies both BUILD and this action's declarations:
+generator entrypoints, inputs, optional inputs, producer edges, stripped Python and outputs.
+`tools/hsm/generate.py` stages those files, using the existing `pysrc` transformation, and
+executes the existing script entrypoint. Its Rust call still uses `_rust_part.run`. The
+action key binds the declarations, staged input bytes, worker code, Python executable and
+version, and installed CAD package versions. An optional input's absence is part of the key.
+Only declared files are staged; no appliance is composed or copied.
+
+The worker shares its verified host lease with the nested Rust request. It holds no outer
+engine memory or compiler reservation while waiting for that request. Nested runtime reads
+are bound to staged inputs, the action's own outputs, or validated external files. The answer's
+`receipt` describes the captured execution: a cache hit starts neither the generator nor its
+nested Rust program. The same blobs and kept-run budget serve both kinds of run.
+
+Placement uses `sync_tree.carried` for rewritten Markdown, Mermaid and Python, preserving
+current authored text while updating generated markers. Declared whole rewritten media are
+placed whole. Other outputs are cloned from their individual content-addressed blobs; equal
+files stay untouched. Neither this command nor its worker joins a build or commit hook.
+
 ## Explicit validation
 
 ```sh
