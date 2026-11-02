@@ -35,20 +35,29 @@ Coordinate convention — jg_bulkhead_union's, so this station seats like the tu
 Run:
     tools/cad-venv/bin/python hardware/reference/riteav-keystone/riteav_keystone.py
     tools/cad-venv/bin/python hardware/reference/riteav-keystone/riteav_keystone.py selftest
+
+
+The reference STEP and payloads are declared in `frozen-asset.json`.
+Native builder functions remain available to current composition callers.
 """
+
+from __future__ import annotations
 
 import math
 import sys
 from pathlib import Path
 
-import cadquery as cq
+_REFERENCE_DIR = Path(__file__).resolve().parent
+STEP_PATH = _REFERENCE_DIR / 'riteav-keystone.step'
+PAYLOAD_PATH = _REFERENCE_DIR / 'riteav-keystone.step.mesh'
+FINE_PAYLOAD_PATH = _REFERENCE_DIR / 'riteav-keystone.step.mesh'
+ASSET_MANIFEST_PATH = _REFERENCE_DIR / "frozen-asset.json"
+
 
 _here = Path(__file__).resolve()
 _hw = next(p for p in _here.parents if p.name == "hardware")
 sys.path.insert(0, str(_hw / "scripts"))
 sys.path.insert(0, str(_hw / "printed-parts" / "cadlib"))
-from _cadq_export import export_assembly  # noqa: E402
-from _materials import M_DONOR_BLACK, one_body  # noqa: E402
 
 STEP = _here.parent / "riteav-keystone.step"
 
@@ -122,6 +131,7 @@ def receptacle_cut(x: float, z: float, y_face: float):
 
     Three solids on one axis: the aperture through the lip, the ease over its top edge, and the
     pocket behind both."""
+    import cadquery as cq
     y_lip = y_face - LIP_D
     y_back = y_face - DEPTH
     aperture = (cq.Workplane("XZ").rect(APERTURE_W, APERTURE_H).extrude(LIP_D + 0.02)
@@ -144,6 +154,7 @@ def receptacle_cut(x: float, z: float, y_face: float):
 def receptacle_boss(x: float, z: float, y_face: float, y_inner: float):
     """The block the wall stands inboard to carry the pocket's remaining depth and its two
     catches. Returns `(material, catches)` — the catches are fused after the pocket is cut."""
+    import cadquery as cq
     wx, wz = receptacle_envelope()
     y_back = y_face - DEPTH
     reach = y_inner - y_back
@@ -174,6 +185,7 @@ def build():
     delivered jack has nothing, so either catch has room to grow inboard, toward the punch-down
     block, should a fit ever ask for a thicker one. The catches hold the jack as drawn.
     """
+    import cadquery as cq
     face = (cq.Workplane("XZ").rect(FACE_W, FACE_H).extrude(LIP_D)
             .translate((0.0, 0.0, 0.0)))
     body = (cq.Workplane("XZ").rect(POCKET_W - FIT_SLIP, POCKET_H - FIT_SLIP)
@@ -203,6 +215,7 @@ def build():
 def selftest() -> int:
     """Checks the aperture clears the module face, the pocket clears the aperture, the ease
     carries the body's swing, and the built jack stands wholly inboard of the face plane."""
+    import cadquery as cq
     ok = True
     if not (APERTURE_W > FACE_W and APERTURE_H > FACE_H):
         print("FAIL: the aperture does not clear the keystone face")
@@ -252,11 +265,25 @@ def selftest() -> int:
 
 
 def main():
-    export_assembly(one_body(build(), "riteav-keystone", M_DONOR_BLACK), STEP)
-    print(f"-> {STEP}")
+    print(f"Frozen STEP: {STEP_PATH}")
+    print(f"Display payload: {PAYLOAD_PATH}")
+    print(f"Fine payload: {FINE_PAYLOAD_PATH}")
 
 
 if __name__ == "__main__":
     if len(sys.argv) > 1 and sys.argv[1] == "selftest":
         sys.exit(selftest())
     main()
+
+
+def __getattr__(name):
+    if name == 'cq':
+        import cadquery as cq
+        return cq
+    if name in {'export_assembly'}:
+        import _cadq_export
+        return getattr(_cadq_export, name)
+    if name in {'M_DONOR_BLACK', 'one_body'}:
+        import _materials
+        return getattr(_materials, name)
+    raise AttributeError(f"module {__name__!r} has no attribute {name!r}")

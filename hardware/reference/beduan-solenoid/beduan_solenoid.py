@@ -4,9 +4,21 @@ Millimetres. X crosses the flow axis, +Y points toward the terminals/outlet,
 and Z=0 is the plane of the four mounting-post ends. Analytic features follow
 the coated MINI 2 sample in scan-evidence.json. Hidden fluid passages and
 fastener threads are outside this exterior reference.
+
+
+The reference STEP and payloads are declared in `frozen-asset.json`.
+Native builder functions remain available to current composition callers.
 """
+
+from __future__ import annotations
 from functools import lru_cache
 from pathlib import Path
+
+_REFERENCE_DIR = Path(__file__).resolve().parent
+STEP_PATH = _REFERENCE_DIR / 'beduan-solenoid.step'
+PAYLOAD_PATH = _REFERENCE_DIR / 'beduan-solenoid.step.mesh'
+FINE_PAYLOAD_PATH = _REFERENCE_DIR / 'beduan-solenoid.step.mesh'
+ASSET_MANIFEST_PATH = _REFERENCE_DIR / "frozen-asset.json"
 import json
 import math
 import sys
@@ -15,7 +27,6 @@ _here = Path(__file__).resolve()
 _hardware = next(p for p in _here.parents if p.name == 'hardware')
 sys.path.insert(0, str(_hardware / 'scripts'))
 sys.path.insert(0,str(_hardware.parent/'tools'))
-from docgen import substitute_md
 
 # Mounting and moulded body. The post pattern is rectangular.
 corner_spacing_x, corner_spacing_y = 24.4, 24.85
@@ -285,30 +296,9 @@ def build_assembly():
 
 
 def main():
-    from _cadq_export import export_assembly
-    model=build_beduan_solenoid()
-    solids=model.val().Solids()
-    assert solids and all(s.isValid() and s.Volume()>0 for s in solids)
-    export_assembly(build_assembly(),str(_here.parent/'beduan-solenoid.step'))
-    bb=model.val().BoundingBox()
-    report={'valid_solids':len(solids),'faces':sum(len(s.Faces()) for s in solids),
-            'bounds_mm':{'x':[bb.xmin,bb.xmax],'y':[bb.ymin,bb.ymax],'z':[bb.zmin,bb.zmax]},
-            'post_pitch_mm':[corner_spacing_x,corner_spacing_y], 'post_diameter_mm':2*corner_boss_radius,
-            'bearing_z_mm':bearing_z_range[0], 'port_center_z_mm':port_center_z,
-            'port_faces_y_mm':[-port_length/2,port_length/2]}
-    (_here.parent/'model-check.json').write_text(json.dumps(report,indent=2)+'\n')
-    substitute_md(_here.parent/'README.md',variables={
-        'POST_PITCH_X':f'{corner_spacing_x:g}','POST_PITCH_Y':f'{corner_spacing_y:g}',
-        'POST_DIA':f'{2*corner_boss_radius:g}','POST_SHOULDER_Z':f'{post_shoulder_z:g}',
-        'BEARING_DIA':f'{2*bearing_radius:g}','BOSS_Z0':f'{bearing_z_range[0]:g}',
-        'SOLENOID_BODY_DIA':f'{2*body_radius:g}','CAP_X':f'{cap_width_x:g}','CAP_Y':f'{cap_depth_y:g}',
-        'SOLENOID_PORT_DIA':f'{2*port_radius:g}','PORT_CENTER_Z':f'{port_center_z:g}','PORT_LEN':f'{port_length:g}',
-        'COLLET_DIA':f'{2*collet_radius:g}','COLLET_SWEEP_DIA':f'{2*collet_ear_radius:g}',
-        'SPADE_W':f'{spade_width:g}','SPADE_T':f'{spade_thickness:g}',
-        'SPADE_SPACING':f'{spade_x_spacing:g}','SPADE_Z':f'{spade_z_center:g}',
-        'SPADE_Y_END':f'{coil_face_y+spade_length:g}','COIL_TOP':f'{coil_z_range[1]:g}',
-        'STATION_PITCH':f'{body_width_x:g}'})
-    print(json.dumps(report,indent=2))
+    print(f"Frozen STEP: {STEP_PATH}")
+    print(f"Display payload: {PAYLOAD_PATH}")
+    print(f"Fine payload: {FINE_PAYLOAD_PATH}")
 
 
 if __name__=='__main__':
@@ -316,6 +306,9 @@ if __name__=='__main__':
 
 
 def __getattr__(name):
+    if name == "substitute_md":
+        from docgen import substitute_md
+        return substitute_md
     if name == "cq":
         import cadquery
         return cadquery

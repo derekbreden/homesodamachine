@@ -1,0 +1,34 @@
+{
+  "source": {
+    "commit": "30bb5cb2d5b95f18f43637bd9be26daced05f1f5",
+    "path": "hardware/reference/seaflo-discharge-chain/seaflo_discharge_chain.py",
+    "sha256": "42bd798213a8b0be16b80d52a67e1bf77909f50084ba47d4611d43354c9a009c"
+  },
+  "members": {
+    "seaflo-discharge-chain.step": "e6061c7e84ea1530a9ddf1467aeb4452f8f350f032e0639c7858e4993f1f3f52",
+    "seaflo-discharge-chain.fine.step.mesh": "9c7baff66d1256e563160d582b58284a7226b1ee26d130264a92b1c585413a7e",
+    "seaflo-discharge-chain.step.mesh": "64a5f269a51ff791723b5c0ff815f53e480d84b56a2968ef34780f9fd090e047"
+  },
+  "fine_payload": {
+    "source_step_sha256": "e6061c7e84ea1530a9ddf1467aeb4452f8f350f032e0639c7858e4993f1f3f52",
+    "path": "seaflo-discharge-chain.fine.step.mesh",
+    "sha256": "9c7baff66d1256e563160d582b58284a7226b1ee26d130264a92b1c585413a7e",
+    "linear_mm": 0.005,
+    "angular_rad": 0.05,
+    "producer": "hardware/scripts/_rust_part.py:_tessellate",
+    "origin": "new one-time immutable published STEP conversion",
+    "meshes": [
+      {
+        "name": "seaflo-discharge-chain",
+        "color": [
+          0.7200000033238448,
+          0.7299999951670297,
+          0.7600000136009657
+        ],
+        "vertices": 7070,
+        "triangles": 7052,
+        "face_ranges": 15
+      }
+    ]
+  }
+}

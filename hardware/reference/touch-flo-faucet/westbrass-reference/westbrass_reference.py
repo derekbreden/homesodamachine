@@ -28,11 +28,22 @@ The entire front half of the top face (local -X / world -Y) plus the
 plateau strip from the water port forward must remain open for the
 lever. The shell can only wrap the cylindrical base, the two flanking
 arches, and the back end behind the water port.
+
+
+The reference STEP and payloads are declared in `frozen-asset.json`.
+Native builder functions remain available to current composition callers.
 """
 
+from __future__ import annotations
+
 import sys
-import cadquery as cq
 from pathlib import Path
+
+_REFERENCE_DIR = Path(__file__).resolve().parent
+STEP_PATH = _REFERENCE_DIR / 'westbrass-reference.step'
+PAYLOAD_PATH = _REFERENCE_DIR / 'westbrass-reference.step.mesh'
+FINE_PAYLOAD_PATH = _REFERENCE_DIR / 'westbrass-reference.step.mesh'
+ASSET_MANIFEST_PATH = _REFERENCE_DIR / "frozen-asset.json"
 
 _here = Path(__file__).resolve()
 sys.path.insert(
@@ -46,16 +57,6 @@ sys.path.insert(
 sys.path.insert(
     0,
     str(next(p for p in _here.parents if p.name == "hardware") / "printed-parts" / "cadlib"),
-)
-from _cadq_export import export_assembly
-from _materials import M_DONOR_BLACK, one_body
-from docgen import substitute_md, substitute_py_comments
-from world_workplane import (
-    WorldWorkplane,
-    xy_plane_z_up,
-    xy_plane_z_down,
-    xz_plane_y_up,
-    yz_plane_x_up,
 )
 
 
@@ -138,6 +139,7 @@ rect_long_half_v = rect_long / 2.0                          # [15.75 mm](RECT_LO
 def build_shank():
     """Zone 0: shank_r cylinder on the body axis, extending shank_length
     below the deck (-Z from z = 0)."""
+    from world_workplane import WorldWorkplane, xy_plane_z_up, xy_plane_z_down, xz_plane_y_up, yz_plane_x_up
     return (
         WorldWorkplane(xy_plane_z_down)
         .circle(shank_r)
@@ -148,6 +150,8 @@ def build_shank():
 
 def build_cylinder_base():
     """Zone 1: solid cylinder, z = 0 → cylinder_height."""
+    import cadquery as cq
+    from world_workplane import WorldWorkplane, xy_plane_z_up, xy_plane_z_down, xz_plane_y_up, yz_plane_x_up
     return (
         cq.Workplane(xy_plane_z_up)
         .circle(body_r)
@@ -157,6 +161,8 @@ def build_cylinder_base():
 
 def build_rectangular_column():
     """Zone 2: solid rect column, z = cylinder_height → plateau_z."""
+    import cadquery as cq
+    from world_workplane import WorldWorkplane, xy_plane_z_up, xy_plane_z_down, xz_plane_y_up, yz_plane_x_up
     return (
         cq.Workplane(xy_plane_z_up)
         .workplane(offset=cylinder_height)
@@ -172,6 +178,7 @@ def build_arch(center_y):
     `plateau_z` to `arc_base_z` spanning the full X width, then an
     arc from `arc_base_z` at x = ±rect_long_half rising to
     `arc_peak_z` at x = 0 and back down symmetrically."""
+    from world_workplane import WorldWorkplane, xy_plane_z_up, xy_plane_z_down, xz_plane_y_up, yz_plane_x_up
     return (
         WorldWorkplane(xz_plane_y_up)
         .workplane(offset=center_y - arch_block_width_y / 2)
@@ -193,6 +200,8 @@ def build_transition_cove(center_y_sign):
 
     center_y_sign: +1 for the +Y face, -1 for the -Y face.
     """
+    import cadquery as cq
+    from world_workplane import WorldWorkplane, xy_plane_z_up, xy_plane_z_down, xz_plane_y_up, yz_plane_x_up
     r = transition_fillet_r
     flat_y = center_y_sign * rect_short_half
     filler_center = (0, flat_y + center_y_sign * (r / 2))
@@ -219,6 +228,8 @@ def build_transition_cove(center_y_sign):
 def cut_water_port_bore(body):
     """Water port bore: from z = plateau_z down port_bore_depth into the
     body (-Z). Sits in the plateau zone, no arch above it at y = 0."""
+    import cadquery as cq
+    from world_workplane import WorldWorkplane, xy_plane_z_up, xy_plane_z_down, xz_plane_y_up, yz_plane_x_up
     bore = (
         cq.Workplane(xy_plane_z_up)
         .workplane(offset=plateau_z)
@@ -230,6 +241,7 @@ def cut_water_port_bore(body):
 
 
 def build_valve_body():
+    import cadquery as cq
     body = (
         build_cylinder_base()
         .union(build_rectangular_column())
@@ -259,58 +271,29 @@ def build_valve_body():
 
 
 def main():
-    body = build_valve_body()
-
-    bb = body.val().BoundingBox()
-    print(f"Envelope: X [{bb.xmin:.2f}, {bb.xmax:.2f}]  "
-          f"Y [{bb.ymin:.2f}, {bb.ymax:.2f}]  "
-          f"Z [{bb.zmin:.2f}, {bb.zmax:.2f}]")
-    print(f"  Arch width:       {arch_block_width_y} mm each  |  Plateau: {plateau_width_y} mm wide in Y")
-    print(f"  Port center:      X={port_center_x:.3f} mm, Y={port_center_y:.1f} mm  |  Ø{port_diameter} mm")
-    print(f"  Port to X face:   {rect_long_half - port_center_x - port_radius:.3f} mm (should be {port_edge_gap_x} mm)")
-    print(f"  Port to arch (Y): {(plateau_width_y - port_diameter) / 2:.3f} mm each side")
-    print(f"  Shank:            Ø{shank_od} mm × {shank_length} mm long, Z = -{shank_length} → 0")
-
-    here = Path(__file__).resolve().parent
-    out = here / "westbrass-reference.step"
-    export_assembly(one_body(body, out.stem, M_DONOR_BLACK), str(out))
-    print(f"-> {out.name}")
-
-    variables = {
-        # Measured / stated dimensions.
-        "SHANK_OD": f"{shank_od:.4g} mm",
-        "SHANK_LEN": f"{shank_length:.4g} mm",
-        "BODY_OD": f"{body_od:.4g} mm",
-        "CYL_TOP_Z": f"{cylinder_height:.4g} mm",
-        "RECT_SHORT": f"{rect_short:.4g} mm",
-        "PLATEAU_Z": f"{plateau_z:.4g} mm",
-        "ARC_BASE_Z": f"{arc_base_z:.4g} mm",
-        "ARC_PEAK_Z": f"{arc_peak_z:.4g} mm",
-        "ARCH_WIDTH": f"{arch_block_width_y:.4g} mm",
-        "PLATEAU_WIDTH": f"{plateau_width_y:.4g} mm",
-        "VALVE_PORT_D": f"{port_diameter:.4g} mm",
-        "PORT_X": f"{port_center_x:.4g} mm",
-        "PORT_EDGE_GAP": f"{port_edge_gap_x:.4g} mm",
-        # Design choices.
-        "TRANSITION_FILLET_R": f"{transition_fillet_r:.4g} mm",
-        # External references.
-        "COUNTERTOP_HOLE": f"{countertop_hole_diameter:.4g} mm",
-        "PLUNGER_GAP": f"{plunger_gap_to_port:.4g} mm",
-        # Derived geometry.
-        "ARC_RISE": f"{arc_rise:.4g} mm",
-        "PLATEAU_INSET": f"{plateau_inset:.4g} mm",
-        "RECT_UPPER_H": f"{rect_upper_height:.4g} mm",
-        "PORT_ARCH_GAP": f"{port_arch_gap_y:.4g} mm",
-        "RECT_LONG_HALF": f"{rect_long_half_v:.4g} mm",
-        "PLUNGER_OD_EST": f"{plunger_od_estimate:.4g} mm",
-        "PORT_WALL_X": f"{port_wall_x:.4g} mm",
-    }
-    substitute_py_comments(
-        Path(__file__),
-        variables=variables,
-    )
-    print(f"-> westbrass_reference.py (self)")
+    print(f"Frozen STEP: {STEP_PATH}")
+    print(f"Display payload: {PAYLOAD_PATH}")
+    print(f"Fine payload: {FINE_PAYLOAD_PATH}")
 
 
 if __name__ == "__main__":
     main()
+
+
+def __getattr__(name):
+    if name == 'cq':
+        import cadquery as cq
+        return cq
+    if name in {'export_assembly'}:
+        import _cadq_export
+        return getattr(_cadq_export, name)
+    if name in {'M_DONOR_BLACK', 'one_body'}:
+        import _materials
+        return getattr(_materials, name)
+    if name in {'substitute_py_comments', 'substitute_md'}:
+        import docgen
+        return getattr(docgen, name)
+    if name in {'WorldWorkplane', 'xy_plane_z_up', 'yz_plane_x_up', 'xz_plane_y_up', 'xy_plane_z_down'}:
+        import world_workplane
+        return getattr(world_workplane, name)
+    raise AttributeError(f"module {__name__!r} has no attribute {name!r}")

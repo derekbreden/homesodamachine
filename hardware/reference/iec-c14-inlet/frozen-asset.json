@@ -1,0 +1,33 @@
+{
+  "source": {
+    "commit": "30bb5cb2d5b95f18f43637bd9be26daced05f1f5",
+    "path": "hardware/reference/iec-c14-inlet/iec_c14_inlet.py",
+    "sha256": "4b13559a1d43ea524568b5002e55f73c5cf31d7bdcca06f53ee9c1efdca464b3"
+  },
+  "members": {
+    "iec-c14-inlet.step": "778d68ef2a4231bbaaa80abdebcddb25c190d83af11bbf920e6a4fede2a2f6c8",
+    "iec-c14-inlet.step.mesh": "2dc3d94f5b4af7c34fc113c844f842913ebbb60ed23b4f6356f45904eaa5ac8c"
+  },
+  "fine_payload": {
+    "source_step_sha256": "778d68ef2a4231bbaaa80abdebcddb25c190d83af11bbf920e6a4fede2a2f6c8",
+    "path": "iec-c14-inlet.step.mesh",
+    "sha256": "2dc3d94f5b4af7c34fc113c844f842913ebbb60ed23b4f6356f45904eaa5ac8c",
+    "linear_mm": 0.005,
+    "angular_rad": 0.05,
+    "producer": "hardware/scripts/_rust_part.py:_tessellate",
+    "origin": "new one-time immutable published STEP conversion",
+    "meshes": [
+      {
+        "name": "iec-c14-inlet",
+        "color": [
+          0.18000000230218868,
+          0.18000000230218868,
+          0.19999999868206275
+        ],
+        "vertices": 14066,
+        "triangles": 15376,
+        "face_ranges": 116
+      }
+    ]
+  }
+}

@@ -32,18 +32,27 @@ holding temperature T_H 62 °C, maximum temperature limit T_M 150 °C, 10 A at
 
 Run:
     tools/cad-venv/bin/python hardware/reference/sf76e-thermal-fuse/sf76e_thermal_fuse.py
+
+
+The reference STEP and payloads are declared in `frozen-asset.json`.
+Native builder functions remain available to current composition callers.
 """
+
+from __future__ import annotations
 
 import sys
 from pathlib import Path
 
-import cadquery as cq
+_REFERENCE_DIR = Path(__file__).resolve().parent
+STEP_PATH = _REFERENCE_DIR / 'sf76e-thermal-fuse.step'
+PAYLOAD_PATH = _REFERENCE_DIR / 'sf76e-thermal-fuse.step.mesh'
+FINE_PAYLOAD_PATH = _REFERENCE_DIR / 'sf76e-thermal-fuse.step.mesh'
+ASSET_MANIFEST_PATH = _REFERENCE_DIR / "frozen-asset.json"
+
 
 _here = Path(__file__).resolve()
 _hw = next(p for p in _here.parents if p.name == "hardware")
 sys.path.insert(0, str(_hw / "scripts"))
-from _cadq_export import export_assembly
-from _materials import M_TINNED_STEEL, one_body  # noqa: E402
 
 # --- SF/E series outline (datasheet, mm) ----------------------------------
 BODY_D = 4.2           # case diameter, ±0.2
@@ -73,6 +82,7 @@ LEAD_STANDOFF = AXIS_Z - LEAD_D / 2.0
 
 def build():
     """The case lying on Z = 0 with a lead stub off each end, all on one axis."""
+    import cadquery as cq
     case = cq.Solid.makeCylinder(
         BODY_D / 2.0, BODY_L,
         cq.Vector(-BODY_L / 2.0, 0.0, AXIS_Z), cq.Vector(1, 0, 0))
@@ -86,22 +96,23 @@ def build():
 
 
 def main():
-    part = build()
-    bb = part.BoundingBox()
-    print("BOJACK SF76E SEFUSE thermal cutoff — SEFUSE SF/E series outline")
-    print(f"  X[{bb.xmin:.2f}, {bb.xmax:.2f}]  Y[{bb.ymin:.2f}, {bb.ymax:.2f}]"
-          f"  Z[{bb.zmin:.2f}, {bb.zmax:.2f}]")
-    print(f"  case  Ø{BODY_D:g} x {BODY_L:g}, lying on the seating plane, "
-          f"axis at z {AXIS_Z:g}")
-    print(f"  leads Ø{LEAD_D:g}, {LEAD_STUB:g} of straight modeled each end "
-          f"({LEAD_STANDOFF:g} clear of the seat); {LEAD_SHORT:g} + {LEAD_LONG:g} "
-          f"in the part, {OVERALL_L:g} end to end")
-    print(f"  opens at {TF_C:g} °C, holds below {TH_C:g} °C, "
-          f"{RATED_A:g} A / {RATED_V:g} V AC")
-    out = _here.parent / "sf76e-thermal-fuse.step"
-    export_assembly(one_body(part, "sf76e-thermal-fuse", M_TINNED_STEEL), str(out))
-    print(f"-> {out.name}")
+    print(f"Frozen STEP: {STEP_PATH}")
+    print(f"Display payload: {PAYLOAD_PATH}")
+    print(f"Fine payload: {FINE_PAYLOAD_PATH}")
 
 
 if __name__ == "__main__":
     main()
+
+
+def __getattr__(name):
+    if name == 'cq':
+        import cadquery as cq
+        return cq
+    if name in {'export_assembly'}:
+        import _cadq_export
+        return getattr(_cadq_export, name)
+    if name in {'M_TINNED_STEEL', 'one_body'}:
+        import _materials
+        return getattr(_materials, name)
+    raise AttributeError(f"module {__name__!r} has no attribute {name!r}")

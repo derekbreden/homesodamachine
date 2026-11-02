@@ -1,0 +1,55 @@
+{
+  "source": {
+    "commit": "30bb5cb2d5b95f18f43637bd9be26daced05f1f5",
+    "path": "hardware/reference/kamoer-kphm400/kamoer_kphm400.py",
+    "sha256": "f732bc6f64fa6af529a274d877e5ae1b7f15e486411beb57db5b295c9c31770b"
+  },
+  "members": {
+    "kamoer-kphm400.step": "d01775a9f13be7d33eef99a81c9bffa3db76de16a212e4ffc0f9498e621f9f1a",
+    "kamoer-kphm400.step.mesh": "e4cac9ab2ccf7f38339af4f9239a5c241e3bdde795b4d0bb56c907f25f36d9ea"
+  },
+  "fine_payload": {
+    "source_step_sha256": "d01775a9f13be7d33eef99a81c9bffa3db76de16a212e4ffc0f9498e621f9f1a",
+    "path": "kamoer-kphm400.step.mesh",
+    "sha256": "e4cac9ab2ccf7f38339af4f9239a5c241e3bdde795b4d0bb56c907f25f36d9ea",
+    "linear_mm": 0.005,
+    "angular_rad": 0.05,
+    "producer": "hardware/scripts/_rust_part.py:_tessellate",
+    "origin": "new one-time immutable published STEP conversion",
+    "meshes": [
+      {
+        "name": "head",
+        "color": [
+          0.1599999991998655,
+          0.1599999991998655,
+          0.18000000230218868
+        ],
+        "vertices": 246,
+        "triangles": 300,
+        "face_ranges": 26
+      },
+      {
+        "name": "motor_body",
+        "color": [
+          0.7400000119251188,
+          0.7600000136009657,
+          0.800000010877486
+        ],
+        "vertices": 1010,
+        "triangles": 1004,
+        "face_ranges": 3
+      },
+      {
+        "name": "rotor_housing",
+        "color": [
+          0.8999999981853644,
+          0.8999999981853644,
+          0.8799999977705522
+        ],
+        "vertices": 144,
+        "triangles": 92,
+        "face_ranges": 26
+      }
+    ]
+  }
+}
