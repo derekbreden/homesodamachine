@@ -8980,7 +8980,8 @@ def _export_pieces(pieces, assy, *, produced=()):
     bodies = {name: _piece_mesh(_print_solid(name, piece.val(), outer))
               for name, piece in pieces.items() if name not in produced}
     steel = ([_piece_mesh(_collet_plate_body(box.pack.collet_plate))]
-             if box.pack.collet_plate else [])
+             if bodies and box.pack.collet_plate else [])
+    berthed, rails = (), ()
     for name, piece in pieces.items():
         if name in produced:
             print(f"-> enclosure-{name}.step")
