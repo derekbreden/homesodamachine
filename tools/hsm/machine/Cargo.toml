@@ -21,4 +21,5 @@ path = "../../../hardware/manifold-layout/manifold_layout.rs"
 [dependencies]
 anyhow.workspace = true
 hsm-kernel = { path = "../kernel" }
+hsm-geometry = { path = "../geometry" }
 serde_json.workspace = true
