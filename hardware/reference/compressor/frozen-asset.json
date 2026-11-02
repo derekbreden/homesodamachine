@@ -6,12 +6,12 @@
   },
   "members": {
     "compressor.step": "8eaf3cd580b7ffa68578a00c2401673bbc45246eb565614d3d6175f5598b9d62",
-    "compressor.step.mesh": "0878b29ad96daee74a7e3d03c140cda2b1177717af3841b4192adf192d88985f"
+    "compressor.step.mesh": "e2453f221d7251a64d210d6e4e9a07b3de57cca34174b229a9f14ac33855a4c0"
   },
   "fine_payload": {
     "source_step_sha256": "8eaf3cd580b7ffa68578a00c2401673bbc45246eb565614d3d6175f5598b9d62",
     "path": "compressor.step.mesh",
-    "sha256": "0878b29ad96daee74a7e3d03c140cda2b1177717af3841b4192adf192d88985f",
+    "sha256": "e2453f221d7251a64d210d6e4e9a07b3de57cca34174b229a9f14ac33855a4c0",
     "linear_mm": 0.005,
     "angular_rad": 0.05,
     "producer": "hardware/scripts/_rust_part.py:_tessellate",
@@ -20,9 +20,9 @@
       {
         "name": "compressor/1",
         "color": [
-          0.18000000230218868,
-          0.18000000230218868,
-          0.190000001765487
+          0.027211781591176987,
+          0.027211781591176987,
+          0.0300741046667099
         ],
         "vertices": 5518,
         "triangles": 5496,
@@ -31,14 +31,15 @@
       {
         "name": "compressor/2",
         "color": [
-          0.18000000230218868,
-          0.18000000230218868,
-          0.190000001765487
+          0.027211781591176987,
+          0.027211781591176987,
+          0.0300741046667099
         ],
         "vertices": 24,
         "triangles": 12,
         "face_ranges": 6
       }
-    ]
+    ],
+    "color_space": "linear-rgb"
   }
 }
