@@ -4,8 +4,8 @@
   "recipe_sha256": "0b23dad19c95310a76045a83a8a92b90b74f781f6bc08ff2db1bca217b9ca357",
   "parts": {
     "front-top": {
-      "preparation_directory": ".cache/prints/enclosure-final-circuits/2026-10-31-front-top-mark1-a2fd25ca",
-      "preparation_record_sha256": "5b8189b62f0fa0ed225160b577a6b3df6bcf0241e0c966e6df26f8e9a205dff8",
+      "preparation_directory": ".cache/retention-integration/slices-v3-final/2026-11-02-front-top-mark1-95013506",
+      "preparation_record_sha256": "d9882bb3895981bb169d54c3302565ac946bd24aae3e85a55b844e92a1ea0a88",
       "profile_sha256": "45c16e8c8517e0a205107d7b9f7412d013f51a8de7ecf86125cc940079d37ed0",
       "printer": "Mark1",
       "nozzle": {
@@ -18,56 +18,17 @@
         "sliced_volume_type": "Standard"
       },
       "material": "Polymaker Fiberon PET-GF15, black",
-      "settings_changes": {
-        "extruder_ams_count": {
-          "from": [
-            "1#0|4#1",
-            "1#0|4#0"
-          ],
-          "to": [
-            "1#0|4#0",
-            "1#0|4#0"
-          ],
-          "reason": "Single external black PET-GF spool on the fixed left nozzle for model, support and interface."
-        },
-        "support_filament": {
-          "from": "0",
-          "to": "1",
-          "reason": "Single external black PET-GF spool on the fixed left nozzle for model, support and interface."
-        },
-        "support_interface_filament": {
-          "from": "0",
-          "to": "1",
-          "reason": "Single external black PET-GF spool on the fixed left nozzle for model, support and interface."
-        },
-        "flush_into_support": {
-          "from": "1",
-          "to": "0",
-          "reason": "Single external black PET-GF spool on the fixed left nozzle for model, support and interface."
-        },
-        "filament_colour": {
-          "from": [
-            "#000000"
-          ],
-          "to": [
-            "#000000"
-          ],
-          "reason": "Mark1's loaded black PET-GF colour reading."
-        },
-        "support_object_xy_distance": {
-          "from": "0.4",
-          "to": "0.5",
-          "reason": "Tree-trunk arches on front-top's top-facing seam land (v17 article). Front-top only; bottom Z 0.30 mm, top Z 0.45 mm and branch dimensions keep their profile values. enclosure/enclosure/support-bottom-gap/README.md."
-        }
-      },
       "objects": [
         {
           "name": "enclosure-front-top",
+          "identify_id": 1901,
+          "object_id": 2,
           "stl": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl",
-          "stl_sha256": "169a9a2dad02b09dde59d4e19f2e49e632c55e5ca1531de880140f27cb5b4d9b",
-          "step_sha256": "4c00b44dca0f1b9ee697ed43416757e2a019e59de1d91b12859a28de113328cd",
+          "stl_sha256": "d2e4ef87a0fc0d5be7ec7ac193fcb635e968b5ca68afb42a2f67da55daf6db51",
+          "step_sha256": "d40a5a648c95f07c717d6d466ed341d321606ebcf44400f829f4c2393e184119",
+          "facets": 501076,
           "closed": {
-            "edges": 751806,
+            "edges": 751614,
             "boundary_edges": 0,
             "nonmanifold_edges": 0,
             "inconsistent_edges": 0,
@@ -93,6 +54,11 @@
             ]
           ],
           "yaw_degrees": 0,
+          "source_center_mm": [
+            0.0,
+            111.4000015258789,
+            257.625
+          ],
           "build_rotation": [
             [
               1.0,
@@ -127,6 +93,9 @@
               194.75
             ]
           ],
+          "model_bed_margin_mm": 53.599998474121094,
+          "seam_enforcer": null,
+          "object_settings": {},
           "features": [
             {
               "name": "R6 roof side edges, level run",
@@ -138,7 +107,7 @@
               "layer_height_mm": 0.08,
               "components": [
                 {
-                  "faces": 1697,
+                  "faces": 1700,
                   "area_mm2": 709.889,
                   "bounds_print_mm": [
                     [
@@ -154,12 +123,12 @@
                   ]
                 },
                 {
-                  "faces": 1698,
-                  "area_mm2": 709.881,
+                  "faces": 1694,
+                  "area_mm2": 709.874,
                   "bounds_print_mm": [
                     [
                       105.208,
-                      -20.041,
+                      -20.209,
                       188.498
                     ],
                     [
@@ -182,8 +151,8 @@
               "layer_height_mm": 0.08,
               "components": [
                 {
-                  "faces": 739,
-                  "area_mm2": 1407.521,
+                  "faces": 737,
+                  "area_mm2": 1407.523,
                   "bounds_print_mm": [
                     [
                       -105.208,
@@ -211,9 +180,26 @@
               "feature": "R6 roof side edges, level run + R18 display-to-roof roll"
             }
           ],
+          "verify_spans": [
+            {
+              "name": "R6 roof side edges, level run",
+              "print_z_mm": [
+                188.49423217773438,
+                194.75
+              ],
+              "layer_height_mm": 0.08
+            },
+            {
+              "name": "R18 display-to-roof roll",
+              "print_z_mm": [
+                192.33200073242188,
+                194.71002197265625
+              ],
+              "layer_height_mm": 0.08
+            }
+          ],
           "ribbons": [],
           "tie_windows": [],
-          "fins": [],
           "modifiers": [
             {
               "name": "Y seam knuckle and its wall root +1/231.35",
@@ -221,7 +207,7 @@
                 [
                   -107.499,
                   197.0,
-                  231.59999989999997
+                  231.6
                 ],
                 [
                   -91.5,
@@ -233,7 +219,7 @@
                 [
                   55.001000000000005,
                   245.5999984741211,
-                  71.34999989999997
+                  71.35
                 ],
                 [
                   71.0,
@@ -249,7 +235,7 @@
                 [
                   -107.499,
                   197.0,
-                  228.34999989999997
+                  228.35
                 ],
                 [
                   -91.5,
@@ -261,7 +247,7 @@
                 [
                   55.001000000000005,
                   245.5999984741211,
-                  68.09999989999997
+                  68.1
                 ],
                 [
                   71.0,
@@ -277,7 +263,7 @@
                 [
                   91.5,
                   197.0,
-                  231.59999989999997
+                  231.6
                 ],
                 [
                   107.499,
@@ -289,7 +275,7 @@
                 [
                   254.0,
                   245.5999984741211,
-                  71.34999989999997
+                  71.35
                 ],
                 [
                   269.999,
@@ -305,7 +291,7 @@
                 [
                   91.5,
                   197.0,
-                  228.34999989999997
+                  228.35
                 ],
                 [
                   107.499,
@@ -317,7 +303,7 @@
                 [
                   254.0,
                   245.5999984741211,
-                  68.09999989999997
+                  68.1
                 ],
                 [
                   269.999,
@@ -445,24 +431,24 @@
                 [
                   -107.499,
                   118.99999207671873,
-                  335.7999999
+                  335.8
                 ],
                 [
                   -88.0,
                   130.99999207671874,
-                  345.9999999
+                  346.0
                 ]
               ],
               "plate_bounds_mm": [
                 [
                   55.001000000000005,
                   167.59999055083983,
-                  175.5499999
+                  175.55
                 ],
                 [
                   74.5,
                   179.59999055083983,
-                  185.74999989999998
+                  185.75
                 ]
               ],
               "sparse_infill_density": "100%"
@@ -473,33 +459,38 @@
                 [
                   88.0,
                   118.99999207671873,
-                  335.7999999
+                  335.8
                 ],
                 [
                   107.499,
                   130.99999207671874,
-                  345.9999999
+                  346.0
                 ]
               ],
               "plate_bounds_mm": [
                 [
                   250.5,
                   167.59999055083983,
-                  175.5499999
+                  175.55
                 ],
                 [
                   269.999,
                   179.59999055083983,
-                  185.74999989999998
+                  185.75
                 ]
               ],
               "sparse_infill_density": "100%"
             }
           ],
-          "current_native_step_sha256": "4c00b44dca0f1b9ee697ed43416757e2a019e59de1d91b12859a28de113328cd"
+          "fins": [],
+          "regions": {
+            "record": "hardware/printed-parts/enclosure/enclosure/heat-set-review/print-regions.json",
+            "record_sha256": "32020dd07c76d8631f3feb55862367227fe8adf5d7726a99c0a1f6ac04bbc0f0",
+            "part_process_overrides": null
+          }
         }
       ],
-      "archive_sha256": "7edf34558693c94c9839c295dbcc509f17db81992f1bfa6d5d9a3f306a3deaf8",
+      "archive_sha256": "2499c25bd92de6748997dfb95b23b6b30657fe0b11c3f0a01866d6ad6ff63fb4",
       "checks": {
         "archive": true,
         "z_trim": true,
@@ -510,20 +501,20 @@
         "ribbons_support_free_and_printed": true,
         "solid_hosts_sampled": true
       },
-      "minimum_bed_margin_mm": 24.943785000000048,
+      "minimum_bed_margin_mm": 24.95178500000003,
       "bed_border_mm": 20.0,
       "support_audits": [
         {
-          "record_sha256": "86444ea4552e33dca86c4d19fef96a65cd74f58f65a9e12e452c30d72644729c",
+          "record_sha256": "ce015038c0eed775cf7a5853074897b0a8c871989700b8eb48533add2e795a16",
           "schema": 1,
           "piece": "enclosure-front-top",
           "inputs": {
             "gcode": "support-labels-1901.gcode",
-            "gcode_sha256": "953d40ff4440476cf4a2e9922889273622729cef9f1db5d672510e3508ebef0a",
+            "gcode_sha256": "df87688b357c0dd839bc3af8e4e073a87cf405b6cfd1df22c4eb5625f3f901bb",
             "model": "/Users/derekbredensteiner/Developer/hsm-approved-asse/hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl",
-            "model_sha256": "169a9a2dad02b09dde59d4e19f2e49e632c55e5ca1531de880140f27cb5b4d9b",
-            "profile": ".cache/prints/enclosure-final-circuits/2026-10-31-front-top-mark1-a2fd25ca/2026-10-31-front-top-mark1-a2fd25ca.3mf",
-            "profile_sha256": "6c4777e01f4a6276e40db7a2889ba09a6c8c0cf0f9493b232b2fc8f0cc2ee6c2"
+            "model_sha256": "d2e4ef87a0fc0d5be7ec7ac193fcb635e968b5ca68afb42a2f67da55daf6db51",
+            "profile": ".cache/retention-integration/slices-v3-final/2026-11-02-front-top-mark1-95013506/2026-11-02-front-top-mark1-95013506.3mf",
+            "profile_sha256": "7faefa687ae09a4dc4966d5f900548910a78a7afd2efb73e79035a4b48bc602b"
           },
           "slicer": "BambuStudio 02.08.02.61",
           "first_layer_z_mm": 0.2,
@@ -564,8 +555,8 @@
           "summary": {
             "support_bodies": 14,
             "interface_islands": null,
-            "bed_rooted_bodies": 13,
-            "model_rooted_bodies": 1,
+            "bed_rooted_bodies": 12,
+            "model_rooted_bodies": 2,
             "shortest_build_up_mm": null,
             "bodies_without_interface_labels": 10,
             "explicit_interface_islands": 12,
@@ -610,7 +601,7 @@
                 64.8,
                 63.2,
                 260.4,
-                133.2
+                138.8
               ],
               "interfaces": [
                 "interface-2",
@@ -627,7 +618,7 @@
                 14.6,
                 160.45,
                 97.9,
-                84.6,
+                90.2,
                 345.73
               ],
               "removal_lane": "Open pump and shared motor/PCB room, from below, the motor bores and broad rear cable mouth before hardware. The display wing lanes also open through the two lower 69.3 by 4.96 mm mouths."
@@ -641,18 +632,18 @@
               "top_z_mm": 107.96,
               "bbox_xy_mm": [
                 66.8,
-                135.2,
+                139.6,
                 94.8,
-                171.2
+                171.6
               ],
               "interfaces": [],
               "interface_reading": "unlabelled",
               "bbox_cad_xyz_mm": [
                 -95.7,
-                86.6,
+                91.0,
                 160.45,
                 -67.7,
-                122.6,
+                123.0,
                 268.21
               ],
               "removal_lane": "Open lower/fore valve and tee pockets before loading either aligned pump/valve group; access through their unloaded bores and the empty tray."
@@ -684,6 +675,31 @@
             },
             {
               "id": "tree-5",
+              "root": "model",
+              "base_z_mm": 139.64,
+              "first_interface_z_mm": null,
+              "shortest_build_up_mm": null,
+              "top_z_mm": 139.64,
+              "bbox_xy_mm": [
+                102.4,
+                96.0,
+                102.4,
+                96.4
+              ],
+              "interfaces": [],
+              "interface_reading": "unlabelled",
+              "bbox_cad_xyz_mm": [
+                -60.1,
+                47.4,
+                299.89,
+                -60.1,
+                47.8,
+                299.89
+              ],
+              "removal_lane": "Small model-rooted support at the open pump-bay face, removed through the unloaded pump opening before fitting pump or PCB."
+            },
+            {
+              "id": "tree-6",
               "root": "bed",
               "base_z_mm": 0.2,
               "first_interface_z_mm": null,
@@ -705,10 +721,10 @@
                 177.4,
                 216.61
               ],
-              "removal_lane": "Open rear valve-tray cavities from the unloaded fore/aft mouths and below before the rear valves and their elbows are fitted. The small model-rooted tree-8 and all unlabeled bodies are included."
+              "removal_lane": "Open lower/fore valve and tee pockets before loading either aligned pump/valve group; access through their unloaded bores and the empty tray."
             },
             {
-              "id": "tree-6",
+              "id": "tree-7",
               "root": "bed",
               "base_z_mm": 0.2,
               "first_interface_z_mm": null,
@@ -730,10 +746,10 @@
                 122.6,
                 268.21
               ],
-              "removal_lane": "Open lower/fore valve and tee pockets before loading either aligned pump/valve group; access through their unloaded bores and the empty tray."
+              "removal_lane": "Open rear valve-tray cavities from the unloaded fore/aft mouths and below before the rear valves and their elbows are fitted. The small model-rooted tree-8 and all unlabeled bodies are included."
             },
             {
-              "id": "tree-7",
+              "id": "tree-8",
               "root": "bed",
               "base_z_mm": 0.2,
               "first_interface_z_mm": null,
@@ -758,7 +774,7 @@
               "removal_lane": "Open rear valve-tray cavities from the unloaded fore/aft mouths and below before the rear valves and their elbows are fitted. The small model-rooted tree-8 and all unlabeled bodies are included."
             },
             {
-              "id": "tree-8",
+              "id": "tree-9",
               "root": "model",
               "base_z_mm": 25.325,
               "first_interface_z_mm": null,
@@ -783,7 +799,7 @@
               "removal_lane": "Open rear valve-tray cavities from the unloaded fore/aft mouths and below before the rear valves and their elbows are fitted. The small model-rooted tree-8 and all unlabeled bodies are included."
             },
             {
-              "id": "tree-9",
+              "id": "tree-10",
               "root": "bed",
               "base_z_mm": 0.2,
               "first_interface_z_mm": null,
@@ -808,32 +824,36 @@
               "removal_lane": "Open rear valve-tray cavities from the unloaded fore/aft mouths and below before the rear valves and their elbows are fitted. The small model-rooted tree-8 and all unlabeled bodies are included."
             },
             {
-              "id": "tree-10",
+              "id": "tree-11",
               "root": "bed",
               "base_z_mm": 0.2,
-              "first_interface_z_mm": null,
-              "shortest_build_up_mm": null,
-              "top_z_mm": 56.36,
+              "first_interface_z_mm": 34.031,
+              "shortest_build_up_mm": 33.831,
+              "top_z_mm": 131.24,
               "bbox_xy_mm": [
-                216.4,
-                204.8,
-                234.0,
-                226.0
+                216.8,
+                185.2,
+                266.4,
+                233.2
               ],
-              "interfaces": [],
-              "interface_reading": "unlabelled",
+              "interfaces": [
+                "interface-1",
+                "interface-5",
+                "interface-6"
+              ],
+              "interface_reading": "explicit_feature",
               "bbox_cad_xyz_mm": [
-                53.9,
-                156.2,
+                54.3,
+                136.6,
                 160.45,
-                71.5,
-                177.4,
-                216.61
+                103.9,
+                184.6,
+                291.49
               ],
-              "removal_lane": "Open rear valve-tray cavities from the unloaded fore/aft mouths and below before the rear valves and their elbows are fitted. The small model-rooted tree-8 and all unlabeled bodies are included."
+              "removal_lane": "Merged east manifold-WAGO and valve-tower support, removed through the broad open inboard tower face and unloaded valve mouths before fitting either WAGO or valves."
             },
             {
-              "id": "tree-11",
+              "id": "tree-12",
               "root": "bed",
               "base_z_mm": 0.2,
               "first_interface_z_mm": null,
@@ -855,36 +875,7 @@
                 122.6,
                 268.21
               ],
-              "removal_lane": "Open lower/fore valve and tee pockets before loading either aligned pump/valve group; access through their unloaded bores and the empty tray."
-            },
-            {
-              "id": "tree-12",
-              "root": "bed",
-              "base_z_mm": 0.2,
-              "first_interface_z_mm": 34.031,
-              "shortest_build_up_mm": 33.831,
-              "top_z_mm": 131.24,
-              "bbox_xy_mm": [
-                235.2,
-                185.2,
-                266.4,
-                233.2
-              ],
-              "interfaces": [
-                "interface-1",
-                "interface-5",
-                "interface-6"
-              ],
-              "interface_reading": "explicit_feature",
-              "bbox_cad_xyz_mm": [
-                72.7,
-                136.6,
-                160.45,
-                103.9,
-                184.6,
-                291.49
-              ],
-              "removal_lane": "Open inboard faces of the east Wago tower and outer-coil pocket before fitting either connector or valve; the pocket opens across its full interior face."
+              "removal_lane": "East fore valve pocket, removed through its unloaded lower and fore bores before fitting the valve and elbows."
             },
             {
               "id": "tree-13",
@@ -950,7 +941,7 @@
                 259.6,
                 206.8
               ],
-              "tree": "tree-12",
+              "tree": "tree-11",
               "build_up_mm": 33.831,
               "bbox_cad_xyz_mm": [
                 97.1,
@@ -1029,15 +1020,15 @@
               "first_z_mm": 97.155,
               "last_z_mm": 97.43,
               "bbox_xy_mm": [
-                257.2,
+                258.0,
                 218.4,
                 266.4,
                 225.6
               ],
-              "tree": "tree-12",
+              "tree": "tree-11",
               "build_up_mm": 96.955,
               "bbox_cad_xyz_mm": [
-                94.7,
+                95.5,
                 169.8,
                 257.405,
                 103.9,
@@ -1050,15 +1041,15 @@
               "first_z_mm": 131.0,
               "last_z_mm": 131.24,
               "bbox_xy_mm": [
-                257.2,
+                258.0,
                 218.4,
                 266.4,
                 233.2
               ],
-              "tree": "tree-12",
+              "tree": "tree-11",
               "build_up_mm": 130.8,
               "bbox_cad_xyz_mm": [
-                94.7,
+                95.5,
                 169.8,
                 291.25,
                 103.9,
@@ -1196,54 +1187,71 @@
           "interface_feature_policy": "All support bodies are retained; unlabelled interfaces have unknown contact count and build-up."
         }
       ],
-      "fine_and_transition_bands": [
-        {
-          "object": 1901,
-          "name": "R6 roof side edges, level run",
-          "print_z_mm": [
-            188.49423217773438,
-            194.75
-          ],
-          "wall_layer_count": 79,
-          "first_wall_layer": [
-            188.52,
-            0.080002
-          ],
-          "last_wall_layer": [
-            194.76,
-            0.080002
-          ],
-          "wrong_height_layers": [],
-          "uncovered_intervals_mm": [],
-          "pass": true
-        },
-        {
-          "object": 1901,
-          "name": "R18 display-to-roof roll",
-          "print_z_mm": [
-            192.33200073242188,
-            194.71002197265625
-          ],
-          "wall_layer_count": 31,
-          "first_wall_layer": [
-            192.36,
-            0.080002
-          ],
-          "last_wall_layer": [
-            194.76,
-            0.080002
-          ],
-          "wrong_height_layers": [],
-          "uncovered_intervals_mm": [],
-          "pass": true
+      "support_topology": {
+        "1901": {
+          "support_bodies": 14,
+          "interface_islands": null,
+          "bed_rooted_bodies": 12,
+          "model_rooted_bodies": 2,
+          "shortest_build_up_mm": null,
+          "bodies_without_interface_labels": 10,
+          "explicit_interface_islands": 12,
+          "shortest_labelled_build_up_mm": 33.831
         }
-      ],
-      "show_face_contacts": [],
-      "tie_window_support_crossings": []
+      },
+      "first_second_layer_stack": {
+        "1901": {
+          "second_layer_model_bead_area_mm2": 9436.450181750788,
+          "fraction_over_first_layer": 0.9650790247999077,
+          "second_layer_centerline_outside_first_mm": 86.509052196748
+        }
+      },
+      "settings_changes": {
+        "extruder_ams_count": {
+          "from": [
+            "1#0|4#1",
+            "1#0|4#0"
+          ],
+          "to": [
+            "1#0|4#0",
+            "1#0|4#0"
+          ],
+          "reason": "Single external black PET-GF spool on the fixed left nozzle for model, support and interface."
+        },
+        "support_filament": {
+          "from": "0",
+          "to": "1",
+          "reason": "Single external black PET-GF spool on the fixed left nozzle for model, support and interface."
+        },
+        "support_interface_filament": {
+          "from": "0",
+          "to": "1",
+          "reason": "Single external black PET-GF spool on the fixed left nozzle for model, support and interface."
+        },
+        "flush_into_support": {
+          "from": "1",
+          "to": "0",
+          "reason": "Single external black PET-GF spool on the fixed left nozzle for model, support and interface."
+        },
+        "filament_colour": {
+          "from": [
+            "#000000"
+          ],
+          "to": [
+            "#000000"
+          ],
+          "reason": "Mark1's loaded black PET-GF colour reading."
+        },
+        "support_object_xy_distance": {
+          "from": "0.4",
+          "to": "0.5",
+          "reason": "Tree-trunk arches on front-top's top-facing seam land (v17 article). Front-top only; bottom Z 0.30 mm, top Z 0.45 mm and branch dimensions keep their profile values. enclosure/enclosure/support-bottom-gap/README.md."
+        }
+      }
     },
     "back-top": {
-      "preparation_directory": ".cache/retention-integration/slices-v3-final/2026-11-02-back-top-mark2-58fdd499",
-      "preparation_record_sha256": "f306207b3ff031459c9f03273b81dbc2207c6b7b23acd9b049f638c63255f4e8",
+      "preparation_directory": ".cache/retention-integration/slices-v3-final/2026-11-02-back-top-mark2-d9a7aee8",
+      "preparation_record_sha256": "62877a4f5beea719613dfa58045fde40557f69c4fb17e3d291c816e40eba14f4",
       "profile_sha256": "45c16e8c8517e0a205107d7b9f7412d013f51a8de7ecf86125cc940079d37ed0",
       "printer": "Mark2",
       "nozzle": {
@@ -1262,11 +1270,11 @@
           "identify_id": 1901,
           "object_id": 2,
           "stl": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl",
-          "stl_sha256": "55e7f9fa03957614010c983bd9e6f510c5bfc94c310cdeb0733afb76508fe151",
-          "step_sha256": "fcb3ec7e28b04497e26b1cae7d6be8b5c5d381a7117cbe94655d4c9df3935bfe",
-          "facets": 879472,
+          "stl_sha256": "da7d9922dee9e5e7b7d4ab20fb88fe5b0069a4e9dba92798c4162f0fbcc54980",
+          "step_sha256": "1e9798e233d95b3634788593d9c7a1b99305b5d3d7e251ebc82223c8fa2c72e7",
+          "facets": 879574,
           "closed": {
-            "edges": 1319208,
+            "edges": 1319361,
             "boundary_edges": 0,
             "nonmanifold_edges": 0,
             "inconsistent_edges": 0,
@@ -2763,12 +2771,12 @@
           "fins": [],
           "regions": {
             "record": "hardware/printed-parts/enclosure/enclosure/heat-set-review/print-regions.json",
-            "record_sha256": "f196ce365317c60e548668d186a3ad04e9a41723c2949e5a454077d322b69607",
+            "record_sha256": "a279d2ea551594c0075293ca463c603a8fdcbfc7c64b158ccf49e50f4463848a",
             "part_process_overrides": null
           }
         }
       ],
-      "archive_sha256": "5894f35393c45b1a34e5e284a1f22f06a43f6d0d9cd6ebe3c4338235039fb567",
+      "archive_sha256": "7991063d42701db9176b8bff58ce3e361786147604db7c620255e90442c7dec1",
       "checks": {
         "archive": true,
         "z_trim": true,
@@ -2783,16 +2791,16 @@
       "bed_border_mm": 20.0,
       "support_audits": [
         {
-          "record_sha256": "add0fe650a17d6055f884dec1435294f20d27015253c1b8c0189df07160399a4",
+          "record_sha256": "0b192af40562ee1b1121b60a96cdeb89b046dc6d34cac3b87f14c2ff9c918b76",
           "schema": 1,
           "piece": "enclosure-back-top",
           "inputs": {
             "gcode": "support-labels-1901.gcode",
-            "gcode_sha256": "ded3c589d333c5662eea4d430c3510007aee95e28fc3db084944af268a3f3ede",
+            "gcode_sha256": "37b892e9ea072417ff6e9b759b4505e3629e6585e094f55a17e4547e103795b0",
             "model": "/Users/derekbredensteiner/Developer/hsm-approved-asse/hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl",
-            "model_sha256": "55e7f9fa03957614010c983bd9e6f510c5bfc94c310cdeb0733afb76508fe151",
-            "profile": ".cache/retention-integration/slices-v3-final/2026-11-02-back-top-mark2-58fdd499/2026-11-02-back-top-mark2-58fdd499.3mf",
-            "profile_sha256": "7ec3153b970f033c5750623b266e4c70655b4c228e4a3a90344d95ab4aa72ae4"
+            "model_sha256": "da7d9922dee9e5e7b7d4ab20fb88fe5b0069a4e9dba92798c4162f0fbcc54980",
+            "profile": ".cache/retention-integration/slices-v3-final/2026-11-02-back-top-mark2-d9a7aee8/2026-11-02-back-top-mark2-d9a7aee8.3mf",
+            "profile_sha256": "4ee799615a602fb5299a21524d39e5ebbf2e59e2599e7c7ccb1b21ec3f18b387"
           },
           "slicer": "BambuStudio 02.08.02.61",
           "first_layer_z_mm": 0.2,
@@ -2826,14 +2834,14 @@
             "support_type": "tree(auto)"
           },
           "summary": {
-            "support_bodies": 16,
-            "interface_islands": 31,
+            "support_bodies": 17,
+            "interface_islands": 32,
             "bed_rooted_bodies": 8,
-            "model_rooted_bodies": 8,
-            "shortest_build_up_mm": 1.92,
+            "model_rooted_bodies": 9,
+            "shortest_build_up_mm": 0.0,
             "bodies_without_interface_labels": 0,
-            "explicit_interface_islands": 31,
-            "shortest_labelled_build_up_mm": 1.92
+            "explicit_interface_islands": 32,
+            "shortest_labelled_build_up_mm": 0.0
           },
           "trees": [
             {
@@ -2907,8 +2915,8 @@
               ],
               "interfaces": [
                 "interface-1",
-                "interface-24",
-                "interface-28"
+                "interface-25",
+                "interface-29"
               ],
               "interface_reading": "explicit_feature",
               "bbox_cad_xyz_mm": [
@@ -2936,7 +2944,7 @@
               ],
               "interfaces": [
                 "interface-2",
-                "interface-30"
+                "interface-31"
               ],
               "interface_reading": "explicit_feature",
               "bbox_cad_xyz_mm": [
@@ -3015,7 +3023,7 @@
               "bbox_xy_mm": [
                 207.2,
                 242.8,
-                267.2,
+                267.6,
                 258.0
               ],
               "interfaces": [
@@ -3027,7 +3035,7 @@
                 386.175,
                 309.68,
                 98.0,
-                446.175,
+                446.575,
                 345.44
               ],
               "removal_lane": "Open west-facing interior of the east equipment seats before hardware and snap caps are fitted."
@@ -3046,9 +3054,9 @@
                 255.6
               ],
               "interfaces": [
-                "interface-25",
                 "interface-26",
-                "interface-27"
+                "interface-27",
+                "interface-28"
               ],
               "interface_reading": "explicit_feature",
               "bbox_cad_xyz_mm": [
@@ -3121,12 +3129,12 @@
               "base_z_mm": 9.56,
               "first_interface_z_mm": 26.84,
               "shortest_build_up_mm": 17.28,
-              "top_z_mm": 67.16,
+              "top_z_mm": 73.16,
               "bbox_xy_mm": [
                 255.2,
                 62.4,
-                269.2,
-                74.4
+                280.0,
+                102.4
               ],
               "interfaces": [
                 "interface-10",
@@ -3138,12 +3146,12 @@
               "bbox_cad_xyz_mm": [
                 -97.6,
                 434.175,
-                287.84,
-                -85.6,
-                448.175,
+                281.84,
+                -57.6,
+                458.975,
                 345.44
               ],
-              "removal_lane": "Open east-facing interior of the west equipment/relay seats before hardware is fitted."
+              "removal_lane": "Open inboard ceiling/equipment seats and fore seam mouths, ceiling-down on the bench before populating back-top."
             },
             {
               "id": "tree-12",
@@ -3175,6 +3183,33 @@
             {
               "id": "tree-13",
               "root": "model",
+              "base_z_mm": 78.44,
+              "first_interface_z_mm": 78.44,
+              "shortest_build_up_mm": 0.0,
+              "top_z_mm": 78.92,
+              "bbox_xy_mm": [
+                278.4,
+                62.8,
+                279.6,
+                86.4
+              ],
+              "interfaces": [
+                "interface-24"
+              ],
+              "interface_reading": "explicit_feature",
+              "bbox_cad_xyz_mm": [
+                -97.2,
+                457.375,
+                276.08,
+                -73.6,
+                458.575,
+                276.56
+              ],
+              "removal_lane": "Empty rear equipment and port openings, from the fore interior and the exterior rear mouths before fitting ports, electronics or nameplates."
+            },
+            {
+              "id": "tree-14",
+              "root": "model",
               "base_z_mm": 9.56,
               "first_interface_z_mm": 19.16,
               "shortest_build_up_mm": 9.6,
@@ -3200,7 +3235,7 @@
               "removal_lane": "Empty rear equipment and port openings, from the fore interior and the exterior rear mouths before fitting ports, electronics or nameplates."
             },
             {
-              "id": "tree-14",
+              "id": "tree-15",
               "root": "bed",
               "base_z_mm": 0.2,
               "first_interface_z_mm": 32.84,
@@ -3208,17 +3243,17 @@
               "top_z_mm": 104.6,
               "bbox_xy_mm": [
                 283.2,
-                231.2,
+                230.8,
                 301.6,
                 249.2
               ],
               "interfaces": [
                 "interface-13",
-                "interface-29"
+                "interface-30"
               ],
               "interface_reading": "explicit_feature",
               "bbox_cad_xyz_mm": [
-                71.2,
+                70.8,
                 462.175,
                 250.4,
                 89.2,
@@ -3228,7 +3263,7 @@
               "removal_lane": "Empty rear equipment and port openings, from the fore interior and the exterior rear mouths before fitting ports, electronics or nameplates."
             },
             {
-              "id": "tree-15",
+              "id": "tree-16",
               "root": "bed",
               "base_z_mm": 0.2,
               "first_interface_z_mm": 35.24,
@@ -3244,7 +3279,7 @@
                 "interface-14",
                 "interface-22",
                 "interface-23",
-                "interface-31"
+                "interface-32"
               ],
               "interface_reading": "explicit_feature",
               "bbox_cad_xyz_mm": [
@@ -3258,7 +3293,7 @@
               "removal_lane": "Empty rear equipment and port openings, from the fore interior and the exterior rear mouths before fitting ports, electronics or nameplates."
             },
             {
-              "id": "tree-16",
+              "id": "tree-17",
               "root": "bed",
               "base_z_mm": 0.2,
               "first_interface_z_mm": 35.24,
@@ -3266,7 +3301,7 @@
               "top_z_mm": 35.48,
               "bbox_xy_mm": [
                 289.6,
-                68.0,
+                67.6,
                 303.6,
                 81.2
               ],
@@ -3275,7 +3310,7 @@
               ],
               "interface_reading": "explicit_feature",
               "bbox_cad_xyz_mm": [
-                -92.0,
+                -92.4,
                 468.575,
                 319.52,
                 -78.8,
@@ -3443,7 +3478,7 @@
                 282.8,
                 114.0
               ],
-              "tree": "tree-13",
+              "tree": "tree-14",
               "build_up_mm": 9.6,
               "bbox_cad_xyz_mm": [
                 -50.8,
@@ -3543,16 +3578,16 @@
               "first_z_mm": 32.84,
               "last_z_mm": 33.32,
               "bbox_xy_mm": [
-                286.0,
+                286.4,
                 234.0,
                 291.2,
                 238.8
               ],
-              "tree": "tree-14",
+              "tree": "tree-15",
               "build_up_mm": 32.64,
               "bbox_cad_xyz_mm": [
                 74.0,
-                464.975,
+                465.375,
                 321.68,
                 78.8,
                 470.175,
@@ -3570,16 +3605,16 @@
                 103.2
               ],
               "trees": [
-                "tree-15",
-                "tree-16"
+                "tree-16",
+                "tree-17"
               ],
               "first_z_by_tree_mm": {
-                "tree-15": 35.24,
-                "tree-16": 35.24
+                "tree-16": 35.24,
+                "tree-17": 35.24
               },
               "build_up_by_tree_mm": {
-                "tree-15": 35.04,
-                "tree-16": 35.04
+                "tree-16": 35.04,
+                "tree-17": 35.04
               },
               "bbox_cad_xyz_mm": [
                 -80.4,
@@ -3618,7 +3653,7 @@
               "bbox_xy_mm": [
                 207.2,
                 243.2,
-                266.8,
+                267.2,
                 258.0
               ],
               "tree": "tree-7",
@@ -3628,7 +3663,7 @@
                 386.175,
                 309.68,
                 98.0,
-                445.775,
+                446.175,
                 310.16
               ]
             },
@@ -3679,18 +3714,18 @@
               "first_z_mm": 46.04,
               "last_z_mm": 46.52,
               "bbox_xy_mm": [
-                259.6,
+                259.2,
                 67.2,
                 265.2,
-                71.6
+                70.4
               ],
               "tree": "tree-11",
               "build_up_mm": 36.48,
               "bbox_cad_xyz_mm": [
                 -92.8,
-                438.575,
+                438.175,
                 308.48,
-                -88.4,
+                -89.6,
                 444.175,
                 308.96
               ]
@@ -3743,32 +3778,11 @@
               "last_z_mm": 71.0,
               "bbox_xy_mm": [
                 286.0,
-                186.4,
-                290.8,
-                188.0
-              ],
-              "tree": "tree-15",
-              "build_up_mm": 70.32,
-              "bbox_cad_xyz_mm": [
-                26.4,
-                464.975,
-                284.0,
-                28.0,
-                469.775,
-                284.48
-              ]
-            },
-            {
-              "id": "interface-23",
-              "first_z_mm": 70.52,
-              "last_z_mm": 71.0,
-              "bbox_xy_mm": [
-                286.0,
                 189.6,
                 290.8,
                 191.6
               ],
-              "tree": "tree-15",
+              "tree": "tree-16",
               "build_up_mm": 70.32,
               "bbox_cad_xyz_mm": [
                 29.6,
@@ -3780,7 +3794,49 @@
               ]
             },
             {
+              "id": "interface-23",
+              "first_z_mm": 70.52,
+              "last_z_mm": 71.0,
+              "bbox_xy_mm": [
+                286.4,
+                186.0,
+                290.8,
+                188.0
+              ],
+              "tree": "tree-16",
+              "build_up_mm": 70.32,
+              "bbox_cad_xyz_mm": [
+                26.0,
+                465.375,
+                284.0,
+                28.0,
+                469.775,
+                284.48
+              ]
+            },
+            {
               "id": "interface-24",
+              "first_z_mm": 78.44,
+              "last_z_mm": 78.92,
+              "bbox_xy_mm": [
+                278.4,
+                62.8,
+                279.6,
+                86.4
+              ],
+              "tree": "tree-13",
+              "build_up_mm": 0.0,
+              "bbox_cad_xyz_mm": [
+                -97.2,
+                457.375,
+                276.08,
+                -73.6,
+                458.575,
+                276.56
+              ]
+            },
+            {
+              "id": "interface-25",
               "first_z_mm": 89.96,
               "last_z_mm": 90.44,
               "bbox_xy_mm": [
@@ -3801,7 +3857,7 @@
               ]
             },
             {
-              "id": "interface-25",
+              "id": "interface-26",
               "first_z_mm": 90.2,
               "last_z_mm": 90.68,
               "bbox_xy_mm": [
@@ -3822,7 +3878,7 @@
               ]
             },
             {
-              "id": "interface-26",
+              "id": "interface-27",
               "first_z_mm": 93.8,
               "last_z_mm": 94.28,
               "bbox_xy_mm": [
@@ -3843,7 +3899,7 @@
               ]
             },
             {
-              "id": "interface-27",
+              "id": "interface-28",
               "first_z_mm": 93.8,
               "last_z_mm": 94.28,
               "bbox_xy_mm": [
@@ -3864,7 +3920,7 @@
               ]
             },
             {
-              "id": "interface-28",
+              "id": "interface-29",
               "first_z_mm": 97.88,
               "last_z_mm": 98.36,
               "bbox_xy_mm": [
@@ -3885,7 +3941,7 @@
               ]
             },
             {
-              "id": "interface-29",
+              "id": "interface-30",
               "first_z_mm": 104.12,
               "last_z_mm": 104.6,
               "bbox_xy_mm": [
@@ -3894,7 +3950,7 @@
                 286.0,
                 249.2
               ],
-              "tree": "tree-14",
+              "tree": "tree-15",
               "build_up_mm": 103.92,
               "bbox_cad_xyz_mm": [
                 82.4,
@@ -3906,7 +3962,7 @@
               ]
             },
             {
-              "id": "interface-30",
+              "id": "interface-31",
               "first_z_mm": 139.64,
               "last_z_mm": 140.12,
               "bbox_xy_mm": [
@@ -3927,7 +3983,7 @@
               ]
             },
             {
-              "id": "interface-31",
+              "id": "interface-32",
               "first_z_mm": 145.4,
               "last_z_mm": 145.88,
               "bbox_xy_mm": [
@@ -3936,7 +3992,7 @@
                 294.8,
                 172.8
               ],
-              "tree": "tree-15",
+              "tree": "tree-16",
               "build_up_mm": 145.2,
               "bbox_cad_xyz_mm": [
                 -88.0,
@@ -3953,21 +4009,21 @@
       ],
       "support_topology": {
         "1901": {
-          "support_bodies": 16,
-          "interface_islands": 31,
+          "support_bodies": 17,
+          "interface_islands": 32,
           "bed_rooted_bodies": 8,
-          "model_rooted_bodies": 8,
-          "shortest_build_up_mm": 1.92,
+          "model_rooted_bodies": 9,
+          "shortest_build_up_mm": 0.0,
           "bodies_without_interface_labels": 0,
-          "explicit_interface_islands": 31,
-          "shortest_labelled_build_up_mm": 1.92
+          "explicit_interface_islands": 32,
+          "shortest_labelled_build_up_mm": 0.0
         }
       },
       "first_second_layer_stack": {
         "1901": {
-          "second_layer_model_bead_area_mm2": 42712.864687591835,
-          "fraction_over_first_layer": 0.9983611485377126,
-          "second_layer_centerline_outside_first_mm": 40.33172020339184
+          "second_layer_model_bead_area_mm2": 42712.86508923249,
+          "fraction_over_first_layer": 0.9983611500955517,
+          "second_layer_centerline_outside_first_mm": 40.33283791187066
         }
       },
       "settings_changes": {

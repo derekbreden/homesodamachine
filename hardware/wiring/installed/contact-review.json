@@ -1,40 +1,173 @@
 {
-  "schema": 2,
-  "scope": "Manual exact current native-solid follow-up of every recorded full-scene wire/larger-body mesh witness. Compound members are queried separately. Only the named electrical endpoint part or its own termination has a finite 8.5 mm spherical contact region; all unrelated stock remains in the reading. Wire-wire and wire-tube contacts are excluded.",
-  "assembly_step_sha256": "43de7a97158cfb3d2b9de706d7370fcb1c8b6c32dcb2d9cc09404d443c725655",
-  "assembly_mesh_sha256": "99c6fbd1328a9dc22b0ddf7ca6c0480ae7e08277b4d060c464f690d845bd02fb",
-  "wiring_step_sha256": "2a8c293144335980423a212a1c462efefc2b7e5f218a2223664dce6d87ed8c27",
-  "manifest_sha256": "2014cb424bd823115f40412491965b2b0189f6c829eca5957d6ad19abfde1f62",
-  "mesh_review_sha256": "0f2a6cbfd862f4ccf660221067b80cab7045c3cdbbda3d47907f8f89d0ddeceb",
-  "reader_sha256": "4cad3c709ae1996b7409fcdfb841677666e4cfb33888afc390b513bf07eb0170",
+  "schema": 3,
+  "scope": "Manual closed-solid follow-up of every final production full-scene wire/larger-body mesh witness. Conductors, connector housings and jackets are read from the production f64 model; larger bodies are read from the installed viewer payload, with failed closed meshes replaced only by a tessellation of the retained native physical body. Only a named endpoint or its own termination has a finite 8.5 mm spherical contact region. Thermal fuse native stub engagement uses its recorded 2.5 mm tip region. Wire-wire and wire-tube contacts are excluded.",
+  "assembly_step_sha256": "d534a641b9b7018890fb103416b73c468f2f60b20d35982ac9f089d9e4168923",
+  "assembly_mesh_sha256": "f9b8d9c352483a94529ea85fc5d5bdd71e03e637809dd12d57fa65e49d5b13b2",
+  "wiring_step_sha256": "dbfdba39ac2bfac163eb64afd460abbf01fc575ae58b5a5a8130c62075f4b0c7",
+  "wiring_model_sha256": "be4fead4405ecf422a95f75206a561dece2896de4bd28ad4d52f28e513e76dab",
+  "manifest_sha256": "0e559a1eb1209fc65ffbf4d8b3e3f51203a72ce62041f855dea3b78c78ed8d92",
+  "mesh_review_sha256": "a9e99169a610ac4e70783f859cf7e44edb7a617a3227dcbc5fd1bd99c2e5b91b",
+  "reader_sha256": "dda633caae0cffe7eed5d3211606409c326912961737f864e22a4078c34c2add",
   "physical_pairs": [
     {
       "wire": "AC1-PE",
       "part": "c14-inlet",
-      "mesh_pair_indices": [
-        0
-      ],
+      "whole_overlap_mm3": 1.2564927523486791e-06,
+      "outside_endpoint_overlap_mm3": 0.0,
+      "local_endpoint_nodes": [
+        "c14.PE"
+      ]
+    },
+    {
+      "wire": "J1-COM",
+      "part": "terminal-J1",
       "whole_overlap_mm3": 0.0,
       "outside_endpoint_overlap_mm3": 0.0,
-      "local_endpoint_nodes": []
+      "local_endpoint_nodes": [
+        "J1.COM"
+      ]
+    },
+    {
+      "wire": "J1-OUT3",
+      "part": "terminal-J1",
+      "whole_overlap_mm3": 0.0,
+      "outside_endpoint_overlap_mm3": 0.0,
+      "local_endpoint_nodes": [
+        "J1.OUT3"
+      ]
+    },
+    {
+      "wire": "J1-OUT4",
+      "part": "terminal-J1",
+      "whole_overlap_mm3": 0.0,
+      "outside_endpoint_overlap_mm3": 0.0,
+      "local_endpoint_nodes": [
+        "J1.OUT4"
+      ]
+    },
+    {
+      "wire": "J1-OUT5",
+      "part": "terminal-J1",
+      "whole_overlap_mm3": 0.0,
+      "outside_endpoint_overlap_mm3": 0.0,
+      "local_endpoint_nodes": [
+        "J1.OUT5"
+      ]
+    },
+    {
+      "wire": "J1-OUT7",
+      "part": "terminal-J1",
+      "whole_overlap_mm3": 0.0,
+      "outside_endpoint_overlap_mm3": 0.0,
+      "local_endpoint_nodes": [
+        "J1.OUT7"
+      ]
+    },
+    {
+      "wire": "J1-OUT8",
+      "part": "terminal-J1",
+      "whole_overlap_mm3": 0.0,
+      "outside_endpoint_overlap_mm3": 0.0,
+      "local_endpoint_nodes": [
+        "J1.OUT8"
+      ]
+    },
+    {
+      "wire": "J2-COM",
+      "part": "terminal-J2",
+      "whole_overlap_mm3": 0.0,
+      "outside_endpoint_overlap_mm3": 0.0,
+      "local_endpoint_nodes": [
+        "J2.COM"
+      ]
     },
     {
       "wire": "J2-OUT1",
-      "part": "coil-v-i",
-      "mesh_pair_indices": [
-        1
-      ],
+      "part": "coil-v-i/3",
       "whole_overlap_mm3": 0.0,
       "outside_endpoint_overlap_mm3": 0.0,
-      "local_endpoint_nodes": []
+      "local_endpoint_nodes": [
+        "V-I.negative"
+      ]
+    },
+    {
+      "wire": "J2-OUT2",
+      "part": "terminal-J2",
+      "whole_overlap_mm3": 0.0,
+      "outside_endpoint_overlap_mm3": 0.0,
+      "local_endpoint_nodes": [
+        "J2.OUT2"
+      ]
+    },
+    {
+      "wire": "J2-FAN",
+      "part": "terminal-J2",
+      "whole_overlap_mm3": 0.0,
+      "outside_endpoint_overlap_mm3": 0.0,
+      "local_endpoint_nodes": [
+        "J2.FAN"
+      ]
+    },
+    {
+      "wire": "J13-AM1",
+      "part": "terminal-J13",
+      "whole_overlap_mm3": 0.0,
+      "outside_endpoint_overlap_mm3": 0.0,
+      "local_endpoint_nodes": [
+        "J13.AM1"
+      ]
+    },
+    {
+      "wire": "J13-BM2",
+      "part": "terminal-J13",
+      "whole_overlap_mm3": 0.0,
+      "outside_endpoint_overlap_mm3": 0.0,
+      "local_endpoint_nodes": [
+        "J13.BM2"
+      ]
+    },
+    {
+      "wire": "J13-BM1",
+      "part": "terminal-J13",
+      "whole_overlap_mm3": 0.0,
+      "outside_endpoint_overlap_mm3": 0.0,
+      "local_endpoint_nodes": [
+        "J13.BM1"
+      ]
+    },
+    {
+      "wire": "J7-GND",
+      "part": "terminal-J7",
+      "whole_overlap_mm3": 0.0,
+      "outside_endpoint_overlap_mm3": 0.0,
+      "local_endpoint_nodes": [
+        "J7.GND"
+      ]
     }
   ],
+  "termination_pairs": [
+    {
+      "termination": "terminal-fuse-in-lead",
+      "part": "thermal-fuse",
+      "whole_overlap_mm3": 1.1666580625301801,
+      "outside_endpoint_overlap_mm3": 0.0,
+      "local_endpoint_nodes": [
+        "fuse.in",
+        "native fuse stub tip"
+      ]
+    },
+    {
+      "termination": "terminal-fuse-out-lead",
+      "part": "thermal-fuse",
+      "whole_overlap_mm3": 1.1666580625301797,
+      "outside_endpoint_overlap_mm3": 0.0,
+      "local_endpoint_nodes": [
+        "fuse.out",
+        "native fuse stub tip"
+      ]
+    }
+  ],
+  "native_physical_fallbacks": [],
   "unresolved": [],
-  "all_current_mesh_witnesses_resolved": true,
-  "elapsed_seconds": 18.941953166999156,
-  "mesh_screen_binding": {
-    "unaugmented_routing_review_sha256": "0f2a6cbfd862f4ccf660221067b80cab7045c3cdbbda3d47907f8f89d0ddeceb",
-    "physical_interference_pairs_sha256": "461f0d8fcf0aefbd0166fe423e9bfc071d45fba59283cc49e53dbc1103c69611",
-    "scope": "The screen receipt hashes the unaugmented manual routing result at query time. The routing report subsequently links this native follow-up; the exact screened pair list is unchanged."
-  }
+  "all_current_mesh_witnesses_resolved": true
 }
