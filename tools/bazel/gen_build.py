@@ -298,6 +298,11 @@ def read_from(src: str, rewritten: set, producers: dict = None,
     return f"{PYSRC}/{src}" if comments_come_out(src, rewritten, consumer) else src
 
 
+def generator_argv(gens: tuple) -> list:
+    """Each normal-build entrypoint, in order, in its own Python interpreter."""
+    return [[generator] for generator in gens]
+
+
 def render(gens: tuple, arts: list, srcs: list, optional: list, docs: list, rewritten: set,
            name: str, producers: dict, support: dict = None) -> str:
     # THE OUTPUT KEEPS THE PATH THE TREE KEEPS IT UNDER, so `sync_tree` strips one prefix and
@@ -376,13 +381,13 @@ def render(gens: tuple, arts: list, srcs: list, optional: list, docs: list, rewr
     # THE ROOT IS THIS DIRECTORY. `docgen` finds it by walking for `.git`, which an action
     # holding only what it declared does not have — without this the doc's figures are
     # rewritten and its `.figures.json` is not.
-    for g in gens:
+    for argv in generator_argv(gens):
         # The normal build skips payloads because they are not outputs. An action that declares
         # one must make it; `env -u` overrides the global action environment for that action.
         payload_env = "env -u HSM_SKIP_MESH_PAYLOAD " if any(
             a.endswith(".step.mesh") for a in arts) else ""
         lines.append(f"HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D {payload_env}"
-                     f"{VENV} tools/run.py -- {VENV} {g} > /dev/null")
+                     f"{VENV} tools/run.py -- {VENV} {shlex.join(argv)} > /dev/null")
     for i, made in enumerate((*arts, *docs)):
         lines.append(f'copy_file {shlex.quote(made)} "$$O{i}"')
     if cargo:
@@ -458,7 +463,8 @@ def action_plan(only: str = None) -> tuple:
         wants[names[gens]] = {producers[s] for s in srcs
                               if producers.get(s) and producers[s] != names[gens]}
         actions[names[gens]] = {
-            "generators": list(gens), "solids": made["solids"], "docs": made["docs"],
+            "generators": list(gens), "entrypoints": generator_argv(gens),
+            "solids": made["solids"], "docs": made["docs"],
             "reads": srcs, "optional": optional, "rewritten_python": sorted(rewritten),
             "stripped": [s for s in srcs if comments_come_out(s, rewritten, names[gens])],
             "producers": {s: producers[s] for s in srcs if s in producers},

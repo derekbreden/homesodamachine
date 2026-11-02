@@ -530,20 +530,29 @@ program itself.
 
 ### Declared generator actions
 
-`hsm generate water-inlet-jet-fixture` runs the jet's Python generator through the same
-part store. `--root` selects its checkout; `--python /path/to/cad-venv/bin/python` supplies
+`hsm generate TARGET` runs an enrolled Python generator through the same part store.
+The enrolled targets are `water-inlet-jet-fixture`, `elbow-cradle` and `funnel-mold`.
+`--root` selects its checkout; `--python /path/to/cad-venv/bin/python` supplies
 the interpreter when that worktree has no `tools/cad-venv`. `--output DIRECTORY` places
-the eleven declared outputs under that directory's repository-relative paths; its default
-is the checkout. This slice supports only the jet. Other actions and their dependency
-execution remain with the normal build.
+the target's declared outputs under that directory's repository-relative paths; its default
+is the checkout. Other actions remain with the normal build.
 
 `tools/bazel/gen_build.py::action_plan` supplies both BUILD and this action's declarations:
 generator entrypoints, inputs, optional inputs, producer edges, stripped Python and outputs.
 `tools/hsm/generate.py` stages those files, using the existing `pysrc` transformation, and
-executes the existing script entrypoint. Its Rust call still uses `_rust_part.run`. The
+executes each existing script entrypoint in order, in a separate Python interpreter as
+BUILD does. Co-writers share the staged files. Their Rust calls use `_rust_part.run`. The
 action key binds the declarations, staged input bytes, worker code, Python executable and
 version, and installed CAD package versions. An optional input's absence is part of the key.
 Only declared files are staged; no appliance is composed or copied.
+
+The engine completes producer dependencies before their consumer. A producer-backed input
+binds the completed action's output hash and is staged from that individual content blob.
+The checkout's copy cannot supply it. The consumer key binds those output bytes, so an
+unchanged producer result can reuse a kept consumer. `funnel-mold` uses the ordered
+elbow-cradle/funnel/frame group this way. The answer's `actions` list describes every
+completed action; `hit` and `receipt` describe the requested action. Only the requested
+target's outputs are placed.
 
 The worker shares its verified host lease with the nested Rust request. It holds no outer
 engine memory or compiler reservation while waiting for that request. Nested runtime reads
