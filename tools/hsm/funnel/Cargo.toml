@@ -10,7 +10,12 @@ publish = false
 name = "funnel-cover"
 path = "../../../hardware/printed-parts/zone-c/funnel-cover/funnel_cover.rs"
 
+[[bin]]
+name = "funnel-frame"
+path = "../../../hardware/printed-parts/zone-c/funnel/funnel_frame.rs"
+
 [dependencies]
 anyhow.workspace = true
 hsm-kernel = { path = "../kernel" }
 serde_json.workspace = true
+sha2.workspace = true
