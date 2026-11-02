@@ -8,6 +8,31 @@ from _enclosure_panel import _Graph, _record
 from _enclosure_back_top import _leaves as _shared_leaves, _replace, _rounded, _placed, _funnel_containment
 
 
+def _corner_numbers(shell, outer):
+    """The retained analytic corner blend in its live enclosure frame."""
+    import json
+    from pathlib import Path
+    asset=json.loads((Path(__file__).with_name('front-corner-controls.json')).read_text())
+    swept=shell._swept_top
+    current={'front_radius_mm':swept.FRONT_RADIUS,'side_radius_mm':swept.SIDE_RADIUS,
+             'top_radius_mm':swept.TOP_RADIUS,'angle_deg':swept.ANGLE,
+             'display_flat_mm':swept.FLAT}
+    if current!=asset['domain'] or outer[1]-outer[0]<=4*swept.FRONT_RADIUS:
+        raise ValueError('the front corner is outside its retained analytic parameter domain')
+    foot=swept.profile(outer)['foot'][1]
+    return {'surfaces':asset['surfaces'],'scale_mm':swept.SIDE_RADIUS,
+            'frames':[{'origin':(outer[0]+swept.FRONT_RADIUS,outer[2]+swept.FRONT_RADIUS,foot),'x_sign':-1.},
+                      {'origin':(outer[1]-swept.FRONT_RADIUS,outer[2]+swept.FRONT_RADIUS,foot),'x_sign':1.}]}
+
+
+def can_cut(shell, box):
+    try:
+        _corner_numbers(shell,box.outer)
+    except ValueError:
+        return False
+    return True
+
+
 def _halfspace(graph, origin, normal, extent):
     """The native 4*extent square, extruded extent on the plane's positive side."""
     if abs(normal[0]) > 1e-10:
@@ -45,13 +70,14 @@ def _display_cut(shell,graph,outer,support_floor=None,support_fore=None,extend_w
     wing=shell._display_wings
     frame=_display_frame(shell,outer)
     canonical=shell._display_cut_exit_depth()
-    result=_placed(graph,wing.cuts(shell.display_facet_thickness+shell.display_pcb_cut_through,canonical),frame)
+    local=wing.cuts(shell.display_facet_thickness+shell.display_pcb_cut_through,canonical)
     radius=shell._interface.display_inset_corner_r
     below=_rounded(graph,2,(-shell.display_inset_x/2,shell.display_inset_x/2,
         -shell.display_inset_slope/2,shell.display_inset_slope/2,
         -shell.display_facet_thickness,-shell.display_inset_depth),radius)
     for exit in wing.support_exits(canonical):
-        result=result.fuse(_placed(graph,below.intersect(exit.translate((0.,-radius,0.))),frame))
+        local=local.fuse(below.intersect(exit.translate((0.,-radius,0.))))
+    result=_placed(graph,local,frame)
     if support_floor is not None and extend_wing_exits:
         room=graph.box(outer[0]-1,outer[1]+1,outer[2]-1,outer[3]+1,support_floor,outer[5]+1)
         if support_fore is not None:
@@ -349,7 +375,7 @@ def numbers(shell,box,*,graph=None):
     from _materials import linear
     return dict(_enclosure_structure.numbers(box.outer),
         color=linear(shell.PIECE_COLORS['front-top']),panel=graph.document(result,graph.extras),
-        panel_bounds=result.bounds)
+        panel_bounds=result.bounds,front_corners=_corner_numbers(shell,box.outer))
 
 
 def print_numbers(shell,box):
