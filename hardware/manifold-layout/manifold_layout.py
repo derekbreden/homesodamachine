@@ -1171,8 +1171,11 @@ def _source_segments(name, start, travel):
     return out
 
 
-def numbers():
-    """Fine reference parts, installed frames and authored tube centrelines for Rust."""
+def numbers(*, prepare_sources=True):
+    """Fine reference parts, installed frames and authored tube centrelines for Rust.
+
+    A metadata reader can omit preparing the referenced geometry files.
+    """
     import _rust_part
     from _materials import linear, M_NEOFIT_WHITE_ACETAL
     import neofit_stem_elbow as stem_elbow
@@ -1182,7 +1185,7 @@ def numbers():
         'valve': _hw/'reference/beduan-solenoid/beduan-solenoid.step',
         'tee': TEE_STEP, 'elbow': ELBOW_STEP, 'pump': KAMOER_STEP,
         'stem': _hw/'reference/neofit-stem-elbow/neofit-stem-elbow.step',
-    }.items()}
+    }.items()} if prepare_sources else {}
     bodies, stems = [], []
 
     def ref(name, source, groups, matrix, color, **extra):
