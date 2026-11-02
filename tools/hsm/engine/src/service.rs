@@ -61,6 +61,15 @@ pub enum Query {
         #[serde(default)]
         args: Vec<String>,
     },
+    /// A declared Python generator action, staged and kept by the existing part store.
+    Generate {
+        workspace: PathBuf,
+        target: String,
+        #[serde(default)]
+        output: Option<PathBuf>,
+        #[serde(default)]
+        python: Option<PathBuf>,
+    },
 }
 
 fn ray_max() -> f64 {
@@ -157,7 +166,7 @@ pub fn execute(store: &mut Store, builds: &crate::build::Builder, request: Reque
         }
         Query::Shutdown => return Ok(json!({"stopping": true})),
         Query::Render { .. } => return Err(anyhow!("a render is answered off the query loop")),
-        Query::Run { .. } => return Err(anyhow!("a run is answered off the query loop")),
+        Query::Run { .. } | Query::Generate { .. } => return Err(anyhow!("a run is answered off the query loop")),
         _ => (),
     }
     let started = Instant::now();
