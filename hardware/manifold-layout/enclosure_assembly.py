@@ -73,6 +73,7 @@ Run it
 
 import collections
 from dataclasses import replace
+from contextlib import contextmanager
 import functools
 import math
 import json
@@ -1070,6 +1071,41 @@ def _bodies(placed: dict) -> dict:
     return {n: (b[0] if isinstance(b, tuple) else b) for n, b in placed.items()}
 
 
+def _tray_valve(name):
+    return (name.startswith('valve-v-') and name not in _above.valve_names()
+            and name not in _cci.cap_cradles and name not in _above.core_equipment_names())
+
+
+def valve_tray_decks_from_bounds(bounds: dict) -> dict:
+    """The tray arithmetic from explicit ``name -> (lower, upper)`` readings."""
+    groups = collections.defaultdict(list)
+    for name in bounds:
+        if not _tray_valve(name):
+            continue
+        coil = name.replace('valve-', 'coil-')
+        if coil not in bounds:
+            raise KeyError(
+                f"{name} is placed and {coil} is not, so nothing says which way it faces — a "
+                f"Beduan's coil stands on its crown and that is what tells a tray which of the "
+                f"body's six faces its four posts stand on.")
+        lower, upper = bounds[name]
+        coil_lower, coil_upper = bounds[coil]
+        delta = [(coil_lower[i] + coil_upper[i] - lower[i] - upper[i]) / 2.0
+                 for i in range(3)]
+        axis = max(range(3), key=lambda i: abs(delta[i]))
+        sign = 1.0 if delta[axis] > 0.0 else -1.0
+        centre = tuple((lower[i] + upper[i]) / 2.0 for i in range(3))
+        plane = (lower if sign > 0 else upper)[axis]
+        groups[(axis, sign, round(plane, 6))].append((name, centre))
+    out = {}
+    for (axis, sign, plane), members in sorted(groups.items()):
+        across = 0 if axis != 0 else 1
+        along = next(i for i in range(3) if i not in (axis, across))
+        seats = tuple((n, c[across], c[along]) for n, c in sorted(members))
+        out[tray_name(axis, sign, plane, out)] = (axis, sign, plane, seats)
+    return out
+
+
 def valve_tray_decks(placed: dict) -> dict:
     """The valves a tray holds, grouped by the plane they stand on.
 
@@ -1080,27 +1116,14 @@ def valve_tray_decks(placed: dict) -> dict:
     The selected above-core valves are excluded: their integral back-top or
     lid seats follow the native placement, and each body has one holder."""
     placed = _bodies(placed)
-    groups = collections.defaultdict(list)
-    for name in placed:
-        if (not name.startswith("valve-v-") or name in _above.valve_names()
-                or name in _cci.cap_cradles
-                or name in _above.core_equipment_names()):
-            continue
-        axis, sign = _valve_up(placed, name)
-        b = box(placed[name])
-        centre = ((b.xmin + b.xmax) / 2.0, (b.ymin + b.ymax) / 2.0, (b.zmin + b.zmax) / 2.0)
-        # The mounting plane is the box face the coil stands away from.
-        plane = ([b.xmin, b.ymin, b.zmin] if sign > 0 else [b.xmax, b.ymax, b.zmax])[axis]
-        groups[(axis, sign, round(plane, 6))].append((name, centre))
-    out = {}
-    for (axis, sign, plane), members in sorted(groups.items()):
-        # The plate's own two axes: X across the machine wherever it can be, and whichever of
-        # the remaining two is not the valves' own +Z.
-        across = 0 if axis != 0 else 1
-        along = next(i for i in range(3) if i not in (axis, across))
-        seats = tuple((n, c[across], c[along]) for n, c in sorted(members))
-        out[tray_name(axis, sign, plane, out)] = (axis, sign, plane, seats)
-    return out
+    requested = {name for name in placed if _tray_valve(name)}
+    requested |= {name.replace('valve-', 'coil-') for name in requested}
+    bounds = {}
+    for name, shape in placed.items():
+        if name in requested:
+            b = box(shape)
+            bounds[name] = ((b.xmin, b.ymin, b.zmin), (b.xmax, b.ymax, b.zmax))
+    return valve_tray_decks_from_bounds(bounds)
 
 
 def tray_name(axis: int, sign: float, plane: float, taken: dict) -> str:
@@ -1124,8 +1147,17 @@ def valve_tray_stations(placed: dict) -> tuple:
     the tray face. The permanent junctions and supported purchased elbows connect
     to those seated ports through straight upper links and bent lower tubes and short
     elbow-to-valve links."""
+    return _valve_tray_stations(valve_tray_decks(placed))
+
+
+def valve_tray_stations_from_bounds(bounds) -> tuple:
+    """The existing tray station rows from explicit lower/upper readings."""
+    return _valve_tray_stations(valve_tray_decks_from_bounds(bounds))
+
+
+def _valve_tray_stations(decks):
     out = []
-    for _name, (axis, sign, plane, seats) in sorted(valve_tray_decks(placed).items()):
+    for _name, (axis, sign, plane, seats) in sorted(decks.items()):
         if axis != 1:
             raise ValueError(
                 f"a valve deck stands its valves' own +Z on {'xyz'[axis]} and "
@@ -4201,25 +4233,60 @@ def manifold_pump_trays(carry) -> tuple:
     return tuple(stations)
 
 
+def _posed_manifold_reference(model, exclude=(), offset=None):
+    """The existing selected source indices and installed matrix, as plain typed data."""
+    import _assembly_model
+
+    omitted = set(exclude) | {ml.body_name(name) for name in ml.PUMP_JUNCTIONS}
+    omitted.update(f"stem-elbow-{host.lower()}"
+                   for name in ml.PUMP_JUNCTIONS
+                   for host in (name, ml.PUMP_VALVES[name][1]))
+    indices = tuple(index for index, (name, _rgb) in enumerate(_assembly_model.identity(model))
+                    if name not in omitted)
+    turn = (cq.Location(cq.Vector(), cq.Vector(0., 0., 1.), 180.)
+            * cq.Location(cq.Vector(), cq.Vector(1., 0., 0.), 90.))
+    if offset is not None:
+        turn = cq.Location(cq.Vector(*offset)) * turn
+    return _assembly_model.ModelReference(Path(model).resolve(), indices,
+        tuple(tuple(row) for row in _assembly_model.location(turn)))
+
+
+@contextmanager
+def posed_manifold_reference(*, model, exclude=(), offset=None):
+    """Fine/model references and separate raw/grid scalar tables; no model Shapes.
+
+    The placed file is valid for this context. Raw bounds retain the posed reader's
+    `snap=False` policy; snapped bounds are available only for consumers that already
+    use the model reader's coordinate grid.
+    """
+    import _assembly_model
+    import numpy as np
+    from meshcad.rule import GRID
+    if str(_hw.parent) not in sys.path:
+        sys.path.insert(0, str(_hw.parent))
+    from hardware.wiring.installed._model_input import bodies
+
+    reference = _posed_manifold_reference(model, exclude, offset)
+    with _assembly_model.placed([_assembly_model.reference_instance(reference)],
+            presentation=True, summaries=True) as (placed, readings):
+        raw = bodies(readings)
+        snapped = bodies(readings, grid=GRID)
+        rgba = {name: None if color is None else
+                tuple(float(channel) for channel in np.asarray((*color, 1.), np.float32))
+                for name, (_body, color) in raw.items()}
+        yield _assembly_model.PlacedModelReference(reference, placed, tuple(readings),
+            {name: (body.lower, body.upper) for name, (body, _color) in raw.items()},
+            {name: (body.lower, body.upper) for name, (body, _color) in snapped.items()}, rgba)
+
+
 def posed_manifold(carrier_offset: float, *, model=None, exclude=(), offset=None) -> list:
     """Fixed leaves in enclosure orientation, optionally from a placed fine model."""
     if model is not None:
         import _assembly_model
         from meshcad import scene
-        from meshcad.write import model_identity
 
-        omitted = set(exclude) | {ml.body_name(name) for name in ml.PUMP_JUNCTIONS}
-        omitted.update(f"stem-elbow-{host.lower()}"
-                       for name in ml.PUMP_JUNCTIONS
-                       for host in (name, ml.PUMP_VALVES[name][1]))
-        indices = [index for index, (name, _rgb) in enumerate(model_identity(model))
-                   if name not in omitted]
-        turn = (cq.Location(cq.Vector(), cq.Vector(0., 0., 1.), 180.)
-                * cq.Location(cq.Vector(), cq.Vector(1., 0., 0.), 90.))
-        if offset is not None:
-            turn = cq.Location(cq.Vector(*offset)) * turn
-        inputs = [_assembly_model.instance(model, indices=indices,
-                    transform=_assembly_model.location(turn))]
+        reference = _posed_manifold_reference(model, exclude, offset)
+        inputs = [_assembly_model.reference_instance(reference)]
         with _assembly_model.placed(inputs, presentation=True) as placed:
             bodies = scene.load(placed, snap=False, presentation=True)
         return [(name, shape, cq.Color(*rgb, 1., False) if rgb is not None else None)

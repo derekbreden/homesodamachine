@@ -8,6 +8,7 @@ their own caller; this module does not substitute a drawing for a model.
 from __future__ import annotations
 
 from contextlib import contextmanager
+from dataclasses import dataclass
 import json
 from pathlib import Path
 import shutil
@@ -15,6 +16,32 @@ import tempfile
 import zipfile
 
 _KEEP_COLOR = object()
+
+
+@dataclass(frozen=True)
+class ModelReference:
+    """A source selection and installed frame, without a geometry-object interface."""
+
+    model: Path
+    indices: tuple[int, ...]
+    transform: tuple[tuple[float, ...], ...]
+
+
+@dataclass(frozen=True)
+class PlacedModelReference:
+    """One temporary fine placement and explicit scalar readings in its installed frame."""
+
+    reference: ModelReference
+    model: Path
+    summaries: tuple[dict, ...]
+    raw_bounds: dict[str, tuple[tuple[float, ...], tuple[float, ...]]]
+    snapped_bounds: dict[str, tuple[tuple[float, ...], tuple[float, ...]]]
+    rgba: dict[str, tuple[float, ...] | None]
+
+
+def reference_instance(reference):
+    """The existing assembly-program specification for an explicit model reference."""
+    return instance(reference.model, indices=reference.indices, transform=reference.transform)
 
 
 def document(model):
