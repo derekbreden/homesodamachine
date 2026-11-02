@@ -2,28 +2,38 @@
   "native_valid": true,
   "solids": 1,
   "watertight": true,
-  "faces": 38,
-  "edges": 102,
-  "volume_mm3": 112981.65499850082,
+  "faces": 41,
+  "edges": 114,
+  "volume_mm3": 102320.21271468756,
   "central_channel_width_mm": 49.62,
-  "channel_floor_world_z_mm": 253.4,
+  "channel_floor_world_z_mm": 250.9,
+  "channel_recess_mm": 2.5,
+  "remaining_lid_floor_mm": 4.9,
+  "cap_crown_mm": 6.2,
+  "cap_valid": true,
+  "cap_solids": 1,
+  "cap_watertight": true,
+  "cap_faces": 17,
+  "cap_edges": 47,
+  "cap_volume_mm3": 57576.874273432855,
   "rail_bearing_widths_mm": [
     3.419180708991778,
     3.328523746345585
   ],
-  "retention_bearing_mm2": 283.3999999999034,
+  "retention_bearing_mm2": 283.3999999999833,
   "seated_cap_intersection_mm3": 0.0,
   "installed_hardware_intersections_mm3": {
     "g-ganen-pump": 0.0,
     "pump-snap-cap": 0.0
   },
   "printed_cap_sha256": "7280b84b686e19d8a3936c343804cbe8cace0f0ae8bec1ef1b664f277d325f0a",
-  "production_cap_identical_to_printed_sample": true,
-  "scope": "One broad carved production block; stops on both fixed rails. The flat catch interfaces and printed cap are retained. Physical spring force and running vibration remain to be tested.",
+  "production_cap_sha256": "5d3111370e7129f64c9d0ad77fb11ee768d2687067fca1c1859dba3fd4059ff5",
+  "production_cap_identical_to_printed_sample": false,
+  "scope": "Broad carved base and filled box half-pipe cap. The flat catches remain unchanged; the body has a doubled crown. The previously launched arch cap is a baseline specimen. Physical holding force, body movement and vibration remain to be tested.",
   "input_sha256": {
-    "hardware/printed-parts/cold-core/_above_core_mounts.py": "af2c1e11adfbaa58f342574655c54f28062673241604cc714c09b0e7705a14da",
-    "hardware/printed-parts/cold-core/foam-cap/foam_cap.rs": "a1c0b4b631616f502aeaac96e7d5be1f423f412b185859bf71d5c751ec974f94",
-    "hardware/manifold-layout/above-core.json": "722afdd31ca9272c4144dbac46c8632517e80631afe5e47e209260be239cc66a",
+    "hardware/printed-parts/cold-core/_above_core_mounts.py": "fccf0629601e550cf962d86fc7bb0f5ecf961f1991e6fc0a6b274a355fd885c9",
+    "hardware/printed-parts/cold-core/foam-cap/foam_cap.rs": "85d7fcdb528c84fa9e12b994d938f9bb763918193a2f7e4eb08ebe6f6d435083",
+    "hardware/manifold-layout/above-core.json": "339e841f4a808e27e27c65e0ec4bf4882ab63d43948a03fdb82bced78071650e",
     "hardware/reference/g-ganen-pump/reference-parameters.json": "3b91bd7ff1216bc5dc8b9806d53f4f2f7bd038323b201c6d6cc6e029e42fc591"
   }
 }

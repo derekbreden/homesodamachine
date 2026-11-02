@@ -1,6 +1,7 @@
-"""Prepare and review the two centered PET-GF sample plates; never sends a job."""
+"""Prepare and review the PET-GF sample plates or replacement box cap; never sends a job."""
 from pathlib import Path
 import argparse
+import copy
 import importlib.util
 import itertools
 import json
@@ -50,7 +51,7 @@ def centered_layout(footprints,low,high,spacing,yaw):
 
 def main():
     parser=argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--plate',choices=('mark1','mark2','all'),default='all')
+    parser.add_argument('--plate',choices=('mark1','mark2','box','all'),default='all')
     args=parser.parse_args()
     production=json.loads((TRIAL/'pieces.json').read_text())
     geometry=json.loads((HERE/'geometry.json').read_text())
@@ -79,13 +80,18 @@ def main():
             'sparse_infill_density':{'value':'15%','reason':'Production receiver bulk recipe; caps have a local solid override.'},
             'sparse_infill_pattern':{'value':'gyroid','reason':'Production receiver bulk recipe.'},
             'enable_support':{'value':'1','reason':'Tree(auto)/Default supports the actual retention ceilings in production orientation.'}}}
-    trial.SPEC_PATH=HERE/'plate-spec.json'
+    if args.plate=='box':
+        piece=copy.deepcopy(production['pieces']['pump-snap-cap'])
+        piece['parts']=[{'name':'pump-box-cap',
+          'stl':str((HERE/'parts/pump-box-cap.stl').relative_to(ROOT))}]
+        spec['pieces']={'pump-box-cap':piece}
+    trial.SPEC_PATH=HERE/('pump-box-spec.json' if args.plate=='box' else 'plate-spec.json')
     trial.SPEC_PATH.write_text(json.dumps(spec,indent=2)+'\n')
-    trial.layout=centered_layout
-    jobs_file=HERE/'print-jobs.json'
+    if args.plate!='box':trial.layout=centered_layout
+    jobs_file=HERE/('box-cap-print.json' if args.plate=='box' else 'print-jobs.json')
     jobs=json.loads(jobs_file.read_text()).get('jobs',[]) if jobs_file.exists() else []
     for plate in spec['pieces']:
-        if args.plate!='all' and not plate.endswith(args.plate):continue
+        if args.plate in ('mark1','mark2') and not plate.endswith(args.plate):continue
         folder=trial.prepare(plate,output=HERE/'prints')
         archive=trial.slice_project(folder)
         checked=review.review(folder,audit=False)

@@ -253,12 +253,20 @@ def _pump_motor_room(datum, *, seat=False):
 
 
 def pump_snap_cap(index=0):
-    """One 3.1 mm arch and two integral 1.3 mm spring wings, in world axes."""
-    import rear_snaps
+    """A filled box half-pipe with a thick crown and two independent spring leaves."""
+    import cadquery as cq
     import fits
     d = pump_cradle_datums()['caps'][index]
-    blank = rear_snaps.cap(d['snap_station'], -fits.slip,
-        -(d['bore_radius_mm']+d['selected']['cap_arch_wall_mm']), axis_z=0.)
+    s = d['snap_station']
+    c, wide, inner, hook = (s[k] for k in ('axis_x','outer','inner','hook'))
+    west = [(c-wide,0.),(c-wide,s['tip']),(c-hook,s['tip']),
+            (c-hook,s['catch']),(c-inner,s['catch']),(c-inner,-fits.slip)]
+    east = [(2*c-x,z) for x,z in reversed(west)]
+    roof = -(d['bore_radius_mm']+d['selected']['cap_arch_wall_mm'])
+    edge = d['selected']['cap_east_roof_half_width_mm']
+    points = west+east+[(c+wide,roof),(c-edge,roof)]
+    wire = cq.Wire.makePolygon([cq.Vector(x,s['y0'],z) for x,z in points],close=True)
+    blank = cq.Solid.extrudeLinear(wire,[],cq.Vector(0.,s['y1']-s['y0'],0.))
     return _pump_cap_to_world(blank, d).cut(_pump_motor_room(d)).clean()
 
 
@@ -315,6 +323,21 @@ def pump_cradle():
         for pocket in rear_snaps.pockets(dict(cap['snap_station'],outer=wide)):
             body = body.cut(_pump_cap_to_world(pocket, cap))
     return body.clean()
+
+
+def pump_lid_clearance():
+    """One straight shallow lid recess clears the molded cover and forward head."""
+    import cadquery as cq
+    d = pump_cradle_datums()
+    cx = d['centre_world_mm'][0]
+    fy = d['frame']['translation_mm'][1]
+    selected = d['selected']
+    fore = selected['cover_channel_fore_native_x_mm']
+    aft = selected['rail_stop_native_x_mm'][1][1]
+    face = above_core.specification()['cap_face_z_mm']
+    depth = selected['cover_channel_recess_mm']
+    return cq.Solid.makeBox(49.62,aft-fore+.2,depth+.1,
+        cq.Vector(cx-24.81,fy+fore-.1,face-depth))
 
 
 def valve_support_datums(name, face_z=None):

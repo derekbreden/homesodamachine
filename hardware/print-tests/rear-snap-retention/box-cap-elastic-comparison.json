@@ -1,0 +1,47 @@
+{
+  "scope": "Manual relative elastic comparison of the full pump cap cross-section, including body and leaves. This is not a printed-part force or durability qualification.",
+  "method": {
+    "model": "2D linear plane stress; constant-strain triangular elements; self-balanced opposing unit hook loads; rigid-body motion constrained",
+    "mesh_pitch_mm": 0.125,
+    "extrusion_width_mm": 54.5,
+    "bore_radius_mm": 25.009505637689916,
+    "leaf_mm": 1.3,
+    "poisson_ratio": 0.35,
+    "elastic_modulus": "Normalized to 1; no physical material modulus assigned",
+    "body_root_opening": "Difference between transverse displacements at the two leaf/body junctions",
+    "body_region": "Material above the leaf/body junctions"
+  },
+  "baseline": {
+    "kind": "arc",
+    "crown_mm": 3.1,
+    "mesh_pitch_mm": 0.125,
+    "nodes": 26162,
+    "elements": 50078,
+    "normalized_hook_opening": 914.8449175589581,
+    "normalized_body_root_opening": 395.6094047024891,
+    "body_strain_energy_fraction": 0.7923695860015707,
+    "strain_energy_balance": 1.3044802823730836e-08,
+    "seconds": 0.2484895000088727,
+    "body_opening_vs_arc": 1.0
+  },
+  "selected": {
+    "kind": "box",
+    "crown_mm": 6.2,
+    "mesh_pitch_mm": 0.125,
+    "nodes": 68049,
+    "elements": 133609,
+    "normalized_hook_opening": 273.54288081984885,
+    "normalized_body_root_opening": 30.449857690122386,
+    "body_strain_energy_fraction": 0.335854827063933,
+    "strain_energy_balance": 2.340153906977187e-09,
+    "seconds": 1.005200583007536,
+    "body_opening_vs_arc": 0.07696949902649977
+  },
+  "selected_body_root_opening_ratio": 0.07696949902649977,
+  "selected_complete_hook_opening_ratio": 0.2990046461095633,
+  "limitations": [
+    "Homogeneous isotropic linear elasticity; printing anisotropy and nonlinear displacement are not represented.",
+    "No pump contact, printed material strength, absolute force, temperature, fatigue or vibration result.",
+    "The new cap requires a physical fit and retention trial."
+  ]
+}
