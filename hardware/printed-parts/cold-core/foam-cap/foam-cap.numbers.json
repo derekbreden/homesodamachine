@@ -2471,9 +2471,9 @@
      74.5
     ],
     "centre_world_mm": [
-     -15.368269476362315,
-     415.56776090725265,
-     284.529346931499
+     -15.181429835394722,
+     415.3180504420662,
+     282.02934693149894
     ],
     "cover_room_native_y_mm": [
      -6.023302113211921,
@@ -2499,9 +2499,9 @@
       ]
      ],
      "translation_mm": [
-      -15.368269476362286,
-      368.31776090725265,
-      250.44796251494617
+      -15.181429835394693,
+      368.0680504420662,
+      247.9479625149461
      ]
     },
     "pocket_band_native_x_mm": [
@@ -2545,14 +2545,17 @@
     "seat_bore_radius_mm": 25.696989753350408,
     "selected": {
      "axial_end_stock_mm": 3.0,
-     "cap_arch_wall_mm": 3.1,
+     "cap_arch_wall_mm": 6.2,
+     "cap_east_roof_half_width_mm": 20.0,
      "contact_scope": "Motor-side saddle native X16.75\u201377.75 and one continuous upper clip X20\u201374.5. End stops contact only fixed motor rail ends; the rough head underside remains clear throughout axial free play. The central wire-cover and lead corridor stays open.",
-     "insertion": "Bare pump lowers vertically into the open motor saddle; fixed rails and molded cover pass through open rooms. One continuous 54.5 mm clip snaps down after seating. Its pockets retain 3 mm solid axial stock at both outer ends. Broad stock flush with the saddle outside wall joins the two fixed-rail end stops; the straight rail corridor between them stays open.",
+     "cover_channel_fore_native_x_mm": -20.0,
+     "cover_channel_recess_mm": 2.5,
+     "insertion": "The bare pump lowers into the two fixed-rail seats above a straight shallow lid recess. A filled box half-pipe with one east clearance shoulder closes over the motor, using two independent spring leaves with flat catches. The continuous receiving pockets retain 3 mm solid axial end stock.",
      "motor_band_native_x_mm": [
       16.75,
       77.75
      ],
-     "print_pose": "Snap cap stands on one axial end; arch, spring wings and hooks print as vertical walls.",
+     "print_pose": "The cap stands on one axial end; its filled body, leaves and hooks grow as vertical walls.",
      "rail_stop_contact_native_y_mm": [
       -29.0,
       -26.0
@@ -2574,7 +2577,7 @@
      ]
     },
     "snap_station": {
-     "axis_x": -15.368269476362315,
+     "axis_x": -15.181429835394722,
      "bearing": 11.84,
      "catch": 12.49,
      "ceiling": 14.99,
@@ -2586,16 +2589,16 @@
      "root": 0.0,
      "split": 0.0,
      "tip": 14.49,
-     "y0": 388.31776090725265,
-     "y1": 442.81776090725265
+     "y0": 388.0680504420662,
+     "y1": 442.5680504420662
     },
     "stock_half_width_mm": 35.879180708991775
    }
   ],
   "centre_world_mm": [
-   -15.368269476362315,
-   415.56776090725265,
-   284.529346931499
+   -15.181429835394722,
+   415.3180504420662,
+   282.02934693149894
   ],
   "cover_room_native_y_mm": [
    -6.023302113211921,
@@ -2625,9 +2628,9 @@
     ]
    ],
    "translation_mm": [
-    -15.368269476362286,
-    368.31776090725265,
-    250.44796251494617
+    -15.181429835394693,
+    368.0680504420662,
+    247.9479625149461
    ]
   },
   "pocket_band_native_x_mm": [
@@ -2671,14 +2674,17 @@
   "seat_bore_radius_mm": 25.696989753350408,
   "selected": {
    "axial_end_stock_mm": 3.0,
-   "cap_arch_wall_mm": 3.1,
+   "cap_arch_wall_mm": 6.2,
+   "cap_east_roof_half_width_mm": 20.0,
    "contact_scope": "Motor-side saddle native X16.75\u201377.75 and one continuous upper clip X20\u201374.5. End stops contact only fixed motor rail ends; the rough head underside remains clear throughout axial free play. The central wire-cover and lead corridor stays open.",
-   "insertion": "Bare pump lowers vertically into the open motor saddle; fixed rails and molded cover pass through open rooms. One continuous 54.5 mm clip snaps down after seating. Its pockets retain 3 mm solid axial stock at both outer ends. Broad stock flush with the saddle outside wall joins the two fixed-rail end stops; the straight rail corridor between them stays open.",
+   "cover_channel_fore_native_x_mm": -20.0,
+   "cover_channel_recess_mm": 2.5,
+   "insertion": "The bare pump lowers into the two fixed-rail seats above a straight shallow lid recess. A filled box half-pipe with one east clearance shoulder closes over the motor, using two independent spring leaves with flat catches. The continuous receiving pockets retain 3 mm solid axial end stock.",
    "motor_band_native_x_mm": [
     16.75,
     77.75
    ],
-   "print_pose": "Snap cap stands on one axial end; arch, spring wings and hooks print as vertical walls.",
+   "print_pose": "The cap stands on one axial end; its filled body, leaves and hooks grow as vertical walls.",
    "rail_stop_contact_native_y_mm": [
     -29.0,
     -26.0
@@ -2700,7 +2706,7 @@
    ]
   },
   "snap_station": {
-   "axis_x": -15.368269476362315,
+   "axis_x": -15.181429835394722,
    "bearing": 11.84,
    "catch": 12.49,
    "ceiling": 14.99,
@@ -2712,8 +2718,8 @@
    "root": 0.0,
    "split": 0.0,
    "tip": 14.49,
-   "y0": 388.31776090725265,
-   "y1": 442.81776090725265
+   "y0": 388.0680504420662,
+   "y1": 442.5680504420662
   },
   "stock_half_width_mm": 35.879180708991775
  },
