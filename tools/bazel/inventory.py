@@ -162,13 +162,15 @@ def frozen_assets(root: Path = _ROOT) -> dict:
 #: action, so the fluting pass never seeds itself from the fetched prior bundle.
 IMPLICIT_SOLIDS = {
     "hardware/install-guide/plumbing/plumbing_scenes.py": tuple(
-        f"hardware/install-guide/plumbing/out/{name}.step.mesh"
+        f"hardware/install-guide/plumbing/out/{name}.step.{suffix}"
         for name in ("plumbing-valve-on", "plumbing-valve-off", "plumbing-pre-tee",
                      "plumbing-tee-installed")
+        for suffix in ("mesh", "npz")
     ),
     "hardware/install-guide/plumbing/modern/render_modern_tee.py": (
         "hardware/install-guide/plumbing/modern/out/modern-water-on.step",
         "hardware/install-guide/plumbing/modern/out/modern-water-on.step.mesh",
+        "hardware/install-guide/plumbing/modern/out/modern-water-on.step.npz",
     ),
     "hardware/printed-parts/soda-bend-holder/soda_bend_holder.py": tuple(
         f"hardware/printed-parts/soda-bend-holder/soda-bend-holder.{suffix}"

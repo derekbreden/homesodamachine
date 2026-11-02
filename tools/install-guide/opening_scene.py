@@ -59,22 +59,28 @@ def outlines(mask):
 
 
 def main():
-    import cadquery as cq
+    import _rust_part
+    _rust_part.start()
     import docgen
-    import _cad_art
     import _hsm_render
     import _install_art
+    import _mesh_payload
+    from _install_art_mesh import payloads, _read
 
     OUT.mkdir(parents=True, exist_ok=True)
     ASSETS.mkdir(parents=True, exist_ok=True)
-    scene = _install_art.s_opening()
-    component = cq.Assembly(name="opening-components")
-    for child in scene.children:
-        if child.name != "countertop":
-            component.add(child)
+    staged = payloads(_install_art, ["opening"], OUT)
+    scene = _read(staged["opening"])
+    component = [mesh for mesh in scene if mesh["name"].split("/")[0] != "countertop"]
     paths = {"scene": OUT / "opening.step", "components": OUT / "components.step"}
-    for name, shape in (("scene", scene), ("components", component)):
-        _cad_art._export_colored(shape, paths[name], mesh=True)
+    scenes = []
+    for name, meshes in (("scene", scene), ("components", component)):
+        source = OUT / f"opening-{name}.mesh"
+        _mesh_payload.write(meshes, source)
+        scenes.append({"name": paths[name].stem, "payload": str(source)})
+    numbers = OUT / "opening-export.numbers.json"
+    numbers.write_text(json.dumps({"surface_scenes": scenes}, sort_keys=True) + "\n")
+    _rust_part.run("tooling", "install-art-props", numbers, OUT)
     pose = dict(cam=(0.42, -0.80, 0.95), target=(0.0, 0.0, 24.0),
                 span=120.0, size="3800x3200", up=(0, 0, 1),
                 bg="#f2eee8", transparent=True, solid=True, ortho=True,
@@ -108,6 +114,9 @@ def main():
         "component_step_sha256": hashlib.sha256(paths["components"].read_bytes()).hexdigest(),
         "source_sha256": {str(p.relative_to(ROOT)): hashlib.sha256(p.read_bytes()).hexdigest()
                            for p in (Path(__file__), HARDWARE / "install-guide/_install_art.py",
+                                     HARDWARE / "install-guide/_install_art_mesh.py",
+                                     HARDWARE / "install-guide/install_art_props.rs",
+                                     HARDWARE / "faucet-layout/faucet-assembly.step.mesh",
                                      HARDWARE / "faucet-layout/faucet_assembly.py")},
         "silhouette_scope": "Same orthographic pose and native viewport; outer component-alpha contours.",
     }, indent=2) + "\n")
