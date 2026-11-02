@@ -22,7 +22,7 @@
 import * as THREE from "three";
 import { state } from "./state.js";
 import { scene, camera, controls, resizeRenderer, fitCameraDepth, fitFog } from "./scene.js";
-import * as xray from "./xray.js";
+import { beginCadLoad, disposeCadGroup, ownCadGroup } from "./cad-resources.js";
 
 const DXF_UNIT_TO_MM = {
   0: 1,        // unitless — treat as mm
@@ -381,6 +381,8 @@ function buildDxfMesh(parsed, thicknessMm) {
 }
 
 export async function loadDxfFile(file, { preserveCamera = false } = {}) {
+  const load = beginCadLoad();
+  const { current, signal } = load;
   const loadingEl = state.currentCadWrapper && state.currentCadWrapper.querySelector(".cad-loading");
   if (loadingEl) loadingEl.style.display = "block";
 
@@ -390,29 +392,32 @@ export async function loadDxfFile(file, { preserveCamera = false } = {}) {
     if (state.mountedDetail?.type === "dxf" && state.mountedDetail.file === file && prevEtag) {
       headers["If-None-Match"] = prevEtag;
     }
-    const resp = await fetch(`/dxfs/${file}`, { headers });
+    const resp = await fetch(`/dxfs/${file}`, { headers, signal });
     if (resp.status === 304) return;
     if (!resp.ok) return;
     const etag = resp.headers.get("etag");
     if (etag) state.dxfEtags.set(file, etag);
 
     const text = await resp.text();
+    if (!current()) return;
     const parsed = parseDxf(text);
 
     if (state.currentGroup) {
       scene.remove(state.currentGroup);
-      xray.disposeXray?.(state.currentGroup);
-      state.currentGroup.traverse((c) => { if (c.geometry) c.geometry.dispose(); });
+      disposeCadGroup(state.currentGroup);
     }
 
     const meta = state.dxfMeta.get(file) || {};
     const thickness = typeof meta.thickness_mm === "number" ? meta.thickness_mm : null;
-    state.currentGroup = buildDxfMesh(parsed, thickness);
+    state.currentGroup = ownCadGroup(buildDxfMesh(parsed, thickness));
     scene.add(state.currentGroup);
     state.mountedDetail = { type: "dxf", file };
     if (!preserveCamera) resetDxfCamera(state.currentGroup, !!thickness);
+  } catch (error) {
+    if (error.name !== "AbortError") throw error;
   } finally {
-    if (loadingEl) loadingEl.style.display = "none";
+    if (loadingEl && current()) loadingEl.style.display = "none";
+    load.finish();
   }
 }
 
