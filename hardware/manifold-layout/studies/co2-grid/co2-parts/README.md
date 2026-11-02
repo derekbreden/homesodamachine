@@ -61,12 +61,11 @@ at `(0,74.47,0)` in the regulator frame. The inlet and outlet mouths are
 without changing either metal body. The integrated grid study selects 11 mm,
 leaving 3.3 mm more inlet projection and giving a 132.47 mm mouth span.
 
-Run `freeze.py` manually to capture the current source meshes. Rebuild only
-the local published-size adapter models through the CAD queue:
+Run `freeze.py` manually to capture the current source meshes.
 
-```sh
-PYTHONPATH=. tmp/takeover/cadq "CO2 adapter envelopes" -- tools/cad-venv/bin/python hardware/manifold-layout/studies/co2-grid/co2-parts/build_adapters.py
-```
+The [adapter builder and one-time audit source archive](https://github.com/derekbreden/homesodamachine/tree/e993e2f1dc02e22f670f06dc5aecf0df14dcfe3d/hardware/manifold-layout/studies/co2-grid/co2-parts)
+at Git commit `e993e2f1dc02e22f670f06dc5aecf0df14dcfe3d` contains
+`build_adapters.py` and `audit.py`.
 
 `audit.json` records a one-time source reconstruction and selected envelope
 check. This directory adds no recurring verification to the repository.
