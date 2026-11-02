@@ -17,7 +17,8 @@ assembly and its BOM.
 |---|---|
 | [`fake_countertop.py`](fake_countertop.py) | Generator, dimensions and geometric checks |
 | [`fake-countertop.stl`](fake-countertop.stl) | The print, show face down |
-| [`fake-countertop.step`](fake-countertop.step) | Exact, material-coloured solid |
+| [`fake-countertop.step`](fake-countertop.step) | Material-coloured model in the print frame |
+| [`fake-countertop.step.npz`](fake-countertop.step.npz) | Full fine model for measurement |
 | [`prepare_print.py`](prepare_print.py) | The project and slice for either machine, from the shared PET-GF settings |
 
 ## Print
@@ -30,8 +31,8 @@ there at Bambu's own offset, the stock project (`prepare_print.py --variant blac
 stopped once that layer is down. The slab's edges
 on the plate are sharp. The four outer corners are rounded at [6 mm](FCT_CORNER_R), the
 legs meet the slab on a [6 mm](FCT_ROOT_R) root, and the legs' inner edges and feet are
-rounded at [3 mm](FCT_FOOT_R). The STL is the faucet's absolute-tolerance print mesh
-(`cadlib/print_mesh.py`), read back and refused on any open or non-manifold edge, so the
+rounded at [3 mm](FCT_FOOT_R). The STL uses 0.005 mm absolute-tolerance triangulation,
+read back and refused on any open or non-manifold edge, so the
 rounds print as rounds. The solid is [5266 cm³](FCT_VOLUME) before infill; the slice says
 what it weighs.
 
