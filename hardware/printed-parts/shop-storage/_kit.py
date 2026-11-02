@@ -10,25 +10,34 @@ stands on the +Y wall, so a bin built here already faces the operator.
 figures each of them is allowed to read.
 """
 
+import json
 import sys
 from pathlib import Path
-
-import cadquery as cq
-from cqgridfinity import GridfinityBaseplate, GridfinityBox
-from cqgridfinity.constants import (
-    GR_BASE_CLR,
-    GR_BOT_H,
-    GR_DIV_WALL,
-    GR_TOL,
-    GR_WALL,
-    GRHU,
-    GRU,
-)
+from types import SimpleNamespace
 
 _here = Path(__file__).resolve()
 _repo_root = next(p for p in _here.parents if (p / "tools" / "docgen").is_dir())
 sys.path.insert(0, str(next(p for p in _here.parents if p.name == "hardware") / "scripts"))
 sys.path.insert(0, str(_repo_root / "tools"))
+import _rust_part
+_rust_part.start()
+
+import cadquery as cq
+
+_STOCK_PATH = _here.parent / "gridfinity-stock/manifest.json"
+_STOCK = json.loads(_STOCK_PATH.read_text())
+globals().update(_STOCK["constants"])
+
+
+def GridfinityBox(*args, **kwargs):
+    from cqgridfinity import GridfinityBox as NativeBox
+    return NativeBox(*args, **kwargs)
+
+
+def GridfinityBaseplate(*args, **kwargs):
+    from cqgridfinity import GridfinityBaseplate as NativePlate
+    return NativePlate(*args, **kwargs)
+
 
 from _cadq_export import export_assembly  # noqa: E402
 from _materials import M_PETG_BLACK, one_body  # noqa: E402
@@ -58,7 +67,7 @@ lip_inset = 2.6
 
 #: One of the library's own bins, kept for the figures it derives rather than the body
 #: it renders.
-_stock_bin = GridfinityBox(1, 2, 1, labels=True, width_div=1)
+_stock_bin = SimpleNamespace(**_STOCK["defaults"])
 
 wall_thickness = GR_WALL
 divider_thickness = GR_DIV_WALL
@@ -101,7 +110,8 @@ def interior_ceiling_z(height_u):
     The cavity runs on past it to the top reference, into the pocket a stacked body's
     base foot drops into. A content that stops below this ceiling is clear of anything
     stacked on top of the tub; one that stands past it is crushed by it."""
-    return bin_floor_z + GridfinityBox(1, 2, height_u).int_height
+    height = _STOCK["height_offset_mm"] + GRHU * height_u
+    return bin_floor_z + (height - GR_LIP_H - GR_BOT_H)
 
 
 # ============================================================
