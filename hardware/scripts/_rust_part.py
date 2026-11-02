@@ -408,9 +408,57 @@ def step(path) -> str:
         _READ_TARGETS.add(_relative(beside))
         return name
     cached = _workspace() / ".cache" / "hsm" / "import" / f"{digest}.step.mesh"
-    if not cached.is_file():
+    if not cached.is_file() and not _adopt_fine_payload(path, cached, digest):
         _tessellate(path, cached, digest)
     return name
+
+
+def _adopt_fine_payload(path: Path, out: Path, digest: str) -> bool:
+    """Seed the STEP cache from a frozen asset explicitly cut at the kernel's rule.
+
+    A display payload alone says nothing about its tessellation budget. The declaration binds
+    both member hashes and the fine rule, and the payload names the STEP it was cut from.
+    Unknown or stale declarations retain the ordinary B-rep conversion path.
+    """
+    manifest = path.parent / "frozen-asset.json"
+    if not manifest.is_file():
+        return False
+    _READ_TARGETS.add(_relative(manifest))
+    try:
+        record = json.loads(manifest.read_text())
+        fine, members = record.get("fine_payload"), record.get("members", {})
+        if not isinstance(fine, dict) or not isinstance(members, dict):
+            return False
+        if fine.get("source_step_sha256") != digest or members.get(path.name) != digest:
+            return False
+        for key, budget in (("linear_mm", LINEAR), ("angular_rad", ANGULAR)):
+            value = fine.get(key)
+            if isinstance(value, bool) or not isinstance(value, (int, float)) or not 0 < value <= budget:
+                return False
+        member, expected = fine.get("path"), fine.get("sha256")
+        if not isinstance(member, str) or not isinstance(expected, str) or members.get(member) != expected:
+            return False
+        payload = (path.parent / member).resolve()
+        if not payload.is_relative_to(path.parent.resolve()):
+            return False
+        data = payload.read_bytes()
+        if hashlib.sha256(data).hexdigest() != expected:
+            return False
+        header = json.loads(data[4:4 + int.from_bytes(data[:4], "little")])
+        if (header.get("v") != 3 or header.get("src") != digest
+                or not isinstance(header.get("meshes"), list) or not header["meshes"]):
+            return False
+    except (OSError, ValueError, TypeError, AttributeError):
+        return False
+    _READ_TARGETS.add(_relative(payload))
+    try:
+        out.parent.mkdir(parents=True, exist_ok=True)
+        temp = out.with_name(f".{out.name}.{os.getpid()}")
+        temp.write_bytes(data)
+        os.replace(temp, out)
+    except OSError as exc:
+        raise RuntimeError(f"_rust_part: could not install verified fine payload for {path}") from exc
+    return True
 
 
 def _tessellate(path: Path, out: Path, digest: str) -> None:
