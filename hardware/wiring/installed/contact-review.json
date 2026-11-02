@@ -1,12 +1,12 @@
 {
   "schema": 3,
   "scope": "Manual closed-solid follow-up of every final production full-scene wire/larger-body mesh witness. Conductors, connector housings and jackets are read from the production f64 model; larger bodies are read from the installed viewer payload, with failed closed meshes replaced only by a tessellation of the retained native physical body. Only a named endpoint or its own termination has a finite 8.5 mm spherical contact region. Thermal fuse native stub engagement uses its recorded 2.5 mm tip region. Wire-wire and wire-tube contacts are excluded.",
-  "assembly_step_sha256": "d534a641b9b7018890fb103416b73c468f2f60b20d35982ac9f089d9e4168923",
-  "assembly_mesh_sha256": "f9b8d9c352483a94529ea85fc5d5bdd71e03e637809dd12d57fa65e49d5b13b2",
+  "assembly_step_sha256": "fe4dfd97a9a19ec03566672446d93584806ff2927c324acc96e393f762e16654",
+  "assembly_mesh_sha256": "5c168985d157d9fd5b31a471208abaf762f96c38922eb9d356ae219969180c32",
   "wiring_step_sha256": "dbfdba39ac2bfac163eb64afd460abbf01fc575ae58b5a5a8130c62075f4b0c7",
   "wiring_model_sha256": "be4fead4405ecf422a95f75206a561dece2896de4bd28ad4d52f28e513e76dab",
-  "manifest_sha256": "0e559a1eb1209fc65ffbf4d8b3e3f51203a72ce62041f855dea3b78c78ed8d92",
-  "mesh_review_sha256": "a9e99169a610ac4e70783f859cf7e44edb7a617a3227dcbc5fd1bd99c2e5b91b",
+  "manifest_sha256": "8c5ab1bc491e2067d27d3d053b88fe3168c9c1d33d8463097c415e1a8bb1e9ef",
+  "mesh_review_sha256": "afccc69052a2b9fb9c393599efc33eec2c57e260ffce51483b0aa554aa5862b9",
   "reader_sha256": "dda633caae0cffe7eed5d3211606409c326912961737f864e22a4078c34c2add",
   "physical_pairs": [
     {
@@ -169,5 +169,57 @@
   ],
   "native_physical_fallbacks": [],
   "unresolved": [],
-  "all_current_mesh_witnesses_resolved": true
+  "all_current_mesh_witnesses_resolved": true,
+  "retained_measured_artifact_binding": {
+    "assembly_step_sha256": "d534a641b9b7018890fb103416b73c468f2f60b20d35982ac9f089d9e4168923",
+    "assembly_mesh_sha256": "f9b8d9c352483a94529ea85fc5d5bdd71e03e637809dd12d57fa65e49d5b13b2",
+    "manifest_sha256": "0e559a1eb1209fc65ffbf4d8b3e3f51203a72ce62041f855dea3b78c78ed8d92"
+  },
+  "current_subtractive_host_binding": {
+    "assembly_step_sha256": "fe4dfd97a9a19ec03566672446d93584806ff2927c324acc96e393f762e16654",
+    "assembly_mesh_sha256": "5c168985d157d9fd5b31a471208abaf762f96c38922eb9d356ae219969180c32",
+    "scope": "The complete exact native back-top change removes 266.888893 mm3 and adds no stock. All other 453 physical viewer members and all 119 installed wiring viewer members are byte-identical across every channel. Prior zero contacts, complete motion intervals and conservative lever sweeps remain clear under this subtraction. All wire route, terminal and source records are unchanged except the physical-scene digest.",
+    "physical_step_sha256": "125d2257431913bd6c44e679a6dba570a0ab279a492b48adedbc03251d4cb6cf",
+    "physical_mesh_sha256": "1bfdece9fe2e8692db4188866db134c476b76f259dd98ea07fb1732eae86c849",
+    "delta": {
+      "scope": "Replace the live/neutral cluster roof ramp with one level 3 mm roof beneath the data-jack seat. Apply only the subtractive actual local template difference; preserve all purchased-body poses, accepted jack catches and every other physical member.",
+      "removed_template_mm3": 266.88889346953016,
+      "actual_removed_mm3": 266.8888934530494,
+      "actual_added_mm3": 0,
+      "delta_region_mm": [
+        [
+          -98.0,
+          457.0,
+          279.0
+        ],
+        [
+          -56.0,
+          464.0,
+          287.0
+        ]
+      ],
+      "hosts": {
+        "hardware/manifold-layout/enclosure-assembly.step": {
+          "step_sha256": "125d2257431913bd6c44e679a6dba570a0ab279a492b48adedbc03251d4cb6cf",
+          "payload_sha256": "1bfdece9fe2e8692db4188866db134c476b76f259dd98ea07fb1732eae86c849",
+          "changed_members": [
+            "enclosure-back-top"
+          ]
+        },
+        "hardware/printed-parts/enclosure/enclosure/enclosure.step": {
+          "step_sha256": "7c86fe304981aab639fdc90788dff873703dc5ba55d731f3b7eaf650ba9e49fc",
+          "payload_sha256": "7e453ed8f0aa35ecaa34a5cf58c22fa590b664963253e3a9a723e0eebaf63ce6",
+          "changed_members": [
+            "enclosure-back-top"
+          ]
+        }
+      },
+      "final_installed_step_sha256": "fe4dfd97a9a19ec03566672446d93584806ff2927c324acc96e393f762e16654",
+      "final_installed_payload_sha256": "5c168985d157d9fd5b31a471208abaf762f96c38922eb9d356ae219969180c32",
+      "back_top_stl_sha256": "7486de436d7c33dc1232e29a9b009a78bfa720ead387cd436db98477d47396f2"
+    },
+    "other_physical_members_identical": 453,
+    "wire_members_identical": 119,
+    "routes_and_terminal_records_identical": true
+  }
 }

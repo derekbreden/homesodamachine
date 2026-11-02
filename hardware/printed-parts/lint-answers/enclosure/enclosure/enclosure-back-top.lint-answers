@@ -314,6 +314,7 @@ click: x=29.137 y=401.452 z=342.489
 alternatives: Changing this boundary to a 3 mm Y strip requires moving the complete fitted well away from the retained rear corner or changing that corner. Thickening the X wall does not change the classified face extent; filling the open half occupies the lever and wire-entry access.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=-97.550 y=458.009 z=269.709
+click: x=-97.550 y=458.009 z=268.200
 click: x=-97.550 y=458.009 z=301.209
 
 [ceiling] Functional bottom stops of the two continuous label channels: each 32.3 by 2.0 mm flat locates the sliding tile stack at Z252, with the channel open to the rear before the tiles are inserted. Tree(auto)/Default supports can leave through that mouth before installation; removal quality remains a print-preparation question.
