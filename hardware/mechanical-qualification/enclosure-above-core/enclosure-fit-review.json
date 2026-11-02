@@ -1,8 +1,8 @@
 {
   "schema": "enclosure-fit-review/3",
   "scope": "Completed nominal enclosure geometry, assembly, mounted junctions and finished wire placement. Exact print and surface records are bound separately. Physical force, spring life, bearing finish and purchased-part tolerances require physical articles.",
-  "assembly_step_sha256": "fe4dfd97a9a19ec03566672446d93584806ff2927c324acc96e393f762e16654",
-  "assembly_mesh_sha256": "5c168985d157d9fd5b31a471208abaf762f96c38922eb9d356ae219969180c32",
+  "assembly_step_sha256": "bb4d7807285bdd7d6fb4495d3a9a415600ba6717f94b291489f78fb8708cbb5a",
+  "assembly_mesh_sha256": "9c0247fb4ec0826f175fb84615660a09b3a8a863d745045c24b5dc510de623de",
   "integration_record": "hardware/mechanical-qualification/enclosure-above-core/retention-integration-review.json",
   "native_contacts": [
     {
@@ -112,7 +112,7 @@
     "all_mounted_junction_bodies_clear": true,
     "all_wire_larger_body_contacts_clear": true
   },
-  "current_subtractive_host_binding": {
+  "retained_subtractive_host_binding": {
     "assembly_step_sha256": "fe4dfd97a9a19ec03566672446d93584806ff2927c324acc96e393f762e16654",
     "assembly_mesh_sha256": "5c168985d157d9fd5b31a471208abaf762f96c38922eb9d356ae219969180c32",
     "scope": "The complete exact native back-top change removes 266.888893 mm3 and adds no stock. All other 453 physical viewer members and all 119 installed wiring viewer members are byte-identical across every channel. Prior zero contacts, complete motion intervals and conservative lever sweeps remain clear under this subtraction. All wire route, terminal and source records are unchanged except the physical-scene digest.",
@@ -158,5 +158,15 @@
     "other_physical_members_identical": 453,
     "wire_members_identical": 119,
     "routes_and_terminal_records_identical": true
+  },
+  "current_roof_material_binding": {
+    "assembly_step_sha256": "bb4d7807285bdd7d6fb4495d3a9a415600ba6717f94b291489f78fb8708cbb5a",
+    "assembly_mesh_sha256": "9c0247fb4ec0826f175fb84615660a09b3a8a863d745045c24b5dc510de623de",
+    "physical_step_sha256": "500579f42d5aa3edec3542fa65d33711a52cd19626838114cc63a6eab82d0c3d",
+    "physical_mesh_sha256": "fb05b9fce452fbd92c169a46dcc932274fecbee66358aa97b5b68b512df69530",
+    "record": "hardware/mechanical-qualification/enclosure-above-core/retention-integration-review.json",
+    "section": "completed_junction_and_wire_integration.current_solid_level_roof",
+    "proof_sha256": "62241b4abe3fdb45a5c5b2c30d52c6d610a007d3da421e2d01ee723adb02c7e0",
+    "scope": "The central reading binds the complete roof addition, unchanged physical/wire members, native contacts, all 100 conductors, ten lever envelopes and the complete rear closing interval."
   }
 }

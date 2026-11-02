@@ -1250,8 +1250,8 @@
       }
     },
     "back-top": {
-      "preparation_directory": ".cache/retention-integration/slices-v3-final/2026-11-02-back-top-mark2-088720f5",
-      "preparation_record_sha256": "b0239c760eaa2758e32723a8786a9c517856c1c54a44652d72c6d2cdeed9693d",
+      "preparation_directory": ".cache/retention-integration/slices-v3-final/2026-11-02-back-top-mark2-a70c91d8",
+      "preparation_record_sha256": "8d5a3c22ca72479164e2310e5c1a170421394a2f7d49fb6d5703e79264ac4565",
       "profile_sha256": "45c16e8c8517e0a205107d7b9f7412d013f51a8de7ecf86125cc940079d37ed0",
       "printer": "Mark2",
       "nozzle": {
@@ -1270,11 +1270,11 @@
           "identify_id": 1901,
           "object_id": 2,
           "stl": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl",
-          "stl_sha256": "7486de436d7c33dc1232e29a9b009a78bfa720ead387cd436db98477d47396f2",
-          "step_sha256": "1abedd9b3fb8f2c2e6dd58cac600e402bdcdafa399ed7aea1175551bf05fc1c1",
-          "facets": 879552,
+          "stl_sha256": "b09196f41a6a0ac2b67ec14ad77c2d17af4747feca3649ecdcd862361eb09c68",
+          "step_sha256": "c2cb1a447af3fa0691c3518e98a2384a446d86f88e949ac1d3b7fed66ffb2dc7",
+          "facets": 879466,
           "closed": {
-            "edges": 1319328,
+            "edges": 1319199,
             "boundary_edges": 0,
             "nonmanifold_edges": 0,
             "inconsistent_edges": 0,
@@ -2771,12 +2771,12 @@
           "fins": [],
           "regions": {
             "record": "hardware/printed-parts/enclosure/enclosure/heat-set-review/print-regions.json",
-            "record_sha256": "2d2d58b0a7dea2f2aca3aa686d746a44ce94da43f5881daa4d0f741d4a096450",
+            "record_sha256": "2bcb28cf8b83683aa72c5a773a8643238ca3a0f420c29f1ee34663b482e32cdc",
             "part_process_overrides": null
           }
         }
       ],
-      "archive_sha256": "e3fec0e081248952ff9f43206fdb721f4e61a3e917f90b1b6919ee30cd7b1b73",
+      "archive_sha256": "84afad1b125d9c66a7e643aa855847f44ebed4e1fae34f3d1c23b0823f14e725",
       "checks": {
         "archive": true,
         "z_trim": true,
@@ -2791,16 +2791,16 @@
       "bed_border_mm": 20.0,
       "support_audits": [
         {
-          "record_sha256": "f85c75390c896aac01a9ff2bee88a21d69892bcf5ad36b629d4a5149f01e9cab",
+          "record_sha256": "961b0b6a1780a8ef5529636b59b9175be566a7f59dc30800d064c489db81e849",
           "schema": 1,
           "piece": "enclosure-back-top",
           "inputs": {
             "gcode": "support-labels-1901.gcode",
-            "gcode_sha256": "9e1014245101d847385ba2c4c4089658bc8830f3d024cff4dbdc0b5a160f04b6",
+            "gcode_sha256": "bafa3635cf2185964698426436ce975e615d9edba45e1b2943f39ef498d585ac",
             "model": "/Users/derekbredensteiner/Developer/hsm-approved-asse/hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl",
-            "model_sha256": "7486de436d7c33dc1232e29a9b009a78bfa720ead387cd436db98477d47396f2",
-            "profile": ".cache/retention-integration/slices-v3-final/2026-11-02-back-top-mark2-088720f5/2026-11-02-back-top-mark2-088720f5.3mf",
-            "profile_sha256": "c0aecf2cbf61a1a057a6620327473d8365f21dc529d65496ff23d1c6f5e3564e"
+            "model_sha256": "b09196f41a6a0ac2b67ec14ad77c2d17af4747feca3649ecdcd862361eb09c68",
+            "profile": ".cache/retention-integration/slices-v3-final/2026-11-02-back-top-mark2-a70c91d8/2026-11-02-back-top-mark2-a70c91d8.3mf",
+            "profile_sha256": "7f536c7b1181f26fd4d62c09c3a1e64593c79b2f4df8faaec39231e58595f04d"
           },
           "slicer": "BambuStudio 02.08.02.61",
           "first_layer_z_mm": 0.2,
@@ -2834,14 +2834,14 @@
             "support_type": "tree(auto)"
           },
           "summary": {
-            "support_bodies": 17,
-            "interface_islands": 32,
+            "support_bodies": 16,
+            "interface_islands": 31,
             "bed_rooted_bodies": 8,
-            "model_rooted_bodies": 9,
-            "shortest_build_up_mm": 0.0,
+            "model_rooted_bodies": 8,
+            "shortest_build_up_mm": 1.92,
             "bodies_without_interface_labels": 0,
-            "explicit_interface_islands": 32,
-            "shortest_labelled_build_up_mm": 0.0
+            "explicit_interface_islands": 31,
+            "shortest_labelled_build_up_mm": 1.92
           },
           "trees": [
             {
@@ -2915,8 +2915,8 @@
               ],
               "interfaces": [
                 "interface-1",
-                "interface-25",
-                "interface-29"
+                "interface-24",
+                "interface-28"
               ],
               "interface_reading": "explicit_feature",
               "bbox_cad_xyz_mm": [
@@ -2944,7 +2944,7 @@
               ],
               "interfaces": [
                 "interface-2",
-                "interface-31"
+                "interface-30"
               ],
               "interface_reading": "explicit_feature",
               "bbox_cad_xyz_mm": [
@@ -3054,9 +3054,9 @@
                 255.6
               ],
               "interfaces": [
+                "interface-25",
                 "interface-26",
-                "interface-27",
-                "interface-28"
+                "interface-27"
               ],
               "interface_reading": "explicit_feature",
               "bbox_cad_xyz_mm": [
@@ -3183,33 +3183,6 @@
             {
               "id": "tree-13",
               "root": "model",
-              "base_z_mm": 78.44,
-              "first_interface_z_mm": 78.44,
-              "shortest_build_up_mm": 0.0,
-              "top_z_mm": 78.92,
-              "bbox_xy_mm": [
-                278.4,
-                62.8,
-                279.6,
-                86.4
-              ],
-              "interfaces": [
-                "interface-24"
-              ],
-              "interface_reading": "explicit_feature",
-              "bbox_cad_xyz_mm": [
-                -97.2,
-                457.375,
-                276.08,
-                -73.6,
-                458.575,
-                276.56
-              ],
-              "removal_lane": "Empty rear equipment and port openings, from the fore interior and the exterior rear mouths before fitting ports, electronics or nameplates."
-            },
-            {
-              "id": "tree-14",
-              "root": "model",
               "base_z_mm": 9.56,
               "first_interface_z_mm": 19.16,
               "shortest_build_up_mm": 9.6,
@@ -3235,7 +3208,7 @@
               "removal_lane": "Empty rear equipment and port openings, from the fore interior and the exterior rear mouths before fitting ports, electronics or nameplates."
             },
             {
-              "id": "tree-15",
+              "id": "tree-14",
               "root": "bed",
               "base_z_mm": 0.2,
               "first_interface_z_mm": 32.84,
@@ -3249,7 +3222,7 @@
               ],
               "interfaces": [
                 "interface-13",
-                "interface-30"
+                "interface-29"
               ],
               "interface_reading": "explicit_feature",
               "bbox_cad_xyz_mm": [
@@ -3263,7 +3236,7 @@
               "removal_lane": "Empty rear equipment and port openings, from the fore interior and the exterior rear mouths before fitting ports, electronics or nameplates."
             },
             {
-              "id": "tree-16",
+              "id": "tree-15",
               "root": "bed",
               "base_z_mm": 0.2,
               "first_interface_z_mm": 35.24,
@@ -3279,7 +3252,7 @@
                 "interface-14",
                 "interface-21",
                 "interface-22",
-                "interface-32"
+                "interface-31"
               ],
               "interface_reading": "explicit_feature",
               "bbox_cad_xyz_mm": [
@@ -3293,7 +3266,7 @@
               "removal_lane": "Empty rear equipment and port openings, from the fore interior and the exterior rear mouths before fitting ports, electronics or nameplates."
             },
             {
-              "id": "tree-17",
+              "id": "tree-16",
               "root": "bed",
               "base_z_mm": 0.2,
               "first_interface_z_mm": 35.24,
@@ -3478,7 +3451,7 @@
                 282.8,
                 114.0
               ],
-              "tree": "tree-14",
+              "tree": "tree-13",
               "build_up_mm": 9.6,
               "bbox_cad_xyz_mm": [
                 -50.8,
@@ -3583,7 +3556,7 @@
                 291.2,
                 238.8
               ],
-              "tree": "tree-15",
+              "tree": "tree-14",
               "build_up_mm": 32.64,
               "bbox_cad_xyz_mm": [
                 74.0,
@@ -3605,16 +3578,16 @@
                 103.2
               ],
               "trees": [
-                "tree-16",
-                "tree-17"
+                "tree-15",
+                "tree-16"
               ],
               "first_z_by_tree_mm": {
-                "tree-16": 35.24,
-                "tree-17": 35.24
+                "tree-15": 35.24,
+                "tree-16": 35.24
               },
               "build_up_by_tree_mm": {
-                "tree-16": 35.04,
-                "tree-17": 35.04
+                "tree-15": 35.04,
+                "tree-16": 35.04
               },
               "bbox_cad_xyz_mm": [
                 -80.4,
@@ -3761,7 +3734,7 @@
                 290.8,
                 188.0
               ],
-              "tree": "tree-16",
+              "tree": "tree-15",
               "build_up_mm": 70.32,
               "bbox_cad_xyz_mm": [
                 26.0,
@@ -3782,7 +3755,7 @@
                 290.8,
                 191.6
               ],
-              "tree": "tree-16",
+              "tree": "tree-15",
               "build_up_mm": 70.32,
               "bbox_cad_xyz_mm": [
                 29.6,
@@ -3816,27 +3789,6 @@
             },
             {
               "id": "interface-24",
-              "first_z_mm": 78.44,
-              "last_z_mm": 78.92,
-              "bbox_xy_mm": [
-                278.4,
-                62.8,
-                279.6,
-                86.4
-              ],
-              "tree": "tree-13",
-              "build_up_mm": 0.0,
-              "bbox_cad_xyz_mm": [
-                -97.2,
-                457.375,
-                276.08,
-                -73.6,
-                458.575,
-                276.56
-              ]
-            },
-            {
-              "id": "interface-25",
               "first_z_mm": 89.96,
               "last_z_mm": 90.44,
               "bbox_xy_mm": [
@@ -3857,7 +3809,7 @@
               ]
             },
             {
-              "id": "interface-26",
+              "id": "interface-25",
               "first_z_mm": 90.2,
               "last_z_mm": 90.68,
               "bbox_xy_mm": [
@@ -3878,7 +3830,7 @@
               ]
             },
             {
-              "id": "interface-27",
+              "id": "interface-26",
               "first_z_mm": 93.8,
               "last_z_mm": 94.28,
               "bbox_xy_mm": [
@@ -3899,7 +3851,7 @@
               ]
             },
             {
-              "id": "interface-28",
+              "id": "interface-27",
               "first_z_mm": 93.8,
               "last_z_mm": 94.28,
               "bbox_xy_mm": [
@@ -3920,7 +3872,7 @@
               ]
             },
             {
-              "id": "interface-29",
+              "id": "interface-28",
               "first_z_mm": 97.88,
               "last_z_mm": 98.36,
               "bbox_xy_mm": [
@@ -3941,7 +3893,7 @@
               ]
             },
             {
-              "id": "interface-30",
+              "id": "interface-29",
               "first_z_mm": 104.12,
               "last_z_mm": 104.6,
               "bbox_xy_mm": [
@@ -3950,7 +3902,7 @@
                 286.0,
                 249.2
               ],
-              "tree": "tree-15",
+              "tree": "tree-14",
               "build_up_mm": 103.92,
               "bbox_cad_xyz_mm": [
                 82.4,
@@ -3962,7 +3914,7 @@
               ]
             },
             {
-              "id": "interface-31",
+              "id": "interface-30",
               "first_z_mm": 139.64,
               "last_z_mm": 140.12,
               "bbox_xy_mm": [
@@ -3983,7 +3935,7 @@
               ]
             },
             {
-              "id": "interface-32",
+              "id": "interface-31",
               "first_z_mm": 145.4,
               "last_z_mm": 145.88,
               "bbox_xy_mm": [
@@ -3992,7 +3944,7 @@
                 294.8,
                 172.8
               ],
-              "tree": "tree-16",
+              "tree": "tree-15",
               "build_up_mm": 145.2,
               "bbox_cad_xyz_mm": [
                 -88.0,
@@ -4009,21 +3961,21 @@
       ],
       "support_topology": {
         "1901": {
-          "support_bodies": 17,
-          "interface_islands": 32,
+          "support_bodies": 16,
+          "interface_islands": 31,
           "bed_rooted_bodies": 8,
-          "model_rooted_bodies": 9,
-          "shortest_build_up_mm": 0.0,
+          "model_rooted_bodies": 8,
+          "shortest_build_up_mm": 1.92,
           "bodies_without_interface_labels": 0,
-          "explicit_interface_islands": 32,
-          "shortest_labelled_build_up_mm": 0.0
+          "explicit_interface_islands": 31,
+          "shortest_labelled_build_up_mm": 1.92
         }
       },
       "first_second_layer_stack": {
         "1901": {
-          "second_layer_model_bead_area_mm2": 42712.865202572844,
-          "fraction_over_first_layer": 0.9983611504812788,
-          "second_layer_centerline_outside_first_mm": 40.331082145283524
+          "second_layer_model_bead_area_mm2": 42712.86508923249,
+          "fraction_over_first_layer": 0.9983611500955524,
+          "second_layer_centerline_outside_first_mm": 40.33283791179303
         }
       },
       "settings_changes": {
