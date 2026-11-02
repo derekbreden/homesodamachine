@@ -3,6 +3,10 @@
 
     tools/cad-venv/bin/python tools/bazel/gen_build.py
 
+`--project-graph GENERATOR INPUT OUTPUT` writes a reader's stable graph input for
+the support action. Assembly and tube actions stage that input at the existing
+`tools/bazel/graph.json` path; the full graph is only the support rule's input.
+
 `inventory.py` reads `graph.json` and says, per build step, the solids it cuts, the docs it
 rewrites and the files it reads. One `genrule` per step carries all three. A step is usually
 one generator and sometimes several — see `inventory._together`.
@@ -14,11 +18,56 @@ target here can be wrong in exactly one direction, and the build says which.
 import argparse
 import difflib
 import hashlib
+import json
 import os
 import re
 import shlex
 import sys
 from pathlib import Path
+
+
+def project_graph(graph: dict, generator: str) -> dict:
+    """One reader's input set and the writer classifications of those inputs.
+
+    `_facts` asks which assembly reads any generator writes or rewrites; `_machine`
+    and the tube exporter ask for the assembly's reads. Writer identities and all
+    unrelated fields are absent, so changing another graph row changes no staged byte.
+    This is a reader projection, not an inventory of generators.
+    """
+    if generator not in graph:
+        return {}
+    reads = set(graph[generator].get("reads", ()))
+    written = set().union(*(set(row.get("writes", ())) for row in graph.values()))
+    rewritten = set().union(*(set(row.get("rewritten", ())) for row in graph.values()))
+    return {
+        generator: {"reads": sorted(reads), "writes": [], "rewritten": []},
+        "@derived-input-classification": {
+            "reads": [], "writes": sorted(reads & written),
+            "rewritten": sorted(reads & rewritten),
+        },
+    }
+
+
+def write_graph_projection(generator: str, source: str, output: str) -> None:
+    """Cheap support transformation, usable without importing the build inventory."""
+    text = json.dumps(project_graph(json.loads(Path(source).read_text()), generator),
+                      indent=1, sort_keys=True) + "\n"
+    path = Path(output)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    if not path.is_file() or path.read_text() != text:
+        path.write_text(text)
+
+
+# The support action runs from the execroot with only its two declared files.
+# Dispatch before imports that locate this checkout's build inventory or runtime.
+if __name__ == "__main__" and sys.argv[1:2] == ["--project-graph"]:
+    parser = argparse.ArgumentParser(description="Project the graph for one reader")
+    parser.add_argument("generator")
+    parser.add_argument("source")
+    parser.add_argument("output")
+    options = parser.parse_args(sys.argv[2:])
+    write_graph_projection(options.generator, options.source, options.output)
+    raise SystemExit(0)
 
 _HERE = Path(__file__).resolve()
 _ROOT = _HERE.parents[2]
@@ -76,6 +125,15 @@ NOT_HERMETIC = ()
 #: sources from under here, so a comment edit leaves every input it holds byte for byte the
 #: same and Bazel runs none of it.
 PYSRC = "pysrc"
+
+# Both consumers use the assembly read row; the facts reader also needs the relevant
+# writer classifications. A support output stays outside out/, which sync_tree carries.
+GRAPH_SUPPORT = {
+    "support/enclosure-assembly-graph.json": (
+        "hardware/manifold-layout/enclosure_assembly.py",
+        frozenset(("enclosure-assembly", "tube-routes")),
+    ),
+}
 
 #: What tells a step that starts node: a script of this repo on node's command line, which
 #: the trace sees. Node resolves that entrypoint's local imports and packages below Python's
@@ -223,7 +281,7 @@ def comments_come_out(src: str, rewritten: set, consumer: str = None) -> bool:
 
 
 def read_from(src: str, rewritten: set, producers: dict = None,
-              consumer: str = None) -> str:
+              consumer: str = None, support: dict = None) -> str:
     """The label a step reads for `src`.
 
     A generated artifact comes from its producer's output, not from the copy restored into the
@@ -232,6 +290,8 @@ def read_from(src: str, rewritten: set, producers: dict = None,
     Rewritten docs stay source inputs; their generated figures are carried back separately and
     some of those documents intentionally read one another.
     """
+    if src in (support or {}):
+        return ":" + support[src]
     producer = (producers or {}).get(src)
     if producer and producer != consumer:
         return f":out/{producer}/{src}"
@@ -239,7 +299,7 @@ def read_from(src: str, rewritten: set, producers: dict = None,
 
 
 def render(gens: tuple, arts: list, srcs: list, optional: list, docs: list, rewritten: set,
-           name: str, producers: dict) -> str:
+           name: str, producers: dict, support: dict = None) -> str:
     # THE OUTPUT KEEPS THE PATH THE TREE KEEPS IT UNDER, so `sync_tree` strips one prefix and
     # has the file to carry it back to. Twenty generators cut a `README.md`, and a basename is
     # not a name for any of them.
@@ -247,7 +307,7 @@ def render(gens: tuple, arts: list, srcs: list, optional: list, docs: list, rewr
     cargo = _needs_cargo(srcs)
     work = f"work-{name}" if cargo else "work"
     lines = [f'genrule(', f'    name = "{name}",', "    srcs = ["]
-    lines += [f'        "{read_from(s, rewritten, producers, name)}",' for s in srcs]
+    lines += [f'        "{read_from(s, rewritten, producers, name, support)}",' for s in srcs]
     # NODE RESOLVES ITS OWN IMPORTS, below Python and out of the tracer's sight. The trace sees
     # the entrypoint on the command line; its runtime group carries the packages and served
     # resources that entrypoint reaches. An unknown entrypoint gets the broad fallback.
@@ -285,6 +345,8 @@ def render(gens: tuple, arts: list, srcs: list, optional: list, docs: list, rewr
         "for f in $(SRCS); do",
         "  case $$f in",
         "    */node_modules/*) continue;;",
+        *(f"    */bin/{output}) t={shlex.quote(source)};;"
+          for source, output in sorted((support or {}).items())),
         # A producer output arrives as bazel-out/<cfg>/bin/out/<producer>/<repo path>.
         # Strip both generated prefixes so the consumer sees the same path a direct run sees.
         "    */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;",
@@ -402,6 +464,9 @@ def action_plan(only: str = None) -> tuple:
             "producers": {s: producers[s] for s in srcs if s in producers},
             "dependencies": sorted(wants[names[gens]]),
             "node_runtimes": list(_node_runtimes(gens, srcs)),
+            "support_inputs": {"tools/bazel/graph.json": output
+                for output, (_reader, consumers) in GRAPH_SUPPORT.items()
+                if names[gens] in consumers and "tools/bazel/graph.json" in srcs},
         }
 
     _no_cycles(wants)
@@ -416,7 +481,19 @@ def render_build(only: str = None) -> tuple:
         comments_out.update(action["stripped"])
         blocks.append(render(tuple(action["generators"]), action["solids"], action["reads"],
                              action["optional"], action["docs"], set(action["rewritten_python"]),
-                             name, action["producers"]))
+                             name, action["producers"], action["support_inputs"]))
+
+    used_support = {output for action in actions.values()
+                    for output in action["support_inputs"].values()}
+    for output in sorted(used_support):
+        generator, _consumers = GRAPH_SUPPORT[output]
+        blocks.append(
+            f'genrule(\n    name = "support-{Path(output).stem}",\n'
+            '    srcs = ["tools/bazel/graph.json"],\n'
+            f'    outs = ["{output}"],\n'
+            '    tools = ["tools/bazel/gen_build.py"],\n'
+            f'    cmd = "{VENV} $(location tools/bazel/gen_build.py) --project-graph '
+            f'{generator} $(location tools/bazel/graph.json) $@",\n)')
 
     # ONE STRIPPED SOURCE PER ACTION. A single multi-output action made every Python edit an
     # input to every consumer of any stripped source, so `rdeps(display_cover.py)` became almost
