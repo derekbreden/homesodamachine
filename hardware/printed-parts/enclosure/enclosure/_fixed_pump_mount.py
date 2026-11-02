@@ -314,12 +314,8 @@ def lower_voids(e, box):
     return out
 
 
-def _wing(e, box, side, spread):
-    """A single extruded profile; cubic sides have zero slope at the upper root.
-
-    The standalone part carries the relaxed section. Assemblies carry the seated
-    section. This is a geometric pose, not a computed elastic response.
-    """
+def wing_profile(e, box, side, spread):
+    """The native wing's line/cubic controls and its extrusion interval."""
     d, s = datums(e, box), snap_datums(e, box)
     points = [(s['wing_inner_x'], s['floor_z']),
               (s['hook_outer_x'], s['floor_z']),
@@ -334,20 +330,41 @@ def _wing(e, box, side, spread):
     def slope(z):
         t = (s['root_z']-z)/length
         return -spread*(3.*t-1.5*t*t)/length
-    edges = []
+    segments = []
     for a, b in zip(points, points[1:]+points[:1]):
         xa, za = a
         xb, zb = b
-        pa = cq.Vector(side*(xa+deflection(za)), d['y0'], za)
-        pb = cq.Vector(side*(xb+deflection(zb)), d['y0'], zb)
+        pa = (side*(xa+deflection(za)), za)
+        pb = (side*(xb+deflection(zb)), zb)
         if abs(zb-za)<1e-9 or not spread:
-            edges.append(cq.Edge.makeLine(pa, pb))
+            segments.append({'line': (pa, pb)})
         else:
-            da = cq.Vector(side*(xb-xa+slope(za)*(zb-za)), 0., zb-za)
-            db = cq.Vector(side*(xb-xa+slope(zb)*(zb-za)), 0., zb-za)
-            edges.append(cq.Edge.makeBezier([pa, pa+da/3., pb-db/3., pb]))
+            da = (side*(xb-xa+slope(za)*(zb-za)), zb-za)
+            db = (side*(xb-xa+slope(zb)*(zb-za)), zb-za)
+            third = 1.0/3.0
+            segments.append({'cubic': (pa, tuple(a+b*third for a,b in zip(pa,da)),
+                                       tuple(a-b*third for a,b in zip(pb,db)), pb)})
+    return {'span': (d['y0'], d['y1']), 'segments': segments}
+
+
+def _wing(e, box, side, spread):
+    """A single extruded profile; cubic sides have zero slope at the upper root.
+
+    The standalone part carries the relaxed section. Assemblies carry the seated
+    section. This is a geometric pose, not a computed elastic response.
+    """
+    profile = wing_profile(e, box, side, spread)
+    y0, y1 = profile['span']
+    vector = lambda p: cq.Vector(p[0], y0, p[1])
+    edges = []
+    for segment in profile['segments']:
+        if 'line' in segment:
+            a,b = segment['line']
+            edges.append(cq.Edge.makeLine(vector(a), vector(b)))
+        else:
+            edges.append(cq.Edge.makeBezier([vector(p) for p in segment['cubic']]))
     wire = cq.Wire.assembleEdges(edges)
-    return cq.Solid.extrudeLinear(wire, [], cq.Vector(0., d['y1']-d['y0'], 0.))
+    return cq.Solid.extrudeLinear(wire, [], cq.Vector(0., y1-y0, 0.))
 
 
 def retainer(e, box, *, seated=False):
