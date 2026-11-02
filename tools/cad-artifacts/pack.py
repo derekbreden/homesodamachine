@@ -61,6 +61,7 @@ TAG = "cad-artifacts"
 
 #: Trees of local intermediates, each already ignored by the rule named beside it.
 NOT_BUNDLED_DIRS = (
+    "hardware/printed-parts/zone-c/funnel/forming-clearance",
     "hardware/printed-parts/enclosure/tee-carrier",  # retained physical articles
     "hardware/pcb/pcba/.cad-cache",          # manufacturer downloads, keyed by LCSC
     "hardware/assembly/scenes/out",          # local bench-service view intermediates
@@ -270,6 +271,7 @@ BUNDLED_PAYLOAD_FILES = (
     "hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole.step.mesh",
     "hardware/printed-parts/faucet/tpu-o-ring/tpu-o-ring.step.mesh",
     "hardware/printed-parts/enclosure/data-ring/data-ring.step.mesh",
+    "hardware/reference/neofit-stem-elbow/neofit-stem-elbow.fine.step.mesh",
     "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-water.step.mesh",
     "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-carb.step.mesh",
     "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-co2.step.mesh",

@@ -14,7 +14,9 @@ import sys
 from pathlib import Path
 
 _here = Path(__file__).resolve()
-_repo = next(p for p in _here.parents if (p / "hardware" / "scripts" / "_cadq_export.py").is_file())
+_repo = next(p for p in _here.parents if any(
+    (p / 'hardware/scripts' / helper).is_file()
+    for helper in ('_rust_part.py', '_cadq_export.py')))
 # _repo is this EDITION's root; tools/ is shared machinery with one copy at the
 # repo root, so it gets its own anchor rather than a tools/ per edition.
 _tools = next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"

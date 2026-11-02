@@ -7705,8 +7705,12 @@ genrule(
         "pysrc/hardware/printed-parts/enclosure/enclosure/_data_wing_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_display_wing_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_disposal_artwork.py",
+        "pysrc/hardware/printed-parts/enclosure/enclosure/_enclosure_back_top.py",
+        "pysrc/hardware/printed-parts/enclosure/enclosure/_enclosure_front_bottom.py",
+        "pysrc/hardware/printed-parts/enclosure/enclosure/_enclosure_front_top.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_enclosure_panel.py",
+        "pysrc/hardware/printed-parts/enclosure/enclosure/_enclosure_pump_retainer.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_enclosure_skin.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_enclosure_structure.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_fixed_pump_mount.py",
@@ -7722,9 +7726,14 @@ genrule(
         "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step",
         "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.stl",
         "hardware/printed-parts/enclosure/enclosure/enclosure.py",
+        "hardware/printed-parts/enclosure/enclosure/enclosure_back_top.rs",
+        "hardware/printed-parts/enclosure/enclosure/enclosure_front_bottom.rs",
         "hardware/printed-parts/enclosure/enclosure/enclosure_panel.rs",
+        "hardware/printed-parts/enclosure/enclosure/enclosure_plan.rs",
+        "hardware/printed-parts/enclosure/enclosure/enclosure_pump_retainer.rs",
         "hardware/printed-parts/enclosure/enclosure/enclosure_skin.rs",
         "hardware/printed-parts/enclosure/enclosure/enclosure_structure.rs",
+        "hardware/printed-parts/enclosure/enclosure/rear-seat-profiles.json",
         "pysrc/hardware/printed-parts/enclosure/nameplate/_nameplate_dimensions.py",
         "pysrc/hardware/printed-parts/enclosure/nameplate/nameplate.py",
         "hardware/printed-parts/enclosure/pump-dock/README.md",
@@ -11114,6 +11123,10 @@ genrule(
         "tools/hsm/Cargo.lock",
         "tools/hsm/Cargo.toml",
         "tools/hsm/funnel/Cargo.toml",
+        "tools/hsm/geometry/Cargo.toml",
+        "tools/hsm/geometry/src/lib.rs",
+        "tools/hsm/geometry/src/payload.rs",
+        "tools/hsm/geometry/src/queries.rs",
         "tools/hsm/kernel/Cargo.toml",
         "tools/hsm/kernel/src/boolean.rs",
         "tools/hsm/kernel/src/build.rs",
@@ -11377,6 +11390,8 @@ genrule(
         "pysrc/hardware/printed-parts/valve-seat/valve_seat.py",
         "hardware/printed-parts/zone-c/funnel/cradle-trial/README.md",
         "pysrc/hardware/printed-parts/zone-c/funnel/cradle-trial/cradle_trial.py",
+        "hardware/printed-parts/zone-c/funnel/cradle-trial/cradle_trial.rs",
+        "hardware/printed-parts/zone-c/funnel/cradle_geometry.rs",
         "pysrc/hardware/printed-parts/zone-c/funnel/elbow_cradle.py",
         "pysrc/hardware/printed-parts/zone-c/funnel/funnel.py",
         "pysrc/hardware/printed-parts/zone-c/funnel/funnel_frame.py",
@@ -11388,6 +11403,7 @@ genrule(
         "hardware/reference/jg-pp0308e-elbow/scan-measurements.json",
         "pysrc/hardware/reference/kamoer-kphm400/kamoer_kphm400.py",
         "pysrc/hardware/reference/mq6-gas-sensor/mq6_gas_sensor.py",
+        "hardware/reference/neofit-stem-elbow/neofit-stem-elbow.fine.step.mesh",
         "pysrc/hardware/reference/neofit-stem-elbow/neofit_stem_elbow.py",
         "hardware/reference/neofit-stem-elbow/reference-parameters.json",
         "pysrc/hardware/reference/riteav-keystone/riteav_keystone.py",
@@ -11399,12 +11415,75 @@ genrule(
         "pysrc/hardware/scripts/_material_base.py",
         "pysrc/hardware/scripts/_materials.py",
         "pysrc/hardware/scripts/_mesh_payload.py",
+        "pysrc/hardware/scripts/_occt_color.py",
         "pysrc/hardware/scripts/_payload_rules.py",
         "pysrc/hardware/scripts/_realized.py",
         "pysrc/hardware/scripts/_run_lock.py",
         "pysrc/hardware/scripts/_run_slots.py",
+        "pysrc/hardware/scripts/_rust_part.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/Cargo.lock",
+        "tools/hsm/Cargo.toml",
+        "tools/hsm/funnel/Cargo.toml",
+        "tools/hsm/geometry/Cargo.toml",
+        "tools/hsm/geometry/src/lib.rs",
+        "tools/hsm/geometry/src/payload.rs",
+        "tools/hsm/geometry/src/queries.rs",
+        "tools/hsm/kernel/Cargo.toml",
+        "tools/hsm/kernel/src/boolean.rs",
+        "tools/hsm/kernel/src/build.rs",
+        "tools/hsm/kernel/src/dxf.rs",
+        "tools/hsm/kernel/src/edge.rs",
+        "tools/hsm/kernel/src/face.rs",
+        "tools/hsm/kernel/src/import.rs",
+        "tools/hsm/kernel/src/lib.rs",
+        "tools/hsm/kernel/src/mapped.rs",
+        "tools/hsm/kernel/src/mass.rs",
+        "tools/hsm/kernel/src/math.rs",
+        "tools/hsm/kernel/src/part.rs",
+        "tools/hsm/kernel/src/plane.rs",
+        "tools/hsm/kernel/src/profile.rs",
+        "tools/hsm/kernel/src/reads.rs",
+        "tools/hsm/kernel/src/round.rs",
+        "tools/hsm/kernel/src/round/rolled.rs",
+        "tools/hsm/kernel/src/rule.rs",
+        "tools/hsm/kernel/src/screw.rs",
+        "tools/hsm/kernel/src/sketch_hull.rs",
+        "tools/hsm/kernel/src/solid.rs",
+        "tools/hsm/kernel/src/spline.rs",
+        "tools/hsm/kernel/src/step.rs",
+        "tools/hsm/kernel/src/step/analytic.rs",
+        "tools/hsm/kernel/src/sweep.rs",
+        "tools/hsm/kernel/src/text.rs",
+        "tools/hsm/kernel/src/thru.rs",
+        "tools/hsm/kernel/src/topo.rs",
+        "tools/hsm/kernel/src/triangulate.rs",
+        "tools/hsm/kernel/src/write.rs",
         "tools/hsm/run-slots.defaults.json",
+        "tools/hsm/run-slots/Cargo.toml",
+        "tools/hsm/run-slots/src/ipc.rs",
+        "tools/hsm/run-slots/src/lib.rs",
+        "tools/hsm/vendor/manifold-csg-sys/.cargo_vcs_info.json",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.lock",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.toml",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.toml.orig",
+        "tools/hsm/vendor/manifold-csg-sys/LICENSE-APACHE",
+        "tools/hsm/vendor/manifold-csg-sys/LICENSE-MIT",
+        "tools/hsm/vendor/manifold-csg-sys/README.md",
+        "tools/hsm/vendor/manifold-csg-sys/build.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/build.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/fetch.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/patch.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/wasm.rs",
+        "tools/hsm/vendor/manifold-csg-sys/cache-version",
+        "tools/hsm/vendor/manifold-csg-sys/src/lib.rs",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/CMakeLists.txt",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/diagnose.sh",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/__assertion_handler",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/__config_site",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/memory",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/mutex",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/libcxx-extras.cpp",
         "tools/run-slots.mjs",
         "pysrc/tools/run.py",
     ] + glob(
@@ -11414,27 +11493,35 @@ genrule(
         allow_empty = True,
     ),
     outs = [
+        "out/cradle-trial/hardware/printed-parts/zone-c/funnel/cradle-trial/cradle-trial.numbers.json",
         "out/cradle-trial/hardware/printed-parts/zone-c/funnel/cradle-trial/geometry-check.json",
         "out/cradle-trial/hardware/printed-parts/zone-c/funnel/cradle-trial/test-cradle.step",
         "out/cradle-trial/hardware/printed-parts/zone-c/funnel/cradle-trial/test-cradle.step.mesh",
+        "out/cradle-trial/hardware/printed-parts/zone-c/funnel/cradle-trial/test-cradle.step.npz",
         "out/cradle-trial/hardware/printed-parts/zone-c/funnel/cradle-trial/test-cradle.stl",
         "out/cradle-trial/hardware/printed-parts/zone-c/funnel/cradle-trial/test-receiver.step",
         "out/cradle-trial/hardware/printed-parts/zone-c/funnel/cradle-trial/test-receiver.step.mesh",
+        "out/cradle-trial/hardware/printed-parts/zone-c/funnel/cradle-trial/test-receiver.step.npz",
         "out/cradle-trial/hardware/printed-parts/zone-c/funnel/cradle-trial/test-receiver.stl",
         "out/cradle-trial/hardware/printed-parts/zone-c/funnel/cradle-trial/README.figures.json",
         "out/cradle-trial/hardware/printed-parts/zone-c/funnel/cradle-trial/README.md",
     ],
+    tags = ["no-sandbox"],
     cmd = """
 set -e
-O0=$$PWD/$(location out/cradle-trial/hardware/printed-parts/zone-c/funnel/cradle-trial/geometry-check.json)
-O1=$$PWD/$(location out/cradle-trial/hardware/printed-parts/zone-c/funnel/cradle-trial/test-cradle.step)
-O2=$$PWD/$(location out/cradle-trial/hardware/printed-parts/zone-c/funnel/cradle-trial/test-cradle.step.mesh)
-O3=$$PWD/$(location out/cradle-trial/hardware/printed-parts/zone-c/funnel/cradle-trial/test-cradle.stl)
-O4=$$PWD/$(location out/cradle-trial/hardware/printed-parts/zone-c/funnel/cradle-trial/test-receiver.step)
-O5=$$PWD/$(location out/cradle-trial/hardware/printed-parts/zone-c/funnel/cradle-trial/test-receiver.step.mesh)
-O6=$$PWD/$(location out/cradle-trial/hardware/printed-parts/zone-c/funnel/cradle-trial/test-receiver.stl)
-O7=$$PWD/$(location out/cradle-trial/hardware/printed-parts/zone-c/funnel/cradle-trial/README.figures.json)
-O8=$$PWD/$(location out/cradle-trial/hardware/printed-parts/zone-c/funnel/cradle-trial/README.md)
+O0=$$PWD/$(location out/cradle-trial/hardware/printed-parts/zone-c/funnel/cradle-trial/cradle-trial.numbers.json)
+O1=$$PWD/$(location out/cradle-trial/hardware/printed-parts/zone-c/funnel/cradle-trial/geometry-check.json)
+O2=$$PWD/$(location out/cradle-trial/hardware/printed-parts/zone-c/funnel/cradle-trial/test-cradle.step)
+O3=$$PWD/$(location out/cradle-trial/hardware/printed-parts/zone-c/funnel/cradle-trial/test-cradle.step.mesh)
+O4=$$PWD/$(location out/cradle-trial/hardware/printed-parts/zone-c/funnel/cradle-trial/test-cradle.step.npz)
+O5=$$PWD/$(location out/cradle-trial/hardware/printed-parts/zone-c/funnel/cradle-trial/test-cradle.stl)
+O6=$$PWD/$(location out/cradle-trial/hardware/printed-parts/zone-c/funnel/cradle-trial/test-receiver.step)
+O7=$$PWD/$(location out/cradle-trial/hardware/printed-parts/zone-c/funnel/cradle-trial/test-receiver.step.mesh)
+O8=$$PWD/$(location out/cradle-trial/hardware/printed-parts/zone-c/funnel/cradle-trial/test-receiver.step.npz)
+O9=$$PWD/$(location out/cradle-trial/hardware/printed-parts/zone-c/funnel/cradle-trial/test-receiver.stl)
+O10=$$PWD/$(location out/cradle-trial/hardware/printed-parts/zone-c/funnel/cradle-trial/README.figures.json)
+O11=$$PWD/$(location out/cradle-trial/hardware/printed-parts/zone-c/funnel/cradle-trial/README.md)
+rm -rf work-cradle-trial
 for f in $(SRCS); do
   case $$f in
     */node_modules/*) continue;;
@@ -11442,24 +11529,28 @@ for f in $(SRCS); do
     */pysrc/*) t=$${f##*/pysrc/};;
     *) t=$$f;;
   esac
-  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
+  mkdir -p work-cradle-trial/$$(dirname $$t); cp -L $$f work-cradle-trial/$$t
 done
 for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
-  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
+  if [ -d $$d ]; then mkdir -p work-cradle-trial/$$(dirname $$d); ln -sfn $$PWD/$$d work-cradle-trial/$$d; fi
 done
-cd work
+cd work-cradle-trial
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
 HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/zone-c/funnel/cradle-trial/cradle_trial.py > /dev/null
-cp hardware/printed-parts/zone-c/funnel/cradle-trial/geometry-check.json $$O0
-cp hardware/printed-parts/zone-c/funnel/cradle-trial/test-cradle.step $$O1
-cp hardware/printed-parts/zone-c/funnel/cradle-trial/test-cradle.step.mesh $$O2
-cp hardware/printed-parts/zone-c/funnel/cradle-trial/test-cradle.stl $$O3
-cp hardware/printed-parts/zone-c/funnel/cradle-trial/test-receiver.step $$O4
-cp hardware/printed-parts/zone-c/funnel/cradle-trial/test-receiver.step.mesh $$O5
-cp hardware/printed-parts/zone-c/funnel/cradle-trial/test-receiver.stl $$O6
-cp hardware/printed-parts/zone-c/funnel/cradle-trial/README.figures.json $$O7
-cp hardware/printed-parts/zone-c/funnel/cradle-trial/README.md $$O8
+cp hardware/printed-parts/zone-c/funnel/cradle-trial/cradle-trial.numbers.json $$O0
+cp hardware/printed-parts/zone-c/funnel/cradle-trial/geometry-check.json $$O1
+cp hardware/printed-parts/zone-c/funnel/cradle-trial/test-cradle.step $$O2
+cp hardware/printed-parts/zone-c/funnel/cradle-trial/test-cradle.step.mesh $$O3
+cp hardware/printed-parts/zone-c/funnel/cradle-trial/test-cradle.step.npz $$O4
+cp hardware/printed-parts/zone-c/funnel/cradle-trial/test-cradle.stl $$O5
+cp hardware/printed-parts/zone-c/funnel/cradle-trial/test-receiver.step $$O6
+cp hardware/printed-parts/zone-c/funnel/cradle-trial/test-receiver.step.mesh $$O7
+cp hardware/printed-parts/zone-c/funnel/cradle-trial/test-receiver.step.npz $$O8
+cp hardware/printed-parts/zone-c/funnel/cradle-trial/test-receiver.stl $$O9
+cp hardware/printed-parts/zone-c/funnel/cradle-trial/README.figures.json $$O10
+cp hardware/printed-parts/zone-c/funnel/cradle-trial/README.md $$O11
+cd .. && rm -rf work-cradle-trial
 """,
 )
 
@@ -11495,9 +11586,16 @@ genrule(
         "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
         "pysrc/hardware/printed-parts/valve-seat/valve_seat.py",
         "hardware/printed-parts/zone-c/funnel/README.md",
+        "hardware/printed-parts/zone-c/funnel/cradle_geometry.rs",
         "pysrc/hardware/printed-parts/zone-c/funnel/elbow_cradle.py",
+        "hardware/printed-parts/zone-c/funnel/elbow_cradle.rs",
+        ":out/frame-forming-clearance/hardware/printed-parts/zone-c/funnel/forming-clearance/forming-clearance.step",
+        ":out/frame-forming-clearance/hardware/printed-parts/zone-c/funnel/forming-clearance/forming-clearance.step.mesh",
+        ":out/frame-forming-clearance/hardware/printed-parts/zone-c/funnel/forming-clearance/inputs.json",
+        "pysrc/hardware/printed-parts/zone-c/funnel/frame_forming_clearance.py",
         "pysrc/hardware/printed-parts/zone-c/funnel/funnel.py",
         "pysrc/hardware/printed-parts/zone-c/funnel/funnel_frame.py",
+        "hardware/printed-parts/zone-c/funnel/funnel_frame.rs",
         "pysrc/hardware/reference/beduan-solenoid/beduan_solenoid.py",
         "pysrc/hardware/reference/iec-c14-inlet/iec_c14_inlet.py",
         "pysrc/hardware/reference/jg-bulkhead-union/jg_bulkhead_union.py",
@@ -11506,6 +11604,7 @@ genrule(
         "hardware/reference/jg-pp0308e-elbow/scan-measurements.json",
         "pysrc/hardware/reference/kamoer-kphm400/kamoer_kphm400.py",
         "pysrc/hardware/reference/mq6-gas-sensor/mq6_gas_sensor.py",
+        "hardware/reference/neofit-stem-elbow/neofit-stem-elbow.fine.step.mesh",
         "pysrc/hardware/reference/neofit-stem-elbow/neofit_stem_elbow.py",
         "hardware/reference/neofit-stem-elbow/reference-parameters.json",
         "pysrc/hardware/reference/riteav-keystone/riteav_keystone.py",
@@ -11522,9 +11621,71 @@ genrule(
         "pysrc/hardware/scripts/_realized.py",
         "pysrc/hardware/scripts/_run_lock.py",
         "pysrc/hardware/scripts/_run_slots.py",
+        "pysrc/hardware/scripts/_rust_part.py",
         "pysrc/hardware/scripts/flute_payload.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/Cargo.lock",
+        "tools/hsm/Cargo.toml",
+        "tools/hsm/funnel/Cargo.toml",
+        "tools/hsm/geometry/Cargo.toml",
+        "tools/hsm/geometry/src/lib.rs",
+        "tools/hsm/geometry/src/payload.rs",
+        "tools/hsm/geometry/src/queries.rs",
+        "tools/hsm/kernel/Cargo.toml",
+        "tools/hsm/kernel/src/boolean.rs",
+        "tools/hsm/kernel/src/build.rs",
+        "tools/hsm/kernel/src/dxf.rs",
+        "tools/hsm/kernel/src/edge.rs",
+        "tools/hsm/kernel/src/face.rs",
+        "tools/hsm/kernel/src/import.rs",
+        "tools/hsm/kernel/src/lib.rs",
+        "tools/hsm/kernel/src/mapped.rs",
+        "tools/hsm/kernel/src/mass.rs",
+        "tools/hsm/kernel/src/math.rs",
+        "tools/hsm/kernel/src/part.rs",
+        "tools/hsm/kernel/src/plane.rs",
+        "tools/hsm/kernel/src/profile.rs",
+        "tools/hsm/kernel/src/reads.rs",
+        "tools/hsm/kernel/src/round.rs",
+        "tools/hsm/kernel/src/round/rolled.rs",
+        "tools/hsm/kernel/src/rule.rs",
+        "tools/hsm/kernel/src/screw.rs",
+        "tools/hsm/kernel/src/sketch_hull.rs",
+        "tools/hsm/kernel/src/solid.rs",
+        "tools/hsm/kernel/src/spline.rs",
+        "tools/hsm/kernel/src/step.rs",
+        "tools/hsm/kernel/src/step/analytic.rs",
+        "tools/hsm/kernel/src/sweep.rs",
+        "tools/hsm/kernel/src/text.rs",
+        "tools/hsm/kernel/src/thru.rs",
+        "tools/hsm/kernel/src/topo.rs",
+        "tools/hsm/kernel/src/triangulate.rs",
+        "tools/hsm/kernel/src/write.rs",
         "tools/hsm/run-slots.defaults.json",
+        "tools/hsm/run-slots/Cargo.toml",
+        "tools/hsm/run-slots/src/ipc.rs",
+        "tools/hsm/run-slots/src/lib.rs",
+        "tools/hsm/vendor/manifold-csg-sys/.cargo_vcs_info.json",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.lock",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.toml",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.toml.orig",
+        "tools/hsm/vendor/manifold-csg-sys/LICENSE-APACHE",
+        "tools/hsm/vendor/manifold-csg-sys/LICENSE-MIT",
+        "tools/hsm/vendor/manifold-csg-sys/README.md",
+        "tools/hsm/vendor/manifold-csg-sys/build.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/build.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/fetch.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/patch.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/wasm.rs",
+        "tools/hsm/vendor/manifold-csg-sys/cache-version",
+        "tools/hsm/vendor/manifold-csg-sys/src/lib.rs",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/CMakeLists.txt",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/diagnose.sh",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/__assertion_handler",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/__config_site",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/memory",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/mutex",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/libcxx-extras.cpp",
         "tools/run-slots.mjs",
         "pysrc/tools/run.py",
     ] + glob(
@@ -11534,29 +11695,107 @@ genrule(
         allow_empty = True,
     ),
     outs = [
+        "out/elbow-cradle/hardware/printed-parts/zone-c/funnel/elbow-cradle.numbers.json",
         "out/elbow-cradle/hardware/printed-parts/zone-c/funnel/elbow-cradle.step",
         "out/elbow-cradle/hardware/printed-parts/zone-c/funnel/elbow-cradle.step.mesh",
+        "out/elbow-cradle/hardware/printed-parts/zone-c/funnel/elbow-cradle.step.npz",
         "out/elbow-cradle/hardware/printed-parts/zone-c/funnel/elbow-cradle.stl",
+        "out/elbow-cradle/hardware/printed-parts/zone-c/funnel/funnel-frame.numbers.json",
         "out/elbow-cradle/hardware/printed-parts/zone-c/funnel/funnel-frame.step",
         "out/elbow-cradle/hardware/printed-parts/zone-c/funnel/funnel-frame.step.mesh",
+        "out/elbow-cradle/hardware/printed-parts/zone-c/funnel/funnel-frame.step.npz",
         "out/elbow-cradle/hardware/printed-parts/zone-c/funnel/funnel-frame.stl",
         "out/elbow-cradle/hardware/printed-parts/zone-c/funnel/funnel.step",
         "out/elbow-cradle/hardware/printed-parts/zone-c/funnel/funnel.step.mesh",
         "out/elbow-cradle/hardware/printed-parts/zone-c/funnel/README.figures.json",
         "out/elbow-cradle/hardware/printed-parts/zone-c/funnel/README.md",
     ],
+    tags = ["no-sandbox"],
     cmd = """
 set -e
-O0=$$PWD/$(location out/elbow-cradle/hardware/printed-parts/zone-c/funnel/elbow-cradle.step)
-O1=$$PWD/$(location out/elbow-cradle/hardware/printed-parts/zone-c/funnel/elbow-cradle.step.mesh)
-O2=$$PWD/$(location out/elbow-cradle/hardware/printed-parts/zone-c/funnel/elbow-cradle.stl)
-O3=$$PWD/$(location out/elbow-cradle/hardware/printed-parts/zone-c/funnel/funnel-frame.step)
-O4=$$PWD/$(location out/elbow-cradle/hardware/printed-parts/zone-c/funnel/funnel-frame.step.mesh)
-O5=$$PWD/$(location out/elbow-cradle/hardware/printed-parts/zone-c/funnel/funnel-frame.stl)
-O6=$$PWD/$(location out/elbow-cradle/hardware/printed-parts/zone-c/funnel/funnel.step)
-O7=$$PWD/$(location out/elbow-cradle/hardware/printed-parts/zone-c/funnel/funnel.step.mesh)
-O8=$$PWD/$(location out/elbow-cradle/hardware/printed-parts/zone-c/funnel/README.figures.json)
-O9=$$PWD/$(location out/elbow-cradle/hardware/printed-parts/zone-c/funnel/README.md)
+O0=$$PWD/$(location out/elbow-cradle/hardware/printed-parts/zone-c/funnel/elbow-cradle.numbers.json)
+O1=$$PWD/$(location out/elbow-cradle/hardware/printed-parts/zone-c/funnel/elbow-cradle.step)
+O2=$$PWD/$(location out/elbow-cradle/hardware/printed-parts/zone-c/funnel/elbow-cradle.step.mesh)
+O3=$$PWD/$(location out/elbow-cradle/hardware/printed-parts/zone-c/funnel/elbow-cradle.step.npz)
+O4=$$PWD/$(location out/elbow-cradle/hardware/printed-parts/zone-c/funnel/elbow-cradle.stl)
+O5=$$PWD/$(location out/elbow-cradle/hardware/printed-parts/zone-c/funnel/funnel-frame.numbers.json)
+O6=$$PWD/$(location out/elbow-cradle/hardware/printed-parts/zone-c/funnel/funnel-frame.step)
+O7=$$PWD/$(location out/elbow-cradle/hardware/printed-parts/zone-c/funnel/funnel-frame.step.mesh)
+O8=$$PWD/$(location out/elbow-cradle/hardware/printed-parts/zone-c/funnel/funnel-frame.step.npz)
+O9=$$PWD/$(location out/elbow-cradle/hardware/printed-parts/zone-c/funnel/funnel-frame.stl)
+O10=$$PWD/$(location out/elbow-cradle/hardware/printed-parts/zone-c/funnel/funnel.step)
+O11=$$PWD/$(location out/elbow-cradle/hardware/printed-parts/zone-c/funnel/funnel.step.mesh)
+O12=$$PWD/$(location out/elbow-cradle/hardware/printed-parts/zone-c/funnel/README.figures.json)
+O13=$$PWD/$(location out/elbow-cradle/hardware/printed-parts/zone-c/funnel/README.md)
+rm -rf work-elbow-cradle
+for f in $(SRCS); do
+  case $$f in
+    */node_modules/*) continue;;
+    */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
+    */pysrc/*) t=$${f##*/pysrc/};;
+    *) t=$$f;;
+  esac
+  mkdir -p work-elbow-cradle/$$(dirname $$t); cp -L $$f work-elbow-cradle/$$t
+done
+for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
+  if [ -d $$d ]; then mkdir -p work-elbow-cradle/$$(dirname $$d); ln -sfn $$PWD/$$d work-elbow-cradle/$$d; fi
+done
+cd work-elbow-cradle
+ln -sfn $$HSM_WORKSPACE/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/zone-c/funnel/elbow_cradle.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/zone-c/funnel/funnel.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/zone-c/funnel/funnel_frame.py > /dev/null
+cp hardware/printed-parts/zone-c/funnel/elbow-cradle.numbers.json $$O0
+cp hardware/printed-parts/zone-c/funnel/elbow-cradle.step $$O1
+cp hardware/printed-parts/zone-c/funnel/elbow-cradle.step.mesh $$O2
+cp hardware/printed-parts/zone-c/funnel/elbow-cradle.step.npz $$O3
+cp hardware/printed-parts/zone-c/funnel/elbow-cradle.stl $$O4
+cp hardware/printed-parts/zone-c/funnel/funnel-frame.numbers.json $$O5
+cp hardware/printed-parts/zone-c/funnel/funnel-frame.step $$O6
+cp hardware/printed-parts/zone-c/funnel/funnel-frame.step.mesh $$O7
+cp hardware/printed-parts/zone-c/funnel/funnel-frame.step.npz $$O8
+cp hardware/printed-parts/zone-c/funnel/funnel-frame.stl $$O9
+cp hardware/printed-parts/zone-c/funnel/funnel.step $$O10
+cp hardware/printed-parts/zone-c/funnel/funnel.step.mesh $$O11
+cp hardware/printed-parts/zone-c/funnel/README.figures.json $$O12
+cp hardware/printed-parts/zone-c/funnel/README.md $$O13
+cd .. && rm -rf work-elbow-cradle
+""",
+)
+
+genrule(
+    name = "frame-forming-clearance",
+    srcs = [
+        "pysrc/hardware/manifold-layout/above_core.py",
+        "pysrc/hardware/printed-parts/cadlib/fits.py",
+        "pysrc/hardware/printed-parts/zone-c/funnel/elbow_cradle.py",
+        "pysrc/hardware/printed-parts/zone-c/funnel/frame_forming_clearance.py",
+        "pysrc/hardware/printed-parts/zone-c/funnel/funnel.py",
+        "pysrc/hardware/printed-parts/zone-c/funnel/funnel_frame.py",
+        "hardware/reference/neofit-stem-elbow/reference-parameters.json",
+        "pysrc/hardware/scripts/_cadq_export.py",
+        "pysrc/hardware/scripts/_document_export.py",
+        "pysrc/hardware/scripts/_mesh_payload.py",
+        "pysrc/hardware/scripts/_payload_rules.py",
+        "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_run_slots.py",
+        "pysrc/hardware/scripts/_rust_part.py",
+        "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/run-slots.mjs",
+        "pysrc/tools/run.py",
+    ],
+    outs = [
+        "out/frame-forming-clearance/hardware/printed-parts/zone-c/funnel/forming-clearance/forming-clearance.step",
+        "out/frame-forming-clearance/hardware/printed-parts/zone-c/funnel/forming-clearance/forming-clearance.step.mesh",
+        "out/frame-forming-clearance/hardware/printed-parts/zone-c/funnel/forming-clearance/inputs.json",
+    ],
+    cmd = """
+set -e
+O0=$$PWD/$(location out/frame-forming-clearance/hardware/printed-parts/zone-c/funnel/forming-clearance/forming-clearance.step)
+O1=$$PWD/$(location out/frame-forming-clearance/hardware/printed-parts/zone-c/funnel/forming-clearance/forming-clearance.step.mesh)
+O2=$$PWD/$(location out/frame-forming-clearance/hardware/printed-parts/zone-c/funnel/forming-clearance/inputs.json)
 for f in $(SRCS); do
   case $$f in
     */node_modules/*) continue;;
@@ -11572,19 +11811,10 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/zone-c/funnel/elbow_cradle.py > /dev/null
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/zone-c/funnel/funnel.py > /dev/null
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/zone-c/funnel/funnel_frame.py > /dev/null
-cp hardware/printed-parts/zone-c/funnel/elbow-cradle.step $$O0
-cp hardware/printed-parts/zone-c/funnel/elbow-cradle.step.mesh $$O1
-cp hardware/printed-parts/zone-c/funnel/elbow-cradle.stl $$O2
-cp hardware/printed-parts/zone-c/funnel/funnel-frame.step $$O3
-cp hardware/printed-parts/zone-c/funnel/funnel-frame.step.mesh $$O4
-cp hardware/printed-parts/zone-c/funnel/funnel-frame.stl $$O5
-cp hardware/printed-parts/zone-c/funnel/funnel.step $$O6
-cp hardware/printed-parts/zone-c/funnel/funnel.step.mesh $$O7
-cp hardware/printed-parts/zone-c/funnel/README.figures.json $$O8
-cp hardware/printed-parts/zone-c/funnel/README.md $$O9
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/zone-c/funnel/frame_forming_clearance.py > /dev/null
+cp hardware/printed-parts/zone-c/funnel/forming-clearance/forming-clearance.step $$O0
+cp hardware/printed-parts/zone-c/funnel/forming-clearance/forming-clearance.step.mesh $$O1
+cp hardware/printed-parts/zone-c/funnel/forming-clearance/inputs.json $$O2
 """,
 )
 
@@ -15754,6 +15984,30 @@ genrule(
 )
 
 genrule(
+    name = "pysrc-1530d0cf6543",
+    srcs = ["hardware/printed-parts/enclosure/enclosure/_enclosure_back_top.py"],
+    outs = ["pysrc/hardware/printed-parts/enclosure/enclosure/_enclosure_back_top.py"],
+    tools = ["tools/bazel/pysrc.py"],
+    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
+)
+
+genrule(
+    name = "pysrc-d4cea30bc5b5",
+    srcs = ["hardware/printed-parts/enclosure/enclosure/_enclosure_front_bottom.py"],
+    outs = ["pysrc/hardware/printed-parts/enclosure/enclosure/_enclosure_front_bottom.py"],
+    tools = ["tools/bazel/pysrc.py"],
+    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
+)
+
+genrule(
+    name = "pysrc-7463bfadc34e",
+    srcs = ["hardware/printed-parts/enclosure/enclosure/_enclosure_front_top.py"],
+    outs = ["pysrc/hardware/printed-parts/enclosure/enclosure/_enclosure_front_top.py"],
+    tools = ["tools/bazel/pysrc.py"],
+    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
+)
+
+genrule(
     name = "pysrc-0714e03fdaae",
     srcs = ["hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py"],
     outs = ["pysrc/hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py"],
@@ -15765,6 +16019,14 @@ genrule(
     name = "pysrc-8d513c139f87",
     srcs = ["hardware/printed-parts/enclosure/enclosure/_enclosure_panel.py"],
     outs = ["pysrc/hardware/printed-parts/enclosure/enclosure/_enclosure_panel.py"],
+    tools = ["tools/bazel/pysrc.py"],
+    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
+)
+
+genrule(
+    name = "pysrc-3bd4e40b138b",
+    srcs = ["hardware/printed-parts/enclosure/enclosure/_enclosure_pump_retainer.py"],
+    outs = ["pysrc/hardware/printed-parts/enclosure/enclosure/_enclosure_pump_retainer.py"],
     tools = ["tools/bazel/pysrc.py"],
     cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
 )
@@ -16221,6 +16483,14 @@ genrule(
     name = "pysrc-52cc906574b5",
     srcs = ["hardware/printed-parts/zone-c/funnel/elbow_cradle.py"],
     outs = ["pysrc/hardware/printed-parts/zone-c/funnel/elbow_cradle.py"],
+    tools = ["tools/bazel/pysrc.py"],
+    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
+)
+
+genrule(
+    name = "pysrc-13a69e9d5770",
+    srcs = ["hardware/printed-parts/zone-c/funnel/frame_forming_clearance.py"],
+    outs = ["pysrc/hardware/printed-parts/zone-c/funnel/frame_forming_clearance.py"],
     tools = ["tools/bazel/pysrc.py"],
     cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
 )
@@ -17369,6 +17639,7 @@ filegroup(
         ":funnel-mold",
         ":cradle-trial",
         ":elbow-cradle",
+        ":frame-forming-clearance",
         ":asse1022-assembly",
         ":asse1022-threaded-chain",
         ":beduan-solenoid",
