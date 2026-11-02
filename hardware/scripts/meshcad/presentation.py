@@ -131,11 +131,15 @@ def placed(instances, model):
             if surface is not None and "transform" in instance:
                 surface = carried(surface, instance["transform"])
             selected.append((name, color, surface))
-    fine = load_model(model, snap=False)
-    boxes = [solid.BoundingBox() for solid in fine]
-    size = [max(getattr(b, axis + "max") for b in boxes) - min(getattr(b, axis + "min") for b in boxes)
-            for axis in "xyz"]
-    tolerance = sum(size) / 3. * LINEAR_DEFLECTION_RATIO
+    if selected and all(surface is not None for _name, _color, surface in selected):
+        fine = model_identity(model)
+        tolerance = None
+    else:
+        fine = load_model(model, snap=False)
+        boxes = [solid.BoundingBox() for solid in fine]
+        size = [max(getattr(b, axis + "max") for b in boxes) - min(getattr(b, axis + "min") for b in boxes)
+                for axis in "xyz"]
+        tolerance = sum(size) / 3. * LINEAR_DEFLECTION_RATIO
     totals = Counter(name for name, _, _ in selected)
     ordinals = Counter()
     meshes = []
