@@ -612,6 +612,16 @@ class MeshCompound(MeshShape, occ.Compound):
         parts = [p.transformShape(tMatrix) for p in self.parts]
         return self if all(q is p for q, p in zip(parts, self.parts)) else MeshCompound(parts)
 
+    def translate(self, vector):
+        if not any(getattr(p, "_presentation", None) is not None for p in self.parts):
+            return super().translate(vector)
+        return MeshCompound([p.translate(vector) for p in self.parts])
+
+    def rotate(self, startVector, endVector, angleDegrees):
+        if not any(getattr(p, "_presentation", None) is not None for p in self.parts):
+            return super().rotate(startVector, endVector, angleDegrees)
+        return MeshCompound([p.rotate(startVector, endVector, angleDegrees) for p in self.parts])
+
     def fuse(self, *others, glue=False, tol=None):
         ms = [s.m for s in self._solids()] + [m for o in others for m in _meshes(o)]
         if not ms:
