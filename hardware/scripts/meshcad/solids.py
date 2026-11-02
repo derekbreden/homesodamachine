@@ -496,6 +496,40 @@ class MeshSolid(MeshShape, occ.Solid):
         return self._topo
 
 
+class MeshModelSolid(MeshSolid):
+    """An immutable fine model; a geometry query materializes its Manifold."""
+
+    def __init__(self, part):
+        super().__init__(None)
+        self._model = part
+
+    @property
+    def m(self):
+        if self._m is None:
+            self._m = build.solid(self._model, snap_to_grid=False)
+        return self._m
+
+    def model_arrays(self):
+        part = self._model
+        return part.verts, part.tris, part.fids, part.records
+
+    def BoundingBox(self, tolerance=None, optimal=False):
+        vertices = self._model.verts
+        return (_bbox(vertices.min(axis=0), vertices.max(axis=0)) if len(vertices)
+                else _bbox((0, 0, 0), (0, 0, 0)))
+
+    def _mass(self):
+        V, T = self._model.verts, self._model.tris
+        a, b, c = V[T[:, 0]], V[T[:, 1]], V[T[:, 2]]
+        vol = np.einsum("ij,ij->i", a, np.cross(b, c)) / 6.0
+        tot = vol.sum()
+        cen = ((a + b + c) / 4.0 * vol[:, None]).sum(0) / tot if tot else np.zeros(3)
+        return float(tot), cen
+
+    def Volume(self, tol=None):
+        return self._mass()[0]
+
+
 class MeshCompound(MeshShape, occ.Compound):
     """Several mesh shapes held together without fusing them, as an OCCT compound would."""
 

@@ -43,8 +43,6 @@ import math
 import sys
 from pathlib import Path
 
-import cadquery as cq
-
 _here = Path(__file__).resolve()
 _hw = next(p for p in _here.parents if p.name == "hardware")
 for _p in (_hw / "scripts",
@@ -53,6 +51,11 @@ for _p in (_hw / "scripts",
     sys.path.insert(0, str(_p))
 sys.path.insert(0, str(next(p for p in _here.parents
                             if (p / "tools" / "docgen").is_dir()) / "tools"))
+if __name__ == "__main__":
+    import _rust_part
+    _rust_part.start()
+
+import cadquery as cq                                    # noqa: E402
 import beduan_solenoid as _valve                          # noqa: E402
 import valve_seat as _seat                                # noqa: E402
 from docgen import substitute_md                          # noqa: E402
@@ -338,32 +341,65 @@ def trays_of_machine(facts):
     hands back one tray per plane, and the artifact carries what that grouping came to — so a
     plate is drawn off a machine the assembly's own run already stood.
 
-    The doc-only `main` hands in the artifact and imports the assembly that decides it. Keeping
-    those run dependencies in `main` leaves the shape functions' source closure at this part."""
+    The doc-only `main` hands in the artifact. Keeping that run dependency in `main` leaves
+    the shape functions' source closure at this part."""
     return facts.valve_trays
 
 
+def numbers(trays):
+    """The original tray stock, socket/channel cylinders and finite web-reading solids."""
+    sys.path.insert(0, str(_hw / "printed-parts/enclosure/enclosure"))
+    import _enclosure_interface as interface                     # noqa: PLC0415
+
+    def sockets(x, y, shift):
+        return [[x + sx * _seat.corner_inset_x, y + sy * _seat.corner_inset_y,
+                 _seat.socket_floor_z + shift, _seat.socket_radius,
+                 _seat.seat_top_z - _seat.socket_floor_z + 1.0]
+                for sx in (-1.0, 1.0) for sy in (-1.0, 1.0)]
+
+    plans = []
+    for name, (width, seats) in sorted(trays.items()):
+        ys = [y for _x, y in seats]
+        mid_y = (min(ys) + max(ys)) / 2.0
+        tray_height = height(seats)
+        plans.append({
+            "name": name,
+            "slab": [[-width / 2.0, mid_y - tray_height / 2.0, -THICK],
+                     [width / 2.0, mid_y + tray_height / 2.0, 0.0]],
+            "sockets": [s for x, y in seats for s in sockets(x, y, SEAT)],
+            "channels": [[x, y, _valve.port_center_z + SEAT,
+                          _valve.port_radius + PORT_SLIP,
+                          tray_height + 2.0 * abs(y - mid_y) + 2.0] for x, y in seats],
+        })
+    return {"trays": plans, "extrusion_w": interface.extrusion_w,
+            "web_sockets": sockets(0.0, 0.0, 0.0),
+            "web_channel": [0.0, 0.0, _valve.port_center_z,
+                            _valve.port_radius + PORT_SLIP, height() + 2.0]}
+
+
 def main():
-    sys.path.insert(0, str(_hw / "manifold-layout"))
-    import enclosure_assembly as _ea                            # noqa: PLC0415
+    import _rust_part                                           # noqa: PLC0415
     import _facts                                               # noqa: PLC0415
 
     trays = trays_of_machine(_facts.read())
+    measured = _rust_part.check("enclosure-components", "valve-tray", numbers(trays))
     print(f"Valve tray — {len(trays)} stood in enclosure-front-top: "
           f"{', '.join(sorted(trays))}")
     total = 0.0
-    for name, (width, seats) in sorted(trays.items()):
-        solid = build_valve_tray(width, seats).val()
-        total += solid.Volume()
+    for row in measured["trays"]:
+        name = row["name"]
+        width, seats = trays[name]
+        total += row["volume"]
         print(f"  {name}: {width:g} x {height(seats):g} x {THICK:g}, {len(seats)} seats at "
               + ", ".join(f"({x:.3f}, {y:.3f})" for x, y in seats))
-        print(f"    material {solid.Volume() / 1000.0:.2f} cm^3, closed form "
-              f"{tray_volume(width, seats) / 1000.0:.2f} cm^3, valid {solid.isValid()}")
+        print(f"    material {row['volume'] / 1000.0:.2f} cm^3, closed form "
+              f"{tray_volume(width, seats) / 1000.0:.2f} cm^3, valid {row['valid']}")
     width, seats = next(iter(sorted(trays.values())))
     print(f"  a post stands {grip():.3f} mm in the plate of {_seat.seat_top_z:g} mm")
-    _ext = extrusion(_ea.EXTRUSION_W)
-    print(f"  socket to port channel: {web():.4f} mm — "
-          f"{100.0 * web() / _ext:.0f}% of a {_ext:g} bead")
+    _ext = extrusion(measured["extrusion_w"])
+    _web = measured["web"]
+    print(f"  socket to port channel: {_web:.4f} mm — "
+          f"{100.0 * _web / _ext:.0f}% of a {_ext:g} bead")
 
     substitute_md(
         _here.parent / "README.md",
@@ -394,10 +430,10 @@ def main():
             "PORT_SLIP": f"{PORT_SLIP:g}",
             "TRAY_POST": f"{_seat.seat_top_z:g}",
             "TRAY_GRIP": f"{grip():.3f}",
-            "TRAY_WEB": f"{web():.3f}",
+            "TRAY_WEB": f"{_web:.3f}",
             "TRAY_PORT_SLIP": f"{PORT_SLIP:g}",
             "TRAY_EXTRUSION": f"{_ext:g}",
-            "TRAY_WEB_PCT": f"{100.0 * web() / _ext:.0f}",
+            "TRAY_WEB_PCT": f"{100.0 * _web / _ext:.0f}",
         },
     )
     print("-> README.md")

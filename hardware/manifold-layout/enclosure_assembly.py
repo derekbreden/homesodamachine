@@ -737,9 +737,10 @@ CORE = "cold-core"
 _CORE_BODIES: dict = {}
 
 
-def core_bodies(carry):
+def core_bodies(carry, model=None):
     """Every body the cold core places, stood where this machine stands the core.
 
+    `model` explicitly names the source-frame fine model a materialized action consumes.
     `cold_core_assembly` builds in `foam-assembly`'s own frame — the same frame `build_foam`
     imports the envelope in — and `carry.where` is where the machine stands that frame, so
     moving each body by it is the whole of the transform.
@@ -747,11 +748,27 @@ def core_bodies(carry):
     IT IS THE CARRY AND NEVER THE CORE'S OWN BOX. Re-seating the stack the way `build_foam`
     seats the envelope would shift it: the core measures 285.0 x 184.2 where the foam measures
     283.0 x 181.0, and every clearance in the pack is struck off the foam's faces."""
-    key = repr(carry.where.toTuple())
+    key = (repr(carry.where.toTuple()), str(model) if model is not None else None)
     if key not in _CORE_BODIES:
-        _CORE_BODIES[key] = [(f"{CORE}{SOLID_INDEX_SEP}{c.name}",
-                              c.obj.moved(carry.where), c.color)
-                             for c in _cca.build_assembly().children]
+        meshcad = sys.modules.get("meshcad")
+        if model is not None and meshcad is not None and meshcad.mesh_mode():
+            import _assembly_model
+            from meshcad import scene
+            alpha_by_name = (scene.document(model) or {}).get("alpha_by_name", {})
+            inputs = [_assembly_model.instance(model, prefix=CORE + SOLID_INDEX_SEP,
+                       transform=_assembly_model.location(carry.where))]
+            with _assembly_model.placed(inputs) as placed:
+                bodies = scene.load(placed, snap=False)
+            _CORE_BODIES[key] = [
+                (name, shape, cq.Color(*rgb, alpha_by_name.get(
+                    name.removeprefix(CORE + SOLID_INDEX_SEP), 1.0), False)
+                    if rgb is not None else None)
+                for name, (shape, rgb) in bodies.items()
+            ]
+        else:
+            _CORE_BODIES[key] = [(f"{CORE}{SOLID_INDEX_SEP}{c.name}",
+                                  c.obj.moved(carry.where), c.color)
+                                 for c in _cca.build_assembly().children]
     return _CORE_BODIES[key]
 
 
@@ -1249,8 +1266,7 @@ def collet_plate_spec(mcarry, tray_stations, valve_trays=()) -> dict:
             "assembly_state": "seated"}
 
 
-EXTRUSION_W = 0.42           # the outer-wall bead the box's own profile lays
-                             # (`printed-parts/enclosure/enclosure/print-log.md`)
+from _enclosure_interface import extrusion_w as EXTRUSION_W
 
 
 # What a probe stands in from the edge of the feature it reads, so a face the box drew exactly
@@ -1855,7 +1871,9 @@ def build_bulkhead_rings(stations):
     out = []
     for x, z, _fitting, _ring_family, which, fluid in stations.values():
         station = (_ring.seat(), (x, floor, z))
-        cut, lettering = _ring.split(import_step(str(_ring.STEPS[which])).val())
+        cut, lettering = (_ring.split(import_step(str(_ring.STEPS[which])).val())
+                          if getattr(cq, 'MESH', False)
+                          else (_ring.build_ring(which), _ring.build_word(which)))
         chip, _carry = seat_body(cut, (), seat=ring_name(which), station=station)
         word, _wcarry = seat_body(lettering, (), seat=word_name(which), station=station)
         out.append((ring_name(which), chip,
@@ -3236,7 +3254,9 @@ def build_pcba(foam, ahead_of, wall_seat):
     inboard, and the wall bosses reach that plane. AFT is `RELAY_BOARD_BODY_GAP` ahead of
     `ahead_of`'s own front face — relay #2, not the brick, since the relay stands between them;
     FOOT is on the cap. The pcba-tray is not placed — this is the main board's envelope."""
-    return seat_body(import_step(str(PCBA_STEP)).val(), PCBA_TURN, seat="pcba",
+    board = (import_step(str(PCBA_STEP)).val() if getattr(cq, "MESH", False)
+             else _pcba.board.build().val())
+    return seat_body(board, PCBA_TURN, seat="pcba",
                      x1=wall_seat, y1=box(ahead_of).ymin - RELAY_BOARD_BODY_GAP, z0=cap_face(foam))
 
 
@@ -4156,7 +4176,7 @@ def posed_manifold(carrier_offset: float) -> list:
 PUMP_FACE_Z = ml.PUMP_Y - ml.BARB_INSET
 
 
-def build_pack() -> cq.Assembly:
+def build_pack(*, core_model=None) -> cq.Assembly:
     """The bodies, with no box around them. `enclosure` sizes itself off this, so it
     cannot be in it."""
     a = cq.Assembly(name="enclosure-assembly")
@@ -4268,7 +4288,7 @@ def build_pack() -> cq.Assembly:
     a.core_envelope = foam
     a.core_carry = foam_carry
     core = cq.Assembly(name=CORE)
-    for _name, _solid, _colour in core_bodies(foam_carry):
+    for _name, _solid, _colour in core_bodies(foam_carry, core_model):
         core.add(_solid, name=_name, color=_colour)
     import rear_plumbing
     selected = {**_above_parts.components(), **rear_plumbing.caps(),
@@ -4277,7 +4297,7 @@ def build_pack() -> cq.Assembly:
     for name in sorted(core_equipment):
         solid, colour, _carry = selected[name]
         core.add(solid, name=f'{CORE}/{name}', color=colour)
-    a.core_body_names = frozenset(n for n, _s, _c in core_bodies(foam_carry)) | frozenset(
+    a.core_body_names = frozenset(n for n, _s, _c in core_bodies(foam_carry, core_model)) | frozenset(
         f'{CORE}/{name}' for name in core_equipment)
     # WHAT THE BOX SHUTS ON IT WITH. The core carries no hole, so its two front corners go into
     # blocks on the front-bottom's slab and its aft crown under brackets off the back-top's rear
@@ -5291,13 +5311,13 @@ def _seated(box):
 RIDGE_REACH = 60.0
 
 
-def machine():
+def machine(*, core_model=None):
     """The pack, and the box around it. One build: the box is sized on the pack's bodies,
     and then carries the stations they seat in its walls.
 
     The box is SEATED before its ledger is carried, so the card holds the throat's row whether
     or not a wall is ever cut from this box."""
-    a = build_pack()
+    a = build_pack(core_model=core_model)
     p = pack(a)
     box = _seated(_enc.stated_box(p))
     carry_enclosure_bounds()
@@ -5359,7 +5379,9 @@ def build_funnel_cover():
 
 def build_enclosure_assembly(*, require_box_spec=False) -> cq.Assembly:
     """The pack, what is seated in the walls, and the four printable pieces of the box."""
-    a, _p, live_box = machine()
+    a, _p, live_box = machine(core_model=_cca.MODEL_OUT
+                            if require_box_spec and os.environ.get('HSM_CORE_MODEL') == '1'
+                            else None)
     box = live_box
     if require_box_spec:
         import _box_spec

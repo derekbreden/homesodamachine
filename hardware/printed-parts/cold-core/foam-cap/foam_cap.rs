@@ -340,105 +340,65 @@ fn pump_cradle(n: &Numbers) -> Result<Solid> {
     let d = n.get("pump")?;
     let c = p3(&d["centre_world_mm"])?;
     let first = d["band_native_x_mm"][0].as_f64().context("first")?;
-    let last = d["band_native_x_mm"][1].as_f64().context("last")?;
     let fy = d["frame"]["translation_mm"][1].as_f64().context("pump y")?;
     let face = n.f("cap_face_world_z")?;
-    let wide = f(d, "stock_half_width_mm")?;
+    let wide = f(d, "stock_half_width_mm")? + 3.;
+    let half = 24.81;
+    let selected = &d["selected"];
+    let stops = a(&selected["rail_stop_native_x_mm"])?;
+    let fore0 = stops[0][0].as_f64().context("fore stop outside")?;
+    let fore1 = stops[0][1].as_f64().context("fore stop inside")?;
+    let rear0 = stops[1][0].as_f64().context("rear stop inside")?;
+    let rear1 = stops[1][1].as_f64().context("rear stop outside")?;
     let mut body = box3(
         c.x - wide,
-        c.x + wide,
-        fy + first,
-        fy + last,
-        face - 0.1,
-        c.z,
-    )
-    .cut(&pump_room(n, d, true)?)?;
-    let lo = d["cover_room_native_y_mm"][0]
-        .as_f64()
-        .context("cover lo")?;
-    let hi = d["cover_room_native_y_mm"][1]
-        .as_f64()
-        .context("cover hi")?;
-    body = body.cut(&box3(
-        c.x - hi,
-        c.x - lo,
-        fy + first - 0.1,
-        fy + last + 0.1,
-        face - 0.2,
-        c.z + 0.8,
-    ))?;
-    for rail in a(&d["rail_rooms"])? {
-        let planes = a(&rail["floor_planes"])?;
-        let plane = |v: &Value| -> Result<[f64; 3]> {
-            let p = p3(v)?;
-            Ok([
-                p.x,
-                p.y,
-                p.z - n.f("running")? * sqrt(1. + p.x * p.x + p.y * p.y),
-            ])
-        };
-        let (a, b) = (plane(&planes[0])?, plane(&planes[1])?);
-        let outer = f(rail, "outer_y_mm")?;
-        let mut profiles = vec![];
-        for x in [first - 0.1, last + 0.1] {
-            let y = ((b[0] - a[0]) * x + b[2] - a[2]) / (a[1] - b[1]);
-            profiles.push(Region::polygon(vec![
-                v3(x, outer, a[0] * x + a[1] * outer + a[2]),
-                v3(x, y, a[0] * x + a[1] * y + a[2]),
-                v3(x, 0., b[0] * x + b[2]),
-                v3(x, 0., 100.),
-                v3(x, outer, 100.),
-            ]));
-        }
-        body = body.cut(&Solid::loft(&profiles)?.transformed(&frame(&d["frame"])?))?;
-    }
-    let selected = &d["selected"];
-    let inner = selected["rail_stop_contact_native_y_mm"][1]
-        .as_f64()
-        .context("stop inner contact")?;
-    let top = d["frame"]["translation_mm"][2].as_f64().context("pump z")?
-        + f(selected, "rail_stop_native_z_mm")?;
-    let stops = a(&selected["rail_stop_native_x_mm"])?;
-    let fore = &stops[0];
-    let rear = &stops[1];
-    let fore0 = fore[0].as_f64().context("fore stop outside")?;
-    let fore1 = fore[1].as_f64().context("fore stop inside")?;
-    let rear0 = rear[0].as_f64().context("rear stop inside")?;
-    let rear1 = rear[1].as_f64().context("rear stop outside")?;
-    let rail = a(&d["rail_rooms"])?
-        .iter()
-        .find(|rail| rail["side"].as_f64().is_some_and(|side| side < 0.))
-        .context("negative-Y fixed rail")?;
-    let rail_outer = f(rail, "outer_y_mm")?;
-    let backing = box3(
-        c.x - inner,
         c.x + wide,
         fy + fore0,
         fy + rear1,
         face - 0.1,
         c.z,
     );
-    let head_room = box3(
-        c.x - inner - 0.1,
-        c.x + wide + 0.1,
+    body = body.cut(&box3(
+        c.x - half,
+        c.x + half,
         fy + fore0 - 0.1,
-        fy + first,
-        top,
-        c.z + 0.2,
-    );
-    let corridor = box3(
-        c.x - inner - 0.1,
-        c.x - rail_outer,
-        fy + fore1,
-        fy + rear0,
-        face - 0.2,
-        c.z + 0.1,
-    );
-    body = body.union(&backing.cut(&head_room)?.cut(&corridor)?)?;
+        fy + rear1 + 0.1,
+        face,
+        c.z + 1.,
+    ))?;
+    for rail in a(&d["rail_rooms"])? {
+        let plane = p3(&rail["floor_planes"][0])?;
+        let (a, b, k) = (plane.x, plane.y,
+            plane.z - n.f("running")? * sqrt(1. + plane.x * plane.x + plane.y * plane.y));
+        let outer = f(rail, "outer_y_mm")?;
+        let near = f(rail, "side")? * half;
+        let mut profiles = vec![];
+        for x in [fore1, rear0] {
+            profiles.push(Region::polygon(vec![
+                v3(x, outer, a * x + b * outer + k),
+                v3(x, near, a * x + b * near + k),
+                v3(x, near, 100.),
+                v3(x, outer, 100.),
+            ]));
+        }
+        body = body.cut(&Solid::loft(&profiles)?.transformed(&frame(&d["frame"])?))?;
+    }
+    let tz = d["frame"]["translation_mm"][2].as_f64().context("pump z")?;
+    let head = f(selected, "rail_stop_native_z_mm")?;
+    let slope = (c.z - tz - head) / first;
+    let mut profiles = vec![];
+    for x in [fore0 - 0.1, first] {
+        let (z, y) = (tz + head + slope * x, fy + x);
+        profiles.push(Region::polygon(vec![
+            v3(c.x - wide - 0.1, y, z), v3(c.x + wide + 0.1, y, z),
+            v3(c.x + wide + 0.1, y, c.z + 1.), v3(c.x - wide - 0.1, y, c.z + 1.),
+        ]));
+    }
+    body = body.cut(&Solid::loft(&profiles)?)?;
     for cap in a(&d["caps"])? {
         let s = &cap["snap_station"];
         for side in [-1., 1.] {
-            let far = f(s, "axis_x")? + side * (f(s, "outer")? + 1.);
+            let far = f(s, "axis_x")? + side * (wide + 1.);
             for (start, z0, z1) in [
                 ("ledge", f(s, "split")? - 1., f(s, "bearing")?),
                 ("neck", f(s, "bearing")?, f(s, "ceiling")?),
@@ -473,8 +433,7 @@ fn pump_snap(n: &Numbers) -> Result<Solid> {
     let west = [
         v2(c - w, 0.),
         v2(c - w, tip),
-        v2(c - wi, tip),
-        v2(c - h, tip - (wi - h)),
+        v2(c - h, tip),
         v2(c - h, catch),
         v2(c - wi, catch),
         v2(c - wi, base),

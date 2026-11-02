@@ -59,10 +59,10 @@ top at Z=[46 mm](TOTAL_L). Installed orientation is horizontal — the shroud's 
 axis aligns with the lateral run of the TAISHER elbow off Port 4.
 """
 
+import argparse
+import math
 import sys
 from pathlib import Path
-
-import cadquery as cq
 
 _here = Path(__file__).resolve()
 sys.path.insert(
@@ -76,9 +76,11 @@ sys.path.insert(
 sys.path.insert(0, str(_here.parents[1]))
 sys.path.insert(0, str(next(p for p in _here.parents if p.name == "printed-parts") / "cadlib"))
 
-from _cadq_export import export_assembly
+if __name__ == "__main__":
+    import _rust_part
+    _rust_part.start()
+
 import fits
-from _materials import C_SHROUD, one_body
 from docgen import substitute_md, substitute_py_comments
 
 
@@ -116,6 +118,7 @@ def build_prv_shroud():
     elbow seat enters and that stops at the cap inner face Z=[44 mm](CAVITY_L), and a
     ⌀[6.8 mm](PRV_VENT_D) vent hole bored RADIALLY through the −Y wall at
     Z=[37.88 mm](VENT_STATION)."""
+    import cadquery as cq
     outer = (
         cq.Workplane("XY")
         .circle(outer_diameter / 2)
@@ -143,25 +146,80 @@ def build_prv_shroud():
     return outer.cut(cavity).cut(vent_hole)
 
 
-def main():
-    out_dir = _here.parent
-    shroud = build_prv_shroud()
-    export_assembly(one_body(shroud, "prv-shroud", C_SHROUD),
-                    str(out_dir / "prv-shroud.step"))
+def numbers():
+    """The cup and its supported radial vent, in the native +Z frame."""
+    from _materials import C_SHROUD, linear
+    return {"inner_radius": inner_diameter / 2.0,
+            "outer_radius": outer_diameter / 2.0,
+            "cavity_length": cavity_length, "total_length": total_length,
+            "vent_radius": vent_hole_diameter / 2.0,
+            "vent_station_z": vent_station_z, "overcut": overcut,
+            "supported_surface": fits.supported_surface,
+            "color": list(linear(C_SHROUD))}
 
-    solids = shroud.solids().vals()
-    assert len(solids) == 1, f"expected 1 solid, got {len(solids)}"
-    solid = solids[0]
-    bb = solid.BoundingBox()
-    vol = solid.Volume()
+
+def volume():
+    """The cup less the union of the vent's two supported circular bores.
+
+    At x = r*sin(theta), the radial depth through the two cup cylinders is
+    sqrt(Ro²-x²) - sqrt(Ri²-x²). The union's height is 2*r*cos(theta) +
+    allowance while its two circles overlap, and 4*r*cos(theta) outside
+    that band. Splitting there makes both integrands smooth at their ends.
+    """
+    outer, inner, radius = outer_diameter / 2.0, inner_diameter / 2.0, vent_hole_diameter / 2.0
+    allowance = fits.supported_surface
+    split = math.acos(allowance / (2.0 * radius))
+
+    def strip(theta, overlapping):
+        x = radius * math.sin(theta)
+        half = radius * math.cos(theta)
+        depth = math.sqrt(outer * outer - x * x) - math.sqrt(inner * inner - x * x)
+        height = 2.0 * half + allowance if overlapping else 4.0 * half
+        return depth * height * half
+
+    def integral(start, stop, overlapping):
+        count = 128
+        step = (stop - start) / count
+        total = strip(start, overlapping) + strip(stop, overlapping)
+        total += sum((4 if i % 2 else 2) * strip(start + i * step, overlapping)
+                     for i in range(1, count))
+        return total * step / 3.0
+
+    removed = 2.0 * (integral(0.0, split, True) + integral(split, math.pi / 2.0, False))
+    return math.pi * (outer * outer * total_length - inner * inner * cavity_length) - removed
+
+
+def main(output=None, native=False):
+    out_dir = Path(output) if output is not None else _here.parent
+    out_dir.mkdir(parents=True, exist_ok=True)
+    if native:
+        from _cadq_export import export_assembly
+        from _materials import C_SHROUD, one_body
+        shroud = build_prv_shroud()
+        export_assembly(one_body(shroud, "prv-shroud", C_SHROUD),
+                        str(out_dir / "prv-shroud.step"))
+        solids = shroud.solids().vals()
+        assert len(solids) == 1, f"expected 1 solid, got {len(solids)}"
+        vol = solids[0].Volume()
+    else:
+        import _rust_part
+        _rust_part.cut("cold-core", "prv-shroud", numbers(), out_dir)
+        vol = volume()
+    radius = outer_diameter / 2.0
     print(
         f"-> prv-shroud.step  "
-        f"bbox X[{bb.xmin:6.2f}..{bb.xmax:6.2f}] "
-        f"Y[{bb.ymin:6.2f}..{bb.ymax:6.2f}] "
-        f"Z[{bb.zmin:6.2f}..{bb.zmax:6.2f}]  "
+        f"bbox X[{-radius:6.2f}..{radius:6.2f}] "
+        f"Y[{-radius:6.2f}..{radius:6.2f}] "
+        f"Z[{0.0:6.2f}..{total_length:6.2f}]  "
         f"vol {vol:.3f} mm^3"
     )
 
+    document(vol)
+
+
+def document(vol):
+    out_dir = _here.parent
+    radius = outer_diameter / 2.0
     variables = {
         "PRV_INNER_D": f"{inner_diameter:.4g} mm",
         "PRV_WALL_T": f"{wall_thickness:.4g} mm",
@@ -173,9 +231,9 @@ def main():
         "TOTAL_L": f"{total_length:.4g} mm",
         "OVERCUT": f"{overcut:.4g} mm",
         "PRV_VOLUME": f"{vol:.3f} mm³",
-        "PRV_BBOX_X": f"{bb.xmin:.3f} to {bb.xmax:.3f} mm",
-        "PRV_BBOX_Y": f"{bb.ymin:.3f} to {bb.ymax:.3f} mm",
-        "PRV_BBOX_Z": f"{bb.zmin:.3f} to {bb.zmax:.3f} mm",
+        "PRV_BBOX_X": f"{-radius:.3f} to {radius:.3f} mm",
+        "PRV_BBOX_Y": f"{-radius:.3f} to {radius:.3f} mm",
+        "PRV_BBOX_Z": f"{0.0:.3f} to {total_length:.3f} mm",
     }
     substitute_md(
         out_dir / "README.md",
@@ -189,5 +247,22 @@ def main():
     print(f"-> {Path(__file__).name} (self)")
 
 
-if __name__ == "__main__":
-    main()
+def import_part(path):
+    """The emitted shroud for the caller's native or f64 mesh API."""
+    import cadquery as cq
+    from _cadq_export import import_step
+    path = Path(path)
+    if not getattr(cq, 'MESH', False):
+        with path.open('rb') as stream:
+            triangles = b'meshcad tessellated' in stream.read(200)
+        if triangles and path.stem == 'prv-shroud':
+            return build_prv_shroud().val()
+    return import_step(str(path)).val()
+
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--native', action='store_true', help='Run the retained native builder')
+    parser.add_argument('--output', type=Path, default=_here.parent)
+    args = parser.parse_args()
+    main(args.output, native=args.native)

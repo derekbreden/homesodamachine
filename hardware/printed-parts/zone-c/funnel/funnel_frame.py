@@ -9,8 +9,6 @@ import math
 import sys
 from pathlib import Path
 
-import cadquery as cq
-
 import elbow_cradle
 import funnel
 
@@ -18,6 +16,14 @@ ROOT = next(p for p in Path(__file__).resolve().parents
             if (p / 'hardware/scripts/_cadq_export.py').is_file())
 sys.path[:0] = [str(ROOT / 'hardware/printed-parts/enclosure/enclosure'),
                 str(ROOT / 'hardware/scripts')]
+
+
+def __getattr__(name):
+    if name == "cq":
+        import cadquery as value
+        globals()[name] = value
+        return value
+    raise AttributeError(name)
 
 # Shared by the frame, shell opening, and assembly placement.
 center_y = 182.5 + (funnel.aft_extension - funnel.forward_extension) / 2.0
@@ -52,6 +58,7 @@ def datums(seat=349.0):
 
 def rear_narrowing(inner, y_joint, air=0.0):
     """Keep the complete upper M5 seam blocks outside the removable frame."""
+    import cadquery as cq
     import enclosure as enc
     limit = inner[1] - enc.y_stack_high_depth - enc.slide_slip + air
     y0 = y_joint - enc.slide_slip + air
@@ -62,6 +69,7 @@ def rear_narrowing(inner, y_joint, air=0.0):
 
 def corbel_cut(centre, floor, air=0.0):
     """The two full-width 30 degree end planes of the removable lower body."""
+    import cadquery as cq
     cx, cy = centre
     cuts = []
     for sign in (-1, 1):
@@ -90,6 +98,7 @@ def roof_datums(inner=DEFAULT_INNER, centre=(0.0, center_y), seat=349.0,
 
 def _front_square_blank(w, front, back, z0, z1, cx, radius, rear_cut):
     """Square front and seam shoulders, with rounded aft corners."""
+    import cadquery as cq
     blank = cq.Solid.makeBox(w, back - front, z1 - z0,
                             cq.Vector(cx - w / 2, front, z0))
     blank = blank.cut(rear_cut).clean()
@@ -121,7 +130,7 @@ def fastener_datums(inner=DEFAULT_INNER, y_joint=200.0,
     Each dictionary names its owning upper shell, XY axis and vertical seats.
     The rear pair stands outside the silicone brim's rounded corners.
     """
-    import enclosure as enc
+    import _enclosure_interface as enc
     cx, cy = centre
     r = roof_datums(inner, centre, seat, y_joint)
     ledge = r['floor']
@@ -146,6 +155,7 @@ def fastener_datums(inner=DEFAULT_INNER, y_joint=200.0,
 
 def _ledge_relief(inner, y_joint, centre, seat, air=0.0):
     """Plain underside notches passing the four ledges through the vertical drop."""
+    import cadquery as cq
     import enclosure as enc
     floor = datums(seat)[0]
     r = roof_datums(inner, centre, seat, y_joint)
@@ -181,6 +191,7 @@ def forming_clearance():
 
 
 def merge_edges(shape):
+    import cadquery as cq
     meshcad = sys.modules.get("meshcad")
     if meshcad is not None and meshcad.is_mesh(shape):
         return shape                          # a mesh has no edges to merge
@@ -204,6 +215,7 @@ def drain_seat_datums(centre=(0.0, center_y), seat=349.0):
 
 
 def _frame_screw_cuts(inner, y_joint, centre, seat):
+    import cadquery as cq
     import enclosure as enc
     floor = datums(seat)[0]
     cuts = []
@@ -230,7 +242,7 @@ def _frame_screw_cuts(inner, y_joint, centre, seat):
 def body_side_half_width(inner=DEFAULT_INNER, y_joint=200.0,
                          centre=(0.0, center_y), seat=349.0):
     """Plain lower side faces aligned with the front ledge passage."""
-    import enclosure as enc
+    import _enclosure_interface as enc
     return min(abs(row['x']-centre[0])-row['host_radius_mm']-enc.slide_slip
                for row in fastener_datums(inner,y_joint,centre,seat)
                if row['col']=='front')
@@ -238,6 +250,7 @@ def body_side_half_width(inner=DEFAULT_INNER, y_joint=200.0,
 
 def _plain_frame_surround(body,inner,y_joint,centre,seat):
     """Flat rear brim bearing and finite screw pads, with plain lower sides."""
+    import cadquery as cq
     import enclosure as enc
     floor = datums(seat)[0]
     roof = roof_datums(inner,centre,seat,y_joint)
@@ -258,6 +271,7 @@ def _plain_frame_surround(body,inner,y_joint,centre,seat):
 
 @functools.cache
 def build(inner=DEFAULT_INNER, y_joint=200.0, centre=(0.0, center_y), seat=349.0):
+    import cadquery as cq
     import enclosure as enc
     cx, cy = centre
     floor, plug, _rail = datums(seat)
@@ -288,6 +302,7 @@ def receivers(inner, outer, y_joint, centre, seat, col, up=None):
     printing roof-up (`up` > 0) each host's underside walks 45 degrees out to
     the box's interior plane, so the host stands on its own corbel.
     """
+    import cadquery as cq
     import enclosure as enc
     blocks = []
     for row in fastener_datums(inner, y_joint, centre, seat):
@@ -310,6 +325,7 @@ def receivers(inner, outer, y_joint, centre, seat, col, up=None):
 
 def shell_screw_cuts(inner, centre, seat, col, y_joint=200.0):
     """Upward-opening RX-M3x5.7 pilots; cut after shell furniture is joined."""
+    import cadquery as cq
     import enclosure as enc
     cuts = [cq.Solid.makeCylinder(enc.heatset_dia / 2,
             row['insert_top_z'] + 1 - row['bore_bottom_z'],
@@ -336,6 +352,7 @@ def front_roof_clearance(inner, centre, seat, y_joint):
 
 
 def main():
+    import cadquery as cq
     from _cadq_export import export_assembly, import_assembly
     from _materials import M_PETGF_BLACK, one_body
     from flute_payload import cut

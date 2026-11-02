@@ -1,0 +1,205 @@
+{
+  "step": {
+    "path": "hardware/reference/elbow-connector/elbow-connector.step",
+    "sha256": "6ba688f1d44f0bae64a2746c928e00350955bb49632954183c9f39ef5e6cdb46"
+  },
+  "capture": {
+    "reference_source_sha256": "822b9fbc6c341c0b8c539a092fb59cab62b74b53e0ac68cf058b006c35058fd3",
+    "measuring_source_sha256": "3aac6ded4e779d6f0ad270fc8a76e71b19d94942626ec8d524bd619e67dac4d1",
+    "method": "Native STEP import; unchanged _measuring.bores and collet_offsets",
+    "axis_alignment_tolerance": 1e-06,
+    "radius_match_tolerance_mm": 0.0001,
+    "returned_radius_and_centre_decimals": 4,
+    "reference_source_path": "hardware/reference/elbow-connector/elbow_connector.py",
+    "measuring_source_path": "hardware/scripts/_measuring.py",
+    "collet_bore_radius_mm": 3.175
+  },
+  "bounds_mm": {
+    "xmin": -7.366000100000001,
+    "xmax": 7.3660001,
+    "ymin": -7.3660001,
+    "ymax": 19.558000100000015,
+    "zmin": -7.366000000000052,
+    "zmax": 19.558
+  },
+  "bores": [
+    {
+      "axis": "y",
+      "radius_mm": 2.54,
+      "centres_mm": [
+        [
+          0.0,
+          0.0
+        ]
+      ]
+    },
+    {
+      "axis": "y",
+      "radius_mm": 3.175,
+      "centres_mm": [
+        [
+          0.0,
+          0.0
+        ]
+      ]
+    },
+    {
+      "axis": "y",
+      "radius_mm": 3.81,
+      "centres_mm": [
+        [
+          0.0,
+          -0.0
+        ]
+      ]
+    },
+    {
+      "axis": "y",
+      "radius_mm": 5.675,
+      "centres_mm": [
+        [
+          0.0,
+          -0.0
+        ]
+      ]
+    },
+    {
+      "axis": "y",
+      "radius_mm": 5.715,
+      "centres_mm": [
+        [
+          0.0,
+          -0.0
+        ]
+      ]
+    },
+    {
+      "axis": "y",
+      "radius_mm": 5.9135,
+      "centres_mm": [
+        [
+          0.0,
+          -0.0
+        ]
+      ]
+    },
+    {
+      "axis": "y",
+      "radius_mm": 6.4135,
+      "centres_mm": [
+        [
+          0.0,
+          -0.0
+        ]
+      ]
+    },
+    {
+      "axis": "y",
+      "radius_mm": 7.366,
+      "centres_mm": [
+        [
+          0.0,
+          -0.0
+        ]
+      ]
+    },
+    {
+      "axis": "z",
+      "radius_mm": 2.54,
+      "centres_mm": [
+        [
+          0.0,
+          -0.0
+        ]
+      ]
+    },
+    {
+      "axis": "z",
+      "radius_mm": 3.175,
+      "centres_mm": [
+        [
+          0.0,
+          -0.0
+        ]
+      ]
+    },
+    {
+      "axis": "z",
+      "radius_mm": 3.81,
+      "centres_mm": [
+        [
+          0.0,
+          0.0
+        ]
+      ]
+    },
+    {
+      "axis": "z",
+      "radius_mm": 5.675,
+      "centres_mm": [
+        [
+          0.0,
+          0.0
+        ]
+      ]
+    },
+    {
+      "axis": "z",
+      "radius_mm": 5.715,
+      "centres_mm": [
+        [
+          0.0,
+          0.0
+        ]
+      ]
+    },
+    {
+      "axis": "z",
+      "radius_mm": 5.9135,
+      "centres_mm": [
+        [
+          0.0,
+          0.0
+        ]
+      ]
+    },
+    {
+      "axis": "z",
+      "radius_mm": 6.4135,
+      "centres_mm": [
+        [
+          0.0,
+          0.0
+        ]
+      ]
+    },
+    {
+      "axis": "z",
+      "radius_mm": 7.366,
+      "centres_mm": [
+        [
+          0.0,
+          0.0
+        ]
+      ]
+    }
+  ],
+  "collet_offsets": {
+    "y": [
+      [
+        0.0,
+        0.0
+      ]
+    ],
+    "z": [
+      [
+        0.0,
+        -0.0
+      ]
+    ]
+  },
+  "socket_depths_mm": {
+    "y": 15.748000497687586,
+    "z": 15.748000497687517
+  }
+}

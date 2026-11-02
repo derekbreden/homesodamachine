@@ -4,9 +4,12 @@
 //! `hsm_kernel::part`. What the parts share is here: the gooseneck the shell, its display cover
 //! and the industrial faucet follow, the display's frame at the tip, and the shapes their numbers
 //! come in. `shell` holds the shell's stock and cutters, `display` what the display covers share,
-//! and `assembly` builds the faucet and its umbilical as the bench bags them.
+//! `counter` the above-counter plate and gasket under each base, and `assembly` builds the faucet
+//! and its umbilical as the bench bags them.
 pub mod assembly;
+pub mod counter;
 pub mod display;
+pub mod metrics;
 pub mod shell;
 
 use anyhow::{Result, anyhow, ensure};

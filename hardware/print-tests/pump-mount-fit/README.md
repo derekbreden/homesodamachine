@@ -41,8 +41,9 @@ by at least 180 seconds.
 3. Release both hooks and lift the pump vertically. Record seating force,
    retention, release, contact marks and any printed interference.
 
-Physical fit, spring force and running vibration remain unmeasured until the
-pump trial. Native geometry and native slice readings do not establish them.
+The [physical result](physical-result.json) reports failed empty-cap retention.
+The [rear snap retention trial](../rear-snap-retention/README.md) carries the
+replacement pump and four rear equipment pairs.
 
 ## Reproduce
 

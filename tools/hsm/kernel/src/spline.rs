@@ -1,13 +1,14 @@
 //! Cubics through points, as OCCT's `GeomAPI_Interpolate` fits them for CadQuery's
 //! `Edge.makeSpline`.
 //!
-//! Each point stands at its chord-length parameter: the first at 0, each next one further on by
+//! `through` places each point at its chord-length parameter: the first at 0, each next further on by
 //! its distance from the last. Through four points or more the curve is the cubic spline knotted
 //! at every point whose end slopes are those of the cubic through the first four points and of
 //! the cubic through the last four (OCCT's `BuildTangents`); through three it is the one
 //! parabola, and through two the line. Between two points with end tangents it is the cubic
 //! leaving and arriving along them, each scaled until the absolute values of its coordinates sum
 //! to those of the chord's slope, as `Load(t0, t1, Scale = true)` scales them.
+//! `clamped` retains explicit parameters and unscaled endpoint derivatives.
 //!
 //! A sweep cuts a curve where its turn at its radius plus the profile's reach uses up the rule,
 //! as it cuts an arc.
@@ -51,10 +52,16 @@ fn lagrange_slope(t: &[f64], p: &[V3], at: usize) -> V3 {
 /// Slopes of the cubic spline through `p` at parameters `t`, `h` apart with chord slopes `d`,
 /// whose end slopes those of the cubics through its first four and last four points.
 fn clamped(t: &[f64], p: &[V3], h: &[f64], d: &[V3]) -> Vec<V3> {
-    let n = p.len();
+    clamped_slopes(h, d, [lagrange_slope(&t[..4], &p[..4], 0),
+                          lagrange_slope(&t[t.len() - 4..], &p[p.len() - 4..], 3)])
+}
+
+fn clamped_slopes(h: &[f64], d: &[V3], ends: [V3; 2]) -> Vec<V3> {
+    let n = h.len() + 1;
     let mut m = vec![V3::ZERO; n];
-    m[0] = lagrange_slope(&t[..4], &p[..4], 0);
-    m[n - 1] = lagrange_slope(&t[n - 4..], &p[n - 4..], 3);
+    m[0] = ends[0];
+    m[n - 1] = ends[1];
+    if n == 2 { return m; }
     let (mut b, mut c, mut r) = (vec![0.0; n], vec![0.0; n], vec![V3::ZERO; n]);
     for i in 1..n - 1 {
         b[i] = 2.0 * (h[i - 1] + h[i]);
@@ -97,6 +104,27 @@ impl Spline {
             _ => clamped(&t, points, &h, &d),
         };
         Ok(Spline { t, p: points.to_vec(), m, bezier: None })
+    }
+
+    /// The cubic through `points` at the supplied strictly increasing `parameters`, with
+    /// derivatives with respect to those parameters at the two ends. Derivatives are retained
+    /// at their supplied magnitudes, as `GeomAPI_Interpolate::Load(..., Scale = false)` does.
+    pub fn clamped(points: &[V3], parameters: &[f64], derivatives: [V3; 2]) -> Result<Spline> {
+        let n = points.len();
+        ensure!(n >= 2 && parameters.len() == n,
+                "a clamped spline needs matching point and parameter arrays, with at least two points");
+        ensure!(points.iter().all(|p| p.x.is_finite() && p.y.is_finite() && p.z.is_finite())
+                && parameters.iter().all(|t| t.is_finite()),
+                "a clamped spline holds a non-finite point or parameter");
+        ensure!(derivatives.iter().all(|d| d.x.is_finite() && d.y.is_finite() && d.z.is_finite()
+                    && d.norm() > 1e-12),
+                "a clamped spline needs finite nonzero endpoint derivatives");
+        let h: Vec<f64> = parameters.windows(2).map(|t| t[1] - t[0]).collect();
+        ensure!(h.iter().all(|&h| h > 0.0 && h.is_finite()),
+                "a clamped spline's parameters must strictly increase");
+        let d: Vec<V3> = (0..n - 1).map(|i| (points[i + 1] - points[i]) / h[i]).collect();
+        let m = clamped_slopes(&h, &d, derivatives);
+        Ok(Spline { t: parameters.to_vec(), p: points.to_vec(), m, bezier: None })
     }
 
     /// The cubic from `a` to `b` leaving along `ta` and arriving along `tb`.
@@ -222,6 +250,41 @@ fn de_casteljau(points: &[V3], t: f64) -> V3 {
 mod tests {
     use super::*;
     use crate::math::{sin, v3};
+
+    #[test]
+    fn a_clamped_cubic_keeps_parameters_and_unscaled_endpoint_derivatives() {
+        let t = [-2.0, -0.7, 0.2, 1.7, 3.0];
+        let polynomial = |t: f64| v3(t, t * t, t * t * t);
+        let derivative = |t: f64| v3(1.0, 2.0 * t, 3.0 * t * t);
+        let points: Vec<V3> = t.iter().map(|&t| polynomial(t)).collect();
+        let ends = [derivative(t[0]), derivative(t[t.len() - 1])];
+        let curve = Spline::clamped(&points, &t, ends).unwrap();
+        assert_eq!(curve.t, t);
+        assert_eq!(curve.m[0], ends[0]);
+        assert_eq!(curve.m[curve.m.len() - 1], ends[1]);
+        for i in 0..=100 {
+            let parameter = t[0] + (t[t.len() - 1] - t[0]) * i as f64 / 100.0;
+            assert!((curve.point(parameter) - polynomial(parameter)).norm() < 1e-10);
+            assert!((curve.derivative(parameter) - derivative(parameter)).norm() < 1e-10);
+        }
+    }
+
+    #[test]
+    fn two_clamped_points_keep_the_parameter_span_and_derivative_magnitudes() {
+        let curve = Spline::clamped(&[V3::ZERO, V3::X], &[4.0, 6.0],
+                                    [V3::Y * 3.0, V3::Z * 9.0]).unwrap();
+        assert_eq!(curve.range(), (4.0, 6.0));
+        assert_eq!(curve.derivative(4.0), V3::Y * 3.0);
+        assert_eq!(curve.derivative(6.0), V3::Z * 9.0);
+        assert!((curve.point(5.0) - v3(0.5, 0.75, -2.25)).norm() < 1e-12);
+    }
+
+    #[test]
+    fn clamped_parameters_reject_mismatched_or_nonincreasing_values() {
+        for parameters in [vec![0.0], vec![0.0, 0.0], vec![1.0, 0.0], vec![0.0, f64::NAN]] {
+            assert!(Spline::clamped(&[V3::ZERO, V3::X], &parameters, [V3::X, V3::X]).is_err());
+        }
+    }
 
     #[test]
     fn quintic_bezier_retains_controls_and_endpoint_slopes() {

@@ -1,0 +1,8 @@
+{
+  "reported_by": "Derek",
+  "date": "2026-11-01",
+  "result": "failed_retention",
+  "text": "Okay, even without the pump inserted, this has basically 0 hold.",
+  "scope": "The first printed pump cap and base do not retain the empty cap adequately. Physical failure takes precedence over prior clearance-only CAD checks.",
+  "replacement_trial": "hardware/print-tests/rear-snap-retention"
+}

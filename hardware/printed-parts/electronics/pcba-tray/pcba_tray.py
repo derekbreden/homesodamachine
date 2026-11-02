@@ -105,6 +105,27 @@ def _glb_component_boxes():
     return boxes
 
 
+def component_stock():
+    """The populated board's component and pin-tail boxes as (origin, size), in mm."""
+    board_x = _outline_x[1] - _outline_x[0]
+    board_y = _outline_y[1] - _outline_y[0]
+    glb_top = 0.7  # glb board frame: slab mid at z=0, 1.4 thick fab board
+    above, below = [], []
+    for x0, x1, y0, y1, z0, z1 in _glb_component_boxes():
+        w, d = x1 - x0, y1 - y0
+        if w < 0.2 or d < 0.2 or (z1 - z0) < 0.2:
+            continue
+        if w > board_x * 0.95 and d > board_y * 0.95:
+            continue  # the glb's own board slab
+        if z1 > glb_top + 0.05:
+            above.append(((x0 - _centre[0], y0 - _centre[1], _thickness),
+                          (w, d, z1 - glb_top)))
+        if z0 < -glb_top - 0.05:
+            zb = max(-pin_drop, z0 + glb_top)
+            below.append(((x0 - _centre[0], y0 - _centre[1], zb), (w, d, -zb)))
+    return above, below
+
+
 def _build_board():
     """The main board as a simplified populated model: the fabbed
     outline slab + one box per component at the axis-aligned bounding box of
@@ -129,26 +150,15 @@ def _build_board():
         slab = slab.cut(
             cq.Workplane("XY").cylinder(_thickness + 1, 3.2 / 2.0, centered=(True, True, False))
             .translate((hx - _centre[0], hy - _centre[1], -0.5)))
-    board_x = _outline_x[1] - _outline_x[0]
-    board_y = _outline_y[1] - _outline_y[0]
-    glb_top = 0.7  # glb board frame: slab mid at z=0, 1.4 thick fab board
+    above, below = component_stock()
+    for origin, size in above:
+        slab = slab.union(cq.Workplane("XY").box(*size, centered=(False, False, False))
+                          .translate(origin))
     tails = None
-    for x0, x1, y0, y1, z0, z1 in _glb_component_boxes():
-        w, d = x1 - x0, y1 - y0
-        if w < 0.2 or d < 0.2 or (z1 - z0) < 0.2:
-            continue
-        if w > board_x * 0.95 and d > board_y * 0.95:
-            continue  # the glb's own board slab
-        if z1 > glb_top + 0.05:      # body above the board top
-            zb, ht = _thickness, z1 - glb_top
-            slab = slab.union(
-                cq.Workplane("XY").box(w, d, ht, centered=(False, False, False))
-                .translate((x0 - _centre[0], y0 - _centre[1], zb)))
-        if z0 < -glb_top - 0.05:     # pins/tails below the PCB underside
-            zb = max(-pin_drop, z0 + glb_top)
-            tail = (cq.Workplane("XY").box(w, d, -zb, centered=(False, False, False))
-                    .translate((x0 - _centre[0], y0 - _centre[1], zb)))
-            tails = tail if tails is None else tails.union(tail)
+    for origin, size in below:
+        tail = (cq.Workplane("XY").box(*size, centered=(False, False, False))
+                .translate(origin))
+        tails = tail if tails is None else tails.union(tail)
     if tails is not None:
         for hx, hy in _holes_pcb:
             tails = tails.cut(

@@ -1,0 +1,13 @@
+{
+  "source": {
+    "commit": "7320c7c39a9d4e1485cb7dbcc3b95aa85d0802fb",
+    "path": "hardware/reference/yyfkgcp-pogo-4p/yyfkgcp_pogo_4p.py",
+    "sha256": "38f6d4702bed086dd4b30228552976ac5000f30a871b2cd972e234c38460d66c"
+  },
+  "members": {
+    "pogo-4p-female.step": "a1c1eb3dd51b03690c9e83ea9d2aac3fe6b732866c5645ce92c3dd52f1185e1c",
+    "pogo-4p-female.step.mesh": "f6fac13455713b2e7bb95e8f970014a4772c251b5cec7f0d2ee60dbd498dbf68",
+    "pogo-4p-male.step": "18b27fd4cdc0aa24c44e0c394c7dbf17f4c14bd0861cfaf489dc8592e78742df",
+    "pogo-4p-male.step.mesh": "3c45aeff759cc55dedbfa3183f1c8e8bc97ac6d5ea0e2b030bee3c115711d0f8"
+  }
+}

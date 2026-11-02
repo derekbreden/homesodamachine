@@ -12,8 +12,6 @@ import math
 import sys
 from pathlib import Path
 
-import cadquery as cq
-
 _here = Path(__file__).resolve()
 _hardware = next(p for p in _here.parents if p.name == "hardware")
 sys.path.insert(0, str(_hardware / "reference" / "beduan-solenoid"))
@@ -58,6 +56,7 @@ def socket_depth():
 
 def build_sockets():
     """Four blind socket cuts in the valve frame, opening at its bearing plane."""
+    import cadquery as cq
     sockets = None
     for sx in (-1.0, 1.0):
         for sy in (-1.0, 1.0):
@@ -74,6 +73,7 @@ def build_sockets():
 
 def build_seat(seat):
     """A plinth from Z=-seat to the valve's bearing plane, with four blind sockets."""
+    import cadquery as cq
     assert seat >= -socket_floor_z - 1e-9, (
         f"seat {seat:g} leaves the socket floor below the supporting face")
     solid = (cq.Workplane("XY").workplane(offset=-seat)
@@ -85,6 +85,7 @@ def build_seat(seat):
 
 def build_port_channel(length):
     """The valve barrel's circular clearance, open through both Y faces."""
+    import cadquery as cq
     return (cq.Workplane("XZ").center(0.0, valve.port_center_z)
             .circle(valve.port_radius + port_air).extrude(length / 2.0, both=True))
 
@@ -142,3 +143,10 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+def __getattr__(name):
+    if name == "cq":
+        import cadquery
+        return cadquery
+    raise AttributeError(f"module {__name__!r} has no attribute {name!r}")

@@ -27,6 +27,26 @@ path = "../../../hardware/printed-parts/faucet/industrial/industrial_faucet.rs"
 name = "faucet-display-cover"
 path = "../../../hardware/printed-parts/faucet/faucet-display-cover/faucet_display_cover.rs"
 
+[[bin]]
+name = "above-counter-plate"
+path = "../../../hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.rs"
+
+[[bin]]
+name = "above-counter-gasket"
+path = "../../../hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.rs"
+
+[[bin]]
+name = "tpu-o-ring"
+path = "../../../hardware/printed-parts/faucet/tpu-o-ring/tpu_o_ring.rs"
+
+[[bin]]
+name = "faucet-metrics"
+path = "../../../hardware/faucet-layout/faucet_metrics.rs"
+
+[[bin]]
+name = "umbilical-organizer"
+path = "../../../hardware/printed-parts/faucet/umbilical-organizer/umbilical_organizer.rs"
+
 [dependencies]
 anyhow.workspace = true
 hsm-kernel = { path = "../kernel" }
