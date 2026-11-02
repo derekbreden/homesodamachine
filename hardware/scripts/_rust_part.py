@@ -408,7 +408,7 @@ def step(path) -> str:
         _READ_TARGETS.add(_relative(beside))
         return name
     cached = _workspace() / ".cache" / "hsm" / "import" / f"{digest}.step.mesh"
-    if not cached.is_file() and not _adopt_fine_payload(path, cached, digest):
+    if not _adopt_fine_payload(path, cached, digest) and not cached.is_file():
         _tessellate(path, cached, digest)
     return name
 
@@ -452,6 +452,11 @@ def _adopt_fine_payload(path: Path, out: Path, digest: str) -> bool:
         return False
     _READ_TARGETS.add(_relative(payload))
     try:
+        if out.is_file() and hashlib.sha256(out.read_bytes()).hexdigest() == expected:
+            return True
+    except OSError:
+        pass
+    try:
         out.parent.mkdir(parents=True, exist_ok=True)
         temp = out.with_name(f".{out.name}.{os.getpid()}")
         temp.write_bytes(data)
@@ -469,6 +474,7 @@ def _tessellate(path: Path, out: Path, digest: str) -> None:
     import _cadq_export                  # the CAD lock
     from OCP.BRep import BRep_Tool
     from OCP.BRepMesh import BRepMesh_IncrementalMesh
+    from OCP.Quantity import Quantity_TypeOfColor
     from OCP.TopAbs import TopAbs_FACE, TopAbs_REVERSED
     from OCP.TopExp import TopExp_Explorer
     from OCP.TopLoc import TopLoc_Location
@@ -502,7 +508,8 @@ def _tessellate(path: Path, out: Path, digest: str) -> None:
                 np.add.at(n, t[:, j], area)
             n /= np.maximum(np.linalg.norm(n, axis=1), 1e-30)[:, None]
             entry = {"name": body if len(solids) == 1 else f"{body}/{k}",
-                     "color": list(color.toTuple()[:3]) if color is not None else None}
+                     "color": list(color.wrapped.GetRGB().Values(Quantity_TypeOfColor.Quantity_TOC_RGB))
+                     if color is not None else None}
             for key, arr in (("pos", p.astype("<f4")), ("nrm", n.astype("<f4")),
                              ("idx", t.astype("<u4")), ("fac", np.asarray(fac, "<u4"))):
                 entry[key] = [len(blob), arr.size]
