@@ -67,7 +67,7 @@ enum Action {
     Stop,
     /// This executable's build, default service endpoint and resolved executable path; starts no daemon.
     Endpoint,
-    /// Run a declared Python generator action (the water-inlet jet slice).
+    /// Run an enrolled Python generator and its declared producer dependencies.
     Generate {
         target: String,
         #[arg(long)]
