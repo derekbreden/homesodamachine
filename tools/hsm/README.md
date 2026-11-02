@@ -554,6 +554,12 @@ elbow-cradle/funnel/frame group this way. The answer's `actions` list describes 
 completed action; `hit` and `receipt` describe the requested action. Only the requested
 target's outputs are placed.
 
+Declared graph support uses the same `gen_build.support_argv` materializer as BUILD.
+It runs as a preceding action in the part store. Its completed output blob is staged
+at the consumer's original input path, and nested read bindings name that provider
+and output. A changed full graph can rerun the support action while identical
+projected bytes reuse the consumer. Node runtime groups remain with the normal build.
+
 The worker shares its verified host lease with the nested Rust request. It holds no outer
 engine memory or compiler reservation while waiting for that request. Nested runtime reads
 are bound to staged inputs, the action's own outputs, or validated external files. The answer's

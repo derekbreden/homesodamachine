@@ -395,11 +395,15 @@ impl Builder {
             for row in recipe["inputs"].as_array_mut().context("generator inputs")? {
                 if let Some(producer) = row["producer"].as_str() {
                     let path = row["path"].as_str().context("producer input path")?;
+                    let output = match row.get("producer_output") {
+                        Some(value) => value.as_str().context("producer output path")?,
+                        None => path,
+                    };
                     let produced = completed.get(producer)
                         .with_context(|| format!("producer has not completed: {producer}"))?;
-                    let digest = produced.files.iter().find(|(name, _)| name == path)
+                    let digest = produced.files.iter().find(|(name, _)| name == output)
                         .map(|(_, digest)| digest)
-                        .with_context(|| format!("producer {producer} did not write {path}"))?;
+                        .with_context(|| format!("producer {producer} did not write {output}"))?;
                     ensure!(self.dir.join("blobs").join(digest).is_file(), "missing producer blob: {path}");
                     // Only this request's completed output can bind a generated input.
                     // The checkout's path is neither read nor used as a fallback.
