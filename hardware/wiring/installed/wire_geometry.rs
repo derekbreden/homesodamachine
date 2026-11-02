@@ -1,6 +1,6 @@
 //! Installed conductors cut from the recorded native line/arc/clamped-spline routes.
 use anyhow::{Context, Result, bail, ensure};
-use hsm_kernel::{Leg, Path, Plane, Profile, Solid, V2, V3, part};
+use hsm_kernel::{Face, Leg, Path, Plane, Profile, Solid, Surface, V2, V3, part, src_line};
 use serde_json::{Value, json};
 
 fn point(value: &Value) -> Result<V3> {
@@ -86,6 +86,56 @@ fn wire(segments: &[Value], diameter: f64) -> Result<Solid> {
     plane.sweep(&Profile::circle(V2::ZERO, diameter / 2.0), &path)
 }
 
+fn presentation(solid: &Solid, tolerance: f64) -> Result<Solid> {
+    // Surface partitions describe the fine model, not boundaries in the drawn skin.
+    // Preserve their complete attribution on the separate presentation surface.
+    let source = |src: hsm_kernel::Src| {
+        if src.recorded() {
+            Value::String(src_line(src))
+        } else {
+            Value::Null
+        }
+    };
+    let mut origins = Vec::new();
+    for face in solid.faces().iter().filter(|face| !matches!(face.surface, Surface::Plane { .. })) {
+        let inherited = face.src.contributors();
+        let records = if face.record_null {
+            vec![Value::Null]
+        } else if let Some(records) = inherited {
+            records.to_vec()
+        } else {
+            vec![json!({"src":source(face.src),"op":face.op})]
+        };
+        for mut record in records {
+            if let (Some(record), Some(via)) = (record.as_object_mut(), face.via) {
+                record.insert("via".into(), json!({"src":source(via.src),"op":via.op}));
+            }
+            origins.push(record);
+        }
+    }
+    let face = Face::new(
+        Surface::Free { kind: "PRESENTATION" },
+        "",
+        hsm_kernel::face::unknown_src(),
+    )
+    .with_contributors(&Value::Array(origins))?;
+    let mut faces = vec![face];
+    let face_indices: Vec<u32> = solid.faces().iter().map(|face| {
+        if matches!(face.surface, Surface::Plane { .. }) {
+            faces.push(*face);
+            faces.len() as u32 - 1
+        } else {
+            0
+        }
+    }).collect();
+    let face_of: Vec<u32> = solid.face_of().iter().map(|&face| face_indices[face as usize]).collect();
+    let mut skin = Solid::from_mesh(solid.verts(), solid.tris(), &face_of, &faces)?;
+    let mut shown = skin.simplified_to(tolerance)?;
+    skin.forget_backend();
+    shown.forget_backend();
+    Ok(shown)
+}
+
 mod wire_components;
 
 fn main() -> Result<()> {
@@ -169,10 +219,14 @@ fn main() -> Result<()> {
         .fold(f64::INFINITY, f64::min)
         / 2.0;
     let presentation_tolerance = deflection.min(radius * (1.0 - (angular / 2.0).cos()));
-    let tolerances: Vec<f64> = std::iter::repeat_n(presentation_tolerance, routes.len())
+    let angular_tolerance = |diameter: f64| {
+        deflection.min(diameter / 2.0 * (1.0 - (angular / 2.0).cos()))
+    };
+    let tolerances: Vec<f64> = routes.iter()
+        .map(|route| angular_tolerance(route["diameter_mm"].as_f64().unwrap()))
         .chain(component_diameters.iter().map(|diameter| {
             diameter.map_or(presentation_tolerance, |d| {
-                presentation_tolerance.min(d / 2.0 * (1.0 - (angular / 2.0).cos()))
+                angular_tolerance(d)
             })
         }))
         .collect();
@@ -180,9 +234,8 @@ fn main() -> Result<()> {
         .iter_mut()
         .zip(&tolerances)
         .map(|(solid, tolerance)| {
-            let mut shown = solid.simplified_to(*tolerance)?;
+            let shown = presentation(solid, *tolerance)?;
             solid.forget_backend();
-            shown.forget_backend();
             Ok(shown)
         })
         .collect::<Result<_>>()?;
@@ -201,6 +254,7 @@ fn main() -> Result<()> {
     let document = json!({"schema":"hsm-installed-wires-1","frame":"Enclosure assembly XYZ; Z up",
                           "presentation_tolerance_mm":presentation_tolerance,
                           "presentation_angular_deflection_rad":angular,
+                          "presentation_surface_partitions":"coalesced with complete fine-face contributors",
                           "presentation_tolerance_by_name_mm":names.iter().zip(&tolerances)
                               .map(|(name,tolerance)|((*name).to_owned(),json!(tolerance)))
                               .collect::<serde_json::Map<_,_>>(),
