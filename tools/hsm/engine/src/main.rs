@@ -67,6 +67,15 @@ enum Action {
     Stop,
     /// This executable's build, default service endpoint and resolved executable path; starts no daemon.
     Endpoint,
+    /// Run a declared Python generator action (the water-inlet jet slice).
+    Generate {
+        target: String,
+        #[arg(long)]
+        output: Option<PathBuf>,
+        /// CAD interpreter to use when this worktree has no tools/cad-venv.
+        #[arg(long)]
+        python: Option<PathBuf>,
+    },
     /// Names, world bounds, dimensions and stable payload indices.
     Where {
         #[arg(default_value = "")]
@@ -230,12 +239,12 @@ fn send(socket: &Path, request: &Request) -> Result<Value> {
     let mut stream = UnixStream::connect(socket)?;
     // A part run waits its turn and may compile first; a query is answered or it is stuck.
     let wait = match request.query {
-        Query::Run { .. } | Query::Render { .. } => None,
+        Query::Run { .. } | Query::Generate { .. } | Query::Render { .. } => None,
         _ => Some(Duration::from_secs(300)),
     };
     stream.set_read_timeout(wait)?;
     let mut message = serde_json::to_value(request)?;
-    let lease = if matches!(request.query, Query::Run { .. } | Query::Render { .. }) {
+    let lease = if matches!(request.query, Query::Run { .. } | Query::Generate { .. } | Query::Render { .. }) {
         hsm_run_slots::inherited()?
     } else { None };
     if let Some(lease) = &lease { message["_lease"] = serde_json::to_value(lease.wire())?; }
@@ -439,7 +448,7 @@ fn serve(client: &Client) -> Result<()> {
             fs::remove_file(&client.socket)?;
             listener.set_nonblocking(true)?;
             while let Ok((stream, _)) = listener.accept() {
-                answer(stream, &mut store, &builds, &build, &configuration)?;
+                answer(stream, &mut store, &builds, &build, &configuration, &client.socket)?;
             }
             builds.wait_idle();
             if let Err(e) = builds.prune(client.keep_mb.saturating_mul(1 << 20)) {
@@ -453,7 +462,7 @@ fn serve(client: &Client) -> Result<()> {
             return Ok(());
         }
         let (stream, _) = listener.accept()?;
-        if answer(stream, &mut store, &builds, &build, &configuration)? {
+        if answer(stream, &mut store, &builds, &build, &configuration, &client.socket)? {
             break;
         }
         last = Instant::now();
@@ -496,6 +505,7 @@ fn answer(
     builds: &Arc<build::Builder>,
     build: &str,
     configuration: &Value,
+    socket: &Path,
 ) -> Result<bool> {
     // An accepted socket inherits a non-blocking listener's mode on macOS.
     stream.set_nonblocking(false)?;
@@ -515,6 +525,14 @@ fn answer(
             let entered = builds.enter();
             thread::spawn(move || {
                 reply(stream, entered.answer(build::Ask { workspace, root, krate, name, args }, incoming), started);
+            });
+            return Ok(false);
+        }
+        Ok(Request { query: Query::Generate { workspace, target, output, python }, .. }) => {
+            let entered = builds.enter();
+            let socket = socket.to_path_buf();
+            thread::spawn(move || {
+                reply(stream, entered.generate(build::Generate { workspace, target, output, python }, &socket, incoming), started);
             });
             return Ok(false);
         }
@@ -640,6 +658,7 @@ fn run() -> Result<bool> {
             return Ok(response["ok"] == true);
         }
         Action::Render(args) => return render::run(&client, args),
+        Action::Generate { target, output, python } => Query::Generate { workspace: client.root.clone(), target, output, python },
         Action::Status => Query::Status,
         Action::Where { pattern } => Query::Where { pattern },
         Action::Gap { a, b } => Query::Gap { a, b },
