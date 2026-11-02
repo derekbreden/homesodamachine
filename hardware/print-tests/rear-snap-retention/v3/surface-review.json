@@ -1,0 +1,22 @@
+{
+  "scope": "Post-publication review of the five revised caps; classifications are task-specific, not a new gate. Native geometry and slice checks do not qualify physical hand force or fatigue.",
+  "source_commit": "67944ae32",
+  "publication_commit": "e1c24d40a",
+  "report": "geometry-lint.txt",
+  "changes": "Finite screwdriver-purchase noses above the centered entries; the water-regulator central bearing ends before the outlet release-collet shoulder.",
+  "specified_features": [
+    "2.0 mm spring leaves",
+    "1.6 mm hook nose with 0.6 mm above the 1 mm blade entry",
+    "1 mm insertion-ramp rise",
+    "Small supported tool-entry end faces",
+    "Water-regulator axial bearing in its short native neck"
+  ],
+  "outside_scope": "The accepted ASSE wrench/vent cavity retains one narrow wrench face and six small axial cut-end ledges. These are separate cavity surface-consolidation work and are reported to Derek.",
+  "stl_sha256": {
+    "hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.stl": "7daefd30519fc9562806f44b6ccdfa737c8c1fbb5e13a96ebaa881ff655e3e5a",
+    "hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.stl": "3233bbfa06a77e93fc0a793c6ff59a038f0b538f550308b30ab36f68364db6b3",
+    "hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.stl": "42f2075d1be4bdeba9c7a4d6cd687f3827aba1a253ac045b018817c90cac4c65",
+    "hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.stl": "698312c8bf71ec309de4c94ab67482808eab58e2496fdfc6c5875293c78cddfe",
+    "hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.stl": "29c43a5f314e7dae558ba1a796062b50379838ddd5e1961c25d727198dccd587"
+  }
+}

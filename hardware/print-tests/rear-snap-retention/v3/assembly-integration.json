@@ -1,0 +1,85 @@
+{
+  "scope": "The retained published Box and every unrelated native member and viewer array are preserved. Only the back-top, equipment lid and five snap caps are replaced. This is a scoped integration, not a whole-pack layout rebuild.",
+  "box_sha256": "030ef2fe087dbafc5a55f68f12a03421321604b4054a651cf5c850d1695ae307",
+  "native_seated_cap_receiver_intersection_mm3": {
+    "asse-snap-cap": 0.0,
+    "pisco-snap-cap": 0.0,
+    "meter-snap-cap": 0.0,
+    "regulator-snap-cap": 0.0,
+    "pump-snap-cap": 0.0
+  },
+  "hosts": {
+    "hardware/manifold-layout/enclosure-assembly.step": {
+      "step_sha256": "74433998a379516e4d3e1990d88ee1ed652d77e89ff42c8d22f08b01b294c51f",
+      "payload_sha256": "32e8fa8fb4e1e6eba6e6f05cb4075ea7482022b0b3b7c0ecd41304163ed5d274",
+      "replaced_native_members": [
+        "asse-snap-cap",
+        "pisco-snap-cap",
+        "meter-snap-cap",
+        "regulator-snap-cap",
+        "cold-core/foam-cap-lid-top",
+        "cold-core/pump-snap-cap",
+        "enclosure-back-top"
+      ],
+      "changed_viewer_members": [
+        "asse-snap-cap",
+        "pisco-snap-cap",
+        "meter-snap-cap",
+        "regulator-snap-cap",
+        "cold-core/foam-cap-lid-top",
+        "cold-core/pump-snap-cap",
+        "enclosure-back-top"
+      ],
+      "unrelated_viewer_members_preserved": 447,
+      "seconds": 38.71436354101752
+    },
+    "hardware/printed-parts/enclosure/enclosure/enclosure.step": {
+      "step_sha256": "256a51e0f7f3365a143b4cfb0174641d925bab2481bc11f9dc8392c6e47119de",
+      "payload_sha256": "8271d501950e29b99bf87acc0336251e83fadf086eec0f87bff339f976d0d921",
+      "replaced_native_members": [
+        "enclosure-back-top"
+      ],
+      "changed_viewer_members": [
+        "enclosure-back-top"
+      ],
+      "unrelated_viewer_members_preserved": 4,
+      "seconds": 11.535388041986153
+    },
+    "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step": {
+      "step_sha256": "57e4c0cf07c2374198b754eddf58f299df2df5a17f7151013f51ff03bbe21e44",
+      "payload_sha256": "fc196663f0b4221186bb8cf1d4fd1da8f9f0912588d5d507692280b8615e14ff",
+      "replaced_native_members": [
+        "foam-cap-lid-top"
+      ],
+      "changed_viewer_members": [
+        "foam-cap-lid-top"
+      ],
+      "unrelated_viewer_members_preserved": 2,
+      "seconds": 1.615807958994992,
+      "retained_lid_placement": {
+        "rotation": [
+          [
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "translation_mm": [
+          0.0,
+          0.0,
+          225.99999618596678
+        ]
+      }
+    }
+  }
+}

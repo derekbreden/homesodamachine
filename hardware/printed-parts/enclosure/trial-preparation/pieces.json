@@ -1027,12 +1027,12 @@
           "stl": "hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.stl"
         }
       ],
-      "pose_reason": "Each cap stands on an axial end as exported. The reinforced 2.6 mm spring leaves bend within the printed layers; retain PET-GF Tree(auto)/Default for actual cavity ceilings.",
+      "pose_reason": "Each cap stands on an axial end as exported. The 2.0 mm spring leaves bend within the printed layers; retain PET-GF Tree(auto)/Default for actual cavity ceilings.",
       "spacing_mm": 15,
       "settings": {
         "wall_loops": {
           "value": "3",
-          "reason": "Three Classic loops and solid infill retain the complete2.6mm spring section."
+          "reason": "Three Classic loops and solid infill retain the complete 2.0 mm spring section."
         },
         "wall_generator": {
           "value": "classic",
@@ -1065,12 +1065,12 @@
           "stl": "hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.stl"
         }
       ],
-      "pose_reason": "The continuous54.5mm box half-pipe stands on one axial end as exported. Its6.2mm crown,2.6mm spring leaves and flat hooks grow as vertical walls; spring bending lies within the layer plane. Retain PET-GF Tree(auto)/Default.",
+      "pose_reason": "The continuous 54.5 mm box half-pipe stands on one axial end as exported. Its 6.2 mm crown,2.0 mm spring leaves and flat hooks grow as vertical walls; spring bending lies within the layer plane. Retain PET-GF Tree(auto)/Default.",
       "plate_border_mm": 80.0,
       "settings": {
         "wall_loops": {
           "value": "3",
-          "reason": "Three Classic outer loops and solid infill retain the full2.6mm spring leaf section."
+          "reason": "Three Classic outer loops and solid infill retain the full 2.0 mm spring leaf section."
         },
         "wall_generator": {
           "value": "classic",

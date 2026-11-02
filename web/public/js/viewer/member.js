@@ -52,11 +52,12 @@ let said = false;
  * The member's bytes from `url`, decompressed when they arrive gzipped.
  * Throws when the store does not answer, which is the caller's cue to read the site.
  */
-export async function fetchMember(url) {
+export async function fetchMember(url, { signal } = {}) {
   let resp;
   try {
-    resp = await fetch(url);
+    resp = await fetch(url, { signal });
   } catch (err) {
+    if (err.name === "AbortError") throw err;
     if (!said) { said = true; console.warn("store unreachable, serving from the site:", err); }
     throw err;
   }

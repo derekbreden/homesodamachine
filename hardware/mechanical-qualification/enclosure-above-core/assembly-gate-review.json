@@ -1,8 +1,8 @@
 {
   "schema": "enclosure-assembly-gate-review/2",
-  "scope": "Current full native mechanical assembly and finite insertion/thread/heat-set regions. All51 selected nominal mates pass at the existing1mm3 contact floor; maximum outside volume0.146875mm3. Wires are excluded from red geometry gates. The sole remaining rigid obstruction is the neutral WAGO, addressed after the mechanical publication.",
-  "assembly_step_sha256": "b8a1a5b893b4bd465d8bd1bdd781201ba4eb20e9186ffa85622790c1710233ed",
-  "assembly_mesh_sha256": "3ab60fa98d64305694e6678f5645f3aa064de1e63bead926448e995ed82d3e34",
+  "scope": "Current enclosure assembly, finite nominal mating regions and current v3 capture/service geometry. Wires are excluded from red geometry gates. Neutral WAGO placement follows the mechanical publication; physical snap fit remains a separate explicit open qualification.",
+  "assembly_step_sha256": "781a5ac87054a542e2fd056179d98e3d2b858b9097ea990a30d8213eab0fbbe3",
+  "assembly_mesh_sha256": "1455d9085191e75fc301184e10689e6bd5d53f0458db3890a39cb5f9f2dc62f6",
   "native_integration_record": "hardware/mechanical-qualification/enclosure-above-core/retention-integration-review.json",
   "current_gate_checks": [
     {
@@ -37,7 +37,7 @@
       "value": "1 clash, 0 unanswered",
       "target": "0 clash, 0 unanswered",
       "detail": [
-        "wago-n \u2229 foam-assembly   86.9 mm\u00b3, x[  -55.36,  -51.60] y[  448.20,  451.07] z[  266.00,  274.40]",
+        "wago-n \u2229 foam-cap-lid-top: 73.516 mm\u00b3 in the current mesh. Junction placement follows the mechanical publication.",
         "Selected nominal mates: 51/51 within finite insertion/thread/heat-set regions at the existing 1 mm\u00b3 contact floor; maximum outside 0.146875 mm\u00b3. Physical insertion, sealing and retention remain unqualified.",
         "Flavor reducer stems in their valve outlets: v-g 258.0 mm\u00b3 in the stem, 0.000000 mm\u00b3 outside it; v-j 258.0 mm\u00b3 in the stem, 0.000000 mm\u00b3 outside it",
         "Stem elbows in their collets: v-c 80.1 mm\u00b3 in the stem, 0.000000 mm\u00b3 outside it; v-d 80.1 mm\u00b3 in the stem, 0.000000 mm\u00b3 outside it; v-g 80.1 mm\u00b3 in the stem, 0.000000 mm\u00b3 outside it; v-j 80.1 mm\u00b3 in the stem, 0.000000 mm\u00b3 outside it; y-c 3.0 mm\u00b3 in the stem, 0.017341 mm\u00b3 outside it; y-d 3.0 mm\u00b3 in the stem, 0.017341 mm\u00b3 outside it; y-f 3.0 mm\u00b3 in the stem, 0.017341 mm\u00b3 outside it; y-g 3.0 mm\u00b3 in the stem, 0.017341 mm\u00b3 outside it",
@@ -723,14 +723,15 @@
       "label": "A printed feature of another placed part fastens every body",
       "kind": "gate",
       "status": "fail",
-      "value": "Rear cap capture and spring roots unresolved",
+      "value": "Revised snap retention awaiting physical fit",
       "target": "a printed joint per body",
       "detail": [
         "funnel: wall-capture \u2014 nothing fastens it; The silicone brim rests in the removable frame's roof surround. Its plug locates on the cradle snapped into the frame's web, with its sealing land on the elbow stem. The funnel lifts out by hand for the dishwasher, the land sliding off the stem.",
         "fuse-clamp: gap-press \u2014 nothing fastens it; Both faces of the slot the clamp presses into are the compressor's own \u2014 the air its power box hangs over its mounting plate \u2014 so the clamp rides the can. The plate's four holes carry the floor's posts and the grommets, and every printed feature in reach of the clamp stands on the cabinet side of them.",
         "tee-y-a: pack \u2014 nothing fastens it; Its collets make up onto V-C's, face to face on one stub with no tube between them, and that valve stands in four printed sockets \u2014 so what holds this tee is the seat under the valve it butts.",
         "tee-y-b: pack \u2014 nothing fastens it; Its collets make up onto V-D's, face to face on one stub with no tube between them, and that valve stands in four printed sockets \u2014 so what holds this tee is the seat under the valve it butts.",
-        "Current physical retention: reinforced 2.6 mm leaves bend at their roots. Pump and ASSE hardware fit and meter receiver/lead room are accepted; the PISCO cap has excess play and the water-regulator receiver/cap miss their clamping sections. Revised clamping bodies and rounded spring roots are in the next physical trial. This gate describes the currently published hardware, not the pending trial. Details: mechanical-qualification/enclosure-above-core/retention-integration-review.json."
+        "Current native geometry: all five cap/receiver pairs have zero seated penetration and positive caught bearing. Installed non-wire neighbors and complete released cap extraction paths pass. Physical fit, spring bending and repeated release remain unqualified in the v3 trial record.",
+        "Current native geometry: all five cap/receiver pairs have zero seated penetration and positive caught bearing. Installed non-wire neighbors and complete released cap extraction paths pass. Physical fit, spring bending and repeated release remain unqualified in the v3 trial record."
       ],
       "active": true
     },
@@ -863,31 +864,14 @@
         "wago-n",
         "foam-cap-lid-top"
       ],
-      "native_overlap_mm3": 86.9,
-      "required_action": "Move the neutral junction and its holder after publishing the settled mechanics."
+      "mesh_overlap_mm3": 73.51575177210209,
+      "required_action": "Place the neutral junction and its holder around the completed mechanics."
     }
   ],
   "all_changed_body_unconnected_material_contacts_clear": false,
   "remaining_relay_head_findings": [],
-  "publication_recovery": {
-    "scope": "Restore exact already-published reference mesh bytes required for adoption of the current assembly. This changes neither their pointers nor the enclosure geometry.",
-    "restored_object_sha256": [
-      "ad88d8ea9b91f9327c92de012ff127841a9f5c14b70ac6739427cbff5ad97583",
-      "df3be3fc40513ebb9047925a0b92e6060e6f3091658b3fc780a4deddd6f62f85",
-      "a32b411b55657eebe6091c75f7d54e131ed1735561c21c929ef88b0dd5c06379",
-      "84d68c77955b19d2e1f776a33b8fcd2370658086ad00acf5eb7ed953c0e72aec",
-      "0e9048ba2e654bc3a2a0f2fb8fa89c13bdc832d4a25aaecd18bc093d0b9a7dc4",
-      "c9e764f9809d9305385f97d83e3f4894f83ec97a4f7765eeb073e224508c105a",
-      "53c25c1db47960fcfb05e218fb92f05ee8d62cda6a5d8e3b726442cb1ec352da",
-      "a72c10795668b4ea7968352c019b44d46a726e52e1e18f666227cc6bab74770b",
-      "d4c3bc20fc3e5094d853e0bd556e75ba60806bda96daf32d524d43a117eb3890",
-      "e6f5144ed1b80765513497a1af723b19ac4241d58d5b3b6ebb9972e11472344d",
-      "71594137cc7ae40fd5c52c310f2c78f03a1f24a63dfe732a28d9e6b6c3bcc135",
-      "dca1e2ca76f2940117919f4f89393eff483ec5a55d6ac2955c1fa76ca411fa16",
-      "2b9fc9020991b824c510d39c3f1a6b076a2c329922e4c3651facfa65fdac9cb8",
-      "f6fac13455713b2e7bb95e8f970014a4772c251b5cec7f0d2ee60dbd498dbf68",
-      "3c45aeff759cc55dedbfa3183f1c8e8bc97ac6d5ea0e2b030bee3c115711d0f8"
-    ],
-    "readback_verified": true
+  "physical_qualification": {
+    "record": "hardware/print-tests/rear-snap-retention/v3",
+    "state": "The current modeled joints use 2.0 mm leaves, R1.5 roots, solid hook noses above centered screwdriver entries, shaped PISCO and meter bearing stock and the measured regulator shoulder. Current native seated contacts, positive nominal capture, neighboring bodies and released extraction paths pass. Physical retention, insertion/release force, distributed bending, repeated use and pump vibration remain unqualified."
   }
 }

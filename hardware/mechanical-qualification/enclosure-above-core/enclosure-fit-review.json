@@ -1,8 +1,8 @@
 {
   "schema": "enclosure-fit-review/3",
   "scope": "Artifact-bound current enclosure geometry and assembly. Complete native static contact readings, finite mounting stock, cap loading/removal and exact printed quadrant motion are bound separately. WAGO and wire completion follows the published mechanical layout. Physical force, actual spring life, bearing finish and purchased-part tolerances require the physical articles.",
-  "assembly_step_sha256": "b8a1a5b893b4bd465d8bd1bdd781201ba4eb20e9186ffa85622790c1710233ed",
-  "assembly_mesh_sha256": "3ab60fa98d64305694e6678f5645f3aa064de1e63bead926448e995ed82d3e34",
+  "assembly_step_sha256": "781a5ac87054a542e2fd056179d98e3d2b858b9097ea990a30d8213eab0fbbe3",
+  "assembly_mesh_sha256": "1455d9085191e75fc301184e10689e6bd5d53f0458db3890a39cb5f9f2dc62f6",
   "integration_record": "hardware/mechanical-qualification/enclosure-above-core/retention-integration-review.json",
   "native_contacts": [
     {
@@ -42,13 +42,73 @@
         "wago-n",
         "foam-cap-lid-top"
       ],
-      "native_overlap_mm3": 86.9,
-      "required_action": "Move the neutral junction and its holder after publishing the settled mechanics."
+      "mesh_overlap_mm3": 73.51575177210209,
+      "required_action": "Place the neutral junction and its holder around the completed mechanics."
     }
   ],
   "all_queried_unconnected_material_contacts_clear": false,
   "physical_qualification": {
-    "record": "hardware/print-tests/rear-snap-retention/v2",
-    "state": "The reinforced v2 trial accepts the pump and ASSE hardware fits and the meter receiver/wire room. The2.6mm leaves bend at their roots. Pisco has excessive play without useful retention; the water regulator has an incorrect outlet-shoulder envelope and its cap misses smaller sections. Coordinator2 is revising the clamping bodies, meter cap, spring roots and release access. Current snap retention remains unqualified."
+    "record": "hardware/print-tests/rear-snap-retention/v3",
+    "state": "The current modeled joints use 2.0 mm leaves, R1.5 roots, solid hook noses above centered screwdriver entries, shaped PISCO and meter bearing stock and the measured regulator shoulder. Current native seated contacts, positive nominal capture, neighboring bodies and released extraction paths pass. Physical retention, insertion/release force, distributed bending, repeated use and pump vibration remain unqualified."
+  },
+  "current_snap_geometry": {
+    "scope": "Current closed physical meshes: seated cap/receiver volume and caught 0.5 mm withdrawal; all six 1 mm meter-housing translations. Nominal geometric capture, with physical force and fatigue unqualified.",
+    "assembly_mesh_sha256": "1455d9085191e75fc301184e10689e6bd5d53f0458db3890a39cb5f9f2dc62f6",
+    "caps": {
+      "asse-snap-cap": {
+        "seated_overlap_mm3": 0.0,
+        "withdrawal_mm": [
+          0,
+          0,
+          -0.5
+        ],
+        "blocked_overlap_mm3": 19.06490081773749
+      },
+      "pisco-snap-cap": {
+        "seated_overlap_mm3": 0.0,
+        "withdrawal_mm": [
+          0,
+          0,
+          -0.5
+        ],
+        "blocked_overlap_mm3": 5.410561414166978
+      },
+      "meter-snap-cap": {
+        "seated_overlap_mm3": 0.0,
+        "withdrawal_mm": [
+          -0.5,
+          0,
+          0
+        ],
+        "blocked_overlap_mm3": 17.15967773529701
+      },
+      "regulator-snap-cap": {
+        "seated_overlap_mm3": 0.0,
+        "withdrawal_mm": [
+          0,
+          0,
+          -0.5
+        ],
+        "blocked_overlap_mm3": 16.121021730825305
+      },
+      "pump-snap-cap": {
+        "seated_overlap_mm3": 0.0,
+        "withdrawal_mm": [
+          0,
+          0,
+          0.5
+        ],
+        "blocked_overlap_mm3": 25.741555937798694
+      }
+    },
+    "meter_travel": {
+      "0:-1": 251.36715210723472,
+      "0:+1": 52.79046118090428,
+      "1:-1": 17.467630928733158,
+      "1:+1": 7.317720877437239,
+      "2:-1": 22.80268614570142,
+      "2:+1": 30.872731623638476
+    },
+    "pass": true
   }
 }

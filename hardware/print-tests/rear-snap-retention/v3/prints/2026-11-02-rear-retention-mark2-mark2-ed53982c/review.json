@@ -1,0 +1,79 @@
+{
+  "archive": "hardware/print-tests/rear-snap-retention/v3/prints/2026-11-02-rear-retention-mark2-mark2-ed53982c/2026-11-02-rear-retention-mark2-mark2-ed53982c.gcode.3mf",
+  "archive_sha256": "72689cf0d354153d3bad77ba29e4ef8904ebc27d47557d948b1da2fe97dfa556",
+  "gcode_md5_matches": true,
+  "emitted_z_trim_mm": [
+    0.0,
+    0.02
+  ],
+  "expected_emitted_textured_trim_mm": 0.02,
+  "layers": 227,
+  "project_check": true,
+  "bead_envelope_plate_mm": [
+    [
+      99.65446700000001,
+      96.22246700000001
+    ],
+    [
+      225.34553300000002,
+      223.777533
+    ]
+  ],
+  "bed_margins_mm": {
+    "left": 99.65446700000001,
+    "front": 96.22246700000001,
+    "right": 99.65446699999998,
+    "back": 96.222467
+  },
+  "minimum_bed_margin_mm": 96.222467,
+  "bed_border_mm": 40.0,
+  "fine_and_transition_bands": [],
+  "support_roads": 93242,
+  "show_face_minimum_bead_clearance_mm": null,
+  "show_face_contacts": [],
+  "tie_window_support_crossings": [],
+  "ribbon_support_crossings": [],
+  "ribbons": [],
+  "fine_band_unbacked_roads": [],
+  "first_second_layer_stack": {
+    "1901": {
+      "second_layer_model_bead_area_mm2": 1145.73195077681,
+      "fraction_over_first_layer": 0.9531250628725909,
+      "second_layer_centerline_outside_first_mm": 10.049896843636851
+    },
+    "1902": {
+      "second_layer_model_bead_area_mm2": 772.5513406029847,
+      "fraction_over_first_layer": 0.9629216488439561,
+      "second_layer_centerline_outside_first_mm": 7.207447518196386
+    },
+    "1903": {
+      "second_layer_model_bead_area_mm2": 770.9825695440688,
+      "fraction_over_first_layer": 0.9492987127244367,
+      "second_layer_centerline_outside_first_mm": 7.042121415495153
+    },
+    "1904": {
+      "second_layer_model_bead_area_mm2": 2396.418482673573,
+      "fraction_over_first_layer": 0.9864359474238841,
+      "second_layer_centerline_outside_first_mm": 7.837826197068495
+    },
+    "1905": {
+      "second_layer_model_bead_area_mm2": 415.95862111879654,
+      "fraction_over_first_layer": 0.9098389079918464,
+      "second_layer_centerline_outside_first_mm": 5.398067269569475
+    }
+  },
+  "solid_host_deposition": [],
+  "support_topology": {},
+  "scope": "Commanded paths and bead envelopes from this archive. Support removal, surface finish, fit and strength are physical observations.",
+  "checks": {
+    "archive": true,
+    "z_trim": true,
+    "bed_border": true,
+    "fine_and_transition_bands": true,
+    "show_faces_support_free": true,
+    "tie_windows_support_free": true,
+    "ribbons_support_free_and_printed": true,
+    "solid_hosts_sampled": true
+  },
+  "pass": true
+}

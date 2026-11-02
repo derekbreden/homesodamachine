@@ -258,16 +258,14 @@ def pump_snap_cap(index=0):
     import fits
     d = pump_cradle_datums()['caps'][index]
     s = d['snap_station']
-    c, wide, inner, hook = (s[k] for k in ('axis_x','outer','inner','hook'))
-    west = [(c-wide,0.),(c-wide,s['tip']),(c-inner,s['tip']),
-            (c-hook,s['catch']+s['nose_land']),
-            (c-hook,s['catch']),(c-inner,s['catch']),(c-inner,-fits.slip)]
-    east = [(2*c-x,z) for x,z in reversed(west)]
+    import rear_snaps
+    c,wide=s['axis_x'],s['outer']
     roof = -(d['bore_radius_mm']+d['selected']['cap_arch_wall_mm'])
     edge = d['selected']['cap_east_roof_half_width_mm']
-    points = west+east+[(c+wide,roof),(c-edge,roof)]
-    wire = cq.Wire.makePolygon([cq.Vector(x,s['y0'],z) for x,z in points],close=True)
-    blank = cq.Solid.extrudeLinear(wire,[],cq.Vector(0.,s['y1']-s['y0'],0.))
+    section=rear_snaps.cap_section(s,-fits.slip,roof)
+    section['segments'][-2]={'line':((c+wide,roof),(c-edge,roof))}
+    section['segments'][-1]={'line':((c-edge,roof),(c-wide,s['root']))}
+    blank=rear_snaps.section_solid(section).cut(*rear_snaps.pry_cuts(s))
     return _pump_cap_to_world(blank, d).cut(_pump_motor_room(d)).clean()
 
 
@@ -296,11 +294,6 @@ def pump_cradle():
     body = body.cut(cq.Solid.makeBox(2.*half, rear[1]-fore[0]+.2, cz-face+1.,
         cq.Vector(cx-half, fy+fore[0]-.1, face)))
     import fits
-    # The nonbearing inner corners of the fore stop share one wider lead
-    # opening; the measured rail-end contact bands remain complete.
-    fore_half=min(abs(y)for y in selected['rail_stop_contact_native_y_mm'])-2*fits.running
-    body=body.cut(cq.Solid.makeBox(2*fore_half,fore[1]-fore[0]+.2,cz-face+1.,
-        cq.Vector(cx-fore_half,fy+fore[0]-.1,face)))
     for rail in d['rail_rooms']:
         a, b, c = rail['floor_planes'][0]
         c -= fits.running*math.sqrt(1.+a*a+b*b)
@@ -318,13 +311,16 @@ def pump_cradle():
     tz = d['frame']['translation_mm'][2]
     head = selected['rail_stop_native_z_mm']
     slope = (cz-tz-head)/first
-    profiles = []
-    for x in (fore[0]-.1, first):
-        z, y = tz+head+slope*x, fy+x
-        profiles.append(cq.Wire.makePolygon([cq.Vector(cx-wide-.1,y,z),
-            cq.Vector(cx+wide+.1,y,z),cq.Vector(cx+wide+.1,y,cz+1.),
-            cq.Vector(cx-wide-.1,y,cz+1.)],close=True))
-    body = body.cut(cq.Solid.makeLoft(profiles,ruled=True))
+    # The end stop has one flat roof through its complete contact depth.
+    # The head-clearance ramp begins at that stop's rear bearing plane.
+    for xa, xb in ((fore[0]-.1, fore[1]), (fore[1], first)):
+        profiles = []
+        for x in (xa, xb):
+            z, y = tz+head+slope*max(x,fore[1]), fy+x
+            profiles.append(cq.Wire.makePolygon([cq.Vector(cx-wide-.1,y,z),
+                cq.Vector(cx+wide+.1,y,z),cq.Vector(cx+wide+.1,y,cz+1.),
+                cq.Vector(cx-wide-.1,y,cz+1.)],close=True))
+        body = body.cut(cq.Solid.makeLoft(profiles,ruled=True))
     for cap in d['caps']:
         for pocket in rear_snaps.pockets(dict(cap['snap_station'],outer=wide)):
             body = body.cut(_pump_cap_to_world(pocket, cap))

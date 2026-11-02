@@ -27,16 +27,18 @@ def centered(shape):
 
 def main():
     parser=argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--output',type=Path,default=HERE/'v2')
+    parser.add_argument('--output',type=Path,default=HERE/'v3')
     parser.add_argument('--check-fit',action='store_true')
     args=parser.parse_args()
     output=args.output.resolve()
     began = time.monotonic()
     folder = output/'parts'
     folder.mkdir(parents=True,exist_ok=True)
-    report = {'reference':{'physical_result':'Reinforced revision for the failed PISCO and meter trial; physical fit pending.',
+    report = {'reference':{'physical_result':'Intermediate leaves, blended roots and shaped bearing stock; physical fit pending.',
       'leaf_mm':snaps.WING,'flat_overlap_mm':snaps.REACH,'hook_mm':snaps.HOOK,
-      'default_leaf_length_mm':snaps.FREE_LENGTH,'regulator_leaf_length_mm':21.5,
+      'default_leaf_length_mm':snaps.FREE_LENGTH,
+      'regulator_leaf_length_mm':rear_plumbing.plan()['regulator_mount']['station']['catch']-rear_plumbing.plan()['regulator_mount']['station']['root'],
+      'root_radius_mm':snaps.ROOT_RADIUS,'centered_pry_slot_mm':[snaps.PRY_WIDTH,snaps.PRY_HEIGHT],
       'catch_gap_mm':snaps.CATCH,'hook_nose_land_mm':snaps.NOSE_LAND},
       'scope':'Full object-fit trial seats and caps. Physical retention, insertion force, fatigue and pump vibration remain to be tested.',
       'families':{},'parts':[]}
