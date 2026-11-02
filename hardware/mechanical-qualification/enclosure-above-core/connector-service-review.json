@@ -342,8 +342,8 @@
   "all_paths_clear_after_prerequisites": true,
   "elapsed_seconds": 67.20460679099779,
   "current_lid_delta": {
-    "assembly_step_sha256": "49d075a4791460c0c02461bd159d0f352e1d699d0ba5d37db18d3db57f911a40",
-    "assembly_mesh_sha256": "cf83a85e35d9c394882987f1664f7d507be7446c8351f43dee6a7d0f9cd55906",
+    "assembly_step_sha256": "4e5166c4d9d280390cd13dde4280c381343cefb2547a8cba8ec80d59bf07d5a1",
+    "assembly_mesh_sha256": "98d8a1c1c637da00811ef25075231a2a0c5bd7090b6a036c64ada2fa0e3d6341",
     "scope": "Complete conservative connector-stage bounds are separated from both changed lid stocks. Every other component and prerequisite retains its native reading.",
     "proof": [
       {
@@ -433,8 +433,8 @@
     ]
   },
   "current_parent_binding": {
-    "assembly_step_sha256": "49d075a4791460c0c02461bd159d0f352e1d699d0ba5d37db18d3db57f911a40",
-    "assembly_mesh_sha256": "cf83a85e35d9c394882987f1664f7d507be7446c8351f43dee6a7d0f9cd55906",
+    "assembly_step_sha256": "4e5166c4d9d280390cd13dde4280c381343cefb2547a8cba8ec80d59bf07d5a1",
+    "assembly_mesh_sha256": "98d8a1c1c637da00811ef25075231a2a0c5bd7090b6a036c64ada2fa0e3d6341",
     "scope": "The current back-top and lid cleanup preserves the source connector/header poses. Added stock is separately bounded and the moved aft saddle lies beyond the retained connector paths; all other changes remove material. Original native stage boxes and prerequisites retain their exact scope."
   }
 }

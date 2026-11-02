@@ -366,11 +366,6 @@ fn pump_cradle(n: &Numbers) -> Result<Solid> {
         face,
         c.z + 1.,
     ))?;
-    let fore_half = a(&selected["rail_stop_contact_native_y_mm"])?.iter()
-        .map(|v|v.as_f64().unwrap_or(0.).abs()).fold(f64::INFINITY,f64::min)
-        -2.*n.f("running")?;
-    body=body.cut(&box3(c.x-fore_half,c.x+fore_half,fy+fore0-0.1,
-        fy+fore1+0.1,face,c.z+1.))?;
     for rail in a(&d["rail_rooms"])? {
         let plane = p3(&rail["floor_planes"][0])?;
         let (a, b, k) = (plane.x, plane.y,

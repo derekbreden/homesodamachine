@@ -1,8 +1,8 @@
 {
   "schema": "enclosure-closing-motion-review/3",
   "scope": "Complete rigid translation intervals of the settled enclosure, including all nine mounted WAGOs. The final Pisco host/cap has its own complete delta intervals; all other rigid members retain identical geometry. Cross-parent flexible spans and the pump inlet handoff stay loose until closure.",
-  "current_assembly_step_sha256": "49d075a4791460c0c02461bd159d0f352e1d699d0ba5d37db18d3db57f911a40",
-  "current_payload_sha256": "cf83a85e35d9c394882987f1664f7d507be7446c8351f43dee6a7d0f9cd55906",
+  "current_assembly_step_sha256": "4e5166c4d9d280390cd13dde4280c381343cefb2547a8cba8ec80d59bf07d5a1",
+  "current_payload_sha256": "98d8a1c1c637da00811ef25075231a2a0c5bd7090b6a036c64ada2fa0e3d6341",
   "current_complete_motion_reading": {
     "payload_sha256": "4107c4f6dfb392ba108fb3ae31d31e930d7380e0fc85a99f921f51844cf061c5",
     "mesh_source": "hardware/manifold-layout/enclosure-assembly.step.mesh",
@@ -2536,8 +2536,8 @@
     "pass": true,
     "elapsed_seconds": 307.6166339170013,
     "current_parent_binding": {
-      "assembly_step_sha256": "49d075a4791460c0c02461bd159d0f352e1d699d0ba5d37db18d3db57f911a40",
-      "assembly_mesh_sha256": "cf83a85e35d9c394882987f1664f7d507be7446c8351f43dee6a7d0f9cd55906",
+      "assembly_step_sha256": "4e5166c4d9d280390cd13dde4280c381343cefb2547a8cba8ec80d59bf07d5a1",
+      "assembly_mesh_sha256": "98d8a1c1c637da00811ef25075231a2a0c5bd7090b6a036c64ada2fa0e3d6341",
       "scope": "Current added/moved stock has complete independent translation intervals. Every other current surface retains the preceding interval or is a material subtraction.",
       "delta_reading": {
         "scope": "Complete translation intervals for added or moved stock only. Retained whole-quadrant readings cover every unchanged face; all remaining changes remove stock. Wire bodies are excluded and the existing final flexible handoffs remain loose until rigid closure.",
@@ -2572,7 +2572,7 @@
       },
       "final_lid_delta": {
         "scope": "Complete closure intervals for the two changed lid stocks against populated rear and front quadrants. Other surfaces retain their previous interval readings. Flexible handoffs remain loose until closure.",
-        "assembly_mesh_sha256": "cf83a85e35d9c394882987f1664f7d507be7446c8351f43dee6a7d0f9cd55906",
+        "assembly_mesh_sha256": "98d8a1c1c637da00811ef25075231a2a0c5bd7090b6a036c64ada2fa0e3d6341",
         "checks": {
           "rear approach": [
             {
@@ -2596,7 +2596,7 @@
         },
         "unresolved": [],
         "pass": true,
-        "elapsed_seconds": 3.081029082997702
+        "elapsed_seconds": 3.508076166996034
       }
     }
   },
@@ -3045,8 +3045,8 @@
     "pass": true,
     "elapsed_seconds": 3.3005226659879554,
     "current_parent_binding": {
-      "assembly_step_sha256": "49d075a4791460c0c02461bd159d0f352e1d699d0ba5d37db18d3db57f911a40",
-      "assembly_mesh_sha256": "cf83a85e35d9c394882987f1664f7d507be7446c8351f43dee6a7d0f9cd55906",
+      "assembly_step_sha256": "4e5166c4d9d280390cd13dde4280c381343cefb2547a8cba8ec80d59bf07d5a1",
+      "assembly_mesh_sha256": "98d8a1c1c637da00811ef25075231a2a0c5bd7090b6a036c64ada2fa0e3d6341",
       "scope": "All new back-top stock is AABB-separated from every complete prior cap extraction sweep. Other back-top changes remove material. The changed aft saddle belongs to the cold core, which is absent during these bench operations.",
       "added_stock_bounds_mm": {
         "relay-2-header-ledge-1": [
