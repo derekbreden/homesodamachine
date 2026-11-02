@@ -39,6 +39,32 @@ VENV = f"{_WS}/tools/cad-venv/bin/python"
 #: reaches it. `.bazelignore` holds it out of the workspace and `.bazelrc` mounts it in.
 CACHE = f"{_WS}/.cache"
 
+# A clone shares file data while retaining ordinary copy modes and fresh timestamps.
+# Existing regular files keep their modes through atomic replacement; other platforms use cp.
+_COPY_FILES = (
+    'case "$$(uname -s)" in',
+    '  Darwin)',
+    '    copy_mask=$$((8#$$(umask)))',
+    '    copy_bits=("" x w wx r rx rw rwx)',
+    '    copy_mode="u-$${copy_bits[$$((copy_mask >> 6 & 7))]},'
+    'g-$${copy_bits[$$((copy_mask >> 3 & 7))]},o-$${copy_bits[$$((copy_mask & 7))]}"',
+    '    copy_file() {',
+    '      local copy_dest="$${!#}" copy_target copy_permissions="$$copy_mode"',
+    '      if [ -e "$$copy_dest" ] || [ -L "$$copy_dest" ]; then',
+    '        if [ ! -f "$$copy_dest" ] || [ -L "$$copy_dest" ]; then cp "$$@"; return; fi',
+    '        copy_permissions=$$(stat -f %Lp "$$copy_dest")',
+    '        copy_target=$$(mktemp "$$copy_dest.hsm-copy.XXXXXX")',
+    '      else copy_target="$$copy_dest"; fi',
+    '      if cp -c "$${@:1:$$(( $$# - 1 ))}" "$$copy_target" 2>/dev/null; then',
+    '        chmod "$$copy_permissions" "$$copy_target"',
+    '        touch "$$copy_target"',
+    '        if [ "$$copy_target" != "$$copy_dest" ]; then mv -f "$$copy_target" "$$copy_dest"; fi',
+    '      else rm -f "$$copy_target"; cp "$$@"; fi',
+    '    };;',
+    '  *) copy_file() { cp "$$@"; };;',
+    'esac',
+)
+
 #: The two lines that are this checkout's and no other's. `.bazelrc` takes it with `try-import`,
 #: which is the one place bazel expands `%workspace%`; `.gitignore` holds it out of the tree.
 RC_PATHS = _ROOT / ".bazelrc.paths"
@@ -244,7 +270,7 @@ def render(gens: tuple, arts: list, srcs: list, optional: list, docs: list, rewr
         lines.append('    tags = ["no-sandbox"],')
     elif _needs_node(srcs):
         lines.append('    tags = ["requires-network"],')
-    lines += ['    cmd = """', "set -e"]
+    lines += ['    cmd = """', "set -e", *_COPY_FILES]
     for i, o in enumerate(outs):
         lines.append(f"O{i}=$$PWD/$(location {o})")
     if cargo:
@@ -265,7 +291,7 @@ def render(gens: tuple, arts: list, srcs: list, optional: list, docs: list, rewr
         f"    */{PYSRC}/*) t=$${{f##*/{PYSRC}/}};;",
         "    *) t=$$f;;",
         "  esac",
-        f"  mkdir -p {work}/$$(dirname $$t); cp -L $$f {work}/$$t",
+        f'  mkdir -p "{work}/$$(dirname "$$t")"; copy_file -L "$$f" "{work}/$$t"',
         "done",
         "for d in tools/render/node_modules web/node_modules "
         "hardware/pcb/pcba/node_modules; do",
@@ -296,7 +322,7 @@ def render(gens: tuple, arts: list, srcs: list, optional: list, docs: list, rewr
         lines.append(f"HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D {payload_env}"
                      f"{VENV} tools/run.py -- {VENV} {g} > /dev/null")
     for i, made in enumerate((*arts, *docs)):
-        lines.append(f"cp {made} $$O{i}")
+        lines.append(f'copy_file {shlex.quote(made)} "$$O{i}"')
     if cargo:
         lines.append(f"cd .. && rm -rf {work}")
     lines += ['""",', ")"]
