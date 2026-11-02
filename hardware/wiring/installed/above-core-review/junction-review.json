@@ -2025,10 +2025,14 @@
     }
   },
   "current_parent_binding": {
-    "assembly_step_sha256": "d534a641b9b7018890fb103416b73c468f2f60b20d35982ac9f089d9e4168923",
-    "assembly_mesh_sha256": "f9b8d9c352483a94529ea85fc5d5bdd71e03e637809dd12d57fa65e49d5b13b2",
-    "physical_step_sha256": "4f6ef5a9673063dfd377112603285ec9313420a59aad64748307322507e51cd9",
-    "scope": "All nine junction bodies and poses are identical to the native reading. The only subsequent host change removes front-top stock at the lever mouths, so cannot add a body or driver obstruction. The completed physical assembly and wire integration retain all other measured members."
+    "assembly_step_sha256": "bb4d7807285bdd7d6fb4495d3a9a415600ba6717f94b291489f78fb8708cbb5a",
+    "assembly_mesh_sha256": "9c0247fb4ec0826f175fb84615660a09b3a8a863d745045c24b5dc510de623de",
+    "physical_step_sha256": "500579f42d5aa3edec3542fa65d33711a52cd19626838114cc63a6eab82d0c3d",
+    "physical_mesh_sha256": "fb05b9fce452fbd92c169a46dcc932274fecbee66358aa97b5b68b512df69530",
+    "record": "hardware/mechanical-qualification/enclosure-above-core/retention-integration-review.json",
+    "section": "completed_junction_and_wire_integration.current_solid_level_roof",
+    "proof_sha256": "62241b4abe3fdb45a5c5b2c30d52c6d610a007d3da421e2d01ee723adb02c7e0",
+    "scope": "The central reading binds the complete roof addition, unchanged physical/wire members, native contacts, all 100 conductors, ten lever envelopes and the complete rear closing interval."
   },
   "current_lever_access": {
     "scope": "Manual conservative 6.85 mm lever-swing envelopes over the complete front half of all nine mounted WAGOs. Test each on its populated removable parent with the other parents separated on the bench. The rear junctions are wired before back-top is closed over the cold core. Conductors are dressed afterward.",
@@ -3565,7 +3569,7 @@
   "all_actual_wire_entries_clear": true,
   "actual_conductor_review": {
     "path": "hardware/wiring/installed/contact-review.json",
-    "sha256": "64041283b89e42e3fa1078c29d7dd51fe6f191ad8234f04f4877927f3cbeb934",
+    "sha256": "320b4361e03346d1ed2dcb5b1771c21cff5c8e0a71605838c86a2bd181632fdf",
     "unresolved": []
   }
 }

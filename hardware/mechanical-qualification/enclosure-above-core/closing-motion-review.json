@@ -1,8 +1,8 @@
 {
   "schema": "enclosure-closing-motion-review/3",
   "scope": "Complete rigid closing intervals of the retained enclosure, finished cap/lid stock and final neutral junction/holder. Front lever mouths are a subtractive change. Cross-parent flexible spans and the pump inlet handoff remain loose until closure.",
-  "current_assembly_step_sha256": "d534a641b9b7018890fb103416b73c468f2f60b20d35982ac9f089d9e4168923",
-  "current_payload_sha256": "f9b8d9c352483a94529ea85fc5d5bdd71e03e637809dd12d57fa65e49d5b13b2",
+  "current_assembly_step_sha256": "bb4d7807285bdd7d6fb4495d3a9a415600ba6717f94b291489f78fb8708cbb5a",
+  "current_payload_sha256": "9c0247fb4ec0826f175fb84615660a09b3a8a863d745045c24b5dc510de623de",
   "current_complete_motion_reading": {
     "payload_sha256": "4107c4f6dfb392ba108fb3ae31d31e930d7380e0fc85a99f921f51844cf061c5",
     "mesh_source": "hardware/manifold-layout/enclosure-assembly.step.mesh",
@@ -5093,5 +5093,62 @@
       "added_neutral_stock_minimum_y_mm": 457.5,
       "separated": true
     }
-  ]
+  ],
+  "retained_subtractive_host_binding": {
+    "assembly_step_sha256": "fe4dfd97a9a19ec03566672446d93584806ff2927c324acc96e393f762e16654",
+    "assembly_mesh_sha256": "5c168985d157d9fd5b31a471208abaf762f96c38922eb9d356ae219969180c32",
+    "scope": "The complete exact native back-top change removes 266.888893 mm3 and adds no stock. All other 453 physical viewer members and all 119 installed wiring viewer members are byte-identical across every channel. Prior zero contacts, complete motion intervals and conservative lever sweeps remain clear under this subtraction. All wire route, terminal and source records are unchanged except the physical-scene digest.",
+    "physical_step_sha256": "125d2257431913bd6c44e679a6dba570a0ab279a492b48adedbc03251d4cb6cf",
+    "physical_mesh_sha256": "1bfdece9fe2e8692db4188866db134c476b76f259dd98ea07fb1732eae86c849",
+    "delta": {
+      "scope": "Replace the live/neutral cluster roof ramp with one level 3 mm roof beneath the data-jack seat. Apply only the subtractive actual local template difference; preserve all purchased-body poses, accepted jack catches and every other physical member.",
+      "removed_template_mm3": 266.88889346953016,
+      "actual_removed_mm3": 266.8888934530494,
+      "actual_added_mm3": 0,
+      "delta_region_mm": [
+        [
+          -98.0,
+          457.0,
+          279.0
+        ],
+        [
+          -56.0,
+          464.0,
+          287.0
+        ]
+      ],
+      "hosts": {
+        "hardware/manifold-layout/enclosure-assembly.step": {
+          "step_sha256": "125d2257431913bd6c44e679a6dba570a0ab279a492b48adedbc03251d4cb6cf",
+          "payload_sha256": "1bfdece9fe2e8692db4188866db134c476b76f259dd98ea07fb1732eae86c849",
+          "changed_members": [
+            "enclosure-back-top"
+          ]
+        },
+        "hardware/printed-parts/enclosure/enclosure/enclosure.step": {
+          "step_sha256": "7c86fe304981aab639fdc90788dff873703dc5ba55d731f3b7eaf650ba9e49fc",
+          "payload_sha256": "7e453ed8f0aa35ecaa34a5cf58c22fa590b664963253e3a9a723e0eebaf63ce6",
+          "changed_members": [
+            "enclosure-back-top"
+          ]
+        }
+      },
+      "final_installed_step_sha256": "fe4dfd97a9a19ec03566672446d93584806ff2927c324acc96e393f762e16654",
+      "final_installed_payload_sha256": "5c168985d157d9fd5b31a471208abaf762f96c38922eb9d356ae219969180c32",
+      "back_top_stl_sha256": "7486de436d7c33dc1232e29a9b009a78bfa720ead387cd436db98477d47396f2"
+    },
+    "other_physical_members_identical": 453,
+    "wire_members_identical": 119,
+    "routes_and_terminal_records_identical": true
+  },
+  "current_roof_material_binding": {
+    "assembly_step_sha256": "bb4d7807285bdd7d6fb4495d3a9a415600ba6717f94b291489f78fb8708cbb5a",
+    "assembly_mesh_sha256": "9c0247fb4ec0826f175fb84615660a09b3a8a863d745045c24b5dc510de623de",
+    "physical_step_sha256": "500579f42d5aa3edec3542fa65d33711a52cd19626838114cc63a6eab82d0c3d",
+    "physical_mesh_sha256": "fb05b9fce452fbd92c169a46dcc932274fecbee66358aa97b5b68b512df69530",
+    "record": "hardware/mechanical-qualification/enclosure-above-core/retention-integration-review.json",
+    "section": "completed_junction_and_wire_integration.current_solid_level_roof",
+    "proof_sha256": "62241b4abe3fdb45a5c5b2c30d52c6d610a007d3da421e2d01ee723adb02c7e0",
+    "scope": "The central reading binds the complete roof addition, unchanged physical/wire members, native contacts, all 100 conductors, ten lever envelopes and the complete rear closing interval."
+  }
 }
