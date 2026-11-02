@@ -231,7 +231,8 @@ psu_fasteners = _selected_shell.psu_fastener_plan()
 relay_fasteners = _selected_shell.relay_fastener_plan()
 shelf_psu_screws_per_build = psu_fasteners['count']
 shelf_pcba_screws_per_build = len(deck_mount_xy('pcba'))
-shelf_relay_screws_per_build = (sum(1 for name in _placed if name.startswith("relay-"))
+shelf_relay_screws_per_build = (sum(name in _placed for name in _above_core.specification()['parts']
+                                  if name.startswith("relay-"))
                                 * relay_fasteners['count'])
 shelf_inserts_per_build = shelf_psu_screws_per_build
 shelf_screws_per_build = (shelf_pcba_screws_per_build
@@ -316,7 +317,7 @@ funnel_frame_screws_per_build = len(_enc._funnel_frame_part.fastener_datums())
 roof_closure_screws_per_build = funnel_frame_screws_per_build
 roof_closure_inserts_per_build = roof_closure_screws_per_build
 
-# M3×8 screws retain the PCB, relay diagonals, condenser and faucet base.
+# M3×8 screws retain the PCB, relay header ends, condenser and faucet base.
 m3x8_per_build = (shelf_pcba_screws_per_build + cond_screws_per_build
                   + shelf_relay_screws_per_build
                   + nameplate_screws_per_build + display_cover_screws_per_build
@@ -471,7 +472,7 @@ def main(*, only_bom=False):
         "PCBA_SCREW_TIP": f"{pcba_bore - pcba_screw_reach:.3g}",
         "RELAY_BOARD_T": f"{_relay.pcb_t:g}",
         "RELAY_INSERT_LEN": f"{relay_fasteners['insert_length_mm']:g}",
-        "RELAY_BEARING_TIP": f"{relay_fasteners['bearing_tip_height_mm']:g}",
+        "RELAY_INSERT_SETBACK": f"{relay_fasteners['insert_face_setback_mm']:g}",
         "RELAY_BACKING": f"{relay_fasteners['minimum_blind_backing_mm']:.3g}",
         "RELAY_FLUTED_BACKING": f"{relay_fasteners['minimum_fluted_backing_mm']:.3g}",
         "RELAY_BORE": f"{relay_bore:.3g}",
