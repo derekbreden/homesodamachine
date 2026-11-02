@@ -5,6 +5,7 @@ onto its flat underside, with the funnel's plan center at the origin.
 """
 
 import functools
+import argparse
 import math
 import sys
 from pathlib import Path
@@ -12,10 +13,15 @@ from pathlib import Path
 import elbow_cradle
 import funnel
 
-ROOT = next(p for p in Path(__file__).resolve().parents
-            if (p / 'hardware/scripts/_cadq_export.py').is_file())
+ROOT = next(p for p in Path(__file__).resolve().parents if any(
+    (p / 'hardware/scripts' / helper).is_file()
+    for helper in ('_rust_part.py', '_cadq_export.py')))
 sys.path[:0] = [str(ROOT / 'hardware/printed-parts/enclosure/enclosure'),
                 str(ROOT / 'hardware/scripts')]
+
+if __name__ == '__main__':
+    import _rust_part
+    _rust_part.start()
 
 
 def __getattr__(name):
@@ -351,7 +357,7 @@ def front_roof_clearance(inner, centre, seat, y_joint):
     return roof_blank(inner, centre, seat, enc.slide_slip, y_joint)
 
 
-def main():
+def _native_main(output=None):
     import cadquery as cq
     from _cadq_export import export_assembly, import_assembly
     from _materials import M_PETGF_BLACK, one_body
@@ -360,15 +366,21 @@ def main():
     shape = build()
     floor, _plug, _rail = datums()
     print_shape = shape.translate((0, -center_y, -floor))
-    here = Path(__file__).resolve().parent
+    here = Path(output) if output is not None else Path(__file__).resolve().parent
+    here.mkdir(parents=True, exist_ok=True)
     step, stl = here / 'funnel-frame.step', here / 'funnel-frame.stl'
     export_assembly(one_body(cq.Workplane(obj=print_shape), 'funnel-frame', M_PETGF_BLACK), str(step))
     write_print_stl(import_assembly(step)['funnel-frame'][0], stl, tol=0.02, angle=0.08)
     cut(step, stl)
     print(f'-> {step.name}, {stl.name}; {shape.Volume():.1f} mm3; floor Z {floor:g}')
+    _document()
+
+
+def _document():
     sys.path.insert(0, str(ROOT / 'tools'))
     from docgen import substitute_md
-    import enclosure as enc
+    import _enclosure_interface as enc
+    here = Path(__file__).resolve().parent
     s = elbow_cradle.stations()
     half, gap = funnel.plug_width / 2, (socket_width - funnel.plug_width) / 2
     rear = DEFAULT_INNER[1] - enc.y_stack_high_depth - enc.slide_slip
@@ -385,5 +397,69 @@ def main():
     })
 
 
+def numbers(inner=DEFAULT_INNER, y_joint=200.0, centre=(0.0, center_y), seat=349.0):
+    """Current frame APIs expressed in the exported underside's coordinates."""
+    import _enclosure_interface as enc
+    from _materials import M_PETGF_BLACK, linear
+    import frame_forming_clearance
+    from _payload_rules import LINEAR_DEFLECTION_RATIO
+
+    cx, cy = centre
+    floor, plug, _rail = datums(seat)
+    roof = roof_datums(inner, centre, seat, y_joint)
+    rows = fastener_datums(inner, y_joint, centre, seat)
+    snap = elbow_cradle.stations()
+    half, gap = funnel.plug_width / 2, (socket_width - funnel.plug_width) / 2
+    rear_limit = inner[1] - enc.y_stack_high_depth - enc.slide_slip
+    return {
+        'color': list(linear(M_PETGF_BLACK)),
+        'viewer_deflection_ratio': LINEAR_DEFLECTION_RATIO,
+        'roof_width': roof['width'], 'body_width': body_width,
+        'front': roof['front'] - cy, 'back': roof['back'] - cy,
+        'roof_floor': roof['floor'] - floor, 'roof_top': roof['top'] - floor,
+        'seat': seat - floor, 'corner_radius': corner_radius,
+        'rear_limits': [-rear_limit - cx, rear_limit - cx],
+        'rear_start': y_joint - enc.slide_slip - cy,
+        'corbel_half_depth': corbel_foot_half_depth, 'corbel_slope': corbel_slope,
+        'ledge_pad_half_y': SCREW_PAD_HALF_Y, 'slide_slip': enc.slide_slip,
+        'screw_clear_radius': enc.screw_clear_dia / 2,
+        'head_radius': enc.head_cbore_dia / 2, 'rear_pad_radius': SCREW_HEAD_D / 2,
+        'front_head_inside': funnel.collar_w / 2 + funnel.brim_overhang + enc.funnel_collar_air,
+        'screws': [[row['x'] - cx, row['y'] - cy, row['head_seat_z'] - floor,
+                    row['host_radius_mm'], row['side'], row['col'] == 'front'] for row in rows],
+        'body_half_width': body_side_half_width(inner, y_joint, centre, seat),
+        'brim_half_size': [funnel.collar_w / 2 + funnel.brim_overhang + enc.funnel_collar_air,
+                           funnel.collar_d / 2 + funnel.brim_overhang + enc.funnel_collar_air],
+        'brim_radius': funnel.brim_corner_r + enc.funnel_collar_air,
+        'drain_xy': [funnel.neck_dx, funnel.neck_dy],
+        'socket_size': [2 * (half + gap), 2 * (elbow_cradle.plug_half_length(half) + gap)],
+        'socket_radius': elbow_cradle.SOCKET_CORNER,
+        'socket_z': elbow_cradle.WEB, 'socket_height': socket_depth,
+        'socket_flare': list(socket_flare),
+        'hole_radius': elbow_cradle.HOLE_D / 2, 'web_cut_z': [-1.0, elbow_cradle.WEB + 1.0],
+        'slot_x': [snap['slot_in'], snap['slot_out']],
+        'slot_y': [elbow_cradle.SLOT_FORE_Y - elbow_cradle.END_SLIP,
+                   elbow_cradle.SLOT_AFT_Y + elbow_cradle.END_SLIP],
+        'forming_payload': frame_forming_clearance.ensure().relative_to(ROOT).as_posix(),
+        'forming_clip_z': [plug - floor, seat - floor],
+    }
+
+
+def main(output=None, native=False):
+    if native:
+        return _native_main(output)
+    import _rust_part
+    out = Path(output) if output is not None else Path(__file__).resolve().parent
+    out.mkdir(parents=True, exist_ok=True)
+    said = _rust_part.cut('funnel', 'funnel-frame', numbers(), out)
+    _document()
+    print(f'-> funnel-frame STEP, STL and payload; {said["bodies"][0]["volume"]:.1f} mm3; '
+          f'floor Z {datums()[0]:g}')
+
+
 if __name__ == '__main__':
-    main()
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--output', type=Path)
+    parser.add_argument('--native', action='store_true')
+    options = parser.parse_args()
+    main(options.output, options.native)

@@ -1,0 +1,20 @@
+{
+  "source_step": {
+    "path": "hardware/reference/neofit-stem-elbow/neofit-stem-elbow.step",
+    "sha256": "3019e6b26531b3e2d9b9454a689264ae45c352d0fc28ca9712928a90e7f42f53"
+  },
+  "payload": {
+    "path": "hardware/reference/neofit-stem-elbow/neofit-stem-elbow.fine.step.mesh",
+    "sha256": "fe71c3de383c18b38e913f12c7f6e7a6aa9840f02f9c0a58208620347a6a9149"
+  },
+  "tessellation": {
+    "absolute_linear_deflection_mm": 0.001,
+    "angular_deflection_rad": 0.05,
+    "relative": false,
+    "surface_deflection_control": "all surfaces"
+  },
+  "bodies": [
+    "body_and_stem",
+    "release_collet"
+  ]
+}
