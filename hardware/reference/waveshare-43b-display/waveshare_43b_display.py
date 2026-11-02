@@ -29,19 +29,28 @@ Origin is the center of the body in X-Z; the body is centered on it and the
 bezel is offset [-0.5 mm](BEZEL_OFFSET_X) in X and [1 mm](BEZEL_OFFSET_Z) in Z.
 The bezel caps the front, Y 0 -> [1 mm](BEZEL_DEPTH); the body runs behind it,
 Y [1 mm](BEZEL_DEPTH) -> [18 mm](TOTAL_DEPTH).
+
+
+The reference STEP and payloads are declared in `frozen-asset.json`.
+Native builder functions remain available to current composition callers.
 """
+
+from __future__ import annotations
 
 import sys
 from pathlib import Path
+from functools import cache as _reference_cache
 
-import cadquery as cq
+_REFERENCE_DIR = Path(__file__).resolve().parent
+STEP_PATH = _REFERENCE_DIR / 'waveshare-43b-display.step'
+PAYLOAD_PATH = _REFERENCE_DIR / 'waveshare-43b-display.step.mesh'
+FINE_PAYLOAD_PATH = _REFERENCE_DIR / 'waveshare-43b-display.step.mesh'
+ASSET_MANIFEST_PATH = _REFERENCE_DIR / "frozen-asset.json"
+
 
 _here = Path(__file__).resolve()
 sys.path.insert(0, str(next(p for p in _here.parents if p.name == "hardware") / "scripts"))
 sys.path.insert(0, str(next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"))
-from _cadq_export import export_assembly
-from _materials import C_DISPLAY, C_DISPLAY_GLASS
-from docgen import substitute_md, substitute_py_comments
 
 # --- Main body: PCB + display module + rear components -----------------------
 body_width = 106.0    # X, lateral across the screen
@@ -76,6 +85,7 @@ body_y_center = body_y0 + body_depth / 2.0
 def _block(width, height, depth, y_center, x_center=0.0, z_center=0.0):
     """Box of the given size, centered in X (width) and Z (height) on
     (x_center, z_center) and at y_center along Y (screen-normal)."""
+    import cadquery as cq
     return (
         cq.Workplane("XY")
         .box(width, depth, height, centered=True)
@@ -99,62 +109,51 @@ def build_bezel():
     )
 
 
-_PARTS = [
-    ("body",  build_body,  C_DISPLAY),        # the module's own blue solder mask
-    ("bezel", build_bezel, C_DISPLAY_GLASS),  # the cover glass over the panel
-]
+@_reference_cache
+def _parts():
+    from _materials import C_DISPLAY, C_DISPLAY_GLASS
+    return [
+        ("body",  build_body,  C_DISPLAY),        # the module's own blue solder mask
+        ("bezel", build_bezel, C_DISPLAY_GLASS),  # the cover glass over the panel
+    ]
 
 
 def build_assembly():
+    import cadquery as cq
     a = cq.Assembly(name="waveshare-43b-display")
-    for name, builder, color in _PARTS:
+    for name, builder, color in _parts():
         a.add(builder(), name=name, color=color)
     return a
 
 
 def build_scene():
-    return cq.Compound.makeCompound([builder().val() for _, builder, _ in _PARTS])
+    import cadquery as cq
+    return cq.Compound.makeCompound([builder().val() for _, builder, _ in _parts()])
 
 
 def main():
-    export_assembly(build_assembly(), str(_here.parent / "waveshare-43b-display.step"))
-    bb = build_scene().BoundingBox()
-    print("-> waveshare-43b-display.step")
-    print("display envelope  X[%.1f, %.1f]  Y[%.1f, %.1f]  Z[%.1f, %.1f]   (screen faces -Y; Y = depth axis)"
-          % (bb.xmin, bb.xmax, bb.ymin, bb.ymax, bb.zmin, bb.zmax))
-    substitute_md(
-        _here.parent / "README.md",
-        variables={
-            "BODY_WIDTH": f"{body_width:.4g}",
-            "BODY_HEIGHT": f"{body_height:.4g}",
-            "BODY_DEPTH": f"{body_depth:.4g}",
-            "BEZEL_WIDTH": f"{bezel_width:.4g}",
-            "BEZEL_HEIGHT": f"{bezel_height:.4g}",
-            "BEZEL_DEPTH": f"{bezel_depth:.4g}",
-            "BEZEL_CORNER_R": f"{bezel_corner_r:.4g}",
-            "TOTAL_DEPTH": f"{total_depth:.4g}",
-            "BEZEL_OFFSET_X": f"{bezel_offset_x:.4g} mm",
-            "BEZEL_OFFSET_Z": f"{bezel_offset_z:.4g} mm",
-        },
-    )
-    print("-> README.md")
-    substitute_py_comments(
-        Path(__file__),
-        variables={
-            "BODY_WIDTH": f"{body_width:.4g} mm",
-            "BODY_HEIGHT": f"{body_height:.4g} mm",
-            "BODY_DEPTH": f"{body_depth:.4g} mm",
-            "BEZEL_WIDTH": f"{bezel_width:.4g} mm",
-            "BEZEL_HEIGHT": f"{bezel_height:.4g} mm",
-            "BEZEL_DEPTH": f"{bezel_depth:.4g} mm",
-            "BEZEL_CORNER_R": f"{bezel_corner_r:.4g} mm",
-            "TOTAL_DEPTH": f"{total_depth:.4g} mm",
-            "BEZEL_OFFSET_X": f"{bezel_offset_x:.4g} mm",
-            "BEZEL_OFFSET_Z": f"{bezel_offset_z:.4g} mm",
-        },
-    )
-    print(f"-> {Path(__file__).name} (self)")
+    print(f"Frozen STEP: {STEP_PATH}")
+    print(f"Display payload: {PAYLOAD_PATH}")
+    print(f"Fine payload: {FINE_PAYLOAD_PATH}")
 
 
 if __name__ == "__main__":
     main()
+
+
+def __getattr__(name):
+    if name == '_PARTS':
+        return _parts()
+    if name == 'cq':
+        import cadquery as cq
+        return cq
+    if name in {'export_assembly'}:
+        import _cadq_export
+        return getattr(_cadq_export, name)
+    if name in {'C_DISPLAY_GLASS', 'C_DISPLAY'}:
+        import _materials
+        return getattr(_materials, name)
+    if name in {'substitute_py_comments', 'substitute_md'}:
+        import docgen
+        return getattr(docgen, name)
+    raise AttributeError(f"module {__name__!r} has no attribute {name!r}")

@@ -7,20 +7,29 @@ mechanism are not modeled. See README.md and scan-evidence.json.
 
 Frame: +X = inlet to outlet, inlet rim at X=0; the vent points down, with its
 tip at Z=0. The coaxial port center is (Y=0, Z=BODY_CENTER_Z). Dimensions are mm.
+
+
+The reference STEP and payloads are declared in `frozen-asset.json`.
+Native builder functions remain available to current composition callers.
 """
+
+from __future__ import annotations
 
 import argparse
 import math
 import sys
 from pathlib import Path
 
-import cadquery as cq
+_REFERENCE_DIR = Path(__file__).resolve().parent
+STEP_PATH = _REFERENCE_DIR / 'multiplex-asse1022.step'
+PAYLOAD_PATH = _REFERENCE_DIR / 'multiplex-asse1022.step.mesh'
+FINE_PAYLOAD_PATH = _REFERENCE_DIR / 'multiplex-asse1022.step.mesh'
+ASSET_MANIFEST_PATH = _REFERENCE_DIR / "frozen-asset.json"
+
 
 _here = Path(__file__).resolve()
 _hw = next(p for p in _here.parents if p.name == "hardware")
 sys.path.insert(0, str(_hw / "scripts"))
-from _cadq_export import export_assembly
-from _materials import M_BRASS, one_body
 
 TOTAL_LENGTH = 65.05
 INLET_LENGTH = 12.70       # Observed tip to collar shoulder, not sealing engagement.
@@ -77,12 +86,14 @@ def vent():
 
 
 def _turned(profile):
+    import cadquery as cq
     outline = [(profile[0][0], 0), *profile, (profile[-1][0], 0)]
     return (cq.Workplane('XY').polyline(outline).close()
             .revolve(360, (0, 0), (1, 0)).val())
 
 
 def _wrench(profile, across_flats, clock):
+    import cadquery as cq
     vertices = [(across_flats / math.sqrt(3) * math.cos(math.radians(i * 60 + clock)),
                  across_flats / math.sqrt(3) * math.sin(math.radians(i * 60 + clock)))
                 for i in range(6)]
@@ -93,6 +104,7 @@ def _wrench(profile, across_flats, clock):
 
 def build():
     """Fitted turned and wrench surfaces, with the vent base and visible mouths."""
+    import cadquery as cq
     body = _turned(INLET_PROFILE).fuse(_turned(COLLAR_PROFILE))
     body = body.fuse(_wrench(BODY_PROFILE, HEX_ACROSS_FLATS, .3))
     body = body.fuse(_wrench(CAP_PROFILE, CAP_ACROSS_FLATS, .9))
@@ -115,23 +127,23 @@ def build():
 
 
 def main():
-    parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--stl', type=Path, help='Also export the fitted exterior as STL at this path.')
-    args = parser.parse_args()
-    part = build()
-    bb = part.BoundingBox()
-    print("Multiplex 19-0897 ASSE 1022 backflow preventer")
-    print(f"  Bounding box: X [{bb.xmin:.2f}, {bb.xmax:.2f}]  "
-          f"Y [{bb.ymin:.2f}, {bb.ymax:.2f}]  Z [{bb.zmin:.2f}, {bb.zmax:.2f}]")
-    print(f"  Wrench flats: body {HEX_ACROSS_FLATS:g}, cap {CAP_ACROSS_FLATS:g} mm")
-    print(f"  Vent at ({VENT_X:g}, {VENT_Y:g}, 0); axis height {BODY_CENTER_Z:g} mm")
-    out = _here.parent / "multiplex-asse1022.step"
-    export_assembly(one_body(part, "multiplex-asse1022", M_BRASS), str(out))
-    if args.stl:
-        cq.exporters.export(part, str(args.stl), tolerance=.025, angularTolerance=.08)
-        print(f'-> {args.stl}')
-    print(f"-> {out}")
+    print(f"Frozen STEP: {STEP_PATH}")
+    print(f"Display payload: {PAYLOAD_PATH}")
+    print(f"Fine payload: {FINE_PAYLOAD_PATH}")
 
 
 if __name__ == "__main__":
     main()
+
+
+def __getattr__(name):
+    if name == 'cq':
+        import cadquery as cq
+        return cq
+    if name in {'export_assembly'}:
+        import _cadq_export
+        return getattr(_cadq_export, name)
+    if name in {'M_BRASS', 'one_body'}:
+        import _materials
+        return getattr(_materials, name)
+    raise AttributeError(f"module {__name__!r} has no attribute {name!r}")

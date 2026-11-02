@@ -1,0 +1,33 @@
+{
+  "source": {
+    "commit": "30bb5cb2d5b95f18f43637bd9be26daced05f1f5",
+    "path": "hardware/reference/sf76e-thermal-fuse/sf76e_thermal_fuse.py",
+    "sha256": "cb379e0658acdbdd713659db8b669cf1dd57e276af2ec3a14ce95f4507238657"
+  },
+  "members": {
+    "sf76e-thermal-fuse.step": "ee95f27a52c445bd9be8b24a6b1822a50ef1d60e0deb8d337acbc695733b47e8",
+    "sf76e-thermal-fuse.step.mesh": "93f0df7638f61ef4a126ff63474289b0e1054f9d7649ed8bd5cfe5c05eea172a"
+  },
+  "fine_payload": {
+    "source_step_sha256": "ee95f27a52c445bd9be8b24a6b1822a50ef1d60e0deb8d337acbc695733b47e8",
+    "path": "sf76e-thermal-fuse.step.mesh",
+    "sha256": "93f0df7638f61ef4a126ff63474289b0e1054f9d7649ed8bd5cfe5c05eea172a",
+    "linear_mm": 0.005,
+    "angular_rad": 0.05,
+    "producer": "hardware/scripts/_rust_part.py:_tessellate",
+    "origin": "new one-time immutable published STEP conversion",
+    "meshes": [
+      {
+        "name": "sf76e-thermal-fuse",
+        "color": [
+          0.780000001770022,
+          0.7899999959075178,
+          0.800000010877486
+        ],
+        "vertices": 3030,
+        "triangles": 3020,
+        "face_ranges": 7
+      }
+    ]
+  }
+}
