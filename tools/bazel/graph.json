@@ -8349,7 +8349,8 @@
       "hardware/scripts/_payload_rules.py",
       "hardware/scripts/_run_lock.py",
       "hardware/scripts/_run_slots.py",
-      "hardware/scripts/_rust_part.py"
+      "hardware/scripts/_rust_part.py",
+      "tools/docgen/__init__.py"
     ],
     "rewritten": [],
     "writes": [
