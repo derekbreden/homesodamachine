@@ -419,6 +419,8 @@ def cut(shell,box,directory):
     from meshcad.write import print_payload
     said=_rust_part.cut('enclosure-shell','enclosure-front-top',print_numbers(shell,box),directory)
     step=Path(directory)/'enclosure-front-top.step'
+    from flute_payload import bind_print_sources
+    bind_print_sources(step.with_suffix('.stl'))
     printed=trimesh.load_mesh(step.with_suffix('.stl'))
     loose=shell._flute_skin.non_manifold_edges(printed)
     if loose or not printed.is_watertight:
