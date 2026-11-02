@@ -14,6 +14,10 @@ path = "../../../hardware/printed-parts/diaphragm-pump-sleeve/diaphragm_pump_sle
 name = "collet-press"
 path = "../../../hardware/printed-parts/collet-press/collet_press.rs"
 
+[[bin]]
+name = "tube-miter-box"
+path = "../../../hardware/printed-parts/fixtures/tube-miter-box/tube_miter_box.rs"
+
 [dependencies]
 anyhow.workspace = true
 hsm-kernel = { path = "../kernel" }
