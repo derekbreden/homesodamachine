@@ -1,4 +1,4 @@
-"""Manual installed-wiring STEP/source binding; run through tmp/takeover/cadq.
+"""Manual source binding of native or authoritative fine installed wiring.
 No mechanical generation or recurring check.
 """
 from pathlib import Path
