@@ -1,0 +1,23 @@
+{
+  "schema": 1,
+  "units": "mm",
+  "frame": "Reference source XYZ",
+  "references": {
+    "sf76e-thermal-fuse.step": {
+      "step_sha256": "ee95f27a52c445bd9be8b24a6b1822a50ef1d60e0deb8d337acbc695733b47e8",
+      "fine_model_sha256": "41c71f161209df027939e45acd60db0774a1d2ec56b8e1db6646103b16595c3c",
+      "bounds_mm": [
+        [
+          -8.5,
+          -2.099999999627471,
+          0.0
+        ],
+        [
+          8.5,
+          2.099999999627471,
+          4.2000000001862645
+        ]
+      ]
+    }
+  }
+}

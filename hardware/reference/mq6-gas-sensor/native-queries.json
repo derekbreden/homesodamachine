@@ -1,0 +1,23 @@
+{
+  "schema": 1,
+  "units": "mm",
+  "frame": "Reference source XYZ",
+  "references": {
+    "mq6-gas-sensor.step": {
+      "step_sha256": "b3707fb5112ceee44ed47d0b1c1adeed17979ec6e06f187009d2eaee0c740ee1",
+      "fine_model_sha256": "d97c14b88722a7f471e2ce695ae4c107ef1dd8343974d30fe700e876b3ea0758",
+      "bounds_mm": [
+        [
+          -16.0,
+          -10.0,
+          0.0
+        ],
+        [
+          16.0,
+          10.0,
+          21.59999999962747
+        ]
+      ]
+    }
+  }
+}

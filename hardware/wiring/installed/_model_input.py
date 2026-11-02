@@ -2,10 +2,14 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+import itertools
+import json
 import math
+from pathlib import Path
 import re
 
 _SOLID_INDEX = re.compile(r"/\d+$")
+QUERY_SOURCES: set[Path] = set()
 
 
 @dataclass(frozen=True)
@@ -77,8 +81,8 @@ def bodies(rows, *, grid=None):
         name = _SOLID_INDEX.sub("", row["name"])
         grouped.setdefault(name, []).append(row)
     return {
-        name: (Body(tuple(Solid(bound(r["min"]), bound(r["max"]), r["volume"])
-                          for r in found)),
+        name: (Body(tuple(Solid(bound(s["min"]), bound(s["max"]), s["volume"])
+                          for r in found for s in r.get('components',[r]))),
                next((r["color"] for r in found if r["color"] is not None), None))
         for name, found in grouped.items()
     }
@@ -89,7 +93,52 @@ def read(path):
     import _assembly_model
     from meshcad.rule import GRID
 
-    result = _assembly_model.measure([_assembly_model.instance(path)], ())
+    # Separate spades and the compressor power cover remain meaningful even when
+    # one logical archive entry holds their disconnected shells.
+    hosts = ('compressor','valve-v-a','valve-v-b','vk-solenoid',
+             *(f'coil-v-{letter}' for letter in 'cdefghij'))
+    result = _assembly_model.measure([_assembly_model.instance(path)], (),
+        component_names=[name for host in hosts for name in (host,'cold-core/'+host)])
     # Attachments use the model reader's coordinate grid. Snapping the extrema
     # gives the bounds of those snapped vertices without rebuilding the mesh.
     return bodies(result["bodies"], grid=GRID)
+
+
+def reference_bounds(path, rotation):
+    """Bounds of a source reference in the requested orientation, without shapes.
+
+    Frozen references carry source-bound scalar queries beside their assets. The
+    display's YZ support points preserve its bounds at any source X tilt. Authored
+    references are measured from their current fine producer output.
+    """
+    path = Path(path)
+    queries = path.with_name('native-queries.json')
+    if queries.is_file():
+        row = json.loads(queries.read_text())['references'][path.name]
+        manifest = path.with_name('frozen-asset.json')
+        identity = json.loads(manifest.read_text())
+        QUERY_SOURCES.update((queries.resolve(),manifest.resolve()))
+        if identity['members'][path.name] != row['step_sha256']:
+            raise ValueError(f'{path}: reference bounds name a different frozen asset')
+        lo,hi = row['bounds_mm']
+        if 'yz_support_mm' in row:
+            if any(abs(rotation[i][j]-(1. if i==j==0 else 0.)) > 1e-12
+                   for i,j in ((0,0),(0,1),(0,2),(1,0),(2,0))):
+                raise ValueError(f'{path}: reference supports X-axis turns')
+            points = ((x,y,z) for x in (lo[0],hi[0]) for y,z in row['yz_support_mm'])
+        else:
+            if (any(abs(sum(abs(v) for v in axis)-1.) > 1e-12 for axis in rotation)
+                    or any(min(abs(v),abs(abs(v)-1.)) > 1e-12
+                           for axis in rotation for v in axis)):
+                raise ValueError(f'{path}: reference supports axis-aligned turns')
+            points = itertools.product(*zip(lo,hi))
+        carried = [tuple(sum(axis[j]*point[j] for j in range(3)) for axis in rotation)
+                   for point in points]
+        return (tuple(min(p[i] for p in carried) for i in range(3)),
+                tuple(max(p[i] for p in carried) for i in range(3)))
+    import _assembly_model
+    result = _assembly_model.measure([
+        _assembly_model.instance(Path(str(path)+'.npz'),
+            transform=[[*axis,0.] for axis in rotation])], ())
+    return (tuple(min(row['min'][i] for row in result['bodies']) for i in range(3)),
+            tuple(max(row['max'][i] for row in result['bodies']) for i in range(3)))
