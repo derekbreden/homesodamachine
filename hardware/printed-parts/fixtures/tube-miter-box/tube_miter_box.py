@@ -21,11 +21,11 @@ without writing files.
 
 from __future__ import annotations
 
+import argparse
 import json
 import sys
 from pathlib import Path
 
-import cadquery as cq
 
 
 _here = Path(__file__).resolve()
@@ -34,10 +34,26 @@ _repo = next(p for p in _here.parents if (p / "tools" / "docgen").is_dir())
 for _path in (_hw / "scripts", _hw / "printed-parts" / "cadlib", _repo / "tools"):
     sys.path.insert(0, str(_path))
 
-from _cadq_export import export_assembly, note_write  # noqa: E402
-from _material_base import M_PETGF_BLACK, one_body  # noqa: E402
-from docgen import substitute_md  # noqa: E402
+if __name__ == "__main__":
+    import _rust_part
+    _rust_part.start()
+
 from fits import running  # noqa: E402
+
+
+def __getattr__(name):
+    import importlib
+    if name == "cq":
+        value = importlib.import_module("cadquery")
+    else:
+        modules = {"export_assembly": "_cadq_export", "note_write": "_cadq_export",
+                   "M_PETGF_BLACK": "_material_base", "one_body": "_material_base",
+                   "substitute_md": "docgen"}
+        if name not in modules:
+            raise AttributeError(name)
+        value = getattr(importlib.import_module(modules[name]), name)
+    globals()[name] = value
+    return value
 
 
 INCH = 25.4
@@ -87,12 +103,16 @@ def trough_r(tube_od):
 
 
 def _box(x0, x1, y0, y1, z0, z1):
+    import cadquery as cq
+    import _cadq_export
     return cq.Workplane(obj=cq.Solid.makeBox(
         x1 - x0, y1 - y0, z1 - z0, cq.Vector(x0, y0, z0)
     ))
 
 
 def _along_y(radius, x, z, y0, y1):
+    import cadquery as cq
+    import _cadq_export
     return cq.Workplane(obj=cq.Solid.makeCylinder(
         radius, y1 - y0, cq.Vector(x, y0, z), cq.Vector(0, 1, 0)
     ))
@@ -169,10 +189,15 @@ def selftest():
     return block
 
 
-def _export_print(part):
+def _export_print(part, output=None):
+    import cadquery as cq
+    from _cadq_export import export_assembly, note_write
+    from _material_base import M_PETGF_BLACK, one_body
     stem = "tube-miter-box"
-    stl = _here.parent / f"{stem}.stl"
-    step = _here.parent / f"{stem}.step"
+    out = Path(output) if output is not None else _here.parent
+    out.mkdir(parents=True, exist_ok=True)
+    stl = out / f"{stem}.stl"
+    step = out / f"{stem}.step"
     # A sibling slicer mesh keeps this bench fixture out of viewer payloads.
     cq.exporters.export(part, str(stl), tolerance=MESH_TOLERANCE, angularTolerance=MESH_ANGLE)
     note_write(stl)
@@ -180,9 +205,33 @@ def _export_print(part):
     print(f"-> {step.name}, {stl.name}: {_volume(part) / 1000:.2f} cm³")
 
 
-def main():
+def _native_main(output=None):
     block = selftest()
-    _export_print(block)
+    _export_print(block, output)
+    _document()
+
+
+def numbers():
+    """Current block, tube troughs and blade path, in the print frame."""
+    from _material_base import M_PETGF_BLACK
+    from _materials import linear
+    y = (slot_y0 + slot_y1) / 2
+    return {
+        "block": [BLOCK_X, BLOCK_Y, BLOCK_Z],
+        "trough_floor": trough_floor_z,
+        "troughs": [value for x, od in TROUGHS.values()
+                    for value in (x, trough_r(od), od)],
+        "slot_y": [slot_y0, slot_y1], "slot_length": SLOT_L,
+        "slot_floor": slot_floor_z,
+        "razor_bounds": [-RAZOR_BLADE_L/2, RAZOR_BLADE_L/2,
+                         y-RAZOR_BLADE_T/2, y+RAZOR_BLADE_T/2,
+                         razor_edge_z, BLOCK_Z],
+        "color": list(linear(M_PETGF_BLACK)),
+    }
+
+
+def _document():
+    from docgen import substitute_md
     substitute_md(_here.parent / "README.md", variables={
         "TMB_BLOCK": f"{BLOCK_X:g} × {BLOCK_Y:g} × {BLOCK_Z:g} mm",
         "TMB_TROUGH_1_4": f"{2 * trough_r(TUBE_OD_1_4):.2f} mm",
@@ -199,10 +248,25 @@ def main():
     })
 
 
+
+def main(output=None, native=False):
+    if native:
+        return _native_main(output)
+    import _rust_part
+    out = Path(output) if output is not None else _here.parent
+    out.mkdir(parents=True, exist_ok=True)
+    said = _rust_part.cut("tooling", "tube-miter-box", numbers(), out)
+    _document()
+    print(f"-> tube-miter-box STEP, STL and fine model; {said['bodies'][0]['volume'] / 1000:.2f} cm3")
+
+
 if __name__ == "__main__":
-    if sys.argv[1:] == ["selftest"]:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("command", nargs="?", choices=["selftest"])
+    parser.add_argument("--output", type=Path)
+    parser.add_argument("--native", action="store_true")
+    options = parser.parse_args()
+    if options.command == "selftest":
         selftest()
-    elif sys.argv[1:]:
-        sys.exit("usage: tube_miter_box.py [selftest]")
     else:
-        main()
+        main(options.output, options.native)
