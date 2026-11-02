@@ -220,6 +220,7 @@ fn cut(v: &Value) -> Result<Solid> {
         Some("turned") => turned(v),
         Some("radial-profile") => radial_profile(v),
         Some("hex") => hex(v),
+        Some("section") => section(v),
         Some("stadium-x") => stadium(v),
         Some("cylinder-y") => cylinder_y(v),
         Some("sweep") => sweep(v),

@@ -7604,8 +7604,8 @@
       "tie_window_support_crossings": []
     },
     "rear-equipment-caps": {
-      "preparation_directory": ".cache/retention-integration/slices-v3-final/2026-11-02-rear-equipment-caps-mark2-39ab10c1",
-      "preparation_record_sha256": "05081ab779523294daefd0a5b510fd43a53e49ccf329f868805855740980a44a",
+      "preparation_directory": ".cache/retention-integration/slices-v3-final/2026-11-02-rear-equipment-caps-mark2-f465aa3e",
+      "preparation_record_sha256": "5f4676f9b880f81d665928625f9ee766b4e02d06aa8582858a1583af15ea12c2",
       "profile_sha256": "45c16e8c8517e0a205107d7b9f7412d013f51a8de7ecf86125cc940079d37ed0",
       "printer": "Mark2",
       "nozzle": {
@@ -7624,11 +7624,11 @@
           "identify_id": 1901,
           "object_id": 2,
           "stl": "hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.stl",
-          "stl_sha256": "3233bbfa06a77e93fc0a793c6ff59a038f0b538f550308b30ab36f68364db6b3",
-          "step_sha256": "a117675713f42248a666964ab7bd84a5414b8add8c2fda240a75e5fafbd9b1de",
-          "facets": 516,
+          "stl_sha256": "ab02b73cf2695d1aad952b628b742940aa330b88602cba297e863278725ca22b",
+          "step_sha256": "0d5aca622ebb815fd24509df5fe2a942289c662a178c51507e0bde2c10f10cb0",
+          "facets": 400,
           "closed": {
-            "edges": 774,
+            "edges": 600,
             "boundary_edges": 0,
             "nonmanifold_edges": 0,
             "inconsistent_edges": 0,
@@ -7879,11 +7879,11 @@
           "identify_id": 1904,
           "object_id": 8,
           "stl": "hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.stl",
-          "stl_sha256": "698312c8bf71ec309de4c94ab67482808eab58e2496fdfc6c5875293c78cddfe",
-          "step_sha256": "961e15f5d836f5c89dde12b5a68eb3bddb2a51962434b641722cd4cbb42fb793",
-          "facets": 2876,
+          "stl_sha256": "6af5f4a7a4110332c931e64ace9998ea9ccd1f0a86b7ff36083fbfd1d987e379",
+          "step_sha256": "34781e6bb21826da0f48cc9654da065e42e195dd14809a502cc5e616c87e1fe1",
+          "facets": 2884,
           "closed": {
-            "edges": 4314,
+            "edges": 4326,
             "boundary_edges": 0,
             "nonmanifold_edges": 0,
             "inconsistent_edges": 0,
@@ -7960,7 +7960,7 @@
           "fins": []
         }
       ],
-      "archive_sha256": "398e0a04a75205217454b3b56a4de42d6a7cf7d400b68d905f9dc47b9e2ab8c7",
+      "archive_sha256": "4ea5865d7f4777cd377c8b55cbe61a51cf92653d87d20bd1af9e91fbe629a34b",
       "checks": {
         "archive": true,
         "z_trim": true,
@@ -7975,16 +7975,16 @@
       "bed_border_mm": 20.0,
       "support_audits": [
         {
-          "record_sha256": "2301d28b984cbb84d509decbcb2b43419d7f6451d6d179cc8bf862fe9cea0cbb",
+          "record_sha256": "3308cf15a1ce59d95ad043d83199c6a4321726255e08d72d84b4f6cc5b62d464",
           "schema": 1,
           "piece": "asse-snap-cap",
           "inputs": {
             "gcode": "support-labels-1901.gcode",
-            "gcode_sha256": "503c6f23d9344531ee511a3bb0272da7aba090aa0abc6238b566bcc2e8986b4a",
+            "gcode_sha256": "082ae39ebd819ced4370d11c55bc35c36ddafbfc120c106ebbbd46309dcc75e1",
             "model": "/Users/derekbredensteiner/Developer/hsm-approved-asse/hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.stl",
-            "model_sha256": "3233bbfa06a77e93fc0a793c6ff59a038f0b538f550308b30ab36f68364db6b3",
-            "profile": ".cache/retention-integration/slices-v3-final/2026-11-02-rear-equipment-caps-mark2-39ab10c1/2026-11-02-rear-equipment-caps-mark2-39ab10c1.3mf",
-            "profile_sha256": "8e5d3e9399c642949b5aaff350051edffa314d82ddff33fcdfc010dab93567f3"
+            "model_sha256": "ab02b73cf2695d1aad952b628b742940aa330b88602cba297e863278725ca22b",
+            "profile": ".cache/retention-integration/slices-v3-final/2026-11-02-rear-equipment-caps-mark2-f465aa3e/2026-11-02-rear-equipment-caps-mark2-f465aa3e.3mf",
+            "profile_sha256": "33a7628623cb486364002e0825c475c865d9aba854d894bce54c56e055ca3f64"
           },
           "slicer": "BambuStudio 02.08.02.61",
           "first_layer_z_mm": 0.2,
@@ -8037,16 +8037,16 @@
           "interface_feature_policy": "All support bodies are retained; unlabelled interfaces have unknown contact count and build-up."
         },
         {
-          "record_sha256": "8548b5e9485cb08a240c6d4709ca4b2c05c0d8af99f43e1bcb0d172a83f80307",
+          "record_sha256": "e529b9868475edc1b5c81d173718a5a127f711fb51a96a0391834caef881eea7",
           "schema": 1,
           "piece": "pisco-snap-cap",
           "inputs": {
             "gcode": "support-labels-1902.gcode",
-            "gcode_sha256": "39dcdada637e0d86f137e0ea5676402a257e07e4013bef508fe4f66a276bc798",
+            "gcode_sha256": "f27a023fead0caa0fa8f2900050b8c64ecf13dd4198fb09408d2fea8548f979b",
             "model": "/Users/derekbredensteiner/Developer/hsm-approved-asse/hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.stl",
             "model_sha256": "42f2075d1be4bdeba9c7a4d6cd687f3827aba1a253ac045b018817c90cac4c65",
-            "profile": ".cache/retention-integration/slices-v3-final/2026-11-02-rear-equipment-caps-mark2-39ab10c1/2026-11-02-rear-equipment-caps-mark2-39ab10c1.3mf",
-            "profile_sha256": "8e5d3e9399c642949b5aaff350051edffa314d82ddff33fcdfc010dab93567f3"
+            "profile": ".cache/retention-integration/slices-v3-final/2026-11-02-rear-equipment-caps-mark2-f465aa3e/2026-11-02-rear-equipment-caps-mark2-f465aa3e.3mf",
+            "profile_sha256": "33a7628623cb486364002e0825c475c865d9aba854d894bce54c56e055ca3f64"
           },
           "slicer": "BambuStudio 02.08.02.61",
           "first_layer_z_mm": 0.2,
@@ -8099,16 +8099,16 @@
           "interface_feature_policy": "All support bodies are retained; unlabelled interfaces have unknown contact count and build-up."
         },
         {
-          "record_sha256": "42cbf790e658e9679b64d56a3eb7fe33d46934a3ebdff1b04bb2d25338e74d35",
+          "record_sha256": "b6727a444018b0bf17b04c200d871f3b2e9d5064d60dfef2a36724cb50fac476",
           "schema": 1,
           "piece": "regulator-snap-cap",
           "inputs": {
             "gcode": "support-labels-1903.gcode",
-            "gcode_sha256": "21eca3641646e0e41fc298d38df4592f916eee7f4a2bc9942d9fd9fd2dd4e7ae",
+            "gcode_sha256": "19249b59125840a07e137898296e410d23dc92f3267e8bd17a9a2386f62dc789",
             "model": "/Users/derekbredensteiner/Developer/hsm-approved-asse/hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.stl",
             "model_sha256": "29c43a5f314e7dae558ba1a796062b50379838ddd5e1961c25d727198dccd587",
-            "profile": ".cache/retention-integration/slices-v3-final/2026-11-02-rear-equipment-caps-mark2-39ab10c1/2026-11-02-rear-equipment-caps-mark2-39ab10c1.3mf",
-            "profile_sha256": "8e5d3e9399c642949b5aaff350051edffa314d82ddff33fcdfc010dab93567f3"
+            "profile": ".cache/retention-integration/slices-v3-final/2026-11-02-rear-equipment-caps-mark2-f465aa3e/2026-11-02-rear-equipment-caps-mark2-f465aa3e.3mf",
+            "profile_sha256": "33a7628623cb486364002e0825c475c865d9aba854d894bce54c56e055ca3f64"
           },
           "slicer": "BambuStudio 02.08.02.61",
           "first_layer_z_mm": 0.2,
@@ -8211,16 +8211,16 @@
           "interface_feature_policy": "All support bodies are retained; unlabelled interfaces have unknown contact count and build-up."
         },
         {
-          "record_sha256": "903d0f6d7dc54dd4b608746a5d0af91dd466d5c07ecce6e706540c2e8b862817",
+          "record_sha256": "07f064591a0926cc1ebe751e0bd6a16510c17214106171268b9475bb4ae84cd0",
           "schema": 1,
           "piece": "meter-snap-cap",
           "inputs": {
             "gcode": "support-labels-1904.gcode",
-            "gcode_sha256": "0cf6b14df3bf604259fff9fd23e036d0075787a0eb49f11b4a7b16a230c358cd",
+            "gcode_sha256": "8848956db33998456a734fd7c19b3fafec456a328bb7d79a06b4a27764572d1a",
             "model": "/Users/derekbredensteiner/Developer/hsm-approved-asse/hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.stl",
-            "model_sha256": "698312c8bf71ec309de4c94ab67482808eab58e2496fdfc6c5875293c78cddfe",
-            "profile": ".cache/retention-integration/slices-v3-final/2026-11-02-rear-equipment-caps-mark2-39ab10c1/2026-11-02-rear-equipment-caps-mark2-39ab10c1.3mf",
-            "profile_sha256": "8e5d3e9399c642949b5aaff350051edffa314d82ddff33fcdfc010dab93567f3"
+            "model_sha256": "6af5f4a7a4110332c931e64ace9998ea9ccd1f0a86b7ff36083fbfd1d987e379",
+            "profile": ".cache/retention-integration/slices-v3-final/2026-11-02-rear-equipment-caps-mark2-f465aa3e/2026-11-02-rear-equipment-caps-mark2-f465aa3e.3mf",
+            "profile_sha256": "33a7628623cb486364002e0825c475c865d9aba854d894bce54c56e055ca3f64"
           },
           "slicer": "BambuStudio 02.08.02.61",
           "first_layer_z_mm": 0.2,
@@ -8367,9 +8367,9 @@
       },
       "first_second_layer_stack": {
         "1901": {
-          "second_layer_model_bead_area_mm2": 468.6483335607908,
-          "fraction_over_first_layer": 0.9217036848962891,
-          "second_layer_centerline_outside_first_mm": 8.123833931852673
+          "second_layer_model_bead_area_mm2": 466.38534607455404,
+          "fraction_over_first_layer": 0.9215150872707691,
+          "second_layer_centerline_outside_first_mm": 7.993846219677642
         },
         "1902": {
           "second_layer_model_bead_area_mm2": 367.8354873282711,
@@ -8382,9 +8382,9 @@
           "second_layer_centerline_outside_first_mm": 5.1925279483779745
         },
         "1904": {
-          "second_layer_model_bead_area_mm2": 770.8326405892335,
-          "fraction_over_first_layer": 0.9491362866682144,
-          "second_layer_centerline_outside_first_mm": 6.981017605493415
+          "second_layer_model_bead_area_mm2": 673.9964412932577,
+          "fraction_over_first_layer": 0.9424865984423201,
+          "second_layer_centerline_outside_first_mm": 6.587436650605249
         }
       },
       "settings_changes": {

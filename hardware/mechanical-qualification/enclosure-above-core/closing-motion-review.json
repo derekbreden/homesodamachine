@@ -1,8 +1,8 @@
 {
   "schema": "enclosure-closing-motion-review/3",
   "scope": "Complete rigid closing intervals of the retained enclosure and all changed cap/lid stock. The rear WAGOs remain for final placement. Cross-parent flexible spans and the pump inlet handoff stay loose until closure.",
-  "current_assembly_step_sha256": "ff11386038451f6ee6a9d21fd64e45d444139b29a681fefafdc4f3b1b1499e82",
-  "current_payload_sha256": "49b0cb66bc1cd7f50da993ade8cfd4e7d51b00a7b22a4dc6275fc544e2e52a60",
+  "current_assembly_step_sha256": "781a5ac87054a542e2fd056179d98e3d2b858b9097ea990a30d8213eab0fbbe3",
+  "current_payload_sha256": "1455d9085191e75fc301184e10689e6bd5d53f0458db3890a39cb5f9f2dc62f6",
   "current_complete_motion_reading": {
     "payload_sha256": "4107c4f6dfb392ba108fb3ae31d31e930d7380e0fc85a99f921f51844cf061c5",
     "mesh_source": "hardware/manifold-layout/enclosure-assembly.step.mesh",
@@ -2601,7 +2601,7 @@
     }
   },
   "cap_removal": {
-    "payload_sha256": "49b0cb66bc1cd7f50da993ade8cfd4e7d51b00a7b22a4dc6275fc544e2e52a60",
+    "payload_sha256": "1455d9085191e75fc301184e10689e6bd5d53f0458db3890a39cb5f9f2dc62f6",
     "scope": "Complete distance-certified translation intervals of released caps. Back-top is separated from the cold core and inverted on the bench; flexible tubes/leads are disconnected and dressed aside, funnel/frame/drain and the ASSE vent adapter are removed. ASSE cap is removed before the meter cap. Wing displacement is a conservative linear 3.2mm outward shear from root to catch. The meter shaped bearing stays rigid; the leaves flex beyond its 4 mm inward bearing stock; force, nonlinear spring shape and fatigue require physical articles.",
     "removed": [
       "asse-vent-boot",
@@ -2773,7 +2773,7 @@
         ],
         "start_bounds_mm": [
           [
-            0.45186023712158185,
+            0.45185999870300275,
             396.4532470703125,
             306.2210693359375
           ],
@@ -2795,8 +2795,8 @@
             "body": "asse1022-assembly",
             "status": "clear_distance_intervals",
             "queries": 13,
-            "minimum_queried_surface_distance_mm": 0.2639751333902518,
-            "certified_surface_separation_lower_bound_mm": 0.029600133390251804
+            "minimum_queried_surface_distance_mm": 0.30721866604936576,
+            "certified_surface_separation_lower_bound_mm": 0.07284366604936576
           },
           {
             "body": "enclosure-back-top",
@@ -2821,7 +2821,7 @@
         ],
         "start_bounds_mm": [
           [
-            57.349998474121094,
+            57.35000228881836,
             397.0,
             251.29410707238603
           ],
@@ -2836,8 +2836,8 @@
             "body": "asse1022-assembly",
             "status": "clear_distance_intervals",
             "queries": 1,
-            "minimum_queried_surface_distance_mm": 10.962259877750476,
-            "certified_surface_separation_lower_bound_mm": 0.9622598777504763
+            "minimum_queried_surface_distance_mm": 10.96226321092423,
+            "certified_surface_separation_lower_bound_mm": 0.9622632109242293
           },
           {
             "body": "digiten-flow",
@@ -2869,7 +2869,7 @@
         ],
         "start_bounds_mm": [
           [
-            37.349998474121094,
+            37.35000228881836,
             397.0,
             254.9499969482422
           ],
@@ -2884,8 +2884,8 @@
             "body": "asse1022-assembly",
             "status": "clear_distance_intervals",
             "queries": 21,
-            "minimum_queried_surface_distance_mm": 2.271156182569358,
-            "certified_surface_separation_lower_bound_mm": 0.5806637203283573
+            "minimum_queried_surface_distance_mm": 2.2711599740853683,
+            "certified_surface_separation_lower_bound_mm": 0.5806672699092439
           },
           {
             "body": "digiten-flow",
@@ -3043,7 +3043,7 @@
     ],
     "unresolved": [],
     "pass": true,
-    "elapsed_seconds": 1.0225980000104755
+    "elapsed_seconds": 0.4567255000001751
   },
   "all_recorded_rigid_closing_intervals_clear_after_prerequisites": false,
   "remaining_material_findings": [
@@ -3063,7 +3063,7 @@
   ],
   "current_v3_caps": {
     "scope": "Current five v3 caps against the complete installed non-wire scene, including tubes. Complete rear closure intervals cover the changed caps; the regulator receiver remains above the complete retained core. Flexible cross-parent spans retain the recorded loose-handoff prerequisites.",
-    "assembly_mesh_sha256": "49b0cb66bc1cd7f50da993ade8cfd4e7d51b00a7b22a4dc6275fc544e2e52a60",
+    "assembly_mesh_sha256": "1455d9085191e75fc301184e10689e6bd5d53f0458db3890a39cb5f9f2dc62f6",
     "static": [
       {
         "actor": "asse-snap-cap",
@@ -3078,8 +3078,8 @@
         "other": "asse1022-assembly",
         "status": "clear_distance_intervals",
         "queries": 1,
-        "minimum_queried_surface_distance_mm": 0.14509693775206717,
-        "certified_surface_separation_lower_bound_mm": 0.14509693775206717
+        "minimum_queried_surface_distance_mm": 0.14569079459129347,
+        "certified_surface_separation_lower_bound_mm": 0.14569079459129347
       },
       {
         "actor": "asse-snap-cap",
@@ -3094,16 +3094,16 @@
         "other": "g-ganen-pump",
         "status": "clear_distance_intervals",
         "queries": 1,
-        "minimum_queried_surface_distance_mm": 14.502142177689564,
-        "certified_surface_separation_lower_bound_mm": 14.502142177689564
+        "minimum_queried_surface_distance_mm": 14.502142119410015,
+        "certified_surface_separation_lower_bound_mm": 14.502142119410015
       },
       {
         "actor": "asse-snap-cap",
         "other": "pump-snap-cap",
         "status": "clear_distance_intervals",
         "queries": 1,
-        "minimum_queried_surface_distance_mm": 2.6770772383141295,
-        "certified_surface_separation_lower_bound_mm": 2.6770772383141295
+        "minimum_queried_surface_distance_mm": 2.67707711416658,
+        "certified_surface_separation_lower_bound_mm": 2.67707711416658
       },
       {
         "actor": "asse-snap-cap",
@@ -3172,35 +3172,18 @@
       {
         "actor": "meter-snap-cap",
         "other": "tube-fluid-14",
-        "status": "clear_mesh_volume",
-        "offset_mm": [
-          0.0,
-          0.0,
-          0.0
-        ],
+        "status": "clear_distance_intervals",
         "queries": 1,
-        "surface_distance_mm": 0.0,
-        "nearest_points": [
-          [
-            57.405818939208984,
-            397.0,
-            254.9499969482422
-          ],
-          [
-            57.405818939208984,
-            424.4019470214844,
-            256.1622009277344
-          ]
-        ],
-        "mesh_overlap_mm3": 0.0
+        "minimum_queried_surface_distance_mm": 2.523007665248547,
+        "certified_surface_separation_lower_bound_mm": 2.523007665248547
       },
       {
         "actor": "meter-snap-cap",
         "other": "tube-fluid-16",
         "status": "clear_distance_intervals",
         "queries": 1,
-        "minimum_queried_surface_distance_mm": 9.19814682006836,
-        "certified_surface_separation_lower_bound_mm": 9.19814682006836
+        "minimum_queried_surface_distance_mm": 11.039267232515236,
+        "certified_surface_separation_lower_bound_mm": 11.039267232515236
       },
       {
         "actor": "meter-snap-cap",
@@ -3321,16 +3304,16 @@
         "other": "g-ganen-pump",
         "status": "clear_distance_intervals",
         "queries": 8,
-        "minimum_queried_surface_distance_mm": 14.502142177689564,
-        "certified_surface_separation_lower_bound_mm": 5.127142177689564
+        "minimum_queried_surface_distance_mm": 14.502142119410015,
+        "certified_surface_separation_lower_bound_mm": 5.127142119410015
       },
       {
         "actor": "asse-snap-cap",
         "other": "pump-snap-cap",
         "status": "clear_distance_intervals",
         "queries": 23,
-        "minimum_queried_surface_distance_mm": 2.6770772383141295,
-        "certified_surface_separation_lower_bound_mm": 0.33332723831412947
+        "minimum_queried_surface_distance_mm": 2.67707711416658,
+        "certified_surface_separation_lower_bound_mm": 0.3333271141665799
       },
       {
         "actor": "meter-snap-cap",
@@ -3345,8 +3328,8 @@
         "other": "asse-snap-cap",
         "status": "clear_distance_intervals",
         "queries": 23,
-        "minimum_queried_surface_distance_mm": 2.677077238314098,
-        "certified_surface_separation_lower_bound_mm": 0.33332723831409794
+        "minimum_queried_surface_distance_mm": 2.6770771141665617,
+        "certified_surface_separation_lower_bound_mm": 0.33332711416658256
       },
       {
         "actor": "pump-snap-cap",
@@ -3372,34 +3355,219 @@
       "z_separated": true
     },
     "pass": true,
-    "elapsed_seconds": 7.290571707999334
+    "elapsed_seconds": 3.6268954160041176
   },
   "current_lid_stock": {
-    "scope": "Complete closure intervals for the two changed lid stocks against populated rear and front quadrants. Other surfaces retain their previous interval readings. Flexible handoffs remain loose until closure.",
-    "assembly_mesh_sha256": "49b0cb66bc1cd7f50da993ade8cfd4e7d51b00a7b22a4dc6275fc544e2e52a60",
+    "scope": "Complete closure intervals for the full current physical equipment lid against populated rear and front quadrants. The neutral WAGO remains for final placement; flexible handoffs stay loose until closure.",
+    "assembly_mesh_sha256": "1455d9085191e75fc301184e10689e6bd5d53f0458db3890a39cb5f9f2dc62f6",
     "checks": {
       "rear approach": [
         {
-          "actor": "flat-pump-stop-added",
-          "other": "enclosure-back-top",
+          "actor": "finished-equipment-lid",
+          "other": "asse-drain-adapter",
           "status": "clear_distance_intervals",
-          "queries": 8,
-          "minimum_queried_surface_distance_mm": 36.13938903808594,
-          "certified_surface_separation_lower_bound_mm": 0.8200225059616955
+          "queries": 19,
+          "minimum_queried_surface_distance_mm": 3.087413787841797,
+          "certified_surface_separation_lower_bound_mm": 0.3925689277696094
         },
         {
-          "actor": "aft-paired-saddle-final",
+          "actor": "finished-equipment-lid",
+          "other": "bulkhead-carb",
+          "status": "clear_distance_intervals",
+          "queries": 4,
+          "minimum_queried_surface_distance_mm": 29.417651015003386,
+          "certified_surface_separation_lower_bound_mm": 10.667651015003386
+        },
+        {
+          "actor": "finished-equipment-lid",
+          "other": "bulkhead-carb-nut",
+          "status": "clear_distance_intervals",
+          "queries": 2,
+          "minimum_queried_surface_distance_mm": 75.91078744910489,
+          "certified_surface_separation_lower_bound_mm": 0.9107874491048875
+        },
+        {
+          "actor": "finished-equipment-lid",
+          "other": "bulkhead-drain",
+          "status": "clear_distance_intervals",
+          "queries": 4,
+          "minimum_queried_surface_distance_mm": 19.0792452748623,
+          "certified_surface_separation_lower_bound_mm": 0.3292452748622985
+        },
+        {
+          "actor": "finished-equipment-lid",
+          "other": "bulkhead-drain-nut",
+          "status": "clear_distance_intervals",
+          "queries": 3,
+          "minimum_queried_surface_distance_mm": 41.472257863943014,
+          "certified_surface_separation_lower_bound_mm": 3.972257863943014
+        },
+        {
+          "actor": "finished-equipment-lid",
+          "other": "bulkhead-flavor-a",
+          "status": "clear_distance_intervals",
+          "queries": 11,
+          "minimum_queried_surface_distance_mm": 3.0999999046325684,
+          "certified_surface_separation_lower_bound_mm": 0.7562499046325684
+        },
+        {
+          "actor": "finished-equipment-lid",
+          "other": "bulkhead-flavor-a-nut",
+          "status": "clear_distance_intervals",
+          "queries": 50,
+          "minimum_queried_surface_distance_mm": 0.20769643783569336,
+          "certified_surface_separation_lower_bound_mm": 0.06121206283569336
+        },
+        {
+          "actor": "finished-equipment-lid",
+          "other": "bulkhead-flavor-b",
+          "status": "clear_distance_intervals",
+          "queries": 11,
+          "minimum_queried_surface_distance_mm": 3.0999999046325684,
+          "certified_surface_separation_lower_bound_mm": 0.7562499046325684
+        },
+        {
+          "actor": "finished-equipment-lid",
+          "other": "bulkhead-flavor-b-nut",
+          "status": "clear_distance_intervals",
+          "queries": 50,
+          "minimum_queried_surface_distance_mm": 0.20769643783569336,
+          "certified_surface_separation_lower_bound_mm": 0.06121206283569336
+        },
+        {
+          "actor": "finished-equipment-lid",
+          "other": "digiten-flow",
+          "status": "clear_distance_intervals",
+          "queries": 10,
+          "minimum_queried_surface_distance_mm": 11.099999904632568,
+          "certified_surface_separation_lower_bound_mm": 1.7249999046325684
+        },
+        {
+          "actor": "finished-equipment-lid",
           "other": "enclosure-back-top",
           "status": "clear_distance_intervals",
+          "queries": 407,
+          "minimum_queried_surface_distance_mm": 0.24999380111694336,
+          "certified_surface_separation_lower_bound_mm": 0.10350942611694336
+        },
+        {
+          "actor": "finished-equipment-lid",
+          "other": "keystone-jack",
+          "status": "clear_distance_intervals",
           "queries": 14,
-          "minimum_queried_surface_distance_mm": 16.981578579774393,
-          "certified_surface_separation_lower_bound_mm": 2.5219068109195817
+          "minimum_queried_surface_distance_mm": 2.068246395622962,
+          "certified_surface_separation_lower_bound_mm": 0.0790322043690912
+        },
+        {
+          "actor": "finished-equipment-lid",
+          "other": "lower-valve-elbow",
+          "status": "clear_distance_intervals",
+          "queries": 136,
+          "minimum_queried_surface_distance_mm": 1.5901427268981934,
+          "certified_surface_separation_lower_bound_mm": 0.41826772689819336
+        },
+        {
+          "actor": "finished-equipment-lid",
+          "other": "meter-snap-cap",
+          "status": "clear_distance_intervals",
+          "queries": 62,
+          "minimum_queried_surface_distance_mm": 1.5499968528747559,
+          "certified_surface_separation_lower_bound_mm": 0.37812185287475586
+        },
+        {
+          "actor": "finished-equipment-lid",
+          "other": "relay-1",
+          "status": "clear_distance_intervals",
+          "queries": 8,
+          "minimum_queried_surface_distance_mm": 17.356597900390625,
+          "certified_surface_separation_lower_bound_mm": 3.5404633254987914
+        },
+        {
+          "actor": "finished-equipment-lid",
+          "other": "relay-1-screw-1",
+          "status": "clear_distance_intervals",
+          "queries": 6,
+          "minimum_queried_surface_distance_mm": 19.919601259001016,
+          "certified_surface_separation_lower_bound_mm": 1.1696012590010163
+        },
+        {
+          "actor": "finished-equipment-lid",
+          "other": "tube-drain-vent",
+          "status": "clear_distance_intervals",
+          "queries": 8,
+          "minimum_queried_surface_distance_mm": 8.024203220029712,
+          "certified_surface_separation_lower_bound_mm": 3.3367032200297118
+        },
+        {
+          "actor": "finished-equipment-lid",
+          "other": "tube-soda-meter-bulkhead",
+          "status": "clear_distance_intervals",
+          "queries": 4,
+          "minimum_queried_surface_distance_mm": 34.42501211166382,
+          "certified_surface_separation_lower_bound_mm": 15.675012111663818
+        },
+        {
+          "actor": "finished-equipment-lid",
+          "other": "valve-v-a",
+          "status": "clear_distance_intervals",
+          "queries": 15,
+          "minimum_queried_surface_distance_mm": 12.125365101594145,
+          "certified_surface_separation_lower_bound_mm": 0.31753666319646356
+        },
+        {
+          "actor": "finished-equipment-lid",
+          "other": "vk-solenoid",
+          "status": "clear_distance_intervals",
+          "queries": 20,
+          "minimum_queried_surface_distance_mm": 13.765999782047212,
+          "certified_surface_separation_lower_bound_mm": 4.390999782047212
+        },
+        {
+          "actor": "finished-equipment-lid",
+          "other": "wago-g",
+          "status": "clear_distance_intervals",
+          "queries": 3,
+          "minimum_queried_surface_distance_mm": 42.930789741278645,
+          "certified_surface_separation_lower_bound_mm": 5.4307897412786446
+        },
+        {
+          "actor": "finished-equipment-lid",
+          "other": "wago-h",
+          "status": "clear_distance_intervals",
+          "queries": 5,
+          "minimum_queried_surface_distance_mm": 10.599999904632568,
+          "certified_surface_separation_lower_bound_mm": 1.2249999046325684
         }
       ],
-      "front column slide": []
+      "front column slide": [
+        {
+          "actor": "finished-equipment-lid",
+          "other": "enclosure-front-top",
+          "status": "clear_distance_intervals",
+          "queries": 39,
+          "minimum_queried_surface_distance_mm": 1.3000030517578125,
+          "certified_surface_separation_lower_bound_mm": 0.0035005392831743976
+        },
+        {
+          "actor": "finished-equipment-lid",
+          "other": "wago-mana",
+          "status": "clear_distance_intervals",
+          "queries": 4,
+          "minimum_queried_surface_distance_mm": 6.243988881288992,
+          "certified_surface_separation_lower_bound_mm": 0.1402388812889921
+        },
+        {
+          "actor": "finished-equipment-lid",
+          "other": "yb-stem-elbow",
+          "status": "clear_distance_intervals",
+          "queries": 2,
+          "minimum_queried_surface_distance_mm": 28.200726648459387,
+          "certified_surface_separation_lower_bound_mm": 3.785726648459388
+        }
+      ]
     },
     "unresolved": [],
     "pass": true,
-    "elapsed_seconds": 0.14670195899088867
+    "elapsed_seconds": 3.6620685829839204
   }
 }

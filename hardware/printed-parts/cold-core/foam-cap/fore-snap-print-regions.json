@@ -11,7 +11,7 @@
     "hardware/printed-parts/cold-core/foam-cap/prepare_fore_snap_regions.py": "3e551ca46d108f22fffb0e0bc8eae9a6eee72af76cec4a51403a411d434372b0",
     "hardware/printed-parts/cold-core/_reservoir_a_c2.py": "073f314bf227dee8d5326b077fb4d2a050a70cc9164e2688dcb307393aea466e",
     "hardware/manifold-layout/above_core.py": "4ae1006309cfc55676c11ac286d0506a77d8fecd1b107818b2d6a665b787654e",
-    "hardware/manifold-layout/above-core.json": "13d3ee90e6efba0bc429e1dad8dfb9f79c3c3d99a6db4c6b198da756ebf749b2",
+    "hardware/manifold-layout/above-core.json": "a9377dbf138f2d2de1a2816d1158eadca88f32f405066df5a887611511251df0",
     "hardware/printed-parts/cold-core/_reservoir_a_anchors.py": "5868aa3fc23237e6215b72e78949e6b179405c64d7ea003821116cfab73987a7",
     "hardware/printed-parts/cold-core/foam-cap/foam_cap.py": "071283bbd757f329cf4bd53cabd3d846fcdef46a3cac3c28df30e22f4f168a7c",
     "hardware/printed-parts/cold-core/_cold_core_interface.py": "81dfa262e4ad7e321dca5ed4f86a85367b21123833013eb4dad75270e7faef44",

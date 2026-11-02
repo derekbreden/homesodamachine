@@ -9,13 +9,16 @@ coupling, and passes the downward vent cup through its bottom flat. The Pisco
 cap has a raised lip around the short outlet fitting's neck and a broad body
 bearing between its independent leaves. The meter cap enters from the west
 and has a solid 9 mm spine, shaped bearing stock extending toward the housing,
-and two complete 38 mm-long leaves. Its flexible
+and two complete 38 mm-long leaves. A 6 mm lower outside corner bevel clears
+the A-fill tube while retaining the 9 mm central spine, full fitted bearing
+and spring-root geometry. Its flexible
 leads turn west against the housing above the lower leaf. The water regulator
 cap spans 36 mm of the housing and smaller outlet neck, with its lowest face
 at Z315.924 mm. Each cap is one solid, with two integral spring walls and hooks.
 
-The ASSE seat uses 0.25 mm running clearance and its cap uses 0.15 mm slip
-clearance. The ASSE seat allows 1.5 mm of threaded-joint position variation.
+The ASSE seat uses 0.25 mm running clearance. Its cap has one continuous
+rounded-hex cavity with a 14.6 mm apothem at the two wrench flats' mean clocking.
+The common envelope includes at least 0.15 mm slip clearance around both hexes. The ASSE seat allows 1.5 mm of threaded-joint position variation.
 The Pisco receiver has 0.5 mm radial air; its cap has 0.4 mm at the admitted
 body and exposed neck. The neck lip excludes the release collet. The meter
 receiver's housing, flange, bosses and closed back have 0.75 mm clearance.

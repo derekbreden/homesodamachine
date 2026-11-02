@@ -965,8 +965,8 @@
   "assembly_step_sha256": "4e5166c4d9d280390cd13dde4280c381343cefb2547a8cba8ec80d59bf07d5a1",
   "assembly_mesh_sha256": "98d8a1c1c637da00811ef25075231a2a0c5bd7090b6a036c64ada2fa0e3d6341",
   "current_parent_binding": {
-    "assembly_step_sha256": "ff11386038451f6ee6a9d21fd64e45d444139b29a681fefafdc4f3b1b1499e82",
-    "assembly_mesh_sha256": "49b0cb66bc1cd7f50da993ade8cfd4e7d51b00a7b22a4dc6275fc544e2e52a60",
+    "assembly_step_sha256": "781a5ac87054a542e2fd056179d98e3d2b858b9097ea990a30d8213eab0fbbe3",
+    "assembly_mesh_sha256": "1455d9085191e75fc301184e10689e6bd5d53f0458db3890a39cb5f9f2dc62f6",
     "scope": "The measured mounting axes, blind floors, component poses and vent/drain paths retain their preceding native geometry. Current changed cap neighbors and finished-lid air passages are recorded in retention-integration-review.json."
   }
 }

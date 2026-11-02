@@ -433,13 +433,13 @@
     ]
   },
   "current_parent_binding": {
-    "assembly_step_sha256": "ff11386038451f6ee6a9d21fd64e45d444139b29a681fefafdc4f3b1b1499e82",
-    "assembly_mesh_sha256": "49b0cb66bc1cd7f50da993ade8cfd4e7d51b00a7b22a4dc6275fc544e2e52a60",
+    "assembly_step_sha256": "781a5ac87054a542e2fd056179d98e3d2b858b9097ea990a30d8213eab0fbbe3",
+    "assembly_mesh_sha256": "1455d9085191e75fc301184e10689e6bd5d53f0458db3890a39cb5f9f2dc62f6",
     "scope": "Connector/header poses and preceding native stage readings are retained. Every revised cap and changed lid stock is separated from the complete connector-stage sweeps."
   },
   "current_rear_equipment_delta": {
-    "assembly_step_sha256": "ff11386038451f6ee6a9d21fd64e45d444139b29a681fefafdc4f3b1b1499e82",
-    "assembly_mesh_sha256": "49b0cb66bc1cd7f50da993ade8cfd4e7d51b00a7b22a4dc6275fc544e2e52a60",
+    "assembly_step_sha256": "781a5ac87054a542e2fd056179d98e3d2b858b9097ea990a30d8213eab0fbbe3",
+    "assembly_mesh_sha256": "1455d9085191e75fc301184e10689e6bd5d53f0458db3890a39cb5f9f2dc62f6",
     "proof": [
       {
         "connector": "terminal-J1",
