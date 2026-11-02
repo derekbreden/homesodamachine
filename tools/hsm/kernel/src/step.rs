@@ -1,6 +1,6 @@
 //! STEP from solids, and the mesh model a mesh-kernel import reads beside it.
 //!
-//! A STEP here holds triangles, not a B-rep: AP242 triangulated surface sets, one product per
+//! The default STEP holds triangles: AP242 triangulated surface sets, one product per
 //! body under its name and colour, the bodies of a file of several under one assembly. It is the
 //! file meshcad's `write.write_step` writes, so a reader takes one whichever kernel cut it:
 //! `flute_payload`'s identity check, OCCT's reader, CAD programs. Its description carries
@@ -11,10 +11,16 @@
 //!
 //! Both are functions of the triangles, names and colours alone: the same bodies write the same
 //! bytes on every run.
+//!
+//! `RoundStock` writes a separate analytic manufacturing B-rep for cylindrical
+//! stock with axial bores, preserving its planes and cylinders for CNC quotes.
+mod analytic;
+pub use analytic::{AxialBore, RoundStock};
+
 use crate::math::V3;
 use crate::write::{Body, face_json};
 use anyhow::{Context, Result};
-use serde_json::Value;
+use serde_json::{Value, json};
 use std::fmt::Write as _;
 use std::path::Path;
 
@@ -350,6 +356,23 @@ fn stored_zip(entries: &[(String, Vec<u8>)]) -> Vec<u8> {
 /// `write.write_model`): per body its float64 vertices `V<i>`, triangles `T<i>`, the face
 /// record of each triangle `F<i>`, and the records, names and linear colours as JSON.
 pub fn model_bytes(bodies: &[Body]) -> Vec<u8> {
+    model_with_document(bodies, None)
+}
+
+/// A fine model with an optional JSON document beside its unchanged arrays and identities.
+pub fn model_bytes_with_document(bodies: &[Body], document: Option<&Value>) -> Vec<u8> {
+    model_with_document(bodies, document)
+}
+
+fn model_with_document(bodies: &[Body], document: Option<&Value>) -> Vec<u8> {
+    model_archive(bodies, document, None)
+}
+
+pub(crate) fn model_with_print(bodies: &[Body], document: &Value, print: &crate::write::PrintOutput) -> Vec<u8> {
+    model_archive(bodies, Some(document), Some(print))
+}
+
+fn model_archive(bodies: &[Body], document: Option<&Value>, print: Option<&crate::write::PrintOutput>) -> Vec<u8> {
     let mut entries = vec![];
     let mut records = vec![];
     for (i, b) in bodies.iter().enumerate() {
@@ -374,6 +397,16 @@ pub fn model_bytes(bodies: &[Body]) -> Vec<u8> {
     entries.push(("names.npy".into(), text(Value::from(names))));
     entries.push(("colors.npy".into(), text(Value::from(colors))));
     entries.push(("records.npy".into(), text(Value::from(records))));
+    if let Some(document) = document {
+        entries.push(("document.npy".into(), text(document.clone())));
+    }
+    if let Some(print) = print {
+        for (i, faces) in print.faces.iter().enumerate() {
+            let bytes: Vec<_> = faces.iter().flat_map(|f| f.to_le_bytes()).collect();
+            entries.push((format!("print-F{i}.npy"), npy("<u4", &[faces.len()], &bytes)));
+        }
+        entries.push(("print-records.npy".into(), text(json!(print.records))));
+    }
     stored_zip(&entries)
 }
 

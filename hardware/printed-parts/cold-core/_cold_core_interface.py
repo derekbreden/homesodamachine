@@ -23,13 +23,11 @@ sys.path.insert(0, str(next(p for p in _here.parents if p.name == "hardware") / 
 sys.path.insert(0, str(_here.parent / "enclosure" / "enclosure"))
 sys.path.insert(0, str(_here.parent / "valve-seat"))
 sys.path.insert(0, str(_here.parents[1] / "reference" / "g-ganen-pump" / "installation"))
-
-import cadquery as cq
+sys.path.insert(0, str(_here.parents[1] / "cold-core-layout"))
 
 import fits
 import valve_seat as _valve_seat
 import _above_core_mounts as _above_mounts
-from world_workplane import xy_plane_z_up, xz_plane_y_up, xz_plane_y_down, WorldWorkplane
 from _stated_bounds import bound, state
 from _enclosure_interface import (manifold_rise, inner_limb_drop,
                                   rear_plane_y, rear_seam_clear)
@@ -52,7 +50,7 @@ outer_shell_wall = wall_thickness
 # The cold cylinder + its evaporator coil. [7 mm](COIL_RADIAL_CLEARANCE) of
 # radial clearance out from the cylinder OD holds the 1/4" ACR copper coil +
 # thermal tape; the carbonator support ring cradles the carbonator rim at this envelope.
-carbonator_outer_radius = 63.5
+from _carbonator_stock import carbonator_outer_radius
 coil_radial_clearance = 7.0
 carbonator_coil_envelope_radius = carbonator_outer_radius + coil_radial_clearance
 
@@ -66,7 +64,7 @@ foam_thickness_around_cylinder = (
 # Foam-shell outer height. Carbonator height + [30 mm](ABOVE_TANK_ELBOWS_HEIGHT) above for top-side elbow
 # fittings + [30 mm](BELOW_TANK_ELBOWS_HEIGHT) below for bottom-side elbow fittings + 1 mm
 # wall-thickness compensation.
-carbonator_height = 152.4
+from _carbonator_stock import carbonator_height
 below_carbonator_elbows_height = 30.0
 above_carbonator_elbows_height = 30.0
 foam_shell_outer_height = (
@@ -1283,6 +1281,7 @@ def cap_conduit_station(name):
 
 def make_box(x_range, y_range, z_range):
     """Axis-aligned box from world-coordinate ranges in each axis."""
+    from world_workplane import xy_plane_z_up, WorldWorkplane
     x_min, x_max = min(x_range), max(x_range)
     y_min, y_max = min(y_range), max(y_range)
     z_min, z_max = min(z_range), max(z_range)
@@ -1304,6 +1303,8 @@ def build_z_axis_hole_punch(
 ):
     """Z-axis ⌀ × height cylindrical cut, centered at `origin`'s X/Y and
     starting at `origin`'s Z, extruded in +Z."""
+    import cadquery as cq
+    from world_workplane import xy_plane_z_up
     x, y, z = origin
     return (
         cq.Workplane(xy_plane_z_up)
@@ -1349,3 +1350,13 @@ if __name__ == "__main__":
         variables=variables,
     )
     print("-> _cold_core_interface.py (self)")
+
+
+def __getattr__(name):
+    if name == "cq":
+        import cadquery
+        return cadquery
+    if name in {"xy_plane_z_up", "xz_plane_y_up", "xz_plane_y_down", "WorldWorkplane"}:
+        import world_workplane
+        return getattr(world_workplane, name)
+    raise AttributeError(f"module {__name__!r} has no attribute {name!r}")

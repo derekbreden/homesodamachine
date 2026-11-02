@@ -292,7 +292,7 @@ export async function start({ dev = false, port, hardwareDir } = {}) {
   mountViewerRoutes(app, { hardwareDir: HARDWARE_DIR, store, pointersPath });
   // The machine's own geometry service, where one is installed. Render runs none, and its pages
   // read the 404 (web/lib/hsm.js).
-  if (!process.env.RENDER_GIT_COMMIT) mountHsmRoutes(app, { hardwareDir: HARDWARE_DIR });
+  if (!process.env.RENDER_GIT_COMMIT) mountHsmRoutes(app, { hardwareDir: HARDWARE_DIR, broadcast });
   mountPushRoutes(app);
   mountNotificationsRoutes(app, pool);
   mountFirebaseConfig(app);

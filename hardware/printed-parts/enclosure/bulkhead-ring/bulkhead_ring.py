@@ -49,11 +49,10 @@ Run:
 """
 
 import collections
+import json
 import math
 import sys
 from pathlib import Path
-
-import cadquery as cq
 
 _here = Path(__file__).resolve()
 _hw = next(p for p in _here.parents if p.name == "hardware")
@@ -67,8 +66,13 @@ for _p in (_hw / "scripts",
     sys.path.insert(0, str(_p))
 sys.path.insert(0, str(next(p for p in _here.parents
                             if (p / "tools" / "docgen").is_dir()) / "tools"))
+if __name__ == "__main__" and sys.argv[1:] != ["selftest"]:
+    import _rust_part
+    _rust_part.start()
+
+import cadquery as cq
 from _cadq_export import export_assembly, import_step  # noqa: E402
-from _materials import step_safe
+from _materials import linear, step_safe
 import _y_wall_dimensions as _rear  # noqa: E402
 import jg_bulkhead_union as _jg  # noqa: E402
 import neofit_drain_bulkhead as _drain
@@ -437,27 +441,48 @@ def selftest() -> int:
     return 1 if fails else 0
 
 
+def numbers():
+    """The fitting datums, filament colours and original label artwork for all six chips."""
+    artwork = json.loads((_here.parent.parent/'rear-identification/label-words.json').read_text())
+    stations = []
+    for which,chip in STATIONS.items():
+        fluid = FLUIDS[which]
+        stations.append({
+            'name':f'bulkhead-ring-{which}', 'word_name':f'bulkhead-ring-{which}-word',
+            'width':od(chip.family), 'top':rise(which), 'bottom':bottom(chip.family),
+            'bore_diameter':bore_d(chip.family),
+            'flange_radius':FAMILIES[chip.family].flange_footprint()/2.,
+            'word_profiles':artwork['words'][chip.word],
+            'chip_color':linear(_filament(_rear.chip_color(fluid))),
+            'word_color':linear(_filament(_rear.word_color(fluid))),
+        })
+    return {'thick':THICK, 'lower_corner_radius':port_chip.LOWER_CORNER_RADIUS,
+            'word_depth':WORD_DEPTH, 'word_raise':WORD_RAISE,
+            'word_scale':WORD_SIZE/artwork['em_mm'], 'stations':stations}
+
+
 def main():
+    import _rust_part
+    result = _rust_part.cut('enclosure-components','bulkhead-ring',numbers(),_here.parent)
+    bodies = {body['name']:body for body in result['bodies']}
     volumes, word_volumes, clears = {}, {}, {}
     for which in STATIONS:
-        chip, word = build_ring(which), build_word(which)
+        chip, word = bodies[f'bulkhead-ring-{which}'],bodies[f'bulkhead-ring-{which}-word']
         diameter, top = outline(which)
-        volumes[which] = chip.Volume() / 1000.0
-        word_volumes[which] = word.Volume() / 1000.0
-        bb = chip.BoundingBox()
+        volumes[which] = chip['volume'] / 1000.0
+        word_volumes[which] = word['volume'] / 1000.0
+        lo,hi = chip['min'],chip['max']
         print(f"Bulkhead ring — {which} station, '{STATIONS[which].word}'")
         print(f"  Ø{diameter:g} wide × {tall(which):.3f} tall / "
               f"bore Ø{bore_d(family(which)):g} / thickness {THICK:g}")
         print(f"  Colour showing past the flange: {RING_W:g} mm")
         print(f"  Canonical-frame bounding box: "
-              f"X [{bb.xmin:.2f}, {bb.xmax:.2f}]  "
-              f"Y [{bb.ymin:.2f}, {bb.ymax:.2f}]  "
-              f"Z [{bb.zmin:.2f}, {bb.zmax:.2f}]")
-        print(f"  Solid valid: {chip.isValid()}")
-        clears[which] = flange_clearance(which)
+              f"X [{lo[0]:.2f}, {hi[0]:.2f}]  "
+              f"Y [{lo[1]:.2f}, {hi[1]:.2f}]  "
+              f"Z [{lo[2]:.2f}, {hi[2]:.2f}]")
+        clears[which] = chip['word_flange_clearance_mm']
         print(f"  Word: {WORD_DEPTH:g} deep, {WORD_RAISE:g} proud, top at y = "
               f"{THICK + WORD_RAISE:g}; {clears[which]:.3f} mm off the flange")
-        export_assembly(build_part(which), str(STEPS[which]))
         print(f"-> {STEPS[which].name}")
 
     variables = {

@@ -12,9 +12,9 @@
 // command is the dashboard's rather than render.yaml's. Whichever fires first leaves the tree
 // holding every pointed-at solid, and the other reads 117 MB and finds nothing to do.
 //
-// THE POINTER FILE IS THE AUTHORITY ON EVERY BYTE. The bundle is held to its sha256 before it is opened,
-// and each extracted solid to its own after. A hash that does not match ends the build, which
-// leaves the previous deploy serving.
+// THE POINTER FILE IS THE AUTHORITY ON EVERY BYTE. Each downloaded solid is held to its own
+// sha256 before an atomic replacement. Unavailable or mismatched members leave the existing
+// files in place and are reported; `--check` exits nonzero until every member matches.
 //
 // A tree that already holds every solid at its pointed-at hash downloads nothing, so a dev machine
 // that cut the solids itself runs this to completion without reaching the network.
@@ -222,7 +222,7 @@ async function fetchObjects(rels) {
       try {
         await fetchObject(rel);
       } catch (err) {
-        failed.push(`${rel} — ${err.message}`);
+        failed.push({ rel, message: err.message });
       }
     }
   };
@@ -230,6 +230,7 @@ async function fetchObjects(rels) {
   return failed;
 }
 
+let remaining = missing;
 if (OBJECTS && (STORE || STORE_DIR || STORE_URL || RELEASE_BASE)) {
   console.log(`[cad-artifacts] ${missing.length} solid(s) to fetch, by name`);
   const failed = await fetchObjects(missing);
@@ -237,18 +238,18 @@ if (OBJECTS && (STORE || STORE_DIR || STORE_URL || RELEASE_BASE)) {
     console.log(`[cad-artifacts] ${missing.length} of ${missing.length} solid(s) in place`);
     process.exit(0);
   }
-  // WHAT ONE ROUTE COULD NOT SETTLE, THE OTHER STILL CARRIES. The bundle holds every member of
-  // this pointer file too, so a missing object or a bad gunzip falls through to it rather than costing
-  // the site a solid.
+  // The retained bundle can predate the objects that arrived by name. Ask it only for
+  // failed objects, and hold every extracted member to the current pointer file's hash.
+  remaining = failed.map(({ rel }) => rel);
   console.warn(`[cad-artifacts] ${failed.length} solid(s) did not come by name — reading the bundle`);
-  for (const line of failed.slice(0, 8)) console.warn(`    ${line}`);
+  for (const { rel, message } of failed.slice(0, 8)) console.warn(`    ${rel} — ${message}`);
 }
 if (!url) {
   console.error("[cad-artifacts] no bundle to fall back to");
   process.exit(1);
 }
 
-console.log(`[cad-artifacts] ${missing.length} solid(s) to fetch — ${asset} (${(pointers.bundle.bytes / 1e6).toFixed(1)} MB)`);
+console.log(`[cad-artifacts] ${remaining.length} solid(s) to fetch — ${asset} (${(pointers.bundle.bytes / 1e6).toFixed(1)} MB)`);
 
 const work = await mkdtemp(path.join(tmpdir(), "cad-artifacts."));
 try {
@@ -271,10 +272,10 @@ try {
   // leaves the existing model in place; only verified bytes cross the final atomic rename.
   const extracted = path.join(work, "members");
   await mkdir(extracted);
-  execFileSync("tar", ["-xzf", bundle, "-C", extracted, "--", ...missing], { stdio: "inherit" });
+  execFileSync("tar", ["-xzf", bundle, "-C", extracted, "--", ...remaining], { stdio: "inherit" });
 
   const bad = [];
-  for (const rel of missing) {
+  for (const rel of remaining) {
     const staged = path.join(extracted, rel);
     if (!(await present_abs(staged))) {
       bad.push(`${rel} — not in the bundle`);
@@ -305,7 +306,7 @@ try {
     for (const line of bad.slice(0, 12)) console.warn(`    ${line}`);
   }
 
-  console.log(`[cad-artifacts] ${missing.length - bad.length} of ${missing.length} solid(s) in place`);
+  console.log(`[cad-artifacts] ${remaining.length - bad.length} of ${remaining.length} solid(s) in place`);
 } catch (err) {
   // Nothing here fails the build. The site serves whatever solids the tree holds, which is what
   // it is for; a deploy withheld shows the last cut and says nothing about this one.

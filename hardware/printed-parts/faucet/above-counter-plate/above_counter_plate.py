@@ -1,9 +1,14 @@
-"""PET-GF15 above-counter plate with three recessed M3 seats and locating pedestals."""
+"""PET-GF15 above-counter plate with three recessed M3 seats and locating pedestals.
+
+The kernel cuts the plate (`above_counter_plate.rs`, beside this module) from the numbers
+`numbers()` writes for it (`hardware/scripts/_rust_part.py`). `build_above_counter_plate` draws it
+in CadQuery for the faucet assembly's CadQuery assembly, which reads it.
+"""
+
+from __future__ import annotations
 
 import sys
 from pathlib import Path
-
-import cadquery as cq
 
 _here = Path(__file__).resolve().parent
 sys.path.insert(0, str(next(p for p in _here.parents if p.name == "hardware") / "scripts"))
@@ -11,8 +16,12 @@ sys.path.insert(0, str(next(p for p in _here.parents if (p / "tools" / "docgen")
 sys.path.insert(0, str(_here.parent))
 sys.path.insert(0, str(_here.parent / "faucet-shell"))
 sys.path.insert(0, str(next(p for p in _here.parents if p.name == "printed-parts") / "cadlib"))
-from _cadq_export import export_assembly
-from _materials import C_FAUCET_BLACK, one_body
+if __name__ == "__main__":
+    import _rust_part
+    _rust_part.start()
+
+import cadquery as cq  # noqa: E402
+from _materials import C_FAUCET_BLACK, linear
 from _faucet_interface import (
     above_counter_plate_thickness,
     flavor_tube_depth,
@@ -37,9 +46,9 @@ from faucet_shell import (
     base_pedestal_height,
     base_pedestal_chamfer,
     build_lower_signal_lane,
+    lower_bundle_numbers,
     signal_lower_exit_x,
     signal_lower_exit_y,
-    write_bed_file,
 )
 from docgen import substitute_md
 from world_workplane import WorldWorkplane, xy_plane_z_up
@@ -84,13 +93,32 @@ def build_above_counter_plate() -> cq.Workplane:
             .cut(build_lower_signal_lane()))
 
 
+def numbers() -> dict:
+    """What `above_counter_plate.rs` cuts the plate from: its oval foot, the pedestals and screw
+    seats over the mounting pods, and the holes through it."""
+    return {
+        "name": "above-counter-plate", "color": [float(v) for v in linear(C_FAUCET_BLACK)],
+        "foot_width": foot_width, "foot_depth": foot_depth, "foot_center_y": foot_center_y,
+        "plate_z": list(plate_z_range),
+        "base_pod_centers": [[float(v) for v in center] for center in base_pod_centers],
+        "base_pedestal_dia": base_pedestal_dia, "base_pedestal_height": base_pedestal_height,
+        "base_pedestal_chamfer": base_pedestal_chamfer,
+        "base_pod_shank_dia": base_pod_shank_dia,
+        "base_pod_counterbore_dia": base_pod_counterbore_dia,
+        "base_screw_counterbore_depth": base_screw_counterbore_depth,
+        "shank_hole_center": list(shank_hole_center), "shank_hole_radius": shank_hole_radius,
+        "pill_slot_center": list(pill_slot_center), "pill_length_x": bundle_slot_length_x,
+        "pill_width_y": pill_width_y,
+        **lower_bundle_numbers(),
+    }
+
+
 def main():
-    plate = build_above_counter_plate()
-    out = _here / "above-counter-plate.step"
-    export_assembly(one_body(plate, out.stem, C_FAUCET_BLACK), str(out))
-    print(f"-> {out.name}")
-    stl = out.with_suffix(".stl")
-    write_bed_file(plate, stl)
+    # A run cuts the plate; an import of this module is a reader of its builder and numbers.
+    import _rust_part
+
+    said = _rust_part.cut("faucet", "above-counter-plate", numbers(), _here)
+    print("-> " + ", ".join(said["files"]))
     variables = {
         "PLATE_T": f"{plate_thickness:.4g} mm",
         "PLATE_Z_BOTTOM": f"{plate_z_range[0]:.4g}",

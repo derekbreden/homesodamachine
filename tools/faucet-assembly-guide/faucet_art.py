@@ -35,6 +35,10 @@ BLUE = cq.Color(0.09, 0.29, 0.82)
 
 
 def read(path):
+    if Path(path) == FAUCET / "tpu-o-ring/tpu-o-ring.step":
+        sys.path.insert(0, str(FAUCET / "tpu-o-ring"))
+        from tpu_o_ring import build_o_ring
+        return build_o_ring()
     return cq.importers.importStep(str(path))
 
 

@@ -90,6 +90,11 @@ impl Mesh {
         self.faces.get(i).filter(|r| r[0] <= triangle).map(|_| i)
     }
 
+    /// Every recorded contributor to this actual face range, without choosing an owner.
+    pub fn sources(&self, face: Option<usize>) -> Option<&[serde_json::Value]> {
+        self.face_sources.as_ref()?.get(face?).map(Vec::as_slice)
+    }
+
     pub fn bounds(&self, by: [f64; 3]) -> ([f64; 3], [f64; 3]) {
         let b = self.shape.local_aabb().transform_by(&pose(by));
         (xyz(b.mins), xyz(b.maxs))
@@ -218,6 +223,8 @@ pub struct Hit {
     pub normal: [f64; 3],
     pub triangle: Option<u32>,
     pub face: Option<usize>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub sources: Option<Vec<serde_json::Value>>,
 }
 
 pub fn ray(mesh: &Mesh, origin: [f64; 3], direction: [f64; 3], max: f64) -> Result<Option<Hit>> {
@@ -243,6 +250,7 @@ pub fn ray(mesh: &Mesh, origin: [f64; 3], direction: [f64; 3], max: f64) -> Resu
                 normal: hit.normal.into(),
                 triangle,
                 face: triangle.and_then(|i| mesh.face(i)),
+                sources: mesh.sources(triangle.and_then(|i| mesh.face(i))).map(<[_]>::to_vec),
             }
         }))
 }
@@ -252,6 +260,8 @@ pub struct Segment {
     pub points: [[f64; 3]; 2],
     pub triangle: u32,
     pub face: Option<usize>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub sources: Option<Vec<serde_json::Value>>,
 }
 
 #[derive(Serialize)]
@@ -312,6 +322,7 @@ pub fn section(mesh: &Mesh, normal: [f64; 3], offset: f64) -> Result<Section> {
                 points: [xyz(points[0]), xyz(points[1])],
                 triangle: i,
                 face: mesh.face(i),
+                sources: mesh.sources(mesh.face(i)).map(<[_]>::to_vec),
             });
         }
     }
@@ -346,6 +357,7 @@ mod tests {
             color: None,
             shape: TriMesh::new(points, indices).unwrap(),
             faces,
+            face_sources: None,
             solid: OnceLock::new(),
         }
     }
@@ -426,6 +438,7 @@ mod tests {
             color: None,
             shape,
             faces: vec![[0, 0]],
+            face_sources: None,
             solid: OnceLock::new(),
         };
         let enclosed = cube(0.2, [0.0, 0.0, 0.3]);

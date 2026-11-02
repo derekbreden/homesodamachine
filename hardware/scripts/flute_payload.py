@@ -89,7 +89,6 @@ FAUCET_DIRS = (
     _ROOT / "hardware/printed-parts/faucet/faucet-display-cover",
     _ROOT / "hardware/printed-parts/faucet/above-counter-plate",
     _ROOT / "hardware/printed-parts/faucet/above-counter-gasket",
-    _ROOT / "hardware/printed-parts/faucet/asse-vent-seals",
     _ROOT / "hardware/printed-parts/faucet/umbilical-organizer",
 )
 PIECES_DIRS = ENCLOSURE_DIRS + COLD_CORE_DIRS + FAUCET_DIRS
@@ -434,7 +433,8 @@ def read_payload(path):
     """The meshes `_mesh_payload.write` put in `path`, or None for anything else.
 
     The reader the page runs is `decodeMeshPayload` in `web/public/js/viewer/step.js`; this is
-    the same header and the same four arrays, off the same offsets."""
+    the same header and the same four arrays, off the same offsets. Optional contributor
+    groups are carried only when aligned with those face ranges."""
     try:
         raw = Path(path).read_bytes()
         head_len = struct.unpack("<I", raw[:4])[0]
@@ -450,6 +450,9 @@ def read_payload(path):
         for key, dtype in (("pos", "<f4"), ("nrm", "<f4"), ("idx", "<u4"), ("fac", "<u4")):
             offset, count = m[key]
             entry[key] = np.frombuffer(blob, dtype=dtype, count=count, offset=offset).tolist()
+        sources = _mesh_payload.aligned_face_sources(m.get("face_sources"), len(entry["fac"]) // 2)
+        if sources is not None:
+            entry["face_sources"] = sources
         out.append(entry)
     return out
 
@@ -662,7 +665,9 @@ def graft(path: Path, fluted: dict, *, same_frame=False):
     was cut from the solid it still sits beside. Recomputing it here would also ask for a
     STEP that need not be on this disk: what is grafted into is a payload, and the graft is
     the same operation whether or not its solid was carried along with it."""
-    src = _mesh_payload.read_source(path) if path.is_file() else None
+    header = _mesh_payload.read_header(path) if path.is_file() else {}
+    src = header.get("src")
+    cut = header.get("cut")
     if src is None:
         # A host written before `src` existed states none. Its solid is what it was cut from,
         # so read it off the bytes beside it — and where there is no solid beside it, the
@@ -692,6 +697,11 @@ def graft(path: Path, fluted: dict, *, same_frame=False):
                 moved.append((entry["name"], drift))
                 continue
         entry.update({k: surface[k] for k in ("pos", "nrm", "idx", "fac")})
+        sources = _mesh_payload.aligned_face_sources(surface.get("face_sources"), len(surface["fac"]) // 2)
+        if sources is None:
+            entry.pop("face_sources", None)
+        else:
+            entry["face_sources"] = sources
         landed += 1
     for name, drift in moved:
         print(f"   {Path(path).name}: {name} keeps its host surface; no placement recovered "
@@ -704,7 +714,7 @@ def graft(path: Path, fluted: dict, *, same_frame=False):
     # not happen. `render_scenes.write_payload` holds the same property for the payload it cuts.
     path = Path(path)
     tmp = path.with_name(path.name + ".tmp")
-    _mesh_payload.write(held, str(tmp), src=src)
+    _mesh_payload.write(held, str(tmp), src=src, cut=cut)
     if path.is_file() and path.read_bytes() == tmp.read_bytes():
         tmp.unlink()
     else:
