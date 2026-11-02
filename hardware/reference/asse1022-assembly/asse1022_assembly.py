@@ -30,12 +30,35 @@ running −Z. The upstream fittings therefore sit at negative X.
 
 Run:
     tools/cad-venv/bin/python hardware/reference/asse1022-assembly/asse1022_assembly.py
+
+
+The reference STEP and payloads are declared in `frozen-asset.json`.
+Native builder functions remain available to current composition callers.
 """
+
+from __future__ import annotations
 
 import sys
 from pathlib import Path
+from functools import cache as _reference_cache
 
-import cadquery as cq
+_REFERENCE_DIR = Path(__file__).resolve().parent
+STEP_PATH = _REFERENCE_DIR / 'asse1022-assembly.step'
+PAYLOAD_PATH = _REFERENCE_DIR / 'asse1022-assembly.step.mesh'
+FINE_PAYLOAD_PATH = _REFERENCE_DIR / 'asse1022-assembly.step.mesh'
+ASSET_MANIFEST_PATH = _REFERENCE_DIR / "frozen-asset.json"
+
+
+def main():
+    print(f"Frozen STEP: {STEP_PATH}")
+    print(f"Display payload: {PAYLOAD_PATH}")
+    print(f"Fine payload: {FINE_PAYLOAD_PATH}")
+
+
+if __name__ == "__main__":
+    main()
+    raise SystemExit(0)
+
 
 _here = Path(__file__).resolve()
 _hw = next(p for p in _here.parents if p.name == "hardware")
@@ -49,9 +72,6 @@ for _p in (
     sys.path.insert(0, str(_p))
 sys.path.insert(0, str(next(p for p in _here.parents
                             if (p / "tools" / "docgen").is_dir()) / "tools"))
-from _cadq_export import export_assembly
-from _seating import Seat
-from docgen import substitute_md
 import flare38_14ptc as oadapt
 import gagira_reducing_coupling as coupling
 import jg_pp010822e as ptc
@@ -62,8 +82,6 @@ import multiplex_asse1022 as bfp
 # body alone are one colour. Two of the five are the same metal and are drawn the same metal:
 # what tells the GAGIRA coupling from the barrel it swallows is the step between their hexes,
 # which is what tells them apart on the bench.
-from _materials import (M_BRASS, M_JG_BLACK_PP, M_JG_GREY_ACETAL,  # noqa: E402
-                        M_STAINLESS)
 
 # Where each fitting lands on the flow axis, each read off the part it threads into.
 # The barrel's two shoulders are what the female fittings butt against.
@@ -82,6 +100,7 @@ OUTLET_X = BARREL_DOWNSTREAM
 def _along(x) -> Seat:
     """The seat a fitting takes on the flow axis: its own X origin at `x`, its axis onto
     the ASSE 1022's (y = 0, z = the body-centre height)."""
+    from _seating import Seat
     return Seat.shift((x, 0.0, bfp.BODY_CENTER_Z))
 
 
@@ -95,12 +114,16 @@ def flow_axis() -> tuple:
 
 # The chain, in the order the water meets it: what draws each station, the seat it takes,
 # and its hue. The ASSE 1022 is the frame the other four are seated in.
-STATIONS = {
-    "jg-pp010822e":       (ptc,      _along(PTC_X),      M_JG_BLACK_PP),
-    "gagira-coupling":    (coupling, _along(COUPLING_X), M_STAINLESS),
-    "multiplex-asse1022": (bfp,      Seat(),             M_BRASS),
-    "flare38-14ptc":      (oadapt,   _along(OUTLET_X),   M_JG_GREY_ACETAL),
-}
+@_reference_cache
+def _stations():
+    from _seating import Seat
+    from _materials import M_BRASS, M_JG_BLACK_PP, M_JG_GREY_ACETAL, M_STAINLESS
+    return {
+        "jg-pp010822e":       (ptc,      _along(PTC_X),      M_JG_BLACK_PP),
+        "gagira-coupling":    (coupling, _along(COUPLING_X), M_STAINLESS),
+        "multiplex-asse1022": (bfp,      Seat(),             M_BRASS),
+        "flare38-14ptc":      (oadapt,   _along(OUTLET_X),   M_JG_GREY_ACETAL),
+    }
 
 # This assembly's boundary: the two mouths the cabinet plumbs to, and the one it catches
 # under. Each names the station port it is.
@@ -113,8 +136,9 @@ TERMINALS = {
 
 def build():
     """The chain, each station at its seat."""
+    import cadquery as cq
     assy = cq.Assembly(name="asse1022-assembly")
-    for name, (part, seat, color) in STATIONS.items():
+    for name, (part, seat, color) in _stations().items():
         assy.add(seat.solid(part.build()), name=name, color=color)
     return assy
 
@@ -126,7 +150,7 @@ def port(name: str) -> tuple:
     if name not in TERMINALS:
         raise KeyError(f"no terminal {name!r} (have: {', '.join(TERMINALS)})")
     station, local = TERMINALS[name]
-    part, seat, _color = STATIONS[station]
+    part, seat, _color = _stations()[station]
     return seat.port(getattr(part, local)())
 
 
@@ -135,26 +159,22 @@ def ports() -> dict:
     return {name: port(name) for name in TERMINALS}
 
 
-def main():
-    assy = build()
-    bb = assy.toCompound().BoundingBox()
-    stations = ports()
-    print("ASSE 1022 assembly (Multiplex 19-0897 + upstream/downstream fittings)")
-    print(f"  Bounding box: X [{bb.xmin:.2f}, {bb.xmax:.2f}]  "
-          f"Y [{bb.ymin:.2f}, {bb.ymax:.2f}]  Z [{bb.zmin:.2f}, {bb.zmax:.2f}]")
-    for label, (pos, axis) in stations.items():
-        print(f"  {label:8}: ({pos[0]:7.2f}, {pos[1]:6.2f}, {pos[2]:7.2f})  out {axis}")
-
-    marks = {f"ASSE_{n.replace('-', '_').upper()}":
-             "({:.2f}, {:.2f}, {:.2f})".format(*stations[n][0]) for n in TERMINALS}
-    marks["ASSE_ENVELOPE"] = f"{bb.xlen:.1f} × {bb.ylen:.1f} × {bb.zlen:.1f} mm"
-    substitute_md(_here.parent / "README.md", variables=marks,
-)
-
-    out = _here.parent / "asse1022-assembly.step"
-    export_assembly(assy, str(out))
-    print(f"-> {out.name}")
-
-
-if __name__ == "__main__":
-    main()
+def __getattr__(name):
+    if name == 'STATIONS':
+        return _stations()
+    if name == 'cq':
+        import cadquery as cq
+        return cq
+    if name in {'export_assembly'}:
+        import _cadq_export
+        return getattr(_cadq_export, name)
+    if name in {'Seat'}:
+        import _seating
+        return getattr(_seating, name)
+    if name in {'substitute_md'}:
+        import docgen
+        return getattr(docgen, name)
+    if name in {'M_JG_BLACK_PP', 'M_BRASS', 'M_JG_GREY_ACETAL', 'M_STAINLESS'}:
+        import _materials
+        return getattr(_materials, name)
+    raise AttributeError(f"module {__name__!r} has no attribute {name!r}")

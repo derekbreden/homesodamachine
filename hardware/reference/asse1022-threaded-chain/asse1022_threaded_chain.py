@@ -3,20 +3,30 @@
 Profiles and poses come from reference-parameters.json. The frame is the bare
 ASSE reference: +X flow, inlet rim X=0, vent tip Z=0. Buried joint geometry and
 blind bore closures are display geometry, not hydraulic or material models.
+
+
+The reference STEP and payloads are declared in `frozen-asset.json`.
+Native builder functions remain available to current composition callers.
 """
+
+from __future__ import annotations
 from pathlib import Path
+from functools import cache as _reference_cache
+
+_REFERENCE_DIR = Path(__file__).resolve().parent
+STEP_PATH = _REFERENCE_DIR / 'asse1022-threaded-chain.step'
+PAYLOAD_PATH = _REFERENCE_DIR / 'asse1022-threaded-chain.step.mesh'
+FINE_PAYLOAD_PATH = _REFERENCE_DIR / 'asse1022-threaded-chain.step.mesh'
+ASSET_MANIFEST_PATH = _REFERENCE_DIR / "frozen-asset.json"
 import argparse
 import json
 import math
 import sys
 
-import cadquery as cq
 
 HERE = Path(__file__).resolve().parent
 HW = HERE.parents[1]
 sys.path[:0] = [str(HW / 'scripts'), str(HERE.parent / 'multiplex-asse1022')]
-from _cadq_export import export_assembly
-from _materials import M_BRASS, M_STAINLESS, M_JG_BLACK_PP, M_JG_GREY_ACETAL, M_JG_WHITE_PP
 import multiplex_asse1022 as bfp
 
 
@@ -25,11 +35,13 @@ def parameters():
 
 
 def turned(profile):
+    import cadquery as cq
     outline = [(profile[0][0], 0), *[tuple(p) for p in profile], (profile[-1][0], 0)]
     return cq.Workplane('XY').polyline(outline).close().revolve(360, (0, 0), (1, 0)).val()
 
 
 def inline(record):
+    import cadquery as cq
     profile = record['visible_profile']
     wrench = record.get('wrench')
     if wrench:
@@ -46,6 +58,7 @@ def inline(record):
 
 
 def x_bore(radius, lo, hi):
+    import cadquery as cq
     return cq.Solid.makeCylinder(radius, hi-lo, cq.Vector(lo, 0, 0), cq.Vector(1, 0, 0))
 
 
@@ -59,6 +72,7 @@ def placed(shape, record):
 
 
 def local_tee(record):
+    import cadquery as cq
     plus = turned(record['run_profiles']['plus']).rotate((0, 0, 0), (0, 0, 1), 90)
     minus = turned(record['run_profiles']['minus']).rotate((0, 0, 0), (0, 0, 1), -90)
     part = plus.fuse(minus).fuse(turned(record['branch_profile']))
@@ -91,15 +105,20 @@ def parts():
     return result
 
 
-COLORS = {'pp010822e': M_JG_BLACK_PP, 'gagira': M_STAINLESS,
-          'multiplex-asse1022': M_BRASS, 'pi4512f6s': M_JG_GREY_ACETAL,
-          'pp061208w': M_JG_WHITE_PP, 'atbu444-e': cq.Color(.13, .14, .15)}
+@_reference_cache
+def _colors():
+    import cadquery as cq
+    from _materials import M_BRASS, M_STAINLESS, M_JG_BLACK_PP, M_JG_GREY_ACETAL, M_JG_WHITE_PP
+    return {'pp010822e': M_JG_BLACK_PP, 'gagira': M_STAINLESS,
+              'multiplex-asse1022': M_BRASS, 'pi4512f6s': M_JG_GREY_ACETAL,
+              'pp061208w': M_JG_WHITE_PP, 'atbu444-e': cq.Color(.13, .14, .15)}
 
 
 def build():
+    import cadquery as cq
     assembly = cq.Assembly(name='asse1022-threaded-chain')
     for name, shape in parts().items():
-        assembly.add(shape, name=name, color=COLORS[name])
+        assembly.add(shape, name=name, color=_colors()[name])
     return assembly
 
 
@@ -118,18 +137,25 @@ def ports():
 
 
 def main():
-    parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--stl', type=Path, help='Also export the assembled exterior as STL.')
-    args = parser.parse_args()
-    assembly = build()
-    path = HERE / 'asse1022-threaded-chain.step'
-    export_assembly(assembly, str(path))
-    if args.stl:
-        cq.exporters.export(assembly.toCompound(), str(args.stl), tolerance=.025, angularTolerance=.08)
-    bb = assembly.toCompound().BoundingBox()
-    print(f'-> {path}\nBounds: {bb.xlen:.2f} × {bb.ylen:.2f} × {bb.zlen:.2f} mm')
-    print(json.dumps(ports(), indent=2))
+    print(f"Frozen STEP: {STEP_PATH}")
+    print(f"Display payload: {PAYLOAD_PATH}")
+    print(f"Fine payload: {FINE_PAYLOAD_PATH}")
 
 
 if __name__ == '__main__':
     main()
+
+
+def __getattr__(name):
+    if name == 'COLORS':
+        return _colors()
+    if name == 'cq':
+        import cadquery as cq
+        return cq
+    if name in {'export_assembly'}:
+        import _cadq_export
+        return getattr(_cadq_export, name)
+    if name in {'M_JG_BLACK_PP', 'M_STAINLESS', 'M_BRASS', 'M_JG_GREY_ACETAL', 'M_JG_WHITE_PP'}:
+        import _materials
+        return getattr(_materials, name)
+    raise AttributeError(f"module {__name__!r} has no attribute {name!r}")

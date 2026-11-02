@@ -1,0 +1,33 @@
+{
+  "source": {
+    "commit": "30bb5cb2d5b95f18f43637bd9be26daced05f1f5",
+    "path": "hardware/reference/riteav-keystone/riteav_keystone.py",
+    "sha256": "74b6c8af93182fab6a2792fe78c2ff2f92fd8a1242b0d1d01bc9f8dab7c36cba"
+  },
+  "members": {
+    "riteav-keystone.step": "cd7c975fbda11ed0a7e7ced14c6eb435ab39c882626fab8f234fd59043bf5971",
+    "riteav-keystone.step.mesh": "61490ed98106f1ce7d94bce0325de2f9e8e87e41877b667d3b18f2303c89bb6e"
+  },
+  "fine_payload": {
+    "source_step_sha256": "cd7c975fbda11ed0a7e7ced14c6eb435ab39c882626fab8f234fd59043bf5971",
+    "path": "riteav-keystone.step.mesh",
+    "sha256": "61490ed98106f1ce7d94bce0325de2f9e8e87e41877b667d3b18f2303c89bb6e",
+    "linear_mm": 0.005,
+    "angular_rad": 0.05,
+    "producer": "hardware/scripts/_rust_part.py:_tessellate",
+    "origin": "new one-time immutable published STEP conversion",
+    "meshes": [
+      {
+        "name": "riteav-keystone",
+        "color": [
+          0.13000000109304727,
+          0.13000000109304727,
+          0.13999999784656367
+        ],
+        "vertices": 160,
+        "triangles": 100,
+        "face_ranges": 32
+      }
+    ]
+  }
+}

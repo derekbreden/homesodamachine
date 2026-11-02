@@ -1,0 +1,33 @@
+{
+  "source": {
+    "commit": "30bb5cb2d5b95f18f43637bd9be26daced05f1f5",
+    "path": "hardware/reference/touch-flo-faucet/westbrass-reference/westbrass_reference.py",
+    "sha256": "6ca8f3d332acaef05c4c92041509e66ea68235ddc4f593c0c5e3a9d8543670d0"
+  },
+  "members": {
+    "westbrass-reference.step": "6bb4f673332fc80c74ad94e62ad4c24f47b451824f2d64e155cc22a45c9251a2",
+    "westbrass-reference.step.mesh": "459d8dd59ed8758c652cb43d7b8d5e25cf0ac0dddda69a30104d94b8321484a3"
+  },
+  "fine_payload": {
+    "source_step_sha256": "6bb4f673332fc80c74ad94e62ad4c24f47b451824f2d64e155cc22a45c9251a2",
+    "path": "westbrass-reference.step.mesh",
+    "sha256": "459d8dd59ed8758c652cb43d7b8d5e25cf0ac0dddda69a30104d94b8321484a3",
+    "linear_mm": 0.005,
+    "angular_rad": 0.05,
+    "producer": "hardware/scripts/_rust_part.py:_tessellate",
+    "origin": "new one-time immutable published STEP conversion",
+    "meshes": [
+      {
+        "name": "westbrass-reference",
+        "color": [
+          0.13000000109304727,
+          0.13000000109304727,
+          0.13999999784656367
+        ],
+        "vertices": 3892,
+        "triangles": 3862,
+        "face_ranges": 17
+      }
+    ]
+  }
+}
