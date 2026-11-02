@@ -20,6 +20,10 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
+sys.path.insert(0, str(next(p for p in Path(__file__).resolve().parents if p.name == "hardware") / "scripts"))
+import _rust_part
+_rust_part.start()
+
 import cadquery as cq  # noqa: E402
 
 import _holder as H  # noqa: E402
@@ -461,22 +465,119 @@ def parcels():
                   f"{env.thinnest:8.1f}-   {env.source}")
 
 
+def numbers():
+    """The stock references, catalog-derived heights and authored cut profiles."""
+    import inspect
+    from _cadq_export import note_read
+    from _materials import linear
+
+    source = Path(__file__).resolve().parent
+    root = _kit._repo_root
+    manifest = _kit._STOCK
+    note_read(_kit._STOCK_PATH)
+    assets = {}
+    for key, model in manifest["models"].items():
+        path = source / "gridfinity-stock" / model["path"]
+        note_read(path)
+        assets[key] = path.relative_to(root).as_posix()
+    def stock_key(parameters):
+        for key, model in manifest["models"].items():
+            if model["parameters"] == parameters:
+                return key
+        raise ValueError(f"no stock reference for {parameters}")
+
+    tub_defaults = inspect.signature(H.tub).parameters
+    rows = []
+    for holder in HOLDERS:
+        opts = dict(holder.opts)
+        row = {"name": holder.name, "kind": holder.shape, "cuts": [], "seat": None,
+               "height_delta": 0.0}
+        x, y = holder.x_u, holder.y_u
+        if holder.shape == "tub":
+            ld, wd = opts.get("length_div", 0), opts.get("width_div", 0)
+            if holder.height_u is None:
+                holder.height_u = H.tub_height_for(x, y, holder.takes, ld, wd)
+            cells = (ld + 1) * (wd + 1)
+            if len(holder.takes) > cells:
+                raise ValueError(f"{holder.name}: {len(holder.takes)} things into {cells} compartments")
+            for env in holder.takes:
+                check = H.assert_heap_fits if isinstance(env, Heap) else H.assert_tub_takes
+                check(holder.name, env, x, y, holder.height_u, ld, wd)
+            row["stock"] = stock_key({"kind": "GridfinityBox", "length_u": x,
+                                      "width_u": y, "height_u": manifest["template_height_u"],
+                                      "length_div": ld, "width_div": wd,
+                                      "labels": tub_defaults["labels"].default,
+                                      "scoops": tub_defaults["scoops"].default, **opts})
+        elif holder.shape == "dock":
+            row["stock"] = stock_key({"kind": "GridfinityBaseplate", "length_u": x,
+                                      "width_u": y, "ext_depth": _kit.dock_extra_depth,
+                                      "straight_bottom": True})
+        elif holder.shape == "spacer":
+            row["prism"] = {"plane": "YZ", "length": opts["width"],
+                            "profile": H.spacer_profile(opts["width"], x, y, holder.height_u)}
+        else:
+            row["stock"] = stock_key({"kind": "GridfinityBox", "length_u": x,
+                                      "width_u": y, "height_u": manifest["template_height_u"],
+                                      "solid": True})
+            if holder.shape == "cradle":
+                profile, length = H.cradle_profile(x, y, holder.height_u)
+                row["cuts"] = [{"kind": "prism", "plane": "YZ", "length": length,
+                                "profile": profile}]
+                for env in holder.takes:
+                    H.assert_cradle_takes(holder.name, env, x, y, holder.height_u)
+            elif holder.shape == "comb":
+                mouths = [H.slot_mouth_for(env) for env in holder.takes]
+                profiles, length = H.comb_layout(x, y, holder.height_u, mouths, **opts)
+                row["cuts"] = [{"kind": "prism", "plane": "XZ", "length": length,
+                                "profile": p} for p in profiles]
+                for env, mouth in zip(holder.takes, mouths):
+                    H.assert_comb_takes(holder.name, env, y, holder.height_u, mouth, **opts)
+            elif holder.shape == "index":
+                floor, top, placed = H.index_layout(x, y, holder.height_u, opts["rows"])
+                row["cuts"] = [{"kind": "bore", "origin": [bx, by, floor],
+                                "diameter": d, "height": top - floor + 0.2}
+                               for _env, bx, by, d in placed]
+                for env in dict.fromkeys(env for env, *_ in placed):
+                    H.assert_index_holds(holder.name, env, holder.height_u)
+            else:
+                raise ValueError(f"{holder.name}: {holder.shape} is not a holder shape")
+        if holder.shape not in ("dock", "spacer"):
+            row["height_delta"] = (holder.height_u - manifest["template_height_u"]) * _kit.height_unit
+            seat = manifest["seats"][f"{x}x{y}"]
+            point = list(seat["body_point_mm"])
+            point[2] += _kit.dock_seat_z - seat["translation_z_mm"]
+            row["seat"] = {"dock": seat["dock_key"], "z": _kit.dock_seat_z,
+                           "plate_point": seat["plate_point_mm"], "body_point": point}
+        rows.append(row)
+    holder = next(h for h in HOLDERS if h.name == "reel-cradle")
+    mouth, depth, run = H.cradle_trough(holder.x_u, holder.y_u, holder.height_u)
+    top = _kit.top_reference_z(holder.height_u)
+    diameters = (40.0, 72.0, 110.0)
+    width = run / (len(diameters) + 1)
+    reels = [{"name": f"reel-{d:.0f}", "diameter": d, "width": 2.0 * width * 0.35,
+              "origin": [-run / 2.0 + width * (i + 1), 0.0,
+                         top + H.cradle_seat(mouth, depth, d)]}
+             for i, d in enumerate(diameters)]
+    signature = inspect.signature(_kit.assert_seated)
+    return {"holders": rows, "assets": assets, "reels": reels,
+            "extension_z": manifest["extension_z_mm"], "color": list(linear(_kit.kit_color)),
+            "witness_color": list(linear(cq.Color(0.80, 0.81, 0.83))),
+            "limits": [_kit.h2c_build_x, _kit.h2c_build_y, _kit.h2c_build_z],
+            "max_overlap": signature.parameters["max_overlap"].default,
+            "max_gap": signature.parameters["max_gap"].default}
+
+
 def main():
     out_dir.mkdir(exist_ok=True)
-    shapes = {}
-    for holder in HOLDERS:
-        shapes[holder.name] = build(holder)
-    print()
-    _kit.export_parts(out_dir, shapes)
-    reel = next(h for h in HOLDERS if h.name == "reel-cradle")
-    _kit.export_assembly_step(
-        out_dir,
-        "reel-cradle-witness",
-        cradle_witness(reel, shapes[reel.name], (40.0, 72.0, 110.0)),
-    )
+    said = _rust_part.cut("tooling", "shop-storage", numbers(), out_dir)
+    for body in said["bodies"][:len(HOLDERS)]:
+        size = [b - a for a, b in zip(body["min"], body["max"])]
+        print(f"   {body['name']}: {size[0]:.1f} x {size[1]:.1f} x {size[2]:.1f} mm")
+        if "dock_overlap_mm3" in body:
+            print(f"   {body['name']} on the dock: {body['dock_overlap_mm3']:.4f} mm^3 overlap, "
+                  f"{body['dock_gap_upper_bound_mm']:.4f} mm gap bound")
     _kit.substitute_md(here / "README.md", variables=figures())
-    print(f"\n{len(shapes)} holders")
-
+    print(f"\n{len(HOLDERS)} holders")
 
 if __name__ == "__main__":
     if "--sizes" in sys.argv:
