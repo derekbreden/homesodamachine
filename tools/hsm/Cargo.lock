@@ -784,7 +784,10 @@ name = "hsm-funnel"
 version = "0.1.0"
 dependencies = [
  "anyhow",
+ "hsm-geometry",
  "hsm-kernel",
+ "manifold-csg",
+ "serde",
  "serde_json",
  "sha2",
 ]

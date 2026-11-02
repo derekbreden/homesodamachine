@@ -9,12 +9,15 @@ the bowl's underside, so none of its top shows. A straight 6 mm bore grips the
 hole passes the stem through the rigid frame.
 """
 
+import argparse
 import math
 import sys
 from pathlib import Path
 
 _here = Path(__file__).resolve()
-_repo = next(p for p in _here.parents if (p / "hardware" / "scripts" / "_cadq_export.py").is_file())
+_repo = next(p for p in _here.parents if any(
+    (p / 'hardware/scripts' / helper).is_file()
+    for helper in ('_rust_part.py', '_cadq_export.py')))
 # _repo is this EDITION's root; tools/ is shared machinery with one copy at the
 # repo root, so it gets its own anchor rather than a tools/ per edition.
 _tools = next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"
@@ -287,14 +290,15 @@ def build(drop=drop):
     return cq.Workplane(obj=part), (m["w"], m["d"], m["top_z"] - m["end_z"], m["end_z"], fill)
 
 
-def main():
+def _native_main(output=None):
     import cadquery as cq
     import elbow_cradle
     from _cadq_export import export_assembly
     from _materials import M_SILICONE_BLACK, one_body
     from docgen import substitute_md
     funnel, (w, d, total, end_z, fill) = build()
-    out = _here.parent / "funnel.step"
+    out = (Path(output) if output is not None else _here.parent) / "funnel.step"
+    out.parent.mkdir(parents=True, exist_ok=True)
     # The funnel is cast in platinum-cure silicone, and the STEP says so — the card's own picture
     # of it is drawn off this file, the machine's picture off the same colour.
     export_assembly(one_body(funnel, "funnel", M_SILICONE_BLACK), str(out))
@@ -306,6 +310,35 @@ def main():
     print(f"  capacity to brim: {fill:.0f} mm³ = {fill / 1000.0:.0f} mL "
           f"(nominal {capacity_ml:g} mL)")
 
+    _document(fill)
+
+
+def numbers():
+    """The authored funnel primitives, in the brim-bearing coordinate frame."""
+    import elbow_cradle
+    from _materials import M_SILICONE_BLACK, linear
+    from _payload_rules import LINEAR_DEFLECTION_RATIO
+    return {
+        'bore_size': [collar_w-2*collar_wall, collar_d-2*collar_wall],
+        'mouth_radius': mouth_corner_r,
+        'ramp_z': [brim_thickness-chute_h, spout_land_z],
+        'bore_radius': spout_id/2, 'drain_xy': [neck_dx, neck_dy], 'collar_wall': collar_wall,
+        'end_z': -drop+plug_lift, 'top_z': brim_thickness+apron_rise,
+        'spout_radius': spout_id/2+spout_wall,
+        'brim_size': [collar_w+2*brim_overhang, collar_d+2*brim_overhang],
+        'brim_radius': brim_corner_r, 'brim_height': brim_thickness,
+        'apron_size': [apron_width, apron_depth], 'apron_y': apron_y,
+        'apron_radius': apron_corner_r, 'apron_z': [brim_thickness, brim_thickness+apron_rise],
+        'plug_size': [plug_width, 2*elbow_cradle.plug_half_length(plug_width/2)],
+        'plug_height': plug_height, 'color': list(linear(M_SILICONE_BLACK)),
+        'viewer_deflection_ratio': LINEAR_DEFLECTION_RATIO,
+    }
+
+
+def _document(fill):
+    import elbow_cradle
+    from docgen import substitute_md
+    total = brim_thickness+apron_rise-(-drop+plug_lift)
     substitute_md(
         _here.parent / "README.md",
         variables={
@@ -323,5 +356,22 @@ def main():
     print("-> README.md")
 
 
+def main(output=None, native=False):
+    if native:
+        return _native_main(output)
+    import _rust_part
+    out = Path(output) if output is not None else _here.parent
+    out.mkdir(parents=True, exist_ok=True)
+    said = _rust_part.cut('funnel', 'funnel', numbers(), out)
+    _document(said['bodies'][0]['fill_mm3'])
+    print(f"-> funnel STEP, fine model and payload; {said['bodies'][0]['volume']:.1f} mm3")
+
+
 if __name__ == "__main__":
-    main()
+    import _rust_part
+    _rust_part.start()
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--output', type=Path)
+    parser.add_argument('--native', action='store_true')
+    options = parser.parse_args()
+    main(options.output, options.native)

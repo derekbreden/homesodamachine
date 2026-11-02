@@ -13,22 +13,15 @@ import math
 import sys
 from pathlib import Path
 
-import cadquery as cq
-from cadquery.occ_impl.shapes import fuse as fuse_shapes
-from OCP.BRepOffsetAPI import BRepOffsetAPI_MakeOffsetShape
-from OCP.BRepOffset import BRepOffset_Mode
-from OCP.GeomAbs import GeomAbs_Arc
-import numpy as np
-import trimesh
 
 ROOT = next(p for p in Path(__file__).resolve().parents
-            if (p/'hardware/scripts/_cadq_export.py').is_file())
+            if any((p/'hardware/scripts'/name).is_file() for name in ('_rust_part.py','_cadq_export.py')))
 sys.path[:0] = [str(ROOT/'hardware/printed-parts/zone-c/funnel'),
                 str(ROOT/'hardware/scripts')]
+if __name__ == '__main__':
+    import _rust_part
+    _rust_part.start()
 import funnel
-from _cadq_export import export_assembly, import_assembly, import_step
-from _materials import one_body
-from flute_payload import cut as write_print_payload
 
 finish_allowance = 0.30
 # Dry-backing margin for the forming ramp's rounded offset joins.
@@ -71,15 +64,18 @@ chamber_diameter = 299.72
 
 
 def box(width, depth, bottom, top, x=0, y=0):
+    import cadquery as cq
     return (cq.Workplane('XY').box(width, depth, top-bottom,
             centered=(True, True, False)).translate((x, y, bottom)).val())
 
 
 def cylinder(radius, bottom, top, x=0, y=0):
+    import cadquery as cq
     return cq.Solid.makeCylinder(radius, top-bottom, cq.Vector(x, y, bottom))
 
 
 def rounded(width, depth, radius, bottom, top):
+    import cadquery as cq
     return cq.Workplane(obj=box(width, depth, bottom, top)).edges('|Z').fillet(radius).val()
 
 
@@ -117,6 +113,7 @@ def one(shape, name):
 def slab(face, distance):
     """The material within `distance` inside `face`. A plane's slab reaches past the
     face's own edges so its sides are nowhere coplanar with a neighbour's."""
+    import cadquery as cq
     if face.geomType() == 'PLANE':
         plane = cq.Plane(origin=face.Center(), normal=-face.normalAt())
         return cq.Workplane(plane).rect(1000, 1000).extrude(distance).val()
@@ -125,6 +122,10 @@ def slab(face, distance):
 
 def contraction_attempts(shape, faces, distance):
     """An inward normal offset with joined edges, then face-skin fallbacks."""
+    import cadquery as cq
+    from OCP.BRepOffsetAPI import BRepOffsetAPI_MakeOffsetShape
+    from OCP.BRepOffset import BRepOffset_Mode
+    from OCP.GeomAbs import GeomAbs_Arc
     def joined():
         offset = BRepOffsetAPI_MakeOffsetShape()
         offset.PerformByJoin(shape.wrapped, -distance, 1e-5,
@@ -154,6 +155,7 @@ def expanded(shape, distance):
 
 
 def contracted(shape, distance, top):
+    import cadquery as cq
     faces = [face for face in shape.Faces() if face.Center().z < top]
     boundary = cq.Compound.makeCompound(faces)
     for label, attempt in contraction_attempts(shape, faces, distance):
@@ -174,6 +176,7 @@ def contracted(shape, distance, top):
 def liquid_containment(cavity, core, rod, cast, floor, top, back, width,
                        neck, pour, vents, x, y, guide_top):
     """Check closure with the intended fill, vent and rod-guide mouths capped."""
+    import cadquery as cq
     overlap = 0.02
     surrounding = box(width+26, width+26, floor-2, back+8)
     outside = cq.Vector(-(width+26)/2+1, 0, floor)
@@ -202,6 +205,8 @@ def liquid_containment(cavity, core, rod, cast, floor, top, back, width,
 
 
 def build():
+    import cadquery as cq
+    from cadquery.occ_impl.shapes import fuse as fuse_shapes
     exterior, bore, m = funnel.build_solids()
     top, neck, end = m['top_z'], m['neck_z'], m['end_z']
     x, y = m['ncx'], m['ncy']
@@ -374,6 +379,26 @@ def build():
     shift = (0, 0, -floor)
     parts = {name: shape.translate(shift) for name, shape in
              [('cavity', cavity), ('core', core), ('funnel', cast), ('rod', rod)]}
+    return parts, _design(parts, m, minimum_backing, minimum_core_backing, containment)
+
+
+def _design(parts, m, minimum_backing, minimum_core_backing, containment):
+    n = numbers()
+    top, neck, end = m['top_z'], m['neck_z'], m['end_z']
+    x, y = m['ncx'], m['ncy']
+    floor, back = n['floor_z'], n['back_z']
+    flange_width, flange_depth = n['flange_size']
+    bolt_xy, locator_xy = n['bolt_xy'], n['locator_xy']
+    base_width, base_depth = n['base_size']
+    base_radius = n['base_radius']
+    corbel_bottom, corbel_top = n['corbel_z']
+    guide_radius = (rod_diameter+rod_clearance)/2
+    guide_top = neck+rod_guide_length
+    dry_radius = guide_radius+(back-guide_top)*corbel_run_per_rise
+    rod_bottom = end-rod_end_depth
+    rod_top = rod_bottom+rod_length
+    rod_engagement = rod_top-neck
+    pour, vents = n['pour_xy'], n['vent_xy']
     info = {
         'dimensions_mm': {n: [s.BoundingBox().xlen, s.BoundingBox().ylen,
                               s.BoundingBox().zlen] for n, s in parts.items()},
@@ -438,7 +463,7 @@ def build():
         'nominal_chamber_diameter_mm': chamber_diameter,
         'load_screen': load_screen(m, end),
         'status': 'Complete two-body tooling with flat print bases and straight stock steel rod; native geometry verified'}
-    return parts, info
+    return info
 
 
 def breathers(base_width, core_back):
@@ -468,6 +493,12 @@ def load_screen(m, bottom):
 
 def write_parts(parts, info, output):
     """Export one tooling design and views of those same bodies."""
+    import cadquery as cq
+    import numpy as np
+    import trimesh
+    from _cadq_export import export_assembly, import_assembly, import_step
+    from _materials import one_body
+    from flute_payload import cut as write_print_payload
     output.mkdir(parents=True, exist_ok=True)
     colors = {'cavity': cq.Color('#3D9998'), 'core': cq.Color('#D8A751'),
               'funnel': cq.Color('#555C68'), 'rod': cq.Color('#AAB9C8')}
@@ -527,6 +558,8 @@ def write_parts(parts, info, output):
 
 
 def write_back_view(parts, output):
+    import cadquery as cq
+    from _cadq_export import export_assembly
     backs = cq.Assembly()
     spacing = max(parts[n].BoundingBox().xlen for n in ('cavity', 'core')) / 2 + 22
     for name, dx, color in [('cavity', -spacing, '#3D9998'), ('core', spacing, '#D8A751')]:
@@ -538,15 +571,131 @@ def write_back_view(parts, output):
     export_assembly(backs, str(output/'backs.step'))
 
 
-def main():
-    parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--output', type=Path,
-        default=ROOT/'hardware/printed-parts/zone-c/funnel-mold')
-    args = parser.parse_args()
+def _native_main(output):
     parts, info = build()
-    write_parts(parts, info, args.output)
-    write_back_view(parts, args.output)
+    write_parts(parts, info, output)
+    write_back_view(parts, output)
+
+
+def numbers():
+    """Current mold dimensions and stations, beside the authored funnel dimensions."""
+    n = funnel.numbers()
+    keys = ('finish_allowance', 'forming_join_allowance', 'shell_thickness',
+            'corbel_run_per_rise', 'base_thickness', 'bolt_pocket_width',
+            'flange_thickness', 'flange_margin', 'flange_radius', 'bolt_diameter',
+            'bolt_edge_margin', 'bolt_station', 'locator_diameter', 'locator_height',
+            'locator_leadin', 'locator_clearance', 'locator_slot_travel', 'locator_x',
+            'locator_front_land', 'rod_diameter', 'rod_length', 'rod_clearance',
+            'rod_guide_length', 'rod_seat_wall', 'rod_socket_diameter', 'rod_socket_depth',
+            'rod_end_depth', 'vent_diameter', 'pour_diameter', 'floor_reserve',
+            'pry_width', 'pry_depth', 'pry_height', 'tolerance', 'chamber_diameter')
+    n.update({key: globals()[key] for key in keys})
+    top, end = n['top_z'], n['end_z']
+    floor = end-rod_socket_depth-shell_thickness-floor_reserve
+    back = top+flange_thickness
+    width = funnel.apron_width+2*flange_margin
+    depth = funnel.apron_depth+2*abs(funnel.apron_y)+2*flange_margin
+    bx, by = width/2-bolt_edge_margin, depth/2-bolt_edge_margin
+    z0, z1 = floor+base_thickness, top-flange_thickness
+    run = (z1-z0)*corbel_run_per_rise
+    port_x = funnel.apron_width/2-14.5
+    front_y = funnel.apron_y-funnel.apron_depth/2+10.0
+    rear_y = funnel.apron_y+funnel.apron_depth/2-12.0
+    locator_front = funnel.apron_y-funnel.apron_depth/2-locator_front_land
+    n.update({
+        'floor_z': floor, 'back_z': back, 'flange_size': [width, depth],
+        'base_size': [width-2*run, depth-2*run], 'base_radius': flange_radius-run,
+        'corbel_z': [z0, z1], 'bolt_limits': [bx, by],
+        'bolt_xy': [(side*bx, station*bolt_station) for side in (-1, 1) for station in (-1, 1)]
+                   + [(station*bolt_station, side*by) for side in (-1, 1) for station in (-1, 1)],
+        'locator_xy': [(locator_x, locator_front), (-locator_x, locator_front)],
+        'pour_xy': [-port_x, front_y],
+        'vent_xy': [(port_x, front_y), (port_x, rear_y), (-port_x, rear_y),
+                    (-funnel.apron_width/2+7.0, 0), (funnel.apron_width/2-7.0, 0)],
+    })
+    from _materials import linear
+    for name, color in {'cavity': '#3D9998', 'core': '#D8A751',
+                        'funnel': '#555C68', 'rod': '#AAB9C8'}.items():
+        n[name+'_color'] = list(linear(color))
+    return n
+
+
+class _PartFacts:
+    def __init__(self, facts):
+        self.facts = facts
+
+    def BoundingBox(self):
+        from types import SimpleNamespace
+        low, high = self.facts['bounds']
+        return SimpleNamespace(xlen=high[0]-low[0], ylen=high[1]-low[1], zlen=high[2]-low[2])
+
+    def Volume(self):
+        return self.facts['volume_mm3']
+
+
+def main(output, native=False):
+    if native:
+        return _native_main(output)
+    import _rust_part
+    n = numbers()
+    output.mkdir(parents=True, exist_ok=True)
+    said = _rust_part.cut('funnel', 'funnel-mold', n, output)
+    facts = {row['name']: {'bounds': [row['min'], row['max']], 'volume_mm3': row['volume']}
+             for row in said['bodies'][:4]}
+    facts['checks'] = said['bodies'][0]['checks']
+    parts = {name: _PartFacts(facts[name]) for name in ('cavity', 'core', 'funnel', 'rod')}
+    m = {'w': funnel.collar_w, 'd': funnel.collar_d,
+         'top_z': n['top_z'], 'ramp_top_z': n['ramp_z'][0],
+         'neck_z': n['ramp_z'][1], 'end_z': n['end_z'],
+         'ncx': funnel.neck_dx, 'ncy': funnel.neck_dy,
+         'out_w': funnel.apron_width, 'out_d': funnel.apron_depth+2*abs(funnel.apron_y)}
+    check = facts['checks']
+    info = _design(parts, m, check['minimum_cavity_backing_mm'],
+                   check['minimum_core_backing_mm'], check['liquid_containment'])
+    info['cavity_backing_scope'] = check['cavity_backing_scope']
+    import numpy as np
+    radii = []
+    dtype = np.dtype([('normal', '<f4', (3,)), ('vertices', '<f4', (3, 3)), ('attribute', '<u2')])
+    for name in ('cavity', 'core'):
+        facets = np.frombuffer((output/f'{name}.stl').read_bytes(), dtype=dtype, offset=84)
+        xy = facets['vertices'][:, :, :2].astype(np.float64)
+        radii.append(float(np.linalg.norm(xy, axis=2).max()))
+    info['enclosing_diameter_mm'] = 2*max(radii)
+    info['chamber_radial_clearance_mm'] = chamber_diameter/2-max(radii)
+    assert info['chamber_radial_clearance_mm'] > 0
+    info['volume_measurement_scope'] = 'Numerical integration of the fine f64 models; printed facets have their own bound records.'
+    info['shell_sha256'] = {f'{name}.{suffix}': hashlib.sha256((output/f'{name}.{suffix}').read_bytes()).hexdigest()
+                           for name in ('cavity', 'core') for suffix in ('step', 'stl', 'step.mesh', 'step.npz')}
+    info['status'] = 'Complete two-body tooling with flat print bases and straight stock steel rod; authored fine geometry verified'
+    (output/'design.json').write_text(json.dumps(info, indent=2)+'\n')
+    print('-> mold bodies, tooling views, fine models, print meshes and design.json')
+
+
+def __getattr__(name):
+    import importlib
+    modules = {'cq': 'cadquery', 'np': 'numpy', 'trimesh': 'trimesh'}
+    exports = {'fuse_shapes': ('cadquery.occ_impl.shapes', 'fuse'),
+               'export_assembly': ('_cadq_export', 'export_assembly'),
+               'import_assembly': ('_cadq_export', 'import_assembly'),
+               'import_step': ('_cadq_export', 'import_step'),
+               'one_body': ('_materials', 'one_body'),
+               'write_print_payload': ('flute_payload', 'cut'),
+               'BRepOffsetAPI_MakeOffsetShape': ('OCP.BRepOffsetAPI', 'BRepOffsetAPI_MakeOffsetShape'),
+               'BRepOffset_Mode': ('OCP.BRepOffset', 'BRepOffset_Mode'), 'GeomAbs_Arc': ('OCP.GeomAbs', 'GeomAbs_Arc')}
+    if name in modules:
+        value = importlib.import_module(modules[name])
+    elif name in exports:
+        module, attribute = exports[name]
+        value = getattr(importlib.import_module(module), attribute)
+    else:
+        raise AttributeError(name)
+    globals()[name] = value
+    return value
 
 
 if __name__ == '__main__':
-    main()
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--output', type=Path, default=ROOT/'hardware/printed-parts/zone-c/funnel-mold')
+    parser.add_argument('--native', action='store_true')
+    args = parser.parse_args()
+    main(args.output, args.native)
