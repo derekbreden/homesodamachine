@@ -20,6 +20,10 @@ REPO_ROOT = HARDWARE.parent
 ART = HERE / "art"
 
 sys.path.insert(0, str(HARDWARE / "scripts"))
+if __name__ == "__main__":
+    import _rust_part
+    _rust_part.start()
+
 from _cadq_export import note_read, note_write  # noqa: E402
 
 import _cad_art  # noqa: E402
