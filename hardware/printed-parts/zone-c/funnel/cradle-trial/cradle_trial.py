@@ -10,8 +10,6 @@ import json
 import sys
 from pathlib import Path
 
-import cadquery as cq
-
 _here = Path(__file__).resolve()
 _funnel = _here.parents[1]
 _hw = next(p for p in _here.parents if p.name == "hardware")
@@ -22,7 +20,17 @@ for _p in (_funnel, _hw / "scripts", _tools):
 import elbow_cradle as EC                                      # noqa: E402
 import funnel as FUN                                           # noqa: E402
 import funnel_frame as FF                                      # noqa: E402
-from OCP.BRepExtrema import BRepExtrema_DistShapeShape         # noqa: E402
+
+
+def __getattr__(name):
+    if name == 'cq':
+        import cadquery as value
+    elif name == 'BRepExtrema_DistShapeShape':
+        from OCP.BRepExtrema import BRepExtrema_DistShapeShape as value
+    else:
+        raise AttributeError(name)
+    globals()[name] = value
+    return value
 
 RECEIVER_H = 12.0      # receiver block height above the frame's underside
 RECEIVER_RIM = 6.0     # stock beyond the socket's widest X
@@ -30,6 +38,7 @@ RECEIVER_HALF_Y = 27.0  # socket-centred crop within the frame's flat underside
 
 
 def _gap(a, b):
+    from OCP.BRepExtrema import BRepExtrema_DistShapeShape
     d = BRepExtrema_DistShapeShape(a.wrapped, b.wrapped)
     d.Perform()
     return d.Value()
@@ -38,6 +47,7 @@ def _gap(a, b):
 def build():
     """`(receiver, cradle, elbow)` in the hole's local frame: origin on the hole's axis in the
     frame's underside, +Z up."""
+    import cadquery as cq
     floor, _plug, _rail = FF.datums()
     hole = cq.Vector(FUN.neck_dx, FF.center_y + FUN.neck_dy, floor)
     half_x = FF.socket_width / 2 + RECEIVER_RIM
@@ -50,6 +60,7 @@ def build():
 
 
 def check(receiver, cradle, elbow):
+    import cadquery as cq
     s = EC.stations()
     hang = cradle.translate(cq.Vector(0, 0, -EC.CATCH_GAP))
     return {
@@ -77,7 +88,38 @@ def check(receiver, cradle, elbow):
     }
 
 
-def main():
+def numbers():
+    """The web/socket crop and production cradle in the drain's local frame."""
+    n = EC.numbers()
+    s = EC.stations()
+    half = FUN.plug_width / 2
+    gap = (FF.socket_width-FUN.plug_width) / 2
+    n.update({
+        'receiver_half_size': (FF.socket_width/2+RECEIVER_RIM, RECEIVER_HALF_Y),
+        'receiver_height': RECEIVER_H,
+        'receiver_socket_size': (FF.socket_width, 2*(EC.plug_half_length(half)+gap)),
+        'socket_radius': EC.SOCKET_CORNER, 'socket_depth': FF.socket_depth,
+        'web': EC.WEB, 'hole_radius': EC.HOLE_D/2,
+        'slot_x': (s['slot_in'], s['slot_out']),
+        'slot_y': (EC.SLOT_FORE_Y-EC.END_SLIP, EC.SLOT_AFT_Y+EC.END_SLIP),
+        'trial_facts': {
+            'hook_deflection_to_pass_mm': s['bend']['hook_deflection'],
+            'wing_free_length_mm': s['bend']['free_length'],
+            'nominal_root_strain': s['bend']['root_strain'],
+            'lane_mm': s['lane'], 'hook_overlap_mm': EC.OVERLAP,
+            'hook_catch_gap_mm': EC.CATCH_GAP, 'hook_thickness_mm': EC.HOOK_T,
+            'hook_top_hanging_mm': s['hook_top']-EC.CATCH_GAP,
+            'funnel_block_bottom_mm': EC.WEB+FUN.plug_lift,
+            'hole_diameter_mm': EC.HOLE_D,
+            'scope': "Nominal CAD clearances and a tip-loaded cantilever estimate of the wing's "
+                     "bend; insertion force, strain tolerance and retention are for the print.",
+        },
+    })
+    return n
+
+
+def _native_main():
+    import cadquery as cq
     from _cadq_export import export_assembly
     from _materials import M_PETGF_BLACK, one_body
     receiver, cradle, elbow = build()
@@ -95,9 +137,13 @@ def main():
         {k: (round(v, 4) if isinstance(v, float) else v) for k, v in facts.items()}, indent=1)
         + "\n")
     print("-> geometry-check.json")
+    _document(facts)
+
+
+def _document(facts):
     from docgen import substitute_md
     st = EC.stations()
-    substitute_md(out / "README.md", variables={
+    substitute_md(_here.parent / "README.md", variables={
         "TRIAL_WEB": f"{EC.WEB:g} mm",
         "TRIAL_HOLE": f"{EC.HOLE_D:g} mm",
         "TRIAL_RECEIVER_H": f"{RECEIVER_H:g} mm",
@@ -111,5 +157,18 @@ def main():
     print("-> README.md")
 
 
+def main():
+    import _rust_part
+    _rust_part.cut('funnel', 'cradle-trial', numbers(), _here.parent)
+    facts = json.loads((_here.parent/'geometry-check.json').read_text())
+    _document(facts)
+    print('-> receiver/cradle STEP, model, payload, STL and geometry-check.json')
+
+
 if __name__ == "__main__":
-    main()
+    import _rust_part
+    _rust_part.start()
+    if sys.argv[1:] == ['--native']:
+        _native_main()
+    else:
+        main()
