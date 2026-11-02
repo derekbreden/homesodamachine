@@ -88,20 +88,38 @@ def bodies(rows, *, grid=None):
     }
 
 
-def read(path):
-    """Component bounds and volumes, measured by Rust on their fine f64 arrays."""
+def measurements(path, *, component_names=()):
+    """Raw Rust fine summaries, shared by numeric consumers of one physical export."""
     import _assembly_model
-    from meshcad.rule import GRID
+    import hashlib
 
     # Separate spades and the compressor power cover remain meaningful even when
     # one logical archive entry holds their disconnected shells.
     hosts = ('compressor','valve-v-a','valve-v-b','vk-solenoid',
              *(f'coil-v-{letter}' for letter in 'cdefghij'))
     result = _assembly_model.measure([_assembly_model.instance(path)], (),
-        component_names=[name for host in hosts for name in (host,'cold-core/'+host)])
+        component_names=sorted(set(component_names)|
+            {name for host in hosts for name in (host,'cold-core/'+host)}))
+    path=Path(path).resolve()
+    with path.open('rb')as stream:digest=hashlib.file_digest(stream,'sha256').hexdigest()
+    return {'path':str(path),'sha256':digest,'bodies':result['bodies']}
+
+
+def read(path, *, reading=None):
+    """Component bounds and volumes, measured by Rust on their fine f64 arrays."""
+    from meshcad.rule import GRID
+
+    if reading is None:reading=measurements(path)
+    if Path(reading['path']).resolve()!=Path(path).resolve():
+        raise ValueError('Physical measurements belong to another model')
+    import hashlib
+    with Path(path).open('rb')as stream:
+        digest=hashlib.file_digest(stream,'sha256').hexdigest()
+    if digest!=reading['sha256']:
+        raise ValueError('Physical model changed after its measurements')
     # Attachments use the model reader's coordinate grid. Snapping the extrema
     # gives the bounds of those snapped vertices without rebuilding the mesh.
-    return bodies(result["bodies"], grid=GRID)
+    return bodies(reading['bodies'], grid=GRID)
 
 
 def reference_bounds(path, rotation):
