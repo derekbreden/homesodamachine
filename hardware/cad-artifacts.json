@@ -1453,6 +1453,7 @@
     "hardware/reference/neofit-flavor-reducer/neofit-flavor-reducer.step.mesh": "e6f5144ed1b80765513497a1af723b19ac4241d58d5b3b6ebb9972e11472344d",
     "hardware/reference/neofit-flow-control/neofit-flow-control.step": "11b2c1d4645f1afd20704e90b981ca18749a6ab7ce7aa323f2c1f5d4f6bd6aba",
     "hardware/reference/neofit-flow-control/neofit-flow-control.step.mesh": "5f948bf30c8f43937018e4fd2e3a98b9fce8a048f86046d55834e929b04a07cb",
+    "hardware/reference/neofit-stem-elbow/neofit-stem-elbow.fine.step.mesh": "fe71c3de383c18b38e913f12c7f6e7a6aa9840f02f9c0a58208620347a6a9149",
     "hardware/reference/neofit-stem-elbow/neofit-stem-elbow.step": "3019e6b26531b3e2d9b9454a689264ae45c352d0fc28ca9712928a90e7f42f53",
     "hardware/reference/neofit-stem-run-tee/neofit-stem-run-tee.step": "25d95678f224be25fc5be06f52455f179445db245cfd810e8caa9f620cce6956",
     "hardware/reference/neofit-stem-run-tee/neofit-stem-run-tee.step.mesh": "321d16f7c8a6436c68a2e0e0b412038b91aafb91410029b20294685af08c3a6f",
@@ -2937,6 +2938,7 @@
     "hardware/reference/neofit-flavor-reducer/neofit-flavor-reducer.step.mesh": 1793568839,
     "hardware/reference/neofit-flow-control/neofit-flow-control.step": 1787578592,
     "hardware/reference/neofit-flow-control/neofit-flow-control.step.mesh": 1793568839,
+    "hardware/reference/neofit-stem-elbow/neofit-stem-elbow.fine.step.mesh": 1793606533,
     "hardware/reference/neofit-stem-elbow/neofit-stem-elbow.step": 1793334135,
     "hardware/reference/neofit-stem-run-tee/neofit-stem-run-tee.step": 1792738887,
     "hardware/reference/neofit-stem-run-tee/neofit-stem-run-tee.step.mesh": 1793568839,
@@ -5257,6 +5259,10 @@
     "hardware/wiring/enclosure-wiring.step.mesh": {
       "inputs": "44d739202b1f1cac22ea27c1e30ef302cce3d3b67e93b92f8a538d9b6caa4a94",
       "commit": "eecf0d62eca0d6cf018f9bfc1b00a28a984c9cfc",
+      "unproven": true
+    },
+    "hardware/reference/neofit-stem-elbow/neofit-stem-elbow.fine.step.mesh": {
+      "commit": "50836e9a7c799f7fad16460f6f38b41a86b14cea",
       "unproven": true
     }
   }
