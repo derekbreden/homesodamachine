@@ -383,7 +383,7 @@ fn thin(depth: &[f64], rail: &Rail, h: usize, plan_tol: f64) -> (Vec<usize>, Vec
     (cols, rows)
 }
 
-fn cutter(mesh: &Mesh, rail: &Rail, f: &Field) -> Result<Option<Mesh>> {
+fn cutter(mesh: &Mesh, rail: &Rail, f: &Field) -> Result<Option<(Mesh, serde_json::Value)>> {
     ensure!(
         rail.s.len() == rail.point.len() && rail.s.len() == rail.normal.len() && rail.s.len() >= 3,
         "rail samples have matching stations, points and normals"
@@ -539,22 +539,43 @@ fn cutter(mesh: &Mesh, rail: &Rail, f: &Field) -> Result<Option<Mesh>> {
             t.swap(0, 2);
         }
     }
-    Ok(Some(Mesh { points, triangles }))
+    let source = json!({"src": hsm_kernel::src_line(std::panic::Location::caller()),
+                        "op": "flute cut"});
+    Ok(Some((Mesh { points, triangles }, source)))
 }
 
 fn flute_mesh(mesh: &Mesh, n: &Numbers, extra_plain: &[[f64; 6]]) -> Result<Manifold> {
+    flute_mesh_observed(mesh, n, extra_plain, None)
+}
+
+fn flute_mesh_observed(
+    mesh: &Mesh,
+    n: &Numbers,
+    extra_plain: &[[f64; 6]],
+    mut observer: Option<&mut dyn FluteObserver>,
+) -> Result<Manifold> {
     let field: Field = serde_json::from_value(n.get("field")?.clone())?;
     let mut rails: Vec<Rail> = serde_json::from_value(n.get("rails")?.clone())?;
     for rail in &mut rails {
         rail.plain.extend_from_slice(extra_plain);
     }
     let mut operands = vec![mesh.manifold()?];
+    if let Some(watch) = observer.as_mut() {
+        watch.base(&operands[0]);
+    }
     for rail in &rails {
-        if let Some(tool) = cutter(mesh, rail, &field)? {
-            operands.push(tool.manifold()?);
+        if let Some((tool, source)) = cutter(mesh, rail, &field)? {
+            let tool = tool.manifold()?;
+            if let Some(watch) = observer.as_mut() {
+                watch.cutter(&tool, source);
+            }
+            operands.push(tool);
         }
     }
     let out = if operands.len() == 1 {
+        if let Some(watch) = observer.as_mut() {
+            watch.cut(&operands[0]);
+        }
         operands.remove(0)
     } else {
         let cut = if operands.len() == 2 {
@@ -563,12 +584,18 @@ fn flute_mesh(mesh: &Mesh, n: &Numbers, extra_plain: &[[f64; 6]]) -> Result<Mani
             operands[0].difference(&Manifold::batch_union(&operands[1..]))
         };
         drop(operands);
+        if let Some(watch) = observer.as_mut() {
+            watch.cut(&cut);
+        }
         let (vertices, props, triangles) = cut.to_mesh_f32();
         drop(cut);
         // The same second construction and union the Python print path makes after
         // quantizing to the positions its STL can store.
         Manifold::from_mesh_f32(&vertices, props, &triangles)?
     };
+    if let Some(watch) = observer.as_mut() {
+        watch.finished(&out);
+    }
     Ok(out)
 }
 
@@ -583,6 +610,27 @@ pub(crate) fn flute_solid(
         triangles: solid.tris().iter().map(|t| t.map(|i| i as usize)).collect(),
     };
     flute_mesh(&mesh, n, extra_plain)
+}
+
+/// Observers read relations beside the print path; they cannot supply or alter its meshes.
+pub(crate) trait FluteObserver {
+    fn base(&mut self, shape: &Manifold);
+    fn cutter(&mut self, shape: &Manifold, source: serde_json::Value);
+    fn cut(&mut self, shape: &Manifold);
+    fn finished(&mut self, shape: &Manifold);
+}
+
+pub(crate) fn flute_solid_observed(
+    solid: &hsm_kernel::Solid,
+    n: &Numbers,
+    extra_plain: &[[f64; 6]],
+    observer: &mut dyn FluteObserver,
+) -> Result<Manifold> {
+    let mesh = Mesh {
+        points: solid.verts().iter().map(|p| p.to_array()).collect(),
+        triangles: solid.tris().iter().map(|t| t.map(|i| i as usize)).collect(),
+    };
+    flute_mesh_observed(&mesh, n, extra_plain, Some(observer))
 }
 
 fn main() -> Result<()> {
