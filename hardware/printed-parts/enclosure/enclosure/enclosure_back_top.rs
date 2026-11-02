@@ -137,6 +137,13 @@ fn turned(v: &Value) -> Result<Solid> {
         .rotate(V3::ZERO, V3::Z, 90.)
         .translate(v3(c[0], 0., c[1])))
 }
+fn radial_profile(v: &Value) -> Result<Solid> {
+    let points = points(&v["points"])?;
+    let mut profile = vec![v2(points.first().context("radial profile start")?.x, 0.)];
+    profile.extend_from_slice(&points);
+    profile.push(v2(points.last().context("radial profile end")?.x, 0.));
+    Plane::XY.revolve(&Profile::polygon(&profile), 360., V2::ZERO, v2(1., 0.))
+}
 fn stadium(v: &Value) -> Result<Solid> {
     let (y, z, r) = (f(v, "y")?, f(v, "z")?, f(v, "radius")?);
     let (a, b) = (y - f(v, "fore")?, y + f(v, "aft")?);
@@ -222,6 +229,7 @@ pub(crate) fn build(n: &Numbers) -> Result<Built> {
                 "arc-prism" => arc_prism(v)?,
                 "inlet-flange" => flange(v)?,
                 "turned-runs" => turned(v)?,
+                "radial-profile" => radial_profile(v)?,
                 "stadium-x" => stadium(v)?,
                 "union" | "cut" | "intersect" => {
                     let mut s = input(0).clone();
