@@ -2,8 +2,8 @@
 
 The engine invokes this with the checkout's CAD interpreter. The shared action
 plan supplies the inputs and outputs; geometry stays in the existing generator
-and its Rust program. Actions with producer dependencies remain with the normal
-build until the engine's dependency caller is connected.
+and its Rust program. The enrolled dependency slice uses completed producer blobs;
+other actions remain with the normal build.
 """
 from __future__ import annotations
 
@@ -13,7 +13,6 @@ import json
 import os
 from pathlib import Path
 import re
-import runpy
 import shutil
 import subprocess
 import sys
@@ -27,6 +26,7 @@ from sync_tree import _SPLICE, _whole_rewritten, carried
 SUPPORT = ("tools/hsm/generate.py", "tools/bazel/gen_build.py", "tools/bazel/inventory.py",
            "tools/bazel/pysrc.py", "tools/bazel/sync_tree.py", "tools/_artifact_inputs.py",
            "tools/cad-artifacts/pack.py", "tools/cad-requirements.txt")
+ENROLLED = frozenset(("water-inlet-jet-fixture", "elbow-cradle", "funnel-mold"))
 
 
 def sha(path):
@@ -55,17 +55,29 @@ def source_bytes(path, mode):
 
 
 def describe(target):
-    if target != "water-inlet-jet-fixture":
-        raise ValueError("The generator-action slice currently supports water-inlet-jet-fixture")
     actions, _ = action_plan()
-    if target not in actions:
-        raise ValueError("No declared generator action: " + target)
-    action = actions[target]
-    if action["dependencies"]:
-        raise ValueError("Generator dependencies still require the normal build: "
-                         + ", ".join(action["dependencies"]))
-    if action["node_runtimes"]:
-        raise ValueError("Node runtimes still require the normal build")
+    ordered, visited = [], set()
+
+    def visit(name):
+        if name in visited:
+            return
+        if name not in ENROLLED:
+            raise ValueError("Generator action is not enrolled in the engine slice: " + name)
+        if name not in actions:
+            raise ValueError("No declared generator action: " + name)
+        action = actions[name]
+        if action["node_runtimes"] or action["support_inputs"]:
+            raise ValueError("Node and support actions still require the normal build: " + name)
+        for dependency in action["dependencies"]:
+            visit(dependency)
+        visited.add(name)
+        ordered.append(describe_action(name, action))
+
+    visit(target)
+    return {"version": 2, "target": target, "actions": ordered}
+
+
+def describe_action(target, action):
     rewritten = sorted(set(action["docs"]))
     for name in rewritten:
         if Path(name).suffix not in _SPLICE and not _whole_rewritten(name):
@@ -74,6 +86,11 @@ def describe(target):
     for name in sorted(set(action["reads"]) | set(action["optional"]) | set(SUPPORT)):
         path = ROOT / relative(name)
         mode = "pysrc" if name in action["stripped"] else "raw"
+        producer = action["producers"].get(name)
+        if producer and producer != target:
+            # The engine binds this hash after this request completes the producer.
+            inputs.append({"path": name, "mode": mode, "producer": producer})
+            continue
         if not path.is_file():
             if name not in action["optional"]:
                 raise FileNotFoundError(path)
@@ -89,7 +106,8 @@ def describe(target):
                 packages[name] = importlib.metadata.version(name)
             except importlib.metadata.PackageNotFoundError:
                 packages[name] = None
-    return {"version": 1, "target": target, "generators": action["generators"],
+    return {"version": 2, "target": target, "generators": action["generators"],
+            "entrypoints": action["entrypoints"], "dependencies": action["dependencies"],
             "inputs": inputs, "outputs": sorted(action["solids"] + action["docs"]),
             "rewritten": rewritten, "payload": any(p.endswith(".step.mesh") for p in action["solids"]),
             "runtime": {"python": sys.version, "executable_sha256": sha(sys.executable),
@@ -106,8 +124,10 @@ def clone(source, destination):
     shutil.copyfile(source, destination)
 
 
-def validate(recipe, root):
+def validate(recipe, root, *, sources_only=False):
     for row in recipe["inputs"]:
+        if sources_only and "producer" in row:
+            continue
         path = root / relative(row["path"])
         digest = (hashlib.sha256(source_bytes(path, row["mode"])).hexdigest()
                   if path.is_file() else None)
@@ -115,13 +135,19 @@ def validate(recipe, root):
             raise ValueError("Generator input changed: " + row["path"])
 
 
-def execute(recipe, scratch, socket):
+def execute(recipe, scratch, socket, blobs):
     stage, out = scratch / "stage", scratch / "out"
     stage.mkdir(); out.mkdir()
     for row in recipe["inputs"]:
         if row["sha256"] is None:
             continue
-        source, dest = ROOT / relative(row["path"]), stage / row["path"]
+        if "producer" in row:
+            if row["mode"] != "raw" or not re.fullmatch(r"[0-9a-f]{64}", row["sha256"]):
+                raise ValueError("Invalid completed producer input: " + row["path"])
+            source = blobs / row["sha256"]
+        else:
+            source = ROOT / relative(row["path"])
+        dest = stage / row["path"]
         if row["mode"] == "pysrc":
             dest.parent.mkdir(parents=True, exist_ok=True)
             dest.write_bytes(source_bytes(source, row["mode"]))
@@ -138,19 +164,17 @@ def execute(recipe, scratch, socket):
                 for chunk in iter(lambda: stream.read(1 << 20), b""):
                     digest.update(chunk)
     reads_log = scratch / "nested-reads.jsonl"
-    os.environ.update(HSM_WORKSPACE=str(ROOT), HSM_REPO_ROOT=str(stage),
+    env = dict(os.environ, HSM_WORKSPACE=str(ROOT), HSM_REPO_ROOT=str(stage),
                       HSM_INPUT_DIGEST=digest.hexdigest()[:32], HSM_SOCKET=socket,
                       HSM_GENERATOR_READS=str(reads_log))
     if recipe["payload"]:
-        os.environ.pop("HSM_SKIP_MESH_PAYLOAD", None)
-    os.chdir(stage)
-    # Match the normal action's script entry, including its existing main guard.
-    sys.path[:0] = [str(stage / "hardware/scripts")]
-    for name in recipe["generators"]:
-        sys.argv = [name]
-        sys.path.insert(0, str((stage / name).parent))
-        runpy.run_path(str(stage / name), run_name="__main__")
-        sys.path.pop(0)
+        env.pop("HSM_SKIP_MESH_PAYLOAD", None)
+    import _run_slots
+    # BUILD starts each script in a separate interpreter. Modules, globals and main
+    # guards cannot leak between co-writers, while their staged files remain shared.
+    for argv in recipe["entrypoints"]:
+        subprocess.run([sys.executable, *argv], cwd=stage, check=True,
+                       **_run_slots.subprocess_kwargs(env))
     nested = [json.loads(line) for line in reads_log.read_text().splitlines()] if reads_log.exists() else []
     bound = {row["path"]: row["sha256"] for row in recipe["inputs"]}
     external, bindings, keepable = {}, [], True
@@ -178,11 +202,10 @@ def execute(recipe, scratch, socket):
                     keepable = False
     for name in recipe["outputs"]:
         clone(stage / relative(name), out / name)
-    validate(recipe, ROOT)
-    import _run_slots
+    validate(recipe, ROOT, sources_only=True)
     result = {"runtime_reads": bindings, "nested_runs": nested, "keepable": keepable,
               "verified_run_lease": bool(_run_slots.current()),
-              "native_loaded": "OCP.OCP" in sys.modules,
+              "entrypoints": recipe["entrypoints"], "separate_interpreters": True,
               "external_reads": [[base, name, digest] for (base, name), digest in sorted(external.items())]}
     (scratch / "receipt.json").write_text(json.dumps(result))
 
@@ -208,10 +231,10 @@ if __name__ == "__main__":
     if mode == "describe":
         print(json.dumps(describe(args[0]), sort_keys=True))
     elif mode == "execute":
-        execute(json.loads(Path(args[0]).read_text()), Path(args[1]), args[2])
+        execute(json.loads(Path(args[0]).read_text()), Path(args[1]), args[2], Path(args[3]))
     elif mode == "place":
         data = json.loads(Path(args[0]).read_text())
-        validate(data["recipe"], ROOT)
+        validate(data["recipe"], ROOT, sources_only=True)
         place(data["recipe"], Path(args[1]), Path(args[2]), data["files"])
     else:
         raise ValueError("Unknown generator worker operation: " + mode)
