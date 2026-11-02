@@ -508,7 +508,11 @@ class MeshModelSolid(MeshSolid):
     def m(self):
         if self._m is None:
             self._m = build.solid(self._model, snap_to_grid=False)
+            HOLDING.add(self)
         return self._m
+
+    def _forget_backend(self):
+        self._m = self._topo = self._parts = None
 
     def model_arrays(self):
         part = self._model
