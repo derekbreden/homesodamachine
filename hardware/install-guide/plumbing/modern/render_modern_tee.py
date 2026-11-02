@@ -43,7 +43,7 @@ ART = HERE / "art"
 os.environ.setdefault("HSM_NO_BUILD_LOCK", "1")
 sys.path.insert(0, str(HARDWARE / "scripts"))
 sys.path.insert(0, str(HARDWARE / "reference" / "jg-pp0408w"))
-from _cadq_export import _per_solid_color, _write_mesh_payload, import_step, note_write  # noqa: E402
+from _cadq_export import _atomic_write, _per_solid_color, _write_mesh_payload, import_step, note_write  # noqa: E402
 import _hsm_render  # noqa: E402
 import jg_pp0408w as union_ref  # noqa: E402
 
@@ -583,7 +583,7 @@ def _export_scene(scene: cq.Assembly, target: Path) -> None:
     if not compound.isValid():
         raise RuntimeError(f"invalid scene compound: {scene.name}")
     colored = _per_solid_color(scene)
-    colored.export(str(target))
+    _atomic_write(target, lambda path: colored.export(str(path)))
     _write_mesh_payload(target, colored)
 
 
@@ -619,6 +619,8 @@ def _job(step: Path, output: Path, view: View) -> dict:
 
 def main() -> None:
     ART.mkdir(parents=True, exist_ok=True)
+    shared = HERE / "out"
+    shared.mkdir(parents=True, exist_ok=True)
 
     outputs: list[Path] = []
     with tempfile.TemporaryDirectory(prefix=".modern-pushfit-", dir=HERE) as directory:
@@ -626,9 +628,12 @@ def main() -> None:
         jobs = []
         for name, builder, view in SCENES:
             scene = builder()
-            step = work / f"{name}.step"
+            step = (shared if name == "modern-water-on" else work) / f"{name}.step"
             output = ART / f"{name}.png"
             _export_scene(scene, step)
+            if name == "modern-water-on":
+                note_write(step)
+                note_write(Path(f"{step}.mesh"))
             jobs.append(_job(step, output, view))
             outputs.append(output)
 
