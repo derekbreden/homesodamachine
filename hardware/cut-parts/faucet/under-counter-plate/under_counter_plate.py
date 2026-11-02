@@ -72,7 +72,7 @@ sys.path.insert(0, str(_hardware_dir / "printed-parts" / "faucet"))
 sys.path.insert(0, str(_hardware_dir / "printed-parts" / "cadlib"))
 sys.path.insert(0, str(_hardware_dir / "scripts"))
 from docgen import substitute_md, substitute_py_comments
-from _cadq_export import export_dxf
+from _document_export import export_dxf
 import _faucet_interface as interface
 
 # Dimensions in mm. DXF $INSUNITS = 4 (millimeters).
