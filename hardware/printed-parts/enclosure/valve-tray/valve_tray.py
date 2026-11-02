@@ -55,10 +55,16 @@ if __name__ == "__main__":
     import _rust_part
     _rust_part.start()
 
-import cadquery as cq                                    # noqa: E402
 import beduan_solenoid as _valve                          # noqa: E402
 import valve_seat as _seat                                # noqa: E402
 from docgen import substitute_md                          # noqa: E402
+
+
+def __getattr__(name):
+    if name == "cq":
+        import cadquery
+        return cadquery
+    raise AttributeError(f"module {__name__!r} has no attribute {name!r}")
 
 
 # --- what the tray adds over the seats it carries ---------------------------
@@ -182,6 +188,7 @@ def build_port_channel(length: float):
     A CYLINDER AND NOT A SLOT. The port is round and the channel closes on it all the way round
     at one slip, the way the flow-meter anchors take a barrel — a square slot to the same width
     would take the plate's whole depth at the corners for air the port is nowhere near."""
+    import cadquery as cq
     return (cq.Workplane("XZ")
             .center(0.0, _valve.port_center_z)
             .circle(_valve.port_radius + PORT_SLIP)
@@ -193,6 +200,7 @@ def build_body_clearance():
     The lower post sockets retain their own radial fit below the bearing plane.
     The physical cap dimensions are independent of the manifold's packing pitch.
     """
+    import cadquery as cq
     slip = PORT_SLIP
 
     def cylinder(radius, z0, z1, x=0.0, y=0.0):
@@ -228,6 +236,7 @@ def build_valve_tray(width: float, seats):
     `seats` is `(x, y)` per valve in the plate's own frame — where that valve's footprint centre
     lands. Every valve on one tray has its port axis on Y and stands on the same plane;
     adjacent columns may have different Y positions."""
+    import cadquery as cq
     if not seats:
         raise ValueError("a valve tray with no seats is a plate, and this machine prints none")
     ys = [y for _x, y in seats]
@@ -346,33 +355,38 @@ def trays_of_machine(facts):
     return facts.valve_trays
 
 
+def _socket_numbers(x, y, shift):
+    return [[x + sx * _seat.corner_inset_x, y + sy * _seat.corner_inset_y,
+             _seat.socket_floor_z + shift, _seat.socket_radius,
+             _seat.seat_top_z - _seat.socket_floor_z + 1.0]
+            for sx in (-1.0, 1.0) for sy in (-1.0, 1.0)]
+
+
+def tray_stock_numbers(width, seats):
+    """The stock and cylindrical cuts of ``build_valve_tray``, in its own frame."""
+    ys = [y for _x, y in seats]
+    mid_y = (min(ys) + max(ys)) / 2.0
+    tray_height = height(seats)
+    return {
+        "slab": [[-width / 2.0, mid_y - tray_height / 2.0, -THICK],
+                 [width / 2.0, mid_y + tray_height / 2.0, 0.0]],
+        "sockets": [s for x, y in seats for s in _socket_numbers(x, y, SEAT)],
+        "channels": [[x, y, _valve.port_center_z + SEAT,
+                      _valve.port_radius + PORT_SLIP,
+                      tray_height + 2.0 * abs(y - mid_y) + 2.0] for x, y in seats],
+    }
+
+
 def numbers(trays):
     """The original tray stock, socket/channel cylinders and finite web-reading solids."""
     sys.path.insert(0, str(_hw / "printed-parts/enclosure/enclosure"))
     import _enclosure_interface as interface                     # noqa: PLC0415
 
-    def sockets(x, y, shift):
-        return [[x + sx * _seat.corner_inset_x, y + sy * _seat.corner_inset_y,
-                 _seat.socket_floor_z + shift, _seat.socket_radius,
-                 _seat.seat_top_z - _seat.socket_floor_z + 1.0]
-                for sx in (-1.0, 1.0) for sy in (-1.0, 1.0)]
-
     plans = []
     for name, (width, seats) in sorted(trays.items()):
-        ys = [y for _x, y in seats]
-        mid_y = (min(ys) + max(ys)) / 2.0
-        tray_height = height(seats)
-        plans.append({
-            "name": name,
-            "slab": [[-width / 2.0, mid_y - tray_height / 2.0, -THICK],
-                     [width / 2.0, mid_y + tray_height / 2.0, 0.0]],
-            "sockets": [s for x, y in seats for s in sockets(x, y, SEAT)],
-            "channels": [[x, y, _valve.port_center_z + SEAT,
-                          _valve.port_radius + PORT_SLIP,
-                          tray_height + 2.0 * abs(y - mid_y) + 2.0] for x, y in seats],
-        })
+        plans.append({"name": name, **tray_stock_numbers(width, seats)})
     return {"trays": plans, "extrusion_w": interface.extrusion_w,
-            "web_sockets": sockets(0.0, 0.0, 0.0),
+            "web_sockets": _socket_numbers(0.0, 0.0, 0.0),
             "web_channel": [0.0, 0.0, _valve.port_center_z,
                             _valve.port_radius + PORT_SLIP, height() + 2.0]}
 
