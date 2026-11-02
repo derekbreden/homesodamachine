@@ -34,6 +34,14 @@ path = "../../../hardware/install-guide/install_art_props.rs"
 name = "faucet-display-snap"
 path = "../../../hardware/printed-parts/fixtures/faucet-display-snap/faucet_display_snap_trial.rs"
 
+[[bin]]
+name = "weld-rotator"
+path = "../../../hardware/printed-parts/fixtures/weld-rotator/weld_rotator.rs"
+
+[[bin]]
+name = "water-inlet-jet-fixture"
+path = "../../../hardware/printed-parts/fixtures/water-inlet-jet/water_inlet_jet_fixture.rs"
+
 [dependencies]
 anyhow.workspace = true
 hsm-kernel = { path = "../kernel" }
