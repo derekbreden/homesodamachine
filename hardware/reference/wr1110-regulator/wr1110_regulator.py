@@ -79,57 +79,6 @@ def stations() -> dict:
     return {"inlet": inlet(), "outlet": outlet()}
 
 
-def _turned(profile):
-    """An axial radius profile revolved about +Z before the final frame turn."""
-    import cadquery as cq
-    outline = [(0, profile[0][0]), *((r, y) for y, r in profile),
-               (0, profile[-1][0])]
-    return cq.Workplane("XZ").polyline(outline).close().revolve(360, (0, 0), (0, 1))
-
-
-def _wrench(profile, across_flats, clock=0.0):
-    import cadquery as cq
-    import math
-    prism = (cq.Workplane("XY").workplane(offset=profile[0][0])
-             .polygon(6, across_flats / math.cos(math.pi / 6))
-             .extrude(profile[-1][0] - profile[0][0])
-             .rotate((0, 0, 0), (0, 0, 1), 30 - clock))
-    return _turned(profile).intersect(prism)
-
-
-def build():
-    """Analytic exterior, clipped wrench hexes and observed open mouths."""
-    import cadquery as cq
-    body = (cq.Workplane("XY").workplane(offset=BODY_START)
-            .circle(BODY_D / 2).extrude(BODY_LENGTH))
-    part = (_wrench(INLET_PROFILE, INLET_HEX_AF).union(body)
-            .union(_wrench(OUTLET_PROFILE, OUTLET_HEX_AF, OUTLET_HEX_CLOCK))
-            .union(_turned(STUB_PROFILE)))
-    # Only the visible mouth is represented; these blind ends are display closures.
-    inlet_mouth = _turned(((0.0, 7.10), (1.3, 6.10), (4.5, 6.05)))
-    outlet_mouth = _turned(((OVERALL_LENGTH - 2.5, 3.85),
-                            (OVERALL_LENGTH, 4.00)))
-    return part.cut(inlet_mouth).cut(outlet_mouth).rotate((0, 0, 0), (1, 0, 0), -90)
-
-
-def _native_main():
-    from _cadq_export import export_assembly, import_step
-    from _materials import M_ALUMINIUM, one_body
-    part = build()
-    bb = part.val().BoundingBox()
-    print("Interstate Pneumatics WR1110 secondary regulator")
-    print(f"  Bounding box: X [{bb.xmin:.2f}, {bb.xmax:.2f}]  "
-          f"Y [{bb.ymin:.2f}, {bb.ymax:.2f}]  Z [{bb.zmin:.2f}, {bb.zmax:.2f}]")
-    print(f"  Barrel Ø{BODY_D:g} × {BODY_LENGTH:g} mm; "
-          f"hex shoulder y={TOTAL_LENGTH:g}; overall {OVERALL_LENGTH:g} mm")
-    for label, (pos, axis) in (("inlet  (F)", inlet()), ("outlet (M)", outlet())):
-        print(f"  {label}: ({pos[0]:7.2f}, {pos[1]:6.2f}, {pos[2]:7.2f})  out {axis}")
-    export_assembly(one_body(part, "wr1110-regulator", M_ALUMINIUM), str(STEP))
-    print(f"-> {STEP.name}")
-
-
-
-
 _FROZEN_DIR = Path(__file__).resolve().parent
 STEP_PATH = _FROZEN_DIR / 'wr1110-regulator.step'
 PAYLOAD_PATH = _FROZEN_DIR / 'wr1110-regulator.step.mesh'
@@ -137,21 +86,11 @@ ASSET_MANIFEST_PATH = _FROZEN_DIR / "frozen-asset.json"
 
 
 def __getattr__(name):
-    if name in globals():
-        return globals()[name]
-    if name in ('cq',):
-        import cadquery as cq
-        value = locals()[name]
-    elif name in ('export_assembly', 'import_step'):
-        from _cadq_export import export_assembly, import_step
-        value = locals()[name]
-    elif name in ('M_ALUMINIUM', 'one_body'):
-        from _materials import M_ALUMINIUM, one_body
-        value = locals()[name]
-    else:
+    if name != 'import_step':
         raise AttributeError(name)
-    globals()[name] = value
-    return value
+    from _cadq_export import import_step
+    globals()[name] = import_step
+    return import_step
 
 
 def main():
