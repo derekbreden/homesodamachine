@@ -10,7 +10,6 @@ from __future__ import annotations
 import argparse
 import json
 import math
-import subprocess
 
 import cadquery as cq
 from PIL import Image
@@ -177,8 +176,7 @@ def main():
     manifest = OUT / 'scenes.json'
     manifest.write_text(json.dumps(jobs, indent=2) + '\n')
     if not args.stage_only:
-        subprocess.run(['node', str(scenes.original.RENDERER), '--jobs', str(manifest)],
-                       cwd=scenes.ROOT, check=True)
+        scenes._hsm_render.render(jobs)
         for name, entry in metadata['scenes'].items():
             with Image.open(ART / f'{name}.png') as rendered:
                 assert rendered.size == tuple(entry['size'])
