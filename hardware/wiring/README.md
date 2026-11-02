@@ -220,6 +220,14 @@ Rust and checks its topology, source hashes and installed presentation arrays.
 fine model. Its report occupies the separate `fine` field; native B-rep and
 contact receipts retain their own recorded artifact scopes.
 
+The manual `above-core-review/installed_wiring_binding.py` reader also regenerates
+the bound numeric recipes through Rust and compares their fine bodies, current
+electrical graph and conductor stock. Its kernel result is `fine_source`.
+`above-core-review/aggregate_review.py` records `fine_contacts` from every
+authoritative fine AABB overlap, using exact closed-entry commons and the named
+endpoint, fuse-stub and empty J4-cell spheres. Its contact geometry is independent
+of the displayed STEP and viewer payload.
+
 `build.py --verify-retained` additionally records the retained viewer arrays for a
 specific integration review. No route search or wiring check joins the build,
 commit or print path. The optional `route_search.py` authoring tool searches against
