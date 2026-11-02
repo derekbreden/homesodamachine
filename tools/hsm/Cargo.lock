@@ -786,6 +786,7 @@ dependencies = [
  "anyhow",
  "hsm-kernel",
  "serde_json",
+ "sha2",
 ]
 
 [[package]]
