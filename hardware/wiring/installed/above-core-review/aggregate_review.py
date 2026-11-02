@@ -14,14 +14,11 @@ import sys
 ROOT=Path(__file__).resolve().parents[4]
 sys.path[:0]=[str(ROOT),str(ROOT/'hardware/scripts'),str(ROOT/'hardware/manifold-layout'),
              str(ROOT/'hardware/printed-parts/cold-core'),str(ROOT/'hardware/printed-parts/cadlib')]
-import fcl
-import numpy as np
 import above_core
 import above_core_bom
 import _above_core_mounts as mounts
 from _mesh_payload import read_source
 from hardware.wiring.installed.review import load_mesh,base_name,wire_obstacle
-from hardware.wiring.installed.route_search import capsule,sampled
 from hardware.wiring.installed.model import STOCK
 from hardware.wiring.installed.step_merge import base_document
 
@@ -59,13 +56,13 @@ def object_for(mesh):
     return fcl.CollisionObject(model)
 
 
-def selected_equipment():
+def selected_equipment(junction_names=None):
     """Selected native tenants without building any reference or shell solids."""
     data=above_core.specification()
     names=(set(data['parts'])|set(above_core.core_equipment_names())|
            set(above_core_bom.stem_elbow_names())|set(above_core_bom.union_elbow_names())|
            set(above_core_bom.core_stem_elbow_names())|set(above_core_bom.core_union_elbow_names())|
-           set(above_core_wiring.placements())|
+           set(above_core_wiring.placements()if junction_names is None else junction_names)|
            {'asse-drain-adapter',
             'gagira-coupling','jg-pi4512f6s','jg-pp061208w',
             'asse-snap-cap','regulator-snap-cap','pisco-snap-cap','meter-snap-cap',
@@ -176,7 +173,7 @@ def preparation_lengths(manifest):
 
 
 def main():
-    global above_core_wiring
+    global above_core_wiring,fcl,np
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--aggregate',type=Path,default=ROOT/'hardware/manifold-layout/enclosure-assembly.step')
     parser.add_argument('--manifest',type=Path,default=ROOT/'hardware/wiring/enclosure-wiring.json')
@@ -187,12 +184,24 @@ def main():
     meshpath=Path(str(args.aggregate)+'.mesh')
     manifest=json.loads(args.manifest.read_text())
     if manifest.get('wiring_fine_model_sha256'):
-        parser.error('Kernel wiring requires the fine inspection: python3 tools/run.py -- '
-                     'tools/cad-venv/bin/python hardware/wiring/installed/review.py --fine. '
-                     'Fine contact-query migration is pending; native contact receipts are not updated.')
+        from hardware.wiring.installed._fine_contacts import review as fine_contacts
+        junctions={base_name(row['part']).rsplit('/',1)[-1]for row in manifest['terminals'].values()
+                   if base_name(row['part']).rsplit('/',1)[-1].startswith('wago-')}
+        result=fine_contacts(args.aggregate,args.manifest,args.output,
+            equipment=selected_equipment(junctions),closures=CLOSURES,meter_wires=METER_WIRES,
+            empty_contacts=EMPTY_J4_CONTACTS,fixed_interface=fixed_interface,
+            preparation_lengths=preparation_lengths,refresh_cache=args.refresh_cache,
+            selection_sources=(Path(__file__),Path(above_core.__file__),Path(above_core_bom.__file__),
+                               ROOT/'hardware/manifold-layout/above-core.json'))
+        print(json.dumps({key:result.get(key)for key in
+              ('conductor_count','wiring_body_count','fine_common_count','geometrically_clear','errors')},indent=2),flush=True)
+        return 0 if result['geometrically_clear']else 1
     import cadquery as cq
+    import fcl
+    import numpy as np
     import above_core_wiring
     from _cadq_export import import_assembly
+    from hardware.wiring.installed.route_search import capsule,sampled
     step_hash=digest(args.aggregate)
     record={'scope':'Actual exported appliance: every installed wiring body against selected above-core equipment, fixed front interfaces and termination bodies, all six enclosure pieces, two top core caps, funnel frame and electronics roof panel. Current source-defined nominal retaining strips are separate supplemental targets. Both B-fill fittings are tested against every wiring body. The external compressor jacket also clears the physical foam shell. Wire-to-wire and wire-to-tube contacts are excluded. No physical fit, electrical or energization qualification.',
             'aggregate_sha256':step_hash,'aggregate_mesh_sha256':digest(meshpath),
@@ -431,4 +440,4 @@ def main():
         path.write_text(json.dumps(composition,indent=2)+'\n')
     print(json.dumps({k:record[k] for k in ('conductor_count','wiring_body_count','native_boolean_count','geometrically_clear')},indent=2),flush=True)
 
-if __name__=='__main__':main()
+if __name__=='__main__':raise SystemExit(main())
