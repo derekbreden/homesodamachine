@@ -1852,7 +1852,10 @@ def build_customer_tubes(bulkhead_carry, panel_carries, co2_carry):
                     cq.Solid.makeCylinder(_collar.TUBE_OD / 2.0, length,
                                           cq.Vector(x, y, z), cq.Vector(0.0, 1.0, 0.0)),
                     cq.Color(*(c / 255.0 for c in spool.rgb))))
-        body, lettering = _collar.split(import_step(str(_collar.STEPS[which])).val())
+        body, lettering = (
+            _collar.split(import_step(str(_collar.STEPS[which])).val())
+            if getattr(cq, "MESH", False) else
+            (_collar.build_collar(which), _collar.build_word(which)))
         for name, solid, rgb in ((collar_name, body, _rear.chip_color(fluid)),
                                  (collar_word_name, lettering, _rear.word_color(fluid))):
             out.append((name(which),
@@ -5942,7 +5945,7 @@ def main():
     # from the artifact rather than standing an appliance apiece; writing it here is what makes
     # that one derivation instead of two.
     import _facts
-    print(f"-> {_facts.write(whole=a, module=sys.modules[__name__]).name}")
+    print(f"-> {_facts.write(whole=a, module=sys.modules[__name__], tube_routes=on_meshes).name}")
     # THE VIEWER SCENES COME OFF THIS NAMED MACHINE while it is still in memory. Rebuilding the
     # same 296-solid appliance in a second action added minutes and could only restate what this
     # producer already knows. Card photographs remain their own browser-driven action.
