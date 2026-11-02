@@ -6,11 +6,6 @@ click: x=74.981 y=17.500 z=28.550
 click: x=87.531 y=17.500 z=50.650
 click: x=87.531 y=17.500 z=28.550
 
-[ceiling] Functional aft tie tunnel: under the aft Reservoir A paired seat the strap runs through a 3.2 mm transverse slot. This 15.6 × 3.2 mm roof is the seat's ridge between the two tubes, 1.6 mm over the slot floor, and it bridges the slot's 3.2 mm width.
-alternatives: An open-topped slot cuts the ridge that carries both tubes' grooves. A sloped roof takes stock from that ridge or deepens the slot into the lid's floor stock.
-file: hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step
-click: x=-66.200 y=53.364 z=7.175
-
 [thin] Specific M5 head-bearing floors: each outward-open Ø9 head pocket leaves 2.25 mm of solid floor below the 5.15 mm recess in the uniform 7.4 mm lid. The selected Ø8.5 × 5 mm screw heads sit 0.15 mm below its outside face. These floors are the clamped layer between each head and the continuous Ø11.6 shell host. The local native print regions make every head bearing solid.
 alternatives: A 3 mm floor with the same recess raises the equipment face by 0.75 mm; keeping that face instead leaves the screw heads 0.60 mm proud. Shallower head pockets lose the recessed head/driver envelope. Moving the shared clamp stations changes both closures and the shell hosts.
 file: hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step
@@ -121,14 +116,92 @@ file: hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step
 click: x=-141.200 y=-32.903 z=5.614
 click: x=-139.469 y=-32.773 z=6.970
 
-[sliver] Functional receiving catch roofs for the continuous pump clip. Each 55 mm long flat projects 0.85 mm, the 0.6 mm catch engagement plus 0.25 mm running allowance. The ledges retain their 3 mm structural height and solid 3 mm axial end lands. The 0.85 mm face width is the catch reach, rather than a freestanding wall thickness. Both pockets open directly to the flanks. The actual lid slice requests no supports in the pump saddle; the short catch roofs print without filling these pockets.
-alternatives: Removing or sloping these flats removes the positive retaining bearing or creates a release ramp. A 1.6 mm projection adds 0.75 mm of required spring deflection and deeper mating pockets. Filling beneath the roofs prevents the upper clip from seating or releasing.
+[sliver] R1.5 pump-spring root clearance: this 1.25 mm horizontal step is the difference between the spring-root relief and the catch neck. The relief includes 0.25 mm running allowance around the 2 mm leaf root while the deeper pocket retains the full 2.60 mm caught bearing. Both mouths open along the complete cap length.
+alternatives: Filling the root relief interferes with the R1.5 fillet. Carrying the relief through the whole pocket removes part of the caught bearing; narrowing the fillet changes the selected spring root.
 file: hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step
-click: x=-91.768 y=16.286 z=35.279
-click: x=-91.768 y=-47.022 z=35.279
+click: x=-91.518 y=-48.636 z=34.279
+click: x=-91.518 y=18.273 z=34.279
 
-[ceiling] Functional receiving catch roofs for the continuous pump clip. Each 55 mm long flat projects 0.85 mm, the 0.6 mm catch engagement plus 0.25 mm running allowance. The ledges retain their 3 mm structural height and solid 3 mm axial end lands. The 0.85 mm face width is the catch reach, rather than a freestanding wall thickness. Both pockets open directly to the flanks. The actual lid slice requests no supports in the pump saddle; the short catch roofs print without filling these pockets.
-alternatives: Removing or sloping these flats removes the positive retaining bearing or creates a release ramp. A 1.6 mm projection adds 0.75 mm of required spring deflection and deeper mating pockets. Filling beneath the roofs prevents the upper clip from seating or releasing.
+[ceiling] Functional v3 pump catch roofs: each 55 mm face projects 2.85 mm for the 2.60 mm catch and 0.25 mm running allowance, above the 3.5 mm-high pocket. Receiver walls and axial bearing lands retain 3 mm stock. Tree(auto)/Default places small model-rooted supports in these outward-open flank pockets; remove them through the flank before fitting the pump and separate cap. Physical cleanup and release force remain unqualified.
+alternatives: Sloping the roof supplies a withdrawal ramp; filling the pocket blocks the hook. Reducing its reach reduces the specified capture. More vertical stock does not change this fitted horizontal bearing.
 file: hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step
-click: x=-91.768 y=16.286 z=35.279
-click: x=-91.768 y=-47.022 z=35.279
+click: x=-91.518 y=-47.836 z=14.179
+click: x=-91.518 y=17.473 z=14.179
+
+[ceiling] Functional aft paired-seat tie passage: the 3.2 mm-wide open tunnel has 1.575 mm clear height and a full 3 mm roof under the tube-bearing ridge. Its broad transition joins both tube grooves. The current slice bridges across the short X width with complete anchors on both sides and no support inside the passage.
+alternatives: Opening the roof cuts the tube-bearing ridge; filling the tunnel prevents the tie from passing. A corbel into the passage reduces the selected tie clearance.
+file: hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step
+click: x=-66.700 y=50.763 z=7.175
+
+[thin] Specific 4 mm flavor-line flexures: these four free jaws use the C2 profile scaled from the 6.35 mm section to the 4 mm bore, giving a 1.52 mm working jaw. Their mouths permit direct press-in insertion; the filled roots retain 3 mm stock. The smaller section is a defined spring, with no transferred claim about measured force or fatigue.
+alternatives: A 3 mm jaw changes the spring section and mouth compliance. Filling above the tube equator closes the loading mouth; a rigid saddle with a separate closure adds a part and an assembly step.
+file: hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step
+click: x=-93.200 y=31.792 z=19.565
+click: x=-93.200 y=33.150 z=18.882
+click: x=-93.200 y=36.856 z=18.871
+click: x=-93.200 y=38.245 z=19.487
+click: x=54.397 y=23.603 z=51.078
+click: x=55.840 y=23.603 z=50.601
+click: x=59.812 y=23.603 z=50.394
+click: x=61.309 y=23.603 z=50.653
+
+[thin] Specific straight B-fill passage roof: the Ø6.8 round passage and its 0.25 mm supported-roof allowance leave 2.20 mm of stock beneath the Z253.4 equipment face, at native Z5.20–7.40. This is the straight tube entrance leading to the separate R14 holder clearance window; the holder remains with the tube and cured foam. Its current native slice has one support body accessible through the open B-fill window before loading the tube.
+alternatives: A 3 mm roof above the same passage grows 0.8 mm above the equipment face, into the PCB/service envelope. Lowering the roof reduces the selected tube passage; moving the passage changes its fixed fore entrance and reservoir route. Opening its full straight top removes the tube-bearing roof and the solid dry-seam surface under the foil.
+file: hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step
+click: x=132.305 y=-43.498 z=7.400
+click: x=132.305 y=-43.500 z=5.200
+
+[thin] Specific M5 head-bearing floors: each outward-open Ø9 head pocket leaves 2.25 mm of solid floor below the 5.15 mm recess in the uniform 7.4 mm lid. The selected Ø8.5 × 5 mm screw heads sit 0.15 mm below its outside face. These floors are the clamped layer between each head and the continuous Ø11.6 shell host. The local native print regions make every head bearing solid.
+alternatives: A 3 mm floor with the same recess raises the equipment face by 0.75 mm; keeping that face instead leaves the screw heads 0.60 mm proud. Shallower head pockets lose the recessed head/driver envelope. Moving the shared clamp stations changes both closures and the shell hosts.
+file: hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step
+click: x=-112.377 y=80.809 z=0.000
+click: x=-112.377 y=80.809 z=2.250
+click: x=-114.461 y=-87.130 z=0.000
+click: x=-114.461 y=-87.130 z=2.250
+click: x=-138.523 y=62.978 z=0.000
+click: x=-138.523 y=62.978 z=2.250
+click: x=-139.641 y=-2.453 z=0.000
+click: x=-139.641 y=-2.453 z=2.250
+click: x=-139.647 y=-64.132 z=0.000
+click: x=-139.647 y=-64.132 z=2.250
+click: x=-40.950 y=-89.060 z=0.000
+click: x=-40.950 y=-89.060 z=2.250
+click: x=-49.350 y=89.005 z=0.000
+click: x=-49.350 y=89.005 z=2.250
+click: x=131.855 y=57.931 z=0.000
+click: x=131.855 y=57.931 z=2.250
+click: x=132.775 y=-56.722 z=0.000
+click: x=132.775 y=-56.722 z=2.250
+click: x=134.749 y=-4.127 z=0.000
+click: x=134.749 y=-4.127 z=2.250
+
+[thin] Retained leaning-line entry at native X−134.5/Y−32.5: the Ø7.5 mm conduit opens through the outer 2 mm of the lid as a 38-degree countersink. The ranked 2.20–2.49 mm section is between this conical tube-bearing mouth and the fixed casing edge. It is the entry profile for the leaning line.
+alternatives: A 3 mm rim requires moving the conduit inward or narrowing the countersink. The first moves its cup column and installed route; the second reduces the specified 38-degree tube-exit allowance.
+file: hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step
+click: x=-139.408 y=-32.712 z=6.889
+click: x=-141.200 y=-32.756 z=5.489
+
+[thin] Deliberate functional C2 spring section: these ranked surface groups belong to the six free jaws above the tube equators, four on the fore Reservoir A pair and two on the V-A feed seat. Their measured 2.400 mm wall is the C2 section Derek selected with the 6.35 mm bore on Mark2 task 1379240291, recorded in future/snap-fit-tests/2026-10-26-mark2-combined/physical-result.json. Ordinary stock below the equators remains filled; the V-A seat has a full-width root from the plain lid to its Z268.970 tube axis. Only the working upper jaws use this specific flexure exception. This answer preserves the thinness ranking and establishes no full-lid force, lifetime or print result.
+alternatives: Increasing the jaws to 3 mm while keeping the same bore increases each outer radius by 0.6 mm and changes the selected spring section. On the fore pair it also consumes 1.2 mm of spread space: preserving the current conservative 1 mm-per-jaw envelope and its 0.35 mm opposing gap requires wider tube spacing and another routing change. Filling above the equators joins the free jaws and closes the press-in mouths. A rigid cradle with a separate closure adds a part and an assembly step instead of providing the selected direct snap.
+file: hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step
+click: x=111.110 y=17.587 z=24.407
+click: x=113.422 y=17.597 z=23.767
+click: x=115.053 y=45.319 z=14.554
+click: x=115.053 y=47.557 z=13.690
+click: x=115.053 y=58.819 z=14.554
+click: x=115.053 y=61.057 z=13.690
+click: x=115.053 y=67.174 z=12.527
+click: x=115.053 y=69.573 z=12.585
+click: x=119.577 y=15.618 z=23.767
+click: x=121.889 y=15.628 z=24.407
+
+[ledge] Functional flat retaining undersides of the J1/J2 cable hooks. Each 12 mm2 face is the 0.75 mm projection across the 16 mm cable span, backed by 3 mm hook stock. Its flat underside catches the leads beneath the 45-degree entry. The 2.2 mm seat depth, lip and entry follow the accepted cable-hook section; the installed seven-lead J1 grouping has its own physical-fit scope. Tree(auto)/Default supplies the current native support decisions.
+alternatives: Removing or sloping the retaining underside changes the selected cable capture; filling beneath it closes the cable seat. The overhang is the named retaining interface, rather than a cut remnant between unrelated features.
+file: hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step
+click: x=128.533 y=74.950 z=23.700
+click: x=128.533 y=80.150 z=18.150
+
+[ledge] Functional flat catch of the approved Reservoir A level-lead hook. The accepted 0.75 mm retaining projection and 1.45 mm mouth retain nominal 1.70 mm insulated leads; the entry chamfer is on the opposite side of this face.
+alternatives: A sloped underside lets the cable cam out through the mouth. Increasing the projection to 3 mm requires a 4.45 mm deep seat to preserve the mouth, adding 2.25 mm of movement behind the catch. Filling the entry prevents insertion from above.
+file: hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step
+click: x=-102.867 y=-73.050 z=20.000

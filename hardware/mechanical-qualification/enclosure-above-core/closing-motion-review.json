@@ -1,8 +1,8 @@
 {
   "schema": "enclosure-closing-motion-review/3",
   "scope": "Complete rigid closing intervals of the retained enclosure and all changed cap/lid stock. The rear WAGOs remain for final placement. Cross-parent flexible spans and the pump inlet handoff stay loose until closure.",
-  "current_assembly_step_sha256": "781a5ac87054a542e2fd056179d98e3d2b858b9097ea990a30d8213eab0fbbe3",
-  "current_payload_sha256": "1455d9085191e75fc301184e10689e6bd5d53f0458db3890a39cb5f9f2dc62f6",
+  "current_assembly_step_sha256": "7a174b60fbc0498134e5348ca72007363e067d33dd1fddf98c316b96ecd407f0",
+  "current_payload_sha256": "ebc2affdf050f1b7454b0702e5d159d6e8b39eccdad0d6ed4ec1c5a79f3e9129",
   "current_complete_motion_reading": {
     "payload_sha256": "4107c4f6dfb392ba108fb3ae31d31e930d7380e0fc85a99f921f51844cf061c5",
     "mesh_source": "hardware/manifold-layout/enclosure-assembly.step.mesh",
@@ -2601,7 +2601,7 @@
     }
   },
   "cap_removal": {
-    "payload_sha256": "1455d9085191e75fc301184e10689e6bd5d53f0458db3890a39cb5f9f2dc62f6",
+    "payload_sha256": "ebc2affdf050f1b7454b0702e5d159d6e8b39eccdad0d6ed4ec1c5a79f3e9129",
     "scope": "Complete distance-certified translation intervals of released caps. Back-top is separated from the cold core and inverted on the bench; flexible tubes/leads are disconnected and dressed aside, funnel/frame/drain and the ASSE vent adapter are removed. ASSE cap is removed before the meter cap. Wing displacement is a conservative linear 3.2mm outward shear from root to catch. The meter shaped bearing stays rigid; the leaves flex beyond its 4 mm inward bearing stock; force, nonlinear spring shape and fatigue require physical articles.",
     "removed": [
       "asse-vent-boot",
@@ -2795,8 +2795,8 @@
             "body": "asse1022-assembly",
             "status": "clear_distance_intervals",
             "queries": 13,
-            "minimum_queried_surface_distance_mm": 0.30721866604936576,
-            "certified_surface_separation_lower_bound_mm": 0.07284366604936576
+            "minimum_queried_surface_distance_mm": 0.3072170735858141,
+            "certified_surface_separation_lower_bound_mm": 0.07284207358581413
           },
           {
             "body": "enclosure-back-top",
@@ -3043,7 +3043,7 @@
     ],
     "unresolved": [],
     "pass": true,
-    "elapsed_seconds": 0.4567255000001751
+    "elapsed_seconds": 0.43522645902703516
   },
   "all_recorded_rigid_closing_intervals_clear_after_prerequisites": false,
   "remaining_material_findings": [
@@ -3063,7 +3063,7 @@
   ],
   "current_v3_caps": {
     "scope": "Current five v3 caps against the complete installed non-wire scene, including tubes. Complete rear closure intervals cover the changed caps; the regulator receiver remains above the complete retained core. Flexible cross-parent spans retain the recorded loose-handoff prerequisites.",
-    "assembly_mesh_sha256": "1455d9085191e75fc301184e10689e6bd5d53f0458db3890a39cb5f9f2dc62f6",
+    "assembly_mesh_sha256": "ebc2affdf050f1b7454b0702e5d159d6e8b39eccdad0d6ed4ec1c5a79f3e9129",
     "static": [
       {
         "actor": "asse-snap-cap",
@@ -3078,8 +3078,8 @@
         "other": "asse1022-assembly",
         "status": "clear_distance_intervals",
         "queries": 1,
-        "minimum_queried_surface_distance_mm": 0.14569079459129347,
-        "certified_surface_separation_lower_bound_mm": 0.14569079459129347
+        "minimum_queried_surface_distance_mm": 0.19216141044062696,
+        "certified_surface_separation_lower_bound_mm": 0.19216141044062696
       },
       {
         "actor": "asse-snap-cap",
@@ -3355,20 +3355,20 @@
       "z_separated": true
     },
     "pass": true,
-    "elapsed_seconds": 3.6268954160041176
+    "elapsed_seconds": 3.4851447090040892
   },
   "current_lid_stock": {
     "scope": "Complete closure intervals for the full current physical equipment lid against populated rear and front quadrants. The neutral WAGO remains for final placement; flexible handoffs stay loose until closure.",
-    "assembly_mesh_sha256": "1455d9085191e75fc301184e10689e6bd5d53f0458db3890a39cb5f9f2dc62f6",
+    "assembly_mesh_sha256": "ebc2affdf050f1b7454b0702e5d159d6e8b39eccdad0d6ed4ec1c5a79f3e9129",
     "checks": {
       "rear approach": [
         {
           "actor": "finished-equipment-lid",
           "other": "asse-drain-adapter",
           "status": "clear_distance_intervals",
-          "queries": 19,
-          "minimum_queried_surface_distance_mm": 3.087413787841797,
-          "certified_surface_separation_lower_bound_mm": 0.3925689277696094
+          "queries": 15,
+          "minimum_queried_surface_distance_mm": 3.090671369168617,
+          "certified_surface_separation_lower_bound_mm": 0.09621289692391244
         },
         {
           "actor": "finished-equipment-lid",
@@ -3391,8 +3391,8 @@
           "other": "bulkhead-drain",
           "status": "clear_distance_intervals",
           "queries": 4,
-          "minimum_queried_surface_distance_mm": 19.0792452748623,
-          "certified_surface_separation_lower_bound_mm": 0.3292452748622985
+          "minimum_queried_surface_distance_mm": 18.82660398701101,
+          "certified_surface_separation_lower_bound_mm": 0.07660398701100846
         },
         {
           "actor": "finished-equipment-lid",
@@ -3423,8 +3423,8 @@
           "other": "bulkhead-flavor-b",
           "status": "clear_distance_intervals",
           "queries": 11,
-          "minimum_queried_surface_distance_mm": 3.0999999046325684,
-          "certified_surface_separation_lower_bound_mm": 0.7562499046325684
+          "minimum_queried_surface_distance_mm": 2.8596016798330615,
+          "certified_surface_separation_lower_bound_mm": 0.5158516798330615
         },
         {
           "actor": "finished-equipment-lid",
@@ -3494,9 +3494,9 @@
           "actor": "finished-equipment-lid",
           "other": "tube-drain-vent",
           "status": "clear_distance_intervals",
-          "queries": 8,
-          "minimum_queried_surface_distance_mm": 8.024203220029712,
-          "certified_surface_separation_lower_bound_mm": 3.3367032200297118
+          "queries": 6,
+          "minimum_queried_surface_distance_mm": 9.67619347879082,
+          "certified_surface_separation_lower_bound_mm": 0.3011934787908199
         },
         {
           "actor": "finished-equipment-lid",
@@ -3568,6 +3568,6 @@
     },
     "unresolved": [],
     "pass": true,
-    "elapsed_seconds": 3.6620685829839204
+    "elapsed_seconds": 3.4585522919951472
   }
 }

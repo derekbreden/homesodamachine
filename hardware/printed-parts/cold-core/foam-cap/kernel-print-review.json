@@ -641,8 +641,8 @@
       }
     },
     "foam-cap-lid-top": {
-      "preparation_directory": ".cache/retention-integration/slices-v3-final/2026-11-02-foam-cap-lid-top-mark1-c146a5b6",
-      "preparation_record_sha256": "423100343a2496ec3d39f78c71e06e1823fd67489f58fd943ddd8557d873afac",
+      "preparation_directory": ".cache/retention-integration/slices-v3-final/2026-11-02-foam-cap-lid-top-mark1-fbe76d24",
+      "preparation_record_sha256": "7f90b85dd0e979cb48e66576e8c2f769731594cd8a0051cf7d8f0a7ec449265b",
       "profile_sha256": "45c16e8c8517e0a205107d7b9f7412d013f51a8de7ecf86125cc940079d37ed0",
       "printer": "Mark1",
       "nozzle": {
@@ -661,11 +661,11 @@
           "identify_id": 1901,
           "object_id": 2,
           "stl": "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.stl",
-          "stl_sha256": "b86e8875e4ee060bac65e7a90bb038b1a78be4f94455697d7ca85f0f5baa5ac1",
-          "step_sha256": "7659ea711ff9926c8c851e79329b4458de56dc14faba5e9e55f6c5268bfb2b21",
-          "facets": 37528,
+          "stl_sha256": "06410da89817947dfd632caf156dea7cfb5d33026ff632a69dad7f73ebb54f85",
+          "step_sha256": "59741816726bfa72b087c7dba766a6a4bc707deb658f98fe95bba44b67ad0b54",
+          "facets": 37526,
           "closed": {
-            "edges": 56292,
+            "edges": 56289,
             "boundary_edges": 0,
             "nonmanifold_edges": 0,
             "inconsistent_edges": 0,
@@ -1216,12 +1216,12 @@
           "fins": [],
           "regions": {
             "record": "hardware/printed-parts/cold-core/foam-cap/fore-snap-print-regions.json",
-            "record_sha256": "8d196ff711d01e85b39bee98614ab1d081fea0efef592b2411d370eacc78e1c6",
+            "record_sha256": "6bd39f33b4a87b5c10cfe38264a4bd8642b0fd5f890026f6676edd3c17ab72fb",
             "part_process_overrides": null
           }
         }
       ],
-      "archive_sha256": "1250863718936a245eb4babbdec931359e1a0f77663757354c3fbd0dfc7fb49e",
+      "archive_sha256": "ada9c28f6d8272540ee035d77a1a38f1ad7ceafc56488f6eb95ed50e478c506d",
       "checks": {
         "archive": true,
         "z_trim": true,
@@ -1236,16 +1236,16 @@
       "bed_border_mm": 20.0,
       "support_audits": [
         {
-          "record_sha256": "5562b6ef05a7c305b3da9fd71465bbc1f85e957119a850f5e1ef27b6e95b72e0",
+          "record_sha256": "5f5b4a15af3b30ecdf8a6661239f596c88fa949df3460899cd7b426a85f3ea9d",
           "schema": 1,
           "piece": "foam-cap-lid-top",
           "inputs": {
             "gcode": "support-labels-1901.gcode",
-            "gcode_sha256": "89da75cc9f68f4aaa27fc15f597c71743ae9f128ffa248b24c619baf82e708c2",
+            "gcode_sha256": "7877962a6270f79fa4decac81e36c53b1ef28dd19c3d4ef6b7dac442ce0dfe86",
             "model": "/Users/derekbredensteiner/Developer/hsm-approved-asse/hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.stl",
-            "model_sha256": "b86e8875e4ee060bac65e7a90bb038b1a78be4f94455697d7ca85f0f5baa5ac1",
-            "profile": ".cache/retention-integration/slices-v3-final/2026-11-02-foam-cap-lid-top-mark1-c146a5b6/2026-11-02-foam-cap-lid-top-mark1-c146a5b6.3mf",
-            "profile_sha256": "f4c1853242e0c59fec77e9170f8cd0cdfda6787e8261a35153b4ac846af104f4"
+            "model_sha256": "06410da89817947dfd632caf156dea7cfb5d33026ff632a69dad7f73ebb54f85",
+            "profile": ".cache/retention-integration/slices-v3-final/2026-11-02-foam-cap-lid-top-mark1-fbe76d24/2026-11-02-foam-cap-lid-top-mark1-fbe76d24.3mf",
+            "profile_sha256": "c96c530fcc796582c93226b1731d84cab3a8b9883a3bfc2aed56b9bb4327039c"
           },
           "slicer": "BambuStudio 02.08.02.61",
           "first_layer_z_mm": 0.2,
@@ -1694,9 +1694,9 @@
       },
       "first_second_layer_stack": {
         "1901": {
-          "second_layer_model_bead_area_mm2": 49677.91944526041,
-          "fraction_over_first_layer": 0.9953677769878778,
-          "second_layer_centerline_outside_first_mm": 58.78406068219393
+          "second_layer_model_bead_area_mm2": 49677.919982706924,
+          "fraction_over_first_layer": 0.9953677825071292,
+          "second_layer_centerline_outside_first_mm": 58.78612258329446
         }
       },
       "settings_changes": {
@@ -2339,6 +2339,6 @@
   },
   "source_sha256": {
     "hardware/printed-parts/cold-core/foam-cap/foam_cap.py": "071283bbd757f329cf4bd53cabd3d846fcdef46a3cac3c28df30e22f4f168a7c",
-    "hardware/printed-parts/cold-core/foam-cap/foam_cap.rs": "76a5cb1c45baaff54fec5923b1076337a5231ae770cb3195628a739bcc8f6e1b"
+    "hardware/printed-parts/cold-core/foam-cap/foam_cap.rs": "9504949bdbc0100682a77c7a2c1e164e408a5893a7914e871060ed182f54b7f6"
   }
 }
