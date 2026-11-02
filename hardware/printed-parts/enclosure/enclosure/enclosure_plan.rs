@@ -325,6 +325,66 @@ fn handhold_air(v: &Value) -> Result<Solid> {
     basic.union(&roof_air)?.union(&side_air)?.intersect(&blank)
 }
 
+
+fn flank_vents(v: &Value, stock: &Solid, cutters: &[&Solid]) -> Result<Solid> {
+    let columns = v["columns"].as_array().context("vent columns")?;
+    let courses = v["courses"]
+        .as_array()
+        .context("vent courses")?
+        .iter()
+        .map(array)
+        .collect::<Result<Vec<_>>>()?;
+    let clearance = f(v, "clearance")?;
+    let tolerance = f(v, "tolerance")?;
+    let minimum = v["island_min"].as_u64().context("vent island count")? as usize;
+    let sides = columns
+        .iter()
+        .map(|column| f(column, "side"))
+        .collect::<Result<Vec<_>>>()?;
+    let mut present = Vec::new();
+    for column in columns {
+        let (lo, hi) = box_corners(&column["probe"])?;
+        let occupied = stock
+            .intersect(&Solid::cuboid(lo, hi))?
+            .components()
+            .iter()
+            .map(|component| {
+                let bounds = component.bounds();
+                (bounds.min.z - clearance, bounds.max.z + clearance)
+            })
+            .collect::<Vec<_>>();
+        present.push(
+            courses
+                .iter()
+                .map(|course| {
+                    !occupied
+                        .iter()
+                        .any(|&(lo, hi)| course[0].max(lo) < course[1].min(hi) - tolerance)
+                })
+                .collect::<Vec<_>>(),
+        );
+    }
+    let mut selected = Vec::new();
+    for (i, column) in columns.iter().enumerate() {
+        let tools = column["cutters"].as_array().context("vent cutters")?;
+        ensure!(tools.len() == courses.len(), "vent course cutters");
+        for k in 0..courses.len() {
+            let neighbours = usize::from(i > 0 && sides[i - 1] == sides[i] && present[i - 1][k])
+                + usize::from(
+                    i + 1 < columns.len() && sides[i + 1] == sides[i] && present[i + 1][k],
+                );
+            if present[i][k] && neighbours >= minimum.saturating_sub(1) {
+                let index = tools[k].as_u64().context("vent cutter index")? as usize;
+                selected.push(cutters[index].clone());
+            }
+        }
+    }
+    if selected.is_empty() {
+        return Ok(stock.clone());
+    }
+    stock.cut(&Solid::compose(&selected))
+}
+
 fn bezier_prism(v: &Value) -> Result<Solid> {
     let segments = v["segments"].as_array().context("line/cubic profile")?;
     let mut edges = Vec::new();
@@ -478,6 +538,10 @@ pub(crate) fn build(n: &Numbers) -> Result<Solid> {
                 "corner-prism" => prism(v, true)?,
                 "handhold-cutter" => handhold_cutter(v)?,
                 "handhold-finish-air" => handhold_air(v)?,
+                "flank-vents" => {
+                    let tools = (1..inputs.len()).map(input).collect::<Vec<_>>();
+                    flank_vents(v,input(0),&tools)?
+                }
                 "bezier-prism" => bezier_prism(v)?,
                 "ruled-stack" => ruled_stack(v)?,
                 "union" | "cut" | "intersect" => {
