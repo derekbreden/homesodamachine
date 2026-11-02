@@ -1,0 +1,2287 @@
+{
+  "source": {
+    "commit": "a40b1dc0d4a41ea4dab2b765f997a841ed8b6678",
+    "path": "hardware/reference/taprite-3741-regulator/taprite_3741_regulator.py",
+    "sha256": "166f1262db8f4976f98940f2354c4983bc93de25c3c485dd7a278dacc9f01bb8"
+  },
+  "members": {
+    "taprite-3741-regulator.step": "8e688912ef5c51346e818eb9ce789bc621f4eff47b38757959a86290c1546bd1",
+    "taprite-3741-regulator.step.mesh": "db1bb556017015f821e8bad1e0cfe2c46b61b6606af589c8da3208f3783324fe"
+  },
+  "fine_payload": {
+    "source_step_sha256": "8e688912ef5c51346e818eb9ce789bc621f4eff47b38757959a86290c1546bd1",
+    "path": "taprite-3741-regulator.step.mesh",
+    "sha256": "db1bb556017015f821e8bad1e0cfe2c46b61b6606af589c8da3208f3783324fe",
+    "linear_mm": 0.005,
+    "angular_rad": 0.05,
+    "producer": "hardware/scripts/_rust_part.py:_tessellate",
+    "meshes": [
+      {
+        "name": "adjusting-screw",
+        "color": [
+          0.7600000136009657,
+          0.7500000009342138,
+          0.7099999974147344
+        ],
+        "vertices": 2076,
+        "triangles": 2048,
+        "face_ranges": 16
+      },
+      {
+        "name": "blow-off",
+        "color": [
+          0.7099999974147344,
+          0.5600000132598123,
+          0.3299999972442969
+        ],
+        "vertices": 7070,
+        "triangles": 7052,
+        "face_ranges": 15
+      },
+      {
+        "name": "body",
+        "color": [
+          0.7099999974147344,
+          0.5600000132598123,
+          0.3299999972442969
+        ],
+        "vertices": 10076,
+        "triangles": 10034,
+        "face_ranges": 30
+      },
+      {
+        "name": "bonnet",
+        "color": [
+          0.07500000072856278,
+          0.07500000072856278,
+          0.08499999944115914
+        ],
+        "vertices": 36210,
+        "triangles": 67556,
+        "face_ranges": 17
+      },
+      {
+        "name": "cga320-nut",
+        "color": [
+          0.7099999974147344,
+          0.5600000132598123,
+          0.3299999972442969
+        ],
+        "vertices": 2056,
+        "triangles": 2040,
+        "face_ranges": 11
+      },
+      {
+        "name": "outlet-black-print/1",
+        "color": [
+          0.12500000174330675,
+          0.12500000174330675,
+          0.1350000030058378
+        ],
+        "vertices": 24,
+        "triangles": 12,
+        "face_ranges": 6
+      },
+      {
+        "name": "outlet-black-print/2",
+        "color": [
+          0.12500000174330675,
+          0.12500000174330675,
+          0.1350000030058378
+        ],
+        "vertices": 24,
+        "triangles": 12,
+        "face_ranges": 6
+      },
+      {
+        "name": "outlet-black-print/3",
+        "color": [
+          0.12500000174330675,
+          0.12500000174330675,
+          0.1350000030058378
+        ],
+        "vertices": 24,
+        "triangles": 12,
+        "face_ranges": 6
+      },
+      {
+        "name": "outlet-black-print/4",
+        "color": [
+          0.12500000174330675,
+          0.12500000174330675,
+          0.1350000030058378
+        ],
+        "vertices": 24,
+        "triangles": 12,
+        "face_ranges": 6
+      },
+      {
+        "name": "outlet-black-print/5",
+        "color": [
+          0.12500000174330675,
+          0.12500000174330675,
+          0.1350000030058378
+        ],
+        "vertices": 24,
+        "triangles": 12,
+        "face_ranges": 6
+      },
+      {
+        "name": "outlet-black-print/6",
+        "color": [
+          0.12500000174330675,
+          0.12500000174330675,
+          0.1350000030058378
+        ],
+        "vertices": 24,
+        "triangles": 12,
+        "face_ranges": 6
+      },
+      {
+        "name": "outlet-black-print/7",
+        "color": [
+          0.12500000174330675,
+          0.12500000174330675,
+          0.1350000030058378
+        ],
+        "vertices": 24,
+        "triangles": 12,
+        "face_ranges": 6
+      },
+      {
+        "name": "outlet-black-print/8",
+        "color": [
+          0.12500000174330675,
+          0.12500000174330675,
+          0.1350000030058378
+        ],
+        "vertices": 24,
+        "triangles": 12,
+        "face_ranges": 6
+      },
+      {
+        "name": "outlet-black-print/9",
+        "color": [
+          0.12500000174330675,
+          0.12500000174330675,
+          0.1350000030058378
+        ],
+        "vertices": 24,
+        "triangles": 12,
+        "face_ranges": 6
+      },
+      {
+        "name": "outlet-black-print/10",
+        "color": [
+          0.12500000174330675,
+          0.12500000174330675,
+          0.1350000030058378
+        ],
+        "vertices": 24,
+        "triangles": 12,
+        "face_ranges": 6
+      },
+      {
+        "name": "outlet-black-print/11",
+        "color": [
+          0.12500000174330675,
+          0.12500000174330675,
+          0.1350000030058378
+        ],
+        "vertices": 24,
+        "triangles": 12,
+        "face_ranges": 6
+      },
+      {
+        "name": "outlet-black-print/12",
+        "color": [
+          0.12500000174330675,
+          0.12500000174330675,
+          0.1350000030058378
+        ],
+        "vertices": 24,
+        "triangles": 12,
+        "face_ranges": 6
+      },
+      {
+        "name": "outlet-black-print/13",
+        "color": [
+          0.12500000174330675,
+          0.12500000174330675,
+          0.1350000030058378
+        ],
+        "vertices": 24,
+        "triangles": 12,
+        "face_ranges": 6
+      },
+      {
+        "name": "outlet-black-print/14",
+        "color": [
+          0.12500000174330675,
+          0.12500000174330675,
+          0.1350000030058378
+        ],
+        "vertices": 24,
+        "triangles": 12,
+        "face_ranges": 6
+      },
+      {
+        "name": "outlet-black-print/15",
+        "color": [
+          0.12500000174330675,
+          0.12500000174330675,
+          0.1350000030058378
+        ],
+        "vertices": 24,
+        "triangles": 12,
+        "face_ranges": 6
+      },
+      {
+        "name": "outlet-black-print/16",
+        "color": [
+          0.12500000174330675,
+          0.12500000174330675,
+          0.1350000030058378
+        ],
+        "vertices": 24,
+        "triangles": 12,
+        "face_ranges": 6
+      },
+      {
+        "name": "outlet-black-print/17",
+        "color": [
+          0.12500000174330675,
+          0.12500000174330675,
+          0.1350000030058378
+        ],
+        "vertices": 24,
+        "triangles": 12,
+        "face_ranges": 6
+      },
+      {
+        "name": "outlet-black-print/18",
+        "color": [
+          0.12500000174330675,
+          0.12500000174330675,
+          0.1350000030058378
+        ],
+        "vertices": 24,
+        "triangles": 12,
+        "face_ranges": 6
+      },
+      {
+        "name": "outlet-black-print/19",
+        "color": [
+          0.12500000174330675,
+          0.12500000174330675,
+          0.1350000030058378
+        ],
+        "vertices": 24,
+        "triangles": 12,
+        "face_ranges": 6
+      },
+      {
+        "name": "outlet-black-print/20",
+        "color": [
+          0.12500000174330675,
+          0.12500000174330675,
+          0.1350000030058378
+        ],
+        "vertices": 24,
+        "triangles": 12,
+        "face_ranges": 6
+      },
+      {
+        "name": "outlet-black-print/21",
+        "color": [
+          0.12500000174330675,
+          0.12500000174330675,
+          0.1350000030058378
+        ],
+        "vertices": 24,
+        "triangles": 12,
+        "face_ranges": 6
+      },
+      {
+        "name": "outlet-black-print/22",
+        "color": [
+          0.12500000174330675,
+          0.12500000174330675,
+          0.1350000030058378
+        ],
+        "vertices": 24,
+        "triangles": 12,
+        "face_ranges": 6
+      },
+      {
+        "name": "outlet-black-print/23",
+        "color": [
+          0.12500000174330675,
+          0.12500000174330675,
+          0.1350000030058378
+        ],
+        "vertices": 24,
+        "triangles": 12,
+        "face_ranges": 6
+      },
+      {
+        "name": "outlet-black-print/24",
+        "color": [
+          0.12500000174330675,
+          0.12500000174330675,
+          0.1350000030058378
+        ],
+        "vertices": 24,
+        "triangles": 12,
+        "face_ranges": 6
+      },
+      {
+        "name": "outlet-black-print/25",
+        "color": [
+          0.12500000174330675,
+          0.12500000174330675,
+          0.1350000030058378
+        ],
+        "vertices": 24,
+        "triangles": 12,
+        "face_ranges": 6
+      },
+      {
+        "name": "outlet-black-print/26",
+        "color": [
+          0.12500000174330675,
+          0.12500000174330675,
+          0.1350000030058378
+        ],
+        "vertices": 24,
+        "triangles": 12,
+        "face_ranges": 6
+      },
+      {
+        "name": "outlet-black-print/27",
+        "color": [
+          0.12500000174330675,
+          0.12500000174330675,
+          0.1350000030058378
+        ],
+        "vertices": 24,
+        "triangles": 12,
+        "face_ranges": 6
+      },
+      {
+        "name": "outlet-black-print/28",
+        "color": [
+          0.12500000174330675,
+          0.12500000174330675,
+          0.1350000030058378
+        ],
+        "vertices": 24,
+        "triangles": 12,
+        "face_ranges": 6
+      },
+      {
+        "name": "outlet-black-print/29",
+        "color": [
+          0.12500000174330675,
+          0.12500000174330675,
+          0.1350000030058378
+        ],
+        "vertices": 24,
+        "triangles": 12,
+        "face_ranges": 6
+      },
+      {
+        "name": "outlet-black-print/30",
+        "color": [
+          0.12500000174330675,
+          0.12500000174330675,
+          0.1350000030058378
+        ],
+        "vertices": 24,
+        "triangles": 12,
+        "face_ranges": 6
+      },
+      {
+        "name": "outlet-black-print/31",
+        "color": [
+          0.12500000174330675,
+          0.12500000174330675,
+          0.1350000030058378
+        ],
+        "vertices": 24,
+        "triangles": 12,
+        "face_ranges": 6
+      },
+      {
+        "name": "outlet-black-print/32",
+        "color": [
+          0.12500000174330675,
+          0.12500000174330675,
+          0.1350000030058378
+        ],
+        "vertices": 24,
+        "triangles": 12,
+        "face_ranges": 6
+      },
+      {
+        "name": "outlet-black-print/33",
+        "color": [
+          0.12500000174330675,
+          0.12500000174330675,
+          0.1350000030058378
+        ],
+        "vertices": 24,
+        "triangles": 12,
+        "face_ranges": 6
+      },
+      {
+        "name": "outlet-black-print/34",
+        "color": [
+          0.12500000174330675,
+          0.12500000174330675,
+          0.1350000030058378
+        ],
+        "vertices": 24,
+        "triangles": 12,
+        "face_ranges": 6
+      },
+      {
+        "name": "outlet-black-print/35",
+        "color": [
+          0.12500000174330675,
+          0.12500000174330675,
+          0.1350000030058378
+        ],
+        "vertices": 24,
+        "triangles": 12,
+        "face_ranges": 6
+      },
+      {
+        "name": "outlet-black-print/36",
+        "color": [
+          0.12500000174330675,
+          0.12500000174330675,
+          0.1350000030058378
+        ],
+        "vertices": 24,
+        "triangles": 12,
+        "face_ranges": 6
+      },
+      {
+        "name": "outlet-black-print/37",
+        "color": [
+          0.12500000174330675,
+          0.12500000174330675,
+          0.1350000030058378
+        ],
+        "vertices": 24,
+        "triangles": 12,
+        "face_ranges": 6
+      },
+      {
+        "name": "outlet-black-print/38",
+        "color": [
+          0.12500000174330675,
+          0.12500000174330675,
+          0.1350000030058378
+        ],
+        "vertices": 24,
+        "triangles": 12,
+        "face_ranges": 6
+      },
+      {
+        "name": "outlet-black-print/39",
+        "color": [
+          0.12500000174330675,
+          0.12500000174330675,
+          0.1350000030058378
+        ],
+        "vertices": 24,
+        "triangles": 12,
+        "face_ranges": 6
+      },
+      {
+        "name": "outlet-black-print/40",
+        "color": [
+          0.12500000174330675,
+          0.12500000174330675,
+          0.1350000030058378
+        ],
+        "vertices": 24,
+        "triangles": 12,
+        "face_ranges": 6
+      },
+      {
+        "name": "outlet-black-print/41",
+        "color": [
+          0.12500000174330675,
+          0.12500000174330675,
+          0.1350000030058378
+        ],
+        "vertices": 24,
+        "triangles": 12,
+        "face_ranges": 6
+      },
+      {
+        "name": "outlet-black-print/42",
+        "color": [
+          0.12500000174330675,
+          0.12500000174330675,
+          0.1350000030058378
+        ],
+        "vertices": 24,
+        "triangles": 12,
+        "face_ranges": 6
+      },
+      {
+        "name": "outlet-black-print/43",
+        "color": [
+          0.12500000174330675,
+          0.12500000174330675,
+          0.1350000030058378
+        ],
+        "vertices": 3622,
+        "triangles": 5388,
+        "face_ranges": 24
+      },
+      {
+        "name": "outlet-black-print/44",
+        "color": [
+          0.12500000174330675,
+          0.12500000174330675,
+          0.1350000030058378
+        ],
+        "vertices": 5044,
+        "triangles": 7584,
+        "face_ranges": 22
+      },
+      {
+        "name": "outlet-black-print/45",
+        "color": [
+          0.12500000174330675,
+          0.12500000174330675,
+          0.1350000030058378
+        ],
+        "vertices": 84,
+        "triangles": 56,
+        "face_ranges": 16
+      },
+      {
+        "name": "outlet-black-print/46",
+        "color": [
+          0.12500000174330675,
+          0.12500000174330675,
+          0.1350000030058378
+        ],
+        "vertices": 5039,
+        "triangles": 7574,
+        "face_ranges": 22
+      },
+      {
+        "name": "outlet-black-print/47",
+        "color": [
+          0.12500000174330675,
+          0.12500000174330675,
+          0.1350000030058378
+        ],
+        "vertices": 7365,
+        "triangles": 11262,
+        "face_ranges": 30
+      },
+      {
+        "name": "outlet-black-print/48",
+        "color": [
+          0.12500000174330675,
+          0.12500000174330675,
+          0.1350000030058378
+        ],
+        "vertices": 5053,
+        "triangles": 7602,
+        "face_ranges": 22
+      },
+      {
+        "name": "outlet-black-print/49",
+        "color": [
+          0.12500000174330675,
+          0.12500000174330675,
+          0.1350000030058378
+        ],
+        "vertices": 10886,
+        "triangles": 17196,
+        "face_ranges": 35
+      },
+      {
+        "name": "outlet-black-print/50",
+        "color": [
+          0.12500000174330675,
+          0.12500000174330675,
+          0.1350000030058378
+        ],
+        "vertices": 5043,
+        "triangles": 7582,
+        "face_ranges": 22
+      },
+      {
+        "name": "outlet-black-print/51",
+        "color": [
+          0.12500000174330675,
+          0.12500000174330675,
+          0.1350000030058378
+        ],
+        "vertices": 299,
+        "triangles": 334,
+        "face_ranges": 11
+      },
+      {
+        "name": "outlet-black-print/52",
+        "color": [
+          0.12500000174330675,
+          0.12500000174330675,
+          0.1350000030058378
+        ],
+        "vertices": 5037,
+        "triangles": 7570,
+        "face_ranges": 22
+      },
+      {
+        "name": "outlet-black-print/53",
+        "color": [
+          0.12500000174330675,
+          0.12500000174330675,
+          0.1350000030058378
+        ],
+        "vertices": 5037,
+        "triangles": 7570,
+        "face_ranges": 22
+      },
+      {
+        "name": "outlet-black-print/54",
+        "color": [
+          0.12500000174330675,
+          0.12500000174330675,
+          0.1350000030058378
+        ],
+        "vertices": 299,
+        "triangles": 334,
+        "face_ranges": 11
+      },
+      {
+        "name": "outlet-black-print/55",
+        "color": [
+          0.12500000174330675,
+          0.12500000174330675,
+          0.1350000030058378
+        ],
+        "vertices": 3621,
+        "triangles": 5386,
+        "face_ranges": 24
+      },
+      {
+        "name": "outlet-black-print/56",
+        "color": [
+          0.12500000174330675,
+          0.12500000174330675,
+          0.1350000030058378
+        ],
+        "vertices": 5030,
+        "triangles": 7556,
+        "face_ranges": 22
+      },
+      {
+        "name": "outlet-black-print/57",
+        "color": [
+          0.12500000174330675,
+          0.12500000174330675,
+          0.1350000030058378
+        ],
+        "vertices": 299,
+        "triangles": 334,
+        "face_ranges": 11
+      },
+      {
+        "name": "outlet-black-print/58",
+        "color": [
+          0.12500000174330675,
+          0.12500000174330675,
+          0.1350000030058378
+        ],
+        "vertices": 84,
+        "triangles": 56,
+        "face_ranges": 16
+      },
+      {
+        "name": "outlet-black-print/59",
+        "color": [
+          0.12500000174330675,
+          0.12500000174330675,
+          0.1350000030058378
+        ],
+        "vertices": 5031,
+        "triangles": 7558,
+        "face_ranges": 22
+      },
+      {
+        "name": "outlet-black-print/60",
+        "color": [
+          0.12500000174330675,
+          0.12500000174330675,
+          0.1350000030058378
+        ],
+        "vertices": 298,
+        "triangles": 332,
+        "face_ranges": 11
+      },
+      {
+        "name": "outlet-black-print/61",
+        "color": [
+          0.12500000174330675,
+          0.12500000174330675,
+          0.1350000030058378
+        ],
+        "vertices": 7379,
+        "triangles": 11290,
+        "face_ranges": 30
+      },
+      {
+        "name": "outlet-black-print/62",
+        "color": [
+          0.12500000174330675,
+          0.12500000174330675,
+          0.1350000030058378
+        ],
+        "vertices": 5031,
+        "triangles": 7558,
+        "face_ranges": 22
+      },
+      {
+        "name": "outlet-black-print/63",
+        "color": [
+          0.12500000174330675,
+          0.12500000174330675,
+          0.1350000030058378
+        ],
+        "vertices": 36,
+        "triangles": 20,
+        "face_ranges": 8
+      },
+      {
+        "name": "outlet-black-print/64",
+        "color": [
+          0.12500000174330675,
+          0.12500000174330675,
+          0.1350000030058378
+        ],
+        "vertices": 4820,
+        "triangles": 7396,
+        "face_ranges": 25
+      },
+      {
+        "name": "outlet-black-print/65",
+        "color": [
+          0.12500000174330675,
+          0.12500000174330675,
+          0.1350000030058378
+        ],
+        "vertices": 9306,
+        "triangles": 15164,
+        "face_ranges": 35
+      },
+      {
+        "name": "outlet-black-print/66",
+        "color": [
+          0.12500000174330675,
+          0.12500000174330675,
+          0.1350000030058378
+        ],
+        "vertices": 24,
+        "triangles": 12,
+        "face_ranges": 6
+      },
+      {
+        "name": "outlet-black-print/67",
+        "color": [
+          0.12500000174330675,
+          0.12500000174330675,
+          0.1350000030058378
+        ],
+        "vertices": 24,
+        "triangles": 12,
+        "face_ranges": 6
+      },
+      {
+        "name": "outlet-black-print/68",
+        "color": [
+          0.12500000174330675,
+          0.12500000174330675,
+          0.1350000030058378
+        ],
+        "vertices": 48,
+        "triangles": 28,
+        "face_ranges": 10
+      },
+      {
+        "name": "outlet-black-print/69",
+        "color": [
+          0.12500000174330675,
+          0.12500000174330675,
+          0.1350000030058378
+        ],
+        "vertices": 116,
+        "triangles": 92,
+        "face_ranges": 15
+      },
+      {
+        "name": "outlet-black-print/70",
+        "color": [
+          0.12500000174330675,
+          0.12500000174330675,
+          0.1350000030058378
+        ],
+        "vertices": 3126,
+        "triangles": 4908,
+        "face_ranges": 21
+      },
+      {
+        "name": "outlet-black-print/71",
+        "color": [
+          0.12500000174330675,
+          0.12500000174330675,
+          0.1350000030058378
+        ],
+        "vertices": 3450,
+        "triangles": 5304,
+        "face_ranges": 29
+      },
+      {
+        "name": "outlet-black-print/72",
+        "color": [
+          0.12500000174330675,
+          0.12500000174330675,
+          0.1350000030058378
+        ],
+        "vertices": 24,
+        "triangles": 12,
+        "face_ranges": 6
+      },
+      {
+        "name": "outlet-black-print/73",
+        "color": [
+          0.12500000174330675,
+          0.12500000174330675,
+          0.1350000030058378
+        ],
+        "vertices": 48,
+        "triangles": 28,
+        "face_ranges": 10
+      },
+      {
+        "name": "outlet-black-print/74",
+        "color": [
+          0.12500000174330675,
+          0.12500000174330675,
+          0.1350000030058378
+        ],
+        "vertices": 72,
+        "triangles": 44,
+        "face_ranges": 14
+      },
+      {
+        "name": "outlet-case",
+        "color": [
+          0.800000010877486,
+          0.8199999872960942,
+          0.8500000127184192
+        ],
+        "vertices": 3030,
+        "triangles": 3020,
+        "face_ranges": 7
+      },
+      {
+        "name": "outlet-connector",
+        "color": [
+          0.5500000090900438,
+          0.5600000132598123,
+          0.5699999996012601
+        ],
+        "vertices": 3066,
+        "triangles": 3044,
+        "face_ranges": 14
+      },
+      {
+        "name": "outlet-dial",
+        "color": [
+          0.959999986216933,
+          0.959999986216933,
+          0.950000001281664
+        ],
+        "vertices": 1010,
+        "triangles": 1004,
+        "face_ranges": 3
+      },
+      {
+        "name": "outlet-hub",
+        "color": [
+          0.800000010877486,
+          0.8199999872960942,
+          0.8500000127184192
+        ],
+        "vertices": 1010,
+        "triangles": 1004,
+        "face_ranges": 3
+      },
+      {
+        "name": "outlet-red-print/1",
+        "color": [
+          0.780000001770022,
+          0.09999999991362188,
+          0.12000000139546163
+        ],
+        "vertices": 24,
+        "triangles": 12,
+        "face_ranges": 6
+      },
+      {
+        "name": "outlet-red-print/2",
+        "color": [
+          0.780000001770022,
+          0.09999999991362188,
+          0.12000000139546163
+        ],
+        "vertices": 24,
+        "triangles": 12,
+        "face_ranges": 6
+      },
+      {
+        "name": "outlet-red-print/3",
+        "color": [
+          0.780000001770022,
+          0.09999999991362188,
+          0.12000000139546163
+        ],
+        "vertices": 24,
+        "triangles": 12,
+        "face_ranges": 6
+      },
+      {
+        "name": "outlet-red-print/4",
+        "color": [
+          0.780000001770022,
+          0.09999999991362188,
+          0.12000000139546163
+        ],
+        "vertices": 24,
+        "triangles": 12,
+        "face_ranges": 6
+      },
+      {
+        "name": "outlet-red-print/5",
+        "color": [
+          0.780000001770022,
+          0.09999999991362188,
+          0.12000000139546163
+        ],
+        "vertices": 24,
+        "triangles": 12,
+        "face_ranges": 6
+      },
+      {
+        "name": "outlet-red-print/6",
+        "color": [
+          0.780000001770022,
+          0.09999999991362188,
+          0.12000000139546163
+        ],
+        "vertices": 24,
+        "triangles": 12,
+        "face_ranges": 6
+      },
+      {
+        "name": "outlet-red-print/7",
+        "color": [
+          0.780000001770022,
+          0.09999999991362188,
+          0.12000000139546163
+        ],
+        "vertices": 24,
+        "triangles": 12,
+        "face_ranges": 6
+      },
+      {
+        "name": "outlet-red-print/8",
+        "color": [
+          0.780000001770022,
+          0.09999999991362188,
+          0.12000000139546163
+        ],
+        "vertices": 24,
+        "triangles": 12,
+        "face_ranges": 6
+      },
+      {
+        "name": "outlet-red-print/9",
+        "color": [
+          0.780000001770022,
+          0.09999999991362188,
+          0.12000000139546163
+        ],
+        "vertices": 24,
+        "triangles": 12,
+        "face_ranges": 6
+      },
+      {
+        "name": "outlet-red-print/10",
+        "color": [
+          0.780000001770022,
+          0.09999999991362188,
+          0.12000000139546163
+        ],
+        "vertices": 24,
+        "triangles": 12,
+        "face_ranges": 6
+      },
+      {
+        "name": "outlet-red-print/11",
+        "color": [
+          0.780000001770022,
+          0.09999999991362188,
+          0.12000000139546163
+        ],
+        "vertices": 24,
+        "triangles": 12,
+        "face_ranges": 6
+      },
+      {
+        "name": "outlet-red-print/12",
+        "color": [
+          0.780000001770022,
+          0.09999999991362188,
+          0.12000000139546163
+        ],
+        "vertices": 24,
+        "triangles": 12,
+        "face_ranges": 6
+      },
+      {
+        "name": "outlet-red-print/13",
+        "color": [
+          0.780000001770022,
+          0.09999999991362188,
+          0.12000000139546163
+        ],
+        "vertices": 24,
+        "triangles": 12,
+        "face_ranges": 6
+      },
+      {
+        "name": "outlet-red-print/14",
+        "color": [
+          0.780000001770022,
+          0.09999999991362188,
+          0.12000000139546163
+        ],
+        "vertices": 24,
+        "triangles": 12,
+        "face_ranges": 6
+      },
+      {
+        "name": "outlet-red-print/15",
+        "color": [
+          0.780000001770022,
+          0.09999999991362188,
+          0.12000000139546163
+        ],
+        "vertices": 24,
+        "triangles": 12,
+        "face_ranges": 6
+      },
+      {
+        "name": "outlet-red-print/16",
+        "color": [
+          0.780000001770022,
+          0.09999999991362188,
+          0.12000000139546163
+        ],
+        "vertices": 24,
+        "triangles": 12,
+        "face_ranges": 6
+      },
+      {
+        "name": "outlet-red-print/17",
+        "color": [
+          0.780000001770022,
+          0.09999999991362188,
+          0.12000000139546163
+        ],
+        "vertices": 24,
+        "triangles": 12,
+        "face_ranges": 6
+      },
+      {
+        "name": "outlet-red-print/18",
+        "color": [
+          0.780000001770022,
+          0.09999999991362188,
+          0.12000000139546163
+        ],
+        "vertices": 24,
+        "triangles": 12,
+        "face_ranges": 6
+      },
+      {
+        "name": "outlet-red-print/19",
+        "color": [
+          0.780000001770022,
+          0.09999999991362188,
+          0.12000000139546163
+        ],
+        "vertices": 3624,
+        "triangles": 5392,
+        "face_ranges": 24
+      },
+      {
+        "name": "outlet-red-print/20",
+        "color": [
+          0.780000001770022,
+          0.09999999991362188,
+          0.12000000139546163
+        ],
+        "vertices": 84,
+        "triangles": 56,
+        "face_ranges": 16
+      },
+      {
+        "name": "outlet-red-print/21",
+        "color": [
+          0.780000001770022,
+          0.09999999991362188,
+          0.12000000139546163
+        ],
+        "vertices": 7354,
+        "triangles": 11240,
+        "face_ranges": 30
+      },
+      {
+        "name": "outlet-red-print/22",
+        "color": [
+          0.780000001770022,
+          0.09999999991362188,
+          0.12000000139546163
+        ],
+        "vertices": 10886,
+        "triangles": 17196,
+        "face_ranges": 35
+      },
+      {
+        "name": "outlet-red-print/23",
+        "color": [
+          0.780000001770022,
+          0.09999999991362188,
+          0.12000000139546163
+        ],
+        "vertices": 299,
+        "triangles": 334,
+        "face_ranges": 11
+      },
+      {
+        "name": "outlet-red-print/24",
+        "color": [
+          0.780000001770022,
+          0.09999999991362188,
+          0.12000000139546163
+        ],
+        "vertices": 5040,
+        "triangles": 7576,
+        "face_ranges": 22
+      },
+      {
+        "name": "outlet-red-print/25",
+        "color": [
+          0.780000001770022,
+          0.09999999991362188,
+          0.12000000139546163
+        ],
+        "vertices": 2020,
+        "triangles": 2016,
+        "face_ranges": 4
+      },
+      {
+        "name": "outlet-red-print/26",
+        "color": [
+          0.780000001770022,
+          0.09999999991362188,
+          0.12000000139546163
+        ],
+        "vertices": 4989,
+        "triangles": 7718,
+        "face_ranges": 23
+      },
+      {
+        "name": "outlet-red-print/27",
+        "color": [
+          0.780000001770022,
+          0.09999999991362188,
+          0.12000000139546163
+        ],
+        "vertices": 7205,
+        "triangles": 11234,
+        "face_ranges": 39
+      },
+      {
+        "name": "outlet-red-print/28",
+        "color": [
+          0.780000001770022,
+          0.09999999991362188,
+          0.12000000139546163
+        ],
+        "vertices": 1861,
+        "triangles": 2946,
+        "face_ranges": 15
+      },
+      {
+        "name": "tank-band-1",
+        "color": [
+          0.780000001770022,
+          0.09999999991362188,
+          0.12000000139546163
+        ],
+        "vertices": 24,
+        "triangles": 12,
+        "face_ranges": 6
+      },
+      {
+        "name": "tank-band-2",
+        "color": [
+          0.13000000109304727,
+          0.7200000033238448,
+          0.1599999991998655
+        ],
+        "vertices": 24,
+        "triangles": 12,
+        "face_ranges": 6
+      },
+      {
+        "name": "tank-black-print/1",
+        "color": [
+          0.12500000174330675,
+          0.12500000174330675,
+          0.1350000030058378
+        ],
+        "vertices": 24,
+        "triangles": 12,
+        "face_ranges": 6
+      },
+      {
+        "name": "tank-black-print/2",
+        "color": [
+          0.12500000174330675,
+          0.12500000174330675,
+          0.1350000030058378
+        ],
+        "vertices": 24,
+        "triangles": 12,
+        "face_ranges": 6
+      },
+      {
+        "name": "tank-black-print/3",
+        "color": [
+          0.12500000174330675,
+          0.12500000174330675,
+          0.1350000030058378
+        ],
+        "vertices": 24,
+        "triangles": 12,
+        "face_ranges": 6
+      },
+      {
+        "name": "tank-black-print/4",
+        "color": [
+          0.12500000174330675,
+          0.12500000174330675,
+          0.1350000030058378
+        ],
+        "vertices": 24,
+        "triangles": 12,
+        "face_ranges": 6
+      },
+      {
+        "name": "tank-black-print/5",
+        "color": [
+          0.12500000174330675,
+          0.12500000174330675,
+          0.1350000030058378
+        ],
+        "vertices": 24,
+        "triangles": 12,
+        "face_ranges": 6
+      },
+      {
+        "name": "tank-black-print/6",
+        "color": [
+          0.12500000174330675,
+          0.12500000174330675,
+          0.1350000030058378
+        ],
+        "vertices": 24,
+        "triangles": 12,
+        "face_ranges": 6
+      },
+      {
+        "name": "tank-black-print/7",
+        "color": [
+          0.12500000174330675,
+          0.12500000174330675,
+          0.1350000030058378
+        ],
+        "vertices": 24,
+        "triangles": 12,
+        "face_ranges": 6
+      },
+      {
+        "name": "tank-black-print/8",
+        "color": [
+          0.12500000174330675,
+          0.12500000174330675,
+          0.1350000030058378
+        ],
+        "vertices": 24,
+        "triangles": 12,
+        "face_ranges": 6
+      },
+      {
+        "name": "tank-black-print/9",
+        "color": [
+          0.12500000174330675,
+          0.12500000174330675,
+          0.1350000030058378
+        ],
+        "vertices": 24,
+        "triangles": 12,
+        "face_ranges": 6
+      },
+      {
+        "name": "tank-black-print/10",
+        "color": [
+          0.12500000174330675,
+          0.12500000174330675,
+          0.1350000030058378
+        ],
+        "vertices": 24,
+        "triangles": 12,
+        "face_ranges": 6
+      },
+      {
+        "name": "tank-black-print/11",
+        "color": [
+          0.12500000174330675,
+          0.12500000174330675,
+          0.1350000030058378
+        ],
+        "vertices": 24,
+        "triangles": 12,
+        "face_ranges": 6
+      },
+      {
+        "name": "tank-black-print/12",
+        "color": [
+          0.12500000174330675,
+          0.12500000174330675,
+          0.1350000030058378
+        ],
+        "vertices": 24,
+        "triangles": 12,
+        "face_ranges": 6
+      },
+      {
+        "name": "tank-black-print/13",
+        "color": [
+          0.12500000174330675,
+          0.12500000174330675,
+          0.1350000030058378
+        ],
+        "vertices": 24,
+        "triangles": 12,
+        "face_ranges": 6
+      },
+      {
+        "name": "tank-black-print/14",
+        "color": [
+          0.12500000174330675,
+          0.12500000174330675,
+          0.1350000030058378
+        ],
+        "vertices": 24,
+        "triangles": 12,
+        "face_ranges": 6
+      },
+      {
+        "name": "tank-black-print/15",
+        "color": [
+          0.12500000174330675,
+          0.12500000174330675,
+          0.1350000030058378
+        ],
+        "vertices": 24,
+        "triangles": 12,
+        "face_ranges": 6
+      },
+      {
+        "name": "tank-black-print/16",
+        "color": [
+          0.12500000174330675,
+          0.12500000174330675,
+          0.1350000030058378
+        ],
+        "vertices": 24,
+        "triangles": 12,
+        "face_ranges": 6
+      },
+      {
+        "name": "tank-black-print/17",
+        "color": [
+          0.12500000174330675,
+          0.12500000174330675,
+          0.1350000030058378
+        ],
+        "vertices": 24,
+        "triangles": 12,
+        "face_ranges": 6
+      },
+      {
+        "name": "tank-black-print/18",
+        "color": [
+          0.12500000174330675,
+          0.12500000174330675,
+          0.1350000030058378
+        ],
+        "vertices": 24,
+        "triangles": 12,
+        "face_ranges": 6
+      },
+      {
+        "name": "tank-black-print/19",
+        "color": [
+          0.12500000174330675,
+          0.12500000174330675,
+          0.1350000030058378
+        ],
+        "vertices": 24,
+        "triangles": 12,
+        "face_ranges": 6
+      },
+      {
+        "name": "tank-black-print/20",
+        "color": [
+          0.12500000174330675,
+          0.12500000174330675,
+          0.1350000030058378
+        ],
+        "vertices": 24,
+        "triangles": 12,
+        "face_ranges": 6
+      },
+      {
+        "name": "tank-black-print/21",
+        "color": [
+          0.12500000174330675,
+          0.12500000174330675,
+          0.1350000030058378
+        ],
+        "vertices": 24,
+        "triangles": 12,
+        "face_ranges": 6
+      },
+      {
+        "name": "tank-black-print/22",
+        "color": [
+          0.12500000174330675,
+          0.12500000174330675,
+          0.1350000030058378
+        ],
+        "vertices": 24,
+        "triangles": 12,
+        "face_ranges": 6
+      },
+      {
+        "name": "tank-black-print/23",
+        "color": [
+          0.12500000174330675,
+          0.12500000174330675,
+          0.1350000030058378
+        ],
+        "vertices": 24,
+        "triangles": 12,
+        "face_ranges": 6
+      },
+      {
+        "name": "tank-black-print/24",
+        "color": [
+          0.12500000174330675,
+          0.12500000174330675,
+          0.1350000030058378
+        ],
+        "vertices": 24,
+        "triangles": 12,
+        "face_ranges": 6
+      },
+      {
+        "name": "tank-black-print/25",
+        "color": [
+          0.12500000174330675,
+          0.12500000174330675,
+          0.1350000030058378
+        ],
+        "vertices": 24,
+        "triangles": 12,
+        "face_ranges": 6
+      },
+      {
+        "name": "tank-black-print/26",
+        "color": [
+          0.12500000174330675,
+          0.12500000174330675,
+          0.1350000030058378
+        ],
+        "vertices": 24,
+        "triangles": 12,
+        "face_ranges": 6
+      },
+      {
+        "name": "tank-black-print/27",
+        "color": [
+          0.12500000174330675,
+          0.12500000174330675,
+          0.1350000030058378
+        ],
+        "vertices": 4560,
+        "triangles": 6976,
+        "face_ranges": 24
+      },
+      {
+        "name": "tank-black-print/28",
+        "color": [
+          0.12500000174330675,
+          0.12500000174330675,
+          0.1350000030058378
+        ],
+        "vertices": 5041,
+        "triangles": 7578,
+        "face_ranges": 22
+      },
+      {
+        "name": "tank-black-print/29",
+        "color": [
+          0.12500000174330675,
+          0.12500000174330675,
+          0.1350000030058378
+        ],
+        "vertices": 5041,
+        "triangles": 7578,
+        "face_ranges": 22
+      },
+      {
+        "name": "tank-black-print/30",
+        "color": [
+          0.12500000174330675,
+          0.12500000174330675,
+          0.1350000030058378
+        ],
+        "vertices": 299,
+        "triangles": 334,
+        "face_ranges": 11
+      },
+      {
+        "name": "tank-black-print/31",
+        "color": [
+          0.12500000174330675,
+          0.12500000174330675,
+          0.1350000030058378
+        ],
+        "vertices": 5036,
+        "triangles": 7568,
+        "face_ranges": 22
+      },
+      {
+        "name": "tank-black-print/32",
+        "color": [
+          0.12500000174330675,
+          0.12500000174330675,
+          0.1350000030058378
+        ],
+        "vertices": 5031,
+        "triangles": 7558,
+        "face_ranges": 22
+      },
+      {
+        "name": "tank-black-print/33",
+        "color": [
+          0.12500000174330675,
+          0.12500000174330675,
+          0.1350000030058378
+        ],
+        "vertices": 5029,
+        "triangles": 7554,
+        "face_ranges": 22
+      },
+      {
+        "name": "tank-black-print/34",
+        "color": [
+          0.12500000174330675,
+          0.12500000174330675,
+          0.1350000030058378
+        ],
+        "vertices": 299,
+        "triangles": 334,
+        "face_ranges": 11
+      },
+      {
+        "name": "tank-black-print/35",
+        "color": [
+          0.12500000174330675,
+          0.12500000174330675,
+          0.1350000030058378
+        ],
+        "vertices": 4556,
+        "triangles": 6968,
+        "face_ranges": 24
+      },
+      {
+        "name": "tank-black-print/36",
+        "color": [
+          0.12500000174330675,
+          0.12500000174330675,
+          0.1350000030058378
+        ],
+        "vertices": 5024,
+        "triangles": 7544,
+        "face_ranges": 22
+      },
+      {
+        "name": "tank-black-print/37",
+        "color": [
+          0.12500000174330675,
+          0.12500000174330675,
+          0.1350000030058378
+        ],
+        "vertices": 5024,
+        "triangles": 7544,
+        "face_ranges": 22
+      },
+      {
+        "name": "tank-black-print/38",
+        "color": [
+          0.12500000174330675,
+          0.12500000174330675,
+          0.1350000030058378
+        ],
+        "vertices": 3629,
+        "triangles": 5402,
+        "face_ranges": 24
+      },
+      {
+        "name": "tank-black-print/39",
+        "color": [
+          0.12500000174330675,
+          0.12500000174330675,
+          0.1350000030058378
+        ],
+        "vertices": 5030,
+        "triangles": 7556,
+        "face_ranges": 22
+      },
+      {
+        "name": "tank-black-print/40",
+        "color": [
+          0.12500000174330675,
+          0.12500000174330675,
+          0.1350000030058378
+        ],
+        "vertices": 5030,
+        "triangles": 7556,
+        "face_ranges": 22
+      },
+      {
+        "name": "tank-black-print/41",
+        "color": [
+          0.12500000174330675,
+          0.12500000174330675,
+          0.1350000030058378
+        ],
+        "vertices": 5030,
+        "triangles": 7556,
+        "face_ranges": 22
+      },
+      {
+        "name": "tank-black-print/42",
+        "color": [
+          0.12500000174330675,
+          0.12500000174330675,
+          0.1350000030058378
+        ],
+        "vertices": 36,
+        "triangles": 20,
+        "face_ranges": 8
+      },
+      {
+        "name": "tank-black-print/43",
+        "color": [
+          0.12500000174330675,
+          0.12500000174330675,
+          0.1350000030058378
+        ],
+        "vertices": 4803,
+        "triangles": 7362,
+        "face_ranges": 25
+      },
+      {
+        "name": "tank-black-print/44",
+        "color": [
+          0.12500000174330675,
+          0.12500000174330675,
+          0.1350000030058378
+        ],
+        "vertices": 9292,
+        "triangles": 15136,
+        "face_ranges": 35
+      },
+      {
+        "name": "tank-black-print/45",
+        "color": [
+          0.12500000174330675,
+          0.12500000174330675,
+          0.1350000030058378
+        ],
+        "vertices": 24,
+        "triangles": 12,
+        "face_ranges": 6
+      },
+      {
+        "name": "tank-black-print/46",
+        "color": [
+          0.12500000174330675,
+          0.12500000174330675,
+          0.1350000030058378
+        ],
+        "vertices": 24,
+        "triangles": 12,
+        "face_ranges": 6
+      },
+      {
+        "name": "tank-black-print/47",
+        "color": [
+          0.12500000174330675,
+          0.12500000174330675,
+          0.1350000030058378
+        ],
+        "vertices": 48,
+        "triangles": 28,
+        "face_ranges": 10
+      },
+      {
+        "name": "tank-black-print/48",
+        "color": [
+          0.12500000174330675,
+          0.12500000174330675,
+          0.1350000030058378
+        ],
+        "vertices": 116,
+        "triangles": 92,
+        "face_ranges": 15
+      },
+      {
+        "name": "tank-black-print/49",
+        "color": [
+          0.12500000174330675,
+          0.12500000174330675,
+          0.1350000030058378
+        ],
+        "vertices": 3121,
+        "triangles": 4898,
+        "face_ranges": 21
+      },
+      {
+        "name": "tank-black-print/50",
+        "color": [
+          0.12500000174330675,
+          0.12500000174330675,
+          0.1350000030058378
+        ],
+        "vertices": 3444,
+        "triangles": 5292,
+        "face_ranges": 29
+      },
+      {
+        "name": "tank-black-print/51",
+        "color": [
+          0.12500000174330675,
+          0.12500000174330675,
+          0.1350000030058378
+        ],
+        "vertices": 24,
+        "triangles": 12,
+        "face_ranges": 6
+      },
+      {
+        "name": "tank-black-print/52",
+        "color": [
+          0.12500000174330675,
+          0.12500000174330675,
+          0.1350000030058378
+        ],
+        "vertices": 48,
+        "triangles": 28,
+        "face_ranges": 10
+      },
+      {
+        "name": "tank-black-print/53",
+        "color": [
+          0.12500000174330675,
+          0.12500000174330675,
+          0.1350000030058378
+        ],
+        "vertices": 72,
+        "triangles": 44,
+        "face_ranges": 14
+      },
+      {
+        "name": "tank-case",
+        "color": [
+          0.800000010877486,
+          0.8199999872960942,
+          0.8500000127184192
+        ],
+        "vertices": 3030,
+        "triangles": 3020,
+        "face_ranges": 7
+      },
+      {
+        "name": "tank-dial",
+        "color": [
+          0.959999986216933,
+          0.959999986216933,
+          0.950000001281664
+        ],
+        "vertices": 1010,
+        "triangles": 1004,
+        "face_ranges": 3
+      },
+      {
+        "name": "tank-hub",
+        "color": [
+          0.800000010877486,
+          0.8199999872960942,
+          0.8500000127184192
+        ],
+        "vertices": 1010,
+        "triangles": 1004,
+        "face_ranges": 3
+      },
+      {
+        "name": "tank-red-print/1",
+        "color": [
+          0.780000001770022,
+          0.09999999991362188,
+          0.12000000139546163
+        ],
+        "vertices": 24,
+        "triangles": 12,
+        "face_ranges": 6
+      },
+      {
+        "name": "tank-red-print/2",
+        "color": [
+          0.780000001770022,
+          0.09999999991362188,
+          0.12000000139546163
+        ],
+        "vertices": 24,
+        "triangles": 12,
+        "face_ranges": 6
+      },
+      {
+        "name": "tank-red-print/3",
+        "color": [
+          0.780000001770022,
+          0.09999999991362188,
+          0.12000000139546163
+        ],
+        "vertices": 24,
+        "triangles": 12,
+        "face_ranges": 6
+      },
+      {
+        "name": "tank-red-print/4",
+        "color": [
+          0.780000001770022,
+          0.09999999991362188,
+          0.12000000139546163
+        ],
+        "vertices": 24,
+        "triangles": 12,
+        "face_ranges": 6
+      },
+      {
+        "name": "tank-red-print/5",
+        "color": [
+          0.780000001770022,
+          0.09999999991362188,
+          0.12000000139546163
+        ],
+        "vertices": 24,
+        "triangles": 12,
+        "face_ranges": 6
+      },
+      {
+        "name": "tank-red-print/6",
+        "color": [
+          0.780000001770022,
+          0.09999999991362188,
+          0.12000000139546163
+        ],
+        "vertices": 24,
+        "triangles": 12,
+        "face_ranges": 6
+      },
+      {
+        "name": "tank-red-print/7",
+        "color": [
+          0.780000001770022,
+          0.09999999991362188,
+          0.12000000139546163
+        ],
+        "vertices": 24,
+        "triangles": 12,
+        "face_ranges": 6
+      },
+      {
+        "name": "tank-red-print/8",
+        "color": [
+          0.780000001770022,
+          0.09999999991362188,
+          0.12000000139546163
+        ],
+        "vertices": 24,
+        "triangles": 12,
+        "face_ranges": 6
+      },
+      {
+        "name": "tank-red-print/9",
+        "color": [
+          0.780000001770022,
+          0.09999999991362188,
+          0.12000000139546163
+        ],
+        "vertices": 24,
+        "triangles": 12,
+        "face_ranges": 6
+      },
+      {
+        "name": "tank-red-print/10",
+        "color": [
+          0.780000001770022,
+          0.09999999991362188,
+          0.12000000139546163
+        ],
+        "vertices": 24,
+        "triangles": 12,
+        "face_ranges": 6
+      },
+      {
+        "name": "tank-red-print/11",
+        "color": [
+          0.780000001770022,
+          0.09999999991362188,
+          0.12000000139546163
+        ],
+        "vertices": 24,
+        "triangles": 12,
+        "face_ranges": 6
+      },
+      {
+        "name": "tank-red-print/12",
+        "color": [
+          0.780000001770022,
+          0.09999999991362188,
+          0.12000000139546163
+        ],
+        "vertices": 24,
+        "triangles": 12,
+        "face_ranges": 6
+      },
+      {
+        "name": "tank-red-print/13",
+        "color": [
+          0.780000001770022,
+          0.09999999991362188,
+          0.12000000139546163
+        ],
+        "vertices": 24,
+        "triangles": 12,
+        "face_ranges": 6
+      },
+      {
+        "name": "tank-red-print/14",
+        "color": [
+          0.780000001770022,
+          0.09999999991362188,
+          0.12000000139546163
+        ],
+        "vertices": 24,
+        "triangles": 12,
+        "face_ranges": 6
+      },
+      {
+        "name": "tank-red-print/15",
+        "color": [
+          0.780000001770022,
+          0.09999999991362188,
+          0.12000000139546163
+        ],
+        "vertices": 24,
+        "triangles": 12,
+        "face_ranges": 6
+      },
+      {
+        "name": "tank-red-print/16",
+        "color": [
+          0.780000001770022,
+          0.09999999991362188,
+          0.12000000139546163
+        ],
+        "vertices": 24,
+        "triangles": 12,
+        "face_ranges": 6
+      },
+      {
+        "name": "tank-red-print/17",
+        "color": [
+          0.780000001770022,
+          0.09999999991362188,
+          0.12000000139546163
+        ],
+        "vertices": 24,
+        "triangles": 12,
+        "face_ranges": 6
+      },
+      {
+        "name": "tank-red-print/18",
+        "color": [
+          0.780000001770022,
+          0.09999999991362188,
+          0.12000000139546163
+        ],
+        "vertices": 24,
+        "triangles": 12,
+        "face_ranges": 6
+      },
+      {
+        "name": "tank-red-print/19",
+        "color": [
+          0.780000001770022,
+          0.09999999991362188,
+          0.12000000139546163
+        ],
+        "vertices": 24,
+        "triangles": 12,
+        "face_ranges": 6
+      },
+      {
+        "name": "tank-red-print/20",
+        "color": [
+          0.780000001770022,
+          0.09999999991362188,
+          0.12000000139546163
+        ],
+        "vertices": 24,
+        "triangles": 12,
+        "face_ranges": 6
+      },
+      {
+        "name": "tank-red-print/21",
+        "color": [
+          0.780000001770022,
+          0.09999999991362188,
+          0.12000000139546163
+        ],
+        "vertices": 24,
+        "triangles": 12,
+        "face_ranges": 6
+      },
+      {
+        "name": "tank-red-print/22",
+        "color": [
+          0.780000001770022,
+          0.09999999991362188,
+          0.12000000139546163
+        ],
+        "vertices": 84,
+        "triangles": 56,
+        "face_ranges": 16
+      },
+      {
+        "name": "tank-red-print/23",
+        "color": [
+          0.780000001770022,
+          0.09999999991362188,
+          0.12000000139546163
+        ],
+        "vertices": 5035,
+        "triangles": 7566,
+        "face_ranges": 22
+      },
+      {
+        "name": "tank-red-print/24",
+        "color": [
+          0.780000001770022,
+          0.09999999991362188,
+          0.12000000139546163
+        ],
+        "vertices": 7359,
+        "triangles": 11250,
+        "face_ranges": 30
+      },
+      {
+        "name": "tank-red-print/25",
+        "color": [
+          0.780000001770022,
+          0.09999999991362188,
+          0.12000000139546163
+        ],
+        "vertices": 5041,
+        "triangles": 7578,
+        "face_ranges": 22
+      },
+      {
+        "name": "tank-red-print/26",
+        "color": [
+          0.780000001770022,
+          0.09999999991362188,
+          0.12000000139546163
+        ],
+        "vertices": 10893,
+        "triangles": 17210,
+        "face_ranges": 35
+      },
+      {
+        "name": "tank-red-print/27",
+        "color": [
+          0.780000001770022,
+          0.09999999991362188,
+          0.12000000139546163
+        ],
+        "vertices": 5029,
+        "triangles": 7554,
+        "face_ranges": 22
+      },
+      {
+        "name": "tank-red-print/28",
+        "color": [
+          0.780000001770022,
+          0.09999999991362188,
+          0.12000000139546163
+        ],
+        "vertices": 298,
+        "triangles": 332,
+        "face_ranges": 11
+      },
+      {
+        "name": "tank-red-print/29",
+        "color": [
+          0.780000001770022,
+          0.09999999991362188,
+          0.12000000139546163
+        ],
+        "vertices": 5031,
+        "triangles": 7558,
+        "face_ranges": 22
+      },
+      {
+        "name": "tank-red-print/30",
+        "color": [
+          0.780000001770022,
+          0.09999999991362188,
+          0.12000000139546163
+        ],
+        "vertices": 5031,
+        "triangles": 7558,
+        "face_ranges": 22
+      },
+      {
+        "name": "tank-red-print/31",
+        "color": [
+          0.780000001770022,
+          0.09999999991362188,
+          0.12000000139546163
+        ],
+        "vertices": 299,
+        "triangles": 334,
+        "face_ranges": 11
+      },
+      {
+        "name": "tank-red-print/32",
+        "color": [
+          0.780000001770022,
+          0.09999999991362188,
+          0.12000000139546163
+        ],
+        "vertices": 3618,
+        "triangles": 5380,
+        "face_ranges": 24
+      },
+      {
+        "name": "tank-red-print/33",
+        "color": [
+          0.780000001770022,
+          0.09999999991362188,
+          0.12000000139546163
+        ],
+        "vertices": 5026,
+        "triangles": 7548,
+        "face_ranges": 22
+      },
+      {
+        "name": "tank-red-print/34",
+        "color": [
+          0.780000001770022,
+          0.09999999991362188,
+          0.12000000139546163
+        ],
+        "vertices": 2020,
+        "triangles": 2016,
+        "face_ranges": 4
+      },
+      {
+        "name": "tank-red-print/35",
+        "color": [
+          0.780000001770022,
+          0.09999999991362188,
+          0.12000000139546163
+        ],
+        "vertices": 4972,
+        "triangles": 7684,
+        "face_ranges": 23
+      },
+      {
+        "name": "tank-red-print/36",
+        "color": [
+          0.780000001770022,
+          0.09999999991362188,
+          0.12000000139546163
+        ],
+        "vertices": 7206,
+        "triangles": 11236,
+        "face_ranges": 39
+      },
+      {
+        "name": "tank-red-print/37",
+        "color": [
+          0.780000001770022,
+          0.09999999991362188,
+          0.12000000139546163
+        ],
+        "vertices": 1852,
+        "triangles": 2928,
+        "face_ranges": 15
+      }
+    ]
+  }
+}

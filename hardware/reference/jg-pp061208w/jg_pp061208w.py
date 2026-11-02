@@ -3,20 +3,22 @@
 The exposed exterior follows the threaded ASSE assembly scan. The buried male
 tip uses a nominal 18.29 mm stem-to-shoulder length; internal passages and the
 stop are display geometry. Frame: stem tip X0, axis +X, socket mouth at +X.
+
+Geometry is held in the frozen STEP and fine payload beside this module.
+`frozen-asset.json` records their bytes and source snapshot.
 """
+
+from __future__ import annotations
 from pathlib import Path
 import argparse
 import json
 import math
 import sys
 
-import cadquery as cq
 
 _here = Path(__file__).resolve()
 _hw = next(p for p in _here.parents if p.name == 'hardware')
 sys.path.insert(0, str(_hw/'scripts'))
-from _cadq_export import export_assembly
-from _materials import M_JG_WHITE_PP
 
 STEP = _here.with_name('jg-pp061208w.step')
 # Frozen component measurements keep layout imports independent of scan files.
@@ -101,16 +103,19 @@ def tube_port():
 
 
 def _turned(profile):
+    import cadquery as cq
     points = [(profile[0][0], 0), *profile, (profile[-1][0], 0)]
     return cq.Workplane('XY').polyline(points).close().revolve(360, (0, 0), (1, 0)).val()
 
 
 def _cylinder(radius, lo, hi):
+    import cadquery as cq
     return cq.Solid.makeCylinder(radius, hi-lo, cq.Vector(lo, 0, 0), cq.Vector(1, 0, 0))
 
 
 def build_stem():
     """Nominal straight 3/8-inch mating stem and illustrative tip lead-in."""
+    import cadquery as cq
     lead = cq.Solid.makeCone(STEM_D/2-STEM_TIP_CHAMFER, STEM_D/2,
                             STEM_TIP_CHAMFER, cq.Vector(0, 0, 0), cq.Vector(1, 0, 0))
     return lead.fuse(_cylinder(STEM_D/2, STEM_TIP_CHAMFER, STEM_LENGTH))
@@ -139,10 +144,13 @@ def parts():
 
 def build():
     """Assembly-compatible shape containing the fixed fitting and free collet."""
+    import cadquery as cq
     return cq.Compound.makeCompound(list(parts().values()))
 
 
 def build_assembly():
+    import cadquery as cq
+    from _materials import M_JG_WHITE_PP
     assembly = cq.Assembly(name='John_Guest_PP061208W_scan_reference')
     for name, shape in parts().items():
         assembly.add(shape, name=name, color=M_JG_WHITE_PP)
@@ -166,7 +174,9 @@ def in_assembly(shape=None):
     return shape.translate(tuple(PARAMETERS['captured_tip_origin_mm']))
 
 
-def main():
+def _native_main():
+    import cadquery as cq
+    from _cadq_export import export_assembly
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--stl', type=Path, help='Also write a portable STL.')
     args = parser.parse_args(); assembly = build_assembly()
@@ -178,6 +188,40 @@ def main():
                       'components': {k: {'valid': s.isValid(), 'solids': len(s.Solids())} for k, s in parts().items()},
                       'stem_tip': stem_tip(), 'stem_shoulder': stem_shoulder(), 'tube_port': tube_port(),
                       'hidden_stem_length_nominal_mm': STEM_LENGTH}, indent=2))
+
+
+
+
+_FROZEN_DIR = Path(__file__).resolve().parent
+STEP_PATH = _FROZEN_DIR / 'jg-pp061208w.step'
+PAYLOAD_PATH = _FROZEN_DIR / 'jg-pp061208w.step.mesh'
+ASSET_MANIFEST_PATH = _FROZEN_DIR / "frozen-asset.json"
+
+
+def __getattr__(name):
+    if name in globals():
+        return globals()[name]
+    if name in ('cq',):
+        import cadquery as cq
+        value = locals()[name]
+    elif name in ('export_assembly',):
+        from _cadq_export import export_assembly
+        value = locals()[name]
+    elif name in ('M_JG_WHITE_PP',):
+        from _materials import M_JG_WHITE_PP
+        value = locals()[name]
+    else:
+        raise AttributeError(name)
+    globals()[name] = value
+    return value
+
+
+def main():
+    if sys.argv[1:]:
+        return _native_main()
+    print('jg-pp061208w frozen reference')
+    print(f"  STEP: {STEP_PATH}")
+    print(f"  Fine/display payload: {PAYLOAD_PATH}")
 
 
 if __name__ == '__main__':

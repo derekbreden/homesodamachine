@@ -1,0 +1,32 @@
+{
+  "source": {
+    "commit": "a40b1dc0d4a41ea4dab2b765f997a841ed8b6678",
+    "path": "hardware/reference/gagira-reducing-coupling/gagira_reducing_coupling.py",
+    "sha256": "214616588d7c7286d40c4116bfd9fd406007f7d03e75a2d6be94b2e243aa0e11"
+  },
+  "members": {
+    "gagira-reducing-coupling.step": "a30ce13ed70c41e630b4a6cb5ce402fb846cc55c90b6bf765600fba67fe4a768",
+    "gagira-reducing-coupling.step.mesh": "678d076e84c9998e560331fbfad1b6759d0a1fb18342008b6b8d680a6213802f"
+  },
+  "fine_payload": {
+    "source_step_sha256": "a30ce13ed70c41e630b4a6cb5ce402fb846cc55c90b6bf765600fba67fe4a768",
+    "path": "gagira-reducing-coupling.step.mesh",
+    "sha256": "678d076e84c9998e560331fbfad1b6759d0a1fb18342008b6b8d680a6213802f",
+    "linear_mm": 0.005,
+    "angular_rad": 0.05,
+    "producer": "hardware/scripts/_rust_part.py:_tessellate",
+    "meshes": [
+      {
+        "name": "gagira-reducing-coupling",
+        "color": [
+          0.7200000033238448,
+          0.7299999951670297,
+          0.7600000136009657
+        ],
+        "vertices": 2056,
+        "triangles": 2036,
+        "face_ranges": 12
+      }
+    ]
+  }
+}

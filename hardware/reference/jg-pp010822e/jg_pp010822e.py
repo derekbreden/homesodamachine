@@ -16,18 +16,20 @@ in), the NPT shank at +X. Centered on Y and Z.
 
 Run:
     tools/cad-venv/bin/python hardware/reference/jg-pp010822e/jg_pp010822e.py
+
+Geometry is held in the frozen STEP and fine payload beside this module.
+`frozen-asset.json` records their bytes and source snapshot.
 """
+
+from __future__ import annotations
 
 import sys
 from pathlib import Path
 
-import cadquery as cq
 
 _here = Path(__file__).resolve()
 _hw = next(p for p in _here.parents if p.name == "hardware")
 sys.path.insert(0, str(_hw / "scripts"))
-from _cadq_export import export_assembly
-from _materials import M_JG_BLACK_PP, one_body
 
 COLLET_D = 14.0             # 1/4" PTC collet body OD
 COLLET_LENGTH = 13.5        # push-in cartridge + release collar
@@ -53,6 +55,7 @@ def shank_end():
 def build():
     """PTC collet (X = 0, upstream) → hex → NPT shank (+X). Built along +Z
     low-to-high = upstream-to-downstream, then reoriented +Z -> +X."""
+    import cadquery as cq
     collet = cq.Workplane("XY").circle(COLLET_D / 2.0).extrude(COLLET_LENGTH)
     hex_sec = (
         cq.Workplane("XY")
@@ -70,7 +73,9 @@ def build():
     return part.val().rotate((0, 0, 0), (0, 1, 0), 90.0)
 
 
-def main():
+def _native_main():
+    from _cadq_export import export_assembly
+    from _materials import M_JG_BLACK_PP, one_body
     part = build()
     bb = part.BoundingBox()
     print("John Guest PP010822E 1/4\" PTC × 1/4\" NPT M male connector")
@@ -81,6 +86,38 @@ def main():
     out = _here.parent / "jg-pp010822e.step"
     export_assembly(one_body(part, "jg-pp010822e", M_JG_BLACK_PP), str(out))
     print(f"-> {out.name}")
+
+
+
+
+_FROZEN_DIR = Path(__file__).resolve().parent
+STEP_PATH = _FROZEN_DIR / 'jg-pp010822e.step'
+PAYLOAD_PATH = _FROZEN_DIR / 'jg-pp010822e.step.mesh'
+ASSET_MANIFEST_PATH = _FROZEN_DIR / "frozen-asset.json"
+
+
+def __getattr__(name):
+    if name in globals():
+        return globals()[name]
+    if name in ('cq',):
+        import cadquery as cq
+        value = locals()[name]
+    elif name in ('export_assembly',):
+        from _cadq_export import export_assembly
+        value = locals()[name]
+    elif name in ('M_JG_BLACK_PP', 'one_body'):
+        from _materials import M_JG_BLACK_PP, one_body
+        value = locals()[name]
+    else:
+        raise AttributeError(name)
+    globals()[name] = value
+    return value
+
+
+def main():
+    print('jg-pp010822e frozen reference')
+    print(f"  STEP: {STEP_PATH}")
+    print(f"  Fine/display payload: {PAYLOAD_PATH}")
 
 
 if __name__ == "__main__":
