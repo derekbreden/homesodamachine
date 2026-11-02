@@ -716,7 +716,7 @@ def build_foam(front_y: float):
 
     Returns `(placed, carry)` like every other seated body, so the cap's conduit mouths ride the
     placement — a line reaching one is drawn to where the bore actually comes out."""
-    f = import_step(str(FOAM_STEP)).val()
+    f = _foam.import_body(FOAM_STEP.with_name(FOAM_STEP.name + ".npz"))
     shell = box(import_step(str(_foam.SHELL_STEP)).val())
     datum = (_cci.front_wall_x, (shell.ymin + shell.ymax) / 2.0, _foam.stack_floor_z)
     return seat_body(f, (((0.0, 0.0, 1.0), FOAM_YAW),), seat="foam-assembly",
@@ -740,7 +740,8 @@ _CORE_BODIES: dict = {}
 def core_bodies(carry, model=None):
     """Every body the cold core places, stood where this machine stands the core.
 
-    `model` explicitly names the source-frame fine model a materialized action consumes.
+    `model` names the prepared current source-frame fine producer output. Mesh readers
+    consume it by default; HSM_CORE_MODEL=0 retains the construction path.
     `cold_core_assembly` builds in `foam-assembly`'s own frame — the same frame `build_foam`
     imports the envelope in — and `carry.where` is where the machine stands that frame, so
     moving each body by it is the whole of the transform.
@@ -748,6 +749,9 @@ def core_bodies(carry, model=None):
     IT IS THE CARRY AND NEVER THE CORE'S OWN BOX. Re-seating the stack the way `build_foam`
     seats the envelope would shift it: the core measures 285.0 x 184.2 where the foam measures
     283.0 x 181.0, and every clearance in the pack is struck off the foam's faces."""
+    if (model is None and getattr(cq, "MESH", False)
+            and os.environ.get("HSM_CORE_MODEL", "1") == "1"):
+        model = _cca.MODEL_OUT
     key = (repr(carry.where.toTuple()), str(model) if model is not None else None)
     if key not in _CORE_BODIES:
         meshcad = sys.modules.get("meshcad")
@@ -757,8 +761,8 @@ def core_bodies(carry, model=None):
             alpha_by_name = (scene.document(model) or {}).get("alpha_by_name", {})
             inputs = [_assembly_model.instance(model, prefix=CORE + SOLID_INDEX_SEP,
                        transform=_assembly_model.location(carry.where))]
-            with _assembly_model.placed(inputs) as placed:
-                bodies = scene.load(placed, snap=False)
+            with _assembly_model.placed(inputs, presentation=True) as placed:
+                bodies = scene.load(placed, snap=False, presentation=True)
             _CORE_BODIES[key] = [
                 (name, shape, cq.Color(*rgb, alpha_by_name.get(
                     name.removeprefix(CORE + SOLID_INDEX_SEP), 1.0), False)
@@ -5379,9 +5383,7 @@ def build_funnel_cover():
 
 def build_enclosure_assembly(*, require_box_spec=False) -> cq.Assembly:
     """The pack, what is seated in the walls, and the four printable pieces of the box."""
-    a, _p, live_box = machine(core_model=_cca.MODEL_OUT
-                            if require_box_spec and os.environ.get('HSM_CORE_MODEL') == '1'
-                            else None)
+    a, _p, live_box = machine()
     box = live_box
     if require_box_spec:
         import _box_spec
