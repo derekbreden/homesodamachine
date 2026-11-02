@@ -1,0 +1,225 @@
+{
+  "schema": "pgfun-gun-reference-parts/1",
+  "asset": {
+    "path": "positioner-reference-parts.npz",
+    "sha256": "27e258fa4b51fb61594c785ee51820d3ec65c5863d00c8288962da72fd1765bf",
+    "bytes": 195502
+  },
+  "sources": {
+    "hardware/reference/xlaserlab-sup29f-xh/xlaserlab_sup29f_xh.py": "337e9cd63a1b1b8d85c5d4bdb65304df518b243f395489282115977a253a9d2a",
+    "hardware/reference/xlaserlab-sup29f-xh/source/reconstructed-surfaces.npz": "7f4238a38f42f251f2b9665de6eefa4d805abcead8c1ba930f69a2a5c37d0bf8"
+  },
+  "origin": {
+    "cache_path": "hardware/printed-parts/fixtures/pgfun-positioner/reference-meshes.npz",
+    "cache_sha256": "4b9e4651bc799bdb67ef6e4fbceb42a4f97c36fe26d12b26cfbbc66090ffe205",
+    "receipt_sha256": "965e353bc0428320b7cfdf465abb8ff919e4816239d758bdfe2fd66e94102bad",
+    "extraction": "Exact retained gun arrays; no retessellation or native construction."
+  },
+  "coordinates": {
+    "units": "mm",
+    "x": "toward nozzle",
+    "y": "transverse",
+    "z": "up",
+    "origin": "front housing face at barrel axis",
+    "symmetry_plane": "Y=0"
+  },
+  "tessellation": {
+    "linear_mm": 0.12,
+    "angular_rad": 0.15,
+    "scope": "Existing PGFUN clearance-consumer mesh contract."
+  },
+  "names": [
+    "barrel-neck-and-ring",
+    "barrel-hex",
+    "barrel-stem",
+    "barrel-sleeve",
+    "copper-nozzle",
+    "wire-feed-front-nut",
+    "wire-feed-thread-envelope",
+    "trigger-clearance",
+    "umbilical-boot"
+  ],
+  "parts": {
+    "barrel-neck-and-ring": {
+      "vertices": 7369,
+      "triangles": 14734,
+      "vertex_dtype": "float64",
+      "face_dtype": "int64",
+      "vertex_sha256": "9b73c120caa19618c0d270f5515066dea61532f2e592175a8fcf4f067ccf6938",
+      "face_sha256": "38d13353a312243eee2ed6546f4aed8f8cb4a72554288ed0a514b15731491e99",
+      "bounds_mm": [
+        [
+          -0.3000000000000013,
+          -13.29804104477612,
+          -13.29804104477612
+        ],
+        [
+          17.8,
+          13.29804104477612,
+          13.298041044776118
+        ]
+      ]
+    },
+    "barrel-hex": {
+      "vertices": 12,
+      "triangles": 20,
+      "vertex_dtype": "float64",
+      "face_dtype": "int64",
+      "vertex_sha256": "3ec44ee1dc308af1e14e5ddb9e41028f8b5ccd89f329ffdccb9f1cf9bc4f2541",
+      "face_sha256": "e3be89fe748c8ed7ae5df74e2ae985180b248fe310efb85196c2c431cbf14b89",
+      "bounds_mm": [
+        [
+          17.0,
+          -9.237604307034012,
+          -8.000000000000004
+        ],
+        [
+          22.0,
+          9.237604307034012,
+          8.0
+        ]
+      ]
+    },
+    "barrel-stem": {
+      "vertices": 168,
+      "triangles": 332,
+      "vertex_dtype": "float64",
+      "face_dtype": "int64",
+      "vertex_sha256": "b2136f2567a09c55f4744b30ab48f5e64d523aa5bc9678287d9d138b039a2561",
+      "face_sha256": "f6c8623dd525a5ccd4130871dda07f78a7bbfe848fccf22e4675ab8b3d06ea16",
+      "bounds_mm": [
+        [
+          21.0,
+          -6.03715,
+          -6.037149999999997
+        ],
+        [
+          61.8,
+          6.03715,
+          6.037150000000007
+        ]
+      ]
+    },
+    "barrel-sleeve": {
+      "vertices": 504,
+      "triangles": 1004,
+      "vertex_dtype": "float64",
+      "face_dtype": "int64",
+      "vertex_sha256": "c1f32a87376ac0aee2c2e4ad3531fe021173d0e21cb5804f32684cb78497a2b6",
+      "face_sha256": "850a1068db201cd469f9545cd0385f1b8cbda73ea026ce625f2713abe57e09bb",
+      "bounds_mm": [
+        [
+          61.8,
+          -8.94965,
+          -8.949649999999993
+        ],
+        [
+          96.0,
+          8.94965,
+          8.94965000000001
+        ]
+      ]
+    },
+    "copper-nozzle": {
+      "vertices": 1050,
+      "triangles": 2096,
+      "vertex_dtype": "float64",
+      "face_dtype": "int64",
+      "vertex_sha256": "2bd6160f0a6cf5ea3e225faa878db8168e57bb6dcd66763eac84b71f8ab2fee1",
+      "face_sha256": "7da9b337327f9747054e4ede3e7a26029818584bbf5da2eef20d5c9526101d01",
+      "bounds_mm": [
+        [
+          95.6,
+          -8.95,
+          -8.949999999999989
+        ],
+        [
+          121.0,
+          8.95,
+          8.95000000000001
+        ]
+      ]
+    },
+    "wire-feed-front-nut": {
+      "vertices": 12,
+      "triangles": 20,
+      "vertex_dtype": "float64",
+      "face_dtype": "int64",
+      "vertex_sha256": "56f3f907929aa9cffb6e5e2a1ff1839abb38f85ae21ab91a5887bc2dac58df5a",
+      "face_sha256": "be2c0f1086f17e74402dc9ce0b85a393609ec2963a3b497659048331de86c867",
+      "bounds_mm": [
+        [
+          66.50477688635361,
+          -9.237604307034012,
+          -38.75510092225219
+        ],
+        [
+          81.26256689412315,
+          9.237604307034012,
+          -22.236738246963636
+        ]
+      ]
+    },
+    "wire-feed-thread-envelope": {
+      "vertices": 168,
+      "triangles": 332,
+      "vertex_dtype": "float64",
+      "face_dtype": "int64",
+      "vertex_sha256": "d2336157175d59c0fcfeae07e21bd74738f4431122f5c2cdbdd84046eaf70af2",
+      "face_sha256": "b4e68b1e29177ab444e1cc676fc17ee9858aa2ebaeef72b840a0d3a949203241",
+      "bounds_mm": [
+        [
+          72.881283984411,
+          -4.95,
+          -32.85957501686751
+        ],
+        [
+          96.66634021898142,
+          4.95,
+          -11.34329799301747
+        ]
+      ]
+    },
+    "trigger-clearance": {
+      "vertices": 340,
+      "triangles": 676,
+      "vertex_dtype": "float64",
+      "face_dtype": "int64",
+      "vertex_sha256": "9f16bb2c22904d97d610335d2fc8b60dba025ecfb37d899b02d5ad30a4d64f68",
+      "face_sha256": "73cd970d3399c6b842b006713e7d965a3078c90f3b1c3ea4a644547253d3faaa",
+      "bounds_mm": [
+        [
+          -69.50681645148585,
+          -5.0,
+          -67.92457048447925
+        ],
+        [
+          -46.83125129961519,
+          5.0,
+          -32.841652775534875
+        ]
+      ]
+    },
+    "umbilical-boot": {
+      "vertices": 792,
+      "triangles": 1580,
+      "vertex_dtype": "float64",
+      "face_dtype": "int64",
+      "vertex_sha256": "19283867c05627d4510db8af309b43ab45a96ecb444cd27b11613f0d220e1c5a",
+      "face_sha256": "85bfc54a73ba26d15108e976d6b0320c398c139ab56872f055d5d1ff07fe66ae",
+      "bounds_mm": [
+        [
+          -158.2734988372607,
+          -17.9,
+          -168.27093299168163
+        ],
+        [
+          -89.5781992927996,
+          17.9,
+          -82.12434231353227
+        ]
+      ]
+    }
+  },
+  "scope": "Vendor gun analytic parts retained by the PGFUN clearance question. Scanned housing and wire-feed surfaces remain separate inputs. Received fit is unmeasured."
+}

@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
-"""Rebuild pinned reference meshes, screen assembly interference and loads.
+"""Load pinned reference meshes, screen assembly interference and loads.
 
 Numerical geometry and beam/contact screens; no physical qualification claim.
 Run with tools/cad-venv/bin/python from any directory.
 """
 from pathlib import Path
-import hashlib, importlib.util, itertools, json, math, sys
+import hashlib, itertools, json, math
 import numpy as np
 import trimesh
 
@@ -13,14 +13,9 @@ HERE=Path(__file__).resolve().parent
 ROOT=HERE.parents[3]
 D=json.loads((HERE/'design.json').read_text())
 def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
-def module(name,path):
-    sys.path.insert(0,str(path.parent));spec=importlib.util.spec_from_file_location(name,path)
-    m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m);return m
-def tm(s):
-    s=s.val() if hasattr(s,'val') else s
-    v,f=s.tessellate(.12,.15)
-    m=trimesh.Trimesh([p.toTuple() for p in v],f,process=True);m.fix_normals();return m
 def saved(z):return {k[:-3]:trimesh.Trimesh(z[k],z[k[:-3]+'__f'],process=True)for k in z.files if k.endswith('__v')}
+GUN_PARTS=ROOT/'hardware/reference/xlaserlab-sup29f-xh/source/positioner-reference-parts.npz'
+GUN_PARTS_RECEIPT=GUN_PARTS.with_suffix('.json')
 ROTATOR_MODEL=ROOT/'hardware/printed-parts/fixtures/weld-rotator/weld-rotator-assembly.step.npz'
 def rotator_meshes():
     """The rotator producer's placed fine bodies, with the native assembly names."""
@@ -33,16 +28,23 @@ def rotator_meshes():
     return {'rotator:weld-rotator/'+name:trimesh.util.concatenate(parts)
             for name,parts in grouped.items()}
 def references():
-    files=[ROOT/'hardware/reference/xlaserlab-sup29f-xh/xlaserlab_sup29f_xh.py',
+    files=[GUN_PARTS,
            ROOT/'hardware/reference/xlaserlab-sup29f-xh/source/reconstructed-surfaces.npz',
-           ROTATOR_MODEL]
+           ROTATOR_MODEL,GUN_PARTS_RECEIPT,
+           ROOT/'hardware/reference/xlaserlab-sup29f-xh/xlaserlab_sup29f_xh.py']
     hashes={str(p.relative_to(ROOT)):sha(p)for p in files}
+    pinned=json.loads(GUN_PARTS_RECEIPT.read_text())
+    if hashes[str(GUN_PARTS.relative_to(ROOT))]!=pinned['asset']['sha256']:
+        raise ValueError('gun reference parts differ from their source receipt')
+    for path,expected in pinned['sources'].items():
+        if hashes[path]!=expected:
+            raise ValueError(f'gun reference source differs from its pinned parts: {path}')
     cache=HERE/'reference-meshes.npz';receipt=HERE/'reference-source.json'
     if cache.exists() and receipt.exists() and json.loads(receipt.read_text())['sources']==hashes:
         return saved(np.load(cache))
-    print('building gun reference meshes and reading the rotator fine model',flush=True)
-    gun=module('pgfun_gun_reference',files[0]);parts=gun.build_parts()
-    mesh={k:tm(s)for k,s in parts.items()if k!='housing' and
+    print('reading pinned gun reference meshes and the rotator fine model',flush=True)
+    parts=saved(np.load(GUN_PARTS,allow_pickle=False))
+    mesh={k:m for k,m in parts.items()if k!='housing' and
           (not k.startswith('wire-feed-')or k in ('wire-feed-front-nut','wire-feed-thread-envelope'))}
     mesh.update(saved(np.load(files[1])))
     meshes={'gun:'+k:m for k,m in mesh.items()}
