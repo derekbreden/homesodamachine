@@ -11,7 +11,8 @@ The report covers this wall/leg combination qualitatively. Threading force,
 tube roundness, flow, pressure and retention over time are unmeasured.
 
 The [production inlet plan](../../manifold-layout/soda_inlet.py) supplies the
-single native builder and installed frame. The holder is outside the wet
+live dimensions, native reader builder and installed frame. The normal producer
+exports the part through [the kernel program](soda_bend_holder.rs). The holder is outside the wet
 path, supported by the tube it encloses, and has no separate bracket.
 
 One approximately 63 mm square-cut piece of the owned 6.35 mm ID/25.4 mm OD foam
@@ -37,5 +38,5 @@ metal outlet and its receiving allowance remain part of the continuous tube.
 Regenerate from the repository root:
 
 ```sh
-tools/cad-venv/bin/python hardware/printed-parts/soda-bend-holder/soda_bend_holder.py
+python3 tools/run.py -- tools/cad-venv/bin/python hardware/printed-parts/soda-bend-holder/soda_bend_holder.py
 ```
