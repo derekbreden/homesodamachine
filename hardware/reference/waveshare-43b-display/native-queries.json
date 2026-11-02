@@ -1,0 +1,49 @@
+{
+  "schema": 1,
+  "units": "mm",
+  "frame": "Reference source XYZ",
+  "references": {
+    "waveshare-43b-display.step": {
+      "step_sha256": "6efb83f5a4b7c8b48d8e6fd9f862ae9461363068cf6eaf5b105bf35b6e5bb6c4",
+      "fine_model_sha256": "4277ae59c4c653fae9b5cd6ab9dec8d933414816c8d963e4296d6042bc1d17e0",
+      "bounds_mm": [
+        [
+          -57.25,
+          0.0,
+          -37.5
+        ],
+        [
+          56.25,
+          18.0,
+          39.5
+        ]
+      ],
+      "yz_support_mm": [
+        [
+          0.0,
+          39.5
+        ],
+        [
+          0.0,
+          -37.5
+        ],
+        [
+          1.0,
+          -37.5
+        ],
+        [
+          18.0,
+          -34.5
+        ],
+        [
+          18.0,
+          34.5
+        ],
+        [
+          1.0,
+          39.5
+        ]
+      ]
+    }
+  }
+}

@@ -44,6 +44,21 @@ def centre(shape):
     return tuple((a+b)/2 for a, b in zip(lo, hi))
 
 
+def _turn_matrix(turns):
+    """Compose the source's ordered axis turns as a numeric rotation."""
+    rotation = ((1.,0.,0.),(0.,1.,0.),(0.,0.,1.))
+    for axis, degrees in turns:
+        x,y,z = unit(axis)
+        c,s = math.cos(math.radians(degrees)),math.sin(math.radians(degrees))
+        q = 1.-c
+        turn = ((c+x*x*q,x*y*q-z*s,x*z*q+y*s),
+                (y*x*q+z*s,c+y*y*q,y*z*q-x*s),
+                (z*x*q-y*s,z*y*q+x*s,c+z*z*q))
+        rotation = tuple(tuple(sum(turn[i][k]*rotation[k][j] for k in range(3))
+                               for j in range(3)) for i in range(3))
+    return rotation
+
+
 def carbonator_bond_datums(ea):
     """Carry the shared steel contact and crimp mouth with the cold core."""
     import above_core as layout
@@ -105,22 +120,31 @@ class Attachments:
         measured translation. Bounds verify an explicit pose; they never infer
         the rotation of a relocated board, valve, PSU or relay.
         """
-        from _cadq_export import import_step
-        import cadquery as cq
         key = (part, str(reference), str(turns))
         if key in self.frames:
             return self.frames[key]
-        ref = (self.ea._pcba.board.build().val()
-               if part == "pcba" and not getattr(cq, "MESH", False)
-               else import_step(str(reference)).val())
         import above_core as layout
         import above_core_wiring as junctions
         explicit = junctions.frame(part)
         if explicit is None:
             explicit = layout.specification()['parts'].get(part)
+        measured = isinstance(self.part(part), ModelBody)
+        if measured:
+            from ._model_input import reference_bounds
+            rotation = explicit['rotation'] if explicit is not None else _turn_matrix(turns)
+            a, b = reference_bounds(reference, rotation)
+        else:
+            from _cadq_export import import_step
+            import cadquery as cq
+            ref = (self.ea._pcba.board.build().val()
+                   if part == "pcba" and not getattr(cq, "MESH", False)
+                   else import_step(str(reference)).val())
         if explicit is not None:
-            placed = ref.moved(layout.frame_location(explicit))
-            a, b = bounds(placed); c, d = bounds(self.part(part))
+            if measured:
+                a, b = (add(p, explicit['translation_mm']) for p in (a, b))
+            else:
+                a, b = bounds(ref.moved(layout.frame_location(explicit)))
+            c, d = bounds(self.part(part))
             self.frame_checks[part] = {
                 'reference': str(Path(reference).relative_to(ROOT)),
                 'basis': 'Explicit production native frame',
@@ -133,23 +157,24 @@ class Attachments:
                 return layout.point(explicit, p), layout.vector(explicit['rotation'], axis)
             self.frames[key] = carry
             return carry
-        turned = ref
-        basis = [cq.Vector(1, 0, 0), cq.Vector(0, 1, 0), cq.Vector(0, 0, 1)]
-        for axis, deg in turns:
-            turned = turned.rotate((0,0,0), axis, deg)
-            # A rotated point on a unit vector gives the same rotation without
-            # depending on the source shape's local location representation.
-            from OCP.gp import gp_Ax1, gp_Dir, gp_Pnt, gp_Trsf
-            tr = gp_Trsf(); tr.SetRotation(gp_Ax1(gp_Pnt(0,0,0), gp_Dir(*axis)), math.radians(deg))
-            basis = [cq.Vector(v.wrapped.Transformed(tr)) for v in basis]
-        shift = sub(centre(self.part(part)), centre(turned))
-        a, b = bounds(turned); c, d = bounds(self.part(part))
+        if not measured:
+            turned = ref
+            basis = [cq.Vector(1, 0, 0), cq.Vector(0, 1, 0), cq.Vector(0, 0, 1)]
+            for axis, deg in turns:
+                turned = turned.rotate((0,0,0), axis, deg)
+                from OCP.gp import gp_Ax1, gp_Dir, gp_Pnt, gp_Trsf
+                tr = gp_Trsf(); tr.SetRotation(gp_Ax1(gp_Pnt(0,0,0), gp_Dir(*axis)), math.radians(deg))
+                basis = [cq.Vector(v.wrapped.Transformed(tr)) for v in basis]
+            a, b = bounds(turned)
+            rotation = tuple(zip(*(v.toTuple() for v in basis)))
+        shift = sub(centre(self.part(part)), tuple((lo+hi)/2 for lo,hi in zip(a,b)))
+        c, d = bounds(self.part(part))
         residual = max(abs((b[i]-a[i])-(d[i]-c[i])) for i in range(3))
         self.frame_checks[part] = {"reference": str(Path(reference).relative_to(ROOT)),
                                   "turns": turns, "translation_mm": shift,
                                   "maximum_extent_residual_mm": residual}
         def rotate(p):
-            return tuple(sum(basis[j].toTuple()[i]*p[j] for j in range(3)) for i in range(3))
+            return layout.vector(rotation, p)
         def carry(p, axis):
             return add(rotate(p), shift), rotate(axis)
         self.frames[key] = carry
