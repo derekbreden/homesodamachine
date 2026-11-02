@@ -39,6 +39,10 @@ def read(path):
         sys.path.insert(0, str(FAUCET / "tpu-o-ring"))
         from tpu_o_ring import build_o_ring
         return build_o_ring()
+    if Path(path) == FAUCET / "lever-replica/lever-replica.step":
+        sys.path.insert(0, str(FAUCET / "lever-replica"))
+        from lever_replica import build
+        return build()
     return cq.importers.importStep(str(path))
 
 
