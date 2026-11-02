@@ -249,21 +249,22 @@ for _v in ("V-G", "V-J"):
         lambda v=_v: flavor_outlet(v), _flavor_reducer.TUBE_OD)
 
 
-def frames(placed, carries):
+def frames(placed, carries, *, bounds=None):
     """Register one `_routing.Frame` per body that states stations, so a run may anchor on
     `"g-ganen-pump.suction"`. `placed` is the pack's solids by name; `carries` is the carry each
     was placed by."""
     out = {}
+    bounds = bounds or {}
     import above_core_parts
-    for name in dict.fromkeys((*STATIONS, *placed)):
-        if name not in placed or name not in carries:
+    for name in dict.fromkeys((*STATIONS, *placed, *bounds)):
+        if (name not in placed and name not in bounds) or name not in carries:
             continue
         carry = carries[name]
         native = above_core_parts.port_stations(name)
         if native is not None:
             table = {port: (*carry((p, axis)), diameter)
                      for port, (p, axis, diameter) in native.items()}
-            out[name] = R.frame(name, placed[name], table)
+            out[name] = _frame(name, placed, table, bounds)
             continue
         ports = STATIONS.get(name)
         if ports is None:
@@ -272,8 +273,18 @@ def frames(placed, carries):
         for port, (station, diam) in ports.items():
             pos, axis = carry(station())
             table[port] = (pos, tuple(axis), diam)
-        out[name] = R.frame(name, placed[name], table)
+        out[name] = _frame(name, placed, table, bounds)
     return out
+
+
+def _frame(name, placed, ports, bounds):
+    if name not in bounds:
+        return R.frame(name, placed[name], ports)
+    from types import SimpleNamespace
+    lower, upper = bounds[name]
+    values = dict(zip(('xmin', 'ymin', 'zmin'), lower))
+    values.update(zip(('xmax', 'ymax', 'zmax'), upper))
+    return R.frame(name, None, ports, bb=SimpleNamespace(**values))
 
 
 def build_runs(placed, carries):
