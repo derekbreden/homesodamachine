@@ -6203,8 +6203,8 @@
       "tie_window_support_crossings": []
     },
     "foam-cap-lid-top": {
-      "preparation_directory": ".cache/retention-integration/slices-v2-cleanup/2026-11-02-foam-cap-lid-top-mark1-d4a19e83",
-      "preparation_record_sha256": "0bcd2a7db3129066477ad9053e89711c3ea308d913830640a91c720e43d08b15",
+      "preparation_directory": ".cache/retention-integration/slices-v2-final-surface/2026-11-02-foam-cap-lid-top-mark1-00864ec3",
+      "preparation_record_sha256": "94e2e1930e65da856b8af467e7a9d65cb723849b7ecd751f11b4bab12a6e7163",
       "profile_sha256": "45c16e8c8517e0a205107d7b9f7412d013f51a8de7ecf86125cc940079d37ed0",
       "printer": "Mark1",
       "nozzle": {
@@ -6223,11 +6223,11 @@
           "identify_id": 1901,
           "object_id": 2,
           "stl": "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.stl",
-          "stl_sha256": "2d0323731e27219e25a89f1b8ba87cf5a283126b8940d3bd0c75b221faa9dc12",
-          "step_sha256": "01c1a605cdcbf97c46bcf63ab0ecb52ff2be74de9c5f79b43674b8806215c8d3",
-          "facets": 36832,
+          "stl_sha256": "2d168e9aa4a3d6f6e06a0d7bf604c0bcd0d09fd578c337ae8fb803eaf03548ca",
+          "step_sha256": "863bceca568b3a0fc98f03a3bf459db737dc6da764092cf83a80f11ca67bb4d3",
+          "facets": 37520,
           "closed": {
-            "edges": 55248,
+            "edges": 56280,
             "boundary_edges": 0,
             "nonmanifold_edges": 0,
             "inconsistent_edges": 0,
@@ -6778,12 +6778,12 @@
           "fins": [],
           "regions": {
             "record": "hardware/printed-parts/cold-core/foam-cap/fore-snap-print-regions.json",
-            "record_sha256": "c715849d0a245db434f3d71d7430ecc423880600352e17787a55cd364ae56d22",
+            "record_sha256": "83f8b581484502f4a581384b91c947a74bfaf26cb75a25314865c739c8845b69",
             "part_process_overrides": null
           }
         }
       ],
-      "archive_sha256": "49ba3b272521ac67dea7226c33a588c8a09bc4f849c62ffed35cfdbc13232899",
+      "archive_sha256": "48b887c24fb1122480e7720abd69a95fc9ffc40b6fc525dca7578b3e14e61d1c",
       "checks": {
         "archive": true,
         "z_trim": true,
@@ -6798,16 +6798,16 @@
       "bed_border_mm": 20.0,
       "support_audits": [
         {
-          "record_sha256": "afec56837c0ac2453b3a281f64d94be63d6516cb3e6ddb931f2dc671c3cc28ed",
+          "record_sha256": "48b5d7e3bdbdd243864a921a752c78a691c0aced4ddf3bee6626d95d4243409c",
           "schema": 1,
           "piece": "foam-cap-lid-top",
           "inputs": {
             "gcode": "support-labels-1901.gcode",
-            "gcode_sha256": "d5b95ee84787c8c1cbde2a580461c89a15534357d41ab0ad6cfe7ce481bd5d06",
+            "gcode_sha256": "028199fdc0ca316411c68e870b60cdf14b9cfdd6f4cf20a7c0b142bcc96d4026",
             "model": "/Users/derekbredensteiner/Developer/hsm-approved-asse/hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.stl",
-            "model_sha256": "2d0323731e27219e25a89f1b8ba87cf5a283126b8940d3bd0c75b221faa9dc12",
-            "profile": ".cache/retention-integration/slices-v2-cleanup/2026-11-02-foam-cap-lid-top-mark1-d4a19e83/2026-11-02-foam-cap-lid-top-mark1-d4a19e83.3mf",
-            "profile_sha256": "2dde513c4b84503e1050214327dce7f1c08c4024d4bac06aa69bbf5ef40c7e2a"
+            "model_sha256": "2d168e9aa4a3d6f6e06a0d7bf604c0bcd0d09fd578c337ae8fb803eaf03548ca",
+            "profile": ".cache/retention-integration/slices-v2-final-surface/2026-11-02-foam-cap-lid-top-mark1-00864ec3/2026-11-02-foam-cap-lid-top-mark1-00864ec3.3mf",
+            "profile_sha256": "207b5bbaeb3e850839c5ee25f641598048d13915760aae312daba5c157a01f10"
           },
           "slicer": "BambuStudio 02.08.02.61",
           "first_layer_z_mm": 0.2,
@@ -7256,9 +7256,9 @@
       },
       "first_second_layer_stack": {
         "1901": {
-          "second_layer_model_bead_area_mm2": 49677.91985283385,
-          "fraction_over_first_layer": 0.9953677875452949,
-          "second_layer_centerline_outside_first_mm": 58.78416799543511
+          "second_layer_model_bead_area_mm2": 49677.91996813478,
+          "fraction_over_first_layer": 0.9953677856766177,
+          "second_layer_centerline_outside_first_mm": 58.78364773139447
         }
       },
       "settings_changes": {

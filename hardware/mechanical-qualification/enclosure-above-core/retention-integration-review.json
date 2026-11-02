@@ -1,8 +1,8 @@
 {
   "schema": "enclosure-retention-integration-review/1",
   "scope": "Final mechanical layout, complete native assembly and identified physical print surfaces. WAGO placement and wiring are the subsequent phase. These nominal readings do not establish physical spring force, printed retention or support-removal effort.",
-  "assembly_step_sha256": "b8a1a5b893b4bd465d8bd1bdd781201ba4eb20e9186ffa85622790c1710233ed",
-  "assembly_mesh_sha256": "3ab60fa98d64305694e6678f5645f3aa064de1e63bead926448e995ed82d3e34",
+  "assembly_step_sha256": "49d075a4791460c0c02461bd159d0f352e1d699d0ba5d37db18d3db57f911a40",
+  "assembly_mesh_sha256": "cf83a85e35d9c394882987f1664f7d507be7446c8351f43dee6a7d0f9cd55906",
   "native_parent": {
     "scope": "Current native enclosure and equipment lid with complete nominal native checks of the moved/added stock and their continuous assembly paths. Unchanged fluid routes, hardware poses, pump/clip interfaces and finite mating regions retain the separately bound successful native readings. All cap extraction paths remain clear by full swept bounds. Reinforced physical snap trials have reported ASSE corner flexing and excessive Pisco play; revised retention geometry and physical observations are separate work.",
     "baseline_step_sha256": "c264aefc6a1a1304af27e06af353ba9819de9be0daf85c3647c2a01058f7ebd7",
@@ -10,7 +10,7 @@
       "foam-cap-lid-top": {
         "valid": true,
         "solids": 1,
-        "faces": 291,
+        "faces": 292,
         "bounds_mm": [
           -141.2,
           -90.20000000000002,
@@ -19,7 +19,7 @@
           90.2,
           53.650000000000034
         ],
-        "volume_mm3": 441317.0183379585
+        "volume_mm3": 441761.17505574395
       },
       "pump-snap-cap": {
         "valid": true,
@@ -136,9 +136,9 @@
       "hardware/manifold-layout/rear_plumbing.py": "76463d694426b73c1064baf41511555029021d5e83e96e0a4dd63dada2eeaca4",
       "hardware/manifold-layout/_scorecard.py": "e69289374f350b7ea7bd13e1cc434e3559e712ba591b08f8a779316330a40c77",
       "hardware/manifold-layout/rear_snaps.py": "269cb6aff9948cfc5946f7e0ce52a633e0df3690828499171ae551faad432187",
-      "hardware/printed-parts/cold-core/_above_core_mounts.py": "3977ec96924d0587c628be8417fae03176f67cf5db22f82e45237eb1ee496427",
+      "hardware/printed-parts/cold-core/_above_core_mounts.py": "4eaa44d3d2bc38e529a02dffe6027c947a4268ef46d53fc207a60df80aebbc38",
       "hardware/printed-parts/cold-core/foam-cap/foam_cap.py": "a01102f86551157c370992a4a10d8f3839c04fda4e50f532aa7d43fbc4b9d067",
-      "hardware/printed-parts/cold-core/foam-cap/foam_cap.rs": "30636d68c861683e083c0d8801d8d5ecb0fe808b0f32d176d2445eb280feeb50",
+      "hardware/printed-parts/cold-core/foam-cap/foam_cap.rs": "99ba12999f8cdc74ea574a7b67fe77fcb959795e413d117c3e2ae6c5f2dc6355",
       "hardware/printed-parts/enclosure/enclosure/_above_core_shell.py": "447fb6dfeea463868ffc9490b518cc9242025014ed677676dd5ddf285fbe2a73",
       "hardware/manifold-layout/enclosure_assembly.py": "b4cf457ea0cffb86dd7f3a055a49e018785bd46e8d183869d1ac926db261e5c5",
       "hardware/printed-parts/enclosure/rear-identification/rear_identification.py": "dcb17f316208864714c1254c2aeeccb5f8ec49899134d6813dc382d1f71a2163",
@@ -146,10 +146,10 @@
       "hardware/printed-parts/cold-core/_cold_core_interface.py": "81dfa262e4ad7e321dca5ed4f86a85367b21123833013eb4dad75270e7faef44",
       "hardware/printed-parts/cold-core/_foam_cap.py": "1a60d110a06b51c83bf245e365cd3436508e6c3e317a8ef353da93b9b662aa07",
       "hardware/manifold-layout/reservoir-a-routes.json": "19e1578fe2b3764aad7cc941ab185612dec36ba53f1ede21d17a922934a7192f",
-      "hardware/printed-parts/cold-core/_reservoir_a_anchors.py": "20678df878e459e2b9254b505c586eeb17f212da3745ee3deda82ae49d7a6335"
+      "hardware/printed-parts/cold-core/_reservoir_a_anchors.py": "5868aa3fc23237e6215b72e78949e6b179405c64d7ea003821116cfab73987a7"
     },
-    "assembly_step_sha256": "b8a1a5b893b4bd465d8bd1bdd781201ba4eb20e9186ffa85622790c1710233ed",
-    "assembly_mesh_sha256": "3ab60fa98d64305694e6678f5645f3aa064de1e63bead926448e995ed82d3e34",
+    "assembly_step_sha256": "49d075a4791460c0c02461bd159d0f352e1d699d0ba5d37db18d3db57f911a40",
+    "assembly_mesh_sha256": "cf83a85e35d9c394882987f1664f7d507be7446c8351f43dee6a7d0f9cd55906",
     "elapsed_seconds": 334.0110370419861,
     "card_red_gates": [
       {
@@ -716,6 +716,113 @@
         "unresolved": [],
         "pass": true,
         "elapsed_seconds": 3.156118624989176
+      }
+    },
+    "retained_before_lid_lands": {
+      "assembly_step_sha256": "b8a1a5b893b4bd465d8bd1bdd781201ba4eb20e9186ffa85622790c1710233ed",
+      "assembly_mesh_sha256": "3ab60fa98d64305694e6678f5645f3aa064de1e63bead926448e995ed82d3e34"
+    },
+    "final_lid_surface": {
+      "native": {
+        "scope": "Native neighborhood of the flat fore-stop added stock and complete revised aft saddle. Hardware poses and bearing planes retain their placements. All other lid changes remove stock.",
+        "assembly_step_sha256": "49d075a4791460c0c02461bd159d0f352e1d699d0ba5d37db18d3db57f911a40",
+        "neighbors": {
+          "flat-pump-stop-added": [
+            {
+              "part": "tube-above-core-va-fore-feed",
+              "overlap_mm3": 0.0
+            },
+            {
+              "part": "tube-fluid-18",
+              "overlap_mm3": 0.0
+            },
+            {
+              "part": "tube-fluid-28",
+              "overlap_mm3": 0.0
+            },
+            {
+              "part": "tube-fluid-16",
+              "overlap_mm3": 0.0
+            },
+            {
+              "part": "g-ganen-pump",
+              "overlap_mm3": 0,
+              "gap_mm": 0.7765891096150652
+            },
+            {
+              "part": "enclosure-back-top",
+              "overlap_mm3": 0.0
+            }
+          ],
+          "aft-paired-saddle-final": [
+            {
+              "part": "tube-above-core-gas-core-drop",
+              "overlap_mm3": 0.0
+            },
+            {
+              "part": "tube-fluid-18",
+              "overlap_mm3": 0.0
+            },
+            {
+              "part": "tube-fluid-14",
+              "overlap_mm3": 0
+            },
+            {
+              "part": "tube-fluid-16",
+              "overlap_mm3": 0
+            },
+            {
+              "part": "enclosure-back-top",
+              "overlap_mm3": 0.0
+            }
+          ]
+        },
+        "unresolved": [],
+        "pass": true,
+        "elapsed_seconds": 63.57807191699976
+      },
+      "closing_motion": {
+        "scope": "Complete closure intervals for the two changed lid stocks against populated rear and front quadrants. Other surfaces retain their previous interval readings. Flexible handoffs remain loose until closure.",
+        "assembly_mesh_sha256": "cf83a85e35d9c394882987f1664f7d507be7446c8351f43dee6a7d0f9cd55906",
+        "checks": {
+          "rear approach": [
+            {
+              "actor": "flat-pump-stop-added",
+              "other": "enclosure-back-top",
+              "status": "clear_distance_intervals",
+              "queries": 8,
+              "minimum_queried_surface_distance_mm": 36.13938903808594,
+              "certified_surface_separation_lower_bound_mm": 0.8200225059616955
+            },
+            {
+              "actor": "aft-paired-saddle-final",
+              "other": "enclosure-back-top",
+              "status": "clear_distance_intervals",
+              "queries": 14,
+              "minimum_queried_surface_distance_mm": 16.981578579774393,
+              "certified_surface_separation_lower_bound_mm": 2.5219068109195817
+            }
+          ],
+          "front column slide": []
+        },
+        "unresolved": [],
+        "pass": true,
+        "elapsed_seconds": 3.081029082997702
+      },
+      "changed_viewer_bodies": [
+        "cold-core/foam-cap-lid-top"
+      ],
+      "unchanged_viewer_bodies": 453,
+      "flat_stop_candidate": {
+        "scope": "A flat full-width fore-stop roof replaces only the sloped terminal roof. The bearing end plane and rail contact bands retain their positions. This candidate adds stock; the actual bare-pump native reference is the obstacle.",
+        "top_world_z_mm": 266.5878100512672,
+        "span_world_y_mm": [
+          361.6680504420662,
+          367.6680504420662
+        ],
+        "pump_overlap_mm3": 0,
+        "pump_gap_mm": 0.7765891096209767,
+        "added_stock_mm3": 475.8068787417684
       }
     }
   },
@@ -1313,8 +1420,8 @@
     "pass": true,
     "elapsed_seconds": 3.3005226659879554,
     "current_parent_binding": {
-      "assembly_step_sha256": "b8a1a5b893b4bd465d8bd1bdd781201ba4eb20e9186ffa85622790c1710233ed",
-      "assembly_mesh_sha256": "3ab60fa98d64305694e6678f5645f3aa064de1e63bead926448e995ed82d3e34",
+      "assembly_step_sha256": "49d075a4791460c0c02461bd159d0f352e1d699d0ba5d37db18d3db57f911a40",
+      "assembly_mesh_sha256": "cf83a85e35d9c394882987f1664f7d507be7446c8351f43dee6a7d0f9cd55906",
       "scope": "All new back-top stock is AABB-separated from every complete prior cap extraction sweep. Other back-top changes remove material. The changed aft saddle belongs to the cold core, which is absent during these bench operations.",
       "added_stock_bounds_mm": {
         "relay-2-header-ledge-1": [
@@ -1529,7 +1636,8 @@
           "added_stock": "new-east-core-hold",
           "complete_swept_bounds_separated": true
         }
-      ]
+      ],
+      "lid_delta": "Only the cold-core lid changed. The cold core is absent during every recorded rear-cap bench extraction."
     }
   },
   "mounting_stock_record": "hardware/mechanical-qualification/enclosure-above-core/wall-mount-review.json",
@@ -1682,5 +1790,32 @@
   "physical_trial": {
     "record": "hardware/print-tests/rear-snap-retention/v2",
     "state": "The reinforced v2 trial accepts the pump and ASSE hardware fits and the meter receiver/wire room. The2.6mm leaves bend at their roots. Pisco has excessive play without useful retention; the water regulator has an incorrect outlet-shoulder envelope and its cap misses smaller sections. Coordinator2 is revising the clamping bodies, meter cap, spring roots and release access. Current snap retention remains unqualified."
+  },
+  "build_context": {
+    "box_specification": "hardware/manifold-layout/enclosure-box.json",
+    "box_sha256": "030ef2fe087dbafc5a55f68f12a03421321604b4054a651cf5c850d1695ae307",
+    "published_source_context": "9d86331183e89b6ab8961b2186a89e6e3880b1ba",
+    "scope": "The production box is read from its recorded Pack. Do not derive a new pack while integrating rear equipment. The current back-top includes the restored full core-hold root, bore-free relay header ledges, joined meter lead chamber and plain Pisco service exit.",
+    "back_top_native_basis": "/Users/derekbredensteiner/Developer/hsm-approved-asse/.cache/retention-integration/back-top-cleanup.brep",
+    "back_top_physical_export": ".cache/enclosure-review-work/recut_cleanup_backtop_print.py",
+    "declared_box_binding": "materialize_pump_cartridge._declared_box reads hardware/manifold-layout/enclosure-box.json; recut_cleanup_backtop_print.py uses that declared Box and Pack for the physical print.",
+    "root_integration": ".cache/enclosure-review-work/install_surface_cleanup_parts.py replaces only the changed native bodies and their matching physical viewer arrays in the current retained root and aggregates.",
+    "current_lid_integration": ".cache/enclosure-review-work/install_final_lid_surface.py",
+    "current_native_bindings": {
+      "assembly_step_sha256": "49d075a4791460c0c02461bd159d0f352e1d699d0ba5d37db18d3db57f911a40",
+      "assembly_mesh_sha256": "cf83a85e35d9c394882987f1664f7d507be7446c8351f43dee6a7d0f9cd55906"
+    },
+    "pending_source_paths": [],
+    "canonical_core_assets": {
+      "hardware/printed-parts/cold-core/foam-shell/foam-shell.step": "a716b44ef657e0355fbceae6c2dcba6a4de45feefad6417245149f26abef5ad7",
+      "hardware/printed-parts/cold-core/foam-shell/foam-shell.stl": "132c06ecc887624ae36c98c168f97efaa533deb278a4b93a3d2f725455d93164",
+      "hardware/printed-parts/cold-core/foam-shell/foam-shell.step.mesh": "a380128b3febfa7107dfcdd4c2e339c2e32c472f2472770c7eb7d71209c58247",
+      "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step": "91ddfea3e9ca8cf046cb385a8d7e653b0b2deb3a343d6b1c9170ead4ed7c5929",
+      "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.stl": "acdcff8c0842d7158aa15ed797dc22ef6173eb27f662f7e19d505000f4c84e0a",
+      "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step.mesh": "e2bca7d4eea9c996014e67643d8bed9717f5c73badd7462be126137afe728d49",
+      "hardware/printed-parts/cold-core/foam-cap/reservoir-b-fill-guide.step": "d1503dc41b490a05b6d636e46868485c2929dfebcd6dc70aba1131ee36df07c0",
+      "hardware/printed-parts/cold-core/foam-cap/reservoir-b-fill-guide.stl": "3f1fb479bf4599050149102ac96e540a2d1ca1892a99460c8f63ab4cb62c4987",
+      "hardware/printed-parts/cold-core/foam-cap/reservoir-b-fill-guide.step.mesh": "35da35866aa64d8f768d4756f9f8c6d7efd74dd048ad4db01d1f5a66c8670e10"
+    }
   }
 }

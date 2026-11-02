@@ -1,8 +1,8 @@
 {
   "schema": "enclosure-assembly-gate-review/2",
   "scope": "Current full native mechanical assembly and finite insertion/thread/heat-set regions. All51 selected nominal mates pass at the existing1mm3 contact floor; maximum outside volume0.146875mm3. Wires are excluded from red geometry gates. The sole remaining rigid obstruction is the neutral WAGO, addressed after the mechanical publication.",
-  "assembly_step_sha256": "b8a1a5b893b4bd465d8bd1bdd781201ba4eb20e9186ffa85622790c1710233ed",
-  "assembly_mesh_sha256": "3ab60fa98d64305694e6678f5645f3aa064de1e63bead926448e995ed82d3e34",
+  "assembly_step_sha256": "49d075a4791460c0c02461bd159d0f352e1d699d0ba5d37db18d3db57f911a40",
+  "assembly_mesh_sha256": "cf83a85e35d9c394882987f1664f7d507be7446c8351f43dee6a7d0f9cd55906",
   "native_integration_record": "hardware/mechanical-qualification/enclosure-above-core/retention-integration-review.json",
   "current_gate_checks": [
     {
@@ -868,26 +868,5 @@
     }
   ],
   "all_changed_body_unconnected_material_contacts_clear": false,
-  "remaining_relay_head_findings": [],
-  "publication_recovery": {
-    "scope": "Restore exact already-published reference mesh bytes required for adoption of the current assembly. This changes neither their pointers nor the enclosure geometry.",
-    "restored_object_sha256": [
-      "ad88d8ea9b91f9327c92de012ff127841a9f5c14b70ac6739427cbff5ad97583",
-      "df3be3fc40513ebb9047925a0b92e6060e6f3091658b3fc780a4deddd6f62f85",
-      "a32b411b55657eebe6091c75f7d54e131ed1735561c21c929ef88b0dd5c06379",
-      "84d68c77955b19d2e1f776a33b8fcd2370658086ad00acf5eb7ed953c0e72aec",
-      "0e9048ba2e654bc3a2a0f2fb8fa89c13bdc832d4a25aaecd18bc093d0b9a7dc4",
-      "c9e764f9809d9305385f97d83e3f4894f83ec97a4f7765eeb073e224508c105a",
-      "53c25c1db47960fcfb05e218fb92f05ee8d62cda6a5d8e3b726442cb1ec352da",
-      "a72c10795668b4ea7968352c019b44d46a726e52e1e18f666227cc6bab74770b",
-      "d4c3bc20fc3e5094d853e0bd556e75ba60806bda96daf32d524d43a117eb3890",
-      "e6f5144ed1b80765513497a1af723b19ac4241d58d5b3b6ebb9972e11472344d",
-      "71594137cc7ae40fd5c52c310f2c78f03a1f24a63dfe732a28d9e6b6c3bcc135",
-      "dca1e2ca76f2940117919f4f89393eff483ec5a55d6ac2955c1fa76ca411fa16",
-      "2b9fc9020991b824c510d39c3f1a6b076a2c329922e4c3651facfa65fdac9cb8",
-      "f6fac13455713b2e7bb95e8f970014a4772c251b5cec7f0d2ee60dbd498dbf68",
-      "3c45aeff759cc55dedbfa3183f1c8e8bc97ac6d5ea0e2b030bee3c115711d0f8"
-    ],
-    "readback_verified": true
-  }
+  "remaining_relay_head_findings": []
 }

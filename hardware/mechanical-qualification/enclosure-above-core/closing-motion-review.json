@@ -1,8 +1,8 @@
 {
   "schema": "enclosure-closing-motion-review/3",
   "scope": "Complete rigid translation intervals of the settled enclosure, including all nine mounted WAGOs. The final Pisco host/cap has its own complete delta intervals; all other rigid members retain identical geometry. Cross-parent flexible spans and the pump inlet handoff stay loose until closure.",
-  "current_assembly_step_sha256": "b8a1a5b893b4bd465d8bd1bdd781201ba4eb20e9186ffa85622790c1710233ed",
-  "current_payload_sha256": "3ab60fa98d64305694e6678f5645f3aa064de1e63bead926448e995ed82d3e34",
+  "current_assembly_step_sha256": "49d075a4791460c0c02461bd159d0f352e1d699d0ba5d37db18d3db57f911a40",
+  "current_payload_sha256": "cf83a85e35d9c394882987f1664f7d507be7446c8351f43dee6a7d0f9cd55906",
   "current_complete_motion_reading": {
     "payload_sha256": "4107c4f6dfb392ba108fb3ae31d31e930d7380e0fc85a99f921f51844cf061c5",
     "mesh_source": "hardware/manifold-layout/enclosure-assembly.step.mesh",
@@ -2536,8 +2536,8 @@
     "pass": true,
     "elapsed_seconds": 307.6166339170013,
     "current_parent_binding": {
-      "assembly_step_sha256": "b8a1a5b893b4bd465d8bd1bdd781201ba4eb20e9186ffa85622790c1710233ed",
-      "assembly_mesh_sha256": "3ab60fa98d64305694e6678f5645f3aa064de1e63bead926448e995ed82d3e34",
+      "assembly_step_sha256": "49d075a4791460c0c02461bd159d0f352e1d699d0ba5d37db18d3db57f911a40",
+      "assembly_mesh_sha256": "cf83a85e35d9c394882987f1664f7d507be7446c8351f43dee6a7d0f9cd55906",
       "scope": "Current added/moved stock has complete independent translation intervals. Every other current surface retains the preceding interval or is a material subtraction.",
       "delta_reading": {
         "scope": "Complete translation intervals for added or moved stock only. Retained whole-quadrant readings cover every unchanged face; all remaining changes remove stock. Wire bodies are excluded and the existing final flexible handoffs remain loose until rigid closure.",
@@ -2569,6 +2569,34 @@
         "unresolved": [],
         "pass": true,
         "elapsed_seconds": 3.156118624989176
+      },
+      "final_lid_delta": {
+        "scope": "Complete closure intervals for the two changed lid stocks against populated rear and front quadrants. Other surfaces retain their previous interval readings. Flexible handoffs remain loose until closure.",
+        "assembly_mesh_sha256": "cf83a85e35d9c394882987f1664f7d507be7446c8351f43dee6a7d0f9cd55906",
+        "checks": {
+          "rear approach": [
+            {
+              "actor": "flat-pump-stop-added",
+              "other": "enclosure-back-top",
+              "status": "clear_distance_intervals",
+              "queries": 8,
+              "minimum_queried_surface_distance_mm": 36.13938903808594,
+              "certified_surface_separation_lower_bound_mm": 0.8200225059616955
+            },
+            {
+              "actor": "aft-paired-saddle-final",
+              "other": "enclosure-back-top",
+              "status": "clear_distance_intervals",
+              "queries": 14,
+              "minimum_queried_surface_distance_mm": 16.981578579774393,
+              "certified_surface_separation_lower_bound_mm": 2.5219068109195817
+            }
+          ],
+          "front column slide": []
+        },
+        "unresolved": [],
+        "pass": true,
+        "elapsed_seconds": 3.081029082997702
       }
     }
   },
@@ -3017,8 +3045,8 @@
     "pass": true,
     "elapsed_seconds": 3.3005226659879554,
     "current_parent_binding": {
-      "assembly_step_sha256": "b8a1a5b893b4bd465d8bd1bdd781201ba4eb20e9186ffa85622790c1710233ed",
-      "assembly_mesh_sha256": "3ab60fa98d64305694e6678f5645f3aa064de1e63bead926448e995ed82d3e34",
+      "assembly_step_sha256": "49d075a4791460c0c02461bd159d0f352e1d699d0ba5d37db18d3db57f911a40",
+      "assembly_mesh_sha256": "cf83a85e35d9c394882987f1664f7d507be7446c8351f43dee6a7d0f9cd55906",
       "scope": "All new back-top stock is AABB-separated from every complete prior cap extraction sweep. Other back-top changes remove material. The changed aft saddle belongs to the cold core, which is absent during these bench operations.",
       "added_stock_bounds_mm": {
         "relay-2-header-ledge-1": [
@@ -3233,7 +3261,8 @@
           "added_stock": "new-east-core-hold",
           "complete_swept_bounds_separated": true
         }
-      ]
+      ],
+      "lid_delta": "Only the cold-core lid changed. The cold core is absent during every recorded rear-cap bench extraction."
     }
   },
   "all_recorded_rigid_closing_intervals_clear_after_prerequisites": false,
