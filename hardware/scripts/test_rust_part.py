@@ -55,6 +55,29 @@ def committed(part: Path, name: str) -> dict:
 
 
 class APartsRun(unittest.TestCase):
+    def test_cut_retains_complete_records_and_aggregated_outputs(self):
+        said = probe("""
+            import tempfile
+            from pathlib import Path
+            import _rust_part as part
+            records = [
+                {"files": ["first.step"], "bodies": [{"name": "first"}],
+                 "measurements": {"clearance": 1.25, "contributors": [None, {"line": 43}]}},
+                {"files": ["second.step"], "bodies": [{"name": "second"}],
+                 "measurements": {"clearance": 2.5}},
+            ]
+            part._engine = lambda *args: {"sources": [], "stderr": "", "hit": True,
+                "stdout": "\\n".join(json.dumps(r) for r in records)}
+            with tempfile.TemporaryDirectory(dir=part.ROOT / ".cache") as tmp:
+                result = part.cut("machine", "example", {"value": 3}, tmp)
+                print(json.dumps({"result": result, "records": records,
+                                  "writes": sorted(Path(p).name for p in part._WRITE_TARGETS)}))
+        """)
+        self.assertEqual(said["result"]["files"], ["first.step", "second.step"])
+        self.assertEqual(said["result"]["bodies"], [{"name": "first"}, {"name": "second"}])
+        self.assertEqual(said["result"]["results"], said["records"])
+        self.assertEqual(said["writes"], ["example.numbers.json", "first.step", "second.step"])
+
     def test_numbers_filename_can_differ_from_the_binary(self):
         said = probe("""
             import tempfile
