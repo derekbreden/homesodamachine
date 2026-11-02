@@ -25,7 +25,7 @@ def main() -> None:
 
     manifold_model = (_HERE.parent / "manifold-layout.step.npz"
                       if getattr(cq, "MESH", False) else None)
-    _machine, _pack, box = _assembly.machine(manifold_model=manifold_model)
+    _machine, _pack, box = _assembly.machine(manifold_model=manifold_model, core_reference=True)
     box = _enc.documented(box)
     # Exercise the actual description, including its nested lists, ordered dictionaries and
     # named records, before publishing it as another action's input.
