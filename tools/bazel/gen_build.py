@@ -478,6 +478,18 @@ def action_plan(only: str = None) -> tuple:
     return actions, inv
 
 
+def support_argv(rule: dict, *, locations: bool = False) -> list:
+    """The existing support materializer's argv, shared by BUILD and the engine."""
+    if rule["kind"] != "graph":
+        raise ValueError("Unsupported support materializer: " + rule["kind"])
+    tool, = rule["tools"]
+    source, = rule["srcs"]
+    output, = rule["outs"]
+    if locations:
+        tool, source, output = f"$(location {tool})", f"$(location {source})", "$@"
+    return [tool, "--project-graph", rule["generator"], source, output]
+
+
 def dependency_rules(actions: dict) -> dict:
     """The declared inputs and outputs of actions and their build support rules.
 
@@ -547,8 +559,7 @@ def render_build(only: str = None) -> tuple:
                 f'    srcs = ["{source}"],\n'
                 f'    outs = ["{output}"],\n'
                 f'    tools = ["{tool}"],\n'
-                f'    cmd = "{VENV} $(location {tool}) --project-graph '
-                f'{rule["generator"]} $(location {source}) $@",\n)')
+                f'    cmd = "{VENV} {" ".join(support_argv(rule, locations=True))}",\n)')
         elif rule["kind"] == "pysrc":
             source, = rule["srcs"]
             output, = rule["outs"]
