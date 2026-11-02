@@ -391,15 +391,17 @@ fn pump_cradle(n: &Numbers) -> Result<Solid> {
     let tz = d["frame"]["translation_mm"][2].as_f64().context("pump z")?;
     let head = f(selected, "rail_stop_native_z_mm")?;
     let slope = (c.z - tz - head) / first;
-    let mut profiles = vec![];
-    for x in [fore0 - 0.1, first] {
-        let (z, y) = (tz + head + slope * x, fy + x);
-        profiles.push(Region::polygon(vec![
-            v3(c.x - wide - 0.1, y, z), v3(c.x + wide + 0.1, y, z),
-            v3(c.x + wide + 0.1, y, c.z + 1.), v3(c.x - wide - 0.1, y, c.z + 1.),
-        ]));
+    for (xa, xb) in [(fore0 - 0.1, fore1), (fore1, first)] {
+        let mut profiles = vec![];
+        for x in [xa, xb] {
+            let (z, y) = (tz + head + slope * x.max(fore1), fy + x);
+            profiles.push(Region::polygon(vec![
+                v3(c.x - wide - 0.1, y, z), v3(c.x + wide + 0.1, y, z),
+                v3(c.x + wide + 0.1, y, c.z + 1.), v3(c.x - wide - 0.1, y, c.z + 1.),
+            ]));
+        }
+        body = body.cut(&Solid::loft(&profiles)?)?;
     }
-    body = body.cut(&Solid::loft(&profiles)?)?;
     for cap in a(&d["caps"])? {
         let s = &cap["snap_station"];
         for side in [-1., 1.] {

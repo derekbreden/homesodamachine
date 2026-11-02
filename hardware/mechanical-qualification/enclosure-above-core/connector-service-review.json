@@ -341,9 +341,100 @@
   "unresolved": [],
   "all_paths_clear_after_prerequisites": true,
   "elapsed_seconds": 67.20460679099779,
+  "current_lid_delta": {
+    "assembly_step_sha256": "49d075a4791460c0c02461bd159d0f352e1d699d0ba5d37db18d3db57f911a40",
+    "assembly_mesh_sha256": "cf83a85e35d9c394882987f1664f7d507be7446c8351f43dee6a7d0f9cd55906",
+    "scope": "Complete conservative connector-stage bounds are separated from both changed lid stocks. Every other component and prerequisite retains its native reading.",
+    "proof": [
+      {
+        "connector": "terminal-J1",
+        "stage": 0,
+        "actor": "flat-pump-stop-added",
+        "complete_swept_bounds_separated": true
+      },
+      {
+        "connector": "terminal-J1",
+        "stage": 0,
+        "actor": "aft-paired-saddle-final",
+        "complete_swept_bounds_separated": true
+      },
+      {
+        "connector": "terminal-J1",
+        "stage": 1,
+        "actor": "flat-pump-stop-added",
+        "complete_swept_bounds_separated": true
+      },
+      {
+        "connector": "terminal-J1",
+        "stage": 1,
+        "actor": "aft-paired-saddle-final",
+        "complete_swept_bounds_separated": true
+      },
+      {
+        "connector": "terminal-J2",
+        "stage": 0,
+        "actor": "flat-pump-stop-added",
+        "complete_swept_bounds_separated": true
+      },
+      {
+        "connector": "terminal-J2",
+        "stage": 0,
+        "actor": "aft-paired-saddle-final",
+        "complete_swept_bounds_separated": true
+      },
+      {
+        "connector": "terminal-J2",
+        "stage": 1,
+        "actor": "flat-pump-stop-added",
+        "complete_swept_bounds_separated": true
+      },
+      {
+        "connector": "terminal-J2",
+        "stage": 1,
+        "actor": "aft-paired-saddle-final",
+        "complete_swept_bounds_separated": true
+      },
+      {
+        "connector": "terminal-J11",
+        "stage": 0,
+        "actor": "flat-pump-stop-added",
+        "complete_swept_bounds_separated": true
+      },
+      {
+        "connector": "terminal-J11",
+        "stage": 0,
+        "actor": "aft-paired-saddle-final",
+        "complete_swept_bounds_separated": true
+      },
+      {
+        "connector": "terminal-J11",
+        "stage": 1,
+        "actor": "flat-pump-stop-added",
+        "complete_swept_bounds_separated": true
+      },
+      {
+        "connector": "terminal-J11",
+        "stage": 1,
+        "actor": "aft-paired-saddle-final",
+        "complete_swept_bounds_separated": true
+      },
+      {
+        "connector": "terminal-J11",
+        "stage": 2,
+        "actor": "flat-pump-stop-added",
+        "complete_swept_bounds_separated": true
+      },
+      {
+        "connector": "terminal-J11",
+        "stage": 2,
+        "actor": "aft-paired-saddle-final",
+        "complete_swept_bounds_separated": true
+      }
+    ]
+  },
   "current_parent_binding": {
-    "assembly_step_sha256": "b8a1a5b893b4bd465d8bd1bdd781201ba4eb20e9186ffa85622790c1710233ed",
-    "assembly_mesh_sha256": "3ab60fa98d64305694e6678f5645f3aa064de1e63bead926448e995ed82d3e34",
+    "assembly_step_sha256": "49d075a4791460c0c02461bd159d0f352e1d699d0ba5d37db18d3db57f911a40",
+    "assembly_mesh_sha256": "cf83a85e35d9c394882987f1664f7d507be7446c8351f43dee6a7d0f9cd55906",
     "scope": "The current back-top and lid cleanup preserves the source connector/header poses. Added stock is separately bounded and the moved aft saddle lies beyond the retained connector paths; all other changes remove material. Original native stage boxes and prerequisites retain their exact scope."
   }
 }
