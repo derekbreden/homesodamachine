@@ -6,12 +6,12 @@
   },
   "members": {
     "asse1022-assembly.step": "473415b7d9bb3db42ae500426b0a2e1c0fbbb5b5ccd717096ad1f6e7a5ec8450",
-    "asse1022-assembly.step.mesh": "7ba3284bbc0a98ef5936a477451bb23d0937769aa83a1b645d5df4da9336db76"
+    "asse1022-assembly.step.mesh": "81c70adeabba1ce538d942754ed75bafaa02146b66b2589bd1ab94b5c6915b9c"
   },
   "fine_payload": {
     "source_step_sha256": "473415b7d9bb3db42ae500426b0a2e1c0fbbb5b5ccd717096ad1f6e7a5ec8450",
     "path": "asse1022-assembly.step.mesh",
-    "sha256": "7ba3284bbc0a98ef5936a477451bb23d0937769aa83a1b645d5df4da9336db76",
+    "sha256": "81c70adeabba1ce538d942754ed75bafaa02146b66b2589bd1ab94b5c6915b9c",
     "linear_mm": 0.005,
     "angular_rad": 0.05,
     "producer": "hardware/scripts/_rust_part.py:_tessellate",
@@ -20,9 +20,9 @@
       {
         "name": "flare38-14ptc/1",
         "color": [
-          0.5500000090900438,
-          0.5600000132598123,
-          0.5699999996012601
+          0.2632734179496765,
+          0.27383843064308167,
+          0.2846466898918152
         ],
         "vertices": 3536,
         "triangles": 3524,
@@ -31,9 +31,9 @@
       {
         "name": "flare38-14ptc/2",
         "color": [
-          0.5500000090900438,
-          0.5600000132598123,
-          0.5699999996012601
+          0.2632734179496765,
+          0.27383843064308167,
+          0.2846466898918152
         ],
         "vertices": 1046,
         "triangles": 1032,
@@ -42,9 +42,9 @@
       {
         "name": "gagira-coupling",
         "color": [
-          0.7200000033238448,
-          0.7299999951670297,
-          0.7600000136009657
+          0.47699978947639465,
+          0.4919050335884094,
+          0.5382355451583862
         ],
         "vertices": 2056,
         "triangles": 2036,
@@ -53,9 +53,9 @@
       {
         "name": "jg-pp010822e",
         "color": [
-          0.12000000139546163,
-          0.12000000139546163,
-          0.13999999784656367
+          0.0134117491543293,
+          0.0134117491543293,
+          0.017389101907610893
         ],
         "vertices": 2056,
         "triangles": 2036,
@@ -64,14 +64,15 @@
       {
         "name": "multiplex-asse1022",
         "color": [
-          0.7099999974147344,
-          0.5600000132598123,
-          0.3299999972442969
+          0.4623613655567169,
+          0.27383843064308167,
+          0.0889815241098404
         ],
         "vertices": 3066,
         "triangles": 3044,
         "face_ranges": 14
       }
-    ]
+    ],
+    "color_space": "linear-rgb"
   }
 }

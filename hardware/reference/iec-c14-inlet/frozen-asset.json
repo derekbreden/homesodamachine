@@ -6,12 +6,12 @@
   },
   "members": {
     "iec-c14-inlet.step": "778d68ef2a4231bbaaa80abdebcddb25c190d83af11bbf920e6a4fede2a2f6c8",
-    "iec-c14-inlet.step.mesh": "2dc3d94f5b4af7c34fc113c844f842913ebbb60ed23b4f6356f45904eaa5ac8c"
+    "iec-c14-inlet.step.mesh": "48d018c3f64efaabbce9c099f59c058ecfbacaba6838816ca3ed1604db1a88f9"
   },
   "fine_payload": {
     "source_step_sha256": "778d68ef2a4231bbaaa80abdebcddb25c190d83af11bbf920e6a4fede2a2f6c8",
     "path": "iec-c14-inlet.step.mesh",
-    "sha256": "2dc3d94f5b4af7c34fc113c844f842913ebbb60ed23b4f6356f45904eaa5ac8c",
+    "sha256": "48d018c3f64efaabbce9c099f59c058ecfbacaba6838816ca3ed1604db1a88f9",
     "linear_mm": 0.005,
     "angular_rad": 0.05,
     "producer": "hardware/scripts/_rust_part.py:_tessellate",
@@ -20,14 +20,15 @@
       {
         "name": "iec-c14-inlet",
         "color": [
-          0.18000000230218868,
-          0.18000000230218868,
-          0.19999999868206275
+          0.027211781591176987,
+          0.027211781591176987,
+          0.03310476616024971
         ],
         "vertices": 14066,
         "triangles": 15376,
         "face_ranges": 116
       }
-    ]
+    ],
+    "color_space": "linear-rgb"
   }
 }

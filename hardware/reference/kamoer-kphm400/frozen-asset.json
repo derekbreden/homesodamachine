@@ -6,12 +6,12 @@
   },
   "members": {
     "kamoer-kphm400.step": "d01775a9f13be7d33eef99a81c9bffa3db76de16a212e4ffc0f9498e621f9f1a",
-    "kamoer-kphm400.step.mesh": "e4cac9ab2ccf7f38339af4f9239a5c241e3bdde795b4d0bb56c907f25f36d9ea"
+    "kamoer-kphm400.step.mesh": "0f7d82d980c68d3b97894cf0ebc4f828dc68179fb126f37816b811e60fcff865"
   },
   "fine_payload": {
     "source_step_sha256": "d01775a9f13be7d33eef99a81c9bffa3db76de16a212e4ffc0f9498e621f9f1a",
     "path": "kamoer-kphm400.step.mesh",
-    "sha256": "e4cac9ab2ccf7f38339af4f9239a5c241e3bdde795b4d0bb56c907f25f36d9ea",
+    "sha256": "0f7d82d980c68d3b97894cf0ebc4f828dc68179fb126f37816b811e60fcff865",
     "linear_mm": 0.005,
     "angular_rad": 0.05,
     "producer": "hardware/scripts/_rust_part.py:_tessellate",
@@ -20,9 +20,9 @@
       {
         "name": "head",
         "color": [
-          0.1599999991998655,
-          0.1599999991998655,
-          0.18000000230218868
+          0.021980946883559227,
+          0.021980946883559227,
+          0.027211781591176987
         ],
         "vertices": 246,
         "triangles": 300,
@@ -31,9 +31,9 @@
       {
         "name": "motor_body",
         "color": [
-          0.7400000119251188,
-          0.7600000136009657,
-          0.800000010877486
+          0.5070785284042358,
+          0.5382355451583862,
+          0.6038273572921753
         ],
         "vertices": 1010,
         "triangles": 1004,
@@ -42,14 +42,15 @@
       {
         "name": "rotor_housing",
         "color": [
-          0.8999999981853644,
-          0.8999999981853644,
-          0.8799999977705522
+          0.7874122858047485,
+          0.7874122858047485,
+          0.7484140992164612
         ],
         "vertices": 144,
         "triangles": 92,
         "face_ranges": 26
       }
-    ]
+    ],
+    "color_space": "linear-rgb"
   }
 }
