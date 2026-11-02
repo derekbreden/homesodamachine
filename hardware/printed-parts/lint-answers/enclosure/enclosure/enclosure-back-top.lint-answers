@@ -315,6 +315,7 @@ alternatives: Changing this boundary to a 3 mm Y strip requires moving the compl
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=-97.550 y=458.009 z=269.709
 click: x=-97.550 y=458.009 z=268.200
+click: x=-97.550 y=458.009 z=270.450
 click: x=-97.550 y=458.009 z=301.209
 
 [ceiling] Functional bottom stops of the two continuous label channels: each 32.3 by 2.0 mm flat locates the sliding tile stack at Z252, with the channel open to the rear before the tiles are inserted. Tree(auto)/Default supports can leave through that mouth before installation; removal quality remains a print-preparation question.
