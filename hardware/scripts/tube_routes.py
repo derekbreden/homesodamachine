@@ -5,8 +5,10 @@
 
 The default writes `web/public/tube-routes.json`: full-precision developed centrelines,
 fittings, anchors and source fingerprints. The browser calculates illustrative shapes from
-these records. Each exported centreline is checked against the tube in the on-disk assembly
-STEP, and all inputs must stay unchanged throughout extraction.
+these records. Each exported centreline is checked against the tube in the producer's fine
+model, and all inputs must stay unchanged throughout extraction.
+
+The route target reads the assembly producer's full fine model and route metadata.
 
 `--reference` adds experimental offline gravity/contact calculations using `_tube_relax`
 and `_world_sdf`. Their material properties and natural curvature are assumptions. The
@@ -38,6 +40,9 @@ if __name__ == "__main__":
 
 OUT = ROOT / "web/public/tube-routes.json"
 STEP = ROOT / "hardware/manifold-layout/enclosure-assembly.step"
+MODEL = Path(str(STEP) + ".npz")
+SCENE = STEP.with_suffix(".scene.npz")
+FACTS = STEP.with_suffix(".facts.json")
 GRAPH = ROOT / "tools/bazel/graph.json"
 ASSEMBLY_GENERATOR = "hardware/manifold-layout/enclosure_assembly.py"
 PRODUCERS = ("hardware/scripts/tube_routes.py", "hardware/scripts/_tube_export.py")
@@ -46,6 +51,9 @@ PRODUCERS = ("hardware/scripts/tube_routes.py", "hardware/scripts/_tube_export.p
 BUILD_ONLY_INPUTS = frozenset({
     "hardware/cold-core-layout/cold-core-assembly.step.mesh",
     "hardware/manifold-layout/enclosure-box.json",
+    "hardware/manifold-layout/enclosure-assembly.step.npz",
+    "hardware/manifold-layout/enclosure-assembly.scene.npz",
+    "hardware/manifold-layout/enclosure-assembly.facts.json",
 })
 
 DS = 4.0                       # node spacing of the reference model
@@ -83,6 +91,7 @@ def input_paths(reference=False):
     graph = json.loads(GRAPH.read_text())
     paths = set(graph[ASSEMBLY_GENERATOR]["reads"]) | set(PRODUCERS)
     paths |= {str(STEP.relative_to(ROOT)), str(STEP.relative_to(ROOT)) + ".mesh"}
+    paths |= {path.relative_to(ROOT).as_posix() for path in (MODEL, SCENE, FACTS)}
     # Dependency bookkeeping is read to discover the files; it is not tube geometry.
     paths.discard("tools/bazel/graph.json")
     if reference:
@@ -91,7 +100,7 @@ def input_paths(reference=False):
 
 
 def source_snapshot(reference=False):
-    """A complete snapshot taken before importing or building the assembly."""
+    """The producer cohort and source bytes captured before route extraction."""
     return {rel: sha(ROOT / rel) for rel in input_paths(reference)}
 
 
@@ -185,6 +194,9 @@ def source_block(doc, runs, snapshot):
         "payload": doc["source"]["mesh"], "payload_sha256": sha(ROOT / doc["source"]["mesh"]),
         "payload_src": doc["source"]["mesh_src"],
         "payload_matches_step": doc["source"]["mesh_matches_step"],
+        "fine_model": MODEL.relative_to(ROOT).as_posix(), "fine_model_sha256": sha(MODEL),
+        "scene": SCENE.relative_to(ROOT).as_posix(), "scene_sha256": sha(SCENE),
+        "facts": FACTS.relative_to(ROOT).as_posix(), "facts_sha256": sha(FACTS),
         "runs_sha256": hashlib.sha256(json.dumps(runs, sort_keys=True).encode()).hexdigest(),
         "inputs": inputs,
         "build_only_inputs": {rel: digest for rel, digest in snapshot.items() if rel in BUILD_ONLY_INPUTS},
@@ -197,22 +209,25 @@ def source_block(doc, runs, snapshot):
     }
 
 
-def verify_displayed_routes(runs, step=STEP, tolerance_mm=0.05):
-    """Match centreline samples to the cached tube solids, independently of the live build."""
-    import cadquery as cq
-    from _cadq_export import import_assembly
-    bodies = import_assembly(step)
+def verify_displayed_routes(runs, step=STEP, tolerance_mm=0.05, *, bodies=None):
+    """Match centreline samples to producer fine tubes, or an explicitly supplied native STEP."""
+    method = "producer fine f64 model containment and radial face distance"
+    if bodies is None:
+        from _cadq_export import import_assembly
+        bodies = import_assembly(step)
+        method = "cached STEP solid containment and radial face distance"
     failures = []
     for run in runs:
         try:
-            _verify_displayed_run(run, bodies, tolerance_mm)
+            _verify_displayed_run(run, bodies, tolerance_mm, method=method)
         except ValueError as failure:
             failures.append(str(failure))
     if failures:
         raise ValueError("; ".join(failures))
 
 
-def _verify_displayed_run(run, bodies, tolerance_mm):
+def _verify_displayed_run(run, bodies, tolerance_mm,
+                          method="cached STEP solid containment and radial face distance"):
     """One run's centreline against its displayed tube, or a ValueError saying where it leaves."""
     import cadquery as cq
     names = run["bodies"]
@@ -255,7 +270,7 @@ def _verify_displayed_run(run, bodies, tolerance_mm):
     if worst > tolerance_mm:
         raise ValueError(f"{run['id']}: centreline differs from displayed tube by {worst:.3f} mm; "
                          "regenerate the assembly STEP.")
-    run["displayed_alignment"] = {"method": "cached STEP solid containment and radial face distance",
+    run["displayed_alignment"] = {"method": method,
                                   "samples": len(run["points"]), "max_surface_miss_mm": worst,
                                   "tolerance_mm": tolerance_mm}
 
@@ -449,8 +464,8 @@ def main(argv=None):
     t0 = time.time()
     snapshot = source_snapshot(reference)
     import _tube_export as X
-    a = X.ea.build_enclosure_assembly()
-    print(f"assembly stood in {time.time() - t0:.0f} s", flush=True)
+    a = X.load(FACTS, SCENE, MODEL)
+    print(f"producer fine assembly read in {time.time() - t0:.0f} s", flush=True)
     doc, _table, problems = X.export(a)
     for k, v in problems.items():
         if v:
@@ -458,7 +473,7 @@ def main(argv=None):
     if not doc["source"]["mesh_matches_step"]:
         raise ValueError("The assembly STEP and viewer source do not match; regenerate the assembly payload.")
     runs = contract_runs(doc)
-    verify_displayed_routes(runs)
+    verify_displayed_routes(runs, bodies={name: (shape, None) for name, shape in a.leaves.items()})
     out = {"version": 1,
            "frame": "machine: +X east, +Y aft, +Z up; mm, N, g",
            "assumptions": ASSUMPTIONS, "scenarios": SCENARIOS, "coil_normal_default": list(COIL_NORMAL),
