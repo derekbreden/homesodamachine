@@ -243,23 +243,46 @@ fn distributed_common(parts: &[Imported], left: &[usize], right: &Solid, query: 
               "stages":stages,"residual":summed_residual(&rows.iter().map(|row| &row["residual"]).collect::<Vec<_>>())}))
 }
 
+fn box_operand(value: &Value) -> Result<Solid> {
+    let points = value.as_array().context("a box operand has its low and high points")?;
+    ensure!(points.len() == 2, "a box operand has two points");
+    let mut xyz = [[0.0; 3]; 2];
+    for (i, point) in points.iter().enumerate() {
+        let coordinates = point.as_array().context("a box point is a three-vector")?;
+        ensure!(coordinates.len() == 3, "a box point has three coordinates");
+        for (k, coordinate) in coordinates.iter().enumerate() {
+            xyz[i][k] = coordinate.as_f64().filter(|v| v.is_finite())
+                .context("a box coordinate is finite")?;
+        }
+    }
+    ensure!((0..3).all(|k| xyz[1][k] > xyz[0][k]), "a box operand has positive spans");
+    Ok(Solid::cuboid(V3::from(xyz[0]), V3::from(xyz[1])))
+}
+
+
 fn query(parts: &mut [Imported], queries: &Value) -> Result<Vec<Value>> {
     let mut gap_meshes = BTreeMap::new();
     let mut groups = BTreeMap::new();
     let values = queries.as_array().context("queries is an ordered array")?;
     let operands = values.iter().map(|value| {
-        Ok((operand(value.get("a"), parts.len())?, operand(value.get("b"), parts.len())?))
+        let b = if value.get("b_box").is_some() {
+            ensure!(text(value, "kind")? == "common" && value.get("b").is_none(),
+                    "a common query has one b operand");
+            vec![]
+        } else { operand(value.get("b"), parts.len())? };
+        Ok((operand(value.get("a"), parts.len())?, b))
     }).collect::<Result<Vec<_>>>()?;
     let mut last = BTreeMap::new();
     for (index, (a, b)) in operands.iter().enumerate() {
         last.insert(a.clone(), index);
-        last.insert(b.clone(), index);
+        if !b.is_empty() { last.insert(b.clone(), index); }
     }
     let mut readings = Vec::with_capacity(values.len());
     for (index, (value, (a, b))) in values.iter().zip(&operands).enumerate() {
             let kind = text(value, "kind")?;
             let distribute = kind == "common" && value.get("distribute_a").and_then(Value::as_bool).unwrap_or(false);
             for indices in [a, b] {
+                if indices.is_empty() { continue; }
                 if distribute && indices == a && indices != b { continue; }
                 if indices.len() > 1 && !groups.contains_key(indices) {
                     // meshcad.manifold resolves a compound's union for cross-body queries.
@@ -268,17 +291,23 @@ fn query(parts: &mut [Imported], queries: &Value) -> Result<Vec<Value>> {
                 }
             }
             let reading = if kind == "common" {
+                let boxed = value.get("b_box").map(box_operand).transpose()?;
+                let right = boxed.as_ref().unwrap_or_else(|| query_solid(parts, &groups, b));
                 let answer = if distribute {
-                    distributed_common(parts, a, query_solid(parts, &groups, b), value)
+                    distributed_common(parts, a, right, value)
                 } else {
-                    common(query_solid(parts, &groups, a), query_solid(parts, &groups, b), value, parts)
+                    common(query_solid(parts, &groups, a), right, value, parts)
                 };
-                let result = match answer {
-                    Ok(result) => json!({"a":value["a"],"b":value["b"],"kind":kind,"common":result}),
-                    Err(error) => json!({"a":value["a"],"b":value["b"],"kind":kind,"error":format!("{error:#}")}),
-                };
+                let mut result = json!({"a":value["a"],"kind":kind});
+                if boxed.is_some() { result["b_box"] = value["b_box"].clone(); }
+                else { result["b"] = value["b"].clone(); }
+                match answer {
+                    Ok(reading) => result["common"] = reading,
+                    Err(error) => result["error"] = json!(format!("{error:#}")),
+                }
                 if !value.get("retain_until_last_use").and_then(Value::as_bool).unwrap_or(false) {
                     for indices in [a, b] {
+                        if indices.is_empty() { continue; }
                         if indices.len() == 1 { parts[indices[0]].solid.forget_backend(); }
                         else if let Some(group) = groups.get_mut(indices) { group.forget_backend(); }
                         for &part in indices { parts[part].solid.forget_backend(); }
@@ -323,6 +352,7 @@ fn query(parts: &mut [Imported], queries: &Value) -> Result<Vec<Value>> {
             };
             readings.push(reading);
             for indices in [a, b] {
+                if indices.is_empty() { continue; }
                 if last[indices] == index {
                     gap_meshes.remove(indices);
                     groups.remove(indices);

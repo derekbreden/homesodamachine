@@ -5284,6 +5284,73 @@ def front_flank_reliefs(placed):
     return tuple(pockets)
 
 
+def front_flank_reliefs_fine(reference, *, transform=None):
+    """F/I flank pockets from explicit fine entries and their raw placed bounds.
+
+    `reference` carries the fine model, ordered summary rows and `raw_bounds`;
+    it supplies no shape API. The same source boxes clip the actual bodies.
+    """
+    import _assembly_model
+
+    entries = {}
+    for index, row in enumerate(reference.summaries):
+        name = row['name']
+        stem, _, tail = name.rpartition('/')
+        name = stem if tail.isdigit() else name
+        entries.setdefault(name, []).append(index)
+    air = _card.CLEARANCE_FLOOR
+    plans = []
+    def tool(lower, upper, lo, hi):
+        origin = (lo, lower[1] - 1.0, lower[2] - 1.0)
+        span = (hi - lo, upper[1] - lower[1] + 2.0, upper[2] - lower[2] + 2.0)
+        return [list(origin), [p + d for p, d in zip(origin, span)]]
+    for name, valve in (("coil-v-f", "valve-v-f"), ("coil-v-i", "valve-v-i")):
+        lower, upper = reference.raw_bounds[name]
+        side = 1.0 if (lower[0] + upper[0]) / 2.0 > 0.0 else -1.0
+        face = _enc.front_top_flank_face()[1 if side > 0 else 0]
+        lo, hi = ((face - air, upper[0] + 1.0) if side > 0
+                  else (lower[0] - 1.0, face + air))
+        if hi <= lo:
+            continue
+        plans.append({'name':name, 'valve':valve, 'side':side, 'face':face,
+                      'request':{'indices':entries[name], 'box':tool(lower, upper, lo, hi)}})
+    readings = _assembly_model.box_commons(reference.model, [p['request'] for p in plans],
+                                           transform=transform)
+    active = []
+    valves = []
+    for plan, reading in zip(plans, readings):
+        if reading['raw']['min'] is None:
+            continue
+        plan = {**plan, 'coil':reading['raw']}
+        lower, upper = reference.raw_bounds[plan['valve']]
+        face, side = plan['face'], plan['side']
+        lo, hi = ((face, upper[0] + 1.0) if side > 0 else (lower[0] - 1.0, face))
+        if hi > lo:
+            valves.append((len(active), {'indices':entries[plan['valve']],
+                                         'box':tool(lower, upper, lo, hi)}))
+        active.append(plan)
+    readings = _assembly_model.box_commons(reference.model, [request for _owner, request in valves],
+                                           transform=transform)
+    for (owner, _request), reading in zip(valves, readings):
+        if reading['raw']['min'] is not None:
+            active[owner]['crossing'] = reading['raw']
+    pockets = []
+    for plan in active:
+        bounds = [plan['coil']]
+        if 'crossing' in plan:
+            bounds.append(plan['crossing'])
+        xs = [row[key][0] for row in bounds for key in ('min', 'max')]
+        ys = [row[key][1] for row in bounds for key in ('min', 'max')]
+        zs = [row[key][2] for row in bounds for key in ('min', 'max')]
+        floor = max(xs) + air if plan['side'] > 0 else min(xs) - air
+        if abs(floor) > min(abs(x) for x in _enc.interior_x()):
+            raise ValueError(f"{plan['name']} clearance would enter the nominal enclosure wall")
+        face = plan['face']
+        pockets.append((plan['name'], min(face, floor), max(face, floor),
+                        min(ys) - air, max(ys) + air, min(zs) - air, max(zs) + air))
+    return tuple(pockets)
+
+
 def above_core_ceiling_reliefs():
     """Plain roof pockets retain the selected three-millimetre outer skin."""
     pockets = _above.specification()['ceiling_pockets']['pockets']
