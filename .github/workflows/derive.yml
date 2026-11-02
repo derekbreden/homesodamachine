@@ -146,12 +146,9 @@ jobs:
     defaults:
       run:
         shell: bash
-    # THE ENVIRONMENT IS PULLED, NOT INSTALLED. `cad-image` bakes the CadQuery pin, the
-    # renderers with the Chromium the deck drives, `web`'s runtime deps for the scene
-    # server, bazel at `.bazelversion`, and blender and rsvg-convert — which a stock runner
-    # does not have AT ALL, so `//:appliance-model` and the freestyle sieve could never have
-    # built here. `sudo mkdir -p /opt/homebrew` satisfied `.bazelrc`'s mount pair with an
-    # empty directory and the binaries the pair exists to reach were never on the disk.
+    # `cad-image` supplies the pinned CAD and image tools, Chromium and Node dependencies,
+    # Mesa for `hsm-render`, rsvg-convert and Bazel at `.bazelversion`. Blender is available
+    # for the manual kitchen illustrations and studio film.
     # `credentials` because a package published from a workflow starts private, and this
     # keeps working whichever way that setting goes.
     container:
@@ -189,7 +186,6 @@ jobs:
           ln -sfn "$HSM_WEB_MODULES"    web/node_modules
           tools/cad-venv/bin/python tools/cad-venv-site/install.py --check
           tools/cad-venv/bin/python -c "import cadquery; print('cadquery', cadquery.__version__)"
-          blender --version | head -1
           convert -version | head -1
           rsvg-convert --version
           # NOT `ls … && echo`. A failing left side of `&&` does not trip `set -e`, so that
@@ -253,8 +249,7 @@ jobs:
 
       # `.bazelrc.paths` mounts the workspace's own .cache and bazel refuses a mount pair
       # whose source is absent. The cache action makes this on a hit; this makes it on a
-      # miss. The other two pairs — /opt/homebrew and /usr/local — are directories the image
-      # carries, with blender and rsvg-convert actually in them.
+      # miss. The image supplies the other two mounts, /opt/homebrew and /usr/local.
       - name: A mount point for the sandbox
         run: mkdir -p .cache
 
