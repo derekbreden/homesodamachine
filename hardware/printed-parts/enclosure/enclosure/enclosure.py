@@ -455,7 +455,7 @@ funnel_band_gap = 1.0
 # Running air on every collar face. The funnel is a removable printed part, so its throat is
 # cut to the collar plus the project's ordinary slip instead of sharing an exact B-rep face
 # with the roof rib and ceiling corbels.
-funnel_collar_air = fits.running
+funnel_collar_air = _interface.funnel_collar_air
 # The collar and outlet share the frame's Y centre.
 funnel_front_y = _funnel_frame_part.center_y - _funnel.collar_d / 2.0
 funnel_seat_thickness = _swept_top.FUNNEL_SEAT
@@ -468,7 +468,7 @@ ceiling_lip_drop = funnel_seat_thickness + _funnel.brim_thickness - ceiling_skin
 # passages use the selected M5 fit; long passages may need turning before the insert engages.
 y_stack_axis_in = 6.8          # upper screw axis inboard of the interior face
 y_stack_lower_axis_in = 6.25   # lower axis: its head passes the handhold's inner wall
-y_stack_high_depth = 13.0      # under the roof the stack stops outboard of the funnel's
+y_stack_high_depth = _interface.y_stack_high_depth  # outboard of the funnel's
                                # lift-off cover
 y_stack_front_root = wall      # how far a front knuckle roots fore of the seam, into its flank
 y_stack_clearance_dia = fits.m5_thread_pass_dia  # selected printed M5 threaded passage
