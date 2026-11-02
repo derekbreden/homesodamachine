@@ -20,6 +20,9 @@ ceiling_skin = 3.0
 # The outer-wall bead selected by the enclosure print profile.
 extrusion_w = 0.42
 rear_seam_clear = 3.0
+# The funnel pocket and upper Y seam stack share these shell interface dimensions.
+funnel_collar_air = fits.running
+y_stack_high_depth = 13.0
 # The rear inner face leaves the cold core 1.01 mm behind the full aft valve tray.
 rear_plane_y = 468.3
 co2_axis_drop = fits.supported_surface
