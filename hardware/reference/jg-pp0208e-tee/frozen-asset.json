@@ -6,12 +6,12 @@
   },
   "members": {
     "jg-pp0208e-tee.step": "231311fedf8cfe57d46ff9c2cc6969efeb878e65d30b14eefd5dce97b8bab17f",
-    "jg-pp0208e-tee.step.mesh": "a91a5bdafa71f516b616f93e3441456c603a6301c3c59ada12ba8146301c49ff"
+    "jg-pp0208e-tee.step.mesh": "cd75b8c89c2071ad917347c119cd43d1631f12af63256cf922587779a2c7b019"
   },
   "fine_payload": {
     "source_step_sha256": "231311fedf8cfe57d46ff9c2cc6969efeb878e65d30b14eefd5dce97b8bab17f",
     "path": "jg-pp0208e-tee.step.mesh",
-    "sha256": "a91a5bdafa71f516b616f93e3441456c603a6301c3c59ada12ba8146301c49ff",
+    "sha256": "cd75b8c89c2071ad917347c119cd43d1631f12af63256cf922587779a2c7b019",
     "linear_mm": 0.005,
     "angular_rad": 0.05,
     "producer": "hardware/scripts/_rust_part.py:_tessellate",
@@ -19,9 +19,9 @@
       {
         "name": "jg-pp0208e-tee",
         "color": [
-          0.12000000139546163,
-          0.12000000139546163,
-          0.13999999784656367
+          0.0134117491543293,
+          0.0134117491543293,
+          0.017389101907610893
         ],
         "vertices": 16395,
         "triangles": 16364,
@@ -33,6 +33,7 @@
       "max_vertex_displacement_mm": 1.4508377435041757e-08,
       "triangles_preserved": 16364,
       "face_ranges_and_triangle_order_preserved": true
-    }
+    },
+    "color_space": "linear-rgb"
   }
 }
