@@ -153,16 +153,24 @@ def segment_edge(segment):
     raise ValueError(('Unknown wire segment',segment['kind']))
 
 
-def spline_segment(points, tangents):
+def spline_segment(points, tangents, *, chord_length=False):
     """Record a smooth native span and its arc-length samples for pure readers."""
     count=len(points)-1
     derivatives=[]
     for direction,a,b,c in [(tangents[0],*points[:3]),(tangents[1],*reversed(points[-3:]))]:
         derivative=mul(sub(sub(mul(b,4),c),mul(a,3)),count/2)
         derivatives.append(mul(unit(direction),abs(dot(derivative,unit(direction)))))
+    parameters=[i/count for i in range(count+1)]
+    if chord_length:
+        distances=[0.]
+        for a,b in zip(points,points[1:]):
+            distances.append(distances[-1]+norm(sub(b,a)))
+        length=distances[-1]
+        parameters=[distance/length for distance in distances]
+        derivatives=[mul(unit(direction),length) for direction in tangents]
     segment={'kind':'spline','start_mm':points[0],'end_mm':points[-1],
              'interpolation_points_mm':points,'endpoint_tangents':tangents,
-             'endpoint_derivatives':derivatives,'parameters':[i/count for i in range(count+1)]}
+             'endpoint_derivatives':derivatives,'parameters':parameters}
     edge=segment_edge(segment);length=edge.Length();count=max(2,math.ceil(length/.25))
     segment.update(length_mm=length,
                    sampled_points_mm=[edge.positionAt(i/count).toTuple()for i in range(count+1)],

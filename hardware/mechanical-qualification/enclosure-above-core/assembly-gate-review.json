@@ -1,8 +1,8 @@
 {
   "schema": "enclosure-assembly-gate-review/2",
-  "scope": "Current enclosure assembly, finite nominal mating regions and current v3 capture/service geometry. Wires are excluded from red geometry gates. Neutral WAGO placement follows the mechanical publication; physical snap fit remains a separate explicit open qualification.",
-  "assembly_step_sha256": "7a174b60fbc0498134e5348ca72007363e067d33dd1fddf98c316b96ecd407f0",
-  "assembly_mesh_sha256": "ebc2affdf050f1b7454b0702e5d159d6e8b39eccdad0d6ed4ec1c5a79f3e9129",
+  "scope": "Completed nominal enclosure geometry and assembly. Wires are excluded from red geometry gates. Physical snap retention remains explicitly unqualified.",
+  "assembly_step_sha256": "d534a641b9b7018890fb103416b73c468f2f60b20d35982ac9f089d9e4168923",
+  "assembly_mesh_sha256": "f9b8d9c352483a94529ea85fc5d5bdd71e03e637809dd12d57fa65e49d5b13b2",
   "native_integration_record": "hardware/mechanical-qualification/enclosure-above-core/retention-integration-review.json",
   "current_gate_checks": [
     {
@@ -33,11 +33,11 @@
       "id": "pack-closes",
       "label": "No unconnected material overlaps (pack closes)",
       "kind": "gate",
-      "status": "fail",
-      "value": "1 clash, 0 unanswered",
+      "status": "pass",
+      "value": "0 clash, 0 unanswered",
       "target": "0 clash, 0 unanswered",
       "detail": [
-        "wago-n \u2229 foam-cap-lid-top: 73.516 mm\u00b3 in the current mesh. Junction placement follows the mechanical publication.",
+        "All nine mounted junction bodies are clear of the complete non-wire scene. The upright neutral junction clears the pump mount; its added host stock and complete rear closing interval are clear. Both front manifold lever mouths are open. Wires are excluded from this geometry gate.",
         "Selected nominal mates: 51/51 within finite insertion/thread/heat-set regions at the existing 1 mm\u00b3 contact floor; maximum outside 0.146875 mm\u00b3. Physical insertion, sealing and retention remain unqualified.",
         "Flavor reducer stems in their valve outlets: v-g 258.0 mm\u00b3 in the stem, 0.000000 mm\u00b3 outside it; v-j 258.0 mm\u00b3 in the stem, 0.000000 mm\u00b3 outside it",
         "Stem elbows in their collets: v-c 80.1 mm\u00b3 in the stem, 0.000000 mm\u00b3 outside it; v-d 80.1 mm\u00b3 in the stem, 0.000000 mm\u00b3 outside it; v-g 80.1 mm\u00b3 in the stem, 0.000000 mm\u00b3 outside it; v-j 80.1 mm\u00b3 in the stem, 0.000000 mm\u00b3 outside it; y-c 3.0 mm\u00b3 in the stem, 0.017341 mm\u00b3 outside it; y-d 3.0 mm\u00b3 in the stem, 0.017341 mm\u00b3 outside it; y-f 3.0 mm\u00b3 in the stem, 0.017341 mm\u00b3 outside it; y-g 3.0 mm\u00b3 in the stem, 0.017341 mm\u00b3 outside it",
@@ -50,13 +50,12 @@
       "label": "Preferred spacing outside named fitted interfaces",
       "kind": "goal",
       "status": "fail",
-      "value": "60 under, tightest 0.000 mm",
+      "value": "59 under, tightest 0.000 mm",
       "target": "\u2265 1 mm",
       "detail": [
         "every body pair, and every drawn run against what its own line does not join it to \u2014 the exact solid distance, with boxes only as a prefilter",
         "digiten-flow \u2014 bulkhead-carb: 0.000 mm \u2014 under the spacing preference",
         "va-outlet-elbow \u2014 va-south-elbow: 0.000 mm \u2014 under the spacing preference",
-        "wago-n \u2014 foam-assembly: 0.000 mm \u2014 under the spacing preference",
         "carbonator-fold \u2014 discharge-reducer: 0.000 mm \u2014 under the spacing preference",
         "discharge-barb-clamp \u2014 discharge-barb-key: 0.000 mm \u2014 under the spacing preference",
         "suction-barb-clamp \u2014 suction-barb-key: 0.000 mm \u2014 under the spacing preference",
@@ -723,7 +722,7 @@
       "label": "A printed feature of another placed part fastens every body",
       "kind": "gate",
       "status": "fail",
-      "value": "Revised snap retention awaiting physical fit",
+      "value": "Physical snap-retention trial pending",
       "target": "a printed joint per body",
       "detail": [
         "funnel: wall-capture \u2014 nothing fastens it; The silicone brim rests in the removable frame's roof surround. Its plug locates on the cradle snapped into the frame's web, with its sealing land on the elbow stem. The funnel lifts out by hand for the dishwasher, the land sliding off the stem.",
@@ -859,20 +858,21 @@
       "active": false
     }
   ],
-  "remaining_material_findings": [
-    {
-      "parts": [
-        "wago-n",
-        "foam-cap-lid-top"
-      ],
-      "mesh_overlap_mm3": 73.51575177210209,
-      "required_action": "Place the neutral junction and its holder around the completed mechanics."
-    }
-  ],
-  "all_changed_body_unconnected_material_contacts_clear": false,
+  "remaining_material_findings": [],
+  "all_changed_body_unconnected_material_contacts_clear": true,
   "remaining_relay_head_findings": [],
   "physical_qualification": {
     "record": "hardware/print-tests/rear-snap-retention/v3",
     "state": "The current modeled joints use 2.0 mm leaves, R1.5 roots, solid hook noses above centered screwdriver entries, shaped PISCO and meter bearing stock and the measured regulator shoulder. Current native seated contacts, positive nominal capture, neighboring bodies and released extraction paths pass. Physical retention, insertion/release force, distributed bending, repeated use and pump vibration remain unqualified."
+  },
+  "completed_junction_and_wire_integration": {
+    "record": "hardware/mechanical-qualification/enclosure-above-core/retention-integration-review.json",
+    "physical_delta_members": [
+      "wago-n",
+      "enclosure-front-top",
+      "enclosure-back-top"
+    ],
+    "all_mounted_junction_bodies_clear": true,
+    "all_wire_larger_body_contacts_clear": true
   }
 }

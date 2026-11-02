@@ -1,9 +1,9 @@
 {
   "schema": 1,
   "scope": "One manual full-scene mesh interference review of every wire and cable jacket against larger bodies; wire-to-wire and wire-to-tube contacts are excluded. Tessellated penetration is a routing witness, not a native-solid or physical assembly qualification.",
-  "manifest_sha256": "2014cb424bd823115f40412491965b2b0189f6c829eca5957d6ad19abfde1f62",
-  "assembly_step_sha256": "c264aefc6a1a1304af27e06af353ba9819de9be0daf85c3647c2a01058f7ebd7",
-  "assembly_mesh_sha256": "ac4c208beb6a0104bc76c3a766093f1435c75ad662f22af6725bfc25c3815db5",
+  "manifest_sha256": "0e559a1eb1209fc65ffbf4d8b3e3f51203a72ce62041f855dea3b78c78ed8d92",
+  "assembly_step_sha256": "d534a641b9b7018890fb103416b73c468f2f60b20d35982ac9f089d9e4168923",
+  "assembly_mesh_sha256": "f9b8d9c352483a94529ea85fc5d5bdd71e03e637809dd12d57fa65e49d5b13b2",
   "wire_count": 100,
   "physical_mesh_count": 417,
   "coverage_missing": [],
@@ -12,116 +12,945 @@
       "wire": "AC1-PE",
       "part": "c14-inlet",
       "point_mm": [
-        -68.509,
-        435.6,
-        325.944
+        -67.198,
+        433.6,
+        326.24
       ],
-      "mesh_penetration_mm": 0.041,
+      "mesh_penetration_mm": 1.3516,
+      "contacts": 2
+    },
+    {
+      "wire": "J1-COM",
+      "part": "terminal-J1",
+      "point_mm": [
+        -73.765,
+        270.878,
+        286.5
+      ],
+      "mesh_penetration_mm": 0.1314,
+      "contacts": 1
+    },
+    {
+      "wire": "J1-OUT3",
+      "part": "terminal-J1",
+      "point_mm": [
+        -66.265,
+        270.878,
+        286.5
+      ],
+      "mesh_penetration_mm": 0.1313,
+      "contacts": 1
+    },
+    {
+      "wire": "J1-OUT4",
+      "part": "terminal-J1",
+      "point_mm": [
+        -63.187,
+        272.027,
+        286.5
+      ],
+      "mesh_penetration_mm": 0.0742,
+      "contacts": 1
+    },
+    {
+      "wire": "J1-OUT5",
+      "part": "terminal-J1",
+      "point_mm": [
+        -59.666,
+        271.45,
+        286.5
+      ],
+      "mesh_penetration_mm": 0.0923,
+      "contacts": 1
+    },
+    {
+      "wire": "J1-OUT7",
+      "part": "terminal-J1",
+      "point_mm": [
+        -55.273,
+        272.027,
+        286.5
+      ],
+      "mesh_penetration_mm": 0.1719,
+      "contacts": 2
+    },
+    {
+      "wire": "J1-OUT8",
+      "part": "terminal-J1",
+      "point_mm": [
+        -53.754,
+        271.566,
+        286.502
+      ],
+      "mesh_penetration_mm": 0.069,
+      "contacts": 1
+    },
+    {
+      "wire": "J2-COM",
+      "part": "terminal-J2",
+      "point_mm": [
+        -33.667,
+        270.956,
+        295.6
+      ],
+      "mesh_penetration_mm": 0.1536,
       "contacts": 2
     },
     {
       "wire": "J2-OUT1",
       "part": "coil-v-i/3",
       "point_mm": [
-        -88.77,
-        148.853,
+        -88.731,
+        149.419,
         291.5
       ],
-      "mesh_penetration_mm": 0.0632,
+      "mesh_penetration_mm": 0.1714,
+      "contacts": 2
+    },
+    {
+      "wire": "J2-OUT2",
+      "part": "terminal-J2",
+      "point_mm": [
+        -44.843,
+        271.971,
+        295.6
+      ],
+      "mesh_penetration_mm": 0.0559,
       "contacts": 1
+    },
+    {
+      "wire": "J2-FAN",
+      "part": "terminal-J2",
+      "point_mm": [
+        -36.167,
+        271.45,
+        293.6
+      ],
+      "mesh_penetration_mm": 0.0923,
+      "contacts": 1
+    },
+    {
+      "wire": "J13-AM1",
+      "part": "terminal-J13",
+      "point_mm": [
+        -76.684,
+        246.456,
+        277.261
+      ],
+      "mesh_penetration_mm": 0.156,
+      "contacts": 1
+    },
+    {
+      "wire": "J13-BM2",
+      "part": "terminal-J13",
+      "point_mm": [
+        -78.286,
+        248.876,
+        279.102
+      ],
+      "mesh_penetration_mm": 0.1735,
+      "contacts": 1
+    },
+    {
+      "wire": "J13-BM1",
+      "part": "terminal-J13",
+      "point_mm": [
+        -78.285,
+        251.378,
+        281.0
+      ],
+      "mesh_penetration_mm": 0.1719,
+      "contacts": 1
+    },
+    {
+      "wire": "J7-GND",
+      "part": "terminal-J7",
+      "point_mm": [
+        -16.985,
+        266.878,
+        289.0
+      ],
+      "mesh_penetration_mm": 0.172,
+      "contacts": 3
     }
   ],
   "wire_packing_pairs": [],
   "bundle_interference_pairs": [],
-  "termination_interference_pairs": [],
-  "wires_with_physical_interference": 2,
-  "endpoint_contact_scope": "Only the named endpoint part within 8.5 mm of its attachment. All other contact with that part remains in the reading.",
-  "native": {
-    "scope": "All standalone native wires and their installed native placements, read back from both STEP files.",
-    "wiring_step_sha256": "2a8c293144335980423a212a1c462efefc2b7e5f218a2223664dce6d87ed8c27",
-    "all_valid_single_solids": true,
-    "maximum_installed_bounds_error_mm": 0.0,
-    "invalid": [],
-    "wire_count": 100,
-    "reference_frame_maximum_extent_residual_mm": 7.105427357601002e-15,
-    "termination_count": 18,
-    "invalid_terminations": [],
-    "bundles": {
-      "compressor-cord": {
-        "valid": true,
-        "solids": 1,
-        "scope": "Jacket validity only; conductor packing is excluded."
-      },
-      "reed-column-a": {
-        "jacket": false
-      },
-      "reed-column-b": {
-        "jacket": false
-      },
-      "temperature-bus": {
-        "jacket": false
-      },
-      "sensor-cable": {
-        "jacket": false
-      },
-      "carbonator-earth": {
-        "jacket": false
-      },
-      "condenser-fan-pair": {
-        "jacket": false
-      },
-      "gas-sensor-ribbon": {
-        "jacket": false
-      }
+  "termination_interference_pairs": [
+    {
+      "termination": "terminal-fuse-in-lead",
+      "part": "thermal-fuse",
+      "point_mm": [
+        3.126,
+        19.25,
+        52.168
+      ],
+      "mesh_penetration_mm": 0.0672
     },
+    {
+      "termination": "terminal-fuse-out-lead",
+      "part": "thermal-fuse",
+      "point_mm": [
+        3.126,
+        30.25,
+        52.168
+      ],
+      "mesh_penetration_mm": 0.0574
+    }
+  ],
+  "wires_with_physical_interference": 15,
+  "endpoint_contact_scope": "Only the named endpoint part within 8.5 mm of its attachment. All other contact with that part remains in the reading.",
+  "production_solids": {
+    "scope": "Production f64 mesh-kernel solids, closed and connected, with exact standalone-to-installed viewer vertex and triangle arrays. The installed STEP retains native physical bodies and attaches the separate mesh-kernel wiring export.",
+    "wiring_step_sha256": "dbfdba39ac2bfac163eb64afd460abbf01fc575ae58b5a5a8130c62075f4b0c7",
+    "wiring_model_sha256": "be4fead4405ecf422a95f75206a561dece2896de4bd28ad4d52f28e513e76dab",
+    "assembly_step_sha256": "d534a641b9b7018890fb103416b73c468f2f60b20d35982ac9f089d9e4168923",
+    "assembly_mesh_sha256": "f9b8d9c352483a94529ea85fc5d5bdd71e03e637809dd12d57fa65e49d5b13b2",
+    "wire_count": 100,
+    "member_count": 119,
+    "all_valid_single_solids": true,
+    "invalid": [],
+    "coverage_missing": [],
+    "coverage_extra": [],
+    "installed_missing": [],
+    "installed_changed": [],
+    "all_installed_wire_vertex_and_triangle_arrays_identical": true,
+    "reference_frame_maximum_extent_residual_mm": 8.1956841313513e-10,
     "unique_connection_ids": true,
-    "populated_board_contacts": 53,
     "bench_pin_maps_match": {
       "J2": true,
       "J13": true
-    }
-  },
-  "unaugmented_mesh_screen_sha256": "0f2a6cbfd862f4ccf660221067b80cab7045c3cdbbda3d47907f8f89d0ddeceb",
-  "physical_interference_pairs_sha256": "461f0d8fcf0aefbd0166fe423e9bfc071d45fba59283cc49e53dbc1103c69611",
-  "native_resolution": {
-    "path": "hardware/wiring/installed/contact-review.json",
-    "sha256": "4d5f62dcd3fdcda59d9a6f11355dc04b997d2b5b6e1730ba78e4d083510dc831",
-    "native_zero_pairs": [
+    },
+    "members": [
       {
-        "wire": "AC1-PE",
-        "part": "c14-inlet",
-        "mesh_pair_indices": [
-          0
-        ],
-        "whole_overlap_mm3": 0.0,
-        "outside_endpoint_overlap_mm3": 0.0,
-        "local_endpoint_nodes": []
+        "name": "wire-AC1-L",
+        "valid_closed_manifold": true,
+        "connected_solids": 1,
+        "volume_mm3": 549.6514167392294
       },
       {
-        "wire": "J2-OUT1",
-        "part": "coil-v-i",
-        "mesh_pair_indices": [
-          1
-        ],
-        "whole_overlap_mm3": 0.0,
-        "outside_endpoint_overlap_mm3": 0.0,
-        "local_endpoint_nodes": []
+        "name": "wire-AC1-N",
+        "valid_closed_manifold": true,
+        "connected_solids": 1,
+        "volume_mm3": 603.8224782502988
+      },
+      {
+        "name": "wire-AC1-PE",
+        "valid_closed_manifold": true,
+        "connected_solids": 1,
+        "volume_mm3": 471.3899377330855
+      },
+      {
+        "name": "wire-AC2-L",
+        "valid_closed_manifold": true,
+        "connected_solids": 1,
+        "volume_mm3": 1222.1254744678192
+      },
+      {
+        "name": "wire-AC2-N",
+        "valid_closed_manifold": true,
+        "connected_solids": 1,
+        "volume_mm3": 841.8593084255349
+      },
+      {
+        "name": "wire-AC3-L",
+        "valid_closed_manifold": true,
+        "connected_solids": 1,
+        "volume_mm3": 282.9418498303088
+      },
+      {
+        "name": "wire-AC4-pigtail",
+        "valid_closed_manifold": true,
+        "connected_solids": 1,
+        "volume_mm3": 1572.8165885125525
+      },
+      {
+        "name": "wire-AC4-H",
+        "valid_closed_manifold": true,
+        "connected_solids": 1,
+        "volume_mm3": 2289.3383943922167
+      },
+      {
+        "name": "wire-AC4-fuse",
+        "valid_closed_manifold": true,
+        "connected_solids": 1,
+        "volume_mm3": 195.15435525638918
+      },
+      {
+        "name": "wire-AC5-pigtail",
+        "valid_closed_manifold": true,
+        "connected_solids": 1,
+        "volume_mm3": 1704.183234457359
+      },
+      {
+        "name": "wire-AC5-N",
+        "valid_closed_manifold": true,
+        "connected_solids": 1,
+        "volume_mm3": 2484.2693771832514
+      },
+      {
+        "name": "wire-AC6-PE",
+        "valid_closed_manifold": true,
+        "connected_solids": 1,
+        "volume_mm3": 3431.5992346897315
+      },
+      {
+        "name": "wire-PE-carbonator",
+        "valid_closed_manifold": true,
+        "connected_solids": 1,
+        "volume_mm3": 1946.5145824627896
+      },
+      {
+        "name": "wire-DC1-V12",
+        "valid_closed_manifold": true,
+        "connected_solids": 1,
+        "volume_mm3": 3252.7282502305075
+      },
+      {
+        "name": "wire-DC4-V12",
+        "valid_closed_manifold": true,
+        "connected_solids": 1,
+        "volume_mm3": 692.3795087643908
+      },
+      {
+        "name": "wire-DC1-GND",
+        "valid_closed_manifold": true,
+        "connected_solids": 1,
+        "volume_mm3": 2730.5505216854217
+      },
+      {
+        "name": "wire-DC4-GND",
+        "valid_closed_manifold": true,
+        "connected_solids": 1,
+        "volume_mm3": 370.09137513318325
+      },
+      {
+        "name": "wire-DC2-V12",
+        "valid_closed_manifold": true,
+        "connected_solids": 1,
+        "volume_mm3": 1818.3115517817341
+      },
+      {
+        "name": "wire-DC3-pigtail",
+        "valid_closed_manifold": true,
+        "connected_solids": 1,
+        "volume_mm3": 1785.8494410606386
+      },
+      {
+        "name": "wire-DC3-positive",
+        "valid_closed_manifold": true,
+        "connected_solids": 1,
+        "volume_mm3": 2208.127797798342
+      },
+      {
+        "name": "wire-DC3-negative",
+        "valid_closed_manifold": true,
+        "connected_solids": 1,
+        "volume_mm3": 2234.1028203016863
+      },
+      {
+        "name": "wire-J1-COM",
+        "valid_closed_manifold": true,
+        "connected_solids": 1,
+        "volume_mm3": 685.2227212330454
+      },
+      {
+        "name": "wire-J1-OUT1",
+        "valid_closed_manifold": true,
+        "connected_solids": 1,
+        "volume_mm3": 263.86250335095
+      },
+      {
+        "name": "wire-J1-positive-A",
+        "valid_closed_manifold": true,
+        "connected_solids": 1,
+        "volume_mm3": 610.9091741345304
+      },
+      {
+        "name": "wire-J1-OUT2",
+        "valid_closed_manifold": true,
+        "connected_solids": 1,
+        "volume_mm3": 392.1036886498531
+      },
+      {
+        "name": "wire-J1-positive-B",
+        "valid_closed_manifold": true,
+        "connected_solids": 1,
+        "volume_mm3": 237.954141560126
+      },
+      {
+        "name": "wire-J1-OUT3",
+        "valid_closed_manifold": true,
+        "connected_solids": 1,
+        "volume_mm3": 922.782431041133
+      },
+      {
+        "name": "wire-J1-positive-C",
+        "valid_closed_manifold": true,
+        "connected_solids": 1,
+        "volume_mm3": 338.7792814064178
+      },
+      {
+        "name": "wire-J1-OUT4",
+        "valid_closed_manifold": true,
+        "connected_solids": 1,
+        "volume_mm3": 1009.0434164004952
+      },
+      {
+        "name": "wire-J1-positive-D",
+        "valid_closed_manifold": true,
+        "connected_solids": 1,
+        "volume_mm3": 380.0456762333077
+      },
+      {
+        "name": "wire-J1-OUT5",
+        "valid_closed_manifold": true,
+        "connected_solids": 1,
+        "volume_mm3": 915.5790183506817
+      },
+      {
+        "name": "wire-J1-positive-E",
+        "valid_closed_manifold": true,
+        "connected_solids": 1,
+        "volume_mm3": 220.93205529534794
+      },
+      {
+        "name": "wire-J1-OUT6",
+        "valid_closed_manifold": true,
+        "connected_solids": 1,
+        "volume_mm3": 779.6058000442035
+      },
+      {
+        "name": "wire-J1-positive-F",
+        "valid_closed_manifold": true,
+        "connected_solids": 1,
+        "volume_mm3": 88.81785579987051
+      },
+      {
+        "name": "wire-J1-OUT7",
+        "valid_closed_manifold": true,
+        "connected_solids": 1,
+        "volume_mm3": 807.0740526104526
+      },
+      {
+        "name": "wire-J1-positive-G",
+        "valid_closed_manifold": true,
+        "connected_solids": 1,
+        "volume_mm3": 194.43620667649907
+      },
+      {
+        "name": "wire-J1-OUT8",
+        "valid_closed_manifold": true,
+        "connected_solids": 1,
+        "volume_mm3": 1052.6325425458938
+      },
+      {
+        "name": "wire-J1-positive-H",
+        "valid_closed_manifold": true,
+        "connected_solids": 1,
+        "volume_mm3": 308.72572682802803
+      },
+      {
+        "name": "wire-J2-COM",
+        "valid_closed_manifold": true,
+        "connected_solids": 1,
+        "volume_mm3": 697.6029476014661
+      },
+      {
+        "name": "wire-J2-OUT1",
+        "valid_closed_manifold": true,
+        "connected_solids": 1,
+        "volume_mm3": 1176.7211320453507
+      },
+      {
+        "name": "wire-J2-positive-I",
+        "valid_closed_manifold": true,
+        "connected_solids": 1,
+        "volume_mm3": 436.49794052923045
+      },
+      {
+        "name": "wire-J2-OUT2",
+        "valid_closed_manifold": true,
+        "connected_solids": 1,
+        "volume_mm3": 1079.5066995126274
+      },
+      {
+        "name": "wire-J2-positive-J",
+        "valid_closed_manifold": true,
+        "connected_solids": 1,
+        "volume_mm3": 390.44110804984984
+      },
+      {
+        "name": "wire-J2-FAN",
+        "valid_closed_manifold": true,
+        "connected_solids": 1,
+        "volume_mm3": 1165.6156842589633
+      },
+      {
+        "name": "wire-J2-positive-fan",
+        "valid_closed_manifold": true,
+        "connected_solids": 1,
+        "volume_mm3": 509.59218202972744
+      },
+      {
+        "name": "wire-J2-OUT3",
+        "valid_closed_manifold": true,
+        "connected_solids": 1,
+        "volume_mm3": 404.7645925155654
+      },
+      {
+        "name": "wire-J2-positive-K",
+        "valid_closed_manifold": true,
+        "connected_solids": 1,
+        "volume_mm3": 548.6191346368369
+      },
+      {
+        "name": "wire-J13-AM2",
+        "valid_closed_manifold": true,
+        "connected_solids": 1,
+        "volume_mm3": 663.8590393398041
+      },
+      {
+        "name": "wire-J13-AM1",
+        "valid_closed_manifold": true,
+        "connected_solids": 1,
+        "volume_mm3": 661.9948899269683
+      },
+      {
+        "name": "wire-J13-BM2",
+        "valid_closed_manifold": true,
+        "connected_solids": 1,
+        "volume_mm3": 670.656658690572
+      },
+      {
+        "name": "wire-J13-BM1",
+        "valid_closed_manifold": true,
+        "connected_solids": 1,
+        "volume_mm3": 689.7024923944643
+      },
+      {
+        "name": "wire-J3-V5",
+        "valid_closed_manifold": true,
+        "connected_solids": 1,
+        "volume_mm3": 590.3325734737989
+      },
+      {
+        "name": "wire-J3-GND",
+        "valid_closed_manifold": true,
+        "connected_solids": 1,
+        "volume_mm3": 594.4183431750721
+      },
+      {
+        "name": "wire-J3-IO35",
+        "valid_closed_manifold": true,
+        "connected_solids": 1,
+        "volume_mm3": 582.5512672199683
+      },
+      {
+        "name": "wire-J3-IO33",
+        "valid_closed_manifold": true,
+        "connected_solids": 1,
+        "volume_mm3": 576.4934592115179
+      },
+      {
+        "name": "wire-J4-3V3",
+        "valid_closed_manifold": true,
+        "connected_solids": 1,
+        "volume_mm3": 805.3947492981841
+      },
+      {
+        "name": "wire-J4-IO26",
+        "valid_closed_manifold": true,
+        "connected_solids": 1,
+        "volume_mm3": 778.1172618867023
+      },
+      {
+        "name": "wire-J4-V5",
+        "valid_closed_manifold": true,
+        "connected_solids": 1,
+        "volume_mm3": 677.6368673141051
+      },
+      {
+        "name": "wire-J4-IO25",
+        "valid_closed_manifold": true,
+        "connected_solids": 1,
+        "volume_mm3": 676.0695450741417
+      },
+      {
+        "name": "wire-J4-GND",
+        "valid_closed_manifold": true,
+        "connected_solids": 1,
+        "volume_mm3": 117.50875331252585
+      },
+      {
+        "name": "wire-temp-GND",
+        "valid_closed_manifold": true,
+        "connected_solids": 1,
+        "volume_mm3": 889.9203016723411
+      },
+      {
+        "name": "wire-flow-GND",
+        "valid_closed_manifold": true,
+        "connected_solids": 1,
+        "volume_mm3": 687.205294487022
+      },
+      {
+        "name": "wire-temp-bus-V",
+        "valid_closed_manifold": true,
+        "connected_solids": 1,
+        "volume_mm3": 406.467889033187
+      },
+      {
+        "name": "wire-temp-bus-DATA",
+        "valid_closed_manifold": true,
+        "connected_solids": 1,
+        "volume_mm3": 400.19907992992427
+      },
+      {
+        "name": "wire-temp-bus-GND",
+        "valid_closed_manifold": true,
+        "connected_solids": 1,
+        "volume_mm3": 397.6358786338144
+      },
+      {
+        "name": "wire-J5-V5",
+        "valid_closed_manifold": true,
+        "connected_solids": 1,
+        "volume_mm3": 519.9654815655043
+      },
+      {
+        "name": "wire-relay-bus-V5",
+        "valid_closed_manifold": true,
+        "connected_solids": 1,
+        "volume_mm3": 93.57199855107251
+      },
+      {
+        "name": "wire-J5-GND",
+        "valid_closed_manifold": true,
+        "connected_solids": 1,
+        "volume_mm3": 528.1679747409144
+      },
+      {
+        "name": "wire-relay-bus-GND",
+        "valid_closed_manifold": true,
+        "connected_solids": 1,
+        "volume_mm3": 57.55091411596258
+      },
+      {
+        "name": "wire-J5-IO19",
+        "valid_closed_manifold": true,
+        "connected_solids": 1,
+        "volume_mm3": 413.391561919168
+      },
+      {
+        "name": "wire-J5-IO2",
+        "valid_closed_manifold": true,
+        "connected_solids": 1,
+        "volume_mm3": 528.2781150613558
+      },
+      {
+        "name": "wire-J6-GND",
+        "valid_closed_manifold": true,
+        "connected_solids": 1,
+        "volume_mm3": 955.6882058766107
+      },
+      {
+        "name": "wire-J6-RA1",
+        "valid_closed_manifold": true,
+        "connected_solids": 1,
+        "volume_mm3": 1216.6384131011541
+      },
+      {
+        "name": "wire-J6-earth-1",
+        "valid_closed_manifold": true,
+        "connected_solids": 1,
+        "volume_mm3": 122.52002008462229
+      },
+      {
+        "name": "wire-J6-RA2",
+        "valid_closed_manifold": true,
+        "connected_solids": 1,
+        "volume_mm3": 1101.4256481784855
+      },
+      {
+        "name": "wire-J6-earth-2",
+        "valid_closed_manifold": true,
+        "connected_solids": 1,
+        "volume_mm3": 122.52002008462227
+      },
+      {
+        "name": "wire-J6-RA3",
+        "valid_closed_manifold": true,
+        "connected_solids": 1,
+        "volume_mm3": 985.9958223649469
+      },
+      {
+        "name": "wire-J6-earth-3",
+        "valid_closed_manifold": true,
+        "connected_solids": 1,
+        "volume_mm3": 122.52002008462229
+      },
+      {
+        "name": "wire-J6-RA4",
+        "valid_closed_manifold": true,
+        "connected_solids": 1,
+        "volume_mm3": 877.9967131131192
+      },
+      {
+        "name": "wire-J7-GND",
+        "valid_closed_manifold": true,
+        "connected_solids": 1,
+        "volume_mm3": 151.82280072387326
+      },
+      {
+        "name": "wire-J7-RB1",
+        "valid_closed_manifold": true,
+        "connected_solids": 1,
+        "volume_mm3": 771.7445174615567
+      },
+      {
+        "name": "wire-J7-earth-1",
+        "valid_closed_manifold": true,
+        "connected_solids": 1,
+        "volume_mm3": 122.5200200846227
+      },
+      {
+        "name": "wire-J7-RB2",
+        "valid_closed_manifold": true,
+        "connected_solids": 1,
+        "volume_mm3": 661.7212500252132
+      },
+      {
+        "name": "wire-J7-earth-2",
+        "valid_closed_manifold": true,
+        "connected_solids": 1,
+        "volume_mm3": 122.5200200846227
+      },
+      {
+        "name": "wire-J7-RB3",
+        "valid_closed_manifold": true,
+        "connected_solids": 1,
+        "volume_mm3": 543.9904752475107
+      },
+      {
+        "name": "wire-J7-earth-3",
+        "valid_closed_manifold": true,
+        "connected_solids": 1,
+        "volume_mm3": 122.5200200846227
+      },
+      {
+        "name": "wire-J7-RB4",
+        "valid_closed_manifold": true,
+        "connected_solids": 1,
+        "volume_mm3": 419.58213253166645
+      },
+      {
+        "name": "wire-J7-earth-4",
+        "valid_closed_manifold": true,
+        "connected_solids": 1,
+        "volume_mm3": 537.1035885988042
+      },
+      {
+        "name": "wire-J7-CLO",
+        "valid_closed_manifold": true,
+        "connected_solids": 1,
+        "volume_mm3": 1114.8897811605607
+      },
+      {
+        "name": "wire-J7-carb-earth-1",
+        "valid_closed_manifold": true,
+        "connected_solids": 1,
+        "volume_mm3": 63.873884648820436
+      },
+      {
+        "name": "wire-J7-CHI",
+        "valid_closed_manifold": true,
+        "connected_solids": 1,
+        "volume_mm3": 1067.3608357596263
+      },
+      {
+        "name": "wire-J7-carb-earth-2",
+        "valid_closed_manifold": true,
+        "connected_solids": 1,
+        "volume_mm3": 1186.985994829662
+      },
+      {
+        "name": "wire-J9-B",
+        "valid_closed_manifold": true,
+        "connected_solids": 1,
+        "volume_mm3": 631.9716294301957
+      },
+      {
+        "name": "wire-J9-A",
+        "valid_closed_manifold": true,
+        "connected_solids": 1,
+        "volume_mm3": 636.3904096887122
+      },
+      {
+        "name": "wire-J9-GND",
+        "valid_closed_manifold": true,
+        "connected_solids": 1,
+        "volume_mm3": 641.5351006221812
+      },
+      {
+        "name": "wire-J9-V12",
+        "valid_closed_manifold": true,
+        "connected_solids": 1,
+        "volume_mm3": 647.3859306735645
+      },
+      {
+        "name": "wire-J11-V5",
+        "valid_closed_manifold": true,
+        "connected_solids": 1,
+        "volume_mm3": 1207.3233407125383
+      },
+      {
+        "name": "wire-J11-GND",
+        "valid_closed_manifold": true,
+        "connected_solids": 1,
+        "volume_mm3": 1231.3380005499585
+      },
+      {
+        "name": "wire-J11-DOUT",
+        "valid_closed_manifold": true,
+        "connected_solids": 1,
+        "volume_mm3": 1240.6374211722382
+      },
+      {
+        "name": "wire-J11-AOUT",
+        "valid_closed_manifold": true,
+        "connected_solids": 1,
+        "volume_mm3": 1256.1605201385114
+      },
+      {
+        "name": "wiring-junction-compressor-h",
+        "valid_closed_manifold": true,
+        "connected_solids": 1,
+        "volume_mm3": 2888.71200014259
+      },
+      {
+        "name": "wiring-junction-compressor-n",
+        "valid_closed_manifold": true,
+        "connected_solids": 1,
+        "volume_mm3": 2888.7120001425897
+      },
+      {
+        "name": "wiring-junction-pump-positive",
+        "valid_closed_manifold": true,
+        "connected_solids": 1,
+        "volume_mm3": 2888.7120001425837
+      },
+      {
+        "name": "terminal-carbonator-pe",
+        "valid_closed_manifold": true,
+        "connected_solids": 1,
+        "volume_mm3": 115.15610992708461
+      },
+      {
+        "name": "terminal-J1",
+        "valid_closed_manifold": true,
+        "connected_solids": 1,
+        "volume_mm3": 856.6217519594204
+      },
+      {
+        "name": "terminal-J2",
+        "valid_closed_manifold": true,
+        "connected_solids": 1,
+        "volume_mm3": 603.8561679775663
+      },
+      {
+        "name": "terminal-J3",
+        "valid_closed_manifold": true,
+        "connected_solids": 1,
+        "volume_mm3": 435.3457786584502
+      },
+      {
+        "name": "terminal-J4",
+        "valid_closed_manifold": true,
+        "connected_solids": 1,
+        "volume_mm3": 688.1113626449381
+      },
+      {
+        "name": "terminal-J5",
+        "valid_closed_manifold": true,
+        "connected_solids": 1,
+        "volume_mm3": 435.3457786642131
+      },
+      {
+        "name": "terminal-J6",
+        "valid_closed_manifold": true,
+        "connected_solids": 1,
+        "volume_mm3": 519.6009733193412
+      },
+      {
+        "name": "terminal-J7",
+        "valid_closed_manifold": true,
+        "connected_solids": 1,
+        "volume_mm3": 688.1113626449381
+      },
+      {
+        "name": "terminal-J9",
+        "valid_closed_manifold": true,
+        "connected_solids": 1,
+        "volume_mm3": 435.3457786584513
+      },
+      {
+        "name": "terminal-J11",
+        "valid_closed_manifold": true,
+        "connected_solids": 1,
+        "volume_mm3": 435.345778667433
+      },
+      {
+        "name": "terminal-J13",
+        "valid_closed_manifold": true,
+        "connected_solids": 1,
+        "volume_mm3": 435.3457786606325
+      },
+      {
+        "name": "terminal-fuse-in-lead",
+        "valid_closed_manifold": true,
+        "connected_solids": 1,
+        "volume_mm3": 25.52034206561169
+      },
+      {
+        "name": "terminal-fuse-in-splice",
+        "valid_closed_manifold": true,
+        "connected_solids": 1,
+        "volume_mm3": 16.392528633853974
+      },
+      {
+        "name": "terminal-fuse-out-lead",
+        "valid_closed_manifold": true,
+        "connected_solids": 1,
+        "volume_mm3": 13.97039853806094
+      },
+      {
+        "name": "terminal-fuse-out-splice",
+        "valid_closed_manifold": true,
+        "connected_solids": 1,
+        "volume_mm3": 16.392528633853967
+      },
+      {
+        "name": "terminal-compressor-cord-jacket",
+        "valid_closed_manifold": true,
+        "connected_solids": 1,
+        "volume_mm3": 4677.2132426185635
       }
-    ],
-    "unresolved": []
+    ]
   },
-  "all_recorded_larger_body_wire_contacts_clear": true,
+  "closed_solid_followup": "hardware/wiring/installed/contact-review.json",
+  "unresolved_larger_body_contacts": 0,
   "preparation_lengths": {
     "source": "hardware/wiring/_ac_wiring_schedule_sync.py",
-    "source_sha256": "bcdfb94659e38d8289a8fa24a83307778b6d31efffe824a6bd117829aefb6f87",
+    "source_sha256": "ed9dc352d1fad5c082ca6e4c0bc6b33bdb158e9f1f227f05a227793211441a51",
     "scope": "Developed lengths from this actual exported manifest compared with current preparation stock. The compressor hot allocation includes both AC4-H and AC4-fuse pieces; the reservoir-A common includes all three continuing earth spans. Remaining stock is a nominal cutting allowance, not physical dressing or termination qualification.",
     "groups": [
       {
         "group": "AC-1 inlet pigtails",
         "schedule_constant": "len_mid_mm",
         "prepared_length_mm": 150,
-        "maximum_developed_path_mm": 110.299,
-        "minimum_remaining_preparation_mm": 39.701,
+        "maximum_developed_path_mm": 85.462,
+        "minimum_remaining_preparation_mm": 64.538,
         "members": [
           {
             "route_ids": [
@@ -136,16 +965,16 @@
               "AC1-N"
             ],
             "missing_routes": [],
-            "developed_path_mm": 79.915,
-            "remaining_preparation_mm": 70.085
+            "developed_path_mm": 85.462,
+            "remaining_preparation_mm": 64.538
           },
           {
             "route_ids": [
               "AC1-PE"
             ],
             "missing_routes": [],
-            "developed_path_mm": 110.299,
-            "remaining_preparation_mm": 39.701
+            "developed_path_mm": 66.721,
+            "remaining_preparation_mm": 83.279
           }
         ]
       },
@@ -153,24 +982,24 @@
         "group": "AC-2 fixed 16 AWG",
         "schedule_constant": "len_short_2_mm",
         "prepared_length_mm": 200,
-        "maximum_developed_path_mm": 128.794,
-        "minimum_remaining_preparation_mm": 71.206,
+        "maximum_developed_path_mm": 172.976,
+        "minimum_remaining_preparation_mm": 27.024,
         "members": [
           {
             "route_ids": [
               "AC2-L"
             ],
             "missing_routes": [],
-            "developed_path_mm": 118.334,
-            "remaining_preparation_mm": 81.666
+            "developed_path_mm": 172.976,
+            "remaining_preparation_mm": 27.024
           },
           {
             "route_ids": [
               "AC2-N"
             ],
             "missing_routes": [],
-            "developed_path_mm": 128.794,
-            "remaining_preparation_mm": 71.206
+            "developed_path_mm": 119.156,
+            "remaining_preparation_mm": 80.844
           }
         ]
       },
@@ -194,25 +1023,25 @@
       {
         "group": "DC-1 fixed 16 AWG",
         "schedule_constant": "len_dc1_mm",
-        "prepared_length_mm": 350,
-        "maximum_developed_path_mm": 309.262,
-        "minimum_remaining_preparation_mm": 40.738,
+        "prepared_length_mm": 550,
+        "maximum_developed_path_mm": 460.379,
+        "minimum_remaining_preparation_mm": 89.621,
         "members": [
           {
             "route_ids": [
               "DC1-V12"
             ],
             "missing_routes": [],
-            "developed_path_mm": 309.262,
-            "remaining_preparation_mm": 40.738
+            "developed_path_mm": 460.379,
+            "remaining_preparation_mm": 89.621
           },
           {
             "route_ids": [
               "DC1-GND"
             ],
             "missing_routes": [],
-            "developed_path_mm": 276.707,
-            "remaining_preparation_mm": 73.293
+            "developed_path_mm": 386.471,
+            "remaining_preparation_mm": 163.529
           }
         ]
       },
@@ -220,16 +1049,16 @@
         "group": "DC-2 fixed 16 AWG",
         "schedule_constant": "len_dc2_mm",
         "prepared_length_mm": 350,
-        "maximum_developed_path_mm": 257.137,
-        "minimum_remaining_preparation_mm": 92.863,
+        "maximum_developed_path_mm": 257.346,
+        "minimum_remaining_preparation_mm": 92.654,
         "members": [
           {
             "route_ids": [
               "DC2-V12"
             ],
             "missing_routes": [],
-            "developed_path_mm": 257.137,
-            "remaining_preparation_mm": 92.863
+            "developed_path_mm": 257.346,
+            "remaining_preparation_mm": 92.654
           }
         ]
       },
@@ -237,24 +1066,24 @@
         "group": "DC-3 pump",
         "schedule_constant": "len_pump_mm",
         "prepared_length_mm": 350,
-        "maximum_developed_path_mm": 284.282,
-        "minimum_remaining_preparation_mm": 65.718,
+        "maximum_developed_path_mm": 316.2,
+        "minimum_remaining_preparation_mm": 33.8,
         "members": [
           {
             "route_ids": [
               "DC3-positive"
             ],
             "missing_routes": [],
-            "developed_path_mm": 284.282,
-            "remaining_preparation_mm": 65.718
+            "developed_path_mm": 312.525,
+            "remaining_preparation_mm": 37.475
           },
           {
             "route_ids": [
               "DC3-negative"
             ],
             "missing_routes": [],
-            "developed_path_mm": 248.724,
-            "remaining_preparation_mm": 101.276
+            "developed_path_mm": 316.2,
+            "remaining_preparation_mm": 33.8
           }
         ]
       },
@@ -287,8 +1116,8 @@
         "group": "compressor SJOOW stock",
         "schedule_constant": "len_compressor_mm",
         "prepared_length_mm": 700,
-        "maximum_developed_path_mm": 650.616,
-        "minimum_remaining_preparation_mm": 49.384,
+        "maximum_developed_path_mm": 646.613,
+        "minimum_remaining_preparation_mm": 53.387,
         "members": [
           {
             "route_ids": [
@@ -312,8 +1141,8 @@
               "AC6-PE"
             ],
             "missing_routes": [],
-            "developed_path_mm": 650.616,
-            "remaining_preparation_mm": 49.384
+            "developed_path_mm": 646.613,
+            "remaining_preparation_mm": 53.387
           }
         ]
       },
@@ -777,32 +1606,32 @@
         "group": "flow meter",
         "schedule_constant": "len_flow_mm",
         "prepared_length_mm": 350,
-        "maximum_developed_path_mm": 308.79,
-        "minimum_remaining_preparation_mm": 41.21,
+        "maximum_developed_path_mm": 302.889,
+        "minimum_remaining_preparation_mm": 47.111,
         "members": [
           {
             "route_ids": [
               "J4-V5"
             ],
             "missing_routes": [],
-            "developed_path_mm": 304.56,
-            "remaining_preparation_mm": 45.44
+            "developed_path_mm": 298.671,
+            "remaining_preparation_mm": 51.329
           },
           {
             "route_ids": [
               "J4-IO25"
             ],
             "missing_routes": [],
-            "developed_path_mm": 303.876,
-            "remaining_preparation_mm": 46.124
+            "developed_path_mm": 297.98,
+            "remaining_preparation_mm": 52.02
           },
           {
             "route_ids": [
               "flow-GND"
             ],
             "missing_routes": [],
-            "developed_path_mm": 308.79,
-            "remaining_preparation_mm": 41.21
+            "developed_path_mm": 302.889,
+            "remaining_preparation_mm": 47.111
           }
         ]
       },
@@ -810,8 +1639,8 @@
         "group": "relay logic",
         "schedule_constant": "len_relays_mm",
         "prepared_length_mm": 350,
-        "maximum_developed_path_mm": 280.34,
-        "minimum_remaining_preparation_mm": 69.66,
+        "maximum_developed_path_mm": 270.425,
+        "minimum_remaining_preparation_mm": 79.575,
         "members": [
           {
             "route_ids": [
@@ -819,8 +1648,8 @@
               "relay-bus-V5"
             ],
             "missing_routes": [],
-            "developed_path_mm": 269.525,
-            "remaining_preparation_mm": 80.475
+            "developed_path_mm": 270.425,
+            "remaining_preparation_mm": 79.575
           },
           {
             "route_ids": [
@@ -828,8 +1657,8 @@
               "relay-bus-GND"
             ],
             "missing_routes": [],
-            "developed_path_mm": 280.34,
-            "remaining_preparation_mm": 69.66
+            "developed_path_mm": 258.161,
+            "remaining_preparation_mm": 91.839
           },
           {
             "route_ids": [
@@ -844,8 +1673,8 @@
               "J5-IO2"
             ],
             "missing_routes": [],
-            "developed_path_mm": 195.886,
-            "remaining_preparation_mm": 154.114
+            "developed_path_mm": 232.842,
+            "remaining_preparation_mm": 117.158
           }
         ]
       },
@@ -853,8 +1682,8 @@
         "group": "reservoir A leads",
         "schedule_constant": "len_reeds_a_mm",
         "prepared_length_mm": 650,
-        "maximum_developed_path_mm": 573.633,
-        "minimum_remaining_preparation_mm": 76.367,
+        "maximum_developed_path_mm": 583.248,
+        "minimum_remaining_preparation_mm": 66.752,
         "members": [
           {
             "route_ids": [
@@ -864,40 +1693,40 @@
               "J6-earth-3"
             ],
             "missing_routes": [],
-            "developed_path_mm": 573.633,
-            "remaining_preparation_mm": 76.367
+            "developed_path_mm": 583.248,
+            "remaining_preparation_mm": 66.752
           },
           {
             "route_ids": [
               "J6-RA1"
             ],
             "missing_routes": [],
-            "developed_path_mm": 529.605,
-            "remaining_preparation_mm": 120.395
+            "developed_path_mm": 536.26,
+            "remaining_preparation_mm": 113.74
           },
           {
             "route_ids": [
               "J6-RA2"
             ],
             "missing_routes": [],
-            "developed_path_mm": 478.101,
-            "remaining_preparation_mm": 171.899
+            "developed_path_mm": 485.48,
+            "remaining_preparation_mm": 164.52
           },
           {
             "route_ids": [
               "J6-RA3"
             ],
             "missing_routes": [],
-            "developed_path_mm": 429.781,
-            "remaining_preparation_mm": 220.219
+            "developed_path_mm": 434.605,
+            "remaining_preparation_mm": 215.395
           },
           {
             "route_ids": [
               "J6-RA4"
             ],
             "missing_routes": [],
-            "developed_path_mm": 381.775,
-            "remaining_preparation_mm": 268.225
+            "developed_path_mm": 387.006,
+            "remaining_preparation_mm": 262.994
           }
         ]
       },
@@ -1053,11 +1882,11 @@
       },
       {
         "id": "AC5-pigtail",
-        "developed_path_mm": 241.568
+        "developed_path_mm": 241.194
       },
       {
         "id": "DC3-pigtail",
-        "developed_path_mm": 216.999
+        "developed_path_mm": 252.757
       },
       {
         "id": "PE-carbonator",
@@ -1065,13 +1894,5 @@
       }
     ]
   },
-  "current_mechanical_delta_binding": {
-    "record": "hardware/mechanical-qualification/enclosure-above-core/assembly-gate-review.json",
-    "record_sha256": "249689e9556cec4b5e5cc717fc26ca3fba8d795b2b673420deaf43759c379ed9",
-    "baseline_assembly_step_sha256": "43de7a97158cfb3d2b9de706d7370fcb1c8b6c32dcb2d9cc09404d443c725655",
-    "assembly_step_sha256": "c264aefc6a1a1304af27e06af353ba9819de9be0daf85c3647c2a01058f7ebd7",
-    "assembly_mesh_sha256": "ac4c208beb6a0104bc76c3a766093f1435c75ad662f22af6725bfc25c3815db5",
-    "scope": "Only the drain cradle and soda holder/tube/occupied foam change. All other native bodies pass through unchanged; all unchanged viewer arrays are byte-identical. Current changed-body neighborhoods are queried natively. Retained tests keep their original artifact hashes; this binding is not a claim they were rerun."
-  },
-  "retained_mesh_screen_assembly_step_sha256": "43de7a97158cfb3d2b9de706d7370fcb1c8b6c32dcb2d9cc09404d443c725655"
+  "all_recorded_larger_body_wire_contacts_clear": true
 }

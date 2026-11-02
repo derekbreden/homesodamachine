@@ -223,9 +223,12 @@ Z297.6 crossing above the drain stem and V-B inlet fitting. J2 and J9 use the
 same crossing height below the funnel frame. The manifold leads descend into
 their two fixed lid channels; the display ribbon retains the shared rear
 electrical mouth and chimney. The faucet leads pass west of the pump head
-and butterfly keys. The rear neutral WAGO's mouths stand west of the
-continuous pump seat. The diaphragm-pump leads follow the saddle's outside
+and butterfly keys. The rear neutral WAGO stands upright west of the
+continuous pump seat, with its wire mouths facing fore and levers facing east.
+Load the rear junctions with back-top separated from the cold core. The diaphragm-pump leads follow the saddle's outside
 aisles before turning toward the motor's aft lead exits.
+
+Open the core junction levers with the V-B return disconnected.
 
 For board service, remove the funnel and frame, release the three free joins
 and lift them with their leads out of the housing paths. Disconnect the

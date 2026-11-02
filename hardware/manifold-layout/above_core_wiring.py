@@ -29,6 +29,7 @@ SIZES = {'413': (18.8, 18.6, 8.4, 3, 1),
 IDENTITY = ((1., 0., 0.), (0., 1., 0.), (0., 0., 1.))
 PORTS_WEST = ((0., -1., 0.), (1., 0., 0.), (0., 0., 1.))
 PORTS_FORE = ((-1., 0., 0.), (0., -1., 0.), (0., 0., 1.))
+UPRIGHT_PORTS_FORE = ((0., 0., 1.), (0., -1., 0.), (1., 0., 0.))
 WALL_BACK_FORE = ((0., 0., -1.), (0., -1., 0.), (-1., 0., 0.))
 WALL_BACK_AFT = ((0., 0., -1.), (0., 1., 0.), (1., 0., 0.))
 EAST_FLANK = ((0., -1., 0.), (0., 0., -1.), (1., 0., 0.))
@@ -46,10 +47,11 @@ def placements():
 
     # Mains branches sit below the ceiling PSU, west of the data jack.
     for name, x, z, purpose in (('wago-h', -85., 264., 'C14 live / PSU primary / relay 1 COM'),
-                            ('wago-n', -61., 266., 'C14 neutral / PSU primary / compressor'),
                             ('wago-g', -85., 296.5, 'C14 PE / carbonator bond / compressor earth')):
         put(name, '413', 'back-top', PORTS_FORE,
             (x, 457.5, z), purpose)
+    put('wago-n', '413', 'back-top', UPRIGHT_PORTS_FORE,
+        (-69.4, 457.5, 267.5), 'C14 neutral / PSU primary / compressor')
     # Two rows on the board-facing back of V-B's wall. Levers open west;
     # wire mouths face away from the shared rear-half holder stock.
     vb = layout.pose('valve-v-b')
@@ -111,9 +113,8 @@ def _well(name):
     """
     pose = placements()[name]
     width, depth, height, _poles, _rows = SIZES[pose['size']]
-    # The front manifold's A-fill tube passes the upper edge of this well.
-    # Keep its open mouth behind that path while retaining the blank rear half.
-    front = -.75 if name == 'wago-mana' else 0.
+    # Both manifold mouths stand behind their lever faces and the A-fill path.
+    front = -.75 if name in ('wago-mana','wago-manb') else 0.
     rear = -depth/2-FIT-WALL
     if pose['parent']=='back-top':
         rear=min(rear,pose['translation_mm'][1]-466.95)

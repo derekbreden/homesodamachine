@@ -1,8 +1,8 @@
 {
   "schema": "enclosure-fit-review/3",
-  "scope": "Artifact-bound current enclosure geometry and assembly. Complete native static contact readings, finite mounting stock, cap loading/removal and exact printed quadrant motion are bound separately. WAGO and wire completion follows the published mechanical layout. Physical force, actual spring life, bearing finish and purchased-part tolerances require the physical articles.",
-  "assembly_step_sha256": "7a174b60fbc0498134e5348ca72007363e067d33dd1fddf98c316b96ecd407f0",
-  "assembly_mesh_sha256": "ebc2affdf050f1b7454b0702e5d159d6e8b39eccdad0d6ed4ec1c5a79f3e9129",
+  "scope": "Completed nominal enclosure geometry, assembly, mounted junctions and finished wire placement. Exact print and surface records are bound separately. Physical force, spring life, bearing finish and purchased-part tolerances require physical articles.",
+  "assembly_step_sha256": "d534a641b9b7018890fb103416b73c468f2f60b20d35982ac9f089d9e4168923",
+  "assembly_mesh_sha256": "f9b8d9c352483a94529ea85fc5d5bdd71e03e637809dd12d57fa65e49d5b13b2",
   "integration_record": "hardware/mechanical-qualification/enclosure-above-core/retention-integration-review.json",
   "native_contacts": [
     {
@@ -36,17 +36,8 @@
       "gap_mm": 0.26114743081114966
     }
   ],
-  "remaining_material_findings": [
-    {
-      "parts": [
-        "wago-n",
-        "foam-cap-lid-top"
-      ],
-      "mesh_overlap_mm3": 73.51575177210209,
-      "required_action": "Place the neutral junction and its holder around the completed mechanics."
-    }
-  ],
-  "all_queried_unconnected_material_contacts_clear": false,
+  "remaining_material_findings": [],
+  "all_queried_unconnected_material_contacts_clear": true,
   "physical_qualification": {
     "record": "hardware/print-tests/rear-snap-retention/v3",
     "state": "The current modeled joints use 2.0 mm leaves, R1.5 roots, solid hook noses above centered screwdriver entries, shaped PISCO and meter bearing stock and the measured regulator shoulder. Current native seated contacts, positive nominal capture, neighboring bodies and released extraction paths pass. Physical retention, insertion/release force, distributed bending, repeated use and pump vibration remain unqualified."
@@ -110,5 +101,15 @@
       "2:+1": 30.87273162363849
     },
     "pass": true
+  },
+  "completed_junction_and_wire_integration": {
+    "record": "hardware/mechanical-qualification/enclosure-above-core/retention-integration-review.json",
+    "physical_delta_members": [
+      "wago-n",
+      "enclosure-front-top",
+      "enclosure-back-top"
+    ],
+    "all_mounted_junction_bodies_clear": true,
+    "all_wire_larger_body_contacts_clear": true
   }
 }
