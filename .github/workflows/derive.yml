@@ -173,7 +173,7 @@ jobs:
 
       # THE IMAGE IS THE ENVIRONMENT AND THE CHECKOUT IS THE TREE, and this is what ties
       # them. The three baked trees are linked into the paths the build names — both are
-      # gitignored, so the links dirty nothing and `git add -A` below cannot sweep them —
+      # gitignored, so the links dirty nothing and the derived commit leaves them out —
       # and `HSM_REQ_SHA`, the digest of the files the image was built from, is held
       # against the same digest recomputed here. They differ for exactly as long as
       # `cad-image` takes to catch up with a pin bump, and a run inside the old environment
@@ -271,7 +271,7 @@ jobs:
       # THE FULL SWEEP LIVES HERE AND NOWHERE ELSE. Watching every generator run is over an hour
       # serially, and taken on the laptop it lands on whoever is at the keyboard — which is what
       # `trace_inputs.py` refuses without `--all`. Nobody waits on this machine, and the
-      # `git add -A` at the end of this job commits the graph it writes.
+      # derived commit at the end of this job records the graph it writes.
       #
       # THE SWEEP IS UNIONED WITH THE GRAPH THE TREE CAME IN WITH, AND THE DISK DECIDES WHICH
       # HALF OF THE DIFFERENCE IS REAL. Two things make an entry come back smaller and they need
@@ -337,7 +337,7 @@ jobs:
       - name: This checkout's own paths
         # NOTHING HERE HOLDS THE DERIVE. `gen_build.py` has already written the current graph
         # to this checkout's BUILD.bazel, so the drift is named and the build runs against the
-        # regenerated file — which `git add -A` below then lands, the same way every other
+        # regenerated file — which the derived commit records, the same way every other
         # derived file in this job does. Refusing here would throw away the whole derivation
         # over a file this step had just brought current on the disk.
         run: |
@@ -440,11 +440,11 @@ jobs:
           set -e
           [ "$rc" -le 1 ]
 
-      # Bazel cuts into bazel-bin; the ledger, docs, commit and artifact status read the tree.
-      # Carry only after the complete build and cut gates have both passed.
+      # The publisher owns model bytes and their metadata. This derive carries docs and media
+      # after the build and cut comparison, keeping the published model cohort in the tree.
       - name: Carry what the build cut into the tree
         run: |
-          tools/cad-venv/bin/python tools/bazel/sync_tree.py --write \
+          tools/cad-venv/bin/python tools/bazel/sync_tree.py --write --derived-only \
             --failed "${{ steps.cut.outputs.failed }}"
 
       # The ledger, in the order the modules document: masses price the totals, and the
@@ -477,17 +477,14 @@ jobs:
         run: |
           git config user.name  "Derek Bredensteiner"
           git config user.email "derekbreden@gmail.com"
-          # `git add -A` is forbidden on a working machine, where it sweeps a peer's
-          # half-finished edit into your commit. It is right HERE and only here: this is a
-          # clean clone that nothing else touches, so everything dirty in it is something
-          # this job put there — including a derived file that is new rather than moved,
-          # which `git diff` cannot see.
-          if [ -z "$(git status --porcelain)" ]; then
+          # Direct trace runs also write into this checkout. Stage under the same ownership
+          # as the carry, retaining committed model/print records for commit-back's rebase.
+          tools/cad-venv/bin/python tools/bazel/sync_tree.py --derived-only --stage
+          if git diff --cached --quiet; then
             echo "nothing derived moved — the tree already names what it makes"
             exit 0
           fi
-          git status --porcelain | sed 's/^/  /'
-          git add -A
+          git diff --cached --stat
           git commit -F - <<'MSG'
           the tree names what it makes
 
