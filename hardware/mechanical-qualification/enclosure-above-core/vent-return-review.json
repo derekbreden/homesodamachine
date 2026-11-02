@@ -965,8 +965,9 @@
   "assembly_step_sha256": "4e5166c4d9d280390cd13dde4280c381343cefb2547a8cba8ec80d59bf07d5a1",
   "assembly_mesh_sha256": "98d8a1c1c637da00811ef25075231a2a0c5bd7090b6a036c64ada2fa0e3d6341",
   "current_parent_binding": {
-    "assembly_step_sha256": "7a174b60fbc0498134e5348ca72007363e067d33dd1fddf98c316b96ecd407f0",
-    "assembly_mesh_sha256": "ebc2affdf050f1b7454b0702e5d159d6e8b39eccdad0d6ed4ec1c5a79f3e9129",
-    "scope": "The measured mounting axes, blind floors, component poses and vent/drain paths retain their preceding native geometry. Current changed cap neighbors and finished-lid air passages are recorded in retention-integration-review.json."
+    "assembly_step_sha256": "d534a641b9b7018890fb103416b73c468f2f60b20d35982ac9f089d9e4168923",
+    "assembly_mesh_sha256": "f9b8d9c352483a94529ea85fc5d5bdd71e03e637809dd12d57fa65e49d5b13b2",
+    "scope": "Previously measured component poses, fastener seats, vent paths and connector stages retain their geometry. The neutral-holder delta is aft of all connector stages, clear of the whole neighboring scene and clear over complete rear closure. Front manifold mouths remove stock only. All final wire routes clear larger bodies.",
+    "exact_physical_delta_record": "hardware/mechanical-qualification/enclosure-above-core/retention-integration-review.json"
   }
 }

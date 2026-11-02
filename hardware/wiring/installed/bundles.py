@@ -142,7 +142,9 @@ def reed_level_segments(segments, recipe, identity=None):
     Endpoint approaches and the cap-passage tail retain their original native
     lines/arcs. Only the free middle is re-formed from this compact recipe.
     """
-    start=recipe['high_point_mm'];end=recipe['seat_entry_mm'];controls=recipe['return_controls_mm']
+    start=recipe['high_point_mm'];end=recipe['seat_entry_mm']
+    sections=recipe.get('return_sections_mm') or [recipe['return_controls_mm']]
+    controls=sections[-1]
     order=recipe['order_bottom_to_top'];index=order.index(identity)if identity else None
     prefix=[]
     for old in segments:
@@ -160,7 +162,8 @@ def reed_level_segments(segments, recipe, identity=None):
     def ease(t):return 6*t**5-15*t**4+10*t**3
     def section(t,mode):
         if index is None:return 0.,0.
-        phase=ease(t);packed_pitch=2*recipe['pack_radius_mm']*math.sin(math.pi/5)
+        phase=ease(min(t/recipe.get('return_repack_fraction',1.),1.) if mode=='return' else t)
+        packed_pitch=2*recipe['pack_radius_mm']*math.sin(math.pi/5)
         if mode=='drop':
             phi=-2*math.pi/5*(1-phase);theta=-math.pi
             pitch=(packed_pitch*(1-phase)+recipe['pitch_mm']*phase)*(1+recipe['drop_opening_fraction']*math.sin(math.pi*t)**2)
@@ -174,7 +177,9 @@ def reed_level_segments(segments, recipe, identity=None):
     delta=sub(end,start);across=(delta[0],0.,delta[2]);ey=(0.,1.,0.)
     def centre(t,mode):
         if mode=='return':
-            a,b,c,d=controls
+            index=min(int(t*len(sections)),len(sections)-1)
+            t=t*len(sections)-index
+            a,b,c,d=sections[index]
             p=add(add(mul(a,(1-t)**3),mul(b,3*(1-t)**2*t)),add(mul(c,3*(1-t)*t*t),mul(d,t**3)))
             tangent=add(add(mul(sub(b,a),3*(1-t)**2),mul(sub(c,b),6*(1-t)*t)),mul(sub(d,c),3*t*t))
             return p,tangent
@@ -185,8 +190,16 @@ def reed_level_segments(segments, recipe, identity=None):
         return p,tangent
     def curve(mode):
         result=[]
-        for j in range(21):
-            t=j/20;p,tangent=centre(t,mode);tangent=unit(tangent)
+        count=20*(len(sections) if mode=='return' else 1)
+        for j in range(count+1):
+            t=j/count;p,tangent=centre(t,mode);tangent=unit(tangent)
+            if mode=='return' and recipe.get('return_vertical_ribbon'):
+                offset=(0.,0.,(index-2)*recipe['pitch_mm']) if index is not None else (0.,0.,0.)
+                target=sub(tail[0]['start_mm'],controls[-1])
+                begin=recipe['return_pack_from_fraction']
+                phase=ease(max(0.,(t-begin)/(1.-begin)))
+                result.append(add(p,add(mul(offset,1.-phase),mul(target,phase))))
+                continue
             u=unit(cross(tangent,(0.,0.,1.)));v=cross(u,tangent);a,b=section(t,mode)
             result.append(add(p,add(mul(u,a),mul(v,b))))
         return result
@@ -194,8 +207,9 @@ def reed_level_segments(segments, recipe, identity=None):
     drop[0]=prefix[-1]['end_mm'];repack[-1]=tail[0]['start_mm']
     low_start=drop[-1];low_end=repack[0]
     middle=[spline_segment(drop,[(0.,1.,0.),(0.,1.,0.)]),
-            {'kind':'line','start_mm':low_start,'end_mm':low_end,'length_mm':norm(sub(low_end,low_start))},
-            spline_segment(repack,[(0.,1.,0.),(1.,0.,0.)])]
+            {'kind':'line','start_mm':low_start,'end_mm':low_end,'length_mm':norm(sub(low_end,low_start))}]
+    middle.append(spline_segment(repack,[(0.,1.,0.),(1.,0.,0.)],
+                                 chord_length=len(sections)>1))
     return prefix+middle+tail
 
 
@@ -245,7 +259,8 @@ def inputs(attachments):
                 points=sampled_segments(shared,.6)
             records[id]={**b,'geometry_name':None,'points_mm':points,'segments':shared,
                          'length_mm':sum(s['length_mm'] for s in shared),
-                         'minimum_bend_mm':min((s.get('radius_mm',s.get('minimum_bend_mm')) for s in shared if s['kind']!='line'),default=None)}
+                         'minimum_bend_mm':min((radius for s in shared
+                             if (radius:=s.get('radius_mm',s.get('minimum_bend_mm'))) is not None),default=None)}
             continue
         segments=trimmed(shared,b['end_trim_mm'],b['end_trim_mm'])
         name='terminal-'+id+'-jacket'

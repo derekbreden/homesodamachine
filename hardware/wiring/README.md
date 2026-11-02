@@ -256,9 +256,12 @@ Z297.6 crossing above the drain stem and V-B inlet fitting. J2 and J9 use the
 same crossing height below the funnel frame. The manifold leads descend into
 their two fixed lid channels; the display ribbon retains the shared rear
 electrical mouth and chimney. The faucet leads pass west of the pump head
-and butterfly keys. The rear neutral WAGO's mouths stand west of the
-continuous pump seat. The diaphragm-pump leads follow the saddle's outside
+and butterfly keys. The rear neutral WAGO stands upright west of the
+continuous pump seat, with its wire mouths facing fore and levers facing east.
+Load the rear junctions with back-top separated from the cold core. The diaphragm-pump leads follow the saddle's outside
 aisles before turning toward the motor's aft lead exits.
+
+Open the core junction levers with the V-B return disconnected.
 
 For board service, remove the funnel and frame, release the three free joins
 and lift them with their leads out of the housing paths. Disconnect the
@@ -273,8 +276,9 @@ installed bodies. It excludes wire-to-wire and wire-to-tube contacts and
 keeps intended contact local to its named attachment. Its preparation budget
 covers individual pieces and continuous commons across local taps.
 
-The [installed native binding](installed/above-core-review/installed-wiring-binding.json)
-compares the current source curves and bodies with both standalone and
-installed STEP readback. Source validity, geometric agreement and the reader's
-exchange-validity result remain separate fields. Terminal fidelity, physical
-harness handling and closing motion retain their documented scopes.
+The [installed wiring binding](installed/above-core-review/installed-wiring-binding.json)
+records the current producer sources, closed fine-model solids and exact
+standalone-to-installed viewer arrays. The production mesh-kernel wiring
+export is attached to the retained native physical assembly. All 100 conductors
+and 19 termination/jacket bodies are closed connected solids. Terminal fidelity,
+physical harness handling and closing motion retain their documented scopes.
