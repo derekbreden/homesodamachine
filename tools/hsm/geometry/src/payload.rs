@@ -62,7 +62,7 @@ impl Mesh {
                 "vertex index outside {name}");
         let points = vertices.into_iter().map(|p| Point::new(p[0], p[1], p[2])).collect();
         let shape = TriMesh::new(points, indices).map_err(|error| anyhow::anyhow!("{name}: {error}"))?;
-        Ok(Self { name, color: None, shape, faces: Vec::new(), solid: OnceLock::new() })
+        Ok(Self { name, color: None, shape, faces: Vec::new(), face_sources: None, solid: OnceLock::new() })
     }
 }
 
