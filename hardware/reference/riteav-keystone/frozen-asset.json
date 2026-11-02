@@ -6,12 +6,12 @@
   },
   "members": {
     "riteav-keystone.step": "cd7c975fbda11ed0a7e7ced14c6eb435ab39c882626fab8f234fd59043bf5971",
-    "riteav-keystone.step.mesh": "61490ed98106f1ce7d94bce0325de2f9e8e87e41877b667d3b18f2303c89bb6e"
+    "riteav-keystone.step.mesh": "6ed05070bd47d83d13f53ad960f77947311c564c23ec077c5dc2867577aad8f2"
   },
   "fine_payload": {
     "source_step_sha256": "cd7c975fbda11ed0a7e7ced14c6eb435ab39c882626fab8f234fd59043bf5971",
     "path": "riteav-keystone.step.mesh",
-    "sha256": "61490ed98106f1ce7d94bce0325de2f9e8e87e41877b667d3b18f2303c89bb6e",
+    "sha256": "6ed05070bd47d83d13f53ad960f77947311c564c23ec077c5dc2867577aad8f2",
     "linear_mm": 0.005,
     "angular_rad": 0.05,
     "producer": "hardware/scripts/_rust_part.py:_tessellate",
@@ -20,14 +20,15 @@
       {
         "name": "riteav-keystone",
         "color": [
-          0.13000000109304727,
-          0.13000000109304727,
-          0.13999999784656367
+          0.015325203537940979,
+          0.015325203537940979,
+          0.017389101907610893
         ],
         "vertices": 160,
         "triangles": 100,
         "face_ranges": 32
       }
-    ]
+    ],
+    "color_space": "linear-rgb"
   }
 }
