@@ -598,8 +598,7 @@ def _build_connection_steps(work: Path) -> dict[str, Path]:
         "flavor-b": "flavor-b",
         "drain": "drain",
     }
-    for collar_step in collar_steps.values():
-        note_read(TUBE_COLLAR_DIR / f"tube-collar-{collar_step}.step")
+    note_read(TUBE_COLLAR_DIR / "tube_collar.py")
 
     # The exact closed rear half, rather than the appliance's hidden internals.  These are the
     # source assembly nodes a customer can see from the rear: the printed shell, ceiling/funnel,
@@ -667,14 +666,11 @@ def _build_connection_steps(work: Path) -> dict[str, Path]:
         return cq.Solid.sweep(profile, [], path, makeSolid=True, isFrenet=True)
 
     def split_collar(which: str):
+        sys.path.insert(0, str(TUBE_COLLAR_DIR))
+        import tube_collar
+
         collar_step = collar_steps[which]
-        loaded = cq.importers.importStep(
-            str(TUBE_COLLAR_DIR / f"tube-collar-{collar_step}.step")
-        ).val()
-        solids = list(loaded.Solids())
-        body = max(solids, key=lambda solid: solid.Volume())
-        words = cq.Compound.makeCompound([solid for solid in solids if solid is not body])
-        return body, words
+        return tube_collar.build_collar(collar_step), tube_collar.build_word(collar_step)
 
     card_ports = facts["card_ports"]
     ports = {

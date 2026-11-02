@@ -1,11 +1,12 @@
-"""Physically accepted scan-derived faucet lever, in millimetres.
+"""Scan-derived faucet lever, in millimetres.
 
 X is lateral; +Y runs from the paddle tip toward the attachment; +Z faces the
 customer-visible outer surface. The inner paddle plane is Z=0. This is a local
 part frame, not an assembled faucet pose. evidence/datums.json maps the scans.
 
 The primary model has parallel lateral faces and a 9 mm cylinder channel.
-`build()` supplies the canonical printable and assembled lever.
+`numbers()` supplies the kernel stations; `build()` retains the native body
+for section-art readers.
 
 The rear portion of each ledge's upper face is occluded: LEDGE_TOP is a
 fit-trial parameter, not a measurement.
@@ -20,14 +21,16 @@ import json
 import sys
 from pathlib import Path
 
-import cadquery as cq
-import trimesh
-from scipy.interpolate import PchipInterpolator
-
 HERE = Path(__file__).resolve().parent
 HARDWARE = next(p for p in HERE.parents if p.name == "hardware")
 sys.path.insert(0, str(HARDWARE / "scripts"))
-from _cadq_export import export_assembly
+if __name__ == "__main__":
+    import _rust_part
+    _rust_part.start()
+
+import cadquery as cq
+import trimesh
+from scipy.interpolate import PchipInterpolator
 from flute_payload import cut as export_payload
 from physical_acceptance import for_printed_model
 
@@ -205,6 +208,40 @@ def print_pose(body):
     return turned.translate((0, 0, PRINTED_OUTSIDE_WIDTH / 2))
 
 
+def numbers():
+    """Measured stations and matching PCHIP slopes in the lever's authored frame."""
+    from _materials import linear
+
+    def pchip_stations(points):
+        increasing = sorted(points)
+        fn = PchipInterpolator([p[0] for p in increasing], [p[1] for p in increasing])
+        slope = fn.derivative()
+        return [[x, y, float(slope(x))] for x, y in points]
+
+    return {
+        "name": "lever-replica", "color": list(linear(cq.Color(0.91, 0.91, 0.87))),
+        "outside_width": PRINTED_OUTSIDE_WIDTH, "channel_width": CHANNEL_PRINTED_WIDTH,
+        "floor_z": FLOOR_Z, "ledge_top": LEDGE_TOP,
+        "cut_below": CUT_BELOW, "cut_above": CUT_ABOVE,
+        "cut_front": CUT_FRONT, "cut_rear": CUT_REAR,
+        "outer_start": [0.0, 0.8], "tip_arc": [[0.1, 2.4], SHOW_PROFILE[0]],
+        "show_pchip": pchip_stations(SHOW_PROFILE),
+        "rear_arc": [[52.65, 0.2], [52.0, -4.0]],
+        "rear_bottom": REAR_BOTTOM_PROFILE,
+        "outer_corner": [[37.5, -10.15], [36.8, -10.05], [36.70, -9.5]],
+        "rail_start": [36.65, -5.55],
+        "rail_pchip": pchip_stations([(36.65, -5.55)] + RAIL_BOTTOM_PROFILE),
+        "tip_return_mid": [0.35, -0.2],
+        "pocket_start": POCKET_START_Y, "pocket_front_radius": POCKET_FRONT_RADIUS,
+        "pocket_stop_join": POCKET_STOP_JOIN_Y, "stop_profile": PRINTED_STOP_PROFILE,
+        "pocket_floor_end": [30.0, FLOOR_Z], "pocket_ceiling": POCKET_CEILING,
+        "ledge_lip": [LEDGE_LIP_START, LEDGE_LIP_MID, LEDGE_LIP_END],
+        "pocket_lower_corner": [36.0, CUT_BELOW],
+        "lower_relief": [{"z": z, "right": points} for z, points in LOWER_RELIEF],
+        "upper_relief": [{"z": z, "right": points} for z, points in UPPER_RELIEF],
+    }
+
+
 FRAME_DATA = HERE / "lever-replica.frame.json"
 
 
@@ -227,45 +264,42 @@ def write_frame_data(step):
 
 
 def main():
-    printable = build()
+    import _rust_part
+
+    said = _rust_part.cut("faucet", "lever-replica", numbers(), HERE)
     step = HERE / "lever-replica.step"
     stl = HERE / "lever-replica.stl"
-    export_assembly(cq.Assembly(printable, name="lever", color=cq.Color(0.91, 0.91, 0.87)), str(step))
-    write_frame_data(step)
     print_stl = HERE / "lever-replica-side-down.stl"
-    cq.exporters.export(print_pose(printable), str(print_stl),
-                        tolerance=STL_TOLERANCE, angularTolerance=STL_ANGLE_TOLERANCE)
-    # One tessellation serves the printer and the viewer. OCCT may triangulate the
-    # same analytic face differently after rotation; undo the print pose on its
-    # accepted triangles instead of asking for a second local-frame tessellation.
+    # The viewer and printer use the same emitted triangles in their own frames.
     local_mesh = trimesh.load(print_stl, force="mesh", process=False)
     local_mesh.apply_transform([[0, 0, -1, PRINTED_OUTSIDE_WIDTH / 2],
                                 [0, 1, 0, 0], [1, 0, 0, 0], [0, 0, 0, 1]])
     local_mesh.export(stl)
     export_payload(step, stl, preserve_print_triangles=True)
     mesh = trimesh.load(stl, force="mesh")
-    acceptance = for_printed_model()
-    result = {"valid_brep": printable.val().isValid(), "solids": len(printable.solids().vals()),
-              "volume_mm3": printable.val().Volume(),
-              "mesh_bounds_mm": mesh.bounds.tolist(),
-              "status": ("physical fit and functional operation confirmed by Derek"
-                         if acceptance["matches_accepted_geometry"]
-                         else "current geometry has no matching physical acceptance"),
-              "physical_acceptance": acceptance,
-              "inferred": ["ledge upper continuation", "bilateral symmetry",
-                           "unobserved transitions between relief sections"],
-              "printed_channel_mm": CHANNEL_PRINTED_WIDTH,
-              "printed_outside_mm": PRINTED_OUTSIDE_WIDTH,
-              "printed_channel_applies_to": "primary lever-replica STEP, STL, viewer payload and side-down print STL",
-              "printable_volume_mm3": printable.val().Volume(),
-              "widths_mm": {f"z={z}": {"channel": round(2 * half_channel(z), 3),
-                                       "outside": round(2 * half_outer(z), 3),
-                                       "wall": round(half_outer(z) - half_channel(z), 3)}
-                            for z in (0.0, -3.25, -5.55)}}
-
+    acceptance = for_printed_model(hashlib.sha256(print_stl.read_bytes()).hexdigest())
+    body = said["bodies"][0]
+    result = {
+        "valid_closed_mesh": bool(mesh.is_watertight and mesh.is_winding_consistent),
+        "solids": len(said["bodies"]), "volume_mm3": body["volume"],
+        "mesh_bounds_mm": mesh.bounds.tolist(),
+        "status": ("physical fit and functional operation confirmed by Derek"
+                   if acceptance["matches_accepted_geometry"]
+                   else "current geometry has no matching physical acceptance"),
+        "physical_acceptance": acceptance,
+        "inferred": ["ledge upper continuation", "bilateral symmetry",
+                     "unobserved transitions between relief sections"],
+        "printed_channel_mm": CHANNEL_PRINTED_WIDTH,
+        "printed_outside_mm": PRINTED_OUTSIDE_WIDTH,
+        "printed_channel_applies_to": "primary lever-replica STEP, STL, viewer payload and side-down print STL",
+        "printable_volume_mm3": body["volume"],
+        "widths_mm": {f"z={z}": {"channel": round(2 * half_channel(z), 3),
+                                 "outside": round(2 * half_outer(z), 3),
+                                 "wall": round(half_outer(z) - half_channel(z), 3)}
+                      for z in (0.0, -3.25, -5.55)},
+    }
     (HERE / "geometry-check.json").write_text(json.dumps(result, indent=2) + "\n")
     print(json.dumps(result, indent=2))
-
 
 if __name__ == "__main__":
     main()

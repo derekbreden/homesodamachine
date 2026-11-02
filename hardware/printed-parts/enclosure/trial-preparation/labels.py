@@ -40,6 +40,7 @@ HERE = Path(__file__).resolve().parent
 ROOT = next(p for p in HERE.parents if (p / "tools").is_dir())
 sys.path[:0] = [str(HERE), str(ROOT / "hardware/scripts"), str(ROOT / "hardware/printed-parts/cadlib"),
                 str(ROOT / "hardware/printed-parts/enclosure/nameplate"),
+                str(ROOT / "hardware/printed-parts/faucet/tube-collar"),
                 str(ROOT / "hardware/printed-parts/enclosure/rear-identification")]
 from _run_lock import acquire  # noqa: E402
 
@@ -89,6 +90,7 @@ def bodies(step: Path, bed: str):
     from _cadq_export import import_assembly
     unit = re.fullmatch(r'nameplate-(\d+)\.step', step.name)
     chip = re.fullmatch(r'rear-label-([a-z-]+)\.step', step.name)
+    collar = re.fullmatch(r'tube-collar-([a-z0-9-]+)\.step', step.name)
     if step.parent.name == 'nameplate' and unit and not getattr(cq, 'MESH', False):
         import nameplate
         number = int(unit[1])
@@ -96,6 +98,9 @@ def bodies(step: Path, bed: str):
     elif step.parent.name == 'rear-identification' and chip and not getattr(cq, 'MESH', False):
         import rear_identification
         solids = [rear_identification.chip(chip[1]), *rear_identification.word(chip[1]).Solids()]
+    elif step.parent.name == 'tube-collar' and collar and not getattr(cq, 'MESH', False):
+        import tube_collar
+        solids = [tube_collar.build_collar(collar[1]), *tube_collar.build_word(collar[1]).Solids()]
     else:
         solids = [s for shape, _ in import_assembly(step).values() for s in shape.Solids()]
     solids.sort(key=lambda s: -s.Volume())
