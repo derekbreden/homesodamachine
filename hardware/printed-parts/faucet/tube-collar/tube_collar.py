@@ -35,11 +35,10 @@ Run:
 from __future__ import annotations
 
 import collections
+import json
 import math
 import sys
 from pathlib import Path
-
-import cadquery as cq
 
 _here = Path(__file__).resolve()
 _hw = next(p for p in _here.parents if p.name == "hardware")
@@ -49,6 +48,12 @@ for _p in (_hw / "scripts",
     sys.path.insert(0, str(_p))
 sys.path.insert(0, str(next(p for p in _here.parents
                             if (p / "tools" / "docgen").is_dir()) / "tools"))
+if __name__ == "__main__":
+    import _rust_part
+    _rust_part.start()
+
+import cadquery as cq
+
 from _cadq_export import export_assembly, import_step  # noqa: E402
 from _materials import step_safe  # noqa: E402
 import _y_wall_dimensions as _rear  # noqa: E402
@@ -297,20 +302,24 @@ def split(shape) -> tuple:
 
 
 def words_hold():
-    """Hold the lettering to `bulkhead_ring`'s figures, off the built solids.
+    """Hold the emitted fine-model lettering to `bulkhead_ring`'s figures.
 
     THE FACE IS THE SYSTEM'S. `bulkhead_ring.WORD_FONT` names one this repo does not ship, so a machine
     that resolves it elsewhere letters a collar with a different word on it — same colour, same
     outline — and nothing about that shows up in a bore or an extent. The word is set at
     `bulkhead_ring`'s own em, so the widths it carries are the widths these come out at."""
+    import numpy as np
+
     for which, step in STEPS.items():
         word = STATIONS[which].word
-        _collar, solid = split(import_step(str(step)).val())
-        bb = solid.BoundingBox()
-        if abs(bb.ylen - _ring.WORD_WIDTHS[word]) > 1e-3:
+        with np.load(step.with_suffix(".step.npz"), allow_pickle=False) as model:
+            names = json.loads(bytes(model["names"]))
+            index = names.index(f"tube-collar-{which}-word")
+            along = float(np.ptp(model[f"V{index}"][:, 1]))
+        if abs(along - _ring.WORD_WIDTHS[word]) > 1e-3:
             raise ValueError(
                 f"'{word}' is declared {_ring.WORD_WIDTHS[word]:.3f} mm along the tube and "
-                f"{step.name} carries {bb.ylen:.3f} — `{_ring.WORD_FONT}` did not resolve to the "
+                f"{step.name} carries {along:.3f} — `{_ring.WORD_FONT}` did not resolve to the "
                 f"face the wall's own chips were struck on, and the collar is lettered in "
                 f"something else.")
 
@@ -406,23 +415,43 @@ def selftest() -> int:
     return 1 if fails else 0
 
 
+def numbers():
+    """Collar stock, bores and the shared Helvetica Bold contour artwork."""
+    from _materials import linear
+
+    artwork = json.loads((_hw / "printed-parts/enclosure/rear-identification/label-words.json").read_text())
+    return {
+        "od": OD, "rise": RISE, "length": LENGTH, "word_depth": WORD_DEPTH,
+        "word_size": _ring.WORD_SIZE, "word_profiles_em": artwork["em_mm"],
+        "stations": [{
+            "name": f"tube-collar-{which}", "word": collar.word,
+            "word_profiles": artwork["words"][collar.word], "bore": bore_d(which),
+            "color": list(linear(_filament(_rear.chip_color(collar.fluid)))),
+            "word_color": list(linear(_filament(_rear.word_color(collar.fluid)))),
+        } for which, collar in STATIONS.items()],
+    }
+
+
 def main():
+    import _rust_part
+
+    said = _rust_part.cut("faucet", "tube-collar", numbers(), _here.parent)
+    bodies = {body["name"]: body for body in said["bodies"]}
     volumes, word_volumes = {}, {}
     for which in STATIONS:
-        collar, word = build_collar(which), build_word(which)
-        volumes[which] = collar.Volume() / 1000.0
-        word_volumes[which] = word.Volume() / 1000.0
-        bb = collar.BoundingBox()
+        name = f"tube-collar-{which}"
+        collar, word = bodies[name], bodies[name + "-word"]
+        volumes[which] = collar["volume"] / 1000.0
+        word_volumes[which] = word["volume"] / 1000.0
+        lo, hi = collar["min"], collar["max"]
         print(f"Tube collar — {which} station, '{STATIONS[which].word}'")
         print(f"  Ø{OD:g} wide × {OD / 2.0 + RISE:g} tall × {LENGTH:g} along the tube / "
               f"bore Ø{BORE:g} modelled, Ø{bore_printed():g} printed, on Ø{TUBE_OD:g} LLDPE")
         print(f"  Wall {wall():g} mm, {backing():g} mm of colour behind the lettering")
         print(f"  Canonical-frame bounding box: "
-              f"X [{bb.xmin:.2f}, {bb.xmax:.2f}]  "
-              f"Y [{bb.ymin:.2f}, {bb.ymax:.2f}]  "
-              f"Z [{bb.zmin:.2f}, {bb.zmax:.2f}]")
-        print(f"  Solid valid: {collar.isValid()}")
-        export_assembly(build_part(which), str(STEPS[which]))
+              f"X [{lo[0]:.2f}, {hi[0]:.2f}]  "
+              f"Y [{lo[1]:.2f}, {hi[1]:.2f}]  "
+              f"Z [{lo[2]:.2f}, {hi[2]:.2f}]")
         print(f"-> {STEPS[which].name}")
 
     chip_rock = math.degrees(math.atan2(clearance(), _ring.THICK))

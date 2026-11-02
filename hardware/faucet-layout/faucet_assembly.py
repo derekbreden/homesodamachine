@@ -991,8 +991,12 @@ def build_lever_at(angle_deg=0.0):
     The part's top and aft extent sit at Z=52 and Y=9 mm in the rest pose.
     Installed contact motion is not measured.
     """
-    lever = import_step(_lever_step)
-    placed = lever.translate(_lever_rest_offset(lever))
+    sys.path.insert(0, str(_faucet_printed_dir / "lever-replica"))
+    from lever_replica import build as build_native_lever
+
+    lever = (import_step(_lever_step) if getattr(cq, "MESH", False)
+             else build_native_lever())
+    placed = lever.translate(_lever_frame_offset())
     return placed.rotate((0, lever_pivot_y, lever_pivot_z),
                          (1, lever_pivot_y, lever_pivot_z), angle_deg)
 
@@ -1352,7 +1356,9 @@ def build_collar(which, x, y):
     The part's own +Y is outboard along its tube, which here is DOWN toward the tail: a quarter turn
     about X lays that on −Z and stands the flag on +Y, and a turn about Z then points the flag out
     of the bundle, away from `sleeve_center_y`, so no two of the three face each other."""
-    bodies = tube_collar.split(import_step(str(tube_collar.STEPS[which])).val())
+    bodies = (tube_collar.split(import_step(str(tube_collar.STEPS[which])).val())
+              if getattr(cq, "MESH", False) else
+              (tube_collar.build_collar(which), tube_collar.build_word(which)))
     return tuple(
         body.rotate((0, 0, 0), (1, 0, 0), -90.0)
             .rotate((0, 0, 0), (0, 0, 1), _collar_azimuth(x, y))

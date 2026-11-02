@@ -1,20 +1,10 @@
 {
   "project": "lever-replica-petgf-white.3mf",
-  "settings_source": "hardware/printed-parts/petgf.3mf",
-  "settings_source_sha256": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
-  "settings_sha256": "413f466b0f82b9f08163384565315535bbd116a22707f29815e28a4a7364d125",
-  "source_settings_sha256": "0ee48f241c338dc7cddd637c2d74f80ee2706d0f974451bec8cb49ba4d206c1e",
-  "settings_changes": {
-    "machine_start_gcode": {
-      "from_sha256": "3cc9e41520dbf5622d6f9a96bce734db9d11b0b48b49f2abec047a6e01dc6a92",
-      "to_sha256": "b09bc598f2ed7c29dceb227188593905dfc663f0391b98ff708ef00e7ce01bee",
-      "requested_z_trim_mm": 0.04
-    },
-    "printer_settings_id": {
-      "from": "Bambu Lab H2C 0.4 nozzle 04 first layer by agent",
-      "to": "Bambu Lab H2C 0.4 Standard +0.04 Z trim"
-    }
-  },
+  "settings_source": "hardware/printed-parts/faucet/lever-replica/lever-replica-petgf-white.3mf",
+  "settings_source_sha256": "9715a23ffeae4934afcf426b8881d077db8767f345a9913960743cd7ed3de2f2",
+  "settings_sha256": "37a1e4cbcb08fa8a23816b5a10a52d701f25ec242b56edf5645af6f209513bb3",
+  "source_settings_sha256": "37a1e4cbcb08fa8a23816b5a10a52d701f25ec242b56edf5645af6f209513bb3",
+  "settings_changes": {},
   "printer": "Bambu Lab H2C 0.4 Standard +0.04 Z trim",
   "process": "0.24mm PET-GF faucet",
   "filament": [
@@ -42,7 +32,7 @@
   "bed_type": "Textured PEI Plate",
   "shared_printable_area_mm": [
     [
-      25.0,
+      0.0,
       0.0
     ],
     [
@@ -50,6 +40,10 @@
       320.0
     ]
   ],
+  "printable_area_extruders": [
+    0
+  ],
+  "plate_border_mm": 20.0,
   "plate_count": 1,
   "parts": [
     {
@@ -60,13 +54,13 @@
       "member": "3D/Objects/object_1.model",
       "identify_id": 1901,
       "source": "hardware/printed-parts/faucet/lever-replica/lever-replica-side-down.stl",
-      "stl_sha256": "7a3f5c7d9034c4cce0e0f39bfac6e868f6bd8d01a05add3d21951981eca296eb",
-      "triangles": 5072,
+      "stl_sha256": "19d420b9193d0d691959aadb80095523164afe380189aae1af9eb0c13f8f2d21",
+      "triangles": 18596,
       "rotation_x_degrees": 0.0,
       "source_center_mm": [
-        -2.9024665355682373,
-        26.339595139026642,
-        6.199999809265136
+        -2.9024670124053955,
+        26.339422799646854,
+        6.199999809172004
       ],
       "build_transform": [
         1.0,
@@ -78,14 +72,14 @@
         0.0,
         -0.0,
         1.0,
-        175.0,
+        162.5,
         160.0,
-        6.199999809265137
+        6.199999809358269
       ],
       "plate_translation_mm": [
-        175.0,
+        162.5,
         160.0,
-        6.199999809265137
+        6.199999809358269
       ],
       "plate_origin_mm": [
         0.0,
@@ -94,26 +88,25 @@
       ],
       "plate_bounds_mm": [
         [
-          167.66753363609314,
-          133.48264628648758,
+          155.16753315925598,
+          133.48246631771326,
           0.0
         ],
         [
-          182.33246636390686,
-          186.51735371351242,
-          12.399999618530273
+          169.83246684074402,
+          186.51753368228674,
+          12.399999618716539
         ]
       ],
       "watertight": true,
       "body_count": 1,
-      "embedded_vertex_error_mm": 4.997851021926181e-10
+      "embedded_vertex_error_mm": 4.999929359428279e-10
     }
   ],
-  "project_sha256": "ba523134b4f4b87486c4847c97410c449abc6012aa1f5fbd05b0475432c8acd9",
-  "settings_preserved_byte_for_byte": false,
-  "status": "offline project preparation; submissions are recorded in print-jobs.json",
-  "pose": "local CAD +X side on bed; broad show face vertical",
+  "project_sha256": "17b77ae11542557832a808ea36569099909606ad33a09904d39741eeaa5d9b18",
+  "settings_preserved_byte_for_byte": true,
   "variant": "white-mark2",
+  "status": "Editable project for the current source mesh; dated printed archives and their acceptance records are retained separately.",
   "physical_acceptance": {
     "record": "physical-acceptance.json",
     "accepted_job_id": "2026-09-20-lever-original-wide-white-z004-mark2",
@@ -121,11 +114,12 @@
     "authority": "Derek's direct observation of the completed Mark2 print",
     "scope": "The identified white PET-GF print on Mark2. This confirms fit and operation; it supplies no numerical force, endurance or assembled-pose measurement.",
     "accepted_stl_sha256": "7a3f5c7d9034c4cce0e0f39bfac6e868f6bd8d01a05add3d21951981eca296eb",
-    "current_stl_sha256": "7a3f5c7d9034c4cce0e0f39bfac6e868f6bd8d01a05add3d21951981eca296eb",
-    "matches_accepted_geometry": true,
-    "physical_fit": "confirmed",
-    "functional_operation": "confirmed",
+    "current_stl_sha256": "19d420b9193d0d691959aadb80095523164afe380189aae1af9eb0c13f8f2d21",
+    "matches_accepted_geometry": false,
+    "physical_fit": "unconfirmed for this mesh",
+    "functional_operation": "unconfirmed for this mesh",
     "quantified_strength": null,
     "quantified_endurance": null
-  }
+  },
+  "pose": "local CAD +X side on bed; broad show face vertical"
 }
