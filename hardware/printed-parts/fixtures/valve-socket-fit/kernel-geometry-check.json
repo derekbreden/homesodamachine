@@ -1,0 +1,72 @@
+{
+  "status": "kernel_socket_panel_checks_pass",
+  "physical_fit_tested": false,
+  "scope": "Current V69 socket and bearing geometry; physical records retain their stated article scope.",
+  "dimensions": {
+    "width_mm": 43.599999999999994,
+    "height_mm": 44.05,
+    "thickness_mm": 9.2,
+    "bearing_face_y_mm": 5.2,
+    "socket_floor_y_mm": -1.0,
+    "socket_diameter_mm": 6.9,
+    "socket_depth_mm": 6.2,
+    "post_pitch_x_mm": 24.4,
+    "post_pitch_z_mm": 24.85,
+    "station_z_mm": 22.025
+  },
+  "bearing_coordinate_roundoff_mm": 6.20819628238678e-07,
+  "bounds_mm": [
+    [
+      -21.799999999813735,
+      -4.0,
+      0.0
+    ],
+    [
+      21.799999999813735,
+      5.2000000001862645,
+      44.049999999813735
+    ]
+  ],
+  "valve_insertion_samples": [
+    {
+      "interference_mm3": 0.0,
+      "raw_interference_mm3": 0.0,
+      "valve_outward_offset_mm": 20.0
+    },
+    {
+      "interference_mm3": 0.0,
+      "raw_interference_mm3": 0.0,
+      "valve_outward_offset_mm": 10.0
+    },
+    {
+      "interference_mm3": 0.0,
+      "raw_interference_mm3": 0.0,
+      "valve_outward_offset_mm": 5.2
+    },
+    {
+      "interference_mm3": 0.0,
+      "raw_interference_mm3": 0.0,
+      "valve_outward_offset_mm": 2.0
+    },
+    {
+      "interference_mm3": 0.0,
+      "raw_interference_mm3": 1.703806725560011e-05,
+      "valve_outward_offset_mm": 0.0
+    }
+  ],
+  "volume_mm3": 15950.125164052493,
+  "print_orientation": "Enclosure +Z up; four socket axes horizontal on Y; port channel vertical and open at both ends.",
+  "source_sha256": {
+    "hardware/printed-parts/fixtures/valve-socket-fit/valve_socket_fit.py": "aabdefb51c89b24740b72ead9500045a66245a20666db71796191d1d6f0fb93e",
+    "hardware/printed-parts/valve-seat/valve_seat.py": "4504c96e79a9ccc67060af6d44a4470ddb55109c6f81f1dd60a2b365c022a11a",
+    "hardware/printed-parts/enclosure/valve-tray/valve_tray.py": "b08be4fe1d9122eff95fa1bdc44cd720b477709da204b22c6d1f640d2b3b90c0",
+    "hardware/reference/beduan-solenoid/beduan_solenoid.py": "ca07cecf19092580e43c765740e5c6be44185a225630e143cbdf60039fd5549c",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "371c53573be4dedbafcdef188bc881178dbb47149fbfa5055a6026cf38e6c252"
+  },
+  "artifacts": {
+    "valve-socket-fit.step": "d83180ff664e523640b455c56cf7af81274c9956fe2dcc377123d9f88c19b25b",
+    "valve-socket-fit.step.npz": "98e29a945cca381d2e4b2615634daa16546995e6d1d135afe1e88dd84dca4dc2",
+    "valve-socket-fit.step.mesh": "53bbc4404838bd1ac81fe4a8371484110090fa8794782794ea9dd0b12d75dff7",
+    "valve-socket-fit.stl": "925862176fb59205aee0b8824c59fcccdfcc89be4a1aeef40d8aeb1662297fe1"
+  }
+}
