@@ -37,6 +37,10 @@ release, fatigue and pump vibration require the physical trial.
 [production-comparison.json](production-comparison.json) binds the native
 trial caps to their matching Rust production exports.
 
+[assembly-integration.json](assembly-integration.json) binds the revised
+production receivers, lid and five caps in the retained assembly context.
+All 447 unrelated appliance viewer members retain their exact arrays.
+
 | Printer | Samples | Native estimate | PET-GF | Minimum bead margin |
 | --- | --- | --- | --- | --- |
 | Mark1 | Pump receiver, ASSE pair, PISCO pair | 3 h 13 min | 112.16 g | 86.522 mm |
@@ -49,6 +53,9 @@ receiver infill, Tree(auto)/Default supports, 0.20 mm first layers and
 0.24 mm normal layers with localized cooling. First-to-second-layer bead
 overlap is at least 91.5% on Mark1 and 91.1% on Mark2. Textured-plate trims
 emitted in the G-code are Z0.16 and Z0.02 respectively.
+Both plates are prepared. Neither new job has been accepted: Connect drops
+the imports and Studio stops responding during sender setup. The recorded
+printer readback still names the completed v2 jobs.
 
 Use a tiny flathead screwdriver that fits inside the cavities to remove
 their accessible automatic supports. Derek reports easy removal with that
