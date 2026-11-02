@@ -27,9 +27,14 @@ PART_OFFSETS = ((-65.0, 0.0), (65.0, 0.0))
 
 
 def trial_parts() -> tuple:
+    from _realized import code_digest
+
     report = json.loads((HERE / "trial-geometry.json").read_text())
     for relative_path, expected in report.get("sources", {}).items():
         if writer.digest((writer.ROOT / relative_path).read_bytes()) != expected:
+            raise ValueError(f"{relative_path} changed after the trial geometry was exported")
+    for relative_path, expected in report.get("source_code", {}).items():
+        if code_digest(writer.ROOT / relative_path) != expected:
             raise ValueError(f"{relative_path} changed after the trial geometry was exported")
     parts = report["parts"]
     if len(parts) != 2:
@@ -64,6 +69,11 @@ def refresh(settings_from: Path = PROFILE, output: Path = PROJECT) -> dict:
 
     with zipfile.ZipFile(output) as archive:
         members = {name: archive.read(name) for name in archive.namelist()}
+    members.update(preserved)
+    report["settings_sha256"] = writer.digest(preserved[writer.SETTINGS_MEMBER])
+    report["source_settings_sha256"] = report["settings_sha256"]
+    report["settings_changes"] = {}
+    report["settings_preserved_byte_for_byte"] = True
     model = ET.fromstring(members["3D/3dmodel.model"])
     for entry in model.findall(writer.qn("metadata")):
         if entry.get("name") == "Title":
