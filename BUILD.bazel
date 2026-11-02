@@ -6125,19 +6125,76 @@ genrule(
     srcs = [
         "hardware/printed-parts/collet-press/README.md",
         "pysrc/hardware/printed-parts/collet-press/collet_press.py",
+        "hardware/printed-parts/collet-press/collet_press.rs",
         "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
         "pysrc/hardware/reference/jg-pp0408w/jg_pp0408w.py",
-        "pysrc/hardware/scripts/_cadq_export.py",
-        "pysrc/hardware/scripts/_document_export.py",
         "pysrc/hardware/scripts/_material_base.py",
         "pysrc/hardware/scripts/_materials.py",
-        "pysrc/hardware/scripts/_mesh_payload.py",
-        "pysrc/hardware/scripts/_payload_rules.py",
+        "pysrc/hardware/scripts/_occt_color.py",
         "pysrc/hardware/scripts/_realized.py",
         "pysrc/hardware/scripts/_run_lock.py",
         "pysrc/hardware/scripts/_run_slots.py",
+        "pysrc/hardware/scripts/_rust_part.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/Cargo.lock",
+        "tools/hsm/Cargo.toml",
+        "tools/hsm/kernel/Cargo.toml",
+        "tools/hsm/kernel/src/boolean.rs",
+        "tools/hsm/kernel/src/build.rs",
+        "tools/hsm/kernel/src/dxf.rs",
+        "tools/hsm/kernel/src/edge.rs",
+        "tools/hsm/kernel/src/face.rs",
+        "tools/hsm/kernel/src/import.rs",
+        "tools/hsm/kernel/src/lib.rs",
+        "tools/hsm/kernel/src/mapped.rs",
+        "tools/hsm/kernel/src/mass.rs",
+        "tools/hsm/kernel/src/math.rs",
+        "tools/hsm/kernel/src/part.rs",
+        "tools/hsm/kernel/src/plane.rs",
+        "tools/hsm/kernel/src/profile.rs",
+        "tools/hsm/kernel/src/reads.rs",
+        "tools/hsm/kernel/src/round.rs",
+        "tools/hsm/kernel/src/round/rolled.rs",
+        "tools/hsm/kernel/src/rule.rs",
+        "tools/hsm/kernel/src/screw.rs",
+        "tools/hsm/kernel/src/sketch_hull.rs",
+        "tools/hsm/kernel/src/solid.rs",
+        "tools/hsm/kernel/src/spline.rs",
+        "tools/hsm/kernel/src/step.rs",
+        "tools/hsm/kernel/src/step/analytic.rs",
+        "tools/hsm/kernel/src/sweep.rs",
+        "tools/hsm/kernel/src/text.rs",
+        "tools/hsm/kernel/src/thru.rs",
+        "tools/hsm/kernel/src/topo.rs",
+        "tools/hsm/kernel/src/triangulate.rs",
+        "tools/hsm/kernel/src/write.rs",
         "tools/hsm/run-slots.defaults.json",
+        "tools/hsm/run-slots/Cargo.toml",
+        "tools/hsm/run-slots/src/ipc.rs",
+        "tools/hsm/run-slots/src/lib.rs",
+        "tools/hsm/tooling/Cargo.toml",
+        "tools/hsm/vendor/manifold-csg-sys/.cargo_vcs_info.json",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.lock",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.toml",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.toml.orig",
+        "tools/hsm/vendor/manifold-csg-sys/LICENSE-APACHE",
+        "tools/hsm/vendor/manifold-csg-sys/LICENSE-MIT",
+        "tools/hsm/vendor/manifold-csg-sys/README.md",
+        "tools/hsm/vendor/manifold-csg-sys/build.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/build.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/fetch.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/patch.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/wasm.rs",
+        "tools/hsm/vendor/manifold-csg-sys/cache-version",
+        "tools/hsm/vendor/manifold-csg-sys/patches/README.md",
+        "tools/hsm/vendor/manifold-csg-sys/src/lib.rs",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/CMakeLists.txt",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/diagnose.sh",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/__assertion_handler",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/__config_site",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/memory",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/mutex",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/libcxx-extras.cpp",
         "tools/run-slots.mjs",
         "pysrc/tools/run.py",
     ] + glob(
@@ -6147,19 +6204,25 @@ genrule(
         allow_empty = True,
     ),
     outs = [
+        "out/collet-press/hardware/printed-parts/collet-press/collet-press.numbers.json",
         "out/collet-press/hardware/printed-parts/collet-press/collet-press.step",
         "out/collet-press/hardware/printed-parts/collet-press/collet-press.step.mesh",
+        "out/collet-press/hardware/printed-parts/collet-press/collet-press.step.npz",
         "out/collet-press/hardware/printed-parts/collet-press/collet-press.stl",
         "out/collet-press/hardware/printed-parts/collet-press/README.figures.json",
         "out/collet-press/hardware/printed-parts/collet-press/README.md",
     ],
+    tags = ["no-sandbox"],
     cmd = """
 set -e
-O0=$$PWD/$(location out/collet-press/hardware/printed-parts/collet-press/collet-press.step)
-O1=$$PWD/$(location out/collet-press/hardware/printed-parts/collet-press/collet-press.step.mesh)
-O2=$$PWD/$(location out/collet-press/hardware/printed-parts/collet-press/collet-press.stl)
-O3=$$PWD/$(location out/collet-press/hardware/printed-parts/collet-press/README.figures.json)
-O4=$$PWD/$(location out/collet-press/hardware/printed-parts/collet-press/README.md)
+O0=$$PWD/$(location out/collet-press/hardware/printed-parts/collet-press/collet-press.numbers.json)
+O1=$$PWD/$(location out/collet-press/hardware/printed-parts/collet-press/collet-press.step)
+O2=$$PWD/$(location out/collet-press/hardware/printed-parts/collet-press/collet-press.step.mesh)
+O3=$$PWD/$(location out/collet-press/hardware/printed-parts/collet-press/collet-press.step.npz)
+O4=$$PWD/$(location out/collet-press/hardware/printed-parts/collet-press/collet-press.stl)
+O5=$$PWD/$(location out/collet-press/hardware/printed-parts/collet-press/README.figures.json)
+O6=$$PWD/$(location out/collet-press/hardware/printed-parts/collet-press/README.md)
+rm -rf work-collet-press
 for f in $(SRCS); do
   case $$f in
     */node_modules/*) continue;;
@@ -6167,20 +6230,23 @@ for f in $(SRCS); do
     */pysrc/*) t=$${f##*/pysrc/};;
     *) t=$$f;;
   esac
-  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
+  mkdir -p work-collet-press/$$(dirname $$t); cp -L $$f work-collet-press/$$t
 done
 for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
-  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
+  if [ -d $$d ]; then mkdir -p work-collet-press/$$(dirname $$d); ln -sfn $$PWD/$$d work-collet-press/$$d; fi
 done
-cd work
+cd work-collet-press
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
 HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/collet-press/collet_press.py > /dev/null
-cp hardware/printed-parts/collet-press/collet-press.step $$O0
-cp hardware/printed-parts/collet-press/collet-press.step.mesh $$O1
-cp hardware/printed-parts/collet-press/collet-press.stl $$O2
-cp hardware/printed-parts/collet-press/README.figures.json $$O3
-cp hardware/printed-parts/collet-press/README.md $$O4
+cp hardware/printed-parts/collet-press/collet-press.numbers.json $$O0
+cp hardware/printed-parts/collet-press/collet-press.step $$O1
+cp hardware/printed-parts/collet-press/collet-press.step.mesh $$O2
+cp hardware/printed-parts/collet-press/collet-press.step.npz $$O3
+cp hardware/printed-parts/collet-press/collet-press.stl $$O4
+cp hardware/printed-parts/collet-press/README.figures.json $$O5
+cp hardware/printed-parts/collet-press/README.md $$O6
+cd .. && rm -rf work-collet-press
 """,
 )
 
@@ -7742,11 +7808,14 @@ genrule(
         "hardware/printed-parts/enclosure/enclosure/enclosure.py",
         "hardware/printed-parts/enclosure/enclosure/enclosure_back_top.rs",
         "hardware/printed-parts/enclosure/enclosure/enclosure_front_bottom.rs",
+        "hardware/printed-parts/enclosure/enclosure/enclosure_front_corner.rs",
+        "hardware/printed-parts/enclosure/enclosure/enclosure_front_top.rs",
         "hardware/printed-parts/enclosure/enclosure/enclosure_panel.rs",
         "hardware/printed-parts/enclosure/enclosure/enclosure_plan.rs",
         "hardware/printed-parts/enclosure/enclosure/enclosure_pump_retainer.rs",
         "hardware/printed-parts/enclosure/enclosure/enclosure_skin.rs",
         "hardware/printed-parts/enclosure/enclosure/enclosure_structure.rs",
+        "hardware/printed-parts/enclosure/enclosure/front-corner-controls.json",
         "hardware/printed-parts/enclosure/enclosure/rear-seat-profiles.json",
         "pysrc/hardware/printed-parts/enclosure/nameplate/_nameplate_dimensions.py",
         "pysrc/hardware/printed-parts/enclosure/nameplate/nameplate.py",
