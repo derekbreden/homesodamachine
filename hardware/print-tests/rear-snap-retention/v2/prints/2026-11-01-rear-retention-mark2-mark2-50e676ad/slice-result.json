@@ -1,0 +1,125 @@
+{
+  "error_string": "Success.",
+  "export_time": 1298,
+  "layer_height": 0.23999999463558197,
+  "plate_index": 0,
+  "prepare_time": 15,
+  "return_code": 0,
+  "sliced_plates": [
+    {
+      "feature_type_times": {
+        "Bottom surface": 162.0731201171875,
+        "Bridge": 461.4374084472656,
+        "Custom": 303.010986328125,
+        "Flush": 15.0,
+        "Gap infill": 235.54678344726562,
+        "Inner wall": 2501.553955078125,
+        "Internal solid infill": 635.6625366210938,
+        "Outer wall": 1410.602294921875,
+        "Overhang wall": 45.55042266845703,
+        "Sparse infill": 5848.3017578125,
+        "Support": 691.237060546875,
+        "Support interface": 43.07782745361328,
+        "Top surface": 141.912841796875,
+        "Travel": 1136.7142333984375,
+        "Undefined": 1129.518310546875
+      },
+      "filament_change_times": 0,
+      "filaments": [
+        {
+          "filament_id": "GFT01",
+          "id": 1,
+          "main_used_g": 156.40476989746094,
+          "total_used_g": 156.40476989746094
+        }
+      ],
+      "generate_support_material_time": 1547,
+      "id": 1,
+      "infill_time": 500,
+      "layer_filament_change": 0,
+      "main_predication": 13290.0087890625,
+      "make_perimeters_time": 391,
+      "obj_cached_cnt": 0,
+      "objects": [
+        {
+          "bbox": {
+            "depth": 56.30950927734375,
+            "height": 54.5,
+            "width": 74.35836029052734,
+            "x": 105.75031280517578,
+            "y": 95.84524536132812,
+            "z": 0.0
+          },
+          "id": 5,
+          "name": "pump-cap",
+          "triangle_count": 620
+        },
+        {
+          "bbox": {
+            "depth": 59.999996185302734,
+            "height": 55.5,
+            "width": 17.450002670288086,
+            "x": 104.57179260253906,
+            "y": 164.15475463867188,
+            "z": 0.0
+          },
+          "id": 9,
+          "name": "meter-seat",
+          "triangle_count": 1480
+        },
+        {
+          "bbox": {
+            "depth": 55.499996185302734,
+            "height": 38.0,
+            "width": 31.100006103515625,
+            "x": 134.02178955078125,
+            "y": 166.40475463867188,
+            "z": 0.0
+          },
+          "id": 13,
+          "name": "meter-cap",
+          "triangle_count": 52
+        },
+        {
+          "bbox": {
+            "depth": 56.95000457763672,
+            "height": 14.5,
+            "width": 43.3064079284668,
+            "x": 177.12179565429688,
+            "y": 165.67974853515625,
+            "z": 0.0
+          },
+          "id": 17,
+          "name": "regulator-seat",
+          "triangle_count": 2960
+        },
+        {
+          "bbox": {
+            "depth": 43.30641174316406,
+            "height": 36.0,
+            "width": 27.141010284423828,
+            "x": 192.10867309570312,
+            "y": 102.34679412841797,
+            "z": 0.0
+          },
+          "id": 21,
+          "name": "regulator-cap",
+          "triangle_count": 84
+        }
+      ],
+      "sliced_time": 5919,
+      "sliced_time_with_cache": 3072,
+      "total_predication": 13615.82421875,
+      "triangle_count": 5196,
+      "warning_message": ""
+    }
+  ],
+  "sparse_infill_density": 15.0,
+  "upward_compatible_machine": [
+    "Bambu Lab H2S 0.4 nozzle",
+    "Bambu Lab H2D 0.4 nozzle",
+    "Bambu Lab H2D Pro 0.4 nozzle",
+    "Bambu Lab A2L 0.4 nozzle"
+  ],
+  "wall_loops": 3
+}
