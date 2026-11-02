@@ -1,0 +1,14 @@
+[
+  "/Applications/BambuStudio.app/Contents/MacOS/BambuStudio",
+  "--slice",
+  "0",
+  "--arrange",
+  "0",
+  "--orient",
+  "0",
+  "--outputdir",
+  "/Users/derekbredensteiner/Developer/hsm-pump-underside/hardware/print-tests/rear-snap-retention/v4/prints/2026-11-02-rear-retention-mark1-mark1-f7504297/native",
+  "--export-3mf",
+  "2026-11-02-rear-retention-mark1-mark1-f7504297.gcode.3mf",
+  "/Users/derekbredensteiner/Developer/hsm-pump-underside/hardware/print-tests/rear-snap-retention/v4/prints/2026-11-02-rear-retention-mark1-mark1-f7504297/2026-11-02-rear-retention-mark1-mark1-f7504297.3mf"
+]

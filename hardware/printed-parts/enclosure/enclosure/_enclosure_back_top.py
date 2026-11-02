@@ -569,7 +569,7 @@ def _fluid_supports(graph):
     dims = json.loads((parts.HW/'reference/compact-inline-candidates/dimensions.json').read_text())['pisco_rvfup_quarter']
     fitting,collet = (dims['fitted_exterior']['component_ranges_mm'][k]
                        for k in ('outlet_fitting','outlet_collet'))
-    cap_y = (datums['mouth_y']-collet[0]+c+.01,datums['mouth_y']-fitting[0]-2.6)
+    cap_y = snaps.pisco_cap_span(datums['mouth_y'],collet[0],datums['rear'])
     widest = max(r for y0,y1,r in profile if y1>=cap_y[0]-.25 and y0<=cap_y[1]+.25)
     st = snaps.pisco_station(axis[0],widest,axis[1],*cap_y)
     stock = graph.box(axis[0]-st['outer'],axis[0]+st['outer'],cap_y[0]-c-snaps.WALL,

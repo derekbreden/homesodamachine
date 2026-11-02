@@ -1,0 +1,525 @@
+{
+  "scope": "Complete retention in X, Y and Z, cropped from production prints.",
+  "families": {
+    "asse": {
+      "blocked_pullout_intersection_mm3": 19.064901282787584,
+      "crop_max": [
+        56.94813977833837,
+        474.2999877929687,
+        355.0
+      ],
+      "crop_min": [
+        0.6518602222204208,
+        390.20325459353626,
+        303.22107209451497
+      ],
+      "hardware_overlap_mm3": {
+        "asse-drain-adapter": {
+          "cap": 0.0,
+          "seat": 0.0
+        },
+        "asse1022-assembly": {
+          "cap": 0.0,
+          "seat": 0.0
+        },
+        "bulkhead-water": {
+          "cap": 0.0,
+          "seat": 0.0
+        },
+        "gagira-coupling": {
+          "cap": 0.0,
+          "seat": 0.0
+        },
+        "jg-pi4512f6s": {
+          "cap": 0.0,
+          "seat": 0.0
+        },
+        "jg-pp061208w": {
+          "cap": 0.0,
+          "seat": 0.0
+        }
+      },
+      "physical_result": "Awaiting this trial.",
+      "pullout_travel_mm": 0.5,
+      "retention_scope": "Complete front and rear shoulders, spring pockets, actual roof and full rear bulkhead bore.",
+      "seated_intersection_mm3": 0.0
+    },
+    "meter": {
+      "blocked_pullout_intersection_mm3": 17.15943606957795,
+      "crop_max": [
+        107.5,
+        474.2999877929687,
+        312.25000000037255
+      ],
+      "crop_min": [
+        54.34999999981373,
+        383.0,
+        251.9499999996275
+      ],
+      "hardware_overlap_mm3": {
+        "bulkhead-carb": {
+          "cap": 0.0,
+          "seat": 0.0
+        },
+        "bulkhead-carb-nut": {
+          "cap": 0.0,
+          "seat": 0.0013137536138835637
+        },
+        "digiten-flow/1": {
+          "cap": 0.0,
+          "seat": 0.0
+        },
+        "digiten-flow/10": {
+          "cap": 0.0,
+          "seat": 0.0
+        },
+        "digiten-flow/11": {
+          "cap": 0.0,
+          "seat": 0.0
+        },
+        "digiten-flow/12": {
+          "cap": 0.0,
+          "seat": 0.0
+        },
+        "digiten-flow/2": {
+          "cap": 0.0,
+          "seat": 0.0
+        },
+        "digiten-flow/3": {
+          "cap": 0.0,
+          "seat": 0.0
+        },
+        "digiten-flow/4": {
+          "cap": 0.0,
+          "seat": 0.0
+        },
+        "digiten-flow/5": {
+          "cap": 0.0,
+          "seat": 0.0
+        },
+        "digiten-flow/6": {
+          "cap": 0.0,
+          "seat": 0.0
+        },
+        "digiten-flow/7": {
+          "cap": 0.0,
+          "seat": 0.0
+        },
+        "digiten-flow/8": {
+          "cap": 0.0,
+          "seat": 0.0
+        },
+        "digiten-flow/9": {
+          "cap": 0.0,
+          "seat": 0.0
+        }
+      },
+      "physical_result": "Awaiting this trial.",
+      "pullout_travel_mm": 0.5,
+      "retention_scope": "Complete meter cup, wire exit, port collars, spring pockets, side wall and rear soda bulkhead bore.",
+      "seated_intersection_mm3": 0.0
+    },
+    "pisco": {
+      "blocked_pullout_intersection_mm3": 18.957399191634877,
+      "crop_max": [
+        93.9056156873703,
+        474.2999877929687,
+        355.0
+      ],
+      "crop_min": [
+        59.0943843126297,
+        414.0957172019407,
+        310.7725999997929
+      ],
+      "hardware_overlap_mm3": {
+        "co2-inlet": {
+          "cap": 0.0,
+          "seat": 0.0
+        },
+        "gas-check": {
+          "cap": 0.0,
+          "seat": 0.0
+        },
+        "gas-regulator/1": {
+          "cap": 0.0,
+          "seat": 0.0
+        },
+        "gas-regulator/2": {
+          "cap": 0.0,
+          "seat": 0.0
+        },
+        "gas-regulator/3": {
+          "cap": 0.0,
+          "seat": 0.0
+        }
+      },
+      "physical_result": "Awaiting this trial.",
+      "pullout_travel_mm": 0.5,
+      "retention_scope": "Complete front and rear shoulders, spring pockets, actual roof and full rear bulkhead bore.",
+      "seated_intersection_mm3": 0.0
+    },
+    "pump": {
+      "blocked_pullout_intersection_mm3": 25.74007812951995,
+      "crop_max": [
+        24.397750873597055,
+        454.0680504420662,
+        313.23885248166715
+      ],
+      "crop_min": [
+        -54.7606105443865,
+        358.6680504420662,
+        246.0
+      ],
+      "hardware_overlap_mm3": {
+        "cold-core/g-ganen-pump/1": {
+          "cap": 0.0,
+          "seat": 0.0
+        },
+        "cold-core/g-ganen-pump/10": {
+          "cap": 0.0,
+          "seat": 0.0
+        },
+        "cold-core/g-ganen-pump/11": {
+          "cap": 0.0,
+          "seat": 0.0
+        },
+        "cold-core/g-ganen-pump/12": {
+          "cap": 0.0,
+          "seat": 0.0
+        },
+        "cold-core/g-ganen-pump/13": {
+          "cap": 0.0,
+          "seat": 0.0
+        },
+        "cold-core/g-ganen-pump/14": {
+          "cap": 0.0,
+          "seat": 0.0
+        },
+        "cold-core/g-ganen-pump/15": {
+          "cap": 0.0,
+          "seat": 0.0
+        },
+        "cold-core/g-ganen-pump/16": {
+          "cap": 0.0,
+          "seat": 0.0
+        },
+        "cold-core/g-ganen-pump/17": {
+          "cap": 0.0,
+          "seat": 0.0
+        },
+        "cold-core/g-ganen-pump/18": {
+          "cap": 0.0,
+          "seat": 0.0
+        },
+        "cold-core/g-ganen-pump/19": {
+          "cap": 0.0,
+          "seat": 0.0
+        },
+        "cold-core/g-ganen-pump/2": {
+          "cap": 0.0,
+          "seat": 0.0
+        },
+        "cold-core/g-ganen-pump/20": {
+          "cap": 0.0,
+          "seat": 0.0
+        },
+        "cold-core/g-ganen-pump/21": {
+          "cap": 0.0,
+          "seat": 0.0
+        },
+        "cold-core/g-ganen-pump/3": {
+          "cap": 0.0,
+          "seat": 0.0
+        },
+        "cold-core/g-ganen-pump/4": {
+          "cap": 0.0,
+          "seat": 0.0
+        },
+        "cold-core/g-ganen-pump/5": {
+          "cap": 0.0,
+          "seat": 0.0
+        },
+        "cold-core/g-ganen-pump/6": {
+          "cap": 0.0,
+          "seat": 0.0
+        },
+        "cold-core/g-ganen-pump/7": {
+          "cap": 0.0,
+          "seat": 0.0
+        },
+        "cold-core/g-ganen-pump/8": {
+          "cap": 0.0,
+          "seat": 0.0
+        },
+        "cold-core/g-ganen-pump/9": {
+          "cap": 0.0,
+          "seat": 0.0
+        }
+      },
+      "physical_result": "Awaiting this trial.",
+      "pullout_travel_mm": 0.5,
+      "retention_scope": "Both fixed motor-rail stops, cradle, complete spring pockets and actual lid stock.",
+      "seated_intersection_mm3": 0.0
+    },
+    "regulator": {
+      "blocked_pullout_intersection_mm3": 16.121469413252356,
+      "crop_max": [
+        1.3760896961199958,
+        331.7100400329926,
+        355.0
+      ],
+      "crop_min": [
+        -61.57391030388001,
+        283.603633714998,
+        312.92413759604096
+      ],
+      "hardware_overlap_mm3": {
+        "flow-regulator": {
+          "cap": 0.0,
+          "seat": 0.0
+        }
+      },
+      "physical_result": "Awaiting this trial.",
+      "pullout_travel_mm": 0.5,
+      "retention_scope": "Full measured axial profile, both end shoulders, spring pockets and actual roof.",
+      "seated_intersection_mm3": 0.0
+    }
+  },
+  "input_sha256": {
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl": "6d4cb790b5f5fc040e8419491c787206d373a80de1a2bf764ff34922986f5b15",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.stl": "06410da89817947dfd632caf156dea7cfb5d33026ff632a69dad7f73ebb54f85",
+    "hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.stl": "7daefd30519fc9562806f44b6ccdfa737c8c1fbb5e13a96ebaa881ff655e3e5a",
+    "hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.stl": "5f70281f94415cad00061370d78cbcf1fb68f728d53045db46199b305145c95f",
+    "hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.stl": "6d69d673637e24e1b63978b550790dec88a57b4d330027d7515bce0924d9fd97",
+    "hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.stl": "6af5f4a7a4110332c931e64ace9998ea9ccd1f0a86b7ff36083fbfd1d987e379",
+    "hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.stl": "29c43a5f314e7dae558ba1a796062b50379838ddd5e1961c25d727198dccd587"
+  },
+  "parts": [
+    {
+      "name": "pump-seat",
+      "stl": "hardware/print-tests/rear-snap-retention/v4/parts/pump-seat.stl",
+      "step": "hardware/print-tests/rear-snap-retention/v4/parts/pump-seat.step",
+      "stl_sha256": "e30220131e16db9b810f825469cf0137a58e6a07f3410bd87a81288bdaa23cd1",
+      "bounds_mm": [
+        [
+          -39.57918167114258,
+          -47.70000076293945,
+          0.0
+        ],
+        [
+          39.57918167114258,
+          47.70000076293945,
+          36.02934646606445
+        ]
+      ],
+      "volume_mm3": 87188.6518722913,
+      "watertight": true,
+      "solids": 1,
+      "print_orientation": "Actual production lid +Z up."
+    },
+    {
+      "name": "pump-cap",
+      "stl": "hardware/print-tests/rear-snap-retention/v4/parts/pump-cap.stl",
+      "step": "hardware/print-tests/rear-snap-retention/v4/parts/pump-cap.step",
+      "stl_sha256": "7daefd30519fc9562806f44b6ccdfa737c8c1fbb5e13a96ebaa881ff655e3e5a",
+      "bounds_mm": [
+        [
+          -36.57918167114258,
+          -28.029752731323242,
+          0.0
+        ],
+        [
+          36.57918167114258,
+          28.029752731323242,
+          54.5
+        ]
+      ],
+      "volume_mm3": 62796.144356998535,
+      "watertight": true,
+      "solids": 1,
+      "print_orientation": "Production axial end down."
+    },
+    {
+      "name": "asse-seat",
+      "stl": "hardware/print-tests/rear-snap-retention/v4/parts/asse-seat.stl",
+      "step": "hardware/print-tests/rear-snap-retention/v4/parts/asse-seat.step",
+      "stl_sha256": "a3f219ac86e71a97c0869854b6008ac40dd6993b2061f82f8eebf744f36bb28e",
+      "bounds_mm": [
+        [
+          -28.14813995361328,
+          -42.04836654663086,
+          0.0
+        ],
+        [
+          28.14813995361328,
+          42.04836654663086,
+          51.778926849365234
+        ]
+      ],
+      "volume_mm3": 94001.08423108656,
+      "watertight": true,
+      "solids": 1,
+      "print_orientation": "Actual production back-top -Z up."
+    },
+    {
+      "name": "asse-cap",
+      "stl": "hardware/print-tests/rear-snap-retention/v4/parts/asse-cap.stl",
+      "step": "hardware/print-tests/rear-snap-retention/v4/parts/asse-cap.step",
+      "stl_sha256": "5f70281f94415cad00061370d78cbcf1fb68f728d53045db46199b305145c95f",
+      "bounds_mm": [
+        [
+          -25.14813995361328,
+          -18.314464569091797,
+          0.0
+        ],
+        [
+          25.14813995361328,
+          18.314464569091797,
+          41.66103744506836
+        ]
+      ],
+      "volume_mm3": 16589.89003023956,
+      "watertight": true,
+      "solids": 1,
+      "print_orientation": "Production axial end down."
+    },
+    {
+      "name": "pisco-seat",
+      "stl": "hardware/print-tests/rear-snap-retention/v4/parts/pisco-seat.stl",
+      "step": "hardware/print-tests/rear-snap-retention/v4/parts/pisco-seat.step",
+      "stl_sha256": "9e4ba31c4286e80902bd6525ede1756815abfc390763c0553fda5e9220ead8b1",
+      "bounds_mm": [
+        [
+          -17.405614852905273,
+          -30.102134704589844,
+          0.0
+        ],
+        [
+          17.405614852905273,
+          30.102134704589844,
+          44.22740173339844
+        ]
+      ],
+      "volume_mm3": 33039.429648528625,
+      "watertight": true,
+      "solids": 1,
+      "print_orientation": "Actual production back-top -Z up."
+    },
+    {
+      "name": "pisco-cap",
+      "stl": "hardware/print-tests/rear-snap-retention/v4/parts/pisco-cap.stl",
+      "step": "hardware/print-tests/rear-snap-retention/v4/parts/pisco-cap.step",
+      "stl_sha256": "6d69d673637e24e1b63978b550790dec88a57b4d330027d7515bce0924d9fd97",
+      "bounds_mm": [
+        [
+          -14.40561580657959,
+          -14.538700103759766,
+          0.0
+        ],
+        [
+          14.40561580657959,
+          14.538700103759766,
+          41.70428466796875
+        ]
+      ],
+      "volume_mm3": 10453.509554879825,
+      "watertight": true,
+      "solids": 1,
+      "print_orientation": "Production axial end down."
+    },
+    {
+      "name": "meter-seat",
+      "stl": "hardware/print-tests/rear-snap-retention/v4/parts/meter-seat.stl",
+      "step": "hardware/print-tests/rear-snap-retention/v4/parts/meter-seat.step",
+      "stl_sha256": "c03461c3b874e45c9fc3205a096f1fe3a1b5ee4353acd03b893d89a9f610cd3d",
+      "bounds_mm": [
+        [
+          -26.575000762939453,
+          -45.649993896484375,
+          0.0
+        ],
+        [
+          26.575000762939453,
+          45.649993896484375,
+          60.29999923706055
+        ]
+      ],
+      "volume_mm3": 80942.92118523357,
+      "watertight": true,
+      "solids": 1,
+      "print_orientation": "Actual production back-top -Z up."
+    },
+    {
+      "name": "meter-cap",
+      "stl": "hardware/print-tests/rear-snap-retention/v4/parts/meter-cap.stl",
+      "step": "hardware/print-tests/rear-snap-retention/v4/parts/meter-cap.step",
+      "stl_sha256": "6af5f4a7a4110332c931e64ace9998ea9ccd1f0a86b7ff36083fbfd1d987e379",
+      "bounds_mm": [
+        [
+          -16.924999237060547,
+          -27.149999618530273,
+          0.0
+        ],
+        [
+          16.924999237060547,
+          27.149999618530273,
+          38.0
+        ]
+      ],
+      "volume_mm3": 23326.77612816959,
+      "watertight": true,
+      "solids": 1,
+      "print_orientation": "Production axial end down."
+    },
+    {
+      "name": "regulator-seat",
+      "stl": "hardware/print-tests/rear-snap-retention/v4/parts/regulator-seat.stl",
+      "step": "hardware/print-tests/rear-snap-retention/v4/parts/regulator-seat.step",
+      "stl_sha256": "d615bdeeb6b64e7f541807a0d92177588fe7ac3c8c77e67d71a639682caedbaa",
+      "bounds_mm": [
+        [
+          -31.475000381469727,
+          -24.053203582763672,
+          0.0
+        ],
+        [
+          31.475000381469727,
+          24.053203582763672,
+          20.0
+        ]
+      ],
+      "volume_mm3": 42187.78094272828,
+      "watertight": true,
+      "solids": 1,
+      "print_orientation": "Actual production back-top -Z up."
+    },
+    {
+      "name": "regulator-cap",
+      "stl": "hardware/print-tests/rear-snap-retention/v4/parts/regulator-cap.stl",
+      "step": "hardware/print-tests/rear-snap-retention/v4/parts/regulator-cap.step",
+      "stl_sha256": "29c43a5f314e7dae558ba1a796062b50379838ddd5e1961c25d727198dccd587",
+      "bounds_mm": [
+        [
+          -13.445504188537598,
+          -21.053203582763672,
+          0.0
+        ],
+        [
+          13.445504188537598,
+          21.053203582763672,
+          36.0
+        ]
+      ],
+      "volume_mm3": 16577.25615393824,
+      "watertight": true,
+      "solids": 1,
+      "print_orientation": "Production axial end down."
+    }
+  ],
+  "pisco_cap_y_mm": [
+    420.34571720240064,
+    462.05
+  ],
+  "physical_result": "Awaiting this print trial.",
+  "elapsed_seconds": 9.286629042006098
+}

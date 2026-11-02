@@ -52,7 +52,7 @@ def centered_layout(footprints,low,high,spacing,yaw):
 def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--plate',choices=('mark1','mark2','box','all'),default='all')
-    parser.add_argument('--trial',type=Path,default=HERE/'v3')
+    parser.add_argument('--trial',type=Path,default=HERE/'v4')
     args=parser.parse_args()
     case=args.trial.resolve()
     production=json.loads((TRIAL/'pieces.json').read_text())

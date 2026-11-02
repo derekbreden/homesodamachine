@@ -302,6 +302,11 @@ def pisco_station(axis_x, admitted_radius, axis_z, y0, y1):
                    y0,y1,wing_root=axis_z-REAR_ROOT_DROP)
 
 
+def pisco_cap_span(mouth_y, collet_start, rear):
+    """Cover the outlet neck and body up to a full rear receiver end wall."""
+    return (mouth_y-collet_start+fits.running+.01,rear-WALL-fits.running)
+
+
 def cap_section(s, base, bottom, axis_z=None, hexed=False):
     """A cap's line/arc section in X/Z, with its Y span, independent of a CAD kernel."""
     c, W, wi, h = s['axis_x'], s['outer'], s['inner'], s['hook']
@@ -451,12 +456,12 @@ def build(parts, asse_axis, asse_at, asse_turn, pisco_axis, mouth_y, ceiling, re
     _, r_c = envelope(pts['co2-check'], pisco_axis, LO, HI)
     cav2 = np.maximum(swept(r_p, 0., SLIDE), swept(r_c, .5, SLIDE + .5))
     cav2 = np.where(cav2 > 0, cav2 + c + PISCO_RADIAL_RELIEF, 0.)
-    # The cap runs from the outlet collet to 2.6 mm short of the outlet fitting's aft end, clear of
-    # the ring there, its lip in front of the step down to the outlet's neck.
+    # The cap covers the neck and body, with a complete 3 mm receiver end wall
+    # before the rear port land. The release collet stays outside the cap.
     fitting, collet = ranges['outlet_fitting'], ranges['outlet_collet']
     neck_z = profile[(profile[:, 0] > fitting[0]) & (profile[:, 1] < 6.5)][0, 0]
     step_face = mouth_y - neck_z
-    pcap = (mouth_y - collet[0] + c + .01, mouth_y - fitting[0] - 2.6)
+    pcap = pisco_cap_span(mouth_y,collet[0],rear)
     m = (ys2 >= pcap[0] - .25) & (ys2 <= pcap[1] + .25)
     st_p = pisco_station(pisco_axis[0],cav2[m].max(),pisco_axis[1],*pcap)
     W = st_p['outer']
