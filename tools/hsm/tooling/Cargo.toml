@@ -10,6 +10,10 @@ publish = false
 name = "diaphragm-pump-sleeve"
 path = "../../../hardware/printed-parts/diaphragm-pump-sleeve/diaphragm_pump_sleeve.rs"
 
+[[bin]]
+name = "collet-press"
+path = "../../../hardware/printed-parts/collet-press/collet_press.rs"
+
 [dependencies]
 anyhow.workspace = true
 hsm-kernel = { path = "../kernel" }
