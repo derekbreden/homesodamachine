@@ -23,12 +23,10 @@ Run:
 
 from __future__ import annotations
 
+import argparse
 import math
 import sys
 from pathlib import Path
-
-import cadquery as cq
-
 
 _here = Path(__file__).resolve()
 _hw = next(parent for parent in _here.parents if parent.name == "hardware")
@@ -43,9 +41,10 @@ for _path in (
 ):
     sys.path.insert(0, str(_path))
 
-from _cadq_export import export_assembly, import_step  # noqa: E402
-from _material_base import M_PETGF_BLACK, one_body  # noqa: E402
-from _materials import C_VALVE, M_JG_BLACK_PP  # noqa: E402
+if __name__ == "__main__":
+    import _rust_part
+    _rust_part.start()
+
 import beduan_solenoid as valve  # noqa: E402
 import tee_connector as tee  # noqa: E402
 import valve_tray as tray  # noqa: E402
@@ -102,6 +101,7 @@ MESH_ANGLE = 0.15
 
 def _box(x0: float, x1: float, y0: float, y1: float, z0: float, z1: float):
     """Axis-aligned box from its six faces."""
+    import cadquery as cq
     return cq.Workplane(
         obj=cq.Solid.makeBox(
             x1 - x0,
@@ -150,6 +150,7 @@ def build_frame_in_use():
     # The bore is normal to the card in use and normal to the bed in the exported print pose.
     # It clears the measured collar envelope and narrower root. The native
     # selftest reports the measured collar-band engagement at the ceiling.
+    import cadquery as cq
     bore = cq.Workplane(
         obj=cq.Solid.makeCylinder(
             TEE_JOURNAL_RADIUS,
@@ -207,6 +208,7 @@ def build_gauge():
 
 def build_tee_reference(travel: float = 0.0):
     """The measured tee clearance reference, seated in the guide at one trial station."""
+    from _cadq_export import import_step
     return import_step(str(tee.STEP)).translate(
         (0.0, TEE_RUN_Y + travel, TEE_RUN_CENTRE_Z)
     )
@@ -268,7 +270,7 @@ def _overlap(a, b) -> float:
     return a.intersect(b).val().Volume()
 
 
-def selftest():
+def _native_selftest():
     tee.stations_hold()
 
     inlet = _valve_inlet_world()
@@ -325,8 +327,12 @@ def selftest():
     return frame, gauge, valve_reference
 
 
-def _export_print(name: str, shape):
-    out = _here.parent
+def _export_print(name: str, shape, output=None):
+    import cadquery as cq
+    from _cadq_export import export_assembly
+    from _material_base import M_PETGF_BLACK, one_body
+    out = Path(output) if output is not None else _here.parent
+    out.mkdir(parents=True, exist_ok=True)
     step = out / f"tee-valve-bow-trial-{name}.step"
     stl = out / f"tee-valve-bow-trial-{name}.stl"
     # Write the slicer-facing mesh first.  `export_assembly` then sees that sibling and does not
@@ -347,24 +353,127 @@ def _export_print(name: str, shape):
     )
 
 
-def main():
-    frame, gauge, valve_reference = selftest()
+def _native_main(output=None):
+    import cadquery as cq
+    from _cadq_export import export_assembly
+    from _material_base import M_PETGF_BLACK
+    from _materials import C_VALVE, M_JG_BLACK_PP
+    out = Path(output) if output is not None else _here.parent
+    out.mkdir(parents=True, exist_ok=True)
+    frame, gauge, valve_reference = _native_selftest()
     frame_print = print_pose(frame)
-    _export_print("frame", frame_print)
-    _export_print("gauge", gauge)
+    _export_print("frame", frame_print, out)
+    _export_print("gauge", gauge, out)
 
     assembly = cq.Assembly(name="tee-valve-bow-trial")
     assembly.add(frame, name="trial-frame", color=M_PETGF_BLACK)
     assembly.add(build_tee_reference(), name="pp0208e-tee-reference", color=M_JG_BLACK_PP)
     assembly.add(valve_reference, name="beduan-valve-reference", color=C_VALVE)
-    export_assembly(assembly, str(_here.parent / "tee-valve-bow-trial-assembly.step"))
+    export_assembly(assembly, str(out / "tee-valve-bow-trial-assembly.step"))
+    print("-> tee-valve-bow-trial-assembly.step")
+
+
+
+def _readings():
+    inlet = _valve_inlet_world()
+    tee_face = _tee_upper_face_world()
+    expected = (0.0, TEE_RUN_Y, SLEEVE_FACE_SEPARATION)
+    if any(abs(a - b) > 1.0e-9 for a, b in zip(inlet, expected)):
+        raise ValueError(f"valve inlet is {inlet}, expected {expected}")
+    if any(abs(a - b) > 1.0e-9 for a, b in zip(tee_face, (0.0, TEE_RUN_Y, 0.0))):
+        raise ValueError(f"tee upper face is {tee_face}, expected a Z=0 datum")
+    collar_near = TEE_RUN_Y + STROKE_CEILING + tee.CAP_NEAR
+    engagement = REST_DATUM_Y - max(TEE_GUIDE_FRONT_Y, collar_near)
+    if engagement <= 0.0:
+        raise ValueError("the tee branch collar has left its guide before the stroke ceiling")
+    readings = []
+    for label, travel in (("rest", 0.0), ("release", RELEASE_TRAVEL), ("ceiling", STROKE_CEILING)):
+        chord = math.dist(inlet, _tee_upper_face_world(travel))
+        radius, sag = _circular_witness(chord, EXPOSED_TUBE_LENGTH)
+        readings.append((label, travel, chord, radius, sag))
+    return engagement, readings
+
+
+def numbers():
+    """The unchanged trial stock, shared production seat cuts and reference placements."""
+    import _rust_part
+    from _material_base import M_PETGF_BLACK
+    from _materials import C_VALVE, M_JG_BLACK_PP, linear
+    engagement, _ = _readings()
+    return {
+        "backing": [-FRAME_X/2, FRAME_X/2, BACKING_FRONT_Y, REST_DATUM_Y, FRAME_Z_MIN, FRAME_Z_MAX],
+        "guide": [-TEE_GUIDE_HALF_X, TEE_GUIDE_HALF_X, TEE_GUIDE_FRONT_Y, REST_DATUM_Y,
+                  TEE_RUN_CENTRE_Z-TEE_GUIDE_HALF_Z, TEE_RUN_CENTRE_Z+TEE_GUIDE_HALF_Z],
+        "tray": tray.tray_stock_numbers(FRAME_X, ((0.0, 0.0),)),
+        "valve_frame": [0.0, VALVE_TRAY_FRAME_Y, VALVE_TRAY_FRAME_Z],
+        "valve_seat_shift": [0.0, 0.0, tray.SEAT],
+        "journal": [TEE_JOURNAL_RADIUS, TEE_GUIDE_FRONT_Y-1.0,
+                    REST_DATUM_Y-TEE_GUIDE_FRONT_Y+2.0, TEE_RUN_CENTRE_Z],
+        "print_shift": [FRAME_X/2.0, -FRAME_Z_MIN, REST_DATUM_Y],
+        "gauge_stock": [[0.0, GAUGE_BODY_X, 0.0, GAUGE_BODY_Y, 0.0, GAUGE_T],
+                        [GAUGE_BODY_X, GAUGE_BODY_X+RELEASE_TRAVEL, 2.0, 7.0, 0.0, GAUGE_T],
+                        [GAUGE_BODY_X, GAUGE_BODY_X+STROKE_CEILING, 10.0, 18.0, 0.0, GAUGE_T]],
+        "gauge_window": [GAUGE_WINDOW_X0, GAUGE_WINDOW_X0+EXPOSED_TUBE_LENGTH,
+                         GAUGE_WINDOW_Y0, GAUGE_WINDOW_Y0+GAUGE_WINDOW_W, -1.0, GAUGE_T+1.0],
+        "tee_step": _rust_part.step(tee.STEP),
+        "valve_step": _rust_part.step(valve.STEP_PATH),
+        "tee_translation": [0.0, TEE_RUN_Y, TEE_RUN_CENTRE_Z],
+        "travels": [0.0, RELEASE_TRAVEL, STROKE_CEILING],
+        "collar_engagement": engagement,
+        "tee_checks": {
+            "tolerance": tee.MEASURE_TOL,
+            "bounds": [tee.RUN_SPAN, tee.RUN_HALF, tee.BRANCH_REACH, tee.COLLAR_ENVELOPE_D],
+            "bands": [[0.0, *tee.RUN_COLLAR_BAND, tee.BARREL_R],
+                      [1.0, *tee.BRANCH_COLLAR_BAND, tee.BARREL_R],
+                      [1.0, *tee.BRANCH_ROOT_BAND, tee.ARM_R]],
+            "pressed_branch": [tee.BRANCH_FIXED_END, tee.BRANCH_COLLET_TRAVEL, tee.BRANCH_PRESSED_REACH],
+        },
+        "black": list(linear(M_PETGF_BLACK)), "tee_color": list(linear(M_JG_BLACK_PP)),
+        "valve_color": list(linear(C_VALVE)),
+    }
+
+
+def _report():
+    engagement, readings = _readings()
+    print(f"sleeve faces: {SLEEVE_FACE_SEPARATION:.2f} mm apart; "
+          f"tee journal Ø{2.0 * TEE_JOURNAL_RADIUS:.3f} mm; "
+          f"{engagement:.3f} mm collar engagement at ceiling")
+    for label, travel, chord, radius, sag in readings:
+        print(f"  {label:7s} Y={travel:4.2f} mm  chord={chord:8.5f} mm  "
+              f"12 mm circular witness R={radius:8.5f}, sag={sag:8.5f} mm")
+    print("tee-valve bow trial selftest OK")
+
+
+def selftest():
+    import _rust_part
+    result = _rust_part.check("tooling", "tee-valve-bow-trial", numbers())
+    _report()
+    return result
+
+
+def main(output=None, *, native=False):
+    if native:
+        return _native_main(output)
+    import _rust_part
+    out = Path(output) if output is not None else _here.parent
+    out.mkdir(parents=True, exist_ok=True)
+    said = _rust_part.cut("tooling", "tee-valve-bow-trial", numbers(), out)
+    _report()
+    for label, result in zip(("frame", "gauge"), said["results"]):
+        body = result["bodies"][0]
+        dims = [b-a for a, b in zip(body["min"], body["max"])]
+        print(f"-> tee-valve-bow-trial-{label}.step, tee-valve-bow-trial-{label}.stl  "
+              f"{dims[0]:.2f} x {dims[1]:.2f} x {dims[2]:.2f} mm, {body['volume']/1000:.2f} cm^3")
     print("-> tee-valve-bow-trial-assembly.step")
 
 
 if __name__ == "__main__":
-    if sys.argv[1:] == ["selftest"]:
-        selftest()
-    elif sys.argv[1:]:
-        sys.exit("usage: tee_valve_bow_trial.py [selftest]")
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("command", nargs="?", choices=["selftest"])
+    parser.add_argument("--output", type=Path)
+    parser.add_argument("--native", action="store_true")
+    options = parser.parse_args()
+    if options.command == "selftest":
+        _native_selftest() if options.native else selftest()
     else:
-        sys.exit(main())
+        sys.exit(main(options.output, native=options.native))
