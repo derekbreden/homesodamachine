@@ -2410,11 +2410,16 @@ genrule(
         ":out/lever-replica/hardware/printed-parts/faucet/lever-replica/lever-replica.step.mesh",
         ":out/lever-replica/hardware/printed-parts/faucet/lever-replica/lever-replica.stl",
         ":out/tpu-o-ring/hardware/printed-parts/faucet/tpu-o-ring/tpu-o-ring.step",
+        ":out/tpu-o-ring/hardware/printed-parts/faucet/tpu-o-ring/tpu-o-ring.step.mesh",
         "pysrc/hardware/printed-parts/faucet/tpu-o-ring/tpu_o_ring.py",
         ":out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-carb.step",
+        ":out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-carb.step.mesh",
         ":out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-drain.step",
+        ":out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-drain.step.mesh",
         ":out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-flavor-a.step",
+        ":out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-flavor-a.step.mesh",
         ":out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-flavor-b.step",
+        ":out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-flavor-b.step.mesh",
         "pysrc/hardware/printed-parts/faucet/tube-collar/tube_collar.py",
         ":out/umbilical-organizer/hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer.step",
         ":out/umbilical-organizer/hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer.step.mesh",
@@ -2749,13 +2754,18 @@ cd .. && rm -rf work-faucet-industrial-assembly
 genrule(
     name = "install-art",
     srcs = [
-        ":out/under-counter-plate/hardware/cut-parts/faucet/under-counter-plate/under-counter-plate.dxf",
+        ":out/faucet-assembly/hardware/faucet-layout/faucet-assembly.step.mesh",
         "pysrc/hardware/faucet-layout/faucet_assembly.py",
         "hardware/faucet-layout/faucet_metrics.rs",
         "pysrc/hardware/install-guide/_cad_art.py",
         "pysrc/hardware/install-guide/_install_art.py",
-        "pysrc/hardware/install-guide/plumbing/modern/render_modern_tee.py",
-        "pysrc/hardware/install-guide/plumbing/plumbing_scenes.py",
+        "pysrc/hardware/install-guide/_install_art_mesh.py",
+        "hardware/install-guide/install_art_props.rs",
+        ":out/render-modern-tee/hardware/install-guide/plumbing/modern/out/modern-water-on.step.mesh",
+        ":out/plumbing-scenes/hardware/install-guide/plumbing/out/plumbing-pre-tee.step.mesh",
+        ":out/plumbing-scenes/hardware/install-guide/plumbing/out/plumbing-tee-installed.step.mesh",
+        ":out/plumbing-scenes/hardware/install-guide/plumbing/out/plumbing-valve-off.step.mesh",
+        ":out/plumbing-scenes/hardware/install-guide/plumbing/out/plumbing-valve-on.step.mesh",
         ":out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.facts.json",
         ":out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.step.mesh",
         "pysrc/hardware/printed-parts/cadlib/fits.py",
@@ -2764,6 +2774,7 @@ genrule(
         "pysrc/hardware/printed-parts/cadlib/reeding.py",
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
         ":out/collet-press/hardware/printed-parts/collet-press/collet-press.step",
+        ":out/collet-press/hardware/printed-parts/collet-press/collet-press.step.mesh",
         "pysrc/hardware/printed-parts/enclosure/bulkhead-ring/bulkhead_ring.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py",
         "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
@@ -2774,24 +2785,19 @@ genrule(
         "pysrc/hardware/printed-parts/faucet/faucet-display-cover/faucet_display_cover.py",
         "pysrc/hardware/printed-parts/faucet/faucet-shell/faucet_shell.py",
         "pysrc/hardware/printed-parts/faucet/faucet_paths.py",
-        "hardware/printed-parts/faucet/lever-replica/lever-replica.frame.json",
-        "pysrc/hardware/printed-parts/faucet/lever-replica/lever_replica.py",
-        "pysrc/hardware/printed-parts/faucet/lever-replica/physical_acceptance.py",
         "pysrc/hardware/printed-parts/faucet/tpu-o-ring/tpu_o_ring.py",
         "pysrc/hardware/printed-parts/faucet/tube-collar/tube_collar.py",
         "pysrc/hardware/printed-parts/faucet/umbilical-organizer/umbilical_organizer.py",
-        "pysrc/hardware/printed-parts/faucet/vent_seals.py",
         "pysrc/hardware/reference/iec-c14-inlet/iec_c14_inlet.py",
         "pysrc/hardware/reference/jg-bulkhead-union/jg_bulkhead_union.py",
-        "pysrc/hardware/reference/jg-pp0208e-tee/jg_pp0208e_tee.py",
-        "pysrc/hardware/reference/jg-pp0408w/jg_pp0408w.py",
+        "hardware/reference/jg-pp0208e-tee/jg-pp0208e-tee.step.mesh",
         "pysrc/hardware/reference/neofit-bulkhead/neofit_bulkhead.py",
         "pysrc/hardware/reference/neofit-drain-bulkhead/neofit_drain_bulkhead.py",
+        "hardware/reference/taprite-3741-regulator/taprite-3741-regulator.step.mesh",
         "pysrc/hardware/reference/taprite-3741-regulator/taprite_3741_regulator.py",
         "hardware/reference/touch-flo-faucet/display-reference/buttons.json",
         "hardware/reference/touch-flo-faucet/display-reference/component-envelopes.json",
         "hardware/reference/touch-flo-faucet/westbrass-reference/frozen-asset.json",
-        "hardware/reference/touch-flo-faucet/westbrass-reference/westbrass-reference.step",
         "hardware/reference/touch-flo-faucet/westbrass-reference/westbrass-reference.step.mesh",
         "pysrc/hardware/scripts/_cadq_export.py",
         "pysrc/hardware/scripts/_document_export.py",
@@ -2805,11 +2811,6 @@ genrule(
         "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/hardware/scripts/_rust_part.py",
         "pysrc/hardware/scripts/_stated_bounds.py",
-        "pysrc/hardware/scripts/flute_payload.py",
-        "pysrc/hardware/scripts/meshcad/__init__.py",
-        "pysrc/hardware/scripts/meshcad/presentation.py",
-        "pysrc/hardware/scripts/meshcad/rule.py",
-        "pysrc/hardware/scripts/meshcad/write.py",
         "pysrc/tools/docgen/__init__.py",
         "tools/hsm/Cargo.lock",
         "tools/hsm/Cargo.toml",
@@ -2874,6 +2875,7 @@ genrule(
         "tools/hsm/run-slots/Cargo.toml",
         "tools/hsm/run-slots/src/ipc.rs",
         "tools/hsm/run-slots/src/lib.rs",
+        "tools/hsm/tooling/Cargo.toml",
         "tools/hsm/vendor/manifold-csg-sys/.cargo_vcs_info.json",
         "tools/hsm/vendor/manifold-csg-sys/Cargo.lock",
         "tools/hsm/vendor/manifold-csg-sys/Cargo.toml",
@@ -3235,20 +3237,16 @@ genrule(
     name = "render-modern-tee",
     srcs = [
         "pysrc/hardware/install-guide/plumbing/modern/render_modern_tee.py",
-        "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
         "hardware/reference/jg-pp0408w/jg-pp0408w.step",
         "pysrc/hardware/reference/jg-pp0408w/jg_pp0408w.py",
         "pysrc/hardware/scripts/_cadq_export.py",
         "pysrc/hardware/scripts/_document_export.py",
         "pysrc/hardware/scripts/_hsm_render.py",
-        "pysrc/hardware/scripts/_material_base.py",
-        "pysrc/hardware/scripts/_materials.py",
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_payload_rules.py",
         "pysrc/hardware/scripts/_run_lock.py",
         "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/hardware/scripts/_rust_part.py",
-        "pysrc/tools/docgen/__init__.py",
         "tools/hsm/Cargo.lock",
         "tools/hsm/Cargo.toml",
         "tools/hsm/render/Cargo.toml",
@@ -3311,6 +3309,8 @@ genrule(
         "out/render-modern-tee/hardware/install-guide/plumbing/modern/art/modern-tee-tug-check.png",
         "out/render-modern-tee/hardware/install-guide/plumbing/modern/art/modern-water-off.png",
         "out/render-modern-tee/hardware/install-guide/plumbing/modern/art/modern-water-on.png",
+        "out/render-modern-tee/hardware/install-guide/plumbing/modern/out/modern-water-on.step",
+        "out/render-modern-tee/hardware/install-guide/plumbing/modern/out/modern-water-on.step.mesh",
     ],
     tags = ["no-sandbox"],
     cmd = """
@@ -3324,6 +3324,8 @@ O5=$$PWD/$(location out/render-modern-tee/hardware/install-guide/plumbing/modern
 O6=$$PWD/$(location out/render-modern-tee/hardware/install-guide/plumbing/modern/art/modern-tee-tug-check.png)
 O7=$$PWD/$(location out/render-modern-tee/hardware/install-guide/plumbing/modern/art/modern-water-off.png)
 O8=$$PWD/$(location out/render-modern-tee/hardware/install-guide/plumbing/modern/art/modern-water-on.png)
+O9=$$PWD/$(location out/render-modern-tee/hardware/install-guide/plumbing/modern/out/modern-water-on.step)
+O10=$$PWD/$(location out/render-modern-tee/hardware/install-guide/plumbing/modern/out/modern-water-on.step.mesh)
 rm -rf work-render-modern-tee
 for f in $(SRCS); do
   case $$f in
@@ -3340,7 +3342,7 @@ done
 cd work-render-modern-tee
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/install-guide/plumbing/modern/render_modern_tee.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/install-guide/plumbing/modern/render_modern_tee.py > /dev/null
 cp hardware/install-guide/plumbing/modern/art/modern-release-pressed.png $$O0
 cp hardware/install-guide/plumbing/modern/art/modern-release-ready.png $$O1
 cp hardware/install-guide/plumbing/modern/art/modern-release-withdrawn.png $$O2
@@ -3350,6 +3352,8 @@ cp hardware/install-guide/plumbing/modern/art/modern-tee-line-ready.png $$O5
 cp hardware/install-guide/plumbing/modern/art/modern-tee-tug-check.png $$O6
 cp hardware/install-guide/plumbing/modern/art/modern-water-off.png $$O7
 cp hardware/install-guide/plumbing/modern/art/modern-water-on.png $$O8
+cp hardware/install-guide/plumbing/modern/out/modern-water-on.step $$O9
+cp hardware/install-guide/plumbing/modern/out/modern-water-on.step.mesh $$O10
 cd .. && rm -rf work-render-modern-tee
 """,
 )
@@ -3424,9 +3428,13 @@ genrule(
         "out/plumbing-scenes/hardware/install-guide/plumbing/art/plumbing-valve-off.png",
         "out/plumbing-scenes/hardware/install-guide/plumbing/art/plumbing-valve-on.png",
         "out/plumbing-scenes/hardware/install-guide/plumbing/out/plumbing-pre-tee.step",
+        "out/plumbing-scenes/hardware/install-guide/plumbing/out/plumbing-pre-tee.step.mesh",
         "out/plumbing-scenes/hardware/install-guide/plumbing/out/plumbing-tee-installed.step",
+        "out/plumbing-scenes/hardware/install-guide/plumbing/out/plumbing-tee-installed.step.mesh",
         "out/plumbing-scenes/hardware/install-guide/plumbing/out/plumbing-valve-off.step",
+        "out/plumbing-scenes/hardware/install-guide/plumbing/out/plumbing-valve-off.step.mesh",
         "out/plumbing-scenes/hardware/install-guide/plumbing/out/plumbing-valve-on.step",
+        "out/plumbing-scenes/hardware/install-guide/plumbing/out/plumbing-valve-on.step.mesh",
     ],
     tags = ["no-sandbox"],
     cmd = """
@@ -3436,9 +3444,13 @@ O1=$$PWD/$(location out/plumbing-scenes/hardware/install-guide/plumbing/art/plum
 O2=$$PWD/$(location out/plumbing-scenes/hardware/install-guide/plumbing/art/plumbing-valve-off.png)
 O3=$$PWD/$(location out/plumbing-scenes/hardware/install-guide/plumbing/art/plumbing-valve-on.png)
 O4=$$PWD/$(location out/plumbing-scenes/hardware/install-guide/plumbing/out/plumbing-pre-tee.step)
-O5=$$PWD/$(location out/plumbing-scenes/hardware/install-guide/plumbing/out/plumbing-tee-installed.step)
-O6=$$PWD/$(location out/plumbing-scenes/hardware/install-guide/plumbing/out/plumbing-valve-off.step)
-O7=$$PWD/$(location out/plumbing-scenes/hardware/install-guide/plumbing/out/plumbing-valve-on.step)
+O5=$$PWD/$(location out/plumbing-scenes/hardware/install-guide/plumbing/out/plumbing-pre-tee.step.mesh)
+O6=$$PWD/$(location out/plumbing-scenes/hardware/install-guide/plumbing/out/plumbing-tee-installed.step)
+O7=$$PWD/$(location out/plumbing-scenes/hardware/install-guide/plumbing/out/plumbing-tee-installed.step.mesh)
+O8=$$PWD/$(location out/plumbing-scenes/hardware/install-guide/plumbing/out/plumbing-valve-off.step)
+O9=$$PWD/$(location out/plumbing-scenes/hardware/install-guide/plumbing/out/plumbing-valve-off.step.mesh)
+O10=$$PWD/$(location out/plumbing-scenes/hardware/install-guide/plumbing/out/plumbing-valve-on.step)
+O11=$$PWD/$(location out/plumbing-scenes/hardware/install-guide/plumbing/out/plumbing-valve-on.step.mesh)
 rm -rf work-plumbing-scenes
 for f in $(SRCS); do
   case $$f in
@@ -3455,15 +3467,19 @@ done
 cd work-plumbing-scenes
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/install-guide/plumbing/plumbing_scenes.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/install-guide/plumbing/plumbing_scenes.py > /dev/null
 cp hardware/install-guide/plumbing/art/plumbing-pre-tee.png $$O0
 cp hardware/install-guide/plumbing/art/plumbing-tee-installed.png $$O1
 cp hardware/install-guide/plumbing/art/plumbing-valve-off.png $$O2
 cp hardware/install-guide/plumbing/art/plumbing-valve-on.png $$O3
 cp hardware/install-guide/plumbing/out/plumbing-pre-tee.step $$O4
-cp hardware/install-guide/plumbing/out/plumbing-tee-installed.step $$O5
-cp hardware/install-guide/plumbing/out/plumbing-valve-off.step $$O6
-cp hardware/install-guide/plumbing/out/plumbing-valve-on.step $$O7
+cp hardware/install-guide/plumbing/out/plumbing-pre-tee.step.mesh $$O5
+cp hardware/install-guide/plumbing/out/plumbing-tee-installed.step $$O6
+cp hardware/install-guide/plumbing/out/plumbing-tee-installed.step.mesh $$O7
+cp hardware/install-guide/plumbing/out/plumbing-valve-off.step $$O8
+cp hardware/install-guide/plumbing/out/plumbing-valve-off.step.mesh $$O9
+cp hardware/install-guide/plumbing/out/plumbing-valve-on.step $$O10
+cp hardware/install-guide/plumbing/out/plumbing-valve-on.step.mesh $$O11
 cd .. && rm -rf work-plumbing-scenes
 """,
 )
@@ -3799,6 +3815,7 @@ genrule(
         "pysrc/hardware/reference/y-divider/y_divider.py",
         "pysrc/hardware/reference/yyfkgcp-pogo-4p/yyfkgcp_pogo_4p.py",
         "hardware/reference/yzmsz-water-regulator/geometry/yzmsz-water-regulator.step",
+        "hardware/reference/yzmsz-water-regulator/reference-parameters.json",
         "pysrc/hardware/scripts/_assembly_model.py",
         "pysrc/hardware/scripts/_box_spec.py",
         "pysrc/hardware/scripts/_boxes.py",
@@ -4254,6 +4271,7 @@ genrule(
         "pysrc/hardware/reference/wr1110-regulator/wr1110_regulator.py",
         "pysrc/hardware/reference/y-divider/y_divider.py",
         "hardware/reference/yzmsz-water-regulator/geometry/yzmsz-water-regulator.step",
+        "hardware/reference/yzmsz-water-regulator/reference-parameters.json",
         "pysrc/hardware/scripts/_assembly_model.py",
         "pysrc/hardware/scripts/_box_spec.py",
         "pysrc/hardware/scripts/_boxes.py",
@@ -8048,6 +8066,7 @@ genrule(
         "pysrc/hardware/reference/wago-221/wago_221.py",
         "pysrc/hardware/reference/yyfkgcp-pogo-4p/yyfkgcp_pogo_4p.py",
         "hardware/reference/yzmsz-water-regulator/geometry/yzmsz-water-regulator.step",
+        "hardware/reference/yzmsz-water-regulator/reference-parameters.json",
         "pysrc/hardware/scripts/_assembly_model.py",
         "pysrc/hardware/scripts/_box_spec.py",
         "pysrc/hardware/scripts/_boxes.py",
@@ -8655,6 +8674,7 @@ genrule(
         "pysrc/hardware/reference/digiten-flow-sensor/digiten_flow_sensor.py",
         "pysrc/hardware/reference/multiplex-asse1022/multiplex_asse1022.py",
         "pysrc/hardware/reference/neofit-drain-bulkhead/neofit_drain_bulkhead.py",
+        "hardware/reference/yzmsz-water-regulator/reference-parameters.json",
         "pysrc/hardware/scripts/_cadq_export.py",
         "pysrc/hardware/scripts/_document_export.py",
         "pysrc/hardware/scripts/_material_base.py",
@@ -10635,6 +10655,7 @@ cp hardware/printed-parts/fixtures/faucet-cover-retention/trial-geometry.json $$
 genrule(
     name = "faucet-display-snap-trial",
     srcs = [
+        ":out/faucet-assembly/hardware/faucet-layout/faucet-assembly.step.npz",
         "pysrc/hardware/faucet-layout/faucet_assembly.py",
         "hardware/faucet-layout/faucet_metrics.rs",
         "pysrc/hardware/printed-parts/cadlib/fits.py",
@@ -10650,36 +10671,33 @@ genrule(
         "pysrc/hardware/printed-parts/faucet/_faucet_interface.py",
         "pysrc/hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.py",
         "pysrc/hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.py",
+        ":out/faucet-display-cover/hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover-seated.step.npz",
+        ":out/faucet-display-cover/hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step.npz",
         "pysrc/hardware/printed-parts/faucet/faucet-display-cover/faucet_display_cover.py",
+        ":out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step.npz",
         "pysrc/hardware/printed-parts/faucet/faucet-shell/faucet_shell.py",
         "pysrc/hardware/printed-parts/faucet/faucet_paths.py",
         "pysrc/hardware/printed-parts/faucet/refresh_print_project.py",
         "pysrc/hardware/printed-parts/faucet/tpu-o-ring/tpu_o_ring.py",
         "pysrc/hardware/printed-parts/faucet/tube-collar/tube_collar.py",
         "pysrc/hardware/printed-parts/faucet/umbilical-organizer/umbilical_organizer.py",
-        "pysrc/hardware/printed-parts/faucet/vent_seals.py",
         "pysrc/hardware/printed-parts/fixtures/faucet-display-snap/faucet_display_snap_trial.py",
+        "hardware/printed-parts/fixtures/faucet-display-snap/faucet_display_snap_trial.rs",
         "pysrc/hardware/reference/jg-bulkhead-union/jg_bulkhead_union.py",
-        "pysrc/hardware/reference/jg-pp0408w/jg_pp0408w.py",
         "pysrc/hardware/reference/neofit-bulkhead/neofit_bulkhead.py",
         "pysrc/hardware/reference/neofit-drain-bulkhead/neofit_drain_bulkhead.py",
-        "hardware/reference/touch-flo-faucet/display-reference/button-left.step",
-        "hardware/reference/touch-flo-faucet/display-reference/button-right.step",
         "hardware/reference/touch-flo-faucet/display-reference/buttons.json",
         "hardware/reference/touch-flo-faucet/display-reference/component-envelopes.json",
         "pysrc/hardware/scripts/_cadq_export.py",
         "pysrc/hardware/scripts/_document_export.py",
         "pysrc/hardware/scripts/_material_base.py",
         "pysrc/hardware/scripts/_materials.py",
-        "pysrc/hardware/scripts/_measuring.py",
-        "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_occt_color.py",
-        "pysrc/hardware/scripts/_payload_rules.py",
+        "pysrc/hardware/scripts/_realized.py",
         "pysrc/hardware/scripts/_run_lock.py",
         "pysrc/hardware/scripts/_run_slots.py",
         "pysrc/hardware/scripts/_rust_part.py",
         "pysrc/hardware/scripts/_stated_bounds.py",
-        "pysrc/hardware/scripts/flute_payload.py",
         "pysrc/tools/docgen/__init__.py",
         "tools/hsm/Cargo.lock",
         "tools/hsm/Cargo.toml",
@@ -10724,6 +10742,7 @@ genrule(
         "tools/hsm/run-slots/Cargo.toml",
         "tools/hsm/run-slots/src/ipc.rs",
         "tools/hsm/run-slots/src/lib.rs",
+        "tools/hsm/tooling/Cargo.toml",
         "tools/hsm/vendor/manifold-csg-sys/.cargo_vcs_info.json",
         "tools/hsm/vendor/manifold-csg-sys/Cargo.lock",
         "tools/hsm/vendor/manifold-csg-sys/Cargo.toml",
@@ -10751,23 +10770,35 @@ genrule(
     ],
     outs = [
         "out/faucet-display-snap-trial/hardware/printed-parts/fixtures/faucet-display-snap/display-trial-cover.step",
+        "out/faucet-display-snap-trial/hardware/printed-parts/fixtures/faucet-display-snap/display-trial-cover.step.mesh",
+        "out/faucet-display-snap-trial/hardware/printed-parts/fixtures/faucet-display-snap/display-trial-cover.step.npz",
         "out/faucet-display-snap-trial/hardware/printed-parts/fixtures/faucet-display-snap/display-trial-cover.stl",
         "out/faucet-display-snap-trial/hardware/printed-parts/fixtures/faucet-display-snap/display-trial-housing.step",
+        "out/faucet-display-snap-trial/hardware/printed-parts/fixtures/faucet-display-snap/display-trial-housing.step.mesh",
+        "out/faucet-display-snap-trial/hardware/printed-parts/fixtures/faucet-display-snap/display-trial-housing.step.npz",
         "out/faucet-display-snap-trial/hardware/printed-parts/fixtures/faucet-display-snap/display-trial-housing.stl",
         "out/faucet-display-snap-trial/hardware/printed-parts/fixtures/faucet-display-snap/faucet-display-fit-trial.step",
         "out/faucet-display-snap-trial/hardware/printed-parts/fixtures/faucet-display-snap/faucet-display-fit-trial.step.mesh",
+        "out/faucet-display-snap-trial/hardware/printed-parts/fixtures/faucet-display-snap/faucet-display-fit-trial.step.npz",
+        "out/faucet-display-snap-trial/hardware/printed-parts/fixtures/faucet-display-snap/faucet-display-snap.numbers.json",
         "out/faucet-display-snap-trial/hardware/printed-parts/fixtures/faucet-display-snap/trial-geometry.json",
     ],
     tags = ["no-sandbox"],
     cmd = """
 set -e
 O0=$$PWD/$(location out/faucet-display-snap-trial/hardware/printed-parts/fixtures/faucet-display-snap/display-trial-cover.step)
-O1=$$PWD/$(location out/faucet-display-snap-trial/hardware/printed-parts/fixtures/faucet-display-snap/display-trial-cover.stl)
-O2=$$PWD/$(location out/faucet-display-snap-trial/hardware/printed-parts/fixtures/faucet-display-snap/display-trial-housing.step)
-O3=$$PWD/$(location out/faucet-display-snap-trial/hardware/printed-parts/fixtures/faucet-display-snap/display-trial-housing.stl)
-O4=$$PWD/$(location out/faucet-display-snap-trial/hardware/printed-parts/fixtures/faucet-display-snap/faucet-display-fit-trial.step)
-O5=$$PWD/$(location out/faucet-display-snap-trial/hardware/printed-parts/fixtures/faucet-display-snap/faucet-display-fit-trial.step.mesh)
-O6=$$PWD/$(location out/faucet-display-snap-trial/hardware/printed-parts/fixtures/faucet-display-snap/trial-geometry.json)
+O1=$$PWD/$(location out/faucet-display-snap-trial/hardware/printed-parts/fixtures/faucet-display-snap/display-trial-cover.step.mesh)
+O2=$$PWD/$(location out/faucet-display-snap-trial/hardware/printed-parts/fixtures/faucet-display-snap/display-trial-cover.step.npz)
+O3=$$PWD/$(location out/faucet-display-snap-trial/hardware/printed-parts/fixtures/faucet-display-snap/display-trial-cover.stl)
+O4=$$PWD/$(location out/faucet-display-snap-trial/hardware/printed-parts/fixtures/faucet-display-snap/display-trial-housing.step)
+O5=$$PWD/$(location out/faucet-display-snap-trial/hardware/printed-parts/fixtures/faucet-display-snap/display-trial-housing.step.mesh)
+O6=$$PWD/$(location out/faucet-display-snap-trial/hardware/printed-parts/fixtures/faucet-display-snap/display-trial-housing.step.npz)
+O7=$$PWD/$(location out/faucet-display-snap-trial/hardware/printed-parts/fixtures/faucet-display-snap/display-trial-housing.stl)
+O8=$$PWD/$(location out/faucet-display-snap-trial/hardware/printed-parts/fixtures/faucet-display-snap/faucet-display-fit-trial.step)
+O9=$$PWD/$(location out/faucet-display-snap-trial/hardware/printed-parts/fixtures/faucet-display-snap/faucet-display-fit-trial.step.mesh)
+O10=$$PWD/$(location out/faucet-display-snap-trial/hardware/printed-parts/fixtures/faucet-display-snap/faucet-display-fit-trial.step.npz)
+O11=$$PWD/$(location out/faucet-display-snap-trial/hardware/printed-parts/fixtures/faucet-display-snap/faucet-display-snap.numbers.json)
+O12=$$PWD/$(location out/faucet-display-snap-trial/hardware/printed-parts/fixtures/faucet-display-snap/trial-geometry.json)
 rm -rf work-faucet-display-snap-trial
 for f in $(SRCS); do
   case $$f in
@@ -10786,12 +10817,18 @@ ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
 HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/fixtures/faucet-display-snap/faucet_display_snap_trial.py > /dev/null
 cp hardware/printed-parts/fixtures/faucet-display-snap/display-trial-cover.step $$O0
-cp hardware/printed-parts/fixtures/faucet-display-snap/display-trial-cover.stl $$O1
-cp hardware/printed-parts/fixtures/faucet-display-snap/display-trial-housing.step $$O2
-cp hardware/printed-parts/fixtures/faucet-display-snap/display-trial-housing.stl $$O3
-cp hardware/printed-parts/fixtures/faucet-display-snap/faucet-display-fit-trial.step $$O4
-cp hardware/printed-parts/fixtures/faucet-display-snap/faucet-display-fit-trial.step.mesh $$O5
-cp hardware/printed-parts/fixtures/faucet-display-snap/trial-geometry.json $$O6
+cp hardware/printed-parts/fixtures/faucet-display-snap/display-trial-cover.step.mesh $$O1
+cp hardware/printed-parts/fixtures/faucet-display-snap/display-trial-cover.step.npz $$O2
+cp hardware/printed-parts/fixtures/faucet-display-snap/display-trial-cover.stl $$O3
+cp hardware/printed-parts/fixtures/faucet-display-snap/display-trial-housing.step $$O4
+cp hardware/printed-parts/fixtures/faucet-display-snap/display-trial-housing.step.mesh $$O5
+cp hardware/printed-parts/fixtures/faucet-display-snap/display-trial-housing.step.npz $$O6
+cp hardware/printed-parts/fixtures/faucet-display-snap/display-trial-housing.stl $$O7
+cp hardware/printed-parts/fixtures/faucet-display-snap/faucet-display-fit-trial.step $$O8
+cp hardware/printed-parts/fixtures/faucet-display-snap/faucet-display-fit-trial.step.mesh $$O9
+cp hardware/printed-parts/fixtures/faucet-display-snap/faucet-display-fit-trial.step.npz $$O10
+cp hardware/printed-parts/fixtures/faucet-display-snap/faucet-display-snap.numbers.json $$O11
+cp hardware/printed-parts/fixtures/faucet-display-snap/trial-geometry.json $$O12
 cd .. && rm -rf work-faucet-display-snap-trial
 """,
 )
@@ -11593,31 +11630,92 @@ genrule(
         "pysrc/hardware/manifold-layout/soda_inlet.py",
         "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
         "pysrc/hardware/printed-parts/soda-bend-holder/soda_bend_holder.py",
-        "pysrc/hardware/scripts/_cadq_export.py",
-        "pysrc/hardware/scripts/_document_export.py",
+        "hardware/printed-parts/soda-bend-holder/soda_bend_holder.rs",
         "pysrc/hardware/scripts/_material_base.py",
         "pysrc/hardware/scripts/_materials.py",
-        "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_occt_color.py",
-        "pysrc/hardware/scripts/_payload_rules.py",
         "pysrc/hardware/scripts/_run_lock.py",
         "pysrc/hardware/scripts/_run_slots.py",
-        "pysrc/hardware/scripts/flute_payload.py",
+        "pysrc/hardware/scripts/_rust_part.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/Cargo.lock",
+        "tools/hsm/Cargo.toml",
+        "tools/hsm/kernel/Cargo.toml",
+        "tools/hsm/kernel/src/boolean.rs",
+        "tools/hsm/kernel/src/build.rs",
+        "tools/hsm/kernel/src/dxf.rs",
+        "tools/hsm/kernel/src/edge.rs",
+        "tools/hsm/kernel/src/face.rs",
+        "tools/hsm/kernel/src/import.rs",
+        "tools/hsm/kernel/src/lib.rs",
+        "tools/hsm/kernel/src/mapped.rs",
+        "tools/hsm/kernel/src/mass.rs",
+        "tools/hsm/kernel/src/math.rs",
+        "tools/hsm/kernel/src/part.rs",
+        "tools/hsm/kernel/src/plane.rs",
+        "tools/hsm/kernel/src/profile.rs",
+        "tools/hsm/kernel/src/reads.rs",
+        "tools/hsm/kernel/src/round.rs",
+        "tools/hsm/kernel/src/round/rolled.rs",
+        "tools/hsm/kernel/src/rule.rs",
+        "tools/hsm/kernel/src/screw.rs",
+        "tools/hsm/kernel/src/sketch_hull.rs",
+        "tools/hsm/kernel/src/solid.rs",
+        "tools/hsm/kernel/src/spline.rs",
+        "tools/hsm/kernel/src/step.rs",
+        "tools/hsm/kernel/src/step/analytic.rs",
+        "tools/hsm/kernel/src/sweep.rs",
+        "tools/hsm/kernel/src/text.rs",
+        "tools/hsm/kernel/src/thru.rs",
+        "tools/hsm/kernel/src/topo.rs",
+        "tools/hsm/kernel/src/triangulate.rs",
+        "tools/hsm/kernel/src/write.rs",
         "tools/hsm/run-slots.defaults.json",
+        "tools/hsm/run-slots/Cargo.toml",
+        "tools/hsm/run-slots/src/ipc.rs",
+        "tools/hsm/run-slots/src/lib.rs",
+        "tools/hsm/tooling/Cargo.toml",
+        "tools/hsm/vendor/manifold-csg-sys/.cargo_vcs_info.json",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.lock",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.toml",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.toml.orig",
+        "tools/hsm/vendor/manifold-csg-sys/LICENSE-APACHE",
+        "tools/hsm/vendor/manifold-csg-sys/LICENSE-MIT",
+        "tools/hsm/vendor/manifold-csg-sys/README.md",
+        "tools/hsm/vendor/manifold-csg-sys/build.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/build.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/fetch.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/patch.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/wasm.rs",
+        "tools/hsm/vendor/manifold-csg-sys/cache-version",
+        "tools/hsm/vendor/manifold-csg-sys/patches/README.md",
+        "tools/hsm/vendor/manifold-csg-sys/src/lib.rs",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/CMakeLists.txt",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/diagnose.sh",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/__assertion_handler",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/__config_site",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/memory",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/mutex",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/libcxx-extras.cpp",
         "tools/run-slots.mjs",
         "pysrc/tools/run.py",
     ],
     outs = [
+        "out/soda-bend-holder/hardware/printed-parts/soda-bend-holder/soda-bend-holder.numbers.json",
         "out/soda-bend-holder/hardware/printed-parts/soda-bend-holder/soda-bend-holder.step",
         "out/soda-bend-holder/hardware/printed-parts/soda-bend-holder/soda-bend-holder.step.mesh",
+        "out/soda-bend-holder/hardware/printed-parts/soda-bend-holder/soda-bend-holder.step.npz",
         "out/soda-bend-holder/hardware/printed-parts/soda-bend-holder/soda-bend-holder.stl",
     ],
+    tags = ["no-sandbox"],
     cmd = """
 set -e
-O0=$$PWD/$(location out/soda-bend-holder/hardware/printed-parts/soda-bend-holder/soda-bend-holder.step)
-O1=$$PWD/$(location out/soda-bend-holder/hardware/printed-parts/soda-bend-holder/soda-bend-holder.step.mesh)
-O2=$$PWD/$(location out/soda-bend-holder/hardware/printed-parts/soda-bend-holder/soda-bend-holder.stl)
+O0=$$PWD/$(location out/soda-bend-holder/hardware/printed-parts/soda-bend-holder/soda-bend-holder.numbers.json)
+O1=$$PWD/$(location out/soda-bend-holder/hardware/printed-parts/soda-bend-holder/soda-bend-holder.step)
+O2=$$PWD/$(location out/soda-bend-holder/hardware/printed-parts/soda-bend-holder/soda-bend-holder.step.mesh)
+O3=$$PWD/$(location out/soda-bend-holder/hardware/printed-parts/soda-bend-holder/soda-bend-holder.step.npz)
+O4=$$PWD/$(location out/soda-bend-holder/hardware/printed-parts/soda-bend-holder/soda-bend-holder.stl)
+rm -rf work-soda-bend-holder
 for f in $(SRCS); do
   case $$f in
     */node_modules/*) continue;;
@@ -11625,18 +11723,21 @@ for f in $(SRCS); do
     */pysrc/*) t=$${f##*/pysrc/};;
     *) t=$$f;;
   esac
-  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
+  mkdir -p work-soda-bend-holder/$$(dirname $$t); cp -L $$f work-soda-bend-holder/$$t
 done
 for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
-  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
+  if [ -d $$d ]; then mkdir -p work-soda-bend-holder/$$(dirname $$d); ln -sfn $$PWD/$$d work-soda-bend-holder/$$d; fi
 done
-cd work
+cd work-soda-bend-holder
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
 HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/soda-bend-holder/soda_bend_holder.py > /dev/null
-cp hardware/printed-parts/soda-bend-holder/soda-bend-holder.step $$O0
-cp hardware/printed-parts/soda-bend-holder/soda-bend-holder.step.mesh $$O1
-cp hardware/printed-parts/soda-bend-holder/soda-bend-holder.stl $$O2
+cp hardware/printed-parts/soda-bend-holder/soda-bend-holder.numbers.json $$O0
+cp hardware/printed-parts/soda-bend-holder/soda-bend-holder.step $$O1
+cp hardware/printed-parts/soda-bend-holder/soda-bend-holder.step.mesh $$O2
+cp hardware/printed-parts/soda-bend-holder/soda-bend-holder.step.npz $$O3
+cp hardware/printed-parts/soda-bend-holder/soda-bend-holder.stl $$O4
+cd .. && rm -rf work-soda-bend-holder
 """,
 )
 
@@ -14807,6 +14908,14 @@ genrule(
     name = "pysrc-7f35251849f5",
     srcs = ["hardware/install-guide/_install_art.py"],
     outs = ["pysrc/hardware/install-guide/_install_art.py"],
+    tools = ["tools/bazel/pysrc.py"],
+    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
+)
+
+genrule(
+    name = "pysrc-9911f7c5c70f",
+    srcs = ["hardware/install-guide/_install_art_mesh.py"],
+    outs = ["pysrc/hardware/install-guide/_install_art_mesh.py"],
     tools = ["tools/bazel/pysrc.py"],
     cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
 )
