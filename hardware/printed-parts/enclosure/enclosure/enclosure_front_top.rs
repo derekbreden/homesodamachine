@@ -33,8 +33,11 @@ fn main() -> Result<()> {
         let mut sources = flute_sources::Sources::new(&print_model);
         let shape = skin::flute_solid_observed(&print_model, &n, &[], &mut sources)?;
         plan::write_print_stl(&out.join("enclosure-front-top.stl"), &shape)?;
+        let mut document = sources.document();
+        document["sha256"] = format!("{:x}", Sha256::digest(
+            std::fs::read(out.join("enclosure-front-top.stl"))?)).into();
         let source_file = "enclosure-front-top.stl.sources.json";
-        std::fs::write(out.join(source_file), serde_json::to_vec(&sources.document())?)?;
+        std::fs::write(out.join(source_file), serde_json::to_vec(&document)?)?;
         said["files"]
             .as_array_mut()
             .context("part files")?
@@ -48,3 +51,5 @@ fn main() -> Result<()> {
 
 #[path = "enclosure_flute_sources.rs"]
 mod flute_sources;
+
+use sha2::{Digest, Sha256};
