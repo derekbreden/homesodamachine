@@ -6,12 +6,12 @@
   },
   "members": {
     "jg-pp010822e.step": "98438485a8a3a5cde89adb572091d09d09a3097f5f09791642b0e0db874e12cf",
-    "jg-pp010822e.step.mesh": "7d3fde99778b5cfbce9d5d94d015bcc4483a38820d430908c71acc09a161f377"
+    "jg-pp010822e.step.mesh": "37f306f04a33dd00dcab04864397c8c661148d622f6bb42821ee75758cfb3e43"
   },
   "fine_payload": {
     "source_step_sha256": "98438485a8a3a5cde89adb572091d09d09a3097f5f09791642b0e0db874e12cf",
     "path": "jg-pp010822e.step.mesh",
-    "sha256": "7d3fde99778b5cfbce9d5d94d015bcc4483a38820d430908c71acc09a161f377",
+    "sha256": "37f306f04a33dd00dcab04864397c8c661148d622f6bb42821ee75758cfb3e43",
     "linear_mm": 0.005,
     "angular_rad": 0.05,
     "producer": "hardware/scripts/_rust_part.py:_tessellate",
@@ -19,14 +19,15 @@
       {
         "name": "jg-pp010822e",
         "color": [
-          0.12000000139546163,
-          0.12000000139546163,
-          0.13999999784656367
+          0.0134117491543293,
+          0.0134117491543293,
+          0.017389101907610893
         ],
         "vertices": 2056,
         "triangles": 2036,
         "face_ranges": 12
       }
-    ]
+    ],
+    "color_space": "linear-rgb"
   }
 }

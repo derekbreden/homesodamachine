@@ -6,12 +6,12 @@
   },
   "members": {
     "tee-connector.step": "bba36626afe1765fefd3affc790120cad6de786a3a23992f745037bf549bac36",
-    "tee-connector.step.mesh": "326cb80bd047fee330cdc826189bc27b5224a2987cdf87c8c03ec4af5453060f"
+    "tee-connector.step.mesh": "7a1d9fccd08701a5304e1246e24c72f59a2ed13e4e1a2c4b2579e4d3092e4405"
   },
   "fine_payload": {
     "source_step_sha256": "bba36626afe1765fefd3affc790120cad6de786a3a23992f745037bf549bac36",
     "path": "tee-connector.step.mesh",
-    "sha256": "326cb80bd047fee330cdc826189bc27b5224a2987cdf87c8c03ec4af5453060f",
+    "sha256": "7a1d9fccd08701a5304e1246e24c72f59a2ed13e4e1a2c4b2579e4d3092e4405",
     "linear_mm": 0.005,
     "angular_rad": 0.05,
     "producer": "hardware/scripts/_rust_part.py:_tessellate",
@@ -19,14 +19,15 @@
       {
         "name": "tee-connector",
         "color": [
-          0.12000000139546163,
-          0.12000000139546163,
-          0.13999999784656367
+          0.0134117491543293,
+          0.0134117491543293,
+          0.017389101907610893
         ],
         "vertices": 14123,
         "triangles": 14842,
         "face_ranges": 25
       }
-    ]
+    ],
+    "color_space": "linear-rgb"
   }
 }

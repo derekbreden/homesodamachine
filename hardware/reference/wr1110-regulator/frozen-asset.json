@@ -6,12 +6,12 @@
   },
   "members": {
     "wr1110-regulator.step": "4b526a6bb16a662d9fe88ad2f4fba3f2208791f600a79cc88e59c7d7b5c8299b",
-    "wr1110-regulator.step.mesh": "f9f90ab66e8bff2659ae7bca863054143cb7975fd0304a09898078fa4b73128c"
+    "wr1110-regulator.step.mesh": "fea82c0c171239fe6922483dbba093e691cf5199a77d052fe0ea678be2f1991b"
   },
   "fine_payload": {
     "source_step_sha256": "4b526a6bb16a662d9fe88ad2f4fba3f2208791f600a79cc88e59c7d7b5c8299b",
     "path": "wr1110-regulator.step.mesh",
-    "sha256": "f9f90ab66e8bff2659ae7bca863054143cb7975fd0304a09898078fa4b73128c",
+    "sha256": "fea82c0c171239fe6922483dbba093e691cf5199a77d052fe0ea678be2f1991b",
     "linear_mm": 0.005,
     "angular_rad": 0.05,
     "producer": "hardware/scripts/_rust_part.py:_tessellate",
@@ -19,14 +19,15 @@
       {
         "name": "wr1110-regulator",
         "color": [
-          0.800000010877486,
-          0.8100000158846915,
-          0.8300000085287765
+          0.6038273572921753,
+          0.6209158897399902,
+          0.6559306979179382
         ],
         "vertices": 19020,
         "triangles": 23372,
         "face_ranges": 96
       }
-    ]
+    ],
+    "color_space": "linear-rgb"
   }
 }
