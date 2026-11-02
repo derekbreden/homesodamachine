@@ -502,13 +502,14 @@ def _fluid_supports(graph):
     c,s = fits.running,fits.slip
     result = {}
 
-    def runs(which,frame,axis):
+    def runs(which,frame,axis,air=None):
         # These accepted reference frames point their axial coordinate toward -Y.
         k = 0 if which=='asse' else 2
         if tuple(row[k] for row in frame['rotation']) != (0.,-1.,0.):
             raise ValueError('the radial seat profile needs its declared axial reference orientation')
         t = frame['translation_mm'][1]
-        return [(t-hi,t-lo,r+c) for lo,hi,r in reversed(profiles[which]['seat_runs'])]
+        air = c if air is None else air
+        return [(t-hi,t-lo,r+air) for lo,hi,r in reversed(profiles[which]['seat_runs'])]
 
     def turned(profile,axis):
         radius = max(r for _,_,r in profile)
@@ -542,7 +543,7 @@ def _fluid_supports(graph):
                  *(corner+c for *_,corner in wrenches))
     split = axis[1]+c
     st = snaps.station(axis[0],snaps.half_width(widest,split,axis[1])+snaps.WALL,
-                       *cap_y,split=split,wing_root=axis[1])
+                       *cap_y,split=split,wing_root=axis[1]-snaps.REAR_ROOT_DROP)
     stock = graph.box(axis[0]-st['outer'],axis[0]+st['outer'],cap_y[0]-c-snaps.WALL,
                        datums['rear']+snaps.INTO,split,datums['ceiling']+snaps.INTO)
     room = turned(profile,axis)
@@ -553,14 +554,14 @@ def _fluid_supports(graph):
     result['asse-seat'] = stock.cut(room,*pockets(st))
 
     axis,frame = datums['pisco_axis'],plan['gas_frame']
-    profile = runs('pisco',frame,axis)
+    profile = runs('pisco',frame,axis,c+snaps.PISCO_RADIAL_RELIEF)
     dims = json.loads((parts.HW/'reference/compact-inline-candidates/dimensions.json').read_text())['pisco_rvfup_quarter']
     fitting,collet = (dims['fitted_exterior']['component_ranges_mm'][k]
                        for k in ('outlet_fitting','outlet_collet'))
     cap_y = (datums['mouth_y']-collet[0]+c+.01,datums['mouth_y']-fitting[0]-2.6)
     widest = max(r for y0,y1,r in profile if y1>=cap_y[0]-.25 and y0<=cap_y[1]+.25)
     st = snaps.station(axis[0],snaps.half_width(widest,snaps.SPLIT,axis[1])+snaps.WALL,
-                       *cap_y,wing_root=axis[1])
+                       *cap_y,wing_root=axis[1]-snaps.REAR_ROOT_DROP)
     stock = graph.box(axis[0]-st['outer'],axis[0]+st['outer'],cap_y[0]-c-snaps.WALL,
                        datums['rear']+snaps.INTO,snaps.SPLIT,datums['ceiling']+snaps.INTO)
     result['pisco-seat'] = stock.cut(turned(profile,axis),*pockets(st))
@@ -577,30 +578,31 @@ def _fluid_supports(graph):
         return float(at((meter.body_center_x,y,meter.body_center_z))[0])
     def wy(x):
         return float(at((x,0.,0.))[1])
-    mx = wx(7.3)-c
+    air = snaps.METER_AIR
+    mx = wx(7.3)-air
     fore,aft = snaps.SLIDE+snaps.VAR,snaps.VAR
-    x0,east = mx-1.,wx(meter.screw_head_y_range[1])+c
+    x0,east = mx-1.,wx(meter.screw_head_y_range[1])+air
     def stadium(y,z,r):
         return graph.add('stadium-x',y=y,z=z,radius=r,fore=fore,aft=aft,span=(x0,east),
             bounds=(x0,east,y-fore-r,y+aft+r,z-r,z+r))
-    cup = stadium(my,mz,17.5+c)
+    cup = stadium(my,mz,17.5+air)
     for dy in (-meter.boss_x,meter.boss_x):
         for dz in (-meter.boss_z,meter.boss_z):
-            cup = cup.fuse(stadium(my+dy,mz+dz,meter.boss_radius+c))
+            cup = cup.fuse(stadium(my+dy,mz+dz,meter.boss_radius+air))
     collar = max(meter.port_collar_radii)
     for sign in (-1.,1.):
         ya,yb = sorted((wy(sign*meter.port_neck_end),wy(sign*meter.port_collar_end)))
-        sleeve = graph.cylinder(1,collar+c,*soda,ya-fore-c,yb+aft+c)
+        sleeve = graph.cylinder(1,collar+air,*soda,ya-fore-air,yb+aft+air)
         cup = cup.fuse(sleeve.intersect(graph.box(x0,soda[0]+collar+1.,
             ya-fore-2.,yb+aft+2.,soda[1]-collar-1.,soda[1]+collar+1.)))
     root = at(meter.wire_root)
     half = meter.wire_root_width/2
-    cup = cup.fuse(graph.box(x0,wx(meter.wire_root[1]+meter.wire_root_depth/2)+c,
-        wy(-half)-fore-c,wy(half)+aft+c,mz-60.,float(root[2])+meter.wire_boss_len+c))
+    cup = cup.fuse(graph.box(x0,wx(meter.wire_root[1]+meter.wire_root_depth/2)+air,
+        wy(-half)-fore-air,wy(half)+aft+air,float(root[2])-3.,float(root[2])+meter.wire_boss_len+air))
     seat_y,cap_y = (386.,446.),(397.,435.)
-    core = wx(meter.boss_y_range[0])-s
-    st = snaps.station(0.,soda[1]+collar+c-mz+snaps.WALL,
-                       *cap_y,split=0.,wing_root=core-mx)
+    west = wx(meter.underside_y)
+    st = snaps.station(0.,soda[1]+collar+air-mz+snaps.WALL,
+                       *cap_y,split=0.,wing_root=west-air-mx)
     stock = graph.box(mx,datums['side']+snaps.INTO,*seat_y,mz-st['outer'],mz+st['outer'])
     cuts = [p.rotate((0,0,0),(0,1,0),90).translate((mx,0.,mz)) for p in pockets(st)]
     result['meter-seat'] = stock.cut(cup,*cuts)

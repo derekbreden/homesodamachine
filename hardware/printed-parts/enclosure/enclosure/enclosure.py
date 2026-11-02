@@ -3621,10 +3621,9 @@ def _y_knuckle(inner, outer, x_in, sx, y_joint, piece, z0, z1, depth):
             # (`tube-fluid-1`) turns past that corner under the frame.
             ex, ey, c = x_in + sx * depth, y_joint + lip_len, y_stack_upper_chamfer
             zlo, zhi = min(z0, z1) - 1.0, max(z0, z1) + depth + 1.0
-            corner = (cq.Workplane("XY").workplane(offset=zlo)
-                      .polyline([(ex + sx, ey + 1.0), (ex - sx * (c + 1.0), ey + 1.0),
-                                 (ex + sx, ey - c - 1.0)]).close()
-                      .extrude(zhi - zlo).val())
+            corner = _xy_prism(zlo, zhi, [
+                (ex + sx, ey + 1.0), (ex - sx * (c + 1.0), ey + 1.0),
+                (ex + sx, ey - c - 1.0)])
             body = body.cut(corner)
     else:
         # Back-bottom's knuckle under the Z seam runs its whole depth on to the flank, where
@@ -9145,6 +9144,20 @@ def _produced_back_top(box):
     return {'back-top': cq.Workplane(obj=structural)}
 
 
+def _produced_front_top(box):
+    """The complete front-top print with its structural body for the mesh assembly."""
+    meshcad = sys.modules.get('meshcad')
+    if meshcad is None or not meshcad.mesh_mode():
+        return {}
+    import _enclosure_front_top
+    if not _enclosure_front_top.can_cut(sys.modules[__name__], box):
+        return {}
+    from meshcad.imports import load_model
+    _enclosure_front_top.cut(sys.modules[__name__], box, _here.parent)
+    structural = load_model(_here.parent/'enclosure-front-top.step.npz')[0]
+    return {'front-top': cq.Workplane(obj=structural)}
+
+
 def _produced_front_bottom(box):
     """The front-bottom print with its full fine body for the mesh assembly."""
     meshcad = sys.modules.get('meshcad')
@@ -9176,6 +9189,7 @@ def main():
     core, box = machine_of()
     produced = _produced_back_bottom(box)
     produced.update(_produced_back_top(box))
+    produced.update(_produced_front_top(box))
     produced.update(_produced_front_bottom(box))
     retainer, installed_retainer = _produced_pump_retainer(box)
     produced.update(retainer)
