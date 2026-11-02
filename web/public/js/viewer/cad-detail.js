@@ -30,7 +30,8 @@ import {
 import { resetDxfCamera } from "./dxf.js";
 import { getLoader } from "./loaders.js";
 import { makeRulerToggle } from "./rulers.js";
-import { makeXrayToggle, disposeXray } from "./xray.js";
+import { makeXrayToggle } from "./xray.js";
+import { cancelCadLoad, disposeCadGroup } from "./cad-resources.js";
 import { clearEdgePicker } from "./edge-picker.js";
 import { clearComponentPicker } from "./component-picker.js";
 import { clearComponentEdit } from "./component-edit.js";
@@ -260,6 +261,7 @@ export function openCadDetail(type, file, pushHistory = true, path = null) {
       startAnimate();
     },
     onClose: () => {
+      cancelCadLoad();
       // Persist camera state defensively. The debounced save (controls
       // "change" handler) usually has already fired, but if the user
       // dismissed mid-gesture the trailing save may not have. Prefer the
@@ -297,8 +299,7 @@ export function openCadDetail(type, file, pushHistory = true, path = null) {
       // Drop the loaded mesh — fresh load on next open.
       if (state.currentGroup) {
         scene.remove(state.currentGroup);
-        disposeXray(state.currentGroup);
-        state.currentGroup.traverse((c) => { if (c.geometry) c.geometry.dispose(); });
+        disposeCadGroup(state.currentGroup);
         state.currentGroup = null;
       }
       clearEdgePicker(); // drop edge data + any selection/hover overlay
@@ -328,7 +329,10 @@ export function openCadDetail(type, file, pushHistory = true, path = null) {
 
   // Resolve the loader now (current-build code) rather than binding it at
   // import time, so opening a part after a code edit / deploy runs fresh code.
-  getLoader(type).then((load) => load(file)).then(() => {
+  getLoader(type).then((load) => {
+    if (state.currentCadWrapper !== wrapper || state.currentDetail?.file !== file) return;
+    return load(file);
+  }).then(() => {
     if (state.currentCadWrapper === wrapper && state.mountedDetail?.file === file) applyCameraState(file);
   });
 }

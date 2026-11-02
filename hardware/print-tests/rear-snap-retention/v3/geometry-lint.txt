@@ -1,0 +1,305 @@
+pump-snap-cap.stl · 680 printed facets · 10 findings
+answers: hardware/printed-parts/lint-answers/cold-core/foam-cap/pump-snap-cap.lint-answers · read hardware/printed-parts/lint-answers/AGENTS.md before writing one
+
+  [thin] 0.717 mm of material at its thinnest · 26.0 mm² of surface under 1.6 mm · spans 2.6 × 1.5 × 5.0 mm
+    file: hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.step
+    click: x=-31.842 y=27.147 z=25.572
+    click: x=-31.842 y=26.430 z=25.572
+
+  [thin] 0.717 mm of material at its thinnest · 26.0 mm² of surface under 1.6 mm · spans 2.6 × 1.5 × 5.0 mm
+    file: hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.step
+    click: x=31.842 y=27.147 z=28.928
+    click: x=31.842 y=26.430 z=28.928
+
+  [thin] 1.910 mm of material at its thinnest · 41.8 mm² of surface under 2.5 mm · spans 1.8 × 0.6 × 21.1 mm
+    file: hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.step
+    click: x=-32.440 y=27.340 z=45.168
+    click: x=-32.440 y=25.430 z=45.168
+
+  [thin] 1.910 mm of material at its thinnest · 43.7 mm² of surface under 2.5 mm · spans 1.8 × 0.6 × 21.7 mm
+    file: hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.step
+    click: x=-32.440 y=27.340 z=11.510
+    click: x=-32.440 y=25.430 z=11.510
+
+  [thin] 1.910 mm of material at its thinnest · 43.7 mm² of surface under 2.5 mm · spans 1.8 × 0.6 × 21.7 mm
+    file: hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.step
+    click: x=32.440 y=27.340 z=42.990
+    click: x=32.440 y=25.430 z=42.990
+
+  [thin] 1.910 mm of material at its thinnest · 41.8 mm² of surface under 2.5 mm · spans 1.8 × 0.6 × 21.1 mm
+    file: hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.step
+    click: x=32.440 y=27.340 z=9.332
+    click: x=32.440 y=25.430 z=9.332
+
+  [thin] 2.000 mm of material at its thinnest · 1208.1 mm² of surface under 2.5 mm · spans 0.0 × 23.7 × 52.5 mm
+    file: hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.step
+    click: x=-36.579 y=4.745 z=50.238
+    click: x=-34.579 y=4.745 z=50.238
+
+  [thin] 2.000 mm of material at its thinnest · 1268.8 mm² of surface under 2.5 mm · spans 0.9 × 24.9 × 52.5 mm
+    file: hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.step
+    click: x=36.579 y=25.299 z=47.708
+    click: x=34.579 y=25.299 z=47.708
+
+  [ledge] 3.10 mm² flat face 0° off facing the bed · 3.1 × 1.0 mm · 29.8 mm up
+    file: hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.step
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=32.513 y=26.096 z=29.750
+    click: x=32.513 y=26.096 z=29.750
+
+  [ledge] 3.10 mm² flat face 0° off facing the bed · 3.1 × 1.0 mm · 29.8 mm up
+    file: hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.step
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=-33.546 y=25.763 z=29.750
+    click: x=-33.546 y=25.763 z=29.750
+
+asse-snap-cap.stl · 516 printed facets · 17 findings
+answers: hardware/printed-parts/lint-answers/enclosure/rear-equipment-caps/asse-snap-cap.lint-answers · read hardware/printed-parts/lint-answers/AGENTS.md before writing one
+
+  [sliver] 0.223 mm strip, 13.2 mm long
+    file: hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step
+    face: plane · n x=-0.507 y=-0.862 z=0.000 · thru x=8.573 y=10.863 z=6.623
+    edge: x=8.573 y=10.863 z=13.247 → x=8.573 y=10.863 z=0.000 · len 13.247 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=8.573 y=10.863 z=6.623
+
+  [thin] 0.719 mm of material at its thinnest · 24.9 mm² of surface under 1.6 mm · spans 2.6 × 1.5 × 4.9 mm
+    file: hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step
+    click: x=-20.416 y=-17.433 z=21.781
+    click: x=-20.416 y=-16.714 z=21.781
+
+  [thin] 0.719 mm of material at its thinnest · 24.9 mm² of surface under 1.6 mm · spans 2.6 × 1.5 × 4.9 mm
+    file: hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step
+    click: x=20.416 y=-17.433 z=19.880
+    click: x=20.416 y=-16.714 z=19.880
+
+  [thin] 1.909 mm of material at its thinnest · 29.7 mm² of surface under 2.5 mm · spans 1.8 × 0.6 × 14.8 mm
+    file: hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step
+    click: x=-21.007 y=-17.624 z=7.159
+    click: x=-21.007 y=-15.714 z=7.159
+
+  [thin] 1.909 mm of material at its thinnest · 29.7 mm² of surface under 2.5 mm · spans 1.8 × 0.6 × 14.8 mm
+    file: hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step
+    click: x=21.007 y=-17.624 z=34.502
+    click: x=21.007 y=-15.714 z=34.502
+
+  [thin] 1.918 mm of material at its thinnest · 30.7 mm² of surface under 2.5 mm · spans 1.8 × 0.6 × 15.3 mm
+    file: hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step
+    click: x=-21.032 y=-17.632 z=40.694
+    click: x=-21.032 y=-15.714 z=40.694
+
+  [thin] 1.918 mm of material at its thinnest · 30.7 mm² of surface under 2.5 mm · spans 1.8 × 0.6 × 15.3 mm
+    file: hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step
+    click: x=21.032 y=-17.632 z=0.967
+    click: x=21.032 y=-15.714 z=0.967
+
+  [thin] 1.988 mm of material at its thinnest · 1021.0 mm² of surface under 2.5 mm · spans 2.5 × 25.2 × 39.4 mm
+    file: hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step
+    click: x=-24.012 y=7.600 z=28.202
+    click: x=-22.655 y=6.147 z=28.202
+
+  [thin] 1.988 mm of material at its thinnest · 1021.0 mm² of surface under 2.5 mm · spans 2.5 × 25.2 × 39.4 mm
+    file: hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step
+    click: x=24.012 y=7.600 z=13.459
+    click: x=22.655 y=6.147 z=13.459
+
+  [ledge] 0.29 mm² flat face 0° off facing the bed · 0.8 × 0.7 mm · 36.6 mm up
+    file: hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=8.199 y=6.813 z=36.647
+    click: x=8.199 y=6.813 z=36.647
+
+  [ledge] 0.39 mm² flat face 0° off facing the bed · 1.0 × 0.8 mm · 36.6 mm up
+    file: hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=-7.916 y=7.036 z=36.647
+    click: x=-7.916 y=7.036 z=36.647
+
+  [ledge] 0.75 mm² flat face 0° off facing the bed · 4.4 × 3.4 mm · 13.2 mm up
+    file: hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=9.519 y=9.196 z=13.247
+    click: x=9.519 y=9.196 z=13.247
+
+  [ledge] 0.96 mm² flat face 0° off facing the bed · 12.6 × 0.8 mm · 13.2 mm up
+    file: hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=-2.912 y=11.087 z=13.247
+    click: x=-2.912 y=11.087 z=13.247
+
+  [ledge] 3.10 mm² flat face 0° off facing the bed · 3.1 × 1.0 mm · 23.3 mm up
+    file: hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=-22.115 y=-16.048 z=23.331
+    click: x=-22.115 y=-16.048 z=23.331
+
+  [ledge] 3.10 mm² flat face 0° off facing the bed · 3.1 × 1.0 mm · 23.3 mm up
+    file: hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=21.081 y=-16.381 z=23.331
+    click: x=21.081 y=-16.381 z=23.331
+
+  [ledge] 8.27 mm² flat face 0° off facing the bed · 4.4 × 3.3 mm · 31.6 mm up
+    file: hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=9.398 y=9.105 z=31.647
+    click: x=9.398 y=9.105 z=31.647
+
+  [ledge] 8.54 mm² flat face 0° off facing the bed · 4.5 × 3.4 mm · 31.6 mm up
+    file: hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=-9.389 y=7.803 z=31.647
+    click: x=-9.389 y=7.803 z=31.647
+
+pisco-snap-cap.stl · 790 printed facets · 10 findings
+answers: hardware/printed-parts/lint-answers/enclosure/rear-equipment-caps/pisco-snap-cap.lint-answers · read hardware/printed-parts/lint-answers/AGENTS.md before writing one
+
+  [thin] 0.725 mm of material at its thinnest · 24.6 mm² of surface under 1.6 mm · spans 2.6 × 1.5 × 4.7 mm
+    file: hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.step
+    click: x=-9.693 y=-13.453 z=7.573
+    click: x=-9.693 y=-12.728 z=7.573
+
+  [thin] 0.725 mm of material at its thinnest · 24.6 mm² of surface under 1.6 mm · spans 2.6 × 1.5 × 4.7 mm
+    file: hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.step
+    click: x=9.693 y=-13.453 z=8.081
+    click: x=9.693 y=-12.728 z=8.081
+
+  [thin] 1.918 mm of material at its thinnest · 4.2 mm² of surface under 2.5 mm · spans 1.4 × 0.5 × 2.2 mm
+    file: hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.step
+    click: x=-10.291 y=-13.646 z=2.023
+    click: x=-10.291 y=-11.728 z=2.023
+
+  [thin] 1.918 mm of material at its thinnest · 4.2 mm² of surface under 2.5 mm · spans 1.4 × 0.5 × 2.2 mm
+    file: hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.step
+    click: x=10.291 y=-13.646 z=13.631
+    click: x=10.291 y=-11.728 z=13.631
+
+  [thin] 2.000 mm of material at its thinnest · 308.5 mm² of surface under 2.5 mm · spans 0.0 × 23.6 × 13.6 mm
+    file: hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.step
+    click: x=-14.406 y=-11.255 z=13.317
+    click: x=-12.406 y=-11.255 z=13.317
+
+  [thin] 2.000 mm of material at its thinnest · 308.5 mm² of surface under 2.5 mm · spans 0.0 × 23.6 × 13.6 mm
+    file: hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.step
+    click: x=14.406 y=8.623 z=14.076
+    click: x=12.406 y=8.623 z=14.076
+
+  [thin] 2.043 mm of material at its thinnest · 4.2 mm² of surface under 2.5 mm · spans 1.4 × 0.5 × 2.1 mm
+    file: hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.step
+    click: x=-10.679 y=-13.771 z=14.179
+    click: x=-10.679 y=-11.728 z=14.179
+
+  [thin] 2.043 mm of material at its thinnest · 4.2 mm² of surface under 2.5 mm · spans 1.4 × 0.5 × 2.1 mm
+    file: hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.step
+    click: x=10.679 y=-13.771 z=1.475
+    click: x=10.679 y=-11.728 z=1.475
+
+  [ledge] 3.10 mm² flat face 0° off facing the bed · 3.1 × 1.0 mm · 10.3 mm up
+    file: hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.step
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=-11.372 y=-12.062 z=10.327
+    click: x=-11.372 y=-12.062 z=10.327
+
+  [ledge] 3.10 mm² flat face 0° off facing the bed · 3.1 × 1.0 mm · 10.3 mm up
+    file: hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.step
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=10.339 y=-12.395 z=10.327
+    click: x=10.339 y=-12.395 z=10.327
+
+meter-snap-cap.stl · 2876 printed facets · 10 findings
+answers: hardware/printed-parts/lint-answers/enclosure/rear-equipment-caps/meter-snap-cap.lint-answers · read hardware/printed-parts/lint-answers/AGENTS.md before writing one
+
+  [thin] 0.718 mm of material at its thinnest · 25.0 mm² of surface under 1.6 mm · spans 1.5 × 2.6 × 5.0 mm
+    file: hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.step
+    click: x=16.043 y=-22.416 z=19.957
+    click: x=15.325 y=-22.416 z=19.957
+
+  [thin] 0.718 mm of material at its thinnest · 25.0 mm² of surface under 1.6 mm · spans 1.5 × 2.6 × 5.0 mm
+    file: hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.step
+    click: x=16.043 y=22.416 z=18.043
+    click: x=15.325 y=22.416 z=18.043
+
+  [thin] 1.909 mm of material at its thinnest · 26.3 mm² of surface under 2.5 mm · spans 0.6 × 1.8 × 12.9 mm
+    file: hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.step
+    click: x=16.234 y=-23.008 z=6.541
+    click: x=14.325 y=-23.008 z=6.541
+
+  [thin] 1.909 mm of material at its thinnest · 26.3 mm² of surface under 2.5 mm · spans 0.6 × 1.8 × 12.9 mm
+    file: hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.step
+    click: x=16.234 y=23.008 z=31.459
+    click: x=14.325 y=23.008 z=31.459
+
+  [thin] 1.911 mm of material at its thinnest · 27.2 mm² of surface under 2.5 mm · spans 0.6 × 1.8 × 13.4 mm
+    file: hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.step
+    click: x=16.236 y=-23.015 z=29.935
+    click: x=14.325 y=-23.015 z=29.935
+
+  [thin] 1.911 mm of material at its thinnest · 27.2 mm² of surface under 2.5 mm · spans 0.6 × 1.8 × 13.4 mm
+    file: hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.step
+    click: x=16.236 y=23.015 z=8.065
+    click: x=14.325 y=23.015 z=8.065
+
+  [thin] 2.000 mm of material at its thinnest · 824.6 mm² of surface under 2.5 mm · spans 23.3 × 0.0 × 36.0 mm
+    file: hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.step
+    click: x=13.946 y=-27.150 z=32.854
+    click: x=13.946 y=-25.150 z=32.854
+
+  [thin] 2.000 mm of material at its thinnest · 824.6 mm² of surface under 2.5 mm · spans 23.3 × 0.0 × 36.0 mm
+    file: hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.step
+    click: x=-6.085 y=27.150 z=34.613
+    click: x=-6.085 y=25.150 z=34.613
+
+  [ledge] 3.10 mm² flat face 0° off facing the bed · 3.1 × 1.0 mm · 21.5 mm up
+    file: hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.step
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=14.658 y=-24.117 z=21.500
+    click: x=14.658 y=-24.117 z=21.500
+
+  [ledge] 3.10 mm² flat face 0° off facing the bed · 3.1 × 1.0 mm · 21.5 mm up
+    file: hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.step
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=14.658 y=24.117 z=21.500
+    click: x=14.658 y=24.117 z=21.500
+
+regulator-snap-cap.stl · 4258 printed facets · 11 findings
+answers: hardware/printed-parts/lint-answers/enclosure/rear-equipment-caps/regulator-snap-cap.lint-answers · read hardware/printed-parts/lint-answers/AGENTS.md before writing one
+
+  [thin] 0.718 mm of material at its thinnest · 24.9 mm² of surface under 1.6 mm · spans 1.5 × 2.6 × 4.9 mm
+    file: hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.step
+    click: x=12.563 y=-16.318 z=18.934
+    click: x=11.846 y=-16.318 z=18.934
+
+  [thin] 0.718 mm of material at its thinnest · 24.9 mm² of surface under 1.6 mm · spans 1.5 × 2.6 × 4.9 mm
+    file: hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.step
+    click: x=12.563 y=16.318 z=17.066
+    click: x=11.846 y=16.318 z=17.066
+
+  [thin] 1.913 mm of material at its thinnest · 24.7 mm² of surface under 2.5 mm · spans 0.6 × 1.8 × 12.0 mm
+    file: hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.step
+    click: x=12.758 y=-16.922 z=13.408
+    click: x=10.846 y=-16.922 z=13.408
+
+  [thin] 1.913 mm of material at its thinnest · 24.7 mm² of surface under 2.5 mm · spans 0.6 × 1.8 × 12.0 mm
+    file: hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.step
+    click: x=12.758 y=16.922 z=22.592
+    click: x=10.846 y=16.922 z=22.592
+
+  [thin] 1.919 mm of material at its thinnest · 24.7 mm² of surface under 2.5 mm · spans 0.6 × 1.8 × 12.0 mm
+    file: hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.step
+    click: x=12.764 y=-16.941 z=28.067
+    click: x=10.846 y=-16.941 z=28.067
+
+  [thin] 1.919 mm of material at its thinnest · 24.7 mm² of surface under 2.5 mm · spans 0.6 × 1.8 × 12.0 mm
+    file: hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.step
+    click: x=12.764 y=16.941 z=7.933
+    click: x=10.846 y=16.941 z=7.933
+
+  [thin] 1.974 mm of material at its thinnest · 52.8 mm² of surface under 2.5 mm · spans 7.5 × 17.0 × 2.4 mm · in 2 pieces
+    file: hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.step
+    click: x=-4.303 y=3.807 z=23.549
+    click: x=-4.243 y=3.781 z=21.576
+
+  [thin] 2.000 mm of material at its thinnest · 740.1 mm² of surface under 2.5 mm · spans 22.3 × 0.0 × 34.0 mm
+    file: hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.step
+    click: x=10.448 y=-21.053 z=30.884
+    click: x=10.448 y=-19.053 z=30.884
+
+  [thin] 2.000 mm of material at its thinnest · 740.1 mm² of surface under 2.5 mm · spans 22.3 × 0.0 × 34.0 mm
+    file: hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.step
+    click: x=-8.553 y=21.053 z=32.631
+    click: x=-8.553 y=19.053 z=32.631
+
+  [ledge] 3.10 mm² flat face 0° off facing the bed · 3.1 × 1.0 mm · 20.5 mm up
+    file: hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.step
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=11.179 y=-18.020 z=20.500
+    click: x=11.179 y=-18.020 z=20.500
+
+  [ledge] 3.10 mm² flat face 0° off facing the bed · 3.1 × 1.0 mm · 20.5 mm up
+    file: hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.step
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=11.179 y=18.020 z=20.500
+    click: x=11.179 y=18.020 z=20.500

@@ -1,0 +1,427 @@
+{
+  "reference": {
+    "physical_result": "Intermediate leaves, blended roots and shaped bearing stock; physical fit pending.",
+    "leaf_mm": 2.0,
+    "flat_overlap_mm": 2.6,
+    "hook_mm": 2.6,
+    "default_leaf_length_mm": 22.25,
+    "regulator_leaf_length_mm": 21.25,
+    "root_radius_mm": 1.5,
+    "centered_pry_slot_mm": [
+      5.0,
+      1.0
+    ],
+    "catch_gap_mm": 0.4,
+    "hook_nose_land_mm": 1.6
+  },
+  "scope": "Full object-fit trial seats and caps. Physical retention, insertion force, fatigue and pump vibration remain to be tested.",
+  "families": {
+    "pump": {
+      "station": {
+        "axis_x": -15.181429835394722,
+        "y0": 388.0680504420662,
+        "y1": 442.5680504420662,
+        "split": 0.0,
+        "neck": 31.229180708991777,
+        "ledge": 34.07918070899178,
+        "inner": 34.57918070899178,
+        "outer": 36.57918070899178,
+        "hook": 31.479180708991777,
+        "bearing": 21.85,
+        "catch": 22.25,
+        "tip": 24.85,
+        "ceiling": 25.35,
+        "root": 0.0,
+        "nose_land": 1.6,
+        "root_radius": 1.5,
+        "pry_width": 5.0,
+        "pry_height": 1.0
+      },
+      "seated_intersection_mm3": 0.0,
+      "removal_direction": [
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "pullout_travel_mm": 0.5,
+      "blocked_pullout_intersection_mm3": 25.74000000000586,
+      "effective_horizontal_bearing_mm2": 257.4000000000586,
+      "physical_result": "Awaiting this fit trial.",
+      "installed_hardware_overlap": {
+        "g-ganen-pump": {
+          "receiver_mm3": 0.0,
+          "cap_mm3": 0.0
+        }
+      }
+    },
+    "asse": {
+      "station": null,
+      "seated_intersection_mm3": 0.0,
+      "removal_direction": [
+        -0.0,
+        -0.0,
+        -1.0
+      ],
+      "pullout_travel_mm": 0.5,
+      "blocked_pullout_intersection_mm3": 19.06373993311824,
+      "effective_horizontal_bearing_mm2": 190.63739933118237,
+      "physical_result": "Awaiting this fit trial.",
+      "installed_hardware_overlap": {
+        "bulkhead-water": {
+          "receiver_mm3": 0.0,
+          "cap_mm3": 0.0
+        },
+        "gagira-coupling": {
+          "receiver_mm3": 0.0,
+          "cap_mm3": 0.0
+        },
+        "asse1022-assembly": {
+          "receiver_mm3": 0.0,
+          "cap_mm3": 0.0
+        },
+        "jg-pi4512f6s": {
+          "receiver_mm3": 0.0,
+          "cap_mm3": 0.0
+        },
+        "jg-pp061208w": {
+          "receiver_mm3": 0.0,
+          "cap_mm3": 0.0
+        }
+      }
+    },
+    "pisco": {
+      "station": null,
+      "seated_intersection_mm3": 0.0,
+      "removal_direction": [
+        -0.0,
+        -0.0,
+        -1.0
+      ],
+      "pullout_travel_mm": 0.5,
+      "blocked_pullout_intersection_mm3": 5.4102270547530615,
+      "effective_horizontal_bearing_mm2": 54.102270547530615,
+      "physical_result": "Awaiting this fit trial.",
+      "installed_hardware_overlap": {
+        "gas-regulator": {
+          "receiver_mm3": 0.0,
+          "cap_mm3": 0.0
+        },
+        "co2-inlet": {
+          "receiver_mm3": 0.0,
+          "cap_mm3": 0.0
+        },
+        "gas-check": {
+          "receiver_mm3": 0.0,
+          "cap_mm3": 0.0
+        }
+      }
+    },
+    "regulator": {
+      "station": {
+        "axis_x": 307.6568368739953,
+        "y0": 19.323910303880005,
+        "y1": 55.32391030388001,
+        "split": 335.0,
+        "neck": 15.70320315899729,
+        "ledge": 18.55320315899729,
+        "inner": 19.05320315899729,
+        "outer": 21.05320315899729,
+        "hook": 15.953203158997292,
+        "bearing": 339.81514607709613,
+        "catch": 340.2151460770961,
+        "tip": 342.81514607709613,
+        "ceiling": 343.31514607709613,
+        "root": 318.9651460770961,
+        "nose_land": 1.6,
+        "root_radius": 1.5
+      },
+      "seated_intersection_mm3": 0.0,
+      "removal_direction": [
+        -0.0,
+        -0.0,
+        -1.0
+      ],
+      "pullout_travel_mm": 0.5,
+      "blocked_pullout_intersection_mm3": 16.120000000003824,
+      "effective_horizontal_bearing_mm2": 161.20000000003822,
+      "physical_result": "Awaiting this fit trial.",
+      "installed_hardware_overlap": {
+        "flow-regulator": {
+          "receiver_mm3": 0.0,
+          "cap_mm3": 0.0
+        }
+      }
+    },
+    "meter": {
+      "station": null,
+      "seated_intersection_mm3": 0.0,
+      "removal_direction": [
+        -1.0,
+        -0.0,
+        -0.0
+      ],
+      "pullout_travel_mm": 0.5,
+      "blocked_pullout_intersection_mm3": 17.160000000000373,
+      "effective_horizontal_bearing_mm2": 171.60000000000372,
+      "physical_result": "Awaiting this fit trial.",
+      "installed_hardware_overlap": {
+        "digiten-flow": {
+          "receiver_mm3": 0.0,
+          "cap_mm3": 0.0
+        }
+      },
+      "forward_insertion_overlap_mm3": {
+        "0.0": 0.0,
+        "4.0": 0.0,
+        "8.0": 0.0,
+        "12.0": 0.0,
+        "16.0": 0.0
+      }
+    }
+  },
+  "parts": [
+    {
+      "name": "pump-seat",
+      "stl": "hardware/print-tests/rear-snap-retention/v3/parts/pump-seat.stl",
+      "step": "hardware/print-tests/rear-snap-retention/v3/parts/pump-seat.step",
+      "stl_sha256": "95faacd41a214360fdad5f5cf6ed671d8ea8782f3e58eb413fb33fd4eb882e12",
+      "bounds_mm": [
+        [
+          -39.57918167114258,
+          -47.70000076293945,
+          0.0
+        ],
+        [
+          39.57918167114258,
+          47.70000076293945,
+          36.02934646606445
+        ]
+      ],
+      "volume_mm3": 87583.00413070788,
+      "valid": true,
+      "solids": 1,
+      "watertight": true,
+      "print_orientation": "Production lid orientation, flat 7.4 mm root plate down."
+    },
+    {
+      "name": "pump-cap",
+      "stl": "hardware/print-tests/rear-snap-retention/v3/parts/pump-cap.stl",
+      "step": "hardware/print-tests/rear-snap-retention/v3/parts/pump-cap.step",
+      "stl_sha256": "3ed80fb158d15cc2d3f78d75e83940c7c31dbc7fe104fa515d428dfee01c1d83",
+      "bounds_mm": [
+        [
+          -36.57918167114258,
+          -28.029752731323242,
+          6.821210263296962e-12
+        ],
+        [
+          36.57918167114258,
+          28.029752731323242,
+          54.5
+        ]
+      ],
+      "volume_mm3": 62782.32633371863,
+      "valid": true,
+      "solids": 1,
+      "watertight": true,
+      "print_orientation": "Production pump cap orientation, axial end down."
+    },
+    {
+      "name": "asse-seat",
+      "stl": "hardware/print-tests/rear-snap-retention/v3/parts/asse-seat.stl",
+      "step": "hardware/print-tests/rear-snap-retention/v3/parts/asse-seat.step",
+      "stl_sha256": "f883256ff0d077bf9bee79552002a34b6ac1f38438d09093479247f04bb1e5ff",
+      "bounds_mm": [
+        [
+          -25.14813995361328,
+          -36.29837417602539,
+          0.0
+        ],
+        [
+          25.14813995361328,
+          36.29837417602539,
+          21.25
+        ]
+      ],
+      "volume_mm3": 52085.014793865404,
+      "valid": true,
+      "solids": 1,
+      "watertight": true,
+      "print_orientation": "Production back-top orientation, appliance -Z is print +Z; integral roof/side-wall root retained."
+    },
+    {
+      "name": "asse-cap",
+      "stl": "hardware/print-tests/rear-snap-retention/v3/parts/asse-cap.stl",
+      "step": "hardware/print-tests/rear-snap-retention/v3/parts/asse-cap.step",
+      "stl_sha256": "0ff28366e65edebfcb2eb50d26d9617a541bb092208e7b2afbe6c034c6a39f3a",
+      "bounds_mm": [
+        [
+          -25.14813995361328,
+          -18.314464569091797,
+          -1.621929074709517e-15
+        ],
+        [
+          25.14813995361328,
+          18.314464569091797,
+          41.66103744506836
+        ]
+      ],
+      "volume_mm3": 16854.196112883776,
+      "valid": true,
+      "solids": 1,
+      "watertight": true,
+      "print_orientation": "Production end-down cap orientation; spring bending stays in the layer plane."
+    },
+    {
+      "name": "pisco-seat",
+      "stl": "hardware/print-tests/rear-snap-retention/v3/parts/pisco-seat.stl",
+      "step": "hardware/print-tests/rear-snap-retention/v3/parts/pisco-seat.step",
+      "stl_sha256": "a690f17045d59b1f4edbb181bbfc4bc4db62c4fa674027e01e75310942ad0b59",
+      "bounds_mm": [
+        [
+          -14.40561580657959,
+          -24.352142333984375,
+          0.0
+        ],
+        [
+          14.40561580657959,
+          24.352142333984375,
+          14.5
+        ]
+      ],
+      "volume_mm3": 16608.26927597558,
+      "valid": true,
+      "solids": 1,
+      "watertight": true,
+      "print_orientation": "Production back-top orientation, appliance -Z is print +Z; integral roof/side-wall root retained."
+    },
+    {
+      "name": "pisco-cap",
+      "stl": "hardware/print-tests/rear-snap-retention/v3/parts/pisco-cap.stl",
+      "step": "hardware/print-tests/rear-snap-retention/v3/parts/pisco-cap.step",
+      "stl_sha256": "8fb47423ba9465ce7c90ba26da7c153cf98b32e12837f67a994ef1076fb67d68",
+      "bounds_mm": [
+        [
+          -14.40561580657959,
+          -14.328450202941895,
+          -9.881550948930896e-16
+        ],
+        [
+          14.40561580657959,
+          14.328450202941895,
+          15.654282569885254
+        ]
+      ],
+      "volume_mm3": 4150.78778051424,
+      "valid": true,
+      "solids": 1,
+      "watertight": true,
+      "print_orientation": "Production end-down cap orientation; spring bending stays in the layer plane."
+    },
+    {
+      "name": "regulator-seat",
+      "stl": "hardware/print-tests/rear-snap-retention/v3/parts/regulator-seat.stl",
+      "step": "hardware/print-tests/rear-snap-retention/v3/parts/regulator-seat.step",
+      "stl_sha256": "b85024accbc97bb709185e41336b32410b8c43cd6f2b3f3c6d2e6df1d459f9ad",
+      "bounds_mm": [
+        [
+          -28.475000381469727,
+          -21.053203582763672,
+          0.0
+        ],
+        [
+          28.475000381469727,
+          21.053203582763672,
+          14.5
+        ]
+      ],
+      "volume_mm3": 23321.42472620915,
+      "valid": true,
+      "solids": 1,
+      "watertight": true,
+      "print_orientation": "Production back-top orientation, appliance -Z is print +Z; integral roof/side-wall root retained."
+    },
+    {
+      "name": "regulator-cap",
+      "stl": "hardware/print-tests/rear-snap-retention/v3/parts/regulator-cap.stl",
+      "step": "hardware/print-tests/rear-snap-retention/v3/parts/regulator-cap.step",
+      "stl_sha256": "580767579da95e50a4f85c424c493b351497fcca35c3f1b48a8bac9fb4f6849a",
+      "bounds_mm": [
+        [
+          -13.445504188537598,
+          -21.053203582763672,
+          1.000001930151484e-07
+        ],
+        [
+          13.445504188537598,
+          21.053203582763672,
+          36.0
+        ]
+      ],
+      "volume_mm3": 16574.204696948753,
+      "valid": true,
+      "solids": 1,
+      "watertight": true,
+      "print_orientation": "Production end-down cap orientation; spring bending stays in the layer plane."
+    },
+    {
+      "name": "meter-seat",
+      "stl": "hardware/print-tests/rear-snap-retention/v3/parts/meter-seat.stl",
+      "step": "hardware/print-tests/rear-snap-retention/v3/parts/meter-seat.step",
+      "stl_sha256": "4bd434a21037376bf099da1686bbad12515b1cf549720a9c7236c92d9c4aa3d4",
+      "bounds_mm": [
+        [
+          -9.225000381469727,
+          -30.0,
+          0.0
+        ],
+        [
+          9.225000381469727,
+          30.0,
+          54.29999923706055
+        ]
+      ],
+      "volume_mm3": 33862.255790499956,
+      "valid": true,
+      "solids": 1,
+      "watertight": true,
+      "print_orientation": "Production back-top orientation, appliance -Z is print +Z; integral roof/side-wall root retained."
+    },
+    {
+      "name": "meter-cap",
+      "stl": "hardware/print-tests/rear-snap-retention/v3/parts/meter-cap.stl",
+      "step": "hardware/print-tests/rear-snap-retention/v3/parts/meter-cap.step",
+      "stl_sha256": "df1bf9de41cdb74ea8117ea97bfbe8a7486a315aee36a58c29a6964d089eb96f",
+      "bounds_mm": [
+        [
+          -16.924999237060547,
+          -27.149999618530273,
+          9.999996564147295e-08
+        ],
+        [
+          16.924999237060547,
+          27.149999618530273,
+          38.0
+        ]
+      ],
+      "volume_mm3": 27008.62238080009,
+      "valid": true,
+      "solids": 1,
+      "watertight": true,
+      "print_orientation": "Production end-down cap orientation; spring bending stays in the layer plane."
+    }
+  ],
+  "pump_rail": {
+    "front_projection_beyond_rear_mm": 1.0,
+    "front_to_lid_air_mm": 0.2585453565434932,
+    "pump_origin_z_mm": 247.9479625149461
+  },
+  "input_sha256": {
+    "hardware/manifold-layout/rear_snaps.py": "1177b591f6cdc74f1e5ba68f4f800b46c35de723d70b7cefe8b50a7ae1a3b907",
+    "hardware/manifold-layout/rear_plumbing.py": "b4a00edd8a642e2796d04505652ec1296ef6d7865ae477a3c1de3fe7f24c7f0b",
+    "hardware/manifold-layout/above-core.json": "a9377dbf138f2d2de1a2816d1158eadca88f32f405066df5a887611511251df0",
+    "hardware/printed-parts/cold-core/_above_core_mounts.py": "1e4db81fbbbf48ac60365de03e037a79ec0941f61037e7187cd7307b5925d8eb",
+    "hardware/reference/g-ganen-pump/reference-parameters.json": "3b91bd7ff1216bc5dc8b9806d53f4f2f7bd038323b201c6d6cc6e029e42fc591"
+  },
+  "elapsed_seconds": 24.4488199170155
+}

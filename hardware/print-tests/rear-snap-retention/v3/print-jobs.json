@@ -1,0 +1,66 @@
+{
+  "jobs": [
+    {
+      "plate": "rear-retention-mark1",
+      "printer": "Mark1",
+      "connection_key": "H2C",
+      "preparation": "hardware/print-tests/rear-snap-retention/v3/prints/2026-11-02-rear-retention-mark1-mark1-b1edfdf2",
+      "archive": "hardware/print-tests/rear-snap-retention/v3/prints/2026-11-02-rear-retention-mark1-mark1-b1edfdf2/2026-11-02-rear-retention-mark1-mark1-b1edfdf2.gcode.3mf",
+      "print_only_archive": "hardware/print-tests/rear-snap-retention/v3/prints/2026-11-02-rear-retention-mark1-mark1-b1edfdf2/2026-11-02-rear-retention-mark1-mark1-b1edfdf2-print-only.gcode.3mf",
+      "gcode_sha256": "8e7d4ba57859eb82004f9ed1599fbc96ef5637c8beeb6e35778c47819ce7eba6",
+      "estimated_seconds": 11648.7841796875,
+      "filament_g": 112.6,
+      "minimum_bed_margin_mm": 86.546468,
+      "requested_z_trim_mm": 0.18,
+      "emitted_trim_mm": 0.16,
+      "native_review_pass": true,
+      "submitted": false
+    },
+    {
+      "plate": "rear-retention-mark2",
+      "printer": "Mark2",
+      "connection_key": "Mark2",
+      "preparation": "hardware/print-tests/rear-snap-retention/v3/prints/2026-11-02-rear-retention-mark2-mark2-ed53982c",
+      "archive": "hardware/print-tests/rear-snap-retention/v3/prints/2026-11-02-rear-retention-mark2-mark2-ed53982c/2026-11-02-rear-retention-mark2-mark2-ed53982c.gcode.3mf",
+      "print_only_archive": "hardware/print-tests/rear-snap-retention/v3/prints/2026-11-02-rear-retention-mark2-mark2-ed53982c/2026-11-02-rear-retention-mark2-mark2-ed53982c-print-only.gcode.3mf",
+      "gcode_sha256": "a1284dbb7bf08a08940783feaeee64059cbcedb22a454c20eda9accad3391119",
+      "estimated_seconds": 15752.03125,
+      "filament_g": 173.12,
+      "minimum_bed_margin_mm": 96.222467,
+      "requested_z_trim_mm": 0.04,
+      "emitted_trim_mm": 0.02,
+      "native_review_pass": true,
+      "submitted": false
+    }
+  ],
+  "submission_status": {
+    "new_job_accepted": false,
+    "send_pressed": false,
+    "connect_result": "File selection closes but the application remains on Import file with no imported plate. Native and print-only archives, a short path, a restart and Finder Open With were tried.",
+    "studio_result": "The print-only archive opens in Preview with Print plate enabled and the expected native estimate. The printer/mapping dialog did not yield a usable selection and the app then stopped responding to native events. No Send action was performed.",
+    "printer_readback": [
+      {
+        "printer": "Mark2",
+        "observed_at": "2026-11-02T08:59:05.861871+00:00",
+        "task_id": "1398871736",
+        "subtask_id": "1398871736",
+        "gcode_state": "FINISH",
+        "subtask_name": "2026-11-01-rear-retention-mark2-mark2-50e676ad-print-only.gcode.3mf",
+        "mc_percent": 100,
+        "print_error": 0,
+        "hms": []
+      },
+      {
+        "printer": "H2C",
+        "observed_at": "2026-11-02T08:59:06.653291+00:00",
+        "task_id": "1398879198",
+        "subtask_id": "1398879198",
+        "gcode_state": "FINISH",
+        "subtask_name": "2026-11-01-rear-retention-mark1-mark1-594172c0-print-only.gcode.3mf",
+        "mc_percent": 100,
+        "print_error": 0,
+        "hms": []
+      }
+    ]
+  }
+}

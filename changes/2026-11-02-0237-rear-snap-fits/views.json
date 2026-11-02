@@ -1,0 +1,282 @@
+{
+  "views": [
+    {
+      "name": "pump-roots",
+      "caption": "2.0 mm spring walls have rounded roots and centered screwdriver access.",
+      "before": "pump-roots-before.webp",
+      "after": "pump-roots-after.webp",
+      "width": 736,
+      "height": 520,
+      "marks": [
+        {
+          "x": 107.8,
+          "y": 466.6,
+          "r": 19.7,
+          "label": "Centered pry entry",
+          "at": [
+            -48.21,
+            415.31805,
+            258.7793579
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "orthographic",
+        "position": [
+          -15.18143,
+          253.27516275918327,
+          285
+        ],
+        "target": [
+          -15.18143,
+          415.31805,
+          285
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "half": 33,
+        "near": 94.52504358358792,
+        "far": 270.0715047611394,
+        "aspect": 1.4153846153846157,
+        "section": {
+          "at": [
+            -15.18143,
+            415.31805,
+            285
+          ],
+          "normal": [
+            0,
+            -1,
+            0
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [
+        "cold-core/pump-snap-cap"
+      ],
+      "ghost": [],
+      "only": [
+        "cold-core/pump-snap-cap"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "3ab60fa98d64305694e6678f5645f3aa064de1e63bead926448e995ed82d3e34",
+          "commit": "e333cce06bd5d16238f709a82aeba1e730302fce",
+          "taken": "2026-11-02T07:24:08.068Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "32e8fa8fb4e1e6eba6e6f05cb4075ea7482022b0b3b7c0ecd41304163ed5d274",
+          "commit": "e1c24d40a328472ce80e2b752e46fa68226b0d2a",
+          "published": true
+        }
+      },
+      "changed": [
+        "regulator-snap-cap",
+        "pisco-snap-cap",
+        "cold-core/foam-cap-lid-top",
+        "meter-snap-cap",
+        "enclosure-back-top",
+        "cold-core/pump-snap-cap",
+        "asse-snap-cap"
+      ],
+      "withinMeshing": []
+    },
+    {
+      "name": "pisco-neck",
+      "caption": "The central cap stock follows the body and rises around the exposed outlet neck.",
+      "before": "pisco-neck-before.webp",
+      "after": "pisco-neck-after.webp",
+      "width": 736,
+      "height": 520,
+      "marks": [
+        {
+          "x": 353.6,
+          "y": 365.4,
+          "r": 33.2,
+          "label": "Neck lip",
+          "at": [
+            76.5,
+            422,
+            321.7059021
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "orthographic",
+        "position": [
+          187.90952666588615,
+          423,
+          329
+        ],
+        "target": [
+          76.5,
+          423,
+          329
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "half": 18,
+        "near": 67.82548072032696,
+        "far": 188.51913460837028,
+        "aspect": 1.4153846153846157,
+        "section": {
+          "at": [
+            76.5,
+            423,
+            329
+          ],
+          "normal": [
+            1,
+            0,
+            0
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [
+        "pisco-snap-cap"
+      ],
+      "ghost": [],
+      "only": [
+        "pisco-snap-cap",
+        "gas-regulator"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "3ab60fa98d64305694e6678f5645f3aa064de1e63bead926448e995ed82d3e34",
+          "commit": "e333cce06bd5d16238f709a82aeba1e730302fce",
+          "taken": "2026-11-02T07:24:08.068Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "32e8fa8fb4e1e6eba6e6f05cb4075ea7482022b0b3b7c0ecd41304163ed5d274",
+          "commit": "e1c24d40a328472ce80e2b752e46fa68226b0d2a",
+          "published": true
+        }
+      },
+      "changed": [
+        "regulator-snap-cap",
+        "pisco-snap-cap",
+        "cold-core/foam-cap-lid-top",
+        "meter-snap-cap",
+        "enclosure-back-top",
+        "cold-core/pump-snap-cap",
+        "asse-snap-cap"
+      ],
+      "withinMeshing": []
+    },
+    {
+      "name": "regulator-bearing",
+      "caption": "The cap follows the measured water-regulator body and outlet shoulder.",
+      "before": "regulator-bearing-before.webp",
+      "after": "regulator-bearing-after.webp",
+      "width": 736,
+      "height": 520,
+      "marks": [
+        {
+          "x": 298,
+          "y": 315.5,
+          "r": 45.9,
+          "label": "Shaped bearing",
+          "at": [
+            -41.9,
+            307.6568,
+            325.3684158
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "orthographic",
+        "position": [
+          -37.32391,
+          178.51105715081232,
+          329
+        ],
+        "target": [
+          -37.32391,
+          307.65684,
+          329
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "half": 17,
+        "near": 75.85390649790833,
+        "far": 215.76183791786167,
+        "aspect": 1.4153846153846157,
+        "section": {
+          "at": [
+            -37.32391,
+            307.65684,
+            329
+          ],
+          "normal": [
+            0,
+            -1,
+            0
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [
+        "regulator-snap-cap"
+      ],
+      "ghost": [],
+      "only": [
+        "regulator-snap-cap",
+        "flow-regulator"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "3ab60fa98d64305694e6678f5645f3aa064de1e63bead926448e995ed82d3e34",
+          "commit": "e333cce06bd5d16238f709a82aeba1e730302fce",
+          "taken": "2026-11-02T07:24:08.068Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "32e8fa8fb4e1e6eba6e6f05cb4075ea7482022b0b3b7c0ecd41304163ed5d274",
+          "commit": "e1c24d40a328472ce80e2b752e46fa68226b0d2a",
+          "published": true
+        }
+      },
+      "changed": [
+        "regulator-snap-cap",
+        "pisco-snap-cap",
+        "cold-core/foam-cap-lid-top",
+        "meter-snap-cap",
+        "enclosure-back-top",
+        "cold-core/pump-snap-cap",
+        "asse-snap-cap"
+      ],
+      "withinMeshing": []
+    }
+  ]
+}

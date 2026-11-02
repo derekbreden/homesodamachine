@@ -1,5 +1,17 @@
 # Reinforced rear equipment fit samples
 
+The [physical result](physical-result/physical-result.json) records
+loose PISCO hardware with no useful retention, large water-regulator play,
+and good ASSE, pump and meter receiver fits. Meter and water-regulator caps
+need broader shaped contact stock.
+The 2.6 mm leaves concentrate visible bending at their roots; an intermediate
+section and the root transition are under review. The PISCO
+[print-mesh reading](physical-result/pisco-reading.json) finds that the
+central bridge lies below the entire admitted neck circle, leaving the
+intended neck lip absent. At native station 58.5 mm it leaves 5.044 mm of
+vertical air to the reference neck. These records describe the tested
+revision below.
+
 Five complete receiver/cap pairs fit the pump, ASSE chain, PISCO regulator,
 water regulator and Digiten flow meter. The [physical report](../physical-result/physical-result.json)
 records the rejected first trial. Each cap is a single piece with 2.6 mm

@@ -132,8 +132,11 @@ def datums():
             west_edge, east_edge = edges[0][0]-3., edges[-1][1]+3.
             row['stock_bounds_mm'] = [[west_edge,y-half,spec['root_z_mm']],
                                       [east_edge,y+half,max(tops)]]
-            row['seat_roof_xz_mm'] = [(west_edge,tops[0]),(edges[0][1],tops[0]),
-                                      (edges[-1][0],tops[-1]),(east_edge,tops[-1])]
+            # Cross both curved clearance bores with a broad roof transition.
+            # Ending the ramp at their swept extremes leaves vanishing tips.
+            reach = spec['seat_floor_stock_mm']
+            row['seat_roof_xz_mm'] = [(west_edge,tops[0]),(edges[0][1]-reach,tops[0]),
+                                      (edges[-1][0]+reach,tops[-1]),(east_edge,tops[-1])]
             row['tie_slot_bounds_mm'][0][0] = west_edge
             row['tie_slot_bounds_mm'][1][0] = east_edge
             for mouth, xa, xb in zip(row['access_bounds_mm'],

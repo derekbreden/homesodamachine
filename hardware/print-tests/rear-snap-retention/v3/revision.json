@@ -1,0 +1,92 @@
+{
+  "scope": "Intermediate spring section and root transition, centered tool release, shaped hardware bearing and measured water-regulator shoulder. Physical force, retention, fatigue and pump vibration await this trial.",
+  "wing_thickness_mm": 2.0,
+  "root_radius_mm": 1.5,
+  "default_root_to_catch_mm": 22.25,
+  "water_regulator_root_to_catch_mm": 21.25,
+  "default_straight_leaf_above_blend_mm": 20.75,
+  "water_regulator_straight_leaf_above_blend_mm": 19.75,
+  "centered_pry_entry": {
+    "width_mm": 5.0,
+    "height_mm": 1.0,
+    "position": "Centered along each hook. The flat 2.6 mm overlap continues on either side; the spring wall remains continuous.",
+    "blade": "Flathead blade no wider than 5 mm and no thicker than 1 mm."
+  },
+  "insertion_ramp": {
+    "height_mm": 1.0,
+    "inner_solid_nose_mm": 1.6,
+    "flat_retention_overlap_mm": 2.6,
+    "catch_air_mm": 0.4,
+    "solid_nose_above_pry_entry_mm": 0.6
+  },
+  "pisco": {
+    "receiver_radial_air_mm": 0.5,
+    "cap_radial_air_mm": 0.4,
+    "neck_scope": "Exposed outlet neck before the release collet.",
+    "body_stock": "Broad central bearing between independent spring leaves.",
+    "neck_lip": "Raised central lip around the short exposed neck.",
+    "physical_diagnosis": {
+      "record": "../v2/physical-result/pisco-reading.json",
+      "tested_native_neck_station_mm": 58.5,
+      "vertical_reference_gap_mm": 5.044,
+      "finding": "The tested bridge was below the complete admitted neck circle, so its nominal neck lip did not exist."
+    }
+  },
+  "meter": {
+    "receiver_hardware_air_mm": 0.75,
+    "cap_hardware_air_mm": 0.25,
+    "solid_spine_mm": 9.0,
+    "central_bearing_depth_mm": 4.0,
+    "leaf_span_mm": 38.0,
+    "lead_route": "Retain the accepted receiver and westward lead room above the lower leaf."
+  },
+  "water_regulator": {
+    "receiver_radial_air_mm": 0.3,
+    "cap_radial_air_mm": 0.25,
+    "axial_air_mm": 0.25,
+    "profile_reduction_max_radial_enlargement_mm": 0.06,
+    "cap_span_mm": 36.0,
+    "lowest_world_z_mm": 315.92413759637935,
+    "native_profile": "hardware/reference/yzmsz-water-regulator/reference-parameters.json",
+    "scan_check": "hardware/reference/yzmsz-water-regulator/scan-model-check.json",
+    "scan_check_sha256": "fca2d90b95b168f34e372f18815fadc683544e4456d7c6f7afb50a8bd3ff780b",
+    "physical_diagnosis": {
+      "tested_revision": "a0158112b",
+      "hardware_axis_world_z_mm": 331.97514607709616,
+      "tested_bridge_world_z_mm": 318.9651460770961,
+      "tested_bridge_scallop_mm": 0.041,
+      "native_body_to_neck_shoulder_mm": 48.825,
+      "tested_large_seat_radius_end_mm": 50.6,
+      "native_station_mm": 50.0,
+      "native_radius_mm": 6.35,
+      "tested_cavity_radius_mm": 13.058,
+      "finding": "The broad stepped receiver envelope extends past the true body shoulder and the low cap bridge misses the hardware. The scan scale is retained; the cavity uses the measured linear profile in its actual installed frame."
+    },
+    "central_bearing_outlet_setback_mm": 1.0
+  },
+  "pump": {
+    "body_crown_mm": 6.2,
+    "hardware_cavity": "Retain the accepted box half-pipe and continuous fixed rail seats.",
+    "base_fracture_observation": "Recorded only; no geometry change is based on the fracture photo."
+  },
+  "asse": {
+    "hardware_cavity": "Retain the accepted threaded hardware fit."
+  },
+  "print_orientation": "All five caps stand on an axial end; wing bending lies in the layer plane. Receivers retain parent production orientation.",
+  "post_processing": "Retain accessible automatic cavity supports. Remove them with a tiny flathead screwdriver that fits inside the cavity; preserve the hook bearings.",
+  "trial_source_sha256": {
+    "hardware/manifold-layout/rear_snaps.py": "1177b591f6cdc74f1e5ba68f4f800b46c35de723d70b7cefe8b50a7ae1a3b907",
+    "hardware/manifold-layout/rear_plumbing.py": "b4a00edd8a642e2796d04505652ec1296ef6d7865ae477a3c1de3fe7f24c7f0b",
+    "hardware/manifold-layout/above-core.json": "a9377dbf138f2d2de1a2816d1158eadca88f32f405066df5a887611511251df0",
+    "hardware/printed-parts/cold-core/_above_core_mounts.py": "1e4db81fbbbf48ac60365de03e037a79ec0941f61037e7187cd7307b5925d8eb",
+    "hardware/reference/g-ganen-pump/reference-parameters.json": "3b91bd7ff1216bc5dc8b9806d53f4f2f7bd038323b201c6d6cc6e029e42fc591",
+    "hardware/reference/yzmsz-water-regulator/reference-parameters.json": "078df0097af8af534ce1b0701e27d9ea7e109f75af1bcb8a6d5517fe5c810816",
+    "hardware/reference/compact-inline-candidates/dimensions.json": "d7df0bb6120d808979aaa5594bacd28925cbd194b775fc94199550aabe2dc161"
+  },
+  "review_files": [
+    "geometry.json",
+    "native-review.json",
+    "production-comparison.json",
+    "print-jobs.json"
+  ]
+}

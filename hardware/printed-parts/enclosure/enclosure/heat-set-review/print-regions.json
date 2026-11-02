@@ -189,7 +189,7 @@
     "hardware/manifold-layout/enclosure-box.json": "030ef2fe087dbafc5a55f68f12a03421321604b4054a651cf5c850d1695ae307",
     "hardware/printed-parts/enclosure/enclosure/_above_core_shell.py": "447fb6dfeea463868ffc9490b518cc9242025014ed677676dd5ddf285fbe2a73",
     "hardware/manifold-layout/above_core.py": "4ae1006309cfc55676c11ac286d0506a77d8fecd1b107818b2d6a665b787654e",
-    "hardware/manifold-layout/above-core.json": "1afefa80c54de76c563c8e144dd1653416e07ca71000a9d059f1b4938af5999f",
+    "hardware/manifold-layout/above-core.json": "a9377dbf138f2d2de1a2816d1158eadca88f32f405066df5a887611511251df0",
     "hardware/reference/meanwell-irm90/meanwell_irm90.py": "8db724ca45d590af40a82f9f505a2aaedf9f7381f930deb54fda3cc637b771d5",
     "hardware/reference/teyleten-relay/teyleten_relay.py": "964bff50807efc1e21d463feff04930ddce31c31cb0face2c039aeb6b232ea5a",
     "hardware/printed-parts/zone-c/funnel/funnel_frame.py": "3c557b29777534fa6634b9b766df6b4f6416cadc490a603e964daeeebe878d68",
@@ -212,8 +212,8 @@
       ".stl": "c9fa5fb8726465cd7cae16075fc3ece8f8ada0c045defb4822a197b637b6c5c2"
     },
     "back-top": {
-      ".step": "4d490ce9c41e0ee2d93c9633d05d37a7acebbb9949a7a947407753ef749fcc03",
-      ".stl": "ba82248ab1025a8f9936917beb3e7baae3bec01b82fa1cad31ac040cb303f3fe"
+      ".step": "0102c575c2e2d0db921d911036f1422638709c0895dd257ccfd18d65da4479d0",
+      ".stl": "f7055fb29a45aaa7cfab18379b4987424554a3aa09335d614995cc7e1cf6271b"
     },
     "pump-retainer": {
       ".step": "44feb1792f4aaeb46cbe0f136d5274ac98776ecee5a93cc4412acb47f6957de2",

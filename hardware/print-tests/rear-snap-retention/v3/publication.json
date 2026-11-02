@@ -1,0 +1,134 @@
+{
+  "source_commit": "67944ae3226017dc1e89af51cef1dec7d3d9e471",
+  "scope": "Revised rear snap receivers, equipment lid and five caps in the retained production Box; every unrelated pointer row is preserved. Physical force and release qualification remain pending.",
+  "members": {
+    "hardware/manifold-layout/enclosure-assembly.step": "74433998a379516e4d3e1990d88ee1ed652d77e89ff42c8d22f08b01b294c51f",
+    "hardware/manifold-layout/enclosure-assembly.step.mesh": "32e8fa8fb4e1e6eba6e6f05cb4075ea7482022b0b3b7c0ecd41304163ed5d274",
+    "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step": "57e4c0cf07c2374198b754eddf58f299df2df5a17f7151013f51ff03bbe21e44",
+    "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step.mesh": "fc196663f0b4221186bb8cf1d4fd1da8f9f0912588d5d507692280b8615e14ff",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step": "c6698a5cf8634643b12dc51a9a1c49f874e8428fd206ec5b7657b7878c488443",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh": "c21d8e673aa78453b9668b9742c1a44f9c5225630258d0154fc91ec46e687b04",
+    "hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.step": "e218ab7622d05f35092c7f42efb173d50b62edc8860e0125aaeab632b1262d77",
+    "hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.step.mesh": "9da5eb29814ce2c7e098ee159bae61414bcc2eaae433706b1b89323eb78c9fba",
+    "hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.stl": "7daefd30519fc9562806f44b6ccdfa737c8c1fbb5e13a96ebaa881ff655e3e5a",
+    "hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step": "a117675713f42248a666964ab7bd84a5414b8add8c2fda240a75e5fafbd9b1de",
+    "hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step.mesh": "f22c3d555e74b5275ad8ff6b514a25a891bc543c3d7242caf3d85e3742ec610a",
+    "hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.step": "ca0730a07b582e4835fd8a349dd3912bd49814907004f38aeb3af6825da7e792",
+    "hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.step.mesh": "127b0c6d23e25e3b47b8937b01e0fffe34fbc19b132cc5c1a5de40edf848da80",
+    "hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.step": "961e15f5d836f5c89dde12b5a68eb3bddb2a51962434b641722cd4cbb42fb793",
+    "hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.step.mesh": "5bfab92862bed6e2157981aadd90301bcb6c510d2354889b7a2431ec1423fd19",
+    "hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.step": "144f1f73fd1a96ee8f62c4015a3b3f143d29e3bc99657aab81099a70557290e2",
+    "hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.step.mesh": "fa10bbdf22068995c8a6ffe0cd5e5df83bfb9becf72e8ada640c5e93c8c5356a",
+    "hardware/printed-parts/enclosure/rear-equipment-caps/rear-equipment-caps-installed.step": "ff789acbf9fd8f97c81bb4403127b7de4e948601690ba52b127b32eb19f3cc91",
+    "hardware/printed-parts/enclosure/rear-equipment-caps/rear-equipment-caps-installed.step.mesh": "81581df47b6584da6954f690597d4a5a2ee5a68b3b4f31e695bec9bd64dca59e"
+  },
+  "sidecars": {
+    "hardware/manifold-layout/enclosure-assembly.scorecard.json": "6f5a0beb75e243f2ea566fd161cda289fa9f56283bc1c17be72986e249c98ebe"
+  },
+  "made": {
+    "hardware/manifold-layout/enclosure-assembly.step": {
+      "inputs": "36bd2eb597eb55dc61bbab6f645f16224424ec4dabd7f47ee18b001c25dd0823",
+      "commit": "67944ae3226017dc1e89af51cef1dec7d3d9e471",
+      "unproven": true
+    },
+    "hardware/manifold-layout/enclosure-assembly.step.mesh": {
+      "inputs": "36bd2eb597eb55dc61bbab6f645f16224424ec4dabd7f47ee18b001c25dd0823",
+      "commit": "67944ae3226017dc1e89af51cef1dec7d3d9e471",
+      "unproven": true
+    },
+    "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step": {
+      "inputs": "9a753261a0ba0a5bf95d5650b0476d3c4c95c2df2518cefdfdf33996ee01a5dd",
+      "commit": "67944ae3226017dc1e89af51cef1dec7d3d9e471",
+      "unproven": true
+    },
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step": {
+      "inputs": "4a143839a852cdd221d14fd6d817d035140b87e39f8c87cc71c186b1e6e7a77d",
+      "commit": "67944ae3226017dc1e89af51cef1dec7d3d9e471"
+    },
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh": {
+      "inputs": "4a143839a852cdd221d14fd6d817d035140b87e39f8c87cc71c186b1e6e7a77d",
+      "commit": "67944ae3226017dc1e89af51cef1dec7d3d9e471"
+    },
+    "hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.step": {
+      "inputs": "4a143839a852cdd221d14fd6d817d035140b87e39f8c87cc71c186b1e6e7a77d",
+      "commit": "67944ae3226017dc1e89af51cef1dec7d3d9e471"
+    },
+    "hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.step.mesh": {
+      "inputs": "4a143839a852cdd221d14fd6d817d035140b87e39f8c87cc71c186b1e6e7a77d",
+      "commit": "67944ae3226017dc1e89af51cef1dec7d3d9e471"
+    },
+    "hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.stl": {
+      "inputs": "4a143839a852cdd221d14fd6d817d035140b87e39f8c87cc71c186b1e6e7a77d",
+      "commit": "67944ae3226017dc1e89af51cef1dec7d3d9e471"
+    },
+    "hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step": {
+      "inputs": "e893986b42d4b7393394a96568edde23558047564ca981ea5ea05ac3fbf9c23c",
+      "commit": "67944ae3226017dc1e89af51cef1dec7d3d9e471"
+    },
+    "hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step.mesh": {
+      "inputs": "e893986b42d4b7393394a96568edde23558047564ca981ea5ea05ac3fbf9c23c",
+      "commit": "67944ae3226017dc1e89af51cef1dec7d3d9e471"
+    },
+    "hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.step": {
+      "inputs": "e893986b42d4b7393394a96568edde23558047564ca981ea5ea05ac3fbf9c23c",
+      "commit": "67944ae3226017dc1e89af51cef1dec7d3d9e471"
+    },
+    "hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.step.mesh": {
+      "inputs": "e893986b42d4b7393394a96568edde23558047564ca981ea5ea05ac3fbf9c23c",
+      "commit": "67944ae3226017dc1e89af51cef1dec7d3d9e471"
+    },
+    "hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.step": {
+      "inputs": "e893986b42d4b7393394a96568edde23558047564ca981ea5ea05ac3fbf9c23c",
+      "commit": "67944ae3226017dc1e89af51cef1dec7d3d9e471"
+    },
+    "hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.step.mesh": {
+      "inputs": "e893986b42d4b7393394a96568edde23558047564ca981ea5ea05ac3fbf9c23c",
+      "commit": "67944ae3226017dc1e89af51cef1dec7d3d9e471"
+    },
+    "hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.step": {
+      "inputs": "e893986b42d4b7393394a96568edde23558047564ca981ea5ea05ac3fbf9c23c",
+      "commit": "67944ae3226017dc1e89af51cef1dec7d3d9e471"
+    },
+    "hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.step.mesh": {
+      "inputs": "e893986b42d4b7393394a96568edde23558047564ca981ea5ea05ac3fbf9c23c",
+      "commit": "67944ae3226017dc1e89af51cef1dec7d3d9e471"
+    },
+    "hardware/printed-parts/enclosure/rear-equipment-caps/rear-equipment-caps-installed.step": {
+      "inputs": "e893986b42d4b7393394a96568edde23558047564ca981ea5ea05ac3fbf9c23c",
+      "commit": "67944ae3226017dc1e89af51cef1dec7d3d9e471"
+    },
+    "hardware/printed-parts/enclosure/rear-equipment-caps/rear-equipment-caps-installed.step.mesh": {
+      "inputs": "e893986b42d4b7393394a96568edde23558047564ca981ea5ea05ac3fbf9c23c",
+      "commit": "67944ae3226017dc1e89af51cef1dec7d3d9e471"
+    },
+    "hardware/manifold-layout/enclosure-assembly.scorecard.json": {
+      "commit": "67944ae3226017dc1e89af51cef1dec7d3d9e471",
+      "unproven": true
+    }
+  },
+  "without_exporter_made_line": [
+    "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step.mesh"
+  ],
+  "readback_verified": [
+    "hardware/manifold-layout/enclosure-assembly.step",
+    "hardware/manifold-layout/enclosure-assembly.step.mesh",
+    "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step",
+    "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step.mesh",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh",
+    "hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.step",
+    "hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.step.mesh",
+    "hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.stl",
+    "hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step",
+    "hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step.mesh",
+    "hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.step",
+    "hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.step.mesh",
+    "hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.step",
+    "hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.step.mesh",
+    "hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.step",
+    "hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.step.mesh",
+    "hardware/printed-parts/enclosure/rear-equipment-caps/rear-equipment-caps-installed.step",
+    "hardware/printed-parts/enclosure/rear-equipment-caps/rear-equipment-caps-installed.step.mesh"
+  ],
+  "unrelated_pointer_rows_preserved": true
+}

@@ -366,11 +366,6 @@ fn pump_cradle(n: &Numbers) -> Result<Solid> {
         face,
         c.z + 1.,
     ))?;
-    let fore_half = a(&selected["rail_stop_contact_native_y_mm"])?.iter()
-        .map(|v|v.as_f64().unwrap_or(0.).abs()).fold(f64::INFINITY,f64::min)
-        -2.*n.f("running")?;
-    body=body.cut(&box3(c.x-fore_half,c.x+fore_half,fy+fore0-0.1,
-        fy+fore1+0.1,face,c.z+1.))?;
     for rail in a(&d["rail_rooms"])? {
         let plane = p3(&rail["floor_planes"][0])?;
         let (a, b, k) = (plane.x, plane.y,
@@ -391,15 +386,17 @@ fn pump_cradle(n: &Numbers) -> Result<Solid> {
     let tz = d["frame"]["translation_mm"][2].as_f64().context("pump z")?;
     let head = f(selected, "rail_stop_native_z_mm")?;
     let slope = (c.z - tz - head) / first;
-    let mut profiles = vec![];
-    for x in [fore0 - 0.1, first] {
-        let (z, y) = (tz + head + slope * x, fy + x);
-        profiles.push(Region::polygon(vec![
-            v3(c.x - wide - 0.1, y, z), v3(c.x + wide + 0.1, y, z),
-            v3(c.x + wide + 0.1, y, c.z + 1.), v3(c.x - wide - 0.1, y, c.z + 1.),
-        ]));
+    for (xa, xb) in [(fore0 - 0.1, fore1), (fore1, first)] {
+        let mut profiles = vec![];
+        for x in [xa, xb] {
+            let (z, y) = (tz + head + slope * x.max(fore1), fy + x);
+            profiles.push(Region::polygon(vec![
+                v3(c.x - wide - 0.1, y, z), v3(c.x + wide + 0.1, y, z),
+                v3(c.x + wide + 0.1, y, c.z + 1.), v3(c.x - wide - 0.1, y, c.z + 1.),
+            ]));
+        }
+        body = body.cut(&Solid::loft(&profiles)?)?;
     }
-    body = body.cut(&Solid::loft(&profiles)?)?;
     for cap in a(&d["caps"])? {
         let s = &cap["snap_station"];
         for side in [-1., 1.] {
@@ -419,6 +416,12 @@ fn pump_cradle(n: &Numbers) -> Result<Solid> {
                 );
                 body = body.cut(&pump_cap_world(&pocket, cap)?)?;
             }
+            let radius=f(s,"root_radius")?;
+            let near=f(s,"axis_x")?+side*(f(s,"inner")?-radius-n.f("running")?);
+            let relief=box3(near,far,f(s,"y0")?-n.f("running")?,
+                f(s,"y1")?+n.f("running")?,f(s,"root")?-n.f("running")?,
+                f(s,"root")?+radius+n.f("running")?);
+            body=body.cut(&pump_cap_world(&relief,cap)?)?;
         }
     }
     let corner = f(selected, "aft_east_corner_chamfer_mm")?;
@@ -443,6 +446,8 @@ fn pump_snap(n: &Numbers) -> Result<Solid> {
     );
     let (catch, tip) = (f(s, "catch")?, f(s, "tip")?);
     let base = -n.f("slip")?;
+    let root = f(s,"root_radius")?;
+    let k = root / sqrt(2.);
     let r = f(d, "bore_radius_mm")? + f(&d["selected"], "cap_arch_wall_mm")?;
     let west = [
         v2(c - w, 0.),
@@ -451,22 +456,31 @@ fn pump_snap(n: &Numbers) -> Result<Solid> {
         v2(c - h, catch + f(s, "nose_land")?),
         v2(c - h, catch),
         v2(c - wi, catch),
-        v2(c - wi, base),
+        v2(c - wi, base+root),
     ];
     let mut pen = Pen::new(west[0]);
     for &p in &west[1..] {
         pen = pen.line_to(p);
     }
-    for p in west.iter().rev() {
+    pen=pen.arc_through(v2(c-wi+root-k,base+root-k),v2(c-wi+root,base))?
+        .line_to(v2(c+wi-root,base))
+        .arc_through(v2(c+wi-root+k,base+root-k),v2(c+wi,base+root))?;
+    for p in west.iter().rev().skip(1) {
         pen = pen.line_to(v2(2. * c - p.x, p.y));
     }
     pen = pen
         .line_to(v2(c + w, -r))
         .line_to(v2(c - f(&d["selected"], "cap_east_roof_half_width_mm")?, -r));
     let profile = Profile::new(pen.close()?);
-    let blank = Plane::XZ
+    let mut blank = Plane::XZ
         .at(v3(0., f(s, "y1")?, 0.))
         .extrude(&profile, f(s, "y1")? - f(s, "y0")?)?;
+    let middle=(f(s,"y0")?+f(s,"y1")?)/2.;
+    for side in [-1.,1.] {
+        blank=blank.cut(&box3(c+side*(h-0.1),c+side*wi,
+            middle-f(s,"pry_width")?/2.,middle+f(s,"pry_width")?/2.,
+            catch-0.1,catch+f(s,"pry_height")?))?;
+    }
     let snap = pump_cap_world(&blank, d)?
         .cut(&pump_room(n, d, false)?)?
         .rotate(V3::ZERO, V3::X, 90.);
@@ -940,12 +954,13 @@ fn top_lid(n: &Numbers) -> Result<Solid> {
     body = body
         .union(&cable_seat(n, true)?)?
         .union(&cable_seat(n, false)?)?;
+    let air_top = body.bounds().max.z + 0.1;
     let mut air = vec![];
     for hole in a(n.get("air_holes")?)? {
         air.push(cylinder(
             p2(&hole["xy"])?,
             -0.1,
-            h + 0.1,
+            air_top,
             f(hole, "radius")?,
         )?);
     }

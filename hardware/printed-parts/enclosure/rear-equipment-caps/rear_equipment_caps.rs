@@ -1,7 +1,7 @@
 //! Four rear equipment caps, cut from the live snap sections and measured reference profiles.
 use anyhow::{Result, anyhow, bail, ensure};
 use hsm_kernel::part::{args, write_part, write_shown};
-use hsm_kernel::{Body, Loop, Path, Plane, Profile, Seg, Solid, V2, V3, v2, v3};
+use hsm_kernel::{Affine, Body, Loop, Path, Plane, Profile, Seg, Solid, V2, V3, v2, v3};
 use serde_json::Value;
 
 fn array(v: &Value) -> Result<&Vec<Value>> {
@@ -59,7 +59,7 @@ fn section(v: &Value) -> Result<Solid> {
                 a: point2(&a[0])?,
                 b: point2(&a[2])?,
                 c: point2(&a[3])?,
-                ccw: false,
+                ccw: s.get("ccw").and_then(Value::as_bool).unwrap_or(false),
             });
         }
     }
@@ -121,6 +121,18 @@ fn turned(v: &Value) -> Result<Solid> {
         )?
         .rotate(V3::ZERO, V3::Z, 90.0)
         .translate(v3(axis.x, 0.0, axis.y)))
+}
+
+fn radial_profile(v: &Value) -> Result<Solid> {
+    let rows=array(&v["points"])?;
+    let mut points=vec![v2(f(&rows[0][0])?,0.)];
+    for row in rows {points.push(point2(row)?);}
+    points.push(v2(f(&rows.last().unwrap()[0])?,0.));
+    let shape=Plane::XY.revolve(&Profile::polygon(&points),360.,V2::ZERO,v2(1.,0.))?;
+    let pose=&v["frame"];
+    let r=&pose["rotation"];
+    let col=|i:usize|->Result<V3>{Ok(v3(f(&r[0][i])?,f(&r[1][i])?,f(&r[2][i])?))};
+    Ok(shape.transformed(&Affine::from_columns(col(0)?,col(1)?,col(2)?,point3(&pose["translation_mm"])?)))
 }
 
 fn hex(v: &Value) -> Result<Solid> {
@@ -206,7 +218,9 @@ fn cut(v: &Value) -> Result<Solid> {
             ))
         }
         Some("turned") => turned(v),
+        Some("radial-profile") => radial_profile(v),
         Some("hex") => hex(v),
+        Some("section") => section(v),
         Some("stadium-x") => stadium(v),
         Some("cylinder-y") => cylinder_y(v),
         Some("sweep") => sweep(v),
@@ -219,6 +233,12 @@ fn main() -> Result<()> {
     let mut installed = vec![];
     for cap in array(n.get("caps")?)? {
         let mut body = section(&cap["section"])?;
+        if let Some(stock)=cap.get("stock") {
+            for addition in array(stock)? {body=body.union(&cut(addition)?)?;}
+        }
+        if let Some(pry)=cap.get("pry") {
+            for slot in array(pry)? {body=body.cut(&cut(slot)?)?;}
+        }
         if let Some(p) = cap.get("placement") {
             body = body
                 .rotate(V3::ZERO, V3::Y, f(&p["rotate_y"])?)
