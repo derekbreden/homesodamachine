@@ -339,6 +339,36 @@ BOARD_NOT_BUNDLED = (".step", ".circuit.json")
 UNWATCHED_PRODUCERS = BUNDLED_BOARD_DIRS
 
 
+def _member_filter(frozen):
+    """The path policy shared by the disk walk and declared public outputs."""
+    skip = tuple(f"{d}/" for d in NOT_BUNDLED_DIRS)
+    meshes = tuple(f"{d}/" for d in BUNDLED_MESH_DIRS)
+    scenes = tuple(f"{d}/" for d in BUNDLED_GLB_DIRS)
+    payloads = tuple(f"{d}/" for d in BUNDLED_PAYLOAD_DIRS)
+    art = tuple(f"{d}/" for d in BUNDLED_ART_DIRS)
+    boards = tuple(f"{d}/" for d in BUNDLED_BOARD_DIRS)
+    singles = set(BUNDLED_PAYLOAD_FILES) | set(BUNDLED_ART_FILES) | set(frozen)
+
+    def member(rel):
+        name = rel.rsplit("/", 1)[-1]
+        if not rel.startswith("hardware/") or rel.startswith(skip) or "/node_modules/" in rel:
+            return False
+        if rel in HARVESTED and rel not in frozen:
+            return False
+        if rel.startswith(boards):
+            return not name.endswith(BOARD_NOT_BUNDLED)
+        if name.startswith("."):
+            return False
+        return (name.endswith(".step")
+                or (name.endswith(".stl") and rel.startswith(meshes))
+                or (name.endswith(".step.mesh") and rel.startswith(payloads))
+                or (name.endswith(".glb") and rel.startswith(scenes))
+                or (name.endswith(BUNDLED_ART_SUFFIXES) and rel.startswith(art))
+                or rel in singles)
+
+    return member
+
+
 def solids(root: Path) -> list:
     """Every generated `.step`, `.stl`, `.glb`, `.step.mesh`, `.png` and `.pdf` under
     `hardware/`, repo-relative and sorted.
@@ -352,13 +382,7 @@ def solids(root: Path) -> list:
     if not (root / "hardware").is_dir():
         return []
     skip = tuple(f"{d}/" for d in NOT_BUNDLED_DIRS)
-    meshes = tuple(f"{d}/" for d in BUNDLED_MESH_DIRS)
-    scenes = tuple(f"{d}/" for d in BUNDLED_GLB_DIRS)
-    payloads = tuple(f"{d}/" for d in BUNDLED_PAYLOAD_DIRS)
-    art = tuple(f"{d}/" for d in BUNDLED_ART_DIRS)
-    boards = tuple(f"{d}/" for d in BUNDLED_BOARD_DIRS)
-    frozen = set(frozen_assets(root))
-    singles = set(BUNDLED_PAYLOAD_FILES) | set(BUNDLED_ART_FILES) | frozen
+    member = _member_filter(frozen_assets(root))
     listings = Listings(root)
     out, todo = [], ["hardware"]
     while todo:
@@ -375,23 +399,7 @@ def solids(root: Path) -> list:
                 todo.append(rel)
         for name in files:
             rel = f"{here}/{name}"
-            if rel in HARVESTED and rel not in frozen:
-                continue
-            # A board directory carries its whole rendered set, so what a suffix says about
-            # a file elsewhere says nothing there. The two it does not carry are named.
-            if rel.startswith(boards):
-                if not name.endswith(BOARD_NOT_BUNDLED):
-                    out.append(rel)
-                continue
-            # An atomic-export temp caught mid-write (`.NAME.step.PID.RAND.step`) is not one.
-            if name.startswith("."):
-                continue
-            if (name.endswith(".step")
-                    or (name.endswith(".stl") and rel.startswith(meshes))
-                    or (name.endswith(".step.mesh") and rel.startswith(payloads))
-                    or (name.endswith(".glb") and rel.startswith(scenes))
-                    or (name.endswith(BUNDLED_ART_SUFFIXES) and rel.startswith(art))
-                    or rel in singles):
+            if member(rel):
                 out.append(rel)
     listings.save()
     return sorted(out)
@@ -820,30 +828,24 @@ def _write_pointers(data: dict) -> None:
 
 def _declared(root: Path) -> set:
     """Every publishable graph output and frozen static reference member."""
-    declared = set(frozen_assets(root))
+    frozen = set(frozen_assets(root))
+    declared = set(frozen)
     try:
         graph = json.loads((root / "tools" / "bazel" / "graph.json").read_text())
     except (OSError, ValueError):
         return declared
-    # The same reach the walk has, so the two answer about one set: a picture the graph declares
-    # outside an art dir is no more bundled than one on disk there is.
-    art = tuple(f"{d}/" for d in BUNDLED_ART_DIRS)
-    skip = tuple(f"{d}/" for d in NOT_BUNDLED_DIRS)
     declared |= {
         str(f)
         for node in graph.values()
         for f in (node.get("writes") or [])
-        if not str(f).startswith(skip)
-        and (str(f).endswith((".step", ".stl", ".glb", ".step.mesh"))
-             or (str(f).endswith(BUNDLED_ART_SUFFIXES) and str(f).startswith(art))
-             or str(f) in BUNDLED_ART_FILES)
     }
     if root.resolve() == _ROOT.resolve():
         sys.path.insert(0, str(_ROOT / "tools" / "bazel"))
         from inventory import ACTION_INTERMEDIATE, IMPLICIT_SOLIDS
         declared |= {path for paths in IMPLICIT_SOLIDS.values() for path in paths}
         declared -= ACTION_INTERMEDIATE
-    return declared
+    member = _member_filter(frozen)
+    return {path for path in declared if member(path)}
 
 
 def sidecars(root: Path, graph: Graph = None) -> list:
