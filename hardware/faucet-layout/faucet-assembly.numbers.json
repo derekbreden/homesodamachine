@@ -10446,14 +10446,8 @@
    }
   ]
  },
- "shell_base": {
-  "body": "shell_base",
-  "step": "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step"
- },
- "shell_tip": {
-  "body": "shell_tip",
-  "step": "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step"
- },
+ "shell_base": "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step",
+ "shell_tip": "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step",
  "sleeve": {
   "gather": {
    "inner": [
