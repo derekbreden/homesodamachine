@@ -34,6 +34,10 @@ path = "../../../hardware/install-guide/install_art_props.rs"
 name = "faucet-display-snap"
 path = "../../../hardware/printed-parts/fixtures/faucet-display-snap/faucet_display_snap_trial.rs"
 
+[[bin]]
+name = "rear-snap-retention"
+path = "../../../hardware/print-tests/rear-snap-retention/rear_snap_retention.rs"
+
 [dependencies]
 anyhow.workspace = true
 hsm-kernel = { path = "../kernel" }

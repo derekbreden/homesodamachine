@@ -1,0 +1,29 @@
+{
+  "printer": "Mark1",
+  "accepted_at": "2026-11-02T16:43:37.581435+00:00",
+  "verified_at": "2026-11-02T16:44:46.935945+00:00",
+  "archive": "hardware/print-tests/rear-snap-retention/v4/prints/2026-11-02-rear-retention-mark1-mark1-f7504297/2026-11-02-rear-retention-mark1-mark1-f7504297.gcode.3mf",
+  "submitted_name": "HSM-full-retention-v4-Mark1.gcode.3mf",
+  "archive_sha256": "28c5410e45176e0552fc49ac92dc23ef2c93ee69e5fb165497f516fe03a85ff6",
+  "gcode_sha256": "4428c238b45f92febd5ffe2d337d863710602d391f654b7c3d49d0982f13a8d7",
+  "sender": "Bambu Connect via native UI",
+  "external_spool": 254,
+  "material": "Black Polymaker Fiberon PET-GF15",
+  "options": {
+    "timelapse": "On",
+    "bed_leveling": "On",
+    "flow_calibration": "Auto",
+    "nozzle_offset_calibration": "Auto"
+  },
+  "printer_status": {
+    "job_id": "1400544434",
+    "task_id": "1400544434",
+    "subtask_name": "HSM-full-retention-v4-Mark1.gcode.3mf",
+    "gcode_state": "RUNNING",
+    "print_error": 0,
+    "hms": [],
+    "layer_num": 0,
+    "mc_remaining_time": 271
+  },
+  "submitted_gcode_sha256": "4428c238b45f92febd5ffe2d337d863710602d391f654b7c3d49d0982f13a8d7"
+}

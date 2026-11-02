@@ -1,130 +1,137 @@
-"""Export full object-fit receivers and caps from the five production snap families."""
+"""Crop complete retention samples from the current production printed surfaces."""
 from pathlib import Path
 import argparse
 import hashlib
 import json
+import shutil
 import sys
 import time
 
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[2]
-sys.path[:0] = [str(ROOT/'hardware/scripts'),str(ROOT/'hardware/printed-parts/cadlib'),
-               str(ROOT/'hardware/printed-parts/cold-core'),str(ROOT/'hardware/manifold-layout')]
-import cadquery as cq
+sys.path[:0] = [str(ROOT/p) for p in ('hardware/scripts','hardware/printed-parts/cadlib',
+    'hardware/printed-parts/cold-core','hardware/manifold-layout')]
+import _rust_part
+_rust_part.start()
+import numpy as np
+import trimesh
 import above_core
-import above_core_parts as refs
-import _above_core_mounts as mounts
 import rear_plumbing
 import rear_snaps as snaps
-from _cadq_export import export_step
-from print_mesh import write_print_stl
-
-
-def centered(shape):
-    b = shape.BoundingBox()
-    return shape.translate((-(b.xmin+b.xmax)/2.,-(b.ymin+b.ymax)/2.,-b.zmin))
+import fits
 
 
 def main():
-    parser=argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--output',type=Path,default=HERE/'v3')
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--output',type=Path,default=HERE/'v4')
     parser.add_argument('--check-fit',action='store_true')
-    args=parser.parse_args()
-    output=args.output.resolve()
+    args = parser.parse_args()
+    output = args.output.resolve()
+    output.mkdir(parents=True,exist_ok=True)
+    inputs = output/'inputs'
+    inputs.mkdir(exist_ok=True)
     began = time.monotonic()
-    folder = output/'parts'
-    folder.mkdir(parents=True,exist_ok=True)
-    report = {'reference':{'physical_result':'Intermediate leaves, blended roots and shaped bearing stock; physical fit pending.',
-      'leaf_mm':snaps.WING,'flat_overlap_mm':snaps.REACH,'hook_mm':snaps.HOOK,
-      'default_leaf_length_mm':snaps.FREE_LENGTH,
-      'regulator_leaf_length_mm':rear_plumbing.plan()['regulator_mount']['station']['catch']-rear_plumbing.plan()['regulator_mount']['station']['root'],
-      'root_radius_mm':snaps.ROOT_RADIUS,'centered_pry_slot_mm':[snaps.PRY_WIDTH,snaps.PRY_HEIGHT],
-      'catch_gap_mm':snaps.CATCH,'hook_nose_land_mm':snaps.NOSE_LAND},
-      'scope':'Full object-fit trial seats and caps. Physical retention, insertion force, fatigue and pump vibration remain to be tested.',
-      'families':{},'parts':[]}
+    digests = {}
 
-    def export(name,shape,pose):
-        assert shape.isValid() and len(shape.Solids())==1,(name,len(shape.Solids()))
-        step,stl=folder/(name+'.step'),folder/(name+'.stl')
-        export_step(shape,str(step))
-        mesh=write_print_stl(shape,stl)
-        assert mesh.is_watertight,name
-        row={'name':name,'stl':str(stl.relative_to(ROOT)),'step':str(step.relative_to(ROOT)),
-          'stl_sha256':hashlib.sha256(stl.read_bytes()).hexdigest(),
-          'bounds_mm':mesh.bounds.tolist(),'volume_mm3':shape.Volume(),
-          'valid':True,'solids':1,'watertight':True,'print_orientation':pose}
-        report['parts'].append(row)
-        print(json.dumps(row),flush=True)
+    def printed_input(source, name):
+        """Format conversion only: retain the exact welded STL vertices and triangles."""
+        mesh = trimesh.load_mesh(source,process=True)
+        if not mesh.is_watertight:
+            raise ValueError(f'{source}: production STL is not watertight')
+        path = inputs/(name+'.npz')
+        record = [[{'kind':'MESH','src':str(source.relative_to(ROOT)),'op':'read-stl'}]]
+        np.savez(path,names=np.frombuffer(json.dumps([name]).encode(),dtype=np.uint8),
+            colors=np.frombuffer(b'[null]',dtype=np.uint8),
+            records=np.frombuffer(json.dumps(record).encode(),dtype=np.uint8),
+            V0=np.asarray(mesh.vertices,dtype=np.float64),T0=np.asarray(mesh.faces,dtype=np.uint32),
+            F0=np.zeros(len(mesh.faces),dtype=np.uint32))
+        digests[str(source.relative_to(ROOT))] = hashlib.sha256(source.read_bytes()).hexdigest()
+        return str(path),mesh.bounds
 
-    def family(name,seat,cap,on,station):
-        overlap=seat.intersect(cap).Volume()
-        pulled=cap.translate(tuple(-(snaps.CATCH+.1)*v for v in on))
-        obstruction=seat.intersect(pulled).Volume()
-        assert overlap<1.e-5,(name,'seated intersection',overlap)
-        assert obstruction>1.,(name,'no empty-cap retention',obstruction)
-        report['families'][name]={'station':station,'seated_intersection_mm3':overlap,
-          'removal_direction':[-v for v in on], 'pullout_travel_mm':snaps.CATCH+.1,
-          'blocked_pullout_intersection_mm3':obstruction,
-          'effective_horizontal_bearing_mm2':obstruction/.1,
-          'physical_result':'Awaiting this fit trial.'}
-        if args.check_fit:
-            names={'pump':('g-ganen-pump',),'asse':('bulkhead-water','gagira-coupling','asse1022-assembly','jg-pi4512f6s','jg-pp061208w'),
-                   'pisco':('gas-regulator','co2-inlet','gas-check'),'meter':('digiten-flow',),
-                   'regulator':('flow-regulator',)}[name]
-            objects=refs.components()
-            fitted={}
-            for key in names:
-                shape=objects[key][0]
-                pair={'receiver_mm3':seat.intersect(shape).Volume(),'cap_mm3':cap.intersect(shape).Volume()}
-                assert max(pair.values())<1.e-4,(name,key,pair)
-                fitted[key]=pair
-            report['families'][name]['installed_hardware_overlap']=fitted
-            if name=='meter':
-                shape=objects['digiten-flow'][0]
-                slide={str(travel):seat.intersect(shape.translate((0.,-travel,0.))).Volume() for travel in (0.,4.,8.,12.,16.)}
-                assert max(slide.values())<1.e-4,('meter insertion',slide)
-                report['families'][name]['forward_insertion_overlap_mm3']=slide
-
-    d=mounts.pump_cradle_datums()
-    cx=d['centre_world_mm'][0];fy=d['frame']['translation_mm'][1]
-    selected=d['selected'];first,last=selected['motor_band_native_x_mm']
-    face=above_core.specification()['cap_face_z_mm']
-    xa,xb=cx-d['stock_half_width_mm']-3.,cx+d['stock_half_width_mm']+3.
-    ya=fy+min(first,min(p[0] for p in selected['rail_stop_native_x_mm']))-3.
-    yb=fy+max(last,max(p[1] for p in selected['rail_stop_native_x_mm']))+3.
-    plate=snaps.box(xa,xb,ya,yb,face-7.4,face)
-    seat=plate.fuse(mounts.pump_cradle()).cut(mounts.pump_lid_clearance()).clean()
-    cap=mounts.pump_snap_cap()
-    family('pump',seat,cap,(0.,0.,-1.),d['snap_station'])
-    report['pump_rail']={'front_projection_beyond_rear_mm':1.,
-      'front_to_lid_air_mm':d['frame']['translation_mm'][2]+3.2105828415973967-face+selected['cover_channel_recess_mm'],
-      'pump_origin_z_mm':d['frame']['translation_mm'][2]}
-    export('pump-seat',centered(seat),'Production lid orientation, flat 7.4 mm root plate down.')
-    export('pump-cap',mounts.pump_snap_printable(),'Production pump cap orientation, axial end down.')
-    print('Building rear object seats',flush=True)
-    parts=rear_plumbing.seats()
-    for name in ('asse','pisco','regulator','meter'):
-        seat,cap=parts[name+'-seat'],parts[name+'-snap-cap']
-        # The parent roof or side wall joins the entire seat's root face.
-        b=seat.BoundingBox()
-        if name=='meter':
-            root=snaps.box(98.4,101.5,b.ymin,b.ymax,b.zmin,b.zmax)
+    enclosure = ROOT/'hardware/printed-parts/enclosure/enclosure'
+    foam = ROOT/'hardware/printed-parts/cold-core/foam-cap'
+    caps = ROOT/'hardware/printed-parts/enclosure/rear-equipment-caps'
+    rear,rb = printed_input(enclosure/'enclosure-back-top.stl','rear-parent')
+    lid,_ = printed_input(foam/'foam-cap-lid-top.stl','lid-parent')
+    installed = caps/'rear-equipment-caps-installed.step.npz'
+    cap_numbers = json.loads((caps/'rear-equipment-caps.numbers.json').read_text())
+    with np.load(installed) as a:
+        names = json.loads(a['names'].tobytes())
+        bounds = {n:np.array([a[f'V{i}'].min(0),a[f'V{i}'].max(0)]) for i,n in enumerate(names)}
+    pump = json.loads((foam/'foam-cap.numbers.json').read_text())['pump']
+    st = pump['snap_station']
+    cx,_,cz = pump['centre_world_mm']
+    roof = -(pump['bore_radius_mm']+pump['selected']['cap_arch_wall_mm'])
+    cap_shift = [cx,st['y0'],cz-(st['tip']+roof)/2.]
+    fy = pump['frame']['translation_mm'][1]
+    selected = pump['selected']
+    span = selected['motor_band_native_x_mm'] + [v for p in selected['rail_stop_native_x_mm'] for v in p]
+    width = pump['stock_half_width_mm']+3.
+    families = []
+    cap_sources = {}
+    for name in ('pump','asse','pisco','meter','regulator'):
+        source = foam/'pump-snap-cap.stl' if name=='pump' else caps/(name+'-snap-cap.stl')
+        cap_sources[name] = source
+        cap_model,pb = printed_input(source,name+'-cap')
+        if name=='pump':
+            corners=np.array([[x,z,-y] for x in pb[:,0] for y in pb[:,1] for z in pb[:,2]])+cap_shift
+            b=np.array([corners.min(0),corners.max(0)])
+            low=[cx-width,fy+min(span)-3.,above_core.specification()['cap_lid_pose']['translation_mm'][2]]
+            high=[cx+width,fy+max(span)+3.,b[1,2]]
+            scope='Both fixed motor-rail stops, cradle, complete spring pockets and actual lid stock.'
         else:
-            root=snaps.box(b.xmin,b.xmax,b.ymin,b.ymax,346.,349.5)
-        seat=seat.fuse(root).clean()
-        station=rear_plumbing.plan()['regulator_mount']['station'] if name=='regulator' else None
-        family(name,seat,cap,(1.,0.,0.) if name=='meter' else (0.,0.,1.),station)
-        export(name+'-seat',centered(seat.rotate((0,0,0),(0,1,0),180.)),
-               'Production back-top orientation, appliance -Z is print +Z; integral roof/side-wall root retained.')
-        export(name+'-cap',rear_plumbing.printable_cap(name+'-snap-cap',cap),
-               'Production end-down cap orientation; spring bending stays in the layer plane.')
-    inputs=['hardware/manifold-layout/rear_snaps.py','hardware/manifold-layout/rear_plumbing.py',
-      'hardware/manifold-layout/above-core.json','hardware/printed-parts/cold-core/_above_core_mounts.py',
-      'hardware/reference/g-ganen-pump/reference-parameters.json']
-    report['input_sha256']={p:hashlib.sha256((ROOT/p).read_bytes()).hexdigest() for p in inputs}
+            b=bounds[name+'-snap-cap']
+            low=(b[0]-3.).tolist();high=(b[1]+3.).tolist()
+            if name in ('asse','pisco'):
+                low[1]=b[0,1]-fits.running-snaps.WALL-3.
+                high[1],high[2]=float(rb[1,1]),float(rb[1,2])
+                scope='Complete front and rear shoulders, spring pockets, actual roof and full rear bulkhead bore.'
+            elif name=='meter':
+                meter_cap=next(c for c in cap_numbers['caps'] if c['name']=='meter-snap-cap')
+                low[1]=next(c['span'][0] for c in meter_cap['cuts'] if c['op']=='cylinder-y')-3.
+                high[0],high[1]=float(rb[1,0]),float(rb[1,1])
+                scope='Complete meter cup, wire exit, port collars, spring pockets, side wall and rear soda bulkhead bore.'
+            else:
+                mount=rear_plumbing.regulator_datums()
+                low[0],high[0]=-mount['seat_y'][1]-3.,-mount['seat_y'][0]+3.
+                low[1],high[1]=mount['axis'][0]-mount['station']['outer']-3.,mount['axis'][0]+mount['station']['outer']+3.
+                high[2]=float(rb[1,2])
+                scope='Full measured axial profile, both end shoulders, spring pockets and actual roof.'
+        families.append({'name':name,'cap_print_model':cap_model,'installed_name':name+'-snap-cap',
+            'crop_min':low,'crop_max':high,'cap_translation':cap_shift if name=='pump' else None,
+            'on':[0,0,-1] if name=='pump' else [1,0,0] if name=='meter' else [0,0,1],
+            'retention_scope':scope})
+    numbers={'rear_print_model':rear,'lid_print_model':lid,
+        'lid_translation':above_core.specification()['cap_lid_pose']['translation_mm'],
+        'installed_caps':str(installed),'families':families,'check_fit':args.check_fit,
+        'assembly_model':str(ROOT/'hardware/manifold-layout/enclosure-assembly.step.npz')}
+    folder=output/'parts'
+    folder.mkdir(parents=True,exist_ok=True)
+    _rust_part.cut('tooling','rear-snap-retention',numbers,folder)
+    report={'scope':'Complete retention in X, Y and Z, cropped from production prints.',
+        'families':json.loads((folder/'fit.json').read_text()),'input_sha256':digests,'parts':[],
+        'pisco_cap_y_mm':snaps.pisco_cap_span(rear_plumbing.snap_datums()['mouth_y'],
+            json.loads((ROOT/'hardware/reference/compact-inline-candidates/dimensions.json').read_text())['pisco_rvfup_quarter']['fitted_exterior']['component_ranges_mm']['outlet_collet'][0],rear_plumbing.snap_datums()['rear']),
+        'physical_result':'Awaiting this print trial.'}
+    for family in families:
+        for suffix in ('seat','cap'):
+            name=family['name']+'-'+suffix
+            path=folder/(name+'.stl')
+            if suffix=='cap':
+                shutil.copyfile(cap_sources[family['name']],path)
+            mesh=trimesh.load_mesh(path,process=True)
+            if not mesh.is_watertight or len(mesh.split())!=1:
+                raise ValueError(f'{name}: one watertight print required')
+            report['parts'].append({'name':name,'stl':str(path.relative_to(ROOT)),
+                'step':str(path.with_suffix('.step').relative_to(ROOT)),
+                'stl_sha256':hashlib.sha256(path.read_bytes()).hexdigest(),
+                'bounds_mm':mesh.bounds.tolist(),'volume_mm3':float(mesh.volume),
+                'watertight':True,'solids':1,
+                'print_orientation':'Production axial end down.' if suffix=='cap' else
+                    'Actual production lid +Z up.' if family['name']=='pump' else 'Actual production back-top -Z up.'})
     report['elapsed_seconds']=time.monotonic()-began
     (output/'geometry.json').write_text(json.dumps(report,indent=2)+'\n')
-    print('Exported all ten printable pieces',flush=True)
+    print('Exported ten complete retention pieces.',flush=True)
 
 
 if __name__=='__main__':

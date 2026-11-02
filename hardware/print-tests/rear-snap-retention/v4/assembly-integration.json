@@ -1,0 +1,24 @@
+{
+  "box_sha256": "030ef2fe087dbafc5a55f68f12a03421321604b4054a651cf5c850d1695ae307",
+  "hosts": {
+    "hardware/manifold-layout/enclosure-assembly.step": {
+      "replaced": [
+        "enclosure-back-top",
+        "pisco-snap-cap"
+      ],
+      "unrelated_viewer_bodies_preserved": 555,
+      "unrelated_fine_bodies_preserved": 436,
+      "step_sha256": "c38edb1304a08ce36a34f250bd05f06c8c292876c4830a25fa2bb44ffabd386b",
+      "payload_sha256": "f55f20e073af4bfa70c0bda6c58753632a423a970ac8cd9abfe5dc2fc0cfb5aa"
+    },
+    "hardware/printed-parts/enclosure/enclosure/enclosure.step": {
+      "replaced": [
+        "enclosure-back-top"
+      ],
+      "unrelated_viewer_bodies_preserved": 24,
+      "unrelated_fine_bodies_preserved": 24,
+      "step_sha256": "eac4ed81a273ebef0cf25acb9977217b2bb919ec6da11c180ddc44f2c95108d2",
+      "payload_sha256": "0fa1ee698e7428cf7c8a9483981f0b8e6916c1707430e4d8e794c3fb36e31c45"
+    }
+  }
+}
