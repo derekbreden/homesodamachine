@@ -216,11 +216,11 @@ brew prefix. These runtime tools and packages are outside the repository. `.baze
 both roots as mounts and puts them on every action's PATH. A checkout on another machine
 builds when those are installed there and not before.
 
-The manual [kitchen illustrations](../tools/render/render-kitchen-scene.py),
-[studio film](../marketing/video/one-less-errand/studio/README.md) and
-[welding-head reference views](reference/xlaserlab-sup29f-xh/README.md) use Blender.
-Their rendering runs on demand. Enclosure Freestyle SVG sources and their visibility sieve
-are retained under `.retired` markers as historical studies.
+The manual [kitchen illustrations](../tools/render/render-kitchen-scene.py) and
+[studio film](../marketing/video/one-less-errand/studio/README.md) use Blender.
+The [welding-head reference views](reference/xlaserlab-sup29f-xh/README.md) use
+`hsm-render`. Their rendering runs on demand. Enclosure Freestyle SVG sources
+and their visibility sieve are retained under `.retired` markers as historical studies.
 
 Rust part generators declare the payloads they produce as build outputs. Native CadQuery
 exports make their optional payloads best-effort; Bazel sets `HSM_SKIP_MESH_PAYLOAD` for those
