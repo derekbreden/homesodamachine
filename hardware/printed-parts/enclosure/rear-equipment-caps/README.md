@@ -24,6 +24,8 @@ at Z315.924 mm. Each cap is one solid, with two integral spring walls and hooks.
 The ASSE seat uses 0.25 mm running clearance. Its cap has one continuous
 hex cavity with a 14.6 mm apothem at the two wrench flats' mean clocking.
 The common envelope includes at least 0.15 mm slip clearance around both hexes. The ASSE seat allows 1.5 mm of threaded-joint position variation.
+The drain-sleeve window carries that full fore/aft adjustment and ends at
+Z309.4 above the sleeve's measured upper exterior.
 The Pisco cap follows the scanned body and exposed neck with 0.15 mm radial
 and 0.25 mm axial air. The receiver has a 3 mm-wide upper ring bearing at
 Y438.125–441.125 with 0.15 mm radial air; its loading corridor retains 0.5 mm.

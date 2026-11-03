@@ -1,26 +1,18 @@
-asse-snap-cap.stl · 2152 printed facets · 16 findings · top 12 (--all for every one)
+Final ASSE surface reading; unchanged PISCO, meter and parent readings follow.
+New named-fit and support answers are in the linked lint-answer files.
+
+asse-snap-cap.stl · 2152 printed facets · 12 findings · 4 answered
 answers: hardware/printed-parts/lint-answers/enclosure/rear-equipment-caps/asse-snap-cap.lint-answers · read hardware/printed-parts/lint-answers/AGENTS.md before writing one
 
-  [sliver] 0.361 mm strip, 9.2 mm long
+  [ceiling] 49 mm² flat print-down face at z=50.300 · 15.3 × 3.2 mm · drop 36.3–36.3 mm to material below
     file: hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step
-    face: plane · n x=0.886 y=0.464 z=-0.005 · thru x=-12.459 y=-3.315 z=55.216
-    edge: x=-12.438 y=-3.304 z=59.831 → x=-12.480 y=-3.326 z=50.601 · len 9.230 · straight · dir x=-0.005 y=-0.002 z=-1.000
-    click: x=-12.459 y=-3.315 z=55.216
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=0.070 y=16.725 z=50.300
+    click: x=0.070 y=16.725 z=50.300
 
-  [ceiling] 177 mm² flat print-down face at z=42.171 · 33.6 × 14.7 mm · open to the bed (42.2 mm up)
+  [ceiling] 52 mm² flat print-down face at z=30.865 · 12.9 × 4.1 mm · drop 15.4–15.4 mm to material below
     file: hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step
-    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=-0.050 y=3.879 z=42.171
-    click: x=-0.050 y=3.879 z=42.171
-
-  [ceiling] 80 mm² flat print-down face at z=38.661 · 12.0 × 10.0 mm · open to the bed (38.7 mm up)
-    file: hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step
-    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=17.136 y=1.536 z=38.661
-    click: x=17.136 y=1.536 z=38.661
-
-  [ceiling] 79 mm² flat print-down face at z=38.661 · 12.1 × 10.0 mm · open to the bed (38.7 mm up)
-    file: hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step
-    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=-17.098 y=1.536 z=38.661
-    click: x=-17.098 y=1.536 z=38.661
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=0.070 y=13.102 z=30.865
+    click: x=0.070 y=13.102 z=30.865
 
   [thin] 0.719 mm of material at its thinnest · 24.9 mm² of surface under 1.6 mm · spans 2.6 × 1.5 × 4.9 mm
     file: hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step
@@ -43,6 +35,41 @@ answers: hardware/printed-parts/lint-answers/enclosure/rear-equipment-caps/asse-
     answered: Functional hook nose and insertion ramp. The 2.6 mm total hook height comprises a 1.6 mm nose and 1 mm lead-in rise. Across the centered 5 mm blade entry, the 1 mm opening leaves a finite 0.6 mm nose above it. The sampled 0.72 mm places lie in that tool-purchase roof; the 1.91–2.04 mm places lie across the adjoining insertion profile. Physical release force and repeated use remain unqualified in rear-snap-retention/v3.
     alternatives: Increasing roof thickness within this height reduces the requested blade opening or steepens the insertion ramp; increasing total hook height also deepens its receiving pocket into the fixed roof stock. Filling the entry removes centered tool access. The 2.6 mm flat retaining overlap remains on each side of the entry.
 
+  [thin] 1.909 mm of material at its thinnest · 29.7 mm² of surface under 2.5 mm · spans 1.8 × 0.6 × 14.8 mm
+    file: hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step
+    click: x=21.007 y=-17.624 z=34.502
+    click: x=21.007 y=-15.714 z=34.502
+    answered: Functional hook nose and insertion ramp. The 2.6 mm total hook height comprises a 1.6 mm nose and 1 mm lead-in rise. Across the centered 5 mm blade entry, the 1 mm opening leaves a finite 0.6 mm nose above it. The sampled 0.72 mm places lie in that tool-purchase roof; the 1.91–2.04 mm places lie across the adjoining insertion profile. Physical release force and repeated use remain unqualified in rear-snap-retention/v3.
+    alternatives: Increasing roof thickness within this height reduces the requested blade opening or steepens the insertion ramp; increasing total hook height also deepens its receiving pocket into the fixed roof stock. Filling the entry removes centered tool access. The 2.6 mm flat retaining overlap remains on each side of the entry.
+
+  [thin] 1.918 mm of material at its thinnest · 30.7 mm² of surface under 2.5 mm · spans 1.8 × 0.6 × 15.3 mm
+    file: hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step
+    click: x=-21.032 y=-17.632 z=40.694
+    click: x=-21.032 y=-15.714 z=40.694
+    answered: Functional hook nose and insertion ramp. The 2.6 mm total hook height comprises a 1.6 mm nose and 1 mm lead-in rise. Across the centered 5 mm blade entry, the 1 mm opening leaves a finite 0.6 mm nose above it. The sampled 0.72 mm places lie in that tool-purchase roof; the 1.91–2.04 mm places lie across the adjoining insertion profile. Physical release force and repeated use remain unqualified in rear-snap-retention/v3.
+    alternatives: Increasing roof thickness within this height reduces the requested blade opening or steepens the insertion ramp; increasing total hook height also deepens its receiving pocket into the fixed roof stock. Filling the entry removes centered tool access. The 2.6 mm flat retaining overlap remains on each side of the entry.
+
+  [thin] 1.918 mm of material at its thinnest · 30.7 mm² of surface under 2.5 mm · spans 1.8 × 0.6 × 15.3 mm
+    file: hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step
+    click: x=21.032 y=-17.632 z=0.967
+    click: x=21.032 y=-15.714 z=0.967
+    answered: Functional hook nose and insertion ramp. The 2.6 mm total hook height comprises a 1.6 mm nose and 1 mm lead-in rise. Across the centered 5 mm blade entry, the 1 mm opening leaves a finite 0.6 mm nose above it. The sampled 0.72 mm places lie in that tool-purchase roof; the 1.91–2.04 mm places lie across the adjoining insertion profile. Physical release force and repeated use remain unqualified in rear-snap-retention/v3.
+    alternatives: Increasing roof thickness within this height reduces the requested blade opening or steepens the insertion ramp; increasing total hook height also deepens its receiving pocket into the fixed roof stock. Filling the entry removes centered tool access. The 2.6 mm flat retaining overlap remains on each side of the entry.
+
+  [thin] 1.988 mm of material at its thinnest · 1015.8 mm² of surface under 2.5 mm · spans 2.5 × 25.2 × 39.6 mm
+    file: hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step
+    click: x=-24.012 y=7.600 z=28.202
+    click: x=-22.655 y=6.147 z=28.202
+    answered: The specified 2.0 mm spring leaves and R1.5 root transitions provide the intermediate section Derek requests between the physically tested 1.3 and 2.6 mm leaves. These are the flexures, printed on an axial end so bending lies in the layer plane. Their physical bending distribution and fatigue remain for the v3 trial.
+    alternatives: Thickening the leaves to 2.6 mm repeats the section Derek reports bending only at its corners; 1.3 mm repeats the thinner section he requests an intermediate value above. The broad central bearing stock is independent of these spring lengths.
+
+  [thin] 1.988 mm of material at its thinnest · 1014.6 mm² of surface under 2.5 mm · spans 2.5 × 25.6 × 39.5 mm
+    file: hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step
+    click: x=24.012 y=7.600 z=13.459
+    click: x=22.655 y=6.147 z=13.459
+    answered: The specified 2.0 mm spring leaves and R1.5 root transitions provide the intermediate section Derek requests between the physically tested 1.3 and 2.6 mm leaves. These are the flexures, printed on an axial end so bending lies in the layer plane. Their physical bending distribution and fatigue remain for the v3 trial.
+    alternatives: Thickening the leaves to 2.6 mm repeats the section Derek reports bending only at its corners; 1.3 mm repeats the thinner section he requests an intermediate value above. The broad central bearing stock is independent of these spring lengths.
+
   [ledge] 3.10 mm² flat face 0° off facing the bed · 3.1 × 1.0 mm · 23.3 mm up
     file: hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step
     face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=-22.115 y=-16.048 z=23.331
@@ -56,6 +83,31 @@ answers: hardware/printed-parts/lint-answers/enclosure/rear-equipment-caps/asse-
     click: x=21.081 y=-16.381 z=23.331
     answered: The two axial end faces of each centered 5 × 1 mm blade entry are the functional tool-access boundaries under the hooks. Tree(auto)/Default retains accessible supports at these small ceilings; post-processing uses a tiny flathead that fits inside the cavity. The slot does not cut the continuous spring wall.
     alternatives: Filling the faces closes the blade entry. A ramped opening changes the flat screwdriver purchase and the remaining retaining bearing. Derek explicitly permits a tool and the extra edges for this release feature.
+
+  [sliver · answered] The measured adapter wrench flat meets the cap's horizontal open edge at this narrow planar face. Its captured clocking and slightly tilted axis define the intersection. This is the fitted wrench profile at the opening.
+    alternatives: A round bore through the clipped corner radius adds about 1.5 mm radial space at a wrench flat. Changing the clock or axis changes the registered hardware fit. Lowering the whole open edge removes the corresponding wrench coverage.
+    0.361 mm strip, 9.2 mm long
+    face: plane · n x=0.886 y=0.464 z=-0.005 · thru x=-12.459 y=-3.315 z=55.216
+    edge: x=-12.438 y=-3.304 z=59.831 → x=-12.480 y=-3.326 z=50.601 · len 9.230 · straight · dir x=-0.005 y=-0.002 z=-1.000
+    click: x=-12.459 y=-3.315 z=55.216
+
+  [ceiling · answered] The solid adapter bridge closes around the smaller measured adapter profile behind the ASSE wrench passage. Its axial transition faces retain the complete wrench passage and threaded-joint adjustment room. Tree(auto)/Default supports these faces through the open cavity before hardware insertion; a tiny flathead reaches the support contacts.
+    alternatives: Filling the cavity enters the measured adapter or ASSE clearance. A ramp in the large wrench passage consumes the specified threaded-joint adjustment room. Splitting the bridge into a separate piece violates the one-solid cap construction.
+    177 mm² flat print-down face at z=42.171 · 33.6 × 14.7 mm · open to the bed (42.2 mm up)
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=-0.050 y=3.879 z=42.171
+    click: x=-0.050 y=3.879 z=42.171
+
+  [ceiling · answered] The solid adapter bridge closes around the smaller measured adapter profile behind the ASSE wrench passage. Its axial transition faces retain the complete wrench passage and threaded-joint adjustment room. Tree(auto)/Default supports these faces through the open cavity before hardware insertion; a tiny flathead reaches the support contacts.
+    alternatives: Filling the cavity enters the measured adapter or ASSE clearance. A ramp in the large wrench passage consumes the specified threaded-joint adjustment room. Splitting the bridge into a separate piece violates the one-solid cap construction.
+    80 mm² flat print-down face at z=38.661 · 12.0 × 10.0 mm · open to the bed (38.7 mm up)
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=17.136 y=1.536 z=38.661
+    click: x=17.136 y=1.536 z=38.661
+
+  [ceiling · answered] The solid adapter bridge closes around the smaller measured adapter profile behind the ASSE wrench passage. Its axial transition faces retain the complete wrench passage and threaded-joint adjustment room. Tree(auto)/Default supports these faces through the open cavity before hardware insertion; a tiny flathead reaches the support contacts.
+    alternatives: Filling the cavity enters the measured adapter or ASSE clearance. A ramp in the large wrench passage consumes the specified threaded-joint adjustment room. Splitting the bridge into a separate piece violates the one-solid cap construction.
+    79 mm² flat print-down face at z=38.661 · 12.1 × 10.0 mm · open to the bed (38.7 mm up)
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=-17.098 y=1.536 z=38.661
+    click: x=-17.098 y=1.536 z=38.661
 
 pisco-snap-cap.stl · 3492 printed facets · 10 findings
 answers: hardware/printed-parts/lint-answers/enclosure/rear-equipment-caps/pisco-snap-cap.lint-answers · read hardware/printed-parts/lint-answers/AGENTS.md before writing one

@@ -1,0 +1,238 @@
+{
+  "views": [
+    {
+      "name": "adapter-capture",
+      "caption": "The lower cap captures both ends of the adapter hex and retains solid backing above the drain sleeve.",
+      "before": "adapter-capture-before.webp",
+      "after": "adapter-capture-after.webp",
+      "width": 960,
+      "height": 720,
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          123.8201842586084,
+          393.60577396552446,
+          308.5853857517259
+        ],
+        "target": [
+          28.8,
+          449.5,
+          322
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "fov": 45,
+        "near": 45.385773124015664,
+        "far": 195.85434525803672,
+        "aspect": 1.3333333333333333,
+        "section": {
+          "at": [
+            28.8,
+            449.5,
+            328
+          ],
+          "normal": [
+            1,
+            0,
+            0
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [
+        "asse-snap-cap"
+      ],
+      "ghost": [],
+      "only": [
+        "asse-snap-cap",
+        "gagira-coupling"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "cd9058201b3d9ad66f2b5c1d3c1cf6a1986576ccc3b006e8b237e8f50cd3fed7",
+          "commit": "8fb532bc73e37e4f53c0051f4a0665500eae779d",
+          "taken": "2026-11-02T23:51:35.327Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "3a86926c64bae797c5779210e02047eca755c71519de88d55a1257254b215dcc",
+          "commit": "23e1cc6192c2814523db202bb77d53879b2e1e67",
+          "published": true
+        }
+      },
+      "changed": [
+        "asse-snap-cap",
+        "enclosure-back-top",
+        "pisco-snap-cap",
+        "meter-snap-cap"
+      ],
+      "withinMeshing": []
+    },
+    {
+      "name": "pisco-bearings",
+      "caption": "The lower saddle follows the measured PISCO neck and body profile.",
+      "before": "pisco-bearings-before.webp",
+      "after": "pisco-bearings-after.webp",
+      "width": 960,
+      "height": 720,
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          177.57404851415035,
+          441,
+          315.91407611886797
+        ],
+        "target": [
+          76.5,
+          441,
+          324
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "fov": 45,
+        "near": 55.316739402103,
+        "far": 177.15296600343868,
+        "aspect": 1.3333333333333333,
+        "section": {
+          "at": [
+            76.5,
+            439,
+            328
+          ],
+          "normal": [
+            1,
+            0,
+            0
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [
+        "pisco-snap-cap"
+      ],
+      "ghost": [],
+      "only": [
+        "pisco-snap-cap",
+        "gas-regulator",
+        "co2-inlet"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "cd9058201b3d9ad66f2b5c1d3c1cf6a1986576ccc3b006e8b237e8f50cd3fed7",
+          "commit": "8fb532bc73e37e4f53c0051f4a0665500eae779d",
+          "taken": "2026-11-02T23:51:35.327Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "3a86926c64bae797c5779210e02047eca755c71519de88d55a1257254b215dcc",
+          "commit": "23e1cc6192c2814523db202bb77d53879b2e1e67",
+          "published": true
+        }
+      },
+      "changed": [
+        "asse-snap-cap",
+        "enclosure-back-top",
+        "pisco-snap-cap",
+        "meter-snap-cap"
+      ],
+      "withinMeshing": []
+    },
+    {
+      "name": "meter-socket",
+      "caption": "The cap and receiver follow the meter housing taper and label-side bevel, with separate boss and screw-head passages.",
+      "before": "meter-socket-before.webp",
+      "after": "meter-socket-after.webp",
+      "width": 960,
+      "height": 720,
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          91,
+          505.3359018078045,
+          282.1
+        ],
+        "target": [
+          91,
+          416.01,
+          282.1
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "fov": 45,
+        "near": 0.3854488453261187,
+        "far": 591.8793014663154,
+        "aspect": 1.3333333333333333,
+        "section": {
+          "at": [
+            81,
+            416.01,
+            282.1
+          ],
+          "normal": [
+            0,
+            1,
+            0
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [
+        "meter-snap-cap",
+        "enclosure-back-top"
+      ],
+      "ghost": [],
+      "only": [
+        "enclosure-back-top",
+        "meter-snap-cap",
+        "digiten-flow"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "cd9058201b3d9ad66f2b5c1d3c1cf6a1986576ccc3b006e8b237e8f50cd3fed7",
+          "commit": "8fb532bc73e37e4f53c0051f4a0665500eae779d",
+          "taken": "2026-11-02T23:51:35.327Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "3a86926c64bae797c5779210e02047eca755c71519de88d55a1257254b215dcc",
+          "commit": "23e1cc6192c2814523db202bb77d53879b2e1e67",
+          "published": true
+        }
+      },
+      "changed": [
+        "asse-snap-cap",
+        "enclosure-back-top",
+        "pisco-snap-cap",
+        "meter-snap-cap"
+      ],
+      "withinMeshing": []
+    }
+  ]
+}

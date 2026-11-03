@@ -456,3 +456,15 @@ click: x=-65.200 y=462.225 z=257.950
 alternatives: A rising roof reaches the data-jack receiver’s fitted region. Separate roofs retain a narrow intermediate support pocket. Filling the connector pockets changes their fit; omitting the roof removes the well’s rear-wall load path.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=-77.700 y=459.900 z=280.050
+
+[step] The meter label ends at X95.2 and its screw heads at X95.4. Their separate fitted end planes are X95.35 and X95.55, each with 0.15 mm axial air. The 0.2 mm offset locates the label surface while admitting the taller heads.
+alternatives: One X95.55 plane adds 0.2 mm axial space at the requested label bearing. One X95.35 plane interferes with the screw heads. Recessing the heads changes the purchased reference geometry.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=95.550 y=419.360 z=269.825
+
+[ceiling] The meter's fitted boss and housing passages include their sixteen-millimetre fore-loading corridor. These supported undersides follow that loading envelope. Tree(auto)/Default supplies removable support through the open receiver before hardware insertion, using the cavity post-processing tool recorded for this trial.
+alternatives: Filling these passages blocks the measured bosses or the insertion slide. A ramp within them consumes the hardware's fitted bearing or loading volume. The sample retains the production parent's roof-down print orientation.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=88.300 y=407.835 z=260.300
+click: x=88.450 y=392.628 z=264.500
+click: x=88.450 y=423.042 z=264.500

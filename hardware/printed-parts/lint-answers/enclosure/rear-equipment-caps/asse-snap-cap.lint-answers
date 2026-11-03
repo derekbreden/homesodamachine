@@ -27,3 +27,21 @@ alternatives: Filling the faces closes the blade entry. A ramped opening changes
 file: hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step
 click: x=-22.115 y=-16.048 z=23.331
 click: x=21.081 y=-16.381 z=23.331
+
+[sliver] The measured adapter wrench flat meets the cap's horizontal open edge at this narrow planar face. Its captured clocking and slightly tilted axis define the intersection. This is the fitted wrench profile at the opening.
+alternatives: A round bore through the clipped corner radius adds about 1.5 mm radial space at a wrench flat. Changing the clock or axis changes the registered hardware fit. Lowering the whole open edge removes the corresponding wrench coverage.
+file: hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step
+click: x=-12.459 y=-3.315 z=55.216
+
+[ceiling] The solid adapter bridge closes around the smaller measured adapter profile behind the ASSE wrench passage. Its axial transition faces retain the complete wrench passage and threaded-joint adjustment room. Tree(auto)/Default supports these faces through the open cavity before hardware insertion; a tiny flathead reaches the support contacts.
+alternatives: Filling the cavity enters the measured adapter or ASSE clearance. A ramp in the large wrench passage consumes the specified threaded-joint adjustment room. Splitting the bridge into a separate piece violates the one-solid cap construction.
+file: hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step
+click: x=-0.050 y=3.879 z=42.171
+click: x=17.136 y=1.536 z=38.661
+click: x=-17.098 y=1.536 z=38.661
+
+[ceiling] These are the closing ends of the vent and drain-sleeve clearance windows. The long sleeve window ends at Z309.4 and spans the complete threaded-joint adjustment. Tree(auto)/Default supports the ends through their open lower channel; the small flathead reaches them before hardware installation.
+alternatives: Filling or shortening the windows enters the measured vent/sleeve volume at a permitted thread position. Ramping within the clearance removes that axial adjustment. The roof height supplies solid backing below the fitted adapter pocket.
+file: hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step
+click: x=0.070 y=16.725 z=50.300
+click: x=0.070 y=13.102 z=30.865
