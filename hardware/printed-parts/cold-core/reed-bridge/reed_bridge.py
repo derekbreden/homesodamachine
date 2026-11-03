@@ -42,10 +42,8 @@ if __name__ == '__main__':
     import _rust_part
     _rust_part.start()
 
-import cadquery as cq
 
 from _cadq_export import export_assembly
-from _materials import M_PETG_BLACK, one_body
 from docgen import substitute_md, substitute_py_comments
 from _cold_core_interface import (
     carbonator_outer_radius,
@@ -235,9 +233,23 @@ def _ring(section):
     return pts if pts[0] == pts[-1] else pts + [pts[0]]
 
 
+def _native():
+    global cq, M_PETG_BLACK, one_body
+    import cadquery as cq
+    from _materials import M_PETG_BLACK, one_body
+
+
+def __getattr__(name):
+    if name in {"cq", "M_PETG_BLACK", "one_body"}:
+        _native()
+        return globals()[name]
+    raise AttributeError(name)
+
+
 def _ridge_ring():
     """Revolved profile giving the axial ramps: a skirt_thickness band over
     the whole height, standing to plateau_radius between the two ramps."""
+    _native()
     return (
         cq.Workplane("XZ")
         .polyline(_ring([
@@ -263,6 +275,7 @@ def _plan_outline_radius(angle):
 def _bump_prism():
     """Extrusion along Z of the plan-view outline: plateau_radius across the
     plateau, ramping to skirt_radius at each circumferential edge."""
+    _native()
     steps = 48
     outline = [(0.0, 0.0)]
     for i in range(steps + 1):
@@ -279,6 +292,7 @@ def _bump_prism():
 
 
 def _radial_box(x_range, y_range, z_range):
+    _native()
     x_min, x_max = x_range
     y_min, y_max = y_range
     z_min, z_max = z_range
@@ -340,6 +354,7 @@ gauge_hook_height = 4.0
 def build_setting_gauge():
     """Band that hangs on the tube's bottom rim; its top face is where the
     bridge's bottom edge goes."""
+    _native()
     return (
         cq.Workplane("XZ")
         .polyline(_ring([
@@ -357,6 +372,7 @@ def build_setting_gauge():
 
 def numbers():
     """The bridge's native profiles and cutters for reed_bridge.rs."""
+    _native()
     from _materials import linear
 
     def box(x, y, z):
@@ -419,6 +435,7 @@ def _report(name, shape):
 
 
 def main(output=None, native=False):
+    _native()
     assert reed_low_z > magnet_lowest_z, "low reed below the donut's reach"
     assert reed_high_z < magnet_highest_z, "high reed above the donut's reach"
 
@@ -533,6 +550,7 @@ def document(bridge_volume, gauge_volume):
 
 def import_part(path):
     """The emitted bridge or gauge for the caller's native or f64 mesh API."""
+    _native()
     from _cadq_export import import_step
     path = Path(path)
     if not getattr(cq, 'MESH', False):

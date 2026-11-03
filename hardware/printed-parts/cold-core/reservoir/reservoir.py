@@ -22,14 +22,10 @@ if __name__ == '__main__':
     import _rust_part
     _rust_part.start()
 
-import cadquery as cq
 
-from world_workplane import WorldWorkplane, xy_plane_z_up
 import fits
 from _cadq_export import export_assembly
 import _reservoir_ports as tube_ports
-import _materials as _mat
-from _materials import one_body
 from docgen import substitute_md, substitute_py_comments
 from _cold_core_interface import (
     cap_conduit_shell_xy,
@@ -51,9 +47,25 @@ from _reed_channels import reeds_per_reservoir
 import _float_interface as _float
 
 
+def _native():
+    global cq, WorldWorkplane, xy_plane_z_up, _mat, one_body
+    import cadquery as cq
+    from world_workplane import WorldWorkplane, xy_plane_z_up
+    import _materials as _mat
+    from _materials import one_body
+
+
+def __getattr__(name):
+    if name in {"cq", "WorldWorkplane", "xy_plane_z_up", "_mat", "one_body"}:
+        _native()
+        return globals()[name]
+    raise AttributeError(name)
+
+
 def _z_cylinder(anchor_xy, z_range, diameter):
     """Solid cylinder, axis along world +Z, centered at anchor_xy =
     (world_x, world_y), spanning z_range = (z_bottom, z_top)."""
+    _native()
     x, y = anchor_xy
     z_bottom, z_top = z_range
     return (
@@ -422,6 +434,7 @@ def _build_envelope(side, z_range, wall_offset=0.0):
     inward by that amount on every face (negative growth on the
     concave radius); wall_offset=0 is the outer envelope,
     wall_offset=wall_thickness is the inner cavity."""
+    _native()
     floor_z, top_z = z_range
     height = top_z - floor_z
     far_x_abs = outer_far_x_abs - wall_offset
@@ -445,6 +458,7 @@ def _build_envelope(side, z_range, wall_offset=0.0):
 
 def _fillet_edge_at(solid, point, radius):
     """Fillet the edge nearest the given world point with the given radius."""
+    _native()
     return (
         solid
         .edges(cq.NearestToPointSelector(point))
@@ -468,6 +482,7 @@ def build_reservoir_body(side=1):
     bosses at the top perimeter (one per insert_positions_for_side_plus_1) host
     ruthex M3 inserts in ø4 × 7 mm pockets. side=+1 builds the +X reservoir;
     side=−1 the −X (mirror across x=0)."""
+    _native()
     outer_envelope = _build_envelope(side, outer_z_range)
     inner_cavity = _build_envelope(side, inner_z_range, wall_offset=reservoir_wall_thickness)
 
@@ -612,6 +627,7 @@ def build_reservoir_cap(side=1):
     cap_assembly_lift (= outer_z_range[1] + gasket_thickness; the pinned value
     lives in the comment at that constant, since docgen does not reach
     docstrings)."""
+    _native()
     # Perimeter wall (outer − inner footprint) at the BOTTOM of the cap.
     # The "lip" that hangs down around the gasket.
     perimeter_outer = _build_envelope(side, cap_perimeter_z_range)
@@ -727,6 +743,7 @@ def build_reservoir_gasket(side=1):
     TPU (matching the body boss footprint), with an ø[3.3 mm](CAP_CLEARANCE_HOLE_D) clearance
     hole through its center. side=+1 builds the +X gasket; side=−1
     builds the −X (mirror)."""
+    _native()
     gasket_z_range = (0.0, gasket_thickness)
     outer = _build_envelope(side, gasket_z_range)
     inner = _build_envelope(side, gasket_z_range, wall_offset=gasket_strip_width)
@@ -774,6 +791,7 @@ def build_reservoir_air_grip():
 
 def numbers():
     """Native profiles, corner radii, boss seats and flush-spool specifications."""
+    _native()
     from _materials import linear
     return {
         "outer_far_x": outer_far_x_abs, "outer_y": outer_y_max,
@@ -812,6 +830,7 @@ def numbers():
 
 
 def native_main(output=_here):
+    _native()
     from _show_skin import write_bed_file
     from flute_payload import cut as write_print_payload
     # Left/right naming is geometric: side=+1 → +X reservoir →
@@ -960,6 +979,7 @@ def document(capacity_l, window_l):
 
 def import_part(path):
     """An emitted reservoir piece for the caller's native or f64 mesh API."""
+    _native()
     from _cadq_export import import_step
     path = Path(path)
     if not getattr(cq, 'MESH', False):
