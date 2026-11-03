@@ -1,0 +1,25 @@
+{
+  "source": {
+    "path": "hardware/reference/neofit-stem-elbow/neofit-stem-elbow.step",
+    "sha256": "3019e6b26531b3e2d9b9454a689264ae45c352d0fc28ca9712928a90e7f42f53"
+  },
+  "members": {
+    "neofit-stem-elbow.step": "3019e6b26531b3e2d9b9454a689264ae45c352d0fc28ca9712928a90e7f42f53",
+    "neofit-stem-elbow.step.mesh": "278617143eda0f4e62c997cc166d3aaede71b2799c8b860962a2e3f3de0cfef8",
+    "neofit-stem-elbow.fine.step.npz": "d100859c84b31c112839dee6eb5b08334cdab061e293de01776e0091d1dfdab4"
+  },
+  "fine_models": {
+    "neofit-stem-elbow.step": {
+      "path": "neofit-stem-elbow.fine.step.npz",
+      "sha256": "d100859c84b31c112839dee6eb5b08334cdab061e293de01776e0091d1dfdab4",
+      "source_step_sha256": "3019e6b26531b3e2d9b9454a689264ae45c352d0fc28ca9712928a90e7f42f53",
+      "linear_mm": 0.005,
+      "angular_rad": 0.05,
+      "producer": "meshcad/imports.py:step_solids import version2",
+      "presentation_indices": [
+        0,
+        1
+      ]
+    }
+  }
+}

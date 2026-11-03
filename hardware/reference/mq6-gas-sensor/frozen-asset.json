@@ -6,6 +6,20 @@
   },
   "members": {
     "mq6-gas-sensor.step": "b3707fb5112ceee44ed47d0b1c1adeed17979ec6e06f187009d2eaee0c740ee1",
-    "mq6-gas-sensor.step.mesh": "290c2de59cd21200bc7c0e83a6b7f56ae21c7447a4eed2b24d3396fc512a30e5"
+    "mq6-gas-sensor.step.mesh": "290c2de59cd21200bc7c0e83a6b7f56ae21c7447a4eed2b24d3396fc512a30e5",
+    "mq6-gas-sensor.fine.step.npz": "ab023aa13553fe9c0d961c9e58a31885bdb5205e66f8b623cfe9a67812923965"
+  },
+  "fine_models": {
+    "mq6-gas-sensor.step": {
+      "path": "mq6-gas-sensor.fine.step.npz",
+      "sha256": "ab023aa13553fe9c0d961c9e58a31885bdb5205e66f8b623cfe9a67812923965",
+      "source_step_sha256": "b3707fb5112ceee44ed47d0b1c1adeed17979ec6e06f187009d2eaee0c740ee1",
+      "linear_mm": 0.005,
+      "angular_rad": 0.05,
+      "producer": "meshcad/imports.py:step_solids import version2",
+      "presentation_indices": [
+        0
+      ]
+    }
   }
 }

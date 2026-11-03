@@ -6,6 +6,20 @@
   },
   "members": {
     "meanwell-irm90.step": "27cc1e5c3f5bf010f6df8a15a4b9b96dfef7b3836eee4905347e8a0035d033d7",
-    "meanwell-irm90.step.mesh": "5daca63d8261f4dd722024eee72dee2359c0d9f65dd54ae7ef37012f891ce4a4"
+    "meanwell-irm90.step.mesh": "5daca63d8261f4dd722024eee72dee2359c0d9f65dd54ae7ef37012f891ce4a4",
+    "meanwell-irm90.fine.step.npz": "366ce6d9869a8a33efc07478d5350abe74597acf84756dd9deb8dbd188b2a42a"
+  },
+  "fine_models": {
+    "meanwell-irm90.step": {
+      "path": "meanwell-irm90.fine.step.npz",
+      "sha256": "366ce6d9869a8a33efc07478d5350abe74597acf84756dd9deb8dbd188b2a42a",
+      "source_step_sha256": "27cc1e5c3f5bf010f6df8a15a4b9b96dfef7b3836eee4905347e8a0035d033d7",
+      "linear_mm": 0.005,
+      "angular_rad": 0.05,
+      "producer": "meshcad/imports.py:step_solids import version2",
+      "presentation_indices": [
+        0
+      ]
+    }
   }
 }
