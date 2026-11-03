@@ -250,7 +250,30 @@ impl World {
         Ok(json!(self.g(n)?.indices))
     }
     pub fn measure(&mut self, queries: Vec<Value>) -> Result<Vec<Value>> {
-        fine::query(&mut self.parts, &json!(queries), false)
+        let result = fine::retained_query(
+            &mut self.parts,
+            &json!(queries),
+            fine::SearchRetention {
+                array_bytes: 64 * 1024 * 1024,
+                reuse_queries: 64,
+            },
+        );
+        // A later phase may ask about any raw member again. It receives those
+        // exact arrays, not native search state left by an earlier question.
+        self.forget_search();
+        result
+    }
+    pub fn forget_search(&mut self) {
+        for part in &mut self.parts {
+            part.solid.forget_backend();
+        }
+    }
+    pub fn retain_raw(&mut self, needed: &BTreeSet<usize>) {
+        for (i, part) in self.parts.iter_mut().enumerate() {
+            if !needed.contains(&i) {
+                part.solid = Solid::empty();
+            }
+        }
     }
     pub fn solid(&self, n: &str) -> Result<Solid> {
         let g = self.g(n)?;
@@ -400,7 +423,7 @@ fn main() -> Result<()> {
     let mut result = json!({});
     let mode = request.get("mode").and_then(Value::as_str).unwrap_or("all");
     if mode == "construction" {
-        println!("{}", construction::construction_only(&world, request)?);
+        println!("{}", construction::construction_only(&mut world, request)?);
         return Ok(());
     }
     if mode == "clearance" {
@@ -411,7 +434,7 @@ fn main() -> Result<()> {
         result = report::build(&mut world, request)?;
     }
     if mode != "scorecard" && request.get("drain").and_then(Value::as_bool) != Some(false) {
-        result["drain"] = drain::read(&mut world, request)?;
+        result["drain"] = drain::final_read(&mut world, request)?;
     }
     println!("{result}");
     Ok(())
