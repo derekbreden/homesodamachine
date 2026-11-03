@@ -42,7 +42,9 @@ All leaves are 2.0 mm thick, with a 1.5 mm inside root radius and 22.25 mm
 root-to-catch length; the water regulator uses 21.25 mm within its retained
 height. The straight wall above the root blend is 20.75 mm, or 19.75 mm on
 the water regulator. The insertion face has a
-1 mm-rise lead-in ramp above a 1.6 mm solid nose land. The blade entry leaves
+3 mm-rise single planar lead-in ending at a pointed free edge, above a 1.6 mm
+solid nose land. The matching receiver ceiling clears the complete point by
+0.5 mm. The blade entry leaves
 0.6 mm of solid nose above it. The retaining face is
 flat with 2.6 mm overlap outside each centered 5 mm-wide by 1 mm-high flathead
 entry. The nominal catch clearance is 0.4 mm.
