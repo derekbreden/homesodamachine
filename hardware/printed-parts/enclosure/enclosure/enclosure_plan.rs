@@ -466,23 +466,20 @@ fn ruled_stack(v: &Value) -> Result<Solid> {
 pub(crate) fn build(n: &Numbers) -> Result<Solid> {
     let recipe = n.get("panel")?;
     let nodes = recipe["nodes"].as_array().context("panel nodes")?;
-    let result = recipe["result"].as_u64().context("panel result")? as usize;
+    let shared = recipe::Shared::new(nodes)?;
+    let result = shared.aliases[recipe["result"].as_u64().context("panel result")? as usize];
     let mut users = vec![0_usize; nodes.len()];
     users[result] += 1;
-    for node in nodes {
-        for input in node["inputs"].as_array().context("node inputs")? {
-            users[input.as_u64().context("input index")? as usize] += 1;
+    for (i, inputs) in shared.inputs.iter().enumerate() {
+        if shared.aliases[i] != i { continue; }
+        for &input in inputs {
+            users[input] += 1;
         }
     }
     let mut live: Vec<Option<Solid>> = vec![None; nodes.len()];
     for (i, v) in nodes.iter().enumerate() {
-        let inputs = v["inputs"]
-            .as_array()
-            .context("node inputs")?
-            .iter()
-            .map(|x| x.as_u64().map(|k| k as usize).context("node index"))
-            .collect::<Result<Vec<_>>>()?;
-        ensure!(inputs.iter().all(|&k| k < i), "construction order");
+        if shared.aliases[i] != i { continue; }
+        let inputs = &shared.inputs[i];
         let input = |k: usize| live[inputs[k]].as_ref().expect("referenced solid is live");
         let op = v["op"].as_str().context("node operation")?;
         let shape = (|| -> Result<Solid> {
@@ -587,7 +584,7 @@ pub(crate) fn build(n: &Numbers) -> Result<Solid> {
         })()
         .with_context(|| format!("enclosure node {i} ({op})"))?;
         live[i] = Some(shape);
-        for k in inputs {
+        for &k in inputs {
             users[k] -= 1;
             if users[k] == 0 {
                 live[k] = None;
@@ -596,6 +593,9 @@ pub(crate) fn build(n: &Numbers) -> Result<Solid> {
     }
     live[result].take().context("finished enclosure plan")
 }
+
+#[path = "enclosure_recipe.rs"]
+mod recipe;
 
 pub(crate) fn write_print_stl(path: &std::path::Path, shape: &Manifold) -> Result<()> {
     let (v, props, t) = shape.to_mesh_f32();
