@@ -37,6 +37,15 @@ PAD = 3
 PPI = 432
 
 
+def _filter_region(width, height, stroke):
+    # Filter the visible picture and its sampling margin, including a full
+    # morphology neighbourhood beyond the output edge. A crop's source image
+    # can extend far outside this picture.
+    margin = max(PAD, stroke + 72/PPI)
+    return (f'filterUnits="userSpaceOnUse" x="{-margin}" y="{-margin}" '
+            f'width="{width+2*margin}" height="{height+2*margin}"')
+
+
 class Contours:
     def __init__(self, color, width=.6):
         self.color = color
@@ -54,6 +63,7 @@ class Contours:
         w, h = source_size[0]*scale, source_size[1]*scale
         pw, ph = iw+2*PAD, ih+2*PAD
         pixels = (math.ceil(pw*PPI/72), math.ceil(ph*PPI/72))
+        region = _filter_region(pw, ph, self.width)
         raw = f'<image x="{x}" y="{y}" width="{w}" height="{h}" href="{source.as_uri()}"/>'
         silhouette = raw
         lip = ''
@@ -71,7 +81,7 @@ class Contours:
                             overlay.iter('{http://www.w3.org/2000/svg}path'))
             # The scene's alpha contour already covers the exposed perimeter.
             # Restrict the component stroke to the scene interior to avoid doubling it.
-            component_defs = f'''<filter id="component-interior" color-interpolation-filters="sRGB">
+            component_defs = f'''<filter id="component-interior" {region} color-interpolation-filters="sRGB">
               <feComponentTransfer in="SourceAlpha" result="solid"><feFuncA type="linear" slope="40"/></feComponentTransfer>
               <feMorphology in="solid" operator="erode" radius="{self.width}" result="inside"/>
               <feFlood flood-color="white"/><feComposite in2="inside" operator="in"/>
@@ -104,7 +114,7 @@ class Contours:
             return ''.join(f'<stop offset="{offset}" stop-color="{color}"/>' for offset,color in values)
         body = f'''<!doctype html><html><head><style>html,body{{margin:0;width:100%;height:100%;background:transparent}}svg{{display:block;width:100vw;height:100vh}}</style></head><body>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {pw} {ph}"><defs>{component_defs}
-        <filter id="contour" x="-10%" y="-10%" width="120%" height="120%" color-interpolation-filters="sRGB">
+        <filter id="contour" {region} color-interpolation-filters="sRGB">
           <feComponentTransfer in="SourceAlpha" result="solid"><feFuncA type="linear" slope="40"/></feComponentTransfer>
           <feMorphology operator="dilate" radius="{self.width}" result="outside"/>
           <feComposite in="outside" in2="solid" operator="out" result="edge"/>
