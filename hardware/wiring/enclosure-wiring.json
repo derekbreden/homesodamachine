@@ -94365,7 +94365,7 @@
     "hardware/wiring/installed/_model_input.py": "169307ae4bde5ee802a03b7daa5221aa0ca693bee6643e1c28873b66e1643655",
     "hardware/scripts/_assembly_model.py": "77fa66f1d6936e66c02e7df7fab1c6bfc9dc1bf75476e37e550fc86dfc2becc6",
     "hardware/scripts/_realized.py": "50a376b36a6c9bf0d95bb629385ee30a48408df1e188f22f9250830f5ff207b9",
-    "hardware/manifold-layout/enclosure_assembly.rs": "8582f8dc0c43d11ff57303372143a9e192eaf200576c64a0fc171ab445e5e1c9",
+    "hardware/manifold-layout/enclosure_assembly.rs": "96aa539012f321bd62c76c3226f00aa9e81dd0d9586fae16f2d825824b6762a3",
     "hardware/wiring/installed/routes.py": "d36afa22f2e5ac9902a91fa89fb4cc29ffcd7b24ca3b56a0be7fbc6de4bdba64",
     "hardware/wiring/installed/retainers.py": "9f3956d7527a2efe0376c0f4828e1d257c6b18827467635fa9250e421b737b98",
     "hardware/wiring/installed/manifold_bank_routes.py": "e8b5a4cc02df134d1b240ab0bbe2f7ea3f3c73d7af6b2d54ae44e954456002a3",
