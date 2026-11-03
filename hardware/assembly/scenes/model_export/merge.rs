@@ -2,21 +2,23 @@
 use super::payload::Payload;
 use anyhow::{Context, Result, ensure};
 use serde_json::{Value, json};
+use sha2::{Digest, Sha256};
 use std::{
     collections::BTreeMap,
+    io::Write,
     path::{Path, PathBuf},
 };
 const BEGIN: &str = "/* HSM_INSTALLED_WIRING_BEGIN */\n";
 const END: &str = "/* HSM_INSTALLED_WIRING_END */\n";
-fn base(text: &str) -> Result<String> {
+fn base(mut bytes: Vec<u8>) -> Result<Vec<u8>> {
+    let text = std::str::from_utf8(&bytes)?;
     if let Some(start) = text.find(BEGIN) {
         let end = text[start..].find(END).context("unfinished wiring block")? + start + END.len();
-        Ok(format!("{}{}", &text[..start], &text[end..]))
-    } else {
-        Ok(text.into())
+        bytes.drain(start..end);
     }
+    Ok(bytes)
 }
-fn records(text: &str) -> Result<Vec<(u64, String)>> {
+fn records(text: &str) -> Result<Vec<(u64, &str)>> {
     let mut out = Vec::new();
     let mut at = 0;
     let bytes = text.as_bytes();
@@ -51,7 +53,7 @@ fn records(text: &str) -> Result<Vec<(u64, String)>> {
             .find(";\n")
             .map(|v| first + v)
             .context("STEP record ending")?;
-        out.push((id, text[first..last].into()));
+        out.push((id, &text[first..last]));
         at = last + 2;
     }
     Ok(out)
@@ -102,8 +104,8 @@ fn remap(text: &str, offset: u64) -> String {
     out.push_str(&text[last..]);
     out
 }
-fn root(rows: &[(u64, String)], name: &str) -> Result<(u64, u64, u64)> {
-    let dict: BTreeMap<_, _> = rows.iter().map(|(id, b)| (*id, b.as_str())).collect();
+fn root(rows: &[(u64, &str)], name: &str) -> Result<(u64, u64, u64)> {
+    let dict: BTreeMap<_, _> = rows.iter().map(|(id, b)| (*id, *b)).collect();
     let product = rows
         .iter()
         .find(|(_, b)| b.trim_start().starts_with(&format!("PRODUCT('{name}',")))
@@ -139,37 +141,57 @@ fn wiring(name: &str) -> bool {
 pub fn append(spec: &Value, output: &Path) -> Result<Value> {
     let host = PathBuf::from(super::text(spec, "host_step")?);
     let wire = PathBuf::from(super::text(spec, "wire_step")?);
-    let host_bytes = super::read(&host)?;
-    let base = base(std::str::from_utf8(&host_bytes)?)?;
-    let original = records(&base)?;
-    let wire_bytes = super::read(&wire)?;
-    let incoming = records(std::str::from_utf8(&wire_bytes)?)?;
-    let (hp, hr, ha) = root(
-        &original,
-        spec["host_name"].as_str().unwrap_or("enclosure-assembly"),
-    )?;
-    let (wp, wr, wa) = root(
-        &incoming,
-        spec["wire_name"].as_str().unwrap_or("installed-wiring"),
-    )?;
-    let offset = original.iter().map(|v| v.0).max().context("empty STEP")?;
-    let mut added = String::new();
-    for (id, body) in &incoming {
-        added.push_str(&format!("#{} ={};\n", id + offset, remap(body, offset)));
-    }
-    let n = incoming
-        .iter()
-        .map(|v| v.0 + offset)
-        .max()
-        .context("empty wiring STEP")?
-        + 1;
-    added.push_str(&format!("#{n} = CONTEXT_DEPENDENT_SHAPE_REPRESENTATION(#{},#{});\n#{} = ( REPRESENTATION_RELATIONSHIP('','',#{},#{hr}) REPRESENTATION_RELATIONSHIP_WITH_TRANSFORMATION(#{}) SHAPE_REPRESENTATION_RELATIONSHIP() );\n#{} = ITEM_DEFINED_TRANSFORMATION('','',#{},#{ha});\n#{} = PRODUCT_DEFINITION_SHAPE('Placement','Installed wiring',#{});\n#{} = NEXT_ASSEMBLY_USAGE_OCCURRENCE('installed-wiring','installed-wiring','',#{hp},#{},$);\n",n+1,n+3,n+1,wr+offset,n+2,n+2,wa+offset,n+3,n+4,n+4,wp+offset));
-    let end = base.rfind("ENDSEC;").context("STEP end")?;
-    let result = format!("{}{BEGIN}{added}{END}{}", &base[..end], &base[end..]);
-    let physical_sha = super::digest(base.as_bytes());
-    let installed_sha = super::digest(result.as_bytes());
-    super::put(&host, result.as_bytes())?;
+    let target = output.join(host.file_name().context("host STEP filename")?);
+    let (physical_sha, installed_sha, physical_records, wiring_sha) = {
+        let host_bytes = base(super::read(&host)?)?;
+        let text = std::str::from_utf8(&host_bytes)?;
+        let original = records(text)?;
+        let wire_bytes = super::read(&wire)?;
+        let incoming = records(std::str::from_utf8(&wire_bytes)?)?;
+        let (hp, hr, ha) = root(
+            &original,
+            spec["host_name"].as_str().unwrap_or("enclosure-assembly"),
+        )?;
+        let (wp, wr, wa) = root(
+            &incoming,
+            spec["wire_name"].as_str().unwrap_or("installed-wiring"),
+        )?;
+        let offset = original.iter().map(|v| v.0).max().context("empty STEP")?;
+        let n = incoming
+            .iter()
+            .map(|v| v.0 + offset)
+            .max()
+            .context("empty wiring STEP")?
+            + 1;
+        let end = text.rfind("ENDSEC;").context("STEP end")?;
+        let physical_sha = super::digest(&host_bytes);
+        let wiring_sha = super::digest(&wire_bytes);
+        let mut hash = Sha256::new();
+        super::model::put_stream(&target, |writer| {
+            let mut emit = |bytes: &[u8]| -> Result<()> {
+                writer.write_all(bytes)?;
+                hash.update(bytes);
+                Ok(())
+            };
+            emit(&host_bytes[..end])?;
+            emit(BEGIN.as_bytes())?;
+            for (id, body) in &incoming {
+                emit(format!("#{} ={};\n", id + offset, remap(body, offset)).as_bytes())?;
+            }
+            emit(format!("#{n} = CONTEXT_DEPENDENT_SHAPE_REPRESENTATION(#{},#{});\n#{} = ( REPRESENTATION_RELATIONSHIP('','',#{},#{hr}) REPRESENTATION_RELATIONSHIP_WITH_TRANSFORMATION(#{}) SHAPE_REPRESENTATION_RELATIONSHIP() );\n#{} = ITEM_DEFINED_TRANSFORMATION('','',#{},#{ha});\n#{} = PRODUCT_DEFINITION_SHAPE('Placement','Installed wiring',#{});\n#{} = NEXT_ASSEMBLY_USAGE_OCCURRENCE('installed-wiring','installed-wiring','',#{hp},#{},$);\n",n+1,n+3,n+1,wr+offset,n+2,n+2,wa+offset,n+3,n+4,n+4,wp+offset).as_bytes())?;
+            emit(END.as_bytes())?;
+            emit(&host_bytes[end..])?;
+            Ok(())
+        })?;
+        (
+            physical_sha,
+            format!("{:x}", hash.finalize()),
+            original.len(),
+            wiring_sha,
+        )
+    };
     let host_mesh = PathBuf::from(format!("{}.mesh", host.display()));
+    let target_mesh = PathBuf::from(format!("{}.mesh", target.display()));
     let wire_mesh = PathBuf::from(format!("{}.mesh", wire.display()));
     let mut physical = Payload::read(&host_mesh)?;
     physical.meshes.retain(|m| !wiring(m.name()));
@@ -178,8 +200,9 @@ pub fn append(spec: &Value, output: &Path) -> Result<Value> {
     let wire_count = incoming_payload.meshes.len();
     physical.meshes.extend(incoming_payload.meshes);
     physical.header["src"] = json!(installed_sha);
-    physical.write(&host_mesh)?;
-    let mut receipt = json!({"schema":1,"scope":"Wiring-only integration; existing physical parts retained","physical_step_sha256":physical_sha,"installed_step_sha256":installed_sha,"physical_records_retained":original.len(),"physical_meshes_retained":retained,"wiring_meshes":wire_count,"all_retained_viewer_arrays_identical":Value::Null,"wiring_step_sha256":super::digest(&wire_bytes),"files":[super::output_name(&host,output),super::output_name(&host_mesh,output)],"bodies":[]});
+    physical.write(&target_mesh)?;
+    drop(physical);
+    let mut receipt = json!({"schema":1,"scope":"Wiring-only integration; existing physical parts retained","physical_step_sha256":physical_sha,"installed_step_sha256":installed_sha,"physical_records_retained":physical_records,"physical_meshes_retained":retained,"wiring_meshes":wire_count,"all_retained_viewer_arrays_identical":Value::Null,"wiring_step_sha256":wiring_sha,"files":[super::output_name(&target,output),super::output_name(&target_mesh,output)],"bodies":[]});
     if let Some(model) = spec["wire_model"].as_str() {
         receipt["wiring_fine_model"] =
             json!({"path":model,"sha256":super::digest(&super::read(Path::new(model))?)});
