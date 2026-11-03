@@ -868,13 +868,6 @@
     }
   },
   "bend_radii": {
-    "tube-fluid-28": {
-      "centerline_radii_mm": [
-        25.0
-      ],
-      "stock_minimum_mm": 25.0,
-      "passed": true
-    },
     "tube-drain-vent": {
       "centerline_radii_mm": [
         55.6741128
@@ -888,12 +881,19 @@
       ],
       "stock_minimum_mm": 25.0,
       "passed": true
+    },
+    "tube-fluid-28": {
+      "centerline_radii_mm": [
+        25.0
+      ],
+      "stock_minimum_mm": 25.0,
+      "passed": true
     }
   },
   "source_sha256": {
     "hardware/scripts/check_asse_drain.py": "dbcc26e7236b251f4603174452b50c43e7150ce7d2bc0f4e00a21b8e954ac638",
     "hardware/manifold-layout/_drain.py": "fe820671a5415fbd7cdbc7bd63af8690a9a6412b0b22b9ff30f2f902cdc16d36",
-    "hardware/manifold-layout/enclosure_assembly.py": "b5fc5033c150f60a1353b6267e1b8648c71fbc386317c0892fcb94299df42ac1",
+    "hardware/manifold-layout/enclosure_assembly.py": "bc68c3df344b704782ec257c26cd83e3c6b621445506e4fc9e4e667da990afb7",
     "hardware/manifold-layout/_lines.py": "814a077be042d9335e897493e22cfff9bbdfd3df26e9014d3f562432c7f39375",
     "hardware/manifold-layout/rear_plumbing.py": "59bd783446f82048f72eb4e2aadfe6a3531c5778404455b13d4facea959ddb70",
     "hardware/manifold-layout/above-core.json": "e0b80674504eabcbfa8ce36559b94b30c737d80f2a99b782dd45cbb7cec05dec",
@@ -3766,492 +3766,6 @@
       "cold-core/tube-water-5": "tube-water-5"
     },
     "bend_surface_records": {
-      "tube-fluid-28": [
-        {
-          "entry_index": 168,
-          "qualified_name": "tube-fluid-28",
-          "face_index": 3,
-          "record": {
-            "kind": "TORUS",
-            "src": "hardware/manifold-layout/above_core_parts.py:457",
-            "op": "sweep",
-            "c": [
-              -73.82,
-              191.24,
-              263.5
-            ],
-            "d": [
-              -1.0,
-              0.0,
-              0.0
-            ],
-            "R": 25.0,
-            "r": 2.0
-          }
-        },
-        {
-          "entry_index": 168,
-          "qualified_name": "tube-fluid-28",
-          "face_index": 4,
-          "record": {
-            "kind": "TORUS",
-            "src": "hardware/manifold-layout/above_core_parts.py:457",
-            "op": "sweep",
-            "c": [
-              -73.82,
-              191.24,
-              263.5
-            ],
-            "d": [
-              -1.0,
-              0.0,
-              0.0
-            ],
-            "R": 25.0,
-            "r": 1.25
-          }
-        },
-        {
-          "entry_index": 168,
-          "qualified_name": "tube-fluid-28",
-          "face_index": 5,
-          "record": {
-            "kind": "TORUS",
-            "src": "hardware/manifold-layout/above_core_parts.py:457",
-            "op": "sweep",
-            "c": [
-              -49.038407456,
-              191.24,
-              291.797373343
-            ],
-            "d": [
-              0.131894934,
-              0.0,
-              -0.991263702
-            ],
-            "R": 25.0,
-            "r": 2.0
-          }
-        },
-        {
-          "entry_index": 168,
-          "qualified_name": "tube-fluid-28",
-          "face_index": 6,
-          "record": {
-            "kind": "TORUS",
-            "src": "hardware/manifold-layout/above_core_parts.py:457",
-            "op": "sweep",
-            "c": [
-              -49.038407456,
-              191.24,
-              291.797373343
-            ],
-            "d": [
-              0.131894934,
-              0.0,
-              -0.991263702
-            ],
-            "R": 25.0,
-            "r": 1.25
-          }
-        },
-        {
-          "entry_index": 168,
-          "qualified_name": "tube-fluid-28",
-          "face_index": 7,
-          "record": {
-            "kind": "TORUS",
-            "src": "hardware/manifold-layout/above_core_parts.py:457",
-            "op": "sweep",
-            "c": [
-              -64.781592544,
-              238.650591217,
-              289.702626657
-            ],
-            "d": [
-              -0.131894934,
-              -0.0,
-              0.991263702
-            ],
-            "R": 25.0,
-            "r": 1.25
-          }
-        },
-        {
-          "entry_index": 168,
-          "qualified_name": "tube-fluid-28",
-          "face_index": 8,
-          "record": {
-            "kind": "TORUS",
-            "src": "hardware/manifold-layout/above_core_parts.py:457",
-            "op": "sweep",
-            "c": [
-              -64.781592544,
-              238.650591217,
-              289.702626657
-            ],
-            "d": [
-              -0.131894934,
-              -0.0,
-              0.991263702
-            ],
-            "R": 25.0,
-            "r": 2.0
-          }
-        },
-        {
-          "entry_index": 168,
-          "qualified_name": "tube-fluid-28",
-          "face_index": 11,
-          "record": {
-            "kind": "TORUS",
-            "src": "hardware/manifold-layout/above_core_parts.py:457",
-            "op": "sweep",
-            "c": [
-              -15.0,
-              249.0,
-              293.0
-            ],
-            "d": [
-              0.0,
-              0.0,
-              -1.0
-            ],
-            "R": 25.0,
-            "r": 2.0
-          }
-        },
-        {
-          "entry_index": 168,
-          "qualified_name": "tube-fluid-28",
-          "face_index": 12,
-          "record": {
-            "kind": "TORUS",
-            "src": "hardware/manifold-layout/above_core_parts.py:457",
-            "op": "sweep",
-            "c": [
-              -15.0,
-              249.0,
-              293.0
-            ],
-            "d": [
-              0.0,
-              0.0,
-              -1.0
-            ],
-            "R": 25.0,
-            "r": 1.25
-          }
-        },
-        {
-          "entry_index": 168,
-          "qualified_name": "tube-fluid-28",
-          "face_index": 15,
-          "record": {
-            "kind": "TORUS",
-            "src": "hardware/manifold-layout/above_core_parts.py:457",
-            "op": "sweep",
-            "c": [
-              10.0,
-              299.0,
-              293.0
-            ],
-            "d": [
-              0.0,
-              0.0,
-              1.0
-            ],
-            "R": 25.0,
-            "r": 2.0
-          }
-        },
-        {
-          "entry_index": 168,
-          "qualified_name": "tube-fluid-28",
-          "face_index": 16,
-          "record": {
-            "kind": "TORUS",
-            "src": "hardware/manifold-layout/above_core_parts.py:457",
-            "op": "sweep",
-            "c": [
-              10.0,
-              299.0,
-              293.0
-            ],
-            "d": [
-              0.0,
-              0.0,
-              1.0
-            ],
-            "R": 25.0,
-            "r": 1.25
-          }
-        },
-        {
-          "entry_index": 168,
-          "qualified_name": "tube-fluid-28",
-          "face_index": 17,
-          "record": {
-            "kind": "TORUS",
-            "src": "hardware/manifold-layout/above_core_parts.py:457",
-            "op": "sweep",
-            "c": [
-              35.0,
-              299.0,
-              318.0
-            ],
-            "d": [
-              1.0,
-              0.0,
-              0.0
-            ],
-            "R": 25.0,
-            "r": 2.0
-          }
-        },
-        {
-          "entry_index": 168,
-          "qualified_name": "tube-fluid-28",
-          "face_index": 18,
-          "record": {
-            "kind": "TORUS",
-            "src": "hardware/manifold-layout/above_core_parts.py:457",
-            "op": "sweep",
-            "c": [
-              35.0,
-              299.0,
-              318.0
-            ],
-            "d": [
-              1.0,
-              0.0,
-              0.0
-            ],
-            "R": 25.0,
-            "r": 1.25
-          }
-        },
-        {
-          "entry_index": 168,
-          "qualified_name": "tube-fluid-28",
-          "face_index": 19,
-          "record": {
-            "kind": "TORUS",
-            "src": "hardware/manifold-layout/above_core_parts.py:457",
-            "op": "sweep",
-            "c": [
-              35.0,
-              396.885069295,
-              289.0
-            ],
-            "d": [
-              1.0,
-              0.0,
-              0.0
-            ],
-            "R": 25.0,
-            "r": 2.0
-          }
-        },
-        {
-          "entry_index": 168,
-          "qualified_name": "tube-fluid-28",
-          "face_index": 20,
-          "record": {
-            "kind": "TORUS",
-            "src": "hardware/manifold-layout/above_core_parts.py:457",
-            "op": "sweep",
-            "c": [
-              35.0,
-              396.885069295,
-              289.0
-            ],
-            "d": [
-              1.0,
-              0.0,
-              0.0
-            ],
-            "R": 25.0,
-            "r": 1.25
-          }
-        },
-        {
-          "entry_index": 168,
-          "qualified_name": "tube-fluid-28",
-          "face_index": 23,
-          "record": {
-            "kind": "TORUS",
-            "src": "hardware/manifold-layout/above_core_parts.py:457",
-            "op": "sweep",
-            "c": [
-              53.799998871,
-              449.838903925,
-              264.0
-            ],
-            "d": [
-              0.0,
-              0.0,
-              -1.0
-            ],
-            "R": 25.0,
-            "r": 2.0
-          }
-        },
-        {
-          "entry_index": 168,
-          "qualified_name": "tube-fluid-28",
-          "face_index": 26,
-          "record": {
-            "kind": "TORUS",
-            "src": "hardware/manifold-layout/above_core_parts.py:457",
-            "op": "sweep",
-            "c": [
-              10.0,
-              425.723346729,
-              264.0
-            ],
-            "d": [
-              0.0,
-              0.0,
-              1.0
-            ],
-            "R": 25.0,
-            "r": 2.0
-          }
-        },
-        {
-          "entry_index": 168,
-          "qualified_name": "tube-fluid-28",
-          "face_index": 27,
-          "record": {
-            "kind": "TORUS",
-            "src": "hardware/manifold-layout/above_core_parts.py:457",
-            "op": "sweep",
-            "c": [
-              53.799998871,
-              449.838903925,
-              264.0
-            ],
-            "d": [
-              0.0,
-              0.0,
-              -1.0
-            ],
-            "R": 25.0,
-            "r": 1.25
-          }
-        },
-        {
-          "entry_index": 168,
-          "qualified_name": "tube-fluid-28",
-          "face_index": 29,
-          "record": {
-            "kind": "TORUS",
-            "src": "hardware/manifold-layout/above_core_parts.py:457",
-            "op": "sweep",
-            "c": [
-              10.0,
-              425.723346729,
-              264.0
-            ],
-            "d": [
-              0.0,
-              0.0,
-              1.0
-            ],
-            "R": 25.0,
-            "r": 1.25
-          }
-        },
-        {
-          "entry_index": 168,
-          "qualified_name": "tube-fluid-28",
-          "face_index": 30,
-          "record": {
-            "kind": "TORUS",
-            "src": "hardware/manifold-layout/above_core_parts.py:457",
-            "op": "sweep",
-            "c": [
-              35.0,
-              348.0,
-              278.5
-            ],
-            "d": [
-              -1.0,
-              0.0,
-              0.0
-            ],
-            "R": 25.0,
-            "r": 2.0
-          }
-        },
-        {
-          "entry_index": 168,
-          "qualified_name": "tube-fluid-28",
-          "face_index": 31,
-          "record": {
-            "kind": "TORUS",
-            "src": "hardware/manifold-layout/above_core_parts.py:457",
-            "op": "sweep",
-            "c": [
-              35.0,
-              348.0,
-              278.5
-            ],
-            "d": [
-              -1.0,
-              0.0,
-              0.0
-            ],
-            "R": 25.0,
-            "r": 1.25
-          }
-        },
-        {
-          "entry_index": 168,
-          "qualified_name": "tube-fluid-28",
-          "face_index": 32,
-          "record": {
-            "kind": "TORUS",
-            "src": "hardware/manifold-layout/above_core_parts.py:457",
-            "op": "sweep",
-            "c": [
-              35.0,
-              329.655342112,
-              278.5
-            ],
-            "d": [
-              -1.0,
-              0.0,
-              0.0
-            ],
-            "R": 25.0,
-            "r": 2.0
-          }
-        },
-        {
-          "entry_index": 168,
-          "qualified_name": "tube-fluid-28",
-          "face_index": 33,
-          "record": {
-            "kind": "TORUS",
-            "src": "hardware/manifold-layout/above_core_parts.py:457",
-            "op": "sweep",
-            "c": [
-              35.0,
-              329.655342112,
-              278.5
-            ],
-            "d": [
-              -1.0,
-              0.0,
-              0.0
-            ],
-            "R": 25.0,
-            "r": 1.25
-          }
-        }
-      ],
       "tube-fluid-18": [
         {
           "entry_index": 167,
@@ -4732,6 +4246,492 @@
               -0.683157129,
               -0.0,
               -0.730271414
+            ],
+            "R": 25.0,
+            "r": 1.25
+          }
+        }
+      ],
+      "tube-fluid-28": [
+        {
+          "entry_index": 168,
+          "qualified_name": "tube-fluid-28",
+          "face_index": 3,
+          "record": {
+            "kind": "TORUS",
+            "src": "hardware/manifold-layout/above_core_parts.py:457",
+            "op": "sweep",
+            "c": [
+              -73.82,
+              191.24,
+              263.5
+            ],
+            "d": [
+              -1.0,
+              0.0,
+              0.0
+            ],
+            "R": 25.0,
+            "r": 2.0
+          }
+        },
+        {
+          "entry_index": 168,
+          "qualified_name": "tube-fluid-28",
+          "face_index": 4,
+          "record": {
+            "kind": "TORUS",
+            "src": "hardware/manifold-layout/above_core_parts.py:457",
+            "op": "sweep",
+            "c": [
+              -73.82,
+              191.24,
+              263.5
+            ],
+            "d": [
+              -1.0,
+              0.0,
+              0.0
+            ],
+            "R": 25.0,
+            "r": 1.25
+          }
+        },
+        {
+          "entry_index": 168,
+          "qualified_name": "tube-fluid-28",
+          "face_index": 5,
+          "record": {
+            "kind": "TORUS",
+            "src": "hardware/manifold-layout/above_core_parts.py:457",
+            "op": "sweep",
+            "c": [
+              -49.038407456,
+              191.24,
+              291.797373343
+            ],
+            "d": [
+              0.131894934,
+              0.0,
+              -0.991263702
+            ],
+            "R": 25.0,
+            "r": 2.0
+          }
+        },
+        {
+          "entry_index": 168,
+          "qualified_name": "tube-fluid-28",
+          "face_index": 6,
+          "record": {
+            "kind": "TORUS",
+            "src": "hardware/manifold-layout/above_core_parts.py:457",
+            "op": "sweep",
+            "c": [
+              -49.038407456,
+              191.24,
+              291.797373343
+            ],
+            "d": [
+              0.131894934,
+              0.0,
+              -0.991263702
+            ],
+            "R": 25.0,
+            "r": 1.25
+          }
+        },
+        {
+          "entry_index": 168,
+          "qualified_name": "tube-fluid-28",
+          "face_index": 7,
+          "record": {
+            "kind": "TORUS",
+            "src": "hardware/manifold-layout/above_core_parts.py:457",
+            "op": "sweep",
+            "c": [
+              -64.781592544,
+              238.650591217,
+              289.702626657
+            ],
+            "d": [
+              -0.131894934,
+              -0.0,
+              0.991263702
+            ],
+            "R": 25.0,
+            "r": 1.25
+          }
+        },
+        {
+          "entry_index": 168,
+          "qualified_name": "tube-fluid-28",
+          "face_index": 8,
+          "record": {
+            "kind": "TORUS",
+            "src": "hardware/manifold-layout/above_core_parts.py:457",
+            "op": "sweep",
+            "c": [
+              -64.781592544,
+              238.650591217,
+              289.702626657
+            ],
+            "d": [
+              -0.131894934,
+              -0.0,
+              0.991263702
+            ],
+            "R": 25.0,
+            "r": 2.0
+          }
+        },
+        {
+          "entry_index": 168,
+          "qualified_name": "tube-fluid-28",
+          "face_index": 11,
+          "record": {
+            "kind": "TORUS",
+            "src": "hardware/manifold-layout/above_core_parts.py:457",
+            "op": "sweep",
+            "c": [
+              -15.0,
+              249.0,
+              293.0
+            ],
+            "d": [
+              0.0,
+              0.0,
+              -1.0
+            ],
+            "R": 25.0,
+            "r": 2.0
+          }
+        },
+        {
+          "entry_index": 168,
+          "qualified_name": "tube-fluid-28",
+          "face_index": 12,
+          "record": {
+            "kind": "TORUS",
+            "src": "hardware/manifold-layout/above_core_parts.py:457",
+            "op": "sweep",
+            "c": [
+              -15.0,
+              249.0,
+              293.0
+            ],
+            "d": [
+              0.0,
+              0.0,
+              -1.0
+            ],
+            "R": 25.0,
+            "r": 1.25
+          }
+        },
+        {
+          "entry_index": 168,
+          "qualified_name": "tube-fluid-28",
+          "face_index": 15,
+          "record": {
+            "kind": "TORUS",
+            "src": "hardware/manifold-layout/above_core_parts.py:457",
+            "op": "sweep",
+            "c": [
+              10.0,
+              299.0,
+              293.0
+            ],
+            "d": [
+              0.0,
+              0.0,
+              1.0
+            ],
+            "R": 25.0,
+            "r": 2.0
+          }
+        },
+        {
+          "entry_index": 168,
+          "qualified_name": "tube-fluid-28",
+          "face_index": 16,
+          "record": {
+            "kind": "TORUS",
+            "src": "hardware/manifold-layout/above_core_parts.py:457",
+            "op": "sweep",
+            "c": [
+              10.0,
+              299.0,
+              293.0
+            ],
+            "d": [
+              0.0,
+              0.0,
+              1.0
+            ],
+            "R": 25.0,
+            "r": 1.25
+          }
+        },
+        {
+          "entry_index": 168,
+          "qualified_name": "tube-fluid-28",
+          "face_index": 17,
+          "record": {
+            "kind": "TORUS",
+            "src": "hardware/manifold-layout/above_core_parts.py:457",
+            "op": "sweep",
+            "c": [
+              35.0,
+              299.0,
+              318.0
+            ],
+            "d": [
+              1.0,
+              0.0,
+              0.0
+            ],
+            "R": 25.0,
+            "r": 2.0
+          }
+        },
+        {
+          "entry_index": 168,
+          "qualified_name": "tube-fluid-28",
+          "face_index": 18,
+          "record": {
+            "kind": "TORUS",
+            "src": "hardware/manifold-layout/above_core_parts.py:457",
+            "op": "sweep",
+            "c": [
+              35.0,
+              299.0,
+              318.0
+            ],
+            "d": [
+              1.0,
+              0.0,
+              0.0
+            ],
+            "R": 25.0,
+            "r": 1.25
+          }
+        },
+        {
+          "entry_index": 168,
+          "qualified_name": "tube-fluid-28",
+          "face_index": 19,
+          "record": {
+            "kind": "TORUS",
+            "src": "hardware/manifold-layout/above_core_parts.py:457",
+            "op": "sweep",
+            "c": [
+              35.0,
+              396.885069295,
+              289.0
+            ],
+            "d": [
+              1.0,
+              0.0,
+              0.0
+            ],
+            "R": 25.0,
+            "r": 2.0
+          }
+        },
+        {
+          "entry_index": 168,
+          "qualified_name": "tube-fluid-28",
+          "face_index": 20,
+          "record": {
+            "kind": "TORUS",
+            "src": "hardware/manifold-layout/above_core_parts.py:457",
+            "op": "sweep",
+            "c": [
+              35.0,
+              396.885069295,
+              289.0
+            ],
+            "d": [
+              1.0,
+              0.0,
+              0.0
+            ],
+            "R": 25.0,
+            "r": 1.25
+          }
+        },
+        {
+          "entry_index": 168,
+          "qualified_name": "tube-fluid-28",
+          "face_index": 23,
+          "record": {
+            "kind": "TORUS",
+            "src": "hardware/manifold-layout/above_core_parts.py:457",
+            "op": "sweep",
+            "c": [
+              53.799998871,
+              449.838903925,
+              264.0
+            ],
+            "d": [
+              0.0,
+              0.0,
+              -1.0
+            ],
+            "R": 25.0,
+            "r": 2.0
+          }
+        },
+        {
+          "entry_index": 168,
+          "qualified_name": "tube-fluid-28",
+          "face_index": 26,
+          "record": {
+            "kind": "TORUS",
+            "src": "hardware/manifold-layout/above_core_parts.py:457",
+            "op": "sweep",
+            "c": [
+              10.0,
+              425.723346729,
+              264.0
+            ],
+            "d": [
+              0.0,
+              0.0,
+              1.0
+            ],
+            "R": 25.0,
+            "r": 2.0
+          }
+        },
+        {
+          "entry_index": 168,
+          "qualified_name": "tube-fluid-28",
+          "face_index": 27,
+          "record": {
+            "kind": "TORUS",
+            "src": "hardware/manifold-layout/above_core_parts.py:457",
+            "op": "sweep",
+            "c": [
+              53.799998871,
+              449.838903925,
+              264.0
+            ],
+            "d": [
+              0.0,
+              0.0,
+              -1.0
+            ],
+            "R": 25.0,
+            "r": 1.25
+          }
+        },
+        {
+          "entry_index": 168,
+          "qualified_name": "tube-fluid-28",
+          "face_index": 29,
+          "record": {
+            "kind": "TORUS",
+            "src": "hardware/manifold-layout/above_core_parts.py:457",
+            "op": "sweep",
+            "c": [
+              10.0,
+              425.723346729,
+              264.0
+            ],
+            "d": [
+              0.0,
+              0.0,
+              1.0
+            ],
+            "R": 25.0,
+            "r": 1.25
+          }
+        },
+        {
+          "entry_index": 168,
+          "qualified_name": "tube-fluid-28",
+          "face_index": 30,
+          "record": {
+            "kind": "TORUS",
+            "src": "hardware/manifold-layout/above_core_parts.py:457",
+            "op": "sweep",
+            "c": [
+              35.0,
+              348.0,
+              278.5
+            ],
+            "d": [
+              -1.0,
+              0.0,
+              0.0
+            ],
+            "R": 25.0,
+            "r": 2.0
+          }
+        },
+        {
+          "entry_index": 168,
+          "qualified_name": "tube-fluid-28",
+          "face_index": 31,
+          "record": {
+            "kind": "TORUS",
+            "src": "hardware/manifold-layout/above_core_parts.py:457",
+            "op": "sweep",
+            "c": [
+              35.0,
+              348.0,
+              278.5
+            ],
+            "d": [
+              -1.0,
+              0.0,
+              0.0
+            ],
+            "R": 25.0,
+            "r": 1.25
+          }
+        },
+        {
+          "entry_index": 168,
+          "qualified_name": "tube-fluid-28",
+          "face_index": 32,
+          "record": {
+            "kind": "TORUS",
+            "src": "hardware/manifold-layout/above_core_parts.py:457",
+            "op": "sweep",
+            "c": [
+              35.0,
+              329.655342112,
+              278.5
+            ],
+            "d": [
+              -1.0,
+              0.0,
+              0.0
+            ],
+            "R": 25.0,
+            "r": 2.0
+          }
+        },
+        {
+          "entry_index": 168,
+          "qualified_name": "tube-fluid-28",
+          "face_index": 33,
+          "record": {
+            "kind": "TORUS",
+            "src": "hardware/manifold-layout/above_core_parts.py:457",
+            "op": "sweep",
+            "c": [
+              35.0,
+              329.655342112,
+              278.5
+            ],
+            "d": [
+              -1.0,
+              0.0,
+              0.0
             ],
             "R": 25.0,
             "r": 1.25
