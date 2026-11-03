@@ -19,11 +19,13 @@ name = "manifold-layout"
 path = "../../../hardware/manifold-layout/manifold_layout.rs"
 
 [[bin]]
-name = "tube-route-samples"
-path = "../../../hardware/scripts/tube_routes.rs"
+name = "machine-export"
+path = "../../../hardware/assembly/scenes/machine_export.rs"
 
 [dependencies]
 anyhow.workspace = true
 hsm-kernel = { path = "../kernel" }
 hsm-geometry = { path = "../geometry" }
-serde_json.workspace = true
+serde_json = { workspace = true, features = ["float_roundtrip"] }
+sha2.workspace = true
+zip = { version = "9.1.2", default-features = false, features = ["deflate-flate2-zlib-rs"] }
