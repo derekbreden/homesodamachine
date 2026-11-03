@@ -55,12 +55,15 @@ height. The straight wall above the root blend is 20.75 mm, or 19.75 mm on
 the water regulator. ASSE, PISCO and meter have a 3 mm-rise single planar lead-in ending at a
 pointed free edge above a 1.6 mm solid nose land. The regulator retains its
 1 mm-rise pointed lead-in within the accepted pocket height. The matching receiver ceiling clears the complete point by
-0.5 mm. All retaining noses are solid. Centered 4 mm by 3 mm screwdriver channels
+0.5 mm. All retaining noses are solid. Centered 3.5 mm by 3 mm screwdriver channels
 belong to the receivers. ASSE and meter have two 50° approaches; PISCO has
 two 75° fore approaches, and the regulator has one 75° approach on its fore
 flank. Angles are measured from each cap's installation direction. The
-channels meet the flat catch pocket with a flat mouth and 3 mm stock at the
-approach-side shoulder. They retain the enclosing roof and outer backing. The nominal catch
+channels start at the snap neck planes, preserving the fitted cavity backing.
+Flat mouths meet the catch pocket and lower stock face with 3 mm shoulders.
+PISCO and water-regulator openings have one planar inner flare into the curved
+cavities, with the fitted axial shoulders and upper bearing crowns retained.
+They retain the enclosing roof and outer backing. The nominal catch
 clearance is 0.4 mm. One three-mm-high planar bevel on the ASSE receiver's lower
 east fore corner clears the neighboring PISCO cap's service path; the neck
 retains 3 mm of stock and the upper end stop retains its fitted planes.

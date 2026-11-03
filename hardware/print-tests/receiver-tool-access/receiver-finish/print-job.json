@@ -21,7 +21,7 @@
     "Metadata/cut_information.xml"
   ],
   "send_file": "/Users/derekbredensteiner/Downloads/HSM-finished-receivers-Mark1-0de50157.gcode.3mf",
-  "status": "Prepared for the next clear Mark1 bed; current complete-set print is running.",
+  "status": "Receiver geometry updated; replacement slice is being prepared.",
   "estimated_seconds": 23089.8125,
   "grams": 196.93
 }

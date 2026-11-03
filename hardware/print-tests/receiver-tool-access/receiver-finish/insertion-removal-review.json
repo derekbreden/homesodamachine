@@ -1,0 +1,700 @@
+{
+  "method": "Exact triangle-prism envelopes for straight translations. Conservative per-triangle convex envelopes for prescribed connected leaf deflection. Mesh geometry and clear service scope; no force, strain, fatigue or unmodeled hose-flex claim. All paths are reversible.",
+  "families": {
+    "asse": {
+      "removed_before_path": [
+        "asse-drain-adapter",
+        "bulkhead-drain",
+        "bulkhead-drain-nut",
+        "water-split"
+      ],
+      "operations": [
+        {
+          "operation": "open connected wings by 3.2 mm at each catch",
+          "readings": [
+            {
+              "body": "asse1022-assembly",
+              "intersection_mm3": 0.0,
+              "gap_mm_capped_at_2": 0.24999978411942791
+            },
+            {
+              "body": "enclosure-back-top",
+              "intersection_mm3": 0.0,
+              "gap_mm_capped_at_2": 0.25
+            },
+            {
+              "body": "gagira-coupling",
+              "intersection_mm3": 0.0,
+              "gap_mm_capped_at_2": 0.14713259935332168
+            }
+          ]
+        },
+        {
+          "from_mm": [
+            0,
+            0,
+            0
+          ],
+          "to_mm": [
+            0,
+            0,
+            -18
+          ],
+          "leaf_state": "open 3.2 mm",
+          "readings": [
+            {
+              "body": "asse1022-assembly",
+              "intersection_mm3": 0.0,
+              "gap_mm_capped_at_2": 0.24999978411942791
+            },
+            {
+              "body": "enclosure-back-top",
+              "intersection_mm3": 0.0,
+              "gap_mm_capped_at_2": 0.021032466197348575
+            },
+            {
+              "body": "gagira-coupling",
+              "intersection_mm3": 0.006050825560366921,
+              "gap_mm_capped_at_2": 0.0
+            }
+          ]
+        },
+        {
+          "operation": "relax wings after leaving the catches",
+          "offset_mm": [
+            0,
+            0,
+            -18
+          ],
+          "readings": [
+            {
+              "body": "asse1022-assembly",
+              "intersection_mm3": 0.0,
+              "gap_mm_capped_at_2": 2.0
+            },
+            {
+              "body": "enclosure-back-top",
+              "intersection_mm3": 0.0,
+              "gap_mm_capped_at_2": 0.021032466197348575
+            },
+            {
+              "body": "gagira-coupling",
+              "intersection_mm3": 0.0,
+              "gap_mm_capped_at_2": 2.0
+            }
+          ]
+        },
+        {
+          "from_mm": [
+            0,
+            0,
+            -18
+          ],
+          "to_mm": [
+            0,
+            -32,
+            -18
+          ],
+          "leaf_state": "relaxed",
+          "readings": [
+            {
+              "body": "enclosure-back-top",
+              "intersection_mm3": 0.0,
+              "gap_mm_capped_at_2": 0.021032466197348575
+            }
+          ]
+        },
+        {
+          "from_mm": [
+            0,
+            -32,
+            -18
+          ],
+          "to_mm": [
+            0,
+            -32,
+            -83
+          ],
+          "leaf_state": "relaxed",
+          "readings": [
+            {
+              "body": "enclosure-back-top",
+              "intersection_mm3": 0.0,
+              "gap_mm_capped_at_2": 1.400000000372529
+            }
+          ]
+        }
+      ],
+      "collisions_over_002_mm3": [],
+      "seconds": 1.6989213750348426,
+      "supported_hardware_sequence": {
+        "moving_group": [
+          "asse1022-assembly",
+          "gagira-coupling",
+          "jg-pi4512f6s",
+          "jg-pp061208w",
+          "bulkhead-water"
+        ],
+        "scope": "Disconnect the drain and lower the cap 18 mm. Support the ASSE chain and cap together, move them 32 mm fore, then withdraw them downward, with the chain held 18 mm above the cap.",
+        "method": "Hardware checked at 34 poses per segment against the complete rear-unit rigid geometry; the cap path uses the separate exact swept-envelope reading. The existing receiver is the hardware profile swept over the retained loading corridor.",
+        "readings": [
+          {
+            "body": "asse1022-assembly",
+            "samples": 68,
+            "hits": []
+          },
+          {
+            "body": "gagira-coupling",
+            "samples": 68,
+            "hits": []
+          },
+          {
+            "body": "jg-pi4512f6s",
+            "samples": 68,
+            "hits": []
+          },
+          {
+            "body": "jg-pp061208w",
+            "samples": 68,
+            "hits": []
+          },
+          {
+            "body": "bulkhead-water",
+            "samples": 68,
+            "hits": []
+          }
+        ]
+      }
+    },
+    "meter": {
+      "removed_before_path": [
+        "asse-snap-cap",
+        "asse-drain-adapter",
+        "asse1022-assembly",
+        "gagira-coupling",
+        "jg-pi4512f6s",
+        "jg-pp061208w",
+        "bulkhead-water",
+        "bulkhead-drain",
+        "bulkhead-drain-nut"
+      ],
+      "operations": [
+        {
+          "operation": "open connected wings by 3.2 mm at each catch",
+          "readings": [
+            {
+              "body": "digiten-flow/1",
+              "intersection_mm3": 0.0,
+              "gap_mm_capped_at_2": 0.14999999944120646
+            },
+            {
+              "body": "digiten-flow/2",
+              "intersection_mm3": 0.0,
+              "gap_mm_capped_at_2": 0.14939747544871318
+            },
+            {
+              "body": "digiten-flow/3",
+              "intersection_mm3": 0.0,
+              "gap_mm_capped_at_2": 0.14939747544871318
+            },
+            {
+              "body": "digiten-flow/4",
+              "intersection_mm3": 0.0,
+              "gap_mm_capped_at_2": 2.0
+            },
+            {
+              "body": "digiten-flow/7",
+              "intersection_mm3": 0.0,
+              "gap_mm_capped_at_2": 2.0
+            },
+            {
+              "body": "digiten-flow/8",
+              "intersection_mm3": 0.0,
+              "gap_mm_capped_at_2": 2.0
+            },
+            {
+              "body": "enclosure-back-top",
+              "intersection_mm3": 0.0,
+              "gap_mm_capped_at_2": 0.24999999962744823
+            }
+          ]
+        },
+        {
+          "from_mm": [
+            0,
+            0,
+            0
+          ],
+          "to_mm": [
+            -20,
+            0,
+            0
+          ],
+          "leaf_state": "open 3.2 mm",
+          "readings": [
+            {
+              "body": "digiten-flow/1",
+              "intersection_mm3": 0.0,
+              "gap_mm_capped_at_2": 0.14999999944120646
+            },
+            {
+              "body": "digiten-flow/2",
+              "intersection_mm3": 0.0,
+              "gap_mm_capped_at_2": 0.14939747544871318
+            },
+            {
+              "body": "digiten-flow/3",
+              "intersection_mm3": 0.0,
+              "gap_mm_capped_at_2": 0.14939747544871318
+            },
+            {
+              "body": "digiten-flow/4",
+              "intersection_mm3": 0.0,
+              "gap_mm_capped_at_2": 2.0
+            },
+            {
+              "body": "digiten-flow/7",
+              "intersection_mm3": 0.0,
+              "gap_mm_capped_at_2": 2.0
+            },
+            {
+              "body": "digiten-flow/8",
+              "intersection_mm3": 0.0,
+              "gap_mm_capped_at_2": 2.0
+            },
+            {
+              "body": "enclosure-back-top",
+              "intersection_mm3": 0.0,
+              "gap_mm_capped_at_2": 0.25
+            }
+          ]
+        },
+        {
+          "operation": "relax wings after leaving the catches",
+          "offset_mm": [
+            -20,
+            0,
+            0
+          ],
+          "readings": [
+            {
+              "body": "digiten-flow/1",
+              "intersection_mm3": 0.0,
+              "gap_mm_capped_at_2": 2.0
+            },
+            {
+              "body": "digiten-flow/2",
+              "intersection_mm3": 0.0,
+              "gap_mm_capped_at_2": 2.0
+            },
+            {
+              "body": "digiten-flow/3",
+              "intersection_mm3": 0.0,
+              "gap_mm_capped_at_2": 2.0
+            },
+            {
+              "body": "enclosure-back-top",
+              "intersection_mm3": 0.0,
+              "gap_mm_capped_at_2": 2.0
+            }
+          ]
+        },
+        {
+          "from_mm": [
+            -20,
+            0,
+            0
+          ],
+          "to_mm": [
+            -45,
+            0,
+            0
+          ],
+          "leaf_state": "relaxed",
+          "readings": [
+            {
+              "body": "digiten-flow/1",
+              "intersection_mm3": 0.0,
+              "gap_mm_capped_at_2": 2.0
+            },
+            {
+              "body": "digiten-flow/2",
+              "intersection_mm3": 0.0,
+              "gap_mm_capped_at_2": 2.0
+            },
+            {
+              "body": "digiten-flow/3",
+              "intersection_mm3": 0.0,
+              "gap_mm_capped_at_2": 2.0
+            },
+            {
+              "body": "enclosure-back-top",
+              "intersection_mm3": 0.0,
+              "gap_mm_capped_at_2": 2.0
+            }
+          ]
+        },
+        {
+          "from_mm": [
+            -45,
+            0,
+            0
+          ],
+          "to_mm": [
+            -45,
+            -40,
+            0
+          ],
+          "leaf_state": "relaxed",
+          "readings": [
+            {
+              "body": "enclosure-back-top",
+              "intersection_mm3": 0.0,
+              "gap_mm_capped_at_2": 2.0
+            }
+          ]
+        },
+        {
+          "from_mm": [
+            -45,
+            -40,
+            0
+          ],
+          "to_mm": [
+            -45,
+            -40,
+            -70
+          ],
+          "leaf_state": "relaxed",
+          "readings": [
+            {
+              "body": "enclosure-back-top",
+              "intersection_mm3": 0.0,
+              "gap_mm_capped_at_2": 2.0
+            }
+          ]
+        }
+      ],
+      "collisions_over_002_mm3": [],
+      "seconds": 2.898919333005324
+    },
+    "pisco": {
+      "removed_before_path": [
+        "asse-snap-cap",
+        "asse-drain-adapter",
+        "asse1022-assembly",
+        "gagira-coupling",
+        "jg-pi4512f6s",
+        "jg-pp061208w",
+        "bulkhead-water",
+        "bulkhead-drain",
+        "bulkhead-drain-nut",
+        "meter-snap-cap",
+        "gas-check",
+        "soda-continuous-insulation",
+        "soda-bend-holder",
+        "digiten-flow/1",
+        "digiten-flow/2",
+        "digiten-flow/3",
+        "digiten-flow/4",
+        "digiten-flow/5",
+        "digiten-flow/6",
+        "digiten-flow/7",
+        "digiten-flow/8",
+        "digiten-flow/9",
+        "digiten-flow/10",
+        "digiten-flow/11",
+        "digiten-flow/12"
+      ],
+      "operations": [
+        {
+          "operation": "open connected wings by 3.2 mm at each catch",
+          "readings": [
+            {
+              "body": "enclosure-back-top",
+              "intersection_mm3": 0.0,
+              "gap_mm_capped_at_2": 0.1290819454836732
+            },
+            {
+              "body": "gas-regulator/1",
+              "intersection_mm3": 0.0,
+              "gap_mm_capped_at_2": 0.14669463421478457
+            },
+            {
+              "body": "gas-regulator/2",
+              "intersection_mm3": 0.0,
+              "gap_mm_capped_at_2": 0.14682124912765032
+            }
+          ]
+        },
+        {
+          "from_mm": [
+            0,
+            0,
+            0
+          ],
+          "to_mm": [
+            0,
+            0,
+            -3.6
+          ],
+          "leaf_state": "open 3.2 mm",
+          "readings": [
+            {
+              "body": "enclosure-back-top",
+              "intersection_mm3": 0.0,
+              "gap_mm_capped_at_2": 0.12908194548367072
+            },
+            {
+              "body": "gas-regulator/1",
+              "intersection_mm3": 0.0,
+              "gap_mm_capped_at_2": 0.14669463421478457
+            },
+            {
+              "body": "gas-regulator/2",
+              "intersection_mm3": 0.0,
+              "gap_mm_capped_at_2": 0.14682124912765032
+            }
+          ]
+        },
+        {
+          "from_mm": [
+            0,
+            0,
+            -3.6
+          ],
+          "to_mm": [
+            0,
+            -45,
+            -3.6
+          ],
+          "leaf_state": "open 3.2 mm",
+          "readings": [
+            {
+              "body": "enclosure-back-top",
+              "intersection_mm3": 0.0,
+              "gap_mm_capped_at_2": 0.1290819454836732
+            },
+            {
+              "body": "gas-regulator/1",
+              "intersection_mm3": 0.0,
+              "gap_mm_capped_at_2": 2.0
+            },
+            {
+              "body": "gas-regulator/2",
+              "intersection_mm3": 0.0,
+              "gap_mm_capped_at_2": 0.1985990851507132
+            },
+            {
+              "body": "gas-regulator/3",
+              "intersection_mm3": 0.0,
+              "gap_mm_capped_at_2": 0.04448364106094551
+            }
+          ]
+        },
+        {
+          "operation": "squeeze the free wings inward 3.6 mm with the cap clear of PISCO hardware",
+          "readings": [
+            {
+              "body": "enclosure-back-top",
+              "intersection_mm3": 0.0,
+              "gap_mm_capped_at_2": 0.04571720212697983
+            }
+          ]
+        },
+        {
+          "from_mm": [
+            0.0,
+            -45.0,
+            -3.6
+          ],
+          "to_mm": [
+            -8.0,
+            -49.583454760830605,
+            -4.360370629028151
+          ],
+          "leaf_state": "inward 3.6 mm",
+          "readings": [
+            {
+              "body": "enclosure-back-top",
+              "intersection_mm3": 0.0,
+              "gap_mm_capped_at_2": 0.04571720212697983
+            }
+          ]
+        },
+        {
+          "from_mm": [
+            -8.0,
+            -49.583454760830605,
+            -4.360370629028151
+          ],
+          "to_mm": [
+            -22.0,
+            -60.61837734452795,
+            -44.352269623089676
+          ],
+          "leaf_state": "inward 3.6 mm",
+          "readings": [
+            {
+              "body": "enclosure-back-top",
+              "intersection_mm3": 0.0,
+              "gap_mm_capped_at_2": 0.18987753952505446
+            }
+          ]
+        },
+        {
+          "from_mm": [
+            -22.0,
+            -60.61837734452795,
+            -44.352269623089676
+          ],
+          "to_mm": [
+            -60.0,
+            -55.0,
+            -65.0
+          ],
+          "leaf_state": "inward 3.6 mm",
+          "readings": [
+            {
+              "body": "enclosure-back-top",
+              "intersection_mm3": 0.0,
+              "gap_mm_capped_at_2": 2.0
+            }
+          ]
+        }
+      ],
+      "collisions_over_002_mm3": [],
+      "seconds": 7.690799791016616
+    },
+    "regulator": {
+      "removed_before_path": [],
+      "operations": [
+        {
+          "operation": "open connected wings by 3.2 mm at each catch",
+          "readings": [
+            {
+              "body": "enclosure-back-top",
+              "intersection_mm3": 0.0,
+              "gap_mm_capped_at_2": 0.24999999999999645
+            },
+            {
+              "body": "flow-regulator",
+              "intersection_mm3": 0.0,
+              "gap_mm_capped_at_2": 0.24611337305315883
+            }
+          ]
+        },
+        {
+          "from_mm": [
+            0,
+            0,
+            0
+          ],
+          "to_mm": [
+            0,
+            0,
+            -45
+          ],
+          "leaf_state": "open 3.2 mm",
+          "readings": [
+            {
+              "body": "enclosure-back-top",
+              "intersection_mm3": 0.0,
+              "gap_mm_capped_at_2": 0.25
+            },
+            {
+              "body": "flow-regulator",
+              "intersection_mm3": 0.0,
+              "gap_mm_capped_at_2": 0.24611337305315883
+            }
+          ]
+        },
+        {
+          "operation": "relax wings after leaving the catches",
+          "offset_mm": [
+            0,
+            0,
+            -45
+          ],
+          "readings": [
+            {
+              "body": "enclosure-back-top",
+              "intersection_mm3": 0.0,
+              "gap_mm_capped_at_2": 2.0
+            }
+          ]
+        }
+      ],
+      "collisions_over_002_mm3": [],
+      "seconds": 1.9947810840094462
+    },
+    "pump": {
+      "removed_before_path": [
+        "cold-core/tube-reservoir-air-a"
+      ],
+      "operations": [
+        {
+          "operation": "open connected wings by 3.2 mm at each catch",
+          "readings": [
+            {
+              "body": "cold-core/foam-cap-lid-top",
+              "intersection_mm3": 0.0,
+              "gap_mm_capped_at_2": 0.14999999975060518
+            },
+            {
+              "body": "cold-core/g-ganen-pump/1",
+              "intersection_mm3": 0.0,
+              "gap_mm_capped_at_2": 0.14527723923986013
+            },
+            {
+              "body": "cold-core/g-ganen-pump/8",
+              "intersection_mm3": 0.0,
+              "gap_mm_capped_at_2": 0.4542958563989297
+            }
+          ]
+        },
+        {
+          "from_mm": [
+            0,
+            0,
+            0
+          ],
+          "to_mm": [
+            0,
+            0,
+            55
+          ],
+          "leaf_state": "open 3.2 mm",
+          "readings": [
+            {
+              "body": "cold-core/foam-cap-lid-top",
+              "intersection_mm3": 0.0,
+              "gap_mm_capped_at_2": 0.14999999975060518
+            },
+            {
+              "body": "cold-core/g-ganen-pump/1",
+              "intersection_mm3": 0.0,
+              "gap_mm_capped_at_2": 0.14527723923986013
+            },
+            {
+              "body": "cold-core/g-ganen-pump/8",
+              "intersection_mm3": 0.0,
+              "gap_mm_capped_at_2": 0.4542958563989297
+            }
+          ]
+        },
+        {
+          "operation": "relax wings after leaving the catches",
+          "offset_mm": [
+            0,
+            0,
+            55
+          ],
+          "readings": []
+        }
+      ],
+      "collisions_over_002_mm3": [],
+      "seconds": 0.7601500829914585
+    }
+  }
+}
