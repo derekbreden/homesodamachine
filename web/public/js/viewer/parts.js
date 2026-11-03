@@ -1,5 +1,5 @@
 // The two product units and their tooling open the same models their thumbnails
-// draw. Description lookup reaches every material and uncataloged CAD model.
+// draw. Description lookup reaches every material.
 import { openDetail } from './cad-detail.js';
 import { seatParts } from '/contracts/parts-tree.js';
 import { materialForFile, materialIndex, bomCounts, bomCountText } from '/contracts/materials.js';
@@ -80,7 +80,7 @@ export function buildPartsSection(gridEl, { steps, dxfs, glbs }) {
   const search = makeMaterialSearch(); gridEl.append(search);
   if (!state.materialCatalog) {
     const note = document.createElement('p'); note.className = 'material-catalog-status';
-    note.textContent = 'The material catalog is unavailable. You can still search and open CAD models.'; gridEl.append(note);
+    note.textContent = 'The material catalog is unavailable. You can still open the assemblies below.'; gridEl.append(note);
     const row = document.createElement('div'); row.className = 'assembly-row';
     for (const assembly of seatParts({ steps, dxfs, glbs }).assemblies) if (assembly.model) {
       row.append(renderAssembly({ description: assembly.label, note: assembly.note, file: assembly.model.primary.file }));
