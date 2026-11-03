@@ -1,0 +1,29 @@
+{
+  "date_local": "2026-11-03",
+  "reporter": "Derek",
+  "tested_set": "../pointed-snaps/print-jobs.json",
+  "fit_result": "Latest pointed snap samples reported tight and very good on hardware fit, with ASSE seating as the exception.",
+  "quote": "Things are looking pretty good and pretty tight on the latest round of snaps there. I think we're very good on fit.",
+  "asse": {
+    "result": "Small angular lift when fully snapped; reported at the cap material over the main ASSE body.",
+    "quote": "The only exception is the ASSE, where it looks like you added some extra material on top of the main body of the ASSE itself, and it looks like kind of precisely where that is, we've got just a tiny bit of lifting there.",
+    "retained_adapter_fit": "Conforming adapter hex, controlled clock, both axial stops and neck bearings.",
+    "body_correction": "The three lower-facing main-body cavity planes have 0.25 mm extra vertical seating allowance. Their directions, upper planes and axial span are retained.",
+    "corrected_cap_physical_result": "Not yet reported."
+  },
+  "pump_cartridge": "No separate cartridge insertion, release or durability result is established by this report.",
+  "photos": [
+    {
+      "file": "photos/1-Photo-1.jpg",
+      "sha256": "479449bbb2795c7147d1bafb5e829613c2eb73b7d63cd95bb532f04fa8af0c65"
+    },
+    {
+      "file": "photos/2-Photo-2.jpg",
+      "sha256": "8f8a12d367eebd7410e0d3f3f802db3ce328550a26ad5299cfe1994302016dfc"
+    },
+    {
+      "file": "photos/3-Photo-3.jpg",
+      "sha256": "c00746f115bf0dfc40b58121b86bee00f2bcbe9dd4cdf86b3c23f4560ea506a1"
+    }
+  ]
+}

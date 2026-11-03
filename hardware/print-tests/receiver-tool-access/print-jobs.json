@@ -1,0 +1,34 @@
+{
+  "jobs": [
+    {
+      "plate": "receiver-access-rear-mark1",
+      "printer": "Mark1",
+      "connection_key": "H2C",
+      "preparation": "hardware/print-tests/receiver-tool-access/prints/2026-11-03-receiver-access-rear-mark1-mark1-2e016011",
+      "archive": "hardware/print-tests/receiver-tool-access/prints/2026-11-03-receiver-access-rear-mark1-mark1-2e016011/2026-11-03-receiver-access-rear-mark1-mark1-2e016011.gcode.3mf",
+      "print_only_archive": "hardware/print-tests/receiver-tool-access/prints/2026-11-03-receiver-access-rear-mark1-mark1-2e016011/2026-11-03-receiver-access-rear-mark1-mark1-2e016011-print-only.gcode.3mf",
+      "print_only_sha256": "91e19c96317a697128b33cbf58eef269bf632eb1b785a3058b1298fee894315e",
+      "gcode_sha256": "b0460fdb94c9f052ecee65115d363a9b22b730ef2c4c386e4f9ab2e744b5a02b",
+      "estimated_seconds": 19343.994140625,
+      "minimum_bed_margin_mm": 73.37651000000001,
+      "native_review_pass": true,
+      "submitted": false,
+      "ready": true
+    },
+    {
+      "plate": "receiver-access-pumps-meter-mark2",
+      "printer": "Mark2",
+      "connection_key": "Mark2",
+      "preparation": "hardware/print-tests/receiver-tool-access/prints/2026-11-03-receiver-access-pumps-meter-mark2-mark2-4db4ed5f",
+      "archive": "hardware/print-tests/receiver-tool-access/prints/2026-11-03-receiver-access-pumps-meter-mark2-mark2-4db4ed5f/2026-11-03-receiver-access-pumps-meter-mark2-mark2-4db4ed5f.gcode.3mf",
+      "print_only_archive": "hardware/print-tests/receiver-tool-access/prints/2026-11-03-receiver-access-pumps-meter-mark2-mark2-4db4ed5f/2026-11-03-receiver-access-pumps-meter-mark2-mark2-4db4ed5f-print-only.gcode.3mf",
+      "print_only_sha256": "29cdcb121d88d1298ef4bec9ab6731867751a7e67989c26e2bd252185cf0b0de",
+      "gcode_sha256": "ab4ec3729227f217dce80909b7a1086c57a0a08841bdd463ffc0ca79f714f868",
+      "estimated_seconds": 36820.9609375,
+      "minimum_bed_margin_mm": 68.873318,
+      "native_review_pass": true,
+      "submitted": false,
+      "ready": true
+    }
+  ]
+}

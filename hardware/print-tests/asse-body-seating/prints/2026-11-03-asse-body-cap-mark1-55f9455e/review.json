@@ -1,0 +1,70 @@
+{
+  "archive": "hardware/print-tests/asse-body-seating/prints/2026-11-03-asse-body-cap-mark1-55f9455e/2026-11-03-asse-body-cap-mark1-55f9455e.gcode.3mf",
+  "archive_sha256": "6d97bffd63884057fc2c47bfe64ee3b53349309b8a3c56e40878772afe2fd66d",
+  "gcode_md5_matches": true,
+  "emitted_z_trim_mm": [
+    0.0,
+    0.16
+  ],
+  "expected_emitted_textured_trim_mm": 0.16,
+  "layers": 269,
+  "project_check": true,
+  "bead_envelope_plate_mm": [
+    [
+      137.2291295,
+      140.72012949999998
+    ],
+    [
+      187.7708705,
+      192.16795
+    ]
+  ],
+  "bed_margins_mm": {
+    "left": 137.2291295,
+    "front": 140.72012949999998,
+    "right": 137.2291295,
+    "back": 127.83205000000001
+  },
+  "minimum_bed_margin_mm": 127.83205000000001,
+  "bed_border_mm": 80.0,
+  "fine_and_transition_bands": [],
+  "support_roads": 68360,
+  "show_face_minimum_bead_clearance_mm": null,
+  "show_face_contacts": [],
+  "tie_window_support_crossings": [],
+  "ribbon_support_crossings": [],
+  "ribbons": [],
+  "fine_band_unbacked_roads": [],
+  "first_second_layer_stack": {
+    "1901": {
+      "second_layer_model_bead_area_mm2": 468.4146486811855,
+      "fraction_over_first_layer": 0.9195383626258645,
+      "second_layer_centerline_outside_first_mm": 8.173415349601472
+    }
+  },
+  "solid_host_deposition": [],
+  "support_topology": {
+    "1901": {
+      "support_bodies": 1,
+      "interface_islands": 6,
+      "bed_rooted_bodies": 1,
+      "model_rooted_bodies": 0,
+      "shortest_build_up_mm": 29.76,
+      "bodies_without_interface_labels": 0,
+      "explicit_interface_islands": 6,
+      "shortest_labelled_build_up_mm": 29.76
+    }
+  },
+  "scope": "Commanded paths and bead envelopes from this archive. Support removal, surface finish, fit and strength are physical observations.",
+  "checks": {
+    "archive": true,
+    "z_trim": true,
+    "bed_border": true,
+    "fine_and_transition_bands": true,
+    "show_faces_support_free": true,
+    "tie_windows_support_free": true,
+    "ribbons_support_free_and_printed": true,
+    "solid_hosts_sampled": true
+  },
+  "pass": true
+}

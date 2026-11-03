@@ -1,0 +1,56 @@
+{
+  "schema": 1,
+  "piece": "cartridge-cap",
+  "inputs": {
+    "gcode": "support-labels-1906.gcode",
+    "gcode_sha256": "e33baa227c5cd52eedc8d3e92d14f40166b5b161eb8beb1bcd1f218d21f6cc42",
+    "model": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/asse-body-seating/worktree/hardware/print-tests/receiver-tool-access/parts/cartridge-cap.stl",
+    "model_sha256": "513c9cd3e90ac608bbfea61d3b0c220185f44a0fa8aca6ccb81a82d4e78d81f0",
+    "profile": "hardware/print-tests/receiver-tool-access/prints/2026-11-03-receiver-access-pumps-meter-mark2-mark2-4db4ed5f/2026-11-03-receiver-access-pumps-meter-mark2-mark2-4db4ed5f.3mf",
+    "profile_sha256": "472c5fd4b4109245cba7cd119668db1ea31296bd1ad910336ce0093baaf07f8d"
+  },
+  "slicer": "BambuStudio 02.08.02.61",
+  "first_layer_z_mm": 0.2,
+  "coordinate_frame": {
+    "plate_to_cad_transform": [
+      1.0,
+      -0.0,
+      0.0,
+      0.0,
+      0.0,
+      -1.0,
+      -0.0,
+      1.0,
+      0.0,
+      -240.654182434,
+      14.25,
+      316.552001953
+    ]
+  },
+  "slicer_settings": {
+    "layer_height": "0.24",
+    "support_bottom_z_distance": "0.3",
+    "support_interface_bottom_layers": "2",
+    "support_interface_spacing": "0.5",
+    "support_interface_top_layers": "2",
+    "support_object_xy_distance": "0.4",
+    "support_on_build_plate_only": "0",
+    "support_style": "default",
+    "support_threshold_angle": "35",
+    "support_top_z_distance": "0.45",
+    "support_type": "tree(auto)"
+  },
+  "summary": {
+    "support_bodies": 0,
+    "interface_islands": 0,
+    "bed_rooted_bodies": 0,
+    "model_rooted_bodies": 0,
+    "shortest_build_up_mm": null,
+    "bodies_without_interface_labels": 0,
+    "explicit_interface_islands": 0,
+    "shortest_labelled_build_up_mm": null
+  },
+  "trees": [],
+  "interfaces": [],
+  "interface_feature_policy": "All support bodies are retained; unlabelled interfaces have unknown contact count and build-up."
+}

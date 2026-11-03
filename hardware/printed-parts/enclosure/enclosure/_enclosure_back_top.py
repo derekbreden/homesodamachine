@@ -532,7 +532,8 @@ def _fluid_supports(graph):
             graph.cylinder(1,corner,*axis,y0,y1))
 
     def pockets(st):
-        with _replace(snaps,{'box':graph.box}):
+        with _replace(snaps,{'box':graph.box,
+                            'prism_x':lambda x0,x1,points:graph.prism(0,x0,x1,points)}):
             return snaps.pockets(st)
 
     def service_cuts(st):
@@ -562,7 +563,10 @@ def _fluid_supports(graph):
         lo = math.floor((y0-snaps.THREAD)*10)/10
         hi = math.ceil((y1+snaps.THREAD)*10)/10
         room = room.fuse(hex_prism(axis,apothem+c,clock,lo-snaps.SLIDE,hi,corner+c))
-    result['asse-seat'] = stock.cut(room,*pockets(st))
+    with _replace(snaps,{'section_solid':lambda section:graph.prism(1,*section['span'],
+                        [segment['line'][0] for segment in section['segments']])}):
+        corner=snaps.asse_service_corner(st)
+    result['asse-seat'] = stock.cut(room,*pockets(st),corner)
 
     axis,frame = datums['pisco_axis'],plan['gas_frame']
     profile = runs('pisco',frame,axis,c+snaps.PISCO_RADIAL_RELIEF)
