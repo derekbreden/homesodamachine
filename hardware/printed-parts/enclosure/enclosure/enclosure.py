@@ -2129,7 +2129,7 @@ def _lip_band(inner, z, inset=0.0):
     return _cavity(inner, inset, (z0, z1)).cut(_cavity(inner, wall, (z0 - 1.0, z1 + 1.0)))
 
 
-def _lip_denied(placed, inner, y_span, plate, y_joint):
+def _lip_denied(placed, inner, y_span, plate, y_joint, *, commons=None):
     """The seam heights the pack denies ONE Y column's Z seam, as z spans.
 
     The seam's furniture on a flank is the RAIL: groove, arm and head together span
@@ -2146,19 +2146,10 @@ def _lip_denied(placed, inner, y_span, plate, y_joint):
     at the Y joint; a body spanning the joint is charged to both columns, as it
     should be. What holds the rest of the lane open is the pack's own standoffs —
     `side_band_inset` at the flanks, which the rail stands inside."""
-    ix0, ix1, _iy0, _iy1, iz0, iz1 = inner
-    cy0, cy1 = y_span
-    col = "front" if cy1 <= y_joint + 1.0 else "back"
-    ring = None
-    for x_in, sx, ry0, ry1, _lane in _z_rail_runs(inner, y_joint, col, plate):
-        ya, yb = max(ry0, cy0), min(ry1, cy1)
-        if yb <= ya + 1e-6:
-            continue
-        x_hk, _x_f, _x_a, x_h1 = _rail_x(x_in, sx, col)
-        x_open = x_hk - sx * slide_slip
-        lane = _ybox(min(x_open, x_h1), max(x_open, x_h1),
-                     ya, yb, iz0, iz1)
-        ring = lane if ring is None else ring.fuse(lane)
+    if commons is not None:
+        return [(commons[name]['min'][2] - z_rise, commons[name]['max'][2] + rail_flare_drop)
+                for name in placed if commons[name]['volume_mm3'] > 1.0]
+    ring = _lip_lane_tool(inner, y_span, plate, y_joint)
     out = []
     if ring is None:
         return out
@@ -2175,7 +2166,7 @@ def _lip_denied(placed, inner, y_span, plate, y_joint):
 _z_seam_passes = {}
 
 
-def _z_joints(placed, inner, stated, plate, y_joint):
+def _z_joints(placed, inner, stated, plate, y_joint, *, readings=None):
     """The bottom↔top seam height per Y column: `(front, back)` — the one stated plane,
     both.
 
@@ -2184,8 +2175,7 @@ def _z_joints(placed, inner, stated, plate, y_joint):
     the pack leaves the lip's ring (`_lip_denied`) — and the open bands the column's
     bodies leave, which is what `_report_seams` reads. None of the bounds stops the cut:
     whatever the readings say, both seam heights come back and the box is cut on them."""
-    import _boxes
-
+    bbs = _box_bound_rows(placed, None if readings is None else readings.bounds)
     iz0, iz1 = inner[4], inner[5]
     y_mid = (inner[2] + inner[3]) / 2.0
     bed_lo, bed_hi = _bed_band(inner)
@@ -2199,14 +2189,14 @@ def _z_joints(placed, inner, stated, plate, y_joint):
             f"the top pieces want it at or below {bed_hi:.2f} and the bottoms at or above "
             f"{bed_lo:.2f}. Move `z_seam` into that band"])))
     spans = {"front": [], "back": []}
-    for _n, (solid, _c) in placed.items():
-        b = _boxes.boxed(solid)
+    for b in bbs:
         col = "front" if (b.ymin + b.ymax) / 2.0 < y_mid else "back"
         spans[col].append((b.zmin, b.zmax))
     for col, y_span in (("front", (inner[2], y_seam)), ("back", (y_seam, inner[3]))):
         whole = _clipped(_open_bands(spans[col], iz0, iz1, z_joint_clear), bed_lo, bed_hi)
         _z_seam_passes[col] = not any(lo - 1e-9 <= stated <= hi + 1e-9 for lo, hi in whole)
-        lanes = _open_bands(_lip_denied(placed, inner, y_span, plate, y_joint),
+        lanes = _open_bands(_lip_denied(placed, inner, y_span, plate, y_joint,
+                            commons=None if readings is None else readings.lip[col]),
                             bed_lo, bed_hi, 0.0)
         in_lane = any(lo - 1e-9 <= stated <= hi + 1e-9 for lo, hi in lanes)
         record_bound(Bound(
@@ -2223,11 +2213,9 @@ def _z_joints(placed, inner, stated, plate, y_joint):
     return stated, stated
 
 
-def back_top_flank_bound(placed, pack, y_joint, splits):
+def back_top_flank_bound(placed, pack, y_joint, splits, *, bounds=None):
     """The existing flank envelope, including finite drilled hardware lanes."""
-    import _boxes
-
-    bbs = [_boxes.boxed(shape) for shape, _colour in placed.values()]
+    bbs = _box_bound_rows(placed, bounds)
     bt0, bt1 = back_top_flank_face()
     bt_y0 = y_joint + lip_len + z_lip_y_margin
     bt_z0 = splits[1] + z_rise
@@ -2263,7 +2251,7 @@ def back_top_flank_bound(placed, pack, y_joint, splits):
             f"`back_top_flank_t`"]))
 
 
-def _dims(pack):
+def _dims(pack, *, readings=None):
     """The box `pack` stands inside — its two shells, the plane it splits on, and the
     stations its walls carry. `pack` is a Pack (see `machine_of`).
 
@@ -2273,12 +2261,12 @@ def _dims(pack):
     one gets a wall drawn through it, a red row saying by how much, and a clash in
     `pack-closes` at the body that overran. This is the only function that reads the placed
     parts, so it is where the ledger starts: `BOUNDS` is cleared here and refilled."""
-    import _boxes
-
+    if readings is None:
+        import _boxes
     BOUNDS.clear()
     _z_seam_passes.clear()
     placed = pack.placed
-    bbs = [_boxes.boxed(s) for s, _c in placed.values()]
+    bbs = _box_bound_rows(placed, None if readings is None else readings.bounds)
     czmin = min(b.zmin for b in bbs); czmax = max(b.zmax for b in bbs)
     # WIDTH — the appliance's headline dimension, and the whole point of the yaw. Stated
     # as `appliance_width` and struck symmetric about x = 0, the axis the pack is centred
@@ -2288,14 +2276,11 @@ def _dims(pack):
     # ride it. Struck first because a boss's FOOTPRINT is what the width and height checks
     # both ask after, and a footprint is a station and a height together — the height comes
     # off the seams, and the seams come off the pack.
-    ix0, ix1 = interior_x()
-    iy0 = front_plane_y
-    iy1 = rear_plane_y
-    iz0 = min(czmin, 0.0) - floor_drop
-    iz1 = (iz0 - slab_t) + appliance_height - ceiling_skin
-    inner = (ix0, ix1, iy0, iy1, iz0, iz1)
-    y_joint = y_seam
-    splits = _z_joints(placed, inner, z_seam, pack.collet_plate, y_joint)
+    raw_bounds = {name: ((b.xmin, b.ymin, b.zmin), (b.xmax, b.ymax, b.zmax))
+                  for name, b in zip(placed, bbs)}
+    inner, y_joint, _stated_splits = _box_question_frame(raw_bounds)
+    ix0, ix1, iy0, iy1, iz0, iz1 = inner
+    splits = _z_joints(placed, inner, z_seam, pack.collet_plate, y_joint, readings=readings)
     # THE RIM'S OWN CEILING. Wall-rooted furniture stands on a piece's wall, and below the
     # rim the wall's inner face is the bottom piece's lip — so a valve tray's seat plate
     # spans wall to wall whole above the rim, and its FOOT runs below it inset on the lip's
@@ -2320,7 +2305,8 @@ def _dims(pack):
             f"{deck_floor:.2f} — a plate roots on a wall only above the rim. Lower "
             f"`z_seam`, or raise the deck"])))
     if pack.collet_plate and "condenser+fan" in placed:
-        condenser_box = _boxes.boxed(placed["condenser+fan"][0])
+        condenser_box = (_boxes.boxed(placed["condenser+fan"][0]) if readings is None
+                         else _reading_bounds(*readings.bounds["condenser+fan"]))
         foot_air = plate_foot_envelope_clearance(
             pack.collet_plate, splits[0], condenser_box)
         foot_clear = math.isinf(foot_air) or foot_air > stated_bound_tol
@@ -2355,12 +2341,20 @@ def _dims(pack):
         # Raised lid equipment can extend beyond the floor footprint while
         # clearing every seam. Reserve the side band beside the material at
         # the seam's own Y/Z stations, rather than beside its whole-body box.
-        for y0, y1, z0, z1 in band_bosses:
+        for index, boss in enumerate(band_bosses):
+            y0, y1, z0, z1 = boss
             if b.ymin >= y1 or b.ymax <= y0 or b.zmin >= z1 or b.zmax <= z0:
                 continue
-            section = shape.intersect(_ybox(b.xmin-1., b.xmax+1., y0, y1, z0, z1))
-            if section.Volume() > stated_bound_tol:
-                floor.append((name, _boxes.boxed(section)))
+            if readings is None:
+                section = shape.intersect(_floor_section_tool(b, boss))
+                volume = section.Volume()
+                section_bounds = _boxes.boxed(section) if volume > stated_bound_tol else None
+            else:
+                row = readings.floor[name, index]
+                volume = row['volume_mm3']
+                section_bounds = _reading_bounds(row['min'], row['max']) if volume > stated_bound_tol else None
+            if volume > stated_bound_tol:
+                floor.append((name, section_bounds))
     wide_need, wide_who = max(
         [(max(b.xmax, -b.xmin), n) for n, b in zip(placed.keys(), bbs)]
         + [(max(b.xmax, -b.xmin) + side_band_inset, n) for n, b in floor])
@@ -2382,7 +2376,8 @@ def _dims(pack):
     # because the width it reads is the box's own. What this section may stand in is what the
     # wall gives a LANE to and nothing else: a Wago in its own well, bored back to
     # `interior_x`. A body is matched to a geometric well by its CENTRE.
-    record_bound(back_top_flank_bound(placed, pack, y_joint, splits))
+    record_bound(back_top_flank_bound(placed, pack, y_joint, splits,
+                                     bounds=None if readings is None else readings.bounds))
     # The FRONT wall is the stated `front_plane_y` with its stated reliefs, and the pack is
     # read against the RELIEVED surface, body by body: a body whose footprint stands wholly
     # inside a relief answers to that relief's floor, and every other body to the plane
@@ -2502,21 +2497,19 @@ def _dims(pack):
     # for the corner it is already relieved out of would report a clash the box does not build,
     # so the pillars come out and `_report_columns` says what they gave.
     under = []
-    for zj, (cy0, cy1) in ((splits[0], (iz0 - 1.0, y_joint)),
-                           (splits[1], (y_joint, iy1 + 1.0))):
-        band = _lip_underwall(inner, y_joint, zj).intersect(
-            _ybox(ix0 - 1.0, ix1 + 1.0, cy0, cy1, iz0 - 1.0, iz1 + 1.0))
-        if zj == splits[0] and pack.pump_trays:
-            # The front flat's skin goes to the bay (`_front_flat_lip_drop`), so the band
-            # read here is the band the pieces build.
-            band = band.cut(_front_flat_lip_drop(inner, zj))
-        for sx, sy in column_corners:
-            band = band.cut(_column_pillar(inner, sx, sy, splits[0] if sy < 0 else splits[1]))
+    for column in range(2):
+        band = _under_lip_tool(inner, y_joint, splits, pack.pump_trays, column) if readings is None else None
         for name, (solid, _c) in placed.items():
-            hit = band.intersect(solid)
-            if hit.Volume() > 1e-3:
-                b = hit.BoundingBox()
-                under.append((name, hit.Volume(), b.zmin, b.zmax))
+            if readings is None:
+                hit = band.intersect(solid)
+                volume = hit.Volume()
+                b = hit.BoundingBox() if volume > 1e-3 else None
+            else:
+                row = readings.under[column, name]
+                volume = row['volume_mm3']
+                b = _reading_bounds(row['min'], row['max']) if volume > 1e-3 else None
+            if volume > 1e-3:
+                under.append((name, volume, b.zmin, b.zmax))
     record_bound(Bound(
         "wall-under-lip", "The pack stands clear of the wall under each Z-seam lip",
         not under,
@@ -2532,18 +2525,24 @@ def _dims(pack):
     # against the same `inner` the columns are struck on.
     reliefs = []
     for sx, sy in column_corners:
-        pillar = _column_pillar(inner, sx, sy, splits[0] if sy < 0 else splits[1])
+        pillar = _column_pillar(inner, sx, sy, splits[0] if sy < 0 else splits[1]) if readings is None else None
         for name, (solid, _c) in placed.items():
-            hit = pillar.intersect(solid)
-            if hit.Volume() <= 1e-6:
+            if readings is None:
+                hit = pillar.intersect(solid)
+                volume = hit.Volume()
+                components = [lump.BoundingBox() for lump in hit.Solids()] if volume > 1e-6 else ()
+            else:
+                row = readings.pillars[sx, sy, name]
+                volume = row['volume_mm3']
+                components = [_reading_bounds(part['min'], part['max']) for part in row['components']]
+            if volume <= 1e-6:
                 continue
             # ONE POCKET PER LUMP THE BODY ACTUALLY STANDS IN, and not one for its whole
             # envelope. A brick's box is the brick; a condenser block's box is mostly air, and
             # a pocket struck on it would hollow the column over its whole height for the two
             # sheet flanges that are really in there. Each lump the intersection comes back in
             # gets its own box, so what a column gives up is what a body occupies.
-            for lump in hit.Solids():
-                b = lump.BoundingBox()
+            for b in components:
                 # NO SLIP TOWARD THE TWO WALLS THIS COLUMN STANDS ON. A body in a corner has
                 # its own standoff from each of them already — on the ±X wall that standoff IS
                 # the tip of the boss it seats on, and a millimetre of air taken there is a
@@ -9050,7 +9049,7 @@ def _export_pieces(pieces, assy, *, produced=()):
             "slicer reads one:\n    " + "\n    ".join(refused))
 
 
-def stated_box(pack):
+def stated_box(pack, *, readings=None):
     """The box at `appliance_width` × `rear_plane_y` × `appliance_height`, with `pack` measured
     against it — the description `build_pieces` turns into the four printable pieces.
 
@@ -9058,7 +9057,7 @@ def stated_box(pack):
     and a pack that reaches past a wall gets that wall drawn through it, a red row saying by
     how much, and a clash in `pack-closes` at the body that overran. Moving a body moves the
     reading, never the wall."""
-    return _dims(pack)
+    return _dims(pack, readings=readings)
 
 
 def machine_of():
@@ -9458,6 +9457,215 @@ def main():
     if box.pack.collet_plate:
         substitute_md(_dock.HERE / "README.md", variables=pump_dock_figures(box))
         print("-> pump-dock/README.md")
+
+
+BoxReadings = namedtuple("BoxReadings", "bounds lip floor under pillars")
+_ReadingBounds = namedtuple("_ReadingBounds", "xmin xmax ymin ymax zmin zmax")
+
+
+def _reading_bounds(lower, upper):
+    """Six scalar extrema supplied by the existing fine-model reader."""
+    return _ReadingBounds(lower[0], upper[0], lower[1], upper[1], lower[2], upper[2])
+
+
+def _box_bound_rows(placed, bounds=None):
+    if bounds is None:
+        import _boxes
+        return [_boxes.boxed(shape) for shape, _color in placed.values()]
+    return [_reading_bounds(*bounds[name]) for name in placed]
+
+
+def _box_question_frame(bounds):
+    """The stated shell and seam datums from the pack's explicit raw extrema."""
+    czmin = min(lower[2] for lower, _upper in bounds.values())
+    ix0, ix1 = interior_x()
+    iz0 = min(czmin, 0.0) - floor_drop
+    iz1 = (iz0 - slab_t) + appliance_height - ceiling_skin
+    return (ix0, ix1, front_plane_y, rear_plane_y, iz0, iz1), y_seam, (z_seam, z_seam)
+
+
+def _lip_lane_boxes(inner, y_span, plate, y_joint):
+    """The authored rail-lane boxes, in their native fusion order."""
+    ix0, ix1, _iy0, _iy1, iz0, iz1 = inner
+    cy0, cy1 = y_span
+    col = "front" if cy1 <= y_joint + 1.0 else "back"
+    boxes = []
+    for x_in, sx, ry0, ry1, _lane in _z_rail_runs(inner, y_joint, col, plate):
+        ya, yb = max(ry0, cy0), min(ry1, cy1)
+        if yb <= ya + 1e-6:
+            continue
+        x_hk, _x_f, _x_a, x_h1 = _rail_x(x_in, sx, col)
+        x_open = x_hk - sx * slide_slip
+        boxes.append((min(x_open, x_h1), max(x_open, x_h1), ya, yb, iz0, iz1))
+    return boxes
+
+
+def _lip_lane_tool(inner, y_span, plate, y_joint):
+    ring = None
+    for coordinates in _lip_lane_boxes(inner, y_span, plate, y_joint):
+        lane = _ybox(*coordinates)
+        ring = lane if ring is None else ring.fuse(lane)
+    return ring
+
+
+def _floor_section_tool(bounds, boss):
+    y0, y1, z0, z1 = boss
+    return _ybox(bounds.xmin - 1., bounds.xmax + 1., y0, y1, z0, z1)
+
+
+def _under_lip_tool(inner, y_joint, splits, pump_trays, column):
+    """The curved source skin with its actual Y clip, front-flat and pillar cuts."""
+    ix0, ix1, _iy0, iy1, iz0, iz1 = inner
+    zj, (cy0, cy1) = ((splits[0], (iz0 - 1.0, y_joint)),
+                      (splits[1], (y_joint, iy1 + 1.0)))[column]
+    band = _lip_underwall(inner, y_joint, zj).intersect(
+        _ybox(ix0 - 1.0, ix1 + 1.0, cy0, cy1, iz0 - 1.0, iz1 + 1.0))
+    if zj == splits[0] and pump_trays:
+        band = band.cut(_front_flat_lip_drop(inner, zj))
+    for sx, sy in column_corners:
+        band = band.cut(_column_pillar(inner, sx, sy, splits[0] if sy < 0 else splits[1]))
+    return band
+
+
+def box_question_tools(pack, bounds):
+    """Small authored tools and ordered scalar questions for a referenced pack.
+
+    Bounds are ``name -> (lower, upper)`` raw f64 readings. Tool shapes are the
+    same source functions the direct geometry path calls; no body is loaded here.
+    """
+    bounds = {name: bounds[name] for name in pack.placed}
+    inner, y_joint, splits = _box_question_frame(bounds)
+    tools, questions = {}, []
+    boxes = {name: _reading_bounds(*bounds[name]) for name in pack.placed}
+
+    def add(family, key, tool_name, body, *, body_first=False, components=False):
+        questions.append(dict(family=family, key=key, tool=tool_name, body=body,
+                              body_first=body_first, positive_components=components))
+
+    for col, y_span in (("front", (inner[2], y_seam)), ("back", (y_seam, inner[3]))):
+        tool_name = 'lip-' + col
+        tools[tool_name] = _lip_lane_tool(inner, y_span, pack.collet_plate, y_joint)
+        for name in pack.placed:
+            add('lip', (col, name), tool_name, name)
+    bosses = seam_bosses(inner, y_joint, splits)
+    for ordinal, name in enumerate(pack.placed):
+        b = boxes[name]
+        if b.zmin >= wall + 1e-6 or not _in_a_boss(b, bosses):
+            continue
+        for index, boss in enumerate(bosses):
+            y0, y1, z0, z1 = boss
+            if b.ymin >= y1 or b.ymax <= y0 or b.zmin >= z1 or b.zmax <= z0:
+                continue
+            tool_name = f'floor-{ordinal}-{index}'
+            tools[tool_name] = _floor_section_tool(b, boss)
+            add('floor', (name, index), tool_name, name, body_first=True)
+    for column in range(2):
+        tool_name = f'under-{column}'
+        tools[tool_name] = _under_lip_tool(inner, y_joint, splits, pack.pump_trays, column)
+        for name in pack.placed:
+            add('under', (column, name), tool_name, name)
+    for sx, sy in column_corners:
+        tool_name = f'pillar-{sx}-{sy}'
+        tools[tool_name] = _column_pillar(inner, sx, sy, splits[0] if sy < 0 else splits[1])
+        for name in pack.placed:
+            add('pillars', (sx, sy, name), tool_name, name, components=True)
+    return tools, questions
+
+
+def _box_native_common(tool, body, *, body_first=False, positive_components=False):
+    hit = body.intersect(tool) if body_first else tool.intersect(body)
+    volume = hit.Volume()
+    raw = {'volume_mm3': volume, 'min': None, 'max': None}
+    if volume > 0.0:
+        b = hit.BoundingBox()
+        raw.update(min=[b.xmin, b.ymin, b.zmin], max=[b.xmax, b.ymax, b.zmax])
+    if positive_components:
+        raw['components'] = []
+        if volume > 0.0:
+            for component in hit.Solids():
+                component_volume = component.Volume()
+                if component_volume > 0.0:
+                    b = component.BoundingBox()
+                    raw['components'].append({'volume_mm3': component_volume,
+                        'min': [b.xmin, b.ymin, b.zmin], 'max': [b.xmax, b.ymax, b.zmax]})
+    return raw
+
+
+def box_readings_fine(pack, bounds, references, *, native_names=()):
+    """Read the Box's actual common questions through explicit fine selections.
+
+    ``references`` holds existing assembly-model instance specifications for the
+    referenced pack names, including current source indices and installed transforms. Only
+    the small authored tools are exported here, once, to a temporary fine model.
+    Explicit ``native_names`` retain their actual Shape rows and source questions.
+    """
+    import tempfile
+    import _assembly_model
+    from meshcad import scene
+
+    bounds = {name: bounds[name] for name in pack.placed}
+    native_names = set(native_names)
+    tools, questions = box_question_tools(pack, bounds)
+    tool_bounds = {}
+    for name, tool in tools.items():
+        if tool is not None:
+            b = tool.BoundingBox()
+            tool_bounds[name] = ((b.xmin, b.ymin, b.zmin), (b.xmax, b.ymax, b.zmax))
+    tables = {family: {} for family in ('floor', 'under', 'pillars')}
+    tables['lip'] = {'front': {}, 'back': {}}
+
+    def store(question, raw):
+        family, key = question['family'], question['key']
+        if family == 'lip':
+            tables['lip'][key[0]][key[1]] = raw
+        else:
+            tables[family][key] = raw
+
+    with tempfile.TemporaryDirectory(prefix='hsm-box-questions-') as directory:
+        model = Path(directory) / 'tools.npz'
+        scene.write([(name, tool, None) for name, tool in tools.items() if tool is not None],
+                    model, preserve_partitions=True)
+        indices = {}
+        for index, (name, _color) in enumerate(_assembly_model.identity(model)):
+            indices.setdefault(name, []).append(index)
+        inputs = dict(references)
+        inputs.update({'box-tool:' + name: _assembly_model.instance(model, indices=selection)
+                       for name, selection in indices.items()})
+        selected, queries = [], []
+        for question in questions:
+            raw = {'volume_mm3': 0.0, 'min': None, 'max': None}
+            if question['positive_components']:
+                raw['components'] = []
+            store(question, raw)
+            name = question['tool']
+            if name not in tool_bounds:
+                continue
+            lower, upper = bounds[question['body']]
+            tool_lower, tool_upper = tool_bounds[name]
+            if any(upper[k] <= tool_lower[k] or tool_upper[k] <= lower[k] for k in range(3)):
+                continue
+            if question['body'] in native_names:
+                store(question, _box_native_common(tools[name], pack.placed[question['body']][0],
+                    body_first=question['body_first'], positive_components=question['positive_components']))
+                continue
+            tool = 'box-tool:' + name
+            body = question['body']
+            a, b = (body, tool) if question['body_first'] else (tool, body)
+            query = {'kind': 'common', 'a': a, 'b': b}
+            if question['body_first']:
+                query['distribute_a'] = True
+            if question['positive_components']:
+                query['positive_components'] = True
+            queries.append(query)
+            selected.append(question)
+        rows = _assembly_model.measure_groups(inputs, queries)
+        if len(rows) != len(selected):
+            raise ValueError('Box common coverage differs from its explicit questions')
+        for question, row in zip(selected, rows):
+            if 'error' in row:
+                raise ValueError(row['error'])
+            store(question, row['common']['raw'])
+    return BoxReadings(dict(bounds), tables['lip'], tables['floor'], tables['under'], tables['pillars'])
 
 
 if __name__ == "__main__":
