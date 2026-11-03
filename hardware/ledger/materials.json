@@ -110,7 +110,7 @@
           },
           {
             "material": "HSM-000043",
-            "quantity": 6,
+            "quantity": 7,
             "unit": "ea",
             "bodies": [
               "tee-y-a",
@@ -118,8 +118,10 @@
               "tee-y-d",
               "tee-y-b",
               "tee-y-f",
-              "tee-y-g"
-            ]
+              "tee-y-g",
+              "water-split"
+            ],
+            "note": "Six flavor-manifold tees and the tap-water split at the ASSE outlet cuff, feeding V-K and the flavor-water regulator."
           },
           {
             "material": "HSM-000330",
@@ -516,15 +518,6 @@
             "bodies": [
               "condenser+fan"
             ]
-          },
-          {
-            "material": "HSM-000333",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "water-split"
-            ],
-            "note": "Tap-water split at the ASSE outlet cuff, feeding V-K and the flavor-water regulator; separate from the six flavor-manifold tees."
           },
           {
             "material": "HSM-000270",
@@ -3234,10 +3227,18 @@
           "file": "reference/tee-connector/tee-connector.step"
         }
       ],
+      "aliases": [
+        "water split",
+        "water-split"
+      ],
       "documents": [
         {
           "title": "Part details",
           "path": "reference/tee-connector/README.md"
+        },
+        {
+          "title": "Water-path assembly",
+          "path": "assembly/internal-plumbing.md"
         }
       ]
     },
@@ -6645,7 +6646,7 @@
     },
     {
       "id": "HSM-000333",
-      "description": "neoFit ATBU444-E branch stem tee \u00b7 tap-water split \u00b7 1/4 inch",
+      "description": "neoFit ATBU444-E branch stem tee \u00b7 1/4 inch",
       "kind": "purchased",
       "models": [
         {
@@ -6653,19 +6654,9 @@
         }
       ],
       "aliases": [
-        "water split",
-        "water-split",
         "ATBU444-E"
       ],
       "documents": [
-        {
-          "title": "Water-path assembly",
-          "path": "assembly/internal-plumbing.md"
-        },
-        {
-          "title": "Fitting specification",
-          "path": "ledger/bom.md"
-        },
         {
           "title": "Tee representation",
           "path": "reference/branch-stem-tees/README.md"
