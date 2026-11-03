@@ -31,33 +31,48 @@ parts, checks and outputs.
   is carried into the Rust version before that piece merges. Once a piece is in Rust on main,
   its mechanical edits are made there.
 
-## What is left
+## The normal geometry programs
 
-A piece comes off this list when it lands on main. The box and the machine are most of the
-build's critical path: a change to the box runs both steps, one after the other, and a change to
-any part in the machine runs the machine's.
+Python supplies dimensions, numeric construction recipes, file references and document data.
+The Rust programs construct and measure the solids and compose their model/viewer files.
 
-The active pieces have separate file owners:
-
-| Piece | Scope | Owner |
+| Piece | Rust program or data boundary | Source |
 | --- | --- | --- |
-| Machine placement | `enclosure_assembly.py`, fine-model references, installed frames and scalar layout | `machine_placement` |
-| Equipment | Above-core fittings, clamps, bulkheads, mounting hardware and numerical route providers | `faucet_assembly` |
-| Tube geometry | Warm fluid/gas sweeps and their insulation, from the equipment route specifications | `plumbing_scenes` |
-| Enclosure generation | `enclosure.py`, `enclosure_box.py`, numeric datums, shell assembly and pump dock | `enclosure_geometry` |
-| Enclosure measurements | Piece bounds, vent/handhold/ceiling readings and Box measurements | `enclosure_checks` |
-| Machine checks | `_scorecard.py`, `check_asse_drain.py`, fit/clearance queries and scalar reports | `machine_checks` |
-| Model exports | Physical STEP/fine models, display surfaces, wiring append and eleven scene GLBs | `model_exports` |
-| Model context | Cold-core presentation, float integration and plain machine facts/scene/wiring context | `cold_core_assembly` |
+| Machine placement | `machine-layout`; installed transforms and model selections | `hardware/manifold-layout/machine_layout.rs` |
+| Equipment | `machine-equipment`; fittings, clamps, bulkheads and mounting hardware | `hardware/manifold-layout/machine_equipment.rs` |
+| Fluid and refrigeration tubes | `machine-routes`; sweeps, insulation and developed lengths | `hardware/manifold-layout/machine_routes.rs` |
+| Wire curves | `wire-route-samples`; interpolation, lengths and curvature | `hardware/wiring/installed/wire_route_samples.rs` |
+| Enclosure generation | Panel kernels, `enclosure-dock`, numeric Box and model references | `hardware/printed-parts/enclosure/enclosure/` |
+| Enclosure measurements | `enclosure-checks`; piece bounds and Box measurements | `hardware/printed-parts/enclosure/enclosure/enclosure_checks.rs` |
+| Enclosure print surfaces | `enclosure-presentation`; reduction, shading and source records | `hardware/printed-parts/enclosure/enclosure/enclosure_presentation.rs` |
+| Machine checks | `machine-checks`; fit, clearance, drain and scalar reports | `hardware/manifold-layout/machine_checks.rs` |
+| Model exports | `machine-export`; physical models, display surfaces, wiring append and eleven scene GLBs | `hardware/assembly/scenes/machine_export.rs` |
+| Model context | Plain facts, scene documents and numerical wiring context | `hardware/manifold-layout/_machine_reporting.py` |
 
 The install guide's twelve plumbing scenes use Rust geometry with plain Python dimensions,
 colours and render jobs. The optional hose and collet illustration builders load native CAD
 only when those hand-run tools request them.
 
-After these pieces land:
+The equipment fixture preserves a documented limitation for two PVC cuff joining caps:
+the authored construction, dimensions, bounds and material colours agree, while the internal
+Boolean-cap triangulations differ. The retained comparison records those differences; it does
+not state that every raw surface matches. The combined build retains its existing fit questions.
 
-1. **Any other step that loads CadQuery, OCP or meshcad at run time.** A generator that calls
+## What is left
+
+A piece comes off this list when it lands on main. The current merged batch needs its normal
+execution and publication; component comparisons are not a completed combined build.
+
+1. **Cold-core and faucet print surfaces.** `flute_payload_cold_core.py` and
+   `flute_payload_faucet.py` retain Python mesh simplification, shading and surface export.
+   `enclosure_checks` owns their Rust presentation consumer. The enclosure producer owns its
+   own print surfaces and aggregate; its redundant fluting co-writer is outside the normal path.
+2. **Metadata-reader startup.** `cold_core_assembly` owns normal BOM, mechanical/plumbing,
+   topology and dimension readers that import the legacy assembly only for scalar data or source
+   dependencies. These readers keep their data and source edges without loading the CAD driver.
+3. **Combined execution and publication.** The integration lead owns actual normal results,
+   source/output bindings, artifact readback and main publication. The batch runs after merging
+   to main; it adds no per-piece speed or whole-build gate.
+4. **Any other step that loads CadQuery, OCP or meshcad at run time.** A generator that calls
    `_rust_part.start()` defers CadQuery, and still loads it on any path that reads a CadQuery
-   name.
-2. **The CadQuery path itself.** Once the rest lands, meshcad, the Python builders nothing on the
-   build calls, and CadQuery leave the normal build.
+   name. Optional native design and manual review tools remain outside the normal build.
