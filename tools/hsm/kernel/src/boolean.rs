@@ -149,6 +149,10 @@ impl Solid {
     pub fn gap(&self, _: &Solid) -> Result<f64> {
         anyhow::bail!("a solid clearance needs the kernel's manifold feature")
     }
+
+    pub fn gap_within(&self, _: &Solid, _: f64) -> Result<f64> {
+        anyhow::bail!("a solid clearance needs the kernel's manifold feature")
+    }
 }
 
 #[cfg(feature = "manifold")]
@@ -526,6 +530,15 @@ mod backend {
             // Surface intersections/contact need no boolean. A positive surface distance may
             // still mean one closed component is contained, whose solid clearance is zero.
             Ok(if gap == 0.0 || self.shared_volume(other)? > 0.0 { 0.0 } else { gap })
+        }
+
+        /// The native bounded surface/solid query, with the caller's existing horizon as floor.
+        pub fn gap_within(&self, other: &Solid, within: f64) -> Result<f64> {
+            ensure!(!self.is_empty() && !other.is_empty(), "a gap needs two nonempty solids");
+            ensure!(within.is_finite() && within >= 0.0, "a gap horizon is finite and nonnegative");
+            let gap = built(self)?.m.min_gap(&built(other)?.m, within);
+            ensure!(gap.is_finite() && gap >= 0.0, "invalid solid clearance {gap}");
+            Ok(gap)
         }
 
         /// The solid as a file takes it: simplified to the rule's TOLERANCE, so no edge shorter

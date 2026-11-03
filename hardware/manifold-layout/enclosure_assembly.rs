@@ -102,13 +102,7 @@ fn assemble(instances: &Value) -> Result<Vec<Imported>> {
                 Ok(Some(rgb))
             })
             .transpose()?;
-        let count = hsm_kernel::import::visit_model(model, |index, mut part| {
-            if selected
-                .as_ref()
-                .is_some_and(|indices| !indices.contains(&index))
-            {
-                return Ok(());
-            }
+        let visit = |_index, mut part: Imported| {
             part.name = match name {
                 Some(name) => name.to_owned(),
                 None => format!("{prefix}{}", part.name),
@@ -121,7 +115,12 @@ fn assemble(instances: &Value) -> Result<Vec<Imported>> {
             }
             placed.push(part);
             Ok(())
-        })?;
+        };
+        let count = if let Some(indices) = &selected {
+            hsm_kernel::import::visit_model_indices(model, indices, visit)?
+        } else {
+            hsm_kernel::import::visit_model(model, visit)?
+        };
         if let Some(selected) = &selected {
             ensure!(selected.iter().all(|&index| index < count),
                     "a selected entry is outside {model}'s {count} solids");
@@ -141,7 +140,15 @@ fn residual(solid: &Solid) -> Value {
 
 fn common(a: &Solid, b: &Solid, query: &Value, parts: &[Imported]) -> Result<Value> {
     let mut hit = a.intersect(b)?;
-    let raw = residual(&hit);
+    let mut raw = residual(&hit);
+    let positive_components = query.get("positive_components").map(|value| {
+        value.as_bool().context("positive_components is a boolean")
+    }).transpose()?.unwrap_or(false);
+    if positive_components {
+        raw["components"] = json!(hit.components().iter()
+            .filter(|component| component.volume() > 0.0)
+            .map(residual).collect::<Vec<_>>());
+    }
     let threshold = query.get("mask_above_mm3").map(|v| {
         v.as_f64().filter(|v| v.is_finite() && *v >= 0.0)
             .context("mask threshold is finite and nonnegative")
@@ -207,14 +214,21 @@ fn query_solid<'a>(parts: &'a [Imported], groups: &'a BTreeMap<Vec<usize>, Solid
 fn summed_residual(values: &[&Value]) -> Value {
     let volume: f64 = values.iter().map(|value| value["volume_mm3"].as_f64().unwrap()).sum();
     let occupied = values.iter().filter(|value| value["min"].is_array()).collect::<Vec<_>>();
+    let components = values.iter().any(|value| value.get("components").is_some()).then(||
+        values.iter().filter_map(|value| value.get("components").and_then(Value::as_array))
+            .flatten().cloned().collect::<Vec<_>>());
     if occupied.is_empty() {
-        return json!({"volume_mm3":volume,"min":null,"max":null});
+        let mut result = json!({"volume_mm3":volume,"min":null,"max":null});
+        if let Some(components) = components { result["components"] = json!(components); }
+        return result;
     }
     let lower = (0..3).map(|axis| occupied.iter()
         .map(|value| value["min"][axis].as_f64().unwrap()).fold(f64::INFINITY, f64::min)).collect::<Vec<_>>();
     let upper = (0..3).map(|axis| occupied.iter()
         .map(|value| value["max"][axis].as_f64().unwrap()).fold(f64::NEG_INFINITY, f64::max)).collect::<Vec<_>>();
-    json!({"volume_mm3":volume,"min":lower,"max":upper})
+    let mut result = json!({"volume_mm3":volume,"min":lower,"max":upper});
+    if let Some(components) = components { result["components"] = json!(components); }
+    result
 }
 
 fn distributed_common(parts: &[Imported], left: &[usize], right: &Solid, query: &Value) -> Result<Value> {
@@ -263,10 +277,12 @@ fn query(parts: &mut [Imported], queries: &Value) -> Result<Vec<Value>> {
                     Ok(result) => json!({"a":value["a"],"b":value["b"],"kind":kind,"common":result}),
                     Err(error) => json!({"a":value["a"],"b":value["b"],"kind":kind,"error":format!("{error:#}")}),
                 };
-                for indices in [a, b] {
-                    if indices.len() == 1 { parts[indices[0]].solid.forget_backend(); }
-                    else if let Some(group) = groups.get_mut(indices) { group.forget_backend(); }
-                    for &part in indices { parts[part].solid.forget_backend(); }
+                if !value.get("retain_until_last_use").and_then(Value::as_bool).unwrap_or(false) {
+                    for indices in [a, b] {
+                        if indices.len() == 1 { parts[indices[0]].solid.forget_backend(); }
+                        else if let Some(group) = groups.get_mut(indices) { group.forget_backend(); }
+                        for &part in indices { parts[part].solid.forget_backend(); }
+                    }
                 }
                 if let Some(stages) = value.get("fine_mask_stages") {
                     for stage in stages.as_array().context("fine mask stages is an array")? {
@@ -281,6 +297,10 @@ fn query(parts: &mut [Imported], queries: &Value) -> Result<Vec<Value>> {
                 "gap" if a == b => {
                     ensure!(!query_solid(parts, &groups, a).is_empty(), "a gap needs two nonempty solids");
                     0.0
+                },
+                "gap" if value.get("within_mm").is_some() => {
+                    let within = value["within_mm"].as_f64().context("gap within_mm is a number")?;
+                    query_solid(parts, &groups, a).gap_within(query_solid(parts, &groups, b), within)?
                 },
                 "gap" => {
                     for indices in [a, b] {
