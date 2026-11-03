@@ -1,0 +1,278 @@
+{
+  "views": [
+    {
+      "name": "pisco-point",
+      "caption": "One 3 mm-rise planar lead-in ends at the free point; its matched pocket clears the complete tip.",
+      "before": "pisco-point-before.webp",
+      "after": "pisco-point-after.webp",
+      "width": 960,
+      "height": 720,
+      "marks": [
+        {
+          "x": 528,
+          "y": 293,
+          "r": 24,
+          "label": "Pointed lead-in",
+          "at": [
+            90.9,
+            449,
+            344.85
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          88.5,
+          405.5441558772843,
+          341.5
+        ],
+        "target": [
+          88.5,
+          449,
+          341.5
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "fov": 45,
+        "near": 0.27954337408789254,
+        "far": 538.9265658472023,
+        "aspect": 1.3333333333333333,
+        "section": {
+          "at": [
+            88.5,
+            449,
+            341.5
+          ],
+          "normal": [
+            0,
+            -1,
+            0
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [],
+      "ghost": [],
+      "only": [
+        "enclosure-back-top",
+        "pisco-snap-cap"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "a0bb4697ecd26061d30a181bffbbabec0fe5517e5244e4d46218ba7101b48774",
+          "commit": "29dd954c9a519ef4fa24823e12ed6fcaf67ed9cc",
+          "taken": "2026-11-03T04:01:41.739Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "f2284aab194f8f242ad57c07cccc55139965eb53393b816cf48e09ab436be937",
+          "commit": "8b8ff6dac534d85d4e30197af42684ca5a7707c0",
+          "published": true
+        }
+      },
+      "changed": [
+        "enclosure-front-top",
+        "cold-core/pump-snap-cap",
+        "pisco-snap-cap",
+        "asse-snap-cap",
+        "meter-snap-cap",
+        "cold-core/foam-cap-lid-top",
+        "enclosure-back-top",
+        "enclosure-pump-retainer"
+      ],
+      "withinMeshing": [
+        "regulator-snap-cap"
+      ]
+    },
+    {
+      "name": "cartridge-point",
+      "caption": "The cartridge barb has one 4.6 mm lead-in and a matching receiver roof with 0.5 mm clearance.",
+      "before": "cartridge-point-before.webp",
+      "after": "cartridge-point-after.webp",
+      "width": 960,
+      "height": 720,
+      "marks": [
+        {
+          "x": 512,
+          "y": 446.1,
+          "r": 20,
+          "label": "Pointed barb",
+          "at": [
+            101.1,
+            58,
+            175.195
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          99.5,
+          14.54415587728429,
+          179.5
+        ],
+        "target": [
+          99.5,
+          58,
+          179.5
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "fov": 45,
+        "near": 0.31864300785453836,
+        "far": 519.1325292462105,
+        "aspect": 1.3333333333333333,
+        "section": {
+          "at": [
+            99.5,
+            58,
+            179.5
+          ],
+          "normal": [
+            0,
+            -1,
+            0
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [],
+      "ghost": [],
+      "only": [
+        "enclosure-front-top",
+        "enclosure-pump-retainer"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "a0bb4697ecd26061d30a181bffbbabec0fe5517e5244e4d46218ba7101b48774",
+          "commit": "29dd954c9a519ef4fa24823e12ed6fcaf67ed9cc",
+          "taken": "2026-11-03T04:01:41.739Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "f2284aab194f8f242ad57c07cccc55139965eb53393b816cf48e09ab436be937",
+          "commit": "8b8ff6dac534d85d4e30197af42684ca5a7707c0",
+          "published": true
+        }
+      },
+      "changed": [
+        "enclosure-front-top",
+        "cold-core/pump-snap-cap",
+        "pisco-snap-cap",
+        "asse-snap-cap",
+        "meter-snap-cap",
+        "cold-core/foam-cap-lid-top",
+        "enclosure-back-top",
+        "enclosure-pump-retainer"
+      ],
+      "withinMeshing": [
+        "regulator-snap-cap"
+      ]
+    },
+    {
+      "name": "asse-hex-depth",
+      "caption": "The conforming hex keeps its six flat directions. Its lower planes and corners have 0.25 mm more seating allowance; neck bearings and axial capture stay in place.",
+      "before": "asse-hex-depth-before.webp",
+      "after": "asse-hex-depth-after.webp",
+      "width": 960,
+      "height": 720,
+      "marks": [
+        {
+          "x": 480,
+          "y": 367.3,
+          "r": 21,
+          "label": "Hex floor",
+          "at": [
+            29.34,
+            451.7,
+            316.458
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          29.34,
+          437.2147186257614,
+          316.58
+        ],
+        "target": [
+          29.34,
+          451.7,
+          316.58
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "fov": 45,
+        "near": 0.022126973881799312,
+        "far": 104.46875008905452,
+        "aspect": 1.3333333333333333,
+        "section": {
+          "at": [
+            29.34,
+            451.7,
+            316.58
+          ],
+          "normal": [
+            0,
+            -1,
+            0
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [],
+      "ghost": [],
+      "only": [
+        "asse-snap-cap",
+        "gagira-coupling"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "d6e86dc3f881221419757f69131e78e0ab15e904f055cf38308040e6676bba49",
+          "commit": "521b9f02cb13815c02b83d08df0d6a9f71c3a60d",
+          "taken": "2026-11-03T04:34:09.929Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "f2284aab194f8f242ad57c07cccc55139965eb53393b816cf48e09ab436be937",
+          "commit": "8b8ff6dac534d85d4e30197af42684ca5a7707c0",
+          "published": true
+        }
+      },
+      "changed": [
+        "enclosure-front-top",
+        "asse-snap-cap"
+      ],
+      "withinMeshing": []
+    }
+  ]
+}
