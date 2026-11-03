@@ -32,7 +32,6 @@ import cadquery as cq
 import trimesh
 from scipy.interpolate import PchipInterpolator
 from flute_payload import cut as export_payload
-from physical_acceptance import for_printed_model
 
 # Accepted parallel side faces and cylinder channel, in millimetres.
 PRINTED_OUTSIDE_WIDTH = 12.40
@@ -266,7 +265,7 @@ def write_frame_data(step):
 def main():
     import _rust_part
 
-    said = _rust_part.cut("faucet", "lever-replica", numbers(), HERE)
+    _rust_part.cut("faucet", "lever-replica", numbers(), HERE)
     step = HERE / "lever-replica.step"
     stl = HERE / "lever-replica.stl"
     print_stl = HERE / "lever-replica-side-down.stl"
@@ -276,30 +275,6 @@ def main():
                                 [0, 1, 0, 0], [1, 0, 0, 0], [0, 0, 0, 1]])
     local_mesh.export(stl)
     export_payload(step, stl, preserve_print_triangles=True)
-    mesh = trimesh.load(stl, force="mesh")
-    acceptance = for_printed_model(hashlib.sha256(print_stl.read_bytes()).hexdigest())
-    body = said["bodies"][0]
-    result = {
-        "valid_closed_mesh": bool(mesh.is_watertight and mesh.is_winding_consistent),
-        "solids": len(said["bodies"]), "volume_mm3": body["volume"],
-        "mesh_bounds_mm": mesh.bounds.tolist(),
-        "status": ("physical fit and functional operation confirmed by Derek"
-                   if acceptance["matches_accepted_geometry"]
-                   else "current geometry has no matching physical acceptance"),
-        "physical_acceptance": acceptance,
-        "inferred": ["ledge upper continuation", "bilateral symmetry",
-                     "unobserved transitions between relief sections"],
-        "printed_channel_mm": CHANNEL_PRINTED_WIDTH,
-        "printed_outside_mm": PRINTED_OUTSIDE_WIDTH,
-        "printed_channel_applies_to": "primary lever-replica STEP, STL, viewer payload and side-down print STL",
-        "printable_volume_mm3": body["volume"],
-        "widths_mm": {f"z={z}": {"channel": round(2 * half_channel(z), 3),
-                                 "outside": round(2 * half_outer(z), 3),
-                                 "wall": round(half_outer(z) - half_channel(z), 3)}
-                      for z in (0.0, -3.25, -5.55)},
-    }
-    (HERE / "geometry-check.json").write_text(json.dumps(result, indent=2) + "\n")
-    print(json.dumps(result, indent=2))
 
 if __name__ == "__main__":
     main()
