@@ -161,7 +161,7 @@
   },
   "input_sha256": {
     "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl": "1f2a19edfa01a10b9c2023734fbc8c384afd06e36674794a300a1cf6f1b2e833",
-    "hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.stl": "d1337b4ad1ee85901a8215cbda880747943847e0e668b5d782211e3db59d4f4d",
+    "hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.stl": "a6857c77924955b43235815ed46f74860340e53efe6d37e71f567c4070448248",
     "hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.stl": "e35431f25d7f8d5ba66eb631812457550bb9c5f901b8e30a523a0136e571a3df",
     "hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.stl": "49a0a3e6cc842d58dbdc9d6d8f4d102ca322a9a2230114e6e3a39f0c0f4aaf7b"
   },
@@ -192,7 +192,7 @@
       "name": "asse-cap",
       "stl": "hardware/print-tests/rear-snap-retention/v5/parts/asse-cap.stl",
       "step": "hardware/print-tests/rear-snap-retention/v5/parts/asse-cap.step",
-      "stl_sha256": "d1337b4ad1ee85901a8215cbda880747943847e0e668b5d782211e3db59d4f4d",
+      "stl_sha256": "a6857c77924955b43235815ed46f74860340e53efe6d37e71f567c4070448248",
       "bounds_mm": [
         [
           -25.14813995361328,
@@ -205,7 +205,7 @@
           64.625
         ]
       ],
-      "volume_mm3": 31772.034068991532,
+      "volume_mm3": 31630.38390780029,
       "watertight": true,
       "solids": 1,
       "print_orientation": "Production axial end down."
@@ -304,5 +304,5 @@
     462.05
   ],
   "physical_result": "Awaiting this print trial.",
-  "elapsed_seconds": 9.3710195000167
+  "elapsed_seconds": 9.438678833015729
 }

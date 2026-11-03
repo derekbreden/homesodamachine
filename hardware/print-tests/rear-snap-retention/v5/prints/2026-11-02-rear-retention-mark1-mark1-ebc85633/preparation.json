@@ -15,8 +15,8 @@
   "bed_type": "Textured PEI Plate",
   "requested_z_trim_mm": 0.18,
   "emitted_textured_trim_mm": 0.16,
-  "project": "hardware/print-tests/rear-snap-retention/v5/prints/2026-11-02-rear-retention-mark1-mark1-7d4650ce/2026-11-02-rear-retention-mark1-mark1-7d4650ce.3mf",
-  "project_sha256": "ae490672a0b9eccb040022959909c953f4b85ecca1caa1e9132ba06d72792ea6",
+  "project": "hardware/print-tests/rear-snap-retention/v5/prints/2026-11-02-rear-retention-mark1-mark1-ebc85633/2026-11-02-rear-retention-mark1-mark1-ebc85633.3mf",
+  "project_sha256": "7fd0c6be881d76bd93475e7fb2f61fab5e19d5c84e6fd4eba398b35884d051f0",
   "profile": "hardware/printed-parts/petgf.3mf",
   "profile_sha256": "45c16e8c8517e0a205107d7b9f7412d013f51a8de7ecf86125cc940079d37ed0",
   "settings_sha256": "8260452bae9cf42ed8016bca971ee73ed8c4437f00091b5665e63af9ae153d61",
@@ -206,8 +206,8 @@
       "identify_id": 1902,
       "object_id": 4,
       "stl": "hardware/print-tests/rear-snap-retention/v5/parts/asse-cap.stl",
-      "stl_sha256": "d1337b4ad1ee85901a8215cbda880747943847e0e668b5d782211e3db59d4f4d",
-      "step_sha256": "6693ffbad865df84ed8f28046d6b1ae8298c7f345c670d84b7a2d1fec512113c",
+      "stl_sha256": "a6857c77924955b43235815ed46f74860340e53efe6d37e71f567c4070448248",
+      "step_sha256": "3b37f9b377281c7a8c4bb610a7b7346ed99394694d6fbde2e2987297c4d47c6d",
       "facets": 2152,
       "closed": {
         "edges": 3228,
@@ -476,7 +476,7 @@
     }
   ],
   "pause": null,
-  "show_faces": "hardware/print-tests/rear-snap-retention/v5/prints/2026-11-02-rear-retention-mark1-mark1-7d4650ce/show-faces.npz",
+  "show_faces": "hardware/print-tests/rear-snap-retention/v5/prints/2026-11-02-rear-retention-mark1-mark1-ebc85633/show-faces.npz",
   "spec": "hardware/print-tests/rear-snap-retention/v5/plate-spec.json",
   "spec_sha256": "dae45e029247a3f59fdd48860cc6e266fc1e07fb04cbc7565a1a4a7bec2ca40b",
   "tool_sha256": {
@@ -489,12 +489,12 @@
     "hardware/printed-parts/enclosure/trial-preparation/review.py": "9bd303fe370842fd34eb559dc5f53f887f75c42e478c598737397dd49dd539f7",
     "hardware/printed-parts/enclosure/trial-preparation/step_meshes.py": "b50f7b50f52f1e8516be3b1fc9ecdb10e87fb188f8b9bebc0fac56737320fc44"
   },
-  "prepared_utc": "2026-11-03T00:48:10+00:00",
+  "prepared_utc": "2026-11-03T01:07:29+00:00",
   "sliced": true,
   "submitted": false,
-  "archive": "hardware/print-tests/rear-snap-retention/v5/prints/2026-11-02-rear-retention-mark1-mark1-7d4650ce/2026-11-02-rear-retention-mark1-mark1-7d4650ce.gcode.3mf",
-  "archive_sha256": "62a7e1b4f483eb5f078c197eb7d83c11ae0b524e04715d3c5586439aa292a498",
-  "gcode_sha256": "e22c28a296628f6aa904230fc6e8b2cb70b1644db1893538fde8dd534912cbda",
-  "estimated_seconds": 13883.0087890625,
+  "archive": "hardware/print-tests/rear-snap-retention/v5/prints/2026-11-02-rear-retention-mark1-mark1-ebc85633/2026-11-02-rear-retention-mark1-mark1-ebc85633.gcode.3mf",
+  "archive_sha256": "0ac271db398311e7b24977c6dccec531851c577f6be0d3a28fb90e9932f75941",
+  "gcode_sha256": "be2830b2ebfa09bca6b805a99a53454188a90e49d64ca1ab75b5631cf8ffe218",
+  "estimated_seconds": 13884.9951171875,
   "slicer_warnings": []
 }

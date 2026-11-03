@@ -1,4 +1,4 @@
-asse-snap-cap.stl · 2086 printed facets · 18 findings · top 12 (--all for every one)
+asse-snap-cap.stl · 2152 printed facets · 16 findings · top 12 (--all for every one)
 answers: hardware/printed-parts/lint-answers/enclosure/rear-equipment-caps/asse-snap-cap.lint-answers · read hardware/printed-parts/lint-answers/AGENTS.md before writing one
 
   [sliver] 0.361 mm strip, 9.2 mm long
@@ -7,10 +7,10 @@ answers: hardware/printed-parts/lint-answers/enclosure/rear-equipment-caps/asse-
     edge: x=-12.438 y=-3.304 z=59.831 → x=-12.480 y=-3.326 z=50.601 · len 9.230 · straight · dir x=-0.005 y=-0.002 z=-1.000
     click: x=-12.459 y=-3.315 z=55.216
 
-  [ceiling] 176 mm² flat print-down face at z=48.800 · 15.3 × 13.6 mm · drop 33.4–33.4 mm to material below
+  [ceiling] 177 mm² flat print-down face at z=42.171 · 33.6 × 14.7 mm · open to the bed (42.2 mm up)
     file: hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step
-    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=0.070 y=11.505 z=48.800
-    click: x=0.070 y=11.505 z=48.800
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=-0.050 y=3.879 z=42.171
+    click: x=-0.050 y=3.879 z=42.171
 
   [ceiling] 80 mm² flat print-down face at z=38.661 · 12.0 × 10.0 mm · open to the bed (38.7 mm up)
     file: hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step
@@ -36,10 +36,12 @@ answers: hardware/printed-parts/lint-answers/enclosure/rear-equipment-caps/asse-
     answered: Functional hook nose and insertion ramp. The 2.6 mm total hook height comprises a 1.6 mm nose and 1 mm lead-in rise. Across the centered 5 mm blade entry, the 1 mm opening leaves a finite 0.6 mm nose above it. The sampled 0.72 mm places lie in that tool-purchase roof; the 1.91–2.04 mm places lie across the adjoining insertion profile. Physical release force and repeated use remain unqualified in rear-snap-retention/v3.
     alternatives: Increasing roof thickness within this height reduces the requested blade opening or steepens the insertion ramp; increasing total hook height also deepens its receiving pocket into the fixed roof stock. Filling the entry removes centered tool access. The 2.6 mm flat retaining overlap remains on each side of the entry.
 
-  [thin] 0.865 mm of material at its thinnest · 10.3 mm² of surface under 2.5 mm · spans 4.1 × 3.0 × 1.6 mm
+  [thin] 1.909 mm of material at its thinnest · 29.7 mm² of surface under 2.5 mm · spans 1.8 × 0.6 × 14.8 mm
     file: hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step
-    click: x=7.608 y=5.830 z=48.800
-    click: x=7.269 y=5.438 z=49.493
+    click: x=-21.007 y=-17.624 z=7.159
+    click: x=-21.007 y=-15.714 z=7.159
+    answered: Functional hook nose and insertion ramp. The 2.6 mm total hook height comprises a 1.6 mm nose and 1 mm lead-in rise. Across the centered 5 mm blade entry, the 1 mm opening leaves a finite 0.6 mm nose above it. The sampled 0.72 mm places lie in that tool-purchase roof; the 1.91–2.04 mm places lie across the adjoining insertion profile. Physical release force and repeated use remain unqualified in rear-snap-retention/v3.
+    alternatives: Increasing roof thickness within this height reduces the requested blade opening or steepens the insertion ramp; increasing total hook height also deepens its receiving pocket into the fixed roof stock. Filling the entry removes centered tool access. The 2.6 mm flat retaining overlap remains on each side of the entry.
 
   [ledge] 3.10 mm² flat face 0° off facing the bed · 3.1 × 1.0 mm · 23.3 mm up
     file: hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step

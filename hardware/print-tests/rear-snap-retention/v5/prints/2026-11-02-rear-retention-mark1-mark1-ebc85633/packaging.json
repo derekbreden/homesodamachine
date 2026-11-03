@@ -1,0 +1,22 @@
+{
+  "source_archive": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/snap-fit-v5/worktree/hardware/print-tests/rear-snap-retention/v5/prints/2026-11-02-rear-retention-mark1-mark1-ebc85633/2026-11-02-rear-retention-mark1-mark1-ebc85633.gcode.3mf",
+  "source_archive_sha256": "0ac271db398311e7b24977c6dccec531851c577f6be0d3a28fb90e9932f75941",
+  "print_only_archive": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/snap-fit-v5/worktree/hardware/print-tests/rear-snap-retention/v5/prints/2026-11-02-rear-retention-mark1-mark1-ebc85633/2026-11-02-rear-retention-mark1-mark1-ebc85633-print-only.gcode.3mf",
+  "print_only_archive_sha256": "6e488c0d1deaa3d74a352978228baf04790de1c992b81f8785ac913f3aaafc80",
+  "gcode_sha256": {
+    "Metadata/plate_1.gcode": "be2830b2ebfa09bca6b805a99a53454188a90e49d64ca1ab75b5631cf8ffe218"
+  },
+  "gcode_byte_identical": true,
+  "changed_container_entries": [
+    "3D/3dmodel.model",
+    "Metadata/model_settings.config"
+  ],
+  "omitted_editable_geometry_entries": [
+    "3D/Objects/object_1.model",
+    "3D/Objects/object_2.model",
+    "3D/Objects/object_3.model",
+    "3D/Objects/object_4.model",
+    "3D/_rels/3dmodel.model.rels",
+    "Metadata/cut_information.xml"
+  ]
+}
