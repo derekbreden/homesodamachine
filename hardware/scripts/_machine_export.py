@@ -31,6 +31,9 @@ def export(spec, output):
 def scene(model, target, *, aliases, envelope, document):
     """Publish the named machine scene from physical and foam model references."""
     target = Path(target).resolve()
+    envelope = dict(envelope)
+    if "path" not in envelope and "model" in envelope:
+        envelope["path"] = envelope["model"]
     return _run({'op': 'scene', 'model': str(Path(model).resolve()),
                  'file': str(target), 'aliases': aliases, 'envelope': envelope,
                  'document': document}, target.parent)
