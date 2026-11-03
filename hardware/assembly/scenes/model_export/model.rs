@@ -725,11 +725,45 @@ fn write_step_stream(model: &mut Model, path: &Path, root: &str) -> Result<Strin
     stream_digest(path)
 }
 
+fn copy_payload(from: &Path, to: &Path) -> Result<()> {
+    let temp = to.with_file_name(format!(
+        ".{}.{}.copy",
+        to.file_name().unwrap().to_string_lossy(),
+        std::process::id()
+    ));
+    #[cfg(target_os = "macos")]
+    let cloned = {
+        use std::{ffi::CString, os::unix::ffi::OsStrExt};
+        unsafe extern "C" {
+            fn clonefile(
+                from: *const std::ffi::c_char,
+                to: *const std::ffi::c_char,
+                flags: u32,
+            ) -> i32;
+        }
+        let from = CString::new(from.as_os_str().as_bytes())?;
+        let to = CString::new(temp.as_os_str().as_bytes())?;
+        // The two owned C strings remain alive for this clonefile call.
+        unsafe { clonefile(from.as_ptr(), to.as_ptr(), 0) == 0 }
+    };
+    #[cfg(not(target_os = "macos"))]
+    let cloned = false;
+    if !cloned {
+        std::fs::copy(from, &temp)?;
+    }
+    std::fs::rename(temp, to)?;
+    Ok(())
+}
+
 pub fn physical(spec: &Value, output: &Path) -> Result<Value> {
     let name = spec["name"].as_str().unwrap_or("enclosure-assembly");
     let model = output.join(format!("{name}.step.npz"));
     let step = output.join(format!("{name}.step"));
     let mesh = output.join(format!("{name}.step.mesh"));
+    let presentation = spec["physical_presentation"]
+        .as_str()
+        .map(|file| output.join(file))
+        .unwrap_or_else(|| mesh.clone());
     let instances = spec.get("instances").context("physical instances")?;
     let rows = references(instances)?;
     write_refs(&rows, spec.get("document"), &model)?;
@@ -743,11 +777,22 @@ pub fn physical(spec: &Value, output: &Path) -> Result<Value> {
     if let Some(skins) = spec.get("presentation") {
         shown.graft(skins)?;
     }
-    shown.write(&mesh)?;
+    shown.write(&presentation)?;
     drop(shown);
-    bind(&model, &mesh)?;
+    if presentation != mesh {
+        copy_payload(&presentation, &mesh)?;
+    }
+    bind(&model, &presentation)?;
+    let mut files = vec![
+        super::output_name(&step, output),
+        super::output_name(&model, output),
+        super::output_name(&mesh, output),
+    ];
+    if presentation != mesh {
+        files.push(super::output_name(&presentation, output));
+    }
     Ok(
-        json!({"files":[super::output_name(&step,output),super::output_name(&model,output),super::output_name(&mesh,output)],"bodies":names,"model":model,"payload":mesh,"physical_step_sha256":src}),
+        json!({"files":files,"bodies":names,"model":model,"payload":mesh,"physical_step_sha256":src}),
     )
 }
 pub fn scene(spec: &Value, output: &Path) -> Result<Value> {
