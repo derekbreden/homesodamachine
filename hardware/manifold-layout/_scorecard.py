@@ -46,13 +46,33 @@ for _p in (_hw / "scripts", _here.parent,
            _hw / "printed-parts" / "enclosure" / "pump-dock"):
     if str(_p) not in sys.path:
         sys.path.insert(0, str(_p))
-import _boxes                                          # noqa: E402
 from _card import Check, GRADE_BANDS, grade_of, verdict  # noqa: E402
-import _clearing                                       # noqa: E402
-import _overlap                                        # noqa: E402
-import _routing as R                                   # noqa: E402
-import _gas_chain                                      # noqa: E402
-import _drain                                          # noqa: E402
+
+
+class _DeferredModule:
+    """Legacy/manual readers load their geometry helper only when called."""
+
+    def __init__(self, name, constants=None):
+        self.name, self.constants = name, constants or {}
+
+    def __getattr__(self, name):
+        if name in self.constants:
+            return self.constants[name]
+        import importlib
+        return getattr(importlib.import_module(self.name), name)
+
+
+_boxes = _DeferredModule('_boxes')
+_clearing = _DeferredModule('_clearing')
+_overlap = _DeferredModule('_overlap')
+R = _DeferredModule('_routing')
+_ports = json.loads((_here.parent / 'machine_check_rules.json').read_text())['port_adapters']
+_gas_chain = _DeferredModule('_gas_chain', {
+    'REG_IN_ADAPTER': _ports['wr1110.inlet'],
+    'REG_OUT_ADAPTER': _ports['wr1110.outlet'],
+    'CHECK_IN_ADAPTER': _ports['gasher-co2.inlet'],
+    'CHECK_OUT_ADAPTER': _ports['gasher-co2.outlet'],
+})
 
 _TOPOLOGY = _hw / "topology" / "fluid-topology.md"
 

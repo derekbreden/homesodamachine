@@ -1,0 +1,1077 @@
+{
+  "bend_grade_pass": "B",
+  "detail_max": 8,
+  "clearance_floor": 1.0,
+  "report_near": 2.0,
+  "room_tol": 1e-06,
+  "tube_prefixes": [
+    "tube-",
+    "turn-",
+    "step-",
+    "stub-"
+  ],
+  "pump_elbow_bodies": [
+    "pump-inlet-tpu",
+    "pump-inlet-barb-band",
+    "pump-inlet-tube-band",
+    "pump-outlet-tpu",
+    "pump-outlet-barb-band",
+    "pump-outlet-tube-band"
+  ],
+  "refrigerant_segments": [
+    [
+      "refrig-1",
+      "compressor discharge",
+      "condenser+fan inlet"
+    ],
+    [
+      "refrig-2",
+      "condenser+fan outlet (drier + cap tube)",
+      "foam-assembly evaporator inlet"
+    ],
+    [
+      "refrig-3",
+      "foam-assembly evaporator outlet",
+      "compressor suction"
+    ]
+  ],
+  "water_segments": [
+    [
+      "water-2",
+      "asse1022-assembly tube-out",
+      "water-split supply"
+    ],
+    [
+      "water-3",
+      "water-split to-vk",
+      "vk-solenoid inlet"
+    ],
+    [
+      "water-5",
+      "discharge-chain tube-port",
+      "foam-assembly water-in"
+    ],
+    [
+      "water-6",
+      "pump-elbow-discharge tube (TPU elbow on the moulded barb)",
+      "discharge-chain inlet"
+    ],
+    [
+      "water-7",
+      "vk-solenoid outlet",
+      "pump-elbow-suction tube (TPU elbow on the moulded barb)"
+    ]
+  ],
+  "co2_segments": [
+    [
+      "co2-0",
+      "co2-inlet inboard",
+      "wr1110 inlet"
+    ],
+    [
+      "co2-1",
+      "wr1110 outlet",
+      "gasher-co2 inlet"
+    ],
+    [
+      "co2-2",
+      "gasher-co2 outlet",
+      "foam-assembly co2-in"
+    ]
+  ],
+  "carb_segments": [
+    [
+      "carb-1",
+      "foam-assembly carb-water-out",
+      "digiten-flow inlet"
+    ],
+    [
+      "carb-2",
+      "digiten-flow outlet",
+      "bulkhead-carb tube-in"
+    ]
+  ],
+  "pump_dock_ports": {
+    "west-outer": [
+      "Y-G",
+      "fluid-22"
+    ],
+    "west-inner": [
+      "Y-F",
+      "fluid-21"
+    ],
+    "east-inner": [
+      "Y-C",
+      "fluid-11"
+    ],
+    "east-outer": [
+      "Y-D",
+      "fluid-12"
+    ]
+  },
+  "mounts": [
+    [
+      "compressor",
+      "enclosure-front-bottom",
+      "bosses"
+    ],
+    [
+      "condenser+fan",
+      "enclosure-front-bottom",
+      "bosses"
+    ],
+    [
+      "foam-assembly",
+      [
+        "enclosure-front-bottom",
+        "enclosure-back-top"
+      ],
+      "seam-capture"
+    ],
+    [
+      "g-ganen-pump",
+      "foam-assembly",
+      "deck-mount"
+    ],
+    [
+      "funnel",
+      null,
+      "wall-capture"
+    ],
+    [
+      "funnel-cover",
+      "funnel",
+      "silicone-grip"
+    ],
+    [
+      "funnel-frame",
+      [
+        "enclosure-front-top",
+        "enclosure-back-top"
+      ],
+      "bosses"
+    ],
+    [
+      "elbow-cradle",
+      "funnel-frame",
+      "snap-capture"
+    ],
+    [
+      "funnel-drain-union",
+      "elbow-cradle",
+      "cradle"
+    ],
+    [
+      "display",
+      [
+        "enclosure-front-top",
+        "display-cover"
+      ],
+      "plate-capture"
+    ],
+    [
+      "display-cover",
+      "enclosure-front-top",
+      "snap-capture"
+    ],
+    [
+      "display-gasket",
+      [
+        "display-cover",
+        "display"
+      ],
+      "gap-press"
+    ],
+    [
+      "pump-inlet-tpu",
+      null,
+      "sleeve"
+    ],
+    [
+      "pump-inlet-barb-band",
+      null,
+      "tube-clamp"
+    ],
+    [
+      "pump-inlet-tube-band",
+      null,
+      "tube-clamp"
+    ],
+    [
+      "pump-outlet-tpu",
+      null,
+      "sleeve"
+    ],
+    [
+      "pump-outlet-barb-band",
+      null,
+      "tube-clamp"
+    ],
+    [
+      "pump-outlet-tube-band",
+      null,
+      "tube-clamp"
+    ],
+    [
+      "psu",
+      "enclosure-back-top",
+      "bosses"
+    ],
+    [
+      "pcba",
+      "foam-assembly",
+      "deck-mount"
+    ],
+    [
+      "soda-bend-holder",
+      "tube-soda-core-rise",
+      "tube-grip"
+    ],
+    [
+      "soda-continuous-insulation",
+      "tube-soda-core-rise",
+      "sleeve"
+    ],
+    [
+      "relay-1",
+      "enclosure-back-top",
+      "bosses"
+    ],
+    [
+      "relay-2",
+      "enclosure-back-top",
+      "bosses"
+    ],
+    [
+      "wago-h",
+      "enclosure-back-top",
+      "well"
+    ],
+    [
+      "wago-n",
+      "enclosure-back-top",
+      "well"
+    ],
+    [
+      "wago-g",
+      "enclosure-back-top",
+      "well"
+    ],
+    [
+      "wago-v12",
+      "foam-assembly",
+      "well"
+    ],
+    [
+      "wago-gnd",
+      "foam-assembly",
+      "well"
+    ],
+    [
+      "wago-mana",
+      "enclosure-front-top",
+      "well"
+    ],
+    [
+      "wago-manb",
+      "enclosure-front-top",
+      "well"
+    ],
+    [
+      "wago-reeds-b",
+      "foam-assembly",
+      "well"
+    ],
+    [
+      "wago-sensors",
+      "foam-assembly",
+      "well"
+    ],
+    [
+      "asse-drain-adapter",
+      "asse1022-assembly",
+      "sleeve"
+    ],
+    [
+      "mq6-sensor",
+      "enclosure-front-bottom",
+      "cradle"
+    ],
+    [
+      "thermal-fuse",
+      "fuse-clamp",
+      "channel"
+    ],
+    [
+      "fuse-clamp",
+      null,
+      "gap-press"
+    ],
+    [
+      "vk-solenoid",
+      "enclosure-back-top",
+      "cradle"
+    ],
+    [
+      "bulkhead-drain",
+      "enclosure-back-top",
+      "wall-capture"
+    ],
+    [
+      "c14-inlet",
+      "enclosure-back-top",
+      "bosses"
+    ],
+    [
+      "keystone-jack",
+      "enclosure-back-top",
+      "snap-capture"
+    ],
+    [
+      "anchor-cap-carb-1",
+      "enclosure-back-top",
+      "snap-capture"
+    ],
+    [
+      "anchor-cap-co2-2",
+      "enclosure-back-top",
+      "snap-capture"
+    ],
+    [
+      "anchor-cap-fluid-14",
+      "foam-assembly",
+      "snap-capture"
+    ],
+    [
+      "anchor-cap-fluid-18",
+      "foam-assembly",
+      "snap-capture"
+    ],
+    [
+      "flavor-reducer-v-g",
+      "valve-v-g",
+      "collet"
+    ],
+    [
+      "flavor-reducer-v-j",
+      "valve-v-j",
+      "collet"
+    ],
+    [
+      "data-ring",
+      "enclosure-back-top",
+      "snap"
+    ],
+    [
+      "data-ring-word",
+      "data-ring",
+      "well"
+    ],
+    [
+      "bulkhead-flavor-a",
+      "enclosure-back-top",
+      "wall-capture"
+    ],
+    [
+      "bulkhead-flavor-b",
+      "enclosure-back-top",
+      "wall-capture"
+    ],
+    [
+      "bulkhead-carb",
+      "enclosure-back-top",
+      "wall-capture"
+    ],
+    [
+      "bulkhead-ring-water",
+      "enclosure-back-top",
+      "well"
+    ],
+    [
+      "bulkhead-ring-carb",
+      "enclosure-back-top",
+      "well"
+    ],
+    [
+      "bulkhead-ring-co2",
+      "enclosure-back-top",
+      "well"
+    ],
+    [
+      "bulkhead-ring-flavor-a",
+      "enclosure-back-top",
+      "well"
+    ],
+    [
+      "bulkhead-ring-flavor-b",
+      "enclosure-back-top",
+      "well"
+    ],
+    [
+      "bulkhead-ring-drain",
+      "enclosure-back-top",
+      "well"
+    ],
+    [
+      "bulkhead-ring-water-word",
+      "bulkhead-ring-water",
+      "well"
+    ],
+    [
+      "bulkhead-ring-carb-word",
+      "bulkhead-ring-carb",
+      "well"
+    ],
+    [
+      "bulkhead-ring-co2-word",
+      "bulkhead-ring-co2",
+      "well"
+    ],
+    [
+      "bulkhead-ring-flavor-a-word",
+      "bulkhead-ring-flavor-a",
+      "well"
+    ],
+    [
+      "bulkhead-ring-flavor-b-word",
+      "bulkhead-ring-flavor-b",
+      "well"
+    ],
+    [
+      "bulkhead-ring-drain-word",
+      "bulkhead-ring-drain",
+      "well"
+    ],
+    [
+      "nameplate",
+      "enclosure-back-top",
+      "snap"
+    ],
+    [
+      "nameplate-ink",
+      "nameplate",
+      "well"
+    ],
+    [
+      "valve-v-a",
+      "enclosure-back-top",
+      "cradle"
+    ],
+    [
+      "valve-v-b",
+      "foam-assembly",
+      "cradle"
+    ],
+    [
+      "valve-v-c",
+      "enclosure-front-top",
+      "bosses"
+    ],
+    [
+      "valve-v-d",
+      "enclosure-front-top",
+      "bosses"
+    ],
+    [
+      "valve-v-g",
+      "enclosure-front-top",
+      "bosses"
+    ],
+    [
+      "valve-v-j",
+      "enclosure-front-top",
+      "bosses"
+    ],
+    [
+      "valve-v-e",
+      "enclosure-front-top",
+      "bosses"
+    ],
+    [
+      "valve-v-f",
+      "enclosure-front-top",
+      "bosses"
+    ],
+    [
+      "valve-v-h",
+      "enclosure-front-top",
+      "bosses"
+    ],
+    [
+      "valve-v-i",
+      "enclosure-front-top",
+      "bosses"
+    ],
+    [
+      "pump-a-head",
+      "enclosure-pump-retainer",
+      "case"
+    ],
+    [
+      "pump-b-head",
+      "enclosure-pump-retainer",
+      "case"
+    ],
+    [
+      "tee-y-g",
+      "enclosure-front-top",
+      "bore-in-tee-wall"
+    ],
+    [
+      "tee-y-f",
+      "enclosure-front-top",
+      "bore-in-tee-wall"
+    ],
+    [
+      "tee-y-c",
+      "enclosure-front-top",
+      "bore-in-tee-wall"
+    ],
+    [
+      "tee-y-d",
+      "enclosure-front-top",
+      "bore-in-tee-wall"
+    ]
+  ],
+  "rides": {
+    "coil-v-a": "valve-v-a",
+    "coil-v-b": "valve-v-b",
+    "coil-v-c": "valve-v-c",
+    "coil-v-d": "valve-v-d",
+    "coil-v-e": "valve-v-e",
+    "coil-v-f": "valve-v-f",
+    "coil-v-g": "valve-v-g",
+    "coil-v-h": "valve-v-h",
+    "coil-v-i": "valve-v-i",
+    "coil-v-j": "valve-v-j",
+    "pump-a-boss": "pump-a-head",
+    "pump-a-motor": "pump-a-head",
+    "pump-b-boss": "pump-b-head",
+    "pump-b-motor": "pump-b-head",
+    "data-ring-word": "data-ring",
+    "bulkhead-ring-water-word": "bulkhead-ring-water",
+    "bulkhead-ring-carb-word": "bulkhead-ring-carb",
+    "bulkhead-ring-co2-word": "bulkhead-ring-co2",
+    "bulkhead-ring-flavor-a-word": "bulkhead-ring-flavor-a",
+    "bulkhead-ring-flavor-b-word": "bulkhead-ring-flavor-b",
+    "bulkhead-ring-drain-word": "bulkhead-ring-drain",
+    "nameplate-ink": "nameplate",
+    "pump-inlet-tpu": "g-ganen-pump",
+    "pump-inlet-barb-band": "g-ganen-pump",
+    "pump-inlet-tube-band": "g-ganen-pump",
+    "pump-outlet-tpu": "g-ganen-pump",
+    "pump-outlet-barb-band": "g-ganen-pump",
+    "pump-outlet-tube-band": "g-ganen-pump",
+    "stem-elbow-y-c": "tee-y-c",
+    "stem-elbow-y-d": "tee-y-d",
+    "stem-elbow-y-f": "tee-y-f",
+    "stem-elbow-y-g": "tee-y-g",
+    "stem-elbow-v-c": "valve-v-c",
+    "stem-elbow-v-d": "valve-v-d",
+    "stem-elbow-v-g": "valve-v-g",
+    "stem-elbow-v-j": "valve-v-j"
+  },
+  "never": {
+    "funnel": "The silicone brim rests in the removable frame's roof surround. Its plug locates on the cradle snapped into the frame's web, with its sealing land on the elbow stem. The funnel lifts out by hand for the dishwasher, the land sliding off the stem.",
+    "fuse-clamp": "Both faces of the slot the clamp presses into are the compressor's own \u2014 the air its power box hangs over its mounting plate \u2014 so the clamp rides the can. The plate's four holes carry the floor's posts and the grommets, and every printed feature in reach of the clamp stands on the cabinet side of them.",
+    "tee-y-a": "Its collets make up onto V-C's, face to face on one stub with no tube between them, and that valve stands in four printed sockets \u2014 so what holds this tee is the seat under the valve it butts.",
+    "tee-y-b": "Its collets make up onto V-D's, face to face on one stub with no tube between them, and that valve stands in four printed sockets \u2014 so what holds this tee is the seat under the valve it butts."
+  },
+  "tee_lands": {
+    "tee-y-a": [
+      "valve-v-c",
+      "butt"
+    ],
+    "tee-y-b": [
+      "valve-v-d",
+      "butt"
+    ]
+  },
+  "made_up": [
+    [
+      "funnel.drain",
+      "funnel-drain-union.stub"
+    ]
+  ],
+  "touching_ok": [
+    [
+      "asse-drain-adapter",
+      "asse1022-assembly"
+    ],
+    [
+      "asse-drain-adapter",
+      "tube-drain-vent"
+    ],
+    [
+      "bulkhead-carb",
+      "bulkhead-ring-carb"
+    ],
+    [
+      "bulkhead-drain",
+      "bulkhead-ring-drain"
+    ],
+    [
+      "bulkhead-flavor-a",
+      "bulkhead-ring-flavor-a"
+    ],
+    [
+      "bulkhead-flavor-b",
+      "bulkhead-ring-flavor-b"
+    ],
+    [
+      "bulkhead-ring-carb",
+      "bulkhead-ring-carb-word"
+    ],
+    [
+      "bulkhead-ring-co2",
+      "bulkhead-ring-co2-word"
+    ],
+    [
+      "bulkhead-ring-co2",
+      "co2-inlet"
+    ],
+    [
+      "bulkhead-ring-drain",
+      "bulkhead-ring-drain-word"
+    ],
+    [
+      "bulkhead-ring-flavor-a",
+      "bulkhead-ring-flavor-a-word"
+    ],
+    [
+      "bulkhead-ring-flavor-b",
+      "bulkhead-ring-flavor-b-word"
+    ],
+    [
+      "bulkhead-ring-water",
+      "bulkhead-ring-water-word"
+    ],
+    [
+      "bulkhead-ring-water",
+      "bulkhead-water"
+    ],
+    [
+      "co2-adapter-check-in",
+      "gasher-co2"
+    ],
+    [
+      "co2-adapter-check-out",
+      "gasher-co2"
+    ],
+    [
+      "co2-adapter-regulator-in",
+      "wr1110"
+    ],
+    [
+      "co2-adapter-regulator-out",
+      "wr1110"
+    ],
+    [
+      "compressor",
+      "fuse-clamp"
+    ],
+    [
+      "compressor",
+      "thermal-fuse"
+    ],
+    [
+      "data-ring",
+      "data-ring-word"
+    ],
+    [
+      "discharge-chain",
+      "foam-assembly"
+    ],
+    [
+      "display",
+      "display-cover"
+    ],
+    [
+      "display",
+      "display-gasket"
+    ],
+    [
+      "display-cover",
+      "display-gasket"
+    ],
+    [
+      "display-cover",
+      "enclosure-front-top"
+    ],
+    [
+      "elbow-cradle",
+      "funnel"
+    ],
+    [
+      "elbow-cradle",
+      "funnel-drain-union"
+    ],
+    [
+      "elbow-cradle",
+      "funnel-frame"
+    ],
+    [
+      "enclosure-back-top",
+      "funnel"
+    ],
+    [
+      "enclosure-back-top",
+      "funnel-cover"
+    ],
+    [
+      "enclosure-back-top",
+      "keystone-jack"
+    ],
+    [
+      "enclosure-back-top",
+      "psu"
+    ],
+    [
+      "enclosure-back-top",
+      "valve-v-a"
+    ],
+    [
+      "enclosure-back-top",
+      "vk-solenoid"
+    ],
+    [
+      "enclosure-front-top",
+      "funnel"
+    ],
+    [
+      "enclosure-front-top",
+      "funnel-cover"
+    ],
+    [
+      "enclosure-front-top",
+      "tee-y-c"
+    ],
+    [
+      "enclosure-front-top",
+      "tee-y-d"
+    ],
+    [
+      "enclosure-front-top",
+      "tee-y-f"
+    ],
+    [
+      "enclosure-front-top",
+      "tee-y-g"
+    ],
+    [
+      "enclosure-front-top",
+      "valve-v-c"
+    ],
+    [
+      "enclosure-front-top",
+      "valve-v-d"
+    ],
+    [
+      "enclosure-front-top",
+      "valve-v-e"
+    ],
+    [
+      "enclosure-front-top",
+      "valve-v-f"
+    ],
+    [
+      "enclosure-front-top",
+      "valve-v-g"
+    ],
+    [
+      "enclosure-front-top",
+      "valve-v-h"
+    ],
+    [
+      "enclosure-front-top",
+      "valve-v-i"
+    ],
+    [
+      "enclosure-front-top",
+      "valve-v-j"
+    ],
+    [
+      "flavor-reducer-v-g",
+      "valve-v-g"
+    ],
+    [
+      "flavor-reducer-v-j",
+      "valve-v-j"
+    ],
+    [
+      "foam-assembly",
+      "g-ganen-pump"
+    ],
+    [
+      "foam-assembly",
+      "valve-v-b"
+    ],
+    [
+      "funnel",
+      "funnel-cover"
+    ],
+    [
+      "funnel",
+      "funnel-drain-union"
+    ],
+    [
+      "funnel",
+      "funnel-frame"
+    ],
+    [
+      "funnel-cover",
+      "funnel-frame"
+    ],
+    [
+      "funnel-drain-union",
+      "funnel-frame"
+    ],
+    [
+      "fuse-clamp",
+      "thermal-fuse"
+    ],
+    [
+      "g-ganen-pump",
+      "pump-elbow-discharge"
+    ],
+    [
+      "g-ganen-pump",
+      "pump-elbow-suction"
+    ],
+    [
+      "nameplate",
+      "nameplate-ink"
+    ],
+    [
+      "pump-elbow-discharge",
+      "pump-elbow-discharge-clamp-barb"
+    ],
+    [
+      "pump-elbow-discharge",
+      "pump-elbow-discharge-clamp-tube"
+    ],
+    [
+      "pump-elbow-suction",
+      "pump-elbow-suction-clamp-barb"
+    ],
+    [
+      "pump-elbow-suction",
+      "pump-elbow-suction-clamp-tube"
+    ]
+  ],
+  "made_as": {
+    "drawn": "drawn as a run",
+    "straight": "made by a lane's own straight",
+    "pump-dock": "made by a prepared pump's LLDPE tube through the collet plate into a tee",
+    "butt": "made by a butt between two collets",
+    "mate": "made up across the plane its two bodies share",
+    "elbows": "made by a stem elbow in each collet and one straight LLDPE tube between them",
+    "turn": "made by a quarter turn and the step off it",
+    "threaded": "made up on its fittings' threads",
+    "not drawn": "still to route"
+  },
+  "unmade": "not drawn",
+  "loose": {},
+  "mm_per_inch": 25.4,
+  "selected_fittings": {
+    "tee-fold": [
+      "vk-solenoid",
+      "collet"
+    ],
+    "lower-valve-elbow": [
+      "vk-solenoid",
+      "collet"
+    ],
+    "lower-pump-elbow": [
+      "lower-valve-elbow",
+      "collet"
+    ],
+    "reg-va-elbow": [
+      "valve-v-a",
+      "collet"
+    ],
+    "va-south-elbow": [
+      "valve-v-a",
+      "collet"
+    ],
+    "va-outlet-elbow": [
+      "valve-v-a",
+      "collet"
+    ],
+    "carbonator-fold": [
+      "discharge-chain",
+      "collet"
+    ],
+    "gas-inlet-elbow": [
+      "gas-regulator",
+      "collet"
+    ],
+    "gas-lower-a": [
+      "gas-regulator",
+      "collet"
+    ],
+    "gas-lower-b": [
+      "gas-lower-a",
+      "collet"
+    ],
+    "gas-upper-a": [
+      "gas-check",
+      "collet"
+    ],
+    "gas-upper-b": [
+      "gas-upper-a",
+      "collet"
+    ],
+    "soda-stem-elbow": [
+      "bulkhead-carb",
+      "collet"
+    ],
+    "soda-outlet-return-stem": [
+      "soda-stem-elbow",
+      "collet"
+    ],
+    "ya-stem-elbow": [
+      "tee-y-a",
+      "collet"
+    ],
+    "yb-stem-elbow": [
+      "tee-y-b",
+      "collet"
+    ],
+    "drain-outlet-stem": [
+      "funnel-drain-union",
+      "collet"
+    ],
+    "vb-inlet-turn": [
+      "valve-v-b",
+      "collet"
+    ],
+    "vb-outlet-stem": [
+      "valve-v-b",
+      "collet"
+    ],
+    "va-east-turn": [
+      "va-outlet-elbow",
+      "tube-carried"
+    ],
+    "vb-outlet-return": [
+      null,
+      "tube-hung"
+    ],
+    "reservoir-b-fill-lower": [
+      "foam-assembly",
+      "cap-pocket"
+    ],
+    "reservoir-b-fill-upper": [
+      "foam-assembly",
+      "cap-pocket"
+    ],
+    "reservoir-a-fill-turn": [
+      "valve-v-f",
+      "collet"
+    ],
+    "reservoir-a-draw-turn": [
+      "valve-v-e",
+      "collet"
+    ],
+    "reservoir-b-fill-turn": [
+      "valve-v-i",
+      "collet"
+    ]
+  },
+  "selected_fixed_mounts": [
+    [
+      "asse1022-assembly",
+      "enclosure-back-top",
+      "snap-seat"
+    ],
+    [
+      "asse-snap-cap",
+      "enclosure-back-top",
+      "snap"
+    ],
+    [
+      "regulator-snap-cap",
+      "enclosure-back-top",
+      "snap"
+    ],
+    [
+      "pisco-snap-cap",
+      "enclosure-back-top",
+      "snap"
+    ],
+    [
+      "meter-snap-cap",
+      "enclosure-back-top",
+      "snap"
+    ],
+    [
+      "pump-snap-cap",
+      "foam-assembly",
+      "snap"
+    ],
+    [
+      "flow-regulator",
+      "enclosure-back-top",
+      "snap-seat"
+    ],
+    [
+      "gas-regulator",
+      "enclosure-back-top",
+      "snap-seat"
+    ],
+    [
+      "co2-inlet",
+      "gas-regulator",
+      "purchased-body"
+    ],
+    [
+      "digiten-flow",
+      "enclosure-back-top",
+      "snap-seat"
+    ],
+    [
+      "bulkhead-water",
+      "gagira-coupling",
+      "thread"
+    ],
+    [
+      "gagira-coupling",
+      "asse1022-assembly",
+      "thread"
+    ],
+    [
+      "jg-pi4512f6s",
+      "asse1022-assembly",
+      "thread"
+    ],
+    [
+      "jg-pp061208w",
+      "jg-pi4512f6s",
+      "collet"
+    ],
+    [
+      "water-split",
+      "vk-solenoid",
+      "tube-carried"
+    ],
+    [
+      "gas-check",
+      "gas-regulator",
+      "collet"
+    ],
+    [
+      "discharge-chain",
+      "carbonator-fold",
+      "collet"
+    ]
+  ],
+  "port_adapters": {
+    "wr1110.inlet": "co2-adapter-regulator-in",
+    "wr1110.outlet": "co2-adapter-regulator-out",
+    "gasher-co2.inlet": "co2-adapter-check-in",
+    "gasher-co2.outlet": "co2-adapter-check-out",
+    "valve-v-g.outlet": "flavor-reducer-v-g",
+    "valve-v-j.outlet": "flavor-reducer-v-j"
+  }
+}
