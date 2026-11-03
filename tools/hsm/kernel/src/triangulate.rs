@@ -19,7 +19,10 @@ pub fn triangulate(loops: &[Vec<V2>]) -> Result<Vec<[u32; 3]>> {
     for lp in loops {
         for p in lp {
             let h = cdt
-                .insert(Point2::new(p.x, p.y))
+                // Plane projection can leave an analytically zero coordinate
+                // below Spade's exact-predicate floor. Normalize only that
+                // insertion coordinate; the source/world vertices stay intact.
+                .insert(spade::mitigate_underflow(Point2::new(p.x, p.y)))
                 .map_err(|e| anyhow::anyhow!("a profile point at ({}, {}): {e:?}", p.x, p.y))?;
             if index_of.len() <= h.index() {
                 index_of.resize(h.index() + 1, u32::MAX);

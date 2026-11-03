@@ -235,7 +235,7 @@ def core_route_specs():
     return {}
 
 
-def route_specifications(station):
+def route_specifications(station, *, plumbing=None):
     """Explicit lines and arcs from a caller's native world-port resolver."""
     unresolved.clear()
     import soda_inlet
@@ -277,9 +277,10 @@ def route_specifications(station):
         except ValueError as failure:
             unresolved.append({'id': identifier, 'reason': str(failure)})
 
-    import rear_plumbing
-    specifications.update(rear_plumbing.continuations(station))
-    specifications.update(rear_plumbing.flavor_routes(station))
+    if plumbing is None:
+        import rear_plumbing as plumbing
+    specifications.update(plumbing.continuations(station))
+    specifications.update(plumbing.flavor_routes(station))
 
     specifications.update(reservoir_a_route_specs())
     b_draw = station('foam-assembly', 'reservoir-b')[0]
