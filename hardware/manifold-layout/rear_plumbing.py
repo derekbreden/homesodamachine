@@ -266,8 +266,8 @@ def seats():
     b = sleeve.BoundingBox()
     lo,hi = numbers['asse']['vent']
     vent_room = snaps.box(min(b.xmin,lo[0])-fits.running,max(b.xmax,hi[0])+fits.running,
-                          min(b.ymin,lo[1]-snaps.THREAD)-fits.running,
-                          max(b.ymax,hi[1]+snaps.THREAD)+fits.running,b.zmin-1.,b.zmax+fits.running)
+                          min(b.ymin,lo[1])-snaps.THREAD-fits.running,
+                          max(b.ymax,hi[1])+snaps.THREAD+fits.running,b.zmin-1.,b.zmax+fits.running)
     result['asse-snap-cap'] = result['asse-snap-cap'].cut(vent_room).clean()
     return result
 
