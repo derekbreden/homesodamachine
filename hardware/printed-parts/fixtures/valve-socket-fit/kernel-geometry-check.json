@@ -61,7 +61,7 @@
     "hardware/printed-parts/valve-seat/valve_seat.py": "12e6a96cfee2a3555bf8635aef47030a3fad1ea2de2a0c7d496174464833b91e",
     "hardware/printed-parts/enclosure/valve-tray/valve_tray.py": "111c74e5584b6c5aae13c1f318780759f501e8ad9cb8cca001c4df7ebbace0fb",
     "hardware/reference/beduan-solenoid/beduan_solenoid.py": "55845b47daab17ee4dbe92dfde433b4214cbe0f7c1b1f12ab36b5cdeab726e51",
-    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "d1728b2aa773249007edc45e3160a269a3f7feaf5a34772a3aab9a02bb981823"
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "bcdeda82a8a2732f9acb43ff4e64822e260bbad174c0d94a5b533a1e624e7cfa"
   },
   "artifacts": {
     "valve-socket-fit.step": "d83180ff664e523640b455c56cf7af81274c9956fe2dcc377123d9f88c19b25b",

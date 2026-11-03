@@ -433,10 +433,10 @@
    355.0
   ],
   "enclosure-pump-retainer": [
-   -99.59999999962747,
+   -101.09999999962747,
    14.25,
    175.19500000029802,
-   99.59999999962747,
+   101.09999999962747,
    82.26499999966472,
    224.42399999964982
   ],
@@ -7451,10 +7451,10 @@
   },
   "pump-retainer": {
    "box": [
-    -99.84999999962747,
+    -101.34999999962747,
     14.25,
     175.19500000029802,
-    99.84999999962747,
+    101.34999999962747,
     82.26499999966472,
     224.42399999964982
    ]
@@ -7927,12 +7927,12 @@
   }
  ],
  "schema": 2,
- "sources": "95116a62329aa43908024072e14dd90d",
- "step": "91991a89abe467c8da8439f7136f8926",
+ "sources": "66bb3557456c1680eee8125e932828ce",
+ "step": "a639ebac5eac8401e19785d553a522af",
  "tube_export": {
   "fine_model": {
    "path": "hardware/manifold-layout/enclosure-assembly.step.npz",
-   "sha256": "954b205f76a11fd498be14ac9d2168b1f0a84bb79a5ff0752a1896c68b04032d"
+   "sha256": "21d1b4a5220abfa5748e1302d01ea32fc8228a381816853e0934a05b2fd3af1c"
   },
   "routing": {
    "anchor_sites": [
@@ -40700,12 +40700,12 @@
   },
   "scene": {
    "path": "hardware/manifold-layout/enclosure-assembly.scene.npz",
-   "sha256": "b85c219dba66ce6c26d845a21a05c35b20acf188a4011835c1b3e866cdb6b8f1"
+   "sha256": "2de43e0abc3051be689e1a5e09c342d56c5cac87fd196e6f8fa8e546d5913b9b"
   },
   "schema": 1,
   "step": {
    "path": "hardware/manifold-layout/enclosure-assembly.step",
-   "sha256": "47d7c66e043f89c7855b55e178af48c56b77fdaf5d61d124deb76c2fcd8a5b6f"
+   "sha256": "bc8f99cba081d903cab9931b42fafb2f85325b7a8b1029b138e550fbd2a4bf03"
   }
  },
  "valve_tray_stations": [
