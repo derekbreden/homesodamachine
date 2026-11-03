@@ -96,17 +96,22 @@ pub struct Model {
 }
 impl Model {
     pub fn open(path: &Path) -> Result<Self> {
-        let mut file = File::open(path).with_context(|| format!("model {}", path.display()))?;
-        let mut hash = Sha256::new();
-        let mut block = [0u8; 65536];
-        loop {
-            let n = file.read(&mut block)?;
-            if n == 0 {
-                break;
+        Self::open_file(path, true)
+    }
+    fn open_file(path: &Path, input: bool) -> Result<Self> {
+        if input {
+            let mut file = File::open(path).with_context(|| format!("model {}", path.display()))?;
+            let mut hash = Sha256::new();
+            let mut block = [0u8; 65536];
+            loop {
+                let n = file.read(&mut block)?;
+                if n == 0 {
+                    break;
+                }
+                hash.update(&block[..n]);
             }
-            hash.update(&block[..n]);
+            hsm_kernel::reads::digest(path, &format!("{:x}", hash.finalize()));
         }
-        hsm_kernel::reads::digest(path, &format!("{:x}", hash.finalize()));
         let mut archive = ZipArchive::new(File::open(path)?)?;
         let names = serde_json::from_slice(npy_data(&member(&mut archive, "names.npy")?)?)?;
         let colors = serde_json::from_slice(npy_data(&member(&mut archive, "colors.npy")?)?)?;
@@ -536,7 +541,7 @@ pub(super) fn put_stream(
     Ok(())
 }
 
-fn stream_digest(path: &Path) -> Result<String> {
+fn stream_digest(path: &Path, input: bool) -> Result<String> {
     let mut file = File::open(path)?;
     let mut hash = Sha256::new();
     let mut buffer = [0u8; 65536];
@@ -548,7 +553,9 @@ fn stream_digest(path: &Path) -> Result<String> {
         hash.update(&buffer[..count]);
     }
     let digest = format!("{:x}", hash.finalize());
-    hsm_kernel::reads::digest(path, &digest);
+    if input {
+        hsm_kernel::reads::digest(path, &digest);
+    }
     Ok(digest)
 }
 
@@ -722,7 +729,7 @@ fn write_step_stream(model: &mut Model, path: &Path, root: &str) -> Result<Strin
         e.writer.write_all(b"ENDSEC;\nEND-ISO-10303-21;\n")?;
         Ok(())
     })?;
-    stream_digest(path)
+    stream_digest(path, false)
 }
 
 fn copy_payload(from: &Path, to: &Path) -> Result<()> {
@@ -768,7 +775,7 @@ pub fn physical(spec: &Value, output: &Path) -> Result<Value> {
     let rows = references(instances)?;
     write_refs(&rows, spec.get("document"), &model)?;
     drop(rows);
-    let mut fine = Model::open(&model)?;
+    let mut fine = Model::open_file(&model, false)?;
     let src = write_step_stream(&mut fine, &step, name)?;
     let mut shown = super::payload::placed_surfaces(instances, &mut fine)?;
     let names: Vec<_> = fine.names.iter().map(|name| json!({"name":name})).collect();
@@ -782,7 +789,7 @@ pub fn physical(spec: &Value, output: &Path) -> Result<Value> {
     if presentation != mesh {
         copy_payload(&presentation, &mesh)?;
     }
-    bind(&model, &presentation)?;
+    bind_document(&model, &presentation, false)?;
     let mut files = vec![
         super::output_name(&step, output),
         super::output_name(&model, output),
@@ -879,6 +886,9 @@ fn relative(path: &Path, base: &Path) -> String {
     out.to_string_lossy().into_owned()
 }
 pub fn bind(path: &Path, payload: &Path) -> Result<()> {
+    bind_document(path, payload, true)
+}
+fn bind_document(path: &Path, payload: &Path, input: bool) -> Result<()> {
     let mut source = ZipArchive::new(File::open(path)?)?;
     let mut document = if source
         .file_names()
@@ -888,7 +898,7 @@ pub fn bind(path: &Path, payload: &Path) -> Result<()> {
     } else {
         json!({})
     };
-    document["presentation"] = json!({"path":relative(payload,path.parent().unwrap()),"sha256":stream_digest(payload)?});
+    document["presentation"] = json!({"path":relative(payload,path.parent().unwrap()),"sha256":stream_digest(payload, input)?});
     let temp = path.with_file_name(format!(
         ".{}.{}.bind",
         path.file_name().unwrap().to_string_lossy(),
