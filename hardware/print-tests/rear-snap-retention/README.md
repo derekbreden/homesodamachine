@@ -1,15 +1,12 @@
 # Rear equipment snap fit samples
 
-The [complete-retention trial](v4/README.md) includes the actual surrounding
-walls and end stops, a 41.7 mm PISCO cap and the full rear port bores. It uses
-2.0 mm leaves,
-rounded roots, centered flathead entries and shaped hardware bearings. The
-[reinforced trial's physical result](v2/physical-result/physical-result.json)
-records the accepted pump, ASSE and meter-receiver fits, concentrated root
-bending, PISCO retention failure and water-regulator play.
-The [first trial's physical result](physical-result/physical-result.json)
-records wing fractures and fit failures. Its frozen geometry and print records
-below identify those tested pieces.
+The [fitted-retention trial](v5/README.md) tests adapter-hex capture on the
+ASSE, conforming PISCO body/neck bearings and the meter's tapered housing
+socket. Its three complete receiver/cap pairs retain their full production
+walls, end stops and rear port bores. The [v4 physical result](v4/physical-result/physical-result.json)
+records the accepted pump, nearly accepted water regulator and the remaining
+ASSE, PISCO and meter movement. The [complete-retention trial](v4/README.md)
+binds those five tested pairs and their prints.
 
 Five complete hardware seats and their matching caps test the pump, ASSE
 chain, Pisco CO2 regulator, water regulator and Digiten flow meter. Remove the

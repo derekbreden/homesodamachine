@@ -1,0 +1,40 @@
+{
+  "jobs": [
+    {
+      "plate": "rear-retention-mark1",
+      "printer": "Mark1",
+      "connection_key": "H2C",
+      "preparation": "hardware/print-tests/rear-snap-retention/v5/prints/2026-11-02-rear-retention-mark1-mark1-a62f798b",
+      "archive": "hardware/print-tests/rear-snap-retention/v5/prints/2026-11-02-rear-retention-mark1-mark1-a62f798b/2026-11-02-rear-retention-mark1-mark1-a62f798b.gcode.3mf",
+      "print_only_archive": "hardware/print-tests/rear-snap-retention/v5/prints/2026-11-02-rear-retention-mark1-mark1-a62f798b/2026-11-02-rear-retention-mark1-mark1-a62f798b-print-only.gcode.3mf",
+      "gcode_sha256": "724814a97a190c6ea98a6ce61198d2077c58dc4c03faa1776c09c3fc289832ff",
+      "estimated_seconds": 13599.85546875,
+      "filament_g": 120.34,
+      "minimum_bed_margin_mm": 93.158785,
+      "requested_z_trim_mm": 0.18,
+      "emitted_trim_mm": 0.16,
+      "native_review_pass": true,
+      "submitted": true,
+      "job_id": "1401825806",
+      "launch_receipt": "H2C-launch.json"
+    },
+    {
+      "plate": "rear-retention-mark2",
+      "printer": "Mark2",
+      "connection_key": "Mark2",
+      "preparation": "hardware/print-tests/rear-snap-retention/v5/prints/2026-11-02-rear-retention-mark2-mark2-813f4ba4",
+      "archive": "hardware/print-tests/rear-snap-retention/v5/prints/2026-11-02-rear-retention-mark2-mark2-813f4ba4/2026-11-02-rear-retention-mark2-mark2-813f4ba4.gcode.3mf",
+      "print_only_archive": "hardware/print-tests/rear-snap-retention/v5/prints/2026-11-02-rear-retention-mark2-mark2-813f4ba4/2026-11-02-rear-retention-mark2-mark2-813f4ba4-print-only.gcode.3mf",
+      "gcode_sha256": "bf31b7dced87a62b76bde92306c2a981679e8909247c4430003d2971a527bafd",
+      "estimated_seconds": 10609.0419921875,
+      "filament_g": 86.14,
+      "minimum_bed_margin_mm": 102.68811500000001,
+      "requested_z_trim_mm": 0.04,
+      "emitted_trim_mm": 0.02,
+      "native_review_pass": true,
+      "submitted": true,
+      "job_id": "1401838081",
+      "launch_receipt": "Mark2-launch.json"
+    }
+  ]
+}

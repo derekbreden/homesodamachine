@@ -1,0 +1,83 @@
+{
+  "reported_by": "Derek",
+  "reported_date": "2026-11-02",
+  "trial": "v4 complete retention samples",
+  "families": {
+    "asse": {
+      "fit": "Adapter travels axially toward the inlet under insertion load.",
+      "request": "Capture both axial sides of the 1/4 NPT to 3/8 NPT adapter hex; preserve taped ASSE engagement variation."
+    },
+    "pisco": {
+      "fit": "Play in X and Z; outlet neck saddle does not reach the hardware. Y retention is good.",
+      "accepted": "Rear-wall hole is a snug fit; preserve its bore and axis."
+    },
+    "regulator": {
+      "fit": "Tiny Y travel; nearly perfect.",
+      "action": "Retain this fit."
+    },
+    "meter": {
+      "fit": "Significant X/Z play and slight Y play.",
+      "request": "Conform snugly around the label-side housing against the X wall."
+    },
+    "pump": {
+      "fit": "Great.",
+      "action": "Retain this fit."
+    }
+  },
+  "wing_tips": {
+    "priority": "After hardware fit changes",
+    "request": "Investigate a longer, more gradual pointed insertion lead-in."
+  },
+  "photos": [
+    {
+      "photo": 1,
+      "file": "01-asse-adapter-fore.jpg",
+      "sha256": "4688ba0df4d610090d29c374bf9e5c4a8fea781c86968609fa608bd728693a9d"
+    },
+    {
+      "photo": 2,
+      "file": "02-asse-adapter-aft.jpg",
+      "sha256": "cf973e2732ace03474a6fad02f501cf6ba86b6aedbf6c3f39e127b4c280a79a6"
+    },
+    {
+      "photo": 3,
+      "file": "03-pisco-low.jpg",
+      "sha256": "9b288e6a56cb9bde0f2207acd1acaa1cd6cdabcfd774e679930e8a3dbaba5e7e"
+    },
+    {
+      "photo": 4,
+      "file": "04-pisco-high.jpg",
+      "sha256": "da19d6fe42afe097c30d71b1d50945201d712df3eaead9cd09b128d8bca0e1dd"
+    },
+    {
+      "photo": 5,
+      "file": "05-pisco-neck.jpg",
+      "sha256": "e1325c38bca80c506b8e2630c912e9cc7e0a69033e8c9907e93f8ce02ca797f6"
+    },
+    {
+      "photo": 6,
+      "file": "06-water-regulator-fore.jpg",
+      "sha256": "6d39f55eec342231661d2a36f34d9bcbeb6bdfa65df8dc7dd7e1b548f90582bd"
+    },
+    {
+      "photo": 7,
+      "file": "07-water-regulator-aft.jpg",
+      "sha256": "0d6718a919c5cdf832b28afcd828076401a90881897bc460d8648bbd657ba81f"
+    },
+    {
+      "photo": 8,
+      "file": "08-meter-left.jpg",
+      "sha256": "a4051810479ad4cfcce9af06e532e2e52997a0a26d9b016503565f1230201f7c"
+    },
+    {
+      "photo": 9,
+      "file": "09-meter-right.jpg",
+      "sha256": "0d69d4bb1362287fe916287feef4ecbc1cc211ef1398a35189779ce0359b65f7"
+    },
+    {
+      "photo": 10,
+      "file": "10-all-five.jpg",
+      "sha256": "60d8add307c64f916710a657803754c729a606caf67df78a4294e76ccbd73b04"
+    }
+  ]
+}

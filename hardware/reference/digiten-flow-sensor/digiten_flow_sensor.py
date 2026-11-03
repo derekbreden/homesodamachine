@@ -32,6 +32,10 @@ body_center_x = 0.0
 body_center_z = 8.9
 label_y = 18.7
 underside_y = -9.4
+# Axial Y/radius profile of the fixed housing, excluding its four bosses.
+housing_profile = ((-9.4,13.9),(-8.1,15.1),(7.3,15.45),(7.3,17.5),
+                   (10.6,17.5),(10.6,17.45),(14.8,17.45),(14.8,17.5),
+                   (17.2,17.5),(18.7,13.2))
 boss_x = 12.5
 boss_z = 14.0
 boss_radius = 3.45

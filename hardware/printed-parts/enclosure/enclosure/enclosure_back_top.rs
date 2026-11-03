@@ -159,6 +159,30 @@ fn stadium(v: &Value) -> Result<Solid> {
         .extrude(&Profile::new(outline), x[1] - x[0])
 }
 
+fn stadium_profile(v: &Value) -> Result<Solid> {
+    let rows=points(&v["points"])?;
+    let (y,z)=(f(v,"y")?,f(v,"z")?);
+    let (a,b)=(y-f(v,"fore")?,y+f(v,"aft")?);
+    let mut pieces=Vec::new();
+    for pair in rows.windows(2) {
+        let (p,q)=(pair[0],pair[1]);
+        let length=q.x-p.x;
+        if length<1.0e-8 {continue;}
+        for cy in [a,b] {
+            pieces.push(if (p.y-q.y).abs()<1.0e-8 {
+                Solid::cylinder(v3(p.x,cy,z),V3::X,p.y,length)?
+            } else {Solid::cone(v3(p.x,cy,z),V3::X,p.y,q.y,length)?});
+        }
+        if b-a>1.0e-8 {
+            let outline=[v2(p.x,z-p.y),v2(q.x,z-q.y),v2(q.x,z+q.y),v2(p.x,z+p.y)];
+            pieces.push(Plane::XZ.at(v3(0.,a,0.)).extrude(&Profile::polygon(&outline),-(b-a))?);
+        }
+    }
+    let mut result=pieces.remove(0);
+    for piece in pieces {result=result.union(&piece)?;}
+    Ok(result)
+}
+
 pub(crate) struct Built {
     solid: Solid,
     receiver: Solid,
@@ -231,6 +255,7 @@ pub(crate) fn build(n: &Numbers) -> Result<Built> {
                 "turned-runs" => turned(v)?,
                 "radial-profile" => radial_profile(v)?,
                 "stadium-x" => stadium(v)?,
+                "stadium-profile-x" => stadium_profile(v)?,
                 "union" | "cut" | "intersect" => {
                     let mut s = input(0).clone();
                     for k in 1..inputs.len() {

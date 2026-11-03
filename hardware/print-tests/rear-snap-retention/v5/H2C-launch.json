@@ -1,0 +1,31 @@
+{
+  "printer": "H2C",
+  "observed_at": "2026-11-03T00:28:17.369209+00:00",
+  "job_id": "1401825806",
+  "task_id": "1401825806",
+  "gcode_state": "RUNNING",
+  "subtask_name": "HSM-fitted-retention-v5-Mark1.gcode.3mf",
+  "mc_percent": 0,
+  "layer_num": 0,
+  "total_layer_num": 269,
+  "mc_remaining_time": 226,
+  "print_error": 0,
+  "hms": [],
+  "nozzle_temper": 58.0,
+  "nozzle_target_temper": 200.0,
+  "bed_temper": 26.0,
+  "bed_target_temper": 26.0,
+  "nozzle_type": "HS01-0.4",
+  "archive": "hardware/print-tests/rear-snap-retention/v5/prints/2026-11-02-rear-retention-mark1-mark1-a62f798b/2026-11-02-rear-retention-mark1-mark1-a62f798b.gcode.3mf",
+  "archive_sha256": "ec1a51a845824316536fc0a28862275fbacb3f9f09608b2a22becb548a7af332",
+  "gcode_sha256": "724814a97a190c6ea98a6ce61198d2077c58dc4c03faa1776c09c3fc289832ff",
+  "ui_options": {
+    "timelapse": "On",
+    "bed_leveling": "On",
+    "flow_calibration": "Auto",
+    "nozzle_offset_calibration": "Auto",
+    "external_spool": "Left PET-CF 254",
+    "nozzle": "0.4 Standard"
+  },
+  "new_job_verified": true
+}

@@ -4,8 +4,11 @@ Four PET-GF caps close the integral seats on back-top. Their geometry and the
 seats share [rear_snaps.py](../../../manifold-layout/rear_snaps.py) and
 [rear_plumbing.py](../../../manifold-layout/rear_plumbing.py).
 
-The ASSE cap holds the lower halves of both hexes, bears against the inlet
-coupling, and passes the downward vent cup through its bottom flat. The Pisco
+The ASSE cap holds the lower halves of both ASSE hexes and captures both
+axial shoulders of the inlet adapter's hex. Its solid lower body extends to
+Y461.078, while its springs retain Y396.453–438.114. The adapter pocket follows
+the captured profile and wrench clocking with 0.15 mm radial and axial air.
+The downward vent cup passes through the bottom flat. The Pisco
 cap has a raised lip around the short outlet fitting's neck and a broad body
 bearing between its independent leaves. It spans 41.704 mm in Y, ending at
 Y462.05 before a full 3 mm receiver end wall and the rear CO2 bulkhead bore.
@@ -21,10 +24,14 @@ at Z315.924 mm. Each cap is one solid, with two integral spring walls and hooks.
 The ASSE seat uses 0.25 mm running clearance. Its cap has one continuous
 hex cavity with a 14.6 mm apothem at the two wrench flats' mean clocking.
 The common envelope includes at least 0.15 mm slip clearance around both hexes. The ASSE seat allows 1.5 mm of threaded-joint position variation.
-The Pisco receiver has 0.5 mm radial air; its cap has 0.4 mm at the admitted
-body and exposed neck. The neck lip excludes the release collet. The meter
-receiver's housing, flange, bosses and closed back have 0.75 mm clearance.
-Its cap uses 0.25 mm at its housing and port bearing surfaces. The water
+The Pisco cap follows the scanned body and exposed neck with 0.15 mm radial
+and 0.25 mm axial air. The receiver has a 3 mm-wide upper ring bearing at
+Y438.125–441.125 with 0.15 mm radial air; its loading corridor retains 0.5 mm.
+The neck lip excludes the release collet. The meter's cap and receiver follow
+the housing taper, flange and label-side bevel with 0.15 mm radial and axial
+air. Bosses and screw heads have separate fitted passages; the receiver's
+fore corridor admits the complete 16 mm insertion slide. Its spring station,
+wire exit and lower outside bevel retain their positions. The water
 regulator uses its measured linear radius profile and true installed axis,
 with 0.30 mm receiver radial air, 0.25 mm cap radial air and 0.25 mm axial air.
 Its body-to-outlet shoulder retains the scanned position. The central cap
@@ -49,7 +56,10 @@ and move the cap 40 mm fore. Opening the meter's lower leaf requires the
 cold core to be absent.
 
 Remove the Pisco cap after the meter and ASSE caps. Spread its leaves,
-lower it 3.6 mm and slide it 45 mm fore with the leaves held open. The fore flank
+lower it 3.6 mm, depress the exposed outlet collet and withdraw the stem check.
+Then slide the cap 45 mm fore with the leaves held open. The dropped cap clears
+up to 2 mm of modeled collet movement toward the body; the mechanism's required
+release travel and operating force need the physical trial. The fore flank
 exits end at the hook-bearing plane; the solid stops above that plane
 retain the installed cap. Its receiver has full 3 mm side walls. Fit it by
 reversing this path.

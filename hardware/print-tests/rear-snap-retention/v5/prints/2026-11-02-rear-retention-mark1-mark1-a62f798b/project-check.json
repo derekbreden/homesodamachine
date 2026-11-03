@@ -1,0 +1,156 @@
+{
+  "project_sha256_matches": true,
+  "objects": [
+    {
+      "name": "asse-seat",
+      "vertices": 1235,
+      "source_sha256_matches": true,
+      "embedded_vertex_error_mm": 4.98828125472528e-07,
+      "source_comparison": "source vertices in order",
+      "seam_painted_facets": 0,
+      "placed_bounds_mm": [
+        [
+          100.046017193,
+          107.53739543100001,
+          4.249999996375209e-07
+        ],
+        [
+          184.14275119299998,
+          163.83367543100002,
+          51.778926424999995
+        ]
+      ],
+      "bed_contact_z_mm": 4.249999996375209e-07,
+      "blocked_facets": 0,
+      "partially_painted_facets": 0,
+      "parts": {
+        "normal_part": 1
+      },
+      "layer_ranges": [],
+      "ribbon_and_fin_parts": 0,
+      "modifiers_expected": 0
+    },
+    {
+      "name": "asse-cap",
+      "vertices": 1039,
+      "source_sha256_matches": true,
+      "embedded_vertex_error_mm": 5.004101524264115e-07,
+      "source_comparison": "source vertices in order",
+      "seam_painted_facets": 0,
+      "placed_bounds_mm": [
+        [
+          101.249725295,
+          175.833674954,
+          0.0
+        ],
+        [
+          151.54600529500001,
+          212.46260495399997,
+          64.625
+        ]
+      ],
+      "bed_contact_z_mm": 0.0,
+      "blocked_facets": 0,
+      "partially_painted_facets": 0,
+      "parts": {
+        "normal_part": 1
+      },
+      "layer_ranges": [],
+      "ribbon_and_fin_parts": 0,
+      "modifiers_expected": 0
+    },
+    {
+      "name": "pisco-seat",
+      "vertices": 705,
+      "source_sha256_matches": true,
+      "embedded_vertex_error_mm": 4.983315591289283e-07,
+      "source_comparison": "source vertices in order",
+      "seam_painted_facets": 0,
+      "placed_bounds_mm": [
+        [
+          163.54600495399998,
+          176.74252495399998,
+          -1.330000003463283e-07
+        ],
+        [
+          223.750274954,
+          211.553754954,
+          44.227401867
+        ]
+      ],
+      "bed_contact_z_mm": -1.330000003463283e-07,
+      "blocked_facets": 0,
+      "partially_painted_facets": 0,
+      "parts": {
+        "normal_part": 1
+      },
+      "layer_ranges": [],
+      "ribbon_and_fin_parts": 0,
+      "modifiers_expected": 0
+    },
+    {
+      "name": "pisco-cap",
+      "vertices": 1748,
+      "source_sha256_matches": true,
+      "embedded_vertex_error_mm": 5.001555223316245e-07,
+      "source_comparison": "source vertices in order",
+      "seam_painted_facets": 0,
+      "placed_bounds_mm": [
+        [
+          196.142750547,
+          121.146835431,
+          3.339999992135745e-07
+        ],
+        [
+          224.953982547,
+          150.224235431,
+          41.704284334
+        ]
+      ],
+      "bed_contact_z_mm": 3.339999992135745e-07,
+      "blocked_facets": 0,
+      "partially_painted_facets": 0,
+      "parts": {
+        "normal_part": 1
+      },
+      "layer_ranges": [],
+      "ribbon_and_fin_parts": 0,
+      "modifiers_expected": 0
+    }
+  ],
+  "z_trim_block": [
+    "+0.0",
+    "0.18 - 0.01",
+    "0.18 - 0.02",
+    "0.18 + 0.01",
+    "0.18"
+  ],
+  "cooling": {
+    "fan_min_speed": [
+      "0"
+    ],
+    "fan_max_speed": [
+      "0"
+    ],
+    "overhang_fan_speed": [
+      "70"
+    ],
+    "overhang_fan_threshold": [
+      "50%"
+    ],
+    "additional_cooling_fan_speed": [
+      "0"
+    ]
+  },
+  "support": {
+    "support_type": "tree(auto)",
+    "support_style": "default",
+    "support_object_xy_distance": "0.4",
+    "max_bridge_length": "0",
+    "tree_support_branch_diameter": "2",
+    "tree_support_branch_diameter_angle": "5",
+    "brim_type": "auto_brim"
+  },
+  "problems": [],
+  "pass": true
+}

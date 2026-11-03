@@ -53,6 +53,7 @@ def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--plate',choices=('mark1','mark2','box','all'),default='all')
     parser.add_argument('--trial',type=Path,default=HERE/'v4')
+    parser.add_argument('--fitted-three',action='store_true',help='ASSE and PISCO on Mark1; meter on Mark2.')
     args=parser.parse_args()
     case=args.trial.resolve()
     production=json.loads((TRIAL/'pieces.json').read_text())
@@ -61,6 +62,9 @@ def main():
     nozzle=production['pieces']['pump-snap-cap']['nozzle']
     groups={'rear-retention-mark1':('Mark1',('pump-seat','asse-seat','asse-cap','pisco-seat','pisco-cap')),
             'rear-retention-mark2':('Mark2',('pump-cap','meter-seat','meter-cap','regulator-seat','regulator-cap'))}
+    if args.fitted_three:
+        groups={'rear-retention-mark1':('Mark1',('asse-seat','asse-cap','pisco-seat','pisco-cap')),
+                'rear-retention-mark2':('Mark2',('meter-seat','meter-cap'))}
     rows={p['name']:p for p in geometry['parts']}
     spec['pieces']={}
     for plate,(printer,names) in groups.items():
