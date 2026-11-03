@@ -1,5 +1,5 @@
 {
-  "scope": "Centered 3.5 by 3 mm receiver throats occupy the flank pockets. Flat mouths meet the split and bearing planes with 3 mm shoulders. PISCO and water-regulator passages have one planar inner flare into their curved cavities. All solid pointed caps and axial end stops retain their geometry.",
+  "scope": "Centered 3.5 by 3 mm receiver throats occupy the flank pockets. Flat mouths meet the split and bearing planes with 3 mm shoulders. The planar inner flares extend down into the PISCO and water-regulator cavities while following the passage roofs to retain the ledge supports. The pump east entry meets its existing aft airline opening.",
   "caps": {
     "asse": {
       "stl_byte_identical_to_running_set": true,
@@ -44,5 +44,27 @@
     ],
     "added_mm3": 0.0,
     "removed_mm3": 0.0
+  },
+  "receiver_finishing_delta": {
+    "asse": {
+      "added_material_mm3": 0.0,
+      "removed_material_mm3": 0.0
+    },
+    "pisco": {
+      "added_material_mm3": 0.0,
+      "removed_material_mm3": 78.8800767872191
+    },
+    "regulator": {
+      "added_material_mm3": 10.568407075241547,
+      "removed_material_mm3": 73.89092701305829
+    },
+    "meter": {
+      "added_material_mm3": 0.0,
+      "removed_material_mm3": 0.0
+    },
+    "pump": {
+      "added_material_mm3": -6.394884621840902e-13,
+      "removed_material_mm3": 50.52091662296687
+    }
   }
 }

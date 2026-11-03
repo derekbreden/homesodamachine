@@ -10,32 +10,32 @@
       "regulator-snap-cap"
     ],
     "unrelated_fine_bodies_preserved": 431,
-    "step_sha256": "33b03a5287bcb0e5e757a3b548d214a43d8572142b2de8c265ab46f95fd40820",
-    "payload_sha256": "376efad050b77e9dca4176a9b43fdf091963503194dc6643ea990b5985b2c970"
+    "step_sha256": "798c4aa71a6692b4931099a48536532b3d9dffc105e3f20ff00b68f2c46ead98",
+    "payload_sha256": "ddcc8d86f5f86ed526dcb0497b0a564c6316908c4ec5cf7bddc3098968096a83"
   },
   "enclosure": {
     "replaced": [
       "enclosure_back_top"
     ],
     "unrelated_fine_bodies_preserved": 24,
-    "step_sha256": "5487cee20e720c21698678086e6766ff0919f648dd713b733bccd1b9d42ff0db",
-    "payload_sha256": "78326c4380ae1778f71f53bedb4bf45a53fcfcce6f9e320d82fb9a3b1d0fce1c"
+    "step_sha256": "3a57a5d1de879f762227ff24aca0f42315e636c4e7daa1f8166625e9f6f25a0a",
+    "payload_sha256": "7cc7b6e6d16f32aeb5577cd2169e3f4f177a5a3b9a5092e74f9898d136c00f98"
   },
   "foam": {
     "replaced": [
       "foam-cap-lid-top"
     ],
     "unrelated_fine_bodies_preserved": 2,
-    "step_sha256": "e7a18ab2efa0c47215a9d9809abb68d56fadb10f700d69ac54e64562b89c63b4",
-    "payload_sha256": "80d9111b0a2feecc89ee0bf3bee60b1b029ee7b7158f8d3be6c35666c90340d0"
+    "step_sha256": "5929b01f82c99a327853443d66cf050a926c18ae9570dba2b413ad9730437d01",
+    "payload_sha256": "155d52efe0ef3b0e491485fe93de05af981bc0331e784b6e4a40769aaab2002f"
   },
   "core": {
     "replaced": [
       "foam-cap-lid-top"
     ],
     "unrelated_fine_bodies_preserved": 84,
-    "step_sha256": "b5f736a5a2e39d60a3b26e0241ef412133dfbedb6a4909859f68d1d480ba1598",
-    "payload_sha256": "dcd942e6f986b2c3773b02e949498d139ba3379f80025fdc8783c8d0bc0932cc"
+    "step_sha256": "54718e478cafefc9b8090425f46c3b97c6e222e1eb26f9bf4464bc198e69201c",
+    "payload_sha256": "98f5e07e16b1b57c37c876edbbeafbe8ce17af5c50acce2628824ea616c22f2e"
   },
   "scene": {
     "replaced_arrays": 21,
@@ -53,7 +53,7 @@
       ],
       "unrelated_buffer_views_preserved": 498,
       "nodes_materials_and_unrelated_buffers_retained": true,
-      "sha256": "4170971c7702fe92065475a364bc1bcb227b1b992ce4a8958665c8d89db61775"
+      "sha256": "0071a1d7b35ca08dbae5b628fd28ce366b2304be48326089fb956aeb529bd02d"
     },
     "back-half": {
       "changed": [
@@ -66,7 +66,7 @@
       ],
       "unrelated_buffer_views_preserved": 735,
       "nodes_materials_and_unrelated_buffers_retained": true,
-      "sha256": "aff5761d9b39aa2558b877058be77ab06e85c6ce71cedf3c05eeb97ac8ac6d79"
+      "sha256": "22b5e1605be0a1ea2748d0d5ef62e4c76502ee47717dee6a6f3654e9a2686d05"
     }
   }
 }

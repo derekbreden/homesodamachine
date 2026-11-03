@@ -225,6 +225,9 @@ def pump_cradle_datums():
             frame['translation_mm'][1]+lo,
             frame['translation_mm'][1]+hi, split=0.,tool_angle_degrees=-65.,
             tool_end_stock=10.)
+        # The east entry meets the existing aft airline opening's inner plane.
+        station['tool_outer_edges']=(cx-station['outer'],None)
+        station['tool_ports']=rear_snaps.receiver_tool_ports(station)
         caps.append(dict(common, bore_radius_mm=radius, snap_station=station,
             cap_band_native_x_mm=(lo, hi),
             pocket_band_native_x_mm=(lo-fits.running, hi+fits.running),

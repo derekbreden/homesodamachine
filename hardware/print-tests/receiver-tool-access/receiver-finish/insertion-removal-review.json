@@ -564,7 +564,7 @@
         }
       ],
       "collisions_over_002_mm3": [],
-      "seconds": 7.690799791016616
+      "seconds": 6.304212792019825
     },
     "regulator": {
       "removed_before_path": [],
@@ -626,7 +626,7 @@
         }
       ],
       "collisions_over_002_mm3": [],
-      "seconds": 1.9947810840094462
+      "seconds": 0.9769040839746594
     },
     "pump": {
       "removed_before_path": [
