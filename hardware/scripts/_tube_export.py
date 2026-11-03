@@ -131,7 +131,7 @@ def route_metadata(a):
     }
 
 
-def load(facts_path, scene_path, model_path):
+def load(facts_path, scene_path, model_path, *, fine_queries=False):
     """Read one producer cohort's routes, body names and fine tube bodies.
 
     The facts file is written after the STEP, scene and fine model. Its hashes
@@ -140,7 +140,7 @@ def load(facts_path, scene_path, model_path):
     import types
     import _facts
     import _machine
-    from meshcad import scene
+    import _assembly_model
 
     facts_path, scene_path, model_path = map(Path, (facts_path, scene_path, model_path))
     facts = json.loads(facts_path.read_text())
@@ -157,14 +157,20 @@ def load(facts_path, scene_path, model_path):
     step = ROOT / handoff["step"]["path"]
     if handoff["step"]["sha256"] != _mesh_payload.source_digest(step):
         raise ValueError(f"{step.name} differs from the tube-route producer cohort")
-    document = scene.document(scene_path)
+    document = _assembly_model.document(scene_path)
     if document is None or document.get("schema") != _machine.SCHEMA:
         raise ValueError(f"{scene_path.name} has no supported machine document")
     metadata = handoff["routing"]
     if metadata.get("schema") != 1:
         raise ValueError(f"{facts_path.name} has an unsupported tube-route document")
     anchors = _machine._tupled(document["anchors"])
-    leaves, leaf_names = _route_bodies(model_path, (row['id'] for row in document['runs']))
+    if fine_queries:
+        import _tube_query
+        fine_tubes = _tube_query.read(model_path, (row['id'] for row in document['runs']))
+        leaves, leaf_names = None, fine_tubes.leaf_names
+    else:
+        fine_tubes = None
+        leaves, leaf_names = _route_bodies(model_path, (row['id'] for row in document['runs']))
     return types.SimpleNamespace(
         runs=[_machine._run(row) for row in document["runs"]],
         native_route_specs=metadata["native_route_specs"],
@@ -173,6 +179,7 @@ def load(facts_path, scene_path, model_path):
         route_metadata=metadata,
         producer_handoff=handoff,
         leaves=leaves, leaf_names=leaf_names,
+        fine_tubes=fine_tubes,
     )
 
 
@@ -188,8 +195,10 @@ def export(a):
     print(f"{len(runs)} runs: {', '.join(r.id for r in runs)}")
 
     metadata = getattr(a, "route_metadata", None)
+    fine_tubes = getattr(a, 'fine_tubes', None)
     leaves = (a.leaves if metadata is not None else
               {name: shape for name, shape, _c in ea.ml.placed_leaves(a)})
+    body_names = fine_tubes.groups if fine_tubes is not None else leaves
     lap("placed_leaves")
     leaf_names = getattr(a, 'leaf_names', leaves)
     sleeve_like = sorted(n for n in leaf_names
@@ -530,6 +539,7 @@ def export(a):
     # --- per run -----------------------------------------------------------------------
 
     records, table, length_mismatch, unclassified = [], [], [], []
+    fine_batches, fine_pending = {}, []
     align_mode = "exact"
     align_budget_hit = False
 
@@ -640,7 +650,7 @@ def export(a):
         # bodies + alignment
         body_name = f"tube-{r.id}"
         # A tube the cold core carries is drawn as one of its children (`cold-core/tube-…`).
-        bodies = [n for n in leaves if n == body_name or n.endswith("/" + body_name)]
+        bodies = [n for n in body_names if n == body_name or n.endswith("/" + body_name)]
         insulation = []       # nothing in this assembly is drawn as a sleeve on a run (see report)
         insulation_note = None
         if r.id in ("carb-1", "carb-2"):
@@ -652,7 +662,12 @@ def export(a):
                                "where": "hardware/assembly/internal-plumbing.md 'Carbonated-water riser'"}
         align = {"mode": None, "checked": 0, "outside": 0, "max_surface_miss_mm": None,
                  "max_outside_mm": None}
-        if bodies:
+        if bodies and fine_tubes is not None:
+            fine_batches.setdefault(bodies[0], []).append({
+                'name': r.id, 'points': pts, 'inside_tolerance_mm': 1e-3})
+            bore = (native_specs[r.id].get('id_mm') or 0.) / 2. if r.id in native_specs else 0.
+            fine_pending.append((len(records), bodies[0], r.id, ss, s_total, r.diam / 2., bore, align))
+        elif bodies:
             solid = leaves[bodies[0]]
             # THE SKIN, NOT THE SOLID: BRepExtrema's distance to a solid is 0 for any point inside
             # it, so the radial reading is taken against the compound of its faces.
@@ -746,10 +761,36 @@ def export(a):
                       f"{ends[0]['fitting_kind']}/{ends[1]['fitting_kind']}", len(holds),
                       r.id in _scorecard.LOOSE, bodies, align.get("outside"),
                       align.get("max_surface_miss_mm"), round(time.perf_counter() - t_run, 2)))
+        alignment_note = ("fine alignment pending" if fine_tubes is not None else
+                          f"align out={align.get('outside')} miss={align.get('max_surface_miss_mm')}")
         print(f"  {r.id:10s} {len(pts):4d} samples  len {length:8.2f} vs {s_total:8.2f}  "
-              f"ends {table[-1][6]:18s} holds {len(holds)}  align out={align.get('outside')} "
-              f"miss={align.get('max_surface_miss_mm')}  {table[-1][-1]} s", flush=True)
+              f"ends {table[-1][6]:18s} holds {len(holds)}  {alignment_note}  "
+              f"{table[-1][-1]} s", flush=True)
     lap("runs")
+
+    if fine_batches:
+        import _tube_query
+        query_timings = {}
+        answers = _tube_query.measure(fine_tubes, fine_batches, timings=query_timings)
+        for index, body_name, run_id, ss, length, radius, bore, align in fine_pending:
+            worst = worst_out = 0.
+            outside = 0
+            for s, sample in zip(ss, answers[body_name][run_id]):
+                distance, inside = sample['distance_mm'], sample['inside']
+                bad = inside or distance > bore + .05 if bore else not inside
+                if bad:
+                    outside += 1
+                    worst_out = max(worst_out, distance)
+                expected = bore if bore else min(radius, s, length - s)
+                worst = max(worst, abs(expected - distance))
+            align.update(mode='fine f64 model containment and radial face distance',
+                         checked=len(ss), outside=outside, max_surface_miss_mm=worst,
+                         max_outside_mm=worst_out, seconds=round(query_timings[body_name], 2))
+            row = list(table[index])
+            row[10:12] = outside, worst
+            table[index] = tuple(row)
+            print(f"  {run_id:10s} fine alignment out={outside} miss={worst}", flush=True)
+        lap('fine tube queries')
 
 
     doc = {
