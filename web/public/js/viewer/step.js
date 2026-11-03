@@ -13,7 +13,6 @@ import { dropHighlight } from "./part-highlight.js";
 import { clearComponentPicker, loadHiddenForFile, applyHiddenComponents } from "./component-picker.js";
 import { onStepReloaded } from "./component-edit.js";
 import { surfaceText } from "./pick-format.js";
-import { onTubeModelLoaded } from "./tube-overlay-host.js";
 import { fetchMember, memberLoaded, memberUrl, rememberMember } from "./member.js";
 import { FAUCET_FINISHES, faucetStyleFor, hasFaucetFinish, isFaucetFinishBody, showsInFaucetFinish } from "/contracts/faucet-options.js";
 import { HSM_EVENTS } from "/contracts/client-events.js";
@@ -322,20 +321,11 @@ async function fetchMeshes(file, headers, { mounted = false, signal } = {}) {
       if (!resp.ok) return null;
       bytes = new Uint8Array(await resp.arrayBuffer());
     }
-    let payloadSha256 = null;
-    // The tube audit must match the surface actually displayed. A grafted
-    // payload can retain its STEP source digest while its own bytes change.
-    if (file === "manifold-layout/enclosure-assembly.step" && globalThis.crypto?.subtle) {
-      try {
-        const digest = new Uint8Array(await crypto.subtle.digest("SHA-256", bytes));
-        payloadSha256 = [...digest].map((n) => n.toString(16).padStart(2, "0")).join("");
-      } catch { /* The CAD view still opens; the audit requires this digest. */ }
-    }
     const result = decodeMeshPayload(bytes);
     if (!result) return null; // a payload this code doesn't read is no payload
     // `url` only when the store is where these bytes came from. Whoever mounts them records it
     // as what is on screen; a thumbnail asks through here too and mounts nothing.
-    return { etag: resp?.headers.get("etag") ?? null, result, payloadSha256, url: resp ? null : url };
+    return { etag: resp?.headers.get("etag") ?? null, result, url: resp ? null : url };
   } catch {
     return null;
   }
@@ -379,13 +369,11 @@ export async function loadStepFile(file, { preserveCamera = false } = {}) {
     // carries that revalidation as faithfully as the STEP does.
     const headers = {};
     const prevEtag = state.stepEtags.get(file);
-    const needsAuditDigest = file === "manifold-layout/enclosure-assembly.step" && !state.mountedDetail?.payloadSha256;
     // THE FILE THE CANVAS ALREADY HOLDS, which is what a return with nothing mounted leaves on
     // screen. The ETag round trip below and the store's URL comparison further down both ask
     // this first.
     const mounted = state.mountedDetail?.type === "step"
-      && state.mountedDetail.file === file
-      && !needsAuditDigest;
+      && state.mountedDetail.file === file;
     if (mounted && prevEtag) {
       headers["If-None-Match"] = prevEtag;
     }
@@ -397,7 +385,7 @@ export async function loadStepFile(file, { preserveCamera = false } = {}) {
     let surface = "step";
     const meshed = await fetchMeshes(file, headers, { mounted, signal });
     if (!current()) return;
-    if (meshed?.unchanged) { landed = true; onTubeModelLoaded(file); return; }
+    if (meshed?.unchanged) { landed = true; return; }
     if (meshed) {
       if (meshed.etag) state.stepEtags.set(file, meshed.etag);
       if (meshed.url) rememberMember(`${location.file}.mesh`, meshed.url);
@@ -407,7 +395,7 @@ export async function loadStepFile(file, { preserveCamera = false } = {}) {
       const url = memberUrl(location.file);
       let text = null;
       if (url) {
-        if (mounted && memberLoaded(location.file, url)) { landed = true; onTubeModelLoaded(file); return; }
+        if (mounted && memberLoaded(location.file, url)) { landed = true; return; }
         try {
           text = await fetchMember(url, { signal });
           rememberMember(location.file, url);
@@ -415,7 +403,7 @@ export async function loadStepFile(file, { preserveCamera = false } = {}) {
       }
       if (!text) {
         const resp = await fetch(`/steps/${file}`, { headers, signal });
-        if (resp.status === 304) { landed = true; onTubeModelLoaded(file); return; }
+        if (resp.status === 304) { landed = true; return; }
         if (!resp.ok) { failed(`Couldn't load ${file} — ${resp.status}`); return; }
         const etag = resp.headers.get("etag");
         if (etag) state.stepEtags.set(file, etag);
@@ -447,13 +435,11 @@ export async function loadStepFile(file, { preserveCamera = false } = {}) {
       type: "step", file, sourceFile: location.file, surface,
       src: (result && result.src) || null,
       cut: (result && result.cut) || null,
-      payloadSha256: meshed?.payloadSha256 || null,
     };
     nameSurface(location.file, surface);
     loadHiddenForFile(file);     // restore this file's locally-hidden components…
     applyHiddenComponents();     // …and take them out of the freshly-built view
     onStepReloaded();            // re-seat the component editor's selection on the fresh meshes
-    onTubeModelLoaded(file);
     if (!preserveCamera) resetCamera(state.currentGroup);
     const style = faucetStyleFor(file);
     if (style) state.faucetStyle = style.id;

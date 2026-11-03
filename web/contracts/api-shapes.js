@@ -52,10 +52,6 @@
 //   GET /api/mermaid-content/<path>  -> text/plain (raw .mmd)
 //   GET /api/pcb-content/<path>      -> image/svg+xml   (confined by pcb-out.js VIEW_REQUEST_RE)
 //   GET /api/pcb-picks/<path>        -> PicksFile        (picks-schema.ts; confined by PICKS_REQUEST_RE)
-//   GET /api/tube-routes/manifold-layout/enclosure-assembly.step
-//     -> { version: 1, source, runs, status: "current"|"stale", staleReasons: string[] }
-//        Full-precision tube paths, fitting exits and holds; source fingerprints are checked
-//        against the assembly and routing inputs by lib/tube-routes.js. Errors are 404/503.
 //   GET /steps/<path>  /dxfs/<path>  -> file bytes
 //   GET /thumbs/<path>               -> image/png        (server-rendered STEP thumbnail)
 //   GET /docs/<path>                 -> application/pdf   (confined by documents.js — a sidecar makes it a document)
