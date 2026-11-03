@@ -7,8 +7,8 @@ baselines are deliberately simple; they are tested on rendered images only.
 Converting pixels to physical units needs a calibration of the camera and
 geometry, which this module does not supply.
 
-Register another extractor with `@register` and name it in a camera's
-extractor list; observations name every value `<camera>.<label>.<value>`.
+Register another extractor with `@register`; `create` builds a registered
+extractor by name.
 """
 
 from __future__ import annotations

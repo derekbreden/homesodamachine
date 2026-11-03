@@ -1,12 +1,14 @@
-"""The capture helper's stream protocol (no camera, no helper process)."""
+"""The capture helper's stream protocol, and its synthetic mode when the helper is built (no camera)."""
 
 import io
+import time
 import unittest
 
 import numpy as np
 
 import support  # noqa: F401
 
+from gpobs import helper_stream
 from gpobs.capture import RawFrame, SourceDrop, SourceEvent
 from gpobs.helper_stream import ProtocolError, encode_message, read_message, to_item
 
@@ -46,6 +48,32 @@ class Protocol(unittest.TestCase):
         with self.assertRaises(ProtocolError):
             read_message(io.BytesIO(b"XXXX" + good[4:]))
         self.assertIsNone(read_message(io.BytesIO(b"")))
+
+
+@unittest.skipUnless(helper_stream.BINARY.exists(), "capture helper not built (helper/build.sh --adhoc)")
+class HelperIntegration(unittest.TestCase):
+    def test_synthetic_stream(self):
+        src = helper_stream.HelperSource.synthetic("cam_a", frames=12, width=64, height=36, fps=60,
+                                                   codec="gray8", drop_at=(4, 5))
+        src.start()
+        items = []
+        try:
+            while (item := src.read(10)) is not None:
+                items.append((item, time.monotonic_ns()))
+        finally:
+            src.stop()
+        frames = [(f, received) for f, received in items if isinstance(f, RawFrame)]
+        self.assertEqual([f.source_seq for f, _ in frames], list(range(1, 11)))
+        for f, received in frames:
+            self.assertLessEqual(f.source_host_ns, received)   # helper stamp precedes receipt
+            self.assertLessEqual(f.device_pts_ns, f.source_host_ns)
+        self.assertEqual(sum(isinstance(i, SourceDrop) for i, _ in items), 2)
+        self.assertEqual(frames[0][0].payload.shape, (36, 64))
+
+    def test_clock_agreement(self):
+        result = helper_stream.clock_check()
+        self.assertTrue(result["uptime_raw_within_bracket"])
+        self.assertTrue(result["host_time_clock_within_bracket"])
 
 
 if __name__ == "__main__":

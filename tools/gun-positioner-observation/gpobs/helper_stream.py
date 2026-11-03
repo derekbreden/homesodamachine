@@ -14,9 +14,9 @@ followed by interleaved CbCr. On this Mac AVFoundation lists the bench's UVC
 Motion-JPEG camera only in decoded formats ('420v', 'yuvs'), so a 4K Motion-JPEG
 stream is expected to arrive as "gray8"/"nv12" pixels decoded by macOS. `pts_ns` is the sample's
 presentation time converted to the host clock; `host_ns` is the helper's
-CLOCK_UPTIME_RAW stamp in its sample callback. Python stamps
-`time.monotonic_ns()` when the whole message has been read: that is the frame's
-receipt time on the session timeline.
+CLOCK_UPTIME_RAW stamp in its sample callback. Both count the same clock as
+`time.monotonic_ns()`, which a reader stamps when it takes the frame: that is
+the frame's receipt time.
 
 Launch: `exec` runs the helper as a child process (camera permission then
 belongs to the terminal application that runs Python); `open` launches the
