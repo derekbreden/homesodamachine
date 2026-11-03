@@ -25,7 +25,7 @@ async function fixture(t, { held = true, old = false, networkWorks = false,
     await mkdir(path.join(root, dir), { recursive: true });
   }
   await writeFile(path.join(root, "package.json"), '{"type":"module"}\n');
-  for (const relative of ["scripts/fetch-cad-artifacts.mjs", "contracts/documents.js"]) {
+  for (const relative of ["scripts/fetch-cad-artifacts.mjs", "contracts/documents.js", "contracts/artifact-scope.js"]) {
     await copyFile(new URL("../" + relative, import.meta.url), path.join(root, "web", relative));
   }
   // Fake only the authenticated R2 adapter; the fetcher's routing, gzip and hash
@@ -95,6 +95,21 @@ test("authenticated R2 hydration succeeds without reaching the broken public rou
   assert.deepEqual(await readFile(path.join(f.root, memberPath)), member);
   assert.equal(await readFile(path.join(f.root, "r2-reads.log"), "utf8"), f.name + "\n");
   assert.deepEqual(f.requests, [], "no live-site redirect or archive was required");
+});
+
+test("website hydration omits build-only models while --for-build restores them", async (t) => {
+  const privatePath = "hardware/studies/build-input.step";
+  const privateBytes = Buffer.from("retained build input\n");
+  const f = await fixture(t, { extraWanted: { [privatePath]: hash(privateBytes) } });
+  const pointer = path.join(f.root, "hardware/cad-artifacts.json");
+  const data = JSON.parse(await readFile(pointer, "utf8"));
+  data.website = { solids: { [memberPath]: hash(member) }, sidecars: {} };
+  await writeFile(pointer, JSON.stringify(data));
+  await writeFile(path.join(f.root, "bucket", `s-${hash(privateBytes)}.gz`), gzipSync(privateBytes));
+  await f.fetch();
+  await assert.rejects(stat(path.join(f.root, privatePath)), { code: "ENOENT" });
+  await f.fetch(["--for-build"]);
+  assert.deepEqual(await readFile(path.join(f.root, privatePath)), privateBytes);
 });
 
 test("a failed authenticated read falls back to the existing network object route", async (t) => {

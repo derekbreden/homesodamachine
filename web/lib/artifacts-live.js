@@ -40,6 +40,7 @@ import { promisify } from "node:util";
 
 import { isScorecard } from "../contracts/scorecard-sidecar.js";
 import { isArchivedDocumentFile, isCommittedDocumentFile } from "../contracts/documents.js";
+import { websitePointers } from "../contracts/artifact-scope.js";
 
 const run = promisify(execFile);
 
@@ -101,11 +102,11 @@ async function lockOnDisk() {
 export function pointersMoved(have, pointers) {
   if (!have) return true;
   if (have.bundle?.sha256 !== pointers.bundle?.sha256) return true;
-  return JSON.stringify(have.solids ?? {}) !== JSON.stringify(pointers.solids ?? {});
+  return JSON.stringify(websitePointers(have).solids ?? {}) !== JSON.stringify(websitePointers(pointers).solids ?? {});
 }
 
 async function solidsPresent(pointers) {
-  for (const rel of Object.keys(pointers.solids ?? {})) {
+  for (const rel of Object.keys(websitePointers(pointers).solids ?? {})) {
     if (isCommittedDocumentFile(rel) || isArchivedDocumentFile(rel)) continue;
     try {
       if (!(await stat(path.join(ROOT, rel))).isFile()) return false;
@@ -116,11 +117,12 @@ async function solidsPresent(pointers) {
 
 // Removed model parts must leave the directory the viewer walks. Only paths named by the
 // previous pointer file are retired; local files that neither publication names are untouched.
-export async function retireSolids(root, have, pointers) {
+export async function retireSolids(root, have, pointers, { websiteOnly = Boolean(process.env.RENDER_GIT_COMMIT) } = {}) {
   const hardware = path.resolve(root, "hardware");
-  const retired = Object.keys(have?.solids ?? {})
+  const scope = value => websiteOnly ? websitePointers(value) : value;
+  const retired = Object.keys(scope(have)?.solids ?? {})
     .filter(rel => !isCommittedDocumentFile(rel) &&
-      (isArchivedDocumentFile(rel) || !(rel in (pointers.solids ?? {}))));
+      (isArchivedDocumentFile(rel) || !(rel in (scope(pointers).solids ?? {}))));
   for (const rel of retired) {
     const target = path.resolve(root, rel);
     const inside = path.relative(hardware, target);

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""The generated solids, each on the site's store by hash, and the pointer file that names them.
+"""Generated build objects and the numbered catalog's website publication, by hash.
 
     tools/cad-venv/bin/python tools/cad-artifacts/pack.py            # what the bundle holds
     tools/cad-venv/bin/python tools/cad-artifacts/pack.py --write    # build it, upload it, point main at it
@@ -18,6 +18,11 @@ file. The asset is content-addressed (`cad-<sha16>.tar.gz`) and never rewritten,
 resolves to the bundle its own commit was packed against. `web/scripts/fetch-cad-artifacts.mjs`
 reads the pointer file at deploy and holds the download to both hashes before anything is
 extracted.
+
+`solids` retains the store inventory used by builds. `website` selects numbered materials'
+models and print files, with the guide art and scenes their pages draw. Website fetches read
+that selection; build restores use `fetch-cad-artifacts.mjs --for-build`. New uploads are
+catalog files or files the active build reads or writes. Existing store objects stay named.
 
 THE BUNDLE CARRIES WHAT THIS DISK HOLDS, and `made` says what each member was made from. A
 member a rule in `tools/bazel/graph.json` writes has a line there: `inputs`, one digest over the
@@ -274,8 +279,7 @@ BUNDLED_PAYLOAD_DIRS = (
     "hardware/printed-parts/fixtures/tee-valve-bow-trial",
 )
 
-# The fit-trial assembly has a viewer payload. Its two separately printable
-# pieces are served from their STEP and STL without requiring duplicate payloads.
+# Explicit model payloads kept with the generated store inventory.
 BUNDLED_PAYLOAD_FILES = (
     "hardware/cold-core-layout/cold-core-assembly.step.mesh",
     "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step.mesh",
@@ -304,7 +308,6 @@ BUNDLED_PAYLOAD_FILES = (
     "hardware/printed-parts/calibration/dual-nozzle-registration/dual-nozzle-registration.step.mesh",
     "hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/nameplate-horizontal-wings-001.step.mesh",
     "hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/nameplate-horizontal-wings-receiver.step.mesh",
-    "hardware/printed-parts/fixtures/faucet-display-snap/faucet-display-fit-trial.step.mesh",
     "hardware/printed-parts/enclosure/nameplate/nameplate-001.step.mesh",
     "hardware/printed-parts/enclosure/nameplate/nameplate-receiver.step.mesh",
 )
@@ -339,7 +342,7 @@ BOARD_NOT_BUNDLED = (".step", ".circuit.json")
 UNWATCHED_PRODUCERS = BUNDLED_BOARD_DIRS
 
 
-def _member_filter(frozen):
+def _member_filter(frozen, root: Path = _ROOT):
     """The path policy shared by the disk walk and declared public outputs."""
     skip = tuple(f"{d}/" for d in NOT_BUNDLED_DIRS)
     meshes = tuple(f"{d}/" for d in BUNDLED_MESH_DIRS)
@@ -348,10 +351,17 @@ def _member_filter(frozen):
     art = tuple(f"{d}/" for d in BUNDLED_ART_DIRS)
     boards = tuple(f"{d}/" for d in BUNDLED_BOARD_DIRS)
     singles = set(BUNDLED_PAYLOAD_FILES) | set(BUNDLED_ART_FILES) | set(frozen)
+    catalog = _website_paths(root) if (root / "hardware/ledger/materials.json").is_file() else set()
 
     def member(rel):
         name = rel.rsplit("/", 1)[-1]
-        if not rel.startswith("hardware/") or rel.startswith(skip) or "/node_modules/" in rel:
+        if not rel.startswith("hardware/") or "/node_modules/" in rel:
+            return False
+        if _retired(root, rel):
+            return False
+        if rel in catalog:
+            return True
+        if rel.startswith(skip):
             return False
         if rel in HARVESTED and rel not in frozen:
             return False
@@ -382,7 +392,7 @@ def solids(root: Path) -> list:
     if not (root / "hardware").is_dir():
         return []
     skip = tuple(f"{d}/" for d in NOT_BUNDLED_DIRS)
-    member = _member_filter(frozen_assets(root))
+    member = _member_filter(frozen_assets(root), root)
     listings = Listings(root)
     out, todo = [], ["hardware"]
     while todo:
@@ -391,6 +401,8 @@ def solids(root: Path) -> list:
         if held is None:
             continue
         dirs, files = held
+        if ".retired" in files:
+            continue
         for name in dirs:
             rel = f"{here}/{name}"
             # A dependency's own test fixtures are solids on this disk that no part of
@@ -402,6 +414,18 @@ def solids(root: Path) -> list:
             if member(rel):
                 out.append(rel)
     listings.save()
+    if (root / "hardware/ledger/materials.json").is_file():
+        allowed = _website_paths(root, out)
+        # Catalog membership enrolls companions and print files independently of
+        # the historical directory lists used by the generated-output walk.
+        out = set(out) | {rel for rel in allowed if (root / rel).is_file()}
+        graph = json.loads((root / "tools/bazel/graph.json").read_text())
+        required = set(frozen_assets(root))
+        required.update(path for node in graph.values()
+                        for key in ("reads", "writes") for path in node.get(key, ()))
+        from inventory import IMPLICIT_SOLIDS
+        required.update(path for paths in IMPLICIT_SOLIDS.values() for path in paths)
+        out = {rel for rel in out if rel in allowed or rel in required}
     return sorted(out)
 
 
@@ -780,7 +804,97 @@ def _targets_for_members(root: Path, members: set) -> tuple:
 
 
 #: The pointer file's keys, in the order it holds them.
-KEYS = ("_", "release", "store", "bundle", "solids", "sidecars", "moved", "made")
+KEYS = ("_", "release", "store", "bundle", "solids", "sidecars", "website", "moved", "made")
+
+
+def _retired(root: Path, rel: str) -> bool:
+    """A retired directory and its descendants are outside website publication."""
+    parent = Path(rel).parent
+    while parent != Path("."):
+        if (root / parent / ".retired").is_file():
+            return True
+        parent = parent.parent
+    return False
+
+
+def _website_paths(root: Path, available=()) -> set:
+    """Catalog membership, companions and named print files, without a filename allowlist."""
+    from urllib.parse import unquote, urlsplit
+
+    catalog = json.loads((root / "hardware/ledger/materials.json").read_text())
+    models, own = set(), set()
+    for material in catalog.get("materials", ()):
+        if not material.get("id", "").startswith("HSM-"):
+            continue
+        for model in material.get("models", ()):
+            file = unquote(urlsplit(model.get("file", "")).path)
+            if not file:
+                continue
+            rel = "hardware/" + file.removeprefix("hardware/")
+            if ".." in Path(rel).parts or _retired(root, rel):
+                continue
+            models.add(rel)
+            if not model.get("context"):
+                own.add(rel)
+    allowed = set(models)
+    for rel in models:
+        path = Path(rel)
+        allowed.update((rel + ".mesh", rel + ".json", rel + ".png"))
+        allowed.update(str(path.with_suffix(suffix)) for suffix in
+                       (".scorecard.json", ".facts.json", ".frame.json"))
+    own_stls = {str(Path(rel).with_suffix(".stl")) for rel in own}
+    allowed.update(own_stls)
+    # Print preparation records name their source part and STL explicitly. A
+    # shared folder or matching filename prefix does not make a gauge a part.
+    by_name = {(Path(rel).parent, Path(rel).stem) for rel in own}
+    for directory in {Path(rel).parent for rel in own}:
+        for record in (root / directory).glob("*.print.json"):
+            if _retired(root, str(record.relative_to(root))):
+                continue
+            try:
+                report = json.loads(record.read_text())
+            except (OSError, ValueError):
+                continue
+            parts = report.get("parts", ())
+            if not isinstance(parts, list) or not parts:
+                continue
+            sources = []
+            for part in parts:
+                if not isinstance(part, dict):
+                    break
+                source = str(part.get("source", ""))
+                if not source.startswith("hardware/"):
+                    source = str(directory / source)
+                named = (directory, part.get("name")) in by_name
+                if (".." in Path(source).parts or Path(source).parent != directory
+                        or (source not in own_stls and not named)):
+                    break
+                sources.append(source)
+            else:
+                allowed.update(sources)
+                project = report.get("project")
+                if isinstance(project, str) and Path(project).name == project:
+                    allowed.add(str(directory / project))
+    art = tuple(d + "/" for d in BUNDLED_ART_DIRS)
+    scenes = tuple(d + "/" for d in BUNDLED_GLB_DIRS)
+    boards = tuple(d + "/" for d in BUNDLED_BOARD_DIRS
+                   if any(model.startswith(d + "/") for model in models))
+    for rel in available:
+        if ((rel.startswith(art) and rel.endswith(BUNDLED_ART_SUFFIXES))
+                or (rel.startswith(scenes) and rel.endswith(".glb"))
+                or (boards and rel.startswith(boards)
+                    and not rel.endswith((".step", ".stl", ".mesh", ".glb", ".npz")))
+                or rel in BUNDLED_ART_FILES):
+            allowed.add(rel)
+    return {rel for rel in allowed if not _retired(root, rel)}
+
+
+def website_for(root: Path, data: dict) -> dict:
+    """Catalog models and their files; the complete store inventory stays in `solids`."""
+    allowed = _website_paths(root, data.get("solids", {}))
+    return {kind: {rel: digest for rel, digest in sorted(data.get(kind, {}).items())
+                   if rel in allowed}
+            for kind in ("solids", "sidecars")}
 
 
 def pointers_for(root: Path, rels: list, digest: str, size: int, solid_hashes: dict = None,
@@ -823,6 +937,7 @@ def read_pointers(root: Path = _ROOT) -> dict:
 
 def _write_pointers(data: dict) -> None:
     POINTERS.parent.mkdir(parents=True, exist_ok=True)
+    data = {**data, "website": website_for(_ROOT, data)}
     POINTERS.write_text(json.dumps(_pointer_file(data), indent=2, sort_keys=False) + "\n")
 
 
@@ -844,7 +959,7 @@ def _declared(root: Path) -> set:
         from inventory import ACTION_INTERMEDIATE, IMPLICIT_SOLIDS
         declared |= {path for paths in IMPLICIT_SOLIDS.values() for path in paths}
         declared -= ACTION_INTERMEDIATE
-    member = _member_filter(frozen)
+    member = _member_filter(frozen, root)
     return {path for path in declared if member(path)}
 
 
@@ -1572,7 +1687,8 @@ def publish_held(grafted: set) -> int:
     if not pinned:
         held_made = held.get("made") or {}
         shifted = sum(1 for rel in set(made) | set(held_made) if made.get(rel) != held_made.get(rel))
-        if not side_moved and not shifted:
+        if (not side_moved and not shifted
+                and held.get("website") == website_for(_ROOT, held)):
             print("no unpublished bytes or `made` lines are held")
             return 0
         held["sidecars"], held["made"] = sidecar_now, made
@@ -1766,7 +1882,8 @@ def main(argv) -> int:
                 release["objects"] = OBJECT_PREFIX
             else:
                 release.pop("objects", None)
-            if (held.get("made") or {}) != made or release.get("objects") != objects_was:
+            if ((held.get("made") or {}) != made or release.get("objects") != objects_was
+                    or held.get("website") != website_for(_ROOT, held)):
                 held["made"] = made
                 _write_pointers(held)
                 print(f"pointer file names this tree — {held['release']['asset']}; its records "

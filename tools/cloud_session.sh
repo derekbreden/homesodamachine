@@ -131,10 +131,10 @@ fi
 # --- the solids the pointer file names ---------------------------------------------------------------
 # Node's own fetch does not read HTTPS_PROXY unless told to; the variable is harmless elsewhere.
 if [ "$CHECK" = 1 ]; then
-  NODE_USE_ENV_PROXY=1 node web/scripts/fetch-cad-artifacts.mjs --check >/dev/null 2>&1 \
+  NODE_USE_ENV_PROXY=1 node web/scripts/fetch-cad-artifacts.mjs --for-build --check >/dev/null 2>&1 \
     && say "pointed-at solids: in place" || need "pointed-at solids"
 else
-  NODE_USE_ENV_PROXY=1 node web/scripts/fetch-cad-artifacts.mjs
+  NODE_USE_ENV_PROXY=1 node web/scripts/fetch-cad-artifacts.mjs --for-build
 fi
 
 # --- gh, which pack.py uploads with ------------------------------------------------------------

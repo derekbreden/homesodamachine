@@ -1,8 +1,9 @@
-// The solids named in hardware/cad-artifacts.json, put on this disk.
+// The website catalog files named in hardware/cad-artifacts.json, put on this disk.
 //
 //     node scripts/fetch-cad-artifacts.mjs            # fetch what this disk is missing
 //     node scripts/fetch-cad-artifacts.mjs --check    // 0 = every solid here matches the pointer file
 //     node scripts/fetch-cad-artifacts.mjs --adopt    # also replace what holds other bytes
+//     node scripts/fetch-cad-artifacts.mjs --for-build # restore the complete build inventory
 //
 // Render runs this after `npm ci` (render.yaml), from web/. The viewer serves `.step` off the
 // tree at request time — web/lib/viewer-routes.js — and the tree a deploy clones carries the
@@ -40,10 +41,12 @@ import { createGunzip, createGzip } from "node:zlib";
 import { fileURLToPath } from "node:url";
 import { storeFromEnv } from "../lib/store.js";
 import { isArchivedDocumentFile, isCommittedDocumentFile } from "../contracts/documents.js";
+import { websitePointers } from "../contracts/artifact-scope.js";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..", "..");
 const POINTERS = path.join(ROOT, "hardware", "cad-artifacts.json");
 const CHECK = process.argv.includes("--check");
+const FOR_BUILD = process.argv.includes("--for-build");
 // A Render build or container holds published artifacts, so cached older bytes need
 // replacement even when buildCommand/prestart did not pass --adopt. A local build
 // still preserves the machine's unpublished cuts unless adoption was requested.
@@ -107,7 +110,8 @@ if (!pointers) {
   process.exit(0);
 }
 
-const solids = Object.fromEntries(Object.entries(pointers.solids ?? {})
+const scope = FOR_BUILD ? pointers : websitePointers(pointers);
+const solids = Object.fromEntries(Object.entries(scope.solids ?? {})
   .filter(([rel]) => !isCommittedDocumentFile(rel) && !isArchivedDocumentFile(rel)));
 const { missing: absent, drifted } = await wanted(solids);
 const OBJECTS = pointers.store?.objects ?? pointers.release?.objects ?? null;
