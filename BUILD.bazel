@@ -4885,6 +4885,7 @@ genrule(
         "hardware/reference/jg-pp0308e-elbow/frozen-asset.json",
         "hardware/reference/jg-pp0308e-elbow/jg-pp0308e-elbow.step",
         "hardware/reference/jg-pp0308e-elbow/jg-pp0308e-elbow.step.mesh",
+        "hardware/reference/jg-pp0308e-elbow/scan-measurements.json",
         "hardware/reference/jg-pp061208w/frozen-asset.json",
         "hardware/reference/jg-pp061208w/jg-pp061208w.step.mesh",
         "pysrc/hardware/reference/jg-pp061208w/jg_pp061208w.py",
