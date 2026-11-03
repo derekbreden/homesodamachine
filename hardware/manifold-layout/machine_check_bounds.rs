@@ -111,15 +111,11 @@ fn touches(probe: &Solid, group: &Group, w: &mut World) -> Result<bool> {
     // is needed here; stop after it is established.
     let mut volume = 0.;
     for &i in &group.indices {
-        let hit = {
-            let body = &w.parts[i].solid;
-            if overlap(&pb, &bounds(body), 0.) {
-                probe.intersect(body).map(|hit| hit.volume())
-            } else {
-                Ok(0.)
-            }
+        let hit = if overlap(&pb, &bounds(&w.parts[i].solid), 0.) {
+            w.direct_common_volume(probe, i)
+        } else {
+            Ok(0.)
         };
-        w.parts[i].solid.forget_backend();
         volume += hit?;
         if volume > 1e-6 {
             return Ok(true);
@@ -129,6 +125,12 @@ fn touches(probe: &Solid, group: &Group, w: &mut World) -> Result<bool> {
 }
 
 pub fn wedge_fills(w: &mut World, m: &Value) -> Result<Option<Value>> {
+    let result = wedge_fills_inner(w, m);
+    w.forget_search();
+    result
+}
+
+fn wedge_fills_inner(w: &mut World, m: &Value) -> Result<Option<Value>> {
     let Some(question) = m.get("wedge_question") else {
         return Ok(None);
     };

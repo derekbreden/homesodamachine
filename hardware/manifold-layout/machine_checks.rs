@@ -101,6 +101,8 @@ pub struct World {
     pub populations: [Vec<String>; 3],
     pub role: Vec<(String, usize, String)>,
     pub models: BTreeMap<String, Value>,
+    direct_search: BTreeMap<usize, u64>,
+    direct_tick: u64,
 }
 impl World {
     pub fn load(spec: &Value) -> Result<Self> {
@@ -238,6 +240,8 @@ impl World {
             populations,
             role,
             models,
+            direct_search: BTreeMap::new(),
+            direct_tick: 0,
         })
     }
     pub fn g(&self, n: &str) -> Result<&Group> {
@@ -255,7 +259,6 @@ impl World {
             &json!(queries),
             fine::SearchRetention {
                 array_bytes: 64 * 1024 * 1024,
-                reuse_queries: 64,
             },
         );
         // A later phase may ask about any raw member again. It receives those
@@ -267,6 +270,36 @@ impl World {
         for part in &mut self.parts {
             part.solid.forget_backend();
         }
+        self.direct_search.clear();
+    }
+    pub fn direct_common_volume(&mut self, probe: &Solid, i: usize) -> Result<f64> {
+        // Sloping-face questions are discovered incrementally. Reuse their
+        // source search data under the same array-weight budget as ordered
+        // queries, including the immediate grown-column / column pair.
+        self.direct_tick += 1;
+        self.direct_search.insert(i, self.direct_tick);
+        while self
+            .direct_search
+            .keys()
+            .map(|&k| fine::operand_bytes(&self.parts, &[k]))
+            .sum::<usize>()
+            > 64 * 1024 * 1024
+        {
+            let oldest = self
+                .direct_search
+                .iter()
+                .filter(|(k, _)| **k != i)
+                .min_by_key(|(_, used)| *used)
+                .map(|(&k, _)| k);
+            let Some(k) = oldest else {
+                break;
+            };
+            self.parts[k].solid.forget_backend();
+            self.direct_search.remove(&k);
+        }
+        probe
+            .intersect(&self.parts[i].solid)
+            .map(|hit| hit.volume())
     }
     pub fn retain_raw(&mut self, needed: &BTreeSet<usize>) {
         for (i, part) in self.parts.iter_mut().enumerate() {
