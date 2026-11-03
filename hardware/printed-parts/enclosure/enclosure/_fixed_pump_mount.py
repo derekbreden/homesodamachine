@@ -13,8 +13,7 @@ WING_LENGTH = 22.25
 ROOT_RADIUS = 1.5
 CATCH_OVERLAP = 2.6
 CATCH_AIR = .4
-NOSE_LAND = 1.6
-TIP_RISE = 1.0
+LEAD_RISE = 4.6
 PRY_WIDTH = 5.0
 RELAXED_SPREAD = .35
 SEATED_SPREAD = .10
@@ -63,8 +62,7 @@ def snap_datums(e, box):
     return dict(
         carrier_inner_x=outer-WING_THICK-inward,
         wing_inner_x=outer-WING_THICK, wing_outer_x=outer,
-        hook_outer_x=hook, hook_step_z=floor+NOSE_LAND,
-        hook_ramp_z=floor+NOSE_LAND+TIP_RISE,
+        hook_outer_x=hook, hook_ramp_z=floor+LEAD_RISE,
         root_z=floor+WING_LENGTH, floor_z=floor,
         receiver_floor_z=floor-CATCH_AIR,
         receiver_inner_x=edge,
@@ -333,7 +331,6 @@ def wing_profile(e, box, side, spread):
     d, s = datums(e, box), snap_datums(e, box)
     points = [(s['wing_inner_x'], s['floor_z']),
               (s['hook_outer_x'], s['floor_z']),
-              (s['hook_outer_x'], s['hook_step_z']),
               (s['wing_outer_x'], s['hook_ramp_z']),
               (s['wing_outer_x'], s['root_z']),
               (s['wing_inner_x']-ROOT_RADIUS, s['root_z'])]
@@ -350,7 +347,7 @@ def wing_profile(e, box, side, spread):
         xb, zb = b
         pa = (side*(xa+deflection(za)), za)
         pb = (side*(xb+deflection(zb)), zb)
-        if abs(zb-za)<1e-9 or not spread:
+        if abs(zb-za)<1e-9 or abs(xb-xa)>1e-9 or not spread:
             segments.append({'line': (pa, pb)})
         else:
             da = (side*(xb-xa+slope(za)*(zb-za)), zb-za)
