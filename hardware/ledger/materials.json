@@ -3663,13 +3663,13 @@
       "kind": "manufactured",
       "models": [
         {
-          "file": "printed-parts/enclosure/bulkhead-ring/bulkhead-ring-water.step"
+          "file": "printed-parts/enclosure/rear-identification/rear-label-water.step"
         }
       ],
       "documents": [
         {
           "title": "Part details",
-          "path": "printed-parts/enclosure/bulkhead-ring/README.md"
+          "path": "printed-parts/enclosure/rear-identification/README.md"
         }
       ],
       "aliases": [
@@ -3682,13 +3682,13 @@
       "kind": "manufactured",
       "models": [
         {
-          "file": "printed-parts/enclosure/bulkhead-ring/bulkhead-ring-carb.step"
+          "file": "printed-parts/enclosure/rear-identification/rear-label-carb.step"
         }
       ],
       "documents": [
         {
           "title": "Part details",
-          "path": "printed-parts/enclosure/bulkhead-ring/README.md"
+          "path": "printed-parts/enclosure/rear-identification/README.md"
         }
       ],
       "aliases": [
@@ -3701,13 +3701,13 @@
       "kind": "manufactured",
       "models": [
         {
-          "file": "printed-parts/enclosure/bulkhead-ring/bulkhead-ring-flavor-a.step"
+          "file": "printed-parts/enclosure/rear-identification/rear-label-flavor-a.step"
         }
       ],
       "documents": [
         {
           "title": "Part details",
-          "path": "printed-parts/enclosure/bulkhead-ring/README.md"
+          "path": "printed-parts/enclosure/rear-identification/README.md"
         }
       ],
       "aliases": [
@@ -3720,13 +3720,13 @@
       "kind": "manufactured",
       "models": [
         {
-          "file": "printed-parts/enclosure/bulkhead-ring/bulkhead-ring-flavor-b.step"
+          "file": "printed-parts/enclosure/rear-identification/rear-label-flavor-b.step"
         }
       ],
       "documents": [
         {
           "title": "Part details",
-          "path": "printed-parts/enclosure/bulkhead-ring/README.md"
+          "path": "printed-parts/enclosure/rear-identification/README.md"
         }
       ],
       "aliases": [
@@ -3739,13 +3739,13 @@
       "kind": "manufactured",
       "models": [
         {
-          "file": "printed-parts/enclosure/bulkhead-ring/bulkhead-ring-co2.step"
+          "file": "printed-parts/enclosure/rear-identification/rear-label-co2.step"
         }
       ],
       "documents": [
         {
           "title": "Part details",
-          "path": "printed-parts/enclosure/bulkhead-ring/README.md"
+          "path": "printed-parts/enclosure/rear-identification/README.md"
         }
       ],
       "aliases": [
@@ -3758,13 +3758,13 @@
       "kind": "manufactured",
       "models": [
         {
-          "file": "printed-parts/enclosure/bulkhead-ring/bulkhead-ring-drain.step"
+          "file": "printed-parts/enclosure/rear-identification/rear-label-drain.step"
         }
       ],
       "documents": [
         {
           "title": "Part details",
-          "path": "printed-parts/enclosure/bulkhead-ring/README.md"
+          "path": "printed-parts/enclosure/rear-identification/README.md"
         }
       ],
       "aliases": [
