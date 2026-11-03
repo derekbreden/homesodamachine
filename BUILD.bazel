@@ -9769,6 +9769,7 @@ genrule(
         "hardware/printed-parts/enclosure/rear-equipment-caps/rear_equipment_caps.rs",
         "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
         "pysrc/hardware/reference/asse1022-threaded-chain/asse1022_threaded_chain.py",
+        "hardware/reference/asse1022-threaded-chain/reference-parameters.json",
         "hardware/reference/compact-inline-candidates/dimensions.json",
         "pysrc/hardware/reference/digiten-flow-sensor/digiten_flow_sensor.py",
         "pysrc/hardware/reference/multiplex-asse1022/multiplex_asse1022.py",
