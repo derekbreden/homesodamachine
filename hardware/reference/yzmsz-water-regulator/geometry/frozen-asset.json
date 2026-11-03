@@ -1,0 +1,24 @@
+{
+  "source": {
+    "path": "hardware/reference/yzmsz-water-regulator/geometry/yzmsz-water-regulator.step",
+    "sha256": "80ad0ffbdd68a008240ac77d089afa0a9f658aa76ca04dd875df0200f5014e2c"
+  },
+  "members": {
+    "yzmsz-water-regulator.step": "80ad0ffbdd68a008240ac77d089afa0a9f658aa76ca04dd875df0200f5014e2c",
+    "yzmsz-water-regulator.step.mesh": "4baeedc052b285056e6f4e57189aebc5187a82fc320ad96e5526a1535e065513",
+    "yzmsz-water-regulator.fine.step.npz": "787a982691e4c207ea72895c33c717fc15ce8ddc630e316775c9a707a3de2f5a"
+  },
+  "fine_models": {
+    "yzmsz-water-regulator.step": {
+      "path": "yzmsz-water-regulator.fine.step.npz",
+      "sha256": "787a982691e4c207ea72895c33c717fc15ce8ddc630e316775c9a707a3de2f5a",
+      "source_step_sha256": "80ad0ffbdd68a008240ac77d089afa0a9f658aa76ca04dd875df0200f5014e2c",
+      "linear_mm": 0.005,
+      "angular_rad": 0.05,
+      "producer": "meshcad/imports.py:step_solids import version2",
+      "presentation_indices": [
+        0
+      ]
+    }
+  }
+}

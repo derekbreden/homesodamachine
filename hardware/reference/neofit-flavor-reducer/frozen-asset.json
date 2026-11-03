@@ -6,6 +6,20 @@
   },
   "members": {
     "neofit-flavor-reducer.step": "28ad424a683a778950e17844c38cc98ad69bba0135cc0472d703d993221c17e2",
-    "neofit-flavor-reducer.step.mesh": "e6f5144ed1b80765513497a1af723b19ac4241d58d5b3b6ebb9972e11472344d"
+    "neofit-flavor-reducer.step.mesh": "e6f5144ed1b80765513497a1af723b19ac4241d58d5b3b6ebb9972e11472344d",
+    "neofit-flavor-reducer.fine.step.npz": "a11add77db40ed6eaf85f6f204a281775bc0a7787b42f6b5172a7c6dba6b4148"
+  },
+  "fine_models": {
+    "neofit-flavor-reducer.step": {
+      "path": "neofit-flavor-reducer.fine.step.npz",
+      "sha256": "a11add77db40ed6eaf85f6f204a281775bc0a7787b42f6b5172a7c6dba6b4148",
+      "source_step_sha256": "28ad424a683a778950e17844c38cc98ad69bba0135cc0472d703d993221c17e2",
+      "linear_mm": 0.005,
+      "angular_rad": 0.05,
+      "producer": "meshcad/imports.py:step_solids import version2",
+      "presentation_indices": [
+        0
+      ]
+    }
   }
 }

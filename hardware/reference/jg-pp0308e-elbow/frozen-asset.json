@@ -1,0 +1,53 @@
+{
+  "source": {
+    "commit": "d117331fb286799d25e79f4938952cf7a85b729c",
+    "path": "hardware/reference/jg-pp0308e-elbow/jg-pp0308e-elbow.step",
+    "sha256": "805f210ef6a669f08f9bebacdbf3dcec2a0d22691484dc72308425fdaf3d5daa"
+  },
+  "members": {
+    "jg-pp0308e-elbow.step": "805f210ef6a669f08f9bebacdbf3dcec2a0d22691484dc72308425fdaf3d5daa",
+    "jg-pp0308e-elbow.step.mesh": "5b2242d5aa9eda682cb2e2f480a73dc41c9fcad6c653b20de22afd7c35af1553"
+  },
+  "fine_payload": {
+    "source_step_sha256": "805f210ef6a669f08f9bebacdbf3dcec2a0d22691484dc72308425fdaf3d5daa",
+    "path": "jg-pp0308e-elbow.step.mesh",
+    "sha256": "5b2242d5aa9eda682cb2e2f480a73dc41c9fcad6c653b20de22afd7c35af1553",
+    "linear_mm": 0.005,
+    "angular_rad": 0.05,
+    "producer": "hardware/scripts/_rust_part.py:_tessellate",
+    "color_space": "linear-rgb",
+    "meshes": [
+      {
+        "name": "fixed_body",
+        "color": [
+          0.03310476616024971,
+          0.04696420207619667,
+          0.06372379511594772
+        ],
+        "vertices": 102549,
+        "triangles": 130210
+      },
+      {
+        "name": "y_collet",
+        "color": [
+          0.21404114365577698,
+          0.27383843064308167,
+          0.3069993257522583
+        ],
+        "vertices": 6068,
+        "triangles": 6048
+      },
+      {
+        "name": "z_collet",
+        "color": [
+          0.21404114365577698,
+          0.27383843064308167,
+          0.3069993257522583
+        ],
+        "vertices": 6068,
+        "triangles": 6048
+      }
+    ],
+    "origin": "one-time immutable STEP import for installed equipment references"
+  }
+}
