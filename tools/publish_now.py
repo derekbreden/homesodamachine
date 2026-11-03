@@ -16,12 +16,13 @@ MOVING THE POINTER FILE DEPLOYS NOTHING. It is not among `render.yaml`'s buildFi
 running container adopts a pointer file that moved and pushes the changed members to open pages.
 `tell_the_site()` below is what makes that immediate rather than a poll away.
 
-OWED IS READ BEFORE ANYTHING IS PUBLISHED, AND IT IS TWO QUESTIONS OF THE MEMBERS. BYTES: a member
+OWED IS READ BEFORE ANYTHING IS PUBLISHED. BYTES: a member
 or scorecard on this disk whose sha256 is not its line, with digests reused while device, inode,
 size, mtime and ctime are unchanged. INPUTS: a member whose `made` line the tree moves — one with
 no line, one whose inputs the tree has moved off, and an unproven one the tree has come back to
 (`tools/_artifact_inputs.py` reads those inputs' blob ids off the index). A tree that moved
-neither starts no other process.
+neither starts no other process unless its numbered catalog selects a different website set.
+That catalog selection is reconciled without recutting geometry.
 
 ONE AT A TIME, AND THE LAST REQUEST WINS. Several sessions commit at once and a publish takes
 around a minute, so a second invocation while one is running does not queue behind it — it
@@ -114,11 +115,12 @@ class Owed(NamedTuple):
 def owed() -> Owed:
     """What this tree owes the pointer file.
 
-    TWO QUESTIONS, AND NEITHER ANSWERS THE OTHER. The inputs question is the only one that sees
+    The inputs question is the only one that sees
     a source change whose member has not been cut yet. The bytes question is the only one that
     sees a solid whose bytes moved with no commit behind them — a rebuild, a carry, or a payload
     recut. Asking only about sources is how a tree that had lost the enclosure's flutes read as
-    owing nothing while the site drew a smooth box."""
+    owing nothing while the site drew a smooth box. Catalog membership also moves the website
+    projection when all the stored member bytes and producer inputs remain unchanged."""
     try:
         text = (ROOT / POINTERS).read_text()
     except OSError:
@@ -133,10 +135,13 @@ def owed() -> Owed:
                              pack.tree_digests(ROOT, graph, lines, index))
     heal = [rel for rel in (POINTERS, *sidecar_paths(held))
             if blob_id(ROOT / rel) != index.get(rel)]
+    catalog_moved = ((ROOT / "hardware/ledger/materials.json").is_file()
+                     and held.get("website") != pack.website_for(ROOT, held))
     reason = "; ".join(part for part in (
         f"{len(moved)} member(s) on this disk are not the bytes the pointer file names"
         if moved else "",
         f"the tree moves the `made` line of {len(inputs)} member(s)" if inputs else "",
+        "the numbered catalog changes the website files" if catalog_moved else "",
     ) if part)
     return Owed(reason, moved, inputs, heal)
 
@@ -228,13 +233,13 @@ def tell_the_site() -> None:
 
 
 #: The keys of the pointer file a reader fetches by; a commit that moves none of them moves records.
-SERVED = ("release", "bundle", "solids", "sidecars")
+SERVED = ("release", "bundle", "solids", "sidecars", "website")
 
 
 def publish(started: float) -> int:
     debt = owed()
     if not debt.reason and not debt.heal:
-        print(f"  {time.strftime('%H:%M:%S')} nothing owed: no member's bytes or inputs moved "
+        print(f"  {time.strftime('%H:%M:%S')} nothing owed: member bytes, inputs and website selection agree "
               f"({time.monotonic() - started:.2f}s)")
         return 0
     if debt.reason:
@@ -386,6 +391,7 @@ def selftest() -> int:
         (root / "tools/docgen").mkdir()
         (root / "tools/bazel").mkdir()
         shutil.copyfile(ROOT / "tools/cad-artifacts/pack.py", root / "tools/cad-artifacts/pack.py")
+        shutil.copyfile(ROOT / "tools/bazel/inventory.py", root / "tools/bazel/inventory.py")
         source = "hardware/printed-parts/enclosure/enclosure.py"
         (root / source).parent.mkdir(parents=True)
         (root / source).write_text("pieces")
