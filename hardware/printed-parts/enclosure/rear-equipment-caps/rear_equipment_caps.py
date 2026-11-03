@@ -87,7 +87,7 @@ def numbers():
     lower,upper = _world_bounds(layout.pose('asse1022-assembly'),sleeve_lo,sleeve_hi)
     cuts.append(box(min(lower[0],lo[0])-c,max(upper[0],hi[0])+c,
                     min(lower[1],lo[1]-snaps.THREAD)-c,
-                    max(upper[1],hi[1]+snaps.THREAD)+c,lower[2]-1.,axis[1]))
+                    max(upper[1],hi[1]+snaps.THREAD)+c,lower[2]-1.,upper[2]+c))
     caps = [{'name':'asse-snap-cap','section':snaps.cap_section(st,axis[1],None,axis[1],True),
              'stock':[adapter_stock],
              'pry':[box(*b) for b in snaps.pry_bounds(st)],
