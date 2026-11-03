@@ -13,7 +13,9 @@
       "minimum_bed_margin_mm": 73.37651000000001,
       "native_review_pass": true,
       "submitted": false,
-      "ready": true
+      "ready": true,
+      "send_file": "/Users/derekbredensteiner/Downloads/HSM-receiver-access-Mark1-2e016011.gcode.3mf",
+      "filament_g": 167.53
     },
     {
       "plate": "receiver-access-pumps-meter-mark2",
@@ -27,8 +29,13 @@
       "estimated_seconds": 36820.9609375,
       "minimum_bed_margin_mm": 68.873318,
       "native_review_pass": true,
-      "submitted": false,
-      "ready": true
+      "submitted": true,
+      "ready": false,
+      "send_file": "/Users/derekbredensteiner/Downloads/HSM-receiver-access-Mark2-4db4ed5f.gcode.3mf",
+      "job_id": "1404772826",
+      "accepted_at": "2026-11-03T22:08:02.483799+00:00",
+      "launch_receipt": "Mark2-launch.json",
+      "filament_g": 375.64
     }
   ]
 }
