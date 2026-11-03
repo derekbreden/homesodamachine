@@ -305,7 +305,10 @@ def box_commons(model, requests, *, transform=None):
     queries=[];owners=[]
     for owner,row in enumerate(requests):
         for index in row['indices']:
-            queries.append({'kind':'common','a':slots[index],'b_box':row['box']})
+            query={'kind':'common','a':slots[index],'b_box':row['box']}
+            if row.get('positive_components', False):
+                query['positive_components']=True
+            queries.append(query)
             owners.append(owner)
     said=measure([instance(model,indices=selected,transform=transform)],queries)['queries']
     if len(said)!=len(queries):
@@ -318,10 +321,12 @@ def box_commons(model, requests, *, transform=None):
     result=[]
     for request,rows in zip(requests,grouped):
         material=[row for row in rows if row['min']is not None]
-        result.append({'indices':list(request['indices']),'box':request['box'],
-            'raw':{'volume_mm3':sum(row['volume_mm3']for row in rows),
+        raw={'volume_mm3':sum(row['volume_mm3']for row in rows),
                    'min':[min(row['min'][k]for row in material)for k in range(3)]if material else None,
-                   'max':[max(row['max'][k]for row in material)for k in range(3)]if material else None}})
+                   'max':[max(row['max'][k]for row in material)for k in range(3)]if material else None}
+        if request.get('positive_components', False):
+            raw['components']=[component for row in rows for component in row['components']]
+        result.append({'indices':list(request['indices']),'box':request['box'],'raw':raw})
     return result
 
 
