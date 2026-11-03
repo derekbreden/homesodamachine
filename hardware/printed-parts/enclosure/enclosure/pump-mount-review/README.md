@@ -113,7 +113,7 @@ retainer. Each is 6 mm deep and 56.515 mm long; the retainer stops 6.25 mm from
 its back wall. The snap-wing retainer is outside these identified
 STEP/STL inputs. The existing aft Z-joining rails are separate.
 
-The Y-seam passages use the [selected Ø5.2 mm printed M5 fit](/hardware/print-tests/m5-seam-bearing/physical-result.json)
+The Y-seam passages use the [selected Ø5.2 mm printed M5 fit](https://github.com/derekbreden/homesodamachine/blob/archive-finished-trials/hardware/print-tests/m5-seam-bearing/physical-result.json)
 around the nominal Ø5 mm outside-thread envelope. The identified samples pushed
 through over 12 mm and sometimes needed screw rotation over 40 mm. The nominal
 diametral air is 0.2 mm; the complete enclosure's stiffness and wear retain their

@@ -3,7 +3,7 @@
 Completed as task **1289413482**, confirmed FINISH at 58/58 layers with no printer errors on 2026-09-28. The launch used the [shared-circuit startup stagger](../2026-09-28-shared-circuit-stagger/README.md).
 
 **Shake retention failed:** the cover pops out intact. The
-[physical reading](../../../../display-cover/reach-trial/physical-acceptance.json) identifies
+[physical reading](https://github.com/derekbreden/homesodamachine/blob/archive-finished-trials/hardware/printed-parts/enclosure/display-cover/reach-trial/physical-acceptance.json) identifies
 the tested +0.5 mm reach / 0.9 mm skirt-inset pair with the printed receiver.
 
 One cover with **0.5 mm extra hook reach** and both straight leaves inset **0.9 mm per side**. Nominal clearance beneath the receiver ledges is **0.98 mm**. Each hook overlaps 1.3 mm when centered and at least 1.0 mm at full lateral float. The bezel and window retain their shape. The [existing receiver](../2026-09-25-display-receiver-trial-mark2-v1/README.md) is the mating test piece.

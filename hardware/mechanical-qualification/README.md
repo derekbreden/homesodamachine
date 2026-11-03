@@ -326,15 +326,15 @@ The accepted tee-carrier surface and sliding-fit results retain their scope.
 ## Front-top valve post fit
 
 Derek requests a tighter hand fit in the front-top valve sockets. The
-[upright four-post samples](../printed-parts/fixtures/valve-socket-fit/tighter-trial-v2/README.md)
+[upright four-post samples](https://github.com/derekbreden/homesodamachine/blob/archive-finished-trials/hardware/printed-parts/fixtures/valve-socket-fit/tighter-trial-v2/README.md)
 compare Ø7.20, 7.10, 7.00, 6.90 and 6.80 mm holes in the production print
-orientation. The earlier [Ø7.20 coupon acceptance](../printed-parts/fixtures/valve-socket-fit/physical-acceptance.json)
+orientation. The earlier [Ø7.20 coupon acceptance](https://github.com/derekbreden/homesodamachine/blob/archive-finished-trials/hardware/printed-parts/fixtures/valve-socket-fit/physical-acceptance.json)
 covers easy insertion with zip ties for positive retention. The
 [current hand-fit selection](../printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/physical-fit-selection.json)
 from those samples sets **V69 / Ø6.90 mm** as the production socket. **V70 / Ø7.00 mm** is the
 conditional alternate for a valve or print orientation that does not fit V69 well.
 The shared seat keeps its exterior envelope and tie passages. The
-[request record](../printed-parts/fixtures/valve-socket-fit/tighter-trial-v2/physical-request.json)
+[request record](https://github.com/derekbreden/homesodamachine/blob/archive-finished-trials/hardware/printed-parts/fixtures/valve-socket-fit/tighter-trial-v2/physical-request.json)
 records the intended tighter grip; retention force and endurance remain
 unmeasured.
 

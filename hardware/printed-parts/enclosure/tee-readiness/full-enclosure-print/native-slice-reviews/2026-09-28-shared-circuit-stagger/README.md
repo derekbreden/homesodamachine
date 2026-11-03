@@ -38,5 +38,5 @@ power loss was observed during these [warm-up readings](warmup-readings.json).
 This trial records a 3 min 56 sec separation. The three-minute minimum remains the
 operating trial. At 06:28:57 UTC, both jobs reported **FINISH**, at 58/58 and 60/60
 layers respectively, with no printer errors or HMS entries. The [completion reading](completion-reading.json)
-records both task IDs. Derek provisionally accepts the [+0.5 mm cover](../../../../display-cover/reach-trial/physical-acceptance.json)
+records both task IDs. Derek provisionally accepts the [+0.5 mm cover](https://github.com/derekbreden/homesodamachine/blob/archive-finished-trials/hardware/printed-parts/enclosure/display-cover/reach-trial/physical-acceptance.json)
 as workable and good enough for now; the +1.0 mm cover has no recorded physical assessment.

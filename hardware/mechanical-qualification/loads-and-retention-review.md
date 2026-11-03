@@ -58,7 +58,7 @@ quadrant: back-bottom at the lower stations and front-top at the upper stations.
 The screw retains the opposite quadrant's middle block as a pin through a clearance
 passage. Tightening seats the head; it does not directly squeeze that middle block
 between the end blocks. The Ø5.2 passages use the
-[selected physical M5 fit](../print-tests/m5-seam-bearing/physical-result.json);
+[selected physical M5 fit](https://github.com/derekbreden/homesodamachine/blob/archive-finished-trials/hardware/print-tests/m5-seam-bearing/physical-result.json);
 the nominal diametral air around an M5 thread envelope is 0.2 mm. The 0.25 mm
 running fits remain between the printed blocks. Printed variation, contact, wear and deflection
 set assembled movement. No installation torque or retained preload is qualified;

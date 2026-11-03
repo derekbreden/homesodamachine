@@ -13,7 +13,7 @@ Send per job, printer-specific trim and shared-circuit start spacing.
 C0 and V70 repeat on both printers. The remaining variants cover all sixteen
 X/Y magnet combinations and five progressively tighter valve sockets.
 Read the [magnet fit procedure](../README.md) and
-[valve fit procedure](../../../../../fixtures/valve-socket-fit/tighter-trial-v2/README.md)
+[valve fit procedure](https://github.com/derekbreden/homesodamachine/blob/archive-finished-trials/hardware/printed-parts/fixtures/valve-socket-fit/tighter-trial-v2/README.md)
 after cooling. Report the preferred label and printer. These tests select a
 preferred hand fit; roof quality, retention force and lifetime remain
 unqualified.
