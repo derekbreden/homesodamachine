@@ -140,6 +140,12 @@ fn radial_profile(v: &Value) -> Result<Solid> {
         let hi=f(&rows.last().unwrap()[0])?;
         let prism=Plane::YZ.at(v3(lo,0.,0.)).extrude(&Profile::polygon(&outline),hi-lo)?;
         shape=shape.intersect(&prism)?;
+        if let Some(points)=w.get("pocket_outline") {
+            let outline=array(points)?.iter().map(point2).collect::<Result<Vec<_>>>()?;
+            let (lo,hi)=span(&w["pocket_span"])?;
+            let pocket=Plane::YZ.at(v3(lo,0.,0.)).extrude(&Profile::polygon(&outline),hi-lo)?;
+            shape=shape.union(&pocket)?;
+        }
     }
     let pose=&v["frame"];
     let r=&pose["rotation"];
