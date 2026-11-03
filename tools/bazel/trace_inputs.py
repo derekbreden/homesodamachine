@@ -331,6 +331,10 @@ ELSEWHERE = ("tools/", "hardware/pcb/pcba/",
              'hardware/printed-parts/enclosure/display-cover/receiver-trial/',  # retained historical study geometry
              'hardware/printed-parts/enclosure/display-cover/retention-reach-trial/',  # retained historical study geometry
              'hardware/printed-parts/enclosure/display-cover/retention-trial/',  # retained historical study geometry
+             'hardware/printed-parts/fixtures/faucet-cover-retention/',  # retained historical study geometry
+             'hardware/printed-parts/fixtures/faucet-display-snap/',  # retained historical study geometry
+             'hardware/printed-parts/fixtures/valve-socket-fit/',  # retained historical study geometry
+             'hardware/printed-parts/zone-c/funnel/cradle-trial/',  # retained historical study geometry
              "hardware/install-guide/_cad_art.py",  # scene library kit_art.py and opening_scene.py import
              "hardware/install-guide/_install_art.py",  # scene library kit_art.py and opening_scene.py import
              "hardware/assembly/scenes/render_scenes.py",
