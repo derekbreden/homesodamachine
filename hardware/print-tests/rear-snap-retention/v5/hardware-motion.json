@@ -1,6 +1,6 @@
 {
   "scope": "Rigid native mesh contact travel; printed friction, clamping force and life need the physical trial.",
-  "assembly_fine_sha256": "e9e9699aa5b9a2d5b394f1d57597631378d0443bd202b2342ad0cff2dba5278f",
+  "assembly_fine_sha256": "39bd7649defe15cca2fc4d9fe9f7cc3710b7307161a69dfa827a2576f4932e5f",
   "families": {
     "asse": {
       "hardware": [

@@ -1,6 +1,6 @@
 {
-  "archive": "hardware/print-tests/rear-snap-retention/v5/prints/2026-11-02-rear-retention-mark1-mark1-7d4650ce/2026-11-02-rear-retention-mark1-mark1-7d4650ce.gcode.3mf",
-  "archive_sha256": "62a7e1b4f483eb5f078c197eb7d83c11ae0b524e04715d3c5586439aa292a498",
+  "archive": "hardware/print-tests/rear-snap-retention/v5/prints/2026-11-02-rear-retention-mark1-mark1-ebc85633/2026-11-02-rear-retention-mark1-mark1-ebc85633.gcode.3mf",
+  "archive_sha256": "0ac271db398311e7b24977c6dccec531851c577f6be0d3a28fb90e9932f75941",
   "gcode_md5_matches": true,
   "emitted_z_trim_mm": [
     0.0,
@@ -16,19 +16,19 @@
     ],
     [
       225.122704,
-      225.586215
+      225.697215
     ]
   ],
   "bed_margins_mm": {
     "left": 93.158785,
     "front": 107.368296,
     "right": 99.877296,
-    "back": 94.41378499999999
+    "back": 94.302785
   },
   "minimum_bed_margin_mm": 93.158785,
   "bed_border_mm": 40.0,
   "fine_and_transition_bands": [],
-  "support_roads": 95275,
+  "support_roads": 95642,
   "show_face_minimum_bead_clearance_mm": null,
   "show_face_contacts": [],
   "tie_window_support_crossings": [],
@@ -44,7 +44,7 @@
     "1902": {
       "second_layer_model_bead_area_mm2": 466.2656228116874,
       "fraction_over_first_layer": 0.9213119322000661,
-      "second_layer_centerline_outside_first_mm": 8.30238448012173
+      "second_layer_centerline_outside_first_mm": 8.302384480121813
     },
     "1903": {
       "second_layer_model_bead_area_mm2": 1945.6967446735907,

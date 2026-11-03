@@ -11,7 +11,9 @@ The ASSE cap captures both axial sides of the 1/4 NPT–3/8 NPT adapter hex.
 Its lower body reaches Y461.078; its spring span remains Y396.453–438.114.
 The drain-sleeve window ends at Z309.4, leaving solid backing beneath the
 adapter pocket. The 0.15 mm fitted adapter pocket locates the adapter independently of the
-ASSE's ±1.5 mm taped-thread engagement allowance.
+ASSE's ±1.5 mm taped-thread engagement allowance. The sleeve window carries
+the same fore/aft allowance; [native readings](threaded-joint-room.json)
+find zero overlap at five positions through that travel.
 
 The PISCO cap follows its scanned body and short exposed neck with 0.15 mm
 radial and 0.25 mm axial air. One 3 mm upper receiver bearing locates the
@@ -63,4 +65,7 @@ The active Mark1 job uses [initial-geometry.json](initial-geometry.json) and
 match the fitted trial; its drain opening extends to Z328. The current cap
 has solid backing above the sleeve's measured Z309.15 exterior. The
 [backed Mark1 plate](backed-Mark1-print.json) is prepared at 3 h 51 min and
-123.08 g for a fresh bed. The meter plate uses the current meter geometry.
+122.96 g for a fresh bed. The meter plate uses the current meter geometry.
+
+Derek requests that the active Mark1 trial finish. The backed plate remains
+prepared for a fresh bed; it has not been submitted.

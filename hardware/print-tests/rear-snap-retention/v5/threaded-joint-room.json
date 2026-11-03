@@ -1,0 +1,37 @@
+{
+  "scope": "The captured adapter remains fixed while the ASSE body, outlet fittings and drain sleeve move in world Y.",
+  "thread_allowance_mm": 1.5,
+  "assembly_fine_sha256": "39bd7649defe15cca2fc4d9fe9f7cc3710b7307161a69dfa827a2576f4932e5f",
+  "intersections_mm3": {
+    "-1.5": {
+      "asse1022-assembly": 0.0,
+      "jg-pi4512f6s": 0.0,
+      "jg-pp061208w": 0.0,
+      "asse-drain-adapter": 0.0
+    },
+    "-0.75": {
+      "asse1022-assembly": 0.0,
+      "jg-pi4512f6s": 0.0,
+      "jg-pp061208w": 0.0,
+      "asse-drain-adapter": 0.0
+    },
+    "0.0": {
+      "asse1022-assembly": 0.0,
+      "jg-pi4512f6s": 0.0,
+      "jg-pp061208w": 0.0,
+      "asse-drain-adapter": 0.0
+    },
+    "0.75": {
+      "asse1022-assembly": 0.0,
+      "jg-pi4512f6s": 0.0,
+      "jg-pp061208w": 0.0,
+      "asse-drain-adapter": 0.0
+    },
+    "1.5": {
+      "asse1022-assembly": 0.0,
+      "jg-pi4512f6s": 0.0,
+      "jg-pp061208w": 0.0,
+      "asse-drain-adapter": 0.0
+    }
+  }
+}
