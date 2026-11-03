@@ -3307,52 +3307,52 @@
   },
   "made": {
     "hardware/assembly/scenes/glb/back-half.glb": {
-      "inputs": "c659c7d4f85da8d9c93fbbe0a52ded7e3ea88b8fad80b0cb16420ca199ea9adf",
-      "commit": "733b1b3ca9d63a957e6861de3a236cfaa523216f"
+      "inputs": "ecdf2764f53b0288ff5e5b97f692343b886871da1f70b72835e21d42d0c26a3f",
+      "commit": "dd416e4048a7a27820c1df4f4285fbead45bac53"
     },
     "hardware/assembly/scenes/glb/back-top.glb": {
-      "inputs": "c659c7d4f85da8d9c93fbbe0a52ded7e3ea88b8fad80b0cb16420ca199ea9adf",
-      "commit": "733b1b3ca9d63a957e6861de3a236cfaa523216f"
+      "inputs": "ecdf2764f53b0288ff5e5b97f692343b886871da1f70b72835e21d42d0c26a3f",
+      "commit": "dd416e4048a7a27820c1df4f4285fbead45bac53"
     },
     "hardware/assembly/scenes/glb/cap-lid-fill.glb": {
-      "inputs": "c659c7d4f85da8d9c93fbbe0a52ded7e3ea88b8fad80b0cb16420ca199ea9adf",
-      "commit": "733b1b3ca9d63a957e6861de3a236cfaa523216f"
+      "inputs": "ecdf2764f53b0288ff5e5b97f692343b886871da1f70b72835e21d42d0c26a3f",
+      "commit": "dd416e4048a7a27820c1df4f4285fbead45bac53"
     },
     "hardware/assembly/scenes/glb/cap-lid.glb": {
-      "inputs": "c659c7d4f85da8d9c93fbbe0a52ded7e3ea88b8fad80b0cb16420ca199ea9adf",
-      "commit": "733b1b3ca9d63a957e6861de3a236cfaa523216f"
+      "inputs": "ecdf2764f53b0288ff5e5b97f692343b886871da1f70b72835e21d42d0c26a3f",
+      "commit": "dd416e4048a7a27820c1df4f4285fbead45bac53"
     },
     "hardware/assembly/scenes/glb/cold-core-open.glb": {
-      "inputs": "c659c7d4f85da8d9c93fbbe0a52ded7e3ea88b8fad80b0cb16420ca199ea9adf",
-      "commit": "733b1b3ca9d63a957e6861de3a236cfaa523216f"
+      "inputs": "ecdf2764f53b0288ff5e5b97f692343b886871da1f70b72835e21d42d0c26a3f",
+      "commit": "dd416e4048a7a27820c1df4f4285fbead45bac53"
     },
     "hardware/assembly/scenes/glb/cold-core.glb": {
-      "inputs": "c659c7d4f85da8d9c93fbbe0a52ded7e3ea88b8fad80b0cb16420ca199ea9adf",
-      "commit": "733b1b3ca9d63a957e6861de3a236cfaa523216f"
+      "inputs": "ecdf2764f53b0288ff5e5b97f692343b886871da1f70b72835e21d42d0c26a3f",
+      "commit": "dd416e4048a7a27820c1df4f4285fbead45bac53"
     },
     "hardware/assembly/scenes/glb/en04-compressor-bay.glb": {
-      "inputs": "c659c7d4f85da8d9c93fbbe0a52ded7e3ea88b8fad80b0cb16420ca199ea9adf",
-      "commit": "733b1b3ca9d63a957e6861de3a236cfaa523216f"
+      "inputs": "ecdf2764f53b0288ff5e5b97f692343b886871da1f70b72835e21d42d0c26a3f",
+      "commit": "dd416e4048a7a27820c1df4f4285fbead45bac53"
     },
     "hardware/assembly/scenes/glb/en07-electronics-bay.glb": {
-      "inputs": "c659c7d4f85da8d9c93fbbe0a52ded7e3ea88b8fad80b0cb16420ca199ea9adf",
-      "commit": "733b1b3ca9d63a957e6861de3a236cfaa523216f"
+      "inputs": "ecdf2764f53b0288ff5e5b97f692343b886871da1f70b72835e21d42d0c26a3f",
+      "commit": "dd416e4048a7a27820c1df4f4285fbead45bac53"
     },
     "hardware/assembly/scenes/glb/front-top.glb": {
-      "inputs": "c659c7d4f85da8d9c93fbbe0a52ded7e3ea88b8fad80b0cb16420ca199ea9adf",
-      "commit": "733b1b3ca9d63a957e6861de3a236cfaa523216f"
+      "inputs": "ecdf2764f53b0288ff5e5b97f692343b886871da1f70b72835e21d42d0c26a3f",
+      "commit": "dd416e4048a7a27820c1df4f4285fbead45bac53"
     },
     "hardware/assembly/scenes/glb/funnel-drain.glb": {
-      "inputs": "c659c7d4f85da8d9c93fbbe0a52ded7e3ea88b8fad80b0cb16420ca199ea9adf",
-      "commit": "733b1b3ca9d63a957e6861de3a236cfaa523216f"
+      "inputs": "ecdf2764f53b0288ff5e5b97f692343b886871da1f70b72835e21d42d0c26a3f",
+      "commit": "dd416e4048a7a27820c1df4f4285fbead45bac53"
     },
     "hardware/assembly/scenes/glb/pump-mount.glb": {
-      "inputs": "c659c7d4f85da8d9c93fbbe0a52ded7e3ea88b8fad80b0cb16420ca199ea9adf",
-      "commit": "733b1b3ca9d63a957e6861de3a236cfaa523216f"
+      "inputs": "ecdf2764f53b0288ff5e5b97f692343b886871da1f70b72835e21d42d0c26a3f",
+      "commit": "dd416e4048a7a27820c1df4f4285fbead45bac53"
     },
     "hardware/cold-core-layout/cold-core-assembly.scorecard.json": {
       "inputs": "d4789213c2b7f4b52899bf746d39ee1c32e173740314563b0b0f781168a323a1",
-      "commit": "733b1b3ca9d63a957e6861de3a236cfaa523216f"
+      "commit": "dd416e4048a7a27820c1df4f4285fbead45bac53"
     },
     "hardware/cold-core-layout/cold-core-assembly.step": {
       "inputs": "49cf1324a0990953eeb532b69fdfd385dc8a32f9508395a53193653695a9dffb",
@@ -3360,7 +3360,7 @@
     },
     "hardware/cold-core-layout/cold-core-assembly.step.mesh": {
       "inputs": "d4789213c2b7f4b52899bf746d39ee1c32e173740314563b0b0f781168a323a1",
-      "commit": "733b1b3ca9d63a957e6861de3a236cfaa523216f"
+      "commit": "dd416e4048a7a27820c1df4f4285fbead45bac53"
     },
     "hardware/cut-parts/carbonation/carbonator-tube/carbonator-tube.step": {
       "inputs": "b243481f23f110631a557e814087321e816736108eabad4d2222455d109fe2da",
@@ -3372,7 +3372,7 @@
     },
     "hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole.step": {
       "inputs": "cfdb87010a02cafaf17207696a6dcd0a88179c0c69a2df070fd60b654f9566be",
-      "commit": "733b1b3ca9d63a957e6861de3a236cfaa523216f"
+      "commit": "dd416e4048a7a27820c1df4f4285fbead45bac53"
     },
     "hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole.step.mesh": {
       "inputs": "62074c8f29fb4ad43a1eb6e27e7e5fea0e0869ba9b37fe92161ff9e729e87db4",
@@ -3384,7 +3384,7 @@
     },
     "hardware/faucet-layout/faucet-assembly.step.mesh": {
       "inputs": "661d960551f3d51ec528458e0c5afe58d52293c0339e034a160d00406f2cc23a",
-      "commit": "733b1b3ca9d63a957e6861de3a236cfaa523216f"
+      "commit": "dd416e4048a7a27820c1df4f4285fbead45bac53"
     },
     "hardware/faucet-layout/faucet-industrial-assembly.step": {
       "inputs": "98139200c2aa359b25e41dc0ccc8d81d26b036e3585562802a0820a9fd4e5e0e",
@@ -3619,16 +3619,16 @@
       "commit": "733b1b3ca9d63a957e6861de3a236cfaa523216f"
     },
     "hardware/manifold-layout/enclosure-assembly.scorecard.json": {
-      "inputs": "c659c7d4f85da8d9c93fbbe0a52ded7e3ea88b8fad80b0cb16420ca199ea9adf",
-      "commit": "733b1b3ca9d63a957e6861de3a236cfaa523216f"
+      "inputs": "ecdf2764f53b0288ff5e5b97f692343b886871da1f70b72835e21d42d0c26a3f",
+      "commit": "dd416e4048a7a27820c1df4f4285fbead45bac53"
     },
     "hardware/manifold-layout/enclosure-assembly.step": {
-      "inputs": "c659c7d4f85da8d9c93fbbe0a52ded7e3ea88b8fad80b0cb16420ca199ea9adf",
-      "commit": "733b1b3ca9d63a957e6861de3a236cfaa523216f"
+      "inputs": "ecdf2764f53b0288ff5e5b97f692343b886871da1f70b72835e21d42d0c26a3f",
+      "commit": "dd416e4048a7a27820c1df4f4285fbead45bac53"
     },
     "hardware/manifold-layout/enclosure-assembly.step.mesh": {
-      "inputs": "c659c7d4f85da8d9c93fbbe0a52ded7e3ea88b8fad80b0cb16420ca199ea9adf",
-      "commit": "733b1b3ca9d63a957e6861de3a236cfaa523216f"
+      "inputs": "ecdf2764f53b0288ff5e5b97f692343b886871da1f70b72835e21d42d0c26a3f",
+      "commit": "dd416e4048a7a27820c1df4f4285fbead45bac53"
     },
     "hardware/manifold-layout/manifold-layout.step": {
       "inputs": "652e661f2e5c990d9de13986edb1aaa42547e1ad26d38b684567203719060d55",
@@ -3636,7 +3636,7 @@
     },
     "hardware/manifold-layout/manifold-layout.step.mesh": {
       "inputs": "b6e8927449fa24f016c0477c81312ebfdba3447fa85dcea19cf33fdd00632a11",
-      "commit": "733b1b3ca9d63a957e6861de3a236cfaa523216f"
+      "commit": "dd416e4048a7a27820c1df4f4285fbead45bac53"
     },
     "hardware/printed-parts/asse-drain-adapter/asse-drain-adapter.step": {
       "inputs": "ea51bdf961c75ba230f1b079ca74906c473bcc13835187d443c1cf62d1e4c69b",
@@ -3692,11 +3692,11 @@
     },
     "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step": {
       "inputs": "4c744372478ef26f5fd303f2ddd686ec6d9658d0e1c1ca7708c09583b21f52a3",
-      "commit": "733b1b3ca9d63a957e6861de3a236cfaa523216f"
+      "commit": "dd416e4048a7a27820c1df4f4285fbead45bac53"
     },
     "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step.mesh": {
       "inputs": "4c744372478ef26f5fd303f2ddd686ec6d9658d0e1c1ca7708c09583b21f52a3",
-      "commit": "733b1b3ca9d63a957e6861de3a236cfaa523216f"
+      "commit": "dd416e4048a7a27820c1df4f4285fbead45bac53"
     },
     "hardware/printed-parts/cold-core/foam-assembly/internal-routes.step": {
       "inputs": "3dacdb17c7003031d2cbbb1324c94239c751937e1f1f16c2ae704e76ad9ea442",
@@ -3704,15 +3704,15 @@
     },
     "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step": {
       "inputs": "5a44577e9b1fcfb0f85cb7b686becb019ee49e1c879beb67a92ad95df5e1dadd",
-      "commit": "733b1b3ca9d63a957e6861de3a236cfaa523216f"
+      "commit": "dd416e4048a7a27820c1df4f4285fbead45bac53"
     },
     "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step.mesh": {
       "inputs": "5a44577e9b1fcfb0f85cb7b686becb019ee49e1c879beb67a92ad95df5e1dadd",
-      "commit": "733b1b3ca9d63a957e6861de3a236cfaa523216f"
+      "commit": "dd416e4048a7a27820c1df4f4285fbead45bac53"
     },
     "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.stl": {
       "inputs": "5a44577e9b1fcfb0f85cb7b686becb019ee49e1c879beb67a92ad95df5e1dadd",
-      "commit": "733b1b3ca9d63a957e6861de3a236cfaa523216f"
+      "commit": "dd416e4048a7a27820c1df4f4285fbead45bac53"
     },
     "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step": {
       "commit": "d2c7e36f5c616919c8be5d1ccb8205b0fbac8540",
@@ -3728,15 +3728,15 @@
     },
     "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step": {
       "inputs": "5a44577e9b1fcfb0f85cb7b686becb019ee49e1c879beb67a92ad95df5e1dadd",
-      "commit": "733b1b3ca9d63a957e6861de3a236cfaa523216f"
+      "commit": "dd416e4048a7a27820c1df4f4285fbead45bac53"
     },
     "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh": {
       "inputs": "5a44577e9b1fcfb0f85cb7b686becb019ee49e1c879beb67a92ad95df5e1dadd",
-      "commit": "733b1b3ca9d63a957e6861de3a236cfaa523216f"
+      "commit": "dd416e4048a7a27820c1df4f4285fbead45bac53"
     },
     "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.stl": {
       "inputs": "5a44577e9b1fcfb0f85cb7b686becb019ee49e1c879beb67a92ad95df5e1dadd",
-      "commit": "733b1b3ca9d63a957e6861de3a236cfaa523216f"
+      "commit": "dd416e4048a7a27820c1df4f4285fbead45bac53"
     },
     "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step": {
       "commit": "b378cd5b8adcbac3da430283ac083189dfe1ae11",
@@ -3753,39 +3753,39 @@
     },
     "hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.step": {
       "inputs": "5a44577e9b1fcfb0f85cb7b686becb019ee49e1c879beb67a92ad95df5e1dadd",
-      "commit": "733b1b3ca9d63a957e6861de3a236cfaa523216f"
+      "commit": "dd416e4048a7a27820c1df4f4285fbead45bac53"
     },
     "hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.step.mesh": {
       "inputs": "5a44577e9b1fcfb0f85cb7b686becb019ee49e1c879beb67a92ad95df5e1dadd",
-      "commit": "733b1b3ca9d63a957e6861de3a236cfaa523216f"
+      "commit": "dd416e4048a7a27820c1df4f4285fbead45bac53"
     },
     "hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.stl": {
       "inputs": "5a44577e9b1fcfb0f85cb7b686becb019ee49e1c879beb67a92ad95df5e1dadd",
-      "commit": "733b1b3ca9d63a957e6861de3a236cfaa523216f"
+      "commit": "dd416e4048a7a27820c1df4f4285fbead45bac53"
     },
     "hardware/printed-parts/cold-core/foam-cap/reservoir-b-fill-guide.step": {
       "inputs": "5a44577e9b1fcfb0f85cb7b686becb019ee49e1c879beb67a92ad95df5e1dadd",
-      "commit": "733b1b3ca9d63a957e6861de3a236cfaa523216f"
+      "commit": "dd416e4048a7a27820c1df4f4285fbead45bac53"
     },
     "hardware/printed-parts/cold-core/foam-cap/reservoir-b-fill-guide.step.mesh": {
       "inputs": "5a44577e9b1fcfb0f85cb7b686becb019ee49e1c879beb67a92ad95df5e1dadd",
-      "commit": "733b1b3ca9d63a957e6861de3a236cfaa523216f"
+      "commit": "dd416e4048a7a27820c1df4f4285fbead45bac53"
     },
     "hardware/printed-parts/cold-core/foam-cap/reservoir-b-fill-guide.stl": {
       "inputs": "5a44577e9b1fcfb0f85cb7b686becb019ee49e1c879beb67a92ad95df5e1dadd",
-      "commit": "733b1b3ca9d63a957e6861de3a236cfaa523216f"
+      "commit": "dd416e4048a7a27820c1df4f4285fbead45bac53"
     },
     "hardware/printed-parts/cold-core/foam-shell/foam-shell.step": {
       "inputs": "051659e5bc161dc62dc1861b1aba37f7a9769fdf77bd1c73c3201a68cac1cdc5",
-      "commit": "733b1b3ca9d63a957e6861de3a236cfaa523216f"
+      "commit": "dd416e4048a7a27820c1df4f4285fbead45bac53"
     },
     "hardware/printed-parts/cold-core/foam-shell/foam-shell.step.mesh": {
       "inputs": "712cdc84b62583acda47868e5a32a3cc1b1e924ee9493378803b0704489b7686",
-      "commit": "733b1b3ca9d63a957e6861de3a236cfaa523216f"
+      "commit": "dd416e4048a7a27820c1df4f4285fbead45bac53"
     },
     "hardware/printed-parts/cold-core/foam-shell/foam-shell.stl": {
       "inputs": "051659e5bc161dc62dc1861b1aba37f7a9769fdf77bd1c73c3201a68cac1cdc5",
-      "commit": "733b1b3ca9d63a957e6861de3a236cfaa523216f"
+      "commit": "dd416e4048a7a27820c1df4f4285fbead45bac53"
     },
     "hardware/printed-parts/cold-core/magnetic-float/all-aero/assembly.step": {
       "inputs": "103877fe6ff2cb9f3cb0c871d75d40bf0571984f1f285ec8ffcd7623a6940dbb",
@@ -3797,7 +3797,7 @@
     },
     "hardware/printed-parts/cold-core/magnetic-float/all-aero/float-aero.step": {
       "inputs": "a283cea9ec9a27de8a42a424e8de155345d2f3a28da6245516d7b551b5fb0ffe",
-      "commit": "733b1b3ca9d63a957e6861de3a236cfaa523216f"
+      "commit": "dd416e4048a7a27820c1df4f4285fbead45bac53"
     },
     "hardware/printed-parts/cold-core/magnetic-float/all-aero/float-aero.step.mesh": {
       "inputs": "103877fe6ff2cb9f3cb0c871d75d40bf0571984f1f285ec8ffcd7623a6940dbb",
@@ -3805,7 +3805,7 @@
     },
     "hardware/printed-parts/cold-core/magnetic-float/all-aero/float-aero.stl": {
       "inputs": "a283cea9ec9a27de8a42a424e8de155345d2f3a28da6245516d7b551b5fb0ffe",
-      "commit": "733b1b3ca9d63a957e6861de3a236cfaa523216f"
+      "commit": "dd416e4048a7a27820c1df4f4285fbead45bac53"
     },
     "hardware/printed-parts/cold-core/magnetic-float/all-aero/insertion.step": {
       "inputs": "103877fe6ff2cb9f3cb0c871d75d40bf0571984f1f285ec8ffcd7623a6940dbb",
@@ -3893,7 +3893,7 @@
     },
     "hardware/printed-parts/cold-core/prv-shroud/prv-shroud.step": {
       "inputs": "b0010b739643ef32b860e7489c27346df180bfe003a29074cdec765b3d73cfda",
-      "commit": "733b1b3ca9d63a957e6861de3a236cfaa523216f"
+      "commit": "dd416e4048a7a27820c1df4f4285fbead45bac53"
     },
     "hardware/printed-parts/cold-core/prv-shroud/prv-shroud.step.mesh": {
       "commit": "ee5faea77d68bbd0e9862092f38bb88786f117e7",
@@ -3917,7 +3917,7 @@
     },
     "hardware/printed-parts/cold-core/reed-bridge/reed-bridge.step": {
       "inputs": "e232bb70ce8c571057ff558113a085496db3c773fe0ddbf0fcf60887e05d3662",
-      "commit": "733b1b3ca9d63a957e6861de3a236cfaa523216f"
+      "commit": "dd416e4048a7a27820c1df4f4285fbead45bac53"
     },
     "hardware/printed-parts/cold-core/reed-bridge/reed-bridge.step.mesh": {
       "commit": "ee5faea77d68bbd0e9862092f38bb88786f117e7",
@@ -3941,7 +3941,7 @@
     },
     "hardware/printed-parts/cold-core/reservoir/reservoir-cap-left.step": {
       "inputs": "bb1cf8f2fe2809026621db438dda441746161272c06b0ebc1c7e42e027dd5201",
-      "commit": "733b1b3ca9d63a957e6861de3a236cfaa523216f"
+      "commit": "dd416e4048a7a27820c1df4f4285fbead45bac53"
     },
     "hardware/printed-parts/cold-core/reservoir/reservoir-cap-left.step.mesh": {
       "commit": "ee5faea77d68bbd0e9862092f38bb88786f117e7",
@@ -3953,7 +3953,7 @@
     },
     "hardware/printed-parts/cold-core/reservoir/reservoir-cap-right.step": {
       "inputs": "bb1cf8f2fe2809026621db438dda441746161272c06b0ebc1c7e42e027dd5201",
-      "commit": "733b1b3ca9d63a957e6861de3a236cfaa523216f"
+      "commit": "dd416e4048a7a27820c1df4f4285fbead45bac53"
     },
     "hardware/printed-parts/cold-core/reservoir/reservoir-cap-right.step.mesh": {
       "commit": "ee5faea77d68bbd0e9862092f38bb88786f117e7",
@@ -3965,7 +3965,7 @@
     },
     "hardware/printed-parts/cold-core/reservoir/reservoir-gasket.step": {
       "inputs": "bb1cf8f2fe2809026621db438dda441746161272c06b0ebc1c7e42e027dd5201",
-      "commit": "733b1b3ca9d63a957e6861de3a236cfaa523216f"
+      "commit": "dd416e4048a7a27820c1df4f4285fbead45bac53"
     },
     "hardware/printed-parts/cold-core/reservoir/reservoir-gasket.stl": {
       "commit": "ee5faea77d68bbd0e9862092f38bb88786f117e7",
@@ -3973,7 +3973,7 @@
     },
     "hardware/printed-parts/cold-core/reservoir/reservoir-left.step": {
       "inputs": "bb1cf8f2fe2809026621db438dda441746161272c06b0ebc1c7e42e027dd5201",
-      "commit": "733b1b3ca9d63a957e6861de3a236cfaa523216f"
+      "commit": "dd416e4048a7a27820c1df4f4285fbead45bac53"
     },
     "hardware/printed-parts/cold-core/reservoir/reservoir-left.stl": {
       "commit": "ee5faea77d68bbd0e9862092f38bb88786f117e7",
@@ -3981,7 +3981,7 @@
     },
     "hardware/printed-parts/cold-core/reservoir/reservoir-right.step": {
       "inputs": "bb1cf8f2fe2809026621db438dda441746161272c06b0ebc1c7e42e027dd5201",
-      "commit": "733b1b3ca9d63a957e6861de3a236cfaa523216f"
+      "commit": "dd416e4048a7a27820c1df4f4285fbead45bac53"
     },
     "hardware/printed-parts/cold-core/reservoir/reservoir-right.stl": {
       "commit": "ee5faea77d68bbd0e9862092f38bb88786f117e7",
@@ -4001,7 +4001,7 @@
     },
     "hardware/printed-parts/collet-press/collet-press.step": {
       "inputs": "d66a2c8fa9c357ef1c5bbd2048e68b1bee1406e0e449517d18f061b6a08990b9",
-      "commit": "733b1b3ca9d63a957e6861de3a236cfaa523216f"
+      "commit": "dd416e4048a7a27820c1df4f4285fbead45bac53"
     },
     "hardware/printed-parts/diaphragm-pump-sleeve/diaphragm-pump-sleeve.step": {
       "commit": "d2c7e36f5c616919c8be5d1ccb8205b0fbac8540",
@@ -4017,7 +4017,7 @@
     },
     "hardware/printed-parts/electronics/pcba-tray/pcba-board.step": {
       "inputs": "62c2c02903f4b2d2f0d024e0b787179ba0f17a4cf00259d3f1afd3b033fd0d07",
-      "commit": "733b1b3ca9d63a957e6861de3a236cfaa523216f"
+      "commit": "dd416e4048a7a27820c1df4f4285fbead45bac53"
     },
     "hardware/printed-parts/electronics/pcba-tray/pcba-board.step.mesh": {
       "commit": "ee5faea77d68bbd0e9862092f38bb88786f117e7",
@@ -4093,7 +4093,7 @@
     },
     "hardware/printed-parts/enclosure/display-cover/display-cover.step": {
       "inputs": "2bae5dc71d1ef8f90a01145ddaae7741585ce34a995e8574ba371be491736c22",
-      "commit": "733b1b3ca9d63a957e6861de3a236cfaa523216f"
+      "commit": "dd416e4048a7a27820c1df4f4285fbead45bac53"
     },
     "hardware/printed-parts/enclosure/display-cover/display-cover.step.mesh": {
       "inputs": "ac59f518887a2a2ffe7327ece9489d2994c65221e39e7cc82f7338068b1c5262",
@@ -4200,52 +4200,52 @@
       "commit": "831d7c85eca5996faffd66ad3bda685ed2871f84"
     },
     "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step": {
-      "inputs": "5f3b9f134e7cf5bd2f801bba18f8c72dab5e290ab1cf38a64ad3038668dde443",
-      "commit": "733b1b3ca9d63a957e6861de3a236cfaa523216f"
+      "inputs": "4494872b29e1f2db85eb4b348be1752fecdf08427d55002f81031ac4cd7a167f",
+      "commit": "dd416e4048a7a27820c1df4f4285fbead45bac53"
     },
     "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.mesh": {
-      "inputs": "be15d53b0ddb2513712783d0ec9fadcc4892fb904337d52ea3e5533e7dbb664d",
-      "commit": "733b1b3ca9d63a957e6861de3a236cfaa523216f"
+      "inputs": "70e81af127f492a8745865b236dc4182d61463ccba6bb3161bf4e7fd544a09d0",
+      "commit": "dd416e4048a7a27820c1df4f4285fbead45bac53"
     },
     "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl": {
-      "inputs": "5f3b9f134e7cf5bd2f801bba18f8c72dab5e290ab1cf38a64ad3038668dde443",
-      "commit": "733b1b3ca9d63a957e6861de3a236cfaa523216f"
+      "inputs": "4494872b29e1f2db85eb4b348be1752fecdf08427d55002f81031ac4cd7a167f",
+      "commit": "dd416e4048a7a27820c1df4f4285fbead45bac53"
     },
     "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step": {
-      "inputs": "5f3b9f134e7cf5bd2f801bba18f8c72dab5e290ab1cf38a64ad3038668dde443",
-      "commit": "733b1b3ca9d63a957e6861de3a236cfaa523216f"
+      "inputs": "4494872b29e1f2db85eb4b348be1752fecdf08427d55002f81031ac4cd7a167f",
+      "commit": "dd416e4048a7a27820c1df4f4285fbead45bac53"
     },
     "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh": {
-      "inputs": "be15d53b0ddb2513712783d0ec9fadcc4892fb904337d52ea3e5533e7dbb664d",
-      "commit": "733b1b3ca9d63a957e6861de3a236cfaa523216f"
+      "inputs": "70e81af127f492a8745865b236dc4182d61463ccba6bb3161bf4e7fd544a09d0",
+      "commit": "dd416e4048a7a27820c1df4f4285fbead45bac53"
     },
     "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl": {
-      "inputs": "5f3b9f134e7cf5bd2f801bba18f8c72dab5e290ab1cf38a64ad3038668dde443",
-      "commit": "733b1b3ca9d63a957e6861de3a236cfaa523216f"
+      "inputs": "4494872b29e1f2db85eb4b348be1752fecdf08427d55002f81031ac4cd7a167f",
+      "commit": "dd416e4048a7a27820c1df4f4285fbead45bac53"
     },
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step": {
-      "inputs": "5f3b9f134e7cf5bd2f801bba18f8c72dab5e290ab1cf38a64ad3038668dde443",
-      "commit": "733b1b3ca9d63a957e6861de3a236cfaa523216f"
+      "inputs": "4494872b29e1f2db85eb4b348be1752fecdf08427d55002f81031ac4cd7a167f",
+      "commit": "dd416e4048a7a27820c1df4f4285fbead45bac53"
     },
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.mesh": {
-      "inputs": "be15d53b0ddb2513712783d0ec9fadcc4892fb904337d52ea3e5533e7dbb664d",
-      "commit": "733b1b3ca9d63a957e6861de3a236cfaa523216f"
+      "inputs": "70e81af127f492a8745865b236dc4182d61463ccba6bb3161bf4e7fd544a09d0",
+      "commit": "dd416e4048a7a27820c1df4f4285fbead45bac53"
     },
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl": {
-      "inputs": "5f3b9f134e7cf5bd2f801bba18f8c72dab5e290ab1cf38a64ad3038668dde443",
-      "commit": "733b1b3ca9d63a957e6861de3a236cfaa523216f"
+      "inputs": "4494872b29e1f2db85eb4b348be1752fecdf08427d55002f81031ac4cd7a167f",
+      "commit": "dd416e4048a7a27820c1df4f4285fbead45bac53"
     },
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step": {
-      "inputs": "5f3b9f134e7cf5bd2f801bba18f8c72dab5e290ab1cf38a64ad3038668dde443",
-      "commit": "733b1b3ca9d63a957e6861de3a236cfaa523216f"
+      "inputs": "4494872b29e1f2db85eb4b348be1752fecdf08427d55002f81031ac4cd7a167f",
+      "commit": "dd416e4048a7a27820c1df4f4285fbead45bac53"
     },
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh": {
-      "inputs": "be15d53b0ddb2513712783d0ec9fadcc4892fb904337d52ea3e5533e7dbb664d",
-      "commit": "733b1b3ca9d63a957e6861de3a236cfaa523216f"
+      "inputs": "70e81af127f492a8745865b236dc4182d61463ccba6bb3161bf4e7fd544a09d0",
+      "commit": "dd416e4048a7a27820c1df4f4285fbead45bac53"
     },
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl": {
-      "inputs": "5f3b9f134e7cf5bd2f801bba18f8c72dab5e290ab1cf38a64ad3038668dde443",
-      "commit": "733b1b3ca9d63a957e6861de3a236cfaa523216f"
+      "inputs": "4494872b29e1f2db85eb4b348be1752fecdf08427d55002f81031ac4cd7a167f",
+      "commit": "dd416e4048a7a27820c1df4f4285fbead45bac53"
     },
     "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step.mesh": {
       "commit": "ee5faea77d68bbd0e9862092f38bb88786f117e7",
@@ -4264,32 +4264,32 @@
       "unproven": true
     },
     "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step": {
-      "inputs": "71497c78c216abaed439a225a5a31d98d613171afc85c7ed62f100af5419b07c",
-      "commit": "733b1b3ca9d63a957e6861de3a236cfaa523216f"
+      "inputs": "e6b8f187e89bd66b912092ac79f2d0b5a9979771a17a7a5013a9e8a84a22b0b7",
+      "commit": "dd416e4048a7a27820c1df4f4285fbead45bac53"
     },
     "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step.mesh": {
       "commit": "ffcc47f64230129a2d1e156517ae5d6a69f1d2a6",
       "unproven": true
     },
     "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.stl": {
-      "inputs": "71497c78c216abaed439a225a5a31d98d613171afc85c7ed62f100af5419b07c",
-      "commit": "733b1b3ca9d63a957e6861de3a236cfaa523216f"
+      "inputs": "e6b8f187e89bd66b912092ac79f2d0b5a9979771a17a7a5013a9e8a84a22b0b7",
+      "commit": "dd416e4048a7a27820c1df4f4285fbead45bac53"
     },
     "hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step": {
-      "inputs": "5f3b9f134e7cf5bd2f801bba18f8c72dab5e290ab1cf38a64ad3038668dde443",
-      "commit": "733b1b3ca9d63a957e6861de3a236cfaa523216f"
+      "inputs": "4494872b29e1f2db85eb4b348be1752fecdf08427d55002f81031ac4cd7a167f",
+      "commit": "dd416e4048a7a27820c1df4f4285fbead45bac53"
     },
     "hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step.mesh": {
-      "inputs": "be15d53b0ddb2513712783d0ec9fadcc4892fb904337d52ea3e5533e7dbb664d",
-      "commit": "733b1b3ca9d63a957e6861de3a236cfaa523216f"
+      "inputs": "70e81af127f492a8745865b236dc4182d61463ccba6bb3161bf4e7fd544a09d0",
+      "commit": "dd416e4048a7a27820c1df4f4285fbead45bac53"
     },
     "hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.stl": {
-      "inputs": "5f3b9f134e7cf5bd2f801bba18f8c72dab5e290ab1cf38a64ad3038668dde443",
-      "commit": "733b1b3ca9d63a957e6861de3a236cfaa523216f"
+      "inputs": "4494872b29e1f2db85eb4b348be1752fecdf08427d55002f81031ac4cd7a167f",
+      "commit": "dd416e4048a7a27820c1df4f4285fbead45bac53"
     },
     "hardware/printed-parts/enclosure/enclosure/enclosure.step": {
-      "inputs": "5f3b9f134e7cf5bd2f801bba18f8c72dab5e290ab1cf38a64ad3038668dde443",
-      "commit": "733b1b3ca9d63a957e6861de3a236cfaa523216f"
+      "inputs": "4494872b29e1f2db85eb4b348be1752fecdf08427d55002f81031ac4cd7a167f",
+      "commit": "dd416e4048a7a27820c1df4f4285fbead45bac53"
     },
     "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh": {
       "commit": "ffcc47f64230129a2d1e156517ae5d6a69f1d2a6",
@@ -4297,7 +4297,7 @@
     },
     "hardware/printed-parts/enclosure/nameplate/nameplate-001.step": {
       "inputs": "4b5862a5dae77f6df64d6748faf00a534c41c928a50c5b47b9aa98248b56a808",
-      "commit": "733b1b3ca9d63a957e6861de3a236cfaa523216f"
+      "commit": "dd416e4048a7a27820c1df4f4285fbead45bac53"
     },
     "hardware/printed-parts/enclosure/nameplate/nameplate-001.step.mesh": {
       "inputs": "0a325575f3cb929a1d864d56ed647a130f666828d60087bea31fb1b11687c7e4",
@@ -4321,7 +4321,7 @@
     },
     "hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step": {
       "inputs": "fd8dce5123ba4b53e3fa439b3a99b2e41fd20cca1a7f50e4be69d9fd5b1385ff",
-      "commit": "733b1b3ca9d63a957e6861de3a236cfaa523216f"
+      "commit": "dd416e4048a7a27820c1df4f4285fbead45bac53"
     },
     "hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step.mesh": {
       "commit": "ffcc47f64230129a2d1e156517ae5d6a69f1d2a6",
@@ -4329,7 +4329,7 @@
     },
     "hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.step": {
       "inputs": "fd8dce5123ba4b53e3fa439b3a99b2e41fd20cca1a7f50e4be69d9fd5b1385ff",
-      "commit": "733b1b3ca9d63a957e6861de3a236cfaa523216f"
+      "commit": "dd416e4048a7a27820c1df4f4285fbead45bac53"
     },
     "hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.step.mesh": {
       "commit": "ffcc47f64230129a2d1e156517ae5d6a69f1d2a6",
@@ -4337,7 +4337,7 @@
     },
     "hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.step": {
       "inputs": "fd8dce5123ba4b53e3fa439b3a99b2e41fd20cca1a7f50e4be69d9fd5b1385ff",
-      "commit": "733b1b3ca9d63a957e6861de3a236cfaa523216f"
+      "commit": "dd416e4048a7a27820c1df4f4285fbead45bac53"
     },
     "hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.step.mesh": {
       "commit": "ffcc47f64230129a2d1e156517ae5d6a69f1d2a6",
@@ -4345,7 +4345,7 @@
     },
     "hardware/printed-parts/enclosure/rear-equipment-caps/rear-equipment-caps-installed.step": {
       "inputs": "fd8dce5123ba4b53e3fa439b3a99b2e41fd20cca1a7f50e4be69d9fd5b1385ff",
-      "commit": "733b1b3ca9d63a957e6861de3a236cfaa523216f"
+      "commit": "dd416e4048a7a27820c1df4f4285fbead45bac53"
     },
     "hardware/printed-parts/enclosure/rear-equipment-caps/rear-equipment-caps-installed.step.mesh": {
       "commit": "ffcc47f64230129a2d1e156517ae5d6a69f1d2a6",
@@ -4353,7 +4353,7 @@
     },
     "hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.step": {
       "inputs": "fd8dce5123ba4b53e3fa439b3a99b2e41fd20cca1a7f50e4be69d9fd5b1385ff",
-      "commit": "733b1b3ca9d63a957e6861de3a236cfaa523216f"
+      "commit": "dd416e4048a7a27820c1df4f4285fbead45bac53"
     },
     "hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.step.mesh": {
       "commit": "ffcc47f64230129a2d1e156517ae5d6a69f1d2a6",
@@ -4361,7 +4361,7 @@
     },
     "hardware/printed-parts/enclosure/rear-identification/rear-label-carb.step": {
       "inputs": "d5bb685cb45d8f598bcbaaadbf39e46c1e5d1394705568a73ed148130925a550",
-      "commit": "733b1b3ca9d63a957e6861de3a236cfaa523216f"
+      "commit": "dd416e4048a7a27820c1df4f4285fbead45bac53"
     },
     "hardware/printed-parts/enclosure/rear-identification/rear-label-carb.step.mesh": {
       "inputs": "a5c3efe4a1e33ebd2acc9825dc6f82a99c9fec7ace34148fd0ec7f39e8a1832c",
@@ -4373,7 +4373,7 @@
     },
     "hardware/printed-parts/enclosure/rear-identification/rear-label-co2.step": {
       "inputs": "d5bb685cb45d8f598bcbaaadbf39e46c1e5d1394705568a73ed148130925a550",
-      "commit": "733b1b3ca9d63a957e6861de3a236cfaa523216f"
+      "commit": "dd416e4048a7a27820c1df4f4285fbead45bac53"
     },
     "hardware/printed-parts/enclosure/rear-identification/rear-label-co2.step.mesh": {
       "inputs": "a5c3efe4a1e33ebd2acc9825dc6f82a99c9fec7ace34148fd0ec7f39e8a1832c",
@@ -4385,7 +4385,7 @@
     },
     "hardware/printed-parts/enclosure/rear-identification/rear-label-drain.step": {
       "inputs": "d5bb685cb45d8f598bcbaaadbf39e46c1e5d1394705568a73ed148130925a550",
-      "commit": "733b1b3ca9d63a957e6861de3a236cfaa523216f"
+      "commit": "dd416e4048a7a27820c1df4f4285fbead45bac53"
     },
     "hardware/printed-parts/enclosure/rear-identification/rear-label-drain.step.mesh": {
       "inputs": "a5c3efe4a1e33ebd2acc9825dc6f82a99c9fec7ace34148fd0ec7f39e8a1832c",
@@ -4397,7 +4397,7 @@
     },
     "hardware/printed-parts/enclosure/rear-identification/rear-label-flavor-a.step": {
       "inputs": "d5bb685cb45d8f598bcbaaadbf39e46c1e5d1394705568a73ed148130925a550",
-      "commit": "733b1b3ca9d63a957e6861de3a236cfaa523216f"
+      "commit": "dd416e4048a7a27820c1df4f4285fbead45bac53"
     },
     "hardware/printed-parts/enclosure/rear-identification/rear-label-flavor-a.step.mesh": {
       "inputs": "a5c3efe4a1e33ebd2acc9825dc6f82a99c9fec7ace34148fd0ec7f39e8a1832c",
@@ -4409,7 +4409,7 @@
     },
     "hardware/printed-parts/enclosure/rear-identification/rear-label-flavor-b.step": {
       "inputs": "d5bb685cb45d8f598bcbaaadbf39e46c1e5d1394705568a73ed148130925a550",
-      "commit": "733b1b3ca9d63a957e6861de3a236cfaa523216f"
+      "commit": "dd416e4048a7a27820c1df4f4285fbead45bac53"
     },
     "hardware/printed-parts/enclosure/rear-identification/rear-label-flavor-b.step.mesh": {
       "inputs": "a5c3efe4a1e33ebd2acc9825dc6f82a99c9fec7ace34148fd0ec7f39e8a1832c",
@@ -4421,7 +4421,7 @@
     },
     "hardware/printed-parts/enclosure/rear-identification/rear-label-water.step": {
       "inputs": "d5bb685cb45d8f598bcbaaadbf39e46c1e5d1394705568a73ed148130925a550",
-      "commit": "733b1b3ca9d63a957e6861de3a236cfaa523216f"
+      "commit": "dd416e4048a7a27820c1df4f4285fbead45bac53"
     },
     "hardware/printed-parts/enclosure/rear-identification/rear-label-water.step.mesh": {
       "inputs": "a5c3efe4a1e33ebd2acc9825dc6f82a99c9fec7ace34148fd0ec7f39e8a1832c",
@@ -4433,27 +4433,27 @@
     },
     "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step": {
       "inputs": "dfa9503dcbb2192fb600bf716af37d579e1bb3ba9973df4b5e4345429e07ff17",
-      "commit": "733b1b3ca9d63a957e6861de3a236cfaa523216f"
+      "commit": "dd416e4048a7a27820c1df4f4285fbead45bac53"
     },
     "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step.mesh": {
       "inputs": "9a05e5dc44935b06449635867980a6a4e6f162663789d09538920db2c896e28b",
-      "commit": "733b1b3ca9d63a957e6861de3a236cfaa523216f"
+      "commit": "dd416e4048a7a27820c1df4f4285fbead45bac53"
     },
     "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.stl": {
       "inputs": "dfa9503dcbb2192fb600bf716af37d579e1bb3ba9973df4b5e4345429e07ff17",
-      "commit": "733b1b3ca9d63a957e6861de3a236cfaa523216f"
+      "commit": "dd416e4048a7a27820c1df4f4285fbead45bac53"
     },
     "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step": {
       "inputs": "6ef7ed6bb2a5a0325a5a4adc0afe7acdf93636d8dd9b2bf54d4947a8ddfeaaf9",
-      "commit": "733b1b3ca9d63a957e6861de3a236cfaa523216f"
+      "commit": "dd416e4048a7a27820c1df4f4285fbead45bac53"
     },
     "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step.mesh": {
       "inputs": "9a05e5dc44935b06449635867980a6a4e6f162663789d09538920db2c896e28b",
-      "commit": "733b1b3ca9d63a957e6861de3a236cfaa523216f"
+      "commit": "dd416e4048a7a27820c1df4f4285fbead45bac53"
     },
     "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.stl": {
       "inputs": "6ef7ed6bb2a5a0325a5a4adc0afe7acdf93636d8dd9b2bf54d4947a8ddfeaaf9",
-      "commit": "733b1b3ca9d63a957e6861de3a236cfaa523216f"
+      "commit": "dd416e4048a7a27820c1df4f4285fbead45bac53"
     },
     "hardware/printed-parts/faucet/asse-vent-seals/asse-vent-downstream-bung.step": {
       "commit": "d2c7e36f5c616919c8be5d1ccb8205b0fbac8540",
@@ -4493,55 +4493,55 @@
     },
     "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover-seated.step": {
       "inputs": "909a65a18b79d3836aeb2be43ae4f18970abd6aacf8e9b568d762004c6e8c5d8",
-      "commit": "733b1b3ca9d63a957e6861de3a236cfaa523216f"
+      "commit": "dd416e4048a7a27820c1df4f4285fbead45bac53"
     },
     "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover-seated.step.mesh": {
       "inputs": "909a65a18b79d3836aeb2be43ae4f18970abd6aacf8e9b568d762004c6e8c5d8",
-      "commit": "733b1b3ca9d63a957e6861de3a236cfaa523216f"
+      "commit": "dd416e4048a7a27820c1df4f4285fbead45bac53"
     },
     "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step": {
       "inputs": "909a65a18b79d3836aeb2be43ae4f18970abd6aacf8e9b568d762004c6e8c5d8",
-      "commit": "733b1b3ca9d63a957e6861de3a236cfaa523216f"
+      "commit": "dd416e4048a7a27820c1df4f4285fbead45bac53"
     },
     "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step.mesh": {
       "inputs": "9a05e5dc44935b06449635867980a6a4e6f162663789d09538920db2c896e28b",
-      "commit": "733b1b3ca9d63a957e6861de3a236cfaa523216f"
+      "commit": "dd416e4048a7a27820c1df4f4285fbead45bac53"
     },
     "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.stl": {
       "inputs": "909a65a18b79d3836aeb2be43ae4f18970abd6aacf8e9b568d762004c6e8c5d8",
-      "commit": "733b1b3ca9d63a957e6861de3a236cfaa523216f"
+      "commit": "dd416e4048a7a27820c1df4f4285fbead45bac53"
     },
     "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step": {
       "inputs": "a4029b7a956d84272d1bb04439d351671920f9764eec8daa15d026f1b8f9bccb",
-      "commit": "733b1b3ca9d63a957e6861de3a236cfaa523216f"
+      "commit": "dd416e4048a7a27820c1df4f4285fbead45bac53"
     },
     "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step.mesh": {
       "inputs": "9a05e5dc44935b06449635867980a6a4e6f162663789d09538920db2c896e28b",
-      "commit": "733b1b3ca9d63a957e6861de3a236cfaa523216f"
+      "commit": "dd416e4048a7a27820c1df4f4285fbead45bac53"
     },
     "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.stl": {
       "inputs": "a4029b7a956d84272d1bb04439d351671920f9764eec8daa15d026f1b8f9bccb",
-      "commit": "733b1b3ca9d63a957e6861de3a236cfaa523216f"
+      "commit": "dd416e4048a7a27820c1df4f4285fbead45bac53"
     },
     "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step": {
       "inputs": "a4029b7a956d84272d1bb04439d351671920f9764eec8daa15d026f1b8f9bccb",
-      "commit": "733b1b3ca9d63a957e6861de3a236cfaa523216f"
+      "commit": "dd416e4048a7a27820c1df4f4285fbead45bac53"
     },
     "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step.mesh": {
       "inputs": "9a05e5dc44935b06449635867980a6a4e6f162663789d09538920db2c896e28b",
-      "commit": "733b1b3ca9d63a957e6861de3a236cfaa523216f"
+      "commit": "dd416e4048a7a27820c1df4f4285fbead45bac53"
     },
     "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl": {
       "inputs": "a4029b7a956d84272d1bb04439d351671920f9764eec8daa15d026f1b8f9bccb",
-      "commit": "733b1b3ca9d63a957e6861de3a236cfaa523216f"
+      "commit": "dd416e4048a7a27820c1df4f4285fbead45bac53"
     },
     "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step": {
       "inputs": "a4029b7a956d84272d1bb04439d351671920f9764eec8daa15d026f1b8f9bccb",
-      "commit": "733b1b3ca9d63a957e6861de3a236cfaa523216f"
+      "commit": "dd416e4048a7a27820c1df4f4285fbead45bac53"
     },
     "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step.mesh": {
       "inputs": "a4029b7a956d84272d1bb04439d351671920f9764eec8daa15d026f1b8f9bccb",
-      "commit": "733b1b3ca9d63a957e6861de3a236cfaa523216f"
+      "commit": "dd416e4048a7a27820c1df4f4285fbead45bac53"
     },
     "hardware/printed-parts/faucet/industrial/industrial-above-counter-gasket.step": {
       "inputs": "7c349ee6ac4b9dc9449ffc0441ef8feeb0a210c8fe0a8086f7528df0281f5125",
@@ -4605,27 +4605,27 @@
     },
     "hardware/printed-parts/faucet/lever-replica/lever-replica.step": {
       "inputs": "6962eeb83ba19f5414cd495d113fbe80ac1e8c53859e791954b7442336608af8",
-      "commit": "733b1b3ca9d63a957e6861de3a236cfaa523216f"
+      "commit": "dd416e4048a7a27820c1df4f4285fbead45bac53"
     },
     "hardware/printed-parts/faucet/lever-replica/lever-replica.step.mesh": {
       "inputs": "6962eeb83ba19f5414cd495d113fbe80ac1e8c53859e791954b7442336608af8",
-      "commit": "733b1b3ca9d63a957e6861de3a236cfaa523216f"
+      "commit": "dd416e4048a7a27820c1df4f4285fbead45bac53"
     },
     "hardware/printed-parts/faucet/lever-replica/lever-replica.stl": {
       "inputs": "6962eeb83ba19f5414cd495d113fbe80ac1e8c53859e791954b7442336608af8",
-      "commit": "733b1b3ca9d63a957e6861de3a236cfaa523216f"
+      "commit": "dd416e4048a7a27820c1df4f4285fbead45bac53"
     },
     "hardware/printed-parts/faucet/tpu-o-ring/tpu-o-ring.step": {
       "inputs": "7886bcfcee7f00de41dbef28551d97d234e6082ba063a46ef5ccaec19fef8829",
-      "commit": "733b1b3ca9d63a957e6861de3a236cfaa523216f"
+      "commit": "dd416e4048a7a27820c1df4f4285fbead45bac53"
     },
     "hardware/printed-parts/faucet/tpu-o-ring/tpu-o-ring.step.mesh": {
       "inputs": "7886bcfcee7f00de41dbef28551d97d234e6082ba063a46ef5ccaec19fef8829",
-      "commit": "733b1b3ca9d63a957e6861de3a236cfaa523216f"
+      "commit": "dd416e4048a7a27820c1df4f4285fbead45bac53"
     },
     "hardware/printed-parts/faucet/tube-collar/tube-collar-carb.step": {
       "inputs": "5baa1429d5d121748e45e43f5e9823d0b8cd5f8343b738a41314c4a55e4679ad",
-      "commit": "733b1b3ca9d63a957e6861de3a236cfaa523216f"
+      "commit": "dd416e4048a7a27820c1df4f4285fbead45bac53"
     },
     "hardware/printed-parts/faucet/tube-collar/tube-collar-carb.stl": {
       "inputs": "c072cf201d442710bd70bc1416d399df2045ef8ba8305746bfb3289a6d23fa98",
@@ -4633,7 +4633,7 @@
     },
     "hardware/printed-parts/faucet/tube-collar/tube-collar-co2.step": {
       "inputs": "5baa1429d5d121748e45e43f5e9823d0b8cd5f8343b738a41314c4a55e4679ad",
-      "commit": "733b1b3ca9d63a957e6861de3a236cfaa523216f"
+      "commit": "dd416e4048a7a27820c1df4f4285fbead45bac53"
     },
     "hardware/printed-parts/faucet/tube-collar/tube-collar-co2.stl": {
       "inputs": "c072cf201d442710bd70bc1416d399df2045ef8ba8305746bfb3289a6d23fa98",
@@ -4641,7 +4641,7 @@
     },
     "hardware/printed-parts/faucet/tube-collar/tube-collar-drain.step": {
       "inputs": "5baa1429d5d121748e45e43f5e9823d0b8cd5f8343b738a41314c4a55e4679ad",
-      "commit": "733b1b3ca9d63a957e6861de3a236cfaa523216f"
+      "commit": "dd416e4048a7a27820c1df4f4285fbead45bac53"
     },
     "hardware/printed-parts/faucet/tube-collar/tube-collar-drain.stl": {
       "inputs": "c072cf201d442710bd70bc1416d399df2045ef8ba8305746bfb3289a6d23fa98",
@@ -4649,7 +4649,7 @@
     },
     "hardware/printed-parts/faucet/tube-collar/tube-collar-flavor-a.step": {
       "inputs": "5baa1429d5d121748e45e43f5e9823d0b8cd5f8343b738a41314c4a55e4679ad",
-      "commit": "733b1b3ca9d63a957e6861de3a236cfaa523216f"
+      "commit": "dd416e4048a7a27820c1df4f4285fbead45bac53"
     },
     "hardware/printed-parts/faucet/tube-collar/tube-collar-flavor-a.stl": {
       "inputs": "c072cf201d442710bd70bc1416d399df2045ef8ba8305746bfb3289a6d23fa98",
@@ -4657,7 +4657,7 @@
     },
     "hardware/printed-parts/faucet/tube-collar/tube-collar-flavor-b.step": {
       "inputs": "5baa1429d5d121748e45e43f5e9823d0b8cd5f8343b738a41314c4a55e4679ad",
-      "commit": "733b1b3ca9d63a957e6861de3a236cfaa523216f"
+      "commit": "dd416e4048a7a27820c1df4f4285fbead45bac53"
     },
     "hardware/printed-parts/faucet/tube-collar/tube-collar-flavor-b.stl": {
       "inputs": "c072cf201d442710bd70bc1416d399df2045ef8ba8305746bfb3289a6d23fa98",
@@ -4665,7 +4665,7 @@
     },
     "hardware/printed-parts/faucet/tube-collar/tube-collar-water.step": {
       "inputs": "5baa1429d5d121748e45e43f5e9823d0b8cd5f8343b738a41314c4a55e4679ad",
-      "commit": "733b1b3ca9d63a957e6861de3a236cfaa523216f"
+      "commit": "dd416e4048a7a27820c1df4f4285fbead45bac53"
     },
     "hardware/printed-parts/faucet/tube-collar/tube-collar-water.stl": {
       "inputs": "c072cf201d442710bd70bc1416d399df2045ef8ba8305746bfb3289a6d23fa98",
@@ -4673,15 +4673,15 @@
     },
     "hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer.step": {
       "inputs": "b86f2f2c59f56289e1d52e29eba50d0ab14b688c2b472d7b459a69e372a988c1",
-      "commit": "733b1b3ca9d63a957e6861de3a236cfaa523216f"
+      "commit": "dd416e4048a7a27820c1df4f4285fbead45bac53"
     },
     "hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer.step.mesh": {
       "inputs": "b86f2f2c59f56289e1d52e29eba50d0ab14b688c2b472d7b459a69e372a988c1",
-      "commit": "733b1b3ca9d63a957e6861de3a236cfaa523216f"
+      "commit": "dd416e4048a7a27820c1df4f4285fbead45bac53"
     },
     "hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer.stl": {
       "inputs": "b86f2f2c59f56289e1d52e29eba50d0ab14b688c2b472d7b459a69e372a988c1",
-      "commit": "733b1b3ca9d63a957e6861de3a236cfaa523216f"
+      "commit": "dd416e4048a7a27820c1df4f4285fbead45bac53"
     },
     "hardware/printed-parts/fixtures/fake-countertop/fake-countertop.step": {
       "inputs": "1daac69ae51a1cda4aa8caa5017178207e7aa9b28a4947f78ebe6b2b6cf898c3",
@@ -5029,7 +5029,7 @@
     },
     "hardware/printed-parts/refrigeration/fuse-clamp/fuse-clamp.step": {
       "inputs": "9489a1cda723ad1950e351df260fe19ddcf99837336596a05d848528e0deace8",
-      "commit": "733b1b3ca9d63a957e6861de3a236cfaa523216f"
+      "commit": "dd416e4048a7a27820c1df4f4285fbead45bac53"
     },
     "hardware/printed-parts/refrigeration/fuse-clamp/fuse-clamp.step.mesh": {
       "commit": "ee5faea77d68bbd0e9862092f38bb88786f117e7",
@@ -5553,7 +5553,7 @@
     },
     "hardware/printed-parts/soda-bend-holder/soda-bend-holder.step": {
       "inputs": "15bd036f27c1f222df71e19c7ae542235f8f6097cf449b0591d0311bcc53d86f",
-      "commit": "733b1b3ca9d63a957e6861de3a236cfaa523216f"
+      "commit": "dd416e4048a7a27820c1df4f4285fbead45bac53"
     },
     "hardware/printed-parts/soda-bend-holder/soda-bend-holder.stl": {
       "inputs": "70ab85638459990005a55bf109d010465d113aeee13fde6985947651d184681e",
@@ -5573,7 +5573,7 @@
     },
     "hardware/printed-parts/zone-c/funnel-cover/funnel-cover.step": {
       "inputs": "c5e843cb2f76900eb25dbf272cd5014de6dc128ed4e04d0fc58b0571baa93465",
-      "commit": "733b1b3ca9d63a957e6861de3a236cfaa523216f"
+      "commit": "dd416e4048a7a27820c1df4f4285fbead45bac53"
     },
     "hardware/printed-parts/zone-c/funnel-cover/funnel-cover.step.mesh": {
       "inputs": "2548cad0c8acd6299df5f013a0415394b12a9f1514c4d1bd36a476e12878df84",
@@ -5697,7 +5697,7 @@
     },
     "hardware/printed-parts/zone-c/funnel/elbow-cradle.step": {
       "inputs": "4ac327f70f340ba40e1bdc721ae249b2afdc43667d51a4bdf86f9b1e03f3f671",
-      "commit": "733b1b3ca9d63a957e6861de3a236cfaa523216f"
+      "commit": "dd416e4048a7a27820c1df4f4285fbead45bac53"
     },
     "hardware/printed-parts/zone-c/funnel/elbow-cradle.step.mesh": {
       "inputs": "57048771bab9b4a94878d2a4fa7a3d1d38b5bb3cf49370af967c3bd6e1a8ba88",
@@ -5709,7 +5709,7 @@
     },
     "hardware/printed-parts/zone-c/funnel/funnel-frame.step": {
       "inputs": "f62602b5e8ea621ae7cfd6630dea100ac5cdf072b652a9a471e14a51240257d1",
-      "commit": "733b1b3ca9d63a957e6861de3a236cfaa523216f"
+      "commit": "dd416e4048a7a27820c1df4f4285fbead45bac53"
     },
     "hardware/printed-parts/zone-c/funnel/funnel-frame.step.mesh": {
       "inputs": "b4b94a3b54eb99fb54dea6d88b4daa182fe0d27534b302af9615bfa7f124ab0b",
@@ -5721,7 +5721,7 @@
     },
     "hardware/printed-parts/zone-c/funnel/funnel.step": {
       "inputs": "6100e0824931e66cf6d8b686ad07b2db1f3b0175a3539966007beb2bc423611f",
-      "commit": "733b1b3ca9d63a957e6861de3a236cfaa523216f"
+      "commit": "dd416e4048a7a27820c1df4f4285fbead45bac53"
     },
     "hardware/printed-parts/zone-c/funnel/funnel.step.mesh": {
       "inputs": "75061a763bb42457ab1deb3c4c0998922ef331076a13849f27c92e1049f36df1",
@@ -6156,12 +6156,12 @@
       "unproven": true
     },
     "hardware/wiring/enclosure-wiring.step": {
-      "inputs": "c659c7d4f85da8d9c93fbbe0a52ded7e3ea88b8fad80b0cb16420ca199ea9adf",
-      "commit": "733b1b3ca9d63a957e6861de3a236cfaa523216f"
+      "inputs": "ecdf2764f53b0288ff5e5b97f692343b886871da1f70b72835e21d42d0c26a3f",
+      "commit": "dd416e4048a7a27820c1df4f4285fbead45bac53"
     },
     "hardware/wiring/enclosure-wiring.step.mesh": {
-      "inputs": "c659c7d4f85da8d9c93fbbe0a52ded7e3ea88b8fad80b0cb16420ca199ea9adf",
-      "commit": "733b1b3ca9d63a957e6861de3a236cfaa523216f"
+      "inputs": "ecdf2764f53b0288ff5e5b97f692343b886871da1f70b72835e21d42d0c26a3f",
+      "commit": "dd416e4048a7a27820c1df4f4285fbead45bac53"
     }
   }
 }
