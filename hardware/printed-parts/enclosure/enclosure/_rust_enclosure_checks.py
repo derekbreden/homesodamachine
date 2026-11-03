@@ -254,7 +254,13 @@ def _piece_reports(shell, box, models, installed_retainer, core, graph):
             vents = shell.vent_readings(pieces, box)
     finally:
         shell.record_bound = original_record
-    return dict(bounds=collected, checks=check_rows(collected), slides=slides, vents=vents)
+    piece_bounds = {}
+    if graph.answers is not None:
+        for name, piece in pieces.items():
+            row = graph.reading(piece)
+            piece_bounds[name] = [*row['min'], *row['max']]
+    return dict(bounds=collected, checks=check_rows(collected), slides=slides, vents=vents,
+                piece_bounds=piece_bounds)
 
 
 def check_pieces(shell, box, models, installed_retainer=None, core=None):
