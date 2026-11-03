@@ -81,6 +81,21 @@ import os
 import sys
 from pathlib import Path
 
+if __name__ == "__main__" and "--native" not in sys.argv:
+    # The normal path passes current fine-model references and scalar source datums to Rust.
+    # Manual native design callers remain available below, outside the build's runtime path.
+    sys.path.insert(0, str(next(p for p in Path(__file__).resolve().parents
+                                if (p / "hardware" / "scripts").is_dir())
+                           / "hardware" / "scripts"))
+    import _rust_part
+    _rust_part.start()
+    import _machine_layout
+    _machine_layout.main()
+    raise SystemExit(0)
+
+if __name__ == "__main__" and "--native" in sys.argv:
+    sys.argv.remove("--native")
+
 # Run as a script, the machine stands on the mesh kernel (`hardware/scripts/meshcad`).
 if __name__ == "__main__":
     sys.path.insert(0, str(next(p for p in Path(__file__).resolve().parents
