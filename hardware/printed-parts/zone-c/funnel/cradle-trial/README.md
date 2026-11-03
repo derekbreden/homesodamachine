@@ -16,12 +16,8 @@ loaded retention or lifetime.
   to [12 mm](TRIAL_RECEIVER_H) above the frame's underside. [48.6 × 54 × 12 mm](TRIAL_RECEIVER).
 - `test-cradle.stl`: the production [elbow cradle](../elbow_cradle.py), on its bottom.
 
-[`cradle_trial.py`](cradle_trial.py) cuts both from the production generators and writes
-[`geometry-check.json`](geometry-check.json): nominal clearances and the wing-bend estimate.
-
-```sh
-tools/cad-venv/bin/python hardware/printed-parts/zone-c/funnel/cradle-trial/cradle_trial.py
-```
+The [authored source snapshot](https://github.com/derekbreden/homesodamachine/blob/521b9f02cb13815c02b83d08df0d6a9f71c3a60d/hardware/printed-parts/zone-c/funnel/cradle-trial/cradle_trial.py) is retained in Git at `521b9f02cb13815c02b83d08df0d6a9f71c3a60d`. This directory retains its geometry and evidence.
+[`geometry-check.json`](geometry-check.json) records the nominal clearances and the wing-bend estimate.
 
 ## Print
 
@@ -60,7 +56,3 @@ Use the scanned [PP0308E elbow](/hardware/reference/jg-pp0308e-elbow/README.md).
 - Pulled down by hand, the cradle stays on its hooks.
 
 Record the result in `physical-acceptance.json` beside this file.
-
-## Sources
-[value](NAME) texts are updated by:
-- `/hardware/printed-parts/zone-c/funnel/cradle-trial/cradle_trial.py`

@@ -1,7 +1,7 @@
 # Faucet display fit trial
 
 Two PET-GF prints make the complete faucet-display enclosure: its shell
-with a short gooseneck stub, and the complete cover. They use the faucet's current fine models. The display supports, snaps, tube
+with a short gooseneck stub, and the complete cover. They are cut from the faucet's fine models. The display supports, snaps, tube
 passages, ribbon route, cosmetic surfaces and cover seam keep their actual
 dimensions. Only the neck beyond the complete housing is shortened.
 
@@ -23,13 +23,7 @@ validated print meshes. `faucet-display-fit-trial.step` shows the nominal
 seated cover, display, tubes and ribbon together. The standalone cover STEP,
 STL and print project contain the relaxed, inward-preformed cover.
 
-Generate with the project's Python:
-
-```sh
-tools/cad-venv/bin/python hardware/printed-parts/fixtures/faucet-display-snap/faucet_display_snap_trial.py
-tools/cad-venv/bin/python hardware/printed-parts/fixtures/faucet-display-snap/prepare_print_project.py \
-  --settings-from hardware/printed-parts/fixtures/faucet-display-snap/faucet-display-fit-trial.3mf
-```
+The [authored source snapshot](https://github.com/derekbreden/homesodamachine/blob/521b9f02cb13815c02b83d08df0d6a9f71c3a60d/hardware/printed-parts/fixtures/faucet-display-snap/faucet_display_snap_trial.py) and its [print-project preparation](https://github.com/derekbreden/homesodamachine/blob/521b9f02cb13815c02b83d08df0d6a9f71c3a60d/hardware/printed-parts/fixtures/faucet-display-snap/prepare_print_project.py) are retained in Git at `521b9f02cb13815c02b83d08df0d6a9f71c3a60d`. This directory retains its geometry and evidence.
 
 After removing supports, feed the three real tubes and ribbon through the
 stub. Follow the [faucet assembly sequence](../../faucet/faucet-shell/ASSEMBLY.md#display):
@@ -105,7 +99,3 @@ An unlabelled interface count is unknown, not zero. Check
 removal access and the finish of the tube passages, display supports,
 broad lips, rear wall and groove bearing faces on the physical print before testing
 the fit.
-
-To repeat the offline slice, add `--slice-output /path/to/local/slice` to
-`prepare_print_project.py`. This writes local G-code and its audit; it
-does not connect to a printer.
