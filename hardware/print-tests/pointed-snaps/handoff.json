@@ -7,7 +7,8 @@
       "source": "hardware/print-tests/pointed-snaps/prints/2026-11-02-pointed-rear-mark1-mark1-b85d5c8a/2026-11-02-pointed-rear-mark1-mark1-b85d5c8a-print-only.gcode.3mf",
       "sha256": "17215edc3ca38d39fa868fc90268858fc7a90f93768342123efad09c22698665",
       "gcode_sha256": "1ddbfc218bd6c8301ddc675cf09442bd9d5149b3c30b1854e5bd016726dffda5",
-      "submitted": false
+      "submitted": true,
+      "job_id": "1402389255"
     },
     {
       "plate": "pointed-pumps-meter-mark2",
@@ -25,5 +26,7 @@
     "HSM-pointed-tips-and-asse-Mark1.gcode.3mf",
     "HSM-cartridge-ramp-comparison-Mark2.gcode.3mf"
   ],
-  "launch_state": "Mark2 accepted; Mark1 follows after the shared-circuit startup interval."
+  "launch_state": "Both complete pointed plates running; no reported printer errors at the recorded status reading.",
+  "startup_spacing_seconds": 237.396526,
+  "post_launch_status": "post-launch-status.json"
 }

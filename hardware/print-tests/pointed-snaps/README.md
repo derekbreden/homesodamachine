@@ -6,9 +6,9 @@ caps and the G-Ganen cap have one 3 mm-rise planar lead-in above the 1.6 mm
 tool-backed nose. The cartridge's trailing barb has one 4.6 mm-high planar
 lead-in running to its retaining corner. Each profile has a pointed edge.
 
-The matching pockets clear the complete points. Cartridge pocket roofs follow
-the 4.6 mm lead-in with 0.5 mm clearance and a continuous 45° return; the centered
-5 mm screwdriver ports and nominal 3 mm outer backing are included. All caps
+The matching pockets clear the complete points. The cartridge pocket's back
+roof is 0.5 mm above the lead-in's highest level, with a continuous 45° return;
+the centered 5 mm screwdriver ports and nominal 3 mm outer backing are included. All caps
 retain the 2 mm leaves, broad root transitions and full catch overlap. The
 water-regulator leaves retain their 21.25 mm working length; the others retain
 22.25 mm.
