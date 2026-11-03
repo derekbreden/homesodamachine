@@ -5710,6 +5710,24 @@ def _materialized_enclosure_pieces(box, materialized=False) -> dict:
     }
 
 
+def _seated_retainer_drawing(retainer):
+    """Keep the seated spring's full fine surface in assembly drawings."""
+    if not getattr(cq, 'MESH', False):
+        return retainer
+    from meshcad import build
+    from meshcad.solids import MeshModelSolid
+    from meshcad.write import _arrays, _solids, drawn_payload
+
+    kept = []
+    for solid in _solids(retainer):
+        arrays = _arrays(solid)
+        model = MeshModelSolid(build.Part(*arrays))
+        model._presentation = drawn_payload('enclosure-pump-retainer', None, *arrays[:2])
+        kept.append(model)
+    shape = kept[0] if len(kept) == 1 else cq.Compound.makeCompound(kept)
+    return cq.Workplane(obj=shape)
+
+
 def y_seam_hardware(box):
     """The installed four M5x100 screws and RX-M5x9.5 insert envelopes.
 
@@ -5853,7 +5871,8 @@ def build_enclosure_assembly(*, require_box_spec=False, kernel_wiring=False,
     pieces = _materialized_enclosure_pieces(box, require_box_spec)
     _enc._handhold_bound(pieces, box)
     for name, piece in pieces.items():
-        installed = _enc.build_pump_retainer(box, seated=True) if name == "pump-retainer" else piece
+        installed = (_seated_retainer_drawing(_enc.build_pump_retainer(box, seated=True))
+                     if name == "pump-retainer" else piece)
         a.add(installed, name=f"enclosure-{name}", color=WALL_COLORS[name])
     for name, part, colour in y_seam_hardware(box):
         a.add(part, name=name, color=colour)
