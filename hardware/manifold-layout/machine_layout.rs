@@ -11,6 +11,7 @@ use std::path::Path;
 
 #[path = "../assembly/scenes/model_export/component_order.rs"]
 mod component_order;
+mod machine_layout_refs;
 
 fn f(v: &Value, k: &str) -> Result<f64> {
     v.get(k)
@@ -119,6 +120,7 @@ fn payload_entries(path: &str) -> Result<Vec<Imported>> {
 
 struct Layout {
     sources: BTreeMap<String, Vec<Imported>>,
+    references: BTreeMap<String, machine_layout_refs::References>,
     instances: Vec<Value>,
     presentation: Vec<Value>,
     generated: Vec<Imported>,
@@ -132,6 +134,7 @@ impl Layout {
     fn new(path: &Path) -> Self {
         Self {
             sources: BTreeMap::new(),
+            references: BTreeMap::new(),
             instances: vec![],
             presentation: vec![],
             generated: vec![],
@@ -155,6 +158,49 @@ impl Layout {
         }
         Ok(&self.sources[path])
     }
+    fn reference(&mut self, model: &str) -> Result<&mut machine_layout_refs::References> {
+        if !self.references.contains_key(model) {
+            self.references.insert(
+                model.to_owned(),
+                machine_layout_refs::References::open(model)?,
+            );
+        }
+        Ok(self.references.get_mut(model).unwrap())
+    }
+    fn identities(&mut self, model: &str) -> Result<Vec<String>> {
+        if model == self.generated_path {
+            return Ok(self.generated.iter().map(|b| b.name.clone()).collect());
+        }
+        if let Some(parts) = self.sources.get(model) {
+            return Ok(parts.iter().map(|b| b.name.clone()).collect());
+        }
+        if model.ends_with(".npz") {
+            return Ok(self.reference(model)?.names.clone());
+        }
+        Ok(self.load(model)?.iter().map(|b| b.name.clone()).collect())
+    }
+    fn entry_bounds(&mut self, model: &str, index: usize, transform: &Affine) -> Result<Bounds> {
+        if model.ends_with(".npz") && !self.sources.contains_key(model) {
+            return self.reference(model)?.bounds(index, transform);
+        }
+        bounds(
+            std::slice::from_ref(
+                self.load(model)?
+                    .get(index)
+                    .context("selected source entry")?,
+            ),
+            transform,
+        )
+    }
+    fn model_bounds(&mut self, model: &str, transform: &Affine) -> Result<Bounds> {
+        let n = self.identities(model)?.len();
+        let mut result = None;
+        for i in 0..n {
+            let b = self.entry_bounds(model, i, transform)?;
+            result = Some(result.map_or(b, |old| merged(old, b)));
+        }
+        result.context("empty model has no seating bounds")
+    }
     fn add(
         &mut self,
         model: &str,
@@ -164,21 +210,27 @@ impl Layout {
         transform: Affine,
         color: Option<Value>,
     ) -> Result<Vec<String>> {
-        let source = self.load(model)?;
-        let selected = selected.unwrap_or_else(|| (0..source.len()).collect());
+        let source_names = self.identities(model)?;
+        let selected = selected.unwrap_or_else(|| (0..source_names.len()).collect());
         let mut name_counts: BTreeMap<String, usize> = BTreeMap::new();
         for &index in &selected {
-            *name_counts.entry(source[index].name.clone()).or_default() += 1;
+            *name_counts
+                .entry(
+                    source_names
+                        .get(index)
+                        .context("selected source entry")?
+                        .clone(),
+                )
+                .or_default() += 1;
         }
         let duplicate_names = name.is_none() && name_counts.values().any(|&count| count > 1);
         let mut by_name: BTreeMap<String, Bounds> = BTreeMap::new();
         let mut ordered = vec![];
         for &i in &selected {
-            let body = source.get(i).context("selected source entry")?;
             let body_name = name
                 .map(|name| logical(name).to_owned())
-                .unwrap_or_else(|| format!("{prefix}{}", logical(&body.name)));
-            let b = bounds(std::slice::from_ref(body), &transform)?;
+                .unwrap_or_else(|| format!("{prefix}{}", logical(&source_names[i])));
+            let b = self.entry_bounds(model, i, &transform)?;
             if let Some(before) = by_name.get_mut(&body_name) {
                 *before = merged(*before, b);
             } else {
@@ -226,7 +278,7 @@ impl Layout {
         } else if duplicate_names {
             let mut seen: BTreeMap<String, usize> = BTreeMap::new();
             for &index in &selected {
-                let native = self.sources[model][index].name.clone();
+                let native = source_names[index].clone();
                 let ordinal = seen.entry(native.clone()).or_default();
                 *ordinal += 1;
                 let target = if name_counts[&native] > 1 {
@@ -1280,7 +1332,50 @@ fn installed(layout: &mut Layout, v: &Value) -> Result<()> {
 }
 
 fn hydrate(layout: &mut Layout, plan: &Value) -> Result<()> {
-    append(layout, plan)?;
+    let rows = plan["instances"].as_array().context("prepared instances")?;
+    let normalized = plan["metadata"]["raw_bounds"].is_object()
+        && plan["metadata"]["frames"].is_object()
+        && plan["metadata"]["seats"].is_object()
+        && rows.iter().all(|row| {
+            row["model"].as_str().is_some_and(|m| m.ends_with(".npz"))
+                && row["split_components"] != true
+                && row["indices"].is_array()
+                && (row.get("name").is_none() || row["indices"].as_array().unwrap().len() <= 1)
+        });
+    if normalized {
+        for row in rows {
+            let names = layout.identities(row["model"].as_str().unwrap())?;
+            for index in row["indices"].as_array().unwrap() {
+                let index = index.as_u64().context("prepared index")? as usize;
+                let native = names.get(index).context("prepared source entry")?;
+                let name = row["name"]
+                    .as_str()
+                    .map(|n| logical(n).to_owned())
+                    .unwrap_or_else(|| {
+                        format!(
+                            "{}{}",
+                            row["prefix"].as_str().unwrap_or(""),
+                            logical(native)
+                        )
+                    });
+                if !layout.order.contains(&name) {
+                    layout.order.push(name);
+                }
+            }
+            let mut instance = row.clone();
+            instance["transform"] = json!(frame(&row["transform"])?.m);
+            layout.instances.push(instance);
+        }
+        layout.presentation.extend(
+            plan["presentation"]
+                .as_array()
+                .into_iter()
+                .flatten()
+                .cloned(),
+        );
+    } else {
+        append(layout, plan)?;
+    }
     // The casing is a measuring envelope, deliberately absent from the exported assembly.
     for (name, b) in plan["metadata"]["raw_bounds"]
         .as_object()
@@ -1509,10 +1604,8 @@ fn run(v: &Value, out: &Path) -> Result<Value> {
     if let Some(models) = v["piece_models"].as_object() {
         let mut pieces = serde_json::Map::new();
         for (name, path) in models {
-            let b = bounds(
-                layout.load(path.as_str().context("piece model")?)?,
-                &Affine::IDENTITY,
-            )?;
+            let b =
+                layout.model_bounds(path.as_str().context("piece model")?, &Affine::IDENTITY)?;
             pieces.insert(
                 name.clone(),
                 json!([b.min.x, b.min.y, b.min.z, b.max.x, b.max.y, b.max.z]),
@@ -1546,7 +1639,8 @@ fn run(v: &Value, out: &Path) -> Result<Value> {
         .collect::<Vec<_>>();
     metadata["pack_order"] = json!(order);
     let mut pack_references: BTreeMap<String, Vec<Value>> = BTreeMap::new();
-    for instance in &layout.instances {
+    for ordinal in 0..layout.instances.len() {
+        let instance = layout.instances[ordinal].clone();
         let model = instance["model"].as_str().unwrap();
         let named = instance.get("name").and_then(Value::as_str);
         let prefix = instance.get("prefix").and_then(Value::as_str).unwrap_or("");
@@ -1555,11 +1649,7 @@ fn run(v: &Value, out: &Path) -> Result<Value> {
         }
         // Metadata needs names/indices only; reading source identities here avoids creating
         // another placed model solely to rediscover its groups in Python.
-        let bodies = if model == layout.generated_path {
-            &layout.generated
-        } else {
-            &layout.sources[model]
-        };
+        let body_names = layout.identities(model)?;
         let indices = instance["indices"]
             .as_array()
             .map(|a| {
@@ -1567,12 +1657,12 @@ fn run(v: &Value, out: &Path) -> Result<Value> {
                     .map(|i| i.as_u64().unwrap() as usize)
                     .collect::<Vec<_>>()
             })
-            .unwrap_or_else(|| (0..bodies.len()).collect());
+            .unwrap_or_else(|| (0..body_names.len()).collect());
         let mut groups: BTreeMap<String, Vec<usize>> = BTreeMap::new();
         for i in indices {
             let name = named
                 .map(|name| logical(name).to_owned())
-                .unwrap_or_else(|| format!("{prefix}{}", logical(&bodies[i].name)));
+                .unwrap_or_else(|| format!("{prefix}{}", logical(&body_names[i])));
             let name = aliases
                 .get(&name)
                 .and_then(Value::as_str)
