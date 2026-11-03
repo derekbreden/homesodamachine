@@ -6,7 +6,8 @@
   },
   "members": {
     "sf76e-thermal-fuse.step": "ee95f27a52c445bd9be8b24a6b1822a50ef1d60e0deb8d337acbc695733b47e8",
-    "sf76e-thermal-fuse.step.mesh": "c4882921c1250afe714a660f812b691260cd25492186fd489bb9280f08995e2a"
+    "sf76e-thermal-fuse.step.mesh": "c4882921c1250afe714a660f812b691260cd25492186fd489bb9280f08995e2a",
+    "sf76e-thermal-fuse.source-fine.npz": "23a9571a0b750ba85a813cfbafd248f604a13537fd1fb0614e963cbd2e1ede71"
   },
   "fine_payload": {
     "source_step_sha256": "ee95f27a52c445bd9be8b24a6b1822a50ef1d60e0deb8d337acbc695733b47e8",
@@ -30,5 +31,29 @@
       }
     ],
     "color_space": "linear-rgb"
+  },
+  "fine_model": {
+    "path": "sf76e-thermal-fuse.source-fine.npz",
+    "sha256": "23a9571a0b750ba85a813cfbafd248f604a13537fd1fb0614e963cbd2e1ede71",
+    "bytes": 46350,
+    "format": "MeshCAD model NPZ (V/T/F, names, linear colors, analytic records, document)",
+    "frame": "authored source",
+    "source": {
+      "commit": "76d0012de487d84ce7940addb78c37ccdb905b91",
+      "tree": "99101c3a8831129b5d53944f2ec7c556b1209c32",
+      "path": "hardware/reference/sf76e-thermal-fuse/sf76e_thermal_fuse.py",
+      "sha256": "34c7897fb732e08b07c03611a98d272fba2230590b90a3cb8bc9b84789a8091c"
+    },
+    "producer": "hardware/reference/sf76e-thermal-fuse/sf76e_thermal_fuse.py:build",
+    "backend": "CadQuery API with MeshCAD/Manifold",
+    "kernel": "meshcad==671c00aa23ad9f18 manifold3d==3.5.2",
+    "vertex_dtype": "float64",
+    "triangle_dtype": "uint32",
+    "face_dtype": "uint32",
+    "coordinates": "raw builder arrays; no resnap or float32 conversion",
+    "grid_mm": 9.313225746154785e-10,
+    "linear_mm": 0.005,
+    "angular_rad": 0.05,
+    "entries": 1
   }
 }

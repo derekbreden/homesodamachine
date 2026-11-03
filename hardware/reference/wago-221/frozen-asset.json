@@ -10,6 +10,17 @@
     "wago-221-415.step": "83d75c210b172e3f19100b23194b2f453c8398f2f95a7887b0ce2471249da065",
     "wago-221-415.step.mesh": "bb0e044c9e1e0b24baf338fa1669d0d7ffde86ea82a859866c344e73a51aec1b",
     "wago-221-420.step": "03568637dc67a1ba7b5648ec1deb53e7238ebec2ead968eefdc8f4e7be2a575c",
-    "wago-221-420.step.mesh": "504d730ea52c2445d44b7aa6466efdd8780bd2872968db9606d0f07880e78c34"
+    "wago-221-420.step.mesh": "504d730ea52c2445d44b7aa6466efdd8780bd2872968db9606d0f07880e78c34",
+    "wago-221-413.fine.step.mesh": "c63d87c73e1dd8902d883c4cc09f653066d543d004813286b2e9dfd191eefe87"
+  },
+  "fine_payload": {
+    "source_step_sha256": "ca567c0670a91fa0b28b66e50744c99a4335da85497cba4f31bd0e04c85d266e",
+    "path": "wago-221-413.fine.step.mesh",
+    "sha256": "c63d87c73e1dd8902d883c4cc09f653066d543d004813286b2e9dfd191eefe87",
+    "linear_mm": 0.005,
+    "angular_rad": 0.05,
+    "producer": "hardware/scripts/_rust_part.py:_tessellate",
+    "origin": "Immutable retained kernel STEP payload",
+    "color_space": "linear-rgb"
   }
 }

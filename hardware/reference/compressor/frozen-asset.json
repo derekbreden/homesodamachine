@@ -6,7 +6,8 @@
   },
   "members": {
     "compressor.step": "8eaf3cd580b7ffa68578a00c2401673bbc45246eb565614d3d6175f5598b9d62",
-    "compressor.step.mesh": "e2453f221d7251a64d210d6e4e9a07b3de57cca34174b229a9f14ac33855a4c0"
+    "compressor.step.mesh": "e2453f221d7251a64d210d6e4e9a07b3de57cca34174b229a9f14ac33855a4c0",
+    "compressor.source-fine.npz": "a9f949ceff09451d3ee795cefd4a3718adc5b11a3607193d5d84a3ef33cb88bc"
   },
   "fine_payload": {
     "source_step_sha256": "8eaf3cd580b7ffa68578a00c2401673bbc45246eb565614d3d6175f5598b9d62",
@@ -41,5 +42,29 @@
       }
     ],
     "color_space": "linear-rgb"
+  },
+  "fine_model": {
+    "path": "compressor.source-fine.npz",
+    "sha256": "a9f949ceff09451d3ee795cefd4a3718adc5b11a3607193d5d84a3ef33cb88bc",
+    "bytes": 93235,
+    "format": "MeshCAD model NPZ (V/T/F, names, linear colors, analytic records, document)",
+    "frame": "authored source",
+    "source": {
+      "commit": "76d0012de487d84ce7940addb78c37ccdb905b91",
+      "tree": "99101c3a8831129b5d53944f2ec7c556b1209c32",
+      "path": "hardware/reference/compressor/compressor.py",
+      "sha256": "208d785780ba88ff1114e3c98d27e3c69997be4eceea146f875f838aef6c80dd"
+    },
+    "producer": "hardware/reference/compressor/compressor.py:build",
+    "backend": "CadQuery API with MeshCAD/Manifold",
+    "kernel": "meshcad==671c00aa23ad9f18 manifold3d==3.5.2",
+    "vertex_dtype": "float64",
+    "triangle_dtype": "uint32",
+    "face_dtype": "uint32",
+    "coordinates": "raw builder arrays; no resnap or float32 conversion",
+    "grid_mm": 9.313225746154785e-10,
+    "linear_mm": 0.005,
+    "angular_rad": 0.05,
+    "entries": 2
   }
 }
