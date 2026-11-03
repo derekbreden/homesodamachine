@@ -1,99 +1,45 @@
 {
-  "source_commit": "c9c0612c40b8ff6f9ba3cbbc5128654dd1d00c30",
+  "source_commit": "f455ad1bd76cf60bdcbc3f44af5ec4214cb6c0e1",
   "scope": "ASSE adapter-hex capture, fitted PISCO body/neck bearings and measured meter housing socket; declared Box, pump/water-regulator fits and unrelated native bodies, viewer arrays and pointer rows are retained. Three complete receiver/cap pairs bind the next physical fit trial.",
   "members": {
-    "hardware/manifold-layout/enclosure-assembly.step": "dce84e02da0f307ff9c27d2f9bd0286189ea2168f6ae0166d16e078a1c845ec1",
-    "hardware/manifold-layout/enclosure-assembly.step.mesh": "f5d238b84820ad7c1e0736586d712783bda6056fbf3405238205ecf9957ea210",
-    "hardware/printed-parts/enclosure/enclosure/enclosure.step": "b0b819005b61d936dc2499cc785aaa22309cf0284b1a739ef33b1192c38e188e",
-    "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh": "09b0103a9939b3259f198201e8704ec20e0a255f625ddabbab617d8a7434719c",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step": "583e9da36bee49f52ce44bf519e5034ec2f0fd43f5f0981f5f1cbb0c999dcd87",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh": "85d3bd0c997d9f9fb98f26a55f456fa78435f68b344976a55c365fcf31059715",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl": "1f2a19edfa01a10b9c2023734fbc8c384afd06e36674794a300a1cf6f1b2e833",
-    "hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step": "964fccf055aa6bb8e28039a2827b4f323749b777b6d9c2c864855201e89acc00",
-    "hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step.mesh": "e98a6d46185a7194568a268398471623e72c7959454910f2d63bfd4d97a93e39",
-    "hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.step": "2521ac0dbe6974104673cc77895a3da7c196c0f66135a05d0fbfa0a7372a4574",
-    "hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.step.mesh": "637c510933cce73a04867d476c4b4ca255cf96a0d776d019388f63c7009fb077",
-    "hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.step": "df32df13cb64d2bb12c6491438f9f7f3586fbd34a17ea8393618058f72850ce2",
-    "hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.step.mesh": "81936ffd394cf353d4c871edf99f82d7d9475204819ef7b006bce740fbee7c60",
-    "hardware/printed-parts/enclosure/rear-equipment-caps/rear-equipment-caps-installed.step": "8f7f8e95f3d23b60753e6f08e9a24081eb1ae4290e7a4aa77ec30da3238f47e7",
-    "hardware/printed-parts/enclosure/rear-equipment-caps/rear-equipment-caps-installed.step.mesh": "9a870c242df39014590ee420cbbef1883bf573466bd92088ea0d9e1c276a29aa"
+    "hardware/manifold-layout/enclosure-assembly.step": "3ee4ae338bfda79444397c7805cf22bdee878c7763070660579db7d9d216e9c2",
+    "hardware/manifold-layout/enclosure-assembly.step.mesh": "2ab3a53866d66cc265b443cfd9e4b843643271f6f0738bd1bf046aa0c0a34866",
+    "hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step": "491db8e5f290d5fa9dcdf30f95094376f99a21e585569a83b25a433cb7d26c67",
+    "hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step.mesh": "cab5762d847873c9ca17465280ebe5637415907ec2eb9b1073d4a54f8bf3a9cf",
+    "hardware/printed-parts/enclosure/rear-equipment-caps/rear-equipment-caps-installed.step": "6155796aadb5a1bf70d1c4bcf63806573fbc5ba572dba7249467573513b583f8",
+    "hardware/printed-parts/enclosure/rear-equipment-caps/rear-equipment-caps-installed.step.mesh": "52d3653a5da03c718a946a6b1d9bc1aea788f434d60d1003f64c58d839ce5ca2"
   },
   "made": {
     "hardware/manifold-layout/enclosure-assembly.step": {
-      "commit": "c9c0612c40b8ff6f9ba3cbbc5128654dd1d00c30",
+      "commit": "f455ad1bd76cf60bdcbc3f44af5ec4214cb6c0e1",
       "unproven": true
     },
     "hardware/manifold-layout/enclosure-assembly.step.mesh": {
-      "commit": "c9c0612c40b8ff6f9ba3cbbc5128654dd1d00c30",
-      "unproven": true
-    },
-    "hardware/printed-parts/enclosure/enclosure/enclosure.step": {
-      "commit": "c9c0612c40b8ff6f9ba3cbbc5128654dd1d00c30",
-      "unproven": true
-    },
-    "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh": {
-      "commit": "c9c0612c40b8ff6f9ba3cbbc5128654dd1d00c30",
-      "unproven": true
-    },
-    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step": {
-      "commit": "c9c0612c40b8ff6f9ba3cbbc5128654dd1d00c30",
-      "unproven": true
-    },
-    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh": {
-      "commit": "c9c0612c40b8ff6f9ba3cbbc5128654dd1d00c30",
-      "unproven": true
-    },
-    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl": {
-      "commit": "c9c0612c40b8ff6f9ba3cbbc5128654dd1d00c30",
+      "commit": "f455ad1bd76cf60bdcbc3f44af5ec4214cb6c0e1",
       "unproven": true
     },
     "hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step": {
-      "commit": "c9c0612c40b8ff6f9ba3cbbc5128654dd1d00c30",
+      "commit": "f455ad1bd76cf60bdcbc3f44af5ec4214cb6c0e1",
       "unproven": true
     },
     "hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step.mesh": {
-      "commit": "c9c0612c40b8ff6f9ba3cbbc5128654dd1d00c30",
-      "unproven": true
-    },
-    "hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.step": {
-      "commit": "c9c0612c40b8ff6f9ba3cbbc5128654dd1d00c30",
-      "unproven": true
-    },
-    "hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.step.mesh": {
-      "commit": "c9c0612c40b8ff6f9ba3cbbc5128654dd1d00c30",
-      "unproven": true
-    },
-    "hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.step": {
-      "commit": "c9c0612c40b8ff6f9ba3cbbc5128654dd1d00c30",
-      "unproven": true
-    },
-    "hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.step.mesh": {
-      "commit": "c9c0612c40b8ff6f9ba3cbbc5128654dd1d00c30",
+      "commit": "f455ad1bd76cf60bdcbc3f44af5ec4214cb6c0e1",
       "unproven": true
     },
     "hardware/printed-parts/enclosure/rear-equipment-caps/rear-equipment-caps-installed.step": {
-      "commit": "c9c0612c40b8ff6f9ba3cbbc5128654dd1d00c30",
+      "commit": "f455ad1bd76cf60bdcbc3f44af5ec4214cb6c0e1",
       "unproven": true
     },
     "hardware/printed-parts/enclosure/rear-equipment-caps/rear-equipment-caps-installed.step.mesh": {
-      "commit": "c9c0612c40b8ff6f9ba3cbbc5128654dd1d00c30",
+      "commit": "f455ad1bd76cf60bdcbc3f44af5ec4214cb6c0e1",
       "unproven": true
     }
   },
   "readback_verified": [
     "hardware/manifold-layout/enclosure-assembly.step",
     "hardware/manifold-layout/enclosure-assembly.step.mesh",
-    "hardware/printed-parts/enclosure/enclosure/enclosure.step",
-    "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl",
     "hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step",
     "hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step.mesh",
-    "hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.step",
-    "hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.step.mesh",
-    "hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.step",
-    "hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.step.mesh",
     "hardware/printed-parts/enclosure/rear-equipment-caps/rear-equipment-caps-installed.step",
     "hardware/printed-parts/enclosure/rear-equipment-caps/rear-equipment-caps-installed.step.mesh"
   ],
