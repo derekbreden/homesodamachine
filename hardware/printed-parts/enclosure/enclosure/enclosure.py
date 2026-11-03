@@ -116,29 +116,18 @@ code from a `Box`.
 """
 
 from __future__ import annotations
-
-import functools
 import math
-import os
 import sys
 from collections import namedtuple
 from pathlib import Path
 
-# The normal producer carries numeric recipes into the Rust kernels.
-if __name__ == "__main__" and os.environ.get("HSM_ENCLOSURE_NATIVE") != "1":
-    from _enclosure_rust_driver import main as _rust_main
-    _rust_main()
-    raise SystemExit
-
-# Run as a script, the enclosure is cut on the mesh kernel (`hardware/scripts/meshcad`).
 if __name__ == "__main__":
-    sys.path.insert(0, str(next(p for p in Path(__file__).resolve().parents
-                                if (p / "hardware" / "scripts" / "meshcad").is_dir())
-                           / "hardware" / "scripts"))
-    import meshcad  # noqa: E402
-    meshcad.activate()
+    from _enclosure_rust_driver import main as generate
+    generate()
+    raise SystemExit(0)
 
-import cadquery as cq
+import _enclosure_datums as cq
+cq.install()
 
 _here = Path(__file__).resolve()
 _repo = next(p for p in _here.parents if (p / "hardware" / "scripts" / "_cadq_export.py").is_file())
@@ -159,15 +148,12 @@ sys.path.insert(0, str(_repo / "hardware" / "printed-parts" / "valve-seat"))
 sys.path.insert(0, str(_repo / "hardware" / "printed-parts" / "enclosure" / "valve-tray"))
 sys.path.insert(0, str(_repo / "hardware" / "printed-parts" / "enclosure" / "pump-tray"))
 sys.path.insert(0, str(_repo / "hardware" / "printed-parts" / "enclosure" / "pump-dock"))
-from _cadq_export import export_assembly
-from _materials import WALL_COLORS as PIECE_COLORS, one_body
+from _materials import WALL_COLORS as PIECE_COLORS
 import _fixed_pump_mount
 from docgen import substitute_md, substitute_py_comments
-import _realized
 import fits
 import port_chip
 import reeding
-import trimesh
 import flute_skin as _flute_skin
 import funnel as _funnel
 import funnel_frame as _funnel_frame_part
@@ -1144,51 +1130,6 @@ def _c14_pocket_landmarks() -> dict:
     return {"shoulder": (a, h), "round_mid": mid, "tangent_start": q, "ear_tangent": t,
             "nose": (c14_pocket_w / 2.0, 0.0)}
 
-
-def c14_pocket_profile(clearance: float = 0.0) -> cq.Sketch:
-    """The pocket's outline, offset outward by `clearance`."""
-    if clearance < 0.0:
-        raise ValueError("pocket clearance must be non-negative")
-    p = _c14_pocket_landmarks()
-    a, h = p["shoulder"]
-    mx, mz = p["round_mid"]
-    qx, qz = p["tangent_start"]
-    tx, tz = p["ear_tangent"]
-    nose_x = p["nose"][0]
-    sketch = (
-        cq.Sketch()
-        .segment((-a, h), (a, h))
-        .arc((a, h), (mx, mz), (qx, qz))
-        .segment((qx, qz), (tx, tz))
-        .arc((tx, tz), (nose_x, 0.0), (tx, -tz))
-        .segment((tx, -tz), (qx, -qz))
-        .arc((qx, -qz), (mx, -mz), (a, -h))
-        .segment((a, -h), (-a, -h))
-        .arc((-a, -h), (-mx, -mz), (-qx, -qz))
-        .segment((-qx, -qz), (-tx, -tz))
-        .arc((-tx, -tz), (-nose_x, 0.0), (-tx, tz))
-        .segment((-tx, tz), (-qx, qz))
-        .arc((-qx, qz), (-mx, mz), (-a, h))
-        .assemble()
-        .reset()
-    )
-    if clearance:
-        face = sketch._faces.Faces()[0]  # CadQuery Sketch has no public wire accessor.
-        wires = face.outerWire().offset2D(clearance)
-        if len(wires) != 1:
-            raise ValueError(f"a {clearance:g} mm pocket offset produced {len(wires)} outlines")
-        sketch = cq.Sketch().face(wires[0]).reset()
-    return sketch
-
-
-def c14_pocket_prism(clearance: float, y0: float, y1: float) -> cq.Workplane:
-    """The pocket outline extruded from `y0` to `y1`."""
-    if y1 <= y0:
-        raise ValueError(f"pocket prism ends at {y1:g}, not beyond its start {y0:g}")
-    from world_workplane import xz_plane_y_up
-    return (cq.Workplane(xz_plane_y_up).workplane(offset=y0)
-            .placeSketch(c14_pocket_profile(clearance)).extrude(y1 - y0))
-
 # THE FLANGE ENTERS THROUGH THE FIXED +X STRIP before it reaches that pocket. Carry its exact
 # slipped profile another 9 mm in Y- so the two-ear moulding can be held square and translated
 # into its seat. One further millimetre is a boolean overcut past the stated running clearance,
@@ -1682,35 +1623,9 @@ def record_bound(bound: Bound) -> Bound:
     return bound
 
 
-# --- primitives -------------------------------------------------------------
-
-def _ybox(x0, x1, y0, y1, z0, z1):
-    return (
-        cq.Workplane("XY")
-        .box(x1 - x0, y1 - y0, z1 - z0, centered=False)
-        .translate((x0, y0, z0))
-        .val()
-    )
-
-
 def _supported_cut(cutter, up=1.0):
     """A cavity with extra room at its supported face, along the piece's build direction."""
     return cutter.fuse(cutter.translate((0.0, 0.0, up * fits.supported_surface)))
-
-
-def _xcyl(r, y, z, x0, x1):
-    """Cylinder of radius r along X from x0 to x1, axis at (y, z)."""
-    return cq.Solid.makeCylinder(r, abs(x1 - x0), cq.Vector(min(x0, x1), y, z), cq.Vector(1, 0, 0))
-
-
-def _ycyl(r, x, z, y0, y1):
-    """Cylinder of radius r along Y from y0 to y1, axis at (x, z)."""
-    return cq.Solid.makeCylinder(r, abs(y1 - y0), cq.Vector(x, min(y0, y1), z), cq.Vector(0, 1, 0))
-
-
-def _zcyl(r, x, y, z0, z1):
-    """Cylinder of radius r along Z from z0 to z1, axis at (x, y)."""
-    return cq.Solid.makeCylinder(r, abs(z1 - z0), cq.Vector(x, y, min(z0, z1)), cq.Vector(0, 0, 1))
 
 
 def _ring(section):
@@ -1727,63 +1642,6 @@ def _ring(section):
     vertex exactly where the section put it, and the tie is not there to take."""
     pts = list(section)
     return pts if pts[0] == pts[-1] else pts + [pts[0]]
-
-
-def _yz_prism(x0, x1, section):
-    """A prism along X from x0 to x1, whose `section` is a closed `(y, z)` polygon.
-
-    `_ybox` with one of its four section corners free. The `YZ` workplane's own axes are the
-    world's Y and Z, so the points are read in the frame every station is stated in."""
-    return (
-        cq.Workplane("YZ", origin=(min(x0, x1), 0.0, 0.0))
-        .polyline(_ring(section)).wire()
-        .extrude(abs(x1 - x0))
-        .val()
-    )
-
-
-def _xz_prism(y0, y1, section):
-    """A prism along Y from y0 to y1, whose `section` is a closed `(x, z)` polygon.
-
-    `_yz_prism` turned a quarter. The `XZ` workplane faces −Y, so the extrusion is taken back
-    the other way and the prism set down at y0 — and its axes are the world's X and Z, which
-    is the plane a feature on a ±X wall is drawn in."""
-    return (
-        cq.Workplane("XZ")
-        .polyline(_ring(section)).wire()
-        .extrude(-(y1 - y0))
-        .val()
-        .translate((0.0, y0, 0.0))
-    )
-
-
-def _xy_prism(z0, z1, section):
-    """A prism along Z from z0 to z1, whose `section` is a closed `(x, y)` polygon.
-
-    The third of the trio, and the one a feature drawn IN PLAN wants — a wall raked about a
-    standing vertical is one line in this section and a fitted surface in either other."""
-    return (
-        cq.Workplane("XY")
-        .polyline(_ring(section)).wire()
-        .extrude(abs(z1 - z0))
-        .val()
-        .translate((0.0, 0.0, min(z0, z1)))
-    )
-
-
-def _round_z(solid, r):
-    """Round a box solid's four standing-vertical (Z) corner edges by r — the
-    print-bed corner relief, about the Z axis the pieces print along. r <= 0
-    leaves the corners square (an inset radius can shrink past nothing).
-
-    Each quadrant owns only two of the box's four vertical arrises; its other
-    two are the Y-seam, a telescoping mating face with no exterior corner to
-    relieve. Rounding the whole box here and letting the Y-split hand each
-    piece its share gives front pieces their front-left/right verticals, back
-    pieces their back-left/right, and leaves the seam square by construction."""
-    if r <= 0:
-        return solid
-    return cq.Workplane(obj=solid).edges("|Z").fillet(r).val()
 
 
 def _column_arc(inner, sx, sy):
@@ -2634,12 +2492,6 @@ def display_centre_x(outer):
     return (outer[0] + outer[1]) / 2.0
 
 
-def _halfspace(origin, normal, extent):
-    """Solid filling the +normal side of the plane through origin."""
-    plane = cq.Plane(origin=cq.Vector(*origin), xDir=cq.Vector(1, 0, 0), normal=cq.Vector(*normal))
-    return cq.Workplane(plane).rect(4 * extent, 4 * extent).extrude(extent).val()
-
-
 def _facet_wedge(outer):
     """The solid removed to cut the display facet — the +normal half-space, over the
     box's WHOLE WIDTH. There is no lateral window: the chamfer runs wall to wall, so
@@ -2767,56 +2619,11 @@ def flute_centres(outer):
     return tuple(k * pitch for k in range(flute_count))
 
 
-@functools.lru_cache(maxsize=8)
-def _rounded_outer(outer):
-    """The outer box with rounded standing corners and the swept display top — the
-    print silhouette the half is clipped to so nothing pokes past it. A full-width facet raises
-    no new standing vertical: it runs out into the ±X walls' own rounds, which are already
-    relieved.
-
-    IT IS A PLAIN BOX AND THE SHOW SURFACE IS NOT. The flutes are cut into the MESH the printer
-    reads (`flute_skin.py`), not into this solid, because the fade that stops them is a field
-    over the whole surface and not a figure a prism can carry: it has to follow an opening's
-    rim, a diagonal arris and a level seam with one rule. What this shape is, then, is the
-    surface the flutes are measured FROM — every station in that field is struck on the plan
-    this returns.
-    """
-    ox0, ox1, oy0, oy1, oz0, oz1 = outer
-    box = _round_z(_ybox(ox0, ox1, oy0, oy1, oz0, oz1), corner_round)
-    return _swept_top.silhouette(outer, box, corner_round)
-
-
 def housing_fill(box):
     """The integral upper pump inverse continues as broad stock to the roof."""
     if not (box.pump_bay and box.pack.collet_plate):
         return None
     return _fixed_pump_mount.stock(sys.modules[__name__], box)
-
-
-def _shell_with_facet(inner, outer, fill=None, housing_back=None):
-    """The curved exterior and display housing around the cavity, and `fill` (`housing_fill`)
-    kept out of the cavity as well."""
-    ix0, ix1, iy0, iy1, iz0, iz1 = inner
-    ox0, ox1, oy0, oy1, oz0, oz1 = outer
-    a, normal, origin, dy, dz = _facet_geom(outer)
-    extent = max(ox1 - ox0, oy1 - oy0, oz1 - oz0) + 100.0
-
-    inner_box = _cavity(inner)
-    outer_chamfered = _rounded_outer(outer)
-
-    back_origin = (origin[0] - display_facet_thickness * normal[0],
-                   origin[1] - display_facet_thickness * normal[1],
-                   origin[2] - display_facet_thickness * normal[2])
-    keepout = _halfspace(back_origin, normal, extent).intersect(
-        _ybox(ox0 - extent, ox1 + extent,
-              oy0 - extent, housing_back_y(outer) if housing_back is None else housing_back,
-              oz0 - extent, oz1 + extent))
-    inner_clipped = inner_box.cut(keepout)
-    if fill is not None:
-        inner_clipped = inner_clipped.cut(fill)
-
-    shell = outer_chamfered.cut(inner_clipped)
-    return cq.Workplane(obj=shell)
 
 
 def _display_point(outer, point):
@@ -2839,49 +2646,6 @@ def display_plane(outer):
 
 def _display_cut_exit_depth():
     return 12.0
-
-
-def _display_cuts(outer, support_floor=None, support_fore=None, extend_wing_exits=True):
-    """Accepted cover pocket, deeper glass/PCB seat and open wing support lanes.
-
-    Every pocket includes the complete 12 mm exit. Extended wing lanes stop at
-    the display-storey floor, with an aft wall that joins the bay plane on a
-    45-degree run-out. The integral pump stock uses the pocket exits alone.
-
-    THE SEATING LAND ENDS ON EACH POCKET MOUTH'S PLANE, ALL THE WAY TO THE CORNER ROUND. An
-    exit's down-slope face leans forward as it drops and meets the cover's floor inside the
-    inset's lower corner round. Below the floor each exit runs one round radius further
-    down-slope, held inside the inset's own outline, so the round carries on down from the
-    floor until it meets that face.
-    """
-    plane = display_plane(outer)
-    place = cq.Location(plane)
-    canonical_exit = _display_cut_exit_depth()
-    cut = _display_wings.cuts(
-        display_facet_thickness+display_pcb_cut_through, canonical_exit).moved(place)
-    round_r = _interface.display_inset_corner_r
-    below = _swept_top.rounded_prism(display_inset_x, display_inset_slope, round_r,
-                                     -display_facet_thickness, -display_inset_depth)
-    for exit in _display_wings.support_exits(canonical_exit):
-        cut = cut.fuse(below.intersect(exit.translate((0, -round_r, 0))).moved(place))
-    if support_floor is not None and extend_wing_exits:
-        room = _ybox(outer[0]-1,outer[1]+1,outer[2]-1,outer[3]+1,
-                     support_floor,outer[5]+1)
-        if support_fore is not None:
-            roof = _display_wings.BACK + _display_wings.WING_THICK + _display_wings.BEARING_AIR
-            aft = plane.toWorldCoords((
-                0.0, _display_wings.WING_SPAN/2 + _display_wings.END_AIR
-                - canonical_exit*math.tan(math.radians(_display_wings.ANGLE)),
-                roof-canonical_exit))
-            run = max(0.0,aft.y-support_fore)
-            room = room.intersect(_yz_prism(outer[0]-1,outer[1]+1,(
-                (outer[2]-1,support_floor),(support_fore,support_floor),
-                (support_fore,aft.z-run),(aft.y,aft.z),
-                (outer[3]+1,aft.z),(outer[3]+1,outer[5]+1),
-                (outer[2]-1,outer[5]+1))))
-        for exit in _display_wings.support_exits(250):
-            cut = cut.fuse(exit.moved(place).intersect(room))
-    return cut.clean()
 
 
 # --- wall through-holes -----------------------------------------------------
@@ -2918,160 +2682,6 @@ def _port_cuts(ports, y0, y1, up=1.0):
     return out
 
 
-def _rect_cut_y(hx, hz, wx, wz, radius, y0, y1):
-    """One rectangular through-hole in a ±Y wall, spanning y0..y1, with the corner radius
-    its port declares. A hole given none is cut square."""
-    cut = (cq.Workplane("XY").box(wx, y1 - y0, wz)
-           .translate((hx, (y0 + y1) / 2.0, hz)))
-    return (cut.edges("|Y").fillet(radius) if radius else cut).val()
-
-
-def _rect_cut_x(hy, hz, wy, wz, radius, x0, x1):
-    """The same read on a ±X side wall, spanning x0..x1."""
-    cut = (cq.Workplane("XY").box(x1 - x0, wy, wz)
-           .translate(((x0 + x1) / 2.0, hy, hz)))
-    return (cut.edges("|X").fillet(radius) if radius else cut).val()
-
-
-def _split_along_caps(edge):
-    """A glyph edge in pieces at each point inside it where it runs along the caps' +Y, so each
-    piece faces down the caps, or up them, over its whole length."""
-    from OCP.BRep import BRep_Tool
-    from OCP.BRepAdaptor import BRepAdaptor_Curve
-    from OCP.BRepBuilderAPI import BRepBuilderAPI_MakeEdge
-    from OCP.GeomAbs import GeomAbs_Line
-    from OCP.TopAbs import TopAbs_REVERSED
-    from OCP.TopoDS import TopoDS
-    from OCP.gp import gp_Pnt, gp_Vec
-
-    curve = BRepAdaptor_Curve(edge)
-    t0, t1 = curve.FirstParameter(), curve.LastParameter()
-    if curve.GetType() == GeomAbs_Line:
-        return [edge]
-
-    def across(t):
-        point, tangent = gp_Pnt(), gp_Vec()
-        curve.D1(t, point, tangent)
-        return tangent.X()
-
-    samples = [t0] + [t0 + (t1 - t0) * (i + 0.5) / 64.0 for i in range(64)] + [t1]
-    cuts = []
-    for a, b in zip(samples, samples[1:]):
-        if across(a) * across(b) >= 0.0:
-            continue
-        for _ in range(60):
-            mid = 0.5 * (a + b)
-            a, b = (a, mid) if across(a) * across(mid) <= 0.0 else (mid, b)
-        cuts.append(0.5 * (a + b))
-    if not cuts:
-        return [edge]
-    geometry = BRep_Tool.Curve_s(edge, 0.0, 1.0)
-    bounds = [t0] + cuts + [t1]
-    pieces = [BRepBuilderAPI_MakeEdge(geometry, a, b).Edge() for a, b in zip(bounds, bounds[1:])]
-    if edge.Orientation() == TopAbs_REVERSED:
-        pieces = [TopoDS.Edge_s(piece.Reversed()) for piece in reversed(pieces)]
-    return pieces
-
-
-def _raked_letter(face, depth):
-    """One letter of `_disposal_flat`, from its outline `face` on the root plane: its outline at
-    the face, `depth` up its caps' +Y, carried straight back to the root, with a 45° wedge under
-    every edge that faces down its caps. Each wedge is that edge's side of the straight letter
-    carried back and down its caps at once, ended on the root plane."""
-    from OCP.BRepBuilderAPI import BRepBuilderAPI_MakeWire
-    from OCP.BRepPrimAPI import BRepPrimAPI_MakePrism
-    from OCP.BRepTools import BRepTools_WireExplorer
-    from OCP.gp import gp_Vec
-
-    wires = []
-    for wire in [face.outerWire()] + face.innerWires():
-        made = BRepBuilderAPI_MakeWire()
-        edges = BRepTools_WireExplorer(wire.wrapped)
-        while edges.More():
-            for piece in _split_along_caps(edges.Current()):
-                made.Add(piece)
-            edges.Next()
-        wires.append(cq.Wire(made.Wire()))
-    outline = cq.Face.makeFromWires(wires[0], wires[1:]).translate(cq.Vector(0.0, depth, 0.0))
-    level = cq.Solid.extrudeLinear(outline, cq.Vector(0.0, 0.0, depth))
-    under = [side for side in level.Faces()
-             if abs(side.normalAt(side.Center()).z) < 1e-6 and side.normalAt(side.Center()).y < -1e-9]
-    if not under:
-        return level
-    meshcad = sys.modules.get("meshcad")
-    if meshcad is not None and meshcad.mesh_mode():
-        wedges = meshcad.prism(under, (0.0, -depth, -depth))
-    else:
-        wedges = cq.Shape.cast(BRepPrimAPI_MakePrism(cq.Compound.makeCompound(under).wrapped,
-                                                    gp_Vec(0.0, -depth, -depth)).Shape())
-    box = level.BoundingBox()
-    root = cq.Solid.makeBox(box.xlen + 2.0, box.ylen + 2.0 * depth + 2.0, depth,
-                            cq.Vector(box.xmin - 1.0, box.ymin - depth - 1.0, 0.0))
-    # The wedges share their sides with the straight letter; an exact fuse of those faces
-    # leaves some letters invalid, a 0.1 µm fuzzy one none.
-    return level.fuse(*wedges.Solids(), tol=1e-4).clean().intersect(root).clean()
-
-
-@functools.lru_cache(maxsize=1)
-def _disposal_flat():
-    """Centered warning outlines in XY, with their bottom at zero and relief along +Z.
-
-    EVERY UNDERSIDE IS RAKED AND EVERY TOP IS LEVEL. back-bottom prints floor-down, so the
-    letters stand on a vertical wall, and a stroke carried straight out of it ends in a flat
-    underside the bed sees as a shelf. At every depth a letter is its outline at the face
-    swept down its caps' -Y as far as that depth lies behind the face: every top stays
-    level and meets the face square, and every underside rises 45° to the face, carried by the
-    layer beneath it. A stroke tip shallower down its caps than that reach is solid down to its
-    45° underside (`_raked_letter`). The face keeps the outline's whole height, and the letter
-    stands the same `disposal_raise` proud."""
-    def text(line, size):
-        return cq.Workplane("XY").text(
-            line, size, disposal_raise + disposal_embed,
-            font=disposal_font, kind=disposal_kind, combine=False,
-            halign="center", valign="center").val()
-
-    em = disposal_cap_height / text("H", 1.0).BoundingBox().ylen
-    for letter in set("".join(disposal_lines)) - set(" ."):
-        height = text(letter, em).BoundingBox().ylen
-        if height < 6.4:
-            raise ValueError(f"disposal warning {letter!r} is only {height:.3f} mm high")
-    rows = [text(line, em) for line in disposal_lines]
-    row_height = max(row.BoundingBox().ylen for row in rows)
-    leading = row_height + disposal_line_gap
-    letters = []
-    for index, row in enumerate(reversed(rows)):
-        bounds = row.BoundingBox()
-        letters.append(row.translate(cq.Vector(
-            -(bounds.xmin + bounds.xmax) / 2.0,
-            index * leading + (row_height - bounds.ylen) / 2.0 - bounds.ymin, 0.0)))
-    depth = disposal_raise + disposal_embed
-    shapes, raked = {}, []
-    for row in letters:
-        for face in row.Faces():
-            if abs(face.Center().z) > 1e-6 or face.normalAt().z > -0.99:
-                continue                                    # each letter's own outline only
-            # A letter that recurs recurs exactly, so each shape is raked once and placed again.
-            box = face.BoundingBox()
-            corner = min((v.X, v.Y) for v in face.Vertices())
-            shape = (round(face.Area(), 6), round(box.xlen, 6), round(box.ylen, 6),
-                     len(face.Edges()))
-            if shape not in shapes:
-                shapes[shape] = (_raked_letter(face, depth), corner)
-            letter, at = shapes[shape]
-            raked.append(letter.translate(cq.Vector(corner[0] - at[0], corner[1] - at[1], 0.0)))
-    return cq.Compound.makeCompound(raked)
-
-
-def disposal_letters(outer):
-    """Raised letters facing +Y, reading left to right along -X with their caps along +Z."""
-    ox0, ox1, _oy0, oy1, oz0, _oz1 = outer
-    return (_disposal_flat()
-            .rotate((0, 0, 0), (1, 0, 0), 90.0)
-            .rotate((0, 0, 0), (0, 0, 1), 180.0)
-            .translate(cq.Vector((ox0 + ox1) / 2.0,
-                                 oy1 - disposal_embed, oz0 + disposal_bottom)))
-
-
 def disposal_field(outer):
     """The flat wall under the warning, including a quiet margin on all four sides."""
     from _disposal_artwork import flat_bounds
@@ -3095,53 +2705,6 @@ def disposal_figures(outer):
         "DISPOSAL_FIELD_HEIGHT": f"{field[5] - field[4]:.1f} mm",
         "DISPOSAL_MARGIN": f"{disposal_margin:g} mm",
     }
-
-
-def _print_solid(name, solid, outer):
-    """The solid a piece's print mesh is cut from: the piece without what it raises proud of its
-    +Y show face (`_raised_relief`), ended exactly on the wall's face.
-
-    The flute cutter closes `_flute_skin.cut_margin` outside the wall even where its depth is
-    zero, so a relief standing on the face would lose its root to it: back-top's raised
-    nameplate field would print as a loose plate, and back-bottom's letters would stand beside
-    a clipped copy of themselves, two tessellations of one outline a few microns apart."""
-    if name == "back-bottom":
-        fx0, fx1, _fy0, _fy1, fz0, fz1 = disposal_field(outer)
-        return solid.cut(_ybox(fx0, fx1, outer[3], outer[3] + disposal_raise + 1.0, fz0, fz1))
-    if name == "back-top":
-        identification = _above_core_shell.rear_identification()
-        for x0, x1, _y0, _y1, z0, z1 in (identification.field_land(), *identification.rail_bounds()):
-            solid = solid.cut(_ybox(x0, x1, outer[3], outer[3] + 10.0, z0, z1))
-        return solid
-    return solid
-
-
-def _raised_relief(name, solid, outer):
-    """What `_print_solid` takes off a piece's show face, carried `disposal_embed` into the wall
-    so it joins the fluted mesh with an overlap; None for a piece that raises nothing.
-    Back-bottom's is its raised disposal warning, back-top's its raised nameplate field."""
-    if name == "back-bottom":
-        return disposal_letters(outer)
-    if name == "back-top":
-        identification = _above_core_shell.rear_identification()
-        return cq.Compound.makeCompound([
-            solid.intersect(_ybox(x0, x1, outer[3] - disposal_embed, outer[3] + 10.0, z0, z1))
-            for x0, x1, _y0, _y1, z0, z1 in (identification.field_land(), *identification.rail_bounds())])
-    return None
-
-
-def finish_print_mesh(name, solid, mesh, outer):
-    """A piece's fluted print mesh with its raised relief joined whole, once. Its print mesh was
-    cut without the relief (`_print_solid`), so the flute cutter met none of it, and the field
-    under it is a plain land the flutes leave flat."""
-    relief = _raised_relief(name, solid, outer)
-    if relief is None:
-        return mesh
-    mesh = trimesh.boolean.union(
-        [_flute_skin.as_written(mesh), _flute_skin.as_written(_piece_mesh(relief))],
-        engine="manifold", check_volume=False)
-    return trimesh.boolean.union(
-        [_flute_skin.as_written(mesh)], engine="manifold", check_volume=False)
 
 
 def _nameplate(solid, plate, outer, y_outer, zlo, zhi, up=1.0):
@@ -3203,8 +2766,7 @@ def _x_port_cuts(ports, x0, x1, up=1.0):
     out = []
     for kind, hy, hz, *size in ports:
         if kind == "round":
-            out.append(_supported_cut(cq.Solid.makeCylinder(
-                size[0] / 2.0, x1 - x0, cq.Vector(x0, hy, hz), cq.Vector(1, 0, 0)), up))
+            out.append(_supported_cut(_xcyl(size[0] / 2.0, hy, hz, x0, x1), up))
         else:
             wy, wz, *radius = size
             out.append(_supported_cut(
@@ -3251,35 +2813,6 @@ def _funnel_cut_plan(centre):
     x0, x1, y0, y1 = _funnel_hole(centre)
     return (x0 - funnel_collar_air, x1 + funnel_collar_air,
             y0 - funnel_collar_air, y1 + funnel_collar_air)
-
-
-@functools.cache
-def _funnel_keepout_source():
-    """The filled funnel below its brim, with normal running air on every face.
-
-    The opening includes the liquid volume. Its top ends at the brim's underside,
-    leaving the enclosure's flange-bearing surface at z = 0.
-    """
-    envelope, _cavity, meta = _funnel.build_solids(outer_air=funnel_collar_air)
-    below_brim = (cq.Workplane("XY")
-                  .box(meta["out_w"] + 2.0, meta["out_d"] + 2.0,
-                       1.0 - meta["end_z"], centered=(True, True, False))
-                  .translate((meta["out_cx"], meta["out_cy"], meta["end_z"] - 1.0))
-                  .val())
-    collar_limit = _swept_top.rounded_prism(
-        _funnel.collar_w + 2.0 * funnel_collar_air,
-        _funnel.collar_d + 2.0 * funnel_collar_air,
-        _funnel.collar_corner_r + funnel_collar_air,
-        -funnel_collar_air - 0.01, 1.0)
-    brim_band = _ybox(-meta['out_w'], meta['out_w'], -meta['out_d'], meta['out_d'],
-                      -funnel_collar_air - 0.01, 1.0).cut(collar_limit)
-    return envelope.cut(brim_band).intersect(below_brim).clean()
-
-
-def _funnel_keepout(outer, centre):
-    """The funnel envelope placed with its brim underside on the enclosure top."""
-    cx, cy = centre
-    return _funnel_keepout_source().translate((cx, cy, funnel_seat_z(outer)))
 
 
 def funnel_seat_z(outer):
@@ -3370,12 +2903,6 @@ def _funnel_cut(inner, outer, centre, wells=(), up=1.0):
             opening = _ybox(*sorted((face, face - side * reach)), sy - gap, sy + gap, lid, floor)
             cut = cut.fuse(opening.intersect(clearance.translate((0.0, 0.0, lid - floor))))
     return cut
-
-
-def _funnel_plumb(half, front, back, seat):
-    return (cq.Workplane(obj=_ybox(-half, half, front, back,
-                                    seat - funnel_seat_thickness - 1.0, seat + slide_slip))
-             .edges("|Z and >Y").fillet(_funnel_frame_part.corner_radius + slide_slip).val())
 
 
 def _seat_ledge_corbels(solid, inner, outer, centre, y_joint):
@@ -3892,22 +3419,6 @@ def grip_interface(inner=None):
         sys.modules[__name__], floor_z=inner[4] if inner is not None else 0.0)
 
 
-def _handhold_cutter(inner, x_ext, sx):
-    """The downward-open finger space, with round ceiling-to-end-wall corners."""
-    bed, roof, _crown = _handhold_levels(inner)
-    y0, y1 = _handhold_y()
-    _flank, cap = _band_x(x_ext, sx)
-    xa, xb = sorted((cap - sx * handhold_wall, x_ext - sx))
-    cutter = _ybox(xa, xb, y0, y1, bed - 1.0, roof)
-    corners = []
-    for edge in cutter.Edges():
-        b = edge.BoundingBox()
-        if (abs(b.zmin - roof) < 1e-6 and abs(b.zmax - roof) < 1e-6
-                and b.xlen > 1.0 and b.ylen < 1e-6):
-            corners.append(edge)
-    return cutter.fillet(handhold_corner_r, corners)
-
-
 def _handhold_backing_end(y_joint, y_side):
     """Square ends of the nominal-wall backing, separated by one running fit."""
     if y_side not in ("front", "back"):
@@ -3965,25 +3476,6 @@ def _handholds(solid, inner, y_joint, y_side):
         if y_side == "front":
             solid = solid.cut(_handhold_backing_joint(inner, y_joint, x_ext, sx, y_side))
     return solid.clean()
-
-
-@functools.cache
-def _handhold_finish_air(inner):
-    """One complete handhold's rounded air, in local coordinates with +X pointing inward.
-
-    The reference spans both Y halves. Its R6 edge and additive print-down transition
-    are built once, independent of a half's seam edges, then mirrored onto the flanks.
-    """
-    bed, roof, crown = _handhold_levels(inner)
-    y0, y1 = _handhold_y()
-    depth = wall + y_stack_low_depth
-    end_stock = handhold_corner_r + handhold_edge_r + handhold_wall
-    blank = _ybox(0.0, depth, y0 - end_stock, y1 + end_stock, bed, crown)
-    before = blank.cut(_handhold_cutter(inner, 0.0, 1.0)).clean()
-    from overhang_round import pocket_rim
-    finished = pocket_rim(before, 0.0, 1.0, y0, y1, bed, roof,
-                          handhold_corner_r, handhold_edge_r, floor=False)
-    return blank.cut(finished).clean()
 
 
 def _finish_handholds(solid, inner):
@@ -4233,16 +3725,6 @@ def _rail_keep(inner):
     return _round_z(_ybox(ix0, ix1, (iy0 - front_wall) + wall, iy1,
                           iz0 - slab_t - 1.0, iz1 + wall + 1.0),
                     corner_round - wall)
-
-
-def _z_rail_crossing(x_face, x_inner, y_joint, lane_aft, floor, peak):
-    crossing = _xz_prism(y_joint, lane_aft, [
-        (x_face, floor), (x_inner, floor), (x_inner, peak), (x_face, peak)])
-    return crossing.transformGeometry(cq.Matrix([
-        [1.0, 0.0, 0.0, 0.0],
-        [0.0, 1.0, 0.0, 0.0],
-        [0.0, 1.0, 1.0, -y_joint],
-    ]))
 
 
 def _z_rail_channels(inner, y_joint, zj, col, plate, chase=(), *, runs=None):
@@ -4727,45 +4209,20 @@ def _back_top_wall_relief_cut(field, up=1.0, *, ceiling=None):
     the pocket's machine-top edge `rz + hz` for `up > 0`, its machine-bottom edge `rz - hz` for
     `up < 0` (`BACK_TOP_UP`). The angled face runs from that edge at the mouth to one `depth`
     (or one `fall`) toward print-down at the floor, and the opposite edge is flat."""
-    face, floor = back_top_wall_face(), rear_plane_y
+    face, floor = (back_top_wall_face(), rear_plane_y)
     depth = floor - face
     pockets = field.pockets if field is not None else ()
     out = None
     for _who, rx, rz, wx, wz in back_top_wall_reliefs:
-        hx, hz = wx / 2.0, wz / 2.0
-        # The pocket's print-roof edge and its print-floor edge, in the machine's Z.
-        roof, sill = rz + up * hz, rz - up * hz
-        landed = any(abs(px - rx) <= hx and abs(pz - rz) <= hz
-                     for px, pz, *_size in pockets)
+        hx, hz = (wx / 2.0, wz / 2.0)
+        roof, sill = (rz + up * hz, rz - up * hz)
+        landed = any((abs(px - rx) <= hx and abs(pz - rz) <= hz for px, pz, *_size in pockets))
         if landed:
-            land_y = floor - field.proud - fits.slip
-            fall = land_y - face                # relief remaining beyond the retained stack
-            d = station_land_draft
-            sill_draft = (min(d, max(0.0, ceiling-sill))
-                          if up < 0 and ceiling is not None else d)
-            x0, x1 = rx - hx, rx + hx
-
-            def ring(y, g, gt, gs):
-                # Side, print-roof and sill growth are independent. The sill
-                # ends on the ceiling plane without an overshooting shelf.
-                za, zb = sill - up * gs, (roof - up * fall) + up * gt
-                zlo, zhi = min(za, zb), max(za, zb)
-                return cq.Wire.makePolygon(
-                    [cq.Vector(x0 - g, y, zlo), cq.Vector(x1 + g, y, zlo),
-                     cq.Vector(x1 + g, y, zhi), cq.Vector(x0 - g, y, zhi)],
-                    close=True)
-            # The plug's faces run on through the wall's face at their own slopes, so the
-            # opening it leaves in that face has the same skirt, roof and sill.
-            k = 1.0 + 1.0 / fall
-            cut = cq.Solid.makeLoft(
-                [ring(face - 1.0, d * k, fall + 1.0, sill_draft * k),
-                 ring(land_y, 0.0, 0.0, 0.0)],
-                True)
+            raise NotImplementedError('The station-land loft requires a Rust construction recipe')
         else:
-            back = roof - up * depth            # the roof's line on the relief's floor
+            back = roof - up * depth
             cut = _ybox(rx - hx, rx + hx, face, floor, min(sill, back), max(sill, back))
-            cut = cut.fuse(_yz_prism(rx - hx, rx + hx,
-                                     [(face, back), (floor, back), (face, roof)]))
+            cut = cut.fuse(_yz_prism(rx - hx, rx + hx, [(face, back), (floor, back), (face, roof)]))
         out = cut if out is None else out.fuse(cut)
     return out
 
@@ -5090,12 +4547,6 @@ def _outlet_under_tangent_wedges(cx, cy, cz):
     return out
 
 
-def _pump_lower_well(pump_trays):
-    """One fitted lower head well, in the pump frame, with its skirt support clearance."""
-    support_top = pump_skirt_support_z(pump_trays) - min(cz for _cx, _cy, cz in pump_trays)
-    return _tray.drop_well(cap_pump_air, support_top=support_top).val()
-
-
 def pump_cartridge_figures(box):
     """Current pump retainer, fixed inverse and snap dimensions."""
     return _fixed_pump_mount.figures(sys.modules[__name__], box)
@@ -5231,19 +4682,6 @@ def _teardrop_y(r, x, z, y0, y1, up=1.0):
         _xz_prism(y0, y1, [(x - half, tangent), (x + half, tangent), (x, apex)]))
 
 
-
-def _unified(solid):
-    """One printed piece, with its coincident-plane seams merged.
-
-    EVERY BOOLEAN LEAVES SPLITTERS. A cutter that fuses a bore to a channel standing on that
-    bore's own axis lands the tangent arc on the piece as a seam across one plane, and the two
-    faces either side of it are one surface reported as two. A volume cannot see them and a
-    clash cannot either; on a section they read as a hole that is not there. The box carries
-    them in the hundreds otherwise, so this is one call at the end of a piece rather than a
-    guard at every fuse that makes one."""
-    return cq.Workplane(obj=solid).clean()
-
-
 def build_pump_retainer(box, halves_cache=None, *, seated=False):
     """The plain lower retainer installs upward through loose front-top's mouth."""
     return _fixed_pump_mount.retainer(sys.modules[__name__], box, seated=seated)
@@ -5300,82 +4738,6 @@ def pump_dock_figures(box):
         "DOCK_TIP_FROM_BACK": f"{plate['seated_tube_bottom_y']-back:.6g} mm",
         "DOCK_CRADLE_BACK": f"Y{back:.6g}",
     }
-
-
-def build_front_half(box):
-    """The whole front column, both pieces still joined at its Z seam."""
-    inner, outer, y_joint = box.inner, box.outer, box.y_joint
-    housing_back = None
-    if box.pump_bay and box.pack.collet_plate and box.pack.funnel:
-        housing_back = _funnel_frame_part.roof_datums(
-            inner, box.pack.funnel, funnel_seat_z(outer), y_joint)['front'] - slide_slip
-    shell = _shell_with_facet(inner, outer, housing_fill(box), housing_back).val()
-    front = shell.intersect(_ybox(outer[0], outer[1], outer[2], y_joint, outer[4], outer[5]))
-    # The fixed front wall's refrigeration reliefs, out of the section before anything stands
-    # on it. The pump storey is the cradle's complete full-width opening; its fitted pump
-    # wells are cut in that cradle, not repeated in the stationary sill below.
-    for cutter in _front_relief_cuts(inner, fridge_reliefs):
-        front = front.cut(cutter)
-    front = front.fuse(_front_lip(inner, y_joint))
-    # The floor's tongue: full thickness on the bed, ending square within the slab
-    # (the core rides the cavity side, so the floor cannot tongue proud like the
-    # walls). Lands in the bottom piece.
-    front = front.fuse(_floor_tongue(inner, y_joint)[0])
-    # Trim to the display facet's plane. The facet runs wall to wall, so it needs no end
-    # wall — both ends are the exterior side walls, which seal themselves.
-    front = front.cut(_facet_wedge(outer))
-    # Let the display into the facet (bezel counterbore + PCB through-hole); this
-    # also clears whatever rib/wall material sits behind the facet in its path.
-    front = front.cut(_display_cuts(
-        outer, box.pump_bay[2] if box.pump_bay else None,
-        bay_back_y(box.pack.collet_plate) if box.pack.collet_plate else None,
-        extend_wing_exits=not bool(
-            box.pump_bay and box.pack.collet_plate and box.pack.pump_trays)))
-    # Punch the funnel's throat through the top wall, behind the display.
-    if box.pack.funnel:
-        front = front.cut(_funnel_cut(inner, outer, box.pack.funnel))
-    # The front wall's through-holes.
-    for cutter in _port_cuts(box.pack.front_ports, outer[2] - 5.0, inner[2] + 5.0):
-        front = front.cut(cutter)
-    # East side-wall through-holes — the CO2 inlet's, low in the machine corridor.
-    for cutter in _x_port_cuts(box.pack.east_ports, inner[1] - 5.0, outer[1] + 5.0):
-        front = front.cut(cutter)
-    # Clip any corner feature that pokes past the rounded print silhouette.
-    front = front.intersect(_rounded_outer(outer))
-    return cq.Workplane(obj=front)
-
-
-def build_back_half(box):
-    """The whole back column, both pieces still joined at its Z seam. The
-    funnel opening crosses the Y seam, so this half takes its share of the
-    cut — the collar bridges the seam."""
-    inner, outer, y_joint = box.inner, box.outer, box.y_joint
-    shell = _shell_with_facet(inner, outer).val()
-    back = shell.intersect(_ybox(outer[0], outer[1], y_joint, outer[3], outer[4], outer[5]))
-    # Give up the tongue envelope, starting square one running fit aft of its end.
-    # The assembled top stays flat under the core. Lands in the bottom piece.
-    back = back.cut(_floor_tongue(inner, y_joint)[1])
-    if box.pack.funnel:
-        back = back.cut(_funnel_cut(inner, outer, box.pack.funnel))
-    # Clip any corner feature that pokes past the rounded print silhouette.
-    back = back.intersect(_rounded_outer(outer))
-    # Wall through-holes for the appliance's external connections — the
-    # faucet umbilical (carb-water, two flavors and 4 mm DRAIN), the tap-water inlet, and
-    # the C14 mains inlet, all through the +Y wall of back-top in the band above the
-    # cold core; their bodies hang in the band's open rear half.
-    # Each bore's roof follows the print of the piece that carries its station.
-    for side in ("top", "bottom"):
-        ports = [p for p in box.pack.back_ports if (p[2] > z_seam) == (side == "top")]
-        for cutter in _port_cuts(ports, inner[3] - 5.0, outer[3] + 5.0,
-                                 up=print_up("back", side)):
-            back = back.cut(cutter)
-    # Optional west-wall connections follow their declared cutouts.
-    for side in ("top", "bottom"):
-        ports = [p for p in box.pack.west_ports if (p[2] > z_seam) == (side == "top")]
-        for cutter in _x_port_cuts(ports, outer[0] - 5.0, inner[0] + 5.0,
-                                   up=print_up("back", side)):
-            back = back.cut(cutter)
-    return cq.Workplane(obj=back)
 
 
 def _floor_bosses(solid, inner, stations, y0, y1, z0, z1):
@@ -5556,13 +4918,6 @@ def _east_bar(wall_x, a, b):
     (ya, za, tip), (yb, zb, _tip) = a[:3], b[:3]
     r = mount_boss_dia / 2.0
     return _ybox(tip, wall_x, min(ya, yb) - r, max(ya, yb) + r, min(za, zb) - r, max(za, zb) + r)
-
-
-def _east_bar_fill(wall_x, a, b, up=1.0):
-    """Only what the bar adds past the two D stems it joins — the material whose clearance is
-    in question. `up` is the stems' print-up (`_east_boss_stem`)."""
-    return (_east_bar(wall_x, a, b)
-            .cut(_east_boss_stem(wall_x, a, up)).cut(_east_boss_stem(wall_x, b, up)))
 
 
 def _east_bar_support(wall_x, a, b, up=1.0):
@@ -6787,28 +6142,6 @@ def _asse_tie_channel_span(ties):
             max(ties) + tie_cav_wide_w / 2.0)
 
 
-def _asse_v(x_apex, z_axis, y0, y1, up, dn, x_east):
-    """The room the chain lies in: a 120° V, apex west on its own axis, open east.
-
-    ONE SHAPE FOR EVERY SECTION. Read off a hex's corner it lies on two whole flats; read off a
-    round one's tangent it lies on two lines; and either way the section that sits deepest is
-    the section that is widest, which is what makes the steps between them faces square to the
-    axis rather than anything drawn here."""
-    run = 1.0 / math.tan(math.radians(asse_v_half))
-    return (
-        cq.Workplane("XZ")
-        .polyline(_ring([(x_apex, z_axis),
-                         (x_apex + up * run, z_axis + up),
-                         (x_east, z_axis + up),
-                         (x_east, z_axis - dn),
-                         (x_apex + dn * run, z_axis - dn)]))
-        .wire()
-        .extrude(-(y1 - y0))
-        .val()
-        .translate((0.0, y0, 0.0))
-    )
-
-
 def _asse_square_end(x_apex, z_axis, reach):
     """The `(x, z)` section of air that ends a V flank square to itself where it leaves the block
     through a level face.
@@ -6956,45 +6289,6 @@ def _asse_cradle(solid, inner, station, y0, y1, z0, z1, up=1.0):
     return solid
 
 
-def _asse_tie_cavity(x_apex, x_wall, z_axis, y0, y1, up, dn, print_up=1.0):
-    """The zip tie's cavity: STRAIGHT on the west, the ASSE anchor's own V on the east.
-
-    Five points and one cut. The V's apex stands closest to that straight, so the cavity comes out
-    narrowest in the middle and flared at both mouths — which is the reach where a hand needs it
-    and the room to turn the vertex where a zip tie needs that, out of one shape rather than out of a
-    chamfer and a round.
-
-    The upper end runs one millimetre past the ceiling lane it opens into. The lower end stops
-    on the anchor's own underside: east of the flank face that mouth already opens directly into
-    air, and carrying the cutter lower would leave a separate one-millimetre notch in the flank.
-    `dn` is what the caller has standing under the axis — the block's own storey and the corbel
-    below it — because a tie's loop leaves this cavity by running east UNDER all of it, and a
-    channel that stopped above the block would be stopped by the corbel.
-
-    `print_up` is the piece's print up. The end that is the cavity's print roof — the lower one on
-    a piece printed ceiling-down, where it roofs the cavity in the flank's own stock — runs on
-    `fits.supported_surface`, the room its supported finish takes. The two faces offset from the
-    V stand 30° off vertical and carry themselves, so the web between them and the V stays one
-    `wall`."""
-    run = 1.0 / math.tan(math.radians(asse_v_half))
-    x_in = x_apex - wall / math.sin(math.radians(asse_v_half))   # a `wall` west of the anchor
-    x_w = x_wall + wall                                          # and a `wall` off the side wall
-    over_up = up + 1.0 + (fits.supported_surface if print_up > 0 else 0.0)
-    over_dn = dn + (fits.supported_surface if print_up < 0 else 0.0)
-    return (
-        cq.Workplane("XZ")
-        .polyline(_ring([(x_w, z_axis + over_up),
-                         (x_in + over_up * run, z_axis + over_up),
-                         (x_in, z_axis),
-                         (x_in + over_dn * run, z_axis - over_dn),
-                         (x_w, z_axis - over_dn)]))
-        .wire()
-        .extrude(-(y1 - y0))
-        .val()
-        .translate((0.0, y0, 0.0))
-    )
-
-
 # --- the flow meter's two anchors, off the top wall ------------------------
 #
 # A BORE, CONCENTRIC WITH THE BARREL IT TAKES. The arms are round, so the seat is round: half a
@@ -7028,36 +6322,9 @@ def _digiten_bore(x_axis, z_axis, r, y0, y1, reach):
     The arc runs from one axis-plane lip round the crown to the other, and the box under it carries
     the opening down clear of the rib — so what this cuts is the barrel's room and the air it comes
     up through, and the rib is left as a half-round hood with a flat lip on each side."""
-    bore = cq.Solid.makeCylinder(r, y1 - y0, cq.Vector(x_axis, y0, z_axis), cq.Vector(0, 1, 0))
+    bore = _ycyl(r, x_axis, z_axis, y0, y1)
     under = _ybox(x_axis - r, x_axis + r, y0, y1, z_axis - r - reach, z_axis)
     return bore.fuse(under)
-
-
-# --- the flavour manifold's valve trays -------------------------------------
-#
-# A VALVE TRAY IS A PLATE WALL TO WALL, with one four-socket `valve_seat` SUNK into it per valve
-# on the deck it stands under. `valve_tray` states its thickness, its margin and its seat height
-# and draws one in its own frame; this turns that onto the deck's own plane and fuses the plate
-# into the piece, the way `_asse_cradle` fuses the ASSE anchor and `_flow_meter_anchors` the flow
-# meter's two half-round seats — and then cuts the sockets and port channels out of it.
-#
-# THE PLATE IS THE BOSS. A boss is material round a socket, and a plate one socket and one wall
-# thick is that material: a seat sunk into it leaves nothing standing off its face. Which is the
-# whole point on this piece — it prints the plate VERTICAL, so a boss on it would be a Ø13.2
-# cylinder cantilevered into air with its own underside to bridge, and there are thirty-two of
-# them. Sunk, the port's channel is a notch running up the plate's own section. The socket is
-# still a horizontal blind bore, though, and a round crown on that axis has no layer under it:
-# `_valve_socket_cutters` carries its complete circular post room into the same tangent roof as
-# every other horizontal bore on this box.
-#
-# NOTHING FASTENS A VALVE TO IT. The four corner posts press into their sockets and the valve's
-# own round body boss lands on the plate's face, which is what sets its height — the same
-# bargain V-A's and V-K's plates on back-top's sidewalls strike (`_above_core_shell.valve_seats`).
-def _valve_tray_placed(shape, plane, sign, seat_x, seat_z):
-    turn = cq.Location(cq.Vector(0, 0, 0), cq.Vector(1, 0, 0),
-                       -90.0 if sign > 0 else 90.0)
-    at = cq.Location(cq.Vector(seat_x, plane, seat_z))
-    return shape.val().moved(turn).moved(at)
 
 
 def _valve_socket_cutters(plane, sign, seat_x, seat_z):
@@ -7354,56 +6621,6 @@ def _anchor_plane(origin, u, n):
     profile point's second coordinate is its own distance toward the root face."""
     t = (n[1] * u[2] - n[2] * u[1], n[2] * u[0] - n[0] * u[2], n[0] * u[1] - n[1] * u[0])
     return cq.Plane(origin=cq.Vector(*origin), xDir=cq.Vector(*t), normal=cq.Vector(*u))
-
-
-def _anchor_bore(origin, u, r, length):
-    """The seat — a cylinder on the tube's own axis.
-
-    The rib stands entirely on the root side of the axis plane, so a whole cylinder cut from it
-    takes exactly the half the seat is and needs no half-space to trim it."""
-    return cq.Solid.makeCylinder(r, length, cq.Vector(*origin), cq.Vector(*u))
-
-
-def _anchor_rib(origin, u, n, length, reach, b0, b1):
-    """The material the seat and its cavity are cut out of, root face to the seat's own flanks."""
-    return (
-        cq.Workplane(_anchor_plane(origin, u, n))
-        .polyline(_ring([(-reach, b0), (reach, b0), (reach, b1), (-reach, b1)]))
-        .wire()
-        .extrude(length)
-        .val()
-    )
-
-
-def _anchor_corbel(origin, u, n, length, a_hang, b_root, deep):
-    """The 45 degree gusset on the print-down side of a rib's flank — `deep` beside it at the
-    root face, tapering to nothing `deep` off that face and standing nowhere past there.
-
-    `a_hang` is the flank that looks print-down, read against the piece's own print up by
-    `_tube_anchors`, and the gusset grows outboard of that flank."""
-    return (
-        cq.Workplane(_anchor_plane(origin, u, n))
-        .polyline(_ring([(a_hang, b_root - deep), (a_hang + math.copysign(deep, a_hang), b_root),
-                         (a_hang, b_root)]))
-        .wire()
-        .extrude(length)
-        .val()
-    )
-
-
-def _anchor_column(origin, u, n, length, a0, a1, b_root, b_lo=0.0):
-    """The column on the print-down side of a rib's flank — the flank's own section from the
-    root face `b_lo` toward the axis plane (0.0 is the whole section), carried on from the flank
-    at `a0` to the face the print grows from at `a1`, so the rib stands on that face and nothing
-    of this end looks print-down over what the column covers."""
-    lo, hi = sorted((a0, a1))
-    return (
-        cq.Workplane(_anchor_plane(origin, u, n))
-        .polyline(_ring([(lo, b_lo), (hi, b_lo), (hi, b_root), (lo, b_root)]))
-        .wire()
-        .extrude(length)
-        .val()
-    )
 
 
 def tube_anchor_end_columns(station, roots, lane, up, face_z, depth=None):
@@ -8080,7 +7297,7 @@ def _seam_fit_reliefs(piece, box, y_side, z_side):
     return piece
 
 
-def build_piece(box, y_side, z_side, halves_cache=None):
+def build_piece(box, y_side, z_side, halves_cache):
     """One of the four printable pieces: the full front/back column split at
     its seam (`box.splits` — the one stated plane, both columns), the bottom
     taking the Z lip, the hooked rails, the stop blocks and the corner fills, the
@@ -8091,12 +7308,7 @@ def build_piece(box, y_side, z_side, halves_cache=None):
     ox0, ox1, oy0, oy1, oz0, oz1 = outer
     zj = box.splits[0] if y_side == "front" else box.splits[1]
     up = print_up(y_side, z_side)
-    if halves_cache is not None and y_side in halves_cache:
-        half = halves_cache[y_side]
-    else:
-        half = build_front_half(box) if y_side == "front" else build_back_half(box)
-        if halves_cache is not None:
-            halves_cache[y_side] = half
+    half = halves_cache[y_side]
     solid = half.val()
     plate = box.pack.collet_plate if (box.pump_bay and box.pack.collet_plate) else None
     if z_side == "bottom":
@@ -8870,64 +8082,6 @@ def _silhouette_bound(pieces, box):
             "interior lane or the wall it roots on"])))
 
 
-def build_pieces(box, *, produced=None, installed_retainer=None):
-    """The four enclosure quadrants and the underside pump retainer, assembled in place.
-
-    DRAWING A PIECE TAKES NO READING. Every bound the box states is in the ledger before this
-    runs — `_dims` states its own as it sizes the shells, `with_funnel` states the throat's as
-    it seats the centre — so the four pieces are a pure function of the Box and a piece handed
-    back unbuilt is a piece nothing on the card was waiting for. That is what lets `_realized`
-    keep them: a build that moves a body inside the walls moves neither the box, which is its
-    stated size, nor the code that cuts it, and a station moves only when the body carrying it
-    does."""
-    _last_box[0] = box
-    produced = produced or {}
-    cache = {}
-
-    def _product(n):
-        if n == "pump-retainer":
-            return build_pump_retainer(box, halves_cache=cache)
-        return build_piece(box, *n.split("-"), halves_cache=cache)
-
-    names = [n for n in PIECE_COLORS
-             if n != "pump-retainer"
-             or (box.pump_bay and box.pack.collet_plate)]
-    pieces = {name: produced[name] if name in produced else _realized.realized(
-                  _realized.key(__name__, box, name,
-                                _above_core_shell.layout.specification()),
-                  lambda n=name: _product(n))
-              for name in names}
-    disconnected = [f"{name}: {len(piece.val().Solids())} solids"
-                    for name, piece in pieces.items()
-                    if len(piece.val().Solids()) != 1 or not piece.val().isValid()]
-    record_bound(Bound(
-        "connected-pieces", "Each printed enclosure piece is one valid connected solid",
-        not disconnected, "; ".join(disconnected) if disconnected else f"{len(pieces)} connected pieces",
-        "one valid solid per printed piece", disconnected))
-    if "back-top" in pieces:
-        _ceiling_show_cap_bound(pieces["back-top"], box)
-    if "front-bottom" in pieces and "back-bottom" in pieces:
-        _handhold_bound(pieces, box)
-    _silhouette_bound(pieces, box)
-    assy = cq.Assembly(name="enclosure")
-    for name, piece in pieces.items():
-        installed = piece
-        if name == "pump-retainer":
-            installed = (installed_retainer if installed_retainer is not None
-                         else build_pump_retainer(box, seated=True))
-        assy.add(installed, name=f"enclosure-{name}".replace("-", "_"),
-                 color=PIECE_COLORS[name])
-    if box.pump_bay and box.pack.collet_plate:
-        from _materials import M_STAINLESS, M_BRASS
-        for name, part, kind in _fixed_pump_mount.hardware(sys.modules[__name__], box):
-            assy.add(part, name=name,
-                     color=M_STAINLESS if kind == 'screw' else M_BRASS)
-    if box.pack.collet_plate:
-        for name, part in _dock.parts(box.pack.collet_plate).items():
-            assy.add(part, name=name, color=_dock.part_color(name))
-    return pieces, assy
-
-
 # HOW FINELY A PIECE IS TESSELLATED FOR THE BED. The show surface is fluted now, so the mesh a
 # slicer reads has to hold a curve the nozzle can draw: the deviation allowed is a fraction of
 # the 0.42 mm bead, and the angle is tight enough that a groove's own arc does not come back as
@@ -8941,119 +8095,6 @@ piece_mesh_angle = 0.05
 _last_box = [None]
 
 
-def _piece_mesh(solid):
-    """Absolute-tolerance print mesh, without any cached triangulation."""
-    from _meshes import mesh_shape
-    points, triangles = mesh_shape(solid.copy(mesh=False), piece_mesh_tol, piece_mesh_angle)
-    mesh = trimesh.Trimesh(vertices=points, faces=triangles, process=True)
-    mesh.merge_vertices()
-    return mesh
-
-
-def _collet_plate_body(plate):
-    """The collet plate's bearing envelope, excluded from show-surface flutes."""
-    return _xz_prism(plate["fore_y"], plate["aft_y"], plate_outline(plate))
-
-
-def export_pump_dock(box):
-    """Write the factory tube setting jig."""
-    import flute_payload
-    from _materials import M_PETGF_BLACK
-    stem = "enclosure-pump-tube-setting-jig"
-    shape = _dock.tube_setting_jig(box.pack.collet_plate, pump_cartridge_aft_y(
-        box.pack.pump_trays, box.pack.collet_plate))
-    step = _here.parent / (stem + ".step")
-    stl = step.with_suffix(".stl")
-    export_assembly(one_body(shape, stem, M_PETGF_BLACK), str(step))
-    printed = _piece_mesh(shape)
-    printed.export(str(stl))
-    meshcad = sys.modules.get("meshcad")
-    if meshcad is not None and meshcad.mesh_mode():
-        meshcad.writer().print_payload(step, printed)
-    else:
-        flute_payload.cut(step, stl)
-
-
-def _export_pieces(pieces, assy, *, produced=()):
-    refused, payloads = [], []
-    box = _last_box[0]
-    produced = set(produced)
-    outer = box.outer
-    # Every assembly piece is meshed once. The plate's envelope also contributes a
-    # shadow mask over the bearing band behind the integral bore face.
-    bodies = {name: _piece_mesh(_print_solid(name, piece.val(), outer))
-              for name, piece in pieces.items() if name not in produced}
-    steel = ([_piece_mesh(_collet_plate_body(box.pack.collet_plate))]
-             if bodies and box.pack.collet_plate else [])
-    berthed, rails = (), ()
-    for name, piece in pieces.items():
-        if name in produced:
-            print(f"-> enclosure-{name}.step")
-            print(f"-> enclosure-{name}.stl")
-            continue
-        export_assembly(one_body(piece, f"enclosure-{name}", PIECE_COLORS[name]),
-                        str(_here.parent / f"enclosure-{name}.step"))
-        print(f"-> enclosure-{name}.step")
-        # AND THE SHOW SURFACES ARE FLUTED HERE, in the mesh, on the way to the bed. See
-        # `flute_skin.py` for why they are not in the solid.
-        berthed = [m for other, m in bodies.items() if other != name] + steel
-        rails = flute_rails(box, berthed)
-        # The top clamp is an interior mechanical part and carries no show field. The
-        # full-width cradle owns the flush front face and both outer flanks: its front rail
-        # carries the face and front corners, while the enclosure-phase side rail starts at
-        # their tangencies. No rail is struck on the fixed front plane inside it.
-        if name == "pump-retainer":
-            rails = []
-        mesh = _flute_skin.flute(bodies[name], rails,
-                                 flute_pitch(outer), flute_depth, flute_rise)
-        mesh = finish_print_mesh(name, piece.val(), mesh, outer)
-        # WHAT IS CHECKED IS WHAT COMES OUT. A piece tessellates with a handful of edges
-        # carrying four faces rather than two — the solid touching itself along a line, which is
-        # a fact about the solid — and refusing the cut for it would refuse every piece. The
-        # engine takes that and repairs it; a mesh that is still not closed after it is one no
-        # slicer should be handed.
-        # WHAT IS CHECKED IS WHAT A SLICER REFUSES. `is_watertight` is the easier question and
-        # a mesh can pass it while Bambu Studio rejects the file outright: winding can close
-        # over an edge that four faces share. This asks the harder one, because these meshes go
-        # in the release bundle and out to a bed.
-        stl = _here.parent / f"enclosure-{name}.stl"
-        mesh.export(str(stl))
-        # AND THE READING IS TAKEN OFF THE FILE, re-read the way a slicer reads it. Everything
-        # before this is in memory and in double precision; what goes to the bed is neither.
-        written = trimesh.load_mesh(str(stl))
-        loose = _flute_skin.non_manifold_edges(written)
-        if loose or not written.is_watertight:
-            # EVERY PIECE IS STILL WRITTEN, and the build still fails. A piece that comes back
-            # refusable says nothing about the five beside it, and raising on the first one
-            # withholds five good files over a sixth — including, on the day this was written,
-            # the one piece somebody was waiting to print.
-            refused.append(
-                f"enclosure-{name}.stl: {loose} non-manifold edge(s), watertight="
-                f"{written.is_watertight}, over {len(written.faces)} facets")
-        print(f"-> enclosure-{name}.stl  ({len(mesh.faces)} facets, "
-              f"{'watertight' if mesh.is_watertight else 'NOT WATERTIGHT'})")
-        # ON THE MESH KERNEL THE PAGE'S PAYLOAD IS CUT IN THIS PASS TOO, off the print in hand,
-        # rather than by `flute_payload_enclosure.py` reading this STL back.
-        meshcad = sys.modules.get("meshcad")
-        if meshcad is not None and meshcad.mesh_mode():
-            payloads.append((_here.parent / f"enclosure-{name}.step", mesh.vertices, mesh.faces))
-        # And this piece's meshes, with all a check cached on them, go before the next is struck.
-        del mesh, written
-    # THE PAYLOADS WAIT FOR THE LAST PIECE, so the meshes every flute was struck against, and
-    # what each query built on them, are let go before the largest reduction measures itself.
-    del bodies, steel, berthed, rails
-    for step, vertices, faces in payloads:
-        meshcad.writer().print_payload(step, trimesh.Trimesh(vertices, faces, process=False))
-    if box.pack.collet_plate:
-        export_pump_dock(box)
-    export_assembly(assy, str(_here.parent / "enclosure.step"))
-    print("-> enclosure.step (assembled pieces)")
-    if refused:
-        raise ValueError(
-            "meshes a slicer refuses, read back off the file and merged by position the way a "
-            "slicer reads one:\n    " + "\n    ".join(refused))
-
-
 def stated_box(pack, *, readings=None):
     """The box at `appliance_width` × `rear_plane_y` × `appliance_height`, with `pack` measured
     against it — the description `build_pieces` turns into the four printable pieces.
@@ -9063,28 +8104,6 @@ def stated_box(pack, *, readings=None):
     how much, and a clash in `pack-closes` at the body that overran. Moving a body moves the
     reading, never the wall."""
     return _dims(pack, readings=readings)
-
-
-def machine_of():
-    """The cold core, when directly derived, and the box around the placed machine.
-
-    A build action receives the exact output of `enclosure_box.py`, which derives the pack once
-    for the enclosure producer. It needs no core: the standalone overlap report is diagnostic
-    output, not part of a wall's geometry. A direct design run derives the live pack and reports
-    against its placed core; it never accepts a potentially old description from the source tree.
-
-    Imported here rather than at module scope so that enclosure_assembly, which builds its
-    own assembly around these walls, is not importing a module that is importing it back."""
-    import _box_spec
-
-    if _box_spec.in_action():
-        box, bounds = _box_spec.read(Box, Bound, (Pack, PortField, Nameplate))
-        BOUNDS[:] = bounds
-        return None, box
-    sys.path.insert(0, str(_repo / "hardware" / "manifold-layout"))
-    import enclosure_assembly
-    _assy, pack, box = enclosure_assembly.machine()
-    return pack.placed["foam-assembly"][0], box
 
 
 def _report_columns(box):
@@ -9117,101 +8136,6 @@ def _report_bounds():
         for line in b.detail:
             print(f"    {line}")
     print()
-
-
-def _produced_back_bottom(box):
-    """The complete Rust print and its fine structural model for the mesh assembly.
-
-    Native callers retain build_piece/build_pieces. The normal mesh generator owns
-    the four files once; its export pass takes the remaining pieces only.
-    """
-    meshcad = sys.modules.get('meshcad')
-    if meshcad is None or not meshcad.mesh_mode():
-        return {}
-    import _enclosure_panel
-    from meshcad.imports import load_model
-    _enclosure_panel.cut(sys.modules[__name__], box, _here.parent)
-    structural = load_model(_here.parent/'enclosure-back-bottom.step.npz')[0]
-    return {'back-bottom': cq.Workplane(obj=structural)}
-
-
-def _produced_back_top(box):
-    """The complete back-top print with its structural body for the mesh assembly."""
-    meshcad = sys.modules.get('meshcad')
-    if meshcad is None or not meshcad.mesh_mode():
-        return {}
-    import _enclosure_back_top
-    if not _enclosure_back_top.can_cut(sys.modules[__name__], box):
-        return {}
-    from meshcad.imports import load_model
-    _enclosure_back_top.cut(sys.modules[__name__], box, _here.parent)
-    structural = load_model(_here.parent/'enclosure-back-top.step.npz')[0]
-    return {'back-top': cq.Workplane(obj=structural)}
-
-
-def _produced_front_top(box):
-    """The complete front-top print with its structural body for the mesh assembly."""
-    meshcad = sys.modules.get('meshcad')
-    if meshcad is None or not meshcad.mesh_mode():
-        return {}
-    import _enclosure_front_top
-    if not _enclosure_front_top.can_cut(sys.modules[__name__], box):
-        return {}
-    from meshcad.imports import load_model
-    _enclosure_front_top.cut(sys.modules[__name__], box, _here.parent)
-    structural = load_model(_here.parent/'enclosure-front-top.step.npz')[0]
-    return {'front-top': cq.Workplane(obj=structural)}
-
-
-def _produced_front_bottom(box):
-    """The front-bottom print with its full fine body for the mesh assembly."""
-    meshcad = sys.modules.get('meshcad')
-    if meshcad is None or not meshcad.mesh_mode():
-        return {}
-    import _enclosure_front_bottom
-    from meshcad.imports import load_model
-    _enclosure_front_bottom.cut(sys.modules[__name__], box, _here.parent)
-    structural = load_model(_here.parent/'enclosure-front-bottom.step.npz')[0]
-    return {'front-bottom': cq.Workplane(obj=structural)}
-
-
-def _produced_pump_retainer(box):
-    """The relaxed print and the installed fine pose, each cut once."""
-    meshcad = sys.modules.get('meshcad')
-    if (meshcad is None or not meshcad.mesh_mode()
-            or not (box.pump_bay and box.pack.collet_plate)):
-        return {}, None
-    import _enclosure_pump_retainer
-    from meshcad.imports import load_model
-    _enclosure_pump_retainer.cut(sys.modules[__name__], box, _here.parent)
-    _enclosure_pump_retainer.cut(sys.modules[__name__], box, _here.parent, seated=True)
-    relaxed = load_model(_here.parent/'enclosure-pump-retainer.step.npz')[0]
-    seated = load_model(_here.parent/'enclosure-pump-retainer-seated.step.npz')[0]
-    return {'pump-retainer': cq.Workplane(obj=relaxed)}, cq.Workplane(obj=seated)
-
-
-def main():
-    core, box = machine_of()
-    produced = _produced_back_bottom(box)
-    produced.update(_produced_back_top(box))
-    produced.update(_produced_front_top(box))
-    produced.update(_produced_front_bottom(box))
-    retainer, installed_retainer = _produced_pump_retainer(box)
-    produced.update(retainer)
-    pieces, assy = build_pieces(box, produced=produced, installed_retainer=installed_retainer)
-    print("enclosure:")
-    _report_slide(pieces, box)     # the slides swept and the catches lifted, into BOUNDS
-    _report_bounds()          # the machine's, with its pieces cut and its slides swept
-
-    _export_pieces(pieces, assy, produced=produced)
-
-    _report_columns(box)
-    _report_facet(pieces["front-top"], box)
-    _report_seams(box)
-    _report_stacks(box)
-    _report_split(pieces, core, box, installed_retainer=installed_retainer)
-
-    _write_docs(box, vent_readings(pieces, box))
 
 
 def _write_docs(box, vent_read):
@@ -9580,107 +8504,40 @@ def box_question_tools(pack, bounds):
             add('pillars', (sx, sy, name), tool_name, name, components=True)
     return tools, questions
 
-
-def _box_native_common(tool, body, *, body_first=False, positive_components=False):
-    hit = body.intersect(tool) if body_first else tool.intersect(body)
-    volume = hit.Volume()
-    raw = {'volume_mm3': volume, 'min': None, 'max': None}
-    if volume > 0.0:
-        b = hit.BoundingBox()
-        raw.update(min=[b.xmin, b.ymin, b.zmin], max=[b.xmax, b.ymax, b.zmax])
-    if positive_components:
-        raw['components'] = []
-        if volume > 0.0:
-            for component in hit.Solids():
-                component_volume = component.Volume()
-                if component_volume > 0.0:
-                    b = component.BoundingBox()
-                    raw['components'].append({'volume_mm3': component_volume,
-                        'min': [b.xmin, b.ymin, b.zmin], 'max': [b.xmax, b.ymax, b.zmax]})
-    return raw
-
-
-def box_readings_fine(pack, bounds, references, *, native_names=()):
-    """Read the Box's actual common questions through explicit fine selections.
-
-    ``references`` holds existing assembly-model instance specifications for the
-    referenced pack names, including current source indices and installed transforms. Only
-    the small authored tools are exported here, once, to a temporary fine model.
-    Explicit ``native_names`` retain their actual Shape rows and source questions.
-    """
-    import tempfile
-    import _assembly_model
-    from meshcad import scene
-
-    bounds = {name: bounds[name] for name in pack.placed}
-    native_names = set(native_names)
-    tools, questions = box_question_tools(pack, bounds)
-    tool_bounds = {}
-    for name, tool in tools.items():
-        if tool is not None:
-            b = tool.BoundingBox()
-            tool_bounds[name] = ((b.xmin, b.ymin, b.zmin), (b.xmax, b.ymax, b.zmax))
-    tables = {family: {} for family in ('floor', 'under', 'pillars')}
-    tables['lip'] = {'front': {}, 'back': {}}
-
-    def store(question, raw):
-        family, key = question['family'], question['key']
-        if family == 'lip':
-            tables['lip'][key[0]][key[1]] = raw
-        else:
-            tables[family][key] = raw
-
-    with tempfile.TemporaryDirectory(prefix='hsm-box-questions-') as directory:
-        model = Path(directory) / 'tools.npz'
-        scene.write([(name, tool, None) for name, tool in tools.items() if tool is not None],
-                    model, preserve_partitions=True)
-        indices = {}
-        for index, (name, _color) in enumerate(_assembly_model.identity(model)):
-            indices.setdefault(name, []).append(index)
-        inputs = dict(references)
-        inputs.update({'box-tool:' + name: _assembly_model.instance(model, indices=selection)
-                       for name, selection in indices.items()})
-        selected, queries = [], []
-        for question in questions:
-            raw = {'volume_mm3': 0.0, 'min': None, 'max': None}
-            if question['positive_components']:
-                raw['components'] = []
-            store(question, raw)
-            name = question['tool']
-            if name not in tool_bounds:
-                continue
-            lower, upper = bounds[question['body']]
-            tool_lower, tool_upper = tool_bounds[name]
-            if any(upper[k] <= tool_lower[k] or tool_upper[k] <= lower[k] for k in range(3)):
-                continue
-            if question['body'] in native_names:
-                store(question, _box_native_common(tools[name], pack.placed[question['body']][0],
-                    body_first=question['body_first'], positive_components=question['positive_components']))
-                continue
-            tool = 'box-tool:' + name
-            body = question['body']
-            a, b = (body, tool) if question['body_first'] else (tool, body)
-            query = {'kind': 'common', 'a': a, 'b': b}
-            if question['body_first']:
-                query['distribute_a'] = True
-            if question['positive_components']:
-                query['positive_components'] = True
-            queries.append(query)
-            selected.append(question)
-        rows = _assembly_model.measure_groups(inputs, queries)
-        if len(rows) != len(selected):
-            raise ValueError('Box common coverage differs from its explicit questions')
-        for question, row in zip(selected, rows):
-            if 'error' in row:
-                raise ValueError(row['error'])
-            store(question, row['common']['raw'])
-    return BoxReadings(dict(bounds), tables['lip'], tables['floor'], tables['under'], tables['pillars'])
+# Numeric construction contexts bind these operation slots.
+(
+    _anchor_bore,
+    _anchor_column,
+    _anchor_corbel,
+    _anchor_rib,
+    _asse_tie_cavity,
+    _asse_v,
+    _display_cuts,
+    _funnel_keepout,
+    _funnel_plumb,
+    _halfspace,
+    _handhold_cutter,
+    _handhold_finish_air,
+    _pump_lower_well,
+    _rect_cut_x,
+    _rect_cut_y,
+    _round_z,
+    _rounded_outer,
+    _unified,
+    _valve_tray_placed,
+    _xcyl,
+    _xy_prism,
+    _xz_prism,
+    _ybox,
+    _ycyl,
+    _yz_prism,
+    _z_rail_crossing,
+    _zcyl,
+    c14_pocket_prism,
+    disposal_letters,
+) = (None,) * 29
 
 
-if __name__ == "__main__":
-    # THIS FILE, UNDER THE NAME EVERYTHING ELSE IMPORTS IT BY. A direct run imports
-    # `enclosure_assembly` inside `machine_of`; that module imports `enclosure` back and must
-    # receive this same copy so the Box and the bounds ledger it fills come back to `main`.
-    # The ceiling joint makes the same round trip. One name, one module, one box.
-    sys.modules.setdefault(__name__ if __name__ != "__main__" else "enclosure", sys.modules[__name__])
-    main()
+def main():
+    from _enclosure_rust_driver import main as generate
+    return generate()
