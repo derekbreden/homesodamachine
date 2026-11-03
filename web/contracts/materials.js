@@ -232,18 +232,21 @@ export function matchesBody(name, binding) {
 }
 
 // Bindings are relative to their assembly. Prefixes carry a subassembly's frame
-// into its parent; compounds and text solids may all represent one material.
+// into its parent; compounds and text solids may all represent one material. Each
+// leading "../" climbs one frame: a tube the cold core pots names its free end in
+// the machine's model, a binding that names nothing in the cold core's own model.
 export function occurrenceBodies(catalog, path, availableNames, options = {}) {
   const index = materialIndex(catalog), bindings = [];
-  let prefix = "";
-  for (const item of path.slice(0, -1)) prefix += item.prefix || "";
-  function collect(item, frame, seen) {
-    bindings.push(...(item.bodies || []).map((name) => frame + name));
+  function collect(item, frames, seen) {
+    for (const name of item.bodies || []) {
+      const up = name.match(/^(\.\.\/)*/)[0].length / 3;
+      if (up <= frames.length) bindings.push(frames.slice(0, frames.length - up).join("") + name.slice(up * 3));
+    }
     if (seen.has(item.material)) return;
     for (const child of bomItems(index.get(item.material), options))
-      collect(child, frame + (item.prefix || ""), new Set([...seen, item.material]));
+      collect(child, [...frames, item.prefix || ""], new Set([...seen, item.material]));
   }
-  if (path.length) collect(path.at(-1), prefix, new Set());
+  if (path.length) collect(path.at(-1), path.slice(0, -1).map((item) => item.prefix || ""), new Set());
   return [...availableNames].filter((name) => bindings.some((binding) => matchesBody(name, binding)));
 }
 

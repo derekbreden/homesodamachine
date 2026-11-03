@@ -13,7 +13,8 @@
     "HSM-000399",
     "HSM-000400",
     "HSM-000404",
-    "HSM-000447"
+    "HSM-000447",
+    "HSM-000464"
   ],
   "cost_root": "HSM-000340",
   "materials": [
@@ -602,15 +603,6 @@
             "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
           },
           {
-            "material": "HSM-000287",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "tube-drain-umbilical"
-            ],
-            "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
-          },
-          {
             "material": "HSM-000288",
             "quantity": 1,
             "unit": "ea",
@@ -638,15 +630,6 @@
             "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
           },
           {
-            "material": "HSM-000327",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "tube-water-6"
-            ],
-            "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
-          },
-          {
             "material": "HSM-000295",
             "quantity": 1,
             "unit": "ea",
@@ -667,50 +650,12 @@
             "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
           },
           {
-            "material": "HSM-000297",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "tube-co2-0"
-            ],
-            "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
-          },
-          {
-            "material": "HSM-000298",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "tube-co2-1"
-            ],
-            "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
-          },
-          {
-            "material": "HSM-000299",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "tube-co2-2",
-              "tube-above-core-gas-core-drop"
-            ],
-            "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
-          },
-          {
             "material": "HSM-000300",
             "quantity": 1,
             "unit": "ea",
             "bodies": [
               "tube-fluid-2",
               "tube-above-core-reg-va-link"
-            ],
-            "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
-          },
-          {
-            "material": "HSM-000301",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "tube-carb-1",
-              "tube-soda-core-rise"
             ],
             "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
           },
@@ -739,42 +684,6 @@
             "unit": "ea",
             "bodies": [
               "tube-fluid-18"
-            ],
-            "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
-          },
-          {
-            "material": "HSM-000305",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "tube-fluid-24"
-            ],
-            "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
-          },
-          {
-            "material": "HSM-000306",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "tube-fluid-26"
-            ],
-            "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
-          },
-          {
-            "material": "HSM-000307",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "tube-fluid-14"
-            ],
-            "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
-          },
-          {
-            "material": "HSM-000308",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "tube-fluid-16"
             ],
             "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
           },
@@ -1098,18 +1007,6 @@
             ]
           },
           {
-            "material": "HSM-000360",
-            "quantity": 4,
-            "unit": "ea",
-            "note": "One through each G Ganen rubber foot."
-          },
-          {
-            "material": "HSM-000361",
-            "quantity": 4,
-            "unit": "ea",
-            "note": "One under each G Ganen mounting screw."
-          },
-          {
             "material": "HSM-000362",
             "quantity": 2,
             "unit": "ea",
@@ -1320,6 +1217,13 @@
           ],
           "quantity": 1,
           "unit": "ea"
+        },
+        {
+          "kind": "used-with",
+          "material": "HSM-000108",
+          "bodies": [
+            "tube-drain-umbilical"
+          ]
         }
       ]
     },
@@ -1619,7 +1523,7 @@
         }
       ],
       "bom": {
-        "scope": "Carbonator, insulation stack, reservoirs, sensing hardware, the top-lid equipment (water pump and its joints, main board, V-B and the four core-lid junctions) and the fasteners that close them. Foam, tape and other supplies are costed on the cold core itself.",
+        "scope": "Carbonator, insulation stack, reservoirs, sensing hardware, the tubes potted through the shell (each whole, its free end included), the top-lid equipment (water pump and its joints, main board, V-B and the four core-lid wiring junctions) and the fasteners that close them. Foam, tape and other supplies are costed on the cold core itself.",
         "source": "cold-core-layout/_bom.py",
         "items": [
           {
@@ -1777,20 +1681,26 @@
             ]
           },
           {
-            "material": "HSM-000313",
+            "material": "HSM-000301",
             "quantity": 1,
             "unit": "ea",
             "bodies": [
-              "line-carb-water-out"
-            ]
+              "line-carb-water-out",
+              "../tube-carb-1",
+              "../tube-soda-core-rise"
+            ],
+            "note": "One continuous tube. The cold core pots its lower span; the machine model draws its free end above the lid."
           },
           {
-            "material": "HSM-000314",
+            "material": "HSM-000299",
             "quantity": 1,
             "unit": "ea",
             "bodies": [
-              "line-co2-in"
-            ]
+              "line-co2-in",
+              "../tube-co2-2",
+              "../tube-above-core-gas-core-drop"
+            ],
+            "note": "One continuous tube. The cold core pots its lower span; the machine model draws its free end above the lid."
           },
           {
             "material": "HSM-000315",
@@ -1801,44 +1711,54 @@
             ]
           },
           {
-            "material": "HSM-000316",
+            "material": "HSM-000308",
             "quantity": 1,
             "unit": "ea",
             "bodies": [
-              "line-reservoir-a"
-            ]
+              "line-reservoir-a",
+              "../tube-fluid-16"
+            ],
+            "note": "One continuous tube. The cold core pots its lower span; the machine model draws its free end above the lid."
           },
           {
-            "material": "HSM-000317",
+            "material": "HSM-000307",
             "quantity": 1,
             "unit": "ea",
             "bodies": [
-              "line-reservoir-a-fill"
-            ]
+              "line-reservoir-a-fill",
+              "../tube-fluid-14"
+            ],
+            "note": "One continuous tube. The cold core pots its lower span; the machine model draws its free end above the lid."
           },
           {
-            "material": "HSM-000318",
+            "material": "HSM-000306",
             "quantity": 1,
             "unit": "ea",
             "bodies": [
-              "line-reservoir-b"
-            ]
+              "line-reservoir-b",
+              "../tube-fluid-26"
+            ],
+            "note": "One continuous tube. The cold core pots its lower span; the machine model draws its free end above the lid."
           },
           {
-            "material": "HSM-000319",
+            "material": "HSM-000305",
             "quantity": 1,
             "unit": "ea",
             "bodies": [
-              "line-reservoir-b-fill"
-            ]
+              "line-reservoir-b-fill",
+              "../tube-fluid-24"
+            ],
+            "note": "One continuous tube. The cold core pots its lower span; the machine model draws its free end above the lid."
           },
           {
-            "material": "HSM-000320",
+            "material": "HSM-000293",
             "quantity": 1,
             "unit": "ea",
             "bodies": [
-              "line-water-in"
-            ]
+              "line-water-in",
+              "tube-water-5"
+            ],
+            "note": "One continuous tube through the lid's plain guide. The cold core pots its lower span; the span above the lid runs to the check."
           },
           {
             "material": "HSM-000164",
@@ -2074,15 +1994,6 @@
               "wago-sensors"
             ],
             "note": "Four core-lid junctions: +12 V, DC GND, the J7 / reservoir-B / carbonator-reed common and the J4 / temperature-bus / flow-meter common."
-          },
-          {
-            "material": "HSM-000293",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "tube-water-5"
-            ],
-            "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
           },
           {
             "material": "HSM-000326",
@@ -2490,6 +2401,10 @@
         {
           "kind": "used-with",
           "material": "HSM-000150"
+        },
+        {
+          "kind": "used-with",
+          "material": "HSM-000464"
         }
       ]
     },
@@ -4513,6 +4428,12 @@
       "id": "HSM-000108",
       "description": "Faucet drain tubing",
       "kind": "purchased",
+      "aliases": [
+        "Vent-return umbilical tube \u00b7 4 mm white LLDPE",
+        "drain-umbilical",
+        "tube-drain-umbilical",
+        "drain umbilical tube \u00b7 4 mm white LLDPE"
+      ],
       "contexts": [
         {
           "material": "HSM-000002"
@@ -5883,35 +5804,6 @@
       ]
     },
     {
-      "id": "HSM-000287",
-      "description": "Vent-return umbilical tube \u00b7 4 mm white LLDPE",
-      "kind": "manufactured",
-      "aliases": [
-        "drain-umbilical",
-        "tube-drain-umbilical",
-        "drain umbilical tube \u00b7 4 mm white LLDPE"
-      ],
-      "documents": [
-        {
-          "title": "Tube routing and cut stock",
-          "path": "manifold-layout/enclosure_assembly.py"
-        },
-        {
-          "title": "Internal plumbing",
-          "path": "assembly/internal-plumbing.md"
-        },
-        {
-          "title": "Fluid circuit",
-          "path": "topology/fluid-topology.md"
-        }
-      ],
-      "contexts": [
-        {
-          "material": "HSM-000001"
-        }
-      ]
-    },
-    {
       "id": "HSM-000288",
       "description": "Refrigerant suction tube \u00b7 ACR copper",
       "kind": "manufactured",
@@ -6005,7 +5897,9 @@
       "aliases": [
         "water-5",
         "tube-water-5",
-        "water 5 tube \u00b7 1/4 inch white LLDPE"
+        "water 5 tube \u00b7 1/4 inch white LLDPE",
+        "line-water-in",
+        "Cold-core water in tube"
       ],
       "documents": [
         {
@@ -6019,6 +5913,14 @@
         {
           "title": "Fluid circuit",
           "path": "topology/fluid-topology.md"
+        },
+        {
+          "title": "Core tubing and installation",
+          "path": "assembly/cold-core.md"
+        },
+        {
+          "title": "Potted route geometry",
+          "path": "printed-parts/cold-core/foam-assembly/foam_assembly.py"
         }
       ],
       "contexts": [
@@ -6121,64 +6023,6 @@
       ]
     },
     {
-      "id": "HSM-000297",
-      "description": "CO\u2082 secondary-regulator inlet tube \u00b7 1/4 inch red LLDPE",
-      "kind": "manufactured",
-      "aliases": [
-        "co2-0",
-        "tube-co2-0",
-        "co2 0 tube \u00b7 1/4 inch red LLDPE"
-      ],
-      "documents": [
-        {
-          "title": "Tube routing and cut stock",
-          "path": "manifold-layout/enclosure_assembly.py"
-        },
-        {
-          "title": "Internal plumbing",
-          "path": "assembly/internal-plumbing.md"
-        },
-        {
-          "title": "Fluid circuit",
-          "path": "topology/fluid-topology.md"
-        }
-      ],
-      "contexts": [
-        {
-          "material": "HSM-000001"
-        }
-      ]
-    },
-    {
-      "id": "HSM-000298",
-      "description": "CO\u2082 secondary-regulator outlet tube \u00b7 1/4 inch red LLDPE",
-      "kind": "manufactured",
-      "aliases": [
-        "co2-1",
-        "tube-co2-1",
-        "co2 1 tube \u00b7 1/4 inch red LLDPE"
-      ],
-      "documents": [
-        {
-          "title": "Tube routing and cut stock",
-          "path": "manifold-layout/enclosure_assembly.py"
-        },
-        {
-          "title": "Internal plumbing",
-          "path": "assembly/internal-plumbing.md"
-        },
-        {
-          "title": "Fluid circuit",
-          "path": "topology/fluid-topology.md"
-        }
-      ],
-      "contexts": [
-        {
-          "material": "HSM-000001"
-        }
-      ]
-    },
-    {
       "id": "HSM-000299",
       "description": "CO\u2082 check-valve outlet tube \u00b7 1/4 inch red LLDPE",
       "kind": "manufactured",
@@ -6187,7 +6031,9 @@
         "tube-co2-2",
         "co2 2 tube \u00b7 1/4 inch red LLDPE",
         "tube-above-core-gas-core-drop",
-        "above-core-gas-core-drop"
+        "above-core-gas-core-drop",
+        "line-co2-in",
+        "Cold-core co2 in tube"
       ],
       "documents": [
         {
@@ -6201,6 +6047,14 @@
         {
           "title": "Fluid circuit",
           "path": "topology/fluid-topology.md"
+        },
+        {
+          "title": "Core tubing and installation",
+          "path": "assembly/cold-core.md"
+        },
+        {
+          "title": "Potted route geometry",
+          "path": "printed-parts/cold-core/foam-assembly/foam_assembly.py"
         }
       ],
       "contexts": [
@@ -6250,7 +6104,9 @@
         "carb 1 tube \u00b7 1/4 inch blue LLDPE",
         "tube-soda-core-rise",
         "soda-core-rise",
-        "soda riser"
+        "soda riser",
+        "line-carb-water-out",
+        "Cold-core carb water out tube"
       ],
       "documents": [
         {
@@ -6264,6 +6120,14 @@
         {
           "title": "Fluid circuit",
           "path": "topology/fluid-topology.md"
+        },
+        {
+          "title": "Core tubing and installation",
+          "path": "assembly/cold-core.md"
+        },
+        {
+          "title": "Potted route geometry",
+          "path": "printed-parts/cold-core/foam-assembly/foam_assembly.py"
         }
       ],
       "contexts": [
@@ -6368,7 +6232,9 @@
       "aliases": [
         "fluid-24",
         "tube-fluid-24",
-        "fluid 24 tube \u00b7 1/4 inch black LLDPE"
+        "fluid 24 tube \u00b7 1/4 inch black LLDPE",
+        "line-reservoir-b-fill",
+        "Cold-core reservoir b fill tube"
       ],
       "documents": [
         {
@@ -6382,6 +6248,14 @@
         {
           "title": "Fluid circuit",
           "path": "topology/fluid-topology.md"
+        },
+        {
+          "title": "Core tubing and installation",
+          "path": "assembly/cold-core.md"
+        },
+        {
+          "title": "Potted route geometry",
+          "path": "printed-parts/cold-core/foam-assembly/foam_assembly.py"
         }
       ],
       "contexts": [
@@ -6397,7 +6271,9 @@
       "aliases": [
         "fluid-26",
         "tube-fluid-26",
-        "fluid 26 tube \u00b7 1/4 inch black LLDPE"
+        "fluid 26 tube \u00b7 1/4 inch black LLDPE",
+        "line-reservoir-b",
+        "Cold-core reservoir b tube"
       ],
       "documents": [
         {
@@ -6411,6 +6287,14 @@
         {
           "title": "Fluid circuit",
           "path": "topology/fluid-topology.md"
+        },
+        {
+          "title": "Core tubing and installation",
+          "path": "assembly/cold-core.md"
+        },
+        {
+          "title": "Potted route geometry",
+          "path": "printed-parts/cold-core/foam-assembly/foam_assembly.py"
         }
       ],
       "contexts": [
@@ -6426,7 +6310,9 @@
       "aliases": [
         "fluid-14",
         "tube-fluid-14",
-        "fluid 14 tube \u00b7 1/4 inch black LLDPE"
+        "fluid 14 tube \u00b7 1/4 inch black LLDPE",
+        "line-reservoir-a-fill",
+        "Cold-core reservoir a fill tube"
       ],
       "documents": [
         {
@@ -6440,6 +6326,14 @@
         {
           "title": "Fluid circuit",
           "path": "topology/fluid-topology.md"
+        },
+        {
+          "title": "Core tubing and installation",
+          "path": "assembly/cold-core.md"
+        },
+        {
+          "title": "Potted route geometry",
+          "path": "printed-parts/cold-core/foam-assembly/foam_assembly.py"
         }
       ],
       "contexts": [
@@ -6455,7 +6349,9 @@
       "aliases": [
         "fluid-16",
         "tube-fluid-16",
-        "fluid 16 tube \u00b7 1/4 inch black LLDPE"
+        "fluid 16 tube \u00b7 1/4 inch black LLDPE",
+        "line-reservoir-a",
+        "Cold-core reservoir a tube"
       ],
       "documents": [
         {
@@ -6469,6 +6365,14 @@
         {
           "title": "Fluid circuit",
           "path": "topology/fluid-topology.md"
+        },
+        {
+          "title": "Core tubing and installation",
+          "path": "assembly/cold-core.md"
+        },
+        {
+          "title": "Potted route geometry",
+          "path": "printed-parts/cold-core/foam-assembly/foam_assembly.py"
         }
       ],
       "contexts": [
@@ -6584,180 +6488,12 @@
       ]
     },
     {
-      "id": "HSM-000313",
-      "description": "Cold-core carbonated-water outlet tube",
-      "kind": "manufactured",
-      "aliases": [
-        "line-carb-water-out",
-        "Cold-core carb water out tube"
-      ],
-      "documents": [
-        {
-          "title": "Core tubing and installation",
-          "path": "assembly/cold-core.md"
-        },
-        {
-          "title": "Potted route geometry",
-          "path": "printed-parts/cold-core/foam-assembly/foam_assembly.py"
-        }
-      ],
-      "contexts": [
-        {
-          "material": "HSM-000003"
-        }
-      ]
-    },
-    {
-      "id": "HSM-000314",
-      "description": "Cold-core CO\u2082 inlet tube",
-      "kind": "manufactured",
-      "aliases": [
-        "line-co2-in",
-        "Cold-core co2 in tube"
-      ],
-      "documents": [
-        {
-          "title": "Core tubing and installation",
-          "path": "assembly/cold-core.md"
-        },
-        {
-          "title": "Potted route geometry",
-          "path": "printed-parts/cold-core/foam-assembly/foam_assembly.py"
-        }
-      ],
-      "contexts": [
-        {
-          "material": "HSM-000003"
-        }
-      ]
-    },
-    {
       "id": "HSM-000315",
       "description": "Cold-core pressure-relief vent tube",
       "kind": "manufactured",
       "aliases": [
         "line-prv-vent",
         "Cold-core prv vent tube"
-      ],
-      "documents": [
-        {
-          "title": "Core tubing and installation",
-          "path": "assembly/cold-core.md"
-        },
-        {
-          "title": "Potted route geometry",
-          "path": "printed-parts/cold-core/foam-assembly/foam_assembly.py"
-        }
-      ],
-      "contexts": [
-        {
-          "material": "HSM-000003"
-        }
-      ]
-    },
-    {
-      "id": "HSM-000316",
-      "description": "Cold-core flavor reservoir A draw tube",
-      "kind": "manufactured",
-      "aliases": [
-        "line-reservoir-a",
-        "Cold-core reservoir a tube"
-      ],
-      "documents": [
-        {
-          "title": "Core tubing and installation",
-          "path": "assembly/cold-core.md"
-        },
-        {
-          "title": "Potted route geometry",
-          "path": "printed-parts/cold-core/foam-assembly/foam_assembly.py"
-        }
-      ],
-      "contexts": [
-        {
-          "material": "HSM-000003"
-        }
-      ]
-    },
-    {
-      "id": "HSM-000317",
-      "description": "Cold-core flavor reservoir A fill tube",
-      "kind": "manufactured",
-      "aliases": [
-        "line-reservoir-a-fill",
-        "Cold-core reservoir a fill tube"
-      ],
-      "documents": [
-        {
-          "title": "Core tubing and installation",
-          "path": "assembly/cold-core.md"
-        },
-        {
-          "title": "Potted route geometry",
-          "path": "printed-parts/cold-core/foam-assembly/foam_assembly.py"
-        }
-      ],
-      "contexts": [
-        {
-          "material": "HSM-000003"
-        }
-      ]
-    },
-    {
-      "id": "HSM-000318",
-      "description": "Cold-core flavor reservoir B draw tube",
-      "kind": "manufactured",
-      "aliases": [
-        "line-reservoir-b",
-        "Cold-core reservoir b tube"
-      ],
-      "documents": [
-        {
-          "title": "Core tubing and installation",
-          "path": "assembly/cold-core.md"
-        },
-        {
-          "title": "Potted route geometry",
-          "path": "printed-parts/cold-core/foam-assembly/foam_assembly.py"
-        }
-      ],
-      "contexts": [
-        {
-          "material": "HSM-000003"
-        }
-      ]
-    },
-    {
-      "id": "HSM-000319",
-      "description": "Cold-core flavor reservoir B fill tube",
-      "kind": "manufactured",
-      "aliases": [
-        "line-reservoir-b-fill",
-        "Cold-core reservoir b fill tube"
-      ],
-      "documents": [
-        {
-          "title": "Core tubing and installation",
-          "path": "assembly/cold-core.md"
-        },
-        {
-          "title": "Potted route geometry",
-          "path": "printed-parts/cold-core/foam-assembly/foam_assembly.py"
-        }
-      ],
-      "contexts": [
-        {
-          "material": "HSM-000003"
-        }
-      ]
-    },
-    {
-      "id": "HSM-000320",
-      "description": "Cold-core water inlet tube",
-      "kind": "manufactured",
-      "aliases": [
-        "line-water-in",
-        "Cold-core water in tube"
       ],
       "documents": [
         {
@@ -6860,35 +6596,6 @@
         "water 7 tube \u00b7 1/4 inch white LLDPE",
         "tube-above-core-pump-inlet-link",
         "above-core-pump-inlet-link"
-      ],
-      "documents": [
-        {
-          "title": "Tube routing and cut stock",
-          "path": "manifold-layout/enclosure_assembly.py"
-        },
-        {
-          "title": "Internal plumbing",
-          "path": "assembly/internal-plumbing.md"
-        },
-        {
-          "title": "Fluid circuit",
-          "path": "topology/fluid-topology.md"
-        }
-      ],
-      "contexts": [
-        {
-          "material": "HSM-000001"
-        }
-      ]
-    },
-    {
-      "id": "HSM-000327",
-      "description": "Water-pump discharge tube \u00b7 1/4 inch white LLDPE",
-      "kind": "manufactured",
-      "aliases": [
-        "water-6",
-        "tube-water-6",
-        "water 6 tube \u00b7 1/4 inch white LLDPE"
       ],
       "documents": [
         {
@@ -7630,42 +7337,6 @@
           "title": "Y-seam closure",
           "path": "assembly/enclosure-mechanical.md"
         },
-        {
-          "title": "Fastener specification",
-          "path": "ledger/bom.md"
-        }
-      ]
-    },
-    {
-      "id": "HSM-000360",
-      "description": "M3 \u00d7 20 socket-head screw \u00b7 black oxide",
-      "kind": "purchased",
-      "aliases": [
-        "water pump screw",
-        "BNUOK M3x20",
-        "B0DJR2Q5LP"
-      ],
-      "documents": [
-        {
-          "title": "Pump mounting",
-          "path": "assembly/electronics-bay.md"
-        },
-        {
-          "title": "Fastener specification",
-          "path": "ledger/bom.md"
-        }
-      ]
-    },
-    {
-      "id": "HSM-000361",
-      "description": "M3 flat washer \u00b7 \u00d89 \u00d7 0.8 mm, 304 stainless",
-      "kind": "purchased",
-      "aliases": [
-        "DIN 9021 M3 washer",
-        "uxcell M3 washer 9 mm",
-        "B0FB45MN93"
-      ],
-      "documents": [
         {
           "title": "Fastener specification",
           "path": "ledger/bom.md"
@@ -9955,6 +9626,1618 @@
         {
           "material": "HSM-000001"
         }
+      ]
+    },
+    {
+      "id": "HSM-000464",
+      "description": "PGFUN two-axis weld positioner",
+      "kind": "tooling",
+      "models": [
+        {
+          "file": "printed-parts/fixtures/pgfun-positioner/assembly.step"
+        }
+      ],
+      "aliases": [
+        "PGFUN swivel and pivot fixture",
+        "gun positioner",
+        "two-axis gun fixture",
+        "weld positioner",
+        "pgfun-positioner"
+      ],
+      "documents": [
+        {
+          "title": "PGFUN positioner shop guide",
+          "path": "gun-positioner-guide/gun-positioner-guide.pdf"
+        },
+        {
+          "title": "Build instructions",
+          "path": "gun-positioner/README.md"
+        },
+        {
+          "title": "Purchases and screw allocation",
+          "path": "gun-positioner/purchases.md"
+        },
+        {
+          "title": "Fixture parts",
+          "path": "printed-parts/fixtures/pgfun-positioner/README.md"
+        }
+      ],
+      "bom": {
+        "scope": "Printed parts, mechanism, controller, camera and fasteners. Bench power, C-clamps, the rotator pedal, welder, rotator and fit coupons are listed separately.",
+        "source": "gun-positioner/purchases.md",
+        "items": [
+          {
+            "material": "HSM-000488",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "bridge"
+            ]
+          },
+          {
+            "material": "HSM-000489",
+            "quantity": 2,
+            "unit": "ea",
+            "bodies": [
+              "bench-toe-1",
+              "bench-toe-2"
+            ]
+          },
+          {
+            "material": "HSM-000490",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "motor-pedestal"
+            ]
+          },
+          {
+            "material": "HSM-000491",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "yaw-bearing-cartridge"
+            ]
+          },
+          {
+            "material": "HSM-000492",
+            "quantity": 2,
+            "unit": "ea",
+            "bodies": [
+              "yaw-output-adapter",
+              "pitch-output-adapter"
+            ]
+          },
+          {
+            "material": "HSM-000493",
+            "quantity": 2,
+            "unit": "ea",
+            "bodies": [
+              "yaw-journal",
+              "pitch-journal"
+            ]
+          },
+          {
+            "material": "HSM-000494",
+            "quantity": 2,
+            "unit": "ea",
+            "bodies": [
+              "yaw-bearing-cap",
+              "pitch-bearing-cap"
+            ]
+          },
+          {
+            "material": "HSM-000495",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "fork"
+            ]
+          },
+          {
+            "material": "HSM-000496",
+            "quantity": 2,
+            "unit": "ea",
+            "bodies": [
+              "yaw-outer-spacer",
+              "pitch-outer-spacer"
+            ]
+          },
+          {
+            "material": "HSM-000497",
+            "quantity": 2,
+            "unit": "ea",
+            "bodies": [
+              "yaw-inner-spacer",
+              "pitch-inner-spacer"
+            ]
+          },
+          {
+            "material": "HSM-000498",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "gun-retainer-1"
+            ]
+          },
+          {
+            "material": "HSM-000499",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "liner-1-lower"
+            ]
+          },
+          {
+            "material": "HSM-000500",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "liner-1-upper"
+            ]
+          },
+          {
+            "material": "HSM-000501",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "gun-retainer-2"
+            ]
+          },
+          {
+            "material": "HSM-000502",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "liner-2-lower"
+            ]
+          },
+          {
+            "material": "HSM-000503",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "liner-2-upper"
+            ]
+          },
+          {
+            "material": "HSM-000504",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "lower-cradle"
+            ]
+          },
+          {
+            "material": "HSM-000505",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "left-cheek"
+            ]
+          },
+          {
+            "material": "HSM-000506",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "right-cheek"
+            ]
+          },
+          {
+            "material": "HSM-000507",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "bottom-frame-tie"
+            ]
+          },
+          {
+            "material": "HSM-000508",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "opposite-bearing-cap"
+            ]
+          },
+          {
+            "material": "HSM-000509",
+            "quantity": 2,
+            "unit": "ea",
+            "bodies": [
+              "axle-collet-spacer",
+              "opposite-inner-spacer"
+            ]
+          },
+          {
+            "material": "HSM-000510",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "axle-front-stop-spacer"
+            ]
+          },
+          {
+            "material": "HSM-000511",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "axle-middle-spacer"
+            ]
+          },
+          {
+            "material": "HSM-000512",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "axle-end-spacer"
+            ]
+          },
+          {
+            "material": "HSM-000513",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "axle-keeper"
+            ]
+          },
+          {
+            "material": "HSM-000514",
+            "quantity": 2,
+            "unit": "ea",
+            "bodies": [
+              "yaw-limit-holder--1",
+              "pitch-limit-holder--1"
+            ]
+          },
+          {
+            "material": "HSM-000515",
+            "quantity": 2,
+            "unit": "ea",
+            "bodies": [
+              "yaw-limit-holder-1",
+              "pitch-limit-holder-1"
+            ]
+          },
+          {
+            "material": "HSM-000516",
+            "quantity": 2,
+            "unit": "ea",
+            "bodies": [
+              "pitch-switch-standoff--1",
+              "pitch-switch-standoff-1"
+            ]
+          },
+          {
+            "material": "HSM-000517",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "umbilical-post-base"
+            ]
+          },
+          {
+            "material": "HSM-000518",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "umbilical-post-top"
+            ]
+          },
+          {
+            "material": "HSM-000519",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "umbilical-saddle"
+            ]
+          },
+          {
+            "material": "HSM-000520",
+            "quantity": 2,
+            "unit": "ea",
+            "bodies": [
+              "yaw-stop-sector",
+              "pitch-stop-sector"
+            ]
+          },
+          {
+            "material": "HSM-000521",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "controller-case"
+            ]
+          },
+          {
+            "material": "HSM-000522",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "controller-lid"
+            ]
+          },
+          {
+            "material": "HSM-000523",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "fan-guard"
+            ]
+          },
+          {
+            "material": "HSM-000524",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "camera-riser-base"
+            ]
+          },
+          {
+            "material": "HSM-000525",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "camera-riser-top"
+            ]
+          },
+          {
+            "material": "HSM-000526",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "camera-lens-upright"
+            ]
+          },
+          {
+            "material": "HSM-000527",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "camera-lens-cassette"
+            ]
+          },
+          {
+            "material": "HSM-000528",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "camera-lens-retainer"
+            ]
+          },
+          {
+            "material": "HSM-000529",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "camera-lens-front-pad"
+            ]
+          },
+          {
+            "material": "HSM-000530",
+            "quantity": 1,
+            "unit": "ea"
+          },
+          {
+            "material": "HSM-000537",
+            "quantity": 2,
+            "unit": "ea",
+            "bodies": [
+              "yaw-reducer",
+              "pitch-reducer"
+            ]
+          },
+          {
+            "material": "HSM-000465",
+            "quantity": 2,
+            "unit": "ea",
+            "bodies": [
+              "yaw-motor",
+              "pitch-motor"
+            ]
+          },
+          {
+            "material": "HSM-000538",
+            "quantity": 4,
+            "unit": "ea",
+            "bodies": [
+              "yaw-6808-1",
+              "yaw-6808-2",
+              "pitch-6808-1",
+              "pitch-6808-2"
+            ]
+          },
+          {
+            "material": "HSM-000539",
+            "quantity": 2,
+            "unit": "ea",
+            "bodies": [
+              "opposite-6001-1",
+              "opposite-6001-2"
+            ]
+          },
+          {
+            "material": "HSM-000540",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "opposite-axle"
+            ]
+          },
+          {
+            "material": "HSM-000541",
+            "quantity": 1,
+            "unit": "ea"
+          },
+          {
+            "material": "HSM-000542",
+            "quantity": 1,
+            "unit": "ea"
+          },
+          {
+            "material": "HSM-000543",
+            "quantity": 1,
+            "unit": "ea"
+          },
+          {
+            "material": "HSM-000544",
+            "quantity": 1,
+            "unit": "ea"
+          },
+          {
+            "material": "HSM-000545",
+            "quantity": 4,
+            "unit": "ea"
+          },
+          {
+            "material": "HSM-000466",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "camera-envelope"
+            ]
+          },
+          {
+            "material": "HSM-000467",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "raynox-dcr250"
+            ]
+          },
+          {
+            "material": "HSM-000138",
+            "quantity": 12,
+            "unit": "ea"
+          },
+          {
+            "material": "HSM-000139",
+            "quantity": 4,
+            "unit": "ea"
+          },
+          {
+            "material": "HSM-000140",
+            "quantity": 22,
+            "unit": "ea"
+          },
+          {
+            "material": "HSM-000137",
+            "quantity": 6,
+            "unit": "ea"
+          },
+          {
+            "material": "HSM-000468",
+            "quantity": 4,
+            "unit": "ea"
+          },
+          {
+            "material": "HSM-000469",
+            "quantity": 2,
+            "unit": "ea"
+          },
+          {
+            "material": "HSM-000470",
+            "quantity": 12,
+            "unit": "ea"
+          },
+          {
+            "material": "HSM-000471",
+            "quantity": 12,
+            "unit": "ea"
+          },
+          {
+            "material": "HSM-000472",
+            "quantity": 13,
+            "unit": "ea"
+          },
+          {
+            "material": "HSM-000473",
+            "quantity": 12,
+            "unit": "ea"
+          },
+          {
+            "material": "HSM-000474",
+            "quantity": 20,
+            "unit": "ea"
+          },
+          {
+            "material": "HSM-000475",
+            "quantity": 4,
+            "unit": "ea"
+          },
+          {
+            "material": "HSM-000476",
+            "quantity": 10,
+            "unit": "ea"
+          },
+          {
+            "material": "HSM-000477",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "yaw-stop-follower"
+            ]
+          },
+          {
+            "material": "HSM-000478",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "pitch-stop-follower"
+            ]
+          },
+          {
+            "material": "HSM-000546",
+            "quantity": 2,
+            "unit": "ea"
+          },
+          {
+            "material": "HSM-000479",
+            "quantity": 36,
+            "unit": "ea"
+          },
+          {
+            "material": "HSM-000480",
+            "quantity": 25,
+            "unit": "ea"
+          },
+          {
+            "material": "HSM-000481",
+            "quantity": 46,
+            "unit": "ea"
+          },
+          {
+            "material": "HSM-000482",
+            "quantity": 2,
+            "unit": "ea"
+          },
+          {
+            "material": "HSM-000483",
+            "quantity": 2,
+            "unit": "ea"
+          },
+          {
+            "material": "HSM-000484",
+            "quantity": 42,
+            "unit": "ea"
+          },
+          {
+            "material": "HSM-000159",
+            "quantity": 4,
+            "unit": "ea"
+          },
+          {
+            "material": "HSM-000485",
+            "quantity": 2,
+            "unit": "ea"
+          },
+          {
+            "material": "HSM-000486",
+            "quantity": 2,
+            "unit": "ea"
+          }
+        ]
+      },
+      "relations": [
+        {
+          "kind": "tool-for",
+          "material": "HSM-000004"
+        },
+        {
+          "kind": "used-with",
+          "material": "HSM-000005"
+        },
+        {
+          "kind": "used-with",
+          "material": "HSM-000487"
+        },
+        {
+          "kind": "used-with",
+          "material": "HSM-000146"
+        },
+        {
+          "kind": "used-with",
+          "material": "HSM-000147"
+        },
+        {
+          "kind": "used-with",
+          "material": "HSM-000160"
+        },
+        {
+          "kind": "used-with",
+          "material": "HSM-000531"
+        },
+        {
+          "kind": "used-with",
+          "material": "HSM-000532"
+        },
+        {
+          "kind": "used-with",
+          "material": "HSM-000533"
+        },
+        {
+          "kind": "used-with",
+          "material": "HSM-000534"
+        },
+        {
+          "kind": "used-with",
+          "material": "HSM-000535"
+        },
+        {
+          "kind": "used-with",
+          "material": "HSM-000536"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000465",
+      "description": "Stepper motor \u00b7 17HS19-2004S1 NEMA 17",
+      "kind": "purchased",
+      "manufacturer_number": "17HS19-2004S1",
+      "aliases": [
+        "STEPPERONLINE 17HS19-2004S1",
+        "NEMA17",
+        "nema17-motor",
+        "B00PNEQKC0"
+      ]
+    },
+    {
+      "id": "HSM-000466",
+      "description": "FoMaKo K20UH 4K PTZ camera \u00b7 Classic Black",
+      "kind": "purchased",
+      "manufacturer_number": "K20UH",
+      "aliases": [
+        "K20UH",
+        "PTZ camera",
+        "camera-envelope",
+        "B0DK1BXJWY"
+      ]
+    },
+    {
+      "id": "HSM-000467",
+      "description": "Raynox DCR-250 close-up lens",
+      "kind": "purchased",
+      "manufacturer_number": "DCR-250",
+      "aliases": [
+        "DCR-250",
+        "macro lens",
+        "raynox-dcr250",
+        "B000A1SZ2Y"
+      ]
+    },
+    {
+      "id": "HSM-000468",
+      "description": "M3 \u00d7 30 socket-head screw",
+      "kind": "purchased",
+      "aliases": [
+        "M3x30"
+      ]
+    },
+    {
+      "id": "HSM-000469",
+      "description": "M3 \u00d7 40 socket-head screw",
+      "kind": "purchased",
+      "aliases": [
+        "M3x40"
+      ]
+    },
+    {
+      "id": "HSM-000470",
+      "description": "M4 \u00d7 10 socket-head screw",
+      "kind": "purchased",
+      "aliases": [
+        "M4x10"
+      ]
+    },
+    {
+      "id": "HSM-000471",
+      "description": "M4 \u00d7 16 socket-head screw",
+      "kind": "purchased",
+      "aliases": [
+        "M4x16"
+      ]
+    },
+    {
+      "id": "HSM-000472",
+      "description": "M4 \u00d7 20 socket-head screw",
+      "kind": "purchased",
+      "aliases": [
+        "M4x20"
+      ]
+    },
+    {
+      "id": "HSM-000473",
+      "description": "M5 \u00d7 16 socket-head screw",
+      "kind": "purchased",
+      "aliases": [
+        "M5x16"
+      ]
+    },
+    {
+      "id": "HSM-000474",
+      "description": "M5 \u00d7 20 socket-head screw",
+      "kind": "purchased",
+      "aliases": [
+        "M5x20"
+      ]
+    },
+    {
+      "id": "HSM-000475",
+      "description": "M5 \u00d7 25 socket-head screw",
+      "kind": "purchased",
+      "aliases": [
+        "M5x25"
+      ]
+    },
+    {
+      "id": "HSM-000476",
+      "description": "M5 \u00d7 30 socket-head screw",
+      "kind": "purchased",
+      "aliases": [
+        "M5x30"
+      ]
+    },
+    {
+      "id": "HSM-000477",
+      "description": "M6 \u00d7 25 socket-head screw",
+      "kind": "purchased",
+      "aliases": [
+        "M6x25"
+      ]
+    },
+    {
+      "id": "HSM-000478",
+      "description": "M6 \u00d7 35 socket-head screw",
+      "kind": "purchased",
+      "aliases": [
+        "M6x35"
+      ]
+    },
+    {
+      "id": "HSM-000479",
+      "description": "M3 hex nut",
+      "kind": "purchased",
+      "aliases": [
+        "M3 nut"
+      ]
+    },
+    {
+      "id": "HSM-000480",
+      "description": "M4 hex nut",
+      "kind": "purchased",
+      "aliases": [
+        "M4 nut"
+      ]
+    },
+    {
+      "id": "HSM-000481",
+      "description": "M5 hex nut",
+      "kind": "purchased",
+      "aliases": [
+        "M5 nut"
+      ]
+    },
+    {
+      "id": "HSM-000482",
+      "description": "M6 hex nut",
+      "kind": "purchased",
+      "aliases": [
+        "M6 nut",
+        "jam nut"
+      ]
+    },
+    {
+      "id": "HSM-000483",
+      "description": "M8 hex nut",
+      "kind": "purchased",
+      "aliases": [
+        "M8 nut",
+        "height_locknut"
+      ]
+    },
+    {
+      "id": "HSM-000484",
+      "description": "M5 flat washer",
+      "kind": "purchased",
+      "aliases": [
+        "M5 washer",
+        "shaft-end-flat-washer"
+      ]
+    },
+    {
+      "id": "HSM-000485",
+      "description": "M6 flat washer",
+      "kind": "purchased",
+      "aliases": [
+        "M6 washer"
+      ]
+    },
+    {
+      "id": "HSM-000486",
+      "description": "M8 flat washer",
+      "kind": "purchased",
+      "aliases": [
+        "M8 washer"
+      ]
+    },
+    {
+      "id": "HSM-000487",
+      "description": "XLaserlab X1 Pro laser welder",
+      "kind": "equipment",
+      "aliases": [
+        "X1 Pro",
+        "laser welder",
+        "gun-proxy"
+      ]
+    },
+    {
+      "id": "HSM-000488",
+      "description": "PGFUN fixture bridge",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/fixtures/pgfun-positioner/parts/bridge.step"
+        }
+      ],
+      "aliases": [
+        "bridge"
+      ]
+    },
+    {
+      "id": "HSM-000489",
+      "description": "PGFUN fixture bench toe",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/fixtures/pgfun-positioner/parts/bench-toe-1.step"
+        }
+      ],
+      "aliases": [
+        "bench-toe-1",
+        "bench-toe-2"
+      ]
+    },
+    {
+      "id": "HSM-000490",
+      "description": "PGFUN fixture motor pedestal",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/fixtures/pgfun-positioner/parts/motor-pedestal.step"
+        }
+      ],
+      "aliases": [
+        "motor-pedestal"
+      ]
+    },
+    {
+      "id": "HSM-000491",
+      "description": "PGFUN fixture yaw bearing cartridge",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/fixtures/pgfun-positioner/parts/yaw-bearing-cartridge.step"
+        }
+      ],
+      "aliases": [
+        "yaw-bearing-cartridge"
+      ]
+    },
+    {
+      "id": "HSM-000492",
+      "description": "PGFUN fixture reducer output adapter",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/fixtures/pgfun-positioner/parts/yaw-output-adapter.step"
+        }
+      ],
+      "aliases": [
+        "yaw-output-adapter",
+        "pitch-output-adapter"
+      ]
+    },
+    {
+      "id": "HSM-000493",
+      "description": "PGFUN fixture output journal",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/fixtures/pgfun-positioner/parts/yaw-journal.step"
+        }
+      ],
+      "aliases": [
+        "yaw-journal",
+        "pitch-journal"
+      ]
+    },
+    {
+      "id": "HSM-000494",
+      "description": "PGFUN fixture journal bearing cap",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/fixtures/pgfun-positioner/parts/yaw-bearing-cap.step"
+        }
+      ],
+      "aliases": [
+        "yaw-bearing-cap",
+        "pitch-bearing-cap"
+      ]
+    },
+    {
+      "id": "HSM-000495",
+      "description": "PGFUN fixture fork",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/fixtures/pgfun-positioner/parts/fork.step"
+        }
+      ],
+      "aliases": [
+        "fork"
+      ]
+    },
+    {
+      "id": "HSM-000496",
+      "description": "PGFUN fixture journal bearing spacer \u00b7 outer",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/fixtures/pgfun-positioner/parts/yaw-outer-spacer.step"
+        }
+      ],
+      "aliases": [
+        "yaw-outer-spacer",
+        "pitch-outer-spacer"
+      ]
+    },
+    {
+      "id": "HSM-000497",
+      "description": "PGFUN fixture journal bearing spacer \u00b7 inner",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/fixtures/pgfun-positioner/parts/yaw-inner-spacer.step"
+        }
+      ],
+      "aliases": [
+        "yaw-inner-spacer",
+        "pitch-inner-spacer"
+      ]
+    },
+    {
+      "id": "HSM-000498",
+      "description": "PGFUN fixture gun retainer \u00b7 band 1",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/fixtures/pgfun-positioner/parts/gun-retainer-1.step"
+        }
+      ],
+      "aliases": [
+        "gun-retainer-1"
+      ]
+    },
+    {
+      "id": "HSM-000499",
+      "description": "PGFUN fixture gun liner \u00b7 band 1 lower, TPU",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/fixtures/pgfun-positioner/parts/liner-1-lower.step"
+        }
+      ],
+      "aliases": [
+        "liner-1-lower"
+      ]
+    },
+    {
+      "id": "HSM-000500",
+      "description": "PGFUN fixture gun liner \u00b7 band 1 upper, TPU",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/fixtures/pgfun-positioner/parts/liner-1-upper.step"
+        }
+      ],
+      "aliases": [
+        "liner-1-upper"
+      ]
+    },
+    {
+      "id": "HSM-000501",
+      "description": "PGFUN fixture gun retainer \u00b7 band 2",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/fixtures/pgfun-positioner/parts/gun-retainer-2.step"
+        }
+      ],
+      "aliases": [
+        "gun-retainer-2"
+      ]
+    },
+    {
+      "id": "HSM-000502",
+      "description": "PGFUN fixture gun liner \u00b7 band 2 lower, TPU",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/fixtures/pgfun-positioner/parts/liner-2-lower.step"
+        }
+      ],
+      "aliases": [
+        "liner-2-lower"
+      ]
+    },
+    {
+      "id": "HSM-000503",
+      "description": "PGFUN fixture gun liner \u00b7 band 2 upper, TPU",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/fixtures/pgfun-positioner/parts/liner-2-upper.step"
+        }
+      ],
+      "aliases": [
+        "liner-2-upper"
+      ]
+    },
+    {
+      "id": "HSM-000504",
+      "description": "PGFUN fixture lower cradle",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/fixtures/pgfun-positioner/parts/lower-cradle.step"
+        }
+      ],
+      "aliases": [
+        "lower-cradle"
+      ]
+    },
+    {
+      "id": "HSM-000505",
+      "description": "PGFUN fixture left cheek",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/fixtures/pgfun-positioner/parts/left-cheek.step"
+        }
+      ],
+      "aliases": [
+        "left-cheek"
+      ]
+    },
+    {
+      "id": "HSM-000506",
+      "description": "PGFUN fixture right cheek",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/fixtures/pgfun-positioner/parts/right-cheek.step"
+        }
+      ],
+      "aliases": [
+        "right-cheek"
+      ]
+    },
+    {
+      "id": "HSM-000507",
+      "description": "PGFUN fixture bottom frame tie",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/fixtures/pgfun-positioner/parts/bottom-frame-tie.step"
+        }
+      ],
+      "aliases": [
+        "bottom-frame-tie"
+      ]
+    },
+    {
+      "id": "HSM-000508",
+      "description": "PGFUN fixture opposite bearing cap",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/fixtures/pgfun-positioner/parts/opposite-bearing-cap.step"
+        }
+      ],
+      "aliases": [
+        "opposite-bearing-cap"
+      ]
+    },
+    {
+      "id": "HSM-000509",
+      "description": "PGFUN fixture axle spacer \u00b7 8 mm",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/fixtures/pgfun-positioner/parts/axle-collet-spacer.step"
+        }
+      ],
+      "aliases": [
+        "axle-collet-spacer",
+        "opposite-inner-spacer"
+      ]
+    },
+    {
+      "id": "HSM-000510",
+      "description": "PGFUN fixture axle spacer \u00b7 21 mm front stop",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/fixtures/pgfun-positioner/parts/axle-front-stop-spacer.step"
+        }
+      ],
+      "aliases": [
+        "axle-front-stop-spacer"
+      ]
+    },
+    {
+      "id": "HSM-000511",
+      "description": "PGFUN fixture axle spacer \u00b7 12 mm middle",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/fixtures/pgfun-positioner/parts/axle-middle-spacer.step"
+        }
+      ],
+      "aliases": [
+        "axle-middle-spacer"
+      ]
+    },
+    {
+      "id": "HSM-000512",
+      "description": "PGFUN fixture axle spacer \u00b7 18 mm end",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/fixtures/pgfun-positioner/parts/axle-end-spacer.step"
+        }
+      ],
+      "aliases": [
+        "axle-end-spacer"
+      ]
+    },
+    {
+      "id": "HSM-000513",
+      "description": "PGFUN fixture axle keeper",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/fixtures/pgfun-positioner/parts/axle-keeper.step"
+        }
+      ],
+      "aliases": [
+        "axle-keeper"
+      ]
+    },
+    {
+      "id": "HSM-000514",
+      "description": "PGFUN fixture limit-switch holder \u00b7 negative side",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/fixtures/pgfun-positioner/parts/yaw-limit-holder--1.step"
+        }
+      ],
+      "aliases": [
+        "yaw-limit-holder--1",
+        "pitch-limit-holder--1"
+      ]
+    },
+    {
+      "id": "HSM-000515",
+      "description": "PGFUN fixture limit-switch holder \u00b7 positive side",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/fixtures/pgfun-positioner/parts/yaw-limit-holder-1.step"
+        }
+      ],
+      "aliases": [
+        "yaw-limit-holder-1",
+        "pitch-limit-holder-1"
+      ]
+    },
+    {
+      "id": "HSM-000516",
+      "description": "PGFUN fixture pitch switch standoff",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/fixtures/pgfun-positioner/parts/pitch-switch-standoff--1.step"
+        }
+      ],
+      "aliases": [
+        "pitch-switch-standoff--1",
+        "pitch-switch-standoff-1"
+      ]
+    },
+    {
+      "id": "HSM-000517",
+      "description": "PGFUN fixture cable post base",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/fixtures/pgfun-positioner/parts/umbilical-post-base.step"
+        }
+      ],
+      "aliases": [
+        "umbilical-post-base"
+      ]
+    },
+    {
+      "id": "HSM-000518",
+      "description": "PGFUN fixture cable post top",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/fixtures/pgfun-positioner/parts/umbilical-post-top.step"
+        }
+      ],
+      "aliases": [
+        "umbilical-post-top"
+      ]
+    },
+    {
+      "id": "HSM-000519",
+      "description": "PGFUN fixture cable saddle",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/fixtures/pgfun-positioner/parts/umbilical-saddle.step"
+        }
+      ],
+      "aliases": [
+        "umbilical-saddle"
+      ]
+    },
+    {
+      "id": "HSM-000520",
+      "description": "PGFUN fixture stop sector",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/fixtures/pgfun-positioner/parts/yaw-stop-sector.step"
+        }
+      ],
+      "aliases": [
+        "yaw-stop-sector",
+        "pitch-stop-sector"
+      ]
+    },
+    {
+      "id": "HSM-000521",
+      "description": "PGFUN controller case \u00b7 PETG",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/fixtures/pgfun-positioner/parts/controller-case.step"
+        }
+      ],
+      "aliases": [
+        "controller-case"
+      ]
+    },
+    {
+      "id": "HSM-000522",
+      "description": "PGFUN controller lid \u00b7 PETG",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/fixtures/pgfun-positioner/parts/controller-lid.step"
+        }
+      ],
+      "aliases": [
+        "controller-lid"
+      ]
+    },
+    {
+      "id": "HSM-000523",
+      "description": "PGFUN controller fan guard \u00b7 PETG",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/fixtures/pgfun-positioner/parts/fan-guard.step"
+        }
+      ],
+      "aliases": [
+        "fan-guard"
+      ]
+    },
+    {
+      "id": "HSM-000524",
+      "description": "PGFUN camera stand base \u00b7 PETG",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/fixtures/pgfun-positioner/parts/camera-riser-base.step"
+        }
+      ],
+      "aliases": [
+        "camera-riser-base"
+      ]
+    },
+    {
+      "id": "HSM-000525",
+      "description": "PGFUN camera stand top \u00b7 PETG",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/fixtures/pgfun-positioner/parts/camera-riser-top.step"
+        }
+      ],
+      "aliases": [
+        "camera-riser-top"
+      ]
+    },
+    {
+      "id": "HSM-000526",
+      "description": "PGFUN camera lens upright \u00b7 PETG",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/fixtures/pgfun-positioner/parts/camera-lens-upright.step"
+        }
+      ],
+      "aliases": [
+        "camera-lens-upright"
+      ]
+    },
+    {
+      "id": "HSM-000527",
+      "description": "PGFUN camera lens cassette \u00b7 PETG",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/fixtures/pgfun-positioner/parts/camera-lens-cassette.step"
+        }
+      ],
+      "aliases": [
+        "camera-lens-cassette"
+      ]
+    },
+    {
+      "id": "HSM-000528",
+      "description": "PGFUN camera lens retainer \u00b7 PETG",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/fixtures/pgfun-positioner/parts/camera-lens-retainer.step"
+        }
+      ],
+      "aliases": [
+        "camera-lens-retainer"
+      ]
+    },
+    {
+      "id": "HSM-000529",
+      "description": "PGFUN camera lens front pad \u00b7 TPU",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/fixtures/pgfun-positioner/parts/camera-lens-front-pad.step"
+        }
+      ],
+      "aliases": [
+        "camera-lens-front-pad"
+      ]
+    },
+    {
+      "id": "HSM-000530",
+      "description": "PGFUN camera lens shim \u00b7 0.4 mm TPU",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/fixtures/pgfun-positioner/parts/camera-lens-shim-0.4.step"
+        }
+      ],
+      "aliases": [
+        "camera-lens-shim-0.4"
+      ]
+    },
+    {
+      "id": "HSM-000531",
+      "description": "PGFUN journal fit coupon \u00b7 39.98 mm",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/fixtures/pgfun-positioner/parts/journal-fit-39.98.step"
+        }
+      ],
+      "aliases": [
+        "journal-fit-39.98"
+      ]
+    },
+    {
+      "id": "HSM-000532",
+      "description": "PGFUN journal fit coupon \u00b7 40.04 mm",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/fixtures/pgfun-positioner/parts/journal-fit-40.04.step"
+        }
+      ],
+      "aliases": [
+        "journal-fit-40.04"
+      ]
+    },
+    {
+      "id": "HSM-000533",
+      "description": "PGFUN journal fit coupon \u00b7 40.06 mm",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/fixtures/pgfun-positioner/parts/journal-fit-40.06.step"
+        }
+      ],
+      "aliases": [
+        "journal-fit-40.06"
+      ]
+    },
+    {
+      "id": "HSM-000534",
+      "description": "PGFUN bearing housing fit coupon \u00b7 52.00 mm",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/fixtures/pgfun-positioner/parts/housing-fit-52.00.step"
+        }
+      ],
+      "aliases": [
+        "housing-fit-52.00"
+      ]
+    },
+    {
+      "id": "HSM-000535",
+      "description": "PGFUN bearing housing fit coupon \u00b7 52.03 mm",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/fixtures/pgfun-positioner/parts/housing-fit-52.03.step"
+        }
+      ],
+      "aliases": [
+        "housing-fit-52.03"
+      ]
+    },
+    {
+      "id": "HSM-000536",
+      "description": "PGFUN bearing housing fit coupon \u00b7 52.08 mm",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/fixtures/pgfun-positioner/parts/housing-fit-52.08.step"
+        }
+      ],
+      "aliases": [
+        "housing-fit-52.08"
+      ]
+    },
+    {
+      "id": "HSM-000537",
+      "description": "PGFUN TYXC-0062_17_50 harmonic reducer \u00b7 NEMA 17, 50:1",
+      "kind": "purchased",
+      "manufacturer_number": "TYXC-0062_17_50",
+      "aliases": [
+        "harmonic reducer",
+        "gearbox",
+        "yaw-reducer",
+        "pitch-reducer",
+        "B0GF87W2KK"
+      ]
+    },
+    {
+      "id": "HSM-000538",
+      "description": "HARFINGTON 6808 ball bearing \u00b7 40 \u00d7 52 \u00d7 7 mm",
+      "kind": "purchased",
+      "manufacturer_number": "6808",
+      "aliases": [
+        "6808",
+        "B0CGM4BY27"
+      ]
+    },
+    {
+      "id": "HSM-000539",
+      "description": "uxcell 6001-2RS ball bearing \u00b7 12 \u00d7 28 \u00d7 8 mm",
+      "kind": "purchased",
+      "manufacturer_number": "6001-2RS",
+      "aliases": [
+        "6001",
+        "opposite bearing",
+        "B07FF14FQH"
+      ]
+    },
+    {
+      "id": "HSM-000540",
+      "description": "Chrome shaft \u00b7 12 \u00d7 100 mm, M6 tapped ends",
+      "kind": "purchased",
+      "aliases": [
+        "opposite-axle",
+        "B0BM5MJFN7"
+      ]
+    },
+    {
+      "id": "HSM-000541",
+      "description": "M6 shaft-end screw \u00b7 opposite axle keeper",
+      "kind": "purchased",
+      "aliases": [
+        "M6 shaft-end",
+        "M6 end screw"
+      ]
+    },
+    {
+      "id": "HSM-000542",
+      "description": "BIGTREETECH SKR Pico V1.0 controller board",
+      "kind": "purchased",
+      "manufacturer_number": "SKR Pico V1.0",
+      "aliases": [
+        "SKR Pico",
+        "B09MYKL9MP"
+      ]
+    },
+    {
+      "id": "HSM-000543",
+      "description": "GDSTIME 24 V fan \u00b7 40 \u00d7 40 \u00d7 20 mm",
+      "kind": "purchased",
+      "aliases": [
+        "B07S9Q3FHW"
+      ]
+    },
+    {
+      "id": "HSM-000544",
+      "description": "ZJWZJH 22 mm latching NC stop button",
+      "kind": "purchased",
+      "aliases": [
+        "stop button",
+        "motion stop",
+        "B09MTMSYCK"
+      ]
+    },
+    {
+      "id": "HSM-000545",
+      "description": "HiLetgo KW12-3 NC roller-lever microswitch",
+      "kind": "purchased",
+      "manufacturer_number": "KW12-3",
+      "aliases": [
+        "KW12-3",
+        "roller switch",
+        "limit switch",
+        "B07X142VGC"
+      ]
+    },
+    {
+      "id": "HSM-000546",
+      "description": "M8 \u00d7 45 bolt \u00b7 PGFUN rotator anchor",
+      "kind": "manufactured",
+      "aliases": [
+        "M8x45 anchor",
+        "M8x80 cut to 45",
+        "B098D7DFYJ"
       ]
     }
   ]
