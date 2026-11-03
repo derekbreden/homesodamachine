@@ -110,7 +110,9 @@ part of that product.
 `models` lists representations belonging to the material. BOM-item `bodies`
 names the geometry representing that occurrence, relative to its parent's model.
 `prefix` carries a child's model namespace into its containing model; the cold
-core's prefix in the soda machine is `cold-core/`. Multiple solids can represent
+core's prefix in the soda machine is `cold-core/`. A binding that begins `../`
+names geometry the containing model draws: each tube the cold core pots is one
+cold-core part, and the machine's model draws its free end above the lid. Multiple solids can represent
 one purchased material, and a combined envelope can represent several materials.
 Physical quantities come from the parts and assembly records.
 
