@@ -17,6 +17,11 @@ for p in (HW/'scripts', ROOT/'tools', HERE.parents[1],
           HERE.parents[1]/'reservoir', HERE.parents[1]/'reed-bridge',
           HW/'cut-parts/carbonation/endcaps-circular', HW/'assembly'):
     sys.path.insert(0, str(p))
+
+if __name__ == '__main__':
+    import _rust_part
+    _rust_part.start()
+
 import _float_interface as f
 import reservoir as res
 import reed_bridge as bridge
