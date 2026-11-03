@@ -44,10 +44,11 @@ The Rust programs construct and measure the solids and compose their model/viewe
 | Wire curves | `wire-route-samples`; interpolation, lengths and curvature | `hardware/wiring/installed/wire_route_samples.rs` |
 | Enclosure generation | Panel kernels, `enclosure-dock`, numeric Box and model references | `hardware/printed-parts/enclosure/enclosure/` |
 | Enclosure measurements | `enclosure-checks`; piece bounds and Box measurements | `hardware/printed-parts/enclosure/enclosure/enclosure_checks.rs` |
-| Enclosure print surfaces | `enclosure-presentation`; reduction, shading and source records | `hardware/printed-parts/enclosure/enclosure/enclosure_presentation.rs` |
+| Print surfaces | `enclosure-presentation`; enclosure, cold-core and faucet reduction, shading and source records | `hardware/printed-parts/enclosure/enclosure/enclosure_presentation.rs` |
 | Machine checks | `machine-checks`; fit, clearance, drain and scalar reports | `hardware/manifold-layout/machine_checks.rs` |
 | Model exports | `machine-export`; physical models, display surfaces, wiring append and eleven scene GLBs | `hardware/assembly/scenes/machine_export.rs` |
 | Model context | Plain facts, scene documents and numerical wiring context | `hardware/manifold-layout/_machine_reporting.py` |
+| Document readers | Scalar dimensions and facts with explicit source dependencies | BOM, assembly procedures, topology and enclosure dimension readers |
 
 The install guide's twelve plumbing scenes use Rust geometry with plain Python dimensions,
 colours and render jobs. The optional hose and collet illustration builders load native CAD
@@ -63,16 +64,9 @@ not state that every raw surface matches. The combined build retains its existin
 A piece comes off this list when it lands on main. The current merged batch needs its normal
 execution and publication; component comparisons are not a completed combined build.
 
-1. **Cold-core and faucet print surfaces.** `flute_payload_cold_core.py` and
-   `flute_payload_faucet.py` retain Python mesh simplification, shading and surface export.
-   `enclosure_checks` owns their Rust presentation consumer. The enclosure producer owns its
-   own print surfaces and aggregate; its redundant fluting co-writer is outside the normal path.
-2. **Metadata-reader startup.** `cold_core_assembly` owns normal BOM, mechanical/plumbing,
-   topology and dimension readers that import the legacy assembly only for scalar data or source
-   dependencies. These readers keep their data and source edges without loading the CAD driver.
-3. **Combined execution and publication.** The integration lead owns actual normal results,
+1. **Combined execution and publication.** The integration lead owns actual normal results,
    source/output bindings, artifact readback and main publication. The batch runs after merging
    to main; it adds no per-piece speed or whole-build gate.
-4. **Any other step that loads CadQuery, OCP or meshcad at run time.** A generator that calls
+2. **Any other step that loads CadQuery, OCP or meshcad at run time.** A generator that calls
    `_rust_part.start()` defers CadQuery, and still loads it on any path that reads a CadQuery
    name. Optional native design and manual review tools remain outside the normal build.
