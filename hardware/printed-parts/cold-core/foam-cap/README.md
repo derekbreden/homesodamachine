@@ -47,8 +47,9 @@ One continuous 54.5 mm filled box half-pipe spans native X20–74.5, with a
 2.0 mm spring leaves have 1.5 mm inside root blends and 22.25 mm root-to-catch
 lengths. Their flat catches have 2.6 mm overlap outside centered 5 mm-wide by
 1 mm-high flathead entries. Nominal catch clearance is 0.4 mm. Ease each leaf
-outward through its tool entry before withdrawing the cap. Insertion ramps
-sit above the flat retaining faces. Its continuous side pockets
+outward through its tool entry before withdrawing the cap. One 3 mm-rise
+planar lead-in ends at each pointed free edge above its 1.6 mm tool-backed nose.
+The continuous side pockets clear the complete points by 0.5 mm and
 span X19.75–74.75; the seat leaves
 3 mm of solid axial stock at each end. The clip closes after seating the bare
 motor and prints on one axial end with a constant outside profile.
