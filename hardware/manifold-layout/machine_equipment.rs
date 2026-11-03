@@ -7,6 +7,7 @@ use hsm_kernel::{Affine, Body, Imported, Path as SweepPath, Plane, Profile, Soli
                  import, part, step, v2, v3};
 use serde_json::{Value, json};
 use std::collections::BTreeMap;
+use std::sync::Arc;
 
 fn f(v: &Value, key: &str) -> Result<f64> {
     v[key].as_f64().with_context(|| format!("numeric {key}"))
@@ -45,6 +46,18 @@ fn datum(v: &Value) -> Result<Affine> {
 fn color(v: &Value) -> Result<Option<[f64; 3]>> {
     Ok(if v.is_null() { None } else { Some(point(v)?.to_array()) })
 }
+/// An unplaced construction depends on its recipe, selected model entries and
+/// numeric dimensions. Identity, installed frame, material and presentation are
+/// applied separately for every instance. Keep cuffs on their authored CSG path.
+fn construction_key(item: &Value) -> Option<String> {
+    if item.get("op").and_then(Value::as_str) == Some("pump-tube") { return None; }
+    let mut recipe = item.as_object()?.clone();
+    for field in ["name", "transform", "color", "presentation"] {
+        recipe.remove(field);
+    }
+    Some(Value::Object(recipe).to_string())
+}
+
 fn selected(v: &Value, name: &str) -> bool {
     let included = v.get("select").and_then(Value::as_array).map(|selected|
         selected.iter().any(|n| n.as_str().is_some_and(|n|
@@ -296,50 +309,69 @@ fn main() -> Result<()> {
     let mut placed: Vec<(String,Option<[f64;3]>,Solid)> = vec![];
     let mut groups = serde_json::Map::new();
     let mut presentation = vec![];
-    for item in array(n.get("items")?)? {
+    let items = array(n.get("items")?)?;
+    let keys: Vec<_> = items.iter().map(construction_key).collect();
+    let mut last_construction = BTreeMap::new();
+    let mut last_source = BTreeMap::new();
+    for (index, (item, key)) in items.iter().zip(&keys).enumerate() {
+        if let Some(key) = key.as_deref() { last_construction.insert(key, index); }
+        if let Some(path) = item.get("source").and_then(Value::as_str) {
+            last_source.insert(path, index);
+        }
+    }
+    let mut constructions: BTreeMap<&str, Arc<[Solid]>> = BTreeMap::new();
+    for (index, item) in items.iter().enumerate() {
         let name = text(item,"name")?;
         let op = text(item,"op")?;
-        let raw = (|| -> Result<Vec<Solid>> { Ok(match op {
-            "reference" => source(item,&mut sources)?,
-            "valve" => {
-                let original = source(item,&mut sources)?;
-                let mut solids = vec![];
-                for body in original {
-                    for mut solid in body.components() {
-                        let b = solid.bounds();
-                        let port = if b.max.y < -22.25 {Some("inlet")}
-                                   else if b.min.y > 22.25 {Some("outlet")} else {None};
-                        if let Some(angle) = port.and_then(|p|item["clock"][p].as_f64()).filter(|a|*a!=0.) {
-                            solid=solid.rotate(v3(0.,0.,11.05),V3::Y,angle);
+        let key = keys[index].as_deref();
+        let raw = if let Some(raw) = key.and_then(|key| constructions.get(key)) {
+            Arc::clone(raw)
+        } else {
+            let raw: Arc<[Solid]> = (|| -> Result<Vec<Solid>> { Ok(match op {
+                "reference" => source(item,&mut sources)?,
+                "valve" => {
+                    let original = source(item,&mut sources)?;
+                    let mut solids = vec![];
+                    for body in original {
+                        for mut solid in body.components() {
+                            let b = solid.bounds();
+                            let port = if b.max.y < -22.25 {Some("inlet")}
+                                       else if b.min.y > 22.25 {Some("outlet")} else {None};
+                            if let Some(angle) = port.and_then(|p|item["clock"][p].as_f64()).filter(|a|*a!=0.) {
+                                solid=solid.rotate(v3(0.,0.,11.05),V3::Y,angle);
+                            }
+                            solids.push(solid);
                         }
-                        solids.push(solid);
                     }
+                    solids
                 }
-                solids
+                "stem-elbow" => {
+                    let trim = Solid::cuboid(v3(-100.,-50.,-50.),v3(f(item,"tip_x")?,50.,50.));
+                    source(item,&mut sources)?.iter().map(|s|s.cut(&trim)).collect::<Result<Vec<_>>>()?
+                }
+                "stem-check" => vec![stem_check(item)?],
+                "pump-tube" => vec![pump_tube(item)?],
+                "pump-reducer" => {
+                    let cut = f(item,"cut_x")?;
+                    let trim = Solid::cuboid(v3(-100.,-50.,-50.),v3(cut,50.,50.));
+                    source(item,&mut sources)?.iter().map(|s|Ok(s.cut(&trim)?.translate(v3(-cut,0.,0.))))
+                        .collect::<Result<Vec<_>>>()?
+                }
+                "pump-clamp" => vec![pump_clamp(item)?],
+                "bulkhead" => vec![bulkhead(item,&mut sources)?],
+                "bulkhead-nut" => vec![nut(item)?],
+                "mount-hardware" => vec![mounting(item)?],
+                "vent-adapter" => vec![vent_adapter(item)?],
+                _ => bail!("unknown equipment operation {op}"),
+            }) })().with_context(||format!("equipment {name}"))?.into();
+            if let Some(key) = key.filter(|key| last_construction.get(*key).copied().unwrap() > index) {
+                constructions.insert(key, Arc::clone(&raw));
             }
-            "stem-elbow" => {
-                let trim = Solid::cuboid(v3(-100.,-50.,-50.),v3(f(item,"tip_x")?,50.,50.));
-                source(item,&mut sources)?.iter().map(|s|s.cut(&trim)).collect::<Result<Vec<_>>>()?
-            }
-            "stem-check" => vec![stem_check(item)?],
-            "pump-tube" => vec![pump_tube(item)?],
-            "pump-reducer" => {
-                let cut = f(item,"cut_x")?;
-                let trim = Solid::cuboid(v3(-100.,-50.,-50.),v3(cut,50.,50.));
-                source(item,&mut sources)?.iter().map(|s|Ok(s.cut(&trim)?.translate(v3(-cut,0.,0.))))
-                    .collect::<Result<Vec<_>>>()?
-            }
-            "pump-clamp" => vec![pump_clamp(item)?],
-            "bulkhead" => vec![bulkhead(item,&mut sources)?],
-            "bulkhead-nut" => vec![nut(item)?],
-            "mount-hardware" => vec![mounting(item)?],
-            "vent-adapter" => vec![vent_adapter(item)?],
-            _ => bail!("unknown equipment operation {op}"),
-        }) })().with_context(||format!("equipment {name}"))?;
+            raw
+        };
         let installed = frame(&item["transform"])?;
         let rgb = color(&item["color"])?;
         let start = placed.len();
-        let world: Vec<_> = raw.iter().map(|s|s.transformed(&installed)).collect();
         if op == "reference" && item.get("presentation").and_then(Value::as_bool)!=Some(false) {
             let path = text(item,"source")?;
             if path.ends_with(".npz") {
@@ -363,8 +395,16 @@ fn main() -> Result<()> {
                 }
             }
         }
-        for body in &world { placed.push((name.to_owned(),rgb,body.clone())); }
+        placed.extend(raw.iter().map(|solid|
+            (name.to_owned(), rgb, solid.transformed(&installed))));
         groups.insert(name.to_owned(),json!((start..placed.len()).collect::<Vec<_>>()));
+        if let Some(key) = key.filter(|key| last_construction.get(*key).copied() == Some(index)) {
+            constructions.remove(key);
+        }
+        if let Some(path) = item.get("source").and_then(Value::as_str)
+                .filter(|path| last_source.get(*path).copied() == Some(index)) {
+            sources.remove(path);
+        }
     }
     // Input geometry is released before the output tables and archive are written.
     drop(sources);
@@ -389,8 +429,9 @@ fn main() -> Result<()> {
     document["route_order"]=n.get("route_order")?.clone();
     document["bodies"]=json!(placed.iter().map(|(name,color,solid)| {
         let bounds=solid.bounds();
+        let mass=solid.mass();
         json!({"name":name,"color":color,"min":bounds.min.to_array(),"max":bounds.max.to_array(),
-            "volume":solid.volume(),"centroid":solid.centroid().to_array(),
+            "volume":mass.volume,"centroid":mass.centroid.to_array(),
             "vertices":solid.verts().len(),"triangles":solid.tris().len()})
     }).collect::<Vec<_>>());
     std::fs::write(output.join(format!("{name}.json")),serde_json::to_vec_pretty(&document)?)?;
