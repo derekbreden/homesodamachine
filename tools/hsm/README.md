@@ -318,10 +318,10 @@ and gasket (`hardware/printed-parts/faucet/above-counter-plate` and `above-count
 (`hardware/printed-parts/faucet/industrial`) and the two faucet assemblies
 (`hardware/faucet-layout`), all of the same crate, are others.
 
-A part moves onto the kernel only when its generator, timed from its process's start to its
-exit, is faster on a warm run than the OCCT generator it replaces. The commit that moves it
-carries the old and new times, warm and after a kernel change, when its cargo call compiles the
-kernel and its crate before the program runs, and the most memory each run held.
+A part moves onto the kernel as soon as its program makes the outputs its generator made, faster
+on the first try or not; [`conversion.md`](conversion.md) is the plan. The commit that moves it
+carries the program's warm time, from its process's start to its exit, and the most memory it
+held.
 
 `fuse_clamp.py` is its generator. It derives every number the part takes from the parts it closes
 on, states its bounds and fills its README, as any generator does, and writes the numbers the
