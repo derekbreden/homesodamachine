@@ -6,7 +6,7 @@ use parry3d_f64::{
     bounding_volume::BoundingVolume,
     math::{Isometry, Point, Vector},
     partitioning::BvhNode,
-    query::{self, ClosestPoints, Ray, RayCast},
+    query::{self, ClosestPoints, PointQuery, Ray, RayCast},
 };
 use serde::Serialize;
 use std::{
@@ -150,6 +150,32 @@ pub fn overlap(a: &Mesh, b: &Mesh, by: [f64; 3]) -> Result<f64> {
         .status()
         .map_err(|e| anyhow!("intersection failed: {e}"))?;
     penetration(result.volume())
+}
+
+/// Distance to the triangle skin, including for a point inside a closed body.
+pub fn surface_distance(mesh: &Mesh, point: [f64; 3]) -> Result<f64> {
+    ensure!(point.iter().all(|v| v.is_finite()), "a surface sample is finite");
+    Ok(mesh.shape.distance_to_local_point(&Point::from(point), false))
+}
+
+/// The mesh-cad containment reading: a centred cube of half-width `tolerance`
+/// has a positive shared volume with this solid. This keeps the existing box
+/// tolerance at cut ends and bore walls, rather than replacing it with a sphere.
+pub fn contains_probe(mesh: &Mesh, point: [f64; 3], tolerance: f64) -> Result<bool> {
+    ensure!(point.iter().all(|v| v.is_finite()) && tolerance.is_finite() && tolerance > 0.0,
+            "a containment sample has a finite point and positive tolerance");
+    let bounds = mesh.shape.local_aabb();
+    if (0..3).any(|axis| point[axis] + tolerance <= bounds.mins[axis]
+                            || point[axis] - tolerance >= bounds.maxs[axis]) {
+        return Ok(false);
+    }
+    let probe = Manifold::cube(2.0 * tolerance, 2.0 * tolerance, 2.0 * tolerance, true)
+        .translate(point[0], point[1], point[2]);
+    let hit = mesh.solid()?.intersection(&probe);
+    hit.status().map_err(|error| anyhow!("containment probe failed: {error}"))?;
+    let volume = hit.volume();
+    ensure!(volume.is_finite(), "a containment probe has non-finite volume");
+    Ok(volume > 0.0)
 }
 
 #[derive(Serialize)]

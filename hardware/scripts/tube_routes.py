@@ -209,9 +209,12 @@ def source_block(doc, runs, snapshot):
     }
 
 
-def verify_displayed_routes(runs, step=STEP, tolerance_mm=0.05, *, bodies=None):
+def verify_displayed_routes(runs, step=STEP, tolerance_mm=0.05, *, bodies=None, fine_model=None):
     """Match centreline samples to producer fine tubes, or an explicitly supplied native STEP."""
     method = "producer fine f64 model containment and radial face distance"
+    if fine_model is not None:
+        import _tube_query
+        return _tube_query.verify_runs(runs, fine_model, tolerance_mm, method)
     if bodies is None:
         from _cadq_export import import_assembly
         bodies = import_assembly(step)
@@ -470,7 +473,7 @@ def main(argv=None):
     t0 = time.time()
     snapshot = source_snapshot(reference)
     import _tube_export as X
-    a = X.load(FACTS, SCENE, MODEL)
+    a = X.load(FACTS, SCENE, MODEL, fine_queries=True)
     print(f"producer fine assembly read in {time.time() - t0:.0f} s", flush=True)
     doc, _table, problems = X.export(a)
     for k, v in problems.items():
@@ -479,7 +482,7 @@ def main(argv=None):
     if not doc["source"]["mesh_matches_step"]:
         raise ValueError("The assembly STEP and viewer source do not match; regenerate the assembly payload.")
     runs = contract_runs(doc)
-    verify_displayed_routes(runs, bodies={name: (shape, None) for name, shape in a.leaves.items()})
+    verify_displayed_routes(runs, fine_model=a.fine_tubes)
     out = {"version": 1,
            "frame": "machine: +X east, +Y aft, +Z up; mm, N, g",
            "assumptions": ASSUMPTIONS, "scenarios": SCENARIOS, "coil_normal_default": list(COIL_NORMAL),
