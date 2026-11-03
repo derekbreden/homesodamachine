@@ -34,7 +34,7 @@ The [complete removal sweep](support-removal-review.json) checks all emitted
 support beads against native stock using their actual widths and slab heights.
 The receiver prints on its flat underside, matching the frame orientation. Its 3 mm web, drain hole and two wing slots receive model walls in every native section. There are no support paths and no perimeter diagnostics. This coupon qualifies only its recorded trial geometry; it does not represent a slice of the full frame or qualify production retention.
 
-The [accepted v4 record](../../../cradle-trial/physical-acceptance.json) remains
+The [accepted v4 record](https://github.com/derekbreden/homesodamachine/blob/archive-finished-trials/hardware/printed-parts/zone-c/funnel/cradle-trial/physical-acceptance.json) remains
 limited to its frozen printed pair. Current 3.15 mm hooks, corresponding slots
 and flat silicone bearing require separate physical acceptance. Native slicing
 does not establish insertion force, retention, operating life, support-removal
