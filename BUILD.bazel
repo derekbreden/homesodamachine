@@ -5008,6 +5008,7 @@ genrule(
         "pysrc/hardware/scripts/meshcad/topo.py",
         "pysrc/hardware/scripts/meshcad/write.py",
         "pysrc/hardware/scripts/pick_text.py",
+        "pysrc/hardware/wiring/installed/_model_input.py",
         "pysrc/tools/docgen/__init__.py",
         "tools/hsm/Cargo.lock",
         "tools/hsm/Cargo.toml",
@@ -6610,6 +6611,7 @@ genrule(
         "pysrc/hardware/cut-parts/carbonation/float-rod/float_rod_dimensions.py",
         "hardware/manifold-layout/above-core.json",
         "pysrc/hardware/manifold-layout/above_core.py",
+        "hardware/manifold-layout/enclosure_assembly.rs",
         "pysrc/hardware/printed-parts/cadlib/fits.py",
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
         "pysrc/hardware/printed-parts/cold-core/_above_core_mounts.py",
@@ -6642,6 +6644,7 @@ genrule(
         "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
         "pysrc/hardware/printed-parts/valve-seat/valve_seat.py",
         "pysrc/hardware/reference/beduan-solenoid/beduan_solenoid.py",
+        "pysrc/hardware/scripts/_assembly_model.py",
         "pysrc/hardware/scripts/_cadq_export.py",
         "pysrc/hardware/scripts/_document_export.py",
         "pysrc/hardware/scripts/_material_base.py",
@@ -6650,6 +6653,7 @@ genrule(
         "pysrc/hardware/scripts/_realized.py",
         "pysrc/hardware/scripts/_run_lock.py",
         "pysrc/hardware/scripts/_run_slots.py",
+        "pysrc/hardware/scripts/_rust_part.py",
         "pysrc/hardware/scripts/_stated_bounds.py",
         "pysrc/hardware/scripts/meshcad/__init__.py",
         "pysrc/hardware/scripts/meshcad/build.py",
@@ -6660,7 +6664,47 @@ genrule(
         "pysrc/hardware/scripts/meshcad/topo.py",
         "pysrc/hardware/scripts/meshcad/write.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/hsm/Cargo.lock",
+        "tools/hsm/Cargo.toml",
+        "tools/hsm/geometry/Cargo.toml",
+        "tools/hsm/geometry/src/lib.rs",
+        "tools/hsm/geometry/src/payload.rs",
+        "tools/hsm/geometry/src/queries.rs",
+        "tools/hsm/kernel/Cargo.toml",
+        "tools/hsm/kernel/src/boolean.rs",
+        "tools/hsm/kernel/src/build.rs",
+        "tools/hsm/kernel/src/dxf.rs",
+        "tools/hsm/kernel/src/edge.rs",
+        "tools/hsm/kernel/src/face.rs",
+        "tools/hsm/kernel/src/import.rs",
+        "tools/hsm/kernel/src/lib.rs",
+        "tools/hsm/kernel/src/mapped.rs",
+        "tools/hsm/kernel/src/mass.rs",
+        "tools/hsm/kernel/src/math.rs",
+        "tools/hsm/kernel/src/part.rs",
+        "tools/hsm/kernel/src/plane.rs",
+        "tools/hsm/kernel/src/profile.rs",
+        "tools/hsm/kernel/src/reads.rs",
+        "tools/hsm/kernel/src/round.rs",
+        "tools/hsm/kernel/src/round/rolled.rs",
+        "tools/hsm/kernel/src/rule.rs",
+        "tools/hsm/kernel/src/screw.rs",
+        "tools/hsm/kernel/src/sketch_hull.rs",
+        "tools/hsm/kernel/src/solid.rs",
+        "tools/hsm/kernel/src/spline.rs",
+        "tools/hsm/kernel/src/step.rs",
+        "tools/hsm/kernel/src/step/analytic.rs",
+        "tools/hsm/kernel/src/sweep.rs",
+        "tools/hsm/kernel/src/text.rs",
+        "tools/hsm/kernel/src/thru.rs",
+        "tools/hsm/kernel/src/topo.rs",
+        "tools/hsm/kernel/src/triangulate.rs",
+        "tools/hsm/kernel/src/write.rs",
+        "tools/hsm/machine/Cargo.toml",
         "tools/hsm/run-slots.defaults.json",
+        "tools/hsm/run-slots/Cargo.toml",
+        "tools/hsm/run-slots/src/ipc.rs",
+        "tools/hsm/run-slots/src/lib.rs",
         "tools/run-slots.mjs",
         "pysrc/tools/run.py",
     ] + glob(
@@ -6674,6 +6718,7 @@ genrule(
         "out/integration/hardware/printed-parts/cold-core/magnetic-float/all-aero/installation.figures.json",
         "out/integration/hardware/printed-parts/cold-core/magnetic-float/all-aero/installation.md",
     ],
+    tags = ["no-sandbox"],
     cmd = """
 set -e
 case "$$(uname -s)" in
@@ -6699,6 +6744,7 @@ esac
 O0=$$PWD/$(location out/integration/hardware/printed-parts/cold-core/magnetic-float/all-aero/integration-check.json)
 O1=$$PWD/$(location out/integration/hardware/printed-parts/cold-core/magnetic-float/all-aero/installation.figures.json)
 O2=$$PWD/$(location out/integration/hardware/printed-parts/cold-core/magnetic-float/all-aero/installation.md)
+rm -rf work-integration
 for f in $(SRCS); do
   case $$f in
     */node_modules/*) continue;;
@@ -6706,18 +6752,19 @@ for f in $(SRCS); do
     */pysrc/*) t=$${f##*/pysrc/};;
     *) t=$$f;;
   esac
-  mkdir -p "work/$$(dirname "$$t")"; copy_file -L "$$f" "work/$$t"
+  mkdir -p "work-integration/$$(dirname "$$t")"; copy_file -L "$$f" "work-integration/$$t"
 done
 for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
-  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
+  if [ -d $$d ]; then mkdir -p work-integration/$$(dirname $$d); ln -sfn $$PWD/$$d work-integration/$$d; fi
 done
-cd work
+cd work-integration
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
 HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/cold-core/magnetic-float/all-aero/integration.py > /dev/null
 copy_file hardware/printed-parts/cold-core/magnetic-float/all-aero/integration-check.json "$$O0"
 copy_file hardware/printed-parts/cold-core/magnetic-float/all-aero/installation.figures.json "$$O1"
 copy_file hardware/printed-parts/cold-core/magnetic-float/all-aero/installation.md "$$O2"
+cd .. && rm -rf work-integration
 """,
 )
 
