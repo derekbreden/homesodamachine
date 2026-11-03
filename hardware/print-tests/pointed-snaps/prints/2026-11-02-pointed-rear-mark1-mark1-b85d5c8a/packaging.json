@@ -1,0 +1,24 @@
+{
+  "source_archive": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/pointed-snap-set/worktree/hardware/print-tests/pointed-snaps/prints/2026-11-02-pointed-rear-mark1-mark1-b85d5c8a/2026-11-02-pointed-rear-mark1-mark1-b85d5c8a.gcode.3mf",
+  "source_archive_sha256": "3d07e0a3b1cd17ab28ef9f904c5325ec02b455d7f40adb6fcb915be8e521681f",
+  "print_only_archive": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/pointed-snap-set/worktree/hardware/print-tests/pointed-snaps/prints/2026-11-02-pointed-rear-mark1-mark1-b85d5c8a/2026-11-02-pointed-rear-mark1-mark1-b85d5c8a-print-only.gcode.3mf",
+  "print_only_archive_sha256": "17215edc3ca38d39fa868fc90268858fc7a90f93768342123efad09c22698665",
+  "gcode_sha256": {
+    "Metadata/plate_1.gcode": "1ddbfc218bd6c8301ddc675cf09442bd9d5149b3c30b1854e5bd016726dffda5"
+  },
+  "gcode_byte_identical": true,
+  "changed_container_entries": [
+    "3D/3dmodel.model",
+    "Metadata/model_settings.config"
+  ],
+  "omitted_editable_geometry_entries": [
+    "3D/Objects/object_1.model",
+    "3D/Objects/object_2.model",
+    "3D/Objects/object_3.model",
+    "3D/Objects/object_4.model",
+    "3D/Objects/object_5.model",
+    "3D/Objects/object_6.model",
+    "3D/_rels/3dmodel.model.rels",
+    "Metadata/cut_information.xml"
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "printer": "H2C",
+  "observed_at": "2026-11-03T05:37:35.458659+00:00",
+  "archive": {
+    "name": "HSM-pointed-rear-Mark1.gcode.3mf",
+    "sha256": "17215edc3ca38d39fa868fc90268858fc7a90f93768342123efad09c22698665",
+    "gcode_sha256": "1ddbfc218bd6c8301ddc675cf09442bd9d5149b3c30b1854e5bd016726dffda5",
+    "slots": {
+      "1": {
+        "type": "PET-CF",
+        "colour": "000000"
+      }
+    },
+    "objects": [
+      "asse-seat",
+      "asse-cap",
+      "pisco-seat",
+      "pisco-cap",
+      "regulator-seat",
+      "regulator-cap"
+    ]
+  },
+  "printer_task_id": "1402389255",
+  "gcode_state": "PREPARE",
+  "subtask_name": "HSM-pointed-rear-Mark1.gcode.3mf",
+  "print_error": 0,
+  "hms": [],
+  "layer_num": 269,
+  "total_layer_num": 269,
+  "mc_remaining_time": 0
+}

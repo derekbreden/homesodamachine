@@ -11,7 +11,9 @@
       "filament_g": 496.29,
       "minimum_bed_margin_mm": 54.893827999999985,
       "native_review_pass": true,
-      "submitted": false
+      "submitted": false,
+      "ready": false,
+      "superseded_by": "hardware/print-tests/pointed-snaps/print-jobs.json"
     },
     {
       "plate": "pointed-tips-and-asse",
@@ -24,7 +26,9 @@
       "filament_g": 91.02,
       "minimum_bed_margin_mm": 105.04478499999999,
       "native_review_pass": true,
-      "submitted": false
+      "submitted": false,
+      "ready": false,
+      "superseded_by": "hardware/print-tests/pointed-snaps/print-jobs.json"
     },
     {
       "plate": "cartridge-ramp-comparison",
@@ -37,7 +41,9 @@
       "filament_g": 73.93,
       "minimum_bed_margin_mm": 123.260368,
       "native_review_pass": true,
-      "submitted": false
+      "submitted": false,
+      "ready": false,
+      "superseded_by": "hardware/print-tests/pointed-snaps/print-jobs.json"
     }
   ]
 }

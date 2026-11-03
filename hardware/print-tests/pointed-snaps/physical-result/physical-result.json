@@ -1,0 +1,43 @@
+{
+  "date_local": "2026-11-02",
+  "reporter": "Derek",
+  "source": "Current conversation, attached ASSE photographs 1\u20136",
+  "approved_hardware_fits": [
+    "water regulator",
+    "PISCO regulator",
+    "flow meter"
+  ],
+  "approval_scope": "All aspects of hardware fit; wing-tip geometry remains for the next pointed trial.",
+  "quote": "the water regulator and the pisco and the flow meter are all perfect, or close enough to perfect, that we definitely want to call these approved and good for all aspects of fit other than the wing tips that we want to iterate on next here.",
+  "asse": {
+    "result": "Very slight cap lift at the adapter hex; hardware also rides high when dropped into the detached cap.",
+    "quote": "it's just riding a little bit high with that hex there, like there's not quite enough depth for the hex to drop down into.",
+    "finished_design": "Six conforming hex-flat directions at the chosen clock, with 0.25 mm extra vertical allowance on only the lower-facing planes. The hex-band corner clip is relieved to radius 12.874 mm; both cylindrical neck bearing profiles and the measured axial shoulder stations are retained.",
+    "basis": "The photos show slight proud seating at the adapter hex. Parallel offsets of its lower-facing planes provide depth without tilting the conforming flats or moving the upper planes. The local rounded-corner relief prevents the corner clip from holding the hex high.",
+    "photo_interpretation": "The slight lift supports a small lower-face allowance. Derek confirms the hex clocking is controlled; the photographs are not used as a precise depth measurement.",
+    "physical_result_of_finished_design": "Prepared for verification with the new pointed set.",
+    "independent_review": {
+      "reviewer": "asse_seating_review",
+      "recommendation": "Retain conforming hex and clock; add 0.25 mm lower-plane depth and local 12.874 mm corner relief through nativeX -12.60..-2.35 mm.",
+      "nominal_minimum_bottom_and_diagonal_stock_mm": 8.71,
+      "neck_bearings": "Original radius profile retained; relief stays between the upstream and downstream cylindrical neck bands."
+    },
+    "user_clocking_preference": "I'd like it to conform to the hex. I can ensure it lands at the right spot."
+  },
+  "photos": [
+    "photos/1-Photo-1.jpg",
+    "photos/2-Photo-2.jpg",
+    "photos/3-Photo-3.jpg",
+    "photos/4-Photo-4.jpg",
+    "photos/5-Photo-5.jpg",
+    "photos/6-Photo-6.jpg"
+  ],
+  "pointed_tips": "Not included in this physical approval; the new cap tips and matching pockets are prepared for testing.",
+  "pump_cartridge": "Paired snap mechanism remains untested.",
+  "approved_bearing_definition_sha256": {
+    "pisco-snap-cap": "80cc04a25d1284055db8da250233d8dbca694bb66762ad02c7e78a22bdf27a0a",
+    "meter-snap-cap": "36a956d7be1f917741d5f265506de27325243a010cfcf4658230f206ca522d73",
+    "regulator-snap-cap": "de43c2c4246aaa3a25c940eaeaa95a8d931ea7467b3c39c0a33130df9f93140b"
+  },
+  "bearing_definitions_match_finished_fit_round": true
+}

@@ -1,4 +1,4 @@
-[thin] Functional hook nose and insertion ramp. The 2.6 mm total hook height comprises a 1.6 mm nose and 1 mm lead-in rise. Across the centered 5 mm blade entry, the 1 mm opening leaves a finite 0.6 mm nose above it. The sampled 0.72 mm places lie in that tool-purchase roof; the 1.91–2.04 mm places lie across the adjoining insertion profile. Physical release force and repeated use remain unqualified in rear-snap-retention/v3.
+[thin] Functional hook nose and insertion ramp. The 4.6 mm total hook height comprises a 1.6 mm tool-backed nose and a 3 mm pointed lead-in. Across the centered 5 mm blade entry, the 1 mm opening leaves a finite 0.6 mm nose above it. The tool-purchase roof and the adjoining insertion profile are functional parts of this specified hook. Physical insertion, release and repeated use are checked with the complete pointed sample.
 alternatives: Increasing roof thickness within this height reduces the requested blade opening or steepens the insertion ramp; increasing total hook height also deepens its receiving pocket into the fixed roof stock. Filling the entry removes centered tool access. The 2.6 mm flat retaining overlap remains on each side of the entry.
 file: hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.step
 click: x=-31.842 y=27.147 z=25.572
@@ -27,3 +27,15 @@ alternatives: Filling the faces closes the blade entry. A ramped opening changes
 file: hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.step
 click: x=32.513 y=26.096 z=29.750
 click: x=-33.546 y=25.763 z=29.750
+click: x=32.513 y=25.096 z=29.750
+click: x=-33.546 y=24.763 z=29.750
+
+[thin] The deliberately pointed free edge joins the single planar lead-in to the outside spring wall. Derek requests this point as the production tip. Its thickness approaches zero at the edge; the working spring remains 2 mm and the tool-backed nose remains 1.6 mm with 0.6 mm above the blade entry. These locations are on that specified point.
+alternatives: A flat tip land removes the requested point. Thickening the full leaf changes the selected flexure section rather than the lead-in. The point is integral with the cap.
+file: hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.step
+click: x=-36.563 y=29.020 z=54.149
+click: x=-36.579 y=29.020 z=54.149
+click: x=36.563 y=29.020 z=0.351
+click: x=36.579 y=29.020 z=0.351
+click: x=36.579 y=28.953 z=54.149
+click: x=36.545 y=29.010 z=54.149

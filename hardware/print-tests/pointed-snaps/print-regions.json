@@ -1,0 +1,72 @@
+{
+  "producer": "Production pump snap host dimensions, translated with the two retained end bands.",
+  "pieces": {
+    "cartridge-seat": [
+      {
+        "name": "Pump snap west receiver floor and full flank root",
+        "machine_bounds_mm": [
+          -107.5,
+          -98.5,
+          14.0,
+          82.515,
+          160.25,
+          206.44500000000002
+        ],
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag",
+        "applied_source_bounds_mm": [
+          -17.599999999999994,
+          -8.599999999999994,
+          14.0,
+          82.515,
+          160.25,
+          206.44500000000002
+        ],
+        "print_bounds_mm": [
+          -107.5,
+          -98.5,
+          14.0,
+          82.515,
+          0.0,
+          46.19500000000002
+        ]
+      },
+      {
+        "name": "Pump snap east receiver floor and full flank root",
+        "machine_bounds_mm": [
+          98.5,
+          107.5,
+          14.0,
+          82.515,
+          160.25,
+          206.44500000000002
+        ],
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag",
+        "applied_source_bounds_mm": [
+          8.599999999999994,
+          17.599999999999994,
+          14.0,
+          82.515,
+          160.25,
+          206.44500000000002
+        ],
+        "print_bounds_mm": [
+          98.5,
+          107.5,
+          14.0,
+          82.515,
+          0.0,
+          46.19500000000002
+        ]
+      }
+    ]
+  },
+  "native_artifact_sha256": {
+    "cartridge-seat": {
+      ".stl": "c0cf8a2db8fd43d7838a8584c5dceaf60e51b15f3cb402b6c5f00507de6ece9f",
+      ".step": null
+    }
+  },
+  "part_process_overrides": {}
+}

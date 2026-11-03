@@ -1,0 +1,748 @@
+{
+  "piece": "pointed-pumps-meter-mark2",
+  "printer": "Mark2",
+  "connection_key": "Mark2",
+  "nozzle": {
+    "side": "left",
+    "diameter_mm": 0.4,
+    "flow": "Standard",
+    "hardened": true,
+    "reason": "Every abrasive stock runs on the left hotend (hardware/ledger/tools.md, Which hotends fit an H2C); Mark1's fixed left hardened 0.4 mm carries black PET-GF (tools/bambu-printers.md, Purge and wipe).",
+    "sliced_diameter_mm": 0.4,
+    "sliced_volume_type": "Standard"
+  },
+  "material": "Polymaker Fiberon PET-GF15, black",
+  "bed_type": "Textured PEI Plate",
+  "requested_z_trim_mm": 0.04,
+  "emitted_textured_trim_mm": 0.02,
+  "project": "hardware/print-tests/pointed-snaps/prints/2026-11-02-pointed-pumps-meter-mark2-mark2-fc2a806a/2026-11-02-pointed-pumps-meter-mark2-mark2-fc2a806a.3mf",
+  "project_sha256": "f9beda6b8b5dd65768d761126b3986178b6ed7e5130d3a8037d529ba28571b28",
+  "profile": "hardware/printed-parts/petgf.3mf",
+  "profile_sha256": "45c16e8c8517e0a205107d7b9f7412d013f51a8de7ecf86125cc940079d37ed0",
+  "settings_sha256": "9ec932e56f44be2a559a6247710e66aef9d476ff4c4dcc5c01d0fd10f1701e03",
+  "settings_changes": {
+    "extruder_ams_count": {
+      "from": [
+        "1#0|4#1",
+        "1#0|4#0"
+      ],
+      "to": [
+        "1#0|4#0",
+        "1#0|4#0"
+      ],
+      "reason": "Single external black PET-GF spool on the fixed left nozzle for model, support and interface."
+    },
+    "support_filament": {
+      "from": "0",
+      "to": "1",
+      "reason": "Single external black PET-GF spool on the fixed left nozzle for model, support and interface."
+    },
+    "support_interface_filament": {
+      "from": "0",
+      "to": "1",
+      "reason": "Single external black PET-GF spool on the fixed left nozzle for model, support and interface."
+    },
+    "flush_into_support": {
+      "from": "1",
+      "to": "0",
+      "reason": "Single external black PET-GF spool on the fixed left nozzle for model, support and interface."
+    },
+    "filament_colour": {
+      "from": [
+        "#000000"
+      ],
+      "to": [
+        "#161616"
+      ],
+      "reason": "Mark2's loaded black PET-GF colour reading."
+    },
+    "wall_loops": {
+      "from": "2",
+      "to": "3",
+      "reason": "Shared snap trial recipe: three Classic walls."
+    },
+    "wall_generator": {
+      "from": "classic",
+      "to": "classic",
+      "reason": "Production fixed-width walls."
+    },
+    "sparse_infill_density": {
+      "from": "15%",
+      "to": "15%",
+      "reason": "Production receiver bulk, with local solid cartridge snap hosts."
+    },
+    "sparse_infill_pattern": {
+      "from": "gyroid",
+      "to": "gyroid",
+      "reason": "Production receiver bulk recipe."
+    },
+    "enable_support": {
+      "from": "1",
+      "to": "1",
+      "reason": "Tree(auto)/Default retains automatic support beneath functional ceilings."
+    }
+  },
+  "profile_changes": {
+    "machine_start_gcode": {
+      "from_sha256": "3cc9e41520dbf5622d6f9a96bce734db9d11b0b48b49f2abec047a6e01dc6a92",
+      "to_sha256": "b09bc598f2ed7c29dceb227188593905dfc663f0391b98ff708ef00e7ce01bee",
+      "requested_z_trim_mm": 0.04
+    },
+    "printer_settings_id": {
+      "from": "Bambu Lab H2C 0.4 nozzle 04 first layer by agent",
+      "to": "Bambu Lab H2C 0.4 Standard +0.04 Z trim"
+    },
+    "print_compatible_printers": {
+      "from": [
+        "Bambu Lab H2C 0.4 nozzle"
+      ],
+      "to": [
+        "Bambu Lab H2C 0.4 nozzle",
+        "Bambu Lab H2C 0.4 Standard +0.04 Z trim"
+      ]
+    }
+  },
+  "usable_plate_mm": [
+    [
+      0.0,
+      0.0
+    ],
+    [
+      325.0,
+      320.0
+    ]
+  ],
+  "plate_border_mm": 40.0,
+  "brim_allowance_mm": 0.0,
+  "plate_offset_mm": null,
+  "objects": [
+    {
+      "name": "pump-seat",
+      "identify_id": 1901,
+      "object_id": 2,
+      "stl": "hardware/print-tests/pointed-snaps/parts/pump-seat.stl",
+      "stl_sha256": "1e30e895d79cc741a8f2228a4e53ef7679ad177c7b6a69b41fe8a18595c940e0",
+      "step_sha256": "efe392de1be8d8eb07e52ab692d3e3d87ed24fc583beed6d8b5095024de4700e",
+      "facets": 498,
+      "closed": {
+        "edges": 747,
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "inconsistent_edges": 0,
+        "bodies": 1,
+        "closed_oriented_single_body": true
+      },
+      "pose": null,
+      "pose_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "yaw_degrees": 0,
+      "source_center_mm": [
+        0.0,
+        0.0,
+        18.014673233032227
+      ],
+      "build_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "translation_mm": [
+        112.47500038146973,
+        116.74250030517578,
+        18.014673233032227
+      ],
+      "plate_bounds_mm": [
+        [
+          72.89581871032715,
+          69.04249954223633,
+          0.0
+        ],
+        [
+          152.0541820526123,
+          164.44250106811523,
+          36.02934646606445
+        ]
+      ],
+      "model_bed_margin_mm": 69.04249954223633,
+      "seam_enforcer": null,
+      "object_settings": {},
+      "features": [],
+      "ranges": [],
+      "verify_spans": [],
+      "ribbons": [],
+      "tie_windows": [],
+      "modifiers": [],
+      "fins": []
+    },
+    {
+      "name": "pump-cap",
+      "identify_id": 1902,
+      "object_id": 4,
+      "stl": "hardware/print-tests/pointed-snaps/parts/pump-cap.stl",
+      "stl_sha256": "bcfaf2e87de61cf090d7b10dbe4c031cda1969ea8102785232d720204b482eea",
+      "step_sha256": "44fcdf98df7e544b379e0d32ce5fbb59c6dc1028d52cc0da42793462b0df2eec",
+      "facets": 672,
+      "closed": {
+        "edges": 1008,
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "inconsistent_edges": 0,
+        "bodies": 1,
+        "closed_oriented_single_body": true
+      },
+      "pose": null,
+      "pose_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "yaw_degrees": 0,
+      "source_center_mm": [
+        0.0,
+        0.0,
+        27.25
+      ],
+      "build_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "translation_mm": [
+        114.97500038146973,
+        213.70000076293945,
+        27.25
+      ],
+      "plate_bounds_mm": [
+        [
+          78.39581871032715,
+          184.6702480316162,
+          0.0
+        ],
+        [
+          151.5541820526123,
+          242.7297534942627,
+          54.5
+        ]
+      ],
+      "model_bed_margin_mm": 77.2702465057373,
+      "seam_enforcer": null,
+      "object_settings": {
+        "sparse_infill_density": {
+          "value": "100%",
+          "reason": "Solid cap, pointed catches and spring roots."
+        },
+        "sparse_infill_pattern": {
+          "value": "zig-zag",
+          "reason": "Solid cap deposition."
+        }
+      },
+      "features": [],
+      "ranges": [],
+      "verify_spans": [],
+      "ribbons": [],
+      "tie_windows": [],
+      "modifiers": [],
+      "fins": []
+    },
+    {
+      "name": "meter-seat",
+      "identify_id": 1903,
+      "object_id": 6,
+      "stl": "hardware/print-tests/pointed-snaps/parts/meter-seat.stl",
+      "stl_sha256": "c7752cad478ed1f6c5e49e744d2be72be72ad12806a53956835108d57932eeb1",
+      "step_sha256": "d54b72c4cd5ebfebdd96291773dae4502663f27d637f4898f12df7db607317c9",
+      "facets": 6122,
+      "closed": {
+        "edges": 9183,
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "inconsistent_edges": 0,
+        "bodies": 1,
+        "closed_oriented_single_body": true
+      },
+      "pose": null,
+      "pose_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "yaw_degrees": 0,
+      "source_center_mm": [
+        0.0,
+        0.0,
+        30.149999618530273
+      ],
+      "build_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "translation_mm": [
+        190.62918281555176,
+        116.74250030517578,
+        30.149999618530273
+      ],
+      "plate_bounds_mm": [
+        [
+          164.0541820526123,
+          71.0925064086914,
+          0.0
+        ],
+        [
+          217.2041835784912,
+          162.39249420166016,
+          60.29999923706055
+        ]
+      ],
+      "model_bed_margin_mm": 71.0925064086914,
+      "seam_enforcer": null,
+      "object_settings": {},
+      "features": [],
+      "ranges": [],
+      "verify_spans": [],
+      "ribbons": [],
+      "tie_windows": [],
+      "modifiers": [],
+      "fins": []
+    },
+    {
+      "name": "meter-cap",
+      "identify_id": 1904,
+      "object_id": 8,
+      "stl": "hardware/print-tests/pointed-snaps/parts/meter-cap.stl",
+      "stl_sha256": "1ed03bf9fde42e60b969797e3840bb7d59a92a0f5bb2380c35b9c31e030339db",
+      "step_sha256": "06793ad124145ef0c3d9ec8bb7b19f68c472f14a825532f56b431fb5bbc12d20",
+      "facets": 1884,
+      "closed": {
+        "edges": 2826,
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "inconsistent_edges": 0,
+        "bodies": 1,
+        "closed_oriented_single_body": true
+      },
+      "pose": null,
+      "pose_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "yaw_degrees": 0,
+      "source_center_mm": [
+        0.0,
+        0.0,
+        19.0
+      ],
+      "build_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "translation_mm": [
+        181.47918128967285,
+        213.70000076293945,
+        19.0
+      ],
+      "plate_bounds_mm": [
+        [
+          163.5541820526123,
+          186.55000114440918,
+          0.0
+        ],
+        [
+          199.4041805267334,
+          240.85000038146973,
+          38.0
+        ]
+      ],
+      "model_bed_margin_mm": 79.14999961853027,
+      "seam_enforcer": null,
+      "object_settings": {
+        "sparse_infill_density": {
+          "value": "100%",
+          "reason": "Solid cap, pointed catches and spring roots."
+        },
+        "sparse_infill_pattern": {
+          "value": "zig-zag",
+          "reason": "Solid cap deposition."
+        }
+      },
+      "features": [],
+      "ranges": [],
+      "verify_spans": [],
+      "ribbons": [],
+      "tie_windows": [],
+      "modifiers": [],
+      "fins": []
+    },
+    {
+      "name": "cartridge-seat",
+      "identify_id": 1905,
+      "object_id": 10,
+      "stl": "hardware/print-tests/pointed-snaps/parts/cartridge-seat.stl",
+      "stl_sha256": "c0cf8a2db8fd43d7838a8584c5dceaf60e51b15f3cb402b6c5f00507de6ece9f",
+      "step_sha256": null,
+      "facets": 17446,
+      "closed": {
+        "edges": 26169,
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "inconsistent_edges": 0,
+        "bodies": 1,
+        "closed_oriented_single_body": true
+      },
+      "pose": null,
+      "pose_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "yaw_degrees": 0,
+      "source_center_mm": [
+        0.0,
+        48.25749969482422,
+        194.16200256347656
+      ],
+      "build_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "translation_mm": [
+        229.00418090820312,
+        213.70000076293945,
+        33.91200256347656
+      ],
+      "plate_bounds_mm": [
+        [
+          211.4041805267334,
+          176.44250106811523,
+          0.0
+        ],
+        [
+          246.60418128967285,
+          250.95750045776367,
+          67.82400512695312
+        ]
+      ],
+      "model_bed_margin_mm": 69.04249954223633,
+      "seam_enforcer": null,
+      "object_settings": {},
+      "features": [],
+      "ranges": [],
+      "verify_spans": [],
+      "ribbons": [],
+      "tie_windows": [],
+      "modifiers": [
+        {
+          "name": "Pump snap west receiver floor and full flank root",
+          "source_bounds_mm": [
+            [
+              -17.599000381469725,
+              14.0,
+              160.251
+            ],
+            [
+              -8.599999999999994,
+              82.515,
+              206.44500000000002
+            ]
+          ],
+          "plate_bounds_mm": [
+            [
+              211.4051805267334,
+              179.44250106811523,
+              0.0010000000000047748
+            ],
+            [
+              220.40418090820313,
+              247.95750106811522,
+              46.19500000000002
+            ]
+          ],
+          "sparse_infill_density": "100%"
+        },
+        {
+          "name": "Pump snap east receiver floor and full flank root",
+          "source_bounds_mm": [
+            [
+              8.599999999999994,
+              14.0,
+              160.251
+            ],
+            [
+              17.599000381469725,
+              82.515,
+              206.44500000000002
+            ]
+          ],
+          "plate_bounds_mm": [
+            [
+              237.60418090820312,
+              179.44250106811523,
+              0.0010000000000047748
+            ],
+            [
+              246.60318128967285,
+              247.95750106811522,
+              46.19500000000002
+            ]
+          ],
+          "sparse_infill_density": "100%"
+        }
+      ],
+      "fins": [],
+      "regions": {
+        "record": "hardware/print-tests/pointed-snaps/print-regions.json",
+        "record_sha256": "1852c56deb7b5efc690f397345e7ef769e37296bc0bf2e31d4035d2562abd560",
+        "part_process_overrides": null
+      }
+    },
+    {
+      "name": "cartridge-cap",
+      "identify_id": 1906,
+      "object_id": 14,
+      "stl": "hardware/print-tests/pointed-snaps/parts/cartridge-cap.stl",
+      "stl_sha256": "513c9cd3e90ac608bbfea61d3b0c220185f44a0fa8aca6ccb81a82d4e78d81f0",
+      "step_sha256": null,
+      "facets": 388,
+      "closed": {
+        "edges": 582,
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "inconsistent_edges": 0,
+        "bodies": 1,
+        "closed_oriented_single_body": true
+      },
+      "pose": {
+        "turns": [
+          [
+            "x",
+            90
+          ]
+        ]
+      },
+      "pose_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          -1.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ]
+      ],
+      "yaw_degrees": 0,
+      "source_center_mm": [
+        0.0,
+        48.25749969482422,
+        199.80950164794922
+      ],
+      "build_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          -1.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ]
+      ],
+      "translation_mm": [
+        240.65418243408203,
+        116.74250030517578,
+        34.00749969482422
+      ],
+      "plate_bounds_mm": [
+        [
+          229.2041835784912,
+          92.12800598144531,
+          0.0
+        ],
+        [
+          252.10418128967285,
+          141.35699462890625,
+          68.01499938964844
+        ]
+      ],
+      "model_bed_margin_mm": 72.89581871032715,
+      "seam_enforcer": null,
+      "object_settings": {
+        "sparse_infill_density": {
+          "value": "100%",
+          "reason": "Solid cap, pointed catches and spring roots."
+        },
+        "sparse_infill_pattern": {
+          "value": "zig-zag",
+          "reason": "Solid cap deposition."
+        }
+      },
+      "features": [],
+      "ranges": [],
+      "verify_spans": [],
+      "ribbons": [],
+      "tie_windows": [],
+      "modifiers": [],
+      "fins": []
+    }
+  ],
+  "pause": null,
+  "show_faces": "hardware/print-tests/pointed-snaps/prints/2026-11-02-pointed-pumps-meter-mark2-mark2-fc2a806a/show-faces.npz",
+  "spec": "hardware/print-tests/pointed-snaps/plate-spec.json",
+  "spec_sha256": "c6b93de49563bf2aa354ff4e0ef76059b5c1eff9c5e39439cd2b556fc633285a",
+  "tool_sha256": {
+    "hardware/printed-parts/enclosure/trial-preparation/_derive.py": "2ffa3fc3e716cfc6d1663f69767228eb0f6d9f8da147ffc2c90de2097cdac6e4",
+    "hardware/printed-parts/enclosure/trial-preparation/_mesh.py": "7ab22db36e370608f52df3709c4af1994c8e804ee06e101dcbf79210db99eead",
+    "hardware/printed-parts/enclosure/trial-preparation/_native.py": "1c99ce10842a141a942a19d7def2329512d14b676c00618496187e0d93cd29da",
+    "hardware/printed-parts/enclosure/trial-preparation/_seam.py": "9ffa509df701826563e18388fd3bcc57c604f4b2b8e5e4288821ddcd00bcb176",
+    "hardware/printed-parts/enclosure/trial-preparation/labels.py": "d172b8408f0b9ded097d7c8c2eeea682a067e5d487967576c77caf4204696d68",
+    "hardware/printed-parts/enclosure/trial-preparation/prepare.py": "bc5495142592e777cb1b94eb2cfe06e64ba15ee6bae94f3e95e62a556741b513",
+    "hardware/printed-parts/enclosure/trial-preparation/review.py": "9bd303fe370842fd34eb559dc5f53f887f75c42e478c598737397dd49dd539f7",
+    "hardware/printed-parts/enclosure/trial-preparation/step_meshes.py": "b50f7b50f52f1e8516be3b1fc9ecdb10e87fb188f8b9bebc0fac56737320fc44"
+  },
+  "prepared_utc": "2026-11-03T05:17:32+00:00",
+  "sliced": true,
+  "submitted": false,
+  "archive": "hardware/print-tests/pointed-snaps/prints/2026-11-02-pointed-pumps-meter-mark2-mark2-fc2a806a/2026-11-02-pointed-pumps-meter-mark2-mark2-fc2a806a.gcode.3mf",
+  "archive_sha256": "7ce775d02759270fbc07b4cc22d84f2ccc94343cae538bc20889c5b456c33c25",
+  "gcode_sha256": "4b34358a93617fa3f8c14bb613d8485db5c899929c8bd0562de6ff1a1758a11f",
+  "estimated_seconds": 37247.28125,
+  "slicer_warnings": []
+}
