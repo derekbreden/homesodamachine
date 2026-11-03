@@ -73,7 +73,7 @@ Run it
 
 import collections
 from dataclasses import replace
-from contextlib import contextmanager
+from contextlib import contextmanager, ExitStack
 import functools
 import math
 import json
@@ -1168,7 +1168,7 @@ def _valve_tray_stations(decks):
     return tuple(out)
 
 
-def valve_tray_plans(a=None) -> dict:
+def valve_tray_plans(a=None, *, bounds=None) -> dict:
     """`name -> (width, seats)` in each plate's own frame — what `valve_tray` draws.
 
     The seats are centred on the plate: across, on the box's own centreline, because the plate
@@ -1177,10 +1177,11 @@ def valve_tray_plans(a=None) -> dict:
     `a` is a machine somebody already stood; without one this stands the pack itself. The
     valves are read out of it by name, so a whole assembly answers what a bare pack does."""
     a = build_pack() if a is None else a
-    placed = {n: s for n, (s, _c) in _solids(a).items()}
+    decks = (valve_tray_decks({n: s for n, (s, _c) in _solids(a).items()})
+             if bounds is None else valve_tray_decks_from_bounds(bounds))
     x0, x1 = _enc.interior_x()
     out = {}
-    for name, (_axis, _sign, _plane, seats) in valve_tray_decks(placed).items():
+    for name, (_axis, _sign, _plane, seats) in decks.items():
         mid_v = (min(v for _n, _u, v in seats) + max(v for _n, _u, v in seats)) / 2.0
         out[name] = (x1 - x0, tuple((round(u - (x0 + x1) / 2.0, 6), round(v - mid_v, 6))
                                     for _n, u, v in seats))
@@ -1229,19 +1230,31 @@ def pump_tray_seats(placed: dict) -> dict:
     pump's stated rear-stack offset; the head supplies the depth face. The head is not assumed
     symmetric about its datum: its measured skirt and outlet-side relief may give it an
     asymmetric bounding box."""
+    bounds = {}
+    for name, shape in placed.items():
+        if name.startswith('pump-') and name.endswith(('-head', '-motor')):
+            b = box(shape)
+            bounds[name] = ((b.xmin, b.ymin, b.zmin), (b.xmax, b.ymax, b.zmax))
+    return pump_tray_seats_from_bounds(bounds)
+
+
+def pump_tray_seats_from_bounds(bounds) -> dict:
+    """The same head/can station arithmetic from explicit lower/upper readings."""
     out = {}
-    for head in sorted(placed):
+    for head in sorted(bounds):
         if not (head.startswith("pump-") and head.endswith("-head")):
             continue
-        axis, sign = _pump_up(placed, head)
         can = head.replace("-head", "-motor")
-        b = box(placed[head])
-        cb = box(placed[can])
-        centre = [(cb.xmin + cb.xmax) / 2.0,
-                  (cb.ymin + cb.ymax) / 2.0,
-                  (cb.zmin + cb.zmax) / 2.0]
-        centre[axis] = ([b.xmax, b.ymax, b.zmax] if sign > 0
-                        else [b.xmin, b.ymin, b.zmin])[axis]
+        if can not in bounds:
+            raise KeyError(f'{head} is placed and {can} is not')
+        lower, upper = bounds[head]
+        can_lower, can_upper = bounds[can]
+        d = [(can_lower[i] + can_upper[i] - lower[i] - upper[i]) / 2.0
+             for i in range(3)]
+        axis = max(range(3), key=lambda i: abs(d[i]))
+        sign = 1.0 if d[axis] > 0.0 else -1.0
+        centre = [(can_lower[i] + can_upper[i]) / 2.0 for i in range(3)]
+        centre[axis] = (upper if sign > 0 else lower)[axis]
         # In this machine pose the pump reference's local Y is world Y. Its rear boss/can axis
         # is one millimetre toward Y-, but the cartridge station belongs to the unchanged head
         # and lower cradle. The removable cap applies the same reference offset to its rear-stack
@@ -1272,18 +1285,19 @@ def pump_tray_stations(placed: dict) -> tuple:
     return tuple(out)
 
 
-def pump_tray_plans(a=None, shell=None) -> dict:
+def pump_tray_plans(a=None, shell=None, *, bounds=None) -> dict:
     """`head -> root` — legacy diagnostic reach from each pump axis to the bay relief floor.
 
     `a` and `shell` are a machine and its box somebody already stood; without them this stands
     one. The heads are read out by name, so a whole assembly answers what `machine` does."""
     if a is None or shell is None:
         a, _p, shell = machine()
-    placed = {n: s for n, (s, _c) in _solids(a).items()}
+    seats = (pump_tray_seats({n: s for n, (s, _c) in _solids(a).items()})
+             if bounds is None else pump_tray_seats_from_bounds(bounds))
     # The cartridge reaches the pump relief floor struck by the front-wall wrap rule, not the
     # interior wall plane.
     return {head: round(centre[1] - _enc.pump_relief_floor, 6)
-            for head, (_axis, _sign, centre) in pump_tray_seats(placed).items()}
+            for head, (_axis, _sign, centre) in seats.items()}
 
 
 # --- the bay bulkhead and its collet plate ------------------------------------
@@ -4305,7 +4319,8 @@ def posed_manifold(carrier_offset: float, *, model=None, exclude=(), offset=None
 PUMP_FACE_Z = ml.PUMP_Y - ml.BARB_INSET
 
 
-def build_pack(*, core_model=None, manifold_model=None, core_reference=False) -> cq.Assembly:
+def build_pack(*, core_model=None, manifold_model=None, core_reference=False,
+               manifold_reference=False, model_context=None) -> cq.Assembly:
     """The bodies, with no box around them. `enclosure` sizes itself off this, so it
     cannot be in it."""
     a = cq.Assembly(name="enclosure-assembly")
@@ -4349,7 +4364,21 @@ def build_pack(*, core_model=None, manifold_model=None, core_reference=False) ->
     source_parts = {'valve-v-a', 'coil-v-a', 'valve-v-b', 'coil-v-b',
                     'step-fluid-3', 'step-fluid-5', 'turn-fluid-3', 'turn-fluid-5',
                     'stub-fluid-2', 'stub-fluid-4'}
-    if manifold_model is None:
+    reading = None
+    if manifold_reference:
+        if manifold_model is None or model_context is None:
+            raise ValueError('Manifold references require an explicit model and lifetime context')
+        excluded = source_parts | {f"stub-{cid}" for cid in _lines.authored()}
+        reading = model_context.enter_context(posed_manifold_reference(
+            model=manifold_model, exclude=excluded, offset=(0., PACK_Y, lift)))
+        a.manifold_reading = reading
+        a.add(cq.Assembly(name='manifold-layout'), name='manifold-layout')
+        a.physical_model_blocks = {'manifold-layout': [{
+            'model': reading.model, 'summaries': reading.summaries,
+            'colors': {name: color[:3] if color is not None else None
+                       for name, color in reading.rgba.items()}}]}
+        stood = []
+    elif manifold_model is None:
         posed = posed_manifold(ml.CARRIER_PARK)
         stood = [(n, s.translate(cq.Vector(0.0, PACK_Y, lift)), c)
                  for n, s, c in posed if n not in source_parts]
@@ -4357,7 +4386,7 @@ def build_pack(*, core_model=None, manifold_model=None, core_reference=False) ->
         excluded = source_parts | {f"stub-{cid}" for cid in _lines.authored()}
         stood = posed_manifold(ml.CARRIER_PARK, model=manifold_model,
                               exclude=excluded, offset=(0., PACK_Y, lift))
-    in_pack = []
+    in_pack = list(reading.raw_bounds) if reading is not None else []
     for name, solid, color in stood:
         # A MOUTH THAT HAS A RUN ON IT IS NOT A FREE MOUTH. `manifold_layout` draws one bend
         # radius off each of the seven lines that leave its study — the straight their first
@@ -4375,17 +4404,21 @@ def build_pack(*, core_model=None, manifold_model=None, core_reference=False) ->
         record_seat(name, station=mouth, got=mouth, members=(name,))
     # The pump head's front plane locates the whole manifold independently of
     # the lowest fixed tube or return. Read that face from the placed head.
-    pump_head = next(s for n, s, _c in stood if n == 'pump-a-head')
+    if reading is None:
+        pump_head_box = box(next(s for n, s, _c in stood if n == 'pump-a-head'))
+    else:
+        pump_head_box = _enc._reading_bounds(*reading.raw_bounds['pump-a-head'])
     record_seat("manifold-layout",
                 turns=((X_AXIS[1].toTuple(), 90.0), (Z_AXIS[1].toTuple(), 180.0)),
                 planes={"z0": lift + PUMP_FACE_Z},
-                got=box(pump_head),
+                got=pump_head_box,
                 members=tuple(in_pack))
     # THE TWO VALVE TRAYS' STATIONS, on the planes the fold left the manifold's eight non-cap
     # valves standing on. They are read straight off the pack: the deck a plate lands on and the
     # columns its seats stand on are the placed valves', and nothing here is a chosen number.
     # `enclosure._valve_trays` is what fuses each plate into the piece that owns its band.
-    a.valve_trays = valve_tray_stations({n: s for n, s, _c in stood})
+    a.valve_trays = (valve_tray_stations({n: s for n, s, _c in stood}) if reading is None
+                     else valve_tray_stations_from_bounds(reading.raw_bounds))
     # The two pump stations locate the lower cradle and top clamp on the head's bracket face.
     # The fine handoff carries this authored datum independently of the sampled vertices.
     a.pump_trays = (pump_tray_stations({n: s for n, s, _c in stood})
@@ -4426,7 +4459,7 @@ def build_pack(*, core_model=None, manifold_model=None, core_reference=False) ->
     if (core_reference and getattr(cq, 'MESH', False)
             and (core_model is not None or os.environ.get('HSM_CORE_MODEL', '1') == '1')):
         block, core_names, rgba = _core_reference(foam_carry, core_model)
-        a.physical_model_blocks = {CORE: [block]}
+        a.physical_model_blocks = {**getattr(a, 'physical_model_blocks', {}), CORE: [block]}
         a.referenced_core_rgba = rgba
     else:
         core_rows = core_bodies(foam_carry, core_model)
@@ -4465,7 +4498,9 @@ def build_pack(*, core_model=None, manifold_model=None, core_reference=False) ->
     solids.update({name: row[0] for name, row in selected.items()})
     solids.update({'foam-assembly': foam, 'compressor': comp, 'condenser+fan': cond,
                    'thermal-fuse': fuse, 'fuse-clamp': clamp, 'mq6-sensor': mq6})
-    carries = {name: mcarry for name, _s, _c in stood if name in _lines.STATIONS}
+    carries = {name: mcarry for name in (reading.raw_bounds if reading is not None
+                                        else [name for name, _s, _c in stood])
+               if name in _lines.STATIONS}
     carries.update({name: row[2] for name, row in selected.items()})
     carries.update({'foam-assembly': foam_carry, 'compressor': comp_carry,
                     'condenser+fan': cond_carry, 'thermal-fuse': fuse_carry,
@@ -4500,7 +4535,7 @@ def build_pack(*, core_model=None, manifold_model=None, core_reference=False) ->
         solids[name], carries[name] = solid, carry
     a.pack_solids, a.carries = solids, carries
     a.runs = []
-    frames = _lines.frames(solids, carries)
+    frames = _lines.frames(solids, carries, bounds=reading.raw_bounds if reading is not None else None)
     for constructor in (_lines._refrig_1, _lines._refrig_2, _lines._refrig_3):
         draw_runs(a, [constructor(frames)])
     a.native_route_specs = {**_above_parts.route_specs(), **onward}
@@ -4527,7 +4562,7 @@ def build_pack(*, core_model=None, manifold_model=None, core_reference=False) ->
                            spec.get('to', owners[-1]), points, spec['od_mm'],
                            spec.get('minimum_radius_mm') or 0., spec.get('basis', ''))
         a.runs.append(run)
-    a.frames = _lines.frames(solids, carries)
+    a.frames = _lines.frames(solids, carries, bounds=reading.raw_bounds if reading is not None else None)
     a.bulkhead_carry, a.co2_inlet_carry = carries['bulkhead-water'], carries['co2-inlet']
     a.drain_carry = carries['bulkhead-drain']
     a.panel_carries = {name: carries[name] for name in
@@ -4564,7 +4599,9 @@ def draw_runs(a: cq.Assembly, runs) -> None:
         _ROUTED.add(name)
         a.add(solid, name=name, color=_routing.tube_color(run.id))
     a.runs = list(a.runs) + list(runs)
-    a.frames = _lines.frames(a.pack_solids, a.carries)
+    reading = getattr(a, 'manifold_reading', None)
+    a.frames = _lines.frames(a.pack_solids, a.carries,
+                           bounds=reading.raw_bounds if reading is not None else None)
 
 
 def _solids(a: cq.Assembly):
@@ -4596,6 +4633,49 @@ def _solids(a: cq.Assembly):
     if getattr(a, "core_envelope", None) is not None:
         out["foam-assembly"] = (a.core_envelope, C_FOAM)
     return out
+
+
+def manifold_references(a):
+    """Explicit selections of the already-world-placed manifold fine file."""
+    import _assembly_model
+    reading = getattr(a, 'manifold_reading', None)
+    if reading is None:
+        return {}
+    indices = {}
+    for index, row in enumerate(reading.summaries):
+        indices.setdefault(row['name'], []).append(index)
+    return {name: _assembly_model.instance(reading.model, indices=selection)
+            for name, selection in indices.items()}
+
+
+def _with_manifold_rows(a, native, rows):
+    """Insert explicit named rows at the manifold node's existing assembly position."""
+    before = set()
+    for child in a.children:
+        if child.name == 'manifold-layout':
+            break
+        before.add(child.name)
+    out, inserted = {}, False
+    for name, value in native.items():
+        if not inserted and name not in before:
+            out.update(rows)
+            inserted = True
+        out[name] = value
+    if not inserted:
+        out.update(rows)
+    return out
+
+
+def mechanical_bounds(a):
+    """Raw world-space bounds for the live Shapes and explicit referenced body rows."""
+    bounds = {}
+    for name, (shape, _color) in _solids(a).items():
+        b = box(shape)
+        bounds[name] = ((b.xmin, b.ymin, b.zmin), (b.xmax, b.ymax, b.zmax))
+    reading = getattr(a, 'manifold_reading', None)
+    if reading is not None:
+        bounds = _with_manifold_rows(a, bounds, reading.raw_bounds)
+    return bounds
 
 
 def _core_solids(a: cq.Assembly):
@@ -4991,6 +5071,57 @@ def _touching(probe, bodies, skip=()):
     return found
 
 
+def _wedge_touchings(probes, references, bounds):
+    """Read the existing grown/column tools against explicit fine body selections once."""
+    import tempfile
+    import _assembly_model
+    from meshcad import scene
+
+    native = [{name: body for name, body in others.items() if name not in references}
+              for _grown, _column, others in probes]
+    near = [_touching(grown, rows) for (grown, _column, _others), rows in zip(probes, native)]
+    tools, candidates = [], []
+    for index, (grown, column, _others) in enumerate(probes):
+        for kind, probe in (('grown', grown), ('column', column)):
+            tool = f'wedge-{index}-{kind}'
+            tools.append((tool, probe, None))
+            pb = box(probe)
+            for name in references:
+                lower, upper = bounds[name]
+                if (lower[0] > pb.xmax or upper[0] < pb.xmin
+                        or lower[1] > pb.ymax or upper[1] < pb.ymin
+                        or lower[2] > pb.zmax or upper[2] < pb.zmin):
+                    continue
+                candidates.append((index, kind, tool, name))
+    hits = {}
+    if candidates:
+        with tempfile.TemporaryDirectory(prefix='hsm-wedge-tools-') as directory:
+            model = Path(directory) / 'tools.npz'
+            scene.write(tools, model, preserve_partitions=True)
+            selections = {}
+            for index, (name, _color) in enumerate(_assembly_model.identity(model)):
+                selections.setdefault(name, []).append(index)
+            inputs = dict(references)
+            inputs.update({name: _assembly_model.instance(model, indices=indices)
+                           for name, indices in selections.items()})
+            rows = _assembly_model.measure_groups(inputs, [
+                {'kind': 'common', 'a': tool, 'b': name, 'distribute_a': True,
+                 'retain_until_last_use': True} for _index, _kind, tool, name in candidates])
+            for (index, kind, _tool, name), row in zip(candidates, rows, strict=True):
+                if 'error' in row:
+                    raise ValueError(row['error'])
+                if row['common']['raw']['volume_mm3'] > 1e-6:
+                    hits.setdefault((index, kind), []).append(name)
+    out = []
+    for index, (_grown, column, _others) in enumerate(probes):
+        found = near[index] + hits.get((index, 'grown'), [])
+        under = _touching(column, {name: native[index][name]
+                                  for name in found if name in native[index]})
+        under += [name for name in hits.get((index, 'column'), []) if name in found]
+        out.append((found, under))
+    return out
+
+
 def stand_anchors(stations) -> tuple:
     """Each anchor station with its `stand` entry (`enclosure._tube_anchors`): per end web,
     `(plane, None)` where the site states a `column` — back-top's ceiling face, which that end
@@ -5136,7 +5267,7 @@ def authored_anchor_corbels(stations) -> tuple:
     return tuple(rooms)
 
 
-def wedge_fills(placed, authored_rooms=()) -> Bound:
+def wedge_fills(placed, authored_rooms=(), *, references=None, bounds=None) -> Bound:
     """`wedge-fills`: every print-down slope on a piece printed ceiling-down, and what carries it.
 
     For each such face the column it could be is struck — the face's own plan, from the face
@@ -5149,7 +5280,7 @@ def wedge_fills(placed, authored_rooms=()) -> Bound:
     bodies = _bodies(placed)
     kept_wedges = KEPT_WEDGES + tuple(authored_rooms)
     counts = {"under": 0, "near": 0, "kept": 0, "fill": 0}
-    detail, matched = [], set()
+    detail, matched, pending = [], set(), []
     for name, up in _enc.PIECE_PRINT_UP.items():
         piece_name = f"enclosure-{name}"
         if up >= 0.0 or piece_name not in bodies:
@@ -5188,15 +5319,24 @@ def wedge_fills(placed, authored_rooms=()) -> Bound:
                 grown = _plan_prism(poly, cb.zmin - WEDGE_CLEAR, cb.zmax + WEDGE_CLEAR, WEDGE_CLEAR)
             except Exception:
                 grown = column
+            pending.append((grown, column, others, piece_name, step, f, fb, cb, up))
+    if references is None:
+        touchings = []
+        for grown, column, others, *_rest in pending:
             near = _touching(grown, others)
-            if near:
-                under = _touching(column, {n: others[n] for n in near})
-                counts["under" if under else "near"] += 1
-                continue
-            counts["fill"] += 1
-            n = f.normalAt()
-            rise = (cb.zmax - fb.zmax) if up < 0 else (fb.zmin - cb.zmin)
-            detail.append(
+            touchings.append((near, _touching(column, {n: others[n] for n in near}) if near else []))
+    else:
+        touchings = _wedge_touchings([(row[0], row[1], row[2]) for row in pending],
+                                     references, bounds)
+    for row, (near, under) in zip(pending, touchings, strict=True):
+        _grown, column, _others, piece_name, step, f, fb, cb, up = row
+        if near:
+            counts["under" if under else "near"] += 1
+            continue
+        counts["fill"] += 1
+        n = f.normalAt()
+        rise = (cb.zmax - fb.zmax) if up < 0 else (fb.zmin - cb.zmin)
+        detail.append(
                 f"{piece_name}: a {math.degrees(math.acos(min(1.0, abs(n.z)))):.0f}° face at "
                 f"x {fb.xmin:.2f}..{fb.xmax:.2f} y {fb.ymin:.2f}..{fb.ymax:.2f} "
                 f"z {fb.zmin:.2f}..{fb.zmax:.2f}: a column of {column.Volume():.0f} mm³ rising "
@@ -5370,6 +5510,15 @@ def pack(a: cq.Assembly = None) -> "_enc.Pack":
     not unfinished."""
     a = build_pack() if a is None else a
     placed = _solids(a)
+    reading = getattr(a, 'manifold_reading', None)
+    if reading is not None:
+        import _assembly_model
+        referenced = {}
+        for name, spec in manifold_references(a).items():
+            referenced[name] = (_assembly_model.ModelReference(
+                Path(spec['model']), tuple(spec['indices']),
+                ((1., 0., 0., 0.), (0., 1., 0., 0.), (0., 0., 1., 0.))), reading.rgba[name])
+        placed = _with_manifold_rows(a, placed, referenced)
     outside = (set(THROUGH_WALL) | set(IN_THE_WALL) | set(OUTBOARD)
                | {NAMEPLATE, NAMEPLATE_INK})
     return _enc.Pack(placed={n: v for n, v in placed.items() if n not in outside},
@@ -5387,7 +5536,8 @@ def pack(a: cq.Assembly = None) -> "_enc.Pack":
                                    if a.tube_anchors or a.body_anchors else ()),
                      ceiling_reliefs=above_core_ceiling_reliefs(),
                      flank_reliefs=(),
-                     front_flank_reliefs=front_flank_reliefs(placed),
+                     front_flank_reliefs=(front_flank_reliefs(placed) if reading is None
+                                          else front_flank_reliefs_fine(reading)),
                      port_field=None, nameplate=None, keystone=None,
                      valve_trays=a.valve_trays, pump_trays=a.pump_trays,
                      core_stops=a.core_stops, core_holds=a.core_holds,
@@ -5521,16 +5671,23 @@ def _seated(box):
 RIDGE_REACH = 60.0
 
 
-def machine(*, core_model=None, manifold_model=None, core_reference=False):
+def machine(*, core_model=None, manifold_model=None, core_reference=False,
+            manifold_reference=False, model_context=None):
     """The pack, and the box around it. One build: the box is sized on the pack's bodies,
     and then carries the stations they seat in its walls.
 
     The box is SEATED before its ledger is carried, so the card holds the throat's row whether
     or not a wall is ever cut from this box."""
     a = build_pack(core_model=core_model, manifold_model=manifold_model,
-                   core_reference=core_reference)
+                   core_reference=core_reference, manifold_reference=manifold_reference,
+                   model_context=model_context)
     p = pack(a)
-    box = _seated(_enc.stated_box(p))
+    readings = None
+    if getattr(a, 'manifold_reading', None) is not None:
+        references = manifold_references(a)
+        readings = _enc.box_readings_fine(p, mechanical_bounds(a), references,
+                                         native_names=set(p.placed) - references.keys())
+    box = _seated(_enc.stated_box(p, readings=readings))
     carry_enclosure_bounds()
     a.bounds = list(BOUNDS)
     return a, p, box
@@ -5589,11 +5746,13 @@ def build_funnel_cover():
 
 
 def build_enclosure_assembly(*, require_box_spec=False, kernel_wiring=False,
-                             core_reference=False) -> cq.Assembly:
+                             core_reference=False, manifold_reference=False,
+                             model_context=None) -> cq.Assembly:
     """The pack, what is seated in the walls, and the four printable pieces of the box."""
     manifold_model = (_here.parent / "manifold-layout.step.npz"
                       if require_box_spec and getattr(cq, "MESH", False) else None)
-    a, _p, live_box = machine(manifold_model=manifold_model, core_reference=core_reference)
+    a, _p, live_box = machine(manifold_model=manifold_model, core_reference=core_reference,
+                             manifold_reference=manifold_reference, model_context=model_context)
     box = live_box
     if require_box_spec:
         import _box_spec
@@ -5715,8 +5874,9 @@ def build_enclosure_assembly(*, require_box_spec=False, kernel_wiring=False,
             a.add(part, name=name, color=_dock.part_color(name))
         record_pump_dock_seats(box, dock_parts)
     placed_solids = _solids(a)
-    wedge_fills(placed_solids,
-                authored_anchor_corbels(a.tube_anchors))
+    wedge_fills(placed_solids, authored_anchor_corbels(a.tube_anchors),
+                references=manifold_references(a) if getattr(a, 'manifold_reading', None) else None,
+                bounds=getattr(getattr(a, 'manifold_reading', None), 'raw_bounds', None))
     # And every anchored run against the rib its own site names.
     tubes = {n: s for n, (s, _c) in _solids(a).items() if n.startswith("tube-")}
     # The box's own group reads LAST on the card, under the pack's. `record_bound` carries an
@@ -5740,15 +5900,20 @@ def build_enclosure_assembly(*, require_box_spec=False, kernel_wiring=False,
     return a
 
 
-def report(a: cq.Assembly, clashes=None) -> None:
+def report(a: cq.Assembly, clashes=None, *, bounds=None) -> None:
     # THE PACK AND NOT THE EXPORT. `_solids` is where the two part company: the machine reports
     # on the core as the one body it seats, stops and holds, and what is inside that body is
     # reported by the core's own card beside `cold-core-assembly.step`.
     named = {n: s for n, (s, _c) in _solids(a).items()}
+    if bounds is None:
+        read_box = box
+    else:
+        named = {name: name for name in bounds}
+        read_box = bounds.__getitem__
     placed = list(named.items())
     whole = None
     for _n, s in placed:
-        b = box(s)
+        b = read_box(s)
         whole = b if whole is None else whole.add(b)
 
     def line(label, b):
@@ -5756,42 +5921,42 @@ def report(a: cq.Assembly, clashes=None) -> None:
               f"z[{b.zmin:7.2f},{b.zmax:7.2f}]   {b.xlen:6.2f} × {b.ylen:6.2f} × {b.zlen:6.2f}")
 
     print("\nbodies")
-    sh, co = box(named["compressor"]), box(named["condenser+fan"])
-    fo, sf = box(named["foam-assembly"]), box(named["g-ganen-pump"])
+    sh, co = read_box(named["compressor"]), read_box(named["condenser+fan"])
+    fo, sf = read_box(named["foam-assembly"]), read_box(named["g-ganen-pump"])
     line("compressor", sh)
     line("condenser+fan", co)
     pack = None
     for n, s in placed:
         if not _manifold(n):
             continue
-        b = box(s)
+        b = read_box(s)
         pack = b if pack is None else pack.add(b)
     line("manifold-layout", pack)
     line("foam-assembly", fo)
     line("g-ganen-pump", sf)
     if "funnel" in named:
-        line("funnel", box(named["funnel"]))
+        line("funnel", read_box(named["funnel"]))
     for n, _toward in PUMP_ELBOWS.values():
         if n in named:
-            line(n, box(named[n]))
+            line(n, read_box(named[n]))
     if "display" in named:
-        line("display", box(named["display"]))
+        line("display", read_box(named["display"]))
     if "display-cover" in named:
-        line("display-cover", box(named["display-cover"]))
+        line("display-cover", read_box(named["display-cover"]))
     if "psu" in named:
-        line("psu", box(named["psu"]))
+        line("psu", read_box(named["psu"]))
     for n in ("pcba", "relay-1", "relay-2") + WAGO_POLES + (
               "asse1022-assembly", "bulkhead-drain",
               "water-split", "flow-regulator", "vk-solenoid", "bulkhead-water",
               "c14-inlet", "discharge-chain", "co2-inlet", "gasher-co2", "wr1110",
               "bulkhead-flavor-b", "bulkhead-flavor-a", "bulkhead-carb", "digiten-flow"):
         if n in named:
-            line(n, box(named[n]))
+            line(n, read_box(named[n]))
     walls = None
     for n, s in placed:
         if not n.startswith("enclosure-"):
             continue
-        b = box(s)
+        b = read_box(s)
         walls = b if walls is None else walls.add(b)
     if walls is not None:
         line("enclosure", walls)
@@ -5801,7 +5966,7 @@ def report(a: cq.Assembly, clashes=None) -> None:
     print(f"  compressor tangent {seam} {lo:.2f}   condenser intake face {seam} {hi:.2f}   "
           f"gap {hi - lo:.2f}")
     crown = max(sh.zmax, co.zmax)
-    pump_face = min(box(s).zmin for n, s in placed if n.endswith("-head"))
+    pump_face = min(read_box(s).zmin for n, s in placed if n.endswith("-head"))
     print(f"  base crown       z {crown:.2f}   manifold low face    z {pack.zmin:.2f}   "
           f"gap {pack.zmin - crown:.2f}")
     print(f"  the pump-head faces stand z {pump_face:.2f}, {pump_face - crown:.2f} mm over the "
@@ -5818,12 +5983,12 @@ def report(a: cq.Assembly, clashes=None) -> None:
         p = a.refrigerant_at[j.frm][0]
         print(f"  {j.id:16} {j.frm.split('.')[1]:16} {j.made:5} {j.to.split('.')[1]:16} "
               f"({p[0]:7.2f},{p[1]:7.2f},{p[2]:6.2f})  off {j.mm:.3f}")
-    print(f"  core cap face    z {cap_face(named['foam-assembly']):.2f}   "
+    print(f"  core cap face    z {fo.zmin + _foam.cap_face_over_floor:.2f}   "
           f"pump free rubber low z {sf.zmin:.2f}; bearing datum is the cap face")
     print(f"  core aft face    y {fo.ymax:.2f}   water pump aft face      y {sf.ymax:.2f}   "
           f"flush by {sf.ymax - fo.ymax:.2f}; it clears the pack by {sf.ymin - pack.ymax:.2f} mm")
-    over = [(n, box(s)) for n, s in placed
-            if _manifold(n) and box(s).ymax > fo.ymin + 1e-6]
+    over = [(n, read_box(s)) for n, s in placed
+            if _manifold(n) and read_box(s).ymax > fo.ymin + 1e-6]
     if over:
         reach = max(b.ymax for _n, b in over) - fo.ymin
         floor = min(b.zmin for _n, b in over)
@@ -5835,7 +6000,7 @@ def report(a: cq.Assembly, clashes=None) -> None:
     for n, s in sorted(placed):
         if not n.startswith("tube-fluid-"):
             continue
-        b = box(s)
+        b = read_box(s)
         if b.zmin - pack.zmin > 1e-6:
             continue
         on = "compressor" if sh.xmin <= (b.xmin + b.xmax) / 2 <= sh.xmax else "condenser"
@@ -6094,7 +6259,7 @@ def write_drain(a):
     return check_asse_drain.write(**physical_fine_inputs(a))
 
 
-def write_scene(a, path=None) -> Path:
+def write_scene(a, path=None, *, fine=None) -> Path:
     """The built assembly `a` as its scene file, on the mesh kernel: its checks run on the
     meshes and the bodies written with their readings (`_machine.write`).
 
@@ -6105,10 +6270,12 @@ def write_scene(a, path=None) -> Path:
     import _machine
     import _scorecard as _card
     drain = write_drain(a)
-    report(a, _card.pack_clashes(a))
-    card = _card.to_dict(_card.report(a))
-    if getattr(a, 'physical_model_blocks', None):
-        inputs = physical_fine_inputs(a)
+    inputs = physical_fine_inputs(a) if getattr(a, 'physical_model_blocks', None) else None
+    if fine is None and inputs is not None:
+        fine = _card.fine_world(a, **inputs)
+    report(a, _card.pack_clashes(a, fine=fine), bounds=fine['bounds'] if fine is not None else None)
+    card = _card.to_dict(_card.report(a, fine=fine))
+    if inputs is not None:
         return _machine.write_from_fine(inputs['model'], path or _machine.PATH,
             aliases=inputs['aliases'],
             envelope={**inputs['envelope'], 'color': _machine._rgb(C_FOAM)},
@@ -6116,7 +6283,7 @@ def write_scene(a, path=None) -> Path:
     return _machine.write(a, path or _machine.PATH, card=card, drain=drain)
 
 
-def main():
+def _main(model_context):
     # THIS FILE, UNDER THE NAME EVERYTHING ELSE IMPORTS IT BY. Run as a script it is `__main__`,
     # so a module that does `import enclosure_assembly` gets a SECOND copy — one that has built
     # nothing, whose `_ROUTED`, `TUBE_ANCHOR_SITES` and `BODY_ANCHOR_SITES` are empty, and which
@@ -6136,7 +6303,9 @@ def main():
     action = bool(os.environ.get("HSM_INPUT_DIGEST")
                   or os.environ.get("HSM_BUILD_SOURCE") == "trace")
     a = build_enclosure_assembly(require_box_spec=action, kernel_wiring=True,
-                                 core_reference=action and getattr(cq, 'MESH', False))
+                                 core_reference=action and getattr(cq, 'MESH', False),
+                                 manifold_reference=action and getattr(cq, 'MESH', False),
+                                 model_context=model_context)
     out = _here.parent / "enclosure-assembly.step"
     meshcad = sys.modules.get("meshcad")
     on_meshes = meshcad is not None and meshcad.mesh_mode()
@@ -6148,8 +6317,11 @@ def main():
         physical, str(target), model_blocks=blocks)) if blocks else None
     export_enclosure(a, out, physical_export=physical_export)
     print(f"-> {out.name}")
+    fine = None
     if on_meshes:
-        print(f"-> {write_scene(a).name}")
+        if blocks:
+            fine = _card.fine_world(a, **physical_fine_inputs(a))
+        print(f"-> {write_scene(a, fine=fine).name}")
         meshcad.forget()                    # and what the scene's checks fused
     # `export_assembly` keeps the last good sidecar when tessellation fails so a drawing can
     # still be made from the STEP. That fallback is not safe here: the service scenes below
@@ -6181,8 +6353,8 @@ def main():
         print(f"-> {out.name}.mesh  ({grafted} fluted piece(s))")
     if not on_meshes:
         write_drain(a)
-    report(a, _card.pack_clashes(a))
-    _card.report(a)
+    report(a, _card.pack_clashes(a, fine=fine), bounds=fine['bounds'] if fine is not None else None)
+    _card.report(a, fine=fine)
     print(f"-> {_card.write(a, out).name}")
     # AND WHAT THE READERS READ, off this same machine. Eight doc drivers take their figures
     # from the artifact rather than standing an appliance apiece; writing it here is what makes
@@ -6197,6 +6369,11 @@ def main():
         sys.path.insert(0, str(scene_dir))
     import render_scenes
     render_scenes.write_glbs(a, require_core_payload=action)
+
+
+def main():
+    with ExitStack() as model_context:
+        _main(model_context)
 
 
 if __name__ == "__main__":

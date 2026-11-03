@@ -794,8 +794,11 @@ def _export_mesh_open(bodies, target_path, root_name, stack):
             continue
         import _assembly_model
         from meshcad.presentation import surfaces
-        model, summaries = stack.enter_context(_assembly_model.placed(
-            body['instances'], presentation=True, summaries=True))
+        if 'model' in body:
+            model, summaries = body['model'], body['summaries']
+        else:
+            model, summaries = stack.enter_context(_assembly_model.placed(
+                body['instances'], presentation=True, summaries=True))
         shown = surfaces(model)
         reader = stack.enter_context(_assembly_model.array_reader(model))
         groups = {}
