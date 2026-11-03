@@ -277,6 +277,18 @@ fn query(parts: &mut [Imported], queries: &Value, query_only: bool) -> Result<Ve
         last.insert(a.clone(), index);
         if !b.is_empty() { last.insert(b.clone(), index); }
     }
+    let mut next_use = vec![[None; 2]; values.len()];
+    if query_only {
+        let mut future = BTreeMap::new();
+        for (index, (a, b)) in operands.iter().enumerate().rev() {
+            for (side, indices) in [a, b].into_iter().enumerate() {
+                if !indices.is_empty() { next_use[index][side] = future.get(indices).copied(); }
+            }
+            for indices in [a, b] {
+                if !indices.is_empty() { future.insert(indices.clone(), index); }
+            }
+        }
+    }
     let mut release_at = vec![Vec::new(); values.len()];
     if query_only {
         let mut part_last = vec![None; parts.len()];
@@ -368,6 +380,16 @@ fn query(parts: &mut [Imported], queries: &Value, query_only: bool) -> Result<Ve
               json!({"a":value["a"],"b":value["b"],"kind":kind,"value":result})
             };
             readings.push(reading);
+            // Query-only clearance sweeps retain nearby reuse without holding every
+            // native search representation for the entire sweep. Mesh arrays stay exact.
+            if query_only && kind == "gap" && value.get("within_mm").is_some() {
+                for (side, indices) in [a, b].into_iter().enumerate() {
+                    if next_use[index][side].is_some_and(|next| next - index > 64) {
+                        if indices.len() == 1 { parts[indices[0]].solid.forget_backend(); }
+                        else if let Some(group) = groups.get_mut(indices) { group.forget_backend(); }
+                    }
+                }
+            }
             for indices in [a, b] {
                 if indices.is_empty() { continue; }
                 if last[indices] == index {
