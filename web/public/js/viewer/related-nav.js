@@ -5,8 +5,8 @@
 // beside it. A funnel's mold is not carried by any assembly, so opening the
 // enclosure and clicking down through it arrives everywhere except the two
 // halves that cast the part you are looking at. The rule for what counts is
-// contracts/related-steps.js; this file presents those models in one compact
-// disclosure with a scrollable list.
+// contracts/related-steps.js; this file presents those that have a part number
+// in one compact disclosure with a scrollable list.
 //
 // Taking one is a drill: the model you came from goes on the trail, so the
 // breadcrumb and the browser's Back both walk back through it.
@@ -19,6 +19,7 @@ import { relatedSteps, relatedAssemblyLinks, KIND_CAPTIONS, label } from "/contr
 import { iconSvg } from "/contracts/icons.js";
 import { drillTo } from "./step-nav.js";
 import { faucetStyleFor } from "/contracts/faucet-options.js";
+import { materialForFile } from "/contracts/materials.js";
 
 const GROUP_CLASS = "tool-group-related";
 
@@ -77,7 +78,8 @@ export function mountRelated(wrapper, file, trail = []) {
   removeRelated(wrapper);
 
   const related = relatedSteps(file, state.allFiles || [], trail)
-    .filter((rel) => !(faucetStyleFor(file) && faucetStyleFor(rel.file)));
+    .filter((rel) => !(faucetStyleFor(file) && faucetStyleFor(rel.file)))
+    .filter((rel) => materialForFile(state.materialCatalog, rel.file));
   const assemblies = relatedAssemblyLinks(file);
   if (!related.length && !assemblies.length) return;
 
