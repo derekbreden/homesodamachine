@@ -28,7 +28,8 @@ def box_from_document(document):
     return shell, box, bounds
 
 
-def _model_instance(model, name=None, *, transform=None, indices=None, color=None):
+def _model_instance(model, name=None, *, transform=None, indices=None, color=None,
+                    split_components=False):
     row = {'model': str(Path(model).resolve())}
     if name is not None:
         row['name'] = name
@@ -38,6 +39,8 @@ def _model_instance(model, name=None, *, transform=None, indices=None, color=Non
         row['indices'] = indices
     if color is not None:
         row['color'] = list(color)
+    if split_components:
+        row['split_components'] = True
     return row
 
 
@@ -130,7 +133,8 @@ def installed_instances(box_document, directory=None):
                                   station['center_z_mm']))
         for index, suffix in enumerate(('', '-word')):
             instances.append(_model_instance(model, f'bulkhead-ring-{which}{suffix}',
-                                              indices=[index], transform=transform))
+                                              indices=[index], transform=transform,
+                                              split_components=bool(index)))
     plate = identification.nameplate
     _rust_part.cut('enclosure-components', 'nameplate', plate.numbers(1), directory,
                    numbers_name='enclosure-nameplate')
@@ -142,7 +146,8 @@ def installed_instances(box_document, directory=None):
                   else identification.colours.chip_color('flavor'))
         instances.append(_model_instance(directory/'nameplate-001.step.npz', name,
                                           indices=[index], transform=transform,
-                                          color=linear(identification._colour(colour))))
+                                          color=linear(identification._colour(colour)),
+                                          split_components=bool(index)))
     return dict(instances=instances, datums={
         'funnel_frame_fasteners': frame.fastener_datums(
             box.inner, box.y_joint, centre, seat),
