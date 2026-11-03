@@ -1,15 +1,17 @@
 """Finish cold-core shown surfaces and bind them to the authoritative fine archive."""
 
+import json
 import math
 from pathlib import Path
+import struct
 
 import numpy as np
 
 
 def bind(model, payload):
     """Replace only the model document's presentation binding; keep all other members exact."""
-    from meshcad.presentation import bind as bind_presentation
-    return bind_presentation(model, payload)
+    import _machine_export
+    _machine_export.graft(payload, [], model=model)
 
 
 def placement(row):
@@ -52,30 +54,54 @@ def placement(row):
     return matrix
 
 
-def carried(surface, row):
-    matrix = placement(row)
-    linear, offset = matrix[:3, :3], matrix[:3, 3]
-    return {**surface,
-            'pos': (np.asarray(surface['pos'], dtype=float).reshape(-1, 3) @ linear.T + offset).ravel(),
-            'nrm': (np.asarray(surface['nrm'], dtype=float).reshape(-1, 3) @ np.linalg.inv(linear)).ravel()}
+def printed_surfaces():
+    """Current printed-core payloads, identified without loading their mesh arrays."""
+    from _cadq_export import note_read
+    import _mesh_payload
+
+    cold = Path(__file__).resolve().parents[1] / 'printed-parts' / 'cold-core'
+    surfaces = {}
+    for directory in (cold / 'foam-shell', cold / 'foam-cap'):
+        for step in sorted(directory.glob('*.step')):
+            if not step.with_suffix('.stl').is_file():
+                continue
+            payload = step.with_name(step.name + '.mesh')
+            note_read(step)
+            note_read(payload)
+            try:
+                with payload.open('rb') as source:
+                    header_size, = struct.unpack('<I', source.read(4))
+                    header = json.loads(source.read(header_size))
+            except OSError:
+                continue
+            entries = header.get('meshes', ())
+            if header.get('v') not in _mesh_payload.DECODABLE or len(entries) != 1:
+                continue
+            stamped, current = header.get('src'), _mesh_payload.source_digest(step)
+            if stamped != current:
+                raise ValueError(
+                    f"{payload.name} was cut from a {step.name} that is not the one beside it "
+                    f"({str(stamped)[:12]} against {current[:12]}) — recut its printed surface")
+            surfaces[entries[0]['name']] = {
+                'payload': str(payload), 'source_sha256': current}
+    return surfaces
 
 
 def finish(step, rows):
     """Graft the current printed surfaces and bind that final payload to its fine model."""
-    from _cadq_export import note_read, note_write
-    import flute_payload
+    from _cadq_export import note_write
+    import _machine_export
 
     step = Path(step)
     payload = step.with_name(step.name + '.mesh')
-    for part, _stl in flute_payload.pieces(flute_payload.COLD_CORE_DIRS):
-        note_read(part)
-        note_read(part.with_name(part.name + '.mesh'))
-    surfaces = flute_payload.surfaces(flute_payload.COLD_CORE_DIRS)
-    placed = {row['name']: carried(surfaces[row['name']], row)
-              for row in rows if row['name'] in surfaces}
-    grafted = flute_payload.graft(payload, placed, same_frame=True)
+    surfaces = printed_surfaces()
+    skins = [{**surfaces[row['name']], 'names': {row['name']: row['name']},
+              'transform': placement(row)[:3, :4].tolist()}
+             for row in rows if row['name'] in surfaces]
+    result = _machine_export.graft(
+        payload, skins, model=step.with_name(step.name + '.npz'))
+    grafted = result['grafted']
     if grafted:
         note_write(payload)
         print(f'-> {payload.name}  ({grafted} fluted piece(s))')
-    bind(step.with_name(step.name + '.npz'), payload)
     return grafted
