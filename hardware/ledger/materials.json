@@ -2833,6 +2833,11 @@
       "id": "HSM-000032",
       "description": "Magnetic level float",
       "kind": "assembly",
+      "models": [
+        {
+          "file": "printed-parts/cold-core/magnetic-float/all-aero/assembly.step"
+        }
+      ],
       "bom": {
         "scope": "ASA Aero float and inserted ring magnet.",
         "source": "cold-core-layout/_bom.py",
@@ -2840,12 +2845,18 @@
           {
             "material": "HSM-000033",
             "quantity": 1,
-            "unit": "ea"
+            "unit": "ea",
+            "bodies": [
+              "float-aero"
+            ]
           },
           {
             "material": "HSM-000034",
             "quantity": 1,
-            "unit": "ea"
+            "unit": "ea",
+            "bodies": [
+              "RC62"
+            ]
           }
         ]
       },
