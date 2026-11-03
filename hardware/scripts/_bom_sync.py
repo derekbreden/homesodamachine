@@ -18,11 +18,20 @@ sys.path.insert(0, str(_here.parent / "printed-parts" / "faucet"))
 sys.path.insert(0, str(_here.parent / "printed-parts" / "faucet" / "faucet-shell"))
 sys.path.insert(0, str(_here.parent / "reference" / "beduan-solenoid"))
 sys.path.insert(0, str(_here.parent / "manifold-layout"))
+sys.path.insert(0, str(_here.parent / "printed-parts" / "enclosure" / "enclosure"))
+sys.path.insert(0, str(_here.parent / "reference" / "compressor"))
+for _scalar_path in ('reference/teyleten-relay', 'reference/meanwell-irm90',
+                     'reference/iec-c14-inlet', 'reference/digiten-flow-sensor',
+                     'printed-parts/electronics/pcba-tray'):
+    sys.path.insert(0, str(_here.parent / _scalar_path))
 sys.path.insert(0, str(_here.parent / "printed-parts" / "enclosure" / "pump-dock"))
 sys.path.insert(
     0,
     str(next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"),
 )
+
+from _enclosure_datums import load as _enclosure_numbers
+_enc = _enclosure_numbers()
 
 from _cold_core_interface import (attachment_xy_positions, cap_anchors,
                                   cap_cradles, deck_mounts,
@@ -35,8 +44,12 @@ from faucet_shell import base_pod_centers
 
 import manifold_layout as ml
 import _facts
-import enclosure_assembly as _ea  # noqa: F401  — holds the closure these docs watch
-import enclosure as _enc  # likewise
+import compressor as _compressor
+from _cadq_export import note_read
+note_read(_here.parent / 'manifold-layout/enclosure_assembly.py')
+for _source in _facts.sources():
+    if Path(_source).suffix in ('.py', '.rs', '.json', '.toml', '.lock', '.yaml', '.yml'):
+        note_read(_here.parents[1] / _source)
 import _box_spec
 import _fixed_pump_mount
 from materialize_pump_cartridge import _declared_box
@@ -96,8 +109,8 @@ _routes_gen = load_module(
     "bom_internal_routes_gen",
     _here.parent / "printed-parts" / "cold-core" / "_internal_routes.py",
 )
-_prv_vent_mm = _routes_gen.route_wire(
-    _routes_gen.routes["prv-vent"], _routes_gen.route_bend_radius).Length()
+_prv_vent_mm = sum(segment['length_mm'] for segment in _routes_gen.route_segments(
+    _routes_gen.routes["prv-vent"], _routes_gen.route_bend_radius))
 
 # The continuous black 4 mm flavor runs and finish-matched 3/8" soda tube (§9). The cut lengths are the ones `faucet-and-umbilical.md` §1 hands the bench.
 _faucet_gen = load_module(
@@ -265,14 +278,14 @@ cond_screws_per_build = cond_inserts_per_build
 
 # The nameplate's two integral PET-GF tabs engage rigid enclosure shoulders.
 nameplate_inserts_per_build = 0
-nameplate_wings_per_build = len(_enc._nameplate_fit.wings())
+nameplate_wings_per_build = 2
 nameplate_screws_per_build = 0
 
 # The machine display cover is retained by its coplanar horizontal wings.
 display_cover_stations = ()
 display_cover_inserts_per_build = 0
 display_cover_screws_per_build = 0
-display_cover_wings_per_build = len(_enc._display_wings.support_exits(1.0))
+display_cover_wings_per_build = 2
 
 # Three underside M3 x 60 screws close the broad lower retainer against the two
 # pump skirts. Their full-length M3 inserts belong to front-top's integral upper mount.
@@ -542,13 +555,13 @@ def main(*, only_bom=False):
         "FLOOR_INSERTS": f"{floor_inserts_per_build:.4g}",
         "FLOOR_SCREWS": f"{floor_screws_per_build:.4g}",
         "FLOOR_WASHERS": f"{floor_washers_per_build:.4g}",
-        "COMPRESSOR_LIGAMENT": f"{_ea._comp.MOUNT_LIGAMENT:.4g}",
-        "COMPRESSOR_BORE": f"{_ea._comp.MOUNT_D:.4g}",
+        "COMPRESSOR_LIGAMENT": f"{_compressor.MOUNT_LIGAMENT:.4g}",
+        "COMPRESSOR_BORE": f"{_compressor.MOUNT_D:.4g}",
         # The widest washer the plate's own steel still carries: the bore plus the ligament
         # either side of it.
         "WASHER_MAX_OD":
-            f"{_ea._comp.MOUNT_D + 2.0 * _ea._comp.MOUNT_LIGAMENT:.4g}",
-        "GROMMET_SQUEEZE": f"{_ea.FLOOR_GROMMET_SQUEEZE:.4g}",
+            f"{_compressor.MOUNT_D + 2.0 * _compressor.MOUNT_LIGAMENT:.4g}",
+        "GROMMET_SQUEEZE": f"{_f.constants.FLOOR_GROMMET_SQUEEZE:.4g}",
         "DECK_INSERTS": f"{foam_cap_deck_inserts_per_build:.4g}",
         "PUMP_MOUNT_SCREWS": f"{pump_mount_screws_per_build:.4g}",
         "FLAT_WASHERS_9": f"{flat_washers_9_per_build:.4g}",

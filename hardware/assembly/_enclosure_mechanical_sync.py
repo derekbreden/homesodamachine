@@ -12,8 +12,13 @@ for path in (ROOT / 'tools', HW / 'scripts', HW / 'manifold-layout',
     sys.path.insert(0, str(path))
 
 import _facts
-import enclosure as enc
-import enclosure_assembly as assembly
+from _enclosure_datums import load as _enclosure_numbers
+enc = _enclosure_numbers()
+from _cadq_export import note_read
+note_read(HW / 'manifold-layout/enclosure_assembly.py')
+for source in _facts.sources():
+    if Path(source).suffix in ('.py', '.rs', '.json', '.toml', '.lock', '.yaml', '.yml'):
+        note_read(ROOT / source)
 from _cold_core_interface import outer_shell_y_length
 from docgen import substitute_md
 
@@ -47,7 +52,7 @@ def main():
         'CORE_HOLD_REACH': f'{enc.core_hold_reach:.4g} mm',
         'REAR_SEAM_CLEAR': f'{enc.rear_seam_clear:.4g} mm',
         'Y_OVERLAP': f'{enc.lip_len:.3g} mm',
-        'GROMMET_SQUEEZE': f'{assembly.FLOOR_GROMMET_SQUEEZE:.4g}',
+        'GROMMET_SQUEEZE': f'{facts.constants.FLOOR_GROMMET_SQUEEZE:.4g}',
     }
     substitute_md(HERE / 'enclosure-mechanical.md', variables=variables)
     print('-> enclosure-mechanical.md')

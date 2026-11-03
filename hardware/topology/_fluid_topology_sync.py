@@ -50,6 +50,7 @@ Run:  tools/cad-venv/bin/python hardware/topology/_fluid_topology_sync.py
       tools/cad-venv/bin/python hardware/topology/_fluid_topology_sync.py --check
 """
 
+import ast
 import re
 import sys
 from dataclasses import dataclass
@@ -58,22 +59,32 @@ from pathlib import Path
 _here = Path(__file__).resolve().parent
 _repo = next(p for p in _here.parents if (p / "tools" / "docgen").is_dir())
 for _p in (_repo / "tools", _repo / "hardware" / "scripts",
-           _repo / "hardware" / "manifold-layout"):
+           _repo / "hardware" / "manifold-layout",
+           _repo / 'hardware/printed-parts/enclosure/enclosure'):
     if str(_p) not in sys.path:
         sys.path.insert(0, str(_p))
 
 from docgen import note_rewritten, substitute_md, substitute_mmd  # noqa: E402
 import _facts                                     # noqa: E402
-import _lines                                     # noqa: E402
+from _enclosure_datums import load as _enclosure_numbers
+_enclosure_numbers()
 import _scorecard                                 # noqa: E402
 import manifold_layout as ml                      # noqa: E402
 
-# WHAT THIS DOC IS DRAWN FROM, WHICH IS NOT WHAT IT CALLS. The figures come off `_facts`, so
-# nothing here stands a machine. The sidecar beside this doc records the files this driver
-# READS, and a run's length answers to bodies whose modules only this import reaches — the
-# funnel it drains from, the reservoirs it fills. Drop the import and the doc stops watching
-# them, and a cold-core body that moves a mouth moves a length here with nothing to say so.
-import enclosure_assembly                         # noqa: E402,F401
+# The facts supply geometry readings; their producer's declared sources supply
+# the source dependency closure watched by this document.
+from _cadq_export import note_read
+note_read(_repo / 'hardware/manifold-layout/enclosure_assembly.py')
+_lines_source = _repo / 'hardware/manifold-layout/_lines.py'
+note_read(_lines_source)
+_valves = next(ast.literal_eval(statement.value)
+               for statement in ast.parse(_lines_source.read_text()).body
+               if isinstance(statement, ast.Assign)
+               and any(isinstance(target, ast.Name) and target.id == 'VALVES'
+                       for target in statement.targets))
+for _source in _facts.sources():
+    if Path(_source).suffix in ('.py', '.rs', '.json', '.toml', '.lock', '.yaml', '.yml'):
+        note_read(_repo / _source)
 
 MANIFOLD = _here / "fluid-topology-manifold.mmd"
 LIMBS = _here / "fluid-topology-limbs.mmd"
@@ -245,7 +256,7 @@ NODES = {
 }
 # The manifold's own members, off the placed pack: a valve, a tee or a pump that leaves the pack
 # leaves this table with it, and every edge naming it then fails.
-NODES.update({f"V{v[-1]}": _valve(v) for v in _lines.VALVES})
+NODES.update({f"V{v[-1]}": _valve(v) for v in _valves})
 NODES.update({f"Y{t[-1]}": frozenset(f"{t}-{i}" for i in (1, 2, 3))
               for t in ml.P if t.startswith("Y-")})
 NODES.update({f"P{p[-1].upper()}": frozenset({f"P-{p[-1].upper()}-I", f"P-{p[-1].upper()}-O"})
