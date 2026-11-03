@@ -63,14 +63,21 @@ the authored construction, dimensions, bounds and material colours agree, while 
 Boolean-cap triangulations differ. The retained comparison records those differences; it does
 not state that every raw surface matches. The combined build retains its existing fit questions.
 
-## What is left
+## Current coverage
 
-A piece comes off this list when it lands on main. The current merged batch needs its normal
-execution and publication; component comparisons are not a completed combined build.
+The normal construction, placement, equipment, routes, checks, print surfaces and model exports
+are converted and published on main. The combined local build and cloud build pass, including
+the existing fit and drain checks, complete solid inventory, ledger and documentation.
 
-1. **Combined execution and publication.** The integration lead owns actual normal results,
-   source/output bindings, artifact readback and main publication. The batch runs after merging
-   to main; it adds no per-piece speed or whole-build gate.
-2. **Any other step that loads CadQuery, OCP or meshcad at run time.** A generator that calls
-   `_rust_part.start()` defers CadQuery, and still loads it on any path that reads a CadQuery
-   name. Optional native design and manual review tools remain outside the normal build.
+The source reconciliation covers all 102 graph entrypoints and their 322 declared Python files,
+alongside the retained piece comparisons that prohibit native CAD imports. It identifies no
+remaining normal-build CadQuery, OCP or meshcad load. This is source and fixed-input evidence,
+not dynamic coverage of every optional command.
+
+Python remains for dimensions, numeric recipes, file readers and documents. Optional native
+design and manual review tools remain outside the normal build. There are no identified normal
+CAD conversion pieces awaiting an owner.
+
+The CPU and memory goal still needs performance work in Rust. Component reductions and
+incremental build measurements do not establish a matched whole-machine speed or memory gain;
+a completed conversion does not by itself establish that this Mac is free of memory pressure.
