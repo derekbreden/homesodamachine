@@ -17,7 +17,7 @@ fn text<'a>(value: &'a Value, key: &str) -> Result<&'a str> {
         .with_context(|| format!("missing text `{key}`"))
 }
 
-fn transform(value: Option<&Value>) -> Result<Option<Affine>> {
+pub(crate) fn transform(value: Option<&Value>) -> Result<Option<Affine>> {
     let Some(value) = value else { return Ok(None) };
     let rows = value
         .as_array()
@@ -48,7 +48,7 @@ fn transform(value: Option<&Value>) -> Result<Option<Affine>> {
     Ok((placed != Affine::IDENTITY).then_some(placed))
 }
 
-fn assemble(instances: &Value) -> Result<Vec<Imported>> {
+pub(crate) fn assemble(instances: &Value) -> Result<Vec<Imported>> {
     let mut placed = Vec::new();
     for instance in instances
         .as_array()
@@ -260,7 +260,7 @@ fn box_operand(value: &Value) -> Result<Solid> {
 }
 
 
-fn query(parts: &mut [Imported], queries: &Value, query_only: bool) -> Result<Vec<Value>> {
+pub(crate) fn query(parts: &mut [Imported], queries: &Value, query_only: bool) -> Result<Vec<Value>> {
     let mut gap_meshes = BTreeMap::new();
     let mut groups = BTreeMap::new();
     let values = queries.as_array().context("queries is an ordered array")?;
@@ -405,7 +405,7 @@ fn query(parts: &mut [Imported], queries: &Value, query_only: bool) -> Result<Ve
     Ok(readings)
 }
 
-fn summary(part: &Imported, components: bool) -> Value {
+pub(crate) fn summary(part: &Imported, components: bool) -> Value {
     let bounds = part.solid.bounds();
     let mut result = json!({"name":part.name,"color":part.color,"vertices":part.solid.verts().len(),
            "triangles":part.solid.tris().len(),"faces":part.solid.faces().len(),
