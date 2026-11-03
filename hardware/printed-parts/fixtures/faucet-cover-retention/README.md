@@ -51,8 +51,7 @@ the printed samples and observations.
 ## Retained artifacts
 
 `retained-artifacts.zip` holds the exact six STEP/STL/viewer-payload triplets
-and `trial-geometry.json`. The build target restores those bytes at their
-existing paths. `retained-artifacts.json` pins every archive member, the print
+and `trial-geometry.json`. `retained-artifacts.json` pins every archive member, the print
 project, and the retained fit, slice, support, readiness and lint records.
 The integrity checker leaves all reports unchanged and does not evaluate fit
 against current production CAD.
@@ -64,10 +63,8 @@ in `trial-geometry.json`. Use a separate checkout of that commit to inspect or
 run those recipes. The retained archive supplies the exact published bytes;
 new experiments receive new identifiers rather than replacing A–F.
 
-```sh
-tools/cad-venv/bin/python hardware/printed-parts/fixtures/faucet-cover-retention/cover_retention_trial.py
-```
-
-The command restores the retained outputs. In Git at `9884d0e7f4`, [`check_geometry.py`](https://github.com/derekbreden/homesodamachine/blob/9884d0e7f4/hardware/printed-parts/fixtures/faucet-cover-retention/check_geometry.py) verifies their
+The [restore script](https://github.com/derekbreden/homesodamachine/blob/521b9f02cb13815c02b83d08df0d6a9f71c3a60d/hardware/printed-parts/fixtures/faucet-cover-retention/cover_retention_trial.py)
+that writes those bytes at their existing paths is retained in Git at
+`521b9f02cb13815c02b83d08df0d6a9f71c3a60d`. In Git at `9884d0e7f4`, [`check_geometry.py`](https://github.com/derekbreden/homesodamachine/blob/9884d0e7f4/hardware/printed-parts/fixtures/faucet-cover-retention/check_geometry.py) verifies their
 integrity and the saved records, and [`prepare_print_project.py`](https://github.com/derekbreden/homesodamachine/blob/9884d0e7f4/hardware/printed-parts/fixtures/faucet-cover-retention/prepare_print_project.py) verifies and names the existing
 3MF for a reprint; it does not rebuild the project or invoke a slicer.

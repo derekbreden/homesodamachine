@@ -68,13 +68,7 @@ task, exceeding the shared-circuit minimum of 180 seconds. A subsequent start
 or resume must retain that minimum interval. Printer completion alone does not
 clear a bed for a following job.
 
-To prepare and review a fresh revision:
-
-```sh
-HSM_NO_BUILD_LOCK=1 tools/cad-venv/bin/python hardware/printed-parts/zone-c/funnel/cradle-trial/h2c-print/prepare_split.py --revision 2
-```
-
-Each revision has a separate immutable directory in `.cache/prints/`.
+The [preparation](https://github.com/derekbreden/homesodamachine/blob/521b9f02cb13815c02b83d08df0d6a9f71c3a60d/hardware/printed-parts/zone-c/funnel/cradle-trial/h2c-print/prepare_split.py) and [slice review](https://github.com/derekbreden/homesodamachine/blob/521b9f02cb13815c02b83d08df0d6a9f71c3a60d/hardware/printed-parts/zone-c/funnel/cradle-trial/h2c-print/verify.py) sources are retained in Git at `521b9f02cb13815c02b83d08df0d6a9f71c3a60d`.
 
 Remove both supports outward into the open space beside the cradle before
 installing the elbow. Inspect the hook undersides and retain the as-printed
