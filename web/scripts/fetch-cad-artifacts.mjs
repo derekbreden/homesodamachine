@@ -161,8 +161,10 @@ if (CHECK) {
 // it as the answer for any member that does not arrive by name.
 const { url, asset } = pointers.release ?? {};
 // WHERE AN OBJECT COMES FROM, IN ORDER: this service's own disk or authenticated R2 read;
-// the site's store route; the release, the archive the store falls back to. Direct R2 reads
-// let a replacement deployment hydrate even when the running site's public redirect is down.
+// the configured public R2 origin; the site's store route; the release and retained archive.
+// Public R2 reads need no service credentials or running app proxy.
+const PUBLIC_STORE_URL = process.env.R2_PUBLIC_URL
+  ? process.env.R2_PUBLIC_URL.replace(/\/+$/, "") + "/" : null;
 const STORE_URL = pointers.store?.url ?? null;
 const RELEASE_BASE = url ? url.slice(0, url.lastIndexOf("/") + 1) : null;
 
@@ -194,7 +196,7 @@ async function fetchObject(rel) {
         }
       }
       if (!got) {
-        for (const base of [STORE_URL, RELEASE_BASE].filter(Boolean)) {
+        for (const base of [PUBLIC_STORE_URL, STORE_URL, RELEASE_BASE].filter(Boolean)) {
           try {
             await download(`${base}${name}`, gz);
             got = true;
@@ -235,7 +237,7 @@ async function fetchObjects(rels) {
 }
 
 let remaining = missing;
-if (OBJECTS && (STORE || STORE_DIR || STORE_URL || RELEASE_BASE)) {
+if (OBJECTS && (STORE || STORE_DIR || PUBLIC_STORE_URL || STORE_URL || RELEASE_BASE)) {
   console.log(`[cad-artifacts] ${missing.length} solid(s) to fetch, by name`);
   const failed = await fetchObjects(missing);
   if (!failed.length) {
