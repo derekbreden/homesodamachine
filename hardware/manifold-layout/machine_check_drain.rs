@@ -19,6 +19,16 @@ const CONNECTED: [(&str, &str); 9] = [
 ];
 const SCOPE: &str = "Nominal authoritative fine model clearance of the direct TPU ASSE sleeve and dedicated drain against the complete installed assembly population, including cold-core bodies and retained flavor returns. Connected interfaces are excluded. Tubes exclude flexible conductors and jackets as obstacles; connector housings remain. The white 4 mm return requires at least 1 mm to every other unconnected body. Pump occupied envelopes are read per component. The sleeve expanded shape is an occupancy approximation. Hardware tolerances, zip-tie heads, actual bending, seals and vent performance are unmeasured.";
 pub fn read(world: &mut World, spec: &Value) -> Result<Value> {
+    read_with_release(world, spec, false)
+}
+
+/// The machine's last geometry phase. Body identities and bounds remain even
+/// after raw entries no remaining drain question can read are released.
+pub fn final_read(world: &mut World, spec: &Value) -> Result<Value> {
+    read_with_release(world, spec, true)
+}
+
+fn read_with_release(world: &mut World, spec: &Value, final_phase: bool) -> Result<Value> {
     let checked = spec
         .get("checked_members")
         .map(strings)
@@ -51,8 +61,11 @@ pub fn read(world: &mut World, spec: &Value) -> Result<Value> {
     let mut candidates = Vec::new();
     let mut queries = Vec::new();
     let mut owners = Vec::new();
+    let mut checked_parts = BTreeSet::new();
+    let mut query_parts = BTreeSet::new();
     for n in &checked {
         let g = world.g(n)?;
+        checked_parts.extend(&g.indices);
         let mut components = 0;
         let mut valid = true;
         for &i in &g.indices {
@@ -90,6 +103,7 @@ pub fn read(world: &mut World, spec: &Value) -> Result<Value> {
             candidates.push((n.clone(), other.name.clone()));
             for &a in &g.indices {
                 for &b in &other.indices {
+                    query_parts.extend([a, b]);
                     queries.push(json!({"kind":"gap","a":a,"b":b}));
                     queries.push(json!({"kind":"common","a":a,"b":b}));
                     owners.push((n.clone(), other.name.clone()));
@@ -98,7 +112,17 @@ pub fn read(world: &mut World, spec: &Value) -> Result<Value> {
         }
     }
     let count = queries.len();
-    let readings = world.measure(queries)?;
+    if final_phase {
+        let needed = checked_parts.union(&query_parts).copied().collect();
+        world.retain_raw(&needed);
+    }
+    let readings = world.measure(queries);
+    if final_phase {
+        // The results own their numbers. Only checked members' toroidal face
+        // records and radii are read below; the complete population is metadata.
+        world.retain_raw(&checked_parts);
+    }
+    let readings = readings?;
     ensure!(readings.len() == count, "drain fine query coverage differs");
     let mut values = candidates
         .iter()
