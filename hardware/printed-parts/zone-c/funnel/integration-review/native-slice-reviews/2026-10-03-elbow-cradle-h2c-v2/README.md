@@ -41,7 +41,7 @@ production cradle on the site. Both its STL and the byte-identical trial STL
 report zero unanswered findings; their two square retention ceilings retain
 the recorded accessible supports.
 
-The [accepted v4 record](../../../cradle-trial/physical-acceptance.json) remains
+The [accepted v4 record](https://github.com/derekbreden/homesodamachine/blob/archive-finished-trials/hardware/printed-parts/zone-c/funnel/cradle-trial/physical-acceptance.json) remains
 limited to its frozen printed pair. Current 3.15 mm hooks, corresponding slots
 and flat silicone bearing require separate physical acceptance. Native slicing
 does not establish insertion force, retention, operating life, support-removal
