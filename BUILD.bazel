@@ -4288,6 +4288,7 @@ genrule(
         "hardware/reference/compact-inline-candidates/geometry/frozen-asset.json",
         "pysrc/hardware/reference/compressor/compressor.py",
         "hardware/reference/compressor/compressor.source-fine.npz",
+        "hardware/reference/compressor/compressor.step.mesh",
         "hardware/reference/compressor/frozen-asset.json",
         "pysrc/hardware/reference/condenser-block/condenser_block.py",
         "hardware/reference/digiten-flow-sensor/digiten-flow-sensor.fine.step.npz",
