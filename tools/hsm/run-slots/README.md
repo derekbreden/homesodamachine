@@ -17,7 +17,7 @@ python3 tools/run.py -- bazel build //:target
 ```
 
 `tools/hsm/run-slots.defaults.json` supplies the host policy. Cargo uses two jobs;
-Bazel uses one heavy action per inherited lease. Native CadQuery/OCP work also
+Bazel uses two heavy actions per inherited lease. Native CadQuery/OCP work also
 takes the shared CAD lease. Lock order is heavy admission, CAD when needed,
 compiler when needed, then local target and memory locks. Bazel reserves CAD
 before compiler so its actions can inherit both. A child cannot acquire CAD
