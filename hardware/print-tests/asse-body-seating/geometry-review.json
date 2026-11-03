@@ -1,0 +1,165 @@
+{
+  "measured_cloud_sha256": "bf5faf6abb5ad9bc9ad3cf8a472649e9857b1ae205ecf046d702235e451644a9",
+  "scan_scope": "Retained observations on the two broad wrench sections; vent observations excluded by the existing vent-region definition. Signed distances to the actual cavity planes. Hidden faces are not established by the scan.",
+  "body_plane_vertical_allowance_mm": 0.25,
+  "scan_plane_clearances": {
+    "main_wrench": [
+      {
+        "normal_xz": [
+          -0.8607420270039449,
+          -0.5090414157503691
+        ],
+        "observations": 18222,
+        "before_minimum_plane_clearance_mm": 0.14612811155072336,
+        "after_minimum_plane_clearance_mm": 0.2733884654883809,
+        "before_clearance_p01_p50_p99_mm": [
+          0.15807250135497497,
+          0.253635945155537,
+          0.6706921602131405
+        ],
+        "after_clearance_p01_p50_p99_mm": [
+          0.2853328552926206,
+          0.38089629909319456,
+          0.7979525141508265
+        ]
+      },
+      {
+        "normal_xz": [
+          0.010471784116246906,
+          -0.9999451693655123
+        ],
+        "observations": 5965,
+        "before_minimum_plane_clearance_mm": 0.14384622908369238,
+        "after_minimum_plane_clearance_mm": 0.3938325214251108,
+        "before_clearance_p01_p50_p99_mm": [
+          0.1540404978860306,
+          0.2595857102137984,
+          0.6400568641816448
+        ],
+        "after_clearance_p01_p50_p99_mm": [
+          0.40402679022744903,
+          0.5095720025552168,
+          0.8900431565230632
+        ]
+      },
+      {
+        "normal_xz": [
+          0.8712138111201895,
+          -0.4909037536151408
+        ],
+        "observations": 28318,
+        "before_minimum_plane_clearance_mm": 0.2017361413228116,
+        "after_minimum_plane_clearance_mm": 0.3244620797266009,
+        "before_clearance_p01_p50_p99_mm": [
+          0.21058671057449815,
+          0.23573913836636962,
+          0.6151409793772439
+        ],
+        "after_clearance_p01_p50_p99_mm": [
+          0.3333126489782899,
+          0.35846507677018025,
+          0.7378669177810356
+        ]
+      }
+    ],
+    "bonnet": [
+      {
+        "normal_xz": [
+          -0.8607420270039449,
+          -0.5090414157503691
+        ],
+        "observations": 14812,
+        "before_minimum_plane_clearance_mm": 0.06763058008996836,
+        "after_minimum_plane_clearance_mm": 0.19489093402765434,
+        "before_clearance_p01_p50_p99_mm": [
+          0.10069368515907968,
+          0.17172988289598834,
+          0.32973620134777837
+        ],
+        "after_clearance_p01_p50_p99_mm": [
+          0.22795403909676565,
+          0.2989902368336459,
+          0.45699655528546745
+        ]
+      },
+      {
+        "normal_xz": [
+          0.010471784116246906,
+          -0.9999451693655123
+        ],
+        "observations": 14168,
+        "before_minimum_plane_clearance_mm": 0.09745605685048986,
+        "after_minimum_plane_clearance_mm": 0.3474423491919083,
+        "before_clearance_p01_p50_p99_mm": [
+          0.13988185605846354,
+          0.21247233373259178,
+          0.3083214478952175
+        ],
+        "after_clearance_p01_p50_p99_mm": [
+          0.389868148399882,
+          0.4624586260740102,
+          0.5583077402366359
+        ]
+      },
+      {
+        "normal_xz": [
+          0.8712138111201895,
+          -0.4909037536151408
+        ],
+        "observations": 22605,
+        "before_minimum_plane_clearance_mm": 0.2317295153400778,
+        "after_minimum_plane_clearance_mm": 0.3544554537438529,
+        "before_clearance_p01_p50_p99_mm": [
+          0.25037253231316187,
+          0.30695754977617185,
+          0.37422211482832096
+        ],
+        "after_clearance_p01_p50_p99_mm": [
+          0.3730984707169381,
+          0.4296834881800038,
+          0.4969480532320978
+        ]
+      }
+    ]
+  },
+  "retained_flat_directions": true,
+  "upper_planes_retained": true,
+  "adapter_cuts_and_stock_retained": true,
+  "spring_section_and_pry_retained": true,
+  "body_cavity_axial_span_retained": true,
+  "minimum_planar_backing_above_drain_window_mm": 3.6699889612656307,
+  "stl_review": {
+    "closed_single_solid": true,
+    "outer_bounds_retained": true,
+    "removed_volume_mm3": 195.34362333545218,
+    "added_volume_mm3": 7.882578678675145e-08
+  },
+  "unchanged_approved_cap_stl_sha256": {
+    "pisco-snap-cap": "aa9a5c2d81071c1a1e653b46911ad206d11f36eee92b065bdfdf6da4bb09764e",
+    "meter-snap-cap": "1ed03bf9fde42e60b969797e3840bb7d59a92a0f5bb2380c35b9c31e030339db",
+    "regulator-snap-cap": "dbf72a61acb171dff87d77725c8ff5291996f44d124b7b781bdc7a21526e4937"
+  },
+  "assembly": {
+    "hardware/manifold-layout/enclosure-assembly.step.npz": {
+      "replaced_body": "asse-snap-cap",
+      "unrelated_fine_bodies_preserved": 437
+    },
+    "hardware/manifold-layout/enclosure-assembly.scene.npz": {
+      "replaced_body": "asse-snap-cap",
+      "unrelated_fine_bodies_preserved": 440
+    }
+  },
+  "installation": {
+    "back-top": {
+      "replaced_body": "asse-snap-cap",
+      "unrelated_buffer_views_preserved": 510,
+      "nodes_and_materials_preserved": true
+    },
+    "back-half": {
+      "replaced_body": "asse-snap-cap",
+      "unrelated_buffer_views_preserved": 750,
+      "nodes_and_materials_preserved": true
+    }
+  },
+  "full_machine_scalar_checks": "Existing metadata retained; not recomputed for this cap-only local relief."
+}

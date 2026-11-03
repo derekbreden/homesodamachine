@@ -1,0 +1,24 @@
+{
+  "source_archive": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/asse-body-seating/worktree/hardware/print-tests/receiver-tool-access/prints/2026-11-03-receiver-access-rear-mark1-mark1-2e016011/2026-11-03-receiver-access-rear-mark1-mark1-2e016011.gcode.3mf",
+  "source_archive_sha256": "eddfb61315193c213f8bf38c909d5929daf448a1a1691ddc1e060eb2c0bea428",
+  "print_only_archive": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/asse-body-seating/worktree/hardware/print-tests/receiver-tool-access/prints/2026-11-03-receiver-access-rear-mark1-mark1-2e016011/2026-11-03-receiver-access-rear-mark1-mark1-2e016011-print-only.gcode.3mf",
+  "print_only_archive_sha256": "91e19c96317a697128b33cbf58eef269bf632eb1b785a3058b1298fee894315e",
+  "gcode_sha256": {
+    "Metadata/plate_1.gcode": "b0460fdb94c9f052ecee65115d363a9b22b730ef2c4c386e4f9ab2e744b5a02b"
+  },
+  "gcode_byte_identical": true,
+  "changed_container_entries": [
+    "3D/3dmodel.model",
+    "Metadata/model_settings.config"
+  ],
+  "omitted_editable_geometry_entries": [
+    "3D/Objects/object_1.model",
+    "3D/Objects/object_2.model",
+    "3D/Objects/object_3.model",
+    "3D/Objects/object_4.model",
+    "3D/Objects/object_5.model",
+    "3D/Objects/object_6.model",
+    "3D/_rels/3dmodel.model.rels",
+    "Metadata/cut_information.xml"
+  ]
+}

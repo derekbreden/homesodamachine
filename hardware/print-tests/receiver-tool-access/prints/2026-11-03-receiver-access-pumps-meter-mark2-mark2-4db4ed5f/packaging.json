@@ -1,0 +1,24 @@
+{
+  "source_archive": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/asse-body-seating/worktree/hardware/print-tests/receiver-tool-access/prints/2026-11-03-receiver-access-pumps-meter-mark2-mark2-4db4ed5f/2026-11-03-receiver-access-pumps-meter-mark2-mark2-4db4ed5f.gcode.3mf",
+  "source_archive_sha256": "8347454d03201beac50eb6ba15c9eb960b2ab2b486a090a0ef2e9cc24e172d38",
+  "print_only_archive": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/asse-body-seating/worktree/hardware/print-tests/receiver-tool-access/prints/2026-11-03-receiver-access-pumps-meter-mark2-mark2-4db4ed5f/2026-11-03-receiver-access-pumps-meter-mark2-mark2-4db4ed5f-print-only.gcode.3mf",
+  "print_only_archive_sha256": "29cdcb121d88d1298ef4bec9ab6731867751a7e67989c26e2bd252185cf0b0de",
+  "gcode_sha256": {
+    "Metadata/plate_1.gcode": "ab4ec3729227f217dce80909b7a1086c57a0a08841bdd463ffc0ca79f714f868"
+  },
+  "gcode_byte_identical": true,
+  "changed_container_entries": [
+    "3D/3dmodel.model",
+    "Metadata/model_settings.config"
+  ],
+  "omitted_editable_geometry_entries": [
+    "3D/Objects/object_1.model",
+    "3D/Objects/object_2.model",
+    "3D/Objects/object_3.model",
+    "3D/Objects/object_4.model",
+    "3D/Objects/object_5.model",
+    "3D/Objects/object_6.model",
+    "3D/_rels/3dmodel.model.rels",
+    "Metadata/cut_information.xml"
+  ]
+}

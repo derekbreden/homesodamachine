@@ -1,5 +1,9 @@
 # Pointed snap set
 
+[The latest physical result](../asse-body-seating/physical-result/physical-result.json)
+reports tight hardware fits and slight angular lift over the ASSE main body.
+The complete replacement cap is recorded in [ASSE body seating](../asse-body-seating/README.md).
+
 One complete cap and matching receiver for each of the six snap families. These
 are the production pointed profiles and their final enclosing geometry. The rear
 caps and the G-Ganen cap have one 3 mm-rise planar lead-in above the 1.6 mm
@@ -86,3 +90,8 @@ production GLBs. [Publication](publication.json) records uploaded and read-back
 verified geometry. [Geometry](geometry.json) binds each printed sample and the
 seated/pull-out and hardware-clearance readings. Physical insertion effort,
 support removal and durability remain for the printed parts.
+
+The [receiver-access set](../receiver-tool-access/README.md) is the current
+printable set, with solid tips, centered receiver channels, the ASSE body
+allowance and modeled service paths. This directory retains its submitted
+geometry and physical result.

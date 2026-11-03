@@ -423,6 +423,20 @@ fn pump_cradle(n: &Numbers) -> Result<Solid> {
                 f(s,"root")?+radius+n.f("running")?);
             body=body.cut(&pump_cap_world(&relief,cap)?)?;
         }
+        for port in a(&s["tool_ports"])? {
+            let span=a(&port["span"])?;
+            let mut profiles=vec![];
+            for x in [span[0].as_f64().context("tool port x")?,
+                      span[1].as_f64().context("tool port x")?] {
+                let points=a(&port["section"])? .iter().map(|p| {
+                    let p=a(p)?;
+                    Ok(v3(x,p[0].as_f64().context("tool port y")?,
+                              p[1].as_f64().context("tool port z")?))
+                }).collect::<Result<Vec<_>>>()?;
+                profiles.push(Region::polygon(points));
+            }
+            body=body.cut(&pump_cap_world(&Solid::loft(&profiles)?,cap)?)?;
+        }
     }
     let (east, aft) = (c.x + wide, fy + rear1);
     let cap_end = a(&d["caps"])? .iter().map(|cap| f(&cap["snap_station"], "y1"))
@@ -468,15 +482,9 @@ fn pump_snap(n: &Numbers) -> Result<Solid> {
         .line_to(v2(c + w, -r))
         .line_to(v2(c - f(&d["selected"], "cap_east_roof_half_width_mm")?, -r));
     let profile = Profile::new(pen.close()?);
-    let mut blank = Plane::XZ
+    let blank = Plane::XZ
         .at(v3(0., f(s, "y1")?, 0.))
         .extrude(&profile, f(s, "y1")? - f(s, "y0")?)?;
-    let middle=(f(s,"y0")?+f(s,"y1")?)/2.;
-    for side in [-1.,1.] {
-        blank=blank.cut(&box3(c+side*(h-0.1),c+side*wi,
-            middle-f(s,"pry_width")?/2.,middle+f(s,"pry_width")?/2.,
-            catch-0.1,catch+f(s,"pry_height")?))?;
-    }
     let snap = pump_cap_world(&blank, d)?
         .cut(&pump_room(n, d, false)?)?
         .rotate(V3::ZERO, V3::X, 90.);

@@ -1,0 +1,215 @@
+{
+  "project_sha256_matches": true,
+  "objects": [
+    {
+      "name": "pump-seat",
+      "vertices": 264,
+      "source_sha256_matches": true,
+      "embedded_vertex_error_mm": 4.9733301921151e-07,
+      "source_comparison": "source vertices in order",
+      "seam_painted_facets": 0,
+      "placed_bounds_mm": [
+        [
+          72.895818381,
+          69.04249930499999,
+          2.3300000151493805e-07
+        ],
+        [
+          152.054182381,
+          164.442501305,
+          36.029346233
+        ]
+      ],
+      "bed_contact_z_mm": 2.3300000151493805e-07,
+      "blocked_facets": 0,
+      "partially_painted_facets": 0,
+      "parts": {
+        "normal_part": 1
+      },
+      "layer_ranges": [],
+      "ribbon_and_fin_parts": 0,
+      "modifiers_expected": 0
+    },
+    {
+      "name": "pump-cap",
+      "vertices": 318,
+      "source_sha256_matches": true,
+      "embedded_vertex_error_mm": 4.985166128790297e-07,
+      "source_comparison": "source vertices in order",
+      "seam_painted_facets": 0,
+      "placed_bounds_mm": [
+        [
+          78.395818381,
+          184.670247763,
+          0.0
+        ],
+        [
+          151.554182381,
+          242.729753763,
+          54.5
+        ]
+      ],
+      "bed_contact_z_mm": 0.0,
+      "blocked_facets": 0,
+      "partially_painted_facets": 0,
+      "parts": {
+        "normal_part": 1
+      },
+      "layer_ranges": [],
+      "ribbon_and_fin_parts": 0,
+      "modifiers_expected": 0
+    },
+    {
+      "name": "meter-seat",
+      "vertices": 2424,
+      "source_sha256_matches": true,
+      "embedded_vertex_error_mm": 4.997615974389191e-07,
+      "source_comparison": "source vertices in order",
+      "seam_painted_facets": 0,
+      "placed_bounds_mm": [
+        [
+          164.05418181599998,
+          71.092506305,
+          -3.8099999954965824e-07
+        ],
+        [
+          217.204183816,
+          162.39249430499999,
+          60.299999619
+        ]
+      ],
+      "bed_contact_z_mm": -3.8099999954965824e-07,
+      "blocked_facets": 0,
+      "partially_painted_facets": 0,
+      "parts": {
+        "normal_part": 1
+      },
+      "layer_ranges": [],
+      "ribbon_and_fin_parts": 0,
+      "modifiers_expected": 0
+    },
+    {
+      "name": "meter-cap",
+      "vertices": 924,
+      "source_sha256_matches": true,
+      "embedded_vertex_error_mm": 4.995722520106938e-07,
+      "source_comparison": "source vertices in order",
+      "seam_painted_facets": 0,
+      "placed_bounds_mm": [
+        [
+          163.55418229000003,
+          186.55000076299999,
+          0.0
+        ],
+        [
+          199.40418029,
+          240.850000763,
+          38.0
+        ]
+      ],
+      "bed_contact_z_mm": 0.0,
+      "blocked_facets": 0,
+      "partially_painted_facets": 0,
+      "parts": {
+        "normal_part": 1
+      },
+      "layer_ranges": [],
+      "ribbon_and_fin_parts": 0,
+      "modifiers_expected": 0
+    },
+    {
+      "name": "cartridge-seat",
+      "vertices": 8725,
+      "source_sha256_matches": true,
+      "embedded_vertex_error_mm": 5.000810574529169e-07,
+      "source_comparison": "source vertices in order",
+      "seam_painted_facets": 0,
+      "placed_bounds_mm": [
+        [
+          211.404180908,
+          176.442500763,
+          -4.3699999707769166e-07
+        ],
+        [
+          246.604180908,
+          250.95750076299998,
+          67.824005563
+        ]
+      ],
+      "bed_contact_z_mm": -4.3699999707769166e-07,
+      "blocked_facets": 0,
+      "partially_painted_facets": 0,
+      "parts": {
+        "normal_part": 1,
+        "modifier_part": 2
+      },
+      "layer_ranges": [],
+      "ribbon_and_fin_parts": 0,
+      "modifiers_expected": 2
+    },
+    {
+      "name": "cartridge-cap",
+      "vertices": 196,
+      "source_sha256_matches": true,
+      "embedded_vertex_error_mm": 4.994411426650913e-07,
+      "source_comparison": "source vertices in order",
+      "seam_painted_facets": 0,
+      "placed_bounds_mm": [
+        [
+          229.20418343400002,
+          92.12800630499999,
+          -3.050000003668174e-07
+        ],
+        [
+          252.104181434,
+          141.356994305,
+          68.014999695
+        ]
+      ],
+      "bed_contact_z_mm": -3.050000003668174e-07,
+      "blocked_facets": 0,
+      "partially_painted_facets": 0,
+      "parts": {
+        "normal_part": 1
+      },
+      "layer_ranges": [],
+      "ribbon_and_fin_parts": 0,
+      "modifiers_expected": 0
+    }
+  ],
+  "z_trim_block": [
+    "+0.0",
+    "0.04 - 0.01",
+    "0.04 - 0.02",
+    "0.04 + 0.01",
+    "0.04"
+  ],
+  "cooling": {
+    "fan_min_speed": [
+      "0"
+    ],
+    "fan_max_speed": [
+      "0"
+    ],
+    "overhang_fan_speed": [
+      "70"
+    ],
+    "overhang_fan_threshold": [
+      "50%"
+    ],
+    "additional_cooling_fan_speed": [
+      "0"
+    ]
+  },
+  "support": {
+    "support_type": "tree(auto)",
+    "support_style": "default",
+    "support_object_xy_distance": "0.4",
+    "max_bridge_length": "0",
+    "tree_support_branch_diameter": "2",
+    "tree_support_branch_diameter_angle": "5",
+    "brim_type": "auto_brim"
+  },
+  "problems": [],
+  "pass": true
+}

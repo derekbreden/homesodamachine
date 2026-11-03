@@ -1,0 +1,79 @@
+{
+  "schema": 1,
+  "profile": "hardware/printed-parts/petgf.3mf",
+  "filament_mapping": {
+    "extruder_ams_count": [
+      "1#0|4#0",
+      "1#0|4#0"
+    ],
+    "support_filament": "1",
+    "support_interface_filament": "1",
+    "flush_into_support": "0"
+  },
+  "printers": {
+    "Mark1": {
+      "connection_key": "H2C",
+      "z_trim_mm": 0.18,
+      "filament_colour": "#000000"
+    },
+    "Mark2": {
+      "z_trim_mm": 0.04,
+      "filament_colour": "#161616"
+    }
+  },
+  "regions": "hardware/print-tests/pointed-snaps/print-regions.json",
+  "pieces": {
+    "asse-body-cap": {
+      "printer": "Mark1",
+      "nozzle": {
+        "side": "left",
+        "diameter_mm": 0.4,
+        "flow": "Standard",
+        "hardened": true,
+        "reason": "Every abrasive stock runs on the left hotend (hardware/ledger/tools.md, Which hotends fit an H2C); Mark1's fixed left hardened 0.4 mm carries black PET-GF (tools/bambu-printers.md, Purge and wipe)."
+      },
+      "material": "Polymaker Fiberon PET-GF15, black",
+      "parts": [
+        {
+          "name": "asse-cap",
+          "stl": "hardware/print-tests/asse-body-seating/parts/asse-cap.stl",
+          "object_settings": {
+            "sparse_infill_density": {
+              "value": "100%",
+              "reason": "Solid cap, pointed catches and spring roots."
+            },
+            "sparse_infill_pattern": {
+              "value": "zig-zag",
+              "reason": "Solid cap deposition."
+            }
+          }
+        }
+      ],
+      "settings": {
+        "wall_loops": {
+          "value": "3",
+          "reason": "Shared snap trial recipe: three Classic walls."
+        },
+        "wall_generator": {
+          "value": "classic",
+          "reason": "Production fixed-width walls."
+        },
+        "sparse_infill_density": {
+          "value": "15%",
+          "reason": "Production receiver bulk, with local solid cartridge snap hosts."
+        },
+        "sparse_infill_pattern": {
+          "value": "gyroid",
+          "reason": "Production receiver bulk recipe."
+        },
+        "enable_support": {
+          "value": "1",
+          "reason": "Tree(auto)/Default retains automatic support beneath functional ceilings."
+        }
+      },
+      "spacing_mm": 12.0,
+      "plate_border_mm": 80.0,
+      "pose_reason": "Complete production ASSE cap on its axial end, with bending in the layer plane; paired with the existing pointed ASSE receiver."
+    }
+  }
+}

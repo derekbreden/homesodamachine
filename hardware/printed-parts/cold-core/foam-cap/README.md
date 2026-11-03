@@ -122,3 +122,17 @@ the fore C2 root and shell M5 hosts. Regenerate it from the current exported
 pieces before preparing their native print projects.
 
 Assembly order and foam work: [cold-core assembly](../../../assembly/cold-core.md).
+
+## Receiver release channels
+
+The G-Ganen cap has solid pointed noses and continuous spring walls. Two
+centered 4 mm by 3 mm channels in the lid's receivers accept a small flathead
+from aft, at 65° to the downward cap-installation axis. The channels continue
+through the rear receiver stock while retaining the enclosing roof and outer
+backing. Release both wings with the lid loose on the bench and the pump
+plumbing and leads dressed aside. The cap withdraws upward.
+
+The [complete snap set](../../../print-tests/receiver-tool-access/README.md)
+binds the receiver prints, tool reach and insertion/removal readings. The
+approved motor cradle, fixed rail stops and cap bearing profile retain their
+fits.

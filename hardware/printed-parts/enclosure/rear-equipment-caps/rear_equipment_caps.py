@@ -90,7 +90,6 @@ def numbers():
                     max(upper[1],hi[1])+snaps.THREAD+c,lower[2]-1.,upper[2]+c))
     caps = [{'name':'asse-snap-cap','section':snaps.cap_section(st,axis[1],None,axis[1],True),
              'stock':[adapter_stock],
-             'pry':[box(*b) for b in snaps.pry_bounds(st)],
              'cuts':cuts,'print_rotate_x':90.}]
 
     axis,frame = datums['pisco_axis'],plan['gas_frame']
@@ -111,7 +110,6 @@ def numbers():
     caps.append({'name':'pisco-snap-cap',
                  'section':snaps.cap_section(st,st['root'],axis[1]-body_r-snaps.WALL),
                  'stock':[box(*b) for b in snaps.pisco_grip_stock(st,axis[1],body_r,neck_r,lip)],
-                 'pry':[box(*b) for b in snaps.pry_bounds(st)],
                  'cuts':cuts,'print_rotate_x':90.})
 
     meter = rear_plumbing.reference('cap_digiten','reference/digiten-flow-sensor/digiten_flow_sensor.py')
@@ -144,7 +142,6 @@ def numbers():
     caps.append({'name':'meter-snap-cap',
                  'section':snaps.cap_section(st,st['root'],bottom),
                  'stock':[box(-half,half,*cap_y,bottom,st['root']+snaps.METER_BEARING_DEPTH)],
-                 'pry':[box(*b) for b in snaps.pry_bounds(st)],
                  'placement':{'rotate_y':90.,'translation':(mx,0.,mz)},
                  'cuts':cuts,'print_rotate_x':90.})
 
@@ -153,7 +150,6 @@ def numbers():
     caps.append({'name':'regulator-snap-cap',
                  'section':snaps.cap_section(st,st['root'],mount['cap_bottom']),
                  'stock':[box(*b) for b in mount['cap_stock']],
-                 'pry':[box(*b) for b in snaps.pry_bounds(st)],
                  'cuts':[{'op':'radial-profile','points':mount['cap_profile'],'frame':mount['profile_frame']}],
                  'rotate_z':90.,'print_rotate_y':90.})
     return {'caps':caps,'color':linear(M_PETGF_BLACK)}

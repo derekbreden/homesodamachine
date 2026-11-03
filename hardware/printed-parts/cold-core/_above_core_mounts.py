@@ -223,7 +223,8 @@ def pump_cradle_datums():
     for (lo, hi), radius in zip(bands, radii):
         station = rear_snaps.station(cx, neck,
             frame['translation_mm'][1]+lo,
-            frame['translation_mm'][1]+hi, split=0.)
+            frame['translation_mm'][1]+hi, split=0.,tool_angle_degrees=-65.,
+            tool_end_stock=10.)
         caps.append(dict(common, bore_radius_mm=radius, snap_station=station,
             cap_band_native_x_mm=(lo, hi),
             pocket_band_native_x_mm=(lo-fits.running, hi+fits.running),
@@ -265,7 +266,7 @@ def pump_snap_cap(index=0):
     section=rear_snaps.cap_section(s,-fits.slip,roof)
     section['segments'][-2]={'line':((c+wide,roof),(c-edge,roof))}
     section['segments'][-1]={'line':((c-edge,roof),(c-wide,s['root']))}
-    blank=rear_snaps.section_solid(section).cut(*rear_snaps.pry_cuts(s))
+    blank=rear_snaps.section_solid(section)
     return _pump_cap_to_world(blank, d).cut(_pump_motor_room(d)).clean()
 
 

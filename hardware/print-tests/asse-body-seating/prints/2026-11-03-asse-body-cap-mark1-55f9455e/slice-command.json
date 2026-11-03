@@ -1,0 +1,14 @@
+[
+  "/Applications/BambuStudio.app/Contents/MacOS/BambuStudio",
+  "--slice",
+  "0",
+  "--arrange",
+  "0",
+  "--orient",
+  "0",
+  "--outputdir",
+  "/Users/derekbredensteiner/Developer/homesodamachine/.cache/asse-body-seating/worktree/hardware/print-tests/asse-body-seating/prints/2026-11-03-asse-body-cap-mark1-55f9455e/native",
+  "--export-3mf",
+  "2026-11-03-asse-body-cap-mark1-55f9455e.gcode.3mf",
+  "/Users/derekbredensteiner/Developer/homesodamachine/.cache/asse-body-seating/worktree/hardware/print-tests/asse-body-seating/prints/2026-11-03-asse-body-cap-mark1-55f9455e/2026-11-03-asse-body-cap-mark1-55f9455e.3mf"
+]

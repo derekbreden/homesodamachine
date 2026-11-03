@@ -1,0 +1,214 @@
+{
+  "archive": "hardware/print-tests/receiver-tool-access/prints/2026-11-03-receiver-access-pumps-meter-mark2-mark2-4db4ed5f/2026-11-03-receiver-access-pumps-meter-mark2-mark2-4db4ed5f.gcode.3mf",
+  "archive_sha256": "8347454d03201beac50eb6ba15c9eb960b2ab2b486a090a0ef2e9cc24e172d38",
+  "gcode_md5_matches": true,
+  "emitted_z_trim_mm": [
+    0.0,
+    0.02
+  ],
+  "expected_emitted_textured_trim_mm": 0.02,
+  "layers": 284,
+  "project_check": true,
+  "bead_envelope_plate_mm": [
+    [
+      72.727318,
+      68.873318
+    ],
+    [
+      252.105682,
+      251.126682
+    ]
+  ],
+  "bed_margins_mm": {
+    "left": 72.727318,
+    "front": 68.873318,
+    "right": 72.894318,
+    "back": 68.87331800000001
+  },
+  "minimum_bed_margin_mm": 68.873318,
+  "bed_border_mm": 40.0,
+  "fine_and_transition_bands": [],
+  "support_roads": 258807,
+  "show_face_minimum_bead_clearance_mm": null,
+  "show_face_contacts": [],
+  "tie_window_support_crossings": [],
+  "ribbon_support_crossings": [],
+  "ribbons": [],
+  "fine_band_unbacked_roads": [],
+  "first_second_layer_stack": {
+    "1901": {
+      "second_layer_model_bead_area_mm2": 7546.18075059872,
+      "fraction_over_first_layer": 0.992385695919034,
+      "second_layer_centerline_outside_first_mm": 13.930807526690916
+    },
+    "1902": {
+      "second_layer_model_bead_area_mm2": 1154.578889001752,
+      "fraction_over_first_layer": 0.9516283895818061,
+      "second_layer_centerline_outside_first_mm": 13.205549014757104
+    },
+    "1903": {
+      "second_layer_model_bead_area_mm2": 1038.5665944065217,
+      "fraction_over_first_layer": 0.9526723379800158,
+      "second_layer_centerline_outside_first_mm": 11.858083203264973
+    },
+    "1904": {
+      "second_layer_model_bead_area_mm2": 682.8955199997539,
+      "fraction_over_first_layer": 0.941810836373916,
+      "second_layer_centerline_outside_first_mm": 6.654716118910504
+    },
+    "1905": {
+      "second_layer_model_bead_area_mm2": 1434.4370139167304,
+      "fraction_over_first_layer": 0.9562013024588745,
+      "second_layer_centerline_outside_first_mm": 13.289792739616122
+    },
+    "1906": {
+      "second_layer_model_bead_area_mm2": 685.1962309256062,
+      "fraction_over_first_layer": 0.9462816402976268,
+      "second_layer_centerline_outside_first_mm": 7.273859058295527
+    }
+  },
+  "solid_host_deposition": [
+    {
+      "object": 1905,
+      "name": "Pump snap west receiver floor and full flank root",
+      "plate_bounds_mm": [
+        [
+          211.4051805267334,
+          179.44250106811523,
+          0.0010000000000047748
+        ],
+        [
+          220.40418090820313,
+          247.95750106811522,
+          46.19500000000002
+        ]
+      ],
+      "samples": [
+        {
+          "print_z_mm": 0.44,
+          "coverage": 0.9982558428874184,
+          "stock_mm2": 615.5571464789365
+        },
+        {
+          "print_z_mm": 23.24,
+          "coverage": 0.9962485997218442,
+          "stock_mm2": 564.0395478501902
+        },
+        {
+          "print_z_mm": 46.04,
+          "coverage": 0.9961884029885554,
+          "stock_mm2": 563.9736596333354
+        }
+      ],
+      "minimum_coverage": 0.9961884029885554
+    },
+    {
+      "object": 1905,
+      "name": "Pump snap east receiver floor and full flank root",
+      "plate_bounds_mm": [
+        [
+          237.60418090820312,
+          179.44250106811523,
+          0.0010000000000047748
+        ],
+        [
+          246.60318128967285,
+          247.95750106811522,
+          46.19500000000002
+        ]
+      ],
+      "samples": [
+        {
+          "print_z_mm": 0.44,
+          "coverage": 0.9983184005671304,
+          "stock_mm2": 615.556752390632
+        },
+        {
+          "print_z_mm": 23.24,
+          "coverage": 0.9960395150977011,
+          "stock_mm2": 564.039553030785
+        },
+        {
+          "print_z_mm": 46.04,
+          "coverage": 0.9962637915365092,
+          "stock_mm2": 563.9736566063625
+        }
+      ],
+      "minimum_coverage": 0.9960395150977011
+    }
+  ],
+  "support_topology": {
+    "1901": {
+      "support_bodies": 2,
+      "interface_islands": 2,
+      "bed_rooted_bodies": 2,
+      "model_rooted_bodies": 0,
+      "shortest_build_up_mm": 12.96,
+      "bodies_without_interface_labels": 0,
+      "explicit_interface_islands": 2,
+      "shortest_labelled_build_up_mm": 12.96
+    },
+    "1902": {
+      "support_bodies": 0,
+      "interface_islands": 0,
+      "bed_rooted_bodies": 0,
+      "model_rooted_bodies": 0,
+      "shortest_build_up_mm": null,
+      "bodies_without_interface_labels": 0,
+      "explicit_interface_islands": 0,
+      "shortest_labelled_build_up_mm": null
+    },
+    "1903": {
+      "support_bodies": 2,
+      "interface_islands": 10,
+      "bed_rooted_bodies": 2,
+      "model_rooted_bodies": 0,
+      "shortest_build_up_mm": 1.92,
+      "bodies_without_interface_labels": 0,
+      "explicit_interface_islands": 10,
+      "shortest_labelled_build_up_mm": 1.92
+    },
+    "1904": {
+      "support_bodies": 1,
+      "interface_islands": 1,
+      "bed_rooted_bodies": 1,
+      "model_rooted_bodies": 0,
+      "shortest_build_up_mm": 33.12,
+      "bodies_without_interface_labels": 0,
+      "explicit_interface_islands": 1,
+      "shortest_labelled_build_up_mm": 33.12
+    },
+    "1905": {
+      "support_bodies": 1,
+      "interface_islands": 1,
+      "bed_rooted_bodies": 1,
+      "model_rooted_bodies": 0,
+      "shortest_build_up_mm": 63.84,
+      "bodies_without_interface_labels": 0,
+      "explicit_interface_islands": 1,
+      "shortest_labelled_build_up_mm": 63.84
+    },
+    "1906": {
+      "support_bodies": 0,
+      "interface_islands": 0,
+      "bed_rooted_bodies": 0,
+      "model_rooted_bodies": 0,
+      "shortest_build_up_mm": null,
+      "bodies_without_interface_labels": 0,
+      "explicit_interface_islands": 0,
+      "shortest_labelled_build_up_mm": null
+    }
+  },
+  "scope": "Commanded paths and bead envelopes from this archive. Support removal, surface finish, fit and strength are physical observations.",
+  "checks": {
+    "archive": true,
+    "z_trim": true,
+    "bed_border": true,
+    "fine_and_transition_bands": true,
+    "show_faces_support_free": true,
+    "tie_windows_support_free": true,
+    "ribbons_support_free_and_printed": true,
+    "solid_hosts_sampled": true
+  },
+  "pass": true
+}

@@ -1,0 +1,26 @@
+{
+  "jobs": [
+    {
+      "printer": "Mark1",
+      "connection_key": "H2C",
+      "preparation": "hardware/print-tests/asse-body-seating/prints/2026-11-03-asse-body-cap-mark1-55f9455e",
+      "print_only_archive": "hardware/print-tests/asse-body-seating/prints/2026-11-03-asse-body-cap-mark1-55f9455e/2026-11-03-asse-body-cap-mark1-55f9455e-print-only.gcode.3mf",
+      "archive_sha256": "8e9ec7c24dbdbeaeb94d9d632358c32ee408b189555eb35752a9b5b5d87f2322",
+      "gcode_sha256": "f401f961108690e37263ba622db6dca6a85d1ae4363261875c80f1a5ede3eb06",
+      "downloads_filename": "HSM-ASSE-body-seating-Mark1.gcode.3mf",
+      "estimated_seconds": 4757.0458984375,
+      "filament_g": null,
+      "native_review_pass": true,
+      "minimum_bed_margin_mm": 127.83205000000001,
+      "submitted": true,
+      "post_processing_tool": "Tiny flathead screwdriver that fits inside the cavity.",
+      "paired_receiver": "Existing ASSE receiver from hardware/print-tests/pointed-snaps/parts/asse-seat.stl",
+      "job_id": "1404477681",
+      "launch_receipt": "Mark1-launch.json",
+      "accepted_at": "2026-11-03T20:18:37.797031+00:00",
+      "status": "cancelled_by_user",
+      "ready": false,
+      "cancellation_reason": "Screwdriver access belongs in receivers; wing tips must be solid. Revision also requires insertion and removal route review."
+    }
+  ]
+}

@@ -1,0 +1,128 @@
+{
+ "assembly_model": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/asse-body-seating/worktree/.cache/asse-body-seating/current-parent/enclosure-assembly.step.npz",
+ "check_fit": true,
+ "families": [
+  {
+   "cap_print_model": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/asse-body-seating/worktree/hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.step.npz",
+   "cap_translation": [
+    -15.181429835394722,
+    388.0680504420662,
+    284.2090997503439
+   ],
+   "crop_max": [
+    24.397750873597055,
+    454.0680504420662,
+    313.23885248166715
+   ],
+   "crop_min": [
+    -54.7606105443865,
+    358.6680504420662,
+    246.0
+   ],
+   "installed_name": "pump-snap-cap",
+   "name": "pump",
+   "on": [
+    0,
+    0,
+    -1
+   ],
+   "retention_scope": "Both fixed motor-rail stops, cradle, complete spring pockets and actual lid stock."
+  },
+  {
+   "cap_print_model": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/asse-body-seating/worktree/hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step.npz",
+   "cap_translation": null,
+   "crop_max": [
+    56.94813977833837,
+    474.29998779296875,
+    355.0
+   ],
+   "crop_min": [
+    0.6518602222204208,
+    390.20325459353626,
+    303.22107209451497
+   ],
+   "installed_name": "asse-snap-cap",
+   "name": "asse",
+   "on": [
+    0,
+    0,
+    1
+   ],
+   "retention_scope": "Complete front and rear shoulders, spring pockets, actual roof and full rear bulkhead bore."
+  },
+  {
+   "cap_print_model": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/asse-body-seating/worktree/hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.step.npz",
+   "cap_translation": null,
+   "crop_max": [
+    93.9056156873703,
+    474.29998779296875,
+    355.0
+   ],
+   "crop_min": [
+    59.0943843126297,
+    414.0957172019407,
+    310.7725999997929
+   ],
+   "installed_name": "pisco-snap-cap",
+   "name": "pisco",
+   "on": [
+    0,
+    0,
+    1
+   ],
+   "retention_scope": "Complete front and rear shoulders, spring pockets, actual roof and full rear bulkhead bore."
+  },
+  {
+   "cap_print_model": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/asse-body-seating/worktree/hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.step.npz",
+   "cap_translation": null,
+   "crop_max": [
+    107.5,
+    474.29998779296875,
+    312.25000000037255
+   ],
+   "crop_min": [
+    54.34999999981373,
+    383.0,
+    251.9499999996275
+   ],
+   "installed_name": "meter-snap-cap",
+   "name": "meter",
+   "on": [
+    1,
+    0,
+    0
+   ],
+   "retention_scope": "Complete meter cup, wire exit, port collars, spring pockets, side wall and rear soda bulkhead bore."
+  },
+  {
+   "cap_print_model": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/asse-body-seating/worktree/hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.step.npz",
+   "cap_translation": null,
+   "crop_max": [
+    1.3760896961199958,
+    331.7100400329926,
+    355.0
+   ],
+   "crop_min": [
+    -61.57391030388001,
+    283.603633714998,
+    312.92413759604096
+   ],
+   "installed_name": "regulator-snap-cap",
+   "name": "regulator",
+   "on": [
+    0,
+    0,
+    1
+   ],
+   "retention_scope": "Full measured axial profile, both end shoulders, spring pockets and actual roof."
+  }
+ ],
+ "installed_caps": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/asse-body-seating/worktree/hardware/printed-parts/enclosure/rear-equipment-caps/rear-equipment-caps-installed.step.npz",
+ "lid_print_model": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/asse-body-seating/worktree/hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.npz",
+ "lid_translation": [
+  0.0,
+  323.8,
+  246.0
+ ],
+ "rear_print_model": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/asse-body-seating/worktree/hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.npz"
+}
