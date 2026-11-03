@@ -38,7 +38,7 @@
  */
 
 // Endpoints:
-//   GET /api/steps      -> PathList
+//   GET /api/steps      -> PathList   the models a part number names (materials.js numberedModels)
 //   GET /api/glbs       -> PathList
 //   GET /api/objects    -> ObjectMap
 //   GET /api/mermaid    -> PathList

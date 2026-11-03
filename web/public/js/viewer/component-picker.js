@@ -456,8 +456,9 @@ function showPanel() {
     ? `Open ${modelName(goes)}` : "Open component";
   panel._openBtn.title = goes ? `Open ${goes}` : "Open this component from the assembly";
 
-  // The destination is named beside the selected component.
-  const related = selection ? relatedStepsForComponent(selection, state.allFiles)[0] : null;
+  // The destination is named beside the selected component, unless Open part already goes there.
+  const offered = selection ? relatedStepsForComponent(selection, state.allFiles)[0] : null;
+  const related = offered && offered.file !== goes ? offered : null;
   panel._relatedBtn.style.display = related ? "block" : "none";
   panel._relatedBtn.textContent = related ? `Open ${modelName(related.file)}` : "";
   panel._relatedBtn.title = related ? `Open ${related.file}` : "";

@@ -9,6 +9,7 @@ import { sidecarFields } from "../contracts/sidecar.js";
 import { SCORECARD_SUFFIX } from "../contracts/scorecard-sidecar.js";
 import { mountPdfjsAssets, renderDocumentReader } from "./document-reader.js";
 import { readMaterialCatalog } from "./material-catalog.js";
+import { numberedModels } from "../contracts/materials.js";
 import { readPartCosts } from "./part-costs.js";
 
 const relOf = (req) => req.params.splat.join("/");
@@ -85,8 +86,13 @@ export function mountViewerRoutes(app, { hardwareDir, store, pointersPath }) {
     res.json({ base, objects });
   });
 
+  // The models a part number names. A checkout whose catalog does not read lists every
+  // model, which the grid's catalog-unavailable cards expect.
   app.get("/api/steps", (req, res) => {
-    res.json(walkFiles(hardwareDir, ".step"));
+    const files = walkFiles(hardwareDir, ".step");
+    let catalog = null;
+    try { catalog = readMaterialCatalog(hardwareDir); } catch { /* listed whole */ }
+    res.json(catalog ? numberedModels(catalog, files) : files);
   });
 
   app.get("/api/glbs", (req, res) => {

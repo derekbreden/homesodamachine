@@ -37,7 +37,7 @@
         }
       ],
       "bom": {
-        "scope": "Machine contents: fitted tubing, inlet fittings, fasteners, the eleven bench harnesses and the compressor lead. The installation water tube and cylinder tether ship in the install kit. Wire, tubing stock and supplies are costed on the parts and assemblies that use them; cut lengths follow the build records.",
+        "scope": "Machine contents: fitted tubing, inlet fittings, fasteners, the eleven bench harnesses, the fixed AC and DC leads, the compressor lead and the carbonator earth bond. The installation water tube and cylinder tether ship in the install kit. Wire, tubing stock and supplies are costed on the parts and assemblies that use them; cut lengths follow the build records.",
         "source": "ledger/bom.md",
         "items": [
           {
@@ -67,7 +67,9 @@
             "quantity": 1,
             "unit": "ea",
             "bodies": [
-              "thermal-fuse"
+              "thermal-fuse",
+              "terminal-fuse-in-lead",
+              "terminal-fuse-out-lead"
             ]
           },
           {
@@ -220,9 +222,12 @@
               "wago-v12",
               "wago-gnd",
               "wago-reeds-b",
-              "wago-sensors"
+              "wago-sensors",
+              "wiring-junction-compressor-h",
+              "wiring-junction-compressor-n",
+              "wiring-junction-pump-positive"
             ],
-            "note": "Seven modeled blocks; three more join the compressor's switched hot and neutral and the pump positive under the funnel opening."
+            "note": "Seven seat in printed wells, three on the rear wall and four on the core lid; three free joins under the funnel opening join the compressor's switched hot and neutral and the pump positive."
           },
           {
             "material": "HSM-000052",
@@ -258,15 +263,6 @@
             ]
           },
           {
-            "material": "HSM-000058",
-            "quantity": 2,
-            "unit": "ea",
-            "bodies": [
-              "discharge-chain",
-              "gas-check"
-            ]
-          },
-          {
             "material": "HSM-000331",
             "quantity": 1,
             "unit": "ea",
@@ -276,12 +272,10 @@
           },
           {
             "material": "HSM-000059",
-            "quantity": 2,
+            "quantity": 1,
             "unit": "ea",
             "bodies": [
-              "bulkhead-water",
               "bulkhead-carb",
-              "bulkhead-water-nut",
               "bulkhead-carb-nut"
             ]
           },
@@ -860,62 +854,184 @@
           {
             "material": "HSM-000343",
             "quantity": 1,
-            "unit": "ea"
+            "unit": "ea",
+            "bodies": [
+              "terminal-J1",
+              "wire-J1-COM",
+              "wire-J1-OUT1",
+              "wire-J1-OUT2",
+              "wire-J1-OUT3",
+              "wire-J1-OUT4",
+              "wire-J1-OUT5",
+              "wire-J1-OUT6",
+              "wire-J1-OUT7",
+              "wire-J1-OUT8",
+              "wire-J1-positive-A",
+              "wire-J1-positive-B",
+              "wire-J1-positive-C",
+              "wire-J1-positive-D",
+              "wire-J1-positive-E",
+              "wire-J1-positive-F",
+              "wire-J1-positive-G",
+              "wire-J1-positive-H"
+            ]
           },
           {
             "material": "HSM-000344",
             "quantity": 1,
-            "unit": "ea"
+            "unit": "ea",
+            "bodies": [
+              "terminal-J2",
+              "wire-J2-COM",
+              "wire-J2-OUT1",
+              "wire-J2-positive-I",
+              "wire-J2-OUT2",
+              "wire-J2-positive-J",
+              "wire-J2-FAN",
+              "wire-J2-positive-fan",
+              "wire-J2-OUT3",
+              "wire-J2-positive-K"
+            ]
           },
           {
             "material": "HSM-000345",
             "quantity": 1,
-            "unit": "ea"
+            "unit": "ea",
+            "bodies": [
+              "terminal-J3",
+              "wire-J3-V5",
+              "wire-J3-GND",
+              "wire-J3-IO35",
+              "wire-J3-IO33"
+            ]
           },
           {
             "material": "HSM-000346",
             "quantity": 1,
-            "unit": "ea"
+            "unit": "ea",
+            "bodies": [
+              "terminal-J4",
+              "wire-J4-3V3",
+              "wire-J4-IO26",
+              "wire-J4-V5",
+              "wire-J4-IO25",
+              "wire-J4-GND",
+              "wire-temp-GND",
+              "wire-flow-GND",
+              "wire-temp-bus-V",
+              "wire-temp-bus-DATA",
+              "wire-temp-bus-GND"
+            ]
           },
           {
             "material": "HSM-000347",
             "quantity": 1,
-            "unit": "ea"
+            "unit": "ea",
+            "bodies": [
+              "terminal-J5",
+              "wire-J5-V5",
+              "wire-J5-GND",
+              "wire-J5-IO19",
+              "wire-J5-IO2",
+              "wire-relay-bus-V5",
+              "wire-relay-bus-GND"
+            ]
           },
           {
             "material": "HSM-000348",
             "quantity": 1,
-            "unit": "ea"
+            "unit": "ea",
+            "bodies": [
+              "terminal-J6",
+              "wire-J6-GND",
+              "wire-J6-RA1",
+              "wire-J6-RA2",
+              "wire-J6-RA3",
+              "wire-J6-RA4",
+              "wire-J6-earth-1",
+              "wire-J6-earth-2",
+              "wire-J6-earth-3"
+            ]
           },
           {
             "material": "HSM-000349",
             "quantity": 1,
-            "unit": "ea"
+            "unit": "ea",
+            "bodies": [
+              "terminal-J7",
+              "wire-J7-GND",
+              "wire-J7-RB1",
+              "wire-J7-RB2",
+              "wire-J7-RB3",
+              "wire-J7-RB4",
+              "wire-J7-earth-1",
+              "wire-J7-earth-2",
+              "wire-J7-earth-3",
+              "wire-J7-earth-4",
+              "wire-J7-CLO",
+              "wire-J7-CHI",
+              "wire-J7-carb-earth-1",
+              "wire-J7-carb-earth-2"
+            ]
           },
           {
             "material": "HSM-000350",
             "quantity": 1,
-            "unit": "ea"
+            "unit": "ea",
+            "bodies": [
+              "terminal-J9",
+              "wire-J9-B",
+              "wire-J9-A",
+              "wire-J9-GND",
+              "wire-J9-V12"
+            ]
           },
           {
             "material": "HSM-000351",
             "quantity": 1,
-            "unit": "ea"
+            "unit": "ea",
+            "bodies": [
+              "wire-DC4-V12",
+              "wire-DC4-GND"
+            ]
           },
           {
             "material": "HSM-000352",
             "quantity": 1,
-            "unit": "ea"
+            "unit": "ea",
+            "bodies": [
+              "terminal-J11",
+              "wire-J11-V5",
+              "wire-J11-GND",
+              "wire-J11-DOUT",
+              "wire-J11-AOUT"
+            ]
           },
           {
             "material": "HSM-000353",
             "quantity": 1,
-            "unit": "ea"
+            "unit": "ea",
+            "bodies": [
+              "terminal-J13",
+              "wire-J13-AM2",
+              "wire-J13-AM1",
+              "wire-J13-BM2",
+              "wire-J13-BM1"
+            ]
           },
           {
             "material": "HSM-000380",
             "quantity": 1,
-            "unit": "ea"
+            "unit": "ea",
+            "bodies": [
+              "terminal-compressor-cord-jacket",
+              "wire-AC4-H",
+              "wire-AC4-fuse",
+              "wire-AC5-N",
+              "wire-AC6-PE",
+              "terminal-fuse-in-splice",
+              "terminal-fuse-out-splice"
+            ]
           },
           {
             "material": "HSM-000354",
@@ -1054,6 +1170,82 @@
               "y-seam-west-lower-screw",
               "y-seam-west-upper-screw"
             ]
+          },
+          {
+            "material": "HSM-000383",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "gas-check"
+            ]
+          },
+          {
+            "material": "HSM-000013",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "bulkhead-water"
+            ]
+          },
+          {
+            "material": "HSM-000378",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "wire-PE-carbonator",
+              "terminal-carbonator-pe"
+            ]
+          },
+          {
+            "material": "HSM-000384",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "wire-AC1-L",
+              "wire-AC1-N",
+              "wire-AC1-PE"
+            ]
+          },
+          {
+            "material": "HSM-000385",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "wire-AC2-L",
+              "wire-AC2-N"
+            ]
+          },
+          {
+            "material": "HSM-000386",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "wire-AC3-L",
+              "wire-AC4-pigtail",
+              "wire-AC5-pigtail"
+            ],
+            "note": "AC-3 from the H block to relay 1 COM, and the relay 1 NO and N-block pigtails that meet the compressor lead in the two joins under the funnel opening."
+          },
+          {
+            "material": "HSM-000387",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "wire-DC1-V12",
+              "wire-DC1-GND"
+            ]
+          },
+          {
+            "material": "HSM-000388",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "wire-DC2-V12",
+              "wire-DC3-pigtail",
+              "wire-DC3-positive",
+              "wire-DC3-negative"
+            ],
+            "note": "DC-2 from the V12 block to relay 2 COM; DC-3's relay 2 NO pigtail and pump positive, joined under the funnel opening, and the pump negative from the DC GND block."
           }
         ]
       },
@@ -1382,7 +1574,7 @@
         }
       ],
       "bom": {
-        "scope": "Carbonator, insulation stack, reservoirs, sensing hardware, the carbonator earth bond and the fasteners that close them. Foam, tape and other supplies are costed on the cold core itself.",
+        "scope": "Carbonator, insulation stack, reservoirs, sensing hardware and the fasteners that close them. Foam, tape and other supplies are costed on the cold core itself.",
         "source": "cold-core-layout/_bom.py",
         "items": [
           {
@@ -1631,11 +1823,6 @@
             ]
           },
           {
-            "material": "HSM-000378",
-            "quantity": 1,
-            "unit": "ea"
-          },
-          {
             "material": "HSM-000365",
             "quantity": 2,
             "unit": "ea",
@@ -1654,6 +1841,14 @@
             "note": "Acquired 304 stainless M3 x 12 stock finished to 4 mm under the head; clamps the closed ring and tooth washer into the tapped upper tube rim.",
             "bodies": [
               "carbonator-earth-screw"
+            ]
+          },
+          {
+            "material": "HSM-000383",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "discharge-chain"
             ]
           }
         ]
@@ -2833,6 +3028,11 @@
       "id": "HSM-000032",
       "description": "Magnetic level float",
       "kind": "assembly",
+      "models": [
+        {
+          "file": "printed-parts/cold-core/magnetic-float/all-aero/assembly.step"
+        }
+      ],
       "bom": {
         "scope": "ASA Aero float and inserted ring magnet.",
         "source": "cold-core-layout/_bom.py",
@@ -2840,12 +3040,18 @@
           {
             "material": "HSM-000033",
             "quantity": 1,
-            "unit": "ea"
+            "unit": "ea",
+            "bodies": [
+              "float-aero"
+            ]
           },
           {
             "material": "HSM-000034",
             "quantity": 1,
-            "unit": "ea"
+            "unit": "ea",
+            "bodies": [
+              "RC62"
+            ]
           }
         ]
       },
@@ -3221,21 +3427,9 @@
         }
       ],
       "aliases": [
-        "Water-pump discharge check",
-        "CO2 downstream check",
-        "discharge-chain",
-        "gas-check",
         "ACHV44-E"
       ],
       "documents": [
-        {
-          "title": "Water-pump fitting assembly",
-          "path": "assembly/internal-plumbing.md"
-        },
-        {
-          "title": "Fitting specification",
-          "path": "ledger/bom.md"
-        },
         {
           "title": "Check-valve specification and qualification scope",
           "path": "reference/neofit-achv44-check/README.md"
@@ -7602,6 +7796,173 @@
         {
           "title": "Acquired screw stock and allocation",
           "path": "ledger/bom.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000383",
+      "description": "neoFit ACVUS-44 stem check valve \u00b7 1/4 inch tube \u00d7 1/4 inch stem",
+      "kind": "purchased",
+      "manufacturer_number": "ACVUS-44",
+      "aliases": [
+        "Water-pump discharge check",
+        "CO2 downstream check",
+        "discharge-chain",
+        "gas-check",
+        "ACVUS44"
+      ],
+      "documents": [
+        {
+          "title": "Water-pump fitting assembly",
+          "path": "assembly/internal-plumbing.md"
+        },
+        {
+          "title": "Fitting specification",
+          "path": "ledger/bom.md"
+        },
+        {
+          "title": "Part details",
+          "path": "reference/neofit-acvus44-check/README.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000384",
+      "description": "Mains inlet lead \u00b7 AC-1",
+      "kind": "manufactured",
+      "aliases": [
+        "AC-1",
+        "AC inlet",
+        "C14 lead",
+        "C14 earth pigtail",
+        "AC1-L",
+        "AC1-N",
+        "AC1-PE"
+      ],
+      "documents": [
+        {
+          "title": "AC mains",
+          "path": "assembly/wiring.md"
+        },
+        {
+          "title": "AC wiring schedule",
+          "path": "wiring/ac-wiring-schedule.md"
+        },
+        {
+          "title": "Electronics bay",
+          "path": "assembly/electronics-bay.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000385",
+      "description": "Power supply mains lead \u00b7 AC-2",
+      "kind": "manufactured",
+      "aliases": [
+        "AC-2",
+        "PSU primary",
+        "PSU primary lead",
+        "PSU AC pigtail pair",
+        "AC2-L",
+        "AC2-N"
+      ],
+      "documents": [
+        {
+          "title": "AC mains",
+          "path": "assembly/wiring.md"
+        },
+        {
+          "title": "AC wiring schedule",
+          "path": "wiring/ac-wiring-schedule.md"
+        },
+        {
+          "title": "Electronics bay",
+          "path": "assembly/electronics-bay.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000386",
+      "description": "Compressor relay leads \u00b7 AC-3, AC-4/AC-5 pigtails",
+      "kind": "manufactured",
+      "aliases": [
+        "AC-3",
+        "AC3-L",
+        "AC4-pigtail",
+        "AC5-pigtail",
+        "relay 1 COM feed",
+        "relay 1 NO pigtail",
+        "N-junction pigtail",
+        "compressor neutral pigtail",
+        "AC join pigtails"
+      ],
+      "documents": [
+        {
+          "title": "AC mains",
+          "path": "assembly/wiring.md"
+        },
+        {
+          "title": "AC wiring schedule",
+          "path": "wiring/ac-wiring-schedule.md"
+        },
+        {
+          "title": "Electronics bay",
+          "path": "assembly/electronics-bay.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000387",
+      "description": "Power supply 12 V output lead \u00b7 DC-1",
+      "kind": "manufactured",
+      "aliases": [
+        "DC-1",
+        "PSU secondary",
+        "PSU 12 V lead",
+        "DC1-V12",
+        "DC1-GND"
+      ],
+      "documents": [
+        {
+          "title": "Electronics bay",
+          "path": "assembly/electronics-bay.md"
+        },
+        {
+          "title": "AC wiring schedule",
+          "path": "wiring/ac-wiring-schedule.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000388",
+      "description": "Water-pump leads \u00b7 DC-2, DC-3",
+      "kind": "manufactured",
+      "aliases": [
+        "DC-2",
+        "DC-3",
+        "DC2-V12",
+        "DC3-pigtail",
+        "DC3-positive",
+        "DC3-negative",
+        "diaphragm pump leads",
+        "water-pump harness",
+        "DC-3 pump lead",
+        "relay 2 NO pigtail",
+        "pump positive",
+        "pump negative"
+      ],
+      "documents": [
+        {
+          "title": "Cabinet-side 12 V runs",
+          "path": "assembly/wiring.md"
+        },
+        {
+          "title": "AC wiring schedule",
+          "path": "wiring/ac-wiring-schedule.md"
+        },
+        {
+          "title": "Electronics bay",
+          "path": "assembly/electronics-bay.md"
         }
       ]
     }
