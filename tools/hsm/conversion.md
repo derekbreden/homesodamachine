@@ -54,6 +54,9 @@ The install guide's twelve plumbing scenes use Rust geometry with plain Python d
 colours and render jobs. The optional hose and collet illustration builders load native CAD
 only when those hand-run tools request them.
 
+The final machine report carries its existing construction questions from current scalar source
+ledgers and Rust measurements, including handhold sections and supported sloping faces.
+
 The equipment fixture preserves a documented limitation for two PVC cuff joining caps:
 the authored construction, dimensions, bounds and material colours agree, while the internal
 Boolean-cap triangulations differ. The retained comparison records those differences; it does
