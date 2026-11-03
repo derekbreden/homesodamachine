@@ -128,10 +128,10 @@ Assembly order and foam work: [cold-core assembly](../../../assembly/cold-core.m
 The G-Ganen cap has solid pointed noses and continuous spring walls. Two
 centered channels in the lid's receivers accept a small flathead
 from aft, at 65° to the downward cap-installation axis. The channels continue
-through the rear receiver stock. Each inner channel side meets its actual
-measured motor-rail room plane, giving 4.25 and 4.34 mm widths and a 3 mm normal
-throat. The upper mouth joins the flat catch pocket with a flat opening and
-a 3 mm approach-side shoulder. The enclosing roof and outer backing remain.
+through the rear receiver stock. Each 3.5 mm-wide passage starts at the snap
+neck plane, keeping nominal 3 mm stock beside the measured motor-rail room.
+The normal throat is 3 mm. Flat mouths meet the catch pocket and lower stock
+face with 3 mm shoulders. The enclosing roof and outer backing remain.
 Release both wings with the lid loose on the bench and the pump
 plumbing and leads dressed aside. The cap withdraws upward.
 

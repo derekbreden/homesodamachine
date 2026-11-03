@@ -48,7 +48,7 @@ METER_BEARING_DEPTH = 4.0
 LEDGE = 3.0         # the ledge's height off the split
 NOSE_LAND = 1.6     # continuous solid retaining nose below the point
 TIP_RISE = 3.0      # single pointed lead-in above the solid nose
-TOOL_SLOT_WIDTH = 4.0
+TOOL_SLOT_WIDTH = 3.5
 TOOL_SLOT_HEIGHT = 3.0
 TOOL_APPROACH_DEGREES = 50.0  # from the cap's installation axis toward its fore end
 HOOK = NOSE_LAND + TIP_RISE
@@ -211,7 +211,7 @@ def half_width(radius, z, axis_z):
 # --- one snap station -----------------------------------------------------------------------------
 
 def station(axis_x, neck, y0, y1, split=SPLIT, *, wing_root=None, free_length=FREE_LENGTH,
-            tool_angle_degrees=TOOL_APPROACH_DEGREES, tool_nose_offset=-1.,
+            tool_angle_degrees=TOOL_APPROACH_DEGREES,
             tool_end_stock=WALL):
     """A cap station's flank numbers, from the seat's neck half-width and the cap's Y span."""
     ledge = neck + REACH + fits.running
@@ -224,7 +224,7 @@ def station(axis_x, neck, y0, y1, split=SPLIT, *, wing_root=None, free_length=FR
                 outer=inner + WING, hook=ledge - REACH, bearing=bearing, catch=catch, tip=tip,
                 ceiling=tip + 2 * fits.running, root=root, nose_land=NOSE_LAND,
                 root_radius=ROOT_RADIUS,tool_angle_degrees=tool_angle_degrees,
-                tool_nose_offset=tool_nose_offset,tool_end_stock=tool_end_stock)
+                tool_end_stock=tool_end_stock)
     result['tool_ports'] = receiver_tool_ports(result)
     return result
 
@@ -248,25 +248,38 @@ def receiver_tool_ports(s):
     # Meet the flat catch pocket with a flat opening. An uninterrupted angled
     # roof would leave a feather edge against that pocket's bearing plane.
     upper_q=-math.copysign(TOOL_SLOT_HEIGHT/2.,direction[0])
-    def upper_at(z):
-        t=(z-centre[1]-upper_q*normal[1])/direction[1]
-        return centre+t*direction+upper_q*normal
-    shoulder=upper_at(s['bearing']-WALL)
-    opening=upper_at(s['bearing'])
-    flat=np.array((shoulder[0],s['bearing']))
+    def at_height(z,q):
+        t=(z-centre[1]-q*normal[1])/direction[1]
+        return centre+t*direction+q*normal,t
+    shoulder,_=at_height(s['bearing']-WALL,upper_q)
+    opening,_=at_height(s['bearing'],upper_q)
+    upper=[shoulder,np.array((shoulder[0],s['bearing'])),opening]
+    lower_q=-upper_q
+    opening,t0=at_height(s['split'],lower_q)
+    shoulder,t1=at_height(s['split']+WALL,lower_q)
+    lower=[]
+    if t1>-entry and t0<4.:
+        if t0<-entry:
+            p=centre-entry*direction+lower_q*normal
+            corners[3 if direction[0]>0. else 0]=np.array((p[0],s['split']))
+        else:
+            lower.append(opening)
+        lower.extend((np.array((shoulder[0],s['split'])),shoulder))
     section=[]
     for i,p in enumerate(corners):
         section.append(p.tolist())
         if direction[0]>0. and i==0:
-            section.extend(v.tolist() for v in (shoulder,flat,opening))
+            section.extend(v.tolist() for v in upper)
         elif direction[0]<0. and i==2:
-            section.extend(v.tolist() for v in (opening,flat,shoulder))
+            section.extend(v.tolist() for v in reversed(upper))
+        elif direction[0]>0. and i==2:
+            section.extend(v.tolist() for v in reversed(lower))
+        elif direction[0]<0. and i==0:
+            section.extend(v.tolist() for v in lower)
     ports=[]
     for side in s.get('tool_sides',(-1.,1.)):
-        x=s['axis_x']+side*(s['hook']+s.get('tool_nose_offset',-1.))
+        x=s['axis_x']+side*(s['neck']+TOOL_SLOT_WIDTH/2.)
         span=[x-TOOL_SLOT_WIDTH/2.,x+TOOL_SLOT_WIDTH/2.]
-        if 'tool_inner_edges' in s:
-            span[1 if side<0. else 0]=s['tool_inner_edges'][0 if side<0. else 1]
         ports.append({'side':side,'span':span,
                       'section':section,'centre':(x,middle,s['bearing']),
                       'direction':(0.,*direction.tolist())})
@@ -442,6 +455,20 @@ def pockets(s):
         out.append(box(*sorted((near,far)),s['y0']-a,s['y1']+a,
                        s['root']-a,s['root']+radius+a))
     out.extend(prism_x(*port['span'],port['section']) for port in receiver_tool_ports(s))
+    if s.get('tool_inner_slope'):
+        # A planar inner flare opens into the curved fitted cavity. It joins
+        # that cavity at a broad material angle instead of leaving a thin lip.
+        low=s['split']-1.
+        for port in receiver_tool_ports(s):
+            side=port['side']
+            edge=s['axis_x']+side*s['neck']
+            near=edge-side*s['tool_inner_slope']*(s['bearing']-low)
+            points=[(edge,low),(edge,s['bearing']),(near,low)]
+            ys=[p[0] for p in port['section']]
+            flare=section_solid({'span':(min(ys)-1.,max(ys)+1.),
+                'segments':[{'line':(a,b)} for a,b in zip(points,points[1:]+points[:1])]})
+            throat=prism_x(*sorted((near,edge)),port['section'])
+            out.append(flare.intersect(throat))
     return out
 
 
@@ -475,9 +502,11 @@ def asse_service_corner(s):
 def pisco_station(axis_x, admitted_radius, axis_z, y0, y1):
     """Full 3 mm receiver walls beside the widened hardware passage."""
     web=WALL-REACH-fits.running
-    return station(axis_x,half_width(admitted_radius,SPLIT,axis_z)+web,
+    result=station(axis_x,half_width(admitted_radius,SPLIT,axis_z)+web,
                    y0,y1,wing_root=axis_z-REAR_ROOT_DROP,
-                   tool_angle_degrees=75.,tool_nose_offset=1.)
+                   tool_angle_degrees=75.)
+    result['tool_inner_slope']=2.
+    return result
 
 
 def pisco_cap_span(mouth_y, collet_start, rear):

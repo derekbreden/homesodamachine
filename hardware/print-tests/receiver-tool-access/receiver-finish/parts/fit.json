@@ -1,6 +1,6 @@
 {
   "asse": {
-    "blocked_pullout_intersection_mm3": 20.02717094349453,
+    "blocked_pullout_intersection_mm3": 17.408660688103957,
     "crop_max": [
       56.94813977833837,
       474.2999877929687,
@@ -43,7 +43,7 @@
     "seated_intersection_mm3": 0.0
   },
   "meter": {
-    "blocked_pullout_intersection_mm3": 18.12343118977534,
+    "blocked_pullout_intersection_mm3": 15.50492090908596,
     "crop_max": [
       107.5,
       474.2999877929687,
@@ -112,7 +112,7 @@
         "seat": 0.0
       }
     },
-    "physical_result": "Hardware fit approved; physical release check with this receiver pending.",
+    "physical_result": "Approved hardware fit; receiver-release check pending.",
     "pullout_travel_mm": 0.5,
     "retention_scope": "Complete meter cup, wire exit, port collars, spring pockets, side wall and rear soda bulkhead bore.",
     "seated_intersection_mm3": 0.0
@@ -151,13 +151,13 @@
         "seat": 0.0
       }
     },
-    "physical_result": "Hardware fit approved; physical release check with this receiver pending.",
+    "physical_result": "Approved hardware fit; receiver-release check pending.",
     "pullout_travel_mm": 0.5,
     "retention_scope": "Complete front and rear shoulders, spring pockets, actual roof and full rear bulkhead bore.",
     "seated_intersection_mm3": 0.0
   },
   "pump": {
-    "blocked_pullout_intersection_mm3": 25.655019771229412,
+    "blocked_pullout_intersection_mm3": 21.359051751403175,
     "crop_max": [
       24.397750873597055,
       454.0680504420662,
@@ -260,7 +260,7 @@
     "seated_intersection_mm3": 0.0
   },
   "regulator": {
-    "blocked_pullout_intersection_mm3": 13.221985587390634,
+    "blocked_pullout_intersection_mm3": 13.221985587390632,
     "crop_max": [
       1.3760896961199958,
       331.7100400329926,
@@ -277,7 +277,7 @@
         "seat": 0.0
       }
     },
-    "physical_result": "Hardware fit approved; physical release check with this receiver pending.",
+    "physical_result": "Approved hardware fit; receiver-release check pending.",
     "pullout_travel_mm": 0.5,
     "retention_scope": "Full measured axial profile, both end shoulders, spring pockets and actual roof.",
     "seated_intersection_mm3": 0.0

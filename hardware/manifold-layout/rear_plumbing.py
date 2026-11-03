@@ -218,7 +218,7 @@ def regulator_datums():
     turn=np.array(((0.,1.,0.),(-1.,0.,0.),(0.,0.,1.)))
     frame={'rotation':(turn@np.array(pose['rotation'])).tolist(),
            'translation_mm':(turn@np.array(pose['translation_mm'])).tolist()}
-    st=dict(mount['station'],tool_angle_degrees=75.,tool_nose_offset=1.,tool_sides=(-1.,))
+    st=dict(mount['station'],tool_angle_degrees=75.,tool_sides=(-1.,),tool_inner_slope=2.)
     half=st['inner']-snaps.ROOT_RADIUS-.5
     return dict(mount,station=st,profile_frame=frame,
         seat_profile=snaps.clearance_profile(profile,fit['receiver_radial_mm'],fit['axial_mm']),

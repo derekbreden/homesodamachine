@@ -19,9 +19,10 @@ openings and have a prepared receiver-only plate. Their caps are byte-identical
 to this complete set's caps. The running complete-set plates remain the exact
 geometry bound in [print jobs](print-jobs.json).
 
-The receiver channels are at least 4 mm across the leaf and 3 mm normal to the driver
-approach, with a flat mouth at the catch pocket and 3 mm stock at its approach-side
-shoulder. ASSE and meter approach from the fore/open side at 50° to their
+The receiver channels are 3.5 mm across the leaf and 3 mm normal to the driver
+approach. They start at the snap neck planes to preserve the cavity backing.
+Flat mouths meet the catch pocket and lower stock face with 3 mm shoulders.
+ASSE and meter approach from the fore/open side at 50° to their
 installation axes. PISCO uses 75° fore channels. The regulator has one
 reachable 75° channel on its fore flank. The pump approaches from aft at 65°;
 its channel continues through the complete rear receiver stock. A three-mm-high

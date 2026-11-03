@@ -533,7 +533,9 @@ def _fluid_supports(graph):
 
     def pockets(st):
         with _replace(snaps,{'box':graph.box,
-                            'prism_x':lambda x0,x1,points:graph.prism(0,x0,x1,points)}):
+                            'prism_x':lambda x0,x1,points:graph.prism(0,x0,x1,points),
+                            'section_solid':lambda section:graph.prism(1,*section['span'],
+                                [segment['line'][0] for segment in section['segments']])}):
             return snaps.pockets(st)
 
     def service_cuts(st):

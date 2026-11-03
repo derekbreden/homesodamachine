@@ -1,15 +1,15 @@
 # Finished receiver openings
 
 Complete ASSE, PISCO, water-regulator, flow-meter and G-Ganen pump receivers
-with centered screwdriver channels. Their angled throats meet the flat catch
-pockets with flat mouths and nominal 3 mm stock at the approach-side shoulder.
-The pump channel sides join the actual measured motor-rail room planes. All
+with centered 3.5 mm by 3 mm screwdriver channels. Each passage starts at its
+snap neck plane. Flat mouths meet the catch pocket and lower stock face with
+3 mm shoulders. PISCO and water-regulator openings have a planar inner flare
+into the curved cavities. All
 hardware bearing profiles, axial end stops and cap geometry retain their fits.
 
 Use the solid pointed caps from the [running complete set](../print-jobs.json).
-The [native comparison](geometry-review.json) records identical cap STL bytes,
-receiver-only material removal and the resulting preservation of the full
-assembly's checked insertion and tool paths. [Fit readings](parts/fit.json)
+The [geometry review](geometry-review.json) records identical cap STL bytes and
+the full assembly's checked insertion and tool paths. [Fit readings](parts/fit.json)
 show seated clearance and positive geometric pullout capture. Release force,
 repeated bending and practical support removal remain physical checks.
 
