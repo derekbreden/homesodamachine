@@ -1,0 +1,485 @@
+{
+  "method": "Exact constant-profile swept envelopes for straight screwdriver entries; staged regulator introduction sampled at 0.75 mm / 0.375 degrees. Open rear unit on bench, cold core separate, flexible tubing and leads disconnected/dressed aside. Tool dimensions describe the checked envelopes, not a measurement of Derek's screwdrivers.",
+  "tools": {
+    "asse": {
+      "removed_before_access": [],
+      "blade_mm": [
+        3.0,
+        0.6
+      ],
+      "shaft_diameter_mm": 2.5,
+      "shaft_length_mm": 50.0,
+      "handle_diameter_mm": 12.0,
+      "handle_length_mm": 45.0,
+      "straight_entry_mm": 50.0,
+      "sides": [
+        {
+          "side": -1.0,
+          "port": {
+            "side": -1.0,
+            "span": [
+              7.751860222036488,
+              11.751860222036488
+            ],
+            "section": [
+              [
+                390.4890731788433,
+                319.3246875589879
+              ],
+              [
+                419.3837701177748,
+                343.5702171034246
+              ],
+              [
+                421.3121329468345,
+                341.2720837740677
+              ],
+              [
+                392.41743600790295,
+                317.02655422963096
+              ]
+            ],
+            "centre": [
+              9.751860222036488,
+              417.28377375982876,
+              339.85
+            ],
+            "direction": [
+              0.0,
+              0.766044443118978,
+              0.6427876096865394
+            ]
+          },
+          "collisions": []
+        },
+        {
+          "side": 1.0,
+          "port": {
+            "side": 1.0,
+            "span": [
+              45.84813977796351,
+              49.84813977796351
+            ],
+            "section": [
+              [
+                390.4890731788433,
+                319.3246875589879
+              ],
+              [
+                419.3837701177748,
+                343.5702171034246
+              ],
+              [
+                421.3121329468345,
+                341.2720837740677
+              ],
+              [
+                392.41743600790295,
+                317.02655422963096
+              ]
+            ],
+            "centre": [
+              47.84813977796351,
+              417.28377375982876,
+              339.85
+            ],
+            "direction": [
+              0.0,
+              0.766044443118978,
+              0.6427876096865394
+            ]
+          },
+          "collisions": []
+        }
+      ]
+    },
+    "meter": {
+      "removed_before_access": [
+        "asse-snap-cap"
+      ],
+      "blade_mm": [
+        3.0,
+        0.6
+      ],
+      "shaft_diameter_mm": 2.5,
+      "shaft_length_mm": 50.0,
+      "handle_diameter_mm": 12.0,
+      "handle_length_mm": 45.0,
+      "straight_entry_mm": 50.0,
+      "sides": [
+        {
+          "side": -1.0,
+          "port": {
+            "side": -1.0,
+            "span": [
+              -23.049999999999955,
+              -19.049999999999955
+            ],
+            "section": [
+              [
+                391.03581858547017,
+                -13.83932448357626
+              ],
+              [
+                418.09999635794605,
+                8.87021710342462
+              ],
+              [
+                420.0283591870057,
+                6.5720837740676865
+              ],
+              [
+                392.96418141452983,
+                -16.137457812933192
+              ]
+            ],
+            "centre": [
+              -21.049999999999955,
+              416.0,
+              5.149999999999997
+            ],
+            "direction": [
+              0.0,
+              0.766044443118978,
+              0.6427876096865394
+            ]
+          },
+          "collisions": []
+        },
+        {
+          "side": 1.0,
+          "port": {
+            "side": 1.0,
+            "span": [
+              19.049999999999955,
+              23.049999999999955
+            ],
+            "section": [
+              [
+                391.03581858547017,
+                -13.83932448357626
+              ],
+              [
+                418.09999635794605,
+                8.87021710342462
+              ],
+              [
+                420.0283591870057,
+                6.5720837740676865
+              ],
+              [
+                392.96418141452983,
+                -16.137457812933192
+              ]
+            ],
+            "centre": [
+              21.049999999999955,
+              416.0,
+              5.149999999999997
+            ],
+            "direction": [
+              0.0,
+              0.766044443118978,
+              0.6427876096865394
+            ]
+          },
+          "collisions": []
+        }
+      ]
+    },
+    "pisco": {
+      "removed_before_access": [
+        "asse-snap-cap",
+        "meter-snap-cap",
+        "vk-solenoid/1",
+        "vk-solenoid/2",
+        "vk-solenoid/3",
+        "vk-solenoid/4",
+        "vk-solenoid/5",
+        "vk-solenoid/6",
+        "vk-solenoid/7",
+        "vk-solenoid/8",
+        "vk-solenoid/9",
+        "vk-solenoid/10",
+        "vk-solenoid/11"
+      ],
+      "blade_mm": [
+        3.0,
+        0.6
+      ],
+      "shaft_diameter_mm": 2.5,
+      "shaft_length_mm": 65.0,
+      "handle_diameter_mm": 12.0,
+      "handle_length_mm": 28.0,
+      "straight_entry_mm": 27.0,
+      "sides": [
+        {
+          "side": -1.0,
+          "port": {
+            "side": -1.0,
+            "span": [
+              64.19438431246908,
+              68.19438431246908
+            ],
+            "section": [
+              [
+                414.9574886347469,
+                334.37182832901004
+              ],
+              [
+                444.67333333870283,
+                342.3341649198437
+              ],
+              [
+                445.44979047401034,
+                339.43638744097655
+              ],
+              [
+                415.7339457700544,
+                331.4740508501429
+              ]
+            ],
+            "centre": [
+              66.19438431246908,
+              441.1978586012003,
+              339.85
+            ],
+            "direction": [
+              0.0,
+              0.9659258262890683,
+              0.25881904510252074
+            ]
+          },
+          "collisions": []
+        },
+        {
+          "side": 1.0,
+          "port": {
+            "side": 1.0,
+            "span": [
+              84.80561568753092,
+              88.80561568753092
+            ],
+            "section": [
+              [
+                414.9574886347469,
+                334.37182832901004
+              ],
+              [
+                444.67333333870283,
+                342.3341649198437
+              ],
+              [
+                445.44979047401034,
+                339.43638744097655
+              ],
+              [
+                415.7339457700544,
+                331.4740508501429
+              ]
+            ],
+            "centre": [
+              86.80561568753092,
+              441.1978586012003,
+              339.85
+            ],
+            "direction": [
+              0.0,
+              0.9659258262890683,
+              0.25881904510252074
+            ]
+          },
+          "collisions": []
+        }
+      ]
+    },
+    "pump": {
+      "removed_before_access": [],
+      "blade_mm": [
+        3.0,
+        0.6
+      ],
+      "shaft_diameter_mm": 2.5,
+      "shaft_length_mm": 50.0,
+      "handle_diameter_mm": 12.0,
+      "handle_length_mm": 45.0,
+      "straight_entry_mm": 50.0,
+      "sides": [
+        {
+          "side": -1.0,
+          "port": {
+            "side": -1.0,
+            "span": [
+              -47.6606105443865,
+              -43.6606105443865
+            ],
+            "section": [
+              [
+                453.93412304945514,
+                2.187962736861331
+              ],
+              [
+                411.0588919013085,
+                22.181011366407823
+              ],
+              [
+                412.3267466865306,
+                24.899934727517774
+              ],
+              [
+                455.2019778346772,
+                4.90688609797128
+              ]
+            ],
+            "centre": [
+              -45.6606105443865,
+              415.3180504420662,
+              21.85
+            ],
+            "direction": [
+              0.0,
+              -0.9063077870366499,
+              0.42261826174069944
+            ]
+          },
+          "collisions": []
+        },
+        {
+          "side": 1.0,
+          "port": {
+            "side": 1.0,
+            "span": [
+              13.297750873597055,
+              17.297750873597053
+            ],
+            "section": [
+              [
+                453.93412304945514,
+                2.187962736861331
+              ],
+              [
+                411.0588919013085,
+                22.181011366407823
+              ],
+              [
+                412.3267466865306,
+                24.899934727517774
+              ],
+              [
+                455.2019778346772,
+                4.90688609797128
+              ]
+            ],
+            "centre": [
+              15.297750873597055,
+              415.3180504420662,
+              21.85
+            ],
+            "direction": [
+              0.0,
+              -0.9063077870366499,
+              0.42261826174069944
+            ]
+          },
+          "collisions": []
+        }
+      ]
+    },
+    "regulator": {
+      "path_angle_y_z_mm": [
+        [
+          60.0,
+          17.0,
+          240.0
+        ],
+        [
+          60.0,
+          17.0,
+          333.0
+        ],
+        [
+          75.0,
+          22.835022909543987,
+          335.7828604005583
+        ],
+        [
+          75.0,
+          37.32391030388001,
+          339.66514607709615
+        ]
+      ],
+      "hits": [],
+      "scope": "3 mm blade; 2.5 mm shaft, 50 mm reach; 12 mm diameter, 30 mm handle. Canonical cap frame.",
+      "step_mm": 0.75,
+      "max_angular_step_degrees": 0.375
+    }
+  },
+  "cartridge": {
+    "scope": "Front-top open on bench, the two pumps and lower retainer enter together before the tees, valves and final tube handoffs. Service reverses that order with plumbing and motor leads disconnected.",
+    "receiver_and_retainer_geometry_unchanged": true,
+    "leaf_inward_deflection_mm": 3.2,
+    "downward_travel_mm": 65,
+    "swept_unit_readings": [
+      {
+        "body": "enclosure-pump-retainer",
+        "swept_intersection_mm3": 0.0
+      },
+      {
+        "body": "pump-a-head",
+        "swept_intersection_mm3": 0.0
+      },
+      {
+        "body": "pump-a-boss",
+        "swept_intersection_mm3": 0.0
+      },
+      {
+        "body": "pump-a-motor",
+        "swept_intersection_mm3": 0.0
+      },
+      {
+        "body": "pump-b-head",
+        "swept_intersection_mm3": 0.0
+      },
+      {
+        "body": "pump-b-boss",
+        "swept_intersection_mm3": 0.0
+      },
+      {
+        "body": "pump-b-motor",
+        "swept_intersection_mm3": 0.0
+      }
+    ],
+    "tool_access": [
+      {
+        "side": -1,
+        "tip_mm": [
+          -101.69999999999999,
+          48.2575,
+          174.69500000000002
+        ],
+        "direction": [
+          -0.766044443118978,
+          0.0,
+          0.6427876096865394
+        ],
+        "straight_entry_mm": 40,
+        "collisions": []
+      },
+      {
+        "side": 1,
+        "tip_mm": [
+          101.69999999999999,
+          48.2575,
+          174.69500000000002
+        ],
+        "direction": [
+          0.766044443118978,
+          0.0,
+          0.6427876096865394
+        ],
+        "straight_entry_mm": 40,
+        "collisions": []
+      }
+    ]
+  }
+}

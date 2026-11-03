@@ -1,0 +1,19 @@
+{
+  "source_archive": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/asse-body-seating/worktree/hardware/print-tests/asse-body-seating/prints/2026-11-03-asse-body-cap-mark1-55f9455e/2026-11-03-asse-body-cap-mark1-55f9455e.gcode.3mf",
+  "source_archive_sha256": "6d97bffd63884057fc2c47bfe64ee3b53349309b8a3c56e40878772afe2fd66d",
+  "print_only_archive": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/asse-body-seating/worktree/hardware/print-tests/asse-body-seating/prints/2026-11-03-asse-body-cap-mark1-55f9455e/2026-11-03-asse-body-cap-mark1-55f9455e-print-only.gcode.3mf",
+  "print_only_archive_sha256": "8e9ec7c24dbdbeaeb94d9d632358c32ee408b189555eb35752a9b5b5d87f2322",
+  "gcode_sha256": {
+    "Metadata/plate_1.gcode": "f401f961108690e37263ba622db6dca6a85d1ae4363261875c80f1a5ede3eb06"
+  },
+  "gcode_byte_identical": true,
+  "changed_container_entries": [
+    "3D/3dmodel.model",
+    "Metadata/model_settings.config"
+  ],
+  "omitted_editable_geometry_entries": [
+    "3D/Objects/object_1.model",
+    "3D/_rels/3dmodel.model.rels",
+    "Metadata/cut_information.xml"
+  ]
+}

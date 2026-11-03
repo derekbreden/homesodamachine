@@ -1,0 +1,179 @@
+{
+  "schema": 1,
+  "piece": "regulator-seat",
+  "inputs": {
+    "gcode": "support-labels-1905.gcode",
+    "gcode_sha256": "410836a4c87af03cfbdf9d92466fa27e52cdd9c76acf00cb4e3d79b7143751a7",
+    "model": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/asse-body-seating/worktree/hardware/print-tests/receiver-tool-access/parts/regulator-seat.stl",
+    "model_sha256": "9eeb6b6e6bc7a4b6eead143e6a16ba289d29fc8869211f336b308948cdf6b5e9",
+    "profile": "hardware/print-tests/receiver-tool-access/prints/2026-11-03-receiver-access-rear-mark1-mark1-2e016011/2026-11-03-receiver-access-rear-mark1-mark1-2e016011.3mf",
+    "profile_sha256": "418b7b3b455c82ddf738d6f6395b3de8c3dea0a05efcdc2578a5a0e28543ba50"
+  },
+  "slicer": "BambuStudio 02.08.02.61",
+  "first_layer_z_mm": 0.2,
+  "coordinate_frame": {
+    "plate_to_cad_transform": [
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      1.0,
+      -168.368960381,
+      -208.048366547,
+      0.0
+    ],
+    "plate_to_cad_translation_mm": [
+      -168.36896,
+      -208.048367,
+      0.0
+    ]
+  },
+  "slicer_settings": {
+    "layer_height": "0.24",
+    "support_bottom_z_distance": "0.3",
+    "support_interface_bottom_layers": "2",
+    "support_interface_spacing": "0.5",
+    "support_interface_top_layers": "2",
+    "support_object_xy_distance": "0.4",
+    "support_on_build_plate_only": "0",
+    "support_style": "default",
+    "support_threshold_angle": "35",
+    "support_top_z_distance": "0.45",
+    "support_type": "tree(auto)"
+  },
+  "summary": {
+    "support_bodies": 2,
+    "interface_islands": 3,
+    "bed_rooted_bodies": 1,
+    "model_rooted_bodies": 1,
+    "shortest_build_up_mm": 1.92,
+    "bodies_without_interface_labels": 0,
+    "explicit_interface_islands": 3,
+    "shortest_labelled_build_up_mm": 1.92
+  },
+  "trees": [
+    {
+      "id": "tree-1",
+      "root": "bed",
+      "base_z_mm": 0.2,
+      "first_interface_z_mm": 14.12,
+      "shortest_build_up_mm": 13.92,
+      "top_z_mm": 19.4,
+      "bbox_xy_mm": [
+        158.0,
+        174.8,
+        193.2,
+        192.4
+      ],
+      "interfaces": [
+        "interface-1",
+        "interface-3"
+      ],
+      "interface_reading": "explicit_feature",
+      "bbox_cad_xyz_mm": [
+        -10.369,
+        -33.248,
+        0.2,
+        24.831,
+        -15.648,
+        19.4
+      ]
+    },
+    {
+      "id": "tree-2",
+      "root": "model",
+      "base_z_mm": 12.2,
+      "first_interface_z_mm": 14.12,
+      "shortest_build_up_mm": 1.92,
+      "top_z_mm": 14.6,
+      "bbox_xy_mm": [
+        158.0,
+        224.8,
+        193.2,
+        226.8
+      ],
+      "interfaces": [
+        "interface-2"
+      ],
+      "interface_reading": "explicit_feature",
+      "bbox_cad_xyz_mm": [
+        -10.369,
+        16.752,
+        12.2,
+        24.831,
+        18.752,
+        14.6
+      ]
+    }
+  ],
+  "interfaces": [
+    {
+      "id": "interface-1",
+      "first_z_mm": 14.12,
+      "last_z_mm": 14.6,
+      "bbox_xy_mm": [
+        158.0,
+        189.2,
+        170.8,
+        191.6
+      ],
+      "tree": "tree-1",
+      "build_up_mm": 13.92,
+      "bbox_cad_xyz_mm": [
+        -10.369,
+        -18.848,
+        14.12,
+        2.431,
+        -16.448,
+        14.6
+      ]
+    },
+    {
+      "id": "interface-2",
+      "first_z_mm": 14.12,
+      "last_z_mm": 14.6,
+      "bbox_xy_mm": [
+        158.0,
+        224.8,
+        193.2,
+        226.8
+      ],
+      "tree": "tree-2",
+      "build_up_mm": 1.92,
+      "bbox_cad_xyz_mm": [
+        -10.369,
+        16.752,
+        14.12,
+        24.831,
+        18.752,
+        14.6
+      ]
+    },
+    {
+      "id": "interface-3",
+      "first_z_mm": 14.12,
+      "last_z_mm": 14.6,
+      "bbox_xy_mm": [
+        178.8,
+        189.6,
+        193.2,
+        191.6
+      ],
+      "tree": "tree-1",
+      "build_up_mm": 13.92,
+      "bbox_cad_xyz_mm": [
+        10.431,
+        -18.448,
+        14.12,
+        24.831,
+        -16.448,
+        14.6
+      ]
+    }
+  ],
+  "interface_feature_policy": "All support bodies are retained; unlabelled interfaces have unknown contact count and build-up."
+}

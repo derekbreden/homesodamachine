@@ -33,10 +33,9 @@ REACH = 2.6         # flat horizontal bearing beyond the receiver edge
 SIDE = 0.5         # relaxed spring face off the receiver edge
 FREE_LENGTH = 22.25 # root to hook underside; retains the tested receiver bearing plane
 ROOT_RADIUS = 1.5  # broad inside transition into each spring wall
-PRY_WIDTH = 5.0    # centered flathead access across the hook's underside
-PRY_HEIGHT = 1.0
 REAR_ROOT_DROP = 10.0
 ASSE_HEX_SEATING_DEPTH = 0.25 # lower-flat allowance in the conforming adapter pocket
+ASSE_BODY_SEATING_DEPTH = 0.25 # lower-flat allowance in the main-body wrench cavity
 PISCO_RADIAL_RELIEF = 0.25  # receiver running air plus this radial relief
 PISCO_CAP_AIR = 0.4  # outer saddle stock allowance; the cavity uses PISCO_CAP_FIT
 PISCO_CAP_FIT = 0.15  # measured body/neck bearing air; stock and spring datums stay independent
@@ -47,8 +46,11 @@ METER_CAP_AIR = 0.25
 METER_HOUSING_FIT = 0.15  # local housing bearings; spring station retains METER_AIR
 METER_BEARING_DEPTH = 4.0
 LEDGE = 3.0         # the ledge's height off the split
-NOSE_LAND = PRY_HEIGHT + 0.6  # solid 0.6 mm nose remains over the blade entry
-TIP_RISE = 3.0     # single pointed lead-in above the tool-backed nose
+NOSE_LAND = 1.6     # continuous solid retaining nose below the point
+TIP_RISE = 3.0      # single pointed lead-in above the solid nose
+TOOL_SLOT_WIDTH = 4.0
+TOOL_SLOT_HEIGHT = 3.0
+TOOL_APPROACH_DEGREES = 50.0  # from the cap's installation axis toward its fore end
 HOOK = NOSE_LAND + TIP_RISE
 CATCH = fits.clearance(supported=True)
 VAR = 0.5           # how far the stub's seat in the soda union may leave the meter aft of its station
@@ -163,10 +165,16 @@ def asse_cap_profile(wrenches, air):
 
 
 def asse_cap_room(axis, profile, span):
-    """Six continuous bearing flats with open corners around the rounded hardware."""
+    """Continuous body flats with lower-plane seating air at the retained clock."""
     radius = profile['apothem']/math.cos(math.pi/6)
-    points = [(axis[0]+radius*math.sin(math.radians(profile['clock']+60*i)),
-               axis[1]-radius*math.cos(math.radians(profile['clock']+60*i))) for i in range(6)]
+    points = np.array([(axis[0]+radius*math.sin(math.radians(profile['clock']+60*i)),
+                        axis[1]-radius*math.cos(math.radians(profile['clock']+60*i))) for i in range(6)])
+    edges = np.roll(points,-1,axis=0)-points
+    normals = np.column_stack((edges[:,1],-edges[:,0]))
+    normals /= np.linalg.norm(normals,axis=1)[:,None]
+    bounds = np.einsum('ij,ij->i',normals,points)
+    bounds += ASSE_BODY_SEATING_DEPTH*np.maximum(0.,-normals[:,1])
+    points = [np.linalg.solve(normals[[i-1,i]],bounds[[i-1,i]]).tolist() for i in range(6)]
     return {'segments': [{'line': (a,b)} for a,b in
                          zip(points, points[1:]+points[:1])],
             'span': (span[0]-.01,span[1]+.01)}
@@ -202,7 +210,9 @@ def half_width(radius, z, axis_z):
 
 # --- one snap station -----------------------------------------------------------------------------
 
-def station(axis_x, neck, y0, y1, split=SPLIT, *, wing_root=None, free_length=FREE_LENGTH):
+def station(axis_x, neck, y0, y1, split=SPLIT, *, wing_root=None, free_length=FREE_LENGTH,
+            tool_angle_degrees=TOOL_APPROACH_DEGREES, tool_nose_offset=-1.,
+            tool_end_stock=WALL):
     """A cap station's flank numbers, from the seat's neck half-width and the cap's Y span."""
     ledge = neck + REACH + fits.running
     inner = ledge + SIDE
@@ -210,23 +220,42 @@ def station(axis_x, neck, y0, y1, split=SPLIT, *, wing_root=None, free_length=FR
     catch = max(root + free_length, split + LEDGE + CATCH)
     bearing = catch - CATCH
     tip = catch + HOOK
-    return dict(axis_x=axis_x, y0=y0, y1=y1, split=split, neck=neck, ledge=ledge, inner=inner,
+    result = dict(axis_x=axis_x, y0=y0, y1=y1, split=split, neck=neck, ledge=ledge, inner=inner,
                 outer=inner + WING, hook=ledge - REACH, bearing=bearing, catch=catch, tip=tip,
                 ceiling=tip + 2 * fits.running, root=root, nose_land=NOSE_LAND,
-                root_radius=ROOT_RADIUS,pry_width=PRY_WIDTH,pry_height=PRY_HEIGHT)
+                root_radius=ROOT_RADIUS,tool_angle_degrees=tool_angle_degrees,
+                tool_nose_offset=tool_nose_offset,tool_end_stock=tool_end_stock)
+    result['tool_ports'] = receiver_tool_ports(result)
+    return result
 
 
-def pry_bounds(s):
-    """Two centered blade entries under the hooks; spring walls remain continuous."""
+def receiver_tool_ports(s):
+    """Centered receiver channels from the open fore/installation side to each hook.
+
+    The angled passage admits a small flathead beside the cap's solid nose.
+    Its working end is centered along the retaining ledge; the ceiling and
+    outer receiver backing remain above and outside the channel.
+    """
     middle=(s['y0']+s['y1'])/2.
-    return [(*sorted((s['axis_x']+side*(s['hook']-.1),
-                      s['axis_x']+side*s['inner'])),
-             middle-PRY_WIDTH/2.,middle+PRY_WIDTH/2.,
-             s['catch']-.1,s['catch']+PRY_HEIGHT) for side in (-1.,1.)]
+    angle=math.radians(s.get('tool_angle_degrees',TOOL_APPROACH_DEGREES))
+    direction=np.array((math.sin(angle),math.cos(angle)))
+    normal=np.array((direction[1],-direction[0]))
+    centre=np.array((middle,s['bearing']))
+    entry=((s['y1']-s['y0'])/2.+s.get('tool_end_stock',WALL)+2.)/abs(direction[0])
+    section=[(centre+t*direction+q*normal).tolist()
+             for t,q in ((-entry,-TOOL_SLOT_HEIGHT/2.),(4.,-TOOL_SLOT_HEIGHT/2.),
+                         (4.,TOOL_SLOT_HEIGHT/2.),(-entry,TOOL_SLOT_HEIGHT/2.))]
+    ports=[]
+    for side in s.get('tool_sides',(-1.,1.)):
+        x=s['axis_x']+side*(s['hook']+s.get('tool_nose_offset',-1.))
+        ports.append({'side':side,'span':(x-TOOL_SLOT_WIDTH/2.,x+TOOL_SLOT_WIDTH/2.),
+                      'section':section,'centre':(x,middle,s['bearing']),
+                      'direction':(0.,*direction.tolist())})
+    return ports
 
 
-def pry_cuts(s):
-    return [box(*bounds) for bounds in pry_bounds(s)]
+def prism_x(x0,x1,points):
+    return cq.Workplane('YZ',origin=(x0,0.,0.)).polyline(points).close().extrude(x1-x0).val()
 
 
 def clearance_profile(profile, radial, axial, tolerance=.06):
@@ -393,6 +422,7 @@ def pockets(s):
         near=s['axis_x']+side*(s['inner']-radius-a)
         out.append(box(*sorted((near,far)),s['y0']-a,s['y1']+a,
                        s['root']-a,s['root']+radius+a))
+    out.extend(prism_x(*port['span'],port['section']) for port in receiver_tool_ports(s))
     return out
 
 
@@ -409,11 +439,26 @@ def pisco_cap_service_cuts(s):
         s['split']-1.,s['bearing'])]
 
 
+def asse_service_corner(s):
+    """One lower fore-corner bevel for the neighboring PISCO cap's service path.
+
+    The neck retains 3 mm of stock. The full end stop above this three-mm
+    bevel, including the hook-bearing station, retains its fitted planes.
+    """
+    x=s['axis_x']+s['neck']+WALL
+    far=s['axis_x']+s['outer']+WALL+1.
+    z=s['split']
+    points=[(x,z-.1),(far,z-.1),(far,z+WALL),(x+WALL,z+WALL)]
+    return section_solid({'span':(s['y0']-fits.running-WALL-.1,s['y0']+fits.running),
+        'segments':[{'line':(a,b)} for a,b in zip(points,points[1:]+points[:1])]})
+
+
 def pisco_station(axis_x, admitted_radius, axis_z, y0, y1):
     """Full 3 mm receiver walls beside the widened hardware passage."""
     web=WALL-REACH-fits.running
     return station(axis_x,half_width(admitted_radius,SPLIT,axis_z)+web,
-                   y0,y1,wing_root=axis_z-REAR_ROOT_DROP)
+                   y0,y1,wing_root=axis_z-REAR_ROOT_DROP,
+                   tool_angle_degrees=75.,tool_nose_offset=1.)
 
 
 def pisco_cap_span(mouth_y, collet_start, rear):
@@ -478,8 +523,7 @@ def section_solid(section):
 
 def cap(s, base, bottom, axis_z=None, hexed=False):
     """One cap extruded over its station: two spring walls over a flat, round or hex body."""
-    body=section_solid(cap_section(s,base,bottom,axis_z,hexed))
-    return body.cut(*pry_cuts(s))
+    return section_solid(cap_section(s,base,bottom,axis_z,hexed))
 
 
 def at_world(location, point):
@@ -560,7 +604,7 @@ def build(parts, asse_axis, asse_at, asse_turn, pisco_axis, mouth_y, ceiling, re
     seat = seat.cut(room)
     for p in pockets(st_a):
         seat = seat.cut(p)
-    out['asse-seat'] = seat.clean()
+    out['asse-seat'] = seat.cut(asse_service_corner(st_a)).clean()
     numbers['asse'] = {'station': st_a, 'seat_runs': asse_steps, 'cap_profile': cap_profile,
                        'wrenches': [{'y': y, 'apothem': a, 'clock': k, 'corner': r} for y, a, k, r in wrenches],
                        'gagira_fore_y': gag_fore, 'vent': [v_lo.tolist(), v_hi.tolist()]}
