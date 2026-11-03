@@ -331,7 +331,8 @@ ELSEWHERE = ("tools/", "hardware/pcb/pcba/",
              'hardware/printed-parts/enclosure/display-cover/receiver-trial/',  # retained historical study geometry
              'hardware/printed-parts/enclosure/display-cover/retention-reach-trial/',  # retained historical study geometry
              'hardware/printed-parts/enclosure/display-cover/retention-trial/',  # retained historical study geometry
-             "hardware/install-guide/_cad_art.py",  # installation_art.py calls its complete art pass
+             "hardware/install-guide/_cad_art.py",  # scene library kit_art.py and opening_scene.py import
+             "hardware/install-guide/_install_art.py",  # scene library kit_art.py and opening_scene.py import
              "hardware/assembly/scenes/render_scenes.py",
              "hardware/printed-parts/enclosure/drawings/line-art/",  # retained historical SVG studies
              "hardware/scripts/check_faucet_geometry.py",
