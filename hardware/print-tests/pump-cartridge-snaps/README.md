@@ -4,10 +4,15 @@ The production Kamoer pump retainer prints on its Y-minus end. Its 2.0 mm leaves
 have 22.25 mm from root to catch, a 1.5 mm inside root blend, 2.6 mm seated catch
 overlap and 0.4 mm static catch clearance. Both full-length wings, fitted pump
 wells and skirt-bearing lands are included. Front-top's matching receivers keep
-6.4 mm pocket backing, 3 mm behind each centered 5 mm tool opening and their
+6.4 mm nominal pocket backing, 3 mm nominally behind each centered 5 mm tool opening and their
 production seam-plane print orientation.
 
-[Assembly integration](assembly-integration.json) binds the full appliance and
+[Normal integration](normal-integration.json) identifies the active published
+normal-build artifacts. The snap source definitions match exactly; sampled
+surface deviation in the spring bands is below 0.004 mm, and seated overlap
+is zero. The prepared trial surfaces and slices retain their recorded hashes.
+
+[Assembly integration](assembly-integration.json) binds the scoped full appliance and
 enclosure STEP, fine meshes and viewer payloads. The installed retainer uses its
 seated pose; the standalone print uses its relaxed pose. Unrelated native and
 viewer bodies retain their arrays. [Installation scenes](installation-scenes.json)

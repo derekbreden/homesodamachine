@@ -1,0 +1,63 @@
+{
+  "normal_cohort_commit": "5ac430b6f",
+  "trial_geometry_commit": "ab91e7433",
+  "nominal_snap_sources_identical": {
+    "hardware/printed-parts/enclosure/enclosure/_fixed_pump_mount.py": "33a24029f92b344545406590092cef73807cf26eb85186585491bbe2e41a6c4d",
+    "hardware/manifold-layout/rear_snaps.py": "651bb10e8803cef4decea96e51f0e3003399837b59b22866a05162905b630a85"
+  },
+  "published_members": {
+    "hardware/assembly/scenes/glb/front-top.glb": "e49a760b330842bdf3b150e37546783b318d28cad6c2c4f5798ab506d0d108ef",
+    "hardware/assembly/scenes/glb/pump-mount.glb": "a471d8fe16fe1d0196825104b65760ae2f4686cf80ab31f6a79e0219370b1234",
+    "hardware/manifold-layout/enclosure-assembly.step": "bc8f99cba081d903cab9931b42fafb2f85325b7a8b1029b138e550fbd2a4bf03",
+    "hardware/manifold-layout/enclosure-assembly.step.mesh": "a0bb4697ecd26061d30a181bffbbabec0fe5517e5244e4d46218ba7101b48774",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step": "48018f621c81f0499dd3ee2b797e71e2b3fdd06176554cafb79b62df8f51f005",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh": "5364d1bfb8dc701d43bcda0d56de7eb1a1b44d76109505bfbf2c3611a5900523",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl": "b7aed2c80fe759bf655714f36249a9eb28846f1850972e4346c68685433ceb30",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer-seated.step": "8fffa8a7850e5af4138e0603a7123c4db9a0ccc3b18a2cd2832207b8b31267d7",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer-seated.step.mesh": "c10ca8d631fd5a10bcc8f6629ecc28d8197169ff1912cbbc52e524dcce2bcba3",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step": "be7546d0a56472baeea27abd9d6db7646d0f2c07b1ae32a0ae413c9b8f9034ed",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step.mesh": "a65ca2863b86240d9a1f312731a9433009c2ea2ab3eafb603b25bf32ce83bfe5",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.stl": "bca8bd97c2d8278461a350786c4031015fade26602e6eb4641f49230ddef813a",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.step": "e258d8df8137aae5c6bd107f243fb7d797e71e25afc43c94c3f82f2574956fcd",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh": "42a557f2c3d13a94537cec43164573ef40156b5a1419dc8aed961f36b6b193fa"
+  },
+  "adopted_current_members": [
+    "hardware/manifold-layout/enclosure-assembly.step",
+    "hardware/manifold-layout/enclosure-assembly.step.mesh",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step.mesh",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.stl",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.step"
+  ],
+  "physical_scene_sha256": "2de43e0abc3051be689e1a5e09c342d56c5cac87fd196e6f8fa8e546d5913b9b",
+  "scope": "The normal build retains these cartridge mechanics and the published installation views. The test parts and their immutable slice inputs retain their recorded hashes; tessellation differences are read separately.",
+  "snap_band_tessellation_comparison": {
+    "enclosure-pump-retainer": [
+      {
+        "critical_band_vertices": 196,
+        "maximum_distance_mm": 0.0021701100178293403
+      },
+      {
+        "critical_band_vertices": 10000,
+        "maximum_distance_mm": 0.003773893779608988
+      }
+    ],
+    "enclosure-front-top": [
+      {
+        "critical_band_vertices": 7817,
+        "maximum_distance_mm": 0.00036633189556078223
+      },
+      {
+        "critical_band_vertices": 7740,
+        "maximum_distance_mm": 0.0027827592476839607
+      }
+    ]
+  },
+  "current_seated_overlap_mm3": 0.0,
+  "additional_current_quadrant_members": {
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh": "0637028d1a85dc1090a482f5141fc832812707c321e59bbbd3cfe61fe57561bd"
+  }
+}

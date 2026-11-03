@@ -33,3 +33,9 @@ curved show-surface samples above Z300 and a seam ledge near Y147.333/Z195.025.
 Those locations are outside the two changed receiver bands. The change
 pictures show the actual root, hook and receiver cross-section from one
 camera; they were inspected together.
+
+The [normal-build reconciliation](normal-integration.json) binds the active
+published artifacts and identical source definitions. Its finer tessellation
+has at most 0.0038 mm sampled deviation in the snap bands from the retained
+trial surfaces. The seated retainer has zero overlap with the current receiver.
+The prepared trial STLs, native projects and emitted G-code remain unchanged.
