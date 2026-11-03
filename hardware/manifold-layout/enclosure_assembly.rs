@@ -260,7 +260,47 @@ fn box_operand(value: &Value) -> Result<Solid> {
 }
 
 
+/// Search representations that may be rebuilt without changing the raw model.
+/// The byte budget counts the exact source arrays underlying a cached operand;
+/// native scratch and the two operands of one question can exceed that estimate.
+pub(crate) struct SearchRetention {
+    pub array_bytes: usize,
+    pub reuse_queries: usize,
+}
+
+struct SearchUse {
+    at: usize,
+    bytes: usize,
+}
+
+fn operand_bytes(parts: &[Imported], indices: &[usize]) -> usize {
+    indices.iter().map(|&i| {
+        let s = &parts[i].solid;
+        std::mem::size_of_val(s.verts()) + std::mem::size_of_val(s.tris())
+            + std::mem::size_of_val(s.face_of()) + std::mem::size_of_val(s.faces())
+    }).sum()
+}
+
+fn forget_search(parts: &mut [Imported], groups: &mut BTreeMap<Vec<usize>, Solid>,
+                 meshes: &mut BTreeMap<Vec<usize>, Mesh>, indices: &[usize]) {
+    // Cached compound arrays and unbounded-gap meshes have no identity outside
+    // this question batch. Every source array and record stays in `parts`.
+    groups.remove(indices);
+    meshes.remove(indices);
+    for &i in indices { parts[i].solid.forget_backend(); }
+}
+
+pub(crate) fn retained_query(parts: &mut [Imported], queries: &Value,
+                            retention: SearchRetention) -> Result<Vec<Value>> {
+    query_with_retention(parts, queries, false, Some(retention))
+}
+
 pub(crate) fn query(parts: &mut [Imported], queries: &Value, query_only: bool) -> Result<Vec<Value>> {
+    query_with_retention(parts, queries, query_only, None)
+}
+
+fn query_with_retention(parts: &mut [Imported], queries: &Value, query_only: bool,
+                        retention: Option<SearchRetention>) -> Result<Vec<Value>> {
     let mut gap_meshes = BTreeMap::new();
     let mut groups = BTreeMap::new();
     let values = queries.as_array().context("queries is an ordered array")?;
@@ -278,7 +318,7 @@ pub(crate) fn query(parts: &mut [Imported], queries: &Value, query_only: bool) -
         if !b.is_empty() { last.insert(b.clone(), index); }
     }
     let mut next_use = vec![[None; 2]; values.len()];
-    if query_only {
+    if query_only || retention.is_some() {
         let mut future = BTreeMap::new();
         for (index, (a, b)) in operands.iter().enumerate().rev() {
             for (side, indices) in [a, b].into_iter().enumerate() {
@@ -307,9 +347,27 @@ pub(crate) fn query(parts: &mut [Imported], queries: &Value, query_only: bool) -
         }
     }
     let mut readings = Vec::with_capacity(values.len());
+    let mut searched: BTreeMap<Vec<usize>, SearchUse> = BTreeMap::new();
     for (index, (value, (a, b))) in values.iter().zip(&operands).enumerate() {
             let kind = text(value, "kind")?;
             let distribute = kind == "common" && value.get("distribute_a").and_then(Value::as_bool).unwrap_or(false);
+            if let Some(policy) = &retention {
+                for indices in [a, b] {
+                    if !indices.is_empty() {
+                        searched.insert(indices.clone(), SearchUse { at: index,
+                            bytes: operand_bytes(parts, indices) });
+                    }
+                }
+                // Bound retained search state before constructing new operands.
+                // A single question always keeps both its exact operands.
+                while searched.values().map(|s| s.bytes).sum::<usize>() > policy.array_bytes {
+                    let oldest = searched.iter().filter(|(indices, _)| *indices != a && *indices != b)
+                        .min_by_key(|(_, used)| used.at).map(|(indices, _)| indices.clone());
+                    let Some(indices) = oldest else { break; };
+                    forget_search(parts, &mut groups, &mut gap_meshes, &indices);
+                    searched.remove(&indices);
+                }
+            }
             for indices in [a, b] {
                 if indices.is_empty() { continue; }
                 if distribute && indices == a && indices != b { continue; }
@@ -390,11 +448,21 @@ pub(crate) fn query(parts: &mut [Imported], queries: &Value, query_only: bool) -
                     }
                 }
             }
+            if let Some(policy) = &retention {
+                for (side, indices) in [a, b].into_iter().enumerate() {
+                    if !indices.is_empty() && next_use[index][side]
+                        .is_none_or(|next| next - index > policy.reuse_queries) {
+                        forget_search(parts, &mut groups, &mut gap_meshes, indices);
+                        searched.remove(indices);
+                    }
+                }
+            }
             for indices in [a, b] {
                 if indices.is_empty() { continue; }
                 if last[indices] == index {
                     gap_meshes.remove(indices);
                     groups.remove(indices);
+                    searched.remove(indices);
                     for &part in indices { parts[part].solid.forget_backend(); }
                 }
             }
