@@ -222,7 +222,6 @@ corner_round = _interface.show_corner_r  # standing body corners
 # arrises along the build axis on every piece (`corner_round`).
 PIECE_PRINT_UP = {
     "front-top": 1.0, "front-bottom": 1.0, "back-bottom": 1.0, "back-top": -1.0,
-    "pump-retainer": 1.0,
 }
 BACK_TOP_UP = PIECE_PRINT_UP["back-top"]
 

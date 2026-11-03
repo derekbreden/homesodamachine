@@ -35,6 +35,10 @@ def transformed_bounds(bounds, transform):
 
 def print_pose(piece, mesh_bounds):
     """Source-coordinate orientation and bed datum; plate X/Y nesting is separate."""
+    if piece == 'pump-retainer':
+        return dict(up_axis_in_source=[0,1,0], bed_face='Y minus',
+                    source_to_print_mm=[[1,0,0,0],[0,0,-1,0],
+                                        [0,1,0,-float(mesh_bounds[0][1])],[0,0,0,1]])
     sign = e.PIECE_PRINT_UP[piece]
     offset = -float(mesh_bounds[0][2]) if sign > 0 else float(mesh_bounds[1][2])
     return dict(up_axis_in_source=[0, 0, sign],

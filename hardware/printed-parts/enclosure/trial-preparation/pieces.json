@@ -356,6 +356,10 @@
       "parts": [
         {
           "stl": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.stl",
+          "pose": {
+            "turns": [["x", 90]],
+            "reason": "Y-end down keeps the X/Z spring bending plane within each layer."
+          },
           "regions": "pump-retainer"
         }
       ]
