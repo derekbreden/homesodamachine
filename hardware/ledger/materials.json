@@ -1007,18 +1007,6 @@
             ]
           },
           {
-            "material": "HSM-000360",
-            "quantity": 4,
-            "unit": "ea",
-            "note": "One through each G Ganen rubber foot."
-          },
-          {
-            "material": "HSM-000361",
-            "quantity": 4,
-            "unit": "ea",
-            "note": "One under each G Ganen mounting screw."
-          },
-          {
             "material": "HSM-000362",
             "quantity": 2,
             "unit": "ea",
@@ -7349,42 +7337,6 @@
           "title": "Y-seam closure",
           "path": "assembly/enclosure-mechanical.md"
         },
-        {
-          "title": "Fastener specification",
-          "path": "ledger/bom.md"
-        }
-      ]
-    },
-    {
-      "id": "HSM-000360",
-      "description": "M3 \u00d7 20 socket-head screw \u00b7 black oxide",
-      "kind": "purchased",
-      "aliases": [
-        "water pump screw",
-        "BNUOK M3x20",
-        "B0DJR2Q5LP"
-      ],
-      "documents": [
-        {
-          "title": "Pump mounting",
-          "path": "assembly/electronics-bay.md"
-        },
-        {
-          "title": "Fastener specification",
-          "path": "ledger/bom.md"
-        }
-      ]
-    },
-    {
-      "id": "HSM-000361",
-      "description": "M3 flat washer \u00b7 \u00d89 \u00d7 0.8 mm, 304 stainless",
-      "kind": "purchased",
-      "aliases": [
-        "DIN 9021 M3 washer",
-        "uxcell M3 washer 9 mm",
-        "B0FB45MN93"
-      ],
-      "documents": [
         {
           "title": "Fastener specification",
           "path": "ledger/bom.md"
