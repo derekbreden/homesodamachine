@@ -5,14 +5,29 @@ import json
 from pathlib import Path
 import tempfile
 
-from _materials import linear
-from _cadq_export import note_read, note_write
+from _occt_color import rgba
 import _rust_part
+
+
+def note_read(path):
+    """Record an input supplied to the Rust geometry program."""
+    try:
+        _rust_part._READ_TARGETS.add(_rust_part._relative(Path(path)))
+    except ValueError:
+        pass
+
+
+def note_write(path):
+    """Record an output emitted by a child geometry or rendering program."""
+    try:
+        _rust_part._WRITE_TARGETS.add(_rust_part._relative(Path(path)))
+    except ValueError:
+        pass
 
 
 def export(module, names, directory, *, modern=False):
     """Export the caller's existing named states and its exact instruction palette."""
-    colors = {name: list(linear(value)) for name, value in vars(module).items()
+    colors = {name: list(rgba(value, {})[:3]) for name, value in vars(module).items()
               if name.startswith("C_")}
     dimensions = {name: value for name, value in vars(module).items()
                   if name.isupper() and not name.startswith("C_")
