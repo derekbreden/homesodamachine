@@ -45,7 +45,10 @@ drawn, with the surface it actually has.
     tools/cad-venv/bin/python hardware/scripts/flute_payload.py selftest-exact
 """
 
+from __future__ import annotations
+
 import itertools
+import importlib
 import json
 import re
 import struct
@@ -54,10 +57,29 @@ from pathlib import Path
 
 from _payload_rules import CREASE_DEG
 
-import numpy as np
-import trimesh
-from scipy.sparse import coo_matrix
-from scipy.sparse.csgraph import connected_components
+class _DeferredModule:
+    def __init__(self, name):
+        self.name = name
+        self.module = None
+
+    def __getattr__(self, name):
+        if self.module is None:
+            self.module = importlib.import_module(self.name)
+        return getattr(self.module, name)
+
+
+np = _DeferredModule('numpy')
+trimesh = _DeferredModule('trimesh')
+
+
+def coo_matrix(*args, **kwargs):
+    from scipy.sparse import coo_matrix as make
+    return make(*args, **kwargs)
+
+
+def connected_components(*args, **kwargs):
+    from scipy.sparse.csgraph import connected_components as measure
+    return measure(*args, **kwargs)
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import _mesh_payload                                                    # noqa: E402
@@ -478,7 +500,7 @@ def keeps_print_triangles(step: Path, requested=None):
     return Path(step).resolve().parent in FAUCET_DIRS
 
 
-def cut(step: Path, stl: Path, verbose=True, *, preserve_print_triangles=None):
+def _python_cut(step: Path, stl: Path, verbose=True, *, preserve_print_triangles=None):
     """Write the printed surface beside `step`, retaining every faucet triangle by default."""
     printed = trimesh.load_mesh(str(stl))
     printed.merge_vertices()
@@ -515,6 +537,15 @@ def cut(step: Path, stl: Path, verbose=True, *, preserve_print_triangles=None):
               f"{out.stat().st_size / 1e6:.2f} MB, "
               f"{dev:.3f} mm inside a {bound:.3f} mm budget")
     return mesh
+
+
+def cut(step: Path, stl: Path, verbose=True, *, preserve_print_triangles=None):
+    """Write the Rust-authored print surface and return the legacy mesh-list form."""
+    from _rust_print_payload import cut as write_print
+    write_print(step, stl, verbose=verbose,
+                identity=solid_identity(step),
+                preserve_print_triangles=keeps_print_triangles(step, preserve_print_triangles))
+    return read_payload(Path(str(step)+'.mesh'))[0]
 
 
 def read_payload(path, *, packed=False):
@@ -652,7 +683,7 @@ def _axis_rotations():
     return out
 
 
-_AXIS_ROTATIONS = _axis_rotations()
+_AXIS_ROTATIONS = None
 
 
 def placement_onto(entry, surface, tol=PLACEMENT_TOL):
@@ -678,6 +709,9 @@ def placement_onto(entry, surface, tol=PLACEMENT_TOL):
     b = np.asarray(surface["pos"], dtype=np.float64).reshape(-1, 3)
     rng = np.random.default_rng(0)
     probe = b[rng.choice(len(b), min(1500, len(b)), replace=False)]
+    global _AXIS_ROTATIONS
+    if _AXIS_ROTATIONS is None:
+        _AXIS_ROTATIONS = _axis_rotations()
     best = None
     for R in _AXIS_ROTATIONS:
         turned = b @ R.T
@@ -840,6 +874,12 @@ def main(directories=PIECES_DIRS, *, preserve_print_triangles=None):
             print(f"-> {path.relative_to(_ROOT)}  {landed} piece(s) grafted, "
                   f"{path.stat().st_size / 1e6:.2f} MB")
     return 0
+
+
+def rust_main(directories=PIECES_DIRS, *, preserve_print_triangles=None):
+    """The normal family consumer, with geometry and graft planning in Rust."""
+    from _rust_print_payload import main as consume
+    return consume(directories, preserve_print_triangles=preserve_print_triangles)
 
 
 # --- selftest ----------------------------------------------------------------

@@ -13,4 +13,4 @@ import flute_payload
 
 
 if __name__ == "__main__":
-    sys.exit(flute_payload.main(flute_payload.FAUCET_DIRS, preserve_print_triangles=True))
+    sys.exit(flute_payload.rust_main(flute_payload.FAUCET_DIRS, preserve_print_triangles=True))
