@@ -10,8 +10,8 @@
       ],
       "unrelated_viewer_bodies_preserved": 553,
       "unrelated_fine_bodies_preserved": 434,
-      "step_sha256": "dce84e02da0f307ff9c27d2f9bd0286189ea2168f6ae0166d16e078a1c845ec1",
-      "payload_sha256": "f5d238b84820ad7c1e0736586d712783bda6056fbf3405238205ecf9957ea210"
+      "step_sha256": "3ee4ae338bfda79444397c7805cf22bdee878c7763070660579db7d9d216e9c2",
+      "payload_sha256": "2ab3a53866d66cc265b443cfd9e4b843643271f6f0738bd1bf046aa0c0a34866"
     },
     "hardware/printed-parts/enclosure/enclosure/enclosure.step": {
       "replaced": [

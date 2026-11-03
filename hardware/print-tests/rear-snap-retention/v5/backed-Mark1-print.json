@@ -1,0 +1,16 @@
+{
+  "plate": "rear-retention-mark1",
+  "printer": "Mark1",
+  "connection_key": "H2C",
+  "preparation": "hardware/print-tests/rear-snap-retention/v5/prints/2026-11-02-rear-retention-mark1-mark1-7d4650ce",
+  "archive": "hardware/print-tests/rear-snap-retention/v5/prints/2026-11-02-rear-retention-mark1-mark1-7d4650ce/2026-11-02-rear-retention-mark1-mark1-7d4650ce.gcode.3mf",
+  "print_only_archive": "hardware/print-tests/rear-snap-retention/v5/prints/2026-11-02-rear-retention-mark1-mark1-7d4650ce/2026-11-02-rear-retention-mark1-mark1-7d4650ce-print-only.gcode.3mf",
+  "gcode_sha256": "e22c28a296628f6aa904230fc6e8b2cb70b1644db1893538fde8dd534912cbda",
+  "estimated_seconds": 13883.0087890625,
+  "filament_g": 123.08,
+  "minimum_bed_margin_mm": 93.158785,
+  "requested_z_trim_mm": 0.18,
+  "emitted_trim_mm": 0.16,
+  "native_review_pass": true,
+  "submitted": false
+}
