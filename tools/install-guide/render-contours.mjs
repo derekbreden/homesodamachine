@@ -9,6 +9,7 @@ let browser;
 try {
   browser = await launchBrowser({ protocolTimeout: 120000 });
   for (const job of jobs) {
+    console.log(`Rendering illustration ${job.html} (${job.size[0]} x ${job.size[1]}).`);
     // Each image gets a clean SVG filter surface at its own viewport size.
     const page = await browser.newPage();
     const errors = [];
@@ -18,7 +19,9 @@ try {
       await page.goto(pathToFileURL(job.html).href, { waitUntil: 'load' });
       await page.evaluate(() => new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve))));
       if (errors.length) throw errors[0];
-      await page.screenshot({ path: job.out, omitBackground: true });
+      // The SVG occupies this viewport; no offscreen page surface is needed.
+      await page.screenshot({ path: job.out, omitBackground: true,
+        captureBeyondViewport: false });
     } finally {
       await page.close();
     }
