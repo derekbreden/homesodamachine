@@ -3,7 +3,7 @@
 [AGENTS.md](../../AGENTS.md#speed) states the goal: this Mac's CPU and memory stop limiting how
 much the agents get done. This is the build's plan for it.
 
-## Done
+## Completion
 
 No step of the normal build loads CadQuery, OpenCASCADE (OCP) or meshcad. Each generator keeps
 its numbers in Python and has a Rust program cut its geometry on the kernel, as the
@@ -37,26 +37,27 @@ A piece comes off this list when it lands on main. The box and the machine are m
 build's critical path: a change to the box runs both steps, one after the other, and a change to
 any part in the machine runs the machine's.
 
-1. **Standing the machine.** `machine()` in
-   [`enclosure_assembly.py`](../../hardware/manifold-layout/enclosure_assembly.py) places every
-   body on meshcad, and `_dims` in
-   [`enclosure.py`](../../hardware/printed-parts/enclosure/enclosure/enclosure.py) sizes the box
-   around them. [`enclosure_box.py`](../../hardware/manifold-layout/enclosure_box.py) runs both
-   to write the Box the enclosure's step reads, and the machine's step stands the machine again
-   around the cut pieces. `machine-assembly-model` (`tools/hsm/machine`) builds the fine
-   measurement model from the placements Python hands it.
-2. **The box.** `enclosure.py` reads the Box and cuts its printable pieces with the
-   `tools/hsm/enclosure-shell` programs. The rest of its step runs on meshcad: the bounds and
-   reports (`_report_*`, `vent_readings`, the handhold, silhouette and ceiling bounds), the
-   assembled `enclosure.step` and the pump dock.
-3. **The machine's checks**, called inline from `enclosure_assembly.py` on the stood machine.
-4. **The machine's exports**: its STEP, payload, scene GLBs, scorecard and facts.
-5. **The install guide's plumbing scenes**,
-   [`plumbing_scenes.py`](../../hardware/install-guide/plumbing/plumbing_scenes.py) and
-   [`render_modern_tee.py`](../../hardware/install-guide/plumbing/modern/render_modern_tee.py),
-   on CadQuery.
-6. **Any other step that loads CadQuery, OCP or meshcad at run time.** A generator that calls
+The active pieces have separate file owners:
+
+| Piece | Scope | Owner |
+| --- | --- | --- |
+| Machine placement | `enclosure_assembly.py`, fine-model references, installed frames and scalar layout | `machine_placement` |
+| Equipment | Above-core fittings, clamps, bulkheads, mounting hardware and numerical route providers | `faucet_assembly` |
+| Tube geometry | Warm fluid/gas sweeps and their insulation, from the equipment route specifications | `plumbing_scenes` |
+| Enclosure generation | `enclosure.py`, `enclosure_box.py`, numeric datums, shell assembly and pump dock | `enclosure_geometry` |
+| Enclosure measurements | Piece bounds, vent/handhold/ceiling readings and Box measurements | `enclosure_checks` |
+| Machine checks | `_scorecard.py`, `check_asse_drain.py`, fit/clearance queries and scalar reports | `machine_checks` |
+| Model exports | Physical STEP/fine models, display surfaces, wiring append and eleven scene GLBs | `model_exports` |
+| Model context | Cold-core presentation, float integration and plain machine facts/scene/wiring context | `cold_core_assembly` |
+
+The install guide's twelve plumbing scenes use Rust geometry with plain Python dimensions,
+colours and render jobs. The optional hose and collet illustration builders load native CAD
+only when those hand-run tools request them.
+
+After these pieces land:
+
+1. **Any other step that loads CadQuery, OCP or meshcad at run time.** A generator that calls
    `_rust_part.start()` defers CadQuery, and still loads it on any path that reads a CadQuery
    name.
-7. **The CadQuery path itself.** Once the rest lands, meshcad, the Python builders nothing on the
+2. **The CadQuery path itself.** Once the rest lands, meshcad, the Python builders nothing on the
    build calls, and CadQuery leave the normal build.
