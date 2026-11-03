@@ -19,6 +19,9 @@ from docgen import load_module, substitute_md  # noqa: E402
 
 def main():
     hardware_root = next(p for p in _here.parents if p.name == "hardware")
+    sys.path.insert(0, str(hardware_root / "printed-parts" / "enclosure" / "enclosure"))
+    from _enclosure_datums import install
+    install()
 
     tpu = load_module(
         "_tpu_oring_gen",
