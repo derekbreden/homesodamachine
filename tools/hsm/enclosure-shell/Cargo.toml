@@ -38,10 +38,17 @@ path = "../../../hardware/printed-parts/enclosure/enclosure/enclosure_front_top.
 name = "enclosure-checks"
 path = "../../../hardware/printed-parts/enclosure/enclosure/enclosure_checks.rs"
 
+[[bin]]
+name = "enclosure-presentation"
+path = "../../../hardware/printed-parts/enclosure/enclosure/enclosure_presentation.rs"
+
 [dependencies]
 anyhow.workspace = true
 hsm-kernel = { path = "../kernel" }
+hsm-geometry = { path = "../geometry" }
 manifold-csg = { version = "0.4.1", default-features = false }
+npyz = "0.9.1"
 serde = { workspace = true, features = ["derive"] }
 serde_json.workspace = true
 sha2.workspace = true
+zip = { version = "9.1.2", default-features = false, features = ["deflate-flate2-zlib-rs"] }
