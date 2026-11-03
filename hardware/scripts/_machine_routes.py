@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 from copy import deepcopy
+import json
 from pathlib import Path
 
 
@@ -34,6 +35,13 @@ def build(output, routes, *, insulation=None, components=None, name="machine-rou
     """Write paired fine geometry and ordered named-body metadata through Rust."""
     import _rust_part
 
-    return _rust_part.cut("machine", "machine-routes",
-                          numbers(routes, insulation=insulation,
-                                  components=components, name=name), Path(output))
+    output = Path(output).resolve()
+    _rust_part.cut("machine", "machine-routes",
+                   numbers(routes, insulation=insulation,
+                           components=components, name=name), output)
+    result = json.loads((output / f"{name}.json").read_text())
+    model = str(output / f"{name}.step.npz")
+    for instance in result["instances"]:
+        instance["model"] = model
+    result["model"] = model
+    return result
