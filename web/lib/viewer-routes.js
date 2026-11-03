@@ -11,6 +11,8 @@ import { mountPdfjsAssets, renderDocumentReader } from "./document-reader.js";
 import { readMaterialCatalog } from "./material-catalog.js";
 import { numberedModels } from "../contracts/materials.js";
 import { readPartCosts } from "./part-costs.js";
+import { websitePointers } from "../contracts/artifact-scope.js";
+import { RETIRED_MARKER } from "./retired.js";
 
 const relOf = (req) => req.params.splat.join("/");
 
@@ -48,6 +50,24 @@ function readSidecar(rootDir, rel) {
 export function mountViewerRoutes(app, { hardwareDir, store, pointersPath }) {
   mountPdfjsAssets(app);
 
+  // Public deployments expose catalog models. Local render servers also read
+  // temporary, unnumbered scene inputs without publishing them.
+  function publishedFile(rel, pointers = null) {
+    if (!process.env.RENDER_GIT_COMMIT) return true;
+    for (let parent = path.dirname(rel); ; parent = path.dirname(parent)) {
+      if (fs.existsSync(path.join(hardwareDir, parent, RETIRED_MARKER))) return false;
+      if (parent === ".") break;
+    }
+    try {
+      pointers ||= JSON.parse(fs.readFileSync(pointersPath, "utf8"));
+      const key = "hardware/" + rel;
+      if (key in (pointers.website?.solids ?? {}) || key in (pointers.website?.sidecars ?? {})) return true;
+      const model = rel.replace(/\.step\.(mesh|json)$/, ".step")
+        .replace(/\.(scorecard|facts|frame)\.json$/, ".step");
+      return numberedModels(readMaterialCatalog(hardwareDir), [model]).length > 0;
+    } catch { return false; }
+  }
+
   app.get("/api/materials", (_req, res) => {
     res.set("Cache-Control", "no-cache");
     let catalog;
@@ -78,25 +98,25 @@ export function mountViewerRoutes(app, { hardwareDir, store, pointersPath }) {
     const prefix = pointers.store?.objects ?? pointers.release?.objects;
     if (!prefix) return res.json({ base: null, objects: {} });
     const objects = {};
-    for (const [rel, hash] of Object.entries(pointers.solids ?? {})) {
+    for (const [rel, hash] of Object.entries(websitePointers(pointers).solids ?? {})) {
       if (!rel.startsWith("hardware/")) continue;
       if (!/\.(step|step\.mesh|glb)$/.test(rel)) continue;
+      if (!publishedFile(rel.slice("hardware/".length), pointers)) continue;
       objects[rel.slice("hardware/".length)] = `${base}/${prefix}${hash}.gz`;
     }
     res.json({ base, objects });
   });
 
-  // The models a part number names. A checkout whose catalog does not read lists every
-  // model, which the grid's catalog-unavailable cards expect.
+  // The models a part number names. Local tools can inspect a catalog-free fixture.
   app.get("/api/steps", (req, res) => {
     const files = walkFiles(hardwareDir, ".step");
     let catalog = null;
     try { catalog = readMaterialCatalog(hardwareDir); } catch { /* listed whole */ }
-    res.json(catalog ? numberedModels(catalog, files) : files);
+    res.json(catalog ? numberedModels(catalog, files) : process.env.RENDER_GIT_COMMIT ? [] : files);
   });
 
   app.get("/api/glbs", (req, res) => {
-    res.json(walkFiles(hardwareDir, ".glb"));
+    res.json(walkFiles(hardwareDir, ".glb").filter(rel => publishedFile(rel)));
   });
 
   app.get("/api/mermaid", (req, res) => {
@@ -185,6 +205,7 @@ export function mountViewerRoutes(app, { hardwareDir, store, pointersPath }) {
   app.get("/api/step-scorecard/*splat", (req, res) => {
     const abs = safeFile(hardwareDir, relOf(req), SCORECARD_SUFFIX);
     if (!abs) return res.status(400).send("Invalid path");
+    if (!publishedFile(relOf(req))) return res.status(404).send("Not found");
     if (!fs.existsSync(abs)) return res.status(404).send("Not found");
     res.set("Cache-Control", "no-cache");
     res.type("application/json").send(fs.readFileSync(abs, "utf-8"));
@@ -211,6 +232,7 @@ export function mountViewerRoutes(app, { hardwareDir, store, pointersPath }) {
   app.get("/steps/*splat", (req, res) => {
     const abs = safeFile(hardwareDir, relOf(req), ".step");
     if (!abs) return res.status(400).send("Invalid path");
+    if (!publishedFile(relOf(req))) return res.status(404).send("Not found");
     if (!fs.existsSync(abs)) return res.status(404).send("Not found");
     streamFile(res, abs);
   });
@@ -218,6 +240,7 @@ export function mountViewerRoutes(app, { hardwareDir, store, pointersPath }) {
   app.get("/models/*splat", (req, res) => {
     const abs = safeFile(hardwareDir, relOf(req), ".glb");
     if (!abs) return res.status(400).send("Invalid path");
+    if (!publishedFile(relOf(req))) return res.status(404).send("Not found");
     if (!fs.existsSync(abs)) return res.status(404).send("Not found");
     streamFile(res, abs);
   });
@@ -229,6 +252,7 @@ export function mountViewerRoutes(app, { hardwareDir, store, pointersPath }) {
   app.get("/meshes/*splat", (req, res) => {
     const abs = safeFile(hardwareDir, relOf(req), ".mesh");
     if (!abs) return res.status(400).send("Invalid path");
+    if (!publishedFile(relOf(req))) return res.status(404).send("Not found");
     if (!fs.existsSync(abs)) return res.status(404).send("Not found");
     streamFile(res, abs);
   });

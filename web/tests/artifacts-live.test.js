@@ -117,7 +117,7 @@ test("CAD adoption keeps committed guides and leaves archived cards retired", as
     const have = { solids: Object.fromEntries([...names, archived].map(name => [name, "old-hash"])) };
     await writeFile(path.join(root, "hardware/cad-artifacts.json"), JSON.stringify(have));
     await writeFile(path.join(root, "package.json"), '{"type":"module"}');
-    for (const relative of ["scripts/fetch-cad-artifacts.mjs", "lib/store.js", "contracts/documents.js"]) {
+    for (const relative of ["scripts/fetch-cad-artifacts.mjs", "lib/store.js", "contracts/documents.js", "contracts/artifact-scope.js"]) {
       const destination = path.join(root, "web", relative);
       await mkdir(path.dirname(destination), { recursive: true });
       await copyFile(new URL("../" + relative, import.meta.url), destination);
@@ -148,7 +148,7 @@ for (const failure of ["download-error", "stale-success", "missing-current"]) {
         await mkdir(path.join(root, dir), { recursive: true });
       }
       await writeFile(path.join(root, "package.json"), '{"type":"module"}');
-      for (const relative of ["lib/artifacts-live.js", "contracts/documents.js", "contracts/scorecard-sidecar.js"]) {
+      for (const relative of ["lib/artifacts-live.js", "contracts/documents.js", "contracts/scorecard-sidecar.js", "contracts/artifact-scope.js"]) {
         await copyFile(new URL("../" + relative, import.meta.url), path.join(root, "web", relative));
       }
       const have = {
