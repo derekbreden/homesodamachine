@@ -832,14 +832,8 @@ def cut(shell,box,directory):
     """Write the structural fine model and its separate fluted print surface."""
     from pathlib import Path
     import _rust_part
-    import trimesh
     from _enclosure_presentation import print_payload
     said = _rust_part.cut('enclosure-shell','enclosure-back-top',print_numbers(shell,box),directory)
     step = Path(directory)/'enclosure-back-top.step'
-    printed = trimesh.load_mesh(step.with_suffix('.stl'))
-    loose = shell._flute_skin.non_manifold_edges(printed)
-    if loose or not printed.is_watertight:
-        raise ValueError(f'{step.with_suffix(".stl").name}: {loose} non-manifold edges, '
-                          f'watertight={printed.is_watertight}')
-    print_payload(step,printed)
+    print_payload(step, check_print=True)
     return said
