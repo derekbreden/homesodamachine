@@ -19,7 +19,7 @@ approach. ASSE and meter approach from the fore/open side at 50° to their
 installation axes. PISCO uses 75° fore channels. The regulator has one
 reachable 75° channel on its fore flank. The pump approaches from aft at 65°;
 its channel continues through the complete rear receiver stock. A three-mm-high
-45° bevel on the ASSE receiver's lower east fore corner admits the neighboring
+planar bevel on the ASSE receiver's lower east fore corner admits the neighboring
 PISCO cap during service while keeping 3 mm of stock against the neck. All
 upper end stops and fitted bearing profiles retain their planes.
 
