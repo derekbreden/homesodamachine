@@ -3188,6 +3188,7 @@
       "hardware/assembly/scenes/glb/pump-mount.glb",
       "hardware/manifold-layout/drain-clearance-check.json",
       "hardware/manifold-layout/enclosure-assembly.facts.json",
+      "hardware/manifold-layout/enclosure-assembly.physical.step.mesh",
       "hardware/manifold-layout/enclosure-assembly.scene.npz",
       "hardware/manifold-layout/enclosure-assembly.scorecard.json",
       "hardware/manifold-layout/enclosure-assembly.step",
