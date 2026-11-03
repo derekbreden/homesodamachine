@@ -42,7 +42,7 @@ struct Vertex { p: V3, start: usize, count: usize, q: Quadric, border: bool }
 #[derive(Clone)]
 struct Triangle { v: [usize;3], err: [f64;4], deleted: bool, dirty: bool, n: V3 }
 #[derive(Clone,Copy,Default)]
-struct Reference { triangle: usize, corner: usize }
+struct Reference { triangle: u32, corner: u32 }
 struct State { vertices: Vec<Vertex>, triangles: Vec<Triangle>, refs: Vec<Reference> }
 
 impl State {
@@ -87,42 +87,44 @@ impl State {
         self.refs.resize(self.triangles.len()*3,Reference::default());
         for (i,t) in self.triangles.iter().enumerate() {
             for j in 0..3 {let v=&mut self.vertices[t.v[j]];
-                self.refs[v.start+v.count]=Reference{triangle:i,corner:j};v.count+=1;}
+                self.refs[v.start+v.count]=Reference{triangle:i as u32,corner:j as u32};v.count+=1;}
         }
         if iteration==0 {
+            let mut counts=Vec::<(usize,usize)>::new();
             for i in 0..self.vertices.len() {
-                let v=&self.vertices[i];let mut counts=Vec::<(usize,usize)>::new();
+                let v=&self.vertices[i];counts.clear();
                 for r in &self.refs[v.start..v.start+v.count] {
-                    for id in self.triangles[r.triangle].v {
+                    for id in self.triangles[r.triangle as usize].v {
                         if let Some(row)=counts.iter_mut().find(|row| row.0==id) {row.1+=1;}
                         else {counts.push((id,1));}
                     }
                 }
-                for (id,count) in counts {if count==1 {self.vertices[id].border=true;}}
+                for &(id,count) in &counts {if count==1 {self.vertices[id].border=true;}}
             }
         }
     }
-    fn flipped(&self, p: V3, vertex: usize, other: usize) -> Option<Vec<bool>> {
-        let v=&self.vertices[vertex];let mut deleted=vec![false;v.count];
+    fn flipped(&self, p: V3, vertex: usize, other: usize,deleted:&mut Vec<bool>) -> bool {
+        let v=&self.vertices[vertex];deleted.clear();deleted.resize(v.count,false);
         for k in 0..v.count {
-            let r=self.refs[v.start+k];let t=&self.triangles[r.triangle];
+            let r=self.refs[v.start+k];let t=&self.triangles[r.triangle as usize];
             if t.deleted {continue;}
-            let (a,b)=(t.v[(r.corner+1)%3],t.v[(r.corner+2)%3]);
+            let (a,b)=(t.v[((r.corner+1)%3)as usize],t.v[((r.corner+2)%3)as usize]);
             if a==other || b==other {deleted[k]=true;continue;}
             let d1=(self.vertices[a].p-p).unit();let d2=(self.vertices[b].p-p).unit();
-            if d1.dot(d2).abs()>0.999 {return None;}
-            if d1.cross(d2).unit().dot(t.n)<0.2 {return None;}
+            if d1.dot(d2).abs()>0.999 {return false;}
+            if d1.cross(d2).unit().dot(t.n)<0.2 {return false;}
         }
-        Some(deleted)
+        true
     }
     fn replace(&mut self, keep: usize, vertex: usize, deleted: &[bool], count: &mut usize) {
         let (start,n)=(self.vertices[vertex].start,self.vertices[vertex].count);
         for k in 0..n {
             let r=self.refs[start+k];
-            if self.triangles[r.triangle].deleted {continue;}
-            if deleted[k] {self.triangles[r.triangle].deleted=true;*count+=1;continue;}
-            self.triangles[r.triangle].v[r.corner]=keep;
-            self.triangles[r.triangle].dirty=true;self.errors(r.triangle);self.refs.push(r);
+            let triangle=r.triangle as usize;
+            if self.triangles[triangle].deleted {continue;}
+            if deleted[k] {self.triangles[triangle].deleted=true;*count+=1;continue;}
+            self.triangles[triangle].v[r.corner as usize]=keep;
+            self.triangles[triangle].dirty=true;self.errors(triangle);self.refs.push(r);
         }
     }
 }
@@ -134,7 +136,7 @@ pub fn simplify(points: &[V3], faces: &[[u32;3]], reduction: f64, aggression: f6
         vertices:points.iter().map(|&p| Vertex{p:v3(p.x as f32 as f64,p.y as f32 as f64,p.z as f32 as f64),start:0,count:0,q:Quadric::default(),border:false}).collect(),
         triangles:faces.iter().map(|&v| Triangle{v:v.map(|i| i as usize),err:[0.;4],deleted:false,dirty:false,n:V3::ZERO}).collect(),refs:Vec::new()};
     let original=faces.len();let target=((1.-reduction)*original as f64) as usize;
-    let mut removed=0;let mut collapses=Vec::new();
+    let mut removed=0;let mut collapses=Vec::new();let mut deleted0=Vec::new();let mut deleted1=Vec::new();
     for iteration in 0..100 {
         if original-removed<=target {break;}
         if iteration%5==0 {s.update(iteration);}
@@ -147,8 +149,8 @@ pub fn simplify(points: &[V3], faces: &[[u32;3]], reduction: f64, aggression: f6
                 let (a,b)=(s.triangles[i].v[j],s.triangles[i].v[(j+1)%3]);
                 if s.vertices[a].border!=s.vertices[b].border {continue;}
                 let (_,p)=s.error(a,b);
-                let Some(deleted0)=s.flipped(p,a,b) else {continue;};
-                let Some(deleted1)=s.flipped(p,b,a) else {continue;};
+                if !s.flipped(p,a,b,&mut deleted0) {continue;}
+                if !s.flipped(p,b,a,&mut deleted1) {continue;}
                 s.vertices[a].p=p;s.vertices[a].q=s.vertices[b].q.add(s.vertices[a].q);
                 let start=s.refs.len();let old_start=s.vertices[a].start;let old_count=s.vertices[a].count;
                 s.replace(a,a,&deleted0,&mut removed);s.replace(a,b,&deleted1,&mut removed);
