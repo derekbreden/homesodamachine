@@ -1,12 +1,6 @@
-"""Observation, move-receipt logging and local response learning for the gun positioner.
+"""Camera frames and image features for the PGFUN gun positioner's host.
 
-Every module here records or analyses; none of them can command laser emission.
-Axis names, count units, bounds and the correction solver come from the
-controls package in `firmware/src_gun_positioner/host/` (see `controls.py`).
-Motion is reachable only through a `moves.PositionerBackend` that the caller
-selects explicitly: the simulator, the record-only backend, or the thin
-adapter over the controls `Client`.
+`helper_stream` runs the AVFoundation capture helper and reads its stream,
+`imageio` decodes the frames and `features` finds the aiming dot, wire tip and
+seam in them. None of these modules can command motion or laser emission.
 """
-
-SCHEMA_VERSION = "gpobs/1"
-TOOL_VERSION = "1.0"
