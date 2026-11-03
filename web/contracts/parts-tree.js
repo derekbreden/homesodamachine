@@ -159,7 +159,6 @@ export const TOOLING = [
   "printed-parts/cold-core/magnetic-float",
   "assembly/scenes/glb",
   "printed-parts/fixtures",
-  "gun-positioner/mounting",
   "printed-parts/shop-storage",
   "printed-parts/calibration",
   "printed-parts/cold-core/coil-mandrel",

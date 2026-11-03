@@ -5,10 +5,9 @@ import unittest
 
 import numpy as np
 
-import support  # noqa: F401
+from support import render_scene
 
 from gpobs import features, imageio
-from gpobs.simulation import render_scene
 
 try:
     from PIL import Image
