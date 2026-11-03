@@ -1,0 +1,14 @@
+[
+  "/Applications/BambuStudio.app/Contents/MacOS/BambuStudio",
+  "--slice",
+  "0",
+  "--arrange",
+  "0",
+  "--orient",
+  "0",
+  "--outputdir",
+  "/Users/derekbredensteiner/Developer/homesodamachine/.cache/pointed-snap-set/worktree/hardware/print-tests/pointed-snaps/prints/2026-11-02-pointed-pumps-meter-mark2-mark2-fc2a806a/native",
+  "--export-3mf",
+  "2026-11-02-pointed-pumps-meter-mark2-mark2-fc2a806a.gcode.3mf",
+  "/Users/derekbredensteiner/Developer/homesodamachine/.cache/pointed-snap-set/worktree/hardware/print-tests/pointed-snaps/prints/2026-11-02-pointed-pumps-meter-mark2-mark2-fc2a806a/2026-11-02-pointed-pumps-meter-mark2-mark2-fc2a806a.3mf"
+]

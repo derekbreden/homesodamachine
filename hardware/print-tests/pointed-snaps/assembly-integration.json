@@ -1,0 +1,59 @@
+{
+  "box_sha256": "2e8c85ca8a9f91464553f8bf99fc7059423f11c586b2db191e160523fadaa163",
+  "hosts": {
+    "hardware/manifold-layout/enclosure-assembly.step": {
+      "replaced": [
+        "enclosure-back-top",
+        "enclosure-front-top",
+        "enclosure-pump-retainer",
+        "asse-snap-cap",
+        "pisco-snap-cap",
+        "meter-snap-cap",
+        "regulator-snap-cap",
+        "cold-core/foam-cap-lid-top",
+        "cold-core/pump-snap-cap"
+      ],
+      "unrelated_fine_bodies_preserved": 429,
+      "unrelated_viewer_bodies_preserved": 548,
+      "step_sha256": "dc86b74ab985b5ca6be271238b9e9cb56a2e556367cf090afd8b26b818a3b717",
+      "payload_sha256": "f2284aab194f8f242ad57c07cccc55139965eb53393b816cf48e09ab436be937"
+    },
+    "hardware/printed-parts/enclosure/enclosure/enclosure.step": {
+      "replaced": [
+        "enclosure-back-top",
+        "enclosure-front-top",
+        "enclosure-pump-retainer"
+      ],
+      "unrelated_fine_bodies_preserved": 22,
+      "unrelated_viewer_bodies_preserved": 22,
+      "step_sha256": "cfb2bf79454b9193ff58f62af4942b77cb46a62a0b543866cdb0e69d25b209c9",
+      "payload_sha256": "3d068ee6a1ebb226a64a48968fbedb7c0110ac47a882e1798a9454558b3cb424"
+    },
+    "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step": {
+      "replaced": [
+        "foam-cap-lid-top"
+      ],
+      "unrelated_fine_bodies_preserved": 2,
+      "unrelated_viewer_bodies_preserved": 2,
+      "step_sha256": "2951b9e7ed63b00fe20e1b759bba5fbbc39866d7c86489d7c8c49e7025a9ebfb",
+      "payload_sha256": "2802882af8501e81fdb727ca6ae70e31df1e0b951e7122d5d1cd5f70366d3b3a"
+    }
+  },
+  "physical_scene": {
+    "path": "hardware/manifold-layout/enclosure-assembly.scene.npz",
+    "sha256": "ea1a38585c2627eeceebff465009cccb60c5f324b92f28034ec4a80ca51a0dda",
+    "replaced": [
+      "enclosure-back-top",
+      "enclosure-front-top",
+      "enclosure-pump-retainer",
+      "asse-snap-cap",
+      "pisco-snap-cap",
+      "meter-snap-cap",
+      "regulator-snap-cap",
+      "cold-core/foam-cap-lid-top",
+      "pump-snap-cap"
+    ],
+    "unrelated_bodies_preserved": 432,
+    "scalar_checks": "Retained source stamps and scalar check document; geometry is current, scalar checks are not recomputed."
+  }
+}

@@ -1,0 +1,80 @@
+{
+  "scope": "Completed production geometry, exact mesh intersections; physical seating and release remain checks of the finished printed parts.",
+  "box_sha256": "2e8c85ca8a9f91464553f8bf99fc7059423f11c586b2db191e160523fadaa163",
+  "asse_adapter_chosen_clock_overlap_mm3": {
+    "chosen_clock": {
+      "cap": 0.0,
+      "receiver": 0.0
+    }
+  },
+  "asse_adapter_independent_Y_pull_overlap_mm3": {
+    "-0.15": {
+      "cap": 0.0,
+      "receiver": 0.0
+    },
+    "-0.25": {
+      "cap": 0.0,
+      "receiver": 0.0
+    },
+    "-0.5": {
+      "cap": 3.2389313586886406,
+      "receiver": 0.0
+    },
+    "0.15": {
+      "cap": 0.0,
+      "receiver": 0.0
+    },
+    "0.25": {
+      "cap": 3.1942351951761423,
+      "receiver": 0.0
+    },
+    "0.5": {
+      "cap": 16.74109471223762,
+      "receiver": 2.8148330174834792
+    }
+  },
+  "asse_hex_flat_normal_directions_preserved": true,
+  "asse_upper_hex_planes_preserved": true,
+  "asse_reference_radius_profile_and_neck_bearings_preserved": true,
+  "asse_lower_hex_plane_vertical_allowance_mm": 0.25,
+  "asse_cap_material_difference_from_pointed_six_flat_pocket_mm3": {
+    "added": 1.2720250944171747e-05,
+    "removed": 71.69242832702693
+  },
+  "cartridge": {
+    "seated_overlap_mm3": 0.0,
+    "pull_0_5_mm_overlap_mm3": 32.38689209066975,
+    "hardware_overlap_mm3": {
+      "pump-a-head": {
+        "retainer": 0.0,
+        "receiver": 0.0
+      },
+      "pump-b-head": {
+        "retainer": 0.0,
+        "receiver": 0.0
+      },
+      "pump-a-boss": {
+        "retainer": 0.0,
+        "receiver": 0.0
+      },
+      "pump-b-boss": {
+        "retainer": 0.0,
+        "receiver": 0.0
+      },
+      "pump-a-motor": {
+        "retainer": 0.0,
+        "receiver": 0.0
+      },
+      "pump-b-motor": {
+        "retainer": 0.0,
+        "receiver": 0.0
+      }
+    }
+  },
+  "sources": {
+    "hardware/manifold-layout/enclosure-assembly.step.npz": "ce3e460029e0c7ec24a020c6708279ffa490b85607bcb615cd9d0b954ea33caa",
+    "hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.stl": "22162d65e6dd02f770362f17e81c5b4d6f8c5f6af9243df184ce91ac4731df36",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.npz": "8c7732f30044d72af67ffcb22ff0ee8844858e00c2b8c5a8c587663e4b5d2235",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer-seated.step.npz": "6cc663b264eb431de3f324e370fa7d99bb87e3b50ade8ff8321dcfd14e90cceb"
+  }
+}
