@@ -11,7 +11,10 @@
       "filament_g": 166.09,
       "minimum_bed_margin_mm": 73.28951,
       "native_review_pass": true,
-      "submitted": false
+      "submitted": true,
+      "job_id": "1402389255",
+      "launch_receipt": "Mark1-launch.json",
+      "accepted_at": "2026-11-03T05:37:35.458659+00:00"
     },
     {
       "plate": "pointed-pumps-meter-mark2",
