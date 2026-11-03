@@ -35,8 +35,10 @@
     "hardware/cut-parts/carbonation/carbonator-tube/carbonator-tube.step": "360d0b80c538b44809405087d75429f55f368fe283f2ea515392232985f271f5",
     "hardware/cut-parts/carbonation/carbonator-tube/carbonator-tube.step.mesh": "a1357c56534ef2428014d0de8922fb29b7e46edc5f5bcf47ae271bb3c846271b",
     "hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole.step": "a6d5e99fa50d2809649267c9240a6d168979daa98e0631b80c61af951a237228",
+    "hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole.step.json": "861f12c619cfa1d6e91386bb44625add75f9a23902b5886e2b40481395189dec",
     "hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole.step.mesh": "a2f7acdf37114c54c2622ee070b7f73f2ff73c2197a3bdd8fdb09979d87ccb83",
     "hardware/cut-parts/faucet/under-counter-plate/under-counter-plate.dxf": "bea8748387226744a3d4d99e6ad979e9c4546b03000a7ac25ff5096cc7cfcace",
+    "hardware/cut-parts/faucet/under-counter-plate/under-counter-plate.dxf.json": "d0104c2e8a994dc859257b9361c9f0a12ed026b5339c1c3f54165c65cd039675",
     "hardware/faucet-layout/faucet-assembly.step": "d8e0949fa63b8f80adeaf9b5820409fc6c149696822f0693198e32340e0dbba5",
     "hardware/faucet-layout/faucet-assembly.step.mesh": "698574bab1aaf1093af50cb8963c3e46f3445fc567efa02bf6ebf2bec18d504d",
     "hardware/faucet-layout/faucet-industrial-assembly.step": "1ff94247d873faa25b943b9c6ba08366f9d1c9389909e2e00b0110210719ca48",
@@ -87,24 +89,24 @@
     "hardware/install-guide/art/the-back-face.png": "b07d97eca91839d2968064bf647b452e15425d046cfc7873bbeffcadac42c98e",
     "hardware/install-guide/art/the-socket.png": "c4dd54c6397eb2e00dc9a395b8337dfa06d73fb4e0714140a42d0ce8db52228f",
     "hardware/install-guide/art/two-tees.png": "2b7cdd8b41c8b2fbe1a03cd8db3b66a616f939c959e6d0a4ce486c9264d92e67",
-    "hardware/install-guide/plumbing/art/plumbing-pre-tee.png": "6bf3d3acba3a5e1f325d7a31889cad48d30815cab8aa47ab3c746c78a5fef892",
-    "hardware/install-guide/plumbing/art/plumbing-tee-installed.png": "2ba6959d7007f7641c068a98eeec54ebf5769c7efa6bf425ab2a124d88b54d99",
-    "hardware/install-guide/plumbing/art/plumbing-valve-off.png": "65e2347f6c3f8efba27d927a8376bdb89aac026bfda6c2783a4a59dc98256358",
-    "hardware/install-guide/plumbing/art/plumbing-valve-on.png": "968ab47312157066e7da0e81b781597d7aad7cccb05586f1d701bb556baabffd",
-    "hardware/install-guide/plumbing/modern/art/modern-release-pressed.png": "611fa81e0d5c6e35d850f75093f7b45a83345427f874d700689f7e37587317c1",
-    "hardware/install-guide/plumbing/modern/art/modern-release-ready.png": "b10c9805851ed366e18e0633fa9d16420b5726779bcfc3f759118d5b034ff717",
-    "hardware/install-guide/plumbing/modern/art/modern-release-withdrawn.png": "cd6d2ab991221b60d94c22ecd532d02deb4b9704bc09308e74c286086a9b4f70",
-    "hardware/install-guide/plumbing/modern/art/modern-tee-assembly-ready.png": "687221ac9b81547d5f8b06fc540a17bcf78c967259354595901071e45f926ab7",
-    "hardware/install-guide/plumbing/modern/art/modern-tee-complete.png": "baf5d925b7701b2a4f4420524a3f4b55a158af782751ab3e56bec121bf463e9b",
-    "hardware/install-guide/plumbing/modern/art/modern-tee-line-ready.png": "24404b92a45cce50ae47500edaba7276a043caa619df6b28f047c40c79236813",
+    "hardware/install-guide/plumbing/art/plumbing-pre-tee.png": "538952e317a04a95e2f60b23991ea7a801c71de9a97ab92ac0583af9cc44ab4d",
+    "hardware/install-guide/plumbing/art/plumbing-tee-installed.png": "92c337c9cde38b2846e9e6c0736a378f42dfc7d0d4abc294cc5dc348bf1a7c74",
+    "hardware/install-guide/plumbing/art/plumbing-valve-off.png": "abb4698e32790a6f392a1e6e931b791152cd4c6ed4b1717a344af0b928c41a33",
+    "hardware/install-guide/plumbing/art/plumbing-valve-on.png": "a96199ae4f5ab7ce00382b85de19d344a745ee412da534bf5f2e9b1b737a50c0",
+    "hardware/install-guide/plumbing/modern/art/modern-release-pressed.png": "971d1f74bffddb4c67f5bf5ca4d1d3757d691b0cd60a47c6e195c929e8b145f3",
+    "hardware/install-guide/plumbing/modern/art/modern-release-ready.png": "78e7dde40d71da0099334a22b22b43b003936d52077ec7befe0f251eeed0777d",
+    "hardware/install-guide/plumbing/modern/art/modern-release-withdrawn.png": "79c3ed99872b5a8efea4831230c7dbae35a4c6df9b6c7826321cef704ce56a59",
+    "hardware/install-guide/plumbing/modern/art/modern-tee-assembly-ready.png": "b00dffd4c65980470b3e9750eddd4997abb1a64e4ee44375d614288e7b285460",
+    "hardware/install-guide/plumbing/modern/art/modern-tee-complete.png": "b001afde917e5155b4c5437dbd2e824577d2bd88c6579d70ef1823e380b1095f",
+    "hardware/install-guide/plumbing/modern/art/modern-tee-line-ready.png": "c8bed62f1dc30ddb0c2a310b333c1d7c9a02c11268ddc7779406a08728160537",
     "hardware/install-guide/plumbing/modern/art/modern-tee-tug-check.png": "8f062e9ef1cee06b9cb01395c324d0e82806504b257a2049057ac6a7098d120f",
-    "hardware/install-guide/plumbing/modern/art/modern-water-off.png": "16c6e6c4fd57bb273e7082038b2e0324b14053f52fc23e23c82eea85f7541520",
-    "hardware/install-guide/plumbing/modern/art/modern-water-on.png": "c63b8e57310a468beaee36c1d6e652a372e51106885c556e7b32a259227c9635",
+    "hardware/install-guide/plumbing/modern/art/modern-water-off.png": "b54a47569975e62f68e8fe06f465806f4cf72b09bd4b26db3396b97b2ce8677e",
+    "hardware/install-guide/plumbing/modern/art/modern-water-on.png": "4c06ffc657616115ae959cda503589841695b23c70b21bd12b2f8dfa8163f43a",
     "hardware/manifold-layout/enclosure-assembly.facts.json": "c6f724d51567da9ed50cfd5e24a5f32b472cfd9ceacc67e98617594b8a57eed0",
     "hardware/manifold-layout/enclosure-assembly.physical.step.mesh": "3a028e0d2298f81e322b7296e4ab32f3b9c58e781e7ec353fe164279f281a7b7",
     "hardware/manifold-layout/enclosure-assembly.scorecard.json": "45e0840209f2fae7e258a8785da664d7e50b463b49676b1b1e0c8b816ccc8e1f",
     "hardware/manifold-layout/enclosure-assembly.step": "798c4aa71a6692b4931099a48536532b3d9dffc105e3f20ff00b68f2c46ead98",
-    "hardware/manifold-layout/enclosure-assembly.step.mesh": "ddcc8d86f5f86ed526dcb0497b0a564c6316908c4ec5cf7bddc3098968096a83",
+    "hardware/manifold-layout/enclosure-assembly.step.mesh": "167c3d07ca7eda0899c7d81910217e49155fe2a23aac58c5e753949c3c3e39ee",
     "hardware/manifold-layout/manifold-layout.step": "3ea21817637dbce955b735c54c28f2ebe5c97b042ab92c706eb698d1fbb37197",
     "hardware/manifold-layout/manifold-layout.step.mesh": "49415434a4bf80dd9930e8effb85bd9069aa74f6df5d855ed30a7592485bac7a",
     "hardware/manifold-layout/studies/ceiling-fit/parts/back-wall.step": "8569f20e91df06d2e3e7e8e3175c1c5fdef3d803d3aee809fd2182a4d9517fcd",
@@ -211,9 +213,11 @@
     "hardware/printed-parts/asse-drain-adapter/asse-drain-adapter.step.mesh": "0176e2a0de1ca681ff070194086880c7c1a96002b9063f9c30a96321a6c38f9c",
     "hardware/printed-parts/asse-drain-adapter/asse-drain-adapter.stl": "ee0584ceb98ba367aaf8ea1508a060946f8e357a0f8e77cc33de567066437d2e",
     "hardware/printed-parts/asse-straight-cuffs/asse-inlet-cuff.step": "497993beffe16a8a44dc16b30c90a398421f1feda23259d071cad705e8a68c10",
+    "hardware/printed-parts/asse-straight-cuffs/asse-inlet-cuff.step.json": "da4317af62970098f06ba9653b97fde9523bbfc014cc12ad2a2e772d1fffad41",
     "hardware/printed-parts/asse-straight-cuffs/asse-inlet-cuff.step.mesh": "83d7b63d79f86a4a226b376256b5f6a6ea2bdcb4b7b4049b8e05f539c9a403af",
     "hardware/printed-parts/asse-straight-cuffs/asse-inlet-cuff.stl": "05476e57b5513d349b5e799a7a4576de2a689cb934c2b48d0903b63337a64173",
     "hardware/printed-parts/asse-straight-cuffs/asse-outlet-cuff.step": "c8ff212d3388a9239bf1b4a8041e1618953a28d287dfc228ea61b556848a9160",
+    "hardware/printed-parts/asse-straight-cuffs/asse-outlet-cuff.step.json": "da4317af62970098f06ba9653b97fde9523bbfc014cc12ad2a2e772d1fffad41",
     "hardware/printed-parts/asse-straight-cuffs/asse-outlet-cuff.step.mesh": "da200fff5048eafbb573f3169bcab91af37e5dc93dde50aa36f300a88335bf5b",
     "hardware/printed-parts/asse-straight-cuffs/asse-outlet-cuff.stl": "8412a13f173f666288fc00a34d4272afa076e35dffc6bc95bf91d0d61e2a809b",
     "hardware/printed-parts/calibration/dual-nozzle-registration/dual-nozzle-registration.step": "70ea1bb64fffc023ca458f8a2089de35c63a596b0d298f8c3768a45000e249d9",
@@ -227,6 +231,7 @@
     "hardware/printed-parts/calibration/soda-studies/arch-moving.stl": "bb582809044923522c5f93904d368c3b2af25eb813f209f683de43b787c6280c",
     "hardware/printed-parts/calibration/soda-studies/the-pour.step": "345dd05143e2e03c286a704df56b9b86712d30799636d0894b6623d3ee724093",
     "hardware/printed-parts/calibration/soda-studies/the-pour.step.mesh": "b6ecee2c0d5dfccb655bb99d073975b82920f13443b9e376f1037e5a44c30ab3",
+    "hardware/printed-parts/calibration/soda-studies/the-pour.step.png": "b68fa8a321f26b798bae5478713403399b0501db0e50c2eec896c65e84780816",
     "hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.step": "9e1980c423caf8bde5e4f74e7ef2af1d4c8849decdbc0ff104640b3024937230",
     "hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.step.mesh": "bf220ed7b1a38c07af869b1710b996409fe80f013de4bce4dd0fd9997b3d5fc6",
     "hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.stl": "07242bb34a17b7db7fabfad0054608a96e6d86167b531092d789f9d35ac49d00",
@@ -257,6 +262,7 @@
     "hardware/printed-parts/cold-core/foam-cap/reservoir-b-fill-guide.step.mesh": "6ec51669fc24c60bc659cc6e1331af4b1b8596b6eb391e7f30401fe45aac529c",
     "hardware/printed-parts/cold-core/foam-cap/reservoir-b-fill-guide.stl": "3f1fb479bf4599050149102ac96e540a2d1ca1892a99460c8f63ab4cb62c4987",
     "hardware/printed-parts/cold-core/foam-shell/foam-shell.step": "a716b44ef657e0355fbceae6c2dcba6a4de45feefad6417245149f26abef5ad7",
+    "hardware/printed-parts/cold-core/foam-shell/foam-shell.step.json": "4a3ba3a34ff8c70237f0bd33ae052c565b5030824476c43cc6a4b2e8075744f4",
     "hardware/printed-parts/cold-core/foam-shell/foam-shell.step.mesh": "aba1c73a68e68716456405b5626ac67611ca78ba703c6bba5a2db152eb7a4827",
     "hardware/printed-parts/cold-core/foam-shell/foam-shell.stl": "132c06ecc887624ae36c98c168f97efaa533deb278a4b93a3d2f725455d93164",
     "hardware/printed-parts/cold-core/magnetic-float/all-aero/assembly.step": "a79901bdb093a8b59feb85690c7a3f79c58cf592f250e0b2b8310aeb01ef8fe8",
@@ -320,6 +326,7 @@
     "hardware/printed-parts/cold-core/reservoir/reservoir-tube-grip.step": "638d0b193d3b76041e6eb1b790efd32d81cb5ae9ce46f920e469db1a678a4d83",
     "hardware/printed-parts/cold-core/reservoir/reservoir-tube-grip.step.mesh": "4785d06f73eaefb79fbf74a32411f7d965b007fdee2f603a84230c1ae1959004",
     "hardware/printed-parts/cold-core/reservoir/reservoir-tube-grip.stl": "0b7af9247334655bb4129277ad30d1b92f6e9f029f69dcb98700615befcb0cfb",
+    "hardware/printed-parts/cold-core/reservoir/reservoir.3mf": "82fd2e65ff3a6e427f1522dbbe5c295303a5d70f153ddcd08e0be480342c7541",
     "hardware/printed-parts/collet-press/collet-press.step": "d8dff38e519a01885464430d031d5b0df35f3c368adde3e4b13464aa0b9da52b",
     "hardware/printed-parts/collet-press/collet-press.step.mesh": "022763847c71afe7c3439b783e00de4c6ad9df9fdf2c04b6424721c0239af30f",
     "hardware/printed-parts/collet-press/collet-press.stl": "c7844502e96123f02d6653b0a793f2dcd74964f7022f125d3b3929ebbd0c9141",
@@ -418,7 +425,7 @@
     "hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step.mesh": "b5e1a699714d5f7aea0959e829caad44fd9be89413e7dfe06cc99cb0ddd76156",
     "hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.stl": "cfedb813ad4f4e8f609ae3ec724a5d4de918c175fbfcafc1a44b3a69d4a62e3e",
     "hardware/printed-parts/enclosure/enclosure/enclosure.step": "3a57a5d1de879f762227ff24aca0f42315e636c4e7daa1f8166625e9f6f25a0a",
-    "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh": "7cc7b6e6d16f32aeb5577cd2169e3f4f177a5a3b9a5092e74f9898d136c00f98",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh": "ce05148d32a7bac4677a3da64bd7192ae7632ec4518d09cf938d1b47d5a36271",
     "hardware/printed-parts/enclosure/enclosure/magnet-retention/section.step": "2efdc50cbb438c930dd2ded0c90d45b1f64dac06c187b08181357866e4620e4c",
     "hardware/printed-parts/enclosure/enclosure/magnet-retention/section.step.mesh": "d4a852d3ee87e8dbd134c7f859a727d29d5a492f744dc6b5fd4fd1a6834c8103",
     "hardware/printed-parts/enclosure/grip-cover/grip-candidate-back-bottom.step": "ab8b5181f30c8e8fcb2ac29b541075065067cb5eb60636604840c13fd707ed94",
@@ -429,6 +436,7 @@
     "hardware/printed-parts/enclosure/grip-cover/grip-connected-bottoms.step.mesh": "a6418414ecfd1fdc190a9104db865d1da5ce378bc542858493c935ab5f351fd6",
     "hardware/printed-parts/enclosure/grip-cover/grip-cover.step": "418a4ac58a6905d61a812e4a08ec7f4603f8f68e4c394f2c6ff5dc5ad2c98ea1",
     "hardware/printed-parts/enclosure/grip-cover/grip-cover.step.mesh": "7f9d622d4607f9b93fe0020aa21495c76b81ebd0561ad32bb986e84f9d79b129",
+    "hardware/printed-parts/enclosure/grip-cover/grip-cover.stl": "acbb8f8cd3e50792a258670bf31c7574de6a435fbbce2629ede73c070378dc03",
     "hardware/printed-parts/enclosure/grip-cover/grip-exploded.step": "c571ddf896c26dff4b0388a3407e548c62cb60654ccc2c739f1c04d0e3227b45",
     "hardware/printed-parts/enclosure/grip-cover/grip-exploded.step.mesh": "8422c78714cf284319d9b7cda55145d6b3eddd75447ce23d1db840e387fd2faa",
     "hardware/printed-parts/enclosure/grip-cover/grip-receiver-back.step": "483e67a34b7bbcce372edee44265d1a0efa303613f088fcd1a46158000435fa2",
@@ -514,9 +522,11 @@
     "hardware/printed-parts/enclosure/rear-identification/rear-label-water.step.mesh": "ca0d9fc9f5d916904fd2b03afd05d3567865ff5333c8f5879f92070fe41a65c6",
     "hardware/printed-parts/enclosure/rear-identification/rear-label-water.stl": "ef7df8ac5bfb50d52e3bb27f058b23594fae323b241f16978d0dec8ccb213769",
     "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step": "0d1ac670e6424c768b8d7784188ef1464efa0326a3e9036b9822700fb931ef6c",
+    "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step.json": "d96ac37a5fb1c7713b573f012c75f1a6dcd0e5ae80d8d205016da08f69c4b772",
     "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step.mesh": "c3a50abc68f5218eb5f4b0138a8db2828a94117d6365e1705a6ca30c9cf2f582",
     "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.stl": "f41031f281214c6c535e6c267ef1a6c33b0e5b21997c1d239cddb892c5d6b5ee",
     "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step": "3e026fa634db0962fbfebdc262243c6712d9acfd297c3293549c06c000ffba1a",
+    "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step.json": "9113c67ce12eeaa9619bace4dae70fb3cb76ab3750f3e28a80ec30a3aa130fc7",
     "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step.mesh": "d32ce1afe36b7e4b633c39a07e2d22d123a696fdf1ff1d21426cfbb791f09b88",
     "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.stl": "cf69dac0a0ce01845ce261d050fbbb876be24baec78d3db77f8d97839bc32990",
     "hardware/printed-parts/faucet/asse-vent-seals/asse-vent-downstream-bung.step": "68dd03d8945e9752a5595a67c319a8b7903b07b10485766973d1f64cfc42919c",
@@ -594,7 +604,10 @@
     "hardware/printed-parts/faucet/industrial/production/2026-10-25/industrial-shell-base.stl": "dc855eb7d8eae75886222d8b4aee8b9e02fe1d55ae4740c1ae5b4b64cf6ba742",
     "hardware/printed-parts/faucet/industrial/production/2026-10-25/lever-replica.stl": "7a3f5c7d9034c4cce0e0f39bfac6e868f6bd8d01a05add3d21951981eca296eb",
     "hardware/printed-parts/faucet/industrial/production/2026-10-25/sculpted-display-cover.stl": "3d4d2e05edde5a0e45aad36e9de072a57103c3b0f8da2bbd875cbfbedbe68133",
+    "hardware/printed-parts/faucet/lever-replica/lever-replica-petgf-white.3mf": "17b77ae11542557832a808ea36569099909606ad33a09904d39741eeaa5d9b18",
+    "hardware/printed-parts/faucet/lever-replica/lever-replica-petgf.3mf": "5e672edc6a405c10c1e1b6cfb5a25a272dbc4308ecdf8e874fc31ea800e421df",
     "hardware/printed-parts/faucet/lever-replica/lever-replica-side-down.stl": "19d420b9193d0d691959aadb80095523164afe380189aae1af9eb0c13f8f2d21",
+    "hardware/printed-parts/faucet/lever-replica/lever-replica.frame.json": "46a1b7460149e02f8eeb9700565a0a6ce8efb37315a82d3243b695e2c7835fe6",
     "hardware/printed-parts/faucet/lever-replica/lever-replica.step": "52bfa5a37ed10229e454913f1d935bf3f022bbe0fae9964b1ccaed3a0b773dd9",
     "hardware/printed-parts/faucet/lever-replica/lever-replica.step.mesh": "d3f6dd56fa2bb5d230b1c5207436840126a5b56ddd0146aa45f05010173c20c5",
     "hardware/printed-parts/faucet/lever-replica/lever-replica.stl": "ee18c91f4891228a6a76ae1381414d2fb31e17694e746bb298a5f2c524e512ee",
@@ -619,10 +632,15 @@
     "hardware/printed-parts/faucet/tube-collar/tube-collar-water.step": "78aa9619b0741e8b2e190ae611fe5d6b3233cd3e8e5b869b5147d882fad66b69",
     "hardware/printed-parts/faucet/tube-collar/tube-collar-water.step.mesh": "29d1cab2f8b57edec27cd911d8ab72c9fa76599fefdacbd960dcead00239b4a8",
     "hardware/printed-parts/faucet/tube-collar/tube-collar-water.stl": "82c141b07191c15e78f138d30ba45b42aa55f3769b47f543c3a3d89ad2688d0a",
+    "hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer-petgf.3mf": "32ab20b87103dc1248939cf9598a7fa67bc3e019a7de37dcb9b1c7230dadaf83",
     "hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer.step": "977d3c6199c918813d11497c9d7b88ec0ea84fa9a729e27a2dda1c633ca1ecad",
     "hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer.step.mesh": "8844218239d61d6203c49d00a40003d863111ef3eb3413422096f391e530a59c",
     "hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer.stl": "87641a741b3d2cb750984c325a9175adc10e82833c6fdffcc45ab55302001fc6",
+    "hardware/printed-parts/fixtures/fake-countertop/fake-countertop-petgf-mark2-stock.3mf": "a79edade93aff1e33da7df8ca2e8be1f87487ebc9e70e8f1d25fa96b0ee81e4e",
+    "hardware/printed-parts/fixtures/fake-countertop/fake-countertop-petgf-mark2.3mf": "3e722796709e52a65000f6ae97de2e6fdd7a5f5bfd4c8cc91c172077d3d87bc9",
+    "hardware/printed-parts/fixtures/fake-countertop/fake-countertop-petgf.3mf": "86853b7cd77bb08a637584ee6c4190463a24ad20478aef5206346004f792969f",
     "hardware/printed-parts/fixtures/fake-countertop/fake-countertop.step": "61fe53df73f8ce6f81fc04b9806ec86f286176939d20a811df140bf1b1c03564",
+    "hardware/printed-parts/fixtures/fake-countertop/fake-countertop.step.mesh": "56ff374bf67e335668ac54f226635a8814ee8b34a30c4f300b7c9dc208196fa1",
     "hardware/printed-parts/fixtures/fake-countertop/fake-countertop.stl": "9e51861af0d4d93e33a418f8d6cc24f5e792f963abeb2ca57704c45665ce39d2",
     "hardware/printed-parts/fixtures/faucet-cover-retention/cover-retention-a.step": "36457193f29176850b8de4d2e3148933a8fc333b0d96ea3e8f264dda6570bddd",
     "hardware/printed-parts/fixtures/faucet-cover-retention/cover-retention-a.step.mesh": "4c6fe8101a4dc1ec2f03e0b005369d33f93012f2d71ac24c1d0be7008f89e7c1",
@@ -1308,7 +1326,10 @@
     "hardware/printed-parts/fixtures/tube-insertion/tube-insertion-upper-jaw-print.stl": "8cbfccd482f76a2ad14fd5e7151f565a08ac1cbbcd9f85eb0b81edff19f0e47b",
     "hardware/printed-parts/fixtures/tube-insertion/tube-insertion-upper-jaw.step": "a5a56c8e7a5b6e0236ae8fae9bd97d867593159c28ad66994fedb9d652702afe",
     "hardware/printed-parts/fixtures/tube-insertion/tube-insertion-upper-jaw.step.mesh": "2e3fc8ab1bd538b80669ceb230c52f6693beae9982756211aa4a873df8b94d67",
+    "hardware/printed-parts/fixtures/tube-miter-box/tube-miter-box-petgf-mark2.3mf": "f5d55fcae3f5466488be8fd2b68613a2a2496ba3250eb45bf079139c623c6d76",
+    "hardware/printed-parts/fixtures/tube-miter-box/tube-miter-box-petgf.3mf": "ac42fba7fc890b9b7e6a65a291c04eb53b98d599491f2951be5fd811d4e602bc",
     "hardware/printed-parts/fixtures/tube-miter-box/tube-miter-box.step": "92ce4d3de42c55aa86f63dc1a857592a978233e9cd6f6ebea75330ff83ebd649",
+    "hardware/printed-parts/fixtures/tube-miter-box/tube-miter-box.step.mesh": "71781219cd958ea9c7a02a8da66fb709fa458fc1ed16bdb8c0e4d4f9a02378d4",
     "hardware/printed-parts/fixtures/tube-miter-box/tube-miter-box.stl": "3fe5a1fdf2df47768bcc2d1395ccd3dddb5499e68e304452793c4a429de8515e",
     "hardware/printed-parts/fixtures/valve-socket-fit/tighter-trial-v2/beduan-socket-v68.step": "6ad1aa5994f9747424b5698ab648288d506121ee26c4e44ce2d1acc18761ebde",
     "hardware/printed-parts/fixtures/valve-socket-fit/tighter-trial-v2/beduan-socket-v68.step.mesh": "cbd8317be704af9927852b00585a5a920cae1c4c9620fa539357a7695349cde3",
@@ -1384,6 +1405,7 @@
     "hardware/printed-parts/prototype-gaskets-2026-10-08/sources/reservoir-dry-bulkhead-washer.step": "8ab55eb84e3d261d03a31d636e9c1fc9522825631a2cbb11625b77e6116921a8",
     "hardware/printed-parts/prototype-gaskets-2026-10-08/sources/reservoir-vent-filter-ring.step": "022cb0b12e12e86ec3555b607c4e0f40245ea4938f3b8af4724f308b9407de03",
     "hardware/printed-parts/refrigeration/fuse-clamp/fuse-clamp.step": "80c8efc09a488cf75805ef2ae75e75a895d0d3f822d512e35af042e4dd713540",
+    "hardware/printed-parts/refrigeration/fuse-clamp/fuse-clamp.step.json": "6758f888773c086baa1d8d1806ff15e3d02bff67c6deeff8b4ece2b574bd729e",
     "hardware/printed-parts/refrigeration/fuse-clamp/fuse-clamp.step.mesh": "236841e40cf0d756bcd0d1f2d59bdcfe0ef82221246fbf01d67d6d184273e1be",
     "hardware/printed-parts/refrigeration/fuse-clamp/fuse-clamp.stl": "fb4db7bf16cab5a6206f4d055fc0f1f7f41469559c431096b1dc2a1a9cd55528",
     "hardware/printed-parts/shop-storage/holders/adapter-tub.step": "2093a5b831a2451201b93f65092f9aeac8f41db1fb9f44616036bca94ede96c1",
@@ -1515,8 +1537,10 @@
     "hardware/printed-parts/shop-storage/holders/xh-tub.step.mesh": "85d6cbad494996011399c5c08597f8ace5cae71b96b9665dfcc9d35b1b1c8184",
     "hardware/printed-parts/shop-storage/holders/xh-tub.stl": "08a605215352d0496ff21bf7c8f1459a2eafd28fcccac3a714dee1e6d30bc6bd",
     "hardware/printed-parts/soda-bend-holder/soda-bend-holder.step": "d6cac70239b625a770ea64b987835e18b285f5851cbc494b74bc577f27c49171",
+    "hardware/printed-parts/soda-bend-holder/soda-bend-holder.step.json": "f193a83d4d787eea44142880cc436150ac72eb44152e5ced50be751222f783ee",
     "hardware/printed-parts/soda-bend-holder/soda-bend-holder.step.mesh": "e3d234596091535ecea0e9e64e8e20c357ac900db03e4209d3ddd0ac18904f61",
     "hardware/printed-parts/soda-bend-holder/soda-bend-holder.stl": "37c31f1c8b8efcc812134ac9765e9cfdbe898791565156b37ea2c358b3484766",
+    "hardware/printed-parts/zone-c/funnel-cover/funnel-cover-petg.3mf": "7eba727a069be9cc8880c57ea2fd74bac0ace1cc1514a93080dea0fb9b97973e",
     "hardware/printed-parts/zone-c/funnel-cover/funnel-cover-print.step": "3946ccf74a61a809375ed70d2675e8bce5943d80c0f171bb84d1fb223a38a6e6",
     "hardware/printed-parts/zone-c/funnel-cover/funnel-cover-print.step.mesh": "223025a19339265917b3becd8cb364a9af1e391a389e3017f778207bae0a0efd",
     "hardware/printed-parts/zone-c/funnel-cover/funnel-cover-print.stl": "6dfd3b318040dae6ac3053d06e607f4b2a6d8f8793128de0774e978454d24a09",
@@ -1596,6 +1620,7 @@
     "hardware/reference/g-ganen-pump/g-ganen-pump.step": "ffea366a5eba8773098bc15700056268a4f1b0f577571f4e791555b457e754a4",
     "hardware/reference/g-ganen-pump/g-ganen-pump.step.mesh": "6c7e82cec104661f3eec463f5351bf620caf9b88fe6ec0f409bf96fcdcf4c05e",
     "hardware/reference/g-ganen-pump/integration-envelope/g-ganen-integration-envelope.step": "cb11443dd6bec9e31266432a7ec7f251bc0a83e3367d0a820b1f93af5ab06d2d",
+    "hardware/reference/g-ganen-pump/integration-envelope/g-ganen-integration-envelope.step.mesh": "bb2a70cbb7585ad42fa2266441f3482156622c751b8772cb609988e76bda9461",
     "hardware/reference/gagira-reducing-coupling/gagira-reducing-coupling.step": "a30ce13ed70c41e630b4a6cb5ce402fb846cc55c90b6bf765600fba67fe4a768",
     "hardware/reference/gagira-reducing-coupling/gagira-reducing-coupling.step.mesh": "bdd3cbb79ef3b476f6db550a229403c69f2c2586f0d2a0342e0d85452daff844",
     "hardware/reference/gasher-check-valve/gasher-check-valve.step": "8a5e0c0de6a65319e2f52b0fd9682ecbc9dbac7cb649d18b9472a68660bba1ff",
@@ -1613,6 +1638,7 @@
     "hardware/reference/jg-pp0208e-tee/jg-pp0208e-tee.step.mesh": "cd75b8c89c2071ad917347c119cd43d1631f12af63256cf922587779a2c7b019",
     "hardware/reference/jg-pp0308e-elbow/jg-pp0308e-elbow.step": "805f210ef6a669f08f9bebacdbf3dcec2a0d22691484dc72308425fdaf3d5daa",
     "hardware/reference/jg-pp0308e-elbow/jg-pp0308e-elbow.step.mesh": "5b2242d5aa9eda682cb2e2f480a73dc41c9fcad6c653b20de22afd7c35af1553",
+    "hardware/reference/jg-pp0308e-elbow/jg-pp0308e-elbow.stl": "35e38299310e8e100d629c99ef9b91c549dbf724c96f405151b3f49f9bab5f6e",
     "hardware/reference/jg-pp0408w/jg-pp0408w.step": "987eccd988d461a87babb024bc4cd7e538777467449bfceea7ead8ed5d4dfded",
     "hardware/reference/jg-pp0408w/jg-pp0408w.step.mesh": "c9e764f9809d9305385f97d83e3f4894f83ec97a4f7765eeb073e224508c105a",
     "hardware/reference/jg-pp061208w/jg-pp061208w.step": "5b9d3c1bba5bc098056a0a8395ddb260188dabfcf9152460b5f39855cb8c13af",
@@ -1636,6 +1662,7 @@
     "hardware/reference/multiplex-asse1022/multiplex-asse1022.step": "8d357ab7bf93f99130ea024c00c35e0f4e93e0f4de4613e15215db0c0a02c069",
     "hardware/reference/multiplex-asse1022/multiplex-asse1022.step.mesh": "4c56e8cc49633d784f0488d69ccbd099be427ab48ec0bae29f91c5d277230b48",
     "hardware/reference/neofit-achv44-check/neofit-achv44-check.step": "6cba8b0db77eb05d3488c114d184e9bb8a691db49b681dcacbcfe833f7da2c82",
+    "hardware/reference/neofit-achv44-check/neofit-achv44-check.step.json": "6b1423ec97a2aad92c6720c5e7be8fd3e2f9b7442e4a02868f3fab2c82208813",
     "hardware/reference/neofit-achv44-check/neofit-achv44-check.step.mesh": "d4c3bc20fc3e5094d853e0bd556e75ba60806bda96daf32d524d43a117eb3890",
     "hardware/reference/neofit-bulkhead/neofit-bulkhead.step": "2184e37910d99200d94f279cd777914a5b886843388bba8ebf9f99580cf8bf54",
     "hardware/reference/neofit-bulkhead/neofit-bulkhead.step.mesh": "da43fdc97323cc39846139be89796877ddc7ada47c5bee95de018054917323ae",
@@ -1670,6 +1697,7 @@
     "hardware/reference/shutao-moisture-plate/shutao-moisture-plate.step": "820fa4fdc35bc9d5565d4e913802682cb68eb91a97141f5c694641afca894e49",
     "hardware/reference/shutao-moisture-plate/shutao-moisture-plate.step.mesh": "c822fe541d3c19920db2fd5ccc225e1fe9cc95c29873e543375c059bab6e17d2",
     "hardware/reference/soda-rise-insulation/soda-rise-insulation.step": "5371c375caf99716726530fd96725ae4300e16323176a08e95ba842f06f0433b",
+    "hardware/reference/soda-rise-insulation/soda-rise-insulation.step.json": "389f1168a0be8f6ae41a9837af4a2b5f5ddfab11a3678523e19c2e16bc83693d",
     "hardware/reference/soda-rise-insulation/soda-rise-insulation.step.mesh": "dca1e2ca76f2940117919f4f89393eff483ec5a55d6ac2955c1fa76ca411fa16",
     "hardware/reference/taprite-3741-regulator/taprite-3741-regulator.step": "8e688912ef5c51346e818eb9ce789bc621f4eff47b38757959a86290c1546bd1",
     "hardware/reference/taprite-3741-regulator/taprite-3741-regulator.step.mesh": "a4c8a06daed99833dab1d2f1c15a0085553638740cea5dc8a9f642498b6c2baa",
@@ -1731,36 +1759,40 @@
       "hardware/cut-parts/carbonation/carbonator-tube/carbonator-tube.step": "360d0b80c538b44809405087d75429f55f368fe283f2ea515392232985f271f5",
       "hardware/cut-parts/carbonation/carbonator-tube/carbonator-tube.step.mesh": "a1357c56534ef2428014d0de8922fb29b7e46edc5f5bcf47ae271bb3c846271b",
       "hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole.step": "a6d5e99fa50d2809649267c9240a6d168979daa98e0631b80c61af951a237228",
+      "hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole.step.json": "861f12c619cfa1d6e91386bb44625add75f9a23902b5886e2b40481395189dec",
       "hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole.step.mesh": "a2f7acdf37114c54c2622ee070b7f73f2ff73c2197a3bdd8fdb09979d87ccb83",
       "hardware/cut-parts/faucet/under-counter-plate/under-counter-plate.dxf": "bea8748387226744a3d4d99e6ad979e9c4546b03000a7ac25ff5096cc7cfcace",
+      "hardware/cut-parts/faucet/under-counter-plate/under-counter-plate.dxf.json": "d0104c2e8a994dc859257b9361c9f0a12ed026b5339c1c3f54165c65cd039675",
       "hardware/faucet-layout/faucet-assembly.step": "d8e0949fa63b8f80adeaf9b5820409fc6c149696822f0693198e32340e0dbba5",
       "hardware/faucet-layout/faucet-assembly.step.mesh": "698574bab1aaf1093af50cb8963c3e46f3445fc567efa02bf6ebf2bec18d504d",
       "hardware/faucet-layout/faucet-industrial-assembly.step": "1ff94247d873faa25b943b9c6ba08366f9d1c9389909e2e00b0110210719ca48",
       "hardware/faucet-layout/faucet-industrial-assembly.step.mesh": "65f387170017d61c2e12fa67a7d44f9956d1dfb5527ae0bbca2d5d3c11a65997",
-      "hardware/install-guide/plumbing/art/plumbing-pre-tee.png": "6bf3d3acba3a5e1f325d7a31889cad48d30815cab8aa47ab3c746c78a5fef892",
-      "hardware/install-guide/plumbing/art/plumbing-tee-installed.png": "2ba6959d7007f7641c068a98eeec54ebf5769c7efa6bf425ab2a124d88b54d99",
-      "hardware/install-guide/plumbing/art/plumbing-valve-off.png": "65e2347f6c3f8efba27d927a8376bdb89aac026bfda6c2783a4a59dc98256358",
-      "hardware/install-guide/plumbing/art/plumbing-valve-on.png": "968ab47312157066e7da0e81b781597d7aad7cccb05586f1d701bb556baabffd",
-      "hardware/install-guide/plumbing/modern/art/modern-release-pressed.png": "611fa81e0d5c6e35d850f75093f7b45a83345427f874d700689f7e37587317c1",
-      "hardware/install-guide/plumbing/modern/art/modern-release-ready.png": "b10c9805851ed366e18e0633fa9d16420b5726779bcfc3f759118d5b034ff717",
-      "hardware/install-guide/plumbing/modern/art/modern-release-withdrawn.png": "cd6d2ab991221b60d94c22ecd532d02deb4b9704bc09308e74c286086a9b4f70",
-      "hardware/install-guide/plumbing/modern/art/modern-tee-assembly-ready.png": "687221ac9b81547d5f8b06fc540a17bcf78c967259354595901071e45f926ab7",
-      "hardware/install-guide/plumbing/modern/art/modern-tee-complete.png": "baf5d925b7701b2a4f4420524a3f4b55a158af782751ab3e56bec121bf463e9b",
-      "hardware/install-guide/plumbing/modern/art/modern-tee-line-ready.png": "24404b92a45cce50ae47500edaba7276a043caa619df6b28f047c40c79236813",
+      "hardware/install-guide/plumbing/art/plumbing-pre-tee.png": "538952e317a04a95e2f60b23991ea7a801c71de9a97ab92ac0583af9cc44ab4d",
+      "hardware/install-guide/plumbing/art/plumbing-tee-installed.png": "92c337c9cde38b2846e9e6c0736a378f42dfc7d0d4abc294cc5dc348bf1a7c74",
+      "hardware/install-guide/plumbing/art/plumbing-valve-off.png": "abb4698e32790a6f392a1e6e931b791152cd4c6ed4b1717a344af0b928c41a33",
+      "hardware/install-guide/plumbing/art/plumbing-valve-on.png": "a96199ae4f5ab7ce00382b85de19d344a745ee412da534bf5f2e9b1b737a50c0",
+      "hardware/install-guide/plumbing/modern/art/modern-release-pressed.png": "971d1f74bffddb4c67f5bf5ca4d1d3757d691b0cd60a47c6e195c929e8b145f3",
+      "hardware/install-guide/plumbing/modern/art/modern-release-ready.png": "78e7dde40d71da0099334a22b22b43b003936d52077ec7befe0f251eeed0777d",
+      "hardware/install-guide/plumbing/modern/art/modern-release-withdrawn.png": "79c3ed99872b5a8efea4831230c7dbae35a4c6df9b6c7826321cef704ce56a59",
+      "hardware/install-guide/plumbing/modern/art/modern-tee-assembly-ready.png": "b00dffd4c65980470b3e9750eddd4997abb1a64e4ee44375d614288e7b285460",
+      "hardware/install-guide/plumbing/modern/art/modern-tee-complete.png": "b001afde917e5155b4c5437dbd2e824577d2bd88c6579d70ef1823e380b1095f",
+      "hardware/install-guide/plumbing/modern/art/modern-tee-line-ready.png": "c8bed62f1dc30ddb0c2a310b333c1d7c9a02c11268ddc7779406a08728160537",
       "hardware/install-guide/plumbing/modern/art/modern-tee-tug-check.png": "8f062e9ef1cee06b9cb01395c324d0e82806504b257a2049057ac6a7098d120f",
-      "hardware/install-guide/plumbing/modern/art/modern-water-off.png": "16c6e6c4fd57bb273e7082038b2e0324b14053f52fc23e23c82eea85f7541520",
-      "hardware/install-guide/plumbing/modern/art/modern-water-on.png": "c63b8e57310a468beaee36c1d6e652a372e51106885c556e7b32a259227c9635",
+      "hardware/install-guide/plumbing/modern/art/modern-water-off.png": "b54a47569975e62f68e8fe06f465806f4cf72b09bd4b26db3396b97b2ce8677e",
+      "hardware/install-guide/plumbing/modern/art/modern-water-on.png": "4c06ffc657616115ae959cda503589841695b23c70b21bd12b2f8dfa8163f43a",
       "hardware/manifold-layout/enclosure-assembly.facts.json": "c6f724d51567da9ed50cfd5e24a5f32b472cfd9ceacc67e98617594b8a57eed0",
       "hardware/manifold-layout/enclosure-assembly.scorecard.json": "45e0840209f2fae7e258a8785da664d7e50b463b49676b1b1e0c8b816ccc8e1f",
       "hardware/manifold-layout/enclosure-assembly.step": "798c4aa71a6692b4931099a48536532b3d9dffc105e3f20ff00b68f2c46ead98",
-      "hardware/manifold-layout/enclosure-assembly.step.mesh": "ddcc8d86f5f86ed526dcb0497b0a564c6316908c4ec5cf7bddc3098968096a83",
+      "hardware/manifold-layout/enclosure-assembly.step.mesh": "167c3d07ca7eda0899c7d81910217e49155fe2a23aac58c5e753949c3c3e39ee",
       "hardware/printed-parts/asse-drain-adapter/asse-drain-adapter.step": "4730c636dd33e1431fa4fa3c6df0b4a3a41942efa40f451ce04e4f41e661a92d",
       "hardware/printed-parts/asse-drain-adapter/asse-drain-adapter.step.mesh": "0176e2a0de1ca681ff070194086880c7c1a96002b9063f9c30a96321a6c38f9c",
       "hardware/printed-parts/asse-drain-adapter/asse-drain-adapter.stl": "ee0584ceb98ba367aaf8ea1508a060946f8e357a0f8e77cc33de567066437d2e",
       "hardware/printed-parts/asse-straight-cuffs/asse-inlet-cuff.step": "497993beffe16a8a44dc16b30c90a398421f1feda23259d071cad705e8a68c10",
+      "hardware/printed-parts/asse-straight-cuffs/asse-inlet-cuff.step.json": "da4317af62970098f06ba9653b97fde9523bbfc014cc12ad2a2e772d1fffad41",
       "hardware/printed-parts/asse-straight-cuffs/asse-inlet-cuff.step.mesh": "83d7b63d79f86a4a226b376256b5f6a6ea2bdcb4b7b4049b8e05f539c9a403af",
       "hardware/printed-parts/asse-straight-cuffs/asse-inlet-cuff.stl": "05476e57b5513d349b5e799a7a4576de2a689cb934c2b48d0903b63337a64173",
       "hardware/printed-parts/asse-straight-cuffs/asse-outlet-cuff.step": "c8ff212d3388a9239bf1b4a8041e1618953a28d287dfc228ea61b556848a9160",
+      "hardware/printed-parts/asse-straight-cuffs/asse-outlet-cuff.step.json": "da4317af62970098f06ba9653b97fde9523bbfc014cc12ad2a2e772d1fffad41",
       "hardware/printed-parts/asse-straight-cuffs/asse-outlet-cuff.step.mesh": "da200fff5048eafbb573f3169bcab91af37e5dc93dde50aa36f300a88335bf5b",
       "hardware/printed-parts/asse-straight-cuffs/asse-outlet-cuff.stl": "8412a13f173f666288fc00a34d4272afa076e35dffc6bc95bf91d0d61e2a809b",
       "hardware/printed-parts/calibration/soda-studies/arch-body.step": "cc1bbf56b0f803afc2246294b8a6be46c2a909a283b089f0e45fde9f3ba3fa6f",
@@ -1771,6 +1803,7 @@
       "hardware/printed-parts/calibration/soda-studies/arch-moving.stl": "bb582809044923522c5f93904d368c3b2af25eb813f209f683de43b787c6280c",
       "hardware/printed-parts/calibration/soda-studies/the-pour.step": "345dd05143e2e03c286a704df56b9b86712d30799636d0894b6623d3ee724093",
       "hardware/printed-parts/calibration/soda-studies/the-pour.step.mesh": "b6ecee2c0d5dfccb655bb99d073975b82920f13443b9e376f1037e5a44c30ab3",
+      "hardware/printed-parts/calibration/soda-studies/the-pour.step.png": "b68fa8a321f26b798bae5478713403399b0501db0e50c2eec896c65e84780816",
       "hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.step": "9e1980c423caf8bde5e4f74e7ef2af1d4c8849decdbc0ff104640b3024937230",
       "hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.step.mesh": "bf220ed7b1a38c07af869b1710b996409fe80f013de4bce4dd0fd9997b3d5fc6",
       "hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.stl": "07242bb34a17b7db7fabfad0054608a96e6d86167b531092d789f9d35ac49d00",
@@ -1793,6 +1826,7 @@
       "hardware/printed-parts/cold-core/foam-cap/reservoir-b-fill-guide.step.mesh": "6ec51669fc24c60bc659cc6e1331af4b1b8596b6eb391e7f30401fe45aac529c",
       "hardware/printed-parts/cold-core/foam-cap/reservoir-b-fill-guide.stl": "3f1fb479bf4599050149102ac96e540a2d1ca1892a99460c8f63ab4cb62c4987",
       "hardware/printed-parts/cold-core/foam-shell/foam-shell.step": "a716b44ef657e0355fbceae6c2dcba6a4de45feefad6417245149f26abef5ad7",
+      "hardware/printed-parts/cold-core/foam-shell/foam-shell.step.json": "4a3ba3a34ff8c70237f0bd33ae052c565b5030824476c43cc6a4b2e8075744f4",
       "hardware/printed-parts/cold-core/foam-shell/foam-shell.step.mesh": "aba1c73a68e68716456405b5626ac67611ca78ba703c6bba5a2db152eb7a4827",
       "hardware/printed-parts/cold-core/foam-shell/foam-shell.stl": "132c06ecc887624ae36c98c168f97efaa533deb278a4b93a3d2f725455d93164",
       "hardware/printed-parts/cold-core/magnetic-float/all-aero/assembly.step": "a79901bdb093a8b59feb85690c7a3f79c58cf592f250e0b2b8310aeb01ef8fe8",
@@ -1832,6 +1866,7 @@
       "hardware/printed-parts/cold-core/reservoir/reservoir-tube-grip.step": "638d0b193d3b76041e6eb1b790efd32d81cb5ae9ce46f920e469db1a678a4d83",
       "hardware/printed-parts/cold-core/reservoir/reservoir-tube-grip.step.mesh": "4785d06f73eaefb79fbf74a32411f7d965b007fdee2f603a84230c1ae1959004",
       "hardware/printed-parts/cold-core/reservoir/reservoir-tube-grip.stl": "0b7af9247334655bb4129277ad30d1b92f6e9f029f69dcb98700615befcb0cfb",
+      "hardware/printed-parts/cold-core/reservoir/reservoir.3mf": "82fd2e65ff3a6e427f1522dbbe5c295303a5d70f153ddcd08e0be480342c7541",
       "hardware/printed-parts/collet-press/collet-press.step": "d8dff38e519a01885464430d031d5b0df35f3c368adde3e4b13464aa0b9da52b",
       "hardware/printed-parts/collet-press/collet-press.step.mesh": "022763847c71afe7c3439b783e00de4c6ad9df9fdf2c04b6424721c0239af30f",
       "hardware/printed-parts/collet-press/collet-press.stl": "c7844502e96123f02d6653b0a793f2dcd74964f7022f125d3b3929ebbd0c9141",
@@ -1869,6 +1904,7 @@
       "hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.stl": "cfedb813ad4f4e8f609ae3ec724a5d4de918c175fbfcafc1a44b3a69d4a62e3e",
       "hardware/printed-parts/enclosure/grip-cover/grip-cover.step": "418a4ac58a6905d61a812e4a08ec7f4603f8f68e4c394f2c6ff5dc5ad2c98ea1",
       "hardware/printed-parts/enclosure/grip-cover/grip-cover.step.mesh": "7f9d622d4607f9b93fe0020aa21495c76b81ebd0561ad32bb986e84f9d79b129",
+      "hardware/printed-parts/enclosure/grip-cover/grip-cover.stl": "acbb8f8cd3e50792a258670bf31c7574de6a435fbbce2629ede73c070378dc03",
       "hardware/printed-parts/enclosure/nameplate/nameplate-001.step": "2b264293a33a2a830dfade5132255bad03e1c92395b9be8b24b8af282bb47d16",
       "hardware/printed-parts/enclosure/nameplate/nameplate-001.step.mesh": "7ae0662d186257ded0d4723ee93495cddd1eef665ff0b4669538a2e8c760b4fc",
       "hardware/printed-parts/enclosure/nameplate/nameplate-001.stl": "e7f4f928128e82ccf1bc6a3c78f10aa81b94666df2931ce22ffb325c50f2afa3",
@@ -1903,9 +1939,11 @@
       "hardware/printed-parts/enclosure/rear-identification/rear-label-water.step.mesh": "ca0d9fc9f5d916904fd2b03afd05d3567865ff5333c8f5879f92070fe41a65c6",
       "hardware/printed-parts/enclosure/rear-identification/rear-label-water.stl": "ef7df8ac5bfb50d52e3bb27f058b23594fae323b241f16978d0dec8ccb213769",
       "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step": "0d1ac670e6424c768b8d7784188ef1464efa0326a3e9036b9822700fb931ef6c",
+      "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step.json": "d96ac37a5fb1c7713b573f012c75f1a6dcd0e5ae80d8d205016da08f69c4b772",
       "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step.mesh": "c3a50abc68f5218eb5f4b0138a8db2828a94117d6365e1705a6ca30c9cf2f582",
       "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.stl": "f41031f281214c6c535e6c267ef1a6c33b0e5b21997c1d239cddb892c5d6b5ee",
       "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step": "3e026fa634db0962fbfebdc262243c6712d9acfd297c3293549c06c000ffba1a",
+      "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step.json": "9113c67ce12eeaa9619bace4dae70fb3cb76ab3750f3e28a80ec30a3aa130fc7",
       "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step.mesh": "d32ce1afe36b7e4b633c39a07e2d22d123a696fdf1ff1d21426cfbb791f09b88",
       "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.stl": "cf69dac0a0ce01845ce261d050fbbb876be24baec78d3db77f8d97839bc32990",
       "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step": "8a65db96dc2b8ea902d7f509affc360d646f1cb75bf0fe60200703bcc2c2dfcc",
@@ -1929,7 +1967,10 @@
       "hardware/printed-parts/faucet/industrial/industrial-shell-base.step": "b87fd33320a3ab03d560200069ea5346d7009ed5f7a31854490b28e543d5791e",
       "hardware/printed-parts/faucet/industrial/industrial-shell-base.step.mesh": "b059d86a2a3c4177bbecfab186f8dd62800c74d0813227755d454c2684e311a2",
       "hardware/printed-parts/faucet/industrial/industrial-shell-base.stl": "96b2621f9c821354d46d044635a5d274b4b6e011d997e632d5e95be6e974f1cb",
+      "hardware/printed-parts/faucet/lever-replica/lever-replica-petgf-white.3mf": "17b77ae11542557832a808ea36569099909606ad33a09904d39741eeaa5d9b18",
+      "hardware/printed-parts/faucet/lever-replica/lever-replica-petgf.3mf": "5e672edc6a405c10c1e1b6cfb5a25a272dbc4308ecdf8e874fc31ea800e421df",
       "hardware/printed-parts/faucet/lever-replica/lever-replica-side-down.stl": "19d420b9193d0d691959aadb80095523164afe380189aae1af9eb0c13f8f2d21",
+      "hardware/printed-parts/faucet/lever-replica/lever-replica.frame.json": "46a1b7460149e02f8eeb9700565a0a6ce8efb37315a82d3243b695e2c7835fe6",
       "hardware/printed-parts/faucet/lever-replica/lever-replica.step": "52bfa5a37ed10229e454913f1d935bf3f022bbe0fae9964b1ccaed3a0b773dd9",
       "hardware/printed-parts/faucet/lever-replica/lever-replica.step.mesh": "d3f6dd56fa2bb5d230b1c5207436840126a5b56ddd0146aa45f05010173c20c5",
       "hardware/printed-parts/faucet/lever-replica/lever-replica.stl": "ee18c91f4891228a6a76ae1381414d2fb31e17694e746bb298a5f2c524e512ee",
@@ -1954,10 +1995,15 @@
       "hardware/printed-parts/faucet/tube-collar/tube-collar-water.step": "78aa9619b0741e8b2e190ae611fe5d6b3233cd3e8e5b869b5147d882fad66b69",
       "hardware/printed-parts/faucet/tube-collar/tube-collar-water.step.mesh": "29d1cab2f8b57edec27cd911d8ab72c9fa76599fefdacbd960dcead00239b4a8",
       "hardware/printed-parts/faucet/tube-collar/tube-collar-water.stl": "82c141b07191c15e78f138d30ba45b42aa55f3769b47f543c3a3d89ad2688d0a",
+      "hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer-petgf.3mf": "32ab20b87103dc1248939cf9598a7fa67bc3e019a7de37dcb9b1c7230dadaf83",
       "hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer.step": "977d3c6199c918813d11497c9d7b88ec0ea84fa9a729e27a2dda1c633ca1ecad",
       "hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer.step.mesh": "8844218239d61d6203c49d00a40003d863111ef3eb3413422096f391e530a59c",
       "hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer.stl": "87641a741b3d2cb750984c325a9175adc10e82833c6fdffcc45ab55302001fc6",
+      "hardware/printed-parts/fixtures/fake-countertop/fake-countertop-petgf-mark2-stock.3mf": "a79edade93aff1e33da7df8ca2e8be1f87487ebc9e70e8f1d25fa96b0ee81e4e",
+      "hardware/printed-parts/fixtures/fake-countertop/fake-countertop-petgf-mark2.3mf": "3e722796709e52a65000f6ae97de2e6fdd7a5f5bfd4c8cc91c172077d3d87bc9",
+      "hardware/printed-parts/fixtures/fake-countertop/fake-countertop-petgf.3mf": "86853b7cd77bb08a637584ee6c4190463a24ad20478aef5206346004f792969f",
       "hardware/printed-parts/fixtures/fake-countertop/fake-countertop.step": "61fe53df73f8ce6f81fc04b9806ec86f286176939d20a811df140bf1b1c03564",
+      "hardware/printed-parts/fixtures/fake-countertop/fake-countertop.step.mesh": "56ff374bf67e335668ac54f226635a8814ee8b34a30c4f300b7c9dc208196fa1",
       "hardware/printed-parts/fixtures/fake-countertop/fake-countertop.stl": "9e51861af0d4d93e33a418f8d6cc24f5e792f963abeb2ca57704c45665ce39d2",
       "hardware/printed-parts/fixtures/pgfun-positioner/assembly.step": "086168b1b0839e18bc128ceaa895df5d1dc89d03345c9790b4f5c2d90b498289",
       "hardware/printed-parts/fixtures/pgfun-positioner/assembly.step.mesh": "1735eeac93c29bfcfa59c8aaf4c7e03953a37eaa1ba80d167a45cb98a16e4afb",
@@ -2124,7 +2170,10 @@
       "hardware/printed-parts/fixtures/tube-insertion/tube-insertion-lower-jaw.step.mesh": "dd146d07323c00107a66dc8a3026044f2c15ce4c361d962f609f8c1f4a40d005",
       "hardware/printed-parts/fixtures/tube-insertion/tube-insertion-upper-jaw.step": "a5a56c8e7a5b6e0236ae8fae9bd97d867593159c28ad66994fedb9d652702afe",
       "hardware/printed-parts/fixtures/tube-insertion/tube-insertion-upper-jaw.step.mesh": "2e3fc8ab1bd538b80669ceb230c52f6693beae9982756211aa4a873df8b94d67",
+      "hardware/printed-parts/fixtures/tube-miter-box/tube-miter-box-petgf-mark2.3mf": "f5d55fcae3f5466488be8fd2b68613a2a2496ba3250eb45bf079139c623c6d76",
+      "hardware/printed-parts/fixtures/tube-miter-box/tube-miter-box-petgf.3mf": "ac42fba7fc890b9b7e6a65a291c04eb53b98d599491f2951be5fd811d4e602bc",
       "hardware/printed-parts/fixtures/tube-miter-box/tube-miter-box.step": "92ce4d3de42c55aa86f63dc1a857592a978233e9cd6f6ebea75330ff83ebd649",
+      "hardware/printed-parts/fixtures/tube-miter-box/tube-miter-box.step.mesh": "71781219cd958ea9c7a02a8da66fb709fa458fc1ed16bdb8c0e4d4f9a02378d4",
       "hardware/printed-parts/fixtures/tube-miter-box/tube-miter-box.stl": "3fe5a1fdf2df47768bcc2d1395ccd3dddb5499e68e304452793c4a429de8515e",
       "hardware/printed-parts/fixtures/water-inlet-jet/water-inlet-jet-fixture-fixed.step": "219c3ec136e3af79218f399141eb5e5de7d0a4501bb03b8d1841d4f72007691c",
       "hardware/printed-parts/fixtures/water-inlet-jet/water-inlet-jet-fixture-fixed.step.mesh": "b1f0a8f9f628dca925a5cc78e64e553d30e6e90f8533efd9368973343e3d5d36",
@@ -2176,6 +2225,7 @@
       "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-turntable-90t.step.mesh": "0783aac1700e19b97774961a1faa376b3f9ca05aa2382f3bb81398e0e10f86b1",
       "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-turntable-90t.stl": "648c2de7cd6e7bbec76add2586aef9b93b6fd6c409a31296890e12879dab7fdd",
       "hardware/printed-parts/refrigeration/fuse-clamp/fuse-clamp.step": "80c8efc09a488cf75805ef2ae75e75a895d0d3f822d512e35af042e4dd713540",
+      "hardware/printed-parts/refrigeration/fuse-clamp/fuse-clamp.step.json": "6758f888773c086baa1d8d1806ff15e3d02bff67c6deeff8b4ece2b574bd729e",
       "hardware/printed-parts/refrigeration/fuse-clamp/fuse-clamp.step.mesh": "236841e40cf0d756bcd0d1f2d59bdcfe0ef82221246fbf01d67d6d184273e1be",
       "hardware/printed-parts/refrigeration/fuse-clamp/fuse-clamp.stl": "fb4db7bf16cab5a6206f4d055fc0f1f7f41469559c431096b1dc2a1a9cd55528",
       "hardware/printed-parts/shop-storage/holders/adapter-tub.step": "2093a5b831a2451201b93f65092f9aeac8f41db1fb9f44616036bca94ede96c1",
@@ -2305,8 +2355,10 @@
       "hardware/printed-parts/shop-storage/holders/xh-tub.step.mesh": "85d6cbad494996011399c5c08597f8ace5cae71b96b9665dfcc9d35b1b1c8184",
       "hardware/printed-parts/shop-storage/holders/xh-tub.stl": "08a605215352d0496ff21bf7c8f1459a2eafd28fcccac3a714dee1e6d30bc6bd",
       "hardware/printed-parts/soda-bend-holder/soda-bend-holder.step": "d6cac70239b625a770ea64b987835e18b285f5851cbc494b74bc577f27c49171",
+      "hardware/printed-parts/soda-bend-holder/soda-bend-holder.step.json": "f193a83d4d787eea44142880cc436150ac72eb44152e5ced50be751222f783ee",
       "hardware/printed-parts/soda-bend-holder/soda-bend-holder.step.mesh": "e3d234596091535ecea0e9e64e8e20c357ac900db03e4209d3ddd0ac18904f61",
       "hardware/printed-parts/soda-bend-holder/soda-bend-holder.stl": "37c31f1c8b8efcc812134ac9765e9cfdbe898791565156b37ea2c358b3484766",
+      "hardware/printed-parts/zone-c/funnel-cover/funnel-cover-petg.3mf": "7eba727a069be9cc8880c57ea2fd74bac0ace1cc1514a93080dea0fb9b97973e",
       "hardware/printed-parts/zone-c/funnel-cover/funnel-cover-print.stl": "6dfd3b318040dae6ac3053d06e607f4b2a6d8f8793128de0774e978454d24a09",
       "hardware/printed-parts/zone-c/funnel-cover/funnel-cover.step": "7569c3b352aa9977ad054017a3e0afb1d08fb822cc4db72aedade53f294b5d26",
       "hardware/printed-parts/zone-c/funnel-cover/funnel-cover.step.mesh": "d4ae60d332ac14010f8705ff7a665bbdb0d88141dc588fa4b80ebe43c5ec7ffa",
@@ -2340,6 +2392,7 @@
       "hardware/reference/digiten-flow-sensor/digiten-flow-sensor.step": "181e81dc1e2e9757c671df7163998127dea32e24cbbeffcd885e84c2801a9975",
       "hardware/reference/digiten-flow-sensor/digiten-flow-sensor.step.mesh": "84d68c77955b19d2e1f776a33b8fcd2370658086ad00acf5eb7ed953c0e72aec",
       "hardware/reference/g-ganen-pump/integration-envelope/g-ganen-integration-envelope.step": "cb11443dd6bec9e31266432a7ec7f251bc0a83e3367d0a820b1f93af5ab06d2d",
+      "hardware/reference/g-ganen-pump/integration-envelope/g-ganen-integration-envelope.step.mesh": "bb2a70cbb7585ad42fa2266441f3482156622c751b8772cb609988e76bda9461",
       "hardware/reference/gagira-reducing-coupling/gagira-reducing-coupling.step": "a30ce13ed70c41e630b4a6cb5ce402fb846cc55c90b6bf765600fba67fe4a768",
       "hardware/reference/gagira-reducing-coupling/gagira-reducing-coupling.step.mesh": "bdd3cbb79ef3b476f6db550a229403c69f2c2586f0d2a0342e0d85452daff844",
       "hardware/reference/iec-c14-inlet/iec-c14-inlet.step": "778d68ef2a4231bbaaa80abdebcddb25c190d83af11bbf920e6a4fede2a2f6c8",
@@ -2350,6 +2403,7 @@
       "hardware/reference/jg-pp010822e/jg-pp010822e.step.mesh": "37f306f04a33dd00dcab04864397c8c661148d622f6bb42821ee75758cfb3e43",
       "hardware/reference/jg-pp0308e-elbow/jg-pp0308e-elbow.step": "805f210ef6a669f08f9bebacdbf3dcec2a0d22691484dc72308425fdaf3d5daa",
       "hardware/reference/jg-pp0308e-elbow/jg-pp0308e-elbow.step.mesh": "5b2242d5aa9eda682cb2e2f480a73dc41c9fcad6c653b20de22afd7c35af1553",
+      "hardware/reference/jg-pp0308e-elbow/jg-pp0308e-elbow.stl": "35e38299310e8e100d629c99ef9b91c549dbf724c96f405151b3f49f9bab5f6e",
       "hardware/reference/jg-pp0408w/jg-pp0408w.step": "987eccd988d461a87babb024bc4cd7e538777467449bfceea7ead8ed5d4dfded",
       "hardware/reference/jg-pp0408w/jg-pp0408w.step.mesh": "c9e764f9809d9305385f97d83e3f4894f83ec97a4f7765eeb073e224508c105a",
       "hardware/reference/jg-pp061208w/jg-pp061208w.step": "5b9d3c1bba5bc098056a0a8395ddb260188dabfcf9152460b5f39855cb8c13af",
@@ -2363,6 +2417,7 @@
       "hardware/reference/multiplex-asse1022/multiplex-asse1022.step": "8d357ab7bf93f99130ea024c00c35e0f4e93e0f4de4613e15215db0c0a02c069",
       "hardware/reference/multiplex-asse1022/multiplex-asse1022.step.mesh": "4c56e8cc49633d784f0488d69ccbd099be427ab48ec0bae29f91c5d277230b48",
       "hardware/reference/neofit-achv44-check/neofit-achv44-check.step": "6cba8b0db77eb05d3488c114d184e9bb8a691db49b681dcacbcfe833f7da2c82",
+      "hardware/reference/neofit-achv44-check/neofit-achv44-check.step.json": "6b1423ec97a2aad92c6720c5e7be8fd3e2f9b7442e4a02868f3fab2c82208813",
       "hardware/reference/neofit-achv44-check/neofit-achv44-check.step.mesh": "d4c3bc20fc3e5094d853e0bd556e75ba60806bda96daf32d524d43a117eb3890",
       "hardware/reference/neofit-drain-bulkhead/neofit-drain-bulkhead.step": "854cbc8e5329f9c72b75c92d02192b826aaf377a0f371562e03d9227079ad948",
       "hardware/reference/neofit-drain-bulkhead/neofit-drain-bulkhead.step.mesh": "e6a01bba1e46ecc5ebac282ddd98f08df08e8ecbaad11871e28dffe77a852990",
@@ -2373,6 +2428,7 @@
       "hardware/reference/sf76e-thermal-fuse/sf76e-thermal-fuse.step": "ee95f27a52c445bd9be8b24a6b1822a50ef1d60e0deb8d337acbc695733b47e8",
       "hardware/reference/sf76e-thermal-fuse/sf76e-thermal-fuse.step.mesh": "c4882921c1250afe714a660f812b691260cd25492186fd489bb9280f08995e2a",
       "hardware/reference/soda-rise-insulation/soda-rise-insulation.step": "5371c375caf99716726530fd96725ae4300e16323176a08e95ba842f06f0433b",
+      "hardware/reference/soda-rise-insulation/soda-rise-insulation.step.json": "389f1168a0be8f6ae41a9837af4a2b5f5ddfab11a3678523e19c2e16bc83693d",
       "hardware/reference/soda-rise-insulation/soda-rise-insulation.step.mesh": "dca1e2ca76f2940117919f4f89393eff483ec5a55d6ac2955c1fa76ca411fa16",
       "hardware/reference/tee-connector/tee-connector.step": "bba36626afe1765fefd3affc790120cad6de786a3a23992f745037bf549bac36",
       "hardware/reference/tee-connector/tee-connector.step.mesh": "7a1d9fccd08701a5304e1246e24c72f59a2ed13e4e1a2c4b2579e4d3092e4405",
@@ -2415,8 +2471,10 @@
     "hardware/cut-parts/carbonation/carbonator-tube/carbonator-tube.step": 1793626644,
     "hardware/cut-parts/carbonation/carbonator-tube/carbonator-tube.step.mesh": 1793626644,
     "hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole.step": 1793626644,
+    "hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole.step.json": 1793750338,
     "hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole.step.mesh": 1793626644,
     "hardware/cut-parts/faucet/under-counter-plate/under-counter-plate.dxf": 1793712586,
+    "hardware/cut-parts/faucet/under-counter-plate/under-counter-plate.dxf.json": 1793750338,
     "hardware/faucet-layout/faucet-assembly.step": 1793626644,
     "hardware/faucet-layout/faucet-assembly.step.mesh": 1793712586,
     "hardware/faucet-layout/faucet-industrial-assembly.step": 1793626644,
@@ -2467,24 +2525,24 @@
     "hardware/install-guide/art/the-back-face.png": 1793626644,
     "hardware/install-guide/art/the-socket.png": 1793626644,
     "hardware/install-guide/art/two-tees.png": 1793652093,
-    "hardware/install-guide/plumbing/art/plumbing-pre-tee.png": 1793712586,
-    "hardware/install-guide/plumbing/art/plumbing-tee-installed.png": 1793712586,
-    "hardware/install-guide/plumbing/art/plumbing-valve-off.png": 1793712586,
-    "hardware/install-guide/plumbing/art/plumbing-valve-on.png": 1793712586,
-    "hardware/install-guide/plumbing/modern/art/modern-release-pressed.png": 1793712586,
-    "hardware/install-guide/plumbing/modern/art/modern-release-ready.png": 1793712586,
-    "hardware/install-guide/plumbing/modern/art/modern-release-withdrawn.png": 1793712586,
-    "hardware/install-guide/plumbing/modern/art/modern-tee-assembly-ready.png": 1793712586,
-    "hardware/install-guide/plumbing/modern/art/modern-tee-complete.png": 1793712586,
-    "hardware/install-guide/plumbing/modern/art/modern-tee-line-ready.png": 1793712586,
+    "hardware/install-guide/plumbing/art/plumbing-pre-tee.png": 1793750338,
+    "hardware/install-guide/plumbing/art/plumbing-tee-installed.png": 1793750338,
+    "hardware/install-guide/plumbing/art/plumbing-valve-off.png": 1793750338,
+    "hardware/install-guide/plumbing/art/plumbing-valve-on.png": 1793750338,
+    "hardware/install-guide/plumbing/modern/art/modern-release-pressed.png": 1793750338,
+    "hardware/install-guide/plumbing/modern/art/modern-release-ready.png": 1793750338,
+    "hardware/install-guide/plumbing/modern/art/modern-release-withdrawn.png": 1793750338,
+    "hardware/install-guide/plumbing/modern/art/modern-tee-assembly-ready.png": 1793750338,
+    "hardware/install-guide/plumbing/modern/art/modern-tee-complete.png": 1793750338,
+    "hardware/install-guide/plumbing/modern/art/modern-tee-line-ready.png": 1793750338,
     "hardware/install-guide/plumbing/modern/art/modern-tee-tug-check.png": 1793690801,
-    "hardware/install-guide/plumbing/modern/art/modern-water-off.png": 1793712586,
-    "hardware/install-guide/plumbing/modern/art/modern-water-on.png": 1793712586,
+    "hardware/install-guide/plumbing/modern/art/modern-water-off.png": 1793750338,
+    "hardware/install-guide/plumbing/modern/art/modern-water-on.png": 1793750338,
     "hardware/manifold-layout/enclosure-assembly.facts.json": 1793736139,
     "hardware/manifold-layout/enclosure-assembly.physical.step.mesh": 1793749739,
     "hardware/manifold-layout/enclosure-assembly.scorecard.json": 1793712586,
     "hardware/manifold-layout/enclosure-assembly.step": 1793749739,
-    "hardware/manifold-layout/enclosure-assembly.step.mesh": 1793749739,
+    "hardware/manifold-layout/enclosure-assembly.step.mesh": 1793750338,
     "hardware/manifold-layout/manifold-layout.step": 1793712586,
     "hardware/manifold-layout/manifold-layout.step.mesh": 1793712586,
     "hardware/manifold-layout/studies/ceiling-fit/parts/back-wall.step": 1792743994,
@@ -2591,9 +2649,11 @@
     "hardware/printed-parts/asse-drain-adapter/asse-drain-adapter.step.mesh": 1793652093,
     "hardware/printed-parts/asse-drain-adapter/asse-drain-adapter.stl": 1793652093,
     "hardware/printed-parts/asse-straight-cuffs/asse-inlet-cuff.step": 1793652093,
+    "hardware/printed-parts/asse-straight-cuffs/asse-inlet-cuff.step.json": 1793750338,
     "hardware/printed-parts/asse-straight-cuffs/asse-inlet-cuff.step.mesh": 1793652093,
     "hardware/printed-parts/asse-straight-cuffs/asse-inlet-cuff.stl": 1793652093,
     "hardware/printed-parts/asse-straight-cuffs/asse-outlet-cuff.step": 1793652093,
+    "hardware/printed-parts/asse-straight-cuffs/asse-outlet-cuff.step.json": 1793750338,
     "hardware/printed-parts/asse-straight-cuffs/asse-outlet-cuff.step.mesh": 1793652093,
     "hardware/printed-parts/asse-straight-cuffs/asse-outlet-cuff.stl": 1793652093,
     "hardware/printed-parts/calibration/dual-nozzle-registration/dual-nozzle-registration.step": 1790719427,
@@ -2607,6 +2667,7 @@
     "hardware/printed-parts/calibration/soda-studies/arch-moving.stl": 1791767671,
     "hardware/printed-parts/calibration/soda-studies/the-pour.step": 1791782119,
     "hardware/printed-parts/calibration/soda-studies/the-pour.step.mesh": 1791782119,
+    "hardware/printed-parts/calibration/soda-studies/the-pour.step.png": 1793750338,
     "hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.step": 1793712586,
     "hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.step.mesh": 1793712586,
     "hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.stl": 1793712586,
@@ -2637,6 +2698,7 @@
     "hardware/printed-parts/cold-core/foam-cap/reservoir-b-fill-guide.step.mesh": 1793712586,
     "hardware/printed-parts/cold-core/foam-cap/reservoir-b-fill-guide.stl": 1793568839,
     "hardware/printed-parts/cold-core/foam-shell/foam-shell.step": 1793543574,
+    "hardware/printed-parts/cold-core/foam-shell/foam-shell.step.json": 1793750338,
     "hardware/printed-parts/cold-core/foam-shell/foam-shell.step.mesh": 1793712586,
     "hardware/printed-parts/cold-core/foam-shell/foam-shell.stl": 1793543574,
     "hardware/printed-parts/cold-core/magnetic-float/all-aero/assembly.step": 1793568839,
@@ -2700,6 +2762,7 @@
     "hardware/printed-parts/cold-core/reservoir/reservoir-tube-grip.step": 1793568839,
     "hardware/printed-parts/cold-core/reservoir/reservoir-tube-grip.step.mesh": 1793712586,
     "hardware/printed-parts/cold-core/reservoir/reservoir-tube-grip.stl": 1793568839,
+    "hardware/printed-parts/cold-core/reservoir/reservoir.3mf": 1793750338,
     "hardware/printed-parts/collet-press/collet-press.step": 1793626644,
     "hardware/printed-parts/collet-press/collet-press.step.mesh": 1793712586,
     "hardware/printed-parts/collet-press/collet-press.stl": 1793712586,
@@ -2798,7 +2861,7 @@
     "hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step.mesh": 1793736139,
     "hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.stl": 1793712586,
     "hardware/printed-parts/enclosure/enclosure/enclosure.step": 1793749739,
-    "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh": 1793749739,
+    "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh": 1793750338,
     "hardware/printed-parts/enclosure/enclosure/magnet-retention/section.step": 1791257167,
     "hardware/printed-parts/enclosure/enclosure/magnet-retention/section.step.mesh": 1791257167,
     "hardware/printed-parts/enclosure/grip-cover/grip-candidate-back-bottom.step": 1791257167,
@@ -2809,6 +2872,7 @@
     "hardware/printed-parts/enclosure/grip-cover/grip-connected-bottoms.step.mesh": 1791257167,
     "hardware/printed-parts/enclosure/grip-cover/grip-cover.step": 1791257167,
     "hardware/printed-parts/enclosure/grip-cover/grip-cover.step.mesh": 1791257167,
+    "hardware/printed-parts/enclosure/grip-cover/grip-cover.stl": 1793750338,
     "hardware/printed-parts/enclosure/grip-cover/grip-exploded.step": 1791257167,
     "hardware/printed-parts/enclosure/grip-cover/grip-exploded.step.mesh": 1791257167,
     "hardware/printed-parts/enclosure/grip-cover/grip-receiver-back.step": 1791257167,
@@ -2894,9 +2958,11 @@
     "hardware/printed-parts/enclosure/rear-identification/rear-label-water.step.mesh": 1793597706,
     "hardware/printed-parts/enclosure/rear-identification/rear-label-water.stl": 1793597706,
     "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step": 1793568839,
+    "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step.json": 1793750338,
     "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step.mesh": 1793712586,
     "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.stl": 1793568839,
     "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step": 1793568839,
+    "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step.json": 1793750338,
     "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step.mesh": 1793712586,
     "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.stl": 1793568839,
     "hardware/printed-parts/faucet/asse-vent-seals/asse-vent-downstream-bung.step": 1791366507,
@@ -2974,7 +3040,10 @@
     "hardware/printed-parts/faucet/industrial/production/2026-10-25/industrial-shell-base.stl": 1792961269,
     "hardware/printed-parts/faucet/industrial/production/2026-10-25/lever-replica.stl": 1792961269,
     "hardware/printed-parts/faucet/industrial/production/2026-10-25/sculpted-display-cover.stl": 1792961269,
+    "hardware/printed-parts/faucet/lever-replica/lever-replica-petgf-white.3mf": 1793750338,
+    "hardware/printed-parts/faucet/lever-replica/lever-replica-petgf.3mf": 1793750338,
     "hardware/printed-parts/faucet/lever-replica/lever-replica-side-down.stl": 1793626644,
+    "hardware/printed-parts/faucet/lever-replica/lever-replica.frame.json": 1793750338,
     "hardware/printed-parts/faucet/lever-replica/lever-replica.step": 1793626644,
     "hardware/printed-parts/faucet/lever-replica/lever-replica.step.mesh": 1793712586,
     "hardware/printed-parts/faucet/lever-replica/lever-replica.stl": 1793626644,
@@ -2999,10 +3068,15 @@
     "hardware/printed-parts/faucet/tube-collar/tube-collar-water.step": 1793626644,
     "hardware/printed-parts/faucet/tube-collar/tube-collar-water.step.mesh": 1793712586,
     "hardware/printed-parts/faucet/tube-collar/tube-collar-water.stl": 1793626644,
+    "hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer-petgf.3mf": 1793750338,
     "hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer.step": 1793626644,
     "hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer.step.mesh": 1793712586,
     "hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer.stl": 1793626644,
+    "hardware/printed-parts/fixtures/fake-countertop/fake-countertop-petgf-mark2-stock.3mf": 1793750338,
+    "hardware/printed-parts/fixtures/fake-countertop/fake-countertop-petgf-mark2.3mf": 1793750338,
+    "hardware/printed-parts/fixtures/fake-countertop/fake-countertop-petgf.3mf": 1793750338,
     "hardware/printed-parts/fixtures/fake-countertop/fake-countertop.step": 1793626644,
+    "hardware/printed-parts/fixtures/fake-countertop/fake-countertop.step.mesh": 1793750338,
     "hardware/printed-parts/fixtures/fake-countertop/fake-countertop.stl": 1793712586,
     "hardware/printed-parts/fixtures/faucet-cover-retention/cover-retention-a.step": 1791257167,
     "hardware/printed-parts/fixtures/faucet-cover-retention/cover-retention-a.step.mesh": 1791257167,
@@ -3688,7 +3762,10 @@
     "hardware/printed-parts/fixtures/tube-insertion/tube-insertion-upper-jaw-print.stl": 1793072533,
     "hardware/printed-parts/fixtures/tube-insertion/tube-insertion-upper-jaw.step": 1793072533,
     "hardware/printed-parts/fixtures/tube-insertion/tube-insertion-upper-jaw.step.mesh": 1793072533,
+    "hardware/printed-parts/fixtures/tube-miter-box/tube-miter-box-petgf-mark2.3mf": 1793750338,
+    "hardware/printed-parts/fixtures/tube-miter-box/tube-miter-box-petgf.3mf": 1793750338,
     "hardware/printed-parts/fixtures/tube-miter-box/tube-miter-box.step": 1793626644,
+    "hardware/printed-parts/fixtures/tube-miter-box/tube-miter-box.step.mesh": 1793750338,
     "hardware/printed-parts/fixtures/tube-miter-box/tube-miter-box.stl": 1793712586,
     "hardware/printed-parts/fixtures/valve-socket-fit/tighter-trial-v2/beduan-socket-v68.step": 1791257167,
     "hardware/printed-parts/fixtures/valve-socket-fit/tighter-trial-v2/beduan-socket-v68.step.mesh": 1791257167,
@@ -3764,6 +3841,7 @@
     "hardware/printed-parts/prototype-gaskets-2026-10-08/sources/reservoir-dry-bulkhead-washer.step": 1791488936,
     "hardware/printed-parts/prototype-gaskets-2026-10-08/sources/reservoir-vent-filter-ring.step": 1791488936,
     "hardware/printed-parts/refrigeration/fuse-clamp/fuse-clamp.step": 1793568839,
+    "hardware/printed-parts/refrigeration/fuse-clamp/fuse-clamp.step.json": 1793750338,
     "hardware/printed-parts/refrigeration/fuse-clamp/fuse-clamp.step.mesh": 1793568839,
     "hardware/printed-parts/refrigeration/fuse-clamp/fuse-clamp.stl": 1793568839,
     "hardware/printed-parts/shop-storage/holders/adapter-tub.step": 1793652093,
@@ -3895,8 +3973,10 @@
     "hardware/printed-parts/shop-storage/holders/xh-tub.step.mesh": 1793652093,
     "hardware/printed-parts/shop-storage/holders/xh-tub.stl": 1793652093,
     "hardware/printed-parts/soda-bend-holder/soda-bend-holder.step": 1793626644,
+    "hardware/printed-parts/soda-bend-holder/soda-bend-holder.step.json": 1793750338,
     "hardware/printed-parts/soda-bend-holder/soda-bend-holder.step.mesh": 1793712586,
     "hardware/printed-parts/soda-bend-holder/soda-bend-holder.stl": 1793626644,
+    "hardware/printed-parts/zone-c/funnel-cover/funnel-cover-petg.3mf": 1793750338,
     "hardware/printed-parts/zone-c/funnel-cover/funnel-cover-print.step": 1793525739,
     "hardware/printed-parts/zone-c/funnel-cover/funnel-cover-print.step.mesh": 1793626644,
     "hardware/printed-parts/zone-c/funnel-cover/funnel-cover-print.stl": 1793525739,
@@ -3976,6 +4056,7 @@
     "hardware/reference/g-ganen-pump/g-ganen-pump.step": 1793555606,
     "hardware/reference/g-ganen-pump/g-ganen-pump.step.mesh": 1793555606,
     "hardware/reference/g-ganen-pump/integration-envelope/g-ganen-integration-envelope.step": 1790010625,
+    "hardware/reference/g-ganen-pump/integration-envelope/g-ganen-integration-envelope.step.mesh": 1793750338,
     "hardware/reference/gagira-reducing-coupling/gagira-reducing-coupling.step": 1787578592,
     "hardware/reference/gagira-reducing-coupling/gagira-reducing-coupling.step.mesh": 1793617993,
     "hardware/reference/gasher-check-valve/gasher-check-valve.step": 1787578592,
@@ -3993,6 +4074,7 @@
     "hardware/reference/jg-pp0208e-tee/jg-pp0208e-tee.step.mesh": 1793617993,
     "hardware/reference/jg-pp0308e-elbow/jg-pp0308e-elbow.step": 1790835302,
     "hardware/reference/jg-pp0308e-elbow/jg-pp0308e-elbow.step.mesh": 1793697604,
+    "hardware/reference/jg-pp0308e-elbow/jg-pp0308e-elbow.stl": 1793750338,
     "hardware/reference/jg-pp0408w/jg-pp0408w.step": 1787356215,
     "hardware/reference/jg-pp0408w/jg-pp0408w.step.mesh": 1793568839,
     "hardware/reference/jg-pp061208w/jg-pp061208w.step": 1793413160,
@@ -4016,6 +4098,7 @@
     "hardware/reference/multiplex-asse1022/multiplex-asse1022.step": 1793316034,
     "hardware/reference/multiplex-asse1022/multiplex-asse1022.step.mesh": 1793617993,
     "hardware/reference/neofit-achv44-check/neofit-achv44-check.step": 1792893021,
+    "hardware/reference/neofit-achv44-check/neofit-achv44-check.step.json": 1793750338,
     "hardware/reference/neofit-achv44-check/neofit-achv44-check.step.mesh": 1793568839,
     "hardware/reference/neofit-bulkhead/neofit-bulkhead.step": 1792893021,
     "hardware/reference/neofit-bulkhead/neofit-bulkhead.step.mesh": 1793617993,
@@ -4050,6 +4133,7 @@
     "hardware/reference/shutao-moisture-plate/shutao-moisture-plate.step": 1787356215,
     "hardware/reference/shutao-moisture-plate/shutao-moisture-plate.step.mesh": 1793503760,
     "hardware/reference/soda-rise-insulation/soda-rise-insulation.step": 1792893021,
+    "hardware/reference/soda-rise-insulation/soda-rise-insulation.step.json": 1793750338,
     "hardware/reference/soda-rise-insulation/soda-rise-insulation.step.mesh": 1793568839,
     "hardware/reference/taprite-3741-regulator/taprite-3741-regulator.step": 1791179392,
     "hardware/reference/taprite-3741-regulator/taprite-3741-regulator.step.mesh": 1793617993,
@@ -4362,56 +4446,56 @@
       "commit": "211c1c9b2ffc01bee80995b63329fa7508a3dff1"
     },
     "hardware/install-guide/plumbing/art/plumbing-pre-tee.png": {
-      "inputs": "a0e2107de2b1c064581a09512707ff87f536a67bd64000f742b41bacd0466215",
-      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2"
+      "commit": "d3ca6388296a9ad84ee82c0a0c9a21d9e23fd59d",
+      "unproven": true
     },
     "hardware/install-guide/plumbing/art/plumbing-tee-installed.png": {
-      "inputs": "a0e2107de2b1c064581a09512707ff87f536a67bd64000f742b41bacd0466215",
-      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2"
+      "commit": "d3ca6388296a9ad84ee82c0a0c9a21d9e23fd59d",
+      "unproven": true
     },
     "hardware/install-guide/plumbing/art/plumbing-valve-off.png": {
-      "inputs": "a0e2107de2b1c064581a09512707ff87f536a67bd64000f742b41bacd0466215",
-      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2"
+      "commit": "d3ca6388296a9ad84ee82c0a0c9a21d9e23fd59d",
+      "unproven": true
     },
     "hardware/install-guide/plumbing/art/plumbing-valve-on.png": {
-      "inputs": "a0e2107de2b1c064581a09512707ff87f536a67bd64000f742b41bacd0466215",
-      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2"
+      "commit": "d3ca6388296a9ad84ee82c0a0c9a21d9e23fd59d",
+      "unproven": true
     },
     "hardware/install-guide/plumbing/modern/art/modern-release-pressed.png": {
-      "inputs": "0351ab0f0a69809a000b409c294617ef19e7561717066529ae924ce223cfc232",
-      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2"
+      "commit": "d3ca6388296a9ad84ee82c0a0c9a21d9e23fd59d",
+      "unproven": true
     },
     "hardware/install-guide/plumbing/modern/art/modern-release-ready.png": {
-      "inputs": "0351ab0f0a69809a000b409c294617ef19e7561717066529ae924ce223cfc232",
-      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2"
+      "commit": "d3ca6388296a9ad84ee82c0a0c9a21d9e23fd59d",
+      "unproven": true
     },
     "hardware/install-guide/plumbing/modern/art/modern-release-withdrawn.png": {
-      "inputs": "0351ab0f0a69809a000b409c294617ef19e7561717066529ae924ce223cfc232",
-      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2"
+      "commit": "d3ca6388296a9ad84ee82c0a0c9a21d9e23fd59d",
+      "unproven": true
     },
     "hardware/install-guide/plumbing/modern/art/modern-tee-assembly-ready.png": {
-      "inputs": "0351ab0f0a69809a000b409c294617ef19e7561717066529ae924ce223cfc232",
-      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2"
+      "commit": "d3ca6388296a9ad84ee82c0a0c9a21d9e23fd59d",
+      "unproven": true
     },
     "hardware/install-guide/plumbing/modern/art/modern-tee-complete.png": {
-      "inputs": "0351ab0f0a69809a000b409c294617ef19e7561717066529ae924ce223cfc232",
-      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2"
+      "commit": "d3ca6388296a9ad84ee82c0a0c9a21d9e23fd59d",
+      "unproven": true
     },
     "hardware/install-guide/plumbing/modern/art/modern-tee-line-ready.png": {
-      "inputs": "0351ab0f0a69809a000b409c294617ef19e7561717066529ae924ce223cfc232",
-      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2"
+      "commit": "d3ca6388296a9ad84ee82c0a0c9a21d9e23fd59d",
+      "unproven": true
     },
     "hardware/install-guide/plumbing/modern/art/modern-tee-tug-check.png": {
       "inputs": "c0318dfc26c97b4ed8b7009d97fc2f9f48711a108c61a48d5a5fb01894bc10e9",
       "commit": "211c1c9b2ffc01bee80995b63329fa7508a3dff1"
     },
     "hardware/install-guide/plumbing/modern/art/modern-water-off.png": {
-      "inputs": "0351ab0f0a69809a000b409c294617ef19e7561717066529ae924ce223cfc232",
-      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2"
+      "commit": "d3ca6388296a9ad84ee82c0a0c9a21d9e23fd59d",
+      "unproven": true
     },
     "hardware/install-guide/plumbing/modern/art/modern-water-on.png": {
-      "inputs": "0351ab0f0a69809a000b409c294617ef19e7561717066529ae924ce223cfc232",
-      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2"
+      "commit": "d3ca6388296a9ad84ee82c0a0c9a21d9e23fd59d",
+      "unproven": true
     },
     "hardware/manifold-layout/enclosure-assembly.facts.json": {
       "inputs": "3a643d469fc72b544fe79827c682c215347ac1a43121ed9e01559a6cfd99e29a",
@@ -4432,7 +4516,7 @@
       "unproven": true
     },
     "hardware/manifold-layout/enclosure-assembly.step.mesh": {
-      "commit": "02caa1980cb3f43ea25d6be7f2eeae09d452ce90",
+      "commit": "d3ca6388296a9ad84ee82c0a0c9a21d9e23fd59d",
       "unproven": true
     },
     "hardware/manifold-layout/manifold-layout.step": {
@@ -4492,6 +4576,10 @@
     "hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.stl": {
       "inputs": "5c06eac0b7964193bc711ce7124a1b0cad0e16c00907b923871a4e4edecf2712",
       "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2",
+      "unproven": true
+    },
+    "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.scorecard.json": {
+      "commit": "d3ca6388296a9ad84ee82c0a0c9a21d9e23fd59d",
       "unproven": true
     },
     "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step": {
@@ -4905,75 +4993,93 @@
     },
     "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-carb.step": {
       "inputs": "6470943030400207079358642fcf7c1aef2547c83591657e5e5b13b5e9aa4296",
-      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2"
+      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2",
+      "unproven": true
     },
     "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-carb.step.mesh": {
       "inputs": "6470943030400207079358642fcf7c1aef2547c83591657e5e5b13b5e9aa4296",
-      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2"
+      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2",
+      "unproven": true
     },
     "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-carb.stl": {
       "inputs": "6470943030400207079358642fcf7c1aef2547c83591657e5e5b13b5e9aa4296",
-      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2"
+      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2",
+      "unproven": true
     },
     "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-co2.step": {
       "inputs": "6470943030400207079358642fcf7c1aef2547c83591657e5e5b13b5e9aa4296",
-      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2"
+      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2",
+      "unproven": true
     },
     "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-co2.step.mesh": {
       "inputs": "6470943030400207079358642fcf7c1aef2547c83591657e5e5b13b5e9aa4296",
-      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2"
+      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2",
+      "unproven": true
     },
     "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-co2.stl": {
       "inputs": "6470943030400207079358642fcf7c1aef2547c83591657e5e5b13b5e9aa4296",
-      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2"
+      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2",
+      "unproven": true
     },
     "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-drain.step": {
       "inputs": "6470943030400207079358642fcf7c1aef2547c83591657e5e5b13b5e9aa4296",
-      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2"
+      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2",
+      "unproven": true
     },
     "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-drain.step.mesh": {
       "inputs": "6470943030400207079358642fcf7c1aef2547c83591657e5e5b13b5e9aa4296",
-      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2"
+      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2",
+      "unproven": true
     },
     "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-drain.stl": {
       "inputs": "6470943030400207079358642fcf7c1aef2547c83591657e5e5b13b5e9aa4296",
-      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2"
+      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2",
+      "unproven": true
     },
     "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-flavor-a.step": {
       "inputs": "6470943030400207079358642fcf7c1aef2547c83591657e5e5b13b5e9aa4296",
-      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2"
+      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2",
+      "unproven": true
     },
     "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-flavor-a.step.mesh": {
       "inputs": "6470943030400207079358642fcf7c1aef2547c83591657e5e5b13b5e9aa4296",
-      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2"
+      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2",
+      "unproven": true
     },
     "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-flavor-a.stl": {
       "inputs": "6470943030400207079358642fcf7c1aef2547c83591657e5e5b13b5e9aa4296",
-      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2"
+      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2",
+      "unproven": true
     },
     "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-flavor-b.step": {
       "inputs": "6470943030400207079358642fcf7c1aef2547c83591657e5e5b13b5e9aa4296",
-      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2"
+      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2",
+      "unproven": true
     },
     "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-flavor-b.step.mesh": {
       "inputs": "6470943030400207079358642fcf7c1aef2547c83591657e5e5b13b5e9aa4296",
-      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2"
+      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2",
+      "unproven": true
     },
     "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-flavor-b.stl": {
       "inputs": "6470943030400207079358642fcf7c1aef2547c83591657e5e5b13b5e9aa4296",
-      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2"
+      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2",
+      "unproven": true
     },
     "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-water.step": {
       "inputs": "6470943030400207079358642fcf7c1aef2547c83591657e5e5b13b5e9aa4296",
-      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2"
+      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2",
+      "unproven": true
     },
     "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-water.step.mesh": {
       "inputs": "6470943030400207079358642fcf7c1aef2547c83591657e5e5b13b5e9aa4296",
-      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2"
+      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2",
+      "unproven": true
     },
     "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-water.stl": {
       "inputs": "6470943030400207079358642fcf7c1aef2547c83591657e5e5b13b5e9aa4296",
-      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2"
+      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2",
+      "unproven": true
     },
     "hardware/printed-parts/enclosure/data-ring/data-ring.step": {
       "inputs": "220438de1ac6bb6a0c57d9615e00af77eae0993091d3ba03e94759200f55f620",
@@ -5205,7 +5311,7 @@
       "unproven": true
     },
     "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh": {
-      "commit": "02caa1980cb3f43ea25d6be7f2eeae09d452ce90",
+      "commit": "d3ca6388296a9ad84ee82c0a0c9a21d9e23fd59d",
       "unproven": true
     },
     "hardware/printed-parts/enclosure/nameplate/nameplate-001.step": {
@@ -5643,11 +5749,13 @@
     },
     "hardware/printed-parts/fixtures/fake-countertop/fake-countertop.step": {
       "inputs": "9f04259e4c3279cd2f95c5b1fed2fcf34987977eecf9a017b8ce7d403e4e6e1b",
-      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2"
+      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2",
+      "unproven": true
     },
     "hardware/printed-parts/fixtures/fake-countertop/fake-countertop.stl": {
       "inputs": "9f04259e4c3279cd2f95c5b1fed2fcf34987977eecf9a017b8ce7d403e4e6e1b",
-      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2"
+      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2",
+      "unproven": true
     },
     "hardware/printed-parts/fixtures/faucet-cover-retention/cover-retention-a.step": {
       "commit": "d2c7e36f5c616919c8be5d1ccb8205b0fbac8540",
