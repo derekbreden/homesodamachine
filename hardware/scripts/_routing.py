@@ -42,14 +42,24 @@ import sys
 from dataclasses import dataclass, field
 from pathlib import Path
 
-import cadquery as cq
-
 # `port_colors`, for `SPOOLS` below. It reaches for `enclosure_assembly` inside its own
 # functions and never at import, so the arrow points one way.
 _yw = Path(__file__).resolve().parents[1] / "printed-parts" / "enclosure" / "y-wall-of-back-top"
 if str(_yw) not in sys.path:
     sys.path.insert(0, str(_yw))
 import _y_wall_dimensions as _rear                     # noqa: E402
+
+
+def __getattr__(name):
+    if name == "cq":
+        import cadquery
+        globals()[name] = cadquery
+        return cadquery
+    raise AttributeError(name)
+
+
+def __dir__():
+    return sorted(set(globals()) | {"cq"})
 
 # A port's declared face → the outward normal the line must leave along.
 FACE_NORMAL = {
@@ -644,12 +654,14 @@ def spool_of(cid: str) -> Spool:
 
 def color(key: str) -> "cq.Color":
     """One spool's colour as an assembly takes it, in 0–1."""
+    import cadquery as cq
     s = SPOOLS[key]
     return cq.Color(*(c / 255.0 for c in s.rgb), s.alpha)
 
 
 def tube_color(cid: str) -> "cq.Color":
     """One run's colour — the spool it is cut off, by its connection id."""
+    import cadquery as cq
     s = spool_of(cid)
     return cq.Color(*(c / 255.0 for c in s.rgb), s.alpha)
 
@@ -759,6 +771,7 @@ def leg_caps(run: Run) -> list:
 def centreline(run: Run) -> "cq.Wire":
     """The run's centreline as a wire: straights joined by a tangent arc at each corner, every
     one at the radius that corner seats (`run.radii`)."""
+    import cadquery as cq
     pts = run.pts
     need = [0.0] * len(pts)
     for i, turn, _li, _lo in run.bends:
@@ -797,6 +810,7 @@ def centreline(run: Run) -> "cq.Wire":
 
 def tube(run: Run) -> "cq.Solid":
     """Sweep the run's bore Ø along its centreline."""
+    import cadquery as cq
     path = centreline(run)
     d0 = _unit(run.pts[0], run.pts[1])
     prof = cq.Wire.makeCircle(run.diam / 2.0, cq.Vector(*run.pts[0]), cq.Vector(*d0))
