@@ -1193,7 +1193,9 @@ Each side’s carrier, wing and lower hook share the retainer’s complete Y14.2
 The receiver spans Y14–82.515, leaving 0.25 mm at either end. Each 2.0 mm wing
 has a 22.25 mm root-to-bearing length and a tangent 1.5 mm inside root blend.
 The roots are at Z197.445; the retaining hooks are at the bottom. Each hook
-has a 1.6 mm nose land and a 1.0 mm insertion ramp.
+has one 4.6 mm-high planar insertion face running directly to the pointed
+outer corner of the flat retaining face. The matching receiver pocket clears
+the complete insertion face and retains its broad backing.
 
 The hook-bearing plane is Z175.195. Each seated hook reaches |X|101.1,
 providing 2.6 mm of bearing past the |X|98.5 receiver edge. The relaxed tip
