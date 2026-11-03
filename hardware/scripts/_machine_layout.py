@@ -528,6 +528,12 @@ def _bind_presentations(plan, input_root=ROOT):
     return plan
 
 
+def _work_directory(*parts):
+    """Writable intermediates stay in the action, outside its shared cache symlink."""
+    import _rust_part
+    return _rust_part.ROOT / 'tmp/machine-layout' / Path(*parts)
+
+
 def _run(request, directory):
     import _rust_part
     directory = Path(directory)
@@ -553,7 +559,7 @@ def _run(request, directory):
 def plan(*, stage='pack', box_document=None, directory=None, input_root=ROOT):
     """The current installed reference plan, with scalar construction/check metadata."""
     if directory is None:
-        directory = ROOT / '.cache/hsm/machine-layout' / stage
+        directory = _work_directory(stage)
     request = numbers(stage='pack', box_document=box_document, input_root=input_root)
     prepared = _run(request, Path(directory) / 'references')
     if stage == 'installed':
@@ -595,7 +601,7 @@ def dock_instances(plate, directory=None, *, input_root=ROOT):
         'stem_elbow': _source(input_root, 'hardware/reference/neofit-stem-elbow/neofit-stem-elbow.step')},
         'dock_rows': rows, 'hub_back_reach': enc._dock.stem_elbow.HUB_BACK_REACH,
         'colors': {'tee': _linear(M_JG_BLACK_PP), 'elbow': _linear(M_NEOFIT_WHITE_ACETAL)}}
-    return _run(request, directory or ROOT / '.cache/hsm/machine-layout/dock')
+    return _run(request, directory if directory is not None else _work_directory('dock'))
 
 
 def main():
@@ -641,15 +647,25 @@ def main():
 def _view_metadata(spec, model):
     """Names and stock RGBA for existing viewer scenes, without geometry objects."""
     import _assembly_model
+    from struct import pack, unpack
+    from _materials import C_DISPLAY_GLASS, M_PVC_CLEAR
     metadata = spec['metadata']
     metadata['core_carry3x4'] = metadata['core_carry']
     colours = {}
     alpha = metadata.get('core_alpha_by_name', {})
+    direct_alpha = {'suction-tube': M_PVC_CLEAR.toTuple()[-1],
+                    'discharge-tube': M_PVC_CLEAR.toTuple()[-1],
+                    'display': C_DISPLAY_GLASS.toTuple()[-1]}
+
+    def f32(value):
+        return unpack('f', pack('f', value))[0]
     for name, color in _assembly_model.identity(model):
         stem, _, tail = name.rpartition('/')
         name = stem if tail.isdigit() else name
         if color is not None:
-            colours[name] = [*color, alpha.get(name.removeprefix('cold-core/'), 1.)]
+            logical = name.removeprefix('cold-core/')
+            opacity = direct_alpha.get(logical, alpha.get(logical, 1.))
+            colours[name] = [f32(channel) for channel in (*color, opacity)]
     metadata['rgba'] = colours
     metadata['colours'] = colours
     metadata['core_rgba'] = {name.removeprefix('cold-core/'): color for name, color in colours.items()
