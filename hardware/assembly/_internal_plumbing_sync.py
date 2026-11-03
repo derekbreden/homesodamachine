@@ -13,8 +13,13 @@ for path in (ROOT / 'tools', HW / 'scripts', HW / 'manifold-layout',
     sys.path.insert(0, str(path))
 
 import _facts
-import enclosure as enc
-import enclosure_assembly as assembly  # Declares the placement source this procedure reads.
+from _enclosure_datums import load as _enclosure_numbers
+enc = _enclosure_numbers()
+from _cadq_export import note_read
+note_read(HW / 'manifold-layout/enclosure_assembly.py')
+for source in _facts.sources():
+    if Path(source).suffix in ('.py', '.rs', '.json', '.toml', '.lock', '.yaml', '.yml'):
+        note_read(ROOT / source)
 import manifold_layout as manifold
 import above_core_routes
 from docgen import substitute_md

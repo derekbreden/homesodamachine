@@ -1,5 +1,6 @@
 """Read the enclosure README's dimensions from canonical appliance facts."""
 
+import ast
 import sys
 from pathlib import Path
 
@@ -12,9 +13,20 @@ for path in (ROOT / 'tools', HW / 'scripts', HW / 'manifold-layout',
     sys.path.insert(0, str(path))
 
 import _facts
-import condenser_block as condenser
-import enclosure
-import enclosure_assembly as assembly  # Declares the placement source this reader follows.
+from _enclosure_datums import load as _enclosure_numbers
+enclosure = _enclosure_numbers()
+from _cadq_export import note_read
+_condenser_source = HW / 'reference/condenser-block/condenser_block.py'
+note_read(_condenser_source)
+condenser = {target.id: ast.literal_eval(statement.value)
+             for statement in ast.parse(_condenser_source.read_text()).body
+             if isinstance(statement, ast.Assign)
+             for target in statement.targets if isinstance(target, ast.Name)
+             and target.id in ('AIRFLOW', 'FACE_A', 'FACE_B')}
+note_read(HW / 'manifold-layout/enclosure_assembly.py')
+for source in _facts.sources():
+    if Path(source).suffix in ('.py', '.rs', '.json', '.toml', '.lock', '.yaml', '.yml'):
+        note_read(ROOT / source)
 from _cold_core_interface import foam_shell_outer_height, outer_shell_x_length, outer_shell_y_length
 from docgen import substitute_md
 
@@ -46,9 +58,9 @@ def main():
         'COMP_BAY_STEP': f'{abs(compressor.zmax - block.zmax):.4g}',
         'COMPRESSOR_ROOF': f'{compressor.zmax:.4g}',
         'MATE_X': f'{compressor.xmax:.4g}',
-        'CONDENSER_ACROSS': f'{condenser.AIRFLOW:.4g}',
-        'CONDENSER_LONG': f'{condenser.FACE_A:.4g}',
-        'CONDENSER_STANDING': f'{condenser.FACE_B:.4g}',
+        'CONDENSER_ACROSS': f'{condenser["AIRFLOW"]:.4g}',
+        'CONDENSER_LONG': f'{condenser["FACE_A"]:.4g}',
+        'CONDENSER_STANDING': f'{condenser["FACE_B"]:.4g}',
         'CONDENSER_LIFT': f'{block.zmin:.4g}',
         'CORE_FRONT_Y': f'{core_front:.4g}',
         'CORE_CROWN': f'{facts.faces["foam-assembly.cap"]:.4g}',
