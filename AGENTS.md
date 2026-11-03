@@ -72,6 +72,16 @@ A script you write because nothing in the repo answers your question is a tool t
 
 Every change to the enclosure's geometry has an entry in [`changes/`](changes/README.md), shown at [homesodamachine.com/changes](https://homesodamachine.com/changes): a before and an after picture of what changed, from one camera, with a short lede. The before is the snapshot taken ahead of the rebuild, `node tools/changes/change.mjs snapshot`; nothing else keeps it. [`changes/README.md`](changes/README.md) has the rest. Recording follows the change and never holds it up.
 
+## Speed
+
+Every agent's builds run on this one Mac, an 8 GB M3. The goal is that its CPU and memory stop
+limiting how much the agents get done: more agents working in parallel, with their thinking as
+the limit. Agent thinking time is never a cost. Time spent waiting on the machine is.
+
+Rust is how the build gets there: it moves off CadQuery, OpenCASCADE and meshcad onto the `hsm`
+kernel. The bet is on Rust. A program converted to Rust lands even when it isn't faster on its
+first try, and is made faster in Rust afterwards. [`tools/hsm/conversion.md`](tools/hsm/conversion.md)
+is the plan.
 
 ## What Runs Every Time
 
