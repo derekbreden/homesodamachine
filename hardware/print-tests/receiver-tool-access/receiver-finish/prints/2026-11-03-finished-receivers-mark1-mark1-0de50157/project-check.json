@@ -1,0 +1,185 @@
+{
+  "project_sha256_matches": true,
+  "objects": [
+    {
+      "name": "pump-seat",
+      "vertices": 282,
+      "source_sha256_matches": true,
+      "embedded_vertex_error_mm": 4.9735547236196e-07,
+      "source_comparison": "source vertices in order",
+      "seam_painted_facets": 0,
+      "placed_bounds_mm": [
+        [
+          56.19767728299999,
+          76.197864295,
+          2.3300000151493805e-07
+        ],
+        [
+          135.356041283,
+          171.59786629500002,
+          36.029346233
+        ]
+      ],
+      "bed_contact_z_mm": 2.3300000151493805e-07,
+      "blocked_facets": 0,
+      "partially_painted_facets": 0,
+      "parts": {
+        "normal_part": 1
+      },
+      "layer_ranges": [],
+      "ribbon_and_fin_parts": 0,
+      "modifiers_expected": 0
+    },
+    {
+      "name": "meter-seat",
+      "vertices": 2431,
+      "source_sha256_matches": true,
+      "embedded_vertex_error_mm": 4.997840505893691e-07,
+      "source_comparison": "source vertices in order",
+      "seam_painted_facets": 0,
+      "placed_bounds_mm": [
+        [
+          147.35604071799997,
+          78.24787129500001,
+          -3.8099999954965824e-07
+        ],
+        [
+          200.506042718,
+          169.547859295,
+          60.299999619
+        ]
+      ],
+      "bed_contact_z_mm": -3.8099999954965824e-07,
+      "blocked_facets": 0,
+      "partially_painted_facets": 0,
+      "parts": {
+        "normal_part": 1
+      },
+      "layer_ranges": [],
+      "ribbon_and_fin_parts": 0,
+      "modifiers_expected": 0
+    },
+    {
+      "name": "asse-seat",
+      "vertices": 848,
+      "source_sha256_matches": true,
+      "embedded_vertex_error_mm": 5.001953127248271e-07,
+      "source_comparison": "source vertices in order",
+      "seam_painted_facets": 0,
+      "placed_bounds_mm": [
+        [
+          212.506042434,
+          81.849498295,
+          4.249999996375209e-07
+        ],
+        [
+          268.802322434,
+          165.94623229500002,
+          51.778926424999995
+        ]
+      ],
+      "bed_contact_z_mm": 4.249999996375209e-07,
+      "blocked_facets": 0,
+      "partially_painted_facets": 0,
+      "parts": {
+        "normal_part": 1
+      },
+      "layer_ranges": [],
+      "ribbon_and_fin_parts": 0,
+      "modifiers_expected": 0
+    },
+    {
+      "name": "pisco-seat",
+      "vertices": 758,
+      "source_sha256_matches": true,
+      "embedded_vertex_error_mm": 5.003476530873741e-07,
+      "source_comparison": "source vertices in order",
+      "seam_painted_facets": 0,
+      "placed_bounds_mm": [
+        [
+          107.619384619,
+          183.597865763,
+          -1.330000003463283e-07
+        ],
+        [
+          142.430614619,
+          243.802135763,
+          44.227401867
+        ]
+      ],
+      "bed_contact_z_mm": -1.330000003463283e-07,
+      "blocked_facets": 0,
+      "partially_painted_facets": 0,
+      "parts": {
+        "normal_part": 1
+      },
+      "layer_ranges": [],
+      "ribbon_and_fin_parts": 0,
+      "modifiers_expected": 0
+    },
+    {
+      "name": "regulator-seat",
+      "vertices": 2711,
+      "source_sha256_matches": true,
+      "embedded_vertex_error_mm": 4.998779274956178e-07,
+      "source_comparison": "source vertices in order",
+      "seam_painted_facets": 0,
+      "placed_bounds_mm": [
+        [
+          154.430614853,
+          189.646796763,
+          0.0
+        ],
+        [
+          217.380614853,
+          237.75320476299999,
+          20.0
+        ]
+      ],
+      "bed_contact_z_mm": 0.0,
+      "blocked_facets": 0,
+      "partially_painted_facets": 0,
+      "parts": {
+        "normal_part": 1
+      },
+      "layer_ranges": [],
+      "ribbon_and_fin_parts": 0,
+      "modifiers_expected": 0
+    }
+  ],
+  "z_trim_block": [
+    "+0.0",
+    "0.18 - 0.01",
+    "0.18 - 0.02",
+    "0.18 + 0.01",
+    "0.18"
+  ],
+  "cooling": {
+    "fan_min_speed": [
+      "0"
+    ],
+    "fan_max_speed": [
+      "0"
+    ],
+    "overhang_fan_speed": [
+      "70"
+    ],
+    "overhang_fan_threshold": [
+      "50%"
+    ],
+    "additional_cooling_fan_speed": [
+      "0"
+    ]
+  },
+  "support": {
+    "support_type": "tree(auto)",
+    "support_style": "default",
+    "support_object_xy_distance": "0.4",
+    "max_bridge_length": "0",
+    "tree_support_branch_diameter": "2",
+    "tree_support_branch_diameter_angle": "5",
+    "brim_type": "auto_brim"
+  },
+  "problems": [],
+  "pass": true
+}

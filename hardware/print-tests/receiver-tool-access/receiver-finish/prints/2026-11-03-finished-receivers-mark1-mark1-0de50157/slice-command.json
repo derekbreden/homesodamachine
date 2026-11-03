@@ -1,0 +1,14 @@
+[
+  "/Applications/BambuStudio.app/Contents/MacOS/BambuStudio",
+  "--slice",
+  "0",
+  "--arrange",
+  "0",
+  "--orient",
+  "0",
+  "--outputdir",
+  "/Users/derekbredensteiner/Developer/homesodamachine/.cache/asse-body-seating/worktree/hardware/print-tests/receiver-tool-access/receiver-finish/prints/2026-11-03-finished-receivers-mark1-mark1-0de50157/native",
+  "--export-3mf",
+  "2026-11-03-finished-receivers-mark1-mark1-0de50157.gcode.3mf",
+  "/Users/derekbredensteiner/Developer/homesodamachine/.cache/asse-body-seating/worktree/hardware/print-tests/receiver-tool-access/receiver-finish/prints/2026-11-03-finished-receivers-mark1-mark1-0de50157/2026-11-03-finished-receivers-mark1-mark1-0de50157.3mf"
+]

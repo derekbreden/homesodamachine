@@ -1,0 +1,567 @@
+{
+  "piece": "finished-receivers-mark1",
+  "printer": "Mark1",
+  "connection_key": "H2C",
+  "nozzle": {
+    "side": "left",
+    "diameter_mm": 0.4,
+    "flow": "Standard",
+    "hardened": true,
+    "reason": "Every abrasive stock runs on the left hotend (hardware/ledger/tools.md, Which hotends fit an H2C); Mark1's fixed left hardened 0.4 mm carries black PET-GF (tools/bambu-printers.md, Purge and wipe).",
+    "sliced_diameter_mm": 0.4,
+    "sliced_volume_type": "Standard"
+  },
+  "material": "Polymaker Fiberon PET-GF15, black",
+  "bed_type": "Textured PEI Plate",
+  "requested_z_trim_mm": 0.18,
+  "emitted_textured_trim_mm": 0.16,
+  "project": "hardware/print-tests/receiver-tool-access/receiver-finish/prints/2026-11-03-finished-receivers-mark1-mark1-0de50157/2026-11-03-finished-receivers-mark1-mark1-0de50157.3mf",
+  "project_sha256": "30c635872119efde7d66d1bc88b17444643081f5960afbbb670ed6603c70f28a",
+  "profile": "hardware/printed-parts/petgf.3mf",
+  "profile_sha256": "45c16e8c8517e0a205107d7b9f7412d013f51a8de7ecf86125cc940079d37ed0",
+  "settings_sha256": "8260452bae9cf42ed8016bca971ee73ed8c4437f00091b5665e63af9ae153d61",
+  "settings_changes": {
+    "extruder_ams_count": {
+      "from": [
+        "1#0|4#1",
+        "1#0|4#0"
+      ],
+      "to": [
+        "1#0|4#0",
+        "1#0|4#0"
+      ],
+      "reason": "Single external black PET-GF spool on the fixed left nozzle for model, support and interface."
+    },
+    "support_filament": {
+      "from": "0",
+      "to": "1",
+      "reason": "Single external black PET-GF spool on the fixed left nozzle for model, support and interface."
+    },
+    "support_interface_filament": {
+      "from": "0",
+      "to": "1",
+      "reason": "Single external black PET-GF spool on the fixed left nozzle for model, support and interface."
+    },
+    "flush_into_support": {
+      "from": "1",
+      "to": "0",
+      "reason": "Single external black PET-GF spool on the fixed left nozzle for model, support and interface."
+    },
+    "filament_colour": {
+      "from": [
+        "#000000"
+      ],
+      "to": [
+        "#000000"
+      ],
+      "reason": "Mark1's loaded black PET-GF colour reading."
+    },
+    "wall_loops": {
+      "from": "2",
+      "to": "3",
+      "reason": "Three production Classic walls."
+    },
+    "wall_generator": {
+      "from": "classic",
+      "to": "classic",
+      "reason": "Production fixed-width walls."
+    },
+    "sparse_infill_density": {
+      "from": "15%",
+      "to": "15%",
+      "reason": "Production receiver bulk."
+    },
+    "sparse_infill_pattern": {
+      "from": "gyroid",
+      "to": "gyroid",
+      "reason": "Production receiver bulk recipe."
+    },
+    "enable_support": {
+      "from": "1",
+      "to": "1",
+      "reason": "Tree(auto)/Default retains automatic support beneath functional ceilings."
+    }
+  },
+  "profile_changes": {
+    "machine_start_gcode": {
+      "from_sha256": "3cc9e41520dbf5622d6f9a96bce734db9d11b0b48b49f2abec047a6e01dc6a92",
+      "to_sha256": "409b1516f0401361a02b18a34420c10ca83bc33615e8896cade2fea42edee871",
+      "requested_z_trim_mm": 0.18
+    },
+    "printer_settings_id": {
+      "from": "Bambu Lab H2C 0.4 nozzle 04 first layer by agent",
+      "to": "Bambu Lab H2C 0.4 Standard +0.18 Z trim"
+    },
+    "print_compatible_printers": {
+      "from": [
+        "Bambu Lab H2C 0.4 nozzle"
+      ],
+      "to": [
+        "Bambu Lab H2C 0.4 nozzle",
+        "Bambu Lab H2C 0.4 Standard +0.18 Z trim"
+      ]
+    }
+  },
+  "usable_plate_mm": [
+    [
+      0.0,
+      0.0
+    ],
+    [
+      325.0,
+      320.0
+    ]
+  ],
+  "plate_border_mm": 40.0,
+  "brim_allowance_mm": 0.0,
+  "plate_offset_mm": null,
+  "objects": [
+    {
+      "name": "pump-seat",
+      "identify_id": 1901,
+      "object_id": 2,
+      "stl": "hardware/print-tests/receiver-tool-access/receiver-finish/parts/pump-seat.stl",
+      "stl_sha256": "750e00731ca0deb42d7e6e5edb064ca58152381d91a9ca0d4007134922a8049f",
+      "step_sha256": "4d5a59fa214e290c92c0bd5342fde74270abd2ae0aac6c4f38f6b14546bf5b84",
+      "facets": 576,
+      "closed": {
+        "edges": 864,
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "inconsistent_edges": 0,
+        "bodies": 1,
+        "closed_oriented_single_body": true
+      },
+      "pose": null,
+      "pose_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "yaw_degrees": 0,
+      "source_center_mm": [
+        0.0,
+        0.0,
+        18.014673233032227
+      ],
+      "build_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "translation_mm": [
+        95.77685928344727,
+        123.89786529541016,
+        18.014673233032227
+      ],
+      "plate_bounds_mm": [
+        [
+          56.19767761230469,
+          76.1978645324707,
+          0.0
+        ],
+        [
+          135.35604095458984,
+          171.5978660583496,
+          36.02934646606445
+        ]
+      ],
+      "model_bed_margin_mm": 56.19767761230469,
+      "seam_enforcer": null,
+      "object_settings": {},
+      "features": [],
+      "ranges": [],
+      "verify_spans": [],
+      "ribbons": [],
+      "tie_windows": [],
+      "modifiers": [],
+      "fins": []
+    },
+    {
+      "name": "meter-seat",
+      "identify_id": 1902,
+      "object_id": 4,
+      "stl": "hardware/print-tests/receiver-tool-access/receiver-finish/parts/meter-seat.stl",
+      "stl_sha256": "11bbdfa811f38b95482f635bdcaf19951523e9a044f0cf8c62b70fa54b4bc6b7",
+      "step_sha256": "2d91f7513f56a34c901b6cc6fd19d671b1e666d40f8f4b50ec4759764a31cc2c",
+      "facets": 4874,
+      "closed": {
+        "edges": 7311,
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "inconsistent_edges": 0,
+        "bodies": 1,
+        "closed_oriented_single_body": true
+      },
+      "pose": null,
+      "pose_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "yaw_degrees": 0,
+      "source_center_mm": [
+        0.0,
+        0.0,
+        30.149999618530273
+      ],
+      "build_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "translation_mm": [
+        173.9310417175293,
+        123.89786529541016,
+        30.149999618530273
+      ],
+      "plate_bounds_mm": [
+        [
+          147.35604095458984,
+          78.24787139892578,
+          0.0
+        ],
+        [
+          200.50604248046875,
+          169.54785919189453,
+          60.29999923706055
+        ]
+      ],
+      "model_bed_margin_mm": 78.24787139892578,
+      "seam_enforcer": null,
+      "object_settings": {},
+      "features": [],
+      "ranges": [],
+      "verify_spans": [],
+      "ribbons": [],
+      "tie_windows": [],
+      "modifiers": [],
+      "fins": []
+    },
+    {
+      "name": "asse-seat",
+      "identify_id": 1903,
+      "object_id": 6,
+      "stl": "hardware/print-tests/receiver-tool-access/receiver-finish/parts/asse-seat.stl",
+      "stl_sha256": "cb3fff97aa7bb747c7eb6c1b45d392e7e5f0816de884053702ba78e290e081b1",
+      "step_sha256": "42d9d8da3bd7e9913e35640073f1a5b328e3dd49d972e87491a51ca9e87cf7f1",
+      "facets": 1704,
+      "closed": {
+        "edges": 2556,
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "inconsistent_edges": 0,
+        "bodies": 1,
+        "closed_oriented_single_body": true
+      },
+      "pose": null,
+      "pose_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "yaw_degrees": 0,
+      "source_center_mm": [
+        0.0,
+        0.0,
+        25.889463424682617
+      ],
+      "build_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "translation_mm": [
+        240.65418243408203,
+        123.89786529541016,
+        25.889463424682617
+      ],
+      "plate_bounds_mm": [
+        [
+          212.50604248046875,
+          81.8494987487793,
+          0.0
+        ],
+        [
+          268.8023223876953,
+          165.94623184204102,
+          51.778926849365234
+        ]
+      ],
+      "model_bed_margin_mm": 56.19767761230469,
+      "seam_enforcer": null,
+      "object_settings": {},
+      "features": [],
+      "ranges": [],
+      "verify_spans": [],
+      "ribbons": [],
+      "tie_windows": [],
+      "modifiers": [],
+      "fins": []
+    },
+    {
+      "name": "pisco-seat",
+      "identify_id": 1904,
+      "object_id": 8,
+      "stl": "hardware/print-tests/receiver-tool-access/receiver-finish/parts/pisco-seat.stl",
+      "stl_sha256": "6a813202a35f34986ec2a31416f361bdbc65d28c798be11e2711b855c0895364",
+      "step_sha256": "092a20f7d3d9e3792d8f87f65b7bafa2e0d7373e973cc900d29bf94519042321",
+      "facets": 1516,
+      "closed": {
+        "edges": 2274,
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "inconsistent_edges": 0,
+        "bodies": 1,
+        "closed_oriented_single_body": true
+      },
+      "pose": null,
+      "pose_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "yaw_degrees": 0,
+      "source_center_mm": [
+        0.0,
+        0.0,
+        22.11370086669922
+      ],
+      "build_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "translation_mm": [
+        125.02499961853027,
+        213.70000076293945,
+        22.11370086669922
+      ],
+      "plate_bounds_mm": [
+        [
+          107.619384765625,
+          183.5978660583496,
+          0.0
+        ],
+        [
+          142.43061447143555,
+          243.8021354675293,
+          44.22740173339844
+        ]
+      ],
+      "model_bed_margin_mm": 76.1978645324707,
+      "seam_enforcer": null,
+      "object_settings": {},
+      "features": [],
+      "ranges": [],
+      "verify_spans": [],
+      "ribbons": [],
+      "tie_windows": [],
+      "modifiers": [],
+      "fins": []
+    },
+    {
+      "name": "regulator-seat",
+      "identify_id": 1905,
+      "object_id": 10,
+      "stl": "hardware/print-tests/receiver-tool-access/receiver-finish/parts/regulator-seat.stl",
+      "stl_sha256": "d749784a22af55a1d46c368339d605ae5ffc9655889684f2c402a97fad4f1a9f",
+      "step_sha256": "e1705e823d676c0643a54339b6e071bd6b379e28f57c87de548bbe3c2da3c811",
+      "facets": 5418,
+      "closed": {
+        "edges": 8127,
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "inconsistent_edges": 0,
+        "bodies": 1,
+        "closed_oriented_single_body": true
+      },
+      "pose": null,
+      "pose_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "yaw_degrees": 0,
+      "source_center_mm": [
+        0.0,
+        0.0,
+        10.0
+      ],
+      "build_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "translation_mm": [
+        185.90561485290527,
+        213.70000076293945,
+        10.0
+      ],
+      "plate_bounds_mm": [
+        [
+          154.43061447143555,
+          189.64679718017578,
+          0.0
+        ],
+        [
+          217.380615234375,
+          237.75320434570312,
+          20.0
+        ]
+      ],
+      "model_bed_margin_mm": 82.24679565429688,
+      "seam_enforcer": null,
+      "object_settings": {},
+      "features": [],
+      "ranges": [],
+      "verify_spans": [],
+      "ribbons": [],
+      "tie_windows": [],
+      "modifiers": [],
+      "fins": []
+    }
+  ],
+  "pause": null,
+  "show_faces": "hardware/print-tests/receiver-tool-access/receiver-finish/prints/2026-11-03-finished-receivers-mark1-mark1-0de50157/show-faces.npz",
+  "spec": "hardware/print-tests/receiver-tool-access/receiver-finish/plate-spec.json",
+  "spec_sha256": "b47c76446c4311188559e3cc54ec31fede0392a4c0e30f6acbd5381363400349",
+  "tool_sha256": {
+    "hardware/printed-parts/enclosure/trial-preparation/_derive.py": "2ffa3fc3e716cfc6d1663f69767228eb0f6d9f8da147ffc2c90de2097cdac6e4",
+    "hardware/printed-parts/enclosure/trial-preparation/_mesh.py": "7ab22db36e370608f52df3709c4af1994c8e804ee06e101dcbf79210db99eead",
+    "hardware/printed-parts/enclosure/trial-preparation/_native.py": "1c99ce10842a141a942a19d7def2329512d14b676c00618496187e0d93cd29da",
+    "hardware/printed-parts/enclosure/trial-preparation/_seam.py": "9ffa509df701826563e18388fd3bcc57c604f4b2b8e5e4288821ddcd00bcb176",
+    "hardware/printed-parts/enclosure/trial-preparation/labels.py": "d172b8408f0b9ded097d7c8c2eeea682a067e5d487967576c77caf4204696d68",
+    "hardware/printed-parts/enclosure/trial-preparation/prepare.py": "bc5495142592e777cb1b94eb2cfe06e64ba15ee6bae94f3e95e62a556741b513",
+    "hardware/printed-parts/enclosure/trial-preparation/review.py": "9bd303fe370842fd34eb559dc5f53f887f75c42e478c598737397dd49dd539f7",
+    "hardware/printed-parts/enclosure/trial-preparation/step_meshes.py": "b50f7b50f52f1e8516be3b1fc9ecdb10e87fb188f8b9bebc0fac56737320fc44"
+  },
+  "prepared_utc": "2026-11-03T22:41:49+00:00",
+  "sliced": true,
+  "submitted": false,
+  "archive": "hardware/print-tests/receiver-tool-access/receiver-finish/prints/2026-11-03-finished-receivers-mark1-mark1-0de50157/2026-11-03-finished-receivers-mark1-mark1-0de50157.gcode.3mf",
+  "archive_sha256": "60bf4cc7f96578be28045e7f524a168fa4f77e0a73b9cd1e2c7851bf1612cc95",
+  "gcode_sha256": "2ec4f86cf11a72e35dc37673785aac4a04d12f5b3815bd45bb8f685ceeb1e492",
+  "estimated_seconds": 23089.8125,
+  "slicer_warnings": []
+}

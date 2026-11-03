@@ -242,13 +242,32 @@ def receiver_tool_ports(s):
     normal=np.array((direction[1],-direction[0]))
     centre=np.array((middle,s['bearing']))
     entry=((s['y1']-s['y0'])/2.+s.get('tool_end_stock',WALL)+2.)/abs(direction[0])
-    section=[(centre+t*direction+q*normal).tolist()
+    corners=[centre+t*direction+q*normal
              for t,q in ((-entry,-TOOL_SLOT_HEIGHT/2.),(4.,-TOOL_SLOT_HEIGHT/2.),
                          (4.,TOOL_SLOT_HEIGHT/2.),(-entry,TOOL_SLOT_HEIGHT/2.))]
+    # Meet the flat catch pocket with a flat opening. An uninterrupted angled
+    # roof would leave a feather edge against that pocket's bearing plane.
+    upper_q=-math.copysign(TOOL_SLOT_HEIGHT/2.,direction[0])
+    def upper_at(z):
+        t=(z-centre[1]-upper_q*normal[1])/direction[1]
+        return centre+t*direction+upper_q*normal
+    shoulder=upper_at(s['bearing']-WALL)
+    opening=upper_at(s['bearing'])
+    flat=np.array((shoulder[0],s['bearing']))
+    section=[]
+    for i,p in enumerate(corners):
+        section.append(p.tolist())
+        if direction[0]>0. and i==0:
+            section.extend(v.tolist() for v in (shoulder,flat,opening))
+        elif direction[0]<0. and i==2:
+            section.extend(v.tolist() for v in (opening,flat,shoulder))
     ports=[]
     for side in s.get('tool_sides',(-1.,1.)):
         x=s['axis_x']+side*(s['hook']+s.get('tool_nose_offset',-1.))
-        ports.append({'side':side,'span':(x-TOOL_SLOT_WIDTH/2.,x+TOOL_SLOT_WIDTH/2.),
+        span=[x-TOOL_SLOT_WIDTH/2.,x+TOOL_SLOT_WIDTH/2.]
+        if 'tool_inner_edges' in s:
+            span[1 if side<0. else 0]=s['tool_inner_edges'][0 if side<0. else 1]
+        ports.append({'side':side,'span':span,
                       'section':section,'centre':(x,middle,s['bearing']),
                       'direction':(0.,*direction.tolist())})
     return ports
