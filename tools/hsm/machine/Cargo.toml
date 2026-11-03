@@ -19,6 +19,10 @@ name = "machine-layout"
 path = "../../../hardware/manifold-layout/machine_layout.rs"
 
 [[bin]]
+name = "machine-equipment"
+path = "../../../hardware/manifold-layout/machine_equipment.rs"
+
+[[bin]]
 name = "installed-wires"
 path = "../../../hardware/wiring/installed/wire_geometry.rs"
 
