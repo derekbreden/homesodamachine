@@ -1788,7 +1788,7 @@
  ],
  "file_stem": "enclosure-wiring",
  "name": "installed-wiring",
- "physical_fine_model_sha256": "21d1b4a5220abfa5748e1302d01ea32fc8228a381816853e0934a05b2fd3af1c",
+ "physical_fine_model_sha256": "c9fbaf7754a8d5069efee8b52c3b41909c5604dd96d7ee929f915d03b4ff56b5",
  "presentation_angular_deflection_rad": 0.5,
  "presentation_deflection_ratio": 0.001,
  "routes": [
