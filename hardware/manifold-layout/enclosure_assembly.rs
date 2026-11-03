@@ -260,7 +260,7 @@ fn box_operand(value: &Value) -> Result<Solid> {
 }
 
 
-fn query(parts: &mut [Imported], queries: &Value) -> Result<Vec<Value>> {
+fn query(parts: &mut [Imported], queries: &Value, query_only: bool) -> Result<Vec<Value>> {
     let mut gap_meshes = BTreeMap::new();
     let mut groups = BTreeMap::new();
     let values = queries.as_array().context("queries is an ordered array")?;
@@ -276,6 +276,23 @@ fn query(parts: &mut [Imported], queries: &Value) -> Result<Vec<Value>> {
     for (index, (a, b)) in operands.iter().enumerate() {
         last.insert(a.clone(), index);
         if !b.is_empty() { last.insert(b.clone(), index); }
+    }
+    let mut release_at = vec![Vec::new(); values.len()];
+    if query_only {
+        let mut part_last = vec![None; parts.len()];
+        for (index, (value, (a, b))) in values.iter().zip(&operands).enumerate() {
+            for &part in a.iter().chain(b) { part_last[part] = Some(index); }
+            if let Some(stages) = value.get("fine_mask_stages") {
+                for stage in stages.as_array().context("fine mask stages is an array")? {
+                    for part in operand(stage.get("indices"), parts.len())? {
+                        part_last[part] = Some(index);
+                    }
+                }
+            }
+        }
+        for (part, at) in part_last.into_iter().enumerate() {
+            if let Some(at) = at { release_at[at].push(part); }
+        }
     }
     let mut readings = Vec::with_capacity(values.len());
     for (index, (value, (a, b))) in values.iter().zip(&operands).enumerate() {
@@ -359,6 +376,9 @@ fn query(parts: &mut [Imported], queries: &Value) -> Result<Vec<Value>> {
                     for &part in indices { parts[part].solid.forget_backend(); }
                 }
             }
+            // A query-only caller needs no later body summary or model export.
+            // Count actual entries across groups and masks before dropping raw geometry.
+            for &part in &release_at[index] { parts[part].solid = Solid::empty(); }
     }
     Ok(readings)
 }
@@ -422,14 +442,19 @@ fn main() -> Result<()> {
         Err(_) => BTreeSet::new(),
     };
     let queries = numbers.get("queries")?;
-    if output == Path::new("--check") && queries.as_array().is_some_and(|rows| rows.is_empty()) {
+    let query_only = match numbers.get("query_only") {
+        Ok(value) => value.as_bool().context("query_only is a boolean")?,
+        Err(_) => false,
+    };
+    ensure!(!query_only || output == Path::new("--check"), "query-only requests do not write a model");
+    if !query_only && output == Path::new("--check") && queries.as_array().is_some_and(|rows| rows.is_empty()) {
         if let Some(summaries) = model_summaries(numbers.get("instances")?, &components)? {
             println!("{}", json!({"files":[],"bodies":summaries,"queries":[]}));
             return Ok(());
         }
     }
     let mut parts = assemble(numbers.get("instances")?)?;
-    let readings = query(&mut parts, queries)?;
+    let readings = query(&mut parts, queries, query_only)?;
     let bodies: Vec<Body<'_>> = parts
         .iter()
         .map(|part| Body {
@@ -450,7 +475,9 @@ fn main() -> Result<()> {
         write_model(&output.join(&file), &bodies)?;
         files.push(file);
     }
-    let summaries: Vec<Value> = parts.iter().map(|part| summary(part, components.contains(&part.name))).collect();
+    let summaries: Vec<Value> = if query_only { Vec::new() } else {
+        parts.iter().map(|part| summary(part, components.contains(&part.name))).collect()
+    };
     println!(
         "{}",
         json!({"files":files,"bodies":summaries,"queries":readings})
