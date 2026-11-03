@@ -191,7 +191,7 @@ def main():
     bazel_heavy = program in ('bazel', 'bazelisk') and any(v in command[1:] for v in ('build', 'test', 'run', 'coverage'))
     cargo_heavy = program == 'cargo' and any(v in command[1:] for v in ('build', 'test', 'run', 'check', 'bench', 'install', 'rustc'))
     if bazel_heavy:
-        command = limit_jobs(command, 1)     # one heavy action per inherited logical lease
+        command = limit_jobs(command, 2)     # two heavy actions per inherited logical lease
     elif cargo_heavy:
         command = limit_jobs(command, 2)
     if program in ('bazel', 'bazelisk'):
