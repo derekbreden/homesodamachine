@@ -2,8 +2,8 @@
   "all_retained_viewer_arrays_identical": null,
   "bodies": [],
   "files": [
-    "/Users/derekbredensteiner/Library/Caches/bazel/_bazel_derekbredensteiner/676256c57461751d37a0a850b4deca80/execroot/_main/work-enclosure-assembly/hardware/manifold-layout/enclosure-assembly.step",
-    "/Users/derekbredensteiner/Library/Caches/bazel/_bazel_derekbredensteiner/676256c57461751d37a0a850b4deca80/execroot/_main/work-enclosure-assembly/hardware/manifold-layout/enclosure-assembly.step.mesh"
+    "enclosure-assembly.step",
+    "enclosure-assembly.step.mesh"
   ],
   "installed_step_sha256": "a7bc715527f4f1fe496f4125f58298916fcb6dbd341ec67a20c32bd9efb191ad",
   "physical_meshes_retained": 438,

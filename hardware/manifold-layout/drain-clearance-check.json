@@ -2588,7 +2588,7 @@
     },
     "physical": {
       "path": "hardware/manifold-layout/enclosure-assembly.step.npz",
-      "sha256": "e11b535af0c8c448aea7df6846bd2659648a229b5648bbac36980ce2819afcc1"
+      "sha256": "4d5b6157efbb6cee95ab03b8efb84cd41d79ac8b3ed6d1c09346069467ea0226"
     },
     "population": {
       "asse-drain-adapter": [
@@ -5398,15 +5398,15 @@
     "hardware/manifold-layout/_drain.py": "fe820671a5415fbd7cdbc7bd63af8690a9a6412b0b22b9ff30f2f902cdc16d36",
     "hardware/manifold-layout/_lines.py": "814a077be042d9335e897493e22cfff9bbdfd3df26e9014d3f562432c7f39375",
     "hardware/manifold-layout/above-core.json": "e0b80674504eabcbfa8ce36559b94b30c737d80f2a99b782dd45cbb7cec05dec",
-    "hardware/manifold-layout/enclosure_assembly.py": "7097685472ec3802629df302742a128f03ea670c6df4512be5e4d396f742d3b8",
-    "hardware/manifold-layout/enclosure_assembly.rs": "96aa539012f321bd62c76c3226f00aa9e81dd0d9586fae16f2d825824b6762a3",
-    "hardware/manifold-layout/machine_check_bounds.rs": "719d6551ee36925642f0f9e56b148339506d1888d6b21b060e884ce38610ddb2",
+    "hardware/manifold-layout/enclosure_assembly.py": "dd94e895cec102f4c0c3f49dc219965a2e27809bd478cd659ab943ddacbc38bb",
+    "hardware/manifold-layout/enclosure_assembly.rs": "51367b083497a96d6fb048abef8bf39e49689d1ca8b5b1877d81fb93b7bdc606",
+    "hardware/manifold-layout/machine_check_bounds.rs": "54f050bd466e9e84bb8a23d032e91a8eba87f7757c59da5d5152e7b7d9d9c165",
     "hardware/manifold-layout/machine_check_drain.rs": "607e556e7b8153fe05dd352b276338b31bac1568d0fa9b5aeabefe8c25af0f42",
     "hardware/manifold-layout/machine_check_geometry.rs": "526b7f3a7c4f76a43e9225fa258897cb7ac36856e7aba15025cd2016ffb41175",
     "hardware/manifold-layout/machine_check_report.rs": "b5f567f6a393c754484e4dfbbcf36ca7047f957e84a925799453dbec1bdca1dc",
     "hardware/manifold-layout/machine_check_routes.rs": "b6fe857ce0bbbaa913571dea2285fd457952162d0eba65bc2bce533de836ff3a",
     "hardware/manifold-layout/machine_check_rules.json": "53b552b37cab2acc8e4b6cdeb27b677342f2e27d5efff1ba0ebeb6578742358f",
-    "hardware/manifold-layout/machine_checks.rs": "f3747bd92119331a124f3297ba8d01fe5ac4165c9ca29e0bc215f14cf8537d30",
+    "hardware/manifold-layout/machine_checks.rs": "b9aced58f223c18f9f9f55f0a1e26e9a8a7d97d17d45a97cc661d3a6db22c423",
     "hardware/manifold-layout/rear_plumbing.py": "59bd783446f82048f72eb4e2aadfe6a3531c5778404455b13d4facea959ddb70",
     "hardware/printed-parts/asse-drain-adapter/asse_drain_adapter.py": "115d59155216f206d8fb799f68c9468c88595ec2a576d967bd0be922c67590ed",
     "hardware/reference/asse1022-assembly/asse1022_assembly.py": "8aaf9cc6d16062a5536d8ea6c8e6d0d79abe965eed761b2017e803f61298f081",
