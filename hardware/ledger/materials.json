@@ -685,32 +685,12 @@
             "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
           },
           {
-            "material": "HSM-000299",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "tube-co2-2",
-              "tube-above-core-gas-core-drop"
-            ],
-            "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
-          },
-          {
             "material": "HSM-000300",
             "quantity": 1,
             "unit": "ea",
             "bodies": [
               "tube-fluid-2",
               "tube-above-core-reg-va-link"
-            ],
-            "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
-          },
-          {
-            "material": "HSM-000301",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "tube-carb-1",
-              "tube-soda-core-rise"
             ],
             "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
           },
@@ -739,42 +719,6 @@
             "unit": "ea",
             "bodies": [
               "tube-fluid-18"
-            ],
-            "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
-          },
-          {
-            "material": "HSM-000305",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "tube-fluid-24"
-            ],
-            "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
-          },
-          {
-            "material": "HSM-000306",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "tube-fluid-26"
-            ],
-            "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
-          },
-          {
-            "material": "HSM-000307",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "tube-fluid-14"
-            ],
-            "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
-          },
-          {
-            "material": "HSM-000308",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "tube-fluid-16"
             ],
             "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
           },
@@ -1619,7 +1563,7 @@
         }
       ],
       "bom": {
-        "scope": "Carbonator, insulation stack, reservoirs, sensing hardware, the top-lid equipment (water pump and its joints, main board, V-B and the four core-lid junctions) and the fasteners that close them. Foam, tape and other supplies are costed on the cold core itself.",
+        "scope": "Carbonator, insulation stack, reservoirs, sensing hardware, the tubes potted through the shell (each whole, its free end included), the top-lid equipment (water pump and its joints, main board, V-B and the four core-lid wiring junctions) and the fasteners that close them. Foam, tape and other supplies are costed on the cold core itself.",
         "source": "cold-core-layout/_bom.py",
         "items": [
           {
@@ -1777,20 +1721,26 @@
             ]
           },
           {
-            "material": "HSM-000313",
+            "material": "HSM-000301",
             "quantity": 1,
             "unit": "ea",
             "bodies": [
-              "line-carb-water-out"
-            ]
+              "line-carb-water-out",
+              "../tube-carb-1",
+              "../tube-soda-core-rise"
+            ],
+            "note": "One continuous tube. The cold core pots its lower span; the machine model draws its free end above the lid."
           },
           {
-            "material": "HSM-000314",
+            "material": "HSM-000299",
             "quantity": 1,
             "unit": "ea",
             "bodies": [
-              "line-co2-in"
-            ]
+              "line-co2-in",
+              "../tube-co2-2",
+              "../tube-above-core-gas-core-drop"
+            ],
+            "note": "One continuous tube. The cold core pots its lower span; the machine model draws its free end above the lid."
           },
           {
             "material": "HSM-000315",
@@ -1801,44 +1751,54 @@
             ]
           },
           {
-            "material": "HSM-000316",
+            "material": "HSM-000308",
             "quantity": 1,
             "unit": "ea",
             "bodies": [
-              "line-reservoir-a"
-            ]
+              "line-reservoir-a",
+              "../tube-fluid-16"
+            ],
+            "note": "One continuous tube. The cold core pots its lower span; the machine model draws its free end above the lid."
           },
           {
-            "material": "HSM-000317",
+            "material": "HSM-000307",
             "quantity": 1,
             "unit": "ea",
             "bodies": [
-              "line-reservoir-a-fill"
-            ]
+              "line-reservoir-a-fill",
+              "../tube-fluid-14"
+            ],
+            "note": "One continuous tube. The cold core pots its lower span; the machine model draws its free end above the lid."
           },
           {
-            "material": "HSM-000318",
+            "material": "HSM-000306",
             "quantity": 1,
             "unit": "ea",
             "bodies": [
-              "line-reservoir-b"
-            ]
+              "line-reservoir-b",
+              "../tube-fluid-26"
+            ],
+            "note": "One continuous tube. The cold core pots its lower span; the machine model draws its free end above the lid."
           },
           {
-            "material": "HSM-000319",
+            "material": "HSM-000305",
             "quantity": 1,
             "unit": "ea",
             "bodies": [
-              "line-reservoir-b-fill"
-            ]
+              "line-reservoir-b-fill",
+              "../tube-fluid-24"
+            ],
+            "note": "One continuous tube. The cold core pots its lower span; the machine model draws its free end above the lid."
           },
           {
-            "material": "HSM-000320",
+            "material": "HSM-000293",
             "quantity": 1,
             "unit": "ea",
             "bodies": [
-              "line-water-in"
-            ]
+              "line-water-in",
+              "tube-water-5"
+            ],
+            "note": "One continuous tube through the lid's plain guide. The cold core pots its lower span; the span above the lid runs to the check."
           },
           {
             "material": "HSM-000164",
@@ -2074,15 +2034,6 @@
               "wago-sensors"
             ],
             "note": "Four core-lid junctions: +12 V, DC GND, the J7 / reservoir-B / carbonator-reed common and the J4 / temperature-bus / flow-meter common."
-          },
-          {
-            "material": "HSM-000293",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "tube-water-5"
-            ],
-            "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
           },
           {
             "material": "HSM-000326",
@@ -6005,7 +5956,9 @@
       "aliases": [
         "water-5",
         "tube-water-5",
-        "water 5 tube \u00b7 1/4 inch white LLDPE"
+        "water 5 tube \u00b7 1/4 inch white LLDPE",
+        "line-water-in",
+        "Cold-core water in tube"
       ],
       "documents": [
         {
@@ -6019,6 +5972,14 @@
         {
           "title": "Fluid circuit",
           "path": "topology/fluid-topology.md"
+        },
+        {
+          "title": "Core tubing and installation",
+          "path": "assembly/cold-core.md"
+        },
+        {
+          "title": "Potted route geometry",
+          "path": "printed-parts/cold-core/foam-assembly/foam_assembly.py"
         }
       ],
       "contexts": [
@@ -6187,7 +6148,9 @@
         "tube-co2-2",
         "co2 2 tube \u00b7 1/4 inch red LLDPE",
         "tube-above-core-gas-core-drop",
-        "above-core-gas-core-drop"
+        "above-core-gas-core-drop",
+        "line-co2-in",
+        "Cold-core co2 in tube"
       ],
       "documents": [
         {
@@ -6201,6 +6164,14 @@
         {
           "title": "Fluid circuit",
           "path": "topology/fluid-topology.md"
+        },
+        {
+          "title": "Core tubing and installation",
+          "path": "assembly/cold-core.md"
+        },
+        {
+          "title": "Potted route geometry",
+          "path": "printed-parts/cold-core/foam-assembly/foam_assembly.py"
         }
       ],
       "contexts": [
@@ -6250,7 +6221,9 @@
         "carb 1 tube \u00b7 1/4 inch blue LLDPE",
         "tube-soda-core-rise",
         "soda-core-rise",
-        "soda riser"
+        "soda riser",
+        "line-carb-water-out",
+        "Cold-core carb water out tube"
       ],
       "documents": [
         {
@@ -6264,6 +6237,14 @@
         {
           "title": "Fluid circuit",
           "path": "topology/fluid-topology.md"
+        },
+        {
+          "title": "Core tubing and installation",
+          "path": "assembly/cold-core.md"
+        },
+        {
+          "title": "Potted route geometry",
+          "path": "printed-parts/cold-core/foam-assembly/foam_assembly.py"
         }
       ],
       "contexts": [
@@ -6368,7 +6349,9 @@
       "aliases": [
         "fluid-24",
         "tube-fluid-24",
-        "fluid 24 tube \u00b7 1/4 inch black LLDPE"
+        "fluid 24 tube \u00b7 1/4 inch black LLDPE",
+        "line-reservoir-b-fill",
+        "Cold-core reservoir b fill tube"
       ],
       "documents": [
         {
@@ -6382,6 +6365,14 @@
         {
           "title": "Fluid circuit",
           "path": "topology/fluid-topology.md"
+        },
+        {
+          "title": "Core tubing and installation",
+          "path": "assembly/cold-core.md"
+        },
+        {
+          "title": "Potted route geometry",
+          "path": "printed-parts/cold-core/foam-assembly/foam_assembly.py"
         }
       ],
       "contexts": [
@@ -6397,7 +6388,9 @@
       "aliases": [
         "fluid-26",
         "tube-fluid-26",
-        "fluid 26 tube \u00b7 1/4 inch black LLDPE"
+        "fluid 26 tube \u00b7 1/4 inch black LLDPE",
+        "line-reservoir-b",
+        "Cold-core reservoir b tube"
       ],
       "documents": [
         {
@@ -6411,6 +6404,14 @@
         {
           "title": "Fluid circuit",
           "path": "topology/fluid-topology.md"
+        },
+        {
+          "title": "Core tubing and installation",
+          "path": "assembly/cold-core.md"
+        },
+        {
+          "title": "Potted route geometry",
+          "path": "printed-parts/cold-core/foam-assembly/foam_assembly.py"
         }
       ],
       "contexts": [
@@ -6426,7 +6427,9 @@
       "aliases": [
         "fluid-14",
         "tube-fluid-14",
-        "fluid 14 tube \u00b7 1/4 inch black LLDPE"
+        "fluid 14 tube \u00b7 1/4 inch black LLDPE",
+        "line-reservoir-a-fill",
+        "Cold-core reservoir a fill tube"
       ],
       "documents": [
         {
@@ -6440,6 +6443,14 @@
         {
           "title": "Fluid circuit",
           "path": "topology/fluid-topology.md"
+        },
+        {
+          "title": "Core tubing and installation",
+          "path": "assembly/cold-core.md"
+        },
+        {
+          "title": "Potted route geometry",
+          "path": "printed-parts/cold-core/foam-assembly/foam_assembly.py"
         }
       ],
       "contexts": [
@@ -6455,7 +6466,9 @@
       "aliases": [
         "fluid-16",
         "tube-fluid-16",
-        "fluid 16 tube \u00b7 1/4 inch black LLDPE"
+        "fluid 16 tube \u00b7 1/4 inch black LLDPE",
+        "line-reservoir-a",
+        "Cold-core reservoir a tube"
       ],
       "documents": [
         {
@@ -6469,6 +6482,14 @@
         {
           "title": "Fluid circuit",
           "path": "topology/fluid-topology.md"
+        },
+        {
+          "title": "Core tubing and installation",
+          "path": "assembly/cold-core.md"
+        },
+        {
+          "title": "Potted route geometry",
+          "path": "printed-parts/cold-core/foam-assembly/foam_assembly.py"
         }
       ],
       "contexts": [
@@ -6584,180 +6605,12 @@
       ]
     },
     {
-      "id": "HSM-000313",
-      "description": "Cold-core carbonated-water outlet tube",
-      "kind": "manufactured",
-      "aliases": [
-        "line-carb-water-out",
-        "Cold-core carb water out tube"
-      ],
-      "documents": [
-        {
-          "title": "Core tubing and installation",
-          "path": "assembly/cold-core.md"
-        },
-        {
-          "title": "Potted route geometry",
-          "path": "printed-parts/cold-core/foam-assembly/foam_assembly.py"
-        }
-      ],
-      "contexts": [
-        {
-          "material": "HSM-000003"
-        }
-      ]
-    },
-    {
-      "id": "HSM-000314",
-      "description": "Cold-core CO\u2082 inlet tube",
-      "kind": "manufactured",
-      "aliases": [
-        "line-co2-in",
-        "Cold-core co2 in tube"
-      ],
-      "documents": [
-        {
-          "title": "Core tubing and installation",
-          "path": "assembly/cold-core.md"
-        },
-        {
-          "title": "Potted route geometry",
-          "path": "printed-parts/cold-core/foam-assembly/foam_assembly.py"
-        }
-      ],
-      "contexts": [
-        {
-          "material": "HSM-000003"
-        }
-      ]
-    },
-    {
       "id": "HSM-000315",
       "description": "Cold-core pressure-relief vent tube",
       "kind": "manufactured",
       "aliases": [
         "line-prv-vent",
         "Cold-core prv vent tube"
-      ],
-      "documents": [
-        {
-          "title": "Core tubing and installation",
-          "path": "assembly/cold-core.md"
-        },
-        {
-          "title": "Potted route geometry",
-          "path": "printed-parts/cold-core/foam-assembly/foam_assembly.py"
-        }
-      ],
-      "contexts": [
-        {
-          "material": "HSM-000003"
-        }
-      ]
-    },
-    {
-      "id": "HSM-000316",
-      "description": "Cold-core flavor reservoir A draw tube",
-      "kind": "manufactured",
-      "aliases": [
-        "line-reservoir-a",
-        "Cold-core reservoir a tube"
-      ],
-      "documents": [
-        {
-          "title": "Core tubing and installation",
-          "path": "assembly/cold-core.md"
-        },
-        {
-          "title": "Potted route geometry",
-          "path": "printed-parts/cold-core/foam-assembly/foam_assembly.py"
-        }
-      ],
-      "contexts": [
-        {
-          "material": "HSM-000003"
-        }
-      ]
-    },
-    {
-      "id": "HSM-000317",
-      "description": "Cold-core flavor reservoir A fill tube",
-      "kind": "manufactured",
-      "aliases": [
-        "line-reservoir-a-fill",
-        "Cold-core reservoir a fill tube"
-      ],
-      "documents": [
-        {
-          "title": "Core tubing and installation",
-          "path": "assembly/cold-core.md"
-        },
-        {
-          "title": "Potted route geometry",
-          "path": "printed-parts/cold-core/foam-assembly/foam_assembly.py"
-        }
-      ],
-      "contexts": [
-        {
-          "material": "HSM-000003"
-        }
-      ]
-    },
-    {
-      "id": "HSM-000318",
-      "description": "Cold-core flavor reservoir B draw tube",
-      "kind": "manufactured",
-      "aliases": [
-        "line-reservoir-b",
-        "Cold-core reservoir b tube"
-      ],
-      "documents": [
-        {
-          "title": "Core tubing and installation",
-          "path": "assembly/cold-core.md"
-        },
-        {
-          "title": "Potted route geometry",
-          "path": "printed-parts/cold-core/foam-assembly/foam_assembly.py"
-        }
-      ],
-      "contexts": [
-        {
-          "material": "HSM-000003"
-        }
-      ]
-    },
-    {
-      "id": "HSM-000319",
-      "description": "Cold-core flavor reservoir B fill tube",
-      "kind": "manufactured",
-      "aliases": [
-        "line-reservoir-b-fill",
-        "Cold-core reservoir b fill tube"
-      ],
-      "documents": [
-        {
-          "title": "Core tubing and installation",
-          "path": "assembly/cold-core.md"
-        },
-        {
-          "title": "Potted route geometry",
-          "path": "printed-parts/cold-core/foam-assembly/foam_assembly.py"
-        }
-      ],
-      "contexts": [
-        {
-          "material": "HSM-000003"
-        }
-      ]
-    },
-    {
-      "id": "HSM-000320",
-      "description": "Cold-core water inlet tube",
-      "kind": "manufactured",
-      "aliases": [
-        "line-water-in",
-        "Cold-core water in tube"
       ],
       "documents": [
         {
