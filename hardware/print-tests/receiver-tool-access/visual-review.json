@@ -1,0 +1,53 @@
+{
+  "errors": [],
+  "results": [
+    {
+      "sample": "asse",
+      "summary": "Conforming hex, body seating allowance, centered receiver slots",
+      "overflow": false,
+      "canvas": true,
+      "error": null
+    },
+    {
+      "sample": "pisco",
+      "summary": "Approved bearings and rear bore, centered receiver slots",
+      "overflow": false,
+      "canvas": true,
+      "error": null
+    },
+    {
+      "sample": "regulator",
+      "summary": "Approved profile, one reachable receiver slot",
+      "overflow": false,
+      "canvas": true,
+      "error": null
+    },
+    {
+      "sample": "meter",
+      "summary": "Approved housing fit, centered receiver slots",
+      "overflow": false,
+      "canvas": true,
+      "error": null
+    },
+    {
+      "sample": "pump",
+      "summary": "Approved cradle, solid pointed cap, rear receiver slots",
+      "overflow": false,
+      "canvas": true,
+      "error": null
+    },
+    {
+      "sample": "cartridge",
+      "summary": "Both connected wings and centered receiver release ports",
+      "overflow": false,
+      "canvas": true,
+      "error": null
+    },
+    {
+      "path": "Clear of the receiver bay",
+      "step": "8 / 8",
+      "visible": true
+    }
+  ],
+  "fragment_sha256": "ccc0e22f22f398994507697fc6fc172d0d904b6ec7d39daf29864491af37485b"
+}

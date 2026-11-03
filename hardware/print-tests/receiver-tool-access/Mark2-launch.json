@@ -1,0 +1,31 @@
+{
+  "printer": "Mark2",
+  "observed_at": "2026-11-03T22:08:02.483799+00:00",
+  "archive": {
+    "name": "HSM-receiver-access-Mark2-4db4ed5f.gcode.3mf",
+    "sha256": "29cdcb121d88d1298ef4bec9ab6731867751a7e67989c26e2bd252185cf0b0de",
+    "gcode_sha256": "ab4ec3729227f217dce80909b7a1086c57a0a08841bdd463ffc0ca79f714f868",
+    "slots": {
+      "1": {
+        "type": "PET-CF",
+        "colour": "161616"
+      }
+    },
+    "objects": [
+      "pump-seat",
+      "pump-cap",
+      "meter-seat",
+      "meter-cap",
+      "cartridge-seat",
+      "cartridge-cap"
+    ]
+  },
+  "printer_task_id": "1404772826",
+  "gcode_state": "PREPARE",
+  "subtask_name": "HSM-receiver-access-Mark2-4db4ed5f.gcode.3mf",
+  "print_error": 0,
+  "hms": [],
+  "layer_num": 284,
+  "total_layer_num": 284,
+  "mc_remaining_time": 0
+}
