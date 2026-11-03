@@ -81,3 +81,26 @@ CAD conversion pieces awaiting an owner.
 The CPU and memory goal still needs performance work in Rust. Component reductions and
 incremental build measurements do not establish a matched whole-machine speed or memory gain;
 a completed conversion does not by itself establish that this Mac is free of memory pressure.
+
+## Speed work
+
+Independent pieces run in parallel, beginning with the whole-machine assembly and enclosure.
+Each finished speed piece is measured on its own program, before and after, using the same
+fixed inputs and outputs: warm elapsed time from process start to exit, peak process memory
+and peak RSS. Compilation is outside that elapsed time. A piece gets no full normal build;
+the normal build follows a batch merged to main.
+
+| Piece | Scope |
+| --- | --- |
+| Machine checks | Reuse bounded native search structures without changing fit or drain answers |
+| Enclosure construction | Reuse identical panel construction expressions |
+| Equipment | Reuse fittings and release imported models after their final use |
+| Fluid routes | Read only equipment bodies used by insulation |
+| Model exports | Reduce remaining physical and viewer file-writing work |
+| Print presentation | Reuse topology and contributor preparation |
+| Installed placement | Read reference names and bounds without retaining unrelated model data |
+| Native fallback removal | Remove native-only code in `enclosure.py` and `enclosure_assembly.py`, retaining their scalar and Rust-driver interfaces |
+
+The native removal covers those two drivers and code used only by their removed paths.
+Other native hand-run tools remain pending Derek's individual decisions, including the hose
+and collet illustration builders. Their files are outside this removal.
