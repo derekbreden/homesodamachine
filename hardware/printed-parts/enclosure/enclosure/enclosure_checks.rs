@@ -65,7 +65,7 @@ fn frame(v: &Value) -> Result<Affine> {
         v3(row[0][2], row[1][2], row[2][2]),
         v3(row[0][3], row[1][3], row[2][3])))
 }
-fn model(v: &Value) -> Result<Solid> {
+fn model(v: &Value, models: &mut ModelInputs) -> Result<Solid> {
     let reference = &v["reference"];
     let path = reference["model"].as_str().context("model path")?;
     let selected = reference.get("indices").map(|v| -> Result<BTreeSet<usize>> {
@@ -80,9 +80,9 @@ fn model(v: &Value) -> Result<Solid> {
         Ok(())
     };
     let count = if let Some(indices) = &selected {
-        hsm_kernel::import::visit_model_indices(path, indices, &mut visit)?
+        models.visit(path, Some(indices), &mut visit)?
     } else {
-        hsm_kernel::import::visit_model(path, &mut visit)?
+        models.visit(path, None, &mut visit)?
     };
     if let Some(indices) = &selected {
         ensure!(indices.iter().all(|&i| i < count), "selected index exceeds {path}'s {count} entries");
@@ -161,7 +161,7 @@ fn evaluate(document: &Value) -> Result<Value> {
         }
     }
     let mut live: Vec<Option<Solid>> = vec![None; nodes.len()];
-    let mut answers = serde_json::Map::new();
+    let mut answers = serde_json::Map::new(); let mut models = ModelInputs::new(nodes)?;
     for (i, v) in nodes.iter().enumerate() {
         let inputs = v["inputs"].as_array().context("inputs")?.iter()
             .map(|k| Ok(k.as_u64().context("input")? as usize)).collect::<Result<Vec<_>>>()?;
@@ -169,7 +169,7 @@ fn evaluate(document: &Value) -> Result<Value> {
         let op = v["op"].as_str().context("operation")?;
         let s = (|| -> Result<Solid> { Ok(match op {
             "empty" => Solid::empty(),
-            "model" => model(v)?,
+            "model" => model(v, &mut models)?,
             "box" => { let (lo, hi) = corners(&v["box"])?; Solid::cuboid(lo, hi) },
             "rounded-box" => {
                 let (lo, hi) = corners(&v["box"])?;
@@ -224,4 +224,74 @@ fn main() -> Result<()> {
     let document: Value = serde_json::from_slice(&bytes)?;
     println!("{}", serde_json::to_string(&evaluate(&document)?)?);
     Ok(())
+}
+
+/// The requested raw source bodies, imported once and released at their final model use.
+/// Selections and stored order remain the same as each individual model visit.
+#[derive(Default)]
+struct ModelSelection {
+    selected: BTreeSet<usize>,
+    whole_uses: usize,
+    uses: HashMap<usize, usize>,
+    bodies: Option<std::collections::BTreeMap<usize, Imported>>,
+    count: usize,
+}
+struct ModelInputs { files: HashMap<String, ModelSelection> }
+
+impl ModelInputs {
+    fn new(nodes: &[Value]) -> Result<Self> {
+        let mut files = HashMap::<String, ModelSelection>::new();
+        for node in nodes.iter().filter(|v| v["op"] == "model") {
+            let reference = &node["reference"];
+            let path = reference["model"].as_str().context("model path")?;
+            let selection = files.entry(path.to_owned()).or_default();
+            if let Some(indices) = reference.get("indices") {
+                let indices = indices.as_array().context("model selection")?.iter()
+                    .map(|v| Ok(v.as_u64().context("source index")? as usize))
+                    .collect::<Result<BTreeSet<_>>>()?;
+                for index in indices {
+                    selection.selected.insert(index);
+                    *selection.uses.entry(index).or_default() += 1;
+                }
+            } else {
+                selection.whole_uses += 1;
+            }
+        }
+        Ok(Self { files })
+    }
+
+    fn visit(&mut self, path: &str, selected: Option<&BTreeSet<usize>>,
+        mut visit: impl FnMut(usize, Imported) -> Result<()>) -> Result<usize> {
+        let selection = self.files.get_mut(path).context("planned model path")?;
+        if selection.bodies.is_none() {
+            let mut bodies = std::collections::BTreeMap::new();
+            let mut keep = |index, body| { bodies.insert(index, body); Ok(()) };
+            selection.count = if selection.whole_uses > 0 {
+                hsm_kernel::import::visit_model(path, &mut keep)?
+            } else {
+                hsm_kernel::import::visit_model_indices(path, &selection.selected, &mut keep)?
+            };
+            for &index in bodies.keys() {
+                *selection.uses.entry(index).or_default() += selection.whole_uses;
+            }
+            selection.bodies = Some(bodies);
+        }
+        let indices = if let Some(selected) = selected {
+            selected.iter().copied().filter(|&i| i < selection.count).collect::<Vec<_>>()
+        } else {
+            (0..selection.count).collect()
+        };
+        let bodies = selection.bodies.as_mut().unwrap();
+        for index in indices {
+            let remaining = selection.uses.get_mut(&index).context("planned model body")?;
+            let body = if *remaining == 1 {
+                bodies.remove(&index).context("last model body")?
+            } else {
+                bodies.get(&index).context("reused model body")?.clone()
+            };
+            *remaining -= 1;
+            visit(index, body)?;
+        }
+        Ok(selection.count)
+    }
 }
