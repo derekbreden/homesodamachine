@@ -1,12 +1,10 @@
 #!/usr/bin/env python3
 """Materialize selected enclosure pieces: STEP, printed STL and viewer payload each.
 
-The ordinary enclosure producer deliberately draws all five pieces and its aggregate before the
-assembly runs.  That is the right reconciliation path and the wrong visual-iteration path for a
-change confined to one piece. This entry reads the already-declared Box,
-calls each selected piece's builder directly, and uses the same tessellation,
-flute rails and payload cutter as the ordinary producer without drawing another enclosure piece
-or an assembly.
+This entry reads the already-declared Box and sends each selected numeric recipe to the
+ordinary enclosure Rust part program. Rust writes the structural model, STEP and printed STL;
+the shared Rust print writer checks that STL and writes its viewer payload. Selection does not
+construct another enclosure piece or the assembled machine.
 
     tools/cad-venv/bin/python hardware/scripts/materialize_pump_cartridge.py
     tools/cad-venv/bin/python hardware/scripts/materialize_pump_cartridge.py --pieces pump-retainer
@@ -14,17 +12,21 @@ or an assembly.
     tools/cad-venv/bin/python hardware/scripts/materialize_pump_cartridge.py --pieces back-top
     tools/cad-venv/bin/python hardware/scripts/materialize_pump_cartridge.py --pieces front-bottom back-bottom front-top back-top
 
-All three siblings are completed in a temporary directory and seated only after the printed STL
-has passed the ordinary producer's own slicer-facing reading.  They seat STEP, STL, then payload:
-an interruption may leave the first one or two current while the payload stays held, but the
-publisher then sees no changed payload and defers instead of exposing a mixed triplet.
+Each selected piece is completed in temporary files and seated after its printed STL passes the
+existing slicer-facing reading. STEP, STL, fine model and any STL source records seat before the
+STEP-bound payload. The publisher sees the changed payload only after its current siblings.
 """
 
 from __future__ import annotations
 
 import argparse
+from contextlib import contextmanager
+import importlib
+import json
 import hashlib
 import os
+import shutil
+import struct
 import sys
 import tempfile
 import time
@@ -83,102 +85,94 @@ PIECES = (*DEFAULT_PIECES, "back-top", "front-bottom", "back-bottom")
 
 
 def _builder(enc, name):
-    if name == "pump-retainer":
-        return enc.build_pump_retainer, lambda box: []
-    if name in ("front-top", "back-top", "front-bottom", "back-bottom"):
-        def rails(box):
-            # The ordinary producer's shadow bodies, read from retained STEP
-            # exports; changing one bay part never rebuilds the other quadrants.
-            berthed = [enc._piece_mesh(enc.cq.importers.importStep(
-                str(_ENCLOSURE / f"enclosure-{other}.step")).val())
-                for other in enc.PIECE_COLORS if other != name]
-            if box.pack.collet_plate:
-                berthed.append(enc._piece_mesh(enc._collet_plate_body(box.pack.collet_plate)))
-            return enc.flute_rails(box, berthed)
-        column, level = name.split("-")
-        return lambda box: enc.build_piece(box, column, level), rails
-    raise ValueError(f"{name!r} is not supported; this path stands {PIECES}")
+    """The selected part's current scalar recipe and existing Rust program."""
+    builders = {
+        "pump-retainer": ("_enclosure_pump_retainer", "enclosure-pump-retainer", "numbers"),
+        "front-top": ("_enclosure_front_top", "enclosure-front-top", "print_numbers"),
+        "back-top": ("_enclosure_back_top", "enclosure-back-top", "print_numbers"),
+        "front-bottom": ("_enclosure_front_bottom", "enclosure-front-bottom", "print_numbers"),
+        "back-bottom": ("_enclosure_panel", "enclosure-panel", "print_numbers"),
+    }
+    if name not in builders:
+        raise ValueError(f"{name!r} is not supported; this path stands {PIECES}")
+    module, program, recipe = builders[name]
+    return program, getattr(importlib.import_module(module), recipe)
 
 
-def _materialize_piece(enc, flute_payload, box, name, output: Path, started: float) -> dict:
-    build, rails_of = _builder(enc, name)
-    described = time.perf_counter()
-    # The piece's own builder: no other piece, shared front half, slide report, aggregate or
-    # scorecard is realized along this path.
-    piece = build(box)
-    built = time.perf_counter()
-
-    stem = f"enclosure-{name}"
+@contextmanager
+def _staging(output, stem):
+    """Build under the checkout and seat from the destination's own filesystem."""
     with tempfile.TemporaryDirectory(prefix=f".{stem}-", dir=output) as directory:
-        work = Path(directory)
+        seated = Path(directory)
+        if seated.resolve().is_relative_to(_ROOT):
+            yield seated, seated
+        else:
+            cache = _ROOT / "tmp" / "materialize-enclosure"
+            cache.mkdir(parents=True, exist_ok=True)
+            with tempfile.TemporaryDirectory(prefix=f"{stem}-", dir=cache) as work:
+                yield Path(work), seated
+
+
+def _payload_source(path):
+    with path.open("rb") as stream:
+        length, = struct.unpack("<I", stream.read(4))
+        return json.loads(stream.read(length)).get("src")
+
+
+def _materialize_piece(enc, box, name, output: Path, started: float) -> dict:
+    import _rust_part
+    from _rust_enclosure_presentation import print_payload
+
+    program, recipe = _builder(enc, name)
+    numbers = recipe(enc, box)
+    described = time.perf_counter()
+    stem = f"enclosure-{name}"
+    with _staging(output, stem) as (work, seated_work):
+        _rust_part.cut("enclosure-shell", program, numbers, work)
+        built = time.perf_counter()
         step = work / f"{stem}.step"
         stl = work / f"{stem}.stl"
+        model = work / f"{stem}.step.npz"
         payload = work / f"{stem}.step.mesh"
-
-        # export_assembly ordinarily writes a smooth viewer payload beside the STEP.  The
-        # payload here is the printed/fluted surface, cut below; the STEP still goes through the
-        # canonical atomic/canonicalized assembly exporter.
-        held_skip = os.environ.get("HSM_SKIP_MESH_PAYLOAD")
-        os.environ["HSM_SKIP_MESH_PAYLOAD"] = "1"
-        try:
-            enc.export_assembly(
-                enc.one_body(piece, stem, enc.PIECE_COLORS[name]), str(step))
-        finally:
-            if held_skip is None:
-                os.environ.pop("HSM_SKIP_MESH_PAYLOAD", None)
-            else:
-                os.environ["HSM_SKIP_MESH_PAYLOAD"] = held_skip
-        stepped = time.perf_counter()
-
-        # These are the exact body tessellation, rails and flute operation used by
-        # enclosure._export_pieces for this name.
-        body = enc._piece_mesh(enc._print_solid(name, piece.val(), box.outer))
-        printed = enc._flute_skin.flute(
-            body, rails_of(box), enc.flute_pitch(box.outer), enc.flute_depth, enc.flute_rise)
-        printed = enc.finish_print_mesh(name, piece.val(), printed, box.outer)
-        printed.export(str(stl))
-
-        # The ordinary producer reads the written file back exactly this way before accepting a
-        # bed mesh.
-        written = enc.trimesh.load_mesh(str(stl))
-        loose = enc._flute_skin.non_manifold_edges(written)
-        if loose or not written.is_watertight:
-            raise ValueError(
-                f"{stl.name}: {loose} non-manifold edge(s), watertight="
-                f"{written.is_watertight}, over {len(written.faces)} facets")
-        printed_at = time.perf_counter()
-
-        # cut() is the canonical printed-mesh reduction/creased-region writer.  It writes only
-        # the sibling payload and stamps it with the SHA of this exact STEP.
-        flute_payload.cut(step, stl)
-        source_sha = flute_payload._mesh_payload.read_source(payload)
+        # This entry checks every selected print, including the relaxed retainer.
+        # The public triplet's presentation stays bound to its exact STEP bytes.
+        printed = print_payload(step, check_print=True, source=step,
+                                identity=(stem, numbers["color"]))
+        source_sha = _payload_source(payload)
         step_sha = _sha256(step)
         if source_sha != step_sha:
             raise ValueError(
                 f"{payload.name} names STEP {str(source_sha)[:12]}, expected {step_sha[:12]}")
         payload_at = time.perf_counter()
 
-        siblings = (step, stl, payload)
+        sources = stl.with_name(stl.name + ".sources.json")
+        siblings = [step, stl, model]
+        if sources.is_file():
+            siblings.append(sources)
+        siblings.append(payload)
         hashes = {path.name: _sha256(path) for path in siblings}
-        moved = {path.name: _seat(path, output / path.name) for path in siblings}
+        if work != seated_work:
+            for path in siblings:
+                shutil.copyfile(path, seated_work / path.name)
+        moved = {path.name: _seat(seated_work / path.name, output / path.name)
+                 for path in siblings}
+        for path in siblings:
+            target = (output / path.name).resolve()
+            if target.is_relative_to(_ROOT):
+                _rust_part._WRITE_TARGETS.add(target.relative_to(_ROOT).as_posix())
         seated = time.perf_counter()
 
-    timings = {
-        "solid": built - described,
-        "step": stepped - built,
-        "stl": printed_at - stepped,
-        "payload": payload_at - printed_at,
-        "seat": seated - payload_at,
-        "total": seated - started,
-    }
+    timings = {"numbers": described-started, "cut": built-described,
+               "payload": payload_at-built, "seat": seated-payload_at,
+               "total": seated-started}
     print(f"{stem}:")
-    print("  " + "  ".join(f"{name} {seconds:.2f}s" for name, seconds in timings.items()))
-    for name in (f"{stem}.step", f"{stem}.stl", f"{stem}.step.mesh"):
-        print(f"  {'updated' if moved[name] else 'held':7s} "
-              f"{name}: {hashes[name]}")
-    print(f"  {len(written.faces):,} STL facets; payload src={step_sha}")
-    return {"hashes": hashes, "timings": timings, "facets": len(written.faces),
-            "payload_src": step_sha}
+    print("  " + "  ".join(f"{phase} {seconds:.2f}s" for phase, seconds in timings.items()))
+    for filename in hashes:
+        print(f"  {'updated' if moved[filename] else 'held':7s} "
+              f"{filename}: {hashes[filename]}")
+    print(f"  {printed['printed_triangles']:,} STL facets; payload src={step_sha}")
+    return {"hashes": hashes, "timings": timings,
+            "facets": printed["printed_triangles"], "payload_src": step_sha}
 
 
 def materialize(output: Path = _OUTPUT, pieces: tuple[str, ...] = DEFAULT_PIECES) -> dict:
@@ -188,9 +182,9 @@ def materialize(output: Path = _OUTPUT, pieces: tuple[str, ...] = DEFAULT_PIECES
         if str(directory) not in sys.path:
             sys.path.insert(0, str(directory))
 
+    import _enclosure_datums
+    enc = _enclosure_datums.load()
     import _box_spec
-    import enclosure as enc
-    import flute_payload
 
     box, bounds, box_path = _declared_box(_box_spec, enc)
     enc.BOUNDS[:] = bounds
@@ -199,7 +193,7 @@ def materialize(output: Path = _OUTPUT, pieces: tuple[str, ...] = DEFAULT_PIECES
     output.mkdir(parents=True, exist_ok=True)
     print("selected enclosure pieces:")
     print(f"  box {_sha256(box_path)}  {box_path.relative_to(_ROOT)}")
-    return {name: _materialize_piece(enc, flute_payload, box, name, output, time.perf_counter())
+    return {name: _materialize_piece(enc, box, name, output, time.perf_counter())
             for name in pieces}
 
 
@@ -207,7 +201,7 @@ def main(argv: list[str]) -> int:
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     parser.add_argument(
         "--output-dir", type=Path, default=_OUTPUT,
-        help="destination for the three siblings (default: the enclosure artifact directory)")
+        help="destination for the piece files (default: the enclosure artifact directory)")
     parser.add_argument(
         "--pieces", nargs="+", choices=PIECES, default=list(DEFAULT_PIECES),
         help="which pump-bay pieces to stand (default: retainer and front-top)")
