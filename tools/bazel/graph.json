@@ -6460,6 +6460,7 @@
       "hardware/printed-parts/enclosure/rear-equipment-caps/rear_equipment_caps.rs",
       "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
       "hardware/reference/asse1022-threaded-chain/asse1022_threaded_chain.py",
+      "hardware/reference/asse1022-threaded-chain/reference-parameters.json",
       "hardware/reference/compact-inline-candidates/dimensions.json",
       "hardware/reference/digiten-flow-sensor/digiten_flow_sensor.py",
       "hardware/reference/multiplex-asse1022/multiplex_asse1022.py",
