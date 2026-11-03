@@ -171,11 +171,8 @@ def spline_segment(points, tangents, *, chord_length=False):
     segment={'kind':'spline','start_mm':points[0],'end_mm':points[-1],
              'interpolation_points_mm':points,'endpoint_tangents':tangents,
              'endpoint_derivatives':derivatives,'parameters':parameters}
-    edge=segment_edge(segment);length=edge.Length();count=max(2,math.ceil(length/.25))
-    segment.update(length_mm=length,
-                   sampled_points_mm=[edge.positionAt(i/count).toTuple()for i in range(count+1)],
-                   maximum_sample_step_mm=length/count,
-                   minimum_bend_mm=min((1/k for k in edge.curvatures([i/200 for i in range(201)])if k>1e-12),default=None))
+    from ._wire_spline import measure
+    segment.update(measure(segment))
     return segment
 
 
