@@ -42,7 +42,6 @@ import { setTrail, stepHash, walkDepth } from "./step-nav.js";
 import { mountScorecard } from "./scorecard-3d.js";
 import { mountRelated, closeRelated } from "./related-nav.js";
 import { clearHighlight, leaveHighlight, makeFocusToggle } from "./part-highlight.js";
-import { mountTubeTool, closeTubeTool, clearTubeTool, cancelTubeFocus } from "./tube-overlay-host.js";
 import { mountFaucetOptions } from "./faucet-options.js";
 import { mountFlavorPath } from "./flavor-path.js";
 import { HSM_EVENTS } from "/contracts/client-events.js";
@@ -71,7 +70,6 @@ function makeResetViewButton() {
     title: "Reset to default isometric framing",
     onClick: () => {
     if (!state.mountedDetail || !state.currentGroup) return;
-    cancelTubeFocus();
     clearHighlight(); // a selection is a temporary focus; reset lets go of it and restores all
     const { type, file } = state.mountedDetail;
     try { localStorage.removeItem(`step-camera:${file}`); } catch {}
@@ -182,7 +180,6 @@ export function openCadDetail(type, file, pushHistory = true, path = null) {
     rail.appendChild(makePickFindToggle());
     rail.appendChild(makeToolGroup("Select", makePickModeControl(file))).classList.add("tool-group-select");
     chips.appendChild(makeXrayToggle());
-    mountTubeTool(wrapper, chips);
     clearFlavorPath = mountFlavorPath(wrapper, chips);
   }
   chips.appendChild(makeRulerToggle());
@@ -222,7 +219,7 @@ export function openCadDetail(type, file, pushHistory = true, path = null) {
     if (checks) { checks.remove(); e.preventDefault(); e.stopPropagation(); return; }
     if (closeRelated(wrapper, true)) { e.preventDefault(); e.stopPropagation(); }
     else if (closeToolDrawer(wrapper, true)) { e.preventDefault(); e.stopPropagation(); }
-    else if (closeTopPickFind() || closeTubeTool()) {
+    else if (closeTopPickFind()) {
       wrapper.querySelector(".tool-drawer.compact > summary")?.focus();
       e.preventDefault(); e.stopPropagation();
     }
@@ -307,7 +304,6 @@ export function openCadDetail(type, file, pushHistory = true, path = null) {
       clearComponentEdit();   // and the editor's gizmo + selection + preview
       closePickFind();   // drop find highlights, and shut the box with the modal
       clearHighlight();  // and any scorecard part-highlight overlay
-      clearTubeTool();
       state.currentCadWrapper = null;
       state.currentDetail = null;
       state.mountedDetail = null;
