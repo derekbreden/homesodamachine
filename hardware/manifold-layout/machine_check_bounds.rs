@@ -101,7 +101,7 @@ fn prism(poly: &[V2], bottom: f64, top: f64, grow: f64, inset: f64) -> Result<So
         .extrude(&Profile::new(outline), top - bottom)
 }
 
-fn touches(probe: &Solid, group: &Group, w: &World) -> Result<bool> {
+fn touches(probe: &Solid, group: &Group, w: &mut World) -> Result<bool> {
     let pb = bounds(probe);
     if !overlap(&pb, &group.bounds, 0.) {
         return Ok(false);
@@ -111,18 +111,24 @@ fn touches(probe: &Solid, group: &Group, w: &World) -> Result<bool> {
     // is needed here; stop after it is established.
     let mut volume = 0.;
     for &i in &group.indices {
-        let body = &w.parts[i].solid;
-        if overlap(&pb, &bounds(body), 0.) {
-            volume += probe.intersect(body)?.volume();
-            if volume > 1e-6 {
-                return Ok(true);
+        let hit = {
+            let body = &w.parts[i].solid;
+            if overlap(&pb, &bounds(body), 0.) {
+                probe.intersect(body).map(|hit| hit.volume())
+            } else {
+                Ok(0.)
             }
+        };
+        w.parts[i].solid.forget_backend();
+        volume += hit?;
+        if volume > 1e-6 {
+            return Ok(true);
         }
     }
     Ok(false)
 }
 
-pub fn wedge_fills(w: &World, m: &Value) -> Result<Option<Value>> {
+pub fn wedge_fills(w: &mut World, m: &Value) -> Result<Option<Value>> {
     let Some(question) = m.get("wedge_question") else {
         return Ok(None);
     };
@@ -132,7 +138,12 @@ pub fn wedge_fills(w: &World, m: &Value) -> Result<Option<Value>> {
     let mut matched = BTreeSet::new();
     let mut counts = [0_usize; 4]; // under, near, kept, fill
     let mut detail = Vec::new();
-    let others = w.populations.iter().flatten().collect::<BTreeSet<_>>();
+    let others = w
+        .populations
+        .iter()
+        .flatten()
+        .cloned()
+        .collect::<BTreeSet<_>>();
     for (name, up) in obj(&question["print_up"]) {
         let up = num(&up);
         let full = format!("enclosure-{name}");
@@ -208,13 +219,13 @@ pub fn wedge_fills(w: &World, m: &Value) -> Result<Option<Value>> {
             let mut near = false;
             let mut under = false;
             for n in &others {
-                if ***n == full {
+                if *n == full {
                     continue;
                 }
-                let group = w.g(n)?;
-                if touches(&grown, group, w)? {
+                let group = w.g(n)?.clone();
+                if touches(&grown, &group, w)? {
                     near = true;
-                    if touches(&column, group, w)? {
+                    if touches(&column, &group, w)? {
                         under = true;
                         break;
                     }
@@ -265,7 +276,7 @@ pub fn wedge_fills(w: &World, m: &Value) -> Result<Option<Value>> {
     ))
 }
 
-pub fn construction_only(w: &World, spec: &Value) -> Result<Value> {
+pub fn construction_only(w: &mut World, spec: &Value) -> Result<Value> {
     let mut rows = array(&spec["metadata"]["bounds"]).to_vec();
     if let Some(row) = wedge_fills(w, &spec["metadata"])? {
         rows.retain(|r| r["id"] != "wedge-fills");
