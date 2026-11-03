@@ -190,27 +190,24 @@ pub(crate) struct Built {
 pub(crate) fn build(n: &Numbers) -> Result<Built> {
     let recipe = n.get("panel")?;
     let nodes = recipe["nodes"].as_array().context("panel nodes")?;
-    let result = recipe["result"].as_u64().context("panel result")? as usize;
+    let shared = recipe::Shared::new(nodes)?;
+    let result = shared.aliases[recipe["result"].as_u64().context("panel result")? as usize];
     let mut users = vec![0_usize; nodes.len()];
     users[result] += 1;
-    let receiver = recipe["extras"]["receiver_field"]
+    let receiver = shared.aliases[recipe["extras"]["receiver_field"]
         .as_u64()
-        .context("receiver field")? as usize;
+        .context("receiver field")? as usize];
     users[receiver] += 1;
-    for node in nodes {
-        for input in node["inputs"].as_array().context("node inputs")? {
-            users[input.as_u64().context("input index")? as usize] += 1;
+    for (i, inputs) in shared.inputs.iter().enumerate() {
+        if shared.aliases[i] != i { continue; }
+        for &input in inputs {
+            users[input] += 1;
         }
     }
     let mut live: Vec<Option<Solid>> = vec![None; nodes.len()];
     for (i, v) in nodes.iter().enumerate() {
-        let inputs = v["inputs"]
-            .as_array()
-            .context("node inputs")?
-            .iter()
-            .map(|x| x.as_u64().map(|k| k as usize).context("node index"))
-            .collect::<Result<Vec<_>>>()?;
-        ensure!(inputs.iter().all(|&k| k < i), "construction order");
+        if shared.aliases[i] != i { continue; }
+        let inputs = &shared.inputs[i];
         let input = |k: usize| live[inputs[k]].as_ref().expect("referenced solid is live");
         let op = v["op"].as_str().context("node operation")?;
         let shape = (|| -> Result<Solid> {
@@ -299,22 +296,22 @@ pub(crate) fn build(n: &Numbers) -> Result<Built> {
         })()
         .with_context(|| format!("back-top node {i} ({op})"))?;
         live[i] = Some(shape);
-        for k in inputs {
+        for &k in inputs {
             users[k] -= 1;
             if users[k] == 0 {
                 live[k] = None;
             }
         }
     }
-    Ok(Built {
-        solid: live[result]
-            .take()
-            .context("finished structural back-top")?,
-        receiver: live[receiver]
-            .take()
-            .context("constructed receiver field")?,
-    })
+    let solid = live[result].take().context("finished structural back-top")?;
+    let receiver = if receiver == result { solid.clone() } else {
+        live[receiver].take().context("constructed receiver field")?
+    };
+    Ok(Built { solid, receiver })
 }
+
+#[path = "enclosure_recipe.rs"]
+mod recipe;
 
 fn manifold(s: &Solid) -> Result<Manifold> {
     let vertices: Vec<f32> = s
