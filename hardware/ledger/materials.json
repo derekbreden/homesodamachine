@@ -12,7 +12,8 @@
     "HSM-000398",
     "HSM-000399",
     "HSM-000400",
-    "HSM-000404"
+    "HSM-000404",
+    "HSM-000447"
   ],
   "cost_root": "HSM-000340",
   "materials": [
@@ -9182,6 +9183,36 @@
       ],
       "aliases": [
         "pigment-tub"
+      ]
+    },
+    {
+      "id": "HSM-000447",
+      "description": "Pump tube setting jig",
+      "kind": "tooling",
+      "models": [
+        {
+          "file": "printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step"
+        }
+      ],
+      "aliases": [
+        "tube setting jig",
+        "enclosure-pump-tube-setting-jig"
+      ],
+      "documents": [
+        {
+          "title": "Fixed pump retention",
+          "path": "printed-parts/enclosure/pump-dock/README.md"
+        },
+        {
+          "title": "Pump tube setting",
+          "path": "assembly/internal-plumbing.md"
+        }
+      ],
+      "relations": [
+        {
+          "kind": "tool-for",
+          "material": "HSM-000161"
+        }
       ]
     }
   ]
