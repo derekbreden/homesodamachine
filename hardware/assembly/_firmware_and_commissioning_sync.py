@@ -16,6 +16,10 @@ sys.path.insert(0, str(_hw / "manifold-layout"))
 sys.path.insert(0, str(_hw / "printed-parts" / "cadlib"))
 sys.path.insert(0, str(_hw / "printed-parts" / "cold-core" / "reservoir"))
 sys.path.insert(0, str(_hw / "wiring"))
+sys.path.insert(0, str(_hw / "printed-parts" / "enclosure" / "enclosure"))
+
+from _enclosure_datums import install as _scalar_datums  # noqa: E402
+_scalar_datums()
 
 import manifold_layout as _ml  # noqa: E402  — the manifold's own station census
 from reservoir import reservoir_count  # noqa: E402  — the physical reservoir count is that part's, not this file's

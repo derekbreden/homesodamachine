@@ -17,6 +17,10 @@ sys.path.insert(
 _hw = next(p for p in _here.parents if p.name == "hardware")
 sys.path.insert(0, str(_hw / "printed-parts" / "cadlib"))
 sys.path.insert(0, str(_hw / "printed-parts" / "cold-core"))
+sys.path.insert(0, str(_hw / "printed-parts" / "enclosure" / "enclosure"))
+
+from _enclosure_datums import install as _scalar_datums  # noqa: E402
+_scalar_datums()
 
 from _cold_core_interface import (  # noqa: E402
     attachment_xy_positions,

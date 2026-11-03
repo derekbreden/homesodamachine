@@ -11,6 +11,7 @@ import sys
 from pathlib import Path
 
 _here = Path(__file__).resolve().parent
+_hw = next(p for p in _here.parents if p.name == "hardware")
 sys.path.insert(0, str(_here))  # _pressure_vessel_sync (same dir)
 sys.path.insert(
     0,
@@ -25,14 +26,16 @@ sys.path.insert(
     0,
     str(next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"),
 )
+sys.path.insert(0, str(_hw / "printed-parts" / "enclosure" / "enclosure"))
+
+from _enclosure_datums import install as _scalar_datums  # noqa: E402
+_scalar_datums()
 
 from _pressure_vessel_sync import carbonator_rod_len, carbonator_rod_tolerance  # noqa: E402
 import reservoir  # noqa: E402
 
 from docgen import load_module, substitute_md  # noqa: E402
 
-
-_hw = next(p for p in _here.parents if p.name == "hardware")
 
 _coil_mandrel_gen = load_module(
     "handwork_coil_mandrel_gen",

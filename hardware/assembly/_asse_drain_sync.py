@@ -5,8 +5,12 @@ import sys
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[1]
 for path in (ROOT / "tools", ROOT / "hardware/manifold-layout",
-             ROOT / "hardware/reference/neofit-drain-bulkhead"):
+             ROOT / "hardware/reference/neofit-drain-bulkhead",
+             ROOT / "hardware/printed-parts/enclosure/enclosure"):
     sys.path.insert(0, str(path))
+
+from _enclosure_datums import install as _scalar_datums
+_scalar_datums()
 
 import _drain
 import neofit_drain_bulkhead as bulkhead
