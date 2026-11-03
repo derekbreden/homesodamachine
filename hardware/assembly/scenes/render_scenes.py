@@ -581,6 +581,9 @@ def numeric_spec(assembly):
             derived -= named(_scenes.SCENE_BY_ID[scene.without]) - set(scene.roots)
         return derived
 
+    for name in external:
+        if 'cold-core/'+name in colours:
+            colours = {**colours, name: colours['cold-core/'+name]}
     views = []
     for scene in _scenes.SCENES:
         names = sorted(named(scene))
@@ -591,9 +594,6 @@ def numeric_spec(assembly):
                       'flip': scene.flip,
                       'overrides': {line: colours[half] for line, half in crossings.items()
                                     if line in names and half in names}})
-    for name in external:
-        if 'cold-core/'+name in colours:
-            colours = {**colours, name: colours['cold-core/'+name]}
     if 'finishes' in metadata:
         finishes = metadata['finishes']
     else:
