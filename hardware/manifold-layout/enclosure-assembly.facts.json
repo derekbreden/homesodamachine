@@ -14,7 +14,7 @@
    306.22107209451497,
    53.94813977833837,
    461.07825459353626,
-   342.84999999962747
+   344.84999999962747
   ],
   "asse1022-assembly": [
    12.251150992885233,
@@ -652,7 +652,7 @@
    57.34999999962747,
    397.0,
    254.94999999925494,
-   91.20000000018626,
+   93.20000000018626,
    435.0,
    309.25
   ],
@@ -694,7 +694,7 @@
    313.7725999997929,
    90.9056156873703,
    462.04999999981374,
-   342.84999999962747
+   344.84999999962747
   ],
   "psu": [
    -52.39813995361328,
@@ -819,7 +819,7 @@
   "pump-snap-cap": [
    -51.76061054483941,
    388.0680504422635,
-   257.17934693187146,
+   255.17934693187146,
    21.39775087333331,
    442.5680504422635,
    313.2388525696066
@@ -7927,12 +7927,12 @@
   }
  ],
  "schema": 2,
- "sources": "5d2168bd5d94260eaee5ab33ce5a1d98",
- "step": "d5a2abf0f488d120a2dacabe3d0ab613",
+ "sources": "f585bfdb246af22250e4b93c6d8855be",
+ "step": "c8a191a6a91e18120e310717ac2c9b85",
  "tube_export": {
   "fine_model": {
    "path": "hardware/manifold-layout/enclosure-assembly.step.npz",
-   "sha256": "c9fbaf7754a8d5069efee8b52c3b41909c5604dd96d7ee929f915d03b4ff56b5"
+   "sha256": "e0576f168eb6ccaadf06536636f7f9e466ca99c1cbf01faf8b7dd75de6b6d82e"
   },
   "routing": {
    "anchor_sites": [
@@ -40700,12 +40700,12 @@
   },
   "scene": {
    "path": "hardware/manifold-layout/enclosure-assembly.scene.npz",
-   "sha256": "bed5b76cef8b24338201d27e7207dd8284a496e53b7484dbc04293c3b2a93726"
+   "sha256": "1aff101bbad4d788846f043b1af785e9743f24d2000816dd7fff43f46ccf2cc1"
   },
   "schema": 1,
   "step": {
    "path": "hardware/manifold-layout/enclosure-assembly.step",
-   "sha256": "b3fda8c3895c674cd531ce7ed2f59b7278a3b23efb96f7fe884f5fe6e758bc28"
+   "sha256": "ad284c4d682f2f6a0e0bcf701a0fa4a9cbaef06547d803ecf36c452372f407e6"
   }
  },
  "valve_tray_stations": [
