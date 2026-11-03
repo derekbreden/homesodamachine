@@ -10,6 +10,12 @@ export function materialForFile(catalog, file) {
   return catalog?.materials?.find((m) => m.models?.some((model) => model.file === file && !model.context)) || null;
 }
 
+// The site lists a model only when a material names it.
+export function numberedModels(catalog, files) {
+  const named = new Set((catalog?.materials || []).flatMap((m) => (m.models || []).map((model) => stepLocation(model.file).file)));
+  return files.filter((file) => named.has(file));
+}
+
 // A context names an enclosing assembly to inspect, while the selected material
 // retains its own identity and BOM. It does not claim the enclosing CAD file.
 export function modelForMaterial(catalog, id, seen = new Set()) {

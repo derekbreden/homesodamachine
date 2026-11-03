@@ -21,7 +21,7 @@ import { walkFiles } from "../lib/walk.js";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const HW = path.join(path.resolve(__dirname, "..", ".."), "hardware");
 
-// The same list the viewer works from — `/api/steps` is this call.
+// Every model in the tree. `/api/steps` serves the numbered ones among them.
 const ALL = walkFiles(HW, ".step").sort();
 
 const FUNNEL = "printed-parts/zone-c/funnel/funnel.step";
