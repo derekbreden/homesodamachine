@@ -572,6 +572,8 @@ def _fluid_supports(graph):
     cap_y = snaps.pisco_cap_span(datums['mouth_y'],collet[0],datums['rear'])
     widest = max(r for y0,y1,r in profile if y1>=cap_y[0]-.25 and y0<=cap_y[1]+.25)
     st = snaps.pisco_station(axis[0],widest,axis[1],*cap_y)
+    profile = snaps.pisco_bearing_profile(profile,dims['fitted_exterior']['profile_z_radius_mm'],
+                                          datums['mouth_y'])
     stock = graph.box(axis[0]-st['outer'],axis[0]+st['outer'],cap_y[0]-c-snaps.WALL,
                        datums['rear']+snaps.INTO,snaps.SPLIT,datums['ceiling']+snaps.INTO)
     result['pisco-seat'] = stock.cut(turned(profile,axis),*pockets(st),*service_cuts(st))
@@ -590,15 +592,22 @@ def _fluid_supports(graph):
         return float(at((x,0.,0.))[1])
     air = snaps.METER_AIR
     mx = wx(7.3)-air
-    fore,aft = snaps.SLIDE+snaps.VAR,snaps.VAR
-    x0,east = mx-1.,wx(meter.screw_head_y_range[1])+air
-    def stadium(y,z,r):
-        return graph.add('stadium-x',y=y,z=z,radius=r,fore=fore,aft=aft,span=(x0,east),
-            bounds=(x0,east,y-fore-r,y+aft+r,z-r,z+r))
-    cup = stadium(my,mz,17.5+air)
+    fore,aft = snaps.SLIDE+snaps.VAR,snaps.METER_HOUSING_FIT
+    x0 = mx-1.
+    fit = snaps.METER_HOUSING_FIT
+    housing = [(wx(y),r) for y,r in snaps.clearance_profile(meter.housing_profile,fit,fit)]
+    radius = max(r for _,r in housing)
+    cup = graph.add('stadium-profile-x',points=housing,y=my,z=mz,fore=fore,aft=aft,
+        bounds=(housing[0][0],housing[-1][0],my-fore-radius,my+aft+radius,mz-radius,mz+radius))
+    def stadium(y,z,r,span):
+        return graph.add('stadium-x',y=y,z=z,radius=r,fore=fore,aft=aft,span=span,
+            bounds=(*span,y-fore-r,y+aft+r,z-r,z+r))
     for dy in (-meter.boss_x,meter.boss_x):
         for dz in (-meter.boss_z,meter.boss_z):
-            cup = cup.fuse(stadium(my+dy,mz+dz,meter.boss_radius+air))
+            cup = cup.fuse(stadium(my+dy,mz+dz,meter.boss_radius+fit,
+                (wx(meter.boss_y_range[0])-fit,wx(meter.boss_y_range[1])+fit)),
+                stadium(my+dy,mz+dz,meter.screw_head_radius+fit,
+                (wx(meter.screw_head_y_range[0])-fit,wx(meter.screw_head_y_range[1])+fit)))
     collar = max(meter.port_collar_radii)
     for sign in (-1.,1.):
         ya,yb = sorted((wy(sign*meter.port_neck_end),wy(sign*meter.port_collar_end)))

@@ -21,15 +21,17 @@ fn centered(s: &Solid) -> Solid {
 fn main() -> Result<()> {
     let (n, out) = args()?;
     let rear = one(n.text("rear_print_model")?)?;
-    let lid = one(n.text("lid_print_model")?)?
-        .rotate(V3::ZERO, V3::Z, -90.).translate(point(n.get("lid_translation")?)?);
+    let lid = if let Some(path)=n.get("lid_print_model")?.as_str() {
+        Some(one(path)?.rotate(V3::ZERO, V3::Z, -90.)
+             .translate(point(n.get("lid_translation")?)?))
+    } else {None};
     let caps = import::model(n.text("installed_caps")?)?;
     let mut report = serde_json::Map::new();
     let mut context: Vec<(String, Option<[f64;3]>, Solid)> = vec![];
     for row in n.get("families")?.as_array().context("families")? {
         let name = row["name"].as_str().context("family name")?;
         let clip = Solid::cuboid(point(&row["crop_min"] )?, point(&row["crop_max"])?);
-        let seat = (if name == "pump" { &lid } else { &rear }).intersect(&clip)?;
+        let seat = (if name == "pump" { lid.as_ref().context("pump lid")? } else { &rear }).intersect(&clip)?;
         ensure!(seat.components().len() == 1, "{name}: cropped parent is one solid");
         let print_cap = one(row["cap_print_model"].as_str().context("cap print")?)?;
         let cap = if name == "pump" {
@@ -63,7 +65,7 @@ fn main() -> Result<()> {
                 else if body.name.starts_with("gas-regulator/") || ["co2-inlet","gas-check"].contains(&body.name.as_str()) {Some("pisco")}
                 else if body.name.starts_with("digiten-flow/") || ["bulkhead-carb","bulkhead-carb-nut"].contains(&body.name.as_str()) {Some("meter")}
                 else if body.name == "flow-regulator" {Some("regulator")} else {None};
-            if let Some(family) = family {
+            if let Some(family) = family.filter(|name|report.contains_key(*name)) {
                 let mut overlaps = serde_json::Map::new();
                 for suffix in ["seat","cap"] {
                     let part = &context.iter().find(|p|p.0 == format!("{family}-{suffix}")).unwrap().2;

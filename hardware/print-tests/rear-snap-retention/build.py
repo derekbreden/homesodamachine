@@ -25,6 +25,8 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--output',type=Path,default=HERE/'v4')
     parser.add_argument('--check-fit',action='store_true')
+    parser.add_argument('--families',nargs='+',choices=('pump','asse','pisco','meter','regulator'),
+                        default=['pump','asse','pisco','meter','regulator'])
     args = parser.parse_args()
     output = args.output.resolve()
     output.mkdir(parents=True,exist_ok=True)
@@ -52,24 +54,28 @@ def main():
     foam = ROOT/'hardware/printed-parts/cold-core/foam-cap'
     caps = ROOT/'hardware/printed-parts/enclosure/rear-equipment-caps'
     rear,rb = printed_input(enclosure/'enclosure-back-top.stl','rear-parent')
-    lid,_ = printed_input(foam/'foam-cap-lid-top.stl','lid-parent')
+    lid = None
+    if 'pump' in args.families:
+        lid,_ = printed_input(foam/'foam-cap-lid-top.stl','lid-parent')
     installed = caps/'rear-equipment-caps-installed.step.npz'
     cap_numbers = json.loads((caps/'rear-equipment-caps.numbers.json').read_text())
     with np.load(installed) as a:
         names = json.loads(a['names'].tobytes())
         bounds = {n:np.array([a[f'V{i}'].min(0),a[f'V{i}'].max(0)]) for i,n in enumerate(names)}
-    pump = json.loads((foam/'foam-cap.numbers.json').read_text())['pump']
-    st = pump['snap_station']
-    cx,_,cz = pump['centre_world_mm']
-    roof = -(pump['bore_radius_mm']+pump['selected']['cap_arch_wall_mm'])
-    cap_shift = [cx,st['y0'],cz-(st['tip']+roof)/2.]
-    fy = pump['frame']['translation_mm'][1]
-    selected = pump['selected']
-    span = selected['motor_band_native_x_mm'] + [v for p in selected['rail_stop_native_x_mm'] for v in p]
-    width = pump['stock_half_width_mm']+3.
+    cap_shift = None
+    if 'pump' in args.families:
+        pump = json.loads((foam/'foam-cap.numbers.json').read_text())['pump']
+        st = pump['snap_station']
+        cx,_,cz = pump['centre_world_mm']
+        roof = -(pump['bore_radius_mm']+pump['selected']['cap_arch_wall_mm'])
+        cap_shift = [cx,st['y0'],cz-(st['tip']+roof)/2.]
+        fy = pump['frame']['translation_mm'][1]
+        selected = pump['selected']
+        span = selected['motor_band_native_x_mm'] + [v for p in selected['rail_stop_native_x_mm'] for v in p]
+        width = pump['stock_half_width_mm']+3.
     families = []
     cap_sources = {}
-    for name in ('pump','asse','pisco','meter','regulator'):
+    for name in args.families:
         source = foam/'pump-snap-cap.stl' if name=='pump' else caps/(name+'-snap-cap.stl')
         cap_sources[name] = source
         cap_model,pb = printed_input(source,name+'-cap')
@@ -131,7 +137,7 @@ def main():
                     'Actual production lid +Z up.' if family['name']=='pump' else 'Actual production back-top -Z up.'})
     report['elapsed_seconds']=time.monotonic()-began
     (output/'geometry.json').write_text(json.dumps(report,indent=2)+'\n')
-    print('Exported ten complete retention pieces.',flush=True)
+    print(f'Exported {2*len(families)} complete retention pieces.',flush=True)
 
 
 if __name__=='__main__':
