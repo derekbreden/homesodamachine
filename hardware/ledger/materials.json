@@ -5,7 +5,14 @@
     "HSM-000002",
     "HSM-000005",
     "HSM-000006",
-    "HSM-000180"
+    "HSM-000180",
+    "HSM-000389",
+    "HSM-000396",
+    "HSM-000397",
+    "HSM-000398",
+    "HSM-000399",
+    "HSM-000400",
+    "HSM-000404"
   ],
   "cost_root": "HSM-000340",
   "materials": [
@@ -2255,7 +2262,13 @@
       "bom": {
         "scope": "Printed fixture set and assembly hardware. Screw clamps and bench clamps are reusable setup equipment; the model also shows the donor and tubing workpieces.",
         "source": "printed-parts/fixtures/tube-insertion/parts.json",
-        "items": [],
+        "items": [
+          {
+            "material": "HSM-000403",
+            "quantity": 1,
+            "unit": "ea"
+          }
+        ],
         "imports": {
           "source": "printed-parts/fixtures/tube-insertion/parts.json",
           "parts": {
@@ -7585,6 +7598,11 @@
       "id": "HSM-000372",
       "description": "Collet press \u00b7 PET-GF",
       "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/collet-press/collet-press.step"
+        }
+      ],
       "aliases": [
         "collet-press",
         "release tool",
@@ -7598,6 +7616,32 @@
         {
           "title": "Install kit",
           "path": "assembly/finish-pack-ship.md"
+        }
+      ],
+      "relations": [
+        {
+          "kind": "used-with",
+          "material": "HSM-000059"
+        },
+        {
+          "kind": "used-with",
+          "material": "HSM-000054"
+        },
+        {
+          "kind": "used-with",
+          "material": "HSM-000043"
+        },
+        {
+          "kind": "used-with",
+          "material": "HSM-000369"
+        },
+        {
+          "kind": "used-with",
+          "material": "HSM-000368"
+        },
+        {
+          "kind": "used-with",
+          "material": "HSM-000014"
         }
       ]
     },
@@ -7955,6 +7999,1189 @@
           "title": "Electronics bay",
           "path": "assembly/electronics-bay.md"
         }
+      ]
+    },
+    {
+      "id": "HSM-000389",
+      "description": "Flavor-fill funnel mold",
+      "kind": "tooling",
+      "models": [
+        {
+          "file": "printed-parts/zone-c/funnel-mold/assembly.step"
+        }
+      ],
+      "aliases": [
+        "funnel mold",
+        "funnel-mold",
+        "funnel silicone mold",
+        "funnel mould"
+      ],
+      "documents": [
+        {
+          "title": "Mold operations",
+          "path": "mold-guide/mold-guide.pdf"
+        },
+        {
+          "title": "Mold parts, rod and casting",
+          "path": "printed-parts/zone-c/funnel-mold/README.md"
+        },
+        {
+          "title": "Silicone material record",
+          "path": "printed-parts/zone-c/funnel-mold/silicone.md"
+        }
+      ],
+      "bom": {
+        "scope": "Two printed PETG mold bodies, the stock stainless rod that forms the 6 mm outlet, and the flange closure hardware. The model also shows the cast funnel, the workpiece.",
+        "source": "printed-parts/zone-c/funnel-mold/README.md",
+        "items": [
+          {
+            "material": "HSM-000390",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "cavity"
+            ]
+          },
+          {
+            "material": "HSM-000391",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "core"
+            ]
+          },
+          {
+            "material": "HSM-000392",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "rod"
+            ]
+          },
+          {
+            "material": "HSM-000393",
+            "quantity": 8,
+            "unit": "ea"
+          },
+          {
+            "material": "HSM-000394",
+            "quantity": 8,
+            "unit": "ea"
+          },
+          {
+            "material": "HSM-000395",
+            "quantity": 16,
+            "unit": "ea"
+          }
+        ]
+      },
+      "relations": [
+        {
+          "kind": "tool-for",
+          "material": "HSM-000070",
+          "bodies": [
+            "funnel"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "HSM-000390",
+      "description": "Flavor-fill funnel mold cavity",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/zone-c/funnel-mold/cavity.step"
+        }
+      ],
+      "aliases": [
+        "cavity",
+        "mold cavity"
+      ]
+    },
+    {
+      "id": "HSM-000391",
+      "description": "Flavor-fill funnel mold core",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/zone-c/funnel-mold/core.step"
+        }
+      ],
+      "aliases": [
+        "mold core"
+      ]
+    },
+    {
+      "id": "HSM-000392",
+      "description": "Funnel mold outlet rod \u00b7 304 stainless, 6 \u00d7 25 mm",
+      "kind": "purchased",
+      "models": [
+        {
+          "file": "printed-parts/zone-c/funnel-mold/rod.step"
+        }
+      ],
+      "aliases": [
+        "rod",
+        "steel rod",
+        "uxcell 6 x 25 mm dowel pin",
+        "B07Z18CKCY"
+      ]
+    },
+    {
+      "id": "HSM-000393",
+      "description": "M4 \u00d7 20 socket-head screw \u00b7 304 stainless",
+      "kind": "purchased",
+      "aliases": [
+        "SVLING M4x20",
+        "funnel mold flange bolt",
+        "B0GHMMCZKM"
+      ]
+    },
+    {
+      "id": "HSM-000394",
+      "description": "M4 nut \u00b7 304 stainless",
+      "kind": "purchased",
+      "aliases": [
+        "SVLING M4 nut",
+        "B0GHMMCZKM"
+      ]
+    },
+    {
+      "id": "HSM-000395",
+      "description": "M4 flat washer \u00b7 \u00d89 mm, 304 stainless",
+      "kind": "purchased",
+      "aliases": [
+        "SVLING M4 washer",
+        "9 mm OD washer",
+        "B0GHMMCZKM"
+      ]
+    },
+    {
+      "id": "HSM-000396",
+      "description": "Coil-winding mandrel",
+      "kind": "tooling",
+      "models": [
+        {
+          "file": "printed-parts/cold-core/coil-mandrel/coil-mandrel.step"
+        }
+      ],
+      "aliases": [
+        "coil mandrel",
+        "coil-mandrel",
+        "evaporator coil mandrel",
+        "winding drum"
+      ],
+      "documents": [
+        {
+          "title": "Refrigeration bench guide",
+          "path": "refrigeration-guide/refrigeration-guide.pdf"
+        },
+        {
+          "title": "Coil forming and cold-core assembly",
+          "path": "assembly/cold-core.md"
+        },
+        {
+          "title": "Mandrel dimensions",
+          "path": "printed-parts/cold-core/coil-mandrel/coil_mandrel.py"
+        }
+      ],
+      "relations": [
+        {
+          "kind": "tool-for",
+          "material": "HSM-000015"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000397",
+      "description": "Carbonator reed bridge setting gauge",
+      "kind": "tooling",
+      "models": [
+        {
+          "file": "printed-parts/cold-core/reed-bridge/reed-bridge-setting-gauge.step"
+        }
+      ],
+      "aliases": [
+        "setting gauge",
+        "reed-bridge-setting-gauge",
+        "bridge height gauge"
+      ],
+      "documents": [
+        {
+          "title": "Setting gauge and bench procedure",
+          "path": "printed-parts/cold-core/reed-bridge/README.md"
+        }
+      ],
+      "relations": [
+        {
+          "kind": "tool-for",
+          "material": "HSM-000029"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000398",
+      "description": "Tube miter box",
+      "kind": "tooling",
+      "models": [
+        {
+          "file": "printed-parts/fixtures/tube-miter-box/tube-miter-box.step"
+        }
+      ],
+      "aliases": [
+        "tube-miter-box",
+        "razor miter box",
+        "tube cutting block"
+      ],
+      "documents": [
+        {
+          "title": "Miter box print and use",
+          "path": "printed-parts/fixtures/tube-miter-box/README.md"
+        }
+      ],
+      "relations": [
+        {
+          "kind": "used-with",
+          "material": "HSM-000106"
+        },
+        {
+          "kind": "used-with",
+          "material": "HSM-000001"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000399",
+      "description": "Fake countertop",
+      "kind": "tooling",
+      "models": [
+        {
+          "file": "printed-parts/fixtures/fake-countertop/fake-countertop.step"
+        }
+      ],
+      "aliases": [
+        "fake-countertop",
+        "counter stand",
+        "dummy counter"
+      ],
+      "documents": [
+        {
+          "title": "Stand print and use",
+          "path": "printed-parts/fixtures/fake-countertop/README.md"
+        }
+      ],
+      "relations": [
+        {
+          "kind": "used-with",
+          "material": "HSM-000002"
+        },
+        {
+          "kind": "used-with",
+          "material": "HSM-000007"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000400",
+      "description": "Water-inlet jet drilling fixture",
+      "kind": "tooling",
+      "models": [
+        {
+          "file": "printed-parts/fixtures/water-inlet-jet/water-inlet-jet-fixture-fixed.step"
+        }
+      ],
+      "aliases": [
+        "jet fixture",
+        "jet drilling fixture",
+        "drilling jaws",
+        "water-inlet-jet-fixture"
+      ],
+      "documents": [
+        {
+          "title": "Drilling and welding bench guide",
+          "path": "water-inlet-jet-guide/water-inlet-jet-guide.pdf"
+        },
+        {
+          "title": "Drill & cut bench guide",
+          "path": "drill-and-cut-guide/drill-and-cut-guide.pdf"
+        },
+        {
+          "title": "Fixture print and drill-table setup",
+          "path": "printed-parts/fixtures/water-inlet-jet/README.md"
+        },
+        {
+          "title": "Jet fabrication and elbow fit",
+          "path": "assembly/water-inlet-jet.md"
+        }
+      ],
+      "bom": {
+        "scope": "The two printed PET-GF jaws. The model is the fixed jaw and base, the fixture's main piece; the loose jaw has its own model. The four owned C-clamps that close the jaws and hold the base to the drill table are setup equipment.",
+        "source": "printed-parts/fixtures/water-inlet-jet/README.md",
+        "items": [
+          {
+            "material": "HSM-000401",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "water-inlet-jet-fixture-fixed"
+            ]
+          },
+          {
+            "material": "HSM-000402",
+            "quantity": 1,
+            "unit": "ea"
+          }
+        ]
+      },
+      "relations": [
+        {
+          "kind": "tool-for",
+          "material": "HSM-000011"
+        },
+        {
+          "kind": "used-with",
+          "material": "HSM-000160",
+          "quantity": 4,
+          "unit": "ea"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000401",
+      "description": "Water-inlet jet fixture fixed jaw",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/fixtures/water-inlet-jet/water-inlet-jet-fixture-fixed.step"
+        }
+      ],
+      "aliases": [
+        "water-inlet-jet-fixture-fixed",
+        "fixed jaw and base"
+      ]
+    },
+    {
+      "id": "HSM-000402",
+      "description": "Water-inlet jet fixture loose jaw",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/fixtures/water-inlet-jet/water-inlet-jet-fixture-loose.step"
+        }
+      ],
+      "aliases": [
+        "water-inlet-jet-fixture-loose",
+        "loose jaw"
+      ]
+    },
+    {
+      "id": "HSM-000403",
+      "description": "Tube insertion donor hold-down cover",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/fixtures/tube-insertion/donor-hold-down/donor-hold-down.step"
+        }
+      ],
+      "aliases": [
+        "donor-hold-down",
+        "tpu-hand-pad",
+        "donor hand pad",
+        "hand hold-down cover"
+      ],
+      "documents": [
+        {
+          "title": "Part details",
+          "path": "printed-parts/fixtures/tube-insertion/donor-hold-down/README.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000404",
+      "description": "Shop storage",
+      "kind": "tooling",
+      "models": [
+        {
+          "file": "printed-parts/shop-storage/holders/dock-3x3.step"
+        }
+      ],
+      "aliases": [
+        "shop-storage",
+        "Gridfinity holders",
+        "bench storage"
+      ],
+      "documents": [
+        {
+          "title": "Holders and what they take",
+          "path": "printed-parts/shop-storage/README.md"
+        }
+      ],
+      "bom": {
+        "scope": "The 42 printed Gridfinity holders: one of each and two 3 \u00d7 3 bench docks, the README's print list. Spacers stack as many as a narrow reel needs. What each holder takes is in the README. The model is the bench dock every holder stands on; each holder has its own model.",
+        "source": "printed-parts/shop-storage/README.md",
+        "items": [
+          {
+            "material": "HSM-000405",
+            "quantity": 2,
+            "unit": "ea",
+            "bodies": [
+              "dock-3x3"
+            ]
+          },
+          {
+            "material": "HSM-000406",
+            "quantity": 1,
+            "unit": "ea"
+          },
+          {
+            "material": "HSM-000407",
+            "quantity": 1,
+            "unit": "ea"
+          },
+          {
+            "material": "HSM-000408",
+            "quantity": 1,
+            "unit": "ea"
+          },
+          {
+            "material": "HSM-000409",
+            "quantity": 1,
+            "unit": "ea"
+          },
+          {
+            "material": "HSM-000410",
+            "quantity": 1,
+            "unit": "ea"
+          },
+          {
+            "material": "HSM-000411",
+            "quantity": 1,
+            "unit": "ea"
+          },
+          {
+            "material": "HSM-000412",
+            "quantity": 1,
+            "unit": "ea"
+          },
+          {
+            "material": "HSM-000413",
+            "quantity": 1,
+            "unit": "ea"
+          },
+          {
+            "material": "HSM-000414",
+            "quantity": 1,
+            "unit": "ea"
+          },
+          {
+            "material": "HSM-000415",
+            "quantity": 1,
+            "unit": "ea"
+          },
+          {
+            "material": "HSM-000416",
+            "quantity": 1,
+            "unit": "ea"
+          },
+          {
+            "material": "HSM-000417",
+            "quantity": 1,
+            "unit": "ea"
+          },
+          {
+            "material": "HSM-000418",
+            "quantity": 1,
+            "unit": "ea"
+          },
+          {
+            "material": "HSM-000419",
+            "quantity": 1,
+            "unit": "ea"
+          },
+          {
+            "material": "HSM-000420",
+            "quantity": 1,
+            "unit": "ea"
+          },
+          {
+            "material": "HSM-000421",
+            "quantity": 1,
+            "unit": "ea"
+          },
+          {
+            "material": "HSM-000422",
+            "quantity": 1,
+            "unit": "ea"
+          },
+          {
+            "material": "HSM-000423",
+            "quantity": 1,
+            "unit": "ea"
+          },
+          {
+            "material": "HSM-000424",
+            "quantity": 1,
+            "unit": "ea"
+          },
+          {
+            "material": "HSM-000425",
+            "quantity": 1,
+            "unit": "ea"
+          },
+          {
+            "material": "HSM-000426",
+            "quantity": 1,
+            "unit": "ea"
+          },
+          {
+            "material": "HSM-000427",
+            "quantity": 1,
+            "unit": "ea"
+          },
+          {
+            "material": "HSM-000428",
+            "quantity": 1,
+            "unit": "ea"
+          },
+          {
+            "material": "HSM-000429",
+            "quantity": 1,
+            "unit": "ea"
+          },
+          {
+            "material": "HSM-000430",
+            "quantity": 1,
+            "unit": "ea"
+          },
+          {
+            "material": "HSM-000431",
+            "quantity": 1,
+            "unit": "ea"
+          },
+          {
+            "material": "HSM-000432",
+            "quantity": 1,
+            "unit": "ea"
+          },
+          {
+            "material": "HSM-000433",
+            "quantity": 1,
+            "unit": "ea"
+          },
+          {
+            "material": "HSM-000434",
+            "quantity": 1,
+            "unit": "ea"
+          },
+          {
+            "material": "HSM-000435",
+            "quantity": 1,
+            "unit": "ea"
+          },
+          {
+            "material": "HSM-000436",
+            "quantity": 1,
+            "unit": "ea"
+          },
+          {
+            "material": "HSM-000437",
+            "quantity": 1,
+            "unit": "ea"
+          },
+          {
+            "material": "HSM-000438",
+            "quantity": 1,
+            "unit": "ea"
+          },
+          {
+            "material": "HSM-000439",
+            "quantity": 1,
+            "unit": "ea"
+          },
+          {
+            "material": "HSM-000440",
+            "quantity": 1,
+            "unit": "ea"
+          },
+          {
+            "material": "HSM-000441",
+            "quantity": 1,
+            "unit": "ea"
+          },
+          {
+            "material": "HSM-000442",
+            "quantity": 1,
+            "unit": "ea"
+          },
+          {
+            "material": "HSM-000443",
+            "quantity": 1,
+            "unit": "ea"
+          },
+          {
+            "material": "HSM-000444",
+            "quantity": 1,
+            "unit": "ea"
+          },
+          {
+            "material": "HSM-000445",
+            "quantity": 1,
+            "unit": "ea"
+          },
+          {
+            "material": "HSM-000446",
+            "quantity": 1,
+            "unit": "ea"
+          }
+        ]
+      }
+    },
+    {
+      "id": "HSM-000405",
+      "description": "Shop storage bench dock",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/shop-storage/holders/dock-3x3.step"
+        }
+      ],
+      "aliases": [
+        "dock-3x3",
+        "Gridfinity baseplate"
+      ]
+    },
+    {
+      "id": "HSM-000406",
+      "description": "Shop storage reel cradle",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/shop-storage/holders/reel-cradle.step"
+        }
+      ],
+      "aliases": [
+        "reel-cradle"
+      ]
+    },
+    {
+      "id": "HSM-000407",
+      "description": "Shop storage roll cradle",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/shop-storage/holders/roll-cradle.step"
+        }
+      ],
+      "aliases": [
+        "roll-cradle"
+      ]
+    },
+    {
+      "id": "HSM-000408",
+      "description": "Shop storage reel spacer",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/shop-storage/holders/reel-spacer.step"
+        }
+      ],
+      "aliases": [
+        "reel-spacer"
+      ]
+    },
+    {
+      "id": "HSM-000409",
+      "description": "Shop storage roll spacer",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/shop-storage/holders/roll-spacer.step"
+        }
+      ],
+      "aliases": [
+        "roll-spacer"
+      ]
+    },
+    {
+      "id": "HSM-000410",
+      "description": "Shop storage crimp comb",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/shop-storage/holders/crimp-comb.step"
+        }
+      ],
+      "aliases": [
+        "crimp-comb"
+      ]
+    },
+    {
+      "id": "HSM-000411",
+      "description": "Shop storage strip comb",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/shop-storage/holders/strip-comb.step"
+        }
+      ],
+      "aliases": [
+        "strip-comb"
+      ]
+    },
+    {
+      "id": "HSM-000412",
+      "description": "Shop storage punch comb",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/shop-storage/holders/punch-comb.step"
+        }
+      ],
+      "aliases": [
+        "punch-comb"
+      ]
+    },
+    {
+      "id": "HSM-000413",
+      "description": "Shop storage cut comb",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/shop-storage/holders/cut-comb.step"
+        }
+      ],
+      "aliases": [
+        "cut-comb"
+      ]
+    },
+    {
+      "id": "HSM-000414",
+      "description": "Shop storage fine comb",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/shop-storage/holders/fine-comb.step"
+        }
+      ],
+      "aliases": [
+        "fine-comb"
+      ]
+    },
+    {
+      "id": "HSM-000415",
+      "description": "Shop storage tube comb",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/shop-storage/holders/tube-comb.step"
+        }
+      ],
+      "aliases": [
+        "tube-comb"
+      ]
+    },
+    {
+      "id": "HSM-000416",
+      "description": "Shop storage tip index",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/shop-storage/holders/tip-index.step"
+        }
+      ],
+      "aliases": [
+        "tip-index"
+      ]
+    },
+    {
+      "id": "HSM-000417",
+      "description": "Shop storage drill index",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/shop-storage/holders/drill-index.step"
+        }
+      ],
+      "aliases": [
+        "drill-index"
+      ]
+    },
+    {
+      "id": "HSM-000418",
+      "description": "Shop storage dowel index",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/shop-storage/holders/dowel-index.step"
+        }
+      ],
+      "aliases": [
+        "dowel-index"
+      ]
+    },
+    {
+      "id": "HSM-000419",
+      "description": "Shop storage M3 tub",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/shop-storage/holders/m3-tub.step"
+        }
+      ],
+      "aliases": [
+        "m3-tub"
+      ]
+    },
+    {
+      "id": "HSM-000420",
+      "description": "Shop storage M5 tub",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/shop-storage/holders/m5-tub.step"
+        }
+      ],
+      "aliases": [
+        "m5-tub"
+      ]
+    },
+    {
+      "id": "HSM-000421",
+      "description": "Shop storage insert tub",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/shop-storage/holders/insert-tub.step"
+        }
+      ],
+      "aliases": [
+        "insert-tub"
+      ]
+    },
+    {
+      "id": "HSM-000422",
+      "description": "Shop storage small tub",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/shop-storage/holders/small-tub.step"
+        }
+      ],
+      "aliases": [
+        "small-tub"
+      ]
+    },
+    {
+      "id": "HSM-000423",
+      "description": "Shop storage ferrule tub",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/shop-storage/holders/ferrule-tub.step"
+        }
+      ],
+      "aliases": [
+        "ferrule-tub"
+      ]
+    },
+    {
+      "id": "HSM-000424",
+      "description": "Shop storage shrink tub",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/shop-storage/holders/shrink-tub.step"
+        }
+      ],
+      "aliases": [
+        "shrink-tub"
+      ]
+    },
+    {
+      "id": "HSM-000425",
+      "description": "Shop storage terminal tub",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/shop-storage/holders/terminal-tub.step"
+        }
+      ],
+      "aliases": [
+        "terminal-tub"
+      ]
+    },
+    {
+      "id": "HSM-000426",
+      "description": "Shop storage lever tub",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/shop-storage/holders/lever-tub.step"
+        }
+      ],
+      "aliases": [
+        "lever-tub"
+      ]
+    },
+    {
+      "id": "HSM-000427",
+      "description": "Shop storage tie tub",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/shop-storage/holders/tie-tub.step"
+        }
+      ],
+      "aliases": [
+        "tie-tub"
+      ]
+    },
+    {
+      "id": "HSM-000428",
+      "description": "Shop storage XH tub",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/shop-storage/holders/xh-tub.step"
+        }
+      ],
+      "aliases": [
+        "xh-tub"
+      ]
+    },
+    {
+      "id": "HSM-000429",
+      "description": "Shop storage keystone tub",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/shop-storage/holders/keystone-tub.step"
+        }
+      ],
+      "aliases": [
+        "keystone-tub"
+      ]
+    },
+    {
+      "id": "HSM-000430",
+      "description": "Shop storage junction tub",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/shop-storage/holders/junction-tub.step"
+        }
+      ],
+      "aliases": [
+        "junction-tub"
+      ]
+    },
+    {
+      "id": "HSM-000431",
+      "description": "Shop storage bulkhead tub",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/shop-storage/holders/bulkhead-tub.step"
+        }
+      ],
+      "aliases": [
+        "bulkhead-tub"
+      ]
+    },
+    {
+      "id": "HSM-000432",
+      "description": "Shop storage adapter tub",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/shop-storage/holders/adapter-tub.step"
+        }
+      ],
+      "aliases": [
+        "adapter-tub"
+      ]
+    },
+    {
+      "id": "HSM-000433",
+      "description": "Shop storage NPT tub",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/shop-storage/holders/npt-tub.step"
+        }
+      ],
+      "aliases": [
+        "npt-tub"
+      ]
+    },
+    {
+      "id": "HSM-000434",
+      "description": "Shop storage pressure tub",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/shop-storage/holders/pressure-tub.step"
+        }
+      ],
+      "aliases": [
+        "pressure-tub"
+      ]
+    },
+    {
+      "id": "HSM-000435",
+      "description": "Shop storage stock tub",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/shop-storage/holders/stock-tub.step"
+        }
+      ],
+      "aliases": [
+        "stock-tub"
+      ]
+    },
+    {
+      "id": "HSM-000436",
+      "description": "Shop storage copper tub",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/shop-storage/holders/copper-tub.step"
+        }
+      ],
+      "aliases": [
+        "copper-tub"
+      ]
+    },
+    {
+      "id": "HSM-000437",
+      "description": "Shop storage service tub",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/shop-storage/holders/service-tub.step"
+        }
+      ],
+      "aliases": [
+        "service-tub"
+      ]
+    },
+    {
+      "id": "HSM-000438",
+      "description": "Shop storage flux tub",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/shop-storage/holders/flux-tub.step"
+        }
+      ],
+      "aliases": [
+        "flux-tub"
+      ]
+    },
+    {
+      "id": "HSM-000439",
+      "description": "Shop storage brush quiver",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/shop-storage/holders/brush-quiver.step"
+        }
+      ],
+      "aliases": [
+        "brush-quiver"
+      ]
+    },
+    {
+      "id": "HSM-000440",
+      "description": "Shop storage heat-gun tub",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/shop-storage/holders/heat-gun-tub.step"
+        }
+      ],
+      "aliases": [
+        "heat-gun-tub"
+      ]
+    },
+    {
+      "id": "HSM-000441",
+      "description": "Shop storage deburr tub",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/shop-storage/holders/deburr-tub.step"
+        }
+      ],
+      "aliases": [
+        "deburr-tub"
+      ]
+    },
+    {
+      "id": "HSM-000442",
+      "description": "Shop storage saw tub",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/shop-storage/holders/saw-tub.step"
+        }
+      ],
+      "aliases": [
+        "saw-tub"
+      ]
+    },
+    {
+      "id": "HSM-000443",
+      "description": "Shop storage die tub",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/shop-storage/holders/die-tub.step"
+        }
+      ],
+      "aliases": [
+        "die-tub"
+      ]
+    },
+    {
+      "id": "HSM-000444",
+      "description": "Shop storage hotend tub",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/shop-storage/holders/hotend-tub.step"
+        }
+      ],
+      "aliases": [
+        "hotend-tub"
+      ]
+    },
+    {
+      "id": "HSM-000445",
+      "description": "Shop storage depressor quiver",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/shop-storage/holders/depressor-quiver.step"
+        }
+      ],
+      "aliases": [
+        "depressor-quiver"
+      ]
+    },
+    {
+      "id": "HSM-000446",
+      "description": "Shop storage pigment tub",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/shop-storage/holders/pigment-tub.step"
+        }
+      ],
+      "aliases": [
+        "pigment-tub"
       ]
     }
   ]
