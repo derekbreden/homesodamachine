@@ -81,7 +81,7 @@ def cut(shell, box, directory):
     """Write the fine structure and separately fluted print without another panel."""
     import _rust_part
     import trimesh
-    from meshcad.write import print_payload
+    from _enclosure_presentation import print_payload
     said = _rust_part.cut('enclosure-shell','enclosure-front-bottom',
                           print_numbers(shell,box),directory)
     step = Path(directory)/'enclosure-front-bottom.step'

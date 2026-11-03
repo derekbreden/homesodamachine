@@ -416,7 +416,7 @@ def cut(shell,box,directory):
     from pathlib import Path
     import _rust_part
     import trimesh
-    from meshcad.write import print_payload
+    from _enclosure_presentation import print_payload
     said=_rust_part.cut('enclosure-shell','enclosure-front-top',print_numbers(shell,box),directory)
     step=Path(directory)/'enclosure-front-top.step'
     printed=trimesh.load_mesh(step.with_suffix('.stl'))

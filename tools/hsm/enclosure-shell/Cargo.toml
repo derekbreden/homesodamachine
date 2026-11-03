@@ -34,6 +34,10 @@ path = "../../../hardware/printed-parts/enclosure/enclosure/enclosure_back_top.r
 name = "enclosure-front-top"
 path = "../../../hardware/printed-parts/enclosure/enclosure/enclosure_front_top.rs"
 
+[[bin]]
+name = "enclosure-dock"
+path = "../../../hardware/printed-parts/enclosure/enclosure/enclosure_dock.rs"
+
 [dependencies]
 anyhow.workspace = true
 hsm-kernel = { path = "../kernel" }
