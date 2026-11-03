@@ -39,7 +39,7 @@ physical assembly force and durability retain the qualification limits below.
 
 ## Inputs per appliance
 
-Per-unit BOM lives in [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §7 (printed enclosure parts), §8 (the +Y wall's JG bulkheads), §3 (the §3 PP1208E tap-water inlet), §4 (the ABU44 CO2 bulkhead), §5 (the C14 inlet), and §13 (mechanical attach hardware). The compressor's four floor screws, their M5 inserts and their fender washers are §13 rows of their own, and so are the condenser's two M3 × 8 and their inserts; **the cold core's grips bill nothing** — they are printed features of the pieces themselves, closed by the seam's corner screws already in §13. Status (ACQUIRED / ON-ORDER) lives in [`/hardware/ledger/purchases.md`](/hardware/ledger/purchases.md) §6 + §11. The table below is the procedure-level summary.
+Per-unit BOM lives in [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §7 (printed enclosure parts), §8 (the +Y wall's JG bulkheads), §3 (the §3 PP1208E tap-water inlet), §4 (the PISCO secondary), §5 (the C14 inlet), and §13 (mechanical attach hardware). The compressor's four floor screws, their M5 inserts and their fender washers are §13 rows of their own, and so are the condenser's two M3 × 8 and their inserts; **the cold core's grips bill nothing** — they are printed features of the pieces themselves, closed by the seam's corner screws already in §13. Status (ACQUIRED / ON-ORDER) lives in [`/hardware/ledger/purchases.md`](/hardware/ledger/purchases.md) §6 + §11. The table below is the procedure-level summary.
 
 | Item | Source / spec | Notes |
 |---|---|---|
