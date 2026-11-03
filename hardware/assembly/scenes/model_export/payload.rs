@@ -34,33 +34,30 @@ impl Entry {
         if frame.identity() {
             return self;
         }
+        let rigid = frame.rigid();
         for key in ["pos", "nrm"] {
-            let old = self.floats(key);
-            let values = old
-                .chunks_exact(3)
-                .flat_map(|v| {
-                    let p = [v[0] as f64, v[1] as f64, v[2] as f64];
-                    let p = if key == "pos" {
-                        frame.point(p)
-                    } else if frame.rigid() {
-                        frame.direction(p)
-                    } else {
-                        frame.normal(p)
-                    };
-                    p.into_iter().flat_map(|x| (x as f32).to_le_bytes())
-                })
-                .collect();
-            self.arrays.insert(key.into(), values);
+            for xyz in self.arrays.get_mut(key).unwrap().chunks_exact_mut(12) {
+                let p = std::array::from_fn(|c| {
+                    f32::from_le_bytes(xyz[c * 4..c * 4 + 4].try_into().unwrap()) as f64
+                });
+                let p = if key == "pos" {
+                    frame.point(p)
+                } else if rigid {
+                    frame.direction(p)
+                } else {
+                    frame.normal(p)
+                };
+                for c in 0..3 {
+                    xyz[c * 4..c * 4 + 4].copy_from_slice(&(p[c] as f32).to_le_bytes());
+                }
+            }
         }
         if frame.det() < 0.0 {
-            let mut indices = self.ints("idx");
-            for tri in indices.chunks_exact_mut(3) {
-                tri.swap(1, 2);
+            for tri in self.arrays.get_mut("idx").unwrap().chunks_exact_mut(12) {
+                for c in 0..4 {
+                    tri.swap(4 + c, 8 + c);
+                }
             }
-            self.arrays.insert(
-                "idx".into(),
-                indices.into_iter().flat_map(u32::to_le_bytes).collect(),
-            );
         }
         self
     }
@@ -128,21 +125,24 @@ impl Payload {
                 meta: row.clone(),
                 arrays,
             };
-            let pos = entry.floats("pos");
-            let normals = entry.floats("nrm");
-            let indices = entry.ints("idx");
+            let pos = &entry.arrays["pos"];
+            let normals = &entry.arrays["nrm"];
+            let indices = &entry.arrays["idx"];
             ensure!(
-                !pos.is_empty() && pos.len() % 3 == 0 && normals.len() == pos.len(),
+                !pos.is_empty() && pos.len() % 12 == 0 && normals.len() == pos.len(),
                 "bad vectors"
             );
             ensure!(
-                pos.iter().chain(&normals).all(|x| x.is_finite()),
+                pos.chunks_exact(4).chain(normals.chunks_exact(4))
+                    .all(|x| f32::from_le_bytes(x.try_into().unwrap()).is_finite()),
                 "non-finite payload vector"
             );
             ensure!(
                 !indices.is_empty()
-                    && indices.len() % 3 == 0
-                    && indices.iter().all(|&i| (i as usize) < pos.len() / 3),
+                    && indices.len() % 12 == 0
+                    && indices.chunks_exact(4).all(|i| {
+                        (u32::from_le_bytes(i.try_into().unwrap()) as usize) < pos.len() / 12
+                    }),
                 "bad indices"
             );
             meshes.push(entry);
@@ -151,15 +151,15 @@ impl Payload {
         Ok(Self { header, meshes })
     }
 
-    pub fn encode(&self) -> Result<Vec<u8>> {
-        let mut blob = Vec::new();
+    fn framing(&self) -> Result<(Vec<u8>, usize)> {
+        let mut size = 0;
         let mut entries = Vec::new();
         for mesh in &self.meshes {
             let mut row = mesh.meta.clone();
             for key in KEYS {
                 if let Some(bytes) = mesh.arrays.get(key) {
-                    row[key] = json!([blob.len(), bytes.len() / 4]);
-                    blob.extend_from_slice(bytes);
+                    row[key] = json!([size, bytes.len() / 4]);
+                    size += bytes.len();
                 }
             }
             entries.push(row);
@@ -171,15 +171,39 @@ impl Payload {
         while head.len() % 4 != 0 {
             head.push(b' ');
         }
-        let mut bytes = Vec::with_capacity(4 + head.len() + blob.len());
+        Ok((head, size))
+    }
+
+    pub fn encode(&self) -> Result<Vec<u8>> {
+        let (head, size) = self.framing()?;
+        let mut bytes = Vec::with_capacity(4 + head.len() + size);
         bytes.extend_from_slice(&(head.len() as u32).to_le_bytes());
         bytes.extend(head);
-        bytes.extend(blob);
+        for mesh in &self.meshes {
+            for key in KEYS {
+                if let Some(array) = mesh.arrays.get(key) {
+                    bytes.extend_from_slice(array);
+                }
+            }
+        }
         Ok(bytes)
     }
 
     pub fn write(&self, path: &Path) -> Result<()> {
-        super::put(path, &self.encode()?)
+        use std::io::Write;
+        let (head, _) = self.framing()?;
+        super::model::put_stream(path, |writer| {
+            writer.write_all(&(head.len() as u32).to_le_bytes())?;
+            writer.write_all(&head)?;
+            for mesh in &self.meshes {
+                for key in KEYS {
+                    if let Some(array) = mesh.arrays.get(key) {
+                        writer.write_all(array)?;
+                    }
+                }
+            }
+            Ok(())
+        })
     }
 
     pub fn graft(&mut self, skins: &Value) -> Result<usize> {
@@ -289,11 +313,16 @@ impl Payload {
     }
 }
 
-pub fn placed_surfaces(instances: &Value, fine: &[hsm_kernel::Imported]) -> Result<Payload> {
+pub fn placed_surfaces(instances: &Value, fine: &mut Model) -> Result<Payload> {
     let mut selected = Vec::new();
     let mut models = std::collections::BTreeMap::new();
     let mut presentations = std::collections::BTreeMap::new();
-    for instance in instances.as_array().context("instances")? {
+    let instances = instances.as_array().context("instances")?;
+    let mut remaining = std::collections::BTreeMap::new();
+    for instance in instances {
+        *remaining.entry(PathBuf::from(super::text(instance, "model")?)).or_insert(0usize) += 1;
+    }
+    for instance in instances {
         let path = PathBuf::from(super::text(instance, "model")?);
         if !models.contains_key(&path) {
             models.insert(path.clone(), Model::open(&path)?);
@@ -342,38 +371,47 @@ pub fn placed_surfaces(instances: &Value, fine: &[hsm_kernel::Imported]) -> Resu
                 );
             }
         }
+        let count = remaining.get_mut(&path).unwrap();
+        *count -= 1;
+        if *count == 0 {
+            models.remove(&path);
+            presentations.remove(&path);
+        }
     }
     ensure!(
-        selected.len() == fine.len(),
+        selected.len() == fine.names.len(),
         "presentation and fine entry counts differ"
     );
     let mut totals = std::collections::BTreeMap::new();
-    for part in fine {
-        *totals.entry(part.name.as_str()).or_insert(0usize) += 1;
+    for name in &fine.names {
+        *totals.entry(name.clone()).or_insert(0usize) += 1;
     }
     let mut ordinals = std::collections::BTreeMap::new();
     let mut meshes = Vec::new();
-    for (part, surface) in fine.iter().zip(selected) {
-        let index = ordinals.entry(part.name.as_str()).or_insert(0usize);
+    for (ordinal, surface) in selected.into_iter().enumerate() {
+        let source_name = &fine.names[ordinal];
+        let color: Option<[f64; 3]> = serde_json::from_value(fine.colors[ordinal].clone())?;
+        let index = ordinals.entry(source_name.clone()).or_insert(0usize);
         *index += 1;
-        let name = if totals[part.name.as_str()] == 1 {
-            part.name.clone()
+        let name = if totals[source_name] == 1 {
+            source_name.clone()
         } else {
-            format!("{}/{}", part.name, index)
+            format!("{source_name}/{}", index)
         };
         let mut surface = match surface {
             Some(surface) => surface,
             None => {
+                let part = fine.imported(ordinal)?;
                 let body = hsm_kernel::write::Body {
                     name: &name,
-                    color: part.color,
+                    color,
                     solid: &part.solid,
                 };
                 SelfPayload::one(&body)?
             }
         };
         surface.meta["name"] = json!(name);
-        surface.meta["color"] = json!(part.color);
+        surface.meta["color"] = json!(color);
         meshes.push(surface);
     }
     Ok(Payload {
