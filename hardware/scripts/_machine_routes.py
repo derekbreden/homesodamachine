@@ -36,6 +36,7 @@ def build(output, routes, *, insulation=None, components=None, name="machine-rou
     import _rust_part
 
     output = Path(output).resolve()
+    output.mkdir(parents=True, exist_ok=True)
     _rust_part.cut("machine", "machine-routes",
                    numbers(routes, insulation=insulation,
                            components=components, name=name), output)

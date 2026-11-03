@@ -437,6 +437,7 @@ def build(output, *, external_ports=None, extra_routes=(), input_root=None):
     import _rust_part
     _rust_part.start()
     output = Path(output).resolve()
+    output.mkdir(parents=True, exist_ok=True)
     _rust_part.cut('machine', 'machine-equipment',
                    numbers(external_ports, extra_routes, input_root=input_root), output)
     result = json.loads((output / 'machine-equipment.json').read_text())
