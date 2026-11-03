@@ -1,0 +1,21 @@
+{
+  "source_archive": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/cartridge-snap-trial/worktree/hardware/print-tests/pump-cartridge-snaps/prints/2026-11-02-cartridge-ramp-comparison-mark2-6a4b201f/2026-11-02-cartridge-ramp-comparison-mark2-6a4b201f.gcode.3mf",
+  "source_archive_sha256": "49fccd8e9fef440065585a387f29d5db7d5dd5fe818cc51525e6ed07ef10564a",
+  "print_only_archive": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/cartridge-snap-trial/worktree/hardware/print-tests/pump-cartridge-snaps/prints/2026-11-02-cartridge-ramp-comparison-mark2-6a4b201f/2026-11-02-cartridge-ramp-comparison-mark2-6a4b201f-print-only.gcode.3mf",
+  "print_only_archive_sha256": "85c22dbf95884c05ee5fe12bac331d927d4ef0a305e5f2202b7b4192817d7374",
+  "gcode_sha256": {
+    "Metadata/plate_1.gcode": "e202ccbd9e7f727735bd1be680d43da3f6e8cf99d64c9985534731c6ca96e771"
+  },
+  "gcode_byte_identical": true,
+  "changed_container_entries": [
+    "3D/3dmodel.model",
+    "Metadata/model_settings.config"
+  ],
+  "omitted_editable_geometry_entries": [
+    "3D/Objects/object_1.model",
+    "3D/Objects/object_2.model",
+    "3D/Objects/object_3.model",
+    "3D/_rels/3dmodel.model.rels",
+    "Metadata/cut_information.xml"
+  ]
+}

@@ -1,0 +1,37 @@
+enclosure-front-top.stl · 450212 printed facets · 177 findings · 14 answered · top 12 (--all for every one)
+answers: hardware/printed-parts/lint-answers/enclosure/enclosure/enclosure-front-top.lint-answers · read hardware/printed-parts/lint-answers/AGENTS.md before writing one
+
+  [sliver] 0.002 mm strip, 110.5 mm long
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=-106.866 y=162.572 z=351.683
+    edge: x=-106.866 y=217.800 z=351.683 → x=-106.866 y=107.344 z=351.683 · len 110.456 · straight · dir x=0.000 y=-1.000 z=0.000
+    click: x=-106.866 y=162.572 z=351.683
+
+  [sliver] 0.002 mm strip, 110.5 mm long
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=106.866 y=162.572 z=351.683
+    edge: x=106.866 y=217.800 z=351.683 → x=106.866 y=107.344 z=351.683 · len 110.456 · straight · dir x=0.000 y=-1.000 z=0.000
+    click: x=106.866 y=162.572 z=351.683
+
+  [sliver] 0.003 mm strip, 11.1 mm long
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=-87.095 y=92.763 z=203.051
+    edge: x=-87.095 y=87.190 z=203.051 → x=-87.095 y=98.336 z=203.051 · len 11.146 · straight · dir x=0.000 y=1.000 z=0.000
+    click: x=-87.095 y=92.763 z=203.051
+
+  [thin] 0.000 mm of material at its thinnest · 0.0 mm² of surface under 0.05 mm · spans 0.1 × 1.0 × 0.6 mm
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=-101.505 y=16.707 z=312.384
+
+  [thin] 0.000 mm of material at its thinnest · 0.0 mm² of surface under 0.05 mm · spans 0.0 × 0.0 × 0.0 mm
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=96.654 y=5.187 z=300.792
+
+  [thin] 0.000 mm of material at its thinnest · 0.0 mm² of surface under 0.05 mm · spans 0.1 × 0.1 × 0.1 mm
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=98.494 y=6.608 z=304.697
+
+  [ledge] 12.00 mm² flat face 0° off facing the bed · 16.0 × 0.8 mm · 34.8 mm up
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=96.550 y=147.333 z=195.025
+    click: x=96.550 y=147.333 z=195.025

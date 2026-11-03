@@ -1,0 +1,89 @@
+{
+  "source_commit": "ab91e74339fa0b5d974602270a9d2cbd4157e88e",
+  "scope": "Production cartridge springs and enclosure receivers, including both full assemblies in the seated pose; declared Box and unrelated body arrays and pointer rows preserved.",
+  "members": {
+    "hardware/manifold-layout/enclosure-assembly.step": "863511bd5dafc96953974a4a7cdbb0c2e3071013ff4751a8c7d47f95638014fb",
+    "hardware/manifold-layout/enclosure-assembly.step.mesh": "19f1785259d70f23379fee068a092284050c8a30ad0ae3ddeca5e6dd52ee83c6",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.step": "5fe9dbde1b043ea9296e9fd216986f950e013a7c20fab7f448817787c92fe1a7",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh": "42a557f2c3d13a94537cec43164573ef40156b5a1419dc8aed961f36b6b193fa",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step": "fb620c35af1905ae91383976d9fbec1acc8c3b4dcaf31926e626d158db2cd545",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh": "e9abcc321ce2859884fafbf0a7306d676333efbaeec3d6a4e53b401bb11fa606",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl": "f72a84d959743310bd51062c38b6344237cc27d5814e44dc3b4aabb0c1d8a0aa",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step": "f45e79db918dff526f91960181d306a3fb467e2fda468504f128f17b26d26e68",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step.mesh": "791433575d005e841622f8518f8f639c6663dcae2bb716a53145509cf07f1013",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.stl": "c374c67aab3d5e4db33c18406c6c1dabfa670528c97079079fb1e02005adc510",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer-seated.step": "8fffa8a7850e5af4138e0603a7123c4db9a0ccc3b18a2cd2832207b8b31267d7",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer-seated.step.mesh": "c10ca8d631fd5a10bcc8f6629ecc28d8197169ff1912cbbc52e524dcce2bcba3"
+  },
+  "made": {
+    "hardware/manifold-layout/enclosure-assembly.step": {
+      "commit": "ab91e74339fa0b5d974602270a9d2cbd4157e88e",
+      "unproven": true
+    },
+    "hardware/manifold-layout/enclosure-assembly.step.mesh": {
+      "commit": "ab91e74339fa0b5d974602270a9d2cbd4157e88e",
+      "unproven": true
+    },
+    "hardware/printed-parts/enclosure/enclosure/enclosure.step": {
+      "commit": "ab91e74339fa0b5d974602270a9d2cbd4157e88e",
+      "unproven": true
+    },
+    "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh": {
+      "commit": "ab91e74339fa0b5d974602270a9d2cbd4157e88e",
+      "unproven": true
+    },
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step": {
+      "inputs": "3c2d27641d236e6faa671dc8a6400c1c873dc70e541bec5c60cb2bc01d5f89c6",
+      "commit": "ab91e74339fa0b5d974602270a9d2cbd4157e88e",
+      "unproven": true
+    },
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh": {
+      "commit": "ab91e74339fa0b5d974602270a9d2cbd4157e88e",
+      "unproven": true
+    },
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl": {
+      "inputs": "3c2d27641d236e6faa671dc8a6400c1c873dc70e541bec5c60cb2bc01d5f89c6",
+      "commit": "ab91e74339fa0b5d974602270a9d2cbd4157e88e",
+      "unproven": true
+    },
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step": {
+      "inputs": "774793ace0e223b9cabc7bdccea24405b2daecdee165f2ad7523a02da0b1f943",
+      "commit": "ab91e74339fa0b5d974602270a9d2cbd4157e88e",
+      "unproven": true
+    },
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step.mesh": {
+      "commit": "ab91e74339fa0b5d974602270a9d2cbd4157e88e",
+      "unproven": true
+    },
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.stl": {
+      "inputs": "774793ace0e223b9cabc7bdccea24405b2daecdee165f2ad7523a02da0b1f943",
+      "commit": "ab91e74339fa0b5d974602270a9d2cbd4157e88e",
+      "unproven": true
+    },
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer-seated.step": {
+      "inputs": "3c2d27641d236e6faa671dc8a6400c1c873dc70e541bec5c60cb2bc01d5f89c6",
+      "commit": "ab91e74339fa0b5d974602270a9d2cbd4157e88e",
+      "unproven": true
+    },
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer-seated.step.mesh": {
+      "inputs": "3c2d27641d236e6faa671dc8a6400c1c873dc70e541bec5c60cb2bc01d5f89c6",
+      "commit": "ab91e74339fa0b5d974602270a9d2cbd4157e88e",
+      "unproven": true
+    }
+  },
+  "readback_verified": [
+    "hardware/manifold-layout/enclosure-assembly.step",
+    "hardware/manifold-layout/enclosure-assembly.step.mesh",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.step",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step.mesh",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.stl",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer-seated.step",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer-seated.step.mesh"
+  ],
+  "unrelated_pointer_rows_preserved": true
+}

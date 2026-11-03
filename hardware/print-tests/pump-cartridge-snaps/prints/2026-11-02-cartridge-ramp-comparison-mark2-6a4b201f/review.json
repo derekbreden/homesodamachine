@@ -1,0 +1,203 @@
+{
+  "archive": "hardware/print-tests/pump-cartridge-snaps/prints/2026-11-02-cartridge-ramp-comparison-mark2-6a4b201f/2026-11-02-cartridge-ramp-comparison-mark2-6a4b201f.gcode.3mf",
+  "archive_sha256": "49fccd8e9fef440065585a387f29d5db7d5dd5fe818cc51525e6ed07ef10564a",
+  "gcode_md5_matches": true,
+  "emitted_z_trim_mm": [
+    0.0,
+    0.02
+  ],
+  "expected_emitted_textured_trim_mm": 0.02,
+  "layers": 284,
+  "project_check": true,
+  "bead_envelope_plate_mm": [
+    [
+      125.117368,
+      123.260368
+    ],
+    [
+      199.882632,
+      196.739632
+    ]
+  ],
+  "bed_margins_mm": {
+    "left": 125.117368,
+    "front": 123.260368,
+    "right": 125.117368,
+    "back": 123.260368
+  },
+  "minimum_bed_margin_mm": 123.260368,
+  "bed_border_mm": 20.0,
+  "fine_and_transition_bands": [],
+  "support_roads": 0,
+  "show_face_minimum_bead_clearance_mm": null,
+  "show_face_contacts": [],
+  "tie_window_support_crossings": [],
+  "ribbon_support_crossings": [],
+  "ribbons": [],
+  "fine_band_unbacked_roads": [],
+  "first_second_layer_stack": {
+    "1901": {
+      "second_layer_model_bead_area_mm2": 341.8043906221182,
+      "fraction_over_first_layer": 0.9246176441098195,
+      "second_layer_centerline_outside_first_mm": 3.3955000154808603
+    },
+    "1902": {
+      "second_layer_model_bead_area_mm2": 344.8717994564127,
+      "fraction_over_first_layer": 0.9253269481554482,
+      "second_layer_centerline_outside_first_mm": 3.4773222446295753
+    },
+    "1903": {
+      "second_layer_model_bead_area_mm2": 683.5475340402677,
+      "fraction_over_first_layer": 0.9581143159045832,
+      "second_layer_centerline_outside_first_mm": 7.119974436008698
+    }
+  },
+  "solid_host_deposition": [
+    {
+      "object": 1901,
+      "name": "Pump snap east full-Y hook, wing and upper root",
+      "plate_bounds_mm": [
+        [
+          126.16150720214844,
+          147.3645016479492,
+          0.0009999999999976694
+        ],
+        [
+          137.60950415039062,
+          172.61349432373046,
+          68.01399938964843
+        ]
+      ],
+      "samples": [
+        {
+          "print_z_mm": 0.44,
+          "coverage": 0.9952540021480963,
+          "stock_mm2": 142.525219533013
+        },
+        {
+          "print_z_mm": 34.04,
+          "coverage": 0.9953111927345625,
+          "stock_mm2": 142.5252231371379
+        },
+        {
+          "print_z_mm": 67.88,
+          "coverage": 0.995397567397903,
+          "stock_mm2": 142.5252169555351
+        }
+      ],
+      "minimum_coverage": 0.9952540021480963
+    },
+    {
+      "object": 1902,
+      "name": "Pump snap east full-Y hook, wing and upper root",
+      "plate_bounds_mm": [
+        [
+          149.61150415039063,
+          142.2760015258789,
+          0.0009999999999976694
+        ],
+        [
+          174.8604968261719,
+          153.7239984741211,
+          68.01399938964843
+        ]
+      ],
+      "samples": [
+        {
+          "print_z_mm": 0.44,
+          "coverage": 0.9967898348266985,
+          "stock_mm2": 145.2693086665046
+        },
+        {
+          "print_z_mm": 34.04,
+          "coverage": 0.9969016441227601,
+          "stock_mm2": 145.26931018158743
+        },
+        {
+          "print_z_mm": 67.88,
+          "coverage": 0.9967768631426446,
+          "stock_mm2": 145.26931190516615
+        }
+      ],
+      "minimum_coverage": 0.9967768631426446
+    },
+    {
+      "object": 1903,
+      "name": "Pump snap east receiver floor and full flank root",
+      "plate_bounds_mm": [
+        [
+          128.24249969482423,
+          187.61449432373047,
+          0.0010000000000047748
+        ],
+        [
+          196.75749969482422,
+          196.61349432373046,
+          46.19500000000002
+        ]
+      ],
+      "samples": [
+        {
+          "print_z_mm": 0.44,
+          "coverage": 0.9982687839725358,
+          "stock_mm2": 615.5567315488544
+        },
+        {
+          "print_z_mm": 23.24,
+          "coverage": 0.9939055595400488,
+          "stock_mm2": 376.77561928427417
+        },
+        {
+          "print_z_mm": 46.04,
+          "coverage": 0.9960464338575171,
+          "stock_mm2": 563.9736574693713
+        }
+      ],
+      "minimum_coverage": 0.9939055595400488
+    }
+  ],
+  "support_topology": {
+    "1901": {
+      "support_bodies": 0,
+      "interface_islands": 0,
+      "bed_rooted_bodies": 0,
+      "model_rooted_bodies": 0,
+      "shortest_build_up_mm": null,
+      "bodies_without_interface_labels": 0,
+      "explicit_interface_islands": 0,
+      "shortest_labelled_build_up_mm": null
+    },
+    "1902": {
+      "support_bodies": 0,
+      "interface_islands": 0,
+      "bed_rooted_bodies": 0,
+      "model_rooted_bodies": 0,
+      "shortest_build_up_mm": null,
+      "bodies_without_interface_labels": 0,
+      "explicit_interface_islands": 0,
+      "shortest_labelled_build_up_mm": null
+    },
+    "1903": {
+      "support_bodies": 0,
+      "interface_islands": 0,
+      "bed_rooted_bodies": 0,
+      "model_rooted_bodies": 0,
+      "shortest_build_up_mm": null,
+      "bodies_without_interface_labels": 0,
+      "explicit_interface_islands": 0,
+      "shortest_labelled_build_up_mm": null
+    }
+  },
+  "scope": "Commanded paths and bead envelopes from this archive. Support removal, surface finish, fit and strength are physical observations.",
+  "checks": {
+    "archive": true,
+    "z_trim": true,
+    "bed_border": true,
+    "fine_and_transition_bands": true,
+    "show_faces_support_free": true,
+    "tie_windows_support_free": true,
+    "ribbons_support_free_and_printed": true,
+    "solid_hosts_sampled": true
+  },
+  "pass": true
+}

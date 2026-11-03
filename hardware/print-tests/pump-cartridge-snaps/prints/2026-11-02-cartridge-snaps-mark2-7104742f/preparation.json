@@ -1,0 +1,443 @@
+{
+  "piece": "cartridge-snaps",
+  "printer": "Mark2",
+  "connection_key": "Mark2",
+  "nozzle": {
+    "side": "left",
+    "diameter_mm": 0.4,
+    "flow": "Standard",
+    "hardened": true,
+    "reason": "Every abrasive stock runs on the left hotend (hardware/ledger/tools.md, Which hotends fit an H2C); Mark1's fixed left hardened 0.4 mm carries black PET-GF (tools/bambu-printers.md, Purge and wipe).",
+    "sliced_diameter_mm": 0.4,
+    "sliced_volume_type": "Standard"
+  },
+  "material": "Polymaker Fiberon PET-GF15, black",
+  "bed_type": "Textured PEI Plate",
+  "requested_z_trim_mm": 0.04,
+  "emitted_textured_trim_mm": 0.02,
+  "project": "hardware/print-tests/pump-cartridge-snaps/prints/2026-11-02-cartridge-snaps-mark2-7104742f/2026-11-02-cartridge-snaps-mark2-7104742f.3mf",
+  "project_sha256": "77f55af262ea984b907afa0675970ced94e4fd1a4fdae2605a6da3d08aa58a78",
+  "profile": "hardware/printed-parts/petgf.3mf",
+  "profile_sha256": "45c16e8c8517e0a205107d7b9f7412d013f51a8de7ecf86125cc940079d37ed0",
+  "settings_sha256": "9ec932e56f44be2a559a6247710e66aef9d476ff4c4dcc5c01d0fd10f1701e03",
+  "settings_changes": {
+    "extruder_ams_count": {
+      "from": [
+        "1#0|4#1",
+        "1#0|4#0"
+      ],
+      "to": [
+        "1#0|4#0",
+        "1#0|4#0"
+      ],
+      "reason": "Single external black PET-GF spool on the fixed left nozzle for model, support and interface."
+    },
+    "support_filament": {
+      "from": "0",
+      "to": "1",
+      "reason": "Single external black PET-GF spool on the fixed left nozzle for model, support and interface."
+    },
+    "support_interface_filament": {
+      "from": "0",
+      "to": "1",
+      "reason": "Single external black PET-GF spool on the fixed left nozzle for model, support and interface."
+    },
+    "flush_into_support": {
+      "from": "1",
+      "to": "0",
+      "reason": "Single external black PET-GF spool on the fixed left nozzle for model, support and interface."
+    },
+    "filament_colour": {
+      "from": [
+        "#000000"
+      ],
+      "to": [
+        "#161616"
+      ],
+      "reason": "Mark2's loaded black PET-GF colour reading."
+    },
+    "wall_loops": {
+      "from": "2",
+      "to": "3",
+      "reason": "Shared snap trial recipe: three Classic walls."
+    },
+    "wall_generator": {
+      "from": "classic",
+      "to": "classic",
+      "reason": "Shared fixed-width wall recipe."
+    },
+    "sparse_infill_density": {
+      "from": "15%",
+      "to": "15%",
+      "reason": "Production parent bulk; snap hosts have local solid modifiers and caps are solid."
+    },
+    "sparse_infill_pattern": {
+      "from": "gyroid",
+      "to": "gyroid",
+      "reason": "Production parent bulk recipe."
+    },
+    "enable_support": {
+      "from": "1",
+      "to": "1",
+      "reason": "Tree(auto)/Default, preserving automatic cavity support decisions."
+    }
+  },
+  "profile_changes": {
+    "machine_start_gcode": {
+      "from_sha256": "3cc9e41520dbf5622d6f9a96bce734db9d11b0b48b49f2abec047a6e01dc6a92",
+      "to_sha256": "b09bc598f2ed7c29dceb227188593905dfc663f0391b98ff708ef00e7ce01bee",
+      "requested_z_trim_mm": 0.04
+    },
+    "printer_settings_id": {
+      "from": "Bambu Lab H2C 0.4 nozzle 04 first layer by agent",
+      "to": "Bambu Lab H2C 0.4 Standard +0.04 Z trim"
+    },
+    "print_compatible_printers": {
+      "from": [
+        "Bambu Lab H2C 0.4 nozzle"
+      ],
+      "to": [
+        "Bambu Lab H2C 0.4 nozzle",
+        "Bambu Lab H2C 0.4 Standard +0.04 Z trim"
+      ]
+    }
+  },
+  "usable_plate_mm": [
+    [
+      0.0,
+      0.0
+    ],
+    [
+      325.0,
+      320.0
+    ]
+  ],
+  "plate_border_mm": 20.0,
+  "brim_allowance_mm": 0.0,
+  "plate_offset_mm": null,
+  "objects": [
+    {
+      "name": "cartridge-retainer",
+      "identify_id": 1901,
+      "object_id": 2,
+      "stl": "hardware/print-tests/pump-cartridge-snaps/parts/cartridge-retainer.stl",
+      "stl_sha256": "c374c67aab3d5e4db33c18406c6c1dabfa670528c97079079fb1e02005adc510",
+      "step_sha256": null,
+      "facets": 1764,
+      "closed": {
+        "edges": 2646,
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "inconsistent_edges": 0,
+        "bodies": 1,
+        "closed_oriented_single_body": true
+      },
+      "pose": {
+        "turns": [
+          [
+            "x",
+            90
+          ]
+        ]
+      },
+      "pose_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          -1.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ]
+      ],
+      "yaw_degrees": 0,
+      "source_center_mm": [
+        0.0,
+        48.25749969482422,
+        199.80950164794922
+      ],
+      "build_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          -1.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ]
+      ],
+      "translation_mm": [
+        162.5,
+        214.16799926757812,
+        34.00749969482422
+      ],
+      "plate_bounds_mm": [
+        [
+          61.150001525878906,
+          189.55350494384766,
+          0.0
+        ],
+        [
+          263.8499984741211,
+          238.7824935913086,
+          68.01499938964844
+        ]
+      ],
+      "model_bed_margin_mm": 61.150001525878906,
+      "seam_enforcer": null,
+      "object_settings": {},
+      "features": [],
+      "ranges": [],
+      "verify_spans": [],
+      "ribbons": [],
+      "tie_windows": [],
+      "modifiers": [
+        {
+          "name": "Pump snap west full-Y hook, wing and upper root",
+          "source_bounds_mm": [
+            [
+              -101.34899847412109,
+              14.251,
+              175.19600732421875
+            ],
+            [
+              -89.9,
+              82.26399938964843,
+              200.44500000000002
+            ]
+          ],
+          "plate_bounds_mm": [
+            [
+              61.15100152587891,
+              213.53250091552732,
+              0.0009999999999976694
+            ],
+            [
+              72.6,
+              238.7814935913086,
+              68.01399938964843
+            ]
+          ],
+          "sparse_infill_density": "100%"
+        },
+        {
+          "name": "Pump snap east full-Y hook, wing and upper root",
+          "source_bounds_mm": [
+            [
+              89.9,
+              14.251,
+              175.19600732421875
+            ],
+            [
+              101.34899847412109,
+              82.26399938964843,
+              200.44500000000002
+            ]
+          ],
+          "plate_bounds_mm": [
+            [
+              252.4,
+              213.53250091552732,
+              0.0009999999999976694
+            ],
+            [
+              263.8489984741211,
+              238.7814935913086,
+              68.01399938964843
+            ]
+          ],
+          "sparse_infill_density": "100%"
+        }
+      ],
+      "fins": [],
+      "regions": {
+        "record": "hardware/print-tests/pump-cartridge-snaps/print-regions.json",
+        "record_sha256": "f7fe5820e07fbd5312529ea0de64228f6751be24a0c90ebd8908fa7a7fae6352",
+        "part_process_overrides": null
+      }
+    },
+    {
+      "name": "cartridge-receiver",
+      "identify_id": 1902,
+      "object_id": 6,
+      "stl": "hardware/print-tests/pump-cartridge-snaps/parts/cartridge-receiver.stl",
+      "stl_sha256": "1f8b24378a001516497289a6ac63ebd628e7b4bb18a6f9860f21d94b1a7fe0f2",
+      "step_sha256": null,
+      "facets": 47734,
+      "closed": {
+        "edges": 71601,
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "inconsistent_edges": 0,
+        "bodies": 1,
+        "closed_oriented_single_body": true
+      },
+      "pose": null,
+      "pose_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "yaw_degrees": 0,
+      "source_center_mm": [
+        0.0,
+        53.167999267578125,
+        194.16200256347656
+      ],
+      "build_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "translation_mm": [
+        162.5,
+        129.38550567626953,
+        33.91200256347656
+      ],
+      "plate_bounds_mm": [
+        [
+          55.0,
+          81.2175064086914,
+          0.0
+        ],
+        [
+          270.0,
+          177.55350494384766,
+          67.82400512695312
+        ]
+      ],
+      "model_bed_margin_mm": 55.0,
+      "seam_enforcer": null,
+      "object_settings": {},
+      "features": [],
+      "ranges": [],
+      "verify_spans": [],
+      "ribbons": [],
+      "tie_windows": [],
+      "modifiers": [
+        {
+          "name": "Pump snap west receiver floor and full flank root",
+          "source_bounds_mm": [
+            [
+              -107.499,
+              14.0,
+              160.251
+            ],
+            [
+              -98.5,
+              82.515,
+              206.44500000000002
+            ]
+          ],
+          "plate_bounds_mm": [
+            [
+              55.001000000000005,
+              90.2175064086914,
+              0.0010000000000047748
+            ],
+            [
+              64.0,
+              158.7325064086914,
+              46.19500000000002
+            ]
+          ],
+          "sparse_infill_density": "100%"
+        },
+        {
+          "name": "Pump snap east receiver floor and full flank root",
+          "source_bounds_mm": [
+            [
+              98.5,
+              14.0,
+              160.251
+            ],
+            [
+              107.499,
+              82.515,
+              206.44500000000002
+            ]
+          ],
+          "plate_bounds_mm": [
+            [
+              261.0,
+              90.2175064086914,
+              0.0010000000000047748
+            ],
+            [
+              269.999,
+              158.7325064086914,
+              46.19500000000002
+            ]
+          ],
+          "sparse_infill_density": "100%"
+        }
+      ],
+      "fins": [],
+      "regions": {
+        "record": "hardware/print-tests/pump-cartridge-snaps/print-regions.json",
+        "record_sha256": "f7fe5820e07fbd5312529ea0de64228f6751be24a0c90ebd8908fa7a7fae6352",
+        "part_process_overrides": null
+      }
+    }
+  ],
+  "pause": null,
+  "show_faces": "hardware/print-tests/pump-cartridge-snaps/prints/2026-11-02-cartridge-snaps-mark2-7104742f/show-faces.npz",
+  "spec": "hardware/print-tests/pump-cartridge-snaps/plate-spec.json",
+  "spec_sha256": "7247c6e19a20d4ee4e5409d5b41cc793cf6de071e9c0ed7d83eb391e86933e68",
+  "tool_sha256": {
+    "hardware/printed-parts/enclosure/trial-preparation/_derive.py": "2ffa3fc3e716cfc6d1663f69767228eb0f6d9f8da147ffc2c90de2097cdac6e4",
+    "hardware/printed-parts/enclosure/trial-preparation/_mesh.py": "7ab22db36e370608f52df3709c4af1994c8e804ee06e101dcbf79210db99eead",
+    "hardware/printed-parts/enclosure/trial-preparation/_native.py": "1c99ce10842a141a942a19d7def2329512d14b676c00618496187e0d93cd29da",
+    "hardware/printed-parts/enclosure/trial-preparation/_seam.py": "9ffa509df701826563e18388fd3bcc57c604f4b2b8e5e4288821ddcd00bcb176",
+    "hardware/printed-parts/enclosure/trial-preparation/labels.py": "d172b8408f0b9ded097d7c8c2eeea682a067e5d487967576c77caf4204696d68",
+    "hardware/printed-parts/enclosure/trial-preparation/prepare.py": "bc5495142592e777cb1b94eb2cfe06e64ba15ee6bae94f3e95e62a556741b513",
+    "hardware/printed-parts/enclosure/trial-preparation/review.py": "9bd303fe370842fd34eb559dc5f53f887f75c42e478c598737397dd49dd539f7",
+    "hardware/printed-parts/enclosure/trial-preparation/step_meshes.py": "b50f7b50f52f1e8516be3b1fc9ecdb10e87fb188f8b9bebc0fac56737320fc44"
+  },
+  "prepared_utc": "2026-11-03T02:02:56+00:00",
+  "sliced": true,
+  "submitted": false,
+  "archive": "hardware/print-tests/pump-cartridge-snaps/prints/2026-11-02-cartridge-snaps-mark2-7104742f/2026-11-02-cartridge-snaps-mark2-7104742f.gcode.3mf",
+  "archive_sha256": "4ae6b89250f2b37f9248f9ca6283757f9dc90e1f42762c6fba0a2ecb77d70358",
+  "gcode_sha256": "6e367009ae10949b266bff12cd5c9a0190dd0b82b339b752ad1aa871a196d040",
+  "estimated_seconds": 62641.86328125,
+  "slicer_warnings": []
+}

@@ -1,0 +1,26 @@
+{
+  "prepared_archives": [
+    {
+      "plate": "cartridge-snaps",
+      "downloads_filename": "HSM-full-cartridge-fit-Mark2.gcode.3mf",
+      "source": "hardware/print-tests/pump-cartridge-snaps/prints/2026-11-02-cartridge-snaps-mark2-7104742f/2026-11-02-cartridge-snaps-mark2-7104742f-print-only.gcode.3mf",
+      "sha256": "bd1ae1e60841dd4ce6f518b79f6320d66084fbbf6b07512bcf8350793d4998b3",
+      "submitted": false
+    },
+    {
+      "plate": "pointed-tips-and-asse",
+      "downloads_filename": "HSM-pointed-tips-and-asse-Mark1.gcode.3mf",
+      "source": "hardware/print-tests/pump-cartridge-snaps/prints/2026-11-02-pointed-tips-and-asse-mark1-0c4b4fcf/2026-11-02-pointed-tips-and-asse-mark1-0c4b4fcf-print-only.gcode.3mf",
+      "sha256": "444483b28e6d510e2b596ec782e779de168fd6413a88763d37ecb5fe1f8d17b0",
+      "submitted": false
+    },
+    {
+      "plate": "cartridge-ramp-comparison",
+      "downloads_filename": "HSM-cartridge-ramp-comparison-Mark2.gcode.3mf",
+      "source": "hardware/print-tests/pump-cartridge-snaps/prints/2026-11-02-cartridge-ramp-comparison-mark2-6a4b201f/2026-11-02-cartridge-ramp-comparison-mark2-6a4b201f-print-only.gcode.3mf",
+      "sha256": "85c22dbf95884c05ee5fe12bac331d927d4ef0a305e5f2202b7b4192817d7374",
+      "submitted": false
+    }
+  ],
+  "launch_state": "Prepared only; no printer command sent."
+}

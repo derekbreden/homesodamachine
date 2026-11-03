@@ -1,0 +1,86 @@
+{
+  "error_string": "Success.",
+  "export_time": 17966,
+  "layer_height": 0.23999999463558197,
+  "plate_index": 0,
+  "prepare_time": 181,
+  "return_code": 0,
+  "sliced_plates": [
+    {
+      "feature_type_times": {
+        "Bottom surface": 498.856201171875,
+        "Bridge": 4052.75927734375,
+        "Custom": 302.4064025878906,
+        "Flush": 15.0,
+        "Gap infill": 570.5043334960938,
+        "Inner wall": 8586.5859375,
+        "Internal solid infill": 2503.975830078125,
+        "Outer wall": 5349.791015625,
+        "Overhang wall": 221.07614135742188,
+        "Sparse infill": 17926.56640625,
+        "Support": 12834.35546875,
+        "Support interface": 424.1278076171875,
+        "Top surface": 461.7371520996094,
+        "Travel": 8440.0390625,
+        "Undefined": 8433.4794921875
+      },
+      "filament_change_times": 0,
+      "filaments": [
+        {
+          "filament_id": "GFT01",
+          "id": 1,
+          "main_used_g": 496.2936706542969,
+          "total_used_g": 496.2936096191406
+        }
+      ],
+      "generate_support_material_time": 68254,
+      "id": 1,
+      "infill_time": 6027,
+      "layer_filament_change": 0,
+      "main_predication": 62316.015625,
+      "make_perimeters_time": 10227,
+      "obj_cached_cnt": 0,
+      "objects": [
+        {
+          "bbox": {
+            "depth": 49.228981018066406,
+            "height": 68.01499938964844,
+            "width": 202.6999969482422,
+            "x": 61.150001525878906,
+            "y": 189.5535125732422,
+            "z": 1.7578116739969118e-10
+          },
+          "id": 5,
+          "name": "cartridge-retainer",
+          "triangle_count": 1764
+        },
+        {
+          "bbox": {
+            "depth": 96.33599853515625,
+            "height": 67.82400512695312,
+            "width": 215.0,
+            "x": 55.0,
+            "y": 81.2175064086914,
+            "z": -4.765610128742992e-10
+          },
+          "id": 9,
+          "name": "cartridge-receiver",
+          "triangle_count": 47734
+        }
+      ],
+      "sliced_time": 118388,
+      "sliced_time_with_cache": 32195,
+      "total_predication": 62641.86328125,
+      "triangle_count": 49498,
+      "warning_message": ""
+    }
+  ],
+  "sparse_infill_density": 15.0,
+  "upward_compatible_machine": [
+    "Bambu Lab H2S 0.4 nozzle",
+    "Bambu Lab H2D 0.4 nozzle",
+    "Bambu Lab H2D Pro 0.4 nozzle",
+    "Bambu Lab A2L 0.4 nozzle"
+  ],
+  "wall_loops": 3
+}

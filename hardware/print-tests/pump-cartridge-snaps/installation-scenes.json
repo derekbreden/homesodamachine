@@ -1,0 +1,19 @@
+{
+  "scene_writer": "hardware/assembly/scenes/render_scenes.py",
+  "scenes": [
+    {
+      "path": "hardware/assembly/scenes/glb/pump-mount.glb",
+      "sha256": "a471d8fe16fe1d0196825104b65760ae2f4686cf80ab31f6a79e0219370b1234",
+      "before_sha256": "5770f57a058f762c3d0fd6e70d8b013bd00be6eee0e67d311695bbfb582a2beb",
+      "members_retained": 63,
+      "pose": "Current seated cartridge retainer and matched front-top, using the production scene writer."
+    },
+    {
+      "path": "hardware/assembly/scenes/glb/front-top.glb",
+      "sha256": "e49a760b330842bdf3b150e37546783b318d28cad6c2c4f5798ab506d0d108ef",
+      "before_sha256": "3a87bd41a55a5f91ede50c34d67dacff87f95cfeeca7f659e46fe0862d2f70fa",
+      "members_retained": 55,
+      "pose": "Current seated cartridge retainer and matched front-top, using the production scene writer."
+    }
+  ]
+}

@@ -148,10 +148,10 @@
     "pump-retainer": {
       "up_axis_in_source": [
         0,
-        0,
-        1.0
+        1,
+        0
       ],
-      "bed_face": "Z minus",
+      "bed_face": "Y minus",
       "source_to_print_mm": [
         [
           1,
@@ -161,15 +161,15 @@
         ],
         [
           0,
-          1.0,
           0,
+          -1,
           0
         ],
         [
           0,
+          1,
           0,
-          1.0,
-          -175.19500732421875
+          -14.25
         ],
         [
           0,
@@ -182,42 +182,42 @@
   },
   "part_process_overrides": {},
   "source_sha256": {
-    "hardware/printed-parts/enclosure/enclosure/heat-set-review/print_regions.py": "d1627fe4b93228fa99830351257f2a9b923f3d447a696e140c6ca36d8dfb4729",
-    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "5142e1eac8eb6d994281d421bc5e7a0b93b4d0a1fa36e1031eff461bbc47191a",
-    "hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py": "264bb52da73675dcd41f7fff8bc5fce6eabd06336fc3cf8b7a9b8560c21e5040",
-    "hardware/printed-parts/enclosure/enclosure/_fixed_pump_mount.py": "2ab38f68b8640c1e29d4066467cb26652959850a1cdfe1969268fda78e4f43cc",
-    "hardware/manifold-layout/enclosure-box.json": "030ef2fe087dbafc5a55f68f12a03421321604b4054a651cf5c850d1695ae307",
+    "hardware/printed-parts/enclosure/enclosure/heat-set-review/print_regions.py": "ffdf3616293b261cdf5d3549fcb05ecf87129ca08caf15e03344e42c7cd87eda",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "67d393d6241ad457696bbcdc7c26e325915c84dbb57e5ea2cc37ef67a809ae51",
+    "hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py": "5365e57b729a82fe3a0a04142ec24f2852c10ba94a6c62c87f6e7e40692e34ea",
+    "hardware/printed-parts/enclosure/enclosure/_fixed_pump_mount.py": "33a24029f92b344545406590092cef73807cf26eb85186585491bbe2e41a6c4d",
+    "hardware/manifold-layout/enclosure-box.json": "2e8c85ca8a9f91464553f8bf99fc7059423f11c586b2db191e160523fadaa163",
     "hardware/printed-parts/enclosure/enclosure/_above_core_shell.py": "ec6cccfe85a7d0ed5773a33fc0688a1d292828052a396eb743cd7d1d6e0324df",
     "hardware/manifold-layout/above_core.py": "4ae1006309cfc55676c11ac286d0506a77d8fecd1b107818b2d6a665b787654e",
     "hardware/manifold-layout/above-core.json": "e0b80674504eabcbfa8ce36559b94b30c737d80f2a99b782dd45cbb7cec05dec",
     "hardware/reference/meanwell-irm90/meanwell_irm90.py": "8db724ca45d590af40a82f9f505a2aaedf9f7381f930deb54fda3cc637b771d5",
     "hardware/reference/teyleten-relay/teyleten_relay.py": "964bff50807efc1e21d463feff04930ddce31c31cb0face2c039aeb6b232ea5a",
-    "hardware/printed-parts/zone-c/funnel/funnel_frame.py": "3c557b29777534fa6634b9b766df6b4f6416cadc490a603e964daeeebe878d68",
-    "hardware/printed-parts/zone-c/funnel/funnel.py": "4415e547aa207ca8d089312e29d0292fc2f746d61f55068e1b4e4ec205a4304a",
+    "hardware/printed-parts/zone-c/funnel/funnel_frame.py": "6662b5c4c8b1e5ad78bf160742e3eb246fda9afcad48ab755a1c684145e7ddca",
+    "hardware/printed-parts/zone-c/funnel/funnel.py": "c57e0fcd7e998dfb2a20632ac72254e9ae7ceba33e35192b6117e9d26aeda203",
     "hardware/printed-parts/enclosure/pump-dock/dock_structure.py": "9bf17c2ade88ca156c9d859840067829d700ebccded368469ea4ea50700f9013",
     "hardware/printed-parts/enclosure/pump-dock/fixed_returns.py": "b203551dad030a7b3e64e6094b0ed964ebe6edf9d779bf0ed94cc549471471e3",
     "hardware/printed-parts/petgf.3mf": "45c16e8c8517e0a205107d7b9f7412d013f51a8de7ecf86125cc940079d37ed0"
   },
   "native_artifact_sha256": {
     "front-bottom": {
-      ".step": "3661682eadb7628ef8fded6a75261900bab9fe078704e8a4a60581a0f65fd51a",
-      ".stl": "4831c305bf5f080898b2f9011f9eef4a103cd9b85ce38f096210a2e58f5cbadc"
+      ".step": "35e68c4e635e1eac8e0a9e5e78b3a99b69e53a36f362ea8b4c1811bc5a5a54ba",
+      ".stl": "e077bac4052e1b452a4f550318b5f5afba7708fdabfeb5502635758e0dc2a6a5"
     },
     "front-top": {
-      ".step": "d40a5a648c95f07c717d6d466ed341d321606ebcf44400f829f4c2393e184119",
-      ".stl": "d2e4ef87a0fc0d5be7ec7ac193fcb635e968b5ca68afb42a2f67da55daf6db51"
+      ".step": "fb620c35af1905ae91383976d9fbec1acc8c3b4dcaf31926e626d158db2cd545",
+      ".stl": "f72a84d959743310bd51062c38b6344237cc27d5814e44dc3b4aabb0c1d8a0aa"
     },
     "back-bottom": {
-      ".step": "7fd70ca423a381ee5af0542964f54227a7678bf2709dda33c28d079118f80a65",
-      ".stl": "c9fa5fb8726465cd7cae16075fc3ece8f8ada0c045defb4822a197b637b6c5c2"
+      ".step": "a2f8174aeb888516fd75ba291f563df6dbb3d04a7d146bccaacf58047d393184",
+      ".stl": "ea459458aa59275fc56576fe2806f1607f4c8ed99a9a21ad4cc6915fc17ebfcc"
     },
     "back-top": {
-      ".step": "c2cb1a447af3fa0691c3518e98a2384a446d86f88e949ac1d3b7fed66ffb2dc7",
-      ".stl": "b09196f41a6a0ac2b67ec14ad77c2d17af4747feca3649ecdcd862361eb09c68"
+      ".step": "583e9da36bee49f52ce44bf519e5034ec2f0fd43f5f0981f5f1cbb0c999dcd87",
+      ".stl": "1f2a19edfa01a10b9c2023734fbc8c384afd06e36674794a300a1cf6f1b2e833"
     },
     "pump-retainer": {
-      ".step": "44feb1792f4aaeb46cbe0f136d5274ac98776ecee5a93cc4412acb47f6957de2",
-      ".stl": "766e60bdf5631735be7aa633720ba52799d5adf77d31180fb7f4e8a9415acbbb"
+      ".step": "f45e79db918dff526f91960181d306a3fb467e2fda468504f128f17b26d26e68",
+      ".stl": "c374c67aab3d5e4db33c18406c6c1dabfa670528c97079079fb1e02005adc510"
     }
   },
   "pieces": {
@@ -339,39 +339,39 @@
         ]
       },
       {
-        "name": "Compressor post and floor -54.6/25.5",
+        "name": "Compressor post and floor -54.6003/25.5",
         "machine_bounds_mm": [
-          -60.400000000000006,
-          -48.8,
-          19.7,
-          31.3,
+          -60.40030845962464,
+          -48.800308459624645,
+          19.700000000000014,
+          31.300000000000015,
           -6.0000000000000036,
           14.6
         ],
         "sparse_infill_density": "100%",
         "sparse_infill_pattern": "zig-zag",
         "applied_source_bounds_mm": [
-          -60.400000000000006,
-          -48.8,
-          19.7,
-          31.3,
+          -60.40030845962464,
+          -48.800308459624645,
+          19.700000000000014,
+          31.300000000000015,
           -6.0,
           14.6
         ],
         "print_bounds_mm": [
-          -60.400000000000006,
-          -48.8,
-          19.7,
-          31.3,
+          -60.40030845962464,
+          -48.800308459624645,
+          19.700000000000014,
+          31.300000000000015,
           0.0,
           20.6
         ]
       },
       {
-        "name": "Compressor post and floor -54.6/156.5",
+        "name": "Compressor post and floor -54.6003/156.5",
         "machine_bounds_mm": [
-          -60.400000000000006,
-          -48.8,
+          -60.40030845962464,
+          -48.800308459624645,
           150.7,
           162.3,
           -6.0000000000000036,
@@ -380,16 +380,16 @@
         "sparse_infill_density": "100%",
         "sparse_infill_pattern": "zig-zag",
         "applied_source_bounds_mm": [
-          -60.400000000000006,
-          -48.8,
+          -60.40030845962464,
+          -48.800308459624645,
           150.7,
           162.3,
           -6.0,
           14.6
         ],
         "print_bounds_mm": [
-          -60.400000000000006,
-          -48.8,
+          -60.40030845962464,
+          -48.800308459624645,
           150.7,
           162.3,
           0.0,
@@ -397,39 +397,39 @@
         ]
       },
       {
-        "name": "Compressor post and floor 12.4/25.5",
+        "name": "Compressor post and floor 12.3997/25.5",
         "machine_bounds_mm": [
-          6.600000000000001,
-          18.200000000000003,
-          19.7,
-          31.3,
+          6.59969154037536,
+          18.199691540375362,
+          19.700000000000014,
+          31.300000000000015,
           -6.0000000000000036,
           14.6
         ],
         "sparse_infill_density": "100%",
         "sparse_infill_pattern": "zig-zag",
         "applied_source_bounds_mm": [
-          6.600000000000001,
-          18.200000000000003,
-          19.7,
-          31.3,
+          6.59969154037536,
+          18.199691540375362,
+          19.700000000000014,
+          31.300000000000015,
           -6.0,
           14.6
         ],
         "print_bounds_mm": [
-          6.600000000000001,
-          18.200000000000003,
-          19.7,
-          31.3,
+          6.59969154037536,
+          18.199691540375362,
+          19.700000000000014,
+          31.300000000000015,
           0.0,
           20.6
         ]
       },
       {
-        "name": "Compressor post and floor 12.4/156.5",
+        "name": "Compressor post and floor 12.3997/156.5",
         "machine_bounds_mm": [
-          6.599999999999994,
-          18.199999999999996,
+          6.599691540375353,
+          18.199691540375355,
           150.7,
           162.3,
           -6.0000000000000036,
@@ -438,16 +438,16 @@
         "sparse_infill_density": "100%",
         "sparse_infill_pattern": "zig-zag",
         "applied_source_bounds_mm": [
-          6.599999999999994,
-          18.199999999999996,
+          6.599691540375353,
+          18.199691540375355,
           150.7,
           162.3,
           -6.0,
           14.6
         ],
         "print_bounds_mm": [
-          6.599999999999994,
-          18.199999999999996,
+          6.599691540375353,
+          18.199691540375355,
           150.7,
           162.3,
           0.0,
@@ -457,8 +457,8 @@
       {
         "name": "Condenser host and supporting finger 70.5/153",
         "machine_bounds_mm": [
-          65.49999999999999,
-          75.49999999999999,
+          65.5,
+          75.5,
           148.0,
           158.0,
           -6.0000000000000036,
@@ -467,16 +467,16 @@
         "sparse_infill_density": "100%",
         "sparse_infill_pattern": "zig-zag",
         "applied_source_bounds_mm": [
-          65.49999999999999,
-          75.49999999999999,
+          65.5,
+          75.5,
           148.0,
           158.0,
           -6.0,
           8.999999999999998
         ],
         "print_bounds_mm": [
-          65.49999999999999,
-          75.49999999999999,
+          65.5,
+          75.5,
           148.0,
           158.0,
           0.0,
@@ -486,8 +486,8 @@
       {
         "name": "Condenser host and supporting finger 70.5/153",
         "machine_bounds_mm": [
-          65.49999999999999,
-          75.49999999999999,
+          65.5,
+          75.5,
           148.0,
           158.0,
           -6.0000000000000036,
@@ -496,16 +496,16 @@
         "sparse_infill_density": "100%",
         "sparse_infill_pattern": "zig-zag",
         "applied_source_bounds_mm": [
-          65.49999999999999,
-          75.49999999999999,
+          65.5,
+          75.5,
           148.0,
           158.0,
           -6.0,
           145.59999999999994
         ],
         "print_bounds_mm": [
-          65.49999999999999,
-          75.49999999999999,
+          65.5,
+          75.5,
           148.0,
           158.0,
           0.0,
@@ -696,7 +696,7 @@
           14.0,
           82.515,
           160.25,
-          205.19500000000002
+          206.44500000000002
         ],
         "sparse_infill_density": "100%",
         "sparse_infill_pattern": "zig-zag",
@@ -706,7 +706,7 @@
           14.0,
           82.515,
           160.25,
-          205.19500000000002
+          206.44500000000002
         ],
         "print_bounds_mm": [
           -107.5,
@@ -714,7 +714,7 @@
           14.0,
           82.515,
           0.0,
-          44.94500000000002
+          46.19500000000002
         ]
       },
       {
@@ -725,7 +725,7 @@
           14.0,
           82.515,
           160.25,
-          205.19500000000002
+          206.44500000000002
         ],
         "sparse_infill_density": "100%",
         "sparse_infill_pattern": "zig-zag",
@@ -735,7 +735,7 @@
           14.0,
           82.515,
           160.25,
-          205.19500000000002
+          206.44500000000002
         ],
         "print_bounds_mm": [
           98.5,
@@ -743,7 +743,7 @@
           14.0,
           82.515,
           0.0,
-          44.94500000000002
+          46.19500000000002
         ]
       },
       {
@@ -1857,59 +1857,59 @@
       {
         "name": "Pump snap west full-Y hook, wing and upper root",
         "machine_bounds_mm": [
-          -99.8499984741211,
-          -90.94999999999999,
+          -101.3499984741211,
+          -89.9,
           14.25,
           82.265,
           175.19500000000002,
-          199.19500000000002
+          200.44500000000002
         ],
         "sparse_infill_density": "100%",
         "sparse_infill_pattern": "zig-zag",
         "applied_source_bounds_mm": [
-          -99.8499984741211,
-          -90.94999999999999,
+          -101.3499984741211,
+          -89.9,
           14.25,
           82.26499938964844,
           175.19500732421875,
-          199.19500000000002
+          200.44500000000002
         ],
         "print_bounds_mm": [
-          -99.8499984741211,
-          -90.94999999999999,
-          14.25,
-          82.26499938964844,
+          -101.3499984741211,
+          -89.9,
+          -200.44500000000002,
+          -175.19500732421875,
           0.0,
-          23.99999267578127
+          68.01499938964844
         ]
       },
       {
         "name": "Pump snap east full-Y hook, wing and upper root",
         "machine_bounds_mm": [
-          90.94999999999999,
-          99.8499984741211,
+          89.9,
+          101.3499984741211,
           14.25,
           82.265,
           175.19500000000002,
-          199.19500000000002
+          200.44500000000002
         ],
         "sparse_infill_density": "100%",
         "sparse_infill_pattern": "zig-zag",
         "applied_source_bounds_mm": [
-          90.94999999999999,
-          99.8499984741211,
+          89.9,
+          101.3499984741211,
           14.25,
           82.26499938964844,
           175.19500732421875,
-          199.19500000000002
+          200.44500000000002
         ],
         "print_bounds_mm": [
-          90.94999999999999,
-          99.8499984741211,
-          14.25,
-          82.26499938964844,
+          89.9,
+          101.3499984741211,
+          -200.44500000000002,
+          -175.19500732421875,
           0.0,
-          23.99999267578127
+          68.01499938964844
         ]
       }
     ]

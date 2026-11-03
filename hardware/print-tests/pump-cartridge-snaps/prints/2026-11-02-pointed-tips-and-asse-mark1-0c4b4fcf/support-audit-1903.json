@@ -1,0 +1,61 @@
+{
+  "schema": 1,
+  "piece": "pisco-pointed-cap",
+  "inputs": {
+    "gcode": "support-labels-1903.gcode",
+    "gcode_sha256": "af49cd574d79d15dac48cd637782518a22ced12b9837869d881013ba2c9e28e8",
+    "model": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/cartridge-snap-trial/worktree/hardware/print-tests/pump-cartridge-snaps/parts/pisco-pointed-cap.stl",
+    "model_sha256": "aa9a5c2d81071c1a1e653b46911ad206d11f36eee92b065bdfdf6da4bb09764e",
+    "profile": "hardware/print-tests/pump-cartridge-snaps/prints/2026-11-02-pointed-tips-and-asse-mark1-0c4b4fcf/2026-11-02-pointed-tips-and-asse-mark1-0c4b4fcf.3mf",
+    "profile_sha256": "f3a86b25fb4e990bf8a68628e872ff05b6f364d74d436c468eb94e4b64d2e1a6"
+  },
+  "slicer": "BambuStudio 02.08.02.61",
+  "first_layer_z_mm": 0.2,
+  "coordinate_frame": {
+    "plate_to_cad_transform": [
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      1.0,
+      -131.351860046,
+      -183.40561676,
+      -0.0
+    ],
+    "plate_to_cad_translation_mm": [
+      -131.35186,
+      -183.405617,
+      -0.0
+    ]
+  },
+  "slicer_settings": {
+    "layer_height": "0.24",
+    "support_bottom_z_distance": "0.3",
+    "support_interface_bottom_layers": "2",
+    "support_interface_spacing": "0.5",
+    "support_interface_top_layers": "2",
+    "support_object_xy_distance": "0.4",
+    "support_on_build_plate_only": "0",
+    "support_style": "default",
+    "support_threshold_angle": "35",
+    "support_top_z_distance": "0.45",
+    "support_type": "tree(auto)"
+  },
+  "summary": {
+    "support_bodies": 0,
+    "interface_islands": 0,
+    "bed_rooted_bodies": 0,
+    "model_rooted_bodies": 0,
+    "shortest_build_up_mm": null,
+    "bodies_without_interface_labels": 0,
+    "explicit_interface_islands": 0,
+    "shortest_labelled_build_up_mm": null
+  },
+  "trees": [],
+  "interfaces": [],
+  "interface_feature_policy": "All support bodies are retained; unlabelled interfaces have unknown contact count and build-up."
+}

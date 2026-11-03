@@ -357,12 +357,27 @@
         {
           "stl": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.stl",
           "pose": {
-            "turns": [["x", 90]],
+            "turns": [
+              [
+                "x",
+                90
+              ]
+            ],
             "reason": "Y-end down keeps the X/Z spring bending plane within each layer."
           },
           "regions": "pump-retainer"
         }
-      ]
+      ],
+      "settings": {
+        "wall_loops": {
+          "value": "3",
+          "reason": "Shared snap trial: three Classic walls through the 2.0 mm spring leaves."
+        },
+        "wall_generator": {
+          "value": "classic",
+          "reason": "Shared snap fixed-width wall recipe."
+        }
+      }
     },
     "funnel-frame": {
       "printer": "Mark2",

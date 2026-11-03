@@ -1,0 +1,56 @@
+{
+  "schema": 1,
+  "piece": "cartridge-wing",
+  "inputs": {
+    "gcode": "support-labels-1901.gcode",
+    "gcode_sha256": "bd12275af93f3e402531ca0ebc44ab7fdd492e4a2116ae48be3724a2f286758d",
+    "model": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/cartridge-snap-trial/worktree/hardware/print-tests/pump-cartridge-snaps/parts/cartridge-wing.stl",
+    "model_sha256": "dad5585b3e2247eac3093f6177965bef7a369e49218d042b3fa42052eb2d9f7e",
+    "profile": "hardware/print-tests/pump-cartridge-snaps/prints/2026-11-02-cartridge-ramp-comparison-mark2-6a4b201f/2026-11-02-cartridge-ramp-comparison-mark2-6a4b201f.3mf",
+    "profile_sha256": "2db29c325fa99479118b71a9095801ec2eb8accdbe79e45a21444fcba9d879ba"
+  },
+  "slicer": "BambuStudio 02.08.02.61",
+  "first_layer_z_mm": 0.2,
+  "coordinate_frame": {
+    "plate_to_cad_transform": [
+      1.0,
+      -0.0,
+      0.0,
+      0.0,
+      0.0,
+      -1.0,
+      -0.0,
+      1.0,
+      0.0,
+      -36.260505676,
+      14.25,
+      347.809501648
+    ]
+  },
+  "slicer_settings": {
+    "layer_height": "0.24",
+    "support_bottom_z_distance": "0.3",
+    "support_interface_bottom_layers": "2",
+    "support_interface_spacing": "0.5",
+    "support_interface_top_layers": "2",
+    "support_object_xy_distance": "0.4",
+    "support_on_build_plate_only": "0",
+    "support_style": "default",
+    "support_threshold_angle": "35",
+    "support_top_z_distance": "0.45",
+    "support_type": "tree(auto)"
+  },
+  "summary": {
+    "support_bodies": 0,
+    "interface_islands": 0,
+    "bed_rooted_bodies": 0,
+    "model_rooted_bodies": 0,
+    "shortest_build_up_mm": null,
+    "bodies_without_interface_labels": 0,
+    "explicit_interface_islands": 0,
+    "shortest_labelled_build_up_mm": null
+  },
+  "trees": [],
+  "interfaces": [],
+  "interface_feature_policy": "All support bodies are retained; unlabelled interfaces have unknown contact count and build-up."
+}

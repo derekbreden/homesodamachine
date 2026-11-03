@@ -1,0 +1,156 @@
+{
+  "project_sha256_matches": true,
+  "objects": [
+    {
+      "name": "pisco-pointed-receiver",
+      "vertices": 722,
+      "source_sha256_matches": true,
+      "embedded_vertex_error_mm": 4.967656224152961e-07,
+      "source_comparison": "source vertices in order",
+      "seam_painted_facets": 0,
+      "placed_bounds_mm": [
+        [
+          111.992242193,
+          118.279918431,
+          2.3699999829318585e-07
+        ],
+        [
+          172.196526193,
+          153.091152431,
+          44.227386237000005
+        ]
+      ],
+      "bed_contact_z_mm": 2.3699999829318585e-07,
+      "blocked_facets": 0,
+      "partially_painted_facets": 0,
+      "parts": {
+        "normal_part": 1
+      },
+      "layer_ranges": [],
+      "ribbon_and_fin_parts": 0,
+      "modifiers_expected": 0
+    },
+    {
+      "name": "pisco-baseline-cap",
+      "vertices": 1748,
+      "source_sha256_matches": true,
+      "embedded_vertex_error_mm": 4.998020131097292e-07,
+      "source_comparison": "source vertices in order",
+      "seam_painted_facets": 0,
+      "placed_bounds_mm": [
+        [
+          184.196526334,
+          121.146835431,
+          3.339999992135745e-07
+        ],
+        [
+          213.00775833400002,
+          150.224235431,
+          41.704284334
+        ]
+      ],
+      "bed_contact_z_mm": 3.339999992135745e-07,
+      "blocked_facets": 0,
+      "partially_painted_facets": 0,
+      "parts": {
+        "normal_part": 1
+      },
+      "layer_ranges": [],
+      "ribbon_and_fin_parts": 0,
+      "modifiers_expected": 0
+    },
+    {
+      "name": "pisco-pointed-cap",
+      "vertices": 1744,
+      "source_sha256_matches": true,
+      "embedded_vertex_error_mm": 5.001730869480525e-07,
+      "source_comparison": "source vertices in order",
+      "seam_painted_facets": 0,
+      "placed_bounds_mm": [
+        [
+          116.94624404600002,
+          167.86691675999998,
+          3.339999992135745e-07
+        ],
+        [
+          145.75747604600002,
+          198.94431676,
+          41.704284334
+        ]
+      ],
+      "bed_contact_z_mm": 3.339999992135745e-07,
+      "blocked_facets": 0,
+      "partially_painted_facets": 0,
+      "parts": {
+        "normal_part": 1
+      },
+      "layer_ranges": [],
+      "ribbon_and_fin_parts": 0,
+      "modifiers_expected": 0
+    },
+    {
+      "name": "asse-backed-cap",
+      "vertices": 1072,
+      "source_sha256_matches": true,
+      "embedded_vertex_error_mm": 5.001165845897049e-07,
+      "source_comparison": "source vertices in order",
+      "seam_painted_facets": 0,
+      "placed_bounds_mm": [
+        [
+          157.757475807,
+          165.09115176,
+          0.0
+        ],
+        [
+          208.05375580700002,
+          201.72008175999997,
+          64.625
+        ]
+      ],
+      "bed_contact_z_mm": 0.0,
+      "blocked_facets": 0,
+      "partially_painted_facets": 0,
+      "parts": {
+        "normal_part": 1
+      },
+      "layer_ranges": [],
+      "ribbon_and_fin_parts": 0,
+      "modifiers_expected": 0
+    }
+  ],
+  "z_trim_block": [
+    "+0.0",
+    "0.18 - 0.01",
+    "0.18 - 0.02",
+    "0.18 + 0.01",
+    "0.18"
+  ],
+  "cooling": {
+    "fan_min_speed": [
+      "0"
+    ],
+    "fan_max_speed": [
+      "0"
+    ],
+    "overhang_fan_speed": [
+      "70"
+    ],
+    "overhang_fan_threshold": [
+      "50%"
+    ],
+    "additional_cooling_fan_speed": [
+      "0"
+    ]
+  },
+  "support": {
+    "support_type": "tree(auto)",
+    "support_style": "default",
+    "support_object_xy_distance": "0.4",
+    "max_bridge_length": "0",
+    "tree_support_branch_diameter": "2",
+    "tree_support_branch_diameter_angle": "5",
+    "brim_type": "auto_brim"
+  },
+  "problems": [],
+  "pass": true
+}

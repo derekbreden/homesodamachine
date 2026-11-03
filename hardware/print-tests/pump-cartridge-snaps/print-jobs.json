@@ -1,0 +1,43 @@
+{
+  "jobs": [
+    {
+      "plate": "cartridge-snaps",
+      "printer": "Mark2",
+      "preparation": "hardware/print-tests/pump-cartridge-snaps/prints/2026-11-02-cartridge-snaps-mark2-7104742f",
+      "archive": "hardware/print-tests/pump-cartridge-snaps/prints/2026-11-02-cartridge-snaps-mark2-7104742f/2026-11-02-cartridge-snaps-mark2-7104742f.gcode.3mf",
+      "print_only_archive": "hardware/print-tests/pump-cartridge-snaps/prints/2026-11-02-cartridge-snaps-mark2-7104742f/2026-11-02-cartridge-snaps-mark2-7104742f-print-only.gcode.3mf",
+      "gcode_sha256": "6e367009ae10949b266bff12cd5c9a0190dd0b82b339b752ad1aa871a196d040",
+      "estimated_seconds": 62641.86328125,
+      "filament_g": 496.29,
+      "minimum_bed_margin_mm": 54.893827999999985,
+      "native_review_pass": true,
+      "submitted": false
+    },
+    {
+      "plate": "pointed-tips-and-asse",
+      "printer": "Mark1",
+      "preparation": "hardware/print-tests/pump-cartridge-snaps/prints/2026-11-02-pointed-tips-and-asse-mark1-0c4b4fcf",
+      "archive": "hardware/print-tests/pump-cartridge-snaps/prints/2026-11-02-pointed-tips-and-asse-mark1-0c4b4fcf/2026-11-02-pointed-tips-and-asse-mark1-0c4b4fcf.gcode.3mf",
+      "print_only_archive": "hardware/print-tests/pump-cartridge-snaps/prints/2026-11-02-pointed-tips-and-asse-mark1-0c4b4fcf/2026-11-02-pointed-tips-and-asse-mark1-0c4b4fcf-print-only.gcode.3mf",
+      "gcode_sha256": "4a040398f8b1e2cce14b336ef691c1fa7c91c67713e2c5d08194e8255fbc6487",
+      "estimated_seconds": 10372.4501953125,
+      "filament_g": 91.02,
+      "minimum_bed_margin_mm": 105.04478499999999,
+      "native_review_pass": true,
+      "submitted": false
+    },
+    {
+      "plate": "cartridge-ramp-comparison",
+      "printer": "Mark2",
+      "preparation": "hardware/print-tests/pump-cartridge-snaps/prints/2026-11-02-cartridge-ramp-comparison-mark2-6a4b201f",
+      "archive": "hardware/print-tests/pump-cartridge-snaps/prints/2026-11-02-cartridge-ramp-comparison-mark2-6a4b201f/2026-11-02-cartridge-ramp-comparison-mark2-6a4b201f.gcode.3mf",
+      "print_only_archive": "hardware/print-tests/pump-cartridge-snaps/prints/2026-11-02-cartridge-ramp-comparison-mark2-6a4b201f/2026-11-02-cartridge-ramp-comparison-mark2-6a4b201f-print-only.gcode.3mf",
+      "gcode_sha256": "e202ccbd9e7f727735bd1be680d43da3f6e8cf99d64c9985534731c6ca96e771",
+      "estimated_seconds": 8074.09130859375,
+      "filament_g": 73.93,
+      "minimum_bed_margin_mm": 123.260368,
+      "native_review_pass": true,
+      "submitted": false
+    }
+  ]
+}
