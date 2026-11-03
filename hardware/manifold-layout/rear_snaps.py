@@ -280,6 +280,9 @@ def receiver_tool_ports(s):
     for side in s.get('tool_sides',(-1.,1.)):
         x=s['axis_x']+side*(s['neck']+TOOL_SLOT_WIDTH/2.)
         span=[x-TOOL_SLOT_WIDTH/2.,x+TOOL_SLOT_WIDTH/2.]
+        edge=s.get('tool_outer_edges',(None,None))[0 if side<0. else 1]
+        if edge is not None:
+            span[0 if side<0. else 1]=edge
         ports.append({'side':side,'span':span,
                       'section':section,'centre':(x,middle,s['bearing']),
                       'direction':(0.,*direction.tolist())})
@@ -465,10 +468,22 @@ def pockets(s):
             near=edge-side*s['tool_inner_slope']*(s['bearing']-low)
             points=[(edge,low),(edge,s['bearing']),(near,low)]
             ys=[p[0] for p in port['section']]
-            flare=section_solid({'span':(min(ys)-1.,max(ys)+1.),
+            flare=section_solid({'span':(max(min(ys),s['y0']-a),min(max(ys),s['y1']+a)),
                 'segments':[{'line':(a,b)} for a,b in zip(points,points[1:]+points[:1])]})
-            throat=prism_x(*sorted((near,edge)),port['section'])
-            out.append(flare.intersect(throat))
+            # Extend the passage downward into the cavity, keeping its upper
+            # boundary. That boundary retains the full supporting ledge ahead
+            # of and behind the actual tool opening.
+            first=min(range(len(ys)),key=ys.__getitem__)
+            last=max(range(len(ys)),key=ys.__getitem__)
+            upper=[]
+            i=first
+            while True:
+                upper.append(port['section'][i])
+                if i==last:
+                    break
+                i=(i+1)%len(ys)
+            section=[(min(ys),low),*upper,(max(ys),low)]
+            out.append(flare.intersect(prism_x(*sorted((near,edge)),section)))
     return out
 
 
