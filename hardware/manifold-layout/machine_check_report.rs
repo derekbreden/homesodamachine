@@ -824,6 +824,9 @@ pub fn build(w: &mut World, spec: &Value) -> Result<Value> {
         bed_fit(w, m),
     ];
     for b in array(&m["bounds"]) {
+        if b["id"] == "wedge-fills" && m.get("wedge_question").is_some() {
+            continue;
+        }
         let kind = b["kind"].as_str().unwrap_or("gate");
         let status = b["status"]
             .as_str()
@@ -836,6 +839,9 @@ pub fn build(w: &mut World, spec: &Value) -> Result<Value> {
             row["detail"] = json!([]);
         }
         row.as_object_mut().unwrap().remove("ok");
+        checks.push(row);
+    }
+    if let Some(row) = construction::wedge_fills(w, m)? {
         checks.push(row);
     }
     checks.push(check(
