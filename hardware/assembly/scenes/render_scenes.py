@@ -15,9 +15,6 @@ import struct
 import sys
 from pathlib import Path
 
-import cadquery as cq
-import numpy as np
-import trimesh
 
 _HERE = Path(__file__).resolve()
 _HW = next(p for p in _HERE.parents if p.name == "hardware")
@@ -28,12 +25,21 @@ for _p in (_HERE.parent, _HW / "scripts", _HW / "manifold-layout",
     if str(_p) not in sys.path:
         sys.path.insert(0, str(_p))
 
-import _finishes                                        # noqa: E402
-import _mesh_payload                                    # noqa: E402
 import _scenes                                          # noqa: E402
-import _cold_core_style                                 # noqa: E402
-import flute_payload                                    # noqa: E402
-from _cadq_export import note_read, note_write, _per_solid_color   # noqa: E402
+
+
+def _legacy():
+    """Load manual CAD rendering only when a shape-based caller requests it."""
+    global cq, np, trimesh, _finishes, _mesh_payload, _cold_core_style
+    global flute_payload, note_read, note_write, _per_solid_color
+    import cadquery as cq
+    import numpy as np
+    import trimesh
+    import _finishes
+    import _mesh_payload
+    import _cold_core_style
+    import flute_payload
+    from _cadq_export import note_read, note_write, _per_solid_color
 
 GLB_DIR = _HERE.parent / "glb"
 ASSEMBLY_MESH = _HW / "manifold-layout" / "enclosure-assembly.step.mesh"
@@ -49,6 +55,7 @@ def cut(assembly, scene):
     the machine's, and both come off the same assembly. The look-at point is what is drawn OF the
     unit — the roots, or the core's own bodies where a scene draws those instead.
     See `_scenes.SCENES`."""
+    _legacy()
     import enclosure_assembly as ea
     placed = ea._solids(assembly)
     inner = set(_scenes.inner_of(scene))
@@ -109,6 +116,7 @@ def write_payload(step, source) -> Path:
     `_mesh_payload` is deterministic: one shape, one set of bytes. The digest of this file
     names the shape it was made from. Bytes that match what is already there are dropped, so a
     payload that did not move keeps its mtime and the page keeps its ETag."""
+    _legacy()
     mesh = Path(str(step) + ".mesh")
     meshes = (_mesh_payload.from_assembly(source) if hasattr(source, "toCompound")
               else _mesh_payload.from_shape(source))
@@ -123,12 +131,12 @@ def write_payload(step, source) -> Path:
 
 _SOLID_INDEX = re.compile(r"/\d+$")
 _LEAF_NAME = re.compile(r"^(.+?)(?:/([1-9]\d*))?$")
-_Z_UP_TO_Y_UP = np.array([
+_Z_UP_TO_Y_UP = (
     [1.0, 0.0, 0.0, 0.0],
     [0.0, 0.0, 1.0, 0.0],
     [0.0, -1.0, 0.0, 0.0],
     [0.0, 0.0, 0.0, 1.0],
-])
+)
 
 
 def _body_name(name):
@@ -143,6 +151,7 @@ def _payload_geometry(path):
     The outer payload has just been written and fluted by `enclosure_assembly.main`; reading
     those triangles is what makes the scene use that exact current surface without standing a
     scene B-rep and tessellating it twice more."""
+    _legacy()
     path = Path(path)
     raw = path.read_bytes()
     if len(raw) < 4:
@@ -230,6 +239,7 @@ def _payload_geometry(path):
 
 def _core_contract(entries):
     """Validate the action-only core payload against its producing scorecard and style."""
+    _legacy()
     try:
         card = json.loads(CORE_SCORECARD.read_text())
         bodies = card["bodies"]
@@ -272,6 +282,7 @@ def _core_contract(entries):
 
 def _location_matrix(location):
     """A CadQuery `Location` as a homogeneous matrix, without an Euler round trip."""
+    _legacy()
     trsf = location.wrapped.Transformation()
     out = np.eye(4)
     for row in range(3):
@@ -281,6 +292,7 @@ def _location_matrix(location):
 
 
 def _flip_matrix(flip):
+    _legacy()
     if not flip:
         return np.eye(4)
     axis, degrees = flip
@@ -289,6 +301,7 @@ def _flip_matrix(flip):
 
 def _linear_rgba(color):
     """The linear RGBA CadQuery's glTF exporter reads off `cq.Color`."""
+    _legacy()
     from OCP.Quantity import Quantity_TypeOfColor
 
     rgb = color.wrapped.GetRGB().Values(Quantity_TypeOfColor.Quantity_TOC_RGB)
@@ -302,6 +315,7 @@ def _assembly_rgba(assembly):
     a body anybody draws, so what carries a colour is the leaves inside it. Reading `children`
     one level deep would ask the node for a colour it is right not to have, and would miss the
     62 that do."""
+    _legacy()
     import manifold_layout as ml
 
     out = {}
@@ -336,6 +350,7 @@ def _scene_rgba(assembly):
     `cut` adds one child per name it draws and paints each one there — a crossing line takes the
     outer half's colour at that point — so the colour a scene GLB carries is read off the same
     assembly its STEP and its payload are written from."""
+    _legacy()
     out = {}
     for child in assembly.children:
         if child.color is None:
@@ -360,6 +375,7 @@ def _scene_finish(rgba):
     one that names no material in this tree takes the viewer's own default rather than the
     spec's.
     """
+    _legacy()
     row = _finishes.find(tuple(rgba[:3]))
     if row is None:
         return _VIEWER_DEFAULT_FINISH
@@ -373,6 +389,7 @@ _VIEWER_DEFAULT_FINISH = (0.6, 0.1)
 
 def _scene_material(rgba, index, exact):
     """One shared material per exact RGBA, and the name used to restore its float precision."""
+    _legacy()
     rgba = tuple(float(v) for v in rgba)
     if rgba in exact:
         return exact[rgba][0]
@@ -390,6 +407,7 @@ def _scene_material(rgba, index, exact):
 
 
 def _payload_mesh(entry, material):
+    _legacy()
     pos = np.asarray(entry["pos"], dtype=np.float32).reshape((-1, 3))
     nrm = np.asarray(entry["nrm"], dtype=np.float32).reshape((-1, 3))
     idx = np.asarray(entry["idx"], dtype=np.uint32).reshape((-1, 3))
@@ -402,6 +420,7 @@ def _payload_mesh(entry, material):
 
 def _add_payload_body(scene, name, entries, transform, rgba, material_index, exact):
     """One named body, with a child node per solid where `_per_solid_color` split it."""
+    _legacy()
     material = _scene_material(rgba, material_index, exact)
     if len(entries) == 1:
         scene.add_geometry(_payload_mesh(entries[0], material),
@@ -416,6 +435,7 @@ def _add_payload_body(scene, name, entries, transform, rgba, material_index, exa
 def _write_payload_glb(path, names, inner, outer_entries, core_entries,
                        outer_rgba, core_rgba, flip, core_to_world, overrides):
     """One scene composed from the two already-meshed named assemblies."""
+    _legacy()
     outer, core = _entries_by_body(outer_entries), _entries_by_body(core_entries)
     turn = _flip_matrix(flip)
     outer_transform = _Z_UP_TO_Y_UP @ turn
@@ -484,6 +504,119 @@ def _write_payload_glb(path, names, inner, outer_entries, core_entries,
     return path
 
 
+
+def numeric_spec(assembly):
+    """Current scene membership from scalar fastening, route and placement records."""
+    metadata = assembly.get('metadata', assembly)
+    checks = assembly.get('checks', {})
+    colours = metadata.get('logical_rgba', metadata.get('colours', {}))
+    core_names = metadata.get('core_body_names', ())
+    core_names = tuple(name.removeprefix('cold-core/') for name in core_names)
+    external = set(metadata.get('core_external_names', ()))
+    equipment = set(metadata.get('core_equipment_names', ()))
+    promoted = equipment | external
+    present = set(colours) | {'cold-core/'+name for name in core_names}
+    present |= {name.rsplit('/', 1)[-1] for name in present
+                if name.rsplit('/', 1)[-1] in external}
+    present.add(_scenes.INNER_ROOT)
+    tube_sites = metadata.get('tube_anchor_sites', ())
+    cap_names = set(metadata.get('cap_anchor_names', ()))
+    cap_names |= {'anchor-cap-'+rid for rid, station in tube_sites
+                  if station[5:6] in (['cap'], ('cap',))}
+    rows = checks.get('mounts', metadata.get('mounts', ()))
+    rows = [row for row in rows
+            if not row[0].startswith('anchor-cap-') or row[0] in cap_names]
+    holders = {name: (by if isinstance(by, str) else None) or _scenes.BEARS_ON.get(name)
+               for name, by, joint in rows}
+    holders.update(metadata.get('manifold_tube_holders', {}))
+    pieces = metadata.get('tube_anchor_pieces', {})
+    for rid, _station in tube_sites:
+        if 'tube-'+rid in present:
+            holders['tube-'+rid] = pieces[rid]
+    for name in equipment:
+        if name in holders:
+            holders[name] = _scenes.INNER_ROOT
+    for name in (*_scenes.BACK_TOP_CARRIED_COMPONENTS, *_scenes.BACK_TOP_CARRIED_TUBES,
+                 'tube-soda-core-rise'):
+        if name in present:
+            holders[name] = 'enclosure-back-top'
+    for rider, host in checks.get('rides', metadata.get('rides', {})).items():
+        if rider in holders and host in holders:
+            holders[rider] = holders[host]
+    runs = metadata.get('runs', ())
+    conduits = set(metadata.get('cap_conduits', ()))
+    crossings = {}
+    for run in runs:
+        for endpoint in (run['frm'], run['to']):
+            part, _, mouth = endpoint.partition('.')
+            if part == _scenes.INNER_ROOT and mouth in conduits:
+                crossings['cold-core/line-'+mouth] = 'tube-'+run['id']
+
+    def inner_of(scene):
+        names = core_names if scene.inner == _scenes.INNER_ALL else scene.inner
+        return {'cold-core/'+name for name in names}
+
+    def named(scene):
+        bodies = set()
+        for root in scene.roots:
+            bodies |= _scenes.held_by(root, holders, scene.later)
+        if scene.id in _scenes.BARE:
+            derived = set(scene.roots)
+        else:
+            tubes = {'tube-'+r['id'] for r in runs
+                     if holders.get('tube-'+r['id']) in bodies
+                     or {r['frm'].split('.')[0], r['to'].split('.')[0]} <= bodies}
+            derived = bodies | tubes
+        derived -= set(scene.later)
+        inner = inner_of(scene)
+        if inner:
+            derived.discard(_scenes.INNER_ROOT)
+            derived |= inner - set(scene.later)
+        derived -= {'cold-core/'+n for n in promoted if n in derived}
+        derived |= set(scene.also)
+        derived |= {half for line, half in crossings.items() if line in derived}
+        derived -= set(scene.later)
+        derived -= {'cold-core/'+n for n in promoted if n in derived}
+        if scene.without:
+            derived -= named(_scenes.SCENE_BY_ID[scene.without]) - set(scene.roots)
+        return derived
+
+    views = []
+    for scene in _scenes.SCENES:
+        names = sorted(named(scene))
+        missing = set(names) - present
+        if missing:
+            raise ValueError(f'scene {scene.id!r} names bodies absent from the model: {sorted(missing)}')
+        views.append({'id': scene.id, 'bodies': names, 'inner': sorted(inner_of(scene)),
+                      'flip': scene.flip,
+                      'overrides': {line: colours[half] for line, half in crossings.items()
+                                    if line in names and half in names}})
+    for name in external:
+        if 'cold-core/'+name in colours:
+            colours = {**colours, name: colours['cold-core/'+name]}
+    if 'finishes' in metadata:
+        finishes = metadata['finishes']
+    else:
+        import _rust_part
+        _rust_part.start()
+        import _finishes
+        finishes = _finishes.rows()
+    return {'outer_payload': str(assembly.get('payload', ASSEMBLY_MESH)),
+            'core_payload': str(assembly.get('core_payload', CORE_MESH)),
+            'core_transform': metadata.get('core_carry3x4'),
+            'colours': colours, 'core_colours': metadata.get('core_rgba', {}),
+            'finishes': finishes, 'views': views}
+
+
+def write_reference_glbs(assembly, output=GLB_DIR):
+    """Write current named viewer scenes without loading Python geometry."""
+    import _machine_export
+    spec = assembly if 'views' in assembly else numeric_spec(assembly)
+    output = Path(output)
+    _machine_export.views(spec, output)
+    return [Path(row['file']) if 'file' in row else output/(row['id']+'.glb')
+            for row in spec['views']]
+
 def write_glbs(assembly, require_core_payload=False) -> list:
     """Write every viewer scene from the current appliance mesh and one current core mesh.
 
@@ -492,6 +625,9 @@ def write_glbs(assembly, require_core_payload=False) -> list:
     that machine. The inner model is stood and tessellated once; each scene after that is only a
     named subset and two node transforms. No scene STEP, scene B-rep tessellation, or GLB graft
     stands on the publication path."""
+    if isinstance(assembly, dict):
+        return write_reference_glbs(assembly)
+    _legacy()
     outer_entries = _payload_geometry(ASSEMBLY_MESH)
     outer_rgba = _assembly_rgba(assembly)
     for name in getattr(assembly, 'core_external_components', ()):
@@ -534,6 +670,7 @@ def write_glbs(assembly, require_core_payload=False) -> list:
 
 def payload_glb_selftest():
     """Focused holds for strict payload reads and exact scene composition."""
+    _legacy()
     import tempfile
 
     def tri(name, x):

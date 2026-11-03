@@ -107,8 +107,8 @@ def measurements(path, *, component_names=()):
 
 def read(path, *, reading=None):
     """Component bounds and volumes, measured by Rust on their fine f64 arrays."""
-    from meshcad.rule import GRID
-
+    # The fine reader's coordinate protocol uses the kernel's binary grid.
+    grid = 2.0 ** -30
     if reading is None:reading=measurements(path)
     if Path(reading['path']).resolve()!=Path(path).resolve():
         raise ValueError('Physical measurements belong to another model')
@@ -119,7 +119,7 @@ def read(path, *, reading=None):
         raise ValueError('Physical model changed after its measurements')
     # Attachments use the model reader's coordinate grid. Snapping the extrema
     # gives the bounds of those snapped vertices without rebuilding the mesh.
-    return bodies(reading['bodies'], grid=GRID)
+    return bodies(reading['bodies'], grid=grid)
 
 
 def reference_bounds(path, rotation):
