@@ -906,7 +906,7 @@
   "fine_inputs": {
     "physical": {
       "path": "hardware/manifold-layout/enclosure-assembly.step.npz",
-      "sha256": "954b205f76a11fd498be14ac9d2168b1f0a84bb79a5ff0752a1896c68b04032d"
+      "sha256": "21d1b4a5220abfa5748e1302d01ea32fc8228a381816853e0934a05b2fd3af1c"
     },
     "envelope": {
       "path": "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step.npz",
