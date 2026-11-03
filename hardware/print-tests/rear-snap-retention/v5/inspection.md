@@ -3,7 +3,9 @@
 The published ASSE cap's drain-sleeve window ends at Z309.4, above the
 sleeve's measured Z309.15 exterior. The native mesh has zero sleeve overlap.
 The 0.865 mm corner found between the full-height window and adapter pocket
-is absent from the backed cap's lint reading. The two currently running
+is absent from the backed cap's lint reading. Its vent and sleeve windows
+retain the complete ±1.5 mm threaded-joint adjustment, with zero native
+intersection at all five checked positions. The two currently running
 plates retain their recorded original source and slice hashes; the backed
 ASSE plate is separately prepared for a clear bed.
 

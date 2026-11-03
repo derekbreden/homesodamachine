@@ -12,8 +12,9 @@ spring datums and body-stock upper and lower planes stay fixed.
 point in native axial Z and world Y, receiver runs, retained datums, and
 SHA-256 digests of the measured candidate outputs. Native +Z points toward
 world −Y; world Y is 480.8 minus native Z. The emitted installed cap NPZ
-is the service-query geometry; its standalone print-frame NPZ and STL are
-identified separately.
+identifies the initial v5 service-query geometry. Its standalone print-frame
+PISCO NPZ and STL are identified separately and retain that measured shape;
+the installed archive also carries the independently revised ASSE cap.
 
 The [physical photos](../../v4/physical-result/physical-result.json),
 particularly the low/high outlet and neck views, establish the movement and
