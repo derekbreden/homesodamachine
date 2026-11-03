@@ -620,7 +620,9 @@ def main():
     box_document = json.loads(path.read_text())
     spec = plan(stage='installed', box_document=box_document)
     output = LAYOUT / 'enclosure-assembly.step'
-    produced = _machine_export.export(spec, output.parent)
+    produced = _machine_export.export(
+        {**spec, 'physical_presentation': 'enclosure-assembly.physical.step.mesh'},
+        output.parent)
     model = str(output) + '.npz'
     metadata = spec['metadata']
     from hardware.wiring.installed.build import export_from_fine
