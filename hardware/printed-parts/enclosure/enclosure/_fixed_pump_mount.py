@@ -71,7 +71,8 @@ def snap_datums(e, box):
         receiver_y0=d['y0']-e.fits.running,
         receiver_y1=d['y1']+e.fits.running,
         receiver_z0=e.z_seam+e.fits.running,
-        receiver_z1=floor+WING_LENGTH+3.*e.wall, receiver_roof_z=floor+10.,
+        receiver_z1=floor+WING_LENGTH+3.*e.wall,
+        receiver_roof_z=floor+LEAD_RISE+2.*e.fits.running,
         port_inner_x=outer+e.fits.running,
         port_outer_x=box.outer[1]-e.wall,
         port_y0=cy-PRY_WIDTH/2., port_y1=cy+PRY_WIDTH/2., port_z0=floor-5.)
