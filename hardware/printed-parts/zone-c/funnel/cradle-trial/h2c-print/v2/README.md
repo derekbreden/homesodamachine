@@ -63,10 +63,4 @@ for removal after cooling and the bench procedure above. The
 Retention and cycle testing are not reported. The [v3 trial](../v3/README.md)
 uses this printed receiver with the v3 cradle.
 
-To prepare a fresh native archive revision from these frozen v2 meshes:
-
-```sh
-HSM_NO_BUILD_LOCK=1 tools/cad-venv/bin/python hardware/printed-parts/zone-c/funnel/cradle-trial/h2c-print/v2/prepare_v2.py --revision 3
-```
-
-Each native revision has its own immutable `.cache/prints/` directory.
+The [preparation source](https://github.com/derekbreden/homesodamachine/blob/521b9f02cb13815c02b83d08df0d6a9f71c3a60d/hardware/printed-parts/zone-c/funnel/cradle-trial/h2c-print/v2/prepare_v2.py) is retained in Git at `521b9f02cb13815c02b83d08df0d6a9f71c3a60d`.
