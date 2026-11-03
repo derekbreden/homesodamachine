@@ -3,11 +3,11 @@
 //! The caller supplies the selected authored route segments and installed
 //! equipment groups that bound foam compression. No Python CAD is constructed.
 use anyhow::{Context, Result, bail, ensure};
-use hsm_kernel::{Affine, Body, Imported, Leg, Path as SweepPath, Plane, Profile,
+use hsm_kernel::{Affine, Body, Leg, Path as SweepPath, Plane, Profile,
                  Solid, Spline, V2, V3, import, part, step, v3};
 use hsm_kernel::part::Numbers;
 use serde_json::{Value, json};
-use std::collections::BTreeMap;
+use std::collections::{BTreeMap, BTreeSet};
 
 fn f(v: &Value, key: &str) -> Result<f64> {
     v[key].as_f64().with_context(|| format!("numeric {key}"))
@@ -167,19 +167,32 @@ fn insulation(v: &Value, parts: &BTreeMap<String, Vec<Solid>>) -> Result<Solid> 
 }
 
 fn equipment(n: &Numbers) -> Result<BTreeMap<String, Vec<Solid>>> {
-    let mut models: BTreeMap<String, Vec<Imported>> = BTreeMap::new();
-    let mut parts = BTreeMap::new();
+    let mut requested: BTreeMap<String, BTreeMap<usize, Vec<(String, usize)>>> = BTreeMap::new();
+    let mut parts: BTreeMap<String, Vec<Option<Solid>>> = BTreeMap::new();
     for (name, reference) in n.get("components")?.as_object().context("named equipment references")? {
         let path = text(reference, "model")?;
-        if !models.contains_key(path) { models.insert(path.to_owned(), import::model(path)?); }
-        let mut selected = vec![];
-        for index in array(&reference["indices"])? {
+        let indices = array(&reference["indices"])?;
+        parts.insert(name.clone(), vec![None; indices.len()]);
+        let model = requested.entry(path.to_owned()).or_default();
+        for (slot, index) in indices.iter().enumerate() {
             let index = index.as_u64().context("equipment body index")? as usize;
-            selected.push(models[path].get(index).context("equipment body outside model")?.solid.clone());
+            model.entry(index).or_default().push((name.clone(), slot));
         }
-        parts.insert(name.clone(), selected);
     }
-    Ok(parts)
+    for (path, bodies) in requested {
+        let indices: BTreeSet<_> = bodies.keys().copied().collect();
+        import::visit_model_indices(&path, &indices, |index, body| {
+            let (last, others) = bodies[&index].split_last().unwrap();
+            for (name, slot) in others {
+                parts.get_mut(name).unwrap()[*slot] = Some(body.solid.clone());
+            }
+            parts.get_mut(&last.0).unwrap()[last.1] = Some(body.solid);
+            Ok(())
+        })?;
+    }
+    parts.into_iter().map(|(name, bodies)| Ok((name,
+        bodies.into_iter().map(|body| body.context("equipment body outside model"))
+            .collect::<Result<Vec<_>>>()?))).collect()
 }
 
 fn main() -> Result<()> {
