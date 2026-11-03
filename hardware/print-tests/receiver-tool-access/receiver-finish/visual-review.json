@@ -1,0 +1,71 @@
+{
+  "errors": [],
+  "results": [
+    {
+      "sample": "asse",
+      "summary": "Conforming hex, body seating allowance, centered receiver slots",
+      "overflow": false,
+      "canvas": true,
+      "error": null
+    },
+    {
+      "sample": "pisco",
+      "summary": "Approved bearings and rear bore, centered receiver slots",
+      "overflow": false,
+      "canvas": true,
+      "error": null
+    },
+    {
+      "sample": "regulator",
+      "summary": "Approved profile, one reachable receiver slot",
+      "overflow": false,
+      "canvas": true,
+      "error": null
+    },
+    {
+      "sample": "meter",
+      "summary": "Approved housing fit, centered receiver slots",
+      "overflow": false,
+      "canvas": true,
+      "error": null
+    },
+    {
+      "sample": "pump",
+      "summary": "Approved cradle, solid pointed cap, rear receiver slots",
+      "overflow": false,
+      "canvas": true,
+      "error": null
+    },
+    {
+      "sample": "cartridge",
+      "summary": "Both connected wings and centered receiver release ports",
+      "overflow": false,
+      "canvas": true,
+      "error": null
+    },
+    {
+      "path": "Clear of the receiver bay",
+      "step": "8 / 8",
+      "visible": true
+    },
+    {
+      "followup": "Ready \u00b7 Mark1 \u00b7 5 parts \u00b7 6 h 25 min \u00b7 196.93 g",
+      "sampleDisabled": true,
+      "overflow": false
+    }
+  ],
+  "fragment": "/Users/derekbredensteiner/.codex/visualizations/2026/11/01/01a19503-4047-7cf0-ad82-9e42d010912e/receiver-tool-access.html",
+  "fragment_sha256": "68448833a563f3c8b612de57e9a08215350a3100ab8835d0922d4feaa3f28c91",
+  "fragment_bytes": 870053,
+  "geometry": "Current production receivers, unchanged solid pointed caps, exact submitted complete-set plates, prepared five-receiver plate and checked staged PISCO path.",
+  "viewports": [
+    "360 px light",
+    "736 px dark"
+  ],
+  "images_reviewed": [
+    "visual-mobile.png",
+    "visual-followup.png",
+    "visual-path.png",
+    "visual-plate.png"
+  ]
+}
