@@ -228,15 +228,6 @@
             ]
           },
           {
-            "material": "HSM-000054",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "co2-inlet",
-              "co2-inlet-nut"
-            ]
-          },
-          {
             "material": "HSM-000332",
             "quantity": 1,
             "unit": "ea",
@@ -249,7 +240,8 @@
             "quantity": 1,
             "unit": "ea",
             "bodies": [
-              "gas-regulator"
+              "gas-regulator",
+              "co2-inlet"
             ]
           },
           {
@@ -3593,20 +3585,6 @@
         }
       ],
       "manufacturer_number": "221-415"
-    },
-    {
-      "id": "HSM-000054",
-      "description": "neoFit ABU44-E bulkhead union \u00b7 1/4 inch",
-      "kind": "purchased",
-      "models": [
-        {
-          "file": "reference/neofit-bulkhead/neofit-bulkhead.step"
-        }
-      ],
-      "aliases": [
-        "Neofit bulkhead"
-      ],
-      "manufacturer_number": "ABU44-E"
     },
     {
       "id": "HSM-000058",
@@ -7608,10 +7586,6 @@
         },
         {
           "kind": "used-with",
-          "material": "HSM-000054"
-        },
-        {
-          "kind": "used-with",
           "material": "HSM-000043"
         },
         {
@@ -9415,7 +9389,7 @@
     },
     {
       "id": "HSM-000456",
-      "description": "Flavor reservoir gasket \u00b7 TPU 90A",
+      "description": "Flavor reservoir gasket \u00b7 TPU 85A",
       "kind": "manufactured",
       "models": [
         {
