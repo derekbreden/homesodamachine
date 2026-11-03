@@ -764,11 +764,14 @@ name = "hsm-enclosure-shell"
 version = "0.1.0"
 dependencies = [
  "anyhow",
+ "hsm-geometry",
  "hsm-kernel",
  "manifold-csg",
+ "npyz",
  "serde",
  "serde_json",
  "sha2",
+ "zip",
 ]
 
 [[package]]
