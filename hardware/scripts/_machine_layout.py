@@ -475,6 +475,12 @@ def _normal_metadata(plan, request):
     import _above_core_mounts
     import _machine_equipment
     metadata = plan['metadata']
+    if request['stage'] == 'installed':
+        from _machine_reporting import plain
+        canonical = plain(request['box']['box']['pack'])
+        for field, value in canonical.items():
+            if field != 'placed' and (field not in metadata['pack'] or metadata['pack'][field] != value):
+                metadata['pack'][field] = value
     metadata['enclosure_pack_body_names'] = sorted(metadata['pack']['placed'])
     metadata['pack_body_names'] = sorted({row['name'] for row in request['manifold_numbers']['bodies']
         if not row['name'].startswith(('tube-', 'turn-', 'step-', 'stub-'))})
