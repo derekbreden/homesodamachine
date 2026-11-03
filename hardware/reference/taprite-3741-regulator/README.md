@@ -14,8 +14,8 @@ regulator and sets it:
   outlet port, and a gray acetal John Guest PI010822S threads in on the build's PTFE
   thread-seal tape ([`bom.md`](/hardware/ledger/bom.md) §1).
 - The unit's red 1/4" LLDPE tether pushes into that PI010822S and stays there: regulator and tether
-  ship as one piece, and the tether's other end goes into the CO2 bulkhead on the +Y wall of
-  back-top.
+  ship as one piece, and the tether's other end goes into the PISCO secondary's inlet collet
+  on the +Y wall of back-top.
 - The slotted adjusting screw is turned to **75 psi** (`FACTORY_SET_PSI`) on the regulator's own
   upper gauge, the jam nut is locked over it, and one paint line is drawn across screw, nut and
   bonnet. The unit passes acceptance on that setting and ships at it.

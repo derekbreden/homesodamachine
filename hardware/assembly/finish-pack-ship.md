@@ -110,7 +110,7 @@ Cap the two fluid inlets — the water inlet and the CO2 inlet PTC, both on the 
 Inlet-by-inlet:
 
 - **Water inlet** — caps the PP1208E's outboard 1/4" push-to-connect collet, the one upstream of the backflow preventer that the customer's filtered tap supply lands on. Once installed at the customer site, the cap comes off and the installer pushes the supply line home; the cap never goes back on.
-- **CO2 inlet collet** — caps the ABU44 bulkhead's outboard 1/4" collet that the customer's CO2 regulator tether plugs into, in the east column's top station, directly above the blue-ringed SODA union. Cap is a press-on rubber plug sized to the collet's outer collar.
+- **CO2 inlet collet** — caps the PISCO secondary's outboard 1/4" inlet collet that the customer's CO2 regulator tether plugs into, in the east column's top station, directly above the blue-ringed SODA union. Cap is a press-on rubber plug sized to the collet's outer collar.
 
 The umbilical's four bulkheads on the +Y wall — SODA, OVER and both FLAVOR ports — are *not* capped. They take the umbilical tubes from the bagged faucet sub-assembly, and a cap there would be removed and discarded by the installer in any case. Their collets keep debris out of the bores well enough for the transit-only window.
 
