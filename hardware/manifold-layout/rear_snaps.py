@@ -38,9 +38,12 @@ PRY_HEIGHT = 1.0
 REAR_ROOT_DROP = 10.0
 PISCO_RADIAL_RELIEF = 0.25  # receiver running air plus this radial relief
 PISCO_CAP_AIR = 0.4
+PISCO_CAP_FIT = 0.15  # measured body/neck bearing air; stock and spring datums stay independent
+PISCO_BEARING_LENGTH = 3.0
 METER_AIR = 0.75    # drop-in hardware clearance on the square housing and flange
 METER_BACK = 9.0    # solid spine between the complete upper and lower leaves
 METER_CAP_AIR = 0.25
+METER_HOUSING_FIT = 0.15  # local housing bearings; spring station retains METER_AIR
 METER_BEARING_DEPTH = 4.0
 LEDGE = 3.0         # the ledge's height off the split
 HOOK = 2.6          # leading ramp above the complete flat retaining face
@@ -257,6 +260,62 @@ def radial_profile(points):
     return cq.Workplane('XY').polyline(path).close().revolve(360,(0,0,0),(1,0,0)).val()
 
 
+def asse_adapter_capture(chain_frame, station, axis):
+    """The adapter's measured hex shoulders, independent of the taped ASSE joint."""
+    import above_core_parts as parts
+    import rear_plumbing
+    record = rear_plumbing.chain().parameters()['gagira']
+    frame = parts._compose(chain_frame, {'rotation':record['rotation'],
+                                        'translation_mm':record['origin_mm']})
+    points = clearance_profile(record['visible_profile'],fits.slip,fits.slip)
+    wrench = record['wrench']
+    cutter = {'op':'radial-profile','points':points,'frame':frame,
+              'wrench':{'apothem':wrench['apothem_at_x_zero_mm']+fits.slip,
+                        'clock':wrench['clock_degrees']}}
+    end = frame['translation_mm'][1] - (-13.825) + WALL
+    width = station['outer']
+    low = axis[1]-width*math.sqrt(3.)/2.
+    outline = [(axis[0]-width,axis[1]),(axis[0]+width,axis[1]),
+               (axis[0]+width/2.,low),(axis[0]-width/2.,low)]
+    stock = {'op':'section','segments':[{'line':(a,b)} for a,b in
+                zip(outline,outline[1:]+outline[:1])],
+             'span':(station['y1']-WALL,end)}
+    return stock,cutter
+
+
+def stadium_profile_x(points, centre, fore, aft):
+    """An axial housing profile swept along its fore/aft loading corridor."""
+    y,z = centre
+    a,b = y-fore,y+aft
+    pieces=[]
+    for (x0,r0),(x1,r1) in zip(points,points[1:]):
+        if x1-x0<1.e-8:
+            continue
+        for cy in (a,b):
+            pieces.append(cq.Solid.makeCone(r0,r1,x1-x0,cq.Vector(x0,cy,z),cq.Vector(1,0,0))
+                          if abs(r1-r0)>1.e-8 else
+                          cq.Solid.makeCylinder(r0,x1-x0,cq.Vector(x0,cy,z),cq.Vector(1,0,0)))
+        if b-a>1.e-8:
+            outline=[cq.Vector(x0,a,z-r0),cq.Vector(x1,a,z-r1),
+                     cq.Vector(x1,a,z+r1),cq.Vector(x0,a,z+r0)]
+            pieces.append(cq.Solid.extrudeLinear(cq.Wire.makePolygon(outline,close=True),[],cq.Vector(0,b-a,0)))
+    return pieces[0].fuse(*pieces[1:]).clean()
+
+
+def radial_room(record):
+    """The native analytic profile and optional wrench flats in its installed frame."""
+    import above_core
+    shape=radial_profile(record['points'])
+    if 'wrench' in record:
+        wrench=record['wrench']
+        lo,hi=record['points'][0][0],record['points'][-1][0]
+        prism=(cq.Workplane('YZ',origin=(lo,0.,0.))
+               .polygon(6,2*wrench['apothem']/math.cos(math.pi/6)).extrude(hi-lo).val()
+               .rotate((0,0,0),(1,0,0),wrench['clock']))
+        shape=shape.intersect(prism)
+    return shape.moved(above_core.frame_location(record['frame']))
+
+
 def pisco_grip_stock(s, axis_z, body_r, neck_r, lip):
     """One broad body saddle and a raised outlet-neck lip between free springs."""
     half=s['inner']-ROOT_RADIUS-.5
@@ -264,6 +323,40 @@ def pisco_grip_stock(s, axis_z, body_r, neck_r, lip):
     top=axis_z-math.sqrt(max(body_r**2-(half-WALL)**2,0.))
     return [(s['axis_x']-half,s['axis_x']+half,s['y0'],s['y1'],bottom,top),
             (s['axis_x']-half,s['axis_x']+half,s['y0'],lip,bottom,axis_z)]
+
+
+def pisco_cap_fit(profile, mouth_y, cap_y, axis, neck_z):
+    """Measured body and outlet-neck bores, split at the retained axial stop."""
+    profile=np.asarray(profile,float)
+    lip=mouth_y-neck_z-fits.slip
+    lo,hi=mouth_y-cap_y[1]-1.,mouth_y-cap_y[0]+1.
+
+    def clipped(points,a,b):
+        points=np.asarray(points,float)
+        inside=points[(points[:,0]>a)&(points[:,0]<b)]
+        return [(a,float(np.interp(a,points[:,0],points[:,1]))),
+                *map(tuple,inside),
+                (b,float(np.interp(b,points[:,0],points[:,1])))]
+
+    body=clearance_profile(profile[profile[:,0]<=neck_z],PISCO_CAP_FIT,fits.running)
+    neck=clearance_profile(profile[profile[:,0]>=neck_z],PISCO_CAP_FIT,fits.running)
+    return {'lip_y':lip,'body':clipped(body,lo,mouth_y-lip),
+            'neck':clipped(neck,mouth_y-lip,hi),
+            'frame':{'rotation':((0.,1.,0.),(-1.,0.,0.),(0.,0.,1.)),
+                     'translation_mm':(axis[0],mouth_y,axis[1])}}
+
+
+def pisco_bearing_profile(runs, profile, mouth_y):
+    """One upper ring bearing within the hardware's sixteen-millimetre insertion sweep."""
+    z,r=max(profile,key=lambda p:p[1])
+    y0,y1=mouth_y-z-PISCO_BEARING_LENGTH/2.,mouth_y-z+PISCO_BEARING_LENGTH/2.
+    bearing=r+PISCO_CAP_FIT
+    result=[]
+    for a,b,radius in runs:
+        cuts=sorted(set((a,b,*[v for v in (y0,y1) if a<v<b])))
+        for lo,hi in zip(cuts,cuts[1:]):
+            result.append((lo,hi,bearing if y0<=(lo+hi)/2.<=y1 else radius))
+    return result
 
 
 def pockets(s):
@@ -286,7 +379,8 @@ def pockets(s):
 def pisco_cap_service_cuts(s):
     """Open the fore flank exits below the retained hook-bearing plane.
 
-    A released cap lowers 3.6 mm and slides forward with its leaves open.
+    The cap lowers 3.6 mm with its leaves open. Disconnect its outlet stem
+    check after that drop, before sliding the cap forward.
     The complete fore stops above the bearing plane retain the seated cap.
     """
     half=s['outer']+3.2+fits.running
@@ -431,8 +525,11 @@ def build(parts, asse_axis, asse_at, asse_turn, pisco_axis, mouth_y, ceiling, re
     # One fitted hex continues through the cap; its bottom slot clears the vent.
     cap_profile = asse_cap_profile(wrenches, s)
     v_lo, v_hi = vent.min(axis=0), vent.max(axis=0)
-    snap = cap(st_a, asse_axis[1], None, asse_axis[1], hexed=True).cut(section_solid(
-        asse_cap_room(asse_axis, cap_profile, cap_y)))
+    import rear_plumbing
+    adapter_stock,adapter_cut=asse_adapter_capture(rear_plumbing.plan()['chain_frame'],st_a,asse_axis)
+    snap = (cap(st_a, asse_axis[1], None, asse_axis[1], hexed=True)
+            .fuse(section_solid(adapter_stock)).cut(section_solid(
+                asse_cap_room(asse_axis, cap_profile,(cap_y[0],cap_y[1]+.5))),radial_room(adapter_cut)))
     slot = box(v_lo[0] - c, v_hi[0] + c, v_lo[1] - THREAD - c, v_hi[1] + THREAD + c, v_lo[2] - 1., asse_axis[1])
     out['asse-snap-cap'] = snap.cut(slot).clean()
     W = st_a['outer']
@@ -467,7 +564,9 @@ def build(parts, asse_axis, asse_at, asse_turn, pisco_axis, mouth_y, ceiling, re
     W = st_p['outer']
     front = pcap[0] - c - WALL
     seat = box(pisco_axis[0] - W, pisco_axis[0] + W, front, rear + INTO, SPLIT, ceiling + INTO)
-    seat = seat.cut(turned(steps(ys2, np.where(ys2 >= front - 1, cav2, 0.)), pisco_axis))
+    seat_profile=pisco_bearing_profile(
+        steps(ys2,np.where(ys2>=front-1,cav2,0.)),profile,mouth_y)
+    seat = seat.cut(turned(seat_profile, pisco_axis))
     for p in pockets(st_p):
         seat = seat.cut(p)
     for opening in pisco_cap_service_cuts(st_p):
@@ -478,13 +577,18 @@ def build(parts, asse_axis, asse_at, asse_turn, pisco_axis, mouth_y, ceiling, re
     neck=profile[(profile[:,0]>=neck_z)&(profile[:,0]<=collet[0])]
     r_neck = neck[:,1].max() + PISCO_CAP_AIR
     lip = step_face - s
+    cap_fit=pisco_cap_fit(profile,mouth_y,pcap,pisco_axis,neck_z)
     snap=cap(st_p,st_p['root'],pisco_axis[1]-r_body-WALL)
     snap=snap.fuse(*(box(*b) for b in pisco_grip_stock(st_p,pisco_axis[1],r_body,r_neck,lip)))
     out['pisco-snap-cap'] = (snap
-                             .cut(turned([(pcap[0] - 1., lip, r_neck), (lip, pcap[1] + 1., r_body)], pisco_axis))
+                             .cut(*(radial_room({'points':cap_fit[name],'frame':cap_fit['frame']})
+                                    for name in ('body','neck')))
                              .clean())
     numbers['pisco'] = {'station': st_p, 'step_face_y': step_face, 'body_r': r_body,
-        'neck_r': r_neck, 'cap_release_drop_mm':3.6, 'cap_service_fore_slide_mm':45.}
+        'neck_r': r_neck,'cap_fit':cap_fit,'seat_runs':seat_profile,
+        'cap_release_drop_mm':3.6,'cap_service_fore_slide_mm':45.,
+        'cap_service_route':'Remove ASSE and meter caps; hold PISCO leaves open, lower 3.6 mm, '
+                            'disconnect the outlet stem check, then slide 45 mm fore.'}
 
     # --- the meter: its seat on the side wall, its cap from the west -----------------------------
     # The housing's label side stands in a cup on the side wall, swept forward by the slide and aft
@@ -504,13 +608,17 @@ def build(parts, asse_axis, asse_at, asse_turn, pisco_axis, mouth_y, ceiling, re
     # The lower housing's cones and the cover flange, as the reference builds them.
     UNDER, CONE, FLANGE, R_CONE, R_HOUSING, R_FLANGE = meter.underside_y, -8.1, 7.3, 15.1, 15.45, 17.5
     MX = wx(FLANGE) - METER_AIR                   # the split: the cap holds what is west of it
-    fore, aft = SLIDE + VAR, VAR
+    fore, aft = SLIDE + VAR, METER_HOUSING_FIT
     x0 = MX - 1.
-    east = wx(meter.screw_head_y_range[1]) + METER_AIR
-    cup = stadium_x(MY, MZ, R_FLANGE + METER_AIR, fore, aft, x0, east)
+    fit=METER_HOUSING_FIT
+    housing=[(wx(y),r) for y,r in clearance_profile(meter.housing_profile,fit,fit)]
+    cup = stadium_profile_x(housing,(MY,MZ),fore,aft)
     for dy in (-meter.boss_x, meter.boss_x):
         for dz in (-meter.boss_z, meter.boss_z):
-            cup = cup.fuse(stadium_x(MY + dy, MZ + dz, meter.boss_radius + METER_AIR, fore, aft, x0, east))
+            cup = cup.fuse(stadium_x(MY+dy,MZ+dz,meter.boss_radius+fit,fore,aft,
+                wx(meter.boss_y_range[0])-fit,wx(meter.boss_y_range[1])+fit),
+                stadium_x(MY+dy,MZ+dz,meter.screw_head_radius+fit,fore,aft,
+                wx(meter.screw_head_y_range[0])-fit,wx(meter.screw_head_y_range[1])+fit))
     r_collar = max(meter.port_collar_radii)
     for sign in (-1., 1.):
         ya, yb = sorted((wy(sign * meter.port_neck_end), wy(sign * meter.port_collar_end)))
@@ -545,9 +653,8 @@ def build(parts, asse_axis, asse_at, asse_turn, pisco_axis, mouth_y, ceiling, re
     for p in pockets(st_m):
         seat = seat.cut(to_world(p))
     out['meter-seat'] = seat.clean()
-    hollow = stadium_x(MY, MZ, R_HOUSING + METER_CAP_AIR, 0., METER_CAP_AIR, wx(CONE), core + 1.)
-    hollow = hollow.fuse(stadium_x(MY, MZ, R_CONE + METER_CAP_AIR, 0., METER_CAP_AIR, west_end - METER_CAP_AIR, wx(CONE) + .01))
-    hollow = hollow.fuse(cq.Solid.makeCylinder(meter.port_neck_radius + METER_CAP_AIR, SEAT_Y[1] - SEAT_Y[0],
+    hollow = radial_profile(housing).translate((0.,MY,MZ))
+    hollow = hollow.fuse(cq.Solid.makeCylinder(meter.port_neck_radius + fit, SEAT_Y[1] - SEAT_Y[0],
                                                cq.Vector(soda_axis[0], SEAT_Y[0], soda_axis[1]), cq.Vector(0, 1, 0)))
     bottom=west_end-METER_AIR-METER_BACK-MX
     half=st_m['inner']-ROOT_RADIUS-.5

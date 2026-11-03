@@ -1,0 +1,516 @@
+{
+  "units": "mm; axial coordinate in fitted PISCO native+Z, with world Y=480.8-nativeZ",
+  "cap_fit": {
+    "lip_y": 423.87500000000006,
+    "body": [
+      [
+        17.75,
+        10.23880510948905
+      ],
+      [
+        24.275,
+        10.1325
+      ],
+      [
+        24.725,
+        10.6746
+      ],
+      [
+        24.875,
+        10.7954
+      ],
+      [
+        25.325,
+        10.884
+      ],
+      [
+        26.075,
+        10.8973
+      ],
+      [
+        26.575,
+        10.8973
+      ],
+      [
+        27.025,
+        10.8716
+      ],
+      [
+        27.325,
+        10.783
+      ],
+      [
+        27.475,
+        10.6242
+      ],
+      [
+        27.625,
+        10.323500000000001
+      ],
+      [
+        27.775,
+        10.1615
+      ],
+      [
+        39.425,
+        10.2018
+      ],
+      [
+        39.875,
+        10.3381
+      ],
+      [
+        40.175,
+        10.712
+      ],
+      [
+        40.475,
+        10.9189
+      ],
+      [
+        40.925,
+        10.977400000000001
+      ],
+      [
+        41.425,
+        10.977400000000001
+      ],
+      [
+        42.625,
+        10.934000000000001
+      ],
+      [
+        42.775,
+        10.864700000000001
+      ],
+      [
+        42.925,
+        10.7077
+      ],
+      [
+        43.225,
+        10.2781
+      ],
+      [
+        48.925,
+        10.389546666666668
+      ],
+      [
+        52.175,
+        10.5569
+      ],
+      [
+        52.675,
+        10.5569
+      ],
+      [
+        53.275,
+        10.5153
+      ],
+      [
+        54.025,
+        10.319311111111112
+      ],
+      [
+        55.325,
+        10.3313
+      ],
+      [
+        55.825,
+        10.3313
+      ],
+      [
+        56.275,
+        10.282300000000001
+      ],
+      [
+        56.575,
+        10.1292
+      ],
+      [
+        56.875,
+        9.5571
+      ],
+      [
+        56.924999999999955,
+        8.386100000001054
+      ]
+    ],
+    "neck": [
+      [
+        56.924999999999955,
+        6.0441
+      ],
+      [
+        57.025,
+        6.0441
+      ],
+      [
+        57.325,
+        5.7437000000000005
+      ],
+      [
+        57.475,
+        5.4252
+      ],
+      [
+        57.625,
+        5.2324
+      ],
+      [
+        59.825,
+        5.096990476190477
+      ],
+      [
+        59.875,
+        5.096900000000001
+      ],
+      [
+        60.325,
+        5.009
+      ],
+      [
+        60.575,
+        5.7907
+      ],
+      [
+        60.725,
+        6.160500000000001
+      ],
+      [
+        60.875,
+        6.257700000000001
+      ],
+      [
+        61.4542827976,
+        6.273437182668133
+      ]
+    ],
+    "frame": {
+      "rotation": [
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "translation_mm": [
+        76.5,
+        480.8,
+        328.0
+      ]
+    }
+  },
+  "cap_fit_world_y_radius": {
+    "body": [
+      [
+        463.05,
+        10.23880510948905
+      ],
+      [
+        456.52500000000003,
+        10.1325
+      ],
+      [
+        456.075,
+        10.6746
+      ],
+      [
+        455.925,
+        10.7954
+      ],
+      [
+        455.475,
+        10.884
+      ],
+      [
+        454.725,
+        10.8973
+      ],
+      [
+        454.225,
+        10.8973
+      ],
+      [
+        453.77500000000003,
+        10.8716
+      ],
+      [
+        453.475,
+        10.783
+      ],
+      [
+        453.325,
+        10.6242
+      ],
+      [
+        453.175,
+        10.323500000000001
+      ],
+      [
+        453.02500000000003,
+        10.1615
+      ],
+      [
+        441.375,
+        10.2018
+      ],
+      [
+        440.925,
+        10.3381
+      ],
+      [
+        440.625,
+        10.712
+      ],
+      [
+        440.325,
+        10.9189
+      ],
+      [
+        439.875,
+        10.977400000000001
+      ],
+      [
+        439.375,
+        10.977400000000001
+      ],
+      [
+        438.175,
+        10.934000000000001
+      ],
+      [
+        438.02500000000003,
+        10.864700000000001
+      ],
+      [
+        437.875,
+        10.7077
+      ],
+      [
+        437.575,
+        10.2781
+      ],
+      [
+        431.875,
+        10.389546666666668
+      ],
+      [
+        428.625,
+        10.5569
+      ],
+      [
+        428.125,
+        10.5569
+      ],
+      [
+        427.52500000000003,
+        10.5153
+      ],
+      [
+        426.77500000000003,
+        10.319311111111112
+      ],
+      [
+        425.475,
+        10.3313
+      ],
+      [
+        424.975,
+        10.3313
+      ],
+      [
+        424.52500000000003,
+        10.282300000000001
+      ],
+      [
+        424.225,
+        10.1292
+      ],
+      [
+        423.925,
+        9.5571
+      ],
+      [
+        423.87500000000006,
+        8.386100000001054
+      ]
+    ],
+    "neck": [
+      [
+        423.87500000000006,
+        6.0441
+      ],
+      [
+        423.77500000000003,
+        6.0441
+      ],
+      [
+        423.475,
+        5.7437000000000005
+      ],
+      [
+        423.325,
+        5.4252
+      ],
+      [
+        423.175,
+        5.2324
+      ],
+      [
+        420.975,
+        5.096990476190477
+      ],
+      [
+        420.925,
+        5.096900000000001
+      ],
+      [
+        420.475,
+        5.009
+      ],
+      [
+        420.225,
+        5.7907
+      ],
+      [
+        420.075,
+        6.160500000000001
+      ],
+      [
+        419.925,
+        6.257700000000001
+      ],
+      [
+        419.3457172024,
+        6.273437182668133
+      ]
+    ]
+  },
+  "receiver_bearing_world_y_runs": [
+    [
+      416.1000000000105,
+      422.10000000001185,
+      11.021317823516311
+    ],
+    [
+      422.10000000001185,
+      438.125,
+      11.327400000617823
+    ],
+    [
+      438.125,
+      441.125,
+      10.977400000000001
+    ],
+    [
+      441.125,
+      456.2000000000196,
+      11.327400000617823
+    ],
+    [
+      456.2000000000196,
+      465.30000000002167,
+      10.594100000343808
+    ],
+    [
+      465.30000000002167,
+      476.1000000000241,
+      7.308489162209648
+    ],
+    [
+      476.1000000000241,
+      480.9000000000252,
+      6.679422841099721
+    ]
+  ],
+  "preserved": {
+    "axis_xz": [
+      76.5,
+      328.0
+    ],
+    "cap_y_span": [
+      420.3457172024,
+      462.05
+    ],
+    "lip_y": 423.87500000000006,
+    "stock_bottom_z": 313.7726,
+    "stock_upper_z": 319.5613172,
+    "spring_root_z": 318.0,
+    "rear_bore": "unchanged"
+  },
+  "service": {
+    "drop8_25_fixed_meter_receiver_collision_bounds": [
+      [
+        83.05,
+        420.3457172,
+        305.5226
+      ],
+      [
+        90.9056157,
+        446.0,
+        309.25
+      ]
+    ],
+    "straight_drop8_25_outer_cut_min_z": 317.5,
+    "thickness_to_max_ring_at_meter_land_x": 1.3980797886788991,
+    "max_cut_bottom_z_for_3mm_radial_backing_at_land_x": 315.65231962026877,
+    "45deg_bevel_start_x_at_original_bottom": 79.32260000000001,
+    "45deg_bevel_min_z_at_outer_leaf_x": 325.35561568739996,
+    "conclusion": "The 8.25 mm straight drop and an outer bevel are incompatible with the fixed meter seat/full backing. Current service uses a 3.6 mm drop with released leaves, then outlet stem-check disconnection, then a 45 mm fore slide.",
+    "current_sequence": [
+      "Remove ASSE and meter caps; disconnect and dress the tubes aside.",
+      "Spread PISCO cap leaves and lower 3.6 mm.",
+      "Depress exposed PISCO outlet collet and withdraw the stem check.",
+      "Slide PISCO cap 45 mm fore with its leaves held open."
+    ],
+    "current_pose_scope": "25 sampled poses; actual emitted below-axis core plus separate upper-leaf clearance proxies translated 3.2 mm outward; all relevant fixed-context fine meshes. Not a connected elastic deformation or force/fatigue qualification.",
+    "outlet_collet_access": {
+      "world_y_span_mm": [
+        417.9857172,
+        420.0857172
+      ],
+      "cap_fore_y_mm": 420.3457172,
+      "seated_axial_gap_mm": 0.26,
+      "dropped_collet_aft_motion_tested_mm": 2.0,
+      "release_travel_and_force": "Not established by exterior geometry."
+    },
+    "own_outlet_collet": {
+      "max_radius_mm": 6.124,
+      "drop_mm": 3.6,
+      "required_horizontal_half_width_mm": 4.95412716833147,
+      "minimum_neck_envelope_radius_mm": 5.009,
+      "minimum_analytical_half_width_margin_mm": 0.054872831668530075
+    }
+  },
+  "sources": {
+    "measured_hardware": "hardware/reference/compact-inline-candidates/dimensions.json:pisco_rvfup_quarter.fitted_exterior",
+    "scan_scale": "Rigid native-scale registration of the sprayed scan; no scale fitting. Paint thickness and optical scale were not independently calibrated.",
+    "photo_scope": "Latest user photos 3-5 establish body/outlet wiggle and noncontact neck lip qualitatively. They do not provide calibrated gap dimensions.",
+    "original_fixture": "Largest-radius cap cylinders gave approximately 1.35 mm radial neck air and approximately 1.2 mm main-body air away from the ring."
+  },
+  "candidate_outputs": {
+    "hardware/printed-parts/enclosure/rear-equipment-caps/rear-equipment-caps-installed.step.npz": {
+      "sha256": "296763c4ed7bf45e6d9fb042a3bb719940f6df9a997960d2652790c9e4a55252"
+    },
+    "hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.step.npz": {
+      "sha256": "660ebb87eea017e29185821a32ffd974a50162145606a4d7b09ac9e1dbcb4303"
+    },
+    "hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.stl": {
+      "sha256": "e35431f25d7f8d5ba66eb631812457550bb9c5f901b8e30a523a0136e571a3df"
+    },
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.npz": {
+      "sha256": "99b041ca7536151462d792a7f69bfa72aee5a3194133b597df68f4efb01fa14c"
+    }
+  }
+}

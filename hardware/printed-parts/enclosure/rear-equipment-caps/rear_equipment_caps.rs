@@ -128,7 +128,19 @@ fn radial_profile(v: &Value) -> Result<Solid> {
     let mut points=vec![v2(f(&rows[0][0])?,0.)];
     for row in rows {points.push(point2(row)?);}
     points.push(v2(f(&rows.last().unwrap()[0])?,0.));
-    let shape=Plane::XY.revolve(&Profile::polygon(&points),360.,V2::ZERO,v2(1.,0.))?;
+    let mut shape=Plane::XY.revolve(&Profile::polygon(&points),360.,V2::ZERO,v2(1.,0.))?;
+    if let Some(w)=v.get("wrench") {
+        let radius=f(&w["apothem"])?/(std::f64::consts::PI/6.).cos();
+        let clock=f(&w["clock"] )?.to_radians();
+        let outline=(0..6).map(|i|{
+            let angle=clock+i as f64*std::f64::consts::PI/3.;
+            v2(radius*angle.cos(),radius*angle.sin())
+        }).collect::<Vec<_>>();
+        let lo=f(&rows[0][0])?;
+        let hi=f(&rows.last().unwrap()[0])?;
+        let prism=Plane::YZ.at(v3(lo,0.,0.)).extrude(&Profile::polygon(&outline),hi-lo)?;
+        shape=shape.intersect(&prism)?;
+    }
     let pose=&v["frame"];
     let r=&pose["rotation"];
     let col=|i:usize|->Result<V3>{Ok(v3(f(&r[0][i])?,f(&r[1][i])?,f(&r[2][i])?))};

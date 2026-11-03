@@ -1,0 +1,74 @@
+{
+  "archive": "hardware/print-tests/rear-snap-retention/v5/prints/2026-11-02-rear-retention-mark1-mark1-a62f798b/2026-11-02-rear-retention-mark1-mark1-a62f798b.gcode.3mf",
+  "archive_sha256": "ec1a51a845824316536fc0a28862275fbacb3f9f09608b2a22becb548a7af332",
+  "gcode_md5_matches": true,
+  "emitted_z_trim_mm": [
+    0.0,
+    0.16
+  ],
+  "expected_emitted_textured_trim_mm": 0.16,
+  "layers": 269,
+  "project_check": true,
+  "bead_envelope_plate_mm": [
+    [
+      93.158785,
+      107.368296
+    ],
+    [
+      225.122704,
+      212.899069
+    ]
+  ],
+  "bed_margins_mm": {
+    "left": 93.158785,
+    "front": 107.368296,
+    "right": 99.877296,
+    "back": 107.100931
+  },
+  "minimum_bed_margin_mm": 93.158785,
+  "bed_border_mm": 40.0,
+  "fine_and_transition_bands": [],
+  "support_roads": 88304,
+  "show_face_minimum_bead_clearance_mm": null,
+  "show_face_contacts": [],
+  "tie_window_support_crossings": [],
+  "ribbon_support_crossings": [],
+  "ribbons": [],
+  "fine_band_unbacked_roads": [],
+  "first_second_layer_stack": {
+    "1901": {
+      "second_layer_model_bead_area_mm2": 4556.406050437403,
+      "fraction_over_first_layer": 0.9892450660261305,
+      "second_layer_centerline_outside_first_mm": 12.127258144197802
+    },
+    "1902": {
+      "second_layer_model_bead_area_mm2": 466.2675158837175,
+      "fraction_over_first_layer": 0.9213122516779951,
+      "second_layer_centerline_outside_first_mm": 8.30238448012159
+    },
+    "1903": {
+      "second_layer_model_bead_area_mm2": 1945.6967446735907,
+      "fraction_over_first_layer": 0.9825839193350868,
+      "second_layer_centerline_outside_first_mm": 7.848312968541753
+    },
+    "1904": {
+      "second_layer_model_bead_area_mm2": 402.3870060953003,
+      "fraction_over_first_layer": 0.9190102352388164,
+      "second_layer_centerline_outside_first_mm": 4.9786684294487475
+    }
+  },
+  "solid_host_deposition": [],
+  "support_topology": {},
+  "scope": "Commanded paths and bead envelopes from this archive. Support removal, surface finish, fit and strength are physical observations.",
+  "checks": {
+    "archive": true,
+    "z_trim": true,
+    "bed_border": true,
+    "fine_and_transition_bands": true,
+    "show_faces_support_free": true,
+    "tie_windows_support_free": true,
+    "ribbons_support_free_and_printed": true,
+    "solid_hosts_sampled": true
+  },
+  "pass": true
+}

@@ -1,0 +1,433 @@
+[
+  {
+    "fore_mm": 0,
+    "translation_mm": [
+      0,
+      0,
+      -8.25
+    ],
+    "overlaps": [
+      {
+        "part": {
+          "id": "#91",
+          "name": "gas-regulator/1"
+        },
+        "volume_mm3": 1.8764093818585823
+      },
+      {
+        "part": {
+          "id": "#92",
+          "name": "gas-regulator/2"
+        },
+        "volume_mm3": 0.8636729072171654
+      },
+      {
+        "part": {
+          "id": "#130",
+          "name": "meter-snap-cap"
+        },
+        "volume_mm3": 985.2257427268534
+      },
+      {
+        "part": {
+          "id": "#408",
+          "name": "enclosure-back-top"
+        },
+        "volume_mm3": 408.980314278887
+      }
+    ],
+    "unknown": [],
+    "payload_sha256": "cd9058201b3d9ad66f2b5c1d3c1cf6a1986576ccc3b006e8b237e8f50cd3fed7"
+  },
+  {
+    "fore_mm": 2.5,
+    "translation_mm": [
+      0,
+      -2.5,
+      -8.25
+    ],
+    "overlaps": [
+      {
+        "part": {
+          "id": "#91",
+          "name": "gas-regulator/1"
+        },
+        "volume_mm3": 1.78995768018652
+      },
+      {
+        "part": {
+          "id": "#92",
+          "name": "gas-regulator/2"
+        },
+        "volume_mm3": 0.4345035503091275
+      },
+      {
+        "part": {
+          "id": "#130",
+          "name": "meter-snap-cap"
+        },
+        "volume_mm3": 1150.8126158185062
+      },
+      {
+        "part": {
+          "id": "#408",
+          "name": "enclosure-back-top"
+        },
+        "volume_mm3": 424.7828964110506
+      }
+    ],
+    "unknown": [],
+    "payload_sha256": "cd9058201b3d9ad66f2b5c1d3c1cf6a1986576ccc3b006e8b237e8f50cd3fed7"
+  },
+  {
+    "fore_mm": 5,
+    "translation_mm": [
+      0,
+      -5,
+      -8.25
+    ],
+    "overlaps": [
+      {
+        "part": {
+          "id": "#91",
+          "name": "gas-regulator/1"
+        },
+        "volume_mm3": 3.268551840705273
+      },
+      {
+        "part": {
+          "id": "#92",
+          "name": "gas-regulator/2"
+        },
+        "volume_mm3": 0.4344559344175965
+      },
+      {
+        "part": {
+          "id": "#130",
+          "name": "meter-snap-cap"
+        },
+        "volume_mm3": 1313.323216108612
+      },
+      {
+        "part": {
+          "id": "#408",
+          "name": "enclosure-back-top"
+        },
+        "volume_mm3": 440.5854785432149
+      }
+    ],
+    "unknown": [],
+    "payload_sha256": "cd9058201b3d9ad66f2b5c1d3c1cf6a1986576ccc3b006e8b237e8f50cd3fed7"
+  },
+  {
+    "fore_mm": 7.5,
+    "translation_mm": [
+      0,
+      -7.5,
+      -8.25
+    ],
+    "overlaps": [
+      {
+        "part": {
+          "id": "#91",
+          "name": "gas-regulator/1"
+        },
+        "volume_mm3": 2.4206529430426884
+      },
+      {
+        "part": {
+          "id": "#92",
+          "name": "gas-regulator/2"
+        },
+        "volume_mm3": 0.8201965932577139
+      },
+      {
+        "part": {
+          "id": "#130",
+          "name": "meter-snap-cap"
+        },
+        "volume_mm3": 1477.044655969696
+      },
+      {
+        "part": {
+          "id": "#408",
+          "name": "enclosure-back-top"
+        },
+        "volume_mm3": 456.388060675381
+      }
+    ],
+    "unknown": [],
+    "payload_sha256": "cd9058201b3d9ad66f2b5c1d3c1cf6a1986576ccc3b006e8b237e8f50cd3fed7"
+  },
+  {
+    "fore_mm": 10,
+    "translation_mm": [
+      0,
+      -10,
+      -8.25
+    ],
+    "overlaps": [
+      {
+        "part": {
+          "id": "#91",
+          "name": "gas-regulator/1"
+        },
+        "volume_mm3": 1.7329119495769991
+      },
+      {
+        "part": {
+          "id": "#92",
+          "name": "gas-regulator/2"
+        },
+        "volume_mm3": 0.6233723964562601
+      },
+      {
+        "part": {
+          "id": "#130",
+          "name": "meter-snap-cap"
+        },
+        "volume_mm3": 1644.0018807911194
+      },
+      {
+        "part": {
+          "id": "#408",
+          "name": "enclosure-back-top"
+        },
+        "volume_mm3": 472.1906428075438
+      }
+    ],
+    "unknown": [],
+    "payload_sha256": "cd9058201b3d9ad66f2b5c1d3c1cf6a1986576ccc3b006e8b237e8f50cd3fed7"
+  },
+  {
+    "fore_mm": 15,
+    "translation_mm": [
+      0,
+      -15,
+      -8.25
+    ],
+    "overlaps": [
+      {
+        "part": {
+          "id": "#91",
+          "name": "gas-regulator/1"
+        },
+        "volume_mm3": 1.732911949577001
+      },
+      {
+        "part": {
+          "id": "#92",
+          "name": "gas-regulator/2"
+        },
+        "volume_mm3": 0.7023836936336152
+      },
+      {
+        "part": {
+          "id": "#130",
+          "name": "meter-snap-cap"
+        },
+        "volume_mm3": 1977.938739306505
+      },
+      {
+        "part": {
+          "id": "#408",
+          "name": "enclosure-back-top"
+        },
+        "volume_mm3": 503.7958070718746
+      }
+    ],
+    "unknown": [],
+    "payload_sha256": "cd9058201b3d9ad66f2b5c1d3c1cf6a1986576ccc3b006e8b237e8f50cd3fed7"
+  },
+  {
+    "fore_mm": 20,
+    "translation_mm": [
+      0,
+      -20,
+      -8.25
+    ],
+    "overlaps": [
+      {
+        "part": {
+          "id": "#91",
+          "name": "gas-regulator/1"
+        },
+        "volume_mm3": 1.732911949576969
+      },
+      {
+        "part": {
+          "id": "#92",
+          "name": "gas-regulator/2"
+        },
+        "volume_mm3": 0.8636729072171752
+      },
+      {
+        "part": {
+          "id": "#130",
+          "name": "meter-snap-cap"
+        },
+        "volume_mm3": 2311.8424486646372
+      },
+      {
+        "part": {
+          "id": "#408",
+          "name": "enclosure-back-top"
+        },
+        "volume_mm3": 419.7410261703613
+      }
+    ],
+    "unknown": [],
+    "payload_sha256": "cd9058201b3d9ad66f2b5c1d3c1cf6a1986576ccc3b006e8b237e8f50cd3fed7"
+  },
+  {
+    "fore_mm": 25,
+    "translation_mm": [
+      0,
+      -25,
+      -8.25
+    ],
+    "overlaps": [
+      {
+        "part": {
+          "id": "#92",
+          "name": "gas-regulator/2"
+        },
+        "volume_mm3": 0.4016373402359929
+      },
+      {
+        "part": {
+          "id": "#130",
+          "name": "meter-snap-cap"
+        },
+        "volume_mm3": 2530.798016749955
+      },
+      {
+        "part": {
+          "id": "#408",
+          "name": "enclosure-back-top"
+        },
+        "volume_mm3": 337.184130322938
+      }
+    ],
+    "unknown": [],
+    "payload_sha256": "cd9058201b3d9ad66f2b5c1d3c1cf6a1986576ccc3b006e8b237e8f50cd3fed7"
+  },
+  {
+    "fore_mm": 30,
+    "translation_mm": [
+      0,
+      -30,
+      -8.25
+    ],
+    "overlaps": [
+      {
+        "part": {
+          "id": "#92",
+          "name": "gas-regulator/2"
+        },
+        "volume_mm3": 0.3864643238987758
+      },
+      {
+        "part": {
+          "id": "#130",
+          "name": "meter-snap-cap"
+        },
+        "volume_mm3": 2329.865231026254
+      },
+      {
+        "part": {
+          "id": "#408",
+          "name": "enclosure-back-top"
+        },
+        "volume_mm3": 410.6560119834584
+      }
+    ],
+    "unknown": [],
+    "payload_sha256": "cd9058201b3d9ad66f2b5c1d3c1cf6a1986576ccc3b006e8b237e8f50cd3fed7"
+  },
+  {
+    "fore_mm": 35,
+    "translation_mm": [
+      0,
+      -35,
+      -8.25
+    ],
+    "overlaps": [
+      {
+        "part": {
+          "id": "#92",
+          "name": "gas-regulator/2"
+        },
+        "volume_mm3": 0.0049583946963426585
+      },
+      {
+        "part": {
+          "id": "#130",
+          "name": "meter-snap-cap"
+        },
+        "volume_mm3": 1997.208646605128
+      },
+      {
+        "part": {
+          "id": "#408",
+          "name": "enclosure-back-top"
+        },
+        "volume_mm3": 506.296982363933
+      }
+    ],
+    "unknown": [],
+    "payload_sha256": "cd9058201b3d9ad66f2b5c1d3c1cf6a1986576ccc3b006e8b237e8f50cd3fed7"
+  },
+  {
+    "fore_mm": 40,
+    "translation_mm": [
+      0,
+      -40,
+      -8.25
+    ],
+    "overlaps": [
+      {
+        "part": {
+          "id": "#130",
+          "name": "meter-snap-cap"
+        },
+        "volume_mm3": 1663.961092217826
+      },
+      {
+        "part": {
+          "id": "#408",
+          "name": "enclosure-back-top"
+        },
+        "volume_mm3": 474.69181809960605
+      }
+    ],
+    "unknown": [],
+    "payload_sha256": "cd9058201b3d9ad66f2b5c1d3c1cf6a1986576ccc3b006e8b237e8f50cd3fed7"
+  },
+  {
+    "fore_mm": 45,
+    "translation_mm": [
+      0,
+      -45,
+      -8.25
+    ],
+    "overlaps": [
+      {
+        "part": {
+          "id": "#130",
+          "name": "meter-snap-cap"
+        },
+        "volume_mm3": 1332.760577814313
+      },
+      {
+        "part": {
+          "id": "#408",
+          "name": "enclosure-back-top"
+        },
+        "volume_mm3": 443.08665383527546
+      }
+    ],
+    "unknown": [],
+    "payload_sha256": "cd9058201b3d9ad66f2b5c1d3c1cf6a1986576ccc3b006e8b237e8f50cd3fed7"
+  }
+]

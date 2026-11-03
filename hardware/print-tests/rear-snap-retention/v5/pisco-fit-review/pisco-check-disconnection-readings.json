@@ -1,0 +1,142 @@
+{
+  "scope": "Emitted candidate cap relative to existing modeled gas-check and outlet collet; fine-mesh pose queries, not collet release-force or internal travel qualification.",
+  "rows": [
+    {
+      "stage": "drop cap with gas-check attached",
+      "drop_mm": 0.0,
+      "overlap_mm3": 0.0
+    },
+    {
+      "stage": "drop cap with gas-check attached",
+      "drop_mm": 0.5,
+      "overlap_mm3": 0.0
+    },
+    {
+      "stage": "drop cap with gas-check attached",
+      "drop_mm": 1.0,
+      "overlap_mm3": 0.0
+    },
+    {
+      "stage": "drop cap with gas-check attached",
+      "drop_mm": 1.5,
+      "overlap_mm3": 0.0
+    },
+    {
+      "stage": "drop cap with gas-check attached",
+      "drop_mm": 2.0,
+      "overlap_mm3": 0.0
+    },
+    {
+      "stage": "drop cap with gas-check attached",
+      "drop_mm": 2.5,
+      "overlap_mm3": 0.0
+    },
+    {
+      "stage": "drop cap with gas-check attached",
+      "drop_mm": 3.0,
+      "overlap_mm3": 0.0
+    },
+    {
+      "stage": "drop cap with gas-check attached",
+      "drop_mm": 3.6,
+      "overlap_mm3": 0.0
+    },
+    {
+      "stage": "pull gas-check from dropped cap",
+      "check_fore_mm": 0.0,
+      "cap_drop_mm": 3.6,
+      "overlap_mm3": 0.0
+    },
+    {
+      "stage": "pull gas-check from dropped cap",
+      "check_fore_mm": 1.0,
+      "cap_drop_mm": 3.6,
+      "overlap_mm3": 0.0
+    },
+    {
+      "stage": "pull gas-check from dropped cap",
+      "check_fore_mm": 2.0,
+      "cap_drop_mm": 3.6,
+      "overlap_mm3": 0.0
+    },
+    {
+      "stage": "pull gas-check from dropped cap",
+      "check_fore_mm": 5.0,
+      "cap_drop_mm": 3.6,
+      "overlap_mm3": 0.0
+    },
+    {
+      "stage": "pull gas-check from dropped cap",
+      "check_fore_mm": 10.0,
+      "cap_drop_mm": 3.6,
+      "overlap_mm3": 0.0
+    },
+    {
+      "stage": "pull gas-check from dropped cap",
+      "check_fore_mm": 15.6,
+      "cap_drop_mm": 3.6,
+      "overlap_mm3": 0.0
+    },
+    {
+      "stage": "pull gas-check from dropped cap",
+      "check_fore_mm": 20.0,
+      "cap_drop_mm": 3.6,
+      "overlap_mm3": 0.0
+    },
+    {
+      "stage": "pull gas-check from dropped cap",
+      "check_fore_mm": 30.0,
+      "cap_drop_mm": 3.6,
+      "overlap_mm3": 0.0
+    },
+    {
+      "stage": "pull gas-check from dropped cap",
+      "check_fore_mm": 45.0,
+      "cap_drop_mm": 3.6,
+      "overlap_mm3": 0.0
+    },
+    {
+      "stage": "press exposed collet toward body with cap dropped",
+      "collet_aft_mm": 0.25,
+      "cap_drop_mm": 3.6,
+      "overlap_mm3": 0.0
+    },
+    {
+      "stage": "press exposed collet toward body with cap dropped",
+      "collet_aft_mm": 0.5,
+      "cap_drop_mm": 3.6,
+      "overlap_mm3": 0.0
+    },
+    {
+      "stage": "press exposed collet toward body with cap dropped",
+      "collet_aft_mm": 0.75,
+      "cap_drop_mm": 3.6,
+      "overlap_mm3": 0.0
+    },
+    {
+      "stage": "press exposed collet toward body with cap dropped",
+      "collet_aft_mm": 1.0,
+      "cap_drop_mm": 3.6,
+      "overlap_mm3": 0.0
+    },
+    {
+      "stage": "press exposed collet toward body with cap dropped",
+      "collet_aft_mm": 1.5,
+      "cap_drop_mm": 3.6,
+      "overlap_mm3": 0.0
+    },
+    {
+      "stage": "press exposed collet toward body with cap dropped",
+      "collet_aft_mm": 2.0,
+      "cap_drop_mm": 3.6,
+      "overlap_mm3": 0.0
+    }
+  ],
+  "caps_npz_sha256": "296763c4ed7bf45e6d9fb042a3bb719940f6df9a997960d2652790c9e4a55252",
+  "backtop_npz_sha256": "99b041ca7536151462d792a7f69bfa72aee5a3194133b597df68f4efb01fa14c",
+  "root_npz_sha256": "92f09f3d3a7675ab163bff36ede9fca5f0b8b8f9c8febaae6224094af39c49fd",
+  "geometry_sources": {
+    "cap": "hardware/printed-parts/enclosure/rear-equipment-caps/rear-equipment-caps-installed.step.npz:pisco-snap-cap",
+    "hardware": "hardware/manifold-layout/enclosure-assembly.step.npz:gas-check and gas-regulator/3"
+  }
+}

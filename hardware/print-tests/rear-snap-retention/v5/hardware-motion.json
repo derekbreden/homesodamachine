@@ -1,0 +1,55 @@
+{
+  "scope": "Rigid native mesh contact travel; printed friction, clamping force and life need the physical trial.",
+  "assembly_fine_sha256": "92f09f3d3a7675ab163bff36ede9fca5f0b8b8f9c8febaae6224094af39c49fd",
+  "families": {
+    "asse": {
+      "hardware": [
+        "gagira-coupling"
+      ],
+      "first_contact_translation_mm": {
+        "Y-": 0.2637,
+        "Y+": 0.1738
+      }
+    },
+    "pisco": {
+      "hardware": [
+        "co2-inlet",
+        "gas-regulator/1",
+        "gas-regulator/2",
+        "gas-regulator/3"
+      ],
+      "first_contact_translation_mm": {
+        "X-": 0.1348,
+        "X+": 0.1348,
+        "Y-": 0.1602,
+        "Y+": 0.1191,
+        "Z-": 0.1348,
+        "Z+": 0.1348
+      }
+    },
+    "meter": {
+      "hardware": [
+        "digiten-flow/1",
+        "digiten-flow/2",
+        "digiten-flow/3",
+        "digiten-flow/4",
+        "digiten-flow/5",
+        "digiten-flow/6",
+        "digiten-flow/7",
+        "digiten-flow/8",
+        "digiten-flow/9",
+        "digiten-flow/10",
+        "digiten-flow/11",
+        "digiten-flow/12"
+      ],
+      "first_contact_translation_mm": {
+        "X-": 0.1504,
+        "X+": 0.1504,
+        "Y-": 0.1797,
+        "Y+": 0.1797,
+        "Z-": 0.1523,
+        "Z+": 0.1523
+      }
+    }
+  }
+}

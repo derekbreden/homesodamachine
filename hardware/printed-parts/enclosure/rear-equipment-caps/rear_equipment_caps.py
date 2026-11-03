@@ -71,7 +71,9 @@ def numbers():
     st = snaps.station(axis[0],snaps.half_width(widest,split,axis[1])+snaps.WALL,
                        *cap_y,split=split,wing_root=axis[1]-snaps.REAR_ROOT_DROP)
     profile = snaps.asse_cap_profile(wrenches,s)
-    cuts = [{'op':'section', **snaps.asse_cap_room(axis,profile,cap_y)}]
+    adapter_stock,adapter_cut = snaps.asse_adapter_capture(frame,st,axis)
+    cuts = [{'op':'section', **snaps.asse_cap_room(axis,profile,(cap_y[0],cap_y[1]+.5))},
+            adapter_cut]
     lo,hi = _world_bounds(layout.pose('asse1022-assembly'),
                           *cap_profiles['asse']['vent_bounds'])
     cuts.append(box(lo[0]-c,hi[0]+c,lo[1]-snaps.THREAD-c,hi[1]+snaps.THREAD+c,
@@ -87,6 +89,7 @@ def numbers():
                     min(lower[1],lo[1]-snaps.THREAD)-c,
                     max(upper[1],hi[1]+snaps.THREAD)+c,lower[2]-1.,axis[1]))
     caps = [{'name':'asse-snap-cap','section':snaps.cap_section(st,axis[1],None,axis[1],True),
+             'stock':[adapter_stock],
              'pry':[box(*b) for b in snaps.pry_bounds(st)],
              'cuts':cuts,'print_rotate_x':90.}]
 
@@ -102,7 +105,9 @@ def numbers():
     body_r = max(r for z,r in profile if datums['mouth_y']-cap_y[1]-1.<=z<=neck_z)+snaps.PISCO_CAP_AIR
     neck_r = max(r for z,r in profile if neck_z<=z<=collet[0])+snaps.PISCO_CAP_AIR
     lip = datums['mouth_y']-neck_z-s
-    cuts = [turned([(cap_y[0]-1.,lip,neck_r),(lip,cap_y[1]+1.,body_r)],axis)]
+    fit = snaps.pisco_cap_fit(profile,datums['mouth_y'],cap_y,axis,neck_z)
+    cuts = [{'op':'radial-profile','points':fit[name],'frame':fit['frame']}
+            for name in ('body','neck')]
     caps.append({'name':'pisco-snap-cap',
                  'section':snaps.cap_section(st,st['root'],axis[1]-body_r-snaps.WALL),
                  'stock':[box(*b) for b in snaps.pisco_grip_stock(st,axis[1],body_r,neck_r,lip)],
@@ -127,11 +132,11 @@ def numbers():
     core,west = wx(meter.boss_y_range[0])-air,wx(meter.underside_y)
     st = snaps.station(0.,soda[1]+collar+air-mz+snaps.WALL,
                        *cap_y,split=0.,wing_root=west-air-mx)
-    cap_air=snaps.METER_CAP_AIR
-    cuts = [{'op':'stadium-x','centre':(my,mz),'radius':15.45+cap_air,'fore':0.,'aft':cap_air,
-             'span':(wx(-8.1),core+1.)},
-            {'op':'stadium-x','centre':(my,mz),'radius':15.1+cap_air,'fore':0.,'aft':cap_air,
-             'span':(west-cap_air,wx(-8.1)+.01)},
+    cap_air=snaps.METER_HOUSING_FIT
+    housing = [(wx(y),r) for y,r in snaps.clearance_profile(meter.housing_profile,cap_air,cap_air)]
+    cuts = [{'op':'radial-profile','points':housing,
+             'frame':{'rotation':((1.,0.,0.),(0.,1.,0.),(0.,0.,1.)),
+                      'translation_mm':(0.,my,mz)}},
             {'op':'cylinder-y','centre':soda,'radius':meter.port_neck_radius+cap_air,'span':seat_y}]
     bottom=west-air-snaps.METER_BACK-mx
     half=st['inner']-snaps.ROOT_RADIUS-.5
