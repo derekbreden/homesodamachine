@@ -875,38 +875,38 @@
       "stock_minimum_mm": 25.0,
       "passed": true
     },
-    "tube-fluid-18": {
-      "centerline_radii_mm": [
-        25.0
-      ],
-      "stock_minimum_mm": 25.0,
-      "passed": true
-    },
     "tube-drain-vent": {
       "centerline_radii_mm": [
         55.6741128
       ],
       "method": "Producer centerline; circular arcs and cubic curvature extrema",
       "passed": true
+    },
+    "tube-fluid-18": {
+      "centerline_radii_mm": [
+        25.0
+      ],
+      "stock_minimum_mm": 25.0,
+      "passed": true
     }
   },
   "source_sha256": {
     "hardware/scripts/check_asse_drain.py": "dbcc26e7236b251f4603174452b50c43e7150ce7d2bc0f4e00a21b8e954ac638",
     "hardware/manifold-layout/_drain.py": "fe820671a5415fbd7cdbc7bd63af8690a9a6412b0b22b9ff30f2f902cdc16d36",
-    "hardware/manifold-layout/enclosure_assembly.py": "8bbad20e4990194627309579408efd04c6c016866c8324c95f120fb13d65d7e2",
+    "hardware/manifold-layout/enclosure_assembly.py": "b5fc5033c150f60a1353b6267e1b8648c71fbc386317c0892fcb94299df42ac1",
     "hardware/manifold-layout/_lines.py": "814a077be042d9335e897493e22cfff9bbdfd3df26e9014d3f562432c7f39375",
     "hardware/manifold-layout/rear_plumbing.py": "59bd783446f82048f72eb4e2aadfe6a3531c5778404455b13d4facea959ddb70",
     "hardware/manifold-layout/above-core.json": "e0b80674504eabcbfa8ce36559b94b30c737d80f2a99b782dd45cbb7cec05dec",
     "hardware/reference/neofit-drain-bulkhead/neofit_drain_bulkhead.py": "df79886e90630cf93cce916d7f7a1f95b189a298619ac7b7cc53a3cdcc5817a7",
     "hardware/reference/asse1022-assembly/asse1022_assembly.py": "8aaf9cc6d16062a5536d8ea6c8e6d0d79abe965eed761b2017e803f61298f081",
     "hardware/printed-parts/asse-drain-adapter/asse_drain_adapter.py": "115d59155216f206d8fb799f68c9468c88595ec2a576d967bd0be922c67590ed",
-    "hardware/scripts/_assembly_model.py": "a39804df0864a4bc3ad092976807a5ca97919aa33032fd4ab4d855ee7a29c0b5",
-    "hardware/manifold-layout/enclosure_assembly.rs": "99b65cdd54864484ff4f979c693bc3a51dda0931e982ebc6dc6fcd33359423a2"
+    "hardware/scripts/_assembly_model.py": "77fa66f1d6936e66c02e7df7fab1c6bfc9dc1bf75476e37e550fc86dfc2becc6",
+    "hardware/manifold-layout/enclosure_assembly.rs": "ccb8b969f64baa4a2ad01b5251a0d8d6b3aa72083b6eb0200a934e42140dc8cd"
   },
   "fine_inputs": {
     "physical": {
       "path": "hardware/manifold-layout/enclosure-assembly.step.npz",
-      "sha256": "21d1b4a5220abfa5748e1302d01ea32fc8228a381816853e0934a05b2fd3af1c"
+      "sha256": "c9fbaf7754a8d5069efee8b52c3b41909c5604dd96d7ee929f915d03b4ff56b5"
     },
     "envelope": {
       "path": "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step.npz",
