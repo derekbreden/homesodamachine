@@ -6236,16 +6236,17 @@ def graft_printed_surfaces(a, mesh):
     """
     import numpy as np
     import flute_payload
-    surfaces = flute_payload.surfaces()
+    surfaces = flute_payload.surfaces(packed=True)
     shell = surfaces.pop("foam-shell", None)
-    landed = flute_payload.graft(mesh, surfaces)
+    landed = flute_payload.graft(mesh, surfaces, packed=True)
     if shell is not None:
         carry = a.core_carry
         origin = np.array(carry(((0., 0., 0.), (0., 0., 1.)))[0])
         axes = [np.array(carry((p, (0., 0., 1.)))[0]) - origin
                 for p in ((1., 0., 0.), (0., 1., 0.), (0., 0., 1.))]
-        installed = flute_payload.carried(shell, (np.column_stack(axes), origin))
-        landed += flute_payload.graft(mesh, {"foam-shell": installed}, same_frame=True)
+        installed = flute_payload.carried(shell, (np.column_stack(axes), origin), packed=True)
+        landed += flute_payload.graft(mesh, {"foam-shell": installed}, same_frame=True,
+                                     packed=True)
     return landed
 
 
