@@ -265,15 +265,14 @@ fn box_operand(value: &Value) -> Result<Solid> {
 /// native scratch and the two operands of one question can exceed that estimate.
 pub(crate) struct SearchRetention {
     pub array_bytes: usize,
-    pub reuse_queries: usize,
 }
 
 struct SearchUse {
-    at: usize,
+    next: Option<usize>,
     bytes: usize,
 }
 
-fn operand_bytes(parts: &[Imported], indices: &[usize]) -> usize {
+pub(crate) fn operand_bytes(parts: &[Imported], indices: &[usize]) -> usize {
     indices.iter().map(|&i| {
         let s = &parts[i].solid;
         std::mem::size_of_val(s.verts()) + std::mem::size_of_val(s.tris())
@@ -352,18 +351,27 @@ fn query_with_retention(parts: &mut [Imported], queries: &Value, query_only: boo
             let kind = text(value, "kind")?;
             let distribute = kind == "common" && value.get("distribute_a").and_then(Value::as_bool).unwrap_or(false);
             if let Some(policy) = &retention {
-                for indices in [a, b] {
+                for (side, indices) in [a, b].into_iter().enumerate() {
                     if !indices.is_empty() {
-                        searched.insert(indices.clone(), SearchUse { at: index,
-                            bytes: operand_bytes(parts, indices) });
+                        // Unbounded gaps own a separate mesh/search structure.
+                        // Charge both representations before retaining native
+                        // data for a following common-volume question.
+                        let gap_copy = gap_meshes.contains_key(indices) ||
+                            (kind == "gap" && value.get("within_mm").is_none() && a != b);
+                        searched.insert(indices.clone(), SearchUse { next: next_use[index][side],
+                            bytes: operand_bytes(parts, indices) * if gap_copy { 2 } else { 1 } });
                     }
                 }
                 // Bound retained search state before constructing new operands.
                 // A single question always keeps both its exact operands.
                 while searched.values().map(|s| s.bytes).sum::<usize>() > policy.array_bytes {
-                    let oldest = searched.iter().filter(|(indices, _)| *indices != a && *indices != b)
-                        .min_by_key(|(_, used)| used.at).map(|(indices, _)| indices.clone());
-                    let Some(indices) = oldest else { break; };
+                    // The complete question order is known. Keep the expensive
+                    // representation needed soonest, regardless of when it was
+                    // last used; this changes no question or operand order.
+                    let farthest = searched.iter().filter(|(indices, _)| *indices != a && *indices != b)
+                        .max_by_key(|(_, used)| used.next.unwrap_or(usize::MAX))
+                        .map(|(indices, _)| indices.clone());
+                    let Some(indices) = farthest else { break; };
                     forget_search(parts, &mut groups, &mut gap_meshes, &indices);
                     searched.remove(&indices);
                 }
@@ -392,7 +400,8 @@ fn query_with_retention(parts: &mut [Imported], queries: &Value, query_only: boo
                     Ok(reading) => result["common"] = reading,
                     Err(error) => result["error"] = json!(format!("{error:#}")),
                 }
-                if !value.get("retain_until_last_use").and_then(Value::as_bool).unwrap_or(false) {
+                if retention.is_none() && !value.get("retain_until_last_use")
+                    .and_then(Value::as_bool).unwrap_or(false) {
                     for indices in [a, b] {
                         if indices.is_empty() { continue; }
                         if indices.len() == 1 { parts[indices[0]].solid.forget_backend(); }
@@ -448,10 +457,12 @@ fn query_with_retention(parts: &mut [Imported], queries: &Value, query_only: boo
                     }
                 }
             }
-            if let Some(policy) = &retention {
+            if retention.is_some() {
                 for (side, indices) in [a, b].into_iter().enumerate() {
-                    if !indices.is_empty() && next_use[index][side]
-                        .is_none_or(|next| next - index > policy.reuse_queries) {
+                    // A distant next use does not cost anything while this
+                    // operand fits the bounded cache. Budget pressure, rather
+                    // than an arbitrary number of questions, chooses eviction.
+                    if !indices.is_empty() && next_use[index][side].is_none() {
                         forget_search(parts, &mut groups, &mut gap_meshes, indices);
                         searched.remove(indices);
                     }
