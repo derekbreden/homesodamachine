@@ -266,6 +266,8 @@ jobs:
       # disk and holds each to its own sha256. Same script, same pointer file, one step earlier.
       # Node builtins only, so it needs no install of its own.
       - name: The solids the pointer file already names
+        env:
+          R2_PUBLIC_URL: https://objects.homesodamachine.com
         run: node web/scripts/fetch-cad-artifacts.mjs --for-build
 
       # THE FULL SWEEP LIVES HERE AND NOWHERE ELSE. Watching every generator run is over an hour
