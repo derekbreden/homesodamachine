@@ -35,7 +35,6 @@ if __name__ == "__main__":
     import _rust_part
     _rust_part.start()
 
-from _materials import M_PETG_BLACK, linear
 from docgen import substitute_py_comments
 from _cold_core_interface import evap_tail_low_z, evap_tail_high_z
 
@@ -205,8 +204,16 @@ upper_handle_z_range = (wind_z_range[1], mandrel_z_range[1])
 # BUILD AND EXPORT
 # ═══════════════════════════════════════════════════════
 
+def __getattr__(name):
+    if name in {"M_PETG_BLACK", "linear"}:
+        import _materials
+        return getattr(_materials, name)
+    raise AttributeError(name)
+
+
 def numbers():
     """What `coil_mandrel.rs` cuts the mandrel from, and the body's name and colour."""
+    from _materials import M_PETG_BLACK, linear
     return {
         "name": "coil-mandrel", "color": list(linear(M_PETG_BLACK)),
         "mandrel_r_range": list(mandrel_r_range), "mandrel_z_range": list(mandrel_z_range),

@@ -3,7 +3,6 @@
 Port XY belongs to the cold-core shell frame. Each lid captures a spool through
 its flat plate; the casing cup and lid carry the air tube beyond the insulation.
 """
-import cadquery as cq
 
 plate_thickness = 4.0
 liquid_grip = dict(waist_d=9.0, flare_d=11.0, bore_d=6.2, lead_d=7.0, lead_h=0.4)
@@ -17,12 +16,21 @@ air_passage_diameter = 5.2
 air_passage_wall = 3.0
 
 
+def __getattr__(name):
+    if name == "cq":
+        import cadquery
+        return cadquery
+    raise AttributeError(name)
+
+
 def cylinder(xy, z0, z1, diameter):
+    import cadquery as cq
     return cq.Solid.makeCylinder(diameter / 2, z1 - z0, cq.Vector(*xy, z0))
 
 
 def spool_envelope(xy, z0, specification):
     """Cylindrical waist with matching 45-degree flares at both flat ends."""
+    import cadquery as cq
     z1 = z0 + plate_thickness
     waist = specification['waist_d'] / 2
     flare = specification['flare_d'] / 2
@@ -40,6 +48,7 @@ def seat_tool(xy, z0, specification):
 
 
 def build_grommet(specification, xy=(0.0, 0.0), z0=0.0):
+    import cadquery as cq
     z1 = z0 + plate_thickness
     radius = specification['bore_d'] / 2
     lead_radius = specification['lead_d'] / 2

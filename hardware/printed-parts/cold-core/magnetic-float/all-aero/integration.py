@@ -24,22 +24,25 @@ import endcap_circular_dxf as cap
 import _pressure_vessel_sync as pv
 from _reed_channels import reed_y_center
 from _cold_core_interface import reed_column_axis_x
-from meshcad.imports import step_solids
-from meshcad.solids import MeshCompound
+import _assembly_model
 from docgen import substitute_md
 
 
 def load(path):
-    """The emitted solid, retaining the f64 model of a kernel-cut STEP.
-
-    Native STEPs are meshed at the kernel's rule by the same reader. Every
-    operand therefore reaches overlap and minimum-distance queries as a solid
-    in the same precision; the browser's f32 payload is never an input here.
-    """
-    solids = step_solids(path)
-    if not solids:
+    """The producer's complete f64 model, with its original solid order."""
+    model = Path(str(path) + '.npz')
+    indices = range(len(_assembly_model.identity(model)))
+    if not indices:
         raise ValueError(f"{path}: emitted CAD holds no solid")
-    return solids[0] if len(solids) == 1 else MeshCompound(solids)
+    return _assembly_model.instance(model, indices=indices)
+
+
+def translated(reference, xyz):
+    """The source model in the check's existing upright translation frame."""
+    x, y, z = xyz
+    return {**reference, 'transform': [[1., 0., 0., x],
+                                     [0., 1., 0., y],
+                                     [0., 0., 1., z]]}
 
 
 def digest(path):
@@ -54,8 +57,11 @@ def main():
               HERE.parents[1]/'_float_interface.py', HERE/'physical-observations.json',
               HW/'cut-parts/carbonation/endcaps-circular/endcap-circular-2hole.step',
               HW/'cut-parts/carbonation/endcaps-circular/endcap-circular-2hole-drawing.pdf']
-    assert abs(body.BoundingBox().xlen - f.diameter) < 1e-6
-    assert abs(body.BoundingBox().zlen - f.height) < 1e-6
+    bounds = _assembly_model.measure([body], ())['bodies']
+    lower = [min(row['min'][i] for row in bounds) for i in range(3)]
+    upper = [max(row['max'][i] for row in bounds) for i in range(3)]
+    assert abs(upper[0] - lower[0] - f.diameter) < 1e-6
+    assert abs(upper[2] - lower[2] - f.height) < 1e-6
     assert abs(cap.register_radius * 25.4 + f.rod_axis_from_inner_wall
                - cap.tube_id * 25.4 / 2) < 1e-9
     assert abs(res.rod_position_x + f.rod_axis_from_inner_wall - res.inner_far_x_abs) < 1e-9
@@ -64,14 +70,13 @@ def main():
     # Five travel stations and nine radial offsets span the upright bounding
     # envelope. Fixed cross-section walls, the floor and both stops are
     # checked in the emitted body/cap solids, not only in duplicated dimensions.
+    references, queries, owners = {}, [], []
     for side, label in ((1, 'right'), (-1, 'left')):
         vessel_path = HERE.parents[1]/'reservoir'/f'reservoir-{label}.step'
         cap_path = HERE.parents[1]/'reservoir'/f'reservoir-cap-{label}.step'
-        vessel = load(vessel_path)
-        lid = load(cap_path).translate((0, 0, res.cap_assembly_lift))
+        references[label + '-vessel'] = load(vessel_path)
+        references[label + '-lid'] = translated(load(cap_path), (0, 0, res.cap_assembly_lift))
         inputs += [vessel_path, cap_path]
-        max_overlap = 0.0
-        min_distance = math.inf
         count = 0
         lo, hi = res.float_magnet_travel_z
         for t in (0, .25, .5, .75, 1):
@@ -79,21 +84,39 @@ def main():
             for angle in range(0, 360, 45):
                 r = f.guide_radial_clearance
                 dx, dy = r*math.cos(math.radians(angle)), r*math.sin(math.radians(angle))
-                moved = body.translate((side*res.rod_position_x+dx, res.rod_position_y+dy, z))
-                for solid in (vessel, lid):
-                    max_overlap = max(max_overlap, moved.intersect(solid).Volume())
-                    min_distance = min(min_distance, moved.distance(solid))
+                moved = f'{label}-float-{count}'
+                references[moved] = translated(body, (side*res.rod_position_x+dx,
+                                                       res.rod_position_y+dy, z))
+                for solid in (label + '-vessel', label + '-lid'):
+                    queries += [{'a': moved, 'b': solid, 'kind': 'common', 'distribute_a': True},
+                                {'a': moved, 'b': solid, 'kind': 'gap'}]
+                    owners += [label, label]
                 count += 1
-            moved = body.translate((side*res.rod_position_x, res.rod_position_y, z))
-            for solid in (vessel, lid):
-                max_overlap = max(max_overlap, moved.intersect(solid).Volume())
+            moved = f'{label}-float-{count}'
+            references[moved] = translated(body, (side*res.rod_position_x, res.rod_position_y, z))
+            for solid in (label + '-vessel', label + '-lid'):
+                queries.append({'a': moved, 'b': solid, 'kind': 'common', 'distribute_a': True})
+                owners.append(label)
             count += 1
-        assert max_overlap < 1e-6, (label, max_overlap)
         guides[label] = {'rod_axis_xy_mm': [side*res.rod_position_x, res.rod_position_y],
                          'magnet_travel_z_mm': [lo, hi], 'upright_samples': count,
-                         'maximum_float_body_cap_overlap_mm3': max_overlap,
-                         'minimum_body_cap_distance_mm': min_distance,
+                         'maximum_float_body_cap_overlap_mm3': 0.0,
+                         'minimum_body_cap_distance_mm': math.inf,
                          'end_stops': 'contact allowed at the lower/upper boss; no volume intrusion'}
+    for label, reading in zip(owners, _assembly_model.measure_groups(references, queries), strict=True):
+        if 'error' in reading:
+            raise ValueError(reading['error'])
+        guide = guides[label]
+        if reading['kind'] == 'common':
+            guide['maximum_float_body_cap_overlap_mm3'] = max(
+                guide['maximum_float_body_cap_overlap_mm3'], reading['common']['raw']['volume_mm3'])
+        else:
+            # Shape.distance is nonnegative, including contact or intrusion.
+            guide['minimum_body_cap_distance_mm'] = min(
+                guide['minimum_body_cap_distance_mm'], max(0.0, reading['value']))
+    for label, guide in guides.items():
+        assert guide['maximum_float_body_cap_overlap_mm3'] < 1e-6, (
+            label, guide['maximum_float_body_cap_overlap_mm3'])
     carb_reed_axis = bridge.carbonator_outer_radius + f.reed_mount_diameter/2
     reservoir_reed_axis = reed_column_axis_x
     paths = {'carbonator': f.reed_edge_distance(cap.register_radius*25.4, carb_reed_axis),

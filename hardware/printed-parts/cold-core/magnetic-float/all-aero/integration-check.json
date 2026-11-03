@@ -63,7 +63,7 @@
     "hardware/printed-parts/cold-core/magnetic-float/all-aero/float-aero.step": "1a6227a4c258807fe39b4f7e0e435ea2bbf5a27a8f58a23450f996116efacbde",
     "hardware/printed-parts/cold-core/magnetic-float/all-aero/float-aero.stl": "2228d0933e0a2a7bdd9dd8d6fce4d003a48ac61db1c69f402e5fa5047ae1cef5",
     "hardware/printed-parts/cold-core/magnetic-float/all-aero/design.json": "59afc8a47bb9fa01e70224c5769f296beef4726f149cd1657afaabe728ae6e29",
-    "hardware/printed-parts/cold-core/_float_interface.py": "643ad69642462d385b79b9250f786efda5049ee335af9a2a61dbee66987f8a10",
+    "hardware/printed-parts/cold-core/_float_interface.py": "d2fc9c9029101bf471e06f81f9b1acbc4c6c841ba629e561fd9a33833319a72a",
     "hardware/printed-parts/cold-core/magnetic-float/all-aero/physical-observations.json": "98e0d6ff6279750202439dae0441767bab120295626a8fc0d4d3bd89f6e10e11",
     "hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole.step": "a6d5e99fa50d2809649267c9240a6d168979daa98e0631b80c61af951a237228",
     "hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole-drawing.pdf": "5d08728194f22d931878138b19af2e56d8db718ed2d97c3cbde51203a5855ad9",
