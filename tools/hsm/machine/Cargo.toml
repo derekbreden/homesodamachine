@@ -11,16 +11,16 @@ name = "machine-assembly-model"
 path = "../../../hardware/manifold-layout/enclosure_assembly.rs"
 
 [[bin]]
+name = "machine-layout"
+path = "../../../hardware/manifold-layout/machine_layout.rs"
+
+[[bin]]
 name = "installed-wires"
 path = "../../../hardware/wiring/installed/wire_geometry.rs"
 
 [[bin]]
 name = "manifold-layout"
 path = "../../../hardware/manifold-layout/manifold_layout.rs"
-
-[[bin]]
-name = "tube-route-samples"
-path = "../../../hardware/scripts/tube_routes.rs"
 
 [dependencies]
 anyhow.workspace = true
