@@ -27,5 +27,22 @@
     "paths": "insertion-removal-review.json",
     "tools": "tool-and-cartridge-review.json"
   },
-  "physical_scope": "Geometry readings establish fit, tool space and reversible service routes. Release force and repeated bending remain physical checks."
+  "physical_scope": "Geometry readings establish fit, tool space and reversible service routes. Release force and repeated bending remain physical checks.",
+  "pisco_bearing_crown": {
+    "scope": "PISCO central 6 mm-wide upper bearing crown over its complete 3 mm axial bearing band. The local side windows retain this crown, the original fitted radius and the rear-wall bore.",
+    "world_bounds_mm": [
+      [
+        73.5,
+        438.125,
+        335.0
+      ],
+      [
+        79.5,
+        441.125,
+        355.0
+      ]
+    ],
+    "added_mm3": 0.0,
+    "removed_mm3": 0.0
+  }
 }
