@@ -257,9 +257,10 @@ def installed_numbers(request, document, *, input_root=ROOT):
              'display_body_offset_slope': enc.display_body_offset_slope,
              'display_cover_origin': enc.display_plane(box.outer).origin.toTuple(),
              'funnel_fasteners': fasteners, 'y_seam': seam,
-             'funnel_seal': {'point': (cx + funnel.neck_dx, cy + funnel.neck_dy, seat + funnel.spout_land_z),
+             'funnel_seal': {'base': (cx + funnel.neck_dx, cy + funnel.neck_dy,
+                                     seat + funnel.spout_land_z - funnel.sealing_land),
                              'outer_radius': elbow.STEM_OD / 2.,
-                             'inner_radius': funnel.spout_id / 2., 'length': funnel.sealing_land}}
+                             'inner_radius': funnel.sealing_id / 2., 'length': funnel.sealing_land}}
     paths = {'funnel': 'printed-parts/zone-c/funnel/funnel.step',
               'funnel_cover': 'printed-parts/zone-c/funnel-cover/funnel-cover.step',
               'cradle': 'printed-parts/zone-c/funnel/elbow-cradle.step',
@@ -469,6 +470,38 @@ def _equipment(request, prepared, directory):
     return equipment
 
 
+def _normal_metadata(plan, request):
+    """Current source datums used by the existing mating and support checks."""
+    import _above_core_mounts
+    import _machine_equipment
+    metadata = plan['metadata']
+    metadata['enclosure_pack_body_names'] = sorted(metadata['pack']['placed'])
+    metadata['pack_body_names'] = sorted({row['name'] for row in request['manifold_numbers']['bodies']
+        if not row['name'].startswith(('tube-', 'turn-', 'step-', 'stub-'))})
+    frames = metadata['frames']
+    frames.pop('__pack_base', None)
+    sleeves = {}
+    for side in ('suction', 'discharge'):
+        if side + '-reducer' not in frames:
+            continue
+        joint = _machine_equipment._joint_numbers(side)
+        trim, bore_radius = joint['bore'][-1]
+        radius = math.sqrt(bore_radius ** 2 +
+                           (joint['tube_od_mm'] ** 2 - joint['tube_id_mm'] ** 2) / 4.)
+        sleeves[side] = {'radius': radius, 'trim': trim,
+                          'transform': frames[side + '-reducer']['transform']}
+    metadata['reducer_sleeves'] = sleeves
+    metadata['union_supports'] = _above_core_mounts.union_support_datums()
+    installed = request.get('installed_datums', {})
+    metadata['funnel_fasteners'] = installed.get('funnel_fasteners', [])
+    metadata['funnel_seal'] = installed.get('funnel_seal')
+    metadata['y_seam_insert_datums'] = [
+        {'name': row['name'] + '-insert', 'host': 'enclosure-' + row['owner'],
+         'x': row['x'], 'y': row['y'], 'z0': row['insert0'], 'z1': row['insert1']}
+        for row in installed.get('y_seam', [])]
+    return plan
+
+
 def _bind_presentations(plan, input_root=ROOT):
     """Explicit frozen drawings for raw source-model packets without a bound payload."""
     manifests = {}
@@ -539,7 +572,9 @@ def plan(*, stage='pack', box_document=None, directory=None, input_root=ROOT):
         request['dock'] = dock_instances(box.pack.collet_plate, Path(directory) / 'dock', input_root=input_root)
     equipment = _equipment(request, prepared, directory)
     request.update(prepared=prepared, equipment=equipment, stage=stage)
-    return _run(request, Path(directory) / 'complete')
+    result = _normal_metadata(_run(request, Path(directory) / 'complete'), request)
+    (Path(directory) / 'complete/machine-layout.json').write_text(json.dumps(result) + '\n')
+    return result
 
 
 def dock_instances(plate, directory=None, *, input_root=ROOT):
