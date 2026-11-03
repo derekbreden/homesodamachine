@@ -1,26 +1,10 @@
-[thin] Functional hook nose and insertion ramp. The 4.6 mm total hook height comprises a 1.6 mm tool-backed nose and a 3 mm pointed lead-in. Across the centered 5 mm blade entry, the 1 mm opening leaves a finite 0.6 mm nose above it. The tool-purchase roof and the adjoining insertion profile are functional parts of this specified hook. Physical insertion, release and repeated use are checked with the complete pointed sample.
-alternatives: Increasing roof thickness within this height reduces the requested blade opening or steepens the insertion ramp; increasing total hook height also deepens its receiving pocket into the fixed roof stock. Filling the entry removes centered tool access. The 2.6 mm flat retaining overlap remains on each side of the entry.
-file: hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.step
-click: x=12.563 y=-16.318 z=18.934
-click: x=11.846 y=-16.318 z=18.934
-click: x=12.563 y=16.318 z=17.066
-click: x=11.846 y=16.318 z=17.066
-click: x=12.758 y=-16.922 z=13.408
-click: x=10.846 y=-16.922 z=13.408
-click: x=12.758 y=16.922 z=22.592
-click: x=10.846 y=16.922 z=22.592
-click: x=12.764 y=-16.941 z=28.067
-click: x=10.846 y=-16.941 z=28.067
-click: x=12.764 y=16.941 z=7.933
-click: x=10.846 y=16.941 z=7.933
-
 [thin] Functional axial bearing at the measured water-regulator body-to-neck shoulder. The short native neck between the housing shoulder and outlet collar bounds this approximately 2 mm axial web. Its surfaces follow the actual installed radial profile with 0.25 mm radial and axial cap air; this is the shoulder that constrains axial movement.
 alternatives: Increasing the axial web to 3 mm intersects the adjacent housing or outlet collar unless their fitted cavity is enlarged. Enlarging that cavity removes the measured axial capture. Additional radial stock does not widen the available axial neck.
 file: hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.step
 click: x=-4.303 y=3.807 z=23.549
 click: x=-4.243 y=3.781 z=21.576
 
-[thin] The specified 2.0 mm spring leaves and R1.5 root transitions provide the intermediate section Derek requests between the physically tested 1.3 and 2.6 mm leaves. These are the flexures, printed on an axial end so bending lies in the layer plane. Their physical bending distribution and fatigue remain for the v3 trial.
+[thin] The specified 2.0 mm spring leaves and R1.5 root transitions provide the intermediate section Derek requests between the physically tested 1.3 and 2.6 mm leaves. These are the flexures, printed on an axial end so bending lies in the layer plane. Repeated insertion and bending distribution are physical checks on the complete pointed samples.
 alternatives: Thickening the leaves to 2.6 mm repeats the section Derek reports bending only at its corners; 1.3 mm repeats the thinner section he requests an intermediate value above. The broad central bearing stock is independent of these spring lengths.
 file: hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.step
 click: x=10.448 y=-21.053 z=30.884
@@ -28,8 +12,10 @@ click: x=10.448 y=-19.053 z=30.884
 click: x=-8.553 y=21.053 z=32.631
 click: x=-8.553 y=19.053 z=32.631
 
-[ledge] The two axial end faces of each centered 5 × 1 mm blade entry are the functional tool-access boundaries under the hooks. Tree(auto)/Default retains accessible supports at these small ceilings; post-processing uses a tiny flathead that fits inside the cavity. The slot does not cut the continuous spring wall.
-alternatives: Filling the faces closes the blade entry. A ramped opening changes the flat screwdriver purchase and the remaining retaining bearing. Derek explicitly permits a tool and the extra edges for this release feature.
+[thin] The selected water-regulator cap has 2 mm spring leaves and a 1.6 mm solid retaining nose with its 1 mm pointed lead-in. The reported 1.774 mm diagonal crosses the transition between these specified flexure and catch surfaces. Derek has physically approved this fitted section. The point and flexible catch are required features, rather than a bulk receiver wall.
+alternatives: Increasing the spring thickness changes its accepted bending section. Blunting the nose removes the selected pointed lead-in. Increasing the hook height changes its mating roof pocket.
 file: hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.step
-click: x=11.179 y=-18.020 z=20.500
-click: x=11.179 y=18.020 z=20.500
+click: x=10.846 y=-17.011 z=24.668
+click: x=12.586 y=-16.670 z=24.668
+click: x=10.846 y=17.011 z=11.332
+click: x=12.586 y=16.670 z=11.332

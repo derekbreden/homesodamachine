@@ -1,0 +1,72 @@
+{
+  "root": {
+    "replaced": [
+      "enclosure-back-top",
+      "cold-core/foam-cap-lid-top",
+      "cold-core/pump-snap-cap",
+      "asse-snap-cap",
+      "pisco-snap-cap",
+      "meter-snap-cap",
+      "regulator-snap-cap"
+    ],
+    "unrelated_fine_bodies_preserved": 431,
+    "step_sha256": "35796d8bcebce683bcbbfb0c96adfb02de5d28754ebceaf74bec61b4bac0282f",
+    "payload_sha256": "23e7fae82cb2bd3563de9779a7e5a471dc30c127f9ab1e8371179e38d5f29316"
+  },
+  "enclosure": {
+    "replaced": [
+      "enclosure_back_top"
+    ],
+    "unrelated_fine_bodies_preserved": 24,
+    "step_sha256": "d7f592339a4f086ee56461e477034a05fc63d0afd65e7efe5821aba01f72c526",
+    "payload_sha256": "89ec659c208961ff98ca373638a41eb38890b45b89a1e168893fc383614c63ca"
+  },
+  "foam": {
+    "replaced": [
+      "foam-cap-lid-top"
+    ],
+    "unrelated_fine_bodies_preserved": 2,
+    "step_sha256": "6b5fd12040a5d9babb2ac1e6a6119107ef5c3571f76f1f86518fdcd330e9af05",
+    "payload_sha256": "570422d293def53bb27670a7ab7e0dc35908a1f48470f3aac0961acffabd6c47"
+  },
+  "core": {
+    "replaced": [
+      "foam-cap-lid-top"
+    ],
+    "unrelated_fine_bodies_preserved": 84,
+    "step_sha256": "1f184f4ac3f13b68486cbda81cdc096b0dbb2d6b972056dbc0a5d3f9ded658c5",
+    "payload_sha256": "a4647b1345c4979cb07d61595e55d6aee527ff160787f92880aae51e1e3f15be"
+  },
+  "scene": {
+    "replaced_arrays": 21,
+    "unrelated_bodies_preserved": 434,
+    "metadata": "Declared Box, aliases and scalar checks retained; scalar checks were not recomputed."
+  },
+  "installation": {
+    "back-top": {
+      "changed": [
+        "asse-snap-cap",
+        "enclosure-back-top",
+        "meter-snap-cap",
+        "pisco-snap-cap",
+        "regulator-snap-cap"
+      ],
+      "unrelated_buffer_views_preserved": 498,
+      "nodes_materials_and_unrelated_buffers_retained": true,
+      "sha256": "69968ea38ef02866d8aa052f29618dfe59575837d03aab12229e57e42aaa3451"
+    },
+    "back-half": {
+      "changed": [
+        "asse-snap-cap",
+        "cold-core/foam-cap-lid-top",
+        "enclosure-back-top",
+        "meter-snap-cap",
+        "pisco-snap-cap",
+        "regulator-snap-cap"
+      ],
+      "unrelated_buffer_views_preserved": 735,
+      "nodes_materials_and_unrelated_buffers_retained": true,
+      "sha256": "d891111c3c8f3dfbabb5c3d79ae715f671569fa0180687c850db358d5ce191fe"
+    }
+  }
+}

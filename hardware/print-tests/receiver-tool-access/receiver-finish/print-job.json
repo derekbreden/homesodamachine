@@ -1,0 +1,27 @@
+{
+  "source_archive": "hardware/print-tests/receiver-tool-access/receiver-finish/prints/2026-11-03-finished-receivers-mark1-mark1-0de50157/2026-11-03-finished-receivers-mark1-mark1-0de50157.gcode.3mf",
+  "source_archive_sha256": "60bf4cc7f96578be28045e7f524a168fa4f77e0a73b9cd1e2c7851bf1612cc95",
+  "print_only_archive": "hardware/print-tests/receiver-tool-access/receiver-finish/prints/2026-11-03-finished-receivers-mark1-mark1-0de50157/2026-11-03-finished-receivers-mark1-mark1-0de50157-print-only.gcode.3mf",
+  "print_only_archive_sha256": "dc68936f72e0f57d09475f93092090df86c3edf28e7357400f7605b5fd53b47e",
+  "gcode_sha256": {
+    "Metadata/plate_1.gcode": "2ec4f86cf11a72e35dc37673785aac4a04d12f5b3815bd45bb8f685ceeb1e492"
+  },
+  "gcode_byte_identical": true,
+  "changed_container_entries": [
+    "3D/3dmodel.model",
+    "Metadata/model_settings.config"
+  ],
+  "omitted_editable_geometry_entries": [
+    "3D/Objects/object_1.model",
+    "3D/Objects/object_2.model",
+    "3D/Objects/object_3.model",
+    "3D/Objects/object_4.model",
+    "3D/Objects/object_5.model",
+    "3D/_rels/3dmodel.model.rels",
+    "Metadata/cut_information.xml"
+  ],
+  "send_file": "/Users/derekbredensteiner/Downloads/HSM-finished-receivers-Mark1-0de50157.gcode.3mf",
+  "status": "Prepared for the next clear Mark1 bed; current complete-set print is running.",
+  "estimated_seconds": 23089.8125,
+  "grams": 196.93
+}

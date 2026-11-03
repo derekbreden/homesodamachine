@@ -45,10 +45,10 @@ are 3.419 mm and 3.329 mm wide.
 One continuous 54.5 mm filled box half-pipe spans native X20–74.5, with a
 6.2 mm crown and one straight east shoulder for ASSE clearance. Independent
 2.0 mm spring leaves have 1.5 mm inside root blends and 22.25 mm root-to-catch
-lengths. Their flat catches have 2.6 mm overlap outside centered 5 mm-wide by
-1 mm-high flathead entries. Nominal catch clearance is 0.4 mm. Ease each leaf
-outward through its tool entry before withdrawing the cap. One 3 mm-rise
-planar lead-in ends at each pointed free edge above its 1.6 mm tool-backed nose.
+lengths. Their solid flat catches have 2.6 mm overlap. Nominal catch clearance
+is 0.4 mm. Ease each leaf outward through its receiver entry before withdrawing
+the cap. One 3 mm-rise planar lead-in ends at each pointed free edge above its
+continuous 1.6 mm retaining nose.
 The continuous side pockets clear the complete points by 0.5 mm and
 span X19.75–74.75; the seat leaves
 3 mm of solid axial stock at each end. The clip closes after seating the bare
@@ -126,10 +126,13 @@ Assembly order and foam work: [cold-core assembly](../../../assembly/cold-core.m
 ## Receiver release channels
 
 The G-Ganen cap has solid pointed noses and continuous spring walls. Two
-centered 4 mm by 3 mm channels in the lid's receivers accept a small flathead
+centered channels in the lid's receivers accept a small flathead
 from aft, at 65° to the downward cap-installation axis. The channels continue
-through the rear receiver stock while retaining the enclosing roof and outer
-backing. Release both wings with the lid loose on the bench and the pump
+through the rear receiver stock. Each inner channel side meets its actual
+measured motor-rail room plane, giving 4.25 and 4.34 mm widths and a 3 mm normal
+throat. The upper mouth joins the flat catch pocket with a flat opening and
+a 3 mm approach-side shoulder. The enclosing roof and outer backing remain.
+Release both wings with the lid loose on the bench and the pump
 plumbing and leads dressed aside. The cap withdraws upward.
 
 The [complete snap set](../../../print-tests/receiver-tool-access/README.md)

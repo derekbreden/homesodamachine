@@ -14,8 +14,14 @@ their fits. The [scan reading](../asse-body-seating/geometry-review.json)
 records 0.1949 mm minimum observed lower-plane clearance and 3.67 mm backing
 above the drain window. Physical seating still needs this cap's result.
 
-The receiver channels are 4 mm across the leaf and 3 mm normal to the driver
-approach. ASSE and meter approach from the fore/open side at 50° to their
+The [finished receivers](receiver-finish/README.md) carry the production tool
+openings and have a prepared receiver-only plate. Their caps are byte-identical
+to this complete set's caps. The running complete-set plates remain the exact
+geometry bound in [print jobs](print-jobs.json).
+
+The receiver channels are at least 4 mm across the leaf and 3 mm normal to the driver
+approach, with a flat mouth at the catch pocket and 3 mm stock at its approach-side
+shoulder. ASSE and meter approach from the fore/open side at 50° to their
 installation axes. PISCO uses 75° fore channels. The regulator has one
 reachable 75° channel on its fore flank. The pump approaches from aft at 65°;
 its channel continues through the complete rear receiver stock. A three-mm-high
@@ -73,5 +79,6 @@ corners do not whiten or take a permanent set.
 
 [Print jobs](print-jobs.json), [fit readings](parts/fit.json),
 [assembly integration](assembly-integration.json) and [publication](publication.json)
-bind the actual exported and submitted geometry. The canceled single ASSE cap
+bind the submitted complete set. The finished receiver record binds the current
+production geometry and its matching replacement receivers. The canceled single ASSE cap
 is retained separately in the [retired print record](../asse-body-seating/README.md).

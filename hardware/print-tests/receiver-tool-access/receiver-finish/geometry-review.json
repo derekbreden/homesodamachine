@@ -1,0 +1,48 @@
+{
+  "scope": "The five receivers have flat openings at the catch bearing plane, with nominal 3 mm stock at the approach-side shoulder. Pump slots join each actual measured rail-room plane. All five complete cap STLs are byte-identical to the running complete set.",
+  "families": {
+    "asse": {
+      "receiver_added_material_mm3": 2.6518074018269465e-08,
+      "receiver_removed_material_mm3": 42.903129317124666,
+      "cap_stl_byte_identical_to_running_set": true,
+      "receiver_stl_sha256": "cb3fff97aa7bb747c7eb6c1b45d392e7e5f0816de884053702ba78e290e081b1",
+      "cap_stl_sha256": "075052369a8c12d6c86708975d3137d39faaf505942fe31f79be2c280e78bfe1"
+    },
+    "pisco": {
+      "receiver_added_material_mm3": 4.669800546253087e-09,
+      "receiver_removed_material_mm3": 120.91844610177708,
+      "cap_stl_byte_identical_to_running_set": true,
+      "receiver_stl_sha256": "6a813202a35f34986ec2a31416f361bdbc65d28c798be11e2711b855c0895364",
+      "cap_stl_sha256": "884bdbf1da0e53244723dbb05afa6b77082bd4b03ae701da7aaef11f6561a338"
+    },
+    "regulator": {
+      "receiver_added_material_mm3": 0.0,
+      "receiver_removed_material_mm3": 60.45922310469767,
+      "cap_stl_byte_identical_to_running_set": true,
+      "receiver_stl_sha256": "d749784a22af55a1d46c368339d605ae5ffc9655889684f2c402a97fad4f1a9f",
+      "cap_stl_sha256": "087eb03675c32c610cf01d181f5a5ebf6a9dfe235ddeb0c61bc5da1fb2702b44"
+    },
+    "meter": {
+      "receiver_added_material_mm3": 0.0,
+      "receiver_removed_material_mm3": 28.15517862723894,
+      "cap_stl_byte_identical_to_running_set": true,
+      "receiver_stl_sha256": "11bbdfa811f38b95482f635bdcaf19951523e9a044f0cf8c62b70fa54b4bc6b7",
+      "cap_stl_sha256": "cdbe211bc480691207fe85f9c37342d7987142068c20fdb997bb9e8c485a4e01"
+    },
+    "pump": {
+      "receiver_added_material_mm3": 3.4362983569735678e-09,
+      "receiver_removed_material_mm3": 159.88687792541634,
+      "cap_stl_byte_identical_to_running_set": true,
+      "receiver_stl_sha256": "750e00731ca0deb42d7e6e5edb064ca58152381d91a9ca0d4007134922a8049f",
+      "cap_stl_sha256": "98c67df4a514e89508ea6c5ff06db4c37146ff22d61f93f9121633be9a646b3e"
+    }
+  },
+  "comparison": "Native double-precision receiver meshes, with 0.001 mm3 numerical intersection tolerance.",
+  "path_preservation": "Each complete receiver is a geometric subset of the receiver measured in the insertion/removal and tool review. Caps and all other obstacles are retained, so those exact continuous swept paths remain clear.",
+  "retention": "The adjacent retaining ledges and axial end stops remain. The fresh fit readings show zero seated interference and blocked pullout at 0.5 mm travel. Interference volume establishes geometric capture, not retention force or fatigue.",
+  "references": {
+    "paths": "../insertion-removal-review.json",
+    "tools": "../tool-and-cartridge-review.json",
+    "fits": "parts/fit.json"
+  }
+}

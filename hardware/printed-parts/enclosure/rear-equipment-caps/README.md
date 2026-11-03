@@ -59,7 +59,8 @@ pointed free edge above a 1.6 mm solid nose land. The regulator retains its
 belong to the receivers. ASSE and meter have two 50° approaches; PISCO has
 two 75° fore approaches, and the regulator has one 75° approach on its fore
 flank. Angles are measured from each cap's installation direction. The
-channels retain the enclosing roof and outer backing. The nominal catch
+channels meet the flat catch pocket with a flat mouth and 3 mm stock at the
+approach-side shoulder. They retain the enclosing roof and outer backing. The nominal catch
 clearance is 0.4 mm. One three-mm-high planar bevel on the ASSE receiver's lower
 east fore corner clears the neighboring PISCO cap's service path; the neck
 retains 3 mm of stock and the upper end stop retains its fitted planes.
