@@ -229,13 +229,15 @@ def write(instances, output, *, name="enclosure-assembly"):
                           numbers(instances, name=name), output)
 
 
-def measure(instances, queries, *, component_names=()):
+def measure(instances, queries, *, component_names=(), query_only=False):
     """Fine queries and optional component bounds/volumes for named model entries."""
     import _rust_part
 
     inputs = numbers(instances, queries=queries)
     if component_names:
         inputs['component_names'] = list(component_names)
+    if query_only:
+        inputs['query_only'] = True
     return _rust_part.check("machine", "machine-assembly-model",
                             inputs)
 
@@ -285,7 +287,7 @@ def measure_groups(references, queries):
                              ([operand(name)] if isinstance(operand(name), int) else operand(name))]}
                 for stage in query['fine_mask_stages']]
         numbered.append(row)
-    return measure(instances, numbered)['queries'] if numbered else []
+    return measure(instances, numbered, query_only=True)['queries'] if numbered else []
 
 
 def box_commons(model, requests, *, transform=None):
