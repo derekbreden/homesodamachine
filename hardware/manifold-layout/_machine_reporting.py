@@ -250,9 +250,20 @@ def scene_document(spec, checked, *, taken=None):
     import _machine
     import _routing
     metadata = spec['metadata']
-    frames = {name: {'ports': {port: [row['pos'], row['axis'], row['diam']]
-                               for port, row in _ports(frame).items()}, 'bb': frame['bb']}
-              for name, frame in metadata['frames'].items()}
+    frames = {}
+    for name, frame in metadata['frames'].items():
+        if 'bb' in frame:
+            box = frame['bb']
+        else:
+            # Port frames share the final plan's measured placed-body bounds.
+            # Raw bounds use two XYZ points; the scene uses paired axis limits.
+            low, high = metadata['raw_bounds'][name]
+            box = [low[0], high[0], low[1], high[1], low[2], high[2]]
+        frames[name] = {
+            'ports': {port: [row['pos'], row['axis'], row['diam']]
+                      for port, row in _ports(frame).items()},
+            'bb': box,
+        }
     result = plain({'schema': 1, 'taken': time.time() if taken is None else taken,
                   'sources': _machine.stamps(), 'solids': metadata.get('solids', ()),
                   'core': metadata.get('core_body_names', ()),
