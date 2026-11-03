@@ -489,18 +489,6 @@ def build_tee_complete() -> cq.Assembly:
     return scene
 
 
-def build_tee_tug_check() -> cq.Assembly:
-    scene = _tee_scene("modern-tee-tug-check")
-    _add_shipped_assembly(
-        scene,
-        tee_x=TEE_X,
-        staged=False,
-        branch_tugged=True,
-    )
-    _add_original_line(scene, destination="tee")
-    return scene
-
-
 # Product-neutral installed context: a compact quarter-turn body with integral
 # PTC mouths.  It establishes the shutoff action without inventing a threaded
 # or compression operation.  The exact measured PP0408W downstream is repeated
@@ -581,7 +569,6 @@ SCENES = (
     ("modern-tee-assembly-ready", build_tee_assembly_ready, TEE_VIEW),
     ("modern-tee-line-ready", build_tee_line_ready, TEE_VIEW),
     ("modern-tee-complete", build_tee_complete, TEE_VIEW),
-    ("modern-tee-tug-check", build_tee_tug_check, TEE_VIEW),
 )
 
 

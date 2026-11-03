@@ -3351,7 +3351,6 @@ genrule(
         "out/render-modern-tee/hardware/install-guide/plumbing/modern/art/modern-tee-assembly-ready.png",
         "out/render-modern-tee/hardware/install-guide/plumbing/modern/art/modern-tee-complete.png",
         "out/render-modern-tee/hardware/install-guide/plumbing/modern/art/modern-tee-line-ready.png",
-        "out/render-modern-tee/hardware/install-guide/plumbing/modern/art/modern-tee-tug-check.png",
         "out/render-modern-tee/hardware/install-guide/plumbing/modern/art/modern-water-off.png",
         "out/render-modern-tee/hardware/install-guide/plumbing/modern/art/modern-water-on.png",
         "out/render-modern-tee/hardware/install-guide/plumbing/modern/out/modern-water-on.step",
@@ -3387,12 +3386,11 @@ O2=$$PWD/$(location out/render-modern-tee/hardware/install-guide/plumbing/modern
 O3=$$PWD/$(location out/render-modern-tee/hardware/install-guide/plumbing/modern/art/modern-tee-assembly-ready.png)
 O4=$$PWD/$(location out/render-modern-tee/hardware/install-guide/plumbing/modern/art/modern-tee-complete.png)
 O5=$$PWD/$(location out/render-modern-tee/hardware/install-guide/plumbing/modern/art/modern-tee-line-ready.png)
-O6=$$PWD/$(location out/render-modern-tee/hardware/install-guide/plumbing/modern/art/modern-tee-tug-check.png)
-O7=$$PWD/$(location out/render-modern-tee/hardware/install-guide/plumbing/modern/art/modern-water-off.png)
-O8=$$PWD/$(location out/render-modern-tee/hardware/install-guide/plumbing/modern/art/modern-water-on.png)
-O9=$$PWD/$(location out/render-modern-tee/hardware/install-guide/plumbing/modern/out/modern-water-on.step)
-O10=$$PWD/$(location out/render-modern-tee/hardware/install-guide/plumbing/modern/out/modern-water-on.step.mesh)
-O11=$$PWD/$(location out/render-modern-tee/hardware/install-guide/plumbing/modern/out/modern-water-on.step.npz)
+O6=$$PWD/$(location out/render-modern-tee/hardware/install-guide/plumbing/modern/art/modern-water-off.png)
+O7=$$PWD/$(location out/render-modern-tee/hardware/install-guide/plumbing/modern/art/modern-water-on.png)
+O8=$$PWD/$(location out/render-modern-tee/hardware/install-guide/plumbing/modern/out/modern-water-on.step)
+O9=$$PWD/$(location out/render-modern-tee/hardware/install-guide/plumbing/modern/out/modern-water-on.step.mesh)
+O10=$$PWD/$(location out/render-modern-tee/hardware/install-guide/plumbing/modern/out/modern-water-on.step.npz)
 rm -rf work-render-modern-tee
 for f in $(SRCS); do
   case $$f in
@@ -3416,12 +3414,11 @@ copy_file hardware/install-guide/plumbing/modern/art/modern-release-withdrawn.pn
 copy_file hardware/install-guide/plumbing/modern/art/modern-tee-assembly-ready.png "$$O3"
 copy_file hardware/install-guide/plumbing/modern/art/modern-tee-complete.png "$$O4"
 copy_file hardware/install-guide/plumbing/modern/art/modern-tee-line-ready.png "$$O5"
-copy_file hardware/install-guide/plumbing/modern/art/modern-tee-tug-check.png "$$O6"
-copy_file hardware/install-guide/plumbing/modern/art/modern-water-off.png "$$O7"
-copy_file hardware/install-guide/plumbing/modern/art/modern-water-on.png "$$O8"
-copy_file hardware/install-guide/plumbing/modern/out/modern-water-on.step "$$O9"
-copy_file hardware/install-guide/plumbing/modern/out/modern-water-on.step.mesh "$$O10"
-copy_file hardware/install-guide/plumbing/modern/out/modern-water-on.step.npz "$$O11"
+copy_file hardware/install-guide/plumbing/modern/art/modern-water-off.png "$$O6"
+copy_file hardware/install-guide/plumbing/modern/art/modern-water-on.png "$$O7"
+copy_file hardware/install-guide/plumbing/modern/out/modern-water-on.step "$$O8"
+copy_file hardware/install-guide/plumbing/modern/out/modern-water-on.step.mesh "$$O9"
+copy_file hardware/install-guide/plumbing/modern/out/modern-water-on.step.npz "$$O10"
 cd .. && rm -rf work-render-modern-tee
 """,
 )
@@ -10559,7 +10556,6 @@ genrule(
         "pysrc/hardware/printed-parts/faucet/lever-replica/lever_replica.py",
         "hardware/printed-parts/faucet/lever-replica/lever_replica.rs",
         "hardware/printed-parts/faucet/lever-replica/physical-acceptance.json",
-        "pysrc/hardware/printed-parts/faucet/lever-replica/physical_acceptance.py",
         "pysrc/hardware/scripts/_material_base.py",
         "pysrc/hardware/scripts/_materials.py",
         "pysrc/hardware/scripts/_mesh_payload.py",
@@ -10639,7 +10635,6 @@ genrule(
         "pysrc/tools/run.py",
     ],
     outs = [
-        "out/lever-replica/hardware/printed-parts/faucet/lever-replica/geometry-check.json",
         "out/lever-replica/hardware/printed-parts/faucet/lever-replica/lever-replica-side-down.stl",
         "out/lever-replica/hardware/printed-parts/faucet/lever-replica/lever-replica.numbers.json",
         "out/lever-replica/hardware/printed-parts/faucet/lever-replica/lever-replica.step",
@@ -10670,13 +10665,12 @@ case "$$(uname -s)" in
     };;
   *) copy_file() { cp "$$@"; };;
 esac
-O0=$$PWD/$(location out/lever-replica/hardware/printed-parts/faucet/lever-replica/geometry-check.json)
-O1=$$PWD/$(location out/lever-replica/hardware/printed-parts/faucet/lever-replica/lever-replica-side-down.stl)
-O2=$$PWD/$(location out/lever-replica/hardware/printed-parts/faucet/lever-replica/lever-replica.numbers.json)
-O3=$$PWD/$(location out/lever-replica/hardware/printed-parts/faucet/lever-replica/lever-replica.step)
-O4=$$PWD/$(location out/lever-replica/hardware/printed-parts/faucet/lever-replica/lever-replica.step.mesh)
-O5=$$PWD/$(location out/lever-replica/hardware/printed-parts/faucet/lever-replica/lever-replica.step.npz)
-O6=$$PWD/$(location out/lever-replica/hardware/printed-parts/faucet/lever-replica/lever-replica.stl)
+O0=$$PWD/$(location out/lever-replica/hardware/printed-parts/faucet/lever-replica/lever-replica-side-down.stl)
+O1=$$PWD/$(location out/lever-replica/hardware/printed-parts/faucet/lever-replica/lever-replica.numbers.json)
+O2=$$PWD/$(location out/lever-replica/hardware/printed-parts/faucet/lever-replica/lever-replica.step)
+O3=$$PWD/$(location out/lever-replica/hardware/printed-parts/faucet/lever-replica/lever-replica.step.mesh)
+O4=$$PWD/$(location out/lever-replica/hardware/printed-parts/faucet/lever-replica/lever-replica.step.npz)
+O5=$$PWD/$(location out/lever-replica/hardware/printed-parts/faucet/lever-replica/lever-replica.stl)
 rm -rf work-lever-replica
 for f in $(SRCS); do
   case $$f in
@@ -10694,13 +10688,12 @@ cd work-lever-replica
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
 HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/faucet/lever-replica/lever_replica.py > /dev/null
-copy_file hardware/printed-parts/faucet/lever-replica/geometry-check.json "$$O0"
-copy_file hardware/printed-parts/faucet/lever-replica/lever-replica-side-down.stl "$$O1"
-copy_file hardware/printed-parts/faucet/lever-replica/lever-replica.numbers.json "$$O2"
-copy_file hardware/printed-parts/faucet/lever-replica/lever-replica.step "$$O3"
-copy_file hardware/printed-parts/faucet/lever-replica/lever-replica.step.mesh "$$O4"
-copy_file hardware/printed-parts/faucet/lever-replica/lever-replica.step.npz "$$O5"
-copy_file hardware/printed-parts/faucet/lever-replica/lever-replica.stl "$$O6"
+copy_file hardware/printed-parts/faucet/lever-replica/lever-replica-side-down.stl "$$O0"
+copy_file hardware/printed-parts/faucet/lever-replica/lever-replica.numbers.json "$$O1"
+copy_file hardware/printed-parts/faucet/lever-replica/lever-replica.step "$$O2"
+copy_file hardware/printed-parts/faucet/lever-replica/lever-replica.step.mesh "$$O3"
+copy_file hardware/printed-parts/faucet/lever-replica/lever-replica.step.npz "$$O4"
+copy_file hardware/printed-parts/faucet/lever-replica/lever-replica.stl "$$O5"
 cd .. && rm -rf work-lever-replica
 """,
 )
@@ -17010,14 +17003,6 @@ genrule(
     name = "pysrc-c94c152b3326",
     srcs = ["hardware/printed-parts/faucet/lever-replica/lever_replica.py"],
     outs = ["pysrc/hardware/printed-parts/faucet/lever-replica/lever_replica.py"],
-    tools = ["tools/bazel/pysrc.py"],
-    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
-)
-
-genrule(
-    name = "pysrc-d9503424ef81",
-    srcs = ["hardware/printed-parts/faucet/lever-replica/physical_acceptance.py"],
-    outs = ["pysrc/hardware/printed-parts/faucet/lever-replica/physical_acceptance.py"],
     tools = ["tools/bazel/pysrc.py"],
     cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
 )

@@ -46,12 +46,8 @@ The seven guide-ready outputs are:
 - `art/modern-tee-line-ready.png`
 - `art/modern-tee-complete.png`
 
-Two extra comparison states are retained for visual development:
-
-- `art/modern-release-pressed.png` — the highlighted collet depressed while the
-  tube remains fully inserted;
-- `art/modern-tee-tug-check.png` — the white branch pulled outward 3.2 mm while
-  it remains inside its gripping envelope.
+The extra `art/modern-release-pressed.png` comparison shows the highlighted
+collet depressed while the tube remains fully inserted.
 
 Every output is a 2000 × 1100 RGBA PNG with a true transparent canvas emitted
 directly by the 3D renderer; no color-key or flood-fill operation can remove a
