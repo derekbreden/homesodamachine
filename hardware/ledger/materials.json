@@ -258,15 +258,6 @@
             ]
           },
           {
-            "material": "HSM-000058",
-            "quantity": 2,
-            "unit": "ea",
-            "bodies": [
-              "discharge-chain",
-              "gas-check"
-            ]
-          },
-          {
             "material": "HSM-000331",
             "quantity": 1,
             "unit": "ea",
@@ -276,12 +267,10 @@
           },
           {
             "material": "HSM-000059",
-            "quantity": 2,
+            "quantity": 1,
             "unit": "ea",
             "bodies": [
-              "bulkhead-water",
               "bulkhead-carb",
-              "bulkhead-water-nut",
               "bulkhead-carb-nut"
             ]
           },
@@ -1054,6 +1043,22 @@
               "y-seam-west-lower-screw",
               "y-seam-west-upper-screw"
             ]
+          },
+          {
+            "material": "HSM-000383",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "gas-check"
+            ]
+          },
+          {
+            "material": "HSM-000013",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "bulkhead-water"
+            ]
           }
         ]
       },
@@ -1654,6 +1659,14 @@
             "note": "Acquired 304 stainless M3 x 12 stock finished to 4 mm under the head; clamps the closed ring and tooth washer into the tapped upper tube rim.",
             "bodies": [
               "carbonator-earth-screw"
+            ]
+          },
+          {
+            "material": "HSM-000383",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "discharge-chain"
             ]
           }
         ]
@@ -3232,21 +3245,9 @@
         }
       ],
       "aliases": [
-        "Water-pump discharge check",
-        "CO2 downstream check",
-        "discharge-chain",
-        "gas-check",
         "ACHV44-E"
       ],
       "documents": [
-        {
-          "title": "Water-pump fitting assembly",
-          "path": "assembly/internal-plumbing.md"
-        },
-        {
-          "title": "Fitting specification",
-          "path": "ledger/bom.md"
-        },
         {
           "title": "Check-valve specification and qualification scope",
           "path": "reference/neofit-achv44-check/README.md"
@@ -7613,6 +7614,33 @@
         {
           "title": "Acquired screw stock and allocation",
           "path": "ledger/bom.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000383",
+      "description": "neoFit ACVUS-44 stem check valve \u00b7 1/4 inch tube \u00d7 1/4 inch stem",
+      "kind": "purchased",
+      "manufacturer_number": "ACVUS-44",
+      "aliases": [
+        "Water-pump discharge check",
+        "CO2 downstream check",
+        "discharge-chain",
+        "gas-check",
+        "ACVUS44"
+      ],
+      "documents": [
+        {
+          "title": "Water-pump fitting assembly",
+          "path": "assembly/internal-plumbing.md"
+        },
+        {
+          "title": "Fitting specification",
+          "path": "ledger/bom.md"
+        },
+        {
+          "title": "Part details",
+          "path": "reference/neofit-acvus44-check/README.md"
         }
       ]
     }
