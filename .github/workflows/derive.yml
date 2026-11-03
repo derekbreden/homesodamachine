@@ -447,11 +447,10 @@ jobs:
           tools/cad-venv/bin/python tools/bazel/sync_tree.py --write --derived-only \
             --failed "${{ steps.cut.outputs.failed }}"
 
-      # The ledger, in the order the modules document: masses price the totals, and the
-      # totals' §7 feeds the print hours.
+      # The declared bom-masses action carries its fine-model masses in bom.md.
+      # Keep the arithmetic ledger updates after the carry.
       - name: The ledger
         run: |
-          tools/cad-venv/bin/python hardware/scripts/_bom_masses.py
           tools/cad-venv/bin/python hardware/scripts/_bom_totals.py
           tools/cad-venv/bin/python hardware/scripts/_labor_totals.py
           tools/cad-venv/bin/python hardware/scripts/_machine_time.py
