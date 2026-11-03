@@ -7,9 +7,12 @@ seats share [rear_snaps.py](../../../manifold-layout/rear_snaps.py) and
 The ASSE cap holds the lower halves of both ASSE hexes and captures both
 axial shoulders of the inlet adapter's hex. Its solid lower body extends to
 Y461.078, while its springs retain Y396.453–438.114. The adapter pocket follows
-the captured profile and wrench clocking with 0.15 mm radial and axial air.
-Within the hex band, its two lowest corners sit 0.25 mm deeper in one six-flat
-pocket; the top flats and both axial shoulder stations retain their positions.
+the captured profile and all six wrench-flat directions at the measured clock.
+The three lower-facing flats have 0.25 mm additional vertical seating allowance;
+the upper flats, 0.15 mm cylindrical neck seats and both axial shoulder
+stations retain their fits. The hex's rounded corner room has 12.874 mm radius
+through the 10.25 mm wrench band, clearing the lowered flats. The ASSE body's wrench flats
+locate the body separately.
 The downward vent cup passes through the bottom flat. The Pisco
 cap has a raised lip around the short outlet fitting's neck and a broad body
 bearing between its independent leaves. It spans 41.704 mm in Y, ending at
