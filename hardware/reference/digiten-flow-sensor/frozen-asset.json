@@ -6,6 +6,31 @@
   },
   "members": {
     "digiten-flow-sensor.step": "181e81dc1e2e9757c671df7163998127dea32e24cbbeffcd885e84c2801a9975",
-    "digiten-flow-sensor.step.mesh": "84d68c77955b19d2e1f776a33b8fcd2370658086ad00acf5eb7ed953c0e72aec"
+    "digiten-flow-sensor.step.mesh": "84d68c77955b19d2e1f776a33b8fcd2370658086ad00acf5eb7ed953c0e72aec",
+    "digiten-flow-sensor.fine.step.npz": "21ecc301a9b6a6efaccbd095e7f730f2de3bced6ed9b0a7d0a1a32136ba64f16"
+  },
+  "fine_models": {
+    "digiten-flow-sensor.step": {
+      "path": "digiten-flow-sensor.fine.step.npz",
+      "sha256": "21ecc301a9b6a6efaccbd095e7f730f2de3bced6ed9b0a7d0a1a32136ba64f16",
+      "source_step_sha256": "181e81dc1e2e9757c671df7163998127dea32e24cbbeffcd885e84c2801a9975",
+      "linear_mm": 0.005,
+      "angular_rad": 0.05,
+      "producer": "meshcad/imports.py:step_solids import version2",
+      "presentation_indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ]
+    }
   }
 }

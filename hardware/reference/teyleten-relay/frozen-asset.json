@@ -6,6 +6,20 @@
   },
   "members": {
     "teyleten-relay.step": "a941bb075f7c1b34e0d5033a3cd084bcaf4c8ad5bdc86fdfb0f2e0cf409515cd",
-    "teyleten-relay.step.mesh": "0377ce0d5de5853a4bf9f3ad27912a37fc498557495029336b13a1bad7eac017"
+    "teyleten-relay.step.mesh": "0377ce0d5de5853a4bf9f3ad27912a37fc498557495029336b13a1bad7eac017",
+    "teyleten-relay.fine.step.npz": "a06845ecfcebdf278727b816385f1f15503cfabf0de31e0d9b81ff3a7b09a605"
+  },
+  "fine_models": {
+    "teyleten-relay.step": {
+      "path": "teyleten-relay.fine.step.npz",
+      "sha256": "a06845ecfcebdf278727b816385f1f15503cfabf0de31e0d9b81ff3a7b09a605",
+      "source_step_sha256": "a941bb075f7c1b34e0d5033a3cd084bcaf4c8ad5bdc86fdfb0f2e0cf409515cd",
+      "linear_mm": 0.005,
+      "angular_rad": 0.05,
+      "producer": "meshcad/imports.py:step_solids import version2",
+      "presentation_indices": [
+        0
+      ]
+    }
   }
 }

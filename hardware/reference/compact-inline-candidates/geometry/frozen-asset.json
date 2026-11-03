@@ -1,0 +1,27 @@
+{
+  "source": {
+    "path": "hardware/reference/compact-inline-candidates/geometry/candidate-regulator.step",
+    "sha256": "afdabad8d1023c09c74be96d96a4c409966e7d6d09565dc1991062b0de842523"
+  },
+  "members": {
+    "candidate-regulator.step": "afdabad8d1023c09c74be96d96a4c409966e7d6d09565dc1991062b0de842523",
+    "candidate-regulator.step.mesh": "cbef3094ad0ff719aa66eef66783304cf5f462d7153aa4b85015427f45a6619e",
+    "candidate-regulator.fine.step.npz": "061eaeb05ae486154b687404369efeb730571b4d13f078d0a71a95b7aa91eb09"
+  },
+  "fine_models": {
+    "candidate-regulator.step": {
+      "path": "candidate-regulator.fine.step.npz",
+      "sha256": "061eaeb05ae486154b687404369efeb730571b4d13f078d0a71a95b7aa91eb09",
+      "source_step_sha256": "afdabad8d1023c09c74be96d96a4c409966e7d6d09565dc1991062b0de842523",
+      "linear_mm": 0.005,
+      "angular_rad": 0.05,
+      "producer": "meshcad/imports.py:step_solids import version2",
+      "presentation_indices": [
+        0,
+        1,
+        2,
+        3
+      ]
+    }
+  }
+}
