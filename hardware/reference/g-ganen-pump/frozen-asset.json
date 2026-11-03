@@ -1,0 +1,53 @@
+{
+  "source": {
+    "path": "hardware/reference/g-ganen-pump/g_ganen_pump.py",
+    "sha256": "95bab0c864e6970fa3bc19ec0fd27a0111b5a05ffa5a1e390e86d713d042fbbc"
+  },
+  "source_parameters": {
+    "hardware/reference/g-ganen-pump/reference-parameters.json": "3b91bd7ff1216bc5dc8b9806d53f4f2f7bd038323b201c6d6cc6e029e42fc591",
+    "hardware/reference/g-ganen-pump/under-head-clearance.json": "f8d572d1176e6056de716842b058861d121fdf636c6e608f2e7492f1ce3d05e5"
+  },
+  "members": {
+    "g-ganen-pump.fine.step.npz": "d7c3c7a3a87f6b78d73efb1e7d02a83f5edd8469371b366886deed098e597fcd"
+  },
+  "fine_models": {
+    "g-ganen-pump.step": {
+      "path": "g-ganen-pump.fine.step.npz",
+      "sha256": "d7c3c7a3a87f6b78d73efb1e7d02a83f5edd8469371b366886deed098e597fcd",
+      "source_code_sha256": "95bab0c864e6970fa3bc19ec0fd27a0111b5a05ffa5a1e390e86d713d042fbbc",
+      "source_parameters": {
+        "hardware/reference/g-ganen-pump/reference-parameters.json": "3b91bd7ff1216bc5dc8b9806d53f4f2f7bd038323b201c6d6cc6e029e42fc591",
+        "hardware/reference/g-ganen-pump/under-head-clearance.json": "f8d572d1176e6056de716842b058861d121fdf636c6e608f2e7492f1ce3d05e5"
+      },
+      "constructor": "g_ganen_pump.build_parts()",
+      "selection": {
+        "exclude_name_contains": "rubber_slider",
+        "entry_order": [
+          "rigid_casing_envelope",
+          "head_outer_shell_external_envelope",
+          "switch_outer_shell_external_envelope",
+          "head_side_yminus_external_envelope",
+          "head_side_yplus_external_envelope",
+          "motor_surface_yminus_external_envelope",
+          "motor_surface_yplus_external_envelope",
+          "motor_can_vent_filled_envelope",
+          "crown_round_head_01_external_envelope",
+          "crown_round_head_02_external_envelope",
+          "crown_round_head_03_external_envelope",
+          "crown_round_head_04_external_envelope",
+          "crown_round_head_05_external_envelope",
+          "crown_round_head_06_external_envelope",
+          "crown_round_head_07_external_envelope",
+          "crown_round_molded_boss_external_envelope",
+          "crown_long_molded_boss_external_envelope",
+          "port_yminus_barb_envelope",
+          "port_yminus_root_envelope",
+          "port_yplus_barb_envelope",
+          "port_yplus_root_envelope"
+        ]
+      },
+      "producer": "current normal meshcad source construction; ordered fine arrays"
+    }
+  },
+  "qualification_scope": "Exact current purchased-reference construction. No physical pump/mount/retention qualification is advanced."
+}
