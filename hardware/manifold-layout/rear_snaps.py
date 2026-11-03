@@ -36,6 +36,7 @@ ROOT_RADIUS = 1.5  # broad inside transition into each spring wall
 PRY_WIDTH = 5.0    # centered flathead access across the hook's underside
 PRY_HEIGHT = 1.0
 REAR_ROOT_DROP = 10.0
+ASSE_HEX_SEATING_DEPTH = 0.25 # lower-flat allowance in the conforming adapter pocket
 PISCO_RADIAL_RELIEF = 0.25  # receiver running air plus this radial relief
 PISCO_CAP_AIR = 0.4  # outer saddle stock allowance; the cavity uses PISCO_CAP_FIT
 PISCO_CAP_FIT = 0.15  # measured body/neck bearing air; stock and spring datums stay independent
@@ -270,9 +271,20 @@ def asse_adapter_capture(chain_frame, station, axis):
                                         'translation_mm':record['origin_mm']})
     points = clearance_profile(record['visible_profile'],fits.slip,fits.slip)
     wrench = record['wrench']
+    apothem=wrench['apothem_at_x_zero_mm']+fits.slip
+    normals=np.array([(math.cos(math.radians(wrench['clock_degrees']+30.+60*i)),
+                       math.sin(math.radians(wrench['clock_degrees']+30.+60*i)))
+                      for i in range(6)])
+    # Offset only downward-facing flats, keeping all six measured directions.
+    bounds=apothem+ASSE_HEX_SEATING_DEPTH*np.maximum(0.,-normals@np.array(frame['rotation'][2][1:]))
+    outline=[np.linalg.solve(normals[[i-1,i]],bounds[[i-1,i]]).tolist() for i in range(6)]
     cutter = {'op':'radial-profile','points':points,'frame':frame,
-              'wrench':{'apothem':wrench['apothem_at_x_zero_mm']+fits.slip,
-                        'clock':wrench['clock_degrees']}}
+              'wrench':{'apothem':apothem,'clock':wrench['clock_degrees'],
+                        'outline':outline,
+                        'relief_span':(wrench['range_mm'][0]-fits.slip,
+                                       wrench['range_mm'][1]+fits.slip),
+                        'relief_corner':max(r for _x,r in record['visible_profile'])
+                                        +fits.slip+ASSE_HEX_SEATING_DEPTH}}
     end = frame['translation_mm'][1] - (-13.825) + WALL
     width = station['outer']
     low = axis[1]-width*math.sqrt(3.)/2.
@@ -314,6 +326,13 @@ def radial_room(record):
                .polygon(6,2*wrench['apothem']/math.cos(math.pi/6)).extrude(hi-lo).val()
                .rotate((0,0,0),(1,0,0),wrench['clock']))
         shape=shape.intersect(prism)
+        if 'outline' in wrench:
+            a,b=wrench['relief_span']
+            relief=(cq.Workplane('YZ',origin=(a,0.,0.)).polyline(wrench['outline'])
+                    .close().extrude(b-a).val())
+            corners=cq.Solid.makeCylinder(wrench['relief_corner'],b-a,
+                                           cq.Vector(a,0.,0.),cq.Vector(1.,0.,0.))
+            shape=shape.fuse(relief.intersect(corners)).clean()
     return shape.moved(above_core.frame_location(record['frame']))
 
 
