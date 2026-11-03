@@ -1,7 +1,7 @@
 # Beduan valve socket fit coupon
 
 This small panel reproduces the enclosure's four horizontal socket bores, body bearing
-face and open port channel. It tests the actual valve against the current production
+face and open port channel. It tests the actual valve against the production
 profile before the large enclosure print.
 
 The parametric coupon uses the selected **V69 / 6.90 mm** sockets. The
@@ -9,14 +9,8 @@ The parametric coupon uses the selected **V69 / 6.90 mm** sockets. The
 identifies the tested V69 specimens; V70 / 7.00 mm is an explicit alternative
 for a valve or print orientation that fits V69 poorly.
 
-Generate the coupon through the shared run wrapper:
-
-```sh
-python3 tools/run.py -- tools/cad-venv/bin/python hardware/printed-parts/fixtures/valve-socket-fit/valve_socket_fit.py
-```
-
-The Rust generator writes the matched STEP, fine model, viewer payload and STL.
-[kernel-geometry-check.json](kernel-geometry-check.json) records the current
+The [authored source snapshot](https://github.com/derekbreden/homesodamachine/blob/521b9f02cb13815c02b83d08df0d6a9f71c3a60d/hardware/printed-parts/fixtures/valve-socket-fit/valve_socket_fit.py) is retained in Git at `521b9f02cb13815c02b83d08df0d6a9f71c3a60d`. This directory retains its geometry and evidence.
+[kernel-geometry-check.json](kernel-geometry-check.json) records the coupon's
 dimensions and five sampled valve insertions. The native geometry and print
 records below retain the exact article and profile each one identifies.
 

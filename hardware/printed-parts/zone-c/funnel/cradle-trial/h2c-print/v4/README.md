@@ -82,10 +82,4 @@ and five cycles without cracking, whitening or residual wing bend. The
 nominal 3.2% root strain is a CAD estimate; slicing does not establish
 physical retention or operating life.
 
-To prepare a fresh native archive revision from these frozen v4 meshes:
-
-```sh
-HSM_NO_BUILD_LOCK=1 tools/cad-venv/bin/python hardware/printed-parts/zone-c/funnel/cradle-trial/h2c-print/v4/prepare_v4.py --revision 5
-```
-
-Each native revision has its own immutable `.cache/prints/` directory.
+The [preparation source](https://github.com/derekbreden/homesodamachine/blob/521b9f02cb13815c02b83d08df0d6a9f71c3a60d/hardware/printed-parts/zone-c/funnel/cradle-trial/h2c-print/v4/prepare_v4.py) is retained in Git at `521b9f02cb13815c02b83d08df0d6a9f71c3a60d`.

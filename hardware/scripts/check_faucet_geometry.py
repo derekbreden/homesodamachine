@@ -45,7 +45,6 @@ def source_paths() -> tuple[Path, ...]:
             FAUCET / "vent_seals.py",
             FAUCET / "_display_snap.py",
             FAUCET / "refresh_print_project.py",
-            ROOT / "hardware/printed-parts/fixtures/faucet-display-snap/faucet_display_snap_trial.py",
             ROOT / "hardware/reference/touch-flo-faucet/display-reference/component-envelopes.json",
             SHELL / "faucet_shell.py",
             FAUCET / "above-counter-plate/above_counter_plate.py",
@@ -1949,34 +1948,6 @@ def display_reading(reading, f, assembly, parts, body, free_cover):
     dispense_face_reading(reading, f, tip)
 
 
-def display_trial_reading(reading, f, parts, free_cover):
-    sys.path.insert(0, str(ROOT / "hardware/printed-parts/fixtures/faucet-display-snap"))
-    import faucet_display_snap_trial as trial
-    housing, cover, clip, dimensions = trial.build_trial()
-    tip = shape(parts["shell_tip"])
-    boundary = max(dimensions["complete_head_end_s_mm"], f.display_ribbon_reference_start_s)+1.0
-    witness = tip.intersect(shape(trial.trial_region(boundary)))
-    missing = volume(witness.cut(shape(housing)))
-    extra = volume(shape(housing).cut(tip))
-    cover_delta = volume(shape(cover).cut(shape(free_cover))) + volume(shape(free_cover).cut(shape(cover)))
-    cable_clipped = volume(shape(f.build_display_ribbon_transition()).cut(shape(clip)))
-    reading.add("fixture:complete-display-fit-trial", max(missing, extra, cover_delta, cable_clipped) <= VOLUME_TOLERANCE,
-                missing_head_or_anchor_material_mm3=clean_number(missing),
-                added_housing_material_mm3=clean_number(extra),
-                cover_symmetric_difference_mm3=clean_number(cover_delta),
-                clipped_side_entry_ribbon_mm3=clean_number(cable_clipped),
-                retained_geometry=dimensions,
-                method="complete production head region through the cable branch, and exact complete relaxed printable cover")
-    poses = {name: angle for name, _, angle in trial.production_print.PARTS}
-    reading.add("fixture:production-print-orientations",
-                abs(poses["faucet-shell-tip"]+math.degrees(f.print_tip_build_rot)) < DISTANCE_TOLERANCE,
-                housing_rotation_x_deg=poses["faucet-shell-tip"],
-                cover_rotation_x_deg=poses["faucet-display-cover"],
-                method="trial print transforms are read from the same production-print part table")
-    solids_reading(reading, {"display_trial_housing": housing})
-    mesh_reading(reading, f, {"display_trial_housing": housing})
-
-
 def lever_reading(reading, assembly, parts):
     rows = []
     for step in range(19):
@@ -2334,7 +2305,6 @@ def main() -> int:
     lower_access_reading(reading, f, base)
     lower_passage_join_reading(reading, base)
     display_reading(reading, f, assembly, parts, assembly.build_display_body(), free_cover)
-    display_trial_reading(reading, f, parts, free_cover)
     lever_reading(reading, assembly, parts)
     ribbon_reading(reading, f, assembly, parts)
     clearance_reading(reading, "seat:plate-gasket", plate, parts["above_counter_gasket"])
