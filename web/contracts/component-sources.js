@@ -8,7 +8,7 @@
 //
 // What a component maps to is THE FILE ITS GEOMETRY IS MODELLED IN, which is
 // not always a file holding that component alone. Several seats of one part
-// share one file (four bulkheads off one union, ten lever nuts off three
+// share one file (three bulkheads off one union, ten lever nuts off three
 // WAGOs), and a component that is one solid of a larger purchased part maps to
 // that part (`pump-a-motor` is one of three solids in the Kamoer's STEP;
 // `coil-v-c` is the coil half of the Beduan solenoid).
@@ -36,11 +36,11 @@ export const ALIASES = {
   "bulkhead-carb": "reference/jg-bulkhead-union/jg-bulkhead-union.step",
   "bulkhead-flavor-a": "reference/jg-bulkhead-union/jg-bulkhead-union.step",
   "bulkhead-flavor-b": "reference/jg-bulkhead-union/jg-bulkhead-union.step",
-  "bulkhead-water": "reference/jg-bulkhead-union/jg-bulkhead-union.step",
+  "bulkhead-water": "reference/jg-pp010822e/jg-pp010822e.step",
   "bulkhead-drain": "reference/neofit-drain-bulkhead/neofit-drain-bulkhead.step",
   "c14-inlet": "reference/iec-c14-inlet/iec-c14-inlet.step",
   "carbonator-tube": "cut-parts/carbonation/carbonator-tube/carbonator-tube.step",
-  "co2-inlet": "reference/neofit-bulkhead/neofit-bulkhead.step",
+  "co2-inlet": "reference/compact-inline-candidates/geometry/candidate-regulator.step",
   "coil-v-c": "reference/beduan-solenoid/beduan-solenoid.step",
   "coil-v-d": "reference/beduan-solenoid/beduan-solenoid.step",
   "coil-v-e": "reference/beduan-solenoid/beduan-solenoid.step",
@@ -77,18 +77,18 @@ export const ALIASES = {
   "nameplate": "printed-parts/enclosure/nameplate/nameplate-001.step",
   "nameplate-ink": "printed-parts/enclosure/nameplate/nameplate-001.step",
   "pcba": "printed-parts/electronics/pcba-tray/pcba-board.step",
-  "bulkhead-ring-carb": "printed-parts/enclosure/bulkhead-ring/bulkhead-ring-carb.step",
-  "bulkhead-ring-carb-word": "printed-parts/enclosure/bulkhead-ring/bulkhead-ring-carb.step",
-  "bulkhead-ring-drain": "printed-parts/enclosure/bulkhead-ring/bulkhead-ring-drain.step",
-  "bulkhead-ring-drain-word": "printed-parts/enclosure/bulkhead-ring/bulkhead-ring-drain.step",
-  "bulkhead-ring-co2": "printed-parts/enclosure/bulkhead-ring/bulkhead-ring-co2.step",
-  "bulkhead-ring-co2-word": "printed-parts/enclosure/bulkhead-ring/bulkhead-ring-co2.step",
-  "bulkhead-ring-flavor-a": "printed-parts/enclosure/bulkhead-ring/bulkhead-ring-flavor-a.step",
-  "bulkhead-ring-flavor-a-word": "printed-parts/enclosure/bulkhead-ring/bulkhead-ring-flavor-a.step",
-  "bulkhead-ring-flavor-b": "printed-parts/enclosure/bulkhead-ring/bulkhead-ring-flavor-b.step",
-  "bulkhead-ring-flavor-b-word": "printed-parts/enclosure/bulkhead-ring/bulkhead-ring-flavor-b.step",
-  "bulkhead-ring-water": "printed-parts/enclosure/bulkhead-ring/bulkhead-ring-water.step",
-  "bulkhead-ring-water-word": "printed-parts/enclosure/bulkhead-ring/bulkhead-ring-water.step",
+  "bulkhead-ring-carb": "printed-parts/enclosure/rear-identification/rear-label-carb.step",
+  "bulkhead-ring-carb-word": "printed-parts/enclosure/rear-identification/rear-label-carb.step",
+  "bulkhead-ring-drain": "printed-parts/enclosure/rear-identification/rear-label-drain.step",
+  "bulkhead-ring-drain-word": "printed-parts/enclosure/rear-identification/rear-label-drain.step",
+  "bulkhead-ring-co2": "printed-parts/enclosure/rear-identification/rear-label-co2.step",
+  "bulkhead-ring-co2-word": "printed-parts/enclosure/rear-identification/rear-label-co2.step",
+  "bulkhead-ring-flavor-a": "printed-parts/enclosure/rear-identification/rear-label-flavor-a.step",
+  "bulkhead-ring-flavor-a-word": "printed-parts/enclosure/rear-identification/rear-label-flavor-a.step",
+  "bulkhead-ring-flavor-b": "printed-parts/enclosure/rear-identification/rear-label-flavor-b.step",
+  "bulkhead-ring-flavor-b-word": "printed-parts/enclosure/rear-identification/rear-label-flavor-b.step",
+  "bulkhead-ring-water": "printed-parts/enclosure/rear-identification/rear-label-water.step",
+  "bulkhead-ring-water-word": "printed-parts/enclosure/rear-identification/rear-label-water.step",
   "psu": "reference/meanwell-irm90/meanwell-irm90.step",
   // Both elbows on the G Ganen's barbs are the one printed part.
   "pump-inlet-tpu": "printed-parts/diaphragm-pump-sleeve/diaphragm-pump-sleeve.step",
