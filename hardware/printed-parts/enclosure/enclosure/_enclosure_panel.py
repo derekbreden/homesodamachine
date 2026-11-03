@@ -302,15 +302,9 @@ def print_numbers(shell, box):
 def cut(shell, box, directory):
     """Write one native-free back-bottom part through the installed engine and print payload."""
     import _rust_part
-    import trimesh
     from _enclosure_presentation import print_payload
     said = _rust_part.cut('enclosure-shell', 'enclosure-panel', print_numbers(shell, box),
                           directory)
     step = Path(directory)/'enclosure-back-bottom.step'
-    printed = trimesh.load_mesh(step.with_suffix('.stl'))
-    loose = shell._flute_skin.non_manifold_edges(printed)
-    if loose or not printed.is_watertight:
-        raise ValueError(f'{step.with_suffix(".stl").name}: {loose} non-manifold edges, '
-                          f'watertight={printed.is_watertight}')
-    print_payload(step, printed)
+    print_payload(step, check_print=True)
     return said

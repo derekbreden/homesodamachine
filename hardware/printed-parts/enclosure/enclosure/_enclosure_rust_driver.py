@@ -86,7 +86,6 @@ def _dock_recipe(shell, graph):
 
 def cut_tube_setting_jig(shell, box, directory=HERE):
     import _rust_part
-    import trimesh
     from _materials import linear, M_PETGF_BLACK
     from _enclosure_panel import _Graph
     from _enclosure_presentation import print_payload
@@ -100,7 +99,7 @@ def cut_tube_setting_jig(shell, box, directory=HERE):
                    color=[round(c, 9) for c in linear(M_PETGF_BLACK)])
     _rust_part.cut('enclosure-shell', 'enclosure-dock', numbers, directory)
     step = directory/'enclosure-pump-tube-setting-jig.step'
-    print_payload(step, trimesh.load_mesh(step.with_suffix('.stl')))
+    print_payload(step, check_print=False)
 
 
 def installed_instances(box_document, directory=None):
