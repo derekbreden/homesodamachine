@@ -1,0 +1,40 @@
+enclosure-pump-retainer.stl · 1764 printed facets · 8 findings
+answers: hardware/printed-parts/lint-answers/enclosure/enclosure/enclosure-pump-retainer.lint-answers · read hardware/printed-parts/lint-answers/AGENTS.md before writing one
+
+  [sliver] 0.002 mm strip, 22.2 mm long
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=16.034 y=61.806 z=194.427
+    edge: x=16.034 y=72.887 z=194.427 → x=16.034 y=50.726 z=194.427 · len 22.161 · straight · dir x=0.000 y=-1.000 z=0.000
+    click: x=16.034 y=61.806 z=194.427
+
+  [sliver] 0.002 mm strip, 22.2 mm long
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=88.416 y=61.806 z=194.427
+    edge: x=88.416 y=72.887 z=194.427 → x=88.416 y=50.726 z=194.427 · len 22.161 · straight · dir x=0.000 y=-1.000 z=0.000
+    click: x=88.416 y=61.806 z=194.427
+
+  [sliver] 0.002 mm strip, 22.2 mm long
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=-88.416 y=61.806 z=194.427
+    edge: x=-88.416 y=72.887 z=194.427 → x=-88.416 y=50.726 z=194.427 · len 22.161 · straight · dir x=0.000 y=-1.000 z=0.000
+    click: x=-88.416 y=61.806 z=194.427
+
+  [ceiling] 126 mm² flat print-down face at z=197.445 · 68.0 × 1.8 mm · open to the bed (22.2 mm up)
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=93.825 y=48.257 z=197.445
+    click: x=93.825 y=48.257 z=197.445
+
+  [ceiling] 126 mm² flat print-down face at z=197.445 · 68.0 × 1.8 mm · open to the bed (22.2 mm up)
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=-93.825 y=48.257 z=197.445
+    click: x=-93.825 y=48.257 z=197.445
+
+  [thin] 1.945 mm of material at its thinnest · 2781.0 mm² of surface under 2.5 mm · spans 4.4 × 66.0 × 22.6 mm · in 3 pieces
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step
+    click: x=100.016 y=27.897 z=175.195
+    click: x=100.675 y=27.897 z=177.025
+
+  [thin] 1.945 mm of material at its thinnest · 2781.0 mm² of surface under 2.5 mm · spans 4.4 × 66.0 × 22.6 mm · in 3 pieces
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step
+    click: x=-100.016 y=68.618 z=175.195
+    click: x=-100.675 y=68.618 z=177.025

@@ -1,0 +1,14 @@
+[
+  "/Applications/BambuStudio.app/Contents/MacOS/BambuStudio",
+  "--slice",
+  "0",
+  "--arrange",
+  "0",
+  "--orient",
+  "0",
+  "--outputdir",
+  "/Users/derekbredensteiner/Developer/homesodamachine/.cache/cartridge-snap-trial/worktree/hardware/print-tests/pump-cartridge-snaps/prints/2026-11-02-cartridge-snaps-mark2-7104742f/native",
+  "--export-3mf",
+  "2026-11-02-cartridge-snaps-mark2-7104742f.gcode.3mf",
+  "/Users/derekbredensteiner/Developer/homesodamachine/.cache/cartridge-snap-trial/worktree/hardware/print-tests/pump-cartridge-snaps/prints/2026-11-02-cartridge-snaps-mark2-7104742f/2026-11-02-cartridge-snaps-mark2-7104742f.3mf"
+]

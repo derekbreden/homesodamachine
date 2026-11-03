@@ -1,0 +1,821 @@
+{
+  "source_commit": "ecdc82df8a4a89354442f12905b699b4c95e3213",
+  "parts": [
+    {
+      "name": "cartridge-retainer",
+      "stl": "hardware/print-tests/pump-cartridge-snaps/parts/cartridge-retainer.stl",
+      "stl_sha256": "c374c67aab3d5e4db33c18406c6c1dabfa670528c97079079fb1e02005adc510",
+      "bounds_mm": [
+        [
+          -101.3499984741211,
+          14.25,
+          175.19500732421875
+        ],
+        [
+          101.3499984741211,
+          82.26499938964844,
+          224.4239959716797
+        ]
+      ],
+      "volume_mm3": 287677.20289913326,
+      "watertight": true,
+      "solids": 1,
+      "pose": {
+        "turns": [
+          [
+            "x",
+            90
+          ]
+        ]
+      }
+    },
+    {
+      "name": "cartridge-receiver",
+      "stl": "hardware/print-tests/pump-cartridge-snaps/parts/cartridge-receiver.stl",
+      "stl_sha256": "1f8b24378a001516497289a6ac63ebd628e7b4bb18a6f9860f21d94b1a7fe0f2",
+      "bounds_mm": [
+        [
+          -107.5,
+          5.0,
+          160.25
+        ],
+        [
+          107.5,
+          101.336,
+          228.074
+        ]
+      ],
+      "volume_mm3": 426087.11311273155,
+      "watertight": true,
+      "solids": 1,
+      "crop_machine_mm": [
+        [
+          -107.5,
+          5.0,
+          160.0
+        ],
+        [
+          107.5,
+          101.336,
+          228.074
+        ]
+      ],
+      "retention_scope": "Both full-Y receivers, both complete roots and tool ports, actual front/side/tee-wall stock and both pump skirt bearing lands. Upper motor and display stock above the bearing slab is excluded."
+    },
+    {
+      "name": "pisco-pointed-receiver",
+      "stl": "hardware/print-tests/pump-cartridge-snaps/parts/pisco-pointed-receiver.stl",
+      "stl_sha256": "2eccd62e6f8289f6fb8910391675f2d055d31530958dd1d5464922a56388434b",
+      "bounds_mm": [
+        [
+          59.09438431246909,
+          -474.29998779296875,
+          -355.0
+        ],
+        [
+          93.90561568753091,
+          -414.09571720240064,
+          -310.7726
+        ]
+      ],
+      "volume_mm3": 32157.144231543323,
+      "watertight": true,
+      "solids": 1,
+      "retention_scope": "Full production PISCO receiver, rear bore, both axial shoulders, both extended spring pockets and actual roof stock; production back-top -Z up."
+    },
+    {
+      "name": "pisco-baseline-cap",
+      "stl": "hardware/print-tests/pump-cartridge-snaps/parts/pisco-baseline-cap.stl",
+      "stl_sha256": "e35431f25d7f8d5ba66eb631812457550bb9c5f901b8e30a523a0136e571a3df",
+      "source": "hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.stl",
+      "source_sha256": "e35431f25d7f8d5ba66eb631812457550bb9c5f901b8e30a523a0136e571a3df",
+      "bounds_mm": [
+        [
+          -14.40561580657959,
+          -14.538700103759766,
+          0.0
+        ],
+        [
+          14.40561580657959,
+          14.538700103759766,
+          41.70428466796875
+        ]
+      ],
+      "volume_mm3": 10994.21978606983,
+      "watertight": true,
+      "solids": 1
+    },
+    {
+      "name": "pisco-pointed-cap",
+      "stl": "hardware/print-tests/pump-cartridge-snaps/parts/pisco-pointed-cap.stl",
+      "stl_sha256": "aa9a5c2d81071c1a1e653b46911ad206d11f36eee92b065bdfdf6da4bb09764e",
+      "source": ".cache/cartridge-snap-trial/pointed-production/pisco-snap-cap.stl",
+      "source_sha256": "aa9a5c2d81071c1a1e653b46911ad206d11f36eee92b065bdfdf6da4bb09764e",
+      "bounds_mm": [
+        [
+          -14.40561580657959,
+          -15.538700103759766,
+          0.0
+        ],
+        [
+          14.40561580657959,
+          15.538700103759766,
+          41.70428466796875
+        ]
+      ],
+      "volume_mm3": 11336.19495071038,
+      "watertight": true,
+      "solids": 1
+    },
+    {
+      "name": "asse-backed-cap",
+      "stl": "hardware/print-tests/pump-cartridge-snaps/parts/asse-backed-cap.stl",
+      "stl_sha256": "a6857c77924955b43235815ed46f74860340e53efe6d37e71f567c4070448248",
+      "source": "hardware/print-tests/rear-snap-retention/v5/parts/asse-cap.stl",
+      "source_sha256": "a6857c77924955b43235815ed46f74860340e53efe6d37e71f567c4070448248",
+      "bounds_mm": [
+        [
+          -25.14813995361328,
+          -18.314464569091797,
+          0.0
+        ],
+        [
+          25.14813995361328,
+          18.314464569091797,
+          64.625
+        ]
+      ],
+      "volume_mm3": 31630.38390780029,
+      "watertight": true,
+      "solids": 1
+    },
+    {
+      "name": "cartridge-wing",
+      "stl": "hardware/print-tests/pump-cartridge-snaps/parts/cartridge-wing.stl",
+      "stl_sha256": "dad5585b3e2247eac3093f6177965bef7a369e49218d042b3fa42052eb2d9f7e",
+      "bounds_mm": [
+        [
+          89.9,
+          14.25,
+          175.19500732421875
+        ],
+        [
+          101.3499984741211,
+          82.26499938964844,
+          224.4239959716797
+        ]
+      ],
+      "volume_mm3": 23314.37858912628,
+      "watertight": true,
+      "solids": 1,
+      "pose": {
+        "turns": [
+          [
+            "x",
+            90
+          ]
+        ]
+      }
+    },
+    {
+      "name": "cartridge-wing-receiver",
+      "stl": "hardware/print-tests/pump-cartridge-snaps/parts/cartridge-wing-receiver.stl",
+      "stl_sha256": "242872a7115c674e6b6c871708a6ed6ad0d4aa01c5528e36b621f5b848345a03",
+      "bounds_mm": [
+        [
+          95.5,
+          11.0,
+          160.25
+        ],
+        [
+          107.5,
+          85.515,
+          209.44500000000002
+        ]
+      ],
+      "volume_mm3": 28682.61088043009,
+      "watertight": true,
+      "solids": 1
+    },
+    {
+      "name": "cartridge-long-ramp-wing",
+      "stl": "hardware/print-tests/pump-cartridge-snaps/parts/cartridge-long-ramp-wing.stl",
+      "stl_sha256": "df58c66b231f6624ea9231114302e61102363251e75b2b5b1e2f5a59add58412",
+      "bounds_mm": [
+        [
+          89.9,
+          14.25,
+          175.19500732421875
+        ],
+        [
+          101.3499984741211,
+          82.26499938964844,
+          224.4239959716797
+        ]
+      ],
+      "volume_mm3": 23501.017069832382,
+      "watertight": true,
+      "solids": 1,
+      "pose": {
+        "turns": [
+          [
+            "x",
+            90
+          ]
+        ]
+      }
+    }
+  ],
+  "datums": {
+    "retainer": {
+      "flange_z": 224.674,
+      "bearing_z": 225.074,
+      "retainer_top_z": 224.424,
+      "bottom_z": 175.19500000000002,
+      "x0": -98.25,
+      "x1": 98.25,
+      "y0": 14.25,
+      "y1": 82.265,
+      "head_y": 45.859,
+      "motor_y": 44.859
+    },
+    "snap": {
+      "carrier_inner_x": 92.9,
+      "wing_inner_x": 96.25,
+      "wing_outer_x": 98.25,
+      "hook_outer_x": 101.0,
+      "hook_step_z": 176.79500000000002,
+      "hook_ramp_z": 177.79500000000002,
+      "root_z": 197.44500000000002,
+      "floor_z": 175.19500000000002,
+      "receiver_floor_z": 174.79500000000002,
+      "receiver_inner_x": 98.5,
+      "receiver_back_x": 101.1,
+      "receiver_outer_x": 107.5,
+      "receiver_y0": 14.0,
+      "receiver_y1": 82.515,
+      "receiver_z0": 160.25,
+      "receiver_z1": 206.44500000000002,
+      "receiver_roof_z": 185.19500000000002,
+      "port_inner_x": 98.5,
+      "port_outer_x": 104.5,
+      "port_y0": 45.7575,
+      "port_y1": 50.7575,
+      "port_z0": 170.19500000000002
+    }
+  },
+  "production_sha256": {
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl": "f72a84d959743310bd51062c38b6344237cc27d5814e44dc3b4aabb0c1d8a0aa",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.stl": "c374c67aab3d5e4db33c18406c6c1dabfa670528c97079079fb1e02005adc510",
+    "hardware/manifold-layout/enclosure-box.json": "2e8c85ca8a9f91464553f8bf99fc7059423f11c586b2db191e160523fadaa163"
+  },
+  "checks": {
+    "seated_receiver_overlap_mm3": 0.0,
+    "receiver_pocket_backing_mm": 6.400000000000006,
+    "tool_port_outer_wall_mm": 3.0,
+    "inward_corridor_mm": 3.3499999999999943,
+    "required_tip_retraction_mm": 2.8499999999999943,
+    "pointed_cap_receiver_overlap_mm3": 0.0
+  },
+  "physical_result": "Awaiting a cartridge snap trial.",
+  "candidate": {
+    "production_station_parameters": {
+      "tip_rise": 3.0,
+      "pointed_tip": true
+    },
+    "baseline_tip_rise_mm": 1.0,
+    "extra_lead_length_mm": 2.0,
+    "full_parent_sha256": "f346238c45a7f176879eaa5840f89b8c67f97877a41c43f4d1251c94fb86a840",
+    "cap_numbers": {
+      "caps": [
+        {
+          "name": "pisco-snap-cap",
+          "section": {
+            "segments": [
+              {
+                "line": [
+                  [
+                    62.09438431246909,
+                    318.0
+                  ],
+                  [
+                    62.09438431246909,
+                    344.85
+                  ]
+                ]
+              },
+              {
+                "line": [
+                  [
+                    62.09438431246909,
+                    344.85
+                  ],
+                  [
+                    67.19438431246908,
+                    341.85
+                  ]
+                ]
+              },
+              {
+                "line": [
+                  [
+                    67.19438431246908,
+                    341.85
+                  ],
+                  [
+                    67.19438431246908,
+                    340.25
+                  ]
+                ]
+              },
+              {
+                "line": [
+                  [
+                    67.19438431246908,
+                    340.25
+                  ],
+                  [
+                    64.09438431246909,
+                    340.25
+                  ]
+                ]
+              },
+              {
+                "line": [
+                  [
+                    64.09438431246909,
+                    340.25
+                  ],
+                  [
+                    64.09438431246909,
+                    319.5
+                  ]
+                ]
+              },
+              {
+                "arc": [
+                  [
+                    64.09438431246909,
+                    319.5
+                  ],
+                  [
+                    64.53372414068927,
+                    318.43933982822017
+                  ],
+                  [
+                    65.59438431246909,
+                    318.0
+                  ],
+                  [
+                    65.59438431246909,
+                    319.5
+                  ]
+                ],
+                "ccw": true
+              },
+              {
+                "line": [
+                  [
+                    65.59438431246909,
+                    318.0
+                  ],
+                  [
+                    87.40561568753091,
+                    318.0
+                  ]
+                ]
+              },
+              {
+                "arc": [
+                  [
+                    87.40561568753091,
+                    318.0
+                  ],
+                  [
+                    88.46627585931073,
+                    318.43933982822017
+                  ],
+                  [
+                    88.90561568753091,
+                    319.5
+                  ],
+                  [
+                    87.40561568753091,
+                    319.5
+                  ]
+                ],
+                "ccw": true
+              },
+              {
+                "line": [
+                  [
+                    88.90561568753091,
+                    319.5
+                  ],
+                  [
+                    88.90561568753091,
+                    340.25
+                  ]
+                ]
+              },
+              {
+                "line": [
+                  [
+                    88.90561568753091,
+                    340.25
+                  ],
+                  [
+                    85.80561568753092,
+                    340.25
+                  ]
+                ]
+              },
+              {
+                "line": [
+                  [
+                    85.80561568753092,
+                    340.25
+                  ],
+                  [
+                    85.80561568753092,
+                    341.85
+                  ]
+                ]
+              },
+              {
+                "line": [
+                  [
+                    85.80561568753092,
+                    341.85
+                  ],
+                  [
+                    90.90561568753091,
+                    344.85
+                  ]
+                ]
+              },
+              {
+                "line": [
+                  [
+                    90.90561568753091,
+                    344.85
+                  ],
+                  [
+                    90.90561568753091,
+                    318.0
+                  ]
+                ]
+              },
+              {
+                "line": [
+                  [
+                    90.90561568753091,
+                    318.0
+                  ],
+                  [
+                    90.90561568753091,
+                    313.7726
+                  ]
+                ]
+              },
+              {
+                "line": [
+                  [
+                    90.90561568753091,
+                    313.7726
+                  ],
+                  [
+                    62.09438431246909,
+                    313.7726
+                  ]
+                ]
+              },
+              {
+                "line": [
+                  [
+                    62.09438431246909,
+                    313.7726
+                  ],
+                  [
+                    62.09438431246909,
+                    318.0
+                  ]
+                ]
+              }
+            ],
+            "span": [
+              420.34571720240064,
+              462.05
+            ]
+          },
+          "stock": [
+            {
+              "op": "box",
+              "bounds": [
+                66.09438431246909,
+                86.90561568753091,
+                420.34571720240064,
+                462.05,
+                313.7726,
+                319.5613172207627
+              ]
+            },
+            {
+              "op": "box",
+              "bounds": [
+                66.09438431246909,
+                86.90561568753091,
+                420.34571720240064,
+                423.87500000000006,
+                313.7726,
+                328.0
+              ]
+            }
+          ],
+          "pry": [
+            {
+              "op": "box",
+              "bounds": [
+                64.09438431246909,
+                67.29438431246909,
+                438.6978586012003,
+                443.6978586012003,
+                340.15,
+                341.25
+              ]
+            },
+            {
+              "op": "box",
+              "bounds": [
+                85.70561568753091,
+                88.90561568753091,
+                438.6978586012003,
+                443.6978586012003,
+                340.15,
+                341.25
+              ]
+            }
+          ],
+          "cuts": [
+            {
+              "op": "radial-profile",
+              "points": [
+                [
+                  17.75,
+                  10.23880510948905
+                ],
+                [
+                  24.275,
+                  10.1325
+                ],
+                [
+                  24.725,
+                  10.6746
+                ],
+                [
+                  24.875,
+                  10.7954
+                ],
+                [
+                  25.325,
+                  10.884
+                ],
+                [
+                  26.075,
+                  10.8973
+                ],
+                [
+                  26.575,
+                  10.8973
+                ],
+                [
+                  27.025,
+                  10.8716
+                ],
+                [
+                  27.325,
+                  10.783
+                ],
+                [
+                  27.475,
+                  10.6242
+                ],
+                [
+                  27.625,
+                  10.323500000000001
+                ],
+                [
+                  27.775,
+                  10.1615
+                ],
+                [
+                  39.425,
+                  10.2018
+                ],
+                [
+                  39.875,
+                  10.3381
+                ],
+                [
+                  40.175,
+                  10.712
+                ],
+                [
+                  40.475,
+                  10.9189
+                ],
+                [
+                  40.925,
+                  10.977400000000001
+                ],
+                [
+                  41.425,
+                  10.977400000000001
+                ],
+                [
+                  42.625,
+                  10.934000000000001
+                ],
+                [
+                  42.775,
+                  10.864700000000001
+                ],
+                [
+                  42.925,
+                  10.7077
+                ],
+                [
+                  43.225,
+                  10.2781
+                ],
+                [
+                  48.925,
+                  10.389546666666668
+                ],
+                [
+                  52.175,
+                  10.5569
+                ],
+                [
+                  52.675,
+                  10.5569
+                ],
+                [
+                  53.275,
+                  10.5153
+                ],
+                [
+                  54.025,
+                  10.319311111111112
+                ],
+                [
+                  55.325,
+                  10.3313
+                ],
+                [
+                  55.825,
+                  10.3313
+                ],
+                [
+                  56.275,
+                  10.282300000000001
+                ],
+                [
+                  56.575,
+                  10.1292
+                ],
+                [
+                  56.875,
+                  9.5571
+                ],
+                [
+                  56.924999999999955,
+                  8.386100000001054
+                ]
+              ],
+              "frame": {
+                "rotation": [
+                  [
+                    0.0,
+                    1.0,
+                    0.0
+                  ],
+                  [
+                    -1.0,
+                    0.0,
+                    0.0
+                  ],
+                  [
+                    0.0,
+                    0.0,
+                    1.0
+                  ]
+                ],
+                "translation_mm": [
+                  76.5,
+                  480.8,
+                  328.0
+                ]
+              }
+            },
+            {
+              "op": "radial-profile",
+              "points": [
+                [
+                  56.924999999999955,
+                  6.0441
+                ],
+                [
+                  57.025,
+                  6.0441
+                ],
+                [
+                  57.325,
+                  5.7437000000000005
+                ],
+                [
+                  57.475,
+                  5.4252
+                ],
+                [
+                  57.625,
+                  5.2324
+                ],
+                [
+                  59.825,
+                  5.096990476190477
+                ],
+                [
+                  59.875,
+                  5.096900000000001
+                ],
+                [
+                  60.325,
+                  5.009
+                ],
+                [
+                  60.575,
+                  5.7907
+                ],
+                [
+                  60.725,
+                  6.160500000000001
+                ],
+                [
+                  60.875,
+                  6.257700000000001
+                ],
+                [
+                  61.454282797599376,
+                  6.273437182668117
+                ]
+              ],
+              "frame": {
+                "rotation": [
+                  [
+                    0.0,
+                    1.0,
+                    0.0
+                  ],
+                  [
+                    -1.0,
+                    0.0,
+                    0.0
+                  ],
+                  [
+                    0.0,
+                    0.0,
+                    1.0
+                  ]
+                ],
+                "translation_mm": [
+                  76.5,
+                  480.8,
+                  328.0
+                ]
+              }
+            }
+          ],
+          "print_rotate_x": 90.0
+        }
+      ],
+      "color": [
+        0.03310476616024971,
+        0.03310476616024971,
+        0.036306485533714294
+      ]
+    },
+    "production_fit_surfaces": "PISCO profile, rear bore, axial stops and spring/catch/root dimensions retained."
+  },
+  "cartridge_ramp_comparison": {
+    "baseline_rise_mm": 1.0,
+    "candidate_rise_mm": 3.0,
+    "complete_y_span_mm": [
+      14.25,
+      82.265
+    ],
+    "retainer_core_stock_mm": 3.0,
+    "candidate_seated_overlap_mm3": 0.0,
+    "scope": "One full-Y wing and full-Z root, hook, centered release and receiver end stops. The production carrier is cropped one 3 mm wall inboard of the spring corridor. Two-pump fit and global carrier stiffness require the separate complete fixture."
+  }
+}

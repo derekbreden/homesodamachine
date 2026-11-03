@@ -1,0 +1,113 @@
+{
+  "producer": "Production heat-set-review/print_regions.py dimensions, clipped to this retention sample.",
+  "pieces": {
+    "cartridge-wing": [
+      {
+        "name": "Pump snap east full-Y hook, wing and upper root",
+        "machine_bounds_mm": [
+          89.9,
+          101.3499984741211,
+          14.25,
+          82.265,
+          175.19500000000002,
+          200.44500000000002
+        ],
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag",
+        "applied_source_bounds_mm": [
+          89.9,
+          101.3499984741211,
+          14.25,
+          82.26499938964844,
+          175.19500732421875,
+          200.44500000000002
+        ],
+        "print_bounds_mm": [
+          89.9,
+          101.3499984741211,
+          -200.44500000000002,
+          -175.19500732421875,
+          0.0,
+          68.01499938964844
+        ]
+      }
+    ],
+    "cartridge-long-ramp-wing": [
+      {
+        "name": "Pump snap east full-Y hook, wing and upper root",
+        "machine_bounds_mm": [
+          89.9,
+          101.3499984741211,
+          14.25,
+          82.265,
+          175.19500000000002,
+          200.44500000000002
+        ],
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag",
+        "applied_source_bounds_mm": [
+          89.9,
+          101.3499984741211,
+          14.25,
+          82.26499938964844,
+          175.19500732421875,
+          200.44500000000002
+        ],
+        "print_bounds_mm": [
+          89.9,
+          101.3499984741211,
+          -200.44500000000002,
+          -175.19500732421875,
+          0.0,
+          68.01499938964844
+        ]
+      }
+    ],
+    "cartridge-wing-receiver": [
+      {
+        "name": "Pump snap east receiver floor and full flank root",
+        "machine_bounds_mm": [
+          98.5,
+          107.5,
+          14.0,
+          82.515,
+          160.25,
+          206.44500000000002
+        ],
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag",
+        "applied_source_bounds_mm": [
+          98.5,
+          107.5,
+          14.0,
+          82.515,
+          160.25,
+          206.44500000000002
+        ],
+        "print_bounds_mm": [
+          98.5,
+          107.5,
+          14.0,
+          82.515,
+          0.0,
+          46.19500000000002
+        ]
+      }
+    ]
+  },
+  "native_artifact_sha256": {
+    "cartridge-wing": {
+      ".stl": "dad5585b3e2247eac3093f6177965bef7a369e49218d042b3fa42052eb2d9f7e",
+      ".step": null
+    },
+    "cartridge-long-ramp-wing": {
+      ".stl": "df58c66b231f6624ea9231114302e61102363251e75b2b5b1e2f5a59add58412",
+      ".step": null
+    },
+    "cartridge-wing-receiver": {
+      ".stl": "242872a7115c674e6b6c871708a6ed6ad0d4aa01c5528e36b621f5b848345a03",
+      ".step": null
+    }
+  },
+  "part_process_overrides": {}
+}

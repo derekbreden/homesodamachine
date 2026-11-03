@@ -1,0 +1,20 @@
+{
+  "source_archive": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/cartridge-snap-trial/worktree/hardware/print-tests/pump-cartridge-snaps/prints/2026-11-02-cartridge-snaps-mark2-7104742f/2026-11-02-cartridge-snaps-mark2-7104742f.gcode.3mf",
+  "source_archive_sha256": "4ae6b89250f2b37f9248f9ca6283757f9dc90e1f42762c6fba0a2ecb77d70358",
+  "print_only_archive": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/cartridge-snap-trial/worktree/hardware/print-tests/pump-cartridge-snaps/prints/2026-11-02-cartridge-snaps-mark2-7104742f/2026-11-02-cartridge-snaps-mark2-7104742f-print-only.gcode.3mf",
+  "print_only_archive_sha256": "bd1ae1e60841dd4ce6f518b79f6320d66084fbbf6b07512bcf8350793d4998b3",
+  "gcode_sha256": {
+    "Metadata/plate_1.gcode": "6e367009ae10949b266bff12cd5c9a0190dd0b82b339b752ad1aa871a196d040"
+  },
+  "gcode_byte_identical": true,
+  "changed_container_entries": [
+    "3D/3dmodel.model",
+    "Metadata/model_settings.config"
+  ],
+  "omitted_editable_geometry_entries": [
+    "3D/Objects/object_1.model",
+    "3D/Objects/object_2.model",
+    "3D/_rels/3dmodel.model.rels",
+    "Metadata/cut_information.xml"
+  ]
+}

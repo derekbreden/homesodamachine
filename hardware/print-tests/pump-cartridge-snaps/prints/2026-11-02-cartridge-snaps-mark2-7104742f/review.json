@@ -1,0 +1,201 @@
+{
+  "archive": "hardware/print-tests/pump-cartridge-snaps/prints/2026-11-02-cartridge-snaps-mark2-7104742f/2026-11-02-cartridge-snaps-mark2-7104742f.gcode.3mf",
+  "archive_sha256": "4ae6b89250f2b37f9248f9ca6283757f9dc90e1f42762c6fba0a2ecb77d70358",
+  "gcode_md5_matches": true,
+  "emitted_z_trim_mm": [
+    0.0,
+    0.02
+  ],
+  "expected_emitted_textured_trim_mm": 0.02,
+  "layers": 284,
+  "project_check": true,
+  "bead_envelope_plate_mm": [
+    [
+      54.893828,
+      81.11082800000001
+    ],
+    [
+      270.106172,
+      251.9991425
+    ]
+  ],
+  "bed_margins_mm": {
+    "left": 54.893828,
+    "front": 81.11082800000001,
+    "right": 54.893827999999985,
+    "back": 68.0008575
+  },
+  "minimum_bed_margin_mm": 54.893827999999985,
+  "bed_border_mm": 20.0,
+  "fine_and_transition_bands": [],
+  "support_roads": 1466803,
+  "show_face_minimum_bead_clearance_mm": null,
+  "show_face_contacts": [],
+  "tie_window_support_crossings": [],
+  "ribbon_support_crossings": [],
+  "ribbons": [],
+  "fine_band_unbacked_roads": [],
+  "first_second_layer_stack": {
+    "1901": {
+      "second_layer_model_bead_area_mm2": 8527.945322879958,
+      "fraction_over_first_layer": 0.9881853038920138,
+      "second_layer_centerline_outside_first_mm": 22.706887865141884
+    },
+    "1902": {
+      "second_layer_model_bead_area_mm2": 6116.357736486448,
+      "fraction_over_first_layer": 0.9673126915845541,
+      "second_layer_centerline_outside_first_mm": 49.02398084767561
+    }
+  },
+  "solid_host_deposition": [
+    {
+      "object": 1901,
+      "name": "Pump snap west full-Y hook, wing and upper root",
+      "plate_bounds_mm": [
+        [
+          61.15100152587891,
+          213.53250091552732,
+          0.0009999999999976694
+        ],
+        [
+          72.6,
+          238.7814935913086,
+          68.01399938964843
+        ]
+      ],
+      "samples": [
+        {
+          "print_z_mm": 0.44,
+          "coverage": 0.9950928738922149,
+          "stock_mm2": 142.550521355495
+        },
+        {
+          "print_z_mm": 34.04,
+          "coverage": 0.9871164927352271,
+          "stock_mm2": 142.55051724203344
+        },
+        {
+          "print_z_mm": 67.88,
+          "coverage": 0.9942681062077305,
+          "stock_mm2": 142.55051795415199
+        }
+      ],
+      "minimum_coverage": 0.9871164927352271
+    },
+    {
+      "object": 1901,
+      "name": "Pump snap east full-Y hook, wing and upper root",
+      "plate_bounds_mm": [
+        [
+          252.4,
+          213.53250091552732,
+          0.0009999999999976694
+        ],
+        [
+          263.8489984741211,
+          238.7814935913086,
+          68.01399938964843
+        ]
+      ],
+      "samples": [
+        {
+          "print_z_mm": 0.44,
+          "coverage": 0.9942398374409108,
+          "stock_mm2": 142.5505205880005
+        },
+        {
+          "print_z_mm": 34.04,
+          "coverage": 0.9869803994503413,
+          "stock_mm2": 142.55051708806872
+        },
+        {
+          "print_z_mm": 67.88,
+          "coverage": 0.9945737138746797,
+          "stock_mm2": 142.55052188895252
+        }
+      ],
+      "minimum_coverage": 0.9869803994503413
+    },
+    {
+      "object": 1902,
+      "name": "Pump snap west receiver floor and full flank root",
+      "plate_bounds_mm": [
+        [
+          55.001000000000005,
+          90.2175064086914,
+          0.0010000000000047748
+        ],
+        [
+          64.0,
+          158.7325064086914,
+          46.19500000000002
+        ]
+      ],
+      "samples": [
+        {
+          "print_z_mm": 0.44,
+          "coverage": 0.9982967829323284,
+          "stock_mm2": 615.5571203348044
+        },
+        {
+          "print_z_mm": 23.24,
+          "coverage": 0.9939682199248656,
+          "stock_mm2": 376.775644481923
+        },
+        {
+          "print_z_mm": 46.04,
+          "coverage": 0.9961441782044231,
+          "stock_mm2": 563.9736432150717
+        }
+      ],
+      "minimum_coverage": 0.9939682199248656
+    },
+    {
+      "object": 1902,
+      "name": "Pump snap east receiver floor and full flank root",
+      "plate_bounds_mm": [
+        [
+          261.0,
+          90.2175064086914,
+          0.0010000000000047748
+        ],
+        [
+          269.999,
+          158.7325064086914,
+          46.19500000000002
+        ]
+      ],
+      "samples": [
+        {
+          "print_z_mm": 0.44,
+          "coverage": 0.9983211134574843,
+          "stock_mm2": 615.5567314054871
+        },
+        {
+          "print_z_mm": 23.24,
+          "coverage": 0.9938649381404514,
+          "stock_mm2": 376.7756586660721
+        },
+        {
+          "print_z_mm": 46.04,
+          "coverage": 0.9961994670520185,
+          "stock_mm2": 563.9736568424435
+        }
+      ],
+      "minimum_coverage": 0.9938649381404514
+    }
+  ],
+  "support_topology": {},
+  "scope": "Commanded paths and bead envelopes from this archive. Support removal, surface finish, fit and strength are physical observations.",
+  "checks": {
+    "archive": true,
+    "z_trim": true,
+    "bed_border": true,
+    "fine_and_transition_bands": true,
+    "show_faces_support_free": true,
+    "tie_windows_support_free": true,
+    "ribbons_support_free_and_printed": true,
+    "solid_hosts_sampled": true
+  },
+  "pass": true
+}

@@ -1,0 +1,136 @@
+{
+  "producer": "Production heat-set-review/print_regions.py dimensions, clipped to this retention sample.",
+  "pieces": {
+    "cartridge-retainer": [
+      {
+        "name": "Pump snap west full-Y hook, wing and upper root",
+        "machine_bounds_mm": [
+          -101.3499984741211,
+          -89.9,
+          14.25,
+          82.265,
+          175.19500000000002,
+          200.44500000000002
+        ],
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag",
+        "applied_source_bounds_mm": [
+          -101.3499984741211,
+          -89.9,
+          14.25,
+          82.26499938964844,
+          175.19500732421875,
+          200.44500000000002
+        ],
+        "print_bounds_mm": [
+          -101.3499984741211,
+          -89.9,
+          -200.44500000000002,
+          -175.19500732421875,
+          0.0,
+          68.01499938964844
+        ]
+      },
+      {
+        "name": "Pump snap east full-Y hook, wing and upper root",
+        "machine_bounds_mm": [
+          89.9,
+          101.3499984741211,
+          14.25,
+          82.265,
+          175.19500000000002,
+          200.44500000000002
+        ],
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag",
+        "applied_source_bounds_mm": [
+          89.9,
+          101.3499984741211,
+          14.25,
+          82.26499938964844,
+          175.19500732421875,
+          200.44500000000002
+        ],
+        "print_bounds_mm": [
+          89.9,
+          101.3499984741211,
+          -200.44500000000002,
+          -175.19500732421875,
+          0.0,
+          68.01499938964844
+        ]
+      }
+    ],
+    "cartridge-receiver": [
+      {
+        "name": "Pump snap west receiver floor and full flank root",
+        "machine_bounds_mm": [
+          -107.5,
+          -98.5,
+          14.0,
+          82.515,
+          160.25,
+          206.44500000000002
+        ],
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag",
+        "applied_source_bounds_mm": [
+          -107.5,
+          -98.5,
+          14.0,
+          82.515,
+          160.25,
+          206.44500000000002
+        ],
+        "print_bounds_mm": [
+          -107.5,
+          -98.5,
+          14.0,
+          82.515,
+          0.0,
+          46.19500000000002
+        ]
+      },
+      {
+        "name": "Pump snap east receiver floor and full flank root",
+        "machine_bounds_mm": [
+          98.5,
+          107.5,
+          14.0,
+          82.515,
+          160.25,
+          206.44500000000002
+        ],
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag",
+        "applied_source_bounds_mm": [
+          98.5,
+          107.5,
+          14.0,
+          82.515,
+          160.25,
+          206.44500000000002
+        ],
+        "print_bounds_mm": [
+          98.5,
+          107.5,
+          14.0,
+          82.515,
+          0.0,
+          46.19500000000002
+        ]
+      }
+    ]
+  },
+  "native_artifact_sha256": {
+    "cartridge-retainer": {
+      ".stl": "c374c67aab3d5e4db33c18406c6c1dabfa670528c97079079fb1e02005adc510",
+      ".step": null
+    },
+    "cartridge-receiver": {
+      ".stl": "1f8b24378a001516497289a6ac63ebd628e7b4bb18a6f9860f21d94b1a7fe0f2",
+      ".step": null
+    }
+  },
+  "part_process_overrides": {}
+}
