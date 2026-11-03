@@ -1,20 +1,4 @@
-[thin] Functional hook nose and insertion ramp. The 4.6 mm total hook height comprises a 1.6 mm tool-backed nose and a 3 mm pointed lead-in. Across the centered 5 mm blade entry, the 1 mm opening leaves a finite 0.6 mm nose above it. The tool-purchase roof and the adjoining insertion profile are functional parts of this specified hook. Physical insertion, release and repeated use are checked with the complete pointed sample.
-alternatives: Increasing roof thickness within this height reduces the requested blade opening or steepens the insertion ramp; increasing total hook height also deepens its receiving pocket into the fixed roof stock. Filling the entry removes centered tool access. The 2.6 mm flat retaining overlap remains on each side of the entry.
-file: hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.step
-click: x=-31.842 y=27.147 z=25.572
-click: x=-31.842 y=26.430 z=25.572
-click: x=31.842 y=27.147 z=28.928
-click: x=31.842 y=26.430 z=28.928
-click: x=-32.440 y=27.340 z=45.168
-click: x=-32.440 y=25.430 z=45.168
-click: x=-32.440 y=27.340 z=11.510
-click: x=-32.440 y=25.430 z=11.510
-click: x=32.440 y=27.340 z=42.990
-click: x=32.440 y=25.430 z=42.990
-click: x=32.440 y=27.340 z=9.332
-click: x=32.440 y=25.430 z=9.332
-
-[thin] The specified 2.0 mm spring leaves and R1.5 root transitions provide the intermediate section Derek requests between the physically tested 1.3 and 2.6 mm leaves. These are the flexures, printed on an axial end so bending lies in the layer plane. Their physical bending distribution and fatigue remain for the v3 trial.
+[thin] The specified 2.0 mm spring leaves and R1.5 root transitions provide the intermediate section Derek requests between the physically tested 1.3 and 2.6 mm leaves. These are the flexures, printed on an axial end so bending lies in the layer plane. Repeated insertion and bending distribution are physical checks on the complete pointed samples.
 alternatives: Thickening the leaves to 2.6 mm repeats the section Derek reports bending only at its corners; 1.3 mm repeats the thinner section he requests an intermediate value above. The broad central bearing stock is independent of these spring lengths.
 file: hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.step
 click: x=-36.579 y=4.745 z=50.238
@@ -22,15 +6,7 @@ click: x=-34.579 y=4.745 z=50.238
 click: x=36.579 y=25.299 z=47.708
 click: x=34.579 y=25.299 z=47.708
 
-[ledge] The two axial end faces of each centered 5 × 1 mm blade entry are the functional tool-access boundaries under the hooks. Tree(auto)/Default retains accessible supports at these small ceilings; post-processing uses a tiny flathead that fits inside the cavity. The slot does not cut the continuous spring wall.
-alternatives: Filling the faces closes the blade entry. A ramped opening changes the flat screwdriver purchase and the remaining retaining bearing. Derek explicitly permits a tool and the extra edges for this release feature.
-file: hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.step
-click: x=32.513 y=26.096 z=29.750
-click: x=-33.546 y=25.763 z=29.750
-click: x=32.513 y=25.096 z=29.750
-click: x=-33.546 y=24.763 z=29.750
-
-[thin] The deliberately pointed free edge joins the single planar lead-in to the outside spring wall. Derek requests this point as the production tip. Its thickness approaches zero at the edge; the working spring remains 2 mm and the tool-backed nose remains 1.6 mm with 0.6 mm above the blade entry. These locations are on that specified point.
+[thin] The deliberately pointed free edge joins the single planar lead-in to the outside spring wall. Derek requests this point as the production tip. Its thickness approaches zero at the edge; the working spring remains 2 mm and the continuous solid retaining nose remains 1.6 mm. These locations are on that specified point.
 alternatives: A flat tip land removes the requested point. Thickening the full leaf changes the selected flexure section rather than the lead-in. The point is integral with the cap.
 file: hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.step
 click: x=-36.563 y=29.020 z=54.149

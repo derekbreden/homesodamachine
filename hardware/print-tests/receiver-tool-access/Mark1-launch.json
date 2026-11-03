@@ -1,0 +1,31 @@
+{
+  "printer": "H2C",
+  "observed_at": "2026-11-03T22:12:47.889692+00:00",
+  "archive": {
+    "name": "HSM-receiver-access-Mark1-2e016011.gcode.3mf",
+    "sha256": "91e19c96317a697128b33cbf58eef269bf632eb1b785a3058b1298fee894315e",
+    "gcode_sha256": "b0460fdb94c9f052ecee65115d363a9b22b730ef2c4c386e4f9ab2e744b5a02b",
+    "slots": {
+      "1": {
+        "type": "PET-CF",
+        "colour": "000000"
+      }
+    },
+    "objects": [
+      "asse-seat",
+      "asse-cap",
+      "pisco-seat",
+      "pisco-cap",
+      "regulator-seat",
+      "regulator-cap"
+    ]
+  },
+  "printer_task_id": "1404784448",
+  "gcode_state": "RUNNING",
+  "subtask_name": "HSM-receiver-access-Mark1-2e016011.gcode.3mf",
+  "print_error": 0,
+  "hms": [],
+  "layer_num": 0,
+  "total_layer_num": 269,
+  "mc_remaining_time": 322
+}

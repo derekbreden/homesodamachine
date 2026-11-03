@@ -1,20 +1,4 @@
-[thin] Functional hook nose and insertion ramp. The 4.6 mm total hook height comprises a 1.6 mm tool-backed nose and a 3 mm pointed lead-in. Across the centered 5 mm blade entry, the 1 mm opening leaves a finite 0.6 mm nose above it. The tool-purchase roof and the adjoining insertion profile are functional parts of this specified hook. Physical insertion, release and repeated use are checked with the complete pointed sample.
-alternatives: Increasing roof thickness within this height reduces the requested blade opening or steepens the insertion ramp; increasing total hook height also deepens its receiving pocket into the fixed roof stock. Filling the entry removes centered tool access. The 2.6 mm flat retaining overlap remains on each side of the entry.
-file: hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.step
-click: x=-9.674 y=-13.657 z=21.804
-click: x=-9.674 y=-12.939 z=21.804
-click: x=9.674 y=-13.657 z=19.900
-click: x=9.674 y=-12.939 z=19.900
-click: x=-10.265 y=-13.848 z=7.167
-click: x=-10.265 y=-11.939 z=7.167
-click: x=10.265 y=-13.848 z=34.537
-click: x=10.265 y=-11.939 z=34.537
-click: x=-10.290 y=-13.856 z=40.736
-click: x=-10.290 y=-11.939 z=40.736
-click: x=10.290 y=-13.856 z=0.968
-click: x=10.290 y=-11.939 z=0.968
-
-[thin] The specified 2.0 mm spring leaves and R1.5 root transitions provide the intermediate section Derek requests between the physically tested 1.3 and 2.6 mm leaves. These are the flexures, printed on an axial end so bending lies in the layer plane. Their physical bending distribution and fatigue remain for the v4 trial.
+[thin] The specified 2.0 mm spring leaves and R1.5 root transitions provide the intermediate section Derek requests between the physically tested 1.3 and 2.6 mm leaves. These are the flexures, printed on an axial end so bending lies in the layer plane. Repeated insertion and bending distribution are physical checks on the complete pointed samples.
 alternatives: Thickening the leaves to 2.6 mm repeats the section Derek reports bending only at its corners; 1.3 mm repeats the thinner section he requests an intermediate value above. The broad central bearing stock is independent of these spring lengths.
 file: hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.step
 click: x=-14.406 y=-11.784 z=36.384
@@ -22,15 +6,7 @@ click: x=-12.406 y=-11.784 z=36.384
 click: x=14.406 y=8.661 z=38.183
 click: x=12.406 y=8.661 z=38.183
 
-[ledge] The two axial end faces of each centered 5 × 1 mm blade entry are the functional tool-access boundaries under the hooks. Tree(auto)/Default retains accessible supports at these small ceilings; post-processing uses a tiny flathead that fits inside the cavity. The slot does not cut the continuous spring wall.
-alternatives: Filling the faces closes the blade entry. A ramped opening changes the flat screwdriver purchase and the remaining retaining bearing. Derek explicitly permits a tool and the extra edges for this release feature.
-file: hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.step
-click: x=-11.372 y=-12.272 z=23.352
-click: x=10.339 y=-12.605 z=23.352
-click: x=-11.372 y=-11.272 z=23.352
-click: x=10.339 y=-11.605 z=23.352
-
-[thin] The deliberately pointed free edge joins the single planar lead-in to the outside spring wall. Derek requests this point as the production tip. Its thickness approaches zero at the edge; the working spring remains 2 mm and the tool-backed nose remains 1.6 mm with 0.6 mm above the blade entry. These locations are on that specified point.
+[thin] The deliberately pointed free edge joins the single planar lead-in to the outside spring wall. Derek requests this point as the production tip. Its thickness approaches zero at the edge; the working spring remains 2 mm and the continuous solid retaining nose remains 1.6 mm. These locations are on that specified point.
 alternatives: A flat tip land removes the requested point. Thickening the full leaf changes the selected flexure section rather than the lead-in. The point is integral with the cap.
 file: hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.step
 click: x=-14.384 y=-15.526 z=0.351
@@ -39,3 +15,5 @@ click: x=14.384 y=-15.526 z=41.353
 click: x=14.406 y=-15.526 z=41.353
 click: x=-14.406 y=-15.444 z=41.350
 click: x=-14.364 y=-15.514 z=41.350
+click: x=14.406 y=-15.444 z=0.355
+click: x=14.364 y=-15.514 z=0.355
