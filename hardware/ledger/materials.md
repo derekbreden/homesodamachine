@@ -116,8 +116,7 @@ Physical quantities come from the parts and assembly records.
 
 `contexts: [{"material": "HSM-000001"}]` allows an assembly with no separate model
 to be inspected in a containing material's model. The pump mount assembly uses
-the soda machine as its context; the vessel and magnetic level float use the cold
-core. Context inspection keeps the selected assembly's own identity and BOM and
+the soda machine as its context; the vessel uses the cold core. Context inspection keeps the selected assembly's own identity and BOM and
 highlights its represented contents. A representation may also specify
 `context: true` to use a particular enclosing model file. Context representations
 do not allocate that enclosing model's identity to the contained material.
