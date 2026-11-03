@@ -64,9 +64,9 @@
     "hardware/printed-parts/enclosure/enclosure/enclosure.py": "bcdeda82a8a2732f9acb43ff4e64822e260bbad174c0d94a5b533a1e624e7cfa"
   },
   "artifacts": {
-    "valve-socket-fit.step": "d83180ff664e523640b455c56cf7af81274c9956fe2dcc377123d9f88c19b25b",
-    "valve-socket-fit.step.npz": "98e29a945cca381d2e4b2615634daa16546995e6d1d135afe1e88dd84dca4dc2",
-    "valve-socket-fit.step.mesh": "53bbc4404838bd1ac81fe4a8371484110090fa8794782794ea9dd0b12d75dff7",
-    "valve-socket-fit.stl": "925862176fb59205aee0b8824c59fcccdfcc89be4a1aeef40d8aeb1662297fe1"
+    "valve-socket-fit.step": "9bcaf5febc2480addd873f1952bedb5c52ec6d63b53cb30283f6c0e242264d4c",
+    "valve-socket-fit.step.npz": "1562a2c4b53ac1a2edc6119025280b97b9635c4d7d5b1cb603ccff35d073ab1c",
+    "valve-socket-fit.step.mesh": "9e6e72c3be8b27e7bbaaead116d6d0ff48bd930b8b1e3cf80da906767addc4e2",
+    "valve-socket-fit.stl": "9bab640e4f5361e8f075e191ec7dbc91f2de6aa7701057025488b8910f8321ca"
   }
 }
