@@ -5923,8 +5923,8 @@ def report(a: cq.Assembly, clashes=None, *, bounds=None) -> None:
     # THE PACK AND NOT THE EXPORT. `_solids` is where the two part company: the machine reports
     # on the core as the one body it seats, stops and holds, and what is inside that body is
     # reported by the core's own card beside `cold-core-assembly.step`.
-    named = {n: s for n, (s, _c) in _solids(a).items()}
     if bounds is None:
+        named = {n: s for n, (s, _c) in _solids(a).items()}
         read_box = box
     else:
         named = {name: name for name in bounds}

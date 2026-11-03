@@ -32,6 +32,8 @@ import json
 import math
 import re
 import sys
+from collections import ChainMap
+from collections.abc import Mapping
 from dataclasses import dataclass, field
 from functools import cache
 from pathlib import Path
@@ -92,6 +94,63 @@ def pack_bodies() -> frozenset:
 _placed_cache: dict = {}
 
 
+def _placed_sources(a) -> tuple:
+    """The check populations as objects and installed frames, without moving geometry."""
+    inside = getattr(a, 'core_body_names', frozenset())
+    wires = getattr(a, 'wiring_body_names', frozenset())
+    external = getattr(a, 'core_external_components', frozenset())
+    bodies, tubes, pieces = {}, {}, {}
+
+    def walk(node, location):
+        here = location * node.loc
+        if node.obj is not None:
+            yield node.name, node.obj, here
+        for child in node.children:
+            yield from walk(child, here)
+
+    for child in a.children:
+        for name, obj, location in walk(child, a.loc):
+            if name in wires or name.rsplit('/', 1)[-1].startswith('wire-'):
+                continue
+            if name in inside:
+                leaf = name.rsplit('/', 1)[-1]
+                if leaf not in external:
+                    continue
+                name = leaf
+            target = (pieces if name.startswith('enclosure-') else
+                      tubes if name.startswith(TUBE_PREFIXES) else bodies)
+            target[name] = obj, location
+    if getattr(a, 'core_envelope', None) is not None:
+        bodies['foam-assembly'] = a.core_envelope, None
+    return bodies, tubes, pieces
+
+
+class _PlacedShapes(Mapping):
+    """Materialize only the placed bodies a local mating-region calculation reads."""
+
+    def __init__(self, sources):
+        self.sources = sources
+        self.shapes = {}
+
+    def __iter__(self):
+        return iter(self.sources)
+
+    def __len__(self):
+        return len(self.sources)
+
+    def __contains__(self, name):
+        return name in self.sources
+
+    def __getitem__(self, name):
+        if name not in self.shapes:
+            import cadquery as cq
+            obj, location = self.sources[name]
+            shape = obj.val() if hasattr(obj, 'val') else obj
+            self.shapes[name] = (shape if location is None else
+                shape.moved(cq.Location(location.wrapped.Transformation())))
+        return self.shapes[name]
+
+
 def _split_placed(a) -> tuple:
     """The placed world in the three populations the checks read it in: `(bodies, tubes,
     pieces)` — the machine's parts, the tube drawn between them, and the printed box.
@@ -139,7 +198,7 @@ def _split_placed(a) -> tuple:
 
 def _population_names(a) -> tuple:
     """Name censuses include the explicit manifold rows without creating model Shapes."""
-    populations = _split_placed(a)
+    populations = _placed_sources(a)
     reading = getattr(a, 'manifold_reading', None)
     if reading is None:
         return tuple(tuple(population) for population in populations)
@@ -1573,13 +1632,17 @@ def pack_clashes(a, *, fine=None) -> tuple:
     hit = _clash_cache.get(id(a))
     if hit is not None and hit[0] is a:
         return hit[1]
-    bodies, tubes, pieces = _split_placed(a)
-    bad, unanswered = (_fine_pack_clashes(a, fine) if fine is not None else
-                       ml.clashes(a, bodies={**bodies, **tubes, **pieces}))
-    if fine is not None:
-        _fine_pack_readings(a, bodies, {**bodies, **tubes, **pieces}, bad, fine)
-    try:
+    if fine is None:
+        bodies, tubes, pieces = _split_placed(a)
         placed = {**bodies, **tubes, **pieces}
+    else:
+        bodies, tubes, pieces = (_PlacedShapes(rows) for rows in _placed_sources(a))
+        placed = ChainMap(bodies, tubes, pieces)
+    bad, unanswered = (_fine_pack_clashes(a, fine) if fine is not None else
+                       ml.clashes(a, bodies=placed))
+    if fine is not None:
+        _fine_pack_readings(a, bodies, placed, bad, fine)
+    try:
         reading = (_fine_contact(fine, 'mates') if fine is not None else
                    selected_mate_contacts(a, placed, bad))
         a.selected_mate_contact_reading = reading
