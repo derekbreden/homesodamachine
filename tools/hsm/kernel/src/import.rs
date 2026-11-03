@@ -190,18 +190,18 @@ fn visit_model_archive<R: Read + Seek>(
         if selected.is_some_and(|indices| !indices.contains(&i)) {
             continue;
         }
-        let (vertices, vertex_shape) = model_array::<f64, _>(archive, &format!("V{i}"))?;
-        let (triangles, triangle_shape) = model_array::<u32, _>(archive, &format!("T{i}"))?;
+        let (vertices, vertex_shape, vertices_finite) = model_rows::<f64, _, _>(
+            archive, &format!("V{i}"), V3::from, |v| v.is_finite())?;
+        let (triangles, triangle_shape, _) = model_rows::<u32, _, _>(
+            archive, &format!("T{i}"), |row| row, |_| true)?;
         let (face_of, face_shape) = model_array::<u32, _>(archive, &format!("F{i}"))?;
         ensure!(vertex_shape.len() == 2 && vertex_shape[1] == 3,
             "body {i} vertices are not an N by 3 array");
         ensure!(triangle_shape.len() == 2 && triangle_shape[1] == 3,
             "body {i} triangles are not an N by 3 array");
         ensure!(face_shape == [triangle_shape[0]], "body {i} has a different face count from its triangles");
-        ensure!(vertices.iter().all(|v| v.is_finite()), "body {i} has a non-finite coordinate");
+        ensure!(vertices_finite, "body {i} has a non-finite coordinate");
         ensure!(color.is_none_or(|c| c.iter().all(|v| v.is_finite())), "body {i} has a non-finite color");
-        let vertices: Vec<V3> = vertices.chunks_exact(3).map(|v| V3::from([v[0], v[1], v[2]])).collect();
-        let triangles: Vec<[u32; 3]> = triangles.chunks_exact(3).map(|v| [v[0], v[1], v[2]]).collect();
         let faces: Vec<Face> = records.iter().map(Face::from_json).collect::<Result<_>>()?;
         ensure!(triangles.iter().flatten().all(|&v| (v as usize) < vertices.len()),
             "body {i} has a vertex index outside its array");
@@ -220,6 +220,40 @@ fn model_array<T: Deserialize, R: Read + Seek>(archive: &mut ZipArchive<R>, name
     ensure!(data.order() == Order::C, "model {name} is not in C order");
     let shape = data.shape().to_vec();
     Ok((data.into_vec()?, shape))
+}
+
+/// Decode coordinates and triangle indices directly into their final row storage.
+fn model_rows<T: Deserialize, Row, R: Read + Seek>(
+    archive: &mut ZipArchive<R>,
+    name: &str,
+    row: impl Fn([T; 3]) -> Row,
+    scalar_valid: impl Fn(&T) -> bool,
+) -> Result<(Vec<Row>, Vec<u64>, bool)> {
+    let data = NpyFile::new(archive.by_name(&format!("{name}.npy"))?)?;
+    ensure!(data.order() == Order::C, "model {name} is not in C order");
+    let shape = data.shape().to_vec();
+    let mut values = data.data::<T>().map_err(|error|
+        std::io::Error::new(std::io::ErrorKind::InvalidData, error.to_string()))?;
+    if shape.len() != 2 || shape[1] != 3 {
+        // Preserve read-error precedence; the caller reports the body-specific
+        // dimension error after the same vertex, triangle and face reads.
+        for value in values { value?; }
+        return Ok((vec![], shape, true));
+    }
+    let mut rows = Vec::with_capacity(values.size_hint().0 / 3);
+    let mut valid = true;
+    while let Some(x) = values.next() {
+        let x = x?;
+        valid &= scalar_valid(&x);
+        let Some(y) = values.next() else { break };
+        let y = y?;
+        valid &= scalar_valid(&y);
+        let Some(z) = values.next() else { break };
+        let z = z?;
+        valid &= scalar_valid(&z);
+        rows.push(row([x, y, z]));
+    }
+    Ok((rows, shape, valid))
 }
 
 fn model_json<R: Read + Seek>(archive: &mut ZipArchive<R>, name: &str) -> Result<serde_json::Value> {
