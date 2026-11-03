@@ -25,6 +25,7 @@ import { getMessaging } from "firebase-admin/messaging";
 import path from "path";
 import fs from "fs";
 import crypto from "crypto";
+import { pipeline } from "node:stream/promises";
 import { insertNotification } from "./notifications.js";
 import { walkFiles, walkPcbBoards, walkDocuments } from "./walk.js";
 
@@ -227,6 +228,12 @@ export function mountPushRoutes(app) {
 // template-string interpolation, since callers pick from this whitelist.
 const ALLOWED_HASH_TABLES = new Set(["step_hashes", "mermaid_hashes", "dxf_hashes", "document_hashes"]);
 
+async function hashFile(abs) {
+  const hash = crypto.createHash("sha256");
+  await pipeline(fs.createReadStream(abs), hash);
+  return hash.digest("hex");
+}
+
 async function detectChangedFilesInTable(tableName, walker, hardwareDir) {
   if (!ALLOWED_HASH_TABLES.has(tableName)) {
     throw new Error(`detectChangedFilesInTable: bad table "${tableName}"`);
@@ -244,13 +251,12 @@ async function detectChangedFilesInTable(tableName, walker, hardwareDir) {
 
   for (const file of files) {
     const abs = path.join(hardwareDir, file);
-    let buf;
+    let sha;
     try {
-      buf = fs.readFileSync(abs);
+      sha = await hashFile(abs);
     } catch {
       continue;
     }
-    const sha = crypto.createHash("sha256").update(buf).digest("hex");
 
     const { rows } = await pool.query(
       `SELECT sha256 FROM ${tableName} WHERE file = $1`,
@@ -308,13 +314,12 @@ export async function detectChangedPcb(hardwareDir) {
 
   const changed = [];
   for (const board of walkPcbBoards(hardwareDir)) {
-    let buf;
+    let sha;
     try {
-      buf = fs.readFileSync(path.join(hardwareDir, board.overlay));
+      sha = await hashFile(path.join(hardwareDir, board.overlay));
     } catch {
       continue;
     }
-    const sha = crypto.createHash("sha256").update(buf).digest("hex");
 
     const { rows } = await pool.query(
       "SELECT sha256 FROM pcb_hashes WHERE file = $1",
