@@ -3,7 +3,7 @@ use anyhow::{Context, Result, ensure};
 use serde_json::{Value, json};
 use sha2::{Digest, Sha256};
 use std::{
-    collections::BTreeMap,
+    collections::{BTreeMap, BTreeSet},
     fs::File,
     io::{BufReader, BufWriter, Cursor, Read, Seek, SeekFrom, Write},
     path::{Component, Path, PathBuf},
@@ -91,12 +91,19 @@ pub struct Model {
     pub names: Vec<String>,
     pub colors: Vec<Value>,
     pub document: Value,
+    path: PathBuf,
     records: Vec<String>,
     archive: ZipArchive<File>,
 }
 pub type Models = BTreeMap<PathBuf, Model>;
 impl Model {
     pub fn open(path: &Path) -> Result<Self> {
+        Self::open_headers(path, true)
+    }
+    fn for_visiting(path: &Path) -> Result<Self> {
+        Self::open_headers(path, false)
+    }
+    fn open_headers(path: &Path, records: bool) -> Result<Self> {
         let mut file = File::open(path).with_context(|| format!("model {}", path.display()))?;
         let mut hash = Sha256::new();
         let mut block = [0u8; 65536];
@@ -111,7 +118,11 @@ impl Model {
         let mut archive = ZipArchive::new(File::open(path)?)?;
         let names = serde_json::from_slice(npy_data(&member(&mut archive, "names.npy")?)?)?;
         let colors = serde_json::from_slice(npy_data(&member(&mut archive, "colors.npy")?)?)?;
-        let records = spans(npy_data(&member(&mut archive, "records.npy")?)?)?;
+        let records = if records {
+            spans(npy_data(&member(&mut archive, "records.npy")?)?)?
+        } else {
+            Vec::new()
+        };
         let document = if archive
             .file_names()
             .any(|n| n.is_ok_and(|n| n == "document.npy"))
@@ -124,6 +135,7 @@ impl Model {
             names,
             colors,
             document,
+            path: path.to_owned(),
             records,
             archive,
         })
@@ -147,26 +159,17 @@ impl Model {
             .collect())
     }
 
-    /// Decode one stored body without retaining another body's arrays or face records.
-    pub(super) fn imported(&mut self, index: usize) -> Result<hsm_kernel::Imported> {
-        let mut writer = ZipWriter::new(Cursor::new(Vec::new()));
-        let options = SimpleFileOptions::default().compression_method(zip::CompressionMethod::Stored);
-        for kind in ["V", "T", "F"] {
-            writer.start_file(format!("{kind}0.npy"), options)?;
-            writer.write_all(&member(&mut self.archive, &format!("{kind}{index}.npy"))?)?;
+    /// Decode selected bodies in stored order in one archive pass, releasing each after use.
+    pub(super) fn visit_selected(
+        &self,
+        indices: &BTreeSet<usize>,
+        visit: impl FnMut(usize, hsm_kernel::Imported) -> Result<()>,
+    ) -> Result<()> {
+        if indices.is_empty() {
+            return Ok(());
         }
-        for (name, bytes) in [
-            ("names", serde_json::to_vec(&[&self.names[index]])?),
-            ("colors", serde_json::to_vec(&[&self.colors[index]])?),
-            ("records", format!("[{}]", self.records[index]).into_bytes()),
-        ] {
-            writer.start_file(format!("{name}.npy"), options)?;
-            writer.write_all(&npy_text(&bytes))?;
-        }
-        let bytes = writer.finish()?.into_inner();
-        hsm_kernel::import::model_bodies(&bytes)?
-            .pop()
-            .context("missing stored model body")
+        hsm_kernel::import::visit_model_indices(&self.path, indices, visit)?;
+        Ok(())
     }
 }
 fn member<R: Read + Seek>(zip: &mut ZipArchive<R>, name: &str) -> Result<Vec<u8>> {
@@ -640,9 +643,11 @@ fn write_step_stream(model: &mut Model, path: &Path, root: &str) -> Result<Strin
     let count = model.names.len();
     put_stream(path, |writer| {
         if count == 1 {
-            let part = model.imported(0)?;
-            let body = hsm_kernel::write::Body { name: &part.name, color: part.color, solid: &part.solid };
-            writer.write_all(&hsm_kernel::step::step_bytes(&[body], root)?)?;
+            model.visit_selected(&BTreeSet::from([0]), |_, part| {
+                let body = hsm_kernel::write::Body { name: &part.name, color: part.color, solid: &part.solid };
+                writer.write_all(&hsm_kernel::step::step_bytes(&[body], root)?)?;
+                Ok(())
+            })?;
             return Ok(());
         }
         writer.write_all(b"ISO-10303-21;\nHEADER;\n")?;
@@ -664,8 +669,7 @@ fn write_step_stream(model: &mut Model, path: &Path, root: &str) -> Result<Strin
         ensure!(e.units()? == context, "STEP unit order");
         e.add(format!("PRODUCT_RELATED_PRODUCT_CATEGORY('part',$,({product}))"))?;
         let mut styled = Vec::new();
-        for index in 0..count {
-            let part = model.imported(index)?;
+        model.visit_selected(&(0..count).collect(), |index, part| {
             let body = hsm_kernel::write::Body { name: &part.name, color: part.color, solid: &part.solid };
             let single = hsm_kernel::step::step_bytes(&[body], root)?;
             let text = std::str::from_utf8(&single)?;
@@ -699,7 +703,8 @@ fn write_step_stream(model: &mut Model, path: &Path, root: &str) -> Result<Strin
             if let Some(color) = part.color {
                 styled.push((set, color));
             }
-        }
+            Ok(())
+        })?;
         if !styled.is_empty() {
             let at = e.next;
             let items: Vec<_> = (0..styled.len()).map(|i| format!("#{}", at + 1 + 8 * i)).collect();
@@ -741,7 +746,7 @@ pub fn physical(spec: &Value, output: &Path) -> Result<Value> {
     // Reuse each immutable input archive across reference, copy and presentation phases.
     write_refs_using(&rows, None, &model, &mut sources)?;
     drop(rows);
-    let mut fine = Model::open(&model)?;
+    let mut fine = Model::for_visiting(&model)?;
     let src = write_step_stream(&mut fine, &step, name)?;
     let mut shown = super::payload::placed_surfaces(instances, &mut fine, &mut sources)?;
     drop(sources);
