@@ -162,6 +162,9 @@ def _attach_kernel(assembly,numbers,manifest,*,output=OUT,sources=()):
 
 def export_enclosure(assembly, target, *, physical_export=None):
     """One physical export followed by the separately replaceable wiring block."""
+    if isinstance(assembly, dict):
+        import _machine_export
+        return _machine_export.export(assembly, Path(target).parent)
     import cadquery as cq
     from _cadq_export import export_assembly
     from hardware.wiring.installed.step_merge import install
@@ -211,18 +214,54 @@ def export_enclosure(assembly, target, *, physical_export=None):
         install(Path(target),OUT.with_suffix('.step'))
 
 
+
+def export_from_fine(model, target, ea, *, reading=None, output=OUT):
+    """Resolve numeric wiring against the finished physical model and append in Rust.
+
+    The fine reader supplies frame/port scalar data. No meshcad assembly is loaded
+    and wire STEP/payload bytes are merged without rebuilding physical geometry.
+    """
+    import _machine_export
+    import _rust_part
+    from hardware.wiring.installed._model_input import read
+
+    model, target, output = Path(model), Path(target), Path(output)
+    numbers, manifest = numeric_inputs(read(model, reading=reading), ea)
+    numbers = {**numbers, 'file_stem': output.name,
+               'physical_fine_model_sha256': digest(model)}
+    output.parent.mkdir(parents=True, exist_ok=True)
+    _rust_part.cut('machine', 'installed-wires', numbers, output.parent,
+                   numbers_name=output.name)
+    receipt = _machine_export.append_wiring(
+        target, Path(str(output)+'.step'),
+        wire_model=Path(str(output)+'.step.npz'))
+    manifest['physical_fine_model_sha256'] = digest(model)
+    manifest['wiring_fine_model_sha256'] = receipt['wiring_fine_model']['sha256']
+    manifest['wiring_numbers_sha256'] = digest(output.with_suffix('.numbers.json'))
+    sources = [ROOT/p for p in numeric_source_paths(numbers)]
+    sources.extend(ROOT/p for p in sorted(_rust_part._READ_TARGETS) if (ROOT/p).is_file())
+    write_manifest(manifest, target, output=output, additional_sources=sources,
+                   physical_sha256=receipt['physical_step_sha256'])
+    receipt['connection_count'] = manifest['connection_count']
+    review = output.parent/'installed/integration-review.json'
+    review.parent.mkdir(parents=True, exist_ok=True)
+    review.write_text(json.dumps(receipt, indent=2)+'\n')
+    return {'manifest': manifest, 'receipt': receipt}
+
 def digest(path):
     with Path(path).open('rb') as stream:
         return hashlib.file_digest(stream,'sha256').hexdigest()
 
 
-def write_manifest(manifest,scene_step,*,output=OUT,additional_sources=()):
+def write_manifest(manifest,scene_step,*,output=OUT,additional_sources=(),physical_sha256=None):
     from _realized import code_digest
     # The physical scene digest excludes this wiring subassembly, avoiding a
     # circular hash when the same wiring is materialized a second time.
-    from hardware.wiring.installed.step_merge import base_document
-    raw=base_document(scene_step.read_text())
-    manifest['physical_scene_sha256']=hashlib.sha256(raw.encode()).hexdigest()
+    if physical_sha256 is None:
+        from hardware.wiring.installed.step_merge import base_document
+        raw=base_document(scene_step.read_text())
+        physical_sha256=hashlib.sha256(raw.encode()).hexdigest()
+    manifest['physical_scene_sha256']=physical_sha256
     paths=[Path(__file__),Path(__file__).with_name('connections.py'),
            Path(__file__).with_name('model.py'),Path(__file__).with_name('terminals.py'),
            Path(__file__).with_name('_model_input.py'),

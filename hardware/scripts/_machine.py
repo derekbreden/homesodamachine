@@ -57,7 +57,7 @@ def sources() -> tuple:
         entry = json.loads(_GRAPH.read_text())[_WORLD]
     except (OSError, ValueError, KeyError):
         return tuple(sorted(kernel | {f"hardware/{rel}" for rel in _FALLBACK_SOURCES}))
-    return tuple(sorted(kernel | {p for p in entry.get("reads", ()) if p.endswith(".py")}))
+    return tuple(sorted(kernel | {p for p in entry.get("reads", ()) if p.endswith((".py", ".rs", ".toml", "Cargo.lock"))}))
 
 
 def stamps() -> dict:
@@ -141,6 +141,21 @@ def _rgb(colour):
 def document(a, taken=None, card=None, drain=None, *, solids=None, core=None) -> dict:
     """What a reader of the built assembly `a` needs that its bodies do not say, and what its
     checks read off them."""
+    if isinstance(a, dict):
+        metadata = a.get('metadata', a)
+        return {
+            'schema': SCHEMA,
+            'taken': time.time() if taken is None else taken,
+            'sources': stamps(),
+            'solids': list(solids or metadata.get('solids', ())),
+            'core': list(core or metadata.get('core_body_names', ())),
+            'runs': metadata.get('runs', []),
+            'frames': metadata.get('frames', {}),
+            'box': metadata.get('box'),
+            'anchors': metadata.get('anchors', {}),
+            'card': card,
+            'drain': drain,
+        }
     import _box_spec
     import enclosure_assembly as ea
     frames = {name: {"ports": {port: _plain(row) for port, row in fr.ports.items()},
@@ -186,29 +201,11 @@ def write_from_fine(model, path=PATH, *, aliases, envelope, document) -> Path:
     completed fine model into this archive; the scene changes their public names and
     adds the separate packing envelope and the build's scalar document.
     """
-    import re
-    import _assembly_model
+    import _machine_export
 
-    outer, inner = {}, {}
-    for index, (name, color) in enumerate(_assembly_model.identity(model)):
-        name = re.sub(r'/\d+$', '', name)
-        name = aliases.get(name, name)
-        groups = inner if name.startswith('cold-core/') else outer
-        groups.setdefault(name, []).append((model, index, name, color))
-    entries = [entry for group in outer.values() for entry in group]
-    transforms = {}
-    for index, (_name, _color) in enumerate(_assembly_model.identity(envelope['path'])):
-        transforms[len(entries)] = envelope['transform']
-        entries.append((envelope['path'], index, 'foam-assembly', envelope['color']))
-    entries.extend(entry for group in inner.values() for entry in group)
-    path = Path(path)
-    tmp = path.with_name(f".{path.name}.{os.getpid()}.tmp")
-    try:
-        doc = {**document, 'solids': [*outer, 'foam-assembly'], 'core': list(inner)}
-        _assembly_model.write_entries(entries, tmp, document=doc, transforms=transforms)
-        os.replace(tmp, path)
-    finally:
-        tmp.unlink(missing_ok=True)
+    path = Path(path).resolve()
+    _machine_export.scene(model, path, aliases=aliases, envelope=envelope,
+                          document=document)
     return path
 
 

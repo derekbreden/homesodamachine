@@ -831,6 +831,8 @@ dependencies = [
  "hsm-geometry",
  "hsm-kernel",
  "serde_json",
+ "sha2",
+ "zip",
 ]
 
 [[package]]
