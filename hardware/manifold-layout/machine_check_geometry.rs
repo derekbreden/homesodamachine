@@ -672,22 +672,30 @@ pub fn read(w: &mut World, m: &Value, rules: &Value) -> Result<Readings> {
         }
     }
     let mut queries = Vec::new();
-    for (a, b, mask) in &masks {
+    let temporary_start = w.parts.len();
+    let mut mask_pairs = Vec::with_capacity(masks.len());
+    for (a, b, mask) in masks {
         let i = w.parts.len();
         w.parts.push(Imported {
             name: format!("mask-{i}"),
             color: None,
-            solid: mask.clone(),
+            solid: mask,
         });
-        let mut q = w.q("common", a, b)?;
+        let mut q = w.q("common", &a, &b)?;
         q["distribute_a"] = json!(true);
         q["fine_mask_stages"] = json!([{"name":"receiving-interface","indices":[i]}]);
         queries.push(q);
+        mask_pairs.push((a, b));
     }
+    let readings = w.measure(queries);
+    // The receiving tools have no role in later clearances, slopes or drain
+    // questions. No source entry or externally visible index is changed.
+    w.parts.truncate(temporary_start);
+    let readings = readings?;
     let mut admitted = BTreeSet::new();
     let mut family_pairs: BTreeMap<String, Vec<(String, String)>> = BTreeMap::new();
     let mut family_pass: BTreeMap<String, bool> = BTreeMap::new();
-    for (((a, b, _), (family, basis)), r) in masks.iter().zip(&families).zip(w.measure(queries)?) {
+    for (((a, b), (family, basis)), r) in mask_pairs.iter().zip(&families).zip(readings) {
         if r.get("error").is_some() {
             unanswered.push(json!([a, b, r["error"]]));
             continue;
