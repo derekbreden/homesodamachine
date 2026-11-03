@@ -140,8 +140,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends cmake \
 # finds it. `fonts-dejavu-core` is the face a look's annotations are set in off a Mac. A picture
 # is the same bytes on every runner this image runs on, whatever its CPU or thread count; a
 # rebuild of this layer can bring a newer Mesa, which can move them. Its own layer, after the
-# 840 MB, so a change here rebuilds nothing above it.
-RUN apt-get update && apt-get install -y --no-install-recommends mesa-vulkan-drivers libvulkan1 fonts-dejavu-core \
+# 840 MB, so a change here rebuilds nothing above it. `pdftoppm` rasterizes the install
+# guide's cover at 600 dpi.
+RUN apt-get update && apt-get install -y --no-install-recommends mesa-vulkan-drivers libvulkan1 fonts-dejavu-core poppler-utils \
     && rm -rf /var/lib/apt/lists/*
 
 # What the job needs to know to wire the three baked trees into a fresh checkout.
