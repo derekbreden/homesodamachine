@@ -8,8 +8,8 @@ model: manifold-layout/enclosure-assembly.step
 The ASSE, PISCO, flow-meter, water-regulator and G-Ganen pump caps have one
 3 mm-rise planar lead-in above the 1.6 mm tool-backed nose. Their matching
 receiver ceilings clear the complete points by 0.5 mm. The cartridge's lower
-barb uses one 4.6 mm planar lead-in to its retaining corner. Its receiver roof
-follows that profile with 0.5 mm clearance and a continuous 45° return.
+barb uses one 4.6 mm planar lead-in to its retaining corner. Its receiver's back
+roof stands 0.5 mm above the lead-in's highest level, with a continuous 45° return.
 
 The 2 mm leaves, rounded roots, catch overlap and centered screwdriver access
 remain part of every interface. All caps print on their axial ends. The full
