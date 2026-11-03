@@ -103,9 +103,12 @@ the normal build follows a batch merged to main.
 
 `enclosure.py` and `enclosure_assembly.py` retain their scalar and Rust-driver interfaces without
 native CAD builders or native-mode switches. The automatic local back-top preview uses fresh
-Rust/scalar sizing and Rust scene export. Other native hand-run tools remain pending Derek's
-individual decisions, including the hose and collet illustration builders.
+Rust/scalar sizing and Rust scene export. Other native hand-run tools, including the hose and collet illustration builders, are outside
+the two-driver removal.
 
-Exporter speed refactorings are pending re-examination; the published Rust exporter remains the
-batch implementation. A component tradeoff is reported with its own warm elapsed time, physical
-footprint and RSS; it is not a whole-machine speed or memory-pressure result.
+The exporter stages physical and installed drawings as separate files. The physical fine model
+names the drawing with the same body identities; generated wiring is appended to the installed
+drawing. Cached results restore the files the caller consumes.
+
+A component tradeoff is reported with its own warm elapsed time, physical footprint and RSS; it
+is not a whole-machine speed or memory-pressure result.
