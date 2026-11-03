@@ -868,18 +868,18 @@
     }
   },
   "bend_radii": {
-    "tube-fluid-18": {
-      "centerline_radii_mm": [
-        25.0
-      ],
-      "stock_minimum_mm": 25.0,
-      "passed": true
-    },
     "tube-drain-vent": {
       "centerline_radii_mm": [
         55.6741128
       ],
       "method": "Producer centerline; circular arcs and cubic curvature extrema",
+      "passed": true
+    },
+    "tube-fluid-18": {
+      "centerline_radii_mm": [
+        25.0
+      ],
+      "stock_minimum_mm": 25.0,
       "passed": true
     },
     "tube-fluid-28": {
@@ -901,7 +901,7 @@
     "hardware/reference/asse1022-assembly/asse1022_assembly.py": "8aaf9cc6d16062a5536d8ea6c8e6d0d79abe965eed761b2017e803f61298f081",
     "hardware/printed-parts/asse-drain-adapter/asse_drain_adapter.py": "115d59155216f206d8fb799f68c9468c88595ec2a576d967bd0be922c67590ed",
     "hardware/scripts/_assembly_model.py": "77fa66f1d6936e66c02e7df7fab1c6bfc9dc1bf75476e37e550fc86dfc2becc6",
-    "hardware/manifold-layout/enclosure_assembly.rs": "ccb8b969f64baa4a2ad01b5251a0d8d6b3aa72083b6eb0200a934e42140dc8cd"
+    "hardware/manifold-layout/enclosure_assembly.rs": "e33e797a07f5025b5ce7b054653fe6b0db554ee31909ce88a0b4d2393f39b3b4"
   },
   "fine_inputs": {
     "physical": {

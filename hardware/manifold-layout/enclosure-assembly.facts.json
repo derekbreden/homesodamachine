@@ -7927,7 +7927,7 @@
   }
  ],
  "schema": 2,
- "sources": "f78a999b265d0322fb5549962b36022c",
+ "sources": "036c09eadac9914919fdd26758f959a1",
  "step": "46555241239b9d33f674877b497dc215",
  "tube_export": {
   "fine_model": {
@@ -40700,7 +40700,7 @@
   },
   "scene": {
    "path": "hardware/manifold-layout/enclosure-assembly.scene.npz",
-   "sha256": "ae9c34f8c3793946ca628bb2c3027fdd6b8d01da65b0b1ec5c29a2fe7570d1ea"
+   "sha256": "7ff16682eec510478251b5136487fc0e65b4835d375bcaf4639006ad2c07792e"
   },
   "schema": 1,
   "step": {
