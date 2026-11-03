@@ -90,7 +90,7 @@
           },
           {
             "material": "HSM-000042",
-            "quantity": 11,
+            "quantity": 10,
             "unit": "ea",
             "bodies": [
               "valve-v-a",
@@ -103,8 +103,6 @@
               "coil-v-g",
               "valve-v-f",
               "coil-v-f",
-              "valve-v-b",
-              "coil-v-b",
               "valve-v-d",
               "coil-v-d",
               "valve-v-h",
@@ -133,7 +131,7 @@
           },
           {
             "material": "HSM-000330",
-            "quantity": 24,
+            "quantity": 20,
             "unit": "ea",
             "bodies": [
               "stem-elbow-y-c",
@@ -146,22 +144,18 @@
               "stem-elbow-v-j",
               "tee-fold",
               "lower-valve-elbow",
-              "lower-pump-elbow",
               "reg-va-elbow",
               "va-outlet-elbow",
               "va-south-elbow",
-              "carbonator-fold",
               "ya-stem-elbow",
               "drain-outlet-stem",
-              "vb-inlet-turn",
-              "vb-outlet-stem",
               "yb-stem-elbow",
               "reservoir-a-fill-turn",
               "reservoir-a-draw-turn",
               "reservoir-b-fill-turn",
               "funnel-drain-union"
             ],
-            "note": "Eight at the pump-dock lower returns, twelve at the warm header and return joints, three at the reservoir valves V-F/V-E/V-I and one uncut at the funnel drain."
+            "note": "Eight at the pump-dock lower returns, eight at the warm header and return joints, three at the reservoir valves V-F/V-E/V-I and one uncut at the funnel drain."
           },
           {
             "material": "HSM-000161",
@@ -175,17 +169,6 @@
             "bodies": [
               "pump-inlet-tpu",
               "pump-outlet-tpu"
-            ]
-          },
-          {
-            "material": "HSM-000325",
-            "quantity": 4,
-            "unit": "ea",
-            "bodies": [
-              "pump-inlet-barb-band",
-              "pump-inlet-tube-band",
-              "pump-outlet-barb-band",
-              "pump-outlet-tube-band"
             ]
           },
           {
@@ -206,14 +189,6 @@
             ]
           },
           {
-            "material": "HSM-000048",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "pcba"
-            ]
-          },
-          {
             "material": "HSM-000049",
             "quantity": 1,
             "unit": "ea",
@@ -223,21 +198,17 @@
           },
           {
             "material": "HSM-000050",
-            "quantity": 10,
+            "quantity": 6,
             "unit": "ea",
             "bodies": [
               "wago-h",
               "wago-n",
               "wago-g",
-              "wago-v12",
-              "wago-gnd",
-              "wago-reeds-b",
-              "wago-sensors",
               "wiring-junction-compressor-h",
               "wiring-junction-compressor-n",
               "wiring-junction-pump-positive"
             ],
-            "note": "Seven seat in printed wells, three on the rear wall and four on the core lid; three free joins under the funnel opening join the compressor's switched hot and neutral and the pump positive."
+            "note": "Three seat in the rear wall's printed wells; three free joins under the funnel opening join the compressor's switched hot and neutral and the pump positive."
           },
           {
             "material": "HSM-000052",
@@ -415,15 +386,6 @@
             ]
           },
           {
-            "material": "HSM-000074",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "vb-outlet-return"
-            ],
-            "note": "V-B return union."
-          },
-          {
             "material": "HSM-000075",
             "quantity": 1,
             "unit": "ea",
@@ -509,14 +471,6 @@
             "unit": "ea",
             "bodies": [
               "asse-drain-adapter"
-            ]
-          },
-          {
-            "material": "HSM-000178",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "g-ganen-pump"
             ]
           },
           {
@@ -631,7 +585,8 @@
             "unit": "ea",
             "bodies": [
               "turn-fluid-3",
-              "step-fluid-3"
+              "step-fluid-3",
+              "tube-above-core-va-fore-feed"
             ],
             "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
           },
@@ -641,7 +596,8 @@
             "unit": "ea",
             "bodies": [
               "turn-fluid-5",
-              "step-fluid-5"
+              "step-fluid-5",
+              "tube-above-core-vb-yb-link"
             ],
             "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
           },
@@ -682,15 +638,6 @@
             "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
           },
           {
-            "material": "HSM-000326",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "tube-water-7"
-            ],
-            "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
-          },
-          {
             "material": "HSM-000327",
             "quantity": 1,
             "unit": "ea",
@@ -700,20 +647,12 @@
             "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
           },
           {
-            "material": "HSM-000293",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "tube-water-5"
-            ],
-            "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
-          },
-          {
             "material": "HSM-000295",
             "quantity": 1,
             "unit": "ea",
             "bodies": [
-              "tube-fluid-1"
+              "tube-fluid-1",
+              "tube-above-core-tee-regulator"
             ],
             "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
           },
@@ -722,7 +661,8 @@
             "quantity": 1,
             "unit": "ea",
             "bodies": [
-              "tube-water-3"
+              "tube-water-3",
+              "tube-above-core-tee-vk-link"
             ],
             "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
           },
@@ -749,7 +689,8 @@
             "quantity": 1,
             "unit": "ea",
             "bodies": [
-              "tube-co2-2"
+              "tube-co2-2",
+              "tube-above-core-gas-core-drop"
             ],
             "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
           },
@@ -758,7 +699,8 @@
             "quantity": 1,
             "unit": "ea",
             "bodies": [
-              "tube-fluid-2"
+              "tube-fluid-2",
+              "tube-above-core-reg-va-link"
             ],
             "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
           },
@@ -767,7 +709,8 @@
             "quantity": 1,
             "unit": "ea",
             "bodies": [
-              "tube-carb-1"
+              "tube-carb-1",
+              "tube-soda-core-rise"
             ],
             "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
           },
@@ -776,7 +719,8 @@
             "quantity": 1,
             "unit": "ea",
             "bodies": [
-              "tube-carb-2"
+              "tube-carb-2",
+              "tube-soda-meter-bulkhead"
             ],
             "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
           },
@@ -839,7 +783,8 @@
             "quantity": 1,
             "unit": "ea",
             "bodies": [
-              "tube-fluid-4"
+              "tube-fluid-4",
+              "tube-above-core-drain-vb-east-link"
             ],
             "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
           },
@@ -1092,7 +1037,17 @@
             "material": "HSM-000136",
             "quantity": 10,
             "unit": "ea",
-            "note": "Two C14 bosses, four PSU hosts and four relay diagonals."
+            "note": "Two C14 bosses, four PSU hosts and four relay diagonals.",
+            "bodies": [
+              "psu-insert-1",
+              "psu-insert-2",
+              "psu-insert-3",
+              "psu-insert-4",
+              "relay-1-insert-1",
+              "relay-1-insert-2",
+              "relay-2-insert-1",
+              "relay-2-insert-2"
+            ]
           },
           {
             "material": "HSM-000132",
@@ -1108,21 +1063,33 @@
           },
           {
             "material": "HSM-000138",
-            "quantity": 10,
+            "quantity": 6,
             "unit": "ea",
-            "note": "Four PCB, four relay and two condenser screws."
+            "note": "Four relay and two condenser screws.",
+            "bodies": [
+              "relay-1-screw-1",
+              "relay-1-screw-2",
+              "relay-2-screw-1",
+              "relay-2-screw-2"
+            ]
           },
           {
             "material": "HSM-000139",
-            "quantity": 2,
+            "quantity": 6,
             "unit": "ea",
-            "note": "The two C14 screws."
+            "note": "Four PSU ceiling screws and the two C14 screws.",
+            "bodies": [
+              "psu-screw-1",
+              "psu-screw-2",
+              "psu-screw-3",
+              "psu-screw-4"
+            ]
           },
           {
             "material": "HSM-000140",
-            "quantity": 8,
+            "quantity": 4,
             "unit": "ea",
-            "note": "Four funnel-frame and four PSU wall screws.",
+            "note": "Four funnel-frame screws.",
             "bodies": [
               "funnel-frame-front-east-screw",
               "funnel-frame-front-west-screw",
@@ -1247,6 +1214,83 @@
               "wire-DC3-negative"
             ],
             "note": "DC-2 from the V12 block to relay 2 COM; DC-3's relay 2 NO pigtail and pump positive, joined under the funnel opening, and the pump negative from the DC GND block."
+          },
+          {
+            "material": "HSM-000448",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "asse-snap-cap"
+            ]
+          },
+          {
+            "material": "HSM-000449",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "pisco-snap-cap"
+            ]
+          },
+          {
+            "material": "HSM-000450",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "meter-snap-cap"
+            ]
+          },
+          {
+            "material": "HSM-000451",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "regulator-snap-cap"
+            ]
+          },
+          {
+            "material": "HSM-000452",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "gagira-coupling"
+            ],
+            "note": "Between the rear TAP connector and the ASSE 1022 inlet."
+          },
+          {
+            "material": "HSM-000453",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "jg-pi4512f6s"
+            ],
+            "note": "On the ASSE 1022 outlet flare, holding the PP061208W reducer stem."
+          },
+          {
+            "material": "HSM-000109",
+            "quantity": 2.48,
+            "unit": "in",
+            "bodies": [
+              "soda-continuous-insulation"
+            ],
+            "note": "One square-cut piece over the continuous soda inlet and its bend holder."
+          },
+          {
+            "material": "HSM-000294",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "tube-above-core-water-split-stub"
+            ],
+            "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
+          },
+          {
+            "material": "HSM-000460",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "jg-pp061208w"
+            ],
+            "note": "In the ASSE 1022 outlet flare adapter."
           }
         ]
       },
@@ -1484,8 +1528,8 @@
           },
           {
             "material": "HSM-000109",
-            "quantity": 1,
-            "unit": "cut set",
+            "quantity": 60,
+            "unit": "in",
             "bodies": [
               "cold_line_foam"
             ]
@@ -1575,7 +1619,7 @@
         }
       ],
       "bom": {
-        "scope": "Carbonator, insulation stack, reservoirs, sensing hardware and the fasteners that close them. Foam, tape and other supplies are costed on the cold core itself.",
+        "scope": "Carbonator, insulation stack, reservoirs, sensing hardware, the top-lid equipment (water pump and its joints, main board, V-B and the four core-lid junctions) and the fasteners that close them. Foam, tape and other supplies are costed on the cold core itself.",
         "source": "cold-core-layout/_bom.py",
         "items": [
           {
@@ -1798,15 +1842,9 @@
           },
           {
             "material": "HSM-000164",
-            "quantity": 43,
+            "quantity": 16,
             "unit": "ea",
-            "note": "Twenty foam-cap face clamps, eight equipment columns, twelve reservoir-cap inserts and three B-fill passage clamps."
-          },
-          {
-            "material": "HSM-000137",
-            "quantity": 20,
-            "unit": "ea",
-            "note": "Foam-cap clamp screws, ten per face."
+            "note": "Four top-lid PCB posts and twelve reservoir-cap inserts."
           },
           {
             "material": "HSM-000363",
@@ -1827,13 +1865,11 @@
             "material": "HSM-000365",
             "quantity": 2,
             "unit": "ea",
-            "note": "Cut 31.25 mm, one through each reservoir cap's air grip."
-          },
-          {
-            "material": "HSM-000139",
-            "quantity": 3,
-            "unit": "ea",
-            "note": "Three recessed B-fill passage clamps in a triangle; close before fitting the PCB."
+            "note": "Cut 31.25 mm, one through each reservoir cap's air grip.",
+            "bodies": [
+              "tube-reservoir-air-a",
+              "tube-reservoir-air-b"
+            ]
           },
           {
             "material": "HSM-000382",
@@ -1851,6 +1887,220 @@
             "bodies": [
               "discharge-chain"
             ]
+          },
+          {
+            "material": "HSM-000359",
+            "quantity": 20,
+            "unit": "ea",
+            "bodies": [
+              "cap-clamp-top-1",
+              "cap-clamp-top-2",
+              "cap-clamp-top-3",
+              "cap-clamp-top-4",
+              "cap-clamp-top-5",
+              "cap-clamp-top-6",
+              "cap-clamp-top-7",
+              "cap-clamp-top-8",
+              "cap-clamp-top-9",
+              "cap-clamp-top-10",
+              "cap-clamp-bottom-1",
+              "cap-clamp-bottom-2",
+              "cap-clamp-bottom-3",
+              "cap-clamp-bottom-4",
+              "cap-clamp-bottom-5",
+              "cap-clamp-bottom-6",
+              "cap-clamp-bottom-7",
+              "cap-clamp-bottom-8",
+              "cap-clamp-bottom-9",
+              "cap-clamp-bottom-10"
+            ],
+            "note": "Cold-core closure screws, ten through each cap face."
+          },
+          {
+            "material": "HSM-000132",
+            "quantity": 20,
+            "unit": "ea",
+            "note": "Shell-face closure inserts, ten under each cap face."
+          },
+          {
+            "material": "HSM-000456",
+            "quantity": 2,
+            "unit": "ea",
+            "bodies": [
+              "reservoir-a-gasket",
+              "reservoir-b-gasket"
+            ]
+          },
+          {
+            "material": "HSM-000457",
+            "quantity": 4,
+            "unit": "ea",
+            "bodies": [
+              "reservoir-grip-a-fill",
+              "reservoir-grip-a-draw",
+              "reservoir-grip-b-fill",
+              "reservoir-grip-b-draw"
+            ]
+          },
+          {
+            "material": "HSM-000458",
+            "quantity": 2,
+            "unit": "ea",
+            "bodies": [
+              "reservoir-grip-a-air",
+              "reservoir-grip-b-air"
+            ]
+          },
+          {
+            "material": "HSM-000454",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "reservoir-b-fill-guide"
+            ]
+          },
+          {
+            "material": "HSM-000178",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "g-ganen-pump"
+            ],
+            "note": "Bare motor in the top lid's integral half-pipe saddle."
+          },
+          {
+            "material": "HSM-000455",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "pump-snap-cap"
+            ]
+          },
+          {
+            "material": "HSM-000461",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "suction-tube"
+            ],
+            "note": "Cut 22.49 mm: the suction barb's length plus the trimmed reducer stem."
+          },
+          {
+            "material": "HSM-000462",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "discharge-tube"
+            ],
+            "note": "Cut 22.24 mm: the discharge barb's length plus the trimmed reducer stem."
+          },
+          {
+            "material": "HSM-000460",
+            "quantity": 2,
+            "unit": "ea",
+            "bodies": [
+              "suction-reducer",
+              "discharge-reducer"
+            ],
+            "note": "One trimmed stem at each pump joint."
+          },
+          {
+            "material": "HSM-000325",
+            "quantity": 4,
+            "unit": "ea",
+            "bodies": [
+              "suction-barb-clamp",
+              "suction-barb-key",
+              "suction-stem-clamp",
+              "suction-stem-key",
+              "discharge-barb-clamp",
+              "discharge-barb-key",
+              "discharge-stem-clamp",
+              "discharge-stem-key"
+            ],
+            "note": "Two on each pump joint, one over the barb and one over the stem."
+          },
+          {
+            "material": "HSM-000330",
+            "quantity": 4,
+            "unit": "ea",
+            "bodies": [
+              "lower-pump-elbow",
+              "carbonator-fold",
+              "vb-inlet-turn",
+              "vb-outlet-stem"
+            ],
+            "note": "The pump-inlet elbow, the carbonator fold between the discharge reducer and its check, and V-B's inlet turn and outlet stem."
+          },
+          {
+            "material": "HSM-000042",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "valve-v-b"
+            ]
+          },
+          {
+            "material": "HSM-000074",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "vb-outlet-return"
+            ],
+            "note": "V-B return union."
+          },
+          {
+            "material": "HSM-000048",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "pcba"
+            ]
+          },
+          {
+            "material": "HSM-000138",
+            "quantity": 4,
+            "unit": "ea",
+            "note": "PCB screws into the top-lid posts."
+          },
+          {
+            "material": "HSM-000050",
+            "quantity": 4,
+            "unit": "ea",
+            "bodies": [
+              "wago-v12",
+              "wago-gnd",
+              "wago-reeds-b",
+              "wago-sensors"
+            ],
+            "note": "Four core-lid junctions: +12 V, DC GND, the J7 / reservoir-B / carbonator-reed common and the J4 / temperature-bus / flow-meter common."
+          },
+          {
+            "material": "HSM-000293",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "tube-water-5"
+            ],
+            "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
+          },
+          {
+            "material": "HSM-000326",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "tube-above-core-pump-inlet-link"
+            ],
+            "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
+          },
+          {
+            "material": "HSM-000463",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "tube-above-core-vb-yb-cross"
+            ],
+            "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
           }
         ]
       }
@@ -1952,6 +2202,14 @@
             "unit": "ea",
             "bodies": [
               "float-rod-carb"
+            ]
+          },
+          {
+            "material": "HSM-000459",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "float-stop-carb-top"
             ]
           }
         ]
@@ -2597,8 +2855,8 @@
           },
           {
             "material": "HSM-000109",
-            "quantity": 1,
-            "unit": "cut set",
+            "quantity": 60,
+            "unit": "in",
             "bodies": [
               "cold_line_foam"
             ]
@@ -3344,6 +3602,9 @@
           "file": "printed-parts/electronics/pcba-tray/pcba-board.step"
         }
       ],
+      "aliases": [
+        "pcba"
+      ],
       "documents": [
         {
           "title": "Main control board",
@@ -3739,6 +4000,10 @@
         {
           "file": "reference/jg-pp0308e-elbow/jg-pp0308e-elbow.step"
         }
+      ],
+      "aliases": [
+        "vb-outlet-return",
+        "V-B return union"
       ],
       "documents": [
         {
@@ -4271,7 +4536,19 @@
       "aliases": [
         "CARGEN Pipe Insulation Foam Tube",
         "soda-rise-insulation",
-        "B0D2XFK337"
+        "B0D2XFK337",
+        "soda-continuous-insulation",
+        "soda inlet insulation"
+      ],
+      "documents": [
+        {
+          "title": "Soda inlet insulation",
+          "path": "assembly/internal-plumbing.md"
+        },
+        {
+          "title": "Umbilical insulation",
+          "path": "assembly/faucet-and-umbilical.md"
+        }
       ]
     },
     {
@@ -4987,7 +5264,8 @@
       "aliases": [
         "G Ganen water pump",
         "diaphragm pump",
-        "water booster pump"
+        "water booster pump",
+        "g-ganen-pump"
       ],
       "models": [
         {
@@ -5547,7 +5825,9 @@
         "fluid-3",
         "turn-fluid-3",
         "step-fluid-3",
-        "fluid 3 tube \u00b7 1/4 inch white LLDPE"
+        "fluid 3 tube \u00b7 1/4 inch white LLDPE",
+        "tube-above-core-va-fore-feed",
+        "above-core-va-fore-feed"
       ],
       "documents": [
         {
@@ -5577,7 +5857,10 @@
         "fluid-5",
         "turn-fluid-5",
         "step-fluid-5",
-        "fluid 5 tube \u00b7 1/4 inch black LLDPE"
+        "fluid 5 tube \u00b7 1/4 inch black LLDPE",
+        "tube-above-core-vb-yb-link",
+        "above-core-vb-yb-link",
+        "V-B return tube"
       ],
       "documents": [
         {
@@ -5751,7 +6034,9 @@
       "aliases": [
         "water-2",
         "tube-water-2",
-        "water 2 tube \u00b7 1/4 inch white LLDPE"
+        "water 2 tube \u00b7 1/4 inch white LLDPE",
+        "tube-above-core-water-split-stub",
+        "above-core-water-split-stub"
       ],
       "documents": [
         {
@@ -5780,7 +6065,9 @@
       "aliases": [
         "fluid-1",
         "tube-fluid-1",
-        "fluid 1 tube \u00b7 1/4 inch white LLDPE"
+        "fluid 1 tube \u00b7 1/4 inch white LLDPE",
+        "tube-above-core-tee-regulator",
+        "above-core-tee-regulator"
       ],
       "documents": [
         {
@@ -5809,7 +6096,9 @@
       "aliases": [
         "water-3",
         "tube-water-3",
-        "water 3 tube \u00b7 1/4 inch white LLDPE"
+        "water 3 tube \u00b7 1/4 inch white LLDPE",
+        "tube-above-core-tee-vk-link",
+        "above-core-tee-vk-link"
       ],
       "documents": [
         {
@@ -5896,7 +6185,9 @@
       "aliases": [
         "co2-2",
         "tube-co2-2",
-        "co2 2 tube \u00b7 1/4 inch red LLDPE"
+        "co2 2 tube \u00b7 1/4 inch red LLDPE",
+        "tube-above-core-gas-core-drop",
+        "above-core-gas-core-drop"
       ],
       "documents": [
         {
@@ -5925,7 +6216,9 @@
       "aliases": [
         "fluid-2",
         "tube-fluid-2",
-        "fluid 2 tube \u00b7 1/4 inch white LLDPE"
+        "fluid 2 tube \u00b7 1/4 inch white LLDPE",
+        "tube-above-core-reg-va-link",
+        "above-core-reg-va-link"
       ],
       "documents": [
         {
@@ -5954,7 +6247,10 @@
       "aliases": [
         "carb-1",
         "tube-carb-1",
-        "carb 1 tube \u00b7 1/4 inch blue LLDPE"
+        "carb 1 tube \u00b7 1/4 inch blue LLDPE",
+        "tube-soda-core-rise",
+        "soda-core-rise",
+        "soda riser"
       ],
       "documents": [
         {
@@ -5983,7 +6279,9 @@
       "aliases": [
         "carb-2",
         "tube-carb-2",
-        "carb 2 tube \u00b7 1/4 inch blue LLDPE"
+        "carb 2 tube \u00b7 1/4 inch blue LLDPE",
+        "tube-soda-meter-bulkhead",
+        "soda-meter-bulkhead"
       ],
       "documents": [
         {
@@ -6186,7 +6484,9 @@
       "aliases": [
         "fluid-4",
         "tube-fluid-4",
-        "fluid 4 tube \u00b7 1/4 inch black LLDPE"
+        "fluid 4 tube \u00b7 1/4 inch black LLDPE",
+        "tube-above-core-drain-vb-east-link",
+        "above-core-drain-vb-east-link"
       ],
       "documents": [
         {
@@ -6534,11 +6834,20 @@
         {
           "title": "Elbow clamping",
           "path": "printed-parts/diaphragm-pump-sleeve/README.md"
+        },
+        {
+          "title": "Pump barb joint",
+          "path": "reference/pump-barb-joint/README.md"
         }
       ],
       "aliases": [
         "pump elbow clamp",
-        "butterfly clamp"
+        "butterfly clamp",
+        "pump joint clamp",
+        "suction-barb-clamp",
+        "suction-stem-clamp",
+        "discharge-barb-clamp",
+        "discharge-stem-clamp"
       ]
     },
     {
@@ -6548,7 +6857,9 @@
       "aliases": [
         "water-7",
         "tube-water-7",
-        "water 7 tube \u00b7 1/4 inch white LLDPE"
+        "water 7 tube \u00b7 1/4 inch white LLDPE",
+        "tube-above-core-pump-inlet-link",
+        "above-core-pump-inlet-link"
       ],
       "documents": [
         {
@@ -9212,6 +9523,437 @@
         {
           "kind": "tool-for",
           "material": "HSM-000161"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000448",
+      "description": "ASSE 1022 snap cap \u00b7 PET-GF",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step"
+        }
+      ],
+      "aliases": [
+        "asse-snap-cap",
+        "ASSE cap",
+        "backflow preventer snap cap",
+        "rear equipment snap cap"
+      ],
+      "documents": [
+        {
+          "title": "Part details",
+          "path": "printed-parts/enclosure/rear-equipment-caps/README.md"
+        },
+        {
+          "title": "Rear equipment installation",
+          "path": "assembly/internal-plumbing.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000449",
+      "description": "CO\u2082 secondary-regulator snap cap \u00b7 PET-GF",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.step"
+        }
+      ],
+      "aliases": [
+        "pisco-snap-cap",
+        "Pisco cap",
+        "PISCO regulator snap cap",
+        "rear equipment snap cap"
+      ],
+      "documents": [
+        {
+          "title": "Part details",
+          "path": "printed-parts/enclosure/rear-equipment-caps/README.md"
+        },
+        {
+          "title": "Rear equipment installation",
+          "path": "assembly/internal-plumbing.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000450",
+      "description": "Carbonated-water flow-sensor snap cap \u00b7 PET-GF",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.step"
+        }
+      ],
+      "aliases": [
+        "meter-snap-cap",
+        "meter cap",
+        "flow meter snap cap",
+        "DIGITEN snap cap",
+        "rear equipment snap cap"
+      ],
+      "documents": [
+        {
+          "title": "Part details",
+          "path": "printed-parts/enclosure/rear-equipment-caps/README.md"
+        },
+        {
+          "title": "Rear equipment installation",
+          "path": "assembly/internal-plumbing.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000451",
+      "description": "Flavor-water regulator snap cap \u00b7 PET-GF",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.step"
+        }
+      ],
+      "aliases": [
+        "regulator-snap-cap",
+        "water regulator cap",
+        "YZMSZ snap cap",
+        "rear equipment snap cap"
+      ],
+      "documents": [
+        {
+          "title": "Part details",
+          "path": "printed-parts/enclosure/rear-equipment-caps/README.md"
+        },
+        {
+          "title": "Rear equipment installation",
+          "path": "assembly/internal-plumbing.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000452",
+      "description": "GAGIRA reducing coupling \u00b7 3/8 inch FNPT \u00d7 1/4 inch FNPT, 316L stainless",
+      "kind": "purchased",
+      "models": [
+        {
+          "file": "reference/gagira-reducing-coupling/gagira-reducing-coupling.step"
+        }
+      ],
+      "aliases": [
+        "gagira-coupling",
+        "GAGIRA coupling",
+        "ASSE inlet coupling",
+        "B0G2XJGZMQ"
+      ],
+      "documents": [
+        {
+          "title": "Water-path assembly",
+          "path": "assembly/internal-plumbing.md"
+        },
+        {
+          "title": "Fitting specification",
+          "path": "ledger/bom.md"
+        },
+        {
+          "title": "Threaded ASSE chain",
+          "path": "reference/asse1022-threaded-chain/README.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000453",
+      "description": "John Guest PI4512F6S \u00b7 3/8 inch tube \u00d7 3/8 inch FFL flare adapter",
+      "kind": "purchased",
+      "manufacturer_number": "PI4512F6S",
+      "aliases": [
+        "jg-pi4512f6s",
+        "ASSE outlet flare adapter",
+        "flare adapter"
+      ],
+      "documents": [
+        {
+          "title": "Water-path assembly",
+          "path": "assembly/internal-plumbing.md"
+        },
+        {
+          "title": "Fitting specification",
+          "path": "ledger/bom.md"
+        },
+        {
+          "title": "Threaded ASSE chain",
+          "path": "reference/asse1022-threaded-chain/README.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000454",
+      "description": "Reservoir B fill bend holder \u00b7 PET-GF",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/cold-core/foam-cap/reservoir-b-fill-guide.step"
+        }
+      ],
+      "aliases": [
+        "reservoir-b-fill-guide",
+        "B-fill bend holder",
+        "Reservoir B fill guide",
+        "R14 B-fill holder"
+      ],
+      "documents": [
+        {
+          "title": "Part details",
+          "path": "printed-parts/cold-core/foam-cap/README.md"
+        },
+        {
+          "title": "Cold-core assembly",
+          "path": "assembly/cold-core.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000455",
+      "description": "G Ganen pump snap cap \u00b7 PET-GF",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/cold-core/foam-cap/pump-snap-cap.step"
+        }
+      ],
+      "aliases": [
+        "pump-snap-cap",
+        "water pump snap cap",
+        "pump upper snap",
+        "G Ganen snap cap"
+      ],
+      "documents": [
+        {
+          "title": "Part details",
+          "path": "printed-parts/cold-core/foam-cap/README.md"
+        },
+        {
+          "title": "Pump installation",
+          "path": "reference/g-ganen-pump/installation/README.md"
+        },
+        {
+          "title": "Cold-core assembly",
+          "path": "assembly/cold-core.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000456",
+      "description": "Flavor reservoir gasket \u00b7 TPU 90A",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/cold-core/reservoir/reservoir-gasket.step"
+        }
+      ],
+      "aliases": [
+        "reservoir-a-gasket",
+        "reservoir-b-gasket",
+        "reservoir cap gasket",
+        "reservoir TPU gasket"
+      ],
+      "documents": [
+        {
+          "title": "Part details",
+          "path": "printed-parts/cold-core/reservoir/README.md"
+        },
+        {
+          "title": "Reservoir closing",
+          "path": "assembly/cold-core.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000457",
+      "description": "Flavor reservoir tube grip \u00b7 TPU 90A",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/cold-core/reservoir/reservoir-tube-grip.step"
+        }
+      ],
+      "aliases": [
+        "reservoir-grip-a-fill",
+        "reservoir-grip-a-draw",
+        "reservoir-grip-b-fill",
+        "reservoir-grip-b-draw",
+        "liquid-tube grip",
+        "flush tube grip"
+      ],
+      "documents": [
+        {
+          "title": "Part details",
+          "path": "printed-parts/cold-core/reservoir/README.md"
+        },
+        {
+          "title": "Tube insertion and grip",
+          "path": "printed-parts/cold-core/reservoir/floor-and-dip-tube.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000458",
+      "description": "Flavor reservoir air-tube grip \u00b7 TPU 90A",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/cold-core/reservoir/reservoir-air-grip.step"
+        }
+      ],
+      "aliases": [
+        "reservoir-grip-a-air",
+        "reservoir-grip-b-air",
+        "air-tube grip"
+      ],
+      "documents": [
+        {
+          "title": "Part details",
+          "path": "printed-parts/cold-core/reservoir/README.md"
+        },
+        {
+          "title": "Air-tube installation",
+          "path": "printed-parts/cold-core/reservoir/vent.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000459",
+      "description": "Carbonator upper float stop \u00b7 316 stainless",
+      "kind": "manufactured",
+      "aliases": [
+        "float-stop-carb-top",
+        "upper float stop",
+        "top-register float stop"
+      ],
+      "documents": [
+        {
+          "title": "Upper float stop",
+          "path": "assembly/pressure-vessel.md"
+        },
+        {
+          "title": "Stop stock and allocation",
+          "path": "ledger/bom.md"
+        }
+      ],
+      "contexts": [
+        {
+          "material": "HSM-000003"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000460",
+      "description": "John Guest PP061208W \u00b7 1/4 inch tube \u00d7 3/8 inch stem reducer",
+      "kind": "purchased",
+      "models": [
+        {
+          "file": "reference/jg-pp061208w/jg-pp061208w.step"
+        }
+      ],
+      "manufacturer_number": "PP061208W",
+      "aliases": [
+        "jg-pp061208w",
+        "suction-reducer",
+        "discharge-reducer",
+        "reducer stem",
+        "pump joint reducer"
+      ],
+      "documents": [
+        {
+          "title": "Part details",
+          "path": "reference/jg-pp061208w/README.md"
+        },
+        {
+          "title": "Pump barb joint",
+          "path": "reference/pump-barb-joint/README.md"
+        },
+        {
+          "title": "Water-path assembly",
+          "path": "assembly/internal-plumbing.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000461",
+      "description": "Water-pump suction joint tube \u00b7 3/8 inch ID reinforced PVC",
+      "kind": "manufactured",
+      "aliases": [
+        "suction-tube",
+        "pump suction PVC",
+        "neoPure PVCR-0610"
+      ],
+      "documents": [
+        {
+          "title": "Pump barb joint",
+          "path": "reference/pump-barb-joint/README.md"
+        },
+        {
+          "title": "Water-pump connections",
+          "path": "assembly/internal-plumbing.md"
+        }
+      ],
+      "contexts": [
+        {
+          "material": "HSM-000001"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000462",
+      "description": "Water-pump discharge joint tube \u00b7 3/8 inch ID reinforced PVC",
+      "kind": "manufactured",
+      "aliases": [
+        "discharge-tube",
+        "pump discharge PVC",
+        "neoPure PVCR-0610"
+      ],
+      "documents": [
+        {
+          "title": "Pump barb joint",
+          "path": "reference/pump-barb-joint/README.md"
+        },
+        {
+          "title": "Water-pump connections",
+          "path": "assembly/internal-plumbing.md"
+        }
+      ],
+      "contexts": [
+        {
+          "material": "HSM-000001"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000463",
+      "description": "Funnel source V-B outlet tube \u00b7 1/4 inch black LLDPE",
+      "kind": "manufactured",
+      "aliases": [
+        "tube-above-core-vb-yb-cross",
+        "above-core-vb-yb-cross",
+        "vb-yb-cross"
+      ],
+      "documents": [
+        {
+          "title": "Tube routing and cut stock",
+          "path": "manifold-layout/enclosure_assembly.py"
+        },
+        {
+          "title": "Above-core routes",
+          "path": "manifold-layout/above-core.md"
+        },
+        {
+          "title": "Fluid circuit",
+          "path": "topology/fluid-topology.md"
+        }
+      ],
+      "contexts": [
+        {
+          "material": "HSM-000001"
         }
       ]
     }
