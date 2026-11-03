@@ -7,10 +7,11 @@ use hsm_geometry::payload;
 use hsm_kernel::{v3,V3};
 use serde_json::{json,Value};
 use sha2::{Digest,Sha256};
-use std::{collections::{BTreeMap,BTreeSet,HashMap},fs::File,io::{Read,Write},path::Path};
+use std::{collections::{BTreeMap,BTreeSet,HashMap},fs::File,io::{BufWriter,Read,Write},path::Path,sync::Arc};
 
 struct Mesh { points:Vec<V3>,faces:Vec<[u32;3]> }
 struct Edge { a:u32,b:u32,face:usize }
+struct Sources { records:Arc<Vec<Value>>, groups:Vec<Vec<usize>>, faces:Vec<usize> }
 fn digest(path:&Path)->Result<String> {
     let mut file=File::open(path)?;let mut hash=Sha256::new();let mut block=[0_u8;65536];
     loop {let n=file.read(&mut block)?;if n==0 {break;}hash.update(&block[..n]);}
@@ -21,7 +22,7 @@ fn stl(path:&Path)->Result<(Mesh,bool)> {
     ensure!(bytes.len()>=84,"binary print STL header");
     let count=u32::from_le_bytes(bytes[80..84].try_into()?) as usize;
     ensure!(bytes.len()==84+count*50,"binary print STL triangle count");
-    let mut weld=HashMap::<[i64;3],u32>::new();let mut points=Vec::new();let mut faces=Vec::new();let mut exact=true;
+    let mut weld=HashMap::<[i64;3],u32>::with_capacity(count/2+1);let mut points=Vec::with_capacity(count/2+1);let mut faces=Vec::with_capacity(count);let mut exact=true;
     for i in 0..count {
         let mut triangle=[0;3];
         for j in 0..3 {
@@ -46,7 +47,7 @@ fn geometry(mesh:&Mesh)->(Vec<V3>,Vec<f64>,Vec<Edge>) {
         normals.push(if len>1.0e-15 {cross/len}else{V3::ZERO});areas.push(len/2.);
         for k in 0..3 {edges.push(Edge{a:t[k].min(t[(k+1)%3]),b:t[k].max(t[(k+1)%3]),face:i});}
     }
-    edges.sort_by_key(|e|(e.a,e.b,e.face));(normals,areas,edges)
+    edges.sort_unstable_by_key(|e|(e.a,e.b,e.face));(normals,areas,edges)
 }
 struct Random {state:u128,high:Option<u32>}
 impl Random {
@@ -98,7 +99,7 @@ fn valid_contributor(v:&Value)->bool {
     if !m.get("op").is_some_and(Value::is_string)||!m.get("src").is_some_and(|v|v.is_null()||v.is_string()){return false;}
     m.get("via").is_none_or(|v|v.is_null()||v.as_object().is_some_and(|m|m.get("op").is_some_and(Value::is_string)&&m.get("src").is_some_and(|v|v.is_null()||v.is_string())))
 }
-fn lineage(path:&Path,count:usize,exact:bool)->Option<Vec<Vec<Value>>> {
+fn lineage(path:&Path,count:usize,exact:bool)->Option<Sources> {
     if path.file_name()?.to_str()?!="enclosure-front-top.stl"||!exact{return None;}
     let sidecar=path.with_file_name(format!("{}.sources.json",path.file_name()?.to_str()?));
     let bytes=std::fs::read(&sidecar).ok()?;hsm_kernel::reads::read(&sidecar,&bytes);
@@ -106,26 +107,44 @@ fn lineage(path:&Path,count:usize,exact:bool)->Option<Vec<Vec<Value>>> {
     if d["v"]!=1||d["sha256"].as_str()!=Some(&digest(path).ok()?){return None;}
     let records=d["records"].as_array()?;let indices=d["triangles"].as_array()?;
     if indices.len()!=count||!records.iter().all(|g|g.as_array().is_some_and(|r|r.iter().all(valid_contributor))){return None;}
-    indices.iter().map(|i|{let group=records.get(i.as_u64()?as usize)?.as_array()?.clone();Some(if group.is_empty(){vec![Value::Null]}else{group})}).collect()
+    // Keep contributor records once, rather than cloning their JSON for every triangle.
+    // Canonical-key order is the same order used by each final face's source union.
+    let mut catalog=BTreeMap::from([("null".to_owned(),Value::Null)]);
+    for group in records {for record in group.as_array()? {catalog.entry(serde_json::to_string(record).ok()?).or_insert_with(||record.clone());}}
+    let mut values=Vec::with_capacity(catalog.len());let mut lookup=HashMap::new();
+    for(key,value)in catalog {lookup.insert(key,values.len());values.push(value);}
+    let empty=lookup["null"];
+    let groups=records.iter().map(|group|{
+        let mut ids=group.as_array()?.iter().map(|record|Some(lookup[&serde_json::to_string(record).ok()?])).collect::<Option<Vec<_>>>()?;
+        ids.sort_unstable();ids.dedup();if ids.is_empty(){ids.push(empty);}Some(ids)
+    }).collect::<Option<Vec<_>>>()?;
+    let faces=indices.iter().map(|i|{let id=i.as_u64()?as usize;groups.get(id)?;Some(id)}).collect::<Option<Vec<_>>>()?;
+    Some(Sources{records:Arc::new(values),groups,faces})
 }
-fn source_union<'a>(groups:impl Iterator<Item=&'a Vec<Value>>)->Vec<Value> {
-    let mut unique=BTreeMap::new();for group in groups {for record in group {unique.insert(serde_json::to_string(record).unwrap(),record.clone());}}
-    if unique.is_empty(){vec![Value::Null]}else{unique.into_values().collect()}
+fn source_union(sources:&Sources,faces:&[usize])->Vec<Value> {
+    let mut ids=Vec::new();for &face in faces{ids.extend_from_slice(&sources.groups[sources.faces[face]]);}
+    ids.sort_unstable();ids.dedup();
+    if ids.is_empty(){vec![Value::Null]}else{ids.into_iter().map(|id|sources.records[id].clone()).collect()}
 }
-fn collapsed_sources(original:&Mesh,reduced:&Mesh,collapses:&[[u32;2]],sources:&[Vec<Value>])->Vec<Vec<Value>> {
+fn collapsed_sources(original:&Mesh,reduced:&Mesh,collapses:&[[u32;2]],sources:&Sources)->Sources {
     let mut parent=(0..original.points.len()as u32).collect::<Vec<_>>();for &[a,b]in collapses{parent[b as usize]=a;}
     for i in 0..parent.len(){let mut root=parent[i];while parent[root as usize]!=root{root=parent[root as usize];}parent[i]=root;}
     let mapped=original.faces.iter().map(|t|t.map(|i|parent[i as usize])).collect::<Vec<_>>();
     let good=|t:&[u32;3]|t[0]!=t[1]&&t[1]!=t[2]&&t[2]!=t[0];
     let used=mapped.iter().filter(|t|good(t)).flatten().copied().collect::<BTreeSet<_>>();
     let remap=used.into_iter().enumerate().map(|(i,k)|(k,i as u32)).collect::<HashMap<_,_>>();
-    let mut groups=HashMap::<[u32;3],Vec<Value>>::new();
-    for (t,source)in mapped.iter().zip(sources){if !good(t){continue;}let mut key=t.map(|i|remap[&i]);key.sort_unstable();
-        let mut merged=source.clone();if let Some(old)=groups.get(&key){merged=source_union([old,source].into_iter());}groups.insert(key,merged);}
-    reduced.faces.iter().map(|t|{let mut key=*t;key.sort_unstable();groups.get(&key).cloned().unwrap_or_else(||vec![Value::Null])}).collect()
+    let mut by_triangle=HashMap::<[u32;3],Vec<usize>>::new();
+    for (i,t)in mapped.iter().enumerate(){if !good(t){continue;}let mut key=t.map(|i|remap[&i]);key.sort_unstable();
+        by_triangle.entry(key).or_default().extend_from_slice(&sources.groups[sources.faces[i]]);}
+    for ids in by_triangle.values_mut(){ids.sort_unstable();ids.dedup();}
+    let empty=sources.records.iter().position(Value::is_null).unwrap();
+    let mut groups=Vec::new();let mut intern=HashMap::new();let mut faces=Vec::with_capacity(reduced.faces.len());
+    for t in &reduced.faces{let mut key=*t;key.sort_unstable();let ids=by_triangle.get(&key).cloned().unwrap_or_else(||vec![empty]);
+        let next=groups.len();let id=*intern.entry(ids.clone()).or_insert_with(||{groups.push(ids);next});faces.push(id);}
+    Sources{records:Arc::clone(&sources.records),groups,faces}
 }
 fn root(parent:&mut[usize],mut i:usize)->usize{while parent[i]!=i{parent[i]=parent[parent[i]];i=parent[i];}i}
-fn creased(mesh:&Mesh,angle:f64,sources:Option<&[Vec<Value>]>)->(Vec<f32>,Vec<f32>,Vec<u32>,Vec<u32>,Option<Vec<Vec<Value>>>) {
+fn creased(mesh:&Mesh,angle:f64,sources:Option<&Sources>)->(Vec<f32>,Vec<f32>,Vec<u32>,Vec<u32>,Option<Vec<Vec<Value>>>) {
     let(normals,areas,edges)=geometry(mesh);let mut parent=(0..mesh.faces.len()).collect::<Vec<_>>();let mut i=0;
     while i<edges.len(){let mut j=i+1;while j<edges.len()&&edges[j].a==edges[i].a&&edges[j].b==edges[i].b{j+=1;}
         if j-i==2&&normals[edges[i].face].dot(normals[edges[i+1].face]).clamp(-1.,1.).acos()<=angle {
@@ -134,16 +153,25 @@ fn creased(mesh:&Mesh,angle:f64,sources:Option<&[Vec<Value>]>)->(Vec<f32>,Vec<f3
     }
     let mut regions=HashMap::new();let mut labels=Vec::with_capacity(parent.len());
     for i in 0..parent.len(){let r=root(&mut parent,i);let next=regions.len();labels.push(*regions.entry(r).or_insert(next));}
-    let mut order=(0..mesh.faces.len()).collect::<Vec<_>>();order.sort_by_key(|&i|labels[i]);
-    let corners=order.iter().flat_map(|&i|mesh.faces[i].map(|v|(v,labels[i]))).collect::<BTreeSet<_>>();
-    let mapping=corners.iter().enumerate().map(|(i,&k)|(k,i)).collect::<HashMap<_,_>>();
-    let positions=corners.iter().flat_map(|&(v,_)|mesh.points[v as usize].to_array().map(|x|x as f32)).collect();
+    // Counting by region retains face order without sorting all triangles. A packed
+    // (vertex, region) key retains the existing lexicographic corner order.
+    let mut starts=vec![0;regions.len()+1];for &label in &labels{starts[label+1]+=1;}
+    for i in 1..starts.len(){starts[i]+=starts[i-1];}
+    let mut next=starts[..regions.len()].to_vec();let mut order=vec![0;mesh.faces.len()];
+    for(i,&label)in labels.iter().enumerate(){order[next[label]]=i;next[label]+=1;}
+    let mut corners=order.iter().flat_map(|&i|mesh.faces[i].map(|v|((v as u64)<<32)|labels[i]as u64)).collect::<Vec<_>>();
+    corners.sort_unstable();corners.dedup();
+    let mut offsets=vec![0;mesh.points.len()+1];for &key in &corners{offsets[(key>>32)as usize+1]+=1;}
+    for i in 1..offsets.len(){offsets[i]+=offsets[i-1];}
+    let positions=corners.iter().flat_map(|&key|mesh.points[(key>>32)as usize].to_array().map(|x|x as f32)).collect();
     let mut sums=vec![V3::ZERO;corners.len()];let mut first_normal=vec![None;corners.len()];let mut indices=Vec::with_capacity(mesh.faces.len()*3);
     let mut ranges=Vec::new();let mut groups=Vec::new();let mut begin=0;
     for (position,&face)in order.iter().enumerate(){
-        let weighted=normals[face]*areas[face];for &v in &mesh.faces[face]{let k=mapping[&(v,labels[face])];indices.push(k as u32);sums[k]+=weighted;if first_normal[k].is_none(){first_normal[k]=Some(normals[face]);}}
+        let weighted=normals[face]*areas[face];for &v in &mesh.faces[face]{let begin=offsets[v as usize];let end=offsets[v as usize+1];
+            let key=((v as u64)<<32)|labels[face]as u64;let k=begin+corners[begin..end].binary_search(&key).unwrap();
+            indices.push(k as u32);sums[k]+=weighted;if first_normal[k].is_none(){first_normal[k]=Some(normals[face]);}}
         if position+1==order.len()||labels[order[position+1]]!=labels[face]{ranges.extend([begin as u32,position as u32]);
-            if let Some(s)=sources{groups.push(source_union(order[begin..=position].iter().map(|&i|&s[i])));}begin=position+1;}
+            if let Some(s)=sources{groups.push(source_union(s,&order[begin..=position]));}begin=position+1;}
     }
     let blanks=sums.iter().filter(|n|n.norm()<1.0e-12).count();
     let shade=sums.iter().enumerate().flat_map(|(k,n)|{let p=if n.norm()<1.0e-12 {
@@ -161,15 +189,20 @@ fn identity(path:&Path)->Result<(Value,Value)> {
 }
 fn write_payload(path:&Path,name:Value,color:Value,src:&str,bound:f64,dev:f64,
     arrays:(Vec<f32>,Vec<f32>,Vec<u32>,Vec<u32>,Option<Vec<Vec<Value>>>),unknown:bool)->Result<()> {
-    let(pos,nrm,idx,fac,sources)=arrays;let mut blob=Vec::new();let mut entry=json!({"name":name,"color":color});
-    for(key,data)in[("pos",pos.into_iter().flat_map(f32::to_le_bytes).collect::<Vec<_>>()),("nrm",nrm.into_iter().flat_map(f32::to_le_bytes).collect())]{entry[key]=json!([blob.len(),data.len()/4]);blob.extend(data);}
+    let(pos,nrm,idx,fac,sources)=arrays;let mut offset=0;let mut entry=json!({"name":name,"color":color});
+    for(key,count)in[("pos",pos.len()),("nrm",nrm.len()),("idx",idx.len()),("fac",fac.len())]{entry[key]=json!([offset,count]);offset+=count*4;}
     let faces=fac.len()/2;
-    for(key,data)in[("idx",idx.into_iter().flat_map(u32::to_le_bytes).collect::<Vec<_>>()),("fac",fac.into_iter().flat_map(u32::to_le_bytes).collect())]{entry[key]=json!([blob.len(),data.len()/4]);blob.extend(data);}
     if let Some(s)=sources{entry["face_sources"]=json!(s);}else if unknown{entry["face_sources"]=json!(vec![vec![Value::Null];faces]);}
     let round=|x:f64|format!("{x:.4}").parse::<f64>().unwrap();
     let header=json!({"v":3,"meshes":[entry],"src":src,"cut":{"dev":round(dev),"bound":round(bound)}});
     let mut text=serde_json::to_vec(&header)?;while(text.len()+4)%4!=0{text.push(b' ');}
-    let mut file=File::create(path)?;file.write_all(&(text.len()as u32).to_le_bytes())?;file.write_all(&text)?;file.write_all(&blob)?;Ok(())
+    let mut file=BufWriter::new(File::create(path)?);file.write_all(&(text.len()as u32).to_le_bytes())?;file.write_all(&text)?;
+    let mut bytes=[0_u8;16384];
+    for values in [&pos[..],&nrm[..]]{for chunk in values.chunks(bytes.len()/4){
+        for(dst,value)in bytes.chunks_exact_mut(4).zip(chunk){dst.copy_from_slice(&value.to_le_bytes());}file.write_all(&bytes[..chunk.len()*4])?;}}
+    for values in [&idx[..],&fac[..]]{for chunk in values.chunks(bytes.len()/4){
+        for(dst,value)in bytes.chunks_exact_mut(4).zip(chunk){dst.copy_from_slice(&value.to_le_bytes());}file.write_all(&bytes[..chunk.len()*4])?;}}
+    file.flush()?;Ok(())
 }
 fn run(n:&Value,out:&Path)->Result<Value> {
     let stl_path=Path::new(n["stl"].as_str().context("print STL")?);
@@ -181,6 +214,7 @@ fn run(n:&Value,out:&Path)->Result<Value> {
     let preserve=n["preserve_print_triangles"].as_bool().unwrap_or(false);
     let angle=n["crease_deg"].as_f64().context("crease angle")?.to_radians();
     let probe=if preserve {Vec::new()}else{probes(&mesh,&normals,&edges,angle)};
+    drop(normals);drop(edges);
     let mut lo=v3(f64::INFINITY,f64::INFINITY,f64::INFINITY);let mut hi=-lo;for &p in &mesh.points{lo=lo.min(p);hi=hi.max(p);}
     let size=hi-lo;let bound=(size.x+size.y+size.z)/3.*n["deflection_ratio"].as_f64().context("deflection ratio")?;
     let original_sources=lineage(stl_path,mesh.faces.len(),exact);let mut accepted=None;
@@ -198,7 +232,7 @@ fn run(n:&Value,out:&Path)->Result<Value> {
     let output=out.join(&filename);std::fs::create_dir_all(out)?;
     let source=n["source"].as_str().or_else(||n["model"].as_str()).context("print source binding")?;
     let sha=digest(Path::new(source))?;
-    let arrays=creased(&reduced,angle,sources.as_deref());
+    let arrays=creased(&reduced,angle,sources.as_ref());
     write_payload(&output,name,color,&sha,bound,dev,arrays,stl_path.file_name().and_then(|s|s.to_str())==Some("enclosure-front-top.stl"))?;
     Ok(json!({"files":[filename],"bodies":[],"printed_triangles":mesh.faces.len(),"drawing_triangles":reduced.faces.len(),"bound":bound,"deviation":dev,"reduction":reduction,"probe_vertices":probe.len(),"watertight":watertight,"non_manifold_edges":non_manifold}))
 }
