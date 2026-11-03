@@ -1,18 +1,14 @@
 import { state } from "./state.js";
-import { searchCatalog, searchTerms, searchWords, termsMatch, materialIndex, bomCounts, bomCountText } from "/contracts/materials.js";
+import { searchCatalog, materialIndex, bomCounts, bomCountText } from "/contracts/materials.js";
 import { COST_KINDS } from "/contracts/part-costs.js";
 import { openMaterial, materialHash } from "./material-nav.js";
-import { stepHash, parseStepHash } from "./step-nav.js";
 
-const modelLabel = (file) => file.split("/").at(-1).replace(/\.step$/, "").replace(/[-_]/g, " ");
 const searchView = { panel: "materials" };
 const costView = { panel: "materials", tab: "cost" };
-const fileWords = new Map();
-const wordsOf = (file) => fileWords.get(file) || fileWords.set(file, searchWords(file)).get(file);
 
-// The same description lookup serves the grid and the model companion. CAD
-// representations without catalog identities remain discoverable by file name.
-// Stock and supplies open on the Cost tab of a part that uses them.
+// The same description lookup serves the grid and the model companion. It finds
+// what has a part number and nothing else. Stock and supplies open on the Cost
+// tab of a part that uses them.
 export function makeMaterialSearch({ compact = false } = {}) {
   const host = document.createElement("div");
   host.className = "material-search" + (compact ? " compact" : "");
@@ -48,11 +44,7 @@ export function makeMaterialSearch({ compact = false } = {}) {
     results.hidden = !query;
     if (!query) { status.textContent = ""; return; }
     const hits = searchCatalog(state.materialCatalog, query);
-    const terms = searchTerms(query);
-    const represented = new Set((state.materialCatalog?.materials || []).flatMap((m) => (m.models || []).map((model) => model.file)));
-    const files = state.allFiles.filter((file) => !represented.has(file) &&
-      !file.split("/").some((part) => part === "out" || part.startsWith("_")) && termsMatch(terms, wordsOf(file)));
-    const count = hits.length + files.length;
+    const count = hits.length;
     status.textContent = count ? `${count} result${count === 1 ? "" : "s"}${count > 40 ? " · showing the first 40" : ""}` : "No matches. Try another description or part number.";
     const index = materialIndex(state.materialCatalog);
     for (const { material: m, line } of hits.slice(0, 40)) {
@@ -68,20 +60,6 @@ export function makeMaterialSearch({ compact = false } = {}) {
       const kinds = COST_KINDS.filter((kind) => line.kinds.has(kind.id)).map((kind, i) => i ? kind.label.toLowerCase() : kind.label).join(" and ");
       result("/3d#" + materialHash(holder, costView), line.label,
         `${kinds} for ${users[0]}${users.length > 1 ? ` +${users.length - 1} more` : ""}`, () => openMaterial(holder, true, costView));
-    }
-    for (const file of files.slice(0, Math.max(0, 40 - hits.length))) {
-      result("/3d#" + stepHash([file], searchView), modelLabel(file), "CAD model · " + file, async () => {
-        if (state.currentCadWrapper) {
-          const { drillTo, jumpToStep } = await import("./step-nav.js");
-          if (state.mountedDetail?.type === "step") await drillTo(file);
-          else await jumpToStep(file);
-        } else {
-          const { openDetail } = await import("./cad-detail.js"); openDetail(file);
-        }
-        if (state.currentDetail?.file !== file) return;
-        history.replaceState(history.state, "", "#" + stepHash(parseStepHash(location.hash.slice(1)), searchView));
-        state.materialPanel?.applyRoute(searchView);
-      });
     }
   }
   input.addEventListener("input", update);
