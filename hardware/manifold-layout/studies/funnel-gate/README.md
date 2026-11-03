@@ -78,7 +78,7 @@ centerlines and dimensions. V-A uses one continuous low tube into Y-A's single
 aft-facing stem elbow, with minimum modeled radius 27.16 mm. Both tee stems
 clock 7.5 degrees outward for drain-cradle clearance.
 
-The native [V-B wall](parts/vb-core-support.step) rises from Z253.4 to Z299.21,
+The native [V-B wall](https://github.com/derekbreden/homesodamachine/blob/archive-finished-trials/hardware/manifold-layout/studies/funnel-gate/parts/vb-core-support.step) rises from Z253.4 to Z299.21,
 within X34..43.2 and Y225.879..263.929. Its 9.2 mm section contains four shared
 V69 blind sockets and the port channel, retaining 3 mm behind socket floors.
 The wall and valve travel with back-bottom. The existing
