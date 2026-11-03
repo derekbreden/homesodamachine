@@ -639,15 +639,6 @@
             "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
           },
           {
-            "material": "HSM-000327",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "tube-water-6"
-            ],
-            "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
-          },
-          {
             "material": "HSM-000295",
             "quantity": 1,
             "unit": "ea",
@@ -664,24 +655,6 @@
             "bodies": [
               "tube-water-3",
               "tube-above-core-tee-vk-link"
-            ],
-            "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
-          },
-          {
-            "material": "HSM-000297",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "tube-co2-0"
-            ],
-            "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
-          },
-          {
-            "material": "HSM-000298",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "tube-co2-1"
             ],
             "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
           },
@@ -6087,64 +6060,6 @@
       ]
     },
     {
-      "id": "HSM-000297",
-      "description": "CO\u2082 secondary-regulator inlet tube \u00b7 1/4 inch red LLDPE",
-      "kind": "manufactured",
-      "aliases": [
-        "co2-0",
-        "tube-co2-0",
-        "co2 0 tube \u00b7 1/4 inch red LLDPE"
-      ],
-      "documents": [
-        {
-          "title": "Tube routing and cut stock",
-          "path": "manifold-layout/enclosure_assembly.py"
-        },
-        {
-          "title": "Internal plumbing",
-          "path": "assembly/internal-plumbing.md"
-        },
-        {
-          "title": "Fluid circuit",
-          "path": "topology/fluid-topology.md"
-        }
-      ],
-      "contexts": [
-        {
-          "material": "HSM-000001"
-        }
-      ]
-    },
-    {
-      "id": "HSM-000298",
-      "description": "CO\u2082 secondary-regulator outlet tube \u00b7 1/4 inch red LLDPE",
-      "kind": "manufactured",
-      "aliases": [
-        "co2-1",
-        "tube-co2-1",
-        "co2 1 tube \u00b7 1/4 inch red LLDPE"
-      ],
-      "documents": [
-        {
-          "title": "Tube routing and cut stock",
-          "path": "manifold-layout/enclosure_assembly.py"
-        },
-        {
-          "title": "Internal plumbing",
-          "path": "assembly/internal-plumbing.md"
-        },
-        {
-          "title": "Fluid circuit",
-          "path": "topology/fluid-topology.md"
-        }
-      ],
-      "contexts": [
-        {
-          "material": "HSM-000001"
-        }
-      ]
-    },
-    {
       "id": "HSM-000299",
       "description": "CO\u2082 check-valve outlet tube \u00b7 1/4 inch red LLDPE",
       "kind": "manufactured",
@@ -6718,35 +6633,6 @@
         "water 7 tube \u00b7 1/4 inch white LLDPE",
         "tube-above-core-pump-inlet-link",
         "above-core-pump-inlet-link"
-      ],
-      "documents": [
-        {
-          "title": "Tube routing and cut stock",
-          "path": "manifold-layout/enclosure_assembly.py"
-        },
-        {
-          "title": "Internal plumbing",
-          "path": "assembly/internal-plumbing.md"
-        },
-        {
-          "title": "Fluid circuit",
-          "path": "topology/fluid-topology.md"
-        }
-      ],
-      "contexts": [
-        {
-          "material": "HSM-000001"
-        }
-      ]
-    },
-    {
-      "id": "HSM-000327",
-      "description": "Water-pump discharge tube \u00b7 1/4 inch white LLDPE",
-      "kind": "manufactured",
-      "aliases": [
-        "water-6",
-        "tube-water-6",
-        "water 6 tube \u00b7 1/4 inch white LLDPE"
       ],
       "documents": [
         {
