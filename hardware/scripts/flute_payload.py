@@ -344,7 +344,7 @@ def payloads(directories=PIECES_DIRS):
     return [path for directory in directories for path in sorted(directory.glob("*.step.mesh"))]
 
 
-def surfaces(directories=PIECES_DIRS):
+def surfaces(directories=PIECES_DIRS, *, packed=False):
     """The fluted surfaces standing on this disk, keyed by the name a payload holds them under.
 
     What `graft` is handed. A tree that has not cut them yet answers with nothing, and a graft
@@ -364,7 +364,7 @@ def surfaces(directories=PIECES_DIRS):
         if step.stem == "enclosure-pump-retainer":
             continue
         payload = step.with_name(step.name + ".mesh")
-        held = read_payload(payload)
+        held = read_payload(payload, packed=packed)
         if not held or len(held) != 1:
             continue
         stamped = _mesh_payload.read_source(payload)
@@ -517,12 +517,13 @@ def cut(step: Path, stl: Path, verbose=True, *, preserve_print_triangles=None):
     return mesh
 
 
-def read_payload(path):
+def read_payload(path, *, packed=False):
     """The meshes `_mesh_payload.write` put in `path`, or None for anything else.
 
     The reader the page runs is `decodeMeshPayload` in `web/public/js/viewer/step.js`; this is
     the same header and the same four arrays, off the same offsets. Optional contributor
-    groups are carried only when aligned with those face ranges."""
+    groups are carried only when aligned with those face ranges. ``packed`` retains
+    numeric buffers as read-only arrays; the default returns Python lists."""
     try:
         raw = Path(path).read_bytes()
         head_len = struct.unpack("<I", raw[:4])[0]
@@ -531,13 +532,14 @@ def read_payload(path):
         return None
     if head.get("v") not in _mesh_payload.DECODABLE:
         return None
-    blob = raw[4 + head_len:]
+    blob = memoryview(raw)[4 + head_len:] if packed else raw[4 + head_len:]
     out = []
     for m in head["meshes"]:
         entry = {"name": m["name"], "color": m["color"]}
         for key, dtype in (("pos", "<f4"), ("nrm", "<f4"), ("idx", "<u4"), ("fac", "<u4")):
             offset, count = m[key]
-            entry[key] = np.frombuffer(blob, dtype=dtype, count=count, offset=offset).tolist()
+            values = np.frombuffer(blob, dtype=dtype, count=count, offset=offset)
+            entry[key] = values if packed else values.tolist()
         sources = _mesh_payload.aligned_face_sources(m.get("face_sources"), len(entry["fac"]) // 2)
         if sources is not None:
             entry["face_sources"] = sources
@@ -707,13 +709,14 @@ def placement_onto(entry, surface, tol=PLACEMENT_TOL):
 _FLUTE_STANDOFF = 2.0
 
 
-def carried(surface, placement):
+def carried(surface, placement, *, packed=False):
     """`surface` with its positions and normals carried by `placement` — a new dict, since the
     same cut surface stands in several payloads at several placements."""
     R, t = placement
     pos = np.asarray(surface["pos"], dtype=np.float64).reshape(-1, 3) @ R.T + t
     nrm = np.asarray(surface["nrm"], dtype=np.float64).reshape(-1, 3) @ R.T
-    return {**surface, "pos": pos.ravel().tolist(), "nrm": nrm.ravel().tolist()}
+    return {**surface, "pos": pos.ravel() if packed else pos.ravel().tolist(),
+            "nrm": nrm.ravel() if packed else nrm.ravel().tolist()}
 
 
 def _placement_drift(entry, surface):
@@ -727,7 +730,7 @@ def _placement_drift(entry, surface):
     return float(max(np.abs(a.min(0) - b.min(0)).max(), np.abs(a.max(0) - b.max(0)).max()))
 
 
-def graft(path: Path, fluted: dict, *, same_frame=False):
+def graft(path: Path, fluted: dict, *, same_frame=False, packed=False):
     """Put the fluted surfaces into the payload at `path`, in place. Returns how many landed.
 
     A PIECE IS THE SAME BODY WHEREVER IT IS PLACED. `enclosure.py` cuts the printed mesh off the
@@ -763,7 +766,7 @@ def graft(path: Path, fluted: dict, *, same_frame=False):
         solid = path.with_name(path.name[: -len(".mesh")])
         if solid.is_file():
             src = _mesh_payload.source_digest(solid)
-    held = read_payload(path)
+    held = read_payload(path, packed=packed)
     if held is None:
         return 0
     owner = payload_owner(path)
@@ -780,7 +783,7 @@ def graft(path: Path, fluted: dict, *, same_frame=False):
         if drift > PLACEMENT_TOL and not same_frame:
             placement = placement_onto(entry, surface)
             if placement is not None:
-                surface = carried(surface, placement)
+                surface = carried(surface, placement, packed=packed)
             else:
                 moved.append((entry["name"], drift))
                 continue
