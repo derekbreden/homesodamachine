@@ -124,6 +124,12 @@ import sys
 from collections import namedtuple
 from pathlib import Path
 
+# The normal producer carries numeric recipes into the Rust kernels.
+if __name__ == "__main__" and os.environ.get("HSM_ENCLOSURE_NATIVE") != "1":
+    from _enclosure_rust_driver import main as _rust_main
+    _rust_main()
+    raise SystemExit
+
 # Run as a script, the enclosure is cut on the mesh kernel (`hardware/scripts/meshcad`).
 if __name__ == "__main__":
     sys.path.insert(0, str(next(p for p in Path(__file__).resolve().parents
@@ -9205,6 +9211,11 @@ def main():
     _report_stacks(box)
     _report_split(pieces, core, box, installed_retainer=installed_retainer)
 
+    _write_docs(box, vent_readings(pieces, box))
+
+
+def _write_docs(box, vent_read):
+    """Fill the enclosure's pages from its current numeric plan and measured readings."""
     bo = box.outer
     # The loops this box's ribs close, read off the seats the pack actually bored for a zip tie;
     # a capped rib takes no tie. Every rib holding a RUN is bored for the one stock; the ribs
@@ -9221,7 +9232,6 @@ def main():
     meter = box.pack.flow_meter_anchors
     # The vents as the piece came out, for the page — the same reading `flank-vent-mullions` is
     # graded on, asked of the same solid after it was drawn.
-    vent_read = vent_readings(pieces, box)
     plate = box.pack.collet_plate if (box.pump_bay and box.pack.collet_plate) else None
     front_runs = _z_rail_runs(box.inner, box.y_joint, "front", plate, box.pack.vent_chase)
     back_runs = _z_rail_runs(box.inner, box.y_joint, "back", plate, box.pack.vent_chase)
