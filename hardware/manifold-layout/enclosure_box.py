@@ -2,6 +2,7 @@
 
 import sys
 import tempfile
+from contextlib import ExitStack
 from pathlib import Path
 
 
@@ -20,12 +21,13 @@ import enclosure as _enc  # noqa: E402
 import enclosure_assembly as _assembly  # noqa: E402
 
 
-def main() -> None:
+def _main(model_context) -> None:
     import cadquery as cq
 
     manifold_model = (_HERE.parent / "manifold-layout.step.npz"
                       if getattr(cq, "MESH", False) else None)
-    _machine, _pack, box = _assembly.machine(manifold_model=manifold_model, core_reference=True)
+    _machine, _pack, box = _assembly.machine(manifold_model=manifold_model, core_reference=True,
+        manifold_reference=manifold_model is not None, model_context=model_context)
     box = _enc.documented(box)
     # Exercise the actual description, including its nested lists, ordered dictionaries and
     # named records, before publishing it as another action's input.
@@ -38,6 +40,11 @@ def main() -> None:
             raise ValueError("enclosure-box serialization changed the live placement description")
     path = _box_spec.write(box, _enc.BOUNDS)
     print(f"-> {path.relative_to(_ROOT)}")
+
+
+def main() -> None:
+    with ExitStack() as model_context:
+        _main(model_context)
 
 
 if __name__ == "__main__":
