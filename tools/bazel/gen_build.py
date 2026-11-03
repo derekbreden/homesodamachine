@@ -4,7 +4,7 @@
     tools/cad-venv/bin/python tools/bazel/gen_build.py
 
 `--project-graph GENERATOR INPUT OUTPUT` writes a reader's stable graph input for
-the support action. Assembly and tube actions stage that input at the existing
+the support action. Assembly and numeric document actions stage that input at the existing
 `tools/bazel/graph.json` path; the full graph is only the support rule's input.
 
 `inventory.py` reads `graph.json` and says, per build step, the solids it cuts, the docs it
@@ -30,8 +30,8 @@ def project_graph(graph: dict, generator: str) -> dict:
     """One reader's input set and the writer classifications of those inputs.
 
     `_facts` asks which assembly reads any generator writes or rewrites; `_machine`
-    and the tube exporter ask for the assembly's reads. Writer identities and all
-    unrelated fields are absent, so changing another graph row changes no staged byte.
+    asks for the assembly's reads. Writer identities and unrelated fields are absent,
+    so changing another graph row changes no staged byte.
     This is a reader projection, not an inventory of generators.
     """
     if generator not in graph:
@@ -126,12 +126,13 @@ NOT_HERMETIC = ()
 #: same and Bazel runs none of it.
 PYSRC = "pysrc"
 
-# Both consumers use the assembly read row; the facts reader also needs the relevant
-# writer classifications. A support output stays outside out/, which sync_tree carries.
+# The assembly and its numeric documentation readers use the same assembly source row
+# and relevant writer classifications. Support outputs stay outside out/.
 GRAPH_SUPPORT = {
     "support/enclosure-assembly-graph.json": (
         "hardware/manifold-layout/enclosure_assembly.py",
-        frozenset(("enclosure-assembly", "tube-routes")),
+        frozenset(("enclosure-assembly", "bom-masses", "enclosure-mechanical-sync",
+                   "internal-plumbing-sync", "fluid-topology-sync", "enclosure-dimensions")),
     ),
 }
 
@@ -256,8 +257,6 @@ def target_name(gen: str, taken=None) -> str:
     Build entrypoints take their parent directory as a prefix. Other stems shared
     by two generators do the same, so each target has its own stable name.
     """
-    if gen == "hardware/install-guide/installation_art.py":
-        return "cad-art"
     stem = Path(gen).stem.strip("_").replace("_", "-")
     if stem == "build":
         return f"{Path(gen).parent.name}-{stem}"
@@ -266,18 +265,15 @@ def target_name(gen: str, taken=None) -> str:
     return stem
 
 
-def comments_come_out(src: str, rewritten: set, consumer: str = None) -> bool:
+def comments_come_out(src: str, rewritten: set) -> bool:
     """Whether a step reads `src` with its comments taken out.
 
     A generator whose own docstring holds figures is handed its file raw: the run rewrites what
     it was given, and `sync_tree` carries that back into the tree. So is anything under a node
     root — its runtime group carries those bytes raw, and a file arriving twice lands the
-    second copy on the first, which Bazel leaves read-only.
-
-    The tube-route export fingerprints source bytes for a web server that holds the git
-    checkout. That consumer receives those same bytes, including Python comments."""
+    second copy on the first, which Bazel leaves read-only."""
     return (src.endswith(".py") and src not in rewritten
-            and not src.startswith(_NODE) and consumer != "tube-routes")
+            and not src.startswith(_NODE))
 
 
 def read_from(src: str, rewritten: set, producers: dict = None,
@@ -295,7 +291,7 @@ def read_from(src: str, rewritten: set, producers: dict = None,
     producer = (producers or {}).get(src)
     if producer and producer != consumer:
         return f":out/{producer}/{src}"
-    return f"{PYSRC}/{src}" if comments_come_out(src, rewritten, consumer) else src
+    return f"{PYSRC}/{src}" if comments_come_out(src, rewritten) else src
 
 
 def generator_argv(gens: tuple) -> list:
@@ -465,7 +461,7 @@ def action_plan(only: str = None) -> tuple:
             "generators": list(gens), "entrypoints": generator_argv(gens),
             "solids": made["solids"], "docs": made["docs"],
             "reads": srcs, "optional": optional, "rewritten_python": sorted(rewritten),
-            "stripped": [s for s in srcs if comments_come_out(s, rewritten, names[gens])],
+            "stripped": [s for s in srcs if comments_come_out(s, rewritten)],
             "producers": {s: producers[s] for s in srcs if s in producers},
             "dependencies": sorted(wants[names[gens]]),
             "node_runtimes": list(_node_runtimes(gens, srcs)),
