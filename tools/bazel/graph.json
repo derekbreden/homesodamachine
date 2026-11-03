@@ -3235,6 +3235,7 @@
       "hardware/printed-parts/enclosure/enclosure/_data_wing_interface.py",
       "hardware/printed-parts/enclosure/enclosure/_display_retention.py",
       "hardware/printed-parts/enclosure/enclosure/_display_wing_interface.py",
+      "hardware/printed-parts/enclosure/enclosure/_disposal_artwork.py",
       "hardware/printed-parts/enclosure/enclosure/_enclosure_datums.py",
       "hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py",
       "hardware/printed-parts/enclosure/enclosure/_enclosure_panel.py",
