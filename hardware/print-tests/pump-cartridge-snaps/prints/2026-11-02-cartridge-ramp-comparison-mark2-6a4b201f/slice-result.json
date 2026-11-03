@@ -1,0 +1,96 @@
+{
+  "error_string": "Success.",
+  "export_time": 2240,
+  "layer_height": 0.23999999463558197,
+  "plate_index": 0,
+  "prepare_time": 47,
+  "return_code": 0,
+  "sliced_plates": [
+    {
+      "feature_type_times": {
+        "Bottom surface": 50.16585159301758,
+        "Bridge": 61.579811096191406,
+        "Custom": 302.3901062011719,
+        "Flush": 15.0,
+        "Gap infill": 359.66387939453125,
+        "Inner wall": 1959.060302734375,
+        "Internal solid infill": 652.7128295898438,
+        "Outer wall": 1209.521728515625,
+        "Sparse infill": 2308.592041015625,
+        "Top surface": 35.637638092041016,
+        "Travel": 1125.2501220703125,
+        "Undefined": 1118.690185546875
+      },
+      "filament_change_times": 0,
+      "filaments": [
+        {
+          "filament_id": "GFT01",
+          "id": 1,
+          "main_used_g": 73.93411254882812,
+          "total_used_g": 73.93411254882812
+        }
+      ],
+      "generate_support_material_time": 399,
+      "id": 1,
+      "infill_time": 1585,
+      "layer_filament_change": 0,
+      "main_predication": 7748.26123046875,
+      "make_perimeters_time": 1866,
+      "obj_cached_cnt": 0,
+      "objects": [
+        {
+          "bbox": {
+            "depth": 49.22898864746094,
+            "height": 68.01499938964844,
+            "width": 11.449995994567871,
+            "x": 126.16050720214844,
+            "y": 123.38550567626953,
+            "z": 1.7578116739969118e-10
+          },
+          "id": 5,
+          "name": "cartridge-wing",
+          "triangle_count": 200
+        },
+        {
+          "bbox": {
+            "depth": 11.449989318847656,
+            "height": 68.01499938964844,
+            "width": 49.22898864746094,
+            "x": 149.61050415039062,
+            "y": 142.27500915527344,
+            "z": 1.7578116739969118e-10
+          },
+          "id": 9,
+          "name": "cartridge-long-ramp-wing",
+          "triangle_count": 200
+        },
+        {
+          "bbox": {
+            "depth": 11.999992370605469,
+            "height": 49.19500732421875,
+            "width": 74.51499938964844,
+            "x": 125.24250030517578,
+            "y": 184.614501953125,
+            "z": -1.0937384331555222e-10
+          },
+          "id": 13,
+          "name": "cartridge-wing-receiver",
+          "triangle_count": 8686
+        }
+      ],
+      "sliced_time": 6957,
+      "sliced_time_with_cache": 2883,
+      "total_predication": 8074.09130859375,
+      "triangle_count": 9086,
+      "warning_message": ""
+    }
+  ],
+  "sparse_infill_density": 15.0,
+  "upward_compatible_machine": [
+    "Bambu Lab H2S 0.4 nozzle",
+    "Bambu Lab H2D 0.4 nozzle",
+    "Bambu Lab H2D Pro 0.4 nozzle",
+    "Bambu Lab A2L 0.4 nozzle"
+  ],
+  "wall_loops": 3
+}

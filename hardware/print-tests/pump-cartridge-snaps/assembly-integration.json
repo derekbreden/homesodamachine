@@ -1,0 +1,39 @@
+{
+  "box_sha256": "2e8c85ca8a9f91464553f8bf99fc7059423f11c586b2db191e160523fadaa163",
+  "hosts": {
+    "hardware/manifold-layout/enclosure-assembly.step": {
+      "replaced": [
+        "enclosure-front-top",
+        "enclosure-pump-retainer"
+      ],
+      "unrelated_viewer_bodies_preserved": 555,
+      "unrelated_fine_bodies_preserved": 436,
+      "step_sha256": "863511bd5dafc96953974a4a7cdbb0c2e3071013ff4751a8c7d47f95638014fb",
+      "payload_sha256": "19f1785259d70f23379fee068a092284050c8a30ad0ae3ddeca5e6dd52ee83c6"
+    },
+    "hardware/printed-parts/enclosure/enclosure/enclosure.step": {
+      "replaced": [
+        "enclosure-front-top",
+        "enclosure-pump-retainer"
+      ],
+      "unrelated_viewer_bodies_preserved": 23,
+      "unrelated_fine_bodies_preserved": 23,
+      "step_sha256": "5fe9dbde1b043ea9296e9fd216986f950e013a7c20fab7f448817787c92fe1a7",
+      "payload_sha256": "42a557f2c3d13a94537cec43164573ef40156b5a1419dc8aed961f36b6b193fa"
+    }
+  },
+  "physical_scene": {
+    "path": "hardware/manifold-layout/enclosure-assembly.scene.npz",
+    "sha256": "db98614c50f364cd80402e9944f4ffd24d78e153cdd32250e3db742378e4ebc9",
+    "replaced": [
+      "enclosure-back-top",
+      "asse-snap-cap",
+      "pisco-snap-cap",
+      "meter-snap-cap",
+      "enclosure-front-top",
+      "enclosure-pump-retainer"
+    ],
+    "other_fine_bodies_preserved": 435,
+    "scalar_checks": "Existing source stamps and scalar check document retained as stale; this geometry update does not recompute or qualify the machine scorecard."
+  }
+}

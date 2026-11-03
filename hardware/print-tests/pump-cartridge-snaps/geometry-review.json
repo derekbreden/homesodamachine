@@ -1,0 +1,83 @@
+{
+  "production_sha256": {
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.stl": "c374c67aab3d5e4db33c18406c6c1dabfa670528c97079079fb1e02005adc510",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl": "f72a84d959743310bd51062c38b6344237cc27d5814e44dc3b4aabb0c1d8a0aa"
+  },
+  "material_difference_outside_snap_bands_mm3": {
+    "retainer": 1.0305557501261258,
+    "front_top": 48.730117684323496
+  },
+  "snap_band_bounds_mm": [
+    [
+      -108,
+      13.99,
+      160,
+      -92.89,
+      82.525,
+      206.455
+    ],
+    [
+      92.89,
+      13.99,
+      160,
+      108,
+      82.525,
+      206.455
+    ]
+  ],
+  "hardware_overlap_mm3": {
+    "pump-a-head": {
+      "retainer": 0.0,
+      "front_top": 0.0
+    },
+    "pump-a-boss": {
+      "retainer": 0.0,
+      "front_top": 0.0
+    },
+    "pump-a-motor": {
+      "retainer": 0.0,
+      "front_top": 0.0
+    },
+    "pump-b-head": {
+      "retainer": 0.0,
+      "front_top": 0.0
+    },
+    "pump-b-boss": {
+      "retainer": 0.0,
+      "front_top": 0.0
+    },
+    "pump-b-motor": {
+      "retainer": 0.0,
+      "front_top": 0.0
+    }
+  },
+  "retention_contact_area_overlap_mm3": 32.763558993655835,
+  "static_overlap_mm3": 0.0,
+  "scene_physical_member_names": [
+    "enclosure-front-top",
+    "enclosure-pump-retainer"
+  ],
+  "scope": "Exact manifold readings from exported printed and fine meshes; physical force, support removal, flex distribution and lifetime need the prepared trial.",
+  "sampled_outside_snap_surface_deviation": {
+    "retainer": [
+      {
+        "vertices_read": 1918,
+        "maximum_distance_mm": 0.0019933435727440343
+      },
+      {
+        "vertices_read": 688,
+        "maximum_distance_mm": 0.0014634743132183414
+      }
+    ],
+    "front-top": [
+      {
+        "vertices_read": 10000,
+        "maximum_distance_mm": 0.06654630200423971
+      },
+      {
+        "vertices_read": 10000,
+        "maximum_distance_mm": 0.06919875090910571
+      }
+    ]
+  }
+}

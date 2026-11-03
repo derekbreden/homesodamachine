@@ -1,0 +1,79 @@
+{
+  "views": [
+    {
+      "name": "spring-and-receiver",
+      "caption": "The 2 mm spring has a rounded root and 2.6 mm of catch overlap. The receiver retains its outer wall and centered release opening.",
+      "before": "spring-and-receiver-before.webp",
+      "after": "spring-and-receiver-after.webp",
+      "width": 960,
+      "height": 720,
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          98,
+          -53.13946961967,
+          187.8
+        ],
+        "target": [
+          98,
+          48.2575,
+          187.8
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "fov": 45,
+        "near": 0.40767773856356854,
+        "far": 563.6498946007256,
+        "aspect": 1.3333333333333333,
+        "section": {
+          "at": [
+            98,
+            48.2575,
+            187.8
+          ],
+          "normal": [
+            0,
+            -1,
+            0
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [
+        "enclosure-pump-retainer"
+      ],
+      "ghost": [],
+      "only": [
+        "enclosure-front-top",
+        "enclosure-pump-retainer"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "3a86926c64bae797c5779210e02047eca755c71519de88d55a1257254b215dcc",
+          "commit": "f95c999eeedf74cd49679afa99f0747567f240ce",
+          "taken": "2026-11-03T01:35:12.421Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "19f1785259d70f23379fee068a092284050c8a30ad0ae3ddeca5e6dd52ee83c6",
+          "commit": "905a1fcb74e3234f23e65fa9ecbd13b34aa2fe19",
+          "published": true
+        }
+      },
+      "changed": [
+        "enclosure-front-top",
+        "enclosure-pump-retainer"
+      ],
+      "withinMeshing": []
+    }
+  ]
+}

@@ -1,0 +1,112 @@
+{
+  "error_string": "Success.",
+  "export_time": 2739,
+  "layer_height": 0.23999999463558197,
+  "plate_index": 0,
+  "prepare_time": 42,
+  "return_code": 0,
+  "sliced_plates": [
+    {
+      "feature_type_times": {
+        "Bottom surface": 100.68347930908203,
+        "Bridge": 294.4669494628906,
+        "Custom": 302.4997863769531,
+        "Flush": 15.0,
+        "Gap infill": 295.6444396972656,
+        "Inner wall": 1905.9151611328125,
+        "Internal solid infill": 526.5891723632812,
+        "Outer wall": 1267.15087890625,
+        "Overhang wall": 78.49099731445312,
+        "Sparse infill": 3139.580078125,
+        "Support": 722.0400390625,
+        "Support interface": 33.46830749511719,
+        "Top surface": 120.45071411132812,
+        "Travel": 1580.4591064453125,
+        "Undefined": 1573.7191162109375
+      },
+      "filament_change_times": 0,
+      "filaments": [
+        {
+          "filament_id": "GFT01",
+          "id": 1,
+          "main_used_g": 91.02442932128906,
+          "total_used_g": 91.02442932128906
+        }
+      ],
+      "generate_support_material_time": 1733,
+      "id": 1,
+      "infill_time": 553,
+      "layer_filament_change": 0,
+      "main_predication": 10046.6904296875,
+      "make_perimeters_time": 638,
+      "obj_cached_cnt": 0,
+      "objects": [
+        {
+          "bbox": {
+            "depth": 34.81122970581055,
+            "height": 44.227386474609375,
+            "width": 60.20428466796875,
+            "x": 111.99224090576172,
+            "y": 118.27992248535156,
+            "z": -3.0468783052128856e-10
+          },
+          "id": 5,
+          "name": "pisco-pointed-receiver",
+          "triangle_count": 1444
+        },
+        {
+          "bbox": {
+            "depth": 29.07740020751953,
+            "height": 41.70428466796875,
+            "width": 28.81122589111328,
+            "x": 184.196533203125,
+            "y": 121.14683532714844,
+            "z": 1.5624834759364603e-11
+          },
+          "id": 9,
+          "name": "pisco-baseline-cap",
+          "triangle_count": 3492
+        },
+        {
+          "bbox": {
+            "depth": 31.077404022216797,
+            "height": 41.70428466796875,
+            "width": 28.81123161315918,
+            "x": 116.94624328613281,
+            "y": 167.86691284179688,
+            "z": 1.5624834759364603e-11
+          },
+          "id": 13,
+          "name": "pisco-pointed-cap",
+          "triangle_count": 3484
+        },
+        {
+          "bbox": {
+            "depth": 36.62892532348633,
+            "height": 64.625,
+            "width": 50.29627990722656,
+            "x": 157.75747680664062,
+            "y": 165.09115600585938,
+            "z": 0.0
+          },
+          "id": 17,
+          "name": "asse-backed-cap",
+          "triangle_count": 2152
+        }
+      ],
+      "sliced_time": 6388,
+      "sliced_time_with_cache": 3182,
+      "total_predication": 10372.4501953125,
+      "triangle_count": 10572,
+      "warning_message": ""
+    }
+  ],
+  "sparse_infill_density": 15.0,
+  "upward_compatible_machine": [
+    "Bambu Lab H2S 0.4 nozzle",
+    "Bambu Lab H2D 0.4 nozzle",
+    "Bambu Lab H2D Pro 0.4 nozzle",
+    "Bambu Lab A2L 0.4 nozzle"
+  ],
+  "wall_loops": 3
+}

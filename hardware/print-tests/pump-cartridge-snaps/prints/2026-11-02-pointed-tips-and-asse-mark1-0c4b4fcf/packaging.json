@@ -1,0 +1,22 @@
+{
+  "source_archive": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/cartridge-snap-trial/worktree/hardware/print-tests/pump-cartridge-snaps/prints/2026-11-02-pointed-tips-and-asse-mark1-0c4b4fcf/2026-11-02-pointed-tips-and-asse-mark1-0c4b4fcf.gcode.3mf",
+  "source_archive_sha256": "f95a802fd0125799df6d74cd9ddb12b23dec7c277a5c531ce35826c25670dcf1",
+  "print_only_archive": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/cartridge-snap-trial/worktree/hardware/print-tests/pump-cartridge-snaps/prints/2026-11-02-pointed-tips-and-asse-mark1-0c4b4fcf/2026-11-02-pointed-tips-and-asse-mark1-0c4b4fcf-print-only.gcode.3mf",
+  "print_only_archive_sha256": "444483b28e6d510e2b596ec782e779de168fd6413a88763d37ecb5fe1f8d17b0",
+  "gcode_sha256": {
+    "Metadata/plate_1.gcode": "4a040398f8b1e2cce14b336ef691c1fa7c91c67713e2c5d08194e8255fbc6487"
+  },
+  "gcode_byte_identical": true,
+  "changed_container_entries": [
+    "3D/3dmodel.model",
+    "Metadata/model_settings.config"
+  ],
+  "omitted_editable_geometry_entries": [
+    "3D/Objects/object_1.model",
+    "3D/Objects/object_2.model",
+    "3D/Objects/object_3.model",
+    "3D/Objects/object_4.model",
+    "3D/_rels/3dmodel.model.rels",
+    "Metadata/cut_information.xml"
+  ]
+}

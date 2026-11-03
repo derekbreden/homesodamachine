@@ -1,0 +1,25 @@
+{
+  "source_commit": "ecdc82df8a4a89354442f12905b699b4c95e3213",
+  "scope": "Production cartridge springs and enclosure receivers, including both full assemblies in the seated pose; declared Box and unrelated body arrays and pointer rows preserved.",
+  "members": {
+    "hardware/assembly/scenes/glb/pump-mount.glb": "a471d8fe16fe1d0196825104b65760ae2f4686cf80ab31f6a79e0219370b1234",
+    "hardware/assembly/scenes/glb/front-top.glb": "e49a760b330842bdf3b150e37546783b318d28cad6c2c4f5798ab506d0d108ef"
+  },
+  "made": {
+    "hardware/assembly/scenes/glb/pump-mount.glb": {
+      "inputs": "65af69101835adc29c6cc92a97eec45a9b5b2653fa30b5059bbbf5538da085ea",
+      "commit": "ecdc82df8a4a89354442f12905b699b4c95e3213",
+      "unproven": true
+    },
+    "hardware/assembly/scenes/glb/front-top.glb": {
+      "inputs": "65af69101835adc29c6cc92a97eec45a9b5b2653fa30b5059bbbf5538da085ea",
+      "commit": "ecdc82df8a4a89354442f12905b699b4c95e3213",
+      "unproven": true
+    }
+  },
+  "readback_verified": [
+    "hardware/assembly/scenes/glb/pump-mount.glb",
+    "hardware/assembly/scenes/glb/front-top.glb"
+  ],
+  "unrelated_pointer_rows_preserved": true
+}

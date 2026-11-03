@@ -1190,25 +1190,31 @@ rails keep their complete working runs aft of the tee wall.
 ## Pump snap retention and release
 
 Each side’s carrier, wing and lower hook share the retainer’s complete Y14.25–82.265 span.
-The receiver spans Y14–82.515, leaving 0.25 mm at either end. The upper region joins the
-wing to the retainer continuously down to Z = [196.195 mm](PUMP_SNAP_ROOT_Z). Below it,
-a [2.4 mm](PUMP_SNAP_WING_THICK) wall supplies 16 mm of straight spring above a 5 mm hook:
-[21 mm](PUMP_SNAP_LENGTH) total lower wing height. The roots remain at
-the top and the retaining hooks at the bottom.
+The receiver spans Y14–82.515, leaving 0.25 mm at either end. Each 2.0 mm wing
+has a 22.25 mm root-to-bearing length and a tangent 1.5 mm inside root blend.
+The roots are at Z197.445; the retaining hooks are at the bottom. Each hook
+has a 1.6 mm nose land and a 1.0 mm insertion ramp.
 
-Each hook’s nominal outer face is at |X|99.5. Its relaxed tip spreads outward 0.35 mm;
-the assembly representation uses 0.10 mm at the seated receiver back, |X|99.6. The resulting
-0.25 mm displacement is a geometric spring fit, without a force or lifetime qualification.
-The hook-bearing plane stays at Z175.195. Its receiver floor is at Z = [175.045 mm](PUMP_SNAP_RECEIVER_FLOOR_Z), providing
-0.15 mm of static allowance without moving the fitted pump seats.
+The hook-bearing plane is Z175.195. Each seated hook reaches |X|101.1,
+providing 2.6 mm of bearing past the |X|98.5 receiver edge. The relaxed tip
+spreads outward 0.35 mm and the assembly represents a 0.10 mm seated spread.
+The receiver floor is Z174.795, with 0.4 mm static catch clearance. The
+inward spring corridor is 3.35 mm wide; the fitted pump wells and skirt
+bearings keep their dimensions.
 
-One centred, [4.5 mm](PUMP_SNAP_PORT_WIDTH) Y-wide screwdriver opening per side passes through |X|98.5–104.5
-and opens from Z170.195. On the right its roof is one continuous 45° face from
-X99.6/Z185.195 to X104.5/Z180.295; the left is mirrored. This corbel leaves 3 mm of outer wall
-and preserves the blade’s path to the wing. The receiver’s lower edge supplies the fulcrum
-for bending the wing inward until its hook clears. Support the pump/retainer unit while
-releasing both hooks and lowering it. Complete pump removal with front-top open and the
-pump plumbing and motor leads disconnected.
+One centered, 5 mm Y-wide screwdriver opening per side passes through
+|X|98.5–104.5 and opens from Z170.195. Its continuous 45° corbel runs from
+X101.1/Z185.195 to X104.5/Z181.795 on the right, mirrored on the left.
+The opening retains 3 mm of outer wall; the receiver pocket retains 6.4 mm
+of backing. The receiver’s lower edge supplies the fulcrum for pushing
+the wing inward until its hook clears. Support the pump/retainer unit
+while releasing both sides. Complete pump removal with front-top open
+and the pump plumbing and motor leads disconnected.
+
+The retainer prints on its Y-minus end, with the spring’s X/Z bending
+plane within each layer. Front-top retains its seam-plane print pose.
+The [cartridge snap trial](../../../print-tests/pump-cartridge-snaps/README.md)
+binds the production parts, receiver sample and outstanding physical checks.
 
 Derek's [accepted holder fit](../../../reference/kamoer-kphm400/physical-fit.json) reports
 firm holding with no vertical play in its identified separate cradle and cap. The

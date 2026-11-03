@@ -57,21 +57,27 @@ open; finish the display and loom before installing the funnel frame.
 
 ## Snap wings and release access
 
-Each wing, hook and carrier occupies the same Y14.25–82.265 span, 68.015 mm long.
-Its receiver spans Y14–82.515, leaving 0.25 mm at each end. The upper section joins the
-wing to the retainer continuously; the lower [21 mm](PUMP_SNAP_LENGTH) is free to flex,
-with a 16 mm straight spring above its 5 mm hook and a [2.4 mm](PUMP_SNAP_WING_THICK) wall.
-The upper root is at Z = [196.195 mm](PUMP_SNAP_ROOT_Z).
-The hooks flex inward during upward insertion and spring outward into the receivers.
-The receiver floors at Z = [175.045 mm](PUMP_SNAP_RECEIVER_FLOOR_Z) leave the specified 0.15 mm static allowance below the
-nominal hook-bearing faces at Z175.195.
+Each wing, hook and carrier occupies Y14.25–82.265, a 68.015 mm span.
+Its receiver spans Y14–82.515, leaving 0.25 mm at each end. Each 2.0 mm
+leaf has a 22.25 mm root-to-bearing length with a 1.5 mm inside root blend.
+The upper root is Z197.445. Each lower hook has a 1.6 mm nose land, a
+1.0 mm insertion ramp and 2.6 mm of seated bearing past the receiver edge.
+The hooks flex inward during upward insertion and spring outward into
+the receivers. Receiver floors at Z174.795 leave 0.4 mm below the nominal
+Z175.195 hook-bearing faces.
 
-One [4.5 mm](PUMP_SNAP_PORT_WIDTH)-wide opening at each receiver’s Y centre admits a small flathead screwdriver
-from below. Its roof is one continuous 45° face, from X99.6/Z185.195 to X104.5/Z180.295 on the
-right, mirrored on the left, leaving 3 mm of outer wall. This solid corbel supports the
-roof while preserving the blade path. Use the receiver’s lower edge as the fulcrum to
-push the wing inward until its hook clears. Support the pump/retainer unit while releasing
-both sides and lowering it.
+One centered 5 mm-wide opening per receiver admits a small flathead from
+below. The continuous 45° corbel extends from X101.1/Z185.195 to
+X104.5/Z181.795 on the right, mirrored on the left. It retains a 3 mm outer
+wall; the hook pocket retains 6.4 mm of backing. Use the receiver’s lower
+edge as the fulcrum to push the wing inward until its hook clears.
+Support the pump/retainer unit while releasing both sides and lowering it.
+
+The retainer prints on its Y-minus end so that each spring bends within
+the layer plane. Front-top prints on its seam plane. Remove automatic
+cavity supports with a tiny flathead that fits the cavity; their removal
+and the complete cartridge’s seating, release force and repeated use
+require the [cartridge snap trial](../../../print-tests/pump-cartridge-snaps/README.md).
 
 ## Factory assembly
 

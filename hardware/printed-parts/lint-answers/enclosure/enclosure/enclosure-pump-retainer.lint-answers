@@ -1,17 +1,20 @@
-[step] Wrong planar-step classification of the relaxed wing's continuous cubic extrusion. The reported parallel planes are fitted to adjacent bands of its tessellation. Each hook side is one extruded Bezier edge in _fixed_pump_mount._wing; the native/source identity review confirms the exported smooth shape. There is no 0.043 mm step or added cutout in the native hook. The relaxed and seated tip poses are geometrical states, not a computed elastic response.
-alternatives: A straight hook face would change the approved smooth relaxed-to-seated wing pose. Adding or trimming a 0.043 mm ledge would create the defect the classifier incorrectly reports.
+[ceiling] Wrong print-direction classification for the full-Y spring corridor. The retainer prints on its Y-minus end, with source +Y as the build axis. The named Z197.445 surface is vertical in that print frame; it is not a horizontal print-down ceiling. The source corridor is 3.35 mm wide below the tangent 1.5 mm root blend. The native projects in print-tests/pump-cartridge-snaps bind the actual 90 degree X pose.
+alternatives: Filling this corridor joins the spring to its carrier and removes the required inward travel. Returning to a Z-up print changes the layer direction through the flexure. The ceiling classifier uses source Z for this class even when the recorded tilt is used for ledge findings.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step
-click: x=-99.678 y=48.257 z=177.692
-click: x=99.678 y=48.257 z=177.692
+click: x=93.825 y=48.257 z=197.445
+click: x=-93.825 y=48.257 z=197.445
 
-[ceiling] Required flex-clearance bridge at the approved upper wing root. Each 1.9 mm X opening runs along the full Y span and ends at Z196.195, defining the 21 mm lower flexible section after filling the upper gap. The current retainer native slice emits the entire part with no support; pump-snap-review/print-review.json binds that archive. This is a deliberate spring clearance, not an unintended enclosed roof.
-alternatives: Filling this remaining clearance joins the lower wing to the rigid carrier and prevents its inward travel. Moving its roof changes the approved flexible length. Splitting the span or adding separate access cuts introduces the unnecessary end edges Derek removed.
+[thin] Required 2.0 mm nominal spring wall selected for the intermediate-thickness trial. The reading lies on the hook and posed leaf, with the tangent root and 22.25 mm root-to-catch span. These complete walls have local solid infill in the retained native projects. This is the explicitly thinner flexure, not an ordinary enclosure wall or residual fin. Force, distributed bending and life require the prepared physical trial.
+alternatives: A thicker leaf repeats the reported corner-only bending problem. Filling the spring corridor prevents inward travel. The two complete full-Y samples compare the current and longer ramps before transferring a candidate to other interfaces.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step
-click: x=-94.900 y=48.257 z=196.195
-click: x=94.900 y=48.257 z=196.195
+click: x=100.016 y=27.897 z=175.195
+click: x=100.675 y=27.897 z=177.025
+click: x=-100.016 y=68.618 z=175.195
+click: x=-100.675 y=68.618 z=177.025
 
-[thin] Required 2.4 mm nominal spring walls in the approved full-Y pump snap. The sampled 2.395 mm mesh result lies on those continuous curved walls; it is not a residual fin or an unrequested thinning pocket. The 21 mm lower wing supplies the required inward hook travel. The complete wings, hooks and upper roots have local 100% infill in the bound native print projects; retention and lifetime remain unmeasured.
-alternatives: A thicker wall changes spring stiffness and available bending travel; filling the clearance makes the snap rigid. Shortening the Y span restores the extra end edges Derek explicitly removed.
+[sliver] Existing 0.002 mm-wide well-profile ledges outside the cartridge spring revision. Their Z194.427 locations belong to the retained lower-well profile, inside |X|92.9; the snap changes occupy the outer flank bands. The source inverse functions retain their pump fit. The production before/after retainer surfaces outside those bands have at most 0.002 mm sampled deviation. These ledges are recorded and were reported to Derek; they are not accepted as a finished surface by this snap trial.
+alternatives: Reconcile the lower-well profile's meeting planes in a separate fitted-well revision and bind it to new geometry and physical-fit evidence. Suppressing or painting over the ledges does not remove them. Changing a sampled spring thickness does not address their cause.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step
-click: x=-95.882 y=40.868 z=191.256
-click: x=95.882 y=40.868 z=191.256
+click: x=16.034 y=61.806 z=194.427
+click: x=88.416 y=61.806 z=194.427
+click: x=-88.416 y=61.806 z=194.427
