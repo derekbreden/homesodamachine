@@ -129,7 +129,7 @@ with `python3 tools/run.py --count 1` or `--count 4`.
 Children share their parent's verified lease. Native work also takes the CAD
 lock; `HSM_NO_BUILD_LOCK=1` alone bypasses neither admission nor that lock. Keep
 Cargo at two jobs and run Cargo and Bazel through the wrapper so their compiler
-lock is shared. Bazel runs one heavy action per inherited lease. Update an old
+lock is shared. Bazel runs two heavy actions per inherited lease. Update an old
 worktree's run helpers before using its nested build scripts.
 
 The protocol and entry points are in
