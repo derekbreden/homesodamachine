@@ -16,7 +16,7 @@ locate the body separately.
 The downward vent cup passes through the bottom flat. The Pisco
 cap has a raised lip around the short outlet fitting's neck and a broad body
 bearing between its independent leaves. It spans 41.704 mm in Y, ending at
-Y462.05 before a full 3 mm receiver end wall and the rear CO2 bulkhead bore.
+Y462.05 before a full 3 mm receiver end wall and the PISCO's rear-wall bore.
 The meter cap enters from the west
 and has a solid 9 mm spine, shaped bearing stock extending toward the housing,
 and two complete 38 mm-long leaves. A 6 mm lower outside corner bevel clears
