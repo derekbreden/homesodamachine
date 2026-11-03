@@ -2,9 +2,8 @@
 
 A free PET-GF sleeve that holds 1/4" LLDPE round the stock's tightest bend. `_routing.STOCKS`
 puts that bend at a [14 mm](BEND_R) centreline radius, from the spool bench test, and every
-1/4" LLDPE run in the enclosure turns at least one corner there
-([tube routes](/web/public/tube-routes.json)). The tube reached that radius only wrapped
-tightly round a dense cylinder. The holder is a body round the bend that keeps the tube from
+1/4" LLDPE run in the enclosure turns at least one corner there. The tube reached that
+radius only wrapped tightly round a dense cylinder. The holder is a body round the bend that keeps the tube from
 flattening and kinking there. Nothing in the enclosure carries one.
 
 **The 2 mm wall with 3 mm legs works pretty well** ([physical result](prints/2026-10-23-legs-123-w2-petgf-left04-z018-mark1/physical-result.json)):

@@ -30,7 +30,6 @@ import { relatedStepsForComponent } from "/contracts/related-steps.js";
 import { showsInFaucetFinish } from "/contracts/faucet-options.js";
 import { drillTo, drillToComponent } from "./step-nav.js";
 import { makePanelCollapse } from "./tool-rail.js";
-import { syncTubeVisibility } from "./tube-overlay-host.js";
 import { refreshHighlight, fadedBody } from "./part-highlight.js";
 import { renderMeasure } from "./hsm.js";
 
@@ -101,7 +100,6 @@ export function applyHiddenComponents() {
     }
   }
   invalidateAllEdgesLayer(); // the edge picker's faint all-edges layer must drop hidden solids
-  syncTubeVisibility();
   refreshHighlight(); // a selection picks out only what is still drawn
   refreshPanel();
 }

@@ -7,7 +7,6 @@ import { DOC_SIDECAR_SUFFIX, isPublishedDocument } from "../contracts/documents.
 import { VIEW_REQUEST_RE, PICKS_REQUEST_RE } from "../contracts/pcb-out.js";
 import { sidecarFields } from "../contracts/sidecar.js";
 import { SCORECARD_SUFFIX } from "../contracts/scorecard-sidecar.js";
-import { mountTubeRoutes } from "./tube-routes.js";
 import { mountPdfjsAssets, renderDocumentReader } from "./document-reader.js";
 import { readMaterialCatalog } from "./material-catalog.js";
 import { readPartCosts } from "./part-costs.js";
@@ -46,7 +45,6 @@ function readSidecar(rootDir, rel) {
 //
 // Endpoints + response shapes: web/contracts/api-shapes.js.
 export function mountViewerRoutes(app, { hardwareDir, store, pointersPath }) {
-  mountTubeRoutes(app, { hardwareDir });
   mountPdfjsAssets(app);
 
   app.get("/api/materials", (_req, res) => {
