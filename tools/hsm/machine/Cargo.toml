@@ -26,6 +26,10 @@ path = "../../../hardware/scripts/tube_routes.rs"
 name = "machine-routes"
 path = "../../../hardware/manifold-layout/machine_routes.rs"
 
+[[bin]]
+name = "wire-route-samples"
+path = "../../../hardware/wiring/installed/wire_route_samples.rs"
+
 [dependencies]
 anyhow.workspace = true
 hsm-kernel = { path = "../kernel" }
