@@ -46,8 +46,9 @@ METER_CAP_AIR = 0.25
 METER_HOUSING_FIT = 0.15  # local housing bearings; spring station retains METER_AIR
 METER_BEARING_DEPTH = 4.0
 LEDGE = 3.0         # the ledge's height off the split
-HOOK = 2.6          # leading ramp above the complete flat retaining face
 NOSE_LAND = PRY_HEIGHT + 0.6  # solid 0.6 mm nose remains over the blade entry
+TIP_RISE = 3.0     # single pointed lead-in above the tool-backed nose
+HOOK = NOSE_LAND + TIP_RISE
 CATCH = fits.clearance(supported=True)
 VAR = 0.5           # how far the stub's seat in the soda union may leave the meter aft of its station
 METER_COLLAR_AXIAL_AIR = VAR + fits.slip
@@ -200,20 +201,18 @@ def half_width(radius, z, axis_z):
 
 # --- one snap station -----------------------------------------------------------------------------
 
-def station(axis_x, neck, y0, y1, split=SPLIT, *, wing_root=None, free_length=FREE_LENGTH,
-            tip_rise=None, pointed_tip=False):
+def station(axis_x, neck, y0, y1, split=SPLIT, *, wing_root=None, free_length=FREE_LENGTH):
     """A cap station's flank numbers, from the seat's neck half-width and the cap's Y span."""
     ledge = neck + REACH + fits.running
     inner = ledge + SIDE
     root = split if wing_root is None else wing_root
     catch = max(root + free_length, split + LEDGE + CATCH)
     bearing = catch - CATCH
-    tip = catch + NOSE_LAND + (HOOK-NOSE_LAND if tip_rise is None else tip_rise)
+    tip = catch + HOOK
     return dict(axis_x=axis_x, y0=y0, y1=y1, split=split, neck=neck, ledge=ledge, inner=inner,
                 outer=inner + WING, hook=ledge - REACH, bearing=bearing, catch=catch, tip=tip,
                 ceiling=tip + 2 * fits.running, root=root, nose_land=NOSE_LAND,
-                root_radius=ROOT_RADIUS,pry_width=PRY_WIDTH,pry_height=PRY_HEIGHT,
-                pointed_tip=pointed_tip)
+                root_radius=ROOT_RADIUS,pry_width=PRY_WIDTH,pry_height=PRY_HEIGHT)
 
 
 def pry_bounds(s):
@@ -414,10 +413,8 @@ def cap_section(s, base, bottom, axis_z=None, hexed=False):
     root = s.get('root', base if axis_z is None else axis_z)
     base = min(base, root)
     radius=s.get('root_radius',ROOT_RADIUS)
-    west = [(c - W, root), (c - W, tip)]
-    if not s.get('pointed_tip',False):
-        west.append((c-wi,tip))
-    west += [(c - h, catch+s['nose_land']),
+    west = [(c - W, root), (c - W, tip),
+            (c - h, catch+s['nose_land']),
             (c - h, catch), (c - wi, catch), (c - wi, base+radius)]
     east = [(2 * c - x, z) for x, z in reversed(west)]
     a,b=(c-wi+radius,base),(c+wi-radius,base)

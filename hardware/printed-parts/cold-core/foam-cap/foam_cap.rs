@@ -449,7 +449,6 @@ fn pump_snap(n: &Numbers) -> Result<Solid> {
     let west = [
         v2(c - w, 0.),
         v2(c - w, tip),
-        v2(c - wi, tip),
         v2(c - h, catch + f(s, "nose_land")?),
         v2(c - h, catch),
         v2(c - wi, catch),
