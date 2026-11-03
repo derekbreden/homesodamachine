@@ -4,4 +4,4 @@ import flute_payload
 
 
 if __name__ == "__main__":
-    raise SystemExit(flute_payload.main(flute_payload.COLD_CORE_DIRS[:1]))
+    raise SystemExit(flute_payload.rust_main(flute_payload.COLD_CORE_DIRS[:1]))
