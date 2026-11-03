@@ -181,6 +181,9 @@ def _route_facts(whole):
         for child in getattr(node, 'children', ()):
             yield from placed_names(child)
     physical_names=set(placed_names(whole))
+    reading = getattr(whole, 'manifold_reading', None)
+    if reading is not None:
+        physical_names.update(reading.raw_bounds)
     physical_names.update(name.rsplit('/',1)[-1] for name in tuple(physical_names))
     grouped_members = {rid for group in groups.values() for rid in group['native_routes']}
     for rid, group in groups.items():
@@ -294,6 +297,7 @@ def gather(whole=None, module=None, *, tube_routes=False):
     whole = whole if whole is not None else ea.build_enclosure_assembly()
     a, box = whole, whole.box
     p = whole.pack
+    reading = getattr(whole, 'manifold_reading', None)
     solids = {n: s for n, (s, _c) in ea._solids(whole).items()}
 
     # AT THE PRECISION THE DRAWING HAD. The card rounds a length for reading, and a document
@@ -308,6 +312,11 @@ def gather(whole=None, module=None, *, tube_routes=False):
     for name, s in solids.items():
         bb = _boxes.boxed(s)
         bodies[name] = [bb.xmin, bb.ymin, bb.zmin, bb.xmax, bb.ymax, bb.zmax]
+    if reading is not None:
+        bodies.update({name: [*lower, *upper]
+                       for name, (lower, upper) in reading.raw_bounds.items()})
+    numeric_bounds = ({name: (row[:3], row[3:]) for name, row in bodies.items()}
+                      if reading is not None else None)
 
     # The assembly producer carries the exact materialized walls it checked. Older callers that
     # hand this collector an assembly without that field keep the direct-source fallback.
@@ -380,9 +389,10 @@ def gather(whole=None, module=None, *, tube_routes=False):
     # construction and reads 0 there, which is the same exemption `run_clearances` takes off the
     # same `run_world`.
     import _scorecard as _card
-    _bodies_only = _card._split_placed(whole)[0]
-    _body_boxes = {n: _boxes.loose(s) for n, s in _bodies_only.items()}
     run_near = {}
+    if DECLARED_RUN_NEIGHBOURS:
+        _bodies_only = _card._split_placed(whole)[0]
+        _body_boxes = {n: _boxes.loose(s) for n, s in _bodies_only.items()}
     for rid, horizon in DECLARED_RUN_NEIGHBOURS:
         tubes, ends, _rest = _card.run_world(
             whole, [r for r in getattr(whole, "runs", ()) if r.id == rid])
@@ -441,15 +451,18 @@ def gather(whole=None, module=None, *, tube_routes=False):
         "box": _box_plain(box),
         "constants": constants,
         "hopper_hole": hopper_hole,
-        "manifold_bodies": sorted(n for n in solids if ea._manifold(n)),
+        "manifold_bodies": sorted(n for n in bodies if ea._manifold(n)),
         # What the two plate generators draw from. Both read their bodies out of a placed
         # machine by name, so they take this one rather than standing a second.
-        "valve_trays": _plain(ea.valve_tray_plans(whole)),
+        "valve_trays": _plain(ea.valve_tray_plans(whole) if reading is None
+                              else ea.valve_tray_plans(whole, bounds=numeric_bounds)),
         # And the decks as the WALL is handed them — plane, which way the valves' own +Z runs
         # off it, and the seats. The plans above are what a plate is DRAWN from, in the plate's
         # own frame; these are where the box stands one.
-        "valve_tray_stations": _plain(ea.valve_tray_stations(whole.pack.placed)),
-        "pump_trays": _plain(ea.pump_tray_plans(whole, box)),
+        "valve_tray_stations": _plain(ea.valve_tray_stations(whole.pack.placed) if reading is None
+                                       else ea.valve_tray_stations_from_bounds(numeric_bounds)),
+        "pump_trays": _plain(ea.pump_tray_plans(whole, box) if reading is None
+                             else ea.pump_tray_plans(whole, box, bounds=numeric_bounds)),
         "pack": {
             "placed": sorted(whole.pack.placed),
             "body_anchors": _plain(getattr(a, "body_anchors", ())),
