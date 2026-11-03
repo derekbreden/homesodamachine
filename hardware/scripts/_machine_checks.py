@@ -144,7 +144,7 @@ def _construction_metadata(request):
         original = shell.record_bound
         shell.record_bound = lambda row: row
         try:
-            with enclosure_checks._numeric(shell, graph, box):
+            with enclosure_checks._numeric(shell, graph):
                 return shell._handhold_bound(pieces, box)
         finally:
             shell.record_bound = original
