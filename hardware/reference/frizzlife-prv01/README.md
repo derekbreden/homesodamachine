@@ -18,10 +18,12 @@ These estimates are recorded separately from published dimensions in
 `dimensions.json`. Plain insertion sockets are modeled; the regulating
 mechanism is not.
 
-`geometry/frizzlife-prv01.step` is a colored native assembly with named inlet
-and outlet tube-mouth faces. Individual valid solids and frozen NPZ meshes
-are included. `model.py` exposes `library()`, `instances()`, `ports()` and
-`mates()` without importing CAD. `build.py` is a manual CAD-queue build.
+[`frizzlife-prv01.step`](https://github.com/derekbreden/homesodamachine/blob/archive-finished-trials/hardware/reference/frizzlife-prv01/geometry/frizzlife-prv01.step)
+is a colored native assembly with named inlet and outlet tube-mouth faces. It
+and the individual valid solids are at the `archive-finished-trials` tag;
+`build.py`, a manual CAD-queue build, draws them again. Their frozen NPZ
+meshes are in `geometry/`. `model.py` exposes `library()`, `instances()`,
+`ports()` and `mates()` without importing CAD.
 
 Sources: [manufacturer product page](https://www.frizzlife.com/collections/pressure-regulators/products/frizzlife-water-filter-pressure-regulator-protection-valve-for-reverse-osmosis-water-filter-system-60psi-1-4-quick-connect-push-fit-prv01),
 [manufacturer dimensional photograph](https://cdn.shopify.com/s/files/1/0159/8429/5990/files/PRV013_77f49cde-2932-4349-856b-636ef15aa6ae_1.jpg?v=1758007365),
