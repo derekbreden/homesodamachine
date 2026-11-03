@@ -89,8 +89,7 @@ compositor adds the component boundary where it meets the counter.
 four tube tails and display cable, then registers the component silhouette from the same pose.
 Manual page composition lives in [`landscape.py`](../../tools/install-guide/landscape.py),
 with the build entry point and print exporter in [`tools/install-guide/`](../../tools/install-guide/).
-`_install_art.py` supplies shared CAD scene builders used by illustration tools; its output is
-in `art/`.
+`_install_art.py` supplies shared CAD scene builders used by illustration tools.
 
 ## Compose and review
 
