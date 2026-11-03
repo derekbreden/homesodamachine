@@ -402,8 +402,10 @@ def gather(spec, checked, physical_model, *, scene_path=None, step_path=None, sc
                     and name not in set(metadata.get('routed_body_names',
                         ('tube-'+row['id'] for row in metadata['runs'] if row.get('kind') == 'refrigerant')))]
     cap = _point(metadata['core_carry'], (0., 0., ea._foam.cap_face_z))[2]
+    with step_path.open('rb') as source:
+        step_digest = hashlib.file_digest(source, lambda: hashlib.blake2b(digest_size=16)).hexdigest()
     return plain({
-        'schema': 2, 'card': _realized.code_digest(scorecard_path), 'step': _realized.code_digest(step_path),
+        'schema': 2, 'card': _realized.code_digest(scorecard_path), 'step': step_digest,
         'sources': _facts.source_digest(), 'box': box_facts, 'constants': constants,
         'hopper_hole': ea._enc._funnel_hole(tuple(pack['funnel'])), 'manifold_bodies': sorted(manifold),
         'valve_trays': valves, 'valve_tray_stations': stations, 'pump_trays': pumps,
