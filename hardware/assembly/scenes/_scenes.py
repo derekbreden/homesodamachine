@@ -431,6 +431,9 @@ def placed_names(assembly):
 
     names = {name for name, _shape, _colour in ml.placed_leaves(assembly)}
     names.update(getattr(assembly, 'referenced_core_rgba', {}))
+    reading = getattr(assembly, 'manifold_reading', None)
+    if reading is not None:
+        names.update(reading.raw_bounds)
     aliases = getattr(assembly, 'core_external_components', ())
     names |= {name.rsplit('/', 1)[-1] for name in names
               if name.rsplit('/', 1)[-1] in aliases}
