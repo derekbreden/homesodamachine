@@ -13,7 +13,7 @@
    396.45325459353626,
    306.22107209451497,
    53.94813977833837,
-   438.11429292615503,
+   461.07825459353626,
    342.84999999962747
   ],
   "asse1022-assembly": [
@@ -2193,7 +2193,7 @@
    true
   ]
  },
- "card": "02708e915ae29aee32778f17424ea292",
+ "card": "badd65160109897838208344cdcc2f0a",
  "card_ports": {
   "asse1022-assembly": {
    "tube-in": {
@@ -7927,12 +7927,12 @@
   }
  ],
  "schema": 2,
- "sources": "f0d2f6bff37fc5b933a1a3c89f80530c",
- "step": "58ccf6a2e0f81ef78b8269c3aa24f7c4",
+ "sources": "95116a62329aa43908024072e14dd90d",
+ "step": "91991a89abe467c8da8439f7136f8926",
  "tube_export": {
   "fine_model": {
    "path": "hardware/manifold-layout/enclosure-assembly.step.npz",
-   "sha256": "47c8fbc3c781721a2b998e4e44277fac0e4414a015375b014cab18fb1f498344"
+   "sha256": "954b205f76a11fd498be14ac9d2168b1f0a84bb79a5ff0752a1896c68b04032d"
   },
   "routing": {
    "anchor_sites": [
@@ -40700,12 +40700,12 @@
   },
   "scene": {
    "path": "hardware/manifold-layout/enclosure-assembly.scene.npz",
-   "sha256": "336bfb7d3454d3d54ba6109fa57e2e26ee1e20af7b5e795b7d0fb6f406577986"
+   "sha256": "b85c219dba66ce6c26d845a21a05c35b20acf188a4011835c1b3e866cdb6b8f1"
   },
   "schema": 1,
   "step": {
    "path": "hardware/manifold-layout/enclosure-assembly.step",
-   "sha256": "d779a19dbf9e3be8a848b81f411a05f3311056a2b8d86f4856d3f55cba684787"
+   "sha256": "47d7c66e043f89c7855b55e178af48c56b77fdaf5d61d124deb76c2fcd8a5b6f"
   }
  },
  "valve_tray_stations": [
