@@ -21,7 +21,7 @@ use crate::step::MARK;
 use anyhow::{Context, Result, bail, ensure};
 use serde_json::Value;
 use sha2::{Digest, Sha256};
-use std::collections::HashMap;
+use std::collections::{BTreeSet, HashMap};
 use std::io::{BufReader, Cursor, Read, Seek};
 use std::path::{Component, Path, PathBuf};
 use npyz::{Deserialize, NpyFile, Order};
@@ -132,7 +132,24 @@ pub fn visit_model(
     path: impl AsRef<Path>,
     visit: impl FnMut(usize, Imported) -> Result<()>,
 ) -> Result<usize> {
-    let path = path.as_ref();
+    visit_model_selected(path.as_ref(), None, visit)
+}
+
+/// Visit selected source indices in stored order, without decoding other bodies' arrays.
+/// The return value remains the model's complete entry count.
+pub fn visit_model_indices(
+    path: impl AsRef<Path>,
+    indices: &BTreeSet<usize>,
+    visit: impl FnMut(usize, Imported) -> Result<()>,
+) -> Result<usize> {
+    visit_model_selected(path.as_ref(), Some(indices), visit)
+}
+
+fn visit_model_selected(
+    path: &Path,
+    selected: Option<&BTreeSet<usize>>,
+    visit: impl FnMut(usize, Imported) -> Result<()>,
+) -> Result<usize> {
     let mut file = std::fs::File::open(path).with_context(|| format!("reading {}", path.display()))?;
     if std::env::var_os("HSM_READS").is_some() {
         let mut hash = Sha256::new();
@@ -147,19 +164,20 @@ pub fn visit_model(
     }
     let mut archive = ZipArchive::new(BufReader::new(file))
         .with_context(|| format!("reading model {}", path.display()))?;
-    visit_model_archive(&mut archive, visit).with_context(|| format!("reading model {}", path.display()))
+    visit_model_archive(&mut archive, selected, visit).with_context(|| format!("reading model {}", path.display()))
 }
 
 /// `model` from bytes: the stored or deflated NPZ arrays written by the kernel or meshcad.
 pub fn model_bodies(bytes: &[u8]) -> Result<Vec<Imported>> {
     let mut archive = ZipArchive::new(Cursor::new(bytes))?;
     let mut bodies = vec![];
-    visit_model_archive(&mut archive, |_, body| { bodies.push(body); Ok(()) })?;
+    visit_model_archive(&mut archive, None, |_, body| { bodies.push(body); Ok(()) })?;
     Ok(bodies)
 }
 
 fn visit_model_archive<R: Read + Seek>(
     archive: &mut ZipArchive<R>,
+    selected: Option<&BTreeSet<usize>>,
     mut visit: impl FnMut(usize, Imported) -> Result<()>,
 ) -> Result<usize> {
     let names: Vec<String> = serde_json::from_value(model_json(archive, "names")?)?;
@@ -169,6 +187,9 @@ fn visit_model_archive<R: Read + Seek>(
         "model names, colors and records have different body counts");
     let count = names.len();
     for (i, ((name, color), records)) in names.into_iter().zip(colors).zip(records).enumerate() {
+        if selected.is_some_and(|indices| !indices.contains(&i)) {
+            continue;
+        }
         let (vertices, vertex_shape) = model_array::<f64, _>(archive, &format!("V{i}"))?;
         let (triangles, triangle_shape) = model_array::<u32, _>(archive, &format!("T{i}"))?;
         let (face_of, face_shape) = model_array::<u32, _>(archive, &format!("F{i}"))?;
