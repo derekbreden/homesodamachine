@@ -137,6 +137,22 @@ def _split_placed(a) -> tuple:
     return bodies, tubes, pieces
 
 
+def _population_names(a) -> tuple:
+    """Name censuses include the explicit manifold rows without creating model Shapes."""
+    populations = _split_placed(a)
+    reading = getattr(a, 'manifold_reading', None)
+    if reading is None:
+        return tuple(tuple(population) for population in populations)
+    import enclosure_assembly as ea
+    referenced = ({}, {}, {})
+    for name in reading.raw_bounds:
+        target = (referenced[2] if name.startswith('enclosure-') else
+                  referenced[1] if name.startswith(TUBE_PREFIXES) else referenced[0])
+        target[name] = None
+    return tuple(tuple(ea._with_manifold_rows(a, population, rows))
+                 for population, rows in zip(populations, referenced, strict=True))
+
+
 # --- what the machine owes -------------------------------------------------
 #
 # The FLAVOR MANIFOLD's segments are `fluid-1` … `fluid-28` and they live in
@@ -553,7 +569,7 @@ def mounts(assembly=None) -> tuple:
     """Every placed body's fastening row — the ones this module types, then the rest."""
     if assembly is None:
         return MOUNTS + derived_mounts()
-    bodies, _tubes, _pieces = _split_placed(assembly)
+    bodies, _tubes, _pieces = _population_names(assembly)
     rows = [row for row in (*MOUNTS, *_selected_mounts()) if row[0] in bodies]
     named = {row[0] for row in rows}
     return tuple(rows) + tuple((name, None, "pack") for name in sorted(set(bodies)-named))
@@ -1082,62 +1098,59 @@ def pump_cap_contact(a, bodies) -> dict:
             'pass':total <= _clearing.HIT_VOL}
 
 
-def drain_seal_contact(a, bodies) -> dict:
-    """Read the elbow stem's common material with the silicone plug against its land.
-
-    The land's bore is drawn at its moulded size, smaller than the stem, so the two share the
-    interference ring the push-on seal closes. Anything they share outside that ring is still an
-    interference.
-    """
+def _drain_seal_region(a):
+    """The plug's existing finite push-on land as an authored tool."""
     import cadquery as cq
     import funnel as _funnel
 
     from above_core_parts import stem_elbow_reference
-    stem, plug = bodies["funnel-drain-union"], bodies["funnel"]
-    common = stem.intersect(plug)
     (cx, cy, top), _axis = a.carries["funnel"](
         ((_funnel.neck_dx, _funnel.neck_dy, _funnel.spout_land_z), (0.0, 0.0, 1.0)))
     od = stem_elbow_reference().STEM_OD
-    ring = (cq.Solid.makeCylinder(od / 2 + 0.01, _funnel.sealing_land,
+    return (cq.Solid.makeCylinder(od / 2 + 0.01, _funnel.sealing_land,
                                   cq.Vector(cx, cy, top - _funnel.sealing_land))
             .cut(cq.Solid.makeCylinder(_funnel.sealing_id / 2 - 0.01, _funnel.sealing_land,
                                        cq.Vector(cx, cy, top - _funnel.sealing_land))))
+
+
+def drain_seal_contact(a, bodies) -> dict:
+    """Common stem material inside and outside the plug's finite sealing land."""
+    stem, plug = bodies['funnel-drain-union'], bodies['funnel']
+    common = stem.intersect(plug)
+    ring = _drain_seal_region(a)
     total = common.Volume()
     excess = common.cut(ring).Volume() if total > 0 else 0.0
     return {"land_contact_mm3": total, "outside_land_mm3": excess,
             "pass": excess <= _clearing.HIT_VOL}
 
-
-def reducer_port_contact(a, bodies) -> dict:
-    """Read each flavor reducer's common material with its valve against the reducer's own stem.
-
-    The reducer's quarter-inch stem stands in the valve's push-to-connect outlet with its
-    shoulder on the collet (`neofit_flavor_reducer`), and the valve is drawn without that
-    mouth's bore, so the two share the stem. Anything they share outside the stem, the reducer's
-    body or shoulder in the valve, is still an interference.
-    """
+def _reducer_stem_region(reducer):
+    """The current reducer's cylindrical insertion land."""
     import cadquery as cq
     ref = _hw / "reference" / "neofit-flavor-reducer"
     if str(ref) not in sys.path:
         sys.path.insert(0, str(ref))
     import neofit_flavor_reducer as _reducer
 
+    r = _reducer.STEM_OD / 2.0
+    faces = [face for face in reducer.Faces() if face.geomType() == "CYLINDER"
+             and abs(face._geomAdaptor().Cylinder().Radius() - r) < 1e-3]
+    axis = faces[0]._geomAdaptor().Cylinder().Axis()
+    o = cq.Vector(axis.Location().X(), axis.Location().Y(), axis.Location().Z())
+    d = cq.Vector(axis.Direction().X(), axis.Direction().Y(), axis.Direction().Z())
+    t = [(p - o).dot(d) for face in faces for p in (vx.Center() for vx in face.Vertices())]
+    return cq.Solid.makeCylinder(r + 0.01, max(t) - min(t) + 0.02, o + d * (min(t) - 0.01), d)
+
+
+def reducer_port_contact(a, bodies) -> dict:
+    """Read each flavor reducer against its own finite insertion land."""
     stems = {}
-    for v in ("g", "j"):
-        reducer, valve = bodies[f"flavor-reducer-v-{v}"], bodies[f"valve-v-{v}"]
-        r = _reducer.STEM_OD / 2.0
-        faces = [face for face in reducer.Faces() if face.geomType() == "CYLINDER"
-                 and abs(face._geomAdaptor().Cylinder().Radius() - r) < 1e-3]
-        axis = faces[0]._geomAdaptor().Cylinder().Axis()
-        o = cq.Vector(axis.Location().X(), axis.Location().Y(), axis.Location().Z())
-        d = cq.Vector(axis.Direction().X(), axis.Direction().Y(), axis.Direction().Z())
-        t = [(p - o).dot(d) for face in faces for p in (vx.Center() for vx in face.Vertices())]
-        stem = cq.Solid.makeCylinder(r + 0.01, max(t) - min(t) + 0.02, o + d * (min(t) - 0.01), d)
+    for v in ('g', 'j'):
+        reducer, valve = bodies[f'flavor-reducer-v-{v}'], bodies[f'valve-v-{v}']
+        stem = _reducer_stem_region(reducer)
         common = reducer.intersect(valve)
         total = common.Volume()
         stems[v] = (total, common.cut(stem).Volume() if total > 0 else 0.0)
     return {"stems": stems, "pass": all(out <= _clearing.HIT_VOL for _in, out in stems.values())}
-
 
 def elbow_stem_contact(a, bodies) -> dict:
     """Read each stem elbow's common material with the fitting its stem is bottomed in against the
@@ -1149,7 +1162,7 @@ def elbow_stem_contact(a, bodies) -> dict:
     return {"stems": stems, "pass": all(out <= _clearing.HIT_VOL for _in, out in stems.values())}
 
 
-def selected_mate_contacts(a, placed, clashes) -> dict:
+def _selected_mate_regions(a, placed, clashes) -> dict:
     """Bound nominal mating contact by its actual shaft or insert station.
 
     The selected reference bores do not model internal collet teeth or thread
@@ -1328,6 +1341,12 @@ def selected_mate_contacts(a, placed, clashes) -> dict:
                     regions[pair] = (region,
                         'RX-M5×9.5: Ø6.4..7.1 mm nominal heat-set interference annulus')
 
+    return regions
+
+
+def selected_mate_contacts(a, placed, clashes) -> dict:
+    """Bound actual common material by the same finite authored mating regions."""
+    regions = _selected_mate_regions(a, placed, clashes)
     readings = []
     for pair, (region, basis) in regions.items():
         names = sorted(pair)
@@ -1341,7 +1360,207 @@ def selected_mate_contacts(a, placed, clashes) -> dict:
             'scope': 'Finite nominal mating regions only; physical insertion, sealing and retention remain unqualified.'}
 
 
-def pack_clashes(a) -> tuple:
+def fine_world(a, *, model, physical_reading, aliases, envelope, route_specs=None):
+    """The checked populations as fine references and their existing raw scalar bounds."""
+    import numpy as np
+    import _assembly_model
+    from _facts import _BB
+
+    inside = getattr(a, 'core_body_names', frozenset())
+    wires = getattr(a, 'wiring_body_names', frozenset())
+    external = getattr(a, 'core_external_components', frozenset())
+    populations = ({}, {}, {})
+    for row in physical_reading['bodies']:
+        name = re.sub(r'/\d+$', '', row['name'])
+        if name in wires or name.rsplit('/', 1)[-1].startswith('wire-'):
+            continue
+        if name in inside:
+            if name.rsplit('/', 1)[-1] not in external:
+                continue
+        name = aliases.get(name, name)
+        target = (populations[2] if name.startswith('enclosure-') else
+                  populations[1] if name.startswith(TUBE_PREFIXES) else populations[0])
+        target[name] = None
+    populations[0]['foam-assembly'] = None
+    populations = tuple(tuple(population) for population in populations)
+    names = {name for population in populations for name in population}
+    grouped, bounds = {}, {}
+    for index, row in enumerate(physical_reading['bodies']):
+        name = re.sub(r'/\d+$', '', row['name'])
+        name = aliases.get(name, name)
+        if name not in names:
+            continue
+        grouped.setdefault(name, []).append(index)
+        b = _BB(*row['min'], *row['max'])
+        bounds[name] = bounds[name].add(b) if name in bounds else b
+    references = {name: _assembly_model.instance(model, indices=indices)
+                  for name, indices in grouped.items()}
+    frame = np.asarray(envelope['transform'], float)
+    casing = envelope['path']
+    identity = _assembly_model.identity(casing)
+    b = None
+    with np.load(casing, allow_pickle=False) as source:
+        for index in range(len(identity)):
+            vertices = source[f'V{index}'] @ frame[:, :3].T + frame[:, 3]
+            reading = _BB(*vertices.min(axis=0), *vertices.max(axis=0))
+            b = reading if b is None else b.add(reading)
+    references['foam-assembly'] = _assembly_model.instance(
+        casing, indices=list(range(len(identity))), transform=frame)
+    bounds['foam-assembly'] = b
+    missing = names - set(references)
+    if missing:
+        raise KeyError('Fine export lacks mechanical bodies: ' + ', '.join(sorted(missing)))
+    return {'populations': populations, 'references': references, 'bounds': bounds}
+
+
+def _fine_read(world, queries):
+    import _assembly_model
+    return _assembly_model.measure_groups(world['references'], [
+        {**query, 'retain_until_last_use': True} for query in queries])
+
+
+def _fine_masked(world, requests, *, extra_queries=(), raw=False):
+    """Actual fine commons outside the callers' unchanged, small authored masks."""
+    import tempfile
+    import _assembly_model
+    from meshcad.write import _solids, write_model
+
+    solids, names, selections = [], [], []
+    for index, (_a, _b, mask) in enumerate(requests):
+        parts = _solids(mask)
+        selections.append(list(range(len(solids), len(solids) + len(parts))))
+        solids.extend(parts)
+        names.extend([f'mask-{index}'] * len(parts))
+    with tempfile.TemporaryDirectory(prefix='hsm-mating-tools-') as directory:
+        model = Path(directory) / 'mating-tools.npz'
+        write_model(solids, model, names, preserve_partitions=True)
+        references = dict(world['references'])
+        queries = []
+        for index, (a, b, _mask) in enumerate(requests):
+            name = f'__mating-mask-{index}'
+            references[name] = _assembly_model.instance(model, indices=selections[index])
+            queries.append({'kind': 'common', 'a': a, 'b': b, 'distribute_a': True,
+                'retain_until_last_use': True,
+                'fine_mask_stages': [{'name': 'finite mating region', 'references': [name]}]})
+        readings = _assembly_model.measure_groups(references, [*queries,
+            *({**query, 'retain_until_last_use': True} for query in extra_queries)])
+    if raw:
+        return readings[:len(requests)], readings[len(requests):]
+    for row in readings:
+        if 'error' in row:
+            raise RuntimeError(row['error'])
+    return [(row['common']['raw']['volume_mm3'],
+             row['common']['residual']['volume_mm3']) for row in readings]
+
+
+def _fine_pack_clashes(a, world):
+    import manifold_layout as ml
+
+    bounds = world['bounds']
+    names = [name for population in world['populations'] for name in population]
+    candidates = []
+    for index, x in enumerate(names):
+        a_box = bounds[x]
+        for y in names[index + 1:]:
+            b_box = bounds[y]
+            if (a_box.xmin > b_box.xmax - 1e-6 or b_box.xmin > a_box.xmax - 1e-6
+                    or a_box.ymin > b_box.ymax - 1e-6 or b_box.ymin > a_box.ymax - 1e-6
+                    or a_box.zmin > b_box.zmax - 1e-6 or b_box.zmin > a_box.zmax - 1e-6):
+                continue
+            candidates.append((x, y))
+    readings = _fine_read(world, [{'kind': 'shared_volume', 'a': x, 'b': y}
+                                  for x, y in candidates])
+    bad, unanswered = [], []
+    for (x, y), row in zip(candidates, readings, strict=True):
+        if 'error' in row:
+            unanswered.append((x, y, row['error'].splitlines()[0]))
+            continue
+        if row['value'] > 1.0:
+            # Only an unmasked reported clash needs its common material's bounds.
+            bad.append(ml.Clash(x, y, row['value'], None))
+    return bad, unanswered
+
+
+def _fine_pack_readings(a, bodies, placed, clashes, world):
+    """One shared masked-contact and clearance reading after the raw clash census."""
+    import dock_structure as dock
+
+    pending = {frozenset((hit.a, hit.b)) for hit in clashes}
+    requests, families = [], {}
+
+    def prepare(name, builder):
+        try:
+            metadata, found = builder()
+            start = len(requests)
+            requests.extend(found)
+            families[name] = (metadata, start, len(requests))
+        except Exception as error:
+            families[name] = error
+
+    def mates():
+        regions = _selected_mate_regions(a, placed, clashes)
+        ordered = [(sorted(pair), region, basis) for pair, (region, basis) in regions.items()]
+        return ordered, [(names[0], names[1], region) for names, region, _basis in ordered]
+
+    prepare('mates', mates)
+    reducers = {frozenset((f'valve-v-{v}', f'flavor-reducer-v-{v}')) for v in 'gj'}
+    if pending & reducers:
+        def reducer_masks():
+            return ('g', 'j'), [(f'flavor-reducer-v-{v}', f'valve-v-{v}',
+                _reducer_stem_region(bodies[f'flavor-reducer-v-{v}'])) for v in 'gj']
+        prepare('reducers', reducer_masks)
+    elbows = {frozenset((name, dock.elbow_host(name))) for name in bodies if name.startswith('stem-elbow-')}
+    if pending & elbows:
+        def elbow_masks():
+            names = sorted(name for name in bodies if name.startswith('stem-elbow-'))
+            return names, [(name, dock.elbow_host(name), dock.stem_mate_region(bodies[name])) for name in names]
+        prepare('elbows', elbow_masks)
+    if frozenset(('funnel-drain-union', 'funnel')) in pending:
+        prepare('seal', lambda: (None, [('funnel-drain-union', 'funnel', _drain_seal_region(a))]))
+    pairs = _fine_clearance_pairs(a, getattr(a, 'runs', ()), world)
+    masked, gaps = _fine_masked(world, requests, extra_queries=[
+        {'kind': 'gap', 'a': x, 'b': y, 'within_mm': REPORT_NEAR}
+        for _x, _y, x, y, _allowed in pairs], raw=True)
+    readings = {}
+    for family, plan in families.items():
+        if isinstance(plan, Exception):
+            readings[family] = plan
+            continue
+        metadata, start, end = plan
+        found = masked[start:end]
+        errors = [row['error'] for row in found if 'error' in row]
+        if errors:
+            readings[family] = RuntimeError(errors[0])
+            continue
+        values = [(row['common']['raw']['volume_mm3'], row['common']['residual']['volume_mm3']) for row in found]
+        if family == 'mates':
+            rows = [{'parts': names, 'basis': basis, 'common_mm3': total,
+                     'outside_mate_region_mm3': outside, 'pass': outside <= _clearing.HIT_VOL}
+                    for (names, _region, basis), (total, outside) in zip(metadata, values, strict=True)]
+            readings[family] = {'pairs': rows,
+                'scope': 'Finite nominal mating regions only; physical insertion, sealing and retention remain unqualified.'}
+        elif family in ('reducers', 'elbows'):
+            stems = {name.removeprefix('stem-elbow-'): value for name, value in zip(metadata, values, strict=True)}
+            readings[family] = {'stems': stems,
+                'pass': all(outside <= _clearing.HIT_VOL for _total, outside in values)}
+        else:
+            [(total, excess)] = values
+            readings[family] = {'land_contact_mm3': total, 'outside_land_mm3': excess,
+                                'pass': excess <= _clearing.HIT_VOL}
+    world['contact_readings'] = readings
+    rows = _fine_clearance_rows(world, pairs, readings=gaps)
+    rows.sort(key=lambda row: row[2])
+    world['clearances'] = rows
+
+
+def _fine_contact(world, name):
+    reading = world['contact_readings'][name]
+    if isinstance(reading, Exception):
+        raise reading
+    return reading
+
+
+def pack_clashes(a, *, fine=None) -> tuple:
     """The one exact pairwise-clash reading for an assembled machine.
 
     The assembly report prints the detailed pairs and the scorecard publishes the same verdict.
@@ -1355,9 +1574,14 @@ def pack_clashes(a) -> tuple:
     if hit is not None and hit[0] is a:
         return hit[1]
     bodies, tubes, pieces = _split_placed(a)
-    bad, unanswered = ml.clashes(a, bodies={**bodies, **tubes, **pieces})
+    bad, unanswered = (_fine_pack_clashes(a, fine) if fine is not None else
+                       ml.clashes(a, bodies={**bodies, **tubes, **pieces}))
+    if fine is not None:
+        _fine_pack_readings(a, bodies, {**bodies, **tubes, **pieces}, bad, fine)
     try:
-        reading = selected_mate_contacts(a, {**bodies, **tubes, **pieces}, bad)
+        placed = {**bodies, **tubes, **pieces}
+        reading = (_fine_contact(fine, 'mates') if fine is not None else
+                   selected_mate_contacts(a, placed, bad))
         a.selected_mate_contact_reading = reading
         seated = {frozenset(row['parts']) for row in reading['pairs'] if row['pass']}
         bad = [hit for hit in bad if frozenset((hit.a, hit.b)) not in seated]
@@ -1367,7 +1591,13 @@ def pack_clashes(a) -> tuple:
     bearing_pair = frozenset(("g-ganen-pump", "foam-assembly"))
     if any(frozenset((hit.a, hit.b)) == bearing_pair for hit in bad):
         try:
-            reading = pump_cap_contact(a, bodies)
+            if fine is not None:
+                total = next(hit.volume for hit in bad if frozenset((hit.a, hit.b)) == bearing_pair)
+                reading = {'rigid_overlap_mm3': total, 'free_foot_contact_mm3': 0.,
+                           'outside_contact_masks_mm3': total, 'feet': [],
+                           'pass': total <= _clearing.HIT_VOL}
+            else:
+                reading = pump_cap_contact(a, bodies)
             a.pump_cap_contact_reading = reading
             if reading["pass"]:
                 bad = [hit for hit in bad
@@ -1378,7 +1608,8 @@ def pack_clashes(a) -> tuple:
     reducer_pairs = {frozenset((f"valve-v-{v}", f"flavor-reducer-v-{v}")) for v in "gj"}
     if any(frozenset((hit.a, hit.b)) in reducer_pairs for hit in bad):
         try:
-            reading = reducer_port_contact(a, bodies)
+            reading = (_fine_contact(fine, 'reducers') if fine is not None else
+                       reducer_port_contact(a, bodies))
             a.reducer_port_reading = reading
             if reading["pass"]:
                 bad = [hit for hit in bad if frozenset((hit.a, hit.b)) not in reducer_pairs]
@@ -1389,7 +1620,8 @@ def pack_clashes(a) -> tuple:
     stem_pairs = {frozenset((n, _dock.elbow_host(n))) for n in bodies if n.startswith("stem-elbow-")}
     if any(frozenset((hit.a, hit.b)) in stem_pairs for hit in bad):
         try:
-            reading = elbow_stem_contact(a, bodies)
+            reading = (_fine_contact(fine, 'elbows') if fine is not None else
+                       elbow_stem_contact(a, bodies))
             a.elbow_stem_reading = reading
             if reading["pass"]:
                 bad = [hit for hit in bad if frozenset((hit.a, hit.b)) not in stem_pairs]
@@ -1399,13 +1631,24 @@ def pack_clashes(a) -> tuple:
     seal_pair = frozenset(("funnel-drain-union", "funnel"))
     if any(frozenset((hit.a, hit.b)) == seal_pair for hit in bad):
         try:
-            reading = drain_seal_contact(a, bodies)
+            reading = (_fine_contact(fine, 'seal') if fine is not None else
+                       drain_seal_contact(a, bodies))
             a.drain_seal_contact_reading = reading
             if reading["pass"]:
                 bad = [hit for hit in bad if frozenset((hit.a, hit.b)) != seal_pair]
         except Exception as exc:
             unanswered.append(("funnel-drain-union", "funnel",
                                "sealing land contact: " + str(exc).splitlines()[0]))
+    if fine is not None and bad:
+        rows = _fine_read(fine, [{'kind': 'common', 'a': hit.a, 'b': hit.b} for hit in bad])
+        bounded = []
+        for hit, row in zip(bad, rows, strict=True):
+            if 'error' in row or row['common']['raw']['min'] is None:
+                unanswered.append((hit.a, hit.b, row.get('error', 'Common material has no measurable bounds')))
+                continue
+            reading = row['common']['raw']
+            bounded.append(ml.Clash(hit.a, hit.b, hit.volume, ml.Extents(*reading['min'], *reading['max'])))
+        bad = bounded
     result = bad, unanswered
     _clash_cache[id(a)] = (a, result)
     return result
@@ -1451,15 +1694,16 @@ def _pack_closes(a) -> Check:
                  "0 clash, 0 unanswered", detail)
 
 
-def _bed_fit(a) -> Check:
+def _bed_fit(a, *, fine=None) -> Check:
     import enclosure as _enc
     bed = (_enc.H2C_X, _enc.H2C_Y, _enc.H2C_Z)
     rows, short = [], []
     for c in a.children:
         if not c.name.startswith("enclosure-"):
             continue
-        b = (c.obj.val() if hasattr(c.obj, "val") else c.obj).moved(
-            __import__("cadquery").Location(c.loc.wrapped.Transformation())).BoundingBox()
+        b = (fine['bounds'][c.name] if fine is not None else
+             (c.obj.val() if hasattr(c.obj, "val") else c.obj).moved(
+                 __import__("cadquery").Location(c.loc.wrapped.Transformation())).BoundingBox())
         fits = b.xlen <= bed[0] and b.ylen <= bed[1] and b.zlen <= bed[2]
         rows.append(fits)
         if not fits:
@@ -1564,7 +1808,7 @@ def selected_clearance_joints(a) -> set:
         for station in ('lower', 'upper'):
             base = f'y-seam-{side}-{station}'
             pairs.add(frozenset((base+'-screw', base+'-insert')))
-    bodies, tubes, pieces = _split_placed(a)
+    bodies, tubes, pieces = _population_names(a)
     present = set(bodies) | set(tubes) | set(pieces)
     return {pair for pair in pairs if pair <= present}
 
@@ -1626,7 +1870,73 @@ def _clearance_rows(pairs):
     return out
 
 
-def part_clearances(a, runs=()) -> list[tuple]:
+def _fine_run_clearance_pairs(a, runs, world):
+    import _lines
+
+    bodies, drawn, pieces = world['populations']
+    tubes = {r.id: f'tube-{r.id}' for r in runs if f'tube-{r.id}' in drawn}
+    ends = {r.id: {r.frm.partition('.')[0], r.to.partition('.')[0]} for r in runs}
+    for r in runs:
+        for anchor in (r.frm, r.to):
+            if adapter := _lines.PORT_ADAPTERS.get(anchor):
+                ends[r.id].add(adapter)
+    rest = (*bodies, *pieces, *(name for name in drawn if name not in set(tubes.values())))
+    touching = TOUCHING_OK | selected_clearance_joints(a)
+    touching = {frozenset(name.removeprefix('tube-') for name in pair) for pair in touching}
+    anchored = anchored_pairs(a, runs)
+    bounds, pairs = world['bounds'], []
+    ids = list(tubes)
+    for index, x in enumerate(ids):
+        for y in ids[index + 1:]:
+            if _clearing.box_gap(bounds[tubes[x]], bounds[tubes[y]]) < REPORT_NEAR:
+                pairs.append((x, y, tubes[x], tubes[y], False))
+    for x in ids:
+        for name in rest:
+            if name in ends[x] or _clearing.box_gap(bounds[tubes[x]], bounds[name]) >= REPORT_NEAR:
+                continue
+            pairs.append((x, name, tubes[x], name,
+                          frozenset((x, name)) in touching or frozenset((x, name)) in anchored))
+    return pairs
+
+
+def _fine_clearance_rows(world, pairs, *, readings=None):
+    if readings is None:
+        readings = _fine_read(world, [{'kind': 'gap', 'a': a, 'b': b, 'within_mm': REPORT_NEAR}
+                                      for _x, _y, a, b, _allowed in pairs])
+    rows = []
+    for (x, y, _a, _b, allowed), reading in zip(pairs, readings, strict=True):
+        if 'error' in reading:
+            raise RuntimeError(reading['error'])
+        gap = min(reading['value'], REPORT_NEAR)
+        if gap < REPORT_NEAR:
+            rows.append((x, y, gap, allowed))
+    return rows
+
+
+def _fine_clearance_pairs(a, runs, world):
+    bodies, _drawn, _pieces = world['populations']
+    touching = TOUCHING_OK | selected_clearance_joints(a)
+    pack, bounds, pairs = pack_bodies(), world['bounds'], []
+    for index, x in enumerate(bodies):
+        for y in bodies[index + 1:]:
+            if x in pack and y in pack:
+                continue
+            if _clearing.box_gap(bounds[x], bounds[y]) >= REPORT_NEAR:
+                continue
+            pairs.append((x, y, x, y, frozenset((x, y)) in touching))
+    pairs.extend(_fine_run_clearance_pairs(a, runs, world))
+    return pairs
+
+
+def _fine_part_clearances(a, runs, world):
+    if 'clearances' in world:
+        return world['clearances']
+    rows = _fine_clearance_rows(world, _fine_clearance_pairs(a, runs, world))
+    rows.sort(key=lambda row: row[2])
+    return rows
+
+
+def part_clearances(a, runs=(), *, fine=None) -> list[tuple]:
     """Every pair standing nearer than `REPORT_NEAR`, tightest first, as `(a, b, gap, allowed)`.
     `allowed` marks a named fitted joint's exclusion from the global pack floor.
     Static interfaces use `TOUCHING_OK`; selected native interfaces use their
@@ -1653,6 +1963,8 @@ def part_clearances(a, runs=()) -> list[tuple]:
     fixed junctions, returns and links and reports its own inner gap; this module seats it as one thing, so what is
     measured here is how it stands off everything else. A run reaching in from outside is not
     such a pair, and is held to the floor against every body in the pack."""
+    if fine is not None:
+        return _fine_part_clearances(a, runs, fine)
     bodies, _tubes, _pieces = _split_placed(a)
     touching = TOUCHING_OK | selected_clearance_joints(a)
     pack = pack_bodies()
@@ -1754,7 +2066,7 @@ def anchored_pairs(a=None, runs=()) -> set:
     return pairs | {frozenset((name, "foam-assembly")) for name in cap_ids}
 
 
-def lane_notes(a, runs, rows) -> list[str]:
+def lane_notes(a, runs, rows, *, fine=None) -> list[str]:
     """What CHARGES for a run pinched under the floor: the two bodies it threads between, and
     how far apart they stand.
 
@@ -1773,7 +2085,7 @@ def lane_notes(a, runs, rows) -> list[str]:
     it names the pins of the route the run currently takes and reads as a body to move, which
     for a pack body is the move that cascades through everything. So `need_of`'s ratio rides
     beside it, and a run far above 1 there is a route to move before it is a body to move."""
-    bodies, _tubes, _pieces = _split_placed(a)
+    bodies = fine['populations'][0] if fine is not None else _split_placed(a)[0]
     od = {r.id: r.diam for r in runs}
     need = {r.id: need_of(r) for r in runs}
     tight: dict = {}
@@ -1783,6 +2095,20 @@ def lane_notes(a, runs, rows) -> list[str]:
         for rid, other in ((x, y), (y, x)):
             if rid in od and other in bodies:
                 tight.setdefault(rid, []).append((g, other))
+    fine_lanes = {}
+    if fine is not None:
+        requests, owners = [], []
+        for rid, hits in sorted(tight.items()):
+            if len(hits) < 2:
+                continue
+            hits.sort()
+            (ga, p), (gb, q) = hits[:2]
+            requests.append({'kind': 'gap', 'a': p, 'b': q, 'within_mm': ga + od[rid] + gb})
+            owners.append(rid)
+        for rid, reading in zip(owners, _fine_read(fine, requests), strict=True):
+            if 'error' in reading:
+                raise RuntimeError(reading['error'])
+            fine_lanes[rid] = reading['value']
     out = []
     for rid, hits in sorted(tight.items()):
         if len(hits) < 2:
@@ -1791,7 +2117,11 @@ def lane_notes(a, runs, rows) -> list[str]:
         (ga, p), (gb, q) = hits[0], hits[1]
         # The tube stands `ga` off one body and `gb` off the other, so the two cannot be further
         # apart than the stack they sandwich — a horizon the lane is bound to fall inside.
-        lane = _clearing.gap(bodies[p], bodies[q], ga + od[rid] + gb)
+        horizon = ga + od[rid] + gb
+        if fine is None:
+            lane = _clearing.gap(bodies[p], bodies[q], horizon)
+        else:
+            lane = fine_lanes[rid]
         side = (lane - od[rid]) / 2.0
         note = (f"{rid} threads {p} — {q}: they leave {lane:.3f} mm and the tube is "
                 f"Ø{od[rid]:g}, so {side:.3f} mm a side")
@@ -1930,7 +2260,7 @@ def _coverage(a) -> Check:
 
     The population is every child that is not a length of tube and not a piece of the printed
     box: a tube is fastened by the collets it seats in, and a wall is what the rest fastens TO."""
-    bodies, _tubes, _pieces = _split_placed(a)
+    bodies, _tubes, _pieces = _population_names(a)
     placed = set(bodies)
     declared = {name for name, _by, _joint in mounts(a)}
     detail = [f"placed, undeclared: {n}" for n in sorted(placed - declared)]
@@ -2026,7 +2356,7 @@ def _placed(a) -> Check:
     What the pack carries is not all bodies — its placeholder stubs and fold segments are tube on
     this card — so the coverage is the intersection with the population this card counts, never
     the length of the names."""
-    bodies, _tubes, _pieces = _split_placed(a)
+    bodies, _tubes, _pieces = _population_names(a)
     seats = getattr(a, "seats", {}) or {}
     tol = seat_tol(seats)
     covered = {n for s in seats.values() for n in s.members} & set(bodies)
@@ -2146,7 +2476,7 @@ def _extent(solids) -> tuple:
             (max(b.xmax for b in bbs), max(b.ymax for b in bbs), max(b.zmax for b in bbs)))
 
 
-def size_rows(a) -> list[dict]:
+def size_rows(a, *, fine=None) -> list[dict]:
     """How big the machine is: the box the enclosure quadrants stand in, and the box everything
     placed stands in. Width is x, depth is y, height is z — the axes `enclosure_assembly`
     packs on.
@@ -2162,7 +2492,8 @@ def size_rows(a) -> list[dict]:
     `web/contracts/scorecard-sidecar.js` for the viewer.
 
     A population with nothing in it contributes no row."""
-    bodies, tubes, pieces = _split_placed(a)
+    bodies, tubes, pieces = (tuple({name: name for name in names} for names in fine['populations'])
+                             if fine is not None else _split_placed(a))
     rows = []
     for rid, label, solids in (
             ("enclosure", "the printed box, outside face to outside face", pieces.values()),
@@ -2171,7 +2502,12 @@ def size_rows(a) -> list[dict]:
         solids = list(solids)
         if not solids:
             continue
-        lo, hi = _extent(solids)
+        if fine is None:
+            lo, hi = _extent(solids)
+        else:
+            bbs = [fine['bounds'][name] for name in solids]
+            lo = tuple(min(getattr(b, axis + 'min') for b in bbs) for axis in 'xyz')
+            hi = tuple(max(getattr(b, axis + 'max') for b in bbs) for axis in 'xyz')
         rows.append({
             "id": rid, "label": label,
             "min": [round(v, 3) for v in lo], "max": [round(v, 3) for v in hi],
@@ -2204,19 +2540,19 @@ class Scorecard:
 _card_cache: dict = {}
 
 
-def build(a) -> Scorecard:
+def build(a, *, fine=None) -> Scorecard:
     """The card for one assembly, held against it. A run prints the card and then writes it, and
     the two are one verdict — the gates take an exact distance across the pack, and taking them
     twice would say the same thing at twice the price."""
     hit = _card_cache.get(id(a))
     if hit is not None and hit[0] is a:
         return hit[1]
-    sc = _build(a)
+    sc = _build(a, fine=fine)
     _card_cache[id(a)] = (a, sc)                      # pin `a` so its id stays its own
     return sc
 
 
-def _build(a) -> Scorecard:
+def _build(a, *, fine=None) -> Scorecard:
     runs = list(getattr(a, "runs", []))
     bends = bend_radii(runs, getattr(a, "native_route_specs", {}))
     # `enclosure_assembly` measures every leg of the refrigerant loop, and the ones a shared plane
@@ -2228,10 +2564,12 @@ def _build(a) -> Scorecard:
     # drawn leg on both its mouths.
     conns = load_connections(runs, getattr(a, "refrigerant_mates", ()),
                              getattr(a, "native_connections", {}))
-    clearances = part_clearances(a, runs)
-    lanes = lane_notes(a, runs, clearances)
+    if fine is not None:
+        pack_clashes(a, fine=fine)
+    clearances = part_clearances(a, runs, fine=fine)
+    lanes = lane_notes(a, runs, clearances, fine=fine)
     checks = [_coverage(a), _room_holds(a), _pack_closes(a),
-              _clearance_floor(clearances, lanes), _bed_fit(a),
+              _clearance_floor(clearances, lanes), _bed_fit(a, fine=fine),
               *_bounds(a),
               _runs_drawn(runs), _bend_radius(bends),
               _mounted(a), _placed(a), _routed(conns), _located(a),
@@ -2244,7 +2582,7 @@ def _build(a) -> Scorecard:
                      "with published dimensions and explicitly estimated socket details.",
                      "Stem insertions retain the receiving-family estimates stated in above-core.json.",
                      "Geometry establishes neither sealing, pull-off retention nor pressure suitability."])]
-    return Scorecard(checks, bends, conns, size_rows(a))
+    return Scorecard(checks, bends, conns, size_rows(a, fine=fine))
 
 
 def to_dict(sc: Scorecard) -> dict:
@@ -2277,11 +2615,11 @@ def write(a, step: Path) -> Path:
     return out
 
 
-def report(a) -> Scorecard:
+def report(a, *, fine=None) -> Scorecard:
     """The card, printed. One line per check, then the bend table — every run and every corner
     in it, because a run holds one radius per corner and its worst says nothing about the
     rest."""
-    sc = build(a)
+    sc = build(a, fine=fine)
     if sc.sizes:
         print("\nsize                     width × depth × height")
         for d in sc.sizes:
