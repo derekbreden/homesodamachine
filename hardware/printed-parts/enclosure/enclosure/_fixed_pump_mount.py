@@ -8,10 +8,14 @@ import math
 import cadquery as cq
 
 
-WING_THICK = 2.4
-WING_INWARD_ROOM = 1.9
-WING_LENGTH = 21.0
-HOOK_REACH = 1.25
+WING_THICK = 2.0
+WING_LENGTH = 22.25
+ROOT_RADIUS = 1.5
+CATCH_OVERLAP = 2.6
+CATCH_AIR = .4
+NOSE_LAND = 1.6
+TIP_RISE = 1.0
+PRY_WIDTH = 5.0
 RELAXED_SPREAD = .35
 SEATED_SPREAD = .10
 SHARED_HALF_SPAN = 11.0
@@ -53,14 +57,18 @@ def snap_datums(e, box):
     outer = d['x1']
     floor = d['bottom_z']
     cy = (d['y0']+d['y1'])/2.
+    edge = outer+e.fits.running
+    hook = edge+CATCH_OVERLAP-SEATED_SPREAD
+    inward = hook+RELAXED_SPREAD-edge+.5
     return dict(
-        carrier_inner_x=outer-WING_THICK-WING_INWARD_ROOM,
+        carrier_inner_x=outer-WING_THICK-inward,
         wing_inner_x=outer-WING_THICK, wing_outer_x=outer,
-        hook_outer_x=outer+HOOK_REACH, hook_step_z=floor+3.,
-        hook_ramp_z=floor+5., root_z=floor+WING_LENGTH, floor_z=floor,
-        receiver_floor_z=floor-e.fits.slip,
-        receiver_inner_x=outer+e.fits.running,
-        receiver_back_x=outer+HOOK_REACH+SEATED_SPREAD,
+        hook_outer_x=hook, hook_step_z=floor+NOSE_LAND,
+        hook_ramp_z=floor+NOSE_LAND+TIP_RISE,
+        root_z=floor+WING_LENGTH, floor_z=floor,
+        receiver_floor_z=floor-CATCH_AIR,
+        receiver_inner_x=edge,
+        receiver_back_x=hook+SEATED_SPREAD,
         receiver_outer_x=box.outer[1],
         receiver_y0=d['y0']-e.fits.running,
         receiver_y1=d['y1']+e.fits.running,
@@ -68,7 +76,7 @@ def snap_datums(e, box):
         receiver_z1=floor+WING_LENGTH+3.*e.wall, receiver_roof_z=floor+10.,
         port_inner_x=outer+e.fits.running,
         port_outer_x=box.outer[1]-e.wall,
-        port_y0=cy-2.25, port_y1=cy+2.25, port_z0=floor-5.)
+        port_y0=cy-PRY_WIDTH/2., port_y1=cy+PRY_WIDTH/2., port_z0=floor-5.)
 
 
 def snap_receivers(e, box, piece):
@@ -328,7 +336,7 @@ def wing_profile(e, box, side, spread):
               (s['hook_outer_x'], s['hook_step_z']),
               (s['wing_outer_x'], s['hook_ramp_z']),
               (s['wing_outer_x'], s['root_z']),
-              (s['wing_inner_x'], s['root_z'])]
+              (s['wing_inner_x']-ROOT_RADIUS, s['root_z'])]
     length = s['root_z']-s['floor_z']
     def deflection(z):
         t = (s['root_z']-z)/length
@@ -337,7 +345,7 @@ def wing_profile(e, box, side, spread):
         t = (s['root_z']-z)/length
         return -spread*(3.*t-1.5*t*t)/length
     segments = []
-    for a, b in zip(points, points[1:]+points[:1]):
+    for a, b in zip(points, points[1:]):
         xa, za = a
         xb, zb = b
         pa = (side*(xa+deflection(za)), za)
@@ -350,6 +358,18 @@ def wing_profile(e, box, side, spread):
             third = 1.0/3.0
             segments.append({'cubic': (pa, tuple(a+b*third for a,b in zip(pa,da)),
                                        tuple(a-b*third for a,b in zip(pb,db)), pb)})
+    # The inside root is a tangent quarter round. The same cubic controls go
+    # to the native and numerical builders, including their illustrated pose.
+    k=4./3.*math.tan(math.pi/8.)*ROOT_RADIUS
+    a=points[-1]
+    b=(s['wing_inner_x'],s['root_z']-ROOT_RADIUS)
+    controls=(a,(a[0]+k,a[1]),(b[0],b[1]+k),b)
+    segments.append({'cubic':tuple((side*(x+deflection(z)),z) for x,z in controls)})
+    a,b=b,points[0]
+    pa,pb=(side*(a[0]+deflection(a[1])),a[1]),(side*(b[0]+deflection(b[1])),b[1])
+    dz=b[1]-a[1]
+    segments.append({'cubic':(pa,(pa[0]+side*slope(a[1])*dz/3.,a[1]+dz/3.),
+                                (pb[0]-side*slope(b[1])*dz/3.,b[1]-dz/3.),pb)})
     return {'span': (d['y0'], d['y1']), 'segments': segments}
 
 
