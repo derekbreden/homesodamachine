@@ -111,8 +111,7 @@ def cut(shell, box, directory, *, seated=False):
                           numbers(shell,box,seated=seated),directory,
                           numbers_name='enclosure-pump-retainer-seated' if seated else None)
     if not seated:
-        import trimesh
         from _enclosure_presentation import print_payload
         step = directory/'enclosure-pump-retainer.step'
-        print_payload(step,trimesh.load_mesh(step.with_suffix('.stl')))
+        print_payload(step, check_print=False)
     return said
