@@ -36,6 +36,7 @@ ROOT_RADIUS = 1.5  # broad inside transition into each spring wall
 PRY_WIDTH = 5.0    # centered flathead access across the hook's underside
 PRY_HEIGHT = 1.0
 REAR_ROOT_DROP = 10.0
+ASSE_HEX_DROP = 0.25 # extra seating depth in the adapter's hex band only
 PISCO_RADIAL_RELIEF = 0.25  # receiver running air plus this radial relief
 PISCO_CAP_AIR = 0.4  # outer saddle stock allowance; the cavity uses PISCO_CAP_FIT
 PISCO_CAP_FIT = 0.15  # measured body/neck bearing air; stock and spring datums stay independent
@@ -273,6 +274,15 @@ def asse_adapter_capture(chain_frame, station, axis):
     cutter = {'op':'radial-profile','points':points,'frame':frame,
               'wrench':{'apothem':wrench['apothem_at_x_zero_mm']+fits.slip,
                         'clock':wrench['clock_degrees']}}
+    radius=cutter['wrench']['apothem']/math.cos(math.pi/6.)
+    outline=np.array([(radius*math.cos(math.radians(wrench['clock_degrees']+60*i)),
+                       radius*math.sin(math.radians(wrench['clock_degrees']+60*i)))
+                      for i in range(6)])
+    down=np.array(frame['rotation'][2][1:])
+    lower=np.argsort(outline@down)[:2]
+    outline[lower]-=ASSE_HEX_DROP*down/np.dot(down,down)
+    cutter['wrench'].update(pocket_outline=outline.tolist(),
+        pocket_span=(wrench['range_mm'][0]-fits.slip,wrench['range_mm'][1]+fits.slip))
     end = frame['translation_mm'][1] - (-13.825) + WALL
     width = station['outer']
     low = axis[1]-width*math.sqrt(3.)/2.
@@ -314,6 +324,11 @@ def radial_room(record):
                .polygon(6,2*wrench['apothem']/math.cos(math.pi/6)).extrude(hi-lo).val()
                .rotate((0,0,0),(1,0,0),wrench['clock']))
         shape=shape.intersect(prism)
+        if 'pocket_outline' in wrench:
+            lo,hi=wrench['pocket_span']
+            pocket=(cq.Workplane('YZ',origin=(lo,0.,0.)).polyline(wrench['pocket_outline'])
+                    .close().extrude(hi-lo).val())
+            shape=shape.fuse(pocket).clean()
     return shape.moved(above_core.frame_location(record['frame']))
 
 
