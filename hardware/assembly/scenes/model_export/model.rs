@@ -5,7 +5,7 @@ use sha2::{Digest, Sha256};
 use std::{
     collections::BTreeMap,
     fs::File,
-    io::{Cursor, Read, Seek, Write},
+    io::{BufReader, BufWriter, Cursor, Read, Seek, Write},
     path::{Component, Path, PathBuf},
 };
 use zip::{ZipArchive, ZipWriter, write::SimpleFileOptions};
@@ -144,6 +144,28 @@ impl Model {
                 selection.is_none_or(|rows| rows.iter().any(|v| v.as_u64() == Some(*i as u64)))
             })
             .collect())
+    }
+
+    /// Decode one stored body without retaining another body's arrays or face records.
+    pub(super) fn imported(&mut self, index: usize) -> Result<hsm_kernel::Imported> {
+        let mut writer = ZipWriter::new(Cursor::new(Vec::new()));
+        let options = SimpleFileOptions::default().compression_method(zip::CompressionMethod::Stored);
+        for kind in ["V", "T", "F"] {
+            writer.start_file(format!("{kind}0.npy"), options)?;
+            writer.write_all(&member(&mut self.archive, &format!("{kind}{index}.npy"))?)?;
+        }
+        for (name, bytes) in [
+            ("names", serde_json::to_vec(&[&self.names[index]])?),
+            ("colors", serde_json::to_vec(&[&self.colors[index]])?),
+            ("records", format!("[{}]", self.records[index]).into_bytes()),
+        ] {
+            writer.start_file(format!("{name}.npy"), options)?;
+            writer.write_all(&npy_text(&bytes))?;
+        }
+        let bytes = writer.finish()?.into_inner();
+        hsm_kernel::import::model_bodies(&bytes)?
+            .pop()
+            .context("missing stored model body")
     }
 }
 fn member<R: Read + Seek>(zip: &mut ZipArchive<R>, name: &str) -> Result<Vec<u8>> {
@@ -469,6 +491,240 @@ fn write_refs(rows: &[Ref], document: Option<&Value>, path: &Path) -> Result<()>
     std::fs::rename(temp, path)?;
     Ok(())
 }
+/// Write buffers directly to an atomic output, retaining the old file when bytes match.
+pub(super) fn put_stream(
+    path: &Path,
+    write: impl FnOnce(&mut BufWriter<File>) -> Result<()>,
+) -> Result<()> {
+    if let Some(parent) = path.parent() {
+        std::fs::create_dir_all(parent)?;
+    }
+    let temp = path.with_file_name(format!(
+        ".{}.{}.stream",
+        path.file_name().unwrap().to_string_lossy(),
+        std::process::id()
+    ));
+    let mut writer = BufWriter::new(File::create(&temp)?);
+    write(&mut writer)?;
+    writer.flush()?;
+    drop(writer);
+    let equal = if path.is_file()
+        && std::fs::metadata(path)?.len() == std::fs::metadata(&temp)?.len()
+    {
+        let mut old = BufReader::new(File::open(path)?);
+        let mut new = BufReader::new(File::open(&temp)?);
+        let mut a = [0u8; 65536];
+        let mut b = [0u8; 65536];
+        loop {
+            let n = old.read(&mut a)?;
+            if n == 0 {
+                break true;
+            }
+            new.read_exact(&mut b[..n])?;
+            if a[..n] != b[..n] {
+                break false;
+            }
+        }
+    } else {
+        false
+    };
+    if equal {
+        std::fs::remove_file(temp)?;
+    } else {
+        std::fs::rename(temp, path)?;
+    }
+    Ok(())
+}
+
+fn stream_digest(path: &Path) -> Result<String> {
+    let mut file = File::open(path)?;
+    let mut hash = Sha256::new();
+    let mut buffer = [0u8; 65536];
+    loop {
+        let count = file.read(&mut buffer)?;
+        if count == 0 {
+            break;
+        }
+        hash.update(&buffer[..count]);
+    }
+    let digest = format!("{:x}", hash.finalize());
+    hsm_kernel::reads::digest(path, &digest);
+    Ok(digest)
+}
+
+fn step_string(text: &str) -> String {
+    use std::fmt::Write;
+    let mut out = String::from("'");
+    for c in text.chars() {
+        match c {
+            '\'' => out.push_str("''"),
+            '\\' => out.push_str("\\\\"),
+            ' '..='~' => out.push(c),
+            _ => {
+                out.push_str("\\X2\\");
+                for value in c.encode_utf16(&mut [0; 2]) {
+                    write!(out, "{value:04X}").unwrap();
+                }
+                out.push_str("\\X0\\");
+            }
+        }
+    }
+    out.push('\'');
+    out
+}
+
+struct StepEntities<'a> {
+    writer: &'a mut BufWriter<File>,
+    next: usize,
+}
+impl StepEntities<'_> {
+    fn add(&mut self, body: impl AsRef<str>) -> Result<String> {
+        self.parts(&[body.as_ref()])
+    }
+    fn parts(&mut self, pieces: &[&str]) -> Result<String> {
+        let id = self.next;
+        self.next += 1;
+        write!(self.writer, "#{id} = ")?;
+        for piece in pieces {
+            self.writer.write_all(piece.as_bytes())?;
+        }
+        self.writer.write_all(b";\n")?;
+        Ok(format!("#{id}"))
+    }
+    fn product(&mut self, context: &str, name: &str, shape: &str) -> Result<(String, String)> {
+        let at = self.next;
+        self.add(format!("SHAPE_DEFINITION_REPRESENTATION(#{},{shape})", at + 1))?;
+        self.add(format!("PRODUCT_DEFINITION_SHAPE('','',#{})", at + 2))?;
+        self.add(format!("PRODUCT_DEFINITION('design','',#{},#{})", at + 3, at + 6))?;
+        self.add(format!("PRODUCT_DEFINITION_FORMATION('','',#{})", at + 4))?;
+        let name = step_string(name);
+        self.add(format!("PRODUCT({name},{name},'',(#{}))", at + 5))?;
+        self.add(format!("PRODUCT_CONTEXT('',{context},'mechanical')"))?;
+        self.add(format!("PRODUCT_DEFINITION_CONTEXT('part definition',{context},'design')"))?;
+        Ok((format!("#{}", at + 2), format!("#{}", at + 4)))
+    }
+    fn placement(&mut self) -> Result<String> {
+        let at = self.next;
+        self.add(format!("AXIS2_PLACEMENT_3D('',#{},#{},#{})", at + 1, at + 2, at + 3))?;
+        self.add("CARTESIAN_POINT('',(0.,0.,0.))")?;
+        self.add("DIRECTION('',(0.,0.,1.))")?;
+        self.add("DIRECTION('',(1.,0.,0.))")?;
+        Ok(format!("#{at}"))
+    }
+    fn units(&mut self) -> Result<String> {
+        let at = self.next;
+        self.add(format!(
+            "( GEOMETRIC_REPRESENTATION_CONTEXT(3) GLOBAL_UNCERTAINTY_ASSIGNED_CONTEXT((#{})) \
+             GLOBAL_UNIT_ASSIGNED_CONTEXT((#{},#{},#{})) REPRESENTATION_CONTEXT('Context #1',\
+             '3D Context with UNIT and UNCERTAINTY') )",
+            at + 4, at + 1, at + 2, at + 3
+        ))?;
+        self.add("( LENGTH_UNIT() NAMED_UNIT(*) SI_UNIT(.MILLI.,.METRE.) )")?;
+        self.add("( NAMED_UNIT(*) PLANE_ANGLE_UNIT() SI_UNIT($,.RADIAN.) )")?;
+        self.add("( NAMED_UNIT(*) SI_UNIT($,.STERADIAN.) SOLID_ANGLE_UNIT() )")?;
+        self.add(format!(
+            "UNCERTAINTY_MEASURE_WITH_UNIT(LENGTH_MEASURE(1.E-07),#{},'distance_accuracy_value','confusion accuracy')",
+            at + 1
+        ))?;
+        Ok(format!("#{at}"))
+    }
+}
+
+/// Keep the kernel's exact one-body tessellation and AP242 entity order while
+/// releasing its simplification backend before importing the next stored body.
+fn write_step_stream(model: &mut Model, path: &Path, root: &str) -> Result<String> {
+    let count = model.names.len();
+    put_stream(path, |writer| {
+        if count == 1 {
+            let part = model.imported(0)?;
+            let body = hsm_kernel::write::Body { name: &part.name, color: part.color, solid: &part.solid };
+            writer.write_all(&hsm_kernel::step::step_bytes(&[body], root)?)?;
+            return Ok(());
+        }
+        writer.write_all(b"ISO-10303-21;\nHEADER;\n")?;
+        writeln!(writer, "FILE_DESCRIPTION(({}),'2;1');", step_string(hsm_kernel::step::MARK))?;
+        writeln!(writer, "FILE_NAME({},'1970-01-01T00:00:00',(''),(''),'hsm-kernel','hsm-kernel','');", step_string(root))?;
+        writer.write_all(b"FILE_SCHEMA(('AP242_MANAGED_MODEL_BASED_3D_ENGINEERING_MIM_LF { 1 0 10303 442 1 1 4 }'));\nENDSEC;\nDATA;\n")?;
+        let mut e = StepEntities { writer, next: 1 };
+        e.add("APPLICATION_PROTOCOL_DEFINITION('international standard','ap242_managed_model_based_3d_engineering',2013,#2)")?;
+        let app = e.add("APPLICATION_CONTEXT('Managed model based 3d engineering')")?;
+        let shape = format!("#{}", e.next + 7);
+        let (assembly, product) = e.product(&app, root, &shape)?;
+        let at = e.next;
+        let places: Vec<_> = (0..=count).map(|i| format!("#{}", at + 1 + 4 * i)).collect();
+        let context = format!("#{}", at + 1 + 4 * (count + 1));
+        let rep = e.add(format!("SHAPE_REPRESENTATION('',({}),{context})", places.join(",")))?;
+        for expected in &places {
+            ensure!(e.placement()? == *expected, "STEP placement order");
+        }
+        ensure!(e.units()? == context, "STEP unit order");
+        e.add(format!("PRODUCT_RELATED_PRODUCT_CATEGORY('part',$,({product}))"))?;
+        let mut styled = Vec::new();
+        for index in 0..count {
+            let part = model.imported(index)?;
+            let body = hsm_kernel::write::Body { name: &part.name, color: part.color, solid: &part.solid };
+            let single = hsm_kernel::step::step_bytes(&[body], root)?;
+            let text = std::str::from_utf8(&single)?;
+            let entity = |kind: &str| -> Result<&str> {
+                let start = text.find(kind).context("kernel STEP entity")?;
+                let tail = &text[start..];
+                Ok(&tail[..tail.find(";\n").context("kernel STEP entity end")?])
+            };
+            let triangles = entity("TRIANGULATED_SURFACE_SET('")?;
+            let coordinates = entity("COORDINATES_LIST('")?;
+            let (_, triangles) = triangles.strip_prefix("TRIANGULATED_SURFACE_SET('',#")
+                .context("kernel surface set reference")?.split_once(',').context("kernel surface set")?;
+            let shape = format!("#{}", e.next + 7);
+            let (definition, product) = e.product(&app, &part.name, &shape)?;
+            let own = format!("#{}", e.next);
+            let set = format!("#{}", e.next + 1);
+            let points = format!("TRIANGULATED_SURFACE_SET('',#{},", e.next + 2);
+            e.add(format!("MANIFOLD_SURFACE_SHAPE_REPRESENTATION('',({},{set}),{context})", places[0]))?;
+            e.parts(&[&points, triangles])?;
+            e.add(coordinates)?;
+            let at = e.next;
+            e.add(format!("CONTEXT_DEPENDENT_SHAPE_REPRESENTATION(#{},#{})", at + 1, at + 3))?;
+            e.add(format!(
+                "( REPRESENTATION_RELATIONSHIP('','',{own},{rep}) REPRESENTATION_RELATIONSHIP_WITH_TRANSFORMATION(#{}) \
+                 SHAPE_REPRESENTATION_RELATIONSHIP() )", at + 2
+            ))?;
+            e.add(format!("ITEM_DEFINED_TRANSFORMATION('','',{},{})", places[0], places[index + 1]))?;
+            e.add(format!("PRODUCT_DEFINITION_SHAPE('Placement','Placement of an item',#{})", at + 4))?;
+            e.add(format!("NEXT_ASSEMBLY_USAGE_OCCURRENCE('{}',{},'',{assembly},{definition},$)", index + 1, step_string(&part.name)))?;
+            e.add(format!("PRODUCT_RELATED_PRODUCT_CATEGORY('part',$,({product}))"))?;
+            if let Some(color) = part.color {
+                styled.push((set, color));
+            }
+        }
+        if !styled.is_empty() {
+            let at = e.next;
+            let items: Vec<_> = (0..styled.len()).map(|i| format!("#{}", at + 1 + 8 * i)).collect();
+            e.add(format!("MECHANICAL_DESIGN_GEOMETRIC_PRESENTATION_REPRESENTATION('',({}),{context})", items.join(",")))?;
+            for (set, color) in styled {
+                let at = e.next;
+                e.add(format!("STYLED_ITEM('color',(#{}),{set})", at + 1))?;
+                e.add(format!("PRESENTATION_STYLE_ASSIGNMENT((#{}))", at + 2))?;
+                e.add(format!("SURFACE_STYLE_USAGE(.BOTH.,#{})", at + 3))?;
+                e.add(format!("SURFACE_SIDE_STYLE('',(#{}))", at + 4))?;
+                e.add(format!("SURFACE_STYLE_FILL_AREA(#{})", at + 5))?;
+                e.add(format!("FILL_AREA_STYLE('',(#{}))", at + 6))?;
+                e.add(format!("FILL_AREA_STYLE_COLOUR('',#{})", at + 7))?;
+                let color = color.map(|c| {
+                    let c = c as f32 as f64;
+                    let c = if c <= 0.0031308 { c * 12.92 } else { c.powf(1.0 / 2.4) * 1.055 - 0.055 };
+                    let mut text = format!("{c:.12}");
+                    while text.ends_with('0') { text.pop(); }
+                    text
+                });
+                e.add(format!("COLOUR_RGB('',{},{},{})", color[0], color[1], color[2]))?;
+            }
+        }
+        e.writer.write_all(b"ENDSEC;\nEND-ISO-10303-21;\n")?;
+        Ok(())
+    })?;
+    stream_digest(path)
+}
+
 pub fn physical(spec: &Value, output: &Path) -> Result<Value> {
     let name = spec["name"].as_str().unwrap_or("enclosure-assembly");
     let model = output.join(format!("{name}.step.npz"));
@@ -477,27 +733,21 @@ pub fn physical(spec: &Value, output: &Path) -> Result<Value> {
     let instances = spec.get("instances").context("physical instances")?;
     let rows = references(instances)?;
     write_refs(&rows, spec.get("document"), &model)?;
-    let fine = hsm_kernel::import::model(&model)?;
-    let bodies: Vec<_> = fine
-        .iter()
-        .map(|p| hsm_kernel::write::Body {
-            name: &p.name,
-            color: p.color,
-            solid: &p.solid,
-        })
-        .collect();
-    let bytes = hsm_kernel::step::step_bytes(&bodies, name)?;
-    let src = super::digest(&bytes);
-    super::put(&step, &bytes)?;
-    let mut shown = super::payload::placed_surfaces(instances, &fine)?;
+    drop(rows);
+    let mut fine = Model::open(&model)?;
+    let src = write_step_stream(&mut fine, &step, name)?;
+    let mut shown = super::payload::placed_surfaces(instances, &mut fine)?;
+    let names: Vec<_> = fine.names.iter().map(|name| json!({"name":name})).collect();
+    drop(fine);
     shown.header["src"] = json!(src);
     if let Some(skins) = spec.get("presentation") {
         shown.graft(skins)?;
     }
     shown.write(&mesh)?;
+    drop(shown);
     bind(&model, &mesh)?;
     Ok(
-        json!({"files":[super::output_name(&step,output),super::output_name(&model,output),super::output_name(&mesh,output)],"bodies":fine.iter().map(|p|json!({"name":p.name})).collect::<Vec<_>>(),"model":model,"payload":mesh,"physical_step_sha256":src}),
+        json!({"files":[super::output_name(&step,output),super::output_name(&model,output),super::output_name(&mesh,output)],"bodies":names,"model":model,"payload":mesh,"physical_step_sha256":src}),
     )
 }
 pub fn scene(spec: &Value, output: &Path) -> Result<Value> {
@@ -593,7 +843,7 @@ pub fn bind(path: &Path, payload: &Path) -> Result<()> {
     } else {
         json!({})
     };
-    document["presentation"] = json!({"path":relative(payload,path.parent().unwrap()),"sha256":super::digest(&super::read(payload)?)});
+    document["presentation"] = json!({"path":relative(payload,path.parent().unwrap()),"sha256":stream_digest(payload)?});
     let temp = path.with_file_name(format!(
         ".{}.{}.bind",
         path.file_name().unwrap().to_string_lossy(),
