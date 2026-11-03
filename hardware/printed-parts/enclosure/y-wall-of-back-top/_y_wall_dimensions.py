@@ -13,7 +13,19 @@ sys.path.insert(0, str(_hw / "manifold-layout"))
 sys.path.insert(0, str(_hw / "scripts"))
 
 from docgen import substitute_md  # noqa: E402
-from _material_base import M_PETGF_BLACK  # noqa: E402
+from _material_base import stock_srgb  # noqa: E402
+
+
+def __getattr__(name):
+    if name == "M_PETGF_BLACK":
+        from _material_base import M_PETGF_BLACK
+        globals()[name] = M_PETGF_BLACK
+        return M_PETGF_BLACK
+    raise AttributeError(name)
+
+
+def __dir__():
+    return sorted(set(globals()) | {"M_PETGF_BLACK"})
 
 
 # AC inlet recess: the bore the mating C13 cord housing enters, wall and inlet
@@ -71,7 +83,7 @@ chip_filaments = {
     "water": ("Fiberon PET-GF15 White", (235, 236, 234)),
     "carb": ("Fiberon PET-GF15 Blue", (105, 180, 247)),
     "co2": ("Fiberon PET-GF15 Red", (228, 83, 87)),
-    "flavor": ("Fiberon PET-GF15 Black", tuple(c * 255 for c in M_PETGF_BLACK.toTuple()[:3])),
+    "flavor": ("Fiberon PET-GF15 Black", tuple(c * 255 for c in stock_srgb("M_PETGF_BLACK"))),
 }
 # Which of the black and the white spool a chip's word letters in, one entry per `chip_filaments`
 # spool.
