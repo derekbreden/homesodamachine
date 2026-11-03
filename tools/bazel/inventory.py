@@ -157,9 +157,8 @@ def frozen_assets(root: Path = _ROOT) -> dict:
 
 #: Outputs whose writer deliberately avoids touching them when the bytes beside its STEP are
 #: already current. A syscall trace therefore sees the read that proves they are current, not a
-#: write, even though a clean action must produce them. The enclosure payload is shared by its
-#: smooth writer and the fluting pass; declaring it for both groups those generators into one
-#: action, so the fluting pass never seeds itself from the fetched prior bundle.
+#: write, even though a clean action must produce them. Each normal producer owns its complete
+#: payload set, including files its Rust writer leaves unchanged when their bytes are current.
 IMPLICIT_SOLIDS = {
     "hardware/install-guide/plumbing/plumbing_scenes.py": tuple(
         f"hardware/install-guide/plumbing/out/{name}.step.{suffix}"
@@ -200,10 +199,6 @@ IMPLICIT_SOLIDS = {
         "hardware/printed-parts/zone-c/funnel-cover/funnel-cover.step.mesh",
         "hardware/printed-parts/zone-c/funnel-cover/funnel-cover-print.step.mesh",
     ),
-    "hardware/printed-parts/fixtures/faucet-cover-retention/cover_retention_trial.py": tuple(
-        f"hardware/printed-parts/fixtures/faucet-cover-retention/cover-retention-{label}.step.mesh"
-        for label in "abcdef"
-    ),
     # These STL exports are written by OCCT below Python's filesystem audit.
     # Their generators still own them in a clean action.
     "hardware/printed-parts/zone-c/funnel/funnel_frame.py": (
@@ -213,12 +208,6 @@ IMPLICIT_SOLIDS = {
     "hardware/printed-parts/zone-c/funnel/elbow_cradle.py": (
         "hardware/printed-parts/zone-c/funnel/elbow-cradle.stl",
         "hardware/printed-parts/zone-c/funnel/elbow-cradle.step.mesh",
-    ),
-    "hardware/printed-parts/zone-c/funnel/cradle-trial/cradle_trial.py": (
-        "hardware/printed-parts/zone-c/funnel/cradle-trial/test-receiver.stl",
-        "hardware/printed-parts/zone-c/funnel/cradle-trial/test-cradle.stl",
-        "hardware/printed-parts/zone-c/funnel/cradle-trial/test-receiver.step.mesh",
-        "hardware/printed-parts/zone-c/funnel/cradle-trial/test-cradle.step.mesh",
     ),
     "hardware/printed-parts/enclosure/display-cover/display_cover.py": (
         "hardware/printed-parts/enclosure/display-cover/display-cover.stl",
@@ -230,12 +219,6 @@ IMPLICIT_SOLIDS = {
         "hardware/printed-parts/enclosure/nameplate/nameplate-receiver.stl",
         "hardware/printed-parts/enclosure/nameplate/nameplate-001.step.mesh",
         "hardware/printed-parts/enclosure/nameplate/nameplate-receiver.step.mesh",
-    ),
-    # The socket trial's print mesh is written by OCCT, and its payload is cut from that mesh by
-    # `flute_payload.cut`, which leaves it unwritten when the bytes already stand.
-    "hardware/printed-parts/fixtures/valve-socket-fit/valve_socket_fit.py": (
-        "hardware/printed-parts/fixtures/valve-socket-fit/valve-socket-fit.stl",
-        "hardware/printed-parts/fixtures/valve-socket-fit/valve-socket-fit.step.mesh",
     ),
     "hardware/printed-parts/faucet/lever-replica/lever_replica.py": (
         "hardware/printed-parts/faucet/lever-replica/lever-replica.stl",
@@ -285,9 +268,6 @@ IMPLICIT_SOLIDS = {
     "hardware/faucet-layout/faucet_industrial_assembly.py": (
         "hardware/faucet-layout/faucet-industrial-assembly.step.mesh",
     ),
-    "hardware/printed-parts/fixtures/faucet-display-snap/faucet_display_snap_trial.py": (
-        "hardware/printed-parts/fixtures/faucet-display-snap/faucet-display-fit-trial.step.mesh",
-    ),
     # The assembled shell starts as a CAD payload; the faucet payload action
     # replaces both piece surfaces with their checked printable meshes.
     "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py": (
@@ -307,16 +287,10 @@ ACTION_INTERMEDIATE = frozenset()
 # card wrapper retains only the browser-driven PNG/JSON outputs from the shared trace, and every
 # read that run took.
 #
-# THE FLUTING PASS IS THREE TREES AND HELD THEM IN ONE RULE, which is a loop: `foam_assembly.py`
-# reads the cold core's payloads, `enclosure-box` is built from the foam assembly, `enclosure`
-# stands on the box, and the enclosure's payloads are cut off `enclosure` — so the one rule waited
-# on a rule whose inputs it made, and bazel refuses to load a graph that comes back around.
-# Nothing passes between the trees, so each takes the payloads under its own roots and the
-# reads under them; the modules every half imports are under no root and go to all of them,
-# because every action has to hold them.
+# The shared presentation writer supplies independent cold-core and faucet rules. The
+# enclosure's Rust producer owns all its presentations without a separate normal co-writer.
+# Each shared rule takes only its tree's payloads and inputs, plus common helper modules.
 _FLUTE_ROOTS = {
-    "hardware/scripts/flute_payload_enclosure.py": (
-        "hardware/printed-parts/enclosure/enclosure/",),
     "hardware/scripts/flute_payload_cold_core.py": (
         "hardware/printed-parts/cold-core/foam-shell/",),
     "hardware/scripts/flute_payload_faucet.py": (
@@ -326,16 +300,24 @@ _FLUTE_ROOTS = {
         "hardware/printed-parts/faucet/above-counter-gasket/",
     ),
 }
-# Generator-owned cap surfaces remain outside every wrapper's shared inputs.
+# Generator-owned enclosure and cap surfaces remain outside every wrapper's shared inputs.
 _FLUTE_TREES = tuple(sorted({r for roots in _FLUTE_ROOTS.values() for r in roots}
-                           | {"hardware/printed-parts/cold-core/foam-cap/",
+                           | {"hardware/printed-parts/enclosure/enclosure/",
+                              "hardware/printed-parts/cold-core/foam-cap/",
                               "hardware/printed-parts/faucet/asse-vent-seals/"}))
+# The independent family consumers share this Rust source, without enclosure models or data.
+_FLUTE_SHARED_SOURCES = frozenset({
+    "hardware/printed-parts/enclosure/enclosure/_rust_enclosure_presentation.py",
+    "hardware/printed-parts/enclosure/enclosure/enclosure_presentation.rs",
+    "hardware/printed-parts/enclosure/enclosure/enclosure_presentation/quadric.rs",
+})
 
 
 def _one_tree(roots: tuple) -> tuple:
     """The half of a two-tree run that works under `roots` — its writes, then its reads."""
     return (lambda path: path.startswith(roots),
-            lambda path: path.startswith(roots) or not path.startswith(_FLUTE_TREES))
+            lambda path: path in _FLUTE_SHARED_SOURCES or path.startswith(roots)
+                         or not path.startswith(_FLUTE_TREES))
 
 
 #: `{source: {wrapper: (takes_write, takes_read)}}`. A wrapper is a real script with its own
