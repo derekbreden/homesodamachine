@@ -66,8 +66,8 @@ not state that every raw surface matches. The combined build retains its existin
 ## Current coverage
 
 The normal construction, placement, equipment, routes, checks, print surfaces and model exports
-are converted and published on main. The combined local build and cloud build pass, including
-the existing fit and drain checks, complete solid inventory, ledger and documentation.
+use Rust. Each merged speed batch runs the combined normal build with the existing fit and drain
+checks; source/output bindings, artifact readback and publication belong to that combined batch.
 
 The source reconciliation covers all 102 graph entrypoints and their 322 declared Python files,
 alongside the retained piece comparisons that prohibit native CAD imports. It identifies no
@@ -92,15 +92,20 @@ the normal build follows a batch merged to main.
 
 | Piece | Scope |
 | --- | --- |
-| Machine checks | Reuse bounded native search structures without changing fit or drain answers |
-| Enclosure construction | Reuse identical panel construction expressions |
-| Equipment | Reuse fittings and release imported models after their final use |
-| Fluid routes | Read only equipment bodies used by insulation |
-| Model exports | Reduce remaining physical and viewer file-writing work |
-| Print presentation | Reuse topology and contributor preparation |
-| Installed placement | Read reference names and bounds without retaining unrelated model data |
-| Native fallback removal | Remove native-only code in `enclosure.py` and `enclosure_assembly.py`, retaining their scalar and Rust-driver interfaces |
+| Machine checks | Bounded future-use search reuse preserves fit and drain answers |
+| Enclosure construction | Identical panel construction expressions share their result |
+| Equipment | Repeated fittings share construction and imported models release after final use |
+| Fluid routes | Insulation reads only its referenced equipment bodies |
+| Print presentation | Topology, contributor records and reduction scratch share storage |
+| Enclosure measurements | Model selections from the same file share one import pass |
+| Installed placement | Reference names and bounds avoid unrelated model data |
+| Fine-model reading | Typed array values decode directly into final vertex and triangle rows |
 
-The native removal covers those two drivers and code used only by their removed paths.
-Other native hand-run tools remain pending Derek's individual decisions, including the hose
-and collet illustration builders. Their files are outside this removal.
+`enclosure.py` and `enclosure_assembly.py` retain their scalar and Rust-driver interfaces without
+native CAD builders or native-mode switches. The automatic local back-top preview uses fresh
+Rust/scalar sizing and Rust scene export. Other native hand-run tools remain pending Derek's
+individual decisions, including the hose and collet illustration builders.
+
+Exporter speed refactorings are pending re-examination; the published Rust exporter remains the
+batch implementation. A component tradeoff is reported with its own warm elapsed time, physical
+footprint and RSS; it is not a whole-machine speed or memory-pressure result.
