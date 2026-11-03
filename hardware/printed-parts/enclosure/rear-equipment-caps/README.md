@@ -8,6 +8,8 @@ The ASSE cap holds the lower halves of both ASSE hexes and captures both
 axial shoulders of the inlet adapter's hex. Its solid lower body extends to
 Y461.078, while its springs retain Y396.453–438.114. The adapter pocket follows
 the captured profile and wrench clocking with 0.15 mm radial and axial air.
+Within the hex band, its two lowest corners sit 0.25 mm deeper in one six-flat
+pocket; the top flats and both axial shoulder stations retain their positions.
 The downward vent cup passes through the bottom flat. The Pisco
 cap has a raised lip around the short outlet fitting's neck and a broad body
 bearing between its independent leaves. It spans 41.704 mm in Y, ending at
@@ -38,6 +40,8 @@ regulator uses its measured linear radius profile and true installed axis,
 with 0.30 mm receiver radial air, 0.25 mm cap radial air and 0.25 mm axial air.
 Its body-to-outlet shoulder retains the scanned position. The central cap
 bearing ends 1 mm short of the spring ends beside the outlet release collet.
+The PISCO, water-regulator and flow-meter hardware fits are physically approved;
+their pointed wing tips remain for the [pointed snap trial](../../../print-tests/pointed-snaps/README.md).
 All leaves are 2.0 mm thick, with a 1.5 mm inside root radius and 22.25 mm
 root-to-catch length; the water regulator uses 21.25 mm within its retained
 height. The straight wall above the root blend is 20.75 mm, or 19.75 mm on
