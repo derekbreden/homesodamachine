@@ -1,0 +1,110 @@
+{
+  "schema": 1,
+  "piece": "meter-cap",
+  "inputs": {
+    "gcode": "support-labels-1904.gcode",
+    "gcode_sha256": "de6e05510c46e6e0a689cc02c04139fbb1940c97bdad601ff905d5a5655f2ac9",
+    "model": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/pointed-snap-set/worktree/hardware/print-tests/pointed-snaps/parts/meter-cap.stl",
+    "model_sha256": "1ed03bf9fde42e60b969797e3840bb7d59a92a0f5bb2380c35b9c31e030339db",
+    "profile": "hardware/print-tests/pointed-snaps/prints/2026-11-02-pointed-pumps-meter-mark2-mark2-fc2a806a/2026-11-02-pointed-pumps-meter-mark2-mark2-fc2a806a.3mf",
+    "profile_sha256": "f9beda6b8b5dd65768d761126b3986178b6ed7e5130d3a8037d529ba28571b28"
+  },
+  "slicer": "BambuStudio 02.08.02.61",
+  "first_layer_z_mm": 0.2,
+  "coordinate_frame": {
+    "plate_to_cad_transform": [
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      1.0,
+      -181.47918129,
+      -213.700000763,
+      0.0
+    ],
+    "plate_to_cad_translation_mm": [
+      -181.479181,
+      -213.700001,
+      0.0
+    ]
+  },
+  "slicer_settings": {
+    "layer_height": "0.24",
+    "support_bottom_z_distance": "0.3",
+    "support_interface_bottom_layers": "2",
+    "support_interface_spacing": "0.5",
+    "support_interface_top_layers": "2",
+    "support_object_xy_distance": "0.4",
+    "support_on_build_plate_only": "0",
+    "support_style": "default",
+    "support_threshold_angle": "35",
+    "support_top_z_distance": "0.45",
+    "support_type": "tree(auto)"
+  },
+  "summary": {
+    "support_bodies": 1,
+    "interface_islands": 1,
+    "bed_rooted_bodies": 1,
+    "model_rooted_bodies": 0,
+    "shortest_build_up_mm": 33.12,
+    "bodies_without_interface_labels": 0,
+    "explicit_interface_islands": 1,
+    "shortest_labelled_build_up_mm": 33.12
+  },
+  "trees": [
+    {
+      "id": "tree-1",
+      "root": "bed",
+      "base_z_mm": 0.2,
+      "first_interface_z_mm": 33.32,
+      "shortest_build_up_mm": 33.12,
+      "top_z_mm": 34.04,
+      "bbox_xy_mm": [
+        174.4,
+        210.8,
+        188.0,
+        222.4
+      ],
+      "interfaces": [
+        "interface-1"
+      ],
+      "interface_reading": "explicit_feature",
+      "bbox_cad_xyz_mm": [
+        -7.079,
+        -2.9,
+        0.2,
+        6.521,
+        8.7,
+        34.04
+      ]
+    }
+  ],
+  "interfaces": [
+    {
+      "id": "interface-1",
+      "first_z_mm": 33.32,
+      "last_z_mm": 34.04,
+      "bbox_xy_mm": [
+        174.4,
+        210.8,
+        176.8,
+        217.2
+      ],
+      "tree": "tree-1",
+      "build_up_mm": 33.12,
+      "bbox_cad_xyz_mm": [
+        -7.079,
+        -2.9,
+        33.32,
+        -4.679,
+        3.5,
+        34.04
+      ]
+    }
+  ],
+  "interface_feature_policy": "All support bodies are retained; unlabelled interfaces have unknown contact count and build-up."
+}

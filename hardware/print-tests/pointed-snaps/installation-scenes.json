@@ -1,0 +1,47 @@
+{
+  "scene_writer": "hardware/assembly/scenes/render_scenes.py",
+  "scenes": [
+    {
+      "path": "hardware/assembly/scenes/glb/pump-mount.glb",
+      "sha256": "0f6696958443723482dd925499dcdde3c4a1d76c76f48ad85c30d78541a843d9",
+      "before_sha256": "e55997b165cf99082a56573cae080f92b3c53a2a7483b0d75a05d5c422a3c28e",
+      "members_retained": 63,
+      "pose": "Current production pointed caps and matched receivers, with the cartridge in its seated pose, using the production scene writer."
+    },
+    {
+      "path": "hardware/assembly/scenes/glb/cold-core.glb",
+      "sha256": "098f8d4c3eeeda290de0c6e89bc049e1a9647aa9d33ac83392d9149946aa8771",
+      "before_sha256": "098f8d4c3eeeda290de0c6e89bc049e1a9647aa9d33ac83392d9149946aa8771",
+      "members_retained": 117,
+      "pose": "Current production pointed caps and matched receivers, with the cartridge in its seated pose, using the production scene writer."
+    },
+    {
+      "path": "hardware/assembly/scenes/glb/cap-lid.glb",
+      "sha256": "f2901683dfcd391686747b58b77bf0c91eec5205b2d188492437ab87cd3e0090",
+      "before_sha256": "f2901683dfcd391686747b58b77bf0c91eec5205b2d188492437ab87cd3e0090",
+      "members_retained": 30,
+      "pose": "Current production pointed caps and matched receivers, with the cartridge in its seated pose, using the production scene writer."
+    },
+    {
+      "path": "hardware/assembly/scenes/glb/back-top.glb",
+      "sha256": "13565318b22de67aabc5f23e8acfccf66649fbaa5217b1f021ff499a606c1a21",
+      "before_sha256": "b08b10b66a729175f1d4a07add2ba2ce3efa855b57c0d8345820a2f2872b6464",
+      "members_retained": 85,
+      "pose": "Current production pointed caps and matched receivers, with the cartridge in its seated pose, using the production scene writer."
+    },
+    {
+      "path": "hardware/assembly/scenes/glb/back-half.glb",
+      "sha256": "8440b64f594d3bb663d7960f9be7111e77526c659eb61ac14d5273b2d1a40457",
+      "before_sha256": "35575634000b8e580268af20930f7b9eebef40ea8245c3a2d1e6f7e40818a33c",
+      "members_retained": 127,
+      "pose": "Current production pointed caps and matched receivers, with the cartridge in its seated pose, using the production scene writer."
+    },
+    {
+      "path": "hardware/assembly/scenes/glb/front-top.glb",
+      "sha256": "800b2e12abc29efb372c4dc56f1ba7bab2ff2257706a3468e0be1dc628952793",
+      "before_sha256": "e49a760b330842bdf3b150e37546783b318d28cad6c2c4f5798ab506d0d108ef",
+      "members_retained": 55,
+      "pose": "Current production pointed caps and matched receivers, with the cartridge in its seated pose, using the production scene writer."
+    }
+  ]
+}

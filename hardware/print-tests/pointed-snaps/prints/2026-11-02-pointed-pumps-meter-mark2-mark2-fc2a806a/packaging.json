@@ -1,0 +1,24 @@
+{
+  "source_archive": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/pointed-snap-set/worktree/hardware/print-tests/pointed-snaps/prints/2026-11-02-pointed-pumps-meter-mark2-mark2-fc2a806a/2026-11-02-pointed-pumps-meter-mark2-mark2-fc2a806a.gcode.3mf",
+  "source_archive_sha256": "7ce775d02759270fbc07b4cc22d84f2ccc94343cae538bc20889c5b456c33c25",
+  "print_only_archive": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/pointed-snap-set/worktree/hardware/print-tests/pointed-snaps/prints/2026-11-02-pointed-pumps-meter-mark2-mark2-fc2a806a/2026-11-02-pointed-pumps-meter-mark2-mark2-fc2a806a-print-only.gcode.3mf",
+  "print_only_archive_sha256": "0bc08d4b565f6b986b64265c44f5ba0711fefa21ded0e808fef86fc9e14f6df2",
+  "gcode_sha256": {
+    "Metadata/plate_1.gcode": "4b34358a93617fa3f8c14bb613d8485db5c899929c8bd0562de6ff1a1758a11f"
+  },
+  "gcode_byte_identical": true,
+  "changed_container_entries": [
+    "3D/3dmodel.model",
+    "Metadata/model_settings.config"
+  ],
+  "omitted_editable_geometry_entries": [
+    "3D/Objects/object_1.model",
+    "3D/Objects/object_2.model",
+    "3D/Objects/object_3.model",
+    "3D/Objects/object_4.model",
+    "3D/Objects/object_5.model",
+    "3D/Objects/object_6.model",
+    "3D/_rels/3dmodel.model.rels",
+    "Metadata/cut_information.xml"
+  ]
+}

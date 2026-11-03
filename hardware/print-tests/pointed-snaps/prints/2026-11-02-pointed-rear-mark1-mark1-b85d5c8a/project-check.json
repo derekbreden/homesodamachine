@@ -1,0 +1,214 @@
+{
+  "project_sha256_matches": true,
+  "objects": [
+    {
+      "name": "asse-seat",
+      "vertices": 1235,
+      "source_sha256_matches": true,
+      "embedded_vertex_error_mm": 4.98828125472528e-07,
+      "source_comparison": "source vertices in order",
+      "seam_painted_facets": 0,
+      "placed_bounds_mm": [
+        [
+          90.540629341,
+          86.80349304600001,
+          4.249999996375209e-07
+        ],
+        [
+          146.836909341,
+          170.900227046,
+          51.778926424999995
+        ]
+      ],
+      "bed_contact_z_mm": 4.249999996375209e-07,
+      "blocked_facets": 0,
+      "partially_painted_facets": 0,
+      "parts": {
+        "normal_part": 1
+      },
+      "layer_ranges": [],
+      "ribbon_and_fin_parts": 0,
+      "modifiers_expected": 0
+    },
+    {
+      "name": "asse-cap",
+      "vertices": 1006,
+      "source_sha256_matches": true,
+      "embedded_vertex_error_mm": 4.998808549316891e-07,
+      "source_comparison": "source vertices in order",
+      "seam_painted_facets": 0,
+      "placed_bounds_mm": [
+        [
+          86.26503043,
+          182.900226547,
+          0.0
+        ],
+        [
+          124.89396042999999,
+          233.196506547,
+          64.625
+        ]
+      ],
+      "bed_contact_z_mm": 0.0,
+      "blocked_facets": 0,
+      "partially_painted_facets": 0,
+      "parts": {
+        "normal_part": 1
+      },
+      "layer_ranges": [],
+      "ribbon_and_fin_parts": 0,
+      "modifiers_expected": 0
+    },
+    {
+      "name": "pisco-seat",
+      "vertices": 705,
+      "source_sha256_matches": true,
+      "embedded_vertex_error_mm": 4.987519446331135e-07,
+      "source_comparison": "source vertices in order",
+      "seam_painted_facets": 0,
+      "placed_bounds_mm": [
+        [
+          158.836909147,
+          98.74972504600001,
+          -1.330000003463283e-07
+        ],
+        [
+          193.64813914700002,
+          158.95399504600002,
+          44.227401867
+        ]
+      ],
+      "bed_contact_z_mm": -1.330000003463283e-07,
+      "blocked_facets": 0,
+      "partially_painted_facets": 0,
+      "parts": {
+        "normal_part": 1
+      },
+      "layer_ranges": [],
+      "ribbon_and_fin_parts": 0,
+      "modifiers_expected": 0
+    },
+    {
+      "name": "pisco-cap",
+      "vertices": 1744,
+      "source_sha256_matches": true,
+      "embedded_vertex_error_mm": 5.00267816505584e-07,
+      "source_comparison": "source vertices in order",
+      "seam_painted_facets": 0,
+      "placed_bounds_mm": [
+        [
+          205.64813880699998,
+          113.31316004600001,
+          3.339999992135745e-07
+        ],
+        [
+          234.459370807,
+          144.39056004600002,
+          41.704284334
+        ]
+      ],
+      "bed_contact_z_mm": 3.339999992135745e-07,
+      "blocked_facets": 0,
+      "partially_painted_facets": 0,
+      "parts": {
+        "normal_part": 1
+      },
+      "layer_ranges": [],
+      "ribbon_and_fin_parts": 0,
+      "modifiers_expected": 0
+    },
+    {
+      "name": "regulator-seat",
+      "vertices": 2679,
+      "source_sha256_matches": true,
+      "embedded_vertex_error_mm": 5.003081184895564e-07,
+      "source_comparison": "source vertices in order",
+      "seam_painted_facets": 0,
+      "placed_bounds_mm": [
+        [
+          136.893960381,
+          183.995162547,
+          0.0
+        ],
+        [
+          199.843960381,
+          232.101570547,
+          20.0
+        ]
+      ],
+      "bed_contact_z_mm": 0.0,
+      "blocked_facets": 0,
+      "partially_painted_facets": 0,
+      "parts": {
+        "normal_part": 1
+      },
+      "layer_ranges": [],
+      "ribbon_and_fin_parts": 0,
+      "modifiers_expected": 0
+    },
+    {
+      "name": "regulator-cap",
+      "vertices": 2127,
+      "source_sha256_matches": true,
+      "embedded_vertex_error_mm": 4.998931881772251e-07,
+      "source_comparison": "source vertices in order",
+      "seam_painted_facets": 0,
+      "placed_bounds_mm": [
+        [
+          211.843960951,
+          186.995162547,
+          0.0
+        ],
+        [
+          238.734968951,
+          229.101570547,
+          36.0
+        ]
+      ],
+      "bed_contact_z_mm": 0.0,
+      "blocked_facets": 0,
+      "partially_painted_facets": 0,
+      "parts": {
+        "normal_part": 1
+      },
+      "layer_ranges": [],
+      "ribbon_and_fin_parts": 0,
+      "modifiers_expected": 0
+    }
+  ],
+  "z_trim_block": [
+    "+0.0",
+    "0.18 - 0.01",
+    "0.18 - 0.02",
+    "0.18 + 0.01",
+    "0.18"
+  ],
+  "cooling": {
+    "fan_min_speed": [
+      "0"
+    ],
+    "fan_max_speed": [
+      "0"
+    ],
+    "overhang_fan_speed": [
+      "70"
+    ],
+    "overhang_fan_threshold": [
+      "50%"
+    ],
+    "additional_cooling_fan_speed": [
+      "0"
+    ]
+  },
+  "support": {
+    "support_type": "tree(auto)",
+    "support_style": "default",
+    "support_object_xy_distance": "0.4",
+    "max_bridge_length": "0",
+    "tree_support_branch_diameter": "2",
+    "tree_support_branch_diameter_angle": "5",
+    "brim_type": "auto_brim"
+  },
+  "problems": [],
+  "pass": true
+}

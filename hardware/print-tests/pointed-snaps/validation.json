@@ -1,0 +1,170 @@
+{
+  "scope": "One completed production design per snap family. Physical fit approvals bind the retained bearing definitions; the pointed set verifies insertion and release.",
+  "closed_single_solid_parts": 12,
+  "seated_overlap_mm3": {
+    "asse": 0.0,
+    "meter": 0.0,
+    "pisco": 0.0,
+    "pump": 0.0,
+    "regulator": 0.0
+  },
+  "cartridge_seated_overlap_mm3": 2.426029551158816e-10,
+  "current_projects": {
+    "Mark1": {
+      "gcode_sha256": "1ddbfc218bd6c8301ddc675cf09442bd9d5149b3c30b1854e5bd016726dffda5",
+      "native_review_pass": true,
+      "minimum_full_bead_bed_margin_mm": 73.28951,
+      "support_topology": {
+        "1901": {
+          "support_bodies": 3,
+          "interface_islands": 3,
+          "bed_rooted_bodies": 1,
+          "model_rooted_bodies": 2,
+          "shortest_build_up_mm": 4.08,
+          "bodies_without_interface_labels": 0,
+          "explicit_interface_islands": 3,
+          "shortest_labelled_build_up_mm": 4.08
+        },
+        "1902": {
+          "support_bodies": 1,
+          "interface_islands": 7,
+          "bed_rooted_bodies": 1,
+          "model_rooted_bodies": 0,
+          "shortest_build_up_mm": 29.76,
+          "bodies_without_interface_labels": 0,
+          "explicit_interface_islands": 7,
+          "shortest_labelled_build_up_mm": 29.76
+        },
+        "1903": {
+          "support_bodies": 3,
+          "interface_islands": 3,
+          "bed_rooted_bodies": 1,
+          "model_rooted_bodies": 2,
+          "shortest_build_up_mm": 4.08,
+          "bodies_without_interface_labels": 0,
+          "explicit_interface_islands": 3,
+          "shortest_labelled_build_up_mm": 4.08
+        },
+        "1904": {
+          "support_bodies": 0,
+          "interface_islands": 0,
+          "bed_rooted_bodies": 0,
+          "model_rooted_bodies": 0,
+          "shortest_build_up_mm": null,
+          "bodies_without_interface_labels": 0,
+          "explicit_interface_islands": 0,
+          "shortest_labelled_build_up_mm": null
+        },
+        "1905": {
+          "support_bodies": 2,
+          "interface_islands": 2,
+          "bed_rooted_bodies": 0,
+          "model_rooted_bodies": 2,
+          "shortest_build_up_mm": 2.16,
+          "bodies_without_interface_labels": 0,
+          "explicit_interface_islands": 2,
+          "shortest_labelled_build_up_mm": 2.16
+        },
+        "1906": {
+          "support_bodies": 1,
+          "interface_islands": 1,
+          "bed_rooted_bodies": 1,
+          "model_rooted_bodies": 0,
+          "shortest_build_up_mm": 20.16,
+          "bodies_without_interface_labels": 0,
+          "explicit_interface_islands": 1,
+          "shortest_labelled_build_up_mm": 20.16
+        }
+      },
+      "supports": "Tree(auto)/Default; automatic normal sections retained. No manual normal-support overrides."
+    },
+    "Mark2": {
+      "gcode_sha256": "4b34358a93617fa3f8c14bb613d8485db5c899929c8bd0562de6ff1a1758a11f",
+      "native_review_pass": true,
+      "minimum_full_bead_bed_margin_mm": 62.806194999999995,
+      "support_topology": {
+        "1901": {
+          "support_bodies": 2,
+          "interface_islands": 2,
+          "bed_rooted_bodies": 0,
+          "model_rooted_bodies": 2,
+          "shortest_build_up_mm": 4.32,
+          "bodies_without_interface_labels": 0,
+          "explicit_interface_islands": 2,
+          "shortest_labelled_build_up_mm": 4.32
+        },
+        "1902": {
+          "support_bodies": 0,
+          "interface_islands": 0,
+          "bed_rooted_bodies": 0,
+          "model_rooted_bodies": 0,
+          "shortest_build_up_mm": null,
+          "bodies_without_interface_labels": 0,
+          "explicit_interface_islands": 0,
+          "shortest_labelled_build_up_mm": null
+        },
+        "1903": {
+          "support_bodies": 1,
+          "interface_islands": 8,
+          "bed_rooted_bodies": 1,
+          "model_rooted_bodies": 0,
+          "shortest_build_up_mm": 1.92,
+          "bodies_without_interface_labels": 0,
+          "explicit_interface_islands": 8,
+          "shortest_labelled_build_up_mm": 1.92
+        },
+        "1904": {
+          "support_bodies": 1,
+          "interface_islands": 1,
+          "bed_rooted_bodies": 1,
+          "model_rooted_bodies": 0,
+          "shortest_build_up_mm": 33.12,
+          "bodies_without_interface_labels": 0,
+          "explicit_interface_islands": 1,
+          "shortest_labelled_build_up_mm": 33.12
+        },
+        "1905": {
+          "support_bodies": 1,
+          "interface_islands": 1,
+          "bed_rooted_bodies": 1,
+          "model_rooted_bodies": 0,
+          "shortest_build_up_mm": 63.84,
+          "bodies_without_interface_labels": 0,
+          "explicit_interface_islands": 1,
+          "shortest_labelled_build_up_mm": 63.84
+        },
+        "1906": {
+          "support_bodies": 0,
+          "interface_islands": 0,
+          "bed_rooted_bodies": 0,
+          "model_rooted_bodies": 0,
+          "shortest_build_up_mm": null,
+          "bodies_without_interface_labels": 0,
+          "explicit_interface_islands": 0,
+          "shortest_labelled_build_up_mm": null
+        }
+      },
+      "supports": "Tree(auto)/Default; automatic normal sections retained. No manual normal-support overrides."
+    }
+  },
+  "postprocessing_tool": "Tiny flathead screwdriver that fits inside each cavity.",
+  "visual": {
+    "asset_count": 25,
+    "compressed_bytes": 639747,
+    "alignment_max_error_mm": {
+      "asse-seat": 1.5950192826974173e-06,
+      "asse-cap": 1.919186384496112e-06,
+      "pisco-seat": 1.3403399906087328e-06,
+      "pisco-cap": 2.4942087561545405e-06,
+      "regulator-seat": 1.0979022287963263e-06,
+      "regulator-cap": 1.0222979767850136e-06,
+      "pump-seat": 9.832999073549372e-07,
+      "pump-cap": 1.7763568394002505e-15,
+      "meter-seat": 1.3342010392106626e-05,
+      "meter-cap": 1.6459669461227028e-06,
+      "cartridge-seat": 0.0,
+      "cartridge-cap": 0.0
+    },
+    "quantization_max_error_mm": 0.0009230192633459664
+  }
+}

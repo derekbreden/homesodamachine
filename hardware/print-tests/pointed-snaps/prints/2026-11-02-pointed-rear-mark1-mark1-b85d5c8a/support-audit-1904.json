@@ -1,0 +1,61 @@
+{
+  "schema": 1,
+  "piece": "pisco-cap",
+  "inputs": {
+    "gcode": "support-labels-1904.gcode",
+    "gcode_sha256": "228dfdad47de019ded44c7b830868eacf47fcc0d91865747e2bd03b7b21c8c25",
+    "model": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/pointed-snap-set/worktree/hardware/print-tests/pointed-snaps/parts/pisco-cap.stl",
+    "model_sha256": "aa9a5c2d81071c1a1e653b46911ad206d11f36eee92b065bdfdf6da4bb09764e",
+    "profile": "hardware/print-tests/pointed-snaps/prints/2026-11-02-pointed-rear-mark1-mark1-b85d5c8a/2026-11-02-pointed-rear-mark1-mark1-b85d5c8a.3mf",
+    "profile_sha256": "70bd6973b9f0a505e4f17028cbd1e24311eb66bbf0974cd824b08927ef34e58e"
+  },
+  "slicer": "BambuStudio 02.08.02.61",
+  "first_layer_z_mm": 0.2,
+  "coordinate_frame": {
+    "plate_to_cad_transform": [
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      1.0,
+      -220.053754807,
+      -128.851860046,
+      -0.0
+    ],
+    "plate_to_cad_translation_mm": [
+      -220.053755,
+      -128.85186,
+      -0.0
+    ]
+  },
+  "slicer_settings": {
+    "layer_height": "0.24",
+    "support_bottom_z_distance": "0.3",
+    "support_interface_bottom_layers": "2",
+    "support_interface_spacing": "0.5",
+    "support_interface_top_layers": "2",
+    "support_object_xy_distance": "0.4",
+    "support_on_build_plate_only": "0",
+    "support_style": "default",
+    "support_threshold_angle": "35",
+    "support_top_z_distance": "0.45",
+    "support_type": "tree(auto)"
+  },
+  "summary": {
+    "support_bodies": 0,
+    "interface_islands": 0,
+    "bed_rooted_bodies": 0,
+    "model_rooted_bodies": 0,
+    "shortest_build_up_mm": null,
+    "bodies_without_interface_labels": 0,
+    "explicit_interface_islands": 0,
+    "shortest_labelled_build_up_mm": null
+  },
+  "trees": [],
+  "interfaces": [],
+  "interface_feature_policy": "All support bodies are retained; unlabelled interfaces have unknown contact count and build-up."
+}
