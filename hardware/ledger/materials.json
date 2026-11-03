@@ -603,15 +603,6 @@
             "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
           },
           {
-            "material": "HSM-000287",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "tube-drain-umbilical"
-            ],
-            "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
-          },
-          {
             "material": "HSM-000288",
             "quantity": 1,
             "unit": "ea",
@@ -1238,6 +1229,13 @@
           ],
           "quantity": 1,
           "unit": "ea"
+        },
+        {
+          "kind": "used-with",
+          "material": "HSM-000108",
+          "bodies": [
+            "tube-drain-umbilical"
+          ]
         }
       ]
     },
@@ -4442,6 +4440,12 @@
       "id": "HSM-000108",
       "description": "Faucet drain tubing",
       "kind": "purchased",
+      "aliases": [
+        "Vent-return umbilical tube \u00b7 4 mm white LLDPE",
+        "drain-umbilical",
+        "tube-drain-umbilical",
+        "drain umbilical tube \u00b7 4 mm white LLDPE"
+      ],
       "contexts": [
         {
           "material": "HSM-000002"
@@ -5790,35 +5794,6 @@
         "tube-above-core-vb-yb-link",
         "above-core-vb-yb-link",
         "V-B return tube"
-      ],
-      "documents": [
-        {
-          "title": "Tube routing and cut stock",
-          "path": "manifold-layout/enclosure_assembly.py"
-        },
-        {
-          "title": "Internal plumbing",
-          "path": "assembly/internal-plumbing.md"
-        },
-        {
-          "title": "Fluid circuit",
-          "path": "topology/fluid-topology.md"
-        }
-      ],
-      "contexts": [
-        {
-          "material": "HSM-000001"
-        }
-      ]
-    },
-    {
-      "id": "HSM-000287",
-      "description": "Vent-return umbilical tube \u00b7 4 mm white LLDPE",
-      "kind": "manufactured",
-      "aliases": [
-        "drain-umbilical",
-        "tube-drain-umbilical",
-        "drain umbilical tube \u00b7 4 mm white LLDPE"
       ],
       "documents": [
         {
