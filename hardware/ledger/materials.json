@@ -7083,6 +7083,11 @@
       "id": "HSM-000358",
       "description": "Soda inlet bend holder \u00b7 PET-GF",
       "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/soda-bend-holder/soda-bend-holder.step"
+        }
+      ],
       "aliases": [
         "soda-bend-holder",
         "bend holder",
