@@ -5,17 +5,17 @@
     "enclosure-assembly.step",
     "enclosure-assembly.step.mesh"
   ],
-  "installed_step_sha256": "4266ae407005e3a61139b732f76e2d15e412dd724022b5bdfc71de95b0e6f99b",
+  "installed_step_sha256": "e5e0a84b263c7c65cbba348842d8d83385a3e2d8df26dc961513732063f9a663",
   "physical_meshes_retained": 438,
   "physical_records_retained": 12285,
-  "physical_step_sha256": "7230eb44e5e417d0eb5505fe25f5ae83dbee0ba6618fe52f6d7dc8add642b4c9",
+  "physical_step_sha256": "aec47cc9070f01b8c9eea1ac2928996670d12d6d96aae81ce6109ff8cb386e69",
   "schema": 1,
   "scope": "Wiring-only integration; existing physical parts retained",
   "wiring_fine_model": {
     "path": "/Users/derekbredensteiner/Developer/homesodamachine/hardware/wiring/enclosure-wiring.step.npz",
-    "sha256": "8f91055f57e0b54c89acd52b7daefa26eaf61c358057d9a72451fcdb60df1be7"
+    "sha256": "d44ed6549ef4324cc3ad76fbd00788d2cf2707f63b95d42d33ec110f374edd55"
   },
   "wiring_meshes": 119,
-  "wiring_step_sha256": "21743bb2487b8806ba45d9502d86fe4cc0f3a661fcaea90b6a934c6aade128c0",
+  "wiring_step_sha256": "1177d317e38d7f6df57a804f9dafffde8eab5d51b602e787ba8bf48e0a45eeb9",
   "connection_count": 100
 }

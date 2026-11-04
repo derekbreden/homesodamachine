@@ -96,7 +96,11 @@ seated marks at the check and carbonator fitting when cutting the blank.
 
 TAP enters the PP010822E and GAGIRA threaded inlet chain. The ASSE lies
 fore–aft with its vent downward. Its PI4512F6S and PP061208W outlet fittings
-feed the JG PP0208E union tee through one gently raised stub. The tee's east
+feed the JG PP0208E union tee through one gently curved stub. Clock the tee's
+branch slightly downward toward the ASSE outlet while its through-run stays
+aligned with the regulator and V-K. The modeled stub follows a tangent curve
+with at least 55.9 mm bend radius; actual insertion marks determine its cut.
+The tee's east
 run feeds V-K's upper elbow; its west run feeds the YZMSZ regulator and V-A.
 V-A hangs by its posts in the ceiling plinth. V-K uses the east-wall socket
 plate with its inlet above its outlet.
@@ -307,13 +311,13 @@ Dress and tag the front-top ends on the bench and make the flexible handoffs thr
 the funnel opening before fitting the frame. Stage B-fill clear of the J5/J6/J13
 withdrawal approaches when handling those connectors.
 
-The carbonated-water riser leaves `carb-water-out` directly for the rear middle-right rear
-bulkhead through the DIGITEN meter. Flavor A leaves V-G on `fluid-18`; flavor B leaves
+The carbonated-water riser leaves `carb-water-out` through the DIGITEN meter for
+the middle-left rear bulkhead, viewed from behind the appliance. Flavor A leaves V-G on `fluid-18`; flavor B leaves
 V-J on `fluid-28`. Complete these routes in §4.
 
 ### 4. Rear beverage connections
 
-The soda outlet is the middle-right rear fitting. One continuous blue tube
+The soda outlet is the middle-left fitting, viewed from behind. One continuous blue tube
 runs from the carbonator's bottom outlet through the straight guide at
 X77.5/Y359.51/Z253.4, around the accepted R14 holder and into the DIGITEN inlet.
 The holder stands 7.75 mm from the meter mouth. Slide one square-cut 56 mm piece
@@ -326,11 +330,13 @@ then fit its cap from the west. Its label faces east and its lead root faces
 down. The outlet stub occupies both receiving sockets with no exposed span.
 Use the actual seating marks for the meter and union depths.
 
-Flavor A runs from V-G to X76.5/Z264; flavor B runs from V-J to X28.8/Z264.
+Flavor A runs from V-G to X28.8/Z294.2, the middle-right rear fitting;
+flavor B runs from V-J to X28.8/Z264, the bottom-right rear fitting.
 Both use black 4 mm tubing with R25 or larger bends. Their free fore runs
 cross below the funnel frame, use the pump's east aisle and enter the rear
-sockets below the meter. Flavor A completes its descent ahead of the meter
-and passes above its complete lower wing. Load its crossover span into the
+sockets beside the meter. Flavor A turns into the X30/Z276.5 lane between
+the pump and meter caps, then rises aft of the ASSE vent sleeve to its rear
+socket. Flavor B descends to its retained X35/Z264 rear span. Load A's crossover span into the
 upward-opening snap at X26.5/Y266/Z296 and flavor B's rear span into the
 snap at X35/Y414/Z264 before positioning back-top.
 The 4.10 mm bores and 1.52 mm wings are the selected modeled 4 mm section.

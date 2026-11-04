@@ -11,26 +11,29 @@ and panel nut.
 ## Six fluid stations
 
 Coordinates are enclosure-world millimetres. +Y is outward, toward the
-customer's connections. Both columns use 32 mm vertical pitch.
+customer's connections. Viewed from behind, screen-left is +X. The row
+pitches are 37.0 and 30.2 mm.
 
-| Row / Z | West / X37.25 | East / X77.5 |
+| Row / Z | Left / X76.5 | Right / X28.8 |
 |---|---|---|
-| [328.000](GRID_TOP_Z) | TAP: PP010822E threaded inlet chain, white 1/4-inch | CO2: PISCO inlet neck, red 1/4-inch |
-| [291.000](GRID_MIDDLE_Z) | OVER: ABU44M-E, white 4 mm vent | SODA: PP1208E, blue 1/4-inch outlet |
-| [264.000](GRID_BOTTOM_Z) | FLAVOR: ABU44M-E, black 4 mm B outlet | FLAVOR: ABU44M-E, black 4 mm A outlet |
+| [331.200](GRID_TOP_Z) | CO2: PISCO inlet neck, red 1/4-inch | TAP: PP010822E threaded inlet chain, white 1/4-inch |
+| [294.200](GRID_MIDDLE_Z) | SODA: PP1208E, blue 1/4-inch outlet | FLAVOR: ABU44M-E, black 4 mm A outlet |
+| [264.000](GRID_BOTTOM_Z) | OVER: ABU44M-E, white 4 mm vent | FLAVOR: ABU44M-E, black 4 mm B outlet |
 
 The main rear wall is 9 mm stock. The fluid field retains a 6 mm clamping
 stack between Y465.3 and Y471.3. Each 1.8 mm identification tile stands in a
 continuous side-rail channel at Y469.3–471.1, leaving 4 mm of printed wall
-behind it and 0.2 mm below the fitting flange. The 32 mm-wide tiles share a
-Z252 channel floor; the upper pair finish at Z355. TAP's bore follows the
+behind it and 0.2 mm below the fitting flange. The 42 × 38 mm tiles share a
+Z240.6 channel floor; 2 mm rail overlaps leave 38 × 38 mm visible faces.
+The upper pair finish at Z355, with 0.2 mm seams between cards. The bottom
+row carries its words below the fittings; the other words are above them. TAP's bore follows the
 scanned adapter axis rather than the nominal tile centre.
 
 The water filter is upstream, on the customer's side of TAP. The threaded
 PP010822E–GAGIRA–ASSE–PI4512F6S–PP061208W chain feeds the raised stem tee,
 V-K and the flavor-water regulator. The ASSE vent points down into a TPU cup
-with an aft-facing 4 mm OVER socket. PISCO's own inlet neck crosses the rear
-wall; the ACVUS-44 check plugs directly into its outlet. OVER remains a
+with its 4 mm OVER socket facing fore and clocked 15° toward the meter. PISCO's own inlet neck crosses the rear
+wall; the neoFit ACHV44-E check plugs directly into its outlet. OVER remains a
 dedicated atmospheric return through the umbilical to its separate faucet
 outlet above the bowl. See [internal plumbing](/hardware/assembly/internal-plumbing.md)
 and [ASSE drain assembly](/hardware/assembly/asse-drain.md).
@@ -49,7 +52,7 @@ engage the printed catches; the internal SIG-6 loom connects to its IDC
 terminals. The RJ11 is the rectangular data connection, separate from the
 six fluid ports.
 
-The 104.53 × 38 mm nameplate sits below the ports at X−38/Z228. Its plain
+The 104.53 × 38 mm nameplate sits below the ports at X0/Z200. Its plain
 field stands 2.2 mm beyond the main wall, placing the plate face at Y473.5.
 This retains the accepted flat-wing interface, full 3.6 mm backing and 1.09 mm
 nominal clearance to the core. The [nameplate acceptance](/hardware/printed-parts/enclosure/nameplate/README.md)
@@ -68,9 +71,8 @@ The white TAP and OVER sockets take different tube diameters and carry their
 own words. The same spool colors continue inside the enclosure.
 
 The faucet umbilical carries soda, two flavors, OVER and the signal ribbon.
-Connect the tail identified `flavor-a` to the east X77.5 socket and
-`flavor-b` to the west X37.25 socket. Those identities continue inboard to
-V-G and V-J respectively.
+Connect the two black tails to the right column’s FLAVOR sockets in either
+order. The upper socket continues inboard to V-G; the lower socket to V-J.
 Only the soda tube receives the specified pipe insulation. PET braid covers
 the prepared bundle; the organizer below the faucet mounting space keeps its
 tubes in formation while allowing deliberate hand adjustment. Tube lengths,
