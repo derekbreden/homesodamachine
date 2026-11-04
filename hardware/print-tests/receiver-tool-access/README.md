@@ -2,8 +2,8 @@
 
 One production cap and full-retention receiver for each of ASSE, PISCO, water
 regulator, flow meter, G-Ganen pump and paired pump cartridge. All tips are
-pointed and solid. Screwdriver openings are in the receivers, centered along
-each spring span. Each sample retains the complete X, Y and Z retaining
+pointed and solid. The front paired-pump cartridge has centered open flank pry
+windows. Rear-style receiver bases are continuous without enclosed release tunnels. Each sample retains the complete X, Y and Z retaining
 contacts; the paired cartridge retains both connected full-scale wings.
 
 The physically approved PISCO, regulator and meter bearing profiles retain
@@ -12,20 +12,16 @@ directions with 0.25 mm extra vertical allowance on the lower-facing planes.
 The separate conforming adapter hex, axial shoulders and neck seats retain
 their fits. The [scan reading](../asse-body-seating/geometry-review.json)
 records 0.1949 mm minimum observed lower-plane clearance and 3.67 mm backing
-above the drain window. Physical seating still needs this cap's result.
+above the drain window. The [current result](physical-result/physical-result.json) confirms both individual
+pockets seat; the [assembled alignment](asse-alignment/geometry-review.json)
+raises the adapter and its matching cavity by 0.18 mm.
 
-The [finished receivers](receiver-finish/README.md) carry the production tool
-openings and have a prepared receiver-only plate. Their caps are byte-identical
-to this complete set's caps. The running complete-set plates remain the exact
-geometry bound in [print jobs](print-jobs.json).
+The [production receivers](receiver-finish/README.md) retain their complete fitted
+bearings and continuous bases. [Print jobs](print-jobs.json) bind the submitted
+matched samples; their physical result and the current production correction
+have their own artifact hashes.
 
-The receiver channels are 3.5 mm across the leaf and 3 mm normal to the driver
-approach. They start at the snap neck planes to preserve the cavity backing.
-Flat mouths meet the catch pocket and lower stock face with 3 mm shoulders.
-ASSE and meter approach from the fore/open side at 50° to their
-installation axes. PISCO uses 75° fore channels. The regulator has one
-reachable 75° channel on its fore flank. The pump approaches from aft at 65°;
-its channel continues through the complete rear receiver stock. A three-mm-high
+A three-mm-high
 planar bevel on the ASSE receiver's lower east fore corner admits the neighboring
 PISCO cap during service while keeping 3 mm of stock against the neck. All
 upper end stops and fitted bearing profiles retain their planes.
@@ -42,13 +38,13 @@ Work on the loose bench units. Back-top is ceiling-down and separate from the
 cold core. Disconnect and dress the flexible tubing and leads aside. The
 [rear cap instructions](../../printed-parts/enclosure/rear-equipment-caps/README.md)
 give the service sequence: inlet header, drain connection and ASSE chain, meter cap and meter,
-then PISCO. Remove VK to reach the PISCO channels. PISCO drops slightly, slides
+then PISCO. Remove VK to expose the PISCO service room. PISCO drops slightly, slides
 fore, and exits diagonally with a slight inward squeeze of its free wings.
 Assemble in the reverse order. The regulator enters and leaves directly; its
-driver is introduced below the cap and tilted into the single reachable slot.
+exposed leaves are spread before withdrawal.
 
-The pump cap enters from above the loose equipment lid; its receiver channels
-are reached from aft. The cartridge and both pumps load together from the open
+The pump cap enters from above the loose equipment lid; its receiver leaves
+are exposed with the lid loose. The cartridge and both pumps load together from the open
 underside of front-top before the tees, valves and final plumbing handoffs.
 Its screwdriver enters diagonally from the inner underside. Service reverses
 that order with the plumbing and motor leads disconnected.
@@ -56,8 +52,9 @@ that order with the plumbing and motor leads disconnected.
 [Insertion/removal readings](insertion-removal-review.json) use complete
 production meshes, connected prescribed leaf deflections and triangle-prism
 swept volumes for the translation paths. [Tool and cartridge readings](tool-and-cartridge-review.json)
-include blade, shaft and handle envelopes, the regulator's staged tool path,
-and the full two-pump cartridge's downward route. The prescribed leaf shapes
+include the recorded blade, shaft and handle envelopes and the full two-pump
+cartridge's downward route. Their rear tunnel paths retain the submitted-article
+scope; the current receiver bases have no such tunnels. The prescribed leaf shapes
 establish geometric room, not operating force, strain limits or fatigue life.
 Those remain physical checks on this set.
 

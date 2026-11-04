@@ -314,7 +314,12 @@ def numbers(external_ports=None, extra_routes=(), *, input_root=None):
             import _materials as m
             colors['M_JG_GREY_ACETAL'] = list(m.linear(m.M_JG_GREY_ACETAL))
             color = 'M_JG_GREY_ACETAL'
-        add(name, pose=rear['chain_frame'], color=color,
+        pose = rear['chain_frame']
+        if original == 'gagira':
+            pose = frame(pose['rotation'],
+                         [p + (rear['asse_adapter_rise_mm'] if i==2 else 0.)
+                          for i,p in enumerate(pose['translation_mm'])])
+        add(name, pose=pose, color=color,
             source=modelpath('reference/asse1022-threaded-chain/asse1022-threaded-chain.step'),
             select=[original])
     add('water-split', pose=layout.snapshot_pose('water-split'), color='M_JG_BLACK_PP',

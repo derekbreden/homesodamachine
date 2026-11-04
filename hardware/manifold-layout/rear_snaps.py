@@ -230,63 +230,12 @@ def station(axis_x, neck, y0, y1, split=SPLIT, *, wing_root=None, free_length=FR
 
 
 def receiver_tool_ports(s):
-    """Centered receiver channels from the open fore/installation side to each hook.
+    """Rear receiver bases have no enclosed screwdriver tunnels.
 
-    The angled passage admits a small flathead beside the cap's solid nose.
-    Its working end is centered along the retaining ledge; the ceiling and
-    outer receiver backing remain above and outside the channel.
+    Releasing these broad wings requires more travel than a tunnel permits.
+    The paired front pump cartridge has its own open flank pry windows.
     """
-    middle=(s['y0']+s['y1'])/2.
-    angle=math.radians(s.get('tool_angle_degrees',TOOL_APPROACH_DEGREES))
-    direction=np.array((math.sin(angle),math.cos(angle)))
-    normal=np.array((direction[1],-direction[0]))
-    centre=np.array((middle,s['bearing']))
-    entry=((s['y1']-s['y0'])/2.+s.get('tool_end_stock',WALL)+2.)/abs(direction[0])
-    corners=[centre+t*direction+q*normal
-             for t,q in ((-entry,-TOOL_SLOT_HEIGHT/2.),(4.,-TOOL_SLOT_HEIGHT/2.),
-                         (4.,TOOL_SLOT_HEIGHT/2.),(-entry,TOOL_SLOT_HEIGHT/2.))]
-    # Meet the flat catch pocket with a flat opening. An uninterrupted angled
-    # roof would leave a feather edge against that pocket's bearing plane.
-    upper_q=-math.copysign(TOOL_SLOT_HEIGHT/2.,direction[0])
-    def at_height(z,q):
-        t=(z-centre[1]-q*normal[1])/direction[1]
-        return centre+t*direction+q*normal,t
-    shoulder,_=at_height(s['bearing']-WALL,upper_q)
-    opening,_=at_height(s['bearing'],upper_q)
-    upper=[shoulder,np.array((shoulder[0],s['bearing'])),opening]
-    lower_q=-upper_q
-    opening,t0=at_height(s['split'],lower_q)
-    shoulder,t1=at_height(s['split']+WALL,lower_q)
-    lower=[]
-    if t1>-entry and t0<4.:
-        if t0<-entry:
-            p=centre-entry*direction+lower_q*normal
-            corners[3 if direction[0]>0. else 0]=np.array((p[0],s['split']))
-        else:
-            lower.append(opening)
-        lower.extend((np.array((shoulder[0],s['split'])),shoulder))
-    section=[]
-    for i,p in enumerate(corners):
-        section.append(p.tolist())
-        if direction[0]>0. and i==0:
-            section.extend(v.tolist() for v in upper)
-        elif direction[0]<0. and i==2:
-            section.extend(v.tolist() for v in reversed(upper))
-        elif direction[0]>0. and i==2:
-            section.extend(v.tolist() for v in reversed(lower))
-        elif direction[0]<0. and i==0:
-            section.extend(v.tolist() for v in lower)
-    ports=[]
-    for side in s.get('tool_sides',(-1.,1.)):
-        x=s['axis_x']+side*(s['neck']+TOOL_SLOT_WIDTH/2.)
-        span=[x-TOOL_SLOT_WIDTH/2.,x+TOOL_SLOT_WIDTH/2.]
-        edge=s.get('tool_outer_edges',(None,None))[0 if side<0. else 1]
-        if edge is not None:
-            span[0 if side<0. else 1]=edge
-        ports.append({'side':side,'span':span,
-                      'section':section,'centre':(x,middle,s['bearing']),
-                      'direction':(0.,*direction.tolist())})
-    return ports
+    return []
 
 
 def prism_x(x0,x1,points):
@@ -333,6 +282,8 @@ def asse_adapter_capture(chain_frame, station, axis):
     record = rear_plumbing.chain().parameters()['gagira']
     frame = parts._compose(chain_frame, {'rotation':record['rotation'],
                                         'translation_mm':record['origin_mm']})
+    frame['translation_mm'] = tuple(p + (rear_plumbing.plan()['asse_adapter_rise_mm'] if i==2 else 0.)
+                                    for i,p in enumerate(frame['translation_mm']))
     points = clearance_profile(record['visible_profile'],fits.slip,fits.slip)
     wrench = record['wrench']
     apothem=wrench['apothem_at_x_zero_mm']+fits.slip

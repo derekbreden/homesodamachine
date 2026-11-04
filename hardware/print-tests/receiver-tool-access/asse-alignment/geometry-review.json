@@ -1,0 +1,189 @@
+{
+  "selected_rise_world_z_mm": 0.18000000000000682,
+  "axis_readings": [
+    {
+      "wrench_station_native_x_mm": -12.45,
+      "captured_axis_world_z_mm": 327.80062630088753,
+      "selected_axis_world_z_mm": 327.98062630088754,
+      "asse_axis_world_z_mm": 328.0,
+      "selected_height_difference_mm": -0.019373699112463783
+    },
+    {
+      "wrench_station_native_x_mm": -7.475,
+      "captured_axis_world_z_mm": 327.8224850817201,
+      "selected_axis_world_z_mm": 328.0024850817201,
+      "asse_axis_world_z_mm": 328.0,
+      "selected_height_difference_mm": 0.0024850817201240716
+    },
+    {
+      "wrench_station_native_x_mm": -2.5,
+      "captured_axis_world_z_mm": 327.84434386255276,
+      "selected_axis_world_z_mm": 328.02434386255277,
+      "asse_axis_world_z_mm": 328.0,
+      "selected_height_difference_mm": 0.02434386255276877
+    }
+  ],
+  "cavity_frame_before": {
+    "rotation": [
+      [
+        -0.003468685409637004,
+        0.0,
+        0.9999939840926688
+      ],
+      [
+        -0.9999843315792475,
+        -0.004393751222875956,
+        -0.00346865192790311
+      ],
+      [
+        0.004393724790475763,
+        -0.9999903474285097,
+        1.5240540760364572e-05
+      ]
+    ],
+    "translation_mm": [
+      28.85709228620897,
+      444.2532545933731,
+      327.85532817452895
+    ]
+  },
+  "cavity_frame_after": {
+    "rotation": [
+      [
+        -0.003468685409637004,
+        0.0,
+        0.9999939840926688
+      ],
+      [
+        -0.9999843315792475,
+        -0.004393751222875956,
+        -0.00346865192790311
+      ],
+      [
+        0.004393724790475763,
+        -0.9999903474285097,
+        1.5240540760364572e-05
+      ]
+    ],
+    "translation_mm": [
+      28.85709228620897,
+      444.2532545933731,
+      328.03532817452896
+    ]
+  },
+  "other_cap_construction_unchanged": true,
+  "parameters_sha256": "49d49cc3c225470c45f1ec44bfa869e435d721d0b04847abd893d846d0262da9",
+  "installed_equipment_only_change": {
+    "name": "gagira-coupling",
+    "world_translation_mm": [
+      0.0,
+      0.0,
+      0.18
+    ],
+    "all_other_equipment_items_frames_and_ports_identical": true
+  },
+  "scope": "Finished correction to the assembled adapter/body centerline, keeping the observed individual fitted profiles. No extra coupon or print is requested. This is a geometric fit reading, not a physical release-force claim.",
+  "reported_observations": {
+    "asse_alone": "Fits the cap.",
+    "adapter_alone": "Seats at full height in the cap.",
+    "assembled": "Adapter-side cap end lifts at the same station, consistent with relative centerline mismatch.",
+    "photos": [
+      "7E976FDC-3132-4001-A39F-6B48D7FD9F77/1-Photo-1.jpg",
+      "7E976FDC-3132-4001-A39F-6B48D7FD9F77/2-Photo-2.jpg",
+      "7E976FDC-3132-4001-A39F-6B48D7FD9F77/3-Photo-3.jpg",
+      "7E976FDC-3132-4001-A39F-6B48D7FD9F77/4-Photo-4.jpg"
+    ]
+  },
+  "selection_basis": "The captured GAGIRA wrench midpoint is 0.177515 mm below the separately fitted ASSE axis in installed Z. A 0.18 mm rise centers that wrench band while retaining its measured 0.252 degree tilt. The physical report identifies assembled centerline compatibility after both individual pockets seat correctly. No amount was measured from photo pixels.",
+  "native_hardware_overlap_mm3": {
+    "current_cap_current_adapter": 0.0,
+    "selected_cap_selected_adapter": 0.0,
+    "selected_cap_asse_body": 0.0
+  },
+  "protected_material_symmetric_difference_mm3": {
+    "fore_body_and_bonnet": 0.0,
+    "west_wing": 0.0,
+    "east_wing": 0.0
+  },
+  "native_cap_delta_mm3": {
+    "added": 93.72813544062059,
+    "removed": 0.6441857569552693
+  },
+  "printed_cap": {
+    "selected": {
+      "sha256": "a5afa323e1def3cabe5e951eba278eff6cbc55efb2f8231ee51e8f0f37a72474",
+      "facets": 1954,
+      "closed": true,
+      "consistent_winding": true,
+      "solid_count": 1,
+      "bounds_mm": [
+        [
+          -25.14813995361328,
+          -19.314464569091797,
+          0.0
+        ],
+        [
+          25.14813995361328,
+          19.314464569091797,
+          64.625
+        ]
+      ],
+      "volume_mm3": 31829.05236537549
+    },
+    "previous": {
+      "sha256": "075052369a8c12d6c86708975d3137d39faaf505942fe31f79be2c280e78bfe1",
+      "facets": 1980,
+      "closed": true,
+      "consistent_winding": true,
+      "solid_count": 1,
+      "bounds_mm": [
+        [
+          -25.14813995361328,
+          -19.314464569091797,
+          0.0
+        ],
+        [
+          25.14813995361328,
+          19.314464569091797,
+          64.625
+        ]
+      ],
+      "volume_mm3": 31735.96839184705
+    },
+    "outer_bounds_retained": true
+  },
+  "retained": {
+    "all_six_hex_flat_directions": true,
+    "hex_apothem_and_corner_room": true,
+    "neck_bearing_radii": true,
+    "two_axial_shoulder_stations": true,
+    "adapter_and_body_lower_flat_allowances_mm": [
+      0.25,
+      0.25
+    ],
+    "body_and_bonnet_profile": true,
+    "spring_section_and_pointed_hooks": true,
+    "other_three_caps_numeric_construction": true,
+    "captured_reference_parameters_sha256": "49d49cc3c225470c45f1ec44bfa869e435d721d0b04847abd893d846d0262da9"
+  },
+  "complete_receiver_fit": {
+    "receiver_native_model_sha256": "78af527eebc4d2d9a24f81cf3feda03b984492e5052905e9a7d4f217325519ee",
+    "receiver": "Current complete rebuilt enclosure-back-top, not the cropped coupon.",
+    "cap_state": "Selected installed cap with its connected production leaves in the modeled seated pose. No additional deflection is needed to avoid receiver intersection.",
+    "adapter_state": "Captured gagira-coupling translated +0.18 mm in world Z.",
+    "overlap_mm3": {
+      "raised_adapter_receiver": 0.0,
+      "selected_cap_receiver": 0.0,
+      "asse_body_receiver": 0.0,
+      "selected_cap_raised_adapter": 0.0,
+      "selected_cap_asse_body": 0.0
+    },
+    "minimum_clearance_mm_capped_at_1": {
+      "raised_adapter_receiver": 0.2972495952170268,
+      "selected_cap_receiver": 0.25,
+      "asse_body_receiver": 0.2450686594910666,
+      "selected_cap_raised_adapter": 0.14713259935332168,
+      "selected_cap_asse_body": 0.24999978411942791
+    }
+  }
+}

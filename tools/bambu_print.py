@@ -394,8 +394,11 @@ def prepare_dialog(ui, path, printer, details):
     ui.click(display_name, "AXLink", prefix=True)
     ui.wait(lambda ns: matching(ns, "Printing Progress", "AXStaticText"))
     ui.click("Print", "AXLink")
-    ui.wait(lambda ns: matching(ns, "Import Gcode 3MF", "AXButton"))
-    ui.click("Import Gcode 3MF")
+    def import_buttons(ns):
+        return [n for n in ns if n["role"] == "AXButton" and n["label"] in
+                {"Import Gcode 3MF", "import Import Gcode 3MF"}]
+    nodes = ui.wait(lambda ns: len(import_buttons(ns)) == 1)
+    ui.click(import_buttons(nodes)[0]["label"], "AXButton")
     ui.wait(lambda ns: any(node["role"] == "AXSheet" for node in ns))
     ui.call("open_path", path=str(path))
     ui.wait(lambda ns: matching(ns, "Open", "AXButton"))
