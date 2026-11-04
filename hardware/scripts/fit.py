@@ -1324,16 +1324,17 @@ def _floor_of(r: Rect, cells: list, x0, y0, sx, sy, reach: float) -> Floor:
 _CAVITY = None                          # the enclosure's own dimensions, read once
 
 
-def _cavity() -> tuple:
-    """The enclosure's inner extent, built once. `machine_of()` rebuilds the shell to
-    measure it and costs seconds, while what it returns is a property of the source and not
-    of the world being scanned — so a second slab reads it rather than paying for it
-    again."""
+def _cavity(box=None) -> tuple:
+    """The placed scene's Box inner extent, or the saved scalar Box description."""
+    if box is not None:
+        return tuple(box.inner)
     global _CAVITY
     if _CAVITY is None:
         probe._ensure_paths()
-        import enclosure
-        _CAVITY = tuple(enclosure.machine_of()[1].inner)
+        import json
+        import _box_spec
+        description = json.loads(_box_spec.ARTIFACT.read_text(encoding="utf-8"))
+        _CAVITY = tuple(description["box"]["inner"])
     return _CAVITY
 
 
@@ -1342,7 +1343,7 @@ def _interior(w, skip=()) -> tuple:
     for a slab, so a scan reports room inside the machine rather than the air around it.
     `source` names where the field came from, which the slab reports with its answer."""
     try:
-        inner = _cavity()
+        inner = _cavity(getattr(w, "box", None))
         return ((inner[0], inner[1]), (inner[2], inner[3]), "the enclosure cavity")
     except Exception:
         boxes = [w.bb(n) for n in w.names if n not in skip]
