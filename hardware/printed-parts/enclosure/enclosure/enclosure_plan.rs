@@ -7,6 +7,7 @@ use hsm_kernel::part::Numbers;
 use hsm_kernel::*;
 use manifold_csg::Manifold;
 use serde_json::Value;
+use std::f64::consts::PI;
 use std::io::Write;
 
 fn f(v: &Value, key: &str) -> Result<f64> {
@@ -76,6 +77,25 @@ fn prism(v: &Value, rounded: bool) -> Result<Solid> {
         outline = outline.ccw().offset(offset, true)?;
     }
     extruded(v, outline)
+}
+
+fn stationed_cylinder(v: &Value) -> Result<Solid> {
+    let c = point(&v["centre"])?;
+    let r = f(v, "radius")?;
+    let mut angles = array(&v["stations"])?;
+    angles.extend([0., PI / 2., PI, 3. * PI / 2.]);
+    for a in &mut angles {
+        *a = a.rem_euclid(2. * PI);
+    }
+    angles.sort_by(f64::total_cmp);
+    angles.dedup_by(|a, b| (*a - *b).abs() < 1e-12);
+    angles.push(2. * PI);
+    let at = |a: f64| c + v2(r * math::cos(a), r * math::sin(a));
+    let mut profile = Pen::new(at(0.));
+    for pair in angles.windows(2) {
+        profile = profile.arc_through(at((pair[0] + pair[1]) / 2.), at(pair[1]))?;
+    }
+    extruded(v, profile.close()?)
 }
 
 fn handhold_cutter(v: &Value) -> Result<Solid> {
@@ -505,6 +525,9 @@ pub(crate) fn build(n: &Numbers) -> Result<Solid> {
                         )?
                 }
                 "cylinder" => {
+                    if v["stations"].is_array() {
+                        return stationed_cylinder(v);
+                    }
                     let k = axis(v)?;
                     let c = array(&v["centre"])?;
                     let z = array(&v["span"])?;

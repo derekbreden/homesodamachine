@@ -120,7 +120,10 @@ def _teardrop(graph,radius,x,z,y0,y1,angle):
     a=math.radians(angle)
     half=radius*math.sin(a)
     tangent,apex=z+radius*math.cos(a),z+radius/math.cos(a)
-    return graph.cylinder(1,radius,x,z,y0,y1).fuse(graph.prism(1,y0,y1,
+    circle=graph.add('cylinder',axis=1,radius=radius,centre=(x,z),span=(y0,y1),
+        stations=(math.pi/2-a,math.pi/2+a),
+        bounds=(x-radius,x+radius,y0,y1,z-radius,z+radius))
+    return circle.fuse(graph.prism(1,y0,y1,
         ((x-half,tangent),(x+half,tangent),(x,apex))))
 
 

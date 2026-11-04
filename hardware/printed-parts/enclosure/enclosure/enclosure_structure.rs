@@ -134,21 +134,24 @@ fn aft_cap(n: &Numbers) -> Result<Solid> {
     let foot = f(transition, "foot")?;
     let slope = f(transition, "outward_per_height")?;
     let radius = n.f("side_radius")?;
-    let mut fills = vec![];
-    for (side, edge) in [(-1.0, o[0]), (1.0, o[1])] {
-        let profile = Profile::polygon(&[
-            v2(edge - side * radius, z),
-            v2(edge - side * foot, z),
-            v2(edge - side * (foot - slope * height), z - height),
-            v2(edge - side * radius, z - height),
-        ]);
-        fills.push(
-            Plane::XZ
-                .at(v3(0.0, y0, 0.0))
-                .extrude(&profile, -(y1 - y0))?,
-        );
-    }
-    Ok(Solid::compose(&fills))
+    let (left, right, bottom) = (o[0], o[1], o[4]);
+    let centre_z = z - radius;
+    let tangent_z = z - height;
+    let theta = (radius-height).atan2(radius-foot+slope*height);
+    let right_mid = v2(right-radius+radius*math::cos(theta/2.),
+                       centre_z+radius*math::sin(theta/2.));
+    let left_mid = v2(left+radius-radius*math::cos(theta/2.), right_mid.y);
+    let outline = Pen::new(v2(left,bottom))
+        .line_to(v2(right,bottom))
+        .line_to(v2(right,centre_z))
+        .arc_through(right_mid,v2(right-foot+slope*height,tangent_z))?
+        .line_to(v2(right-foot,z))
+        .line_to(v2(left+foot,z))
+        .line_to(v2(left+foot-slope*height,tangent_z))
+        .arc_through(left_mid,v2(left,centre_z))?
+        .close()?;
+    Plane::XZ.at(v3(0.,y0,0.))
+        .extrude(&Profile::new(outline),-(y1-y0))
 }
 
 pub fn silhouette(n: &Numbers) -> Result<Solid> {
@@ -174,7 +177,10 @@ pub fn silhouette(n: &Numbers) -> Result<Solid> {
         .intersect(&rounded_box)?;
     let aft = aft_cap(n)?.intersect(&rounded_box)?;
     let fore = roof_fill(n)?.intersect(&body)?.intersect(&rounded_box)?;
-    rounded.union(&aft)?.union(&fore)
+    let roof_y = p2(&n.get("profile")?["roof"])?.x;
+    let fore_limit = Solid::cuboid(v3(o[0]-1.,o[2]-1.,o[4]-1.),
+                                   v3(o[1]+1.,roof_y,o[5]+1.));
+    rounded.union(&fore)?.intersect(&fore_limit)?.union(&aft)
 }
 
 fn main() -> Result<()> {
