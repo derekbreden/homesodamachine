@@ -19,24 +19,19 @@ Frame: +X = the port's outward axis, the barb's tip at X = 0, so the tube runs f
 end at negative X out over the trimmed stem. Each clamp's housing stands on +Z, and its key lies flat in
 the band's plane and runs along +Y or −Y. Down is −Z.
 
-Run:
-    tools/cad-venv/bin/python hardware/reference/pump-barb-joint/pump_barb_joint.py
+Numeric profiles and port frames describe the installed joint for Rust consumers.
 """
 
 import math
 import sys
 from pathlib import Path
 
-import cadquery as cq
 import numpy as np
-from scipy.spatial import ConvexHull
 
 _here = Path(__file__).resolve()
 _hw = next(p for p in _here.parents if p.name == "hardware")
 for _p in ("scripts", "reference/g-ganen-pump", "reference/jg-pp061208w"):
     sys.path.insert(0, str(_hw / _p))
-from _cadq_export import export_assembly
-from _materials import M_JG_WHITE_PP, M_POM_ORANGE, M_PVC_CLEAR, M_STAINLESS
 import g_ganen_pump as pump
 import jg_pp061208w as reducer
 
@@ -128,102 +123,10 @@ def pivot(port):
     return (0.0, 0.0, -barb(port)[-1][1])
 
 
-def turn(port, bend):
-    """The reducer's move, `bend` degrees down about the pivot."""
-    p = cq.Vector(*pivot(port))
-    return cq.Location(p) * cq.Location(cq.Vector(), cq.Vector(0, 1, 0), bend) * cq.Location(-p)
-
-
 def mouth(port, bend=0.0):
     """The reducer's 1/4" collet mouth: (position, outward axis)."""
-    tip = cq.Vertex.makeVertex(reducer.LENGTH - CUT_X, 0.0, 0.0).moved(turn(port, bend)).Center()
     b = math.radians(bend)
-    return tip.toTuple(), (math.cos(b), 0.0, -math.sin(b))
-
-
-def turned(rows):
-    """The tube over `(x, bore radius)` rows: turned about X from its bore and its opened outside."""
-    inner = []
-    for x, r in rows:
-        if not inner or abs(x - inner[-1][0]) > 1e-6 or abs(r - inner[-1][1]) > 1e-6:
-            inner.append((x, r))
-    outer = [(x, opened(r)) for x, r in inner]
-    return cq.Workplane("XY").polyline(outer + inner[::-1]).close().revolve(360.0, (0, 0, 0), (1, 0, 0)).val()
-
-
-def build_tube(port, bend=0.0):
-    """The tube, installed. Bent, its length on the barb and its length on the stem each run on
-    straight past the crease and are cut back to it."""
-    rows = bore(port)
-    if not bend:
-        return turned(rows)
-    on_barb, on_stem = rows[:-2], rows[-2:]
-    past = TUBE_OD * math.tan(math.radians(bend) / 2.0) + 1.0
-    crease = cq.Solid.makeBox(100.0, 200.0, 200.0, cq.Vector(-100.0, -100.0, -100.0)).moved(turn(port, bend / 2.0))
-    barb_side = turned(on_barb + [(past, on_barb[-1][1])]).intersect(crease)
-    stem_side = turned([(-past, on_stem[0][1]), on_stem[1]]).moved(turn(port, bend)).cut(crease)
-    return barb_side.fuse(stem_side).clean()
-
-
-def build_reducer():
-    """The PP061208W with its stem cut TRIM ahead of the shoulder, the cut at X = 0."""
-    cut = cq.Solid.makeBox(100.0 + CUT_X, 100.0, 100.0, cq.Vector(-100.0, -50.0, -50.0))
-    return reducer.build().cut(cut).moved(cq.Location(cq.Vector(-CUT_X, 0.0, 0.0)))
-
-
-def build_clamp(d, xc, keys):
-    """One clamp closed on `d`, its band centred on `xc`: `(steel, key)`. The housing stands on +Z,
-    and the key runs from the screw's end along `keys` × Y."""
-    r = d / 2.0
-    x0 = cq.Vector(xc - BAND_W / 2.0, 0.0, 0.0)
-    band = (cq.Solid.makeCylinder(r + BAND_T, BAND_W, x0, cq.Vector(1, 0, 0))
-            .cut(cq.Solid.makeCylinder(r, BAND_W, x0, cq.Vector(1, 0, 0))))
-    top = r + BAND_T + HOUSING_H
-    housing = (cq.Solid.makeBox(HOUSING_W, HOUSING_L, top, cq.Vector(xc - HOUSING_W / 2.0, -HOUSING_L / 2.0, 0.0))
-               .cut(cq.Solid.makeCylinder(r + BAND_T, HOUSING_W, cq.Vector(xc - HOUSING_W / 2.0, 0.0, 0.0),
-                                          cq.Vector(1, 0, 0))))
-    screw_z = r + BAND_T + HOUSING_H / 2.0
-    end = keys * HOUSING_L / 2.0
-    neck = cq.Solid.makeCylinder(NECK_D / 2.0, NECK_L, cq.Vector(xc, end, screw_z), cq.Vector(0, keys, 0))
-    # The key's outline: the hull of its neck's round and its far end's round, in the band's plane.
-    t = np.linspace(0.0, 2.0 * math.pi, 48, endpoint=False)
-    rounds = np.concatenate([np.column_stack([c + w / 2.0 * np.cos(t), w / 2.0 * np.sin(t)])
-                             for c, w in ((KEY_NECK_W / 2.0, KEY_NECK_W), (KEY_L - KEY_W / 2.0, KEY_W))])
-    outline = rounds[ConvexHull(rounds).vertices]
-    start = end + keys * NECK_L
-    key = (cq.Workplane("YZ", origin=(xc - KEY_T / 2.0, 0.0, 0.0))
-           .polyline([(start + keys * u, screw_z + v) for u, v in outline]).close().extrude(KEY_T).val())
-    return band.fuse(housing, neck).clean(), key
-
-
-def build(port, keys=(-1, -1), bend=0.0):
-    """`{name: (solid, colour)}` for the joint on `port`, bent `bend` degrees down: the tube, the
-    reducer, and each clamp's steel and key. `keys` gives the side of Y each key runs to, the barb's
-    clamp then the stem's."""
-    at = turn(port, bend)
-    out = {"tube": (build_tube(port, bend), M_PVC_CLEAR), "reducer": (build_reducer().moved(at), M_JG_WHITE_PP)}
-    for (name, (xc, d)), side in zip(bands(port).items(), keys):
-        steel, key = build_clamp(d, xc, side)
-        if name == "stem":
-            steel, key = steel.moved(at), key.moved(at)
-        out[f"{name}-clamp"] = (steel, M_STAINLESS)
-        out[f"{name}-key"] = (key, M_POM_ORANGE)
-    return out
-
-
-def main():
-    for port in PORTS:
-        print(f"{port}: tube {tube_length(port):.2f} mm, root at X{root(port):.2f}; "
-              + "; ".join(f"{n} band at X{xc:.2f} closed on d{d:.2f}" for n, (xc, d) in bands(port).items()))
-    print(f"reducer stem trimmed to {TRIM:g} mm; the 1/4\" mouth at X{mouth('suction')[0][0]:.2f}")
-    parts = build("suction")
-    a = cq.Assembly(name="pump-barb-joint")
-    for name, (solid, colour) in parts.items():
-        print(f"  {name:12} valid {solid.isValid()}, {solid.Volume():8.1f} mm3")
-        a.add(solid, name=name, color=colour)
-    export_assembly(a, str(STEP))
-    print(f"-> {STEP.name}")
-
-
-if __name__ == "__main__":
-    main()
+    c, s = math.cos(b), math.sin(b)
+    x, pivot_z = reducer.LENGTH - CUT_X, pivot(port)[2]
+    return ((x * c - pivot_z * s, 0.0, -x * s + pivot_z * (1.0 - c)),
+            (c, 0.0, -s))
