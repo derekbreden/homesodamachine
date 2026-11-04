@@ -1,4 +1,4 @@
-use super::model::{Frame, Model};
+use super::model::{Frame, Model, Models};
 use anyhow::{Context, Result, ensure};
 use serde_json::{Value, json};
 use std::path::{Path, PathBuf};
@@ -313,9 +313,8 @@ impl Payload {
     }
 }
 
-pub fn placed_surfaces(instances: &Value, fine: &mut Model) -> Result<Payload> {
+pub fn placed_surfaces(instances: &Value, fine: &mut Model, models: &mut Models) -> Result<Payload> {
     let mut selected = Vec::new();
-    let mut models = std::collections::BTreeMap::new();
     let mut presentations = std::collections::BTreeMap::new();
     let instances = instances.as_array().context("instances")?;
     let mut remaining = std::collections::BTreeMap::new();

@@ -5,7 +5,7 @@ use sha2::{Digest, Sha256};
 use std::{
     collections::BTreeMap,
     fs::File,
-    io::{BufReader, BufWriter, Cursor, Read, Seek, Write},
+    io::{BufReader, BufWriter, Cursor, Read, Seek, SeekFrom, Write},
     path::{Component, Path, PathBuf},
 };
 use zip::{ZipArchive, ZipWriter, write::SimpleFileOptions};
@@ -94,6 +94,7 @@ pub struct Model {
     records: Vec<String>,
     archive: ZipArchive<File>,
 }
+pub type Models = BTreeMap<PathBuf, Model>;
 impl Model {
     pub fn open(path: &Path) -> Result<Self> {
         Self::open_file(path, true)
@@ -337,9 +338,8 @@ struct Ref {
     frame: Frame,
     owned: Option<std::sync::Arc<NumericPart>>,
 }
-fn references(instances: &Value) -> Result<Vec<Ref>> {
+fn references(instances: &Value, sources: &mut Models) -> Result<Vec<Ref>> {
     let mut rows = Vec::new();
-    let mut sources = BTreeMap::new();
     for instance in instances.as_array().context("instances")? {
         let path = PathBuf::from(super::text(instance, "model")?);
         if !sources.contains_key(&path) {
@@ -395,6 +395,11 @@ fn references(instances: &Value) -> Result<Vec<Ref>> {
     Ok(rows)
 }
 fn write_refs(rows: &[Ref], document: Option<&Value>, path: &Path) -> Result<()> {
+    write_refs_using(rows, document, path, &mut Models::new())
+}
+fn write_refs_using(
+    rows: &[Ref], document: Option<&Value>, path: &Path, sources: &mut Models,
+) -> Result<()> {
     if let Some(parent) = path.parent() {
         std::fs::create_dir_all(parent)?;
     }
@@ -405,7 +410,6 @@ fn write_refs(rows: &[Ref], document: Option<&Value>, path: &Path) -> Result<()>
     ));
     let mut writer = ZipWriter::new(File::create(&temp)?);
     let options = SimpleFileOptions::default().compression_method(zip::CompressionMethod::Stored);
-    let mut sources = BTreeMap::new();
     for row in rows {
         if !sources.contains_key(&row.path) {
             sources.insert(row.path.clone(), Model::open(&row.path)?);
@@ -772,12 +776,16 @@ pub fn physical(spec: &Value, output: &Path) -> Result<Value> {
         .map(|file| output.join(file))
         .unwrap_or_else(|| mesh.clone());
     let instances = spec.get("instances").context("physical instances")?;
-    let rows = references(instances)?;
-    write_refs(&rows, spec.get("document"), &model)?;
+    let mut sources = Models::new();
+    let rows = references(instances, &mut sources)?;
+    // The physical model's document is attached after its presentation is complete.
+    // Reuse each immutable input archive across reference, copy and presentation phases.
+    write_refs_using(&rows, None, &model, &mut sources)?;
     drop(rows);
     let mut fine = Model::open_file(&model, false)?;
     let src = write_step_stream(&mut fine, &step, name)?;
-    let mut shown = super::payload::placed_surfaces(instances, &mut fine)?;
+    let mut shown = super::payload::placed_surfaces(instances, &mut fine, &mut sources)?;
+    drop(sources);
     let names: Vec<_> = fine.names.iter().map(|name| json!({"name":name})).collect();
     drop(fine);
     shown.header["src"] = json!(src);
@@ -789,7 +797,7 @@ pub fn physical(spec: &Value, output: &Path) -> Result<Value> {
     if presentation != mesh {
         copy_payload(&presentation, &mesh)?;
     }
-    bind_document(&model, &presentation, false)?;
+    bind_fresh(&model, &presentation, spec.get("document"))?;
     let mut files = vec![
         super::output_name(&step, output),
         super::output_name(&model, output),
@@ -884,6 +892,23 @@ fn relative(path: &Path, base: &Path) -> String {
         out.push(c.as_os_str());
     }
     out.to_string_lossy().into_owned()
+}
+/// Finalize a newly written physical archive without copying its numeric members again.
+pub(super) fn bind_fresh(path: &Path, payload: &Path, document: Option<&Value>) -> Result<()> {
+    let mut document = document.cloned().unwrap_or_else(|| json!({}));
+    document["presentation"] = json!({"path":relative(payload,path.parent().unwrap()),"sha256":stream_digest(payload, false)?});
+    let file = std::fs::OpenOptions::new().read(true).write(true).open(path)?;
+    let start = ZipArchive::new(file.try_clone()?)?.central_directory_start();
+    let mut position = file.try_clone()?;
+    let mut target = ZipWriter::new_append(file)?;
+    // Cloned File handles share their cursor. Replace the old directory rather than
+    // leaving it between the numeric members and the final document.
+    position.seek(SeekFrom::Start(start))?;
+    let options = SimpleFileOptions::default().compression_method(zip::CompressionMethod::Stored);
+    target.start_file("document.npy", options)?;
+    target.write_all(&npy_text(&serde_json::to_vec(&document)?))?;
+    target.finish()?;
+    Ok(())
 }
 pub fn bind(path: &Path, payload: &Path) -> Result<()> {
     bind_document(path, payload, true)
