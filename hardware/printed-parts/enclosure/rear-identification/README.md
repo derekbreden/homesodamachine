@@ -19,9 +19,9 @@ the bed. The raised word uses the shared two-colour label process and two
 retains its recorded material and label-interface scope.
 
 The [First Edition nameplate](../nameplate/README.md) sits at world X−43.85/Z220
-with its face at Y473.5. Its 92 × 100 mm face is centred between the rear corner's
+with its face at Y474.25. Its 92 × 100 mm face is centred between the rear corner's
 X−95.5 tangent and the adjacent card's X7.8 edge, leaving 5.65 mm on each side.
-Its field stands 2.2 mm above the rear wall, with 3.6 mm of receiver backing
+Its field stands 2.95 mm above the rear wall, with 3.6 mm of receiver backing
 and complete retaining lips. The plate takes no screws. The
 [nameplate fit review](../nameplate/production-fit.json) records its production geometry.
 
