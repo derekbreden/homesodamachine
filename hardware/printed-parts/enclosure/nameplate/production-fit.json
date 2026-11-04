@@ -10,7 +10,7 @@
   "placement_mm": {
     "center_x_mm": -45.4,
     "center_z_mm": 220.0,
-    "face_y_mm": 474.3
+    "face_y_mm": 476.3
   },
   "complete_frame_mm": {
     "width": 94.3,
@@ -26,12 +26,13 @@
     "catch_inner": 42.15,
     "catch_rear": -1.75,
     "corner": 5.0,
-    "crown_y": 0.3599999999999999,
+    "crown_y": -1.6400000000000001,
+    "field_proud": 5.0,
     "floor_rear": -3.75,
     "floor_stock": 3.6,
     "frame_bottom": -53.4,
     "frame_corner": 7.0,
-    "frame_top": 56.15,
+    "frame_top": 58.15,
     "frame_width": 94.3,
     "height": 100.0,
     "hook_projection": 1.2,
@@ -94,12 +95,13 @@
         "catch_inner": 42.15,
         "catch_rear": -1.75,
         "corner": 5.0,
-        "crown_y": 0.3599999999999999,
+        "crown_y": -1.6400000000000001,
+        "field_proud": 5.0,
         "floor_rear": -3.75,
         "floor_stock": 3.6,
         "frame_bottom": -53.4,
         "frame_corner": 7.0,
-        "frame_top": 56.15,
+        "frame_top": 58.15,
         "frame_width": 94.3,
         "height": 100.0,
         "hook_projection": 1.2,
@@ -164,12 +166,13 @@
         "catch_inner": 42.15,
         "catch_rear": -1.75,
         "corner": 5.0,
-        "crown_y": 0.3599999999999999,
+        "crown_y": -1.6400000000000001,
+        "field_proud": 5.0,
         "floor_rear": -3.75,
         "floor_stock": 3.6,
         "frame_bottom": -53.4,
         "frame_corner": 7.0,
-        "frame_top": 56.15,
+        "frame_top": 58.15,
         "frame_width": 94.3,
         "height": 100.0,
         "hook_projection": 1.2,
@@ -220,47 +223,367 @@
   "inspection": "Geometry checks cover rigid face, clip head clearance, receiver and front tool paths. Beam displacement poses are clearance models, not material or fatigue simulations.",
   "source_sha256": {
     "hardware/printed-parts/enclosure/nameplate/nameplate.rs": "0a22e224641a058b1cefc6cffdc68c1a315856add2edb2604326984b896ea499",
-    "hardware/printed-parts/enclosure/nameplate/snap_dimensions.rs": "2d3d208a454a9a040ed0fe657cd984f452e1839e40a12647663856e952eeccda",
-    "hardware/printed-parts/enclosure/nameplate/snap_geometry.rs": "40dee14741595ca4851c399321483339a9079162698440dddca29889c9d4f900",
-    "tools/hsm/enclosure-data/src/nameplate_snap.rs": "eb62f571cc6a9ce7c55beff6fd7d0a2bbda94a78561a02c9939b568c5de23053",
+    "hardware/printed-parts/enclosure/nameplate/snap_dimensions.rs": "b2cccd0ea39b111917a347fffabf90df0730cbb50f4b2f9300b481cc88f46022",
+    "hardware/printed-parts/enclosure/nameplate/snap_geometry.rs": "ba0d1fa422fc755712d6e8d3e8314d74ccefde5cb4c8eeabd294a3cf1d2cfb7e",
+    "tools/hsm/enclosure-data/src/nameplate_snap.rs": "7c4f0496217d36703a64659bb3fb874c28f4e34d138fd05069540e7c1ec85b40",
     "hardware/printed-parts/enclosure/nameplate/nameplate-001.step": "c146b74c5d738c5ee44cd1c2963f2d98b757c4c5cc3c95756bad6c56c500a534",
     "hardware/printed-parts/enclosure/nameplate/nameplate-001.stl": "b754f8d07308e2254c4eb9ed7c4ff25aa3b01282e5e9e03e76cfcef8c6c32c67",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step": "a57920891132e1ee8f0a5f38516679a8e0d0864d5f1859269a9cf7111938f6a3",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl": "48940d2130c3d1134ffe25741705c07bb2c46a547402604328b7b4c7dd8e197c"
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step": "fc9de1a0be4650d624b2a2005632258cf475a16e37f31d9e6550614e99e46aa2",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl": "63ba2d674f1dd6d336e5b5fa18f1027cd8611dc66aed937460a65f12c9d12980"
   },
-  "source_revision": "bab4734064a4cc79b91f850012c761902bb22e66",
+  "source_revision": "78404375d8529ef1610601ed6dc9b9a32f5b7238",
   "frame_gap_rays": [
     {
       "origin_xz": [
-        1.0,
-        256.0
+        1,
+        256
       ],
-      "front_surface_y": 474.2999877929687,
-      "payload_sha256": "04f8c8126f61f4af7d98f3ea343ac3a3604a7a8086ab797ced2ee1479024a3d2"
+      "front_surface_y": 476.2999877929687,
+      "payload_sha256": "0ec42f144c942b2ff17309c9bd14df85d298f98da7bf7bd09f8b097e1e0e9455"
     },
     {
       "origin_xz": [
-        3.0,
-        256.0
+        3,
+        256
       ],
-      "front_surface_y": 471.2253372066341,
-      "payload_sha256": "04f8c8126f61f4af7d98f3ea343ac3a3604a7a8086ab797ced2ee1479024a3d2"
+      "front_surface_y": 471.2253729576949,
+      "payload_sha256": "0ec42f144c942b2ff17309c9bd14df85d298f98da7bf7bd09f8b097e1e0e9455"
     },
     {
       "origin_xz": [
         5.1,
-        256.0
+        256
       ],
       "front_surface_y": 474.2999877929687,
-      "payload_sha256": "04f8c8126f61f4af7d98f3ea343ac3a3604a7a8086ab797ced2ee1479024a3d2"
+      "payload_sha256": "0ec42f144c942b2ff17309c9bd14df85d298f98da7bf7bd09f8b097e1e0e9455"
     },
     {
       "origin_xz": [
-        -94.0,
-        220.0
+        -94,
+        220
       ],
       "front_surface_y": 471.05111182050155,
-      "payload_sha256": "04f8c8126f61f4af7d98f3ea343ac3a3604a7a8086ab797ced2ee1479024a3d2"
+      "payload_sha256": "0ec42f144c942b2ff17309c9bd14df85d298f98da7bf7bd09f8b097e1e0e9455"
     }
-  ]
+  ],
+  "backing_review": {
+    "source": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl",
+    "sha256": "63ba2d674f1dd6d336e5b5fa18f1027cd8611dc66aed937460a65f12c9d12980",
+    "method": "Y-directed intersections of the full production STL at 24 pocket-floor points.",
+    "minimum_sampled_backing_mm": 3.140010000000018,
+    "samples": [
+      {
+        "xz": [
+          -3.4,
+          184.539
+        ],
+        "pocket_rear_y": 468.69,
+        "inside_y": 465.54999,
+        "backing_mm": 3.140010000000018,
+        "all_y": [
+          465.54999,
+          468.69
+        ]
+      },
+      {
+        "xz": [
+          -3.4,
+          190
+        ],
+        "pocket_rear_y": 468.69,
+        "inside_y": 465.54999,
+        "backing_mm": 3.140010000000018,
+        "all_y": [
+          465.54999,
+          468.69
+        ]
+      },
+      {
+        "xz": [
+          -3.4,
+          200
+        ],
+        "pocket_rear_y": 468.69,
+        "inside_y": 465.54999,
+        "backing_mm": 3.140010000000018,
+        "all_y": [
+          465.54999,
+          468.69
+        ]
+      },
+      {
+        "xz": [
+          -3.4,
+          220
+        ],
+        "pocket_rear_y": 468.69,
+        "inside_y": 465.54999,
+        "backing_mm": 3.140010000000018,
+        "all_y": [
+          465.54999,
+          468.69
+        ]
+      },
+      {
+        "xz": [
+          -5.4,
+          184.539
+        ],
+        "pocket_rear_y": 468.69,
+        "inside_y": 465.54999,
+        "backing_mm": 3.140010000000018,
+        "all_y": [
+          465.54999,
+          468.69
+        ]
+      },
+      {
+        "xz": [
+          -5.4,
+          190
+        ],
+        "pocket_rear_y": 468.69,
+        "inside_y": 465.54999,
+        "backing_mm": 3.140010000000018,
+        "all_y": [
+          465.54999,
+          468.69
+        ]
+      },
+      {
+        "xz": [
+          -5.4,
+          200
+        ],
+        "pocket_rear_y": 468.69,
+        "inside_y": 465.54999,
+        "backing_mm": 3.140010000000018,
+        "all_y": [
+          465.54999,
+          468.69
+        ]
+      },
+      {
+        "xz": [
+          -5.4,
+          220
+        ],
+        "pocket_rear_y": 468.69,
+        "inside_y": 465.54999,
+        "backing_mm": 3.140010000000018,
+        "all_y": [
+          465.54999,
+          468.69
+        ]
+      },
+      {
+        "xz": [
+          -6.767,
+          184.539
+        ],
+        "pocket_rear_y": 468.69,
+        "inside_y": 465.54999,
+        "backing_mm": 3.140010000000018,
+        "all_y": [
+          465.54999,
+          468.69
+        ]
+      },
+      {
+        "xz": [
+          -6.767,
+          190
+        ],
+        "pocket_rear_y": 468.69,
+        "inside_y": 465.54999,
+        "backing_mm": 3.140010000000018,
+        "all_y": [
+          465.54999,
+          468.69
+        ]
+      },
+      {
+        "xz": [
+          -6.767,
+          200
+        ],
+        "pocket_rear_y": 468.69,
+        "inside_y": 465.54999,
+        "backing_mm": 3.140010000000018,
+        "all_y": [
+          465.54999,
+          468.69
+        ]
+      },
+      {
+        "xz": [
+          -6.767,
+          220
+        ],
+        "pocket_rear_y": 468.69,
+        "inside_y": 465.54999,
+        "backing_mm": 3.140010000000018,
+        "all_y": [
+          465.54999,
+          468.69
+        ]
+      },
+      {
+        "xz": [
+          -85.4,
+          184.539
+        ],
+        "pocket_rear_y": 468.69,
+        "inside_y": 463.41911,
+        "backing_mm": 5.2708900000000085,
+        "all_y": [
+          463.41911,
+          468.69
+        ]
+      },
+      {
+        "xz": [
+          -85.4,
+          190
+        ],
+        "pocket_rear_y": 468.69,
+        "inside_y": 463.41911,
+        "backing_mm": 5.2708900000000085,
+        "all_y": [
+          463.41911,
+          468.69
+        ]
+      },
+      {
+        "xz": [
+          -85.4,
+          200
+        ],
+        "pocket_rear_y": 468.69,
+        "inside_y": 463.41911,
+        "backing_mm": 5.2708900000000085,
+        "all_y": [
+          463.41911,
+          468.69
+        ]
+      },
+      {
+        "xz": [
+          -85.4,
+          220
+        ],
+        "pocket_rear_y": 468.69,
+        "inside_y": 463.41911,
+        "backing_mm": 5.2708900000000085,
+        "all_y": [
+          463.41911,
+          468.69
+        ]
+      },
+      {
+        "xz": [
+          -86.4,
+          184.539
+        ],
+        "pocket_rear_y": 468.69,
+        "inside_y": 462.65838,
+        "backing_mm": 6.031619999999975,
+        "all_y": [
+          462.65838,
+          468.69
+        ]
+      },
+      {
+        "xz": [
+          -86.4,
+          190
+        ],
+        "pocket_rear_y": 468.69,
+        "inside_y": 462.65838,
+        "backing_mm": 6.031619999999975,
+        "all_y": [
+          462.65838,
+          468.69
+        ]
+      },
+      {
+        "xz": [
+          -86.4,
+          200
+        ],
+        "pocket_rear_y": 468.69,
+        "inside_y": 462.65838,
+        "backing_mm": 6.031619999999975,
+        "all_y": [
+          462.65838,
+          468.69
+        ]
+      },
+      {
+        "xz": [
+          -86.4,
+          220
+        ],
+        "pocket_rear_y": 468.69,
+        "inside_y": 462.65838,
+        "backing_mm": 6.031619999999975,
+        "all_y": [
+          462.65838,
+          468.69
+        ]
+      },
+      {
+        "xz": [
+          -87.4,
+          184.539
+        ],
+        "pocket_rear_y": 468.69,
+        "inside_y": 462.29999,
+        "backing_mm": 6.390010000000018,
+        "all_y": [
+          462.29999,
+          468.69
+        ]
+      },
+      {
+        "xz": [
+          -87.4,
+          190
+        ],
+        "pocket_rear_y": 468.69,
+        "inside_y": 462.29999,
+        "backing_mm": 6.390010000000018,
+        "all_y": [
+          462.29999,
+          468.69
+        ]
+      },
+      {
+        "xz": [
+          -87.4,
+          200
+        ],
+        "pocket_rear_y": 468.69,
+        "inside_y": 462.29999,
+        "backing_mm": 6.390010000000018,
+        "all_y": [
+          462.29999,
+          468.69
+        ]
+      },
+      {
+        "xz": [
+          -87.4,
+          220
+        ],
+        "pocket_rear_y": 468.69,
+        "inside_y": 462.29999,
+        "backing_mm": 6.390010000000018,
+        "all_y": [
+          462.29999,
+          468.69
+        ]
+      }
+    ]
+  }
 }
