@@ -12,7 +12,6 @@ from pathlib import Path
 import json
 import sys
 
-import cadquery as cq
 
 HERE = Path(__file__).resolve().parent
 
@@ -56,15 +55,18 @@ def mount_seat_z():
 
 
 def _wire(vertices):
+    import cadquery as cq
     return cq.Wire.makePolygon([cq.Vector(*point) for point in vertices], close=True)
 
 
 def _casing(data):
+    import cadquery as cq
     wires = [_wire(row['vertices_mm']) for row in data['casing_sections']]
     return cq.Solid.makeLoft(wires, ruled=True)
 
 
 def _barb(row):
+    import cadquery as cq
     axis = cq.Vector(*row['outward_axis'])
     tip = cq.Vector(*row['tip_mm'])
     rings = [cq.Wire.makeCircle(station['radius_mm'],
@@ -82,6 +84,7 @@ def _foot(row):
 
 
 def _hull(row):
+    import cadquery as cq
     vertices = row['vertices_mm']
     faces = [cq.Face.makeFromWires(_wire([vertices[index] for index in triangle]))
              for triangle in row['triangles']]
@@ -90,6 +93,7 @@ def _hull(row):
 
 def _under_head_air():
     """Observed open space below the rigid switch, excluding its loose leads."""
+    import cadquery as cq
     row = json.loads((HERE/'under-head-clearance.json').read_text())['open_air']
     lo, hi = row['x_interval_mm']
     ya, yb = row['y_interval_mm']
@@ -105,6 +109,7 @@ def _under_head_air():
 
 
 def build_parts():
+    import cadquery as cq
     data = parameters()
     parts = {'rigid_casing_envelope': _casing(data)}
     for row in data['casing_shell_envelopes']:
@@ -133,6 +138,7 @@ def build_parts():
 
 def build():
     """Occupied external reference; see the parameter ledger's qualification limits."""
+    import cadquery as cq
     return cq.Workplane(obj=cq.Compound.makeCompound(list(build_parts().values())))
 
 
@@ -141,6 +147,7 @@ def build_scene():
 
 
 def build_assembly():
+    import cadquery as cq
     assembly = cq.Assembly(name='g-ganen-pump')
     for name, shape in build_parts().items():
         color = ((.18, .19, .20) if 'rubber_slider' in name else
