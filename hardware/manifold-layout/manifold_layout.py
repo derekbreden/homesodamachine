@@ -38,8 +38,6 @@ sys.path.insert(0, str(_tools))
 if __name__ == "__main__":
     import _rust_part
     _rust_part.start()
-import cadquery as cq
-from _cadq_export import export_assembly, import_step              # noqa: E402
 from docgen import substitute_md                      # noqa: E402
 import beduan_solenoid as vlv                         # noqa: E402
 import kamoer_kphm400 as kp                           # noqa: E402
@@ -53,16 +51,12 @@ import _routing                                       # noqa: E402
 # exists to hang a reading on. `_stated_bounds` is the ledger it records into and
 # `enclosure_assembly.carry_stated_bounds` is what puts it on the card.
 import _stated_bounds as _bounds                      # noqa: E402
-import _boxes                                         # noqa: E402
-import _overlap                                       # noqa: E402
 import _enclosure_interface as _enc_if                # noqa: E402
 import fixed_returns as _returns                      # noqa: E402
 
 ELBOW_STEP = _hw / "reference" / "elbow-connector" / "elbow-connector.step"
 TEE_STEP = _hw / "reference" / "tee-connector" / "tee-connector.step"
 KAMOER_STEP = _hw / "reference" / "kamoer-kphm400" / "kamoer-kphm400.step"
-# The reference pump's two shaped solids, read off its STEP once and held.
-_KAMOER = None
 # What brings them out of `kamoer_kphm400`'s case frame into this study's: the quarter
 # lays the pump's depth axis down onto +Y, and the half rolls its barb face up onto +Z.
 PUMP_TURNS = (((1.0, 0.0, 0.0), -90.0), ((0.0, 1.0, 0.0), 180.0))
@@ -187,11 +181,6 @@ C_MOTOR = C_PUMP_MOTOR
 
 # --- Placement -------------------------------------------------------------
 
-def place(solid, origin, x_dir, z_dir):
-    """A solid moved out of its own frame into the world: its local +X onto `x_dir`, its
-    local +Z onto `z_dir`, its local origin onto `origin`. Local +Y follows as z × x."""
-    return solid.moved(cq.Location(cq.Plane(origin=origin, xDir=x_dir, normal=z_dir)))
-
 
 def valve_dirs(flow: int):
     """A valve standing coil-up with its flow along world ±Y, as (x_dir, z_dir). The body's
@@ -259,8 +248,7 @@ def barb_station(tee: str) -> tuple:
 
 
 def body_name(chain: str) -> str:
-    """A chain entry's name as the assembly carries it. `build_assembly` labels a valve's body
-    `valve` and a tee's `tee`, then hangs the chain's own name off it in lower case."""
+    """A chain entry's materialized name: its body kind and lower-case chain name."""
     return f"{'valve' if chain.startswith('V-') else 'tee'}-{chain.lower()}"
 
 
@@ -295,46 +283,6 @@ FLAT = lay_out()
 P = FLAT
 PURCHASED_TEES = frozenset(n for n in P if n.startswith("Y-"))
 
-_tee_solid = None
-
-
-def tee_solid():
-    global _tee_solid
-    if _tee_solid is None:
-        _tee_solid = import_step(str(TEE_STEP)).val()
-    return _tee_solid
-
-
-_flat_cache = None
-
-
-def flat_bodies() -> dict:
-    """Every valve and tee placed FLAT — one deck, before the hinge turns anything. Built once:
-    `fold_radius` boxes these, and `build_assembly` turns the folded ones about the hinge, so
-    each solid is drawn a single time and the fold is a rigid move of it."""
-    global _flat_cache
-    if _flat_cache is not None:
-        return _flat_cache
-    out = {}
-    # All ten stations share one purchased valve geometry.
-    valve_body = vlv.build_body().union(vlv.build_port()).val()
-    valve_coil = cq.Compound.makeCompound(
-        [vlv.build_coil().val()] + [part.val() for part in vlv.build_spades()])
-    for name, b in P.items():
-        if name in PUMP_JUNCTIONS:
-            continue
-        if name.startswith("V-"):
-            origin, (x_dir, z_dir) = (b["x"], b["y"], DECK_Z - VALVE_PORT_Z), valve_dirs(b["arg"])
-            out[name] = [
-                ("valve", place(valve_body, origin, x_dir, z_dir), C_VALVE),
-                ("coil", place(valve_coil, origin, x_dir, z_dir), C_COIL)]
-        else:
-            x_dir, z_dir = tee_dirs(b["arg"])
-            out[name] = [("tee", place(tee_solid(), (b["x"], b["y"], DECK_Z), x_dir, z_dir),
-                          C_TEE)]
-    _flat_cache = out
-    return out
-
 
 # How far apart the two decks stand. CHOSEN, and the build is what says whether it is enough.
 #
@@ -342,8 +290,8 @@ def flat_bodies() -> dict:
 # underside against the SPADE TERMINALS of the valve beneath it — two 0.8 mm tabs reaching
 # 15 mm past a coil face, at z 121, in a band 1.4 mm wide. Every box that contains those tabs
 # also contains the coil crown 6 mm above them, so a box solve asks for 91.6 where the metal
-# needs 58.4. `clashes()` measures the placed solids at full precision on every build, so the
-# number below is chosen against it and not against a reach.
+# needs 58.4. The Rust manifold program measures the placed solids at full precision, so
+# the number below is chosen against that measurement and not against a reach.
 #
 # `HSM_DECK_SEP` builds another.
 DECK_SEP = float(os.environ.get("HSM_DECK_SEP", 60.95))
@@ -360,11 +308,6 @@ def fold_pt(p) -> tuple:
 
 def fold_dir(d) -> tuple:
     return (d[0], -d[1], -d[2])
-
-
-def folded(solid):
-    """A flat solid turned 180° about the hinge."""
-    return solid.rotate(FOLD_AXIS[0], FOLD_AXIS[1], 180.0)
 
 
 # --- The quarter turns -----------------------------------------------------
@@ -550,11 +493,6 @@ def bend_dir(d) -> tuple:
     return (d[0], -d[2], d[1])
 
 
-def bent(solid, z0: float):
-    return solid.rotate(cq.Vector(0.0, BEND_Y, z0 + BEND_R),
-                        cq.Vector(1.0, BEND_Y, z0 + BEND_R), 90.0)
-
-
 def hairpin_flat(r: float, across: float, back: float) -> list:
     """The hairpin in its own plane's `(across, along)`, as `("arc", a, mid, b)` and
     `("line", a, b)`. It starts at the origin heading +along and ends on `(across, −back)`
@@ -612,46 +550,6 @@ def sbend_flat(r: float, travel: float, jog: float) -> list:
     return segs
 
 
-def source_run(name: str, start, travel: float):
-    """The whole run off one quarter, heading +Z at `start` and ending heading +Z on
-    `start + source_cross(name) + travel`.
-
-    TWO PLANES, ONE RUN. The hairpin is drawn in the plane the pack's X and the run span, and
-    the step in the one `step_cross` and the run span; each is solved in its own
-    `(across, along)` and stood up along its own across. They meet heading +Z, which is the
-    only heading either of them ever ends on, so the tube is smooth through the joint without
-    either knowing the other. The hairpin comes first, and what it hands the step is a travel
-    that clears `two_arc_floor` and a column that is not the quarter's."""
-    off, cross = source_offset(name), step_cross(name)
-    jog = math.hypot(*cross)
-    back = hairpin_back(BEND_R, travel, jog)
-    o, edges = cq.Vector(*start), []
-    lanes = [(cq.Vector(off[0], off[1], 0.0).normalized(),
-              hairpin_flat(BEND_R, math.hypot(*off), back))] if back > 1e-9 else []
-    lanes.append((cq.Vector(cross[0], cross[1], 0.0).normalized(),
-                  sbend_flat(BEND_R, travel + back, jog)))
-    for axis, segs in lanes:
-        V = lambda p: o + axis * p[0] + cq.Vector(0.0, 0.0, p[1])              # noqa: E731
-        for s in segs:
-            edges.append(cq.Edge.makeThreePointArc(V(s[1]), V(s[2]), V(s[3])) if s[0] == "arc"
-                         else cq.Edge.makeLine(V(s[1]), V(s[2])))
-        o = edges[-1].endPoint()
-    prof = cq.Wire.makeCircle(TUBE_D / 2.0, cq.Vector(*start), cq.Vector(0.0, 0.0, 1.0))
-    return cq.Solid.sweep(prof, [], cq.Wire.assembleEdges(edges), makeSolid=True, isFrenet=True)
-
-
-def quarter(x: float, z0: float):
-    """One 90° turn: off the collet at (x, `BEND_Y`, z0) along +Y, round `BEND_R` onto +Z. It
-    meets both collets on their own axes and carries no straight at either end."""
-    r, k = BEND_R, BEND_R * math.sqrt(0.5)
-    a = cq.Vector(x, BEND_Y, z0)
-    b = cq.Vector(x, BEND_Y + r, z0 + r)
-    mid = cq.Vector(x, BEND_Y + k, z0 + r - k)
-    prof = cq.Wire.makeCircle(TUBE_D / 2.0, a, cq.Vector(0.0, 1.0, 0.0))
-    return cq.Solid.sweep(prof, [], cq.Wire.assembleEdges([cq.Edge.makeThreePointArc(a, mid, b)]),
-                          makeSolid=True, isFrenet=True)
-
-
 def fore_deck_aft_shift() -> float:
     """The fore valves' move in enclosure +Y off their deck station, over their tees' run
     axes behind the collet plate."""
@@ -684,13 +582,6 @@ def enclosure_axis(axis):
 def authoring_axis(axis):
     x, y, z = axis
     return (-x, z, y)
-
-
-def authoring_shape(shape):
-    """Invert the complete fitted enclosure pose for a native wet solid."""
-    return (shape.translate((0., -PACK_ORIGIN_Y, -WORLD_LIFT))
-            .rotate((0., 0., 0.), (0., 0., 1.), 180.)
-            .rotate((0., 0., 0.), (1., 0., 0.), -90.))
 
 
 def pump_wall_fore_y():
@@ -780,31 +671,6 @@ def branch_port(name: str, carrier_offset: float = CARRIER_SQUEEZE):
                   carrier_offset)
 
 
-def carrier_collet_port(name: str, carrier_offset: float = CARRIER_SQUEEZE):
-    """Compatibility accessor for a tee's branch collet face."""
-    if name in PUMP_JUNCTIONS:
-        return branch_port(name, carrier_offset)
-    p, axis = branch_port(name, carrier_offset)
-    reach = tee_solid().BoundingBox().ymax
-    inset = TEE_BRANCH - reach
-    return tuple(p[i] - axis[i] * inset for i in range(3)), axis
-
-
-def carrier_tee(name: str, carrier_offset: float = CARRIER_SQUEEZE):
-    """One fixed fitting with its branch sleeve extended."""
-    b = P[name]
-    x_dir, z_dir = tee_dirs(b['arg'])
-    solid = tee_solid()
-    solid = place(solid, (b['x'], b['y'], DECK_Z), x_dir, z_dir)
-    if b['fold']:
-        solid = folded(solid)
-    if name in BENT:
-        solid = bent(solid, BENT[name])
-    if name in SHIFT:
-        solid = solid.translate(cq.Vector(*SHIFT[name]))
-    return solid.translate((0, 0, CARRIER_DATUM_SHIFT + CARRIER_CONNECTED + FIXED_TEE_AFT_SHIFT))
-
-
 # Each reservoir has separate draw and fill mouths, reached directly by its two
 # valve paths. The four reservoir gate collets are external mouths of this study.
 JOINS = {}
@@ -848,10 +714,6 @@ def lower_links() -> dict:
             for cid, name in LOWER_CONNECTIONS.items()}
 
 
-def lower_tube(segments):
-    return _returns.tube(segments)
-
-
 def lower_link_length(cid: int) -> float:
     """A lower return tube's cut stock: its path between the two elbows and the depth each
     elbow's socket takes."""
@@ -874,52 +736,6 @@ def return_cut(x: float) -> float:
                                   if junction == name))
 
 
-def build_elbow(gate: str, side: float):
-    """One draw gate's elbow. Native frame: legs out +Y and +Z, bend corner at the origin."""
-    corner, _mouth, x_dir, z_dir, _seat = elbow_pose(gate, side)
-    solid = import_step(str(ELBOW_STEP)).val()
-    return place(solid, corner, x_dir, z_dir)
-
-
-def kamoer_bodies():
-    """The reference pump's three solids — head, rear boss, then motor can — in the frame
-    `kamoer_kphm400` draws them in, read once off its STEP.
-
-    Sorted along that frame's depth axis, which is what tells them apart: the head is the
-    solid in front of the base plane, the boss the one behind it, and the can behind that."""
-    global _KAMOER
-    if _KAMOER is None:
-        solids = sorted(import_step(str(KAMOER_STEP)).val().Solids(),
-                        key=lambda s: s.BoundingBox().zmin)
-        _KAMOER = tuple(solids[:3])
-    return _KAMOER
-
-
-def build_pump(px: float):
-    """Head, rear boss and motor as three solids, seated on the pump's own BARBS: both stand
-    on `barb_station`'s lowered plane while the limbs' anchor tees keep the fold plane.
-
-    All three are `kamoer_kphm400`'s solids, turned out of that module's case frame into this
-    study's. There the pump's depth runs along +Z with the barbs on the head's +Y face; here
-    the depth runs aft along +Y and the barbs stand on the head's crown. The quarter about X
-    lays the depth axis down and the half about Y rolls the barb face up off it — which also
-    swaps the two barbs across the head, and a peristaltic head has no fixed sense to swap."""
-    y0 = -BARB_INSET + PUMP_Y
-    parts = []
-    for solid in kamoer_bodies():
-        for axis, deg in PUMP_TURNS:
-            solid = solid.rotate(cq.Vector(0, 0, 0), cq.Vector(*axis), deg)
-        parts.append(solid.translate(cq.Vector(
-            px + kp.cx, y0 - kp.head_front_z, PUMP_BARB_Z - kp.body_y_face)))
-    return parts[0], parts[1], parts[2]
-
-
-def straight(a, b, d: float = TUBE_D):
-    """One length of tube between two collet faces."""
-    v = cq.Vector(*[b[i] - a[i] for i in range(3)])
-    return cq.Solid.makeCylinder(d / 2.0, v.Length, cq.Vector(*a), v.normalized())
-
-
 def _fore_segments(a, b):
     """The upper tube from a tee's run collet at `a` into its fore valve at `b`, both in this
     study's frame: carried into the enclosure frame, bent by `fixed_returns.s_bend`, and
@@ -927,23 +743,8 @@ def _fore_segments(a, b):
     return tuple(_authored(s) for s in _returns.s_bend(enclosure_point(a), enclosure_point(b)))
 
 
-def fore_stub_path(a, b, radius: float = MIN_BEND):
-    """The upper tube's centreline: straight from the tee's upper collet to its fore valve."""
-    edges = []
-    for s in _fore_segments(a, b):
-        p, q = cq.Vector(*s["start_mm"]), cq.Vector(*s["end_mm"])
-        edges.append(cq.Edge.makeThreePointArc(p, cq.Vector(*s["midpoint_mm"]), q)
-                     if s["kind"] == "arc" else cq.Edge.makeLine(p, q))
-    return cq.Wire.assembleEdges(edges)
-
-
 def fore_stub_length(a, b, radius: float = MIN_BEND) -> float:
     return sum(s["length_mm"] for s in _fore_segments(a, b))
-
-
-def bowed(a, b, developed=None, d: float = TUBE_D):
-    """The upper tube between a tee and its fore valve."""
-    return _returns.tube(_fore_segments(a, b))
 
 
 # --- The lines -------------------------------------------------------------
@@ -1068,72 +869,6 @@ MOUTHS = [(cid, p, what, port(body, end), port_axis(body, end)) for cid, p, what
     ("fluid-24", "V-I-O", "reservoir B fill", "V-I", "back"),
     ("fluid-26", "V-H-I", "reservoir B draw", "V-H", "back"),
 )]
-
-
-def build_assembly(carrier_offset: float = CARRIER_SQUEEZE, *, include_fixed_wet=True) -> cq.Assembly:
-    a = cq.Assembly(name="manifold-layout")
-    state_runs = runs(carrier_offset)
-    state_stubs = fore_stubs(carrier_offset)
-    for name, parts in flat_bodies().items():
-        for label, solid, color in parts:
-            if P[name]["fold"]:
-                solid = folded(solid)
-            if name in BENT:
-                solid = bent(solid, BENT[name])
-            if name in SHIFT:
-                solid = solid.translate(cq.Vector(*SHIFT[name]))
-            solid = solid.translate(cq.Vector(0.0, 0.0, fixed_aft_shift(name)))
-            a.add(solid, name=f"{label}-{name.lower()}", color=color)
-    for tee_name, (gate, side) in JOINS.items():
-        a.add(build_elbow(gate, side), name=f"elbow-{gate.lower()}-i", color=C_TEE)
-    for pname, px in PUMPS.items():
-        head, boss, motor = build_pump(px)
-        a.add(head, name=f"{pname}-head", color=C_HEAD)
-        a.add(boss, name=f"{pname}-boss", color=C_BOSS)
-        a.add(motor, name=f"{pname}-motor", color=C_MOTOR)
-    # Only the segments that carry tube outside their collets get a solid; the rest are butts.
-    # Each is drawn in the colour of the spool it is cut off (`_routing.SPOOLS`), which on this
-    # deck is black everywhere but `fluid-3` — V-A's outlet into Y-A, the last of the tap water
-    # before the funnel's syrup meets it.
-    for cid, _f, _t, how in SEGMENTS:
-        if how in state_runs and dist(*state_runs[how]) > 1e-9:
-            start, end = state_runs[how]
-            a.add(straight(start, end), name=f"tube-fluid-{cid}",
-                  color=_routing.tube_color(f"fluid-{cid}"))
-        elif how in state_stubs:
-            a.add(bowed(*state_stubs[how]), name=f"tube-fluid-{cid}",
-                  color=_routing.tube_color(f"fluid-{cid}"))
-    for cid, segments in lower_links().items():
-        a.add(lower_tube(segments), name=f"tube-fluid-{cid}",
-              color=_routing.tube_color(f"fluid-{cid}"))
-    # The four pump tees stand on the collet plate's stations, which the enclosure's own
-    # assembly places with the plate; this study draws them on their own.
-    if include_fixed_wet:
-        import dock_structure
-        fore = pump_wall_fore_y()
-        for name in sorted(PUMP_JUNCTIONS):
-            x, _y, z = enclosure_point(barb_station(name))
-            body = dock_structure.tee_body({"fore_y": fore}, x, z)
-            a.add(authoring_shape(body), name=body_name(name), color=C_TEE)
-            at_tee, at_valve = pump_plumbing()[name]['return']['elbows']
-            for host, row in ((name, at_tee), (PUMP_VALVES[name][1], at_valve)):
-                elbow = f"stem-elbow-{host.lower()}"
-                a.add(authoring_shape(dock_structure.elbow_body(row)), name=elbow,
-                      color=dock_structure.part_color(elbow))
-    for cid, (x, z0) in QUARTERS.items():
-        a.add(quarter(x, z0).translate((0.0, -INNER_LIMB_DROP + AFT_PACK_RISE, AFT_DECK_AFT_SHIFT)),
-              name=f"turn-fluid-{cid}", color=_routing.tube_color(f"fluid-{cid}"))
-    for cid, name in SBENDS.items():
-        x, z0 = QUARTERS[cid]
-        a.add(source_run(name, (x, BEND_Y + BEND_R - INNER_LIMB_DROP + AFT_PACK_RISE,
-                                 z0 + BEND_R + AFT_DECK_AFT_SHIFT), SOURCE_TRAVEL),
-              name=f"step-fluid-{cid}", color=_routing.tube_color(f"fluid-{cid}"))
-    # A mouth's stub is the first bend radius of the run that leaves on it, and carries that
-    # run's own colour.
-    for cid, _p, _what, p, axis in MOUTHS:
-        a.add(straight(p, tuple(p[i] + axis[i] * STUB for i in range(3))),
-              name=f"stub-{cid}", color=_routing.tube_color(cid))
-    return a
 
 
 def _sum(a, b):
@@ -1329,150 +1064,6 @@ class Clash(NamedTuple):
     where: Extents
 
 
-def extents(shape) -> Extents:
-    """A shape's box, as `(xmin, ymin, zmin, xmax, ymax, zmax)`.
-
-    Takes either a `Manifold` — what `_overlap.common` hands back — or a cq shape, whose box is
-    read off its surface poles without meshing, or off its own points on the mesh kernel."""
-    if hasattr(shape, "bounding_box"):
-        return Extents(*shape.bounding_box())
-    meshcad = sys.modules.get("meshcad")
-    if meshcad is not None and meshcad.is_mesh(shape):
-        b = shape.BoundingBox()
-        return Extents(b.xmin, b.ymin, b.zmin, b.xmax, b.ymax, b.zmax)
-    from OCP.Bnd import Bnd_Box
-    from OCP.BRepBndLib import BRepBndLib
-    bb = Bnd_Box()
-    BRepBndLib.Add_s(shape.wrapped, bb, False)
-    return Extents(*bb.Get())
-
-
-def placed_leaves(assy: cq.Assembly):
-    """Every shape-bearing node of an assembly, world-placed, as `(name, shape, colour)`.
-
-    AN ASSEMBLY MAY HOLD AN ASSEMBLY, and a pass that reads `children` one level deep does not
-    see through one: a sub-assembly node carries no shape of its own, so such a pass either
-    skips everything inside it or raises on the shape it has not got. This descends, composing
-    each node's location down the branch, and hands back the leaves.
-
-    A LEAF IS NAMED WHERE IT IS ADDED, path and all — `cold-core/evap-coil` is one body of the
-    core. The name is the branch spelled out, stated once by whoever built the tree, so nothing
-    here recomposes it and nothing downstream has to take it apart.
-    """
-    def walk(node, loc):
-        here = loc * node.loc
-        if node.obj is not None:
-            shape = node.obj.val() if hasattr(node.obj, "val") else node.obj
-            yield (node.name, shape.moved(cq.Location(here.wrapped.Transformation())),
-                   node.color)
-        for child in node.children:
-            yield from walk(child, here)
-
-    for child in assy.children:
-        yield from walk(child, assy.loc)
-
-
-def clashes(assy: cq.Assembly, floor: float = 1.0, bodies: dict = None):
-    """Every pair of placed solids that shares more than `floor` mm³ — as `Clash(a, b, volume,
-    where)`, `where` being the extents of the shared solid itself and not of either body — and
-    every pair the boolean would not answer for. Butted collets meet on a plane and share
-    nothing, so a clean arrangement returns two empty lists, and a pair OCCT raised on lands in
-    the second one rather than passing for clean.
-
-    The pair's boxes are a pre-filter and only that. Disjoint boxes prove disjoint solids, so
-    skipping on them is sound; overlapping boxes prove nothing at all, which is why no pair is
-    ever reported without the boolean having been asked.
-
-    `bodies` names the placed solids to read INSTEAD of the assembly's own children — what a
-    card hands in when the assembly exports a body some other card is what checks."""
-    solids = (list(bodies.items()) if bodies is not None else
-              [(name, shape) for name, shape, _colour in placed_leaves(assy)])
-    meshcad = sys.modules.get("meshcad")
-    on_meshes = meshcad is not None and meshcad.mesh_mode()
-    if on_meshes:
-        from meshcad.solids import MeshCompound, MeshModelSolid
-
-        def candidate_bounds(shape):
-            if not isinstance(shape, MeshCompound):
-                return _boxes.loose(shape)
-            bounds = None
-            for child in shape._solids():
-                if isinstance(child, MeshModelSolid):
-                    if not len(child.model_arrays()[1]):
-                        continue
-                elif child.m.is_empty():
-                    continue
-                box = child.BoundingBox()
-                bounds = box if bounds is None else bounds.add(box)
-            return bounds if bounds is not None else _boxes.loose(shape)
-    else:
-        candidate_bounds = _boxes.loose
-    boxes = [(n, s, candidate_bounds(s)) for n, s in solids]
-    pairs = []
-    for i in range(len(boxes)):
-        ni, si, bi = boxes[i]
-        for j in range(i + 1, len(boxes)):
-            nj, sj, bj = boxes[j]
-            if (bi.xmin > bj.xmax - 1e-6 or bj.xmin > bi.xmax - 1e-6
-                    or bi.ymin > bj.ymax - 1e-6 or bj.ymin > bi.ymax - 1e-6
-                    or bi.zmin > bj.zmax - 1e-6 or bj.zmin > bi.zmax - 1e-6):
-                continue
-            pairs.append((ni, si, nj, sj))
-
-    # Compounds can share fine children; each backend follows its last use through any body.
-    # A later-indexed body may be read as j long before its own i row begins.
-    last = {}
-    release = {}
-    if on_meshes:
-        dependencies = {}
-        for k, (_ni, si, _nj, sj) in enumerate(pairs):
-            for shape in (si, sj):
-                if shape not in dependencies:
-                    held = [shape] if isinstance(shape, (MeshCompound, MeshModelSolid)) else []
-                    if isinstance(shape, MeshCompound):
-                        held.extend(s for s in shape._solids() if isinstance(s, MeshModelSolid))
-                    dependencies[shape] = tuple(dict.fromkeys(held))
-                for held in dependencies[shape]:
-                    last[held] = k
-        for held, k in last.items():
-            release.setdefault(k, []).append(held)
-
-    hits, unanswered = [], []
-    try:
-        for k, (ni, si, nj, sj) in enumerate(pairs):
-            try:
-                inter, v = _overlap.common(si, sj)
-            except Exception as exc:
-                unanswered.append((ni, nj, str(exc).splitlines()[0]))
-                continue
-            finally:
-                for shape in release.pop(k, ()):
-                    meshcad.forget(shape)
-            # `floor` is above zero, so the shared solid is never the empty one a void box
-            # would be taken from.
-            if v > floor:
-                hits.append(Clash(ni, nj, v, extents(inter)))
-            del inter
-    finally:
-        for shapes in release.values():
-            for shape in shapes:
-                meshcad.forget(shape)
-    return hits, unanswered
-
-
-def envelope(assy: cq.Assembly, stubs: bool):
-    """The pack's box. Without `stubs` it is the bodies and the tube between them — what has to
-    be found room for. With them it adds one bend radius off each of the eight mouths, which is
-    the straight whatever routes them next has to leave in."""
-    box = None
-    for name, shape, _colour in placed_leaves(assy):
-        if not stubs and name.startswith("stub-"):
-            continue
-        b = shape.BoundingBox()
-        box = b if box is None else box.add(b)
-    return box
-
-
 # Channel A's body and channel B's. A mirrored pack puts each pair at ±x on one y and one z;
 # `mirror_off` is how far it misses by.
 #
@@ -1505,9 +1096,9 @@ def skew_deg(a, b, axis) -> float:
     return math.degrees(math.acos(max(-1.0, min(1.0, dot))))
 
 
-def report(assy: cq.Assembly | None, measurements=None) -> dict:
-    bb, reach = ((envelope(assy, stubs=False), envelope(assy, stubs=True)) if measurements is None
-                 else (Extents(*measurements['bb']), Extents(*measurements['reach'])))
+def report(assy, measurements) -> dict:
+    """Report the Rust manifold measurements and the scalar routing figures."""
+    bb, reach = Extents(*measurements['bb']), Extents(*measurements['reach'])
     print("\nlimbs (front → back, y at each body's centre)")
     for limb, spec in LIMBS.items():
         row = "  ".join(f"{n}@{P[n]['y']:+.1f}" for n, _ in spec["chain"])
@@ -1600,21 +1191,12 @@ def report(assy: cq.Assembly | None, measurements=None) -> dict:
         if max(dx, dy) > 1e-6:
             print(f"  {a} / {b}   x sums to {dx:.4f}, y differs by {dy:.4f}")
 
-    bad, unanswered = (clashes(assy) if measurements is None else
-                        ([Clash(c['a'],c['b'],c['volume'],Extents(*c['where'])) for c in measurements['hits']],
-                         measurements['unanswered']))
+    bad, unanswered = ([Clash(c['a'],c['b'],c['volume'],Extents(*c['where'])) for c in measurements['hits']],
+                       measurements['unanswered'])
     # A lower return's stem elbow shares its stem with the fitting it is bottomed in, and only what
     # lies outside the stem is an interference (`dock_structure.stem_overlap`).
-    stems = ({frozenset((r['a'],r['b'])):(r['inside'],r['outside'])
-              for r in measurements['stems']} if measurements is not None else {})
-    for c in (bad if measurements is None else []):
-        elbow = next((n for n in (c.a, c.b) if n.startswith("stem-elbow-")), None)
-        if elbow is not None:
-            import dock_structure
-            host = dock_structure.elbow_host(elbow)
-            if {c.a, c.b} == {elbow, host}:
-                solids = {n: shape for n, shape, _colour in placed_leaves(assy)}
-                stems[frozenset((c.a, c.b))] = dock_structure.stem_overlap(solids[elbow], solids[host])
+    stems = {frozenset((r['a'],r['b'])):(r['inside'],r['outside'])
+             for r in measurements['stems']}
     bad = [c for c in bad if stems.get(frozenset((c.a, c.b)), (0.0, 1.0))[1] > 1.0]
     if stems:
         print(f"\nstem elbows in their collets: {len(stems)}, worst "
@@ -1628,44 +1210,6 @@ def report(assy: cq.Assembly | None, measurements=None) -> dict:
     for ni, nj, why in unanswered:
         print(f"  {ni} ? {nj}   {why}")
     return dict(bb=bb, reach=reach, bad=bad + unanswered, made=made, mirror=off)
-
-
-def selftest() -> int:
-    """Manual geometry review of the fixed fluid pack, with no recurring hook."""
-    failures = []
-    for name in sorted(FIXED_TEES):
-        a, b = RUNS[name]
-        _mouth, axis = carrier_collet_port(name)
-        if abs(skew_deg(a, b, axis) - 180) > 1e-6:
-            failures.append(f"{name} pump tube is not on its tee's branch axis")
-        if abs(dist(a, b) - PUMP_STUB_PROJECTION) > 1e-8:
-            failures.append(f"{name} pump tube misses its prepared-tip datum")
-    for name, (a, b) in FORE_STUBS.items():
-        shape = bowed(a, b)
-        path = fore_stub_path(a, b)
-        if not shape.isValid() or len(shape.Solids()) != 1:
-            failures.append(f"{name} is not one valid upper tube")
-        if abs(path.Length() - fore_stub_length(a, b)) > 1e-6:
-            failures.append(f"{name} path length disagrees")
-        if dist(path.startPoint().toTuple(), a) > 1e-6 or dist(path.endPoint().toTuple(), b) > 1e-6:
-            failures.append(f"{name} misses its collet")
-    for cid, segments in lower_links().items():
-        line = pump_plumbing()[LOWER_CONNECTIONS[cid]]['return']
-        mouths = [authoring_point(tuple(e['crossing'][i] + e['socket'][i]
-                                        * _returns.elbow.SOCKET_MOUTH_REACH for i in range(3)))
-                  for e in line['elbows']]
-        if dist(segments[0]["start_mm"], mouths[0]) > 1e-6 \
-                or dist(segments[-1]["end_mm"], mouths[1]) > 1e-6:
-            failures.append(f"fluid-{cid} misses its elbows' sockets")
-        shape = lower_tube(segments)
-        if not shape.isValid() or len(shape.Solids()) != 1:
-            failures.append(f"fluid-{cid} is not one valid return tube")
-    for failure in failures:
-        print(f"FAIL: {failure}")
-    if failures:
-        return 1
-    print("PASS: four prepared pump tubes, four upper tubes and four lower returns meet their stations")
-    return 0
 
 
 def _write_readme(r):
@@ -1757,14 +1301,6 @@ def _write_readme(r):
     print("-> README.md")
 
 
-def _native_main():
-    assy = build_assembly()
-    out = _here.parent / "manifold-layout.step"
-    export_assembly(assy, str(out))
-    print(f"-> {out.name}")
-    _write_readme(report(assy))
-
-
 def main():
     import _rust_part
     said = _rust_part.cut("machine", "manifold-layout", numbers(), _here.parent)
@@ -1773,8 +1309,6 @@ def main():
 
 
 if __name__ == "__main__":
-    if sys.argv[1:] == ["selftest"]:
-        sys.exit(selftest())
     if sys.argv[1:]:
-        sys.exit("usage: manifold_layout.py [selftest]")
+        sys.exit("usage: manifold_layout.py")
     sys.exit(main())
