@@ -4,7 +4,6 @@ Construction uses machine coordinates. The exported removable frame is translate
 onto its flat underside, with the funnel's plan center at the origin.
 """
 
-import functools
 import argparse
 import math
 import sys
@@ -24,12 +23,10 @@ if __name__ == '__main__':
     _rust_part.start()
 
 
-def __getattr__(name):
-    if name == "cq":
-        import cadquery as value
-        globals()[name] = value
-        return value
-    raise AttributeError(name)
+# Construction leaves supplied by _enclosure_back_top._frame_leaves while
+# recording the enclosure numeric graph; dimensions remain in numbers().
+body_blank = roof_blank = receivers = shell_screw_cuts = None
+
 
 # Shared by the frame, shell opening, and assembly placement.
 center_y = 182.5 + (funnel.aft_extension - funnel.forward_extension) / 2.0
@@ -62,35 +59,6 @@ def datums(seat=349.0):
     return seat - funnel.drop - web, seat - funnel.drop, seat - rail_below_seat
 
 
-def rear_narrowing(inner, y_joint, air=0.0):
-    """Keep the complete upper M5 seam blocks outside the removable frame."""
-    import cadquery as cq
-    import enclosure as enc
-    limit = inner[1] - enc.y_stack_high_depth - enc.slide_slip + air
-    y0 = y_joint - enc.slide_slip + air
-    return cq.Compound.makeCompound([
-        cq.Solid.makeBox(60.0, 200.0, 200.0, cq.Vector(limit, y0, 250.0)),
-        cq.Solid.makeBox(60.0, 200.0, 200.0, cq.Vector(-limit - 60.0, y0, 250.0))])
-
-
-def corbel_cut(centre, floor, air=0.0):
-    """The two full-width 30 degree end planes of the removable lower body."""
-    import cadquery as cq
-    cx, cy = centre
-    cuts = []
-    for sign in (-1, 1):
-        low, high = floor - 2, floor + 80
-        foot = corbel_foot_half_depth + air / math.cos(math.radians(30))
-        y0 = cy + sign * (foot + corbel_slope * (low - floor))
-        y1 = cy + sign * (foot + corbel_slope * (high - floor))
-        outside = cy + sign * 400
-        wire = cq.Wire.makePolygon(
-            [cq.Vector(cx - 150, y, z) for y, z in
-             ((y0, low), (outside, low), (outside, high), (y1, high))], close=True)
-        cuts.append(cq.Solid.extrudeLinear(wire, [], cq.Vector(300, 0, 0)))
-    return cq.Compound.makeCompound(cuts)
-
-
 def roof_datums(inner=DEFAULT_INNER, centre=(0.0, center_y), seat=349.0,
                 y_joint=200.0, full_front_opening=False):
     """Full removable roof surround, with a fixed horizontal underside bearing."""
@@ -100,33 +68,6 @@ def roof_datums(inner=DEFAULT_INNER, centre=(0.0, center_y), seat=349.0,
                 back=cy + depth / 2 + rear_roof_access_extension, floor=seat - web,
                 top=seat + funnel.brim_thickness,
                 taper_floor=seat - web, side_reach=(width - body_width) / 2)
-
-
-def _front_square_blank(w, front, back, z0, z1, cx, radius, rear_cut):
-    """Square front and seam shoulders, with rounded aft corners."""
-    import cadquery as cq
-    blank = cq.Solid.makeBox(w, back - front, z1 - z0,
-                            cq.Vector(cx - w / 2, front, z0))
-    blank = blank.cut(rear_cut).clean()
-    rear_edges = [edge for edge in blank.Edges()
-                  if abs(edge.BoundingBox().ymin - back) < 1e-7
-                  and abs(edge.BoundingBox().ymax - back) < 1e-7
-                  and edge.BoundingBox().zlen > z1 - z0 - 1e-7]
-    return blank.fillet(radius, rear_edges)
-
-
-def roof_blank(inner, centre, seat, air=0.0, y_joint=200.0,
-               full_front_opening=False):
-    """Shallow flange/pocket across both upper shells, narrowed beside M5 blocks.
-
-    XY clearance grows the roof pocket. The lower bearing plane does not move:
-    tightening the screws seats the frame flush with the roof.
-    """
-    cx, cy = centre
-    r = roof_datums(inner, centre, seat, y_joint, full_front_opening)
-    return _front_square_blank(r['width'] + 2 * air, r['front'] - air,
-        r['back'] + air, r['floor'], r['top'] + air, cx,
-        corner_radius + air, rear_narrowing(inner, y_joint, air))
 
 
 def fastener_datums(inner=DEFAULT_INNER, y_joint=200.0,
@@ -159,55 +100,6 @@ def fastener_datums(inner=DEFAULT_INNER, y_joint=200.0,
     return tuple(rows)
 
 
-def _ledge_relief(inner, y_joint, centre, seat, air=0.0):
-    """Plain underside notches passing the four ledges through the vertical drop."""
-    import cadquery as cq
-    import enclosure as enc
-    floor = datums(seat)[0]
-    r = roof_datums(inner, centre, seat, y_joint)
-    cuts = []
-    for row in fastener_datums(inner, y_joint, centre, seat):
-        side = row['side']
-        inside = row['x'] - side * (row['host_radius_mm'] + enc.slide_slip - air)
-        xa, xb = sorted((inside, centre[0] + side * 150.0))
-        start = row['y'] - SCREW_PAD_HALF_Y - enc.slide_slip + air
-        end = (r['back'] + air + 1 if row['col'] == 'back' else
-               row['y'] + SCREW_PAD_HALF_Y + enc.slide_slip - air)
-        cuts.append(cq.Solid.makeBox(xb - xa, end - start,
-            r['floor'] - floor + 1, cq.Vector(xa, start, floor - 1)))
-    return cq.Compound.makeCompound(cuts)
-
-
-def body_blank(centre, seat, air=0.0, inner=DEFAULT_INNER, y_joint=200.0):
-    cx, cy = centre
-    floor, _plug, _rail = datums(seat)
-    r = roof_datums(inner, centre, seat, y_joint)
-    body = _front_square_blank(body_width + 2 * air, r['front'] - air,
-        r['back'] + air, floor - air, seat + air, cx, corner_radius + air,
-        rear_narrowing(inner, y_joint, air))
-    body = body.cut(_ledge_relief(inner, y_joint, centre, seat, air),
-                    corbel_cut(centre, floor, air))
-    return body.fuse(roof_blank(inner, centre, seat, air, y_joint)).clean()
-
-
-@functools.cache
-def forming_clearance():
-    """Silicone forming air; the plug and brim have their separate seats."""
-    return funnel.build_solids(outer_air=forming_air, plug=False, brim=False)[0]
-
-
-def merge_edges(shape):
-    import cadquery as cq
-    meshcad = sys.modules.get("meshcad")
-    if meshcad is not None and meshcad.is_mesh(shape):
-        return shape                          # a mesh has no edges to merge
-    from OCP.ShapeUpgrade import ShapeUpgrade_UnifySameDomain
-
-    merge = ShapeUpgrade_UnifySameDomain(shape.wrapped, True, False, False)
-    merge.Build()
-    return cq.Shape.cast(merge.Shape())
-
-
 def drain_seat_datums(centre=(0.0, center_y), seat=349.0):
     """The removable frame's drain-hole axis and 3 mm snap-web seats."""
     cx, cy = centre
@@ -220,31 +112,6 @@ def drain_seat_datums(centre=(0.0, center_y), seat=349.0):
                 depth=2 * (elbow_cradle.plug_half_length(half) + gap))
 
 
-def _frame_screw_cuts(inner, y_joint, centre, seat):
-    import cadquery as cq
-    import enclosure as enc
-    floor = datums(seat)[0]
-    cuts = []
-    for row in fastener_datums(inner, y_joint, centre, seat):
-        x, y, head = row['x'], row['y'], row['head_seat_z']
-        shank = cq.Solid.makeCylinder(enc.screw_clear_dia / 2,
-            head - floor + 1.01, cq.Vector(x, y, floor - 1))
-        head_cut = cq.Solid.makeCylinder(enc.head_cbore_dia / 2,
-            seat + funnel.brim_thickness + 1 - head, cq.Vector(x, y, head))
-        # Open each counterbore to the side above its complete bearing floor.
-        head_inner = abs(x-centre[0]) - enc.head_cbore_dia / 2
-        if row['col'] == 'front':
-            brim_edge = funnel.collar_w/2 + funnel.brim_overhang + enc.funnel_collar_air
-            head_inner = min(head_inner, brim_edge)
-        inner_edge = centre[0] + row['side'] * head_inner
-        xa, xb = sorted((inner_edge, centre[0] + row['side'] * 150.0))
-        head_cut = head_cut.fuse(cq.Solid.makeBox(xb - xa, enc.head_cbore_dia,
-            seat + funnel.brim_thickness + 1 - head,
-            cq.Vector(xa, y - enc.head_cbore_dia / 2, head)))
-        cuts.append(shank.fuse(head_cut).clean())
-    return cq.Compound.makeCompound(cuts)
-
-
 def body_side_half_width(inner=DEFAULT_INNER, y_joint=200.0,
                          centre=(0.0, center_y), seat=349.0):
     """Plain lower side faces aligned with the front ledge passage."""
@@ -252,93 +119,6 @@ def body_side_half_width(inner=DEFAULT_INNER, y_joint=200.0,
     return min(abs(row['x']-centre[0])-row['host_radius_mm']-enc.slide_slip
                for row in fastener_datums(inner,y_joint,centre,seat)
                if row['col']=='front')
-
-
-def _plain_frame_surround(body,inner,y_joint,centre,seat):
-    """Flat rear brim bearing and finite screw pads, with plain lower sides."""
-    import cadquery as cq
-    import enclosure as enc
-    floor = datums(seat)[0]
-    roof = roof_datums(inner,centre,seat,y_joint)
-    half = body_side_half_width(inner,y_joint,centre,seat)
-    cuts = [cq.Solid.makeBox(150.-half,400.,roof['floor']-floor+1.,
-                cq.Vector(centre[0]+half,centre[1]-200.,floor-1.)),
-            cq.Solid.makeBox(150.-half,400.,roof['floor']-floor+1.,
-                cq.Vector(centre[0]-150.,centre[1]-200.,floor-1.))]
-    rear = cq.Solid.makeBox(300.,200.,roof['top']-seat+1.,
-                           cq.Vector(centre[0]-150.,y_joint-enc.slide_slip,seat))
-    pads = [cq.Solid.makeCylinder(SCREW_HEAD_D/2.,roof['top']-seat+2.,
-                cq.Vector(row['x'],row['y'],seat-0.5))
-            for row in fastener_datums(inner,y_joint,centre,seat)
-            if row['col']=='back']
-    cuts.append(rear.cut(*pads))
-    return body.cut(*cuts)
-
-
-@functools.cache
-def build(inner=DEFAULT_INNER, y_joint=200.0, centre=(0.0, center_y), seat=349.0):
-    import cadquery as cq
-    import enclosure as enc
-    cx, cy = centre
-    floor, plug, _rail = datums(seat)
-    body = body_blank(centre, seat, inner=inner, y_joint=y_joint)
-    clear = forming_clearance().translate((cx, cy, seat))
-    clear = clear.intersect(funnel._box(400, 400, plug, seat, cx, cy))
-    brim = funnel.brim_plan(enc.funnel_collar_air, seat,
-                            seat + funnel.brim_thickness + 1, cx, cy)
-    place = cq.Vector(cx + funnel.neck_dx, cy + funnel.neck_dy, floor)
-    half, gap = funnel.plug_width / 2, (socket_width - funnel.plug_width) / 2
-    socket = elbow_cradle.socket(half, gap, socket_depth, *socket_flare).translate(place)
-    pierce = [c.translate(place) for c in elbow_cradle.web_cuts()]
-    for cutter in (socket, clear, brim, *pierce,
-                   _frame_screw_cuts(inner, y_joint, centre, seat)):
-        body = body.cut(cutter)
-    body = _plain_frame_surround(body,inner,y_joint,centre,seat)
-    body = merge_edges(body).clean()
-    assert body.isValid() and len(body.Solids()) == 1
-    assert abs(body.BoundingBox().zmin - floor) < 0.0001
-    return body
-
-
-def receivers(inner, outer, y_joint, centre, seat, col, up=None):
-    """Broad shell-rooted horizontal ledges below the removable flange.
-
-    Fuse these before the final frame clearance. Apply shell_screw_cuts after
-    all furniture and clearances so the insert pilots stay open. On a piece
-    printing roof-up (`up` > 0) each host's underside walks 45 degrees out to
-    the box's interior plane, so the host stands on its own corbel.
-    """
-    import cadquery as cq
-    import enclosure as enc
-    blocks = []
-    for row in fastener_datums(inner, y_joint, centre, seat):
-        if row['col'] != col:
-            continue
-        side = row['side']
-        inside = row['x'] - side * row['host_radius_mm']
-        xa, xb = sorted((inside, outer[0] if side < 0 else outer[1]))
-        y0, bottom = row['y'] - SCREW_PAD_HALF_Y, row['host_bottom_z']
-        block = cq.Solid.makeBox(xb - xa, 2 * SCREW_PAD_HALF_Y,
-            row['ledge_z'] - bottom, cq.Vector(xa, y0, bottom))
-        if up is not None and up > 0:
-            wall_x = inner[1] if side > 0 else inner[0]
-            block = block.fuse(enc._xz_prism(y0, y0 + 2 * SCREW_PAD_HALF_Y, [
-                (inside, bottom), (wall_x, bottom),
-                (wall_x, bottom - abs(wall_x - inside))]))
-        blocks.append(block)
-    return cq.Compound.makeCompound(blocks) if blocks else None
-
-
-def shell_screw_cuts(inner, centre, seat, col, y_joint=200.0):
-    """Upward-opening RX-M3x5.7 pilots; cut after shell furniture is joined."""
-    import cadquery as cq
-    import enclosure as enc
-    cuts = [cq.Solid.makeCylinder(enc.heatset_dia / 2,
-            row['insert_top_z'] + 1 - row['bore_bottom_z'],
-            cq.Vector(row['x'], row['y'], row['bore_bottom_z']))
-            for row in fastener_datums(inner, y_joint, centre, seat)
-            if row['col'] == col]
-    return cq.Compound.makeCompound(cuts) if cuts else None
 
 
 def shell_clearance(centre, seat, inner=DEFAULT_INNER, y_joint=200.0):
@@ -355,25 +135,6 @@ def front_roof_clearance(inner, centre, seat, y_joint):
     """
     import enclosure as enc
     return roof_blank(inner, centre, seat, enc.slide_slip, y_joint)
-
-
-def _native_main(output=None):
-    import cadquery as cq
-    from _cadq_export import export_assembly, import_assembly
-    from _materials import M_PETGF_BLACK, one_body
-    from flute_payload import cut
-    from print_mesh import write_print_stl
-    shape = build()
-    floor, _plug, _rail = datums()
-    print_shape = shape.translate((0, -center_y, -floor))
-    here = Path(output) if output is not None else Path(__file__).resolve().parent
-    here.mkdir(parents=True, exist_ok=True)
-    step, stl = here / 'funnel-frame.step', here / 'funnel-frame.stl'
-    export_assembly(one_body(cq.Workplane(obj=print_shape), 'funnel-frame', M_PETGF_BLACK), str(step))
-    write_print_stl(import_assembly(step)['funnel-frame'][0], stl, tol=0.02, angle=0.08)
-    cut(step, stl)
-    print(f'-> {step.name}, {stl.name}; {shape.Volume():.1f} mm3; floor Z {floor:g}')
-    _document()
 
 
 def _document():
@@ -444,9 +205,7 @@ def numbers(inner=DEFAULT_INNER, y_joint=200.0, centre=(0.0, center_y), seat=349
     }
 
 
-def main(output=None, native=False):
-    if native:
-        return _native_main(output)
+def main(output=None):
     import _rust_part
     out = Path(output) if output is not None else Path(__file__).resolve().parent
     out.mkdir(parents=True, exist_ok=True)
@@ -459,6 +218,5 @@ def main(output=None, native=False):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--output', type=Path)
-    parser.add_argument('--native', action='store_true')
     options = parser.parse_args()
-    main(options.output, options.native)
+    main(options.output)
