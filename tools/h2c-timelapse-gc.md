@@ -70,6 +70,11 @@ is logged and skipped until the next run. The runner then applies
 [`cache_gc.py`](cache_gc.py) `--days 3`, which deletes scratch in the repository's
 `.cache` that has gone three days without a write.
 
+Agent comparisons and publication snapshots use `.cache/runs/<purpose>-<run-id>`.
+Each run expires independently, so a new run does not keep old snapshots alive.
+Agents remove completed runs immediately; the scheduled cleanup handles leftovers.
+Finished deliverables and physical print records live outside `.cache`.
+
 - Runner: `~/.config/h2c-gc/run.sh` (mode `700`). It stores printer credentials,
   `KEEP_COUNT`, and `ARCHIVE_ROOT` outside Git.
 - LaunchAgent: `~/Library/LaunchAgents/com.homesodamachine.h2c-timelapse-gc.plist`,
