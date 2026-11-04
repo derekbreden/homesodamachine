@@ -1,0 +1,277 @@
+{
+  "views": [
+    {
+      "name": "soda-bulkhead",
+      "caption": "The fitted SODA bulkhead and separate nut meet the meter on the measured inboard mouth.",
+      "before": "soda-bulkhead-before.webp",
+      "after": "soda-bulkhead-after.webp",
+      "width": 1200,
+      "height": 800,
+      "marks": [
+        {
+          "x": 798.7,
+          "y": 414.6,
+          "r": 76.2,
+          "label": "SODA bulkhead",
+          "at": [
+            76.5,
+            475,
+            291
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "orthographic",
+        "position": [
+          190.01979554621153,
+          559.0197955462115,
+          342.00989777310576
+        ],
+        "target": [
+          80,
+          449,
+          287
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "half": 42,
+        "near": 107.97625431720576,
+        "far": 286.7584220797995,
+        "aspect": 1.5
+      },
+      "highlight": [],
+      "ghost": [],
+      "only": [
+        "bulkhead-carb",
+        "bulkhead-carb-nut",
+        "digiten-flow*",
+        "tube-soda-meter-bulkhead"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "00bbf767bfd8f0c95c862ff2316a796b67be191dd25ec35c0f2ba8d9092fe291",
+          "commit": "e517c7663fb9d5b2e235e4e3c176e7506f03c979",
+          "taken": "2026-11-04T05:44:27.080Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "8009d0deac51a38662b3c187b89a87e9227c3982eaa24e0ac77f774f09ebd423",
+          "commit": "e517c7663fb9d5b2e235e4e3c176e7506f03c979",
+          "published": false
+        }
+      },
+      "changed": [
+        "bulkhead-carb",
+        "bulkhead-carb-nut",
+        "soda-continuous-insulation",
+        "gas-check",
+        "cold-core/discharge-chain",
+        "tube-soda-meter-bulkhead",
+        "wire-J4-IO25",
+        "wire-J4-V5",
+        "enclosure-back-top",
+        "soda-bend-holder",
+        "tube-soda-core-rise",
+        "digiten-flow",
+        "meter-snap-cap",
+        "wire-flow-GND"
+      ],
+      "withinMeshing": [
+        "tube-above-core-gas-core-drop",
+        "cold-core/tube-water-5",
+        "enclosure-front-bottom",
+        "enclosure-back-bottom"
+      ]
+    },
+    {
+      "name": "gas-stem-check",
+      "caption": "The measured stem check enters the Pisco outlet at its catalog insertion depth.",
+      "before": "gas-stem-check-before.webp",
+      "after": "gas-stem-check-after.webp",
+      "width": 1200,
+      "height": 800,
+      "marks": [
+        {
+          "x": 327.8,
+          "y": 440.7,
+          "r": 73.7,
+          "label": "Stem check",
+          "at": [
+            76.5,
+            405,
+            328
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "orthographic",
+        "position": [
+          203.45741310069275,
+          393.9127760697922,
+          404.1744478604156
+        ],
+        "target": [
+          76.5,
+          432,
+          328
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "half": 38,
+        "near": 89.21909681921004,
+        "far": 254.8358140300463,
+        "aspect": 1.5
+      },
+      "highlight": [],
+      "ghost": [],
+      "only": [
+        "gas-check",
+        "gas-regulator*",
+        "co2-inlet"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "00bbf767bfd8f0c95c862ff2316a796b67be191dd25ec35c0f2ba8d9092fe291",
+          "commit": "e517c7663fb9d5b2e235e4e3c176e7506f03c979",
+          "taken": "2026-11-04T05:44:27.080Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "8009d0deac51a38662b3c187b89a87e9227c3982eaa24e0ac77f774f09ebd423",
+          "commit": "e517c7663fb9d5b2e235e4e3c176e7506f03c979",
+          "published": false
+        }
+      },
+      "changed": [
+        "bulkhead-carb",
+        "bulkhead-carb-nut",
+        "soda-continuous-insulation",
+        "gas-check",
+        "cold-core/discharge-chain",
+        "tube-soda-meter-bulkhead",
+        "wire-J4-IO25",
+        "wire-J4-V5",
+        "enclosure-back-top",
+        "soda-bend-holder",
+        "tube-soda-core-rise",
+        "digiten-flow",
+        "meter-snap-cap",
+        "wire-flow-GND"
+      ],
+      "withinMeshing": [
+        "tube-above-core-gas-core-drop",
+        "cold-core/tube-water-5",
+        "enclosure-front-bottom",
+        "enclosure-back-bottom"
+      ]
+    },
+    {
+      "name": "water-stem-check",
+      "caption": "The water-side instance uses the same measured reference in the ATEU44W socket.",
+      "before": "water-stem-check-before.webp",
+      "after": "water-stem-check-after.webp",
+      "width": 1200,
+      "height": 800,
+      "marks": [
+        {
+          "x": 733,
+          "y": 384.3,
+          "r": 80,
+          "label": "Stem check",
+          "at": [
+            -81.7,
+            371,
+            266.3
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "orthographic",
+        "position": [
+          -1.637997904780207,
+          300.7465985333462,
+          308.1810010476099
+        ],
+        "target": [
+          -82,
+          357,
+          268
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "half": 35,
+        "near": 59.25489206384844,
+        "far": 174.09338339164415,
+        "aspect": 1.5
+      },
+      "highlight": [],
+      "ghost": [],
+      "only": [
+        "cold-core/discharge-chain",
+        "cold-core/carbonator-fold*"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "00bbf767bfd8f0c95c862ff2316a796b67be191dd25ec35c0f2ba8d9092fe291",
+          "commit": "e517c7663fb9d5b2e235e4e3c176e7506f03c979",
+          "taken": "2026-11-04T05:44:27.080Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "8009d0deac51a38662b3c187b89a87e9227c3982eaa24e0ac77f774f09ebd423",
+          "commit": "e517c7663fb9d5b2e235e4e3c176e7506f03c979",
+          "published": false
+        }
+      },
+      "changed": [
+        "bulkhead-carb",
+        "bulkhead-carb-nut",
+        "soda-continuous-insulation",
+        "gas-check",
+        "cold-core/discharge-chain",
+        "tube-soda-meter-bulkhead",
+        "wire-J4-IO25",
+        "wire-J4-V5",
+        "enclosure-back-top",
+        "soda-bend-holder",
+        "tube-soda-core-rise",
+        "digiten-flow",
+        "meter-snap-cap",
+        "wire-flow-GND"
+      ],
+      "withinMeshing": [
+        "tube-above-core-gas-core-drop",
+        "cold-core/tube-water-5",
+        "enclosure-front-bottom",
+        "enclosure-back-bottom"
+      ]
+    }
+  ]
+}
