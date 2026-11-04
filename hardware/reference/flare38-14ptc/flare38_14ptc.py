@@ -70,64 +70,10 @@ def tube_port():
     return (LENGTH, 0.0, 0.0), (1.0, 0.0, 0.0)
 
 
-def build():
-    """Swivel nut (X = 0, at the flare) → neck → 3/8" collet → the reducer's
-    collar → 1/4" PTC collet (+X)."""
-    import cadquery as cq
-    nut = cq.Workplane("YZ").polygon(6, NUT_ACROSS_CORNERS).extrude(NUT_LENGTH).val()
-    nut = nut.cut(cq.Solid.makeCylinder(
-        NUT_BORE_D / 2.0, NUT_LENGTH, cq.Vector(0, 0, 0), cq.Vector(1, 0, 0)))
-    part, x = nut, NUT_LENGTH
-    for dia, length in ((NECK_D, NECK_LENGTH),
-                        (COLLET38_D, COLLET38_LENGTH),
-                        (COLLET38_D, COLLAR_LENGTH),
-                        (COLLET14_D, COLLET14_LENGTH)):
-        part = part.fuse(cq.Solid.makeCylinder(
-            dia / 2.0, length, cq.Vector(x, 0, 0), cq.Vector(1, 0, 0)))
-        x += length
-    return part
-
-
-def _native_main():
-    from _cadq_export import export_assembly
-    from _materials import M_JG_GREY_ACETAL, one_body
-    part = build()
-    bb = part.BoundingBox()
-    print("ASSE 1022 outlet adapter — 3/8\" FFL x 1/4\" PTC (PI4512F6S + PP061208W)")
-    print(f"  Bounding box: X [{bb.xmin:.2f}, {bb.xmax:.2f}]  "
-          f"Y [{bb.ymin:.2f}, {bb.ymax:.2f}]  Z [{bb.zmin:.2f}, {bb.zmax:.2f}]")
-    print(f"  Nut {NUT_ACROSS_CORNERS} across corners x {NUT_LENGTH:g}; "
-          f"3/8\" collet Ø{COLLET38_D} x {COLLET38_LENGTH:g}; "
-          f"1/4\" collet Ø{COLLET14_D} x {COLLET14_LENGTH:g}; total {LENGTH:g} mm")
-    out = _here.parent / "flare38-14ptc.step"
-    export_assembly(one_body(part, out.stem, M_JG_GREY_ACETAL), str(out))
-    print(f"-> {out.name}")
-
-
-
-
 _FROZEN_DIR = Path(__file__).resolve().parent
 STEP_PATH = _FROZEN_DIR / 'flare38-14ptc.step'
 PAYLOAD_PATH = _FROZEN_DIR / 'flare38-14ptc.step.mesh'
 ASSET_MANIFEST_PATH = _FROZEN_DIR / "frozen-asset.json"
-
-
-def __getattr__(name):
-    if name in globals():
-        return globals()[name]
-    if name in ('cq',):
-        import cadquery as cq
-        value = locals()[name]
-    elif name in ('export_assembly',):
-        from _cadq_export import export_assembly
-        value = locals()[name]
-    elif name in ('M_JG_GREY_ACETAL', 'one_body'):
-        from _materials import M_JG_GREY_ACETAL, one_body
-        value = locals()[name]
-    else:
-        raise AttributeError(name)
-    globals()[name] = value
-    return value
 
 
 def main():

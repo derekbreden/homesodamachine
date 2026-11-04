@@ -11,9 +11,6 @@ Geometry is held in the frozen STEP and fine payload beside this module.
 
 from __future__ import annotations
 from pathlib import Path
-import argparse
-import json
-import math
 import sys
 
 
@@ -162,121 +159,13 @@ def profile_between(profile, lo, hi):
             (hi, radius_at(profile, hi))]
 
 
-def turned(profile):
-    import cadquery as cq
-    outline = [(profile[0][0], 0), *profile, (profile[-1][0], 0)]
-    return cq.Workplane('XY').polyline(outline).close().revolve(360, (0, 0), (1, 0)).val()
-
-
-def barrel(radius, lo, hi):
-    import cadquery as cq
-    return cq.Solid.makeCylinder(radius, hi-lo, cq.Vector(lo, 0, 0), cq.Vector(1, 0, 0))
-
-
-def clipped_hex(shape, lo, hi, record):
-    import cadquery as cq
-    prism = (cq.Workplane('YZ', origin=(lo, 0, 0))
-        .polygon(6, record['across_flats_mm']/math.cos(math.pi/6)).extrude(hi-lo).val()
-        .rotate((0, 0, 0), (1, 0, 0), record['vertex_clock_degrees'])
-        .translate((0, *record['center_yz_mm'])))
-    return shape.intersect(prism).clean()
-
-
-def native(shape):
-    return (shape.rotate((0, 0, 0), (0, 0, 1), -90)
-            .translate((0, PARAMETERS['panel_seat_local_x_mm'], 0)))
-
-
-def build():
-    import cadquery as cq
-    p = PARAMETERS
-    near, far = p['outboard_mouth_local_x_mm'], p['inboard_mouth_local_x_mm']
-    seat, stop = p['panel_seat_local_x_mm'], p['barrel_end_local_x_mm']
-    shoulder = p['body_hex_stop_local_x_mm']
-    profile = p['profiles']['outboard']
-    front = turned(profile_between(profile, near, shoulder))
-    front = clipped_hex(front, near, shoulder, p['body_hex'])
-    plate = turned(profile_between(profile, shoulder, seat))
-    stem = turned(profile_between(p['profiles']['inboard'], stop, far))
-    shape = front.fuse(plate).fuse(barrel(THREAD_D/2, seat-.02, stop+.02)).fuse(stem)
-    shape = shape.cut(barrel(TUBE_OD/2, near-.02, far+.02))
-    for x, sign in [(near, 1), (far, -1)]:
-        entrance = cq.Solid.makeCone(2.7, TUBE_OD/2, .65,
-                                    cq.Vector(x-sign*.01, 0, 0), cq.Vector(sign, 0, 0))
-        shape = shape.cut(entrance)
-    return native(shape.clean().fix())
-
-
-def build_nut():
-    p = PARAMETERS
-    lo, hi = p['nut_axial_range_local_mm']; shoulder = p['nut_hex_start_local_x_mm']
-    profile = p['profiles']['nut']
-    lip = turned(profile_between(profile, lo, shoulder))
-    wrench = clipped_hex(turned(profile_between(profile, shoulder, hi)), shoulder, hi, p['nut_hex'])
-    # The clearance bore represents the hidden female thread envelope. It does
-    # not specify engagement, running clearance or the pressure-bearing wall.
-    shape = lip.fuse(wrench).cut(barrel(THREAD_D/2+.08, lo-.02, hi+.02)).clean().fix()
-    return native(shape)
-
-
-def parts():
-    return {'fitting': build(), 'captured_nut': build_nut()}
-
-
-def build_assembly():
-    import cadquery as cq
-    from _materials import M_NEOFIT_ACETAL
-    assembly = cq.Assembly(name='neoFit_ABU44M_E_4mm_bulkhead')
-    for name, shape in parts().items():
-        assembly.add(shape, name=name, color=M_NEOFIT_ACETAL)
-    return assembly
-
-
-def _native_main():
-    import cadquery as cq
-    from _cadq_export import export_assembly
-    parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--stl', type=Path, help='Also export the captured fitting and nut as STL.')
-    args = parser.parse_args()
-    assembly = build_assembly()
-    export_assembly(assembly, str(STEP))
-    if args.stl:
-        cq.exporters.export(assembly.toCompound(), str(args.stl), tolerance=.025, angularTolerance=.08)
-    bb = assembly.toCompound().BoundingBox()
-    print(json.dumps({'step': str(STEP), 'bounds_xyz_mm': [bb.xlen, bb.ylen, bb.zlen],
-                      'outboard_port': port(1), 'inboard_port': port(-1),
-                      'components': {k: {'valid': s.isValid(), 'solids': len(s.Solids())} for k, s in parts().items()}}, indent=2))
-
-
-
-
 _FROZEN_DIR = Path(__file__).resolve().parent
 STEP_PATH = _FROZEN_DIR / 'neofit-drain-bulkhead.step'
 PAYLOAD_PATH = _FROZEN_DIR / 'neofit-drain-bulkhead.step.mesh'
 ASSET_MANIFEST_PATH = _FROZEN_DIR / "frozen-asset.json"
 
 
-def __getattr__(name):
-    if name in globals():
-        return globals()[name]
-    if name in ('cq',):
-        import cadquery as cq
-        value = locals()[name]
-    elif name in ('export_assembly',):
-        from _cadq_export import export_assembly
-        value = locals()[name]
-    elif name in ('M_NEOFIT_ACETAL',):
-        from _materials import M_NEOFIT_ACETAL
-        value = locals()[name]
-    else:
-        raise AttributeError(name)
-    globals()[name] = value
-    return value
-
-
 def main():
-    if sys.argv[1:]:
-        return _native_main()
     print('neofit-drain-bulkhead frozen reference')
     print(f"  STEP: {STEP_PATH}")
     print(f"  Fine/display payload: {PAYLOAD_PATH}")
