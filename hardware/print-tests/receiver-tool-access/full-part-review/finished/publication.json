@@ -1,29 +1,17 @@
 {
-  "source_commit": "7bf1f2a4b9312698411f9c8c8f8e03d4fbddceea",
-  "current_native_parent_viewer_sha256": "bb07419585df989f4338afb913e0dd781fe4d03bb52233238bebf55e4bebe481",
-  "scope": "Three installed bodies replaced in the appliance; all other fine bodies and all unrelated presentation buffers retained. Matching enclosure and installation exports updated.",
+  "source_commit": "29f754d63a176356ad00ffc2ab4b2f299e2a7bd2",
+  "current_native_parent_viewer_sha256": "5edd9fe8134ecc8c3a07114d4a0b7c2ff691fed1bc78f9a30105f59e2850a624",
+  "scope": "The label-rail print skin is clipped to the native open channels. The native back-top solid and installed bodies are unchanged; only the matching print skins in the two viewer hosts move. Earlier full native integration remains recorded separately.",
   "members": {
-    "hardware/assembly/scenes/glb/front-top.glb": "d915490d3176a0660f050ca9f4e16c0200ffeb06dcea3352672d4aa826ca50a2",
-    "hardware/assembly/scenes/glb/pump-mount.glb": "e11f0df3b9e65c7931e74051024fa4f538524735738e336ebbdf040d72886271",
-    "hardware/manifold-layout/enclosure-assembly.physical.step.mesh": "6dc9ab867b6f72112b745116c7fdba7c3556b6b9d124660583f9cf5554191bda",
-    "hardware/manifold-layout/enclosure-assembly.step": "beaf4406f4f82fe2172fda67aed858be482bb978146867589112be89c713a766",
-    "hardware/manifold-layout/enclosure-assembly.step.mesh": "5edd9fe8134ecc8c3a07114d4a0b7c2ff691fed1bc78f9a30105f59e2850a624",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step": "b5e912f52f3dd9d2ec9e5bf0a17c4a137c1cad961da70723ecba56f5d569012c",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh": "bccebf4412caf2aa19d7c4ba530ed5b4b56bc18f3670fc4f747e3591dad1606e",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl": "12e8af9670c6529a3405ae810f7aac0c0c74770acc1ed3bd9aaf5665348639f7",
-    "hardware/printed-parts/enclosure/enclosure/enclosure.step": "ad86b066255dd4a46bb153b4f261cd033f93d4a042df8206bed9c213a43ad697",
-    "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh": "54626ee137944a71deaedd2635af07213355679f7f16dde4360853daee94ed7e"
+    "hardware/manifold-layout/enclosure-assembly.step.mesh": "ae203efb8a216a988931a82df48eaf5a39ce71b671c7b8dcb5665b2c341addca",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh": "612ddb01b4a072d8550c3a23bfa8970da191701f7bc5ab1461f8d77cbc4e3b32",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl": "2ed29e4d8e38aa0a95b5d1cbff7ae477ae5b60fc2dc5b1510a771a805ab2b2eb",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh": "e3e0e94b55e4a9f7082e8045c756936076e97e12ece68bdc30655fcacbfa9d95"
   },
   "read_back_verified": [
-    "hardware/assembly/scenes/glb/front-top.glb",
-    "hardware/assembly/scenes/glb/pump-mount.glb",
-    "hardware/manifold-layout/enclosure-assembly.physical.step.mesh",
-    "hardware/manifold-layout/enclosure-assembly.step",
     "hardware/manifold-layout/enclosure-assembly.step.mesh",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl",
-    "hardware/printed-parts/enclosure/enclosure/enclosure.step",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl",
     "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh"
   ],
   "bundle": "Retained existing bootstrap bundle; all changed members uploaded and read back independently by content hash.",

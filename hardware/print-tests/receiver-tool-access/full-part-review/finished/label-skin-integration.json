@@ -1,0 +1,15 @@
+{
+  "scope": "Only print skins changed; the native back-top STEP and all installed native bodies are unchanged. Existing native installation GLBs retain those exact solids.",
+  "viewer_hosts": {
+    "hardware/manifold-layout/enclosure-assembly.step.mesh": {
+      "before_sha256": "5edd9fe8134ecc8c3a07114d4a0b7c2ff691fed1bc78f9a30105f59e2850a624",
+      "after_sha256": "ae203efb8a216a988931a82df48eaf5a39ce71b671c7b8dcb5665b2c341addca",
+      "native_mesh_arrays_unchanged": true
+    },
+    "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh": {
+      "before_sha256": "54626ee137944a71deaedd2635af07213355679f7f16dde4360853daee94ed7e",
+      "after_sha256": "e3e0e94b55e4a9f7082e8045c756936076e97e12ece68bdc30655fcacbfa9d95",
+      "native_mesh_arrays_unchanged": true
+    }
+  }
+}
