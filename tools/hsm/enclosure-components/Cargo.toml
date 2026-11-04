@@ -23,10 +23,6 @@ name = "rear-equipment-caps"
 path = "../../../hardware/printed-parts/enclosure/rear-equipment-caps/rear_equipment_caps.rs"
 
 [[bin]]
-name = "bulkhead-ring"
-path = "../../../hardware/printed-parts/enclosure/bulkhead-ring/bulkhead_ring.rs"
-
-[[bin]]
 name = "display-cover"
 path = "../../../hardware/printed-parts/enclosure/display-cover/display_cover.rs"
 

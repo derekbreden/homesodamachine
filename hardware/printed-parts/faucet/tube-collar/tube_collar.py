@@ -88,12 +88,10 @@ BORE = TUBE_OD + LLDPE_TOL + BORE_SHRINK + SLIP
 # colour between the bore and each of the three flats.
 OD = 12.0
 # HOW FAR THE RECTANGLE STANDS ABOVE THE AXIS, and so how tall the two side flats are. It is
-# `bulkhead_ring.RING_W` — the band a chip letters its own word in, between the flange's edge and the
-# top of the chip — so a word stands in one band whether it is read off the wall or off the tube.
+# `bulkhead_ring.RING_W`, the band a port's identification is lettered in.
 RISE = _ring.RING_W
 # THE RUN ALONG THE TUBE. It is the longest station word plus its margins, set at
-# `bulkhead_ring.WORD_SIZE` — the wall's lettering and the tube's are one size, and `selftest` holds
-# this to it.
+# `bulkhead_ring.WORD_SIZE`, and `selftest` holds this to it.
 LENGTH = 30.0
 # How deep the word's recess is cut into the flat, and what the flat keeps clear of it. Both are
 # `bulkhead_ring`'s.
@@ -117,7 +115,7 @@ STATIONS = {
         ("drain", "the umbilical's white 4 mm vent tail", "faucet bench"),
     )
 }
-# ONE FILE PER STATION, AND IT HOLDS BOTH BODIES — `bulkhead_ring.STEPS`' construction. The part is one
+# ONE FILE PER STATION, AND IT HOLDS BOTH BODIES, as a rear tile's does. The part is one
 # print in two filaments, a collar and the word lying in its recess, and the file is that pair.
 STEPS = {name: _here.parent / f"tube-collar-{name}.step" for name in STATIONS}
 
@@ -189,7 +187,7 @@ def word_band(face: str = "top") -> tuple:
 def _face_word(which: str, face: str):
     """One station's word on one of its flats, standing in the recess it fills.
 
-    THE LETTERS ARE LOOSE, one solid each — `bulkhead_ring.build_word`'s construction. The part opens as
+    THE LETTERS ARE LOOSE, one solid each, as `rear_identification.word` sets them. The part opens as
     one file carrying both bodies and the lettering is assigned the second filament.
 
     `text` sets flat in XY with its advance on +X, its cap on +Y and its extrusion on +Z, and each
@@ -245,7 +243,7 @@ def build_blank(which="water"):
     """The outline run along the tube and its bore, with no lettering taken out of it — what a
     station's own word is cut from, and what `letters_lie_in_it` weighs the cut against.
 
-    Struck from primitives the way `bulkhead_ring.build_outline` strikes the chip's — a cylinder with
+    Struck from primitives the way `rear_identification.chip` strikes a rear tile — a cylinder with
     everything above the axis taken off it, and a box standing on that same axis — so no plane's own
     chirality reaches the shape."""
     r = OD / 2.0
