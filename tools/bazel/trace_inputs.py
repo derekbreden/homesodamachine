@@ -340,10 +340,8 @@ ELSEWHERE = ("tools/", "hardware/pcb/pcba/",
              "hardware/assembly/scenes/render_scenes.py",
              "hardware/printed-parts/enclosure/drawings/line-art/",  # retained historical SVG studies
              "hardware/scripts/check_faucet_geometry.py",
-             "hardware/printed-parts/enclosure/pump-dock/review_core_stops.py",
              "hardware/printed-parts/enclosure/pump-dock/print-preparation/",
              "hardware/printed-parts/enclosure/enclosure/heat-set-review/print_regions.py",
-             "hardware/printed-parts/enclosure/enclosure/accepted-fit-integration/verify_geometry.py",
              "hardware/printed-parts/faucet/lever-replica/check_replica.py")
 
 
