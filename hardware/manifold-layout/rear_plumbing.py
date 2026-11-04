@@ -110,6 +110,12 @@ def regulator_datums():
                     mount['cap_bottom'],mount['axis'][1])])
 
 
+def meter_spans():
+    """Receiver and removable-cap extents on the meter's own axial frame."""
+    y = layout.pose('digiten-flow')['translation_mm'][1]
+    return (y-30.01, y+29.99), (y-19.01, y+18.99)
+
+
 def route_specs():
     """Short quarter-inch tubes, ending at their actual receiving stops."""
     import above_core_parts as parts
@@ -196,7 +202,8 @@ def continuations(station):
     add('water-5',segments,('discharge-chain','outlet'),('foam-assembly','water-in'),
         data['radius_mm'])
     a,ua,_ = station('digiten-flow','outlet');b,ub,_ = station('bulkhead-carb','tube-in')
-    add('soda-meter-bulkhead',[r._line(r._sub(a,r._mul(ua,15.7)),r._sub(b,r._mul(ub,12.7)))],
+    bulkhead = reference('pp1208e', 'reference/jg-bulkhead-union/jg_bulkhead_union.py')
+    add('soda-meter-bulkhead',[r._line(r._sub(a,r._mul(ua,15.7)),r._sub(b,r._mul(ub,bulkhead.TUBE_STOP_DEPTH)))],
         ('digiten-flow','outlet'),('bulkhead-carb','tube-in'),None,spool='blue')
 
     gas = plan()['co2_tube']

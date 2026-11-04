@@ -143,7 +143,7 @@ fn mate_regions(
             12.7,
         ),
         ("tube-soda-meter-bulkhead", "digiten-flow", "outlet", 15.7),
-        ("tube-soda-meter-bulkhead", "bulkhead-carb", "tube-in", 12.7),
+        ("tube-soda-meter-bulkhead", "bulkhead-carb", "tube-in", 15.7),
         ("tube-above-core-tee-vk-link", "water-split", "to-vk", 15.7),
         ("tube-above-core-tee-vk-link", "tee-fold", "socket", 16.891),
         (

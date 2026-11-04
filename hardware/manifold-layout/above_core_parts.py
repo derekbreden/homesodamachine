@@ -33,14 +33,14 @@ REFERENCES = {
     'c14-inlet': HW / 'reference/iec-c14-inlet/iec-c14-inlet.step',
     'keystone-jack': HW / 'reference/riteav-keystone/riteav-keystone.step',
     'asse1022-assembly': HW / 'reference/multiplex-asse1022/multiplex-asse1022.step',
-    'discharge-chain': HW / 'reference/neofit-achv44-check/neofit-achv44-check.step',
+    'discharge-chain': HW / 'reference/neofit-acvus44-check/neofit-acvus44-check.step',
     'valve': HW / 'reference/beduan-solenoid/beduan-solenoid.step',
     'water-split': HW / 'reference/branch-stem-tees/neofit-atbu444-e-estimate.step',
     'stem-elbow': HW / 'reference/neofit-stem-elbow/neofit-stem-elbow.step',
     'jg-turn-elbow': HW / 'reference/jg-pp0308e-elbow/jg-pp0308e-elbow.step',
     'flow-regulator': HW / 'reference/yzmsz-water-regulator/geometry/yzmsz-water-regulator.step',
     'gas-regulator': HW / 'reference/compact-inline-candidates/geometry/candidate-regulator.step',
-    'gas-check': HW / 'reference/neofit-achv44-check/neofit-achv44-check.step',
+    'gas-check': HW / 'reference/neofit-acvus44-check/neofit-acvus44-check.step',
     'digiten-flow': HW / 'reference/digiten-flow-sensor/digiten-flow-sensor.step',
 }
 

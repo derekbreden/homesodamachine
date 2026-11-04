@@ -148,13 +148,6 @@ fn sweep(segments: &Value, outer: f64, inner: Option<f64>) -> Result<Solid> {
     if let Some(inner) = inner { profile = profile.with_hole(Profile::circle(V2::ZERO, inner).outer); }
     Plane::new(start, wide, tangent)?.sweep(&profile, &path)
 }
-fn stem_check(v: &Value) -> Result<Solid> {
-    let profile = profile_rows(&v["profile"])?;
-    let length = profile.last().unwrap().x;
-    turned(&profile, true)?
-        .cut(&Solid::cylinder(v3(length - 16.891, 0., 0.), V3::X, 6.5 / 2., 16.991)?)?
-        .cut(&Solid::cylinder(v3(-0.1, 0., 0.), V3::X, 4.3 / 2., length - 16.891 + 0.2)?)
-}
 fn pump_tube(v: &Value) -> Result<Solid> {
     let j = &v["joint"];
     let rows = profile_rows(&j["bore"])?;
@@ -231,16 +224,6 @@ fn pump_clamp(v: &Value) -> Result<Solid> {
     band.union(&housing)?.union(&neck)
 }
 fn bulkhead(v: &Value, sources: &mut BTreeMap<String, Vec<Imported>>) -> Result<Solid> {
-    if v["data"]["native_kind"] == "quarter" {
-        let near = Solid::cylinder(V3::ZERO, V3::Y, 22.86 / 2., 5.)?;
-        let ring = Solid::cylinder(v3(0., 5., 0.), V3::Y, 11.43 / 2., 4.5)?
-            .cut(&Solid::cylinder(v3(0., 9.5, 0.), -V3::Y, 6.35 / 2., 4.)?)?;
-        let thread = Solid::cylinder(V3::ZERO, -V3::Y, 17.14 / 2., 15.29)?;
-        let far = Solid::cylinder(v3(0., -15.29, 0.), -V3::Y, 17.14 / 2., 5.)?
-            .union(&Solid::cylinder(v3(0., -20.29, 0.), -V3::Y, 11.43 / 2., 4.5)?
-                .cut(&Solid::cylinder(v3(0., -24.79, 0.), V3::Y, 6.35 / 2., 4.)?)?)?;
-        return near.union(&ring)?.union(&thread)?.union(&far);
-    }
     let mut request = v.clone();
     request["select"] = json!(["fitting"]);
     let stock = Solid::compose(&source(&request, sources)?);
@@ -349,7 +332,6 @@ fn main() -> Result<()> {
                     let trim = Solid::cuboid(v3(-100.,-50.,-50.),v3(f(item,"tip_x")?,50.,50.));
                     source(item,&mut sources)?.iter().map(|s|s.cut(&trim)).collect::<Result<Vec<_>>>()?
                 }
-                "stem-check" => vec![stem_check(item)?],
                 "pump-tube" => vec![pump_tube(item)?],
                 "pump-reducer" => {
                     let cut = f(item,"cut_x")?;

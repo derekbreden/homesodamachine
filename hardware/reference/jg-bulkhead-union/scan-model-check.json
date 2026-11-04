@@ -1,0 +1,69 @@
+{
+  "units": "mm",
+  "coordinate_scale_factor": 1.0,
+  "method": "Closest distances to the reopened exported STL; every retained observation eligible; physical selection precedes CAD; no distance rejection.",
+  "observation_voxel_mm": 0.25,
+  "watertight": true,
+  "winding_consistent": true,
+  "shells": 2,
+  "all_retained_observations": {
+    "samples": 45573,
+    "p50_p90_p95_p99_max_mm": [
+      0.1197342642131434,
+      0.7777334216978949,
+      0.9458288677020703,
+      1.156538943968744,
+      2.2089492627566853
+    ],
+    "fraction_within_0_50mm": 0.8325104776951265
+  },
+  "regions": {
+    "outboard_body": {
+      "samples": 18953,
+      "p50_p90_p95_p99_max_mm": [
+        0.10136735439300537,
+        0.5283563322416556,
+        0.791498764622655,
+        1.1103808604508507,
+        1.4231988590569078
+      ],
+      "fraction_within_0_50mm": 0.8931567561863557
+    },
+    "barrel": {
+      "samples": 21464,
+      "p50_p90_p95_p99_max_mm": [
+        0.13406258249744918,
+        0.9017262101374772,
+        1.000706797731039,
+        1.1753285229156702,
+        2.2089492627566853
+      ],
+      "fraction_within_0_50mm": 0.7674711144241521
+    },
+    "inboard_collet": {
+      "samples": 5156,
+      "p50_p90_p95_p99_max_mm": [
+        0.14038367180435912,
+        0.5539795142753469,
+        0.7346239207634176,
+        1.1588149607573506,
+        1.3439722368455673
+      ],
+      "fraction_within_0_50mm": 0.88033359193173
+    },
+    "nut": {
+      "samples": 8116,
+      "p50_p90_p95_p99_max_mm": [
+        0.041412353515625,
+        0.13975025485979567,
+        0.1704412012678531,
+        0.2509488582611084,
+        0.893064549251699
+      ],
+      "fraction_within_0_50mm": 0.9995071463775259
+    }
+  },
+  "step_sha256": "a90b49bb1cfb89cf80798796832c4e5c10800c336ac3d19c42dc3d6559e97c80",
+  "stl_sha256": "a54f72c262aa9e9ab5ee4ba711e97158c89afc2caf6183083a17650a0b0734c0",
+  "retained_cloud_sha256": "8bfc8cea03b5e296ccda2197d743a8b8edcc059f73ee2e44075733309eb3a024"
+}
