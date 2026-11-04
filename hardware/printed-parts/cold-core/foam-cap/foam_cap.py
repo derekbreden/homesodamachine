@@ -29,7 +29,7 @@ import _reservoir_a_anchors as _a_anchors
 import above_core_wiring
 import _reservoir_ports as reservoir_ports
 import _reservoir_b_fill
-from _foam_cap import head_access_pockets, head_pad_growth, lid_cut_through_depth, lid_total_height, top_cap_height
+from _foam_cap import head_pad_growth, lid_cut_through_depth, lid_total_height, top_cap_height
 from _cold_core_interface import cap_conduit_links, cap_conduit_link_width
 from _cold_core_interface import attachment_xy_positions, cap_shell_clearance, cap_lid_clearance, wall_and_floor_thickness, corner_round_radius, foam_cap_lid_pour_radius, foam_cap_lid_pour_xy, foam_cap_lid_vent_radius, foam_cap_lid_vent_xy, head_pad_height, screw_clearance_radius, head_cbore_radius, head_cbore_depth, deck_mounts, deck_mount_cap_gap, deck_mount_xy, deck_mount_boss_radius, deck_mount_bore_radius, deck_mount_bore_depth, deck_mount_standoff, deck_lid_hole_radius, cap_conduits, cap_conduit_bore_radius, cap_conduit_boss_radius, cap_conduit_entry_relief_radius, cap_cradles, cap_cradle_boss_radius, cap_cradle_socket_radius, cap_cradle_wall, cap_cradle_room_gap, cap_cradle_half_x, cap_cradle_half_y, cap_anchors, cap_anchor_axis_over_face, cap_side_anchors, cap_side_anchor_height, cap_side_anchor_holds, cap_side_axis_y, cap_side_tunnel_h, cap_side_tunnel_roof, cap_side_back_relief, cap_side_cav_w, cap_side_flank, cap_side_len, cap_side_wall, cap_anchor_cav_w, cap_anchor_cav_wall, cap_anchor_len, cap_anchor_wall, cap_anchor_channel_height, outer_shell_wall, outer_shell_x_length, outer_shell_y_length
 from docgen import substitute_py_comments
