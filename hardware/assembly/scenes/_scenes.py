@@ -18,7 +18,6 @@ for _p in (_HW / "scripts", _HW / "manifold-layout", _HW / "cold-core-layout",
         sys.path.insert(0, str(_p))
 
 
-
 # --- what a scene is -------------------------------------------------------
 #
 # `roots` are the parts the unit is built on; everything they hold comes with them. `cam` is the
@@ -425,28 +424,11 @@ BEARS_ON = {
 }
 
 
-def placed_names(assembly):
-    """Physical leaf names and the core aliases used by routing metadata."""
-    import manifold_layout as ml
-
-    names = {name for name, _shape, _colour in ml.placed_leaves(assembly)}
-    names.update(getattr(assembly, 'referenced_core_rgba', {}))
-    reading = getattr(assembly, 'manifold_reading', None)
-    if reading is not None:
-        names.update(reading.raw_bounds)
-    aliases = getattr(assembly, 'core_external_components', ())
-    names |= {name.rsplit('/', 1)[-1] for name in names
-              if name.rsplit('/', 1)[-1] in aliases}
-    if getattr(assembly, 'core_envelope', None) is not None:
-        names.add(INNER_ROOT)
-    return names
-
-
 def holders(assembly=None):
     """`name -> the part that holds it`, off the machine's own tables.
 
-    The fastening table supplies body seats. Named tube anchors come from the
-    supplied assembly; the current production pack has none without an assembly.
+    The fastening table supplies body seats. Optional scalar metadata supplies
+    named tube anchors; the current production pack has none without that metadata.
     The manifold's own barb and return runs retain their fitted body ownership."""
     import _scorecard as _sc
     import enclosure_assembly as _ea
@@ -460,7 +442,7 @@ def holders(assembly=None):
                   if station[5:6] == ("cap",)}
     rows = tuple(row for row in _sc.mounts(assembly)
                  if not row[0].startswith("anchor-cap-") or row[0] in cap_names)
-    present = placed_names(assembly) if assembly is not None else None
+    present = None
 
     def active(name):
         return present is None or name in present
@@ -547,8 +529,7 @@ def runs_for(bodies, runs, holder_map):
 def named(scene, runs, assembly=None):
     """Every name this scene shows, bodies and tube both, off the tables and the drawn runs.
 
-    A doc driver has the runs and the tables and no machine; a render has all three. This is the
-    half both can ask for — see `members`."""
+    Ownership tables and the routed inputs supply the scene membership."""
     holder_map = holders(assembly)
     bodies = set()
     for root in scene.roots:
@@ -610,21 +591,3 @@ def named(scene, runs, assembly=None):
                 f"{', '.join(surplus)} to take. The two are no longer built on the same thing.")
         derived -= gone
     return sorted(derived)
-
-
-def members(scene, assembly):
-    """`named`, held against the machine that has to place every one of them."""
-    names = named(scene, assembly.runs, assembly)
-    # ONE MODEL PLACES EVERY ONE OF THEM. The machine stands the core's own bodies, so a name
-    # this cannot find is a name nothing draws — including a body the core's card claims and
-    # the machine does not stand, which is the divergence worth hearing about.
-    # THE MACHINE HOLDS AN ASSEMBLY, so what it places is its leaves and not its children —
-    # a pass one level deep would find the `cold-core` node and nothing inside it.
-    present = placed_names(assembly)
-    missing = sorted(n for n in names if n not in present)
-    if missing:
-        raise ValueError(
-            f"scene {scene.id!r} names {', '.join(missing)}, which the machine does not place. "
-            f"The fastening tables and the two assemblies' own body lists are what this reads; "
-            f"a name in one of them and not in the model is the table to correct.")
-    return names

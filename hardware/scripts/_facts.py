@@ -145,67 +145,6 @@ CARD_PORT_BODIES = (
 )
 
 
-def _route_facts(whole):
-    """Physical native subroutes and their logical circuit groups.
-
-    Length is the sum of the actual tube centrelines, including authored socket
-    insertions. Fittings remain
-    explicit members and never acquire a fabricated connecting tube. Missing
-    physical subroutes leave the group's length unknown and its status visible.
-    """
-    import above_core_parts
-
-    native_specs = getattr(whole, 'native_route_specs', {})
-    native = {}
-    for rid, spec in native_specs.items():
-        segments = spec['segments']
-        native[rid] = {
-            'id': rid, 'frm': spec.get('frm', spec.get('from', spec.get('owners', [''])[0])),
-            'to': spec.get('to', spec.get('owners', [''])[-1]),
-            'length': float(above_core_parts.route_wire(spec).Length()),
-            'corners': sum(s['kind'] != 'line' for s in segments),
-            'bend': float(spec.get('minimum_radius_mm') or 0.),
-            'diam': float(spec['od_mm']), 'made': 'drawn',
-            'segments': _plain(segments), 'spool': spec.get('spool'),
-        }
-    runs = [{"id": r.id, "frm": r.frm, "to": r.to,
-             "length": float(r.length), "corners": len(r.bends),
-             "bend": float(r.bend), "diam": float(r.diam),
-             'made': 'drawn', 'status': 'complete'}
-            for r in getattr(whole, 'runs', ()) if r.id not in native_specs]
-    groups = getattr(whole, 'native_connections', {})
-    def placed_names(node):
-        if getattr(node, 'obj', None) is not None:
-            yield node.name
-        for child in getattr(node, 'children', ()):
-            yield from placed_names(child)
-    physical_names=set(placed_names(whole))
-    reading = getattr(whole, 'manifold_reading', None)
-    if reading is not None:
-        physical_names.update(reading.raw_bounds)
-    physical_names.update(name.rsplit('/',1)[-1] for name in tuple(physical_names))
-    grouped_members = {rid for group in groups.values() for rid in group['native_routes']}
-    for rid, group in groups.items():
-        rows = [native[n] for n in group['native_routes'] if n in native]
-        missing = [n for n in group['native_routes'] if n not in native]
-        missing_fittings = [n for n in group.get('fittings', ())
-                            if n not in physical_names]
-        complete = not missing and not missing_fittings
-        runs.append({'id': rid, 'frm': group['from'], 'to': group['to'],
-                     'length': sum(r['length'] for r in rows) if complete else None,
-                     'corners': sum(r['corners'] for r in rows),
-                     'bend': min((r['bend'] for r in rows if r['bend'] > 0.), default=0.),
-                     'diam': max((r['diam'] for r in rows), default=0.),
-                     'made': group['made'], 'native_routes': list(group['native_routes']),
-                     'fittings': list(group.get('fittings', ())),
-                     'status': 'complete' if complete else 'incomplete',
-                     'missing_native_routes': missing, 'missing_fittings': missing_fittings})
-    # A physical run outside the logical adapter keeps its own identity.
-    runs.extend({**row, 'status': 'complete'} for rid,row in native.items()
-                if rid not in grouped_members)
-    return runs, list(native.values())
-
-
 def _plain(v):
     """A value as JSON holds it. Namedtuples keep their field names; anything this does not
     recognise raises, so a Box that grows a field of a new kind is a failure here and not a
@@ -268,9 +207,6 @@ def _tube_handoff(whole):
         "scene": artifact(STEP.with_suffix(".scene.npz")),
         "routing": _plain(_tube_export.route_metadata(whole)),
     }
-
-
-
 
 
 def write(facts) -> Path:
