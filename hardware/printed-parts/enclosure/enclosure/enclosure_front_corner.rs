@@ -798,21 +798,32 @@ pub fn replace(shape: Solid, n: &Numbers) -> Result<Solid> {
     // those local triangles into one patch before simplifying; keeping their
     // former face boundaries pins a folded strip along the analytic seam.
     // Other faces retain their original analytic boundaries.
-    let mut faces = shape.faces().to_vec();
-    let patch = faces.len() as u32;
-    faces.push(Face::new(
+    let mut original = shape.faces().to_vec();
+    let patch = original.len() as u32;
+    original.push(Face::new(
         Surface::Free { kind: "BSPLINE" },
         "fillet",
         std::panic::Location::caller(),
     ));
+    // Keep every triangle outside the corner fixed during this local cleanup.
+    // Separate temporary runs pin their edges; restore the analytic face
+    // records after simplification so the export retains its normal records.
+    let mut faces = original.clone();
     let records: Vec<_> = shape.tris().iter().zip(shape.face_of())
         .map(|(triangle, &face)| {
             if triangle.iter().all(|&i| in_corner(shape.verts()[i as usize], &frames, scale)) {
                 patch
             } else {
-                face
+                let fixed = faces.len() as u32;
+                faces.push(original[face as usize]);
+                fixed
             }
         }).collect();
-    Solid::from_mesh(shape.verts(), shape.tris(), &records, &faces)?
-        .simplified_to(LINEAR / 5.)
+    let cleaned = Solid::from_mesh(shape.verts(), shape.tris(), &records, &faces)?
+        .simplified_to(LINEAR)?;
+    let restored: Vec<_> = cleaned.faces().iter()
+        .map(|face| original.iter().position(|old| old == face).unwrap() as u32)
+        .collect();
+    let records: Vec<_> = cleaned.face_of().iter().map(|&f| restored[f as usize]).collect();
+    Solid::from_mesh(cleaned.verts(), cleaned.tris(), &records, &original)
 }
