@@ -145,7 +145,8 @@ def _nameplate_receiver(piece):
         piece, nameplate_station(), nameplate_plan()['face_y_mm'],
         up=-1, wall_face=wall['ymin'],
         runout_lead=nameplate.wing_interface.RUNOUT_LEAD,
-        end_margin=3.+fits.supported_surface, crown_face=wall['ymax'])
+        end_margin=3.+fits.supported_surface, crown_face=wall['ymax'],
+        corner_radius=nameplate.CORNER_R)
     return receiver.cut(nameplate_release_access()).clean()
 
 

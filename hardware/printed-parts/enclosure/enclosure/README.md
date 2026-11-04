@@ -211,7 +211,7 @@ corners carry the flutes around them at constant arc-length spacing.
 The display's flush cover has R6 outline corners, with an offset R6.3 seat.
 Its optical opening follows the glass. The funnel's mouth, collar and brim
 are concentric rounded rectangles with constant-width bands; the supporting
-recess follows the brim. The thin rear nameplate uses a smaller R3 outline.
+recess follows the brim. The rear First Edition nameplate uses an R5 outline.
 Hardware openings follow their mating parts. The rear top edge remains square.
 
 ## Handholds
