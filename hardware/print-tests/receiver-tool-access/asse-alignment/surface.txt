@@ -1,0 +1,95 @@
+asse-snap-cap.stl · 1954 printed facets · 8 findings · 6 answered
+answers: hardware/printed-parts/lint-answers/enclosure/rear-equipment-caps/asse-snap-cap.lint-answers · read hardware/printed-parts/lint-answers/AGENTS.md before writing one
+
+  [thin] 0.021 mm of material at its thinnest · 1.0 mm² of surface under 0.1 mm · spans 0.0 × 0.0 × 0.7 mm
+    file: hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step
+    click: x=-25.127 y=-19.302 z=0.351
+    click: x=-25.148 y=-19.302 z=0.351
+    answered: The deliberately pointed free edge joins the single planar lead-in to the outside spring wall. Derek requests this point as the production tip. Its thickness approaches zero at the edge; the working spring remains 2 mm and the continuous solid retaining nose remains 1.6 mm. These locations are on that specified point.
+    alternatives: A flat tip land removes the requested point. Thickening the full leaf changes the selected flexure section rather than the lead-in. The point is integral with the cap.
+
+  [thin] 0.021 mm of material at its thinnest · 1.0 mm² of surface under 0.1 mm · spans 0.0 × 0.0 × 0.7 mm
+    file: hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step
+    click: x=25.127 y=-19.302 z=41.310
+    click: x=25.148 y=-19.302 z=41.310
+    answered: The deliberately pointed free edge joins the single planar lead-in to the outside spring wall. Derek requests this point as the production tip. Its thickness approaches zero at the edge; the working spring remains 2 mm and the continuous solid retaining nose remains 1.6 mm. These locations are on that specified point.
+    alternatives: A flat tip land removes the requested point. Thickening the full leaf changes the selected flexure section rather than the lead-in. The point is integral with the cap.
+
+  [thin] 0.057 mm of material at its thinnest · 1.5 mm² of surface under 0.2 mm · spans 0.0 × 0.1 × 0.7 mm
+    file: hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step
+    click: x=25.148 y=-19.249 z=0.352
+    click: x=25.119 y=-19.298 z=0.352
+    answered: The deliberately pointed free edge joins the single planar lead-in to the outside spring wall. Derek requests this point as the production tip. Its thickness approaches zero at the edge; the working spring remains 2 mm and the continuous solid retaining nose remains 1.6 mm. These locations are on that specified point.
+    alternatives: A flat tip land removes the requested point. Thickening the full leaf changes the selected flexure section rather than the lead-in. The point is integral with the cap.
+
+  [thin] 0.081 mm of material at its thinnest · 0.5 mm² of surface under 0.1 mm · spans 0.0 × 0.0 × 0.0 mm
+    file: hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step
+    click: x=-25.148 y=-19.220 z=41.307
+    click: x=-25.107 y=-19.290 z=41.307
+    answered: The deliberately pointed free edge joins the single planar lead-in to the outside spring wall. Derek requests this point as the production tip. Its thickness approaches zero at the edge; the working spring remains 2 mm and the continuous solid retaining nose remains 1.6 mm. These locations are on that specified point.
+    alternatives: A flat tip land removes the requested point. Thickening the full leaf changes the selected flexure section rather than the lead-in. The point is integral with the cap.
+
+  [thin] 1.988 mm of material at its thinnest · 1924.1 mm² of surface under 2.5 mm · spans 3.9 × 27.1 × 39.6 mm · in 4 pieces
+    file: hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step
+    click: x=-24.012 y=8.600 z=28.202
+    click: x=-22.655 y=7.147 z=28.202
+    answered: The specified 2.0 mm spring leaves and R1.5 root transitions provide the intermediate section Derek requests between the physically tested 1.3 and 2.6 mm leaves. These are the flexures, printed on an axial end so bending lies in the layer plane. Repeated insertion and bending distribution are physical checks on the complete pointed samples.
+    alternatives: Thickening the leaves to 2.6 mm repeats the section Derek reports bending only at its corners; 1.3 mm repeats the thinner section he requests an intermediate value above. The broad central bearing stock is independent of these spring lengths.
+
+  [thin] 1.988 mm of material at its thinnest · 1933.7 mm² of surface under 2.5 mm · spans 3.9 × 27.1 × 39.6 mm · in 4 pieces
+    file: hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step
+    click: x=24.012 y=8.600 z=13.459
+    click: x=22.655 y=7.147 z=13.459
+    answered: The specified 2.0 mm spring leaves and R1.5 root transitions provide the intermediate section Derek requests between the physically tested 1.3 and 2.6 mm leaves. These are the flexures, printed on an axial end so bending lies in the layer plane. Repeated insertion and bending distribution are physical checks on the complete pointed samples.
+    alternatives: Thickening the leaves to 2.6 mm repeats the section Derek reports bending only at its corners; 1.3 mm repeats the thinner section he requests an intermediate value above. The broad central bearing stock is independent of these spring lengths.
+
+  [thin] 2.302 mm of material at its thinnest · 2.0 mm² of surface under 2.5 mm · spans 0.2 × 0.1 × 2.1 mm
+    file: hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step
+    click: x=-21.241 y=-17.016 z=34.420
+    click: x=-21.241 y=-14.714 z=34.420
+    answered: These 2.302 mm readings cross the specified solid hook wedge between its flat retaining underside and its single pointed lead-in. The inner nose retains 1.6 mm height; the lead-in rises 3 mm over its 5.1 mm run to the outer tip. The complete pointed hook and 2 mm spring section are the selected working catch. The adapter alignment change leaves both wings and hooks geometrically identical.
+    alternatives: Raising the retaining underside reduces the hook's catch engagement. Increasing the nose height requires a taller mating pocket or a flatter, less pointed lead-in. Adding a flat tip removes the point Derek requests. Filling the spring corridor prevents release travel.
+
+  [thin] 2.302 mm of material at its thinnest · 2.0 mm² of surface under 2.5 mm · spans 0.2 × 0.1 × 2.1 mm
+    file: hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step
+    click: x=21.241 y=-17.016 z=7.241
+    click: x=21.241 y=-14.714 z=7.241
+    answered: These 2.302 mm readings cross the specified solid hook wedge between its flat retaining underside and its single pointed lead-in. The inner nose retains 1.6 mm height; the lead-in rises 3 mm over its 5.1 mm run to the outer tip. The complete pointed hook and 2 mm spring section are the selected working catch. The adapter alignment change leaves both wings and hooks geometrically identical.
+    alternatives: Raising the retaining underside reduces the hook's catch engagement. Increasing the nose height requires a taller mating pocket or a flatter, less pointed lead-in. Adding a flat tip removes the point Derek requests. Filling the spring corridor prevents release travel.
+
+  [sliver · answered] This 0.676 mm-wide face is one of the adapter pocket's specified conforming hex flats, over the complete 10.25 mm hex band. The flat's direction and the 12.874 mm rounded-corner boundary define the selected fitted section. Derek explicitly retains the conforming hex and ensures its clock when assembling the taped joint.
+    alternatives: Removing this plane changes the selected hex fit. Removing the corner boundary opens its rounded-corner envelope; replacing the flat with a circular room removes the hex conformity Derek requests. Adding exterior material does not widen this interior mating face.
+    0.676 mm strip, 10.3 mm long
+    face: plane · n x=0.886 y=0.464 z=-0.005 · thru x=-12.629 y=-2.170 z=55.318
+    edge: x=-12.606 y=-2.158 z=60.443 → x=-12.652 y=-2.182 z=50.192 · len 10.252 · straight · dir x=-0.005 y=-0.002 z=-1.000
+    click: x=-12.629 y=-2.170 z=55.318
+
+  [ceiling · answered] The solid adapter bridge closes around the smaller measured adapter profile behind the ASSE wrench passage. Its axial transition faces retain the complete wrench passage and threaded-joint adjustment room. Tree(auto)/Default supports these faces through the open cavity before hardware insertion; a tiny flathead reaches the support contacts.
+    alternatives: Filling the cavity enters the measured adapter or ASSE clearance. A ramp in the large wrench passage consumes the specified threaded-joint adjustment room. Splitting the bridge into a separate piece violates the one-solid cap construction.
+    189 mm² flat print-down face at z=42.171 · 33.8 × 14.9 mm · open to the bed (42.2 mm up)
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=-0.015 y=5.004 z=42.171
+    click: x=-0.015 y=5.004 z=42.171
+
+  [ceiling · answered] The solid adapter bridge closes around the smaller measured adapter profile behind the ASSE wrench passage. Its axial transition faces retain the complete wrench passage and threaded-joint adjustment room. Tree(auto)/Default supports these faces through the open cavity before hardware insertion; a tiny flathead reaches the support contacts.
+    alternatives: Filling the cavity enters the measured adapter or ASSE clearance. A ramp in the large wrench passage consumes the specified threaded-joint adjustment room. Splitting the bridge into a separate piece violates the one-solid cap construction.
+    78 mm² flat print-down face at z=38.661 · 11.9 × 10.0 mm · open to the bed (38.7 mm up)
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=17.206 y=2.536 z=38.661
+    click: x=17.206 y=2.536 z=38.661
+
+  [ceiling · answered] The solid adapter bridge closes around the smaller measured adapter profile behind the ASSE wrench passage. Its axial transition faces retain the complete wrench passage and threaded-joint adjustment room. Tree(auto)/Default supports these faces through the open cavity before hardware insertion; a tiny flathead reaches the support contacts.
+    alternatives: Filling the cavity enters the measured adapter or ASSE clearance. A ramp in the large wrench passage consumes the specified threaded-joint adjustment room. Splitting the bridge into a separate piece violates the one-solid cap construction.
+    78 mm² flat print-down face at z=38.661 · 12.0 × 10.0 mm · open to the bed (38.7 mm up)
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=-17.172 y=2.536 z=38.661
+    click: x=-17.172 y=2.536 z=38.661
+
+  [ceiling · answered] These are the closing ends of the vent and drain-sleeve clearance windows. The long sleeve window ends at Z309.4 and spans the complete threaded-joint adjustment. Tree(auto)/Default supports the ends through their open lower channel; the small flathead reaches them before hardware installation.
+    alternatives: Filling or shortening the windows enters the measured vent/sleeve volume at a permitted thread position. Ramping within the clearance removes that axial adjustment. The roof height supplies solid backing below the fitted adapter pocket.
+    49 mm² flat print-down face at z=50.300 · 15.3 × 3.2 mm · drop 36.3–36.3 mm to material below
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=0.070 y=17.725 z=50.300
+    click: x=0.070 y=17.725 z=50.300
+
+  [ceiling · answered] These are the closing ends of the vent and drain-sleeve clearance windows. The long sleeve window ends at Z309.4 and spans the complete threaded-joint adjustment. Tree(auto)/Default supports the ends through their open lower channel; the small flathead reaches them before hardware installation.
+    alternatives: Filling or shortening the windows enters the measured vent/sleeve volume at a permitted thread position. Ramping within the clearance removes that axial adjustment. The roof height supplies solid backing below the fitted adapter pocket.
+    49 mm² flat print-down face at z=30.865 · 12.9 × 3.8 mm · drop 15.4–15.4 mm to material below
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=0.070 y=14.227 z=30.865
+    click: x=0.070 y=14.227 z=30.865

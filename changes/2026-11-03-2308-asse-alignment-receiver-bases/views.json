@@ -1,0 +1,81 @@
+{
+  "views": [
+    {
+      "name": "receiver",
+      "caption": "The rear snap receiver has a continuous base; the enclosed screwdriver tunnel is omitted.",
+      "before": "receiver-before.webp",
+      "after": "receiver-after.webp",
+      "width": 1200,
+      "height": 900,
+      "marks": [
+        {
+          "x": 600,
+          "y": 450,
+          "r": 79.4,
+          "label": "Receiver base",
+          "at": [
+            7,
+            414,
+            328.25
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "orthographic",
+        "position": [
+          -128.37961167971818,
+          -127.51844671887272,
+          111.64262131245091
+        ],
+        "target": [
+          7,
+          414,
+          328.25
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "half": 17,
+        "near": 254.2889401614583,
+        "far": 902.9230683205926,
+        "aspect": 1.3333333333333333
+      },
+      "highlight": [
+        "enclosure-back-top"
+      ],
+      "ghost": [],
+      "only": [
+        "enclosure-back-top"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "89e8970b9d1562ca233ef5bf9c4fe4eaca043627dd2b5dddf08193a0ac262c49",
+          "commit": "25c280c0ed284fb7be8d76ca22b6a0fa54f9be55",
+          "taken": "2026-11-04T04:45:43.076Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "00bbf767bfd8f0c95c862ff2316a796b67be191dd25ec35c0f2ba8d9092fe291",
+          "commit": "3d6fcef7f22c1fedb1a7b6561f42e92cce0af0dc",
+          "published": true
+        }
+      },
+      "changed": [
+        "enclosure-back-top",
+        "cold-core/foam-cap-lid-top"
+      ],
+      "withinMeshing": [
+        "gagira-coupling",
+        "asse-snap-cap"
+      ]
+    }
+  ]
+}
