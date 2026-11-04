@@ -201,7 +201,7 @@ def _wing_receiver(graph, wing, solid, station, y_outer, *, supported=None, up=-
     depth = wing.FLOOR_STOCK+wing.BACK_AIR+wing.THICK
     w,h = pw+2*(wing.PROJECTION+2),ph+end_margin+runout
     pad = _rounded(graph,2,(-w/2,w/2,-h/2,h/2,0.,depth),
-                   wing.dimensions.CORNER_R+2,(0,3) if wall_face is not None else (0,1,2,3))
+                   wing.CORNER_R+2,(0,3) if wall_face is not None else (0,1,2,3))
     pad = pad.rotate((0,0,0),(1,0,0),-90).translate(
         (0,-wing.FLOOR_STOCK-wing.BACK_AIR,-up*(runout-end_margin)/2))
     rear = -wing.FLOOR_STOCK-wing.BACK_AIR
@@ -223,7 +223,7 @@ def _wing_receiver(graph, wing, solid, station, y_outer, *, supported=None, up=-
     solid = solid.fuse(pad.translate(shift))
     mouth = _rounded(graph,2,(-width/2-wing.FACE_X_AIR,width/2+wing.FACE_X_AIR,
                               -ph/2,ph/2,0.,wing.THICK+1+wing.BACK_AIR),
-                     wing.dimensions.CORNER_R+wing.FACE_SLIP)
+                     wing.CORNER_R+wing.FACE_SLIP)
     mouth = mouth.rotate((0,0,0),(1,0,0),-90).translate((0,-wing.BACK_AIR,0))
     solid = solid.cut(mouth.fuse(mouth.translate((0,0,up*supported))).translate(shift))
     z0 = -wing_span/2-wing.END_AIR+min(0,up*supported)

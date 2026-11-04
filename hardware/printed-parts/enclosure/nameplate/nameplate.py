@@ -1,11 +1,11 @@
-"""104.53 × 38 mm horizontal nameplate, printed face up in two-colour PET-GF.
+"""92 × 100 mm First Edition nameplate, printed face up in two-colour PET-GF.
 
 All white artwork rises 0.48 mm above the flat black face. Two horizontal
 wings share the flat back and enter side pockets in enclosure-back-top. The origin
 is the back of the plate; +Y points out of the enclosure, +Z up, and text reads
 along -X when viewed from outside.
 
-Run with a unit number (1..9999), or `selftest` to check the plate and receiver.
+Run with a unit number (1..10), or `selftest` to check the plate and receiver.
 """
 
 import json
@@ -42,22 +42,24 @@ import _nameplate_interface as interface
 import _nameplate_wing_interface as wing_interface
 import _nameplate_dimensions as _plan
 
-WIDTH = interface.WIDTH
-HEIGHT = interface.HEIGHT
+WIDTH = wing_interface.WIDTH
+HEIGHT = wing_interface.HEIGHT
 THICK = wing_interface.THICK
 ARTWORK_RISE = .48
-CORNER_R = interface.CORNER_R
+CORNER_R = wing_interface.CORNER_R
 BEVEL = interface.BEVEL
 SLIP = interface.SLIP
 WALL = interface.WALL
 INK_DEPTH = 0.72
-LOGO_H = 25.0
-QR_MODULE = 1.1
+LOGO_H = 12.0
+LOGO_CENTER_Z = 34.0
+QR_MODULE = 1.2
 QR_ACTIVE = 21 * QR_MODULE
 QR_QUIET = 4 * QR_MODULE
-QR_LEFT = 76.39581168241278
-QR_TOP = (HEIGHT-QR_ACTIVE)/2
-LOGO_LEFT = 5.034188317587201
+QR_CENTER_Z = -26.6
+QR_LEFT = (WIDTH-QR_ACTIVE)/2
+QR_TOP = HEIGHT/2-QR_CENTER_Z-QR_ACTIVE/2
+LOGO_LEFT = (WIDTH-LOGO_H*656/688)/2
 BLACK = (28, 30, 33)
 WHITE = (222, 222, 219)
 _BRAND_MARK = _hw.parent / "brand" / "mark.svg"
@@ -121,7 +123,7 @@ def build_name():
     root = ET.parse(_here.with_name("wordmark.svg")).getroot()
     parts = []
     for group in root:
-        if group.get("aria-label") not in ("HOME", "SODA", "MACHINE"):
+        if not group.get("aria-label") or group.get("data-variable"):
             continue
         tx, ty = map(float, re.fullmatch(r"translate\(([-\d.]+) ([-\d.]+)\)",
                                        group.get("transform")).groups())
@@ -143,8 +145,10 @@ def qr_matrix(unit):
 def _qr_polygons(unit):
     # Join diagonal-only white contacts by 0.02 mm, below the print resolution,
     # so the two-colour interface has closed manifold faces rather than two
-    # cavity wires intersecting at a single point. The 1.1 mm pitch is exact.
+    # cavity wires intersecting at a single point. Union on an integer micron
+    # grid before converting to millimetres, preserving exact shared boundaries.
     matrix = qr_matrix(unit)
+    pitch = round(QR_MODULE*1000)
     regions = []
     for row, cells in enumerate(matrix):
         col = 0
@@ -155,17 +159,19 @@ def _qr_polygons(unit):
             end = col+1
             while end < 21 and cells[end]:
                 end += 1
-            regions.append(polygon_box(col*QR_MODULE, row*QR_MODULE,
-                                       end*QR_MODULE, (row+1)*QR_MODULE))
+            regions.append(polygon_box(col*pitch, row*pitch,
+                                       end*pitch, (row+1)*pitch))
             col = end
     for row in range(20):
         for col in range(20):
             a,b,c,d = matrix[row][col],matrix[row][col+1],matrix[row+1][col],matrix[row+1][col+1]
             if a == d and b == c and a != b:
-                x,y = (col+1)*QR_MODULE, (row+1)*QR_MODULE
-                regions.append(polygon_box(x-.01,y-.01,x+.01,y+.01))
+                x,y = (col+1)*pitch, (row+1)*pitch
+                regions.append(polygon_box(x-10,y-10,x+10,y+10))
     joined = unary_union(regions)
-    return [joined] if joined.geom_type == "Polygon" else joined.geoms
+    from shapely.affinity import scale
+    polygons = [joined] if joined.geom_type == "Polygon" else joined.geoms
+    return [scale(p,.001,.001,origin=(0,0)) for p in polygons]
 
 
 def build_qr(unit):
@@ -180,8 +186,8 @@ def build_qr(unit):
 
 @lru_cache(maxsize=4)
 def build_inlay(unit):
-    logo = _place(_upright(build_logo()), WIDTH/2-LOGO_LEFT, 0)
-    return cq.Compound.makeCompound([logo, build_name(), build_qr(unit)])
+    logo = _place(_upright(build_logo()), WIDTH/2-LOGO_LEFT, LOGO_CENTER_Z)
+    return cq.Compound.makeCompound([logo, build_name(), _unit_shape(unit), build_qr(unit)])
 
 
 @lru_cache(maxsize=4)
@@ -363,7 +369,7 @@ def _wordmark_numbers():
     root = ET.parse(_here.with_name("wordmark.svg")).getroot()
     groups = []
     for group in root:
-        if group.get("aria-label") not in ("HOME", "SODA", "MACHINE"):
+        if not group.get("aria-label") or group.get("data-variable"):
             continue
         tx, ty = map(float, re.fullmatch(r"translate\(([-\d.]+) ([-\d.]+)\)",
                                        group.get("transform")).groups())
@@ -372,6 +378,39 @@ def _wordmark_numbers():
             parse_path(child.get("d"), pen)
         groups.append(pen.loops)
     return groups
+
+
+def _unit_numbers(unit):
+    """The matching, centered identification line from the frozen letterforms."""
+    data = json.loads(_here.with_name('identification-glyphs.json').read_text())
+    if not 1 <= unit <= data['total_units']:
+        raise ValueError('First Edition nameplates are numbered 1 through 10')
+    cursor, loops = 0., []
+    for char in f'UNIT {unit:02d} OF 10':
+        glyph = data['glyphs'][char]
+        for loop in glyph['loops']:
+            loops.append([{kind: [[x+cursor,z] for x,z in points]
+                           for kind,points in segment.items()} for segment in loop])
+        cursor += glyph['advance_mm']+data['tracking_mm']
+    points = [p for loop in loops for segment in loop for values in segment.values() for p in values]
+    cx = (min(p[0] for p in points)+max(p[0] for p in points))/2
+    cz = (min(p[1] for p in points)+max(p[1] for p in points))/2
+    return [[{kind: [[round(cx-x,6),round(z-cz+data['center_z_mm'],6)] for x,z in points]
+              for kind,points in segment.items()} for segment in loop] for loop in loops]
+
+
+def _unit_shape(unit):
+    from cadquery.occ_impl.shapes import sortWiresByBuildOrder
+    wires = []
+    for loop in _unit_numbers(unit):
+        edges = []
+        for segment in loop:
+            kind, points = next(iter(segment.items()))
+            controls = [cq.Vector(x,THICK-INK_DEPTH,z) for x,z in points]
+            edges.append(cq.Edge.makeLine(*controls) if kind=='line' else cq.Edge.makeBezier(controls))
+        wires.append(cq.Wire.assembleEdges(edges))
+    return cq.Compound.makeCompound([cq.Solid.extrudeLinear(outer,inner,cq.Vector(0,INK_DEPTH,0))
+                                    for outer,*inner in sortWiresByBuildOrder(wires)])
 
 
 def _logo_numbers():
@@ -392,7 +431,7 @@ def _logo_numbers():
     scale = LOGO_H / (top-bottom)
     def point(p):
         return [WIDTH/2-LOGO_LEFT-(p[0]-left)*scale,
-                ((bottom+top)/2-p[1])*scale]
+                LOGO_CENTER_Z+((bottom+top)/2-p[1])*scale]
     pen = _NumbersPen(point)
     parse_path(faucet.get('d'), pen)
     return {'faucet': pen.loops[0], 'drop_center': point((cx, cy)),
@@ -413,7 +452,7 @@ def numbers(unit=1):
     roof = wing.WING_THICK+wing.THICKNESS_AIR
     qr = []
     for polygon in _qr_polygons(unit):
-        qr.append([[[WIDTH/2-QR_LEFT-x, HEIGHT/2-QR_TOP-y] for x, y in ring.coords]
+        qr.append([[[round(WIDTH/2-QR_LEFT-x,6),round(HEIGHT/2-QR_TOP-y,6)] for x, y in ring.coords]
                    for ring in (polygon.exterior, *polygon.interiors)])
     return {
         'name': f'nameplate-{unit:03d}', 'unit': unit, 'payload': _plan.unit_url(unit),
@@ -423,11 +462,12 @@ def numbers(unit=1):
         'ink_depth': INK_DEPTH, 'artwork_rise': ARTWORK_RISE,
         'black': list(linear(_filament(BLACK))), 'white': list(linear(_filament(WHITE))),
         'receiver_color': list(linear(M_PETGF_BLACK)),
-        'wordmark': _wordmark_numbers(), 'logo': _logo_numbers(), 'qr': qr,
+        'wordmark': [*_wordmark_numbers(),_unit_numbers(unit)], 'logo': _logo_numbers(), 'qr': qr,
         'qr_quiet': [WIDTH/2-QR_LEFT-QR_ACTIVE-QR_QUIET,
                      WIDTH/2-QR_LEFT+QR_QUIET, THICK-INK_DEPTH, THICK+ARTWORK_RISE,
-                     -QR_ACTIVE/2-QR_QUIET, QR_ACTIVE/2+QR_QUIET],
-        'qr_fits': QR_LEFT+QR_ACTIVE+QR_QUIET <= WIDTH and QR_TOP >= QR_QUIET,
+                     QR_CENTER_Z-QR_ACTIVE/2-QR_QUIET, QR_CENTER_Z+QR_ACTIVE/2+QR_QUIET],
+        'qr_fits': QR_LEFT+QR_ACTIVE+QR_QUIET <= WIDTH and QR_TOP >= QR_QUIET
+                   and QR_TOP+QR_ACTIVE+QR_QUIET <= HEIGHT,
         'receiver': {
             'shell': [-WIDTH/2-wing.PROJECTION-3., WIDTH/2+wing.PROJECTION+3.,
                       THICK-3., THICK, -HEIGHT/2-4., HEIGHT/2+4.],

@@ -18,11 +18,12 @@ the bed. The raised word uses the shared two-colour label process and two
 [appearance record](../tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-30-bulkhead-raised-mark2-v2/physical-result.json)
 retains its recorded material and label-interface scope.
 
-The [accepted flat-wing nameplate](../nameplate/README.md) sits at
-world X0/Z200 with its face at Y473.5. Its broad plain field stands 2.2 mm
-above the rear wall. The full 3.6 mm receiver backing begins at Y466.39,
-clear of the cold-core shell. Both accepted retaining lips and
-their print smooth lands remain complete. The plate takes no screws.
+The [First Edition nameplate](../nameplate/README.md) sits at world X−43.85/Z220
+with its face at Y473.5. Its 92 × 100 mm face is centred between the rear corner's
+X−95.5 tangent and the adjacent card's X7.8 edge, leaving 5.65 mm on each side.
+Its field stands 2.2 mm above the rear wall, with 3.6 mm of receiver backing
+and complete retaining lips. The plate takes no screws. The
+[nameplate fit review](../nameplate/production-fit.json) records its production geometry.
 
 [`rear_identification.py`](rear_identification.py) provides installed parts,
 shell recesses/receiver and print smooth lands from one source. Its main

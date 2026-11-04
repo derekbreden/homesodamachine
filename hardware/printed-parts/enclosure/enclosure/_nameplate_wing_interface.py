@@ -31,14 +31,15 @@ def wings(*, width=WIDTH, span=WING_SPAN):
 
 def blank(*, width=WIDTH, height=HEIGHT, thick=THICK):
     plate = (cq.Workplane('XY').rect(width,height).extrude(thick)
-             .edges('|Z').fillet(dimensions.CORNER_R).val()
+             .edges('|Z').fillet(CORNER_R).val()
              .rotate((0,0,0),(1,0,0),-90))
     return plate.fuse(*wings(width=width)).clean()
 
 
 def apply(solid, station, y_outer, *, supported=SUPPORTED_END_AIR, up=-1,
           width=WIDTH, height=HEIGHT, wing_span=WING_SPAN, wall_face=None, access=True,
-          runout_lead=0.0, end_margin=2.0, crown_face=None):
+          runout_lead=0.0, end_margin=2.0, crown_face=None,
+          corner_radius=dimensions.CORNER_R):
     """Flush plate pocket and two sideways slots; no cantilevers behind the face.
 
     Body X has 0.15 mm per side; Z uses the shared static allowance.
@@ -63,7 +64,7 @@ def apply(solid, station, y_outer, *, supported=SUPPORTED_END_AIR, up=-1,
     # (`production_backing`); a corner round there leaves only a sliver.
     rounds = '|Z' if wall_face is None else '|Z and <X'
     pad = (cq.Workplane('XY').rect(pw+2*(PROJECTION+2),ph+end_margin+runout_margin)
-           .extrude(FLOOR_STOCK+BACK_AIR+THICK).edges(rounds).fillet(dimensions.CORNER_R+2).val()
+           .extrude(FLOOR_STOCK+BACK_AIR+THICK).edges(rounds).fillet(corner_radius+2).val()
            .rotate((0,0,0),(1,0,0),-90)
            .translate((0,-FLOOR_STOCK-BACK_AIR,-up*(runout_margin-end_margin)/2)))
     # A 45-degree inboard run-out carries the added pocket floor in the wall pose.
@@ -93,7 +94,7 @@ def apply(solid, station, y_outer, *, supported=SUPPORTED_END_AIR, up=-1,
         pad = pad.cut(crown)
     solid = solid.fuse(pad.translate(shift))
     mouth = (cq.Workplane('XY').rect(width+2*FACE_X_AIR,ph).extrude(THICK+1+BACK_AIR)
-             .edges('|Z').fillet(dimensions.CORNER_R+FACE_SLIP).val()
+             .edges('|Z').fillet(corner_radius+FACE_SLIP).val()
              .rotate((0,0,0),(1,0,0),-90).translate((0,-BACK_AIR,0)))
     # The print-down mouth edge gets the same rough-surface allowance as the
     # slot end; otherwise that edge can bind before the wings are seated.
@@ -129,7 +130,7 @@ def apply(solid, station, y_outer, *, supported=SUPPORTED_END_AIR, up=-1,
 def receiver():
     shell = box(-WIDTH/2-PROJECTION-3,WIDTH/2+PROJECTION+3,
                 THICK-3,THICK,-HEIGHT/2-4,HEIGHT/2+4)
-    return apply(shell,dimensions.station(0,0),THICK)
+    return apply(shell,dimensions.station(0,0),THICK,corner_radius=CORNER_R)
 
 
 def production_backing(solid, station, y_outer, *, wall_face=None, column=None):
