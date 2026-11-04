@@ -2743,7 +2743,7 @@
     },
     "physical": {
       "path": "hardware/manifold-layout/enclosure-assembly.step.npz",
-      "sha256": "42abdb7f53cf4ccefe6c5a0a315838618f7b15c8615026d91a6f1bb8cd9f857c"
+      "sha256": "6017b887d3aa3224f69ecc8c833068169d2508782f9cef1beb942f488878e852"
     },
     "population": {
       "asse-drain-adapter": [
