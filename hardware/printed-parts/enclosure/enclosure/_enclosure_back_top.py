@@ -819,7 +819,8 @@ def print_numbers(shell,box):
     wing = identification.nameplate.wing_interface
     plain = (shell.disposal_field(box.outer),*wing.plain_lips(
         identification.nameplate_station(),identification.nameplate_plan()['face_y_mm']),
-        *identification.rail_bounds(),shell._above_core_shell.keystone_land())
+        *identification.rail_roots(),*identification.rail_bounds(),
+        shell._above_core_shell.keystone_land())
     if box.pack.nameplate:
         plain += shell._nameplate_fit.plain_lips(box.pack.nameplate,box.outer[3])
     if box.pack.keystone:
@@ -829,7 +830,8 @@ def print_numbers(shell,box):
     out = numbers(shell,box)
     out.update(_enclosure_skin.field_numbers([rail],shell.flute_pitch(box.outer),
                                              shell.flute_depth,shell.flute_rise))
-    out['print'] = {'embed':shell.disposal_embed,'raised_bounds':identification.rail_bounds(),
+    out['print'] = {'embed':shell.disposal_embed,
+        'raised_bounds':(*identification.rail_roots(),*identification.rail_bounds()),
         'label_channels':identification.channel_bounds()}
     return out
 

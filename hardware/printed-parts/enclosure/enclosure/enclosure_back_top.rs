@@ -333,8 +333,8 @@ pub(crate) fn print_surfaces(built: &Built, n: &Numbers) -> Result<(Solid, Solid
         !proud.tris().is_empty(),
         "the accepted nameplate field stands proud"
     );
-    let b = proud.bounds();
-    let field = [b.min.x, b.max.x, o[3] - 3., o[3] + 1., b.min.z, b.max.z];
+    let b = built.receiver.bounds();
+    let field = [b.min.x, b.max.x, b.min.y, o[3] + 1., b.min.z, b.max.z];
     let mut fields = vec![field];
     for bounds in p["raised_bounds"].as_array().context("raised rails")? {
         let a = array(bounds)?;
@@ -345,11 +345,11 @@ pub(crate) fn print_surfaces(built: &Built, n: &Numbers) -> Result<(Solid, Solid
     let mut relief = vec![];
     for b in &fields {
         smooth = smooth.cut(&Solid::cuboid(
-            v3(b[0], o[3], b[4]),
+            v3(b[0], b[2], b[4]),
             v3(b[1], o[3] + 10., b[5]),
         ))?;
         relief.push(built.solid.intersect(&Solid::cuboid(
-            v3(b[0], o[3] - f(p, "embed")?, b[4]),
+            v3(b[0], b[2] - f(p, "embed")?, b[4]),
             v3(b[1], o[3] + 10., b[5]),
         ))?);
     }
@@ -361,10 +361,13 @@ fn printed(built: &Built, n: &Numbers) -> Result<Manifold> {
     let mut joined = fluted.union(&manifold(&relief)?);
     // Keep the raised rails' embedded print skin out of the native sliding
     // channels. Their fitted lips start at the outer wall plane.
+    let rear = n.list("outer")?[3];
     if let Some(channels) = n.get("print")?["label_channels"].as_array() {
         for bounds in channels {
             let (lo, hi) = box_corners(bounds)?;
-            joined = joined.difference(&manifold(&Solid::cuboid(lo, hi))?);
+            joined = joined.difference(&manifold(&Solid::cuboid(
+                lo, v3(hi.x, hi.y.min(rear), hi.z),
+            ))?);
         }
     }
     let (v, props, t) = joined.to_mesh_f32();
