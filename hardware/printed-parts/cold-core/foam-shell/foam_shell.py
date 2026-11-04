@@ -17,7 +17,6 @@ if __name__ == "__main__":
     _rust_part.start()
 
 from _materials import C_FOAM_SHELL
-from _foam_shell import build_full_shell
 from _cold_core_interface import (
     above_carbonator_elbows_height,
     attachment_xy_positions,
@@ -80,7 +79,6 @@ from _cold_core_interface import (
 from docgen import substitute_md
 
 from _copper_ports import evap_cross_z, hole_radius as copper_hole_radius, stations
-
 
 
 def numbers():
@@ -205,59 +203,6 @@ def numbers():
     }
 
 
-
-def _report_front_ports(shell):
-    """Every penetration is on the front face, so each station is measured, not assumed.
-
-    EVERY STATION IS OPEN: a probe one clearance inside each bore, run from outside the −X
-    face through the wall, meets no material. A station that reads closed is a port that is
-    not there; that does not show up in a bounding box, and the whole edition's width rests
-    on this face working."""
-    import cadquery as cq
-    solid = shell.val() if hasattr(shell, "val") else shell
-
-    # EVERY STATION ON EITHER LANE, probed on its own lane's y — the two lanes each
-    # carry one of the evaporator's coppers, so a check that read them all on the port
-    # lane would report the west lane's as blocked and the port lane's slot as its bore.
-    clear = copper_hole_radius - 0.25
-    ports = stations()
-    for name, ((sx, sy, sz), _axis) in sorted(ports.items(), key=lambda kv: kv[1][0][2]):
-        probe = cq.Solid.makeCylinder(
-            clear, wall_and_floor_thickness + 2.0,
-            cq.Vector(sx - 1.0, sy, sz), cq.Vector(1, 0, 0))
-        blocked = probe.intersect(solid).Volume()
-        assert blocked <= 1e-3, (
-            f"the front-face station {name} at y {sy:.4g} z {sz:.4g} is blocked by "
-            f"{blocked:.4f} mm³ — the bore does not go through")
-    print(f"  front face:       {len(ports)} stations on x {front_wall_x:.4g}, all open — "
-          + ", ".join(f"{n} y {p[1]:.4g} z {p[2]:.4g}"
-                      for n, (p, _a) in sorted(ports.items(), key=lambda kv: kv[1][0][2])))
-
-
-def native_main(output=_here):
-    from _cadq_export import export_assembly
-    from _materials import one_body
-    from _show_skin import write_bed_file
-
-    output = Path(output)
-    output.mkdir(parents=True, exist_ok=True)
-    foam_shell = build_full_shell()
-    export_assembly(one_body(foam_shell, "foam-shell", C_FOAM_SHELL),
-                    str(output / "foam-shell.step"))
-    print("-> foam-shell.step")
-    # STEP and print mesh carry the same smooth casing surface.
-    write_bed_file(foam_shell, output / "foam-shell.stl")
-
-    _report_front_ports(foam_shell)
-
-    solid = foam_shell.val()
-    bbox = solid.BoundingBox()
-    volume = solid.Volume()
-    centroid = solid.Center()
-    if (output / "README.md").is_file():
-        update_readme(output, volume, bbox, centroid)
-
-
 def update_readme(output, volume, bbox, centroid):
 
     substitute_md(
@@ -348,7 +293,6 @@ def main(output=_here):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--native", action="store_true", help="Run the retained native builder")
     parser.add_argument("--output", type=Path, default=_here)
     args = parser.parse_args()
-    (native_main if args.native else main)(args.output)
+    main(args.output)
