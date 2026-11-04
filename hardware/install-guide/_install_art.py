@@ -182,9 +182,6 @@ def _unit(vec):
     return [c / mag for c in vec]
 
 
-
-
-
 def _add(assembly, shape, name, color):
     if shape is not None:
         assembly.add(shape, name=name, color=color)
@@ -405,21 +402,6 @@ def s_the_socket():
     a.add(_c13_cordset(0.5), name="c13-cordset", color=CORDSET)
     return a
 
-def s_two_tees():
-    """The kit's two tees at one scale. Everything else in the box is unmistakable;
-    these two are a black fitting and a white one, and page 9 decides between them."""
-    a = cq.Assembly(name="two-tees")
-    black = _load(HARDWARE / "reference" / "jg-pp0208e-tee", "jg_pp0208e_tee")
-    _add(a, black.build_jg_pp0208e_tee().translate((30.0, 0.0, 0.0)),
-         "black-tee", BLACK_PART)
-    plumbing = _load(PLUMBING_DIR, "plumbing_scenes")
-    white = cq.Assembly(name="white-tee")
-    # Its own builder stands it on z=0; both tees sit on one centreline here.
-    plumbing._add_tee(white, origin=(-12.0, 0.0, -30.8), open_ports=True)
-    for child in white.children:
-        a.add(child)
-    return a
-
 
 def s_nameplate():
     """The plate the back cover sends the reader to, with the serial and its link on it."""
@@ -518,24 +500,12 @@ def s_bottle_in_funnel():
     return a
 
 
-def s_stop_open():
-    """The cold shut-off as it stands, lever in line with the outlet."""
-    return _plumbing("plumbing-valve-on")
 
 
-def s_stop_closed():
-    """The same valve, a quarter turn: lever across the outlet."""
-    return _plumbing("plumbing-valve-off")
 
 
-def s_tee_before():
-    """The hose off the stop, and the tee subassembly waiting to go between them."""
-    return _plumbing("plumbing-pre-tee")
 
 
-def s_tee_after():
-    """The tee in, the hose back on top of it, the appliance's run in its branch."""
-    return _plumbing("plumbing-tee-installed")
 
 
 # The tether is pushed into the regulator's PI010822S at the factory, its end this far past the
@@ -583,34 +553,6 @@ def _load(directory, stem):
     return module
 
 
-def s_kitchen_push():
-    """The newer cold side: a 1/4-inch line on a push fitting, nothing to turn."""
-    return _load(MODERN_DIR, "render_modern_tee").build_water_on()
-
-
-def _plumbing(name):
-    """One of the sheet's four under-sink scenes, without its wall plane.
-
-    Every picture in this guide floats on the card's field; the escutcheon and the copper
-    stub already say the stop comes out of a wall.
-    """
-    scene = _load(PLUMBING_DIR, "plumbing_scenes").build_scenes()[name]
-    kept = cq.Assembly(name=name)
-    for child in scene.children:
-        if child.name != "finished-wall":
-            kept.add(child)
-    return kept
-
-
-def s_kitchen_hose():
-    """The older cold side: a braided hose on a shut-off valve, no 1/4-inch line anywhere.
-
-    The sheet's own wall plane comes out: every picture in this guide floats on the card's
-    field, and the escutcheon and copper stub already say the stop comes out of a wall.
-    """
-    return _plumbing("plumbing-valve-on")
-
-
 SCENES = {
     "cabinet-plan": (s_cabinet_plan, dict(cam=(0.0, 0.0, 1.0), up=(0, 1, 0),
                                       size="1700x2000")),
@@ -620,22 +562,22 @@ SCENES = {
                                                 size="2200x1200")),
     # One span and one frame for both, and no trim, so the two halves of the fork are
     # at the same scale in the same box: the comparison is the whole picture.
-    "two-tees": (s_two_tees, dict(cam=(0.25, 1.0, 0.32), size="1600x900")),
+    "two-tees": (None, dict(cam=(0.25, 1.0, 0.32), size="1600x900")),
     "nameplate": (s_nameplate, dict(cam=(-0.14, 1.0, 0.10),
                    target=(38.16, 467.0, 262.9), span=132.0, size="1600x1100")),
     "plate-sideways": (s_plate_sideways, dict(cam=(-0.85, -1.0, -0.85),
                         target=(-16.0, 0.0, -43.0), span=88.0, size="1700x950")),
     # One camera per pair, and no trim, so before and after are the same frame.
-    "stop-open": (s_stop_open, dict(cam=(1.05, 1.70, 0.62), target=(-6.0, 44.0, 96.0), span=86.0, size="1250x1150", trim=False)),
-    "stop-closed": (s_stop_closed, dict(cam=(1.05, 1.70, 0.62), target=(-6.0, 44.0, 96.0), span=86.0, size="1250x1150", trim=False)),
-    "tee-before": (s_tee_before, dict(cam=(1.05, 1.70, 0.62), target=(-6.0, 44.0, 112.0), span=132.0, size="1250x1150", trim=False)),
-    "tee-after": (s_tee_after, dict(cam=(1.05, 1.70, 0.62), target=(-6.0, 44.0, 112.0), span=132.0, size="1250x1150", trim=False)),
+    "stop-open": (None, dict(cam=(1.05, 1.70, 0.62), target=(-6.0, 44.0, 96.0), span=86.0, size="1250x1150", trim=False)),
+    "stop-closed": (None, dict(cam=(1.05, 1.70, 0.62), target=(-6.0, 44.0, 96.0), span=86.0, size="1250x1150", trim=False)),
+    "tee-before": (None, dict(cam=(1.05, 1.70, 0.62), target=(-6.0, 44.0, 112.0), span=132.0, size="1250x1150", trim=False)),
+    "tee-after": (None, dict(cam=(1.05, 1.70, 0.62), target=(-6.0, 44.0, 112.0), span=132.0, size="1250x1150", trim=False)),
     # Well round to the side and low, so the tipped bottle's mouth reads below its base.
     "bottle-in-funnel": (s_bottle_in_funnel, dict(cam=(1.0, -0.5, 0.45),
                           target=(20.0, 215.0, 190.0), span=265.0, size="1500x1180")),
-    "kitchen-push": (s_kitchen_push, dict(cam=(1.05, -1.72, 0.72), target=(-46.0, 8.0, 100.0),
+    "kitchen-push": (None, dict(cam=(1.05, -1.72, 0.72), target=(-46.0, 8.0, 100.0),
                                           span=88.0, size="1500x980", trim=False)),
-    "kitchen-hose": (s_kitchen_hose, dict(cam=(1.05, 1.70, 0.62), target=(10.0, 53.0, 150.0),
+    "kitchen-hose": (None, dict(cam=(1.05, 1.70, 0.62), target=(10.0, 53.0, 150.0),
                                           span=88.0, size="1500x980", trim=False)),
     "regulator": (s_regulator, dict(cam=(0.10, 1.0, 0.16), size="1700x1500")),
     "collet-press": (s_collet_press, dict(cam=(-0.5, -0.9, 0.85), size="1700x1100")),
