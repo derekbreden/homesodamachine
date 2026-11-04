@@ -1,0 +1,86 @@
+{
+  "views": [
+    {
+      "name": "rear",
+      "caption": "First Edition plate with separate frames and hidden pointed spring clips",
+      "before": "rear-before.webp",
+      "after": "rear-after.webp",
+      "width": 1200,
+      "height": 1000,
+      "marks": [
+        {
+          "x": 588.2,
+          "y": 507.8,
+          "r": 17.9,
+          "label": "Separate frames",
+          "at": [
+            3,
+            471.225,
+            256
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "orthographic",
+        "position": [
+          -72.20211858753821,
+          1075.6843215628185,
+          306.1347457250255
+        ],
+        "target": [
+          0,
+          474,
+          258
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "half": 112,
+        "near": 485.8855079231392,
+        "far": 1144.4542775365082,
+        "aspect": 1.2
+      },
+      "highlight": [],
+      "ghost": [],
+      "only": [
+        "nameplate*",
+        "enclosure-back-top",
+        "bulkhead-ring-*",
+        "c14-inlet",
+        "keystone-jack",
+        "co2-inlet",
+        "bulkhead-water",
+        "bulkhead-carb",
+        "bulkhead-drain",
+        "bulkhead-flavor-*"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "f867e7f3129450e3d219f0ab39ae84b0aea44720eb567afe916fe8f7417c5954",
+          "commit": "63658e44888f13d7a7e657d435558580e4746902",
+          "taken": "2026-11-04T18:43:55.495Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "d78cc6be7dd85495cc39ed818f985398d2af60cd2e58ce56be0f4c257855cb25",
+          "commit": "1c6efa28e337ac8f1ecece10fd1540ae3a6ad83c",
+          "published": true
+        }
+      },
+      "changed": [
+        "nameplate-ink",
+        "nameplate",
+        "enclosure-back-top"
+      ],
+      "withinMeshing": []
+    }
+  ]
+}
