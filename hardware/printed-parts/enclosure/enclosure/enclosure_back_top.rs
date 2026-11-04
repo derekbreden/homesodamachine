@@ -358,7 +358,15 @@ pub(crate) fn print_surfaces(built: &Built, n: &Numbers) -> Result<(Solid, Solid
 fn printed(built: &Built, n: &Numbers) -> Result<Manifold> {
     let (smooth, relief, field) = print_surfaces(built, n)?;
     let fluted = skin::flute_solid(&smooth.simplified()?, n, &[field])?;
-    let joined = fluted.union(&manifold(&relief)?);
+    let mut joined = fluted.union(&manifold(&relief)?);
+    // Keep the raised rails' embedded print skin out of the native sliding
+    // channels. Their fitted lips start at the outer wall plane.
+    if let Some(channels) = n.get("print")?["label_channels"].as_array() {
+        for bounds in channels {
+            let (lo, hi) = box_corners(bounds)?;
+            joined = joined.difference(&manifold(&Solid::cuboid(lo, hi))?);
+        }
+    }
     let (v, props, t) = joined.to_mesh_f32();
     Ok(Manifold::from_mesh_f32(&v, props, &t)?)
 }
