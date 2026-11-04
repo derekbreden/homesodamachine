@@ -1,11 +1,8 @@
-"""92 × 100 mm First Edition nameplate, printed face up in two-colour PET-GF.
+"""88 × 100 mm First Edition nameplate with hidden pointed spring leaves.
 
-All white artwork rises 0.48 mm above the flat black face. Two horizontal
-wings share the flat back and enter side pockets in enclosure-back-top. The origin
-is the back of the plate; +Y points out of the enclosure, +Z up, and text reads
-along -X when viewed from outside.
-
-Run with a unit number (1..10), or `selftest` to check the plate and receiver.
+The origin is the back of the rigid plate; +Y points out of the enclosure, +Z up,
+and text reads along -X from outside. Print face up with supported rear leaves.
+Run with a unit number (1..10), or selftest for fit and artwork checks.
 """
 from __future__ import annotations
 

@@ -1,100 +1,92 @@
 # Nameplate
 
-A [92 mm](PLATE_W) × [100 mm](PLATE_H) First Edition plate, seated flush in the raised rear receiver of
-`enclosure-back-top`. The faucet mark, two-line Georgia Bold company name, fine divider,
-matching Helvetica Neue Medium identification lines and QR share one vertical centreline.
-A 0.42 mm rounded white frame sits 5 mm inside the R5 outer edge.
+An 88 × 100 mm First Edition plate in the raised rear receiver of
+`enclosure-back-top`. The faucet mark, two-line Georgia Bold company name, fine
+divider, matching Helvetica Neue Medium identification lines and QR share one
+vertical centreline. A 0.42 mm rounded white frame surrounds the artwork.
 
 [`nameplate.py`](nameplate.py) generates the two-colour part. [`wordmark.svg`](wordmark.svg)
-holds the outlined title, edition and frame. [`identification-glyphs.json`](identification-glyphs.json)
+holds the outlined title, edition and frame; [`identification-glyphs.json`](identification-glyphs.json)
 holds the matching unit-number letterforms. The faucet comes from [`brand/mark.svg`](/brand/mark.svg).
-The flat face is [3.36 mm](NAMEPLATE_T) thick. All white artwork has a
-[0.72 mm](INK_DEPTH) embedded base and rises 0.48 mm above the black face. The STEP and
-3MF preserve both colour volumes; the STL represents their combined exterior.
+The black face is 3.36 mm thick. White artwork has a 0.72 mm embedded base and rises
+0.48 mm above the face. STEP and 3MF preserve both colour volumes; the STL represents
+their combined exterior.
 
-## QR
+## QR and identification
 
-The unit-0001 payload is `HTTPS://HOSM.US/0001`. Uppercase scheme and host allow the complete
-URL to use QR alphanumeric mode: version 1, error correction M, **21 × 21 active modules**.
-Each module is 1.2 mm; the active square is 25.2 mm and its four-module quiet zone makes a
-34.8 mm square. The complete quiet zone clears the frame and identification text.
-Diagonal-only white contacts have 0.02 mm corner joins. Their union is made on an integer
-micron grid before conversion to millimetres.
+Unit 0001 reads `FIRST EDITION` and `UNIT 01 OF 10`. Both identification lines use
+the same 3.5 mm em, weight and tracking. The QR contains `HTTPS://HOSM.US/0001`:
+version 1, error correction M, 21 × 21 active modules at 1.2 mm. Its active square
+is 25.2 mm; the four-module quiet zone makes a 34.8 mm square. The QR and its quiet
+zone clear the frame and text. Diagonal-only white contacts have 0.02 mm corner joins.
+The complete artwork retains its size within the narrower black horizontal margins.
 
-The plate reads `FIRST EDITION` and `UNIT 01 OF 10` for unit 0001. Both identification
-lines use the same 3.5 mm em, weight and tracking. The four-digit unit identifier is
-encoded in the QR. The full-domain address in written instructions is
-`homesodamachine.com/0001`; neither address is lettered on the plate.
-
-The separate [appliance marking specification](/hardware/markings/README.md) covers ratings,
-refrigerant warnings and the disposal warning low on the rear enclosure.
+The full-domain address in written instructions is `homesodamachine.com/0001`.
+The separate [appliance marking specification](/hardware/markings/README.md) covers
+ratings, refrigerant warnings and disposal marking low on the enclosure.
 
 ## Retention
 
-Two coplanar horizontal wings enter pockets in back-top. Each projects 2.40 mm,
-is 1.68 mm thick and spans 30 mm, with R0.6 ends. The plate and wings share a
-flat back. Flex the plate outward to insert the wings and seat it against the
-pocket floor. A rear diamond opening permits pushing the centre outward for removal.
+The rigid plate presses straight into its receiver. Two hidden leaves flex inward
+behind it. Each leaf is 2 mm thick in X and 2 mm deep in Y, with an R1.5 transition
+at its root, a 25 mm free length to its head, and a single pointed 1.2 mm lead-in.
+The hooks capture 1.05 mm of receiver shoulder. Their insertion stroke is 1.2 mm;
+the receiver provides space for that stroke, the complete roots and both heads.
+The leaf outline lies within each face-up printed layer.
 
-Body X clearance is 0.15 mm per side. Wing tips have 0.25 mm centered clearance,
-0.10 mm at full body float. The wing-thickness gap is 0.45 mm; the 2.13 mm slot
-leaves a 1.23 mm retaining lip. Z uses 0.15 mm static clearance plus 0.25 mm once
-at the print-down mouth and slot end. The entry bevel is 1.10 mm wide × 0.40 mm
-deep. Minimum capture is 2.10 mm, including at least 1.00 mm of flat bearing.
-These interface dimensions come from the [accepted receiver coupon](horizontal-wing-trial/physical-acceptance.json).
+The clip tips extend 4 mm behind the plate back. Blind receiver pockets have
+0.25 mm rear clearance, at least 3 mm of backing stock, 0.15 mm body clearance per
+side and 0.25 mm additional allowance at the print-down opening. The retaining
+shoulder is 1.6 mm deep. A centered 6 mm-wide front tool opening in each receiver
+side exposes its spring head while leaving a 2 mm bearing band at either end of
+the hook. Insert a small flat screwdriver beside the plate, push the head inward
+and lift that side; release the opposite head to remove the plate. The tool
+openings are in the receiver, accessible from outside the assembled enclosure.
 
-The plate centre is world X−43.85/Z220 and its face is Y474.3. Its 92 mm face leaves
-5.65 mm to both the R12 rear-corner tangent at X−95.5 and the adjacent colour-card
-edge at X7.8. The receiving mouth and side slots follow the same station.
-The receiver keeps 3.60 mm of backing and complete retaining lips through the fluted skin.
-Its stock and installed hardware clearances are recorded in [the production fit review](production-fit.json).
+[`snap_dimensions.rs`](snap_dimensions.rs) supplies the common dimensions.
+[`snap_geometry.rs`](snap_geometry.rs) cuts the complete plate and the receiver
+stock and cavities used by the production back-top. The local receiver export and
+website cutaway use that same interface.
 
-The production pocket is generated by
-[`_nameplate_wing_interface.py`](../enclosure/_nameplate_wing_interface.py) and the matching
-Rust panel recipe in [`_enclosure_back_top.py`](../enclosure/_enclosure_back_top.py).
+The plate centre is world X−45.4/Z220 and its face is Y474.3. The complete receiver
+is 94.3 mm wide: its outside edges leave 2.95 mm to the rear-corner tangent at
+X−95.5 and 2.90 mm to the adjacent color-chip frame at X4.65. These are frame-to-frame
+and frame-to-corner spaces. The frame is flush with the color-chip rail in Y.
+[Production fit measurements](production-fit.json) record the geometry review.
 
 ## Printing and assembly
 
-Print face up with the plate back and both wings on the bed, without supports.
-All white lettering, the faucet/drop mark and QR rise 0.48 mm. Preserve the accepted
-Mark2 black/white alignment compensation in the print package; it is not a CAD
-translation. Use the shared PET-GF material settings and a 0.20 mm first layer. Retain the 0.325 mm identification
-strokes with Arachne variable-width walls and a 75% minimum bead width on the 0.4 mm nozzle.
+Print the nameplate face up, with the hidden clip backs on the bed and supports
+under the plate back. Remove supports through the open sides of the 2 mm space
+behind each leaf; keep its root and pointed head intact. Use the shared PET-GF
+material settings, a 0.20 mm first layer, Arachne walls and a 75% minimum bead width
+on the 0.4 mm nozzle to retain the 0.325 mm identification strokes.
 
-The receiver prints as part of back-top in its roof-down orientation, with shared
-PET-GF tree supports and clearance. Remove its supports through the front opening
-before installing the nameplate. Printed full-enclosure fit remains a physical
-assembly check; the accepted evidence is from the matching receiver coupon.
+Preserve the accepted Mark2 black/white alignment compensation in the print
+package; it is not a CAD translation. The [colour registration print records](horizontal-wing-trial/README.md)
+identify that compensation and the external black/white PET-GF spools. Keep the
+standard nozzle-offset startup option at Auto.
 
-## Generation
+The receiver prints within back-top in its roof-down orientation using shared
+PET-GF tree supports. Clear the pockets through the front opening before
+installation. The complete hidden-leaf plate and enclosure attachment await
+physical verification; geometry checks do not establish plastic fatigue life.
+
+## Website review and generation
+
+[`attachment_view.py`](attachment_view.py) exports seated, separated and installed
+GLB views from the actual production meshes. The separated plate is turned around
+to expose its leaves; that inspection pose is not its installation path.
 
 ```sh
 tools/cad-venv/bin/python hardware/printed-parts/enclosure/nameplate/nameplate.py 1
 tools/cad-venv/bin/python hardware/printed-parts/enclosure/nameplate/nameplate.py selftest
 ```
 
-The first command emits `nameplate-001.step`; the assembly uses `nameplate-001.step`.
-First Edition plates are numbered 0001–0010; every QR stays version 1. The self-test checks solid
-validity and QR quiet-zone geometry.
+First Edition plates are numbered 0001–0010. Every QR remains version 1. The manual
+self-test checks solid validity, disjoint inks, the QR quiet zone, seated clearance
+and an insertion sweep with the spring heads displaced inward.
 
 ## Sources
 [value](NAME) texts are updated by:
-- `/hardware/printed-parts/enclosure/nameplate/_nameplate_dimensions.py`
 - `/hardware/printed-parts/enclosure/nameplate/nameplate.py`
-
-## Print records
-
-The [horizontal-wing print records](horizontal-wing-trial/README.md) identify the
-accepted flat plate, Mark2's black/white alignment compensation and the matching
-receiver. Black PET-GF maps to the left external spool and white PET-GF to the
-right external spool, both using hardened 0.4 mm nozzles and the device's PET-CF
-label. Keep the standard nozzle-offset startup option at Auto.
-
-`horizontal-wing-trial/prepare_pair.py` prepares the face-up plate and a receiver
-coupon. `horizontal-wing-trial/prepare_receiver.py` prepares a receiver alone in
-its production print orientation. The nameplate has no supports; the receiver
-uses the shared PET-GF tree-support settings.
-
-The [full back-top integration](../enclosure/accepted-fit-integration/README.md)
-contains this receiver, with measured hardware clearance and full-thickness
-retaining lips in its fluted exterior.

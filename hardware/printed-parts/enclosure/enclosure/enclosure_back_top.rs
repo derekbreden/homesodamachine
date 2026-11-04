@@ -5,6 +5,9 @@ mod skin;
 #[path = "enclosure_structure.rs"]
 #[allow(dead_code)]
 mod structure;
+#[path = "../nameplate/snap_geometry.rs"]
+#[allow(dead_code)]
+mod nameplate_snap;
 use anyhow::{bail, ensure, Context, Result};
 use hsm_kernel::part::{args, write_shown, Numbers};
 use hsm_kernel::*;
@@ -213,6 +216,8 @@ pub(crate) fn build(n: &Numbers) -> Result<Built> {
         let shape = (|| -> Result<Solid> {
             Ok(match op {
                 "empty" => Solid::empty(),
+                "nameplate-stock" => nameplate_snap::receiver_stock(&v["snap"])?,
+                "nameplate-cuts" => nameplate_snap::receiver_cuts(&v["snap"])?,
                 "silhouette" => structure::silhouette(n)?,
                 "box" => {
                     let (lo, hi) = box_corners(&v["box"])?;

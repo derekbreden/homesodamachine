@@ -1,5 +1,7 @@
-//! The flat-wing nameplate and its receiver coupon. `nameplate.py` carries the dimensions,
+//! The hidden-leaf nameplate and its receiver. `nameplate.py` carries the dimensions,
 //! original SVG control points and the unit's QR polygons.
+mod snap_geometry;
+
 use anyhow::{Result, anyhow, ensure};
 use hsm_kernel::part::{Numbers, args, write_part};
 use hsm_kernel::{Body, Loop, Plane, Profile, Seg, Solid, V2, v2, v3};
@@ -23,11 +25,6 @@ fn point(v: &Value) -> Result<V2> {
 
 fn points(v: &Value) -> Result<Vec<V2>> {
     list(v)?.iter().map(point).collect()
-}
-
-fn pair(v: &Value) -> Result<(f64, f64)> {
-    let p = point(v)?;
-    Ok((p.x, p.y))
 }
 
 /// The master's segments without a fitted or polygonal intermediate.
@@ -93,10 +90,6 @@ fn xz(profile: &Profile, y: f64, depth: f64) -> Result<Solid> {
     Plane::XZ.at(v3(0.0, y, 0.0)).extrude(profile, -depth)
 }
 
-fn round_xz(w: f64, h: f64, r: f64, z: f64, y: (f64, f64)) -> Result<Solid> {
-    xz(&Profile::new(Loop::rounded_rect(v2(0.0, z), w, h, r)?), y.0, y.1 - y.0)
-}
-
 fn boxed(v: &Value) -> Result<Solid> {
     let a = list(v)?.iter().map(|x| x.as_f64().ok_or_else(|| anyhow!("non-numeric bound")))
         .collect::<Result<Vec<_>>>()?;
@@ -105,15 +98,7 @@ fn boxed(v: &Value) -> Result<Solid> {
 }
 
 fn blank(n: &Numbers) -> Result<Solid> {
-    let (w, h, t) = (n.f("width")?, n.f("height")?, n.f("thick")?);
-    let reach = n.f("wing_projection")?;
-    let mut parts = vec![round_xz(w, h, n.f("corner")?, 0.0, (0.0, t))?];
-    for side in [-1.0, 1.0] {
-        parts.push(round_xz(reach + 1.0, n.f("wing_span")?, n.f("wing_corner")?, 0.0,
-                            (0.0, n.f("wing_thick")?))?
-                   .translate(v3(side * (w / 2.0 + (reach - 1.0) / 2.0), 0.0, 0.0)));
-    }
-    Solid::union_all(&parts)
+    snap_geometry::plate_blank(n.get("snap")?)
 }
 
 fn wordmark(n: &Numbers, depth: f64) -> Result<Solid> {
@@ -145,31 +130,8 @@ fn artwork(n: &Numbers, depth: f64) -> Result<Solid> {
     Ok(Solid::compose(&parts))
 }
 
-/// The accepted coupon's shell, pad and 45-degree run-out, then its mouth, wing reliefs,
-/// insertion bevels and release diamond. Its ordinary production helper remains in Python
-/// for native callers that cut the same interface in other host walls.
 fn receiver(n: &Numbers) -> Result<Solid> {
-    let r = n.get("receiver")?;
-    let pad = round_xz(f(r, "pad_width")?, f(r, "pad_height")?, f(r, "pad_corner")?,
-                       f(r, "pad_z")?, pair(&r["pad_y"])?)?;
-    let (xa, xb) = pair(&r["ramp_x"])?;
-    let ramp = Plane::YZ.at(v3(xa, 0.0, 0.0))
-        .extrude(&Profile::polygon(&points(&r["ramp_yz"])?), xb - xa)?;
-    let stock = boxed(&r["shell"])?.union(&pad.cut(&ramp)?)?;
-    let mouth = round_xz(f(r, "mouth_width")?, f(r, "mouth_height")?, f(r, "mouth_corner")?,
-                         0.0, pair(&r["mouth_y"])?)?;
-    let mut tools = vec![mouth.union(&mouth.translate(v3(0.0, 0.0, f(r, "mouth_shift_z")?)))?];
-    for slot in list(&r["slots"])? {
-        tools.push(boxed(slot)?);
-    }
-    let (za, zb) = pair(&r["slot_z"])?;
-    for bevel in list(&r["bevels_xy"])? {
-        tools.push(Plane::XY.at(v3(0.0, 0.0, za))
-            .extrude(&Profile::polygon(&points(bevel)?), zb - za)?);
-    }
-    let (ya, yb) = pair(&r["diamond_y"])?;
-    tools.push(xz(&Profile::polygon(&points(&r["diamond_xz"])?), ya, yb - ya)?);
-    stock.cut_all(&tools)
+    snap_geometry::receiver(n.get("snap")?)
 }
 
 fn plate(n: &Numbers) -> Result<(Solid, Solid)> {
@@ -191,8 +153,43 @@ fn check(n: &Numbers) -> Result<Value> {
     let quiet_overlap = wordmark(n, n.f("ink_depth")?)?.intersect(&boxed(n.get("qr_quiet")?)?)?.volume();
     ensure!(quiet_overlap < 1e-6, "the wordmark enters the QR quiet zone");
     ensure!(n.get("qr_fits")?.as_bool() == Some(true), "the QR quiet zone exceeds the plate");
+    let snap=n.get("snap")?;
+    let seated=blank(n)?.intersect(&receiver)?.volume();
+    ensure!(seated<1e-6,"seated nameplate intersects receiver by {seated} mm³");
+    let deflected=snap_geometry::plate_at_deflection(snap,1.2)?;
+    let mut sweep_overlap:f64=0.;
+    for i in 0..=32 {
+        let pose=deflected.translate(v3(0.,i as f64/4.,0.));
+        sweep_overlap=sweep_overlap.max(pose.intersect(&receiver)?.volume());
+    }
+    ensure!(sweep_overlap<1e-6,"compressed clip insertion intersects receiver by {sweep_overlap} mm³");
+    let mut tool_overlap:f64=0.;
+    let rigid_face=Solid::cuboid(v3(-n.f("width")?/2.,0.,-n.f("height")?/2.),
+        v3(n.f("width")?/2.,n.f("thick")?,n.f("height")?/2.));
+    for angle in [50_f64,55.,60.] {
+        let a=angle.to_radians();
+        let normal=v2(a.cos(),-a.sin())*0.4;
+        let fore=v2(n.f("width")?/2.+1.28+8.*a.tan(),8.);
+        let tip=v2(n.f("width")?/2.+1.28-2.4*a.tan(),-2.4);
+        let blade=Plane::XY.at(v3(0.,0.,-2.)).extrude(&Profile::polygon(&[
+            tip-normal,fore-normal,fore+normal,tip+normal]),4.)?;
+        for tool in [blade.clone(),blade.mirror(v3(0.,0.,0.),v3(1.,0.,0.))] {
+            tool_overlap=tool_overlap.max(tool.intersect(&receiver)?.volume())
+                .max(tool.intersect(&rigid_face)?.volume());
+        }
+    }
+    ensure!(tool_overlap<1e-6,"release blade intersects receiver or rigid face by {tool_overlap} mm³");
+    let capture=f(snap,"leaf_outer")?+f(snap,"hook_projection")?-f(snap,"catch_inner")?;
+    let free= snap["hook_z"][0].as_f64().unwrap()
+        -snap["root_z"][1].as_f64().unwrap()-f(snap,"root_radius")?;
     Ok(json!({"valid_body": true, "valid_receiver": true,
-              "wing_thickness_gap_mm": f(n.get("receiver")?, "thickness_air")?,
+              "snap": n.get("snap")?,
+              "seated_overlap_mm3":seated,"compressed_insertion_sweep_overlap_mm3":sweep_overlap,
+              "capture_mm":capture,"inward_travel_mm":1.2,"free_spring_length_mm":free,
+              "beam_strain_estimate":1.5*f(snap,"leaf_thick")?*1.2/(free*free),
+              "release_tool_overlap_mm3":tool_overlap,
+              "release_tool":"4 × 0.8 mm flat blade, front approach and 50–60 degree inward tilt; spring contact is intentional.",
+              "motion_check":"Rigid plate; displaced spring heads with cantilever-shaped leaves, swept 0–8 mm outwards in Y. Material behavior requires the physical part.",
               "artwork_rise_mm": n.f("artwork_rise")?, "payload": n.text("payload")?,
               "body_ink_overlap_mm3": overlap, "quiet_zone_overlap_mm3": quiet_overlap}))
 }
