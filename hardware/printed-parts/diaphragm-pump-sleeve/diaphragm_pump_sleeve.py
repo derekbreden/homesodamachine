@@ -18,7 +18,6 @@ import sys
 HERE = Path(__file__).resolve().parent
 HARDWARE = HERE.parents[1]
 sys.path.insert(0, str(HARDWARE / "scripts"))
-sys.path.insert(0, str(HARDWARE / "reference/g-ganen-pump"))
 
 if __name__ == "__main__":
     import _rust_part
@@ -29,25 +28,6 @@ PORTS = {"suction": "port_yminus", "discharge": "port_yplus"}
 # Siraya Tech Flex TPU 85A Clear, the stock the pump dock's wet TPU parts print in.
 _COLOR_SRGB = (.92, .92, .90, .60)
 
-
-def __getattr__(name):
-    """Native helpers remain available without loading OCCT for dimension readers."""
-    if name in ("cq", "COLOR"):
-        import cadquery as cq
-        value = cq if name == "cq" else cq.Color(*_COLOR_SRGB)
-    elif name == "pump":
-        import g_ganen_pump
-        value = g_ganen_pump
-    elif name == "export_assembly":
-        from _cadq_export import export_assembly
-        value = export_assembly
-    elif name == "one_body":
-        from _material_base import one_body
-        value = one_body
-    else:
-        raise AttributeError(name)
-    globals()[name] = value
-    return value
 
 BARB_BORE = 9.00
 BARB_DEPTH = 11.0  # The barb tip bottoms on the passage shelf; the mouth stops short of the casting.
@@ -106,100 +86,6 @@ TUBE_AXIS = -(BARB_DEPTH - CLAMP_BAND) + BAND_AIR + TUBE_OD_INSTALLED / 2
 FOOT = TUBE_AXIS / math.sqrt(2) + PASSAGE / 2 + MIN_WALL
 
 
-def _x(r, x0, x1):
-    import cadquery as cq
-    return cq.Solid.makeCylinder(r, x1 - x0, cq.Vector(x0, 0, 0), cq.Vector(1, 0, 0))
-
-
-def _y(r, y0, y1):
-    import cadquery as cq
-    return cq.Solid.makeCylinder(r, y1 - y0, cq.Vector(TUBE_AXIS, y0, 0), cq.Vector(0, 1, 0))
-
-
-def build_local(*, installed=False, exterior=False):
-    """The elbow in its own frame: relaxed, or the envelope a placement occupies.
-
-    The neck is a revolved fifth-degree Bezier, r(t) = rb + (rt - rb)(10t^3 - 15t^4 + 6t^5),
-    so radius, slope and curvature meet both round legs. The heel is the barb leg's own
-    sphere about the corner.
-
-    The installed view opens the barb socket to the largest scanned crest and the tube socket
-    to the tube OD, grows those two outside radii by conserving annular section area, and
-    lengthens the neck by a millimetre. It is placement geometry, not an elastomer deformation
-    or sealing model.
-    """
-    import cadquery as cq
-    rb = (BARB_OD_INSTALLED if installed else BARB_OD) / 2
-    rt = (TUBE_OD_INSTALLED if installed else TUBE_OD) / 2
-    bore_b = (crest() if installed else BARB_BORE) / 2
-    bore_t = (TUBE_D if installed else TUBE_BORE) / 2
-    length = NECK + (1.0 if installed else 0.0)
-    profile = (cq.Workplane("XY").moveTo(0, 0).lineTo(rb, 0)
-               .bezier([(rb, length / 5), (rb, 2 * length / 5),
-                        (rt, 3 * length / 5), (rt, 4 * length / 5), (rt, length)],
-                       includeCurrent=True)
-               .lineTo(0, length).close())
-    neck = profile.revolve(360, (0, 0, 0), (0, 1, 0)).val().translate((TUBE_AXIS, 0, 0))
-    heel = cq.Solid.makeSphere(rb, cq.Vector(TUBE_AXIS, 0, 0), angleDegrees1=-90)
-    # Sequential unions keep the tangent sphere quadrant in OCC.
-    outer = (_x(rb, -BARB_DEPTH, TUBE_AXIS).fuse(heel)
-             .fuse(neck).fuse(_y(rt, length, TUBE_MOUTH)))
-    span = 4 * (BARB_DEPTH + TUBE_MOUTH)
-    foot = (cq.Solid.makeBox(span, span, span, cq.Vector(0, -span / 2, -span / 2))
-            .rotate((0, 0, 0), (0, 0, 1), -45)
-            .translate(cq.Vector(FOOT / math.sqrt(2), -FOOT / math.sqrt(2), 0)))
-    outer = outer.cut(foot)
-    if exterior:
-        return outer if installed else outer.clean()
-    cavity = _x(bore_b, -BARB_DEPTH - .01, 0).fuse(
-        cq.Solid.makeCone(bore_b + ENTRY, bore_b, ENTRY_HEIGHT,
-                          cq.Vector(-BARB_DEPTH, 0, 0), cq.Vector(1, 0, 0)),
-        _x(PASSAGE / 2, 0, TUBE_AXIS),
-        _y(PASSAGE / 2, 0, TUBE_STOP),
-        _y(bore_t, TUBE_STOP, TUBE_MOUTH + .01),
-        cq.Solid.makeCone(bore_t, bore_t + ENTRY, ENTRY_HEIGHT,
-                          cq.Vector(TUBE_AXIS, TUBE_MOUTH - ENTRY_HEIGHT, 0),
-                          cq.Vector(0, 1, 0)))
-    body = outer.cut(cavity)
-    # An expanded envelope keeps its native face boundaries: a same-domain merge at its
-    # tangent skins costs far more than the placement it serves.
-    return body if installed else body.clean()
-
-
-def build(exterior=False):
-    """The printable elbow, as a V on its foot at Z = 0, centred in X and Y.
-
-    The foot plane is exact. A spline's bounding box carries a tolerance that would leave the
-    foot above Z = 0, so the pose is set off the analytic extremes instead: the two mouth rims
-    in X, and the symmetric local Z in Y."""
-    import cadquery as cq
-    s = 1 / math.sqrt(2)
-    posed = build_local(exterior=exterior).moved(cq.Location(cq.Plane(
-        origin=(0, 0, 0), xDir=(s, 0, -s), normal=(0, -1, 0))))
-    xmin = (-BARB_DEPTH - BARB_OD / 2) * s
-    xmax = (TUBE_AXIS + TUBE_OD / 2 + TUBE_MOUTH) * s
-    return posed.translate(cq.Vector(-(xmin + xmax) / 2, 0, FOOT))
-
-
-def _frame(tip, axis, toward):
-    import cadquery as cq
-    x = cq.Vector(*axis).normalized()
-    t = cq.Vector(*toward)
-    y = (t - x * t.dot(x)).normalized()
-    return cq.Vector(*tip), x, y
-
-
-def location(tip, axis, toward):
-    """Seated on a barb whose tip and outward axis are given, tube leaving `toward`."""
-    import cadquery as cq
-    origin, x, y = _frame(tip, axis, toward)
-    return cq.Location(cq.Plane(origin=origin, xDir=x, normal=x.cross(y)))
-
-
-def placed(tip, axis, toward):
-    return build_local(installed=True).moved(location(tip, axis, toward))
-
-
 def tube_port():
     """Where the tube enters, in the elbow's own frame: `(position, outward axis)`."""
     return (TUBE_AXIS, TUBE_MOUTH, 0.0), (0.0, 1.0, 0.0)
@@ -215,21 +101,6 @@ def tube_mouth(tip, axis, toward):
     y = tuple(v / length for v in across)
     p = tuple(o + a * TUBE_AXIS + b * TUBE_MOUTH for o, a, b in zip(tip, x, y))
     return p, y
-
-
-def bands(tip, axis, toward):
-    """The two clamp bands, closed, flush with their mouths. The housing, screw and key stand
-    outside this ring and are not drawn."""
-    import cadquery as cq
-    origin, x, y = _frame(tip, axis, toward)
-    out = {}
-    for name, start, normal, diameter in (
-            ("barb", origin - x * BARB_DEPTH, x, BARB_OD_INSTALLED),
-            ("tube", origin + x * TUBE_AXIS + y * (TUBE_MOUTH - CLAMP_BAND), y,
-             TUBE_OD_INSTALLED)):
-        ring = cq.Solid.makeCylinder(diameter / 2 + BAND_T, CLAMP_BAND, start, normal)
-        out[name] = ring.cut(cq.Solid.makeCylinder(diameter / 2, CLAMP_BAND, start, normal))
-    return out
 
 
 def numbers():
@@ -373,34 +244,7 @@ def _document(solid_volume, foot, height):
     })
 
 
-def _native_main(output=None):
-    import cadquery as cq
-    from _cadq_export import export_assembly
-    from _material_base import one_body
-    color = cq.Color(*_COLOR_SRGB)
-    shape = build()
-    out = Path(output) if output is not None else HERE
-    out.mkdir(parents=True, exist_ok=True)
-    stl = out / "diaphragm-pump-sleeve.stl"
-    step = out / "diaphragm-pump-sleeve.step"
-    cq.exporters.export(shape, str(stl), tolerance=.025, angularTolerance=.08)
-    export_assembly(one_body(shape, "diaphragm-pump-sleeve", color), str(step))
-    import flute_payload
-    flute_payload.cut(step, stl, preserve_print_triangles=True)
-    box = shape.BoundingBox()
-    s = 1 / math.sqrt(2)
-    foot = build_local(exterior=True).moved(cq.Location(cq.Plane(
-        origin=(0, 0, 0), xDir=(s, 0, -s), normal=(0, -1, 0))))
-    foot_area = sum(f.Area() for f in cq.Workplane().add(foot).faces("<Z").vals())
-    _document(shape.Volume(), foot_area, box.zlen)
-    print(f"-> {step.name}, {stl.name}, {step.name}.mesh; {shape.Volume() / 1000:.3f} cm3")
-    print(f"   tube axis {TUBE_AXIS:.2f} mm past the barb tip; foot {foot_area:.1f} mm2; "
-          f"print height {box.zlen:.1f} mm")
-
-
-def main(output=None, native=False):
-    if native:
-        return _native_main(output)
+def main(output=None):
     import _rust_part
     out = Path(output) if output is not None else HERE
     out.mkdir(parents=True, exist_ok=True)
@@ -419,6 +263,5 @@ def main(output=None, native=False):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--output", type=Path)
-    parser.add_argument("--native", action="store_true")
     options = parser.parse_args()
-    main(options.output, options.native)
+    main(options.output)
