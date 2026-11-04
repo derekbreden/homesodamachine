@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Delete scratch in the repository's .cache once it has gone untouched.
 
-A unit is a top-level entry of .cache, or one job inside .cache/prints or
-.cache/printer-control. Its age is the newest write of any file in it,
+A unit is a top-level entry of .cache, or one run/job inside .cache/runs,
+.cache/prints or .cache/printer-control. Its age is the newest write of any file in it,
 ignoring .DS_Store, which Finder writes into every folder it browses. Units
 idle longer than --days are removed. The memo caches the build reads (meshes,
 boxes, realized) and the printer tools' virtualenv are never removed.
@@ -20,7 +20,7 @@ import sys
 import time
 
 ROOT = Path(__file__).resolve().parents[1]
-CONTAINERS = {"prints", "printer-control"}
+CONTAINERS = {"runs", "prints", "printer-control"}
 KEEP = {"meshes", "boxes", "realized", "printer-control/venv"}
 
 
