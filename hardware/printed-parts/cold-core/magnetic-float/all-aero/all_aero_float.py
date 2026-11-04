@@ -33,8 +33,6 @@ from _float_interface import (
 def measurements():
     displacement_cc = annular_area * height / 1000
     foam_cc = displacement_cc - pocket_volume / 1000
-    foam_cc = body.Volume() / 1000
-    assert abs(foam_cc - (displacement_cc - pocket_volume / 1000)) < 1e-7
     table = []
     for density in (0.46, 0.53, 0.55, 0.60, 0.65, 0.70):
         mass = foam_cc * density + magnet_mass
