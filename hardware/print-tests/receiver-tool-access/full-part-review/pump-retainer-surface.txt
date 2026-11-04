@@ -1,0 +1,77 @@
+enclosure-pump-retainer.stl · 1756 printed facets · 7 findings · 5 answered
+answers: hardware/printed-parts/lint-answers/enclosure/enclosure/enclosure-pump-retainer.lint-answers · read hardware/printed-parts/lint-answers/AGENTS.md before writing one
+
+  [sliver] 0.002 mm strip, 22.2 mm long
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=-16.034 y=61.806 z=194.427
+    edge: x=-16.034 y=72.887 z=194.427 → x=-16.034 y=50.726 z=194.427 · len 22.161 · straight · dir x=0.000 y=-1.000 z=0.000
+    click: x=-16.034 y=61.806 z=194.427
+
+  [thin] 0.010 mm of material at its thinnest · 2.4 mm² of surface under 0.1 mm · spans 0.1 × 2.8 × 0.0 mm
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step
+    click: x=-101.338 y=81.914 z=175.195
+    click: x=-101.347 y=81.914 z=175.200
+    answered: The lower barb is the requested pointed production tip: one 4.6 mm-high planar lead-in meets its flat catch at the outer corner. The local thickness approaches zero at that edge while the working spring remains 2 mm.
+    alternatives: A vertical nose land makes the barb less pointed and adds an extra face. Thickening the leaf changes its bending section. The point and broad flat catch are integral with the retainer.
+
+  [thin] 0.010 mm of material at its thinnest · 2.4 mm² of surface under 0.1 mm · spans 0.1 × 2.8 × 0.0 mm
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step
+    click: x=101.338 y=14.601 z=175.195
+    click: x=101.347 y=14.601 z=175.200
+    answered: The lower barb is the requested pointed production tip: one 4.6 mm-high planar lead-in meets its flat catch at the outer corner. The local thickness approaches zero at that edge while the working spring remains 2 mm.
+    alternatives: A vertical nose land makes the barb less pointed and adds an extra face. Thickening the leaf changes its bending section. The point and broad flat catch are integral with the retainer.
+
+  [thin] 0.012 mm of material at its thinnest · 1.9 mm² of surface under 0.1 mm · spans 0.0 × 2.1 × 0.1 mm
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step
+    click: x=101.343 y=81.913 z=175.207
+    click: x=101.343 y=81.913 z=175.195
+
+  [thin] 0.012 mm of material at its thinnest · 1.9 mm² of surface under 0.1 mm · spans 0.0 × 2.1 × 0.1 mm
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step
+    click: x=-101.343 y=14.602 z=175.207
+    click: x=-101.343 y=14.602 z=175.195
+    answered: The lower barb is the requested pointed production tip: one 4.6 mm-high planar lead-in meets its flat catch at the outer corner. The local thickness approaches zero at that edge while the working spring remains 2 mm.
+    alternatives: A vertical nose land makes the barb less pointed and adds an extra face. Thickening the leaf changes its bending section. The point and broad flat catch are integral with the retainer.
+
+  [thin] 1.996 mm of material at its thinnest · 2327.5 mm² of surface under 2.5 mm · spans 2.5 × 66.0 × 19.6 mm · in 6 pieces
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step
+    click: x=98.263 y=15.303 z=193.888
+    click: x=96.267 y=15.303 z=193.874
+
+  [thin] 1.996 mm of material at its thinnest · 2327.5 mm² of surface under 2.5 mm · spans 2.5 × 66.0 × 19.6 mm · in 6 pieces
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step
+    click: x=-98.263 y=81.212 z=193.888
+    click: x=-96.267 y=81.212 z=193.874
+
+  [sliver · answered] Existing 0.002 mm-wide well-profile ledges outside the cartridge spring revision. Their Z194.427 locations belong to the retained lower-well profile, inside |X|92.9; the snap changes occupy the outer flank bands. The source inverse functions retain their pump fit. The production before/after retainer surfaces outside those bands have at most 0.002 mm sampled deviation. These ledges are recorded and were reported to Derek; they are not accepted as a finished surface by this snap trial.
+    alternatives: Reconcile the lower-well profile's meeting planes in a separate fitted-well revision and bind it to new geometry and physical-fit evidence. Suppressing or painting over the ledges does not remove them. Changing a sampled spring thickness does not address their cause.
+    0.002 mm strip, 22.2 mm long
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=16.034 y=61.806 z=194.427
+    edge: x=16.034 y=72.887 z=194.427 → x=16.034 y=50.726 z=194.427 · len 22.161 · straight · dir x=0.000 y=-1.000 z=0.000
+    click: x=16.034 y=61.806 z=194.427
+
+  [sliver · answered] Existing 0.002 mm-wide well-profile ledges outside the cartridge spring revision. Their Z194.427 locations belong to the retained lower-well profile, inside |X|92.9; the snap changes occupy the outer flank bands. The source inverse functions retain their pump fit. The production before/after retainer surfaces outside those bands have at most 0.002 mm sampled deviation. These ledges are recorded and were reported to Derek; they are not accepted as a finished surface by this snap trial.
+    alternatives: Reconcile the lower-well profile's meeting planes in a separate fitted-well revision and bind it to new geometry and physical-fit evidence. Suppressing or painting over the ledges does not remove them. Changing a sampled spring thickness does not address their cause.
+    0.002 mm strip, 22.2 mm long
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=88.416 y=61.806 z=194.427
+    edge: x=88.416 y=72.887 z=194.427 → x=88.416 y=50.726 z=194.427 · len 22.161 · straight · dir x=0.000 y=-1.000 z=0.000
+    click: x=88.416 y=61.806 z=194.427
+
+  [sliver · answered] Existing 0.002 mm-wide well-profile ledges outside the cartridge spring revision. Their Z194.427 locations belong to the retained lower-well profile, inside |X|92.9; the snap changes occupy the outer flank bands. The source inverse functions retain their pump fit. The production before/after retainer surfaces outside those bands have at most 0.002 mm sampled deviation. These ledges are recorded and were reported to Derek; they are not accepted as a finished surface by this snap trial.
+    alternatives: Reconcile the lower-well profile's meeting planes in a separate fitted-well revision and bind it to new geometry and physical-fit evidence. Suppressing or painting over the ledges does not remove them. Changing a sampled spring thickness does not address their cause.
+    0.002 mm strip, 22.2 mm long
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=-88.416 y=61.806 z=194.427
+    edge: x=-88.416 y=72.887 z=194.427 → x=-88.416 y=50.726 z=194.427 · len 22.161 · straight · dir x=0.000 y=-1.000 z=0.000
+    click: x=-88.416 y=61.806 z=194.427
+
+  [ceiling · answered] Wrong print-direction classification for the full-Y spring corridor. The retainer prints on its Y-minus end, with source +Y as the build axis. The named Z197.445 surface is vertical in that print frame; it is not a horizontal print-down ceiling. The source corridor is 3.35 mm wide below the tangent 1.5 mm root blend. The native projects in print-tests/pointed-snaps bind the actual 90 degree X pose.
+    alternatives: Filling this corridor joins the spring to its carrier and removes the required inward travel. Returning to a Z-up print changes the layer direction through the flexure. The ceiling classifier uses source Z for this class even when the recorded tilt is used for ledge findings.
+    126 mm² flat print-down face at z=197.445 · 68.0 × 1.8 mm · open to the bed (22.2 mm up)
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=93.825 y=48.257 z=197.445
+    click: x=93.825 y=48.257 z=197.445
+
+  [ceiling · answered] Wrong print-direction classification for the full-Y spring corridor. The retainer prints on its Y-minus end, with source +Y as the build axis. The named Z197.445 surface is vertical in that print frame; it is not a horizontal print-down ceiling. The source corridor is 3.35 mm wide below the tangent 1.5 mm root blend. The native projects in print-tests/pointed-snaps bind the actual 90 degree X pose.
+    alternatives: Filling this corridor joins the spring to its carrier and removes the required inward travel. Returning to a Z-up print changes the layer direction through the flexure. The ceiling classifier uses source Z for this class even when the recorded tilt is used for ledge findings.
+    126 mm² flat print-down face at z=197.445 · 68.0 × 1.8 mm · open to the bed (22.2 mm up)
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=-93.825 y=48.257 z=197.445
+    click: x=-93.825 y=48.257 z=197.445

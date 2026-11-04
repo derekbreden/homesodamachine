@@ -1,0 +1,59 @@
+front-top              Mark1  left  0.4 mm Standard, Polymaker Fiberon PET-GF15, black
+    1 x hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl  3ecbc26f4d77  regions stale
+front-bottom           Mark1  left  0.4 mm Standard, Polymaker Fiberon PET-GF15, black
+    1 x hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl  9770ea64d37c  regions stale
+back-top               Mark2  left  0.4 mm Standard, Polymaker Fiberon PET-GF15, black
+    1 x hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl  a609c96acc91  regions stale
+back-bottom            Mark2  left  0.4 mm Standard, Polymaker Fiberon PET-GF15, black
+    1 x hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl  293a4e8ff8ab  regions stale
+pump-retainer          Mark1  left  0.4 mm Standard, Polymaker Fiberon PET-GF15, black
+    1 x hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.stl  aa50bbd47560  regions stale
+funnel-frame           Mark2  left  0.4 mm Standard, Polymaker Fiberon PET-GF15, black
+    1 x hardware/printed-parts/zone-c/funnel/funnel-frame.stl  9f9948f9488a  
+factory-tools          Mark2  left  0.4 mm Standard, Polymaker Fiberon PET-GF15, black
+    1 x hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.stl  cfedb813ad4f  
+display-cover          Mark1  left  0.4 mm Standard, Polymaker Fiberon PET-GF15, black
+    1 x hardware/printed-parts/enclosure/display-cover/display-cover.stl  0663d879b462  
+elbow-cradle           Mark1  left  0.4 mm Standard, Polymaker Fiberon PET-GF15, black
+    1 x hardware/printed-parts/zone-c/funnel/elbow-cradle.stl  59ac96f327ff  
+soda-bend-holder       Mark1  left  0.4 mm Standard, Polymaker Fiberon PET-GF15, black
+    1 x hardware/printed-parts/soda-bend-holder/soda-bend-holder.stl  37c31f1c8b8e  
+foam-shell             Mark2  left  0.4 mm Standard, Polymaker Fiberon PET-GF15, black
+    1 x hardware/printed-parts/cold-core/foam-shell/foam-shell.stl  132c06ecc887  regions bound
+foam-cap-bottom        Mark2  left  0.4 mm Standard, Polymaker Fiberon PET-GF15, black
+    1 x hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.stl  acdcff8c0842  regions bound
+foam-cap-lid-top       Mark1  left  0.4 mm Standard, Polymaker Fiberon PET-GF15, black
+    1 x hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.stl  256c74ff711a  regions stale
+labels                 Mark2  both  0.4 mm Standard, Polymaker Fiberon PET-GF15, white with black, blue, red or black
+    external: hardware/printed-parts/enclosure/trial-preparation/labels.py --slice
+funnel-cover           Mark1  left  0.4 mm Standard, Bambu PETG Basic, black
+    external: hardware/printed-parts/zone-c/funnel-cover/prepare_print.py
+funnel-mold            Mark1  right 0.4 mm Standard, Bambu PETG Translucent, clear
+    external: tools/funnel-mold-print/prepare_print.py --models hardware/printed-parts/zone-c/funnel-mold --output .cache/prints/funnel-mold/funnel-mold.3mf --label Funnel mold --slice
+pump-elbows            Mark2  right 0.6 mm Standard, Siraya Tech Flex TPU 85A, clear
+    archive: future/pump-elbow-exploration/prints/2026-10-16-deposited-links-siraya85a-mark1/2026-10-16-elbows-deposited-links-siraya85a-right06-z000-mark1.gcode.3mf  missing
+asse-vent-sleeve       Mark1  right 0.6 mm Standard, Siraya Tech Flex TPU 85A, clear
+    1 x hardware/printed-parts/asse-drain-adapter/asse-drain-adapter.stl  ee0584ceb98b  
+asse-cuffs             Mark1  right 0.6 mm Standard, Siraya Tech Flex TPU 85A, clear
+    1 x hardware/printed-parts/asse-straight-cuffs/asse-inlet-cuff.stl  05476e57b551  
+    1 x hardware/printed-parts/asse-straight-cuffs/asse-outlet-cuff.stl  8412a13f173f  
+seals                  Mark2  right 0.6 mm Standard, Bambu TPU 85A, black (the 2026-10-08 plate's stock; display-gasket/README.md and bom.md name TPU 90A)
+    2 x hardware/printed-parts/cold-core/reservoir/reservoir-gasket.stl  07cd9bf1c8a4  
+    2 x hardware/printed-parts/cold-core/reservoir/reservoir-retaining-ring.stl  ba87234750a9  
+    1 x hardware/printed-parts/enclosure/display-gasket/display-gasket.stl  ee4acd517ff6  
+small-petg             Mark1  left  0.4 mm Standard, Bambu PETG Basic, black
+    1 x hardware/printed-parts/cold-core/prv-shroud/prv-shroud.stl  b2553b37c6e6  
+    1 x hardware/printed-parts/cold-core/reed-bridge/reed-bridge.stl  8f943b4f02d8  
+    1 x hardware/printed-parts/refrigeration/fuse-clamp/fuse-clamp.stl  fb4db7bf16ca  
+factory-petg           Mark1  left  0.4 mm Standard, Bambu PETG Basic, black
+    1 x hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.stl  07242bb34a17  
+    1 x hardware/printed-parts/cold-core/reed-bridge/reed-bridge-setting-gauge.stl  54b2c72d9c34  
+rear-equipment-caps    Mark2  left  0.4 mm Standard, Polymaker Fiberon PET-GF15, black
+    1 x hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.stl  075052369a8c  
+    1 x hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.stl  884bdbf1da0e  
+    1 x hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.stl  087eb03675c3  
+    1 x hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.stl  cdbe211bc480  
+pump-snap-cap          Mark2  left  0.4 mm Standard, Polymaker Fiberon PET-GF15, black
+    1 x hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.stl  98c67df4a514  
+reservoir-b-fill-guide Mark2  left  0.4 mm Standard, Polymaker Fiberon PET-GF15, black
+    1 x hardware/printed-parts/cold-core/foam-cap/reservoir-b-fill-guide.stl  3f1fb479bf45  
