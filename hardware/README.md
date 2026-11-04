@@ -219,8 +219,8 @@ builds when those are installed there and not before.
 The manual [kitchen illustrations](../tools/render/render-kitchen-scene.py) and
 [studio film](../marketing/video/one-less-errand/studio/README.md) use Blender.
 The [welding-head reference views](reference/xlaserlab-sup29f-xh/README.md) use
-`hsm-render`. Their rendering runs on demand. Enclosure Freestyle SVG sources
-and their visibility sieve are retained under `.retired` markers as historical studies.
+`hsm-render`. Their rendering runs on demand. The enclosure's Freestyle line-art studies
+are at the [`archive-finished-trials`](https://github.com/derekbreden/homesodamachine/tree/archive-finished-trials/hardware/printed-parts/enclosure/drawings/line-art) tag.
 
 Rust part generators declare the payloads they produce as build outputs. Native CadQuery
 exports make their optional payloads best-effort; Bazel sets `HSM_SKIP_MESH_PAYLOAD` for those
