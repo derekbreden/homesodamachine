@@ -10,7 +10,6 @@ hole passes the stem through the rigid frame.
 """
 
 import argparse
-import math
 import sys
 from pathlib import Path
 
@@ -26,21 +25,16 @@ sys.path.insert(0, str(_tools))
 
 
 def __getattr__(name):
-    if name == "cq":
-        import cadquery as value
-    elif name == "elbow_cradle":
-        import elbow_cradle as value
-    elif name == "export_assembly":
-        from _cadq_export import export_assembly as value
-    elif name in ("M_SILICONE_BLACK", "one_body"):
-        import _materials
-        value = getattr(_materials, name)
-    elif name == "substitute_md":
-        from docgen import substitute_md as value
-    else:
+    if name != "elbow_cradle":
         raise AttributeError(name)
-    globals()[name] = value
-    return value
+    import elbow_cradle
+    globals()[name] = elbow_cradle
+    return elbow_cradle
+
+
+# The enclosure recorder binds this leaf to its numeric construction graph.
+brim_plan = None
+
 
 # --- funnel parameters ------------------------------------------------------
 collar_w = 165.0  # collar footprint in X, inside the top-wall frame
@@ -61,7 +55,7 @@ apron_depth = collar_d + 32.0
 apron_y = 3.0
 apron_corner_r = 6.0
 collar_wall = 6.0  # vertical collar wall and normal ramp-wall thickness
-capacity_ml = 698.21  # nominal native cavity to the mouth rim
+capacity_ml = 698.21  # nominal cavity to the mouth rim
 chute_h = 23.485946291005064  # brim top to inner ramp start
 neck_dx = 0.0  # the outlet stands on the collar's centre
 neck_dy = 0.0  # outlet on the collar centre
@@ -83,234 +77,6 @@ sealing_land = stem_engagement
 # The drain, in the funnel's own frame: the bore's exit on the plug's bottom face. World
 # position = this + the funnel's placement; it rides the part.
 drain_local = (neck_dx, neck_dy, -drop + plug_lift)
-
-
-# --- primitives -------------------------------------------------------------
-
-def _box(w, d, z0, z1, cx, cy):
-    """Axis-aligned box of footprint w×d centered at (cx, cy), spanning z[z0,z1]."""
-    import cadquery as cq
-    return (
-        cq.Workplane("XY").box(w, d, z1 - z0, centered=(True, True, False))
-        .translate((cx, cy, z0)).val()
-    )
-
-
-def _rounded_wire(w, d, radius, z, cx=0.0, cy=0.0):
-    import cadquery as cq
-    wire = cq.Workplane("XY", origin=(cx, cy, z)).rect(w, d).val()
-    return wire.fillet2D(radius, wire.Vertices())
-
-
-def _rounded_box(w, d, radius, z0, z1, cx=0.0, cy=0.0):
-    import cadquery as cq
-    return cq.Solid.extrudeLinear(_rounded_wire(w, d, radius, z0, cx, cy), [],
-                                 cq.Vector(0.0, 0.0, z1 - z0))
-
-
-def _loft_rc(w0, d0, cx0, cy0, z0, r1, cx1, cy1, z1, corner_r=0.0):
-    """Loft from a rounded rectangle to the offset circular outlet."""
-    import cadquery as cq
-    top = (_rounded_wire(w0, d0, corner_r, z0, cx0, cy0) if corner_r
-           else cq.Workplane("XY", origin=(cx0, cy0, z0)).rect(w0, d0).val())
-    bottom = cq.Wire.makeCircle(r1, cq.Vector(cx1, cy1, z1), cq.Vector(0, 0, 1))
-    return cq.Solid.makeLoft([top, bottom])
-
-
-def brim_plan(grow, z0, z1, cx=0.0, cy=0.0, front=0.0):
-    """The brim's plan grown by `grow`, and its front edge carried `front` further toward the
-    display: square front corners against the display wall, rounded aft corners."""
-    import cadquery as cq
-    x, y, r = (collar_w / 2.0 + brim_overhang + grow, collar_d / 2.0 + brim_overhang + grow,
-               brim_corner_r + grow)
-    k = r * (1.0 - math.sqrt(0.5))
-    plan = (cq.Workplane("XY", origin=(cx, cy, z0))
-            .moveTo(-x, -y - front).lineTo(x, -y - front).lineTo(x, y - r)
-            .threePointArc((x - k, y - k), (x - r, y)).lineTo(-x + r, y)
-            .threePointArc((-x + k, y - k), (-x, y - r)).close())
-    return plan.extrude(z1 - z0).val()
-
-
-def apron_plan(grow, z0, z1):
-    """Continuous wet surface over the frame, roof joints and upper seam screws."""
-    return _rounded_box(apron_width + 2 * grow, apron_depth + 2 * grow,
-                        apron_corner_r + grow, z0, z1, 0.0, apron_y)
-
-
-def apron():
-    """One flat-bottomed sheet resting on the roof around the bearing brim."""
-    return apron_plan(0.0, brim_thickness, brim_thickness + apron_rise)
-
-
-def _cyl(r, z_top, z_bot, cx, cy):
-    import cadquery as cq
-    return cq.Solid.makeCylinder(r, z_top - z_bot, cq.Vector(cx, cy, z_bot), cq.Vector(0, 0, 1))
-
-
-def normal_envelope(shape, distance, faces=None, *, rounds_first=False):
-    """Filled envelope with a normal skin and round edge and vertex joins."""
-    import cadquery as cq
-    whole_body = faces is None
-    meshcad = sys.modules.get("meshcad")
-    if whole_body and meshcad is not None and meshcad.mesh_mode():
-        return meshcad.offset(shape, distance)
-    from cadquery.occ_impl.shapes import cut as cut_shapes, fuse as fuse_shapes
-    if whole_body:
-        from OCP.BRepOffsetAPI import BRepOffsetAPI_MakeOffsetShape
-        from OCP.BRepOffset import BRepOffset_Mode
-        from OCP.GeomAbs import GeomAbs_Arc
-        offset = BRepOffsetAPI_MakeOffsetShape()
-        offset.PerformByJoin(shape.wrapped, distance, 1e-5,
-                             BRepOffset_Mode.BRepOffset_Skin,
-                             False, False, GeomAbs_Arc, False)
-        if offset.IsDone() and not offset.Shape().IsNull():
-            envelope = cq.Shape.cast(offset.Shape())
-            if not envelope.Solids() and len(envelope.Shells()) == 1:
-                envelope = cq.Solid.makeSolid(envelope.Shells()[0])
-            envelope = envelope.clean()
-            if envelope.isValid() and len(envelope.Solids()) == 1:
-                assert abs(cut_shapes(shape, envelope).Volume()) < 0.0001
-                inside = cq.Compound.makeCompound(shape.Faces())
-                outside = cq.Compound.makeCompound(envelope.Faces())
-                measured = inside.distance(outside)
-                assert measured >= distance - 0.005, ("normal envelope", measured, distance)
-                return envelope.Solids()[0]
-    faces = shape.Faces() if faces is None else list(faces)
-    edges = {edge.hashCode(): edge for face in faces for edge in face.Edges()}
-    vertices = {vertex.hashCode(): vertex for face in faces for vertex in face.Vertices()}
-    skins = [face.thicken(distance) for face in faces]
-    joins = []
-    for edge in edges.values():
-        if edge.Length() > 0.0001:
-            circle = cq.Wire.makeCircle(distance, edge.positionAt(0), edge.tangentAt(0))
-            joins.append(cq.Solid.sweep(circle, [], edge))
-    corners = [cq.Solid.makeSphere(distance, vertex.Center(),
-               angleDegrees1=-90, angleDegrees2=90) for vertex in vertices.values()]
-    pieces = corners+joins+skins if rounds_first else skins+joins+corners
-    envelope = shape
-    for index, piece in enumerate(pieces):
-        # Forming faces and verification contributors keep their own geometry.
-        envelope = fuse_shapes(envelope, piece, tol=0.0001).clean()
-        assert envelope.isValid(), index
-    solids = envelope.Solids()
-    if len(solids) != 1:
-        body = max(solids, key=lambda solid: solid.Volume())
-        for solid in solids:
-            missing = cut_shapes(solid, body, tol=0.0001).Volume()
-            assert abs(missing) < 0.0001, ("disconnected normal skin", missing,
-                                           [s.Volume() for s in solids])
-        envelope = body
-    for index, piece in enumerate([shape, *pieces]):
-        missing = cut_shapes(piece, envelope, tol=0.0001).Volume()
-        assert abs(missing) < 0.0001, (index, missing)
-    return envelope.Solids()[0]
-
-
-# --- the funnel -------------------------------------------------------------
-
-def build_solids(drop=drop, ramp_wall=collar_wall, outer_air=0.0, plug=True, brim=True):
-    """Filled outer envelope, complete wet cavity, and mold-forming dimensions.
-
-    Clearance grows the forming primitives along their own normal faces. `plug` and `brim`
-    leave those blocks out of the envelope, for a receiver that cuts its own.
-    """
-    import cadquery as cq
-    import _cadq_export  # Keep the native collection-iteration setup with the CAD load.
-    import elbow_cradle
-    from cadquery.occ_impl.shapes import fuse as fuse_shapes
-    w, d = collar_w, collar_d
-    cx = cy = 0.0
-    ncx, ncy = neck_dx, neck_dy
-    bore_w, bore_d = w - 2.0 * collar_wall, d - 2.0 * collar_wall
-    top_z = brim_thickness + apron_rise
-    ramp_top_z = brim_thickness - chute_h
-    neck_z = ramp_top_z - _ramp_rise
-    end_z = -drop + plug_lift
-    land_z = neck_z
-    spout_or = spout_id / 2.0 + spout_wall
-    ramp = _loft_rc(bore_w, bore_d, cx, cy, ramp_top_z, spout_id / 2.0,
-                    ncx, ncy, neck_z, mouth_corner_r)
-    # The collar and ramp walls are one normal skin round the wet volume below the brim,
-    # cut level with the collar's top.
-    wet = fuse_shapes(_rounded_box(bore_w, bore_d, mouth_corner_r, ramp_top_z, 0.05), ramp,
-                      tol=0.0001).clean()
-    walls = (normal_envelope(wet, ramp_wall + outer_air)
-             .intersect(_box(600, 600, end_z - outer_air - 1, 0.05 + outer_air, 0, 0)))
-    bases = [walls, _cyl(spout_or, neck_z, end_z, ncx, ncy)]
-    if brim:
-        bases.extend((brim_plan(0.0, 0.0, brim_thickness), apron()))
-    if plug:
-        bases.append(elbow_cradle.plug_outline(plug_width / 2, 0.0, 0.0, plug_height)
-                     .translate(cq.Vector(ncx, ncy, end_z)))
-    if outer_air:
-        bases = [bases[0], *(normal_envelope(b, outer_air) for b in bases[1:])]
-    # One body at a time: a single general fuse of them all can return one valid solid
-    # without the plug's lower block.
-    solid = bases[0]
-    for body in bases[1:]:
-        solid = fuse_shapes(solid, body, tol=0.0001).clean()
-    plug_top = end_z + plug_height + outer_air
-    assert not plug or not [f for f in solid.Faces() if f.geomType() == "PLANE"
-                            and abs(f.Center().z - plug_top) < 0.001], \
-        "the plug's top shows below the bowl"
-    # The plug's broad lower annulus is the silicone's sole bottom plane.
-    solid = solid.intersect(_box(600, 600, end_z - outer_air, top_z + 1, 0, 0)).clean()
-    assert solid.isValid() and len(solid.Solids()) == 1
-    outlet = _cyl(spout_id / 2, neck_z + 0.01, end_z - 1, ncx, ncy)
-    cavity = fuse_shapes(
-        _rounded_box(bore_w, bore_d, mouth_corner_r, ramp_top_z, top_z + 1),
-        ramp, outlet, tol=0.0001).clean()
-    assert cavity.isValid() and len(cavity.Solids()) == 1
-    meta = {
-        "w": w, "d": d, "cx": cx, "cy": cy, "ncx": ncx, "ncy": ncy,
-        "bore_w": bore_w, "bore_d": bore_d,
-        "mouth_corner_r": mouth_corner_r,
-        "brim_overhang": brim_overhang, "brim_margin": brim_margin,
-        "collar_wall": collar_wall,
-        "out_w": apron_width, "out_d": apron_depth + 2 * abs(apron_y),
-        "out_cx": cx, "out_cy": cy, "rim_ring": collar_wall + brim_overhang,
-        "spout_id": spout_id,
-        "top_z": top_z, "ramp_top_z": ramp_top_z, "neck_z": neck_z,
-        "spout_land_z": land_z, "end_z": end_z,
-        "sealing_radius": sealing_id / 2,
-        "sealing_land": sealing_land,
-        "outlet_profile": "straight cylindrical bore",
-    }
-    return solid, cavity, meta
-
-
-def build(drop=drop):
-    import cadquery as cq
-    from cadquery.occ_impl.shapes import cut as cut_shapes
-    solid, cavity, m = build_solids(drop)
-    fill = cavity.intersect(_box(600, 600, m["end_z"], m["top_z"], 0, 0)).Volume()
-    part = cut_shapes(solid, cavity, tol=0.0001).clean()
-    part = part.clean()
-    assert part.isValid() and len(part.Solids()) == 1
-    return cq.Workplane(obj=part), (m["w"], m["d"], m["top_z"] - m["end_z"], m["end_z"], fill)
-
-
-def _native_main(output=None):
-    import cadquery as cq
-    import elbow_cradle
-    from _cadq_export import export_assembly
-    from _materials import M_SILICONE_BLACK, one_body
-    from docgen import substitute_md
-    funnel, (w, d, total, end_z, fill) = build()
-    out = (Path(output) if output is not None else _here.parent) / "funnel.step"
-    out.parent.mkdir(parents=True, exist_ok=True)
-    # The funnel is cast in platinum-cure silicone, and the STEP says so — the card's own picture
-    # of it is drawn off this file, the machine's picture off the same colour.
-    export_assembly(one_body(funnel, "funnel", M_SILICONE_BLACK), str(out))
-    print(f"-> {out.name}")
-    b = funnel.val().BoundingBox()
-    print(f"  brim:    {b.xlen:.1f} × {b.ylen:.1f} mm, top z={b.zmax:.1f} (local; z 0 = brim underside)")
-    print(f"  mouth:   {w:.1f} × {d:.1f} mm (collar), bore {w - 2*collar_wall:.1f} × {d - 2*collar_wall:.1f}")
-    print(f"  outlet:  Ø{spout_id:g} bore, drain at ({drain_local[0]:g}, {drain_local[1]:g}, {drain_local[2]:g}) local, total drop {total:.1f} mm")
-    print(f"  capacity to brim: {fill:.0f} mm³ = {fill / 1000.0:.0f} mL "
-          f"(nominal {capacity_ml:g} mL)")
-
-    _document(fill)
 
 
 def numbers():
@@ -356,9 +122,7 @@ def _document(fill):
     print("-> README.md")
 
 
-def main(output=None, native=False):
-    if native:
-        return _native_main(output)
+def main(output=None):
     import _rust_part
     out = Path(output) if output is not None else _here.parent
     out.mkdir(parents=True, exist_ok=True)
@@ -372,6 +136,5 @@ if __name__ == "__main__":
     _rust_part.start()
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--output', type=Path)
-    parser.add_argument('--native', action='store_true')
     options = parser.parse_args()
-    main(options.output, options.native)
+    main(options.output)
