@@ -1,0 +1,56 @@
+{
+  "part_number": "HSM-000082",
+  "part": "pump-retainer",
+  "printer": "Mark1",
+  "stl": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.stl",
+  "stl_sha256": "d2f999e640039b2d322c418821be80242130b459e56e97a57f9f3c7dd9ce8b6d",
+  "project": "/Users/derekbredensteiner/Downloads/HSM-full-enclosure-2026-11-03/projects/HSM-000082-pump-retainer-Mark1.3mf",
+  "project_sha256": "a368c52f311b893a3052a436dbe6a4dcb89e3c7ea49061f288134b5c3d197dd4",
+  "reviewed_archive": "/Users/derekbredensteiner/Downloads/HSM-full-enclosure-2026-11-03/reviewed/HSM-000082-pump-retainer-Mark1.gcode.3mf",
+  "reviewed_archive_sha256": "49555a320b69a99944d2083f53657b70986dcb0590758f726309c077594b3a46",
+  "print_archive": "/Users/derekbredensteiner/Downloads/HSM-full-enclosure-2026-11-03/HSM-000082-pump-retainer-Mark1.gcode.3mf",
+  "print_archive_sha256": "792318561079ddac26bf29bdff49759154595924be16b9d93e1029f6dc4485f1",
+  "gcode_sha256": {
+    "Metadata/plate_1.gcode": "d5006ce40672d9c1377923b2510d578d3c69f0868e964ef43ecb2ad76e285cf0"
+  },
+  "gcode_byte_identical": true,
+  "estimated_seconds": 21460.44921875,
+  "filament_g": 172.17919921875,
+  "minimum_bed_margin_mm": 61.212204499999984,
+  "project_check": true,
+  "native_checks": {
+    "archive": true,
+    "z_trim": true,
+    "bed_border": true,
+    "fine_and_transition_bands": true,
+    "show_faces_support_free": true,
+    "tie_windows_support_free": true,
+    "ribbons_support_free_and_printed": true,
+    "solid_hosts_sampled": true
+  },
+  "nozzle": {
+    "side": "left",
+    "diameter_mm": 0.4,
+    "flow": "Standard",
+    "hardened": true,
+    "reason": "Every abrasive stock runs on the left hotend (hardware/ledger/tools.md, Which hotends fit an H2C); Mark1's fixed left hardened 0.4 mm carries black PET-GF (tools/bambu-printers.md, Purge and wipe).",
+    "sliced_diameter_mm": 0.4,
+    "sliced_volume_type": "Standard"
+  },
+  "material": "Polymaker Fiberon PET-GF15, black",
+  "emitted_textured_trim_mm": 0.16,
+  "support_summary": {
+    "1901": {
+      "support_bodies": 2,
+      "interface_islands": 6,
+      "bed_rooted_bodies": 2,
+      "model_rooted_bodies": 0,
+      "shortest_build_up_mm": 57.36,
+      "bodies_without_interface_labels": 0,
+      "explicit_interface_islands": 6,
+      "shortest_labelled_build_up_mm": 57.36
+    }
+  },
+  "support_removal": "../support-removal.json",
+  "submitted": false
+}

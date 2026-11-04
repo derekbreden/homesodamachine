@@ -1,0 +1,581 @@
+{
+  "archive": "/Users/derekbredensteiner/Downloads/HSM-full-enclosure-2026-11-03/reviewed/HSM-000020-foam-cap-lid-top-Mark1.gcode.3mf",
+  "archive_sha256": "f3e6f0b4c1f0ba750c5428016f803f36ec34dfebca46d7bb70c1dfcfbb39f593",
+  "gcode_md5_matches": true,
+  "emitted_z_trim_mm": [
+    0.0,
+    0.16
+  ],
+  "expected_emitted_textured_trim_mm": 0.16,
+  "layers": 224,
+  "project_check": true,
+  "bead_envelope_plate_mm": [
+    [
+      20.346003,
+      69.696003
+    ],
+    [
+      304.673095,
+      250.303997
+    ]
+  ],
+  "bed_margins_mm": {
+    "left": 20.346003,
+    "front": 69.696003,
+    "right": 20.32690500000001,
+    "back": 69.69600299999999
+  },
+  "minimum_bed_margin_mm": 20.32690500000001,
+  "bed_border_mm": 20.0,
+  "fine_and_transition_bands": [],
+  "support_roads": 88721,
+  "show_face_minimum_bead_clearance_mm": null,
+  "show_face_contacts": [],
+  "tie_window_support_crossings": [],
+  "ribbon_support_crossings": [],
+  "ribbons": [],
+  "fine_band_unbacked_roads": [],
+  "first_second_layer_stack": {
+    "1901": {
+      "second_layer_model_bead_area_mm2": 49677.919306721735,
+      "fraction_over_first_layer": 0.9953678339151479,
+      "second_layer_centerline_outside_first_mm": 58.78300824584039
+    }
+  },
+  "solid_host_deposition": [
+    {
+      "object": 1901,
+      "name": "Reservoir A fore direct C2 pair and lid root",
+      "plate_bounds_mm": [
+        [
+          271.70000000000005,
+          204.925,
+          4.400000000000006
+        ],
+        [
+          279.70000000000005,
+          229.575,
+          12.5
+        ]
+      ],
+      "samples": [
+        {
+          "print_z_mm": 4.76,
+          "coverage": 0.9902277071304821,
+          "stock_mm2": 197.19999999999982
+        },
+        {
+          "print_z_mm": 8.6,
+          "coverage": 0.9964116391612141,
+          "stock_mm2": 197.19990205001048
+        },
+        {
+          "print_z_mm": 12.2,
+          "coverage": 0.9983745523981302,
+          "stock_mm2": 96.51857180552307
+        }
+      ],
+      "minimum_coverage": 0.9902277071304821
+    },
+    {
+      "object": 1901,
+      "name": "M5 head bearing 1 and plate root",
+      "plate_bounds_mm": [
+        [
+          289.55,
+          212.5,
+          0.0010000000000012221
+        ],
+        [
+          302.8489969482422,
+          227.5,
+          7.399999999999999
+        ]
+      ],
+      "samples": [
+        {
+          "print_z_mm": 0.44,
+          "coverage": 0.9981117663635138,
+          "stock_mm2": 178.25631156111766
+        },
+        {
+          "print_z_mm": 3.8,
+          "coverage": 0.9873857932932552,
+          "stock_mm2": 115.49812299033448
+        },
+        {
+          "print_z_mm": 7.16,
+          "coverage": 0.9975068385594249,
+          "stock_mm2": 115.49812375064842
+        }
+      ],
+      "minimum_coverage": 0.9873857932932552
+    },
+    {
+      "object": 1901,
+      "name": "M5 head bearing 2 and plate root",
+      "plate_bounds_mm": [
+        [
+          289.55,
+          152.5,
+          0.0010000000000012221
+        ],
+        [
+          302.8489969482422,
+          167.5,
+          7.399999999999999
+        ]
+      ],
+      "samples": [
+        {
+          "print_z_mm": 0.44,
+          "coverage": 0.998169035171016,
+          "stock_mm2": 178.25630603971968
+        },
+        {
+          "print_z_mm": 3.8,
+          "coverage": 0.9902207549799126,
+          "stock_mm2": 115.49812394166295
+        },
+        {
+          "print_z_mm": 7.16,
+          "coverage": 0.9975161318859539,
+          "stock_mm2": 115.49812460554341
+        }
+      ],
+      "minimum_coverage": 0.9902207549799126
+    },
+    {
+      "object": 1901,
+      "name": "M5 head bearing 3 and plate root",
+      "plate_bounds_mm": [
+        [
+          289.55,
+          92.5,
+          0.0010000000000012221
+        ],
+        [
+          302.8489969482422,
+          107.5,
+          7.399999999999999
+        ]
+      ],
+      "samples": [
+        {
+          "print_z_mm": 0.44,
+          "coverage": 0.9984912698098348,
+          "stock_mm2": 178.25631156111768
+        },
+        {
+          "print_z_mm": 3.8,
+          "coverage": 0.987318122675453,
+          "stock_mm2": 115.49812299692347
+        },
+        {
+          "print_z_mm": 7.16,
+          "coverage": 0.9977379360374856,
+          "stock_mm2": 115.49812353980644
+        }
+      ],
+      "minimum_coverage": 0.987318122675453
+    },
+    {
+      "object": 1901,
+      "name": "M5 head bearing 4 and plate root",
+      "plate_bounds_mm": [
+        [
+          20.451003051757823,
+          212.5,
+          0.0010000000000012221
+        ],
+        [
+          33.75,
+          227.5,
+          7.399999999999999
+        ]
+      ],
+      "samples": [
+        {
+          "print_z_mm": 0.44,
+          "coverage": 0.9981722951864725,
+          "stock_mm2": 178.25631157017966
+        },
+        {
+          "print_z_mm": 3.8,
+          "coverage": 0.9848248365188061,
+          "stock_mm2": 115.49812299692357
+        },
+        {
+          "print_z_mm": 7.16,
+          "coverage": 0.997579133886692,
+          "stock_mm2": 115.49812353980657
+        }
+      ],
+      "minimum_coverage": 0.9848248365188061
+    },
+    {
+      "object": 1901,
+      "name": "M5 head bearing 5 and plate root",
+      "plate_bounds_mm": [
+        [
+          20.451003051757823,
+          152.5,
+          0.0010000000000012221
+        ],
+        [
+          33.75,
+          167.5,
+          7.399999999999999
+        ]
+      ],
+      "samples": [
+        {
+          "print_z_mm": 0.44,
+          "coverage": 0.9981662882572552,
+          "stock_mm2": 178.25630595142815
+        },
+        {
+          "print_z_mm": 3.8,
+          "coverage": 0.9490069414981939,
+          "stock_mm2": 115.49812394166304
+        },
+        {
+          "print_z_mm": 7.16,
+          "coverage": 0.9965529234398643,
+          "stock_mm2": 115.49812460554358
+        }
+      ],
+      "minimum_coverage": 0.9490069414981939
+    },
+    {
+      "object": 1901,
+      "name": "M5 head bearing 6 and plate root",
+      "plate_bounds_mm": [
+        [
+          20.451003051757823,
+          92.5,
+          0.0010000000000012221
+        ],
+        [
+          33.75,
+          107.5,
+          7.399999999999999
+        ]
+      ],
+      "samples": [
+        {
+          "print_z_mm": 0.44,
+          "coverage": 0.9983768974297078,
+          "stock_mm2": 178.25631157017966
+        },
+        {
+          "print_z_mm": 3.8,
+          "coverage": 0.9848708162703103,
+          "stock_mm2": 115.49812299033456
+        },
+        {
+          "print_z_mm": 7.16,
+          "coverage": 0.9977062879980815,
+          "stock_mm2": 115.49812375064855
+        }
+      ],
+      "minimum_coverage": 0.9848708162703103
+    },
+    {
+      "object": 1901,
+      "name": "M5 head bearing 7 and plate root",
+      "plate_bounds_mm": [
+        [
+          109.15,
+          236.9,
+          0.0010000000000012221
+        ],
+        [
+          124.15,
+          250.19899694824218,
+          7.399999999999999
+        ]
+      ],
+      "samples": [
+        {
+          "print_z_mm": 0.44,
+          "coverage": 0.998087518846097,
+          "stock_mm2": 172.49686822471784
+        },
+        {
+          "print_z_mm": 3.8,
+          "coverage": 0.9855137100230078,
+          "stock_mm2": 109.7386693553668
+        },
+        {
+          "print_z_mm": 7.16,
+          "coverage": 0.9966269810927559,
+          "stock_mm2": 109.73866993385853
+        }
+      ],
+      "minimum_coverage": 0.9855137100230078
+    },
+    {
+      "object": 1901,
+      "name": "M5 head bearing 8 and plate root",
+      "plate_bounds_mm": [
+        [
+          109.15,
+          69.80100305175782,
+          0.0010000000000012221
+        ],
+        [
+          124.15,
+          83.1,
+          7.399999999999999
+        ]
+      ],
+      "samples": [
+        {
+          "print_z_mm": 0.44,
+          "coverage": 0.997400688396537,
+          "stock_mm2": 178.25632542818417
+        },
+        {
+          "print_z_mm": 3.8,
+          "coverage": 0.9850679882580189,
+          "stock_mm2": 115.498126801853
+        },
+        {
+          "print_z_mm": 7.16,
+          "coverage": 0.9967443043180836,
+          "stock_mm2": 115.49812719311302
+        }
+      ],
+      "minimum_coverage": 0.9850679882580189
+    },
+    {
+      "object": 1901,
+      "name": "M5 head bearing 9 and plate root",
+      "plate_bounds_mm": [
+        [
+          44.150000000000006,
+          236.9,
+          0.0010000000000012221
+        ],
+        [
+          59.150000000000006,
+          250.19899694824218,
+          7.399999999999999
+        ]
+      ],
+      "samples": [
+        {
+          "print_z_mm": 0.44,
+          "coverage": 0.997546989546426,
+          "stock_mm2": 178.25632042400866
+        },
+        {
+          "print_z_mm": 3.8,
+          "coverage": 0.9857928130791633,
+          "stock_mm2": 115.49812164367853
+        },
+        {
+          "print_z_mm": 7.16,
+          "coverage": 0.9981479596028316,
+          "stock_mm2": 115.49812237319354
+        }
+      ],
+      "minimum_coverage": 0.9857928130791633
+    },
+    {
+      "object": 1901,
+      "name": "M5 head bearing 10 and plate root",
+      "plate_bounds_mm": [
+        [
+          44.150000000000006,
+          69.80100305175782,
+          0.0010000000000012221
+        ],
+        [
+          59.150000000000006,
+          83.1,
+          7.399999999999999
+        ]
+      ],
+      "samples": [
+        {
+          "print_z_mm": 0.44,
+          "coverage": 0.9980470011889886,
+          "stock_mm2": 178.25632041742514
+        },
+        {
+          "print_z_mm": 3.8,
+          "coverage": 0.985264997548305,
+          "stock_mm2": 115.4981216436785
+        },
+        {
+          "print_z_mm": 7.16,
+          "coverage": 0.9965808368285209,
+          "stock_mm2": 115.49812237319352
+        }
+      ],
+      "minimum_coverage": 0.985264997548305
+    },
+    {
+      "object": 1901,
+      "name": "pcba insert post 1 and plate root",
+      "plate_bounds_mm": [
+        [
+          203.74707997994963,
+          72.50000610351563,
+          0.0010000000000012221
+        ],
+        [
+          219.74707997994963,
+          88.50000610351563,
+          11.0
+        ]
+      ],
+      "samples": [
+        {
+          "print_z_mm": 0.44,
+          "coverage": 1.0,
+          "stock_mm2": 256.0
+        },
+        {
+          "print_z_mm": 5.72,
+          "coverage": 0.9910260075467806,
+          "stock_mm2": 243.4386737980465
+        },
+        {
+          "print_z_mm": 10.76,
+          "coverage": 0.9985662207363554,
+          "stock_mm2": 65.94695376676194
+        }
+      ],
+      "minimum_coverage": 0.9910260075467806
+    },
+    {
+      "object": 1901,
+      "name": "pcba insert post 2 and plate root",
+      "plate_bounds_mm": [
+        [
+          203.74707997994963,
+          138.80000610351564,
+          0.0010000000000012221
+        ],
+        [
+          219.74707997994963,
+          154.80000610351564,
+          11.0
+        ]
+      ],
+      "samples": [
+        {
+          "print_z_mm": 0.44,
+          "coverage": 1.0,
+          "stock_mm2": 256.0
+        },
+        {
+          "print_z_mm": 5.72,
+          "coverage": 0.9910779800073414,
+          "stock_mm2": 243.4386755162225
+        },
+        {
+          "print_z_mm": 10.76,
+          "coverage": 0.9982970187663451,
+          "stock_mm2": 83.58814817757933
+        }
+      ],
+      "minimum_coverage": 0.9910779800073414
+    },
+    {
+      "object": 1901,
+      "name": "pcba insert post 3 and plate root",
+      "plate_bounds_mm": [
+        [
+          281.7470799799496,
+          72.50000610351563,
+          0.0010000000000012221
+        ],
+        [
+          297.7470799799496,
+          88.50000610351563,
+          11.0
+        ]
+      ],
+      "samples": [
+        {
+          "print_z_mm": 0.44,
+          "coverage": 0.999999529728237,
+          "stock_mm2": 256.0
+        },
+        {
+          "print_z_mm": 5.72,
+          "coverage": 0.9910744280188996,
+          "stock_mm2": 243.4386770205285
+        },
+        {
+          "print_z_mm": 10.76,
+          "coverage": 0.9985457688376417,
+          "stock_mm2": 65.94694168047904
+        }
+      ],
+      "minimum_coverage": 0.9910744280188996
+    },
+    {
+      "object": 1901,
+      "name": "pcba insert post 4 and plate root",
+      "plate_bounds_mm": [
+        [
+          281.7470799799496,
+          138.80000610351564,
+          0.0010000000000012221
+        ],
+        [
+          297.7470799799496,
+          154.80000610351564,
+          11.0
+        ]
+      ],
+      "samples": [
+        {
+          "print_z_mm": 0.44,
+          "coverage": 1.0,
+          "stock_mm2": 256.0
+        },
+        {
+          "print_z_mm": 5.72,
+          "coverage": 0.9922296245209088,
+          "stock_mm2": 243.438678738675
+        },
+        {
+          "print_z_mm": 10.76,
+          "coverage": 0.9985440962317683,
+          "stock_mm2": 65.94694129501895
+        }
+      ],
+      "minimum_coverage": 0.9922296245209088
+    }
+  ],
+  "support_topology": {
+    "1901": {
+      "support_bodies": 13,
+      "interface_islands": null,
+      "bed_rooted_bodies": 1,
+      "model_rooted_bodies": 12,
+      "shortest_build_up_mm": null,
+      "bodies_without_interface_labels": 3,
+      "explicit_interface_islands": 11,
+      "shortest_labelled_build_up_mm": 4.08
+    }
+  },
+  "scope": "Commanded paths and bead envelopes from this archive. Support removal, surface finish, fit and strength are physical observations.",
+  "checks": {
+    "archive": true,
+    "z_trim": true,
+    "bed_border": true,
+    "fine_and_transition_bands": true,
+    "show_faces_support_free": true,
+    "tie_windows_support_free": true,
+    "ribbons_support_free_and_printed": true,
+    "solid_hosts_sampled": true
+  },
+  "pass": true
+}

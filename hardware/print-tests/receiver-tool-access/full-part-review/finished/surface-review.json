@@ -1,0 +1,70 @@
+{
+  "back-top": {
+    "reader_summary": "enclosure-back-top.stl \u00b7 840668 printed facets \u00b7 29 findings \u00b7 63 answered",
+    "all_seven_classes_read": true,
+    "unanswered_findings": 0,
+    "classes": {
+      "step": 5,
+      "bump": 0,
+      "sliver": 13,
+      "ceiling": 41,
+      "slope": 4,
+      "thin": 13,
+      "ledge": 16
+    },
+    "report": "back-top/surface.txt",
+    "sha256": "b3c08b2f6442edaa4a722ecb36009271ab1bfb91bb2f63ffc9d0f72524ac1597",
+    "interpretation": "Ranked thin/ledge sections retain their feature-specific answers. Counts include functional surfaces and are not defect counts."
+  },
+  "front-top": {
+    "reader_summary": "enclosure-front-top.stl \u00b7 426748 printed facets \u00b7 7 findings \u00b7 14 answered",
+    "all_seven_classes_read": true,
+    "unanswered_findings": 0,
+    "classes": {
+      "step": 0,
+      "bump": 0,
+      "sliver": 7,
+      "ceiling": 5,
+      "slope": 2,
+      "thin": 6,
+      "ledge": 1
+    },
+    "report": "front-top/surface.txt",
+    "sha256": "b35cc10558ad1d5e8fb6992085cd58d0ec7b46da4c3198d01fa575dce7d224d9",
+    "interpretation": "Ranked thin/ledge sections retain their feature-specific answers. Counts include functional surfaces and are not defect counts."
+  },
+  "pump-retainer": {
+    "reader_summary": "enclosure-pump-retainer.stl \u00b7 1728 printed facets \u00b7 6 findings \u00b7 2 answered",
+    "all_seven_classes_read": true,
+    "unanswered_findings": 0,
+    "classes": {
+      "step": 0,
+      "bump": 0,
+      "sliver": 0,
+      "ceiling": 2,
+      "slope": 0,
+      "thin": 6,
+      "ledge": 0
+    },
+    "report": "pump-retainer/surface.txt",
+    "sha256": "1baf05ddd7fd053f3a07f72eb2d2ac529f1a46658cb62c5409a916c30f98e4c2",
+    "interpretation": "Ranked thin/ledge sections retain their feature-specific answers. Counts include functional surfaces and are not defect counts."
+  },
+  "foam-cap-lid-top": {
+    "reader_summary": "foam-cap-lid-top.stl \u00b7 37598 printed facets \u00b7 24 findings \u00b7 14 answered",
+    "all_seven_classes_read": true,
+    "unanswered_findings": 0,
+    "classes": {
+      "step": 0,
+      "bump": 0,
+      "sliver": 5,
+      "ceiling": 9,
+      "slope": 0,
+      "thin": 21,
+      "ledge": 3
+    },
+    "report": "foam-cap-lid-top/surface.txt",
+    "sha256": "166d22782f25676e84d47e3a87d765abdf4505a61ab260aff3160a2ff735d3a2",
+    "interpretation": "Ranked thin/ledge sections retain their feature-specific answers. Counts include functional surfaces and are not defect counts."
+  }
+}

@@ -1,0 +1,155 @@
+{
+  "front-top": {
+    "added_native_mm3": 0.14979378954746733,
+    "removed_native_mm3": 0.09238779651315238
+  },
+  "back-top": {
+    "added_native_mm3": 0.05777256481483489,
+    "removed_native_mm3": 5.138309200347635e-08
+  },
+  "pump-retainer": {
+    "added_native_mm3": 0.05836608379986628,
+    "removed_native_mm3": 0.017625910221301045
+  },
+  "protected_material_symmetric_difference_mm3": {
+    "retainer_west_wing": 0.0,
+    "retainer_east_wing": 0.0,
+    "retainer_skirt_bearing": 0.0,
+    "cartridge_receiver_-1": 0.0,
+    "cartridge_receiver_+1": 0.0,
+    "display_receiver": 0.03381034268871028,
+    "rear_fitted_interior": 0.0,
+    "pisco_crown": 0.0
+  },
+  "unchanged_approved_parts": {
+    "hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.stl": {
+      "sha256": "98c67df4a514e89508ea6c5ff06db4c37146ff22d61f93f9121633be9a646b3e",
+      "byte_identical": true
+    },
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.stl": {
+      "sha256": "256c74ff711a314fbdbcf61201a191109d2c38232cd8d6a6e5540abbf7c1a6db",
+      "byte_identical": true
+    },
+    "hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.stl": {
+      "sha256": "075052369a8c12d6c86708975d3137d39faaf505942fe31f79be2c280e78bfe1",
+      "byte_identical": true
+    },
+    "hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.stl": {
+      "sha256": "884bdbf1da0e53244723dbb05afa6b77082bd4b03ae701da7aaef11f6561a338",
+      "byte_identical": true
+    },
+    "hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.stl": {
+      "sha256": "cdbe211bc480691207fe85f9c37342d7987142068c20fdb997bb9e8c485a4e01",
+      "byte_identical": true
+    },
+    "hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.stl": {
+      "sha256": "087eb03675c32c610cf01d181f5a5ebf6a9dfe235ddeb0c61bc5da1fb2702b44",
+      "byte_identical": true
+    }
+  },
+  "printed_meshes": {
+    "front-top": {
+      "sha256": "6ad55d860d0bee7ac607a99ff08d7676bb08ce5f2b4cd0521d61e72d961721d2",
+      "facets": 426748,
+      "closed": true,
+      "consistent_winding": true,
+      "solid_count": 1,
+      "volume_mm3": 2397181.543016383
+    },
+    "back-top": {
+      "sha256": "2ed29e4d8e38aa0a95b5d1cbff7ae477ae5b60fc2dc5b1510a771a805ab2b2eb",
+      "facets": 840668,
+      "closed": true,
+      "consistent_winding": true,
+      "solid_count": 1,
+      "volume_mm3": 1517647.4188282301
+    },
+    "pump-retainer": {
+      "sha256": "d2f999e640039b2d322c418821be80242130b459e56e97a57f9f3c7dd9ce8b6d",
+      "facets": 1728,
+      "closed": true,
+      "consistent_winding": true,
+      "solid_count": 1,
+      "volume_mm3": 287751.4045966451
+    },
+    "foam-cap-lid-top": {
+      "sha256": "256c74ff711a314fbdbcf61201a191109d2c38232cd8d6a6e5540abbf7c1a6db",
+      "facets": 37598,
+      "closed": true,
+      "consistent_winding": true,
+      "solid_count": 1,
+      "volume_mm3": 437619.2835996153
+    }
+  },
+  "scope": "Manual comparison of the final native parts with the complete enclosure baseline, plus print-mesh integrity and exact approved-part hashes. No recurring check is introduced.",
+  "actual_pump_hardware_overlap_mm3": {
+    "front-top": {
+      "pump-a-head": 0.0,
+      "pump-a-boss": 0.0,
+      "pump-a-motor": 0.0,
+      "pump-b-head": 0.0,
+      "pump-b-boss": 0.0,
+      "pump-b-motor": 0.0
+    },
+    "pump-retainer-seated": {
+      "pump-a-head": 0.0,
+      "pump-a-boss": 0.0,
+      "pump-a-motor": 0.0,
+      "pump-b-head": 0.0,
+      "pump-b-boss": 0.0,
+      "pump-b-motor": 0.0
+    }
+  },
+  "mesh_finish_tolerance_mm": 0.005,
+  "display_receiver_comparison": "Display mating datums are retained. The direct sampled bidirectional comparison of the display region is at most 0.000258 mm; the separate volume readings include tessellation changes and numerical boolean residuals.",
+  "front_corner_finish": {
+    "added_mm3": 0.3109824234167096,
+    "removed_mm3": 3.585929424498573,
+    "protected_material_symmetric_difference_mm3": {
+      "pump_receiver_-1": 4.010930170460225e-09,
+      "pump_receiver_+1": 1.632212524072532e-08,
+      "pump_mount": 5.2604946176870726e-08,
+      "display_wing_bearing_and_lanes": 1.9868064151174998
+    },
+    "linear_tolerance_mm": 0.005,
+    "scope": "Local regularization of the front corner patch after analytic projection. Pump receiver, mounting and display-bearing material is compared directly against the prior complete front.",
+    "display_surface_comparison": [
+      {
+        "points": 1757,
+        "maximum_surface_distance_mm": 0.0002572701756484144,
+        "point": [
+          -60.424666412485145,
+          44.85341668998202,
+          300.7698531318456
+        ],
+        "other": [
+          -60.42481762204221,
+          44.85341372061883,
+          300.77006125391557
+        ]
+      },
+      {
+        "points": 1635,
+        "maximum_surface_distance_mm": 0.00025727231599661344,
+        "point": [
+          -60.424666412485145,
+          44.85343390175452,
+          300.77017140202224
+        ],
+        "other": [
+          -60.42451520452614,
+          44.85343687576886,
+          300.76996327621185
+        ]
+      }
+    ]
+  },
+  "rear_label_channels": {
+    "scope": "Printed skin is clipped by the same two native open label-channel boxes after the raised skin is joined. The native back solid is byte-identical to its preceding revision.",
+    "integration": "label-skin-integration.json"
+  },
+  "change_recording": {
+    "label_skin": "Before snapshot retained in the chat snapshot directory. The reduced viewer cannot resolve the clipped underside strip: the rendered before and after were visually identical, so no misleading picture pair is published.",
+    "corner_finish": "Before snapshot retained; this is sub-tolerance tessellation cleanup without a changed nominal enclosure silhouette."
+  }
+}
