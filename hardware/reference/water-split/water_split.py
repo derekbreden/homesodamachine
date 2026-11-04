@@ -33,65 +33,42 @@ sys.path.insert(0, str(_hw / "scripts"))
 sys.path.insert(0, str(_hw / "reference" / "tee-connector"))
 import tee_connector as tee
 
-RUN_REACH = tee.RUN_HALF
-BRANCH_REACH = tee.BRANCH_REACH  # caliper width less the nominal fixed-collar back radius
-REACH = RUN_REACH  # compatibility for callers which use the supply-run reach
-TUBE_D = tee.TUBE_D          # 1/4" OD LLDPE the three ports accept
+
+_reference_hardware = next(p for p in Path(__file__).resolve().parents if p.name == 'hardware')
+import sys as _reference_sys
+_reference_sys.path.insert(0, str(_reference_hardware / 'reference'))
+from _reference_data import data as _reference_data
+_reference_values = _reference_data('water_split')
+globals().update({name: _reference_values[name] for name in ('RUN_REACH', 'BRANCH_REACH', 'REACH', 'TUBE_D', '_TURNS')})
+
 
 # What carries the tee's frame into this one: its run from ±Z onto ±Y, and its branch from +Y
 # onto −X. A roll about X stands the run up, and a roll about the run swings the branch.
-_TURNS = (((1.0, 0.0, 0.0), -90.0), ((0.0, 1.0, 0.0), 90.0))
 
 
 def supply():
-    """The +Y run collet the 1/4" line from the ASSE 1022 outlet pushes into:
-    (position, outward axis)."""
-    return (0.0, REACH, 0.0), (0.0, 1.0, 0.0)
+    'The +Y run collet the 1/4" line from the ASSE 1022 outlet pushes into:\n    (position, outward axis).'
+    return _reference_data('water_split', 'supply', (), {})
 
 
 def to_vk():
-    """The branch collet feeding V-K, on to the SeaFlo suction: (position, axis).
-    It takes V-K's share off the run at a right angle — the one port of the three
-    the enclosure can point at a level the other two are not on."""
-    return (-BRANCH_REACH, 0.0, 0.0), (-1.0, 0.0, 0.0)
+    "The branch collet feeding V-K, on to the SeaFlo suction: (position, axis).\n    It takes V-K's share off the run at a right angle — the one port of the three\n    the enclosure can point at a level the other two are not on."
+    return _reference_data('water_split', 'to_vk', (), {})
 
 
 def to_flavor():
-    """The −Y run collet feeding the flavor tap — flow regulator → V-A: the
-    supply's own line carried straight on: (position, axis)."""
-    return (0.0, -REACH, 0.0), (0.0, -1.0, 0.0)
+    "The −Y run collet feeding the flavor tap — flow regulator → V-A: the\n    supply's own line carried straight on: (position, axis)."
+    return _reference_data('water_split', 'to_flavor', (), {})
 
 
 def run_barrel():
-    """The barrel on the SUPPLY arm — `(station, radius, length)`.
-
-    The shape a printed seat can close on. The hub is where all three arms meet and the branch is
-    the port this fitting is turned for, so what is left is the run, and the supply half of it is
-    the half with nothing downstream of it to fight for the joint's position.
-
-    `station` is its mid-point and the run axis through it, in the frame the three ports are
-    stated in."""
-    near, far = tee.RUN_COLLAR_BAND
-    return (((0.0, (near + far) / 2.0, 0.0), (0.0, 1.0, 0.0)),
-            tee.BARREL_R, far - near)
+    "The barrel on the SUPPLY arm — `(station, radius, length)`.\n\n    The shape a printed seat can close on. The hub is where all three arms meet and the branch is\n    the port this fitting is turned for, so what is left is the run, and the supply half of it is\n    the half with nothing downstream of it to fight for the joint's position.\n\n    `station` is its mid-point and the run axis through it, in the frame the three ports are\n    stated in."
+    return _reference_data('water_split', 'run_barrel', (), {})
 
 
 def clearance_seat(span, tie_width):
-    """A seat envelope of `span`, centred on the measured fixed collar patch.
-
-    The rib may overhang that patch with its bore clear of the narrower root and terminal
-    sleeve. Its span is clearance, not a claim that the complete span is collar bearing.
-    The branch envelope stays outside one end and the fully pressed run face outside the
-    other. The sleeve radius and fixed/moving split retain `tee.UNQUALIFIED_DATUMS` status.
-    """
-    station, radius, _ = run_barrel()
-    mid = station[0][1]
-    lo, hi = mid - span / 2.0, mid + span / 2.0
-    if lo <= tee.BARREL_R or hi >= RUN_REACH - tee.RUN_COLLET_TRAVEL:
-        raise ValueError("water-split seat reaches the branch or the fully pressed run face")
-    if tee.COLLET_NOSE_R > radius:
-        raise ValueError("water-split release sleeve exceeds the seat clearance envelope")
-    return station, radius, span
+    'A seat envelope of `span`, centred on the measured fixed collar patch.\n\n    The rib may overhang that patch with its bore clear of the narrower root and terminal\n    sleeve. Its span is clearance, not a claim that the complete span is collar bearing.\n    The branch envelope stays outside one end and the fully pressed run face outside the\n    other. The sleeve radius and fixed/moving split retain `tee.UNQUALIFIED_DATUMS` status.\n    '
+    return _reference_data('water_split', 'clearance_seat', (span, tie_width), {})
 
 
 # --- controls -------------------------------------------------------------

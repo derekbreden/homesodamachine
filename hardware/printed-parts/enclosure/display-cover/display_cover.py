@@ -3,57 +3,31 @@
 The visible face is local Z=0. The back and both wings share one flat bed plane.
 The TPU ring separates the bezel from the glass.
 """
-import sys
-from pathlib import Path
+from __future__ import annotations
 
-_here=Path(__file__).resolve()
-_hw=next(p for p in _here.parents if p.name=='hardware')
-for directory in (_hw/'scripts',_hw/'printed-parts/enclosure/enclosure',_hw.parent/'tools'):
-    sys.path.insert(0,str(directory))
-if __name__=='__main__' and not (len(sys.argv)>1 and sys.argv[1]=='selftest'):
-    import _rust_part
-    _rust_part.start()
+import sys as _sys
+from pathlib import Path as _Path
 
-import cadquery as cq
-from _cadq_export import export_assembly
-from _materials import M_PETGF_BLACK,linear,one_body
-from docgen import substitute_md
-import _enclosure_interface as dims
-import _display_wing_interface as wings
-# Retained for the separately archived vertical-leaf trial generators.
-import _display_retention as retention
-from _swept_top import rounded_prism
+_hardware = next(p for p in _Path(__file__).resolve().parents if p.name == "hardware")
+_sys.path[:0] = [str(_hardware / "scripts"), str(_hardware / "printed-parts/enclosure/enclosure"), str(_hardware / "printed-parts/cadlib")]
+import _rust_part
+_rust_part.start()
+from _enclosure_compiled import compiled as _compiled
 
-cover_x,cover_slope,cover_corner_r=wings.COVER_X,wings.COVER_Y,wings.CORNER_R
-cover_slip=wings.BODY_X_AIR
-window_x,window_slope,window_corner_r=wings.WINDOW_X,wings.WINDOW_Y,wings.WINDOW_R
+_rust_enclosure_module = 'display_cover'
 
+def __getattr__(name):
+    if name == "__all__":
+        return _compiled('display_cover', action="public-names")
+    if name.startswith("__"):
+        raise AttributeError(name)
+    try:
+        return _compiled('display_cover', action="get", path=(name,))
+    except ValueError as error:
+        raise AttributeError(name) from error
 
-def build_display_cover():
-    return cq.Workplane(obj=wings.cover())
+from _enclosure_compiled import install as _install
+_install(_sys.modules[__name__])
 
-
-def selftest():
-    body=build_display_cover().val()
-    assert body.isValid() and len(body.Solids())==1
-    print('Display cover: one valid solid.')
-    return 0
-
-
-def numbers():
-    """The accepted bezel and coplanar wing stock, in display-local coordinates."""
-    from _enclosure_data import dimensions, read
-    return read('cover-recipe', display=dimensions()['display'], color=linear(M_PETGF_BLACK))
-
-
-def main():
-    import _rust_part
-    _rust_part.cut('enclosure-components','display-cover',numbers(),_here.parent)
-    from _enclosure_data import dimensions, read
-    substitute_md(_here.parent/'README.md', variables=read(
-        'cover-variables', display=dimensions()['display']))
-    print('-> display-cover.step, display-cover.stl, README.md')
-
-
-if __name__=='__main__':
-    sys.exit(selftest() if len(sys.argv)>1 and sys.argv[1]=='selftest' else main())
+if __name__ == "__main__":
+    _compiled('display_cover', action="main")

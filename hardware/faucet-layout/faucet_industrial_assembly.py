@@ -25,16 +25,7 @@ from industrial_display_cover import SEATED_STEP
 
 
 def numbers():
-    import _rust_part
-
-    n = faucet_assembly.numbers()
-    n["name"] = "faucet-industrial-assembly"
-    for body, part in (("shell_base", "industrial-shell-base"),
-                       ("above_counter_plate", "industrial-above-counter-plate"),
-                       ("above_counter_gasket", "industrial-above-counter-gasket")):
-        n[body] = _rust_part.step(INDUSTRIAL / f"{part}.step")
-    n["display_cover"] = _rust_part.step(SEATED_STEP)
-    return n
+    return faucet_assembly._assembly_data("numbers", industrial=True)
 
 
 def main():

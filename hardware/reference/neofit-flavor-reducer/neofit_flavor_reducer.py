@@ -14,19 +14,20 @@ STEP_PATH = _here.parent / "neofit-flavor-reducer.step"
 PAYLOAD_PATH = _here.parent / "neofit-flavor-reducer.step.mesh"
 ASSET_MANIFEST_PATH = _here.parent / "frozen-asset.json"
 
-HERE = _here.parent
+
+_reference_hardware = next(p for p in Path(__file__).resolve().parents if p.name == 'hardware')
+import sys as _reference_sys
+_reference_sys.path.insert(0, str(_reference_hardware / 'reference'))
+from _reference_data import data as _reference_data
+_reference_values = _reference_data('neofit_flavor_reducer')
+globals().update({name: _reference_values[name] for name in ('HERE', 'STEM_OD', 'TUBE_OD', 'BODY_D', 'OVERALL', 'STEM_LENGTH', 'PROUD_LENGTH')})
+
 HARDWARE = HERE.parents[1]
 
-STEM_OD = 6.35
-TUBE_OD = 4.0
-BODY_D = 0.520 * 25.4
-OVERALL = 1.445 * 25.4
-STEM_LENGTH = 0.827 * 25.4
-PROUD_LENGTH = OVERALL - STEM_LENGTH
 STEP = HERE / "neofit-flavor-reducer.step"
 
 def port():
-    return ((0.0, PROUD_LENGTH, 0.0), (0.0, 1.0, 0.0))
+    return _reference_data('neofit_flavor_reducer', 'port', (), {})
 
 
 def placed(origin, direction):

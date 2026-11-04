@@ -5,6 +5,15 @@ edition.workspace = true
 license.workspace = true
 rust-version.workspace = true
 
+[features]
+default = ["native-runtime"]
+native-runtime = []
+
+[[bin]]
+name = "hsm-run"
+path = "src/main.rs"
+required-features = ["native-runtime"]
+
 [dependencies]
 anyhow.workspace = true
 serde.workspace = true

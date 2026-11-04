@@ -21,71 +21,27 @@ from pathlib import Path
 import cadquery as cq
 import faucet_paths as _paths
 
-SODA_OD = _paths.WATER_OD
-FLAVOR_OD = _paths.FLAVOR_OD
-DRAIN_OD = _paths.DRAIN_OD
-SEAL_WEB = _paths.SEAL_WEB
-SHELL_CENTER_N = _paths.SHELL_CENTER_N
-NECK_OD = 2 * _paths.SHELL_RADIUS
-WATER_BEND_RADIUS = _paths.WATER_RADIUS
+from _rust_data import request as _data_request
 
-DRAIN_N = (SODA_OD + DRAIN_OD) / 2.0 + SEAL_WEB
-_sf = (SODA_OD + FLAVOR_OD) / 2.0 + SEAL_WEB
-_df = (DRAIN_OD + FLAVOR_OD) / 2.0 + SEAL_WEB
-FLAVOR_N = (_sf ** 2 - _df ** 2 + DRAIN_N ** 2) / (2 * DRAIN_N)
-FLAVOR_X = math.sqrt(_sf ** 2 - FLAVOR_N ** 2)
-WIRE_N = DRAIN_N + DRAIN_OD / 2.0 + SEAL_WEB + 0.65
-WIRE_X = (-3.3, -1.1, 1.1, 3.3)
-WIRE_BORE = 1.05
-TUBE_DIAMETRIC_INTERFERENCE = 0.30
-BORE_LEAD_RADIAL = 0.10
-BORE_LEAD_DEPTH = 0.20
 
-BODY_OD = 22.4
-BODY_LENGTH = 4.0
-FLANGE_OD = 23.0
-FLANGE_LENGTH = 0.8
-BUNG_LENGTH = BODY_LENGTH + FLANGE_LENGTH
-KEEPER_ID = 22.0
-KEEPER_LENGTH = 1.2
-GROOVE_ID = 22.8
-GROOVE_LENGTH = 0.9
-BODY_SEAT_ID = 22.0
-STOP_ID = 20.0
-UPSTREAM_STOP_ID = 22.0
-STOP_LENGTH = 1.2
-KEEPER_LEAD_RADIAL = 0.30
-KEEPER_LEAD_LENGTH = 0.30
-GLAND_LENGTH = KEEPER_LENGTH + GROOVE_LENGTH + BODY_LENGTH + STOP_LENGTH
-BUNG_SEATED_Z = KEEPER_LENGTH + GROOVE_LENGTH - FLANGE_LENGTH
-BODY_MID_Z = KEEPER_LENGTH + GROOVE_LENGTH + BODY_LENGTH / 2
+def _vent_data(fn="datums", **values):
+    return _data_request("faucet-data", "faucet-data", {"op": "vent", "fn": fn, **values})
 
-TOOL_OD = 21.5
-TOOL_ID = 19.7
-TOOL_SLOT_WIDTH = 19.0
-TOOL_ARC_LENGTH = 95.0  # measured along the soda path, including the open socket
-TOOL_HANDLE_OD = 32.0
-TOOL_HANDLE_LENGTH = 4.0
-STL_LINEAR_TOLERANCE = 0.005
-STL_ANGULAR_TOLERANCE = 0.04
+
+globals().update(_vent_data())
+WIRE_X = tuple(WIRE_X)
+
 
 _HERE = Path(__file__).resolve().parent
 OUTPUT = _HERE / "asse-vent-seals"
 
 
-def tube_centres(upstream: bool = True) -> tuple[tuple[str, float, float, float], ...]:
-    """Name, X, N and actual nominal OD at either constant-pack seal station."""
-    tubes = (("S", 0.0, 0.0, SODA_OD),
-             ("F1", -FLAVOR_X, FLAVOR_N, FLAVOR_OD),
-             ("F2", FLAVOR_X, FLAVOR_N, FLAVOR_OD))
-    return tubes + (("D", 0.0, DRAIN_N, DRAIN_OD),) if upstream else tubes
+def tube_centres(upstream=True):
+    return tuple(tuple(row) for row in _vent_data('tube_centres', upstream=upstream))
 
 
-def bore_centres(upstream: bool = True) -> tuple[tuple[str, float, float, float], ...]:
-    tubes = tuple((name, x, n, od - TUBE_DIAMETRIC_INTERFERENCE)
-                  for name, x, n, od in tube_centres(upstream))
-    return tubes + tuple((f"wire-{i + 1}", x, WIRE_N, WIRE_BORE)
-                         for i, x in enumerate(WIRE_X))
+def bore_centres(upstream=True):
+    return tuple(tuple(row) for row in _vent_data('bore_centres', upstream=upstream))
 
 
 def _cylinder(diameter: float, length: float, z: float = 0.0,
@@ -235,100 +191,8 @@ def build_perimeter_tool_print(radius: float = WATER_BEND_RADIUS) -> cq.Workplan
     return tool.translate((0, 0, -tool.val().BoundingBox().zmin))
 
 
-def check_geometry() -> dict:
-    """Application checks on distinct sealing interfaces and assembly access."""
-    pair_webs = {}
-    holes = bore_centres(True)
-    for i, (a, ax, an, ad) in enumerate(holes):
-        for b, bx, bn, bd in holes[i + 1:]:
-            gap = math.hypot(ax - bx, an - bn) - (ad + bd) / 2
-            pair_webs[f"{a}:{b}"] = gap
-    minimum_web = min(pair_webs.values())
-    actual_tube_reach = max(math.hypot(x, n - SHELL_CENTER_N) + od / 2
-                            for _, x, n, od in tube_centres(True))
-    wire_reach = max(math.hypot(x, WIRE_N - SHELL_CENTER_N) + 1.3 / 2
-                    for x in WIRE_X)
-    minimum_face_web = minimum_web - 2 * BORE_LEAD_RADIAL
-    assert actual_tube_reach < STOP_ID / 2
-    assert wire_reach < STOP_ID / 2
-    bundle_width = 2 * (FLAVOR_X + FLAVOR_OD / 2)
-    shell_r = WATER_BEND_RADIUS + SHELL_CENTER_N
-    floor_r = shell_r - _paths.CAVITY_RADIUS
-    keeper_edge_clearance = (shell_r-TOOL_OD/2)-math.hypot(
-        shell_r-KEEPER_ID/2,BODY_MID_Z-KEEPER_LEAD_LENGTH)
-    midpoint_offset = BODY_MID_Z * WATER_BEND_RADIUS / shell_r
-    body_deviation = {
-        name: WATER_BEND_RADIUS + n - math.sqrt(
-            (WATER_BEND_RADIUS + n) ** 2 - (BODY_LENGTH / 2) ** 2)
-        for name, n in (("S", 0.0), ("F", FLAVOR_N),
-                        ("D", DRAIN_N), ("wire", WIRE_N))
-    }
-    groove_far_z = BODY_MID_Z - KEEPER_LENGTH
-    crown_wall = shell_r + NECK_OD / 2 - math.hypot(
-        shell_r + GROOVE_ID / 2, groove_far_z)
-    gland_volume = math.pi / 4 * (
-        KEEPER_ID ** 2 * KEEPER_LENGTH + GROOVE_ID ** 2 * GROOVE_LENGTH
-        + BODY_SEAT_ID ** 2 * BODY_LENGTH + UPSTREAM_STOP_ID ** 2 * STOP_LENGTH)
-    occupied_area = math.pi / 4 * (
-        SODA_OD ** 2 + 2 * FLAVOR_OD ** 2 + DRAIN_OD ** 2 + 4 * 1.3 ** 2)
-    displacement_space = gland_volume - occupied_area * GLAND_LENGTH
-    free_volume = math.pi / 4 * (FLANGE_OD ** 2 * FLANGE_LENGTH + BODY_OD ** 2 * BODY_LENGTH)
-    for _, _, _, d in holes:
-        free_volume -= math.pi / 4 * d * d * BUNG_LENGTH
-        free_volume -= 2 * math.pi * BORE_LEAD_DEPTH * (
-            d / 2 * BORE_LEAD_RADIAL + BORE_LEAD_RADIAL ** 2 / 3)
-    body_space = math.pi / 4 * (
-        GROOVE_ID ** 2 * GROOVE_LENGTH + BODY_SEAT_ID ** 2 * BODY_LENGTH
-        ) - occupied_area * (GROOVE_LENGTH + BODY_LENGTH)
-    return {
-        "minimum_uninstalled_web_mm": minimum_web,
-        "minimum_web_at_bore_leads_mm": minimum_face_web,
-        "minimum_nominal_installed_tube_web_mm": SEAL_WEB,
-        "nominal_tube_web_compression_fraction":
-            TUBE_DIAMETRIC_INTERFERENCE / (SEAL_WEB + TUBE_DIAMETRIC_INTERFERENCE),
-        "tube_reach_from_shell_center_mm": actual_tube_reach,
-        "wire_reach_at_maximum_stated_envelope_mm": wire_reach,
-        "stop_to_nominal_tube_clearance_mm": STOP_ID / 2 - actual_tube_reach,
-        "body_radial_interference_mm": (BODY_OD - BODY_SEAT_ID) / 2,
-        "flange_radial_interference_mm": (FLANGE_OD - GROOVE_ID) / 2,
-        "rigid_pusher_to_keeper_radial_clearance_mm": (KEEPER_ID - TOOL_OD) / 2,
-        "minimum_pusher_keeper_edge_clearance_over_rotation_mm":keeper_edge_clearance,
-        "pusher_inner_to_nominal_tube_clearance_mm": TOOL_ID / 2 - actual_tube_reach,
-        "pusher_slot_to_nominal_bundle_width_clearance_mm": TOOL_SLOT_WIDTH - bundle_width,
-        "planar_groove_wall_mm": (NECK_OD - GROOVE_ID) / 2,
-        "free_bung_gland_body_axial_fit_mm": BODY_LENGTH,
-        "flange_groove_axial_float_mm": GROOVE_LENGTH - FLANGE_LENGTH,
-        "upstream_flange_capture_radial_overlap_mm":
-            (GROOVE_ID-max(KEEPER_ID,BODY_SEAT_ID)) / 2,
-        "planar_gland_alignment": {
-            "local_z_at_body_midpoint_mm": BODY_MID_Z,
-            "body_midpoint_arc_station_offset_mm": midpoint_offset,
-            "rule": "Align local Z=4.1 to the station at nominal_gland_s+offset; set local origin4.1 mm backward along its tangent. Clip the round cavity with actual planar mouth/stop faces.",
-            "maximum_tube_centre_deviation_in_body_mm": body_deviation,
-            "minimum_nominal_tube_radial_interference_after_curvature_mm":
-                TUBE_DIAMETRIC_INTERFERENCE / 2 - max(
-                    body_deviation[name] for name in ("S", "F", "D")),
-            "analytical_minimum_groove_crown_wall_mm": crown_wall,
-            "upstream_backstop_plane_floor_station_mm":
-                _paths.UPSTREAM_GLAND_S + midpoint_offset + WATER_BEND_RADIUS * math.asin(
-                    (GLAND_LENGTH - BODY_MID_Z) / floor_r),
-            "downstream_keeper_plane_floor_station_mm":
-                _paths.DOWNSTREAM_GLAND_S + midpoint_offset + WATER_BEND_RADIUS * math.asin(
-                    -BODY_MID_Z / floor_r),
-        },
-        "elastomer_displacement_budget": {
-            "method": "Straight maximum-wire-envelope volume budget; conservative because it excludes the extra keeper lead-in volume. Actual curved tubes and deformation are separate checks.",
-            "free_upstream_bung_volume_mm3": free_volume,
-            "body_and_groove_available_after_tubes_mm3": body_space,
-            "minimum_axial_bulge_volume_mm3": max(0, free_volume - body_space),
-            "keeper_and_backstop_opening_displacement_space_mm3": displacement_space - body_space,
-            "complete_gland_available_after_tubes_mm3": displacement_space,
-            "complete_gland_nominal_fill_fraction": free_volume / displacement_space,
-            "rule": "Leave keeper/backstop openings clear for axial rubber bulging. No solid clamp plate across the bung faces.",
-        },
-        "scope": "Nominal free CAD dimensions. Elastomer deformation, as-printed bore size, cable jackets, tube extrusion variation, shell curved-wall reserve, assembly load, water containment and aging need separate readings.",
-        "passed": True,
-    }
+def check_geometry():
+    return _vent_data("check_geometry")
 
 
 def _sha(path: Path) -> str:

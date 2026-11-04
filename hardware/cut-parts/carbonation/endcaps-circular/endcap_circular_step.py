@@ -1,152 +1,22 @@
-"""
-Carbonator end-cap — 3D solid for CNC machining quotes.
-
-The complete machined cap: the [4.86 in](DISC_D_IN) × 1/4" 316 SS disc, the two 1/4"-18 NPT
-tap-drill through-holes, AND the blind level-sensing rod register. This is the
-quote artifact for CNC vendors (Xometry / Protolabs / Fictiv / RapidDirect),
-where the register IS a machined feature — unlike the laser cut file
-`endcap-circular-2hole.dxf`, which omits it because a laser cuts only THROUGH
-and a through-hole there would breach the 90 PSI pressure boundary.
-
-One part covers both caps: the top and bottom plates are this identical
-geometry (the top-plate register captures the float-rod tip; the bottom-plate
-register seats it for the tack weld). The two holes are modelled at tap-drill
-diameter — the vendor taps 1/4"-18 NPT per the drawing callout.
-
-── Geometry (built in mm; the cap's source specs are in inches) ──
-
-  Disc:            [123.4 mm](DISC_D_MM) Ø × [6.35 mm](DISC_THK_MM)  (4.860" × 1/4", = tube ID 4.870" − 0.010")
-  NPT tap-drill:   2× [11.13 mm](HOLE_D_MM) Ø  (7/16") THRU, at X = ±[19.05 mm](HOLE_OFFSET_MM) (±0.750")
-  Rod register:    [3.572 mm](REG_D) Ø (9/64") blind, [2.54 mm](REG_DEPTH) (0.100") deep, at
-                   (−[41.85 mm](REG_X), 0) on the inside (+Z) face — leaves [3.81 mm](REG_PLATE_REMAINING)
-                   (0.150") of plate as intact pressure boundary.
-
-The register sits on the +Z face = the carbonator INSIDE face; the −Z face is the
-plain outside face. STEP is exported in millimetres (CadQuery / CNC default).
-
-Units: millimetres.
-"""
-
+'\nCarbonator end-cap — 3D solid for CNC machining quotes.\n\nThe complete machined cap: the [4.86 in](DISC_D_IN) × 1/4" 316 SS disc, the two 1/4"-18 NPT\ntap-drill through-holes, AND the blind level-sensing rod register. This is the\nquote artifact for CNC vendors (Xometry / Protolabs / Fictiv / RapidDirect),\nwhere the register IS a machined feature — unlike the laser cut file\n`endcap-circular-2hole.dxf`, which omits it because a laser cuts only THROUGH\nand a through-hole there would breach the 90 PSI pressure boundary.\n\nOne part covers both caps: the top and bottom plates are this identical\ngeometry (the top-plate register captures the float-rod tip; the bottom-plate\nregister seats it for the tack weld). The two holes are modelled at tap-drill\ndiameter — the vendor taps 1/4"-18 NPT per the drawing callout.\n\n── Geometry (built in mm; the cap\'s source specs are in inches) ──\n\n  Disc:            [123.4 mm](DISC_D_MM) Ø × [6.35 mm](DISC_THK_MM)  (4.860" × 1/4", = tube ID 4.870" − 0.010")\n  NPT tap-drill:   2× [11.13 mm](HOLE_D_MM) Ø  (7/16") THRU, at X = ±[19.05 mm](HOLE_OFFSET_MM) (±0.750")\n  Rod register:    [3.572 mm](REG_D) Ø (9/64") blind, [2.54 mm](REG_DEPTH) (0.100") deep, at\n                   (−[41.85 mm](REG_X), 0) on the inside (+Z) face — leaves [3.81 mm](REG_PLATE_REMAINING)\n                   (0.150") of plate as intact pressure boundary.\n\nThe register sits on the +Z face = the carbonator INSIDE face; the −Z face is the\nplain outside face. STEP is exported in millimetres (CadQuery / CNC default).\n\nUnits: millimetres.\n'
 from __future__ import annotations
 
-import sys
-from pathlib import Path
+import sys as _sys
+from pathlib import Path as _Path
 
-_here = Path(__file__).resolve()
-sys.path.insert(
-    0,
-    str(next(p for p in _here.parents if p.name == "hardware") / "scripts"),
-)
-sys.path.insert(
-    0,
-    str(next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"),
-)
+_hardware = next(p for p in _Path(__file__).resolve().parents if p.name == "hardware")
+_sys.path[:0] = [str(_hardware / "scripts"), str(_hardware / "cold-core-layout")]
+from _cold_core_data import compiled as _compiled, member as _member
+
+def __getattr__(name):
+    if name == "__all__":
+        return _compiled('endcap_circular_step', action="public-names")
+    try:
+        return _member('endcap_circular_step', name)
+    except ValueError as error:
+        raise AttributeError(name) from error
+
 if __name__ == "__main__":
     import _rust_part
     _rust_part.start()
-
-from docgen import substitute_py_comments
-from endcap_circular_dxf import register_radius as _register_radius_in, register_position as _register_position_in
-
-inch = 25.4  # mm per inch — the cap's source specs are in inches.
-
-# [123.4 mm](DISC_D_MM) — 4.860" disc (tube ID 4.870" − 0.010" slip-fit).
-disc_diameter = 4.860 * inch
-disc_radius = disc_diameter / 2.0  # [61.72 mm](DISC_R_MM)
-# [6.35 mm](DISC_THK_MM) — 1/4" 316 SS plate.
-disc_thickness = 0.250 * inch
-
-# [11.13 mm](HOLE_D_MM) — 7/16" tap drill for 1/4"-18 NPT, through the full plate.
-hole_diameter = 0.438 * inch
-hole_radius = hole_diameter / 2.0  # [5.563 mm](HOLE_R_MM)
-# [19.05 mm](HOLE_OFFSET_MM) — each NPT hole's |X| from center (1.500" c-c).
-hole_offset = 0.750 * inch
-hole_positions = [(-hole_offset, 0.0), (hole_offset, 0.0)]
-
-# ── Rod register — blind retention pocket, machined (see module docstring) ──
-# The DXF module owns this blind-drill datum; both artifacts read it exactly.
-# [41.85 mm](REG_X) — register center on the −X axis, beyond the negative port.
-register_radius = _register_radius_in * inch
-register_position = tuple(v * inch for v in _register_position_in)
-# [3.572 mm](REG_D) — 9/64" slip-fit drill on the 1/8" rod.
-register_drill_diameter = 0.140625 * inch
-# [2.54 mm](REG_DEPTH) — 0.100" blind; leaves 3.81 mm (0.150") of plate.
-register_depth = 0.100 * inch
-
-out_dir = Path(__file__).resolve().parent
-out_name = "endcap-circular-2hole"
-
-
-def build_endcap() -> cq.Workplane:
-    import cadquery as cq
-
-    disc = cq.Workplane("XY").circle(disc_radius).extrude(disc_thickness)
-
-    # Two 1/4"-18 NPT tap-drill holes, through the full plate (tool over-runs
-    # both faces so the boolean leaves no zero-thickness slivers).
-    npt_holes = (
-        cq.Workplane("XY")
-        .workplane(offset=-0.5)
-        .pushPoints(hole_positions)
-        .circle(hole_radius)
-        .extrude(disc_thickness + 1.0)
-    )
-
-    # Blind rod register, entered from the +Z (inside) face. The tool over-runs
-    # the +Z face only; its floor stops at register_depth below it, so the −Z
-    # outside face — the pressure boundary — is never broken.
-    register = (
-        cq.Workplane("XY")
-        .workplane(offset=disc_thickness + 0.5)
-        .moveTo(*register_position)
-        .circle(register_drill_diameter / 2.0)
-        .extrude(-(register_depth + 0.5))
-    )
-
-    return disc.cut(npt_holes).cut(register)
-
-
-def numbers():
-    """The machined cap dimensions and appearance read by `endcap_circular_step.rs`."""
-    from _material_base import M_STAINLESS
-    from _materials import linear
-    return {"name": out_name, "radius": disc_radius, "height": disc_thickness,
-            "bores": [{"center": list(p), "radius": hole_radius, "floor": 0.0}
-                      for p in hole_positions] + [
-                          {"center": list(register_position), "radius": register_drill_diameter / 2.0,
-                           "floor": disc_thickness - register_depth}],
-            "color": list(linear(M_STAINLESS))}
-
-
-def main() -> None:
-    import _rust_part
-    _rust_part.cut("cold-core", "endcap-circular-step", numbers(), out_dir)
-    path = out_dir / f"{out_name}.step"
-
-    print(f"Exported: {path}")
-    print(f"  Disc:      Ø{disc_diameter:.3f} × {disc_thickness:.3f} mm, 316 SS")
-    print(f"  NPT holes: 2× Ø{hole_diameter:.3f} mm THRU at X = ±{hole_offset:.3f} mm")
-    print(f"  Register:  Ø{register_drill_diameter:.4g} × {register_depth:.3g} mm blind "
-          f"at {register_position}, +Z (inside) face")
-
-    variables = {
-        "DISC_D_MM": f"{disc_diameter:.4g} mm",
-        "DISC_D_IN": f"{disc_diameter / inch:.4g} in",
-        "DISC_R_MM": f"{disc_radius:.4g} mm",
-        "DISC_THK_MM": f"{disc_thickness:.4g} mm",
-        "HOLE_D_MM": f"{hole_diameter:.4g} mm",
-        "HOLE_R_MM": f"{hole_radius:.4g} mm",
-        "HOLE_OFFSET_MM": f"{hole_offset:.4g} mm",
-        "REG_X": f"{register_radius:.4g} mm",
-        "REG_D": f"{register_drill_diameter:.4g} mm",
-        "REG_DEPTH": f"{register_depth:.4g} mm",
-        "REG_PLATE_REMAINING": f"{disc_thickness - register_depth:.4g} mm",
-    }
-    substitute_py_comments(
-        Path(__file__),
-        variables=variables,
-    )
-
-
-if __name__ == "__main__":
-    main()
+    _compiled('endcap_circular_step', action="main")

@@ -13,51 +13,28 @@ import sys
 import cadquery as cq
 
 HERE = Path(__file__).resolve().parent
-PAD_THICKNESS = 7.0
-SLOT_Y = 38.5
-WIDTH = 18.0
-SLOT_WIDTH = 4.5
-SLOT_LENGTH = 6.8
+
+_reference_hardware = next(p for p in Path(__file__).resolve().parents if p.name == 'hardware')
+import sys as _reference_sys
+_reference_sys.path.insert(0, str(_reference_hardware / 'reference'))
+from _reference_data import data as _reference_data
+_reference_values = _reference_data('g_ganen_foot')
+globals().update({name: _reference_values[name] for name in ('PAD_THICKNESS', 'SLOT_Y', 'WIDTH', 'SLOT_WIDTH', 'SLOT_LENGTH', 'CLIP_AXIAL_INTERVAL', 'PROFILE_YZ')})
+
 # This is the axial extent of the visible extruded rubber clip. It defines a
 # conservative fully-engaged position, not a hard stop or partial-overhang limit.
-CLIP_AXIAL_INTERVAL = (-9.0, 9.0)
 
 # Exposed axial end-face outline. The upper open C-mouth is observed directly
 # on the rear +Y foot in pass 02; fixed continuous rail points are excluded by
 # their normal and axial station. Straight segments are a simplified reference.
-PROFILE_YZ = (
-    (-10.5, 0.0), (9.0, 0.0), (9.0, PAD_THICKNESS),
-    (-3.5, PAD_THICKNESS), (-5.5, 9.4), (-10.0, 9.4),
-    (-10.5, 10.0), (-10.5, 12.0), (-10.0, 15.4),
-    (-10.9, 15.8), (-11.2, 16.2), (-13.5, 15.1),
-    (-14.4, 15.6), (-14.5, 16.3), (-12.8, 17.8),
-    (-13.5, 18.4), (-14.2, 18.4), (-14.9, 18.0),
-    (-15.7, 17.9), (-16.0, 9.7), (-12.2, 8.4),
-    (-12.2, 7.5), (-13.5, 4.2), (-12.2, 2.1),
-)
 
 
 def parameters():
-    return {
-        'frame': 'slot centre; X rail, +Y outward, Z0 bearing',
-        'identical_feet': True,
-        'pad_thickness_mm': PAD_THICKNESS,
-        'axial_width_mm': WIDTH,
-        'outward_nose_radius_mm': 9.0,
-        'slot_width_mm': SLOT_WIDTH,
-        'slot_length_mm': SLOT_LENGTH,
-        'slot_long_axis': '+Y',
-        'installed_slot_y_abs_mm': SLOT_Y,
-        'clip_axial_interval_mm': list(CLIP_AXIAL_INTERVAL),
-        'visible_profile_yz_mm': [list(p) for p in PROFILE_YZ],
-        'undercuts': 'two visible underside reliefs, separated by a central rib',
-        'qualification': 'Purchased-part visible geometry reference. The hidden rail cavity and elastomer compliance are not qualified for manufacture.',
-        'travel_scope': 'Full axial engagement is a chosen mounting datum; scan observations include partially overhanging feet and do not establish hard stops.',
-    }
+    return _reference_data('g_ganen_foot', 'parameters', (), {})
 
 
 def rail_engagement_interval():
-    return CLIP_AXIAL_INTERVAL
+    return _reference_data('g_ganen_foot', 'rail_engagement_interval', (), {})
 
 
 def _profile_prism(vertices, x0, width):
@@ -99,18 +76,9 @@ def placed_foot(station_x, side, slot_y=SLOT_Y):
 
 
 def observed_placement(row):
-    """Rigid pose of the same common shape at the first retained observed foot."""
-    import numpy as np
-    section = row['pose_observations'][0]['local_slot_sections']
-    origin = np.asarray(section['local_origin_reference_mm'], dtype=float)
-    z = np.asarray(section['reference_to_local_rotation'], dtype=float)[2]
-    side = -1 if 'yminus' in row['id'] else 1
-    y = np.asarray((0., float(side), 0.)) - z*z[1]*side
-    y /= np.linalg.norm(y)
-    x = np.cross(y, z)
-    rotation = np.column_stack((x, y, z))
-    matrix = np.eye(4); matrix[:3, :3] = rotation; matrix[:3, 3] = origin
-    return cq.Location(cq.Plane(origin=cq.Vector(*origin), xDir=cq.Vector(*x), normal=cq.Vector(*z)))
+    pose = _reference_data('g_ganen_foot', 'observed_pose', (row,), {})
+    return cq.Location(cq.Plane(origin=cq.Vector(*pose['origin']),
+                                xDir=cq.Vector(*pose['x']), normal=cq.Vector(*pose['z'])))
 
 
 def observed_foot(row):

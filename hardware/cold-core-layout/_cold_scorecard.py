@@ -1,96 +1,32 @@
-"""The cold core's arrangement as a scorecard, written beside its STEP.
-
-Same sidecar the enclosure's card writes ([`web/contracts/scorecard-sidecar.js`]
-(/web/contracts/scorecard-sidecar.js)), so the 3D viewer draws this card with the machinery it
-already has. The checks are this assembly's own — a carbonator, a wound coil, two reservoirs, and
-the lines potted among them.
-
-REPORTING, NOT GATING. `main` never exits nonzero on a finding — every row lands in the card
-and on the terminal, and the build still writes its STEP. A reading that stops the build is a
-reading nobody sees at `/3d`.
-
-  bom-covered    every billed cold-core part against the body that realizes it
-  bodies-clear   no two solids share volume
-  routes-fit     no line meets a solid
-  lines-apart    no line meets another line
-  arcs-hold      every corner turns at the stock arc
-  floats-couple  every Aero float clears its wall and rides within the reed distance limit
-"""
-
+"The cold core's arrangement as a scorecard, written beside its STEP.\n\nSame sidecar the enclosure's card writes ([`web/contracts/scorecard-sidecar.js`]\n(/web/contracts/scorecard-sidecar.js)), so the 3D viewer draws this card with the machinery it\nalready has. The checks are this assembly's own — a carbonator, a wound coil, two reservoirs, and\nthe lines potted among them.\n\nREPORTING, NOT GATING. `main` never exits nonzero on a finding — every row lands in the card\nand on the terminal, and the build still writes its STEP. A reading that stops the build is a\nreading nobody sees at `/3d`.\n\n  bom-covered    every billed cold-core part against the body that realizes it\n  bodies-clear   no two solids share volume\n  routes-fit     no line meets a solid\n  lines-apart    no line meets another line\n  arcs-hold      every corner turns at the stock arc\n  floats-couple  every Aero float clears its wall and rides within the reed distance limit\n"
 from __future__ import annotations
 
-import json
-import sys
+import sys as _sys
+from pathlib import Path as _Path
+
+_hardware = next(p for p in _Path(__file__).resolve().parents if p.name == "hardware")
+_sys.path[:0] = [str(_hardware / "scripts"), str(_hardware / "cold-core-layout")]
+from _cold_core_data import compiled as _compiled, member as _member
+
 from dataclasses import dataclass, field
-from pathlib import Path
-
-_here = Path(__file__).resolve()
-_hw = next(p for p in _here.parents if p.name == "hardware")
-_repo = _hw.parent
-if str(_hw / "scripts") not in sys.path:
-    sys.path.insert(0, str(_hw / "scripts"))
-from _card import Check, verdict  # noqa: E402,F401 — the card's own row, re-exported
-
-DETAIL_MAX = 8
-FOCUS_DETAIL_MAX = 24
-# The axes this effort is on: their detail prints to `FOCUS_DETAIL_MAX` rows on the terminal
-# rather than `DETAIL_MAX`, and `to_dict` marks the goal among them as this card's live one.
-FOCUS_IDS = ("bom-covered", "mounted", "inlet-jet-qualified", "gas-adapter-envelope")
-# Two surfaces built to one nominal face meet at a sliver of this order.
-TOUCH_VOLUME = 0.1
-
-
 @dataclass
 class Scorecard:
     checks: list
     bends: list = field(default_factory=list)
     bodies: list = field(default_factory=list)
-
     @property
-    def gates_pass(self) -> bool:
-        return all(c.status != "fail" for c in self.checks if c.kind == "gate")
+    def gates_pass(self, *args, **kwargs):
+        return _compiled('_cold_scorecard', path=('Scorecard.gates_pass',), args=(self, *args), kwargs=kwargs)
 
+def __getattr__(name):
+    if name == "__all__":
+        return _compiled('_cold_scorecard', action="public-names")
+    try:
+        return _member('_cold_scorecard', name)
+    except ValueError as error:
+        raise AttributeError(name) from error
 
-def to_dict(sc: Scorecard) -> dict:
-    return {
-        "gatesPass": sc.gates_pass,
-        "checks": [
-            {"id": c.id, "label": c.label, "kind": c.kind, "status": c.status,
-             "value": c.value, "target": c.target, "detail": list(c.detail),
-             "active": c.active and c.id in FOCUS_IDS if c.kind == "goal" else c.active}
-            for c in sc.checks
-        ],
-        # `_scenes.core_names` reads these, with an `id` off every bend row, for the
-        # core's body and line names.
-        "bodies": sc.bodies,
-        "bends": sc.bends,
-    }
-
-
-def write(sc: Scorecard, step: Path) -> Path:
-    """The card beside `step` — every reading this build took, and nothing else."""
-    out = step.parent / (step.stem + ".scorecard.json")
-    out.write_text(json.dumps(to_dict(sc), indent=1) + "\n")
-    return out
-
-
-def report(sc: Scorecard) -> None:
-    print("\nscorecard")
-    for c in sc.checks:
-        mark = {"pass": "OK  ", "fail": "FAIL", "warn": "    "}[c.status]
-        print(f"  {mark} {c.id:14} {c.value:34} {c.label}")
-        limit = FOCUS_DETAIL_MAX if c.id in FOCUS_IDS else DETAIL_MAX
-        for line in c.detail[:limit]:
-            print(f"         {line}")
-        if len(c.detail) > limit:
-            print(f"         … {len(c.detail) - limit} more")
-    if sc.bends:
-        print("\nlines")
-        print(f"  {'line':18} {'grade':7} {'length':>8} {'reach':>8} {'detour':>7} "
-              f"{'tightest':>9} corners")
-        for d in sc.bends:
-            det = d["need"]["detour"]
-            reach = "—" if d["reach"] is None else f"{d['reach']:.1f}"
-            print(f"  {d['id']:18} {str(d['grade'] or 'straight'):7} {d['length']:8.1f} "
-                  f"{reach:>8} {'    — ' if det is None else f'{det:5.2f}x'} "
-                  f"{d['radius']:9.2f} {len(d['corners'])}")
+if __name__ == "__main__":
+    import _rust_part
+    _rust_part.start()
+    _compiled('_cold_scorecard', action="main")

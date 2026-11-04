@@ -20,7 +20,8 @@ def main(output=None):
     out = HERE if output is None else Path(output)
     out.mkdir(parents=True, exist_ok=True)
     said = _rust_part.cut('tooling', 'soda-bend-holder', numbers(), out)
-    print(f"soda-bend-holder: {said['bodies'][0]['volume']/1000.:.3f} cm3")
+    from _part_output import summary
+    print(f"soda-bend-holder: {summary(said['bodies'][0])['volume']} cm3")
 
 
 if __name__ == '__main__':

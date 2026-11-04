@@ -73,124 +73,56 @@ STEP = _here.parent / "iec-c14-inlet.step"
 
 # Flange and fasteners. The plan outline is the calipered one: the scan's broad faces end
 # on it, while its thin edge band reads up to 0.3 mm outside it (`scan-evidence.json`).
-FLANGE_W = 49.77              # nose to nose, calipers
-FLANGE_H = 21.9               # across the long flats, scan
-FLANGE_T = 3.25
-FLANGE_END_CHORD = 17.98      # ear nose to the end of a long flat, calipers
-EAR_CX = 20.0                 # ear arc centre, calipers
-EAR_R = FLANGE_W / 2.0 - EAR_CX
-FLANGE_SHOULDER_X = FLANGE_W / 2.0 - math.sqrt(
-    FLANGE_END_CHORD ** 2 - (FLANGE_H / 2.0) ** 2)
-FLANGE_KNUCKLE_R = 1.2        # ESTIMATED round between flat and taper
-SCREW_PITCH = 40.21
-SCREW_D = 3.24
-CSK_D = 6.1                   # 90 degree countersink on the outboard face
-CSK_DEPTH = (CSK_D - SCREW_D) / 2.0
+
+_reference_hardware = next(p for p in Path(__file__).resolve().parents if p.name == 'hardware')
+import sys as _reference_sys
+_reference_sys.path.insert(0, str(_reference_hardware / 'reference'))
+from _reference_data import data as _reference_data
+_reference_values = _reference_data('iec_c14_inlet')
+globals().update({name: _reference_values[name] for name in ('FLANGE_W', 'FLANGE_H', 'FLANGE_T', 'FLANGE_END_CHORD', 'EAR_CX', 'EAR_R', 'FLANGE_SHOULDER_X', 'FLANGE_KNUCKLE_R', 'SCREW_PITCH', 'SCREW_D', 'CSK_D', 'CSK_DEPTH', 'CUTOUT_W', 'CUTOUT_H', 'CUTOUT_R', 'RIM_W', 'RIM_H', 'RIM_R', 'RIM_PROUD', 'MOUTH_W', 'MOUTH_H', 'MOUTH_TOP_R', 'MOUTH_CHAMFER', 'CAVITY_FLOOR_Y', 'BLADE_W', 'BLADE_T', 'BLADE_STATIONS', 'BODY_W', 'BODY_H', 'BODY_DEPTH', 'BODY_CHAMFER_LEG', 'BODY_TOP_R', 'BOSS_W', 'BOSS_H', 'BOSS_R', 'BOSS_PROUD', 'TAB_W', 'TAB_T', 'TAB_TIP_Y', 'TAB_HOLE_D', 'TAB_HOLE_FROM_TIP', 'TAB_STATIONS', 'BOSS_STATIONS', 'flange_back_y', 'body_end_y', 'boss_end_y')})
+
 
 # The manufacturer's stated panel opening; the enclosure cuts `bore_outline`
 # plus its own clearance.
-CUTOUT_W = 30.95
-CUTOUT_H = 22.15
-CUTOUT_R = 3.0
 
 # Rim and cavity on the mating side.
-RIM_W = 31.03
-RIM_H = 22.13
-RIM_R = 6.0
-RIM_PROUD = 1.84
-MOUTH_W = 24.82
-MOUTH_H = 16.26
-MOUTH_TOP_R = 2.3
-MOUTH_CHAMFER = 4.8
-CAVITY_FLOOR_Y = -14.3
 
 # Male blades: IEC nominal sections at the measured stations.
-BLADE_W = 4.0                 # along Z
-BLADE_T = 2.0                 # along X
-BLADE_STATIONS = ((-6.45, 2.3, -2.9), (0.3, -1.9, -1.1), (6.95, 2.2, -2.9))   # (x, z, tip y)
 
 # Wiring-side housing.
-BODY_W = 26.10
-BODY_H = 18.00
-BODY_DEPTH = 13.65
-BODY_CHAMFER_LEG = 4.85       # 45 degree chamfers on the two lower long edges
-BODY_TOP_R = 1.0              # ESTIMATED rounds on the two upper long edges
 
 # Tab bosses and solder tabs.
-BOSS_W = 4.0
-BOSS_H = 10.0
-BOSS_R = 1.0
-BOSS_PROUD = 1.17
-TAB_W = 6.3                   # along Z
-TAB_T = 0.8                   # along X
-TAB_TIP_Y = -25.0
-TAB_HOLE_D = 2.0
-TAB_HOLE_FROM_TIP = 3.5
-TAB_STATIONS = ((-6.7, 2.45), (0.35, -2.6), (7.1, 2.65))    # (x, z) of each tab's centre
-BOSS_STATIONS = ((-6.7, 2.0), (0.35, -2.5), (7.1, 2.0))
-
-flange_back_y = -FLANGE_T
-body_end_y = flange_back_y - BODY_DEPTH
-boss_end_y = body_end_y - BOSS_PROUD
 
 
-def panel_cutout() -> tuple:
-    """The manufacturer's stated panel opening as ``(width, height, radius)``."""
-    return (CUTOUT_W, CUTOUT_H, CUTOUT_R)
+
+def panel_cutout():
+    "The manufacturer's stated panel opening as ``(width, height, radius)``."
+    return _reference_data('iec_c14_inlet', 'panel_cutout', (), {})
 
 
-def bore_outline() -> tuple:
-    """What a wall must pass outboard of the seating plane: the rim, ``(width, height, radius)``."""
-    return (RIM_W, RIM_H, RIM_R)
+def bore_outline():
+    'What a wall must pass outboard of the seating plane: the rim, ``(width, height, radius)``.'
+    return _reference_data('iec_c14_inlet', 'bore_outline', (), {})
 
 
-def panel_screws() -> tuple:
-    """Two screw stations in the seating plane, relative to the inlet centre."""
-    return ((-SCREW_PITCH / 2.0, 0.0), (SCREW_PITCH / 2.0, 0.0))
+def panel_screws():
+    'Two screw stations in the seating plane, relative to the inlet centre.'
+    return _reference_data('iec_c14_inlet', 'panel_screws', (), {})
 
 
-def panel_footprint() -> tuple:
-    """Overall flange extents in the seating plane."""
-    return (FLANGE_W, FLANGE_H)
+def panel_footprint():
+    'Overall flange extents in the seating plane.'
+    return _reference_data('iec_c14_inlet', 'panel_footprint', (), {})
 
 
-def panel_stack() -> tuple:
-    """Outboard rim reach and inboard moulded reach, tabs excluded."""
-    return (RIM_PROUD, FLANGE_T + BODY_DEPTH + BOSS_PROUD)
+def panel_stack():
+    'Outboard rim reach and inboard moulded reach, tabs excluded.'
+    return _reference_data('iec_c14_inlet', 'panel_stack', (), {})
 
 
-def _flange_landmarks() -> dict:
-    """Right-top landmarks of the flange outline: a long flat, a knuckle round at its end, the
-    common external tangent shared with the ear arc, and the nose."""
-    a = FLANGE_SHOULDER_X
-    h = FLANGE_H / 2.0
-    kr = FLANGE_KNUCKLE_R
-    shoulder_center = (a, h - kr)
-    ear_center = (EAR_CX, 0.0)
-    dx = ear_center[0] - shoulder_center[0]
-    dz = ear_center[1] - shoulder_center[1]
-    span = math.hypot(dx, dz)
-    if span <= abs(EAR_R - kr):
-        raise ValueError("the flange shoulder and ear rounds swallow their tangent")
-    ux, uz = dx / span, dz / span
-    along = (kr - EAR_R) / span
-    across = math.sqrt(1.0 - along * along)
-    nx = along * ux + across * (-uz)
-    nz = along * uz + across * ux
-    q = (shoulder_center[0] + kr * nx, shoulder_center[1] + kr * nz)
-    t = (ear_center[0] + EAR_R * nx, ear_center[1] + EAR_R * nz)
-    theta = math.atan2(nz, nx)
-    mid_theta = (math.pi / 2.0 + theta) / 2.0
-    mid = (shoulder_center[0] + kr * math.cos(mid_theta),
-           shoulder_center[1] + kr * math.sin(mid_theta))
-    return {
-        "shoulder": (a, h),
-        "round_mid": mid,
-        "tangent_start": q,
-        "ear_tangent": t,
-        "nose": (FLANGE_W / 2.0, 0.0),
-        "taper_angle_deg": math.degrees(math.atan2(q[1] - t[1], t[0] - q[0])),
-    }
+def _flange_landmarks():
+    'Right-top landmarks of the flange outline: a long flat, a knuckle round at its end, the\n    common external tangent shared with the ear arc, and the nose.'
+    return _reference_data('iec_c14_inlet', '_flange_landmarks', (), {})
 
 
 def flange_profile(clearance: float = 0.0) -> cq.Sketch:
@@ -357,14 +289,9 @@ def build_iec_c14_inlet() -> cq.Workplane:
     return moulding.union(build_blades()).union(build_terminals())
 
 
-def stations_hold() -> None:
-    """Hold both countersunk screws inside the flange and clear of the bore."""
-    bore_w, _bore_h, _bore_r = bore_outline()
-    for sx, sz in panel_screws():
-        if abs(sx) + CSK_D / 2.0 > FLANGE_W / 2.0:
-            raise ValueError(f"the screw at ({sx:g}, {sz:g}) leaves the flange")
-        if abs(sx) - CSK_D / 2.0 < bore_w / 2.0:
-            raise ValueError(f"the screw at ({sx:g}, {sz:g}) breaks into the bore")
+def stations_hold():
+    'Hold both countersunk screws inside the flange and clear of the bore.'
+    return _reference_data('iec_c14_inlet', 'stations_hold', (), {})
 
 
 def selftest() -> int:

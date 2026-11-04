@@ -15,3 +15,6 @@ anyhow.workspace = true
 serde_json = { workspace = true, features = ["float_roundtrip"] }
 zip = { version = "9.1.2", default-features = false, features = ["deflate-flate2-zlib-rs"] }
 hsm-layout-data = { path = "../layout-data" }
+
+serde.workspace = true
+hsm-documents = { path = "../documents" }

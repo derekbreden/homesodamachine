@@ -2,49 +2,31 @@
 
 Run: tools/cad-venv/bin/python hardware/printed-parts/enclosure/nameplate/_nameplate_dimensions.py
 """
+from __future__ import annotations
 
-import sys
-from pathlib import Path
+import sys as _sys
+from pathlib import Path as _Path
 
-_here = Path(__file__).resolve().parent
-_root = next(p for p in _here.parents if (p / "tools" / "docgen").is_dir())
-sys.path.insert(0, str(_root / "tools"))
+_hardware = next(p for p in _Path(__file__).resolve().parents if p.name == "hardware")
+_sys.path[:0] = [str(_hardware / "scripts"), str(_hardware / "printed-parts/enclosure/enclosure"), str(_hardware / "printed-parts/cadlib")]
+import _rust_part
+_rust_part.start()
+from _enclosure_compiled import compiled as _compiled
 
-from docgen import substitute_md
+_rust_enclosure_module = '_nameplate_dimensions'
 
-sys.path.insert(0, str(_root / "hardware/printed-parts/enclosure/enclosure"))
-from _enclosure_data import dimensions as _dimensions, read as _read
+def __getattr__(name):
+    if name == "__all__":
+        return _compiled('_nameplate_dimensions', action="public-names")
+    if name.startswith("__"):
+        raise AttributeError(name)
+    try:
+        return _compiled('_nameplate_dimensions', action="get", path=(name,))
+    except ValueError as error:
+        raise AttributeError(name) from error
 
-
-globals().update(_dimensions()['plan'])
-
-
-def serial_of(unit: int) -> str:
-    """The four-digit identifier encoded in the QR and used by the unit log."""
-    return _read('nameplate-unit', unit=unit, portal_host=portal_host)['serial']
-
-
-def unit_url(unit: int) -> str:
-    """Uppercase scheme/host keep the complete URL in QR alphanumeric mode."""
-    return _read('nameplate-unit', unit=unit, portal_host=portal_host)['url']
-
-
-def unit_url_plain(unit: int) -> str:
-    """The full-domain address for written instructions; the plate shows only a QR."""
-    return _read('nameplate-unit', unit=unit, portal_host=portal_host)['plain']
-
-
-def main():
-    variables = _read('plan-variables', plan=_dimensions()['plan'])
-
-    substitute_md(
-        _here / "README.md",
-        variables=variables,
-    )
-    print("-> README.md")
-    substitute_md(_root / "future" / "unit-links.md", variables=variables)
-    print("-> future/unit-links.md")
-
+from _enclosure_compiled import install as _install
+_install(_sys.modules[__name__])
 
 if __name__ == "__main__":
-    main()
+    _compiled('_nameplate_dimensions', action="main")

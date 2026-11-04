@@ -26,44 +26,36 @@ STEP_PATH = _here.parent / "hlghlg-check-valve.step"
 PAYLOAD_PATH = _here.parent / "hlghlg-check-valve.step.mesh"
 ASSET_MANIFEST_PATH = _here.parent / "frozen-asset.json"
 
-TUBE_D = 6.35               # the 1/4" OD LLDPE both ends accept
-LENGTH = 51.0               # the listing's end-to-end dimension
-BODY_D = 14.0               # and its diameter, across the sockets
+
+_reference_hardware = next(p for p in Path(__file__).resolve().parents if p.name == 'hardware')
+import sys as _reference_sys
+_reference_sys.path.insert(0, str(_reference_hardware / 'reference'))
+from _reference_data import data as _reference_data
+_reference_values = _reference_data('hlghlg_check_valve')
+globals().update({name: _reference_values[name] for name in ('TUBE_D', 'LENGTH', 'BODY_D', 'SECTIONS')})
+
 
 # Inlet first, as `(label, diameter, length)`.
-SECTIONS = (
-    ("inlet collet", 12.0, 1.6),
-    ("inlet socket", BODY_D, 14.4),
-    ("neck", 9.3, 6.2),
-    ("barrel", 12.6, 11.6),
-    ("barrel step", 13.0, 1.8),
-    ("outlet socket", BODY_D, 13.4),
-    ("outlet collet", 12.6, 2.0),
-)
 
 
 def sections():
-    """Every section as `(label, radius, s0, s1)`, `s` running from the inlet down the valve."""
-    out, s = [], 0.0
-    for label, dia, length in SECTIONS:
-        out.append((label, dia / 2.0, s, s + length))
-        s += length
-    return tuple(out)
+    'Every section as `(label, radius, s0, s1)`, `s` running from the inlet down the valve.'
+    return _reference_data('hlghlg_check_valve', 'sections', (), {})
 
 
 def inlet():
-    """The push-fit the discharge elbow's tube pushes into: (position, outward axis)."""
-    return (0.0, 0.0, 0.0), (0.0, 0.0, 1.0)
+    "The push-fit the discharge elbow's tube pushes into: (position, outward axis)."
+    return _reference_data('hlghlg_check_valve', 'inlet', (), {})
 
 
 def outlet():
-    """The push-fit the LLDPE to the core pushes into: (position, outward axis)."""
-    return (0.0, 0.0, -LENGTH), (0.0, 0.0, -1.0)
+    'The push-fit the LLDPE to the core pushes into: (position, outward axis).'
+    return _reference_data('hlghlg_check_valve', 'outlet', (), {})
 
 
 def tube_port():
-    """Downstream tube station used by the installed plumbing graph."""
-    return outlet()
+    'Downstream tube station used by the installed plumbing graph.'
+    return _reference_data('hlghlg_check_valve', 'tube_port', (), {})
 
 
 def main():

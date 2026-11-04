@@ -3,8 +3,8 @@
 import cadquery as cq
 
 
-WIDTH = 32.0
-LOWER_CORNER_RADIUS = 2.0
+from _scalar_provider import call as _rust_scalar
+globals().update(_rust_scalar('scalar.constants',group='port_chip'))
 
 
 def outline(width, top, bottom, thickness, y0=0.0, radius=LOWER_CORNER_RADIUS):

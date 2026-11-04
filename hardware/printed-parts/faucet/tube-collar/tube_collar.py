@@ -63,15 +63,39 @@ from docgen import substitute_md  # noqa: E402
 # THE BEVERAGE, TAP AND CO2 TUBE SIZE. Those lines are 1/4" OD LLDPE, off the
 # four colour-coded spools in `ledger/bom.md` §3. It is the nominal and not a bench figure: the tube on
 # the bench calipers Ø6.5, which is the top of the band below.
-TUBE_OD = 6.35
+from _rust_data import request as _data_request
+
+
+def _collar_data(fn="datums", **values):
+    ring = {name: getattr(_ring, name) for name in
+            ("RING_W", "WORD_DEPTH", "WORD_MARGIN", "WORD_SIZE", "WORD_CAP", "THICK")}
+    ring["STATIONS"] = {name: row.word for name, row in _ring.STATIONS.items()}
+    ring["FLUIDS"] = _ring.FLUIDS
+    if fn == "numbers":
+        from _materials import linear
+        values["palette"] = {fluid: {
+            "color": _rear.chip_color(fluid),
+            "word_color": _rear.word_color(fluid),
+        } for fluid in set(_ring.FLUIDS.values())}
+    return _data_request("faucet-data", "faucet-data", {"op": "collar", "fn": fn, "ring": ring, **values})
+
+
+_collar_values = _collar_data()
+globals().update(_collar_values["datums"])
+Collar = collections.namedtuple("Collar", "word fluid tube fitted")
+STATIONS = {row["name"]: Collar(*(row[k] for k in ("word", "fluid", "tube", "fitted")))
+            for row in _collar_values["stations"]}
+FACES = tuple(FACES)
+
+
 # What 1/4" OD LLDPE holds its diameter to on the spool. THE BORE IS SIZED OFF THE TOP OF THAT BAND
 # and not off the nominal — a spool running high is the tube a collar still has to go onto, and one
 # running low only leaves play. `clearance()` and `rock()` are the answers about the low end.
-LLDPE_TOL = 0.13
+
 # WHAT THE PRINTER TAKES OFF THE BORE'S DIAMETER, calipered on a finished collar. It lies flat face
 # down with the bore's axis along the bed, so the hole's crown is unsupported and sags into it.
 # `BORE` is the figure the slicer is handed; `bore_printed()` is the one the tube meets.
-BORE_SHRINK = 0.10
+
 # AND WHAT IS LEFT OVER THE BIGGEST TUBE once the sag has had it. `LENGTH` of bore turns any
 # interference at all into a collar that goes on with a mallet or not at all, and this one goes on
 # by hand over a bare tail. What holds it where it is put is the bend the tube came off the spool
@@ -81,22 +105,21 @@ BORE_SHRINK = 0.10
 # and `BORE_SHRINK` are a PETG collar's, calipered off the 0.2 mm nozzle, where a hole holds its
 # figure far better than the PET-GF bores do. The collar ships in PET-GF (`ledger/bom.md` §7),
 # and no PET-GF collar has been calipered against either.
-SLIP = 0.10
+
 # THE BORE, AS THE SLICER IS HANDED IT: the top of the tube's band, the sag, and the slip.
-BORE = TUBE_OD + LLDPE_TOL + BORE_SHRINK + SLIP
+
 # The collar's width, and the diameter of the half circle below the axis. It leaves a `wall()` of
 # colour between the bore and each of the three flats.
-OD = 12.0
+
 # HOW FAR THE RECTANGLE STANDS ABOVE THE AXIS, and so how tall the two side flats are. It is
 # `bulkhead_ring.RING_W`, the band a port's identification is lettered in.
-RISE = _ring.RING_W
+
 # THE RUN ALONG THE TUBE. It is the longest station word plus its margins, set at
 # `bulkhead_ring.WORD_SIZE`, and `selftest` holds this to it.
-LENGTH = 30.0
+
 # How deep the word's recess is cut into the flat, and what the flat keeps clear of it. Both are
 # `bulkhead_ring`'s.
-WORD_DEPTH = _ring.WORD_DEPTH
-WORD_MARGIN = _ring.WORD_MARGIN
+
 
 # ONE COLLAR PER CHIP. The six keys are `bulkhead_ring.STATIONS`' own, and each takes its word and its
 # spool from the chip at that station — a word changed on the wall is changed on the tube by the
@@ -104,66 +127,38 @@ WORD_MARGIN = _ring.WORD_MARGIN
 #
 # WHICH TUBE EACH ONE RIDES, and the bench that threads it on.
 Collar = collections.namedtuple("Collar", "word fluid tube fitted")
-STATIONS = {
-    which: Collar(_ring.STATIONS[which].word, _ring.FLUIDS[which], tube, fitted)
-    for which, tube, fitted in (
-        ("water", "the customer's tap-water run, up to their angle stop", "pack bench"),
-        ("carb", "the umbilical's blue carbonated-water tail", "faucet bench"),
-        ("co2", "the customer's red tether, +Y wall of back-top to regulator", "pack bench"),
-        ("flavor-a", "the umbilical's first black flavour tail", "faucet bench"),
-        ("flavor-b", "the umbilical's second black flavour tail", "faucet bench"),
-        ("drain", "the umbilical's white 4 mm vent tail", "faucet bench"),
-    )
-}
+
 # ONE FILE PER STATION, AND IT HOLDS BOTH BODIES, as a rear tile's does. The part is one
 # print in two filaments, a collar and the word lying in its recess, and the file is that pair.
 STEPS = {name: _here.parent / f"tube-collar-{name}.step" for name in STATIONS}
 
 
-def bore_printed() -> float:
-    """The bore a caliper reads on a finished collar, and the one the tube is threaded into —
-    `BORE` less what the crown's sag takes back out of it."""
-    return BORE - BORE_SHRINK
+def bore_printed():
+    return _collar_data('bore_printed')
 
 
-def wall() -> float:
-    """The colour standing between the bore and a side flat, which is the thinnest the collar gets —
-    the round below the axis stands the same off it and the top flat stands `RISE` off, further."""
-    return (OD - BORE) / 2.0
+def wall():
+    return _collar_data('wall')
 
 
-def backing() -> float:
-    """The colour left under the word's recess, between its floor and the bore's crown. `selftest`
-    reads it against `WORD_DEPTH`."""
-    return wall() - WORD_DEPTH
+def backing():
+    return _collar_data('backing')
 
 
-def reach() -> float:
-    """The furthest a collar stands from its own tube's axis — the top flat's corners, and whichever
-    way the flag is turned they are what sweeps. Two collars on neighbouring tubes clear when the
-    axes are further apart than the two of them reach."""
-    return math.hypot(OD / 2.0, RISE)
+def reach():
+    return _collar_data('reach')
 
 
-def clearance() -> float:
-    """The diametral play a collar has on the loosest tube its spool runs — the printed bore over
-    an extrusion at the low end of `LLDPE_TOL`.
-
-    On one at the high end it is `SLIP`, which is the figure the bore is sized to leave and the
-    tightest a collar comes out. Everything below is a tube that ran under nominal."""
-    return bore_printed() - (TUBE_OD - LLDPE_TOL)
+def clearance():
+    return _collar_data('clearance')
 
 
-def rock() -> float:
-    """The angle a collar can cock on that tube, in degrees. A bore of length L with diametral play
-    c binds at two diagonal corners, leaving atan(c/L)."""
-    return math.degrees(math.atan2(clearance(), LENGTH))
+def rock():
+    return _collar_data('rock')
 
 
-def flag_sway() -> float:
-    """That angle carried out to the flag's face, at `RISE` off the axis — the furthest anything on
-    the collar stands from the line it turns about."""
-    return RISE * math.tan(math.radians(rock()))
+def flag_sway():
+    return _collar_data('flag_sway')
 
 
 # THE THREE FLATS THE OUTLINE LEAVES, and every one of them carries the word. A collar on a tube
@@ -172,16 +167,10 @@ def flag_sway() -> float:
 # has not already said. Lettered at 0° and ±90° the collar cannot present a blank face to a reader
 # without presenting a lettered one to the same reader edge-on. The round below the axis takes no
 # lettering; it is what the hand meets and it stays round.
-FACES = ("top", "+x", "-x")
 
 
-def word_band(face: str = "top") -> tuple:
-    """The flat a face letters in, as `(along the tube, across it)` — the face less its margins.
-
-    The advance runs along the tube on all three. The cap stands ACROSS the tube on the top flat,
-    which is `OD` wide, and UP the collar on the two sides, which are `RISE` tall."""
-    across = OD if face == "top" else RISE
-    return (LENGTH - 2.0 * WORD_MARGIN, across - 2.0 * WORD_MARGIN)
+def word_band(face="top"):
+    return tuple(_collar_data("word_band", face=face))
 
 
 def _face_word(which: str, face: str):
@@ -234,9 +223,7 @@ def build_word(which: str):
 
 
 def bore_d(which):
-    # neoFlo publishes ±0.003 inch OD tolerance for its 4 mm stock.
-    return (4.0 + 0.0762 + BORE_SHRINK + SLIP) if which in (
-        "drain", "flavor-a", "flavor-b") else BORE
+    return _collar_data("bore_d", which=which)
 
 
 def build_blank(which="water"):
@@ -414,79 +401,19 @@ def selftest() -> int:
 
 
 def numbers():
-    """Collar stock, bores and the shared Helvetica Bold contour artwork."""
-    from _materials import linear
-
-    artwork = json.loads((_hw / "printed-parts/enclosure/rear-identification/label-words.json").read_text())
-    return {
-        "od": OD, "rise": RISE, "length": LENGTH, "word_depth": WORD_DEPTH,
-        "word_size": _ring.WORD_SIZE, "word_profiles_em": artwork["em_mm"],
-        "stations": [{
-            "name": f"tube-collar-{which}", "word": collar.word,
-            "word_profiles": artwork["words"][collar.word], "bore": bore_d(which),
-            "color": list(linear(_filament(_rear.chip_color(collar.fluid)))),
-            "word_color": list(linear(_filament(_rear.word_color(collar.fluid)))),
-        } for which, collar in STATIONS.items()],
-    }
+    artwork = _hw / "printed-parts/enclosure/rear-identification/label-words.json"
+    from _cadq_export import note_read
+    note_read(artwork)
+    return _collar_data("numbers", artwork=str(artwork))
 
 
 def main():
     import _rust_part
-
     said = _rust_part.cut("faucet", "tube-collar", numbers(), _here.parent)
-    bodies = {body["name"]: body for body in said["bodies"]}
-    volumes, word_volumes = {}, {}
-    for which in STATIONS:
-        name = f"tube-collar-{which}"
-        collar, word = bodies[name], bodies[name + "-word"]
-        volumes[which] = collar["volume"] / 1000.0
-        word_volumes[which] = word["volume"] / 1000.0
-        lo, hi = collar["min"], collar["max"]
-        print(f"Tube collar — {which} station, '{STATIONS[which].word}'")
-        print(f"  Ø{OD:g} wide × {OD / 2.0 + RISE:g} tall × {LENGTH:g} along the tube / "
-              f"bore Ø{BORE:g} modelled, Ø{bore_printed():g} printed, on Ø{TUBE_OD:g} LLDPE")
-        print(f"  Wall {wall():g} mm, {backing():g} mm of colour behind the lettering")
-        print(f"  Canonical-frame bounding box: "
-              f"X [{lo[0]:.2f}, {hi[0]:.2f}]  "
-              f"Y [{lo[1]:.2f}, {hi[1]:.2f}]  "
-              f"Z [{lo[2]:.2f}, {hi[2]:.2f}]")
-        print(f"-> {STEPS[which].name}")
-
-    chip_rock = math.degrees(math.atan2(clearance(), _ring.THICK))
-    print(f"  Slips {SLIP:g} mm on the biggest tube a spool runs (Ø{TUBE_OD + LLDPE_TOL:g})")
-    print(f"  Cocks {rock():.4f}° on its loosest tube "
-          f"({clearance():.3f} mm of play over {LENGTH:g} mm of bore), "
-          f"{flag_sway() * 1000:.0f} µm at the flag's face")
-    print(f"  A {_ring.THICK:g} mm chip on the same tube: {chip_rock:.3f}°")
-
-    substitute_md(_here.parent / "README.md", variables={
-        "COLLAR_TUBE_OD": f"{TUBE_OD:g}",
-        "COLLAR_TUBE_HIGH": f"{TUBE_OD + LLDPE_TOL:g}",
-        "COLLAR_BORE": f"{BORE:g}",
-        "COLLAR_BORE_PRINTED": f"{bore_printed():g}",
-        "COLLAR_SHRINK": f"{BORE_SHRINK:g}",
-        "COLLAR_SLIP": f"{SLIP:g}",
-        "COLLAR_OD": f"{OD:g}",
-        "COLLAR_RISE": f"{RISE:g}",
-        "COLLAR_TALL": f"{OD / 2.0 + RISE:g}",
-        "COLLAR_LENGTH": f"{LENGTH:g} mm",
-        "COLLAR_WALL": f"{wall():g}",
-        "COLLAR_BACKING": f"{backing():g}",
-        "COLLAR_VOL": f"{volumes['flavor-a']:.2f}",
-        "COLLAR_WORD_VOL": f"{word_volumes['flavor-a']:.2f}",
-        "COLLAR_CLEARANCE": f"{clearance():.2f}",
-        "COLLAR_LLDPE_TOL": f"{LLDPE_TOL:g}",
-        "COLLAR_ROCK": f"{rock():.2f}",
-        "COLLAR_CHIP_THICK": f"{_ring.THICK:g}",
-        "COLLAR_CHIP_ROCK": f"{chip_rock:.2f}",
-        "COLLAR_SWAY": f"{flag_sway() * 1000:.0f}",
-        "COLLAR_WORD_DEPTH": f"{WORD_DEPTH:g}",
-        "COLLAR_WORD_MARGIN": f"{WORD_MARGIN:g}",
-        "COLLAR_WORD_SIZE": f"{_ring.WORD_SIZE:g}",
-        "COLLAR_WORD_CAP": f"{_ring.WORD_CAP:g}",
-        "COLLAR_BAND_ALONG": f"{word_band()[0]:g}",
-        "COLLAR_BAND_ACROSS": f"{word_band()[1]:g}",
-    })
+    report = _collar_data("report", bodies=said["bodies"])
+    for line in report["lines"]:
+        print(line)
+    substitute_md(_here.parent / "README.md", variables=report["variables"])
     print("-> README.md")
 
 

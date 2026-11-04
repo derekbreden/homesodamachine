@@ -29,71 +29,28 @@ sys.path.insert(0, str(_hardware / 'scripts'))
 sys.path.insert(0,str(_hardware.parent/'tools'))
 
 # Mounting and moulded body. The post pattern is rectangular.
-corner_spacing_x, corner_spacing_y = 24.4, 24.85
-corner_inset_x, corner_inset_y = corner_spacing_x / 2, corner_spacing_y / 2
-corner_spacing = corner_spacing_x
-corner_inset = corner_inset_x
-corner_boss_radius = 3.45
-post_shoulder_z = 11.0
-upper_corner_radius = 3.8
-post_mouth_radius, post_mouth_depth = 1.6, 3.0
-body_radius = 15.5
-body_width = 2 * body_radius
-bearing_radius = 12.15
-bearing_z_range = (5.2, 14.4)
-lower_edge_fillet = 2.5
-body_main_z_range = (11.0, 24.5)
-cap_width_x, cap_depth_y, cap_corner_radius = 33.5, 33.8, 4.5
-top_box_z_range = (24.3, 26.0)
-body_top_z = top_box_z_range[1]
-top_box_height = body_top_z - top_box_z_range[0]
-boss_z_range = (bearing_z_range[0], body_top_z)
-corner_boss_z_range = (0.0, body_top_z)
+
+_reference_hardware = next(p for p in Path(__file__).resolve().parents if p.name == 'hardware')
+import sys as _reference_sys
+_reference_sys.path.insert(0, str(_reference_hardware / 'reference'))
+from _reference_data import data as _reference_data
+_reference_values = _reference_data('beduan_solenoid')
+globals().update({name: _reference_values[name] for name in ('corner_spacing_x', 'corner_spacing_y', 'corner_inset_x', 'corner_inset_y', 'corner_spacing', 'corner_inset', 'corner_boss_radius', 'post_shoulder_z', 'upper_corner_radius', 'post_mouth_radius', 'post_mouth_depth', 'body_radius', 'body_width', 'bearing_radius', 'bearing_z_range', 'lower_edge_fillet', 'body_main_z_range', 'cap_width_x', 'cap_depth_y', 'cap_corner_radius', 'top_box_z_range', 'body_top_z', 'top_box_height', 'boss_z_range', 'corner_boss_z_range', 'body_width_x', 'body_x_pad', 'coil_depth', 'coil_z_range', 'bracket_top_z', 'coil_center_x', 'coil_center_y', 'coil_radius', 'coil_body_z_range', 'bracket_width', 'bracket_depth', 'bracket_thickness', 'bracket_outer_bend', 'bracket_base_z_range', 'screw_head_radius', 'screw_head_height', 'port_radius', 'port_length', 'port_center_z', 'port_neck_radius', 'collet_radius', 'collet_neck_radius', 'collet_ear_radius', 'collet_ear_sectors', 'collet_clip_radius', 'collet_clip_sectors', 'port_mouth_radius', 'port_mouth_depth', 'spade_width', 'spade_thickness', 'spade_x_spacing', 'spade_z_center', 'coil_face_y', 'spade_length', 'spade_hole_radius', 'terminal_block_z_range', 'underside_relief_xy', 'underside_relief_size', 'underside_relief_top_z')})
+
 
 # Station pitch includes assembly air; it is independent of the physical cap.
-body_width_x = 34.25
-body_x_pad = (body_width_x - cap_width_x) / 2
 
 # Coil and bent steel yoke. The open front/back and side air gaps are real.
-coil_depth = 24.4
-coil_z_range = (27.9, 57.3)
-bracket_top_z = 56.4
-coil_center_x, coil_center_y = 0.15, -0.1
-coil_radius = 12.15
-coil_body_z_range = (28.2, 54.8)
-bracket_width, bracket_depth, bracket_thickness = 32.4, 17.2, 1.6
-bracket_outer_bend = 2.4
-bracket_base_z_range = (26.0, 27.9)
-screw_head_radius, screw_head_height = 3.2, 2.3
 
 # Port barrel, release collet, and the observed tube-entry mouth.
-port_radius, port_length, port_center_z = 7.6, 59.5, 11.05
-port_neck_radius = 6.1
-collet_radius, collet_neck_radius = 5.1, 4.9
-collet_ear_radius = 6.9
-collet_ear_sectors = {-1: ((2.,33.),), 1: ((-115.,-76.),)}
-collet_clip_radius = 6.75
-collet_clip_sectors = {-1: (-130.,140.), 1: (140.,380.)}
-port_mouth_radius, port_mouth_depth = 3.2, 7.5
 
 # Terminals: exposed metal, plus the moulded root that sets connector access.
-spade_width, spade_thickness = 6.3, 0.8
-spade_x_spacing = 14.9
-spade_z_center = 52.2
-coil_face_y = 18.5
-spade_length = 8.6
-spade_hole_radius = 0.9
-terminal_block_z_range = (50.0, 57.3)
 
 # Shallow moulded underside relief; the broad annulus remains the bearing face.
-underside_relief_xy = (-.25,8.4)
-underside_relief_size = (5.5,5.2)
-underside_relief_top_z = 6.9
 
 
 def mounting_centers():
-    return tuple((sx * corner_inset_x, sy * corner_inset_y)
-                 for sx in (-1, 1) for sy in (-1, 1))
+    return _reference_data('beduan_solenoid', 'mounting_centers', (), {})
 
 
 def _cylinder(radius, z0, z1, xy=(0, 0)):
@@ -257,11 +214,11 @@ def build_underside_relief():
 
 
 def inlet():
-    return (0.,-port_length/2,port_center_z),(0.,-1.,0.)
+    return _reference_data('beduan_solenoid', 'inlet', (), {})
 
 
 def outlet():
-    return (0.,port_length/2,port_center_z),(0.,1.,0.)
+    return _reference_data('beduan_solenoid', 'outlet', (), {})
 
 
 @lru_cache(maxsize=1)

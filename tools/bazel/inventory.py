@@ -15,10 +15,19 @@ from pathlib import Path
 
 # Runtime admission is present in every heavy action, independent of its geometry trace.
 RUNTIME_READS = frozenset({'hardware/scripts/_run_slots.py', 'hardware/scripts/_run_lock.py',
+                           'hardware/scripts/_run_native.py',
                            'tools/run.py', 'tools/run-slots.mjs', 'tools/hsm/run-slots.defaults.json'})
-RUST_RUNTIME_READS = frozenset({'tools/hsm/run-slots/Cargo.toml',
+RUST_RUNTIME_READS = frozenset({'tools/hsm/run-native/Cargo.toml',
+                                'tools/hsm/run-native/src/lib.rs',
+                                'tools/hsm/run-slots/Cargo.toml',
                                 'tools/hsm/run-slots/src/lib.rs',
                                 'tools/hsm/run-slots/src/ipc.rs',
+                                'tools/hsm/run-slots/src/runtime.rs',
+                                'tools/hsm/run-slots/src/main.rs',
+                                'tools/hsm/run-slots/src/runtime/slots.rs',
+                                'tools/hsm/run-slots/src/runtime/cad.rs',
+                                'tools/hsm/run-slots/src/runtime/runner.rs',
+                                'tools/hsm/run-slots/src/runtime/install.rs',
                                 'tools/hsm/run-slots.defaults.json'})
 
 _HERE = Path(__file__).resolve()
@@ -71,52 +80,10 @@ BUILD_INERT_BASENAMES = frozenset({
 
 
 def build_inert(path: str) -> bool:
-    """Whether ``path`` is deliberately outside every generated build action."""
-    text = str(path).lower()
-    return (text.endswith(BUILD_INERT_SUFFIXES)
-            or text.rpartition("/")[2] in BUILD_INERT_BASENAMES)
+    return _native("inventory-inert", path=str(path))
 
 def pinned_copies(files) -> set:
-    """The files a manifest above them pins by their bytes: copies a package or a print review
-    keeps as its record of a tree, which QUOTE that tree rather than stand in it.
-
-    Two manifests say so. A `package-manifest.json` records each file of its package under
-    `files_sha256` — the G Ganen documentation refresh keeps `bom.md` and
-    `integration-handoff.md` there as they stood when it was cut. A review's `manifest.json`
-    records each file under `files` with the `source_path` it was copied from and its
-    `sha256` — the display cover's Mark2 review keeps the four modules its slice was cut from
-    under `sources/`. A manifest that hashes a file without naming where it was copied from
-    is recording an input, not keeping a copy, and exempts nothing.
-
-    THE EXEMPTION IS THE PIN ITSELF. A copy whose bytes no longer match its digest is not the
-    copy the record kept, and every reader takes it as any other file again.
-    """
-    import hashlib
-    held = set(files)
-    out = set()
-    for manifest in sorted(f for f in held if f.endswith(("/package-manifest.json", "/manifest.json"))):
-        base = manifest.rsplit("/", 1)[0]
-        try:
-            record = json.loads((_ROOT / manifest).read_text())
-        except (OSError, ValueError):
-            continue
-        if not isinstance(record, dict):
-            continue
-        listed = record.get("files")
-        pins = record.get("files_sha256") if manifest.endswith("/package-manifest.json") else {
-            name: entry.get("sha256")
-            for name, entry in (listed.items() if isinstance(listed, dict) else ())
-            if isinstance(entry, dict) and entry.get("source_path")}
-        for name, digest in (pins or {}).items():
-            rel = f"{base}/{name}"
-            if rel not in held or not isinstance(digest, str):
-                continue
-            try:
-                if hashlib.sha256((_ROOT / rel).read_bytes()).hexdigest() == digest:
-                    out.add(rel)
-            except OSError:
-                continue
-    return out
+    return set(_native("inventory-pinned", root=str(_ROOT), files=list(files)))
 
 
 #: WHICH KIND OF WRITE IT WAS IS THE WRITER'S TO SAY, and `graph.json` carries the answer:
@@ -141,18 +108,7 @@ POINTERS = _ROOT / "hardware" / "cad-artifacts.json"
 
 
 def frozen_assets(root: Path = _ROOT) -> dict:
-    """Frozen reference members by repo-relative path and recorded sha256.
-
-    These are static inputs fetched through the artifact pointer, including when this checkout
-    has not fetched them yet. A `.step.mesh` may be a viewer payload or, when `fine_payload`
-    declares the kernel's tessellation budget, its immutable fine import input.
-    """
-    members = {}
-    for manifest in sorted((root / "hardware" / "reference").rglob("frozen-asset.json")):
-        record = json.loads(manifest.read_text())
-        members.update({(manifest.parent / name).relative_to(root).as_posix(): digest
-                        for name, digest in record["members"].items()})
-    return members
+    return _native("publication-frozen-assets", root=str(root))
 
 
 #: Outputs whose writer deliberately avoids touching them when the bytes beside its STEP are
@@ -307,6 +263,7 @@ _FLUTE_TREES = tuple(sorted({r for roots in _FLUTE_ROOTS.values() for r in roots
                               "hardware/printed-parts/faucet/asse-vent-seals/"}))
 # The independent family consumers share this Rust source, without enclosure models or data.
 _FLUTE_SHARED_SOURCES = frozenset({
+    "hardware/printed-parts/enclosure/enclosure/_enclosure_compiled.py",
     "hardware/printed-parts/enclosure/enclosure/_rust_enclosure_presentation.py",
     "hardware/printed-parts/enclosure/enclosure/enclosure_presentation.rs",
     "hardware/printed-parts/enclosure/enclosure/enclosure_presentation/quadric.rs",
@@ -314,10 +271,8 @@ _FLUTE_SHARED_SOURCES = frozenset({
 
 
 def _one_tree(roots: tuple) -> tuple:
-    """The half of a two-tree run that works under `roots` — its writes, then its reads."""
-    return (lambda path: path.startswith(roots),
-            lambda path: path in _FLUTE_SHARED_SOURCES or path.startswith(roots)
-                         or not path.startswith(_FLUTE_TREES))
+    return (lambda path: _native("inventory-one-tree", path=path, roots=roots, read=False),
+            lambda path: _native("inventory-one-tree", path=path, roots=roots, read=True))
 
 
 #: `{source: {wrapper: (takes_write, takes_read)}}`. A wrapper is a real script with its own
@@ -331,18 +286,7 @@ SPLIT_GENERATORS = {
 
 
 def _split_generators(graph: dict) -> dict:
-    graph = dict(graph)
-    for source, wrappers in SPLIT_GENERATORS.items():
-        if source not in graph:
-            continue
-        seen = graph.pop(source)
-        for wrapper, (takes_write, takes_read) in wrappers.items():
-            graph[wrapper] = {
-                "reads": [p for p in seen.get("reads", ()) if takes_read(p)],
-                "writes": [p for p in seen.get("writes", ()) if takes_write(p)],
-                "rewritten": [p for p in seen.get("rewritten", ()) if takes_write(p)],
-            }
-    return graph
+    return _native("inventory-split", graph=graph)
 
 #: ONE WALK ANSWERS WHICH `.step` ON THIS DISK IS A GENERATED SOLID, and `pack.py` is where it
 #: lives — `pack.py --check` holds that same walk against the outputs `graph.json` declares, so
@@ -353,152 +297,22 @@ sys.path.append(str(_ROOT / "tools" / "cad-artifacts"))
 
 
 def tracked() -> list:
-    """Every file this tree stands behind: git's, and the generated solids — the ones this disk
-    holds and the ones the pointer file names."""
-    files = subprocess.run(["git", "-C", str(_ROOT), "ls-files"],
-                           capture_output=True, text=True, check=True).stdout.split()
-    # Imported here and not above: `trace_inputs`'s own selftest runs in an action holding the
-    # two modules it was watched reading, and nothing there asks this question.
     import pack
-    files += pack.solids(_ROOT)
-    try:
-        files += json.loads(POINTERS.read_text()).get("solids", {})
-    except (OSError, ValueError):
-        pass
-    # The first trace happens before an ignored handoff can appear in graph.json or a release
-    # pointer file. Its producer write and consumer read still need to survive the trace filter so that
-    # this inventory can create the edge on that very first pass.
-    files += [path for paths in IMPLICIT_SOLIDS.values() for path in paths]
-    files += frozen_assets()
-    # The mesh kernel's model files: a reader of a mesh-kernel STEP takes the solids from the
-    # one beside it (`meshcad.imports.step_solids`), so they pass between actions as the STEP
-    # does. They are ignored and never bundled.
-    files += subprocess.run(["git", "-C", str(_ROOT), "ls-files", "--others", "--ignored",
-                             "--exclude-standard", "--", "hardware/*.step.npz",
-                             "hardware/*.scene.npz"],
-                            capture_output=True, text=True, check=True).stdout.split()
-    return sorted(f for f in set(files) if not build_inert(f))
+    config = _publication_config(pack)
+    return _native("inventory-tracked", root=str(_ROOT), publication_config=config)
 
 
 def _together(writes: dict) -> list:
-    """Generators grouped so that every file has exactly one group writing it.
-
-    `docgen` lets several scripts keep one doc's figures, each managing its own names:
-    `faucet_shell.py` and `under_counter_plate.py` both write `ASSEMBLY.md`, and
-    a run of either alone leaves the other's names standing at what they last were. So they
-    are one step."""
-    parent = {g: g for g in writes}
-
-    def find(x):
-        while parent[x] != x:
-            parent[x] = parent[parent[x]]
-            x = parent[x]
-        return x
-
-    home = {}
-    for gen in sorted(writes):
-        for f in sorted(writes[gen]):
-            first = home.setdefault(f, gen)
-            a, b = find(first), find(gen)
-            if a != b:
-                parent[max(a, b)] = min(a, b)
-
-    out = {}
-    for gen in sorted(writes):
-        out.setdefault(find(gen), []).append(gen)
-    return [sorted(v) for _k, v in sorted(out.items())]
+    return _native("inventory-together", writes={name: list(paths) for name, paths in writes.items()})
 
 
 def inventory(files=None) -> dict:
-    """`{(generator, …): {"solids": [...], "docs": [...], "reads": [...]}}` per build step."""
-    files = set(files or tracked())
+    files = list(files or tracked())
     try:
-        graph = json.loads(GRAPH.read_text())
-    except (OSError, ValueError):
-        return {}
-
-    # A MISSING `rewritten` IS ONLY VISIBLE HERE. The normalisation below asks each entry for
-    # all three sides and takes `()` for the one it has not got, so every entry downstream holds
-    # the key whether or not the run that wrote it knew about rewrites. The reading is taken on
-    # the way past, off the raw graph, and answered where the rest of the graph's complaints
-    # are. It names the generator as `graph.json` spells it, which is the name to re-trace:
-    # `_split_generators` has not run yet, so a source has not yet become its wrappers.
-    stale = sorted(g for g, seen in graph.items() if "rewritten" not in seen)
-
-    # Old traces can predate the boundary above. Ignore those observations while rendering the
-    # build as well as while taking new traces, so a stale graph cannot make a slicer save recut
-    # anything.
-    graph = {
-        gen: {
-            side: [path for path in seen.get(side, ()) if not build_inert(path)]
-            for side in ("reads", "writes", "rewritten")
-        }
-        for gen, seen in graph.items()
-    }
-
-    orphaned = sorted(set(graph) - files)
-    if orphaned:
-        raise SystemExit(
-            f"  {len(orphaned)} build-graph generator(s) are absent from the tree — "
-            f"{orphaned[0]} among them. Re-trace the renamed generator or remove its stale "
-            f"graph entry.")
-
-    graph = _split_generators(graph)
-    files |= {path for paths in SPLIT_GENERATORS.values() for path in paths}
-
-    # A NEW OUTPUT IS NOT IN GIT OR THE OLD BUNDLE YET. Filtering the trace through only the
-    # files already present made that output disappear from BUILD.bazel, so no clean action
-    # could ever create it and no publisher could ever add it. Writers declare their outputs;
-    # their paths therefore join the inventory before writes and downstream reads are sorted.
-    graph_writes = {f for seen in graph.values() for f in seen.get("writes", ())}
-    files |= graph_writes
-    files |= {f for paths in IMPLICIT_SOLIDS.values() for f in paths}
-
-    # A READ OF A FILE NOTHING HAS AND NOTHING WRITES IS A READ OF A GHOST. The sort below
-    # drops it — `if f in files` — so a generator can go on declaring it forever, and the
-    # declaration says the build depends on something it cannot depend on. That is how a
-    # deleted output leaves its readers behind: the pictures stop being drawn, the reads that
-    # named them stay, and nothing says so. Named here, where the drop happens.
-    ghosts = {g: sorted(f for f in seen.get("reads", ()) if f not in files)
-              for g, seen in graph.items()}
-    ghosts = {g: bad for g, bad in ghosts.items() if bad}
-    if ghosts:
-        gen, bad = sorted(ghosts.items())[0]
-        raise SystemExit(
-            f"  {sum(len(b) for b in ghosts.values())} declared read(s) across {len(ghosts)} "
-            f"generator(s) name a file\n  the tree does not hold and no rule writes — "
-            f"{bad[0]}, read by {Path(gen).name},\n  among them. Drop the read if what wrote it "
-            f"is gone, or declare the writer.")
-
-    # A READING TAKEN BEFORE THE WRITERS SAID WHICH KIND OF WRITE IT WAS cannot be sorted, and
-    # sorting it wrong makes every doc an output its own action is not given. Named here rather
-    # than built into a graph that fails one action at a time; taken further up, where a missing
-    # side is still missing.
-    if stale:
-        # THE ONES TO RE-TRACE ARE THE ONES NAMED HERE, and they are in hand. A remedy line that
-        # ends at the bare command sends a sweep of every generator after however few of them
-        # this is, which costs an hour and drops the writes of each one already current.
-        raise SystemExit(
-            f"  {len(stale)} generator(s) were traced before a run said which of its writes it\n"
-            f"  read back — {Path(stale[0]).name} among them. Re-trace those:\n"
-            f"    tools/cad-venv/bin/python tools/bazel/trace_inputs.py \\\n"
-            + " \\\n".join(f"      {g}" for g in stale))
-
-    writes = {gen: (set(seen["writes"]) | set(IMPLICIT_SOLIDS.get(gen, ())))
-              for gen, seen in graph.items() if gen in files}
-    writes = {gen: w for gen, w in writes.items() if w}
-
-    out = {}
-    for gens in _together(writes):
-        reads = {f for g in gens for f in graph[g]["reads"] if f in files} | set(RUNTIME_READS)
-        if any(f.startswith('tools/hsm/') and f.endswith('/Cargo.toml') for f in reads):
-            reads |= RUST_RUNTIME_READS
-        entry = {"solids": [], "docs": [], "reads": sorted(reads)}
-        back = {f for g in gens for f in graph[g].get("rewritten", ()) if f in files}
-        for f in sorted(set().union(*(writes[g] for g in gens))):
-            (entry["docs"] if f in back else entry["solids"]).append(f)
-        out[tuple(gens)] = entry
-    return out
+        rows = _native("inventory", root=str(_ROOT), graph_path=str(GRAPH), files=files)
+    except ValueError as error:
+        raise SystemExit(str(error).removeprefix("build-data: ")) from error
+    return {tuple(generators): entry for generators, entry in rows}
 
 
 def main() -> int:
@@ -512,6 +326,25 @@ def main() -> int:
             print("  one step: " + ", ".join(Path(g).name for g in k))
     return 0
 
+
+
+
+def _native_config():
+    """Marshal the authored input groups and their Python container types."""
+    return dict(runtime_reads=list(RUNTIME_READS), rust_runtime_reads=list(RUST_RUNTIME_READS),
+                inert_suffixes=BUILD_INERT_SUFFIXES, inert_basenames=list(BUILD_INERT_BASENAMES),
+                implicit_solids=IMPLICIT_SOLIDS, flute_roots=_FLUTE_ROOTS,
+                flute_trees=_FLUTE_TREES, flute_shared=list(_FLUTE_SHARED_SOURCES))
+
+
+def _publication_config(pack):
+    return pack._native_config()
+
+
+def _native(op, **fields):
+    sys.path.insert(0, str(_ROOT / "hardware/scripts"))
+    from _build_data import request
+    return request(op, config=_native_config(), **fields)
 
 if __name__ == "__main__":
     raise SystemExit(main())

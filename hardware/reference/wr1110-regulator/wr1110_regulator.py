@@ -24,59 +24,36 @@ sys.path.insert(0, str(_hw / "scripts"))
 STEP = _here.parent / "wr1110-regulator.step"
 
 # Rounded modelling dimensions from the coated, unit-scale exterior scan.
-BODY_D = 18.87
-BODY_START = 14.65
-BODY_END = 50.05
-BODY_LENGTH = BODY_END - BODY_START
-INLET_HEX_AF = 19.0
-INLET_HEX_D = 20.60             # turned blank clips the six corners
-OUTLET_HEX_AF = 19.08
-OUTLET_HEX_D = 21.76
-OUTLET_HEX_CLOCK = -2.0        # degrees in the reference X/Z plane
-TOTAL_LENGTH = 54.47           # inlet face to downstream hex shoulder
-STUB_LENGTH = 9.18             # shoulder to tip, not an engagement measurement
-STUB_D = 14.2                  # maximum root envelope; thread crests are smaller
-OVERALL_LENGTH = TOTAL_LENGTH + STUB_LENGTH
+
+_reference_hardware = next(p for p in Path(__file__).resolve().parents if p.name == 'hardware')
+import sys as _reference_sys
+_reference_sys.path.insert(0, str(_reference_hardware / 'reference'))
+from _reference_data import data as _reference_data
+_reference_values = _reference_data('wr1110_regulator')
+globals().update({name: _reference_values[name] for name in ('BODY_D', 'BODY_START', 'BODY_END', 'BODY_LENGTH', 'INLET_HEX_AF', 'INLET_HEX_D', 'OUTLET_HEX_AF', 'OUTLET_HEX_D', 'OUTLET_HEX_CLOCK', 'TOTAL_LENGTH', 'STUB_LENGTH', 'STUB_D', 'OVERALL_LENGTH', 'INLET_PROFILE', 'OUTLET_PROFILE', 'STUB_PROFILE')})
+
 
 # (Y station, radius). Short straight segments represent the turned end rounds.
-INLET_PROFILE = ((0.0, 9.38), (.35, 9.93), (.8, INLET_HEX_D / 2),
-                 (13.35, INLET_HEX_D / 2), (13.7, 10.22), (14.2, 9.78),
-                 (BODY_START, BODY_D / 2))
-OUTLET_PROFILE = ((BODY_END, BODY_D / 2), (50.4, 9.70), (50.9, 10.38),
-                  (51.35, 10.78), (51.65, OUTLET_HEX_D / 2),
-                  (53.35, OUTLET_HEX_D / 2), (53.75, 10.65), (54.1, 10.12),
-                  (TOTAL_LENGTH, 9.45))
-STUB_PROFILE = ((TOTAL_LENGTH, STUB_D / 2), (54.9, 6.85), (55.3, 6.48),
-                (55.7, 6.10), (56.2, 6.30), (56.8, 6.65), (57.2, 6.72),
-                (61.6, 6.60), (62.1, 6.48), (62.5, 6.05), (63.2, 5.50),
-                (OVERALL_LENGTH, 4.10))
 
 
 def inlet():
-    """The upstream hex's outer face — the mouth of the 1/4" NPT female socket,
-    taking a PI010822S male connector: (position, outward axis). The body is
-    built from the origin along the flow axis, so the inlet face is at y = 0 and
-    the outlet hex face at y = TOTAL_LENGTH, not either side of the origin."""
-    return (0.0, 0.0, 0.0), (0.0, -1.0, 0.0)
+    'The upstream hex\'s outer face — the mouth of the 1/4" NPT female socket,\n    taking a PI010822S male connector: (position, outward axis). The body is\n    built from the origin along the flow axis, so the inlet face is at y = 0 and\n    the outlet hex face at y = TOTAL_LENGTH, not either side of the origin.'
+    return _reference_data('wr1110_regulator', 'inlet', (), {})
 
 
 def outlet():
-    """The measured far end of the outlet stub: position and outward axis."""
-    return (0.0, TOTAL_LENGTH + STUB_LENGTH, 0.0), (0.0, 1.0, 0.0)
+    'The measured far end of the outlet stub: position and outward axis.'
+    return _reference_data('wr1110_regulator', 'outlet', (), {})
 
 
 def barrel():
-    """The measured circular mounting band: `(midpoint station, radius, length)`.
-
-    The enclosure locates its cradle on this band independently of wrench clock.
-    """
-    return (((0.0, BODY_START + BODY_LENGTH / 2.0, 0.0), (0.0, 1.0, 0.0)),
-            BODY_D / 2.0, BODY_LENGTH)
+    'The measured circular mounting band: `(midpoint station, radius, length)`.\n\n    The enclosure locates its cradle on this band independently of wrench clock.\n    '
+    return _reference_data('wr1110_regulator', 'barrel', (), {})
 
 
-def stations() -> dict:
-    """Both sockets, in the order the gas meets them."""
-    return {"inlet": inlet(), "outlet": outlet()}
+def stations():
+    'Both sockets, in the order the gas meets them.'
+    return _reference_data('wr1110_regulator', 'stations', (), {})
 
 
 _FROZEN_DIR = Path(__file__).resolve().parent

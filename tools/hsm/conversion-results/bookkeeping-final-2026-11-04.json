@@ -1,0 +1,175 @@
+{
+  "date": "2026-11-04",
+  "baseline_source_revision": "c646ae72a9a85d253ded1679fe0fd598a2499ee5",
+  "baseline_python_sha256": {
+    "tools/bazel/sync_tree.py": "43ad7d51c1554737285efd3e5a9393c0777b8b650eb3b5ae64bcc8b059fcff78",
+    "tools/bazel/affected.py": "f7131b600ae167d13a859ae10cad2b6d14dee3b8bd6fe39d53c7c715fd09d987",
+    "tools/bazel/drop_derived.py": "f6fb81c56371526a14c70e2075b97c0ad085b1c33e8d691ad8d93739140a0424",
+    "tools/bazel/failed_targets.py": "b6e4f9588bad15b24b3c312fcce9d5342e9c5d676acb97d1ab9df7c3f2375125",
+    "tools/cad-artifacts/cut_vs_pointers.py": "d8a648ad08235341d3f89f1a26b69616ce07ee656d1e1042367075ea4eebdd47",
+    "tools/cad-artifacts/merge_pointers.py": "6f46ff789c1b36996b0151dfd6ebe417bf0af1fe5e0932742dc3295c7df2aacf"
+  },
+  "completed_scope": {
+    "sync_tree": "Runtime/publisher classification, Git status cohorts, declared output ownership/collisions, freshness refusal, failed-target exclusion, managed marker spans/figures, authored-text splice, Sources carry, actual byte comparison and copy decisions.",
+    "affected": "Diff path parsing; semantic graph and BUILD closures; metadata proof/exemption; source/output/glob ownership; reverse dependency reach; presentation/inert/output/global classification; final artifact slices and target formatting.",
+    "drop_derived": "Generated-file inventory and authored/generated restore cohorts.",
+    "failed_targets": "Bazel target/action event failure extraction and deduplication.",
+    "merge_pointers": "Ordered member merge, collision provenance, release/bundle choice, moved times, made records, unknown-key placement and exact native JSON rendering.",
+    "cut_vs_pointers": "Expected output selection, recursive materialization scan, raw file hashing, duplicates/missing/new/stale comparisons, complete CLI verdicts and annotations; Python supplies Bazel subprocess replies only."
+  },
+  "comparisons": {
+    "original_fixed_inputs": {
+      "checks": 2062,
+      "failures": []
+    },
+    "whole_piece_file_and_cli_fixtures": {
+      "checks": 65,
+      "failures": [],
+      "questions": [
+        "carry flags []",
+        "carry flags ['--write']",
+        "carry flags ['--derived-only']",
+        "carry flags ['--write', '--derived-only']",
+        "carry flags ['--runtime-only']",
+        "carry flags ['--write', '--runtime-only']",
+        "carry flags ['--write', '--failed', 'build']",
+        "stage exact raw path cohorts and Git inputs",
+        "reverse dependency 'hardware/source.py'",
+        "reverse dependency 'pysrc/hardware/source.py'",
+        "reverse dependency 'out/provider/mesh.data'",
+        "reverse dependency 'hardware/images/foo.png'",
+        "reverse dependency 'hardware/a/images/foo.png'",
+        "reverse dependency 'hardware/studies/images/foo.png'",
+        "reverse dependency 'web/public/a.svg'",
+        "reverse dependency 'web/public/icons/a.svg'",
+        "reverse dependency 'web/public/icons/skip1.svg'",
+        "reverse dependency 'hardware/a/shape1.json'",
+        "reverse dependency 'hardware/c/shape1.json'",
+        "reverse dependency 'cycle-a'",
+        "reverse dependency 'cycle-b'",
+        "reverse dependency 'unknown'",
+        "reverse dependency 'web/public/icons/a\\n.svg'",
+        "drop authored Python []",
+        "drop authored Python ['hardware/a.py', 'hardware/a.md', 'tools/bazel/graph.json', 'other/new.py', 'hardware/a.PY']",
+        "drop authored Python ['hardware/deeper/a.py', 'hardware/a.step', 'hardware/misc.bin']",
+        "cut bytes same[]",
+        "cut bytes same['--annotate']",
+        "cut bytes same['--assume-fresh', '--annotate']",
+        "cut bytes tree-stale[]",
+        "cut bytes tree-stale['--annotate']",
+        "cut bytes tree-stale['--assume-fresh', '--annotate']",
+        "cut bytes different[]",
+        "cut bytes different['--annotate']",
+        "cut bytes different['--assume-fresh', '--annotate']",
+        "cut bytes different-and-stale[]",
+        "cut bytes different-and-stale['--annotate']",
+        "cut bytes different-and-stale['--assume-fresh', '--annotate']",
+        "cut bytes new[]",
+        "cut bytes new['--annotate']",
+        "cut bytes new['--assume-fresh', '--annotate']",
+        "cut bytes empty-pointers[]",
+        "cut bytes empty-pointers['--annotate']",
+        "cut bytes empty-pointers['--assume-fresh', '--annotate']",
+        "cut bytes absent[]",
+        "cut bytes absent['--annotate']",
+        "cut bytes absent['--assume-fresh', '--annotate']",
+        "cut bytes no-output-dir[]",
+        "cut bytes no-output-dir['--annotate']",
+        "cut bytes no-output-dir['--assume-fresh', '--annotate']",
+        "cut bytes no-declared[]",
+        "cut bytes no-declared['--annotate']",
+        "cut bytes no-declared['--assume-fresh', '--annotate']",
+        "cut bytes stale-cut[]",
+        "cut bytes stale-cut['--annotate']",
+        "cut bytes stale-cut['--assume-fresh', '--annotate']",
+        "cut bytes duplicate[]",
+        "cut bytes duplicate['--annotate']",
+        "cut bytes duplicate['--assume-fresh', '--annotate']",
+        "cut bytes duplicate-with-good[]",
+        "cut bytes duplicate-with-good['--annotate']",
+        "cut bytes duplicate-with-good['--assume-fresh', '--annotate']",
+        "cut bytes graph-error[]",
+        "cut bytes graph-error['--annotate']",
+        "cut bytes graph-error['--assume-fresh', '--annotate']"
+      ]
+    },
+    "existing_contract_suites": {
+      "holds": 90,
+      "failures": [],
+      "suites": {
+        "sync_tree": {
+          "status": 0,
+          "summary": "  sync_tree selftest: 26 holds, the build's figures and the tree's own text; 151 files read back over, every medium carried"
+        },
+        "affected": {
+          "status": 0,
+          "summary": "affected selftest 17/17 (of the holds this run can take)"
+        },
+        "failed_targets": {
+          "status": 0,
+          "summary": "failed_targets selftest 11/11"
+        },
+        "merge_pointers": {
+          "status": 0,
+          "summary": "merge_pointers selftest 36/36"
+        }
+      }
+    },
+    "scoped_safety_contracts": {
+      "checks": 60,
+      "failures": [],
+      "current_rewritten_python_files": 21,
+      "freshness_cases": 6,
+      "metadata_exemption_cases": 12
+    }
+  },
+  "compared_program_sha256": "d29e879391612798a531246d1ad8b90dcb2280a24eb0c0ddd7da8d0e7ed98831",
+  "support_program_sha256": "fd194f4238ec387c57dcb37b8104feb3acc979c113ceb214c07fd3ffd440c18b",
+  "fixed_input_results_sha256": {
+    "cases.json": "3e0fc259b49279ebc16360168924f434fc2eff2da77d2ddb9dff5b7a6e3eecdb",
+    "context.json": "ace77c64eedbaf255499430f428503d2623e9bc6f27d009a16271d7c844ff07a",
+    "extra.py": "507fc717871b54ae47714b1a8efcd7aea7708531a45e948fac956091c4eaf5fb",
+    "test_contracts.py": "dee551c7c12a17ada5e8f3148e00002dfcd77c6eed48f5a78a67ad0586d62373",
+    "edge_contracts.py": "78d7c58a479401cc99b5315689d89fe0d71601997e384f3da30d0bf40cc2a310"
+  },
+  "converted_sources_sha256": {
+    "tools/bazel/_bookkeeping.py": "61de0f3403dc84b8b3a9fa4825899998774a1bee4bc249faf9279d3ced6e2bdf",
+    "tools/bazel/affected.py": "58240830878bc9e384a2ba97fd47878fcc994d8200bfd7c3b5506b7f2b57bd34",
+    "tools/bazel/drop_derived.py": "3bc879286303596fdbe4f5e737ed5a3757ead58323500e958b380db73c444f78",
+    "tools/bazel/failed_targets.py": "c7812dd9ca46d143aa4875de1e3aa69c54bd02330b9954e4ce4d1e4baec19a26",
+    "tools/bazel/sync_tree.py": "2c74a0a0543577684d55b7dc02ead272128dfa257161a5ccd38ac78f21bb6a20",
+    "tools/cad-artifacts/cut_vs_pointers.py": "0a8ba27a46ac344bf6570ee1c07d117a1aa940dd5a117874cdfcf1be2197cf6d",
+    "tools/cad-artifacts/merge_pointers.py": "6fb9f43beee5abde465faf659832a3d089029821f0828ec49f4fd3b97d3c514f",
+    "tools/hsm/build-data/src/bookkeeping_affected.rs": "a75d8cb1b5d073812d04e766b77ec18a3a0d84770c85174a3768f2206ebaedf8",
+    "tools/hsm/build-data/src/bookkeeping_common.rs": "b84b1fd9248ccd1199fa1fe6a4a58ee5f36a8f88aa76f7210de61632fcaeda5a",
+    "tools/hsm/build-data/src/bookkeeping_cut.rs": "b2ed66e9a7014259df0978cc50a79fbd56b2439a8b50a4244c3891c373882901",
+    "tools/hsm/build-data/src/bookkeeping_main.rs": "1c23265d154e2b67e55ac07cb790a75a6fc8bcc1999ba704d95d4868ad02fdda",
+    "tools/hsm/build-data/src/bookkeeping_pointers.rs": "6e040f3c7de2a5cae9834d091c60ecc71ba6319a35cd335553af292d7bfc3aca",
+    "tools/hsm/build-data/src/bookkeeping_sync.rs": "947e6ab2ed99b6211e8e9425db5b627ffe9cf415ffed81f7313a32249c7e3d1f",
+    "tools/hsm/documents/src/python_checked.rs": "0dbd81d4955294d544635c0ce3e5765b2967ff0d1385d58c1379784fae500984"
+  },
+  "support_manifest_sha256": "17673563093ea5b4116bc6ec73859a2f47a5f21e7028e421b0a4494c0e781776",
+  "compatibility_boundaries": "Python retains argparse, typed container/byte/path marshalling, Git/Bazel subprocess calls and installed interpreter inspection. Rust contains the classification, proof, splice, merge, file selection and comparison algorithms. Existing selftest fixture bodies remain Python and are not added to any routine build or commit path.",
+  "fixture_isolation": "Boundary fixtures pin the already compiled candidate/support programs while sibling agents update unrelated shared dependencies; CLI merge-driver child fixtures inherit the verified run/compiler descriptors and the same candidate binary.",
+  "git_mutation_testing": "Stage/restore commands were intercepted and compared as exact argv and raw NUL-separated input bytes. No fixture modified the real index or worktree.",
+  "full_build": "No pipeline-wide build was run. Parent integrates source/dependency edges and runs the combined normal build.",
+  "retired_private_helper": "cut_vs_pointers._bazel_bin had no maintained caller after main moved to Rust; its folder-selection behavior lives in the native cut operation.",
+  "graph_dependencies": [
+    "tools/bazel/_bookkeeping.py",
+    "tools/hsm/build-data/Cargo.toml",
+    "tools/hsm/build-data/src/bookkeeping_main.rs",
+    "tools/hsm/build-data/src/bookkeeping_common.rs",
+    "tools/hsm/build-data/src/bookkeeping_sync.rs",
+    "tools/hsm/build-data/src/bookkeeping_affected.rs",
+    "tools/hsm/build-data/src/bookkeeping_pointers.rs",
+    "tools/hsm/build-data/src/bookkeeping_cut.rs",
+    "tools/hsm/build-data/src/inventory.rs",
+    "tools/hsm/build-data/src/payload.rs",
+    "tools/hsm/documents/src/lib.rs",
+    "tools/hsm/documents/src/python_checked.rs",
+    "tools/hsm/documents/src/interop.rs",
+    "tools/hsm/documents/src/interop/standard.rs"
+  ],
+  "comparison_count": 2277,
+  "scoped_safety_details": "Compared current managed spans for all 21 rewritten Python files with and without a marker-name filter; six freshness refusal/exemption cases; twelve graph/BUILD metadata exemption combinations. Same source text was supplied to each old/new comparison."
+}

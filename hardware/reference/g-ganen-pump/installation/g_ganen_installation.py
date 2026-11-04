@@ -19,29 +19,17 @@ from native_queries import intersect_components, occupied_bounds
 sys.path.insert(0, str(REFERENCE/'common-foot'))
 import g_ganen_foot as stock_foot
 
-SCENE_KEY = 'g-ganen-pump'
-YAW = 90.
-REAR_CLEARANCE = 9.7
-WASHER_OD = 9.
-WASHER_T = .8
-SCREW_D = 3.
-SCREW_LENGTH = 20.
-SCREW_BORE_MIN_DEPTH = 8.5
-SCREW_SLOT_OFFSET_OUTWARD = 1.5
+
+_reference_hardware = next(p for p in Path(__file__).resolve().parents if p.name == 'hardware')
+import sys as _reference_sys
+_reference_sys.path.insert(0, str(_reference_hardware / 'reference'))
+from _reference_data import data as _reference_data
+_reference_values = _reference_data('g_ganen_installation')
+globals().update({name: _reference_values[name] for name in ('SCENE_KEY', 'YAW', 'REAR_CLEARANCE', 'WASHER_OD', 'WASHER_T', 'SCREW_D', 'SCREW_LENGTH', 'SCREW_BORE_MIN_DEPTH', 'SCREW_SLOT_OFFSET_OUTWARD', 'RAIL_X', 'CLIP_X', 'SELECTED_SLIDER_X', 'SLOT_Y', 'CAP_PUMP_ORIGIN', 'CAP_MOUNT_XY')})
+
 # The visible rail ends and the shared foot's complete engagement span define
 # the installed fore/aft extremes. Positive reference X points aft.
-RAIL_X = (0.5, 76.5)
-CLIP_X = stock_foot.rail_engagement_interval()
-SELECTED_SLIDER_X = {
-    name: RAIL_X[0] - CLIP_X[0] if name.startswith('head_') else RAIL_X[1] - CLIP_X[1]
-    for name in ('rear_yminus', 'rear_yplus', 'head_yminus', 'head_yplus')}
-SLOT_Y = stock_foot.SLOT_Y
 # Reference origin in the installed cap frame, with the rear-clearance shift.
-CAP_PUMP_ORIGIN = (-59.13545827612205 + REAR_CLEARANCE, 2.07113514496717)
-CAP_MOUNT_XY = tuple((CAP_PUMP_ORIGIN[0] - x,
-                      CAP_PUMP_ORIGIN[1] - (-1 if 'yminus' in name else 1)
-                      * (SLOT_Y + SCREW_SLOT_OFFSET_OUTWARD))
-                     for name, x in SELECTED_SLIDER_X.items())
 
 parameters = envelope.parameters
 port = envelope.port
@@ -52,46 +40,22 @@ sliding_rails = envelope.sliding_rails
 
 
 def mount_seat_z():
-    """Molded cable cover's low point, in the purchased frame."""
-    hull = next(row for row in parameters()['casing_shell_envelopes']
-                if row['id'] == 'lower_cradle_occupied')['external_envelope']
-    return min(point[2] for point in hull['vertices_mm'])
+    "Molded cable cover's low point, in the purchased frame."
+    return _reference_data('g_ganen_installation', 'mount_seat_z', (), {})
 
 
 @lru_cache(maxsize=1)
 def mount_stations():
-    rows = []
-    for observed in envelope.mount_slots():
-        name = observed['id']
-        side = -1 if 'yminus' in name else 1
-        x = SELECTED_SLIDER_X[name]
-        interval = CLIP_X if side > 0 else (-CLIP_X[1], -CLIP_X[0])
-        rows.append({
-            'id': name,
-            'station_mm': (x, side*(SLOT_Y + SCREW_SLOT_OFFSET_OUTWARD), 0.),
-            'slot_center_mm': (x, side*SLOT_Y, 0.),
-            'screw_offset_outward_mm': SCREW_SLOT_OFFSET_OUTWARD,
-            'shape_basis': 'shared_purchased_rubber_foot',
-            'pad_thickness_mm': stock_foot.PAD_THICKNESS,
-            'rail_engagement_x_mm': (x+interval[0], x+interval[1]),
-            'station_basis': 'outermost_complete_visible_rail_engagement',
-            'observed_pad_top_mm': [{
-                'pass': 'Derek_direct_measurement_approximately_7_mm',
-                'at_screw_axis_mm': stock_foot.PAD_THICKNESS,
-                'over_washer_min_mm': stock_foot.PAD_THICKNESS,
-                'over_washer_max_mm': stock_foot.PAD_THICKNESS}],
-            'through_slot_physically_qualified': False,
-            'washer_physically_qualified': False})
-    return tuple(rows)
+    return _reference_data('g_ganen_installation', 'mount_stations', (), {})
 
 
 def mount_holes():
-    """No foot screws belong to the bare installed pump."""
-    return ()
+    'No foot screws belong to the bare installed pump.'
+    return _reference_data('g_ganen_installation', 'mount_holes', (), {})
 
 
 def bearing_datum():
-    return (0., 0., mount_seat_z()), (0., 0., 1.)
+    return _reference_data('g_ganen_installation', 'bearing_datum', (), {})
 
 
 def placed_bearing_z(carry):
@@ -99,18 +63,15 @@ def placed_bearing_z(carry):
 
 
 def bearing_z_from_frame(frame):
-    """Bearing Z from a placed port frame in this yaw-only installation."""
-    return frame.at('suction')[2]-suction()[0][2]+mount_seat_z()
+    return _reference_data('g_ganen_installation', 'bearing_z_from_frame', (frame.at('suction')[2],), {})
 
 
 def observed_pad_upper_z():
-    return max(top['over_washer_max_mm'] for foot in mount_stations()
-               for top in foot['observed_pad_top_mm'])
+    return _reference_data('g_ganen_installation', 'observed_pad_upper_z', (), {})
 
 
 def observed_pad_lower_z():
-    return min(top['over_washer_min_mm'] for foot in mount_stations()
-               for top in foot['observed_pad_top_mm'])
+    return _reference_data('g_ganen_installation', 'observed_pad_lower_z', (), {})
 
 
 def build_parts():
@@ -147,5 +108,4 @@ def discharge_shape(carry=None):
 
 
 def profiled_barb_length(port_name):
-    key = {'suction': 'port_yminus', 'discharge': 'port_yplus'}.get(port_name, port_name)
-    return port_profile(key)['profiled_exterior_length_mm']
+    return _reference_data('g_ganen_installation', 'profiled_barb_length', (port_name,), {})

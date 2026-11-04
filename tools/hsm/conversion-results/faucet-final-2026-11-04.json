@@ -1,0 +1,189 @@
+{
+  "date": "2026-11-04",
+  "baseline_source_revision": "c646ae72a9a85d253ded1679fe0fd598a2499ee5",
+  "completed_scope": [
+    "Faucet shell dimensions, sampled passages, lever sweep clearance, recipes, stated-bound readings and document variables",
+    "Consumer and industrial faucet assembly placements, tube centerlines, dimensions, external JSON/DXF readers, hull metrics, cut lengths, recipes and document variables",
+    "Tube-collar dimensions, fit helpers, lettering input reader, print recipes and document variables",
+    "Vent seal/gland/tool dimensions and explicit geometry-check answers",
+    "Canonical lever binary STL restoration with reconstructed facet normals",
+    "Legacy and modern install-plumbing scene dimensions, export inputs, render jobs, STEP companion copies and deterministic RGBA PNG encoding"
+  ],
+  "baseline_source_sha256": {
+    "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py": "be8e1463fd839f17a270147813b18809818cb8e708563419fd23efb9848fd064",
+    "hardware/faucet-layout/faucet_assembly.py": "8dc7786fa5921cca98fdebeda80fc2db3f8520db087c8fec9af44f2f5a99d36d",
+    "hardware/printed-parts/faucet/tube-collar/tube_collar.py": "66330d7554b4c101390ec838dfb90b643453530577cf4f4563057edccf6237f9",
+    "hardware/printed-parts/faucet/vent_seals.py": "7e20942dfba5a689aefae1f684b192ab71f71aa5ff7542917c8c74667de005a1",
+    "hardware/install-guide/plumbing/plumbing_scenes.py": "37c8ce9514388b9ab5400f1df6e3939eaa8cdf8aab02d31176b4ab88c60ff618",
+    "hardware/install-guide/plumbing/modern/render_modern_tee.py": "f0e33394cccf9298dbb7ab9fbd24854d32666a2666a9045d618e759f13c10c3f",
+    "hardware/install-guide/_plumbing_art_mesh.py": "210ce6a113c7074ad0e4c9b650aa32af50136abbfd1de140955259e09942fe9e"
+  },
+  "fixed_fixture_sha256": {
+    "shell-reference.json": "f3bee1fb6313697be3e074d89fd02c25f95fbfae801db29f6260bcb35651edff",
+    "assembly-reference.json": "33e248d8185e3776aef90189a3b6c336e426bfa7f841b0ab42723b97e1125e79",
+    "assembly-report-reference.json": "eb4eaae42eb1853db4e0970334855625a45325d4d2925b0607ae37af9934020a",
+    "collar-reference.json": "4609ce1535adcfb49d2800ba5ac4d75c132b3e98a4bfdd9e8a1e0237852e5583",
+    "vent-reference.json": "d28b8f6f591196c653ab9fb1b89ca96e3fdefed6851ba00c753de5027cd6800f",
+    "plumbing-reference.json": "da98fda4465d5228e5df7c37823af8e9a81249451d658ba2b0c8417bd6da126d",
+    "modern-reference.json": "170ec37bb3c6796edddccd8a5ebc40343611d255af55babf3eac4d8c07cffe0d"
+  },
+  "data_input_sha256": {
+    "hardware/reference/touch-flo-faucet/display-reference/component-envelopes.json": "bc39121b5724d5551fa3144647f3e3c13280a0f0d38a84e1bac0ef91da30b3ac",
+    "hardware/reference/touch-flo-faucet/display-reference/buttons.json": "5813343c9981ce28fa63ba0f1465b520526439c2e49539d28b9baf463930c366",
+    "hardware/printed-parts/faucet/lever-replica/lever-replica.frame.json": "46a1b7460149e02f8eeb9700565a0a6ce8efb37315a82d3243b695e2c7835fe6",
+    "hardware/cut-parts/faucet/under-counter-plate/under-counter-plate.dxf": "8b1196fa7451cc7b3af804dffbbecbdf1ed217db43a6e1ec0f00741b580eca5b",
+    "hardware/printed-parts/enclosure/rear-identification/label-words.json": "92acad5810f8515727aa4462a15571fefc90e92bef6fa66e5d514cf579662d1b",
+    "hardware/printed-parts/faucet/lever-replica/lever-replica-side-down.stl": "19d420b9193d0d691959aadb80095523164afe380189aae1af9eb0c13f8f2d21"
+  },
+  "source_sha256": {
+    "hardware/faucet-layout/faucet_assembly.py": "58e24956dbd777bd854fbbaf776287d0620feb9650b8035b5a52c6919d0f8abf",
+    "hardware/faucet-layout/faucet_industrial_assembly.py": "0b7ded24f29864172ea5a3f6c8e115de83bf4b423055a54d346e799ee1159d3a",
+    "hardware/install-guide/_plumbing_art_mesh.py": "f4b3d4be5becd0d3b8c40073f9a5d5625c63f966e065878b73922cc888127b0c",
+    "hardware/install-guide/plumbing/plumbing_scenes.py": "3551cec1eba75f8b1023b00abc9804bd373283be01b4ba6a9d4e9c1f4a829b01",
+    "hardware/install-guide/plumbing/modern/render_modern_tee.py": "181a272095d4488e7887f67bc92f9c0e40dbb8a9e7927d21ddce4776bc6b0ee3",
+    "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py": "a62efaf1dd0c69c1b2e136be3c68a234abdcd291a94f8150856858626fc16d2c",
+    "hardware/printed-parts/faucet/tube-collar/tube_collar.py": "2b490754e7d807d445353268f5966a67ed056f965e6c4af34bdae1b994b43fb6",
+    "hardware/printed-parts/faucet/vent_seals.py": "4518a34379f2624a06cc8d4a0c2d4530a816cdc51269e6b20e037ac04d56802d",
+    "hardware/printed-parts/faucet/lever-replica/lever_replica.py": "7b808d521b221e15ae2fbaf139adf40f1b0c7a874ee785c6ead1609be049e0ef",
+    "tools/hsm/kernel/src/part.rs": "46beccaea1cc2bb718961064e1b5d940a134520326cb50231e38cf8da7c22aed",
+    "tools/hsm/faucet-data/Cargo.toml": "c3d4782657b5ea65dd456bd24994a08b42cac7a6dcf4d998b006f3ff66e01658",
+    "tools/hsm/faucet-data/README.md": "d4530fb47fb08e507bf7ba9833f57b372ee1440142cf318a87d0da370ec965a4",
+    "tools/hsm/faucet-data/src/assembly.rs": "47b9cd71c6cf6f56b5b47c89c82dd347bccddd1c028adf178ef35e252d8ee3c3",
+    "tools/hsm/faucet-data/src/assembly_dimensions.rs": "5dc9a579d3614e0ab23b919cb320066d4ca059375af8b021b6d11cdd5ac51cb2",
+    "tools/hsm/faucet-data/src/collar.rs": "d168711b2b1be575e90334c9d14da5fcf1b8049edf2932845ec620089ff1bee2",
+    "tools/hsm/faucet-data/src/counter_plate.rs": "22dca9c420025d5f07cc2e9cad68812e83c873036f601b7c07d73f5d16e4ab37",
+    "tools/hsm/faucet-data/src/covers.rs": "c8a6c57a2479fb4996c3b48ce2a1ac63882abc70e6fbe25831bb8cbab75509da",
+    "tools/hsm/faucet-data/src/geos.rs": "6272152dbc0c88ab6e723546bcb06ee484eec3d494145ca81f8082fd5b0dcb1e",
+    "tools/hsm/faucet-data/src/lever.rs": "c5f82c3e0f06f45edb36cfa3931935b587b0e2e0e55856267ead691d31bafbc6",
+    "tools/hsm/faucet-data/src/lib.rs": "b54c9e2ff66564dfeb88b71a7b284c17322d70329c7011066c87099881c6aaff",
+    "tools/hsm/faucet-data/src/main.rs": "709507dcbbfce8422e3f415dd820f9c292d25d1abe7015e83097db1653b76dab",
+    "tools/hsm/faucet-data/src/plumbing.rs": "a58b947450043bf2181f873377a943b4d25a3abd04ac9c1dd72fbeb3cb991d89",
+    "tools/hsm/faucet-data/src/plumbing_catalog.json": "002a472e76f58c42e83fc51298b0182d11551f8d508999e5f207057a997f84ee",
+    "tools/hsm/faucet-data/src/r2010-template.dxf.in": "c19d58edb81b243f11dfca48d068d43232f322667d7121e4340bb9291aadf245",
+    "tools/hsm/faucet-data/src/shell.rs": "6627331f8409739854cd60fdc3524f94018b56f9143753e265ee8735b43bcebb",
+    "tools/hsm/faucet-data/src/shell_dimensions.rs": "f60496b7383acbbd88e67e661658a1570298319531b94e0d52e67898274ae22c",
+    "tools/hsm/faucet-data/src/vent.rs": "0581a64fd20735927c0846ba17d48a563ac56c7b5b43d4e5da9fbde0f738acfb"
+  },
+  "comparisons": {
+    "shell": {
+      "fields": 290,
+      "numeric_values": 2172,
+      "max_numeric_error": 0.0,
+      "lever_outline_vertices": [
+        61,
+        61
+      ],
+      "lever_outline_hausdorff_mm": 0.0,
+      "lever_outline_symmetric_difference_mm2": 0.0,
+      "variables": 88
+    },
+    "remaining_pieces": {
+      "pieces": {
+        "assembly": {
+          "fields": 138,
+          "numeric_values": 8257,
+          "variables": 27,
+          "recipe_equal": true,
+          "report_equal": true
+        },
+        "collar": {
+          "numeric_values": 2039,
+          "variables": 26,
+          "recipe_equal": true,
+          "report_equal": true
+        },
+        "vent": {
+          "numeric_values": 125,
+          "fields": 44,
+          "check_answers_equal": true
+        },
+        "plumbing": {
+          "numeric_values": 311,
+          "geometry_inputs_equal": true,
+          "modern_job_equal": true,
+          "pngs": [
+            {
+              "name": "legacy",
+              "size": [
+                2000,
+                1100
+              ],
+              "rgba_sha256": "b355199394900a6dbb1afcea1f6f1885fe89a8cc33eceef5f7916e414f327b1d",
+              "png_sha256": "0838e3dc841c2c9eec478419ef8860c2e36acf6a8b9dbc441c384042d9dfc7a9"
+            },
+            {
+              "name": "modern",
+              "size": [
+                2000,
+                1100
+              ],
+              "rgba_sha256": "096d1519c3dbb9f55600ca286fe2e82aec7cebd0bce8b0015ab36bf6d26d3458",
+              "png_sha256": "a95b7aa7bbe33ee5c7aa1afac45ae975d02671a95ce8d1a1e2f0bab66a7a5904"
+            }
+          ]
+        },
+        "lever_repack": {
+          "facets": 18596,
+          "byte_equal": true,
+          "sha256": "ee18c91f4891228a6a76ae1381414d2fb31e17694e746bb298a5f2c524e512ee"
+        }
+      },
+      "numeric_values": 10732,
+      "max_numeric_error": 0.0,
+      "geos": {
+        "path": "/Users/derekbredensteiner/Developer/homesodamachine/tools/cad-venv/lib/python3.13/site-packages/shapely/.dylibs/libgeos_c.1.19.2.dylib",
+        "version": "3.13.1-CAPI-1.19.2"
+      }
+    },
+    "python_adapters": {
+      "normal_recipe_adapters": 7,
+      "OCP_loaded": false,
+      "recipes_equal": true,
+      "plumbing_datums_equal": true,
+      "industrial_recipe": true,
+      "release_profile_smoke": true
+    }
+  },
+  "numeric_values_compared": 12904,
+  "max_absolute_numeric_error": 0.0,
+  "numeric_tolerance": {
+    "relative": 1e-13,
+    "absolute": 2e-12
+  },
+  "artifact_contracts": {
+    "lever_stl_bytes": 929884,
+    "lever_stl_equal": true,
+    "lever_facet_count": 18596,
+    "png_compression": "deterministic Rust PNG encoding; decoded RGBA pixels, dimensions and transparency preserved exactly",
+    "document_variables": "exact retained string values",
+    "assembly_report": "equal excluding the former nested metrics process timing line"
+  },
+  "build": "python3 tools/run.py -- cargo build --release --locked -j2 -p hsm-faucet-data --bin faucet-data",
+  "rust_binary_sha256": "1ca6bfe9fe9e3f98833431988fc62279d56f92ac4ed590a26578ee755d3da6ba",
+  "adapter_upstream_fixture_programs": {
+    "machine-data": {
+      "profile": "release",
+      "sha256": "02c6e0580799310e58d98c89ca2924f03135cc16268e02b01c0460e7177ae036"
+    },
+    "enclosure-data": {
+      "profile": "release",
+      "sha256": "a9aed67e1d484b7ba3a42d4306a3d671cb726f85f3a35c8495e1e569e24ee06a"
+    }
+  },
+  "geos": {
+    "selection": "HSM_GEOS_LIBRARY override, else the installed tools/cad-venv Shapely native-library directory",
+    "version": "3.13.1-CAPI-1.19.2",
+    "library_sha256": {
+      "tools/cad-venv/lib/python3.13/site-packages/shapely/.dylibs/libgeos.3.13.1.dylib": "005ec82730229dd3818d40865aa9ced1123cc8d89d2be278ff77b93df5982266",
+      "tools/cad-venv/lib/python3.13/site-packages/shapely/.dylibs/libgeos_c.1.19.2.dylib": "29d74cf4b9747ee581b6d35c513281672fa9e9fcdaf9896b5357a5e5773fbd7c"
+    }
+  },
+  "prior_leaf_verification": "tools/hsm/conversion-results/2026-11-04.json#/pieces/faucet",
+  "remaining_boundaries": [
+    "Python import/type marshalling and process launchers",
+    "Optional native CadQuery compatibility builders and manual native-CAD checks"
+  ],
+  "full_build_run": false,
+  "scratch_removed": true,
+  "trace_dependency_note": "Shell variables register reads of their two generated STL inputs; shell numbers/lever-outline register the selected GEOS C library."
+}

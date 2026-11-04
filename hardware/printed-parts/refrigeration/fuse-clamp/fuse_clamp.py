@@ -99,56 +99,42 @@ from docgen import substitute_md, substitute_py_comments  # noqa: E402
 # --- the donor, read off its own module -----------------------------------
 # Every figure the clamp closes on comes from the part it closes on, so a re-calipered
 # compressor moves the clamp rather than leaving it holding air.
-FACE_X = _comp.POWER_Y                        # [27.5](CLAMP_FACE_X) — the flank's own width
-FACE_Y = _comp.POWER_Z                        # its standing height
-BOX_FLOOR = -FACE_Y / 2.0                     # the box's underside — the gap's own ceiling
-GAP = _comp.POWER_GAP                         # [15](CLAMP_GAP) of air under the box
-PLATE_TOP = BOX_FLOOR - GAP                   # the plate crown — the gap's own floor
-BOX_DEPTH = _comp.POWER_X                     # [45](CLAMP_BOX_DEPTH), the box's own width —
+
+def _reference_inputs(method='state'):
+    values = {'fits': {'slip': fits.slip}}
+    if method == 'numbers':
+        values['fuse_color'] = list(linear(M_PETG_BLACK))
+    return values
+
+import pathlib as _reference_pathlib
+_reference_hardware = next(p for p in _reference_pathlib.Path(__file__).resolve().parents if p.name == 'hardware')
+import sys as _reference_sys
+_reference_sys.path.insert(0, str(_reference_hardware / 'reference'))
+from _reference_data import data as _reference_data
+_reference_values = _reference_data('fuse_clamp', inputs=_reference_inputs())
+globals().update({name: _reference_values[name] for name in ('FACE_X', 'FACE_Y', 'BOX_FLOOR', 'GAP', 'PLATE_TOP', 'BOX_DEPTH', 'FLANK_REACH', 'CASE_D', 'CASE_L', 'LEAD_STUB', 'LEAD_SHORT', 'TF_C', 'SLIP', 'CHANNEL_H', 'CHANNEL_Z', 'CROWN', 'HEAD_Z', 'LEAD_RELEASE', 'PART_X', 'HEAD_PAD', 'HEAD_Y', 'SPLICE_REACH', 'NECK_Z', 'LEAF_Y', 'LEAF_REACH', 'LEAF_SLOT', 'LEAF_LEAD_IN', 'SPLICE_FREE', 'CONTACT_TOL')})
+
 # how far a leaf may reach off this flank before it comes out under the far one.
-FLANK_REACH = _comp.POWER_FLANK_REACH         # the plate still under whatever stands proud
 
 # --- the cutoff, read off its own module ----------------------------------
-CASE_D = _fuse.BODY_D
-CASE_L = _fuse.BODY_L
-LEAD_STUB = _fuse.LEAD_STUB                   # [3](CLAMP_LEAD_STUB), the datasheet's no-bend zone
-LEAD_SHORT = _fuse.LEAD_SHORT                 # the shorter of the two leads, and the binding one
-TF_C = _fuse.TF_C                             # [77](CLAMP_TF) °C — what the contact is for
 
 # --- the head -------------------------------------------------------------
 # The channel is the case's whole seat. Its depth is the case's OWN DIAMETER, so the crown lands
 # on the outboard generatrix and the pinch is cover — case — crown with nothing in between; its
 # height is one slip over the case, so the walls fence the case without ever taking the load.
-SLIP = fits.slip
-CHANNEL_H = CASE_D + 2.0 * SLIP
-CHANNEL_Z = CASE_D
-CROWN = 2.5                                   # the section over the case
-HEAD_Z = CHANNEL_Z + CROWN
 # How far past the no-bend zone the channel lets the lead go. A lead is wire past this and the
 # clamp has no business on it; a lead is the part's own pose before it, and the channel holds it.
-LEAD_RELEASE = 0.5
-PART_X = CASE_L + 2.0 * (LEAD_STUB + LEAD_RELEASE)   # [18](CLAMP_PART_X), and the whole part's
 # The band of head that lies on the cover above and below the channel — what the crown's
 # reaction spreads into, and the clamp's own datum for how deep the channel stands.
-HEAD_PAD = 6.7
-HEAD_Y = CHANNEL_H / 2.0 + HEAD_PAD
 # What a crimp splice needs of the short lead once the channel has let go of it.
-SPLICE_REACH = 12.0
 
 # --- the neck and the leaves ----------------------------------------------
-NECK_Z = 3.5                                  # the plank's own section, out of the face
 # Each leaf's section, and how far back into the gap they reach. Thin and long is the point:
 # they are cantilevers, and their bending is the whole of what takes up a gap the donor does not
 # promise to the tenth. What is left between them is the slot they close into.
-LEAF_Y = 2.5
-LEAF_REACH = 22.0
-LEAF_SLOT = GAP - 2.0 * LEAF_Y                # [10](CLAMP_LEAF_SLOT) between the two
-LEAF_LEAD_IN = 1.5                            # the 45° that starts a leaf into the gap
 
 # What the channel leaves of the short lead, in the open, for the splice.
-SPLICE_FREE = LEAD_SHORT - (PART_X - CASE_L) / 2.0
 # How close the clamp's crown must stand to the case before the pair counts as touching.
-CONTACT_TOL = 0.01
 
 
 # --- the bounds this clamp states about the donor -------------------------
@@ -161,62 +147,18 @@ CONTACT_TOL = 0.01
 _donor = _bounds.bound(
     "fuse-clamp-donor", "The clamp closes on features the compressor actually has",
     "head inside the flank's face, leaves filling its gap and under its own box")
-_donor(PART_X <= FACE_X,
-       f"the part is {PART_X:g} across a flank {FACE_X:g} wide — it hangs off the face it is "
-       f"there to bear on")
-_donor(HEAD_Y <= FACE_Y / 2.0,
-       f"the head reaches y ±{HEAD_Y:g} on a flank {FACE_Y:g} tall — it stands off the top or "
-       f"the bottom of the face it bears on")
-_donor(HEAD_Z <= FLANK_REACH,
-       f"the head stands {HEAD_Z:g} proud of a flank the plate reaches {FLANK_REACH:g} past — "
-       f"the crown is out over the cabinet rather than over the can's own metal")
-_donor(abs(2.0 * LEAF_Y + LEAF_SLOT - GAP) < 1e-9,
-       f"the two leaves and their slot come to {2.0 * LEAF_Y + LEAF_SLOT:g} in a gap of "
-       f"{GAP:g} — the tongue no longer spans the one slot on this donor that holds it")
-_donor(LEAF_SLOT > 2.0 * LEAF_LEAD_IN,
-       f"the slot between the leaves is {LEAF_SLOT:g} and each lead-in takes {LEAF_LEAD_IN:g} "
-       f"of leaf — there is nothing left for either to close into")
-_donor(LEAF_REACH < BOX_DEPTH,
-       f"the leaves reach {LEAF_REACH:g} across a box {BOX_DEPTH:g} wide — they come out from "
-       f"under the far flank of the gap they are pressed in")
+for _ok, _note in _reference_data('fuse_clamp', '_donor_readings', (), {}, inputs=_reference_inputs()):
+    _donor(_ok, _note)
 
 
 def _profile():
-    """The part's whole silhouette in the Y-Z plane, as the polygon it is swept across X on.
-
-    Read from the head's outboard top corner: the head stands proud of the neck by what the
-    crown needs over the case, the neck runs down the cover's own flank to the plate's crown,
-    and the two leaves reach inboard off it into the gap — each chamfered at its tip so it
-    starts into that gap rather than butting the metal at the mouth of it."""
-    return [
-        (HEAD_Y, HEAD_Z),                                     # the head, outboard top
-        (-HEAD_Y, HEAD_Z),                                    # the head, outboard bottom
-        (-HEAD_Y, NECK_Z),                                    # step in to the neck
-        (PLATE_TOP, NECK_Z),                                  # the neck, outboard bottom
-        (PLATE_TOP, -LEAF_REACH + LEAF_LEAD_IN),              # the lower leaf, on the crown
-        (PLATE_TOP + LEAF_LEAD_IN, -LEAF_REACH),              # its lead-in
-        (PLATE_TOP + LEAF_Y, -LEAF_REACH),                    # up the leaf's tip
-        (PLATE_TOP + LEAF_Y, 0.0),                            # forward along the slot
-        (BOX_FLOOR - LEAF_Y, 0.0),                            # across the slot's front
-        (BOX_FLOOR - LEAF_Y, -LEAF_REACH),                    # aft along the upper leaf
-        (BOX_FLOOR - LEAF_LEAD_IN, -LEAF_REACH),              # its lead-in
-        (BOX_FLOOR, -LEAF_REACH + LEAF_LEAD_IN),
-        (BOX_FLOOR, 0.0),                                     # forward under the box
-        (HEAD_Y, 0.0),                                        # up the seating plane to the head
-    ]
+    "The part's whole silhouette in the Y-Z plane, as the polygon it is swept across X on.\n\n    Read from the head's outboard top corner: the head stands proud of the neck by what the\n    crown needs over the case, the neck runs down the cover's own flank to the plate's crown,\n    and the two leaves reach inboard off it into the gap — each chamfered at its tip so it\n    starts into that gap rather than butting the metal at the mouth of it."
+    return _reference_data('fuse_clamp', '_profile', (), {}, inputs=_reference_inputs())
 
 
 def numbers():
-    """What `fuse_clamp.rs` cuts the part from: the profile's corners and the channel, in the
-    cutoff's own frame, the case it holds its pinch on, and the body's name and colour."""
-    return {
-        "name": "fuse-clamp", "color": list(linear(M_PETG_BLACK)),
-        "part_x": PART_X, "channel_h": CHANNEL_H, "channel_z": CHANNEL_Z,
-        "head_y": HEAD_Y, "head_z": HEAD_Z, "neck_z": NECK_Z,
-        "box_floor": BOX_FLOOR, "plate_top": PLATE_TOP,
-        "leaf_y": LEAF_Y, "leaf_reach": LEAF_REACH, "leaf_lead_in": LEAF_LEAD_IN,
-        "case_d": CASE_D, "case_l": CASE_L, "contact_tol": CONTACT_TOL, "tf_c": TF_C,
-    }
+    "What `fuse_clamp.rs` cuts the part from: the profile's corners and the channel, in the\n    cutoff's own frame, the case it holds its pinch on, and the body's name and colour."
+    return _reference_data('fuse_clamp', 'numbers', (), {}, inputs=_reference_inputs('numbers'))
 
 
 def build():
@@ -240,57 +182,14 @@ def selftest():
 
 
 def main():
-    # A run cuts the part; an import of this module is a reader of `build()` and the numbers.
-    said = _rust_part.cut("refrigeration", "fuse-clamp", numbers(), _here.parent)
-    part = said["bodies"][0]
-    (xmin, ymin, zmin), (xmax, ymax, zmax) = part["min"], part["max"]
-    print("fuse clamp — the SF76E's case, held on the compressor's power box flank")
-    print(f"  X[{xmin:.2f}, {xmax:.2f}]  Y[{ymin:.2f}, {ymax:.2f}]  Z[{zmin:.2f}, {zmax:.2f}]")
-    print(f"  head    {PART_X:g} x {2 * HEAD_Y:g} x {HEAD_Z:g} on the seating plane, "
-          f"{HEAD_PAD:g} of bearing above and below the channel")
-    print(f"  channel {CHANNEL_H:g} x {CHANNEL_Z:g} through it — the crown on the Ø{CASE_D:g} "
-          f"case's outboard generatrix, {SLIP:g} of slip a side")
-    print(f"  neck    {NECK_Z:g} out of the face, down it from y {-HEAD_Y:g} to the plate's "
-          f"crown at {PLATE_TOP:g}")
-    print(f"  leaves  {LEAF_Y:g} thick, {LEAF_REACH:g} inboard, {LEAF_SLOT:g} of slot between "
-          f"them in the box's {GAP:g} of gap — {BOX_DEPTH - LEAF_REACH:g} short of the far "
-          f"flank")
-    print(f"  lead    let go {(PART_X - CASE_L) / 2.0:g} off the case against the {LEAD_STUB:g} "
-          f"no-bend zone, {SPLICE_FREE:g} of the short lead left for the splice")
-    print(f"  volume  {part['volume'] / 1000.0:.2f} cm³")
-    print("-> " + ", ".join(said["files"]))
-
-    variables = {
-        "CLAMP_TF": f"{TF_C:g}",
-        "CLAMP_FACE_X": f"{FACE_X:g}",
-        "CLAMP_BOX_DEPTH": f"{BOX_DEPTH:g}",
-        "CLAMP_FLANK_REACH": f"{FLANK_REACH:g}",
-        "CLAMP_GAP": f"{GAP:g}",
-        "CLAMP_PART_X": f"{PART_X:g}",
-        "CLAMP_LEAD_STUB": f"{LEAD_STUB:g}",
-        "CLAMP_LEAD_RELEASE": f"{LEAD_RELEASE:g}",
-        "CLAMP_SPLICE_FREE": f"{SPLICE_FREE:g}",
-        "CLAMP_SPLICE_REACH": f"{SPLICE_REACH:g}",
-        "CLAMP_CASE_D": f"{CASE_D:g}",
-        "CLAMP_CONTACT_TOL": f"{CONTACT_TOL:g}",
-        "CLAMP_CHANNEL_H": f"{CHANNEL_H:g}",
-        "CLAMP_HEAD_Y": f"{2 * HEAD_Y:g}",
-        "CLAMP_HEAD_Z": f"{HEAD_Z:g}",
-        "CLAMP_NECK_Z": f"{NECK_Z:g}",
-        "CLAMP_LEAF_Y": f"{LEAF_Y:g}",
-        "CLAMP_LEAF_REACH": f"{LEAF_REACH:g}",
-        "CLAMP_LEAF_SLOT": f"{LEAF_SLOT:g}",
-        "CLAMP_VOL": f"{part['volume'] / 1000.0:.2f}",
-    }
-    substitute_py_comments(
-        Path(__file__),
-        variables=variables,
-    )
-    substitute_md(
-        _here.parent / "README.md",
-        variables=variables,
-    )
-    print("-> README.md")
+    import _rust_part
+    said = _rust_part.cut('refrigeration', 'fuse-clamp', numbers(), _here.parent)
+    part = said['bodies'][0]
+    _reference_data('fuse_clamp', '_report', (part, said['files']), {}, inputs=_reference_inputs())
+    variables = _reference_data('fuse_clamp', '_docvars', (part,), {}, inputs=_reference_inputs())
+    substitute_py_comments(Path(__file__), variables=variables)
+    substitute_md(_here.parent / 'README.md', variables=variables)
+    print('-> README.md')
 
 
 if __name__ == "__main__":

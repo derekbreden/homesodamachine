@@ -1,0 +1,19 @@
+{
+  "id": "front-manifold-bank",
+  "host": "foam-cap-lid-top",
+  "origin": [
+    70.0,
+    192.6,
+    253.4
+  ],
+  "seat_depth": 2.2,
+  "seat_heights": [
+    13.3,
+    7.75
+  ],
+  "span": 16.0,
+  "stock": 3.0,
+  "beak": 0.75,
+  "stock_basis": "Eleven nominal 1.70 mm insulated 22 AWG leads on 1.85 mm pitch; the V-A, V-B and V-K branches split before this bank.",
+  "fit_scope": "The 2.2 mm depth, retaining lip and four-lead section use the accepted cable coupon. The seven-lead grouping and installed dressing retain their physical-fit scope."
+}

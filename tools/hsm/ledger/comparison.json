@@ -155,8 +155,6 @@
     }
   },
   "rust_program_sha256": "48e8e6e761f1fd03c152d18307293c13ca733363122a920f2b7be82cefdc2d2a",
-  "remaining_python_in_this_scope": [
-    "hardware/scripts/_ledger_totals.py",
-    "hardware/scripts/_ledger_analysis.py"
-  ]
+  "remaining_python_in_this_scope": [],
+  "follow_up_evidence": "tools/hsm/conversion-results/shared-final-2026-11-04.json"
 }

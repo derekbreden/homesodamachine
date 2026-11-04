@@ -4,91 +4,31 @@ Each pier has an open west-facing bearing and a straight strap passage.
 Three millimetres of stock back the seats and passages. One broad fore
 column carries both the meter and ASSE; their strap openings remain open.
 """
+from __future__ import annotations
 
-import importlib
-import math
-from pathlib import Path
-import sys
+import sys as _sys
+from pathlib import Path as _Path
 
-HERE = Path(__file__).resolve().parent
-HW = HERE.parents[2]
-sys.path[:0] = [str(HW / 'manifold-layout'), str(HW / 'scripts'),
-                str(HW / 'reference/digiten-flow-sensor'),
-                str(HW / 'printed-parts/cadlib')]
-import above_core as layout
+_hardware = next(p for p in _Path(__file__).resolve().parents if p.name == "hardware")
+_sys.path[:0] = [str(_hardware / "scripts"), str(_hardware / "printed-parts/enclosure/enclosure"), str(_hardware / "printed-parts/cadlib")]
+import _rust_part
+_rust_part.start()
+from _enclosure_compiled import compiled as _compiled
 
+_rust_enclosure_module = '_back_top_meter'
 
-def meter_support_datums():
-    import fits
-    meter = importlib.import_module('digiten_flow_sensor')
-    first, last, r0, r1 = meter.mounting_profile(1)[-1]
-    radius, wall = max(r0, r1) + fits.slip, 3.
-    result = []
-    for side in (-1, 1):
-        station = -(first + last) / 2. if side == -1 else 21.5
-        x, y, z = layout.point(layout.pose('digiten-flow'), (station, 0., 0.))
-        low = (44.5,361.,z-radius-wall) if side == -1 else (x+2.5,y-4.5,z-radius-wall)
-        high = (63.,y+4.5,355.)
-        result.append({
-            'parent': 'enclosure-back-top',
-            'centre_world_mm': (x, y, z),
-            'width_mm': high[1]-low[1], 'seat_radius_mm': radius, 'wall_mm': wall,
-            'native_bearing_band_mm': ((station-3., station+3.) if side == -1
-                                       else (station-1.5, station+4.5)),
-            'stock_min_world_mm': low, 'stock_max_world_mm': high,
-            'seat_bottom_world_z_mm': low[2],
-            'roof_root_world_z_mm': 346.,
-            'tie_plane_world_y_mm': y,
-            'tie_slot_min_world_mm': (low[0]-.1, y-1.5, z+radius+wall),
-            'tie_slot_max_world_mm': (high[0]+.1, y+1.5, z+radius+2.*wall),
-            'tie_backing_x_mm':52.5,
-            'asse_bore': ({'centre_xz_mm': (37.25, layout.pose(
-                'asse1022-assembly')['translation_mm'][2]), 'radius_mm':16.75}
-                if side == -1 else None),
-            'body_setback': ({'fore_face_y_mm':y-1.5, 'top_z_mm':315.}
-                             if side == 1 else None),
-        })
-    return tuple(result)
+def __getattr__(name):
+    if name == "__all__":
+        return _compiled('_back_top_meter', action="public-names")
+    if name.startswith("__"):
+        raise AttributeError(name)
+    try:
+        return _compiled('_back_top_meter', action="get", path=(name,))
+    except ValueError as error:
+        raise AttributeError(name) from error
 
+from _enclosure_compiled import install as _install
+_install(_sys.modules[__name__])
 
-def meter_tie_routes():
-    """Nominal 2.5 by 0.8 mm straps through the piers' straight passages.
-
-    The straps surround each collar and its seat. The head is accessible on
-    the west face. Purchased head dimensions, threading and holding force
-    require the physical assembly.
-    """
-    result = {}
-    for number, data in enumerate(meter_support_datums()):
-        x, y, z = data['centre_world_mm']
-        low, high = data['stock_min_world_mm'], data['stock_max_world_mm']
-        radius = data['seat_radius_mm']+.6
-        a, b = data['tie_slot_min_world_mm'], data['tie_slot_max_world_mm']
-        upper_z = (a[2]+b[2])/2.
-        lower_z = low[2]-.6
-        upper_west, lower_west = (low[0]-.6,y,upper_z),(low[0]-.6,y,lower_z)
-        upper_east, lower_east = (high[0]+.6,y,upper_z),(high[0]+.6,y,lower_z)
-        def tangent(point, sign):
-            dx,dz=point[0]-x,point[2]-z
-            return math.degrees(math.atan2(dz,dx)+sign*math.acos(radius/math.hypot(dx,dz)))%360.
-        lower_angle,upper_angle=tangent(lower_west,-1),tangent(upper_west,1)
-        def point(angle):
-            theta=math.radians(angle)
-            return (x+radius*math.cos(theta),y,z+radius*math.sin(theta))
-        def line(a,b):
-            return {'kind':'line','points_mm':[a,b],'wide_axis':(0.,1.,0.)}
-        lower,upper=point(lower_angle),point(upper_angle)
-        segments=[line(upper_west,upper_east),line(upper_east,lower_east),
-            line(lower_east,lower_west),line(lower_west,lower),
-            {'kind':'arc','points_mm':[lower,point((lower_angle+upper_angle)/2.),upper],
-             'radius_mm':radius,'sweep_degrees':upper_angle-lower_angle,'wide_axis':(0.,1.,0.)},
-            line(upper,upper_west)]
-        length=sum(math.dist(*row['points_mm']) if row['kind']=='line'
-            else radius*abs(math.radians(row['sweep_degrees'])) for row in segments)
-        result['meter-'+('fore' if number==0 else 'aft')]={
-            'parent':'enclosure-back-top','segments':segments,'length_mm':length,
-            'stock':'6-inch narrow nylon tie','stock_length_mm':152.4,
-            'width_mm':2.5,'thickness_mm':.8,'collar_plane_world_y_mm':y,
-            'strip_basis':'Nominal layout section; purchased strap/head dimensions unmeasured',
-        }
-    return result
+if __name__ == "__main__":
+    _compiled('_back_top_meter', action="main")

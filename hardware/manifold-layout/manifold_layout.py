@@ -1,1061 +1,38 @@
-"""Two-channel flavor manifold with a purchased PP0208E tee on each pump port.
-
-Each pump tee stands behind front-top's collet plate, its branch on the pump tube and its
-run upright (`fixed_returns`). The fore valve stands over the run on one short tube; a lower
-return, a stem elbow in each collet and one straight tube, joins the run's lower port to the rear
-valve's bottom port. Each tee's branch collet stands extended in its recess and grips its pump
-tube.
-
-Authoring frame: X spans the two channels; +Y becomes enclosure +Z; +Z becomes
-enclosure +Y. The pump station retains its fitted physical datum. The fore
-valves keep their height and stand over their tees' run axes; the rear row stands 8 mm over
-its deck reference. The two source turns
-retain their own construction independently of the pump-port connections.
-"""
+"""Typed compatibility surface for the machine's compiled Rust recipes."""
 from __future__ import annotations
-
-import math
-import os
-import sys
 from pathlib import Path
+import sys
+_source = Path(__file__).resolve()
+_hardware = next(parent for parent in _source.parents if parent.name == "hardware")
+sys.path.insert(0, str(_hardware / "scripts"))
+import dataclasses
+from dataclasses import dataclass
+from collections.abc import Mapping
 from typing import NamedTuple
-
-_here = Path(__file__).resolve()
-_hw = next(p for p in _here.parents if p.name == "hardware")
-_repo = next(p for p in _here.parents if (p / "hardware" / "scripts" / "_cadq_export.py").is_file())
-_tools = next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"
-for _p in (_hw / "scripts",
-           _hw / "reference" / "beduan-solenoid",
-           _hw / "reference" / "tee-connector",
-           _hw / "reference" / "y-divider",
-           _hw / "reference" / "kamoer-kphm400",
-           _hw / "printed-parts" / "cadlib",
-           _hw / "printed-parts" / "enclosure" / "enclosure",
-           _hw / "printed-parts" / "enclosure" / "pump-dock",
-           _hw / "printed-parts" / "enclosure" / "pump-tray"):
-    sys.path.insert(0, str(_p))
-sys.path.insert(0, str(_tools))
-if __name__ == "__main__":
-    import _rust_part
-    _rust_part.start()
-from docgen import substitute_md                      # noqa: E402
-import beduan_solenoid as vlv                         # noqa: E402
-import kamoer_kphm400 as kp                           # noqa: E402
-import tee_connector as tee                           # noqa: E402
-import y_divider as ydiv                              # noqa: E402
-# The routing kit owns the stock table — the tube on the machine and the floor each one's
-# corners answer to — so this study reads its own bend radius off the same row every run
-# drawn in that stock is graded against.
-import _routing                                       # noqa: E402
-# The bound this file states about its own figures — settled here, at import, before any solid
-# exists to hang a reading on. `_stated_bounds` is the ledger it records into and
-# `enclosure_assembly.carry_stated_bounds` is what puts it on the card.
-import _stated_bounds as _bounds                      # noqa: E402
-import _enclosure_interface as _enc_if                # noqa: E402
-import fixed_returns as _returns                      # noqa: E402
-
-ELBOW_STEP = _hw / "reference" / "elbow-connector" / "elbow-connector.step"
-TEE_STEP = _hw / "reference" / "tee-connector" / "tee-connector.step"
-KAMOER_STEP = _hw / "reference" / "kamoer-kphm400" / "kamoer-kphm400.step"
-# What brings them out of `kamoer_kphm400`'s case frame into this study's: the quarter
-# lays the pump's depth axis down onto +Y, and the half rolls its barb face up onto +Z.
-PUMP_TURNS = (((1.0, 0.0, 0.0), -90.0), ((0.0, 1.0, 0.0), 180.0))
-
-# --- The parts' own figures ------------------------------------------------
-VALVE_LEN = vlv.port_length                  # collet face to collet face
-VALVE_PITCH = vlv.body_width_x               # the X keep-out two valves pack to
-VALVE_PORT_Z = vlv.port_center_z             # port axis over the valve's own mounting plane
-VALVE_TOP_Z = vlv.coil_z_range[1]            # coil crown over that same plane
-TEE_RUN = tee.RUN_HALF                       # run collet face from the tee's centre
-TEE_BRANCH = tee.BRANCH_REACH                # branch collet face from the same centre
-TUBE_D = tee.TUBE_D                          # the 1/4" OD LLDPE every port takes
-STOCK = _routing.stock_of("fluid", TUBE_D)   # the 1/4" LLDPE row of the machine's stock table
-MIN_BEND = STOCK.min_bend                    # its tightest centreline radius
-# How far off a collet's own axis a soft-LLDPE run may leave or enter as ONE STRAIGHT LENGTH —
-# the whole of what a push-to-connect grips through, well past the rigid-copper
-# `_routing.COLLET_SKEW`. It is what lets a limb reach a barb off its own column on one leaning
-# tube, so the fold's own `BARB_LEAD_FLOOR` is measured against it.
-FLAVOR_SKEW = 22.0
-LINE_HUG = 1.0                               # the clearance floor a line keeps off a body
-
-HEAD_W = kp.head_w                           # the pump head, square across
-MOTOR_D = kp.motor_dia
-BARB_PITCH = kp.arch_xs[1] - kp.arch_xs[0]   # the two barbs' separation across the head face
-BARB_INSET = kp.arch_plane_z - kp.head_front_z   # barb plane back from the head's front face
-
-# --- The study's own figures, all four free --------------------------------
-BUTT = 0.0            # tube left outside a pair of butted quick-connects
-# In the enclosure pose the limb's +Y is world +Z. The four pump tee axes
-# sit below the fold datum; the fore valves retain their independent elevation.
-# The tees' branches follow the observed seated pump outlet row, preserving
-# the straight, coaxial pump tubes.
-CARRIER_DROP = (_enc_if.pump_station_drop + _enc_if.manifold_rise
-                + _enc_if.pump_seated_drop - kp.outlet_above_skirt_bottom)
-INNER_LIMB_DROP = _enc_if.inner_limb_drop
-FORE_VALVE_RISE = 0.0
-FORE_STUB_GAP = FORE_VALVE_RISE + CARRIER_DROP
-# EXPOSED tube between the two sleeve faces, not the cut length swallowed by their collets.
-# The valve's own insertion depth is not measured, so the cut length remains a bench figure.
-FORE_VALVES = frozenset(("V-E", "V-F", "V-H", "V-I"))
-# The two outer aft valves stand inboard of their pump ports; their lower returns lean across
-# to them.
-OUTER_AFT_X = 73.82  # valve axes retain the seam-rail running room
-# Pump-tee authoring reference retained by the valve placement construction.
-CARRIER_DATUM_SHIFT = -1.75
-FIXED_TEE_AFT_SHIFT = 0.0
-AFT_DECK_AFT_SHIFT = 0.0
-# The rear row's height over its deck reference. The cold-core valves retain their
-# existing seats.
-AFT_PACK_RISE = 0.5
-# V-G and V-J stand as low as V-C and V-D. Their fully seated elbows
-# face the tee elbows on parallel horizontal axes; the free tubes carry the height step.
-OUTER_AFT_DROP = INNER_LIMB_DROP
-# The front pack's height reference is independent of the lowest tube surface.
-WORLD_LIFT = 201.425
-PACK_ORIGIN_Y = 14.48
-# The collet plate's fore face stands this far aft of the pump barb plane: the cradle's
-# fitted back datum and its frame gap. The pump tube reaches on through the plate to its
-# seated tip in the tee.
-BARB_TO_PLATE = 5.351
-PUMP_STUB_PROJECTION = BARB_TO_PLATE + _returns.TIP_FROM_FORE
-# The prepared tube's length inside the pump's BPT tube, under the head's clamp, and the
-# length it is cut to.
-PUMP_TUBE_HELD = 13.149
-PUMP_TUBE_CUT = PUMP_TUBE_HELD + PUMP_STUB_PROJECTION
-# Reference span preserving the fitted pump/skirt datum. The permanent junction
-# mouths and fixed returns have separately derived stations.
-PUMP_BARBS_TO_BORE_FACE = 5.526
-BARB_PLATE_BERTH = (PUMP_BARBS_TO_BORE_FACE - _enc_if.pump_station_lead
-                    - CARRIER_DATUM_SHIFT - tee.BRANCH_COLLET_TRAVEL)
-PUMP_BARB_Z = HEAD_W - _enc_if.pump_station_lead
-# World Z is this study's Y after `enclosure_assembly.pose_manifold` stands the pack.
-# The fitted outlet height, pump drop and manifold rise place the two ends on one tube plane
-# while retaining the bracket's independent support datum.
-PUMP_Y = (kp.outlet_above_skirt_bottom - _enc_if.pump_station_drop - _enc_if.pump_seated_drop
-          - _enc_if.manifold_rise)
-# Pump-to-deck reference span preserving the fitted pump placement.
-# Stub tips are set independently by `stub_tip()`.
-BARB_STANDOFF = BARB_PLATE_BERTH + _enc_if.pump_station_lead
-CROSSBAR = 0.0        # exposed tube between Y-A's and Y-B's branches. At 0 the two fittings
-                      # meet face to face across the mirror plane and no tube is drawn.
-# The two fixed receiver axes follow each pump's measured `BARB_PITCH`;
-# `LIMB_PITCH` is the authoring lane parameter.
-LIMB_PITCH = float(os.environ.get("HSM_LIMB_PITCH", BARB_PITCH))
-
-# --- What follows from them ------------------------------------------------
-# The inner limbs are what the crossbar spans, so THEY are what it places: each stands one
-# branch reach and half a crossbar off the mirror plane, and the pumps hang off them.
-INNER_X = TEE_BRANCH + CROSSBAR / 2.0        # the inner limbs' axes
-PUMP_DX = INNER_X + LIMB_PITCH / 2.0         # each pump's centre off the mirror plane
-OUTER_X = PUMP_DX + LIMB_PITCH / 2.0         # the outer limbs'
-OUTER_AFT_INSET = OUTER_X - OUTER_AFT_X
-LIMB_STEP = (BARB_PITCH - LIMB_PITCH) / 2.0  # how far a limb reference steps toward its pump's axis,
-                                             # off the barb's column, when the pitch is closed
-# One straight tube leaning `LIMB_STEP` across as it climbs enters both its mouths at
-# `atan(LIMB_STEP / climb)`, so the climb the skew allows is the floor under the lead.
-BARB_LEAD_FLOOR = LIMB_STEP / math.tan(math.radians(FLAVOR_SKEW))
-BARB_LEAD = BARB_LEAD_FLOOR + BARB_STANDOFF
-DECK_Z = PUMP_BARB_Z + BARB_LEAD + TEE_BRANCH  # the LOWER deck's port-axis height
-STUB = MIN_BEND                              # what a free mouth is drawn reaching, so the
-                                             # first corner past it has a leg to seat in
-
-# --- The fold --------------------------------------------------------------
-# Valve placement starts with four flat limbs, folded180° around their reference
-# run-face plane. `fold_radius()` derives the deck separation from the flat
-# purchased-body envelopes. The permanent junction/return layout connects the
-# resulting valve ports with straight links and a printed fluid passage.
-HINGE_Y = -TEE_RUN
-FOLD_CLEAR = LINE_HUG   # what the closest folded body is left standing off the one beneath it
-
-ELBOW_LEG = 19.56                            # bend corner to collet face, both legs
-
-# --- Colours ---------------------------------------------------------------
-# Purchased bodies use the reference stock colours from `_materials`.
-from _materials import (C_COIL, C_PUMP_BOSS, C_PUMP_HEAD,  # noqa: E402
-                        C_PUMP_MOTOR, C_VALVE, M_JG_BLACK_PP)
-C_TEE = M_JG_BLACK_PP
-C_HEAD = C_PUMP_HEAD
-C_BOSS = C_PUMP_BOSS
-C_MOTOR = C_PUMP_MOTOR
-
-
-# --- Placement -------------------------------------------------------------
-
-
-def valve_dirs(flow: int):
-    """A valve standing coil-up with its flow along world ±Y, as (x_dir, z_dir). The body's
-    own +Y is its flow axis — inlet at −Y, outlet at +Y, the way the boss arrow points."""
-    return (float(flow), 0.0, 0.0), (0.0, 0.0, 1.0)
-
-
-def tee_dirs(branch):
-    """A tee whose RUN lies along world Y and whose BRANCH faces `branch`, as (x_dir, z_dir).
-    The fitting's own run is its local Z and its branch its local +Y."""
-    bx, _by, bz = branch
-    if bz:
-        return (1.0, 0.0, 0.0), (0.0, 1.0, 0.0) if bz < 0 else (0.0, -1.0, 0.0)
-    return (0.0, 0.0, bx), (0.0, 1.0, 0.0)
-
-
-# --- The chains ------------------------------------------------------------
-#
-# Each logical limb establishes valve authoring stations from reference body
-# lengths. A valve tuple gives flow+1 aft or−1 forward; a Y tuple gives its
-# reference branch direction. `anchor` identifies the pump-junction reference
-# at y=0. Inner limbs take the draw ports; outer limbs take the discharge ports.
-
-LIMBS = {
-    "A1": dict(x=-INNER_X, anchor=3, chain=[
-        ("V-A", +1), ("Y-A", (+1.0, 0.0, 0.0)), ("V-C", +1),
-        ("Y-C", (0.0, 0.0, -1.0)), ("V-E", -1)]),
-    "A2": dict(x=-OUTER_X, anchor=1, chain=[
-        ("V-G", -1), ("Y-D", (0.0, 0.0, -1.0)), ("V-F", +1)]),
-    "B1": dict(x=+INNER_X, anchor=3, chain=[
-        ("V-B", +1), ("Y-B", (-1.0, 0.0, 0.0)), ("V-D", +1),
-        ("Y-F", (0.0, 0.0, -1.0)), ("V-H", -1)]),
-    "B2": dict(x=+OUTER_X, anchor=1, chain=[
-        ("V-J", -1), ("Y-G", (0.0, 0.0, -1.0)), ("V-I", +1)]),
-}
-
-PUMPS = {"pump-a": -PUMP_DX, "pump-b": +PUMP_DX}   # each pump under its own channel's limbs
-
-# Each pump tee's branch, as (pump centre, which of the two ports).
-BARB_OF = {"Y-C": (-PUMP_DX, +1), "Y-D": (-PUMP_DX, -1),
-           "Y-F": (+PUMP_DX, -1), "Y-G": (+PUMP_DX, +1)}
-
-# The four purchased tees on the pump ports. Their stations come from `fixed_returns`;
-# the carrier offsets are compatibility arguments and move nothing.
-PUMP_JUNCTIONS = frozenset(BARB_OF)
-FIXED_TEES = PUMP_JUNCTIONS
-PUMP_VALVES = {"Y-C": ("V-E", "V-C"), "Y-D": ("V-F", "V-G"),
-               "Y-F": ("V-H", "V-D"), "Y-G": ("V-I", "V-J")}
-PUMP_PART_SUFFIX = {"Y-C": "east-inner", "Y-D": "east-outer",
-                    "Y-F": "west-inner", "Y-G": "west-outer"}
-# Compatibility names for callers that identify the four pump-connected nodes.
-CARRIER_TEES = FIXED_TEES
-CARRIER_RELEASE = tee.CARRIER_RELEASE_OFFSET
-CARRIER_SQUEEZE = tee.CARRIER_SQUEEZE_OFFSET
-CARRIER_CONNECTED = tee.CARRIER_CONNECTED_OFFSET
-CARRIER_PARK = tee.CARRIER_PARK_OFFSET
-CARRIER_STATES = {name: offset for name, (offset, _depth) in tee.CARRIER_STATES.items()}
-
-
-def barb_station(tee: str) -> tuple:
-    """A fitted pump barb's tube plane, on the independent pump and manifold Z datums,
-    and offset `BARB_PITCH/2` either side of the pump's centre."""
-    px, side = BARB_OF[tee]
-    return (px + side * BARB_PITCH / 2.0, PUMP_Y, PUMP_BARB_Z)
-
-
-def body_name(chain: str) -> str:
-    """A chain entry's materialized name: its body kind and lower-case chain name."""
-    return f"{'valve' if chain.startswith('V-') else 'tee'}-{chain.lower()}"
-
-
-def _half(name: str) -> float:
-    """Half a body's own length along the limb, collet face to centre."""
-    return VALVE_LEN / 2.0 if name.startswith("V-") else TEE_RUN
-
-
-def lay_out() -> dict:
-    """Every body's centre and both its collet faces along its limb, FLAT, keyed by name.
-
-    A chain is butted: each body's near collet face sits `BUTT` past its neighbour's far one.
-    The anchor tee's centre is pinned at y = 0 — the plane its pump's barbs stand on — and the
-    rest of the chain falls out either side of it. Everything ahead of the anchor is `fold`:
-    it is what the hinge turns over."""
-    out = {}
-    for limb, spec in LIMBS.items():
-        names = [n for n, _ in spec["chain"]]
-        centres, y = [], 0.0
-        for n in names:                                  # forward pass from the chain's nose
-            centres.append(y + _half(n))
-            y = centres[-1] + _half(n) + BUTT
-        shift = -centres[spec["anchor"]]
-        for i, ((n, arg), c) in enumerate(zip(spec["chain"], centres)):
-            out[n] = dict(limb=limb, x=spec["x"], y=c + shift, arg=arg,
-                          fold=i < spec["anchor"],
-                          front=c + shift - _half(n), back=c + shift + _half(n))
-    return out
-
-
-FLAT = lay_out()
-P = FLAT
-PURCHASED_TEES = frozenset(n for n in P if n.startswith("Y-"))
-
-
-# How far apart the two decks stand. CHOSEN, and the build is what says whether it is enough.
-#
-# A bounding box will not answer this. What stands over what here is a folded valve's own
-# underside against the SPADE TERMINALS of the valve beneath it — two 0.8 mm tabs reaching
-# 15 mm past a coil face, at z 121, in a band 1.4 mm wide. Every box that contains those tabs
-# also contains the coil crown 6 mm above them, so a box solve asks for 91.6 where the metal
-# needs 58.4. The Rust manifold program measures the placed solids at full precision, so
-# the number below is chosen against that measurement and not against a reach.
-#
-# `HSM_DECK_SEP` builds another.
-DECK_SEP = float(os.environ.get("HSM_DECK_SEP", 60.95))
-FOLD_BINDS = ("a folded valve's underside", "the spades of the one beneath it")
-HINGE_Z = DECK_Z + DECK_SEP / 2.0
-UPPER_Z = DECK_Z + DECK_SEP                  # the folded deck's port-axis height
-FOLD_AXIS = ((0.0, HINGE_Y, HINGE_Z), (1.0, HINGE_Y, HINGE_Z))
-
-
-def fold_pt(p) -> tuple:
-    """A point turned 180° about the hinge — the line x, y = HINGE_Y, z = HINGE_Z."""
-    return (p[0], 2.0 * HINGE_Y - p[1], 2.0 * HINGE_Z - p[2])
-
-
-def fold_dir(d) -> tuple:
-    return (d[0], -d[1], -d[2])
-
-
-# --- The quarter turns -----------------------------------------------------
-#
-# Two of the butts open into a 90° turn instead, and both of them stand on ONE plane:
-# `BEND_Y`, the far collet of the valve that ends a limb. Each joint's fixed collet opens +Y
-# there, so the tube leaves along +Y, turns `BEND_R` onto +Z, and whatever was butted to it
-# comes round with the turn — a quarter about the X-parallel line through the arc's own centre.
-#
-#   fluid-3, fluid-5     the source valves, off Y-A and Y-B on the folded deck
-#
-# X does not enter it: the axis runs along X, so the pair shares one (y, z) transform, and two
-# turns that faced each other across the machine still do.
-#
-# NEITHER CHANNEL HAS A RESERVOIR TURN, because neither has a reservoir junction: each pair's
-# fill and draw gates reach their reservoir's own two mouths, so all four collets are mouths of
-# this study and leave on their own axes.
-BEND_R = MIN_BEND
-BEND_Y = TEE_RUN + VALVE_LEN                 # the plane both of them stand on
-BENT = {"V-A": UPPER_Z, "V-B": UPPER_Z}
-
-
-# The two source valves step again once they are round: `SOURCE_TRAVEL` further along the run
-# and `SOURCE_JOG` across it, toward the foam shell's crown. Two arcs of one radius with a
-# straight between them do that and leave the run pointing where it was, and the pair is fixed
-# by the two distances:
-#
-#     travel = 2R·sinθ + s·cosθ        jog = 2R(1 − cosθ) + s·sinθ
-#
-# which solve to `(2R − jog)·cosθ + travel·sinθ = 2R`. A 90° pair is the member with no
-# straight in it, and it puts the jog EQUAL to the travel — each quarter spends R on both axes.
-#
-# THE TRAVEL IS THE SOURCE RUN'S INTERNAL STEP. V-A and V-B occupy the source row at its far
-# end; `enclosure_assembly.PACK_Y` carries that row, the other eight valves, both pumps and every
-# pack fitting together. The cold core's three cradle stations are authored at the resulting
-# row. `BARB_STANDOFF` fixes the pump-to-deck spacing inside the same rigid arrangement, while
-# this figure is the whole longitudinal distance the two-arc step itself has to spend.
-#
-# THE JOG IS. `two_arc_floor` is `sqrt(jog·(4R − jog))`, which climbs with the jog for every jog
-# under `2R` — so the jog alone says whether the two-arc family has a member at the travel there
-# is, and it stands where BOTH channels' crosses clear that floor by `SOURCE_SLACK`. It is also
-# where the two valves sit: the pose turns the pack's own −Y onto the machine's −Z, so a
-# millimetre of jog is a millimetre of height the row on the cap gives up and a millimetre its
-# printed cradles stand lower (`_cold_core_interface.cap_cradles`).
-SOURCE_TRAVEL = 46.72
-SOURCE_JOG = 13.625
-# The step also carries each source valve OUTBOARD, off its own limb's column. A CROSS-MOVE IS A
-# VECTOR AND NOT A DISTANCE: both arcs and the straight lie in the one plane that holds the run
-# and the way it steps, so leaning that plane about the run costs the step nothing and only its
-# length is solved for.
-#
-# V-A's spread is what centres it in the row of three the cold core's cap carries — V-B on this
-# pack's west inner limb, V-A, then V-K on its own cap cradle. V-K is not in this study, so the
-# figure is stated here and measured there:
-# `enclosure_assembly.check_valve_row` prints the spread the row wants.
-SOURCE_SPREAD = {"V-A": 1.92, "V-B": 0.0}
-
-
-# WHAT A RUN DOES WHEN THE TRAVEL WILL NOT REACH IS GO BACKWARD. A hairpin — half a turn, a
-# straight, and the other half — leaves the heading exactly where it found it and puts the run
-# BEHIND where it started, which is travel handed back to the two-arc step that follows. The
-# half-turns cancel between them (a heading that sweeps the whole circle sums its arcs to
-# nothing), so the hairpin costs `2πR` and moves the run by its straight alone.
-#
-# THIS FIGURE IS THE MARGIN THE STEP KEEPS OVER `two_arc_floor`, AND WHAT IT BUYS IS A STRAIGHT.
-# `sbend_solve` takes `acos(c / m)`, and at the floor that argument is exactly 1: the two arcs
-# meet at a single point, the straight between them is zero, and the angle's slope against the
-# travel is vertical — a pair solved there is a pair that a hundredth of a millimetre swings by
-# a degree. Above the floor by this much each channel has a straight to stand on and an angle
-# that answers its travel smoothly. Under it `hairpin_back` asks the hairpin for exactly what
-# restores the margin; `hairpins_drawn` reports how many runs need one, and at the travel and
-# the jog above it is none.
-SOURCE_SLACK = 0.5
-# WHERE A HAIRPIN LEAVES THE RUN, offset from the column it came down. The run climbs back past
-# the height its own quarter turn is at, so it climbs in a different column than the one the
-# quarter is in, and this is the gap between them. The step that follows spends it: what the
-# hairpin puts out the step has to bring back, and its cross-move carries both.
-#
-# The lane it stands in leans between OUTBOARD and AWAY FROM THE CROWN: 0° is straight outboard,
-# 90° straight away, and the sign of outboard is away from the mirror plane. The turn stands
-# `2·BEND_R` off the run whichever way it faces, and the lean is what aims that reach into the
-# room the bay has rather than at `fluid-18`'s crown lane or the channel's own quarter. ONE
-# FIGURE SERVES BOTH CHANNELS, because until a hairpin is drawn nothing tells the two bays
-# apart — and `hairpins_drawn` is 0 at the travel and the jog above.
-HAIRPIN_OUT = 15.0
-HAIRPIN_TILT = 49.0
-
-
-def two_arc_floor(r: float, jog: float) -> float:
-    """The least travel a PAIR of arcs of radius `r` can step `jog` across in. Under this the
-    two-arc family has no member at all."""
-    return math.sqrt(max(0.0, (2.0 * r) ** 2 - (2.0 * r - jog) ** 2))
-
-
-def sbend_solve(r: float, travel: float, jog: float) -> tuple:
-    """The arc angle and the straight between two of them that step `jog` across a run while
-    it goes `travel` along, leaving the direction alone."""
-    a, b, c = 2.0 * r - jog, travel, 2.0 * r
-    m = math.hypot(a, b)
-    if c > m:
-        raise ValueError(
-            f"a step of {jog:g} across in {travel:g} along cannot be made from two arcs of "
-            f"R{r:g}: the pair reaches {m:.2f} where it needs {c:g}.")
-    th = math.atan2(b, a) - math.acos(c / m)
-    return th, (travel - 2.0 * r * math.sin(th)) / math.cos(th)
-
-
-def source_offset(name: str) -> tuple:
-    """The hairpin's own move, `(dx, dy)` in the pack's frame — `HAIRPIN_OUT` along the lane
-    `HAIRPIN_TILT` names, which is also the plane the hairpin turns in. Zero when the travel
-    needs no hairpin, and then the step is the whole run and has the whole cross."""
-    if hairpin_back(MIN_BEND, SOURCE_TRAVEL, math.hypot(*source_cross(name))) <= 1e-9:
-        return (0.0, 0.0)
-    t = math.radians(HAIRPIN_TILT)
-    return (math.copysign(HAIRPIN_OUT * math.cos(t), P[name]["x"]),
-            HAIRPIN_OUT * math.sin(t))
-
-
-def step_cross(name: str) -> tuple:
-    """What is left for the two-arc step once the hairpin has had its move: the whole cross to
-    the valve, less the hairpin's. The step brings the run back inboard as it drops it."""
-    cross, off = source_cross(name), source_offset(name)
-    return (cross[0] - off[0], cross[1] - off[1])
-
-
-def hairpin_back(r: float, travel: float, jog: float) -> float:
-    """How far behind its start the hairpin has to put the run, so that what is left for the
-    two-arc step clears `two_arc_floor` by `SOURCE_SLACK`. Zero is the answer whenever the
-    travel already clears it, and then there is no hairpin and the step is the whole run."""
-    return max(0.0, two_arc_floor(r, jog) + SOURCE_SLACK - travel)
-
-
-def source_valve_shift(name: str) -> tuple:
-    """A source valve's cross-move, `(dx, dy)` in the pack's own frame: `SOURCE_JOG` toward the
-    crown, which is −Y, and its own `SOURCE_SPREAD` away from the mirror plane."""
-    return (math.copysign(SOURCE_SPREAD[name], P[name]["x"]), -SOURCE_JOG)
-
-
-def source_cross(name: str) -> tuple:
-    """Tube step from the raised crossbar to the unchanged cold-core valve."""
-    x, y = source_valve_shift(name)
-    return x, y - AFT_PACK_RISE
-
-
-def source_step(name: str) -> tuple:
-    """The step that carries one source valve off its quarter, as `(angle, straight, length)`,
-    the length carrying the hairpin ahead of it when there is one. Each valve solves its own,
-    because the spread is its own."""
-    jog = math.hypot(*step_cross(name))
-    back = hairpin_back(MIN_BEND, SOURCE_TRAVEL, jog)
-    th, s = sbend_solve(MIN_BEND, SOURCE_TRAVEL + back, jog)
-    length = 2.0 * MIN_BEND * th + s
-    if back > 1e-9:
-        length += 2.0 * math.pi * MIN_BEND + math.hypot(*source_offset(name), back)
-    return th, s, length
-
-
-# In the pack's own frame the source valves run along +Z once they are round, and the crown
-# they are stepping toward is −Y.
-SHIFT = {n: source_valve_shift(n) + (SOURCE_TRAVEL,) for n in SOURCE_SPREAD}
-SHIFT.update({n: (0.0, FORE_VALVE_RISE, 0.0) for n in FORE_VALVES})
-SHIFT.update({n: (0.0, -CARRIER_DROP, 0.0) for n in CARRIER_TEES})
-SHIFT.update({n: (-math.copysign(OUTER_AFT_INSET, P[n]["x"]), 0.0, 0.0)
-              for n in ("V-G", "V-J")})
-for _name in ('V-C', 'V-D', 'V-G', 'V-J', 'Y-A', 'Y-B'):
-    _dx, _dy, _dz = SHIFT.get(_name, (0., 0., 0.))
-    SHIFT[_name] = (_dx, _dy + AFT_PACK_RISE, _dz)
-for _name in ("V-A", "V-B", "Y-A", "Y-B", "V-C", "V-D"):
-    _dx, _dy, _dz = SHIFT.get(_name, (0.0, 0.0, 0.0))
-    SHIFT[_name] = (_dx, _dy - INNER_LIMB_DROP, _dz)
-for _name in ("V-G", "V-J"):
-    _dx, _dy, _dz = SHIFT[_name]
-    SHIFT[_name] = (_dx, _dy - OUTER_AFT_DROP, _dz)
-
-
-def bend_pt(p, z0: float) -> tuple:
-    """A point taken round the quarter whose fixed collet sits at (`BEND_Y`, `z0`)."""
-    dy, dz = p[1] - BEND_Y, p[2] - (z0 + BEND_R)
-    return (p[0], BEND_Y - dz, z0 + BEND_R + dy)
-
-
-def bend_dir(d) -> tuple:
-    return (d[0], -d[2], d[1])
-
-
-def hairpin_flat(r: float, across: float, back: float) -> list:
-    """The hairpin in its own plane's `(across, along)`, as `("arc", a, mid, b)` and
-    `("line", a, b)`. It starts at the origin heading +along and ends on `(across, −back)`
-    heading +along again, its arcs bearing toward +across.
-
-    THE ARCS ARE NOT ANYONE'S TO SPEND. The heading sweeps the whole circle, so the arcs sum to
-    nothing at all between them and the route lands entirely on the straight — one straight,
-    aimed straight down the chord, at a cost of `2πr` and the chord. THAT is what puts the run
-    BEHIND where it started, which no route of one heading-sweep less can do: the chord may
-    point wherever it likes, backward included.
-
-    A heading `h` on a turn of this hand has its centre at `p + r·(cos h, −sin h)` and its
-    point back at `centre + r·(−cos h, sin h)`, which is all the tracing this needs."""
-    aim = math.atan2(across, -back)
-    segs, p, h = [], (0.0, 0.0), 0.0
-    for turn, straight in ((aim, math.hypot(across, back)), (2.0 * math.pi - aim, 0.0)):
-        c = (p[0] + r * math.cos(h), p[1] - r * math.sin(h))
-        at = lambda hh: (c[0] - r * math.cos(hh), c[1] + r * math.sin(hh))     # noqa: E731
-        # A three-point arc is only itself over a quarter or less, so the turn is cut into them.
-        n = max(1, int(math.ceil(turn / (math.pi / 2.0) - 1e-9)))
-        for k in range(n):
-            h0, h1 = h + turn * k / n, h + turn * (k + 1) / n
-            segs.append(("arc", at(h0), at((h0 + h1) / 2.0), at(h1)))
-        p, h = at(h + turn), h + turn
-        if straight > 1e-9:
-            q = (p[0] + straight * math.sin(h), p[1] + straight * math.cos(h))
-            segs.append(("line", p, q))
-            p = q
-    return segs
-
-
-def hairpins_drawn() -> int:
-    """How many of the source runs carry a hairpin. Zero whenever the travel is its own."""
-    return sum(1 for v in SBENDS.values()
-               if hairpin_back(MIN_BEND, SOURCE_TRAVEL, math.hypot(*step_cross(v))) > 1e-9)
-
-
-def sbend_flat(r: float, travel: float, jog: float) -> list:
-    """The two-arc step in its own plane's `(across, along)`, in the same segments. It starts at
-    the origin heading +along and ends on `(jog, travel)` heading +along again, and here the
-    arcs bear toward +across — which is where the step is going."""
-    th, s = sbend_solve(r, travel, jog)
-    c1 = (r, 0.0)
-    e1 = (c1[0] - r * math.cos(th), c1[1] + r * math.sin(th))
-    m1 = (c1[0] - r * math.cos(th / 2.0), c1[1] + r * math.sin(th / 2.0))
-    e2 = (e1[0] + s * math.sin(th), e1[1] + s * math.cos(th))
-    c2 = (e2[0] - r * math.cos(th), e2[1] + r * math.sin(th))
-    e3 = (c2[0] + r, c2[1])
-    ba, bz = (e2[0] - c2[0]) + (e3[0] - c2[0]), (e2[1] - c2[1]) + (e3[1] - c2[1])
-    bl = math.hypot(ba, bz)
-    segs = [("arc", (0.0, 0.0), m1, e1)]
-    if s > 1e-9:
-        segs.append(("line", e1, e2))
-    segs.append(("arc", e2, (c2[0] + r * ba / bl, c2[1] + r * bz / bl), e3))
-    return segs
-
-
-def fore_deck_aft_shift() -> float:
-    """The fore valves' move in enclosure +Y off their deck station, over their tees' run
-    axes behind the collet plate."""
-    return _returns.fore_valve_axis_y(pump_wall_fore_y()) - (DECK_Z + PACK_ORIGIN_Y)
-
-
-def fixed_aft_shift(name: str) -> float:
-    """Stationary pack translation in authoring +Z / enclosure +Y."""
-    if name in FIXED_TEES:
-        return FIXED_TEE_AFT_SHIFT
-    return fore_deck_aft_shift() if name in FORE_VALVES else AFT_DECK_AFT_SHIFT
-
-
-def enclosure_point(point):
-    """Authoring coordinates carried to the enclosure's fitted pump datum."""
-    x, y, z = point
-    return (-x, z + PACK_ORIGIN_Y, y + WORLD_LIFT)
-
-
-def authoring_point(point):
-    x, y, z = point
-    return (-x, z - WORLD_LIFT, y - PACK_ORIGIN_Y)
-
-
-def enclosure_axis(axis):
-    x, y, z = axis
-    return (-x, z, y)
-
-
-def authoring_axis(axis):
-    x, y, z = axis
-    return (-x, z, y)
-
-
-def pump_wall_fore_y():
-    """The collet plate's fore face, derived from the prepared pump tube's seated tip."""
-    tip = enclosure_point(stub_tip(next(iter(sorted(PUMP_JUNCTIONS)))))
-    return tip[1] - _returns.TIP_FROM_FORE
-
-
-_plumbing_cache = None
-
-
-def pump_plumbing():
-    """World-frame tees, upper tubes and lower returns from their actual ports."""
-    global _plumbing_cache
-    if _plumbing_cache is not None:
-        return _plumbing_cache
-    out = {}
-    fore = pump_wall_fore_y()
-    for name, (upper_valve, return_valve) in PUMP_VALVES.items():
-        x, _y, z = enclosure_point(barb_station(name))
-        upper = {"point": enclosure_point(port(upper_valve, "front")),
-                 "axis": enclosure_axis(port_axis(upper_valve, "front"))}
-        lower = {"point": enclosure_point(port(return_valve, "back")),
-                 "axis": enclosure_axis(port_axis(return_valve, "back"))}
-        out[name] = _returns.station(fore, x, z, upper, lower)
-    _plumbing_cache = out
-    return out
-
-
-def _tee_ports(name):
-    x, _y, z = enclosure_point(barb_station(name))
-    return _returns.tee_ports(pump_wall_fore_y(), x, z)
-
-
-def fixed_tee_centers(carry=None):
-    """The four pump tees' centres."""
-    return {name: (carry((authoring_point(_tee_ports(name)["centre"]), (0., 0., 1.)))[0]
-                   if carry is not None else authoring_point(_tee_ports(name)["centre"]))
-            for name in sorted(PUMP_JUNCTIONS)}
-
-
-def _posed(name: str, p, d, carrier_offset: float = CARRIER_SQUEEZE):
-    """A point and a direction taken through whichever of the two moves this body rides: the
-    fold, and then the quarter turn if it is one of the six that got one."""
-    b = P[name]
-    if b["fold"]:
-        p, d = fold_pt(p), fold_dir(d)
-    if name in BENT:
-        p, d = bend_pt(p, BENT[name]), bend_dir(d)
-    if name in SHIFT:
-        p = tuple(p[i] + SHIFT[name][i] for i in range(3))
-    if name in CARRIER_TEES:
-        p = (p[0], p[1], p[2] + CARRIER_DATUM_SHIFT + CARRIER_CONNECTED)
-    p = (p[0], p[1], p[2] + fixed_aft_shift(name))
-    return p, d
-
-
-def port(name: str, end: str, carrier_offset: float = CARRIER_SQUEEZE):
-    """A named body's collet face at one end of its limb, in the world it ends up in. `end` is
-    the flat-state name — "front" is the collet at the smaller y before the fold, which for a
-    folded body is the larger y after it."""
-    if name in PUMP_JUNCTIONS:
-        which = "lower" if end == "front" else "upper"
-        return authoring_point(_tee_ports(name)[which]["point"])
-    return _posed(name, (P[name]["x"], P[name][end], DECK_Z),
-                  (0.0, -1.0, 0.0) if end == "front" else (0.0, 1.0, 0.0),
-                  carrier_offset)[0]
-
-
-def port_axis(name: str, end: str, carrier_offset: float = CARRIER_SQUEEZE):
-    """The outward normal of that collet, in the world it ends up in."""
-    if name in PUMP_JUNCTIONS:
-        which = "lower" if end == "front" else "upper"
-        return authoring_axis(_tee_ports(name)[which]["axis"])
-    return _posed(name, (P[name]["x"], P[name][end], DECK_Z),
-                  (0.0, -1.0, 0.0) if end == "front" else (0.0, 1.0, 0.0),
-                  carrier_offset)[1]
-
-
-def branch_port(name: str, carrier_offset: float = CARRIER_SQUEEZE):
-    """A tee's branch collet face, as (point, outward axis), in the world it ends up in."""
-    if name in PUMP_JUNCTIONS:
-        branch = _tee_ports(name)["branch"]
-        return authoring_point(branch["point"]), authoring_axis(branch["axis"])
-    b, d = P[name], P[name]["arg"]
-    return _posed(name, (b["x"] + d[0] * TEE_BRANCH, b["y"], DECK_Z + d[2] * TEE_BRANCH), d,
-                  carrier_offset)
-
-
-# Each reservoir has separate draw and fill mouths, reached directly by its two
-# valve paths. The four reservoir gate collets are external mouths of this study.
-JOINS = {}
-
-
-def _cross(a, b) -> tuple:
-    return (a[1] * b[2] - a[2] * b[1], a[2] * b[0] - a[0] * b[2], a[0] * b[1] - a[1] * b[0])
-
-
-def elbow_pose(gate: str, side: float) -> tuple:
-    """The elbow on a draw gate's collet: `(corner, mouth, x_dir, z_dir, seat)`. Leg 2 opens
-    across the pump, `side` picking which way; leg 1 — the fitting's own local +Y — runs onto
-    the quarter turn that comes up off the gate.
-
-    BOTH direction vectors go through `bend_dir`. `z_dir` alone rides it unchanged, because the
-    turn's axis IS X and that is the axis `z_dir` lies on — so passing only that one leaves the
-    fitting MOVED to the bent position and not TURNED into it, and leg 2 still lands because it
-    is the leg on the axis. `seat` is where leg 1 ends up, taken off the placement frame itself,
-    so `turns_meet` is checking the pose rather than a second copy of this arithmetic."""
-    corner = bend_pt((P[gate]["x"], P[gate]["back"] + ELBOW_LEG, DECK_Z), ELBOW_BEND)
-    mouth = (corner[0] + side * ELBOW_LEG, corner[1], corner[2])
-    x_dir, z_dir = bend_dir((0.0, 0.0, side)), bend_dir((side, 0.0, 0.0))
-    leg1 = _cross(z_dir, x_dir)                  # the fitting's local +Y, once placed
-    seat = tuple(corner[i] + leg1[i] * ELBOW_LEG for i in range(3))
-    return corner, mouth, x_dir, z_dir, seat
-
-
-# --- Bodies ----------------------------------------------------------------
-
-def _authored(segment):
-    """One centreline segment carried from the enclosure frame into this study's."""
-    return {k: authoring_point(v) if k in ('start_mm', 'end_mm', 'midpoint_mm') else
-            authoring_axis(v) if k in ('start_tangent', 'end_tangent') else v
-            for k, v in segment.items()}
-
-
-def lower_links() -> dict:
-    """Each lower return's tube, between its two elbows' socket mouths, as centreline
-    segments in the manifold authoring frame."""
-    return {cid: tuple(_authored(s) for s in pump_plumbing()[name]['return']['tube'])
-            for cid, name in LOWER_CONNECTIONS.items()}
-
-
-def lower_link_length(cid: int) -> float:
-    """A lower return tube's cut stock: its path between the two elbows and the depth each
-    elbow's socket takes."""
-    return pump_plumbing()[LOWER_CONNECTIONS[cid]]['return']['cut_mm']
-
-
-def _junction_at_author_x(x):
-    return min(PUMP_JUNCTIONS, key=lambda name: abs(P[name]["x"] - x))
-
-
-def return_exposed(x: float) -> float:
-    """The lower return tube's free length between its elbows, at the limb on `x`."""
-    return pump_plumbing()[_junction_at_author_x(x)]['return']['exposed_mm']
-
-
-def return_cut(x: float) -> float:
-    """The lower return tube's cut stock at the limb on `x`."""
-    name = _junction_at_author_x(x)
-    return lower_link_length(next(cid for cid, junction in LOWER_CONNECTIONS.items()
-                                  if junction == name))
-
-
-def _fore_segments(a, b):
-    """The upper tube from a tee's run collet at `a` into its fore valve at `b`, both in this
-    study's frame: carried into the enclosure frame, bent by `fixed_returns.s_bend`, and
-    carried back."""
-    return tuple(_authored(s) for s in _returns.s_bend(enclosure_point(a), enclosure_point(b)))
-
-
-def fore_stub_length(a, b, radius: float = MIN_BEND) -> float:
-    return sum(s["length_mm"] for s in _fore_segments(a, b))
-
-
-# --- The lines -------------------------------------------------------------
-#
-# Every connection `fluid-topology.md` names between the bodies in this study, and how it is
-# made. A BUTT is two collet faces meeting: there is tube in both quick-connects and none
-# between them, so the study draws no solid for it. Other connections use their stated paths.
-
-def stub_tip(name: str) -> tuple:
-    start = barb_station(name)
-    return (start[0], start[1], start[2] + PUMP_STUB_PROJECTION)
-
-
-def factory_tail_runs() -> dict:
-    """The pump tubes end in their tees; nothing runs on past them."""
-    return {}
-
-
-def factory_tail_length(name: str) -> float:
-    """Compatibility accounting value: no tail past the tee."""
-    return 0.0
-
-
-def runs(carrier_offset: float = CARRIER_SQUEEZE) -> dict:
-    """Fixed external paths; service-state argument is retained for callers."""
-    out = {"crossbar": (branch_port("Y-A")[0], branch_port("Y-B")[0])}
-    out.update({name: (barb_station(name), stub_tip(name)) for name in BARB_OF})
-    out.update({name: (branch_port(name)[0], elbow_pose(*JOINS[name])[1]) for name in JOINS})
-    return out
-
-
-RUNS = runs()
-BARB_TUBE_LEN = PUMP_STUB_PROJECTION
-PUMP_TUBE_PROJECTION = PUMP_STUB_PROJECTION
-
-# Four short tubes from each pump tee's upper collet to the fore valve over it. Their
-# lengths exclude insertion inside both fittings.
-def fore_stubs(carrier_offset: float = CARRIER_SQUEEZE) -> dict:
-    return {
-        "fore-y-c": (port("Y-C", "back", carrier_offset), port("V-E", "front")),
-        "fore-y-d": (port("Y-D", "back", carrier_offset), port("V-F", "front")),
-        "fore-y-f": (port("Y-F", "back", carrier_offset), port("V-H", "front")),
-        "fore-y-g": (port("Y-G", "back", carrier_offset), port("V-I", "front")),
-    }
-
-
-FORE_STUBS = fore_stubs()
-FORE_STUB_EXPOSED = fore_stub_length(*next(iter(FORE_STUBS.values())))
-
-
-def turns_meet() -> list:
-    """Each quarter turn's far end against the collet it is supposed to land on.
-
-    A turn is only a connection if the body that came round with it came round BY THE SAME
-    ROTATION. Moving a fitting to the bent position without turning it leaves the leg on the
-    turn's own axis landing correctly and the other one pointing where it started, which reads
-    as connected from every direction but the one that matters."""
-    lands = {3: port("V-A", "back"), 5: port("V-B", "back")}
-    out = []
-    for cid, (x, z0) in sorted(QUARTERS.items()):
-        end = (x, BEND_Y + BEND_R - INNER_LIMB_DROP + AFT_PACK_RISE, z0 + BEND_R + AFT_DECK_AFT_SHIFT)
-        if cid in SBENDS:                                  # the step carries on from the quarter
-            dx, dy = source_cross(SBENDS[cid])
-            end = (end[0] + dx, end[1] + dy, end[2] + SOURCE_TRAVEL)
-        out.append((cid, dist(end, lands[cid])))
-    return out
-
-SEGMENTS = [
-    (3, "V-A-O", "Y-A-1", "turn"), (5, "V-B-O", "Y-B-1", "turn"),
-    (6, "Y-A-3", "Y-B-3", "crossbar"),
-    (7, "Y-A-2", "V-C-I", "butt"), (8, "Y-B-2", "V-D-I", "butt"),
-    (9, "V-C-O", "Y-C-1", "spine"), (10, "V-E-O", "Y-C-2", "fore-y-c"),
-    (11, "Y-C-3", "P-A-I", "Y-C"), (12, "P-A-O", "Y-D-1", "Y-D"),
-    (13, "Y-D-2", "V-F-I", "fore-y-d"), (17, "Y-D-3", "V-G-I", "spine"),
-    (19, "V-D-O", "Y-F-1", "spine"), (20, "V-H-O", "Y-F-2", "fore-y-f"),
-    (21, "Y-F-3", "P-B-I", "Y-F"), (22, "P-B-O", "Y-G-1", "Y-G"),
-    (23, "Y-G-3", "V-I-I", "fore-y-g"), (27, "Y-G-2", "V-J-I", "spine"),
-]
-
-# Where each quarter turn stands: the column its fixed collet is on, and which deck.
-QUARTERS = {3: (-INNER_X, UPPER_Z), 5: (INNER_X, UPPER_Z)}
-QUARTER_LEN = math.pi * BEND_R / 2.0
-# The two that carry a step as well, off the far end of their own quarter — and the valve each
-# one of those steps takes round with it, which is whose `SOURCE_SPREAD` the step is drawn to.
-SBENDS = {3: "V-A", 5: "V-B"}
-
-# The step's own room, on the card. `SOURCE_TRAVEL` is the step's longitudinal allowance and
-# `SOURCE_JOG` sets the floor it has to clear, so this reads the two against each other on both
-# channels at once. `enclosure_assembly.PACK_Y` seats the complete arrangement outside this
-# construction, and `BARB_STANDOFF` fixes its pump-to-deck spacing. A run that falls under the
-# floor grows a hairpin, `2πR` and a chord of tube spent going backward, and a step whose arcs
-# meet at a point; the margin is what says neither is happening.
-_bounds.state(
-    "source-step-room", "Both source runs step on two arcs alone",
-    f"the travel over the two-arc floor by {SOURCE_SLACK:g} mm on each channel",
-    hairpins_drawn() == 0,
-    "; ".join(
-        f"{v} steps {math.hypot(*source_cross(v)):.2f} across, whose floor is "
-        f"{two_arc_floor(MIN_BEND, math.hypot(*source_cross(v))):.2f} — "
-        f"{SOURCE_TRAVEL - two_arc_floor(MIN_BEND, math.hypot(*source_cross(v))):+.2f} mm of "
-        f"travel against the {SOURCE_SLACK:g} the step holds"
-        for v in SBENDS.values())
-    + ". `SOURCE_JOG` is the lever: the floor climbs with the cross, and the travel is the "
-      "pack's to give, not this run's.")
-
-# Each lower connection is a lower return: a stem elbow in a pump tee's lower collet, one
-# continuous tube, and a stem elbow in its rear valve's bottom collet.
-LOWER_CONNECTIONS = {9: "Y-C", 17: "Y-D", 19: "Y-F", 27: "Y-G"}
-# Compatibility station lookup for topology/accounting callers.
-SPINE = {cid: LIMBS[P[frm.rsplit("-", 1)[0]]["limb"]]["x"]
-         for cid, frm, _to, how in SEGMENTS if how == "spine"}
-
-# The eight mouths that leave this study. Each is drawn one `STUB` along its own axis, which is
-# the straight its first corner needs before it can turn at all.
-MOUTHS = [(cid, p, what, port(body, end), port_axis(body, end)) for cid, p, what, body, end in (
-    ("fluid-2", "V-A-I", "tap water in", "V-A", "front"),
-    ("fluid-4", "V-B-I", "funnel in", "V-B", "front"),
-    ("fluid-18", "V-G-O", "flavor A", "V-G", "front"),
-    ("fluid-28", "V-J-O", "flavor B", "V-J", "front"),
-    ("fluid-14", "V-F-O", "reservoir A fill", "V-F", "back"),
-    ("fluid-16", "V-E-I", "reservoir A draw", "V-E", "back"),
-    ("fluid-24", "V-I-O", "reservoir B fill", "V-I", "back"),
-    ("fluid-26", "V-H-I", "reservoir B draw", "V-H", "back"),
-)]
-
-
-def _sum(a, b):
-    return tuple(x + y for x, y in zip(a, b))
-
-
-def _matrix(origin, x_dir=(1., 0., 0.), z_dir=(0., 0., 1.), carry=None):
-    """The same orthogonal frame as `place`, optionally carried to another frame."""
-    y_dir = _cross(z_dir, x_dir)
-    if carry is not None:
-        p = carry(origin)
-        x_dir = tuple(a-b for a,b in zip(carry(_sum(origin, x_dir)), p))
-        y_dir = tuple(a-b for a,b in zip(carry(_sum(origin, y_dir)), p))
-        z_dir = tuple(a-b for a,b in zip(carry(_sum(origin, z_dir)), p))
-        origin = p
-    return [[x_dir[k], y_dir[k], z_dir[k], origin[k]] for k in range(3)]
-
-
-def _source_segments(name, start, travel):
-    """The source run's authored arcs and lines, without constructing a native wire."""
-    off, cross = source_offset(name), step_cross(name)
-    jog = math.hypot(*cross)
-    back = hairpin_back(BEND_R, travel, jog)
-    lanes = [(off, hairpin_flat(BEND_R, math.hypot(*off), back))] if back > 1e-9 else []
-    lanes.append((cross, sbend_flat(BEND_R, travel+back, jog)))
-    origin, out = start, []
-    for axis, legs in lanes:
-        length = math.hypot(*axis)
-        direction = (axis[0]/length, axis[1]/length, 0.)
-        def point(p):
-            return _sum(_sum(origin, tuple(v*p[0] for v in direction)), (0., 0., p[1]))
-        for leg in legs:
-            out.append({'kind': leg[0], 'points': [point(p) for p in leg[1:]]})
-        origin = out[-1]['points'][-1]
-    return out
-
-
-def numbers(*, prepare_sources=True):
-    """Fine reference parts, installed frames and authored tube centrelines for Rust.
-
-    A metadata reader can omit preparing the referenced geometry files.
-    """
-    import _rust_part
-    from _materials import linear, M_NEOFIT_WHITE_ACETAL
-    import neofit_stem_elbow as stem_elbow
-    from _payload_rules import LINEAR_DEFLECTION_RATIO
-
-    sources = {key: _rust_part.step(path) for key, path in {
-        'valve': _hw/'reference/beduan-solenoid/beduan-solenoid.step',
-        'tee': TEE_STEP, 'elbow': ELBOW_STEP, 'pump': KAMOER_STEP,
-        'stem': _hw/'reference/neofit-stem-elbow/neofit-stem-elbow.step',
-    }.items()} if prepare_sources else {}
-    bodies, stems = [], []
-
-    def ref(name, source, groups, matrix, color, **extra):
-        bodies.append({'name': name, 'kind': 'reference', 'source': source,
-                       'groups': groups, 'transform': matrix, 'color': linear(color), **extra})
-
-    def tube(name, segments, normal, color, inside=None):
-        bodies.append({'name': name, 'kind': 'tube', 'segments': segments,
-                       'normal': normal, 'od': TUBE_D, 'id': inside, 'color': linear(color)})
-
-    for name, b in P.items():
-        if name in PUMP_JUNCTIONS:
-            continue
-        def carry(p):
-            if b['fold']:
-                p = fold_pt(p)
-            if name in BENT:
-                p = bend_pt(p, BENT[name])
-            if name in SHIFT:
-                p = _sum(p, SHIFT[name])
-            return _sum(p, (0., 0., fixed_aft_shift(name)))
-        if name.startswith('V-'):
-            frame = _matrix((b['x'], b['y'], DECK_Z-VALVE_PORT_Z), *valve_dirs(b['arg']), carry)
-            ref('valve-'+name.lower(), 'valve', [{'names': ['body','collets'], 'union': True}], frame, C_VALVE)
-            ref('coil-'+name.lower(), 'valve', [{'names': ['winding','yoke','screw-heads'], 'union': True},
-                                               {'names': ['terminals']}], frame, C_COIL)
-        else:
-            ref('tee-'+name.lower(), 'tee', [{}],
-                _matrix((b['x'], b['y'], DECK_Z), *tee_dirs(b['arg']), carry), C_TEE)
-    for _tee, (gate, side) in JOINS.items():
-        corner, _mouth, x_dir, z_dir, _seat = elbow_pose(gate, side)
-        ref('elbow-'+gate.lower()+'-i', 'elbow', [{}], _matrix(corner,x_dir,z_dir), C_TEE)
-    for pname, px in PUMPS.items():
-        at = (px+kp.cx, -BARB_INSET+PUMP_Y-kp.head_front_z, PUMP_BARB_Z-kp.body_y_face)
-        frame = [[-1.,0.,0.,at[0]],[0.,0.,1.,at[1]],[0.,1.,0.,at[2]]]
-        for suffix, part, color in (('head','head',C_HEAD),('boss','rotor_housing',C_BOSS),('motor','motor_body',C_MOTOR)):
-            ref(pname+'-'+suffix, 'pump', [{'names':[part]}], frame, color)
-    state_runs, state_stubs = runs(), fore_stubs()
-    for cid, _f, _t, how in SEGMENTS:
-        color = _routing.tube_color('fluid-'+str(cid))
-        if how in state_runs and dist(*state_runs[how]) > 1e-9:
-            a,b = state_runs[how]
-            tube('tube-fluid-'+str(cid), [{'kind':'line','points':[a,b]}],
-                 tuple(y-x for x,y in zip(a,b)), color)
-        elif how in state_stubs:
-            segments = _fore_segments(*state_stubs[how])
-            tube('tube-fluid-'+str(cid), [_segment_numbers(s) for s in segments],
-                 segments[0]['start_tangent'], color, _returns.TUBE_ID)
-    for cid, segments in lower_links().items():
-        tube('tube-fluid-'+str(cid), [_segment_numbers(s) for s in segments],
-             segments[0]['start_tangent'], _routing.tube_color('fluid-'+str(cid)), _returns.TUBE_ID)
-    fore = pump_wall_fore_y()
-    for name in sorted(PUMP_JUNCTIONS):
-        x,_y,z = enclosure_point(barb_station(name))
-        frame = _matrix((x,_returns.tee_axis_y(fore),z),(-1.,0.,0.),(0.,0.,1.),authoring_point)
-        ref(body_name(name),'tee',[{}],frame,C_TEE)
-        for host,row in ((name,pump_plumbing()[name]['return']['elbows'][0]),
-                         (PUMP_VALVES[name][1],pump_plumbing()[name]['return']['elbows'][1])):
-            ux,uy,_uz = row['socket']
-            frame = _matrix(row['crossing'],(0.,0.,-1.),(uy,-ux,0.),authoring_point)
-            keep = stem_elbow.HUB_BACK_REACH+row['stem']
-            cut = {'origin':[-keep-40.,-20.,-20.],'size':[40.,40.,40.]}
-            label = 'stem-elbow-'+host.lower()
-            ref(label,'stem',[{'names':['body_and_stem'],'cut_box':cut},{'names':['release_collet']}],frame,M_NEOFIT_WHITE_ACETAL)
-            profile = stem_elbow.PARAMETERS['profiles']['stem_x']
-            radius = stem_elbow.STEM_OD/2.
-            straight = [p for p,r in profile if abs(r-radius)<1e-6]
-            tip = min(straight)-profile[0][0]
-            root_end = max(p for p,r in profile if p<0 and r>radius)
-            root_allowance = root_end-max(straight)
-            root_radius = max(r for p,r in profile if p<=root_end)
-            lo,hi = max(-keep,min(straight)),max(straight)
-            stems.append({'elbow':label,'host':body_name(host),'transform':frame,
-                          'stem':[lo-tip-.01,hi+tip+.01,radius+.01],
-                          'root':[hi-.01,hi+root_allowance+.01,root_radius+.01]})
-    for cid,(x,z0) in QUARTERS.items():
-        shift = (0.,-INNER_LIMB_DROP+AFT_PACK_RISE,AFT_DECK_AFT_SHIFT)
-        r,k = BEND_R,BEND_R*math.sqrt(.5)
-        points = [_sum(p,shift) for p in ((x,BEND_Y,z0),(x,BEND_Y+k,z0+r-k),(x,BEND_Y+r,z0+r))]
-        tube('turn-fluid-'+str(cid),[{'kind':'arc','points':points}],(0.,1.,0.),_routing.tube_color('fluid-'+str(cid)))
-    for cid,name in SBENDS.items():
-        x,z0 = QUARTERS[cid]
-        start = (x,BEND_Y+BEND_R-INNER_LIMB_DROP+AFT_PACK_RISE,z0+BEND_R+AFT_DECK_AFT_SHIFT)
-        tube('step-fluid-'+str(cid),_source_segments(name,start,SOURCE_TRAVEL),(0.,0.,1.),_routing.tube_color('fluid-'+str(cid)))
-    for cid,_p,_what,p,axis in MOUTHS:
-        tube('stub-'+cid,[{'kind':'line','points':[p,_sum(p,tuple(v*STUB for v in axis))]}],axis,_routing.tube_color(cid))
-    return {'name':'manifold-layout','sources':sources,'bodies':bodies,'stems':stems,'clash_floor':1.0,
-            'presentation_ratio':LINEAR_DEFLECTION_RATIO}
-
-
-def _segment_numbers(segment):
-    return {'kind':segment['kind'], 'points':([segment['start_mm'],segment['midpoint_mm'],segment['end_mm']]
-            if segment['kind']=='arc' else [segment['start_mm'],segment['end_mm']])}
-
-
-# --- Controls --------------------------------------------------------------
+from _machine_data import Module as _RustModule, Surface as _RustSurface
+_compiled = _RustModule('manifold_layout')
 
 class Extents(NamedTuple):
-    """A box in world coordinates. Read as a clash it is the answer: the smallest side is how
-    far a body has to go to be out, and the axis it lies on is which way. A volume is neither
-    — 3 mm³ is a 30 x 1 x 0.1 graze along a face or a 1.4 mm cube driven through a wall, and
-    those two want opposite corrections."""
-
     xmin: float
     ymin: float
     zmin: float
     xmax: float
     ymax: float
     zmax: float
-
     @property
-    def xlen(self):
-        return self.xmax-self.xmin
-
+    def xlen(*args, **kwargs):
+        return _compiled.call('Extents.xlen', *args, **kwargs)
     @property
-    def ylen(self):
-        return self.ymax-self.ymin
-
+    def ylen(*args, **kwargs):
+        return _compiled.call('Extents.ylen', *args, **kwargs)
     @property
-    def zlen(self):
-        return self.zmax-self.zmin
-
+    def zlen(*args, **kwargs):
+        return _compiled.call('Extents.zlen', *args, **kwargs)
     @property
-    def escape(self) -> tuple:
-        """`(axis, mm)` — the shortest translation that ends the overlap. Two convex bodies
-        moved that far along that axis are exactly clear of each other; for the rest it is the
-        first move to try, not a promise."""
-        d = (self.xmax - self.xmin, self.ymax - self.ymin, self.zmax - self.zmin)
-        i = min(range(3), key=lambda k: d[k])
-        return "xyz"[i], d[i]
-
-    def __str__(self) -> str:
-        return (f"x[{self.xmin:8.2f},{self.xmax:8.2f}] y[{self.ymin:8.2f},{self.ymax:8.2f}] "
-                f"z[{self.zmin:8.2f},{self.zmax:8.2f}]")
-
+    def escape(*args, **kwargs):
+        return _compiled.call('Extents.escape', *args, **kwargs)
+    def __str__(*args, **kwargs):
+        return _compiled.call('Extents.__str__', *args, **kwargs)
 
 class Clash(NamedTuple):
     a: str
@@ -1063,252 +40,201 @@ class Clash(NamedTuple):
     volume: float
     where: Extents
 
+def valve_dirs(*args, **kwargs):
+    return _compiled.call('valve_dirs', *args, **kwargs)
 
-# Channel A's body and channel B's. A mirrored pack puts each pair at ±x on one y and one z;
-# `mirror_off` is how far it misses by.
-#
-# EVERY BODY IS IN A PAIR. Both reservoirs are reached the same way — each one's fill and draw
-# gates land on its own two mouths — so the two channels hold the same bodies in the same
-# order, and the table covers `P` with nothing left over.
-TWINS = [("V-A", "V-B"), ("V-C", "V-D"), ("V-E", "V-H"), ("V-F", "V-I"), ("V-G", "V-J"),
-         ("Y-A", "Y-B"), ("Y-C", "Y-F"), ("Y-D", "Y-G")]
+def tee_dirs(*args, **kwargs):
+    return _compiled.call('tee_dirs', *args, **kwargs)
 
+def barb_station(*args, **kwargs):
+    return _compiled.call('barb_station', *args, **kwargs)
 
-def mirror_off() -> list:
-    """Per twinned pair, how far the arrangement is from mirror-symmetric about x = 0: the two
-    x's that should sum to zero, and the y they should share."""
-    out = []
-    for a, b in TWINS:
-        out.append((a, b, abs(P[a]["x"] + P[b]["x"]), abs(P[a]["y"] - P[b]["y"])))
-    out.append(("pump-a", "pump-b", abs(PUMPS["pump-a"] + PUMPS["pump-b"]), 0.0))
-    return out
+def body_name(*args, **kwargs):
+    return _compiled.call('body_name', *args, **kwargs)
 
+def _half(*args, **kwargs):
+    return _compiled.call('_half', *args, **kwargs)
 
-def dist(a, b) -> float:
-    return sum((a[i] - b[i]) ** 2 for i in range(3)) ** 0.5
+def lay_out(*args, **kwargs):
+    return _compiled.call('lay_out', *args, **kwargs)
 
+def fold_pt(*args, **kwargs):
+    return _compiled.call('fold_pt', *args, **kwargs)
 
-def skew_deg(a, b, axis) -> float:
-    import math
-    v = [b[i] - a[i] for i in range(3)]
-    m = sum(c * c for c in v) ** 0.5
-    dot = sum(v[i] * axis[i] for i in range(3)) / m
-    return math.degrees(math.acos(max(-1.0, min(1.0, dot))))
+def fold_dir(*args, **kwargs):
+    return _compiled.call('fold_dir', *args, **kwargs)
 
+def two_arc_floor(*args, **kwargs):
+    return _compiled.call('two_arc_floor', *args, **kwargs)
 
-def report(assy, measurements) -> dict:
-    """Report the Rust manifold measurements and the scalar routing figures."""
-    bb, reach = Extents(*measurements['bb']), Extents(*measurements['reach'])
-    print("\nlimbs (front → back, y at each body's centre)")
-    for limb, spec in LIMBS.items():
-        row = "  ".join(f"{n}@{P[n]['y']:+.1f}" for n, _ in spec["chain"])
-        print(f"  {limb}  x{LIMBS[limb]['x']:+7.2f}   {row}")
+def sbend_solve(*args, **kwargs):
+    return _compiled.call('sbend_solve', *args, **kwargs)
 
-    made = {k: dist(*v) for k, v in RUNS.items()}
-    made.update({k: FORE_STUB_EXPOSED for k in FORE_STUBS})
-    print(f"\n{len(SEGMENTS)} connections")
-    for cid, frm, to, how in SEGMENTS:
-        if how == "spine":
-            line = pump_plumbing()[LOWER_CONNECTIONS[cid]]['return']
-            note = (f"{line['exposed_mm']:.3f} mm free tube between two stem elbows, "
-                    f"{line['elbows'][1]['showing']:.3f} mm of stem below the valve")
-        elif how == "turn":
-            note = f"{QUARTER_LEN:.2f} mm — one 90° turn at R{BEND_R:g}"
-            if cid in SBENDS:
-                th, s, length = source_step(SBENDS[cid])
-                v = SBENDS[cid]
-                back = hairpin_back(MIN_BEND, SOURCE_TRAVEL, math.hypot(*step_cross(v)))
-                lead = (f"a hairpin {back:.2f} back and {math.hypot(*source_offset(v)):.2f} "
-                        f"out, then " if back > 1e-9 else "")
-                note = (f"{QUARTER_LEN + length:.2f} mm — one 90° turn at R{BEND_R:g}, then "
-                        f"{lead}two of {math.degrees(th):.3f}° with {s:.2f} mm "
-                        f"between: {SOURCE_TRAVEL:g} along and "
-                        f"{math.hypot(*source_cross(v)):.2f} across")
-        elif how in FORE_STUBS:
-            note = f"{FORE_STUB_EXPOSED:.3f} mm upper tube, straight"
-        else:
-            length = made.get(how, 0.0)
-            note = ("butt — 0 mm outside the collets" if length < 1e-9
-                    else f"{length:.2f} mm straight"
-                         + (" + one 90° elbow" if how in JOINS else ""))
-            if cid in QUARTERS:
-                note += f" + one 90° turn at R{BEND_R:g} ({QUARTER_LEN:.2f} mm)"
-        print(f"  fluid-{cid:<3} {frm:>7} → {to:<7}  {note}")
-    print(f"\n{len(MOUTHS)} mouths leave the study")
-    for cid, p, what, (x, y, z), axis in MOUTHS:
-        way = {(0.0, -1.0, 0.0): "front", (0.0, 1.0, 0.0): "back",
-               (0.0, 0.0, 1.0): "up", (0.0, 0.0, -1.0): "down"}.get(
-                   tuple(round(c, 6) + 0.0 for c in axis), str(axis))
-        print(f"  {cid:<9} {p:>7}  ({x:7.2f}, {y:7.2f}, {z:6.2f})  {way:>5}  {what}")
+def source_offset(*args, **kwargs):
+    return _compiled.call('source_offset', *args, **kwargs)
 
-    print(f"\nenvelope  X {bb.xlen:7.2f}   Y {bb.ylen:7.2f}   Z {bb.zlen:7.2f}    "
-          f"({bb.xlen * bb.ylen * bb.zlen / 1e6:.2f} L)   bodies and the tube between them")
-    print(f"          x[{bb.xmin:7.2f}, {bb.xmax:7.2f}]  y[{bb.ymin:7.2f}, {bb.ymax:7.2f}]  "
-          f"z[{bb.zmin:7.2f}, {bb.zmax:7.2f}]")
-    print(f"          X {reach.xlen:7.2f}   Y {reach.ylen:7.2f}   Z {reach.zlen:7.2f}    "
-          f"({reach.xlen * reach.ylen * reach.zlen / 1e6:.2f} L)   with one {STUB:g} mm mouth "
-          f"stub on each of the {len(MOUTHS)}")
-    print(f"deck at z {DECK_Z:.2f}, {DECK_Z - VALVE_PORT_Z - PUMP_BARB_Z:.2f} mm over the pump heads; "
-          f"each mm of BARB_LEAD lifts it one")
-    print(f"LIMB_PITCH {LIMB_PITCH:g} of a {BARB_PITCH:g} barb pitch — each tee stands "
-          f"{LIMB_STEP:.2f} mm off its barb's column on a {BARB_LEAD:.2f} mm lead, which is the "
-          f"climb {FLAVOR_SKEW:g}° of skew asks for. HSM_LIMB_PITCH= builds another.")
-    print(f"crossbar {CROSSBAR:.2f} mm exposed; the two reservoir crossings enter their collets "
-          + ", ".join(f"{skew_deg(*RUNS[t], branch_port(t)[1]):.1f}°" for t in JOINS)
-          + " off axis")
-    print(f"upper tubes: {len(FORE_STUBS)}, {FORE_STUB_EXPOSED:g} mm exposed, each straight")
-    f, u = FOLD_BINDS
-    print(f"fold: hinge at y {HINGE_Y:.2f} z {HINGE_Z:.2f}, decks at z {DECK_Z:.2f} and "
-          f"{UPPER_Z:.2f} — {DECK_SEP:g} apart, which {f} standing over {u} sets")
-    print(f"lower links: {len(SPINE)} lower returns, each a stem elbow in its pump tee's lower "
-          f"port, one continuous tube and a stem elbow in its rear valve; {return_cut(INNER_X):.3f} mm "
-          f"inner and {return_cut(OUTER_X):.3f} mm outer nominal tube stock including insertion")
-    steps = [(v, *source_step(v)) for v in SBENDS.values()]
-    hairpins = hairpins_drawn()
-    print(f"step: {len(SBENDS)} two-arc steps at R{BEND_R:g}, each {SOURCE_TRAVEL:g} along the "
-          f"run and {abs(source_cross('V-B')[1]):g} across it toward the crown, {hairpins} behind a hairpin — "
-          + "; ".join(f"{v} {math.degrees(th):.3f}° each side of {s:.2f} mm, {ln:.2f} mm of tube"
-                      + (f", spread {SOURCE_SPREAD[v]:g} outboard" if SOURCE_SPREAD[v] else "")
-                      for v, th, s, ln in steps))
-    print(f"turns: {len(QUARTERS)} quarters at R{BEND_R:g}, {QUARTER_LEN:.2f} mm each — "
-          f"all on the plane y {BEND_Y - INNER_LIMB_DROP + AFT_PACK_RISE:.2f}, {sum(1 for _c, (_x, z) in QUARTERS.items() if z == DECK_Z)} "
-          f"on the lower deck and {sum(1 for _c, (_x, z) in QUARTERS.items() if z != DECK_Z)} on the folded one")
-    print(f"source tube corners: {len(QUARTERS) + 2 * len(SBENDS) + 2 * hairpins}, at R{BEND_R:g}; "
-          f"the recorded stock basis is {STOCK.source}. "
-          "Pump-junction links use their documented straight or formed paths.")
+def step_cross(*args, **kwargs):
+    return _compiled.call('step_cross', *args, **kwargs)
 
-    meets = turns_meet()
-    worst_turn = max(d for _c, d in meets)
-    print(f"\nturns meet their collets: {len(meets)} checked, worst {worst_turn:.4f} mm apart")
-    for cid, d in meets:
-        if d > 1e-6:
-            print(f"  fluid-{cid} lands {d:.3f} mm off the collet it turns onto")
+def hairpin_back(*args, **kwargs):
+    return _compiled.call('hairpin_back', *args, **kwargs)
 
-    off = mirror_off()
-    worst = max(max(dx, dy) for _a, _b, dx, dy in off)
-    print(f"\nmirror about x=0: {len(off)} twinned pairs, worst off by {worst:.4f} mm")
-    for a, b, dx, dy in off:
-        if max(dx, dy) > 1e-6:
-            print(f"  {a} / {b}   x sums to {dx:.4f}, y differs by {dy:.4f}")
+def source_valve_shift(*args, **kwargs):
+    return _compiled.call('source_valve_shift', *args, **kwargs)
 
-    bad, unanswered = ([Clash(c['a'],c['b'],c['volume'],Extents(*c['where'])) for c in measurements['hits']],
-                       measurements['unanswered'])
-    # A lower return's stem elbow shares its stem with the fitting it is bottomed in, and only what
-    # lies outside the stem is an interference (`dock_structure.stem_overlap`).
-    stems = {frozenset((r['a'],r['b'])):(r['inside'],r['outside'])
-             for r in measurements['stems']}
-    bad = [c for c in bad if stems.get(frozenset((c.a, c.b)), (0.0, 1.0))[1] > 1.0]
-    if stems:
-        print(f"\nstem elbows in their collets: {len(stems)}, worst "
-              f"{max(out for _in, out in stems.values()):.6f} mm³ outside the stem")
-    print(f"\nclash check: {len(bad)} pair(s) sharing volume, "
-          f"{len(unanswered)} the boolean would not answer for")
-    for c in bad:
-        axis, d = c.where.escape
-        print(f"  {c.a} ∩ {c.b}\n      {c.where}   {c.volume:.1f} mm³, "
-              f"{d:.2f} on {axis} clears it")
-    for ni, nj, why in unanswered:
-        print(f"  {ni} ? {nj}   {why}")
-    return dict(bb=bb, reach=reach, bad=bad + unanswered, made=made, mirror=off)
+def source_cross(*args, **kwargs):
+    return _compiled.call('source_cross', *args, **kwargs)
 
+def source_step(*args, **kwargs):
+    return _compiled.call('source_step', *args, **kwargs)
 
-def _write_readme(r):
-    bb, reach = r["bb"], r["reach"]
-    pump_tee_tube_count = len(FORE_STUBS) + len(LOWER_CONNECTIONS)
-    swallowed_lldpe_count = sum(
-        how == "butt" or (how == "crossbar" and dist(*RUNS[how]) < 1e-9)
-        for _cid, _frm, _to, how in SEGMENTS)
-    # The pump tubes are cut too, and come fitted in the prepared pumps.
-    lldpe_cut_count = (pump_tee_tube_count + len(QUARTERS) + len(JOINS) + swallowed_lldpe_count
-                       + len(BARB_OF))
-    substitute_md(
-        _here.parent / "README.md",
-        variables={
-            "ENV_X": f"{bb.xlen:.0f}", "ENV_Y": f"{bb.ylen:.0f}", "ENV_Z": f"{bb.zlen:.0f}",
-            "ENV_L": f"{bb.xlen * bb.ylen * bb.zlen / 1e6:.2f}",
-            "REACH_X": f"{reach.xlen:.0f}", "REACH_Y": f"{reach.ylen:.0f}",
-            "REACH_Z": f"{reach.zlen:.0f}", "STUB_LEN": f"{STUB:g}",
-            "DECK_Z": f"{DECK_Z:.2f}", "DECK_Z2": f"{DECK_Z:.2f}",
-            "UPPER_Z": f"{UPPER_Z:.2f}", "UPPER_Z2": f"{UPPER_Z:.2f}",
-            "RETURN_ELBOW_COUNT": str(2 * len(LOWER_CONNECTIONS)),
-            "RETURN_EXPOSED": f"{return_exposed(INNER_X):.2f}",
-            "RETURN_CUT": f"{return_cut(INNER_X):.2f}",
-            "OUTER_AFT_INSET": f"{OUTER_AFT_INSET:g}",
-            "OUTER_RETURN_EXPOSED": f"{return_exposed(OUTER_X):.2f}",
-            "OUTER_RETURN_CUT": f"{return_cut(OUTER_X):.2f}",
-            "RETURN_DROP": f"{_returns.ELBOW_DROP:.3g}",
-            "RETURN_SHOWING": f"{pump_plumbing()[_junction_at_author_x(INNER_X)]['return']['elbows'][1]['showing']:.3g}",
-            "DECK_SEP": f"{DECK_SEP:g}",
-            "SPINE_COUNT": str(len(SPINE)), "MIN_BEND2": f"{MIN_BEND:g}",
-            "QUARTER_R": f"{BEND_R:g}", "QUARTER_LEN": f"{QUARTER_LEN:.2f}",
-            "QUARTER_COUNT": str(len(QUARTERS)), "QUARTER_COUNT2": str(len(QUARTERS)),
-            "QUARTER_COUNT4": str(len(QUARTERS)), "MOUTH_COUNT2": str(len(MOUTHS)),
-            "BEND_Y": f"{BEND_Y - INNER_LIMB_DROP + AFT_PACK_RISE:.2f}",
-            "CORNER_COUNT": str(len(QUARTERS) + 2 * len(SBENDS)
-                                + 2 * hairpins_drawn()),
-            "STEP_ANGLE": f"{math.degrees(source_step('V-B')[0]):.3f}",
-            "STEP_STRAIGHT": f"{source_step('V-B')[1]:.2f}",
-            "STEP_LEN": f"{source_step('V-B')[2]:.2f}",
-            "STEP_TRAVEL": f"{SOURCE_TRAVEL:g}", "STEP_JOG": f"{abs(source_cross('V-B')[1]):g}",
-            "STEP_TRAVEL2": f"{SOURCE_TRAVEL:g}", "STEP_TRAVEL3": f"{SOURCE_TRAVEL:g}",
-            "STEP_JOG2": f"{abs(source_cross('V-B')[1]):g}",
-            "STEP_FLOOR": f"{two_arc_floor(MIN_BEND, abs(source_cross('V-B')[1])):.2f}",
-            "HAIRPIN_COUNT": str(hairpins_drawn()),
-            "BARB_STANDOFF": f"{BARB_STANDOFF:g}",
-            "BARB_TUBE_LEN": f"{BARB_TUBE_LEN:.2f}",
-            "BARB_PLATE_BERTH": f"{BARB_PLATE_BERTH:g}",
-            "FORE_STUB_GAP": f"{FORE_STUB_GAP:g}",
-            "FORE_STUB_EXPOSED": f"{FORE_STUB_EXPOSED:g}",
-            "FORE_STUB_COUNT": str(len(FORE_STUBS)),
-            "PUMP_STATION_LEAD": f"{_enc_if.pump_station_lead:g}",
-            "PUMP_DROP": f"{_enc_if.pump_station_drop:g}",
-            "STEP_SPREAD": f"{SOURCE_SPREAD['V-A']:g}",
-            "STEP_CROSS_A": f"{math.hypot(*source_cross('V-A')):.2f}",
-            "STEP_ANGLE_A": f"{math.degrees(source_step('V-A')[0]):.3f}",
-            "STEP_STRAIGHT_A": f"{source_step('V-A')[1]:.2f}",
-            "STEP_LEN_A": f"{source_step('V-A')[2]:.2f}",
-            "DECK_GAP": f"{DECK_Z - VALVE_PORT_Z - PUMP_BARB_Z:.2f}",
-            "CROSSBAR": f"{CROSSBAR:.2f}",
-            "TEE_COUNT": str(len(PURCHASED_TEES)),
-            "TEE_COUNT2": str(len(PURCHASED_TEES)),
-            "TUBE_COUNT2": str(lldpe_cut_count),
-            "TWIN_COUNT": str(len(r["mirror"])),
-            "MIRROR_OFF": f"{max(max(dx, dy) for _a, _b, dx, dy in r['mirror']):.4f}",
-            "SEGMENT_COUNT": str(len(SEGMENTS)),
-            # A butt is a lane segment whose drawn length is zero. The fold and quarter-turn
-            # constructions carry their lengths outside ``made`` and are not butts.
-            "BUTT_COUNT": str(sum(1 for s in SEGMENTS
-                                  if s[3] not in ("spine", "turn")
-                                  and r["made"].get(s[3], 0.0) < 1e-9)),
-            "TUBE_COUNT": str(lldpe_cut_count),
-            "PUMP_TEE_TUBE_COUNT": str(pump_tee_tube_count),
-            "STRAIGHT_COUNT": str(sum(1 for s in SEGMENTS if s[3] in RUNS
-                                      and r["made"].get(s[3], 0.0) >= 1e-9)),
-            "MOUTH_COUNT": str(len(MOUTHS)),
-            "MIN_BEND": f"{MIN_BEND:g}",
-            "BARB_PITCH": f"{BARB_PITCH:g}", "BARB_PITCH2": f"{BARB_PITCH:g}",
-            "BARB_INSET": f"{BARB_INSET:g}",
-            "VALVE_PITCH": f"{VALVE_PITCH:g}", "VALVE_PORT_Z": f"{VALVE_PORT_Z:g}",
-            "VALVE_LEN": f"{VALVE_LEN:g}",
-            "TEE_RUN": f"{TEE_RUN:g}", "TEE_SPAN": f"{2 * TEE_RUN:g}",
-            "DIVIDER_PITCH": f"{2 * ydiv.OUTLET_Y:g}",
-            "LIMB_OUT_XW": f"{-OUTER_X:.2f}", "LIMB_IN_XW": f"{-INNER_X:.2f}",
-            "LIMB_IN_XE": f"{INNER_X:+.2f}", "LIMB_OUT_XE": f"{OUTER_X:+.2f}",
-            "INNER_GAP": f"{2 * INNER_X - VALVE_PITCH:.2f}",
-            "CLASHES": str(len(r["bad"])),
-        },
-    )
-    print("-> README.md")
+def bend_pt(*args, **kwargs):
+    return _compiled.call('bend_pt', *args, **kwargs)
 
+def bend_dir(*args, **kwargs):
+    return _compiled.call('bend_dir', *args, **kwargs)
 
-def main():
-    import _rust_part
-    said = _rust_part.cut("machine", "manifold-layout", numbers(), _here.parent)
-    print("-> manifold-layout.step")
-    _write_readme(report(None, said["results"][0]["measurements"]))
+def hairpin_flat(*args, **kwargs):
+    return _compiled.call('hairpin_flat', *args, **kwargs)
 
+def hairpins_drawn(*args, **kwargs):
+    return _compiled.call('hairpins_drawn', *args, **kwargs)
 
-if __name__ == "__main__":
-    if sys.argv[1:]:
-        sys.exit("usage: manifold_layout.py")
-    sys.exit(main())
+def sbend_flat(*args, **kwargs):
+    return _compiled.call('sbend_flat', *args, **kwargs)
+
+def fore_deck_aft_shift(*args, **kwargs):
+    return _compiled.call('fore_deck_aft_shift', *args, **kwargs)
+
+def fixed_aft_shift(*args, **kwargs):
+    return _compiled.call('fixed_aft_shift', *args, **kwargs)
+
+def enclosure_point(*args, **kwargs):
+    return _compiled.call('enclosure_point', *args, **kwargs)
+
+def authoring_point(*args, **kwargs):
+    return _compiled.call('authoring_point', *args, **kwargs)
+
+def enclosure_axis(*args, **kwargs):
+    return _compiled.call('enclosure_axis', *args, **kwargs)
+
+def authoring_axis(*args, **kwargs):
+    return _compiled.call('authoring_axis', *args, **kwargs)
+
+def pump_wall_fore_y(*args, **kwargs):
+    return _compiled.call('pump_wall_fore_y', *args, **kwargs)
+
+def pump_plumbing(*args, **kwargs):
+    return _compiled.call('pump_plumbing', *args, **kwargs)
+
+def _tee_ports(*args, **kwargs):
+    return _compiled.call('_tee_ports', *args, **kwargs)
+
+def fixed_tee_centers(*args, **kwargs):
+    return _compiled.call('fixed_tee_centers', *args, **kwargs)
+
+def _posed(*args, **kwargs):
+    return _compiled.call('_posed', *args, **kwargs)
+
+def port(*args, **kwargs):
+    return _compiled.call('port', *args, **kwargs)
+
+def port_axis(*args, **kwargs):
+    return _compiled.call('port_axis', *args, **kwargs)
+
+def branch_port(*args, **kwargs):
+    return _compiled.call('branch_port', *args, **kwargs)
+
+def _cross(*args, **kwargs):
+    return _compiled.call('_cross', *args, **kwargs)
+
+def elbow_pose(*args, **kwargs):
+    return _compiled.call('elbow_pose', *args, **kwargs)
+
+def _authored(*args, **kwargs):
+    return _compiled.call('_authored', *args, **kwargs)
+
+def lower_links(*args, **kwargs):
+    return _compiled.call('lower_links', *args, **kwargs)
+
+def lower_link_length(*args, **kwargs):
+    return _compiled.call('lower_link_length', *args, **kwargs)
+
+def _junction_at_author_x(*args, **kwargs):
+    return _compiled.call('_junction_at_author_x', *args, **kwargs)
+
+def return_exposed(*args, **kwargs):
+    return _compiled.call('return_exposed', *args, **kwargs)
+
+def return_cut(*args, **kwargs):
+    return _compiled.call('return_cut', *args, **kwargs)
+
+def _fore_segments(*args, **kwargs):
+    return _compiled.call('_fore_segments', *args, **kwargs)
+
+def fore_stub_length(*args, **kwargs):
+    return _compiled.call('fore_stub_length', *args, **kwargs)
+
+def stub_tip(*args, **kwargs):
+    return _compiled.call('stub_tip', *args, **kwargs)
+
+def factory_tail_runs(*args, **kwargs):
+    return _compiled.call('factory_tail_runs', *args, **kwargs)
+
+def factory_tail_length(*args, **kwargs):
+    return _compiled.call('factory_tail_length', *args, **kwargs)
+
+def runs(*args, **kwargs):
+    return _compiled.call('runs', *args, **kwargs)
+
+def fore_stubs(*args, **kwargs):
+    return _compiled.call('fore_stubs', *args, **kwargs)
+
+def turns_meet(*args, **kwargs):
+    return _compiled.call('turns_meet', *args, **kwargs)
+
+def _sum(*args, **kwargs):
+    return _compiled.call('_sum', *args, **kwargs)
+
+def _matrix(*args, **kwargs):
+    return _compiled.call('_matrix', *args, **kwargs)
+
+def _source_segments(*args, **kwargs):
+    return _compiled.call('_source_segments', *args, **kwargs)
+
+def numbers(*args, **kwargs):
+    return _compiled.call('numbers', *args, **kwargs)
+
+def _segment_numbers(*args, **kwargs):
+    return _compiled.call('_segment_numbers', *args, **kwargs)
+
+def mirror_off(*args, **kwargs):
+    return _compiled.call('mirror_off', *args, **kwargs)
+
+def dist(*args, **kwargs):
+    return _compiled.call('dist', *args, **kwargs)
+
+def skew_deg(*args, **kwargs):
+    return _compiled.call('skew_deg', *args, **kwargs)
+
+def report(*args, **kwargs):
+    return _compiled.call('report', *args, **kwargs)
+
+def _write_readme(*args, **kwargs):
+    return _compiled.call('_write_readme', *args, **kwargs)
+
+def main(*args, **kwargs):
+    return _compiled.call('main', *args, **kwargs)
+
+def __getattr__(name):
+    return _compiled.get(name)
+
+def __dir__():
+    return _compiled.names()
+
+_rust_functions = frozenset(['valve_dirs', 'tee_dirs', 'barb_station', 'body_name', '_half', 'lay_out', 'fold_pt', 'fold_dir', 'two_arc_floor', 'sbend_solve', 'source_offset', 'step_cross', 'hairpin_back', 'source_valve_shift', 'source_cross', 'source_step', 'bend_pt', 'bend_dir', 'hairpin_flat', 'hairpins_drawn', 'sbend_flat', 'fore_deck_aft_shift', 'fixed_aft_shift', 'enclosure_point', 'authoring_point', 'enclosure_axis', 'authoring_axis', 'pump_wall_fore_y', 'pump_plumbing', '_tee_ports', 'fixed_tee_centers', '_posed', 'port', 'port_axis', 'branch_port', '_cross', 'elbow_pose', '_authored', 'lower_links', 'lower_link_length', '_junction_at_author_x', 'return_exposed', 'return_cut', '_fore_segments', 'fore_stub_length', 'stub_tip', 'factory_tail_runs', 'factory_tail_length', 'runs', 'fore_stubs', 'turns_meet', '_sum', '_matrix', '_source_segments', 'numbers', '_segment_numbers', 'mirror_off', 'dist', 'skew_deg', 'report', '_write_readme', 'main'])
+_rust_exports = frozenset(['annotations', 'math', 'os', 'sys', 'Path', 'NamedTuple', '_here', '_hw', '_repo', '_tools', '_p', '_rust_part', 'substitute_md', 'vlv', 'kp', 'tee', 'ydiv', '_routing', '_bounds', '_enc_if', '_returns', 'ELBOW_STEP', 'TEE_STEP', 'KAMOER_STEP', 'PUMP_TURNS', 'VALVE_LEN', 'VALVE_PITCH', 'VALVE_PORT_Z', 'VALVE_TOP_Z', 'TEE_RUN', 'TEE_BRANCH', 'TUBE_D', 'STOCK', 'MIN_BEND', 'FLAVOR_SKEW', 'LINE_HUG', 'HEAD_W', 'MOTOR_D', 'BARB_PITCH', 'BARB_INSET', 'BUTT', 'CARRIER_DROP', 'INNER_LIMB_DROP', 'FORE_VALVE_RISE', 'FORE_STUB_GAP', 'FORE_VALVES', 'OUTER_AFT_X', 'CARRIER_DATUM_SHIFT', 'FIXED_TEE_AFT_SHIFT', 'AFT_DECK_AFT_SHIFT', 'AFT_PACK_RISE', 'OUTER_AFT_DROP', 'WORLD_LIFT', 'PACK_ORIGIN_Y', 'BARB_TO_PLATE', 'PUMP_STUB_PROJECTION', 'PUMP_TUBE_HELD', 'PUMP_TUBE_CUT', 'PUMP_BARBS_TO_BORE_FACE', 'BARB_PLATE_BERTH', 'PUMP_BARB_Z', 'PUMP_Y', 'BARB_STANDOFF', 'CROSSBAR', 'LIMB_PITCH', 'INNER_X', 'PUMP_DX', 'OUTER_X', 'OUTER_AFT_INSET', 'LIMB_STEP', 'BARB_LEAD_FLOOR', 'BARB_LEAD', 'DECK_Z', 'STUB', 'HINGE_Y', 'FOLD_CLEAR', 'ELBOW_LEG', 'C_COIL', 'C_PUMP_BOSS', 'C_PUMP_HEAD', 'C_PUMP_MOTOR', 'C_VALVE', 'M_JG_BLACK_PP', 'C_TEE', 'C_HEAD', 'C_BOSS', 'C_MOTOR', 'valve_dirs', 'tee_dirs', 'LIMBS', 'PUMPS', 'BARB_OF', 'PUMP_JUNCTIONS', 'FIXED_TEES', 'PUMP_VALVES', 'PUMP_PART_SUFFIX', 'CARRIER_TEES', 'CARRIER_RELEASE', 'CARRIER_SQUEEZE', 'CARRIER_CONNECTED', 'CARRIER_PARK', 'CARRIER_STATES', 'barb_station', 'body_name', '_half', 'lay_out', 'FLAT', 'P', 'PURCHASED_TEES', 'DECK_SEP', 'FOLD_BINDS', 'HINGE_Z', 'UPPER_Z', 'FOLD_AXIS', 'fold_pt', 'fold_dir', 'BEND_R', 'BEND_Y', 'BENT', 'SOURCE_TRAVEL', 'SOURCE_JOG', 'SOURCE_SPREAD', 'SOURCE_SLACK', 'HAIRPIN_OUT', 'HAIRPIN_TILT', 'two_arc_floor', 'sbend_solve', 'source_offset', 'step_cross', 'hairpin_back', 'source_valve_shift', 'source_cross', 'source_step', 'SHIFT', '_name', '_dx', '_dy', '_dz', 'bend_pt', 'bend_dir', 'hairpin_flat', 'hairpins_drawn', 'sbend_flat', 'fore_deck_aft_shift', 'fixed_aft_shift', 'enclosure_point', 'authoring_point', 'enclosure_axis', 'authoring_axis', 'pump_wall_fore_y', '_plumbing_cache', 'pump_plumbing', '_tee_ports', 'fixed_tee_centers', '_posed', 'port', 'port_axis', 'branch_port', 'JOINS', '_cross', 'elbow_pose', '_authored', 'lower_links', 'lower_link_length', '_junction_at_author_x', 'return_exposed', 'return_cut', '_fore_segments', 'fore_stub_length', 'stub_tip', 'factory_tail_runs', 'factory_tail_length', 'runs', 'RUNS', 'BARB_TUBE_LEN', 'PUMP_TUBE_PROJECTION', 'fore_stubs', 'FORE_STUBS', 'FORE_STUB_EXPOSED', 'turns_meet', 'SEGMENTS', 'QUARTERS', 'QUARTER_LEN', 'SBENDS', 'LOWER_CONNECTIONS', 'SPINE', 'MOUTHS', '_sum', '_matrix', '_source_segments', 'numbers', '_segment_numbers', 'Extents', 'Clash', 'TWINS', 'mirror_off', 'dist', 'skew_deg', 'report', '_write_readme', 'main', 'name', 'offset', '_depth', 'n', 'cid', 'frm', '_to', 'how', 'p', 'what', 'body', 'end'])
+sys.modules[__name__].__class__ = _RustSurface
+
+if __name__ == '__main__':
+    _compiled.main()

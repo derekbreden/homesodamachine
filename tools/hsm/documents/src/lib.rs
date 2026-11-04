@@ -298,6 +298,15 @@ fn python_field(text: &str, mut pos: usize, regions: &mut Vec<(usize, usize, boo
 
 /// Comment and ordinary string token bounds. F-string literal segments are
 /// excluded, matching Python 3.13's STRING/COMMENT token scopes.
+mod python_checked;
+
+/// Managed token bounds only when tokenization can finish. A carry into an
+/// unfinished file must leave every byte where its author put it.
+pub fn python_regions_checked(text: &str) -> Result<Vec<(usize, usize, bool)>> {
+    python_checked::validate(text)?;
+    Ok(python_regions(text))
+}
+
 pub fn python_regions(text: &str) -> Vec<(usize, usize, bool)> {
     let bytes = text.as_bytes();
     let mut regions = Vec::new();
@@ -866,3 +875,5 @@ pub fn format_number(value: f64, spec: &str) -> Result<String> {
     }
     Ok(text)
 }
+
+pub mod interop;

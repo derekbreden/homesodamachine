@@ -11,6 +11,8 @@ use std::{
 mod electronics;
 mod sleeve;
 mod zone;
+mod reference;
+mod output;
 
 fn num(v: &Value, key: &str) -> Result<f64> {
     v[key]
@@ -377,6 +379,8 @@ fn valve_seat(v: &Value) -> Result<Value> {
 
 fn request(v: &Value) -> Result<Value> {
     match v["part"].as_str().context("Missing part name")? {
+        "reference" => reference::request(v),
+        "output" => output::request(v),
         "asse-drain-adapter" => drain(v),
         "asse-straight-cuffs" => cuffs(v),
         "fake-countertop" => countertop(v),

@@ -10,9 +10,14 @@ publish = false
 name = "ledger-data"
 path = "src/main.rs"
 
+[[bin]]
+name = "ledger-analysis"
+path = "src/evidence_main.rs"
+
 [dependencies]
 anyhow.workspace = true
 serde_json = { workspace = true, features = ["float_roundtrip"] }
+serde.workspace = true
 sha2.workspace = true
 regex = "1"
 num-bigint = "0.4"

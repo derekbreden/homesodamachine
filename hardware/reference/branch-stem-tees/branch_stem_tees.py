@@ -22,14 +22,20 @@ PAYLOAD_PATHS = {name: step.with_name(step.name + ".mesh") for name, step in STE
 ASSET_MANIFEST_PATH = HERE / "frozen-asset.json"
 
 
-def specification(variant="neofit"):
-    """One coherent set of native datums; JSON is the dimensional source."""
-    return json.loads((HERE / "dimensions.json").read_text())["variants"][variant]
+
+_reference_hardware = next(p for p in Path(__file__).resolve().parents if p.name == 'hardware')
+import sys as _reference_sys
+_reference_sys.path.insert(0, str(_reference_hardware / 'reference'))
+from _reference_data import data as _reference_data
+
+def specification(variant='neofit'):
+    'One coherent set of native datums; JSON is the dimensional source.'
+    return _reference_data('branch_stem_tees', 'specification', (variant,), {})
 
 
-def stations(variant="neofit"):
-    """Native ports as {name: {position, outward, type, ...}} in millimetres."""
-    return specification(variant)["ports"]
+def stations(variant='neofit'):
+    'Native ports as {name: {position, outward, type, ...}} in millimetres.'
+    return _reference_data('branch_stem_tees', 'stations', (variant,), {})
 
 
 def main():

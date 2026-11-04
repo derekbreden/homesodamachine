@@ -63,66 +63,53 @@ STEP = _here.parent / "riteav-keystone.step"
 
 # --- the module standard -------------------------------------------------------------
 # The keystone face. Every module in the format shows this rectangle and no other.
-FACE_W = 14.5
-FACE_H = 16.0
+
+_reference_hardware = next(p for p in Path(__file__).resolve().parents if p.name == 'hardware')
+import sys as _reference_sys
+_reference_sys.path.insert(0, str(_reference_hardware / 'reference'))
+from _reference_data import data as _reference_data
+_reference_values = _reference_data('riteav_keystone')
+globals().update({name: _reference_values[name] for name in ('FACE_W', 'FACE_H', 'APERTURE_W', 'APERTURE_H', 'LIP_D', 'POCKET_W', 'POCKET_H', 'POCKET_RISE', 'DEPTH', 'EASE_DEG', 'CATCH_UPPER', 'CATCH_LOWER', 'RECEPTACLE_WALL', 'BODY_DEPTH', 'PORT_W', 'PORT_H', 'PORT_DEPTH', 'LATCH_SLOT_W', 'LATCH_SLOT_H', 'FIT_SLIP')})
+
 
 # --- the receptacle the wall cuts ----------------------------------------------------
 # The aperture, one printing clearance over the face.
-APERTURE_W = 14.9
-APERTURE_H = 16.3
 # How deep the aperture runs before the pocket opens out behind it. The lip the jack's face
 # bottoms against.
-LIP_D = 3.0
 # The pocket behind the lip: the room the body swings into, and taller than the aperture at
 # both ends because the jack is wider behind its face than in it.
-POCKET_W = 14.9
-POCKET_H = 24.4
 # How far the pocket's centre stands above the aperture's.
-POCKET_RISE = 1.67
 # The receptacle's whole depth, face plane to the catches' own faces.
-DEPTH = 9.7
 # The ease under the aperture's top edge, off the horizontal. The body swings through it.
-EASE_DEG = 50.0
 # The two catches standing at the pocket's back, as `(height, proud)` — the upper one the tang
 # hooks and the lower one the latch snaps over.
-CATCH_UPPER = (2.0, 1.4)
-CATCH_LOWER = (2.6, 1.3)
 # What the receptacle keeps around its pocket, so the boss carrying it is a wall and not a rim.
-RECEPTACLE_WALL = 3.0
 
 # --- the jack itself -----------------------------------------------------------------
 # How far the body reaches inboard of the wall's outer plane — the volume the band above the
 # cold core leaves clear behind the aperture. ESTIMATED.
-BODY_DEPTH = 30.0
 # The 6P4C port in the jack's face, and the latch slot over it.
-PORT_W = 9.5
-PORT_H = 7.6
-PORT_DEPTH = 8.0
-LATCH_SLOT_W = 3.4
-LATCH_SLOT_H = 3.6
 # The slip the jack takes in the pocket it snaps into.
-FIT_SLIP = 0.25
 
 
-def receptacle_envelope() -> tuple:
-    """The boss's outline round the pocket, as `(wx, wz)`."""
-    return (POCKET_W + 2.0 * RECEPTACLE_WALL, POCKET_H + 2.0 * RECEPTACLE_WALL)
+def receptacle_envelope():
+    "The boss's outline round the pocket, as `(wx, wz)`."
+    return _reference_data('riteav_keystone', 'receptacle_envelope', (), {})
 
 
-def panel_cutout() -> tuple:
-    """The aperture the wall shows, as `(wx, wz, radius)` — `iec_c14_inlet.panel_cutout`'s
-    shape, which `enclosure_assembly.keystone_cutout` turns into a `back_ports` entry."""
-    return (APERTURE_W, APERTURE_H, 0.4)
+def panel_cutout():
+    "The aperture the wall shows, as `(wx, wz, radius)` — `iec_c14_inlet.panel_cutout`'s\n    shape, which `enclosure_assembly.keystone_cutout` turns into a `back_ports` entry."
+    return _reference_data('riteav_keystone', 'panel_cutout', (), {})
 
 
-def panel_footprint() -> tuple:
-    """What the station occupies on the wall's face, as `(wx, wz)`."""
-    return receptacle_envelope()
+def panel_footprint():
+    "What the station occupies on the wall's face, as `(wx, wz)`."
+    return _reference_data('riteav_keystone', 'panel_footprint', (), {})
 
 
-def ease_rise() -> float:
-    """How far the ease carries the aperture's top edge up over `LIP_D`."""
-    return LIP_D * math.tan(math.radians(EASE_DEG))
+def ease_rise():
+    "How far the ease carries the aperture's top edge up over `LIP_D`."
+    return _reference_data('riteav_keystone', 'ease_rise', (), {})
 
 
 def receptacle_cut(x: float, z: float, y_face: float):

@@ -16,42 +16,47 @@ import sys
 HERE = Path(__file__).resolve().parent
 
 
+
+_reference_hardware = next(p for p in Path(__file__).resolve().parents if p.name == 'hardware')
+import sys as _reference_sys
+_reference_sys.path.insert(0, str(_reference_hardware / 'reference'))
+from _reference_data import data as _reference_data
+
 def parameters():
-    return json.loads((HERE/'reference-parameters.json').read_text())
+    return _reference_data('g_ganen_pump', 'parameters', (), {})
 
 
 def port(name):
-    """A measured barb tip and outward axis in the reference frame."""
-    row = parameters()['ports'][name]
-    return tuple(row['tip_mm']), tuple(row['outward_axis'])
+    'A measured barb tip and outward axis in the reference frame.'
+    return _reference_data('g_ganen_pump', 'port', (name,), {})
 
 
 def suction():
-    return port('port_yminus')
+    return _reference_data('g_ganen_pump', 'suction', (), {})
 
 
 def discharge():
-    return port('port_yplus')
+    return _reference_data('g_ganen_pump', 'discharge', (), {})
 
 
 def mount_slots():
-    """Observed independent slider slots; this is not an immutable hole pattern."""
-    return tuple(parameters()['mounting_feet'])
+    'Observed independent slider slots; this is not an immutable hole pattern.'
+    return _reference_data('g_ganen_pump', 'mount_slots', (), {})
 
 
 def port_profile(name):
-    """Per-port exterior profile; scanned length is not a hose-retention rating."""
-    return parameters()['ports'][name]
+    'Per-port exterior profile; scanned length is not a hose-retention rating.'
+    return _reference_data('g_ganen_pump', 'port_profile', (name,), {})
 
 
 def sliding_rails():
-    """Visible fixed rail observations; hidden clip and hard travel limits are open."""
-    return tuple(parameters()['sliding_rails'])
+    'Visible fixed rail observations; hidden clip and hard travel limits are open.'
+    return _reference_data('g_ganen_pump', 'sliding_rails', (), {})
 
 
 def mount_seat_z():
-    """The retained datum plane, not a claim that free rubber feet are coplanar."""
-    return 0.
+    'The retained datum plane, not a claim that free rubber feet are coplanar.'
+    return _reference_data('g_ganen_pump', 'mount_seat_z', (), {})
 
 
 def _wire(vertices):
