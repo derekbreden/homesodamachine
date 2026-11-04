@@ -39,7 +39,7 @@ from _enclosure_data import dimensions as _dimensions, read as _read
 _values = _dimensions()['labels']
 globals().update({name: value for name, value in _values.items() if name.isupper()})
 STATIONS = {name: _values['STATIONS'][name] for name in _values['station_order']}
-WIDTH = above_core.specification()['rear_identification']['width_mm']
+WIDTH = _read('label-width', spec=above_core.specification(), port_width=port_chip.WIDTH)
 
 
 def nameplate_plan():
@@ -75,7 +75,8 @@ def _top(which):
 
 def channel_bounds():
     """Two complete slide channels in the same datums as the printable cards."""
-    return tuple(tuple(row) for row in _read('label-channels', spec=above_core.specification()))
+    return tuple(tuple(row) for row in _read('label-channels', spec=above_core.specification(),
+                                            port_width=port_chip.WIDTH))
 
 
 @functools.cache

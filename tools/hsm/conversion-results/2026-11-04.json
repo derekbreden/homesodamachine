@@ -6,6 +6,7 @@
       "passed_after": false,
       "passed_before": false
     },
+    "scope": "Saved aggregate reports from the combined run preceding the later enclosure print-boundary failure; this is not a successful final full-build result.",
     "scorecard_after": {
       "anchor-room": "pass",
       "back-top-flank-clear": "pass",
@@ -176,7 +177,7 @@
     "hardware/printed-parts/enclosure/nameplate/_nameplate_dimensions.py": "8b66825bcf64c4ed45e1884ff08b322f64089c94c2d719f09749ea31a1033e5c",
     "hardware/printed-parts/enclosure/pump-tray/pump_case.py": "290ce656e1ba174bc44b4f39d1dfc12f6b41ec9de1177fe228d95c199d779d14",
     "hardware/printed-parts/enclosure/pump-tray/pump_tray.py": "8b008035afb6b9749961efeea82b586e9c4f4d9889e6a588a7a49552b43f158f",
-    "hardware/printed-parts/enclosure/rear-identification/rear_identification.py": "b241ec4d33624e5bfea88e3d6b8374c04920c7abb5c186a38810ef6ba10be29c",
+    "hardware/printed-parts/enclosure/rear-identification/rear_identification.py": "1d1be22c6a04e1f9373c5f9fed2b02c09997016a2db2eb67e168fa117f08ee65",
     "hardware/printed-parts/enclosure/rear-identification/rear_identification.rs": "e54c501da176f80ebe44b30fb515efbb33b45cefb4a2ac5f067bbf286f8ffb12",
     "hardware/printed-parts/enclosure/valve-tray/valve_tray.py": "d67be366fb6d12d1e9171bcc5a14f95c1c6df6d8656580d4ad85de3b10696b34",
     "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py": "baaa7fae0174ecbda66a2d01294cc1e1f26b4f7463fcef0ff9286a835a410a31",
@@ -243,7 +244,7 @@
     "tools/hsm/documents/src/lib.rs": "651f03cd1591b831be69fbfec043caf02844e553bc691eae715592c512326568",
     "tools/hsm/documents/src/main.rs": "bb227e2949cef3ba776d976923b68d3c8094c46559605195a330b14d3ceedd94",
     "tools/hsm/enclosure-data/Cargo.toml": "fb5759ba23135fb31496121f5ceb75886bac3cbd14e0cf1b7c06e77eedb9894d",
-    "tools/hsm/enclosure-data/src/main.rs": "3f8298f3ea09b7774282bebf552666635ff01231a0f6893da3de1d3bd372ca59",
+    "tools/hsm/enclosure-data/src/main.rs": "0727968b710dea5812345030fc4b01f3dfae4f1eca1469f8f1d9799091ecc96a",
     "tools/hsm/enclosure-data/src/pump_case.rs": "adb20592b1c338bdc08a0ea3a05da50f11ff18d4b18ba2e083d11e952fa7a8d5",
     "tools/hsm/enclosure-data/src/pump_tray.rs": "6fd8a3817c45c26de582ca4a4baf60357ee757b7f39e638aee80585e551fa963",
     "tools/hsm/enclosure-data/src/valve_tray.rs": "989b7222f19fbdc9f135cd959369b02a87fe3422406967db6e374658aba4e87b",
@@ -291,7 +292,8 @@
   "integration_adapter_repairs": [
     "Declare compatibility helpers and their raw scalar providers in the staged build.",
     "Register Rust file reads through _rust_part without loading the legacy CAD exporter.",
-    "Run exit-time Rust timing records before worker cleanup and release of inherited build/compiler leases."
+    "Run exit-time Rust timing records before worker cleanup and release of inherited build/compiler leases.",
+    "Rear identification accepts both committed layout data and the active card-layout schema, without changing the new schema outputs."
   ],
   "lifecycle_verification": {
     "case": "A child creates the timing Rust worker at interpreter exit while its parent retains the compiler lease.",
@@ -299,6 +301,22 @@
     "status": "passed",
     "timeout_seconds": 30,
     "worker_cleanup": true
+  },
+  "normal_build": {
+    "command": "python3 tools/run.py -- bazel build --keep_going //:everything",
+    "elapsed_seconds": 91.028,
+    "exit_time_worker_case": "passed",
+    "external_input_sha256": {
+      "hardware/manifold-layout/above-core.json": "7128c1464f7a99794d7fd31e83a98135be1f95b0bfa9378dfb07ff061b6e4721",
+      "hardware/manifold-layout/rear_snaps.py": "a02224bf754055e126dfa4a600b825d717875c29c509189ff31ed53b06fe067e",
+      "hardware/printed-parts/enclosure/enclosure/_enclosure_back_top.py": "a9a5657859bf1db49b20eed285ef9dfce1f237b8340e8f875fcb85a319f41e7d"
+    },
+    "failed_target": "//:enclosure",
+    "failure": "a rear plain land reaches the back-bottom print boundary",
+    "failure_source": "hardware/printed-parts/enclosure/enclosure/_enclosure_panel.py",
+    "result": "blocked by concurrent rear-panel geometry edits",
+    "source_commit": "35b0c1756",
+    "successful_piece_release_build": "all nine Rust data/document packages, --release --locked --offline"
   },
   "pieces": {
     "assembly-documents": {
@@ -585,6 +603,56 @@
           "numeric_fields": 3198,
           "result": "pass",
           "tolerance_mm": 1e-11
+        },
+        "rear_identification_schema_compatibility": {
+          "committed_layout_sha256": "c3ce79ed97206b1012531fa6fab1bcda858da2251dbe360b3eb3e1138412726f",
+          "existing_fixed_input_baseline": "Same layout digest and original Python reader digest as this record.",
+          "external_file_sha256_unchanged": {
+            "hardware/manifold-layout/above-core.json": "7128c1464f7a99794d7fd31e83a98135be1f95b0bfa9378dfb07ff061b6e4721",
+            "hardware/manifold-layout/rear_snaps.py": "a02224bf754055e126dfa4a600b825d717875c29c509189ff31ed53b06fe067e",
+            "hardware/printed-parts/enclosure/enclosure/_enclosure_back_top.py": "a9a5657859bf1db49b20eed285ef9dfce1f237b8340e8f875fcb85a319f41e7d"
+          },
+          "legacy_cases": [
+            {
+              "case": "committed-d6",
+              "recipe_station_fields": 13,
+              "result": "exact original fields; three added world datums and per-station bottom agree",
+              "stations": 6
+            },
+            {
+              "case": "derived-row-positions",
+              "recipe_station_fields": 13,
+              "result": "exact original fields; three added world datums and per-station bottom agree",
+              "stations": 6
+            },
+            {
+              "case": "port-assignment",
+              "recipe_station_fields": 13,
+              "result": "exact original fields; three added world datums and per-station bottom agree",
+              "stations": 6
+            },
+            {
+              "case": "port-width-provider",
+              "recipe_station_fields": 13,
+              "result": "exact original fields; three added world datums and per-station bottom agree",
+              "stations": 6
+            },
+            {
+              "case": "null-section",
+              "recipe_station_fields": 13,
+              "result": "exact original fields; three added world datums and per-station bottom agree",
+              "stations": 6
+            }
+          ],
+          "native_cad_loaded": false,
+          "new_schema_input_sha256": "61ba14ce957115a2758bed8bf7f19a463b70bd0265985909d7d87c00c46203c4",
+          "new_schema_output_groups_exact": 8,
+          "new_schema_python_adapter": "pass",
+          "normal_build": "Not run; targeted scalar/recipe compatibility only.",
+          "original_layout_revision": "d6a0b281d",
+          "original_layout_sha256": "c3ce79ed97206b1012531fa6fab1bcda858da2251dbe360b3eb3e1138412726f",
+          "release_build": "cargo build --release --locked --offline -p hsm-enclosure-data -j 2: pass",
+          "result": "pass"
         },
         "standalone_dimension_import": {
           "native_cad_loaded": false,
@@ -1059,8 +1127,18 @@
     }
   },
   "separate_shared_checkout_inputs": [
+    "hardware/assembly/enclosure-mechanical.md",
     "hardware/manifold-layout/above-core.json",
     "hardware/manifold-layout/rear_snaps.py",
     "hardware/printed-parts/enclosure/enclosure/_enclosure_back_top.py"
-  ]
+  ],
+  "targeted_integration": {
+    "elapsed_seconds": 2.974,
+    "result": "passed",
+    "targets": [
+      "//:rear-identification",
+      "//:cable-assemblies-sync",
+      "//:funnel-cover"
+    ]
+  }
 }

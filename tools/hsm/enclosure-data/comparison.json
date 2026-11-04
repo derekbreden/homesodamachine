@@ -93,6 +93,56 @@
       "result": "pass",
       "tolerance_mm": 1e-11
     },
+    "rear_identification_schema_compatibility": {
+      "committed_layout_sha256": "c3ce79ed97206b1012531fa6fab1bcda858da2251dbe360b3eb3e1138412726f",
+      "existing_fixed_input_baseline": "Same layout digest and original Python reader digest as this record.",
+      "external_file_sha256_unchanged": {
+        "hardware/manifold-layout/above-core.json": "7128c1464f7a99794d7fd31e83a98135be1f95b0bfa9378dfb07ff061b6e4721",
+        "hardware/manifold-layout/rear_snaps.py": "a02224bf754055e126dfa4a600b825d717875c29c509189ff31ed53b06fe067e",
+        "hardware/printed-parts/enclosure/enclosure/_enclosure_back_top.py": "a9a5657859bf1db49b20eed285ef9dfce1f237b8340e8f875fcb85a319f41e7d"
+      },
+      "legacy_cases": [
+        {
+          "case": "committed-d6",
+          "recipe_station_fields": 13,
+          "result": "exact original fields; three added world datums and per-station bottom agree",
+          "stations": 6
+        },
+        {
+          "case": "derived-row-positions",
+          "recipe_station_fields": 13,
+          "result": "exact original fields; three added world datums and per-station bottom agree",
+          "stations": 6
+        },
+        {
+          "case": "port-assignment",
+          "recipe_station_fields": 13,
+          "result": "exact original fields; three added world datums and per-station bottom agree",
+          "stations": 6
+        },
+        {
+          "case": "port-width-provider",
+          "recipe_station_fields": 13,
+          "result": "exact original fields; three added world datums and per-station bottom agree",
+          "stations": 6
+        },
+        {
+          "case": "null-section",
+          "recipe_station_fields": 13,
+          "result": "exact original fields; three added world datums and per-station bottom agree",
+          "stations": 6
+        }
+      ],
+      "native_cad_loaded": false,
+      "new_schema_input_sha256": "61ba14ce957115a2758bed8bf7f19a463b70bd0265985909d7d87c00c46203c4",
+      "new_schema_output_groups_exact": 8,
+      "new_schema_python_adapter": "pass",
+      "normal_build": "Not run; targeted scalar/recipe compatibility only.",
+      "original_layout_revision": "d6a0b281d",
+      "original_layout_sha256": "c3ce79ed97206b1012531fa6fab1bcda858da2251dbe360b3eb3e1138412726f",
+      "release_build": "cargo build --release --locked --offline -p hsm-enclosure-data -j 2: pass",
+      "result": "pass"
+    },
     "standalone_dimension_import": {
       "native_cad_loaded": false,
       "result": "pass"
