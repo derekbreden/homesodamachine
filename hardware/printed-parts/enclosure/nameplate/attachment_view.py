@@ -15,6 +15,7 @@ import trimesh
 
 HERE = Path(__file__).resolve().parent
 ROOT = next(p for p in HERE.parents if (p / 'tools').is_dir())
+READ_SHA = {}
 
 
 def payload_meshes(path, include):
@@ -33,7 +34,8 @@ def payload_meshes(path, include):
             off, count = row['idx']
             faces = np.frombuffer(raw, dtype='<u4', count=count, offset=start+off).copy().reshape(-1, 3)
             mesh = trimesh.Trimesh(vertices=vertices, faces=faces, process=False)
-            result.append((row['name'], mesh, row.get('color', [.15, .16, .18])))
+            result.append((row['name'], mesh, row.get('color') or [.15, .16, .18]))
+        READ_SHA[path] = hashlib.sha256(raw).hexdigest()
         raw.close()
     return result
 
@@ -98,11 +100,15 @@ def main():
     context.vertices = (context.vertices-centre)*[-1,-1,1]
     scene.add_geometry(material(context,[.16,.17,.19]), node_name='Enclosure back top')
     def include(name):
-        return (name.split('/')[0] in ('nameplate','nameplate-ink','data-ring','keystone-jack',
+        return (name.split('/')[0] in ('data-ring','keystone-jack',
             'c14-inlet','co2-inlet','bulkhead-water','bulkhead-carb','bulkhead-drain',
             'bulkhead-flavor-a','bulkhead-flavor-b') or name.startswith('bulkhead-ring-'))
     for name, mesh, color in payload_meshes(installed, include):
         mesh.vertices = (mesh.vertices-centre)*[-1,-1,1]
+        scene.add_geometry(material(mesh,color), node_name=name)
+    for name, source, color in plate_meshes:
+        mesh = source.copy()
+        mesh.vertices = (mesh.vertices+to_world-centre)*[-1,-1,1]
         scene.add_geometry(material(mesh,color), node_name=name)
     target = HERE/'nameplate-attachment-installed.glb'
     target.write_bytes(scene.export(file_type='glb'))
@@ -116,7 +122,7 @@ def main():
         'separated_pose': 'Plate translated aside and turned 180 degrees about Z to expose its back; inspection only.',
         'inspection_color': 'Orange highlights actual hidden clip surfaces in the separated view only. The printed plate is black and white.',
         'views': records,
-        'source_sha256': {str(p.relative_to(ROOT)): hashlib.sha256(p.read_bytes()).hexdigest() for p in sources}}
+        'source_sha256': {str(p.relative_to(ROOT)): READ_SHA.get(p) or hashlib.sha256(p.read_bytes()).hexdigest() for p in sources}}
     (HERE/'attachment-review.json').write_text(json.dumps(report,indent=2)+'\n')
 
 

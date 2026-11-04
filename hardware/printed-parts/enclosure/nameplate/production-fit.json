@@ -1,329 +1,266 @@
 {
   "date": "2026-11-04",
-  "source_revision": "fc299ea501563636982690b98c9500f31be254ce",
   "part_mm": {
-    "width": 92,
-    "height": 100,
-    "thickness": 3.36,
-    "corner_radius": 5,
-    "artwork_rise": 0.48,
-    "qr_active_width": 25.2,
-    "qr_with_quiet_zone": 34.8
+    "width": 88.0,
+    "height": 100.0,
+    "thick": 3.36,
+    "corner": 5.0,
+    "artwork_rise": 0.48
   },
   "placement_mm": {
-    "center_x": -43.85,
-    "center_z": 220,
-    "face_y": 474.25,
-    "rear_wall_y": 471.3,
-    "field_proud": 2.95,
-    "corner_tangent_x": -95.5,
-    "adjacent_flavor_card_x": 7.8,
-    "face_gap_to_corner_tangent": 5.65,
-    "face_gap_to_flavor_card": 5.65
+    "center_x_mm": -45.4,
+    "center_z_mm": 220.0,
+    "face_y_mm": 474.3
   },
-  "retention_mm": {
-    "wing_projection": 2.4,
-    "wing_thickness": 1.68,
-    "wing_span": 30,
-    "wing_radius": 0.6,
-    "body_clearance_each_side": 0.15,
-    "wing_thickness_clearance": 0.45,
-    "minimum_backing": 3.6,
-    "retaining_lip": 1.23,
-    "measured_backing_at_x_minus80_z269": 3.789978027343693,
-    "measured_lip_at_x3_85_z220": 1.230010986328125
+  "complete_frame_mm": {
+    "width": 94.3,
+    "left_edge": -92.55,
+    "right_edge": 1.75,
+    "corner_tangent_x": -95.5,
+    "adjacent_color_chip_frame_edge_x": 4.6499988712316025,
+    "gap_to_corner_tangent": 2.95,
+    "gap_to_color_chip_frame": 2.899999
+  },
+  "interface_mm": {
+    "catch_front": -0.15,
+    "catch_inner": 42.15,
+    "catch_rear": -1.75,
+    "corner": 5.0,
+    "crown_y": 0.3599999999999999,
+    "floor_rear": -3.75,
+    "floor_stock": 3.6,
+    "frame_bottom": -53.4,
+    "frame_corner": 7.0,
+    "frame_top": 56.15,
+    "frame_width": 94.3,
+    "height": 100.0,
+    "hook_projection": 1.2,
+    "hook_z": [
+      -5.0,
+      5.0
+    ],
+    "leaf_inner": 40.0,
+    "leaf_outer": 42.0,
+    "leaf_root_z": -31.5,
+    "leaf_thick": 2.0,
+    "leaf_top_z": 5.0,
+    "leaf_y": [
+      -4.0,
+      -2.0
+    ],
+    "mouth_height": 100.3,
+    "mouth_width": 88.3,
+    "pocket_bottom": -35.75,
+    "pocket_inner": 38.25,
+    "pocket_outer": 43.45,
+    "pocket_rear": -4.25,
+    "pocket_stock": 3.0,
+    "pocket_top": 5.4,
+    "release_inner_x": 41.8,
+    "release_outer_x": 47.65,
+    "release_width_z": 6.0,
+    "root_pocket_outer": 43.75,
+    "root_radius": 1.5,
+    "root_x": [
+      38.5,
+      43.5
+    ],
+    "root_z": [
+      -35.5,
+      -31.5
+    ],
+    "slip": 0.15,
+    "supported": 0.25,
+    "thick": 3.36,
+    "width": 88.0
   },
   "unit_geometry_checks": {
     "1": {
       "artwork_rise_mm": 0.48,
+      "beam_strain_estimate": 0.0057599999999999995,
       "body_ink_overlap_mm3": 0.0,
+      "capture_mm": 1.0500000000000043,
+      "compressed_insertion_sweep_overlap_mm3": 0.0,
+      "free_spring_length_mm": 25.0,
+      "inward_travel_mm": 1.2,
+      "motion_check": "Rigid plate; displaced spring heads with cantilever-shaped leaves, swept 0\u20138 mm outwards in Y. Material behavior requires the physical part.",
       "payload": "HTTPS://HOSM.US/0001",
       "quiet_zone_overlap_mm3": 0.0,
+      "release_tool": "4 \u00d7 0.8 mm flat blade, front approach and 50\u201360 degree inward tilt; spring contact is intentional.",
+      "release_tool_overlap_mm3": 0.0,
+      "seated_overlap_mm3": 0.0,
+      "snap": {
+        "catch_front": -0.15,
+        "catch_inner": 42.15,
+        "catch_rear": -1.75,
+        "corner": 5.0,
+        "crown_y": 0.3599999999999999,
+        "floor_rear": -3.75,
+        "floor_stock": 3.6,
+        "frame_bottom": -53.4,
+        "frame_corner": 7.0,
+        "frame_top": 56.15,
+        "frame_width": 94.3,
+        "height": 100.0,
+        "hook_projection": 1.2,
+        "hook_z": [
+          -5.0,
+          5.0
+        ],
+        "leaf_inner": 40.0,
+        "leaf_outer": 42.0,
+        "leaf_root_z": -31.5,
+        "leaf_thick": 2.0,
+        "leaf_top_z": 5.0,
+        "leaf_y": [
+          -4.0,
+          -2.0
+        ],
+        "mouth_height": 100.3,
+        "mouth_width": 88.3,
+        "pocket_bottom": -35.75,
+        "pocket_inner": 38.25,
+        "pocket_outer": 43.45,
+        "pocket_rear": -4.25,
+        "pocket_stock": 3.0,
+        "pocket_top": 5.4,
+        "release_inner_x": 41.8,
+        "release_outer_x": 47.65,
+        "release_width_z": 6.0,
+        "root_pocket_outer": 43.75,
+        "root_radius": 1.5,
+        "root_x": [
+          38.5,
+          43.5
+        ],
+        "root_z": [
+          -35.5,
+          -31.5
+        ],
+        "slip": 0.15,
+        "supported": 0.25,
+        "thick": 3.36,
+        "width": 88.0
+      },
       "valid_body": true,
-      "valid_receiver": true,
-      "wing_thickness_gap_mm": 0.45
-    },
-    "2": {
-      "artwork_rise_mm": 0.48,
-      "body_ink_overlap_mm3": 0.0,
-      "payload": "HTTPS://HOSM.US/0002",
-      "quiet_zone_overlap_mm3": 0.0,
-      "valid_body": true,
-      "valid_receiver": true,
-      "wing_thickness_gap_mm": 0.45
-    },
-    "3": {
-      "artwork_rise_mm": 0.48,
-      "body_ink_overlap_mm3": 0.0,
-      "payload": "HTTPS://HOSM.US/0003",
-      "quiet_zone_overlap_mm3": 0.0,
-      "valid_body": true,
-      "valid_receiver": true,
-      "wing_thickness_gap_mm": 0.45
-    },
-    "4": {
-      "artwork_rise_mm": 0.48,
-      "body_ink_overlap_mm3": 0.0,
-      "payload": "HTTPS://HOSM.US/0004",
-      "quiet_zone_overlap_mm3": 0.0,
-      "valid_body": true,
-      "valid_receiver": true,
-      "wing_thickness_gap_mm": 0.45
-    },
-    "5": {
-      "artwork_rise_mm": 0.48,
-      "body_ink_overlap_mm3": 0.0,
-      "payload": "HTTPS://HOSM.US/0005",
-      "quiet_zone_overlap_mm3": 0.0,
-      "valid_body": true,
-      "valid_receiver": true,
-      "wing_thickness_gap_mm": 0.45
-    },
-    "6": {
-      "artwork_rise_mm": 0.48,
-      "body_ink_overlap_mm3": 0.0,
-      "payload": "HTTPS://HOSM.US/0006",
-      "quiet_zone_overlap_mm3": 0.0,
-      "valid_body": true,
-      "valid_receiver": true,
-      "wing_thickness_gap_mm": 0.45
-    },
-    "7": {
-      "artwork_rise_mm": 0.48,
-      "body_ink_overlap_mm3": 0.0,
-      "payload": "HTTPS://HOSM.US/0007",
-      "quiet_zone_overlap_mm3": 0.0,
-      "valid_body": true,
-      "valid_receiver": true,
-      "wing_thickness_gap_mm": 0.45
-    },
-    "8": {
-      "artwork_rise_mm": 0.48,
-      "body_ink_overlap_mm3": 0.0,
-      "payload": "HTTPS://HOSM.US/0008",
-      "quiet_zone_overlap_mm3": 0.0,
-      "valid_body": true,
-      "valid_receiver": true,
-      "wing_thickness_gap_mm": 0.45
-    },
-    "9": {
-      "artwork_rise_mm": 0.48,
-      "body_ink_overlap_mm3": 0.0,
-      "payload": "HTTPS://HOSM.US/0009",
-      "quiet_zone_overlap_mm3": 0.0,
-      "valid_body": true,
-      "valid_receiver": true,
-      "wing_thickness_gap_mm": 0.45
+      "valid_receiver": true
     },
     "10": {
       "artwork_rise_mm": 0.48,
+      "beam_strain_estimate": 0.0057599999999999995,
       "body_ink_overlap_mm3": 0.0,
+      "capture_mm": 1.0500000000000043,
+      "compressed_insertion_sweep_overlap_mm3": 0.0,
+      "free_spring_length_mm": 25.0,
+      "inward_travel_mm": 1.2,
+      "motion_check": "Rigid plate; displaced spring heads with cantilever-shaped leaves, swept 0\u20138 mm outwards in Y. Material behavior requires the physical part.",
       "payload": "HTTPS://HOSM.US/0010",
       "quiet_zone_overlap_mm3": 0.0,
+      "release_tool": "4 \u00d7 0.8 mm flat blade, front approach and 50\u201360 degree inward tilt; spring contact is intentional.",
+      "release_tool_overlap_mm3": 0.0,
+      "seated_overlap_mm3": 0.0,
+      "snap": {
+        "catch_front": -0.15,
+        "catch_inner": 42.15,
+        "catch_rear": -1.75,
+        "corner": 5.0,
+        "crown_y": 0.3599999999999999,
+        "floor_rear": -3.75,
+        "floor_stock": 3.6,
+        "frame_bottom": -53.4,
+        "frame_corner": 7.0,
+        "frame_top": 56.15,
+        "frame_width": 94.3,
+        "height": 100.0,
+        "hook_projection": 1.2,
+        "hook_z": [
+          -5.0,
+          5.0
+        ],
+        "leaf_inner": 40.0,
+        "leaf_outer": 42.0,
+        "leaf_root_z": -31.5,
+        "leaf_thick": 2.0,
+        "leaf_top_z": 5.0,
+        "leaf_y": [
+          -4.0,
+          -2.0
+        ],
+        "mouth_height": 100.3,
+        "mouth_width": 88.3,
+        "pocket_bottom": -35.75,
+        "pocket_inner": 38.25,
+        "pocket_outer": 43.45,
+        "pocket_rear": -4.25,
+        "pocket_stock": 3.0,
+        "pocket_top": 5.4,
+        "release_inner_x": 41.8,
+        "release_outer_x": 47.65,
+        "release_width_z": 6.0,
+        "root_pocket_outer": 43.75,
+        "root_radius": 1.5,
+        "root_x": [
+          38.5,
+          43.5
+        ],
+        "root_z": [
+          -35.5,
+          -31.5
+        ],
+        "slip": 0.15,
+        "supported": 0.25,
+        "thick": 3.36,
+        "width": 88.0
+      },
       "valid_body": true,
-      "valid_receiver": true,
-      "wing_thickness_gap_mm": 0.45
+      "valid_receiver": true
     }
   },
-  "installed_mesh_clearances": [
-    {
-      "a": "nameplate",
-      "b": "enclosure-back-top",
-      "clearance_mm": 0.06860974514075267,
-      "intersection_volume_mm3": 0,
-      "point_a": [
-        -89.8499984741211,
-        470.89001464843744,
-        174.99999999999997
-      ],
-      "point_b": [
-        -89.91858746915815,
-        470.8883389214192,
-        174.99980295420448
-      ],
-      "surface_distance_mm": 0.06860974514075267,
-      "volume_error": null
-    },
-    {
-      "a": "nameplate",
-      "b": "enclosure-back-bottom",
-      "clearance_mm": 9.999999999999972,
-      "intersection_volume_mm3": 0,
-      "point_a": [
-        -3.795461116386888,
-        471.2929863434066,
-        170
-      ],
-      "point_b": [
-        -3.795461116386888,
-        471.29298634340665,
-        160.00000000000003
-      ],
-      "surface_distance_mm": 9.999999999999972,
-      "volume_error": null
-    },
-    {
-      "a": "nameplate",
-      "b": "keystone-jack",
-      "clearance_mm": 11.393300276893134,
-      "intersection_volume_mm3": 0,
-      "point_a": [
-        -56.67499923706055,
-        470.8900146484375,
-        270
-      ],
-      "point_b": [
-        -56.67499923706055,
-        468.2999877929687,
-        281.0950012207031
-      ],
-      "surface_distance_mm": 11.393300276893134,
-      "volume_error": null
-    },
-    {
-      "a": "nameplate",
-      "b": "bulkhead-ring-flavor-b",
-      "clearance_mm": 5.649998664855956,
-      "intersection_volume_mm3": 0,
-      "point_a": [
-        2.1500000953674316,
-        471.1000061035156,
-        261.250136239782
-      ],
-      "point_b": [
-        7.799998760223388,
-        471.1000061035156,
-        261.250136239782
-      ],
-      "surface_distance_mm": 5.649998664855956,
-      "volume_error": null
-    },
-    {
-      "a": "wago-h",
-      "b": "enclosure-back-top",
-      "clearance_mm": 0.14999389648431816,
-      "intersection_volume_mm3": 0,
-      "point_a": [
-        -80.99534021264363,
-        460.2436410887391,
-        272.39999389648443
-      ],
-      "point_b": [
-        -80.99534021264363,
-        460.243641088739,
-        272.54998779296875
-      ],
-      "surface_distance_mm": 0.14999389648431816,
-      "volume_error": null
-    },
-    {
-      "a": "wago-n",
-      "b": "enclosure-back-top",
-      "clearance_mm": 0.149993896484375,
-      "intersection_volume_mm3": 0,
-      "point_a": [
-        -61,
-        457.5,
-        276.8999938964844
-      ],
-      "point_b": [
-        -61,
-        457.5,
-        277.04998779296875
-      ],
-      "surface_distance_mm": 0.149993896484375,
-      "volume_error": null
-    }
-  ],
-  "receiver_ray_readings": [
-    {
-      "name": "floor_front",
-      "distance_mm": 9.260009765625002,
-      "face": 145,
-      "normal": [
-        0,
-        1,
-        0
-      ],
-      "point": [
-        -80,
-        470.739990234375,
-        269
-      ],
-      "triangle": 77438
-    },
-    {
-      "name": "floor_back",
-      "distance_mm": 0.05001220703127274,
-      "face": 205,
-      "normal": [
-        0,
-        -1,
-        0
-      ],
-      "point": [
-        -80,
-        466.9500122070313,
-        269
-      ],
-      "triangle": 82531
-    },
-    {
-      "name": "lip_front",
-      "distance_mm": 5.75,
-      "face": 143,
-      "normal": [
-        0,
-        1,
-        0
-      ],
-      "point": [
-        3.85,
-        474.25,
-        220
-      ],
-      "triangle": 77321
-    },
-    {
-      "name": "lip_back",
-      "distance_mm": 0.11998901367189774,
-      "face": 469,
-      "normal": [
-        0,
-        -1,
-        0
-      ],
-      "point": [
-        3.85,
-        473.0199890136719,
-        220
-      ],
-      "triangle": 137849
-    }
-  ],
-  "measurement_scope": "Lengths are millimetres and volumes are cubic millimetres. Mesh readings use the production viewer surfaces; the back-top payload states a 0.228 mm reduction bound. The body mouth has 0.15 mm nominal clearance.",
-  "physical_acceptance": {
-    "interface_record": "horizontal-wing-trial/physical-acceptance.json",
-    "scope": "The recorded coupon establishes the wing interface. The complete 92 by 100 mm plate and production enclosure receiver have CAD validation; their assembled physical fit is unmeasured."
-  },
-  "assembly_review": {
-    "active_pack_clashes": 14,
-    "nameplate_or_receiver_wago_clashes": 0,
-    "scope": "The complete assembly retains independent foam-reference findings. No new pack clash remains from the nameplate."
-  },
+  "physical_status": "Review held before printing. The complete hidden-leaf nameplate has not been physically qualified.",
+  "inspection": "Geometry checks cover rigid face, clip head clearance, receiver and front tool paths. Beam displacement poses are clearance models, not material or fatigue simulations.",
   "source_sha256": {
-    "hardware/manifold-layout/above-core.json": "6b3f9e9f16ef8e9eae479cc96fc62f5650534fe90f2a9c5ea05aeddad72c0a79",
-    "hardware/printed-parts/enclosure/nameplate/wordmark.svg": "f66e524d5345204befda150f373ce2d124e8b3ad9e7d812847c6480b44c3afcb",
-    "hardware/printed-parts/enclosure/nameplate/identification-glyphs.json": "838da8744da112edb466366cc199657361433355ca6e23d8b088144f4b1c4b17",
-    "hardware/printed-parts/enclosure/nameplate/nameplate.rs": "5a9e017583377286b1cef36b652fae271d581ddb2aef2a0f31aed47af87e4449",
-    "hardware/printed-parts/enclosure/enclosure/_enclosure_panel.py": "d3d80cce19b3195c2bb8d277f565ff2cfd45c2d4900fc1820a62e88f4ee389c8",
-    "tools/hsm/enclosure-data/src/main.rs": "7560773e5301d229f091fc0930fbf971c288981862f869bacae156449630fd5b"
+    "hardware/printed-parts/enclosure/nameplate/nameplate.rs": "0a22e224641a058b1cefc6cffdc68c1a315856add2edb2604326984b896ea499",
+    "hardware/printed-parts/enclosure/nameplate/snap_dimensions.rs": "2d3d208a454a9a040ed0fe657cd984f452e1839e40a12647663856e952eeccda",
+    "hardware/printed-parts/enclosure/nameplate/snap_geometry.rs": "40dee14741595ca4851c399321483339a9079162698440dddca29889c9d4f900",
+    "tools/hsm/enclosure-data/src/nameplate_snap.rs": "eb62f571cc6a9ce7c55beff6fd7d0a2bbda94a78561a02c9939b568c5de23053",
+    "hardware/printed-parts/enclosure/nameplate/nameplate-001.step": "c146b74c5d738c5ee44cd1c2963f2d98b757c4c5cc3c95756bad6c56c500a534",
+    "hardware/printed-parts/enclosure/nameplate/nameplate-001.stl": "b754f8d07308e2254c4eb9ed7c4ff25aa3b01282e5e9e03e76cfcef8c6c32c67",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step": "a57920891132e1ee8f0a5f38516679a8e0d0864d5f1859269a9cf7111938f6a3",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl": "48940d2130c3d1134ffe25741705c07bb2c46a547402604328b7b4c7dd8e197c"
   },
-  "artifact_sha256": {
-    "hardware/printed-parts/enclosure/nameplate/nameplate-001.step": "4fda064f7dcc14d1d6b8ab55019778222a228e0d3e94782e4b78334fda1ef4c7",
-    "hardware/printed-parts/enclosure/nameplate/nameplate-001.stl": "bbc2ea0cadb2cb485dbc6f477d275eb07bb81e9d51080569653b7a4d6b9d7b39",
-    "hardware/printed-parts/enclosure/nameplate/nameplate-receiver.step": "1ad9291cda9544a0cb7ac72db1cd4b4dcc071d896a5d9398c62ee457c8c4214d",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step": "26a72e1150816989f3880e9b25b17a560aec423aa4ff75a325ea94f678b846c8",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh": "a38539429d0fb1796ba2066d3fc66c81bf82588bd04a3be0638fab41d351edb9"
-  }
+  "source_revision": "bab4734064a4cc79b91f850012c761902bb22e66",
+  "frame_gap_rays": [
+    {
+      "origin_xz": [
+        1.0,
+        256.0
+      ],
+      "front_surface_y": 474.2999877929687,
+      "payload_sha256": "04f8c8126f61f4af7d98f3ea343ac3a3604a7a8086ab797ced2ee1479024a3d2"
+    },
+    {
+      "origin_xz": [
+        3.0,
+        256.0
+      ],
+      "front_surface_y": 471.2253372066341,
+      "payload_sha256": "04f8c8126f61f4af7d98f3ea343ac3a3604a7a8086ab797ced2ee1479024a3d2"
+    },
+    {
+      "origin_xz": [
+        5.1,
+        256.0
+      ],
+      "front_surface_y": 474.2999877929687,
+      "payload_sha256": "04f8c8126f61f4af7d98f3ea343ac3a3604a7a8086ab797ced2ee1479024a3d2"
+    },
+    {
+      "origin_xz": [
+        -94.0,
+        220.0
+      ],
+      "front_surface_y": 471.05111182050155,
+      "payload_sha256": "04f8c8126f61f4af7d98f3ea343ac3a3604a7a8086ab797ced2ee1479024a3d2"
+    }
+  ]
 }
