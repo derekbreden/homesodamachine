@@ -180,40 +180,5 @@ def main() -> None:
             print(f"rendered -> {art_dir / f'{name}.png'}")
 
 
-_NATIVE_BUILDERS = (
-    "_vector",
-    "_unit",
-    "_point_along",
-    "_cylinder",
-    "_cone",
-    "_hex_prism",
-    "_hex_nut",
-    "_ring",
-    "_round_sweep",
-    "_add",
-    "_add_threaded_nipple",
-    "_add_static_wall",
-    "_add_handle",
-    "_add_angle_stop",
-    "_add_faucet_supply",
-    "_add_tee",
-    "_add_appliance_branch",
-    "_base_scene",
-    "_direct_faucet_scene",
-    "_pre_tee_scene",
-    "_tee_installed_scene",
-    "build_scenes",
-)
-
-def __getattr__(name):
-    """Keep manual native builders outside the normal Rust scene driver."""
-    if name not in _NATIVE_BUILDERS:
-        raise AttributeError(name)
-    from _plumbing_native import load
-    native = load(sys.modules[__name__], 'legacy')
-    globals().update({key: getattr(native, key) for key in _NATIVE_BUILDERS})
-    return globals()[name]
-
-
 if __name__ == "__main__":
     main()
