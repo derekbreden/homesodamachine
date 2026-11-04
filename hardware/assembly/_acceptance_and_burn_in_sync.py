@@ -1,184 +1,33 @@
 """Doc-sync driver for hardware/assembly/acceptance-and-burn-in.md.
 
-Run: tools/cad-venv/bin/python hardware/assembly/_acceptance_and_burn_in_sync.py
-"""
-
+Run: tools/cad-venv/bin/python hardware/assembly/_acceptance_and_burn_in_sync.py"""
 import sys
 from pathlib import Path
-
 _here = Path(__file__).resolve().parent
-sys.path.insert(
-    0,
-    str(next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"),
-)
-
-from docgen import substitute_md
-
-# The refill pump's relay gate and the valve count this procedure takes in hand are
-# the commissioning driver's, and the appliance-side CO2 pressure is the pressure
-# carbonator's working pressure — take each from the driver that owns it rather than
-# restating the number here.
+sys.path.insert(0, str(next((p for p in _here.parents if (p / 'tools' / 'docgen').is_dir())) / 'tools'))
 from _firmware_and_commissioning_sync import gpio_relay2 as _fc_gpio_relay2
 from _firmware_and_commissioning_sync import valve_count as _fc_valve_count
 from _pressure_vessel_sync import carbonation_basis_c, secondary_regulator_pressure_psi
 
-# ─── Firmware setpoints loaded at commissioning ────────────────────────
-carbonator_wall_setpoint_c = 2          # carbonator wall service temperature
-carbonator_wall_band_c = 2              # hysteresis band ± around setpoint
-evap_coil_freeze_cutout_c = -8          # evap-coil DS18B20 freeze-protect trip
-compressor_min_off_min = 3              # compressor minimum off-time before re-energize
+_assembly_doc_root = next(p for p in Path(__file__).resolve().parents if (p / "hardware/scripts").is_dir())
+sys.path.insert(0, str(_assembly_doc_root / "hardware/assembly"))
+from _rust_docs import evaluate as _evaluate, update as _update
 
-# ─── Bench test rig — water source ─────────────────────────────────────
-bench_water_press_min_psi = 40          # bench water tap pressure, low end
-bench_water_press_max_psi = 80          # bench water tap pressure, high end
-bench_water_temp_max_c = 20             # bench water temperature, upper bound
 
-# ─── Bench test rig — CO2 source ───────────────────────────────────────
-co2_cyl_small_lb = 5                    # small bench cylinder
-co2_cyl_large_lb = 10                   # large bench cylinder
-co2_primary_set_psi = 75                # the unit's own Taprite 3741 primary, set and
-co2_primary_set_tol_psi = 5             # locked in step 1; it ships at this setting
-co2_primary_relief_psi = 130            # its safety blow-off, 130 ± 4 PSI on Taprite's
-co2_primary_relief_tol_psi = 4          # 3741 drawing
-secondary_listed_psi = 44               # PISCO's listing for the RVFUP1/4-1/4-0.3's
-                                        # 0.3 MPa preset
+def _inputs():
+    return {
+        'secondary_regulator_pressure_psi': secondary_regulator_pressure_psi,
+        'carbonation_basis_c': carbonation_basis_c,
+        '_fc_gpio_relay2': _fc_gpio_relay2,
+        '_fc_valve_count': _fc_valve_count,
+    }
 
-# Centerline: the in-appliance PISCO secondary regulator's preset, which holds the
-# gas feed from the primary's factory setting above it.
-co2_centerline_psi = secondary_regulator_pressure_psi
-assert (co2_primary_set_psi - co2_primary_set_tol_psi
-        > max(co2_centerline_psi, secondary_listed_psi)), (
-    f"the primary's {co2_primary_set_psi:g} ± {co2_primary_set_tol_psi:g} PSI factory "
-    f"setting does not clear the PISCO's preset — the primary must feed it from above")
-assert (co2_primary_set_psi + co2_primary_set_tol_psi
-        < co2_primary_relief_psi - co2_primary_relief_tol_psi), (
-    f"the primary's factory setting reaches its own {co2_primary_relief_psi:g} PSI blow-off")
 
-# The pressure vessel states its carbonation at the wall setpoint and the top of its band.
-assert carbonation_basis_c == (carbonator_wall_setpoint_c,
-                               carbonator_wall_setpoint_c + carbonator_wall_band_c), (
-    f"pressure-vessel.md states carbonation at {carbonation_basis_c} °C, not at the "
-    f"{carbonator_wall_setpoint_c} ± {carbonator_wall_band_c} °C wall setpoint")
-
-# ─── Bench test rig — measurement tooling ──────────────────────────────
-glass_capacity_oz = 12                  # target dispense glass capacity
-graduated_cyl_min_ml = 250              # minimum graduated-cylinder size
-thermo_range_low_c = 0                  # thermometer range, low end
-thermo_range_high_c = 20                # thermometer range, high end
-thermo_accuracy_c = 0.5                 # thermometer accuracy spec; also doubles
-                                        # as the DS18B20 first-read agreement band
-refractometer_range_brix_low = 0        # refractometer range, low end
-refractometer_range_brix_high = 32      # refractometer range, high end
-
-# ─── Test-syrup consumption per unit ───────────────────────────────────
-concentrate_consumed_ml_per_unit = 50   # total concentrate dispensed across acceptance
-sodastream_bottle_ml = 440              # SodaStream concentrate bottle size (0.44 L)
-concentrate_consumed_pct = round(
-    concentrate_consumed_ml_per_unit / sodastream_bottle_ml * 100
-)                                       # fraction of one bottle consumed
-
-# ─── Step 4 — CO2 leak-tight hold ──────────────────────────────────────
-prv_hold_min = 2                        # PRV leak-tight observation window
-
-# ─── Step 5 — first carbonated-water dispense ──────────────────────────
-wall_disp_gate_c = carbonator_wall_setpoint_c + carbonator_wall_band_c
-dispense_temp_max_c = 6                 # max dispensed-water temperature at the glass
-foam_head_hold_sec = 10                 # minimum foam-head persistence before break
-
-# ─── Step 6/7 — metered ratio test ─────────────────────────────────────
-syrup_ratio_water = 20                  # ratio water:syrup numerator (water side)
-syrup_ratio_syrup = 1                   # ratio water:syrup denominator (syrup side)
-metered_water_ml = 250                  # metered carbonated-water dispense target
-metered_flavor_ml = metered_water_ml / syrup_ratio_water  # = 12.5
-metered_total_ml = metered_water_ml + metered_flavor_ml   # = 262.5
-ratio_volume_tol_pct = 5                # ±% on total metered volume
-metered_total_low_ml = round(metered_total_ml * (1 - ratio_volume_tol_pct / 100))   # = 250
-metered_total_high_ml = round(metered_total_ml * (1 + ratio_volume_tol_pct / 100))  # = 276
-channel_to_channel_tol_pct = 10         # cross-channel refractometer agreement band
-
-# ─── Step 11 — multi-hour burn-in ──────────────────────────────────────
-reservoir_burnin_fill_pct = 50          # reservoir level at burn-in start
-burn_in_dispense_oz = 6                 # per-dispense volume during burn-in
-burn_in_interval_min = 75               # interval between metered dispenses
-burn_in_hours = 8                       # minimum sustained burn-in window
-burn_in_min_dispenses = 6               # minimum metered dispenses across the window
-duty_cycle_low_pct = 10                 # lower-bound of acceptable duty-cycle band
-duty_cycle_high_pct = 70                # upper-bound of acceptable duty-cycle band
+globals().update(_evaluate('acceptance-and-burn-in', _inputs())["exports"])
 
 
 def main():
-    variables = {
-        # Firmware setpoints — § "Scope" In: row.
-        "GPIO_RELAY2": f"GPIO {_fc_gpio_relay2:d}",
-        "VALVE_COUNT": f"{_fc_valve_count:d}",
-        "WALL_SETPOINT": f"{carbonator_wall_setpoint_c:.4g} °C",
-        "WALL_BAND": f"± {carbonator_wall_band_c:.4g} °C",
-        "FREEZE_CUTOUT": f"−{abs(evap_coil_freeze_cutout_c):.4g} °C",
-        "MIN_OFF": f"{compressor_min_off_min:.4g} min",
-
-        # Bench water rig.
-        "WATER_PRESS_RANGE": f"{bench_water_press_min_psi:.4g}–{bench_water_press_max_psi:.4g} PSI",
-        "WATER_TEMP_MAX": f"~{bench_water_temp_max_c:.4g} °C",
-        "TAP_WATER_TEMP": f"~{bench_water_temp_max_c:.4g} °C",
-
-        # Bench CO2 rig.
-        "CO2_CYL_SMALL": f"{co2_cyl_small_lb:.4g} lb",
-        "CO2_CYL_LARGE": f"{co2_cyl_large_lb:.4g} lb",
-        "CO2_PRIMARY_SET": f"{co2_primary_set_psi:.4g} PSI",
-        "CO2_PRIMARY_TOL": f"± {co2_primary_set_tol_psi:.4g} PSI",
-        "CO2_CENTERLINE": f"{co2_centerline_psi:.4g} PSI",
-
-        # Bench measurement tooling.
-        "GLASS_OZ": f"{glass_capacity_oz:.4g} oz",
-        "CYL_MIN": f"{graduated_cyl_min_ml:.4g} mL",
-        "THERMO_RANGE": f"{thermo_range_low_c:.4g}–{thermo_range_high_c:.4g} °C",
-        "THERMO_ACC": f"±{thermo_accuracy_c:.4g} °C",
-        "BRIX_RANGE": f"{refractometer_range_brix_low:.4g}–{refractometer_range_brix_high:.4g} °Brix",
-
-        # Test-syrup consumption per unit.
-        "CONC_ML": f"~{concentrate_consumed_ml_per_unit:.4g} mL",
-        "CONC_PCT": f"~{concentrate_consumed_pct:.4g} %",
-        "BOTTLE_L": f"{sodastream_bottle_ml / 1000:.2f} L",
-
-        # Step 4 leak hold.
-        "PRV_HOLD": f"{prv_hold_min:.4g}-minute",
-
-        # Step 5 first carbonated dispense.
-        "WALL_DISP_GATE": f"{wall_disp_gate_c:.4g} °C",
-        "DISP_TEMP_MAX": f"~{dispense_temp_max_c:.4g} °C",
-        "DISP_TEMP_FAIL": f"{dispense_temp_max_c:.4g} °C",
-        "FOAM_HOLD": f"{foam_head_hold_sec:.4g} seconds",
-
-        # Step 6/7 metered ratio test.
-        "RATIO": f"{syrup_ratio_syrup:.4g}:{syrup_ratio_water:.4g}",
-        "METERED_WATER": f"~{metered_water_ml:.4g} mL",
-        "METERED_FLAVOR": f"~{metered_flavor_ml:.4g} mL",
-        "METERED_TOTAL": f"~{metered_total_ml:.4g} mL",
-        "RATIO_TOL": f"~{ratio_volume_tol_pct:.4g} %",
-        "RATIO_TOL_SIGNED": f"±{ratio_volume_tol_pct:.4g} %",
-        "METERED_RANGE": f"~{metered_total_low_ml:.4g}–{metered_total_high_ml:.4g} mL",
-        "CHANNEL_TOL": f"~{channel_to_channel_tol_pct:.4g} %",
-        "CHANNEL_TOL_FAIL": f"{channel_to_channel_tol_pct:.4g} %",
-
-        # Step 11 burn-in.
-        "RESERVOIR_FILL_PCT": f"~{reservoir_burnin_fill_pct:.4g} %",
-        "BURN_IN_DISP": f"~{burn_in_dispense_oz:.4g} oz",
-        "DISP_INTERVAL": f"{burn_in_interval_min:.4g} minutes",
-        "BURN_IN_HOURS": f"{burn_in_hours:.4g} hours",
-        "BURN_IN_HOURS_DASH": f"{burn_in_hours:.4g}-hour",
-        "BURN_IN_MIN_DISP": f"{burn_in_min_dispenses:.4g} metered dispenses",
-        "BURN_IN_MIN_DISP_SHORT": f"{burn_in_min_dispenses:.4g} dispenses",
-        "BURN_IN_TARGET": f"{burn_in_hours:.4g}-hour / {burn_in_min_dispenses:.4g}-dispense",
-        "DUTY_HIGH": f"~{duty_cycle_high_pct:.4g} %",
-        "DUTY_LOW": f"~{duty_cycle_low_pct:.4g} %",
-        "DUTY_BAND": f"{duty_cycle_low_pct:.4g}–{duty_cycle_high_pct:.4g} %",
-    }
-
-    substitute_md(
-        _here / "acceptance-and-burn-in.md",
-        variables=variables,
-    )
-    print("-> acceptance-and-burn-in.md")
+    _update('acceptance-and-burn-in', _inputs())
 
 
 if __name__ == "__main__":

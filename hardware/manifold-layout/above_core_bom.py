@@ -3,25 +3,14 @@
 import above_core as layout
 
 
+from _layout_data import data as _data
+
 def reservoir_gate_elbow_hosts():
-    """Front-valve stem elbows for the reservoir fill/draw continuations."""
-    return {'reservoir-a-fill-turn': ('valve-v-f', 'outlet'),
-            'reservoir-a-draw-turn': ('valve-v-e', 'inlet'),
-            'reservoir-b-fill-turn': ('valve-v-i', 'outlet')}
+    return {name: tuple(row) for name, row in _data('reservoir-gates').items()}
 
 
 def stem_elbow_names():
-    """Warm native NeoFit stem elbows, in their component build order."""
-    names = ('tee-fold', 'lower-valve-elbow', 'lower-pump-elbow',
-             'reg-va-elbow', 'va-outlet-elbow', 'va-south-elbow', 'carbonator-fold',
-             'gas-inlet-elbow', 'gas-lower-a', 'gas-lower-b',
-             'gas-upper-a', 'gas-upper-b', 'soda-stem-elbow', 'soda-outlet-return-stem',
-             'ya-stem-elbow', 'drain-outlet-stem', 'vb-inlet-turn',
-             'vb-outlet-stem', 'vb-outlet-return', 'yb-stem-elbow',
-             *reservoir_gate_elbow_hosts())
-    selected = layout.specification()['snapshots']
-    return tuple(name for name in names if name in selected
-                 and selected[name].get('geometry') != 'jg-turn-elbow')
+    return tuple(_data('stem-elbow-names', spec=layout.specification()))
 
 
 def core_stem_elbow_names():
@@ -30,11 +19,7 @@ def core_stem_elbow_names():
 
 
 def union_elbow_names():
-    """Warm two-socket JG elbows; frame-carried drain and core fittings excluded."""
-    selected = layout.specification()['snapshots']
-    names = ('va-east-turn', 'ya-fold-inner', 'vb-inlet-turn', 'vb-outlet-return')
-    return tuple(name for name in names
-                 if selected.get(name, {}).get('geometry') == 'jg-turn-elbow')
+    return tuple(_data('union-elbow-names', spec=layout.specification()))
 
 
 def core_union_elbow_names():

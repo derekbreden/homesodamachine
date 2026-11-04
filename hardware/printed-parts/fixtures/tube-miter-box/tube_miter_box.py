@@ -38,87 +38,30 @@ if __name__ == "__main__":
 from fits import running  # noqa: E402
 
 
-INCH = 25.4
+from _rust_data import request as _request
 
-TUBE_OD_1_4 = INCH / 4
-TUBE_OD_3_8 = INCH * 3 / 8
 
-# Single-edge razor blade, 1.5 x 0.75 x 0.009 in; the folded back runs along its top edge
-# and is what a thumb pushes on.
-RAZOR_BLADE_L = 1.5 * INCH
-RAZOR_BLADE_H = 0.75 * INCH
-RAZOR_BLADE_T = 0.009 * INCH
-RAZOR_SPINE_H = 5.0
-RAZOR_REACH = RAZOR_BLADE_H - RAZOR_SPINE_H
+def _data(**payload):
+    return _request('part-data', 'part-data', {'part': 'tube-miter-box', 'running': running, **payload})
 
-SLOT_W = 0.8
-SLOT_L = 40.0
-SLOT_DEPTH = 15.0
-END_WALL = 5.0
-FLOOR_UNDER_SLOT = 3.0
-OFFCUT_SIDE = 5.0
-KEEP_SIDE = 19.0
-TROUGH_FLOOR_ABOVE_SLOT_FLOOR = 2.5
-TROUGH_PITCH = 20.0
 
-BLOCK_X = SLOT_L + 2 * END_WALL
-BLOCK_Y = OFFCUT_SIDE + SLOT_W + KEEP_SIDE
-BLOCK_Z = FLOOR_UNDER_SLOT + SLOT_DEPTH
-
-slot_y0 = OFFCUT_SIDE
-slot_y1 = OFFCUT_SIDE + SLOT_W
-slot_floor_z = FLOOR_UNDER_SLOT
-trough_floor_z = slot_floor_z + TROUGH_FLOOR_ABOVE_SLOT_FLOOR
-razor_edge_z = BLOCK_Z - RAZOR_REACH
-
-TROUGHS = {
-    "1/4": (-TROUGH_PITCH / 2, TUBE_OD_1_4),
-    "3/8": (TROUGH_PITCH / 2, TUBE_OD_3_8),
-}
-
-MESH_TOLERANCE = 0.02
-MESH_ANGLE = 0.15
+globals().update(_data()['values'])
+TROUGHS = {name: tuple(row) for name, row in TROUGHS.items()}
 
 
 def trough_r(tube_od):
-    return tube_od / 2 + running
+    return _data(method='trough_r', tube_od=tube_od)
 
 
 def numbers():
-    """Current block, tube troughs and blade path, in the print frame."""
     from _material_base import M_PETGF_BLACK
     from _materials import linear
-    y = (slot_y0 + slot_y1) / 2
-    return {
-        "block": [BLOCK_X, BLOCK_Y, BLOCK_Z],
-        "trough_floor": trough_floor_z,
-        "troughs": [value for x, od in TROUGHS.values()
-                    for value in (x, trough_r(od), od)],
-        "slot_y": [slot_y0, slot_y1], "slot_length": SLOT_L,
-        "slot_floor": slot_floor_z,
-        "razor_bounds": [-RAZOR_BLADE_L/2, RAZOR_BLADE_L/2,
-                         y-RAZOR_BLADE_T/2, y+RAZOR_BLADE_T/2,
-                         razor_edge_z, BLOCK_Z],
-        "color": list(linear(M_PETGF_BLACK)),
-    }
+    return _data(color=list(linear(M_PETGF_BLACK)))['numbers']
 
 
 def _document():
     from docgen import substitute_md
-    substitute_md(_here.parent / "README.md", variables={
-        "TMB_BLOCK": f"{BLOCK_X:g} × {BLOCK_Y:g} × {BLOCK_Z:g} mm",
-        "TMB_TROUGH_1_4": f"{2 * trough_r(TUBE_OD_1_4):.2f} mm",
-        "TMB_TROUGH_3_8": f"{2 * trough_r(TUBE_OD_3_8):.2f} mm",
-        "TMB_RUNNING": f"{running:g} mm",
-        "TMB_TROUGH_PITCH": f"{TROUGH_PITCH:g} mm",
-        "TMB_SLOT_W": f"{SLOT_W:g} mm",
-        "TMB_SLOT_L": f"{SLOT_L:g} mm",
-        "TMB_OFFCUT_SIDE": f"{OFFCUT_SIDE:g} mm",
-        "TMB_KEEP_SIDE": f"{KEEP_SIDE:g} mm",
-        "TMB_RAZOR_PAST_FLOOR": f"{trough_floor_z - razor_edge_z:.2f} mm",
-        "TMB_TROUGH_FLOOR_ABOVE_SLOT_FLOOR": f"{TROUGH_FLOOR_ABOVE_SLOT_FLOOR:g} mm",
-        "TMB_WALL_ABOVE_3_8": f"{BLOCK_Z - (trough_floor_z + TUBE_OD_3_8):.2f} mm",
-    })
+    substitute_md(_here.parent / 'README.md', variables=_data()['variables'])
 
 
 def main(output=None):

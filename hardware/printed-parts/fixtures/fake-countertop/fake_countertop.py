@@ -33,67 +33,25 @@ if __name__ == "__main__":
     _rust_part.start()
 
 
-INCH = 25.4
+from _rust_data import request as _request
 
-# The H2C's plate, per its Bambu Studio machine profile: 330 x 320 x 325, of which the left
-# nozzle, the one this job prints with, reaches X 0..325. The project stands inside that
-# reach with a 5 mm border (`faucet/refresh_print_project.py`, `plate_border`).
-LEFT_REACH_X = 325.0
-LEFT_REACH_Y = 320.0
-PLATE_BORDER = 5.0
 
-# The counter hole the shank is sized for (`hardware/faucet-layout/faucet_assembly.py`).
-COUNTER_HOLE_D = 1.375 * INCH
+def _data(**payload):
+    return _request('part-data', 'part-data', {'part': 'fake-countertop', **payload})
 
-# Below the counter's top face: the shank ends at -50 and the umbilical stub at -80 in the
-# faucet frame, whose counter top is at -6; the gather bends on a 30 mm radius under that.
-UMBILICAL_BELOW_COUNTER = 80.0 - 6.0
-UMBILICAL_BEND_R = 30.0
-HAND_ROOM = 60.0
 
-T = 30.0
-HEIGHT = 220.0
-# Between the legs: the narrow under-counter cavity of Derek's kitchen.
-CAVITY = 130.0
-SLAB_X = CAVITY + 2 * T
-SLAB_Y = LEFT_REACH_Y - 2 * PLATE_BORDER
-CORNER_R = 6.0
-ROOT_R = 6.0
-FOOT_R = 3.0
-
-clear_height = HEIGHT - T
-leg_inner_x = CAVITY / 2
+globals().update(_data()['values'])
 
 
 def numbers():
-    """The authored stock, rounds, counter hole and existing clearance checks."""
     from _materials import M_PETGF_BLACK, linear
-    return {
-        "slab_x": SLAB_X, "slab_y": SLAB_Y, "cavity": CAVITY,
-        "thickness": T, "height": HEIGHT,
-        "corner_radius": CORNER_R, "root_radius": ROOT_R, "foot_radius": FOOT_R,
-        "hole_diameter": COUNTER_HOLE_D, "reach_x": LEFT_REACH_X, "reach_y": LEFT_REACH_Y,
-        "umbilical_below": UMBILICAL_BELOW_COUNTER, "bend_radius": UMBILICAL_BEND_R,
-        "hand_room": HAND_ROOM, "color": list(linear(M_PETGF_BLACK)),
-    }
+    return _data(color=list(linear(M_PETGF_BLACK)))['numbers']
 
 
 def _document(volume, output=None):
     from docgen import substitute_md
     out = Path(output) if output is not None else _here.parent
-    substitute_md(out / "README.md", variables={
-        "FCT_SLAB": f"{SLAB_X:g} × {SLAB_Y:g} mm",
-        "FCT_CAVITY": f"{CAVITY:g} mm",
-        "FCT_T": f"{T:g} mm",
-        "FCT_HEIGHT": f"{HEIGHT:g} mm",
-        "FCT_CLEAR": f"{clear_height:g} mm",
-        "FCT_HOLE": f"{COUNTER_HOLE_D:.2f} mm",
-        "FCT_CORNER_R": f"{CORNER_R:g} mm",
-        "FCT_ROOT_R": f"{ROOT_R:g} mm",
-        "FCT_FOOT_R": f"{FOOT_R:g} mm",
-        "FCT_UMBILICAL": f"{UMBILICAL_BELOW_COUNTER + UMBILICAL_BEND_R:g} mm",
-        "FCT_VOLUME": f"{volume / 1000:.0f} cm³",
-    })
+    substitute_md(out / 'README.md', variables=_data(volume=volume)['variables'])
 
 
 def main(output=None):

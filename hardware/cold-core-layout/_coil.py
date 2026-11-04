@@ -25,9 +25,7 @@ retain their shell station and their -X axes.
 
 from __future__ import annotations
 
-import math
 import sys
-from collections import namedtuple
 from pathlib import Path
 
 import cadquery as cq
@@ -40,386 +38,176 @@ for _p in (_hw / "scripts", _cold, _cold / "coil-mandrel",
     if str(_p) not in sys.path:
         sys.path.insert(0, str(_p))
 
-import coil_mandrel as _mandrel                          # noqa: E402
-import _copper_ports as _copper                            # noqa: E402
-import reed_bridge as _bridge                            # noqa: E402
-from _cold_core_interface import (                       # noqa: E402
-    evap_tail_high_z,
-    evap_tail_low_z,
-    carbonator_outer_radius,
-    carbonator_support_ring_height,
-    wall_and_floor_thickness,
+import coil_mandrel as _mandrel
+import _copper_ports as _copper
+import reed_bridge as _bridge
+from _cold_core_interface import (
+    evap_tail_high_z, evap_tail_low_z, carbonator_outer_radius,
+    carbonator_support_ring_height, wall_and_floor_thickness,
+    carbonator_sensor_azimuth,
 )
-from _routing import stock_min, stock_of                 # noqa: E402
-import _stated_bounds as _bounds                         # noqa: E402
-import _core_points as _points                           # noqa: E402
+from _routing import stock_min, stock_of
+import _stated_bounds as _bounds
+from _cold_core_data import read as _read
 
-TUBE_R = _mandrel.tube_radius                       # 3.175 — 1/4" ACR copper
-# The copper's centreline once it is off the mandrel and onto the carbonator: its inner surface
-# on the carbonator's OD.
-WIND_R = carbonator_outer_radius + TUBE_R
-TOTAL_WRAPS = 9.5
-COPPER_STOCK = stock_of("refrigerant", 2 * TUBE_R)
-COPPER_BEND = stock_min("refrigerant", 2 * TUBE_R)
+# The Rust recipe derives the wrap, bridge lift, R15 bends and copper ledger.
+# These inputs are the external dimensions authored by their component providers.
+_spec = {
+    'evap_tail_high_z': evap_tail_high_z, 'evap_tail_low_z': evap_tail_low_z,
+    'carbonator_outer_radius': carbonator_outer_radius,
+    'carbonator_support_ring_height': carbonator_support_ring_height,
+    'wall_and_floor_thickness': wall_and_floor_thickness,
+    'carbonator_sensor_azimuth': carbonator_sensor_azimuth,
+    'copper_bend': stock_min('refrigerant', _copper.copper_outer_diameter),
+    'plateau_radius': _bridge.plateau_radius,
+    'bridge_half_angle': _bridge.bridge_half_angle,
+    'bridge_z_bottom': _bridge.bridge_z_bottom, 'bridge_z_top': _bridge.bridge_z_top,
+    'axial_ramp_length': _bridge.axial_ramp_length,
+    'front_wall_x': _copper.front_wall_x, 'port_lane_mid_y': _copper.port_lane_mid_y,
+    'west_lane_mid_y': _copper.west_lane_mid_y, 'evap_cross_z': _copper.evap_cross_z,
+}
 
-# Finished helix endpoints, degrees CCW from +X in the core frame.
-AZ_IN, AZ_OUT = -90.0, 90.0
+
+def _recipe(action, **inputs):
+    return _read('coil', action=action, spec=_spec, **inputs)
 
 
-def _at(azimuth_deg: float, z: float, radius: float = None) -> cq.Vector:
-    return cq.Vector(*_at_xyz(azimuth_deg, z, radius))
+globals().update(_recipe('constants'))
+RIDE_RADII = tuple(tuple(row) for row in RIDE_RADII)
+BRIDGE_Z = tuple(BRIDGE_Z)
+COPPER_STOCK = stock_of('refrigerant', _copper.copper_outer_diameter)
 
 
 def _at_xyz(azimuth_deg, z, radius=None):
-    r = WIND_R if radius is None else radius
-    a = math.radians(azimuth_deg)
-    return (r * math.cos(a), r * math.sin(a), z)
+    return tuple(_recipe('at', azimuth_deg=azimuth_deg, z=z, radius=radius))
 
 
-WIND_HEIGHT = evap_tail_high_z - evap_tail_low_z
-PITCH = WIND_HEIGHT / TOTAL_WRAPS
+def _at(azimuth_deg, z, radius=None):
+    return cq.Vector(*_at_xyz(azimuth_deg, z, radius))
 
 
-# THE WRAP DOES NOT LIE ON THE CARBONATOR ALL THE WAY ROUND. The reed bridge stands on the register
-# azimuth carrying the two carbonator reeds in pockets `reed_bridge.pocket_depth` proud of the
-# wall, and the copper crossing it rides the bridge's own plateau — which is what leaves the
-# glass its `copper_clearance_over_glass`. The lift, the arc it runs over and the ramps either
-# side are all the BRIDGE's figures; this reads them and rides what they leave.
-# HOW LONG THE COPPER TAKES TO COME UP, and it is not how long the BRIDGE takes. A rise of
-# `BRIDGE_LIFT` eased over a path of `L` turns at its steepest through a radius of
-# L² / (lift · π²/2), and a 1/4" ACR tube will not turn tighter than `COPPER_BEND`. So the ramp
-# on and off is as long as that floor asks — longer than the bridge's own printed ramps, in
-# both directions, because PETG can step where copper cannot.
-BRIDGE_LIFT = _bridge.plateau_radius - carbonator_outer_radius
-BRIDGE_RAMP = math.sqrt(COPPER_BEND * BRIDGE_LIFT * math.pi ** 2 / 2.0)
-BRIDGE_ARC_RUNOUT = math.degrees(BRIDGE_RAMP / _bridge.plateau_radius)
-# What the copper's INNER surface rides on, by azimuth off the register line. A bent tube
-# BRIDGES the bridge's own arc ramps rather than following them down, so it holds the plateau
-# all the way to the bridge's edge and comes back to the carbonator outside it.
-RIDE_RADII = ((math.degrees(_bridge.bridge_half_angle), _bridge.plateau_radius),
-              (math.degrees(_bridge.bridge_half_angle) + BRIDGE_ARC_RUNOUT, carbonator_outer_radius))
-# The bridge is authored in the CARBONATOR's own frame, one floor slab and one support ring up.
-_carbonator_bottom_z = wall_and_floor_thickness + carbonator_support_ring_height
-BRIDGE_Z = (_bridge.bridge_z_bottom + _carbonator_bottom_z,
-            _bridge.bridge_z_top + _carbonator_bottom_z)
-BRIDGE_AXIAL_RAMP = max(_bridge.axial_ramp_length, BRIDGE_RAMP)
-# How finely the wrap is sampled. Enough that the ramps read as ramps and the sampled circle
-# carries the tube's own surface (`wrap_points` swells for the rest), and no finer: every body
-# in the pack is met with this one, and a spline with a thousand poles is felt on every build.
-WRAP_SAMPLES_PER_TURN = 96
-# The bridge stands on the carbonator register's installed azimuth.
-from _cold_core_interface import carbonator_sensor_azimuth
-_bridge_azimuth = carbonator_sensor_azimuth
+def _ease(t):
+    return _recipe('ease', t=t)
 
 
-def _ease(t: float) -> float:
-    """A 0→1 ramp with no corner at either end.
-
-    A tube does not turn a corner, and a curve drawn THROUGH points that do overshoots at one:
-    the wrap would dip inside the carbonator just off the bridge's edge. Easing the ramp is what
-    keeps the drawn surface where the copper is."""
-    t = max(0.0, min(1.0, t))
-    return 0.5 - 0.5 * math.cos(math.pi * t)
+def _ride_radius(azimuth_deg, z):
+    return _recipe('ride-radius', azimuth_deg=azimuth_deg, z=z)
 
 
-def _ride_radius(azimuth_deg: float, z: float) -> float:
-    """The copper CENTRELINE's radius at one point of the wrap.
-
-    Off the bridge it is `WIND_R`. Over it, the tube's inner surface stands on whatever the
-    bridge presents at that azimuth, and the two ends of the bridge's own axial ramp bring it
-    up and down rather than stepping."""
-    a = abs(((azimuth_deg - _bridge_azimuth + 180.0) % 360.0) - 180.0)
-    surface = carbonator_outer_radius
-    for i, (edge, radius) in enumerate(RIDE_RADII):
-        if a <= edge:
-            if i == 0:
-                surface = radius
-            else:
-                lo_edge, lo_r = RIDE_RADII[i - 1]
-                surface = lo_r + (radius - lo_r) * _ease((a - lo_edge) / (edge - lo_edge))
-            break
-    z0, z1 = BRIDGE_Z
-    axial = _ease(min((z - (z0 - BRIDGE_AXIAL_RAMP)) / BRIDGE_AXIAL_RAMP,
-                      ((z1 + BRIDGE_AXIAL_RAMP) - z) / BRIDGE_AXIAL_RAMP))
-    return WIND_R + axial * max(0.0, surface - carbonator_outer_radius)
+def wrap_points_xyz():
+    """The laid wrap's scalar sampled centreline, including bridge lift."""
+    return [tuple(point) for point in _recipe('wrap-points')]
 
 
-def wrap_points_xyz() -> list:
-    """The laid wrap's sampled centreline as scalar coordinates."""
-    n = max(2, int(round(TOTAL_WRAPS * WRAP_SAMPLES_PER_TURN)))
-    # A curve THROUGH sampled points runs inside the circle those points sit on, by the
-    # sagitta of one step. Sampling on a circle that much larger puts the drawn surface back
-    # on the carbonator instead of a hair inside it.
-    swell = 1.0 / math.cos(math.pi * TOTAL_WRAPS / n)
-    pts = []
-    for i in range(n + 1):
-        turn = TOTAL_WRAPS * i / n
-        az = AZ_IN + 360.0 * turn
-        z = evap_tail_low_z + PITCH * turn
-        pts.append(_at_xyz(az, z, _ride_radius(az, z) * swell))
-    return pts
+def wrap_points():
+    return [cq.Vector(*point) for point in wrap_points_xyz()]
 
 
-def wrap_points() -> list:
-    """The sampled laid wrap, clocked from the inlet and lifted over its reed bridge."""
-    return [cq.Vector(*p) for p in wrap_points_xyz()]
+def wrap_length():
+    return _recipe('wrap-length')
 
 
-def helix_wire() -> cq.Wire:
-    """The wrap's centreline as one wire — the NOMINAL circle, clocked so it starts on the
-    inlet tail's own azimuth.
-
-    THE DRAWN BODY IS THE CIRCLE, NOT THE LAID PATH. The lift over the reed bridge is real and
-    `wrap_length` bills it, but a body swept along a spline that rises and falls ten times costs
-    ~50 s in every boolean it meets, and this one is met by every body in the pack — an hour a
-    build, on a 3 mm excursion over 0.7 % of the wrap. So the SOLID is the exact helix and
-    `cold_core_assembly.RIDES_ON` is where the three bodies that lift are named."""
-    helix = cq.Wire.makeHelix(PITCH, WIND_HEIGHT, WIND_R)
-    return (helix.rotate(cq.Vector(0, 0, 0), cq.Vector(0, 0, 1), AZ_IN)
-            .translate(cq.Vector(0, 0, evap_tail_low_z)))
+def bridge_lift_length():
+    return _recipe('bridge-lift-length')
 
 
-def build_wrap() -> cq.Solid:
-    """The helix as swept copper."""
-    wire = helix_wire()
-    profile = cq.Workplane(cq.Plane(origin=wire.startPoint(), normal=wire.tangentAt(0)))
-    return profile.circle(TUBE_R).sweep(
-        cq.Workplane("XY").newObject([wire]), isFrenet=True).val()
+def gap_z_near(azimuth_deg, target_z):
+    return _recipe('gap-z-near', azimuth_deg=azimuth_deg, target_z=target_z)
 
 
-def wrap_length() -> float:
-    """What a build CUTS for the wrap — the laid path, bridge lift and all.
-
-    `wrap_points` is the centreline the copper actually takes, so this is longer than the
-    drawn body's own circle by whatever riding the bridge costs. `bom.md` §5 bills this."""
-    pts = wrap_points()
-    return sum((pts[i + 1] - pts[i]).Length for i in range(len(pts) - 1))
+def _segments(rows):
+    return [{key: tuple(value) if isinstance(value, list) else value
+             for key, value in row.items()} for row in rows]
 
 
-def bridge_lift_length() -> float:
-    """How much of `wrap_length` the bridge alone adds."""
-    return wrap_length() - TOTAL_WRAPS * math.hypot(2 * math.pi * WIND_R, PITCH)
+def tail_layout(which, *, working_tail=False):
+    """Rust's source-frame tangent stations and analytic bends."""
+    return _segments(_recipe('tail-layout', which=which, working_tail=working_tail))
 
 
-def gap_z_near(azimuth_deg: float, target_z: float) -> float:
-    """A Z at `azimuth_deg` midway between two wraps, as near `target_z` as the pitch allows.
-
-    What is taped to the carbonator sits against it, so it has to land in the copper's own gap."""
-    turns = (target_z - evap_tail_low_z) / PITCH - (azimuth_deg - AZ_IN) / 360.0
-    wrap_z = evap_tail_low_z + (math.floor(turns) + (azimuth_deg - AZ_IN) / 360.0) * PITCH
-    return wrap_z + PITCH / 2.0
+def tail_layout_length(which):
+    return _recipe('tail-length', which=which)
 
 
-TAIL_BEND_R = 15.0
+def tail_points(which):
+    return [tuple(point) for point in _recipe('tail-points', which=which)]
 
 
-_Point = namedtuple('_Point', 'x y z')
+def tail_length(which):
+    return _recipe('tail-length', which=which)
 
 
-class _TailLayout:
-    """The manufacturing stations and circular bends without native edge objects."""
+def cut_length():
+    return _recipe('cut-length')
 
-    def __init__(self, point, tangent):
-        self.point = _Point(*point)
-        self.tangent = _points.unit(tangent)
-        self.segments = []
 
-    def bend(self, normal, degrees, label):
-        normal = _points.unit(normal)
-        angle = math.radians(degrees)
-        start, tangent = self.point, self.tangent
-        radius = TAIL_BEND_R
-        end = _points.add(_points.add(start, _points.scale(tangent, radius * math.sin(angle))),
-                          _points.scale(normal, radius * (1 - math.cos(angle))))
-        self.segments.append(dict(id=label, kind='bend', start=tuple(start), end=end,
-                                  radius=radius, angle=degrees, tangent=tangent, normal=normal))
-        self.point = _Point(*end)
-        self.tangent = _points.add(_points.scale(tangent, math.cos(angle)),
-                                   _points.scale(normal, math.sin(angle)))
-
-    def straight(self, length, label):
-        if length <= 1e-8:
-            return
-        end = _points.add(self.point, _points.scale(self.tangent, length))
-        self.segments.append(dict(id=label, kind='straight', start=tuple(self.point),
-                                  end=end, length=length))
-        self.point = _Point(*end)
+def roll_spare_ft():
+    return _recipe('roll-spare-ft')
 
 
 class TailForm:
-    """Analytic circular bends and tangent straights, in manufacturing order."""
+    """Native edge adapter for the Rust manufacturing stations."""
 
-    def __init__(self, point, tangent):
-        self.point = cq.Vector(*point)
-        self.tangent = cq.Vector(*tangent).normalized()
+    def __init__(self, which, *, working_tail=False):
+        data = _recipe('tail-edges', which=which, working_tail=working_tail)
+        self.point = cq.Vector(*data['point'])
+        self.tangent = cq.Vector(*data['tangent'])
         self.edges = []
         self.segments = []
-
-    def bend(self, normal, degrees, label):
-        normal = cq.Vector(*normal).normalized()
-        angle = math.radians(degrees)
-        start, tangent = self.point, self.tangent
-        radius = TAIL_BEND_R
-        end = (start + tangent.multiply(radius * math.sin(angle))
-               + normal.multiply(radius * (1 - math.cos(angle))))
-        mid = (start + tangent.multiply(radius * math.sin(angle / 2))
-               + normal.multiply(radius * (1 - math.cos(angle / 2))))
-        self.edges.append(cq.Edge.makeThreePointArc(start, mid, end))
-        self.segments.append(dict(id=label, kind="bend", start=start.toTuple(),
-                                  end=end.toTuple(), radius=radius, angle=degrees,
-                                  tangent=tangent.toTuple(), normal=normal.toTuple()))
-        self.point = end
-        self.tangent = tangent.multiply(math.cos(angle)) + normal.multiply(math.sin(angle))
-
-    def straight(self, length, label):
-        if length <= 1e-8:
-            return
-        end = self.point + self.tangent.multiply(length)
-        self.edges.append(cq.Edge.makeLine(self.point, end))
-        self.segments.append(dict(id=label, kind="straight", start=self.point.toTuple(),
-                                  end=end.toTuple(), length=length))
-        self.point = end
+        for row in _segments(data['segments']):
+            start, end = cq.Vector(*row['start']), cq.Vector(*row['end'])
+            if row['kind'] == 'bend':
+                self.edges.append(cq.Edge.makeThreePointArc(start, cq.Vector(*row.pop('mid')), end))
+            else:
+                self.edges.append(cq.Edge.makeLine(start, end))
+            self.segments.append(row)
 
     def wire(self):
         return cq.Wire.assembleEdges(self.edges)
 
 
-def _tail_form(which, *, working_tail=False, layout):
-    """Production form from helix endpoint to the shell exit, optionally to cut end.
-
-    B0 absorbs the helix's small pitch angle. B1/B2 are a plan S-offset;
-    B3/B4 complete the vertical change. The outlet has a straight between B3
-    and B4. E is the fixed exit datum, two millimetres outside the station.
-    """
-    sign = -1 if which == "inlet" else 1
-    az = AZ_IN if which == "inlet" else AZ_OUT
-    z = evap_tail_low_z if which == "inlet" else evap_tail_high_z
-    start = _at_xyz(az, z)
-    beta = math.atan(PITCH / (2 * math.pi * WIND_R))
-    form = layout(start, (-math.cos(beta), 0, sign * math.sin(beta)))
-    form.bend((-math.sin(beta), 0, -sign * math.cos(beta)), math.degrees(beta), "B0")
-    (_wall_x, lane_y, cross_z), _axis = _copper.station("evap-" + which)
-    offset = abs(lane_y) - WIND_R
-    angle = math.acos(1 - offset / (2 * TAIL_BEND_R))
-    form.bend((0, sign, 0), math.degrees(angle), "B1")
-    form.bend((-math.sin(angle), -sign * math.cos(angle), 0), math.degrees(angle), "B2")
-    if which == "inlet":
-        drop = form.point.z - cross_z
-        angle = math.acos(1 - drop / (2 * TAIL_BEND_R))
-        form.bend((0, 0, -1), math.degrees(angle), "B3")
-        form.bend((-math.sin(angle), 0, math.cos(angle)), math.degrees(angle), "B4")
-    else:
-        form.bend((0, 0, -1), 90, "B3")
-        form.straight(form.point.z - (cross_z + TAIL_BEND_R), "S1")
-        form.bend((-1, 0, 0), 90, "B4")
-    exit_x = _wall_x - wall_and_floor_thickness
-    form.straight(form.point.x - exit_x, "S2")
-    if working_tail:
-        form.straight(_mandrel.stub_protrusion[which], "WORKING TAIL")
-    return form
+def tail_form(which, *, working_tail=False):
+    return TailForm(which, working_tail=working_tail)
 
 
-def tail_form(which: str, *, working_tail=False) -> TailForm:
-    """Native circular wire form in manufacturing order."""
-    return _tail_form(which, working_tail=working_tail, layout=TailForm)
+def helix_wire():
+    """Native drawing adapter for the nominal-circle helix."""
+    helix = cq.Wire.makeHelix(PITCH, WIND_HEIGHT, WIND_R)
+    return (helix.rotate(cq.Vector(0, 0, 0), cq.Vector(0, 0, 1), AZ_IN)
+            .translate(cq.Vector(0, 0, evap_tail_low_z)))
 
 
-def tail_layout(which: str, *, working_tail=False):
-    """Source-frame stations used by the kernel and by the native tail form."""
-    return _tail_form(which, working_tail=working_tail, layout=_TailLayout).segments
+def build_wrap():
+    wire = helix_wire()
+    profile = cq.Workplane(cq.Plane(origin=wire.startPoint(), normal=wire.tangentAt(0)))
+    return profile.circle(TUBE_R).sweep(
+        cq.Workplane('XY').newObject([wire]), isFrenet=True).val()
 
 
-def tail_layout_length(which):
-    return sum(item['radius'] * math.radians(item['angle']) if item['kind'] == 'bend'
-               else item['length'] for item in tail_layout(which))
-
-
-def tail_points(which: str) -> list:
-    """Tangent stations of the production form; not sharp polyline corners."""
-    form = tail_form(which)
-    return [form.segments[0]["start"], *(item["end"] for item in form.segments)]
-
-
-def build_tail(which: str):
-    form = tail_form(which)
-    wire = form.wire()
+def build_tail(which):
+    wire = tail_form(which).wire()
     plane = cq.Plane(origin=wire.startPoint(), normal=wire.tangentAt(0))
     solid = cq.Workplane(plane).circle(TUBE_R).sweep(
-        cq.Workplane("XY").newObject([wire]), isFrenet=True).val()
+        cq.Workplane('XY').newObject([wire]), isFrenet=True).val()
     return TAIL_BEND_R, solid
 
 
-def bodies() -> dict:
-    return {"evap-coil": build_wrap(),
-            "evap-tail-inlet": build_tail("inlet")[1],
-            "evap-tail-outlet": build_tail("outlet")[1]}
+def bodies():
+    return {'evap-coil': build_wrap(),
+            'evap-tail-inlet': build_tail('inlet')[1],
+            'evap-tail-outlet': build_tail('outlet')[1]}
 
 
-def tail_length(which: str) -> float:
-    return tail_form(which).wire().Length()
+_ledger = _recipe('tail-ledger')
+_tails_billed = _bounds.bound('stub-tails-billed', _ledger['label'], _ledger['target'])
+for _row in _ledger['rows']:
+    _tails_billed(_row['holds'], _row['detail'])
 
 
-# WHAT THE CUT ALLOWS, AGAINST WHAT THE TAILS ACTUALLY TAKE. A tie-in allowance is that end's
-# in-shell run plus what protrudes past the plug for the braze, and `coil_mandrel` writes the
-# in-shell half down as a constant because this module imports THAT one and not the reverse.
-# Here is where the two can be read together: a tail re-routed longer than its written figure
-# is copper the cut never allowed for, and the stub pays for it out of the protrusion the
-# brazier needs. The bound says so on the card rather than raising — `_stated_bounds` says why.
-STUB_TAIL_TOL = 1.0
-
-_tails_billed = _bounds.bound(
-    "stub-tails-billed",
-    "Each coil tail's in-shell run is the one its stub allowance bills",
-    f"within {STUB_TAIL_TOL:.1f} mm of `coil_mandrel.tail_in_shell`")
-for _end, _billed in _mandrel.tail_in_shell.items():
-    _drawn = tail_layout_length(_end)
-    _tails_billed(
-        abs(_drawn - _billed) <= STUB_TAIL_TOL,
-        f"{_end} tail draws {_drawn:.1f} mm against the {_billed:.1f} mm "
-        f"`coil_mandrel.tail_in_shell` bills — {_drawn - _billed:+.1f} mm out of the "
-        f"{_mandrel.stub_protrusion[_end]:.0f} mm that end has to protrude with")
+def report(*, laid_length=None, tail_lengths=None):
+    print(_recipe('report', laid_length=laid_length, tail_lengths=tail_lengths,
+                  stock_name=COPPER_STOCK.name, stock_source=COPPER_STOCK.source), end='')
 
 
-def cut_length() -> float:
-    """What a build CUTS per carbonator — the laid wrap plus each end's own tie-in allowance.
-
-    Struck here rather than in `coil_mandrel` because the wrap it stands on is the LAID one,
-    and the reed bridge's lift is only visible from this module."""
-    return wrap_length() + _mandrel.stub_total
-
-
-def roll_spare_ft() -> float:
-    """What one roll has left after `coil_mandrel.carbonators_per_roll` carbonators come off it."""
-    return _mandrel.roll_length_ft - _mandrel.carbonators_per_roll * cut_length() / 304.8
-
-
-def report(*, laid_length=None, tail_lengths=None) -> None:
-    wrap = wrap_length() if laid_length is None else laid_length
-    print("  evaporator coil")
-    print(f"    stock           {COPPER_STOCK.name}, min bend {COPPER_BEND:.2f} — "
-          f"{COPPER_STOCK.source}")
-    print(f"    wound at        r {WIND_R:.3f} (carbonator {carbonator_outer_radius:.1f} + tube "
-          f"{TUBE_R:.3f}); the mandrel winds at r {_mandrel.helix_path_radius:.3f}")
-    print(f"    wraps           {TOTAL_WRAPS:.3f} at {PITCH:.4g} mm pitch, "
-          f"z {evap_tail_low_z:.1f}..{evap_tail_high_z:.1f}")
-    print(f"    azimuths        inlet {AZ_IN:+.2f}°, outlet {AZ_OUT:+.2f}°, "
-          f"CCW delta {(AZ_OUT - AZ_IN) % 360:.2f}°")
-    # Finished laid winding, followed by the rough tool's independent groove
-    # calculations. The tool's turn count does not control the finished coil.
-    print(f"    wrap laid       {wrap:.0f} mm ({wrap / 304.8:.2f} ft) — mandrel "
-          f"{_mandrel.mandrel_wrap_length:.0f}, sprung {_mandrel.fitted_wrap_length:.0f}, "
-          f"reed bridge {wrap - TOTAL_WRAPS * math.hypot(2 * math.pi * WIND_R, PITCH):+.0f}")
-    for end in ("inlet", "outlet"):
-        print(f"    {end + ' stub':15} {_mandrel.stub_allowance[end]:.1f} mm allowed = "
-              f"{(tail_length(end) if tail_lengths is None else tail_lengths[end]):.1f} mm drawn in-shell "
-              f"({_mandrel.tail_in_shell[end]:.1f} billed) + "
-              f"{_mandrel.stub_protrusion[end]:.0f} protruding")
-    cut = cut_length() if laid_length is None else wrap + _mandrel.stub_total
-    spare = (_mandrel.roll_length_ft - _mandrel.carbonators_per_roll * cut / 304.8)
-    print(f"    cut per carb    {cut:.1f} mm ({cut / 304.8:.3f} ft); "
-          f"{_mandrel.carbonators_per_roll} per {_mandrel.roll_length_ft:.0f} ft roll leaves "
-          f"{spare:+.3f} ft ({spare * 304.8:+.0f} mm)")
-
-
-if __name__ == "__main__":
+if __name__ == '__main__':
     report()

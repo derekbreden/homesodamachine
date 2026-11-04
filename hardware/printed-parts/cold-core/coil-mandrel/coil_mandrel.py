@@ -10,13 +10,11 @@ ends while setting the finished diameter, pitch and turn count on the vessel
 fixture. EVAP-01 and cold-core-layout/_coil.py define the production coil,
 including its opposite tangent exits and complete R15 tail forms.
 
-This module holds the numbers and writes the ones the geometry takes
-(`numbers()`) to `coil-mandrel.numbers.json`; `coil_mandrel.rs`, beside it,
-cuts `coil-mandrel.step`, its payload and `coil-mandrel.stl` from them on the
-kernel (`hardware/scripts/_rust_part.py`).
+The Rust cold-core scalar recipe derives the winding dimensions and stub
+allowances. This interface supplies them to the part program and Python readers;
+`coil_mandrel.rs` cuts the STEP, payload and STL on the kernel.
 """
 
-import math
 import sys
 from pathlib import Path
 
@@ -39,170 +37,22 @@ from docgen import substitute_py_comments
 from _cold_core_interface import evap_tail_low_z, evap_tail_high_z
 
 
-# ═══════════════════════════════════════════════════════
-# COPPER, Carbonator, AND TARGET COMPENSATION
-# ═══════════════════════════════════════════════════════
-
-tube_od_in = 0.250
-# [3.175 mm](TUBE_R) — 1/4" copper tube radius.
-tube_radius = (tube_od_in / 2) * 25.4
-
-carbonator_od = 127.0  # 5" carbonator carbonator OD
-# [63.5 mm](TANK_R) — carbonator radius.
-carbonator_radius = carbonator_od / 2
-
-# Rough preform undersize relative to the carbonator; final form is set on
-# the vessel fixture with material fed from the unfinished tails.
-net_undersize = 3.0
+_layout = next(p for p in _here.parents if p.name == "hardware") / "cold-core-layout"
+if str(_layout) not in sys.path:
+    sys.path.insert(0, str(_layout))
+from _cold_core_data import read as _read
 
 
-# ═══════════════════════════════════════════════════════
-# GROOVE GEOMETRY (shallow, same-R cradle)
-# ═══════════════════════════════════════════════════════
-
-groove_depth = 1.0
-groove_profile_radius = tube_radius
-# [2.175 mm](GROOVE_OFFSET) — helix path sits this far outboard of the cylinder
-# surface, so the tube_radius profile cuts only groove_depth into it.
-groove_offset = groove_profile_radius - groove_depth
-
-# Copper bottom rests at the groove bottom, so the coil inner radius is
-# mandrel_radius − groove_depth, net_undersize mm under the carbonator radius.
-# [61.5 mm](MANDREL_R) — radius of the mandrel cylinder surface.
-mandrel_radius = carbonator_radius - net_undersize + groove_depth
-# [123 mm](MANDREL_OD) — mandrel outer surface diameter.
-mandrel_od = 2 * mandrel_radius
-
-# Helix centerline radius — the cylinder surface plus groove_offset.
-helix_path_radius = mandrel_radius + groove_offset
-# [121 mm](GROOVE_BOTTOM_OD) — diameter at the bottom of the helical groove.
-groove_bottom_od = mandrel_od - 2 * groove_depth
-
-wall = 5.0
-# [56.5 mm](MANDREL_INNER_R) — hollow ring inner radius.
-mandrel_inner_radius = mandrel_radius - wall
-mandrel_r_range = (mandrel_inner_radius, mandrel_radius)
+def _recipe(op, **inputs):
+    return _read(op, evap_tail_low_z=evap_tail_low_z,
+                 evap_tail_high_z=evap_tail_high_z, **inputs)
 
 
-# ═══════════════════════════════════════════════════════
-# FOAM-SHELL ALIGNMENT
-# ═══════════════════════════════════════════════════════
+globals().update(_recipe("mandrel"))
+for _name in ("mandrel_r_range", "mandrel_z_range", "lower_handle_z_range",
+              "wind_z_range", "upper_handle_z_range"):
+    globals()[_name] = tuple(globals()[_name])
 
-# Where the coil's two tails leave the wrap, in foam-shell coords (Y is the
-# cylinder axis). They leave MIRRORED ABOUT THE MANDREL'S CENTRE PLANE, one either
-# side of x = 0, because the shell's front wall carries a lane on each side of it
-# and each tail takes its own — the inlet to the port lane, the outlet to the west
-# — and drops that lane's own slot to a station at the height the other's is at.
-#   These are the COIL's own heights — the elbow bands the carbonator leaves clear
-# above and below itself — and NOT the exit stations the copper ends up crossing
-# the wall at, so the wind length is set here and the crossing heights in
-# `_copper_ports.py`. Pinning either to the other would put a bend
-# where the mandrel wants a wrap.
-tail_inlet_x, tail_inlet_y, tail_inlet_z = -30.0, evap_tail_low_z, 20.0
-tail_outlet_x, tail_outlet_y, tail_outlet_z = 30.0, evap_tail_high_z, 20.0
-
-# [119.4 mm](WIND_LENGTH) — Y span between foam-shell inlet and outlet tails.
-wind_length = tail_outlet_y - tail_inlet_y
-
-tail_inlet_azimuth = math.degrees(math.atan2(tail_inlet_z, tail_inlet_x))
-tail_outlet_azimuth = math.degrees(math.atan2(tail_outlet_z, tail_outlet_x))
-
-# CCW azimuthal delta from inlet to outlet (right-hand helix climbs CCW).
-tail_ccw_delta = (tail_outlet_azimuth - tail_inlet_azimuth) % 360
-
-# [9](FULL_WRAPS) full wraps; the fractional wrap spans the azimuthal delta.
-full_wraps = 9
-total_wraps = full_wraps + tail_ccw_delta / 360
-# [12.33 mm](PITCH) — helix pitch, [0.485 in](PITCH_IN).
-pitch = wind_length / total_wraps
-
-# Copper the wrap consumes ON THE MANDREL — the helix arc at the winding
-# centerline, [3.877 m](MANDREL_LEN) ([12.72 ft](MANDREL_FT)) per carbonator. This is
-# what the tool holds, NOT what the coil ends up being.
-mandrel_wrap_length = total_wraps * math.hypot(2 * math.pi * helix_path_radius, pitch)
-
-# THE WRAP HAS THREE LENGTHS AND THIS MODULE HOLDS TWO. The wrap springs
-# net_undersize out when it comes off, so the same [9.687](TOTAL_WRAPS) wraps stand
-# on a circle 2·π·net_undersize longer each turn: [4.06 m](SPRUNG_LEN)
-# ([13.32 ft](SPRUNG_FT)) at the carbonator's own winding radius, [183 mm](SPRING_GAIN)
-# over the mandrel's. The third is `cold-core-layout/_coil.wrap_length` — the same
-# wraps AS LAID, with the lift over the reed bridge in them — and that is the copper
-# a build consumes, so the cut and the roll arithmetic stand on it and live there.
-# Only that module can see the bridge; this one is imported BY it.
-fitted_wrap_radius = carbonator_radius + tube_radius
-fitted_wrap_length = total_wraps * math.hypot(2 * math.pi * fitted_wrap_radius, pitch)
-wrap_length = fitted_wrap_length
-spring_gain = fitted_wrap_length - mandrel_wrap_length
-
-
-# ═══════════════════════════════════════════════════════
-# TIE-IN STUB ALLOWANCE — ONE PER END, NOT ONE FIGURE TWICE
-# ═══════════════════════════════════════════════════════
-
-# A STUB IS FIT-UP AND REWORK. IT IS NOT THERMAL STANDOFF. How far a brazed joint
-# stands off the foam shell is set by the ROUTED run, not by how much copper gets
-# cut. `manifold-layout/_lines.py` draws exactly ONE refrigerant leg — refrig-3,
-# foam-assembly.evap-outlet → compressor.refrig-suction — because the other two
-# joints of the sealed loop are made across a plane their bodies already share and
-# draw no tube at all. That leg spans 92.0 mm end to end on the built pack
-# (`manifold-layout/enclosure-assembly.scorecard.json`, bend `refrig-3`). Any stub
-# longer than its own end's reach is trimmed off before the torch is lit — so what
-# the allowance buys is fit-up and re-cuts, and each end is sized off what
-# `assembly/refrigerant-loop.md` actually does to THAT end.
-#
-#   outlet  [175 mm](PROT_OUTLET) — refrig-3's 92.0 mm of routed reach, ~20 mm of
-#           fit-up (the factory suction line is cut by hand at step 3), and ~60 mm
-#           for two re-cuts. Step 9 requires the joint be re-cut and re-brazed on
-#           any leak, so the rework allowance is a stated requirement, not padding.
-#   inlet   [200 mm](PROT_INLET) — no routed reach at all (refrig-2 is a mating
-#           across a plane the two bodies already share, so it draws no tube),
-#           ~40 mm of swage working length for the Knipex 86 01 180 progressive 60°
-#           collapse, ~20 mm of fit-up, and ~120 mm for three re-cuts. The
-#           pinch-swage is the higher-risk of the two joints — size mismatch, hand
-#           technique, no reducer fitting — and a failed one is re-swaged from
-#           fresh copper, not just re-brazed.
-stub_protrusion = {"inlet": 200.0, "outlet": 175.0}
-
-# WHAT EACH TAIL DOES BEFORE IT PROTRUDES, AND NOTHING ELSE IN THE REPO BILLS IT.
-# `cold-core-layout/_coil.tail_length` draws each tail off the helix, down its own
-# column and out through the shell wall: [154.4 mm](SHELL_TAIL_INLET) and
-# [271.9 mm](SHELL_TAIL_OUTLET). That copper comes off the same cut as the wrap, so
-# the allowance carries it — an allowance is in-shell tail PLUS protrusion, end for
-# end. Written here rather than imported because `_coil` imports this module and the
-# dependency only runs one way; `_coil`'s `stub-tails-billed` bound is where the two
-# figures are held against the tails actually drawn, since that module sees both.
-tail_in_shell = {"inlet": 154.4, "outlet": 271.9}
-
-# [354.4 mm](STUB_INLET) at the inlet, [446.9 mm](STUB_OUTLET) at the outlet.
-stub_allowance = {end: tail_in_shell[end] + stub_protrusion[end] for end in tail_in_shell}
-stub_total = sum(stub_allowance.values())
-
-# How a roll is divided — [1/3](ROLL_SHARE) of one per build. What that leaves is
-# `_coil.roll_spare_ft`, struck on the laid wrap like the cut itself.
-carbonators_per_roll = 3
-roll_length_ft = 50.0
-
-
-# ═══════════════════════════════════════════════════════
-# MANDREL LENGTH ZONES
-# ═══════════════════════════════════════════════════════
-
-# Mandrel runs along +Z: lower handle, wind zone, upper handle.
-handle_length_in = 0.75
-# [19.05 mm](HANDLE_LENGTH) — 0.75" handle on each end.
-handle_length = handle_length_in * 25.4
-# [157.5 mm](TOTAL_LENGTH) — full mandrel length along the Z axis.
-total_length = handle_length + wind_length + handle_length
-
-mandrel_z_range = (0, total_length)
-lower_handle_z_range = (mandrel_z_range[0], handle_length)
-wind_z_range = (lower_handle_z_range[1], lower_handle_z_range[1] + wind_length)
-upper_handle_z_range = (wind_z_range[1], mandrel_z_range[1])
-
-
-# ═══════════════════════════════════════════════════════
-# BUILD AND EXPORT
-# ═══════════════════════════════════════════════════════
 
 def __getattr__(name):
     if name in {"M_PETG_BLACK", "linear"}:
@@ -214,47 +64,11 @@ def __getattr__(name):
 def numbers():
     """What `coil_mandrel.rs` cuts the mandrel from, and the body's name and colour."""
     from _materials import M_PETG_BLACK, linear
-    return {
-        "name": "coil-mandrel", "color": list(linear(M_PETG_BLACK)),
-        "mandrel_r_range": list(mandrel_r_range), "mandrel_z_range": list(mandrel_z_range),
-        "lower_handle_z_range": list(lower_handle_z_range),
-        "upper_handle_z_range": list(upper_handle_z_range),
-        "wind_z_range": list(wind_z_range), "wind_length": wind_length, "pitch": pitch,
-        "helix_path_radius": helix_path_radius, "groove_profile_radius": groove_profile_radius,
-    }
+    return _recipe("mandrel-numbers", color=list(linear(M_PETG_BLACK)))
 
 
 def main():
-    # A run cuts the mandrel; an import of this module is a reader of its numbers.
-    print(f"Carbonator OD:               {carbonator_od:.1f} mm (R = {carbonator_radius:.2f})")
-    print(f"As-wound undersize:    {net_undersize:.1f} mm radial stretch")
-    print(f"Mandrel surface OD:    {mandrel_od:.2f} mm (R = {mandrel_radius:.3f})")
-    print(f"Groove bottom OD:      {groove_bottom_od:.2f} mm "
-          f"(= carbonator_od − 2·undersize = {carbonator_od - 2 * net_undersize:.1f})")
-    print(f"Wall thickness:        {wall:.1f} mm  "
-          f"(groove backing: {wall - groove_depth:.1f} mm)")
-    print(f"Groove:                profile R={groove_profile_radius} mm, "
-          f"offset {groove_offset:.3f} mm, depth {groove_depth:.1f} mm")
-    print(f"Wind length:           {wind_length:.1f} mm  "
-          f"(coil tail Y span: {tail_inlet_y} → {tail_outlet_y})")
-    print(f"Inlet tail azimuth:    {tail_inlet_azimuth:.2f}°")
-    print(f"Outlet tail azimuth:   {tail_outlet_azimuth:.2f}°")
-    print(f"CCW alignment delta:   {tail_ccw_delta:.2f}°")
-    print(f"Wraps:                 {total_wraps:.4f}  ({full_wraps} full + "
-          f"{tail_ccw_delta:.2f}° fractional)")
-    print(f"Pitch:                 {pitch:.3f} mm  ({pitch / 25.4:.4f}\")")
-    print(f"Wrap copper (mandrel): {mandrel_wrap_length:.0f} mm  "
-          f"({mandrel_wrap_length / 304.8:.2f} ft)")
-    print(f"Wrap copper (fitted):  {wrap_length:.0f} mm  ({wrap_length / 304.8:.2f} ft)"
-          f"  — {spring_gain:+.0f} mm of spring")
-    for end in ("inlet", "outlet"):
-        print(f"Stub allowance ({end + '):':8} {stub_allowance[end]:.1f} mm  "
-              f"({tail_in_shell[end]:.1f} in-shell + {stub_protrusion[end]:.0f} protruding)")
-    print(f"Cut per carbonator:        the LAID wrap + {stub_total:.1f} mm of stub — struck in "
-          f"`cold-core-layout/_coil.cut_length`,\n"
-          f"                       {carbonators_per_roll} per {roll_length_ft:.0f} ft roll")
-    print(f"Total mandrel Z:       {total_length:.1f} mm  (handle {handle_length:.2f} + "
-          f"wind {wind_length:.1f} + handle {handle_length:.2f})")
+    print(_recipe("mandrel-report"), end="")
 
     said = _rust_part.cut("cold-core", "coil-mandrel", numbers(), _here.parent)
     body = said["bodies"][0]
@@ -263,35 +77,7 @@ def main():
           f"V={body['volume']:.0f} mm^3, {body['triangles']} triangles")
     print("-> " + ", ".join(said["files"]))
 
-    variables = {
-        "TUBE_R": f"{tube_radius:.4g} mm",
-        "TANK_R": f"{carbonator_radius:.4g} mm",
-        "GROOVE_OFFSET": f"{groove_offset:.4g} mm",
-        "MANDREL_R": f"{mandrel_radius:.4g} mm",
-        "MANDREL_OD": f"{mandrel_od:.4g} mm",
-        "MANDREL_INNER_R": f"{mandrel_inner_radius:.4g} mm",
-        "WIND_LENGTH": f"{wind_length:.4g} mm",
-        "PITCH": f"{pitch:.4g} mm",
-        "PITCH_IN": f"{pitch / 25.4:.3g} in",
-        "MANDREL_LEN": f"{mandrel_wrap_length / 1000:.4g} m",
-        "MANDREL_FT": f"{mandrel_wrap_length / 304.8:.4g} ft",
-        "SPRUNG_LEN": f"{fitted_wrap_length / 1000:.4g} m",
-        "SPRUNG_FT": f"{fitted_wrap_length / 304.8:.4g} ft",
-        "SPRING_GAIN": f"{spring_gain:.0f} mm",
-        "SHELL_TAIL_INLET": f"{tail_in_shell['inlet']:.4g} mm",
-        "SHELL_TAIL_OUTLET": f"{tail_in_shell['outlet']:.4g} mm",
-        "PROT_INLET": f"{stub_protrusion['inlet']:.4g} mm",
-        "PROT_OUTLET": f"{stub_protrusion['outlet']:.4g} mm",
-        "STUB_INLET": f"{stub_allowance['inlet']:.4g} mm",
-        "STUB_OUTLET": f"{stub_allowance['outlet']:.4g} mm",
-        "ROLL_SHARE": f"1/{carbonators_per_roll}",
-        "HANDLE_LENGTH": f"{handle_length:.4g} mm",
-        "TOTAL_LENGTH": f"{total_length:.4g} mm",
-        "GROOVE_BOTTOM_OD": f"{groove_bottom_od:.4g} mm",
-        "FULL_WRAPS": f"{full_wraps:.4g}",  # bare count, no unit
-        "WALL": f"{wall:.4g} mm",
-        "GROOVE_DEPTH": f"{groove_depth:.4g} mm",
-    }
+    variables = _recipe("mandrel-variables")
     substitute_py_comments(
         Path(__file__),
         variables=variables,

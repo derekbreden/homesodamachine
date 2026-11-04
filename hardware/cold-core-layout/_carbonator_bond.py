@@ -8,88 +8,18 @@ not import CAD so installed wiring shares the steel contact and barrel exit.
 
 from __future__ import annotations
 
-import math
+from _cold_core_data import read as _read
 
 
-# The radial attachment faces the shared west cap passage (native X23.2/Y48).
-RIM_AZIMUTH_XY = (23.2, 48.0)
-TUBE_OUTER_RADIUS = 63.5
-TUBE_WALL = .065 * 25.4
-RIM_HEIGHT = .25 * 25.4
-HOLE_HEIGHT = 3.5                      # above the top plate's outside face
-TAP_DRILL_DIAMETER = 2.5
-THREAD_DIAMETER = 3.0
-THREAD_PITCH = .5
-
-SCREW_LENGTH = 4.0                    # finished under-head length
-SCREW_DIAMETER = THREAD_DIAMETER
-SCREW_HEAD_DIAMETER = 5.5
-SCREW_HEAD_HEIGHT = 3.0
-RING_TONGUE_THICKNESS = .8
-RING_EYE_DIAMETER = 8.0
-RING_BARREL_DIAMETER = 4.2
-RING_BARREL_LENGTH = 6.0
-WASHER_DIAMETER = 6.0
-WASHER_BORE = 3.2
-WASHER_THICKNESS = .4
-WASHER_PART = "M3 DIN 6797 A external-tooth lockwasher, A2 stainless"
-WASHER_SOURCE = (
-    "https://damesa.com/en/products/fasteners/washers/"
-    "din-6797-external-tooth-lock-washer-form-a")
+globals().update(_read("bond-constants"))
+RIM_AZIMUTH_XY = tuple(RIM_AZIMUTH_XY)
 
 
 def datums(top_plate_outer_z: float) -> dict:
-    """Tapped rim contact and upward ring barrel, without importing CAD.
-
-    The nominal site is used where the finished bore and screw-tip envelope
-    are wholly above the actual closure-weld toe. The closure weld is not cut
-    to fit this attachment; its size remains specified by the weld procedure.
-    """
-    scale = math.hypot(*RIM_AZIMUTH_XY)
-    ux, uy = (v / scale for v in RIM_AZIMUTH_XY)
-    outward = (ux, uy, 0.)
-    z = top_plate_outer_z + HOLE_HEIGHT
-
-    def radial(radius, height=z):
-        return (ux * radius, uy * radius, height)
-
-    head_radius = TUBE_OUTER_RADIUS + RING_TONGUE_THICKNESS + WASHER_THICKNESS
-    tip_radius = head_radius - SCREW_LENGTH
-    return {
-        "body": "carbonator-tube",
-        "base_center_mm": radial(TUBE_OUTER_RADIUS, top_plate_outer_z),
-        "hole_center_mm": radial(TUBE_OUTER_RADIUS - TUBE_WALL / 2),
-        "hole_axis": (-ux, -uy, 0.),
-        "tap_drill_diameter_mm": TAP_DRILL_DIAMETER,
-        "thread": "M3 x 0.5 through",
-        "thread_diameter_mm": THREAD_DIAMETER,
-        "thread_pitch_mm": THREAD_PITCH,
-        "thread_engagement_mm": TUBE_WALL,
-        "nominal_engaged_threads": TUBE_WALL / THREAD_PITCH,
-        "rim_top_z_mm": top_plate_outer_z + RIM_HEIGHT,
-        "hole_height_above_plate_mm": HOLE_HEIGHT,
-        "hole_height_below_rim_mm": RIM_HEIGHT - HOLE_HEIGHT,
-        "contact_point_mm": radial(TUBE_OUTER_RADIUS),
-        "contact_outward": outward,
-        "wire_exit_mm": radial(TUBE_OUTER_RADIUS + RING_BARREL_DIAMETER / 2, z + 9.),
-        "wire_outward": (0., 0., 1.),
-        "screw_axis": (-ux, -uy, 0.),
-        "screw_underhead_mm": radial(head_radius),
-        "screw_length_mm": SCREW_LENGTH,
-        "screw_tip_mm": radial(tip_radius),
-        "screw_projection_inside_tube_mm": TUBE_OUTER_RADIUS - TUBE_WALL - tip_radius,
-        "screw_source": "304 stainless M3x12 stock shortened and end-finished to M3x4",
-        "ring_tongue_thickness_mm": RING_TONGUE_THICKNESS,
-        "ring_eye_diameter_mm": RING_EYE_DIAMETER,
-        "ring_barrel_diameter_mm": RING_BARREL_DIAMETER,
-        "ring_barrel_length_mm": RING_BARREL_LENGTH,
-        "lockwasher_part": WASHER_PART,
-        "lockwasher_source": WASHER_SOURCE,
-        "hardware_bodies": ("carbonator-earth-screw", "carbonator-earth-lockwasher"),
-        "clamp_order_from_head": (
-            "M3x4 stainless screw", WASHER_PART, "M3 closed ring tongue",
-            "bare upper tube rim tapped M3x0.5"),
-    }
+    """Tapped rim contact and upward ring barrel from the Rust scalar recipe."""
+    result = _read("bond", top_plate_outer_z=top_plate_outer_z)
+    return {name: tuple(value) if isinstance(value, list) else value
+            for name, value in result.items()}
 
 
 def cut_tube(tube, top_plate_outer_z: float):

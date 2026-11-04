@@ -1,7 +1,8 @@
-"""Shared interface for the cold-core's geometry modules — dimensional
-constants and hole-punch helpers that every sibling part (foam shell,
-foam cap stack, reservoir, copper ports, coil mandrel) needs to stay
-in sync against.
+"""Shared cold-core datums and construction interfaces.
+
+Rust owns the casing stock, cavity envelope, clamp stack and port-lane
+dimensions. The remaining cap mount and passage recipes expose their
+source-frame values to the sibling parts.
 
 The constants carry claims about each other — a screw long enough for its insert, a band wide
 enough for its bore, two columns far enough apart for foam to reach between them — and those are
@@ -34,385 +35,42 @@ from _enclosure_interface import (manifold_rise, inner_limb_drop,
 import _anchor_cap_interface as _anchor_cap
 
 
-# Standing casing walls and pocket walls share a section; floors and stack
-# datums have their own thickness. Changing stock must not resize a mating cavity.
-wall_thickness = 2.38
-floor_thickness = 2.0
-# Public floor/height datum consumed by the assembly and its installation reviews.
-wall_and_floor_thickness = floor_thickness
-hole_shift_from_edge = 15.0
+from _carbonator_stock import carbonator_outer_radius, carbonator_height
+from _cold_core_data import read as _read
 
-
-# Plain outside faces reserve room for the foil within the enclosure envelope.
-outer_shell_wall = wall_thickness
-
-
-# The cold cylinder + its evaporator coil. [7 mm](COIL_RADIAL_CLEARANCE) of
-# radial clearance out from the cylinder OD holds the 1/4" ACR copper coil +
-# thermal tape; the carbonator support ring cradles the carbonator rim at this envelope.
-from _carbonator_stock import carbonator_outer_radius
-coil_radial_clearance = 7.0
-carbonator_coil_envelope_radius = carbonator_outer_radius + coil_radial_clearance
-
-# The reservoir-facing arc is a mating datum. Pocket stock grows toward the
-# carbonator, and the remaining radial space contains the coil and pour foam.
-pocket_centerward_arc_outer_radius = 80.5  # reservoir-facing mating arc
-foam_thickness_around_cylinder = (
-    pocket_centerward_arc_outer_radius - wall_thickness - carbonator_outer_radius
-)
-
-# Foam-shell outer height. Carbonator height + [30 mm](ABOVE_TANK_ELBOWS_HEIGHT) above for top-side elbow
-# fittings + [30 mm](BELOW_TANK_ELBOWS_HEIGHT) below for bottom-side elbow fittings + 1 mm
-# wall-thickness compensation.
-from _carbonator_stock import carbonator_height
-below_carbonator_elbows_height = 30.0
-above_carbonator_elbows_height = 30.0
-foam_shell_outer_height = (
-    carbonator_height + below_carbonator_elbows_height + above_carbonator_elbows_height + 1.0
-)
-
-carbonator_support_ring_height = 30.0
-support_ring_radial_width = 9.0
-
-# Passive cold-core passages leave 0.5 mm radial air around the measured 6.5 mm
-# tube, including the blind crossing below a reservoir. These holes guide a line
-# through the shell; they do not grip it or seal the foam pour. Mask pour gaps
-# temporarily. Faucet, organizer, fitting and copper passage fits have their own sizes.
-passage_tube_od = 6.5
-port_hole_radius = passage_tube_od / 2.0 + 0.5
-
-# Reed-channel cavity depth (radial, out from the bag-pocket far wall). The reed
-# column drops into this cavity; the outer_shell X width is sized so the cavity +
-# its wall butt the outer shell wall (see outer_shell_x_length). Consumed by
-# _reed_channels.py too.
-reed_x_depth = 6.0
-# Half the cavity's reach along the reservoir, either side of the column's own station. The
-# cavity carries the laced column and the cable that leaves up it, and `reed_cable_conduit_xy`
-# stands on the same two figures — one lane, read here rather than in two places.
-reed_y_half_w = 4.0
-
-# WHERE THE LEVEL SENSOR STANDS along the reservoir — the float rod inside
-# (`reservoir.rod_position_y`) and the reed column outside (`_reed_channels.reed_y_center`),
-# which are ONE station and not two: a reed reads the float's magnet across the pocket wall
-# and nothing else, so the two cannot drift apart (`reservoir/level-sensing.md` carries the
-# bench-measured magnet-to-reed path). The pair rides the reservoir's +Y half, and the donut
-# has its whole travel clear of both cavity walls anywhere along that half; the cap's vent and
-# both of its bores stand off it (`reservoir.py`).
-level_rod_y = 32.5
-
-# Reservoir mating extents are fixed independently of the PET-GF wall stock.
-# The outer pocket extents follow the stock on their foam-facing sides.
-bag_pocket_far_inner_x = 129.5
-bag_pocket_y_inner_max = 70.5
-bag_pocket_width = 2 * (bag_pocket_y_inner_max + wall_thickness)
-bag_pocket_depth = (bag_pocket_far_inner_x - pocket_centerward_arc_outer_radius
-                    + 2 * wall_thickness)
-bag_pocket_floor_top_z = floor_thickness
-bag_pocket_walls_top_z = foam_shell_outer_height
-# The reed cavity and its cap passage are functional datums, independent of
-# the pocket wall's foam-facing face.
-reed_channel_inner_x = 131.5
-reed_column_axis_x = reed_channel_inner_x + reed_x_depth / 2.0
-
-# Matches the reservoir's outer +X × ±Y fillet (R=6) with reservoir_clearance
-# on top, so the reservoir's outer arc slides into a snugly-mated arc on
-# the pocket's inner corner with uniform clearance.
-reservoir_clearance = fits.running
-bag_pocket_corner_inner_radius = 6.0 + reservoir_clearance
-reservoir_floor_thickness = 3.0
-
-# BOTH OF A RESERVOIR'S MOUTHS ARE IN ITS OWN CAP. The fill ends in the headspace, above
-# the liquid; the draw is a dip tube — the line itself, carried on down through its bore to
-# the floor — so everything entering has to cross the cavity to leave. The cap reads each
-# station (`reservoir.build_reservoir_cap`) and so does the conduit standing over it
-# (`cap_conduits`) — in two different frames, neither part seeing the other, so
-# `reservoir_fill_conduit_xy` and `reservoir_draw_conduit_xy` are the whole of what holds
-# them together. A conduit that misses its bore is a hole into a sealed pocket; a bore that
-# misses its conduit is a blind one.
-#   EACH RESERVOIR TAKES ITS OWN STATIONS, and only half of what picks them lives
-# in this file. THIS half is the cap's: anywhere the vent boss, the rod's
-# register boss, the screw bosses and the other bore leave empty, standing over open
-# cavity, and for the draw a dip tube clear of the float's whole travel.
-#   The OTHER half is what stands on the crown over each pocket, and this module
-# cannot see it — the machine imports the cold core, not the reverse. So the
-# fence is measured where the bodies are, in `manifold-layout/enclosure_assembly.py`,
-# and what arrives here is the answer rather than the reasoning. B's pocket has
-# a clear crown: its fill takes the corner furthest from its draw. A's carries the
-# pump: its draw takes the bay between the pump's two east feet.
-#   The conduit's own boss does not pay that fence either way: it is a column
-# INSIDE the cap, under the crown those bodies stand on. What has to find room
-# up there is the tube.
-reservoir_fill_port = {
-    -1: (-90.5, 43.5),      # B, forward pocket — the corner opposite its draw
-    +1: (102.5, -61.0),     # A, aft pocket — the strip between the pump and the brick
-}
-reservoir_fill_sides = tuple(sorted(reservoir_fill_port))
-reservoir_draw_port = {
-    -1: (-94.3, 6.0),       # B — between the lid's pour hole and V-B's plinth
-    +1: (84.2, -45.0),      # A — between the pump's two east feet
-}
+# The Rust recipe derives the casing stock, cavity envelope, port lanes and
+# clamp stack from the shared printed-face allowances and carbonator stock.
+_interface_fits = {name: getattr(fits, name) for name in
+                   ("running", "slip", "m5_thread_pass_dia", "supported_surface")}
+_base_recipe = _read("interface-base", fits=_interface_fits)
+_base_states = _base_recipe.pop("_states")
+globals().update(_base_recipe)
+for _name in ("reservoir_fill_port", "reservoir_draw_port"):
+    globals()[_name] = {int(side): tuple(xy) for side, xy in globals()[_name].items()}
+for _name in ("reservoir_fill_sides", "top_lid_pour_xy", "carbonator_sensor_axis"):
+    globals()[_name] = tuple(globals()[_name])
+bottom_pour_positions = tuple(tuple(xy) for xy in bottom_pour_positions)
+for _name in ("attachment_stations", "lid_attachment_stations"):
+    globals()[_name] = tuple((tuple(xy), wall) for xy, wall in globals()[_name])
+for _name in ("attachment_xy_positions", "lid_attachment_xy_positions"):
+    globals()[_name] = [tuple(xy) for xy in globals()[_name]]
+for _row in _base_states:
+    state(*_row)
 
 
 def reservoir_fill_conduit_xy(side):
-    """The CAP-frame station of the conduit standing over one reservoir's cap fill bore.
-
-    The bore is authored in the RESERVOIR's frame (`reservoir._add_port`) and the
-    conduit in the CAP's, and the cap installs spun a half turn about Z
-    (`foam_assembly.spin_xy`) — so the station is the anchor negated in both coordinates."""
-    x, y = reservoir_fill_port[side]
-    return (-x, -y)
+    """Fill conduit in the cap frame over the reservoir's fill bore."""
+    return tuple(_read("interface-reservoir-conduit", fits=_interface_fits,
+                       kind="fill", side=side))
 
 
 def reservoir_draw_conduit_xy(side):
-    """The CAP-frame station of the conduit the dip tube comes down — the draw bore's anchor
-    negated, for the same half turn."""
-    x, y = reservoir_draw_port[side]
-    return (-x, -y)
-
-# Foil sits on the plain casing within a 0.30 mm per-face envelope allowance.
-casing_foil_allowance = 0.30
-# Each end's foil band reaches at least this far onto the shell.
-casing_foil_land = 13.0
-outer_shell_x_length = 282.4
-outer_shell_y_length = 180.4
-
-# THE SEAM CHANNEL. The outer wall's seam lands in an inside corner, and a flat flank has none:
-# a shallow channel down the +Y flank's centre line, the column the PRV vent leaves by, gives it
-# two. It is the vent's bore with `seam_channel_land` either side, and it runs the shell's full
-# height, end face to end face. The wall folds in behind it, so its section stays
-# `outer_shell_wall` throughout.
-seam_channel_land = 1.0
-seam_channel_width = 2.0 * (port_hole_radius + seam_channel_land)
-seam_channel_depth = 1.5
-bag_pocket_outermost_x = bag_pocket_far_inner_x + wall_thickness
-outer_shell_foam_gap = (
-    outer_shell_y_length / 2 - outer_shell_wall - bag_pocket_width / 2
-)
-
-# Open routing room between the pocket's foam-facing wall and the casing.
-forward_band_width = outer_shell_x_length / 2 - outer_shell_wall - bag_pocket_outermost_x
-forward_band_mid_x = bag_pocket_outermost_x + forward_band_width / 2.0
-
-# The −Y pour band — the open gap between the bag-pocket wall's outer face
-# and the outer shell's inner face, poured full of foam around the
-# reservoirs.
-pour_band_pocket_side_y = -(bag_pocket_width / 2)
-pour_band_shell_side_y = -(outer_shell_y_length / 2 - outer_shell_wall)
+    """Draw conduit in the cap frame over the reservoir's draw bore."""
+    return tuple(_read("interface-reservoir-conduit", fits=_interface_fits,
+                       kind="draw", side=side))
 
 
-# Foam-cap stack — the pour trays that close both ends of the shell (one
-# mouth-up on top, one mouth-down underneath), each with a thin pour lid.
-# The interior height is the cap's foam depth; the printed cup adds one
-# floor.
-foam_cap_interior_height = 16.0  # fixed pour depth and stack-height datum
-foam_cap_height = foam_cap_interior_height + wall_and_floor_thickness
-foam_cap_lid_pour_radius = 10.0
-foam_cap_lid_vent_radius = 3.0
-foam_cap_lid_hole_inset = 30.0
-# The TOP lid's pour hole stands in its fore-west quarter, over open cavity: west of the
-# reed-B cable column and the B-fill block, clear of the PCB's fore-west post. At the
-# centreline station it would open onto that cable column's top and under a WAGO well.
-top_lid_pour_xy = (outer_shell_x_length / 2 - foam_cap_lid_hole_inset, -73.0)
-# The top lid's vents stand this much nearer its −X end, clear of the A-fill guide's entry
-# countersink.
-top_lid_vent_setback = 2.5
-
-# --- The carbonator's clocking --------------------------------------------------
-#
-# Four 1/4" NPT ports, two per end plate, each pair [1.5"](CARBONATOR_PORT_PITCH) centre to
-# centre on a diameter (`hole_offset` in cut-parts/carbonation/endcaps-circular). Both
-# plates carry the float rod's blind register beyond the −Y port on their common
-# port axis, the rod is tack-welded into the bottom plate's register and enters the top plate's
-# at closure, so the plates are clocked together and the carbonator has ONE port axis.
-#   That axis is the shell's ±Y. All four ports stand [19.05 mm](CARBONATOR_PORT_OFFSET) off
-# the shell's own axis on it, two under the carbonator and two over it.
-carbonator_port_offset = 0.750 * 25.4
-# The register and external bridge share -Y, opposite the reservoirs' +Y sensing stations.
-carbonator_sensor_azimuth = -90.0
-carbonator_sensor_axis = (0.0, -1.0)
-# The upper register's stainless stop holds the float below the inlet-jet tip.
-carbonator_float_top_stop_height = 4.0
-carbonator_float_top_stop_diameter = 9.5
-
-# CO2 inlet — the bottom plate's LANE-SIDE port, open into the vessel. Gas enters below
-# the liquid and rises to replenish the headspace; the top water-inlet jet provides the
-# intended gas/water contact during refill (`assembly/water-inlet-jet.md`).
-#   Outside the carbonator the neoFit push-fit male elbow takes the tube directly.
-# Its socket axis and the straight leaning reach cross the carbonator support ring
-# through a pour slot into the port lane (`_port_cuts`). The line reaches the lane
-# from ABOVE — down from the cap's `co2-in` conduit — so it is laid before the top
-# cap goes on, not pushed in from outside.
-co2_inlet_y = -carbonator_port_offset
-co2_inlet_tube_radius = port_hole_radius
-
-# The top plate's two, by the same pair. Filtered tap water arrives at the top plate ABOVE the
-# liquid and falls into the headspace against the CO2 back-pressure; the carbonated draw leaves
-# at the bottom plate, below it. So the carbonator is filled high and drawn low, the same way both
-# reservoirs are.
-# Port 4 and its shroud stand on +Y. The barrel vent points down the west lane,
-# turns once and crosses the +Y shell flank into the enclosure's exterior relief
-# chase (`_internal_routes.prv_vent_flank_y`). The top water inlet stands on -Y;
-# its tube crosses the carbonator top to the +Y cap band.
-water_inlet_port_y = -carbonator_port_offset
-prv_port_y = +carbonator_port_offset
-
-# Cap-to-outer-shell joinery: one attachment point per station in
-# `attachment_stations`, per face × 2 faces. Each closure screws directly into
-# an insert pressed from the matching shell face. The dry casing seams are
-# sealed externally with 3M 425 foil tape. See bom.md for hardware SKUs.
-cap_shell_clearance = fits.slip
-cap_lid_clearance = fits.slip
-screw_clearance_radius = fits.m5_thread_pass_dia / 2.0
-insert_pocket_radius = 3.2  # ruthex RX-M5x9.5 recommended Ø6.4 pilot
-insert_pocket_depth = 10.5
-screw_boss_size = 11.6  # Ø6.4 pilot plus 2.6 mm radial insert stock
-screw_guard_diameter = screw_boss_size  # one continuous host section through the casing
-
-# The top equipment plate is uniformly 7.4 mm thick. Bottom head pockets live
-# in integral pads inside the open-topped cap. Each head has a complete bearing
-# land, and its recess opens outward through the casing edge.
-screw_head_height = 5.0  # ISO 4762 M5
-head_seat_recess = fits.slip
-head_cbore_radius = 4.5  # selected Ø9 M5 socket-head pocket
-head_cbore_depth = screw_head_height + head_seat_recess
-# A pad as tall as the counterbore is deep leaves the land at one wall exactly.
-# The bottom cap prints outer-face-down. Its supported screw-seat roofs use
-# the bridge allowance, backed by the full bearing-pad thickness.
-head_pad_height = head_cbore_depth + fits.supported_surface
-head_pad_slip = fits.slip  # pad to the boss relief that receives it
-# A lid, plate and pad in one. `_foam_cap.lid_total_height` builds on this name.
-foam_cap_lid_height = wall_and_floor_thickness + head_pad_height
-top_lid_bottom_z = foam_shell_outer_height + foam_cap_height - head_pad_height
-foam_shell_rim_z = top_lid_bottom_z - cap_lid_clearance
-bottom_cap_height = foam_cap_height + wall_and_floor_thickness - cap_shell_clearance
-bottom_pour_radius = 15.0
-bottom_pour_positions = tuple((x, y) for x in (-75.0, 75.0) for y in (-40.0, 40.0))
-
-# --- The front face, and the lane that reaches it ---------------------------
-#
-# Every penetration opens on the shell's −X face. That face is the SHORT one, and
-# in the appliance it is yawed onto the machine's front (`enclosure_assembly.FOAM_YAW`) —
-# which is why the shell's short axis is what sets the appliance's width.
-#
-# Nothing reaches that face head-on: the reservoir pockets fill both ±X ends of the
-# shell, so a line from the carbonator gets there along the −Y POUR
-# BAND, which runs the shell's whole length outboard of both pockets. What a line
-# may use of that band is the LANE: the strip inboard of every attachment boss.
-# Every boss on a ±Y wall stands hard against it (`attachment_stations`) and reaches
-# `screw_boss_size` in from its outer face, so the lane is exactly what they leave,
-# and it runs clear end to end at every height above the floor slab. The two bosses on
-# the ±X walls stand on the face the lanes arrive at, clear of both bands in y.
-#
-# Each copper tail has its own routing lane and a fixed exit axis.
-front_wall_x = -141.5  # fixed copper port frame
-port_lane_outer_y = -82.5  # fixed tube-routing lane
-port_lane_inner_y = -72.5  # tube-routing datum; pocket stock grows outside it
-port_lane_mid_y = (port_lane_outer_y + port_lane_inner_y) / 2
-
-# The +Y band's lane, which is this one mirrored — the bosses stand at both signs, so both
-# bands leave the same strip. The evaporator's WARM tail drops this band to its own station
-# low on the front wall (`_copper_ports.stations()`).
-west_lane_mid_y = -port_lane_mid_y
-
-# Where the evaporator coil's two tails leave the carbonator: the low one one
-# `hole_shift_from_edge` above the bottom-plate elbow band, the high one the same
-# below the top's. These are the COIL's heights — what the mandrel is wound to and
-# what the reed bridge's wrap band spans — and they are NOT the heights their copper
-# crosses the shell wall at. Each tail turns onto a LANE OF ITS OWN — the inlet's onto
-# the port lane, the outlet's onto the west (`_copper_ports.stations()`) — and both drop
-# from there to their exit stations, so moving a passage cannot compress
-# the coil.
-evap_tail_low_z = hole_shift_from_edge + wall_and_floor_thickness + below_carbonator_elbows_height
-evap_tail_high_z = (foam_shell_outer_height - hole_shift_from_edge
-                    - wall_and_floor_thickness - above_carbonator_elbows_height)
-
-# The two copper exits cross the front wall; their axes and bore clearance are
-# declared in `_copper_ports`. The seven fluid lines and two reed cables leave
-# through their cap conduits, above the adjacent refrigeration base.
-
-# Rounded outer-shell corners. Each corner's exterior wall is a true arc:
-# the outer face is a quarter-round of [11.7 mm](CORNER_ROUND_R) radius, the
-# inner face concentric one wall-thickness inboard.
-corner_round_radius = 11.7
-
-
-state("forward-band-takes-a-bore", "The forward band still passes a line",
-      f"{forward_band_width:g} >= {passage_tube_od:g} mm",
-      forward_band_width >= passage_tube_od,
-      f"the open routing band is {forward_band_width:g} mm wide for the "
-      f"{passage_tube_od:g} mm measured tube; enlarged bores cross printed walls and caps")
-
-# Ten wall-rooted M5 stations per face: six on the short ends and four on
-# the aft long flanks, clear of the copper lanes and PCB post roots.
-_boss_wall_y = 84.4
-_boss_wall_x = 135.4
-# The forward pair of aft-flank stations clears the reservoir pockets.
-mid_screw_x_offset = 45.0
-#: Every attachment station as `((x, y), wall)`, `wall` naming the exterior face its cylinder
-#: stands tangent to and its web runs out to — "x", "y", or "corner" for one against both.
-attachment_stations = (
-    tuple(((x, y), "x") for x in (-_boss_wall_x, _boss_wall_x)
-          for y in (-60.0, 0.0, 60.0))
-    + tuple(((x, y), "y") for x in (45.0, 110.0)
-            for y in (-_boss_wall_y, _boss_wall_y))
-)
-attachment_xy_positions = [_xy for _xy, _wall in attachment_stations]
-lid_attachment_stations = tuple(((-x, -y), wall) for (x, y), wall in attachment_stations)
-lid_attachment_xy_positions = [xy for xy, wall in lid_attachment_stations]
-
-# A STATION IS PRICED AGAINST THE LANE IT IS NOT IN. A ±Y boss shares the ±Y band with every
-# line running to the front face, so it is held to the outer `screw_boss_size` of it and the
-# lane is exactly what it leaves. A ±X boss is in neither band — it stands on the face those
-# lines arrive AT, clear of both lanes in y.
-
-# The M5 screws share their stock. Each face has its own grip and blind tail depth.
-cap_screw_length = 100.0
-insert_length = 9.5  # ruthex RX-M5x9.5, set flush with the shell face
-cap_screw_beyond_face = cap_screw_length - (
-    wall_and_floor_thickness  # the land under the head
-    + (foam_cap_height - head_pad_height)  # the boss column under the pad
-)
-top_lid_screw_beyond_face = cap_screw_length - (
-    foam_cap_lid_height - head_cbore_depth + cap_lid_clearance)
-cap_screw_tip_air = 2.5
-bottom_screw_bore_depth = cap_screw_beyond_face + cap_screw_tip_air
-top_screw_bore_depth = top_lid_screw_beyond_face + cap_screw_tip_air
-state(
-    "cap-screw-reach", "The clamp screw reaches the whole of its insert",
-    f"{insert_length:g} mm past the shell face",
-    cap_screw_beyond_face >= insert_length,
-    f"an M5 × {cap_screw_length:g} reaches {cap_screw_beyond_face:g} mm past the shell "
-    f"face, short of its {insert_length:g} mm insert")
-state(
-    "cap-screw-bottom", "The clamp screw pulls its head down before it bottoms",
-    f"{bottom_screw_bore_depth:g} mm past the shell face at most",
-    cap_screw_beyond_face <= bottom_screw_bore_depth,
-    f"an M5 × {cap_screw_length:g} reaches {cap_screw_beyond_face:g} mm past the shell "
-    f"face and bottoms in a {bottom_screw_bore_depth:g} mm tail passage before its head is down")
-
-# Deck mounts — the PCB carried on posts integral to the equipment lid.
-# Each post takes a full RX-M3x5.7 heat-set in a blind pilot.
-#   A station with no standoff stops at the cap's mouth rim, under the lid, and its module
-# seats on the lid's outer face. A station with a standoff carries its column on through
-# the lid, and its module seats on the column tops.
-#   The stations live here, in the cap's own frame, because the mount belongs to the part it
-# is printed in. `foam_assembly.deck_mount_station` carries them into the stack's own frame,
-# and whoever seats the stack carries them from there into the world.
-deck_mount_boss_radius = 5.0     # Ø10 column; 3 mm stock around the Ø4 insert pilot
-deck_mount_bore_radius = 2.0     # ⌀4 for a ruthex M3 heat-set
-deck_mount_lid_slip = fits.slip  # a standing column to the lid's clearance hole
-deck_mount_insert_length = 5.7   # ruthex RX-M3x5.7, set flush with the column top
-deck_mount_bore_relief = 1.0     # ruthex minimum blind relief; also reserve travel past the screw tip
-
-# The pour gap, [1.5 mm](DECK_MOUNT_CAP_GAP): the least room a conduit column standing in the cup
-# leaves to the cavity wall or to another standing conduit, so liquid foam reaches between them
-# (`cap_conduit_wall_neck`, `cap_conduit_pair_neck`). The lid's pour hole stands the same gap off
-# the deck mounts' lid holes and the valve plinths (`foam_cap_lid_pour_xy`).
-deck_mount_cap_gap = 1.5
-
-# PCB holes follow the production above-core pose. The columns pass through
-# the lid to its underside. The bare pump uses the lid's integral half pipe;
-# V-B uses its upright socket wall. V-A, V-K, PSU and relays belong to back-top.
+# Deck mounts pass through the equipment lid and carry the above-core PCB.
 DeckMount = namedtuple("DeckMount", "points standoff seat screw seat_min")
 deck_mounts = {name: DeckMount(*row) for name, row in _above_mounts.deck_mounts().items()}
 

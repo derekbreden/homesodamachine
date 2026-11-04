@@ -1,89 +1,29 @@
-#!/usr/bin/env python3
-"""Doc-sync driver for the fluid-topology charts.
+"""Rust fluid-topology document driver with scalar-provider compatibility.
 
-The enclosure assembly is the source of truth for the arrangement.
-[`manifold-layout/enclosure_assembly.py`](/hardware/manifold-layout/enclosure_assembly.py) places
-the pack. `above_core_parts.py` and `above_core_routes.py` author exact native
-tube segments; `above_core.logical_connections()` groups them with their physical
-fittings. `_lines.py` supplies the remaining placed-body runs, and
-[`manifold_layout.py`](/hardware/manifold-layout/manifold_layout.py) makes the flavour manifold's
-own interior — including butts, upper tubes and lower returns. This
-driver reads all three and holds the charts to them.
-
-Two jobs:
-
-  1. GATE. Every edge in fluid-topology-manifold.mmd and fluid-topology-carbonator.mmd names two
-     chart nodes; each node declares the anchors it stands for (`NODES`). An edge labelled
-     `fluid-17` passes only if the built segment `fluid-17` starts on one of its head node's
-     anchors and ends on one of its tail node's — either way round, because a segment is authored
-     from whichever end its author reached first and the chart draws FLOW. Every fluid segment
-     must appear exactly once, and the segments the machine BUILDS must be the segments
-     fluid-topology.md's own tables name. In fluid-topology-limbs.mmd every limb box must hold
-     exactly the bodies its limb chains.
-
-  2. WRITE. What each labelled edge is — the segment's name, and how it is made where it carries
-     no tube — the manifold chart's `linkStyle` index lists off the parsed edge order, and the
-     [value](NAME) markers in the charts' `%%` comments and in fluid-topology.md. Every chart's
-     `linkStyle` lines are held to a partition of its edges, hand-written or not.
-
-     NO MEASUREMENT REACHES A DRAWN LABEL. The lengths are the stdout table a bare run prints,
-     and the aggregates are `[value](NAME)` markers in `%%` comments — both of which a reader
-     asks for. A figure standing in the drawn chart is one the site serves to anyone who opens
-     `/charts`, and this driver is not run on the way to that page.
-
-TWO NAMESPACES REACH ONE NODE. A run `_lines.py` draws anchors on `"<body>.<port>"` — the pack's
-own placed bodies. A segment `manifold_layout.py` makes anchors on the topology's own port names,
-`V-C-O` and `Y-C-1` and `P-B-I`; inside the manifold two collets meet with no body between them
-to hang a port on. `NODES` carries both namespaces per node.
-
-A mermaid file has two regions and a managed value takes a different form in each:
-
-  * `%%` COMMENT LINES never reach the renderer, so a docgen `[value](NAME)` marker sits there
-    invisible to the drawn chart. `substitute_mmd` writes them, and every figure this driver
-    measures that a chart carries at all is one of these.
-  * EDGE LABELS render. The label is `<route-id>`, or `<route-id><br/><how it is made>` where
-    the segment carries no tube, and this driver rewrites everything after the route id, keyed
-    on the id. Same contract as a docgen marker: the text is in the file for a reader, the
-    script is authoritative.
-
-Run:  tools/cad-venv/bin/python hardware/topology/_fluid_topology_sync.py
-      tools/cad-venv/bin/python hardware/topology/_fluid_topology_sync.py --check
+Run: tools/cad-venv/bin/python hardware/topology/_fluid_topology_sync.py [--check]
 """
-
-import ast
-import re
-import sys
-from dataclasses import dataclass
+from dataclasses import asdict, dataclass
 from pathlib import Path
+import sys
 
 _here = Path(__file__).resolve().parent
-_repo = next(p for p in _here.parents if (p / "tools" / "docgen").is_dir())
-for _p in (_repo / "tools", _repo / "hardware" / "scripts",
-           _repo / "hardware" / "manifold-layout",
-           _repo / 'hardware/printed-parts/enclosure/enclosure'):
-    if str(_p) not in sys.path:
-        sys.path.insert(0, str(_p))
-
-from docgen import note_rewritten, substitute_md, substitute_mmd  # noqa: E402
-import _facts                                     # noqa: E402
-from _enclosure_datums import load as _enclosure_numbers
-_enclosure_numbers()
-import _scorecard                                 # noqa: E402
-import manifold_layout as ml                      # noqa: E402
-
-# The facts supply geometry readings; their producer's declared sources supply
-# the source dependency closure watched by this document.
+_repo = next(p for p in _here.parents if (p / "tools/docgen").is_dir())
+for _path in (_repo / "tools", _repo / "hardware/scripts", _repo / "hardware/assembly",
+              _repo / "hardware/manifold-layout",
+              _repo / "hardware/printed-parts/enclosure/enclosure"):
+    sys.path.insert(0, str(_path))
+from _enclosure_datums import install
+install()
+import _facts
+import _lines
+import _scorecard
+import manifold_layout as ml
 from _cadq_export import note_read
-note_read(_repo / 'hardware/manifold-layout/enclosure_assembly.py')
-_lines_source = _repo / 'hardware/manifold-layout/_lines.py'
-note_read(_lines_source)
-_valves = next(ast.literal_eval(statement.value)
-               for statement in ast.parse(_lines_source.read_text()).body
-               if isinstance(statement, ast.Assign)
-               and any(isinstance(target, ast.Name) and target.id == 'VALVES'
-                       for target in statement.targets))
+from _rust_docs import evaluate as _evaluate, update as _update
+
+note_read(_repo / "hardware/manifold-layout/enclosure_assembly.py")
 for _source in _facts.sources():
-    if Path(_source).suffix in ('.py', '.rs', '.json', '.toml', '.lock', '.yaml', '.yml'):
+    if Path(_source).suffix in (".py", ".rs", ".json", ".toml", ".lock", ".yaml", ".yml"):
         note_read(_repo / _source)
 
 MANIFOLD = _here / "fluid-topology-manifold.mmd"
@@ -92,658 +32,88 @@ CARBONATOR = _here / "fluid-topology-carbonator.mmd"
 TOPOLOGY = _here / "fluid-topology.md"
 
 
-# ─── What the machine builds ──────────────────────────────────────────
+def _inputs():
+    return {
+        "facts_runs": list(_facts.read().runs),
+        "segment_recipes": ml.SEGMENTS,
+        "mouths": ml.MOUTHS,
+        "barb_of": list(ml.BARB_OF),
+        "fore_stubs": ml.FORE_STUBS,
+        "fore_stub_lengths": {how: ml.fore_stub_length(*ends) for how, ends in ml.FORE_STUBS.items()},
+        "lower_links": ml.lower_links(),
+        "lower_lengths": {cid: ml.lower_link_length(cid) for cid in ml.LOWER_CONNECTIONS},
+        "source_steps": {cid: ml.source_step(row) for cid, row in ml.SBENDS.items()},
+        "quarter_length": ml.QUARTER_LEN,
+        "runs": ml.RUNS,
+        "made_as": _scorecard.MADE_AS,
+        "made_up": _scorecard.MADE_UP,
+        "stations": ml.P,
+        "pumps": list(ml.PUMPS),
+        "limbs": ml.LIMBS,
+        "valves": list(_lines.VALVES),
+        "purchased_tees": list(ml.PURCHASED_TEES),
+        "pump_junctions": list(ml.PUMP_JUNCTIONS),
+        "lower_connections": ml.LOWER_CONNECTIONS,
+        "fore_stub_exposed": ml.FORE_STUB_EXPOSED,
+    }
+
+
 @dataclass
 class Seg:
-    """One fluid segment as the machine actually makes it.
-
-    `made` is ONE OF `_scorecard.MADE_AS`'S NAMES, and it is what an edge carrying no tube says.
-    That table is the vocabulary: the card scores `routed` on it and this driver labels an edge
-    with it, so a word spelt out again here is a word the chart and the card come to disagree
-    over. `__post_init__` holds every segment to it, drawn or not.
-
-    The kinds:
-
-      `drawn`    — exact native tube sections grouped with their fittings, or a placed-body run.
-      `straight` — a lane's own straight inside the manifold, drawn and measured the same way.
-      `pump-dock`— a prepared pump's LLDPE tube through the collet plate into a pump tee.
-      `elbows`   — a stem elbow in the pump tee's lower collet and one in the rear valve's,
-                   one straight LLDPE tube between them; the reported length is its cut stock,
-                   both socket insertions included.
-      `butt`     — two collets face to face, no tube between them, 0.0 mm.
-      `turn`     — a quarter out of the deck plane and the step that follows it.
-      `not drawn`— a mouth of the manifold study with nothing on the far end of it yet.
-
-    `mate` is a joint between directly mating bodies with no separate tube, such
-    as the trimmed water-split stem in the ASSE outlet cuff.
-    """
-
     id: str
-    ends: tuple           # one or two anchor names; one means the far end is not placed
+    ends: tuple
     made: str
-    length: float = None  # reported LLDPE path; the prepared pump tubes are separate
+    length: float = None
     corners: int = 0
-    developed: float = None  # exposed centreline where it is known but cut length is not
-    status: str = 'complete'
+    developed: float = None
+    status: str = "complete"
     missing: tuple = ()
 
-    def __post_init__(self):
-        if self.made not in _scorecard.MADE_AS:
-            raise ValueError(
-                f"{self.id} is made {self.made!r}, which is no name in _scorecard.MADE_AS "
-                f"({', '.join(sorted(_scorecard.MADE_AS))}). That table is the one vocabulary "
-                f"the card and these charts share — a label written outside it is an edge the "
-                f"chart draws and the card's `routed` axis cannot count.")
-
     @property
-    def label(self) -> str:
-        """What the edge says: the segment's name, and — where the segment carries NO tube —
-        `_scorecard.MADE_AS`'s word for how it is made instead. Two collets face to face and a
-        drawn run are the same arrow otherwise, so that word is the one thing about an edge the
-        chart cannot draw. The length of stock a segment cuts is this driver's own stdout table,
-        not the chart's."""
-        if self.status != 'complete':
-            return f'{self.id}<br/>incomplete'
-        return self.id if self.length else f"{self.id}<br/>{self.made}"
+    def label(self):
+        return _evaluate("fluid-topology", {"segment": asdict(self)}, operation="segment_label")["exports"]["label"]
 
 
-def _interior(cid: int, how: str) -> tuple:
-    """How one manifold segment is made: `(kind, path_mm, corners, exposed_mm)`.
+def _values():
+    return _evaluate("fluid-topology", _inputs(), operation="values")["exports"]
 
-    THE KIND IS `_scorecard.made_of`'S. `manifold_layout.SEGMENTS` already says how the pack
-    makes each interior connection, the card reads that column to score `routed`, and this
-    reads it to label an edge — so classifying it twice is how the chart and the card come to
-    disagree about the same segment. What is this driver's own is the mm and the corners, off
-    `manifold_layout`'s figures: `lower_link_length` the lower return's tube,
-    `FORE_STUBS` the short upper tubes, `QUARTER_LEN` the source quarter out of the
-    deck plane, `source_step` its following step and `RUNS` the remaining straights.
 
-    The step is the one figure that is the SEGMENT'S and not the kind's: each source valve is
-    spread its own distance outboard, so each of the two turns is its own length of tube."""
-    kind = _scorecard.made_of(how)
-    if how in ml.BARB_OF:
-        return (kind, 0.0, 0, None)
-    if how == "spine":
-        corners = sum(s['kind'] == 'arc' for s in ml.lower_links()[cid])
-        return (kind, ml.lower_link_length(cid), corners, None)
-    if how in ml.FORE_STUBS:
-        return (kind, ml.fore_stub_length(*ml.FORE_STUBS[how]), 0, None)
-    if kind == "turn":                                       # the quarter, then the step's pair
-        return (kind, ml.QUARTER_LEN + ml.source_step(ml.SBENDS[cid])[2], 3, None)
-    if kind == "butt":
-        return (kind, 0.0, 0, None)
-    return (kind, ml.dist(*ml.RUNS[how]), 0, None)           # a lane's own straight
+def _interior(cid, how):
+    return tuple(_evaluate("fluid-topology", {**_inputs(), "cid": cid, "how": how}, operation="interior")["exports"]["interior"])
 
 
-def segments() -> dict:
-    """Logical fluid connections measured by the enclosure assembly.
+def segments():
+    return {name: Seg(**row) for name, row in _values()["segments"].items()}
 
-    `_facts` carries the exact native tube groups, their physical fittings and
-    missing-member status. These rows take precedence over manifold interiors
-    with the same ID. Unchanged interior segments come from `ml.SEGMENTS`;
-    remaining `ml.MOUTHS` entries retain their explicit undrawn status.
-    """
-    segs = {}
-    for r in _facts.read().runs:
-        segs[r.id] = Seg(r.id, (r.frm, r.to), r.get('made', 'drawn'), r.length, r.corners,
-                         status=r.get('status', 'complete'),
-                         missing=tuple(r.get('missing_native_routes', ()))+
-                                 tuple(r.get('missing_fittings', ())))
-    for cid, frm, to, how in ml.SEGMENTS:
-        if f'fluid-{cid}' in segs:
-            continue
-        made, length, corners, developed = _interior(cid, how)
-        segs[f"fluid-{cid}"] = Seg(
-            f"fluid-{cid}", (frm, to), made, length, corners, developed)
-    for cid, port, _what, _body, _end in ml.MOUTHS:
-        if cid not in segs:
-            segs[cid] = Seg(cid, (port,), "not drawn")
-    return segs
 
+def owed():
+    return {name: tuple(ends) for name, ends in _values()["owed"].items()}
 
-def owed() -> dict:
-    """The fluid segments fluid-topology.md's own tables name, id → `(from, to)` — the same read
-    `_scorecard.load_connections` takes to score the assembly's `routed` axis."""
-    return {c.id: (c.frm, c.to) for c in _scorecard.load_connections([]) if c.kind == "fluid"}
 
+def limb_members():
+    return {name: set(members) for name, members in _values()["limb_members"].items()}
 
-# ─── The chart-to-machine contract ────────────────────────────────────
-# Chart node id → the anchors that node stands for.
 
-def _body(name, *ports) -> frozenset:
-    return frozenset(f"{name}.{p}" for p in ports)
+def class_members():
+    return {name: set(members) for name, members in _values()["class_members"].items()}
 
 
-def _valve(v) -> frozenset:
-    """A valve reached from either side of the seam: `_lines.py` anchors on the placed body's
-    two collets, `manifold_layout` on the topology's own two port names."""
-    return frozenset({f"valve-{v.lower()}.inlet", f"valve-{v.lower()}.outlet",
-                      f"{v}-I", f"{v}-O"})
+def manifold_variables(segs):
+    inputs = {**_inputs(), "segments_override": [asdict(seg) for seg in segs.values()]}
+    return _evaluate("fluid-topology", inputs, operation="values")["exports"]["manifold_variables"]
 
 
-NODES = {
-    # The funnel is SEATED IN THE BOX rather than placed in the pack, but it is placed: its
-    # drain is an anchor like any other. The node stands for the funnel AND its drain joint — the
-    # plug and the elbow whose stem its land closes on are one source as far as
-    # this chart is concerned, and `fluid-4` is drawn off the elbow's aft collet.
-    "Funnel":     (_body("funnel", "drain")
-                   | _body("funnel-drain-union", "stub", "outlet")),
-    "Split":      _body("water-split", "supply", "to-flavor", "to-vk"),
-    "FlowReg":    _body("flow-regulator", "inlet", "outlet"),
-    "VK":         _body("vk-solenoid", "inlet", "outlet"),
-    "JointS":     _body("suction-reducer", "tube"),
-    "JointD":     _body("discharge-reducer", "tube"),
-    "ResA":       _body("foam-assembly", "reservoir-a"),
-    "ResAFill":   _body("foam-assembly", "reservoir-a-fill"),
-    "ResB":       _body("foam-assembly", "reservoir-b"),
-    "ResBFill":   _body("foam-assembly", "reservoir-b-fill"),
-    "BhA":        _body("bulkhead-flavor-a", "tube-in", "tube-out"),
-    "BhB":        _body("bulkhead-flavor-b", "tube-in", "tube-out"),
-    # The carbonator spine's own bodies.
-    "BhW":        _body("bulkhead-water", "inboard", "outboard"),
-    "BFP":        (_body("asse1022-assembly", "tube-in", "tube-out", "vent-tip")
-                   | _body('asse-inlet-tpu', 'tube') | _body('asse-outlet-tpu', 'tube')),
-    "DischChain": _body("discharge-chain", "inlet", "outlet", "tube-port"),
-    "PW":         _body("g-ganen-pump", "suction", "discharge"),
-    "CO2In":      _body("co2-inlet", "inboard", "outboard"),
-    "GasCheck":   _body("gas-check", "inlet", "outlet"),
-    "GasReg":     _body("gas-regulator", "inlet", "outlet"),
-    "FlowMeter":  _body("digiten-flow", "inlet", "outlet"),
-    "BhCarb":     _body("bulkhead-carb", "tube-in", "tube-out"),
-    "CapWater":   _body("foam-assembly", "water-in"),
-    "CapCO2":     _body("foam-assembly", "co2-in"),
-    "CapCarb":    _body("foam-assembly", "carb-water-out"),
-}
-# The manifold's own members, off the placed pack: a valve, a tee or a pump that leaves the pack
-# leaves this table with it, and every edge naming it then fails.
-NODES.update({f"V{v[-1]}": _valve(v) for v in _valves})
-NODES.update({f"Y{t[-1]}": frozenset(f"{t}-{i}" for i in (1, 2, 3))
-              for t in ml.P if t.startswith("Y-")})
-NODES.update({f"P{p[-1].upper()}": frozenset({f"P-{p[-1].upper()}-I", f"P-{p[-1].upper()}-O"})
-              for p in ml.PUMPS})
+def limb_variables():
+    return _values()["limb_variables"]
 
-# Chart nodes that stand for nothing the pack places — the far side of the +Y wall of back-top, the customer's supply and their cylinder, and everything inside the
-# carbonator. An edge to one of these carries a route id only if the segment it names has just one
-# end the machine knows, which is what a mouth with nothing on it yet is.
-UNPLACED = {"Faucet", "Gooseneck", "Tap", "CO2", "Vent", "PRVOut", "LevelSense",
-            "P1", "P2", "P3", "P4", "WaterJet", "Headspace", "Water", "Float"}
 
-# Which limb box in fluid-topology-limbs.mmd is which of the manifold's four lanes.
-LIMB_BOXES = {"LA1": "A1", "LA2": "A2", "LB1": "B1", "LB2": "B2"}
-
-# The manifold chart's circuit colouring, and so its `linkStyle` groups: fluid-topology.md's own
-# division of the segments into Shared, Channel A and Channel B.
-FLUID_GROUPS = (("shared", 1, 8), ("channel-a", 9, 18), ("channel-b", 19, 28))
-
-
-# ─── Reading the charts ───────────────────────────────────────────────
-# One edge per line, no chaining: `A -->|"label"| B`. The link index every linkStyle names is the
-# count of edges declared before it. Anything on a non-comment line that looks like an arrow and
-# does not match RAISES rather than being skipped over.
-_EDGE_RE = re.compile(
-    r'^\s*(?P<a>\w+)\s*(?P<arrow><-->|-->|-\.->|==>)\s*'
-    r'(?:\|"(?P<label>[^"]*)"\|\s*)?'
-    r'(?P<b>\w+)\s*$')
-_ARROWISH = re.compile(r'-->|-\.->|<-->|==>')
-# A label that opens with `<route-id>` names a segment, and everything after the id is this
-# driver's to write. Any other label is the chart's own prose.
-_LABEL_RE = re.compile(r'^(?P<id>[a-z][a-z0-9]*-\d+)(?P<rest>.*)$', re.DOTALL)
-# `linkStyle <indices> <style>`; the indices are written, the style is authored.
-_LINKSTYLE_RE = re.compile(r'^(?P<lead>\s*linkStyle\s+)(?P<idx>[\d,\s]+?)(?P<style>\s+\S.*)$')
-# The group a linkStyle line belongs to, declared in the comment above it.
-_GROUP_RE = re.compile(r'\(group:(?P<name>[\w-]+)\)')
-_SUBGRAPH_RE = re.compile(r'^\s*subgraph\s+(?P<id>\w+)\s*\["(?P<label>[^"]*)"\]\s*$')
-_NODE_RE = re.compile(r'^\s*(?P<id>\w+)\s*[\[\{\(]')
-_CLASS_RE = re.compile(r'^\s*class\s+(?P<ids>[\w,\s]+?)\s+(?P<name>\w+)\s*;?\s*$')
-
-
-def check_comments(path: Path) -> list[str]:
-    """A `%%` with nothing after it is NOT a comment. Mermaid's comment token wants text after
-    the marker, so a bare `%%` falls through to the node grammar and DRAWS — a box labelled `%%`
-    floating beside the chart. It is the shape a comment paragraph break wants to take, and it is
-    silent: the file parses, the chart renders, and there is an extra node in it. Paragraph
-    breaks in these charts are blank lines."""
-    return [f"  {path.name} line {i + 1}: a bare `%%` — mermaid draws this as a node, not a "
-            f"comment. Use a blank line for a paragraph break."
-            for i, ln in enumerate(path.read_text().splitlines())
-            if ln.strip() == "%%"]
-
-
-class Edge:
-    """One arrow in a chart: its two node ids, its route id (or None), and the line it sits on."""
-
-    def __init__(self, lineno, a, b, arrow, label):
-        self.lineno, self.a, self.b, self.arrow, self.label = lineno, a, b, arrow, label
-        m = _LABEL_RE.match(label) if label else None
-        self.rid = m.group("id") if m else None
-
-
-def read_edges(path: Path) -> tuple[list[str], list[Edge]]:
-    """The chart's lines, and its edges in declaration order — which is the order mermaid numbers
-    links in, and so the order `linkStyle` counts."""
-    lines = path.read_text().splitlines()
-    edges = []
-    for i, ln in enumerate(lines):
-        if ln.lstrip().startswith("%%"):
-            continue
-        m = _EDGE_RE.match(ln)
-        if m:
-            edges.append(Edge(i, m.group("a"), m.group("b"), m.group("arrow"),
-                              m.group("label")))
-        elif _ARROWISH.search(ln):
-            raise ValueError(
-                f"{path.name} line {i + 1}: an edge this driver cannot read —\n"
-                f"    {ln.strip()}\n"
-                f"  Charts it gates carry ONE edge per line, `A -->|\"label\"| B`, with no "
-                f"chaining: the link index every linkStyle names is the count of edges "
-                f"before it, and a line holding two would put every later index out.")
-    return lines, edges
-
-
-# ─── The gate ─────────────────────────────────────────────────────────
-def check_graph(edges: list[Edge], segs: dict, owes_ids: bool) -> list[str]:
-    """Every edge against the segment it names. An edge passes only if the built segment's ends
-    are the two nodes' own anchors — in either order, because a segment is authored from
-    whichever end its author reached first and the chart draws the direction fluid moves.
-
-    `owes_ids` says every edge between two placed bodies names a segment. The flavor manifold is
-    all tube; the carbonator spine also draws made-up threads, face-to-face collets and the
-    carbonator's own interior as edges, and none of those is a run."""
-    bad = []
-    seen = {}
-
-    for e in edges:
-        for node in (e.a, e.b):
-            if node not in NODES and node not in UNPLACED:
-                bad.append(f"  line {e.lineno + 1}: node {node!r} is in no table — add it to "
-                           f"NODES with the anchors it stands for")
-        if any(n not in NODES and n not in UNPLACED for n in (e.a, e.b)):
-            continue
-
-        if e.rid is None:
-            if not owes_ids or e.a in UNPLACED or e.b in UNPLACED:
-                continue
-            # A BUTT HAS NO ROUTE ID because it has no run. `_scorecard.MADE_UP` is the machine's
-            # own list of the joints where two collets meet face to face and the tube is cut to
-            # the two grips, so an edge standing for one of those owes a picture and not a name.
-            ends = (NODES.get(e.a, frozenset()), NODES.get(e.b, frozenset()))
-            if any((x in ends[0] and y in ends[1]) or (y in ends[0] and x in ends[1])
-                   for x, y in _scorecard.MADE_UP):
-                continue
-            bad.append(f"  line {e.lineno + 1}: {e.a} → {e.b} carries no route id, but the "
-                       f"machine knows both ends — every segment between two of them has one")
-            continue
-        if e.rid in seen:
-            bad.append(f"  line {e.lineno + 1}: {e.rid} drawn twice (also line {seen[e.rid] + 1})")
-            continue
-        seen[e.rid] = e.lineno
-
-        seg = segs.get(e.rid)
-        if seg is None:
-            bad.append(f"  line {e.lineno + 1}: {e.rid} is drawn here and the machine builds "
-                       f"nothing by that name")
-            continue
-        held = [NODES.get(e.a, frozenset()), NODES.get(e.b, frozenset())]
-        if len(seg.ends) == 1:
-            # A mouth: one end the machine knows, and on the other a node it does not place.
-            if not any(seg.ends[0] in h for h in held):
-                bad.append(f"  line {e.lineno + 1}: {e.rid} is drawn {e.a} → {e.b}; the machine "
-                           f"builds it off {seg.ends[0]} and neither node holds that")
-            elif not (e.a in UNPLACED or e.b in UNPLACED):
-                bad.append(f"  line {e.lineno + 1}: {e.rid} is drawn between two placed nodes "
-                           f"and the machine draws only its {seg.ends[0]} end")
-            continue
-        if e.a in UNPLACED or e.b in UNPLACED:
-            bad.append(f"  line {e.lineno + 1}: {e.rid} reaches {e.a} → {e.b}, and the machine "
-                       f"places no body for one of them, yet builds the segment end to end")
-            continue
-        frm, to = seg.ends
-        if not (frm in held[0] and to in held[1]) and not (frm in held[1] and to in held[0]):
-            bad.append(f"  line {e.lineno + 1}: {e.rid} is drawn {e.a} → {e.b}; the machine "
-                       f"builds it {frm} → {to}")
-    return bad
-
-
-def check_linkstyle_cover(path: Path, lines: list[str], edges: list[Edge]) -> list[str]:
-    """Every edge named by exactly one `linkStyle` index, and no index past the last edge. An
-    index list is a COUNT of the edges declared before it, so an edge inserted by hand puts every
-    later number out and the chart draws a line in the wrong circuit's colour."""
-    seen, bad = {}, []
-    for i, ln in enumerate(lines):
-        m = _LINKSTYLE_RE.match(ln) if not ln.lstrip().startswith("%%") else None
-        if not m:
-            continue
-        for n in (int(t) for t in m.group("idx").split(",") if t.strip()):
-            if n >= len(edges):
-                bad.append(f"  {path.name} line {i + 1}: linkStyle names edge {n} and the chart "
-                           f"draws {len(edges)}")
-            elif n in seen:
-                bad.append(f"  {path.name} line {i + 1}: edge {n} is styled twice (also line "
-                           f"{seen[n] + 1})")
-            else:
-                seen[n] = i
-    for n in range(len(edges)):
-        if n not in seen:
-            e = edges[n]
-            bad.append(f"  {path.name} line {e.lineno + 1}: edge {n} ({e.a} → {e.b}) is in no "
-                       f"linkStyle — it renders in the default colour")
-    return bad
-
-
-def check_inventory(edges: list[Edge], segs: dict) -> list[str]:
-    """The three lists held to one: what fluid-topology.md's tables NAME, what the machine
-    BUILDS, and what the chart DRAWS."""
-    named, built = set(owed()), {k for k in segs if k.startswith("fluid-")}
-    drawn = {e.rid for e in edges if e.rid}
-    bad = []
-    for miss in sorted(named - built, key=_seg_no):
-        bad.append(f"  {miss} has a row in fluid-topology.md and the machine builds nothing "
-                   f"by that name")
-    for miss in sorted(built - named, key=_seg_no):
-        bad.append(f"  {miss} is built by the machine and fluid-topology.md's tables have no "
-                   f"row for it")
-    for miss in sorted(built - drawn, key=_seg_no):
-        bad.append(f"  {miss} is built by the machine and the chart does not draw it")
-    return bad
-
-
-def limb_members() -> dict:
-    """Limb → its logical valves and junctions, off `manifold_layout.LIMBS`."""
-    return {name: {body for body, _arg in limb["chain"]}
-            for name, limb in ml.LIMBS.items()}
-
-
-def check_boxes(path: Path, strict: bool) -> list[str]:
-    """Every limb box holds exactly the bodies its limb chains, and its TITLE names that limb.
-    The subgraph id is this driver's handle; the title is what the chart draws, so both are held
-    to the same limb.
-
-    `strict` says every subgraph in the file must be a limb. The limbs chart is nothing but
-    limbs; the manifold chart also boxes the regions the machine's own bodies stand in, and those
-    are prose, not carriers."""
-    limbs = limb_members()
-    bad, stack = [], []
-
-    for i, ln in enumerate(path.read_text().splitlines()):
-        if ln.lstrip().startswith("%%"):
-            continue
-        m = _SUBGRAPH_RE.match(ln)
-        if m:
-            stack.append((m.group("id"), m.group("label"), i, set()))
-            continue
-        if ln.strip() == "end":
-            if not stack:
-                bad.append(f"  {path.name} line {i + 1}: an `end` closing no subgraph")
-                continue
-            box, label, at, held = stack.pop()
-            limb = LIMB_BOXES.get(box)
-            if limb is None:
-                if strict:
-                    bad.append(f"  {path.name} line {at + 1}: subgraph {box!r} is in no table — "
-                               f"add it to LIMB_BOXES, or take it out of a chart that is nothing "
-                               f"but limbs")
-                continue
-            if limb not in limbs:
-                bad.append(f"  {path.name} line {at + 1}: {box} — the manifold chains no "
-                           f"{limb!r}")
-            elif held != limbs[limb]:
-                bad.append(f"  {path.name} line {at + 1}: {box} ({limb}) draws "
-                           f"{sorted(held) or '—'}; the limb chains {sorted(limbs[limb])}")
-            if not label.startswith(limb):
-                bad.append(f"  {path.name} line {at + 1}: {box} is drawn {label!r} and holds "
-                           f"limb {limb!r} — the title a reader sees must name the limb")
-            continue
-        n = _NODE_RE.match(ln)
-        if stack and n and n.group("id") in NODES:
-            stack[-1][3].add(_body_of(n.group("id")))
-
-    if stack:
-        bad.append(f"  {path.name}: {len(stack)} subgraph(s) never closed")
-
-    drawn = set(re.findall(r'^\s*subgraph\s+(\w+)\s*\[', path.read_text(), re.M))
-    for miss in sorted(set(LIMB_BOXES) - drawn):
-        bad.append(f"  {path.name}: limb {LIMB_BOXES[miss]} is chained in the manifold and has "
-                   f"no box in the chart")
-    for limb in sorted(set(limbs) - set(LIMB_BOXES.values())):
-        bad.append(f"  the manifold chains limb {limb!r} and no chart box claims it — add it to "
-                   f"LIMB_BOXES and draw it")
-    return bad
-
-
-def _body_of(node: str) -> str:
-    """A chart node id back to the manifold's own body name: `VA` → `V-A`, `YC` → `Y-C`."""
-    return f"{node[0]}-{node[1:]}" if len(node) == 2 else node
-
-
-def check_classes(path: Path, want: dict) -> list[str]:
-    """Each `class` line's membership against the pack. The two the charts carry are the placed
-    manifold's own: which nodes are junctions, and which stand on the upper deck."""
-    bad = []
-    for i, ln in enumerate(path.read_text().splitlines()):
-        m = _CLASS_RE.match(ln) if not ln.lstrip().startswith("%%") else None
-        if not m or m.group("name") not in want:
-            continue
-        drawn = {n.strip() for n in m.group("ids").split(",") if n.strip()}
-        if drawn != want[m.group("name")]:
-            bad.append(f"  {path.name} line {i + 1}: class {m.group('name')} draws "
-                       f"{sorted(drawn)}; the pack has {sorted(want[m.group('name')])}")
-    for name in want:
-        if not re.search(r'^\s*class\s+[\w,\s]+\s+%s\s*;?\s*$' % name,
-                         path.read_text(), re.M):
-            bad.append(f"  {path.name}: nothing is classed {name!r}, and the pack has "
-                       f"{sorted(want[name])}")
-    return bad
-
-
-def class_members() -> dict:
-    """The two classed sets: logical junctions and the fixed upper-deck members."""
-    return {
-        "tee": {f"Y{t[-1]}" for t in ml.P if t.startswith("Y-")},
-        "upper": {f"{n[0]}{n[2:]}" for n, p in ml.P.items() if p["fold"]},
-    }
-
-
-# ─── Writing ──────────────────────────────────────────────────────────
-def _seg_no(rid: str) -> int:
-    return int(rid.rsplit("-", 1)[1])
-
-
-def edge_group(e: Edge) -> str:
-    """Which linkStyle group an edge belongs to — derived from its route id, so a segment moved
-    between channels moves its colour with it."""
-    if e.rid is None:
-        return "outside"
-    if not e.rid.startswith("fluid-"):
-        return "carbonator"
-    n = _seg_no(e.rid)
-    for name, lo, hi in FLUID_GROUPS:
-        if lo <= n <= hi:
-            return name
-    raise ValueError(f"{e.rid}: outside every group in FLUID_GROUPS")
-
-
-def rewrite_labels(lines: list[str], edges: list[Edge], segs: dict) -> None:
-    """What each labelled edge's segment is, onto the label, in place."""
-    for e in edges:
-        if e.rid is None:
-            continue
-        want = segs[e.rid].label
-        if e.label != want:
-            lines[e.lineno] = lines[e.lineno].replace(f'|"{e.label}"|', f'|"{want}"|')
-            e.label = want
-
-
-def rewrite_linkstyles(lines: list[str], edges: list[Edge]) -> list[str]:
-    """The `linkStyle` index lists, off the parsed edge order. Mermaid numbers links by
-    declaration order, so these indices are a COUNT and not an authorship — insert one edge by
-    hand and every later number is wrong. The style that follows each index list stays the
-    chart's own; only the numbers are written."""
-    groups: dict[str, list[int]] = {}
-    for i, e in enumerate(edges):
-        groups.setdefault(edge_group(e), []).append(i)
-
-    problems, pending, written = [], None, set()
-    for i, ln in enumerate(lines):
-        g = _GROUP_RE.search(ln) if ln.lstrip().startswith("%%") else None
-        if g:
-            pending = g.group("name")
-            continue
-        m = _LINKSTYLE_RE.match(ln)
-        if not m:
-            continue
-        if pending is None:
-            problems.append(f"  line {i + 1}: a linkStyle with no (group:NAME) in the comment "
-                            f"above it — this driver writes its indices and cannot tell which "
-                            f"edges it is for")
-            continue
-        idx = groups.get(pending)
-        if idx is None:
-            problems.append(f"  line {i + 1}: group {pending!r} matches no edge in the chart")
-        else:
-            lines[i] = f"{m.group('lead')}{','.join(str(n) for n in idx)}{m.group('style')}"
-            written.add(pending)
-        pending = None
-    for g in sorted(set(groups) - written):
-        problems.append(f"  {len(groups[g])} edges are in group {g!r} and no linkStyle claims "
-                        f"it — they render in the default colour")
-    return problems
-
-
-def manifold_variables(segs: dict) -> dict:
-    """Reported LLDPE paths, excluding the prepared pump tubes."""
-    fluid = [s for k, s in segs.items() if k.startswith("fluid-")]
-    cut = [s for s in fluid if s.length]
-    longest = max(cut, key=lambda s: s.length)
-    return {
-        "SEGMENT_COUNT": f"{len(fluid)}",
-        "DRAWN_COUNT":   f"{sum(1 for s in fluid if s.made == 'drawn')}",
-        "BUTT_COUNT":    f"{sum(1 for s in fluid if s.made == 'butt')}",
-        "UPPER_LINK_COUNT": f"{len(ml.FORE_STUBS)}",
-        "UPPER_LINK_EXPOSED": f"{ml.FORE_STUB_EXPOSED:.6g} mm",
-        "LOWER_RETURN_COUNT": f"{len(ml.LOWER_CONNECTIONS)}",
-        "OPEN_COUNT":    f"{sum(1 for s in fluid if s.made == 'not drawn')}",
-        "FLUID_TOTAL":   f"{sum(s.length for s in cut):.1f} mm",
-        "FLUID_BENDS":   f"{sum(s.corners for s in fluid)}",
-        "LONGEST_ID":    longest.id,
-        "LONGEST_LEN":   f"{longest.length:.1f} mm",
-    }
-
-
-def limb_variables() -> dict:
-    """The manifold's logical inventory, counted off the placed pack."""
-    limbs = limb_members()
-    valves = {v for m in limbs.values() for v in m if v.startswith("V-")}
-    tees = {t for m in limbs.values() for t in m if t.startswith("Y-")}
-    return {
-        "LIMB_COUNT":   f"{len(limbs)}",
-        "LIMB_VALVES":  f"{len(valves)}",
-        "TEE_COUNT":    f"{len(tees)}",
-        "PURCHASED_TEE_COUNT": f"{len(ml.PURCHASED_TEES)}",
-        "PUMP_TEE_COUNT": f"{len(ml.PUMP_JUNCTIONS)}",
-        "UPPER_COUNT":  f"{sum(1 for p in ml.P.values() if p['fold'])}",
-        "LOWER_COUNT":  f"{sum(1 for p in ml.P.values() if not p['fold'])}",
-        "PUMP_COUNT":   f"{len(ml.PUMPS)}",
-    }
-
-
-# ─── Driver ───────────────────────────────────────────────────────────
-def main() -> int:
-    check = "--check" in sys.argv
-
-    segs = segments()
-
-    problems = []
-    for chart in (MANIFOLD, LIMBS, CARBONATOR):
-        problems += check_comments(chart)
-    lines, edges = read_edges(MANIFOLD)
-    carb_lines, carb_edges = read_edges(CARBONATOR)
-    problems += check_graph(edges, segs, owes_ids=True)
-    problems += check_graph(carb_edges, segs, owes_ids=False)
-    problems += check_inventory(edges, segs)
-    problems += check_boxes(MANIFOLD, strict=False)
-    problems += check_boxes(LIMBS, strict=True)
-    problems += check_classes(MANIFOLD, class_members())
-    problems += check_classes(LIMBS, class_members())
-    problems += check_linkstyle_cover(CARBONATOR, carb_lines, carb_edges)
-    problems += check_linkstyle_cover(LIMBS, *read_edges(LIMBS))
-    if problems:
-        print("fluid-topology charts disagree with the enclosure assembly:")
-        print("\n".join(problems))
-        return 1
-
-    before, carb_before = list(lines), list(carb_lines)
-    rewrite_labels(lines, edges, segs)
-    rewrite_labels(carb_lines, carb_edges, segs)
-    problems += rewrite_linkstyles(lines, edges)
-    problems += check_linkstyle_cover(MANIFOLD, lines, edges)
-    if problems:
-        print("fluid-topology-manifold.mmd linkStyle:")
-        print("\n".join(problems))
-        return 1
-
-    mf_vars, limb_vars = manifold_variables(segs), limb_variables()
-
-    if check:
-        stale = [f"  {p.name} line {i + 1}: {b.strip()}"
-                 for p, was, now in ((MANIFOLD, before, lines), (CARBONATOR, carb_before,
-                                                                 carb_lines))
-                 for i, (b, a) in enumerate(zip(was, now)) if b != a]
-        stale += _stale_markers(MANIFOLD, mf_vars)
-        stale += _stale_markers(LIMBS, limb_vars)
-        stale += _stale_markers(TOPOLOGY, {**mf_vars, **limb_vars})
-        if stale:
-            print("fluid-topology charts are stale — run _fluid_topology_sync.py:")
-            print("\n".join(stale))
-            return 1
-        print("fluid-topology ✓")
-        return 0
-
-    # BOTH CHARTS ARE READ AND WRITTEN BACK, and only one of them says so on its own.
-    # `substitute_mmd` reports every file it touches, and `MANIFOLD` goes through it below;
-    # `CARBONATOR` carries no `[value](NAME)` marker, so its lines are edited and written
-    # here and nothing downstream would know it was ever read. Outside the tests below,
-    # because a run that lands on the text already there still read the file to decide that.
-    note_rewritten(MANIFOLD)
-    note_rewritten(CARBONATOR)
-    if lines != before:
-        MANIFOLD.write_text("\n".join(lines) + "\n")
-    if carb_lines != carb_before:
-        CARBONATOR.write_text("\n".join(carb_lines) + "\n")
-    substitute_mmd(MANIFOLD, mf_vars)
-    substitute_mmd(LIMBS, limb_vars)
-    substitute_md(TOPOLOGY, {**mf_vars, **limb_vars})
-
-    fluid = [s for k, s in sorted(((k, s) for k, s in segs.items()
-                                   if k.startswith("fluid-")),
-                                  key=lambda kv: _seg_no(kv[0]))]
-    for s in fluid:
-        if s.length is not None:
-            length = f"{s.length:7.1f} mm"
-        elif s.developed is not None:
-            length = f"{s.developed:7.1f} mm exposed; add both fitting insertions"
-        else:
-            length = "        —"
-        print(f"  {s.id:<9} {length}  {s.corners} corners  {s.made:<9} "
-              f"{' → '.join(s.ends)}")
-        if s.status != 'complete':
-            print(f'    incomplete: missing {", ".join(s.missing)}')
-    print(f"  {'REPORTED':<9} {sum(s.length or 0.0 for s in fluid):7.1f} mm over "
-          f"{len(fluid)} segments; add actual fitting insertions to mouth-to-mouth paths; "
-          "prepared pump tubes excluded")
-    print(f"  limbs {limb_vars['LIMB_COUNT']}, valves {limb_vars['LIMB_VALVES']}, "
-          f"junctions {limb_vars['TEE_COUNT']}, pumps {limb_vars['PUMP_COUNT']} "
-          f"({limb_vars['UPPER_COUNT']} upper-deck bodies, {limb_vars['LOWER_COUNT']} lower)")
-    return 0
-
-
-def _stale_markers(path: Path, variables: dict) -> list[str]:
-    text = path.read_text()
-    out = []
-    for name, want in variables.items():
-        m = re.search(r"\[([^\]]*)\]\(%s\)" % name, text)
-        if m and m.group(1) != str(want):
-            out.append(f"  {path.name}: [{m.group(1)}]({name}) should be [{want}]({name})")
-    return out
+def main():
+    if "--check" in sys.argv:
+        result = _evaluate("fluid-topology", _inputs(), operation="check")
+        print(result["stdout"], end="")
+    else:
+        result = _update("fluid-topology", _inputs())
+    return result["exports"]["status"]
 
 
 if __name__ == "__main__":

@@ -4,13 +4,13 @@ Purchased profiles retain their own reference frames. The shared production
 specification places every fitting and defines the short flexible pump joints;
 no exploratory assembly or exported study is a build input.
 """
-import math
 import json
 from pathlib import Path
 
 import numpy as np
 
 import above_core as layout
+from _layout_data import data as _data
 
 
 def plan():
@@ -39,17 +39,7 @@ def joint():
 
 
 def _arc_three(points):
-    a,m,b = (np.array(p,float) for p in points)
-    u,v = m-a,b-a
-    normal = np.cross(u,v)
-    centre = a+(float(u@u)*np.cross(v,normal)+float(v@v)*np.cross(normal,u))/(2.*float(normal@normal))
-    normal /= np.linalg.norm(normal)
-    start,end = a-centre,b-centre
-    angle = math.atan2(float(np.cross(start,end)@normal),float(start@end))
-    if angle<0.: angle+=2.*math.pi
-    return {'kind':'arc','points_mm':[list(p) for p in points],
-            'center_mm':centre.tolist(),'axis':normal.tolist(),
-            'angle_rad':angle,'radius_mm':float(np.linalg.norm(start))}
+    return _data('arc-three', points=points)
 
 
 def ports(name):
@@ -86,7 +76,7 @@ def snap_datums():
     c=layout.point(data['chain_frame'],(0.,0.,chain().bfp.BODY_CENTER_Z))
     p=layout.point(data['gas_frame'],(0.,0.,0.))
     return {'asse_axis':(c[0],c[2]), 'asse_turn':90., 'pisco_axis':(p[0],p[2]),
-            'mouth_y':p[1], 'ceiling':346., 'rear':465.3, 'side':98.5}
+            'mouth_y':p[1], 'ceiling':data['snap_ceiling_z_mm'], 'rear':465.3, 'side':98.5}
 
 
 def regulator_datums():
@@ -116,203 +106,44 @@ def meter_spans():
     return (y-30.01, y+29.99), (y-19.01, y+18.99)
 
 
+def _route_stations(operation, resolver):
+    return {f'{name}.{port}': resolver(name, port)
+            for name, port in _data('route-stations', operation=operation, spec=layout.specification())}
+
+
 def route_specs():
-    """Short quarter-inch tubes, ending at their actual receiving stops."""
+    """Rust short-tube recipes, with provider ports carried to world stations."""
     import above_core_parts as parts
-    import above_core_routes as routes
-    result = {}
 
     def station(name, port):
-        p,u,d = parts.port_stations(name)[port]
+        point, axis, diameter = parts.port_stations(name)[port]
         frame = parts.route_port_frame(name)
-        return layout.point(frame, p), layout.vector(frame['rotation'], u)
+        return layout.point(frame, point), layout.vector(frame['rotation'], axis), diameter
 
-    def add(name, segments, owners, radius=None):
-        points = routes._points(segments)
-        result[name] = {'segments':segments,'points_mm':points,'centerline_mm':points,
-            'od_mm':6.35,'id_mm':4.32,'spool':'white','owners':list(owners),
-            'from':owners[0],'to':owners[-1],'minimum_radius_mm':radius,
-            'status':'complete_between_named_interfaces','basis':'Named receiving socket depths'}
-
-    d = plan()['water_split_stub']
-    a,m,b = d['points_mm']
-    before = routes._sub(a,routes._mul(d['flow_in'],joint().reducer.TUBE_INSERTION_DEPTH))
-    after = routes._add(b,routes._mul(d['flow_out'],union_tee().INSERTION))
-    add('above-core-water-split-stub', [routes._line(before,a),_arc_three([a,m,b]),
-        routes._line(b,after)], ('jg-pp061208w','water-split'),d['radius_mm'])
-    for name, first, port_a, depth_a, second, port_b, depth_b in (
-            ('tee-vk-link','water-split','to-vk',15.7,'tee-fold','socket',16.891),
-            ('reg-va-link','flow-regulator','outlet',15.,'reg-va-elbow','socket',16.891),
-            ('tee-regulator','water-split','to-flavor',15.7,'flow-regulator','inlet',15.),
-            ('pump-inlet-link','suction-reducer','tube',joint().reducer.TUBE_INSERTION_DEPTH,
-             'lower-pump-elbow','socket',parts.stem_elbow_reference().SOCKET_INSERTION)):
-        flex = plan().get('flex_links', {}).get(name)
-        if flex:
-            if flex['kind'] == 'tangent_cubic':
-                a,ua = station(first,port_a)
-                b,ub = station(second,port_b)
-                a = routes._sub(a,routes._mul(ua,depth_a))
-                b = routes._sub(b,routes._mul(ub,depth_b))
-                length = math.dist(a,b)
-                control = [a,routes._add(a,routes._mul(ua,length/3.)),
-                           routes._add(b,routes._mul(ub,length/3.)),b]
-                # Derivative controls bound speed along the chord from below;
-                # the two acceleration controls bound its norm from above.
-                # Consequently curvature <= max_acceleration / min_speed².
-                chord = [(b[i]-a[i])/length for i in range(3)]
-                velocity = [[3.*(q[i]-p[i]) for i in range(3)]
-                            for p,q in zip(control,control[1:])]
-                speed = min(sum(v[i]*chord[i] for i in range(3)) for v in velocity)
-                acceleration = max(math.sqrt(sum((6.*(r[i]-2.*q[i]+p[i]))**2
-                                                  for i in range(3)))
-                                   for p,q,r in zip(control,control[1:],control[2:]))
-                radius = (speed*speed/acceleration if acceleration else None) if speed>0. else 0.
-                add('above-core-'+name,[routes._bezier(control)],(first,second),radius)
-                result['above-core-'+name]['radius_basis'] = 'Conservative derivative bound on the tangent cubic'
-                continue
-            segment = (_arc_three(flex['points_mm']) if flex['kind'] == 'arc'
-                       else routes._bezier(flex['points_mm']))
-            add('above-core-'+name, [segment], (first, second),
-                flex['minimum_radius_mm'])
-            continue
-        a,ua = station(first,port_a); b,ub = station(second,port_b)
-        points = parts._link(a,ua,depth_a,b,ub,depth_b)
-        add('above-core-'+name,[routes._line(points[0],points[-1])],(first,second))
-    return result
+    params = {'reducer_insertion': joint().reducer.TUBE_INSERTION_DEPTH,
+              'tee_insertion': union_tee().INSERTION,
+              'stem_insertion': parts.stem_elbow_reference().SOCKET_INSERTION}
+    return dict(_data('rear-route-specs', spec=layout.specification(),
+                      stations=_route_stations('rear-route-specs', station), params=params))
 
 
 def continuations(station):
-    """Water, gas, vent and flavor handoffs to the production core and manifold."""
-    import above_core_routes as r
-    result = {}
-
-    def add(name, segments, source, destination, radius, *, spool='white', od=6.35, inside=4.32):
-        points = r._points(segments)
-        result[name] = {'segments':segments,'points_mm':points,'centerline_mm':points,
-            'od_mm':od,'id_mm':inside,'spool':spool,'owners':[source[0],destination[0]],
-            'from':'.'.join(source),'frm':'.'.join(source),'to':'.'.join(destination),
-            'minimum_radius_mm':radius,'radius_mm':radius,'status':'selected_native_layout'}
-
-    data = plan()['water5_bend']
-    arcs = data['segments']
-    a = arcs[0]['points_mm'][0]
-    b = arcs[-1]['points_mm'][-1]
-    inserted = r._sub(a,r._mul(data['flow'],check().INSERTION))
-    segments = [r._line(inserted,a),*arcs]
-    add('water-5',segments,('discharge-chain','outlet'),('foam-assembly','water-in'),
-        data['radius_mm'])
-    a,ua,_ = station('digiten-flow','outlet');b,ub,_ = station('bulkhead-carb','tube-in')
+    """Rust water, gas and vent continuations between named interfaces."""
     bulkhead = reference('pp1208e', 'reference/jg-bulkhead-union/jg_bulkhead_union.py')
-    add('soda-meter-bulkhead',[r._line(r._sub(a,r._mul(ua,15.7)),r._sub(b,r._mul(ub,bulkhead.TUBE_STOP_DEPTH)))],
-        ('digiten-flow','outlet'),('bulkhead-carb','tube-in'),None,spool='blue')
-
-    gas = plan()['co2_tube']
-    a = list(station('gas-check','outlet')[0]); top = gas['bend_foot']; floor = list(layout.specification()['gas_guide_world_mm'])
-    da,db = gas['bend_tangents_mm']; pa,pb = gas['s_tangents_mm']
-    c1 = [a,[a[0],a[1]-da,a[2]],[top[0],top[1],top[2]+db],top]
-    c2 = [top,[top[0],top[1],top[2]-pb],[floor[0],floor[1],floor[2]+pa],floor]
-    add('above-core-gas-core-drop',[r._line((a[0],a[1]+check().INSERTION,a[2]),a),r._bezier(c1),r._bezier(c2)],
-        ('gas-check','outlet'),('foam-assembly','co2-in'),gas['minimum_radius_mm'],spool='red')
-
-    # Full receiving straights and tangent bends through the occupied layout.
-    add('above-core-va-fore-feed',layout.specification()['fore_routes']['native_segments']['va-fore-feed'],
-        ('va-south-elbow','socket'),('ya-stem-elbow','socket'),14.)
-
-    # The integral aft-facing socket keeps the LLDPE straight between the
-    # downward vent and OVER. Its small lateral correction is a gentle cubic.
-    a,ua,_ = station('asse-drain-adapter','tube');b,ub,_ = station('bulkhead-drain','inboard')
-    span = b[1]-a[1]
-    control = [a,r._add(a,r._mul(ua,span/3.)),r._add(b,r._mul(ub,span/3.)),b]
-    add('drain-vent',[r._line(r._sub(a,r._mul(ua,14.)),a),r._bezier(control),
-        r._line(b,r._sub(b,r._mul(ub,10.)))],('asse-drain-adapter','tube'),('bulkhead-drain','inboard'),25.,
-        spool='drain-white',od=4.,inside=2.5)
-    return result
+    params = {'check_insertion': check().INSERTION, 'bulkhead_tube_stop': bulkhead.TUBE_STOP_DEPTH}
+    return dict(_data('rear-continuations', spec=layout.specification(),
+                      stations=_route_stations('rear-continuations', station), params=params))
 
 
 def _flavor_s_bend(start, heading, offset, axis):
-    import above_core_routes as r
-    radius = 25.
-    # Two equal opposite arcs restore the original tangent.
-    distance = math.sqrt(sum(c*c for c in offset))
-    angle = math.acos(1.-distance/(2.*radius))
-    first,end = r._arc(start,heading,axis,angle,radius)
-    u = np.array(heading,float); n = np.array(axis,float)
-    tangent = math.cos(angle)*u+math.sin(angle)*np.cross(n,u)
-    second,end = r._arc(end,tangent,tuple(-c for c in axis),angle,radius)
-    return [first,second],end
+    segments, end = _data('flavor-s-bend', start=start, heading=heading, offset=offset, axis=axis)
+    return segments, tuple(end)
 
 
 def _flavor_rear(flavor, destination):
-    """Shared descending bend, lower straight and rear socket approach."""
-    import above_core_routes as r
-    radius = 25.
-    if flavor=='a':
-        # Finish the descent ahead of the meter's complete lower spring.
-        # The rear straight passes above that leaf, beneath the housing.
-        start = (61.,369.5,276.5)
-        low_z = 262.
-        offset = (destination[0]-start[0],0.,low_z-start[2])
-        normal = r._unit(r._cross((0.,1.,0.),offset))
-        fall,low = _flavor_s_bend(start,(0.,1.,0.),offset,normal)
-        rise = (0.,0.,destination[2]-low_z)
-        angle = math.acos(1.-r._norm(rise)/(2.*radius))
-        shift_start = (low[0],destination[1]-2.*radius*math.sin(angle),low_z)
-        shift,stop = _flavor_s_bend(shift_start,(0.,1.,0.),rise,(1.,0.,0.))
-        return [*fall,r._line(low,shift_start),*shift]
-    peak, low_z = 303.5, destination[2]
-    start = (35.,348.,peak)
-    offset = (0.,0.,low_z-peak)
-    normal = r._unit(r._cross((0.,1.,0.),offset))
-    fall, low = _flavor_s_bend(start,(0.,1.,0.),offset,normal)
-    offset = (destination[0]-low[0],0.,destination[2]-low_z)
-    angle = math.acos(1.-r._norm(offset)/(2.*radius))
-    shift_start = (low[0],destination[1]-2.*radius*math.sin(angle),low_z)
-    normal = r._unit(r._cross((0.,1.,0.),offset))
-    shift, stop = _flavor_s_bend(shift_start,(0.,1.,0.),offset,normal)
-    return [*fall,r._line(low,shift_start),*shift]
+    return _data('flavor-rear', flavor=flavor, destination=destination)
 
 
 def flavor_routes(station):
-    """Two 4 mm dispense lines through the pump's east aisle, below the meter."""
-    import above_core_routes as r
-    result = {}
-    radius = 25.
-
-    for flavor, valve, lane, cross_y, aisle, cross_z, lift_y in (
-            ('a','valve-v-g',-33.,266.,55.5,296.,291.),
-            ('b','valve-v-j',-40.,274.,35.,293.,299.)):
-        source,axis,_ = station(valve,'outlet')
-        destination,outward,_ = station('bulkhead-flavor-'+flavor,'tube-in')
-        if flavor=='a':
-            lead = r._rounded([r._sub(source,r._mul(axis,10.)),source,
-                (source[0],source[1],292.5),(35.,156.,288.5),(-45.,156.,288.5),(-45.,181.,288.5)],radius)
-            lead_end = (-45.,181.,288.5)
-        else:
-            lead = r._rounded([r._sub(source,r._mul(axis,10.)),source,
-                (source[0],source[1],288.5),(source[0],source[1]+radius,288.5)],radius)
-            lead_end = (source[0],source[1]+radius,288.5)
-        approach = (lane,cross_y-radius-10.,cross_z)
-        lane_segments = [r._ease_lane(lead_end,approach)]
-        if flavor=='b':
-            offset = (lane-lead_end[0],0.,cross_z-lead_end[2])
-            normal = r._unit(r._cross((0.,1.,0.),offset))
-            lane_segments,approach = _flavor_s_bend(lead_end,(0.,1.,0.),offset,normal)
-        crossing = r._rounded([approach,(lane,cross_y,cross_z),(aisle,cross_y,cross_z),
-                                (aisle,lift_y,cross_z)],radius)
-        peak,low_z = (276.5,262.) if flavor=='a' else (303.5,destination[2])
-        offset = (5.5 if flavor=='a' else 0.,0.,peak-cross_z)
-        normal = r._unit(r._cross((0.,1.,0.),offset))
-        rise,end = _flavor_s_bend((aisle,lift_y,cross_z),(0.,1.,0.),offset,normal)
-        rear = _flavor_rear(flavor,destination)
-        stop = rear[-1]['points_mm'][-1]
-        segments = [*lead,*lane_segments,*crossing,*rise,
-                    r._line(end,rear[0]['points_mm'][0]),*rear,
-                    r._line(stop,r._sub(destination,r._mul(outward,10.)))]
-        points = r._points(segments)
-        result['fluid-'+('18' if flavor=='a' else '28')] = {
-            'segments':segments,'points_mm':points,'centerline_mm':points,
-            'od_mm':4.,'id_mm':2.5,'spool':'flavor-black-4mm',
-            'owners':[valve,'bulkhead-flavor-'+flavor],
-            'from':valve+'.outlet','frm':valve+'.outlet','to':'bulkhead-flavor-'+flavor+'.tube-in',
-            'minimum_radius_mm':radius,'radius_mm':radius,'status':'selected_native_layout'}
-    return result
+    """Rust dispense-line recipes from the raw world-port stations."""
+    return dict(_data('flavor-routes', stations=_route_stations('flavor-routes', station)))

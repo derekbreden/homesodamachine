@@ -59,27 +59,26 @@ from docgen import substitute_py_comments
 from world_workplane import WorldWorkplane, xy_plane_z_up
 
 
-# Footprint matches the above-counter plate; [2 mm](GASKET_T) thick, compresses
-# under clamp load.
-gasket_thickness = above_counter_gasket_thickness
-# Center offset [0 mm](GASKET_Y) +Y, shared with the shell foot.
-gasket_center = (0.0, foot_center_y)
-
-# Top face flush with the above-counter plate's bottom face; bottom face on
-# the countertop surface plane.
-plate_z_bottom = -above_counter_plate_thickness
-gasket_z_range = (plate_z_bottom - gasket_thickness, plate_z_bottom)
+from _rust_data import request
 
 
-# Hole pattern matches the above-counter plate.
-# [12.6 mm](SHANK_HOLE_D) shank pocket — fits the threaded shank.
-# Centered on the Westbrass's axis (world origin).
-shank_hole_center = (0.0, 0.0)
+def _data():
+    return request("faucet-data", "faucet-data", {
+        "op": "above-counter-gasket", "color": list(linear(M_TPU_BLACK)),
+        "shell": {
+            'foot_width': foot_width,
+            'foot_depth': foot_depth,
+            'foot_center_y': foot_center_y,
+        },
+        "lower_bundle": lower_bundle_numbers(),
+    })
 
-# One rounded-rectangle slot covering both 1/4" flavor tubes, centered
-# [18.93 mm](FLAVOR_TUBE_Y) +Y. Long axis LATERAL (world X):
-# [18.15 mm](PILL_L) long × [7.25 mm](PILL_W) wide.
-flavor_tube_center = (bundle_slot_center_x, +flavor_tube_depth)
+
+globals().update(_data()["datums"])
+gasket_z_range = tuple(gasket_z_range)
+gasket_center = tuple(gasket_center)
+shank_hole_center = tuple(shank_hole_center)
+flavor_tube_center = tuple(flavor_tube_center)
 
 
 def gasket_workplane(center):
@@ -113,18 +112,8 @@ def build_above_counter_gasket():
 
 
 def numbers() -> dict:
-    """What `above_counter_gasket.rs` cuts the gasket from: the oval foot and the holes
-    through it."""
-    return {
-        "name": "above-counter-gasket", "color": [float(v) for v in linear(M_TPU_BLACK)],
-        "foot_width": foot_width, "foot_depth": foot_depth, "foot_center_y": foot_center_y,
-        "gasket_z": list(gasket_z_range),
-        "shank_hole_center": list(shank_hole_center),
-        "shank_hole_radius": shank_hole_diameter / 2.0,
-        "pill_slot_center": list(flavor_tube_center), "pill_length_x": bundle_slot_length_x,
-        "pill_width_y": pill_width_y,
-        **lower_bundle_numbers(),
-    }
+    """The Rust scalar program supplies the countertop stack recipe."""
+    return _data()["numbers"]
 
 
 def main():
@@ -135,14 +124,8 @@ def main():
                           Path(__file__).resolve().parent)
     print("-> " + ", ".join(said["files"]))
 
-    variables = {
-        "GASKET_T": f"{gasket_thickness:.4g} mm",
-        "GASKET_Y": f"{gasket_center[1]:.4g} mm",
-        "SHANK_HOLE_D": f"{shank_hole_diameter:.4g} mm",
-        "FLAVOR_TUBE_Y": f"{flavor_tube_center[1]:.4g} mm",
-        "PILL_L": f"{pill_length_x:.4g} mm",
-        "PILL_W": f"{pill_width_y:.4g} mm",
-    }
+    variables = _data()["variables"]
+
     substitute_py_comments(
         Path(__file__),
         variables=variables,

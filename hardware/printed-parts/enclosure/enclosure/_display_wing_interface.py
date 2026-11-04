@@ -10,14 +10,9 @@ import cadquery as cq
 
 from _swept_top import rounded_prism
 
-COVER_X, COVER_Y, CORNER_R = 125.5, 83.0, 6.0
-WINDOW_X, WINDOW_Y, WINDOW_R = 107.5, 71.0, 2.5
-THICK, WING_THICK, WING_REACH, WING_SPAN, WING_END_R = 3.84, 1.44, 3.60, 70.0, .60
-BODY_X_AIR, BODY_Y_AIR, TIP_AIR, END_AIR, BEARING_AIR = .30, .15, .55, .15, .60
-BACK = -THICK
-GLASS_SEAT = BACK-2.0
-LIP_THICK = THICK-WING_THICK-BEARING_AIR
-ANGLE = 30.0
+from _enclosure_data import dimensions as _dimensions
+
+globals().update(_dimensions()['display'])
 
 
 def box(x0, x1, y0, y1, z0, z1):

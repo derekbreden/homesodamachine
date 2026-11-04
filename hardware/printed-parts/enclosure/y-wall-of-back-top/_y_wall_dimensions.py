@@ -15,6 +15,11 @@ sys.path.insert(0, str(_hw / "scripts"))
 from docgen import substitute_md  # noqa: E402
 from _material_base import stock_srgb  # noqa: E402
 
+sys.path.insert(0, str(_hw / "printed-parts/enclosure/enclosure"))
+from _enclosure_data import read as _read
+
+_palette = _read("rear", black_srgb=stock_srgb("M_PETGF_BLACK"))
+
 
 def __getattr__(name):
     if name == "M_PETGF_BLACK":
@@ -39,7 +44,8 @@ def c14_rim_inset():
     """How far the inlet's rim face, on the pocket floor, sits inside the wall's outer plane: the
     bore the C13 nose crosses before it reaches the inlet."""
     import enclosure_assembly as _ea
-    return (_ea._enc.rear_plane_y + _ea._enc.wall) - _ea.c14_seat_y()
+    return _read('rim-inset', rear_plane_y=_ea._enc.rear_plane_y,
+                 wall=_ea._enc.wall, seat_y=_ea.c14_seat_y())
 
 
 # The wall's identification colours, by the fluid each names — the one
@@ -63,14 +69,7 @@ def c14_rim_inset():
 # cuts both flavour lines off, and both flavour ports wear it. What black does
 # not do is tell A from B: a customer pushes black into either one and the
 # manifold sorts them.
-port_colors = {
-    "carb": (31, 111, 235),     # carbonated water — the umbilical riser
-    "drain": (255, 255, 255),   # 4 mm vent discharge, distinct from 1/4-inch TAP
-    "water": (255, 255, 255),   # tap water — the customer's teed-in supply
-    "co2": (214, 58, 58),       # CO2 — the customer's regulator tether
-    "flavor": (38, 38, 41),     # flavour — both flavor tubes, one colour
-}
-
+port_colors = {name: tuple(_palette['port_colors'][name]) for name in _palette['port_order']}
 
 # THE SPOOL EACH CHIP AND ITS TUBE COLLAR ARE CUT OFF, and it is not the tube's own colour.
 # `port_colors` is the IDENTIFICATION scheme — neoFlo LLDPE, what the customer's tube is — and a
@@ -78,23 +77,11 @@ port_colors = {
 # answer to the same name. White, blue and red are the median of the wound filament in
 # Polymaker's product photographs (FL02003, FL02006, FL02007). Black uses the shared
 # PET-GF stock appearance. `ledger/purchases.md` §13 buys all four.
-chip_filaments = {
-    "drain": ("Fiberon PET-GF15 White", (235, 236, 234)),
-    "water": ("Fiberon PET-GF15 White", (235, 236, 234)),
-    "carb": ("Fiberon PET-GF15 Blue", (105, 180, 247)),
-    "co2": ("Fiberon PET-GF15 Red", (228, 83, 87)),
-    "flavor": ("Fiberon PET-GF15 Black", tuple(c * 255 for c in stock_srgb("M_PETGF_BLACK"))),
-}
-# Which of the black and the white spool a chip's word letters in, one entry per `chip_filaments`
-# spool.
-chip_word_colors = {
-    "drain": chip_filaments["flavor"][1],
-    "water": chip_filaments["flavor"][1],
-    "carb": chip_filaments["water"][1],
-    "co2": chip_filaments["water"][1],
-    "flavor": chip_filaments["water"][1],
-}
-
+chip_filaments = {name: (_palette['chip_filaments'][name][0],
+                         tuple(_palette['chip_filaments'][name][1]))
+                  for name in _palette['filament_order']}
+chip_word_colors = {name: tuple(_palette['chip_word_colors'][name])
+                    for name in _palette['filament_order']}
 
 def chip_color(fluid):
     """The colour one chip actually comes out — the filament it prints in, not the
@@ -118,14 +105,14 @@ def word_color(fluid):
 def port_color_hex(fluid):
     """One identification colour as `#rrggbb`, for an SVG presentation
     attribute."""
-    return "#%02x%02x%02x" % port_colors[fluid]
+    return _palette['hex'][fluid]
 
 
 def port_color_svg(fluid):
     """One identification colour in the `rgb(r, g, b)` spelling the iso
     renderer writes into a marking's `fill` — which is the string a consumer
     of that SVG finds the marking by."""
-    return "rgb(%d, %d, %d)" % port_colors[fluid]
+    return _palette['svg'][fluid]
 
 
 def carb_union_end(panel_x):
@@ -133,8 +120,7 @@ def carb_union_end(panel_x):
     stands at — READ off the `enclosure_assembly.PANEL_X` mapping `main` hands in, so the user
     rule ("blue tube into the blue-ringed bulkhead, at
     this end") cannot outlive the row it describes. +X is east."""
-    x = panel_x["bulkhead-carb"]
-    return "east" if x == max(panel_x.values()) else "west"
+    return _read('carb-union-end', panel_x=panel_x)
 
 
 def dropped_union_end(panel_on_gate_lane, panel_x):
@@ -142,8 +128,7 @@ def dropped_union_end(panel_on_gate_lane, panel_x):
     `enclosure_assembly.PANEL_ON_GATE_LANE` mapping `main` hands in against `PANEL_X`, so the user rule ("the
     ones lower down are at this end") cannot outlive the arrangement it
     describes. +X is east."""
-    lo = [panel_x[n] for n in panel_on_gate_lane]
-    return "east" if min(lo) > min(panel_x.values()) else "west"
+    return _read('dropped-union-end', lanes=list(panel_on_gate_lane), panel_x=panel_x)
 
 
 def panel_hole_diameters(ports):
@@ -165,18 +150,13 @@ def panel_hole_diameters(ports):
     All four PP1208E bulkheads on this wall — 1 water inlet + 3 umbilical-port unions —
     use the largest union opening for the quarter-inch figure; metric flavor openings are listed separately.
     """
-    diameters = {round(p[3], 6) for p in ports["union"]}
-    return max(diameters), ports["co2"][3]
+    return tuple(_read('panel-hole-diameters', ports=ports))
 
 
 def main():
     import above_core
     rows = above_core.specification()['rear_wall']['grid']['rows_z_mm']
-    substitute_md(_here / "README.md", variables={
-        "GRID_TOP_Z": f"{rows[0]:.3f}",
-        "GRID_MIDDLE_Z": f"{rows[1]:.3f}",
-        "GRID_BOTTOM_Z": f"{rows[2]:.3f}",
-    })
+    substitute_md(_here / 'README.md', variables=_read('grid-variables', rows=rows))
     print("-> README.md")
 
 

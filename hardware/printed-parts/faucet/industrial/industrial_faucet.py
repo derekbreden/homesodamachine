@@ -28,20 +28,38 @@ import above_counter_plate as plate
 import above_counter_gasket as gasket
 import flute_payload
 
-wall = shell.wall_thickness_min
-foot_radius = max(shell.foot_width, shell.foot_depth) / 2.0
-foot_top = 14.0
-body_center_y = 5.4
-# The lower signal turn requires 1.0 mm beyond the donor-based radius.
-# The native cylindrical-face reading checks its complete two-millimetre wall.
-signal_turn_stock_allowance = 1.0
-body_radius = (shell.westbrass_bore_diameter / 2.0 + body_center_y
-               + wall + signal_turn_stock_allowance)
-body_top = shell.zone4_z_top
-neck_center_y = shell.soda_faucet_tube_y + shell.tube_shell_center_y
-neck_radius = shell.tube_shell_outer_r
-neck_join_z = shell.zone5_z_top
-neck_join_overlap = 0.2
+from _rust_data import request
+
+_SHELL_FIELDS = (
+    'wall_thickness_min',
+    'foot_width',
+    'foot_depth',
+    'westbrass_bore_diameter',
+    'zone4_z_top',
+    'soda_faucet_tube_y',
+    'tube_shell_center_y',
+    'tube_shell_outer_r',
+    'zone5_z_top',
+    'base_pedestal_dia',
+    'base_pedestal_height',
+    'base_pedestal_chamfer',
+    'base_pod_shank_dia',
+    'base_pod_counterbore_dia',
+    'base_screw_counterbore_depth',
+)
+
+
+def _data(*, include_recipe=False):
+    payload = {"op": "industrial-body", "shell": {key: getattr(shell, key) for key in _SHELL_FIELDS}}
+    if include_recipe:
+        import industrial_display_cover as cover
+        payload.update(shell_numbers=shell.numbers(), cover_numbers=cover.numbers(),
+                       plate=plate._data()["datums"], gasket=gasket._data()["datums"],
+                       gasket_color=list(linear(M_TPU_BLACK)))
+    return request("faucet-data", "faucet-data", payload)
+
+
+globals().update(_data()["datums"])
 
 
 def cylinder(radius, center_y, z_bottom, z_top):
@@ -70,40 +88,12 @@ def lower_cavities():
     }
 
 
-# The printed pieces, each one solid.
-PIECES = {"base": "industrial-shell-base", "cover": "industrial-display-cover",
-          "plate": "industrial-above-counter-plate", "gasket": "industrial-above-counter-gasket"}
+PIECES = _data()["pieces"]
 
 
 def numbers():
-    """What `industrial_faucet.rs` cuts the pieces from: the shell's numbers, for the gooseneck
-    and the cutters the Industrial shares, with its own stock, lever opening, plate, gasket and
-    display cover."""
-    import industrial_display_cover as cover
-
-    return {
-        **shell.numbers(),
-        **cover.numbers(),
-        "name": "industrial-faucet",
-        "names": {**PIECES, "seated": cover.SEATED_STEP.stem},
-        "gasket_color": [float(v) for v in linear(M_TPU_BLACK)],
-        # The round foot, the body over the Westbrass, and the neck standing on it past the seam.
-        "foot_radius": foot_radius, "foot_top": foot_top,
-        "body_radius": body_radius, "body_center_y": body_center_y, "body_top": body_top,
-        "neck_radius": neck_radius, "neck_center_y": neck_center_y,
-        "neck_join_overlap": neck_join_overlap,
-        # The plate's pedestals and screw bores, and the holes through plate and gasket.
-        "plate_z": list(plate.plate_z_range), "gasket_z": list(gasket.gasket_z_range),
-        "base_pedestal_dia": shell.base_pedestal_dia,
-        "base_pedestal_height": shell.base_pedestal_height,
-        "base_pedestal_chamfer": shell.base_pedestal_chamfer,
-        "base_pod_shank_dia": shell.base_pod_shank_dia,
-        "base_pod_counterbore_dia": shell.base_pod_counterbore_dia,
-        "base_screw_counterbore_depth": shell.base_screw_counterbore_depth,
-        "shank_hole_center": list(plate.shank_hole_center),
-        "shank_hole_radius": plate.shank_hole_radius,
-        "pill_slot_center": list(plate.pill_slot_center),
-    }
+    """The Rust scalar program composes the shared geometry and round-body recipe."""
+    return _data(include_recipe=True)["numbers"]
 
 
 def main():

@@ -1,144 +1,91 @@
 """Doc-sync driver for hardware/assembly/faucet-and-umbilical.md.
 
-Run: tools/cad-venv/bin/python hardware/assembly/_faucet_and_umbilical_sync.py
-"""
-
-import math
+Run: tools/cad-venv/bin/python hardware/assembly/_faucet_and_umbilical_sync.py"""
 import sys
 from pathlib import Path
-
 _here = Path(__file__).resolve().parent
-sys.path.insert(0, str(next(p for p in _here.parents if p.name == "hardware") / "scripts"))
-sys.path.insert(
-    0,
-    str(next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"),
-)
+sys.path.insert(0, str(next((p for p in _here.parents if p.name == 'hardware')) / 'scripts'))
+sys.path.insert(0, str(next((p for p in _here.parents if (p / 'tools' / 'docgen').is_dir())) / 'tools'))
+from docgen import load_module
 
-from docgen import load_module, substitute_md  # noqa: E402
+_assembly_doc_root = next(p for p in Path(__file__).resolve().parents if (p / "hardware/scripts").is_dir())
+sys.path.insert(0, str(_assembly_doc_root / "hardware/assembly"))
+from _rust_docs import update as _update
+
+
+def _inputs():
+    hardware_root = next((p for p in _here.parents if p.name == 'hardware'))
+    sys.path.insert(0, str(hardware_root / 'printed-parts' / 'enclosure' / 'enclosure'))
+    from _enclosure_datums import install
+    install()
+    tpu = load_module('_tpu_oring_gen', hardware_root / 'printed-parts' / 'faucet' / 'tpu-o-ring' / 'tpu_o_ring.py')
+    plate = load_module('_under_counter_plate_gen', hardware_root / 'cut-parts' / 'faucet' / 'under-counter-plate' / 'under_counter_plate.py')
+    faucet = load_module('_faucet_assembly_gen', hardware_root / 'faucet-layout' / 'faucet_assembly.py')
+    envelope = load_module('_install_envelope_sync', hardware_root.parent / 'marketing' / '_install_envelope_sync.py')
+    collet, _chip, _recess = envelope.behind_the_rear_face()
+    return {
+        'faucet.above_counter_plate.plate_thickness': faucet.above_counter_plate.plate_thickness,
+        'faucet.above_counter_gasket.gasket_thickness': faucet.above_counter_gasket.gasket_thickness,
+        'tpu.cap_hole_diameter': tpu.cap_hole_diameter,
+        'tpu.westbrass_port_diameter': tpu.westbrass_port_diameter,
+        'tpu.outer_diameter': tpu.outer_diameter,
+        'tpu.westbrass_squeeze': tpu.westbrass_squeeze,
+        'tpu.inner_diameter': tpu.inner_diameter,
+        'tpu.lldpe_interference': tpu.lldpe_interference,
+        'tpu.total_height': tpu.total_height,
+        'tpu.cap_thickness': tpu.cap_thickness,
+        'tpu.cylinder_length': tpu.cylinder_length,
+        'tpu.lldpe_id': tpu.lldpe_id,
+        'tpu.lldpe_od': tpu.lldpe_od,
+        'plate.disc_diameter': plate.disc_diameter,
+        'plate.shank_diameter': plate.shank_diameter,
+        'plate.pill_long_y': plate.pill_long_y,
+        'plate.pill_short_x': plate.pill_short_x,
+        'plate.fillet_radius': plate.fillet_radius,
+        'faucet.countertop_hole_diameter': faucet.countertop_hole_diameter,
+        'faucet.gasket_hole_cover()': faucet.gasket_hole_cover(),
+        'faucet.tube_collar.LENGTH': faucet.tube_collar.LENGTH,
+        'faucet.tube_collar.bore_printed()': faucet.tube_collar.bore_printed(),
+        'faucet.tube_collar.TUBE_OD': faucet.tube_collar.TUBE_OD,
+        'faucet.foam_bare_at_wall': faucet.foam_bare_at_wall,
+        'faucet.under_counter_plate_bottom_z': faucet.under_counter_plate_bottom_z,
+        'faucet.organizer_top_z': faucet.organizer_top_z,
+        'faucet.umbilical_organizer.LENGTH': faucet.umbilical_organizer.LENGTH,
+        'faucet.umbilical_organizer.TUBE_BORE': faucet.umbilical_organizer.TUBE_BORE,
+        'faucet.umbilical_organizer.FLAVOR_BORE': faucet.umbilical_organizer.FLAVOR_BORE,
+        'faucet.umbilical_organizer.DRAIN_BORE': faucet.umbilical_organizer.DRAIN_BORE,
+        'faucet.umbilical_organizer.CABLE_SLOT_LENGTH': faucet.umbilical_organizer.CABLE_SLOT_LENGTH,
+        'faucet.umbilical_organizer.CABLE_SLOT_DEPTH': faucet.umbilical_organizer.CABLE_SLOT_DEPTH,
+        'faucet.umbilical_organizer.MIN_MATERIAL': faucet.umbilical_organizer.MIN_MATERIAL,
+        'faucet.umbilical_organizer.FLAVOR_SPREAD': faucet.umbilical_organizer.FLAVOR_SPREAD,
+        'faucet.umbilical_organizer.FLAVOR_FORWARD': faucet.umbilical_organizer.FLAVOR_FORWARD,
+        'faucet.umbilical_organizer.DRAIN_FORWARD': faucet.umbilical_organizer.DRAIN_FORWARD,
+        'faucet.cable_lane': faucet.cable_lane,
+        'faucet.cable_width': faucet.cable_width,
+        'faucet.bundle_girth()': faucet.bundle_girth(),
+        'faucet.bundle_bore()': faucet.bundle_bore(),
+        'envelope.TURN_IN_LEAD_BEND': envelope.TURN_IN_LEAD_BEND,
+        'collet': collet,
+        'faucet.flavor_cut_length': faucet.flavor_cut_length,
+        'faucet.blue_cut_length': faucet.blue_cut_length,
+        'faucet.drain_factory_cut_length()': faucet.drain_factory_cut_length(),
+        'faucet.flavor_path_above_foot()': faucet.flavor_path_above_foot(),
+        'faucet.tails_apart': faucet.tails_apart,
+        'faucet.countertop_thickness': faucet.countertop_thickness,
+        'faucet.soda_umbilical_tube_z_top': faucet.soda_umbilical_tube_z_top,
+        'faucet.countertop_bottom_z': faucet.countertop_bottom_z,
+        'faucet.soda_faucet_cut_length': faucet.soda_faucet_cut_length,
+        'faucet.countertop_max_thickness': faucet.countertop_max_thickness,
+        'faucet.foam_length': faucet.foam_length,
+        'faucet.foam_bare_at_westbrass': faucet.foam_bare_at_westbrass,
+        'faucet.sleeve_z_top': faucet.sleeve_z_top,
+        'faucet.umbilical_z_bottom': faucet.umbilical_z_bottom,
+        'faucet.bare_bundle_girth()': faucet.bare_bundle_girth(),
+    }
 
 
 def main():
-    hardware_root = next(p for p in _here.parents if p.name == "hardware")
-    sys.path.insert(0, str(hardware_root / "printed-parts" / "enclosure" / "enclosure"))
-    from _enclosure_datums import install
-    install()
-
-    tpu = load_module(
-        "_tpu_oring_gen",
-        hardware_root
-        / "printed-parts"
-        / "faucet"
-        / "tpu-o-ring"
-        / "tpu_o_ring.py",
-    )
-    plate = load_module(
-        "_under_counter_plate_gen",
-        hardware_root
-        / "cut-parts"
-        / "faucet"
-        / "under-counter-plate"
-        / "under_counter_plate.py",
-    )
-    faucet = load_module(
-        "_faucet_assembly_gen",
-        hardware_root / "faucet-layout" / "faucet_assembly.py",
-    )
-    # THE TURN-IN IS READ WHERE THE CUSTOMER'S COPY OF IT IS WRITTEN. `install-envelope.md`
-    # states the same figure to the person sizing the cabinet slot, off the placed unions and
-    # the wall's own outer face; §1 sums it into a cut length. One derivation, so the stack-up
-    # and the envelope cannot come apart.
-    envelope = load_module(
-        "_install_envelope_sync",
-        hardware_root.parent / "marketing" / "_install_envelope_sync.py",
-    )
-
-    collet, _chip, _recess = envelope.behind_the_rear_face()
-
-    # The column above the counter the shank clamps through: the two printed discs, whose own
-    # thicknesses are what §1's slab-to-shell-foot term is.
-    plate_gasket = (faucet.above_counter_plate.plate_thickness
-                    + faucet.above_counter_gasket.gasket_thickness)
-
-    variables = {
-        # TPU thimble (tpu-o-ring) — BOM row line 26.
-        # Source: `tpu-o-ring/tpu_o_ring.py`.
-        "CAP_HOLE_D": f"{tpu.cap_hole_diameter:.4g} mm",
-        "WESTBRASS_PORT_D": f"{tpu.westbrass_port_diameter:.4g} mm",
-        "ORING_OUTER_D": f"{tpu.outer_diameter:.4g} mm",
-        "WESTBRASS_SQUEEZE": f"{tpu.westbrass_squeeze:.4g} mm",
-        "ORING_INNER_D": f"{tpu.inner_diameter:.4g} mm",
-        "LLDPE_INTERFERENCE": f"{tpu.lldpe_interference:.4g} mm",
-        "TOTAL_H": f"{tpu.total_height:.4g} mm",
-        "ORING_CAP_T": f"{tpu.cap_thickness:.4g} mm",
-        "CYL_L": f"{tpu.cylinder_length:.4g} mm",
-        "LLDPE_ID": f"{tpu.lldpe_id:.4g} mm",
-        "LLDPE_OD": f"{tpu.lldpe_od:.4g} mm",
-        # Under-counter plate (under-counter-plate) —
-        # BOM row line 27.
-        # Source: `under-counter-plate/under_counter_plate.py`.
-        "PLATE_D": f"{plate.disc_diameter:.4g} mm",
-        "SHANK_HOLE_D": f"{plate.shank_diameter:.4g} mm",
-        "PILL_L": f"{plate.pill_long_y:.4g} mm",
-        "PILL_W": f"{plate.pill_short_x:.4g} mm",
-        "FILLET_R": f"{plate.fillet_radius:.4g} mm",
-        # The countertop hole the faucet seats itself in — installation summary + §1.
-        # Source: `faucet-layout/faucet_assembly.py`.
-        "COUNTERTOP_HOLE_D": f"{faucet.countertop_hole_diameter:.4g} mm",
-        "GASKET_COVER": f"{faucet.gasket_hole_cover():.4g} mm",
-        # The collar the bench threads onto each tail, and where the sleeve above it stops — §4.
-        # Source: `printed-parts/faucet/tube-collar/tube_collar.py` through the assembly that
-        # seats three of them, so the bench and the picture read one figure.
-        "COLLAR_LENGTH": f"{faucet.tube_collar.LENGTH:.4g} mm",
-        # The bench holds a finished collar, so the figure §4 reads is the one off the plate and
-        # not the one the slicer was handed — `tube_collar.BORE_SHRINK` is the difference.
-        "COLLAR_BORE_PRINTED": f"{faucet.tube_collar.bore_printed():.4g}",
-        "COLLAR_TUBE_OD": f"{faucet.tube_collar.TUBE_OD:.4g}",
-        "COLLAR_SLEEVE_TAIL": f"{faucet.foam_bare_at_wall:.3g} mm",
-        "ORGANIZER_PLATE_GAP": f"{faucet.under_counter_plate_bottom_z-faucet.organizer_top_z:.4g} mm",
-        "ORGANIZER_TOP_Z": f"{faucet.organizer_top_z:g} mm",
-        "ORGANIZER_LENGTH": f"{faucet.umbilical_organizer.LENGTH:g} mm",
-        "ORGANIZER_TUBE_BORE": f"{faucet.umbilical_organizer.TUBE_BORE:.2f} mm",
-        "ORGANIZER_FLAVOR_BORE": f"{faucet.umbilical_organizer.FLAVOR_BORE:.2f} mm",
-        "ORGANIZER_DRAIN_BORE": f"{faucet.umbilical_organizer.DRAIN_BORE:.2f} mm",
-        "ORGANIZER_CABLE_SLOT": f"{faucet.umbilical_organizer.CABLE_SLOT_LENGTH:g} × {faucet.umbilical_organizer.CABLE_SLOT_DEPTH:g} mm",
-        "ORGANIZER_MIN_MATERIAL": f"{faucet.umbilical_organizer.MIN_MATERIAL:g} mm",
-        "ORGANIZER_FLAVOR_SPREAD": f"{faucet.umbilical_organizer.FLAVOR_SPREAD:g} mm",
-        "ORGANIZER_FLAVOR_FORWARD": f"{faucet.umbilical_organizer.FLAVOR_FORWARD:g} mm",
-        "ORGANIZER_DRAIN_FORWARD": f"{faucet.umbilical_organizer.DRAIN_FORWARD:g} mm",
-        # The braid over the pack — §3. It is bought by what it opens to.
-        # The umbilical ribbon's own section, which is what the 6P4C plug closes on — §2.
-        "RIBBON_T": f"{faucet.cable_lane:.4g} mm",
-        "RIBBON_SECTION": f"{faucet.cable_lane:.4g} × {faucet.cable_width:.4g} mm",
-        "SLEEVE_GIRTH": f"{faucet.bundle_girth():.4g} mm",
-        "SLEEVE_BORE": f"{faucet.bundle_bore():.4g} mm",
-        "SLEEVE_BORE_IN": f'{faucet.bundle_bore() / 25.4:.3g}"',
-        # The §1 stack-up's CAD terms, bare numbers in an mm column.
-        "TURN_IN": f"{envelope.TURN_IN_LEAD_BEND + collet:g}",
-        "PLATE_GASKET": f"{plate_gasket:g}",
-        "FLAVOR_CUT": f"{faucet.flavor_cut_length:g}",
-        "BLUE_CUT": f"{faucet.blue_cut_length:g}",
-        "DRAIN_CUT": f"{faucet.drain_factory_cut_length():g}",
-        "FAUCET_FLAVOR_RUN": f"{faucet.flavor_path_above_foot():.1f}",
-        "CUT_DIFFERENCE": f"{faucet.flavor_cut_length - faucet.blue_cut_length:g}",
-        "TAIL_OFFSET": f"{faucet.tails_apart:.2f}",
-        "FAUCET_PLATE_T": f"{faucet.above_counter_plate.plate_thickness:g}",
-        "FLAVOR_NOMINAL": f"{1200 + faucet.countertop_thickness + plate_gasket + faucet.flavor_path_above_foot():.0f}",
-        "BLUE_NOMINAL": f"{1200 + faucet.soda_umbilical_tube_z_top - faucet.countertop_bottom_z:.0f}",
-        "SODA_FAUCET_CUT": f"{faucet.soda_faucet_cut_length:g}",
-        "COUNTERTOP_MAX_THICKNESS": f"{faucet.countertop_max_thickness:g} mm",
-        # The foam's run from the pack's first plane, and the top braid segment carried on above
-        # it over the unions — §3.
-        "FOAM_LENGTH": f"{faucet.foam_length:.0f}",
-        "FOAM_BARE_TOP": f"{faucet.foam_bare_at_westbrass:.0f} mm",
-        "SLEEVE_ABOVE_FOAM": f"{faucet.sleeve_z_top - faucet.umbilical_z_bottom:.0f} mm",
-        "UNION_SLEEVE_BORE": f"{faucet.bare_bundle_girth() / math.pi:.4g} mm",
-    }
-
-    substitute_md(
-        _here / "faucet-and-umbilical.md",
-        variables=variables,
-    )
-    print("-> faucet-and-umbilical.md")
+    _update('faucet-and-umbilical', _inputs())
 
 
 if __name__ == "__main__":

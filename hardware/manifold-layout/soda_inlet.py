@@ -19,30 +19,26 @@ SOFT_NEIGHBORS = ('vk-solenoid', 'g-ganen-pump', 'suction-tube',
 RETIRED = ('soda-inlet-stem', 'soda-rise-insulation')
 
 
+from _layout_data import data as _data
+
 def _add(a, b):
-    return [x+y for x, y in zip(a, b)]
+    return _data('add', a=a, b=b)
 
 
 def _mul(a, scale):
-    return [scale*x for x in a]
+    return _data('mul', a=a, scale=scale)
 
 
 def _line(a, b):
-    return {'kind': 'line', 'points_mm': [list(a), list(b)]}
+    return _data('line', a=a, b=b)
 
 
 def _vertical_transition(a, b):
-    third = (b[2] - a[2]) / 3.
-    return {'kind': 'bezier', 'control_points_mm': [list(a), _add(a, [0., 0., third]),
-                                                   _add(b, [0., 0., -third]), list(b)]}
+    return _data('vertical-transition', a=a, b=b)
 
 
 def _tail(control, t):
-    rows = [control]
-    while len(rows[-1]) > 1:
-        rows.append([[(1.-t)*a[i]+t*b[i] for i in range(3)]
-                     for a,b in zip(rows[-1],rows[-1][1:])])
-    return [row[-1] for row in reversed(rows)]
+    return _data('soda-tail', control=control, t=t)
 
 
 def _bezier_point(control, t):
@@ -50,117 +46,27 @@ def _bezier_point(control, t):
 
 
 def _bezier_length(control):
-    points = [_bezier_point(control, i/128.) for i in range(129)]
-    return sum(math.dist(a,b) for a,b in zip(points,points[1:]))
+    return _data('soda-bezier-length', control=control)
 
 
 def plan():
-    """One accepted inlet plan, including exact circular-arc datums."""
-    selected = layout.specification()['soda_inlet']
-    meter = layout.pose('digiten-flow')
-    mouth = list(layout.point(meter, (-30.5, 0., 0.)))
-    forward = list(layout.vector(meter['rotation'], (1., 0., 0.)))
-    up = [0., 0., 1.]
-    radius = selected['holder']['centreline_bend_r_mm']
-    leg = selected['holder']['leg_mm']
-    gap = selected['holder_to_meter_mm']
-    end = _add(mouth, _mul(forward, -leg-gap))
-    centre = _add(end, _mul(up, -radius))
-    start = _add(centre, _mul(forward, -radius))
-    middle = _add(centre, _add(_mul(forward, -radius/math.sqrt(2.)),
-                              _mul(up, radius/math.sqrt(2.))))
-    guide = list(layout.specification()['cap_guides_world_mm']['carb-water-out'])
-    xaxis = _mul(forward, -1.)
-    zaxis = [xaxis[1], -xaxis[0], 0.]
-    rotation = [[xaxis[i], up[i], zaxis[i]] for i in range(3)]
-    zc = selected['holder']['wall_mm']+selected['holder']['channel_d_mm']/2.
-    translation = _add(centre, _mul(zaxis, -zc))
-    insertion = selected['meter_insertion_estimate_mm']
-    inserted = _add(mouth, _mul(forward, insertion))
-    transition = _vertical_transition(guide, start)
-    controls = transition['control_points_mm']
-    foam_t = selected['foam']['start_above_guide_mm'] / (start[2] - guide[2])
-    foam_controls = _tail(controls, foam_t)
-    foam_start = foam_controls[0]
-    foam_end = _add(mouth, _mul(forward, -selected['foam']['end_before_meter_mm']))
-    arc = {'kind': 'arc', 'points_mm': [start, middle, end],
-           'radius_mm': radius, 'center_mm': centre,
-           'axis': [-forward[1], forward[0], 0.],
-           'angle_rad': math.pi/2.}
-    tube_segments = [transition, arc, _line(end, inserted)]
-    foam_segments = [{'kind': 'bezier', 'control_points_mm': foam_controls}, arc, _line(end, foam_end)]
-    foam_length = _bezier_length(foam_controls)+radius*math.pi/2.+math.dist(end, foam_end)
-    offset = math.hypot(start[0]-guide[0], start[1]-guide[1])
-    transition_radius = (start[2]-guide[2])**2/(6.*offset) if offset else None
-    return {
-        'selection': selected['selection'], 'holder': dict(selected['holder']),
-        'physical_acceptance': HOLDER_ACCEPTANCE, 'foam_fit_evidence': FOAM_EVIDENCE,
-        'core_guide_mm': guide, 'guide_outward': up,
-        'meter_mouth_mm': mouth, 'meter_insertion_mm': insertion,
-        'meter_insertion_basis': 'Nominal DIGITEN layout estimate; actual receiving depth is unmeasured.',
-        'flow_axis': forward, 'arc_start_mm': start, 'bend_center_mm': centre,
-        'arc_mid_mm': middle, 'arc_end_mm': end,
-        'holder_rotation': rotation, 'holder_translation_mm': translation,
-        'holder_to_meter_mm': gap, 'tube_segments': tube_segments,
-        'foam_segments': foam_segments, 'tube_od_mm': selected['tube_od_mm'],
-        'tube_id_mm': selected['tube_id_mm'],
-        'nominal_foam_id_mm': selected['foam']['stock_id_mm'],
-        'nominal_foam_od_mm': selected['foam']['stock_od_mm'],
-        'nominal_foam_cut_length_mm': foam_length,
-        'guide_transition_minimum_radius_lower_bound_mm': transition_radius,
-        'foam_cut_mm': selected['foam']['square_cut_mm'],
-        'accepted_soft_neighbors': list(SOFT_NEIGHBORS),
-        'foam_model_scope': selected['foam']['occupied_model_scope'],
-        'assembly': selected['assembly'],
-    }
+    return _data('soda-plan', spec=layout.specification())
 
 
 def tube_spec():
-    """External CAD span of the continuous tube, with no joint at the guide."""
-    p = plan()
-    arc = [p['bend_center_mm'][i] for i in range(3)]
-    points = [_bezier_point(p['tube_segments'][0]['control_points_mm'], i/32.) for i in range(33)]
-    radius = p['holder']['centreline_bend_r_mm']
-    for index in range(1, 33):
-        angle = index*math.pi/64.
-        points.append(_add(arc, _add(_mul(p['flow_axis'], -radius*math.cos(angle)),
-                                    [0., 0., radius*math.sin(angle)])))
-    points.append(p['tube_segments'][-1]['points_mm'][-1])
-    return {'points_mm': points, 'centerline_mm': points,
-            'segments': p['tube_segments'], 'od_mm': p['tube_od_mm'],
-            'id_mm': p['tube_id_mm'], 'radius_mm': radius,
-            'minimum_radius_mm': radius, 'spool': 'blue',
-            'from': 'foam-assembly.carb-water-out',
-            'frm': 'foam-assembly.carb-water-out', 'to': 'digiten-flow.inlet',
-            'owners': ['foam-assembly', 'digiten-flow'],
-            'status': 'selected_native_layout',
-            'note': 'Continuous soda tube through the plain guide and accepted R14 holder into the meter; the guide adds no insertion, joint or cut.'}
+    return _data('soda-tube', spec=layout.specification())
 
 
 def passage_points(lower_world_xy):
-    """Straight cup/lid span on the soda guide's aligned axis."""
-    guide = plan()['core_guide_mm']
-    return [(*lower_world_xy,guide[2]-21.),tuple(guide)]
+    return [tuple(row) for row in _data('soda-passage', spec=layout.specification(), lower_world_xy=lower_world_xy)]
 
 
 def _holder_section():
-    p = plan()['holder']
-    r = p['channel_d_mm']/2.
-    outer = r+p['wall_mm']
-    return p, r, outer, p['wall_mm']+r, (math.sqrt(2.)-1.)*r
+    return tuple(_data('soda-holder-section', spec=layout.specification()))
 
 
 def holder_geometry_numbers():
-    """The accepted printable holder's sections, legs and ruled entry mouths."""
-    p, radius, outer, zc, lift = _holder_section()
-    half = math.radians(p['turn_degrees']/2.)
-    return {
-        'bend_radius': p['centreline_bend_r_mm'], 'channel_radius': radius,
-        'outer_radius': outer, 'channel_z': zc, 'stock_arc_z': zc+lift,
-        'leg': p['leg_mm'], 'turn_degrees': p['turn_degrees'],
-        'mirror_normal': [math.sin(half), -math.cos(half), 0.],
-        'mouth_y': [-.3, .55], 'mouth_radii': [radius+.8, radius-.05],
-    }
+    return _data('soda-holder', spec=layout.specification())
 
 
 def _teardrop(wp, x, z, radius):

@@ -1,105 +1,17 @@
-"""Shared interface for the faucet's stacked geometry — the
-small set of physical dimensions and derived pill / shank geometry that
-every part in the faucet column (shell, above-counter plate, above-counter
-gasket, under-counter plate) must agree on so the column stacks concentrically
-and the flavor tubes drop through together.
+"""Shared faucet stack dimensions supplied by the Rust scalar program.
 
-Coordinates are in the repo's +Z-up frame: +Z is height, +X is lateral
-(width), +Y is depth — the gooseneck dispenses toward -Y (the user's
-side), so the flavor-tube pill sits at world +Y, behind the Westbrass's axis
-(toward the back of the appliance)."""
+Coordinates are +Z up, +X lateral and +Y toward the appliance back.
+The shared fit allowance remains the printed-parts fit source's value.
+"""
 
 import sys
 from pathlib import Path
 
-sys.path.insert(0, str(next(p for p in Path(__file__).resolve().parents
-                            if p.name == "printed-parts") / "cadlib"))
-
-import fits  # noqa: E402
-import faucet_paths as _paths  # noqa: E402
-
-
-# neoFlo 4 mm OD / 2.5 mm ID LLDPE, outlet valves to dispense face.
-flavor_tube_od = _paths.FLAVOR_OD
-
-# The mounting row is F1-D-F2. The flavor centers leave clearance around
-# the central 4 mm drain; the dispense face retains the tangent flavor pair.
-flavor_tube_x_offset = _paths.LOWER_FLAVOR_X
-bundle_mount_x = _paths.LOWER_BUNDLE_X
-dispense_flavor_x_offset = flavor_tube_od / 2.0
-
-# Diametric (total) clearance around each flavor tube through the pill
-# cutout — i.e. hole_dia − tube_od. Set from tube fitment on printed
-# fibre-filled PET; see `faucet-shell/print-log.md`.
-flavor_tube_hole_clearance = 0.9
-
-# Per-tube hole diameter, derived.
-flavor_tube_hole_dia = flavor_tube_od + flavor_tube_hole_clearance  # [4.9 mm](FLAVOR_TUBE_HOLE_DIA)
-
-# One rounded mounting opening spans the widened flavor centers and D.
-# The purchased steel mounting plate and its mating printed stack retain
-# this clearance envelope for F1-D-F2 and the flat signal ribbon.
-pill_length_x = 18.15  # [18.15 mm](PILL_LENGTH_X)
-pill_width_y = 7.25    # [7.25 mm](PILL_WIDTH_Y)
-
-# neoFlo LLDPE-4MM: 4 mm OD / 2.5 mm ID, R25 minimum.
-# https://assets.freshwatersystems.com/image/upload/s--N9disqrx--/gjtidjfc0tlprqbhb4ka.pdf
-drain_tube_od = 4.0
-drain_tube_id = 2.5
-drain_bend_min_radius = 25.0
-drain_tube_gap = 0.25
-drain_tube_x = bundle_mount_x
-drain_tube_y = _paths.LOWER_DRAIN_Y
-drain_tube_hole_dia = drain_tube_od + flavor_tube_hole_clearance
-
-# The centered rear passage surrounds both flavors, the drain and ribbon.
-# The steel plate opens toward +X for the complete bundle's sideways slide.
-bundle_slot_left_x = bundle_mount_x - pill_length_x / 2.0
-bundle_slot_right_x = bundle_mount_x + pill_length_x / 2.0
-bundle_slot_length_x = bundle_slot_right_x - bundle_slot_left_x
-bundle_slot_center_x = (bundle_slot_right_x + bundle_slot_left_x) / 2.0
-
-# Lower flavor row behind the donor.
-flavor_tube_depth = _paths.LOWER_Y  # [18.925 mm](FLAVOR_TUBE_DEPTH)
-
-# Central pocket for the shank. Ø12.6 matches the donor's own factory
-# plate; the threaded shank is ~Ø11 nominal. Used by all four parts in the
-# column (shell uses it for the shank pocket alongside its
-# `westbrass_bore_diameter` for the Westbrass OD).
-shank_hole_diameter = 12.6
-
-# The two bands the shell stands on, on the shell's own foot outline. They are stated here
-# rather than each in its own part because the three pieces make ONE silhouette on the counter
-# — the plate and the gasket carry the shell's footprint exactly — and what a band of that
-# silhouette is tall decides whether it can carry the shell's flute field at all
-# (`faucet_shell.counter_run_bands`). The gasket compresses under clamp load; the plate does
-# not, and its thickness is a screw seat's own section.
-above_counter_plate_thickness = 4.0
-above_counter_gasket_thickness = 2.0
+_HARDWARE = next(p for p in Path(__file__).resolve().parents if p.name == "hardware")
+sys.path.insert(0, str(_HARDWARE / "scripts"))
+sys.path.insert(0, str(_HARDWARE / "printed-parts/cadlib"))
+import fits
+from _rust_data import request
 
 
-# Waveshare ESP32-S3-Touch-LCD-1.47 faucet display (faucet BOM §1) —
-# caliper-measured device envelope, shared by the faucet-assembly
-# stand-in and the shell's display cradle. Front to back: the plastic
-# housing (screen glass flush in its front face) overhangs the PCB by
-# ~[0.275 mm](DISPLAY_HOUSING_OVERHANG) per side; below the PCB underside, components protrude with
-# the metal feet as the extreme point. Native depth axis: z = 0 at the
-# feet (the device's bounding back), +z toward the screen.
-display_housing_width = 24.50   # plastic housing, lateral
-display_housing_length = 44.50  # plastic housing, along the device's long axis
-display_pcb_width = 23.95       # PCB centered under the housing
-display_pcb_length = 43.95
-display_corner_r = 5.75         # housing corners (vendor drawing)
-display_pcb_corner_r = display_corner_r - (display_housing_width - display_pcb_width) / 2.0
-display_total_depth = 10.35     # housing front face → bottom of the metal feet
-display_housing_depth = 5.00    # housing front face → housing bottom (= PCB top)
-display_pcb_bottom_from_front = 6.45  # housing front face → PCB underside
-# Native-frame boundary planes, z = 0 at the feet.
-display_pcb_bottom_z = display_total_depth - display_pcb_bottom_from_front  # [3.9 mm](DISPLAY_PCB_BOTTOM_Z)
-display_pcb_top_z = display_total_depth - display_housing_depth             # [5.35 mm](DISPLAY_PCB_TOP_Z)
-
-
-# Display cover — close-fitting cosmetic skin and internal snap-trial ledges.
-display_cover_slip = fits.slip
-display_cover_lap = 2.0
-display_cover_over_face = 0.10
+globals().update(request("faucet-data", "faucet-data", {"op": "interface", "args": [fits.slip]}))

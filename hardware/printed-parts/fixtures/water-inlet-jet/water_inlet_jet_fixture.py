@@ -34,49 +34,25 @@ if __name__ == "__main__":
     _rust_part.start()
 
 
-ROD_D = JET_CAP_D
-GROOVE_RADIAL_SLIP = 0.15
-GROOVE_R = ROD_D / 2.0 + GROOVE_RADIAL_SLIP
-OPEN_JAW_GAP = 1.0
-BASE_X = 120.0
-BASE_Y = 90.0
-BASE_T = 8.0
-JAW_X = 64.0
-JAW_DEPTH = 25.0
-GRIP_Z = 30.0
-HANDLING_BLANK_L = 50.0
-MIN_HANDLING_BLANK_L = 40.0
-JAW_CLAMP_X = 20.0
-BASE_CLAMP_X = 46.0
-MESH_TOLERANCE = 0.02
-MESH_ANGLE = 0.15
+from _rust_data import request as _request
+
+
+def _data(**payload):
+    return _request('part-data', 'part-data', {'part': 'water-inlet-jet-fixture',
+        'cap_diameter': JET_CAP_D, 'passage_diameter': JET_PASSAGE_D, **payload})
+
+
+globals().update(_data()['values'])
 
 
 def numbers():
-    """Existing drill jaws in their separate upright print frames."""
-    import _rust_part
-    _rust_part.start()
     from _material_base import M_PETGF_BLACK
     from _materials import linear
-    return {"base": [BASE_X, BASE_Y, BASE_T],
-            "jaw": [JAW_X, JAW_DEPTH, GRIP_Z],
-            "gap": OPEN_JAW_GAP, "groove_radius": GROOVE_R,
-            "stock_diameter": ROD_D, "radial_slip": GROOVE_RADIAL_SLIP,
-            "minimum_blank": MIN_HANDLING_BLANK_L, "drill_diameter": JET_PASSAGE_D,
-            "color": list(linear(M_PETGF_BLACK))}
+    return _data(color=list(linear(M_PETGF_BLACK)))['numbers']
 
 
 def _document():
-    substitute_md(_here.parent / "README.md", variables={
-        "JET_FIXTURE_BASE": f"{BASE_X:g} × {BASE_Y:g} × {BASE_T:g} mm",
-        "JET_FIXTURE_GRIP": f"{GRIP_Z:g} mm",
-        "JET_FIXTURE_GROOVE": f"{2 * GROOVE_R:g} mm",
-        "JET_FIXTURE_GAP": f"{OPEN_JAW_GAP:g} mm",
-        "JET_FIXTURE_BLANK": f"{HANDLING_BLANK_L:g} mm",
-        "JET_FIXTURE_MIN_BLANK": f"{MIN_HANDLING_BLANK_L:g} mm",
-        "JET_FIXTURE_JAW_CLAMP_X": f"±{JAW_CLAMP_X:g} mm",
-        "JET_FIXTURE_BASE_CLAMP_X": f"±{BASE_CLAMP_X:g} mm",
-    })
+    substitute_md(_here.parent / 'README.md', variables=_data()['variables'])
 
 
 def main(output=None):

@@ -6,7 +6,6 @@ placement so an edited checkout cannot use yesterday's stations.
 """
 
 import json
-import math
 import os
 from pathlib import Path
 
@@ -46,65 +45,39 @@ def _plain(value):
     raise TypeError(f"{type(value).__name__} has no enclosure-box JSON form")
 
 
-def _tupled(value, named_types):
-    """Restore tuples and explicitly named records; dictionaries keep their names."""
+def _request(op, **values):
+    from _rust_data import request
+    return request('machine-data', 'machine-data', {'op': op, **values})
+
+
+def _restore(value, named_types):
+    """Hydrate Python container and namedtuple objects after Rust validates their wire form."""
     if isinstance(value, list):
-        return tuple(_tupled(item, named_types) for item in value)
+        return tuple(_restore(item, named_types) for item in value)
     if isinstance(value, dict):
         if _RECORD in value:
-            if set(value) != {_RECORD, "fields", "values"}:
-                raise ValueError("enclosure-box has a malformed tagged record")
-            name = value.get(_RECORD)
-            record_type = named_types.get(name)
-            if record_type is None:
-                raise ValueError(f"enclosure-box names unknown record type {name!r}")
-            if not isinstance(value["fields"], list) or not isinstance(value["values"], list):
-                raise ValueError(f"enclosure-box {name} fields and values must be arrays")
-            fields = tuple(value["fields"])
-            if fields != tuple(record_type._fields):
-                raise ValueError(
-                    f"enclosure-box {name} fields {fields!r}, expected {record_type._fields!r}")
-            values = value["values"]
-            if len(values) != len(fields):
-                raise ValueError(f"enclosure-box {name} has {len(values)} values for {len(fields)} fields")
-            return record_type(*(_tupled(item, named_types) for item in values))
+            return named_types[value[_RECORD]](*(_restore(item, named_types) for item in value['values']))
         if _LIST in value:
-            if set(value) != {_LIST} or not isinstance(value[_LIST], list):
-                raise ValueError("enclosure-box has a malformed tagged list")
-            return [_tupled(item, named_types) for item in value[_LIST]]
-        if _DICT in value:
-            if set(value) != {_DICT} or not isinstance(value[_DICT], list):
-                raise ValueError("enclosure-box has a malformed tagged dictionary")
-            out = {}
-            for i, pair in enumerate(value[_DICT]):
-                if not isinstance(pair, list) or len(pair) != 2 or not isinstance(pair[0], str):
-                    raise ValueError(f"enclosure-box dictionary pair {i} is malformed")
-                if pair[0] in out:
-                    raise ValueError(f"enclosure-box dictionary repeats key {pair[0]!r}")
-                out[pair[0]] = _tupled(pair[1], named_types)
-            return out
-        keys = set(value)
-        for record_type in named_types.values():
-            if set(record_type._fields).issubset(keys):
-                raise ValueError(
-                    f"enclosure-box carries untagged {record_type.__name__} fields")
-        raise ValueError("enclosure-box carries an untagged dictionary")
+            return [_restore(item, named_types) for item in value[_LIST]]
+        return {name: _restore(item, named_types) for name, item in value[_DICT]}
     return value
+
+
+def _tupled(value, named_types):
+    """Restore a Rust-validated tagged scalar value as the caller's Python record types."""
+    _request('box_validate', mode='value', value=value,
+             types={name: list(record._fields) for name, record in named_types.items()})
+    return _restore(value, named_types)
 
 
 def document(box, bounds=()) -> dict:
     fields = tuple(getattr(box, "_fields", ()))
     if not fields:
         raise TypeError("the enclosure description is not a named tuple")
-    return {
-        "schema": SCHEMA,
-        "box_fields": list(fields),
-        "box": {name: _plain(getattr(box, name)) for name in fields},
-        "bounds": [
-            {name: _plain(getattr(bound, name)) for name in bound._fields}
-            for bound in bounds
-        ],
-    }
+    return _request('box_document', box_fields=list(fields),
+                    box={name: _plain(getattr(box, name)) for name in fields},
+                    bounds=[{name: _plain(getattr(bound, name)) for name in bound._fields}
+                            for bound in bounds])
 
 
 def same_document(left, right) -> bool:
@@ -114,17 +87,7 @@ def same_document(left, right) -> bool:
     record structure and nonnumeric values exact while comparing float stations
     with an absolute 0.000001 mm allowance.
     """
-    if left == right:
-        return True
-    if isinstance(left, float) and isinstance(right, float):
-        return math.isclose(left, right, rel_tol=0.0, abs_tol=1e-6)
-    if isinstance(left, dict) and isinstance(right, dict):
-        return left.keys() == right.keys() and all(
-            same_document(left[key], right[key]) for key in left)
-    if isinstance(left, list) and isinstance(right, list):
-        return len(left) == len(right) and all(
-            same_document(a, b) for a, b in zip(left, right))
-    return False
+    return _request('same_document', left=left, right=right)
 
 
 def write(box, bounds=(), path=ARTIFACT) -> Path:
@@ -146,40 +109,22 @@ def read(box_type, bound_type=None, named_types=(), path=ARTIFACT):
             shown = target.relative_to(_ROOT)
         except ValueError:
             shown = target
-        raise FileNotFoundError(
-            f"{shown} is absent; build the enclosure-box producer")
-    data = json.loads(target.read_text(encoding="utf-8"))
-    if not isinstance(data, dict) or set(data) != {"schema", "box_fields", "box", "bounds"}:
-        raise ValueError(f"{target.name} does not have the exact enclosure-box document shape")
-    if data.get("schema") != SCHEMA:
-        raise ValueError(
-            f"{target.name} schema {data.get('schema')!r}, expected {SCHEMA}")
-    fields = tuple(getattr(box_type, "_fields", ()))
-    if not isinstance(data["box_fields"], list):
-        raise ValueError(f"{target.name} box_fields is not an array")
-    if tuple(data.get("box_fields", ())) != fields:
-        raise ValueError(
-            f"{target.name} names fields {tuple(data.get('box_fields', ()))!r}, "
-            f"but this source expects {fields!r}")
-    raw = data.get("box")
-    if not isinstance(raw, dict) or set(raw) != set(fields):
-        raise ValueError(f"{target.name} does not carry exactly one value for every Box field")
+        raise FileNotFoundError(f"{shown} is absent; build the enclosure-box producer")
+    from _cadq_export import note_read
+    note_read(target)
     records = tuple(named_types)
     types = {record.__name__: record for record in records}
     if len(types) != len(records):
         raise ValueError("enclosure-box record type names must be unique")
-    box = box_type(*(_tupled(raw[name], types) for name in fields))
-    if not isinstance(data["bounds"], list):
-        raise ValueError(f"{target.name} bounds is not an array")
-    if bound_type is None:
-        return box, ()
-    bound_fields = tuple(getattr(bound_type, "_fields", ()))
-    bounds = []
-    for i, row in enumerate(data["bounds"]):
-        if not isinstance(row, dict) or set(row) != set(bound_fields):
-            raise ValueError(f"{target.name} bound {i} does not match {bound_fields!r}")
-        bounds.append(bound_type(*(_tupled(row[name], types) for name in bound_fields)))
-    return box, tuple(bounds)
+    fields = tuple(getattr(box_type, '_fields', ()))
+    data = _request('box_validate', path=str(target.resolve()), box_fields=list(fields),
+                    bound_fields=list(bound_type._fields) if bound_type else None,
+                    types={name: list(record._fields) for name, record in types.items()})
+    box = box_type(*(_restore(data['box'][name], types) for name in fields))
+    bounds = (() if bound_type is None else tuple(
+        bound_type(*(_restore(row[name], types) for name in bound_type._fields))
+        for row in data['bounds']))
+    return box, bounds
 
 
 def selftest() -> int:

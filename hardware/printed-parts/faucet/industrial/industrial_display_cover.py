@@ -24,42 +24,57 @@ from _faucet_interface import (
 import faucet_shell as shell
 
 
+from _rust_data import request
+
+_SHELL_FIELDS = (
+    'wall_thickness_min',
+    'dispense_face_thickness',
+    'display_cover_bottom_n',
+    'display_cover_top_n',
+    'display_face_n',
+    'display_s_bottom',
+    'display_cradle_clearance',
+    'display_s_top',
+    'display_clip_top_n',
+    'display_feet_n',
+    'display_neck_outer_r',
+    'display_cover_slip',
+    'display_clip_lip_radius',
+)
+
+
+def _data(dimensions=None, *, preload_n=None):
+    return request("faucet-data", "faucet-data", {
+        "op": "industrial-cover", "shell": {key: getattr(shell, key) for key in _SHELL_FIELDS},
+        "dimensions": vars(dimensions) if dimensions is not None else None, "preload_n": preload_n,
+    })
+
+
+_defaults = _data()["defaults"]
+
+
 @dataclass(frozen=True)
 class CoverDimensions:
-    # The 27 mm neck clearance leaves at least 1.2 mm at the lower wings,
-    # including their inward preform; the glass aperture keeps its own size.
-    width: float = 29.8
-    length: float = 49.75
-    upper_side_wall: float = shell.wall_thickness_min
-    lower_side_wall: float = 1.25
-    rear_wall: float = shell.wall_thickness_min
-    front_wall: float = shell.dispense_face_thickness
-    n_bottom: float = shell.display_cover_bottom_n
-    # Extra bezel-to-lip reach gives the dispense arch seating clearance;
-    # the lip floor, groove engagement and bezel thickness retain their datums.
-    wing_extension_mm: float = 0.50
+    width: float = _defaults["width"]
+    length: float = _defaults["length"]
+    upper_side_wall: float = _defaults["upper_side_wall"]
+    lower_side_wall: float = _defaults["lower_side_wall"]
+    rear_wall: float = _defaults["rear_wall"]
+    front_wall: float = _defaults["front_wall"]
+    n_bottom: float = _defaults["n_bottom"]
+    wing_extension_mm: float = _defaults["wing_extension_mm"]
 
     @property
     def n_top(self) -> float:
-        return shell.display_cover_top_n + self.wing_extension_mm
+        return _data(self)["n_top"]
 
     @property
     def bezel_n_bottom(self) -> float:
-        return shell.display_face_n + display_cover_over_face + self.wing_extension_mm
+        return _data(self)["bezel_n_bottom"]
 
 
 DIMENSIONS = CoverDimensions()
-plate_n_top = DIMENSIONS.n_top
-bezel_n_bottom = DIMENSIONS.bezel_n_bottom
-bezel_thickness = plate_n_top - bezel_n_bottom
-window_half_x = display_housing_width / 2.0 - display_cover_lap
-window_s_south = shell.display_s_bottom + shell.display_cradle_clearance + display_cover_lap
-window_s_north = shell.display_s_top - shell.display_cradle_clearance - display_cover_lap
-window_corner_r = display_corner_r - display_cover_lap
-window_x = 2.0 * window_half_x
-window_s = window_s_north - window_s_south
-display_head_s_min = 0.0
-display_head_s_max = DIMENSIONS.length
+globals().update(_data(DIMENSIONS)["datums"])
 
 
 def build_plate_outer(dimensions: CoverDimensions = DIMENSIONS) -> cq.Workplane:
@@ -68,20 +83,13 @@ def build_plate_outer(dimensions: CoverDimensions = DIMENSIONS) -> cq.Workplane:
 
 
 def cavity_sections(dimensions: CoverDimensions = DIMENSIONS) -> tuple:
-    """The display cavity's (half width, n) rows, from under the cover up to the bezel."""
-    upper_half_x = dimensions.width / 2.0 - dimensions.upper_side_wall
-    lower_half_x = min(
-        upper_half_x + preload_inward_at(shell.display_feet_n, dimensions),
-        dimensions.width / 2.0 - dimensions.lower_side_wall,
-    )
-    return ((lower_half_x, dimensions.n_bottom - 1.0),
-            (lower_half_x, shell.display_feet_n),
-            (upper_half_x, dimensions.bezel_n_bottom))
+    """Rust-derived cavity (half width, n) rows."""
+    return tuple(tuple(row) for row in _data(dimensions)["cavity_sections"])
 
 
 def window_n(dimensions: CoverDimensions = DIMENSIONS) -> tuple:
-    """The glass window's cutter, from just under the bezel to past the cover's top."""
-    return dimensions.bezel_n_bottom - 0.1, dimensions.n_top + 1.0
+    """The glass window cutter's normal interval, from the Rust recipe."""
+    return tuple(_data(dimensions)["window_n"])
 
 
 def build_plate_inner_cut(dimensions: CoverDimensions = DIMENSIONS) -> cq.Workplane:
@@ -123,13 +131,12 @@ def build_seated_display_cover(dimensions: CoverDimensions = DIMENSIONS) -> cq.W
 
 
 def preload_inward_at(n: float, dimensions: CoverDimensions = DIMENSIONS) -> float:
-    return max(0.0, _display_snap.X_PRELOAD * (dimensions.bezel_n_bottom - n)
-               / (dimensions.bezel_n_bottom - shell.display_clip_top_n))
+    return _data(dimensions, preload_n=n)["preload"]
 
 
 def wing_slope(dimensions: CoverDimensions = DIMENSIONS) -> float:
-    """How far each wing's relaxed print leans inward per millimetre below the bezel."""
-    return _display_snap.X_PRELOAD / (dimensions.bezel_n_bottom - shell.display_clip_top_n)
+    """Inward print lean per millimetre below the bezel."""
+    return _data(dimensions)["wing_slope"]
 
 
 def relaxed_wing_transform(side: int, dimensions: CoverDimensions = DIMENSIONS) -> cq.Matrix:
@@ -178,23 +185,5 @@ def bed_face(cover: cq.Workplane, dimensions: CoverDimensions = DIMENSIONS) -> t
 
 
 def numbers(dimensions: CoverDimensions = DIMENSIONS) -> dict:
-    """What `industrial_faucet.rs` cuts the cover from, in the tip frame: x across the neck, s back
-    up it from the tube exit, n out through the glass."""
-    return {
-        "cover_half_x": dimensions.width / 2.0, "cover_length": dimensions.length,
-        "cover_n": [dimensions.n_bottom, dimensions.n_top],
-        "cover_cavity_s": [dimensions.front_wall, dimensions.length - dimensions.rear_wall],
-        "cover_cavity_sections": [list(row) for row in cavity_sections(dimensions)],
-        "cover_window_half_x": window_half_x,
-        "cover_window_s": [window_s_south, window_s_north],
-        "cover_window_n": list(window_n(dimensions)),
-        "cover_window_corner_r": window_corner_r,
-        "cover_neck_clearance_r": shell.display_neck_outer_r + shell.display_cover_slip,
-        "cover_arch_lift": dimensions.wing_extension_mm,
-        # The radius the lips' neck reference draws: the neck's, less the shrink it is handed.
-        "cover_lip_r": shell.display_neck_outer_r - (
-            shell.display_neck_outer_r - shell.display_clip_lip_radius),
-        "cover_lip_relief": _display_snap.LIP_INNER_EDGE_RELIEF,
-        "cover_bezel_n": dimensions.bezel_n_bottom,
-        "cover_wing_slope": wing_slope(dimensions),
-    }
+    """The Rust scalar program supplies the industrial cover's tip-frame recipe."""
+    return _data(dimensions)["numbers"]

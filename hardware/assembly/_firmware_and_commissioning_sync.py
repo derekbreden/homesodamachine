@@ -1,182 +1,49 @@
 """Doc-sync driver for hardware/assembly/firmware-and-commissioning.md.
 
-Run: tools/cad-venv/bin/python hardware/assembly/_firmware_and_commissioning_sync.py
-"""
-
+Run: tools/cad-venv/bin/python hardware/assembly/_firmware_and_commissioning_sync.py"""
 import sys
 from pathlib import Path
-
 _here = Path(__file__).resolve().parent
-sys.path.insert(
-    0,
-    str(next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"),
-)
-_hw = next(p for p in _here.parents if p.name == "hardware")
-sys.path.insert(0, str(_hw / "manifold-layout"))
-sys.path.insert(0, str(_hw / "printed-parts" / "cadlib"))
-sys.path.insert(0, str(_hw / "printed-parts" / "cold-core" / "reservoir"))
-sys.path.insert(0, str(_hw / "wiring"))
-sys.path.insert(0, str(_hw / "printed-parts" / "enclosure" / "enclosure"))
-
-from _enclosure_datums import install as _scalar_datums  # noqa: E402
+sys.path.insert(0, str(next((p for p in _here.parents if (p / 'tools' / 'docgen').is_dir())) / 'tools'))
+_hw = next((p for p in _here.parents if p.name == 'hardware'))
+sys.path.insert(0, str(_hw / 'manifold-layout'))
+sys.path.insert(0, str(_hw / 'printed-parts' / 'cadlib'))
+sys.path.insert(0, str(_hw / 'printed-parts' / 'cold-core' / 'reservoir'))
+sys.path.insert(0, str(_hw / 'wiring'))
+sys.path.insert(0, str(_hw / 'printed-parts' / 'enclosure' / 'enclosure'))
+from _enclosure_datums import install as _scalar_datums
 _scalar_datums()
+import manifold_layout as _ml
+from reservoir import reservoir_count
+import _ac_wiring_schedule_sync as _ac
+_cold_policy = next((p for p in _here.parents if (p / 'firmware').is_dir())) / 'firmware' / 'lib' / 'machine_policy' / 'cold_policy.h'
 
-import manifold_layout as _ml  # noqa: E402  — the manifold's own station census
-from reservoir import reservoir_count  # noqa: E402  — the physical reservoir count is that part's, not this file's
-import _ac_wiring_schedule_sync as _ac  # noqa: E402  — the 12 V loads and the supply, where the run table states them
-from docgen import substitute_md  # noqa: E402
+_assembly_doc_root = next(p for p in Path(__file__).resolve().parents if (p / "hardware/scripts").is_dir())
+sys.path.insert(0, str(_assembly_doc_root / "hardware/assembly"))
+from _rust_docs import evaluate as _evaluate, update as _update
 
 
-# ─── ESP32 pin assignments ────────────────────────────────────────────
-# Source: hardware/wiring/esp32-pinout.mmd.
+def _inputs():
+    return {
+        'manifold_stations': list(_ml.P),
+        'reservoir_count': reservoir_count,
+        '_ac.max_simultaneous_valves': _ac.max_simultaneous_valves,
+        '_ac.board_peak_a': _ac.board_peak_a,
+        '_ac.diaphragm_peak_a': _ac.diaphragm_peak_a,
+        '_ac.psu_max_dc_a': _ac.psu_max_dc_a,
+        '_ac.coincident_peak_a': _ac.coincident_peak_a,
+    }
 
-gpio_relay1 = 19            # Teyleten relay #1 (compressor AC)
-gpio_onewire = 26           # DS18B20 1-wire bus (carbonator-wall + suction-line)
-gpio_flow = 25              # DIGITEN flow meter pulse input
-gpio_relay2 = 2             # Teyleten relay #2 (diaphragm pump 12 V refill)
 
-# ─── I²C device addresses ─────────────────────────────────────────────
-# 7-bit addresses on the shared SDA/SCL bus (GPIO 21/22).
-
-mcp_valves_addr = 0x20      # MCP23017: 8 valves on PA[0:7] -> TBD62083 U4, Rsvr A reeds on PB[0:3]
-mcp_reservoirs_addr = 0x21  # MCP23017: 3 valves PA[5:7] + cond-fan PA3 -> TBD62083 U5 (PA[0:2] + PA4 spare); Rsvr B reeds PB[0:3], carbonator reeds PB[4:5]
-rtc_addr = 0x68             # DS3231 RTC
-
-# Carbonator reeds ride the 0x21 MCP23017 on its internal pull-ups (no externals).
-reed_low_loc = "0x21 PB4"   # Carbonator reed low (refill threshold)
-reed_high_loc = "0x21 PB5"  # Carbonator reed high (full threshold)
-
-# ─── Sensor inventory ─────────────────────────────────────────────────
-
-# The Beduan solenoids the firmware's self-test walks, in two terms. One V- station
-# on the manifold is one valve, the same census `_cards_ip` puts on IP-03 and
-# `_internal_plumbing_sync` puts in the procedure's parts table. V-K stands off the
-# manifold, on the cold core's crown, and is the other term. Which expander bit each
-# one hangs off is `valve-control.mmd`'s.
-manifold_valves = sum(1 for _n in _ml.P if _n.startswith("V-"))
-off_manifold_valves = 1     # V-K, the water-supply fill/shutoff
-valve_count = manifold_valves + off_manifold_valves
-reeds_per_reservoir = 4     # Float-rod reeds per reservoir
-reeds_carbonator = 2        # Carbonator low + high reeds
-reeds_total = (
-    reservoir_count * reeds_per_reservoir + reeds_carbonator
-)                           # = 10
-
-# ─── Voltage-rail commissioning thresholds (bench multimeter check) ──
-
-rail_12v_nominal = 12.0     # V — Mean Well IRM-90-12ST output
-rail_12v_tol = 0.2          # V — ±, no-load expected window
-rail_5v_nominal = 5.0       # V — 5 V LDO/buck feeds MCUs + relay-module VCC
-rail_5v_tol = 0.1           # V — ±, bench-acceptance window
-rail_33v_nominal = 3.3      # V — 3.3 V LDO feeds I²C pull-ups + MCP logic
-rail_33v_tol = 0.05         # V — ±, bench-acceptance window
-
-# ─── DS18B20 + onewire ────────────────────────────────────────────────
-onewire_pullup_kohm = 4.7   # 1-wire data-line pull-up
-ds18b20_count = 2           # Carbonator-wall + suction-line probes on the bus
-ambient_tol_c = 2           # ±, room-ambient sensor-health check
-
-# ─── Firmware factory-default setpoints (refrigeration control) ───────
-# The setpoints are the firmware's own. `cold_policy.h` is what the compressor
-# obeys, so the procedure reads its constants rather than restating them: a
-# setpoint the factory confirms per unit and a setpoint the machine holds
-# cannot be two different numbers.
-
-_cold_policy = (
-    next(p for p in _here.parents if (p / "firmware").is_dir())
-    / "firmware" / "lib" / "machine_policy" / "cold_policy.h"
-)
+globals().update(_evaluate('firmware-and-commissioning', _inputs())["exports"])
 
 
 def _constexpr(name):
-    """The value of `constexpr <type> <name> = <value>;` in cold_policy.h."""
-    import re
-
-    text = _cold_policy.read_text()
-    m = re.search(
-        r"constexpr\s+\w+\s+" + re.escape(name) + r"\s*=\s*(-?[\d.]+)f?\s*;", text
-    )
-    if not m:
-        raise SystemExit(f"{_cold_policy.name}: no constexpr {name}")
-    return float(m.group(1))
-
-
-carbonator_target_c = _constexpr("kTankTargetC")
-hysteresis_c = _constexpr("kHysteresisC")
-comp_on_temp_c = carbonator_target_c + hysteresis_c    # compressor turns on
-comp_off_temp_c = carbonator_target_c                  # compressor turns off
-freeze_cutoff_c = _constexpr("kFreezeCutoffC")         # suction-line cutout
-freeze_recover_c = _constexpr("kFreezeRecoverC")       # clears the cutout
-min_off_time_min = _constexpr("kMinOffMs") / 60000.0   # start-capacitor rest
-min_on_time_s = _constexpr("kMinOnMs") / 1000.0
-reading_stale_s = _constexpr("kReadingStaleMs") / 1000.0
-
-# ─── Firmware invariants the hardware imposes ─────────────────────────
-# The ceiling and both currents are `_ac_wiring_schedule_sync`'s, which
-# is the file the run table and the COM budget are written from.
-
-max_simultaneous_valves = _ac.max_simultaneous_valves
-board_peak_a = _ac.board_peak_a
-diaphragm_peak_a = _ac.diaphragm_peak_a
-psu_max_dc_a = _ac.psu_max_dc_a
-coincident_peak_a = _ac.coincident_peak_a
+    return _evaluate("firmware-and-commissioning", {"name": name}, operation="constexpr")["exports"]["value"]
 
 
 def main():
-    variables = {
-        # Pin assignments (decimal GPIO numbers in the doc's prose).
-        "GPIO_RELAY1": f"GPIO {gpio_relay1:d}",
-        "GPIO_ONEWIRE": f"GPIO {gpio_onewire:d}",
-        "REED_LOW": reed_low_loc,
-        "REED_HIGH": reed_high_loc,
-        "GPIO_FLOW": f"GPIO {gpio_flow:d}",
-        # I²C addresses — formatted as 7-bit hex (0xNN).
-        "MCP_VALVES": f"0x{mcp_valves_addr:02x}",
-        "MCP_RESERVOIRS": f"0x{mcp_reservoirs_addr:02x}",
-        "RTC_ADDR": f"0x{rtc_addr:02x}",
-        # Sensor counts.
-        "VALVE_COUNT": f"{valve_count:d}",
-        "RSVR_COUNT": f"{reservoir_count:d}",
-        "REEDS_PER_RSVR": f"{reeds_per_reservoir:d}",
-        "REEDS_CARB": f"{reeds_carbonator:d}",
-        "REEDS_TOTAL": f"{reeds_total:d}",
-        # Voltage-rail tolerances (nominal V written without trailing .0).
-        "RAIL_12V": f"{rail_12v_nominal:.4g} V",
-        "RAIL_12V_TOL": f"± {rail_12v_tol:.4g} V",
-        "RAIL_5V": f"{rail_5v_nominal:.4g} V",
-        "RAIL_5V_TOL": f"± {rail_5v_tol:.4g} V",
-        "RAIL_33V": f"{rail_33v_nominal:.4g} V",
-        "RAIL_33V_TOL": f"± {rail_33v_tol:.4g} V",
-        # DS18B20 / onewire.
-        "ONEWIRE_PULLUP": f"{onewire_pullup_kohm:.4g} kΩ",
-        "AMBIENT_TOL": f"±{ambient_tol_c:.4g} °C",
-        # Setpoints (factory defaults on `main`).
-        "TANK_TARGET": f"{carbonator_target_c:.4g} °C",
-        "HYSTERESIS": f"±{hysteresis_c:.4g} °C",
-        "COMP_ON_TEMP": f"{comp_on_temp_c:.4g} °C",
-        "COMP_OFF_TEMP": f"{comp_off_temp_c:.4g} °C",
-        "FREEZE_CUTOFF": f"−{abs(freeze_cutoff_c):.4g} °C",
-        "FREEZE_RECOVER": f"−{abs(freeze_recover_c):.4g} °C",
-        "MIN_ON_TIME": f"{min_on_time_s:.4g} s",
-        "READING_STALE": f"{reading_stale_s:.4g} s",
-        # Three surface forms: "3-minute", "3-min", "3 min".
-        "MIN_OFF_TIME": f"{min_off_time_min:.4g}-minute",
-        "MIN_OFF_TIME_HYPHEN": f"{min_off_time_min:.4g}-min",
-        "MIN_OFF_TIME_BARE": f"{min_off_time_min:.4g} min",
-        # Invariants the hardware imposes.
-        "MAX_VALVES": f"{max_simultaneous_valves:d}",
-        "GPIO_RELAY2": f"GPIO {gpio_relay2:d}",
-        "BOARD_PEAK_A": f"{board_peak_a:.3g} A",
-        "DIAPHRAGM_A": f"{diaphragm_peak_a:.3g} A",
-        "COINCIDENT_A": f"{coincident_peak_a:.3g} A",
-        "PSU_MAX_A": f"{psu_max_dc_a:.3g} A",
-    }
-
-    substitute_md(
-        _here / "firmware-and-commissioning.md",
-        variables=variables,
-    )
-    print("-> firmware-and-commissioning.md")
+    _update('firmware-and-commissioning', _inputs())
 
 
 if __name__ == "__main__":

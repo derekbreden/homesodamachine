@@ -4,78 +4,45 @@ Pins the carbonator rod to FR-CARB-01's finished length and tolerance, shared
 with pressure-vessel.md. Reservoir rod lengths come from reservoir.py and are
 shared with the reservoir's level-sensing.md.
 
-Run: tools/cad-venv/bin/python hardware/assembly/_handwork_sync.py
-"""
-
+Run: tools/cad-venv/bin/python hardware/assembly/_handwork_sync.py"""
 import sys
 from pathlib import Path
-
 _here = Path(__file__).resolve().parent
-_hw = next(p for p in _here.parents if p.name == "hardware")
-sys.path.insert(0, str(_here))  # _pressure_vessel_sync (same dir)
-sys.path.insert(
-    0,
-    str(
-        next(p for p in _here.parents if p.name == "hardware")
-        / "printed-parts"
-        / "cold-core"
-        / "reservoir"
-    ),
-)
-sys.path.insert(
-    0,
-    str(next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"),
-)
-sys.path.insert(0, str(_hw / "printed-parts" / "enclosure" / "enclosure"))
-
-from _enclosure_datums import install as _scalar_datums  # noqa: E402
+_hw = next((p for p in _here.parents if p.name == 'hardware'))
+sys.path.insert(0, str(_here))
+sys.path.insert(0, str(next((p for p in _here.parents if p.name == 'hardware')) / 'printed-parts' / 'cold-core' / 'reservoir'))
+sys.path.insert(0, str(next((p for p in _here.parents if (p / 'tools' / 'docgen').is_dir())) / 'tools'))
+sys.path.insert(0, str(_hw / 'printed-parts' / 'enclosure' / 'enclosure'))
+from _enclosure_datums import install as _scalar_datums
 _scalar_datums()
+from _pressure_vessel_sync import carbonator_rod_len, carbonator_rod_tolerance
+import reservoir
+from docgen import load_module
+_coil_mandrel_gen = load_module('handwork_coil_mandrel_gen', _hw / 'printed-parts' / 'cold-core' / 'coil-mandrel' / 'coil_mandrel.py')
+_coil_gen = load_module('handwork_coil_gen', _hw / 'cold-core-layout' / '_coil.py')
 
-from _pressure_vessel_sync import carbonator_rod_len, carbonator_rod_tolerance  # noqa: E402
-import reservoir  # noqa: E402
+_assembly_doc_root = next(p for p in Path(__file__).resolve().parents if (p / "hardware/scripts").is_dir())
+sys.path.insert(0, str(_assembly_doc_root / "hardware/assembly"))
+from _rust_docs import evaluate as _evaluate, update as _update
 
-from docgen import load_module, substitute_md  # noqa: E402
+
+def _inputs():
+    return {
+        'carbonator_rod_len': carbonator_rod_len,
+        'carbonator_rod_tolerance': carbonator_rod_tolerance,
+        'reservoir.reservoir_rod_len': reservoir.reservoir_rod_len,
+        '_coil_gen.PITCH': _coil_gen.PITCH,
+        '_coil_gen.wrap_length()': _coil_gen.wrap_length(),
+        "_coil_mandrel_gen.stub_allowance['inlet']": _coil_mandrel_gen.stub_allowance['inlet'],
+        "_coil_mandrel_gen.stub_allowance['outlet']": _coil_mandrel_gen.stub_allowance['outlet'],
+    }
 
 
-_coil_mandrel_gen = load_module(
-    "handwork_coil_mandrel_gen",
-    _hw / "printed-parts" / "cold-core" / "coil-mandrel" / "coil_mandrel.py",
-)
-
-# The wrap AS LAID on the carbonator — the figure `bom.md` §5 bills and the sentence in
-# handwork.md cites it for. The mandrel's own two shorter readings stay in its module.
-_coil_gen = load_module("handwork_coil_gen", _hw / "cold-core-layout" / "_coil.py")
-
-MM_PER_IN = 25.4
+globals().update(_evaluate('handwork', _inputs())["exports"])
 
 
 def main():
-    variables = {
-        # Carbonator float-rod cut length — same value pinned in
-        # pressure-vessel.md; specified by float_rod_dimensions.py.
-        "ROD_LEN": (
-            f"{carbonator_rod_len / MM_PER_IN:.3f} ±{carbonator_rod_tolerance / MM_PER_IN:.3f} in "
-            f"({carbonator_rod_len:.2f} ±{carbonator_rod_tolerance:.2f} mm)"
-        ),
-        # Flavor-reservoir float-rod cut length — same value pinned in the
-        # reservoir's level-sensing.md; computed in reservoir.py.
-        "RESERVOIR_ROD_LEN": (
-            f"{reservoir.reservoir_rod_len:.4g} mm "
-            f"({reservoir.reservoir_rod_len / MM_PER_IN:.3g} in)"
-        ),
-        # Finished evaporator pitch and laid winding from _coil; the rough
-        # mandrel module carries the billed tail allowances.
-        "PITCH": f"{_coil_gen.PITCH:.4g} mm",
-        "LAID_FT": f"{_coil_gen.wrap_length() / 304.8:.4g} ft",
-        "STUB_INLET": f"{_coil_mandrel_gen.stub_allowance['inlet']:.4g} mm",
-        "STUB_OUTLET": f"{_coil_mandrel_gen.stub_allowance['outlet']:.4g} mm",
-    }
-
-    substitute_md(
-        _here / "handwork.md",
-        variables=variables,
-    )
-    print("-> handwork.md")
+    _update('handwork', _inputs())
 
 
 if __name__ == "__main__":

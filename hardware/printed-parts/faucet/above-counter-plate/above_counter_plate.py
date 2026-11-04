@@ -53,13 +53,37 @@ from faucet_shell import (
 from docgen import substitute_md
 from world_workplane import WorldWorkplane, xy_plane_z_up
 
-plate_thickness = above_counter_plate_thickness
-plate_z_range = (-plate_thickness, 0.0)
-plate_center = (0.0, foot_center_y)
-shank_diameter_nominal = 11.0
-shank_hole_radius = shank_hole_diameter / 2.0
-shank_hole_center = (0.0, 0.0)
-pill_slot_center = (bundle_slot_center_x, flavor_tube_depth)
+from _rust_data import request
+
+
+def _data():
+    return request("faucet-data", "faucet-data", {
+        "op": "above-counter-plate", "color": list(linear(C_FAUCET_BLACK)),
+        "shell": {
+            'foot_width': foot_width,
+            'foot_depth': foot_depth,
+            'foot_center_y': foot_center_y,
+            'base_pod_centers': base_pod_centers,
+            'base_pedestal_dia': base_pedestal_dia,
+            'base_pedestal_height': base_pedestal_height,
+            'base_pedestal_chamfer': base_pedestal_chamfer,
+            'base_pod_shank_dia': base_pod_shank_dia,
+            'base_pod_counterbore_dia': base_pod_counterbore_dia,
+            'base_screw_counterbore_depth': base_screw_counterbore_depth,
+            'base_plate_seat_thickness': base_plate_seat_thickness,
+            'base_screw_length': base_screw_length,
+            'signal_lower_exit_x': signal_lower_exit_x,
+            'signal_lower_exit_y': signal_lower_exit_y,
+        },
+        "lower_bundle": lower_bundle_numbers(),
+    })
+
+
+globals().update(_data()["datums"])
+plate_z_range = tuple(plate_z_range)
+plate_center = tuple(plate_center)
+shank_hole_center = tuple(shank_hole_center)
+pill_slot_center = tuple(pill_slot_center)
 
 
 def vertical_cylinder(center, radius, z_range):
@@ -94,23 +118,8 @@ def build_above_counter_plate() -> cq.Workplane:
 
 
 def numbers() -> dict:
-    """What `above_counter_plate.rs` cuts the plate from: its oval foot, the pedestals and screw
-    seats over the mounting pods, and the holes through it."""
-    return {
-        "name": "above-counter-plate", "color": [float(v) for v in linear(C_FAUCET_BLACK)],
-        "foot_width": foot_width, "foot_depth": foot_depth, "foot_center_y": foot_center_y,
-        "plate_z": list(plate_z_range),
-        "base_pod_centers": [[float(v) for v in center] for center in base_pod_centers],
-        "base_pedestal_dia": base_pedestal_dia, "base_pedestal_height": base_pedestal_height,
-        "base_pedestal_chamfer": base_pedestal_chamfer,
-        "base_pod_shank_dia": base_pod_shank_dia,
-        "base_pod_counterbore_dia": base_pod_counterbore_dia,
-        "base_screw_counterbore_depth": base_screw_counterbore_depth,
-        "shank_hole_center": list(shank_hole_center), "shank_hole_radius": shank_hole_radius,
-        "pill_slot_center": list(pill_slot_center), "pill_length_x": bundle_slot_length_x,
-        "pill_width_y": pill_width_y,
-        **lower_bundle_numbers(),
-    }
+    """The Rust scalar program supplies the countertop stack recipe."""
+    return _data()["numbers"]
 
 
 def main():
@@ -119,28 +128,8 @@ def main():
 
     said = _rust_part.cut("faucet", "above-counter-plate", numbers(), _here)
     print("-> " + ", ".join(said["files"]))
-    variables = {
-        "PLATE_T": f"{plate_thickness:.4g} mm",
-        "PLATE_Z_BOTTOM": f"{plate_z_range[0]:.4g}",
-        "PLATE_Y": f"{foot_center_y:.4g} mm",
-        "FOOT_WIDTH": f"{foot_width:.4g} mm",
-        "FOOT_DEPTH": f"{foot_depth:.4g} mm",
-        "PEDESTAL_CHAMFER": f"{base_pedestal_chamfer:.4g} mm",
-        "CBORE_D": f"{base_pod_counterbore_dia:.4g} mm",
-        "CBORE_DEPTH": f"{base_screw_counterbore_depth:.4g} mm",
-        "SEAT_T": f"{base_plate_seat_thickness:.4g} mm",
-        "PEDESTAL_D": f"{base_pedestal_dia:.4g} mm",
-        "PEDESTAL_H": f"{base_pedestal_height:.4g} mm",
-        "SCREW_LENGTH": f"{base_screw_length:.4g} mm",
-        "SHANK_D": f"{base_pod_shank_dia:.4g} mm",
-        "SHANK_HOLE_D": f"{shank_hole_diameter:.4g} mm",
-        "PLATE_FLAVOR_Y": f"{flavor_tube_depth:.4g} mm",
-        "PLATE_FLAVOR_X": f"{bundle_slot_center_x:.4g} mm",
-        "PLATE_RIBBON_X": f"{signal_lower_exit_x:.4g} mm",
-        "PLATE_RIBBON_Y": f"{signal_lower_exit_y:.6g} mm",
-        "PLATE_PILL_L": f"{bundle_slot_length_x:.4g} mm",
-        "PLATE_PILL_W": f"{pill_width_y:.4g} mm",
-    }
+    variables = _data()["variables"]
+
     substitute_md(_here / "README.md", variables=variables)
     print("-> README.md")
 

@@ -1,125 +1,43 @@
-"""
-Variable substitution for documentation that lives next to its source.
+"""Python caller metadata for Rust-managed document substitutions.
 
-Syntax: [value](VARIABLE_NAME)
-- The brackets hold the value — what renders when the host format displays it.
-- The parens hold the variable name in UPPERCASE_WITH_UNDERSCORES (digits
-  allowed after the first character — e.g. ZONE1_Z_TOP, CO2_INLET, BEND2_R) —
-  the "href" position. A real markdown link; the broken anchor doesn't matter.
-- The variable name is literally in the source for any reader (agent or
-  human) to see. The value is never authoritative; the script's variable is.
-
-Three substituters with the same signature and semantics:
-
-- substitute_md(md_path, ...) — rewrites inside a markdown file.
-- substitute_mmd(mmd_path, ...) — rewrites inside the `%%` comment lines of a
-  mermaid chart. A mermaid comment never reaches the renderer, so a marker
-  there is invisible in the drawn chart; the diagram body is left alone,
-  because `[value](NAME)` in a node or edge label WOULD draw, literally.
-  No Sources section: mermaid has nowhere to put one — a `## Sources`
-  heading in a .mmd is a parse error — so a .mmd names its own driver in
-  its header comment instead.
-- substitute_py_comments(py_path, ...) — rewrites inside `#` line comments
-  AND docstrings of a Python file. A string literal is only touched if it
-  already carries one of the caller's managed [value](NAME) markers, so
-  functional string data is never disturbed; code is never touched; the
-  file is only written when content changes; and the rewritten text is
-  never read back into any calculation. (Docstrings were originally skipped
-  — that blind spot let dimensions typed into docstrings drift silently,
-  so they are now scanned just like comments.)
-
-Both:
-- Find every [value](NAME) where NAME matches [A-Z_][A-Z0-9_]* in their scope.
-- For each NAME in `variables`, rewrite the value to the current source
-  value (str-cast).
-- Leave [value](NAME) patterns whose NAME isn't in `variables` untouched.
-  This lets multiple scripts contribute substitutions to the same file —
-  each call only manages its own names. The trade-off is that a typo
-  `[X](BOGUS_NAME)` won't be caught by any individual call; it just sits
-  there. If you need strict catching, the union of every caller's
-  `variables` keys needs to cover every NAME in the file.
-
-Normal markdown links (parens contain slashes, dots, colons, lowercase, etc.)
-never match — only our all-caps-and-underscores variable references do. The
-first-character restriction (no leading digit) keeps numeric literals like
-`[0.5](2)` from being interpreted as substitution targets.
-
-Two helpers the driving scripts share:
-
-- load_module(name, path) — import a Python file by path, for a generator
-  that owns a figure and is reached through the parts tree rather than by
-  an import name.
-- cells(row) — the cells of one markdown table row, for a script that reads
-  its figures back out of a table it maintains.
-
-Sources section
----------------
-
-substitute_md also maintains a `## Sources` block at the end of every
-markdown file it touches, listing the repo-relative path(s) of the
-script(s) that own its [value](NAME) markers. The caller's path is
-auto-detected via the call stack — no extra argument needed. Multiple
-callers per file accumulate as separate bullets (deduped, sorted).
-A caller's bullet stays in place even if the script later stops
-calling substitute_md on the file; pruning is manual.
-
-Figures sidecar
----------------
-
-Beside a markdown file under a `hardware/` tree, substitute_md writes
-`<doc>.figures.json`: for each caller, the [value](NAME) texts that
-caller just wrote into the doc, by name. It is written when one of them
-differs from what is recorded, and not otherwise.
-
-Cross-file collision linter
----------------------------
-
-The per-file substituters cannot detect when the same NAME resolves to
-different values in different files (e.g., `PILL_L` rendered as
-`13.4 mm` in one part's docs and `13.2 mm` in a sibling's). The
-`docgen.lint` submodule walks a directory tree, extracts every
-[value](NAME) marker from .md files and from .py `#` comments, and
-reports any NAME with more than one distinct value across files.
-
-Invoke as:
-
-    python3 tools/docgen/lint.py              # scan cwd
-    python3 tools/docgen/lint.py <directory>  # scan a root
-
-Exit code is 0 if no collisions are found, 1 otherwise.
+``hsm-documents`` maintains [value](NAME) markers in Markdown, Mermaid
+comments and Python comments/string literals, together with Sources blocks
+and figure sidecars. This module supplies Python caller identities and the
+existing build trace registries while generators move to Rust.
 """
 
 import importlib.util
 import inspect
-import io
-import json
 import os
 import re
-import tokenize
+import sys
 from pathlib import Path
-from typing import Any
 
 
-# Matches a markdown link whose href is an all-caps-and-underscores NAME
-# (digits allowed after the first character, but not as the first character).
-# Captures: 1 = value (bracket text), 2 = variable name (paren content).
+# The manual collision/path readers import the notation's patterns.
 _LINK_RE = re.compile(r"\[([^\]]*)\]\(([A-Z_][A-Z0-9_]*)\)")
+_SOURCES_HEADER = "## Sources"
+_SOURCES_PREAMBLE = "[value](NAME) texts are updated by:"
+_SOURCES_SECTION_RE = re.compile(
+    re.escape(_SOURCES_HEADER) + r"\n"
+    + re.escape(_SOURCES_PREAMBLE) + r"\n"
+    + r"((?:- `[^`\n]+`(?:\n|\Z))+)"
+)
+FIGURES_SUFFIX = ".figures.json"
+_WRITE_TARGETS = set()
 
 
-def load_module(name: str, path) -> Any:
-    """Import the Python file at `path` under `name`.
+def _request(payload):
+    scripts = Path(__file__).resolve().parents[2] / "hardware" / "scripts"
+    if str(scripts) not in sys.path:
+        sys.path.insert(0, str(scripts))
+    from _rust_data import request
+    return request("documents", "hsm-documents", payload)
 
-    A generator that owns a figure is reached by its path: the trees these
-    scripts read are directories of parts, not packages, so there is no import
-    name to reach one by. `name` must be unique per caller — two callers
-    loading one file under one name would share a single module object.
 
-    The file is loaded with nothing added to `sys.path` on its behalf. A module
-    that imports a sibling states that directory itself, above the import, and
-    so loads the same way whoever reaches it.
-    """
-    path = Path(path)
-    spec = importlib.util.spec_from_file_location(name, path)
+def load_module(name, path):
+    """Import a remaining Python provider by its explicitly named source."""
+    spec = importlib.util.spec_from_file_location(name, Path(path))
     if spec is None or spec.loader is None:
         raise ImportError(f"cannot load {name} from {path}")
     module = importlib.util.module_from_spec(spec)
@@ -127,366 +45,79 @@ def load_module(name: str, path) -> Any:
     return module
 
 
-def cells(row: str) -> list[str]:
-    """The cells of one markdown table row, stripped of its outer pipes.
-
-    A header, a separator and a data row all split the same way; which one a
-    row is, is the caller's to read off what comes back.
-
-    ONE outer pipe is dropped at each end, not every one. A row whose first
-    column is empty is written `||`, and that column is a column: dropping it
-    would shift every index after it, and the caller reads its figures by
-    index.
-    """
-    parts = row.split("|")
-    if parts and parts[0].strip() == "":
-        parts = parts[1:]
-    if parts and parts[-1].strip() == "":
-        parts = parts[:-1]
-    return [p.strip() for p in parts]
+def cells(row):
+    return _request({"op": "cells", "text": row})
 
 
-# Sources section — appended/updated by substitute_md at the end of every
-# .md it touches, so a reader can see which Python file(s) keep this
-# markdown's [value](NAME) markers honest.
-_SOURCES_HEADER = "## Sources"
-_SOURCES_PREAMBLE = "[value](NAME) texts are updated by:"
-# Matches an existing Sources section: header line, preamble line, then one
-# or more `- `…`` bullets, the last ending at a newline or at end of text.
-_SOURCES_SECTION_RE = re.compile(
-    re.escape(_SOURCES_HEADER) + r"\n"
-    + re.escape(_SOURCES_PREAMBLE) + r"\n"
-    + r"((?:- `[^`\n]+`(?:\n|\Z))+)"
-)
-
-
-#: Every doc a substituter was handed, whether or not its text moved. A run that lands on the
-#: figures already standing in a doc writes nothing, and maintaining it is still what it did.
-_WRITE_TARGETS = set()
-
-
-def _find_repo_root(path: Path) -> Path | None:
-    """Walk up from `path` looking for a `.git` directory.
-
-    `HSM_REPO_ROOT` names it outright, for a run whose tree holds the files it declared and
-    nothing else — a sandboxed build action stands in a checkout with no `.git` in it."""
+def _find_repo_root(path):
     named = os.environ.get("HSM_REPO_ROOT")
     if named:
         root = Path(named).resolve()
         if path == root or root in path.parents:
             return root
-    for p in [path, *path.parents]:
-        if (p / ".git").exists():
-            return p
+    for parent in [path, *path.parents]:
+        if (parent / ".git").exists():
+            return parent
     return None
 
 
-def _note_target(path: Path) -> None:
-    """Keep `path` as one this run maintains, named from the repo root."""
-    p = Path(path).resolve()
-    root = _find_repo_root(p)
+def _note_target(path):
+    path = Path(path).resolve()
+    root = _find_repo_root(path)
     if root is not None:
-        _WRITE_TARGETS.add(p.relative_to(root).as_posix())
+        _WRITE_TARGETS.add(path.relative_to(root).as_posix())
 
 
-def note_rewritten(path) -> None:
-    """Keep `path` as one this run read and wrote back over, for a file written by hand.
-
-    A FILE OF THIS KIND BELONGS ON BOTH SIDES OF ITS OWN ACTION, and the substituters below
-    say so for every file they touch. A generator that reads a chart, edits its lines and
-    writes them back without going through one has done the same thing and has no other way
-    to report it — and a rewritten file recorded as a pure output stops being staged into the
-    sandbox, so the read that opens it finds nothing.
-
-    Call it whether or not the bytes moved. A run that lands on the text already there wrote
-    nothing and still read the file to decide that."""
-    _note_target(Path(path))
+def note_rewritten(path):
+    """Register a maintained authored file, including an unchanged one."""
+    _note_target(path)
 
 
-def _caller_file(stack_depth: int = 2) -> Path | None:
-    """The file of the script that called substitute_md, resolved.
-
-    `stack_depth` = how far up the call stack to look. Default 2, for a call made
-    from substitute_md itself: 0 is this helper, 1 is substitute_md, 2 is the caller.
-    `_caller_repo_path` stands one frame further out and passes 3.
-    """
+def _caller_file(stack_depth=2):
     try:
         return Path(inspect.stack()[stack_depth].filename).resolve()
     except (IndexError, OSError):
         return None
 
 
-def _caller_repo_path(stack_depth: int = 2) -> str | None:
-    """Repo-root-relative path of the script that called substitute_md.
-
-    `stack_depth` = how far up the call stack to look. Default 2:
-    0 is this helper, 1 is substitute_md, 2 is the caller.
-
-    Returns a string like `/hardware/foo/bar/foo_bar.py`,
-    or None if the caller's file is outside the repo or unidentifiable.
-    """
-    caller_file = _caller_file(stack_depth + 1)
-    if caller_file is None:
-        return None
-    repo = _find_repo_root(caller_file)
-    if repo is None:
+def _caller_repo_path(stack_depth=2):
+    caller = _caller_file(stack_depth + 1)
+    root = _find_repo_root(caller) if caller is not None else None
+    if root is None:
         return None
     try:
-        rel = caller_file.relative_to(repo)
+        return "/" + caller.relative_to(root).as_posix()
     except ValueError:
         return None
-    return f"/{rel.as_posix()}"
 
 
-FIGURES_SUFFIX = ".figures.json"
+def _substitute(path, variables, kind, caller=None, figures=False):
+    path = Path(path).resolve()
+    result = _request({"op": "substitute", "kind": kind, "path": str(path),
+                       "variables": {name: f"{value}" for name, value in variables.items()},
+                       "caller": caller, "figures": figures})
+    from _rust_part import _READ_TARGETS
+    root = _find_repo_root(path)
+    if root is not None:
+        _READ_TARGETS.add(path.relative_to(root).as_posix())
+        sidecar = path.with_suffix(FIGURES_SUFFIX)
+        if figures and sidecar.is_file():
+            _READ_TARGETS.add(sidecar.relative_to(root).as_posix())
+    for maintained in result["maintained"]:
+        _note_target(maintained)
 
 
-def _realized_for(caller_file: Path):
-    """`_realized` off the `hardware` tree `caller_file` stands in, or None.
-
-    Anchored on the caller and not on the repo root, so a caller outside a hardware tree
-    resolves nothing and writes no sidecar."""
-    hw = next((p for p in caller_file.parents if p.name == "hardware"), None)
-    target = hw / "scripts" / "_realized.py" if hw else None
-    if target is None or not target.is_file():
-        return None
-    return load_module("_docgen_realized", target)
-
-
-def _record(md_path: Path, caller_file: Path, caller_path: str, figures: dict) -> None:
-    """The `[value](NAME)` texts `caller_file` just wrote into `md_path`, beside the doc; the
-    hash of every file it read to decide them, under `.cache/`. Other callers' entries stay."""
-    realized = _realized_for(caller_file)
-    if realized is None:
-        return
-    root = _find_repo_root(caller_file)
-    if root is None:
-        return
-
-    sidecar = md_path.with_name(md_path.stem + FIGURES_SUFFIX)
-    held = {}
-    if sidecar.is_file():
-        try:
-            held = json.loads(sidecar.read_text())
-        except ValueError:
-            held = {}
-    held[caller_path] = figures
-    text = json.dumps(held, indent=2, sort_keys=True) + "\n"
-    _note_target(sidecar)
-    if not sidecar.is_file() or sidecar.read_text() != text:
-        sidecar.write_text(text)
-
-
-
-
-def _render_sources_section(bullets: list[str]) -> str:
-    """Build the Sources section text. Each bullet line ends with \\n."""
-    bullet_lines = "\n".join(f"- `{b}`" for b in bullets)
-    return f"{_SOURCES_HEADER}\n{_SOURCES_PREAMBLE}\n{bullet_lines}\n"
-
-
-def _update_sources_section(text: str, caller_path: str) -> str:
-    """Ensure the Sources section in `text` lists `caller_path`. If the
-    section exists, add `caller_path` to its bullet list (deduped, sorted)
-    leaving any other callers' bullets alone. If absent, append the
-    section after the existing content with a blank-line separator."""
-    # Normalize trailing newline so the regex can match the last bullet.
-    if text and not text.endswith("\n"):
-        text = text + "\n"
-
-    match = _SOURCES_SECTION_RE.search(text)
-    if match:
-        paths: set[str] = set()
-        for line in match.group(1).split("\n"):
-            line = line.strip()
-            if line.startswith("- `") and line.endswith("`"):
-                paths.add(line[3:-1])
-        paths.add(caller_path)
-        new_section = _render_sources_section(sorted(paths))
-        return text[:match.start()] + new_section + text[match.end():]
-
-    new_section = _render_sources_section([caller_path])
-    # Empty/whitespace-only file: section becomes the whole file.
-    if not text.strip():
-        return new_section
-    return text.rstrip() + "\n\n" + new_section
-
-
-def substitute_md(
-    md_path: Path | str,
-    variables: dict[str, Any],
-) -> None:
-    """Rewrite [value](NAME) → [current_value](NAME) in `md_path` for each
-    NAME in `variables`.
-
-    Args:
-        md_path: Path to the markdown file (updated in place).
-        variables: name → current value. Each value is str-cast for insertion.
-    """
-    md_path = Path(md_path)
-
-    text = md_path.read_text()
-
-    # The Sources preamble carries a literal `[value](NAME)`, which `_LINK_RE` reads as a
-    # marker like any other. Substitution runs over the body above the section.
-    sources = _SOURCES_SECTION_RE.search(text)
-    body, tail = (text[:sources.start()], text[sources.start():]) if sources else (text, "")
-
-    # The names this caller manages that the doc actually carries. Names that
-    # appear in the markdown but aren't in `variables` are left alone — they
-    # belong to some other script that contributes to this markdown.
-    carried = {
-        match.group(2)
-        for match in _LINK_RE.finditer(body)
-        if match.group(2) in variables
-    }
-
-    def repl(match: re.Match) -> str:
-        name = match.group(2)
-        if name in variables:
-            return f"[{variables[name]}]({name})"
-        return match.group(0)  # unknown — leave alone
-
-    new_text = _LINK_RE.sub(repl, body) + tail
-
-    # Maintain the Sources section at end of file. Auto-detects the
-    # caller's repo path via the call stack; silently skips if the
-    # caller isn't inside a .git checkout.
+def substitute_md(md_path, variables):
     caller_path = _caller_repo_path()
-    caller_file = _caller_file()
-    if caller_path:
-        new_text = _update_sources_section(new_text, caller_path)
-
-    _note_target(md_path)
-    if new_text != text:
-        md_path.write_text(new_text)
-
-    # What this caller wrote into this doc — the names it manages that the doc carries, each
-    # with the text now standing in the brackets.
-    if caller_path and caller_file:
-        _record(md_path, caller_file, caller_path,
-                # Through the same f-string `repl` writes with, so a recorded figure and the
-                # text standing in the doc are one string and not two renderings of a value.
-                {name: f"{variables[name]}" for name in sorted(carried)})
+    caller = _caller_file()
+    hardware = next((p for p in caller.parents if p.name == "hardware"), None) if caller else None
+    figures = bool(hardware and (hardware / "scripts" / "_realized.py").is_file())
+    _substitute(md_path, variables, "md", caller_path, figures)
 
 
-def substitute_mmd(
-    mmd_path: Path | str,
-    variables: dict[str, Any],
-) -> None:
-    """Rewrite [value](NAME) → [current_value](NAME) inside the `%%` comment
-    lines of a mermaid chart.
-
-    Only comment lines are scanned. Mermaid strips them before drawing, so a
-    marker there is a note to the reader of the source and nothing in the
-    picture; a marker in a node or edge label would be drawn literally, so the
-    diagram body is never touched and a chart that wants a managed number ON a
-    label has its driver write the label text instead.
-
-    Same skip-unknown-names semantics as substitute_md, so several scripts can
-    contribute to one chart. Idempotent: rerunning with the same values
-    produces no write. No Sources section is appended — see the module
-    docstring.
-
-    Args:
-        mmd_path: Path to the .mmd file (updated in place when a value changes).
-        variables: name → current value. Each value is str-cast for insertion.
-    """
-    mmd_path = Path(mmd_path)
-
-    text = mmd_path.read_text()
-    lines = text.splitlines(keepends=True)
-
-    def repl(match: re.Match) -> str:
-        name = match.group(2)
-        if name in variables:
-            return f"[{variables[name]}]({name})"
-        return match.group(0)  # unknown — leave alone
-
-    new_lines = [
-        _LINK_RE.sub(repl, line) if line.lstrip().startswith("%%") else line
-        for line in lines
-    ]
-    new_text = "".join(new_lines)
-
-    _note_target(mmd_path)
-    if new_text != text:
-        mmd_path.write_text(new_text)
+def substitute_mmd(mmd_path, variables):
+    _substitute(mmd_path, variables, "mmd")
 
 
-def substitute_py_comments(
-    py_path: Path | str,
-    variables: dict[str, Any],
-) -> None:
-    """Rewrite [value](NAME) → [current_value](NAME) inside Python `#`
-    comments and docstrings in `py_path` for each NAME in `variables`.
-
-    Operates on every `#` line comment, plus any string literal (docstring
-    or otherwise) that already carries one of the caller's managed
-    [value](NAME) markers. Functional string data is never disturbed — a
-    string is only touched if it already contains a managed marker, which
-    functional data never does — and code is otherwise left untouched. Same
-    skip-unknown-names semantics as substitute_md so multiple scripts can
-    contribute substitutions to the same .py file. Idempotent: rerunning
-    with the same variable values produces no write.
-
-    Args:
-        py_path: Path to the Python file (updated in place when any value
-            actually changes).
-        variables: name → current value. Each value is str-cast for
-            insertion (same as substitute_md).
-    """
-    py_path = Path(py_path)
-
-    text = py_path.read_text()
-
-    # Character offset of the start of each 1-indexed source line, so a
-    # tokenize (row, col) position converts to an absolute slice index.
-    line_starts: list[int] = []
-    running = 0
-    for line in text.splitlines(keepends=True):
-        line_starts.append(running)
-        running += len(line)
-    if not line_starts:
-        line_starts = [0]
-
-    def _offset(rowcol: tuple[int, int]) -> int:
-        row, col = rowcol
-        return line_starts[row - 1] + col
-
-    # Regions whose text we rewrite: every `#` comment, PLUS any string
-    # literal (docstring or otherwise) that already carries one of OUR
-    # managed markers. Scanning docstrings is the point — a dimension typed
-    # into a docstring used to be invisible to this substituter and so could
-    # drift silently. Functional string data is never disturbed: a string is
-    # only touched if it contains a [value](NAME) whose NAME is in
-    # `variables`, which functional data never does. Each region is an
-    # absolute (start, end) slice over `text`; comments are single-line,
-    # docstrings may span many lines — both handled the same way.
-    regions: list[tuple[int, int]] = []
-    for tok in tokenize.generate_tokens(io.StringIO(text).readline):
-        if tok.type == tokenize.COMMENT:
-            regions.append((_offset(tok.start), _offset(tok.end)))
-        elif tok.type == tokenize.STRING:
-            if any(m.group(2) in variables for m in _LINK_RE.finditer(tok.string)):
-                regions.append((_offset(tok.start), _offset(tok.end)))
-
-    def repl(match: re.Match) -> str:
-        name = match.group(2)
-        if name in variables:
-            return f"[{variables[name]}]({name})"
-        return match.group(0)  # unknown — leave alone
-
-    # Rewrite each region in place, working from the highest offset down so
-    # an earlier splice can never shift the offsets of regions not yet
-    # handled (substitution only changes marker text, never line count).
-    new_text = text
-    for start, end in sorted(set(regions), reverse=True):
-        seg = new_text[start:end]
-        new_seg = _LINK_RE.sub(repl, seg)
-        if new_seg != seg:
-            new_text = new_text[:start] + new_seg + new_text[end:]
-
-    _note_target(py_path)
-    if new_text != text:
-        py_path.write_text(new_text)
+def substitute_py_comments(py_path, variables):
+    _substitute(py_path, variables, "py")

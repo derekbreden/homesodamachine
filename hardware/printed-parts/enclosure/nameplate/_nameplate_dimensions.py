@@ -12,40 +12,30 @@ sys.path.insert(0, str(_root / "tools"))
 
 from docgen import substitute_md
 
+sys.path.insert(0, str(_root / "hardware/printed-parts/enclosure/enclosure"))
+from _enclosure_data import dimensions as _dimensions, read as _read
 
-# Print settings for the small text and QR code the nameplate carries.
-nameplate_nozzle_diameter = 0.4     # mm, hardened nozzle for PET-GF
-bulk_enclosure_nozzle_diameter = 0.4  # mm — owned by other enclosure parts
-layer_height_min = 0.24             # mm
-layer_height_max = 0.24             # mm
 
-portal_host = "hosm.us"
+globals().update(_dimensions()['plan'])
 
 
 def serial_of(unit: int) -> str:
     """The four-digit identifier encoded in the QR and used by the unit log."""
-    if not isinstance(unit, int) or isinstance(unit, bool) or not 1 <= unit <= 9999:
-        raise ValueError("A nameplate unit must be an integer from 1 to 9999")
-    return f"{unit:04d}"
+    return _read('nameplate-unit', unit=unit, portal_host=portal_host)['serial']
 
 
 def unit_url(unit: int) -> str:
     """Uppercase scheme/host keep the complete URL in QR alphanumeric mode."""
-    return f"HTTPS://{portal_host.upper()}/{serial_of(unit)}"
+    return _read('nameplate-unit', unit=unit, portal_host=portal_host)['url']
 
 
 def unit_url_plain(unit: int) -> str:
     """The full-domain address for written instructions; the plate shows only a QR."""
-    return f"homesodamachine.com/{serial_of(unit)}"
+    return _read('nameplate-unit', unit=unit, portal_host=portal_host)['plain']
 
 
 def main():
-    variables = {
-        "NAMEPLATE_NOZZLE_D": f"{nameplate_nozzle_diameter:.4g} mm",
-        "BULK_NOZZLE_D": f"{bulk_enclosure_nozzle_diameter:.4g} mm",
-        "LAYER_H_MIN": f"{layer_height_min:.4g}",
-        "LAYER_H_MAX": f"{layer_height_max:.4g} mm",
-    }
+    variables = _read('plan-variables', plan=_dimensions()['plan'])
 
     substitute_md(
         _here / "README.md",

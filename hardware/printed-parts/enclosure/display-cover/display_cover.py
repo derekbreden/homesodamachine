@@ -42,23 +42,16 @@ def selftest():
 
 def numbers():
     """The accepted bezel and coplanar wing stock, in display-local coordinates."""
-    return {'name':'display-cover','color':linear(M_PETGF_BLACK),
-            'outer':(cover_x,cover_slope,cover_corner_r,wings.BACK,0.,0.,0.),
-            'window':(window_x,window_slope,window_corner_r,wings.BACK-1.,1.,0.,0.),
-            'wings':[(wings.WING_REACH+1.,wings.WING_SPAN,wings.WING_END_R,
-                      wings.BACK,wings.BACK+wings.WING_THICK,
-                      side*(wings.COVER_X/2.+(wings.WING_REACH-1.)/2.),0.)
-                     for side in (-1.,1.)]}
+    from _enclosure_data import dimensions, read
+    return read('cover-recipe', display=dimensions()['display'], color=linear(M_PETGF_BLACK))
 
 
 def main():
     import _rust_part
     _rust_part.cut('enclosure-components','display-cover',numbers(),_here.parent)
-    substitute_md(_here.parent/'README.md',variables={
-        'COVER_X':f'{cover_x:g} mm','COVER_SLOPE':f'{cover_slope:g} mm',
-        'COVER_CORNER_R':f'{cover_corner_r:g} mm','COVER_T':f'{wings.THICK:g} mm',
-        'WINDOW_X':f'{window_x:g} mm','WINDOW_SLOPE':f'{window_slope:g} mm',
-        'WINDOW_CORNER_R':f'{window_corner_r:g} mm'})
+    from _enclosure_data import dimensions, read
+    substitute_md(_here.parent/'README.md', variables=read(
+        'cover-variables', display=dimensions()['display']))
     print('-> display-cover.step, display-cover.stl, README.md')
 
 

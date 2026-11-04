@@ -24,38 +24,19 @@ sys.path.insert(0, str(HARDWARE / "printed-parts/faucet"))
 import _faucet_interface as interface
 import faucet_paths
 
-OD = 32.0
-LENGTH = 10.0
-TUBE_BORE = 6.65
-DRAIN_BORE = 4.40
-FLAVOR_BORE = DRAIN_BORE
-CABLE_SLOT_LENGTH = 5.4
-CABLE_SLOT_DEPTH = 1.8
-MIN_MATERIAL = 1.50
-ENTRY = 0.40
-CABLE_ENTRY = 0.20
-OUTSIDE_EASE = 0.20
-# The mounting row is F1-D-F2 with SIG behind D. Lateral flavor spread
-# and small forward offsets leave at least MIN_MATERIAL at both faces,
-# including the entrance and rim chamfers, inside the 32 mm stock.
-FLAVOR_SPREAD = 2.40
-FLAVOR_FORWARD = 1.80
-DRAIN_FORWARD = 2.30
-CABLE_XY = (interface.bundle_mount_x, faucet_paths.LOWER_RIBBON_Y)
-# Circumcentre of the three beverage bores, in the faucet frame.
-_flavor_x = interface.flavor_tube_x_offset + FLAVOR_SPREAD
-_flavor_y = interface.flavor_tube_depth - FLAVOR_FORWARD
-CENTRE_XY = (interface.bundle_mount_x,
-             (_flavor_x**2 + _flavor_y**2 - interface.bundle_mount_x**2) / (2 * _flavor_y))
-BORES = (
-    ("S", (0.0, 0.0), TUBE_BORE),
-    ("F1", (interface.bundle_mount_x + interface.flavor_tube_x_offset + FLAVOR_SPREAD,
-            _flavor_y), FLAVOR_BORE),
-    ("F2", (interface.bundle_mount_x - interface.flavor_tube_x_offset - FLAVOR_SPREAD,
-            _flavor_y), FLAVOR_BORE),
-    ("D", (interface.drain_tube_x, interface.drain_tube_y - DRAIN_FORWARD), DRAIN_BORE),
-    ("SIG", CABLE_XY, CABLE_SLOT_LENGTH),
-)
+from _rust_data import request
+
+
+def _data():
+    return request("faucet-data", "faucet-data", {
+        "op": "organizer", "color": list(linear(C_FAUCET_BLACK)),
+    })
+
+
+globals().update(_data()["datums"])
+CABLE_XY = tuple(CABLE_XY)
+CENTRE_XY = tuple(CENTRE_XY)
+BORES = tuple((name, tuple(xy), diameter) for name, xy, diameter in BORES)
 
 
 def axis(name):
@@ -93,17 +74,8 @@ def placed(top_z):
 
 
 def numbers():
-    """The round stock and its passages, in the upright print frame."""
-    return {
-        "name": "umbilical-organizer", "color": list(linear(C_FAUCET_BLACK)),
-        "stock_radius": OD / 2.0, "length": LENGTH, "outside_ease": OUTSIDE_EASE,
-        "bore_overrun": 1.0,
-        "slot_length": CABLE_SLOT_LENGTH, "slot_depth": CABLE_SLOT_DEPTH,
-        "bores": [{"name": name, "center": [xy[i] - CENTRE_XY[i] for i in (0, 1)],
-                   "radius": diameter / 2.0,
-                   "entry": CABLE_ENTRY if name == "SIG" else ENTRY}
-                  for name, xy, diameter in BORES],
-    }
+    """The Rust scalar program supplies the organizer's upright-print recipe."""
+    return _data()["numbers"]
 
 
 def main():
@@ -116,22 +88,7 @@ def main():
     flute_payload.cut(step, stl, preserve_print_triangles=True)
     sys.path.insert(0, str(HARDWARE.parent / "tools"))
     from docgen import substitute_md
-    substitute_md(HERE / "README.md", variables={
-        "ORGANIZER_OD": f"{OD:g} mm",
-        "ORGANIZER_LENGTH": f"{LENGTH:g} mm",
-        "ORGANIZER_TUBE_BORE": f"{TUBE_BORE:.2f} mm",
-        "ORGANIZER_DRAIN_BORE": f"{DRAIN_BORE:.2f} mm",
-        "ORGANIZER_FLAVOR_BORE": f"{FLAVOR_BORE:.2f} mm",
-        "ORGANIZER_CABLE_SLOT": f"{CABLE_SLOT_LENGTH:g} × {CABLE_SLOT_DEPTH:g} mm",
-        "ORGANIZER_ENTRY": f"{ENTRY:g} mm",
-        "ORGANIZER_CONTACT": f"{LENGTH - 2 * ENTRY:g} mm",
-        "ORGANIZER_CABLE_ENTRY": f"{CABLE_ENTRY:g} mm",
-        "ORGANIZER_RIM_EASE": f"{OUTSIDE_EASE:g} mm",
-        "ORGANIZER_MIN_MATERIAL": f"{MIN_MATERIAL:g} mm",
-        "ORGANIZER_FLAVOR_SPREAD": f"{FLAVOR_SPREAD:g} mm",
-        "ORGANIZER_FLAVOR_FORWARD": f"{FLAVOR_FORWARD:g} mm",
-        "ORGANIZER_DRAIN_FORWARD": f"{DRAIN_FORWARD:g} mm",
-    })
+    substitute_md(HERE / "README.md", variables=_data()["variables"])
     print(f"-> {step.name}, {stl.name}, {step.name}.mesh, README.md")
 
 

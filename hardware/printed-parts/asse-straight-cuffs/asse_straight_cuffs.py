@@ -16,34 +16,27 @@ if __name__ == '__main__':
     import _rust_part
     _rust_part.start()
 
-SIDES = ('inlet', 'outlet')
-METAL_SOCKET_DEPTH = {'inlet': 13., 'outlet': 14.}
-METAL_SOCKET_RADIUS = {'inlet': 8.575, 'outlet': 7.94}
-METAL_WALL = 2.8
-REDUCER_LENGTH = 5.
-TUBE_SOCKET_DEPTH = 15.
-TUBE_SOCKET_RADIUS = 3.175
-TUBE_OUTER_RADIUS = 5.916
-THROAT_RADIUS = 2.2
-ASSE_OUTLET_X = 65.
+from _rust_data import request as _request
+
+
+def _data(**payload):
+    return _request('part-data', 'part-data', {'part': 'asse-straight-cuffs', **payload})
+
+
+globals().update(_data()['values'])
+SIDES = tuple(SIDES)
 
 
 def _profile(side):
-    depth, bore = METAL_SOCKET_DEPTH[side], METAL_SOCKET_RADIUS[side]
-    outer = bore + METAL_WALL
-    tube_end = -REDUCER_LENGTH-TUBE_SOCKET_DEPTH
-    return [(outer, depth), (outer, 0.),
-               (TUBE_OUTER_RADIUS, -REDUCER_LENGTH), (TUBE_OUTER_RADIUS, tube_end),
-               (TUBE_SOCKET_RADIUS, tube_end), (TUBE_SOCKET_RADIUS, -REDUCER_LENGTH),
-               (THROAT_RADIUS, -REDUCER_LENGTH), (THROAT_RADIUS, 0.),
-               (bore, 0.), (bore, depth)]
+    return [tuple(point) for point in _data()['profiles'][side]]
 
 
 def numbers():
-    """Live axial sections and print poses, without constructing native solids."""
     from _materials import M_TPU_BLACK, linear
-    return dict(cuffs=[dict(side=side,profile=_profile(side),depth=METAL_SOCKET_DEPTH[side])
-                       for side in SIDES],color=list(linear(M_TPU_BLACK)))
+    result = _data(color=list(linear(M_TPU_BLACK)))['numbers']
+    for cuff in result['cuffs']:
+        cuff['profile'] = [tuple(point) for point in cuff['profile']]
+    return result
 
 
 def main(output=None):

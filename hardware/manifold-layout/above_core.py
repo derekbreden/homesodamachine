@@ -5,8 +5,9 @@ The data file is independent of the exploratory viewers and their build scripts.
 """
 
 import functools
-import json
 from pathlib import Path
+
+from _layout_data import data as _data, read_json as _read_json
 
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[1]
@@ -14,7 +15,7 @@ ROOT = HERE.parents[1]
 
 @functools.cache
 def specification():
-    return json.loads((HERE / 'above-core.json').read_text())
+    return _read_json(HERE / 'above-core.json')
 
 
 def pose(name):
@@ -40,36 +41,27 @@ def cap_lid_pose():
 
 
 def core_equipment_names():
-    """Above-core equipment and fitted elbows carried by the cold-core lid."""
-    return frozenset(('pcba', 'g-ganen-pump', 'pump-snap-cap', 'valve-v-b',
-                      'discharge-chain', 'carbonator-fold',
-                      'vb-inlet-turn', 'vb-outlet-stem', 'vb-outlet-return',
-                      'lower-pump-elbow',
-                      *(f'{side}-{part}' for side in ('suction', 'discharge')
-                        for part in ('tube', 'reducer', 'barb-clamp', 'barb-key', 'stem-clamp', 'stem-key'))))
+    return frozenset(_data('equipment-names'))
 
 
 
 def valve_names():
-    """Selected valves with integral back-top or cold-core mounting seats."""
-    return ('valve-v-a', 'valve-v-b', 'vk-solenoid')
+    return tuple(_data('valve-names'))
 
 
 cap_pose = cap_lid_pose
 
 
 def vector(rotation, point):
-    return tuple(sum(row[j] * point[j] for j in range(3)) for row in rotation)
+    return tuple(_data('vector', rotation=rotation, point=point))
 
 
 def point(frame, xyz):
-    return tuple(a + b for a, b in zip(vector(frame['rotation'], xyz),
-                                      frame['translation_mm']))
+    return tuple(_data('point', frame=frame, point=xyz))
 
 
 def inverse_point(frame, xyz):
-    rotation = tuple(zip(*frame['rotation']))
-    return vector(rotation, tuple(a - b for a, b in zip(xyz, frame['translation_mm'])))
+    return tuple(_data('inverse-point', frame=frame, point=xyz))
 
 
 def world_to_cap(xyz):

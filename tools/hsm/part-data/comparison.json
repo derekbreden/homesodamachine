@@ -1,0 +1,88 @@
+{
+  "comparisons": {
+    "electronics": {
+      "component_boxes": 97,
+      "differences": [],
+      "max_absolute_delta": 0.0,
+      "numeric_values": 2195
+    },
+    "mold-export-report": {
+      "differences": [],
+      "max_absolute_delta": 0.0,
+      "numeric_values": 141,
+      "scope": "same fixed body facts, real cavity/core STL vertices and all eight artifact hashes"
+    },
+    "tooling": {
+      "differences": [],
+      "max_absolute_delta": 0.0,
+      "numeric_values": 702,
+      "providers": 7
+    },
+    "valve-seat": {
+      "matches": true,
+      "values": 15,
+      "variables": 15,
+      "volume_cases": 5
+    },
+    "zone-c": {
+      "differences": [],
+      "max_absolute_delta": 0.0,
+      "numeric_values": 854
+    }
+  },
+  "fixed_input_sha256": {
+    "hardware/manifold-layout/above-core.json": "c3ce79ed97206b1012531fa6fab1bcda858da2251dbe360b3eb3e1138412726f",
+    "hardware/pcb/pcba/out/pcba.glb": "16314ee4bb4a38c002eb73cec124cf7b83115b179e3f4fa2c206cdb7c30fba5d",
+    "hardware/printed-parts/zone-c/funnel-mold/cavity.step": "722aebc15bd9f92422a64caf6ef017ce0bc95263f31de8c233cab57e92403d17",
+    "hardware/printed-parts/zone-c/funnel-mold/cavity.step.mesh": "a7746571ddba9753b5e92b71f174156c5d1c55c8423c95808cd3143e4b75ff1d",
+    "hardware/printed-parts/zone-c/funnel-mold/cavity.step.npz": "7f18ac7a0762d0837acda71f09f765ae869e66040bef7f3a0025d86207a7febc",
+    "hardware/printed-parts/zone-c/funnel-mold/cavity.stl": "a5ae1b39b716e956d030fab9c10843968383bad95f15a89171f23c4574ba4ae5",
+    "hardware/printed-parts/zone-c/funnel-mold/core.step": "da393b351e70b7f4c9937610b3badcf865c90bf524d7f7afecb5452ba507dea0",
+    "hardware/printed-parts/zone-c/funnel-mold/core.step.mesh": "d8796374f5192030060aad04349bfdd115d7b32c54346687f1030e722d6b30b1",
+    "hardware/printed-parts/zone-c/funnel-mold/core.step.npz": "4ad4d4bd1fce62c956a89ae7c74a911c95c324226e8f5b0481b62d9d99ab5b6b",
+    "hardware/printed-parts/zone-c/funnel-mold/core.stl": "9939f10c4d2c0e78c26b7e3203819dda078bd3a32b2f6a75bc497b4ac2c9c2af",
+    "hardware/printed-parts/zone-c/funnel/funnel.step": "6353f25fbb61dfda34a6d537d1ba51e1c458f1a273aa19f88c37ff5a099603d5",
+    "hardware/reference/g-ganen-pump/reference-parameters.json": "3b91bd7ff1216bc5dc8b9806d53f4f2f7bd038323b201c6d6cc6e029e42fc591",
+    "hardware/reference/neofit-stem-elbow/neofit-stem-elbow.fine.step.mesh": "fe71c3de383c18b38e913f12c7f6e7a6aa9840f02f9c0a58208620347a6a9149",
+    "hardware/reference/neofit-stem-elbow/reference-parameters.json": "a6d4486619514f64cad829bd281c90216c04cb94813d2784adea6a8a23fd5d8f"
+  },
+  "normal_build": "Run by integration lead after the batch; no full geometry build gates these comparisons.",
+  "providers": [
+    "hardware/printed-parts/asse-drain-adapter/asse_drain_adapter.py",
+    "hardware/printed-parts/asse-straight-cuffs/asse_straight_cuffs.py",
+    "hardware/printed-parts/collet-press/collet_press.py",
+    "hardware/printed-parts/fixtures/fake-countertop/fake_countertop.py",
+    "hardware/printed-parts/fixtures/tube-miter-box/tube_miter_box.py",
+    "hardware/printed-parts/fixtures/water-inlet-jet/water_inlet_jet_fixture.py",
+    "hardware/printed-parts/diaphragm-pump-sleeve/diaphragm_pump_sleeve.py",
+    "hardware/printed-parts/electronics/module_tray.py",
+    "hardware/printed-parts/electronics/pcba-tray/pcba_tray.py",
+    "hardware/printed-parts/electronics/pcba-tray/pcba_assembly.py",
+    "hardware/printed-parts/valve-seat/valve_seat.py",
+    "hardware/printed-parts/zone-c/funnel/funnel.py",
+    "hardware/printed-parts/zone-c/funnel/elbow_cradle.py",
+    "hardware/printed-parts/zone-c/funnel/funnel_frame.py",
+    "hardware/printed-parts/zone-c/funnel-cover/funnel_cover.py",
+    "hardware/printed-parts/zone-c/funnel-mold/funnel_mold.py"
+  ],
+  "scope": "Scalar construction recipes, readers, independent analytical measurements and document-variable outputs; the existing geometry programs consume identical recipes.",
+  "source_revision": "d6a0b281d",
+  "source_sha256": {
+    "hardware/printed-parts/asse-drain-adapter/asse_drain_adapter.py": "de7980e0f8bbe230efd6c3762af197e4ec645077ac151f72abcb6490bf9aa896",
+    "hardware/printed-parts/asse-straight-cuffs/asse_straight_cuffs.py": "88d2596bb66dd60ac8cfc2051f7b7cab3847741337e73f736931c9fcafe315b4",
+    "hardware/printed-parts/collet-press/collet_press.py": "9ccdc330430e0bf5f2060c061cd89e6e8e318674b0978d0f2e8b694af0a2888d",
+    "hardware/printed-parts/diaphragm-pump-sleeve/diaphragm_pump_sleeve.py": "14a0786489dc1a7118f7695ad71056203591cb61617522306f947573d5ec51af",
+    "hardware/printed-parts/electronics/module_tray.py": "1f848d867aacb2d0c1a667d876a5711527a97e49b75cc122ca55d18500152516",
+    "hardware/printed-parts/electronics/pcba-tray/pcba_assembly.py": "e50af63097d440037835af59bbcad278acbe797a1f261811ac6b1ea75ac15503",
+    "hardware/printed-parts/electronics/pcba-tray/pcba_tray.py": "2fee1c2633ab341fc162ec4f2365eaea94066446bc0d4e5292191a7a90c82876",
+    "hardware/printed-parts/fixtures/fake-countertop/fake_countertop.py": "71b90720c744d92e4034f60c3697e4214a1a57a361e3b3bb248f729d124c5d2e",
+    "hardware/printed-parts/fixtures/tube-miter-box/tube_miter_box.py": "a39e5a3b157f830c059ab5de66d0db0294071e1acf009ef00b706f93c0910dae",
+    "hardware/printed-parts/fixtures/water-inlet-jet/water_inlet_jet_fixture.py": "6313077f50330588eafa74414c03f1c0bce30600540f1756dcccb66731200b81",
+    "hardware/printed-parts/valve-seat/valve_seat.py": "4504c96e79a9ccc67060af6d44a4470ddb55109c6f81f1dd60a2b365c022a11a",
+    "hardware/printed-parts/zone-c/funnel-cover/funnel_cover.py": "3ac92c97bd938de7543657116985a0cfabd4d2db02e5c0c5d73c80509071837e",
+    "hardware/printed-parts/zone-c/funnel-mold/funnel_mold.py": "91e40de1dee79e6595090b7af967dcb23a806b3dddb00807e55e09f37140ecfe",
+    "hardware/printed-parts/zone-c/funnel/elbow_cradle.py": "97d1416c36855cb0e9d93dfb0d183bd94db496b47f279f15c6e6f30de24e80b4",
+    "hardware/printed-parts/zone-c/funnel/funnel.py": "13442f739159c56f74e08cca210ff7c6b5e81c31f531af04374ed0333b106b23",
+    "hardware/printed-parts/zone-c/funnel/funnel_frame.py": "7a6060b12504ad40eba59d786851f423a3499ae3ec40fabb36ef6a3f97d508f4"
+  }
+}

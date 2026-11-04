@@ -1,0 +1,153 @@
+{
+  "artifact_sha256": {
+    "pump-tray-after.npz": "d6519e34c1d1dc3eff6c755fef3d22432b4832186964fa31da190b063851dc9b",
+    "pump-tray-before.npz": "ef5aec9edecf290d1a0eed4850b061f93df36c8ff522ed5e0789662718696207",
+    "valve-tray-after.npz": "c2ca4a0b90f4358905f4a804df663d348d8f1131b4515a897ba62d1b96ef38bd",
+    "valve-tray-before.npz": "c2ca4a0b90f4358905f4a804df663d348d8f1131b4515a897ba62d1b96ef38bd"
+  },
+  "comparisons": {
+    "display_trim_rear_interfaces": {
+      "includes": [
+        "nameplate face and wing datums",
+        "DATA datums and recipe",
+        "display cover datums and recipe",
+        "display gasket datums and recipe",
+        "rear palette and formatting",
+        "rear tile recipe, station poses, spans and rails",
+        "unit IDs and URLs",
+        "invalid unit types and ranges",
+        "rear wall end and bore diameter readers including decimal ties"
+      ],
+      "result": "exact equality"
+    },
+    "documents": {
+      "document_drivers": 7,
+      "pump_reader_variants": 9,
+      "report_inputs": "fixed scalar fixtures; no geometry build",
+      "result": "exact equality"
+    },
+    "fine_model_readback": {
+      "pump-tray": {
+        "bodies": [
+          {
+            "after_triangles": 4796,
+            "after_vertices": 2398,
+            "before_triangles": 4794,
+            "before_vertices": 2397,
+            "body": 0,
+            "closed": true,
+            "max_bounds_delta_mm": 0.0,
+            "sampled_surface_error_mm": 1.1681317530135548e-06,
+            "volume_delta_mm3": 7.275957614183426e-12
+          },
+          {
+            "after_triangles": 5266,
+            "after_vertices": 2633,
+            "before_triangles": 5260,
+            "before_vertices": 2630,
+            "body": 1,
+            "closed": true,
+            "max_bounds_delta_mm": 0.0,
+            "sampled_surface_error_mm": 1.1681317530135548e-06,
+            "volume_delta_mm3": 0.0
+          }
+        ],
+        "names_colors_records_exact": true,
+        "surface_budget_mm": 0.005
+      },
+      "valve-tray": {
+        "bodies": [
+          {
+            "after_triangles": 17308,
+            "after_vertices": 8656,
+            "before_triangles": 17308,
+            "before_vertices": 8656,
+            "body": 0,
+            "closed": true,
+            "max_bounds_delta_mm": 0.0,
+            "sampled_surface_error_mm": 9.140440868331285e-05,
+            "volume_delta_mm3": 0.0
+          },
+          {
+            "after_triangles": 8734,
+            "after_vertices": 4369,
+            "before_triangles": 8734,
+            "before_vertices": 4369,
+            "body": 1,
+            "closed": true,
+            "max_bounds_delta_mm": 0.0,
+            "sampled_surface_error_mm": 1.7284385190971267e-07,
+            "volume_delta_mm3": 0.0
+          }
+        ],
+        "names_colors_records_exact": true,
+        "npz_bytes_exact": true,
+        "surface_budget_mm": 0.005,
+        "surface_comparison": "Identical NPZ SHA-256; naive point projections have numerical noise on thin triangles."
+      }
+    },
+    "pump_case_and_trays": {
+      "max_absolute_error": 3.552713678800501e-15,
+      "nonidentical_f64": 28,
+      "numeric_fields": 3198,
+      "result": "pass",
+      "tolerance_mm": 1e-11
+    },
+    "standalone_dimension_import": {
+      "native_cad_loaded": false,
+      "result": "pass"
+    }
+  },
+  "fixed_input_sha256": {
+    "hardware/manifold-layout/above-core.json": "c3ce79ed97206b1012531fa6fab1bcda858da2251dbe360b3eb3e1138412726f",
+    "hardware/printed-parts/enclosure/data-ring/data-word.json": "8230f5cc9f77bdd010f8542ac10a15dbb6b5ce54ab5b7cb46a3341888ef6f349",
+    "hardware/printed-parts/enclosure/rear-identification/label-words.json": "ebfc075f127c46b35db48f696fe5c40500a3dab8b495a353c5d47ffab890cc2c"
+  },
+  "fixture_sha256": {
+    "baseline.json": "3efe32b19ee968259da2a0910a96b79f41ce25655d548c6fc1c0801fc6c10d7c",
+    "tray-baseline.json": "7d830f202abeba461e2a155c2ce309eee0c22ad7426f4b0390f8e39df1d55c04"
+  },
+  "known_difference": "28 f64 recipe coordinates differ by at most 3.552713678800501e-15 mm. Manifold retriangulates the pump collars: their bounds are identical, volume delta is at most 7.275957614183426e-12 mm^3 and the all-vertex/triangle-centroid surface probe is 1.1681317530135548e-6 mm, below the 0.005 mm kernel chord budget. Valve tray NPZ bytes are identical.",
+  "normal_build": "Integration lead runs the normal combined build after this batch; no new automatic checks were added.",
+  "providers": [
+    "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead_ring.py",
+    "hardware/printed-parts/enclosure/data-ring/data_ring.py",
+    "hardware/printed-parts/enclosure/display-cover/display_cover.py",
+    "hardware/printed-parts/enclosure/display-gasket/display_gasket.py",
+    "hardware/printed-parts/enclosure/enclosure/_data_wing_interface.py",
+    "hardware/printed-parts/enclosure/enclosure/_display_wing_interface.py",
+    "hardware/printed-parts/enclosure/enclosure/_nameplate_interface.py",
+    "hardware/printed-parts/enclosure/enclosure/_nameplate_wing_interface.py",
+    "hardware/printed-parts/enclosure/nameplate/_nameplate_dimensions.py",
+    "hardware/printed-parts/enclosure/pump-tray/pump_case.py",
+    "hardware/printed-parts/enclosure/pump-tray/pump_tray.py",
+    "hardware/printed-parts/enclosure/rear-identification/rear_identification.py",
+    "hardware/printed-parts/enclosure/valve-tray/valve_tray.py",
+    "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py"
+  ],
+  "remaining": [
+    "enclosure core numeric construction recipes and interfaces reserved for integration lead",
+    "nameplate SVG/QR artwork reader and recipe",
+    "rear equipment cap recipe",
+    "enclosure dimension document driver",
+    "Python geometry builder and manual native review interfaces in these modules"
+  ],
+  "scope": "Enclosure leaf scalar interfaces, construction recipes, numerical readers and document reports. Existing Rust geometry programs consume these recipes.",
+  "source_revision": "d6a0b281d",
+  "source_sha256": {
+    "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead_ring.py": "23211d119a86655e3dd6a43def64c39b69c97203965ad367b8859e2a3156edb0",
+    "hardware/printed-parts/enclosure/data-ring/data_ring.py": "08c94e801c970397f424d1caf3c96ee30489b4dda6718ec3d483165eb6af69a6",
+    "hardware/printed-parts/enclosure/display-cover/display_cover.py": "0b9290e7459163873a7967d23016045cdb0a23cc74a06ba49f3c7b0eea309048",
+    "hardware/printed-parts/enclosure/display-gasket/display_gasket.py": "9c90df60da13b406165b9fecb8f94cd0f756e02f05234e071b18706df464364c",
+    "hardware/printed-parts/enclosure/enclosure/_data_wing_interface.py": "9e46d2df92baa8d055ebe3d79d544103df53b8b60dd15e5ce199922fc6f00294",
+    "hardware/printed-parts/enclosure/enclosure/_display_wing_interface.py": "e3e5f0251ab9f0f82324c82e94e45667cac0e5d9c505cf06fd6f525c6bf3ce82",
+    "hardware/printed-parts/enclosure/enclosure/_nameplate_interface.py": "fb290e6f377fc5f33790b7e6532c59ff0fdab0472b2f519d808b17106e8629fc",
+    "hardware/printed-parts/enclosure/enclosure/_nameplate_wing_interface.py": "67b5bc6d6a2920d6f030d3e415258b6532bd3e39fb2690b549e8017ee77ce714",
+    "hardware/printed-parts/enclosure/nameplate/_nameplate_dimensions.py": "c3a59930689b4f5421dbe48d22bbd6048276b41f066fb9077ab7d6fcc4114994",
+    "hardware/printed-parts/enclosure/pump-tray/pump_case.py": "4ae67d365f3ff3d347a07cec0eda4ba69688c4d7f01657e9d652671a1c0c002f",
+    "hardware/printed-parts/enclosure/pump-tray/pump_tray.py": "9de8bf7e18306f0d2646c92cdf042875df4c82c03850a58baacf01ecdc7b47f1",
+    "hardware/printed-parts/enclosure/rear-identification/rear_identification.py": "dcb17f316208864714c1254c2aeeccb5f8ec49899134d6813dc382d1f71a2163",
+    "hardware/printed-parts/enclosure/valve-tray/valve_tray.py": "b08be4fe1d9122eff95fa1bdc44cd720b477709da204b22c6d1f640d2b3b90c0",
+    "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py": "9adf4df4281b9d338f7d1fba9e2907477da5506240a3d68c3b57a0f0855a7d5a"
+  }
+}

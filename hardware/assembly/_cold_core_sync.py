@@ -1,220 +1,94 @@
 """Doc-sync driver for hardware/assembly/cold-core.md.
 
-Run: tools/cad-venv/bin/python hardware/assembly/_cold_core_sync.py
-"""
-
-import math
+Run: tools/cad-venv/bin/python hardware/assembly/_cold_core_sync.py"""
 import sys
 from pathlib import Path
-
 _here = Path(__file__).resolve().parent
-sys.path.insert(0, str(next(p for p in _here.parents if p.name == "hardware") / "scripts"))
-sys.path.insert(
-    0,
-    str(next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"),
-)
-
-_hw = next(p for p in _here.parents if p.name == "hardware")
-sys.path.insert(0, str(_hw / "printed-parts" / "cadlib"))
-sys.path.insert(0, str(_hw / "printed-parts" / "cold-core"))
-sys.path.insert(0, str(_hw / "printed-parts" / "enclosure" / "enclosure"))
-
-from _enclosure_datums import install as _scalar_datums  # noqa: E402
+sys.path.insert(0, str(next((p for p in _here.parents if p.name == 'hardware')) / 'scripts'))
+sys.path.insert(0, str(next((p for p in _here.parents if (p / 'tools' / 'docgen').is_dir())) / 'tools'))
+_hw = next((p for p in _here.parents if p.name == 'hardware'))
+sys.path.insert(0, str(_hw / 'printed-parts' / 'cadlib'))
+sys.path.insert(0, str(_hw / 'printed-parts' / 'cold-core'))
+sys.path.insert(0, str(_hw / 'printed-parts' / 'enclosure' / 'enclosure'))
+from _enclosure_datums import install as _scalar_datums
 _scalar_datums()
+from _cold_core_interface import attachment_xy_positions, deck_mounts, deck_mount_xy, co2_inlet_y, foam_cap_lid_vent_radius, foam_shell_outer_height, foam_cap_lid_height, foam_shell_rim_z, bottom_cap_height, bottom_pour_radius, forward_band_width, insert_length, insert_pocket_depth, insert_pocket_radius, lldpe_bend_radius, lldpe_tube_od, cap_conduit_shell_xy, outer_shell_x_length, outer_shell_y_length, port_hole_radius, reservoir_clearance, top_band_to_cap, wall_and_floor_thickness
+sys.path.insert(0, str(_hw / 'printed-parts' / 'cold-core' / 'reservoir'))
+from reservoir import insert_positions_for_side_plus_1
+from _foam_cap import cap_face_z, stack_floor_z
+from docgen import load_module
+_coil_mandrel_gen = load_module('cold_core_coil_mandrel_gen', _hw / 'printed-parts' / 'cold-core' / 'coil-mandrel' / 'coil_mandrel.py')
+_coil_gen = load_module('cold_core_coil_gen', _hw / 'cold-core-layout' / '_coil.py')
+_reed_bridge_gen = load_module('cold_core_reed_bridge_gen', _hw / 'printed-parts' / 'cold-core' / 'reed-bridge' / 'reed_bridge.py')
+import _port_cuts
 
-from _cold_core_interface import (  # noqa: E402
-    attachment_xy_positions,
-    deck_mounts,
-    deck_mount_xy,
-    co2_inlet_y,
-    foam_cap_interior_height,
-    cap_shell_clearance,
-    cap_lid_clearance,
-    foam_cap_lid_pour_radius,
-    foam_cap_lid_pour_xy,
-    foam_cap_lid_vent_radius,
-    foam_shell_outer_height,
-    foam_cap_height,
-    foam_cap_lid_height,
-    foam_shell_rim_z,
-    bottom_cap_height,
-    bottom_pour_radius,
-    forward_band_width,
-    head_pad_height,
-    insert_length,
-    insert_pocket_depth,
-    insert_pocket_radius,
-    lldpe_bend_radius,
-    lldpe_tube_od,
-    cap_conduit_shell_xy,
-    outer_shell_x_length,
-    outer_shell_y_length,
-    port_hole_radius,
-    reservoir_clearance,
-    top_band_to_cap,
-    wall_and_floor_thickness,
-)
-import _above_core_mounts as _cap_mounts
-sys.path.insert(0, str(_hw / "printed-parts" / "cold-core" / "reservoir"))
-from reservoir import insert_positions_for_side_plus_1  # noqa: E402
-from _foam_cap import cap_face_z, stack_floor_z  # noqa: E402
+_assembly_doc_root = next(p for p in Path(__file__).resolve().parents if (p / "hardware/scripts").is_dir())
+sys.path.insert(0, str(_assembly_doc_root / "hardware/assembly"))
+from _rust_docs import evaluate as _evaluate, update as _update
 
-from docgen import load_module, substitute_md, substitute_py_comments  # noqa: E402
 
-# Every ruthex insert this procedure presses, off the patterns that hold them.
-# The shell clamps a cap on each face; the top cap's deck-mount columns take one
-# each for the PCB; each reservoir cap takes its own wall-top ring.
-# The electrical ground boss and enclosure-wall equipment retain their own
-# installation steps and insert families.
-CAP_CLAMP_INSERTS = len(attachment_xy_positions) * 2
-# And what ONE face takes, which is how the bench works it — a face at a time.
-CAP_FACE_SCREWS = len(attachment_xy_positions)
-CAP_DECK_INSERTS = sum(len(deck_mount_xy(n)) for n in deck_mounts)
-RESERVOIR_INSERTS = len(insert_positions_for_side_plus_1) * 2
-B_FILL_CLAMPS = 0
+def _inputs():
+    return {
+        'attachment_xy_positions': attachment_xy_positions,
+        'insert_positions_for_side_plus_1': insert_positions_for_side_plus_1,
+        'deck_mount_positions': [deck_mount_xy(n) for n in deck_mounts],
+        '_coil_mandrel_gen.groove_depth': _coil_mandrel_gen.groove_depth,
+        '_coil_mandrel_gen.mandrel_od': _coil_mandrel_gen.mandrel_od,
+        '_coil_mandrel_gen.carbonator_od': _coil_mandrel_gen.carbonator_od,
+        '_coil_mandrel_gen.net_undersize': _coil_mandrel_gen.net_undersize,
+        '_coil_mandrel_gen.wind_length': _coil_mandrel_gen.wind_length,
+        '_coil_gen.TOTAL_WRAPS': _coil_gen.TOTAL_WRAPS,
+        '_coil_gen.PITCH': _coil_gen.PITCH,
+        '_coil_mandrel_gen.fitted_wrap_length': _coil_mandrel_gen.fitted_wrap_length,
+        '_coil_gen.wrap_length()': _coil_gen.wrap_length(),
+        "_coil_mandrel_gen.stub_allowance['inlet']": _coil_mandrel_gen.stub_allowance['inlet'],
+        "_coil_mandrel_gen.stub_allowance['outlet']": _coil_mandrel_gen.stub_allowance['outlet'],
+        "_coil_mandrel_gen.stub_protrusion['inlet']": _coil_mandrel_gen.stub_protrusion['inlet'],
+        "_coil_mandrel_gen.stub_protrusion['outlet']": _coil_mandrel_gen.stub_protrusion['outlet'],
+        '_coil_mandrel_gen.carbonators_per_roll': _coil_mandrel_gen.carbonators_per_roll,
+        '_coil_gen.cut_length()': _coil_gen.cut_length(),
+        '_coil_mandrel_gen.tail_inlet_y': _coil_mandrel_gen.tail_inlet_y,
+        '_coil_mandrel_gen.tail_outlet_y': _coil_mandrel_gen.tail_outlet_y,
+        'bottom_cap_height': bottom_cap_height,
+        'wall_and_floor_thickness': wall_and_floor_thickness,
+        'foam_shell_rim_z': foam_shell_rim_z,
+        'foam_shell_outer_height': foam_shell_outer_height,
+        'foam_cap_lid_height': foam_cap_lid_height,
+        'bottom_pour_radius': bottom_pour_radius,
+        'foam_cap_lid_vent_radius': foam_cap_lid_vent_radius,
+        'insert_pocket_radius': insert_pocket_radius,
+        'insert_length': insert_length,
+        'insert_pocket_depth': insert_pocket_depth,
+        'port_hole_radius': port_hole_radius,
+        'co2_inlet_y': co2_inlet_y,
+        'top_band_to_cap': top_band_to_cap,
+        'lldpe_bend_radius': lldpe_bend_radius,
+        'forward_band_width': forward_band_width,
+        'cap_conduit_shell_xy("reed-cable-a")[0]': cap_conduit_shell_xy("reed-cable-a")[0],
+        'cap_conduit_shell_xy("reed-cable-a")[1]': cap_conduit_shell_xy("reed-cable-a")[1],
+        'reservoir_clearance': reservoir_clearance,
+        'outer_shell_x_length': outer_shell_x_length,
+        'outer_shell_y_length': outer_shell_y_length,
+        'cap_face_z': cap_face_z,
+        'stack_floor_z': stack_floor_z,
+        '_reed_bridge_gen.low_level_z': _reed_bridge_gen.low_level_z,
+        '_reed_bridge_gen.high_level_z': _reed_bridge_gen.high_level_z,
+        '_reed_bridge_gen.reed_low_z': _reed_bridge_gen.reed_low_z,
+        '_reed_bridge_gen.reed_high_z': _reed_bridge_gen.reed_high_z,
+        '_reed_bridge_gen.inter_wrap_clear': _reed_bridge_gen.inter_wrap_clear,
+        '_reed_bridge_gen.bridge_z_bottom': _reed_bridge_gen.bridge_z_bottom,
+        '_reed_bridge_gen.pocket_depth': _reed_bridge_gen.pocket_depth,
+        '_port_cuts.co2_inlet_y': _port_cuts.co2_inlet_y,
+        '_port_cuts.front_face_port_z': _port_cuts.front_face_port_z,
+        'lldpe_tube_od': lldpe_tube_od,
+    }
 
-_coil_mandrel_gen = load_module(
-    "cold_core_coil_mandrel_gen",
-    _hw / "printed-parts" / "cold-core" / "coil-mandrel" / "coil_mandrel.py",
-)
 
-# The wrap AS LAID on the carbonator, and the cut struck on it — `coil_mandrel` holds the two
-# shorter readings (what the tool holds, what the same wraps come to once sprung off it)
-# but only this module sees the lift over the reed bridge, so the cut lives here.
-_coil_gen = load_module("cold_core_coil_gen", _hw / "cold-core-layout" / "_coil.py")
-
-# Carbonator reed switching levels — the bridge's own geometry sets where CLO
-# and CHI sit above the tube's bottom rim.
-_reed_bridge_gen = load_module(
-    "cold_core_reed_bridge_gen",
-    _hw / "printed-parts" / "cold-core" / "reed-bridge" / "reed_bridge.py",
-)
-
-import _internal_routes  # noqa: E402
-import _port_cuts  # noqa: E402
+globals().update(_evaluate('cold-core', _inputs())["exports"])
 
 
 def main():
-    variables = {
-        # ─── Coil winding (step 1, line 47) ───────────────────────────
-        "GROOVE_DEPTH": f"{_coil_mandrel_gen.groove_depth:.4g} mm",
-        "MANDREL_OD": f"{_coil_mandrel_gen.mandrel_od:.4g} mm",
-        "TANK_OD": f"{_coil_mandrel_gen.carbonator_od:.4g} mm",
-        "NET_UNDERSIZE": f"{_coil_mandrel_gen.net_undersize:.4g} mm",
-        "WIND_LENGTH": f"{_coil_mandrel_gen.wind_length:.4g} mm",
-        # The finished coil's turn count and pitch, set on the vessel fixture.
-        "TOTAL_WRAPS": f"{_coil_gen.TOTAL_WRAPS:.3f}",
-        "PITCH": f"{_coil_gen.PITCH:.2f} mm",
-        # LAID_FT is the finished winding's copper consumption. SPRUNG_LEN is
-        # the independent tool-groove calculation expanded to vessel diameter.
-        "SPRUNG_LEN": f"{_coil_mandrel_gen.fitted_wrap_length / 1000:.4g} m",
-        "LAID_FT": f"{_coil_gen.wrap_length() / 304.8:.4g} ft",
-        "STUB_INLET": f"{_coil_mandrel_gen.stub_allowance['inlet']:.4g} mm",
-        "STUB_OUTLET": f"{_coil_mandrel_gen.stub_allowance['outlet']:.4g} mm",
-        "PROT_INLET": f"{_coil_mandrel_gen.stub_protrusion['inlet']:.4g} mm",
-        "PROT_OUTLET": f"{_coil_mandrel_gen.stub_protrusion['outlet']:.4g} mm",
-        "ROLL_SHARE": f"1/{_coil_mandrel_gen.carbonators_per_roll}",
-        "CUT_FT": f"{_coil_gen.cut_length() / 304.8:.4g} ft",
-        "TAIL_INLET_Y": f"{_coil_mandrel_gen.tail_inlet_y:.4g}",
-        "TAIL_OUTLET_Y": f"{_coil_mandrel_gen.tail_outlet_y:.4g}",
-        # ─── Cap pour (step 3) ────────────────────────────────────────
-        "CAP_H": f"{bottom_cap_height - wall_and_floor_thickness:.4g} mm",
-        # Upper foam space between the internal-body datum and raised shell rim.
-        "CAP_H_TOP": f"{foam_shell_rim_z - foam_shell_outer_height:.4g} mm",
-        "FOAM_CAP_LID_H": f"{foam_cap_lid_height:.4g} mm",
-        "POUR_D": f"{bottom_pour_radius * 2:.4g} mm",
-        "LID_VENT_D": f"{foam_cap_lid_vent_radius * 2:.4g} mm",
-        # ─── Inserts (step 2) ─────────────────────────────────────────
-        # insert_pocket_depth is the FULL printed-pocket depth: the insert's own
-        # body, then the relief a screw that outruns it needs. The two are not
-        # equal — the pocket was cut deep enough to take the long ruthex body
-        # without moving, which is why this station presses that one.
-        "INSERT_POCKET_D": f"{insert_pocket_radius * 2:.4g} mm",
-        "INSERT_LEN": f"{insert_length:.4g} mm",
-        "INSERT_RELIEF": f"{insert_pocket_depth - insert_length:.4g} mm",
-        "CC_INSERTS": f"{CAP_CLAMP_INSERTS + CAP_DECK_INSERTS + RESERVOIR_INSERTS + B_FILL_CLAMPS}",
-        "CAP_INSERTS": f"{CAP_CLAMP_INSERTS + CAP_DECK_INSERTS + B_FILL_CLAMPS}",
-        "B_FILL_CLAMPS": str(B_FILL_CLAMPS),
-        "CAP_CLAMP_INSERTS": f"{CAP_CLAMP_INSERTS}",
-        "CAP_FACE_SCREWS": f"{CAP_FACE_SCREWS}",
-        "CAP_DECK_INSERTS": f"{CAP_DECK_INSERTS}",
-        "RES_INSERTS": f"{RESERVOIR_INSERTS}",
-        # ─── Penetrations (step 4, lines 70-72) ───────────────────────
-        # Generic small-feature port hole (water outlet, the reservoir caps'
-        # bores, CO2 tube clearance through cap+lid).
-        "TUBE_HOLE_D": f"{port_hole_radius * 2:.4g} mm",
-        # CO2 inlet Y — the carbonator's own port axis. The bore, the carbonator
-        # elbow and the tube all stand on it.
-        "COTWO_INLET_Y": f"{co2_inlet_y:.4g}",
-        # The band the water inlet's line turns and runs in — the top plate's
-        # own lateral axis up to the cap's floor — against the arc the stock
-        # wants, which is what makes the corner off that elbow the tight one.
-        "TOP_BAND": f"{top_band_to_cap:.4g}",
-        "LLDPE_BEND_R": f"{lldpe_bend_radius:.4g} mm",
-        # The strip between a bag pocket's own wall and the shell's — the band
-        # the water inlet's line climbs to reach its cap conduit.
-        "FORWARD_BAND": f"{forward_band_width:.4g} mm",
-        # Reservoir A's cap guide, in the shell's frame. B leaves at the shell rim.
-        "REED_CONDUIT_XY": ", ".join(
-            f"{n} ({cap_conduit_shell_xy(n)[0]:.4g}, {cap_conduit_shell_xy(n)[1]:.4g})"
-            for n in ("reed-cable-a",)),
-        # Reservoir-to-pocket clearance — why the pockets take no foam.
-        "RESERVOIR_GAP": f"{reservoir_clearance:.4g} mm",
-        # ─── Output envelope (line 113) ───────────────────────────────
-        "SHELL_OUTER_X": f"{outer_shell_x_length:.4g} mm",
-        "CCORE_OUTER_Y": f"{outer_shell_y_length:.4g}",
-        "OUTER_H": f"{foam_shell_rim_z:.2f} mm",
-        # Finished stack: the shell plus a cap + gasket on each face. The lid
-        # nests in the cap mouth, so it adds no height.
-        "CCORE_CAPPED_H": f"{cap_face_z - stack_floor_z:.4g} mm",
-        # ─── Carbonator reed levels and the bridge that sets them ─────
-        # The two switching heights, and the two figures the paragraph explaining
-        # them stands on: the bare channel a wrap leaves between turns, which is
-        # why the reed cannot fit between wraps at all, and where the bridge's own
-        # bottom edge lands off the tube's rim, which is what the setting gauge
-        # marks. All four off the bridge's own module, so the witness list and the
-        # explanation read one part.
-        "LOW_LEVEL": f"{_reed_bridge_gen.low_level_z:.4g} mm",
-        "HIGH_LEVEL": f"{_reed_bridge_gen.high_level_z:.4g} mm",
-        "REED_LOW_Z": f"{_reed_bridge_gen.reed_low_z:.3f} mm",
-        "REED_HIGH_Z": f"{_reed_bridge_gen.reed_high_z:.3f} mm",
-        "INTER_WRAP_CLEAR": f"{_reed_bridge_gen.inter_wrap_clear:.4g} mm",
-        "BRIDGE_Z_BOTTOM": f"{_reed_bridge_gen.bridge_z_bottom:.4g} mm",
-        "POCKET_DEPTH": f"{_reed_bridge_gen.pocket_depth:.4g} mm",
-    }
-
-    substitute_md(
-        _here / "cold-core.md",
-        variables=variables,
-    )
-    print("-> cold-core.md")
-
-    # Pin the CO2-inlet bore's station in _port_cuts.py's docstring — the
-    # bottom plate's own port offset in X, and the Z the −Y wall's two
-    # bottom-plate lines share.
-    substitute_py_comments(
-        Path(_port_cuts.__file__),
-        variables={
-            "CO2_INLET_Y": f"{_port_cuts.co2_inlet_y:.4g}",
-            "FRONT_FACE_PORT_Z": f"{_port_cuts.front_face_port_z:.4g}",
-            # Off `_cold_core_interface`, the constant's own home — `_port_cuts`
-            # imports what it needs and re-exports nothing on purpose.
-            "PORT_HOLE_DIAMETER": f"{port_hole_radius * 2:.4g}",
-        },
-    )
-    print("-> _port_cuts.py")
-
-    # `_internal_routes` draws every line in the core and states the standard it crosses a wall
-    # on, in its own comments. It cuts no solid of its own, so nothing else was going to hand it
-    # those figures and they stood at whatever was last typed.
-    substitute_py_comments(
-        Path(_internal_routes.__file__),
-        variables={
-            "PORT_HOLE_DIAMETER": f"{port_hole_radius * 2:.4g}",
-            "LLDPE_TUBE_OD": f"{lldpe_tube_od:.4g}",
-        },
-    )
-    print("-> _internal_routes.py")
+    _update('cold-core', _inputs())
 
 
 if __name__ == "__main__":

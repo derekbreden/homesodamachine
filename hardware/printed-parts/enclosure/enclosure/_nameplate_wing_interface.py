@@ -11,34 +11,9 @@ sys.path.insert(0, str(HERE.parents[1] / 'cadlib'))
 import _nameplate_interface as dimensions
 import fits
 
-WIDTH, HEIGHT = dimensions.WIDTH, dimensions.HEIGHT
-THICK = 3.36
-FIELD_THICK = THICK
-PROJECTION = 2.40
-WING_THICK = 1.68
-WING_SPAN = 30.0
-END_RADIUS = .6
-FACE_SLIP = fits.slip
-BACK_AIR = fits.slip
-# Full-depth body-width clearance; retain the ordinary Z gaps.
-FACE_X_AIR = .15
-# Local relief above each wing; the back has its own static clearance.
-THICKNESS_AIR = .45
-# The body locates X. Wing tips retain static clearance at full body travel.
-TIP_AIR = FACE_X_AIR + fits.slip
-END_AIR = fits.slip
-SUPPORTED_END_AIR = fits.supported_surface
-FLOOR_STOCK = 3.6
-# A production pad keeps its full floor stock this far past the mouth's print-down edge
-# before its 45-degree run-out, so the corner between pocket floor and run-out keeps one
-# 3 mm wall: (FLOOR_STOCK + RUNOUT_LEAD) / sqrt(2) = 3.
-RUNOUT_LEAD = 3.0 * math.sqrt(2.0) - FLOOR_STOCK
-ENTRY_BEVEL_WIDTH = 1.10
-ENTRY_BEVEL_DEPTH = .40
-# The installed PSU terminal corner needs 1 mm behind the east wing's backing.
-# Mating faces and the retaining lip are independent of this hidden rear relief.
-EAST_BACKING = 2.14
-EAST_RELIEF_START = WIDTH/2+.125
+from _enclosure_data import dimensions as _dimensions
+
+globals().update(_dimensions()['nameplate'])
 box = dimensions.box
 
 

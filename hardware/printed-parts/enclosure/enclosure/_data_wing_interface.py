@@ -10,49 +10,23 @@ import cadquery as cq
 import _nameplate_wing_interface as nameplate
 import port_chip
 
-WIDTH = 32.0
-TOP = 18.789
-BOTTOM = 11.0
-HEIGHT = TOP+BOTTOM
-CENTER_Z = (TOP-BOTTOM)/2
-THICK = nameplate.WING_THICK
-POCKET_DEPTH = nameplate.THICK
-INK_DEPTH = .72
-OPENING_W = 20.8
-OPENING_H = 18.3
-OPENING_R = .4
-WING_THICK = nameplate.WING_THICK
-WING_END_INSET = (nameplate.HEIGHT-nameplate.WING_SPAN)/2
-WING_SPAN = HEIGHT-2*WING_END_INSET
-PROJECTION = nameplate.PROJECTION
-FACE_AIR = nameplate.FACE_X_AIR
-BACK_AIR = nameplate.BACK_AIR
-# The jack's complete receptacle sits behind the trim-back allowance. Include
-# the pocket cutter's 0.01 mm end overlap to retain its full 3 mm flat lip.
-JACK_SETBACK = BACK_AIR + .01
-TIP_AIR = nameplate.TIP_AIR
-END_AIR = nameplate.END_AIR
-THICKNESS_AIR = nameplate.THICKNESS_AIR
-SUPPORTED_AIR = nameplate.SUPPORTED_END_AIR
-FLOOR_STOCK = nameplate.FLOOR_STOCK
-ENTRY_WIDTH = nameplate.ENTRY_BEVEL_WIDTH
-ENTRY_DEPTH = nameplate.ENTRY_BEVEL_DEPTH
-CORNER_R = port_chip.LOWER_CORNER_RADIUS
+from _enclosure_data import dimensions as _dimensions, read as _read
+
+globals().update(_dimensions()['data'])
 box = nameplate.box
 Station = namedtuple('Station', 'x z')
 
 
 def jack_face_y(y_outer):
     """Purchased jack and complete receptacle datum, independent of the DATA plate."""
-    return y_outer-POCKET_DEPTH-JACK_SETBACK
+    return _read('data-jack-face', data=_dimensions()['data'], y_outer=y_outer)
 
 
 def pad_runout(station,y_outer,*,up=-1):
     """Where the pad's 45-degree print-down run-out leaves its inboard face, as (y, z)."""
-    _x,z=station
-    lead=nameplate.FACE_SLIP+nameplate.RUNOUT_LEAD
-    edge=z+TOP+lead if up<0 else z-BOTTOM-lead
-    return y_outer-POCKET_DEPTH-BACK_AIR-FLOOR_STOCK,edge
+    return tuple(_read('data-pad-runout', data=_dimensions()['data'],
+                       nameplate=_dimensions()['nameplate'], z=station[1],
+                       y_outer=y_outer, up=up))
 
 
 def aperture(y0,y1):

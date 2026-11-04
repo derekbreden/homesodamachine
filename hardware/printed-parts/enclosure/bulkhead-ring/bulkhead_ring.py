@@ -55,61 +55,30 @@ FAMILIES = {"union": _jg, "neofit": _neo, "drain": _drain}
 # The band a port's identification is lettered and painted in: `tube_collar` stands its word in
 # a band this tall above the tube's axis, and `drawings/line-art/_appliance_model` paints each
 # port's mark this far past the fitting.
-RING_W = 7.05
-# A port pocket's depth into the wall's outer face, and the height of the boss behind it that
-# keeps the wall's full stock under the pocket — `enclosure_assembly.PORT_BOSS_PROUD`.
-# `tube_collar` weighs a collar's rock on its tube against a label this thick.
-THICK = 2.0
-# A pocket's top above the water and flavour axes. `rise` adds the CO2 axis's drop so all three
-# upper pockets finish on the enclosure's top face, open above.
-RISE = 18.789
+from _enclosure_data import dimensions as _dimensions, read as _read
 
-# One word per station.
-Chip = collections.namedtuple("Chip", "word")
-STATIONS = {
-    "water": Chip("TAP"),
-    "carb": Chip("SODA"),
-    "co2": Chip("CO2"),
-    "flavor-a": Chip("FLAVOR"),
-    "flavor-b": Chip("FLAVOR"),
-    "drain": Chip("OVER"),
-}
-
-# The key each station reads its two filaments under in `_y_wall_dimensions` — both flavour
-# labels print off one spool and letter in one colour, so both answer to `flavor`.
-FLUIDS = {"water": "water", "carb": "carb", "co2": "co2",
-          "flavor-a": "flavor", "flavor-b": "flavor", "drain": "drain"}
-
-# THE FACE IS THE SYSTEM'S. This repo does not ship `WORD_FONT`, so `WORD_WIDTHS` carries what
-# each word measures across in it at `WORD_SIZE`, and `tube_collar` reads its built words back
-# against those figures. A machine that resolves the name to another face letters a different part.
-WORD_FONT = "Helvetica"
-WORD_KIND = "bold"
-# The em the words are set at, and `WORD_CAP` the cap height that comes to.
-WORD_SIZE = 6.5
-WORD_CAP = 4.951
-WORD_WIDTHS = {"TAP": 12.657, "SODA": 18.411, "CO2": 12.813, "FLAVOR": 25.952, "OVER": 17.827}
-# How deep a word's recess is cut into a label's outboard face.
-WORD_DEPTH = 1.0
-# How far the word stands proud of that face: two 0.24 mm layers in the word's colour alone.
-WORD_RAISE = 0.48
-# What a word keeps clear of the edges of the band it stands in.
-WORD_MARGIN = 1.0
+_values = _dimensions()['bulkhead']
+globals().update({name: value for name, value in _values.items()
+                  if name.isupper() and name != 'STATIONS'})
+Chip = collections.namedtuple('Chip', 'word')
+STATIONS = {name: Chip(_values['STATIONS'][name]) for name in _values['station_order']}
+FLUIDS = {name: _values['FLUIDS'][name] for name in _values['station_order']}
 
 
 def od(fam: str) -> float:
     """The common width of all six labels, including the longest FLAVOR word."""
-    return port_chip.WIDTH
+    return _values['width']
 
 
 def bottom(fam: str) -> float:
     """A pocket's bottom edge below its fitting's axis, at the flange envelope."""
-    return FAMILIES[fam].flange_footprint() / 2.0
+    return _read('bulkhead-bottom', flange_footprint=FAMILIES[fam].flange_footprint())
 
 
 def rise(which: str) -> float:
     """A pocket's top above its own fitting's axis."""
-    return RISE + (_enc_interface.co2_axis_drop if which == "co2" else 0.0)
+    return _read('bulkhead-rise', bulkhead=_values, which=which,
+                 co2_axis_drop=_enc_interface.co2_axis_drop)
 
 
 def split(shape) -> tuple:

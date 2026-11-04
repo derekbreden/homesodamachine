@@ -1,16 +1,11 @@
 """Read current enclosure assembly figures from the canonical appliance facts."""
-
 import sys
 from pathlib import Path
-
 HERE = Path(__file__).resolve().parent
-ROOT = next(p for p in HERE.parents if (p / 'hardware' / 'scripts').is_dir())
+ROOT = next((p for p in HERE.parents if (p / 'hardware' / 'scripts').is_dir()))
 HW = ROOT / 'hardware'
-for path in (ROOT / 'tools', HW / 'scripts', HW / 'manifold-layout',
-             HW / 'printed-parts' / 'cadlib', HW / 'printed-parts' / 'cold-core',
-             HW / 'printed-parts' / 'enclosure' / 'enclosure'):
+for path in (ROOT / 'tools', HW / 'scripts', HW / 'manifold-layout', HW / 'printed-parts' / 'cadlib', HW / 'printed-parts' / 'cold-core', HW / 'printed-parts' / 'enclosure' / 'enclosure'):
     sys.path.insert(0, str(path))
-
 import _facts
 from _enclosure_datums import load as _enclosure_numbers
 enc = _enclosure_numbers()
@@ -20,43 +15,53 @@ for source in _facts.sources():
     if Path(source).suffix in ('.py', '.rs', '.json', '.toml', '.lock', '.yaml', '.yml'):
         note_read(ROOT / source)
 from _cold_core_interface import outer_shell_y_length
-from docgen import substitute_md
+
+_assembly_doc_root = next(p for p in Path(__file__).resolve().parents if (p / "hardware/scripts").is_dir())
+sys.path.insert(0, str(_assembly_doc_root / "hardware/assembly"))
+from _rust_docs import update as _update
 
 
-def main():
+def _inputs():
     facts = _facts.read()
     box = facts.box
     outer = box['outer']
     plate = box['collet_plate']
-    compressor, condenser = facts.bb('compressor'), facts.bb('condenser+fan')
-    bay_width = max(compressor.xmax, condenser.xmax) - min(compressor.xmin, condenser.xmin)
-    variables = {
-        'BOX_SIZE': f'{outer[1] - outer[0]:.6g} × {outer[3] - outer[2]:.6g} × {outer[5] - outer[4]:.6g} mm',
-        'WALL_T': f'{enc.wall:.4g} mm',
-        'FLOOR_T': f'{enc.floor_t:.4g} mm',
-        'FRONT_WALL': f'{enc.front_wall:.4g} mm',
-        'FRONT_TOP_FLANK': f'{enc.front_top_flank_t:.4g} mm',
-        'BACK_TOP_FLANK': f'{enc.back_top_flank_t:.4g} mm',
-        'CEILING_LANE': f'{enc.appliance_height - enc.floor_t - enc.wall:.4g}',
-        'LIP_UNDERWALL': f'{2 * enc.wall:.4g} mm',
-        'Y_SEAM': f'{box["y_joint"]:.4g}',
-        **enc.y_stack_figures(box['inner']),
-        'Z_SEAM_FRONT': f'{box["splits"][0]:.4g}',
-        'RAIL_TRAVEL_FRONT': f'{enc._z_rail_travel(box["inner"], box["y_joint"], "front", plate if box["pump_bay"] else None, box["vent_chase"]):.4g} mm',
-        'DOCK_TEES': f'{len(plate["holes"])}',
-        'APPLIANCE_W': f'{enc.appliance_width:.4g} mm',
-        'COMP_BAY_X': f'{bay_width:.0f}',
-        # The quarter-yawed floor footprint, beneath the proud cap uprights.
-        'CORE_X': f'{outer_shell_y_length:.0f}',
-        'SIDE_BAND': f'{enc.side_band_inset:.4g} mm',
-        'CORE_HOLD_REACH': f'{enc.core_hold_reach:.4g} mm',
-        'REAR_SEAM_CLEAR': f'{enc.rear_seam_clear:.4g} mm',
-        'Y_OVERLAP': f'{enc.lip_len:.3g} mm',
-        'GROMMET_SQUEEZE': f'{facts.constants.FLOOR_GROMMET_SQUEEZE:.4g}',
+    compressor, condenser = (facts.bb('compressor'), facts.bb('condenser+fan'))
+    return {
+        'compressor.xmax': compressor.xmax,
+        'condenser.xmax': condenser.xmax,
+        'compressor.xmin': compressor.xmin,
+        'condenser.xmin': condenser.xmin,
+        'outer[1]': outer[1],
+        'outer[0]': outer[0],
+        'outer[3]': outer[3],
+        'outer[2]': outer[2],
+        'outer[5]': outer[5],
+        'outer[4]': outer[4],
+        'enc.wall': enc.wall,
+        'enc.floor_t': enc.floor_t,
+        'enc.front_wall': enc.front_wall,
+        'enc.front_top_flank_t': enc.front_top_flank_t,
+        'enc.back_top_flank_t': enc.back_top_flank_t,
+        'enc.appliance_height': enc.appliance_height,
+        "box['y_joint']": box['y_joint'],
+        "enc.y_stack_figures(box['inner'])": enc.y_stack_figures(box['inner']),
+        "box['splits'][0]": box['splits'][0],
+        "enc._z_rail_travel(box['inner'], box['y_joint'], 'front', plate if box['pump_bay'] else None, box['vent_chase'])": enc._z_rail_travel(box['inner'], box['y_joint'], 'front', plate if box['pump_bay'] else None, box['vent_chase']),
+        "plate['holes']": plate['holes'],
+        'enc.appliance_width': enc.appliance_width,
+        'outer_shell_y_length': outer_shell_y_length,
+        'enc.side_band_inset': enc.side_band_inset,
+        'enc.core_hold_reach': enc.core_hold_reach,
+        'enc.rear_seam_clear': enc.rear_seam_clear,
+        'enc.lip_len': enc.lip_len,
+        'facts.constants.FLOOR_GROMMET_SQUEEZE': facts.constants.FLOOR_GROMMET_SQUEEZE,
     }
-    substitute_md(HERE / 'enclosure-mechanical.md', variables=variables)
-    print('-> enclosure-mechanical.md')
 
 
-if __name__ == '__main__':
+def main():
+    _update('enclosure-mechanical', _inputs())
+
+
+if __name__ == "__main__":
     main()
