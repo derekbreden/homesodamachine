@@ -29,270 +29,32 @@ from snap import Frame, apply_ramp_out_first, apply_ramp_in_first
 from docgen import substitute_py_comments
 
 
-# Physical dimensions
-footprint_x = 70.0
-footprint_y = 70.0
-corner_r = 6.0
-wall_thickness = 3.0
+sys.path.insert(0, str(_here.parent / 'enclosure'))
+from _enclosure_data import read as _read
 
-center_x = footprint_x / 2
-center_y = footprint_y / 2
-footprint_half_extent = footprint_x / 2
-
-base_thickness = 3.0
-ramp_from_skirt_to_octagon_height = 18.0
-
-# Skirt
-skirt_upper_height = 21.0
-skirt_wall = wall_thickness
-skirt_wide_flare_per_side = 3.0
-skirt_narrow_taper_per_side = 4.0
-skirt_wide_straight_height = 4.5
-# The pump's skirt overhangs the narrower body by this much on the two X flanks. The cartridge
-# joins them across Y- on the measured 5 mm land and supports all three on one horizontal plane.
-skirt_support_band = skirt_narrow_taper_per_side
-
-# Pump bore
-bore_square_side = 43.0
-ledge_depth = 1.5
-ledge_shelf_span = 26.03
-
-bore_half_diag = bore_square_side * math.sqrt(2) / 2
-bore_half_span = 53.0 / 2
-
-vertex_far = bore_half_span
-vertex_near = bore_half_diag - bore_half_span
-
-# Tower
-tower_height = 60.0
-tower_cap_thickness = 3.0
-cylinder_id = 37.0
-cylinder_r_inner = cylinder_id / 2
-
-# Lower extension
-lower_height = 23.0
-lower_cap_thickness = 3.0
-lower_footprint_straight = skirt_wide_straight_height
-
-# Stepped split
-step_height = 19.0
-step_y_clearance = 6.0
-
-# Snap fits
-snap_zone_width = 20.0
-snap_wall_height = 9.0
-snap_deflection = 1.0
-
-# Tube-casing arch notches: 13 mm openings on the physical casings' 59.75 mm pitch.
-arch_radius = 6.5
-arch_pitch = 59.75
-arch_hole_xs = (center_x - arch_pitch / 2.0,
-                center_x + arch_pitch / 2.0)
-
-
-# Outer envelope of the assembled case, including the snaps and tubes
-# that protrude past the bare base/cap solids.
-
-# Snap protrudes past the footprint; silicone tubes extend past the case body.
-snap_protrusion_per_side = 2.5
-tube_protrusion_length = 11.3
-
-# [75.0 mm](CASE_OUTER_X) is the full width of the assembled case
-case_outer_x = footprint_x + 2 * snap_protrusion_per_side
-
-# [87.3 mm](CASE_OUTER_Y) is the full depth of the assembled case, with the protruding tubes included
-case_outer_y = (footprint_y + 2 * skirt_wide_flare_per_side
-                + tube_protrusion_length)
-
-# [135.5 mm](CASE_OUTER_Z) is the full height of the assembled case
-case_outer_z = (base_thickness + ramp_from_skirt_to_octagon_height + tower_height
-                + skirt_upper_height + skirt_wide_flare_per_side
-                + skirt_wide_straight_height + lower_height + lower_cap_thickness)
-
-# Half-extent of the stepped-split cutter slab.  Exceeds the case's X and
-# Y footprint half-extents so the cut pierces through to free air on every
-# side.
-cutter_half_extent = max(case_outer_x, case_outer_y) / 2 + 5.0
-
-
-# Slop added to cut depths so they pierce cleanly through sibling solid
-# boundaries.
-overcut = 0.1
-# Polygonization count per quarter-circle for round-corner profiles.
-arc_segments = 8
-
-
-# Coordinate convention
-# ---------------------
-# Every `_y` and `_z` in this file is a signed world coordinate.
-# Distances/heights/thicknesses are unsigned magnitudes.
-#
-# Origin is at the center of the case footprint, on the bore-opening
-# face of the base plate.  +Z points toward the tower (away from the
-# cap); -Z points toward the skirt top (toward the cap).  Construction
-# uses the following cross-section levels:
-#
-#   z = [+81 mm](CYLINDER_BOTTOM_Z) — tower cylinder's far face
-#   z = [+21 mm](BORE_BOTTOM_Z) — bore wall's far face (octagonal bore cavity ends here)
-#   z = [+8 mm](CYLINDER_TOP_Z) — tower cylinder's near face
-#   z = [+3 mm](BASE_PLATE_FAR_Z) — base plate's far face
-#   z = 0 — base plate's bore-opening face — origin
-#   z = [-9.5 mm](NARROW_SPLIT_Z) — narrow-half cap-side step (the stepped split)
-#   z = [-28.5 mm](SKIRT_BOTTOM_Z) — skirt's wide-half mating edge with the cap
-#   z = [-51.5 mm](LOWER_CAP_TOP_Z) — lower cap's interior face (cavity ends here)
-#   z = [-54.5 mm](LOWER_CAP_BOTTOM_Z) — lower cap's exterior face (case's far end)
-
-octagon_wall_outer_extent = vertex_far + wall_thickness
-
-bore_depth = base_thickness + ramp_from_skirt_to_octagon_height
-bore_bottom_z = bore_depth  # [+21 mm](BORE_BOTTOM_Z)
-
-# Inward step from the cylinder to the octagonal bore wall at the
-# cardinals.
-cylinder_cardinal_step = 0.5
-cylinder_r_outer = octagon_wall_outer_extent + cylinder_cardinal_step
-
-# Cylinder's top Z, where its top edge is tangent to the base-plate
-# ramp at the cardinals.
-cylinder_top_z = footprint_half_extent + base_thickness - cylinder_r_outer  # [+8 mm](CYLINDER_TOP_Z)
-cylinder_bottom_z = bore_bottom_z + tower_height  # [+81 mm](CYLINDER_BOTTOM_Z)
-
-
-# Polygon generators
-
-class Turtle:
-    """Logo-style turtle that accumulates (x, y) polygon points."""
-
-    def __init__(self, x, y, heading_deg):
-        self.x = x
-        self.y = y
-        self.heading = math.radians(heading_deg)
-        self.points = []
-
-    def forward(self, dist):
-        self.x += dist * math.cos(self.heading)
-        self.y += dist * math.sin(self.heading)
-        self.points.append((self.x, self.y))
-
-    def left(self, deg):
-        self.heading += math.radians(deg)
-
-    def right(self, deg):
-        self.heading -= math.radians(deg)
+_case = _read('pump-case-defaults')
+globals().update(_case)
 
 
 def bore_octagon_profile():
     """Pump bore octagon with ledge indentations, centered at origin."""
-    vf = vertex_far
-    vn = vertex_near
-
-    vertices = [
-        (vn, vf), (vf, vn), (vf, -vn), (vn, -vf),
-        (-vn, -vf), (-vf, -vn), (-vf, vn), (-vn, vf),
-    ]
-    long_edge_indices = {0, 2, 4, 6}
-
-    pts = []
-    for i in range(8):
-        start_x, start_y = vertices[i]
-        end_x, end_y = vertices[(i + 1) % 8]
-        pts.append((start_x, start_y))
-
-        if i not in long_edge_indices:
-            continue
-
-        edge_dx, edge_dy = end_x - start_x, end_y - start_y
-        edge_length = math.hypot(edge_dx, edge_dy)
-        edge_heading = math.degrees(math.atan2(edge_dy, edge_dx))
-
-        mid_x, mid_y = (start_x + end_x) / 2, (start_y + end_y) / 2
-        unit_x, unit_y = edge_dx / edge_length, edge_dy / edge_length
-        normal_x, normal_y = unit_y, -unit_x
-        if normal_x * (-mid_x) + normal_y * (-mid_y) < 0:
-            normal_x, normal_y = -normal_x, -normal_y
-        inward_is_left = (normal_x * (-unit_y) + normal_y * unit_x) > 0
-
-        ledge_ramp_length = ledge_depth * math.sqrt(2)
-        entry_length = (edge_length - ledge_shelf_span) / 2
-        shelf_length = ledge_shelf_span - 2 * ledge_depth
-
-        t = Turtle(start_x, start_y, edge_heading)
-        t.forward(entry_length)
-        if inward_is_left:
-            t.left(45); t.forward(ledge_ramp_length); t.right(45)
-            t.forward(shelf_length)
-            t.right(45); t.forward(ledge_ramp_length); t.left(45)
-        else:
-            t.right(45); t.forward(ledge_ramp_length); t.left(45)
-            t.forward(shelf_length)
-            t.left(45); t.forward(ledge_ramp_length); t.right(45)
-        t.forward(entry_length)
-
-        pts.extend(t.points[:-1])
-
-    return pts
+    return [tuple(p) for p in _read('pump-case-bore', case=_case)]
 
 
 def _ring(section):
-    """A section's own points with the first repeated, so the closing edge is DRAWN.
-
-    `close()` infers it instead, from the last edge's end read back off OCCT — a few 1e-16 off
-    the point that was passed in — and a tangential boolean downstream resolves that vertex one
-    way in one process and the other way in the next. Naming the point is what makes the same
-    source write the same bytes."""
-    pts = list(section)
-    return pts if pts[0] == pts[-1] else pts + [pts[0]]
+    """A section's points with an explicit closing vertex."""
+    return [tuple(p) for p in _read('pump-case-ring', points=list(section))]
 
 
 def offset_polygon(pts, distance):
     """Offset each edge of a closed polygon outward by distance."""
-    n = len(pts)
-
-    edges = []
-    for i in range(n):
-        x1, y1 = pts[i]
-        x2, y2 = pts[(i + 1) % n]
-        dx, dy = x2 - x1, y2 - y1
-        length = math.hypot(dx, dy)
-        nx, ny = -dy / length, dx / length
-        edges.append((dx, dy, nx, ny))
-
-    result = []
-    for i in range(n):
-        prev = (i - 1) % n
-        ax = pts[prev][0] + distance * edges[prev][2]
-        ay = pts[prev][1] + distance * edges[prev][3]
-        adx, ady = edges[prev][0], edges[prev][1]
-
-        bx = pts[i][0] + distance * edges[i][2]
-        by = pts[i][1] + distance * edges[i][3]
-        bdx, bdy = edges[i][0], edges[i][1]
-
-        det = adx * bdy - ady * bdx
-        if abs(det) < 1e-10:
-            result.append((bx, by))
-        else:
-            t = ((bx - ax) * bdy - (by - ay) * bdx) / det
-            result.append((ax + t * adx, ay + t * ady))
-
-    return result
+    return [tuple(p) for p in _read('pump-case-offset', points=pts, distance=distance)]
 
 
 def rounded_rect_profile(width, height, radius, n=arc_segments):
     """Polygon points for a rounded rectangle centered at origin."""
-    hw, hh = width / 2, height / 2
-    pts = []
-    corners = [
-        (hw - radius, hh - radius, 0, 90),
-        (-hw + radius, hh - radius, 90, 180),
-        (-hw + radius, -hh + radius, 180, 270),
-        (hw - radius, -hh + radius, 270, 360),
-    ]
-    for cx, cy, start_deg, end_deg in corners:
-        for i in range(n + 1):
-            angle = math.radians(start_deg + (end_deg - start_deg) * i / n)
-            pts.append((cx + radius * math.cos(angle), cy + radius * math.sin(angle)))
-    return pts
+    return [tuple(p) for p in _read('pump-case-rounded', width=width, height=height,
+                                    radius=radius, n=n)]
 
 
 def split_skirt_profile(wide_half_extent, wide_radius,
@@ -300,167 +62,19 @@ def split_skirt_profile(wide_half_extent, wide_radius,
                         transition_y_plus=None, transition_y_minus=None,
                         wide_half_extent_y=None, narrow_half_extent_y=None,
                         n=arc_segments):
-    """Asymmetric profile: wider on +Y, narrower on -Y, with diagonal transitions.
-
-    A symmetric profile has one exact transition vertex on each side. The diagonal is born
-    from that point at the next loft level; it is not approximated by a short edge."""
-    wide_radius = max(wide_radius, 0.01)
-    narrow_radius = max(narrow_radius, 0.01)
-    if wide_half_extent_y is None:
-        wide_half_extent_y = wide_half_extent
-    if narrow_half_extent_y is None:
-        narrow_half_extent_y = narrow_half_extent
-    wide_corner_center_x = wide_half_extent - wide_radius
-    wide_corner_center_y = wide_half_extent_y - wide_radius
-    narrow_corner_center_x = narrow_half_extent - narrow_radius
-    narrow_corner_center_y = narrow_half_extent_y - narrow_radius
-
-    if transition_y_plus is None:
-        transition_y_plus = (wide_half_extent - narrow_half_extent) / 2
-    if transition_y_minus is None:
-        transition_y_minus = -transition_y_plus
-
-    pts = []
-
-    for i in range(n + 1):
-        a = math.radians(90 * i / n)
-        pts.append((wide_corner_center_x + wide_radius * math.cos(a),
-                    wide_corner_center_y + wide_radius * math.sin(a)))
-    for i in range(n + 1):
-        a = math.radians(90 + 90 * i / n)
-        pts.append((-wide_corner_center_x + wide_radius * math.cos(a),
-                    wide_corner_center_y + wide_radius * math.sin(a)))
-
-    wide_transition = (-wide_half_extent, transition_y_plus)
-    narrow_transition = (-narrow_half_extent, transition_y_minus)
-    pts.append(wide_transition)
-    if narrow_transition != wide_transition:
-        pts.append(narrow_transition)
-
-    for i in range(n + 1):
-        a = math.radians(180 + 90 * i / n)
-        pts.append((-narrow_corner_center_x + narrow_radius * math.cos(a),
-                    -narrow_corner_center_y + narrow_radius * math.sin(a)))
-    for i in range(n + 1):
-        a = math.radians(270 + 90 * i / n)
-        pts.append((narrow_corner_center_x + narrow_radius * math.cos(a),
-                    -narrow_corner_center_y + narrow_radius * math.sin(a)))
-
-    narrow_transition = (narrow_half_extent, transition_y_minus)
-    wide_transition = (wide_half_extent, transition_y_plus)
-    pts.append(narrow_transition)
-    if wide_transition != narrow_transition:
-        pts.append(wide_transition)
-
-    return pts
-
-
-# Bore profiles (shared by bore construction and tower)
-bore_profile = bore_octagon_profile()
-bore_wall_profile = offset_polygon(bore_profile, wall_thickness)
-
-
-# Skirt profiles (shared by skirt, lower extension, the split, and snap fits).
-#
-# The skirt splits asymmetrically: +Y half flares outward ([70](FOOTPRINT_X)→[76](SKIRT_WIDE_WIDTH)), -Y half
-# tapers inward ([70](FOOTPRINT_X)→[62](SKIRT_NARROW_WIDTH)). Both flares are at 45 degrees. The transition wall
-# stays in a fixed vertical plane by tracking each endpoint's Y independently.
-# The same profile set is used by the outer skirt surface and (shrunk by
-# skirt_wall) by the inner cavity.
-
-skirt_base_half_extent = footprint_half_extent
-skirt_wide_half_extent = skirt_base_half_extent + skirt_wide_flare_per_side
-skirt_narrow_half_extent = skirt_base_half_extent - skirt_narrow_taper_per_side
-skirt_wide_full_width = 2 * skirt_wide_half_extent
-skirt_narrow_full_width = 2 * skirt_narrow_half_extent
-# At the moment the wide flare completes ([3mm](SKIRT_WIDE_FLARE)), the narrow side
-# has only tapered by [3mm](SKIRT_WIDE_FLARE) of its [4mm](SKIRT_NARROW_TAPER).
-skirt_mid_narrow_half_extent = skirt_base_half_extent - skirt_wide_flare_per_side
-
-# Both skirt halves terminate at skirt_bottom_z; the narrow side's deeper
-# taper leaves it a correspondingly shorter straight section.
-skirt_narrow_straight_height = (
-    skirt_wide_straight_height
-    - (skirt_narrow_taper_per_side - skirt_wide_flare_per_side)
-)
-
-# Transition Y coordinates at the two genuinely split profiles. Together with each symmetric
-# profile's one exact collapse point, they keep the seam wall in one vertical 45-degree plane
-# as the +Y half flares and the -Y half tapers at different rates.
-skirt_transition_y_mid = (skirt_wide_flare_per_side, -skirt_wide_flare_per_side)
-skirt_transition_y_end = (skirt_wide_flare_per_side, -skirt_narrow_taper_per_side)
-skirt_transition_y_end_plus = skirt_transition_y_end[0]
-
-# Signed world-Z deltas between the five skirt cross-section levels.
-# Each entry is negative because the skirt grows from z=0 (base plate)
-# toward more negative Z (away from the bore, toward the cap).
-skirt_z_steps = [
-    -skirt_upper_height,
-    -skirt_wide_flare_per_side,
-    -(skirt_narrow_taper_per_side - skirt_wide_flare_per_side),
-    -skirt_narrow_straight_height,
-]
-skirt_bottom_z = sum(skirt_z_steps)  # [-28.5 mm](SKIRT_BOTTOM_Z), case's wide-half mating edge with the cap
-
-# Z level of the cap-side stepped split — narrow half (-Y) meets the cap
-# step_height higher into the skirt than the wide half (+Y).
-narrow_split_z = skirt_bottom_z + step_height  # [-9.5 mm](NARROW_SPLIT_Z)
-
-# The lower extension's own ramp: the wide half comes in from the skirt's flare to the narrow
-# half's width, at 45 degrees like every other flare on this case.  It runs one
-# lower_footprint_straight under the skirt's bottom, so the case's two flank ramps stand at
-# different depths and in opposite halves.
-lower_ramp_height = (skirt_base_half_extent + skirt_wide_flare_per_side
-                     - skirt_narrow_half_extent)
-
-# Lower cap Z anchors. The lower extension is a hollow shell from
-# skirt_bottom_z to lower_cap_top_z; the closing wall (the "lower cap")
-# fills lower_cap_top_z..lower_cap_bottom_z. lower_cap_bottom_z is the
-# case's outermost face on the -Z end.
-lower_cap_top_z = skirt_bottom_z - lower_height  # [-51.5 mm](LOWER_CAP_TOP_Z)
-lower_cap_bottom_z = lower_cap_top_z - lower_cap_thickness  # [-54.5 mm](LOWER_CAP_BOTTOM_Z)
-
-# World Y of the case's +Y outer face.
-pos_y_face_y = center_y + footprint_half_extent
+    """Asymmetric wide/narrow outline with its exact transition vertices."""
+    return [tuple(p) for p in _read('pump-case-split',
+                wide_half_extent=wide_half_extent, wide_radius=wide_radius,
+                narrow_half_extent=narrow_half_extent, narrow_radius=narrow_radius,
+                transition_y_plus=transition_y_plus, transition_y_minus=transition_y_minus,
+                wide_half_extent_y=wide_half_extent_y, narrow_half_extent_y=narrow_half_extent_y,
+                n=n)]
 
 
 def _skirt_profile_set(wall_offset):
     """Five skirt cross-section profiles, top-of-skirt to bottom-of-skirt."""
-    # Shift of the transition Y values that holds the inner seam plane a full
-    # perpendicular wall_offset inward from the outer, the seam at 45 deg in XY.
-    seam_y_shift = wall_offset * (math.sqrt(2) - 1)
-
-    base_he = skirt_base_half_extent - wall_offset
-    wide_he = skirt_wide_half_extent - wall_offset
-    narrow_he = skirt_narrow_half_extent - wall_offset
-    mid_narrow_he = skirt_mid_narrow_half_extent - wall_offset
-    radius = corner_r - wall_offset
-
-    ty_symmetric = seam_y_shift
-    ty_mid_plus = skirt_transition_y_mid[0] + seam_y_shift
-    ty_mid_minus = skirt_transition_y_mid[1] + seam_y_shift
-    ty_end_plus = skirt_transition_y_end[0] + seam_y_shift
-    ty_end_minus = skirt_transition_y_end[1] + seam_y_shift
-
-    symmetric = split_skirt_profile(
-        base_he, radius, base_he, radius,
-        ty_symmetric, ty_symmetric,
-    )
-    mid = split_skirt_profile(
-        wide_he, radius, mid_narrow_he, radius,
-        ty_mid_plus, ty_mid_minus,
-        wide_half_extent_y=base_he, narrow_half_extent_y=base_he,
-    )
-    end = split_skirt_profile(
-        wide_he, radius, narrow_he, radius,
-        ty_end_plus, ty_end_minus,
-        wide_half_extent_y=base_he, narrow_half_extent_y=base_he,
-    )
-    return [symmetric, symmetric, mid, end, end]
-
-
-skirt_outer_profiles = _skirt_profile_set(0)
-skirt_inner_profiles = _skirt_profile_set(skirt_wall)
+    return [[tuple(p) for p in section]
+            for section in _read('pump-case-skirt-set', case=_case, wall_offset=wall_offset)]
 
 
 def build_base_plate_with_ramp():
@@ -939,25 +553,7 @@ def build_pump_case():
 def main():
     substitute_py_comments(
         _here / "pump_case.py",
-        variables={
-            "CASE_OUTER_X": f"{case_outer_x:.1f} mm",
-            "CASE_OUTER_Y": f"{case_outer_y:.1f} mm",
-            "CASE_OUTER_Z": f"{case_outer_z:.1f} mm",
-            "CYLINDER_BOTTOM_Z": f"{cylinder_bottom_z:+g} mm",
-            "BORE_BOTTOM_Z": f"{bore_bottom_z:+g} mm",
-            "CYLINDER_TOP_Z": f"{cylinder_top_z:+g} mm",
-            "BASE_PLATE_FAR_Z": f"+{base_thickness:.4g} mm",
-            "NARROW_SPLIT_Z": f"{narrow_split_z:+g} mm",
-            "SKIRT_BOTTOM_Z": f"{skirt_bottom_z:+g} mm",
-            "LOWER_CAP_TOP_Z": f"{lower_cap_top_z:+g} mm",
-            "LOWER_CAP_BOTTOM_Z": f"{lower_cap_bottom_z:+g} mm",
-            "FOOTPRINT_X": f"{footprint_x:.4g}",
-            "RAMP_BOTTOM_WIDTH": f"{footprint_x - 2 * ramp_from_skirt_to_octagon_height:.4g}",
-            "SKIRT_WIDE_WIDTH": f"{skirt_wide_full_width:.4g}",
-            "SKIRT_NARROW_WIDTH": f"{skirt_narrow_full_width:.4g}",
-            "SKIRT_WIDE_FLARE": f"{skirt_wide_flare_per_side:.4g}mm",
-            "SKIRT_NARROW_TAPER": f"{skirt_narrow_taper_per_side:.4g}mm",
-        },
+        variables=_read('pump-case-variables', case=_case),
     )
     print("-> updated comments in pump_case.py")
 

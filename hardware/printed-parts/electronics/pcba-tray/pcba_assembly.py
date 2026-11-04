@@ -24,38 +24,15 @@ import pcba_tray as pt
 
 
 def numbers():
-    """The board stock, hole datums and bench mount, from their native builders' figures."""
-    above, below = pt.component_stock()
-    board = {
-        "slab": ((-pt.board.length / 2.0, -pt.board.width / 2.0, 0.0),
-                 (pt.board.length, pt.board.width, pt._thickness)),
-        "bores": [(hx - pt._centre[0], hy - pt._centre[1], -0.5,
-                   pt._hole_dia / 2.0, pt._thickness + 1.0) for hx, hy in pt._holes_pcb],
-        "above": above, "below": below,
-        "tail_keepouts": [((hx - pt._centre[0] - pt._hole_reach,
-                            hy - pt._centre[1] - pt._hole_reach, -pt.pin_drop - 0.5),
-                           (2.0 * pt._hole_reach, 2.0 * pt._hole_reach, pt.pin_drop + 1.0))
-                          for hx, hy in pt._holes_pcb],
-        "joints": [(px - pt._centre[0], py - pt._centre[1], -pt.pin_drop,
-                    dia / 2.0, pt.pin_drop) for _pin, (px, py), dia in pt._hole_joints],
-        "pin_drop": pt.pin_drop,
-    }
-    points, bosses, mounts = [], [], []
-    for i, mount in enumerate(pt.MOUNTS):
-        points += mt._rect_corners(*mount.c, mount.ref.length, mount.ref.width, mount.rot)
-        boss_d, bore_d, depth = mt._boss_spec(getattr(mount.ref, "hole_dia", 3.2))
-        radius = boss_d / 2.0
-        for px, py in mt._posts(mount):
-            points += [(px - radius, py - radius), (px + radius, py - radius),
-                       (px + radius, py + radius), (px - radius, py + radius)]
-            bosses.append({"stock": (px, py, mt.floor_t, radius, mt.board_standoff),
-                           "bore": (px, py, mt.floor_t + mt.board_standoff - depth,
-                                    bore_d / 2.0, depth + 1.0)})
-        mounts.append({"name": f"{mount.ref.name}{i}", "rotation": mount.rot,
-                       "translation": (*mount.c, mt.floor_t + mt.board_standoff)})
-    return {"board": board,
-            "tray": {"hull": mt._convex_hull(points), "floor_t": mt.floor_t, "bosses": bosses},
-            "mounts": mounts, "board_color": linear(C_PCBA), "tray_color": linear(M_PETG_BLACK)}
+    """The Rust board/fab reader and shared convex-floor construction recipe."""
+    import _rust_part
+    from _rust_data import request
+    _rust_part._READ_TARGETS.add(pt._GLB.resolve().relative_to(_rust_part.ROOT.resolve()).as_posix())
+    mounts = [{'name': m.ref.name, 'length': m.ref.length, 'width': m.ref.width,
+               'holes': m.ref.holes, 'hole_dia': getattr(m.ref, 'hole_dia', 3.2),
+               'center': m.c, 'rotation': m.rot} for m in pt.MOUNTS]
+    return request('part-data', 'part-data', {'part': 'pcba-assembly', 'glb': str(pt._GLB),
+        'mounts': mounts, 'board_color': linear(C_PCBA), 'tray_color': linear(M_PETG_BLACK)})
 
 
 def main():

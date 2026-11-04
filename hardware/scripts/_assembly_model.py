@@ -44,22 +44,23 @@ def reference_instance(reference):
     return instance(reference.model, indices=reference.indices, transform=reference.transform)
 
 
-def document(model):
-    """A fine archive's small document, without loading its geometry."""
-    import numpy as np
+def _metadata(model, kind):
+    from _rust_data import request
+    from _cadq_export import note_read
+    path = Path(model).resolve()
+    note_read(path)
+    return request('machine-data', 'machine-data',
+                   {'op': 'archive_metadata', 'kind': kind, 'path': str(path)})
 
-    with np.load(model, allow_pickle=False) as archive:
-        return (json.loads(archive['document'].tobytes())
-                if 'document' in archive.files else {})
+
+def document(model):
+    """A fine archive's document, read by Rust without opening geometry arrays."""
+    return _metadata(model, 'document')
 
 
 def identity(model):
-    """The stored per-entry names and linear colours, without loading geometry."""
-    import numpy as np
-
-    with np.load(model, allow_pickle=False) as archive:
-        return list(zip(json.loads(archive['names'].tobytes()),
-                        json.loads(archive['colors'].tobytes()), strict=True))
+    """The ordered per-entry names and colours, read in Rust without geometry arrays."""
+    return [(name, color) for name, color in _metadata(model, 'identity')]
 
 
 @contextmanager
@@ -249,45 +250,11 @@ def measure_groups(references, queries):
     Query endpoints name those references. Fine-mask stages name small authored
     tool references under ``references`` as well. No geometry is read in Python.
     """
-    used = dict.fromkeys(name for query in queries for name in
-        (query['a'], query['b'], *(name for stage in query.get('fine_mask_stages', ())
-                                  for name in stage['references'])))
-
-    def source_key(ref):
-        return json.dumps({key: value for key, value in ref.items() if key != 'indices'},
-                          separators=(',', ':'), sort_keys=True)
-
-    sources, selections = {}, {}
-    for name in used:
-        ref = references[name]
-        key = source_key(ref)
-        sources.setdefault(key, {k: value for k, value in ref.items() if k != 'indices'})
-        selections.setdefault(key, set()).update(ref['indices'])
-    instances, slots, offset = [], {}, 0
-    for key, ref in sources.items():
-        indices = sorted(selections[key])
-        instances.append({**ref, 'indices': indices})
-        for index in indices:
-            slots[key, index] = offset
-            offset += 1
-
-    def operand(name):
-        ref = references[name]
-        key = source_key(ref)
-        indices = [slots[key, index] for index in ref['indices']]
-        return indices[0] if len(indices) == 1 else indices
-
-    numbered = []
-    for query in queries:
-        row = {**query, 'a': operand(query['a']), 'b': operand(query['b'])}
-        if 'fine_mask_stages' in query:
-            row['fine_mask_stages'] = [
-                {**{key: value for key, value in stage.items() if key != 'references'},
-                 'indices': [index for name in stage['references'] for index in
-                             ([operand(name)] if isinstance(operand(name), int) else operand(name))]}
-                for stage in query['fine_mask_stages']]
-        numbered.append(row)
-    return measure(instances, numbered, query_only=True)['queries'] if numbered else []
+    from _rust_data import request
+    plan = request('machine-data', 'machine-data',
+                   {'op': 'query_groups', 'references': references, 'queries': queries})
+    return (measure(plan['instances'], plan['queries'], query_only=True)['queries']
+            if plan['queries'] else [])
 
 
 def box_commons(model, requests, *, transform=None):
@@ -297,39 +264,14 @@ def box_commons(model, requests, *, transform=None):
     three-vectors). The kernel constructs that exact tool at its builder grid;
     the already authored body coordinates retain their raw f64 values.
     """
-    requests=list(requests)
+    from _rust_data import request
+    requests = list(requests)
     if not requests:
         return []
-    if any(not row['indices']for row in requests):
-        raise ValueError('A box common needs a fine model entry')
-    selected=sorted({index for row in requests for index in row['indices']})
-    slots={index:i for i,index in enumerate(selected)}
-    queries=[];owners=[]
-    for owner,row in enumerate(requests):
-        for index in row['indices']:
-            query={'kind':'common','a':slots[index],'b_box':row['box']}
-            if row.get('positive_components', False):
-                query['positive_components']=True
-            queries.append(query)
-            owners.append(owner)
-    said=measure([instance(model,indices=selected,transform=transform)],queries)['queries']
-    if len(said)!=len(queries):
-        raise ValueError('Box common coverage differs from the requested entries')
-    grouped=[[]for _ in requests]
-    for owner,row in zip(owners,said):
-        if 'error'in row:
-            raise ValueError(row['error'])
-        grouped[owner].append(row['common']['raw'])
-    result=[]
-    for request,rows in zip(requests,grouped):
-        material=[row for row in rows if row['min']is not None]
-        raw={'volume_mm3':sum(row['volume_mm3']for row in rows),
-                   'min':[min(row['min'][k]for row in material)for k in range(3)]if material else None,
-                   'max':[max(row['max'][k]for row in material)for k in range(3)]if material else None}
-        if request.get('positive_components', False):
-            raw['components']=[component for row in rows for component in row['components']]
-        result.append({'indices':list(request['indices']),'box':request['box'],'raw':raw})
-    return result
+    plan = request('machine-data', 'machine-data', {'op': 'query_box_plan', 'requests': requests})
+    readings = measure([instance(model, indices=plan['indices'], transform=transform)], plan['queries'])['queries']
+    return request('machine-data', 'machine-data', {'op': 'query_box_result', 'requests': requests,
+                   'owners': plan['owners'], 'readings': readings})
 
 
 def location(location):

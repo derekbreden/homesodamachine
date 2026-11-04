@@ -10,33 +10,10 @@ import math
 
 import cadquery as cq
 
-WIDTH = 104.53
-HEIGHT = 38.0
-THICK = 2.4
-CORNER_R = 3.0
-BEVEL = 0.4
-SLIP = 0.15
-WALL = 6.0
+from _enclosure_data import dimensions as _dimensions, read as _read
 
-# The tabs stand on the plate's centre line. Their pitch keeps the bar's east
-# end clear of the PSU's AC terminal block (`nameplate-psu-clear`).
-TAB_X = 41.0
-TAB_Z = 0.0
-TAB_WIDTH = 8.0
-TAB_THICK = 1.3
-TAB_LENGTH = 11.3
-TAB_ROOT_R = 1.0
-LIP_START = 8.5
-LIP = 1.8
-LIP_LAND = 1.2
-SIDE_SLIP = 0.60
-END_SLIP = 0.30
-BEARING_SLIP = 0.48
-SHOULDER_STOCK = 2.0
-# Each retaining shoulder's width outboard of its slot, and the bar's stock
-# above and below the slots.
-SHOULDER_W = 3.0
-BAR_FRAME = 3.0
+globals().update(_dimensions()['face'])
+
 
 Nameplate = namedtuple("Nameplate", "x z width height corner bevel slip thick wall")
 
@@ -51,23 +28,23 @@ def box(x0, x1, y0, y1, z0, z1):
 
 def neck():
     """The slot's outer side: the tab's outer face and its side slip."""
-    return TAB_X+TAB_THICK/2+SIDE_SLIP
+    return _read('face-values', face=_dimensions()['face'])['neck']
 
 
 def inward():
     """The slot's inner side, where the lip passes as the tab flexes."""
-    return TAB_X-TAB_THICK/2-(LIP-SIDE_SLIP)-SIDE_SLIP
+    return _read('face-values', face=_dimensions()['face'])['inward']
 
 
 def bar_end():
     """The bar's end, one shoulder beyond the slot."""
-    return neck()+SHOULDER_W
+    return _read('face-values', face=_dimensions()['face'])['bar_end']
 
 
 def slot_z(supported=0.25, up=-1.0):
     """The slot's Z span. Only its print-down end takes the supported-surface allowance."""
-    return (TAB_Z-TAB_WIDTH/2-END_SLIP+min(0, up*supported),
-            TAB_Z+TAB_WIDTH/2+END_SLIP+max(0, up*supported))
+    return tuple(_read('face-slots', face=_dimensions()['face'],
+                       supported=supported, up=up))
 
 
 def tabs():

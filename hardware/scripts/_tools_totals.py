@@ -1,331 +1,57 @@
 #!/usr/bin/env python3
-"""Compute a per-tool cost + a tools total for tools.md, pulling every figure
-from purchases.md (single source). Each tool resolves to one or more purchase
-lines; the script writes each tool's cost into its [value](NAME) marker in
-tools.md and the grand TOOLS_TOTAL — so the total reflects exactly the tools
-listed in tools.md.
-
-A run restructures tools.md (adds the $ column + markers if missing), fills
-them, and prints the resolution. `--dry` prints without writing.
-
-Resolvers per tool:
-  A(asin)        one Amazon line by ASIN
-  A2([asins])    sum of several ASIN lines (e.g. two glove variants)
-  AN(asin)       sum of every line for one ASIN (a re-buy after a MISSING)
-  L(**crit)      one specific line by order/contains/section/status
-  SUM([...])     sum of several resolvers (multi-line tools)
-  FIXED(x)       a literal (0.0 for owned-not-on-ledger / bundled-elsewhere)
-"""
-import os
-import re
+"""Tool-purchase resolution and document totals, supplied by Rust."""
 import sys
+from pathlib import Path
+from _ledger_rust import call, main as _main
 
-HERE = os.path.dirname(os.path.abspath(__file__))
-PUR = os.path.join(HERE, "..", "ledger", "purchases.md")
-TOOLS_MD = os.path.join(HERE, "..", "ledger", "tools.md")
+HERE = Path(__file__).resolve().parent
+PUR = HERE.parent / 'ledger/purchases.md'
+TOOLS_MD = HERE.parent / 'ledger/tools.md'
 
-from pathlib import Path  # noqa: E402
-sys.path.insert(0, str(next(p for p in Path(HERE).resolve().parents
-                            if (p / "tools" / "docgen").is_dir()) / "tools"))
-from docgen import substitute_md  # noqa: E402
-
-PRICE = re.compile(r"\$\s?([0-9][0-9,]*(?:\.[0-9]{1,2})?)")
-STATUS = ("ACQUIRED", "ON-ORDER", "MISSING", "CANCELLED", "NOT NEEDED", "alt option")
-
-
-def _cells(line):
-    return [c.strip() for c in line.strip().strip("|").split("|")]
-
-
-def _money(cell):
-    m = PRICE.search(cell)
-    return float(m.group(1).replace(",", "")) if m else None
-
-
-def _lead_int(cell):
-    m = re.match(r"\s*([0-9]+)", cell)
-    return int(m.group(1)) if m else None
-
+class _Resolver:
+    def __init__(self, specification):
+        self.specification = specification
+    def __call__(self):
+        return call('tools.resolve', resolver=self.specification, rows=ROWS)
 
 def load_purchases():
-    rows, section = [], None
-    for ln in open(PUR, encoding="utf-8").read().splitlines():
-        if ln.startswith("## "):
-            m = re.match(r"## (\d+)\.", ln)
-            section = m.group(1) if m else None
-            continue
-        if not ln.startswith("|"):
-            continue
-        c = _cells(ln)
-        if len(c) < 3 or set("".join(c)) <= set("-: "):
-            continue
-        status = next((x for x in reversed(c) if any(k in x for k in STATUS)), None)
-        if status is None:
-            continue
-        si = max(i for i, x in enumerate(c) if x == status)
-        dcell = di = None
-        for i in range(si - 1, -1, -1):
-            if "$" in c[i]:
-                dcell, di = c[i], i
-                break
-        if dcell is None:
-            continue
-        cost = _money(dcell)
-        if cost is None:
-            continue
-        if dcell.split() and dcell.split()[-1] == "ea":
-            q = _lead_int(c[di - 1]) if di else None
-            if q:
-                cost *= q
-        rows.append({
-            "section": section, "text": ln, "cost": cost,
-            "status": status, "asins": set(re.findall(r"B0[A-Z0-9]{8}", ln)),
-        })
+    rows = call('tools.load', purchases=PUR)
+    for row in rows:
+        row['asins'] = set(row['asins'])
     return rows
 
-
-ROWS = load_purchases()
-
-
 def _pick(matches, label):
-    if len(matches) != 1:
-        raise SystemExit(f"  !! {label}: expected 1 line, found {len(matches)}")
-    return matches[0]["cost"]
-
+    return call('tools.pick', matches=matches, label=label)
 
 def A(asin):
-    return lambda: _pick([r for r in ROWS if asin in r["asins"]], asin)
-
+    return _Resolver({'A':asin})
 
 def A2(asins):
-    return lambda: sum(A(a)() for a in asins)
-
+    return _Resolver({'A2':asins})
 
 def AN(asin):
-    """Every line for one ASIN. A re-buy — a MISSING original plus the
-    replacement bought for it — is two real outlays on the one tool, the
-    same way purchases.md totals MISSING alongside ACQUIRED."""
-    return lambda: sum(r["cost"] for r in ROWS if asin in r["asins"])
-
+    return _Resolver({'AN':asin})
 
 def L(contains=None, section=None, status=None, order=None):
-    def f():
-        ms = ROWS
-        if order:
-            ms = [r for r in ms if order in r["text"]]
-        if contains:
-            ms = [r for r in ms if contains in r["text"]]
-        if section:
-            ms = [r for r in ms if r["section"] == section]
-        if status:
-            ms = [r for r in ms if status in r["status"]]
-        return _pick(ms, contains or order)
-    return f
-
+    return _Resolver({'line':dict(contains=contains, section=section, status=status, order=order)})
 
 def SUM(parts):
-    return lambda: sum(p() for p in parts)
+    return _Resolver({'sum':[p.specification for p in parts]})
 
+def FIXED(value):
+    return _Resolver({'FIXED':value})
 
-def FIXED(x):
-    return lambda: x
-
-
-# (tools.md name substring, marker NAME, resolver) — in document order.
-TOOLS = [
-    ("Slip Roll", "T_SLIP_ROLL", A("B0DZP1VBZY")),
-    ("Hydraulic Shop Press", "T_SHOP_PRESS", A("B0BZ7YY3CP")),
-    ("WEN 4208T", "T_DRILL_PRESS", A("B08ZVT5JKC")),
-    ("Drill America 1/16", "T_JET_DRILLS", A("B00FX9PNYQ")),
-    ("DWT adjustable tap wrench", "T_TAP_WRENCH", A("B00DMEYTLW")),
-    ("M35 cobalt pipe tap", "T_M35_TAP", A("B0D7HM5R3C")),
-    ("tap guide", "T_TAP_GUIDE", A("B005317ZMC")),
-    ("bi-metal hole saw", "T_HOLE_SAW", A("B0BZQ4J5B1")),
-    ("9/64", "T_REGISTER_BIT", A("B07XNNNC5Y")),
-    ("countersink set", "T_COUNTERSINK", A("B09C4X5R8F")),
-    ("BA4555", "T_BANDSAW", A("B09XWQCNGT")),
-    ("Noga NG8150", "T_DEBURR", A("B001O62V56")),
-    ("Daredevil spade bit", "T_SPADE_BIT", A("B001NGPAA0")),
-    ("round die handle", "T_DIE_HANDLE", A("B073ZX58PH")),
-    ("hydrostatic test pump", "T_HYDRO_PUMP", A("B07T45XTD1")),
-    ("glycerin-filled gauge", "T_GAUGE", A("B0BCHMQLFB")),
-    ("outer-hex plug", "T_DEADHEAD_PLUGS", A("B0C4LP4B3D")),
-    ("MNPT air plug", "T_MSTYLE_PLUG", A("B000PDWI4S")),
-    ("NPT hex nipple", "T_HEX_NIPPLE", A("B07P7ZRZMD")),
-    ("XLaserlab X1 Pro", "T_X1PRO", L(contains="XLaserlab X1 Pro", section="16")),
-    ("Cap-weld tube rotator", "T_WELD_ROTATOR", SUM([
-        A("B089Y8H8L5"), A("B0D2XZCGL5"), A("B0CYYYHL31"),
-        AN("B0747KM7MN"), A("B0CXPM3KTP"), A("B09W2R3SCD"),
-    ])),
-    ("argon size-80 cylinder + RHP400", "T_ARGON_CYL", L(contains="argon size-80 cylinder", section="1")),
-    ("RX Weld argon regulator", "T_RXWELD", A("B08P5BNHBX")),
-    ("Argon purge branch", "T_JET_PURGE", SUM([
-        A("B0F1FDG9SC"), lambda: A("B01ABDD8FY")() / 5,
-        A("B0DXZZBK7D"), A("B0F6SYFK48"), A("B0CLXHZZCW"),
-    ])),
-    ("Welding Cart", "T_WELD_CART", A("B08G5CW3DY")),
-    ("magnetic V-pads", "T_MAGNETS", A("B00JXDSVA6")),
-    ("wire brush set", "T_BRUSH", A("B08L7RXVG5")),
-    ("Scotch-Brite 7447", "T_SCOTCHBRITE", A("B000LPN3WQ")),
-    ("flap wheels", "T_FLAP_WHEELS", A("B07M97KFZW")),
-    ("Knipex 70 11 110", "T_WELD_WIRE_CUTTERS", A("B005EXO806")),
-    ("C110 copper bar", "T_COPPER_BAR", L(contains="B0DR2PX6TT", status="ACQUIRED")),
-    ("goat-grain TIG gloves", "T_GLOVES", A2(["B07T6VLSK3", "B07T1NYXHM"])),
-    ("Bernzomatic TS8000", "T_TORCH", A("B0BPMVTJ1R")),
-    ("4 CFM vacuum pump", "T_VAC_PUMP", A("B08P1WRZ1S")),
-    ("HVAC manifold gauge set", "T_MANIFOLD", A("B07CZB2SHZ")),
-    ("Smart Weigh", "T_SCALE", A("B00IZ1YHZK")),
-    ("PT520A leak detector", "T_LEAK_DET", A("B0BTM3G8DK")),
-    ("cap-tube cutter", "T_CAP_CUTTER", A("B00NY1YHHE")),
-    ("Model 150 tubing cutter", "T_TUBE_CUTTER", A("B0009W6T8G")),
-    ("Model 345 flaring tool", "T_FLARE_TOOL", A("B000X4K9KO")),
-    ("51006 tube bender", "T_TUBE_BENDER", A("B0DPQX17WM")),
-    ("tube straightener", "T_STRAIGHTENER", A("B0F6BPTW3T")),
-    ("Pliers Wrench", "T_PLIERS_WRENCH", A("B07YLFLSJW")),
-    ("Uniweld RHP400", "T_RHP400", A("B008HQ6GXO")),
-    ("Joywayus flare nut", "T_FLARE_NUT", A("B0G1XJ2F68")),
-    ("Hakko FX-888D", "T_HAKKO", A("B0D4DJW54S")),
-    ("Hakko FR-301", "T_FR301", A("B07BKSLLG9")),
-    ("fume extractor", "T_FUME_EXT", A("B07VWDN29F")),
-    ("AstroAI digital multimeter", "T_DMM", A("B071JL6LLL")),
-    ("11063W self-adjusting", "T_STRIPPER", A("B00CXKOEQ6")),
-    ("silicone mat", "T_MAT", A("B07DGVRYL3")),
-    ("helping-hands", "T_HELPING_HANDS", A("B08DNMT96W")),
-    ("mini heat gun", "T_HEAT_GUN", A("B09NDCCW29")),
-    ("Haisstronica", "T_CRIMPER", A("B08F3JKDD3")),
-    ("Taiss Dupont crimp", "T_DUPONT_KIT", A("B0B11RLGDZ")),
-    ("SN-2549", "T_SN2549", A("B01N4L8QMW")),
-    ("JST WC-110 hand crimper", "T_WC110",
-     L(contains="JST WC-110 hand crimper", order="DigiKey 101910359")),
-    ("Kill-A-Watt", "T_KILL_A_WATT", A("B00009MDBU")),
-    ("Virtua CCS safety glasses", "T_GLASSES", A("B00AEXKR4C")),
-    ("iFixit precision tweezers", "T_TWEEZERS", A("B079K874CQ")),
-    ("SH-U09B3 USB-C to TTL", "T_USB_UART", A("B09KXT6W46")),
-    ("KATA micro flush cutters", "T_FLUSH_CUTTERS", A("B0BBML9M2V")),
-    ("NEIKO 01407A digital caliper", "T_CALIPER", A("B000GSLKIW")),
-    ("Revopoint MINI 2", "T_SCANNER", A("B0FPX92DG3")),
-    ("ELP 16MP autofocus USB camera", "T_PANELCAM", A("B0BX6DSQ6C")),
-    ("SMALLRIG 9.8\" magic arm", "T_MAGIC_ARM", A("B087T4T8D5")),
-    ("Anker 332 5-in-1 USB-C hub", "T_USB_HUB", A("B0BQLLB61B")),
-    ("HOTO PixelDrive electric screwdriver", "T_PIXELDRIVE", A("B0FKBJL68H")),
-    ("Railer 2.5 mm hex bit (5-pack)", "T_HEXBIT_2_5", A("B0BXMLLXSN")),
-    ("Railer 4 mm hex bit (5-pack)", "T_HEXBIT_4", A("B0BXMJ48LC")),
-    ("Bambu Lab H2C (×2)", "T_H2C", SUM([
-        L(order="us712460111015776257", contains="H2C AMS Combo (printer"),
-        L(order="us728027710789775361"),
-    ])),
-    ("AMS HT", "T_AMS_HT", L(order="us717877837343809537", contains="AMS HT")),
-    ("TPU Feed Assist Module", "T_TPU_FEED",
-     L(order="us776951289157341185", contains="Feed Assist")),
-    ("AMS 2 Pro", "T_AMS2PRO", SUM([
-        L(order="us718417332286169089", contains="Bambu Lab AMS 2 Pro"),
-        L(order="us718417332286169089", contains="Switching Adapter"),
-    ])),
-    ("Vision Encoder", "T_VISION", L(order="us712460111015776257", contains="Vision Encoder")),
-    ("Engineering Plate", "T_ENG_PLATE", L(order="us712460111015776257", contains="Engineering Plate")),
-    ("SUNLU E2", "T_DRYER_E2", A("B0F5PMMXKD")),
-    ("SUNLU S4", "T_DRYER_S4", A("B0CQJMV71Z")),
-    ("PolyDryer Box ×8", "T_POLYDRYER", SUM([A("B0FHPS82YG"), AN("B0CK17RTP4")])),
-    ("PolyDryer Box XL ×2", "T_POLYDRYER_XL", A("B0FPQV18L5")),
-    ("Hotend stock", "T_HOTENDS", SUM([
-        L(order="us712460111015776257", contains="Hotends + nozzles"),
-        L(order="us715792490246602753", contains="Hotends"),
-        L(order="us726560430730719233"),
-        A("B0GWDBQW4G"), A("B0GWDDKG47"),
-        # two 0.8 PCD tips, bought a month apart — one line each
-        L(contains="B0GWDL57FK", order="114-8935189-9054653"),
-        L(contains="B0GWDL57FK", order="112-1974343-4486643"),
-        L(order="112-7312343-0359412"),
-        L(order="us766639627317551105"),
-        # three DUROZZLE 0.4 Diamond PCD tips, two orders on one day — one line each
-        L(order="112-7339165-9617019"),
-        L(order="112-4775870-3223436"),
-    ])),
-    ("PTFE Adapter II", "T_PTFE_ADAPTER", SUM([
-        L(order="us717877837343809537", contains="PTFE Adapter"),
-        L(order="us718417332286169089", contains="PTFE Adapter"),
-    ])),
-    ("vacuum chamber", "T_VAC_CHAMBER", A("B0D78ZM928")),
-    ("convection toaster oven", "T_CURE_OVEN", A("B00IXBMS6M")),
-    ("monitoring thermometer", "T_OVEN_THERMO", A("B005KDEIZ0")),
-    ("dowel pins", "T_DOWEL_PINS", A("B086DCHYQK")),
-    ('48" workbench', "T_WORKBENCH", A("B0FCD13KKQ")),
-    ("MODbox tall compartment box", "T_MODBOX_PARTS", A("B0GLKTG7C6")),
-    ("MODbox 3-drawer", "T_MODBOX_3DRAWER", A("B0CZ7FQGMG")),
-    ("MODbox roll dispenser", "T_MODBOX_ROLL", A("B0H9B8LC8V")),
-    ("Ultra Duster", "T_DUSTER", A("B07JRBR1MM")),
-    ("DeWalt DWFP55130", "T_DEWALT", FIXED(0.0)),  # owned, not on ledger
-    ("Husky 41257HOM", "T_HUSKY", FIXED(0.0)),     # owned, not on ledger
-    ("DeWalt DCD780", "T_DEWALT_DRILL", FIXED(0.0)),  # owned, not on ledger
-    ("Ryobi PCL206", "T_RYOBI_DRILL", FIXED(0.0)),    # owned, not on ledger
-    ("ET-8550", "T_PRINTER", FIXED(0.0)),          # owned, not on ledger
-    ("SanDisk Ultra Fit", "T_SANDISK", A("B07857Y17V")),
-    ("Canon EOS R50 V", "T_R50V", A("B0F258T13X")),
-    ("SmallRig CT25", "T_CT25", A("B0F8TDJH4J")),
-    ("SmallRig CT-10", "T_CT10", A("B0B63VTW46")),
-    ("NEEWER NL-192AI", "T_NEEWER_PANELS", A("B08TMBXLGD")),
-    ("SanDisk Extreme 128 GB", "T_SD_EXTREME", A("B0G8LT6J46")),
-    ("card reader", "T_CARD_READER", A("B07NW8RPYN")),
-]
-
+ROWS = load_purchases()
+TOOLS = [(t['match'],t['marker'],_Resolver(t['resolver'])) for t in call('tools.definitions')]
 
 def compute():
-    out = []
-    for match, name, resolver in TOOLS:
-        out.append((match, name, round(resolver(), 2)))
-    return out
-
+    return [tuple(row) for row in call('tools.compute', rows=ROWS)]
 
 def inject_structure(text):
-    """One-time: add a right-aligned $ column to each tool table with a
-    [$0.00](NAME) marker per tool, and a Tools-total section. Errors loudly
-    if a tool row doesn't map to exactly one TOOLS entry."""
-    by_match = [(mt, nm) for mt, nm, _ in TOOLS]
-    out, in_tt, used = [], False, set()
-    for ln in text.split("\n"):
-        if ln.startswith("## "):
-            in_tt = False
-            out.append(ln)
-            continue
-        if ln.strip() == "| Tool | Source | Notes |":
-            in_tt = True
-            out.append("| Tool | Source | Notes | $ |")
-            continue
-        if in_tt and ln.startswith("|") and set(ln) <= set("|-: "):
-            out.append(ln + "---:|")
-            continue
-        if in_tt and ln.startswith("| **"):
-            name_cell = ln.split("|")[1]  # match the tool name, not notes prose
-            ms = [nm for mt, nm in by_match if mt in name_cell]
-            if len(ms) != 1:
-                raise SystemExit(f"inject: {len(ms)} TOOLS match {ln[:55]!r}")
-            used.add(ms[0])
-            out.append(ln.rstrip() + f" [$0.00]({ms[0]}) |")
-            continue
-        out.append(ln)
-    miss = [nm for _, nm in by_match if nm not in used]
-    if miss:
-        raise SystemExit(f"inject: not located in tools.md: {miss}")
-    sec = "## Tools total\n\nTotal acquired tooling: **[$0.00](TOOLS_TOTAL)**\n\n"
-    return "\n".join(out).replace("## Sources", sec + "## Sources", 1)
-
+    return call('tools.inject', text=text)
 
 def main():
-    resolved = compute()
-    total = round(sum(c for _, _, c in resolved), 2)
-    if "--dry" not in sys.argv:
-        text = open(TOOLS_MD, encoding="utf-8").read()
-        if "TOOLS_TOTAL" not in text:
-            new = inject_structure(text)  # compute fully before truncating the file
-            open(TOOLS_MD, "w", encoding="utf-8").write(new)
-        variables = {nm: ("—" if c == 0 else f"${c:,.2f}") for _, nm, c in resolved}
-        variables["TOOLS_TOTAL"] = f"${total:,.2f}"
-        substitute_md(TOOLS_MD, variables)
-    for _, name, cost in resolved:
-        disp = "—" if cost == 0 else f"${cost:,.2f}"
-        print(f"  {disp:>10}  {name}")
-    print(f"\n  TOOLS_TOTAL  ${total:,.2f}   ({len(resolved)} tools)")
+    _main('tools.main', rows=ROWS, tools=TOOLS_MD, dry='--dry' in sys.argv)
 
-
-if __name__ == "__main__":
+if __name__ == '__main__':
     main()

@@ -37,78 +37,55 @@ import fits                                             # noqa: E402
 from docgen import substitute_md                          # noqa: E402
 
 
-# --- what the pump brings ----------------------------------------------------
-# The head's square, half of it: how far its crown reaches off the pump's axis.
-head_half = _kp.head_w / 2.0
-# The holder's clearance envelope below the bracket, independent of the fitted head face.
-head_depth = 48.88
-head_front_z = _kp.head_front_z
-head_front_below_skirt = _kp.head_front_below_skirt
-# The boss's octagon, half of it at the flats.
-boss_half = _pc.bore_half_span
-# The boss's whole run off the bracket plane — the bore wall's depth.
-boss_depth = _pc.bore_bottom_z
-# The bore the case turns the can in, half of it — what rises out of the shoulder.
-can_half = _pc.cylinder_id / 2.0
-# The molded flange's plan envelope. Its eight-millimetre skirt transfers clamp load from
-# the measured motor-facing outer rim to the lower retainer's lands.
-bracket_half = _kp.bracket_w / 2.0
-bracket_t = _kp.bracket_t
-# The motor can's far face above the bracket datum. The integral upper inverse and its
-# terminal room follow this reach.
-motor_crown = _kp.motor_end_z
-# The boss and motor's common plan offset from the head datum. The lower retainer stays on the
-# head; only the fitted rear-stack collar and openings take this shift.
-rear_axis_y_shift = _kp.rear_axis_y_shift
-# The fall the head's outlet side takes under its barbs, and how far up off its front face it
-# holds it — figures the lower retainer uses for its vertical fitting opening.
-outlet_relief = _kp.outlet_relief
-outlet_relief_run = _kp.outlet_relief_run
-# The complete pump's widest X span, across the two tube fittings on its outlet face. This is
-# not the head body's width; it is what the cradle opening passes at that one face.
-outlet_half = _kp.outlet_span_x / 2.0
-# The two individual fittings within that complete span. The enclosure opens one straight
-# passage for each fitting and carries printed wall between them.
-outlet_pitch = _kp.barb_pitch
-fitting_w = _kp.tube_casing_w
-shaft_w = fitting_w + 2.0 * fits.running
-outlet_open_half = (outlet_pitch + shaft_w) / 2.0
-skirt_depth = _kp.skirt_depth
-skirt_support_air = fits.running
-skirt_support_band = _pc.skirt_support_band
-skirt_body_y = _kp.skirt_body_y
-skirt_support_xy_air = fits.running
-skirt_body_open_y = skirt_body_y + 2.0 * skirt_support_xy_air
-skirt_body_open_y_bounds = (
-    _kp.skirt_body_y_min - skirt_support_xy_air,
-    _kp.skirt_body_y_max + skirt_support_xy_air,
-)
-skirt_y = _kp.skirt_y
-skirt_y_plus_air = _kp.skirt_y_plus_air
-skirt_open_y_max = _kp.skirt_y_max + skirt_y_plus_air
-skirt_upper_band = _kp.skirt_upper_band
-skirt_support_y_minus = (_kp.skirt_support_y_minus
-                         - skirt_support_xy_air + _kp.skirt_support_xy_air)
-skirt_support_y_plus = skirt_open_y_max - skirt_body_open_y_bounds[1]
-# The holder passage's circular bottom stays on the case's skirt-bottom datum. Its open shaft
-# admits the fitted outlet above it; the straight shaft uses `shaft_w`.
-outlet_axis_z = _pc.skirt_bottom_z
-# The case's own footprint, half of it — what its base plate and the foot of its ramp reach.
-case_half = _pc.footprint_half_extent
-# The case-derived base plate's thickness, retained by the collar source builder.
-# Production upper stock belongs to front-top's continuous body.
-PLATE = _pc.base_thickness
+sys.path.insert(0, str(_hw / 'printed-parts/enclosure/enclosure'))
+from _enclosure_data import read as _read
 
-# --- what the tray adds over the case it is cut out of -----------------------
-# Tower kept over the boss's crown after the cylinder comes off. One wall, and it is the face
-# that lands on that crown.
-SHOULDER = 3.0
+
+def _pump_source():
+    return {name: getattr(_kp, name) for name in (
+        'barb_pitch',
+        'base_plane_z',
+        'bracket_t',
+        'bracket_w',
+        'head_depth',
+        'head_front_below_skirt',
+        'head_front_z',
+        'head_w',
+        'motor_dia',
+        'motor_end_z',
+        'outlet_relief',
+        'outlet_relief_run',
+        'outlet_span_x',
+        'rear_axis_y_shift',
+        'skirt_body_y',
+        'skirt_body_y_max',
+        'skirt_body_y_min',
+        'skirt_depth',
+        'skirt_support_xy_air',
+        'skirt_support_y_minus',
+        'skirt_upper_band',
+        'skirt_y',
+        'skirt_y_max',
+        'skirt_y_plus_air',
+        'tube_casing_w',
+    )}
+
+
+_stock = _read('pump-tray-defaults', pump=_pump_source(), case=_pc._case,
+               fits={'running': fits.running})
+globals().update(_stock)
+_stock_names = tuple(_stock)
+
+
+def _data(op, **values):
+    return _read('pump-tray-' + op, pump=_pump_source(), case=_pc._case,
+                 stock={name: globals()[name] for name in _stock_names}, **values)
 
 
 def depth() -> float:
     """The tray's whole run along the pump's axis — the bore on the boss, and one `SHOULDER` of
     tower over its crown. What the piece has to own in height to build one."""
-    return boss_depth + SHOULDER
+    return _data('depth')
 
 
 def half_width() -> float:
@@ -152,14 +129,7 @@ def outlet_fore_miter(air: float):
     ``(body_half, y0, outlet_open_half, y_open)``: the case-derived tube-side room edge, the
     seam where each passage begins, the 73 mm envelope's half-span, and the y where the
     flare's own 45 degree seam plane, carried past the room edge, reaches that envelope."""
-    offset = _pc.skirt_wall - air
-    body_half = _pc.skirt_wide_half_extent - offset
-    if outlet_open_half < body_half - 1e-9:
-        raise ValueError(
-            f"the {2.0 * outlet_open_half:g} mm tube opening is narrower than the "
-            f"{2.0 * body_half:g} mm case-derived outlet room")
-    y0 = outlet_passage_start_y(air)
-    return body_half, y0, outlet_open_half, y0 + (outlet_open_half - body_half)
+    return tuple(_data('miter', air=air))
 
 
 def outlet_under_tangent(air: float):
@@ -170,20 +140,7 @@ def outlet_under_tangent(air: float):
     from the seam edge tangent to the r = ``shaft_w``/2 circular opening touches it — the
     steep outer tangent, the one planar shelf-free joint between the room's seam and the
     circle. ``u`` figures stand outboard of a tube axis; ``z`` figures are this frame's own."""
-    body_half, _y0, _open_half, _y_open = outlet_fore_miter(air)
-    r = shaft_w / 2.0
-    seam_z = _pc.skirt_bottom_z - _pc.lower_footprint_straight
-    u_wall = body_half - outlet_pitch / 2.0
-    rise = outlet_axis_z - seam_z
-    reach_sq = u_wall * u_wall + rise * rise
-    if reach_sq <= r * r:
-        raise ValueError(
-            f"the room edge stands {reach_sq ** 0.5:.3f} mm off a tube axis, inside its "
-            f"{r:g} mm opening — no tangent plane joins the seam to the circle")
-    run = (reach_sq - r * r) ** 0.5
-    u_q = r * (r * u_wall + run * rise) / reach_sq
-    z_q = outlet_axis_z + r * (run * u_wall - r * rise) / reach_sq
-    return seam_z, u_wall, u_q, z_q
+    return tuple(_data('tangent', air=air))
 
 
 def _outlet_span_extensions(air: float):
@@ -210,9 +167,7 @@ def _outlet_span_extensions(air: float):
 
 def outlet_passage_start_y(air: float):
     """The tube-side seam where each complete circle-and-shaft passage begins."""
-    offset = _pc.skirt_wall - air
-    seam_shift = offset * (2.0 ** 0.5 - 1.0)
-    return _pc.skirt_transition_y_end_plus + seam_shift
+    return _data('passage', air=air)
 
 
 def drop_well(air: float, support_top: float = None):
@@ -342,31 +297,7 @@ def trays_of_machine(facts):
 
 def numbers(trays):
     """The case's original polygon stock, axial stations and the machine's collar roots."""
-    footprint = _pc.rounded_rect_profile(_pc.footprint_x, _pc.footprint_y, _pc.corner_r)
-    ramp_end = _pc.rounded_rect_profile(
-        _pc.footprint_x - 2 * _pc.ramp_from_skirt_to_octagon_height,
-        _pc.footprint_y - 2 * _pc.ramp_from_skirt_to_octagon_height, _pc.corner_r)
-    return {
-        "ramp_sections": [[0.0, footprint], [_pc.base_thickness, footprint],
-                          [_pc.bore_bottom_z, ramp_end]],
-        "bore_wall": _pc.bore_wall_profile, "bore": _pc.bore_profile,
-        "bore_depth": _pc.bore_depth, "boss_depth": boss_depth,
-        "tower_start": _pc.cylinder_top_z, "tower_end": _pc.cylinder_bottom_z,
-        "tower_outer_radius": _pc.cylinder_r_outer,
-        "tower_inner_radius": _pc.cylinder_r_inner,
-        "tower_bore_start": _pc.bore_bottom_z - _pc.overcut,
-        "tower_bore_end": (_pc.bore_bottom_z + _pc.tower_height
-                           - _pc.tower_cap_thickness),
-        "rear_axis_y_shift": rear_axis_y_shift,
-        "half_width": half_width(), "far_reach": far_reach(), "depth": depth(),
-        "plate": _pc.base_thickness, "case_half": case_half,
-        "head_box": [[-_kp.head_w / 2, -_kp.head_w / 2, _kp.head_front_z],
-                     [_kp.head_w / 2, _kp.head_w / 2, _kp.base_plane_z]],
-        "motor_radius": _kp.motor_dia / 2, "motor_end": _kp.motor_end_z,
-        "trays": [[name, root] for name, root in sorted(trays.items())],
-        "section_stations": [0.0, boss_depth], "section_rise": 0.05,
-        "section_thickness": 0.02, "section_span": 1e3,
-    }
+    return _data('recipe', trays=trays)
 
 
 def selftest() -> int:
@@ -435,51 +366,14 @@ def selftest() -> int:
 
 
 def main():
-    import _rust_part                                           # noqa: PLC0415
-    import _facts                                               # noqa: PLC0415
-
+    import _rust_part
+    import _facts
     trays = trays_of_machine(_facts.read())
-    measured = _rust_part.check("enclosure-components", "pump-tray", numbers(trays))
-    print(f"Pump clamp collar — {len(trays)} fused into the top clamp: {', '.join(sorted(trays))}")
-    total, storey = 0.0, (0.0, 0.0)
-    for row in measured["trays"]:
-        name, root = row["name"], trays[row["name"]]
-        total += row["volume"]
-        storey = row["storeys"]
-        print(f"  {name}: {2 * half_width():g} x {root + far_reach():g}, {SHOULDER:g} of "
-              f"shoulder over {boss_depth:g} of bore, rooted {root:g} mm off the pump's axis")
-        print(f"    material {row['volume'] / 1000.0:.2f} cm^3, valid {row['valid']}, "
-              f"fouls the pump by {row['fouled_volume']:.6f} mm^3")
-        print(f"    covers {storey[0]:.0f} mm^2 on the head's crown and {storey[1]:.0f} on the "
-              f"boss's")
-    root = next(iter(sorted(trays.values())))
-
-    substitute_md(
-        _here.parent / "README.md",
-        variables={
-            "TRAY_W": f"{2 * half_width():g}",
-            "TRAY_L": f"{root + far_reach():g}",
-            "TRAY_D": f"{depth():g}",
-            "PLATE": f"{PLATE:g}",
-            "SHOULDER": f"{SHOULDER:g}",
-            "CAN_BORE": f"{2 * can_half:g}",
-            "TRAY_COUNT": f"{len(trays)}",
-            "TRAY_VOL": f"{total / 1000.0:.2f}",
-            "SOCKET_SPAN": f"{2 * boss_half:g}",
-            "SOCKET_LEDGE": f"{_pc.ledge_depth:g}",
-            "BOSS_DEPTH": f"{boss_depth:g}",
-            "HEAD_W": f"{_kp.head_w:g}",
-            "HEAD_D": f"{_kp.head_depth:g}",
-            "CAN_DIA": f"{_kp.motor_dia:g}",
-            "BRACKET_W": f"{2 * bracket_half:g}",
-            "REAR_AXIS_Y_SHIFT": f"{abs(rear_axis_y_shift):g}",
-            "ON_HEAD": f"{storey[0]:.0f}",
-            "ON_CROWN": f"{storey[1]:.0f}",
-            "RAMP_H": f"{_pc.ramp_from_skirt_to_octagon_height:g}",
-            "CASE_W": f"{2 * case_half:g}",
-        },
-    )
-    print("-> README.md")
+    measured = _rust_part.check('enclosure-components', 'pump-tray', numbers(trays))
+    report = _data('report', trays=trays, measured=measured)
+    print('\n'.join(report['lines']))
+    substitute_md(_here.parent / 'README.md', variables=report['variables'])
+    print('-> README.md')
 
 
 if __name__ == "__main__":

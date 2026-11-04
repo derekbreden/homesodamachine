@@ -9,7 +9,6 @@ no holes (tiny adhesive parts) rest on the floor.
 
 The numbers import alone: CadQuery and the materials load when a builder runs."""
 
-import math
 import sys
 from dataclasses import dataclass
 from pathlib import Path
@@ -18,57 +17,31 @@ _here = Path(__file__).resolve()
 _hw = next(p for p in _here.parents if p.name == "hardware")
 sys.path.insert(0, str(_hw / "scripts"))
 
-floor_t = 3.0           # base-plate thickness
-margin = 8.0            # part-to-plate-edge margin
-board_standoff = 5.0    # boss height — stands every board off so its pins clear
+from _rust_data import request as _request
+
+
+def _data(**payload):
+    return _request('part-data', 'part-data', {'part': 'module-tray', **payload})
+
+
+globals().update(_data())
 
 
 def _rot(dx, dy, deg):
-    r = math.radians(deg)
-    c, s = math.cos(r), math.sin(r)
-    return (dx * c - dy * s, dx * s + dy * c)
+    return tuple(_data(method='rot', dx=dx, dy=dy, degrees=deg))
 
 
 def _rect_corners(cx, cy, xdim, ydim, deg):
-    """Four corners of an xdim×ydim footprint centred at (cx,cy), rotated deg."""
-    out = []
-    for hx, hy in ((-xdim / 2, -ydim / 2), (xdim / 2, -ydim / 2),
-                   (xdim / 2, ydim / 2), (-xdim / 2, ydim / 2)):
-        rx, ry = _rot(hx, hy, deg)
-        out.append((cx + rx, cy + ry))
-    return out
+    return [tuple(p) for p in _data(method='corners', center=[cx, cy], width=xdim,
+                                   depth=ydim, degrees=deg)]
 
 
 def _convex_hull(points):
-    """2-D convex hull (monotone chain), CCW, no collinear points."""
-    pts = sorted(set(points))
-    if len(pts) <= 2:
-        return pts
-
-    def cross(o, a, b):
-        return (a[0] - o[0]) * (b[1] - o[1]) - (a[1] - o[1]) * (b[0] - o[0])
-
-    lower = []
-    for p in pts:
-        while len(lower) >= 2 and cross(lower[-2], lower[-1], p) <= 0:
-            lower.pop()
-        lower.append(p)
-    upper = []
-    for p in reversed(pts):
-        while len(upper) >= 2 and cross(upper[-2], upper[-1], p) <= 0:
-            upper.pop()
-        upper.append(p)
-    return lower[:-1] + upper[:-1]
+    return [tuple(p) for p in _data(method='hull', points=points)]
 
 
 def _boss_spec(hole_dia):
-    """(boss outer dia, heat-set bore dia, bore depth) sized to the board's hole:
-    M2 for ~2 mm board holes, M3 otherwise."""
-    # ruthex RX-M2x4 and RX-M3Sx4: Wmin is measured from the recommended
-    # pilot, and each 4 mm insert needs at least 1 mm of blind relief.
-    if hole_dia <= 2.6:
-        return 5.8, 3.2, 5.0
-    return 7.2, 4.0, 5.0
+    return tuple(_data(method='boss', hole_dia=hole_dia))
 
 
 def _insert_boss(px, py, boss_d, bore_d, depth):
@@ -89,11 +62,8 @@ class Mount:
 
 
 def _posts(m):
-    out = []
-    for dx, dy in m.ref.holes:
-        rx, ry = _rot(dx, dy, m.rot)
-        out.append((m.c[0] + rx, m.c[1] + ry))
-    return out
+    return [tuple(p) for p in _data(method='posts', center=m.c,
+                                   rotation=m.rot, holes=m.ref.holes)]
 
 
 def build_module_tray(mounts):

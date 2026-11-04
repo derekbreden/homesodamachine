@@ -22,8 +22,6 @@ face the board edges: USB-C (J14) flush on the west edge, the J10 12 V screw
 throats east — the tray leaves both edges open.
 """
 
-import json
-import struct
 import sys
 from pathlib import Path
 from types import SimpleNamespace
@@ -39,91 +37,35 @@ sys.path.insert(
 from docgen import substitute_py_comments
 from module_tray import Mount
 
-# Board datum — pcba.tsx <board outline> + the MH1–MH4 <platedhole>s.
-_outline_x = (-68.0, 17.0)
-_outline_y = (-36.3, 36.5)
-_holes_pcb = ((-64.5, 33.0), (13.5, 33.0), (13.5, -33.3), (-64.5, -33.3))
-_centre = (sum(_outline_x) / 2.0, sum(_outline_y) / 2.0)
-_thickness = 1.6
-_hole_dia = 3.2
-pin_drop = 2.0
-_GLB = _hw / "pcb" / "pcba" / "out" / "pcba.glb"
-# WHAT THE UNDERSIDE PRESENTS ROUND EACH MOUNTING HOLE. Every part on this board is top-side, so
-# the face a wall meets carries only through-hole solder joints and flush copper. Within
-# `_hole_reach` of a hole, in X and in Y, the model carries those joints as placed, each as
-# (part.pin, pad centre in the pcb frame, pad diameter) off the fab export of `pcba.tsx`, and
-# not the component boxes. Each stands `pin_drop` deep: its fillet on the pad, its clipped
-# lead inside it. MH1 has none; its nearest, a J14 shield leg, is 11.3 mm off.
-_hole_reach = 8.0
-_hole_joints = (
-    ("J1.1", (11.0, 26.48), 1.6), ("J8.4", (5.05, 31.0), 1.5),
-    ("J7.1", (7.0, -30.3), 1.8),
-    ("J11.1", (-62.0, -27.6), 1.5), ("J11.2", (-62.0, -25.1), 1.5),
-    ("J3.4", (-56.0, -30.3), 1.5),
-)
+from _rust_data import request as _request
+
+_GLB = _hw / 'pcb' / 'pcba' / 'out' / 'pcba.glb'
+
+
+def _data(**payload):
+    import _rust_part
+    if payload.get('method') in ('boxes', 'stock'):
+        _rust_part._READ_TARGETS.add(_GLB.resolve().relative_to(_rust_part.ROOT.resolve()).as_posix())
+    return _request('part-data', 'part-data', {'part': 'pcba-tray', 'glb': str(_GLB), **payload})
+
+
+_state = _data()
+globals().update(_state['values'])
+_outline_x, _outline_y, _centre = tuple(_outline_x), tuple(_outline_y), tuple(_centre)
+_holes_pcb = tuple(tuple(p) for p in _holes_pcb)
+_hole_joints = tuple((pin, tuple(p), dia) for pin, p, dia in _hole_joints)
 
 
 def _glb_component_boxes():
-    """Every component's axis-aligned bounding box out of the fab model
-    `hardware/pcb/pcba/out/pcba.glb` — one (xmin, xmax, ymin, ymax, zmin,
-    zmax) per mesh node, in pcb frame, mm. The glTF POSITION accessors carry
-    per-primitive min/max, so no mesh decoding: a node's bbox is its
-    translation (+rotation/scale if any) applied to those extremes."""
-    raw = _GLB.read_bytes()
-    assert raw[:4] == b"glTF", "not a GLB"
-    jlen = struct.unpack("<I", raw[12:16])[0]
-    g = json.loads(raw[20:20 + jlen])
-    accs, meshes = g["accessors"], g["meshes"]
-    boxes = []
-    for node in g.get("nodes", []):
-        if "mesh" not in node:
-            continue
-        t = node.get("translation", (0.0, 0.0, 0.0))
-        s = node.get("scale", (1.0, 1.0, 1.0))
-        r = node.get("rotation")  # quaternion (x, y, z, w)
-        lo = [float("inf")] * 3
-        hi = [float("-inf")] * 3
-        for prim in meshes[node["mesh"]]["primitives"]:
-            a = accs[prim["attributes"]["POSITION"]]
-            mn, mx = a["min"], a["max"]
-            for corner in range(8):
-                p = [mn[i] if corner >> i & 1 else mx[i] for i in range(3)]
-                p = [p[i] * s[i] for i in range(3)]
-                if r is not None:
-                    x, y, z = p
-                    qx, qy, qz, qw = r
-                    p = [
-                        x * (1 - 2 * (qy * qy + qz * qz)) + y * 2 * (qx * qy - qz * qw) + z * 2 * (qx * qz + qy * qw),
-                        x * 2 * (qx * qy + qz * qw) + y * (1 - 2 * (qx * qx + qz * qz)) + z * 2 * (qy * qz - qx * qw),
-                        x * 2 * (qx * qz - qy * qw) + y * 2 * (qy * qz + qx * qw) + z * (1 - 2 * (qx * qx + qy * qy)),
-                    ]
-                for i in range(3):
-                    v = p[i] + t[i]
-                    lo[i] = min(lo[i], v)
-                    hi[i] = max(hi[i], v)
-        boxes.append(tuple(1000.0 * v for v in (lo[0], hi[0], lo[1], hi[1], lo[2], hi[2])))
-    return boxes
+    """Fab-model component bounds in PCB coordinates, read by Rust."""
+    return [tuple(box) for box in _data(method='boxes')]
 
 
 def component_stock():
-    """The populated board's component and pin-tail boxes as (origin, size), in mm."""
-    board_x = _outline_x[1] - _outline_x[0]
-    board_y = _outline_y[1] - _outline_y[0]
-    glb_top = 0.7  # glb board frame: slab mid at z=0, 1.4 thick fab board
-    above, below = [], []
-    for x0, x1, y0, y1, z0, z1 in _glb_component_boxes():
-        w, d = x1 - x0, y1 - y0
-        if w < 0.2 or d < 0.2 or (z1 - z0) < 0.2:
-            continue
-        if w > board_x * 0.95 and d > board_y * 0.95:
-            continue  # the glb's own board slab
-        if z1 > glb_top + 0.05:
-            above.append(((x0 - _centre[0], y0 - _centre[1], _thickness),
-                          (w, d, z1 - glb_top)))
-        if z0 < -glb_top - 0.05:
-            zb = max(-pin_drop, z0 + glb_top)
-            below.append(((x0 - _centre[0], y0 - _centre[1], zb), (w, d, -zb)))
-    return above, below
+    """The board's above-face and pin-tail stock from the Rust GLB reader."""
+    above, below = _data(method='stock')
+    return ([tuple(tuple(p) for p in row) for row in above],
+            [tuple(tuple(p) for p in row) for row in below])
 
 
 def _build_board():
@@ -174,17 +116,9 @@ def _build_board():
     return slab
 
 
-board = SimpleNamespace(
-    name="pcba",
-    length=_outline_x[1] - _outline_x[0],
-    width=_outline_y[1] - _outline_y[0],
-    holes=tuple((hx - _centre[0], hy - _centre[1]) for hx, hy in _holes_pcb),
-    joints=tuple((px - _centre[0], py - _centre[1], dia / 2.0)
-                 for _pin, (px, py), dia in _hole_joints),
-    hole_dia=_hole_dia,
-    pin_drop=pin_drop,
-    build=_build_board,
-)
+board = SimpleNamespace(**_state['board'], build=_build_board)
+board.holes = tuple(tuple(p) for p in board.holes)
+board.joints = tuple(tuple(p) for p in board.joints)
 
 MOUNTS = [Mount(board, _centre, 0.0)]
 
@@ -196,13 +130,8 @@ MOUNTS = [Mount(board, _centre, 0.0)]
 # `pcba.tsx` verbatim.
 
 def port(px, py) -> tuple:
-    """A point in the board's `pcbX`/`pcbY` frame, as a station on the board's TOP FACE:
-    `(position, outward axis)`.
-
-    Every wafer, header and edge connector on this board mates off that face, so the axis is
-    +Z and the height is the fab thickness — a station stands where a loom is pressed on, not
-    where the copper is."""
-    return ((px - _centre[0], py - _centre[1], _thickness), (0.0, 0.0, 1.0))
+    """A connector's station on the board's top mating face."""
+    return tuple(tuple(p) for p in _data(method='port', px=px, py=py))
 
 
 def stations_hold():
@@ -219,11 +148,8 @@ def stations_hold():
 
 
 def main():
-    substitute_py_comments(
-        _here,
-        variables={"PCBA_SIZE": f"{board.length:.4g} × {board.width:.4g} mm"},
-    )
-    print(f"-> {_here.name}")
+    substitute_py_comments(_here, variables=_data()['variables'])
+    print(f'-> {_here.name}')
 
 
 if __name__ == "__main__":

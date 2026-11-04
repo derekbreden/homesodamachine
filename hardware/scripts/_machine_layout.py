@@ -23,21 +23,16 @@ for _path in (ROOT, LAYOUT, ENCLOSURE, HW / 'cold-core-layout',
 
 def _source(root, path):
     """Current producer models or the declared fine geometry of a frozen reference."""
+    from _rust_data import request
+    from _cadq_export import note_read
     relative = Path(path)
-    path = Path(root) / relative
+    staged = Path(root) / relative
     authored = ROOT / relative
-    for manifest in (path.parent / 'frozen-asset.json', authored.parent / 'frozen-asset.json'):
-        if not manifest.is_file():
-            continue
-        record = json.loads(manifest.read_text())
-        selected = record.get('fine_models', {}).get(path.name)
-        if selected is None and path.name in record.get('members', {}):
-            selected = record.get('fine_model')
-        if selected:
-            supplied = path.parent / selected['path']
-            return str(supplied if supplied.is_file() else authored.parent / selected['path'])
-    fine = Path(str(path) + '.npz')
-    return str(fine if fine.is_file() else Path(str(path) + '.mesh'))
+    for manifest in (staged.parent / 'frozen-asset.json', authored.parent / 'frozen-asset.json'):
+        if manifest.is_file():
+            note_read(manifest)
+    return request('machine-data', 'machine-data', {'op': 'model_source', 'mode': 'layout',
+        'relative': str(relative), 'input_root': str(root), 'authored_root': str(ROOT)})
 
 
 def _linear(color):

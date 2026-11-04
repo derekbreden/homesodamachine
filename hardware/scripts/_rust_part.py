@@ -117,6 +117,9 @@ def start() -> None:
         sys.meta_path.insert(0, _OCPFinder())
     entry = _entry()
     _LOCK_FOR = entry
+    # Exit-time records can call Rust. Keep their worker cleanup and inherited
+    # run/compiler leases alive until the timing callback has finished.
+    import _rust_data
     atexit.register(_file_elapsed, entry)
 
 

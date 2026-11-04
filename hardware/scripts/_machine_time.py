@@ -1,362 +1,54 @@
 #!/usr/bin/env python3
-"""Compute machine-time.md's print hours from bom.md and native slices, roll up the
-other machine processes, and write every derived figure into the [value](NAME)
-docgen markers. Third of the ledger totals scripts, beside _bom_totals.py
-(dollars) and _labor_totals.py (attended minutes) — this one owns HOURS A
-MACHINE IS OCCUPIED, which is not costed and answers turnaround + throughput.
-
-The print estimate uses §7's geometry-derived masses (_bom_masses.py), plus
-§12's float quantity and the accepted ASA Aero slice.
-For §7 parts, shape changes propagate through mass, print hours and throughput.
-The float contribution is a provisional native-slice allowance.
-
-  * Print hours = each §7 row's mass × its GROUP's hours-per-kg, except the
-    faucet batch, whose duration is read directly from its committed slice. THE KG IS
-    FILAMENT, not geometry — §7 bills what a slice of the part lays, shell and
-    infill (_bom_masses.PROFILES), and the rates below are measured against that
-    same figure. Eight groups use §7's print configurations;
-    _bom_masses.GROUP_OF assigns every row by name and is imported rather than
-    restated, so one list says what plate a part comes off. --check fails on an
-    unassigned row. The ninth group is the three ASA Aero floats: quantity
-    comes from the float's BOM row; object-feed mass and time come from its v1
-    native slice. The v2 geometry and manual insertion pause remain unmeasured.
-  * The §2/§3/§4 process tables are read, not computed — those are datasheet and
-    procedure figures. Their subtotals are summed here.
-  * The turnaround table is likewise read and summed, except for the print's own
-    wall clock: this script writes that cell, so it carries the figure into the
-    sum rather than reading it back off the page. One pass settles the file.
-
-Run:  python3 hardware/scripts/_machine_time.py           # recompute + write markers
-      python3 hardware/scripts/_machine_time.py --check    # exit 1 on an unassigned
-                                                           # §7 row or a stale marker
-"""
-import json
-import os
-import re
+"""Native-slice print estimates and machine occupancy figures, supplied by Rust."""
 import sys
+from pathlib import Path
+from _ledger_rust import call, main as _main
+from _bom_masses import GROUP_OF, MATERIALS
 
-HERE = os.path.dirname(os.path.abspath(__file__))
-BOM = os.path.join(HERE, "..", "ledger", "bom.md")
-MT = os.path.join(HERE, "..", "ledger", "machine-time.md")
-FAUCET_SLICE = os.path.join(HERE, "..", "printed-parts", "faucet",
-                           "faucet-petgf.support-audit.json")
-FLOAT_SLICE = os.path.join(HERE, "..", "printed-parts", "cold-core",
-                          "magnetic-float", "all-aero", "mark2-print", "v1",
-                          "float-preflight.json")
+HERE = Path(__file__).resolve().parent
+BOM = HERE.parent / 'ledger/bom.md'
+MT = HERE.parent / 'ledger/machine-time.md'
+FAUCET_SLICE = HERE.parent / 'printed-parts/faucet/faucet-petgf.support-audit.json'
+FLOAT_SLICE = HERE.parent / 'printed-parts/cold-core/magnetic-float/all-aero/mark2-print/v1/float-preflight.json'
+_CONSTANTS = call('printing.constants')
+PRINTERS = _CONSTANTS['printers']
+DUTY = _CONSTANTS['duty']
+HOURS_PER_YEAR = _CONSTANTS['hours_per_year']
+MEASURED = tuple(_CONSTANTS['measured'])
+MEASURED_EXT = tuple(_CONSTANTS['measured_ext'])
+PETGF_CARRY = _CONSTANTS['petgf_carry']
+_BULK_PETG = _CONSTANTS['bulk_petg']
+RATES = _CONSTANTS['rates']
+GROUP_MARKER = _CONSTANTS['group_marker']
+PRINT_WALL_MARK = '(MT_H_PRINT_WALL)'
 
-from pathlib import Path  # noqa: E402
-sys.path.insert(
-    0, str(next(p for p in Path(HERE).resolve().parents
-                if (p / "tools" / "docgen").is_dir()) / "tools"))
-from docgen import cells, substitute_md  # noqa: E402
-
-sys.path.insert(0, HERE)
-from _bom_masses import GROUP_OF, MATERIALS  # noqa: E402
-
-PRINTERS = 2          # Bambu Lab H2C, tools.md
-DUTY = 0.65           # machine duty — failed prints, plate changes, maintenance
-HOURS_PER_YEAR = 24 * 365
-
-# The two slices the print estimate stands on, each one a plate whose hours AND
-# filament were both read off the same slice.
-#
-#   bulk — the cold-core inner shell, 379.99 m in 14h22m on an H2C (0.8 nozzle,
-#          0.4 layer, PETG, 21 mm³/s). printed-parts/cold-core/foam-shell/print-log.md.
-#   ext  — the enclosure front-top, 213.06 m in 20h23m on an H2C (0.4 nozzle,
-#          0.24 layer, PET-GF15, 18 mm³/s).
-#          printed-parts/enclosure/enclosure/print-log.md holds the profile.
-#
-# A SLICE IS A PLATE, NOT A ROW. The kg beside each is what _bom_masses' shell-plus-
-# infill model bills for THE SOLID THAT PLATE WAS TAKEN FROM, which is the basis this
-# file multiplies — not a reading of whatever §7's row says today, so a part that
-# changes shape moves its own mass without disturbing the rate it is priced at. The
-# slice's own metres are the larger number of the two, by the supports and brim §7
-# does not carry; carrying the rate against the model's figure is what puts the
-# supports back into the hours.
-MEASURED = ("14 h 22 m", 1.126, 14 + 22 / 60)
-MEASURED_EXT = ("20 h 23 m", 0.653, 20 + 23 / 60)
-
-# A RATE IN HOURS PER KG DOES NOT SURVIVE A STOCK CHANGE. A nozzle lays grams at
-# (volumetric cap × density), so hours per kg move by the inverse of that product —
-# the same arithmetic the enclosure's print log states when it prices its own slot.
-# The cold core ships in PET-GF15 (`ledger/bom.md` §7) and the plate that was timed
-# ran PETG, so `bulk` is CARRIED across that pair and is an estimate until a PET-GF
-# plate of the shell is sliced. `ext` needs no carry: it was measured in the stock
-# the exterior ships in.
-_CAP_PETG, _RHO_PETG = 21.0, 1.27        # foam-shell/print-log.md, bom.md §7
-_CAP_PETGF, _RHO_PETGF = 18.0, 1.43      # enclosure/print-log.md, bom.md §7
-PETGF_CARRY = (_CAP_PETG * _RHO_PETG) / (_CAP_PETGF * _RHO_PETGF)
-
-# Hours per kg of filament, by print configuration. `ext` is measured; `bulk` is that
-# measurement carried across the stock; four are the MEASURED PLATE's own
-# rate scaled for a slower configuration, which is a scaling of the setup and not of
-# the stock — so they hang off `_BULK_PETG` rather than off the carried figure. All
-# five are labelled est. in the ledger. Faucet and float read native slice durations.
-_BULK_PETG = round(MEASURED[2] / MEASURED[1], 1)
-RATES = {
-    "shell": None, # Exact full-shell duration from the production native slice.
-    "cover": None,  # Reference solid PETG slice rate; current geometry is unsliced.
-    "bulk": None, # Caps/lids estimate from the shell's current 0.4 mm slice rate.
-    "ext":   round(MEASURED_EXT[2] / MEASURED_EXT[1], 1),       # 31.2 — measured
-    "tight": round(_BULK_PETG * 2.0),  # 3 mm watertight walls, Arachne, fine nozzle: ~½ the rate
-    "small": round(_BULK_PETG * 2.8),  # travel + layer-change overhead dominates a small part
-    "tool":  round(_BULK_PETG * 2.8),  # small supportless 0.4-nozzle part, six walls + dense core
-    "rings": round(_BULK_PETG * 2.8),  # ten small two-colour PET-GF parts on two 0.4 nozzles
-    "petgf": None,  # Exact batch duration from the committed production-profile slice.
-    "aero": None,   # Native v1 estimate per float, excluding the manual pause.
-}
-
-GROUP_MARKER = {"shell": "SHELL", "cover": "FUNNEL_COVER", "bulk": "BULK", "ext": "EXT", "tight": "TIGHT",
-                "small": "SMALL", "tool": "TOOL", "petgf": "PETGF",
-                "rings": "RINGS", "aero": "AERO"}
-
-
-# The turnaround table's one computed cell. Named here because two readers want it:
-# the row is written under this marker, and the sum skips the row it is on.
-PRINT_WALL_MARK = "(MT_H_PRINT_WALL)"
-
+def _paths():
+    return dict(bom=BOM, machine_time=MT, faucet_slice=FAUCET_SLICE, float_slice=FLOAT_SLICE)
 
 def is_data_row(c):
-    if len(c) < 2 or all(set(x) <= set("-: ") for x in c):
-        return False
-    first = c[0].strip().lower()
-    return not (first.startswith("**") or first in ("part", "group", "process",
-                                                    "stage", "machine", ""))
-
+    return call('printing.is_data_row', cells=c)
 
 def number(cell):
-    """Last-cell figure → float, reading through bold and [value](NAME)."""
-    m = re.match(r"^\**\s*\[?(-?[0-9][0-9,]*(?:\.[0-9]+)?)\]?", cell)
-    return float(m.group(1).replace(",", "")) if m else 0.0
-
+    return call('printing.number', cell=cell)
 
 def printed_parts():
-    """[(name, mass_kg)] over bom.md §7's data rows."""
-    out, section = [], None
-    for ln in open(BOM, encoding="utf-8").read().splitlines():
-        if ln.startswith("## "):
-            m = re.match(r"## (\d+)\.", ln)
-            section = int(m.group(1)) if m else None
-            continue
-        if section != 7 or not ln.startswith("|"):
-            continue
-        c = cells(ln)
-        if not is_data_row(c) or len(c) < 5 or "total" in c[0].lower():
-            continue
-        # §7 is Part | Qty | Material | Mass (kg) | $ — mass is 2nd-last.
-        out.append((c[0], float(c[-2])))
-    return out
-
+    return [tuple(row) for row in call('printing.printed_parts', **_paths())]
 
 def group_masses():
-    """({group: kg}, [unassigned §7 rows])."""
-    kg = {g: 0.0 for g in RATES}
-    orphans = []
-    for name, mass in printed_parts():
-        hits = [g for frag, g in GROUP_OF if frag in name]
-        if len(hits) != 1:
-            orphans.append(f"  §7 {name[:60]}: {'no' if not hits else 'ambiguous'} rate group")
-            continue
-        kg[hits[0]] += mass
-    return kg, orphans
-
+    return tuple(call('printing.group_masses', **_paths()))
 
 def print_estimate():
-    """Shared print totals for machine-time.md and labor.md; performs no writes."""
-    kg, orphans = group_masses()
-    shell_record = Path(HERE).parent / "printed-parts/cold-core/foam-shell/prints/2026-10-26-mark2-round-ports-a2/preparation.json"
-    shell_hours = json.loads(shell_record.read_text())["native_slice"]["estimated_total_seconds"] / 3600
-    with open(FAUCET_SLICE, encoding="utf-8") as fh:
-        faucet_slice = json.load(fh)
-    faucet_hours = sum(plate["estimated_total_seconds"]
-                       for plate in faucet_slice["plates"]) / 3600
-    if faucet_hours <= 0 or kg["petgf"] <= 0:
-        raise ValueError("Faucet slice duration and filament mass must be positive")
-
-    float_rows = [cells(ln) for ln in open(BOM, encoding="utf-8").read().splitlines()
-                  if ln.startswith("|") and cells(ln)[0] == "ASA Aero magnetic float"]
-    if len(float_rows) != 1 or len(float_rows[0]) != 5:
-        raise ValueError("Expected one ASA Aero magnetic float BOM row")
-    float_qty = number(float_rows[0][2])
-    if float_qty <= 0 or not float_qty.is_integer():
-        raise ValueError("ASA Aero float BOM quantity must be a positive integer")
-    with open(FLOAT_SLICE, encoding="utf-8") as fh:
-        float_slice = json.load(fh)["native_slice_summary"]
-    if float_slice["object_count"] != 1:
-        raise ValueError("ASA Aero reference slice must contain one float")
-    float_hours = float_slice["estimated_time_s"] / 3600
-    float_kg = float_slice["object_feed_mass_g"] / 1000
-    if float_hours <= 0 or float_kg <= 0:
-        raise ValueError("ASA Aero slice duration and object feed must be positive")
-    kg["aero"] = float_qty * float_kg
-    rates = dict(RATES, shell=round(shell_hours / kg["shell"], 1),
-                 bulk=round(shell_hours / kg["shell"], 1),
-                 petgf=round(faucet_hours / kg["petgf"], 1),
-                 aero=round(float_hours / float_kg, 1))
-    cover_record = Path(HERE).parent / 'printed-parts/zone-c/funnel-cover/native-slice-review.json'
-    with open(cover_record, encoding='utf-8') as fh:
-        cover_slice = json.load(fh)
-    cover_hours = cover_slice['estimated_seconds'] / 3600
-    # The identified native slice supplies the rate, not a fixed duration for
-    # every cover size. Normalize its feed mass to the BOM's PETG density.
-    cover_reference_kg = (cover_slice['estimated_grams'] / 1000
-                          * MATERIALS['PETG'][0]
-                          / float(cover_slice['saved_profile_filament_density_g_cm3'][0]))
-    if cover_hours <= 0 or kg['cover'] <= 0:
-        raise ValueError('Funnel-cover native duration and BOM mass must be positive')
-    rates['cover'] = round(cover_hours / cover_reference_kg, 1)
-    hours = {g: kg[g] * rates[g] for g in kg}
-    hours["shell"] = shell_hours
-    hours["petgf"] = faucet_hours
-    hours["aero"] = float_qty * float_hours
-    return {"kg": kg, "rates": rates, "hours": hours, "unassigned": orphans,
-            "total_kg": sum(kg.values()), "total_hours": sum(hours.values()),
-            "float_qty": int(float_qty), "float_minutes": float_hours * 60}
-
+    return call('printing.estimate', **_paths())
 
 def read_sections():
-    """({section: summed last column}, [(section, process, hours)]) over
-    machine-time.md's numbered sections — the process tables this script reads
-    rather than computes. The per-row list is what lets the throughput table
-    derive a machine's occupancy from the rows that occupy it, instead of
-    carrying its own copy of the figure."""
-    sums, rows, section = {}, [], None
-    for ln in open(MT, encoding="utf-8").read().splitlines():
-        if ln.startswith("## "):
-            m = re.match(r"## (\d+)\.", ln)
-            section = int(m.group(1)) if m else None
-            continue
-        if section is None or not ln.startswith("|"):
-            continue
-        c = cells(ln)
-        if not is_data_row(c):
-            continue
-        sums[section] = sums.get(section, 0.0) + number(c[-1])
-        rows.append((section, c[0], number(c[-1])))
-    return sums, rows
-
+    sums, rows = call('printing.read_sections', **_paths())
+    return {int(k):v for k,v in sums.items()}, [tuple(row) for row in rows]
 
 def read_turnaround(wall):
-    """The critical path's hours: every stage this file STATES, plus `wall` — the
-    print's own wall clock, which this script computes off §7's masses.
-
-    It lives under a `##` heading with no number, so it is read on its own rather
-    than by read_sections(). The print's row is passed in rather than summed off
-    the page: this script writes that cell, and a script that sums its own output
-    reads the run before's figure, so the total trails a mass change by one pass.
-    Keyed on the marker rather than the row's position, so the stage can move up
-    or down the path."""
-    total, inside = wall, False
-    for ln in open(MT, encoding="utf-8").read().splitlines():
-        if ln.startswith("## "):
-            inside = ln.startswith("## Turnaround")
-            continue
-        if not inside or not ln.startswith("|"):
-            continue
-        c = cells(ln)
-        if not is_data_row(c) or len(c) < 2:
-            continue
-        if PRINT_WALL_MARK in c[1]:
-            continue                   # carried in `wall`, not read back off the page
-        total += number(c[1])          # Stage | Hours | note
-    return total
-
+    return call('printing.turnaround', wall=wall, **_paths())
 
 def main():
-    estimate = print_estimate()
-    kg, rates, hours = estimate["kg"], estimate["rates"], estimate["hours"]
-    orphans = estimate["unassigned"]
-    h_print = estimate["total_hours"]
-    wall = h_print / PRINTERS
-    secs, rows = read_sections()
-    turn = read_turnaround(wall)
+    return _main('printing.main', check='--check' in sys.argv, **_paths())
 
-    # A machine's occupancy is the sum of the rows that occupy it — never a
-    # second copy of those hours typed into the throughput table.
-    def occupies(frag, section=None):
-        return sum(h for s, name, h in rows
-                   if frag in name and (section is None or s == section))
-
-    occ = {
-        "PRINT": wall,
-        "BENCH": secs.get(4, 0),                    # chill-down + burn-in
-        "MOLD": occupies("Silicone funnel", 2),     # room-temp cure + post-cure bake
-        "CARBONATOR": secs.get(3, 0),               # hydro, passivation, vacuum
-    }
-
-    def ceiling(h):
-        return round(HOURS_PER_YEAR / h) if h else 0
-
-    variables = {
-        "MT_PRINTERS": PRINTERS,
-        "MT_MEASURED": MEASURED[0],
-        "MT_MEASURED_KG": f"{MEASURED[1]:.3f}",
-        "MT_RATE_BULK_PETG": f"{_BULK_PETG:g}",
-        "MT_PETGF_CARRY": f"{(PETGF_CARRY - 1) * 100:.1f} %",
-        "MT_MEASURED_EXT": MEASURED_EXT[0],
-        "MT_MEASURED_EXT_KG": f"{MEASURED_EXT[1]:.3f}",
-        "MT_PETGF_DRY": "10 h at 100 °C",
-        "MT_DUTY": f"{DUTY * 100:.0f} %",
-        "MT_KG": f"{estimate['total_kg']:.3f}",
-        "MT_FLOAT_QTY": estimate["float_qty"],
-        "MT_FLOAT_MINUTES": f"{estimate['float_minutes']:.1f}",
-        # What a unit still takes off the PETG spool: the three groups that are not
-        # PET-GF or ASA Aero. Summed from the same masses, so it follows §7.
-        "MT_KG_PETG_UNIT": f"{kg['tight'] + kg['small'] + kg['cover']:.2f}",
-        "MT_H_PRINT": f"{h_print:.1f}",
-        "MT_H_PRINT_WALL": f"{wall:.1f}",
-        "MT_H_CURE": f"{secs.get(2, 0):.1f}",
-        "MT_H_SOAK": f"{secs.get(3, 0):.1f}",
-        "MT_H_RUN": f"{secs.get(4, 0):.1f}",
-        "MT_OCC_BENCH": f"{occ['BENCH']:.1f}",
-        "MT_OCC_MOLD": f"{occ['MOLD']:.1f}",
-        "MT_OCC_CARBONATOR": f"{occ['CARBONATOR']:.1f}",
-        "MT_CEIL_PRINT": f"{ceiling(occ['PRINT']):,}",
-        "MT_CEIL_BENCH": f"{ceiling(occ['BENCH']):,}",
-        "MT_CEIL_MOLD": f"{ceiling(occ['MOLD']):,}",
-        "MT_CEIL_CARBONATOR": f"{ceiling(occ['CARBONATOR']):,}",
-        "MT_UNITS_YEAR": f"~{round(ceiling(wall) * DUTY):,}",
-        "MT_UNITS_YEAR_3": f"~{round(HOURS_PER_YEAR / (h_print / (PRINTERS + 1)) * DUTY):,}",
-        "MT_H_TURN": f"{turn:.1f}",
-        "MT_DAYS_TURN": f"{turn / 24:.1f}",
-    }
-    for g, tag in GROUP_MARKER.items():
-        variables[f"MT_RATE_{tag}"] = f"{rates[g]:g}"
-        variables[f"MT_KG_{tag}"] = f"{kg[g]:.3f}"
-        variables[f"MT_H_{tag}"] = f"{hours[g]:.1f}"
-
-    if "--check" in sys.argv:
-        if orphans:
-            print("bom.md §7 rows with no machine-time rate group:")
-            print("\n".join(orphans))
-            return 1
-        text = open(MT, encoding="utf-8").read()
-        stale = [f"  [{m.group(1)}]({name}) should be [{v}]({name})"
-                 for name, v in variables.items()
-                 for m in [re.search(r"\[([^\]]*)\]\(%s\)" % name, text)]
-                 if m and m.group(1) != str(v)]
-        if stale:
-            print("machine-time.md markers are stale — run _machine_time.py:")
-            print("\n".join(stale))
-            return 1
-        print("machine-time.md totals ✓")
-        return 0
-
-    substitute_md(MT, variables)
-    for g in GROUP_MARKER:
-        print(f"  {g:<6} {kg[g]:6.3f} kg × {rates[g]:>4} h/kg = {hours[g]:6.1f} h")
-    print(f"  {'PRINT':<6} {sum(kg.values()):6.3f} kg{'':14} {h_print:6.1f} h"
-          f"   → {wall:.1f} h on {PRINTERS} printers")
-    print(f"  cure {secs.get(2, 0):.1f} h · soak {secs.get(3, 0):.1f} h · run {secs.get(4, 0):.1f} h")
-    for k, h in occ.items():
-        print(f"  {k.lower():<6} occupied {h:5.1f} h/unit → ceiling {ceiling(h):>6,}/yr")
-    print(f"  throughput  {round(ceiling(wall) * DUTY):,}/yr at {DUTY:.0%} duty")
-    print(f"  turnaround  {turn:.1f} h = {turn / 24:.1f} days")
-    if orphans:
-        print("\nunassigned §7 rows:")
-        print("\n".join(orphans))
-    return 0
-
-
-if __name__ == "__main__":
+if __name__ == '__main__':
     sys.exit(main())
