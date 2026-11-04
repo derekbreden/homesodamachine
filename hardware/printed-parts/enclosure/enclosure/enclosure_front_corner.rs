@@ -793,5 +793,26 @@ pub fn replace(shape: Solid, n: &Numbers) -> Result<Solid> {
     for _ in 0..4 {
         shape = refine(shape, &patches, &frames, scale, axis, &mut cache)?;
     }
-    roof_rolls(shape, n)
+    let shape = roof_rolls(shape, n)?;
+    // Projecting the blend changes the edge of its tangent planes too. Join
+    // those local triangles into one patch before simplifying; keeping their
+    // former face boundaries pins a folded strip along the analytic seam.
+    // Other faces retain their original analytic boundaries.
+    let mut faces = shape.faces().to_vec();
+    let patch = faces.len() as u32;
+    faces.push(Face::new(
+        Surface::Free { kind: "BSPLINE" },
+        "fillet",
+        std::panic::Location::caller(),
+    ));
+    let records: Vec<_> = shape.tris().iter().zip(shape.face_of())
+        .map(|(triangle, &face)| {
+            if triangle.iter().all(|&i| in_corner(shape.verts()[i as usize], &frames, scale)) {
+                patch
+            } else {
+                face
+            }
+        }).collect();
+    Solid::from_mesh(shape.verts(), shape.tris(), &records, &faces)?
+        .simplified_to(LINEAR / 5.)
 }

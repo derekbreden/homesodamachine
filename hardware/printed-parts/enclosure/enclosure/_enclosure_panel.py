@@ -167,6 +167,18 @@ class _Graph:
 @contextmanager
 def _record(shell, graph, structure):
     """Substitute only the enclosure's private geometry leaves, then restore them."""
+    def teardrop_y(radius, x, z, y0, y1, up=1.0):
+        import math
+        angle = math.radians(shell.teardrop_roof_angle)
+        half = radius * math.sin(angle)
+        tangent = z + up * radius * math.cos(angle)
+        apex = z + up * radius / math.cos(angle)
+        circle = graph.add('cylinder', axis=1, radius=radius, centre=(x, z),
+            span=(y0, y1), stations=(up*math.pi/2-angle, up*math.pi/2+angle),
+            bounds=(x-radius, x+radius, y0, y1, z-radius, z+radius))
+        return circle.fuse(graph.prism(1, y0, y1,
+            ((x-half, tangent), (x+half, tangent), (x, apex))))
+
     def handhold_cutter(inner, x_ext, sx):
         bed, roof, _crown = shell._handhold_levels(inner)
         y0, y1 = shell._handhold_y()
@@ -194,6 +206,7 @@ def _record(shell, graph, structure):
         '_ybox': graph.box,
         '_xcyl': lambda r, y, z, x0, x1: graph.cylinder(0, r, y, z, x0, x1),
         '_ycyl': lambda r, x, z, y0, y1: graph.cylinder(1, r, x, z, y0, y1),
+        '_teardrop_y': teardrop_y,
         '_zcyl': lambda r, x, y, z0, z1: graph.cylinder(2, r, x, y, z0, z1),
         '_yz_prism': lambda x0, x1, section: graph.prism(0, x0, x1, section),
         '_xz_prism': lambda y0, y1, section: graph.prism(1, y0, y1, section),
