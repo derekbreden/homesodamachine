@@ -4,7 +4,6 @@ Purchased profiles retain their own reference frames. The shared production
 specification places every fitting and defines the short flexible pump joints;
 no exploratory assembly or exported study is a build input.
 """
-from functools import cache
 import math
 import json
 from pathlib import Path
@@ -37,122 +36,6 @@ def check():
 
 def joint():
     return reference('pump_joint', 'reference/pump-barb-joint/pump_barb_joint.py')
-
-
-def _placed(shape, frame, color):
-    import above_core_parts as parts
-    carry = parts._carry(frame)
-    return shape.moved(carry.where), color, carry
-
-
-def _world(shape, color):
-    import above_core_parts as parts
-    return shape, color, parts._carry(parts._frame())
-
-
-def _discharge_pvc(end_frame):
-    """The two seated cuff ends meet on their shared bend's bisecting plane."""
-    import cadquery as cq
-    pj = joint()
-    direction = np.array(end_frame['rotation'],float)[:,0]
-    angle = math.acos(float(np.clip(direction[0],-1.,1.)))
-    axis = np.cross((1.,0.,0.),direction)
-    axis /= np.linalg.norm(axis)
-    radial = direction.copy()
-    radial[0] = 0.
-    radial /= np.linalg.norm(radial)
-    pivot = cq.Vector(*(-pj.pivot('discharge')[2]*radial))
-    half = (cq.Location(pivot)
-            * cq.Location(cq.Vector(),cq.Vector(*axis),math.degrees(angle)/2.)
-            * cq.Location(-pivot))
-    crease = cq.Solid.makeBox(100.,200.,200.,cq.Vector(-100.,-100.,-100.)).moved(half)
-    rows = pj.bore('discharge')
-    past = pj.TUBE_OD*math.tan(angle/2.)+1.
-    on_barb = pj.turned(rows[:-2]+[(past,rows[-3][1])]).intersect(crease)
-    on_stem = pj.turned([(-past,rows[-1][1]),rows[-1]]).moved(
-        layout.frame_location(end_frame)).cut(crease)
-    return on_barb.fuse(on_stem).clean()
-
-
-@cache
-def components():
-    import cadquery as cq
-    import above_core_parts as parts
-    from _materials import M_BRASS, M_JG_BLACK_PP, M_NEOFIT_WHITE_ACETAL
-    data, tc, pj = plan(), chain(), joint()
-    result = {}
-    names = {'pp010822e': 'bulkhead-water', 'gagira': 'gagira-coupling',
-             'pi4512f6s': 'jg-pi4512f6s', 'pp061208w': 'jg-pp061208w'}
-    for native_name, shape in tc.parts().items():
-        if native_name in names:
-            result[names[native_name]] = _placed(shape, data['chain_frame'], tc.COLORS[native_name])
-    result['water-split'] = _placed(union_tee().build_jg_pp0208e_tee().val(),
-                                    layout.snapshot_pose('water-split'), M_JG_BLACK_PP)
-    result['flow-regulator'] = _placed(parts.native_reference('flow-regulator'),
-                                       layout.snapshot_pose('reg'), M_NEOFIT_WHITE_ACETAL)
-    # The inlet release collet is the external CO2 station. Both pieces use
-    # the regulator's native frame and together represent one purchased body.
-    ranges = __import__('json').loads((parts.HW / 'reference/compact-inline-candidates/dimensions.json').read_text())['pisco_rvfup_quarter']['fitted_exterior']['component_ranges_mm']
-    inlet, rest = [], []
-    for solid in parts.native_reference('gas-regulator').Solids():
-        target = inlet if ranges['inlet_collet'][0] <= solid.Center().z <= ranges['inlet_collet'][1] else rest
-        target.append(solid)
-    result['co2-inlet'] = _placed(parts._compound(inlet), data['gas_frame'], M_JG_BLACK_PP)
-    result['gas-regulator'] = _placed(parts._compound(rest), data['gas_frame'], M_JG_BLACK_PP)
-    result['gas-check'] = _placed(check().build(), data['gas_check_frame'], M_NEOFIT_WHITE_ACETAL)
-    result['discharge-chain'] = _placed(check().build(), layout.pose('discharge-chain'), M_NEOFIT_WHITE_ACETAL)
-
-    # Suction: one swept PVC bend joins the unchanged barb seating length to
-    # the reducer stem. The reducer and its clamp share the end tangent.
-    j = data['joint']
-    # Two tangent arcs accommodate the exposed shoulder land while the
-    # measured barb and the receiving connector retain their own axes.
-    suction = j['suction_bend']
-    bend = layout.frame_location(suction['end_frame'])
-    rows = pj.bore('suction')
-    path = cq.Wire.assembleEdges([cq.Edge.makeThreePointArc(
-        *(cq.Vector(*p) for p in segment['points_mm']))
-        for segment in suction['segments']])
-    span = cq.Workplane('YZ').circle(pj.TUBE_OD/2.).circle(pj.TUBE_ID/2.).sweep(path).val()
-    tube = pj.turned(rows[:-2]).fuse(span, pj.turned([(0.,rows[-1][1]),(pj.TRIM,rows[-1][1])]).moved(bend)).clean()
-    result['suction-tube'] = _placed(tube, data['suction-joint'], pj.M_PVC_CLEAR)
-    result['suction-reducer'] = _placed(pj.build_reducer().moved(bend), data['suction-joint'], pj.M_JG_WHITE_PP)
-    # A reducer's port frame follows its stem; its construction frame starts
-    # at the trimmed stem tip, not the purchased reducer's original tip.
-    result['suction-reducer'] = (result['suction-reducer'][0], result['suction-reducer'][1],
-        parts._carry(parts._compose(data['suction-joint'], _datum(bend))))
-    for name, (xc, diameter) in pj.bands('suction').items():
-        steel, key = pj.build_clamp(diameter, xc, j.get('suction_stem_keys',j['suction_keys']) if name=='stem' else j['suction_keys'])
-        if name=='barb':
-            roll=cq.Location(cq.Vector(),cq.Vector(1,0,0),j['suction_barb_roll'])
-            steel,key=steel.moved(roll),key.moved(roll)
-        if name == 'stem':
-            steel, key = steel.moved(bend), key.moved(bend)
-        result['suction-'+name+'-clamp'] = _placed(steel, data['suction-joint'], pj.M_STAINLESS)
-        result['suction-'+name+'-key'] = _placed(key, data['suction-joint'], pj.M_POM_ORANGE)
-    discharge = j['discharge_bend']
-    turn = layout.frame_location(discharge['end_frame'])
-    result['discharge-tube'] = _placed(_discharge_pvc(discharge['end_frame']),
-                                      data['discharge-joint'],pj.M_PVC_CLEAR)
-    result['discharge-reducer'] = _placed(pj.build_reducer(),
-        parts._compose(data['discharge-joint'],discharge['end_frame']),pj.M_JG_WHITE_PP)
-    xc, diameter = pj.bands('discharge')['barb']
-    steel, key = pj.build_clamp(diameter,xc,j['discharge_keys'])
-    roll = cq.Location(cq.Vector(),cq.Vector(1.,0.,0.),j['discharge_barb_roll'])
-    for name, shape, color in (('clamp',steel,pj.M_STAINLESS),('key',key,pj.M_POM_ORANGE)):
-        result['discharge-barb-'+name] = _placed(shape.moved(roll),data['discharge-joint'],color)
-    xc, diameter = pj.bands('discharge')['stem']
-    steel, key = pj.build_clamp(diameter, xc, j['discharge_keys'])
-    roll = cq.Location(cq.Vector(), cq.Vector(1.,0.,0.), j['STEM_ROLL'])
-    for name, shape, color in (('clamp',steel,pj.M_STAINLESS),('key',key,pj.M_POM_ORANGE)):
-        result['discharge-stem-'+name] = _placed(shape.moved(roll).moved(turn), data['discharge-joint'], color)
-    return result
-
-
-def _datum(location):
-    trsf = location.wrapped.Transformation()
-    return {'rotation': [[trsf.Value(i,j) for j in (1,2,3)] for i in (1,2,3)],
-            'translation_mm': [trsf.Value(i,4) for i in (1,2,3)]}
 
 
 def _arc_three(points):
@@ -189,11 +72,10 @@ def ports(name):
         mouth = joint().reducer.LENGTH-joint().CUT_X
         return {'tube':((mouth,0.,0.),(1.,0.,0.),6.35)}
     if name == 'jg-pp061208w':
-        import cadquery as cq
         red = chain().parameters()['pp061208w']
         x = red['visible_axial_range_mm'][1]
-        p = chain().placed(cq.Vertex.makeVertex(x,0.,0.),red).Center().toTuple()
         r = red['rotation']
+        p = tuple(red['origin_mm'][i] + r[i][0]*x for i in range(3))
         return {'tube':(p,tuple(row[0] for row in r),6.35)}
     return None
 
@@ -226,70 +108,6 @@ def regulator_datums():
         cap_bearing_outlet_setback_mm=1.,
         cap_stock=[(st['axis_x']-half,st['axis_x']+half,st['y0'],st['y1']-1.,
                     mount['cap_bottom'],mount['axis'][1])])
-
-
-@cache
-def seats():
-    """Integral back-top stock and four removable snap caps."""
-    import cadquery as cq
-    import above_core_parts as parts
-    import rear_snaps as snaps
-    import fits
-    selected = parts.components()
-    aliases = {'jg-pp010822e':'bulkhead-water','multiplex-asse1022':'asse1022-assembly',
-               'co2-check':'gas-check'}
-    rows = {n: selected[aliases.get(n,n)][:2] for n in (*snaps.CHAIN,'co2-check','digiten-flow')}
-    gas = selected['gas-regulator'][0]
-    ranges = __import__('json').loads((parts.HW/'reference/compact-inline-candidates/dimensions.json').read_text())['pisco_rvfup_quarter']['fitted_exterior']['component_ranges_mm']
-    native = parts.native_reference('gas-regulator')
-    for n,(lo,hi) in ranges.items():
-        group = [s for s in native.Solids() if lo <= s.Center().z <= hi]
-        rows['pisco-'+n.replace('_','-')] = (parts._compound(group).moved(layout.frame_location(plan()['gas_frame'])), selected['gas-regulator'][1])
-    meter = parts._module('rear_digiten','reference/digiten-flow-sensor/digiten_flow_sensor.py')
-    d=snap_datums()
-    result,numbers = snaps.build(rows,d['asse_axis'],layout.frame_location(plan()['chain_frame']),d['asse_turn'],
-                           d['pisco_axis'],d['mouth_y'],d['ceiling'],d['rear'],d['side'],meter,layout.location('digiten-flow'))
-    mount = regulator_datums()
-    st, axis = mount['station'], mount['axis']
-    a,b = mount['seat_y']; width = st['outer']
-    b = max(b,st['y1']+fits.running+snaps.WALL)
-    def room(name):
-        return snaps.radial_profile(mount[name]).moved(layout.frame_location(mount['profile_frame']))
-    seat = snaps.box(axis[0]-width,axis[0]+width,a,b,snaps.SPLIT,346.5).cut(room('seat_profile'))
-    for pocket in snaps.pockets(st): seat = seat.cut(pocket)
-    cap = snaps.cap(st,st['root'],mount['cap_bottom']).fuse(
-        *(snaps.box(*bounds) for bounds in mount['cap_stock'])).cut(room('cap_profile'))
-    result['regulator-seat'] = seat.clean().rotate((0,0,0),(0,0,1),90.)
-    result['regulator-snap-cap'] = cap.clean().rotate((0,0,0),(0,0,1),90.)
-    # Clear the installed vent sleeve and its two tie lands through the cap.
-    sleeve = selected['asse-drain-adapter'][0]
-    b = sleeve.BoundingBox()
-    lo,hi = numbers['asse']['vent']
-    vent_room = snaps.box(min(b.xmin,lo[0])-fits.running,max(b.xmax,hi[0])+fits.running,
-                          min(b.ymin,lo[1])-snaps.THREAD-fits.running,
-                          max(b.ymax,hi[1])+snaps.THREAD+fits.running,b.zmin-1.,b.zmax+fits.running)
-    result['asse-snap-cap'] = result['asse-snap-cap'].cut(vent_room).clean()
-    return result
-
-
-def caps():
-    import cadquery as cq
-    from _materials import M_PETGF_BLACK
-    if getattr(cq,'MESH',False):
-        from _cadq_export import import_assembly
-        path = Path(__file__).resolve().parent.parent/'printed-parts/enclosure/rear-equipment-caps/rear-equipment-caps-installed.step'
-        return {name:_world(shape,M_PETGF_BLACK)
-                for name,(shape,_color) in import_assembly(path).items()}
-    return {name:_world(shape,M_PETGF_BLACK) for name,shape in seats().items() if name.endswith('snap-cap')}
-
-
-def printable_cap(name, shape=None):
-    """Stand the axial end down so each spring bends within the printed layers."""
-    if shape is None:shape=seats()[name]
-    axis=(0.,1.,0.) if name=='regulator-snap-cap' else (1.,0.,0.)
-    shape=shape.rotate((0.,0.,0.),axis,90.)
-    b=shape.BoundingBox()
-    return shape.translate((-(b.xmin+b.xmax)/2.,-(b.ymin+b.ymax)/2.,-b.zmin))
 
 
 def route_specs():
