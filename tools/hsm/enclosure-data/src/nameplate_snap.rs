@@ -8,7 +8,7 @@ mod dimensions;
 fn spec(wing:&Val) -> Result<serde_json::Value> {
     Ok(dimensions::dimensions(wing.attr("WIDTH")?.num()?,wing.attr("HEIGHT")?.num()?,
         wing.attr("THICK")?.num()?,wing.attr("FACE_SLIP")?.num()?,
-        wing.attr("SUPPORTED_END_AIR")?.num()?))
+        wing.attr("SUPPORTED_END_AIR")?.num()?,wing.attr("FIELD_PROUD")?.num()?))
 }
 
 pub fn numbers(numbers:Val, e:&Env) -> Result<Val> {

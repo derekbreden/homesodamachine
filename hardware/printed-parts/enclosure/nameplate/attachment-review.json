@@ -4,12 +4,12 @@
     [
       -95.4,
       461.0,
-      164.0
+      164.6
     ],
     [
       4.600000000000001,
-      476.0,
-      278.0
+      477.3,
+      280.15
     ]
   ],
   "separated_pose": "Plate translated aside and turned 180 degrees about Z to expose its back; inspection only.",
@@ -20,11 +20,11 @@
     "installed": "assembly/scenes/glb/nameplate-attachment-installed.glb"
   },
   "source_sha256": {
-    "hardware/printed-parts/enclosure/nameplate/attachment_view.py": "bcb08ee92e16aa4d9a1c2d17cb30d56b441f0a2eb99091b2a337871dc3267a9a",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl": "48940d2130c3d1134ffe25741705c07bb2c46a547402604328b7b4c7dd8e197c",
+    "hardware/printed-parts/enclosure/nameplate/attachment_view.py": "2e503929d38b225359c7ba5a1be3fa27e52029c27e4ef462b5b068292c9be57e",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl": "63ba2d674f1dd6d336e5b5fa18f1027cd8611dc66aed937460a65f12c9d12980",
     "hardware/printed-parts/enclosure/nameplate/nameplate-001.step.mesh": "0cad6d92fcb0b60d32436f9b9881cbbb74f4a80d5a8be256e10ee5ae09bcdcfc",
-    "hardware/manifold-layout/enclosure-assembly.step.mesh": "d78cc6be7dd85495cc39ed818f985398d2af60cd2e58ce56be0f4c257855cb25",
-    "hardware/printed-parts/enclosure/nameplate/nameplate.numbers.json": "401324f2511fd1b17d8a90431e50754f0adde8d8d181fddc1602925f00ecfe45",
-    "hardware/manifold-layout/above-core.json": "c583d2f19958195708ee94db732f077239a9943182af3aa1d202e39a27987011"
+    "hardware/manifold-layout/enclosure-assembly.step.mesh": "146b971dbe8a02c9940a8c4528a9ee1676c750dd48df65fc927896c8c3aa49f8",
+    "hardware/printed-parts/enclosure/nameplate/nameplate.numbers.json": "49c148ffcf011be00eb0e60d90f511a36ad4bb4a057719923d37313dabee0c09",
+    "hardware/manifold-layout/above-core.json": "c327fda962952eaee6d39f617a21e74df89e9237d1bef750481a4f714c251bd8"
   }
 }

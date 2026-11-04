@@ -88,7 +88,7 @@ pub fn receiver_stock(n:&Value) -> Result<Solid> {
         f(n,"frame_width"),top-bottom,f(n,"frame_corner"))?),rear,t)?;
     // Back-top prints roof down: a 45 degree crown runs to the enclosure skin.
     let crown=Plane::YZ.at(v3(-f(n,"frame_width"),0.,0.)).extrude(&Profile::polygon(&[
-        v2(f(n,"crown_y")-0.01,top+0.01),v2(t+0.01,top+0.01),v2(t+0.01,top-3.01)
+        v2(f(n,"crown_y")-0.01,top+0.01),v2(t+0.01,top+0.01),v2(t+0.01,top-f(n,"field_proud")-0.01)
     ]),2.*f(n,"frame_width"))?;
     let mut parts=vec![frame.cut(&crown)?];
     for side in [-1.,1.] {

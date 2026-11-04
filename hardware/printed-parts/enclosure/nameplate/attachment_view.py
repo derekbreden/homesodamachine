@@ -55,7 +55,8 @@ def main():
     installed = ROOT / 'hardware/manifold-layout/enclosure-assembly.step.mesh'
     location = json.loads((ROOT / 'hardware/manifold-layout/above-core.json').read_text())['rear_identification']['nameplate']
     centre = np.array([location['center_x_mm'], location['face_y_mm'], location['center_z_mm']])
-    thick = json.loads((HERE/'nameplate.numbers.json').read_text())['thick']
+    numbers = json.loads((HERE/'nameplate.numbers.json').read_text())
+    thick = numbers['thick']
     to_world = centre-[0, thick, 0]
     printed = trimesh.load_mesh(enclosure, process=True)
 
@@ -65,8 +66,9 @@ def main():
             transform=trimesh.transformations.translation_matrix((low+high)/2))
         return trimesh.boolean.intersection([printed, box], engine='manifold')
 
-    low = [centre[0]-50, 461., centre[2]-56]
-    high = [centre[0]+50, 476., centre[2]+58]
+    snap = numbers['snap']
+    low = [centre[0]-50, 461., centre[2]+snap['frame_bottom']-2]
+    high = [centre[0]+50, centre[1]+1, centre[2]+snap['frame_top']+2]
     receiver = crop(low, high)
     plate_meshes = payload_meshes(plate, lambda _: True)
     VIEWER.mkdir(parents=True, exist_ok=True)
@@ -98,7 +100,7 @@ def main():
     # Context includes the actual curved corner and complete adjacent color-chip
     # frame. The view therefore exposes the boundary whose spacing matters.
     scene = trimesh.Scene()
-    context = crop([-108, 450, 160.1], [108, 477, 360])
+    context = crop([-108, 450, 160.1], [108, centre[1]+1, 360])
     context.vertices = (context.vertices-centre)*[-1,-1,1]
     scene.add_geometry(material(context,[.16,.17,.19]), node_name='Enclosure back top')
     def include(name):
