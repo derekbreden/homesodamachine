@@ -206,7 +206,7 @@ alternatives: A sloped underside lets the cable cam out through the mouth. Incre
 file: hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step
 click: x=-102.867 y=-73.050 z=20.000
 
-[ceiling] Functional pump-cap catch floors in the horizontal receiver rails. The 2.85 mm pocket depth accommodates the 2.60 mm flat hook and 0.25 mm running allowance; the central receiver screwdriver throat interrupts each floor without changing the two bearing runs. Tree(auto)/Default supports can be removed through the unloaded rail's open inboard face before installing the pump and cap. The final native lid slice identifies these rails at source Z14.179.
+[ceiling] Functional pump-cap catch floors in the horizontal receiver rails. The 2.85 mm pocket depth accommodates the 2.60 mm flat hook and 0.25 mm running allowance. Each floor runs continuously across its receiver. Tree(auto)/Default supports can be removed through the unloaded rail's open inboard face before installing the pump and cap.
 alternatives: Filling the pocket blocks the moving hook. Sloping its bearing creates a withdrawal ramp. Removing the bearing loses capture; enlarging the full pocket changes the approved matched fit.
 file: hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step
 click: x=-75.993 y=17.473 z=14.179

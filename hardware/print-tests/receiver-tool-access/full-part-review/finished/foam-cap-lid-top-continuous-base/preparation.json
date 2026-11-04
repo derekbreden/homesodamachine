@@ -1,0 +1,722 @@
+{
+  "piece": "foam-cap-lid-top",
+  "printer": "Mark1",
+  "connection_key": "H2C",
+  "nozzle": {
+    "side": "left",
+    "diameter_mm": 0.4,
+    "flow": "Standard",
+    "hardened": true,
+    "reason": "Top lid: hardened left 0.4 mm Standard nozzle with the shared PET-GF process.",
+    "sliced_diameter_mm": 0.4,
+    "sliced_volume_type": "Standard"
+  },
+  "material": "Polymaker Fiberon PET-GF15, black",
+  "bed_type": "Textured PEI Plate",
+  "requested_z_trim_mm": 0.18,
+  "emitted_textured_trim_mm": 0.16,
+  "project": ".cache/runs/snap-finish-20261103-224515/prints/2026-11-03-foam-cap-lid-top-mark1-a49b4cdf/2026-11-03-foam-cap-lid-top-mark1-a49b4cdf.3mf",
+  "project_sha256": "8441e1e8d74beff8d3c062e7d59f384f2069f4121999b1cc41778d55c7b4b72f",
+  "profile": "hardware/printed-parts/petgf.3mf",
+  "profile_sha256": "45c16e8c8517e0a205107d7b9f7412d013f51a8de7ecf86125cc940079d37ed0",
+  "settings_sha256": "f0b4876204d278ea44b4644be20dab82106488c760e6bfb5a77bd861041b44b1",
+  "settings_changes": {
+    "extruder_ams_count": {
+      "from": [
+        "1#0|4#1",
+        "1#0|4#0"
+      ],
+      "to": [
+        "1#0|4#0",
+        "1#0|4#0"
+      ],
+      "reason": "Single external black PET-GF spool on the fixed left nozzle for model, support and interface."
+    },
+    "support_filament": {
+      "from": "0",
+      "to": "1",
+      "reason": "Single external black PET-GF spool on the fixed left nozzle for model, support and interface."
+    },
+    "support_interface_filament": {
+      "from": "0",
+      "to": "1",
+      "reason": "Single external black PET-GF spool on the fixed left nozzle for model, support and interface."
+    },
+    "flush_into_support": {
+      "from": "1",
+      "to": "0",
+      "reason": "Single external black PET-GF spool on the fixed left nozzle for model, support and interface."
+    },
+    "filament_colour": {
+      "from": [
+        "#000000"
+      ],
+      "to": [
+        "#000000"
+      ],
+      "reason": "Mark1's loaded black PET-GF colour reading."
+    },
+    "wall_loops": {
+      "from": "2",
+      "to": "3",
+      "reason": "Derek selected 2.38 mm standing walls, packed with six perimeter beads."
+    },
+    "wall_generator": {
+      "from": "classic",
+      "to": "classic",
+      "reason": "Three fixed-width perimeters from each wall boundary."
+    },
+    "sparse_infill_pattern": {
+      "from": "gyroid",
+      "to": "gyroid",
+      "reason": "Retain 15% gyroid in thicker regions."
+    },
+    "enable_support": {
+      "from": "1",
+      "to": "1",
+      "reason": "Tree(auto)/Default supports the WAGO well end walls, pump spring pockets and other receiving ceilings where needed. The B-fill guide uses a plain clearance window. Retain native automatic support choices outside the one scoped aft tie-passage blocker."
+    },
+    "raft_first_layer_expansion": {
+      "from": "-1",
+      "to": "0.5",
+      "reason": "Limit the initial support-foot flange for this wide lid while retaining Tree(auto)/Default, support contacts and branch diameters."
+    },
+    "tree_support_branch_angle": {
+      "from": "45",
+      "to": "10",
+      "reason": "The automatic-tree placement on the current full lid splayed beyond the 20 mm bed border at its west WAGO end wall. Keep Tree(auto)/Default and its automatic contact decisions; limit branch inclination on this wide lid so those supports rise near their supported wall."
+    },
+    "tree_support_branch_diameter_angle": {
+      "from": "5",
+      "to": "0.5",
+      "reason": "Limit trunk growth on the current wide lid to retain the 20 mm full-bead border while preserving the 2 mm branch diameter and automatic support contacts."
+    }
+  },
+  "profile_changes": {
+    "machine_start_gcode": {
+      "from_sha256": "3cc9e41520dbf5622d6f9a96bce734db9d11b0b48b49f2abec047a6e01dc6a92",
+      "to_sha256": "409b1516f0401361a02b18a34420c10ca83bc33615e8896cade2fea42edee871",
+      "requested_z_trim_mm": 0.18
+    },
+    "printer_settings_id": {
+      "from": "Bambu Lab H2C 0.4 nozzle 04 first layer by agent",
+      "to": "Bambu Lab H2C 0.4 Standard +0.18 Z trim"
+    },
+    "print_compatible_printers": {
+      "from": [
+        "Bambu Lab H2C 0.4 nozzle"
+      ],
+      "to": [
+        "Bambu Lab H2C 0.4 nozzle",
+        "Bambu Lab H2C 0.4 Standard +0.18 Z trim"
+      ]
+    }
+  },
+  "usable_plate_mm": [
+    [
+      0.0,
+      0.0
+    ],
+    [
+      325.0,
+      320.0
+    ]
+  ],
+  "plate_border_mm": 20.0,
+  "brim_allowance_mm": 0.0,
+  "plate_offset_mm": {
+    "value": [
+      -0.85,
+      0.0
+    ],
+    "reason": "Keep the complete native model and support bead envelope at least 20 mm inside the usable Mark1 bed."
+  },
+  "objects": [
+    {
+      "name": "foam-cap-lid-top",
+      "identify_id": 1901,
+      "object_id": 2,
+      "stl": "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.stl",
+      "stl_sha256": "2408a3edeeca8f60c1aa8b1e32a190695d1776cdfc45b70f6ec3686a73232f07",
+      "step_sha256": "5334cae33f824fc35e29ca6e4e5ced33c7d691c9142492a76ddcefa6d74cf869",
+      "facets": 37526,
+      "closed": {
+        "edges": 56289,
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "inconsistent_edges": 0,
+        "bodies": 1,
+        "closed_oriented_single_body": true
+      },
+      "pose": null,
+      "pose_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "yaw_degrees": 0,
+      "source_center_mm": [
+        0.0,
+        0.0,
+        26.825000762939453
+      ],
+      "build_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "translation_mm": [
+        161.65,
+        160.0,
+        26.825000762939453
+      ],
+      "plate_bounds_mm": [
+        [
+          20.450003051757818,
+          69.80000305175781,
+          0.0
+        ],
+        [
+          302.84999694824216,
+          250.1999969482422,
+          53.650001525878906
+        ]
+      ],
+      "model_bed_margin_mm": 20.450003051757818,
+      "seam_enforcer": null,
+      "object_settings": {},
+      "features": [
+        {
+          "name": "Reservoir A aft saddle zip-tie passage",
+          "kind": "tie_windows",
+          "blockers": true,
+          "blocker_roof_overlap_mm": 0.85,
+          "reason": "The 3.2 mm wide, 1.575 mm high aft-saddle tie passage must bridge across its short width. The unblocked native slice placed a 0.72 mm support body inside this long passage (tree-1 in the bound 2026-10-31 lid slice), where cleanup would obstruct the tie. This blocker covers only that passage; Tree(auto)/Default retains its decisions elsewhere."
+        }
+      ],
+      "ranges": [],
+      "verify_spans": [],
+      "ribbons": [],
+      "tie_windows": [
+        {
+          "roof_print_z_mm": 7.175000190734863,
+          "floor_print_z_mm": 5.600000190734863,
+          "box_print_mm": [
+            [
+              -68.30000305175781,
+              45.444557189941406,
+              5.600000190734863
+            ],
+            [
+              -65.0999984741211,
+              56.080589294433594,
+              7.175000190734863
+            ]
+          ],
+          "roof": {
+            "faces": 2,
+            "area_mm2": 34.035,
+            "bounds_print_mm": [
+              [
+                -68.3,
+                45.445,
+                7.175
+              ],
+              [
+                -65.1,
+                56.081,
+                7.175
+              ]
+            ]
+          },
+          "box_plate_mm": [
+            [
+              93.3499969482422,
+              205.4445571899414,
+              5.600000190734863
+            ],
+            [
+              96.55000152587891,
+              216.0805892944336,
+              7.175000190734863
+            ]
+          ]
+        }
+      ],
+      "modifiers": [
+        {
+          "name": "Reservoir A fore direct C2 pair and lid root",
+          "source_bounds_mm": [
+            [
+              110.05000000000001,
+              44.925,
+              4.400000000000006
+            ],
+            [
+              118.05000000000001,
+              69.575,
+              12.5
+            ]
+          ],
+          "plate_bounds_mm": [
+            [
+              271.70000000000005,
+              204.925,
+              4.400000000000006
+            ],
+            [
+              279.70000000000005,
+              229.575,
+              12.5
+            ]
+          ],
+          "sparse_infill_density": "100%"
+        },
+        {
+          "name": "M5 head bearing 1 and plate root",
+          "source_bounds_mm": [
+            [
+              127.9,
+              52.5,
+              0.001
+            ],
+            [
+              141.19899694824218,
+              67.5,
+              7.4
+            ]
+          ],
+          "plate_bounds_mm": [
+            [
+              289.55,
+              212.5,
+              0.0010000000000012221
+            ],
+            [
+              302.8489969482422,
+              227.5,
+              7.399999999999999
+            ]
+          ],
+          "sparse_infill_density": "100%"
+        },
+        {
+          "name": "M5 head bearing 2 and plate root",
+          "source_bounds_mm": [
+            [
+              127.9,
+              -7.5,
+              0.001
+            ],
+            [
+              141.19899694824218,
+              7.5,
+              7.4
+            ]
+          ],
+          "plate_bounds_mm": [
+            [
+              289.55,
+              152.5,
+              0.0010000000000012221
+            ],
+            [
+              302.8489969482422,
+              167.5,
+              7.399999999999999
+            ]
+          ],
+          "sparse_infill_density": "100%"
+        },
+        {
+          "name": "M5 head bearing 3 and plate root",
+          "source_bounds_mm": [
+            [
+              127.9,
+              -67.5,
+              0.001
+            ],
+            [
+              141.19899694824218,
+              -52.5,
+              7.4
+            ]
+          ],
+          "plate_bounds_mm": [
+            [
+              289.55,
+              92.5,
+              0.0010000000000012221
+            ],
+            [
+              302.8489969482422,
+              107.5,
+              7.399999999999999
+            ]
+          ],
+          "sparse_infill_density": "100%"
+        },
+        {
+          "name": "M5 head bearing 4 and plate root",
+          "source_bounds_mm": [
+            [
+              -141.19899694824218,
+              52.5,
+              0.001
+            ],
+            [
+              -127.9,
+              67.5,
+              7.4
+            ]
+          ],
+          "plate_bounds_mm": [
+            [
+              20.451003051757823,
+              212.5,
+              0.0010000000000012221
+            ],
+            [
+              33.75,
+              227.5,
+              7.399999999999999
+            ]
+          ],
+          "sparse_infill_density": "100%"
+        },
+        {
+          "name": "M5 head bearing 5 and plate root",
+          "source_bounds_mm": [
+            [
+              -141.19899694824218,
+              -7.5,
+              0.001
+            ],
+            [
+              -127.9,
+              7.5,
+              7.4
+            ]
+          ],
+          "plate_bounds_mm": [
+            [
+              20.451003051757823,
+              152.5,
+              0.0010000000000012221
+            ],
+            [
+              33.75,
+              167.5,
+              7.399999999999999
+            ]
+          ],
+          "sparse_infill_density": "100%"
+        },
+        {
+          "name": "M5 head bearing 6 and plate root",
+          "source_bounds_mm": [
+            [
+              -141.19899694824218,
+              -67.5,
+              0.001
+            ],
+            [
+              -127.9,
+              -52.5,
+              7.4
+            ]
+          ],
+          "plate_bounds_mm": [
+            [
+              20.451003051757823,
+              92.5,
+              0.0010000000000012221
+            ],
+            [
+              33.75,
+              107.5,
+              7.399999999999999
+            ]
+          ],
+          "sparse_infill_density": "100%"
+        },
+        {
+          "name": "M5 head bearing 7 and plate root",
+          "source_bounds_mm": [
+            [
+              -52.5,
+              76.9,
+              0.001
+            ],
+            [
+              -37.5,
+              90.19899694824218,
+              7.4
+            ]
+          ],
+          "plate_bounds_mm": [
+            [
+              109.15,
+              236.9,
+              0.0010000000000012221
+            ],
+            [
+              124.15,
+              250.19899694824218,
+              7.399999999999999
+            ]
+          ],
+          "sparse_infill_density": "100%"
+        },
+        {
+          "name": "M5 head bearing 8 and plate root",
+          "source_bounds_mm": [
+            [
+              -52.5,
+              -90.19899694824218,
+              0.001
+            ],
+            [
+              -37.5,
+              -76.9,
+              7.4
+            ]
+          ],
+          "plate_bounds_mm": [
+            [
+              109.15,
+              69.80100305175782,
+              0.0010000000000012221
+            ],
+            [
+              124.15,
+              83.1,
+              7.399999999999999
+            ]
+          ],
+          "sparse_infill_density": "100%"
+        },
+        {
+          "name": "M5 head bearing 9 and plate root",
+          "source_bounds_mm": [
+            [
+              -117.5,
+              76.9,
+              0.001
+            ],
+            [
+              -102.5,
+              90.19899694824218,
+              7.4
+            ]
+          ],
+          "plate_bounds_mm": [
+            [
+              44.150000000000006,
+              236.9,
+              0.0010000000000012221
+            ],
+            [
+              59.150000000000006,
+              250.19899694824218,
+              7.399999999999999
+            ]
+          ],
+          "sparse_infill_density": "100%"
+        },
+        {
+          "name": "M5 head bearing 10 and plate root",
+          "source_bounds_mm": [
+            [
+              -117.5,
+              -90.19899694824218,
+              0.001
+            ],
+            [
+              -102.5,
+              -76.9,
+              7.4
+            ]
+          ],
+          "plate_bounds_mm": [
+            [
+              44.150000000000006,
+              69.80100305175782,
+              0.0010000000000012221
+            ],
+            [
+              59.150000000000006,
+              83.1,
+              7.399999999999999
+            ]
+          ],
+          "sparse_infill_density": "100%"
+        },
+        {
+          "name": "pcba insert post 1 and plate root",
+          "source_bounds_mm": [
+            [
+              42.097079979949626,
+              -87.49999389648437,
+              0.001
+            ],
+            [
+              58.097079979949626,
+              -71.49999389648437,
+              11.0
+            ]
+          ],
+          "plate_bounds_mm": [
+            [
+              203.74707997994963,
+              72.50000610351563,
+              0.0010000000000012221
+            ],
+            [
+              219.74707997994963,
+              88.50000610351563,
+              11.0
+            ]
+          ],
+          "sparse_infill_density": "100%"
+        },
+        {
+          "name": "pcba insert post 2 and plate root",
+          "source_bounds_mm": [
+            [
+              42.097079979949626,
+              -21.199993896484365,
+              0.001
+            ],
+            [
+              58.097079979949626,
+              -5.199993896484365,
+              11.0
+            ]
+          ],
+          "plate_bounds_mm": [
+            [
+              203.74707997994963,
+              138.80000610351564,
+              0.0010000000000012221
+            ],
+            [
+              219.74707997994963,
+              154.80000610351564,
+              11.0
+            ]
+          ],
+          "sparse_infill_density": "100%"
+        },
+        {
+          "name": "pcba insert post 3 and plate root",
+          "source_bounds_mm": [
+            [
+              120.09707997994963,
+              -87.49999389648437,
+              0.001
+            ],
+            [
+              136.09707997994963,
+              -71.49999389648437,
+              11.0
+            ]
+          ],
+          "plate_bounds_mm": [
+            [
+              281.7470799799496,
+              72.50000610351563,
+              0.0010000000000012221
+            ],
+            [
+              297.7470799799496,
+              88.50000610351563,
+              11.0
+            ]
+          ],
+          "sparse_infill_density": "100%"
+        },
+        {
+          "name": "pcba insert post 4 and plate root",
+          "source_bounds_mm": [
+            [
+              120.09707997994963,
+              -21.199993896484365,
+              0.001
+            ],
+            [
+              136.09707997994963,
+              -5.199993896484365,
+              11.0
+            ]
+          ],
+          "plate_bounds_mm": [
+            [
+              281.7470799799496,
+              138.80000610351564,
+              0.0010000000000012221
+            ],
+            [
+              297.7470799799496,
+              154.80000610351564,
+              11.0
+            ]
+          ],
+          "sparse_infill_density": "100%"
+        }
+      ],
+      "fins": [],
+      "regions": {
+        "record": "hardware/printed-parts/cold-core/foam-cap/fore-snap-print-regions.json",
+        "record_sha256": "fd3d192a5c53fe9b3fb43b313df8c36d65fd0f9d2e88dfb2da87a2261057ce76",
+        "part_process_overrides": null
+      }
+    }
+  ],
+  "pause": null,
+  "show_faces": ".cache/runs/snap-finish-20261103-224515/prints/2026-11-03-foam-cap-lid-top-mark1-a49b4cdf/show-faces.npz",
+  "spec": "hardware/printed-parts/enclosure/trial-preparation/pieces.json",
+  "spec_sha256": "b47d2cf2e47dec4defd9326d421bc731ed68e5252d4f947ca3ec67b43ac623a9",
+  "tool_sha256": {
+    "hardware/printed-parts/enclosure/trial-preparation/_derive.py": "2ffa3fc3e716cfc6d1663f69767228eb0f6d9f8da147ffc2c90de2097cdac6e4",
+    "hardware/printed-parts/enclosure/trial-preparation/_mesh.py": "7ab22db36e370608f52df3709c4af1994c8e804ee06e101dcbf79210db99eead",
+    "hardware/printed-parts/enclosure/trial-preparation/_native.py": "1c99ce10842a141a942a19d7def2329512d14b676c00618496187e0d93cd29da",
+    "hardware/printed-parts/enclosure/trial-preparation/_seam.py": "9ffa509df701826563e18388fd3bcc57c604f4b2b8e5e4288821ddcd00bcb176",
+    "hardware/printed-parts/enclosure/trial-preparation/labels.py": "d172b8408f0b9ded097d7c8c2eeea682a067e5d487967576c77caf4204696d68",
+    "hardware/printed-parts/enclosure/trial-preparation/prepare.py": "bc5495142592e777cb1b94eb2cfe06e64ba15ee6bae94f3e95e62a556741b513",
+    "hardware/printed-parts/enclosure/trial-preparation/review.py": "9bd303fe370842fd34eb559dc5f53f887f75c42e478c598737397dd49dd539f7",
+    "hardware/printed-parts/enclosure/trial-preparation/step_meshes.py": "b50f7b50f52f1e8516be3b1fc9ecdb10e87fb188f8b9bebc0fac56737320fc44"
+  },
+  "prepared_utc": "2026-11-04T05:09:17+00:00",
+  "sliced": true,
+  "submitted": false,
+  "archive": ".cache/runs/snap-finish-20261103-224515/prints/2026-11-03-foam-cap-lid-top-mark1-a49b4cdf/2026-11-03-foam-cap-lid-top-mark1-a49b4cdf.gcode.3mf",
+  "archive_sha256": "014da1eb47bc6178e6f660ac0a782abc0aedd6ea400b3b099ea45bde9889f8bd",
+  "gcode_sha256": "c2b1299ab90ae6d59299e7690e64c17b410f7c8437fc3cae2a20650abbc12f01",
+  "estimated_seconds": 25926.6015625,
+  "slicer_warnings": []
+}

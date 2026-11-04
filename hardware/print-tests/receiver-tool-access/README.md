@@ -70,9 +70,10 @@ margin review. Black PET-GF uses the left hardened 0.4 mm Standard nozzle,
 Tree(auto)/Default and localized cooling retain the production support policy.
 
 Remove cavity supports with the tiny flathead that fits inside the opening.
-Keep the solid retaining faces intact. Seat the actual hardware, check both
-catches and every axial stop, then test screwdriver release and repeated
-insertion. Check that bending is distributed through the leaves and that
+Keep the solid retaining faces intact. Seat the actual hardware and check both
+catches and every axial stop. Release the rear caps by spreading their exposed
+leaves; the paired front cartridge uses its open pry windows. Check that
+bending is distributed through the leaves and that
 corners do not whiten or take a permanent set.
 
 [Print jobs](print-jobs.json), [fit readings](parts/fit.json),
