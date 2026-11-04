@@ -1,0 +1,41 @@
+{
+  "root": {
+    "replaced": [
+      "enclosure-front-top"
+    ],
+    "unrelated_fine_bodies_preserved": 437,
+    "step_sha256": "e2ef4e4f70ded5150448a9815b5e01336baba9249d03f4885a6461ffc74a0799",
+    "payload_sha256": "89e8970b9d1562ca233ef5bf9c4fe4eaca043627dd2b5dddf08193a0ac262c49"
+  },
+  "enclosure": {
+    "replaced": [
+      "enclosure_front_top"
+    ],
+    "unrelated_fine_bodies_preserved": 24,
+    "step_sha256": "1cde4514148f91453d97c18e2f46e37204754bec252795e1b027a72675475a6c",
+    "payload_sha256": "2aec216c4500f7c848cf90f8723c30d33abeb73e9d47bdcc23d347d1e434e47d"
+  },
+  "scene": {
+    "replaced_arrays": 3,
+    "unrelated_bodies_preserved": 440,
+    "metadata": "Declared Box, aliases and scalar checks retained; scalar checks were not recomputed."
+  },
+  "installation": {
+    "pump-mount": {
+      "changed": [
+        "enclosure-front-top"
+      ],
+      "unrelated_buffer_views_preserved": 219,
+      "nodes_materials_and_unrelated_buffers_retained": true,
+      "sha256": "ee97bdc80a485441a18bc92021c8a640c764191b6b4cc6be1d53a36a1128e3bc"
+    },
+    "front-top": {
+      "changed": [
+        "enclosure-front-top"
+      ],
+      "unrelated_buffer_views_preserved": 198,
+      "nodes_materials_and_unrelated_buffers_retained": true,
+      "sha256": "0632c1da735b7575a83ea3680b45da30e7baedb4f6e97a499d0fbaddf3129a80"
+    }
+  }
+}
