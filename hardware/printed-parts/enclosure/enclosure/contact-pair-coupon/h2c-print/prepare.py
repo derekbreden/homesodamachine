@@ -12,12 +12,22 @@ import zipfile
 HERE = Path(__file__).resolve().parent
 COUPON = HERE.parent
 ROOT = next(p for p in HERE.parents if (p / "tools").is_dir())
+ARCHIVED_GENERATOR = COUPON / "contact_pair_coupon.py"
+GENERATOR_REVISION = "f90aba23c585bf2e73430e3157dff74474041aa3"
 sys.path.insert(0, str(ROOT / "hardware/printed-parts/faucet"))
 import refresh_print_project as writer
 
 
+def source_bytes(path):
+    """Read live inputs, or the exact Git source of the retired generator."""
+    if path == ARCHIVED_GENERATOR and not path.is_file():
+        return subprocess.check_output(
+            ["git", "show", f"{GENERATOR_REVISION}:{path.relative_to(ROOT)}"], cwd=ROOT)
+    return path.read_bytes()
+
+
 def sha(path):
-    return hashlib.sha256(path.read_bytes()).hexdigest()
+    return hashlib.sha256(source_bytes(path)).hexdigest()
 
 
 def validate_geometry_sources(geometry):
@@ -36,7 +46,7 @@ def validate_geometry_sources(geometry):
         prior = subprocess.run(["git", "show", f"{revision}:{path}"], cwd=ROOT,
                                capture_output=True, check=True).stdout
         assert hashlib.sha256(prior).hexdigest() == expected
-        old, new = ast.parse(prior), ast.parse(source.read_bytes())
+        old, new = ast.parse(prior), ast.parse(source_bytes(source))
         functions = lambda tree: {n.name: n for n in tree.body if isinstance(n, ast.FunctionDef)}
         before, after = functions(old), functions(new)
         for name in before.keys() - {"main"}:
@@ -58,6 +68,8 @@ def validate_geometry_sources(geometry):
         review = {"export_generator_revision": revision,
                   "export_source_sha256": expected, "current_source_sha256": sha(source),
                   "geometry_functions_and_export_unchanged": True}
+    if not generator.is_file():
+        review['archived_generator_revision'] = GENERATOR_REVISION
     return review
 
 

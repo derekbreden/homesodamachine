@@ -19,12 +19,23 @@ PROFILE = ROOT / 'hardware/printed-parts/petgf.3mf'
 JOB_NAME = 'pump-cartridge-measured-tee-black-z018-h2c-v1'
 JOB = ROOT / '.cache/prints' / ('2026-09-20-' + JOB_NAME)
 GEOMETRY = HERE / 'pump-cartridge-generation.json'
+ARCHIVED_GENERATOR = HERE / 'prepare_pump_geometry.py'
+GENERATOR_REVISION = 'f90aba23c585bf2e73430e3157dff74474041aa3'
 sys.path.insert(0, str(ROOT / 'hardware/printed-parts/faucet'))
 import refresh_print_project as project_tools
 
 
+def source_bytes(path):
+    """Read live inputs, or the exact Git source of the retired generator."""
+    path = Path(path)
+    if path == ARCHIVED_GENERATOR and not path.is_file():
+        return subprocess.check_output(
+            ['git', 'show', f'{GENERATOR_REVISION}:{path.relative_to(ROOT)}'], cwd=ROOT)
+    return path.read_bytes()
+
+
 def sha(path):
-    return hashlib.sha256(Path(path).read_bytes()).hexdigest()
+    return hashlib.sha256(source_bytes(path)).hexdigest()
 
 
 def main():
@@ -134,6 +145,8 @@ def main():
         'source_parts': report['parts'],
         'geometry_manifest': str(GEOMETRY.relative_to(ROOT)),
         'geometry_manifest_sha256': geometry_sha,
+        'archived_generator_revision': (
+            None if ARCHIVED_GENERATOR.is_file() else GENERATOR_REVISION),
         'cartridge_source_sha256': rebuild['source_sha256'],
         'cartridge_input_sha256': rebuild['input_sha256'],
         'cartridge_artifact_sha256': rebuild['artifact_sha256'],

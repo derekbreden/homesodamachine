@@ -6,9 +6,11 @@ import subprocess
 import sys
 import zipfile
 import xml.etree.ElementTree as ET
-import low_force_trial as trial
-
-ROOT,HERE = trial.ROOT,trial.HERE
+HERE = Path(__file__).resolve().parent
+ROOT = next(p for p in HERE.parents if (p/'tools').is_dir())
+NAME = 'tee-carrier-low-force'
+ARCHIVED_GENERATOR = HERE / 'low_force_trial.py'
+GENERATOR_REVISION = 'f90aba23c585bf2e73430e3157dff74474041aa3'
 sys.path.insert(0,str(ROOT/'hardware/printed-parts/faucet'))
 import refresh_print_project as writer
 BASE=ROOT/'.cache/prints/2026-09-24-tee-carrier-plate-mark2-v15/tee-carrier-plate-black-z004-mark2-v15-six-wall-band-original-order-input.3mf'
@@ -19,12 +21,20 @@ PRINTER='Mark2'
 Z_TRIM=.04
 
 
+def source_bytes(path):
+    """Read live inputs, or the exact Git source of the retired generator."""
+    if path == ARCHIVED_GENERATOR and not path.is_file():
+        return subprocess.check_output(
+            ['git', 'show', f'{GENERATOR_REVISION}:{path.relative_to(ROOT)}'], cwd=ROOT)
+    return path.read_bytes()
+
+
 def main():
     JOB.mkdir(parents=True,exist_ok=True)
     target=JOB/(STEM+'-input.3mf')
     assert not target.exists(),'Keep sliced trials immutable.'
-    source=HERE/(trial.NAME+'.stl')
-    report=writer.refresh(BASE,target,parts=((trial.NAME,source,-90.),),offsets=((0.,0.),),
+    source=HERE/(NAME+'.stl')
+    report=writer.refresh(BASE,target,parts=((NAME,source,-90.),),offsets=((0.,0.),),
                           title=f'Tee carrier low-force roof clearance; {PRINTER}',z_trim=Z_TRIM,plate_border=15.)
     with zipfile.ZipFile(BASE) as z:
         ranges=ET.fromstring(z.read('Metadata/layer_config_ranges.xml'))
@@ -45,13 +55,14 @@ def main():
     members['Metadata/project_settings.config']=json.dumps(settings,indent=2).encode()
     writer.archive_write(target,members)
     sources=[source,source.with_suffix('.step'),HERE/'low_force_trial.py',HERE/'geometry-check.json',Path(__file__),BASE,PETGF]
-    _, carrier = trial.specifications()
+    geometry=json.loads((HERE/'geometry-check.json').read_text())
     report.update(project_sha256=hashlib.sha256(target.read_bytes()).hexdigest(),
-                  source_geometry_and_settings_sha256={str(p.relative_to(ROOT)):hashlib.sha256(p.read_bytes()).hexdigest() for p in sources},
+                  source_geometry_and_settings_sha256={str(p.relative_to(ROOT)):hashlib.sha256(source_bytes(p)).hexdigest() for p in sources},
+                  archived_generator_revision=(None if ARCHIVED_GENERATOR.is_file() else GENERATOR_REVISION),
                   printer=PRINTER,requested_z_trim_mm=Z_TRIM,expected_textured_plate_trim_mm=.02,
-                  roof_relief_mm=trial.ROOF_RELIEF,
-                  roof_clearance_mm=carrier.roof_z-carrier.column_z[1],
-                  floor_clearance_mm=carrier.column_z[0]-carrier.floor_z,
+                  roof_relief_mm=geometry['roof_relief_mm'],
+                  roof_clearance_mm=geometry['roof_clearance_mm'],
+                  floor_clearance_mm=geometry['floor_clearance_mm'],
                   initial_layer_height_mm=.20,
                   support_policy='No supports or brim. Bed layer 0.20 mm; filled bottom chamfer/taper and body use normal PET-GF 0.24 mm layers; top R6 uses 0.08 mm. Six walls in print Z 0–6.1 mm only.',
                   bottom_geometry=json.loads((HERE/'geometry-check.json').read_text())['bottom_chamfer'],
