@@ -52,66 +52,10 @@ def shank_end():
     return (LENGTH, 0.0, 0.0), (1.0, 0.0, 0.0)
 
 
-def build():
-    """PTC collet (X = 0, upstream) → hex → NPT shank (+X). Built along +Z
-    low-to-high = upstream-to-downstream, then reoriented +Z -> +X."""
-    import cadquery as cq
-    collet = cq.Workplane("XY").circle(COLLET_D / 2.0).extrude(COLLET_LENGTH)
-    hex_sec = (
-        cq.Workplane("XY")
-        .workplane(offset=COLLET_LENGTH)
-        .polygon(6, HEX_ACROSS_CORNERS)
-        .extrude(HEX_LENGTH)
-    )
-    shank = (
-        cq.Workplane("XY")
-        .workplane(offset=COLLET_LENGTH + HEX_LENGTH)
-        .circle(SHANK_D / 2.0)
-        .extrude(SHANK_LENGTH)
-    )
-    part = collet.union(hex_sec).union(shank)
-    return part.val().rotate((0, 0, 0), (0, 1, 0), 90.0)
-
-
-def _native_main():
-    from _cadq_export import export_assembly
-    from _materials import M_JG_BLACK_PP, one_body
-    part = build()
-    bb = part.BoundingBox()
-    print("John Guest PP010822E 1/4\" PTC × 1/4\" NPT M male connector")
-    print(f"  Bounding box: X [{bb.xmin:.2f}, {bb.xmax:.2f}]  "
-          f"Y [{bb.ymin:.2f}, {bb.ymax:.2f}]  Z [{bb.zmin:.2f}, {bb.zmax:.2f}]")
-    print(f"  Collet Ø{COLLET_D} × {COLLET_LENGTH:g}; hex {HEX_ACROSS_CORNERS} corners × "
-          f"{HEX_LENGTH:g}; NPT Ø{SHANK_D} × {SHANK_LENGTH:g}; total {LENGTH:g} mm")
-    out = _here.parent / "jg-pp010822e.step"
-    export_assembly(one_body(part, "jg-pp010822e", M_JG_BLACK_PP), str(out))
-    print(f"-> {out.name}")
-
-
-
-
 _FROZEN_DIR = Path(__file__).resolve().parent
 STEP_PATH = _FROZEN_DIR / 'jg-pp010822e.step'
 PAYLOAD_PATH = _FROZEN_DIR / 'jg-pp010822e.step.mesh'
 ASSET_MANIFEST_PATH = _FROZEN_DIR / "frozen-asset.json"
-
-
-def __getattr__(name):
-    if name in globals():
-        return globals()[name]
-    if name in ('cq',):
-        import cadquery as cq
-        value = locals()[name]
-    elif name in ('export_assembly',):
-        from _cadq_export import export_assembly
-        value = locals()[name]
-    elif name in ('M_JG_BLACK_PP', 'one_body'):
-        from _materials import M_JG_BLACK_PP, one_body
-        value = locals()[name]
-    else:
-        raise AttributeError(name)
-    globals()[name] = value
-    return value
 
 
 def main():
