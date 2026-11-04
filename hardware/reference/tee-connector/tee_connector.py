@@ -107,64 +107,6 @@ def carrier_collet_depression(offset: float) -> float:
     return min(BRANCH_COLLET_TRAVEL, max(0.0, BRANCH_COLLET_TRAVEL - offset))
 
 
-def _cylinder(radius, near, far, axis):
-    import cadquery as cq
-    return cq.Solid.makeCylinder(radius, far - near,
-                                 cq.Vector(*(near * a for a in axis)), cq.Vector(*axis))
-
-
-def _fixed_arm(axis, shoulder, collar_end, fixed_end):
-    """Measured radial envelopes joined before the observed shoulder.
-
-    The reduced barrel remains fixed behind the terminal sleeve. The central
-    root union and flat transition faces are conservative clearance envelopes;
-    their edges do not claim measured molded shoulder stations.
-    """
-    import cadquery as cq
-    near, far = shoulder
-    root = _cylinder(ARM_R, 0.0, near, axis)
-    transition = cq.Solid.makeCone(
-        ARM_R, BARREL_R, far - near,
-        cq.Vector(*(near * a for a in axis)), cq.Vector(*axis))
-    collar = _cylinder(BARREL_R, far, collar_end, axis)
-    nose = _cylinder(FIXED_NOSE_R, collar_end, fixed_end, axis)
-    return root.fuse(transition, collar, nose)
-
-
-def build(depression: float = 0.0):
-    """Clearance reference with only the branch's terminal proxy sleeve moved."""
-    if not 0.0 <= depression <= BRANCH_COLLET_TRAVEL + 1e-9:
-        raise ValueError("branch depression exceeds the measured sleeve stroke")
-    arms = []
-    for axis, shoulder, collar_end, fixed_end, reach, travel in (
-        ((0, 0, 1), RUN_ENVELOPE_SHOULDER, RUN_COLLAR_END, RUN_FIXED_END, RUN_HALF, 0.0),
-        ((0, 0, -1), RUN_ENVELOPE_SHOULDER, RUN_COLLAR_END, RUN_FIXED_END, RUN_HALF, 0.0),
-        ((0, 1, 0), BRANCH_ENVELOPE_SHOULDER, BRANCH_COLLAR_END, BRANCH_FIXED_END, BRANCH_REACH, depression),
-    ):
-        arms.extend((_fixed_arm(axis, shoulder, collar_end, fixed_end),
-                     _cylinder(COLLET_NOSE_R, fixed_end - travel, reach - travel, axis)))
-    solid = arms[0].fuse(*arms[1:]).clean()
-    # Tube clearance bores do not claim teeth, an O-ring or the hydraulic bore.
-    # The internal stop is a measured station, not an inferred scanned feature.
-    bores = (_cylinder(TUBE_D / 2, -RUN_HALF - 1, RUN_HALF + 1, (0, 0, 1)),
-             _cylinder(TUBE_D / 2, 0, BRANCH_REACH + 1, (0, 1, 0)))
-    return solid.cut(*bores).clean()
-
-
-def depress_branch(solid, depression: float):
-    """Move the terminal proxy sleeve, preserving every measured fixed patch."""
-    import cadquery as cq
-    if not 0.0 <= depression <= BRANCH_COLLET_TRAVEL + 1e-9:
-        raise ValueError("branch depression exceeds the measured sleeve stroke")
-    if depression <= 1e-9:
-        return solid
-    bb = solid.BoundingBox()
-    cutter = cq.Solid.makeBox(bb.xlen + 2, bb.ymax - BRANCH_FIXED_END + 1, bb.zlen + 2,
-                             cq.Vector(bb.xmin - 1, BRANCH_FIXED_END, bb.zmin - 1))
-    sleeve = solid.intersect(cutter)
-    return solid.cut(cutter).fuse(sleeve.translate((0, -depression, 0))).clean()
-
-
 def run(sign):
     return ((0.0, 0.0, sign * RUN_HALF), (0.0, 0.0, sign))
 
@@ -188,82 +130,10 @@ def stations():
     return {"+z": run(1.0), "-z": run(-1.0), "branch": branch()}
 
 
-def _branch_radius(solid, lo, hi):
-    import cadquery as cq
-    band = cq.Solid.makeBox(40, hi - lo, 50, cq.Vector(-20, lo, -25))
-    bb = solid.intersect(band).BoundingBox()
-    return max(bb.xmax, -bb.xmin, bb.zmax, -bb.zmin)
-
-
-def _arm_radius(solid, lo, hi):
-    import cadquery as cq
-    band = cq.Solid.makeBox(40, 50, hi - lo, cq.Vector(-20, -25, lo))
-    bb = solid.intersect(band).BoundingBox()
-    return max(bb.xmax, -bb.xmin)
-
-
-def stations_hold():
-    """CAD consistency of the export, NOT qualification of UNQUALIFIED_DATUMS."""
-    from _cadq_export import export_assembly, import_step
-    solid = import_step(str(STEP)).val()
-    bb = solid.BoundingBox()
-    for name, expected, got in (
-        ("run span", RUN_SPAN, bb.zlen), ("positive run", RUN_HALF, bb.zmax),
-        ("nominal extended branch face", BRANCH_REACH, bb.ymax),
-        ("sample collar envelope", COLLAR_ENVELOPE_D, bb.xlen),
-        ("run collar", BARREL_R, _arm_radius(solid, *RUN_COLLAR_BAND)),
-        ("branch collar", BARREL_R, _branch_radius(solid, *BRANCH_COLLAR_BAND)),
-        ("branch root", ARM_R, _branch_radius(solid, *BRANCH_ROOT_BAND)),
-    ):
-        if abs(expected - got) > MEASURE_TOL:
-            raise ValueError(f"tee {name}: expected {expected:g}, exported {got:g}")
-    pressed = depress_branch(solid, BRANCH_COLLET_TRAVEL)
-    if abs(pressed.BoundingBox().ymax - BRANCH_PRESSED_REACH) > MEASURE_TOL:
-        raise ValueError("branch sleeve does not provide the measured release travel")
-
-
-def selftest():
-    stations_hold()
-    return ["measured collar envelopes, distinct run/branch strokes and nominal branch stations pass",
-            "terminal-ring seam/OD and conservative fixed-nose envelope ends remain unqualified"]
-
-
-def _native_main():
-    import cadquery as cq
-    from _cadq_export import export_assembly, import_step
-    from _materials import M_JG_BLACK_PP, one_body
-    solid = build()
-    if not solid.isValid() or len(solid.Solids()) != 1:
-        raise ValueError("tee clearance reference must be one valid solid")
-    export_assembly(one_body(cq.Workplane(obj=solid), "tee-connector", M_JG_BLACK_PP), str(STEP))
-    for line in selftest():
-        print(line)
-
-
-
-
 _FROZEN_DIR = Path(__file__).resolve().parent
 STEP_PATH = _FROZEN_DIR / 'tee-connector.step'
 PAYLOAD_PATH = _FROZEN_DIR / 'tee-connector.step.mesh'
 ASSET_MANIFEST_PATH = _FROZEN_DIR / "frozen-asset.json"
-
-
-def __getattr__(name):
-    if name in globals():
-        return globals()[name]
-    if name in ('cq',):
-        import cadquery as cq
-        value = locals()[name]
-    elif name in ('export_assembly', 'import_step'):
-        from _cadq_export import export_assembly, import_step
-        value = locals()[name]
-    elif name in ('M_JG_BLACK_PP', 'one_body'):
-        from _materials import M_JG_BLACK_PP, one_body
-        value = locals()[name]
-    else:
-        raise AttributeError(name)
-    globals()[name] = value
-    return value
 
 
 def main():
@@ -273,8 +143,4 @@ def main():
 
 
 if __name__ == "__main__":
-    if sys.argv[1:] == ["selftest"]:
-        for line in selftest():
-            print(line)
-    else:
-        main()
+    main()

@@ -42,7 +42,6 @@ from pathlib import Path
 _here = Path(__file__).resolve()
 _hw = next(p for p in _here.parents if p.name == "hardware")
 sys.path.insert(0, str(_hw / "scripts"))
-sys.path.insert(0, str(_hw / "printed-parts" / "cadlib"))
 
 STEP = _here.parent / "neofit-bulkhead.step"
 
@@ -113,26 +112,6 @@ def port(side: float) -> tuple:
     return ((0.0, face, 0.0), (0.0, 1.0 if side > 0 else -1.0, 0.0))
 
 
-def build_neofit_bulkhead():
-    """The fitting as a single solid: flange, bare barrel, inboard body, bored through.
-
-    The barrel spans the manufacturer's A + E panel-and-nut region. The panel
-    assembly supplies the independent nut at its actual clamp plane."""
-    import cadquery as cq
-    from world_workplane import xz_plane_y_up
-    flange = (cq.Workplane(xz_plane_y_up)
-              .circle(FLANGE_D / 2.0).extrude(near_ring_face_y))
-    barrel = (cq.Workplane(xz_plane_y_up)
-              .circle(THREAD_D / 2.0).extrude(far_body_face_y))
-    far = (cq.Workplane(xz_plane_y_up)
-           .workplane(offset=far_ring_face_y)
-           .circle(NUT_D / 2.0).extrude(far_body_face_y - far_ring_face_y))
-    bore = (cq.Workplane(xz_plane_y_up)
-            .workplane(offset=far_ring_face_y)
-            .circle(TUBE_OD / 2.0).extrude(OVERALL))
-    return flange.union(barrel).union(far).cut(bore)
-
-
 def selftest() -> int:
     """The fitting against the sheet it is read from."""
     fails = []
@@ -156,52 +135,10 @@ def selftest() -> int:
     return 1 if fails else 0
 
 
-def _native_main():
-    from _cadq_export import export_assembly
-    from _materials import M_NEOFIT_ACETAL, one_body
-    part = build_neofit_bulkhead()
-    bb = part.val().BoundingBox()
-    print("neoFit ABU44 — 1/4\" acetal bulkhead connector")
-    print(f"  barrel M{THREAD_D:g} × {THREAD_PITCH:g} / flange Ø{FLANGE_D:.3f} / "
-          f"nut Ø{NUT_D:.3f}")
-    print(f"  overall {OVERALL:.3f}, proud {PROUD_LENGTH:.3f}, "
-          f"nominal external split; panel span {PANEL_THREAD:.3f}, nut width {NUT_LEN:.3f}")
-    print(f"  Canonical-frame bounding box: "
-          f"X [{bb.xmin:.2f}, {bb.xmax:.2f}]  "
-          f"Y [{bb.ymin:.2f}, {bb.ymax:.2f}]  "
-          f"Z [{bb.zmin:.2f}, {bb.zmax:.2f}]")
-    print(f"  Solid valid: {part.val().isValid()}")
-    export_assembly(one_body(part, "neofit-bulkhead", M_NEOFIT_ACETAL), str(STEP))
-    print(f"-> {STEP.name}")
-
-
-
-
 _FROZEN_DIR = Path(__file__).resolve().parent
 STEP_PATH = _FROZEN_DIR / 'neofit-bulkhead.step'
 PAYLOAD_PATH = _FROZEN_DIR / 'neofit-bulkhead.step.mesh'
 ASSET_MANIFEST_PATH = _FROZEN_DIR / "frozen-asset.json"
-
-
-def __getattr__(name):
-    if name in globals():
-        return globals()[name]
-    if name in ('cq',):
-        import cadquery as cq
-        value = locals()[name]
-    elif name in ('export_assembly',):
-        from _cadq_export import export_assembly
-        value = locals()[name]
-    elif name in ('M_NEOFIT_ACETAL', 'one_body'):
-        from _materials import M_NEOFIT_ACETAL, one_body
-        value = locals()[name]
-    elif name in ('xz_plane_y_up',):
-        from world_workplane import xz_plane_y_up
-        value = locals()[name]
-    else:
-        raise AttributeError(name)
-    globals()[name] = value
-    return value
 
 
 def main():
