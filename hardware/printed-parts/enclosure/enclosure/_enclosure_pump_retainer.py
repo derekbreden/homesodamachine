@@ -1,5 +1,6 @@
 """Live numeric construction of the relaxed and installed lower pump retainer."""
 from contextlib import contextmanager
+import math
 from pathlib import Path
 
 
@@ -83,12 +84,22 @@ def _wing(shell, graph, box, side, spread):
 def _leaves(shell, graph):
     fixed = shell._fixed_pump_mount
     original_well, original_wing = shell._pump_lower_well, fixed._wing
+    original_cylinder = shell._ycyl
+    _seam, _wall, tangent_x, tangent_z = shell._tray.outlet_under_tangent(shell.cap_pump_air)
+    dz = tangent_z-shell._tray.outlet_axis_z
+    stations = [math.atan2(dz, side*tangent_x) for side in (-1., 1.)]
+    def outlet_cylinder(radius, x, z, y0, y1):
+        return graph.add('cylinder', axis=1, radius=radius, centre=(x,z),
+                         span=(y0,y1), stations=stations,
+                         bounds=(x-radius,x+radius,y0,y1,z-radius,z+radius))
     shell._pump_lower_well = lambda trays: _lower_well(shell,graph,trays)
     fixed._wing = lambda e,box,side,spread: _wing(e,graph,box,side,spread)
+    shell._ycyl = outlet_cylinder
     try:
         yield
     finally:
         shell._pump_lower_well, fixed._wing = original_well, original_wing
+        shell._ycyl = original_cylinder
 
 
 def numbers(shell, box, *, seated=False):
