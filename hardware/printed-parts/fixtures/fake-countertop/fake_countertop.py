@@ -13,8 +13,7 @@ absolute-tolerance triangulation, so the rounds print as rounds.
 Frame: X across the legs, Y along the front edge, +Z up from the bed; the show face is Z = 0.
 In use the piece stands the other way up.
 
-Run with tools/cad-venv/bin/python. No argument exports the print; `selftest` checks
-geometry without writing files.
+Run with tools/cad-venv/bin/python. No argument exports the print.
 """
 
 from __future__ import annotations
@@ -32,21 +31,6 @@ for _path in (_hw / "scripts", _hw / "printed-parts" / "cadlib", _repo / "tools"
 if __name__ == "__main__":
     import _rust_part
     _rust_part.start()
-
-
-def __getattr__(name):
-    import importlib
-    if name == "cq":
-        value = importlib.import_module("cadquery")
-    else:
-        modules = {"export_assembly": "_cadq_export", "note_write": "_cadq_export",
-                   "M_PETGF_BLACK": "_material_base", "one_body": "_material_base",
-                   "substitute_md": "docgen", "write_print_stl": "print_mesh"}
-        if name not in modules:
-            raise AttributeError(name)
-        value = getattr(importlib.import_module(modules[name]), name)
-    globals()[name] = value
-    return value
 
 
 INCH = 25.4
@@ -81,117 +65,6 @@ clear_height = HEIGHT - T
 leg_inner_x = CAVITY / 2
 
 
-
-def _box(x0, x1, y0, y1, z0, z1):
-    import cadquery as cq
-    return cq.Workplane(obj=cq.Solid.makeBox(
-        x1 - x0, y1 - y0, z1 - z0, cq.Vector(x0, y0, z0)
-    ))
-
-
-def _edges(shape, keep):
-    return shape.newObject([e for e in shape.edges().vals() if keep(e.Center())])
-
-
-def _vertical_edges(shape, keep):
-    return shape.newObject([
-        e for e in shape.edges("|Z").vals() if keep(e.Center())
-    ])
-
-
-def _u():
-    slab = _box(-SLAB_X / 2, SLAB_X / 2, -SLAB_Y / 2, SLAB_Y / 2, 0.0, T)
-    left = _box(-SLAB_X / 2, -leg_inner_x, -SLAB_Y / 2, SLAB_Y / 2, T - 1.0, HEIGHT)
-    right = _box(leg_inner_x, SLAB_X / 2, -SLAB_Y / 2, SLAB_Y / 2, T - 1.0, HEIGHT)
-    return slab.union(left).union(right)
-
-
-def _rounded():
-    u = _u()
-    outer = lambda c: abs(c.x) > leg_inner_x + 1.0 and abs(c.y) > SLAB_Y / 2 - 1.0
-    u = _vertical_edges(u, outer).fillet(CORNER_R)
-    root = lambda c: abs(abs(c.x) - leg_inner_x) < 1e-6 and abs(c.z - T) < 1e-6
-    u = _edges(u, root).fillet(ROOT_R)
-    inner = lambda c: abs(abs(c.x) - leg_inner_x) < 1e-6 and abs(c.y) > SLAB_Y / 2 - 1.0
-    u = _vertical_edges(u, inner).fillet(FOOT_R)
-    u = u.edges(">Z").fillet(FOOT_R)
-    return u
-
-
-def _hole():
-    import cadquery as cq
-    return cq.Workplane(obj=cq.Solid.makeCylinder(
-        COUNTER_HOLE_D / 2, T + 2.0, cq.Vector(0, 0, -1.0), cq.Vector(0, 0, 1)
-    ))
-
-
-def build():
-    return _rounded().cut(_hole())
-
-
-def _volume(shape):
-    return sum(s.Volume() for s in shape.solids().vals())
-
-
-def _single_valid(name, shape):
-    solids = shape.solids().vals()
-    if len(solids) != 1 or not solids[0].isValid() or solids[0].Volume() <= 0:
-        raise ValueError(f"{name}: expected one valid, positive-volume solid")
-    return solids[0]
-
-
-def _section_extent(shape, z):
-    # The part's X and Y extent at height z, from a thin slice through it.
-    slab = _box(-LEFT_REACH_X, LEFT_REACH_X, -LEFT_REACH_Y, LEFT_REACH_Y, z - 0.01, z + 0.01)
-    bb = shape.intersect(slab).val().BoundingBox()
-    return bb.xlen, bb.ylen
-
-
-def selftest():
-    import cadquery as cq
-    part = build()
-    _single_valid("fake countertop", part)
-    bb = part.val().BoundingBox()
-
-    needed = UMBILICAL_BELOW_COUNTER + UMBILICAL_BEND_R + HAND_ROOM
-    if clear_height < needed:
-        raise ValueError(f"only {clear_height} mm under the slab; the umbilical wants {needed}")
-
-    probe = cq.Workplane(obj=cq.Solid.makeCylinder(
-        COUNTER_HOLE_D / 2 - 0.05, T + 2.0, cq.Vector(0, 0, -1.0), cq.Vector(0, 0, 1)))
-    if _volume(part.intersect(probe)) > 1e-6:
-        raise ValueError("the counter hole is smaller than the shank's standard")
-
-    # The slab's edges on the bed are sharp: the first layer is the whole footprint, and
-    # nothing above it stands out past it.
-    first = _section_extent(part, 0.2)
-    if abs(first[0] - bb.xlen) > 1e-3 or abs(first[1] - bb.ylen) > 1e-3:
-        raise ValueError(f"the first layer is not the whole footprint: {first} in {(bb.xlen, bb.ylen)}")
-
-    print(json.dumps({
-        "status": "CAD checks passed; the print is untested",
-        "envelope_mm": [round(bb.xlen, 2), round(bb.ylen, 2), round(bb.zlen, 2)],
-        "clear_under_slab_mm": clear_height,
-        "volume_cm3": round(_volume(part) / 1000, 1),
-    }, indent=2))
-    return part
-
-
-def _export_print(part, output=None):
-    from _cadq_export import export_assembly, note_write
-    from _material_base import M_PETGF_BLACK, one_body
-    from print_mesh import write_print_stl
-    stem = "fake-countertop"
-    out = Path(output) if output is not None else _here.parent
-    stl = out / f"{stem}.stl"
-    step = out / f"{stem}.step"
-    # A sibling print mesh keeps this bench fixture out of viewer payloads.
-    written = write_print_stl(part, stl)
-    note_write(stl)
-    export_assembly(one_body(part, stem, M_PETGF_BLACK), str(step))
-    print(f"-> {step.name}, {stl.name}: {_volume(part) / 1000:.1f} cm³, {len(written.faces)} facets")
-
-
 def numbers():
     """The authored stock, rounds, counter hole and existing clearance checks."""
     from _materials import M_PETGF_BLACK, linear
@@ -223,16 +96,8 @@ def _document(volume, output=None):
     })
 
 
-def _native_main(output=None):
-    part = selftest()
-    _export_print(part, output)
-    _document(_volume(part), output)
-
-
-def main(output=None, *, native=False):
-    """Write the current bench fixture, retaining its native construction helpers."""
-    if native:
-        return _native_main(output)
+def main(output=None):
+    """Write the current bench fixture with the Rust generator."""
     import _rust_part
     import trimesh
     from flute_skin import non_manifold_edges
@@ -255,9 +120,6 @@ def main(output=None, *, native=False):
 
 
 if __name__ == "__main__":
-    if sys.argv[1:] == ["selftest"]:
-        selftest()
-    elif sys.argv[1:]:
-        sys.exit("usage: fake_countertop.py [selftest]")
-    else:
-        main()
+    if sys.argv[1:]:
+        sys.exit("usage: fake_countertop.py")
+    main()

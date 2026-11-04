@@ -15,17 +15,14 @@ the tube that is kept.
 Frame: X along the blade, Y along the tube, +Z up. The bottom face is Z = 0 and is the print
 bed. Every face is vertical, upward or a valley; the print needs no support.
 
-Run with tools/cad-venv/bin/python. No argument exports the print; `selftest` checks geometry
-without writing files.
+Run with tools/cad-venv/bin/python. No argument exports the print.
 """
 
 from __future__ import annotations
 
 import argparse
-import json
 import sys
 from pathlib import Path
-
 
 
 _here = Path(__file__).resolve()
@@ -39,21 +36,6 @@ if __name__ == "__main__":
     _rust_part.start()
 
 from fits import running  # noqa: E402
-
-
-def __getattr__(name):
-    import importlib
-    if name == "cq":
-        value = importlib.import_module("cadquery")
-    else:
-        modules = {"export_assembly": "_cadq_export", "note_write": "_cadq_export",
-                   "M_PETGF_BLACK": "_material_base", "one_body": "_material_base",
-                   "substitute_md": "docgen"}
-        if name not in modules:
-            raise AttributeError(name)
-        value = getattr(importlib.import_module(modules[name]), name)
-    globals()[name] = value
-    return value
 
 
 INCH = 25.4
@@ -102,115 +84,6 @@ def trough_r(tube_od):
     return tube_od / 2 + running
 
 
-def _box(x0, x1, y0, y1, z0, z1):
-    import cadquery as cq
-    import _cadq_export
-    return cq.Workplane(obj=cq.Solid.makeBox(
-        x1 - x0, y1 - y0, z1 - z0, cq.Vector(x0, y0, z0)
-    ))
-
-
-def _along_y(radius, x, z, y0, y1):
-    import cadquery as cq
-    import _cadq_export
-    return cq.Workplane(obj=cq.Solid.makeCylinder(
-        radius, y1 - y0, cq.Vector(x, y0, z), cq.Vector(0, 1, 0)
-    ))
-
-
-def _trough(x, tube_od):
-    r = trough_r(tube_od)
-    axis_z = trough_floor_z + r
-    floor = _along_y(r, x, axis_z, -1.0, BLOCK_Y + 1.0)
-    walls = _box(x - r, x + r, -1.0, BLOCK_Y + 1.0, axis_z, BLOCK_Z + 1.0)
-    return floor.union(walls)
-
-
-def _slot():
-    return _box(-SLOT_L / 2, SLOT_L / 2, slot_y0, slot_y1, slot_floor_z, BLOCK_Z + 1.0)
-
-
-def build():
-    block = _box(-BLOCK_X / 2, BLOCK_X / 2, 0.0, BLOCK_Y, 0.0, BLOCK_Z)
-    for x, tube_od in TROUGHS.values():
-        block = block.cut(_trough(x, tube_od))
-    return block.cut(_slot())
-
-
-def _razor_at_stroke_end():
-    y = (slot_y0 + slot_y1) / 2
-    return _box(-RAZOR_BLADE_L / 2, RAZOR_BLADE_L / 2,
-                y - RAZOR_BLADE_T / 2, y + RAZOR_BLADE_T / 2,
-                razor_edge_z, BLOCK_Z)
-
-
-def _volume(shape):
-    return sum(s.Volume() for s in shape.solids().vals())
-
-
-def _single_valid(name, shape):
-    solids = shape.solids().vals()
-    if len(solids) != 1 or not solids[0].isValid() or solids[0].Volume() <= 0:
-        raise ValueError(f"{name}: expected one valid, positive-volume solid")
-    return solids[0]
-
-
-def selftest():
-    block = build()
-    _single_valid("tube miter box", block)
-
-    troughs = {}
-    for name, (_x, tube_od) in TROUGHS.items():
-        r = trough_r(tube_od)
-        wall_above_tube = BLOCK_Z - (trough_floor_z + tube_od)
-        troughs[name] = {"trough_w_mm": 2 * r, "wall_above_tube_mm": wall_above_tube}
-
-    razor = _razor_at_stroke_end()
-    if _volume(block.intersect(razor)) > 1e-6:
-        raise ValueError("the razor at the end of its stroke meets the block")
-    razor_past_floor = trough_floor_z - razor_edge_z
-    if razor_past_floor <= 0:
-        raise ValueError("the razor's edge does not pass the tube's floor")
-    blade_end_play = (SLOT_L - RAZOR_BLADE_L) / 2
-    guide_l = SLOT_L - 2 * trough_r(TUBE_OD_1_4) - 2 * trough_r(TUBE_OD_3_8)
-
-    bb = block.val().BoundingBox()
-    if any(abs(a - b) > 1e-6 for a, b in zip((bb.xlen, bb.ylen, bb.zlen), (BLOCK_X, BLOCK_Y, BLOCK_Z))):
-        raise ValueError("unexpected print envelope")
-
-    print(json.dumps({
-        "status": "CAD checks passed; the printed slot and a cut are untested",
-        "troughs": troughs,
-        "razor_past_trough_floor_mm": razor_past_floor,
-        "razor_above_slot_floor_mm": razor_edge_z - slot_floor_z,
-        "slot_guide_l_mm": guide_l,
-        "blade_end_play_mm": blade_end_play,
-    }, indent=2))
-    return block
-
-
-def _export_print(part, output=None):
-    import cadquery as cq
-    from _cadq_export import export_assembly, note_write
-    from _material_base import M_PETGF_BLACK, one_body
-    stem = "tube-miter-box"
-    out = Path(output) if output is not None else _here.parent
-    out.mkdir(parents=True, exist_ok=True)
-    stl = out / f"{stem}.stl"
-    step = out / f"{stem}.step"
-    # A sibling slicer mesh keeps this bench fixture out of viewer payloads.
-    cq.exporters.export(part, str(stl), tolerance=MESH_TOLERANCE, angularTolerance=MESH_ANGLE)
-    note_write(stl)
-    export_assembly(one_body(part, stem, M_PETGF_BLACK), str(step))
-    print(f"-> {step.name}, {stl.name}: {_volume(part) / 1000:.2f} cm³")
-
-
-def _native_main(output=None):
-    block = selftest()
-    _export_print(block, output)
-    _document()
-
-
 def numbers():
     """Current block, tube troughs and blade path, in the print frame."""
     from _material_base import M_PETGF_BLACK
@@ -248,10 +121,7 @@ def _document():
     })
 
 
-
-def main(output=None, native=False):
-    if native:
-        return _native_main(output)
+def main(output=None):
     import _rust_part
     out = Path(output) if output is not None else _here.parent
     out.mkdir(parents=True, exist_ok=True)
@@ -262,11 +132,6 @@ def main(output=None, native=False):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("command", nargs="?", choices=["selftest"])
     parser.add_argument("--output", type=Path)
-    parser.add_argument("--native", action="store_true")
     options = parser.parse_args()
-    if options.command == "selftest":
-        selftest()
-    else:
-        main(options.output, options.native)
+    main(options.output)
