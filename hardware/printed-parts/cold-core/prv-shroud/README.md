@@ -7,8 +7,7 @@ cavity the open-port pop-off PRV needs to function.
 
 [`prv_shroud.py`](prv_shroud.py) supplies the dimensions to
 [`prv_shroud.rs`](prv_shroud.rs), which writes the STEP, f64 model, STL and
-viewer payload. The retained native builder is available through `--native`
-and `import_part`. The documented volume integrates the two supported vent
+viewer payload. The documented volume integrates the two supported vent
 bores through the analytic cup wall.
 
 The SV-125 (per [`assembly/pressure-vessel.md`](/hardware/assembly/pressure-vessel.md)
