@@ -34,40 +34,39 @@ PAYLOAD_PATHS = {half: step.with_name(step.name + ".mesh") for half, step in STE
 ASSET_MANIFEST_PATH = _here.parent / "frozen-asset.json"
 
 # The nose and the body behind the ear plate: one stadium, the body's whole depth.
-BODY_L, BODY_W, BODY_T = 17.54, 4.00, 4.00
+
+_reference_hardware = next(p for p in Path(__file__).resolve().parents if p.name == 'hardware')
+import sys as _reference_sys
+_reference_sys.path.insert(0, str(_reference_hardware / 'reference'))
+from _reference_data import data as _reference_data
+_reference_values = _reference_data('yyfkgcp_pogo_4p')
+globals().update({name: _reference_values[name] for name in ('BODY_L', 'BODY_W', 'BODY_T', 'EAR_FACE', 'EAR_T', 'EAR_PITCH', 'EAR_HOLE_D', 'EAR_L', 'PINS', 'PIN_PITCH', 'TAIL_D', 'TAIL_L', 'PIN_D', 'PIN_PROUD', 'STROKE', 'PAD_D', 'MAGNET_PITCH')})
+
 # The ear plate: its front face under the mating face, its thickness, and the two holes.
-EAR_FACE, EAR_T = 2.00, 1.00
-EAR_PITCH, EAR_HOLE_D = 20.44, 1.50
 # The plate's overall reach, end to end — read off the drawing, not dimensioned on it.
-EAR_L = 23.4
 # The four contacts and their solder tails off the back.
-PINS, PIN_PITCH = 4, 2.54
-TAIL_D, TAIL_L = 0.70, 1.50
 # The male's plunger tip, how far it stands proud of the nose at rest, and its whole travel.
-PIN_D, PIN_PROUD, STROKE = 0.90, 1.00, 1.10
 # The female's flush pad, and the magnets' pitch.
-PAD_D = 1.50
-MAGNET_PITCH = 13.54
 
 
 def contact_xs():
-    """The four contacts' X stations, -X first."""
-    return tuple((i - (PINS - 1) / 2.0) * PIN_PITCH for i in range(PINS))
+    "The four contacts' X stations, -X first."
+    return _reference_data('yyfkgcp_pogo_4p', 'contact_xs', (), {})
 
 
 def ear_xs():
-    """The two ear holes' X stations."""
-    return (-EAR_PITCH / 2.0, EAR_PITCH / 2.0)
+    "The two ear holes' X stations."
+    return _reference_data('yyfkgcp_pogo_4p', 'ear_xs', (), {})
 
 
 def ear_back():
-    """Mating face to the ear plate's back — the face the plate bears on when seated."""
-    return EAR_FACE + EAR_T
+    "Mating face to the ear plate's back — the face the plate bears on when seated."
+    return _reference_data('yyfkgcp_pogo_4p', 'ear_back', (), {})
 
 
 def reach_back():
-    """Mating face to the tails' tips."""
-    return BODY_T + TAIL_L
+    "Mating face to the tails' tips."
+    return _reference_data('yyfkgcp_pogo_4p', 'reach_back', (), {})
 
 
 def main():

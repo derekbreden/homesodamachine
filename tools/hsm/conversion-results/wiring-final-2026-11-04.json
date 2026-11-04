@@ -1,0 +1,268 @@
+{
+  "schema": 1,
+  "scope": "Installed wiring numeric providers, readers, export orchestration, manifests and assembly scene composition",
+  "provider_baseline_revision": "000284dc9",
+  "physical_model_sha256": "fed882de520ebd4c88eeac450f86589804dfaf849e329aa620f5312f5dfc4187",
+  "fixed_input_sha256": "27bdcee9d892ce9a05bd2ce7eb4b83c23777141e035d0e5adf0ad25eedf58fe8",
+  "counts": {
+    "wires": 100,
+    "terminals": 197,
+    "physical_bodies": 294,
+    "reference_orientations": 18
+  },
+  "whole_piece": [
+    {
+      "piece": "connections",
+      "numeric_values": 0,
+      "maximum_absolute_delta": 0.0,
+      "errors": []
+    },
+    {
+      "piece": "attachments.terminals",
+      "numeric_values": 1182,
+      "maximum_absolute_delta": 0.0,
+      "errors": []
+    },
+    {
+      "piece": "attachments.frame_checks",
+      "numeric_values": 242,
+      "maximum_absolute_delta": 0.0,
+      "errors": []
+    },
+    {
+      "piece": "attachments.fuse_leads",
+      "numeric_values": 74,
+      "maximum_absolute_delta": 0.0,
+      "errors": []
+    },
+    {
+      "piece": "attachments.passages",
+      "numeric_values": 89,
+      "maximum_absolute_delta": 0.0,
+      "errors": []
+    },
+    {
+      "piece": "attachments.pcb_reference",
+      "numeric_values": 0,
+      "maximum_absolute_delta": 0.0,
+      "errors": []
+    },
+    {
+      "piece": "wire-numbers",
+      "numeric_values": 26522,
+      "maximum_absolute_delta": 2.730260462158185e-12,
+      "errors": []
+    },
+    {
+      "piece": "wire-manifest",
+      "numeric_values": 51749,
+      "maximum_absolute_delta": 2.730260462158185e-12,
+      "errors": []
+    }
+  ],
+  "file_and_scene_cases_passed": [
+    "reference-0",
+    "reference-1",
+    "reference-2",
+    "reference-3",
+    "reference-4",
+    "reference-5",
+    "reference-6",
+    "reference-7",
+    "reference-8",
+    "reference-9",
+    "reference-10",
+    "reference-11",
+    "reference-12",
+    "reference-13",
+    "reference-14",
+    "reference-15",
+    "reference-16",
+    "reference-17",
+    "fine-model-bodies",
+    "fine-model-fixed-snapshot",
+    "group-grid-None",
+    "group-grid-0.25",
+    "group-grid-9.313225746154785e-10",
+    "mesh-shells-flat-False",
+    "mesh-shells-flat-True",
+    "mesh-empty",
+    "scene-definitions",
+    "scene-numeric-spec",
+    "step-records",
+    "step-root",
+    "step-base",
+    "payload-count",
+    "payload-header",
+    "payload-array-bytes",
+    "manifest-csv",
+    "manifest-data"
+  ],
+  "scene_membership_fixture": "Production route metadata with complete fixed mounts and colours; all authored scenes compared exactly",
+  "typed_python_adapter": {
+    "typed_adapter_whole_piece": "exact",
+    "wires": 100
+  },
+  "serialization": "JSON values and ordered arrays compared; retained payload array bytes and manifest CSV bytes exact",
+  "verification_scope": "Fixed numeric whole-piece and reader/scene/STEP/CSV checks; no whole-machine geometry rebuild by this agent; combined build belongs to parent",
+  "remaining_python": "Thin type/import/primitive callback adapters in normal paths. Optional manual installed review/search/draw/_fine_contacts plus model.segment_edge/shape and bundles.add_jackets require a separate completion piece.",
+  "source_sha256": {
+    "tools/hsm/assembly-docs/src/wiring/boundaries.json": "3a53431d5196b4990404234b50a310d06d5cbea4ebd85794f78fe3441a9396fe",
+    "tools/hsm/assembly-docs/src/wiring/stock.json": "f8b4d523ad0b8de54d1b4b6b9057b6050ff4ab0a5c85fced763ebde9fbfac3ed",
+    "tools/hsm/assembly-docs/src/wiring/graph.rs": "95575e21aa4e764148cb1c43f6a890d05395415f3b09e1e410e9bd0dd9391eb9",
+    "tools/hsm/assembly-docs/src/wiring/manifold-bank.json": "d6445654d148731cae4b4afcdbcad738d3ae6a3f377ccadec85ca8b0019677bc",
+    "tools/hsm/assembly-docs/src/wiring/readers.rs": "0805093b9bc1f47b145514cdc0b94e48397a6e90094d6f60d9dc51adb42da5b6",
+    "tools/hsm/assembly-docs/src/wiring/bundles.rs": "6bf583b56f7f43d8dbc14a92dcc5c8130999db67bb7b9f5382f8972d0ad8fbef",
+    "tools/hsm/assembly-docs/src/wiring/terminations.rs": "1b697d73f81f570d3e5bc4a026c807b9bc36358581bfbd6ff809bd27e38747a6",
+    "tools/hsm/assembly-docs/src/wiring/build.rs": "677260a93fa28fb91759ced3728fbeda210e66fb9c35bcb4a4bf0ca70a3b9215",
+    "tools/hsm/assembly-docs/src/wiring/terminals.rs": "9b81f9340c36832b0c55413d207b9df4a31b67ab4b0e9fafa8f669176aeb4e44",
+    "tools/hsm/assembly-docs/src/wiring/routes.rs": "ebb0992e3439bcc9a8c6791a3479feb900fae1713b0989f60ef3f0181b49dfee",
+    "tools/hsm/assembly-docs/src/wiring/unused.json": "5e5a73ef02fb3d2116cc44ebcece53a704ad23d134a090f9bfad9b4aaa062a3a",
+    "tools/hsm/assembly-docs/src/wiring/manifest-sources.json": "13a6580390dd5649d5f7a84f93e3fa8759be1b022650fd184296c78c754264a7",
+    "tools/hsm/assembly-docs/src/wiring/main.rs": "dfedfba9cdde60048c101726bdb24fb555086ce90694bbff1bc772c44ca38000",
+    "tools/hsm/assembly-docs/src/wiring/scene-constants.json": "28d1fa53cb45e26074130cff7af4adbe3acb9ce481c1cf7612666c8653e5085a",
+    "tools/hsm/assembly-docs/src/wiring/scenes.rs": "bb8db1e10a71847ba4d595294e6d25bdefd9f8d1a6cb375f496823edcf7a3123",
+    "tools/hsm/assembly-docs/src/wiring/cable-sites.json": "e68fd25300224400d3f84bc31fd5550c69c281f6fb92dbe887e3b99798d83de2",
+    "tools/hsm/assembly-docs/src/wiring/manifest-limits.json": "b640397f76c26e993efd4fddf32f99d0f0cc32976548e5946c5aeadfbd6ed44f",
+    "tools/hsm/assembly-docs/src/wiring/step.rs": "849576bf55f40acea7e685210a2723ee9d68bde7682580d45db53acaf8dee053",
+    "tools/hsm/assembly-docs/src/wiring/model.rs": "2737bcc9e5b7a79deb2d6944b9fd7695961dd2e2e6c382cf809967abe3054c45",
+    "tools/hsm/assembly-docs/src/wiring/rear-level-hook.json": "5199ec3ecf649e3553903e3af09e4a83fcf8856c239252ddc250485d48879c62",
+    "tools/hsm/assembly-docs/src/wiring/scenes/scene_records.rs": "7269f71bb17b05a324ff85a93e790b00b49193cf4ef77ae4d6b8bb3e63eabb95",
+    "hardware/wiring/installed/_wiring_data.py": "6a26bfd51bd17e055a83de41214a922aad7aeb045fcd60129b63e19681b1257d",
+    "hardware/wiring/installed/_model_input.py": "3f503cb198d7a034149785dd3ba2d4ed8ff1afe19e61341dd19134a8ecada96d",
+    "hardware/wiring/installed/_wire_spline.py": "6f6abff696f5b78448824ed031c69e7d62e9f61bf1f0759c3165dfaa5a45f523",
+    "hardware/wiring/installed/build.py": "f337fbca5e92850500c48e1144192899bb7466580363d1c070456c61685a61fa",
+    "hardware/wiring/installed/bundles.py": "8e2a8534d8ffb4fc463c7781cbb19be58e26b05883fc65390c0ed585cabab118",
+    "hardware/wiring/installed/connections.py": "4db71f3a83443a9fca5a999e83c5d07402b604b32b7d1638c6b76a03c5d5f0d7",
+    "hardware/wiring/installed/manifold_bank_routes.py": "8afbec4db56e30e86904638171300a02d56369cb0e8b56c116821e6b71d4ae88",
+    "hardware/wiring/installed/model.py": "8263aa9b7255c2f5bc6628328a2e9f1f56618b200df1402274974c3d44c44326",
+    "hardware/wiring/installed/retainers.py": "6af9038a248f05cf726910f64db81c8da6901ad0d79e0bc1ef8e5b06d13d626a",
+    "hardware/wiring/installed/routes.py": "21dc5df44e85f9075eb29db5e1029aa18eb8b3b0c882c599f3d1698b46774c8f",
+    "hardware/wiring/installed/step_merge.py": "01f0c75ac77af19f23b6a83378e39769990a1c6ea49b1dd10b1d388153303efc",
+    "hardware/wiring/installed/terminals.py": "0f594de49493b8e553f30b9262b7951d44ce3548570040da9af08b4e6a580111",
+    "hardware/wiring/installed/terminations.py": "e038c5b7b7892252f3fe36bfc5b14991c96b7ca1959b046f2c8370cdfa0d7a85",
+    "hardware/wiring/installed/wire_geometry.py": "9e067123933306b1ab53e955dd8a22e499e9bcd9c739193c5fd4db18e42b5915",
+    "hardware/wiring/installed/wire_route_samples.rs": "b63ba73b4fde15b62e5086955be24cca4fdfa9af585dde0665a4d2e0c0b326ac",
+    "hardware/assembly/scenes/_scenes.py": "59193b734a9f8e1b710028d6ed4f761ede79f3e8f0cd294a9834f44bcd5099fe",
+    "hardware/assembly/scenes/render_scenes.py": "cbfa7347cfe49f94d8693cf31d980962e0c2b4f5b3cfaa8bb59004250e26e5b7"
+  },
+  "manual_reader_compatibility": {
+    "schema": 1,
+    "checks_passed": [
+      "junction-public-values",
+      "junction-direct-override",
+      "valve-public-values",
+      "valve-direct-override",
+      "fits-public-values",
+      "fits-direct-override",
+      "seat-public-values",
+      "seat-direct-override",
+      "funnel-public-values",
+      "funnel-direct-override",
+      "elbow-public-values",
+      "elbow-direct-override",
+      "frame-public-values",
+      "frame-direct-override",
+      "seat-dependency-views",
+      "frame-dependency-views",
+      "changed-recipe-binding-explicit",
+      "socket-query",
+      "plug-query",
+      "frame-datums",
+      "frame-drain",
+      "frame-current-caller",
+      "junction-placements",
+      "junction-well-wago-h",
+      "junction-well-wago-g",
+      "junction-well-wago-n",
+      "junction-well-wago-sensors",
+      "junction-well-wago-v12",
+      "junction-well-wago-gnd",
+      "junction-well-wago-reeds-b",
+      "junction-well-wago-mana",
+      "junction-well-wago-manb",
+      "driver-columns",
+      "factory-identity-restored",
+      "failure-identity-restored",
+      "valve-seat-datums",
+      "no-ocp"
+    ],
+    "source_count": 7,
+    "query_reference": "Existing junction and valve function source from HEAD evaluated with fixed native public values and explicit primitive factories",
+    "bindings_contract": "Requested names preserve overrides; current dependency views accepted; changed dependencies fail explicitly and require native query parameters; exported query factory replacements are scoped and original objects restored on success or failure",
+    "source_sha256": {
+      "hardware/wiring/installed/_fine_contacts.py": "87c3b35b792e57ce95319432f25b4988696ffe8b9e03beffab2804cfd79aa3b0"
+    },
+    "harness_sha256": {
+      "verify.py": "c8dff40e1cc39bb771d68bf28e3988bb0799588304a955187e684c26a1b7a579",
+      "junction-reference.py": "a4e409902c2794479decded5a98cced2f6ac1ecc1b1313a703aaea50832c055a",
+      "valve-reference.py": "c97266958c2147be6f1981c6c12ac5e14ce4b7511458aac1d83aab9937c166ff"
+    },
+    "previous_reader_failures": [
+      {
+        "case": "junction constants",
+        "error": "KeyError: 'SIZES'"
+      },
+      {
+        "case": "Beduan constants",
+        "error": "KeyError: 'corner_inset_x'"
+      },
+      {
+        "case": "fit allowance",
+        "error": "KeyError: 'slip'"
+      },
+      {
+        "case": "valve seat constants",
+        "error": "KeyError: 'seat_half_x'"
+      },
+      {
+        "case": "funnel constants",
+        "error": "KeyError: 'aft_extension'"
+      },
+      {
+        "case": "cradle constants",
+        "error": "KeyError: 'SOCKET_HALF'"
+      },
+      {
+        "case": "frame constants",
+        "error": "KeyError: 'center_y'"
+      },
+      {
+        "case": "junction functions",
+        "error": "NameError: name '_compiled' is not defined"
+      },
+      {
+        "case": "valve-seat datums",
+        "error": "ValueError: Missing query source function"
+      },
+      {
+        "case": "cradle functions",
+        "error": "NameError: name '_data' is not defined"
+      },
+      {
+        "case": "frame functions",
+        "error": "NameError: name '_data' is not defined"
+      }
+    ]
+  },
+  "live_compiled_provider_adapter": {
+    "fresh_compiled_providers": true,
+    "wires": 100,
+    "numeric_values": 78271,
+    "maximum_absolute_delta": 2.730260462158185e-12,
+    "errors": [],
+    "ocp_loaded": false,
+    "binary_selection": "Current compiled public providers pinned to existing release binaries to avoid recompilation during shared full build",
+    "harness_sha256": "71c8cdfac2185b536a07fba46268705963881a1a0da561c69f97d3f473f4ffe9"
+  },
+  "no_ocp_marshaling": {
+    "passed": true,
+    "resolution": "Inspect actual class dictionaries across the MRO for dataclass fields and optional conversion methods. Deferred Color values remain scalar stand-ins.",
+    "observed_triggers": [
+      "dataclasses.is_dataclass queried absent __dataclass_fields__ on deferred Color class",
+      "hasattr queried absent _asdict on deferred Color instance"
+    ],
+    "source": "hardware/wiring/installed/_wiring_data.py"
+  },
+  "temporary_files": "Fixed comparisons, import traces and manual compatibility fixtures removed after concise evidence retained; shared geometry/engine caches and installed runtimes retained"
+}

@@ -23,388 +23,49 @@ carries and occt-import-js reads back the same three.
 
 import sys
 from pathlib import Path
-
 import cadquery as cq
+from _shared_data import call, color_record
+from _material_base import one_body, step_safe
 
-from _material_base import (M_ALUMINIUM, M_COPPER, M_PETGF_BLACK, M_STAINLESS,
-                            M_TPU_BLACK, M_ZINC_PLATED_STEEL, one_body, step_safe)
-
-# Those project-neutral names are re-exported here so existing appliance
-# generators still read one complete catalogue.  Independent tools and cut
-# parts import `_material_base` and therefore do not inherit this module's
-# measured enclosure palette.
-
-# `chip_color` and `word_color`, for the wayfinding palette in `FINISHES` — the same anchor
-# `_routing` uses to reach `port_colors`.
-_yw = Path(__file__).resolve().parents[1] / "printed-parts" / "enclosure" / "y-wall-of-back-top"
+_yw = Path(__file__).resolve().parents[1] / 'printed-parts/enclosure/y-wall-of-back-top'
 if str(_yw) not in sys.path:
-    sys.path.insert(0, str(_yw))
-import _y_wall_dimensions as _rear                     # noqa: E402
+    sys.path.insert(0,str(_yw))
+import _y_wall_dimensions as _rear
 
-# --- the plastics ------------------------------------------------------------
-# Expanded ASA Aero White 46100, the cream-white foam body around each RC62.
-M_ASA_AERO_WHITE = cq.Color("#EEE4C4")
-M_JG_BLACK_PP = cq.Color(0.12, 0.12, 0.14)     # John Guest's black polypropylene PTC range
-# The white range beside it. A John Guest part number ending W IS the white one, and three of
-# them are on this machine: the PP0408W union, the PP061208W reducer stem and the PP451223W
-# female adapter (`reference/jg-*`). The Basics MTB-0606WP barb tee is the same white PP.
-M_JG_WHITE_PP = cq.Color(0.90, 0.90, 0.87)
-# The grey acetal the potable PTC bodies are moulded in — McMaster 51055K3's bulkhead union and
-# the PI4512F6S flare swivel inside `reference/flare38-14ptc`.
-M_JG_GREY_ACETAL = cq.Color(0.55, 0.56, 0.57)
-M_NEOFIT_ACETAL = cq.Color(0.14, 0.14, 0.15)   # neoFit's black acetal bulkhead bodies
-M_NEOFIT_WHITE_ACETAL = cq.Color(0.90, 0.91, 0.88)   # neoFit's white acetal ATEU44W stem elbows
-M_POM_ORANGE = cq.Color(0.95, 0.36, 0.05)   # the YDS butterfly clamps' POM keys, off Derek's photograph
-# Bambu PETG Basic Black 30105, and what comes off it: the drip pan, the fuse clamp, the two
-# copper-line plugs, the PRV shroud and the reed bridge. Sampled off the store's own product
-# photograph, and the triple `_y_wall_dimensions.port_colors` draws black LLDPE at.
-M_PETG_BLACK = cq.Color(*(c / 255.0 for c in (38, 38, 41)))
-# Bambu PETG Translucent Clear, the stock the four syrup-wetted reservoir parts print in
-# (`ledger/bom.md` §7) — SO THE CUSTOMER READS FILL STATE THROUGH THE WALL, which is the whole
-# reason a clear spool is bought. Neutral rather than blue: PETG's own clear pulls faintly warm.
-M_PETG_TRANSLUCENT = cq.Color(0.88, 0.88, 0.85, 0.35)
-# Platinum-cure silicone at BBDINO's carbon-black pigment, ≤2% by weight (`ledger/bom.md` §8).
-M_SILICONE_BLACK = cq.Color(0.08, 0.08, 0.08)
-# Unpigmented food-grade silicone — the uxcell flat washer under each reservoir
-# bulkhead (`ledger/bom.md` §8).
-M_SILICONE_CLEAR = cq.Color(0.92, 0.92, 0.90, 0.60)
-# Clear PVC: Sealproof's vent telltale stub over the ASSE 1022's barb, and neoPure's PVCR-0610 on
-# the pump's barbs.
-M_PVC_CLEAR = cq.Color(0.85, 0.90, 0.92, 0.45)
-# Opaque sintered PTFE reference material.
-M_PTFE_WHITE = cq.Color(0.93, 0.93, 0.92)
-# A moulded epoxy package, which is the black both 1-wire probes arrive in: the TO-92 body of
-# the DS18B20 carbonator probe and the DS18S20 coil probe (`ledger/bom.md` §5).
-M_EPOXY_BLACK = cq.Color(0.10, 0.10, 0.10)
-# The MDSR-7-10-15 reed's glass ampoule (`ledger/bom.md` §12) — soda-lime, and see-through
-# because a reed switch is see-through.
-M_GLASS = cq.Color(0.86, 0.90, 0.88, 0.35)
-# CARGEN closed-cell nitrile pipe insulation, the sleeve over the carbonated-water riser
-# (`ledger/bom.md` §11) — a rubber black, which reads flatter than any print on this machine.
-M_NITRILE_BLACK = cq.Color(0.11, 0.11, 0.11)
-# Alex Tech's black PET expandable braid over the harnesses and the umbilical (`ledger/bom.md`
-# §11). An OPEN weave, so what it covers is meant to read through it.
-M_PET_BRAID = cq.Color(0.10, 0.10, 0.11, 0.55)
-
-# --- the metals --------------------------------------------------------------
-# The Multiplex 19-0897's hex barrel (`reference/multiplex-asse1022`).
-M_BRASS = cq.Color(0.71, 0.56, 0.33)
-# The SF76E's tin-plated case, which its listing states as metal.
-M_TINNED_STEEL = cq.Color(0.78, 0.79, 0.80)
-# Provisional plated-white-metal appearance for the GASHER envelope. Its exact
-# body/seat construction is unresolved in reference/gasher-check-valve/README.md.
-M_NICKEL_PLATE = cq.Color(0.76, 0.75, 0.71)
-# Bright chrome over brass — the shipped Taprite 3741 regulator's gauge cases and dial hubs
-# (`ledger/bom.md` §4, `reference/taprite-3741-regulator`). Polished where the nickel above is
-# not, and cooler than it.
-M_CHROME_PLATE = cq.Color(0.80, 0.82, 0.85)
-
-# --- what a dial and a control knob are made of -------------------------------
-# The Taprite regulator stands on the customer's own cylinder, which is where the only pressure
-# gauges on this machine are.
-#
-# Moulded or painted black, glossy in the hand — the regulator's black bonnet, a solenoid's
-# winding, the flow sensor's band.
-M_MOULDED_BLACK = cq.Color(0.075, 0.075, 0.085)
-# A gauge's black: the scale and needle printed on the dial's own face.
-M_GAUGE_BLACK = cq.Color(0.125, 0.125, 0.135)
-# The dial ground they are printed on.
-M_GAUGE_WHITE = cq.Color(0.96, 0.96, 0.95)
-# The second scale beside them, in the red a dual-scale dial prints its other unit in.
-M_GAUGE_RED = cq.Color(0.78, 0.10, 0.12)
-# The band on the cylinder-contents dial where a cylinder still holding liquid CO2 reads.
-M_GAUGE_GREEN = cq.Color(0.13, 0.72, 0.16)
-
-# --- the cold core's own bodies, by what each one is --------------------------
-# `cold-core-layout/cold_core_assembly` places these and the generators below cut them, so the
-# two read the same constant.
-#
-# THE STACK IS OPAQUE BECAUSE THE STACK IS OPAQUE. Nine printed bodies close this box — the
-# shell, the four foam caps and lids, the two copper-line plugs, the PRV shroud and the reed
-# bridge — and every one of them is black, off one of the two spools `ledger/bom.md` §7 bills.
-# What is potted inside them is read through x-ray, which is the viewer's default and ghosts
-# the whole model at once; a cap drawn see-through is a cap nobody prints.
-#
-# THE FIVE FOAM BODIES ARE PET-GF AND THE FOUR SMALL ONES ARE PETG, which is a real difference
-# in the hand and a hairline one in the eye: glass fill stands PET-GF a shade above the PETG it
-# stacks against. §7 is where a body's stock is stated; these two constants are what that stock
-# looks like.
-C_PLUG = M_PETG_BLACK
-C_FOAM_SHELL = M_PETGF_BLACK
-C_CAP_TOP = M_PETGF_BLACK
-C_CAP_LID_TOP = M_PETGF_BLACK
-C_CAP_BOTTOM = M_PETGF_BLACK
-C_CAP_LID_BOTTOM = M_PETGF_BLACK
-C_SHROUD = M_PETG_BLACK
-# The two syrup vessels and their caps, in the ONE stock on this machine that is bought clear —
-# `ledger/bom.md` §7, "so the customer reads fill state through the wall".
-C_RESERVOIR = M_PETG_TRANSLUCENT
-C_RES_CAP = M_PETG_TRANSLUCENT
-C_SILICONE = M_SILICONE_CLEAR
-# The MDSR-7-10-15 reed bodies against the vessel and in each reservoir's channel.
-C_REED = M_GLASS
-
-# --- the enclosure's own bodies -----------------------------------------------
-# THE BOX'S PIECES ARE ONE COLOUR BECAUSE THEY ARE ONE FILAMENT. `printed-parts/enclosure/
-# enclosure` cuts them and `enclosure_assembly` stands them, off this dict — whose keys are also
-# the roll of the pieces the box has, which is what `enclosure.build_pieces` walks. Shading one
-# piece off its neighbour would draw a box nobody prints, and against the box's own intent:
-# the flute field is struck so the Y seam falls in a groove's own shadow. WHAT TELLS A PIECE FROM ITS NEIGHBOUR IN THE VIEWER is x-ray's feature edges and the
-# component picker, neither of which needs the paint to lie.
-WALL_COLORS = {name: M_PETGF_BLACK
-               for name in ("front-bottom", "front-top", "back-bottom", "back-top",
-                            "pump-retainer")}
-C_PCBA = cq.Color(0.11, 0.11, 0.12)
-
-# --- the bought-in bodies, by what each one is --------------------------------
-# `enclosure_assembly` stands these and each reference generator cuts its own STEP, off these.
-C_COMP = cq.Color(0.18, 0.18, 0.19)          # a hermetic compressor's painted-steel can
-C_COND = cq.Color(0.76, 0.77, 0.78)
-C_SEAFLO = cq.Color(0.89, 0.35, 0.13)        # the pump's orange housing
-# The Waveshare ESP32-S3-Touch-LCD-4.3B, whose two faces are two materials: the module's own
-# solder mask, SAMPLED off the vendor's board photo (waveshare.com, `esp32-s3-touch-lcd-4.3b-3`)
-# rather than named, and the cover glass over the panel the customer looks at.
-C_DISPLAY = cq.Color(0.094, 0.306, 0.525)
-# The Waveshare ESP32-S3-Touch-LCD-1.47 in the faucet is black throughout its visible body.
-C_FAUCET_DISPLAY = cq.Color(0.07, 0.07, 0.07)
-# The faucet display's inactive front glass is neutral black.
-C_FAUCET_DISPLAY_GLASS = cq.Color(0.095, 0.095, 0.095)
-C_DISPLAY_GLASS = cq.Color(0.12, 0.13, 0.16)
-C_PSU = cq.Color(0.20, 0.20, 0.24)
-C_RELAY = cq.Color(0.16, 0.42, 0.22)         # the relay board's green solder mask
-C_AC_HUB = cq.Color(0.90, 0.55, 0.20)        # Wago's orange levers
-C_GND = cq.Color(0.75, 0.13, 0.13)
-C_PLATE = cq.Color(0.63, 0.42, 0.24)
-C_MQ6 = cq.Color(0.25, 0.40, 0.70)           # the module's own blue board, under a steel can
-C_C14 = cq.Color(0.18, 0.18, 0.20)
-C_DIGITEN = cq.Color(0.92, 0.92, 0.94)
-# The moulded blue retainers on the scanned DIGITEN push-fit collets.
-C_DIGITEN_CLIP = cq.Color(0.10, 0.29, 0.46)
-# A magnetic pogo pair's black moulded housing, either half: the JHYOSSTHI dock and the
-# YYFKGCP four-pin pair. The gold pins and pads and the flush magnets are that face's own
-# metal and are not drawn apart from it.
-C_DOCK = cq.Color(0.09, 0.09, 0.10)
-# The Beduan solenoid's moulded white body — the eleven valves' one shared shell — and the
-# lacquered coil pack stacked on top of it, which is its own body and its own material.
-C_VALVE = cq.Color(0.93, 0.93, 0.91)
-C_COIL = cq.Color(0.20, 0.20, 0.23)
-# The Kamoer pump's three, READ OFF THE PUMP ON THE BENCH rather than named — the photo set
-# at `off-the-shelf-parts/kamoer-kphm400/raw-images/` is what says which is which: a black
-# moulded head, a WHITE moulded rotor housing under it (the bracket the mounting holes go
-# through), and a bare steel motor can behind that.
-C_PUMP_HEAD = cq.Color(0.16, 0.16, 0.18)
-C_PUMP_BOSS = cq.Color(0.90, 0.90, 0.88)
-C_PUMP_MOTOR = cq.Color(0.74, 0.76, 0.80)
-
-# --- the faucet's own bodies ---------------------------------------------------
-# `faucet-layout/faucet_assembly` stands these and the touch-flo generators cut them. The shell's
-# two pieces and the above-counter plate come off `M_PETGF_BLACK`, the same spool the box's
-# exterior does, so the two stand in one colour across the countertop between them.
-C_FAUCET_BLACK = M_PETGF_BLACK
-# The Westbrass A2031-NL-62 / R2031-NL-62 donor body inside that shell, which the BOM buys in
-# MATTE BLACK (`reference/touch-flo-faucet/README.md`, `faucet-shell/ASSEMBLY.md`) — a
-# finished metal, so it stands a shade under the print that wraps it rather than over it.
-M_DONOR_BLACK = cq.Color(0.13, 0.13, 0.14)
+_CATALOG = call('color.catalog')
+for _name,_args in _CATALOG['colors'].items():
+    globals()[_name] = cq.Color(*_args)
+for _name,_source in _CATALOG['aliases'].items():
+    globals()[_name] = globals()[_source]
+WALL_COLORS = {name:M_PETGF_BLACK for name in _CATALOG['wall_names']}
+PETGF_BLACK_PARTS = set(_CATALOG['petgf_black_parts'])
+_METAL, _DIELECTRIC = 1.0,0.0
+FINISHES = [(globals()[name],rough,metal) for name,rough,metal in _CATALOG['finishes']]
+_palette_args = call('color.palette_constructors',rgbs=[_rear.chip_color(f) for f in _rear.chip_filaments]
+                     + [_rear.word_color(f) for f in _rear.chip_word_colors])
+FINISHES.extend((cq.Color(*args),.85,0.0) for args in _palette_args)
 
 
-# --- how each material takes the light -----------------------------------------
-#
-# A COLOUR IS HALF OF WHAT A MATERIAL LOOKS LIKE, and on this machine it is the quieter half.
-# `cadlib/flute-evidence/02` holds both print stocks in ONE exposure: across the seam, where the
-# light grazes, PETG throws a warm specular bloom — rgb(173,165,142), not a black at all — while
-# PET-GF beside it holds rgb(96,98,98) neutral, 0.59x the PETG. On the fluted panels below, same
-# frame and same light, the same PET-GF reads 1.10x the same PETG. ONE RATIO CANNOT BE BOTH. What
-# swings between those two readings is the specular lobe and not the pigment, which is why no
-# triple read off that frame could have settled it and why the evidence README forbids reading
-# one. The channel that carries it is ROUGHNESS.
-#
-# ROUGHNESS IS A MATERIAL PROPERTY EXACTLY AS COLOUR IS: 0 is a mirror, 1 is fully diffuse, and
-# `metalness` says whether the specular takes the surface's own colour (metal) or the light's
-# (everything else). A glass-filled print scatters where an unfilled one reflects; a lacquered
-# coil pack is glossy where the moulded body under it is not. Those are the same kind of fact as "the reservoir
-# is see-through", and they are stated here for the same reason.
-#
-# THE FIGURES ARE ESTIMATES, and unlike the colours none of them is a measurement. They are read
-# off what each constant's own comment already says the surface is — matte, moulded, plated,
-# powder-formed, lacquered, an open weave — and a part whose comment says nothing about its
-# surface takes the value its class of thing takes. A gloss meter would replace the lot.
-#
-# EVERY COLOUR CONSTANT ABOVE MUST APPEAR EXACTLY ONCE BELOW. `_finish_table()` raises if one
-# does not, so a material cannot enter this module and silently inherit somebody else's finish —
-# which is the failure this whole block exists to end, the viewer having drawn all 44 of them at
-# one hardcoded 0.6.
-_METAL, _DIELECTRIC = 1.0, 0.0
-FINISHES = [
-    # the plastics
-    (M_JG_BLACK_PP,      0.45, _DIELECTRIC),   # moulded polypropylene
-    (M_JG_WHITE_PP,      0.45, _DIELECTRIC),
-    (M_JG_GREY_ACETAL,   0.35, _DIELECTRIC),   # acetal is slick in the hand
-    (M_NEOFIT_ACETAL,    0.35, _DIELECTRIC),
-    (M_NEOFIT_WHITE_ACETAL, 0.35, _DIELECTRIC),
-    (M_POM_ORANGE,       0.35, _DIELECTRIC),
-    (M_PETG_BLACK,       0.45, _DIELECTRIC),   # the flank that blooms bronze in flute-evidence/02
-    (M_PETGF_BLACK,      0.85, _DIELECTRIC),   # glass fill scatters; it holds neutral in that frame
-    (M_PETG_TRANSLUCENT, 0.40, _DIELECTRIC),   # the black stock's own gloss, on a clear spool
-    (M_ASA_AERO_WHITE,   0.90, _DIELECTRIC),   # estimated matte foamed ASA surface
-    (M_TPU_BLACK,        0.70, _DIELECTRIC),
-    (M_SILICONE_BLACK,   0.60, _DIELECTRIC),
-    (M_SILICONE_CLEAR,   0.55, _DIELECTRIC),
-    (M_PVC_CLEAR,        0.25, _DIELECTRIC),   # extruded clear tube
-    (M_PTFE_WHITE,       0.90, _DIELECTRIC),   # "an opaque sintered white"
-    (M_EPOXY_BLACK,      0.45, _DIELECTRIC),   # a moulded TO-92 package
-    (M_GLASS,            0.05, _DIELECTRIC),
-    (M_NITRILE_BLACK,    0.95, _DIELECTRIC),   # "reads flatter than any print on this machine"
-    (M_PET_BRAID,        0.80, _DIELECTRIC),   # "an OPEN weave"
-    # the metals, whose specular takes their own colour
-    (M_STAINLESS,        0.35, _METAL),
-    (M_ALUMINIUM,        0.30, _METAL),
-    (M_BRASS,            0.30, _METAL),
-    (M_TINNED_STEEL,     0.40, _METAL),        # "the SF76E's tin-plated case"
-    (M_ZINC_PLATED_STEEL, 0.45, _METAL),       # zinc-plated and baked music wire
-    (M_NICKEL_PLATE,     0.25, _METAL),        # "a plated white metal"
-    (M_CHROME_PLATE,     0.10, _METAL),        # "polished where the nickel above is not"
-    (M_COPPER,           0.30, _METAL),
-    # the dials and bonnet on the shipped regulator
-    (M_MOULDED_BLACK,    0.30, _DIELECTRIC),   # "glossy in the hand"
-    (M_GAUGE_BLACK,      0.55, _DIELECTRIC),   # painted steel, and ink standing on a dial
-    (M_GAUGE_WHITE,      0.55, _DIELECTRIC),
-    (M_GAUGE_RED,        0.55, _DIELECTRIC),
-    (M_GAUGE_GREEN,      0.55, _DIELECTRIC),
-    # the boards
-    (C_PCBA,             0.50, _DIELECTRIC),   # solder mask
-    # the bought-in bodies
-    (C_COMP,             0.50, _DIELECTRIC),   # a PAINTED steel can — the paint is what you see
-    (C_COND,             0.45, _METAL),        # bare tube and fin stack
-    (C_SEAFLO,           0.50, _DIELECTRIC),
-    (C_DISPLAY,          0.50, _DIELECTRIC),   # solder mask
-    (C_FAUCET_DISPLAY,   0.45, _DIELECTRIC),   # black moulded display body
-    (C_FAUCET_DISPLAY_GLASS, 0.08, _DIELECTRIC),  # neutral-black inactive glass
-    (C_DISPLAY_GLASS,    0.08, _DIELECTRIC),   # "the cover glass over the panel"
-    (C_PSU,              0.45, _METAL),
-    (C_RELAY,            0.50, _DIELECTRIC),   # "the relay board's green solder mask"
-    (C_AC_HUB,           0.50, _DIELECTRIC),   # "Wago's orange levers"
-    (C_GND,              0.50, _DIELECTRIC),
-    (C_PLATE,            0.40, 0.9),           # bare interdigitated copper on a board: mostly metal
-    (C_MQ6,              0.50, _DIELECTRIC),   # "the module's own blue board"
-    (C_C14,              0.45, _DIELECTRIC),
-    (C_DIGITEN,          0.50, _DIELECTRIC),
-    (C_DIGITEN_CLIP,     0.45, _DIELECTRIC),
-    (C_DOCK,             0.45, _DIELECTRIC),   # "the dock's black moulded pill"
-    (C_VALVE,            0.50, _DIELECTRIC),   # "the Beduan solenoid's moulded white body"
-    (C_COIL,             0.30, _DIELECTRIC),   # "the LACQUERED coil pack", and lacquer is glossy
-    (C_PUMP_HEAD,        0.45, _DIELECTRIC),   # "a black moulded head"
-    (C_PUMP_BOSS,        0.45, _DIELECTRIC),   # "a WHITE moulded rotor housing"
-    (C_PUMP_MOTOR,       0.40, _METAL),        # "a bare steel motor can"
-    (M_DONOR_BLACK,      0.70, _DIELECTRIC),   # matte black on a finished metal: the coating is what shows
-    # THE WAYFINDING PALETTE, which is stock and not decoration. `_y_wall_dimensions` holds the
-    # four spools a bulkhead ring and its tube collar are cut from, and a word is lettered off
-    # the black or the white of them; every one is Fiberon PET-GF15. `enclosure_assembly` paints
-    # these bodies straight off `chip_color`/`word_color` rather than off a constant in this
-    # module, so without these rows the rings, the collars and the nameplate are the one part
-    # of the machine with no finish to find.
-    # WALKED, NOT LISTED, so a sixth chip or a third lettering colour cannot arrive without one.
-    *[(cq.Color(*(c / 255.0 for c in rgb)), 0.85, _DIELECTRIC)
-      for rgb in dict.fromkeys([_rear.chip_color(f) for f in _rear.chip_filaments]
-                               + [_rear.word_color(f) for f in _rear.chip_word_colors])],
-]
-
-
-def linear(color) -> tuple:
-    """The exact three doubles a `.step.mesh` carries for this colour: a constant here, any
-    `cq.Color`, or the `#RRGGBB` one is made from.
-
-    A COLOUR IS WRITTEN TWICE IN TWO SPACES. The STEP takes it in sRGB — `COLOUR_RGB` holds
-    0.2 for a 0.2 constant — and `_mesh_payload._mesh` takes it in LINEAR, off this same call,
-    where 0.2 is 0.0331. The viewer meets the linear one, so the linear one is what a finish
-    has to be found by, and the two must be bit-identical, not merely close. A colour made while
-    CadQuery is deferred (`_rust_part.start`) holds the arguments it was made with, and a hex one
-    is its own; OCCT's arithmetic on them (`_occt_color`) gives the same bits it would. Any
-    other colour is read back off OCCT."""
-    made = ((color,), {}) if isinstance(color, str) else getattr(color, "__dict__", {}).get("_made")
-    if made:
-        import _occt_color
-        if (rgba := _occt_color.rgba(*made)) is not None:
-            return rgba[:3]
-    from OCP.Quantity import Quantity_TypeOfColor
-    color = cq.Color(color) if isinstance(color, str) else color
-    return tuple(color.wrapped.GetRGB().Values(Quantity_TypeOfColor.Quantity_TOC_RGB))
-
-
-# Printed PET-GF component identities, shared by material repair and its checks.
-# Names are the native products and viewer members; an assembly prefix and a
-# per-solid index do not change a body's stock. Colored wayfinding stock reads
-# the same filament catalog as its generators.
-PETGF_BLACK_PARTS = {
-    *(f"enclosure-{name}" for name in WALL_COLORS),
-    "enclosure-pump-tube-setting-jig",
-    "display-cover", "funnel-frame", "elbow-cradle",
-    "foam-shell", "foam-cap-top", "foam-cap-lid-top", "foam-cap-bottom",
-    "foam-cap-lid-bottom", "collet-press", "nameplate-receiver",
-    "faucet-shell-base", "faucet-shell-tip", "shell-base", "shell-tip",
-    "above-counter-plate", "faucet-display-cover", "faucet-display-cover-seated",
-    "industrial-shell-base", "industrial-display-cover", "industrial-above-counter-plate",
-    "umbilical-organizer", "anchor-cap", "anchor-cap-carb-1",
-    "anchor-cap-co2-2", "anchor-cap-fluid-28", "anchor-cap-fluid-14", "anchor-cap-fluid-18",
-}
+def linear(color):
+    record = color_record(color)
+    if isinstance(color,str) and call('color.rgba',args=[color],kwargs={}) is None:
+        record = color_record(cq.Color(color))
+    return tuple(call('color.linear',color=record))
 
 
 def petgf_color(name):
-    """The catalog appearance for a PET-GF body, or None for other materials."""
-    import re
-    name = re.sub(r"/\d+$", "", name.replace("_", "-")).split("/")[-1]
-    if name in PETGF_BLACK_PARTS:
-        return M_PETGF_BLACK
-    if re.fullmatch(r"nameplate(?:-\d+)?(?:-ink)?", name):
-        rgb = _rear.word_color("flavor") if name.endswith("-ink") else _rear.chip_color("flavor")
-        return step_safe(cq.Color(*(c / 255 for c in rgb)))
-    match = re.fullmatch(r"(?:bulkhead-ring|tube-collar|collar)-(water|carb|co2|flavor(?:-[ab])?)(-word)?", name)
-    if match:
-        fluid = "flavor" if match[1].startswith("flavor") else match[1]
-        rgb = _rear.word_color(fluid) if match[2] else _rear.chip_color(fluid)
-        return step_safe(cq.Color(*(c / 255 for c in rgb)))
-    return None
+    value = call('color.petgf',name=name,
+                 chip_colors={f:_rear.chip_color(f) for f in _rear.chip_filaments},
+                 word_colors={f:_rear.word_color(f) for f in _rear.chip_word_colors})
+    if value is None:
+        return None
+    return globals()[value['symbol']] if 'symbol' in value else cq.Color(*value['args'])
 
 
-def finish_rows() -> list:
-    """`[{"rgb": [linear r, g, b], "roughness": f, "metalness": f}]`, one per material here.
+def _finish_inputs():
+    return {'finishes':[[color_record(color),rough,metal] for color,rough,metal in FINISHES],
+            'named':{name:color_record(globals()[name]) for name in [*_CATALOG['colors'],*_CATALOG['aliases']]}}
 
-    NO KEY AND NO ROUNDING, for two reasons that both bite in the dark. A LINEAR palette is
-    crowded at the black end — `M_EPOXY_BLACK` and `M_NITRILE_BLACK` are 0.0100 and 0.0116,
-    which is one unit apart at 0-255 and would collapse to one material — so a quantized key
-    cannot carry this palette at all. And where a key lands on a rounding boundary the two ends
-    disagree by construction: Python's `round` is half-to-even and JavaScript's `Math.round` is
-    half-up, over a 0.1-spaced palette that produces such values readily. Handing over the
-    doubles themselves and letting the reader match on DISTANCE has no boundary to sit on: the
-    payload route hits at distance 0, and the occt-parse fallback, whose arithmetic is its own,
-    snaps to the nearest.
 
-    Raises rather than returning a table with a hole in it — see the two guards below."""
-    rows, seen = [], {}
-    for color, rough, metal in FINISHES:
-        # A WHITE IS TWO COLOURS BY THE TIME IT IS DRAWN. `step_safe` holds anything at or over
-        # `_WHITEST` down a part in 255 so OCCT writes a `COLOUR_RGB` for it at all, and the
-        # generators that cut a body's own STEP go through it — while the assemblies that place
-        # that body paint it off the raw constant. Both reach a renderer, so both are named.
-        for rgb in dict.fromkeys((linear(color), linear(step_safe(color)))):
-            # ONE ROW PER COLOUR. A stock can be named twice over — a white reached through
-            # `step_safe` is the white it was — and naming it twice is agreement, not conflict.
-            # It is a second ROW at one colour that would be the defect, because a reader
-            # matching on distance would find both.
-            if rgb in seen:
-                seen[rgb].add((rough, metal))
-                continue
-            seen[rgb] = {(rough, metal)}
-            rows.append({"rgb": list(rgb), "roughness": rough, "metalness": metal})
-    for rgb, got in seen.items():
-        if len(got) > 1:
-            raise ValueError(
-                f"_materials: linear {rgb} is given {len(got)} finishes {sorted(got)}. Two "
-                f"substances at one colour cannot both be drawn — give one of them its own.")
-    named = {n: v for n, v in globals().items()
-             if isinstance(v, cq.Color) and (n.startswith("M_") or n.startswith("C_"))}
-    missing = sorted(n for n, v in named.items() if linear(v) not in seen)
-    if missing:
-        raise ValueError(
-            f"_materials: {', '.join(missing)} name a colour with no finish. Add each to "
-            f"FINISHES — a material cannot be drawn without saying how it takes the light.")
-    return rows
+def finish_rows():
+    return call('color.finish_rows',**_finish_inputs())

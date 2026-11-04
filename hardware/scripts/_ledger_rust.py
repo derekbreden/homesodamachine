@@ -24,8 +24,8 @@ def _json(value):
     return value
 
 
-def call(op, **payload):
-    response = _rust_data.request("ledger", "ledger-data", _json({"root": ROOT, "op": op, **payload}))
+def call(op, *, _program="ledger-data", **payload):
+    response = _rust_data.request("ledger", _program, _json({"root": ROOT, "op": op, **payload}))
     for name in response.get("reads", ()):
         try:
             _rust_part._READ_TARGETS.add(Path(name).resolve().relative_to(ROOT).as_posix())

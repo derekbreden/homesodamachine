@@ -19,7 +19,7 @@ fn npy_data(raw: &[u8]) -> Result<&[u8]> {
     ensure!(start + size <= raw.len(), "truncated metadata npy header");
     Ok(&raw[start + size..])
 }
-fn member(archive: &mut ZipArchive<File>, name: &str) -> Result<Value> {
+pub fn member(archive: &mut ZipArchive<File>, name: &str) -> Result<Value> {
     let mut bytes = Vec::new();
     archive
         .by_name(&format!("{name}.npy"))?
@@ -30,6 +30,7 @@ pub fn metadata(request: &Value) -> Result<Value> {
     let path = request["path"].as_str().context("metadata path")?;
     let mut archive = ZipArchive::new(File::open(path).with_context(|| format!("model {path}"))?)?;
     match request["kind"].as_str().context("metadata kind")? {
+        "names" | "records" => member(&mut archive, request["kind"].as_str().unwrap()),
         "document" => {
             if archive
                 .file_names()
@@ -53,4 +54,32 @@ pub fn metadata(request: &Value) -> Result<Value> {
         }
         other => anyhow::bail!("unknown fine metadata {other:?}"),
     }
+}
+
+/// Extract one entry's raw typed arrays. Python only hydrates their native array type.
+pub fn entry(request: &Value) -> Result<Value> {
+    use std::path::Path;
+    let path=request["path"].as_str().context("array source path")?;
+    let index=request["index"].as_u64().context("array source index")?;
+    let target=Path::new(request["output"].as_str().context("array extraction directory")?);
+    std::fs::create_dir_all(target)?;
+    let mut archive=ZipArchive::new(File::open(path)?)?;
+    let records=member(&mut archive,"records")?;
+    let records=records.as_array().context("face record entries")?.get(index as usize).context("face entry out of range")?;
+    let mut arrays=serde_json::Map::new();
+    for kind in ["V","T","F"] {
+        let mut raw=Vec::new();archive.by_name(&format!("{kind}{index}.npy"))?.read_to_end(&mut raw)?;
+        let data=npy_data(&raw)?;
+        let start=if raw[6]==1{10}else{12};let header_len=raw.len()-data.len()-start;
+        let header=std::str::from_utf8(&raw[start..start+header_len])?;
+        let order=if header.contains("'fortran_order': True"){"F"}else{"C"};
+        let tail=header.split("'descr'").nth(1).context("array descriptor")?.split_once(':').context("array descriptor colon")?.1.trim_start();
+        let quote=tail.chars().next().context("array descriptor quote")?;
+        let dtype=tail[1..].split(quote).next().context("array descriptor value")?;
+        let shape=header.split("'shape'").nth(1).context("array shape")?.split_once('(').context("array shape tuple")?.1.split(')').next().unwrap();
+        let shape=shape.split(',').map(str::trim).filter(|part|!part.is_empty()).map(str::parse::<u64>).collect::<std::result::Result<Vec<_>,_>>()?;
+        let file=target.join(format!("{kind}{index}.bin"));std::fs::write(&file,data)?;
+        arrays.insert(kind.to_owned(),json!({"file":file,"dtype":dtype,"shape":shape,"order":order}));
+    }
+    Ok(json!({"arrays":arrays,"records":records}))
 }

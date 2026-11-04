@@ -64,93 +64,56 @@ import pump_case as pc
 
 
 # --- Case-interior anchors (derived live from pump_case) --------------------
-cx, cy = pc.center_x, pc.center_y                 # footprint center
+
+_reference_hardware = next(p for p in Path(__file__).resolve().parents if p.name == 'hardware')
+import sys as _reference_sys
+_reference_sys.path.insert(0, str(_reference_hardware / 'reference'))
+from _reference_data import data as _reference_data
+_reference_values = _reference_data('kamoer_kphm400', inputs={'pc': {name: getattr(pc, name) for name in ('bore_bottom_z', 'center_x', 'center_y', 'pos_y_face_y', 'skirt_bottom_z')}})
+globals().update({name: _reference_values[name] for name in ('cx', 'cy', 'rear_axis_y_shift', 'rear_axis_y', 'base_plane_z', 'octagon_top_z', 'outlet_above_skirt_bottom', 'arch_plane_z', 'y_face', 'tube_casing_w', 'shaft_w', 'outlet_span_x', 'barb_pitch', 'outlet_open_span_x', 'arch_xs', 'skirt_depth', 'head_front_below_skirt', 'skirt_support_air', 'skirt_y', 'skirt_y_max', 'skirt_y_plus_air', 'skirt_upper_band', 'skirt_body_y', 'skirt_support_xy_air', 'skirt_support_y_minus', 'skirt_support_y_plus', 'skirt_body_y_max', 'skirt_body_y_min', 'head_w', 'head_depth', 'motor_dia', 'motor_reach', 'pump_len', 'body_y_face', 'bracket_w', 'bracket_t', 'bracket_z', 'outlet_relief', 'outlet_relief_top_z', 'outlet_relief_run', 'head_front_z', 'motor_end_z')})
+
 # THE REAR STACK IS NOT CONCENTRIC WITH THE HEAD DATUM. The fitted octagon and motor-can
 # readings put their common axis one millimetre toward Y- while the head, barbs and lower
 # seating faces remain on the case datum. This is part geometry, not assembly clearance: the
 # boss and can both take it, and anything seating the head must not silently take it too.
-rear_axis_y_shift = -1.0
-rear_axis_y = cy + rear_axis_y_shift
-base_plane_z = 0.0                               # base-plate bore-opening plane
-octagon_top_z = pc.bore_bottom_z                 # octagon seat depth / tower-bore start
-outlet_above_skirt_bottom = 0.0  # rigid casing axes, confirmed in both 2026-09-20 scans
-arch_plane_z = pc.skirt_bottom_z + outlet_above_skirt_bottom
-y_face = pc.pos_y_face_y                          # case +Y outer footprint face
 # Outlet-port X positions on the +Y face — where the pump's two built-in tube casings cross the
 # wall. The two 12.75 mm casings span 72.50 mm outside-to-outside, putting their axes 59.75 mm
 # apart — approximately the measured 60 mm centre pitch. Their 13 mm holder shafts leave
 # 0.125 mm per side and span 72.75 mm outside-to-outside.
-tube_casing_w = 12.75
-shaft_w = 13.0
-outlet_span_x = 72.50
-barb_pitch = outlet_span_x - tube_casing_w
-outlet_open_span_x = barb_pitch + shaft_w
-arch_xs = (cx - barb_pitch / 2.0, cx + barb_pitch / 2.0)
-skirt_depth = 8.0
 # Outermost rigid front-cover rim below the measured underside bearing plane. This envelope
 # is independent of the coarse case-clipped head solid and excludes spray fixtures/tubing.
-head_front_below_skirt = 41.15
-skirt_support_air = 0.15
 # The skirt's measured Y span and +Y holder clearance. Its +Y face is 30.11 mm from the pump
 # axis; the cartridge opens 0.30 mm beyond it and carries only 3 mm of upper band behind that.
-skirt_y = 62.5
-skirt_y_max = 30.11
-skirt_y_plus_air = 0.30
-skirt_upper_band = 3.0
 # The lower head body between the two skirt overhangs, measured along Y in the pump frame.
 # Its holder room is 54.3 mm: 54 mm of body plus 0.15 mm per face. Place that room so the
 # case-profile land is 5 mm on Y- and the remaining rectangular land is 3.482 mm on Y+.
-skirt_body_y = 54.0
-skirt_support_xy_air = 0.15
-skirt_support_y_minus = 5.0
-skirt_support_y_plus = 3.482
-skirt_body_y_max = (
-    skirt_y_max + skirt_y_plus_air - skirt_support_y_plus - skirt_support_xy_air)
-skirt_body_y_min = skirt_body_y_max - skirt_body_y
 
 # --- Reference dimensions and fitted axial datums -------------------------
-head_w = 62.61               # square pump-head body, width and height
-head_depth = 47.88           # fitted bracket datum to the head's Z− face
-motor_dia = 35.73            # silver DC motor body (clears the tower bore)
-motor_reach = 62.55          # bracket datum to the motor end cap
-pump_len = head_depth + motor_reach  # fitted head face to motor end cap, excluding the nub
-body_y_face = cy + head_w / 2  # pump body +Y face — the plane outlet fittings seat on
 # The rigid molded skirt carries the clamp load between its head-facing underside and the
 # motor-facing outer rim. Its observed thickness is 8 mm; no additional plate stands above
 # the rear flange datum. The compatibility names below describe that flange footprint.
 # scan-review.md and scan-measurements.json retain the independent bearing-strip observations.
-bracket_w = head_w
-bracket_t = 0.0
-bracket_z = base_plane_z
 # THE OUTLET SIDE FALLS BACK UNDER ITS BARBS, STATED AND NOT MEASURED HERE. The datasheet
 # gives one envelope and this module drew it as a block, because nothing had ever needed the
 # face: `pump_case`'s own wall stood well clear of it. What needs it is a seat that reaches in
 # BEHIND the head to hold it — under the barbs the part falls back this far off the face they
 # stand on, and holds that fall from its front face up. The figure is confirmed on the part,
 # and it is confirmed as barely: a consumer taking a hold in it takes the whole of it.
-outlet_relief = 2.075        # how far the outlet side stands fore of `body_y_face`, under the barbs
-outlet_relief_top_z = -36.295  # bracket-relative end of the setback under the barbs
-outlet_relief_run = head_depth + outlet_relief_top_z
 # --- Axial seams (case frame; -Z = head front, +Z = motor rear) -------------
-head_front_z = base_plane_z - head_depth         # head front (clipped to cavity)
-motor_end_z = base_plane_z + motor_reach         # motor end cap — the part's own far face
 
 
 # --- The two barbs, as stations ---------------------------------------------
 # A peristaltic head has no fixed sense — the rotor turns whichever way the motor is wired —
 # so which barb draws is the assignment of whatever seats the pump.
 
-def barb(i: int) -> tuple:
-    """One of the two outlet barbs: `(position, outward axis)` in the pump's own frame.
-
-    It stands on the body's +Y face, `outlet_above_skirt_bottom` above the case's skirt-bottom
-    plane, and reaches out toward the case wall — so the axis is +Y."""
-    return ((arch_xs[i], body_y_face, arch_plane_z), (0.0, 1.0, 0.0))
+def barb(i: int):
+    "One of the two outlet barbs: `(position, outward axis)` in the pump's own frame.\n\n    It stands on the body's +Y face, `outlet_above_skirt_bottom` above the case's skirt-bottom\n    plane, and reaches out toward the case wall — so the axis is +Y."
+    return _reference_data('kamoer_kphm400', 'barb', (i,), {}, inputs={'pc': {name: getattr(pc, name) for name in ('bore_bottom_z', 'center_x', 'center_y', 'pos_y_face_y', 'skirt_bottom_z')}})
 
 
-def barbs() -> tuple:
-    """Both, in `arch_xs` order — west to east across the head's own face."""
-    return tuple(barb(i) for i in range(len(arch_xs)))
+def barbs():
+    "Both, in `arch_xs` order — west to east across the head's own face."
+    return _reference_data('kamoer_kphm400', 'barbs', (), {}, inputs={'pc': {name: getattr(pc, name) for name in ('bore_bottom_z', 'center_x', 'center_y', 'pos_y_face_y', 'skirt_bottom_z')}})
 
 
 def _zcyl(r, z0, z1, ox=cx, oy=cy):

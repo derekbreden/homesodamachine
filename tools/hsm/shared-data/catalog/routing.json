@@ -1,0 +1,155 @@
+{
+  "stocks": [
+    {
+      "name": "4 mm LLDPE",
+      "od": 4.0,
+      "min_bend": 25.0,
+      "kinds": [
+        "fluid"
+      ],
+      "source": "neoFlo LLDPE tubing sell sheet, metric 4 mm OD / 2.5 mm ID: R25 mm"
+    },
+    {
+      "name": "1/4\" LLDPE",
+      "od": 6.35,
+      "min_bend": 14.0,
+      "kinds": [
+        "fluid",
+        "water",
+        "co2"
+      ],
+      "source": "2.2×OD — bench test on the spool: \"flow with no kinks at 14.0 mm comfortably\""
+    },
+    {
+      "name": "1/4\" soft ACR copper",
+      "od": 6.35,
+      "min_bend": 12.7,
+      "kinds": [
+        "refrigerant"
+      ],
+      "source": "2×OD — a lever bender's smallest common former (BEND_RATIO)"
+    }
+  ],
+  "spools": {
+    "flavor-black-4mm": {
+      "name": "neoFlo black 4 mm OD / 2.5 mm ID LLDPE (LLDPE4M-BLACK)",
+      "color": {
+        "palette": "flavor"
+      },
+      "names": "flavor dispense",
+      "alpha": 1.0,
+      "roughness": 0.35,
+      "metalness": 0.0
+    },
+    "drain-white": {
+      "name": "white 4 mm OD / 2.5 mm ID LLDPE",
+      "color": {
+        "palette": "drain"
+      },
+      "names": "ASSE vent discharge",
+      "alpha": 1.0,
+      "roughness": 0.35,
+      "metalness": 0.0
+    },
+    "white": {
+      "name": "neoFlo white 1/4\" LLDPE (LLDPE4-WHITE)",
+      "color": {
+        "palette": "water"
+      },
+      "names": "tap water",
+      "alpha": 1.0,
+      "roughness": 0.35,
+      "metalness": 0.0
+    },
+    "blue": {
+      "name": "neoFlo blue 1/4\" LLDPE (LLDPE4-BLUE)",
+      "color": {
+        "palette": "carb"
+      },
+      "names": "carbonated water",
+      "alpha": 1.0,
+      "roughness": 0.35,
+      "metalness": 0.0
+    },
+    "red": {
+      "name": "neoFlo red 1/4\" LLDPE (LLDPE4-RED)",
+      "color": {
+        "palette": "co2"
+      },
+      "names": "CO2",
+      "alpha": 1.0,
+      "roughness": 0.35,
+      "metalness": 0.0
+    },
+    "black": {
+      "name": "neoFlo black 1/4\" LLDPE (LLDPE4-BLACK)",
+      "color": {
+        "palette": "flavor"
+      },
+      "names": "flavor",
+      "alpha": 1.0,
+      "roughness": 0.35,
+      "metalness": 0.0
+    },
+    "copper": {
+      "name": "1/4\" soft ACR copper",
+      "color": {
+        "bytes": [
+          184,
+          115,
+          51
+        ]
+      },
+      "names": "nothing",
+      "alpha": 1.0,
+      "roughness": 0.3,
+      "metalness": 1.0
+    }
+  },
+  "spool_of": {
+    "fluid-1": "white",
+    "fluid-2": "white",
+    "fluid-3": "white",
+    "fluid-18": "flavor-black-4mm",
+    "fluid-28": "flavor-black-4mm"
+  },
+  "by_prefix": {
+    "water": "white",
+    "fluid": "black",
+    "co2": "red",
+    "carb": "blue",
+    "refrig": "copper"
+  },
+  "face_normal": {
+    "x-": [
+      -1.0,
+      0.0,
+      0.0
+    ],
+    "x+": [
+      1.0,
+      0.0,
+      0.0
+    ],
+    "y-": [
+      0.0,
+      -1.0,
+      0.0
+    ],
+    "y+": [
+      0.0,
+      1.0,
+      0.0
+    ],
+    "z-": [
+      0.0,
+      0.0,
+      -1.0
+    ],
+    "z+": [
+      0.0,
+      0.0,
+      1.0
+    ]
+  }
+}

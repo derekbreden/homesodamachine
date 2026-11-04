@@ -19,7 +19,7 @@ machine's bodies take theirs.
 """
 
 import cadquery as cq
-from OCP.gp import gp_Pnt, gp_Vec
+from _shared_data import call as _rust_scalar
 
 
 class Seat:
@@ -73,18 +73,16 @@ class Seat:
         return f"<Seat at ({d.X():.3f}, {d.Y():.3f}, {d.Z():.3f})>"
 
 
-def _carry_point(loc: cq.Location, p) -> tuple:
-    q = gp_Pnt(float(p[0]), float(p[1]), float(p[2]))
-    q.Transform(loc.wrapped.Transformation())
-    return (q.X(), q.Y(), q.Z())
+def _carry_point(loc,p):
+    transform = loc.wrapped.Transformation()
+    matrix = [[transform.Value(i,j) for j in (1,2,3,4)] for i in (1,2,3)]
+    return tuple(_rust_scalar('scalar.transform',matrix=matrix,vector=p,kind='point'))
 
 
-def _carry_axis(loc: cq.Location, a) -> tuple:
-    """A direction takes the rotation and not the translation — `gp_Vec` is the direction
-    half of the same transform that moved the body."""
-    v = gp_Vec(float(a[0]), float(a[1]), float(a[2]))
-    v.Transform(loc.wrapped.Transformation())
-    return (v.X(), v.Y(), v.Z())
+def _carry_axis(loc,a):
+    transform = loc.wrapped.Transformation()
+    matrix = [[transform.Value(i,j) for j in (1,2,3,4)] for i in (1,2,3)]
+    return tuple(_rust_scalar('scalar.transform',matrix=matrix,vector=a,kind='axis'))
 
 
 # --- controls -------------------------------------------------------------

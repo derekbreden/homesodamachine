@@ -1,0 +1,155 @@
+{
+  "SCHEMA_VERSION": 1,
+  "PURPOSES": [
+    "components",
+    "consumables_materials",
+    "documentation_marketing",
+    "engineering_software_services",
+    "equipment_tooling",
+    "hosting_domains",
+    "unclassified"
+  ],
+  "AMOUNT_EVIDENCE": [
+    "estimate",
+    "final_vendor_amount",
+    "legacy_unverified"
+  ],
+  "ALLOCATION_STATUS": [
+    "all_project",
+    "mixed_partial",
+    "unresolved"
+  ],
+  "EVENT_TYPES": [
+    "authorization",
+    "charge",
+    "noncash_credit",
+    "refund"
+  ],
+  "PROVES": [
+    "authorization",
+    "charge",
+    "delivery",
+    "invoice_date",
+    "merchant_event_date",
+    "no_charge",
+    "noncash_credit",
+    "order_date",
+    "price",
+    "receipt_date",
+    "refund",
+    "service_period"
+  ],
+  "ACTIVE_STATUSES": [
+    "ACQUIRED",
+    "MISSING",
+    "ON-ORDER",
+    "PARTIAL",
+    "REPLACED",
+    "REPLACEMENT",
+    "RETURNED",
+    "UNRESOLVED"
+  ],
+  "OUTSTANDING_STATUSES": [
+    "MISSING",
+    "ON-ORDER",
+    "PARTIAL",
+    "UNRESOLVED"
+  ],
+  "PURCHASE_META_FIELDS": [
+    "allocation_status",
+    "amount_evidence",
+    "contributes",
+    "currency",
+    "delivery_dates",
+    "invoice_date",
+    "order_ids",
+    "price_history",
+    "purpose",
+    "receipt_date",
+    "replacement_for",
+    "row_date_basis",
+    "service_period",
+    "source_ids",
+    "stream",
+    "vendor"
+  ],
+  "SOURCE_FIELDS": [
+    "document_date",
+    "document_type",
+    "invoice_reference",
+    "merchant_event_date",
+    "note",
+    "notification_date",
+    "proves",
+    "receipt_date",
+    "reference",
+    "service_period",
+    "vendor",
+    "verified_at"
+  ],
+  "ORDER_FIELDS": [
+    "allocation_status",
+    "order_date",
+    "reference",
+    "replaced_by",
+    "replaces",
+    "source_ids",
+    "vendor"
+  ],
+  "EVENT_FIELDS": [
+    "allocation_status",
+    "amount_minor",
+    "confirmation",
+    "currency",
+    "event_date",
+    "event_id",
+    "event_type",
+    "invoice_date",
+    "order_ids",
+    "original_event_id",
+    "receipt_date",
+    "reference",
+    "service_period",
+    "source_ids",
+    "vendor",
+    "verified_at"
+  ],
+  "ALLOCATION_FIELDS": [
+    "allocation_id",
+    "amount_minor",
+    "currency",
+    "event_id",
+    "order_id",
+    "purchase_id"
+  ],
+  "COVERAGE_FIELDS": [
+    "checked_at",
+    "complete_period",
+    "coverage",
+    "coverage_id",
+    "evidence_type",
+    "examined_period",
+    "note",
+    "order_ids",
+    "source_ids",
+    "stream",
+    "vendor"
+  ],
+  "GAP_FIELDS": [
+    "event_ids",
+    "gap_id",
+    "missing_fact",
+    "order_ids",
+    "purchase_ids",
+    "source_ids",
+    "sources_checked"
+  ],
+  "HISTORY_FIELDS": [
+    "amount_evidence",
+    "amount_minor",
+    "currency",
+    "note",
+    "source_ids",
+    "verified_at"
+  ]
+}

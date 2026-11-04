@@ -1,210 +1,31 @@
-"""Render a modern-home, all-push-connect cold-water installation sequence.
-
-The household line is 1/4-inch OD LLDPE already seated in an existing John
-Guest PP0408W-style push-to-connect union.  The installation shown here never
-opens a threaded or compression joint:
-
-1. turn the household quarter-turn shutoff from ON to OFF while the LLDPE and
-   its PTC union remain connected;
-2. press the union's release collet and withdraw the existing LLDPE;
-3. push the supplied stub/tee/appliance-tube assembly into that union;
-4. push the original household line into the tee's open run port.
-
-Every visible fitting, tube, valve, and handle is literal CAD geometry.
-The wide shutoff pair, release trio, and cumulative tee sequence each retain a
-registered orthographic camera so motion is the only visual change within a
-step. Motion arrows stay out of the renders: the guide page places one fixed
-flat glyph at each projected action anchor. The final PNGs have transparent
-canvases so the guide page is their only background.
-
-Regenerate from the repository root with::
-
-    tools/cad-venv/bin/python \
-      hardware/install-guide/plumbing/modern/render_modern_tee.py
-"""
-
+"Render a modern-home, all-push-connect cold-water installation sequence.\n\nThe household line is 1/4-inch OD LLDPE already seated in an existing John\nGuest PP0408W-style push-to-connect union.  The installation shown here never\nopens a threaded or compression joint:\n\n1. turn the household quarter-turn shutoff from ON to OFF while the LLDPE and\n   its PTC union remain connected;\n2. press the union's release collet and withdraw the existing LLDPE;\n3. push the supplied stub/tee/appliance-tube assembly into that union;\n4. push the original household line into the tee's open run port.\n\nEvery visible fitting, tube, valve, and handle is literal CAD geometry.\nThe wide shutoff pair, release trio, and cumulative tee sequence each retain a\nregistered orthographic camera so motion is the only visual change within a\nstep. Motion arrows stay out of the renders: the guide page places one fixed\nflat glyph at each projected action anchor. The final PNGs have transparent\ncanvases so the guide page is their only background.\n\nRegenerate from the repository root with::\n\n    tools/cad-venv/bin/python       hardware/install-guide/plumbing/modern/render_modern_tee.py"
 from __future__ import annotations
+from pathlib import Path as _Path
+import sys as _sys
+_sys.path.insert(0,str(_Path(__file__).resolve().parents[4]/"hardware/scripts"))
+from _guides_compiled import compiled as _compiled, bind as _bind
 
-import sys
-import tempfile
-import shutil
 from dataclasses import dataclass
-from pathlib import Path
-
-if __name__ == "__main__":
-    sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "scripts"))
-    import _rust_part
-    _rust_part.start()
-
-from PIL import Image
-
-
-HERE = Path(__file__).resolve().parent
-HARDWARE = next(parent for parent in HERE.parents if parent.name == "hardware")
-ROOT = HARDWARE.parent
-ART = HERE / "art"
-
-sys.path.insert(0, str(HARDWARE / "scripts"))
-sys.path.insert(0, str(HARDWARE / "install-guide"))
-sys.path.insert(0, str(HARDWARE / "reference" / "jg-pp0408w"))
-from _plumbing_art_mesh import note_write  # noqa: E402
-import _hsm_render  # noqa: E402
-import jg_pp0408w as union_ref  # noqa: E402
-
-
-# John Guest's official PP0208E data sheet, Pp4608_01/23:
-# https://www.johnguest.com/sites/jg/files/2023-04/
-# JG%20Drinks%20Polypropylene%20Equal%20Tee%20Data%20Sheet.pdf
-#
-# These are the black 1/4-inch row's dimensions.  The customer-facing render
-# uses them directly instead of the repo's intentionally approximate McMaster
-# layout stand-in in hardware/reference/tee-connector.
-PP0208_TUBE_OD = 6.35       # A, tube OD
-PP0208_RUN_SPAN = 39.0      # B, face to face with collets released
-PP0208_REACH = 19.5         # C, centre to each of the three port faces
-PP0208_INSERTION = 15.7     # D, tube face to internal stop
-PP0208_MAX_OD = 16.3        # E, widest body/collar diameter
-PP0208_BORE = 4.3           # F, through bore
-
-TUBE_OD = PP0208_TUBE_OD
-TUBE_ID = 4.20
-AXIS_Z = 42.0
-UNION_X = -98.0
-RELEASE_STARTED_GAP = 5.5
-SCENE_END = 420.0
-
-UNION_REACH = union_ref.reach()
-UNION_INSERTION = union_ref.INSERTION
-UNION_RIGHT_FACE = UNION_X + UNION_REACH
-UNION_LEFT_FACE = UNION_X - UNION_REACH
-RELEASE_STARTED_X = UNION_RIGHT_FACE + RELEASE_STARTED_GAP
-ASSEMBLY_FACE_GAP = 8.0
-ASSEMBLY_STAGE_GAP = 16.0
-ORIGINAL_STAGE_GAP = 18.0
-TEE_X = UNION_RIGHT_FACE + ASSEMBLY_FACE_GAP + PP0208_REACH
-TEE_STAGED_X = TEE_X + UNION_INSERTION + ASSEMBLY_STAGE_GAP
-TEE_LEFT_FACE = TEE_X - PP0208_REACH
-TEE_RIGHT_FACE = TEE_X + PP0208_REACH
-TEE_BRANCH_FACE_Z = AXIS_Z - PP0208_REACH
-
-
-# Every household/tap-water tube and the existing white push connector use one
-# neutral-white instruction material.  Its midtone is held below clipped white
-# so the shared studio light can shape the parts without implying multiple tube
-# types; highlights still land white on the page.
-C_WATER_WHITE = (0.82, 0.84, 0.85, 1.0)
-C_CUT_BORE = (0.065, 0.075, 0.085, 1.0)
-C_TEE_BODY = (0.035, 0.040, 0.045, 1.0)
-C_TEE_COLLET = (0.085, 0.090, 0.100, 1.0)
-C_VALVE_BODY = (0.60, 0.39, 0.13, 1.0)
-C_VALVE_SHOULDER = (0.78, 0.55, 0.20, 1.0)
-C_HANDLE = (0.035, 0.27, 0.73, 1.0)
-C_STEM = (0.34, 0.36, 0.39, 1.0)
-C_TOUCHED_COLLET = (0.46, 0.50, 0.54, 1.0)
-# The physical source declares 1.335 mm. This macro-only pose is enlarged so the two states
-# remain distinct after the 13 x 19 sheet is printed.
-ILLUSTRATED_COLLET_TRAVEL = 2.4
-
-
 @dataclass(frozen=True)
 class View:
     camera: tuple[float, float, float]
     target: tuple[float, float, float]
     span: float
 
+def _plumbing_data(*args, **kwargs):
+    return _compiled('render_modern_tee',path=('_plumbing_data',),args=args,kwargs=kwargs)
 
-WATER_VIEW = View((1.05, -1.72, 0.72), (-25.0, 8.0, 105.0), 104.0)
-RELEASE_VIEW = View((0.58, -1.58, 0.66), (-77.8, 0.0, 42.0), 18.0)
-TEE_VIEW = View((0.12, -1.58, 0.72), (-55.0, 0.0, 12.0), 52.0)
-RENDER_SIZE = "2000x1100"
-# Transparent rendering still carries a nominal clear color.  Matching the
-# guide field keeps any browser-level edge RGB neutral, though alpha—not color
-# keying—is what separates the scene from the page.
-RENDER_CLEAR = "#dce7e9"
+def _canonicalize_png(*args, **kwargs):
+    return _compiled('render_modern_tee',path=('_canonicalize_png',),args=args,kwargs=kwargs)
 
+def _job(*args, **kwargs):
+    return _compiled('render_modern_tee',path=('_job',),args=args,kwargs=kwargs)
 
-# Product-neutral installed context: a compact quarter-turn body with integral
-# PTC mouths.  It establishes the shutoff action without inventing a threaded
-# or compression operation.  The exact measured PP0408W downstream is repeated
-# here and in the release closeups.
-WIDE_AXIS_Z = 112.0
-WIDE_VALVE_X = -98.0
-WIDE_UNION_X = 34.0
+def main(*args, **kwargs):
+    return _compiled('render_modern_tee',path=('main',),args=args,kwargs=kwargs)
 
+__all__ = ['annotations', 'sys', 'tempfile', 'shutil', 'dataclass', 'Path', 'HERE', 'HARDWARE', 'ROOT', 'ART', 'note_write', 'union_ref', 'View', 'SCENES', 'main']
+_bind('render_modern_tee',globals())
 
-SCENES = (
-    ("modern-water-on", WATER_VIEW),
-    ("modern-water-off", WATER_VIEW),
-    ("modern-release-ready", RELEASE_VIEW),
-    ("modern-release-pressed", RELEASE_VIEW),
-    ("modern-release-withdrawn", RELEASE_VIEW),
-    ("modern-tee-assembly-ready", TEE_VIEW),
-    ("modern-tee-line-ready", TEE_VIEW),
-    ("modern-tee-complete", TEE_VIEW),
-)
-
-
-def _canonicalize_png(path: Path) -> None:
-    with Image.open(path) as image:
-        if image.size != (2000, 1100):
-            raise RuntimeError(f"unexpected render size {image.size}: {path}")
-        rgba = image.convert("RGBA")
-        alpha = rgba.getchannel("A")
-        if alpha.getextrema() != (0, 255) or alpha.getbbox() is None:
-            raise RuntimeError(f"render does not hold transparent scene art: {path}")
-        rgba.save(path, format="PNG", compress_level=9, optimize=False)
-
-
-def _job(step: Path, output: Path, view: View) -> dict:
-    return {
-        "step": str(step.relative_to(HARDWARE)),
-        "out": str(output),
-        "cam": view.camera,
-        "up": (0.0, 0.0, 1.0),
-        "target": view.target,
-        "size": RENDER_SIZE,
-        "span": view.span,
-        "bg": RENDER_CLEAR,
-        "trim": False,
-        "solid": True,
-        "ortho": True,
-        "ground": False,
-        "fog": False,
-        "transparent": True,
-    }
-
-
-def main() -> None:
-    ART.mkdir(parents=True, exist_ok=True)
-    shared = HERE / "out"
-    shared.mkdir(parents=True, exist_ok=True)
-
-    outputs: list[Path] = []
-    with tempfile.TemporaryDirectory(prefix=".modern-pushfit-", dir=HERE) as directory:
-        work = Path(directory)
-        from _plumbing_art_mesh import export
-        steps = export(sys.modules[__name__], [name for name, _ in SCENES], work, modern=True)
-        jobs = []
-        for name, view in SCENES:
-            step = (shared if name == "modern-water-on" else work) / f"{name}.step"
-            output = ART / f"{name}.png"
-            if name == "modern-water-on":
-                for suffix in ("", ".mesh", ".npz"):
-                    target = Path(f"{step}{suffix}")
-                    shutil.copyfile(Path(f"{steps[name]}{suffix}"), target)
-                    note_write(target)
-            jobs.append(_job(step, output, view))
-            outputs.append(output)
-
-        _hsm_render.render(jobs)
-        for output in outputs:
-            _canonicalize_png(output)
-            note_write(output)
-
-    print("modern push-connect installation art:")
-    for output in outputs:
-        print(f"  {output}")
-
-
-if __name__ == "__main__":
-    main()
+if __name__ == '__main__':
+    _compiled('render_modern_tee','main')

@@ -3,13 +3,21 @@
 //! X is lateral, Y is depth, and Z is up. The arc station is measured on
 //! the water centreline after the internal 70-degree joint datum.
 
-#![recursion_limit = "256"]
+#![recursion_limit = "1024"]
 
 use anyhow::{Context, Result, bail};
 use serde_json::{Value, json};
+pub mod assembly;
+pub mod assembly_dimensions;
+pub mod collar;
 pub mod counter_plate;
 pub mod covers;
+pub mod geos;
 pub mod lever;
+pub mod plumbing;
+pub mod shell;
+pub mod shell_dimensions;
+pub mod vent;
 
 fn formatted(rows: &[(&str, f64, &str, &str)]) -> Value {
     let values: serde_json::Map<_, _> = rows
@@ -692,8 +700,15 @@ pub fn dispatch(request: &Value) -> Result<Value> {
         "industrial-cover" => covers::industrial_cover(request)?,
         "industrial-body" => covers::industrial_body(request)?,
         "lever" => lever::data(&request["color"])?,
+        "lever-repack" => lever::repack(request)?,
         "pchip" => lever::pchip_request(request)?,
         "under-counter-plate" => counter_plate::dispatch(request)?,
+        "shell" => shell::dispatch(request)?,
+        "collar" => collar::dispatch(request)?,
+        "geos-library" => geos::info()?,
+        "assembly" => assembly::dispatch(request)?,
+        "vent" => vent::dispatch(request)?,
+        "plumbing" => plumbing::dispatch(request)?,
         "o-ring" => o_ring(&request["color"]),
         "organizer" => organizer(&request["color"]),
         "above-counter-plate" | "above-counter-gasket" => countertop_stack(

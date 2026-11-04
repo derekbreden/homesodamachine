@@ -30,24 +30,24 @@ _here = Path(__file__).resolve()
 _hw = next(p for p in _here.parents if p.name == "hardware")
 sys.path.insert(0, str(_hw / "scripts"))
 
-HEX_ACROSS_CORNERS = 25.67  # 7/8" hex (22.23 across flats)
-LENGTH = 30.5               # along the flow axis (1.20")
-SMALL_SOCKET_D = 13.72      # 1/4" NPT major Ø (0.540") — the shank it swallows
-SMALL_SOCKET_DEPTH = 11.0   # how far the 1/4" NPT male shank threads in
-LARGE_SOCKET_D = 17.15      # 3/8" NPT major Ø (0.675") — the ASSE inlet it swallows
-LARGE_SOCKET_DEPTH = 13.0   # how far the 3/8" NPT male inlet threads in
+
+_reference_hardware = next(p for p in Path(__file__).resolve().parents if p.name == 'hardware')
+import sys as _reference_sys
+_reference_sys.path.insert(0, str(_reference_hardware / 'reference'))
+from _reference_data import data as _reference_data
+_reference_values = _reference_data('gagira_reducing_coupling')
+globals().update({name: _reference_values[name] for name in ('HEX_ACROSS_CORNERS', 'LENGTH', 'SMALL_SOCKET_D', 'SMALL_SOCKET_DEPTH', 'LARGE_SOCKET_D', 'LARGE_SOCKET_DEPTH')})
+
 
 
 def small_end():
-    """The 1/4" NPT female end: (position, outward axis) — the PP010822E's shank
-    threads in this far (SMALL_SOCKET_DEPTH)."""
-    return (0.0, 0.0, 0.0), (-1.0, 0.0, 0.0)
+    'The 1/4" NPT female end: (position, outward axis) — the PP010822E\'s shank\n    threads in this far (SMALL_SOCKET_DEPTH).'
+    return _reference_data('gagira_reducing_coupling', 'small_end', (), {})
 
 
 def large_end():
-    """The 3/8" NPT female end: (position, outward axis) — this is what goes onto
-    the ASSE 1022's male inlet, LARGE_SOCKET_DEPTH deep."""
-    return (LENGTH, 0.0, 0.0), (1.0, 0.0, 0.0)
+    'The 3/8" NPT female end: (position, outward axis) — this is what goes onto\n    the ASSE 1022\'s male inlet, LARGE_SOCKET_DEPTH deep.'
+    return _reference_data('gagira_reducing_coupling', 'large_end', (), {})
 
 
 _FROZEN_DIR = Path(__file__).resolve().parent

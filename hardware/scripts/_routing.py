@@ -37,781 +37,219 @@ Coordinates are the assembly's world frame. Authorship:
 [`routing.ts`](/hardware/pcb/pcba/routing.ts).
 """
 
-import math
-import sys
-from dataclasses import dataclass, field
+from dataclasses import dataclass, field, asdict
 from pathlib import Path
+import sys
+from _shared_data import call, box_record
 
-# `port_colors`, for `SPOOLS` below. It reaches for `enclosure_assembly` inside its own
-# functions and never at import, so the arrow points one way.
-_yw = Path(__file__).resolve().parents[1] / "printed-parts" / "enclosure" / "y-wall-of-back-top"
+_yw = Path(__file__).resolve().parents[1] / 'printed-parts/enclosure/y-wall-of-back-top'
 if str(_yw) not in sys.path:
     sys.path.insert(0, str(_yw))
-import _y_wall_dimensions as _rear                     # noqa: E402
+import _y_wall_dimensions as _rear
 
+BLOCKED = {}
+_frames = {}
 
 def __getattr__(name):
-    if name == "cq":
+    if name == 'cq':
         import cadquery
         globals()[name] = cadquery
         return cadquery
     raise AttributeError(name)
 
-
 def __dir__():
-    return sorted(set(globals()) | {"cq"})
+    return sorted(set(globals()) | {'cq'})
 
-# A port's declared face → the outward normal the line must leave along.
-FACE_NORMAL = {
-    "x-": (-1.0, 0.0, 0.0), "x+": (1.0, 0.0, 0.0),
-    "y-": (0.0, -1.0, 0.0), "y+": (0.0, 1.0, 0.0),
-    "z-": (0.0, 0.0, -1.0), "z+": (0.0, 0.0, 1.0),
-}
-AXES = ("x", "y", "z")
+def _call(op, **values):
+    result = call('routing.' + op, blocked=BLOCKED, **values)
+    BLOCKED.clear()
+    BLOCKED.update(result['blocked'])
+    return result['value']
 
-
-def normal_of(face) -> tuple:
-    """The outward normal a line leaves a port along. A port's `face` is either
-    one of the six body faces by name, or — where a fitting is clocked off the
-    world axes, as the junction column's rolled elbows and the tees hung
-    between them are — its axis given directly as a vector."""
-    if isinstance(face, str):
-        return FACE_NORMAL[face]
-    m = math.sqrt(sum(c * c for c in face))
-    return tuple(c / m for c in face)
-
-
-def face_name(face) -> str:
-    """A port's face for display: the body-face name, or the axis rounded."""
-    return face if isinstance(face, str) else "(" + ", ".join(
-        f"{c:+.3f}" for c in normal_of(face)) + ")"
-
-
-def leg_skew(a, b, d) -> float:
-    """How far the leg a→b runs off the direction `d`, in degrees."""
-    v = [b[i] - a[i] for i in range(3)]
-    m = math.sqrt(sum(c * c for c in v))
-    if m < 1e-9:
-        return 0.0
-    dot = sum(v[i] * d[i] for i in range(3)) / m
-    return math.degrees(math.acos(max(-1.0, min(1.0, dot))))
-
-# Centreline bend radius as a multiple of the line's Ø. 2×OD is 12.7 mm on 1/4" soft ACR copper,
-# a lever bender's smallest common former. Seeded, not ratified — like `CLEARANCE_FLOOR`; the
-# number is the shoe radius of the bender this build uses. It sets how close to a fitting a line
-# turns, and so how deep a corridor carries one.
-BEND_RATIO = 2.0
-# The exit/approach stub: the straight a line runs off its fitting before it turns. None = one
-# bend radius. A longer reach drops a run onto a lane.
-#
-# A STUB IS A STANDOFF, NOT A PLACE. It says how far a fitting is stood off before the run is
-# free to turn — and the corner that follows spends it. What comes back as visible straight is
-# `stub − r·tan(θ/2)`, and θ is not fixed: a longer stub leaves the run less length to make the
-# same crossing in, so the turn sharpens and takes more of the stub back. Past a point the two
-# nearly cancel, and a stub grown further buys almost no straight at all.
-#   SO A STUB CANNOT SAY WHERE A STRAIGHT ENDS. If that is what an author wants — the tube to run
-# level out of a mouth to a stated place, clear of something it must not reach — the instrument is
-# a WAYPOINT, which the run passes through and no corner may move. State the leg, and its length
-# is its length. Reach for a stub for clearance AT the mouth; reach for a waypoint for position.
-#   AND ONE FIGURE FEEDS BOTH ENDS unless a pair is given: `stub=(exit, approach)`. Symmetry hides
-# the difference — two ends fed one number read alike, so a reading taken off one and attributed
-# to the other is right until the day they differ, and wrong from then on without changing.
+_DEFINITIONS = _call('definitions', palette=_rear.port_colors)
+FACE_NORMAL = {k:tuple(v) for k,v in _DEFINITIONS['face_normal'].items()}
+AXES = ('x','y','z')
+BEND_RATIO = _DEFINITIONS['constants']['bend_ratio']
+BUTT_MAX = _DEFINITIONS['constants']['butt_max']
+COLLET_SKEW = _DEFINITIONS['constants']['collet_skew']
+_STRAIGHT_TOL = _DEFINITIONS['constants']['straight_tol']
 STUB = None
-# How far off a collet's own axis a straight tube may enter it and still run unbent. A
-# push-to-connect collet grips the tube all round and soft LLDPE takes up the rest. Seeded,
-# not ratified, like `BEND_RATIO`.
-# What two mouths may stand apart and still be touching: under this there is no tube between
-# them, only what each collet already grips. `_lines.tubes` sweeps nothing for one.
-BUTT_MAX = 0.01
-COLLET_SKEW = 3.0
 
-# Runs the pack does not carry as drawn, each with the measurement that falls short — run id →
-# reason, read out under `_lines.BLOCKED`, the same dict. A blocked run is still swept and still
-# graded: `_scorecard.routed` counts its connection unmade, `enclosure_assembly.main` prints the
-# reason, `pack-closes` and `bend-radius` read the centreline as drawn.
-#
-# One run holds every shortfall it has — a lead running out along its port and a corner downstream
-# seating nothing are two readings on one line.
-BLOCKED: dict = {}
+def normal_of(face):
+    return tuple(_call('normal', face=face))
 
+def face_name(face):
+    return _call('face_name', face=face)
 
-def _blocked(cid: str, why: str) -> None:
-    """Record a run falling short of what it needs."""
-    BLOCKED[cid] = f"{BLOCKED[cid]}; {why}" if cid in BLOCKED else why
+def leg_skew(a,b,d):
+    return _call('skew', a=a, b=b, direction=d)
 
+def _blocked(cid,why):
+    _call('blocked',cid=cid,why=why)
 
-# A constraint supplies one coordinate; the other two carry over from the point before.
-def _c(axis: str, value: float) -> dict:
-    return {axis: float(value)}
-
+def _c(axis,value):
+    return {axis:float(value)}
 
 @dataclass
 class Frame:
-    """A component's placed pose: its body box from the placed solid, its ports from the port
-    table."""
-
     name: str
-    ports: dict           # port name → (pos, face, diam)
-    bb: object            # the placed solid's bounding box (for body-face constraints)
+    ports: dict
+    bb: object
 
-    def _port(self, p: str):
-        if p not in self.ports:
-            raise KeyError(f"{self.name}: no port {p} (have: {', '.join(sorted(self.ports))})")
-        return self.ports[p]
-
-    def at(self, p: str) -> tuple:
-        """The port's world position."""
-        return self._port(p)[0]
-
-    def normal(self, p: str) -> tuple:
-        """The outward unit normal of the face the port exits."""
+    def _record(self):
+        return {'name':self.name,'ports':self.ports,'bb':box_record(self.bb)}
+    def _port(self,p):
+        return _call('frame_port',frame=self._record(),port=p)
+    def at(self,p):
+        return tuple(self._port(p)[0])
+    def normal(self,p):
         return normal_of(self._port(p)[1])
-
-    def diam(self, p: str) -> float:
+    def diam(self,p):
         return self._port(p)[2]
+    def x(self,p,d=0.):
+        return _call('frame_constraint',frame=self._record(),method='x',port=p,distance=d)
+    def y(self,p,d=0.):
+        return _call('frame_constraint',frame=self._record(),method='y',port=p,distance=d)
+    def z(self,p,d=0.):
+        return _call('frame_constraint',frame=self._record(),method='z',port=p,distance=d)
+    def out(self,p,d):
+        return _call('frame_constraint',frame=self._record(),method='out',port=p,distance=d)
+    def face(self,f,gap=0.):
+        return _call('frame_constraint',frame=self._record(),method='face',face=f,distance=gap)
 
-    # Plane `d` along a world axis from the port. The port rides its component's placement, so
-    # these ride with it.
-    def x(self, p: str, d: float = 0.0) -> dict:
-        return _c("x", self.at(p)[0] + d)
-
-    def y(self, p: str, d: float = 0.0) -> dict:
-        return _c("y", self.at(p)[1] + d)
-
-    def z(self, p: str, d: float = 0.0) -> dict:
-        return _c("z", self.at(p)[2] + d)
-
-    def out(self, p: str, d: float) -> dict:
-        """Plane `d` along the port's own face normal."""
-        n = self.normal(p)
-        off = [i for i in range(3) if abs(n[i]) > 1e-9]
-        if len(off) > 1:
-            raise ValueError(
-                f"{self.name}.{p} exits along {tuple(round(c, 4) for c in n)}, off the world "
-                f"axes — `out` supplies one coordinate and cannot name that step. Give the "
-                f"plane as x/y/z, or let the run close straight into the port.")
-        i = off[0]
-        return _c(AXES[i], self.at(p)[i] + d * n[i])
-
-    def face(self, f: str, gap: float = 0.0) -> dict:
-        """Plane `gap` clear of the component's body face, off the placed solid's box."""
-        axis, sign = f[0], f[1]
-        b = self.bb
-        val = {("x", "-"): b.xmin, ("x", "+"): b.xmax,
-               ("y", "-"): b.ymin, ("y", "+"): b.ymax,
-               ("z", "-"): b.zmin, ("z", "+"): b.zmax}[(axis, sign)]
-        return _c(axis, val + (gap if sign == "+" else -gap))
-
-
-_frames: dict = {}
-
-
-def frame(name: str, solid, ports: dict, bb=None) -> Frame:
-    """Register a component's frame. `route`'s "compressor.refrig-discharge" anchors
-    resolve through the registry; an unknown component or port raises with the offending name.
-    `bb` is the placed solid's box when the solid is not at hand (`_machine` reads it off a
-    scene's document)."""
+def frame(name,solid,ports,bb=None):
     if bb is None:
-        import _boxes                                   # placed solids are memoized; box each once
+        import _boxes
         bb = _boxes.boxed(solid)
-    f = Frame(name, ports, bb)
-    _frames[name] = f
-    return f
+    result = Frame(name,ports,bb)
+    _frames[name] = result
+    return result
 
+def channel(a,b,bias=0.):
+    return _call('channel',a=a,b=b,bias=bias)
 
-def channel(a: float, b: float, bias: float = 0.0) -> float:
-    """Position a run in the corridor between two faces `a` and `b`: centred at bias 0, hugging
-    `a` at −1 or `b` at +1 to leave the other side open."""
-    return (a + b) / 2.0 + bias * (abs(b - a) / 2.0 - 0.6)
-
-
-def _anchor(a: str) -> tuple:
-    comp, _, port = a.partition(".")
-    if comp not in _frames:
-        raise KeyError(f"no frame {comp} (have: {', '.join(sorted(_frames))})")
-    return _frames[comp], port
-
+def _anchor(anchor):
+    comp,_,port = anchor.partition('.')
+    return _frames[comp],port
 
 @dataclass
 class Run:
-    """One authored line: its connection id, the centreline it follows, and the bore it carries."""
-
     id: str
     kind: str
     frm: str
     to: str
-    pts: list                       # centreline waypoints, corners still square
+    pts: list
     diam: float
-    bend: float                     # the cap the author asked every corner to hold under
-    note: str = ""
-    # A FLOOR THIS RUN STATES FOR ITSELF, when the stock's own is a figure about TOOLING rather
-    # than about the metal — `1/4" soft ACR copper`'s R12.7 is a lever bender's smallest common
-    # former, and a short jumper formed by hand is not made on one. None means the stock's.
+    bend: float
+    note: str = ''
     min_bend: float | None = None
-    bends: list = field(default_factory=list)   # (index, turn°, leg-in, leg-out) per corner
-    radii: dict = field(default_factory=dict)   # corner index → the radius it turns at
-    caps: dict = field(default_factory=dict)    # corner index → the ceiling it rose under
-
+    bends: list = field(default_factory=list)
+    radii: dict = field(default_factory=dict)
+    caps: dict = field(default_factory=dict)
     @property
-    def length(self) -> float:
-        """Developed centreline length, arcs included — the length of stock the run cuts."""
-        total = 0.0
-        for a, b in zip(self.pts, self.pts[1:]):
-            total += math.dist(a, b)
-        for i, turn, _li, _lo in self.bends:       # square corner → arc: shorter by 2t − rθ
-            r = self.radii[i]
-            t = r * math.tan(math.radians(turn) / 2.0)
-            total -= 2.0 * t - r * math.radians(turn)
-        return total
-
+    def length(self):
+        return _call('length',run=asdict(self))
     @property
-    def tightest(self) -> float:
-        """The smallest radius the run turns at — what a reader means by "this run's radius"
-        when the run turns at more than one."""
-        return min(self.radii.values(), default=self.bend)
+    def tightest(self):
+        return _call('tightest',run=asdict(self))
 
+def _run(value):
+    value = dict(value)
+    value['pts'] = [tuple(p) for p in value['pts']]
+    value['bends'] = [tuple(p) for p in value['bends']]
+    value['radii'] = {int(k):v for k,v in value['radii'].items()}
+    value['caps'] = {int(k):v for k,v in value['caps'].items()}
+    return Run(**value)
 
-def route(cid: str, frm: str, *rest, kind: str = "refrigerant", stub=STUB,
-          bend: float | None = None, skew: float | None = None, note: str = "") -> Run:
-    """An orthogonal path from port to port through the given one-dimensional constraints.
+def _records():
+    return {name:frame._record() for name,frame in _frames.items()}
 
-    `route("refrig-1", "A.out", F.z("out", 40), ..., "B.in")` — the trailing argument is the
-    destination anchor, everything between it and the source is a constraint. Each constraint
-    supplies the one coordinate it is responsible for; the other two carry over from the point
-    before. The exit stub off the source port and the approach stub into the destination are
-    emitted here, along each port's own face normal. `stub` is one reach for both ends, or
-    `(exit, approach)`.
+def route(cid,frm,*rest,kind='refrigerant',stub=STUB,bend=None,skew=None,note=''):
+    return _run(_call('route',frames=_records(),cid=cid,frm=frm,rest=rest,kind=kind,stub=stub,bend=bend,
+                      skew=skew,note=note,bend_ratio=BEND_RATIO,collet_skew=COLLET_SKEW))
 
-    The closing turn comes from the destination: after the last constraint at most one
-    coordinate may still differ from the approach point. Two raises, naming the coordinates.
+def bent(cid,frm,*rest,kind='refrigerant',bend=None,skew=None,lead=None,min_bend=None,note=''):
+    return _run(_call('bent',frames=_records(),cid=cid,frm=frm,rest=rest,kind=kind,bend=bend,skew=skew,
+                      lead=lead,min_bend=min_bend,note=note,bend_ratio=BEND_RATIO,butt_max=BUTT_MAX,collet_skew=COLLET_SKEW))
 
-    `skew` overrides `COLLET_SKEW` for this run — how far off a collet's own axis a straight
-    tube may leave or enter it. The default suits rigid ACR copper; a flexible-tube run (soft
-    LLDPE in a push-to-connect collet) takes more, so two nearly-facing fittings joined by one
-    straight length of LLDPE author with a larger `skew` and no bend between them.
-    """
-    sk = COLLET_SKEW if skew is None else skew
-    to = rest[-1]
-    if not isinstance(to, str):
-        raise TypeError(f"{cid}: the last argument must be the destination anchor, got {to!r}")
-    constraints = list(rest[:-1])
+def redrawn(run,pts):
+    return _run(_call('redrawn',run=asdict(run),points=pts))
 
-    f_from, p_from = _anchor(frm)
-    f_to, p_to = _anchor(to)
-    d = f_from.diam(p_from)
-    if d is None:
-        raise ValueError(f"{cid}: {frm} has no bore Ø — a line cannot be routed through an unsized port")
-    # A stub the author left open reaches one bend radius. That is the AUTHORED cap where there
-    # is one, and one `BEND_RATIO` where there is not — the stock's minimum is a ceiling a corner
-    # may rise to, not a reach to stand a fitting off by, and letting it set the stub would walk
-    # every unnamed run's standoff out with it.
-    reach = BEND_RATIO * d if bend is None or isinstance(bend, dict) else float(bend)
-    stub_out, stub_in = stub if isinstance(stub, (tuple, list)) else (stub, stub)
-    stub_out = reach if stub_out is None else stub_out
-    stub_in = reach if stub_in is None else stub_in
-    # Unnamed, the cap is the stock's own minimum: every corner rises to what its legs seat and
-    # stops where the tube stops caring.
-    bend = bend if bend is not None else stock_min(kind, d)
-    nominal = reach if isinstance(bend, dict) else float(bend)
+def meet(p,u,q,v,bias):
+    return tuple(_call('meet',p=p,u=u,q=q,v=v,bias=bias))
 
-    start = f_from.at(p_from)
-    n_from = f_from.normal(p_from)
-    end = f_to.at(p_to)
-    n_to = f_to.normal(p_to)
+def _dedupe(pts):
+    return [tuple(p) for p in _call('dedupe',points=pts)]
 
-    pts = [tuple(start)]
-    cur = tuple(start[i] + n_from[i] * stub_out for i in range(3))   # exit stub
-    pts.append(cur)
+def _straighten(pts):
+    return [tuple(p) for p in _call('straighten',points=pts)]
 
-    for c in constraints:
-        (axis, value), = c.items()
-        i = AXES.index(axis)
-        if abs(cur[i] - value) < 1e-9:
-            continue                                                # no-op constraint
-        cur = tuple(value if j == i else cur[j] for j in range(3))
-        pts.append(cur)
+def _unit(a,b):
+    return _call('unit',a=a,b=b)
 
-    # The close runs inward to the port: a path already nearer the fitting than its approach
-    # stub would back out along the normal and come straight back, so the stub is drawn at
-    # whatever room the path leaves it.
-    outward = sum((cur[i] - end[i]) * n_to[i] for i in range(3))
-    if outward < stub_in - 1e-9:
-        _blocked(cid,
-                 f"the close into {to} folds — the path is {outward:.2f} mm off the port face but "
-                 f"its approach stub is {stub_in:.2f} mm, so the last turn would back out and come "
-                 f"straight back. Drawn with the stub at {max(outward, 0.0):.2f}; give the lane "
-                 f"{stub_in - outward:.2f} mm more standoff, or shorten the stub to fit it.")
-        stub_in = max(outward, 0.0)
-    approach = tuple(end[i] + n_to[i] * stub_in for i in range(3))   # approach stub
-    differ = [AXES[i] for i in range(3) if abs(cur[i] - approach[i]) > 1e-9]
-    # A leg that arrives already pointing into the collet, within `sk` of its axis, is
-    # one straight piece of tube — it needs no corner and so no constraint to place one.
-    straight_in = leg_skew(cur, approach, tuple(-c for c in n_to)) <= sk
-    if len(differ) > 1 and not straight_in:
-        _blocked(cid,
-                 f"the path needs another constraint — {', '.join(differ)} all still differ from "
-                 f"the approach to {to} (at {tuple(round(v, 2) for v in cur)}, approach "
-                 f"{tuple(round(v, 2) for v in approach)}), and the leg runs "
-                 f"{leg_skew(cur, approach, tuple(-c for c in n_to)):.1f}° off the port's axis, "
-                 f"past the {sk:.1f}° a collet takes straight. Drawn as one leg across all of "
-                 f"them; say which turns first.")
-    if math.dist(cur, approach) > 1e-9:
-        pts.append(approach)
-    pts.append(tuple(end))
+def _bends(pts,cid):
+    return [tuple(row) for row in _call('bends',points=pts)]
 
-    pts = _straighten(_dedupe(pts))
-    lead = leg_skew(pts[0], pts[1], n_from)
-    if lead > sk:
-        _blocked(cid,
-                 f"the run leaves {frm} {lead:.1f}° off the collet's axis, past the {sk:.1f}° one "
-                 f"takes straight — the first leg runs out along the port. Drawn at the {lead:.1f}°; "
-                 f"stand the lane off the port, or turn the collet onto the run.")
-    corners = _bends(pts, cid)
-    caps = _caps(corners, bend, cid, d)
-    radii = seat_radii(pts, corners, caps, cid, d)
-    return Run(cid, kind, frm, to, pts, d, nominal, note, None, corners, radii, caps)
-
-
-def bent(cid: str, frm: str, *rest, kind: str = "refrigerant", bend: float | None = None,
-         skew: float | None = None, lead=None, min_bend: float | None = None,
-         note: str = "") -> Run:
-    """Author a run as a HAND-PLACED centreline: the source port, explicit interior 3-D waypoints,
-    the destination port — joined by straight legs and rounded at each interior corner with a tangent
-    arc of `bend` radius, at whatever angle the corner turns (not just square). This is the free-form
-    companion to `route`: where `route`'s axis-aligned constraints can only step one world coordinate
-    at a time — so a diagonal move becomes a stack of square corners — `bent` follows the points given,
-    so a run can lean and climb in one gentle move. Waypoints are `(x, y, z)` tuples in world.
-
-    `bent("…", A, (x, y, z), (x, y, z), B)` — first arg after the source and last arg are the port
-    anchors; everything between is a waypoint. The leg leaving `frm` and the leg entering `to` are
-    checked against each port's own axis (`skew`, default `COLLET_SKEW`). `skew=(exit, approach)`
-    holds the two ends to their own figures, for a run whose mouths are different features — a
-    collet grips a tube and a countersunk bore lays its lip along one, and the two open by
-    different angles (`manifold_layout.FLAVOR_SKEW`, `_lines.CAP_BORE_SKEW`).
-
-    `lead` is `bent`'s exit/approach stub — the analogue of `route`'s `stub`. Given, it plants a
-    waypoint one `lead` mm along the source normal off `frm`, and one along the destination normal off
-    `to`, so the run leaves and enters exactly on-axis (leave/enter skew ~0 by construction) and the
-    interior waypoints are free to dodge obstacles without fighting the collet check. `lead=d` reaches
-    both ends by `d`; `lead=(out, in)` sets them apart, and 0 or None skips that end. Without it the
-    first and last waypoints must themselves sit on the collet axes.
-    """
-    sk_out, sk_in = ((COLLET_SKEW, COLLET_SKEW) if skew is None
-                     else skew if isinstance(skew, (tuple, list)) else (skew, skew))
-    to = rest[-1]
-    if not isinstance(to, str):
-        raise TypeError(f"{cid}: the last argument must be the destination anchor, got {to!r}")
-    f_from, p_from = _anchor(frm)
-    f_to, p_to = _anchor(to)
-    d = f_from.diam(p_from)
-    if d is None:
-        raise ValueError(f"{cid}: {frm} has no bore Ø — a line cannot be routed through an unsized port")
-    bend = bend if bend is not None else stock_min(kind, d)
-    nominal = BEND_RATIO * d if isinstance(bend, dict) else float(bend)
-
-    n_from, n_to = f_from.normal(p_from), f_to.normal(p_to)
-    src, dst = tuple(f_from.at(p_from)), tuple(f_to.at(p_to))
-    # TWO MOUTHS THAT MEET ARE A BUTT, and a butt has no path. There is tube in each collet and
-    # none between them, so there is no leg to plant on either port's axis and no corner to
-    # seat — every constraint below is about a route that exists. The run is still the
-    # connection, and still owes its row: it is drawn at nothing, which is its length.
-    if math.dist(src, dst) <= BUTT_MAX:
-        return Run(cid, kind, frm, to, (src, dst), d, nominal, note, None, [], {}, {})
-    mids = [tuple(w) for w in rest[:-1]]
-    if lead is not None:
-        lead_out, lead_in = lead if isinstance(lead, (tuple, list)) else (lead, lead)
-        if lead_out:
-            mids.insert(0, tuple(src[i] + n_from[i] * lead_out for i in range(3)))
-        if lead_in:
-            mids.append(tuple(dst[i] + n_to[i] * lead_in for i in range(3)))
-    pts = _straighten(_dedupe([src] + mids + [dst]))
-    lead_off = leg_skew(pts[0], pts[1], n_from)
-    if lead_off > sk_out:
-        _blocked(cid, f"leaves {frm} {lead_off:.1f}° off the port's axis (> {sk_out:.1f}°), and is "
-                      f"drawn at it — move the first waypoint onto the port's normal, or pass "
-                      f"`lead=` to plant one.")
-    tail_off = leg_skew(pts[-2], pts[-1], tuple(-c for c in n_to))
-    if tail_off > sk_in:
-        _blocked(cid, f"enters {to} {tail_off:.1f}° off the port's axis (> {sk_in:.1f}°), and is "
-                      f"drawn at it — move the last waypoint onto the port's normal, or pass "
-                      f"`lead=` to plant one.")
-    corners = _bends(pts, cid)
-    caps = _caps(corners, bend, cid, d)
-    radii = seat_radii(pts, corners, caps, cid, d)
-    return Run(cid, kind, frm, to, pts, d, nominal, note, min_bend, corners, radii, caps)
-
-
-def redrawn(run: Run, pts) -> Run:
-    """The same run down a DIFFERENT CENTRELINE — its corners found again and its radii
-    re-solved for the waypoints given, and nothing else about it changed.
-
-    A corner backs its arc `r·tan(θ/2)` down each of its legs and shares that leg with its
-    neighbour (`seat_radii`), so a waypoint moved 20 mm can leave the two corners either side
-    of it seating under a millimetre while the run still clears everything in the machine.
-    `probe.World.reroute` sweeps this across a range of positions.
-
-    A HYPOTHETICAL NEVER MARKS THE RUN. `seat_radii` records a corner with no room at all in
-    the module-level `BLOCKED`, keyed by run id and read out as the machine's own list of
-    shortfalls; a redraw restores that dict. What it found is on the returned run's `radii`,
-    where a corner drawn square is 0.0 — the figure `_scorecard.bend_radii` grades.
-
-    A run whose author capped its corners ONE AT A TIME cannot be redrawn here. `_straighten`
-    drops a waypoint the new centreline runs straight through and every corner index after it
-    moves, so a cap keyed by index comes down on a different turn than it was written for.
-    """
-    ceilings = set(run.caps.values()) or {run.bend}
-    if len(ceilings) > 1:
-        raise ValueError(
-            f"{run.id}: this run caps its corners one at a time ({run.caps}) and a redraw can "
-            f"straighten one out of the path, which moves every index after it — so those caps "
-            f"cannot be carried onto a new centreline. Redraw it at its call in `_lines.py`.")
-    cap = ceilings.pop()
-    pts = _straighten(_dedupe([tuple(float(c) for c in p) for p in pts]))
-    corners = _bends(pts, run.id)
-    kept = dict(BLOCKED)
-    try:
-        radii = seat_radii(pts, corners, {i: cap for i, _t, _a, _b in corners}, run.id, run.diam)
-    finally:
-        BLOCKED.clear()
-        BLOCKED.update(kept)
-    return Run(run.id, run.kind, run.frm, run.to, pts, run.diam, run.bend, run.note,
-               run.min_bend, corners, radii, {i: cap for i, _t, _a, _b in corners})
-
-
-def meet(p, u, q, v, bias):
-    """The corner where two facing collets' axes (`p` along `u`, `q` along `v`) come nearest, blended
-    `bias` toward q's line so the tail enters q straight — one interior waypoint for `bent`, joining the
-    two with a single bend there. For collets that nearly face down one line; where they do not, lead a
-    stub off each end and let the interior carry the turn (`bent(..., lead=…)`)."""
-    dot = lambda a, b: a[0] * b[0] + a[1] * b[1] + a[2] * b[2]      # noqa: E731
-    w0 = tuple(p[i] - q[i] for i in range(3))
-    a, b, c = dot(u, u), dot(u, v), dot(v, v)
-    d, e = dot(u, w0), dot(v, w0)
-    s = (b * e - c * d) / (a * c - b * b)
-    t = (a * e - b * d) / (a * c - b * b)
-    c1 = tuple(p[i] + s * u[i] for i in range(3))
-    c2 = tuple(q[i] + t * v[i] for i in range(3))
-    return tuple(c1[i] * (1.0 - bias) + c2[i] * bias for i in range(3))
-
-
-def _dedupe(pts: list) -> list:
-    out = [pts[0]]
-    for p in pts[1:]:
-        if math.dist(p, out[-1]) > 1e-9:
-            out.append(p)
-    return out
-
-
-_STRAIGHT_TOL = math.cos(math.radians(2.0))    # a turn below 2° is treated as straight
-
-
-def _straighten(pts: list) -> list:
-    """Drop a waypoint that continues the run in nearly the same direction (turn < 2°). Below that
-    a rounded corner is pointless and its arc is degenerate — the centre sits `r/sin(θ/2)` away, so a
-    sub-degree turn throws the arc (and the swept tube) wildly off — so such a kink is dropped and the
-    run passes straight through."""
-    out = [pts[0]]
-    for i in range(1, len(pts) - 1):
-        din, dout = _unit(out[-1], pts[i]), _unit(pts[i], pts[i + 1])
-        if sum(din[j] * dout[j] for j in range(3)) < _STRAIGHT_TOL:
-            out.append(pts[i])
-    out.append(pts[-1])
-    return out
-
-
-def _unit(a, b):
-    v = [b[i] - a[i] for i in range(3)]
-    n = math.dist(a, b)
-    return [c / n for c in v]
-
-
-def _bends(pts: list, cid: str) -> list:
-    """Every interior corner, with its turn angle and the two legs it seats its arc in.
-
-    LEGS ARE IN THE RUN'S OWN ORDER, source first. `corners[0].legs[0]` is the straight off the
-    SOURCE port and `corners[-1].legs[1]` the one into the DESTINATION — never the other way
-    round. Worth stating because the two read alike whenever one `stub` feeds both ends, so a
-    reading taken off the wrong one agrees with the right one until the ends differ."""
-    out = []
-    for i in range(1, len(pts) - 1):
-        din, dout = _unit(pts[i - 1], pts[i]), _unit(pts[i], pts[i + 1])
-        dot = max(-1.0, min(1.0, sum(din[j] * dout[j] for j in range(3))))
-        turn = math.degrees(math.acos(dot))
-        if turn < 1e-6:
-            continue                                                # collinear — no corner
-        out.append((i, turn, math.dist(pts[i - 1], pts[i]), math.dist(pts[i], pts[i + 1])))
-    return out
-
-
-# The tube on the machine, and the floor each one's corners answer to. A tube bent tighter
-# than its stock takes kinks or thins its outer wall; the floor is a property of the STOCK — its
-# material, its wall, its diameter — so it is stated per stock and every run drawn in it is
-# measured against the same number. Conventionally quoted as a multiple of OD, which is how
-# these read. `min_bend` is the tightest CENTRELINE radius; `source` is where the figure is from.
 @dataclass
 class Stock:
     name: str
-    od: float            # the tube's outside Ø — the run's own `diam`
-    min_bend: float      # tightest centreline radius, mm
-    kinds: tuple         # the run kinds drawn in it
+    od: float
+    min_bend: float
+    kinds: tuple
     source: str
 
+STOCKS = tuple(Stock(**{**s,'kinds':tuple(s['kinds'])}) for s in _DEFINITIONS['stocks'])
 
-STOCKS = (
-    Stock("4 mm LLDPE", 4.0, 25.0, ("fluid",),
-          "neoFlo LLDPE tubing sell sheet, metric 4 mm OD / 2.5 mm ID: R25 mm"),
-    Stock("1/4\" LLDPE", 6.35, 14.0, ("fluid", "water", "co2"),
-          "2.2×OD — bench test on the spool: \"flow with no kinks at 14.0 mm comfortably\""),
-    Stock("1/4\" soft ACR copper", 6.35, 12.7, ("refrigerant",),
-          "2×OD — a lever bender's smallest common former (BEND_RATIO)"),
-)
+def stock_of(kind,od):
+    value = _call('stock',kind=kind,diam=od)
+    return Stock(**{**value,'kinds':tuple(value['kinds'])})
 
+def stock_min(kind,diam):
+    return stock_of(kind,diam).min_bend
 
-def stock_of(kind: str, od: float) -> Stock:
-    """The stock a run is drawn in, from its kind and bore Ø. Raises on a pair no stock claims —
-    a new tube on the machine states its own bend floor before its runs can be graded."""
-    for s in STOCKS:
-        if kind in s.kinds and abs(s.od - od) < 0.05:
-            return s
-    have = "; ".join(f"{s.name} Ø{s.od:g} for " + "/".join(s.kinds) for s in STOCKS)
-    raise KeyError(
-        f"no stock declared for a {kind} run at Ø{od:g} — add it to STOCKS with the minimum "
-        f"bend radius its datasheet gives (have: {have})")
-
-
-def stock_min(kind: str, diam: float) -> float:
-    """The roundest a corner in this stock is ever asked to be — its published minimum radius,
-    and the ceiling a run carries when its author names none."""
-    return stock_of(kind, diam).min_bend
-
-
-# The spool each run is cut off. A stock is a material at a diameter; a SPOOL is a stock in one
-# colour, keyed by that colour, and `names` is the fluid the colour identifies. White, blue and
-# red are `_y_wall_dimensions.port_colors` read through, so a tube and the customer's own tube
-# outboard of the ring it leaves by are one colour struck once. The ring prints in the spool
-# that answers to that colour's name, `_y_wall_dimensions.chip_filaments`.
 @dataclass(frozen=True)
 class Spool:
     name: str
-    rgb: tuple           # 0–255, the units `port_colors` is stated in
+    rgb: tuple
     names: str
-    alpha: float = 1.0
-    #: How the stock takes the light, the same channel `_materials.FINISHES` carries for every
-    #: other substance on this machine — 0 a mirror, 1 fully diffuse. Extruded LLDPE is
-    #: semi-gloss with a waxy sheen; copper is the one spool here that is a metal and it takes
-    #: `M_COPPER`'s figure.
-    #: A tube is as much a body in the picture as a printed part is, and was drawn at the
-    #: viewer's default until these were stated.
-    roughness: float = 0.35
-    metalness: float = 0.0
+    alpha: float = 1.
+    roughness: float = .35
+    metalness: float = 0.
 
+SPOOLS = {k:Spool(**{**v,'rgb':tuple(v['rgb'])}) for k,v in _DEFINITIONS['spools'].items()}
+SPOOL_OF = _DEFINITIONS['spool_of']
+_BY_PREFIX = _DEFINITIONS['by_prefix']
 
-SPOOLS = {
-    "flavor-black-4mm": Spool("neoFlo black 4 mm OD / 2.5 mm ID LLDPE (LLDPE4M-BLACK)",
-                              _rear.port_colors["flavor"], "flavor dispense"),
-    "drain-white": Spool("white 4 mm OD / 2.5 mm ID LLDPE",
-                         _rear.port_colors["drain"], "ASSE vent discharge"),
-    "white": Spool("neoFlo white 1/4\" LLDPE (LLDPE4-WHITE)",
-                   _rear.port_colors["water"], "tap water"),
-    "blue": Spool("neoFlo blue 1/4\" LLDPE (LLDPE4-BLUE)",
-                  _rear.port_colors["carb"], "carbonated water"),
-    "red": Spool("neoFlo red 1/4\" LLDPE (LLDPE4-RED)",
-                 _rear.port_colors["co2"], "CO2"),
-    "black": Spool("neoFlo black 1/4\" LLDPE (LLDPE4-BLACK)",
-                   _rear.port_colors["flavor"], "flavor"),
-    # THE ONE SPOOL THAT IS A METAL, and the one whose figures are already stated elsewhere:
-    # this is `_materials.M_COPPER`'s stock, and the triple above is its triple for the same
-    # reason — a coil and the tube brazed to it are one thing.
-    "copper": Spool("1/4\" soft ACR copper", (184, 115, 51), "nothing",
-                    roughness=0.30, metalness=1.0),
-}
+def spool_of(cid):
+    return SPOOLS[_call('spool_key',cid=cid)]
 
-# Which spool a run is cut off. Its connection id gives it for all but three:
-#
-#   `fluid-1/2/3` are the flavour circuit's tap-water leg — the split's branch, the regulator
-#   that throttles it, and V-A's outlet into Y-A. `fluid-3` is the last of them; everything
-#   downstream of Y-A has met the funnel's syrup.
-#
-# The cold core's own potted routes carry their own names and name their spools in
-# `foam_assembly.ROUTE_SPOOLS`.
-SPOOL_OF = {"fluid-1": "white", "fluid-2": "white", "fluid-3": "white",
-            "fluid-18": "flavor-black-4mm", "fluid-28": "flavor-black-4mm"}
-_BY_PREFIX = {"water": "white", "fluid": "black", "co2": "red", "carb": "blue",
-              "refrig": "copper"}
-
-
-def spool_of(cid: str) -> Spool:
-    """The spool one run is cut off, by its connection id."""
-    if cid in SPOOL_OF:
-        return SPOOLS[SPOOL_OF[cid]]
-    prefix = str(cid).rsplit("-", 1)[0]
-    if prefix not in _BY_PREFIX:
-        raise KeyError(
-            f"no spool declared for `{cid}` — name it in SPOOL_OF, or give its circuit a prefix "
-            f"in _BY_PREFIX (have: {', '.join(sorted(_BY_PREFIX))})")
-    return SPOOLS[_BY_PREFIX[prefix]]
-
-
-def color(key: str) -> "cq.Color":
-    """One spool's colour as an assembly takes it, in 0–1."""
+def color(key):
     import cadquery as cq
-    s = SPOOLS[key]
-    return cq.Color(*(c / 255.0 for c in s.rgb), s.alpha)
+    return cq.Color(*_call('color',spool=asdict(SPOOLS[key])))
 
-
-def tube_color(cid: str) -> "cq.Color":
-    """One run's colour — the spool it is cut off, by its connection id."""
+def tube_color(cid):
     import cadquery as cq
-    s = spool_of(cid)
-    return cq.Color(*(c / 255.0 for c in s.rgb), s.alpha)
+    return cq.Color(*_call('color',spool=asdict(spool_of(cid))))
 
+def _caps(bends,bend,cid,diam):
+    return {int(k):v for k,v in _call('caps',bends=bends,bend=bend,cid=cid,diam=diam).items()}
 
-def _caps(bends: list, bend, cid: str, diam: float) -> dict:
-    """Each corner's ceiling, from what the author asked for. `bend` is a number capping every
-    corner, or `{corner index: number}` capping them one at a time — a turn the author wants
-    tighter than its legs would allow is said here and nowhere else. A corner the dict does not
-    name is left UNCAPPED, held only by its own legs, so naming one turn says nothing about the
-    rest. An index that names no corner raises, because a cap that lands on a straight is a cap
-    on nothing."""
-    idx = {i for i, _t, _a, _b in bends}
-    if not isinstance(bend, dict):
-        return {i: float(bend) for i in idx}
-    stray = set(bend) - idx
-    if stray:
-        raise ValueError(
-            f"{cid}: bend={{...}} caps corner{'s' if len(stray) > 1 else ''} "
-            f"{', '.join(str(s) for s in sorted(stray))}, which {'are' if len(stray) > 1 else 'is'} "
-            f"not a corner — this run turns at {sorted(idx) if idx else 'no waypoint at all'}.")
-    return {i: float(bend.get(i, math.inf)) for i in idx}
+def seat_radii(pts,bends,caps,cid,diam):
+    return {int(k):v for k,v in _call('seat_radii',points=pts,bends=bends,caps=caps,cid=cid,diam=diam).items()}
 
+def leg_caps(run):
+    return [tuple(row) for row in _call('leg_caps',run=asdict(run))]
 
-def seat_radii(pts: list, bends: list, caps: dict, cid: str, diam: float) -> dict:
-    """The radius each corner actually turns at: the largest its own two legs seat, up to its cap.
-
-    A corner backs its arc `r·tan(θ/2)` down each leg, and a leg between two corners pays that
-    at both ends — so the two share it, and the share is what this solves. Every corner rises
-    together from zero and stops at whichever comes first, its own cap or a leg running out of
-    tangent; a corner that stops early leaves the rest of its legs to the neighbour still rising.
-    One radius for a whole run is that solve with every corner tied to the tightest one in it,
-    which is why a run's gentlest turns used to read as its worst.
-
-    A corner with no room at all is drawn SQUARE, and its run recorded in `BLOCKED`. Anything
-    above that is drawn at what it seats and GRADED — `scorecard.bend_radii` is where a radius
-    is called too tight for its stock, so a part that moves re-seats its corners instead of
-    failing the build, and the reading of how tight they now are arrives in the scorecard rather
-    than in a traceback.
-    """
-    floor = 1e-6
-    tan = {i: math.tan(math.radians(t) / 2.0) for i, t, _a, _b in bends}
-    legs = [(j, math.dist(pts[j], pts[j + 1])) for j in range(len(pts) - 1)]
-    r = {i: 0.0 for i in tan}
-    free = set(tan)
-    while free:
-        step = min(caps[i] - r[i] for i in free)
-        for j, leg in legs:
-            on = [k for k in (j, j + 1) if k in tan]
-            rising = [k for k in on if k in free]
-            if not rising:
-                continue
-            spent = sum(r[k] * tan[k] for k in on)
-            step = min(step, max(0.0, leg - spent) / sum(tan[k] for k in rising))
-        for i in free:
-            r[i] += step
-        done = {i for i in free if caps[i] - r[i] <= 1e-9}
-        for j, leg in legs:
-            on = [k for k in (j, j + 1) if k in tan]
-            if on and leg - sum(r[k] * tan[k] for k in on) <= 1e-9:
-                done |= {k for k in on if k in free}
-        if not done:
-            break
-        free -= done
-    # Under the floor there is no arc to draw — `centreline` skips a corner at exactly zero and
-    # runs the two legs into each other, where a sub-micron radius would sweep a degenerate one.
-    tight = [i for i, v in sorted(r.items()) if v < floor - 1e-9]
-    for i in tight:
-        r[i] = 0.0
-    if tight:
-        i = tight[0]
-        turn = next(t for k, t, _a, _b in bends if k == i)
-        legs_here = " and ".join(f"{math.dist(pts[k], pts[k + 1]):.2f} mm" for k in (i - 1, i))
-        _blocked(cid,
-                 f"corner {i} turns {turn:.0f}° between legs of {legs_here} and seats no radius at "
-                 f"all — its legs are wholly spent on the corners either side of them. Drawn "
-                 f"square. Lengthen a leg, or move what the legs run between.")
-    return r
-
-
-def leg_caps(run: Run) -> list:
-    """Per leg, the largest bend radius this run's centreline as drawn could seat there.
-
-    `_bends` raises when a leg is shorter than the tangents its two corners demand —
-    `leg ≥ r·(tan(θa/2) + tan(θb/2))`. Solved for `r`, that same inequality is a ceiling the
-    waypoints put on the radius, and the smallest ceiling along a run is the most radius the run
-    holds without a point moving. A leg with a corner at neither end bounds nothing and is left
-    out; a run with no corner at all returns nothing and is bounded by its stock alone.
-
-    Each row is `(cap, i, leg, demand, where)`. `where` is "lead" for the first and last legs —
-    the exit and approach reaches the author picks (`stub`, `lead`) — and "interior" for the
-    rest, whose two ends are both waypoints something else put there. The split is by who can
-    widen it: a lead is a number in [`_lines.py`](_lines.py), an interior leg is a part that has
-    to move. `scorecard.bend_radii` grades a run against both.
-    """
-    tang = {i: math.tan(math.radians(turn) / 2.0) for i, turn, _li, _lo in run.bends}
-    last = len(run.pts) - 2
-    out = []
-    for i in range(len(run.pts) - 1):
-        demand = tang.get(i, 0.0) + tang.get(i + 1, 0.0)
-        if demand <= 1e-12:
-            continue
-        leg = math.dist(run.pts[i], run.pts[i + 1])
-        out.append((leg / demand, i, leg, demand, "lead" if i in (0, last) else "interior"))
-    return out
-
-
-def centreline(run: Run) -> "cq.Wire":
-    """The run's centreline as a wire: straights joined by a tangent arc at each corner, every
-    one at the radius that corner seats (`run.radii`)."""
+def centreline(run):
     import cadquery as cq
-    pts = run.pts
-    need = [0.0] * len(pts)
-    for i, turn, _li, _lo in run.bends:
-        need[i] = run.radii[i] * math.tan(math.radians(turn) / 2.0)
-
-    edges, cur = [], cq.Vector(*pts[0])
-    for i in range(1, len(pts) - 1):
-        if need[i] == 0.0:
-            continue
-        r = run.radii[i]
-        din, dout = _unit(pts[i - 1], pts[i]), _unit(pts[i], pts[i + 1])
-        t = need[i]
-        p1 = cq.Vector(*[pts[i][j] - din[j] * t for j in range(3)])
-        p2 = cq.Vector(*[pts[i][j] + dout[j] * t for j in range(3)])
-        turn = next(b[1] for b in run.bends if b[0] == i)
-        # Arc centre on the inward bisector, r/cos(θ/2) from the corner (θ the turn/deflection); the
-        # midpoint is r from that centre. (r/sin reads the same only at 90°, where the copper loop
-        # lives — off the square it throws the centre out and balloons the arc.)
-        bis = [dout[j] - din[j] for j in range(3)]
-        bl = math.sqrt(sum(c * c for c in bis))
-        bis = [c / bl for c in bis]
-        dist = r / math.cos(math.radians(turn) / 2.0)
-        ctr = [pts[i][j] + bis[j] * dist for j in range(3)]
-        mv = [pts[i][j] - ctr[j] for j in range(3)]
-        ml = math.sqrt(sum(c * c for c in mv))
-        mid = cq.Vector(*[ctr[j] + mv[j] / ml * r for j in range(3)])
-        if (p1 - cur).Length > 1e-9:
-            edges.append(cq.Edge.makeLine(cur, p1))
-        edges.append(cq.Edge.makeThreePointArc(p1, mid, p2))
-        cur = p2
-    tail = cq.Vector(*pts[-1])
-    if (tail - cur).Length > 1e-9:
-        edges.append(cq.Edge.makeLine(cur, tail))
+    edges = []
+    for segment in _call('segments',run=asdict(run)):
+        points = [cq.Vector(*p) for p in segment['points']]
+        edges.append(cq.Edge.makeLine(*points) if segment['kind']=='line' else cq.Edge.makeThreePointArc(*points))
     return cq.Wire.assembleEdges(edges)
 
-
-def tube(run: Run) -> "cq.Solid":
-    """Sweep the run's bore Ø along its centreline."""
+def tube(run):
     import cadquery as cq
-    path = centreline(run)
-    d0 = _unit(run.pts[0], run.pts[1])
-    prof = cq.Wire.makeCircle(run.diam / 2.0, cq.Vector(*run.pts[0]), cq.Vector(*d0))
-    return cq.Solid.sweep(prof, [], path, makeSolid=True, isFrenet=True)
+    recipe = _call('tube_recipe',run=asdict(run))
+    profile = cq.Wire.makeCircle(recipe['radius'],cq.Vector(*recipe['origin']),cq.Vector(*recipe['direction']))
+    return cq.Solid.sweep(profile,[],centreline(run),makeSolid=True,isFrenet=True)

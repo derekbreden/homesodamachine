@@ -1,6 +1,8 @@
 //! Host-wide heavy-run leases. Python's `_run_slots` uses the same files and wire format.
 //! Descriptors carry BSD flock ownership; environment text alone is not admission.
 pub mod ipc;
+#[cfg(feature = "native-runtime")]
+pub mod runtime;
 
 use anyhow::{Context, Result, bail, ensure};
 use command_fds::CommandFdExt;
@@ -48,6 +50,11 @@ pub fn capacity() -> usize {
 }
 
 pub fn directory() -> Result<PathBuf> {
+    #[cfg(feature = "native-runtime")]
+    if let Some(path) = runtime::directory_override() {
+        fs::create_dir_all(&path)?;
+        return Ok(path);
+    }
     // geteuid takes no arguments and reads no process memory.
     let uid = unsafe { libc::geteuid() };
     let root = PathBuf::from(format!("/tmp/hsm-{uid}/heavy"));
@@ -565,6 +572,12 @@ pub fn source_digest() -> String {
     for text in [
         include_str!("lib.rs"),
         include_str!("ipc.rs"),
+        include_str!("runtime.rs"),
+        include_str!("runtime/slots.rs"),
+        include_str!("runtime/cad.rs"),
+        include_str!("runtime/runner.rs"),
+        include_str!("runtime/install.rs"),
+        include_str!("main.rs"),
         include_str!("../Cargo.toml"),
         include_str!("../../run-slots.defaults.json"),
     ] {

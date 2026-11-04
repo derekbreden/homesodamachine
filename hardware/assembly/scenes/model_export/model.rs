@@ -397,6 +397,26 @@ fn references(instances: &Value, sources: &mut Models) -> Result<Vec<Ref>> {
 fn write_refs(rows: &[Ref], document: Option<&Value>, path: &Path) -> Result<()> {
     write_refs_using(rows, document, path, &mut Models::new())
 }
+/// Preserve an explicitly ordered fine-entry selection, with optional affine frames.
+pub fn entries(spec: &Value, output: &Path) -> Result<Value> {
+    let target=PathBuf::from(super::text(spec,"target")?);
+    let transforms=spec.get("transforms");
+    let mut rows=Vec::new();
+    for (ordinal,entry) in spec["entries"].as_array().context("fine entries")?.iter().enumerate() {
+        let entry=entry.as_array().context("fine entry tuple")?;
+        ensure!(entry.len()==4,"fine entry needs model, index, name and color");
+        rows.push(Ref {
+            path:PathBuf::from(entry[0].as_str().context("fine entry source")?),
+            index:entry[1].as_u64().context("fine entry index")? as usize,
+            name:entry[2].as_str().context("fine entry name")?.to_owned(),
+            color:entry[3].clone(),
+            frame:Frame::read(transforms.and_then(|value|value.get(ordinal.to_string())))?,
+            owned:None,
+        });
+    }
+    write_refs(&rows,spec.get("document").filter(|value|!value.is_null()),&target)?;
+    Ok(json!({"files":[super::output_name(&target,output)],"bodies":[]}))
+}
 fn write_refs_using(
     rows: &[Ref], document: Option<&Value>, path: &Path, sources: &mut Models,
 ) -> Result<()> {

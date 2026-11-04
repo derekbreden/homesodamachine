@@ -24,8 +24,15 @@ _rust_part.start()
 
 import cadquery as cq
 
-_STOCK_PATH = _here.parent / "gridfinity-stock/manifest.json"
-_STOCK = json.loads(_STOCK_PATH.read_text())
+
+import pathlib as _reference_pathlib
+_reference_hardware = next(p for p in _reference_pathlib.Path(__file__).resolve().parents if p.name == 'hardware')
+import sys as _reference_sys
+_reference_sys.path.insert(0, str(_reference_hardware / 'reference'))
+from _reference_data import data as _reference_data
+_reference_values = _reference_data('_kit')
+globals().update({name: _reference_values[name] for name in ('_STOCK_PATH', '_STOCK', 'grid_unit', 'height_unit', 'grid_clearance', 'seat_clearance', 'h2c_build_x', 'h2c_build_y', 'h2c_build_z', 'dock_extra_depth', 'dock_seat_z', 'lip_inset', '_stock_bin', 'wall_thickness', 'divider_thickness', 'bin_floor_z', 'label_tape_width', 'label_tape_height')})
+
 globals().update(_STOCK["constants"])
 
 
@@ -48,70 +55,49 @@ from docgen import substitute_md  # noqa: E402,F401
 # GRID AND PRINTER ENVELOPE
 # ============================================================
 
-grid_unit = GRU
-height_unit = GRHU
-grid_clearance = GR_TOL
-seat_clearance = GR_BASE_CLR
 
-h2c_build_x = 325.0
-h2c_build_y = 320.0
-h2c_build_z = 320.0
 
-dock_extra_depth = 6.0
-dock_seat_z = dock_extra_depth - seat_clearance
 
 #: The lip ring on a lipped body, measured in from its outer wall. Inside it, a solid
 #: blank's top is a flat plateau at the body's top reference, and every slot and bore is
 #: cut from that plateau.
-lip_inset = 2.6
 
 #: One of the library's own bins, kept for the figures it derives rather than the body
 #: it renders.
-_stock_bin = SimpleNamespace(**_STOCK["defaults"])
 
-wall_thickness = GR_WALL
-divider_thickness = GR_DIV_WALL
 
 #: A bin's interior floor, where a content stands: the base profile's whole depth and
 #: the library's own floor are under it.
-bin_floor_z = GR_BOT_H
 
 #: The label strip the ledge is drawn for and the face it is drawn at: 12 mm label
 #: tape on a 10 mm overhang, before the library compensates either for the lip.
-label_tape_width = _stock_bin.label_width
-label_tape_height = _stock_bin.label_height
 
 kit_color = M_PETG_BLACK
 
 
 def outer_size(units):
-    """The outside of a holder across `units` grid cells."""
-    return units * grid_unit - grid_clearance
+    'The outside of a holder across `units` grid cells.'
+    return _reference_data('_kit', 'outer_size', (units,), {})
 
 
 def inner_size(units):
-    """The clear inside of a bin across `units` grid cells, wall to wall."""
-    return outer_size(units) - 2.0 * wall_thickness
+    'The clear inside of a bin across `units` grid cells, wall to wall.'
+    return _reference_data('_kit', 'inner_size', (units,), {})
 
 
 def top_reference_z(height_u):
-    """The stacking reference of a holder `height_u` units tall; its lip rises above it."""
-    return height_u * height_unit
+    'The stacking reference of a holder `height_u` units tall; its lip rises above it.'
+    return _reference_data('_kit', 'top_reference_z', (height_u,), {})
 
 
 def plateau_half(units):
-    """Half the flat top of a lipped blank across `units` cells: where a cut may open."""
-    return outer_size(units) / 2.0 - lip_inset
+    'Half the flat top of a lipped blank across `units` cells: where a cut may open.'
+    return _reference_data('_kit', 'plateau_half', (units,), {})
 
 
 def interior_ceiling_z(height_u):
-    """A bin's interior ceiling: the shelf its stacking lip stands on.
-
-    The cavity runs on past it to the top reference, into the pocket a stacked body's
-    base foot drops into. A content that stops below this ceiling is clear of anything
-    stacked on top of the tub; one that stands past it is crushed by it."""
-    height = _STOCK["height_offset_mm"] + GRHU * height_u
-    return bin_floor_z + (height - GR_LIP_H - GR_BOT_H)
+    "A bin's interior ceiling: the shelf its stacking lip stands on.\n\n    The cavity runs on past it to the top reference, into the pocket a stacked body's\n    base foot drops into. A content that stops below this ceiling is clear of anything\n    stacked on top of the tub; one that stands past it is crushed by it."
+    return _reference_data('_kit', 'interior_ceiling_z', (height_u,), {})
 
 
 # ============================================================
@@ -119,10 +105,8 @@ def interior_ceiling_z(height_u):
 # ============================================================
 
 def cell_span(units, divisions):
-    """One compartment's clear run across `units` cells split by `divisions` dividers.
-
-    The library's own division formula, read without rendering a body to measure."""
-    return (inner_size(units) - divider_thickness * divisions) / (divisions + 1)
+    "One compartment's clear run across `units` cells split by `divisions` dividers.\n\n    The library's own division formula, read without rendering a body to measure."
+    return _reference_data('_kit', 'cell_span', (units, divisions), {})
 
 
 # ============================================================

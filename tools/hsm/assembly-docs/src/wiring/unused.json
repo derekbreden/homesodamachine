@@ -1,0 +1,14 @@
+{
+  "J2.OUT4": "Spare driver; no contact in XHP-6 cavity 3",
+  "J4.IO23": "Reserved; no cable",
+  "J4.IO27": "Reserved; no cable",
+  "J8": "I2C expansion, unused",
+  "J14": "USB programming, no permanent harness",
+  "relay-1.NC": "Normally-closed contact unused",
+  "relay-2.NC": "Normally-closed contact unused",
+  "keystone.1": "Unused IDC",
+  "keystone.6": "Unused IDC",
+  "join-compressor-h.3": "Unused third port",
+  "join-compressor-n.3": "Unused third port",
+  "join-pump-positive.1": "Unused port beside the PCB"
+}

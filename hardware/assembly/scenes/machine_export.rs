@@ -68,6 +68,7 @@ fn main() -> Result<()> {
     let result = match op {
         "physical" => model::physical(spec, &output)?,
         "scene" => model::scene(spec, &output)?,
+        "entries" => model::entries(spec, &output)?,
         "graft" => {
             let target = PathBuf::from(text(spec, "target_payload")?);
             let mut host = payload::Payload::read(&target)?;

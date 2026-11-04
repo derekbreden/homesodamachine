@@ -48,39 +48,37 @@ _hw = next(p for p in _here.parents if p.name == "hardware")
 sys.path.insert(0, str(_hw / "scripts"))
 
 # --- Calipered off the donor ----------------------------------------------
-AIRFLOW = 56.0        # fan + finstack stack depth, along the flow
-FACE_A = 154.0        # the serpentine's long face
-FACE_B = 137.0        # the serpentine's standing face
+
+_reference_hardware = next(p for p in Path(__file__).resolve().parents if p.name == 'hardware')
+import sys as _reference_sys
+_reference_sys.path.insert(0, str(_reference_hardware / 'reference'))
+from _reference_data import data as _reference_data
+_reference_values = _reference_data('condenser_block')
+globals().update({name: _reference_values[name] for name in ('AIRFLOW', 'FACE_A', 'FACE_B', 'PLATE_T', 'RECESS_Y', 'RECESS_Z', 'MOUNT_D', 'MOUNT_IN_INTAKE', 'MOUNT_IN_AFT')})
+
 
 # --- The two recesses -------------------------------------------------------
 # One on each Y face, and the same on both: the block's own width, `RECESS_Y` in from the
 # face, and the standing height less the sheet of a flange at either end.
-PLATE_T = 0.4         # the folded end brackets, and the sheet the two holes are drilled in
-RECESS_Y = 20.0       # how far each recess reaches IN from the face it opens on
-RECESS_Z = FACE_B - 2.0 * PLATE_T   # 136.2 — the standing height less a flange at each end
 
 # --- The mount --------------------------------------------------------------
 # Two holes, drilled in the AFT flanges — one at the base, one at the crown — on one line
 # that runs the block's whole standing height.
-MOUNT_D = 5.0         # the holes themselves
-MOUNT_IN_INTAKE = 29.0  # hole centre, in from the INTAKE face (x = 0)
-MOUNT_IN_AFT = 15.0     # hole centre, in from the AFT face (y = FACE_A)
 
 
-def mount_xy() -> tuple:
-    """Where the mount stands on the block's floor plan. One place, read at both ends."""
-    return (MOUNT_IN_INTAKE, FACE_A - MOUNT_IN_AFT)
+def mount_xy():
+    "Where the mount stands on the block's floor plan. One place, read at both ends."
+    return _reference_data('condenser_block', 'mount_xy', (), {})
 
 
-def recess_y() -> tuple:
-    """Each recess's own Y band, as `(fore, aft)` — the fore one first."""
-    return ((0.0, RECESS_Y), (FACE_A - RECESS_Y, FACE_A))
+def recess_y():
+    "Each recess's own Y band, as `(fore, aft)` — the fore one first."
+    return _reference_data('condenser_block', 'recess_y', (), {})
 
 
-def flange_z() -> tuple:
-    """A recess's two flanges in height, as `(base, crown)`. Both recesses read the same:
-    the sheet left standing at either end of the recess."""
-    return ((0.0, PLATE_T), (FACE_B - PLATE_T, FACE_B))
+def flange_z():
+    "A recess's two flanges in height, as `(base, crown)`. Both recesses read the same:\n    the sheet left standing at either end of the recess."
+    return _reference_data('condenser_block', 'flange_z', (), {})
 
 
 def build():
@@ -108,36 +106,19 @@ def build():
 # plane behind the block on that core's own port lane. Both are one point read twice, and
 # the machine measures each at every build.
 
-def stations() -> dict:
-    """All three, under the names the loop knows them by."""
-    return {
-        "refrig-inlet":  ((0.0, 87.0, 66.0), (-1.0, 0.0, 0.0)),
-        "refrig-outlet": ((33.0, FACE_A, 38.75), (0.0, 1.0, 0.0)),
-        "fan-power":     ((AIRFLOW, 30.0, FACE_B / 2.0), (1.0, 0.0, 0.0)),
-    }
+def stations():
+    'All three, under the names the loop knows them by.'
+    return _reference_data('condenser_block', 'stations', (), {})
 
 
-def mounts() -> dict:
-    """Both mount points, shaped like `stations()`: one drilled DOWN through the base flange,
-    one UP through the crown flange, on the one line."""
-    x, y = mount_xy()
-    return {
-        "mount-base":  ((x, y, 0.0), (0.0, 0.0, -1.0)),
-        "mount-crown": ((x, y, FACE_B), (0.0, 0.0, 1.0)),
-    }
+def mounts():
+    'Both mount points, shaped like `stations()`: one drilled DOWN through the base flange,\n    one UP through the crown flange, on the one line.'
+    return _reference_data('condenser_block', 'mounts', (), {})
 
 
-def mount_seats() -> dict:
-    """What a boss under each mount hole has to reach: the face the screw pulls that flange
-    down onto — the base flange's underside and the crown flange's underside.
-
-    BOTH LOOK UP, because both screws come down the one line the mount is, and each closes
-    on the face below the sheet it passes through."""
-    x, y = mount_xy()
-    return {
-        "mount-base":  ((x, y, 0.0), (0.0, 0.0, 1.0)),
-        "mount-crown": ((x, y, FACE_B - PLATE_T), (0.0, 0.0, 1.0)),
-    }
+def mount_seats():
+    "What a boss under each mount hole has to reach: the face the screw pulls that flange\n    down onto — the base flange's underside and the crown flange's underside.\n\n    BOTH LOOK UP, because both screws come down the one line the mount is, and each closes\n    on the face below the sheet it passes through."
+    return _reference_data('condenser_block', 'mount_seats', (), {})
 
 
 def mounts_hold():
@@ -183,20 +164,8 @@ def mounts_hold():
 
 
 def stations_hold():
-    """Hold every station to the box this module draws: inside the two edges of the face its
-    own axis points out of.
-
-    THE FACE AND NOT THE SOLID, because both Y faces are a recess now: the block's box reaches
-    `FACE_A` on the aft flanges alone, and the outlet leaves on that plane — where the
-    serpentine's own header is re-dressed to meet the core, not where the recess stands back."""
-    span = {"x": (0.0, AIRFLOW), "y": (0.0, FACE_A), "z": (0.0, FACE_B)}
-    for name, (pos, axis) in stations().items():
-        for i, ax in enumerate("xyz"):
-            lo, hi = span[ax]
-            if not axis[i] and not (lo <= pos[i] <= hi):  # the two axes it does not leave by
-                raise ValueError(
-                    f"condenser {name} stands at {ax} = {pos[i]:g}, outside the block's own "
-                    f"{lo:g}..{hi:g} — the pick is off the face it is meant to cross.")
+    "Hold every station to the box this module draws: inside the two edges of the face its\n    own axis points out of.\n\n    THE FACE AND NOT THE SOLID, because both Y faces are a recess now: the block's box reaches\n    `FACE_A` on the aft flanges alone, and the outlet leaves on that plane — where the\n    serpentine's own header is re-dressed to meet the core, not where the recess stands back."
+    return _reference_data('condenser_block', 'stations_hold', (), {})
 
 
 # --- controls -------------------------------------------------------------

@@ -30,8 +30,14 @@ sys.path[:0] = [str(HW / 'scripts'), str(HERE.parent / 'multiplex-asse1022')]
 import multiplex_asse1022 as bfp
 
 
+
+_reference_hardware = next(p for p in Path(__file__).resolve().parents if p.name == 'hardware')
+import sys as _reference_sys
+_reference_sys.path.insert(0, str(_reference_hardware / 'reference'))
+from _reference_data import data as _reference_data
+
 def parameters():
-    return json.loads((HERE / 'reference-parameters.json').read_text())['components']
+    return _reference_data('asse1022_threaded_chain', 'parameters', (), {})
 
 
 def turned(profile):
@@ -63,12 +69,10 @@ def x_bore(radius, lo, hi):
 
 
 def placed(shape, record):
-    r, t = record['rotation'], record['origin_mm']
-    angle = math.acos(max(-1., min(1., (sum(r[i][i] for i in range(3))-1)/2)))
-    if angle > 1e-10:
-        axis = (r[2][1]-r[1][2], r[0][2]-r[2][0], r[1][0]-r[0][1])
-        shape = shape.rotate((0, 0, 0), axis, math.degrees(angle))
-    return shape.translate(tuple(t))
+    pose = _reference_data('asse1022_threaded_chain', 'placement', (record,), {})
+    if pose['turn']:
+        shape = shape.rotate((0, 0, 0), pose['axis'], pose['angle'])
+    return shape.translate(tuple(pose['translation']))
 
 
 def local_tee(record):
@@ -123,17 +127,7 @@ def build():
 
 
 def ports():
-    data = parameters()
-    result = {'vent': bfp.vent()}
-    inlet = data['pp010822e']
-    station = inlet['visible_profile'][0][0]
-    r, t = inlet['rotation'], inlet['origin_mm']
-    result['inlet'] = (tuple(t[i]+r[i][0]*station for i in range(3)), tuple(-r[i][0] for i in range(3)))
-    tee = data['atbu444-e']; r, t = tee['rotation'], tee['origin_mm']
-    for sign, name in [(1, 'plus'), (-1, 'minus')]:
-        reach = tee['run_profiles'][name][-1][0]
-        result['outlet_'+name] = (tuple(t[i]+sign*r[i][1]*reach for i in range(3)), tuple(sign*r[i][1] for i in range(3)))
-    return result
+    return _reference_data('asse1022_threaded_chain', 'ports', (), {})
 
 
 def main():

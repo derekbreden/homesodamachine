@@ -425,48 +425,99 @@ def fine_overlap(first,second,tol=1e-5):
     return all(first[i+3]>second[i]+tol and second[i+3]>first[i]+tol for i in range(3))
 
 
+@cache
+def _source_provider(path):
+    """Load a provider's public surface with its module identity registered."""
+    import importlib.util
+    import sys
+    from types import ModuleType
+    path=Path(path).resolve()
+    for module in tuple(sys.modules.values()):
+        source=(ModuleType.__getattribute__(module,'__dict__').get('__file__')
+                if isinstance(module,ModuleType) else None)
+        if source and Path(source).resolve()==path:
+            return module
+    name='_fine_provider_'+hashlib.sha256(str(path).encode()).hexdigest()[:16]
+    spec=importlib.util.spec_from_file_location(name,path)
+    module=importlib.util.module_from_spec(spec)
+    sys.path.insert(0,str(path.parent))
+    sys.modules[name]=module
+    try:
+        spec.loader.exec_module(module)
+    except BaseException:
+        sys.modules.pop(name,None)
+        raise
+    return module
+
+
+def _provider_value(value):
+    """Hydrate data containers while retaining opaque query objects and factories."""
+    from _rust_objects import NativeProxy
+    if isinstance(value,NativeProxy) and value._tag['$native']['kind'] in ('dict','list','tuple','set'):
+        return _provider_value(value._invoke('snapshot'))
+    if isinstance(value,dict):return {key:_provider_value(row) for key,row in value.items()}
+    if isinstance(value,tuple):return tuple(_provider_value(row) for row in value)
+    if isinstance(value,list):return [_provider_value(row) for row in value]
+    if isinstance(value,set):return {_provider_value(row) for row in value}
+    return value
+
+
+def _current_binding(actual,bound):
+    """Recognize the explicit scalar views used by the current manual readers."""
+    from types import SimpleNamespace
+    if isinstance(bound,SimpleNamespace):
+        return all(hasattr(actual,name) and _current_binding(getattr(actual,name),value)
+                   for name,value in vars(bound).items())
+    if isinstance(bound,_ProviderQuery):
+        source=getattr(actual,'__globals__',{}).get('__file__')
+        return (source is not None and getattr(actual,'__name__',None)==bound.__name__
+                and Path(source).resolve()==Path(vars(bound.provider)['__file__']).resolve())
+    return _provider_value(actual)==_provider_value(bound)
+
+
 def numeric_values(path,names,bindings=None):
-    """Read selected source constants without executing its native imports/builders."""
-    import ast,math
-    tree=ast.parse(Path(path).read_text())
-    assignments={}
-    def bind(target,value):
-        if isinstance(target,ast.Name):assignments[target.id]=value
-        elif isinstance(target,(ast.Tuple,ast.List)):
-            for i,child in enumerate(target.elts):
-                bind(child,ast.Subscript(value=value,slice=ast.Constant(i),ctx=ast.Load()))
-    for node in tree.body:
-        if isinstance(node,ast.Assign):
-            for target in node.targets:bind(target,node.value)
-        elif isinstance(node,ast.AnnAssign)and node.value is not None:bind(node.target,node.value)
-    values={'math':math,**(bindings or {})};visiting=set()
-    def read(name):
-        if name in values:return values[name]
-        if name in visiting:raise ValueError('Cyclic numeric source: '+name)
-        node=assignments[name];visiting.add(name)
-        for dependency in {n.id for n in ast.walk(node)if isinstance(n,ast.Name)}&assignments.keys():
-            if dependency!=name:read(dependency)
-        values[name]=eval(compile(ast.fix_missing_locations(ast.Expression(node)),str(path),'eval'),values)
-        visiting.remove(name);return values[name]
-    return {name:read(name)for name in names}
+    """Read native public values, with requested-name overrides from explicit bindings.
+
+    Dependency views must match the current provider. Changed dependencies require
+    the provider's query parameters; source assignments are no longer re-evaluated.
+    """
+    provider=_source_provider(Path(path).resolve())
+    names=tuple(names);bindings=bindings or {}
+    for name,value in bindings.items():
+        if name in names:continue
+        if not hasattr(provider,name) or not _current_binding(getattr(provider,name),value):
+            raise ValueError('Native numeric dependency binding differs from current provider: '+name)
+    return {name:_provider_value(bindings[name] if name in bindings else getattr(provider,name))
+            for name in names}
+
+
+class _ProviderQuery:
+    """Scope optional query factories to one call and restore the original objects."""
+    def __init__(self,provider,name,scope):
+        self.provider,self.__name__,self.__globals__=provider,name,scope
+
+    def __call__(self,*args,**kwargs):
+        from _rust_data import _LOCK
+        with _LOCK:
+            original=[]
+            try:
+                exports=vars(self.provider).get('_rust_exports',())
+                for name,value in self.__globals__.items():
+                    if name in exports:
+                        original.append((name,getattr(self.provider,name)))
+                        setattr(self.provider,name,value)
+                return _provider_value(getattr(self.provider,self.__name__)(*args,**kwargs))
+            finally:
+                for name,value in reversed(original):
+                    setattr(self.provider,name,value)
 
 
 def source_functions(path,names,bindings,*,bound_imports=()):
-    """Execute only the named existing numeric/query functions in explicit bindings."""
-    import ast
-    tree=ast.parse(Path(path).read_text())
-    nodes=[node for node in tree.body if isinstance(node,ast.FunctionDef)and node.name in names]
-    if {node.name for node in nodes}!=set(names):raise ValueError('Missing query source function')
-    class BoundImports(ast.NodeTransformer):
-        def visit_Import(self,node):
-            remaining=[alias for alias in node.names if(alias.asname or alias.name.split('.')[0])not in bound_imports]
-            if not remaining:return None
-            node.names=remaining;return node
+    """Call public native queries with the manual study's explicit factory bindings."""
     if set(bound_imports)-set(bindings):raise ValueError('Missing explicit numeric import binding')
-    nodes=[BoundImports().visit(node)for node in nodes]
+    provider=_source_provider(Path(path).resolve())
     scope={'__file__':str(path),**bindings}
-    exec(compile(ast.Module(body=nodes,type_ignores=[]),str(path),'exec'),scope)
-    return {name:scope[name]for name in names}
+    return {name:_ProviderQuery(provider,name,scope) for name in names}
 
 
 def box_solid(low,high):

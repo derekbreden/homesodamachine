@@ -19,115 +19,60 @@ _hw = next(p for p in _here.parents if p.name == "hardware")
 sys.path.insert(0, str(_hw / "scripts"))
 
 STEP = _here.parent / "tee-connector.step"
-BRANCH_MEASUREMENTS = _hw / "reference/jg-pp0208e-tee/branch-operating-measurements.json"
-_branch = json.loads(BRANCH_MEASUREMENTS.read_text())
+
+_reference_hardware = next(p for p in Path(__file__).resolve().parents if p.name == 'hardware')
+import sys as _reference_sys
+_reference_sys.path.insert(0, str(_reference_hardware / 'reference'))
+from _reference_data import data as _reference_data
+_reference_values = _reference_data('tee_connector')
+globals().update({name: _reference_values[name] for name in ('BRANCH_MEASUREMENTS', '_branch', 'TUBE_D', 'RUN_SPAN', 'RUN_SPAN_PRESSED', 'RUN_HALF', 'RUN_COLLET_TRAVEL', 'FIRST_RESISTANCE', 'GRIP_DEPTH', 'INSERTION', 'RUN_INSERTION_EXTENDED', 'COLLAR_NOMINAL_D', 'COLLAR_ENVELOPE_D', 'BARREL_R', 'HALF_W', 'ARM_R', 'RUN_ROOT_BAND', 'BRANCH_ROOT_BAND', 'RUN_COLLAR_BAND', 'BRANCH_COLLAR_BAND', 'ARM_ROOT', 'CAP_NEAR', 'CAP_FAR', 'BARREL_NEAR', 'RUN_ENVELOPE_SHOULDER', 'BRANCH_ENVELOPE_SHOULDER', 'BRANCH_WIDTH_EXTENDED', 'BRANCH_WIDTH_PRESSED', 'BRANCH_REACH', 'BRANCH_PRESSED_REACH', 'BRANCH_COLLET_TRAVEL', 'BRANCH_INSERTION_EXTENDED', 'FIXED_NOSE_R', 'RUN_COLLAR_END', 'BRANCH_COLLAR_END', 'RUN_FIXED_END', 'BRANCH_FIXED_END', 'COLLET_NOSE_R', 'BARREL_FAR', 'COLLET_PROUD', 'UNQUALIFIED_DATUMS', 'MEASURE_TOL', 'CARRIER_AFT_COLLET_GAP', 'CARRIER_STROKE', 'CARRIER_MAX_STROKE', 'CARRIER_RELEASE_OFFSET', 'CARRIER_SQUEEZE_OFFSET', 'CARRIER_CONNECTED_OFFSET', 'CARRIER_PARK_OFFSET', 'CARRIER_STATES')})
+
 
 # Calipered operating dimensions. Insertion is from the PRESSED sleeve face.
-TUBE_D = 6.35
-RUN_SPAN = 42.5
-RUN_SPAN_PRESSED = 39.2
-RUN_HALF = RUN_SPAN / 2.0
-RUN_COLLET_TRAVEL = (RUN_SPAN - RUN_SPAN_PRESSED) / 2.0
-FIRST_RESISTANCE = 7.0
-GRIP_DEPTH = 8.5
-INSERTION = 10.0
-RUN_INSERTION_EXTENDED = INSERTION + RUN_COLLET_TRAVEL
 
 # Fitted collar midpoints are Ø16.224..16.330; the outer draft reaches the
 # rounded Ø16.5 sample envelope. Printed passages add their own running air.
-COLLAR_NOMINAL_D = 16.3
-COLLAR_ENVELOPE_D = 16.5
-BARREL_R = COLLAR_ENVELOPE_D / 2.0
-HALF_W = BARREL_R
-ARM_R = 7.0  # rounded envelope of the Ø13.75..13.86 fitted fixed roots
-RUN_ROOT_BAND = (6.9, 9.8)
-BRANCH_ROOT_BAND = (8.7, 11.7)
-RUN_COLLAR_BAND = (12.0, 15.1)
-BRANCH_COLLAR_BAND = (13.8, 16.6)
-ARM_ROOT = BRANCH_ROOT_BAND[0]
-CAP_NEAR, CAP_FAR = BRANCH_COLLAR_BAND
-BARREL_NEAR = RUN_ROOT_BAND[0]
 # These conservative envelope transitions precede the observed shoulders.
 # The fit bands above are interior measurement patches, NOT shoulder edges.
-RUN_ENVELOPE_SHOULDER = (9.8, 10.5)
-BRANCH_ENVELOPE_SHOULDER = (11.7, 12.0)
 
 # The caliper's back jaw meets the NOMINAL fixed collar, not the conservative
 # clearance envelope. The resulting faces are nominal axis stations; the raw
 # outside-to-outside readings remain the primary measurements.
-BRANCH_WIDTH_EXTENDED = _branch["extended_width_mm"]
-BRANCH_WIDTH_PRESSED = _branch["pressed_width_mm"]
-BRANCH_REACH = BRANCH_WIDTH_EXTENDED - COLLAR_NOMINAL_D / 2.0
-BRANCH_PRESSED_REACH = BRANCH_WIDTH_PRESSED - COLLAR_NOMINAL_D / 2.0
-BRANCH_COLLET_TRAVEL = BRANCH_WIDTH_EXTENDED - BRANCH_WIDTH_PRESSED
 if abs(BRANCH_COLLET_TRAVEL - _branch["branch_collet_travel_mm"]) > 1e-9:
     raise ValueError("branch stroke differs from its raw overall-width readings")
-BRANCH_INSERTION_EXTENDED = INSERTION + BRANCH_COLLET_TRAVEL
 
 # Fixed reduced barrels precede the small moving terminal rings. These are
 # conservative clearance bounds around the observed scan surfaces, not exact
 # molded shoulder or moving-ring seam measurements. Run and branch have
 # distinct fixed profiles. No part of either fixed barrel moves on release.
-FIXED_NOSE_R = 7.75
-RUN_COLLAR_END = 15.75
-BRANCH_COLLAR_END = 17.5
-RUN_FIXED_END = 18.5
-BRANCH_FIXED_END = 20.25
-COLLET_NOSE_R = 5.715
-BARREL_FAR = RUN_COLLAR_END
-COLLET_PROUD = BRANCH_REACH - BRANCH_FIXED_END
-UNQUALIFIED_DATUMS = {
-    "run_fixed_nose_clearance_end_mm": RUN_FIXED_END,
-    "branch_fixed_nose_clearance_end_mm": BRANCH_FIXED_END,
-    "fixed_reduced_barrel_clearance_radius_mm": FIXED_NOSE_R,
-    "release_nose_radius_mm": COLLET_NOSE_R,
-    "qualification": "Fixed ends and sleeve radius are conservative clearance proxies; the exact terminal-ring seam/OD is not caliper-qualified.",
-}
-MEASURE_TOL = 0.01
 
-CARRIER_AFT_COLLET_GAP = 0.5
-CARRIER_STROKE = BRANCH_COLLET_TRAVEL + CARRIER_AFT_COLLET_GAP
-CARRIER_MAX_STROKE = 2.5
 if not BRANCH_COLLET_TRAVEL <= CARRIER_STROKE <= CARRIER_MAX_STROKE:
     raise ValueError("carrier stroke must release the sleeve within 2.5 mm")
-CARRIER_RELEASE_OFFSET = 0.0
-CARRIER_SQUEEZE_OFFSET = 0.0
-CARRIER_CONNECTED_OFFSET = CARRIER_STROKE
-CARRIER_PARK_OFFSET = CARRIER_STROKE
-CARRIER_STATES = {
-    "release": (CARRIER_RELEASE_OFFSET, INSERTION),
-    "squeeze": (CARRIER_SQUEEZE_OFFSET, INSERTION),
-    "connected": (CARRIER_CONNECTED_OFFSET, BRANCH_INSERTION_EXTENDED),
-    "park": (CARRIER_PARK_OFFSET, None),
-}
 
 
-def carrier_collet_depression(offset: float) -> float:
-    """Sleeve movement while its nose bears against the fixed release plate."""
-    return min(BRANCH_COLLET_TRAVEL, max(0.0, BRANCH_COLLET_TRAVEL - offset))
+def carrier_collet_depression(offset: float):
+    'Sleeve movement while its nose bears against the fixed release plate.'
+    return _reference_data('tee_connector', 'carrier_collet_depression', (offset,), {})
 
 
 def run(sign):
-    return ((0.0, 0.0, sign * RUN_HALF), (0.0, 0.0, sign))
+    return _reference_data('tee_connector', 'run', (sign,), {})
 
 
 def run_barrel(sign):
-    near, far = RUN_COLLAR_BAND
-    return (((0.0, 0.0, sign * (near + far) / 2), (0.0, 0.0, sign)),
-            BARREL_R, far - near)
+    return _reference_data('tee_connector', 'run_barrel', (sign,), {})
 
 
 def branch():
-    return ((0.0, BRANCH_REACH, 0.0), (0.0, 1.0, 0.0))
+    return _reference_data('tee_connector', 'branch', (), {})
 
 
 def branch_collar():
-    return (((0.0, (CAP_NEAR + CAP_FAR) / 2, 0.0), (0.0, 1.0, 0.0)),
-            BARREL_R, CAP_FAR - CAP_NEAR)
+    return _reference_data('tee_connector', 'branch_collar', (), {})
 
 
 def stations():
-    return {"+z": run(1.0), "-z": run(-1.0), "branch": branch()}
+    return _reference_data('tee_connector', 'stations', (), {})
 
 
 _FROZEN_DIR = Path(__file__).resolve().parent

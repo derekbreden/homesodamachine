@@ -19,13 +19,8 @@ import sys
 import cadquery as cq
 
 
-GRID = 3.0
-DEPTH = 3.0 * GRID
-BACKING = GRID
-HEIGHT = 13.0 * GRID
-RUN = 6.0 * GRID
-RAMP = 2.0 * GRID
-OVERLAP = 0.05
+from _scalar_provider import call as _rust_scalar
+globals().update(_rust_scalar('scalar.constants',group='cable_clip'))
 
 
 # The two dark regions in the user's profile, in (outward, up).  Every
@@ -40,59 +35,30 @@ OVERLAP = 0.05
 # and nothing else; at three it takes a round bundle, and the neck still closes
 # over whatever went in.  Everything above that face stands one seat higher for
 # it and the profile keeps every vertex on the grid.
-_UPPER = (
-    (0.0, 10.0), (2.0, 12.0), (2.0, 13.0), (0.0, 13.0),
-)
-_LOWER = (
-    (0.0, 0.0), (3.0, 3.0), (3.0, 10.0), (2.0, 10.0),
-    (1.0, 9.0), (1.0, 8.0), (2.0, 7.0), (2.0, 4.0),
-    (0.0, 4.0),
-)
-_CHANNEL = (
-    (3.0, 10.0), (2.0, 12.0), (0.0, 10.0), (0.0, 4.0),
-    (2.0, 4.0), (2.0, 7.0), (1.0, 8.0), (1.0, 9.0),
-    (2.0, 10.0),
-)
 
 
 def projection(embed):
-    """How far the completed clip stands proud of the wall."""
-    return DEPTH - float(embed)
+    return _rust_scalar('scalar.clip_projection',embed=embed)
 
 
 def seat_top():
-    """The profile-up of the seat's upper edge — where a cable lying in the seat stops.
-
-    A caller placing the clip against a run of known height strikes this on that height:
-    the lead arrives at the top of the seat and lies in the `seat_height` below it.
-    """
-    return _LOWER[6][1] * GRID
+    return _rust_scalar('scalar.clip_seat_top')
 
 
 def seat_height():
-    """How tall the cable's own seat is — the run of the lower arm's face at full depth,
-    against the host wall, which is what decides the section the clip will take."""
-    return (_LOWER[6][1] - _LOWER[7][1]) * GRID
+    return _rust_scalar('scalar.clip_seat_height')
 
 
 def channel_mouth():
-    """The profile-up where the upper arm's 45° underside meets the wall face.
-
-    That underside is the one sloped plane the clip presents to its host, so a wall
-    already carrying a 45° of its own can be struck to continue straight through it —
-    the two read as one face rather than two with a step between.  This is the figure
-    a caller places the clip by when it wants that.
-    """
-    return _UPPER[0][1] * GRID
+    return _rust_scalar('scalar.clip_channel_mouth')
 
 
 def required_wall(embed):
-    """Minimum host-wall thickness, including the backing behind the channel."""
-    return float(embed) + BACKING
+    return _rust_scalar('scalar.clip_required_wall',embed=embed)
 
 
-def _scaled(points, x_shift=0.0):
-    return tuple((x * GRID + x_shift, y * GRID) for x, y in points)
+def _scaled(points,x_shift=0.):
+    return tuple(tuple(p) for p in _rust_scalar('scalar.clip_scaled',points=points,x_shift=x_shift))
 
 
 def _prism(points, run):
@@ -154,12 +120,8 @@ def local_geometry(*, embed, wall_thickness, run=RUN, ramp=RAMP):
     return addition, cutter
 
 
-def _unit(vector, label):
-    v = cq.Vector(*vector)
-    length = v.Length
-    if length <= 1e-9:
-        raise ValueError(f"cable-clip {label} axis has zero length")
-    return cq.Vector(v.x / length, v.y / length, v.z / length)
+def _unit(vector,label):
+    return cq.Vector(*_rust_scalar('scalar.clip_unit',vector=vector,label=label))
 
 
 def apply(solid, *, origin, outward, along, embed, wall_thickness,

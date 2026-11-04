@@ -78,14 +78,13 @@ rounded_rect_segments = reeding.rounded_rect_segments
 # microns, a fifteenth of the 0.42 mm bead that draws it and well under what the machine can
 # repeat. IT IS NOT FREE: the mesh is what a slicer reads, so a step finer than the show
 # surface can use is paid on every export for nothing.
-grid_across = 0.4
+from _scalar_provider import call as _rust_scalar
+globals().update(_rust_scalar('scalar.constants',group='flute_skin'))
 # And ALONG them. The field is constant along a flute except where it ramps, so rows that say
 # nothing new are dropped after the field is built rather than never taken — the ramp is what
 # needs the resolution and the ramp is 5 mm of a 361 mm wall.
-grid_along = 0.25
 # How far outboard the cutter stands before it turns inward. It is air out there; what this
 # buys is a boolean that never has to decide about two surfaces lying on each other.
-cut_margin = 0.4
 # HOW FAR THE CUTTER'S CAPS STAND CLEAR OF ANY FACE. On a rail that runs the piece's own
 # height they land PAST its top and bottom faces; on one that runs a storey they land INSIDE
 # that storey's floor and ceiling. Either way the cap is in air by this much, because a cap
@@ -93,15 +92,12 @@ cut_margin = 0.4
 # what it resolves it into is degenerate triangles, duplicate faces and edges carrying four
 # and six faces apiece. A slicer reads that as non-manifold and refuses the part, and it
 # refuses it while `is_watertight` still says yes.
-cut_overrun = 1.0
 # How far the cutter's own surface may stand off the rail where stations are dropped. A corner
 # keeps its stations at this; the flats collapse to their two ends regardless, because there the
 # chord and the rail are the same line.
-plan_tol = 0.01
 # A station counts as show face when the piece's own material reaches this close to the rail.
 # Bigger than the mesh's own deviation, far smaller than the shallowest recess that is not
 # meant to be fluted (a port chip's seat is 2.0 mm).
-face_tol = 0.25
 
 
 class Rail(NamedTuple):
@@ -129,22 +125,12 @@ class Rail(NamedTuple):
 
 
 def _rail_frames(rail):
-    """Every across-station on one rail: (arc length, point, outward normal).
-
-    A CLOSED rail stops one step short of its own start, because that station is already
-    drawn; an OPEN one carries both its ends, because they are two edges."""
-    steps = max(int(round(rail.length / grid_across)), 3)
-    if rail.closed:
-        s = rail.start + np.arange(steps) * (rail.length / steps)
-    else:
-        s = rail.start + np.linspace(0.0, rail.length, steps + 1)
-    point = np.empty((len(s), 2))
-    normal = np.empty((len(s), 2))
-    for i, si in enumerate(s):
-        (px, py), (nx, ny) = rail.at(float(si))
-        point[i] = (px, py)
-        normal[i] = (nx, ny)
-    return s, point, normal
+    """Every Rust-selected across-station on one rail, with its point and normal."""
+    stations = _rust_scalar('scalar.rail_stations',length=rail.length,start=rail.start,
+                            closed=rail.closed,grid=grid_across)
+    frames = [rail.at(station) for station in stations]
+    return (np.asarray(stations),np.asarray([f[0] for f in frames]),
+            np.asarray([f[1] for f in frames]))
 
 
 def _field_rows(mesh, band):

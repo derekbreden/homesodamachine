@@ -1,0 +1,16 @@
+[package]
+name = "hsm-build-plan"
+version = "0.1.0"
+edition.workspace = true
+license.workspace = true
+rust-version.workspace = true
+publish = false
+
+[[bin]]
+name = "build-plan"
+path = "src/main.rs"
+
+[dependencies]
+anyhow.workspace = true
+serde_json.workspace = true
+hsm-documents = { path = "../documents" }

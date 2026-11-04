@@ -29,32 +29,24 @@ STEP_PATH = _HERE / "mq6-gas-sensor.step"
 PAYLOAD_PATH = _HERE / "mq6-gas-sensor.step.mesh"
 ASSET_MANIFEST_PATH = _HERE / "frozen-asset.json"
 
-PCB_X, PCB_Y, PCB_T = 32.0, 20.0, 1.6
-CAN_D, CAN_H = 19.0, 14.0            # MQ-6 sensor can (steel mesh cap)
-PIN_LEN = 6.0                        # header pins below the board
-PIN_SQ = 0.64                        # 0.025" square post
-PIN_PITCH = 2.54
-PIN_COUNT = 4
-PIN_ROW_INSET = 3.0                  # header centreline in from the -X short edge
+
+_reference_hardware = next(p for p in Path(__file__).resolve().parents if p.name == 'hardware')
+import sys as _reference_sys
+_reference_sys.path.insert(0, str(_reference_hardware / 'reference'))
+from _reference_data import data as _reference_data
+_reference_values = _reference_data('mq6_gas_sensor')
+globals().update({name: _reference_values[name] for name in ('PCB_X', 'PCB_Y', 'PCB_T', 'CAN_D', 'CAN_H', 'PIN_LEN', 'PIN_SQ', 'PIN_PITCH', 'PIN_COUNT', 'PIN_ROW_INSET')})
+
 
 
 def card_plane():
-    """The board's own centre, on its mid-plane, as a `(position, outward axis)` station.
-
-    This is the point whatever holds the card is stationed on. THE BOX'S CENTRE IS NOT IT:
-    the pins reach 6 mm off one face and the can 14 off the other, so a slot struck on the
-    box would sit 4 mm behind the card it grips."""
-    return ((0.0, 0.0, PIN_LEN + PCB_T / 2.0), (0.0, 0.0, 1.0))
+    "The board's own centre, on its mid-plane, as a `(position, outward axis)` station.\n\n    This is the point whatever holds the card is stationed on. THE BOX'S CENTRE IS NOT IT:\n    the pins reach 6 mm off one face and the can 14 off the other, so a slot struck on the\n    box would sit 4 mm behind the card it grips."
+    return _reference_data('mq6_gas_sensor', 'card_plane', (), {})
 
 
 def header_span():
-    """The pin field's own extent, as `(along the row, off the board's centre)`.
-
-    Whatever holds this board has to open a way through to the header — the pins face
-    the board's back, so a cheek that crosses them is a cheek the loom cannot pass.
-    Read off the header rather than typed where the cradle is cut."""
-    return ((PIN_COUNT - 1) * PIN_PITCH / 2.0 + PIN_SQ / 2.0,
-            PCB_X / 2.0 - PIN_ROW_INSET)
+    "The pin field's own extent, as `(along the row, off the board's centre)`.\n\n    Whatever holds this board has to open a way through to the header — the pins face\n    the board's back, so a cheek that crosses them is a cheek the loom cannot pass.\n    Read off the header rather than typed where the cradle is cut."
+    return _reference_data('mq6_gas_sensor', 'header_span', (), {})
 
 
 def main():

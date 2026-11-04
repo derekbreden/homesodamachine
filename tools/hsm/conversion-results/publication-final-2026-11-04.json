@@ -1,0 +1,211 @@
+{
+  "date": "2026-11-04",
+  "source_revision_at_verification": "63658e44888f13d7a7e657d435558580e4746902",
+  "completed_scope": [
+    "Catalog URL/path and print-record selection, frozen assets, store membership, stable directory walks and website projection",
+    "Provenance lines and input digests, producer/member mapping, held publication plans and reconciliation data decisions",
+    "Pointer schema and ordered JSON readers/writers, owed/heal/commit plans, payload/scorecard selection and drift reporting",
+    "Release retention, object URLs and deduplication, archive and object compression, verified adoption and guarded retirement-file pruning"
+  ],
+  "baseline_source_sha256": {
+    "tools/cad-artifacts/pack.py": "47e4c39e352d96427b663225f89fb928357e7131edab758be7d2818ee53aad95",
+    "tools/publish_now.py": "1a85fc3d9c33b45418c9ed9d098321527c3e827a030c8140c3d7d533cf044fff",
+    "tools/hsm/build-data/src/publication.rs": "30e2f63bcbb3df46eb4da8607bdc5e787bd8b14c0fda33be48f528c468696e3b"
+  },
+  "source_sha256": {
+    "tools/cad-artifacts/pack.py": "060b4433f8a2ca08928a5dc49569527ad395dd5cd8f58f41f646e7b2a585707e",
+    "tools/publish_now.py": "f43922890b01ece0afda7448cabfb359a5a3f4c0b1d48ed214d93ae0c62cc29f",
+    "tools/hsm/build-data/Cargo.toml": "17673563093ea5b4116bc6ec73859a2f47a5f21e7028e421b0a4494c0e781776",
+    "tools/hsm/build-data/PUBLICATION.md": "d52c4c12170a74f15a1fc16df9862306eff80267204d5d1d6a9b84dcac2d96b0",
+    "tools/hsm/build-data/src/publication.rs": "78b0b1479c289abf69a7f5343bc160501b3e684b70846f59db6c5be23ddd4aee",
+    "tools/hsm/build-data/src/publication_state.rs": "5aa9763e4b6f9c78abff87bb32375a29f3c6deb6bf0ba86c12707b4156657f68",
+    "tools/hsm/build-data/src/publication_archive.rs": "5ae53fb375f954032e60b3617ef4e8c19877d6816b9101336f33748042521d31",
+    "tools/hsm/build-data/src/publication_zlib.rs": "afa32a232e54cbda179670fdac58061031a7e83faf08469bc8f33e085026d81d"
+  },
+  "verification_harness_sha256": {
+    "verify_archive.py": "068eb5066d2991ba5a43c0b8b8b98885d9c834f870e3d44c946d08ad8f731d2f",
+    "verify_publication.py": "03555a0a30e5de726a55b252f5029d13f2757f549252c55672d08f68d0353b44",
+    "verify_drivers.py": "9b9eaac054f7716865313d3f7611acc8fd32e88a43736d7d030d1819897bec19",
+    "verify_ordered_readers.py": "6ba7e62562967ab31b5d4fd4ec458d7b6e77d77f20fccf139be703dd225bbc76"
+  },
+  "comparisons": {
+    "publication": {
+      "pack-before": {
+        "assertions": 66,
+        "passed": true
+      },
+      "pack-after": {
+        "assertions": 66,
+        "passed": true
+      },
+      "publish-before": {
+        "assertions": 8,
+        "passed": true
+      },
+      "publish-after": {
+        "assertions": 8,
+        "passed": true
+      },
+      "checkout_membership": {
+        "solids": 852,
+        "website_paths": 1925,
+        "declared_outputs": 628,
+        "path_list_sha256": "5ec6151dd8d27dd1a6ea796462ab63bb230414cbfed90d02c5f99cb0b2505585",
+        "equal": true
+      },
+      "comparison_cases": 353,
+      "zlib": {
+        "path": "/usr/lib/libz.1.dylib",
+        "version": "1.2.12"
+      },
+      "network_requests": 0,
+      "full_builds": 0,
+      "catalog_allowed_paths": 112
+    },
+    "drivers": {
+      "driver_cases": 32,
+      "held_publish_and_reconcile_behavior_equal": true,
+      "network_requests": 0,
+      "builds": 0
+    },
+    "ordered_readers_and_prune": {
+      "checks": 10,
+      "retained_pointer_key_order": true,
+      "read_write_bytes_equal": true,
+      "owed_reader_equal": true,
+      "malformed_pointer_fallback_equal": true,
+      "gzip_error_recovery": true,
+      "object_gzip_levels": [
+        6,
+        9
+      ],
+      "prune_symlink_guards": 3,
+      "network_requests": 0
+    },
+    "archives": [
+      {
+        "members": 0,
+        "tar_equal": true,
+        "gzip_equal": true,
+        "before_sha256": "b94b4d079a0a84bdf416bc4a472ccff4775bb999858da78e854446f0d5221b84",
+        "after_sha256": "b94b4d079a0a84bdf416bc4a472ccff4775bb999858da78e854446f0d5221b84"
+      },
+      {
+        "members": 1,
+        "tar_equal": true,
+        "gzip_equal": true,
+        "before_sha256": "f9a7c62c16c91371565e4aba204ab0d3ff6dc2adce0595b1e43c94987e0fdbff",
+        "after_sha256": "f9a7c62c16c91371565e4aba204ab0d3ff6dc2adce0595b1e43c94987e0fdbff"
+      },
+      {
+        "members": 5,
+        "tar_equal": true,
+        "gzip_equal": true,
+        "before_sha256": "a6bfaa93658883854767e2af38cb8aca6ec97ed3714824cf8314bb7cacefe5c9",
+        "after_sha256": "a6bfaa93658883854767e2af38cb8aca6ec97ed3714824cf8314bb7cacefe5c9"
+      },
+      {
+        "members": 5,
+        "tar_equal": true,
+        "gzip_equal": true,
+        "before_sha256": "a8b43363d56bd08d34d98e99d1df205de4eaeb208158c4d0d84ce7a73de42ffd",
+        "after_sha256": "a8b43363d56bd08d34d98e99d1df205de4eaeb208158c4d0d84ce7a73de42ffd"
+      }
+    ]
+  },
+  "contract_details": [
+    "66 current pack selftest assertions and 8 current publish-now assertions passed, with the same original selftests also passed",
+    "353 fixed comparison cases plus 32 driver scenarios and 10 targeted ordered-reader/prune checks passed",
+    "Current checkout matched 852 stored solids, 1925 website paths and 628 declared outputs",
+    "Four GNU tar/gzip fixtures preserve every byte, including empty archives, member order, long names, UTF-8 names, flattened metadata and record padding",
+    "Object gzip levels 6 and 9 preserve every byte; the native compression service remains usable after a failed output open",
+    "Pointer reads and writes preserve nested key order, numeric spelling, Unicode escapes and exact file bytes",
+    "Retired-file pruning preserves regular-file behavior and the existing dangling-link/symlink-parent guard"
+  ],
+  "build": "python3 tools/run.py -- cargo build --release --locked --offline -j2 -p hsm-build-data --bin build-data",
+  "rust_binary_sha256": "d321a6fdf8b4657bb50858365b1e41a06149a998f660b763aa823edf262473f2",
+  "dependencies_added": [
+    "flate2 1.1.10 with zlib-rs decoding",
+    "libloading 0.8.9",
+    "crc32fast 1.5.0",
+    "libc 0.2; local-time timestamp primitive"
+  ],
+  "native_compression": {
+    "selection": "HSM_ZLIB_LIBRARY override; /usr/lib/libz.1.dylib on macOS or libz.so.1 on Linux",
+    "tested_path": "/usr/lib/libz.1.dylib",
+    "tested_version": "1.2.12",
+    "python_compression_fallback": false
+  },
+  "public_helpers": [
+    "pack._native_config(): raw authored membership data plus IMPLICIT_SOLIDS/ACTION_INTERMEDIATE",
+    "publication::solids(root,&config): existing API preserved",
+    "publication::target_name(generator,&shared): reusable stable target naming"
+  ],
+  "remaining_boundaries": [
+    "Python CLI and backend process/network orchestration, status handling and object/type transport",
+    "Existing manual Python fixture/selftest assertions"
+  ],
+  "network_requests": 0,
+  "remote_assets_modified": false,
+  "full_build_run": false,
+  "scratch_removed": true,
+  "checkout_data_sha256_at_handoff": {
+    "hardware/ledger/materials.json": "0fd652df23e6906ed46964b8faccc7ea6d25420b2835c9c80e31bc8c2c5ca991",
+    "tools/bazel/graph.json": "58ad534f547dd27fdbbeb0de40de00b6b705a5cd34d9e12a9c7c4cf8b53b12d6",
+    "hardware/cad-artifacts.json": "f5e5b9090b0b5070bb4f99822209c5fff9fb837904be494841fb43101769f14b",
+    "tools/bazel/inventory.py": "150e24c9c4043959645f5ac240ef97189d9e8cd6652789030005060651f90444",
+    "hardware/reference/asse1022-assembly/frozen-asset.json": "56810f2eb308842e6d77046be09186ba087ab01c183721e269f0d1bc8807ed08",
+    "hardware/reference/asse1022-threaded-chain/frozen-asset.json": "dc9079091c0071e2e6d4b2575660ecd8dedb9050ac144f99b91c6f54498d56dc",
+    "hardware/reference/basics-mtb-0606wp/frozen-asset.json": "e20fa66a037407fc2051c73e6461f3eff8e9d395a84235454f193df1536ea1fa",
+    "hardware/reference/beduan-solenoid/frozen-asset.json": "a5d190bc69508b7fab8fe2aa146544f312da689115b516ab88cc1ff5c11b60b0",
+    "hardware/reference/branch-stem-tees/frozen-asset.json": "87575e396a0a2d33416ae6bc73ea80544af343acc510f4ae68642a1f6cd3489f",
+    "hardware/reference/compact-inline-candidates/geometry/frozen-asset.json": "44e35bc4da718b7efd722985bf46ee04c50747b9026b47cf205af97521313c70",
+    "hardware/reference/compressor/frozen-asset.json": "743bee7c16b6d5fca16cae12b826770f5bffffe32801cccd6769267d3e850330",
+    "hardware/reference/digiten-flow-sensor/frozen-asset.json": "68af4aa2c0bc0b157f4da6828c6cc42ecbadfc0685027d94bdcbeb904a594b9d",
+    "hardware/reference/ffl38barb38/frozen-asset.json": "8360d1199956d62ad1a5981c8cda9795d00734e677c3aaf37c693b7ebe85caf0",
+    "hardware/reference/flare38-14ptc/frozen-asset.json": "acb70743f900d4f37b23df94139c99c7b23684fbbbfa4d0a96d9fc461608b9f9",
+    "hardware/reference/g-ganen-pump/frozen-asset.json": "e72aa3b713390f6b508fa7d82188e4188d92ac2d52afc1b8c32e63c2b5a38b69",
+    "hardware/reference/gagira-reducing-coupling/frozen-asset.json": "bbd02da8ee7601996bf1738230cc13170ad9c1f6dd634471fa32fc503d26f238",
+    "hardware/reference/gasher-check-valve/frozen-asset.json": "b6092d0ca97752b434d7f53a9887b10b5c8f493ef7e5dd89cfc081a29982cff9",
+    "hardware/reference/hlghlg-check-valve/frozen-asset.json": "949dd43565368921d63f939780518a45c14ef393e6f5bf1123b3209bdbe3ec8e",
+    "hardware/reference/iec-c14-inlet/frozen-asset.json": "443bf8069d37773eb7cae780c3fc966329a6ba76552df1425a9d943e7d8c17d8",
+    "hardware/reference/jg-bulkhead-union/frozen-asset.json": "0807e570c1bb19146231d9e80afa280adbf4fe5133a5306ee9556b29c6c64c56",
+    "hardware/reference/jg-pp010822e/frozen-asset.json": "0926404d641d6486d359af534b811746ca320bfa7c08ca15e25b09bf8b0928da",
+    "hardware/reference/jg-pp0208e-tee/frozen-asset.json": "c59085aebf16248e252401f31555053d2780be5081ba423f8459a0b6bf31ef5b",
+    "hardware/reference/jg-pp0308e-elbow/frozen-asset.json": "f07ebafffb2fc63d1c0471d87de832de947f06541fbd484516f22a1b40a3017f",
+    "hardware/reference/jg-pp0408w/frozen-asset.json": "7d3b79897d4f2ce1228ec1a8cef46202ed4097b673bf63d43a45fb679660bc84",
+    "hardware/reference/jg-pp061208w/frozen-asset.json": "377c6833676c14f168b683c769ed84a17ae49f2f44355fa848207d84df4d53f2",
+    "hardware/reference/jg-pp451223w/frozen-asset.json": "09aab3848707b52ed47abef73cc3ed17754e5dca26c962aeb7427fc74228e583",
+    "hardware/reference/jhyossthi-pogo-dock/frozen-asset.json": "4f2e014549043a6de6a07282658d761235c57a3bba95dad67cd8aff5d84185d8",
+    "hardware/reference/kamoer-kphm400/frozen-asset.json": "e2d776a38b8e340d01bdc685bdd75c0bbe9a27a57591921aaa79ff9c045dfd81",
+    "hardware/reference/meanwell-irm90/frozen-asset.json": "8f4cdda913b0427e8d8cd0fbd464a0bd960a5fd1472f4345c6d487213c8f29df",
+    "hardware/reference/molex-micro-fit-4/frozen-asset.json": "aedcc4bcb1d6b99ce5295e4deb272a9274f6144cee9acf78b4807775f0c31d9b",
+    "hardware/reference/mq6-gas-sensor/frozen-asset.json": "46a4a84ef90ac92e4fe2ed0f00400a41457ca06daa59e3fb6e47c2f74a3da259",
+    "hardware/reference/multiplex-asse1022/frozen-asset.json": "35f727f14590772ab3db90e9e619dece3549ecf491df186e5265cc32c485602c",
+    "hardware/reference/neofit-achv44-check/frozen-asset.json": "e637087b33b666075b09be2c12342d97b216268f8d5e37fcfca065306fafc5b4",
+    "hardware/reference/neofit-acvus44-check/frozen-asset.json": "b1ca1ba0e245764dc7e5358b83823c116e16e225fd6cf5f0b7964f633fc3f769",
+    "hardware/reference/neofit-bulkhead/frozen-asset.json": "c74fef14951e354c1936bcbbf0c061f2a6f28213848dadb8018ece8eba0ae551",
+    "hardware/reference/neofit-drain-bulkhead/frozen-asset.json": "19ffd6e4044d596dc648902761051738373ac9810348ea0837fee2dba7ddffda",
+    "hardware/reference/neofit-flavor-reducer/frozen-asset.json": "31d493f595e3baf2dce91f43a69c6390ef2266f9b7a76940ea1e927e6fc48b24",
+    "hardware/reference/neofit-flow-control/frozen-asset.json": "48cf14a184093b6084564a4a3ce57ad074df7c292d74b09e6aad60a2303e375a",
+    "hardware/reference/neofit-stem-elbow/frozen-asset.json": "47e5bbfd60c415e13c3a51bf9b6849b0b3bd41826baa96fc46cfad78203b98fc",
+    "hardware/reference/neofit-stem-run-tee/frozen-asset.json": "ac21cc38dfd0c93e0cc3b610cc8089d67083b4e18c7312b7beafe7fa43ff9c39",
+    "hardware/reference/riteav-keystone/frozen-asset.json": "3da23e10c737d99664e490cb65e8704ea5d739af31821dbe9b329e64befb0520",
+    "hardware/reference/seaflo-22-pump/frozen-asset.json": "6d251a2ed9974a34fa4bb08e9a334200cd9b94b53b944a743721f8072a9632bf",
+    "hardware/reference/seaflo-discharge-chain/frozen-asset.json": "3839e95d72fe8da1be4b13a2bec6e6bafce3fece54c6f7a75d5af11e3701547d",
+    "hardware/reference/sf76e-thermal-fuse/frozen-asset.json": "48b44e7ce8b4b2d82c3cb85936d5df53be5699688437b95bf6c2eb4bafd9e947",
+    "hardware/reference/shok-blok-regulator/frozen-asset.json": "12233d35d1ece34ba1cde29d3f2e7315c5d6d2da0ef1ec7b6a7a1ce4a3d2dc87",
+    "hardware/reference/shutao-moisture-plate/frozen-asset.json": "d5e8e06f76ff4b65858a7d275d94723f7f7399ec52de002017f752e538977f31",
+    "hardware/reference/soda-rise-insulation/frozen-asset.json": "da98ee8e559b410845e1293b3911b27e85ee7ceeaadf2d342a90090ae9497b00",
+    "hardware/reference/taprite-3741-regulator/frozen-asset.json": "3fceae6b7bf45558c3ea6f36618e4fdc0d932688f90872755c1d0b6d579fb688",
+    "hardware/reference/tee-connector/frozen-asset.json": "6105c16b4f023e339108183fd67503264c8d433bc5bde383c4718af12c681cb9",
+    "hardware/reference/teyleten-relay/frozen-asset.json": "b6fbf685286aec3494481b9bd783675d65a6774a72392a2066e4006b66d374c9",
+    "hardware/reference/touch-flo-faucet/westbrass-reference/frozen-asset.json": "364479fe93b002e78abc4e84944c223f3ed5ad9a6495d6b41088891bd380e8c5",
+    "hardware/reference/wago-221/frozen-asset.json": "e6b834da03ba70befff638cc0baefe514d9f02edd8ffec06229b58e25ce9dd37",
+    "hardware/reference/waveshare-43b-display/frozen-asset.json": "e2a31ad3d4619143b9deee89c48bad4f79be9b992ee8490fddf39f42d8298d5c",
+    "hardware/reference/worm-clamp/frozen-asset.json": "1791cfb1048869d8a87d2a5c4bd00c641ac8c103a1448b8399f04f9335343202",
+    "hardware/reference/wr1110-regulator/frozen-asset.json": "590c393cdfd1eddf1a27b378b0fc9bd1997d325aeb3136aa1a6e87ecb23df610",
+    "hardware/reference/yyfkgcp-pogo-4p/frozen-asset.json": "83dc6fddf10cd6c7297d2cbbf32897524ddc7fb3f675287df67ed811b09d0f44",
+    "hardware/reference/yzmsz-water-regulator/geometry/frozen-asset.json": "30d11fc7821b547c37bd906b861fe71a87916c0d2da2ef6af79dcfb4fe6b9e7e"
+  }
+}

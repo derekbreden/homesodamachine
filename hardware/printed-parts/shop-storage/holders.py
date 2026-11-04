@@ -55,257 +55,59 @@ class Holder:
     opts: dict = field(default_factory=dict)
 
     def __post_init__(self):
-        if self.shape == "index" and not self.takes:
-            self.takes = tuple(
-                dict.fromkeys(env for row in self.opts["rows"] for env, _count in row)
-            )
+        result = _reference_data('holders', 'Holder',
+            (self.name, self.shape, self.x_u, self.y_u, self.height_u,
+             self.takes, self.note, self.opts), {})
+        self.takes = result.takes
 
     @property
     def cells(self):
-        return (self.opts.get("length_div", 0) + 1) * (self.opts.get("width_div", 0) + 1)
+        return _reference_data('_bound', 'attribute', (self, 'cells'), {})
 
 
 # ============================================================
 # THE DOCK
 # ============================================================
 
-DOCKS = [
-    Holder("dock-3x3", "dock", 3, 3, 0,
-           note="The bench plate. Print as many as the bench has room for; any "
-                "baseplate docks any holder."),
-]
+
+import pathlib as _reference_pathlib
+_reference_hardware = next(p for p in _reference_pathlib.Path(__file__).resolve().parents if p.name == 'hardware')
+import sys as _reference_sys
+_reference_sys.path.insert(0, str(_reference_hardware / 'reference'))
+from _reference_data import data as _reference_data, register_types
+register_types(Holder=Holder)
+_reference_values = _reference_data('holders')
+globals().update({name: _reference_values[name] for name in ('DOCKS', 'CRADLES', 'COMBS', 'INDEXES', 'TUBS', 'HOLDERS')})
+_holder_instances = {holder.name: holder for holder in HOLDERS}
+for _group in ('DOCKS', 'CRADLES', 'COMBS', 'INDEXES', 'TUBS'):
+    globals()[_group] = [_holder_instances[holder.name] for holder in globals()[_group]]
+
 
 
 # ============================================================
 # CRADLES — round stock, and not one figure read for a fit
 # ============================================================
 
-CRADLES = [
-    Holder("reel-cradle", "cradle", 3, 3, 6,
-           takes=(C.WIRE_REEL, C.RIBBON_REEL, C.KAPTON_ROLLS),
-           note="A 90-degree V. A reel rests on two lines and centres itself between "
-                "them at any radius, and turns as the wire is pulled. Nothing here is "
-                "cut to a reel's diameter or to its width."),
-    Holder("roll-cradle", "cradle", 2, 2, 5,
-           takes=(C.SOLDER_ROLL, C.SOLDER_POCKET, C.BRAID_BOBBIN, C.PTFE_TAPE),
-           note="The same V at bench-roll size: solder off the reel, braid off the "
-                "bobbin, tape off the roll."),
-    Holder("reel-spacer", "spacer", 3, 3, 6,
-           note="Drops into the reel cradle's trough beside a narrow reel and takes up "
-                "its run. Print as many as the slack wants.",
-           opts={"width": 20.0}),
-    Holder("roll-spacer", "spacer", 2, 2, 5,
-           note="The roll cradle's spacer.",
-           opts={"width": 12.0}),
-]
 
 
 # ============================================================
 # COMBS — tools that stand, held by a throat and a taper
 # ============================================================
 
-COMBS = [
-    Holder("crimp-comb", "comb", 3, 2, 9,
-           takes=(C.SN2549, C.HS9327, C.PRECIVA),
-           note="The three ratcheting crimpers, head down. Each slot is cut to its own "
-                "tool, so the SN-2549 does not rattle in a mouth sized for the Preciva."),
-    Holder("strip-comb", "comb", 3, 3, 8,
-           takes=(C.KLEIN_11063W, C.KLEIN_11057, C.VCE_GJ668BL),
-           note="The two strippers and the modular crimper."),
-    Holder("punch-comb", "comb", 2, 2, 8,
-           takes=(C.KLEIN_VDV427, C.MASTERCOOL_70025),
-           note="The punchdown and the capillary cutter — two tools whose makers publish "
-                "between them one usable figure."),
-    Holder("cut-comb", "comb", 2, 2, 7,
-           takes=(C.KATA_CUTTER, C.KATA_CUTTER, C.MUDDER_CUTTER),
-           note="Both flush cutters and the tube cutter."),
-    Holder("fine-comb", "comb", 2, 1, 8,
-           takes=(C.IFIXIT_TWEEZERS, C.IFIXIT_TWEEZERS, C.IFIXIT_TWEEZERS),
-           note="The three iFixit tweezers, points down to the root of the taper.",
-           opts={"root": 3.0, "taper": 10.0}),
-    Holder("tube-comb", "comb", 3, 3, 9,
-           takes=(C.KNIPEX_860180, C.RIDGID_150),
-           note="The pliers wrench and the tubing cutter. KNIPEX publishes 180 x 46 x "
-                "15 mm and RIDGID publishes a length, so one slot is cut to a drawing "
-                "and the other to a parcel, 26 mm wider.")
-]
 
 
 # ============================================================
 # INDEXES — a bore is cut to a size, so every figure is a standard's
 # ============================================================
 
-INDEXES = [
-    Holder("tip-index", "index", 3, 2, 5,
-           note="Twenty T18 soldering tips and the seven heat-set insert tips that "
-                "share their barrel. One bore for all twenty-seven: the README's table "
-                "is what tells them apart.",
-           opts={"rows": [
-               [(C.T18_TIP, 10)],
-               [(C.T18_TIP, 10)],
-               [(C.INSERT_TIP, 7)],
-           ]}),
-    Holder("drill-index", "index", 3, 3, 5,
-           note="The drill-press station. Countersinks stand head down — a head is a "
-                "nominal inch fraction — and everything else shank down.",
-           opts={"rows": [
-               [(C.COBALT_DRILL, 12)],
-               [(C.PILOT_DRILL, 2), (C.TAP_GUIDE, 1)],
-               [(C.NPT_TAP, 3)],
-               [(cs, 1) for cs in C.COUNTERSINKS],
-           ]}),
-    Holder("dowel-index", "index", 2, 1, 5,
-           note="Ten ground dowel pins, points up.",
-           opts={"rows": [[(C.DOWEL_PIN, 5)], [(C.DOWEL_PIN, 5)]]}),
-]
 
 
 # ============================================================
 # TUBS — everything loose, and everything that just stands
 # ============================================================
 
-TUBS = [
-    Holder("m3-tub", "tub", 3, 2, None,
-           takes=(C.M3X25, C.M3X12SS, C.M3X12, C.M3X10, C.M3X8),
-           note="The five M3 lengths. The two M3 x 12 troughs are adjacent and their "
-                "contents are not interchangeable: 304 SS closes the wet reservoir "
-                "caps, black oxide bolts the dry above-counter plate.",
-           opts={"length_div": 4}),
-    Holder("m5-tub", "tub", 3, 2, None,
-           takes=(C.M5X10, C.M5WASHER, C.RUTHEX_M5),
-           note="The compressor floor stack.",
-           opts={"length_div": 2}),
-    Holder("insert-tub", "tub", 3, 1, None,
-           takes=(C.RUTHEX_M3, C.RUTHEX_M3S, C.RUTHEX_M2),
-           note="LABEL THIS ONE FIRST. The long and short M3 share a knurl and a hole "
-                "and differ only in body length; pressed into the wrong station the "
-                "short one is a weaker joint that looks identical.",
-           opts={"length_div": 2}),
-    Holder("small-tub", "tub", 3, 2, None,
-           takes=(C.M2X6, C.ULPM3X6, C.ULPM3X8, C.MAGNETS, C.MEMBRANES),
-           note="M2, the two ultra-low-profile M3 lengths, and the two that are not "
-                "screws. The sixth compartment stands empty for whatever is in play.",
-           opts={"length_div": 2, "width_div": 1}),
-
-    Holder("ferrule-tub", "tub", 3, 3, None,
-           takes=C.FERRULES,
-           note="Six DIN 46228-4 cross-sections. The machine's largest conductor is "
-                "16 AWG, so the kit's 4 mm2 and up stay in the kit's own case.",
-           opts={"length_div": 2, "width_div": 1}),
-    Holder("shrink-tub", "tub", 3, 3, None,
-           takes=C.SHRINK,
-           note="Eleven sizes of 2:1 sleeving decanted into six bands; a band's "
-                "compartment is sized on the widest sleeve in it.",
-           opts={"length_div": 2, "width_div": 1}),
-    Holder("terminal-tub", "tub", 3, 3, None,
-           takes=C.TERMINALS,
-           note="Push-ons and rings, the single-gauge packs and the mixed kits decanted "
-                "beside them.",
-           opts={"length_div": 2, "width_div": 1}),
-    Holder("lever-tub", "tub", 3, 1, None,
-           takes=C.LEVERS,
-           note="WAGO 221 in three widths.",
-           opts={"length_div": 2}),
-    Holder("tie-tub", "tub", 3, 2, None,
-           takes=C.TIES,
-           note="Zip ties in three lengths; the 6 in and 8 in lie doubled back.",
-           opts={"length_div": 2}),
-
-    Holder("xh-tub", "tub", 3, 3, None,
-           takes=(C.XH_CONTACTS, C.XH_LEADS) + C.XH_HOUSINGS,
-           note="The JST XH station: contacts, pre-crimped leads, and the seven pole "
-                "counts. Every figure here is the XH series drawing's.",
-           opts={"length_div": 2, "width_div": 2}),
-    Holder("keystone-tub", "tub", 2, 2, None,
-           takes=(C.RJ11_JACKS, C.RJ11_PLUGS),
-           note="RJ11 6P4C jacks and plugs. 6P4C is a standard and the keystone form "
-                "factor is a standard, so neither figure is a parcel's.",
-           opts={"length_div": 1}),
-
-    Holder("junction-tub", "tub", 3, 3, None,
-           takes=(C.UNION_TEES, C.UNION_ELBOWS),
-           note="Thirty union tees and forty union elbows, on John Guest's own drawings.",
-           opts={"length_div": 1}),
-    Holder("bulkhead-tub", "tub", 3, 3, None,
-           takes=(C.BULKHEADS, C.NEOFIT_BULKHEADS, C.PURESEC_ELBOWS, C.BALL_VALVES),
-           note="Everything that passes a wall, and the valves that sit in line with it.",
-           opts={"length_div": 1, "width_div": 1}),
-    Holder("adapter-tub", "tub", 3, 3, None,
-           takes=(C.MALE_CONNECTORS, C.FEMALE_ADAPTERS, C.FLARE_ADAPTERS, C.PNEUMATIC),
-           note="Thread to tube, in both directions.",
-           opts={"length_div": 1, "width_div": 1}),
-    Holder("npt-tub", "tub", 3, 3, None,
-           takes=(C.CHECK_VALVES, C.COUPLINGS, C.BARBS, C.BRASS_FLARE),
-           note="The NPT stock. The regulator and the relief valve stand in the "
-                "pressure-tub beside it.",
-           opts={"length_div": 1, "width_div": 1}),
-    Holder("pressure-tub", "tub", 2, 2, None,
-           takes=(C.REGULATOR, C.RELIEF_VALVE),
-           note="The two bodies that stand on end.",
-           opts={"length_div": 1}),
-    Holder("stock-tub", "tub", 3, 3, None,
-           takes=(C.TWO_WAY, C.CLAMPS, C.STIFFENERS),
-           note="Dividers, clamps and stiffeners — the bulk of the tube bench.",
-           opts={"length_div": 2}),
-    Holder("copper-tub", "tub", 3, 1, None,
-           takes=(C.FLARE_NUTS, C.SLIP_COUPLINGS),
-           note="The flare nuts and slip couplings the copper bench works through.",
-           opts={"length_div": 1}),
-    Holder("service-tub", "tub", 3, 2, None,
-           takes=(C.FILTER_DRIER, C.PIERCING_VALVE),
-           note="The loop-service spare and one piercing valve per appliance, both "
-                "standing.",
-           opts={"length_div": 1}),
-
-    Holder("flux-tub", "tub", 3, 3, None,
-           takes=(C.FLUX_JAR, C.FLUX_BOTTLE, C.FLUX_SYRINGES),
-           note="The wet end of the solder bench: the jar, the bottle and the four "
-                "syringes, all standing. The fourth compartment takes whatever is open.",
-           opts={"length_div": 1, "width_div": 1}),
-    Holder("brush-quiver", "tub", 2, 2, None,
-           takes=(C.FLUX_BRUSHES,),
-           note="Thirty-six acid brushes standing. They come out of the flux tub "
-                "because a 152 mm brush would put a 45 mm jar at the bottom of a "
-                "158 mm well.",
-           ),
-    Holder("heat-gun-tub", "tub", 2, 2, None,
-           takes=(C.HEAT_GUN,),
-           note="The mini heat gun, nozzle down.",
-           ),
-    Holder("deburr-tub", "tub", 4, 1, None,
-           takes=(C.NOGA,),
-           note="The Noga NG8150, lying down.",
-           ),
-    Holder("saw-tub", "tub", 4, 2, None,
-           takes=(C.HOLE_SAW_ARBOR, C.SPADE_BIT),
-           note="The saw set lies down: the arbor's flange and the spade bit's paddle "
-                "are both wider than their shanks, and a bore cut to a shank leaves the "
-                "wide end to foul its neighbours. The bit is 6 in long, which is what "
-                "makes this the one four-unit tub.",
-           opts={"width_div": 1}),
-    Holder("die-tub", "tub", 2, 2, None,
-           takes=(C.NPT_DIE,),
-           note="The 1-1/2 in round adjustable NPT die, lying flat.",
-           ),
-
-    Holder("hotend-tub", "tub", 3, 2, None,
-           takes=(C.HOTEND_SOCKS, C.HOTENDS),
-           note="The silicone socks, and the swap well a both-printer change pulls into.",
-           opts={"length_div": 1}),
-    Holder("depressor-quiver", "tub", 3, 2, None,
-           takes=(C.DEPRESSORS,),
-           note="A hundred 6 in depressors standing. A depressor is a standard size and "
-                "the quiver is cut to the bundle.",
-           ),
-    Holder("pigment-tub", "tub", 2, 2, None,
-           takes=(C.PIGMENT,),
-           note="The silicone pigment. The two-part kits, the aerosols and the 32 oz "
-                "cups all stand wider than a footprint and stay at the pour bench.",
-           ),
-]
 
 
-HOLDERS = DOCKS + CRADLES + COMBS + INDEXES + TUBS
 
 
 # ============================================================
@@ -375,22 +177,7 @@ def build(holder):
 
 
 def sizes():
-    """Every tub's derived depth, without cutting a body: the fast loop while a pack
-    count or a footprint is being settled."""
-    for holder in HOLDERS:
-        if holder.shape != "tub":
-            continue
-        opts = holder.opts
-        height_u = holder.height_u or H.tub_height_for(
-            holder.x_u, holder.y_u, holder.takes,
-            opts.get("length_div", 0), opts.get("width_div", 0),
-        )
-        clear = H.tub_holds(holder.x_u, holder.y_u, height_u,
-                            opts.get("length_div", 0), opts.get("width_div", 0))
-        print(f"{holder.name:20s} {holder.x_u}x{holder.y_u}x{height_u:<3d} "
-              f"{height_u * 7:5.0f} mm tall   cell "
-              f"{clear[0]:5.1f} x {clear[1]:5.1f} x {clear[2]:5.1f}   "
-              f"{len(holder.takes)} of {(opts.get('length_div', 0) + 1) * (opts.get('width_div', 0) + 1)}")
+    return _reference_data('holders', 'sizes', (), {}, overrides={'HOLDERS': HOLDERS})
 
 
 def cradle_witness(holder, shape, diameters):
@@ -423,159 +210,37 @@ def cradle_witness(holder, shape, diameters):
 
 
 def figures():
-    """The figures this directory's README carries, keyed by its `[value](NAME)` names."""
-    marks = {
-        "HOLDER_COUNT": str(len(HOLDERS)),
-        "GRID": f"{_kit.grid_unit:.0f} mm x {_kit.grid_unit:.0f} mm x {_kit.height_unit:.0f} mm",
-        "H2C_ENVELOPE": f"{_kit.h2c_build_x:.0f} x {_kit.h2c_build_y:.0f} x {_kit.h2c_build_z:.0f} mm",
-        "TROUGH": "{:.0f} mm x {:.0f} mm".format(*H.cradle_trough(3, 3, 6)[:2]),
-        "ROLL_TROUGH": "{:.0f} mm x {:.0f} mm".format(*H.cradle_trough(2, 2, 5)[:2]),
-        "SLOT_ROOT": f"{H.slot_root:.0f} mm",
-        "SLOT_TAPER": f"{H.slot_taper:.0f} mm",
-        "SLOT_CLEAR": "2 mm",
-        "BORE_SLIP": f"{H.slip:.1f} mm",
-        "WALL": f"{H.wall:.0f} mm",
-        "LABEL_TAPE": f"{_kit.label_tape_width:.0f} mm",
-    }
-    for holder in HOLDERS:
-        key = holder.name.upper().replace("-", "_")
-        marks[f"{key}_SIZE"] = (
-            f"{holder.x_u} x {holder.y_u}"
-            if holder.shape in ("dock", "spacer")
-            else f"{holder.x_u} x {holder.y_u} x {holder.height_u}"
-        )
-    return marks
+    return _reference_data('holders', 'figures', (), {}, overrides={'HOLDERS': HOLDERS})
 
 
 def parcels():
-    """Every slot whose width rests on a parcel, and what a caliper would buy.
+    return _reference_data('holders', 'parcels', (), {}, overrides={'HOLDERS': HOLDERS, 'COMBS': COMBS})
 
-    A comb sizes each slot to the thinnest side of its tool's parcel, which is honest —
-    the tool is certainly no thicker than that — and loose by however much the box was
-    oversized. One measured figure per line closes that slack.
-    """
-    print("Slots cut to a parcel. One caliper reading each closes the slack:\n")
-    print(f"{'holder':<13}{'tool':<46}{'mouth':>6}{'known':>9}   source")
-    for holder in COMBS:
-        for env in dict.fromkeys(holder.takes):
-            thin = "xyz"[min(range(3), key=lambda i: (env.x, env.y, env.z)[i])]
-            if env.reading(thin) == EXACT:
-                continue
-            print(f"{holder.name:<13}{env.name[:44]:<46}{H.slot_mouth_for(env):5.1f} "
-                  f"{env.thinnest:8.1f}-   {env.source}")
+
+def _storage_inputs():
+    import inspect
+    from _materials import linear
+    tub = inspect.signature(H.tub).parameters
+    seated = inspect.signature(_kit.assert_seated).parameters
+    return {'tub_defaults': {name: {'default': tub[name].default} for name in ('labels', 'scoops')},
+            'seated_defaults': {'parameters': {name: {'default': seated[name].default}
+                                                for name in ('max_overlap', 'max_gap')}},
+            'kit_color': list(linear(_kit.kit_color)),
+            'witness_color': list(linear(cq.Color(0.80, 0.81, 0.83)))}
 
 
 def numbers():
-    """The stock references, catalog-derived heights and authored cut profiles."""
-    import inspect
-    from _cadq_export import note_read
-    from _materials import linear
-
-    source = Path(__file__).resolve().parent
-    root = _kit._repo_root
-    manifest = _kit._STOCK
-    note_read(_kit._STOCK_PATH)
-    assets = {}
-    for key, model in manifest["models"].items():
-        path = source / "gridfinity-stock" / model["path"]
-        note_read(path)
-        assets[key] = path.relative_to(root).as_posix()
-    def stock_key(parameters):
-        for key, model in manifest["models"].items():
-            if model["parameters"] == parameters:
-                return key
-        raise ValueError(f"no stock reference for {parameters}")
-
-    tub_defaults = inspect.signature(H.tub).parameters
-    rows = []
-    for holder in HOLDERS:
-        opts = dict(holder.opts)
-        row = {"name": holder.name, "kind": holder.shape, "cuts": [], "seat": None,
-               "height_delta": 0.0}
-        x, y = holder.x_u, holder.y_u
-        if holder.shape == "tub":
-            ld, wd = opts.get("length_div", 0), opts.get("width_div", 0)
-            if holder.height_u is None:
-                holder.height_u = H.tub_height_for(x, y, holder.takes, ld, wd)
-            cells = (ld + 1) * (wd + 1)
-            if len(holder.takes) > cells:
-                raise ValueError(f"{holder.name}: {len(holder.takes)} things into {cells} compartments")
-            for env in holder.takes:
-                check = H.assert_heap_fits if isinstance(env, Heap) else H.assert_tub_takes
-                check(holder.name, env, x, y, holder.height_u, ld, wd)
-            row["stock"] = stock_key({"kind": "GridfinityBox", "length_u": x,
-                                      "width_u": y, "height_u": manifest["template_height_u"],
-                                      "length_div": ld, "width_div": wd,
-                                      "labels": tub_defaults["labels"].default,
-                                      "scoops": tub_defaults["scoops"].default, **opts})
-        elif holder.shape == "dock":
-            row["stock"] = stock_key({"kind": "GridfinityBaseplate", "length_u": x,
-                                      "width_u": y, "ext_depth": _kit.dock_extra_depth,
-                                      "straight_bottom": True})
-        elif holder.shape == "spacer":
-            row["prism"] = {"plane": "YZ", "length": opts["width"],
-                            "profile": H.spacer_profile(opts["width"], x, y, holder.height_u)}
-        else:
-            row["stock"] = stock_key({"kind": "GridfinityBox", "length_u": x,
-                                      "width_u": y, "height_u": manifest["template_height_u"],
-                                      "solid": True})
-            if holder.shape == "cradle":
-                profile, length = H.cradle_profile(x, y, holder.height_u)
-                row["cuts"] = [{"kind": "prism", "plane": "YZ", "length": length,
-                                "profile": profile}]
-                for env in holder.takes:
-                    H.assert_cradle_takes(holder.name, env, x, y, holder.height_u)
-            elif holder.shape == "comb":
-                mouths = [H.slot_mouth_for(env) for env in holder.takes]
-                profiles, length = H.comb_layout(x, y, holder.height_u, mouths, **opts)
-                row["cuts"] = [{"kind": "prism", "plane": "XZ", "length": length,
-                                "profile": p} for p in profiles]
-                for env, mouth in zip(holder.takes, mouths):
-                    H.assert_comb_takes(holder.name, env, y, holder.height_u, mouth, **opts)
-            elif holder.shape == "index":
-                floor, top, placed = H.index_layout(x, y, holder.height_u, opts["rows"])
-                row["cuts"] = [{"kind": "bore", "origin": [bx, by, floor],
-                                "diameter": d, "height": top - floor + 0.2}
-                               for _env, bx, by, d in placed]
-                for env in dict.fromkeys(env for env, *_ in placed):
-                    H.assert_index_holds(holder.name, env, holder.height_u)
-            else:
-                raise ValueError(f"{holder.name}: {holder.shape} is not a holder shape")
-        if holder.shape not in ("dock", "spacer"):
-            row["height_delta"] = (holder.height_u - manifest["template_height_u"]) * _kit.height_unit
-            seat = manifest["seats"][f"{x}x{y}"]
-            point = list(seat["body_point_mm"])
-            point[2] += _kit.dock_seat_z - seat["translation_z_mm"]
-            row["seat"] = {"dock": seat["dock_key"], "z": _kit.dock_seat_z,
-                           "plate_point": seat["plate_point_mm"], "body_point": point}
-        rows.append(row)
-    holder = next(h for h in HOLDERS if h.name == "reel-cradle")
-    mouth, depth, run = H.cradle_trough(holder.x_u, holder.y_u, holder.height_u)
-    top = _kit.top_reference_z(holder.height_u)
-    diameters = (40.0, 72.0, 110.0)
-    width = run / (len(diameters) + 1)
-    reels = [{"name": f"reel-{d:.0f}", "diameter": d, "width": 2.0 * width * 0.35,
-              "origin": [-run / 2.0 + width * (i + 1), 0.0,
-                         top + H.cradle_seat(mouth, depth, d)]}
-             for i, d in enumerate(diameters)]
-    signature = inspect.signature(_kit.assert_seated)
-    return {"holders": rows, "assets": assets, "reels": reels,
-            "extension_z": manifest["extension_z_mm"], "color": list(linear(_kit.kit_color)),
-            "witness_color": list(linear(cq.Color(0.80, 0.81, 0.83))),
-            "limits": [_kit.h2c_build_x, _kit.h2c_build_y, _kit.h2c_build_z],
-            "max_overlap": signature.parameters["max_overlap"].default,
-            "max_gap": signature.parameters["max_gap"].default}
+    return _reference_data('holders', 'numbers', (), {}, inputs=_storage_inputs(),
+                           overrides={'HOLDERS': HOLDERS})
 
 
 def main():
     out_dir.mkdir(exist_ok=True)
     said = _rust_part.cut("tooling", "shop-storage", numbers(), out_dir)
     for body in said["bodies"][:len(HOLDERS)]:
-        size = [b - a for a, b in zip(body["min"], body["max"])]
-        print(f"   {body['name']}: {size[0]:.1f} x {size[1]:.1f} x {size[2]:.1f} mm")
-        if "dock_overlap_mm3" in body:
-            print(f"   {body['name']} on the dock: {body['dock_overlap_mm3']:.4f} mm^3 overlap, "
-                  f"{body['dock_gap_upper_bound_mm']:.4f} mm gap bound")
+        from _part_output import summary
+        for line in summary(body, span_spec=".1f", shop=True)["lines"]:
+            print(line)
     _kit.substitute_md(here / "README.md", variables=figures())
     print(f"\n{len(HOLDERS)} holders")
 

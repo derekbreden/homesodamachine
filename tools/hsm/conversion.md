@@ -5,15 +5,17 @@ much the agents get done. This is the build's plan for it.
 
 ## Completion
 
-The complete conversion puts the normal build's dimensions, numeric recipes, file readers,
-document generation, geometry, checks and exports in Rust. No step loads CadQuery,
+The normal build's dimensions, numeric recipes, file readers, document generation, geometry,
+checks and exports execute in Rust. No normal step loads CadQuery,
 OpenCASCADE (OCP) or meshcad. The conversion keeps the same parts, names, placements,
 colours, check answers and outputs.
 
 An unconverted caller can use a thin Python import or command adapter for a finished Rust
 piece. That adapter supplies raw provider inputs, restores its caller's Python object types
 and registers source and output paths; the calculations and file transformations belong to
-Rust. The remaining Python algorithms below are conversion work.
+Rust. Python library backends provide rendering and document primitives; authored calculations,
+layout and file transformations execute in Rust. Native recipe modules use compiled Rust
+control flow and values; they do not evaluate Python source at runtime.
 
 ## How the work runs
 
@@ -38,7 +40,7 @@ Rust. The remaining Python algorithms below are conversion work.
 ## The normal geometry programs
 
 The Rust programs construct and measure solids and compose their model/viewer files. Their
-explicit input recipes come from Rust data providers or the Python providers awaiting conversion.
+explicit input recipes come from Rust data providers.
 
 | Piece | Rust program or data boundary | Source |
 | --- | --- | --- |
@@ -55,8 +57,9 @@ explicit input recipes come from Rust data providers or the Python providers awa
 | Model context | `machine-data`; facts, scene documents and numerical wiring context | `tools/hsm/machine-data/` |
 | Document readers | Rust ledger and procedure programs, with explicit source dependencies and remaining raw provider inputs | `tools/hsm/ledger/`, `tools/hsm/assembly-docs/` |
 
-The install guide's twelve plumbing scenes use Rust geometry. Their dimensions, colours and
-render-job providers include Python pieces awaiting conversion.
+The install guide's twelve plumbing scenes use Rust geometry, dimensions, colours and
+render-job providers. Native guide composition calls the existing ReportLab, Pillow and
+pypdf library primitives through opaque object handles.
 
 The final machine report carries its existing construction questions from current scalar source
 ledgers and Rust measurements, including handhold sections and supported sloping faces.
@@ -68,63 +71,68 @@ not state that every raw surface matches. The combined build retains its existin
 
 ## Current coverage
 
-The normal construction, placement, equipment, routes, checks, print surfaces and model exports
-use Rust. Each merged speed batch runs the combined normal build with the existing fit and drain
-checks; source/output bindings, artifact readback and publication belong to that combined batch.
+The normal build's dimensions, numeric recipes, readers, document generation, geometry,
+checks, exports, build planning, caches and publication transformations execute in Rust.
+Thin Python modules retain import names, public record and container types, command entrypoints,
+source/output registration and calls to library primitives. The normal build loads no
+CadQuery, OCP or meshcad.
 
-The source graph covers 101 entrypoints and 329 declared Python source and adapter files,
-alongside the retained piece comparisons that prohibit native CAD imports. It identifies no
-remaining normal-build CadQuery, OCP or meshcad load. This is source and fixed-input evidence,
-not dynamic coverage of every optional command.
+The source graph and shared runtime inputs cover 101 entrypoints, 341 Python source and adapter
+files, and 426 Rust sources, alongside Cargo manifests and raw files. The retained comparisons cover complete pieces on fixed inputs;
+the combined normal build exercises their integration and the existing fit and drain checks.
+This is evidence for the maintained build, not dynamic coverage of every optional command.
 
-The inventoried native generator options, hose and collet illustration builders, and their
-native-only manual review callers are absent. Print preparation retains its slicer, project
-and report options; historical print records bind retired generator sources through Git.
+Historical print records, dated studies and optional native CAD probes retain their recorded
+sources. Dormant fine-model BREP readers, manual wiring review/search/drawing commands and
+native-only review callbacks are outside the normal build. Print preparation keeps its slicer,
+project and report options. No optional native CAD path supplies a normal-build result.
 
 ## Scalar, recipe and document programs
 
-`hardware/scripts/_rust_data.py` is the temporary JSON transport for Python callers. One Rust
-process serves each program during an interpreter's lifetime. Cargo's dep-info supplies the
-compiled source dependencies; adapters also register the data files Rust reads and the authored
-files it maintains with the existing build trace registries.
+`hardware/scripts/_rust_data.py` carries JSON between compatibility modules and resident Rust
+programs. Reentrant callbacks retain native object identities. Interrupted requests discard
+their worker; objects from that process cannot be used after a restart. Cargo dep-info supplies
+compiled source dependencies, and the adapters register raw data and maintained output paths
+with the existing build trace registries.
 
 | Program | Converted work |
 | --- | --- |
-| `hsm-documents` | Managed markers, Sources blocks, figure sidecars, Python comment/string scopes, Mermaid comments, table cells, numeric formatting, atomic placement and PDF/DXF normalization |
-| `ledger-data` | BOM arithmetic and mass readers, build timing windows, machine and labor estimates, tool purchase resolution and funnel casting |
-| `assembly-docs` | Assembly procedure figures, electrical budgets and schedules, fluid topology and marketing dimension readers |
-| `cold-core-data` | Carbonator stock, float and rod datums, bond, coil paths and lengths, mandrel, Aero float and shared casing base dimensions |
-| `faucet-data` | Scalar interface and tube paths, countertop seals/plates, organizer, display covers, industrial composition, lever stations and under-counter DXF |
-| `enclosure-data` | Trim/display/nameplate datums, rear labels, pump-case profiles and pump/valve tray recipes and figures |
-| `machine-data` | Facts and Box readers, fine-archive metadata, scalar report and scene composition, and equipment recipe providers |
-| `part-data` | Drain adapters, cuffs, press and cutting fixtures, pump sleeve, PCBA readers/trays, valve seat and zone-C recipes |
-| `layout-data` | Appliance frames, selected fitting names, native tube construction and sampling, reservoir routes and soda inlet/holder recipes |
-
-## Remaining Python pieces
-
-- Core enclosure sizing, construction recipes and scalar interface/datums.
-- Main manifold/assembly placement, route and check input construction, mounting ledgers,
-  rear snap datums and installed wiring providers.
-- Cold-core cap mount/conduit queries, reservoir and foam recipes, core assembly providers,
-  reed/shroud/hybrid-float recipes and carbonator/end-cap drawings.
-- Faucet shell and full assembly recipes and their remaining provider modules.
-- Shop storage, refrigeration and remaining fixture recipes.
-- Purchased-reference dimension providers, shared CAD scalar helpers, materials and routing stock.
-- Purchase-evidence ledger reconciliation and analysis.
-- Install-guide artwork/document composition and build, cache, artifact and publication glue.
-
-The scalar providers in those pieces remain live inputs to the converted programs. Their
-current computed values are not stored as replacement constants.
+| `hsm-documents` | Managed markers, Sources blocks, figure sidecars, Python comment/string scopes, Mermaid comments, tables, formatting, placement, PDF/DXF normalization and native value/library interoperation |
+| `ledger-data`, `ledger-analysis` | BOM arithmetic, mass/timing/cost readers, purchase evidence, exact decimal reconciliation, validation, CSV/JSON and reports |
+| `assembly-docs` | Assembly procedure figures, electrical budgets, schedules, fluid topology and the installed wiring model, routing and readers |
+| `cold-core-data` | Complete cold-core dimensions, recipes, assembly, reservoir/foam/float/mandrel providers and maintained fabrication drawings |
+| `faucet-data` | Complete faucet shell and assembly recipes, scalar interfaces, tube paths, seals, collars, lever, plumbing scenes and DXF |
+| `enclosure-data` | Complete enclosure sizing, interface/datums, panel/dock/tray/cap/nameplate recipes, measurement graph and document providers |
+| `machine-data` | Manifold and assembly placement recipes, equipment/routes/check inputs, mounting ledgers, facts, Boxes, fine archives, reports and scene composition |
+| `part-data` | Purchased reference providers, storage catalogues, refrigeration/printing fixtures, drain adapters, cuffs, press, sleeve, trays and zone-C recipes |
+| `shared-data` | Materials, finishes, colour arithmetic, stock routing and shared fit/snap/reeding/cooling helpers |
+| `layout-data` | Appliance frames, fitting names, native tube construction and sampling, reservoir routes and soda inlet/holder recipes |
+| `guides` | Install and faucet guide layout, artwork, camera/mask/shading calculations, plumbing render plans and document composition |
+| `build-data`, `bookkeeping-data` | Mesh payloads, projection, source hashes, fine-asset adoption, print/graft planning, artifact identity/caches, inventory, source stripping, carry/selection/pointers and publication archives |
+| `build-plan` | Generator action planning, dependency rules, graph projections and BUILD rendering |
+| `hsm-run`, `hsm-run-slots`, `hsm-run-native` | Host admission, inherited run/CAD/compiler leases, process execution, viewer notifications and runtime installation |
 
 ## Fixed-input evidence
 
-The [2026-11-04 comparison record](conversion-results/2026-11-04.json) retains the source
-revision, input and artifact hashes, measured differences and completed comparisons for the
-data and document programs. The comparison source is `d6a0b281d`; inputs are fixed for each
-piece. It includes document byte comparisons, scalar and recipe comparisons, real archive/STL
-readers and complete native route sets. Pump profiles retain differences below the kernel's
-0.005 mm chord rule; their names, colours, bounds and source records agree.
-The record separates completed piece comparisons from the combined build outcome.
+The [earlier geometry and provider record](conversion-results/2026-11-04.json) retains its
+fixed-input source revisions, hashes and geometric differences, including the existing pump
+profile tolerance and PVC cuff triangulation limitation.
+
+The final conversion records retain the baseline and native source hashes, raw input and
+artifact hashes, comparison counts, numerical differences and public type boundaries:
+
+- [Enclosure](conversion-results/enclosure-final-2026-11-04.json)
+- [Cold core and seven drawings](conversion-results/cold-core-final-2026-11-04.json)
+- [Machine providers and readers](conversion-results/machine-final-2026-11-04.json)
+- [Faucet](conversion-results/faucet-final-2026-11-04.json)
+- [Reference parts and fixtures](conversion-results/parts-final-2026-11-04.json)
+- [Shared helpers and ledger](conversion-results/shared-final-2026-11-04.json)
+- [Installed wiring](conversion-results/wiring-final-2026-11-04.json)
+- [Guide documents and artwork](conversion-results/guides-final-2026-11-04.json)
+- [Bookkeeping and carry](conversion-results/bookkeeping-final-2026-11-04.json)
+- [Publication](conversion-results/publication-final-2026-11-04.json)
+- [Host runtime](conversion-results/runtime-final-2026-11-04.json)
+- [Build support and combined build](conversion-results/build-final-2026-11-04.json)
 
 The CPU and memory goal still needs performance work in Rust. Component reductions and
 incremental build measurements do not establish a matched whole-machine speed or memory gain;
@@ -154,8 +162,8 @@ follows a batch merged to main.
 
 `enclosure.py` and `enclosure_assembly.py` retain their scalar and Rust-driver interfaces without
 native CAD builders or native-mode switches. The automatic local back-top preview uses fresh
-Rust/scalar sizing and Rust scene export. Part drivers retain the numeric recipes and default
-Rust programs used by the build. Manual fine-model probes use their existing saved-model reader.
+Rust/scalar sizing and Rust scene export. Part drivers retain thin numeric interfaces to the
+Rust recipes and programs used by the build. Manual fine-model probes use their existing saved-model reader.
 
 The exporter stages physical and installed drawings as separate files. The physical fine model
 names the drawing with the same body identities; generated wiring is appended to the installed

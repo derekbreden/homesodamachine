@@ -31,58 +31,32 @@ _here = Path(__file__).resolve()
 _hw = next(p for p in _here.parents if p.name == "hardware")
 sys.path.insert(0, str(_hw / "scripts"))
 
-TOTAL_LENGTH = 65.05
-INLET_LENGTH = 12.70       # Observed tip to collar shoulder, not sealing engagement.
-FLARE_LENGTH = 15.85       # Observed shoulder to flare nose.
-BARREL_LENGTH = TOTAL_LENGTH - INLET_LENGTH - FLARE_LENGTH
-BODY_CENTER_Z = 27.45
-HEX_ACROSS_FLATS = 28.65
-CAP_ACROSS_FLATS = 28.73
-HEX_ACROSS_CORNERS = 33.10  # Maximum occupied corner diameter, including the outlet cap.
-BODY_UNDERSIDE_Z = BODY_CENTER_Z - HEX_ACROSS_FLATS / 2.0
-VENT_X = 24.65
-VENT_Y = .07
-VENT_D = 7.70              # Maximum exposed stem-root envelope; not a sealing-fit bore.
-VENT_DROP = BODY_UNDERSIDE_Z
-VENT_INTO_BODY = .40
-INLET_THREAD_D = 17.70     # Coated crest envelope at the root.
-FLARE_THREAD_D = 15.80
+
+_reference_hardware = next(p for p in Path(__file__).resolve().parents if p.name == 'hardware')
+import sys as _reference_sys
+_reference_sys.path.insert(0, str(_reference_hardware / 'reference'))
+from _reference_data import data as _reference_data
+_reference_values = _reference_data('multiplex_asse1022')
+globals().update({name: _reference_values[name] for name in ('TOTAL_LENGTH', 'INLET_LENGTH', 'FLARE_LENGTH', 'BARREL_LENGTH', 'BODY_CENTER_Z', 'HEX_ACROSS_FLATS', 'CAP_ACROSS_FLATS', 'HEX_ACROSS_CORNERS', 'BODY_UNDERSIDE_Z', 'VENT_X', 'VENT_Y', 'VENT_D', 'VENT_DROP', 'VENT_INTO_BODY', 'INLET_THREAD_D', 'FLARE_THREAD_D', 'INLET_PROFILE', 'COLLAR_PROFILE', 'BODY_PROFILE', 'CAP_PROFILE', 'FLARE_PROFILE', 'VENT_PROFILE')})
+
 
 # (X, radius), measured from the inlet rim. Rounds use short conical sections.
-INLET_PROFILE = ((0., 6.60), (.4, 7.25), (1.0, 7.85), (1.6, 8.40),
-                 (11.7, 8.75), (INLET_LENGTH, INLET_THREAD_D / 2))
-COLLAR_PROFILE = ((12.70, 11.65), (13.0, 12.20), (13.4, 12.60),
-                  (14.0, 12.90), (17.4, 12.90), (17.65, 13.0), (17.80, 13.45))
-BODY_PROFILE = ((17.75, 12.95), (17.80, 14.70), (18.0, 15.80),
-                (18.3, 16.17), (30.8, 16.17), (31.15, 16.10),
-                (31.45, 15.60), (31.65, 14.50), (31.90, 14.20),
-                (36.10, 14.22))
-CAP_PROFILE = ((36.10, 14.22), (36.40, 14.40), (36.80, 15.00),
-               (37.30, 15.90), (37.70, 16.55), (47.65, 16.55),
-               (48.0, 16.30), (48.4, 15.70), (48.9, 14.90), (49.20, 14.30))
-FLARE_PROFILE = ((49.20, 8.65), (49.5, 8.15), (49.9, FLARE_THREAD_D / 2),
-                 (58.5, FLARE_THREAD_D / 2), (59.1, 7.40), (59.7, 6.90),
-                 (62.40, 6.90), (TOTAL_LENGTH, 4.25))
 # (Z, radius), tip first. The stem's measured smooth band fits Ø6.93 mm.
-VENT_PROFILE = ((0., 2.85), (.25, 3.20), (.6, 3.40), (1.3, 3.50),
-                (2.4, 3.50), (3.1, 3.42), (4.2, 3.55), (5.4, 3.40),
-                (6.5, 3.45), (7.5, 3.60), (8.4, 3.75), (8.95, VENT_D / 2))
 
 
 def inlet():
-    """The 3/8-inch NPT male inlet rim: (position, outward axis)."""
-    return (0.0, 0.0, BODY_CENTER_Z), (-1.0, 0.0, 0.0)
+    'The 3/8-inch NPT male inlet rim: (position, outward axis).'
+    return _reference_data('multiplex_asse1022', 'inlet', (), {})
 
 
 def outlet():
-    """The 3/8-inch SAE 45-degree male flare nose: (position, outward axis)."""
-    return (TOTAL_LENGTH, 0.0, BODY_CENTER_Z), (1.0, 0.0, 0.0)
+    'The 3/8-inch SAE 45-degree male flare nose: (position, outward axis).'
+    return _reference_data('multiplex_asse1022', 'outlet', (), {})
 
 
 def vent():
-    """The atmospheric-vent barb tip: (position, outward axis). The vent stub
-    slips on here, and the drip leaves its far end."""
-    return (VENT_X, VENT_Y, 0.0), (0.0, 0.0, -1.0)
+    'The atmospheric-vent barb tip: (position, outward axis). The vent stub\n    slips on here, and the drip leaves its far end.'
+    return _reference_data('multiplex_asse1022', 'vent', (), {})
 
 
 def _turned(profile):

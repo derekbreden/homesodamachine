@@ -1,0 +1,415 @@
+{
+  "date": "2026-11-04",
+  "scope": "Normal-build miscellaneous printed-part recipes, reference dimensions and reports",
+  "status": "passed",
+  "implementation": "Native Rust calculations, control flow, data-file readers and document figures; Python imports, type/callback marshalling and driver orchestration",
+  "earlier_provider_batch": "tools/hsm/part-data/comparison.json",
+  "checks": {
+    "reference": {
+      "providers": 47,
+      "function_cases": 168,
+      "numeric_values": 158980,
+      "max_absolute_delta": 0.0,
+      "differences": [],
+      "errors": []
+    },
+    "reference_public_imports": {
+      "providers": 47,
+      "all_imported": true,
+      "execution_profile": "release"
+    },
+    "reference_additional": {
+      "function_cases": 58,
+      "numeric_values": 6124,
+      "max_absolute_delta": 0.0,
+      "differences": []
+    },
+    "fixtures_and_fuse": {
+      "providers": 4,
+      "numeric_values": 850,
+      "max_absolute_delta": 7.105427357601002e-15,
+      "differences": []
+    },
+    "shop_storage": {
+      "catalog_envelopes": 85,
+      "holders": 42,
+      "numeric_values": 1724,
+      "max_absolute_delta": 1.4210854715202004e-14,
+      "document_variables_identical": true,
+      "differences": [],
+      "execution_profile": "dev",
+      "max_absolute_delta_path": "/numbers/holders/12/cuts/0/origin/0",
+      "comparison_absolute_tolerance": 1e-11,
+      "comparison_relative_tolerance": 1e-13
+    },
+    "shop_storage_commands": {
+      "sizes": {
+        "identical": true,
+        "sha256": "33f0880f476d040a86ce4aca68bd741df2ae7342d9be80e032a67e63e157162a",
+        "lines": 28
+      },
+      "parcels": {
+        "identical": true,
+        "sha256": "634fd47df65ef3d54e842abe1fd06d21339528c40dcaa4f9a44fd4c01ada556c",
+        "lines": 13
+      }
+    },
+    "output_reports": {
+      "countertop_stl_sha256": "9e51861af0d4d93e33a418f8d6cc24f5e792f963abeb2ca57704c45665ce39d2",
+      "facets": 26718,
+      "stdout_identical": true,
+      "document_variables_identical": true,
+      "generic_volume_formats": 3
+    }
+  },
+  "native_build": {
+    "command": "python3 tools/run.py -- cargo build --release --locked --manifest-path tools/hsm/part-data/Cargo.toml --bin part-data -j 2",
+    "result": "passed"
+  },
+  "geometry": "Existing Rust geometry generators and mechanical dimensions retained",
+  "remaining_normal_build_math_or_file_readers_in_assigned_scope": [],
+  "retained_python": "Import/type/callback marshalling and driver orchestration. Optional native CAD builders, native-only self-tests and historical scan/print review tools are outside the normal-build pipeline.",
+  "raw_source_dependencies": [
+    "hardware/printed-parts/fixtures/fake-countertop/fake-countertop.stl",
+    "hardware/printed-parts/shop-storage/gridfinity-stock/bin-2x2-d0x0.stock.npz",
+    "hardware/printed-parts/shop-storage/gridfinity-stock/bin-2x2-d1x0.stock.npz",
+    "hardware/printed-parts/shop-storage/gridfinity-stock/bin-3x1-d1x0.stock.npz",
+    "hardware/printed-parts/shop-storage/gridfinity-stock/bin-3x1-d2x0.stock.npz",
+    "hardware/printed-parts/shop-storage/gridfinity-stock/bin-3x2-d0x0.stock.npz",
+    "hardware/printed-parts/shop-storage/gridfinity-stock/bin-3x2-d1x0.stock.npz",
+    "hardware/printed-parts/shop-storage/gridfinity-stock/bin-3x2-d2x0.stock.npz",
+    "hardware/printed-parts/shop-storage/gridfinity-stock/bin-3x2-d2x1.stock.npz",
+    "hardware/printed-parts/shop-storage/gridfinity-stock/bin-3x2-d4x0.stock.npz",
+    "hardware/printed-parts/shop-storage/gridfinity-stock/bin-3x3-d1x0.stock.npz",
+    "hardware/printed-parts/shop-storage/gridfinity-stock/bin-3x3-d1x1.stock.npz",
+    "hardware/printed-parts/shop-storage/gridfinity-stock/bin-3x3-d2x0.stock.npz",
+    "hardware/printed-parts/shop-storage/gridfinity-stock/bin-3x3-d2x1.stock.npz",
+    "hardware/printed-parts/shop-storage/gridfinity-stock/bin-3x3-d2x2.stock.npz",
+    "hardware/printed-parts/shop-storage/gridfinity-stock/bin-4x1-d0x0.stock.npz",
+    "hardware/printed-parts/shop-storage/gridfinity-stock/bin-4x2-d0x1.stock.npz",
+    "hardware/printed-parts/shop-storage/gridfinity-stock/blank-2x1.stock.npz",
+    "hardware/printed-parts/shop-storage/gridfinity-stock/blank-2x2.stock.npz",
+    "hardware/printed-parts/shop-storage/gridfinity-stock/blank-3x2.stock.npz",
+    "hardware/printed-parts/shop-storage/gridfinity-stock/blank-3x3.stock.npz",
+    "hardware/printed-parts/shop-storage/gridfinity-stock/dock-2x1.stock.npz",
+    "hardware/printed-parts/shop-storage/gridfinity-stock/dock-2x2.stock.npz",
+    "hardware/printed-parts/shop-storage/gridfinity-stock/dock-3x1.stock.npz",
+    "hardware/printed-parts/shop-storage/gridfinity-stock/dock-3x2.stock.npz",
+    "hardware/printed-parts/shop-storage/gridfinity-stock/dock-3x3.stock.npz",
+    "hardware/printed-parts/shop-storage/gridfinity-stock/dock-4x1.stock.npz",
+    "hardware/printed-parts/shop-storage/gridfinity-stock/dock-4x2.stock.npz",
+    "hardware/printed-parts/shop-storage/gridfinity-stock/manifest.json",
+    "hardware/reference/asse1022-threaded-chain/reference-parameters.json",
+    "hardware/reference/branch-stem-tees/dimensions.json",
+    "hardware/reference/g-ganen-pump/reference-parameters.json",
+    "hardware/reference/jg-pp0208e-tee/branch-operating-measurements.json",
+    "hardware/reference/neofit-achv44-check/model-dimensions.json",
+    "hardware/reference/y-divider/native-measurements.json"
+  ],
+  "input_sha256": {
+    "hardware/printed-parts/fixtures/fake-countertop/fake-countertop.stl": "9e51861af0d4d93e33a418f8d6cc24f5e792f963abeb2ca57704c45665ce39d2",
+    "hardware/printed-parts/shop-storage/gridfinity-stock/bin-2x2-d0x0.stock.npz": "c33debd55e2a6afec094abfd45950a507dae81bade753bf418c048cf3034fceb",
+    "hardware/printed-parts/shop-storage/gridfinity-stock/bin-2x2-d1x0.stock.npz": "992d8905b645f3aa9e86b6a48b071d4ab9d7eb33fcb25cc8e46bcfe61f743112",
+    "hardware/printed-parts/shop-storage/gridfinity-stock/bin-3x1-d1x0.stock.npz": "8c89d677c9f168226cf60e2b237fe1b3b93510098a6490e3c60bc3ba2d4ec00c",
+    "hardware/printed-parts/shop-storage/gridfinity-stock/bin-3x1-d2x0.stock.npz": "602566c8be034e6bf04d67aae56860c4f1a84a993fb27720f11ed8ec70530e2b",
+    "hardware/printed-parts/shop-storage/gridfinity-stock/bin-3x2-d0x0.stock.npz": "d9a22108ac25875574b8be2b606b747a8dbc8ff36b428944d8ad0c9ac2918645",
+    "hardware/printed-parts/shop-storage/gridfinity-stock/bin-3x2-d1x0.stock.npz": "3d7fc36fcc5d8055e13d880f70d0d8059c333115df6d84ac4352552b1460d430",
+    "hardware/printed-parts/shop-storage/gridfinity-stock/bin-3x2-d2x0.stock.npz": "6c6e141e3195d5be0c31a3b14ea879051d13674b8e1f72d7b0ee5b9e8531dd3d",
+    "hardware/printed-parts/shop-storage/gridfinity-stock/bin-3x2-d2x1.stock.npz": "f7b33e02f634d6a0f069ae446de9c836fad85a4f9fd4b028c4b7a21abd8373a9",
+    "hardware/printed-parts/shop-storage/gridfinity-stock/bin-3x2-d4x0.stock.npz": "be71774afb1b41cedb29be9fdb47d8732b2e10762873f71cb87fa613678cde97",
+    "hardware/printed-parts/shop-storage/gridfinity-stock/bin-3x3-d1x0.stock.npz": "276e22abda94e3920de69a8b32216778bd89a139679192fd967d0d1be4c7299c",
+    "hardware/printed-parts/shop-storage/gridfinity-stock/bin-3x3-d1x1.stock.npz": "3e66c4274d75adca63874a4ad658ea24d4961f9b6322a245db878dfe4b61a6b7",
+    "hardware/printed-parts/shop-storage/gridfinity-stock/bin-3x3-d2x0.stock.npz": "8ab9d427d34852d04440e17c3c0cf828b8b2178db58671fcb037efeb15d9a3c9",
+    "hardware/printed-parts/shop-storage/gridfinity-stock/bin-3x3-d2x1.stock.npz": "b92640c74913f9f169e9f83f9f552ca5fa564239eab9d76a68b1f180887a85b1",
+    "hardware/printed-parts/shop-storage/gridfinity-stock/bin-3x3-d2x2.stock.npz": "307c687bc8949cbf0fe660d5633fe37b5506d2c51aee3c93ca7ff4810ec6a35b",
+    "hardware/printed-parts/shop-storage/gridfinity-stock/bin-4x1-d0x0.stock.npz": "b42a61b6f40e77125ab4cecbc18646451c2d9930ffc831cb951c88958b65d70b",
+    "hardware/printed-parts/shop-storage/gridfinity-stock/bin-4x2-d0x1.stock.npz": "fab64e7d7170cdf08da403600622d8043ab2430208e924624b431e8c3baa8143",
+    "hardware/printed-parts/shop-storage/gridfinity-stock/blank-2x1.stock.npz": "53945013798714a17f87374d0257ce60e24eccc177f2b3d297223fb78cedd9f7",
+    "hardware/printed-parts/shop-storage/gridfinity-stock/blank-2x2.stock.npz": "c8cc13aec2b736421a65e2bef9e4b777edd658fbd83cbb4b25a52d201785e6fa",
+    "hardware/printed-parts/shop-storage/gridfinity-stock/blank-3x2.stock.npz": "cca4277fb1f3a5f79814043905419b68743a26dbf8719f7db2159b40c5ce24fc",
+    "hardware/printed-parts/shop-storage/gridfinity-stock/blank-3x3.stock.npz": "8471455015d9b4b6aa1a74a294771f6c6114788119454300af6b5c823403cce5",
+    "hardware/printed-parts/shop-storage/gridfinity-stock/dock-2x1.stock.npz": "d8c03bd23b5edd48f82361bfced4e28e2fa96a3a78d4a2565de76fef5079009a",
+    "hardware/printed-parts/shop-storage/gridfinity-stock/dock-2x2.stock.npz": "3e3c902b560f68f51160603cddb96db3fefe97125aa0b91d9fb0b6e180fe4a95",
+    "hardware/printed-parts/shop-storage/gridfinity-stock/dock-3x1.stock.npz": "8aefa184034d2c2098122ac00d7b217fd04b7288921a53eefba79ba088deac07",
+    "hardware/printed-parts/shop-storage/gridfinity-stock/dock-3x2.stock.npz": "1b619288dcd0382aa6ba2943cd2b5007c1530e37e8e2323cdc4cee086d210961",
+    "hardware/printed-parts/shop-storage/gridfinity-stock/dock-3x3.stock.npz": "1c19ff68a42eacf828cb5cc5ff33938f7376c86da037ee120e377bec221f504d",
+    "hardware/printed-parts/shop-storage/gridfinity-stock/dock-4x1.stock.npz": "03e952c3e1690e9b8862d0466ba755b03e6d04bbd718e804bbdda28c3b6ce78b",
+    "hardware/printed-parts/shop-storage/gridfinity-stock/dock-4x2.stock.npz": "52010b8e06f280b30b3c70215770795a6ca511dee8cbe553a299f5440aa743d2",
+    "hardware/printed-parts/shop-storage/gridfinity-stock/manifest.json": "92073102664f44d3292fbdcff8c1e90e25c67f651f35c12677cc900ba185f130",
+    "hardware/reference/asse1022-threaded-chain/reference-parameters.json": "49d49cc3c225470c45f1ec44bfa869e435d721d0b04847abd893d846d0262da9",
+    "hardware/reference/branch-stem-tees/dimensions.json": "622ace0c06c1d8cf99f8c329a9571c17c9e03766fe4b781eda26fea2a47825b7",
+    "hardware/reference/g-ganen-pump/reference-parameters.json": "3b91bd7ff1216bc5dc8b9806d53f4f2f7bd038323b201c6d6cc6e029e42fc591",
+    "hardware/reference/jg-pp0208e-tee/branch-operating-measurements.json": "3cc495fbbe5961671e4de73f0aee90cf9deae479c9aaa88f041a48c39d9d34d2",
+    "hardware/reference/neofit-achv44-check/model-dimensions.json": "a9058aa42dc8a34f072abe4a1e5cc74d9b2a1c4d0547eba4e5d68bee679f9e4d",
+    "hardware/reference/y-divider/native-measurements.json": "51f4cdc9bd89678623674c3fe31667a4929ae45a34a191b9b56149c1b438dd95"
+  },
+  "checkout_revision_at_verification": "63658e44888f13d7a7e657d435558580e4746902",
+  "source_files": {
+    "hardware/reference/mq6-gas-sensor/mq6_gas_sensor.py": {
+      "python_before_sha256": "c834d1a98e43a2e8889b3f13e234a7521581e55000cdced7acd2f872c7b03dba",
+      "after_sha256": "b499f75db31a649bb8ce3f2d0818b1e09fbaf38266a12e7367bea46608f08a46"
+    },
+    "hardware/reference/digiten-flow-sensor/digiten_flow_sensor.py": {
+      "python_before_sha256": "ddd022d5682c5d8f3e6163a922e6b02ef88d431cdd5e0fe090c41d720aacd9e2",
+      "after_sha256": "0c31d5739bb0afb351b0dc2214ccb79d1fea0eb9fb1568892be945c64b6a83b1"
+    },
+    "hardware/reference/jg-pp010822e/jg_pp010822e.py": {
+      "python_before_sha256": "10db5f39209fb484944bea820b3d2d477f88ef39650501d41b620bda32ce80eb",
+      "after_sha256": "e95345d496f567367b55fa4938f10223dab88124e640172ec9f006c0246f1fc6"
+    },
+    "hardware/reference/meanwell-irm90/meanwell_irm90.py": {
+      "python_before_sha256": "8db724ca45d590af40a82f9f505a2aaedf9f7381f930deb54fda3cc637b771d5",
+      "after_sha256": "fdc9753c62afab86f3bfa68d8b27482d46510d7af4d37ab1d453f45baf41d701"
+    },
+    "hardware/reference/y-divider/y_divider.py": {
+      "python_before_sha256": "6cde2ad3f1b8bfd2b5c09536df85fc7ba2d00c76b389439fab0ac947c1689ac9",
+      "after_sha256": "7d8fcf156017ae229ae6de476f7e8788ebb989a5fe91f2a25e18a5bce0d76b6e"
+    },
+    "hardware/reference/kamoer-kphm400/kamoer_kphm400.py": {
+      "python_before_sha256": "f11d0f972620e46b48dfe20bce638562a15782fec33b53f86a5504548b41d8ca",
+      "after_sha256": "236b918ea3d4901e8ae441cb4544d1d924a58f0cd3d708de5ca1bd9562e8d1f8"
+    },
+    "hardware/reference/asse1022-assembly/asse1022_assembly.py": {
+      "python_before_sha256": "7e3aa33188700d6767f1a6a203ad9ed7b437c543503cba5f403f7fc50f0938ca",
+      "after_sha256": "06b4661debe815c0e6ad4d2a771522af7512c41a3835f0325fabb66c8fc48676"
+    },
+    "hardware/reference/neofit-achv44-check/neofit_achv44_check.py": {
+      "python_before_sha256": "b9fe7b0d87cf2d3c3eeec8e7a61d7887c588d9af954b24fe921b3fb7080c7708",
+      "after_sha256": "f87b6553ae98cd158e1b5edfc383e1f941518542efd8fd279f4030d4806c5af7"
+    },
+    "hardware/reference/iec-c14-inlet/iec_c14_inlet.py": {
+      "python_before_sha256": "1c42193213b6f69add6c07da68156557fac5fb8694caaa4f189a8efaafd0c14b",
+      "after_sha256": "cefcb6858ed22988ac38634e1bb8e5bd782c64e1727322276bf68eb416c7cd7f"
+    },
+    "hardware/reference/pump-barb-joint/pump_barb_joint.py": {
+      "python_before_sha256": "1cebfcfddec7f46c5b4453a74e9aaa202e15719eb1f6b35c191f0564b1ba8839",
+      "after_sha256": "562d2b53caaff7b548098765fea1ae2ecd2668011c2a0eaadba7497d6ff50088"
+    },
+    "hardware/reference/jg-pp0308e-elbow/elbow.py": {
+      "python_before_sha256": "f4bbf9e1db98c82da4a96076e16a0333d2976b67f965a9d09d147fec510518d1",
+      "after_sha256": "4511ff850ec183ee7bc697bab421b00ca534a1ad8bd0b33b455b9836b2951cbc"
+    },
+    "hardware/reference/taprite-3741-regulator/taprite_3741_regulator.py": {
+      "python_before_sha256": "50f6a22107a517bcd0a3055fcade1817f74d2de6e2bb490464719ba766200c39",
+      "after_sha256": "963d43ad515737dabaae587abb1e31f23613d85dbc5374191042b33e09ccb0d4"
+    },
+    "hardware/reference/jg-pp0408w/jg_pp0408w.py": {
+      "python_before_sha256": "e08cca140b992827cb79d0aaba7f3aed58ad53de5ba9fdc734b5f62fc2c4864d",
+      "after_sha256": "fe61eb7cc082f3d550d9b275515268ab4b8072e5a57e278fcd725c59c01c1ad0"
+    },
+    "hardware/reference/asse1022-threaded-chain/asse1022_threaded_chain.py": {
+      "python_before_sha256": "13369b4b81cf45328bcf03dd5aaf5d7fbd4479ec17faa3c8d14d594a80eb2213",
+      "after_sha256": "57611cad9f91a8277427c26d1a1def6ff7169fbb914d379613e572d434b9de94"
+    },
+    "hardware/reference/neofit-bulkhead/neofit_bulkhead.py": {
+      "python_before_sha256": "bb708c8b96cab9119e69ea836e0796ba3bcb0e712d7e92fa66318a1979876fe8",
+      "after_sha256": "9e1b002e33a9027946c78c9c686696fda942310875a7f45194c3a37a7dbee936"
+    },
+    "hardware/reference/compressor/compressor.py": {
+      "python_before_sha256": "208d785780ba88ff1114e3c98d27e3c69997be4eceea146f875f838aef6c80dd",
+      "after_sha256": "ea92cb2c772fd093c0f0e00fefedf1006b64b7f749c3e55a350967694a53a908"
+    },
+    "hardware/reference/beduan-solenoid/beduan_solenoid.py": {
+      "python_before_sha256": "ca07cecf19092580e43c765740e5c6be44185a225630e143cbdf60039fd5549c",
+      "after_sha256": "e373a87a9c215441fbfd9c44d6b46b9d1c1f063146433dfc6a13e90b251f51bb"
+    },
+    "hardware/reference/hlghlg-check-valve/hlghlg_check_valve.py": {
+      "python_before_sha256": "dbef6d69fb379be4b5119f26a42448ccbe1da46c7e9d8b8cb7acb0cef0f71eaa",
+      "after_sha256": "0b670507a0d2c0a729fa6f6607e9f0cdca22a71cc40ae3db0d0dd526afa044ff"
+    },
+    "hardware/reference/seaflo-discharge-chain/seaflo_discharge_chain.py": {
+      "python_before_sha256": "b3b480d8678ea13d17bfd2b0720ce1aa7436fd0ae7db423c98747273da2a4d02",
+      "after_sha256": "9c29dda8b1ed9da286482ad6acc7173f47c25bc954febbf0eca6123ad6101c98"
+    },
+    "hardware/reference/wago-221/wago_221.py": {
+      "python_before_sha256": "f3d57535b75bf577111041e4b947d1779dc090fbe602c21cce5c900255edc655",
+      "after_sha256": "9b124e2859f6c3e3bd78345bb72ebfd96b1b74f4b2d97141d8703484e001e8eb"
+    },
+    "hardware/reference/riteav-keystone/riteav_keystone.py": {
+      "python_before_sha256": "df557f8a51ca3374e42c0102593f386842cc95dc647191643853c053db6ce408",
+      "after_sha256": "f34a497a0de0f305411fab90f651eb6f7db51fded329b04f7cea8f87ae84a5f1"
+    },
+    "hardware/reference/neofit-stem-elbow/neofit_stem_elbow.py": {
+      "python_before_sha256": "92c10e004f6c3bdb59b3ca90e9c587bcb5854e3362d9b5a09a5a7a7dd50fe1e1",
+      "after_sha256": "cf88eb302cfa2587c2482c159a72893dee2ecc636b3a9e35d0b9b9dc0025751a"
+    },
+    "hardware/reference/gasher-check-valve/gasher_check_valve.py": {
+      "python_before_sha256": "b86da0efc1ad09b38fb1d611d99694c7da1a72a89f7fa4bf55ff2c4bbb145224",
+      "after_sha256": "2cba0b044e193124163f44fd27f72f728920296c732ce94515614b1f05925cbe"
+    },
+    "hardware/reference/jg-bulkhead-union/jg_bulkhead_union.py": {
+      "python_before_sha256": "6f988051954605af0ef959f7c0fcb7cb79ef2d1dd080555d28061527f1e249be",
+      "after_sha256": "18c3623efa69281ef6e80e5d7303f27d171a482604ca2dc6f068edd5ddd8f18c"
+    },
+    "hardware/reference/g-ganen-pump/g_ganen_pump.py": {
+      "python_before_sha256": "35c0183ce894befcea55ede830eeba4726778da1de9e1807974d82b23e4590b9",
+      "after_sha256": "6ae793277e151bf3ece476de52cbb8dfb3399b80512713ffae44af099d246d6b"
+    },
+    "hardware/reference/neofit-flavor-reducer/neofit_flavor_reducer.py": {
+      "python_before_sha256": "39d519d1194d30e5f2492023e616eb02151599578964b21b42627648c45907d8",
+      "after_sha256": "8e3d410465166bee166fdbca34da7a7f8df3f005aed5c456b7565b15bf4b04de"
+    },
+    "hardware/reference/neofit-drain-bulkhead/neofit_drain_bulkhead.py": {
+      "python_before_sha256": "9c27c490487588671ee596756bd6b68010988e327a5db51709851f04212589ff",
+      "after_sha256": "deb3220d1af3c177ac13c209c366c0dcfd1bfa86e21c2695767d55a77742b67e"
+    },
+    "hardware/reference/shok-blok-regulator/shok_blok_regulator.py": {
+      "python_before_sha256": "106a3066f1e38ec1f2ae05096685e1dc0964a2ebb53d1c55b6b6f86f6619a40f",
+      "after_sha256": "8dfb0392d8a9f4bd36648521aeb5ae7ef24331167fdd6af392950eb47a76bae9"
+    },
+    "hardware/reference/branch-stem-tees/branch_stem_tees.py": {
+      "python_before_sha256": "0c17008ab454c891e9f90849974f37d1054f9ae186cc801b80d80b68c603cec9",
+      "after_sha256": "e01dc85fb00e606c3bd1e67a1c758fe40746e541e2440fee25c19a0eeb265f63"
+    },
+    "hardware/reference/multiplex-asse1022/multiplex_asse1022.py": {
+      "python_before_sha256": "e79e2d24d69112a1e0f4c83a7574fd9469db7cbd8ea88e47e6654efeb792785d",
+      "after_sha256": "15447b3e7351070cf6691bc93e77f8510ec37b33b41006b80323b92d37ed6320"
+    },
+    "hardware/reference/jg-pp061208w/jg_pp061208w.py": {
+      "python_before_sha256": "c3be9be9a6d681433ff7c23c1083646744ffb7812ca4e45534e919552b884d91",
+      "after_sha256": "7d94d3d2cbc5f9a3c9ec0eb80dcf347a26a34f4268122e05b3b8d23b4dc1faf1"
+    },
+    "hardware/reference/water-split/water_split.py": {
+      "python_before_sha256": "c29df01087b3e1d97e6cea8d75b48fb2d46d51a6c3314cf12ac6467d7cc37b44",
+      "after_sha256": "0c159620492d67c2087f7ef0557300193c1d7983cbfa838731d11d247228b486"
+    },
+    "hardware/reference/neofit-acvus44-check/neofit_acvus44_check.py": {
+      "python_before_sha256": "7f2086fcac9ebda3d8b7c69b7f8a1cd587725146957c61e9b015343da5ffbb1c",
+      "after_sha256": "30690c051f851256e65a36047677533d08e4ac27fc1de4d8009f4b0ba0943d2c"
+    },
+    "hardware/reference/condenser-block/condenser_block.py": {
+      "python_before_sha256": "506cf17f52447545adb58c405eeda2c8cc45a65b5e7de73ac8c0cd621f82e8dd",
+      "after_sha256": "66ad95a3a860798db58ff42f2a4961a3c0294f49d7258a71029ad3e0ec99d2b9"
+    },
+    "hardware/reference/jg-pp0208e-tee/jg_pp0208e_tee.py": {
+      "python_before_sha256": "a94c39e4015e28cd45a9ba710e8de3ebdad3a3c67b1ea10729395ac374dbfae9",
+      "after_sha256": "76d0f70ef3d328ce94d6fe0f67a4f6aa426f8290f34d55bd3af5086690da3d72"
+    },
+    "hardware/reference/waveshare-43b-display/waveshare_43b_display.py": {
+      "python_before_sha256": "365a1a0df6e4fb6b1e35c2e171230d5b4ac206931c7bbf159f022290d4194e9e",
+      "after_sha256": "f9c47d0bf1b12c4d1160f40d47b6a823fb669fade21b48eab42fa0e55077e48b"
+    },
+    "hardware/reference/flare38-14ptc/flare38_14ptc.py": {
+      "python_before_sha256": "8d07dde01b02f8572c5b00449ccc115fb266e1d74ea6e03889c4a223ba68e3a8",
+      "after_sha256": "98070050dd876ddacbfef99b7c777ecf6fd1a52d4c25b2a12c7b54e32535c41c"
+    },
+    "hardware/reference/gagira-reducing-coupling/gagira_reducing_coupling.py": {
+      "python_before_sha256": "db1d6b1519afffb1e82842728ba00026c29ed5e9482ec33b0a81114177cf69c7",
+      "after_sha256": "9eebf098bbc8acb1c82416657d7f579477ed2de00943ae1c5507cd18dd20e0a1"
+    },
+    "hardware/reference/sf76e-thermal-fuse/sf76e_thermal_fuse.py": {
+      "python_before_sha256": "34c7897fb732e08b07c03611a98d272fba2230590b90a3cb8bc9b84789a8091c",
+      "after_sha256": "efe2ec83110abd3bdc943c6b67fb5f51513f42446e05bb855c61747fcee3a32f"
+    },
+    "hardware/reference/yyfkgcp-pogo-4p/yyfkgcp_pogo_4p.py": {
+      "python_before_sha256": "52ef7d1927644c57bf4b92bc27d0faf1877926adcc21557b24a7f3799da3a185",
+      "after_sha256": "eff1f23f8c88ba17f1dc75c1b3961e0454ad4dc0f9bb861705d62acba5505c02"
+    },
+    "hardware/reference/tee-connector/tee_connector.py": {
+      "python_before_sha256": "cf74e9b5f38710ed180f6c8950953e3271969a5452c65c81ded52bbf97c4f7ff",
+      "after_sha256": "fbc91276935342ddba45b6161618ef31a8fa1cfafcb9cad1b2ccb3d77937876b"
+    },
+    "hardware/reference/teyleten-relay/teyleten_relay.py": {
+      "python_before_sha256": "964bff50807efc1e21d463feff04930ddce31c31cb0face2c039aeb6b232ea5a",
+      "after_sha256": "c879eb738048f5e0d3dd9fa1ff81ef01b241fc5de6a23e17c27439afef557b36"
+    },
+    "hardware/reference/wr1110-regulator/wr1110_regulator.py": {
+      "python_before_sha256": "8e869c069880d17c8c065615607f4f1056931a95e8c39687f24015f6ca0657bd",
+      "after_sha256": "8080637644068a40c593d7e15e32f3d3ccae06a22c9e88beb163dbd5e42b5055"
+    },
+    "hardware/reference/g-ganen-pump/integration-envelope/native_queries.py": {
+      "python_before_sha256": "751efb3b7184c37cc85238c951cedccd60c06c1cb1926e9e9fdd7deaff2e4a11",
+      "after_sha256": "751efb3b7184c37cc85238c951cedccd60c06c1cb1926e9e9fdd7deaff2e4a11"
+    },
+    "hardware/reference/g-ganen-pump/integration-envelope/g_ganen_integration.py": {
+      "python_before_sha256": "2ec9662bbc4cc10b1ac2fa1d756354c2b15aa4d6efeae184512f76fab85903c0",
+      "after_sha256": "286f87c407fb98d53a02bde112e32a60b9ac0fdd3be847710438b3888970910d"
+    },
+    "hardware/reference/g-ganen-pump/installation/g_ganen_installation.py": {
+      "python_before_sha256": "79fca45c7856dd91bd2164af7d17a2a82ed58fb17ae554cad10ce53284a0ca1f",
+      "after_sha256": "8a99d5461e23e97163ee6c86f58a44cfaee11ffcb22665ba8b91b54e282553c6"
+    },
+    "hardware/reference/g-ganen-pump/common-foot/g_ganen_foot.py": {
+      "python_before_sha256": "ca6ff8cd43074132835169682cd05876b6cdcf120540da4cfc056a572685bb43",
+      "after_sha256": "e4a4a7d8e36adf084989632ed2f28eacd1d7f56a298767e37e6fe88bbbdda273"
+    },
+    "hardware/printed-parts/shop-storage/catalog.py": {
+      "python_before_sha256": "0199353a3efa2a74cfc53408f3672a0aa84ef781d5e357a8bab5f3235a4216c1",
+      "after_sha256": "d3a8bcb47401c5af4bc10dc19cecee8fc36c8443bd90ee6635fe1a11ea45527d"
+    },
+    "hardware/printed-parts/shop-storage/holders.py": {
+      "python_before_sha256": "263e10bfd48c4971dee2295853c5f36f9e6b95e049d30e0c5ab289b1f0d151cc",
+      "after_sha256": "b9a0bfa5e8502af43c002e52c468d805197f4ead4e371ba3998ce7502364f384"
+    },
+    "hardware/printed-parts/shop-storage/_holder.py": {
+      "python_before_sha256": "d70354b63ba20544e385b5fc2cf76badc2bfbb2af86fc98e7b7b3ce42235ca7e",
+      "after_sha256": "0f539012390c7eb482587618f1ce449f4f49775acb11eaec0ac0cd7fc1350f00"
+    },
+    "hardware/printed-parts/shop-storage/_bound.py": {
+      "python_before_sha256": "ade3aca8574dce7455b2eb4e38b8922c00a88cd72d84250aafcd77907e4e06bc",
+      "after_sha256": "0f7838810701454a1531cef9211ca19d5b5fbef2ca905ab6673df329203206d7"
+    },
+    "hardware/printed-parts/shop-storage/_kit.py": {
+      "python_before_sha256": "6b76f4abc2e352a2715c2db8d3184a561bdda52f9a704c6cfa5f31683750d8a7",
+      "after_sha256": "bf93f99f6616569ccf74eee05d9dd97774a286685c027b8cc7fa0401fb667156"
+    },
+    "hardware/printed-parts/refrigeration/fuse-clamp/fuse_clamp.py": {
+      "python_before_sha256": "d5dd0d8326fb1a1742afa08a1c83c61289b6fa822f9bb1fcc5152e5a9b5b1265",
+      "after_sha256": "a34905e3ab0f4154ee93f34b8c3c11a2b83bea40640aaddc7bdd0c01c3e4ee90"
+    },
+    "hardware/printed-parts/fixtures/weld-rotator/weld_rotator.py": {
+      "python_before_sha256": "2f22e2c97dfe4e921c31b13446e868ad42123901e0356f31aacd461496a8e6d4",
+      "after_sha256": "de8f2a7127b3812d26f19c6bee80bd0ec5ae2117d3abd1d9422306c608f9abe2"
+    },
+    "hardware/printed-parts/fixtures/weld-rotator/_rotator_interface.py": {
+      "python_before_sha256": "3591096ec36f4b63b4bfbbb8bd17a84c659fbaaa9c420daca77880e446ee38db",
+      "after_sha256": "ab5ec41d61d94a7dcfc09a5b9119e430493abe816980f05876320cbc28494f34"
+    },
+    "hardware/printed-parts/fixtures/tee-valve-bow-trial/tee_valve_bow_trial.py": {
+      "python_before_sha256": "77d19d4b8b53fa4cea2031e0220150203f4058d2df80b4584f44f4c7ea2bf5da",
+      "after_sha256": "7a5c40099ff802304878978e1980ee7f94946e7492ee693618576b027498bb3b"
+    },
+    "hardware/printed-parts/asse-drain-adapter/asse_drain_adapter.py": {
+      "python_before_sha256": "ab60b252b3510c1497056085e8de295f7484fc7e41809ebd797ba16e25bb3f41",
+      "after_sha256": "bef3fc9bcc9b18672877f1a2b90d600e27284abada20f6927456e8418b5e7e3d"
+    },
+    "hardware/printed-parts/asse-straight-cuffs/asse_straight_cuffs.py": {
+      "python_before_sha256": "e58690d41ba9f47aacfd105ac431a377cd4daf1faff94381cb9e01695684f685",
+      "after_sha256": "7869aefd862502d4f1e4b5104f13829f11574822bb6f7c6a4d7abb4277ae53cd"
+    },
+    "hardware/printed-parts/collet-press/collet_press.py": {
+      "python_before_sha256": "f31e91ae007f561e5ededb50cc58ec59feea24886ec51393e3f8d97511d66e74",
+      "after_sha256": "b2e10dc24302abf99dc370557f15e813a5dfd99c70778aa452b33f7d1d3b6fc2"
+    },
+    "hardware/printed-parts/diaphragm-pump-sleeve/diaphragm_pump_sleeve.py": {
+      "python_before_sha256": "944086bc801f0c9698d15b48e01d317e9cd56a23e6a7e5a1e02ef9cee90147c5",
+      "after_sha256": "c3bbed9c2392bb18ba3bb4675f1356a019ba91988449f73ac8963e8f170db6b1"
+    },
+    "hardware/printed-parts/fixtures/fake-countertop/fake_countertop.py": {
+      "python_before_sha256": "9a391a87a797da90b90c204122c26e9c5b20d47d73d2b19d4fe4b27e445f92c3",
+      "after_sha256": "9992170f078067dc1aeb9d6c71a9c2d8fb07cc366aa6adfb208dd45fb5fd5174"
+    },
+    "hardware/printed-parts/fixtures/tube-miter-box/tube_miter_box.py": {
+      "python_before_sha256": "d9edcbb7ba328e20ccbd845d178c770a5cc121c6b06928d45b2d6e9369c0af89",
+      "after_sha256": "1d1d0c9fa09bd3f6ff0667e5e086e0749928357bf46322098aa8c49d7cd12910"
+    },
+    "hardware/printed-parts/soda-bend-holder/soda_bend_holder.py": {
+      "python_before_sha256": "596921deba1a8d40f0313c9d925a2df616a25c3c9a2def36626f55c97f336106",
+      "after_sha256": "aacaff4206d7d8047f3cd1c34772d92a8cf0673c946416a806c22f49de50c69f"
+    }
+  },
+  "rust_and_bridge_sha256": {
+    "hardware/reference/_reference_data.py": "94cdf5d892568d39c10f460e40ec6522f6e67723a4646014b6c69720beaab8c8",
+    "hardware/scripts/_part_output.py": "439d30b341d7821738bb33c2773ab85f4c89880ed0dea658a21719f53fc89b83",
+    "tools/hsm/part-data/Cargo.toml": "3b85398e11acf997489a37170edc9b0f556d4e9e9f43dddb0eb923cafc2d4a11",
+    "tools/hsm/part-data/README.md": "2a70df0ebd6805a333ccbe94556b66cede4a4097981af39d44e25564b3778eff",
+    "tools/hsm/part-data/src/reference_catalog.rs": "c9925a45a726d2d73b9f605be876a9c452a2d596e82cec713abb2be6794e1b2f",
+    "tools/hsm/part-data/src/sleeve.rs": "bce86bdb8a3fae6d5d543331d20f90bd1e44e6a194e05de12e160d2ed94d3965",
+    "tools/hsm/part-data/src/output.rs": "204b7554b8bd5b66a738a6f0f949f5e94c6731ec1b6c7c8921f65ee3d34148b4",
+    "tools/hsm/part-data/src/main.rs": "67e819de9a00906510f05d1359b8aa75bf1ee14bc49e088b1c0b3958f37631e3",
+    "tools/hsm/part-data/src/storage.rs": "f6a915dcc1ac41bc06a2139877bbc3d6429540e8f85a91aca0f1f88beb422dba",
+    "tools/hsm/part-data/src/zone.rs": "b6ddc32079a6c2b1f010b6d4ae99bf3898cfd787be3613c868638bf1c03edbf7",
+    "tools/hsm/part-data/src/reference.rs": "63c24eb8688986e1ee2eda334268817c69d59207bc3de1065187a01366f8731c",
+    "tools/hsm/part-data/src/electronics.rs": "3dacb80259b2f58f056c4795f2f2c8dd03ebbdd913db6e6a6a24db1b68cc217d"
+  }
+}

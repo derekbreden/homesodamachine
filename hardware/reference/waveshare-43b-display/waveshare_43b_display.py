@@ -53,33 +53,25 @@ sys.path.insert(0, str(next(p for p in _here.parents if p.name == "hardware") / 
 sys.path.insert(0, str(next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"))
 
 # --- Main body: PCB + display module + rear components -----------------------
-body_width = 106.0    # X, lateral across the screen
-body_height = 69.0    # Z, up the screen
-body_depth = 17.0     # Y, screen-normal (into the appliance)
+
+_reference_hardware = next(p for p in Path(__file__).resolve().parents if p.name == 'hardware')
+import sys as _reference_sys
+_reference_sys.path.insert(0, str(_reference_hardware / 'reference'))
+from _reference_data import data as _reference_data
+_reference_values = _reference_data('waveshare_43b_display')
+globals().update({name: _reference_values[name] for name in ('body_width', 'body_height', 'body_depth', 'bezel_width', 'bezel_height', 'bezel_depth', 'bezel_corner_r', 'bezel_offset_x', 'bezel_offset_z', 'bezel_y0', 'bezel_y1', 'body_y0', 'body_y1', 'total_depth', 'bezel_y_center', 'body_y_center')})
+
 
 # --- Bezel: front cover-glass / touch-panel plate ----------------------------
-bezel_width = 113.5   # X
-bezel_height = 77.0   # Z
-bezel_depth = 1.0     # Y
-bezel_corner_r = 2.5  # rounded corners of the cover-glass outline
 
 # The bezel is larger than the body and sits offset on it — its border reaches
 # further up and to the left of the body. How it lands in the enclosure facet
 # (which centers the glass) is the enclosure's business.
-bezel_offset_x = -0.5  # [-0.5 mm](BEZEL_OFFSET_X) glass center offset from the body, toward −X
-bezel_offset_z = 1.0   # [1 mm](BEZEL_OFFSET_Z) glass center offset from the body, up the screen
 
 # Depth seams along Y (screen-normal). The screen faces -Y (toward the user);
 # the front cover-glass face sits at Y = 0, and the device extends back into
 # the appliance toward +Y.
-bezel_y0 = 0.0
-bezel_y1 = bezel_y0 + bezel_depth
-body_y0 = bezel_y1
-body_y1 = body_y0 + body_depth
-total_depth = body_y1
 
-bezel_y_center = bezel_y0 + bezel_depth / 2.0
-body_y_center = body_y0 + body_depth / 2.0
 
 
 def _block(width, height, depth, y_center, x_center=0.0, z_center=0.0):

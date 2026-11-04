@@ -232,10 +232,8 @@ def from_shape(model):
 
 
 def read_header(path):
-    """An existing payload's header dict. Raises on a file that is not one."""
-    with open(path, "rb") as f:
-        head_len = struct.unpack("<I", f.read(4))[0]
-        return json.loads(f.read(head_len))
+    from _build_data import read
+    return read("header", path)
 
 
 def read_version(path):
@@ -256,112 +254,25 @@ def read_source(path):
 
 
 def source_digest(step_path):
-    """The digest a payload written from `step_path` states — sha256 over the file's
-    bytes, which is what `cad-artifacts` hashes the same file by."""
-    h = hashlib.sha256()
-    with open(step_path, "rb") as f:
-        for chunk in iter(lambda: f.read(1 << 20), b""):
-            h.update(chunk)
-    return h.hexdigest()
+    from _build_data import read
+    return read("sha256", step_path)
 
 
 def aligned_face_sources(sources, ranges):
-    """Contributor groups for these exact face ranges, or no usable attribution."""
-    return sources if (isinstance(sources, list) and len(sources) == ranges
-                       and all(isinstance(group, list) for group in sources)) else None
+    from _build_data import request
+    return request("aligned-sources", sources=sources, ranges=ranges)
 
 
 def record_sources(record):
-    """A face record's complete source set in the payload/pick schema."""
-    if not isinstance(record, dict):
-        return [None]
-    if isinstance(record.get("contributors"), list):
-        sources = [dict(r) if (isinstance(r, dict) and isinstance(r.get("op"), str)
-                   and (r.get("src") is None or isinstance(r.get("src"), str))) else None
-                   for r in record["contributors"]]
-    elif "src" in record and isinstance(record.get("op"), str):
-        sources = [{"src": record["src"], "op": record["op"]}]
-    else:
-        return [None]
-    via = record.get("via")
-    if isinstance(via, str) and " at " in via:
-        op, src = via.split(" at ", 1)
-        via = {"op": op, "src": src or None}
-    if isinstance(via, dict):
-        sources = [{**r, "via": via} if r is not None else None for r in sources]
-    return sources
+    from _build_data import request
+    return request("record-sources", record=record)
 
 
 def write(meshes, path, src=None, cut=None):
-    """u32 header length, that many bytes of JSON, then one blob every array
-    indexes into by [byteOffset, length]. Typed-array offsets must be aligned
-    to their element size, and every array here is 4 bytes wide, so the header
-    is padded to a multiple of 4 and the blob stays aligned throughout.
-
-    The header states VERSION. These files are untracked and rewritten by the
-    export that writes the STEP, so a tree holds whatever the last export left;
-    `decodeMeshPayload` decodes the version it knows and reads the STEP for
-    anything else.
-
-    AND IT STATES `src`, THE DIGEST OF THE STEP IT WAS CUT FROM. What is recorded
-    is DESCENT and not agreement: a payload may carry more surface than its solid
-    and still be the right one — under `pack.BUNDLED_PAYLOAD_DIRS` the flutes live
-    in the mesh and never in the STEP (`flute_payload`), so the two are not the
-    same surface by design. Which is exactly why equality cannot be the test and
-    descent has to be written down. Nothing else in the file says which bytes a
-    payload answers to, and mtime cannot carry it: a cache restore stamps the
-    payload NOW and the freshly cut STEP is older, which is the order an mtime
-    test reads as current. Only the digest says.
-
-    AND IT STATES `cut`, WHAT THE DECIMATION ACTUALLY COST. A payload is the printed mesh
-    collapsed as far as it goes while every probed point stays inside a deflection budget
-    (`flute_payload.simplify_within`), and that budget is a DISTANCE bound — it cannot preserve
-    a feature shorter than itself. A 0.25 mm stub collapses into the wall and is bridged with
-    long skinny triangles, and the reading stays inside budget the whole time. So the two
-    numbers are what a reader needs in order to know how much of what it is looking at is
-    drawing: `dev` is what the accepted rung measured, `bound` is what it had to stay inside.
-
-    NEITHER IS A VERDICT ON WHAT SOMEBODY SAW. A reading at this scale says the payload cannot
-    be the evidence either way, and the question moves to the solid and the print — not that
-    the observation was noise.
-
-    `cut` is optional and its absence is readable: a payload written without it is one that did
-    not state its reduction, which is every payload cut before the field existed. That is why
-    it does not move VERSION — a reader that finds no `cut` still has a payload it can draw,
-    and DECODABLE stays where it is rather than turning those away and serving the flute-less
-    solid in their place.
-
-    `face_sources` carries optional contributor groups aligned with the mesh's face ranges.
-    An unaligned value states no usable attribution and is omitted."""
-    entries, blob = [], bytearray()
-    for m in meshes:
-        e = {"name": m["name"], "color": m["color"]}
-        for key, fmt, arr in (("pos", "f", m["pos"]), ("nrm", "f", m["nrm"]),
-                              ("idx", "I", m["idx"]), ("fac", "I", m["fac"])):
-            e[key] = [len(blob), len(arr)]
-            blob += struct.pack(f"<{len(arr)}{fmt}", *arr)
-        for key, components in (("col", 3), ("uv", 2)):
-            if key in m:
-                arr = m[key]
-                if len(arr) != len(m['pos']) // 3 * components:
-                    raise ValueError(f"{m['name']}: invalid {key} vertex count")
-                e[key] = [len(blob), len(arr)]
-                blob += struct.pack(f"<{len(arr)}f", *arr)
-        sources = aligned_face_sources(m.get("face_sources"), len(m["fac"]) // 2)
-        if sources is not None:
-            e["face_sources"] = sources
-        entries.append(e)
-    header = {"v": VERSION, "meshes": entries}
-    if src is not None:
-        header["src"] = src
-    if cut is not None:
-        header["cut"] = cut
-    head = json.dumps(header, separators=(",", ":")).encode()
-    head += b" " * (-(len(head) + 4) % 4)
-    with open(path, "wb") as f:
-        f.write(struct.pack("<I", len(head)))
-        f.write(head)
-        f.write(blob)
+    """Write the Rust-authored arrays and four-byte-aligned surface header."""
+    from _build_data import write as write_data
+    wire = json.dumps(dict(v=VERSION, meshes=meshes, src=src, cut=cut), separators=(",", ":"))
+    write_data("write-payload", path, payload_json=wire)
 
 
 # --- selftest ----------------------------------------------------------------

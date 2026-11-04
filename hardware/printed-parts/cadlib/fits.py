@@ -32,30 +32,22 @@ direction rather than a rigid-fit clearance through their thickness.
 """
 
 #: What two printed faces pressed together add to their nominal stack: a seat, a friction fit.
-slip = 0.15
+from _scalar_provider import call as _rust_scalar
+globals().update(_rust_scalar('scalar.constants',group='fits'))
 
 #: Additional clearance on each face that slides past its mate.
-sliding_extra = 0.10
 
 #: A face that slides past its mate: still a tight slide.
-running = slip + sliding_extra
 
 #: The sag and bumps of a supported overhang's underside, per supported mating face, assigned
 #: once to either part of its gap.
-supported_surface = 0.25
 
 #: Additional clearance across the floor of a printed cavity a part slides to: the layers where
 #: the floor turns up into the walls print slightly rounded, so the cavity narrows at its tip.
-layer_transition = 0.10
 
 #: Nominal printed passage for fully threaded M5 screws. Selected from the
 #: m5-seam-bearing PET-GF comparison; long passages may require screw rotation.
-m5_thread_pass_dia = 5.2
 
 
-def clearance(*, sliding=False, supported=False, at_floor=False):
-    """One mating-face allowance, including motion, bridge finish and a cavity floor's rounded
-    turn where present."""
-    return (slip + (sliding_extra if sliding else 0.0)
-            + (supported_surface if supported else 0.0)
-            + (layer_transition if at_floor else 0.0))
+def clearance(*,sliding=False,supported=False,at_floor=False):
+    return _rust_scalar('scalar.clearance',sliding=sliding,supported=supported,at_floor=at_floor)

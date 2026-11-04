@@ -45,36 +45,28 @@ sys.path.insert(0, str(_hw / "scripts"))
 
 STEP = _here.parent / "neofit-bulkhead.step"
 
-_IN = 25.4
+
+_reference_hardware = next(p for p in Path(__file__).resolve().parents if p.name == 'hardware')
+import sys as _reference_sys
+_reference_sys.path.insert(0, str(_reference_hardware / 'reference'))
+from _reference_data import data as _reference_data
+_reference_values = _reference_data('neofit_bulkhead')
+globals().update({name: _reference_values[name] for name in ('_IN', 'TUBE_OD', 'THREAD_D', 'THREAD_PITCH', 'OVERALL', 'FLANGE_AF', 'NUT_AF', 'TUBE_STOP_DEPTH', 'NOMINAL_OUTBOARD_REACH', 'PANEL_THREAD', 'NUT_LEN', 'MASS_G', 'PRESSURE_PSI_68F', 'MAX_TORQUE_FTLB', 'FLANGE_D', 'NUT_D', 'near_ring_face_y', 'far_ring_face_y', 'far_body_face_y', 'PROUD_LENGTH')})
 
 
-def _corners(across_flats: float) -> float:
-    """A hex's across-corners envelope, which is what crowds a neighbour on a panel."""
-    return across_flats / math.cos(math.radians(30.0))
+
+def _corners(across_flats: float):
+    "A hex's across-corners envelope, which is what crowds a neighbour on a panel."
+    return _reference_data('neofit_bulkhead', '_corners', (across_flats,), {})
 
 
 # --- the ABU44 row of neoFit's Bulkhead Union sheet -------------------------
 
-TUBE_OD = 6.35                    # 1/4" tube, both ends
-THREAD_D = 17.0                   # M17 × 1.5 barrel — what the wall is bored for
-THREAD_PITCH = 1.5
-OVERALL = 1.346 * _IN             # L  — 34.188
-FLANGE_AF = 0.748 * _IN           # H1 — 19.000 across flats
-NUT_AF = 0.827 * _IN              # H2 — 21.006 across flats
-TUBE_STOP_DEPTH = 0.665 * _IN     # B1 = B2; an internal insertion dimension
-NOMINAL_OUTBOARD_REACH = 16.891   # unmeasured flange-to-mouth reference split
 # A — 7.899, the BARE BARREL the sheet dimensions between the flange's face and the nut's. It is
 # the clear span available to the panel before the separately dimensioned nut.
 # The production wall and flush label share the selected 6 mm clamped stack.
-PANEL_THREAD = 0.311 * _IN
-NUT_LEN = 0.276 * _IN             # E  — 7.010
-MASS_G = 9.4
-PRESSURE_PSI_68F = 290.0
-MAX_TORQUE_FTLB = 1.1
 
 # The two hexes as the circles that crowd a neighbour on the wall.
-FLANGE_D = _corners(FLANGE_AF)    # 21.939
-NUT_D = _corners(NUT_AF)          # 24.256
 
 # Seating planes along Y. The flange bears at y = 0 and stands proud outboard; the bare barrel
 # and the inboard body run to y < 0.
@@ -83,33 +75,26 @@ NUT_D = _corners(NUT_AF)          # 24.256
 # span and E is the nut width: the threaded barrel continues through both. The
 # inboard body begins beyond that complete span, so it does not occupy nut stock.
 # Its radial envelope remains conservative and unmeasured.
-near_ring_face_y = NOMINAL_OUTBOARD_REACH
-far_ring_face_y = NOMINAL_OUTBOARD_REACH - OVERALL
-far_body_face_y = -(PANEL_THREAD + NUT_LEN)
-PROUD_LENGTH = near_ring_face_y   # what stands OUTSIDE the face it bears on
 
 
-def panel_hole_d(clearance: float) -> float:
-    """The through-hole diameter, given the slip a panel wants around the barrel."""
-    return THREAD_D + clearance
+def panel_hole_d(clearance: float):
+    'The through-hole diameter, given the slip a panel wants around the barrel.'
+    return _reference_data('neofit_bulkhead', 'panel_hole_d', (clearance,), {})
 
 
-def panel_footprint() -> tuple:
-    """`(width, height)` the fitting takes on the panel FACE — the nut, which is the wider of
-    its two hexes. Round to a neighbour, so one figure twice."""
-    return (NUT_D, NUT_D)
+def panel_footprint():
+    '`(width, height)` the fitting takes on the panel FACE — the nut, which is the wider of\n    its two hexes. Round to a neighbour, so one figure twice.'
+    return _reference_data('neofit_bulkhead', 'panel_footprint', (), {})
 
 
-def flange_footprint() -> float:
-    """What the OUTBOARD flange covers, and so what a bulkhead ring has to reach past to show."""
-    return FLANGE_D
+def flange_footprint():
+    'What the OUTBOARD flange covers, and so what a bulkhead ring has to reach past to show.'
+    return _reference_data('neofit_bulkhead', 'flange_footprint', (), {})
 
 
-def port(side: float) -> tuple:
-    """One of the two 1/4" tube ports: `(position, outward axis)`, `side` picking the near
-    (+Y, outboard) or far (−Y, inboard) end."""
-    face = near_ring_face_y if side > 0 else far_ring_face_y
-    return ((0.0, face, 0.0), (0.0, 1.0 if side > 0 else -1.0, 0.0))
+def port(side: float):
+    'One of the two 1/4" tube ports: `(position, outward axis)`, `side` picking the near\n    (+Y, outboard) or far (−Y, inboard) end.'
+    return _reference_data('neofit_bulkhead', 'port', (side,), {})
 
 
 def selftest() -> int:

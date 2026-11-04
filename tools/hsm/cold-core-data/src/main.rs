@@ -1,17 +1,20 @@
 use anyhow::{Context, Result};
-use std::io::{self, BufRead, Write};
+use std::io::{self, Write};
 
 fn main() -> Result<()> {
+    hsm_documents::interop::set_dispatch(|value| hsm_cold_core_data::request(&value));
     let args: Vec<_> = std::env::args().skip(1).collect();
     if args.first().map(String::as_str) == Some("--serve") {
-        let stdin = io::stdin();
-        let mut stdout = io::BufWriter::new(io::stdout().lock());
-        for line in stdin.lock().lines() {
-            let answer = line
-                .context("read request")
-                .and_then(|s| serde_json::from_str(&s).context("decode request"))
+        loop {
+            let mut line = String::new();
+            if io::stdin().read_line(&mut line)? == 0 {
+                break;
+            }
+            let answer = serde_json::from_str(&line)
+                .context("decode request")
                 .and_then(|r| hsm_cold_core_data::request(&r))
                 .unwrap_or_else(|e| serde_json::json!({"error": format!("{e:#}")}));
+            let mut stdout = io::stdout().lock();
             serde_json::to_writer(&mut stdout, &answer)?;
             writeln!(stdout)?;
             stdout.flush()?;

@@ -56,7 +56,7 @@ pub fn receive(stream: &UnixStream, limit: usize, timeout: Duration) -> Result<(
     let mut descriptors = Vec::new();
     loop {
         let mut buffer = [0u8; 8192];
-        let mut space = [MaybeUninit::uninit(); rustix::cmsg_space!(ScmRights(32))];
+        let mut space = [MaybeUninit::uninit(); rustix::cmsg_space!(ScmRights(512))];
         let mut ancillary = RecvAncillaryBuffer::new(&mut space);
         let received = {
             let _guard = DESCRIPTORS.lock().unwrap();

@@ -21,99 +21,33 @@ from _materials import M_NEOFIT_WHITE_ACETAL
 
 STEP = HERE/'neofit-stem-elbow.step'
 # Frozen measurements keep layout imports independent of local scan archives.
-PARAMETER_SNAPSHOT_SHA256 = 'a6d4486619514f64cad829bd281c90216c04cb94813d2784adea6a8a23fd5d8f'
-PARAMETERS = {'units': 'mm',
- 'material_id': 'HSM-000330',
- 'tube_od_mm': 6.35,
- 'stem_od_mm': 6.35,
- 'stem_tip_x_mm': -27.02535353479422,
- 'stem_shoulder_x_mm': -6.113547528963171,
- 'socket_mouth_y_mm': 21.082366093950743,
- 'stem_length_mm': 20.91180600583105,
- 'flow_bore_display_mm': 4.3,
- 'published_socket_insertion_mm': 16.891,
- 'fixed_nose_y_mm': 19.0,
- 'collet_start_y_mm': 19.08,
- 'bend_radius_mm': 5.066279836802499,
- 'collet_ellipse': {'center_xz_mm': [-0.06848629126006257, -0.05282793793301456],
-                    'angle_radians': 0.297310387790615,
-                    'minor_major_ratio': 0.8413251285872266},
- 'profiles': {'fixed_body_y': [[0.0, 5.11019],
-                               [4.95, 5.09439],
-                               [5.35, 5.13339],
-                               [5.45, 5.21773],
-                               [5.55, 5.42916],
-                               [5.65, 6.26253],
-                               [5.75, 6.53757],
-                               [5.95, 6.83879],
-                               [6.25, 7.10216],
-                               [6.65, 7.24498],
-                               [7.95, 7.30081],
-                               [8.55, 7.71255],
-                               [9.05, 7.83786],
-                               [14.95, 7.89743],
-                               [15.65, 7.86289],
-                               [15.95, 7.72594],
-                               [16.25, 7.45757],
-                               [16.45, 7.35603],
-                               [16.75, 7.30671],
-                               [17.95, 7.28925],
-                               [18.45, 7.07686],
-                               [18.65, 6.87668],
-                               [18.85, 6.34219],
-                               [18.95, 5.74134],
-                               [19.0, 5.74134]],
-              'release_collet_y': [[19.08, 6.08151],
-                                   [19.33, 6.11464],
-                                   [19.83, 5.93075],
-                                   [20.63, 5.85555],
-                                   [21.08237, 5.72046]],
-              'stem_x': [[-27.02535, 3.0],
-                         [-26.80535, 3.175],
-                         [-6.25355, 3.175],
-                         [-6.13355, 4.75],
-                         [-6.07535, 4.76682],
-                         [-5.97535, 4.91636],
-                         [-5.8, 4.99467],
-                         [-5.5, 5.08],
-                         [0.0, 5.08]]},
- 'scan_evidence_sha256': '3e0b546b32ac3c669df6d45378f6d28642550becc5c6e87d00e01f29baa7b559'}
 
-TUBE_OD = PARAMETERS['tube_od_mm']
-STEM_OD = PARAMETERS['stem_od_mm']
-STEM_TIP_REACH = -PARAMETERS['stem_tip_x_mm']
-HUB_BACK_REACH = -PARAMETERS['stem_shoulder_x_mm']
-STEM_LENGTH = PARAMETERS['stem_length_mm']
-SOCKET_MOUTH_REACH = PARAMETERS['socket_mouth_y_mm']
-SOCKET_INSERTION = PARAMETERS['published_socket_insertion_mm']
-COLLAR_OD = 2*max(r for y, r in PARAMETERS['profiles']['fixed_body_y'])
-OVERALL_STEM_AXIS = STEM_TIP_REACH+COLLAR_OD/2
-OVERALL_SOCKET_AXIS = SOCKET_MOUTH_REACH+PARAMETERS['bend_radius_mm']
-FLOW_BORE = PARAMETERS['flow_bore_display_mm']
+_reference_hardware = next(p for p in Path(__file__).resolve().parents if p.name == 'hardware')
+import sys as _reference_sys
+_reference_sys.path.insert(0, str(_reference_hardware / 'reference'))
+from _reference_data import data as _reference_data
+_reference_values = _reference_data('neofit_stem_elbow')
+globals().update({name: _reference_values[name] for name in ('PARAMETER_SNAPSHOT_SHA256', 'PARAMETERS', 'TUBE_OD', 'STEM_OD', 'STEM_TIP_REACH', 'HUB_BACK_REACH', 'STEM_LENGTH', 'SOCKET_MOUTH_REACH', 'SOCKET_INSERTION', 'COLLAR_OD', 'OVERALL_STEM_AXIS', 'OVERALL_SOCKET_AXIS', 'FLOW_BORE')})
+
+
 
 
 def socket():
-    """Captured release face and outward axis, millimetres."""
-    return (0., SOCKET_MOUTH_REACH, 0.), (0., 1., 0.)
+    'Captured release face and outward axis, millimetres.'
+    return _reference_data('neofit_stem_elbow', 'socket', (), {})
 
 
 def stem_tip():
-    return (-STEM_TIP_REACH, 0., 0.), (-1., 0., 0.)
+    return _reference_data('neofit_stem_elbow', 'stem_tip', (), {})
 
 
 def stem_shoulder():
-    return (-HUB_BACK_REACH, 0., 0.), (-1., 0., 0.)
+    return _reference_data('neofit_stem_elbow', 'stem_shoulder', (), {})
 
 
 def seated_host_mouth(insertion=12.7):
-    """Host release face after insertion; default is an unmeasured host estimate.
-
-    Specify the receiving fitting's actual engagement depth when known. The
-    family drawing's 16.891 mm female depth does not qualify every host socket.
-    """
-    if not 0 < insertion <= STEM_LENGTH:
-        raise ValueError('Insertion must fit within the male stem')
-    return (insertion-STEM_TIP_REACH, 0., 0.), (-1., 0., 0.)
+    "Host release face after insertion; default is an unmeasured host estimate.\n\n    Specify the receiving fitting's actual engagement depth when known. The\n    family drawing's 16.891 mm female depth does not qualify every host socket.\n    "
+    return _reference_data('neofit_stem_elbow', 'seated_host_mouth', (insertion,), {})
 
 
 def _turned_x(profile):

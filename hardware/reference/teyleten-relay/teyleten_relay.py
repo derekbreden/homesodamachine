@@ -26,36 +26,31 @@ PAYLOAD_PATH = _HERE / "teyleten-relay.step.mesh"
 ASSET_MANIFEST_PATH = _HERE / "frozen-asset.json"
 
 # --- Calipered geometry ---------------------------------------------------
-length = 70.0          # X
-width = 17.0           # Y
-pcb_t = 1.5            # PCB thickness
-envelope_z = 19.0      # pin tips to relay-can top
-pin_drop = 2.0         # pins below the PCB underside
-hole_dia = 3.2         # M3 clearance (diameter not calipered; assumed)
-hole_dx = 66.0 / 2.0   # +/-33 along length
-hole_dy = 13.0 / 2.0   # +/-6.5 across width
+
+_reference_hardware = next(p for p in Path(__file__).resolve().parents if p.name == 'hardware')
+import sys as _reference_sys
+_reference_sys.path.insert(0, str(_reference_hardware / 'reference'))
+from _reference_data import data as _reference_data
+_reference_values = _reference_data('teyleten_relay')
+globals().update({name: _reference_values[name] for name in ('length', 'width', 'pcb_t', 'envelope_z', 'pin_drop', 'hole_dia', 'hole_dx', 'hole_dy', 'name', 'holes', 'screw_blk_inset', 'screw_blk_h', 'header_inset', 'header_h', 'land_z')})
+
 
 # For the shared module-tray engine.
-name = "relay"
-holes = [(sx * hole_dx, sy * hole_dy) for sx in (-1.0, 1.0) for sy in (-1.0, 1.0)]
 
 # The two terminal groups, inboard of the corner holes at either end of the board: the
 # COM/NO/NC screw block on +X, the VCC/GND/IN header on −X. Both are entered from ABOVE, and
 # `land_z` is the one height a wire comes down to — the taller screw block's own top, which the
 # shorter header is served at as well.
-screw_blk_inset, screw_blk_h = 10.0, 10.0
-header_inset, header_h = 9.0, 8.5
-land_z = pcb_t + screw_blk_h
 
 
 def contacts():
-    """The COM/NO/NC screw block: `(position, outward axis)` in the relay's own frame."""
-    return ((length / 2.0 - screw_blk_inset, 0.0, land_z), (0.0, 0.0, 1.0))
+    "The COM/NO/NC screw block: `(position, outward axis)` in the relay's own frame."
+    return _reference_data('teyleten_relay', 'contacts', (), {})
 
 
 def logic():
-    """The VCC/GND/IN header, at the same landing plane."""
-    return ((-(length / 2.0 - header_inset), 0.0, land_z), (0.0, 0.0, 1.0))
+    'The VCC/GND/IN header, at the same landing plane.'
+    return _reference_data('teyleten_relay', 'logic', (), {})
 
 
 def main():

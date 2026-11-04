@@ -1,48 +1,32 @@
-"""Scalar requests for Rust's installed warm-tube and insulation geometry."""
+"""Typed compatibility surface for the machine's compiled Rust recipes."""
 from __future__ import annotations
-
-from copy import deepcopy
-import json
 from pathlib import Path
+import sys
+_source = Path(__file__).resolve()
+_hardware = next(parent for parent in _source.parents if parent.name == "hardware")
+sys.path.insert(0, str(_hardware / "scripts"))
+import dataclasses
+from dataclasses import dataclass
+from collections.abc import Mapping
+from typing import NamedTuple
+from _machine_data import Module as _RustModule, Surface as _RustSurface
+_compiled = _RustModule('_machine_routes')
 
+def numbers(*args, **kwargs):
+    return _compiled.call('numbers', *args, **kwargs)
 
-def numbers(routes, *, insulation=None, components=None, name="machine-routes"):
-    """Keep authored route order and existing world-placed equipment references.
+def equipment_inputs(*args, **kwargs):
+    return _compiled.call('equipment_inputs', *args, **kwargs)
 
-    A component reference is ``{"model": fine_npz_path, "indices": [body_indices]}``.
-    The insulation plan, palette and valve pose come from the equipment provider;
-    no CAD builder or installed-placement calculation is repeated here.
-    """
-    return {"name": name, "routes": deepcopy(routes), "route_order": list(routes),
-            "insulation": deepcopy(insulation), "components": deepcopy(components or {})}
+def build(*args, **kwargs):
+    return _compiled.call('build', *args, **kwargs)
 
+def __getattr__(name):
+    return _compiled.get(name)
 
-def equipment_inputs(request, model, groups):
-    """Select the holder and soft-neighbor groups from the equipment's fine model."""
-    insulation = request.get("insulation")
-    if insulation is None:
-        insulation = next((row for row in request.get("items", ())
-                           if row.get("op") == "insulation"), None)
-    components = {}
-    if insulation is not None:
-        for name in ("soda-bend-holder", *insulation["neighbors"]):
-            components[name] = {"model": str(Path(model)), "indices": list(groups[name])}
-    return {"routes": request["routes"], "insulation": insulation,
-            "components": components}
+def __dir__():
+    return _compiled.names()
 
-
-def build(output, routes, *, insulation=None, components=None, name="machine-routes"):
-    """Write paired fine geometry and ordered named-body metadata through Rust."""
-    import _rust_part
-
-    output = Path(output).resolve()
-    output.mkdir(parents=True, exist_ok=True)
-    _rust_part.cut("machine", "machine-routes",
-                   numbers(routes, insulation=insulation,
-                           components=components, name=name), output)
-    result = json.loads((output / f"{name}.json").read_text())
-    model = str(output / f"{name}.step.npz")
-    for instance in result["instances"]:
-        instance["model"] = model
-    result["model"] = model
-    return result
+_rust_functions = frozenset(['numbers', 'equipment_inputs', 'build'])
+_rust_exports = frozenset(['annotations', 'deepcopy', 'json', 'Path', 'numbers', 'equipment_inputs', 'build'])
+sys.modules[__name__].__class__ = _RustSurface

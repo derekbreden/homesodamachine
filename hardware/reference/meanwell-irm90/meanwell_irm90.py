@@ -24,51 +24,40 @@ PAYLOAD_PATH = _HERE / "meanwell-irm90.step.mesh"
 ASSET_MANIFEST_PATH = _HERE / "frozen-asset.json"
 
 # --- Measured / datasheet geometry ----------------------------------------
-width = 52.0           # X
-length = 109.0         # Y
-height = 33.5          # Z, potted-body top
-ledge_h = 6.7          # stepped terminal-end height
-ledge_len = 13.0       # Y length of each stepped end (terminals sit here)
-hole_dia = 3.5         # 4-ψ3.5, M3 clearance
-hole_dx = 33.0 / 2.0   # +/-16.5 across width
-hole_dy = 98.0 / 2.0   # +/-49 along length
-mass_g = 219.0
+
+_reference_hardware = next(p for p in Path(__file__).resolve().parents if p.name == 'hardware')
+import sys as _reference_sys
+_reference_sys.path.insert(0, str(_reference_hardware / 'reference'))
+from _reference_data import data as _reference_data
+_reference_values = _reference_data('meanwell_irm90')
+globals().update({name: _reference_values[name] for name in ('width', 'length', 'height', 'ledge_h', 'ledge_len', 'hole_dia', 'hole_dx', 'hole_dy', 'mass_g', 'holes', 'block_inset', 'block_h', 'block_w', 'block_len')})
+
 
 # The mount pattern in the module's own frame, on the base plane the bores are entered
 # from — the four M3 clearance holes, which run the potting's whole height, so an M3 goes
 # in from the top face and lands in whatever stands under the base.
-holes = [(sx * hole_dx, sy * hole_dy) for sx in (-1.0, 1.0) for sy in (-1.0, 1.0)]
 
 # Screw heads face +Z. Wire entries face out along the module's long axis,
 # +Y for AC and -Y for DC. Block dimensions are representative, not measured.
-block_inset = 6.0      # block centre in from the module's own end
-block_h = 7.0          # block height off its ledge
-block_w = {1.0: 16.0, -1.0: 25.0}    # +Y = AC (2-pole), -Y = DC (4-pole)
-block_len = 8.0
 
 
 def _block(sy):
-    return ((0.0, sy * (length / 2.0 - block_inset), ledge_h + block_h), (0.0, 0.0, 1.0))
+    return _reference_data('meanwell_irm90', '_block', (sy,), {})
 
 
 def ac_in():
-    """AC screw-head plane and screwdriver axis in the module's frame."""
-    return _block(1.0)
+    "AC screw-head plane and screwdriver axis in the module's frame."
+    return _reference_data('meanwell_irm90', 'ac_in', (), {})
 
 
 def dc_out():
-    """DC screw-head plane and screwdriver axis in the module's frame."""
-    return _block(-1.0)
+    "DC screw-head plane and screwdriver axis in the module's frame."
+    return _reference_data('meanwell_irm90', 'dc_out', (), {})
 
 
 def wire_entry(side):
-    """Representative wire-mouth centre and outward axis, AC +1 / DC -1.
-
-    Separate from the screw-head axis. The side-entry mouths and screw heads
-    require room in different directions.
-    """
-    return ((0.0, side * (length / 2.0 - block_inset + block_len / 2.0),
-             ledge_h + block_h / 2.0), (0.0, side, 0.0))
+    'Representative wire-mouth centre and outward axis, AC +1 / DC -1.\n\n    Separate from the screw-head axis. The side-entry mouths and screw heads\n    require room in different directions.\n    '
+    return _reference_data('meanwell_irm90', 'wire_entry', (side,), {})
 
 
 def main():

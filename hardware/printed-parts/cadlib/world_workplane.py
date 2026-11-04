@@ -101,27 +101,22 @@ import cadquery as cq
 # Box-face planes. xDir is the natural "right" direction for a viewer
 # looking AT the face from outside the box; normal is the face's
 # outward direction.
-xy_plane_z_up    = cq.Plane(origin=(0, 0, 0), xDir=(1, 0, 0), normal=(0, 0,  1))
-xy_plane_z_down  = cq.Plane(origin=(0, 0, 0), xDir=(1, 0, 0), normal=(0, 0, -1))
-xz_plane_y_up    = cq.Plane(origin=(0, 0, 0), xDir=(1, 0, 0), normal=(0,  1, 0))
-xz_plane_y_down  = cq.Plane(origin=(0, 0, 0), xDir=(1, 0, 0), normal=(0, -1, 0))
-yz_plane_x_up    = cq.Plane(origin=(0, 0, 0), xDir=(0, 1, 0), normal=( 1, 0, 0))
-yz_plane_x_down  = cq.Plane(origin=(0, 0, 0), xDir=(0, 1, 0), normal=(-1, 0, 0))
+from _scalar_provider import call as _rust_scalar
+for _name,_record in _rust_scalar('scalar.constants',group='world_workplane').items():
+    globals()[_name] = cq.Plane(**_record)
 
 
 def flip_y(world_xy):
     """World (x, y) → (x, -y). For planes whose local y-direction is the
     negative world Y axis (xy_plane_z_down)."""
-    x, y = world_xy
-    return (x, -y)
+    return tuple(_rust_scalar('scalar.flip',point=world_xy))
 
 
 def flip_z(world_ab):
     """World (a, z) → (a, -z). For planes whose local y-direction is the
     negative world Z axis (xz_plane_y_up, yz_plane_x_down). The first
     component is whichever world axis the plane's xDir lies on."""
-    a, z = world_ab
-    return (a, -z)
+    return tuple(_rust_scalar('scalar.flip',point=world_ab))
 
 
 _world_frames = []
@@ -254,6 +249,6 @@ class WorldWorkplane:
 # axis the user thinks of as "up" looking at that face. Register the
 # corresponding flip transforms; the other three default to identity
 # via `_lookup_frame`.
-_register_frame(xy_plane_z_down, point=flip_y, radius=lambda r: -r)
-_register_frame(xz_plane_y_up,   point=flip_z, radius=lambda r: -r)
-_register_frame(yz_plane_x_down, point=flip_z, radius=lambda r: -r)
+_register_frame(xy_plane_z_down, point=flip_y, radius=lambda r: _rust_scalar('scalar.negate',value=r))
+_register_frame(xz_plane_y_up,   point=flip_z, radius=lambda r: _rust_scalar('scalar.negate',value=r))
+_register_frame(yz_plane_x_down, point=flip_z, radius=lambda r: _rust_scalar('scalar.negate',value=r))

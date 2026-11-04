@@ -1,19 +1,29 @@
-"""Numbers for the enclosure's swept structural exterior, shared with its native builders."""
+"""Rust construction datums for the enclosure's swept exterior."""
+from __future__ import annotations
 
-import _swept_top
-from overhang_round import transition, OUTWARD_PER_HEIGHT
+import sys as _sys
+from pathlib import Path as _Path
 
+_hardware = next(p for p in _Path(__file__).resolve().parents if p.name == "hardware")
+_sys.path[:0] = [str(_hardware / "scripts"), str(_hardware / "printed-parts/enclosure/enclosure"), str(_hardware / "printed-parts/cadlib")]
+import _rust_part
+_rust_part.start()
+from _enclosure_compiled import compiled as _compiled
 
-def numbers(outer):
-    """The exact display profile and print-down roof sections; no native geometry is built."""
-    height, foot = transition(_swept_top.SIDE_RADIUS)
-    return {
-        "outer": outer,
-        "profile": _swept_top.profile(outer),
-        "standing_radius": _swept_top.FRONT_RADIUS,
-        "side_radius": _swept_top.SIDE_RADIUS,
-        "angle": _swept_top.ANGLE,
-        "roof_fill_sections": _swept_top.roof_fill_sections(outer),
-        "roof_transition": {"height": height, "foot": foot,
-                            "outward_per_height": OUTWARD_PER_HEIGHT},
-    }
+_rust_enclosure_module = '_enclosure_structure'
+
+def __getattr__(name):
+    if name == "__all__":
+        return _compiled('_enclosure_structure', action="public-names")
+    if name.startswith("__"):
+        raise AttributeError(name)
+    try:
+        return _compiled('_enclosure_structure', action="get", path=(name,))
+    except ValueError as error:
+        raise AttributeError(name) from error
+
+from _enclosure_compiled import install as _install
+_install(_sys.modules[__name__])
+
+if __name__ == "__main__":
+    _compiled('_enclosure_structure', action="main")

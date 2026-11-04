@@ -93,11 +93,9 @@ def same_document(left, right) -> bool:
 def write(box, bounds=(), path=ARTIFACT) -> Path:
     """Write one deterministic description, atomically."""
     target = Path(path)
-    target.parent.mkdir(parents=True, exist_ok=True)
-    text = json.dumps(document(box, bounds), indent=1, sort_keys=True) + "\n"
-    tmp = target.with_name(f".{target.name}.{os.getpid()}.tmp")
-    tmp.write_text(text, encoding="utf-8")
-    os.replace(tmp, target)
+    _request('write_json', path=str(target), value=document(box, bounds), indent=1)
+    from _cadq_export import note_write
+    note_write(target)
     return target
 
 
