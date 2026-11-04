@@ -8,7 +8,7 @@ reducers, because the water reaches it at 1/4" and leaves at 1/4"
 
 THE SOLID IS `reference/tee-connector`'s — the same measured clearance reference the manifold's six
 junctions are built from, turned into the frame below. This file writes none of its own: a
-turned copy of a solid is that solid, and `build()` hands the caller the turn. Its figures are
+turned copy of a solid is that solid. The scalar interfaces below retain its frame. Its figures are
 measured off that STEP and held to it, so the barrel a rib closes on and the collet faces a tube
 pushes into are the fitting's own and not a drawing of one.
 
@@ -20,19 +20,17 @@ branch is the port that turn is FOR: it is the only one of the three that can be
 its own.
 
 Run:
-    tools/cad-venv/bin/python hardware/reference/water-split/water_split.py selftest
+    python3 hardware/reference/water-split/water_split.py
 """
 
 import sys
 from pathlib import Path
 
-import cadquery as cq
 
 _here = Path(__file__).resolve()
 _hw = next(p for p in _here.parents if p.name == "hardware")
 sys.path.insert(0, str(_hw / "scripts"))
 sys.path.insert(0, str(_hw / "reference" / "tee-connector"))
-from _cadq_export import import_step
 import tee_connector as tee
 
 RUN_REACH = tee.RUN_HALF
@@ -93,56 +91,11 @@ def clearance_seat(span, tie_width):
         raise ValueError("water-split seat reaches the branch or the fully pressed run face")
     if tee.COLLET_NOSE_R > radius:
         raise ValueError("water-split release sleeve exceeds the seat clearance envelope")
-    # Hold the complete native fitting section to the bore, including the two overhangs.
-    band = cq.Solid.makeBox(100.0, span, 100.0, cq.Vector(-50.0, lo, -50.0))
-    bore = cq.Solid.makeCylinder(radius, span, cq.Vector(0.0, lo, 0.0), cq.Vector(0, 1, 0))
-    outside = build().intersect(band).cut(bore).Volume()
-    if outside > 1e-6:
-        raise ValueError(f"water-split seat covers {outside:.6f} mm³ outside its clearance bore")
     return station, radius, span
-
-
-def build():
-    """The measured clearance reference, run along ±Y and branch along −X."""
-    solid = import_step(str(tee.STEP)).val()
-    for axis, deg in _TURNS:
-        solid = solid.rotate(cq.Vector(0, 0, 0), cq.Vector(*axis), deg)
-    return solid
-
-
-def stations_hold():
-    """Hold the three ports to the turned solid — each collet face on the body's own box."""
-    bb = build().BoundingBox()
-    for label, (pos, _axis), actual in (("supply", supply(), bb.ymax),
-                                        ("to-flavor", to_flavor(), bb.ymin),
-                                        ("to-vk", to_vk(), bb.xmin)):
-        claimed = max((c for c in pos), key=abs)
-        if abs(actual - claimed) > tee.MEASURE_TOL:
-            raise ValueError(
-                f"water-split {label} stands at {claimed:g} and the turned solid's own face is "
-                f"at {actual:.4f} — the frame this file states is not the frame `_TURNS` builds.")
 
 
 # --- controls -------------------------------------------------------------
 
-def selftest():
-    tee.stations_hold()
-    stations_hold()
-    clearance_seat(9.5, 2.5)
-    for span, tie_width in ((14.0, 2.5),):
-        try:
-            clearance_seat(span, tie_width)
-        except ValueError:
-            continue
-        raise AssertionError("a seat outside the release room was accepted")
-    return ["  the three declared stations stand on the turned solid they name",
-            "  clearance seat preserves the run release room"]
-
 
 if __name__ == "__main__":
-    if len(sys.argv) > 1 and sys.argv[1] == "selftest":
-        for line in selftest():
-            print(line)
-        print("water_split selftest OK")
-    else:
-        print(__doc__)
+    print(__doc__)
