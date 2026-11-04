@@ -6,8 +6,8 @@ The shell's internal vessel and reservoir datums are independent of its upper ri
 
 `foam_cap.py` derives the current equipment and casing datums for `foam_cap.rs`,
 which writes the four pieces' STEP, full-precision model and print mesh. The
-generator cuts their viewer payloads from the print meshes. Its `--native` option
-retains the construction surfaces used by native assembly and installation readers.
+generator cuts their viewer payloads from the print meshes. Assembly and installation
+readers use the saved full-precision models.
 
 ## Top lid
 
