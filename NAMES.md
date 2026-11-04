@@ -65,7 +65,7 @@ they became.
 | **PRV shroud** | the printed cup over the pressure-relief valve, keeping the pour off it | |
 | **funnel** | the part flavor concentrate is poured into, with its own drain plug | hopper |
 | **valve tray** | either of the two four-seat plates fused into `enclosure-front-top` that the solenoids stand on | valve panel |
-| **bulkhead ring** | the labelled printed chip in a pocket around one through-wall fitting | port ring |
+| **bulkhead ring** | the labelled printed tile in the rear wall's channel, bored for one through-wall fitting | port ring |
 | **pump tray** | either of the two fused beds on the pump cradle's deck that a peristaltic pump sits in | |
 | **flow-meter anchor** | either of the two back-top east-wall carriers the flow meter's fixed collars seat in, each closed by a zip tie | flow-meter saddle, saddle |
 | **reed bridge** | the printed interposer holding a level reed to the carbonator and carrying the coil wrap over it | |
