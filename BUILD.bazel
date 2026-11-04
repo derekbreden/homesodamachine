@@ -16379,10 +16379,8 @@ genrule(
         "pysrc/tools/install-guide/landscape.py",
         "pysrc/tools/install-guide/press.py",
         "tools/install-guide/render-contours.mjs",
-        "tools/render/browser.js",
         "tools/run-slots.mjs",
         "pysrc/tools/run.py",
-        ":node-packages",
     ],
     outs = [
         "out/install-guide-build/hardware/install-guide/install-guide.cover.png",
@@ -16397,7 +16395,6 @@ genrule(
         "out/install-guide-build/output/pdf/install-guide-lulu-order.zip",
         "out/install-guide-build/output/pdf/install-guide.pdf",
     ],
-    tags = ["requires-network"],
     cmd = """
 set -e
 case "$$(uname -s)" in

@@ -113,7 +113,8 @@ fonts, images and reading links. `out/` holds local renders and layout measureme
 rendered page at reading size before publishing.
 
 The composer and preflight use the CAD Python environment with ReportLab, Pillow, pypdf and
-pdfplumber, plus Poppler's `pdftoppm` and `pdfimages` commands.
+pdfplumber, Node.js, librsvg's `rsvg-convert`, and Poppler's `pdftoppm` and `pdfimages` commands.
+Contour images are rasterized at 432 PPI.
 
 ## Print
 
