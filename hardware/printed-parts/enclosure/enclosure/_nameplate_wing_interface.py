@@ -87,7 +87,7 @@ def apply(solid, station, y_outer, *, supported=SUPPORTED_END_AIR, up=-1,
     if crown_face is not None and y_outer > crown_face:
         proud = y_outer-crown_face
         crown = (cq.Workplane('YZ',origin=(-pw,0,0))
-                 .polyline([(THICK-proud,zedge-up*.01),(THICK+.01,zedge-up*.01),
+                 .polyline([(THICK-proud-.01,zedge-up*.01),(THICK+.01,zedge-up*.01),
                             (THICK+.01,zedge+up*(proud+.01))])
                  .close().extrude(2*pw).val())
         pad = pad.cut(crown)

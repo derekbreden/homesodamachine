@@ -218,7 +218,7 @@ def _wing_receiver(graph, wing, solid, station, y_outer, *, supported=None, up=-
             cut_yz(((rear,end),(wall_y,end),(rear,end-up*run)))
     if crown_face is not None and y_outer>crown_face:
         proud = y_outer-crown_face
-        cut_yz(((wing.THICK-proud,edge-up*.01),(wing.THICK+.01,edge-up*.01),
+        cut_yz(((wing.THICK-proud-.01,edge-up*.01),(wing.THICK+.01,edge-up*.01),
                 (wing.THICK+.01,edge+up*(proud+.01))))
     solid = solid.fuse(pad.translate(shift))
     mouth = _rounded(graph,2,(-width/2-wing.FACE_X_AIR,width/2+wing.FACE_X_AIR,

@@ -9,11 +9,13 @@
     "hardware/manifold-layout/rear_snaps.py": "a02224bf754055e126dfa4a600b825d717875c29c509189ff31ed53b06fe067e",
     "hardware/printed-parts/enclosure/rear-identification/rear_identification.py": "1d1be22c6a04e1f9373c5f9fed2b02c09997016a2db2eb67e168fa117f08ee65",
     "hardware/printed-parts/enclosure/rear-identification/rear_identification.rs": "e54c501da176f80ebe44b30fb515efbb33b45cefb4a2ac5f067bbf286f8ffb12",
-    "hardware/printed-parts/enclosure/enclosure/_enclosure_back_top.py": "a9a5657859bf1db49b20eed285ef9dfce1f237b8340e8f875fcb85a319f41e7d",
+    "hardware/printed-parts/enclosure/enclosure/_enclosure_back_top.py": "ac642b09ca153d2d7da3a3b4f55adb2b110b53ffa328dcf0399147bdead59c33",
     "hardware/printed-parts/enclosure/enclosure/_enclosure_panel.py": "3aff5d1f47fba8e4419a283b8a87b60edf8a6c1b62029689a81807944d00800d",
     "tools/hsm/layout-data/src/rear.rs": "0ff75c017931acf677a65c9a0a4a3cbeca6aa45c0a9b36e6f9a0394f86ee774c",
     "tools/hsm/machine-data/src/equipment.rs": "1e8dfa4d5316a41b0363cd7aa60ec6b47a2b5ac1dc1d233c2fb1f6604015c84f",
-    "hardware/manifold-layout/enclosure-assembly.step.npz": "42abdb7f53cf4ccefe6c5a0a315838618f7b15c8615026d91a6f1bb8cd9f857c"
+    "hardware/manifold-layout/enclosure-assembly.step.npz": "6017b887d3aa3224f69ecc8c833068169d2508782f9cef1beb942f488878e852",
+    "hardware/printed-parts/enclosure/enclosure/enclosure_back_top.rs": "83d253d9d8d3f24efcc001b7b8a635d7269375bd8748a58d29c976e59652a05f",
+    "hardware/printed-parts/enclosure/enclosure/_nameplate_wing_interface.py": "5469c5fc3d96421be57b3eb90289795b6d1b25b635b03cf882d6b2ca2f710bd2"
   },
   "labels": {
     "co2": {
@@ -860,5 +862,119 @@
     "source_sha256": "d44ed6549ef4324cc3ad76fbd00788d2cf2707f63b95d42d33ec110f374edd55",
     "receiver_candidates": {},
     "route_count": 119
+  },
+  "nameplate_crown": {
+    "method": "Bidirectional solid difference within the complete receiver region against the accepted-layout preview. The change lies above the mating pocket.",
+    "difference_mm3": 1.2188446387298582,
+    "difference_bounds_mm": [
+      -55.95671844482422,
+      471.29998779296875,
+      221.19268798828125,
+      56.814998626708984,
+      473.5,
+      223.39263916015625
+    ],
+    "mating_pocket_top_z_mm": 219.15
+  },
+  "printed_rail_stock": {
+    "outer_rail_root": [
+      {
+        "distance": 0.20625019073486328,
+        "position": [
+          97.6500015258789,
+          470.5,
+          270.0
+        ]
+      },
+      {
+        "distance": 0.5812501907348633,
+        "position": [
+          100.6500015258789,
+          470.5,
+          270.0
+        ]
+      }
+    ],
+    "left_card_lip": [
+      {
+        "distance": 0.21666463216145834,
+        "position": [
+          8.7,
+          471.29998779296875,
+          270.0
+        ]
+      },
+      {
+        "distance": 0.7166646321614584,
+        "position": [
+          8.7,
+          474.29998779296875,
+          270.0
+        ]
+      }
+    ],
+    "middle_card_lip": [
+      {
+        "distance": 0.21666463216145834,
+        "position": [
+          49.5,
+          471.29998779296875,
+          270.0
+        ]
+      },
+      {
+        "distance": 0.7166646321614584,
+        "position": [
+          49.5,
+          474.29998779296875,
+          270.0
+        ]
+      }
+    ],
+    "stl_sha256": "95c724476d3bd90f3e5549c2a65b011ac8b6e446f6941714761c147403bd8dcc"
+  },
+  "surface_checker": {
+    "points": [
+      [
+        -83.329,
+        462.253,
+        312.728
+      ],
+      [
+        -85.0,
+        459.899,
+        310.451
+      ]
+    ],
+    "closest": [
+      [
+        -83.32899999999998,
+        462.21549508228793,
+        312.76549815519536
+      ],
+      [
+        -85.00000001148877,
+        459.89999875048903,
+        310.4500011955321
+      ]
+    ],
+    "distances_mm": [
+      0.05303518167822861,
+      0.001412484656430263
+    ],
+    "normals": [
+      [
+        0.0,
+        -0.70717053331898,
+        0.7070430233057599
+      ],
+      [
+        8.133719065457161e-06,
+        -0.707087673116262,
+        0.7071258886937127
+      ]
+    ],
+    "same_continuous_five_degree_patch": true,
+    "patch_faces": 12
   }
 }

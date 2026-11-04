@@ -7,10 +7,10 @@ click: x=-64.000 y=462.250 z=283.320
 [thin] Accepted wing-retention lips: each row is the flat lip over a sideways wing slot of the DATA plate or nameplate receiver, 1.23 mm thick (plate 3.36 - wing 1.68 - 0.45 air), thinning to 0.83 mm at the slot mouth along the 1.10 x 0.40 mm entry bevel; the lint reads it 1.02 mm through, partway up the bevel. `plain_lips` keeps the flutes off it. This receiver geometry is the one physically accepted on 2026-09-30 (nameplate/horizontal-wing-trial/physical-acceptance.json).
 alternatives: A thicker lip needs a thicker plate or a thinner wing, each a change to the accepted fit.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=-91.128 y=473.500 z=241.129
-click: x=15.142 y=473.500 z=215.092
-click: x=-91.097 y=473.500 z=214.460
-click: x=15.110 y=473.500 z=221.042
+click: x=-53.097 y=473.500 z=186.460
+click: x=-52.751 y=472.548 z=186.460
+click: x=53.110 y=473.500 z=193.042
+click: x=52.762 y=472.544 z=193.042
 
 [thin] Approved by Derek as drawn: the keystone receptacle's two catches across its pocket's inner end, the upper 1.4 mm and the lower 1.3 mm thick (`CATCH_UPPER`, `CATCH_LOWER` in hardware/reference/riteav-keystone/riteav_keystone.py), which the jack's tang and latch hook. Test fits have held the jack stable, and they print. The delivered jack has nothing behind the upper catch where the model's block rises, so either catch has room to grow inboard should a fit ever ask for it. Derek, 2026-10-22: "So make a note of that in case it matters later, but test fitting has been good so far and quite stable and all printable, so let's leave it be. Approved as is."
 alternatives: A thicker catch grows inboard, into the room the delivered jack leaves behind it; its face toward the opening is the jack's seat and stays where it is.
@@ -27,17 +27,14 @@ click: x=-71.311 y=461.600 z=304.714
 [ledge] Accepted receiver wing-slot ends: the print-down ends of the DATA and nameplate wing slots, 2.55 x 2.28 mm, bridged between the slot floor and the lip with their 0.15 + 0.25 mm allowance. verify_geometry.py holds the receiver to the accepted coupon.
 alternatives: 45° slot ends would change the receiver that the accepted nameplate coupon (horizontal-wing-trial/physical-acceptance.json) qualified.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=-91.597 y=471.557 z=212.600
-click: x=15.456 y=471.557 z=212.600
-click: x=15.616 y=471.557 z=212.600
-click: x=-91.928 y=471.571 z=212.600
-click: x=15.861 y=471.589 z=212.600
+click: x=-53.632 y=471.510 z=184.600
+click: x=53.632 y=471.510 z=184.600
 
 [slope] Wrong slope classification for the nameplate's release diamond: its two roof faces stand 48° through the host wall and the receiver pad, Y462.3 to the pocket floor, a through-opening's gable roof carried by the stock beside it at every layer, not a corbel running along a wall.
 alternatives: Read hole roofs separately from sideways corbels.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=-33.500 y=467.770 z=223.000
-click: x=-42.500 y=467.770 z=223.000
+click: x=-4.501 y=467.770 z=194.999
+click: x=4.500 y=467.770 z=195.000
 
 [sliver] Required transition between two running fits: aft of the front tongue and its knuckles back-top's wall face stays at |X|104.5, one fit outside front-top's tongue; from the back rail's closed end it steps 0.75 mm in to the channel's standing wall, one slip outside the head.
 alternatives: Either face moved onto the other closes a running fit.
@@ -54,7 +51,7 @@ click: x=-92.250 y=323.800 z=185.600
 [ceiling] Unavoidable fitted plate ends: these nameplate and DATA body mouths retain the shared static and supported-face allowances at their complete lower outlines. Support leaves through the empty rear-facing mouths before plate installation; cleanup remains unqualified.
 alternatives: Filling reduces body-end clearance. Tapering removes part of the fitted perimeter; enlarging changes the locating boundary.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=-38.000 y=471.745 z=208.600
+click: x=0.000 y=471.745 z=180.600
 
 [ceiling] Unavoidable square slide-capture profiles: these Z168.70 flats are the rear top feet beneath bottom catches at Z169.45, with the defined running and supported-face allowance. Support can leave the open channels before assembly; cleanup remains unqualified.
 alternatives: Sloping changes the capture bearing. Filling enters the slide path; cutting away the overlap loses retention.
@@ -502,9 +499,11 @@ click: x=95.550 y=419.360 z=269.825
 [ceiling] The meter's fitted boss and housing passages include their sixteen-millimetre fore-loading corridor. These supported undersides follow that loading envelope. Tree(auto)/Default supplies removable support through the open receiver before hardware insertion, using the cavity post-processing tool recorded for this trial.
 alternatives: Filling these passages blocks the measured bosses or the insertion slide. A ramp within them consumes the hardware's fitted bearing or loading volume. The sample retains the production parent's roof-down print orientation.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=88.300 y=407.835 z=260.300
-click: x=88.450 y=392.628 z=264.500
-click: x=88.450 y=423.042 z=264.500
+click: x=90.775 y=414.759 z=312.450
+click: x=90.950 y=414.759 z=307.100
+click: x=85.625 y=414.759 z=309.950
+click: x=88.300 y=406.594 z=263.500
+click: x=88.450 y=391.387 z=267.700
 
 [ledge] Fitted v3 snap catch: the horizontal pocket projects 2.85 mm for 2.60 mm hook engagement and 0.25 mm running allowance. The free cap leaves are 2.0 mm with R1.5 roots; receiver walls retain 3 mm stock. These square faces provide positive capture. Tree(auto)/Default supports leave through the empty flank mouths before hardware and caps are fitted; the exposed leaves can be spread to release the catches. Physical release force and repeated bending remain unqualified.
 alternatives: Filling the pocket occupies the moving hook and leaf. Sloping its bearing makes a withdrawal ramp; reducing its reach reduces the selected capture. Increasing the wall thickness does not remove this working catch surface.
@@ -522,3 +521,19 @@ alternatives: Raising the snap-pocket ceiling changes the cap's tip clearance an
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=64.769 y=441.198 z=345.350
 click: x=0.000 y=368.346 z=346.000
+
+[ceiling] Lower loading stop of each continuous identification-card channel at Z240.6. The 2 mm-deep flat locates the stack of three rectangular cards before the bulkheads clamp them. Back-top prints ceiling-down; Tree(auto)/Default supports leave through the open rear channels before cards and fittings are installed.
+alternatives: Removing the stop loses the stack's loading datum. A sloping stop needs a matching wedge on the bottom card and changes the requested rectangular color face. Separate stops add small features and edges.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=28.800 y=470.299 z=240.600
+click: x=76.500 y=470.299 z=240.600
+
+[sliver] Complete upper ASSE hex-bearing facet. The receiver follows the six flat directions of the measured wrench profile; this 0.793 mm-wide face is the transition between its adjacent upper bearing planes. The ASSE cap and receiver retain their conforming hex fit.
+alternatives: A circular cavity abandons the requested hex conformity. Moving one flat onto the neighboring plane changes the fitted wrench clearance; deleting the transition removes part of the upper hex bearing.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=20.692 y=401.452 z=345.689
+
+[step] Wrong plane grouping on the continuous rear-well corbel. Both reported groups belong to one connected twelve-triangle patch within five degrees of the same 45-degree normal; the closest actual normals differ by 0.0067 degrees. The first reported pick lies 0.053 mm off the printed surface because it averages those facets. No transverse step face separates them. The native rear-identification review records the mesh query. Reported to Derek.
+alternatives: Group connected low-curvature facets before comparing plane offsets. Flattening this continuous corbel changes the well envelope without removing a geometric step.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=-83.329 y=462.253 z=312.728

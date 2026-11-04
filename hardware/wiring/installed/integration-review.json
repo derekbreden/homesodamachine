@@ -5,10 +5,10 @@
     "enclosure-assembly.step",
     "enclosure-assembly.step.mesh"
   ],
-  "installed_step_sha256": "e5e0a84b263c7c65cbba348842d8d83385a3e2d8df26dc961513732063f9a663",
+  "installed_step_sha256": "cc0c10ac8cbbc8cefd1ee0e0b59b0b0e1d19797b14009c56eba5390dd9d4a736",
   "physical_meshes_retained": 438,
   "physical_records_retained": 12285,
-  "physical_step_sha256": "aec47cc9070f01b8c9eea1ac2928996670d12d6d96aae81ce6109ff8cb386e69",
+  "physical_step_sha256": "7e82a2db09ed28304bf31831af7157f8297a633513d5355c2d41192574a786aa",
   "schema": 1,
   "scope": "Wiring-only integration; existing physical parts retained",
   "wiring_fine_model": {
