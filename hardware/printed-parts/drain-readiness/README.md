@@ -13,19 +13,15 @@ The [assembly instructions](../../assembly/asse-drain.md) list every drain plumb
 part with its Fresh Water Systems link.
 
 The delivered editable projects are in [projects](projects/) and their sliced
-archives are in [ready](ready/). The [manifest](manifest.json) binds the finalized
-plates and the five finalized faucet plates to their source geometry and reviews.
-The generators use `.cache/prints/2026-10-07-drain/`
-as their local working directory. Prepare, read and finalize the identification plates with:
+archives are in [ready](https://github.com/derekbreden/homesodamachine/tree/33d50d2ecd2a0fb6b518483a44c8031e3a0c1617/hardware/printed-parts/drain-readiness/ready).
+The [manifest](manifest.json) binds the finalized plates and the five finalized faucet plates
+to their source geometry and reviews.
 
-```sh
-tools/cad-venv/bin/python hardware/printed-parts/drain-readiness/prepare.py labels
-tools/cad-venv/bin/python hardware/printed-parts/drain-readiness/review_native.py
-tools/cad-venv/bin/python hardware/printed-parts/drain-readiness/finalize_prints.py
-```
-
-The scripts use the installed Bambu Studio and submit no printer jobs. The checks
-read emitted roads and bind the native archives to their source meshes by hash.
+The scripts that prepare, read and finalize the identification plates, `prepare.py labels`,
+`review_native.py` and `finalize_prints.py`, are at the
+[`archive-finished-trials`](https://github.com/derekbreden/homesodamachine/tree/archive-finished-trials/hardware/printed-parts/drain-readiness) tag. They work in
+`.cache/prints/2026-10-07-drain/`, use the installed Bambu Studio and submit no printer jobs.
+Their checks read emitted roads and bind the native archives to their source meshes by hash.
 
 ## Identification plates
 

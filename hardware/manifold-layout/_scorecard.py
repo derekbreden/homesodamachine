@@ -455,9 +455,9 @@ MOUNTS = (
     ("bulkhead-ring-flavor-b", "enclosure-back-top", "well"),
     ("bulkhead-ring-drain", "enclosure-back-top", "well"),
     # AND THE WORD LIES IN A RECESS OF THE CHIP, by the same bargain one step in. A two-colour
-    # print is ONE part in two materials: `bulkhead_ring.build_ring` cuts the recess and
-    # `bulkhead_ring.build_word` fills it in the same layers, so nothing joins the pair but the print
-    # that lays them both. `RIDES` is what keeps this from counting as a second joint.
+    # print is ONE part in two materials: `rear_identification.chip` cuts the recess and
+    # `rear_identification.word` fills it in the same layers, so nothing joins the pair but the
+    # print that lays them both. `RIDES` is what keeps this from counting as a second joint.
     ("bulkhead-ring-water-word", "bulkhead-ring-water", "well"),
     ("bulkhead-ring-carb-word", "bulkhead-ring-carb", "well"),
     ("bulkhead-ring-co2-word", "bulkhead-ring-co2", "well"),
