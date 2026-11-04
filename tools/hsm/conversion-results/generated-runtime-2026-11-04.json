@@ -1,0 +1,102 @@
+{
+  "date": "2026-11-04",
+  "scope": "Run and compile cost of the generated recipe, reader and document modules; their opt-level 0 profile; the condenser reference's OpenCASCADE import",
+  "source_revisions": {
+    "before_recipe_port": "d6a0b281d",
+    "head": "a78cf15ba",
+    "compile_sources": "a78cf15ba enclosure-data, cold-core-data and hsm-documents, private target directory"
+  },
+  "generated_modules": {
+    "form": "One initialize function per module over hsm_documents::interop::Val; Python names resolve at run time through Env scopes; modules outside the compiled set import through the Python adapter callback",
+    "generator_retained": false,
+    "crates": {
+      "enclosure-data": {"generated_files": 44, "megabytes": 4.37, "python_modules": 43, "python_lines": 13119},
+      "machine-data": {"generated_files": 25, "megabytes": 2.03, "python_modules": 21, "python_lines": 10052},
+      "cold-core-data": {"generated_files": 50, "megabytes": 3.09, "python_modules": 50, "python_lines": 8761},
+      "guides": {"generated_files": 22, "megabytes": 2.44, "python_modules": 21, "python_lines": 5083}
+    },
+    "python_lines_basis": "Non-blank, non-comment lines of the same-named modules at d6a0b281d, docstrings included",
+    "largest_module": {"path": "tools/hsm/enclosure-data/src/compiled/enclosure.rs", "lines": 31539, "closures_in_initialize": 279}
+  },
+  "bazel_step_durations": {
+    "before": {"output_base": "676256c57461751d37a0a850b4deca80", "build_id": "6b7f17df-6204-443a-8ea9-2698a9f07474", "date": "2026-11-04T03:36:18Z", "genrules": 404},
+    "after": {"output_base": "1855e507c3cd29981c8e2f2da6e530c0", "build_id": "d621b781-c1f3-4b63-abad-cc0f7b033642", "date": "2026-11-04T20:54:36Z", "genrules": 430},
+    "common_genrules": 404,
+    "sum_seconds": {"before": 733, "after": 1375},
+    "basis": "Profile durations of full builds on the shared host; not matched runs",
+    "largest_increases_seconds": {
+      "install-guide-build": [50.3, 138.5], "enclosure-box": [23.3, 74.2], "bom-masses": [7.2, 44.1],
+      "foam-cap": [2.8, 31.1], "fluid-topology-sync": [4.3, 28.6], "enclosure-dimensions": [4.6, 26.0],
+      "enclosure-mechanical-sync": [4.3, 24.5], "cold-core-sync": [1.2, 24.0], "internal-plumbing-sync": [4.2, 22.3],
+      "cold-core-assembly": [3.3, 21.7], "reed-bridge": [2.3, 21.3], "refrigerant-loop-sync": [0.6, 17.7]
+    },
+    "largest_decreases_seconds": {
+      "enclosure": [157.6, 64.1], "plumbing-scenes": [93.3, 4.3], "render-modern-tee": [93.0, 5.1],
+      "enclosure-assembly": [127.1, 108.2], "manifold-layout": [16.7, 6.1]
+    }
+  },
+  "matched_steps": {
+    "method": "Genrule work directory rebuilt from the revision's sources and committed generated inputs; generator run directly; CPU is user plus system of the generator and its waited Rust workers; median of three warm runs",
+    "cold-core-sync": {
+      "d6a0b281d": {"cpu_seconds": 0.27, "wall_seconds": 0.28, "max_rss_mb": 31.6},
+      "a78cf15ba": {"cpu_seconds": [2.45, 2.56], "wall_seconds": [6.71, 6.9], "note": "Two clean warm runs; the other two recompiled crates after concurrent source edits"}
+    },
+    "enclosure-dimensions": {
+      "d6a0b281d": {"cpu_seconds": 2.0, "wall_seconds": 2.63, "max_rss_mb": 113.2},
+      "a78cf15ba": {"cpu_seconds": 7.34, "wall_seconds": 16.98, "max_rss_mb": 338.9},
+      "a78cf15ba_with_lazy_condenser_ocp": {"cpu_seconds": 3.31, "wall_seconds": 7.68, "python_max_rss_mb": 83.6}
+    },
+    "concurrent_recompiles_observed_cpu_seconds": [394.4, 257.4, 241.0]
+  },
+  "native_cad_load": {
+    "observed": "enclosure-dimensions at a78cf15ba loaded OCP.OCP: the generated enclosure modules import hardware/reference/condenser-block/condenser_block.py through the adapter callback, and its module-level OCP imports loaded OpenCASCADE",
+    "normal_entrypoints_reading_condenser_block": 8,
+    "static_scan": "Of the 341 Python files the build graph reads, condenser_block.py is the only one importing OCP or meshcad at module level",
+    "after_lazy_import": "cadquery deferred; no OCP or meshcad module loaded in cold-core-sync or enclosure-dimensions"
+  },
+  "compile": {
+    "command": "cargo build --release -j2 -p <crate>, private target, deps already built",
+    "enclosure-data": {
+      "opt3_debug1_full": {"wall_seconds": 238.98, "cpu_seconds": 365.86, "max_rss_gb": 1.41},
+      "opt3_debug1_comment_edit_enclosure_rs": {"wall_seconds": 260.08, "cpu_seconds": 385.66, "max_rss_gb": 0.94},
+      "opt3_comment_edit_passes_seconds": {
+        "total": 351.1, "type_check_crate": 29.1, "MIR_borrow_checking": 34.6,
+        "monomorphization_collector_graph_walk": 34.0, "codegen_to_LLVM_IR": 22.4,
+        "LLVM_passes": 92.7, "LLVM_thinlto": 145.3, "finish_ongoing_codegen": 146.7
+      },
+      "opt1_debug0_full": {"wall_seconds": 450.12, "cpu_seconds": 371.19, "max_rss_gb": 1.25, "note": "contended wall time"},
+      "opt0_debug0_full": {"wall_seconds": 98.69, "cpu_seconds": 106.9, "max_rss_gb": 0.73},
+      "opt0_debug0_comment_edit_enclosure_rs": {"wall_seconds": 84.22, "cpu_seconds": 76.78, "max_rss_gb": 1.29}
+    },
+    "cold-core-data": {
+      "opt3_debug1_full": {"wall_seconds": 243.97, "cpu_seconds": 278.07, "max_rss_gb": 0.5},
+      "opt0_debug0_full": {"wall_seconds": 32.13, "cpu_seconds": 34.65, "max_rss_gb": 0.84}
+    }
+  },
+  "opt_level_runtime": {
+    "method": "Same staged work directory; only the named workers' binaries differ; alternating warm runs, median of three",
+    "binaries_sha256": {
+      "enclosure-data-opt3": "1617c3f6de692e2cc5a8f73eab33bf71ff1d0263d0c58d18609e0a0bd0d06bfd",
+      "enclosure-data-opt0": "512a9d552dc57f15668f268b4f09b0e6305a759ef2c67478f576676029ab55b7",
+      "cold-core-data-opt3": "3405a40864c222dfb137562a91d7785f7ea4d39e5d39fd38e9a53577034075e1",
+      "cold-core-data-opt0": "7a035fc6909d3b092f1a44b080cb4b81981649748066f51da7cc8443108ff5cd"
+    },
+    "enclosure-dimensions": {"opt3_cpu_seconds": 5.12, "opt0_cpu_seconds": 4.34, "swapped": ["enclosure-data"]},
+    "cold-core-sync": {"opt3_cpu_seconds": 1.71, "opt0_cpu_seconds": 1.93, "swapped": ["enclosure-data", "cold-core-data"]},
+    "enclosure-box": {"opt3_cpu_seconds": 48.72, "opt0_cpu_seconds": 41.17, "opt3_runs": [40.3, 48.72, 109.32], "opt0_runs": [71.14, 41.17, 34.8], "swapped": ["enclosure-data"]}
+  },
+  "output_identity": {
+    "method": "SHA-256 of every file the staged step leaves, opt-level 3 workers against opt-level 0 workers",
+    "cold-core-sync": {"files": 329, "differ": 0},
+    "enclosure-dimensions": {"files": 661, "differ": 0},
+    "enclosure-box": {"files": 662, "differ": 0},
+    "cold-core-assembly": {"files": 403, "differ": 0},
+    "foam-cap": {"files": 384, "differ": 0}
+  },
+  "workspace_build": "The shared target rebuilt enclosure-data and cold-core-data under the opt-level 0 profile from the main checkout's sources at 16:33 local time, 2026-11-04",
+  "kept_optimized": {
+    "machine-data": "Hand-written archive decoding and curvature loops",
+    "guides": "Hand-written per-vertex and per-pixel mask loops"
+  },
+  "automatic_checks_added": false
+}
