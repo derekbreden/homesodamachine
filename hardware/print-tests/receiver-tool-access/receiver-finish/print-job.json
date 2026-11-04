@@ -1,10 +1,10 @@
 {
-  "source_archive": "hardware/print-tests/receiver-tool-access/receiver-finish/prints/2026-11-03-finished-receivers-mark1-mark1-0de50157/2026-11-03-finished-receivers-mark1-mark1-0de50157.gcode.3mf",
-  "source_archive_sha256": "60bf4cc7f96578be28045e7f524a168fa4f77e0a73b9cd1e2c7851bf1612cc95",
-  "print_only_archive": "hardware/print-tests/receiver-tool-access/receiver-finish/prints/2026-11-03-finished-receivers-mark1-mark1-0de50157/2026-11-03-finished-receivers-mark1-mark1-0de50157-print-only.gcode.3mf",
-  "print_only_archive_sha256": "dc68936f72e0f57d09475f93092090df86c3edf28e7357400f7605b5fd53b47e",
+  "source_archive": "hardware/print-tests/receiver-tool-access/receiver-finish/prints/2026-11-03-finished-receivers-mark1-mark1-febf2390/2026-11-03-finished-receivers-mark1-mark1-febf2390.gcode.3mf",
+  "source_archive_sha256": "49535b722a5dd61b56a90035e87e0104202258619a4a6d1c17872c198c1a15a0",
+  "print_only_archive": "hardware/print-tests/receiver-tool-access/receiver-finish/prints/2026-11-03-finished-receivers-mark1-mark1-febf2390/2026-11-03-finished-receivers-mark1-mark1-febf2390-print-only.gcode.3mf",
+  "print_only_archive_sha256": "56a2950d7076f8aa6dc7f357cd49d5d31df866b40d5682887dbf8d93bf079219",
   "gcode_sha256": {
-    "Metadata/plate_1.gcode": "2ec4f86cf11a72e35dc37673785aac4a04d12f5b3815bd45bb8f685ceeb1e492"
+    "Metadata/plate_1.gcode": "fdce1e5c9997376453bda6b83a08389a98f2678a72196c19f1157fb857bf1b58"
   },
   "gcode_byte_identical": true,
   "changed_container_entries": [
@@ -20,8 +20,9 @@
     "3D/_rels/3dmodel.model.rels",
     "Metadata/cut_information.xml"
   ],
-  "send_file": "/Users/derekbredensteiner/Downloads/HSM-finished-receivers-Mark1-0de50157.gcode.3mf",
-  "status": "Receiver geometry updated; replacement slice is being prepared.",
-  "estimated_seconds": 23089.8125,
-  "grams": 196.93
+  "send_file": "/Users/derekbredensteiner/Downloads/HSM-finished-receivers-Mark1-febf2390.gcode.3mf",
+  "status": "Ready for the next clear Mark1 bed; both complete-set jobs continue running.",
+  "estimated_seconds": 22587.49609375,
+  "minimum_bed_margin_mm": 46.6085,
+  "grams": 195.14
 }
