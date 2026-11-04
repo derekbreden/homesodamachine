@@ -22,10 +22,7 @@ if __name__ == '__main__':
     import _rust_part
     _rust_part.start()
 
-import cadquery as cq
 
-from _cadq_export import export_assembly, import_step
-from _foam_shell import import_shell
 from _cold_core_interface import (
     cap_side_anchors,
     attachment_xy_positions,
@@ -44,7 +41,7 @@ from _cold_core_interface import (
     foam_shell_outer_height,
     head_pad_height,
 )
-from _foam_cap import cap_face_z, import_cap_part, lid_total_height, stack_floor_z, top_cap_height
+from _foam_cap import cap_face_z, lid_total_height, stack_floor_z, top_cap_height
 from _port_cuts import co2_inlet_xyz
 import _internal_routes as routes
 import _routing
@@ -88,23 +85,6 @@ ROUTE_SPOOLS = {
 ROUTE_COLORS = {name: _routing.color(key) for name, key in ROUTE_SPOOLS.items()}
 
 
-def _load(path):
-    if Path(path) == SHELL_STEP:
-        return import_shell(path)
-    if Path(path).parent == CAP_DIR:
-        return import_cap_part(path)
-    if Path(path).parent == RESERVOIR_DIR:
-        import reservoir
-        return reservoir.import_part(path)
-    return import_step(str(path)).val()
-
-
-def _spin(shape):
-    """Rotate 180° about the Z axis — the top cap's install orientation,
-    which carries its deck-mount stations to the deck positions they hold."""
-    return shape.rotate(cq.Vector(0, 0, 0), cq.Vector(0, 0, 1), 180)
-
-
 def spin_xy(p):
     """A cap-frame `(x, y)` at the top cap's install orientation — the half turn `_spin`
     gives the metal, given to a coordinate."""
@@ -138,19 +118,6 @@ def cap_conduit_mouth(name):
     return (x, y, cap_face_z), cap_conduit_axis
 
 
-def cap_passage_probe(name, radius):
-    """The existing cap-opening report's probe, following its actual passage."""
-    if name in cap_cable_guides:
-        route = _above_mounts.cable_guide_points(name)
-        points = [routes.world_point_in_shell(p) for p in route['points_mm']]
-        return routes.build_route(points, route['bend_radius_mm'], radius)
-    if name in cap_passive_guides or name in ('water-in', 'carb-water-out', 'reservoir-b-fill'):
-        return routes.build_route(routes.routes[name], routes.route_bend_radius, radius)
-    x,y = cap_conduit_station(name)
-    return cq.Solid.makeCylinder(radius,cap_face_z-foam_shell_outer_height+2.,
-        cq.Vector(x,y,foam_shell_outer_height-1.))
-
-
 def cap_anchor_station(name):
     """One chain anchor's seat centre in the ASSEMBLY'S OWN frame: `(x, y)`.
 
@@ -182,57 +149,8 @@ def deck_mount_station(name):
     return tuple(spin_xy(p) for p in deck_mount_xy(name))
 
 
-def _place_z(shape, *, zmin=None, zmax=None):
-    """Translate along Z only (parts are already XY-centered and correctly
-    oriented). Sets either the min-Z or max-Z face to a target."""
-    bb = shape.BoundingBox()
-    if zmin is not None:
-        dz = zmin - bb.zmin
-    elif zmax is not None:
-        dz = zmax - bb.zmax
-    else:
-        dz = 0.0
-    return shape.translate((0, 0, dz))
-
-
-def build():
-    """Three printed pieces in the core's fixed assembly frame."""
-    shell = _load(SHELL_STEP)
-    lid_top = _spin(_load(CAP_DIR/'foam-cap-lid-top.step')).translate(
-        (0.,0.,cap_face_z-lid_total_height))
-    cap_bottom = _load(CAP_DIR/'foam-cap-bottom.step').translate((0.,0.,stack_floor_z))
-    placed = {
-        'foam-shell':(shell,SHELL_COLOR),
-        'foam-cap-lid-top':(lid_top,COLORS['foam-cap-lid-top']),
-        'foam-cap-bottom':(cap_bottom,COLORS['foam-cap-bottom']),
-    }
-    assy = cq.Assembly(name='foam-assembly')
-    for name,(shape,color) in placed.items():assy.add(shape,name=name,color=color)
-    return assy,placed
-
-
-def import_bodies(path=None):
-    """Named fine casing bodies for mesh readers, construction solids for native readers."""
-    if not getattr(cq, 'MESH', False):
-        return build()[1]
-    from meshcad import scene
-    from _cadq_export import note_read
-
-    path = Path(path) if path is not None else _here.parent / 'foam-assembly.step.npz'
-    note_read(path)
-    return {name: (shape, cq.Color(*rgb, 1., False) if rgb is not None else None)
-            for name, (shape, rgb) in scene.load(path, snap=False, presentation=True).items()}
-
-
-def import_body(path=None):
-    """The casing's authoritative query compound."""
-    return cq.Compound.makeCompound([shape for shape, _color in import_bodies(path).values()])
-
-
-def _report(placed, *, measurements=None):
+def _report(placed, *, measurements):
     def bounds(name):
-        if measurements is None:
-            return placed[name][0].BoundingBox()
         from types import SimpleNamespace
         low, high = measurements['bounds'][name]
         return SimpleNamespace(xmin=low[0], ymin=low[1], zmin=low[2],
@@ -269,17 +187,9 @@ def _report(placed, *, measurements=None):
     # whole line; what is probed here is the one leg a fitting depends on.
     probe_r = co2_inlet_tube_radius - 0.3
     shell_solid = placed["foam-shell"][0]
-    if measurements is None:
-        start, end = routes.route_legs(routes.routes["co2-in"])[-1]
-        reach = end - start
-        probe = cq.Solid.makeCylinder(probe_r, reach.Length, start, reach.normalized())
-        blocked = shell_solid.intersect(probe).Volume()
-        reach_xy = (start.x, start.y, end.x, end.y)
-        reach_length = reach.Length
-    else:
-        reading = measurements['co2']
-        reach_xy = (*reading['start'][:2], *reading['end'][:2])
-        reach_length, blocked = reading['length'], reading['blocked']
+    reading = measurements['co2']
+    reach_xy = (*reading['start'][:2], *reading['end'][:2])
+    reach_length, blocked = reading['length'], reading['blocked']
     print("  CO2 reach in: (%.2f, %.2f) .. (%.2f, %.2f) at z %.2f, %.1f mm straight — %s"
           % (*reach_xy, co2_inlet_xyz[2], reach_length,
              "clear  OK" if blocked <= 1e-6 else "** BLOCKED by %.3f mm^3" % blocked))
@@ -291,20 +201,9 @@ def _report(placed, *, measurements=None):
         # The R14 B-fill channel uses the holder's D6.8 section rather than
         # the ordinary D7.5 vertical guide. Read its actual tube envelope.
         radius = routes.line_radius if cname == 'reservoir-b-fill' else probe_r
-        if measurements is None:
-            probe = cap_passage_probe(cname, radius)
-            blocked = {name: placed[name][0].intersect(probe).Volume()
-                       for name in ("foam-shell", "foam-cap-lid-top")}
-            lower_x, lower_y = spin_xy(cap_conduit_floor_xy[cname])
-            solid = placed['foam-cap-bottom'][0]
-            b = bounds('foam-cap-bottom')
-            lower = cq.Solid.makeCylinder(probe_r,b.zlen+4.,
-                cq.Vector(lower_x,lower_y,b.zmin-2.))
-            bottom_open = solid.intersect(lower).Volume() <= 1e-6
-        else:
-            reading = next(row for row in measurements['passages'] if row['name'] == cname)
-            blocked = {row['name']: row['volume'] for row in reading['blocked']}
-            bottom_open = reading['bottom_open']
+        reading = next(row for row in measurements['passages'] if row['name'] == cname)
+        blocked = {row['name']: row['volume'] for row in reading['blocked']}
+        bottom_open = reading['bottom_open']
         if bottom_open:
             print(f"  ** foam-cap-bottom is open on {cname}'s lower entry")
         for name, volume in blocked.items():
@@ -323,14 +222,8 @@ def _report(placed, *, measurements=None):
         solid = placed[name][0]
         b = bounds(name)
         for x, y in P:
-            if measurements is None:
-                probe = cq.Solid.makeCylinder(
-                    probe_r, b.zlen + 4, cq.Vector(x, y, b.zmin - 2), cq.Vector(0, 0, 1)
-                )
-                blocked = solid.intersect(probe).Volume()
-            else:
-                blocked = next(row['blocked'] for row in measurements['screw_paths']
-                               if row['name'] == name and tuple(row['xy']) == (x, y))
+            blocked = next(row['blocked'] for row in measurements['screw_paths']
+                           if row['name'] == name and tuple(row['xy']) == (x, y))
             if blocked > 1e-6:
                 clear = False
                 print("  ** screw path BLOCKED in %s at (%.1f, %.1f)" % (name, x, y))
@@ -347,45 +240,12 @@ def _report(placed, *, measurements=None):
     for i in range(len(names)):
         for j in range(i + 1, len(names)):
             a, b = placed[names[i]][0], placed[names[j]][0]
-            vol = (a.intersect(b).Volume() if measurements is None else
-                   next(row['volume'] for row in measurements['clashes']
+            vol = (next(row['volume'] for row in measurements['clashes']
                         if row['a'] == names[i] and row['b'] == names[j]))
             if vol > 1e-3:
                 clash = True
                 print("  ** SOLID clash %s / %s = %.2f mm^3" % (names[i], names[j], vol))
     print("  no solid collisions" if not clash else "  ** CLASHES PRESENT **")
-
-
-def installed_internal_route(name, shape):
-    """The installed line, with the PRV vent cut flush to the shell's +Y flank."""
-    if name != "prv-vent":
-        return shape
-    b = shape.BoundingBox()
-    keep = cq.Solid.makeBox(
-        b.xlen + 2.0, routes.prv_vent_flank_y - b.ymin + 1.0, b.zlen + 2.0,
-        cq.Vector(b.xmin - 1.0, b.ymin - 1.0, b.zmin - 1.0))
-    return shape.intersect(keep)
-
-
-def build_internal_routes(placed):
-    """Every fluid line inside the core, drawn at the arc its own corridor leaves.
-
-    The obstacles are what a line actually runs among down there: the shell, the carbonator with
-    its wrapped coil, and both reservoirs with their caps. The reservoirs are not in the
-    foam assembly — they are dropped into its pockets — but a line that crosses a pocket
-    crosses them, so they are here."""
-    obstacles = {"the foam shell": placed["foam-shell"][0], "the carbonator": routes.carbonator_envelope()}
-    for name, stem in RESERVOIRS.items():
-        obstacles[name] = _load(RESERVOIR_DIR / f"{stem}.step")
-        cap = _load(RESERVOIR_DIR / f"{stem.replace('reservoir', 'reservoir-cap')}.step")
-        obstacles[f"{name}'s cap"] = cap.translate((0, 0, RESERVOIR_CAP_Z))
-    fitted = routes.build_routes(obstacles)
-    routes.report_routes(fitted, obstacles)
-    assy = cq.Assembly(name="internal-routes")
-    for name in sorted(fitted):
-        assy.add(installed_internal_route(name, fitted[name][1]),
-                 name=name, color=ROUTE_COLORS[name])
-    return assy
 
 
 def rust_main(output=None):
@@ -410,46 +270,12 @@ def rust_main(output=None):
     return result
 
 
-def native_main(output=None):
-    """Construction geometry and reports for native readers and reference runs."""
-    output = Path(output) if output is not None else _here.parent
-    output.mkdir(parents=True, exist_ok=True)
-    assy, placed = build()
-    out = output / "foam-assembly.step"
-    export_assembly(assy, str(out))
-    # AND THE FLUTED SURFACES INTO THE PAYLOAD THE VIEWER READS. The shell and both caps carry a
-    # show skin that is in the printed mesh and not in the solid (`cold-core/_show_skin.py`), so
-    # the payload written beside this STEP holds three smooth prisms until they are put back.
-    # `loadStepFile` prefers that payload to the STEP, so this is what /3d draws.
-    #
-    # IMPORTED HERE AND NOT AT THE TOP, the way `enclosure_assembly` does it: `flute_payload`
-    # pulls in a decimator and a proximity index that only the run which cuts an assembly uses.
-    #
-    # AND ASKED FOR THE CORE'S TREE, not the disk. This assembly holds cold-core bodies and no
-    # others, so the box's six fluted pieces are surfaces it can never graft — and indexing them
-    # makes this wait on the enclosure, which the box is built from and the box stands on this.
-    import flute_payload                                                # noqa: E402
-    _grafted = flute_payload.graft(Path(str(out) + ".mesh"),
-                                   flute_payload.surfaces(flute_payload.COLD_CORE_DIRS))
-    if _grafted:
-        print(f"-> {Path(str(out)).name}.mesh  ({_grafted} fluted piece(s))")
-    print("-> foam-assembly.step")
-    _report(placed)
-
-    export_assembly(build_internal_routes(placed), str(output / "internal-routes.step"))
-    print("-> internal-routes.step")
-
-
 def main(argv=None):
     import argparse
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--output', type=Path, help='directory for generated assembly files')
-    parser.add_argument('--native', action='store_true', help='use the construction-geometry builder')
     args = parser.parse_args(argv)
-    if args.native:
-        native_main(args.output)
-    else:
-        rust_main(args.output)
+    rust_main(args.output)
 
 
 if __name__ == "__main__":

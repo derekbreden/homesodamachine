@@ -112,40 +112,6 @@ total_length = cavity_length + cap_thickness  # [46 mm](TOTAL_L)
 overcut = 0.1
 
 
-def build_prv_shroud():
-    """One-piece cup on axis +Z: a full ⌀[23.1 mm](PRV_OUTER_D) cylinder spanning Z=0 to
-    the cap top at Z=[46 mm](TOTAL_L), an open-end bore (⌀[19.1 mm](PRV_INNER_D), Z=0 inward) that the
-    elbow seat enters and that stops at the cap inner face Z=[44 mm](CAVITY_L), and a
-    ⌀[6.8 mm](PRV_VENT_D) vent hole bored RADIALLY through the −Y wall at
-    Z=[37.88 mm](VENT_STATION)."""
-    import cadquery as cq
-    outer = (
-        cq.Workplane("XY")
-        .circle(outer_diameter / 2)
-        .extrude(total_length)
-    )
-    # The overcut clears the open end; the cavity stops at the cap's inside face.
-    cavity = (
-        cq.Workplane("XY")
-        .workplane(offset=-overcut)
-        .circle(inner_diameter / 2)
-        .extrude(cavity_length + overcut)
-    )
-    # The bore starts on the cup's axis, inside the cavity, so it opens through the curved
-    # inner wall across its whole width.
-    vent_hole = (
-        cq.Workplane("XZ")
-        .center(0.0, vent_station_z)
-        .circle(vent_hole_diameter / 2)
-        .extrude(outer_diameter / 2 + overcut)
-    )
-    # Print cap-down (-Z), with the open elbow seat upward. Only the radial
-    # vent has a bridge crown: extend that side toward print-up, keeping the
-    # tube station and opposite edge fixed.
-    vent_hole = vent_hole.union(vent_hole.translate((0, 0, -fits.supported_surface)))
-    return outer.cut(cavity).cut(vent_hole)
-
-
 def numbers():
     """The cup and its supported radial vent, in the native +Z frame."""
     from _materials import C_SHROUD, linear
@@ -189,22 +155,12 @@ def volume():
     return math.pi * (outer * outer * total_length - inner * inner * cavity_length) - removed
 
 
-def main(output=None, native=False):
+def main(output=None):
     out_dir = Path(output) if output is not None else _here.parent
     out_dir.mkdir(parents=True, exist_ok=True)
-    if native:
-        from _cadq_export import export_assembly
-        from _materials import C_SHROUD, one_body
-        shroud = build_prv_shroud()
-        export_assembly(one_body(shroud, "prv-shroud", C_SHROUD),
-                        str(out_dir / "prv-shroud.step"))
-        solids = shroud.solids().vals()
-        assert len(solids) == 1, f"expected 1 solid, got {len(solids)}"
-        vol = solids[0].Volume()
-    else:
-        import _rust_part
-        _rust_part.cut("cold-core", "prv-shroud", numbers(), out_dir)
-        vol = volume()
+    import _rust_part
+    _rust_part.cut("cold-core", "prv-shroud", numbers(), out_dir)
+    vol = volume()
     radius = outer_diameter / 2.0
     print(
         f"-> prv-shroud.step  "
@@ -247,22 +203,8 @@ def document(vol):
     print(f"-> {Path(__file__).name} (self)")
 
 
-def import_part(path):
-    """The emitted shroud for the caller's native or f64 mesh API."""
-    import cadquery as cq
-    from _cadq_export import import_step
-    path = Path(path)
-    if not getattr(cq, 'MESH', False):
-        with path.open('rb') as stream:
-            triangles = b'meshcad tessellated' in stream.read(200)
-        if triangles and path.stem == 'prv-shroud':
-            return build_prv_shroud().val()
-    return import_step(str(path)).val()
-
-
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--native', action='store_true', help='Run the retained native builder')
     parser.add_argument('--output', type=Path, default=_here.parent)
     args = parser.parse_args()
-    main(args.output, native=args.native)
+    main(args.output)
