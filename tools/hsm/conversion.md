@@ -87,9 +87,12 @@ a completed conversion does not by itself establish that this Mac is free of mem
 
 Independent pieces run in parallel, beginning with the whole-machine assembly and enclosure.
 Each finished speed piece is measured on its own program, before and after, using the same
-fixed inputs and outputs: warm elapsed time from process start to exit, peak process memory
-and peak RSS. Compilation is outside that elapsed time. A piece gets no full normal build;
-the normal build follows a batch merged to main.
+fixed inputs and outputs. The deciding number is CPU seconds, client and `hsm` engine
+together, as the median of three warm runs: other agents' load barely moves it, so it
+needs no quiet Mac. Wall time and peak memory are recorded beside it. Compilation is
+outside the measurement. A change within 10% either way is neither faster nor slower; the
+work aims at large improvements. A piece gets no full normal build; the normal build
+follows a batch merged to main.
 
 | Piece | Scope |
 | --- | --- |
@@ -111,5 +114,5 @@ The exporter stages physical and installed drawings as separate files. The physi
 names the drawing with the same body identities; generated wiring is appended to the installed
 drawing. Cached results restore the files the caller consumes.
 
-A component tradeoff is reported with its own warm elapsed time, physical footprint and RSS; it
+A component tradeoff is reported with its own CPU seconds, warm elapsed time, physical footprint and RSS; it
 is not a whole-machine speed or memory-pressure result.
