@@ -2564,7 +2564,7 @@
         "foam-cap-lid-top",
         "foam-cap-bottom"
       ],
-      "sha256": "eed754b2854e33c0f73cff110f78597234a1f7778b0caee6ed8b546767e01e25",
+      "sha256": "54274c5c8aac6a52f14ae7a91b6aa8948673750bbbf1f9f48786b2134a492520",
       "transform": [
         [
           6.123233995736766e-17,
@@ -2588,7 +2588,7 @@
     },
     "physical": {
       "path": "hardware/manifold-layout/enclosure-assembly.step.npz",
-      "sha256": "4d5b6157efbb6cee95ab03b8efb84cd41d79ac8b3ed6d1c09346069467ea0226"
+      "sha256": "48f1267c130ec08d3aac211af9377609b64a79f6df23c35d0719ee57c67ef153"
     },
     "population": {
       "asse-drain-adapter": [
@@ -5395,7 +5395,7 @@
   "scope": "Nominal authoritative fine model clearance of the direct TPU ASSE sleeve and dedicated drain against the complete installed assembly population, including cold-core bodies and retained flavor returns. Connected interfaces are excluded. Tubes exclude flexible conductors and jackets as obstacles; connector housings remain. The white 4 mm return requires at least 1 mm to every other unconnected body. Pump occupied envelopes are read per component. The sleeve expanded shape is an occupancy approximation. Hardware tolerances, zip-tie heads, actual bending, seals and vent performance are unmeasured.",
   "selected_obstacles": null,
   "source_sha256": {
-    "hardware/manifold-layout/_drain.py": "fe820671a5415fbd7cdbc7bd63af8690a9a6412b0b22b9ff30f2f902cdc16d36",
+    "hardware/manifold-layout/_drain.py": "dfaf42159a25ae49000b11ed77559f035bb5e0e82cee3e17a2e8d31d5d45c0db",
     "hardware/manifold-layout/_lines.py": "814a077be042d9335e897493e22cfff9bbdfd3df26e9014d3f562432c7f39375",
     "hardware/manifold-layout/above-core.json": "e0b80674504eabcbfa8ce36559b94b30c737d80f2a99b782dd45cbb7cec05dec",
     "hardware/manifold-layout/enclosure_assembly.py": "dd94e895cec102f4c0c3f49dc219965a2e27809bd478cd659ab943ddacbc38bb",
@@ -5407,10 +5407,10 @@
     "hardware/manifold-layout/machine_check_routes.rs": "b6fe857ce0bbbaa913571dea2285fd457952162d0eba65bc2bce533de836ff3a",
     "hardware/manifold-layout/machine_check_rules.json": "53b552b37cab2acc8e4b6cdeb27b677342f2e27d5efff1ba0ebeb6578742358f",
     "hardware/manifold-layout/machine_checks.rs": "b9aced58f223c18f9f9f55f0a1e26e9a8a7d97d17d45a97cc661d3a6db22c423",
-    "hardware/manifold-layout/rear_plumbing.py": "59bd783446f82048f72eb4e2aadfe6a3531c5778404455b13d4facea959ddb70",
-    "hardware/printed-parts/asse-drain-adapter/asse_drain_adapter.py": "115d59155216f206d8fb799f68c9468c88595ec2a576d967bd0be922c67590ed",
+    "hardware/manifold-layout/rear_plumbing.py": "c2b05889c68b62cdd733e86cf0ee124683e34a4cd94a1c8089f10de9714cee17",
+    "hardware/printed-parts/asse-drain-adapter/asse_drain_adapter.py": "744b28d6b710e1bcd76be25b9fad257fcbd69f766d88367769b6690de68f665b",
     "hardware/reference/asse1022-assembly/asse1022_assembly.py": "8aaf9cc6d16062a5536d8ea6c8e6d0d79abe965eed761b2017e803f61298f081",
-    "hardware/reference/neofit-drain-bulkhead/neofit_drain_bulkhead.py": "df79886e90630cf93cce916d7f7a1f95b189a298619ac7b7cc53a3cdcc5817a7",
+    "hardware/reference/neofit-drain-bulkhead/neofit_drain_bulkhead.py": "e0323b126c241672c70bc973fa03def7d14d7c2fe4bae27ed4ed655a1ed331ee",
     "hardware/scripts/_assembly_model.py": "77fa66f1d6936e66c02e7df7fab1c6bfc9dc1bf75476e37e550fc86dfc2becc6",
     "hardware/scripts/_machine_checks.py": "99bab43a67dc15042375dda3183eefd3e3ddf649cd0eb88995de674987a8b447",
     "hardware/scripts/check_asse_drain.py": "0964630a0181bb6280644f265bdd566e856e42720e9f163b9323ae7d7b9b8223"
