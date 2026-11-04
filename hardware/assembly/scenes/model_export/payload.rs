@@ -387,6 +387,8 @@ pub fn placed_surfaces(instances: &Value, fine: &mut Model, models: &mut Models)
     }
     let mut ordinals = std::collections::BTreeMap::new();
     let mut meshes = Vec::new();
+    let mut identities = Vec::new();
+    let mut missing = std::collections::BTreeSet::new();
     for (ordinal, surface) in selected.into_iter().enumerate() {
         let source_name = &fine.names[ordinal];
         let color: Option<[f64; 3]> = serde_json::from_value(fine.colors[ordinal].clone())?;
@@ -397,25 +399,33 @@ pub fn placed_surfaces(instances: &Value, fine: &mut Model, models: &mut Models)
         } else {
             format!("{source_name}/{}", index)
         };
-        let mut surface = match surface {
-            Some(surface) => surface,
-            None => {
-                let part = fine.imported(ordinal)?;
-                let body = hsm_kernel::write::Body {
-                    name: &name,
-                    color,
-                    solid: &part.solid,
-                };
-                SelfPayload::one(&body)?
-            }
-        };
-        surface.meta["name"] = json!(name);
-        surface.meta["color"] = json!(color);
+        let surface = surface.map(|mut surface| {
+            surface.meta["name"] = json!(name);
+            surface.meta["color"] = json!(color);
+            surface
+        });
+        if surface.is_none() {
+            missing.insert(ordinal);
+        }
+        identities.push((name, color));
         meshes.push(surface);
     }
+    fine.visit_selected(&missing, |index, part| {
+        let (name, color) = &identities[index];
+        let body = hsm_kernel::write::Body {
+            name,
+            color: *color,
+            solid: &part.solid,
+        };
+        let mut surface = SelfPayload::one(&body)?;
+        surface.meta["name"] = json!(name);
+        surface.meta["color"] = json!(color);
+        meshes[index] = Some(surface);
+        Ok(())
+    })?;
     Ok(Payload {
         header: json!({"v":3,"meshes":[]}),
-        meshes,
+        meshes: meshes.into_iter().map(Option::unwrap).collect(),
     })
 }
 
