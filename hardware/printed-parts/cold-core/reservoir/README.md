@@ -161,10 +161,9 @@ in [water-hold-acceptance.json](water-hold-acceptance.json).
 [float interface](../_float_interface.py) for [`reservoir.rs`](reservoir.rs).
 The Rust program writes the two bodies, both caps, gasket and liquid/air grips
 as STEP files, f64 models and print meshes. The generator measures capacity
-and the reed window from those solids, and keeps its native construction
-builders available through `--native` and the part-reader interface.
-[prepare_print.py](prepare_print.py) builds the one current project from these
-STEP files and the complete frozen recipe. Run it with `tools/cad-venv/bin/python`;
+and the reed window from those solids.
+[prepare_print.py](prepare_print.py) builds the one current project from the emitted
+STLs bound to the full-precision models and the complete frozen recipe. Run it with `tools/cad-venv/bin/python`;
 it checks source hashes against the
 [integration record](../magnetic-float/all-aero/integration-check.json), closed
 meshes, centered bed placement and preservation of the frozen native base

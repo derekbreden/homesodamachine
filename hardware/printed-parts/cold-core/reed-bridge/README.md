@@ -6,10 +6,9 @@ PETG interposer that holds each reed against bare 316L on the register
 azimuth and stands the evaporator coil off the glass where a wrap crosses
 it. One per carbonator, plus a reusable setting gauge that places it.
 
-[`reed_bridge.py`](reed_bridge.py) supplies the current dimensions and native
+[`reed_bridge.py`](reed_bridge.py) supplies the current dimensions and numeric
 profiles to [`reed_bridge.rs`](reed_bridge.rs), which writes the bridge and setting
-gauge as STEP, f64 models, STL and viewer payloads. The native builders remain
-available through `--native` and `import_part` for native CAD consumers. The magnet-to-reed
+gauge as STEP, f64 models, STL and viewer payloads. The magnet-to-reed
 coupling it is sized against is in
 [`../reservoir/level-sensing.md`](/hardware/printed-parts/cold-core/reservoir/level-sensing.md)
 "Magnet–reed signal-path geometry".
