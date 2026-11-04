@@ -1,364 +1,864 @@
 {
-  "nameplate_plan": {
-    "center_x_mm": -38.0,
-    "center_z_mm": 228.0,
-    "face_y_mm": 473.5,
-    "field_proud_mm": 2.2,
-    "plate_thickness_mm": 3.36,
-    "backing_mm": 3.6
-  },
-  "receiver": {
-    "valid": true,
-    "solids": 1,
-    "bounds_mm": {
-      "xmin": -97.5,
-      "xmax": 21.5,
-      "ymin": 466.39,
-      "ymax": 473.5,
-      "zmin": 204.0,
-      "zmax": 252.0
-    },
-    "core_intersection_mm3": 0.0,
-    "core_clearance_mm": 1.089999999999975,
-    "hardware_intersection_mm3": {
-      "c14-inlet": 0.0,
-      "keystone-jack": 0.0,
-      "bulkhead-water": 0.0,
-      "bulkhead-water-nut": 0.0,
-      "co2-inlet": 0.0,
-      "co2-inlet-nut": 0.0,
-      "bulkhead-drain": 0.0,
-      "bulkhead-drain-nut": 0.0,
-      "bulkhead-carb": 0.0,
-      "bulkhead-carb-nut": 0.0,
-      "bulkhead-flavor-a": 0.0,
-      "bulkhead-flavor-a-nut": 0.0,
-      "bulkhead-flavor-b": 0.0,
-      "bulkhead-flavor-b-nut": 0.0
-    },
-    "construction_api": "rear_identification.receiver_field()"
-  },
-  "native_hardware": {
-    "bulkhead-ring-water": {
-      "c14-inlet": 0.0,
-      "keystone-jack": 0.0,
-      "bulkhead-water": 0.0,
-      "bulkhead-water-nut": 0.0,
-      "co2-inlet": 0.0,
-      "co2-inlet-nut": 0.0,
-      "bulkhead-drain": 0.0,
-      "bulkhead-drain-nut": 0.0,
-      "bulkhead-carb": 0.0,
-      "bulkhead-carb-nut": 0.0,
-      "bulkhead-flavor-a": 0.0,
-      "bulkhead-flavor-a-nut": 0.0,
-      "bulkhead-flavor-b": 0.0,
-      "bulkhead-flavor-b-nut": 0.0
-    },
-    "bulkhead-ring-water-word": {
-      "c14-inlet": 0.0,
-      "keystone-jack": 0.0,
-      "bulkhead-water": 0.0,
-      "bulkhead-water-nut": 0.0,
-      "co2-inlet": 0.0,
-      "co2-inlet-nut": 0.0,
-      "bulkhead-drain": 0.0,
-      "bulkhead-drain-nut": 0.0,
-      "bulkhead-carb": 0.0,
-      "bulkhead-carb-nut": 0.0,
-      "bulkhead-flavor-a": 0.0,
-      "bulkhead-flavor-a-nut": 0.0,
-      "bulkhead-flavor-b": 0.0,
-      "bulkhead-flavor-b-nut": 0.0
-    },
-    "bulkhead-ring-co2": {
-      "c14-inlet": 0.0,
-      "keystone-jack": 0.0,
-      "bulkhead-water": 0.0,
-      "bulkhead-water-nut": 0.0,
-      "co2-inlet": 0.0,
-      "co2-inlet-nut": 0.0,
-      "bulkhead-drain": 0.0,
-      "bulkhead-drain-nut": 0.0,
-      "bulkhead-carb": 0.0,
-      "bulkhead-carb-nut": 0.0,
-      "bulkhead-flavor-a": 0.0,
-      "bulkhead-flavor-a-nut": 0.0,
-      "bulkhead-flavor-b": 0.0,
-      "bulkhead-flavor-b-nut": 0.0
-    },
-    "bulkhead-ring-co2-word": {
-      "c14-inlet": 0.0,
-      "keystone-jack": 0.0,
-      "bulkhead-water": 0.0,
-      "bulkhead-water-nut": 0.0,
-      "co2-inlet": 0.0,
-      "co2-inlet-nut": 0.0,
-      "bulkhead-drain": 0.0,
-      "bulkhead-drain-nut": 0.0,
-      "bulkhead-carb": 0.0,
-      "bulkhead-carb-nut": 0.0,
-      "bulkhead-flavor-a": 0.0,
-      "bulkhead-flavor-a-nut": 0.0,
-      "bulkhead-flavor-b": 0.0,
-      "bulkhead-flavor-b-nut": 0.0
-    },
-    "bulkhead-ring-drain": {
-      "c14-inlet": 0.0,
-      "keystone-jack": 0.0,
-      "bulkhead-water": 0.0,
-      "bulkhead-water-nut": 0.0,
-      "co2-inlet": 0.0,
-      "co2-inlet-nut": 0.0,
-      "bulkhead-drain": 0.0,
-      "bulkhead-drain-nut": 0.0,
-      "bulkhead-carb": 0.0,
-      "bulkhead-carb-nut": 0.0,
-      "bulkhead-flavor-a": 0.0,
-      "bulkhead-flavor-a-nut": 0.0,
-      "bulkhead-flavor-b": 0.0,
-      "bulkhead-flavor-b-nut": 0.0
-    },
-    "bulkhead-ring-drain-word": {
-      "c14-inlet": 0.0,
-      "keystone-jack": 0.0,
-      "bulkhead-water": 0.0,
-      "bulkhead-water-nut": 0.0,
-      "co2-inlet": 0.0,
-      "co2-inlet-nut": 0.0,
-      "bulkhead-drain": 0.0,
-      "bulkhead-drain-nut": 0.0,
-      "bulkhead-carb": 0.0,
-      "bulkhead-carb-nut": 0.0,
-      "bulkhead-flavor-a": 0.0,
-      "bulkhead-flavor-a-nut": 0.0,
-      "bulkhead-flavor-b": 0.0,
-      "bulkhead-flavor-b-nut": 0.0
-    },
-    "bulkhead-ring-carb": {
-      "c14-inlet": 0.0,
-      "keystone-jack": 0.0,
-      "bulkhead-water": 0.0,
-      "bulkhead-water-nut": 0.0,
-      "co2-inlet": 0.0,
-      "co2-inlet-nut": 0.0,
-      "bulkhead-drain": 0.0,
-      "bulkhead-drain-nut": 0.0,
-      "bulkhead-carb": 0.0,
-      "bulkhead-carb-nut": 0.0,
-      "bulkhead-flavor-a": 0.0,
-      "bulkhead-flavor-a-nut": 0.0,
-      "bulkhead-flavor-b": 0.0,
-      "bulkhead-flavor-b-nut": 0.0
-    },
-    "bulkhead-ring-carb-word": {
-      "c14-inlet": 0.0,
-      "keystone-jack": 0.0,
-      "bulkhead-water": 0.0,
-      "bulkhead-water-nut": 0.0,
-      "co2-inlet": 0.0,
-      "co2-inlet-nut": 0.0,
-      "bulkhead-drain": 0.0,
-      "bulkhead-drain-nut": 0.0,
-      "bulkhead-carb": 0.0,
-      "bulkhead-carb-nut": 0.0,
-      "bulkhead-flavor-a": 0.0,
-      "bulkhead-flavor-a-nut": 0.0,
-      "bulkhead-flavor-b": 0.0,
-      "bulkhead-flavor-b-nut": 0.0
-    },
-    "bulkhead-ring-flavor-a": {
-      "c14-inlet": 0.0,
-      "keystone-jack": 0.0,
-      "bulkhead-water": 0.0,
-      "bulkhead-water-nut": 0.0,
-      "co2-inlet": 0.0,
-      "co2-inlet-nut": 0.0,
-      "bulkhead-drain": 0.0,
-      "bulkhead-drain-nut": 0.0,
-      "bulkhead-carb": 0.0,
-      "bulkhead-carb-nut": 0.0,
-      "bulkhead-flavor-a": 0.0,
-      "bulkhead-flavor-a-nut": 0.0,
-      "bulkhead-flavor-b": 0.0,
-      "bulkhead-flavor-b-nut": 0.0
-    },
-    "bulkhead-ring-flavor-a-word": {
-      "c14-inlet": 0.0,
-      "keystone-jack": 0.0,
-      "bulkhead-water": 0.0,
-      "bulkhead-water-nut": 0.0,
-      "co2-inlet": 0.0,
-      "co2-inlet-nut": 0.0,
-      "bulkhead-drain": 0.0,
-      "bulkhead-drain-nut": 0.0,
-      "bulkhead-carb": 0.0,
-      "bulkhead-carb-nut": 0.0,
-      "bulkhead-flavor-a": 0.0,
-      "bulkhead-flavor-a-nut": 0.0,
-      "bulkhead-flavor-b": 0.0,
-      "bulkhead-flavor-b-nut": 0.0
-    },
-    "bulkhead-ring-flavor-b": {
-      "c14-inlet": 0.0,
-      "keystone-jack": 0.0,
-      "bulkhead-water": 0.0,
-      "bulkhead-water-nut": 0.0,
-      "co2-inlet": 0.0,
-      "co2-inlet-nut": 0.0,
-      "bulkhead-drain": 0.0,
-      "bulkhead-drain-nut": 0.0,
-      "bulkhead-carb": 0.0,
-      "bulkhead-carb-nut": 0.0,
-      "bulkhead-flavor-a": 0.0,
-      "bulkhead-flavor-a-nut": 0.0,
-      "bulkhead-flavor-b": 0.0,
-      "bulkhead-flavor-b-nut": 0.0
-    },
-    "bulkhead-ring-flavor-b-word": {
-      "c14-inlet": 0.0,
-      "keystone-jack": 0.0,
-      "bulkhead-water": 0.0,
-      "bulkhead-water-nut": 0.0,
-      "co2-inlet": 0.0,
-      "co2-inlet-nut": 0.0,
-      "bulkhead-drain": 0.0,
-      "bulkhead-drain-nut": 0.0,
-      "bulkhead-carb": 0.0,
-      "bulkhead-carb-nut": 0.0,
-      "bulkhead-flavor-a": 0.0,
-      "bulkhead-flavor-a-nut": 0.0,
-      "bulkhead-flavor-b": 0.0,
-      "bulkhead-flavor-b-nut": 0.0
-    },
-    "nameplate": {
-      "c14-inlet": 0.0,
-      "keystone-jack": 0.0,
-      "bulkhead-water": 0.0,
-      "bulkhead-water-nut": 0.0,
-      "co2-inlet": 0.0,
-      "co2-inlet-nut": 0.0,
-      "bulkhead-drain": 0.0,
-      "bulkhead-drain-nut": 0.0,
-      "bulkhead-carb": 0.0,
-      "bulkhead-carb-nut": 0.0,
-      "bulkhead-flavor-a": 0.0,
-      "bulkhead-flavor-a-nut": 0.0,
-      "bulkhead-flavor-b": 0.0,
-      "bulkhead-flavor-b-nut": 0.0
-    },
-    "nameplate-ink": {
-      "c14-inlet": 0.0,
-      "keystone-jack": 0.0,
-      "bulkhead-water": 0.0,
-      "bulkhead-water-nut": 0.0,
-      "co2-inlet": 0.0,
-      "co2-inlet-nut": 0.0,
-      "bulkhead-drain": 0.0,
-      "bulkhead-drain-nut": 0.0,
-      "bulkhead-carb": 0.0,
-      "bulkhead-carb-nut": 0.0,
-      "bulkhead-flavor-a": 0.0,
-      "bulkhead-flavor-a-nut": 0.0,
-      "bulkhead-flavor-b": 0.0,
-      "bulkhead-flavor-b-nut": 0.0
-    }
-  },
-  "labels": {
-    "water": {
-      "valid": true,
-      "solids": 1,
-      "word_cap_mm": 3.3107423874999995,
-      "word_width_mm": 8.957421974999999,
-      "flange_word_clearance_mm": 0.9648764881422413,
-      "label_world_top_z_mm": 355.0,
-      "remaining_wall_mm": 4.0,
-      "clamped_stack_mm": 6.0
-    },
-    "co2": {
-      "valid": true,
-      "solids": 1,
-      "word_cap_mm": 3.503906449999999,
-      "word_width_mm": 9.067480668750001,
-      "flange_word_clearance_mm": 1.0808101204846399,
-      "label_world_top_z_mm": 355.0,
-      "remaining_wall_mm": 4.0,
-      "clamped_stack_mm": 6.0
-    },
-    "drain": {
-      "valid": true,
-      "solids": 1,
-      "word_cap_mm": 3.5039064500000006,
-      "word_width_mm": 12.61630879375,
-      "flange_word_clearance_mm": 1.1616595824624918,
-      "label_world_top_z_mm": 323.0,
-      "remaining_wall_mm": 4.0,
-      "clamped_stack_mm": 6.0
-    },
-    "carb": {
-      "valid": true,
-      "solids": 1,
-      "word_cap_mm": 3.5039064500000006,
-      "word_width_mm": 13.02958994375,
-      "flange_word_clearance_mm": 0.9405328649069876,
-      "label_world_top_z_mm": 323.0,
-      "remaining_wall_mm": 4.0,
-      "clamped_stack_mm": 6.0
-    },
-    "flavor-a": {
-      "valid": true,
-      "solids": 1,
-      "word_cap_mm": 3.5039064500000006,
-      "word_width_mm": 18.36630869375,
-      "flange_word_clearance_mm": 1.1685503280918514,
-      "label_world_top_z_mm": 291.0,
-      "remaining_wall_mm": 4.0,
-      "clamped_stack_mm": 6.0
-    },
-    "flavor-b": {
-      "valid": true,
-      "solids": 1,
-      "word_cap_mm": 3.5039064500000006,
-      "word_width_mm": 18.36630869375,
-      "flange_word_clearance_mm": 1.1685503280918514,
-      "label_world_top_z_mm": 291.0,
-      "remaining_wall_mm": 4.0,
-      "clamped_stack_mm": 6.0
-    }
-  },
-  "pocketed_grid_valid": true,
-  "min_row_web_mm": 3.6460478805363055,
-  "schema": 1,
-  "reviewed_date": "2026-10-24",
-  "evidence_type": "Manual native CAD query",
-  "scope": "Compact flush chips and accepted flat-wing receiver at its selected raised low-rear station, against the native rear fittings and core shell. Wiring clearance is a separate installed-loom review; physical enclosure fit remains unmeasured.",
+  "schema": 2,
+  "reviewed_date": "2026-11-04",
+  "evidence_type": "Task-specific queries of production fine mesh solids",
+  "scope": "Rear identification, raised ASSE/PISCO/meter caps, roof headroom and rerouted rear tubes. Physical fit and force retain their separate acceptance scope.",
   "accepted_interface": "../nameplate/horizontal-wing-trial/physical-acceptance.json",
   "recorded_sources_sha256": {
-    "hardware/manifold-layout/above-core.json": "0e1c57357c675b70bd08682a8cbf657c8b751f6ac16ac87888f307199a475083",
-    "hardware/printed-parts/enclosure/rear-identification/rear_identification.py": "f905f66b26351cb9fe191049d32de77354701b581f010a2f5a9589b01e0755e1",
-    "hardware/printed-parts/enclosure/enclosure/_nameplate_wing_interface.py": "15624fb2fc9fc808f34913ea42fa39d7bf93c4b3c192da7087f5deff64b07011",
-    "hardware/printed-parts/enclosure/nameplate/nameplate.py": "c2cc0e2ec6f74a6f28d00a23e20ef202772877c3787168139d45902d197a5b2b"
+    "hardware/manifold-layout/above-core.json": "803fd300c839e7e101c49352aaa67747ed1e55f447d58283531bc3d3a5c16d9f",
+    "hardware/manifold-layout/rear_snaps.py": "a02224bf754055e126dfa4a600b825d717875c29c509189ff31ed53b06fe067e",
+    "hardware/printed-parts/enclosure/rear-identification/rear_identification.py": "1d1be22c6a04e1f9373c5f9fed2b02c09997016a2db2eb67e168fa117f08ee65",
+    "hardware/printed-parts/enclosure/rear-identification/rear_identification.rs": "e54c501da176f80ebe44b30fb515efbb33b45cefb4a2ac5f067bbf286f8ffb12",
+    "hardware/printed-parts/enclosure/enclosure/_enclosure_back_top.py": "a9a5657859bf1db49b20eed285ef9dfce1f237b8340e8f875fcb85a319f41e7d",
+    "hardware/printed-parts/enclosure/enclosure/_enclosure_panel.py": "3aff5d1f47fba8e4419a283b8a87b60edf8a6c1b62029689a81807944d00800d",
+    "tools/hsm/layout-data/src/rear.rs": "0ff75c017931acf677a65c9a0a4a3cbeca6aa45c0a9b36e6f9a0394f86ee774c",
+    "tools/hsm/machine-data/src/equipment.rs": "1e8dfa4d5316a41b0363cd7aa60ec6b47a2b5ac1dc1d233c2fb1f6604015c84f",
+    "hardware/manifold-layout/enclosure-assembly.step.npz": "42abdb7f53cf4ccefe6c5a0a315838618f7b15c8615026d91a6f1bb8cd9f857c"
   },
-  "installed_wiring": {
-    "route_count": 102,
-    "method": "Every straight segment uses its bounds plus insulation radius; every arc uses its entire circle bounds plus insulation radius. No conductor envelope enters the conservative receiver region.",
-    "receiver_region_mm": {
-      "xmin": -100,
-      "xmax": 24,
-      "ymin": 466.39,
-      "zmin": 204,
-      "zmax": 252
+  "labels": {
+    "co2": {
+      "bounds_mm": [
+        55.5,
+        469.29998779296875,
+        317.0,
+        97.5,
+        471.1000061035156,
+        355.0
+      ],
+      "width_mm": 42.0,
+      "height_mm": 38.0,
+      "valid": "Error.NoError",
+      "solids": 1,
+      "hardware": {
+        "c14-inlet": {
+          "intersection_mm3": 0.0,
+          "gap_mm_capped_at_5": 5.0
+        },
+        "keystone-jack": {
+          "intersection_mm3": 0.0,
+          "gap_mm_capped_at_5": 5.0
+        },
+        "bulkhead-water": {
+          "intersection_mm3": 0.0,
+          "gap_mm_capped_at_5": 5.0
+        },
+        "co2-inlet": {
+          "intersection_mm3": 0.0,
+          "gap_mm_capped_at_5": 5.0
+        },
+        "bulkhead-carb": {
+          "intersection_mm3": 0.0,
+          "gap_mm_capped_at_5": 5.0
+        },
+        "bulkhead-carb-nut": {
+          "intersection_mm3": 0.0,
+          "gap_mm_capped_at_5": 5.0
+        },
+        "bulkhead-drain": {
+          "intersection_mm3": 0.0,
+          "gap_mm_capped_at_5": 5.0
+        },
+        "bulkhead-drain-nut": {
+          "intersection_mm3": 0.0,
+          "gap_mm_capped_at_5": 5.0
+        },
+        "bulkhead-flavor-a": {
+          "intersection_mm3": 0.0,
+          "gap_mm_capped_at_5": 5.0
+        },
+        "bulkhead-flavor-a-nut": {
+          "intersection_mm3": 0.0,
+          "gap_mm_capped_at_5": 5.0
+        },
+        "bulkhead-flavor-b": {
+          "intersection_mm3": 0.0,
+          "gap_mm_capped_at_5": 5.0
+        },
+        "bulkhead-flavor-b-nut": {
+          "intersection_mm3": 0.0,
+          "gap_mm_capped_at_5": 5.0
+        }
+      },
+      "flange_word_clearance_mm": 11.277340033452617,
+      "clamped_stack_mm": 6.0,
+      "remaining_wall_mm": 4.0
     },
-    "candidate_segments": 0,
-    "source": "../../../wiring/installed/above-core-review/native-review.json",
-    "scope": "Current installed route manifest; future route changes need their own assessment."
+    "water": {
+      "bounds_mm": [
+        7.799998760223389,
+        469.29998779296875,
+        317.0,
+        49.79999923706055,
+        471.1000061035156,
+        355.0
+      ],
+      "width_mm": 42.0,
+      "height_mm": 38.0,
+      "valid": "Error.NoError",
+      "solids": 1,
+      "hardware": {
+        "c14-inlet": {
+          "intersection_mm3": 0.0,
+          "gap_mm_capped_at_5": 5.0
+        },
+        "keystone-jack": {
+          "intersection_mm3": 0.0,
+          "gap_mm_capped_at_5": 5.0
+        },
+        "bulkhead-water": {
+          "intersection_mm3": 0.0,
+          "gap_mm_capped_at_5": 0.14290752152229094
+        },
+        "co2-inlet": {
+          "intersection_mm3": 0.0,
+          "gap_mm_capped_at_5": 5.0
+        },
+        "bulkhead-carb": {
+          "intersection_mm3": 0.0,
+          "gap_mm_capped_at_5": 5.0
+        },
+        "bulkhead-carb-nut": {
+          "intersection_mm3": 0.0,
+          "gap_mm_capped_at_5": 5.0
+        },
+        "bulkhead-drain": {
+          "intersection_mm3": 0.0,
+          "gap_mm_capped_at_5": 5.0
+        },
+        "bulkhead-drain-nut": {
+          "intersection_mm3": 0.0,
+          "gap_mm_capped_at_5": 5.0
+        },
+        "bulkhead-flavor-a": {
+          "intersection_mm3": 0.0,
+          "gap_mm_capped_at_5": 5.0
+        },
+        "bulkhead-flavor-a-nut": {
+          "intersection_mm3": 0.0,
+          "gap_mm_capped_at_5": 5.0
+        },
+        "bulkhead-flavor-b": {
+          "intersection_mm3": 0.0,
+          "gap_mm_capped_at_5": 5.0
+        },
+        "bulkhead-flavor-b-nut": {
+          "intersection_mm3": 0.0,
+          "gap_mm_capped_at_5": 5.0
+        }
+      },
+      "flange_word_clearance_mm": 5.612544674126001,
+      "clamped_stack_mm": 6.0,
+      "remaining_wall_mm": 4.0
+    },
+    "carb": {
+      "bounds_mm": [
+        55.5,
+        469.29998779296875,
+        278.79998779296875,
+        97.5,
+        471.1000061035156,
+        316.79998779296875
+      ],
+      "width_mm": 42.0,
+      "height_mm": 38.0,
+      "valid": "Error.NoError",
+      "solids": 1,
+      "hardware": {
+        "c14-inlet": {
+          "intersection_mm3": 0.0,
+          "gap_mm_capped_at_5": 5.0
+        },
+        "keystone-jack": {
+          "intersection_mm3": 0.0,
+          "gap_mm_capped_at_5": 5.0
+        },
+        "bulkhead-water": {
+          "intersection_mm3": 0.0,
+          "gap_mm_capped_at_5": 5.0
+        },
+        "co2-inlet": {
+          "intersection_mm3": 0.0,
+          "gap_mm_capped_at_5": 5.0
+        },
+        "bulkhead-carb": {
+          "intersection_mm3": 0.0,
+          "gap_mm_capped_at_5": 0.199981689453125
+        },
+        "bulkhead-carb-nut": {
+          "intersection_mm3": 0.0,
+          "gap_mm_capped_at_5": 4.0
+        },
+        "bulkhead-drain": {
+          "intersection_mm3": 0.0,
+          "gap_mm_capped_at_5": 4.665737945817749
+        },
+        "bulkhead-drain-nut": {
+          "intersection_mm3": 0.0,
+          "gap_mm_capped_at_5": 5.0
+        },
+        "bulkhead-flavor-a": {
+          "intersection_mm3": 0.0,
+          "gap_mm_capped_at_5": 5.0
+        },
+        "bulkhead-flavor-a-nut": {
+          "intersection_mm3": 0.0,
+          "gap_mm_capped_at_5": 5.0
+        },
+        "bulkhead-flavor-b": {
+          "intersection_mm3": 0.0,
+          "gap_mm_capped_at_5": 5.0
+        },
+        "bulkhead-flavor-b-nut": {
+          "intersection_mm3": 0.0,
+          "gap_mm_capped_at_5": 5.0
+        }
+      },
+      "flange_word_clearance_mm": 3.689178107136429,
+      "clamped_stack_mm": 6.0,
+      "remaining_wall_mm": 4.0
+    },
+    "flavor-a": {
+      "bounds_mm": [
+        7.799998760223389,
+        469.29998779296875,
+        278.79998779296875,
+        49.79999923706055,
+        471.1000061035156,
+        316.79998779296875
+      ],
+      "width_mm": 42.0,
+      "height_mm": 38.0,
+      "valid": "Error.NoError",
+      "solids": 1,
+      "hardware": {
+        "c14-inlet": {
+          "intersection_mm3": 0.0,
+          "gap_mm_capped_at_5": 5.0
+        },
+        "keystone-jack": {
+          "intersection_mm3": 0.0,
+          "gap_mm_capped_at_5": 5.0
+        },
+        "bulkhead-water": {
+          "intersection_mm3": 0.0,
+          "gap_mm_capped_at_5": 4.735071343898464
+        },
+        "co2-inlet": {
+          "intersection_mm3": 0.0,
+          "gap_mm_capped_at_5": 5.0
+        },
+        "bulkhead-carb": {
+          "intersection_mm3": 0.0,
+          "gap_mm_capped_at_5": 5.0
+        },
+        "bulkhead-carb-nut": {
+          "intersection_mm3": 0.0,
+          "gap_mm_capped_at_5": 5.0
+        },
+        "bulkhead-drain": {
+          "intersection_mm3": 0.0,
+          "gap_mm_capped_at_5": 5.0
+        },
+        "bulkhead-drain-nut": {
+          "intersection_mm3": 0.0,
+          "gap_mm_capped_at_5": 5.0
+        },
+        "bulkhead-flavor-a": {
+          "intersection_mm3": 0.0,
+          "gap_mm_capped_at_5": 0.14992968948220894
+        },
+        "bulkhead-flavor-a-nut": {
+          "intersection_mm3": 0.0,
+          "gap_mm_capped_at_5": 4.0
+        },
+        "bulkhead-flavor-b": {
+          "intersection_mm3": 0.0,
+          "gap_mm_capped_at_5": 4.665737945817749
+        },
+        "bulkhead-flavor-b-nut": {
+          "intersection_mm3": 0.0,
+          "gap_mm_capped_at_5": 5.0
+        }
+      },
+      "flange_word_clearance_mm": 5.165658831217153,
+      "clamped_stack_mm": 6.0,
+      "remaining_wall_mm": 4.0
+    },
+    "drain": {
+      "bounds_mm": [
+        55.5,
+        469.29998779296875,
+        240.60000610351562,
+        97.5,
+        471.1000061035156,
+        278.6000061035156
+      ],
+      "width_mm": 42.0,
+      "height_mm": 38.0,
+      "valid": "Error.NoError",
+      "solids": 1,
+      "hardware": {
+        "c14-inlet": {
+          "intersection_mm3": 0.0,
+          "gap_mm_capped_at_5": 5.0
+        },
+        "keystone-jack": {
+          "intersection_mm3": 0.0,
+          "gap_mm_capped_at_5": 5.0
+        },
+        "bulkhead-water": {
+          "intersection_mm3": 0.0,
+          "gap_mm_capped_at_5": 5.0
+        },
+        "co2-inlet": {
+          "intersection_mm3": 0.0,
+          "gap_mm_capped_at_5": 5.0
+        },
+        "bulkhead-carb": {
+          "intersection_mm3": 0.0,
+          "gap_mm_capped_at_5": 4.013137651739698
+        },
+        "bulkhead-carb-nut": {
+          "intersection_mm3": 0.0,
+          "gap_mm_capped_at_5": 5.0
+        },
+        "bulkhead-drain": {
+          "intersection_mm3": 0.0,
+          "gap_mm_capped_at_5": 0.14994036688872048
+        },
+        "bulkhead-drain-nut": {
+          "intersection_mm3": 0.0,
+          "gap_mm_capped_at_5": 4.0
+        },
+        "bulkhead-flavor-a": {
+          "intersection_mm3": 0.0,
+          "gap_mm_capped_at_5": 5.0
+        },
+        "bulkhead-flavor-a-nut": {
+          "intersection_mm3": 0.0,
+          "gap_mm_capped_at_5": 5.0
+        },
+        "bulkhead-flavor-b": {
+          "intersection_mm3": 0.0,
+          "gap_mm_capped_at_5": 5.0
+        },
+        "bulkhead-flavor-b-nut": {
+          "intersection_mm3": 0.0,
+          "gap_mm_capped_at_5": 5.0
+        }
+      },
+      "flange_word_clearance_mm": 4.8408286638008855,
+      "clamped_stack_mm": 6.0,
+      "remaining_wall_mm": 4.0
+    },
+    "flavor-b": {
+      "bounds_mm": [
+        7.799998760223389,
+        469.29998779296875,
+        240.60000610351562,
+        49.79999923706055,
+        471.1000061035156,
+        278.6000061035156
+      ],
+      "width_mm": 42.0,
+      "height_mm": 38.0,
+      "valid": "Error.NoError",
+      "solids": 1,
+      "hardware": {
+        "c14-inlet": {
+          "intersection_mm3": 0.0,
+          "gap_mm_capped_at_5": 5.0
+        },
+        "keystone-jack": {
+          "intersection_mm3": 0.0,
+          "gap_mm_capped_at_5": 5.0
+        },
+        "bulkhead-water": {
+          "intersection_mm3": 0.0,
+          "gap_mm_capped_at_5": 5.0
+        },
+        "co2-inlet": {
+          "intersection_mm3": 0.0,
+          "gap_mm_capped_at_5": 5.0
+        },
+        "bulkhead-carb": {
+          "intersection_mm3": 0.0,
+          "gap_mm_capped_at_5": 5.0
+        },
+        "bulkhead-carb-nut": {
+          "intersection_mm3": 0.0,
+          "gap_mm_capped_at_5": 5.0
+        },
+        "bulkhead-drain": {
+          "intersection_mm3": 0.0,
+          "gap_mm_capped_at_5": 5.0
+        },
+        "bulkhead-drain-nut": {
+          "intersection_mm3": 0.0,
+          "gap_mm_capped_at_5": 5.0
+        },
+        "bulkhead-flavor-a": {
+          "intersection_mm3": 0.0,
+          "gap_mm_capped_at_5": 5.0
+        },
+        "bulkhead-flavor-a-nut": {
+          "intersection_mm3": 0.0,
+          "gap_mm_capped_at_5": 5.0
+        },
+        "bulkhead-flavor-b": {
+          "intersection_mm3": 0.0,
+          "gap_mm_capped_at_5": 0.14994217427490472
+        },
+        "bulkhead-flavor-b-nut": {
+          "intersection_mm3": 0.0,
+          "gap_mm_capped_at_5": 4.0
+        }
+      },
+      "flange_word_clearance_mm": 4.8408286638008855,
+      "clamped_stack_mm": 6.0,
+      "remaining_wall_mm": 4.0
+    }
+  },
+  "card_plan": {
+    "width_mm": 42.0,
+    "height_mm": 38.0,
+    "thickness_mm": 1.8,
+    "rail_overlap_each_side_mm": 2.0,
+    "visible_width_mm": 38.0,
+    "visible_height_mm": 38.0,
+    "interrow_seam_mm": 0.2,
+    "channel_floor_z_mm": 240.6,
+    "rear_view_rows": [
+      [
+        "CO2",
+        "TAP"
+      ],
+      [
+        "SODA",
+        "FLAVOR"
+      ],
+      [
+        "OVER",
+        "FLAVOR"
+      ]
+    ]
+  },
+  "nameplate_plan": {
+    "center_x_mm": 0.0,
+    "center_z_mm": 200.0,
+    "face_y_mm": 473.5
+  },
+  "receiver": {
+    "valid": "Error.NoError",
+    "solids": 1,
+    "stock_bounds_mm": [
+      -59.5,
+      466.39,
+      176.0,
+      59.5,
+      473.5,
+      224.0
+    ],
+    "backing_mm": 3.6,
+    "scope": "Enclosure stock clipped to the conservative receiver region, including its supporting rear wall.",
+    "region_bounds_mm": [
+      -59.5,
+      466.39,
+      176.0,
+      59.5,
+      474.5,
+      224.0
+    ],
+    "hardware_and_core": {
+      "cold-core/foam-shell": {
+        "intersection_mm3": 0.0,
+        "gap_mm_capped_at_5": 1.3899999999999864
+      },
+      "cold-core/foam-cap-lid-top": {
+        "intersection_mm3": 0.0,
+        "gap_mm_capped_at_5": 5.0
+      },
+      "cold-core/foam-cap-bottom": {
+        "intersection_mm3": 0.0,
+        "gap_mm_capped_at_5": 5.0
+      },
+      "c14-inlet": {
+        "intersection_mm3": 0.0,
+        "gap_mm_capped_at_5": 5.0
+      },
+      "keystone-jack": {
+        "intersection_mm3": 0.0,
+        "gap_mm_capped_at_5": 5.0
+      },
+      "bulkhead-water": {
+        "intersection_mm3": 0.0,
+        "gap_mm_capped_at_5": 5.0
+      },
+      "co2-inlet": {
+        "intersection_mm3": 0.0,
+        "gap_mm_capped_at_5": 5.0
+      },
+      "bulkhead-carb": {
+        "intersection_mm3": 0.0,
+        "gap_mm_capped_at_5": 5.0
+      },
+      "bulkhead-carb-nut": {
+        "intersection_mm3": 0.0,
+        "gap_mm_capped_at_5": 5.0
+      },
+      "bulkhead-drain": {
+        "intersection_mm3": 0.0,
+        "gap_mm_capped_at_5": 5.0
+      },
+      "bulkhead-drain-nut": {
+        "intersection_mm3": 0.0,
+        "gap_mm_capped_at_5": 5.0
+      },
+      "bulkhead-flavor-a": {
+        "intersection_mm3": 0.0,
+        "gap_mm_capped_at_5": 5.0
+      },
+      "bulkhead-flavor-a-nut": {
+        "intersection_mm3": 0.0,
+        "gap_mm_capped_at_5": 5.0
+      },
+      "bulkhead-flavor-b": {
+        "intersection_mm3": 0.0,
+        "gap_mm_capped_at_5": 5.0
+      },
+      "bulkhead-flavor-b-nut": {
+        "intersection_mm3": 0.0,
+        "gap_mm_capped_at_5": 5.0
+      }
+    },
+    "installed_plate_hardware": {
+      "cold-core/foam-shell": {
+        "intersection_mm3": 0.0,
+        "gap_mm_capped_at_5": 5.0
+      },
+      "cold-core/foam-cap-lid-top": {
+        "intersection_mm3": 0.0,
+        "gap_mm_capped_at_5": 5.0
+      },
+      "cold-core/foam-cap-bottom": {
+        "intersection_mm3": 0.0,
+        "gap_mm_capped_at_5": 5.0
+      },
+      "c14-inlet": {
+        "intersection_mm3": 0.0,
+        "gap_mm_capped_at_5": 5.0
+      },
+      "keystone-jack": {
+        "intersection_mm3": 0.0,
+        "gap_mm_capped_at_5": 5.0
+      },
+      "bulkhead-water": {
+        "intersection_mm3": 0.0,
+        "gap_mm_capped_at_5": 5.0
+      },
+      "co2-inlet": {
+        "intersection_mm3": 0.0,
+        "gap_mm_capped_at_5": 5.0
+      },
+      "bulkhead-carb": {
+        "intersection_mm3": 0.0,
+        "gap_mm_capped_at_5": 5.0
+      },
+      "bulkhead-carb-nut": {
+        "intersection_mm3": 0.0,
+        "gap_mm_capped_at_5": 5.0
+      },
+      "bulkhead-drain": {
+        "intersection_mm3": 0.0,
+        "gap_mm_capped_at_5": 5.0
+      },
+      "bulkhead-drain-nut": {
+        "intersection_mm3": 0.0,
+        "gap_mm_capped_at_5": 5.0
+      },
+      "bulkhead-flavor-a": {
+        "intersection_mm3": 0.0,
+        "gap_mm_capped_at_5": 5.0
+      },
+      "bulkhead-flavor-a-nut": {
+        "intersection_mm3": 0.0,
+        "gap_mm_capped_at_5": 5.0
+      },
+      "bulkhead-flavor-b": {
+        "intersection_mm3": 0.0,
+        "gap_mm_capped_at_5": 5.0
+      },
+      "bulkhead-flavor-b-nut": {
+        "intersection_mm3": 0.0,
+        "gap_mm_capped_at_5": 5.0
+      }
+    }
+  },
+  "approved_cap_profiles": {
+    "asse-snap-cap": {
+      "translation_mm": [
+        0.0,
+        0.0,
+        3.2
+      ],
+      "new_only_mm3": 0.0,
+      "reference_only_mm3": 0.0,
+      "volume_mm3": 31829.027911461035,
+      "receiver": {
+        "intersection_mm3": 0.0,
+        "gap_mm_capped_at_5": 0.25
+      }
+    },
+    "pisco-snap-cap": {
+      "translation_mm": [
+        0.0,
+        0.0,
+        3.2
+      ],
+      "new_only_mm3": 0.0,
+      "reference_only_mm3": 0.0,
+      "volume_mm3": 11367.197174433515,
+      "receiver": {
+        "intersection_mm3": 0.0,
+        "gap_mm_capped_at_5": 0.25
+      }
+    },
+    "meter-snap-cap": {
+      "translation_mm": [
+        0.0,
+        0.0,
+        3.2
+      ],
+      "new_only_mm3": 0.0,
+      "reference_only_mm3": 0.0,
+      "volume_mm3": 23913.284826304804,
+      "receiver": {
+        "intersection_mm3": 0.0,
+        "gap_mm_capped_at_5": 0.25
+      }
+    },
+    "regulator-snap-cap": {
+      "translation_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "new_only_mm3": 0.0,
+      "reference_only_mm3": 0.0,
+      "volume_mm3": 16536.277131198247
+    },
+    "cold-core/pump-snap-cap": {
+      "translation_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "new_only_mm3": 0.0,
+      "reference_only_mm3": 0.0,
+      "volume_mm3": 63274.069197945064
+    }
+  },
+  "approved_cap_profiles_reference": {
+    "native_archive_sha256": "86fc20a5595170f863c23bf1a894b9c51d91ab0d76d8a7e35cdec8b8bd5b2bb3",
+    "snapshot_commit": "d6a0b281d2866a4435ffaf056850efe960a74f1f",
+    "method": "Bidirectional solid differences after applying the stated translation."
+  },
+  "roof": {
+    "pocket": {
+      "name": "rear-snap-headroom",
+      "xmin": 3.2,
+      "xmax": 91.4,
+      "ymin": 396.0,
+      "ymax": 462.5,
+      "zmax": 348.55
+    },
+    "outer_top_z_mm": 355.0,
+    "retained_stock_mm": 6.45,
+    "cap_tip_air_mm": 0.5000000001862759
+  },
+  "meter_loading": {
+    "method": "Global Z separation of the complete connected deformed meter cap and PISCO. X translation preserves this bound throughout the 20 mm entering slide.",
+    "relaxed_gap_mm": 4.5225830078125,
+    "catch_opening_mm": 3.2,
+    "maximum_point_deflection_mm": 4.192359550642152,
+    "continuous_x_travel_mm": 20.0,
+    "opened_meter_max_z_mm": 316.6423595510147,
+    "pisco_min_z_mm": 316.97259999997914,
+    "minimum_continuous_clearance_mm": 0.33024044896444593,
+    "sequence": "Seat meter and PISCO before ASSE; fit vent sleeve/return last. Remove vent sleeve/return for meter service."
+  },
+  "routes": {
+    "tube-drain-vent": {
+      "digiten-flow": {
+        "gap_mm": 0.8136093640462764,
+        "intersection_mm3": 0.0
+      },
+      "enclosure-back-top": {
+        "gap_mm": 0.34765787918958435,
+        "intersection_mm3": 0.0
+      },
+      "meter-snap-cap": {
+        "gap_mm": 1.78167724609375,
+        "intersection_mm3": 0.0
+      },
+      "soda-continuous-insulation": {
+        "gap_mm": 2.9942959411188106,
+        "intersection_mm3": 0.0
+      },
+      "tube-fluid-16": {
+        "gap_mm": 2.208235325718507,
+        "intersection_mm3": 0.0
+      },
+      "tube-fluid-18": {
+        "gap_mm": 2.331478353186881,
+        "intersection_mm3": 0.0
+      }
+    },
+    "tube-fluid-18": {
+      "cold-core/foam-cap-lid-top": {
+        "gap_mm": 0.04934737082647501,
+        "intersection_mm3": 0.0
+      },
+      "cold-core/lower-pump-elbow": {
+        "gap_mm": 0.37004303193792853,
+        "intersection_mm3": 0.0
+      },
+      "cold-core/suction-reducer": {
+        "gap_mm": 2.126403283236543,
+        "intersection_mm3": 0.0
+      },
+      "cold-core/wago-reeds-b": {
+        "gap_mm": 1.156341552734375,
+        "intersection_mm3": 0.0
+      },
+      "enclosure-back-top": {
+        "gap_mm": 0.7374471018843475,
+        "intersection_mm3": 0.0
+      },
+      "funnel-frame": {
+        "gap_mm": 1.900543212890625,
+        "intersection_mm3": 0.0
+      },
+      "soda-continuous-insulation": {
+        "gap_mm": 0.8517689889230694,
+        "intersection_mm3": 0.0
+      },
+      "tube-above-core-gas-core-drop": {
+        "gap_mm": 0.32780405322168626,
+        "intersection_mm3": 0.0
+      },
+      "tube-above-core-va-fore-feed": {
+        "gap_mm": 2.795501708984375,
+        "intersection_mm3": 0.0
+      },
+      "tube-drain-vent": {
+        "gap_mm": 2.331478353186881,
+        "intersection_mm3": 0.0
+      },
+      "tube-fluid-14": {
+        "gap_mm": 0.8817654127109501,
+        "intersection_mm3": 0.0
+      },
+      "tube-fluid-16": {
+        "gap_mm": 1.8255615234375,
+        "intersection_mm3": 0.0
+      },
+      "tube-fluid-26": {
+        "gap_mm": 2.02557373046875,
+        "intersection_mm3": 0.0
+      },
+      "vk-solenoid": {
+        "gap_mm": 1.2357439248874047,
+        "intersection_mm3": 0.0
+      }
+    },
+    "tube-fluid-28": {
+      "cold-core/foam-cap-lid-top": {
+        "gap_mm": 0.04996478960889228,
+        "intersection_mm3": 0.0
+      },
+      "cold-core/tube-reservoir-air-a": {
+        "gap_mm": 2.8229470038325566,
+        "intersection_mm3": 0.0
+      },
+      "cold-core/vb-outlet-return": {
+        "gap_mm": 2.834009044812345,
+        "intersection_mm3": 0.0
+      }
+    },
+    "tube-soda-core-rise": {
+      "cold-core/foam-cap-lid-top": {
+        "gap_mm": 0.5748032591538794,
+        "intersection_mm3": 0.0
+      },
+      "soda-bend-holder": {
+        "gap_mm": 0.19704523165489762,
+        "intersection_mm3": 0.0
+      },
+      "vk-solenoid": {
+        "gap_mm": 2.367016214177709,
+        "intersection_mm3": 0.0
+      }
+    },
+    "tube-above-core-gas-core-drop": {
+      "cold-core/foam-cap-lid-top": {
+        "gap_mm": 1.683576060104679,
+        "intersection_mm3": 0.0
+      },
+      "tube-fluid-18": {
+        "gap_mm": 0.32780405322168626,
+        "intersection_mm3": 0.0
+      },
+      "vk-solenoid": {
+        "gap_mm": 1.1430221757027568,
+        "intersection_mm3": 0.0
+      }
+    },
+    "tube-above-core-water-split-stub": {
+      "tube-above-core-tee-regulator": {
+        "gap_mm": 0.8843900983517848,
+        "intersection_mm3": 0.0
+      },
+      "tube-above-core-tee-vk-link": {
+        "gap_mm": 0.8843236813845189,
+        "intersection_mm3": 0.0
+      }
+    }
+  },
+  "water_header": {
+    "tee_clock_about_run_deg": 7.558574621973043,
+    "through_run_socket_displacements_mm": [
+      3.552713678800501e-15,
+      7.105427357601002e-15
+    ],
+    "stub_radius_lower_bound_mm": 55.96062727584493,
+    "stub_receiving_body_intersections_mm3": {
+      "jg-pp061208w": 0.0,
+      "water-split": 0.002255606587905057
+    }
+  },
+  "soda_holder": {
+    "tube_gap_mm": 0.19704523165489762,
+    "vk_gap_mm": 0.1414565618978418
+  },
+  "vent_return": {
+    "sleeve_clock_from_fore_deg": 15.0,
+    "minimum_radius_mm": 25.4999999999926,
+    "exposed_centerline_length_mm": 127.99003397903627,
+    "sleeve_insertion_mm": 14.0,
+    "bulkhead_insertion_mm": 10.0
   },
   "exported_solids_sha256": {
-    "hardware/printed-parts/enclosure/rear-identification/rear-label-carb.step": "4bd7fb8a5db6a8ed3a1f8656ea3dc63aac4a0a8d51d3e1146173923eb5edfe99",
-    "hardware/printed-parts/enclosure/rear-identification/rear-label-co2.step": "69a718adebb3784abce920118c365d76f973de074a935eafcfb34f0e1cadd5c9",
-    "hardware/printed-parts/enclosure/rear-identification/rear-label-drain.step": "4cbf43dd8ab8e4cc3637bb4557bbed54a09e3eee3a17a65e45c7be2d7d63287b",
-    "hardware/printed-parts/enclosure/rear-identification/rear-label-flavor-a.step": "e65423c62a241dce119a88984a132c59f980faa5a12b2fc5201efd24b669f225",
-    "hardware/printed-parts/enclosure/rear-identification/rear-label-flavor-b.step": "a3e0fa26403a676f9f654a9050e52264b2fabcc3ca28d773a50704b335ea0a4d",
-    "hardware/printed-parts/enclosure/rear-identification/rear-label-water.step": "4124b45b184af727c1ac0858dbdddfa4797eab94d649875f12c33aa127136368"
+    "hardware/printed-parts/enclosure/rear-identification/rear-label-flavor-a.step": "58a8555f8ba98e609b121681072b364e9aee4b0ab1324e79120b6dd2993a0456",
+    "hardware/printed-parts/enclosure/rear-identification/rear-label-drain.step": "c6ebb1b44282684ed09990d9638979687b8731da9f2f3490f7ee580a0f9940c1",
+    "hardware/printed-parts/enclosure/rear-identification/rear-label-co2.step": "b527a00d29737382fc6fae29ba4c43bf28cbabbecacbddc21a2bc6ccb077f0ad",
+    "hardware/printed-parts/enclosure/rear-identification/rear-label-water.step": "b719013d945827b354e7b1cfe33029dc91e5074becf0dce581aaa5edf87b93ed",
+    "hardware/printed-parts/enclosure/rear-identification/rear-label-carb.step": "132f4476a0453cf69c29636cbb78940a40b119ca3dd3cb6062417268c7bcba95",
+    "hardware/printed-parts/enclosure/rear-identification/rear-label-flavor-b.step": "2be5454f923b02b21a672b9f8d8fed6c224ead633885ffdeba3778666d76dbf8"
+  },
+  "installed_wiring": {
+    "source_sha256": "d44ed6549ef4324cc3ad76fbd00788d2cf2707f63b95d42d33ec110f374edd55",
+    "receiver_candidates": {},
+    "route_count": 119
   }
 }

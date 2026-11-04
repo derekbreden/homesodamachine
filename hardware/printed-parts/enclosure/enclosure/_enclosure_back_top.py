@@ -398,9 +398,8 @@ def _above_leaves(shell, graph):
             ((x-9,z),(x,z+10),(x+9,z),(x,z-10))))
 
     def identify(piece):
-        for x in layout.specification()['fluid_grid']['columns_x_mm']:
-            piece = piece.cut(graph.box(x-identification.WIDTH/2-.15,
-                x+identification.WIDTH/2+.15,469.299,472.799,252.,357.))
+        for bounds in identification.channel_bounds():
+            piece = piece.cut(graph.box(*bounds))
         for b in (*identification.rail_roots(),*identification.rail_bounds()):
             piece = piece.fuse(graph.box(*b))
         return receiver(piece)
@@ -581,7 +580,7 @@ def _fluid_supports(graph):
     profile = snaps.pisco_bearing_profile(profile,dims['fitted_exterior']['profile_z_radius_mm'],
                                           datums['mouth_y'])
     stock = graph.box(axis[0]-st['outer'],axis[0]+st['outer'],cap_y[0]-c-snaps.WALL,
-                       datums['rear']+snaps.INTO,snaps.SPLIT,datums['ceiling']+snaps.INTO)
+                       datums['rear']+snaps.INTO,st['split'],datums['ceiling']+snaps.INTO)
     result['pisco-seat'] = stock.cut(turned(profile,axis),*pockets(st),*service_cuts(st))
 
     meter = parts._module('back_top_seat_meter','reference/digiten-flow-sensor/digiten_flow_sensor.py')
@@ -830,10 +829,8 @@ def print_numbers(shell,box):
     out = numbers(shell,box)
     out.update(_enclosure_skin.field_numbers([rail],shell.flute_pitch(box.outer),
                                              shell.flute_depth,shell.flute_rise))
-    half_channel = (identification.WIDTH + .3) / 2.
     out['print'] = {'embed':shell.disposal_embed,'raised_bounds':identification.rail_bounds(),
-        'label_channels':[(x-half_channel,x+half_channel,469.299,box.outer[3],252.,355.)
-            for x in identification.above_core.specification()['fluid_grid']['columns_x_mm']]}
+        'label_channels':identification.channel_bounds()}
     return out
 
 

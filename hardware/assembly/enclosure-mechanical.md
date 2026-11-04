@@ -110,20 +110,26 @@ roughness, including at seating faces; they are not a promise of open space afte
 
 ### 2. Populate the rear connection face
 
-Work with back-top loose. The nominal grid is in world X/Z millimetres:
+Work with back-top loose. Viewed from behind the appliance, populate the grid
+below. Coordinates are world X/Z millimetres; screen-left is positive X.
 
-| Row | West fluid column X37.25 | East fluid column X77.5 |
+| Row | Left column X76.5 | Right column X28.8 |
 |---|---|---|
-| Z328 | 1/4-inch water inlet, Ø19.307 bore | 1/4-inch CO2 inlet, Ø13.857 bore |
-| Z296 | 4 mm atmospheric vent, Ø15.3 bore | 1/4-inch soda outlet, Ø17.44 bore |
-| Z264 | 4 mm flavor B, Ø15.3 bore | 4 mm flavor A, Ø15.3 bore |
+| Z331.2 | CO2: 1/4-inch inlet, Ø13.857 bore | TAP: 1/4-inch water inlet, Ø19.307 bore |
+| Z294.2 | SODA: 1/4-inch outlet, Ø17.44 bore | FLAVOR: 4 mm outlet, Ø15.3 bore |
+| Z264 | OVER: 4 mm atmospheric vent, Ø15.3 bore | FLAVOR: 4 mm outlet, Ø15.3 bore |
 
-The water inlet's fitted bore centre is X37.476/Z327.665. The other five bores
+The water inlet's fitted bore centre is X29.026/Z330.865. The other five bores
 use the nominal grid centres.
 
-Seat each flange outside and its panel nut on the relieved inside land. The fluid
-panel uses nominal seat planes 6 mm apart. Its 1.8 mm identification tiles slide
-in continuous side channels over a 4 mm wall land. Keep moving release
+Load the cards before fitting the bulkheads. The fluid panel uses nominal seat
+planes 6 mm apart. Its 42 × 38 × 1.8 mm identification
+tiles slide in continuous side channels. Each rail overlaps its edge by 2 mm,
+leaving a 38 × 38 mm visible color face; adjacent tiles have a 0.2 mm seam.
+Load each column's bottom tile first. The upper two rows carry their words above
+the fitting and the bottom row carries its words below. Snap the nameplate into
+its centered receiver beneath the cards, at X0/Z200. Seat each fitting flange
+outside and its panel nut on the relieved inside land. Keep moving release
 collets free. Actual fitting make-up and insertion witnesses determine physical
 assembly; the reference envelopes do not establish those dimensions.
 
@@ -322,7 +328,7 @@ and slides.
 ### 7. Check the vent route
 
 The white 4 mm atmospheric-vent line connects the ASSE's downward vent elbow to
-the middle-left rear fitting and the faucet's separate open outlet over the bowl.
+the lower-left rear fitting, viewed from behind, and the faucet's separate open outlet over the bowl.
 Keep that entire path unobstructed. Its actual sleeve fit, retention and venting
 performance remain subject to the part's qualification record.
 
