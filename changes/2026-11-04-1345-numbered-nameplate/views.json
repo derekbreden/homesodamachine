@@ -24,9 +24,9 @@
       "camera": {
         "projection": "orthographic",
         "position": [
-          -72.20211858753821,
-          1075.6843215628185,
-          306.1347457250255
+          -72.20237678376932,
+          1075.6864731980777,
+          306.1349178558462
         ],
         "target": [
           0,
@@ -39,8 +39,8 @@
           1
         ],
         "half": 112,
-        "near": 485.8855079231392,
-        "far": 1144.4542775365082,
+        "near": 485.88690872542384,
+        "far": 1144.4580333939846,
         "aspect": 1.2
       },
       "highlight": [],
@@ -70,9 +70,9 @@
         "after": {
           "payload": "manifold-layout/enclosure-assembly.step.mesh",
           "from": "tree",
-          "sha256": "d78cc6be7dd85495cc39ed818f985398d2af60cd2e58ce56be0f4c257855cb25",
-          "commit": "1c6efa28e337ac8f1ecece10fd1540ae3a6ad83c",
-          "published": true
+          "sha256": "1bccd85cf315ff55a8b7dd78905ab94690f077e38befd0180f62ed427a824893",
+          "commit": "289db81b835866a28efd83e58e1b2cd97c1afb3b",
+          "published": false
         }
       },
       "changed": [
