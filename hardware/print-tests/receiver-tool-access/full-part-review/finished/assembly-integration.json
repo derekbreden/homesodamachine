@@ -6,8 +6,8 @@
       "enclosure-pump-retainer"
     ],
     "unrelated_fine_bodies_preserved": 435,
-    "step_sha256": "fa7c846be24cf504c62af5d4c395c36ab98d8706585095cc303cbf65d612df75",
-    "payload_sha256": "bb07419585df989f4338afb913e0dd781fe4d03bb52233238bebf55e4bebe481"
+    "step_sha256": "beaf4406f4f82fe2172fda67aed858be482bb978146867589112be89c713a766",
+    "payload_sha256": "5edd9fe8134ecc8c3a07114d4a0b7c2ff691fed1bc78f9a30105f59e2850a624"
   },
   "enclosure": {
     "replaced": [
@@ -16,8 +16,8 @@
       "enclosure_pump_retainer"
     ],
     "unrelated_fine_bodies_preserved": 22,
-    "step_sha256": "6b055cca1d5a1200a6e48b0884e1509abcab55cf6d44a6c2b7e02c6d1bdeeccd",
-    "payload_sha256": "2bd319560a44611da7b4bb34a9feb3b10bb5baed28967d6147deb976e864d01f"
+    "step_sha256": "ad86b066255dd4a46bb153b4f261cd033f93d4a042df8206bed9c213a43ad697",
+    "payload_sha256": "54626ee137944a71deaedd2635af07213355679f7f16dde4360853daee94ed7e"
   },
   "scene": {
     "replaced_arrays": 9,
@@ -32,7 +32,7 @@
       ],
       "unrelated_buffer_views_preserved": 216,
       "nodes_materials_and_unrelated_buffers_retained": true,
-      "sha256": "9e79dc8ed8b59847f247e9bf0ef1dc6e5b03ce388acaaac2739a4f7978000640"
+      "sha256": "e11f0df3b9e65c7931e74051024fa4f538524735738e336ebbdf040d72886271"
     },
     "back-top": {
       "changed": [
@@ -56,7 +56,7 @@
       ],
       "unrelated_buffer_views_preserved": 198,
       "nodes_materials_and_unrelated_buffers_retained": true,
-      "sha256": "dfae265a566247842e3fec5362d5cc4ef5756de7bd9e9149b7d0622ac36ad37e"
+      "sha256": "d915490d3176a0660f050ca9f4e16c0200ffeb06dcea3352672d4aa826ca50a2"
     }
   }
 }
