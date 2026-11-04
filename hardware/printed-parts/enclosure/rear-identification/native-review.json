@@ -874,7 +874,9 @@
       473.5,
       223.39263916015625
     ],
-    "mating_pocket_top_z_mm": 219.15
+    "mating_pocket_top_z_mm": 219.15,
+    "printed_surface_sha256": "95c724476d3bd90f3e5549c2a65b011ac8b6e446f6941714761c147403bd8dcc",
+    "post_publication_lint_remnant_present": false
   },
   "printed_rail_stock": {
     "outer_rail_root": [

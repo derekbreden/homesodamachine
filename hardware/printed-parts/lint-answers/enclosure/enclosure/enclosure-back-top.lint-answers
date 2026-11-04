@@ -436,16 +436,16 @@ alternatives: Filling the pocket occupies the moving hook and leaf. Sloping its 
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=-37.324 y=290.529 z=339.815
 click: x=-37.324 y=324.785 z=339.815
-click: x=50.023 y=417.286 z=339.850
-click: x=66.019 y=441.448 z=339.850
-click: x=7.577 y=417.286 z=339.850
-click: x=86.981 y=441.448 z=339.850
-click: x=7.577 y=428.994 z=339.850
-click: x=50.023 y=428.994 z=339.850
-click: x=66.019 y=453.819 z=339.850
-click: x=86.981 y=453.819 z=339.850
-click: x=7.577 y=403.790 z=339.850
-click: x=50.023 y=403.790 z=339.850
+click: x=50.023 y=417.286 z=343.050
+click: x=66.019 y=441.448 z=343.050
+click: x=7.577 y=417.286 z=343.050
+click: x=86.981 y=441.448 z=343.050
+click: x=7.577 y=428.994 z=343.050
+click: x=50.023 y=428.994 z=343.050
+click: x=66.019 y=453.819 z=343.050
+click: x=86.981 y=453.819 z=343.050
+click: x=7.577 y=403.790 z=343.050
+click: x=50.023 y=403.790 z=343.050
 click: x=-48.519 y=290.529 z=339.815
 
 [thin] Measured regulator outlet-neck bearing: the 1.854 mm minimum is the axial web between the purchased housing shoulder and the outlet collar, from its radius profile near native X48.8–52.1. The receiver keeps 0.30 mm radial and 0.25 mm axial clearance; the matched cap uses 0.25 mm radial clearance. This narrow bearing locates the regulator axially while its broad body saddle carries the housing.
@@ -504,22 +504,25 @@ click: x=90.950 y=414.759 z=307.100
 click: x=85.625 y=414.759 z=309.950
 click: x=88.300 y=406.594 z=263.500
 click: x=88.450 y=391.387 z=267.700
+click: x=88.450 y=421.801 z=267.700
+click: x=94.700 y=394.094 z=268.500
+click: x=94.700 y=419.094 z=268.500
 
 [ledge] Fitted v3 snap catch: the horizontal pocket projects 2.85 mm for 2.60 mm hook engagement and 0.25 mm running allowance. The free cap leaves are 2.0 mm with R1.5 roots; receiver walls retain 3 mm stock. These square faces provide positive capture. Tree(auto)/Default supports leave through the empty flank mouths before hardware and caps are fitted; the exposed leaves can be spread to release the catches. Physical release force and repeated bending remain unqualified.
 alternatives: Filling the pocket occupies the moving hook and leaf. Sloping its bearing makes a withdrawal ramp; reducing its reach reduces the selected capture. Increasing the wall thickness does not remove this working catch surface.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=65.544 y=421.799 z=339.850
-click: x=86.506 y=421.799 z=339.850
+click: x=65.544 y=421.799 z=343.050
+click: x=86.506 y=421.799 z=343.050
 
 [ledge] Fitted meter housing and snap profiles: the flat faces bound the complete housing flange, screw bosses, lead exit and cap hook, including the 16 mm aft installation sweep and 0.5 mm axial variation. They are the purchased-body and working-catch boundaries of one east-wall seat. Tree(auto)/Default reaches them through the empty west/fore opening before the meter is installed; geometric access does not establish easy support removal.
 alternatives: Filling or corbelling into these faces enters the housing/insertion sweep or cap-hook path. Sloping the catch changes retention; shortening the housing pocket spends the required complete envelope.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=85.767 y=418.005 z=260.300
 
-[step] Separate fitted snap-pocket and inner-roof planes: the rear snap pockets end at Z345.35, 5.50 mm above the Z339.85 bearing, with the tip and running allowance defined by rear_snaps.station. The ordinary inner roof is Z346, and the PSU ears and case well have their separate Z347 and Z347.25 datums. These are complete mating clearances, not thin stock added between otherwise continuous planes.
+[step] Separate fitted snap-pocket and inner-roof planes: the rear snap pockets end at Z348.55, 5.50 mm above the Z343.05 bearing, with the tip and running allowance defined by rear_snaps.station. The ordinary inner roof is Z346, and the PSU ears and case well have their separate Z347 and Z347.25 datums. These are complete mating clearances, not thin stock added between otherwise continuous planes.
 alternatives: Raising the snap-pocket ceiling changes the cap's tip clearance and roof stock. Lowering the common roof consumes the neighboring equipment clearance. Making the PSU planes coincide changes either the ear bearing or the running well.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=64.769 y=441.198 z=345.350
+click: x=64.769 y=441.198 z=348.550
 click: x=0.000 y=368.346 z=346.000
 
 [ceiling] Lower loading stop of each continuous identification-card channel at Z240.6. The 2 mm-deep flat locates the stack of three rectangular cards before the bulkheads clamp them. Back-top prints ceiling-down; Tree(auto)/Default supports leave through the open rear channels before cards and fittings are installed.

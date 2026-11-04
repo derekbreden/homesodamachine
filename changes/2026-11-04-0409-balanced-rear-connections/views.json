@@ -1,0 +1,118 @@
+{
+  "views": [
+    {
+      "name": "rear-face",
+      "caption": "Square visible color cards, OVER beneath SODA, both FLAVOR ports in the right column, and the centered nameplate.",
+      "before": "rear-face-before.webp",
+      "after": "rear-face-after.webp",
+      "width": 1440,
+      "height": 1080,
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "orthographic",
+        "position": [
+          0,
+          1070.5793949845638,
+          340.4295273981476
+        ],
+        "target": [
+          0,
+          467,
+          268
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "half": 100,
+        "near": 480.3330593695469,
+        "far": 1138.901828982916,
+        "aspect": 1.3333333333333333
+      },
+      "highlight": [],
+      "ghost": [],
+      "only": [
+        "enclosure-back-top",
+        "bulkhead-ring-*",
+        "co2-inlet",
+        "bulkhead-water",
+        "bulkhead-carb*",
+        "bulkhead-drain*",
+        "bulkhead-flavor-*",
+        "c14-inlet",
+        "keystone-jack",
+        "nameplate*"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "5ef238214a71d8d1c3382b61a535b319351dd7fa66940741071105e5d6b59b18",
+          "commit": "d6a0b281d2866a4435ffaf056850efe960a74f1f",
+          "taken": "2026-11-04T07:52:05.376Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "44e47526534250d4290efe1abafb3f0a2d2854cc8429c1d5951750deb65bfe8a",
+          "commit": "d0374881191accd53204044fb6b43461acbab50e",
+          "published": true
+        }
+      },
+      "changed": [
+        "bulkhead-ring-drain-word",
+        "tube-drain-vent",
+        "bulkhead-ring-drain",
+        "bulkhead-ring-flavor-a",
+        "bulkhead-ring-flavor-a-word",
+        "bulkhead-flavor-a",
+        "bulkhead-flavor-a-nut",
+        "tube-fluid-18",
+        "bulkhead-drain",
+        "bulkhead-drain-nut",
+        "nameplate-ink",
+        "nameplate",
+        "bulkhead-ring-flavor-b-word",
+        "asse-drain-adapter",
+        "bulkhead-ring-flavor-b",
+        "enclosure-back-top",
+        "bulkhead-ring-carb",
+        "bulkhead-ring-water",
+        "bulkhead-ring-co2",
+        "tube-fluid-28",
+        "wire-flow-GND",
+        "wire-J4-IO25",
+        "wire-J4-V5",
+        "soda-continuous-insulation",
+        "asse1022-assembly",
+        "soda-bend-holder",
+        "jg-pi4512f6s",
+        "jg-pp061208w",
+        "gas-check",
+        "bulkhead-water",
+        "bulkhead-carb",
+        "tube-above-core-gas-core-drop",
+        "gagira-coupling",
+        "tube-soda-core-rise",
+        "gas-regulator",
+        "digiten-flow",
+        "tube-above-core-water-split-stub",
+        "bulkhead-carb-nut",
+        "pisco-snap-cap",
+        "asse-snap-cap",
+        "meter-snap-cap",
+        "co2-inlet",
+        "tube-soda-meter-bulkhead",
+        "water-split",
+        "bulkhead-ring-carb-word"
+      ],
+      "withinMeshing": [
+        "bulkhead-ring-water-word",
+        "bulkhead-ring-co2-word"
+      ]
+    }
+  ]
+}
