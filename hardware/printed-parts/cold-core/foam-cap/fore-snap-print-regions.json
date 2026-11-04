@@ -12,16 +12,16 @@
     "hardware/printed-parts/cold-core/_reservoir_a_c2.py": "073f314bf227dee8d5326b077fb4d2a050a70cc9164e2688dcb307393aea466e",
     "hardware/manifold-layout/above_core.py": "4ae1006309cfc55676c11ac286d0506a77d8fecd1b107818b2d6a665b787654e",
     "hardware/manifold-layout/above-core.json": "e0b80674504eabcbfa8ce36559b94b30c737d80f2a99b782dd45cbb7cec05dec",
-    "hardware/printed-parts/cold-core/_reservoir_a_anchors.py": "5868aa3fc23237e6215b72e78949e6b179405c64d7ea003821116cfab73987a7",
-    "hardware/printed-parts/cold-core/foam-cap/foam_cap.py": "071283bbd757f329cf4bd53cabd3d846fcdef46a3cac3c28df30e22f4f168a7c",
-    "hardware/printed-parts/cold-core/_cold_core_interface.py": "81dfa262e4ad7e321dca5ed4f86a85367b21123833013eb4dad75270e7faef44",
-    "hardware/printed-parts/cold-core/_above_core_mounts.py": "9b5a90bc83c606bf6639517f36b13653030e1ca1fab833ca89d131039520b2ed",
+    "hardware/printed-parts/cold-core/_reservoir_a_anchors.py": "247573e7043dd0e8e06ad6e61d27116015b9b32d6e00641a7e8e1ca335812ad5",
+    "hardware/printed-parts/cold-core/foam-cap/foam_cap.py": "7432f98f87c08e6fb3463a38d79deb860025d1ba74cc4d86355307ffbbb1f919",
+    "hardware/printed-parts/cold-core/_cold_core_interface.py": "365a8d7bb582b2570d9d107a2fe3e7dad9bc29112ef090bfa22a85c15306c2a0",
+    "hardware/printed-parts/cold-core/_above_core_mounts.py": "8290a45534a5332a04b375c96af90b86b4632e7cd0fb04d2615af9b2a4f2c07d",
     "hardware/printed-parts/cold-core/_foam_cap.py": "1a60d110a06b51c83bf245e365cd3436508e6c3e317a8ef353da93b9b662aa07"
   },
   "native_artifact_sha256": {
     "foam-cap-lid-top": {
-      ".step": "59741816726bfa72b087c7dba766a6a4bc707deb658f98fe95bba44b67ad0b54",
-      ".stl": "06410da89817947dfd632caf156dea7cfb5d33026ff632a69dad7f73ebb54f85"
+      ".step": "0df7f28ba9467d945514f3ceb2800e374c34e29f56d8f7aeb6dade8090e76496",
+      ".stl": "256c74ff711a314fbdbcf61201a191109d2c38232cd8d6a6e5540abbf7c1a6db"
     },
     "foam-cap-bottom": {
       ".step": "91ddfea3e9ca8cf046cb385a8d7e653b0b2deb3a343d6b1c9170ead4ed7c5929",

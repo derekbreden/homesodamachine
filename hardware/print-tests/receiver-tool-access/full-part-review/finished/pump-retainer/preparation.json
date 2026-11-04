@@ -1,0 +1,282 @@
+{
+  "piece": "pump-retainer",
+  "printer": "Mark1",
+  "connection_key": "H2C",
+  "nozzle": {
+    "side": "left",
+    "diameter_mm": 0.4,
+    "flow": "Standard",
+    "hardened": true,
+    "reason": "Every abrasive stock runs on the left hotend (hardware/ledger/tools.md, Which hotends fit an H2C); Mark1's fixed left hardened 0.4 mm carries black PET-GF (tools/bambu-printers.md, Purge and wipe).",
+    "sliced_diameter_mm": 0.4,
+    "sliced_volume_type": "Standard"
+  },
+  "material": "Polymaker Fiberon PET-GF15, black",
+  "bed_type": "Textured PEI Plate",
+  "requested_z_trim_mm": 0.18,
+  "emitted_textured_trim_mm": 0.16,
+  "project": "/Users/derekbredensteiner/Downloads/HSM-full-enclosure-2026-11-03/projects/HSM-000082-pump-retainer-Mark1.3mf",
+  "project_sha256": "a368c52f311b893a3052a436dbe6a4dcb89e3c7ea49061f288134b5c3d197dd4",
+  "profile": "hardware/printed-parts/petgf.3mf",
+  "profile_sha256": "45c16e8c8517e0a205107d7b9f7412d013f51a8de7ecf86125cc940079d37ed0",
+  "settings_sha256": "8260452bae9cf42ed8016bca971ee73ed8c4437f00091b5665e63af9ae153d61",
+  "settings_changes": {
+    "extruder_ams_count": {
+      "from": [
+        "1#0|4#1",
+        "1#0|4#0"
+      ],
+      "to": [
+        "1#0|4#0",
+        "1#0|4#0"
+      ],
+      "reason": "Single external black PET-GF spool on the fixed left nozzle for model, support and interface."
+    },
+    "support_filament": {
+      "from": "0",
+      "to": "1",
+      "reason": "Single external black PET-GF spool on the fixed left nozzle for model, support and interface."
+    },
+    "support_interface_filament": {
+      "from": "0",
+      "to": "1",
+      "reason": "Single external black PET-GF spool on the fixed left nozzle for model, support and interface."
+    },
+    "flush_into_support": {
+      "from": "1",
+      "to": "0",
+      "reason": "Single external black PET-GF spool on the fixed left nozzle for model, support and interface."
+    },
+    "filament_colour": {
+      "from": [
+        "#000000"
+      ],
+      "to": [
+        "#000000"
+      ],
+      "reason": "Mark1's loaded black PET-GF colour reading."
+    },
+    "wall_loops": {
+      "from": "2",
+      "to": "3",
+      "reason": "Shared snap trial: three Classic walls through the 2.0 mm spring leaves."
+    },
+    "wall_generator": {
+      "from": "classic",
+      "to": "classic",
+      "reason": "Shared snap fixed-width wall recipe."
+    }
+  },
+  "profile_changes": {
+    "machine_start_gcode": {
+      "from_sha256": "3cc9e41520dbf5622d6f9a96bce734db9d11b0b48b49f2abec047a6e01dc6a92",
+      "to_sha256": "409b1516f0401361a02b18a34420c10ca83bc33615e8896cade2fea42edee871",
+      "requested_z_trim_mm": 0.18
+    },
+    "printer_settings_id": {
+      "from": "Bambu Lab H2C 0.4 nozzle 04 first layer by agent",
+      "to": "Bambu Lab H2C 0.4 Standard +0.18 Z trim"
+    },
+    "print_compatible_printers": {
+      "from": [
+        "Bambu Lab H2C 0.4 nozzle"
+      ],
+      "to": [
+        "Bambu Lab H2C 0.4 nozzle",
+        "Bambu Lab H2C 0.4 Standard +0.18 Z trim"
+      ]
+    }
+  },
+  "usable_plate_mm": [
+    [
+      0.0,
+      0.0
+    ],
+    [
+      325.0,
+      320.0
+    ]
+  ],
+  "plate_border_mm": 20.0,
+  "brim_allowance_mm": 0.0,
+  "plate_offset_mm": null,
+  "objects": [
+    {
+      "name": "enclosure-pump-retainer",
+      "identify_id": 1901,
+      "object_id": 2,
+      "stl": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.stl",
+      "stl_sha256": "d2f999e640039b2d322c418821be80242130b459e56e97a57f9f3c7dd9ce8b6d",
+      "step_sha256": "d150ee04c6f9e9d1e9cf64eb641f02f14305b08ac7152945b1e2f3098f33f6e7",
+      "facets": 1728,
+      "closed": {
+        "edges": 2592,
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "inconsistent_edges": 0,
+        "bodies": 1,
+        "closed_oriented_single_body": true
+      },
+      "pose": {
+        "turns": [
+          [
+            "x",
+            90
+          ]
+        ],
+        "reason": "Y-end down keeps the X/Z spring bending plane within each layer."
+      },
+      "pose_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          -1.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ]
+      ],
+      "yaw_degrees": 0,
+      "source_center_mm": [
+        0.0,
+        48.25749969482422,
+        199.80950164794922
+      ],
+      "build_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          -1.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ]
+      ],
+      "translation_mm": [
+        162.5,
+        160.0,
+        34.00749969482422
+      ],
+      "plate_bounds_mm": [
+        [
+          61.150001525878906,
+          135.38550567626953,
+          0.0
+        ],
+        [
+          263.8499984741211,
+          184.61449432373047,
+          68.01499938964844
+        ]
+      ],
+      "model_bed_margin_mm": 61.150001525878906,
+      "seam_enforcer": null,
+      "object_settings": {},
+      "features": [],
+      "ranges": [],
+      "verify_spans": [],
+      "ribbons": [],
+      "tie_windows": [],
+      "modifiers": [
+        {
+          "name": "Pump snap west full-Y hook, wing and upper root",
+          "source_bounds_mm": [
+            [
+              -101.34899847412109,
+              14.251,
+              175.19600732421875
+            ],
+            [
+              -89.9,
+              82.26399938964843,
+              200.44500000000002
+            ]
+          ],
+          "plate_bounds_mm": [
+            [
+              61.15100152587891,
+              159.3645016479492,
+              0.0009999999999976694
+            ],
+            [
+              72.6,
+              184.61349432373046,
+              68.01399938964843
+            ]
+          ],
+          "sparse_infill_density": "100%"
+        },
+        {
+          "name": "Pump snap east full-Y hook, wing and upper root",
+          "source_bounds_mm": [
+            [
+              89.9,
+              14.251,
+              175.19600732421875
+            ],
+            [
+              101.34899847412109,
+              82.26399938964843,
+              200.44500000000002
+            ]
+          ],
+          "plate_bounds_mm": [
+            [
+              252.4,
+              159.3645016479492,
+              0.0009999999999976694
+            ],
+            [
+              263.8489984741211,
+              184.61349432373046,
+              68.01399938964843
+            ]
+          ],
+          "sparse_infill_density": "100%"
+        }
+      ],
+      "fins": [],
+      "regions": {
+        "record": "hardware/printed-parts/enclosure/enclosure/heat-set-review/print-regions.json",
+        "record_sha256": "b3ad3af4b6e99a032c4aef536b0e9ff8a5aaaf597706c20ef986c8128e967299",
+        "part_process_overrides": null
+      }
+    }
+  ],
+  "pause": null,
+  "show_faces": ".cache/customer-finish/final-prints/2026-11-03-pump-retainer-mark1-8bd33822/show-faces.npz",
+  "spec": "hardware/printed-parts/enclosure/trial-preparation/pieces.json",
+  "spec_sha256": "b47d2cf2e47dec4defd9326d421bc731ed68e5252d4f947ca3ec67b43ac623a9",
+  "tool_sha256": {
+    "hardware/printed-parts/enclosure/trial-preparation/_derive.py": "2ffa3fc3e716cfc6d1663f69767228eb0f6d9f8da147ffc2c90de2097cdac6e4",
+    "hardware/printed-parts/enclosure/trial-preparation/_mesh.py": "7ab22db36e370608f52df3709c4af1994c8e804ee06e101dcbf79210db99eead",
+    "hardware/printed-parts/enclosure/trial-preparation/_native.py": "1c99ce10842a141a942a19d7def2329512d14b676c00618496187e0d93cd29da",
+    "hardware/printed-parts/enclosure/trial-preparation/_seam.py": "9ffa509df701826563e18388fd3bcc57c604f4b2b8e5e4288821ddcd00bcb176",
+    "hardware/printed-parts/enclosure/trial-preparation/labels.py": "d172b8408f0b9ded097d7c8c2eeea682a067e5d487967576c77caf4204696d68",
+    "hardware/printed-parts/enclosure/trial-preparation/prepare.py": "bc5495142592e777cb1b94eb2cfe06e64ba15ee6bae94f3e95e62a556741b513",
+    "hardware/printed-parts/enclosure/trial-preparation/review.py": "9bd303fe370842fd34eb559dc5f53f887f75c42e478c598737397dd49dd539f7",
+    "hardware/printed-parts/enclosure/trial-preparation/step_meshes.py": "b50f7b50f52f1e8516be3b1fc9ecdb10e87fb188f8b9bebc0fac56737320fc44"
+  },
+  "prepared_utc": "2026-11-04T02:16:14+00:00",
+  "sliced": true,
+  "submitted": false,
+  "archive": "/Users/derekbredensteiner/Downloads/HSM-full-enclosure-2026-11-03/reviewed/HSM-000082-pump-retainer-Mark1.gcode.3mf",
+  "archive_sha256": "49555a320b69a99944d2083f53657b70986dcb0590758f726309c077594b3a46",
+  "gcode_sha256": "d5006ce40672d9c1377923b2510d578d3c69f0868e964ef43ecb2ad76e285cf0",
+  "estimated_seconds": 21460.44921875,
+  "slicer_warnings": []
+}

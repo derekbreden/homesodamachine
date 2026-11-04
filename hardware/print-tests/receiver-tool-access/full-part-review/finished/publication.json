@@ -1,5 +1,5 @@
 {
-  "source_commit": "29f754d63a176356ad00ffc2ab4b2f299e2a7bd2",
+  "source_commit": "8d8986a43161b3529f2fd3a378e6d9a9053a311d",
   "current_native_parent_viewer_sha256": "5edd9fe8134ecc8c3a07114d4a0b7c2ff691fed1bc78f9a30105f59e2850a624",
   "scope": "The label-rail print skin is clipped to the native open channels. The native back-top solid and installed bodies are unchanged; only the matching print skins in the two viewer hosts move. Earlier full native integration remains recorded separately.",
   "members": {

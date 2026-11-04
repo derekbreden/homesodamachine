@@ -50,18 +50,31 @@ def print_pose(piece, mesh_bounds):
 def above_core_regions(box, region):
     """Complete fixed-shell hosts from the selected native interface helpers."""
     shell = e._above_core_shell
-    for label, (bosses, _holes) in (('PSU', shell.psu_bosses()),
-                                   ('Relay', shell.relay_bosses())):
-        for number, shape in enumerate(bosses, start=1):
-            bounds = shape_bounds(shape)
-            if label == 'PSU':
+    for component, plan in shell.wall_mount_datums().items():
+        for number, station in enumerate(plan['stations'], start=1):
+            root, face, axis = (station[k] for k in
+                               ('stock_root_world_mm', 'insert_face_world_mm', 'axis_world'))
+            tip = [face[k] + axis[k]*plan.get('bearing_tip_height_mm', 0.)
+                   for k in range(3)]
+            radius = plan['boss_radius_mm']
+            bounds = [value for k in range(3) for value in
+                      (min(root[k], tip[k]) - (radius if abs(axis[k]) < 0.5 else 0.),
+                       max(root[k], tip[k]) + (radius if abs(axis[k]) < 0.5 else 0.))]
+            if component == 'psu':
                 bounds[5] = max(bounds[5], box.outer[5])
-                root = 'ceiling root and blind floor'
+                bearing_root = 'ceiling root and blind floor'
             else:
                 bounds[0] = min(bounds[0], box.outer[0])
-                root = 'west wall root'
-            region('back-top', f'{label} bearing pad, insert host and {root} {number}',
+                bearing_root = 'west wall root'
+            region('back-top', f'{component} bearing pad, insert host and {bearing_root} {number}',
                    bounds)
+        if component != 'psu':
+            for y in sorted({round(s['position_world_mm'][1], 6) for s in plan['stations']}):
+                row = [s for s in plan['stations'] if abs(s['position_world_mm'][1]-y) < 1e-5]
+                region('back-top', f'{component} connecting host bar and wall root at Y{y:g}',
+                       [box.outer[0], min(s['insert_face_world_mm'][0] for s in row),
+                        y-5., y+5., min(s['position_world_mm'][2] for s in row),
+                        max(s['position_world_mm'][2] for s in row)])
     x, y, z = shell.layout.pose('c14-inlet')['translation_mm']
     fasteners = shell.c14_fastener_plan()
     seat = y - fasteners['flange_thickness_mm']

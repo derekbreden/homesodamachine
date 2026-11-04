@@ -1,5 +1,5 @@
 {
-  "source_commit": "469e8b12ebf14afaf100538dcab8a9be3f99055c",
+  "source_commit": "9841dc041419be61d778f30eec6fef7c5b537136",
   "current_native_parent_viewer_sha256": "6a479d8529a66ab22dffbadd0c3526bb2c90ed1c0f6d10dc9c78e852289896f9",
   "scope": "The front corner patch is regularized to the kernel linear tolerance. Both native assemblies, installed scene, matching viewer hosts and installation GLBs carry the same finished front. Unrelated bodies and all approved cap geometry remain unchanged.",
   "members": {

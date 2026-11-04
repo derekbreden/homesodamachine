@@ -4210,7 +4210,7 @@
       "unproven": true
     },
     "hardware/assembly/scenes/glb/front-top.glb": {
-      "commit": "469e8b12ebf14afaf100538dcab8a9be3f99055c",
+      "commit": "9841dc041419be61d778f30eec6fef7c5b537136",
       "unproven": true
     },
     "hardware/assembly/scenes/glb/funnel-drain.glb": {
@@ -4219,7 +4219,7 @@
       "unproven": true
     },
     "hardware/assembly/scenes/glb/pump-mount.glb": {
-      "commit": "469e8b12ebf14afaf100538dcab8a9be3f99055c",
+      "commit": "9841dc041419be61d778f30eec6fef7c5b537136",
       "unproven": true
     },
     "hardware/cold-core-layout/cold-core-assembly.scorecard.json": {
@@ -4505,7 +4505,7 @@
       "unproven": true
     },
     "hardware/manifold-layout/enclosure-assembly.physical.step.mesh": {
-      "commit": "469e8b12ebf14afaf100538dcab8a9be3f99055c",
+      "commit": "9841dc041419be61d778f30eec6fef7c5b537136",
       "unproven": true
     },
     "hardware/manifold-layout/enclosure-assembly.scorecard.json": {
@@ -4514,11 +4514,11 @@
       "unproven": true
     },
     "hardware/manifold-layout/enclosure-assembly.step": {
-      "commit": "469e8b12ebf14afaf100538dcab8a9be3f99055c",
+      "commit": "9841dc041419be61d778f30eec6fef7c5b537136",
       "unproven": true
     },
     "hardware/manifold-layout/enclosure-assembly.step.mesh": {
-      "commit": "469e8b12ebf14afaf100538dcab8a9be3f99055c",
+      "commit": "9841dc041419be61d778f30eec6fef7c5b537136",
       "unproven": true
     },
     "hardware/manifold-layout/manifold-layout.step": {
@@ -5263,12 +5263,12 @@
     },
     "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh": {
       "inputs": "f49d61ec27cd5a72919266b0550518047677ff653b08d856de16d5a3d6020198",
-      "commit": "29f754d63a176356ad00ffc2ab4b2f299e2a7bd2",
+      "commit": "8d8986a43161b3529f2fd3a378e6d9a9053a311d",
       "unproven": true
     },
     "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl": {
       "inputs": "f49d61ec27cd5a72919266b0550518047677ff653b08d856de16d5a3d6020198",
-      "commit": "29f754d63a176356ad00ffc2ab4b2f299e2a7bd2",
+      "commit": "8d8986a43161b3529f2fd3a378e6d9a9053a311d",
       "unproven": true
     },
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step": {
@@ -5288,17 +5288,17 @@
     },
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step": {
       "inputs": "98cd8a62f091dade51578cf23cef512e5230698e613a484d66d9ec02f3719f7c",
-      "commit": "469e8b12ebf14afaf100538dcab8a9be3f99055c",
+      "commit": "9841dc041419be61d778f30eec6fef7c5b537136",
       "unproven": true
     },
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh": {
       "inputs": "98cd8a62f091dade51578cf23cef512e5230698e613a484d66d9ec02f3719f7c",
-      "commit": "469e8b12ebf14afaf100538dcab8a9be3f99055c",
+      "commit": "9841dc041419be61d778f30eec6fef7c5b537136",
       "unproven": true
     },
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl": {
       "inputs": "98cd8a62f091dade51578cf23cef512e5230698e613a484d66d9ec02f3719f7c",
-      "commit": "469e8b12ebf14afaf100538dcab8a9be3f99055c",
+      "commit": "9841dc041419be61d778f30eec6fef7c5b537136",
       "unproven": true
     },
     "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step.mesh": {
@@ -5345,11 +5345,11 @@
       "unproven": true
     },
     "hardware/printed-parts/enclosure/enclosure/enclosure.step": {
-      "commit": "469e8b12ebf14afaf100538dcab8a9be3f99055c",
+      "commit": "9841dc041419be61d778f30eec6fef7c5b537136",
       "unproven": true
     },
     "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh": {
-      "commit": "469e8b12ebf14afaf100538dcab8a9be3f99055c",
+      "commit": "9841dc041419be61d778f30eec6fef7c5b537136",
       "unproven": true
     },
     "hardware/printed-parts/enclosure/nameplate/nameplate-001.step": {

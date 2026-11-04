@@ -11,11 +11,11 @@ carbonator.
 The requested next four parts are back-top HSM-000081, front-top HSM-000079,
 lower pump retainer HSM-000082 and equipment lid HSM-000020. Their
 [manual full-part review](../../print-tests/receiver-tool-access/full-part-review/readiness.json)
-records the exact exported meshes and outstanding work. Their current reinforcement
-bindings require refresh and the complete native slices require review. The lower
-retainer also retains the deferred well-profile meeting-plane strips. Successful
-snap-sample review does not close these manufacturing and surface items; this set
-is not released for printing yet.
+binds the final meshes, reinforcement regions and reviewed complete native slices.
+The [prepared print set](../../print-tests/receiver-tool-access/full-part-review/finished/README.md)
+includes the actual support-removal routes, surface readings, printer mappings and
+print-only archive hashes. These four complete parts are ready for printing after
+the successful matched-snap review Derek specified. Their jobs have not been sent.
 
 The complete enclosure print includes the four shell quadrants (front-top, front-bottom,
 back-top, back-bottom), lower pump retainer, machine display cover, drop-in

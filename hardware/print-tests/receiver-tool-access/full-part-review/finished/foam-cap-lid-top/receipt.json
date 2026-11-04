@@ -1,0 +1,56 @@
+{
+  "part_number": "HSM-000020",
+  "part": "foam-cap-lid-top",
+  "printer": "Mark1",
+  "stl": "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.stl",
+  "stl_sha256": "256c74ff711a314fbdbcf61201a191109d2c38232cd8d6a6e5540abbf7c1a6db",
+  "project": "/Users/derekbredensteiner/Downloads/HSM-full-enclosure-2026-11-03/projects/HSM-000020-foam-cap-lid-top-Mark1.3mf",
+  "project_sha256": "d6b6c7623c64dd69197d334c2383d49a21c7c0ecc47734f885e441bfff3fd649",
+  "reviewed_archive": "/Users/derekbredensteiner/Downloads/HSM-full-enclosure-2026-11-03/reviewed/HSM-000020-foam-cap-lid-top-Mark1.gcode.3mf",
+  "reviewed_archive_sha256": "f3e6f0b4c1f0ba750c5428016f803f36ec34dfebca46d7bb70c1dfcfbb39f593",
+  "print_archive": "/Users/derekbredensteiner/Downloads/HSM-full-enclosure-2026-11-03/HSM-000020-foam-cap-lid-top-Mark1.gcode.3mf",
+  "print_archive_sha256": "7c4bfdee12fd1e926d71c272e05be9ce7ed0cbf8e8b2e374064df5dbf62cfd2f",
+  "gcode_sha256": {
+    "Metadata/plate_1.gcode": "d80f87c68618b7c77741cb43dde7014d967753a71786ab76cd0ecf94c0bdb43e"
+  },
+  "gcode_byte_identical": true,
+  "estimated_seconds": 26429.650390625,
+  "filament_g": 246.51805114746094,
+  "minimum_bed_margin_mm": 20.32690500000001,
+  "project_check": true,
+  "native_checks": {
+    "archive": true,
+    "z_trim": true,
+    "bed_border": true,
+    "fine_and_transition_bands": true,
+    "show_faces_support_free": true,
+    "tie_windows_support_free": true,
+    "ribbons_support_free_and_printed": true,
+    "solid_hosts_sampled": true
+  },
+  "nozzle": {
+    "side": "left",
+    "diameter_mm": 0.4,
+    "flow": "Standard",
+    "hardened": true,
+    "reason": "Top lid: hardened left 0.4 mm Standard nozzle with the shared PET-GF process.",
+    "sliced_diameter_mm": 0.4,
+    "sliced_volume_type": "Standard"
+  },
+  "material": "Polymaker Fiberon PET-GF15, black",
+  "emitted_textured_trim_mm": 0.16,
+  "support_summary": {
+    "1901": {
+      "support_bodies": 13,
+      "interface_islands": null,
+      "bed_rooted_bodies": 1,
+      "model_rooted_bodies": 12,
+      "shortest_build_up_mm": null,
+      "bodies_without_interface_labels": 3,
+      "explicit_interface_islands": 11,
+      "shortest_labelled_build_up_mm": 4.08
+    }
+  },
+  "support_removal": "../support-removal.json",
+  "submitted": false
+}

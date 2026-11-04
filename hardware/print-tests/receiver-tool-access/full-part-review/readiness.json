@@ -1,104 +1,296 @@
 {
-  "recorded_at": "2026-11-03T19:23:14.433937-06:00",
-  "source_commit": "f4f3bd435a74718df62af7d05d4a3d1ece44a0ed",
-  "scope": "Manual readiness assessment of the four requested complete production prints, assuming successful review of the current matched snap samples. No printer was contacted and no geometry was changed.",
-  "standard": "Finished usable appliance parts, with the full production geometry, reinforcement, print orientation, show surfaces, support removal and assembly access reviewed.",
-  "decision": "Not ready to release the four complete prints.",
+  "recorded_at": "2026-11-03T22:07:29.998728-06:00",
+  "source_commit": "9841dc041419be61d778f30eec6fef7c5b537136",
+  "scope": "The four named complete production parts, assuming successful review of the current matched pointed snap samples as requested by Derek. Full appliance geometry, production orientations, local reinforcement, surfaces, support access and emitted native toolpaths are included. No printer job is sent.",
+  "decision": "Ready to print these four complete parts after successful review of the current matched snap samples.",
   "parts": [
     {
       "part_number": "HSM-000081",
-      "description": "Enclosure back top",
+      "part": "back-top",
+      "printer": "Mark2",
       "stl": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl",
-      "stl_sha256": "a609c96acc9182b82dd8bb1a1783f365af03ab8c4f9acca7c8bae56fc3e64a29",
+      "stl_sha256": "2ed29e4d8e38aa0a95b5d1cbff7ae477ae5b60fc2dc5b1510a771a805ab2b2eb",
+      "project": "/Users/derekbredensteiner/Downloads/HSM-full-enclosure-2026-11-03/projects/HSM-000081-back-top-Mark2.3mf",
+      "project_sha256": "c1a39599be0b27f9bf1ec0abb909cdab876b6bc126f45e4d027c9cf79fea7f13",
+      "reviewed_archive": "/Users/derekbredensteiner/Downloads/HSM-full-enclosure-2026-11-03/reviewed/HSM-000081-back-top-Mark2.gcode.3mf",
+      "reviewed_archive_sha256": "c212aea1b46b1a9282e44ccbe69c98efd26fb8fa08467c7827edd1879c83cdbd",
+      "print_archive": "/Users/derekbredensteiner/Downloads/HSM-full-enclosure-2026-11-03/HSM-000081-back-top-Mark2.gcode.3mf",
+      "print_archive_sha256": "4ffcad950a96011451f99f107029d03beed8b791a891e0bbc9b50a504e153a9d",
+      "gcode_sha256": {
+        "Metadata/plate_1.gcode": "9503d1e2114a9214a8bccd1a0c78c19c2677185b5d4bdc9c48194d53bebf6943"
+      },
+      "gcode_byte_identical": true,
+      "estimated_seconds": 100304.6015625,
+      "filament_g": 795.9138793945312,
+      "minimum_bed_margin_mm": 21.028740000000003,
+      "project_check": true,
+      "native_checks": {
+        "archive": true,
+        "z_trim": true,
+        "bed_border": true,
+        "fine_and_transition_bands": true,
+        "show_faces_support_free": true,
+        "tie_windows_support_free": true,
+        "ribbons_support_free_and_printed": true,
+        "solid_hosts_sampled": true
+      },
+      "nozzle": {
+        "side": "left",
+        "diameter_mm": 0.4,
+        "flow": "Standard",
+        "hardened": true,
+        "reason": "Every abrasive stock runs on the left hotend (hardware/ledger/tools.md, Which hotends fit an H2C). Mark2's 2026-10-24 jobs ran black PET-GF on its fixed left hardened 0.4 mm Standard-flow hotend (faucet/industrial/prints/2026-10-24-buttons-sculpted-bands020-mark2/README.md, task 1372253517).",
+        "sliced_diameter_mm": 0.4,
+        "sliced_volume_type": "Standard"
+      },
+      "material": "Polymaker Fiberon PET-GF15, black",
+      "emitted_textured_trim_mm": 0.02,
+      "support_summary": {
+        "1901": {
+          "support_bodies": 19,
+          "interface_islands": 34,
+          "bed_rooted_bodies": 8,
+          "model_rooted_bodies": 11,
+          "shortest_build_up_mm": 1.92,
+          "bodies_without_interface_labels": 0,
+          "explicit_interface_islands": 34,
+          "shortest_labelled_build_up_mm": 1.92
+        }
+      },
+      "support_removal": "../support-removal.json",
+      "submitted": false,
+      "description": "Enclosure back top",
       "all_seven_surface_classes_read": true,
-      "reader_summary": "enclosure-back-top.stl \u00b7 840722 printed facets \u00b7 52 findings \u00b7 44 answered",
-      "reader_summary_scope": "Classifier output retains named functional findings and answered ranked sections. Counts are not a defect count or a release verdict.",
-      "surface_report": "back-top-surface.txt",
-      "surface_report_sha256": "fafdba9fa02d2c274b18b49868989d853cc6ebaed8239e47bdd3720f18050411",
-      "reinforcement_region_binding": "stale",
-      "current_full_part_native_slice_and_support_review_verified": false
+      "unanswered_surface_findings": 0,
+      "current_full_part_native_slice_and_support_review_verified": true,
+      "reinforcement_region_binding": "current complete-part mesh and embedded modifier deposition",
+      "surface_report": "finished/back-top/surface.txt",
+      "project_review": "finished/back-top/project-check.json",
+      "native_review": "finished/back-top/review.json",
+      "support_audit": "finished/back-top/support-audit-1901.json",
+      "minimum_sampled_dense_host_bead_coverage": 0.9595125477742562
     },
     {
       "part_number": "HSM-000079",
-      "description": "Enclosure front top",
+      "part": "front-top",
+      "printer": "Mark2",
       "stl": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl",
-      "stl_sha256": "3ecbc26f4d77579bb598c084bc0c1a72d02a6191f1e6d57545069d77719f2069",
+      "stl_sha256": "6ad55d860d0bee7ac607a99ff08d7676bb08ce5f2b4cd0521d61e72d961721d2",
+      "project": "/Users/derekbredensteiner/Downloads/HSM-full-enclosure-2026-11-03/projects/HSM-000079-front-top-Mark2.3mf",
+      "project_sha256": "cf4cda549cf372141b42ab4a53ccf5f9b2b81f5f2532d8265202ba86f1c12d1c",
+      "reviewed_archive": "/Users/derekbredensteiner/Downloads/HSM-full-enclosure-2026-11-03/reviewed/HSM-000079-front-top-Mark2.gcode.3mf",
+      "reviewed_archive_sha256": "fbb043260411168963d3d3129e6b79fba1a7293552953bfda8d08dbedcd43cd0",
+      "print_archive": "/Users/derekbredensteiner/Downloads/HSM-full-enclosure-2026-11-03/HSM-000079-front-top-Mark2.gcode.3mf",
+      "print_archive_sha256": "55f7aa72bdab15b60af6144acf04e9afd4b627f65447584a176f1d29ee4e631b",
+      "gcode_sha256": {
+        "Metadata/plate_1.gcode": "b1109ff35ca8197b131e2f48a922593758337ffbb49f61f89747b42ad3622296"
+      },
+      "gcode_byte_identical": true,
+      "estimated_seconds": 131368.375,
+      "filament_g": 1137.2540283203125,
+      "minimum_bed_margin_mm": 53.47508800000003,
+      "project_check": true,
+      "native_checks": {
+        "archive": true,
+        "z_trim": true,
+        "bed_border": true,
+        "fine_and_transition_bands": true,
+        "show_faces_support_free": true,
+        "tie_windows_support_free": true,
+        "ribbons_support_free_and_printed": true,
+        "solid_hosts_sampled": true
+      },
+      "nozzle": {
+        "side": "left",
+        "diameter_mm": 0.4,
+        "flow": "Standard",
+        "hardened": true,
+        "reason": "Every abrasive stock runs on the left hotend (hardware/ledger/tools.md, Which hotends fit an H2C); Mark1's fixed left hardened 0.4 mm carries black PET-GF (tools/bambu-printers.md, Purge and wipe).",
+        "sliced_diameter_mm": 0.4,
+        "sliced_volume_type": "Standard"
+      },
+      "material": "Polymaker Fiberon PET-GF15, black",
+      "emitted_textured_trim_mm": 0.02,
+      "support_summary": {
+        "1901": {
+          "support_bodies": 3,
+          "interface_islands": null,
+          "bed_rooted_bodies": 2,
+          "model_rooted_bodies": 1,
+          "shortest_build_up_mm": null,
+          "bodies_without_interface_labels": 1,
+          "explicit_interface_islands": 9,
+          "shortest_labelled_build_up_mm": 63.55
+        }
+      },
+      "support_removal": "../support-removal.json",
+      "submitted": false,
+      "description": "Enclosure front top",
       "all_seven_surface_classes_read": true,
-      "reader_summary": "enclosure-front-top.stl \u00b7 450212 printed facets \u00b7 177 findings \u00b7 14 answered",
-      "reader_summary_scope": "Classifier output retains named functional findings and answered ranked sections. Counts are not a defect count or a release verdict.",
-      "surface_report": "front-top-surface.txt",
-      "surface_report_sha256": "fb08810ec8e382894dbe623583f8e777a4a2ffd0559c7f7b08c012dd2b381617",
-      "reinforcement_region_binding": "stale",
-      "current_full_part_native_slice_and_support_review_verified": false
+      "unanswered_surface_findings": 0,
+      "current_full_part_native_slice_and_support_review_verified": true,
+      "reinforcement_region_binding": "current complete-part mesh and embedded modifier deposition",
+      "surface_report": "finished/front-top/surface.txt",
+      "project_review": "finished/front-top/project-check.json",
+      "native_review": "finished/front-top/review.json",
+      "support_audit": "finished/front-top/support-audit-1901.json",
+      "minimum_sampled_dense_host_bead_coverage": 0.9865499666216346
     },
     {
       "part_number": "HSM-000082",
-      "description": "Lower pump retainer",
+      "part": "pump-retainer",
+      "printer": "Mark1",
       "stl": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.stl",
-      "stl_sha256": "aa50bbd4756029d7246f30bcc43b12ee2ba0cb27788d9a51d003a3e93464b69d",
+      "stl_sha256": "d2f999e640039b2d322c418821be80242130b459e56e97a57f9f3c7dd9ce8b6d",
+      "project": "/Users/derekbredensteiner/Downloads/HSM-full-enclosure-2026-11-03/projects/HSM-000082-pump-retainer-Mark1.3mf",
+      "project_sha256": "a368c52f311b893a3052a436dbe6a4dcb89e3c7ea49061f288134b5c3d197dd4",
+      "reviewed_archive": "/Users/derekbredensteiner/Downloads/HSM-full-enclosure-2026-11-03/reviewed/HSM-000082-pump-retainer-Mark1.gcode.3mf",
+      "reviewed_archive_sha256": "49555a320b69a99944d2083f53657b70986dcb0590758f726309c077594b3a46",
+      "print_archive": "/Users/derekbredensteiner/Downloads/HSM-full-enclosure-2026-11-03/HSM-000082-pump-retainer-Mark1.gcode.3mf",
+      "print_archive_sha256": "792318561079ddac26bf29bdff49759154595924be16b9d93e1029f6dc4485f1",
+      "gcode_sha256": {
+        "Metadata/plate_1.gcode": "d5006ce40672d9c1377923b2510d578d3c69f0868e964ef43ecb2ad76e285cf0"
+      },
+      "gcode_byte_identical": true,
+      "estimated_seconds": 21460.44921875,
+      "filament_g": 172.17919921875,
+      "minimum_bed_margin_mm": 61.212204499999984,
+      "project_check": true,
+      "native_checks": {
+        "archive": true,
+        "z_trim": true,
+        "bed_border": true,
+        "fine_and_transition_bands": true,
+        "show_faces_support_free": true,
+        "tie_windows_support_free": true,
+        "ribbons_support_free_and_printed": true,
+        "solid_hosts_sampled": true
+      },
+      "nozzle": {
+        "side": "left",
+        "diameter_mm": 0.4,
+        "flow": "Standard",
+        "hardened": true,
+        "reason": "Every abrasive stock runs on the left hotend (hardware/ledger/tools.md, Which hotends fit an H2C); Mark1's fixed left hardened 0.4 mm carries black PET-GF (tools/bambu-printers.md, Purge and wipe).",
+        "sliced_diameter_mm": 0.4,
+        "sliced_volume_type": "Standard"
+      },
+      "material": "Polymaker Fiberon PET-GF15, black",
+      "emitted_textured_trim_mm": 0.16,
+      "support_summary": {
+        "1901": {
+          "support_bodies": 2,
+          "interface_islands": 6,
+          "bed_rooted_bodies": 2,
+          "model_rooted_bodies": 0,
+          "shortest_build_up_mm": 57.36,
+          "bodies_without_interface_labels": 0,
+          "explicit_interface_islands": 6,
+          "shortest_labelled_build_up_mm": 57.36
+        }
+      },
+      "support_removal": "../support-removal.json",
+      "submitted": false,
+      "description": "Lower pump retainer",
       "all_seven_surface_classes_read": true,
-      "reader_summary": "enclosure-pump-retainer.stl \u00b7 1756 printed facets \u00b7 7 findings \u00b7 5 answered",
-      "reader_summary_scope": "Classifier output retains named functional findings and answered ranked sections. Counts are not a defect count or a release verdict.",
-      "surface_report": "pump-retainer-surface.txt",
-      "surface_report_sha256": "9a3b65b201f24d1b78e0886a710e5a35dc1a0f8d6f0c5b6b6f1fac04af8900eb",
-      "reinforcement_region_binding": "stale",
-      "current_full_part_native_slice_and_support_review_verified": false
+      "unanswered_surface_findings": 0,
+      "current_full_part_native_slice_and_support_review_verified": true,
+      "reinforcement_region_binding": "current complete-part mesh and embedded modifier deposition",
+      "surface_report": "finished/pump-retainer/surface.txt",
+      "project_review": "finished/pump-retainer/project-check.json",
+      "native_review": "finished/pump-retainer/review.json",
+      "support_audit": "finished/pump-retainer/support-audit-1901.json",
+      "minimum_sampled_dense_host_bead_coverage": 0.988015382408195
     },
     {
       "part_number": "HSM-000020",
-      "description": "Cold-core insulation cap lid top",
+      "part": "foam-cap-lid-top",
+      "printer": "Mark1",
       "stl": "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.stl",
       "stl_sha256": "256c74ff711a314fbdbcf61201a191109d2c38232cd8d6a6e5540abbf7c1a6db",
+      "project": "/Users/derekbredensteiner/Downloads/HSM-full-enclosure-2026-11-03/projects/HSM-000020-foam-cap-lid-top-Mark1.3mf",
+      "project_sha256": "d6b6c7623c64dd69197d334c2383d49a21c7c0ecc47734f885e441bfff3fd649",
+      "reviewed_archive": "/Users/derekbredensteiner/Downloads/HSM-full-enclosure-2026-11-03/reviewed/HSM-000020-foam-cap-lid-top-Mark1.gcode.3mf",
+      "reviewed_archive_sha256": "f3e6f0b4c1f0ba750c5428016f803f36ec34dfebca46d7bb70c1dfcfbb39f593",
+      "print_archive": "/Users/derekbredensteiner/Downloads/HSM-full-enclosure-2026-11-03/HSM-000020-foam-cap-lid-top-Mark1.gcode.3mf",
+      "print_archive_sha256": "7c4bfdee12fd1e926d71c272e05be9ce7ed0cbf8e8b2e374064df5dbf62cfd2f",
+      "gcode_sha256": {
+        "Metadata/plate_1.gcode": "d80f87c68618b7c77741cb43dde7014d967753a71786ab76cd0ecf94c0bdb43e"
+      },
+      "gcode_byte_identical": true,
+      "estimated_seconds": 26429.650390625,
+      "filament_g": 246.51805114746094,
+      "minimum_bed_margin_mm": 20.32690500000001,
+      "project_check": true,
+      "native_checks": {
+        "archive": true,
+        "z_trim": true,
+        "bed_border": true,
+        "fine_and_transition_bands": true,
+        "show_faces_support_free": true,
+        "tie_windows_support_free": true,
+        "ribbons_support_free_and_printed": true,
+        "solid_hosts_sampled": true
+      },
+      "nozzle": {
+        "side": "left",
+        "diameter_mm": 0.4,
+        "flow": "Standard",
+        "hardened": true,
+        "reason": "Top lid: hardened left 0.4 mm Standard nozzle with the shared PET-GF process.",
+        "sliced_diameter_mm": 0.4,
+        "sliced_volume_type": "Standard"
+      },
+      "material": "Polymaker Fiberon PET-GF15, black",
+      "emitted_textured_trim_mm": 0.16,
+      "support_summary": {
+        "1901": {
+          "support_bodies": 13,
+          "interface_islands": null,
+          "bed_rooted_bodies": 1,
+          "model_rooted_bodies": 12,
+          "shortest_build_up_mm": null,
+          "bodies_without_interface_labels": 3,
+          "explicit_interface_islands": 11,
+          "shortest_labelled_build_up_mm": 4.08
+        }
+      },
+      "support_removal": "../support-removal.json",
+      "submitted": false,
+      "description": "Cold-core insulation cap lid top",
       "all_seven_surface_classes_read": true,
-      "reader_summary": "foam-cap-lid-top.stl \u00b7 37598 printed facets \u00b7 28 findings \u00b7 10 answered",
-      "reader_summary_scope": "Classifier output retains named functional findings and answered ranked sections. Counts are not a defect count or a release verdict.",
-      "surface_report": "foam-cap-lid-top-surface.txt",
-      "surface_report_sha256": "c66a1550ab50fede21a0f1bc63101ef4e66b5baf0f6d6b91314d0c481e4b9d56",
-      "reinforcement_region_binding": "stale",
-      "current_full_part_native_slice_and_support_review_verified": false
+      "unanswered_surface_findings": 0,
+      "current_full_part_native_slice_and_support_review_verified": true,
+      "reinforcement_region_binding": "current complete-part mesh and embedded modifier deposition",
+      "surface_report": "finished/foam-cap-lid-top/surface.txt",
+      "project_review": "finished/foam-cap-lid-top/project-check.json",
+      "native_review": "finished/foam-cap-lid-top/review.json",
+      "support_audit": "finished/foam-cap-lid-top/support-audit-1901.json",
+      "minimum_sampled_dense_host_bead_coverage": 0.9490069414981939
     }
   ],
-  "remaining_work": [
-    {
-      "area": "Full-part surface review",
-      "work": "Resolve and classify the current exported-part findings, fixing unintended meeting-plane remnants while retaining the approved fitted profiles and the specified working flexures. Existing answers are feature-specific; they do not approve every new or displaced finding."
+  "delivery_directory": "/Users/derekbredensteiner/Downloads/HSM-full-enclosure-2026-11-03",
+  "remaining_preparation_work": [],
+  "pending_physical_review": "The current matched pointed cap/receiver and paired cartridge samples, as specified by Derek before proceeding to these complete prints.",
+  "finished_geometry_review": "finished/geometry-review.json",
+  "full_assembly_integration": [
+    "finished/assembly-integration.json",
+    "finished/label-skin-integration.json",
+    "finished/front-corner-integration.json"
+  ],
+  "installed_viewer_sha256": "89e8970b9d1562ca233ef5bf9c4fe4eaca043627dd2b5dddf08193a0ac262c49",
+  "surface_review": "finished/surface-review.json",
+  "support_removal": "finished/support-removal.json",
+  "reinforcement_inputs": {
+    "enclosure": {
+      "path": "hardware/printed-parts/enclosure/enclosure/heat-set-review/print-regions.json",
+      "sha256": "258f661844026202d3213017a3b9189c382640f569a4c6168be74be87b80e5f7"
     },
-    {
-      "area": "Lower retainer well transitions",
-      "work": "Reconcile the deferred 0.002 mm lower-well profile ledges at Z194.427. The fresh retainer reading confirms the matching left and right strips still exist. They are outside the spring revision and were explicitly not accepted as a finished surface in that revision.",
-      "reference": "hardware/printed-parts/lint-answers/enclosure/enclosure/enclosure-pump-retainer.lint-answers",
-      "locations_mm": [
-        [
-          -16.034,
-          61.806,
-          194.427
-        ],
-        [
-          16.034,
-          61.806,
-          194.427
-        ],
-        [
-          -88.416,
-          61.806,
-          194.427
-        ],
-        [
-          88.416,
-          61.806,
-          194.427
-        ]
-      ]
-    },
-    {
-      "area": "Current manufacturing inputs",
-      "work": "Regenerate the reinforcement-region records against the final complete-part meshes, then prepare and review the four complete native slices: actual dense host deposition, spring orientation, show-surface layer bands, support contacts and removal routes, driver access and full bead bed margins."
+    "equipment_lid": {
+      "path": "hardware/printed-parts/cold-core/foam-cap/fore-snap-print-regions.json",
+      "sha256": "0363b74a50be33ca95b7eb1c598f3b335f092231e9a7ab946ed66e9fa2bd05a6"
     }
-  ],
-  "retained_work": [
-    "The receiver access and reversible cap service routes are integrated in the full enclosure.",
-    "The latest matched cap/receiver sets and paired cartridge sample retain their own geometric and physical-review scopes.",
-    "Approved hardware bearing profiles and selected thin functional sections are preserved as the basis of the remaining work."
-  ],
-  "qualification_scope": "This is a manual snapshot requested by Derek. It adds no recurring build, edit, commit or launch gate and requests no new physical procedure, destructive test or purchase."
+  },
+  "storage": "Git contains sources, recipes and compact review records. Editable projects, reviewed sliced archives and byte-identical print-only archives are delivered in Downloads.",
+  "qualification_scope": "Manual preparation and review of these requested complete parts. No recurring build, edit, commit or launch gate is added."
 }

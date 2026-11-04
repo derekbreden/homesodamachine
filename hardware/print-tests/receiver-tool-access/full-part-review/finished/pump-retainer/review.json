@@ -1,0 +1,139 @@
+{
+  "archive": "/Users/derekbredensteiner/Downloads/HSM-full-enclosure-2026-11-03/reviewed/HSM-000082-pump-retainer-Mark1.gcode.3mf",
+  "archive_sha256": "49555a320b69a99944d2083f53657b70986dcb0590758f726309c077594b3a46",
+  "gcode_md5_matches": true,
+  "emitted_z_trim_mm": [
+    0.0,
+    0.16
+  ],
+  "expected_emitted_textured_trim_mm": 0.16,
+  "layers": 284,
+  "project_check": true,
+  "bead_envelope_plate_mm": [
+    [
+      61.2122045,
+      126.32852999999999
+    ],
+    [
+      263.7877955,
+      197.82747
+    ]
+  ],
+  "bed_margins_mm": {
+    "left": 61.2122045,
+    "front": 126.32852999999999,
+    "right": 61.212204499999984,
+    "back": 122.17253
+  },
+  "minimum_bed_margin_mm": 61.212204499999984,
+  "bed_border_mm": 20.0,
+  "fine_and_transition_bands": [],
+  "support_roads": 503601,
+  "show_face_minimum_bead_clearance_mm": null,
+  "show_face_contacts": [],
+  "tie_window_support_crossings": [],
+  "ribbon_support_crossings": [],
+  "ribbons": [],
+  "fine_band_unbacked_roads": [],
+  "first_second_layer_stack": {
+    "1901": {
+      "second_layer_model_bead_area_mm2": 8529.640925937734,
+      "fraction_over_first_layer": 0.9881333511111603,
+      "second_layer_centerline_outside_first_mm": 23.633490205852468
+    }
+  },
+  "solid_host_deposition": [
+    {
+      "object": 1901,
+      "name": "Pump snap west full-Y hook, wing and upper root",
+      "plate_bounds_mm": [
+        [
+          61.15100152587891,
+          159.3645016479492,
+          0.0009999999999976694
+        ],
+        [
+          72.6,
+          184.61349432373046,
+          68.01399938964843
+        ]
+      ],
+      "samples": [
+        {
+          "print_z_mm": 0.44,
+          "coverage": 0.9961726407600918,
+          "stock_mm2": 143.0957250872088
+        },
+        {
+          "print_z_mm": 34.04,
+          "coverage": 0.9882180386103628,
+          "stock_mm2": 143.0957189667766
+        },
+        {
+          "print_z_mm": 67.88,
+          "coverage": 0.9953247120911753,
+          "stock_mm2": 143.0957148450461
+        }
+      ],
+      "minimum_coverage": 0.9882180386103628
+    },
+    {
+      "object": 1901,
+      "name": "Pump snap east full-Y hook, wing and upper root",
+      "plate_bounds_mm": [
+        [
+          252.4,
+          159.3645016479492,
+          0.0009999999999976694
+        ],
+        [
+          263.8489984741211,
+          184.61349432373046,
+          68.01399938964843
+        ]
+      ],
+      "samples": [
+        {
+          "print_z_mm": 0.44,
+          "coverage": 0.9952743709019968,
+          "stock_mm2": 143.09571930185325
+        },
+        {
+          "print_z_mm": 34.04,
+          "coverage": 0.988015382408195,
+          "stock_mm2": 143.09572102604238
+        },
+        {
+          "print_z_mm": 67.88,
+          "coverage": 0.9956366464801841,
+          "stock_mm2": 143.09572326632588
+        }
+      ],
+      "minimum_coverage": 0.988015382408195
+    }
+  ],
+  "support_topology": {
+    "1901": {
+      "support_bodies": 2,
+      "interface_islands": 6,
+      "bed_rooted_bodies": 2,
+      "model_rooted_bodies": 0,
+      "shortest_build_up_mm": 57.36,
+      "bodies_without_interface_labels": 0,
+      "explicit_interface_islands": 6,
+      "shortest_labelled_build_up_mm": 57.36
+    }
+  },
+  "scope": "Commanded paths and bead envelopes from this archive. Support removal, surface finish, fit and strength are physical observations.",
+  "checks": {
+    "archive": true,
+    "z_trim": true,
+    "bed_border": true,
+    "fine_and_transition_bands": true,
+    "show_faces_support_free": true,
+    "tie_windows_support_free": true,
+    "ribbons_support_free_and_printed": true,
+    "solid_hosts_sampled": true
+  },
+  "pass": true
+}
