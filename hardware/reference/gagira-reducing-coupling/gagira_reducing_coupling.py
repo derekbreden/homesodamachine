@@ -50,62 +50,10 @@ def large_end():
     return (LENGTH, 0.0, 0.0), (1.0, 0.0, 0.0)
 
 
-def build():
-    """A hex barrel along +X, bored from each end to the depth its male threads in."""
-    import cadquery as cq
-    barrel = (
-        cq.Workplane("YZ")
-        .polygon(6, HEX_ACROSS_CORNERS)
-        .extrude(LENGTH)
-        .val()
-    )
-    small = cq.Solid.makeCylinder(
-        SMALL_SOCKET_D / 2.0, SMALL_SOCKET_DEPTH, cq.Vector(0, 0, 0), cq.Vector(1, 0, 0))
-    large = cq.Solid.makeCylinder(
-        LARGE_SOCKET_D / 2.0, LARGE_SOCKET_DEPTH,
-        cq.Vector(LENGTH - LARGE_SOCKET_DEPTH, 0, 0), cq.Vector(1, 0, 0))
-    return barrel.cut(small).cut(large)
-
-
-def _native_main():
-    from _cadq_export import export_assembly
-    from _materials import M_STAINLESS, one_body
-    part = build()
-    bb = part.BoundingBox()
-    print("GAGIRA 316L SS reducing coupling, 3/8\" NPT F × 1/4\" NPT F")
-    print(f"  Bounding box: X [{bb.xmin:.2f}, {bb.xmax:.2f}]  "
-          f"Y [{bb.ymin:.2f}, {bb.ymax:.2f}]  Z [{bb.zmin:.2f}, {bb.zmax:.2f}]")
-    print(f"  Hex {HEX_ACROSS_CORNERS} across corners × {LENGTH:g} mm; "
-          f"sockets {SMALL_SOCKET_DEPTH:g} (1/4\") / {LARGE_SOCKET_DEPTH:g} (3/8\") deep")
-    out = _here.parent / "gagira-reducing-coupling.step"
-    export_assembly(one_body(part, out.stem, M_STAINLESS), str(out))
-    print(f"-> {out.name}")
-
-
-
-
 _FROZEN_DIR = Path(__file__).resolve().parent
 STEP_PATH = _FROZEN_DIR / 'gagira-reducing-coupling.step'
 PAYLOAD_PATH = _FROZEN_DIR / 'gagira-reducing-coupling.step.mesh'
 ASSET_MANIFEST_PATH = _FROZEN_DIR / "frozen-asset.json"
-
-
-def __getattr__(name):
-    if name in globals():
-        return globals()[name]
-    if name in ('cq',):
-        import cadquery as cq
-        value = locals()[name]
-    elif name in ('export_assembly',):
-        from _cadq_export import export_assembly
-        value = locals()[name]
-    elif name in ('M_STAINLESS', 'one_body'):
-        from _materials import M_STAINLESS, one_body
-        value = locals()[name]
-    else:
-        raise AttributeError(name)
-    globals()[name] = value
-    return value
 
 
 def main():

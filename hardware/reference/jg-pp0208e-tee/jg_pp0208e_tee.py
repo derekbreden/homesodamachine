@@ -95,105 +95,10 @@ def envelope() -> tuple:
     return (COLLAR_D, RUN_SPAN, BRANCH_ENVELOPE)
 
 
-def _cyl(d: float, axis, near: float, far: float) -> cq.Solid:
-    """A cylinder of `d` on `axis`, between two stations measured from the body centre."""
-    import cadquery as cq
-    direction = cq.Vector(*axis)
-    return cq.Solid.makeCylinder(
-        d / 2.0, far - near, direction.multiply(near), direction)
-
-
-def _arm(axis) -> cq.Solid:
-    """One arm's material: the barrel, the collar, and the collet standing proud of it, bored
-    `COLLET_BORE` so the collet reads as the ring a thumb presses."""
-    collet = (_cyl(COLLET_D, axis, COLLAR_FAR, REACH)
-              .cut(_cyl(COLLET_BORE, axis, COLLAR_FAR - 0.2, REACH + 0.2)))
-    return (_cyl(ARM_D, axis, 0.0, COLLAR_NEAR)
-            .fuse(_cyl(COLLAR_D, axis, COLLAR_NEAR, COLLAR_FAR))
-            .fuse(collet))
-
-
-def build_jg_pp0208e_tee() -> cq.Workplane:
-    """The tee as a single solid: a hub the three arms leave, each bored the tube's socket, and
-    the through passage between them at the bore of the tube itself."""
-    import cadquery as cq
-    solid = cq.Solid.makeSphere(ARM_D / 2.0, cq.Vector(0, 0, 0), angleDegrees1=-90)
-    sockets = None
-    for axis, _name in ARMS:
-        solid = solid.fuse(_arm(axis))
-        socket = _cyl(TUBE_OD, axis, REACH - INSERTION, REACH + 0.2)
-        sockets = socket if sockets is None else sockets.fuse(socket)
-    bores = _cyl(BORE_D, (0.0, 0.0, 1.0), -REACH - 0.2, REACH + 0.2).fuse(
-        _cyl(BORE_D, (0.0, 1.0, 0.0), 0.0, REACH + 0.2))
-    return cq.Workplane(obj=solid.cut(sockets).cut(bores).clean())
-
-
-def stations_hold():
-    """Hold the data sheet's figures to `jg-pp0208e-tee.step`.
-
-    The three collet faces are extents of the solid's own box, and so is the collar that carries
-    `COLLAR_D`. `BRANCH_ENVELOPE` is the one figure that is neither: it spans the branch face to
-    the far side of the run body, which is the box's whole Y."""
-    from _cadq_export import export_assembly, import_step
-    solid = import_step(str(STEP)).val()
-    bb = solid.BoundingBox()
-    for what, claimed, actual in (
-            ("+z collet face", REACH, bb.zmax),
-            ("−z collet face", -REACH, bb.zmin),
-            ("branch collet face", REACH, bb.ymax),
-            ("run span", RUN_SPAN, bb.zlen),
-            ("collar across the run", COLLAR_D, bb.xlen),
-            ("branch envelope", BRANCH_ENVELOPE, bb.ylen)):
-        if abs(claimed - actual) > MEASURE_TOL:
-            raise ValueError(
-                f"jg-pp0208e-tee {what} is {claimed:g} on the data sheet and {STEP.name} carries "
-                f"{actual:.4f} — a line laid to this figure is laid to a fitting that is not "
-                f"there.")
-
-
-def _native_main():
-    from _cadq_export import export_assembly, import_step
-    from _materials import M_JG_BLACK_PP, one_body
-    part = build_jg_pp0208e_tee()
-    bb = part.val().BoundingBox()
-    print("John Guest PP0208E — 1/4\" push-to-connect union tee, black polypropylene")
-    print(f"  Bounding box: X [{bb.xmin:.2f}, {bb.xmax:.2f}]  "
-          f"Y [{bb.ymin:.2f}, {bb.ymax:.2f}]  Z [{bb.zmin:.2f}, {bb.zmax:.2f}]")
-    print(f"  Run {RUN_SPAN:g} face to face, {REACH:g} to each of the three faces; "
-          f"collar Ø{COLLAR_D:g}, bore Ø{BORE_D:g}")
-    print(f"  {INSERTION:g} mm of Ø{TUBE_OD:g} tube in each port")
-    for name, (pos, axis) in stations().items():
-        print(f"  {name:>6}: ({pos[0]:6.2f}, {pos[1]:6.2f}, {pos[2]:6.2f})  out {axis}")
-    print(f"  Solid valid: {part.val().isValid()}")
-    export_assembly(one_body(part, "jg-pp0208e-tee", M_JG_BLACK_PP), str(STEP))
-    print(f"-> {STEP.name}")
-    stations_hold()
-
-
-
-
 _FROZEN_DIR = Path(__file__).resolve().parent
 STEP_PATH = _FROZEN_DIR / 'jg-pp0208e-tee.step'
 PAYLOAD_PATH = _FROZEN_DIR / 'jg-pp0208e-tee.step.mesh'
 ASSET_MANIFEST_PATH = _FROZEN_DIR / "frozen-asset.json"
-
-
-def __getattr__(name):
-    if name in globals():
-        return globals()[name]
-    if name in ('cq',):
-        import cadquery as cq
-        value = locals()[name]
-    elif name in ('export_assembly', 'import_step'):
-        from _cadq_export import export_assembly, import_step
-        value = locals()[name]
-    elif name in ('M_JG_BLACK_PP', 'one_body'):
-        from _materials import M_JG_BLACK_PP, one_body
-        value = locals()[name]
-    else:
-        raise AttributeError(name)
-    globals()[name] = value
-    return value
 
 
 def main():
