@@ -1,7 +1,7 @@
 # ASSE 1022 vent elbow · TPU 85A
 
 One printed elbow joins the downward-facing Multiplex 19-0897 vent barb to
-white 4 mm OD / 2.5 mm ID LLDPE. Its tube socket points aft toward OVER on
+white 4 mm OD / 2.5 mm ID LLDPE. Its tube socket points aft toward DRAIN on
 the rear face. The short turn is inside the printed elbow; the LLDPE exits
 straight and does not make that turn.
 
@@ -41,7 +41,7 @@ the sealing bores. Keep hole and contour compensation at zero for the first fit.
 3. Square-cut the white 4 mm tube, mark 14 mm and insert to the mark.
 4. Snug each tie without flattening the tube or distorting the fitting;
    flush-cut the tails and leave the passage open.
-5. Insert the other end into OVER to its receiving mark. The short rear
+5. Insert the other end into DRAIN to its receiving mark. The short rear
    link follows the socket's aft direction with a gentle lateral correction.
 
 The Ø6.10 mm relaxed barb socket and Ø3.80 mm tube socket are explicit fit
