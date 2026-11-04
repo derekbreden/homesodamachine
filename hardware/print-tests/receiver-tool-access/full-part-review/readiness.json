@@ -1,27 +1,27 @@
 {
-  "recorded_at": "2026-11-03T22:07:29.998728-06:00",
-  "source_commit": "9841dc041419be61d778f30eec6fef7c5b537136",
-  "scope": "The four named complete production parts, assuming successful review of the current matched pointed snap samples as requested by Derek. Full appliance geometry, production orientations, local reinforcement, surfaces, support access and emitted native toolpaths are included. No printer job is sent.",
-  "decision": "Ready to print these four complete parts after successful review of the current matched snap samples.",
+  "recorded_at": "2026-11-03T23:19:58.256709-06:00",
+  "source_commit": "91e61d6f09bf475c9b0b038594f5db5ae8a92b43",
+  "scope": "The four named complete production parts with their integrated production retention geometry, preserved front cartridge pry windows, continuous rear receiver bases, and native support and deposition review. The front top is submitted to Mark1; the other three archives are prepared without submission.",
+  "decision": "Proceed with complete enclosure parts under Derek\u2019s latest physical-fit feedback and print instruction.",
   "parts": [
     {
       "part_number": "HSM-000081",
       "part": "back-top",
       "printer": "Mark2",
       "stl": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl",
-      "stl_sha256": "2ed29e4d8e38aa0a95b5d1cbff7ae477ae5b60fc2dc5b1510a771a805ab2b2eb",
+      "stl_sha256": "c7d986ddb2f59ce7a08996d0031d5165ccf0a45be31055dfb8cac7e29dba9767",
       "project": "/Users/derekbredensteiner/Downloads/HSM-full-enclosure-2026-11-03/projects/HSM-000081-back-top-Mark2.3mf",
-      "project_sha256": "c1a39599be0b27f9bf1ec0abb909cdab876b6bc126f45e4d027c9cf79fea7f13",
+      "project_sha256": "01b0c56c91f7479b627a91a7e37bb4eece2742500a3faa383ae9e5bbe7d4561c",
       "reviewed_archive": "/Users/derekbredensteiner/Downloads/HSM-full-enclosure-2026-11-03/reviewed/HSM-000081-back-top-Mark2.gcode.3mf",
-      "reviewed_archive_sha256": "c212aea1b46b1a9282e44ccbe69c98efd26fb8fa08467c7827edd1879c83cdbd",
+      "reviewed_archive_sha256": "54a0d428cb9cbff5fc17948c0e48cc4abfea6936a1854a5a60f86a182f7d53d3",
       "print_archive": "/Users/derekbredensteiner/Downloads/HSM-full-enclosure-2026-11-03/HSM-000081-back-top-Mark2.gcode.3mf",
-      "print_archive_sha256": "4ffcad950a96011451f99f107029d03beed8b791a891e0bbc9b50a504e153a9d",
+      "print_archive_sha256": "f047246c276b9393328ea239573f0b463a65aa393264a0c8036c85ab663cca47",
       "gcode_sha256": {
-        "Metadata/plate_1.gcode": "9503d1e2114a9214a8bccd1a0c78c19c2677185b5d4bdc9c48194d53bebf6943"
+        "Metadata/plate_1.gcode": "e297a7b9d03fb4b5efcb5c4b85dc6438af109941d59e02efaa97dce871f9c223"
       },
       "gcode_byte_identical": true,
-      "estimated_seconds": 100304.6015625,
-      "filament_g": 795.9138793945312,
+      "estimated_seconds": 99907.078125,
+      "filament_g": 795.4841918945312,
       "minimum_bed_margin_mm": 21.028740000000003,
       "project_check": true,
       "native_checks": {
@@ -47,47 +47,47 @@
       "emitted_textured_trim_mm": 0.02,
       "support_summary": {
         "1901": {
-          "support_bodies": 19,
-          "interface_islands": 34,
+          "support_bodies": 13,
+          "interface_islands": 26,
           "bed_rooted_bodies": 8,
-          "model_rooted_bodies": 11,
-          "shortest_build_up_mm": 1.92,
+          "model_rooted_bodies": 5,
+          "shortest_build_up_mm": 4.08,
           "bodies_without_interface_labels": 0,
-          "explicit_interface_islands": 34,
-          "shortest_labelled_build_up_mm": 1.92
+          "explicit_interface_islands": 26,
+          "shortest_labelled_build_up_mm": 4.08
         }
       },
-      "support_removal": "../support-removal.json",
+      "support_removal": "finished/support-removal.json",
       "submitted": false,
       "description": "Enclosure back top",
       "all_seven_surface_classes_read": true,
       "unanswered_surface_findings": 0,
       "current_full_part_native_slice_and_support_review_verified": true,
       "reinforcement_region_binding": "current complete-part mesh and embedded modifier deposition",
-      "surface_report": "finished/back-top/surface.txt",
-      "project_review": "finished/back-top/project-check.json",
-      "native_review": "finished/back-top/review.json",
-      "support_audit": "finished/back-top/support-audit-1901.json",
+      "surface_report": "finished/back-top-continuous-base/surface.txt",
+      "project_review": "finished/back-top-continuous-base/project-check.json",
+      "native_review": "finished/back-top-continuous-base/review.json",
+      "support_audit": "finished/back-top-continuous-base/support-audit-1901.json",
       "minimum_sampled_dense_host_bead_coverage": 0.9595125477742562
     },
     {
       "part_number": "HSM-000079",
       "part": "front-top",
-      "printer": "Mark2",
+      "printer": "Mark1",
       "stl": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl",
       "stl_sha256": "6ad55d860d0bee7ac607a99ff08d7676bb08ce5f2b4cd0521d61e72d961721d2",
-      "project": "/Users/derekbredensteiner/Downloads/HSM-full-enclosure-2026-11-03/projects/HSM-000079-front-top-Mark2.3mf",
-      "project_sha256": "cf4cda549cf372141b42ab4a53ccf5f9b2b81f5f2532d8265202ba86f1c12d1c",
-      "reviewed_archive": "/Users/derekbredensteiner/Downloads/HSM-full-enclosure-2026-11-03/reviewed/HSM-000079-front-top-Mark2.gcode.3mf",
-      "reviewed_archive_sha256": "fbb043260411168963d3d3129e6b79fba1a7293552953bfda8d08dbedcd43cd0",
-      "print_archive": "/Users/derekbredensteiner/Downloads/HSM-full-enclosure-2026-11-03/HSM-000079-front-top-Mark2.gcode.3mf",
-      "print_archive_sha256": "55f7aa72bdab15b60af6144acf04e9afd4b627f65447584a176f1d29ee4e631b",
+      "project": "/Users/derekbredensteiner/Downloads/HSM-full-enclosure-2026-11-03/projects/HSM-000079-front-top-Mark1.3mf",
+      "project_sha256": "6612f67e41e819ed1ad3c52cf8106969f90f72f3722a5cd99f7999a7bff037b4",
+      "reviewed_archive": "/Users/derekbredensteiner/Downloads/HSM-full-enclosure-2026-11-03/reviewed/HSM-000079-front-top-Mark1.gcode.3mf",
+      "reviewed_archive_sha256": "d920b8efb1cac562b95b6b566e004e28d26a40f1dd2272b3a2ccd92489955fdd",
+      "print_archive": "/Users/derekbredensteiner/Downloads/HSM-full-enclosure-2026-11-03/HSM-000079-front-top-Mark1.gcode.3mf",
+      "print_archive_sha256": "e359e0e3ffdfd8cb4b88de61fc889c3bda72202457faef94f3e744d971f69b9c",
       "gcode_sha256": {
-        "Metadata/plate_1.gcode": "b1109ff35ca8197b131e2f48a922593758337ffbb49f61f89747b42ad3622296"
+        "Metadata/plate_1.gcode": "efd0339000f8395ece9c9ac3c249013735e1587fe3479ff4b6f088d4b42e2109"
       },
       "gcode_byte_identical": true,
-      "estimated_seconds": 131368.375,
-      "filament_g": 1137.2540283203125,
+      "estimated_seconds": 131381.5,
+      "filament_g": 1137.255859375,
       "minimum_bed_margin_mm": 53.47508800000003,
       "project_check": true,
       "native_checks": {
@@ -110,7 +110,7 @@
         "sliced_volume_type": "Standard"
       },
       "material": "Polymaker Fiberon PET-GF15, black",
-      "emitted_textured_trim_mm": 0.02,
+      "emitted_textured_trim_mm": 0.16,
       "support_summary": {
         "1901": {
           "support_bodies": 3,
@@ -123,18 +123,21 @@
           "shortest_labelled_build_up_mm": 63.55
         }
       },
-      "support_removal": "../support-removal.json",
-      "submitted": false,
+      "support_removal": "finished/support-removal.json",
+      "submitted": true,
       "description": "Enclosure front top",
       "all_seven_surface_classes_read": true,
       "unanswered_surface_findings": 0,
       "current_full_part_native_slice_and_support_review_verified": true,
       "reinforcement_region_binding": "current complete-part mesh and embedded modifier deposition",
       "surface_report": "finished/front-top/surface.txt",
-      "project_review": "finished/front-top/project-check.json",
-      "native_review": "finished/front-top/review.json",
-      "support_audit": "finished/front-top/support-audit-1901.json",
-      "minimum_sampled_dense_host_bead_coverage": 0.9865499666216346
+      "project_review": "finished/front-top-mark1/project-check.json",
+      "native_review": "finished/front-top-mark1/review.json",
+      "support_audit": "finished/front-top-mark1/support-audit-1901.json",
+      "minimum_sampled_dense_host_bead_coverage": 0.9865499666216346,
+      "job_id": "1405624302",
+      "accepted_at": "2026-11-04T05:02:44.371197+00:00",
+      "print_job": "finished/front-top-mark1/print-job.json"
     },
     {
       "part_number": "HSM-000082",
@@ -189,7 +192,7 @@
           "shortest_labelled_build_up_mm": 57.36
         }
       },
-      "support_removal": "../support-removal.json",
+      "support_removal": "finished/support-removal.json",
       "submitted": false,
       "description": "Lower pump retainer",
       "all_seven_surface_classes_read": true,
@@ -207,19 +210,19 @@
       "part": "foam-cap-lid-top",
       "printer": "Mark1",
       "stl": "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.stl",
-      "stl_sha256": "256c74ff711a314fbdbcf61201a191109d2c38232cd8d6a6e5540abbf7c1a6db",
+      "stl_sha256": "2408a3edeeca8f60c1aa8b1e32a190695d1776cdfc45b70f6ec3686a73232f07",
       "project": "/Users/derekbredensteiner/Downloads/HSM-full-enclosure-2026-11-03/projects/HSM-000020-foam-cap-lid-top-Mark1.3mf",
-      "project_sha256": "d6b6c7623c64dd69197d334c2383d49a21c7c0ecc47734f885e441bfff3fd649",
+      "project_sha256": "8441e1e8d74beff8d3c062e7d59f384f2069f4121999b1cc41778d55c7b4b72f",
       "reviewed_archive": "/Users/derekbredensteiner/Downloads/HSM-full-enclosure-2026-11-03/reviewed/HSM-000020-foam-cap-lid-top-Mark1.gcode.3mf",
-      "reviewed_archive_sha256": "f3e6f0b4c1f0ba750c5428016f803f36ec34dfebca46d7bb70c1dfcfbb39f593",
+      "reviewed_archive_sha256": "014da1eb47bc6178e6f660ac0a782abc0aedd6ea400b3b099ea45bde9889f8bd",
       "print_archive": "/Users/derekbredensteiner/Downloads/HSM-full-enclosure-2026-11-03/HSM-000020-foam-cap-lid-top-Mark1.gcode.3mf",
-      "print_archive_sha256": "7c4bfdee12fd1e926d71c272e05be9ce7ed0cbf8e8b2e374064df5dbf62cfd2f",
+      "print_archive_sha256": "703dcf810051759f1a6e95301f8720b5db2538b7e7098011500fcf7e84211e0f",
       "gcode_sha256": {
-        "Metadata/plate_1.gcode": "d80f87c68618b7c77741cb43dde7014d967753a71786ab76cd0ecf94c0bdb43e"
+        "Metadata/plate_1.gcode": "c2b1299ab90ae6d59299e7690e64c17b410f7c8437fc3cae2a20650abbc12f01"
       },
       "gcode_byte_identical": true,
-      "estimated_seconds": 26429.650390625,
-      "filament_g": 246.51805114746094,
+      "estimated_seconds": 25926.6015625,
+      "filament_g": 245.2363739013672,
       "minimum_bed_margin_mm": 20.32690500000001,
       "project_check": true,
       "native_checks": {
@@ -245,52 +248,56 @@
       "emitted_textured_trim_mm": 0.16,
       "support_summary": {
         "1901": {
-          "support_bodies": 13,
+          "support_bodies": 11,
           "interface_islands": null,
           "bed_rooted_bodies": 1,
-          "model_rooted_bodies": 12,
+          "model_rooted_bodies": 10,
           "shortest_build_up_mm": null,
-          "bodies_without_interface_labels": 3,
-          "explicit_interface_islands": 11,
+          "bodies_without_interface_labels": 2,
+          "explicit_interface_islands": 9,
           "shortest_labelled_build_up_mm": 4.08
         }
       },
-      "support_removal": "../support-removal.json",
+      "support_removal": "finished/support-removal.json",
       "submitted": false,
       "description": "Cold-core insulation cap lid top",
       "all_seven_surface_classes_read": true,
       "unanswered_surface_findings": 0,
       "current_full_part_native_slice_and_support_review_verified": true,
       "reinforcement_region_binding": "current complete-part mesh and embedded modifier deposition",
-      "surface_report": "finished/foam-cap-lid-top/surface.txt",
-      "project_review": "finished/foam-cap-lid-top/project-check.json",
-      "native_review": "finished/foam-cap-lid-top/review.json",
-      "support_audit": "finished/foam-cap-lid-top/support-audit-1901.json",
+      "surface_report": "finished/foam-cap-lid-top-continuous-base/surface.txt",
+      "project_review": "finished/foam-cap-lid-top-continuous-base/project-check.json",
+      "native_review": "finished/foam-cap-lid-top-continuous-base/review.json",
+      "support_audit": "finished/foam-cap-lid-top-continuous-base/support-audit-1901.json",
       "minimum_sampled_dense_host_bead_coverage": 0.9490069414981939
     }
   ],
   "delivery_directory": "/Users/derekbredensteiner/Downloads/HSM-full-enclosure-2026-11-03",
   "remaining_preparation_work": [],
-  "pending_physical_review": "The current matched pointed cap/receiver and paired cartridge samples, as specified by Derek before proceeding to these complete prints.",
-  "finished_geometry_review": "finished/geometry-review.json",
+  "pending_physical_review": "Mark2 job 1404772826 continues with the pump, meter and paired cartridge samples. ASSE combined seating is to be verified during the normal full-enclosure assembly; no additional ASSE coupon print is requested.",
+  "finished_geometry_review": "../asse-alignment/retained-fits.json",
   "full_assembly_integration": [
     "finished/assembly-integration.json",
     "finished/label-skin-integration.json",
-    "finished/front-corner-integration.json"
+    "finished/front-corner-integration.json",
+    "../asse-alignment/assembly-integration.json"
   ],
-  "installed_viewer_sha256": "89e8970b9d1562ca233ef5bf9c4fe4eaca043627dd2b5dddf08193a0ac262c49",
+  "installed_viewer_sha256": "00bbf767bfd8f0c95c862ff2316a796b67be191dd25ec35c0f2ba8d9092fe291",
   "surface_review": "finished/surface-review.json",
   "support_removal": "finished/support-removal.json",
   "reinforcement_inputs": {
     "enclosure": {
       "path": "hardware/printed-parts/enclosure/enclosure/heat-set-review/print-regions.json",
-      "sha256": "258f661844026202d3213017a3b9189c382640f569a4c6168be74be87b80e5f7"
+      "sha256": "179dfd60d4ef8bed4da1af3d0afeef74666f99a29bd0a5138d670ea0d5204cdb"
     },
     "equipment_lid": {
       "path": "hardware/printed-parts/cold-core/foam-cap/fore-snap-print-regions.json",
-      "sha256": "0363b74a50be33ca95b7eb1c598f3b335f092231e9a7ab946ed66e9fa2bd05a6"
+      "sha256": "fd3d192a5c53fe9b3fb43b313df8c36d65fd0f9d2e88dfb2da87a2261057ce76"
     }
   },
   "storage": "Git contains sources, recipes and compact review records. Editable projects, reviewed sliced archives and byte-identical print-only archives are delivered in Downloads.",
-  "qualification_scope": "Manual preparation and review of these requested complete parts. No recurring build, edit, commit or launch gate is added."
+  "qualification_scope": "Manual preparation and review of these requested complete parts. No recurring build, edit, commit or launch gate is added.",
+  "physical_feedback": "../physical-result/physical-result.json",
+  "asse_alignment": "../asse-alignment/geometry-review.json",
+  "full_assembly_publication": "../asse-alignment/publication.json"
 }

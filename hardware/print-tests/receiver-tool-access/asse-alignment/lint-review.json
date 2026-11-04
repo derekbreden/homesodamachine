@@ -1,0 +1,124 @@
+{
+  "scope": "Every previously unanswered ASSE finding from the post-publication all-class read, interpreted against the selected analytic cap construction. No geometry changes are made for these working features.",
+  "stl_sha256": "a5afa323e1def3cabe5e951eba278eff6cbc55efb2f8231ee51e8f0f37a72474",
+  "sliver": {
+    "print_click_mm": [
+      -12.629,
+      -2.17,
+      55.318
+    ],
+    "classification": "The actual conforming hex flat, clipped at the cap opening. It is not an intervening meeting-plane remnant.",
+    "local_cavity_point_mm": [
+      -7.475327157603583,
+      0.29675672242133644,
+      -12.712098319258287
+    ],
+    "matched_hex_plane_index": 4,
+    "signed_plane_distance_mm_from_rounded_click": 2.3497560423635377e-05,
+    "plane_local_normal_yz": [
+      -0.46391460897919656,
+      -0.8858799216460881
+    ],
+    "plane_local_offset_mm": 11.123699386617433,
+    "edge_axial_endpoints_mm_from_rounded_print_picks": [
+      -12.600379361409134,
+      -2.3492749694664763
+    ],
+    "declared_wrench_span_mm": [
+      -12.6,
+      -2.35
+    ],
+    "observed_strip_width_mm": 0.676,
+    "rounded_corner_radius_mm": 12.874,
+    "all_hex_directions_and_outline_retained": true
+  },
+  "pointed_tip": {
+    "print_clicks_mm": [
+      [
+        -25.148,
+        -19.22,
+        41.307
+      ],
+      [
+        -25.107,
+        -19.29,
+        41.307
+      ]
+    ],
+    "reported_thickness_mm": 0.081,
+    "classification": "The existing deliberately pointed free edge. Both complete wings have zero native symmetric difference from the prior accepted geometry.",
+    "source_outside_world_x_mm": 3.651860222036486,
+    "source_tip_world_z_mm": 344.85,
+    "selected_point_world_mm": [
+      3.652000000000001,
+      437.7602545935363,
+      344.75553604707125
+    ]
+  },
+  "leaf_roots": {
+    "reported_thickness_mm": 1.988,
+    "nominal_spring_thickness_mm": 2.0,
+    "root_radius_mm": 1.5,
+    "classification": "The unchanged nominal 2 mm leaves and R1.5 root transitions. Re-anchored to the same feature."
+  },
+  "solid_hook_wedge": {
+    "reported_thickness_mm": 2.302,
+    "retaining_plane_world_z_mm": 340.25,
+    "inner_nose_top_world_z_mm": 341.85,
+    "inner_nose_height_mm": 1.6,
+    "lead_in_rise_mm": 3.0,
+    "lead_in_run_mm": 5.1,
+    "classification": "Material between the retained flat catch and the specified one-plane pointed lead-in, rather than an ordinary receiver wall or new residual skin.",
+    "sample_world_mm": [
+      7.559000000000001,
+      430.8732545935363,
+      342.55153604707124
+    ],
+    "predicted_lead_in_world_z_mm": 342.5516824835509
+  },
+  "window_ends": {
+    "print_clicks_mm": [
+      [
+        0.07,
+        17.725,
+        50.3
+      ],
+      [
+        0.07,
+        14.227,
+        30.865
+      ]
+    ],
+    "source_drain_window_world_bounds_mm": [
+      21.23623402321011,
+      36.50376597678989,
+      410.4694886165832,
+      446.7532545933731,
+      284.1167610961308,
+      309.40000000000003
+    ],
+    "source_vent_window_world_bounds_mm": [
+      22.397357488743,
+      35.342642511257,
+      411.8880413992891,
+      427.31846778745705,
+      299.54999999999995,
+      328.0
+    ],
+    "classification": "The same unchanged vent and drain-sleeve clearance-window ends. Re-anchored to their actual faces."
+  },
+  "protected_native_differences_mm3": {
+    "fore_body_and_bonnet": 0.0,
+    "west_wing": 0.0,
+    "east_wing": 0.0
+  },
+  "changed_geometry": false,
+  "surface_report": {
+    "path": "surface.txt",
+    "sha256": "c746aa27db24d33349d6744ea807c8c599391731808411fd805fe3a4fc0bae8d",
+    "summary": "asse-snap-cap.stl \u00b7 1954 printed facets \u00b7 8 findings \u00b7 6 answered",
+    "all_seven_classes_read": true,
+    "unanswered_findings": [],
+    "scope": "Ranked thin/ledge sections retain their feature-specific explanations; finding counts include intentional working surfaces."
+  }
+}

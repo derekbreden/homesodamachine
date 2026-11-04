@@ -1,0 +1,966 @@
+{
+  "schema": 1,
+  "piece": "enclosure-back-top",
+  "inputs": {
+    "gcode": "support-labels-1901.gcode",
+    "gcode_sha256": "3f23c118e4d9684938618a4a287c1999ef59914b8aeaebec9fe70f1f5a7b2d3e",
+    "model": "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl",
+    "model_sha256": "c7d986ddb2f59ce7a08996d0031d5165ccf0a45be31055dfb8cac7e29dba9767",
+    "profile": ".cache/runs/snap-finish-20261103-224515/prints/2026-11-03-back-top-mark2-1940b3a1/2026-11-03-back-top-mark2-1940b3a1.3mf",
+    "profile_sha256": "01b0c56c91f7479b627a91a7e37bb4eece2742500a3faa383ae9e5bbe7d4561c"
+  },
+  "slicer": "BambuStudio 02.08.02.61",
+  "first_layer_z_mm": 0.2,
+  "coordinate_frame": {
+    "plate_to_cad_transform": [
+      -0.0,
+      1.0,
+      0.0,
+      1.0,
+      -0.0,
+      0.0,
+      0.0,
+      0.0,
+      -1.0,
+      -160.0,
+      178.974990845,
+      355.0
+    ]
+  },
+  "slicer_settings": {
+    "layer_height": "0.24",
+    "support_bottom_z_distance": "0.3",
+    "support_interface_bottom_layers": "2",
+    "support_interface_spacing": "0.5",
+    "support_interface_top_layers": "2",
+    "support_object_xy_distance": "0.4",
+    "support_on_build_plate_only": "0",
+    "support_style": "default",
+    "support_threshold_angle": "35",
+    "support_top_z_distance": "0.45",
+    "support_type": "tree(auto)"
+  },
+  "summary": {
+    "support_bodies": 13,
+    "interface_islands": 26,
+    "bed_rooted_bodies": 8,
+    "model_rooted_bodies": 5,
+    "shortest_build_up_mm": 4.08,
+    "bodies_without_interface_labels": 0,
+    "explicit_interface_islands": 26,
+    "shortest_labelled_build_up_mm": 4.08
+  },
+  "trees": [
+    {
+      "id": "tree-1",
+      "root": "bed",
+      "base_z_mm": 0.2,
+      "first_interface_z_mm": 18.2,
+      "shortest_build_up_mm": 18.0,
+      "top_z_mm": 33.32,
+      "bbox_xy_mm": [
+        22.4,
+        56.4,
+        38.8,
+        68.4
+      ],
+      "interfaces": [
+        "interface-6",
+        "interface-10"
+      ],
+      "interface_reading": "explicit_feature",
+      "bbox_cad_xyz_mm": [
+        -103.6,
+        201.375,
+        321.68,
+        -91.6,
+        217.775,
+        354.8
+      ]
+    },
+    {
+      "id": "tree-2",
+      "root": "bed",
+      "base_z_mm": 0.2,
+      "first_interface_z_mm": 18.2,
+      "shortest_build_up_mm": 18.0,
+      "top_z_mm": 33.32,
+      "bbox_xy_mm": [
+        22.8,
+        251.6,
+        38.8,
+        263.6
+      ],
+      "interfaces": [
+        "interface-7",
+        "interface-11"
+      ],
+      "interface_reading": "explicit_feature",
+      "bbox_cad_xyz_mm": [
+        91.6,
+        201.775,
+        321.68,
+        103.6,
+        217.775,
+        354.8
+      ]
+    },
+    {
+      "id": "tree-3",
+      "root": "bed",
+      "base_z_mm": 0.2,
+      "first_interface_z_mm": 8.12,
+      "shortest_build_up_mm": 7.92,
+      "top_z_mm": 8.6,
+      "bbox_xy_mm": [
+        71.2,
+        240.0,
+        90.8,
+        251.2
+      ],
+      "interfaces": [
+        "interface-2",
+        "interface-3"
+      ],
+      "interface_reading": "explicit_feature",
+      "bbox_cad_xyz_mm": [
+        80.0,
+        250.175,
+        346.4,
+        91.2,
+        269.775,
+        354.8
+      ]
+    },
+    {
+      "id": "tree-4",
+      "root": "bed",
+      "base_z_mm": 0.2,
+      "first_interface_z_mm": 8.12,
+      "shortest_build_up_mm": 7.92,
+      "top_z_mm": 140.12,
+      "bbox_xy_mm": [
+        71.6,
+        62.4,
+        153.6,
+        81.2
+      ],
+      "interfaces": [
+        "interface-1",
+        "interface-25"
+      ],
+      "interface_reading": "explicit_feature",
+      "bbox_cad_xyz_mm": [
+        -97.6,
+        250.575,
+        214.88,
+        -78.8,
+        332.575,
+        354.8
+      ]
+    },
+    {
+      "id": "tree-5",
+      "root": "bed",
+      "base_z_mm": 0.2,
+      "first_interface_z_mm": 36.44,
+      "shortest_build_up_mm": 36.24,
+      "top_z_mm": 98.84,
+      "bbox_xy_mm": [
+        78.0,
+        214.8,
+        127.2,
+        258.0
+      ],
+      "interfaces": [
+        "interface-14",
+        "interface-21",
+        "interface-23"
+      ],
+      "interface_reading": "explicit_feature",
+      "bbox_cad_xyz_mm": [
+        54.8,
+        256.975,
+        256.16,
+        98.0,
+        306.175,
+        354.8
+      ]
+    },
+    {
+      "id": "tree-6",
+      "root": "model",
+      "base_z_mm": 9.56,
+      "first_interface_z_mm": 44.84,
+      "shortest_build_up_mm": 35.28,
+      "top_z_mm": 94.28,
+      "bbox_xy_mm": [
+        206.8,
+        238.8,
+        267.2,
+        258.0
+      ],
+      "interfaces": [
+        "interface-15",
+        "interface-19",
+        "interface-20",
+        "interface-22"
+      ],
+      "interface_reading": "explicit_feature",
+      "bbox_cad_xyz_mm": [
+        78.8,
+        385.775,
+        260.72,
+        98.0,
+        446.175,
+        345.44
+      ]
+    },
+    {
+      "id": "tree-7",
+      "root": "model",
+      "base_z_mm": 10.04,
+      "first_interface_z_mm": 14.12,
+      "shortest_build_up_mm": 4.08,
+      "top_z_mm": 14.6,
+      "bbox_xy_mm": [
+        241.6,
+        223.6,
+        282.4,
+        226.8
+      ],
+      "interfaces": [
+        "interface-4"
+      ],
+      "interface_reading": "explicit_feature",
+      "bbox_cad_xyz_mm": [
+        63.6,
+        420.575,
+        340.4,
+        66.8,
+        461.375,
+        344.96
+      ]
+    },
+    {
+      "id": "tree-8",
+      "root": "model",
+      "base_z_mm": 9.56,
+      "first_interface_z_mm": 14.12,
+      "shortest_build_up_mm": 4.56,
+      "top_z_mm": 14.6,
+      "bbox_xy_mm": [
+        241.6,
+        246.4,
+        282.0,
+        254.0
+      ],
+      "interfaces": [
+        "interface-5"
+      ],
+      "interface_reading": "explicit_feature",
+      "bbox_cad_xyz_mm": [
+        86.4,
+        420.575,
+        340.4,
+        94.0,
+        460.975,
+        345.44
+      ]
+    },
+    {
+      "id": "tree-9",
+      "root": "bed",
+      "base_z_mm": 0.2,
+      "first_interface_z_mm": 35.24,
+      "shortest_build_up_mm": 35.04,
+      "top_z_mm": 145.88,
+      "bbox_xy_mm": [
+        274.0,
+        62.8,
+        303.2,
+        194.4
+      ],
+      "interfaces": [
+        "interface-13",
+        "interface-16",
+        "interface-17",
+        "interface-18",
+        "interface-26"
+      ],
+      "interface_reading": "explicit_feature",
+      "bbox_cad_xyz_mm": [
+        -97.2,
+        452.975,
+        209.12,
+        34.4,
+        482.175,
+        354.8
+      ]
+    },
+    {
+      "id": "tree-10",
+      "root": "model",
+      "base_z_mm": 9.56,
+      "first_interface_z_mm": 19.16,
+      "shortest_build_up_mm": 9.6,
+      "top_z_mm": 20.36,
+      "bbox_xy_mm": [
+        278.4,
+        67.6,
+        282.8,
+        75.2
+      ],
+      "interfaces": [
+        "interface-8"
+      ],
+      "interface_reading": "explicit_feature",
+      "bbox_cad_xyz_mm": [
+        -92.4,
+        457.375,
+        334.64,
+        -84.8,
+        461.775,
+        345.44
+      ]
+    },
+    {
+      "id": "tree-11",
+      "root": "model",
+      "base_z_mm": 9.56,
+      "first_interface_z_mm": 19.16,
+      "shortest_build_up_mm": 9.6,
+      "top_z_mm": 20.36,
+      "bbox_xy_mm": [
+        278.4,
+        108.0,
+        282.8,
+        115.2
+      ],
+      "interfaces": [
+        "interface-9"
+      ],
+      "interface_reading": "explicit_feature",
+      "bbox_cad_xyz_mm": [
+        -52.0,
+        457.375,
+        334.64,
+        -44.8,
+        461.775,
+        345.44
+      ]
+    },
+    {
+      "id": "tree-12",
+      "root": "bed",
+      "base_z_mm": 0.2,
+      "first_interface_z_mm": 32.84,
+      "shortest_build_up_mm": 32.64,
+      "top_z_mm": 104.6,
+      "bbox_xy_mm": [
+        283.2,
+        230.8,
+        301.6,
+        249.2
+      ],
+      "interfaces": [
+        "interface-12",
+        "interface-24"
+      ],
+      "interface_reading": "explicit_feature",
+      "bbox_cad_xyz_mm": [
+        70.8,
+        462.175,
+        250.4,
+        89.2,
+        480.575,
+        354.8
+      ]
+    },
+    {
+      "id": "tree-13",
+      "root": "bed",
+      "base_z_mm": 0.2,
+      "first_interface_z_mm": 35.24,
+      "shortest_build_up_mm": 35.04,
+      "top_z_mm": 35.48,
+      "bbox_xy_mm": [
+        289.6,
+        68.4,
+        303.6,
+        81.2
+      ],
+      "interfaces": [
+        "interface-13"
+      ],
+      "interface_reading": "explicit_feature",
+      "bbox_cad_xyz_mm": [
+        -91.6,
+        468.575,
+        319.52,
+        -78.8,
+        482.575,
+        354.8
+      ]
+    }
+  ],
+  "interfaces": [
+    {
+      "id": "interface-1",
+      "first_z_mm": 8.12,
+      "last_z_mm": 8.6,
+      "bbox_xy_mm": [
+        74.4,
+        69.2,
+        86.4,
+        77.2
+      ],
+      "tree": "tree-4",
+      "build_up_mm": 7.92,
+      "bbox_cad_xyz_mm": [
+        -90.8,
+        253.375,
+        346.4,
+        -82.8,
+        265.375,
+        346.88
+      ]
+    },
+    {
+      "id": "interface-2",
+      "first_z_mm": 8.12,
+      "last_z_mm": 8.6,
+      "bbox_xy_mm": [
+        74.4,
+        242.4,
+        86.8,
+        250.4
+      ],
+      "tree": "tree-3",
+      "build_up_mm": 7.92,
+      "bbox_cad_xyz_mm": [
+        82.4,
+        253.375,
+        346.4,
+        90.4,
+        265.775,
+        346.88
+      ]
+    },
+    {
+      "id": "interface-3",
+      "first_z_mm": 8.12,
+      "last_z_mm": 8.6,
+      "bbox_xy_mm": [
+        78.0,
+        245.2,
+        83.2,
+        250.4
+      ],
+      "tree": "tree-3",
+      "build_up_mm": 7.92,
+      "bbox_cad_xyz_mm": [
+        85.2,
+        256.975,
+        346.4,
+        90.4,
+        262.175,
+        346.88
+      ]
+    },
+    {
+      "id": "interface-4",
+      "first_z_mm": 14.12,
+      "last_z_mm": 14.6,
+      "bbox_xy_mm": [
+        241.6,
+        224.4,
+        282.4,
+        226.4
+      ],
+      "tree": "tree-7",
+      "build_up_mm": 4.08,
+      "bbox_cad_xyz_mm": [
+        64.4,
+        420.575,
+        340.4,
+        66.4,
+        461.375,
+        340.88
+      ]
+    },
+    {
+      "id": "interface-5",
+      "first_z_mm": 14.12,
+      "last_z_mm": 14.6,
+      "bbox_xy_mm": [
+        241.6,
+        246.4,
+        282.0,
+        249.6
+      ],
+      "tree": "tree-8",
+      "build_up_mm": 4.56,
+      "bbox_cad_xyz_mm": [
+        86.4,
+        420.575,
+        340.4,
+        89.6,
+        460.975,
+        340.88
+      ]
+    },
+    {
+      "id": "interface-6",
+      "first_z_mm": 18.2,
+      "last_z_mm": 18.68,
+      "bbox_xy_mm": [
+        34.8,
+        56.8,
+        38.8,
+        68.4
+      ],
+      "tree": "tree-1",
+      "build_up_mm": 18.0,
+      "bbox_cad_xyz_mm": [
+        -103.2,
+        213.775,
+        336.32,
+        -91.6,
+        217.775,
+        336.8
+      ]
+    },
+    {
+      "id": "interface-7",
+      "first_z_mm": 18.2,
+      "last_z_mm": 18.68,
+      "bbox_xy_mm": [
+        35.2,
+        251.6,
+        38.8,
+        263.2
+      ],
+      "tree": "tree-2",
+      "build_up_mm": 18.0,
+      "bbox_cad_xyz_mm": [
+        91.6,
+        214.175,
+        336.32,
+        103.2,
+        217.775,
+        336.8
+      ]
+    },
+    {
+      "id": "interface-8",
+      "first_z_mm": 19.16,
+      "last_z_mm": 19.64,
+      "bbox_xy_mm": [
+        278.4,
+        68.8,
+        282.8,
+        74.0
+      ],
+      "tree": "tree-10",
+      "build_up_mm": 9.6,
+      "bbox_cad_xyz_mm": [
+        -91.2,
+        457.375,
+        335.36,
+        -86.0,
+        461.775,
+        335.84
+      ]
+    },
+    {
+      "id": "interface-9",
+      "first_z_mm": 19.16,
+      "last_z_mm": 19.64,
+      "bbox_xy_mm": [
+        278.4,
+        109.2,
+        282.8,
+        114.0
+      ],
+      "tree": "tree-11",
+      "build_up_mm": 9.6,
+      "bbox_cad_xyz_mm": [
+        -50.8,
+        457.375,
+        335.36,
+        -46.0,
+        461.775,
+        335.84
+      ]
+    },
+    {
+      "id": "interface-10",
+      "first_z_mm": 32.84,
+      "last_z_mm": 33.32,
+      "bbox_xy_mm": [
+        25.6,
+        60.0,
+        28.8,
+        64.4
+      ],
+      "tree": "tree-1",
+      "build_up_mm": 32.64,
+      "bbox_cad_xyz_mm": [
+        -100.0,
+        204.575,
+        321.68,
+        -95.6,
+        207.775,
+        322.16
+      ]
+    },
+    {
+      "id": "interface-11",
+      "first_z_mm": 32.84,
+      "last_z_mm": 33.32,
+      "bbox_xy_mm": [
+        25.6,
+        255.6,
+        28.4,
+        259.6
+      ],
+      "tree": "tree-2",
+      "build_up_mm": 32.64,
+      "bbox_cad_xyz_mm": [
+        95.6,
+        204.575,
+        321.68,
+        99.6,
+        207.375,
+        322.16
+      ]
+    },
+    {
+      "id": "interface-12",
+      "first_z_mm": 32.84,
+      "last_z_mm": 33.32,
+      "bbox_xy_mm": [
+        286.0,
+        234.0,
+        291.2,
+        238.8
+      ],
+      "tree": "tree-12",
+      "build_up_mm": 32.64,
+      "bbox_cad_xyz_mm": [
+        74.0,
+        464.975,
+        321.68,
+        78.8,
+        470.175,
+        322.16
+      ]
+    },
+    {
+      "id": "interface-13",
+      "first_z_mm": 35.24,
+      "last_z_mm": 35.72,
+      "bbox_xy_mm": [
+        290.8,
+        79.6,
+        293.2,
+        103.2
+      ],
+      "trees": [
+        "tree-9",
+        "tree-13"
+      ],
+      "first_z_by_tree_mm": {
+        "tree-9": 35.24,
+        "tree-13": 35.24
+      },
+      "build_up_by_tree_mm": {
+        "tree-9": 35.04,
+        "tree-13": 35.04
+      },
+      "bbox_cad_xyz_mm": [
+        -80.4,
+        469.775,
+        319.28,
+        -56.8,
+        472.175,
+        319.76
+      ]
+    },
+    {
+      "id": "interface-14",
+      "first_z_mm": 36.44,
+      "last_z_mm": 36.92,
+      "bbox_xy_mm": [
+        114.0,
+        218.0,
+        123.2,
+        258.0
+      ],
+      "tree": "tree-5",
+      "build_up_mm": 36.24,
+      "bbox_cad_xyz_mm": [
+        58.0,
+        292.975,
+        318.08,
+        98.0,
+        302.175,
+        318.56
+      ]
+    },
+    {
+      "id": "interface-15",
+      "first_z_mm": 44.84,
+      "last_z_mm": 45.32,
+      "bbox_xy_mm": [
+        207.2,
+        242.0,
+        266.8,
+        258.0
+      ],
+      "tree": "tree-6",
+      "build_up_mm": 35.28,
+      "bbox_cad_xyz_mm": [
+        82.0,
+        386.175,
+        309.68,
+        98.0,
+        445.775,
+        310.16
+      ]
+    },
+    {
+      "id": "interface-16",
+      "first_z_mm": 70.52,
+      "last_z_mm": 71.0,
+      "bbox_xy_mm": [
+        286.0,
+        186.4,
+        290.8,
+        188.0
+      ],
+      "tree": "tree-9",
+      "build_up_mm": 70.32,
+      "bbox_cad_xyz_mm": [
+        26.4,
+        464.975,
+        284.0,
+        28.0,
+        469.775,
+        284.48
+      ]
+    },
+    {
+      "id": "interface-17",
+      "first_z_mm": 70.52,
+      "last_z_mm": 71.0,
+      "bbox_xy_mm": [
+        286.0,
+        189.6,
+        290.8,
+        191.6
+      ],
+      "tree": "tree-9",
+      "build_up_mm": 70.32,
+      "bbox_cad_xyz_mm": [
+        29.6,
+        464.975,
+        284.0,
+        31.6,
+        469.775,
+        284.48
+      ]
+    },
+    {
+      "id": "interface-18",
+      "first_z_mm": 73.88,
+      "last_z_mm": 74.36,
+      "bbox_xy_mm": [
+        277.6,
+        62.8,
+        279.6,
+        101.6
+      ],
+      "tree": "tree-9",
+      "build_up_mm": 73.68,
+      "bbox_cad_xyz_mm": [
+        -97.2,
+        456.575,
+        280.64,
+        -58.4,
+        458.575,
+        281.12
+      ]
+    },
+    {
+      "id": "interface-19",
+      "first_z_mm": 88.76,
+      "last_z_mm": 89.96,
+      "bbox_xy_mm": [
+        207.2,
+        243.2,
+        226.0,
+        254.8
+      ],
+      "tree": "tree-6",
+      "build_up_mm": 79.2,
+      "bbox_cad_xyz_mm": [
+        83.2,
+        386.175,
+        265.04,
+        94.8,
+        404.975,
+        266.24
+      ]
+    },
+    {
+      "id": "interface-20",
+      "first_z_mm": 88.76,
+      "last_z_mm": 89.96,
+      "bbox_xy_mm": [
+        232.8,
+        242.8,
+        251.2,
+        254.4
+      ],
+      "tree": "tree-6",
+      "build_up_mm": 79.2,
+      "bbox_cad_xyz_mm": [
+        82.8,
+        411.775,
+        265.04,
+        94.4,
+        430.175,
+        266.24
+      ]
+    },
+    {
+      "id": "interface-21",
+      "first_z_mm": 89.96,
+      "last_z_mm": 90.44,
+      "bbox_xy_mm": [
+        81.2,
+        252.0,
+        90.8,
+        254.0
+      ],
+      "tree": "tree-5",
+      "build_up_mm": 89.76,
+      "bbox_cad_xyz_mm": [
+        92.0,
+        260.175,
+        264.56,
+        94.0,
+        269.775,
+        265.04
+      ]
+    },
+    {
+      "id": "interface-22",
+      "first_z_mm": 93.8,
+      "last_z_mm": 94.28,
+      "bbox_xy_mm": [
+        218.0,
+        247.6,
+        240.4,
+        248.8
+      ],
+      "tree": "tree-6",
+      "build_up_mm": 84.24,
+      "bbox_cad_xyz_mm": [
+        87.6,
+        396.975,
+        260.72,
+        88.8,
+        419.375,
+        261.2
+      ]
+    },
+    {
+      "id": "interface-23",
+      "first_z_mm": 97.88,
+      "last_z_mm": 98.36,
+      "bbox_xy_mm": [
+        80.8,
+        250.4,
+        91.2,
+        253.6
+      ],
+      "tree": "tree-5",
+      "build_up_mm": 97.68,
+      "bbox_cad_xyz_mm": [
+        90.4,
+        259.775,
+        256.64,
+        93.6,
+        270.175,
+        257.12
+      ]
+    },
+    {
+      "id": "interface-24",
+      "first_z_mm": 104.12,
+      "last_z_mm": 104.6,
+      "bbox_xy_mm": [
+        283.2,
+        242.8,
+        286.0,
+        249.2
+      ],
+      "tree": "tree-12",
+      "build_up_mm": 103.92,
+      "bbox_cad_xyz_mm": [
+        82.8,
+        462.175,
+        250.4,
+        89.2,
+        464.975,
+        250.88
+      ]
+    },
+    {
+      "id": "interface-25",
+      "first_z_mm": 139.64,
+      "last_z_mm": 140.12,
+      "bbox_xy_mm": [
+        135.6,
+        62.4,
+        153.6,
+        69.2
+      ],
+      "tree": "tree-4",
+      "build_up_mm": 139.44,
+      "bbox_cad_xyz_mm": [
+        -97.6,
+        314.575,
+        214.88,
+        -90.8,
+        332.575,
+        215.36
+      ]
+    },
+    {
+      "id": "interface-26",
+      "first_z_mm": 145.4,
+      "last_z_mm": 145.88,
+      "bbox_xy_mm": [
+        291.6,
+        72.0,
+        294.8,
+        172.8
+      ],
+      "tree": "tree-9",
+      "build_up_mm": 145.2,
+      "bbox_cad_xyz_mm": [
+        -88.0,
+        470.575,
+        209.12,
+        12.8,
+        473.775,
+        209.6
+      ]
+    }
+  ],
+  "interface_feature_policy": "All support bodies are retained; unlabelled interfaces have unknown contact count and build-up."
+}

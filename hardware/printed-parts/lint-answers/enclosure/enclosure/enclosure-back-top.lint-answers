@@ -415,7 +415,7 @@ click: x=89.600 y=423.435 z=263.900
 click: x=89.950 y=416.000 z=303.900
 click: x=90.775 y=416.000 z=309.250
 click: x=94.850 y=408.010 z=263.850
-click: x=88.375 y=416.000 z=303.900
+click: x=90.950 y=416.000 z=303.900
 click: x=85.625 y=425.511 z=306.750
 click: x=88.300 y=402.926 z=260.300
 click: x=85.625 y=403.421 z=306.750
@@ -434,15 +434,15 @@ file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=-94.120 y=441.225 z=327.157
 click: x=-96.495 y=381.225 z=327.157
 
-[ceiling] Fitted v3 snap catch: the horizontal pocket projects 2.85 mm for 2.60 mm hook engagement and 0.25 mm running allowance. The free cap leaves are 2.0 mm with R1.5 roots; receiver walls retain 3 mm stock. These square faces provide positive capture. Tree(auto)/Default supports leave through the empty flank mouths before hardware and caps are fitted; the centered screwdriver entries release the catches. Physical release force and repeated bending remain unqualified.
+[ceiling] Fitted v3 snap catch: the horizontal pocket projects 2.85 mm for 2.60 mm hook engagement and 0.25 mm running allowance. The free cap leaves are 2.0 mm with R1.5 roots; receiver walls retain 3 mm stock. These square faces provide positive capture. Tree(auto)/Default supports leave through the empty flank mouths before hardware and caps are fitted; the exposed leaves can be spread to release the catches. Physical release force and repeated bending remain unqualified.
 alternatives: Filling the pocket occupies the moving hook and leaf. Sloping its bearing makes a withdrawal ramp; reducing its reach reduces the selected capture. Increasing the wall thickness does not remove this working catch surface.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=-37.324 y=290.529 z=339.815
 click: x=-37.324 y=324.785 z=339.815
-click: x=50.023 y=417.284 z=339.850
-click: x=66.019 y=428.423 z=339.850
-click: x=7.577 y=417.284 z=339.850
-click: x=86.981 y=428.423 z=339.850
+click: x=50.023 y=417.286 z=339.850
+click: x=66.019 y=441.448 z=339.850
+click: x=7.577 y=417.286 z=339.850
+click: x=86.981 y=441.448 z=339.850
 click: x=7.577 y=428.994 z=339.850
 click: x=50.023 y=428.994 z=339.850
 click: x=66.019 y=453.819 z=339.850
@@ -506,7 +506,7 @@ click: x=88.300 y=407.835 z=260.300
 click: x=88.450 y=392.628 z=264.500
 click: x=88.450 y=423.042 z=264.500
 
-[ledge] Fitted v3 snap catch: the horizontal pocket projects 2.85 mm for 2.60 mm hook engagement and 0.25 mm running allowance. The free cap leaves are 2.0 mm with R1.5 roots; receiver walls retain 3 mm stock. These square faces provide positive capture. Tree(auto)/Default supports leave through the empty flank mouths before hardware and caps are fitted; the centered screwdriver entries release the catches. Physical release force and repeated bending remain unqualified.
+[ledge] Fitted v3 snap catch: the horizontal pocket projects 2.85 mm for 2.60 mm hook engagement and 0.25 mm running allowance. The free cap leaves are 2.0 mm with R1.5 roots; receiver walls retain 3 mm stock. These square faces provide positive capture. Tree(auto)/Default supports leave through the empty flank mouths before hardware and caps are fitted; the exposed leaves can be spread to release the catches. Physical release force and repeated bending remain unqualified.
 alternatives: Filling the pocket occupies the moving hook and leaf. Sloping its bearing makes a withdrawal ramp; reducing its reach reduces the selected capture. Increasing the wall thickness does not remove this working catch surface.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=65.544 y=421.799 z=339.850
@@ -522,11 +522,3 @@ alternatives: Raising the snap-pocket ceiling changes the cap's tip clearance an
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=64.769 y=441.198 z=345.350
 click: x=0.000 y=368.346 z=346.000
-
-[ledge] Functional flat and inclined walls of the centered receiver screwdriver passages. The PISCO and rotated regulator use the defined 75-degree tool approach, producing these 15-degree passage faces. Flat shoulders join the bearing planes with 3 mm stock. Tree(auto)/Default retains its actual support decisions; the empty receiver mouths expose these passages before the caps and hardware are fitted. The matched tool-path review records the reachable 3.5 by 3 mm blade throats.
-alternatives: Filling the passages prevents blade access. Changing their inclination moves the measured service route. Extending an inclined cut through the catch plane removes the flat shoulder and restores a feather edge; widening it consumes the retained catch or flank stock.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=-19.493 y=290.054 z=339.815
-click: x=-38.089 y=290.054 z=338.467
-click: x=65.544 y=441.876 z=338.479
-click: x=86.506 y=441.876 z=338.479

@@ -20,5 +20,14 @@
   "reason": "Mark1 is free with black PET-GF loaded. The complete front top is independent of the rear ASSE alignment and release-tunnel changes.",
   "job_id": "1405624302",
   "accepted_at": "2026-11-04T05:02:44.371197+00:00",
-  "launch_receipt": "launch.json"
+  "launch_receipt": "launch.json",
+  "running_observation": {
+    "observed_at": "2026-11-04T05:23:19.888358+00:00",
+    "gcode_state": "RUNNING",
+    "layer_num": 1,
+    "total_layer_num": 1371,
+    "mc_remaining_time": 2179,
+    "print_error": 0,
+    "hms": []
+  }
 }

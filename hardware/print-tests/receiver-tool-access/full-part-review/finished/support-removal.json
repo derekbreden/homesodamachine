@@ -8,7 +8,7 @@
   ],
   "parts": {
     "back-top": {
-      "body_count": 19,
+      "body_count": 13,
       "unlabelled_body_count": 0,
       "removal_groups": [
         {
@@ -16,7 +16,7 @@
             1,
             2
           ],
-          "route": "Withdraw from the open fore seam and inboard flank mouths before the front shell is attached. These bed-rooted trees carry the fore seam/insert shoulders."
+          "route": "Withdraw through the open fore seam and inboard flank mouths before attaching the front shell. These bed-rooted trees carry the fore seam and insert shoulders."
         },
         {
           "trees": [
@@ -24,44 +24,40 @@
             4,
             5
           ],
-          "route": "Break the exposed bed-rooted branches from the open enclosure interior. Remove the fore ceiling-host, west-wall and east equipment-seat contacts through their empty inboard/fore mouths before fitting boards or fittings."
+          "route": "Cut the exposed bed-rooted branches in the empty shell interior and withdraw through the fore opening. Clear the funnel ledges, west-wall host and east equipment seats before installing boards or fittings."
         },
         {
           "trees": [
-            6,
-            9,
-            10,
-            11,
-            12,
-            13,
-            14
+            6
           ],
-          "route": "Use the tiny flathead through the empty snap-receiver flank mouths and centered receiver channels. Remove the model-rooted trees from the catch pockets before caps or hardware are fitted."
+          "route": "Cut and withdraw the meter-housing branches westward through the open meter/ASSE loading room. Clear the housing recess and column openings before fitting the flow meter."
         },
         {
           "trees": [
             7,
             8
           ],
-          "route": "Remove the meter-seat branches westward through the open meter/ASSE loading room. Clear both column openings and the housing recess before installing the flow meter."
+          "route": "Use the tiny flathead through the empty PISCO receiver flank mouths, then lift the short model-rooted strips out through its open fore-loading room. The complete catch contacts span native Y420.575\u2013461.375 at Z340.4\u2013340.88 mm. No enclosed release tunnel is used."
         },
         {
           "trees": [
-            15,
-            18,
-            19
+            9,
+            12,
+            13
           ],
-          "route": "Separate the exposed bed-rooted rear branches in the open shell, then clear rear pockets outward through their hardware apertures or inward through their empty seats. Leave all rear labels, inlet fittings and connectors out until this is complete."
+          "route": "Separate the exposed bed-rooted rear branches into pieces. Withdraw through the open enclosure interior or empty rear hardware apertures before fitting labels, inlet hardware or connectors."
         },
         {
           "trees": [
-            16,
-            17
+            10,
+            11
           ],
-          "route": "Lift the short model-rooted branches out through the empty rear receiver/anchor mouths from the enclosure interior."
+          "route": "Clear the two short model-rooted C14 host contacts through the empty inlet opening and inboard host mouths. Their native contacts are at Y457.375\u2013461.775, Z335.36\u2013335.84 mm."
         }
       ],
-      "other_removable_stock": "Three groove ribbons print as separate sacrificial bodies. Break them along their release gaps and withdraw them along the open sliding channels. The native slice has no support roads crossing the tie windows or the ribbon envelopes."
+      "other_removable_stock": "Three groove ribbons print as separate sacrificial bodies. Break them along their release gaps and withdraw them along the open sliding channels. The native slice has no support roads crossing the tie windows or the ribbon envelopes.",
+      "audit": "back-top-continuous-base/support-audit-1901.json",
+      "archive_sha256": "54a0d428cb9cbff5fc17948c0e48cc4abfea6936a1854a5a60f86a182f7d53d3"
     },
     "front-top": {
       "body_count": 3,
@@ -77,7 +73,7 @@
           "trees": [
             2
           ],
-          "route": "Remove the unlabelled east lower-display body through the lower 69.3 by 4.96 mm cleanout mouth into the empty PCB room. Its native bounds are X64.7–65.9, Y18.6–19.0, Z299.921–300.743 mm."
+          "route": "Remove the unlabelled east lower-display body through the lower 69.3 by 4.96 mm cleanout mouth into the empty PCB room. Its native bounds are X64.7\u201365.9, Y18.6\u201319.0, Z299.921\u2013300.743 mm."
         },
         {
           "trees": [
@@ -85,7 +81,9 @@
           ],
           "route": "Remove through the two open inboard Wago-pocket mouths before inserting connectors."
         }
-      ]
+      ],
+      "audit": "front-top-mark1/support-audit-1901.json",
+      "archive_sha256": "d920b8efb1cac562b95b6b566e004e28d26a40f1dd2272b3a2ccd92489955fdd"
     },
     "pump-retainer": {
       "body_count": 2,
@@ -96,44 +94,44 @@
             1,
             2
           ],
-          "route": "Withdraw from the two empty motor/fitting wells and open rear bearing room before installing the pumps. Contacts are at native Y71.81–72.29 and Y75.65–75.89 mm. Preserve the fitted skirt-bearing surfaces and both wing roots."
+          "route": "Withdraw from the two empty motor/fitting wells and open rear bearing room before installing the pumps. Contacts are at native Y71.81\u201372.29 and Y75.65\u201375.89 mm. Preserve the fitted skirt-bearing surfaces and both wing roots."
         }
       ]
     },
     "foam-cap-lid-top": {
-      "body_count": 13,
-      "unlabelled_body_count": 3,
+      "body_count": 11,
+      "unlabelled_body_count": 2,
       "removal_groups": [
         {
           "trees": [
             1,
-            2,
-            3,
-            4
+            2
           ],
-          "route": "With the lid loose, remove through the open inboard pump-receiver and Wago-end mouths before fitting the pump, Wagos or pump cap. Tree 3 is the unlabelled end-wall body at native X−127.25…−118.45, Y20.8–22, Z26.12–31.88 mm."
+          "route": "With the lid loose and the pump cap absent, remove the two model-rooted catch strips through the open inboard pump-receiver/flank mouths. The contacts run native X\u2212118.45\u2026\u221264.85, at Y\u221249.2\u2026\u221247.2 and Y16.8\u202619.2, Z13.16\u201313.64 mm. No enclosed release tunnel is used."
         },
         {
           "trees": [
+            3,
+            4,
             5,
             6,
             7,
             8,
             9,
-            10,
-            11,
-            12
+            10
           ],
-          "route": "Remove through the open flavor-valve saddles and the empty tube/clip entry mouths. Clear the upper saddle pockets before valves or tubing are fitted. Unlabelled trees 5 and 12 occupy native X66.75–69.15 and X91.55–93.95, Y32.4–35.2, Z43.64–49.64 mm."
+          "route": "Remove through the open flavor-valve saddles and empty tube/clip mouths before fitting valves or tubing. Cut branches into pieces rather than levering on the bearing faces. Unlabelled trees 4 and 10 occupy native X66.75\u201369.15 and X91.55\u201393.95, Y32.4\u201335.2, Z43.64\u201349.64 mm."
         },
         {
           "trees": [
-            13
+            11
           ],
-          "route": "Remove the short bed-rooted branch from the lid edge through the open fitting/wall end before seating the lid on the cold core."
+          "route": "Remove the short bed-rooted edge branch through the open fitting/wall end before seating the lid. Its contact spans native X104.35\u2013140.75, Y\u221244\u2026\u221242, Z4.28\u20134.76 mm."
         }
       ],
-      "other_removable_stock": "The aft tie-passage exclusion is retained; the slice has no support roads crossing its specified tie window."
+      "other_removable_stock": "The aft tie-passage exclusion is retained; the slice has no support roads crossing its specified tie window.",
+      "audit": "foam-cap-lid-top-continuous-base/support-audit-1901.json",
+      "archive_sha256": "014da1eb47bc6178e6f660ac0a782abc0aedd6ea400b3b099ea45bde9889f8bd"
     }
   }
 }
