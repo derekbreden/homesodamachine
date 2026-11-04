@@ -1,0 +1,65 @@
+{
+  "views": [
+    {
+      "name": "drain-port",
+      "caption": "DRAIN identifies the lower-left rear port and its matching white 4 mm tube.",
+      "before": "drain-port-before.webp",
+      "after": "drain-port-after.webp",
+      "width": 1080,
+      "height": 1080,
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "orthographic",
+        "position": [
+          76.5,
+          1076.973610631394,
+          308.07788885051156
+        ],
+        "target": [
+          76.5,
+          471,
+          259.6
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "half": 25,
+        "near": 487.72772598469544,
+        "far": 1146.2964955980644,
+        "aspect": 1
+      },
+      "highlight": [],
+      "ghost": [],
+      "only": [
+        "enclosure-back-top",
+        "bulkhead-ring-drain*",
+        "bulkhead-drain*"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "44e47526534250d4290efe1abafb3f0a2d2854cc8429c1d5951750deb65bfe8a",
+          "commit": "000284dc9531289a7809ac2a9dd2a86c20c0b898",
+          "taken": "2026-11-04T15:55:19.896Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "f867e7f3129450e3d219f0ab39ae84b0aea44720eb567afe916fe8f7417c5954",
+          "commit": "c646ae72a9a85d253ded1679fe0fd598a2499ee5",
+          "published": true
+        }
+      },
+      "changed": [
+        "bulkhead-ring-drain-word",
+        "bulkhead-ring-drain"
+      ],
+      "withinMeshing": []
+    }
+  ]
+}
