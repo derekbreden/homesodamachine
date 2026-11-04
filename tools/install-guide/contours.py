@@ -112,8 +112,7 @@ class Contours:
         my0, my1 = (PAD if cut[2] else 0), (PAD+ih if cut[3] else ph)
         def stops(values):
             return ''.join(f'<stop offset="{offset}" stop-color="{color}"/>' for offset,color in values)
-        body = f'''<!doctype html><html><head><style>html,body{{margin:0;width:100%;height:100%;background:transparent}}svg{{display:block;width:100vw;height:100vh}}</style></head><body>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {pw} {ph}"><defs>{component_defs}
+        body = f'''<svg xmlns="http://www.w3.org/2000/svg" width="{pixels[0]}" height="{pixels[1]}" viewBox="0 0 {pw} {ph}"><defs>{component_defs}
         <filter id="contour" {region} color-interpolation-filters="sRGB">
           <feComponentTransfer in="SourceAlpha" result="solid"><feFuncA type="linear" slope="40"/></feComponentTransfer>
           <feMorphology operator="dilate" radius="{self.width}" result="outside"/>
@@ -129,14 +128,14 @@ class Contours:
           <rect x="0" y="{my0}" width="{pw}" height="{my1-my0}" fill="url(#fade-y)"/>
         </mask>
         </defs><g mask="url(#mx)"><g mask="url(#my)"><g filter="url(#contour)">{silhouette}</g>{raw}{lip}{component_outline}</g></g>
-        </svg></body></html>'''
+        </svg>'''
         digest = hashlib.sha256(
             (body+''.join(source_digests)+self.renderer_digest).encode()).hexdigest()[:20]
         target = OUT / f'{digest}.png'
         if not target.exists():
-            page = OUT / f'{digest}.html'
+            page = OUT / f'{digest}.svg'
             page.write_text('\n'.join(line.rstrip() for line in body.splitlines())+'\n')
-            self.pending.append({'html':str(page), 'out':str(target), 'size':pixels})
+            self.pending.append({'svg':str(page), 'out':str(target), 'size':pixels})
         return target, (pw,ph)
 
     def render(self):
