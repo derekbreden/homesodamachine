@@ -15,6 +15,7 @@ import trimesh
 
 HERE = Path(__file__).resolve().parent
 ROOT = next(p for p in HERE.parents if (p / 'tools').is_dir())
+VIEWER = ROOT / 'hardware/assembly/scenes/glb'
 READ_SHA = {}
 
 
@@ -68,6 +69,7 @@ def main():
     high = [centre[0]+50, 476., centre[2]+58]
     receiver = crop(low, high)
     plate_meshes = payload_meshes(plate, lambda _: True)
+    VIEWER.mkdir(parents=True, exist_ok=True)
     records = {}
     for view in ('seated', 'separated'):
         scene = trimesh.Scene()
@@ -88,7 +90,7 @@ def main():
                         node_name='Hidden spring leaves (inspection highlight)')
                     mesh = mesh.submesh([np.flatnonzero(~clips)],append=True,repair=False)
             scene.add_geometry(material(mesh, color), node_name=name)
-        target = HERE / f'nameplate-attachment-{view}.glb'
+        target = VIEWER / f'nameplate-attachment-{view}.glb'
         target.write_bytes(scene.export(file_type='glb'))
         records[view] = str(target.relative_to(ROOT/'hardware'))
         print(target.name, flush=True)
@@ -96,7 +98,7 @@ def main():
     # Context includes the actual curved corner and complete adjacent color-chip
     # frame. The view therefore exposes the boundary whose spacing matters.
     scene = trimesh.Scene()
-    context = crop([-108, 450, 160.1], [108, 477, 352])
+    context = crop([-108, 450, 160.1], [108, 477, 360])
     context.vertices = (context.vertices-centre)*[-1,-1,1]
     scene.add_geometry(material(context,[.16,.17,.19]), node_name='Enclosure back top')
     def include(name):
@@ -110,7 +112,7 @@ def main():
         mesh = source.copy()
         mesh.vertices = (mesh.vertices+to_world-centre)*[-1,-1,1]
         scene.add_geometry(material(mesh,color), node_name=name)
-    target = HERE/'nameplate-attachment-installed.glb'
+    target = VIEWER/'nameplate-attachment-installed.glb'
     target.write_bytes(scene.export(file_type='glb'))
     records['installed'] = str(target.relative_to(ROOT/'hardware'))
     print(target.name, flush=True)

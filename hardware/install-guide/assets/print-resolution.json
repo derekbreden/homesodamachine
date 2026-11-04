@@ -220,12 +220,12 @@
         2.0
       ],
       "coordinate_reference_path": "reference/rear-layout-the-back-face.png",
-      "coordinate_reference_sha256": "24d7b3fa41c59718eebd42d60a47592ee0d686352c8bd5a225e9f9f472a16153",
-      "render_sha256": "d8b077cde8b540641f01d186da639ed3ed277a09b093fbae7d8a0a21b3356438",
-      "source_sha256": "283494201d0835b6749b11bc942cd6bcf21cab0f4d35479f3ab5757686ced2f9",
+      "coordinate_reference_sha256": "60cfdf94ca6155c4c7ca8209f6a56a76cdad7c2de27b0f5c4197f21550a29e77",
+      "render_sha256": "4d2dea8a4042a43ff2d7b93c418889882bb8e3ff29b734ef284ac89511396906",
+      "source_sha256": "0e7e668dd324992e2b0a497e1a6cba48f1fac48a34756e772052c3ded78603d8",
       "fixed_native_crop": null,
       "lighting": "Default studio lighting; axial rear camera; native transparent background.",
-      "scene_mesh_sha256": "3afbc5c5ad731c8cabf305ba024125738af79dfe49632e94fa7f7392a6a9d4d3",
+      "scene_mesh_sha256": "50fe5951350174fb756239f07d22a6b97d88b4c2048c931ed17c74d9fc13031e",
       "registered_camera": {
         "cam": [
           0,
@@ -306,16 +306,16 @@
         2.0
       ],
       "coordinate_reference_path": "reference/rear-layout-connect-rear-open.png",
-      "coordinate_reference_sha256": "320b826743bf26cd51a37aa930cbf92691e347eeab97e2300581b4a7f49231c6",
-      "render_sha256": "0a1f6bd344d5b86314154e61935535d4a036f82cb4ad64dce70dcf9d47559a4b",
-      "source_sha256": "283494201d0835b6749b11bc942cd6bcf21cab0f4d35479f3ab5757686ced2f9",
+      "coordinate_reference_sha256": "86cc199172999c99c212dfdacde1b51798755f0e39baf4c6df0d908e65acdeb6",
+      "render_sha256": "2a358e2c65942affcbcf0d2e219b7ccaee99162fcdb87ea4ce1508410745918e",
+      "source_sha256": "0e7e668dd324992e2b0a497e1a6cba48f1fac48a34756e772052c3ded78603d8",
       "fixed_native_crop": [
         0,
         1300,
         2700,
         3600
       ],
-      "scene_mesh_sha256": "1e9ad3692ae1e49cc2bd2159ea51324ff267f164c5a6fbf57707d58502418fcc",
+      "scene_mesh_sha256": "7caa4b2ed28ebc5aafcf250a264f61327896682ae7bf674cc15e3fd4bd1d5458",
       "registered_camera": {
         "cam": [
           0.7,
@@ -421,16 +421,16 @@
         2.0
       ],
       "coordinate_reference_path": "reference/rear-layout-connect-rear-connected.png",
-      "coordinate_reference_sha256": "d65349c7cdecdbcb8e109c501a87e11c091beff055cd93cf26d5b3ceb2422eea",
-      "render_sha256": "7ae8f1960c0e702ad544ea783ef40ff72c0729ab5ee2acdbba55a44a00545b97",
-      "source_sha256": "283494201d0835b6749b11bc942cd6bcf21cab0f4d35479f3ab5757686ced2f9",
+      "coordinate_reference_sha256": "8ab699e9f3c97b197b90891c021936325b105ef16f0b667e8e10eef6a53c961b",
+      "render_sha256": "3f795b8e5356efe085ef0d28b4f62a7209aa401dc8b7f7029d0611693102f6fb",
+      "source_sha256": "0e7e668dd324992e2b0a497e1a6cba48f1fac48a34756e772052c3ded78603d8",
       "fixed_native_crop": [
         0,
         1300,
         2700,
         3600
       ],
-      "scene_mesh_sha256": "2f8305fd6aef7c61d05c976c1f45822bdac349c28d089886bcb2663f5bebfa3e",
+      "scene_mesh_sha256": "1648836367b2514a294be7f571eb9650f431bebc38c1fb9b0d8891ce2fd9b781",
       "registered_camera": {
         "cam": [
           0.7,
@@ -489,9 +489,9 @@
         1,
         1
       ],
-      "render_sha256": "612ffd5ed45f8a416437eb5267c2dba9df2dd28783839cb4aa579435efb9089d",
-      "scene_mesh_sha256": "8ac57f454c3c35c6bcf408c3ba095ed2a4e4eb9ad547114904bd0c99bbbc89bd",
-      "source_sha256": "283494201d0835b6749b11bc942cd6bcf21cab0f4d35479f3ab5757686ced2f9",
+      "render_sha256": "7f8cc32eb7e1586b980bc329e64909596763e16708368a29551353433ac81fa6",
+      "scene_mesh_sha256": "7a7f9e0964ce63a9c145cbb0ec948c627933401d0206c64e3f11a19f35049c8a",
+      "source_sha256": "0e7e668dd324992e2b0a497e1a6cba48f1fac48a34756e772052c3ded78603d8",
       "registered_camera": {
         "cam": [
           -0.85,
@@ -513,7 +513,7 @@
         ]
       },
       "coordinate_reference_path": "reference/rear-layout-power-ready.png",
-      "coordinate_reference_sha256": "612ffd5ed45f8a416437eb5267c2dba9df2dd28783839cb4aa579435efb9089d",
+      "coordinate_reference_sha256": "7f8cc32eb7e1586b980bc329e64909596763e16708368a29551353433ac81fa6",
       "anchor_source_mm": {
         "cord-approach": [
           -68.5,

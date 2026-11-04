@@ -15,15 +15,15 @@
   "separated_pose": "Plate translated aside and turned 180 degrees about Z to expose its back; inspection only.",
   "inspection_color": "Orange highlights actual hidden clip surfaces in the separated view only. The printed plate is black and white.",
   "views": {
-    "seated": "printed-parts/enclosure/nameplate/nameplate-attachment-seated.glb",
-    "separated": "printed-parts/enclosure/nameplate/nameplate-attachment-separated.glb",
-    "installed": "printed-parts/enclosure/nameplate/nameplate-attachment-installed.glb"
+    "seated": "assembly/scenes/glb/nameplate-attachment-seated.glb",
+    "separated": "assembly/scenes/glb/nameplate-attachment-separated.glb",
+    "installed": "assembly/scenes/glb/nameplate-attachment-installed.glb"
   },
   "source_sha256": {
-    "hardware/printed-parts/enclosure/nameplate/attachment_view.py": "b35f91ede7b2fb6428b88070751ea714fb5033d8f4fc27e6596d4f3c0d450c54",
+    "hardware/printed-parts/enclosure/nameplate/attachment_view.py": "bcb08ee92e16aa4d9a1c2d17cb30d56b441f0a2eb99091b2a337871dc3267a9a",
     "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl": "48940d2130c3d1134ffe25741705c07bb2c46a547402604328b7b4c7dd8e197c",
     "hardware/printed-parts/enclosure/nameplate/nameplate-001.step.mesh": "0cad6d92fcb0b60d32436f9b9881cbbb74f4a80d5a8be256e10ee5ae09bcdcfc",
-    "hardware/manifold-layout/enclosure-assembly.step.mesh": "0e7e668dd324992e2b0a497e1a6cba48f1fac48a34756e772052c3ded78603d8",
+    "hardware/manifold-layout/enclosure-assembly.step.mesh": "d78cc6be7dd85495cc39ed818f985398d2af60cd2e58ce56be0f4c257855cb25",
     "hardware/printed-parts/enclosure/nameplate/nameplate.numbers.json": "401324f2511fd1b17d8a90431e50754f0adde8d8d181fddc1602925f00ecfe45",
     "hardware/manifold-layout/above-core.json": "c583d2f19958195708ee94db732f077239a9943182af3aa1d202e39a27987011"
   }
