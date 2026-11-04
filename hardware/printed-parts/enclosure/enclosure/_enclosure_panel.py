@@ -294,7 +294,14 @@ def print_numbers(shell, box):
         other.extend(shell._nameplate_fit.plain_lips(box.pack.nameplate, box.outer[3]))
     if box.pack.keystone:
         other.extend(shell._data_fit.plain_lips(box.pack.keystone, box.outer[3]))
-    panel_top = max(box.splits[1]+shell.z_rise, shell._handhold_levels(box.inner)[2])
+    # The tall seam heads occupy the flank runs. Rear-wall features behind
+    # their complete Y extent meet the wall's seam, rather than those heads.
+    runs = shell._z_rail_runs(box.inner, box.y_joint, 'back', box.pack.collet_plate)
+    rail_end_y = max(max(run[2], run[3]) for run in runs)
+    pad_y = plan['face_y_mm']-wing.THICK-wing.BACK_AIR-wing.FLOOR_STOCK
+    behind_rails = min(pad_y, *(land[2] for land in other)) > rail_end_y
+    panel_top = max(box.splits[1]+(0 if behind_rails else shell.z_rise),
+                    shell._handhold_levels(box.inner)[2])
     if min(pad_floor, *(land[4] for land in other)) <= panel_top:
         raise ValueError('a rear plain land reaches the back-bottom print boundary')
     rail = shell._flute_skin.Rail(at=lambda s: shell.plan_at(s, box.outer),
