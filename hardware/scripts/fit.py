@@ -113,8 +113,7 @@ _HERE = Path(__file__).resolve().parent
 if str(_HERE) not in sys.path:
     sys.path.insert(0, str(_HERE))
 
-# `probe` before CadQuery: its world is the machine's scene, read on the mesh kernel, and a
-# process takes the kernel only while nothing has imported CadQuery.
+# `probe` installs the mesh interface before its placement types are imported.
 import probe                                                        # noqa: E402
 
 import cadquery as cq                                               # noqa: E402
@@ -219,18 +218,7 @@ def _takes_no_args(fn) -> bool:
                or p.kind in (p.VAR_POSITIONAL, p.VAR_KEYWORD) for p in params)
 
 
-def _builder(mod, name: str):
-    """The module's builder: `build()`, `build_<module>()` or `build_assembly()`, else
-    raise naming what it does have — a guessed builder is a different part."""
-    for attr in ("build", f"build_{mod.__name__}", "build_assembly"):
-        fn = getattr(mod, attr, None)
-        if callable(fn) and _takes_no_args(fn):
-            return fn
-    builds = sorted(n for n in dir(mod) if n.startswith("build") and callable(getattr(mod, n)))
-    raise AttributeError(
-        f"{name}: no zero-argument build(), build_{mod.__name__}() or build_assembly() — "
-        f"has {', '.join(builds) if builds else 'no build* function'}; "
-        f"pass builder= with the one that makes the whole part")
+
 
 
 def _discover_ports(mod) -> dict:
@@ -259,10 +247,8 @@ def _discover_ports(mod) -> dict:
 class Part:
     """A part in its own coordinates, with the ports it declares.
 
-    What builds it is settled in the order the caller stated it: a `builder=` IS the part,
-    then a `name` that is the path of a `.step`, and only then `hardware/reference/<name>/`.
-    So every body in the machine is nameable here — the printed ones, which have a `.step`
-    and a generator that is not a reference module, as much as the bought ones.
+    An explicit mesh builder supplies the part when given. File paths and reference names
+    otherwise read their exported fine model; reference modules supply scalar port metadata.
 
         fit.part("hardware/printed-parts/electronics/pcba-tray/pcba-assembly.step")
         fit.part("pcba-assembly", builder=lambda: pcba_tray.build_assembly())"""
@@ -278,16 +264,12 @@ class Part:
             self._builder = lambda: import_step(str(self.step))
         else:
             self.module = _module_for(self.name)
-            if self.module is not None:
-                self._builder = _builder(self.module, self.name)
-            else:
-                self.step = _step_for(self.name)
-                if self.step is None:
-                    raise FileNotFoundError(
-                        f"{self.name}: neither a module nor a .step in "
-                        f"{_dir_for(self.name)} — nothing here builds this part; pass "
-                        f"builder= or the path of a .step")
-                self._builder = lambda: import_step(str(self.step))
+            self.step = _step_for(self.name)
+            if self.step is None:
+                raise FileNotFoundError(
+                    f"{self.name}: no exported .step in {_dir_for(self.name)}; "
+                    "provide the current fine model or an explicit mesh builder")
+            self._builder = lambda: import_step(str(self.step))
         self._local = None
         self.local_ports = _discover_ports(self.module) if self.module else {}
 
