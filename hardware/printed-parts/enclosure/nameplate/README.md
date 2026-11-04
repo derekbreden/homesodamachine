@@ -43,7 +43,7 @@ at the print-down mouth and slot end. The entry bevel is 1.10 mm wide × 0.40 mm
 deep. Minimum capture is 2.10 mm, including at least 1.00 mm of flat bearing.
 These interface dimensions come from the [accepted receiver coupon](horizontal-wing-trial/physical-acceptance.json).
 
-The plate centre is world X−43.85/Z220 and its face is Y474.25. Its 92 mm face leaves
+The plate centre is world X−43.85/Z220 and its face is Y474.3. Its 92 mm face leaves
 5.65 mm to both the R12 rear-corner tangent at X−95.5 and the adjacent colour-card
 edge at X7.8. The receiving mouth and side slots follow the same station.
 The receiver keeps 3.60 mm of backing and complete retaining lips through the fluted skin.
@@ -58,7 +58,8 @@ Rust panel recipe in [`_enclosure_back_top.py`](../enclosure/_enclosure_back_top
 Print face up with the plate back and both wings on the bed, without supports.
 All white lettering, the faucet/drop mark and QR rise 0.48 mm. Preserve the accepted
 Mark2 black/white alignment compensation in the print package; it is not a CAD
-translation. Use the shared PET-GF material settings and a 0.20 mm first layer.
+translation. Use the shared PET-GF material settings and a 0.20 mm first layer. Retain the 0.325 mm identification
+strokes with Arachne variable-width walls and a 75% minimum bead width on the 0.4 mm nozzle.
 
 The receiver prints as part of back-top in its roof-down orientation, with shared
 PET-GF tree supports and clearance. Remove its supports through the front opening
