@@ -696,6 +696,14 @@
         "raft_first_layer_expansion": {
           "value": "0.5",
           "reason": "Limit the initial support-foot flange for this wide lid while retaining Tree(auto)/Default, support contacts and branch diameters."
+        },
+        "tree_support_branch_angle": {
+          "value": "10",
+          "reason": "The automatic-tree placement on the current full lid splayed beyond the 20 mm bed border at its west WAGO end wall. Keep Tree(auto)/Default and its automatic contact decisions; limit branch inclination on this wide lid so those supports rise near their supported wall."
+        },
+        "tree_support_branch_diameter_angle": {
+          "value": "0.5",
+          "reason": "Limit trunk growth on the current wide lid to retain the 20 mm full-bead border while preserving the 2 mm branch diameter and automatic support contacts."
         }
       },
       "plate_border_mm": 20.0,
@@ -729,7 +737,7 @@
       "pose_reason": "As exported: the lid's 48,900 mm2 flat face is its Z0 face, the walls and wells standing up from it.",
       "plate_offset_mm": {
         "value": [
-          -1.0,
+          -0.85,
           0.0
         ],
         "reason": "Keep the complete native model and support bead envelope at least 20 mm inside the usable Mark1 bed."

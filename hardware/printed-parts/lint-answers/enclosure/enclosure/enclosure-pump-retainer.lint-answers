@@ -11,13 +11,10 @@ click: x=100.016 y=27.897 z=175.195
 click: x=100.675 y=27.897 z=177.025
 click: x=-100.016 y=68.618 z=175.195
 click: x=-100.675 y=68.618 z=177.025
-
-[sliver] Existing 0.002 mm-wide well-profile ledges outside the cartridge spring revision. Their Z194.427 locations belong to the retained lower-well profile, inside |X|92.9; the snap changes occupy the outer flank bands. The source inverse functions retain their pump fit. The production before/after retainer surfaces outside those bands have at most 0.002 mm sampled deviation. These ledges are recorded and were reported to Derek; they are not accepted as a finished surface by this snap trial.
-alternatives: Reconcile the lower-well profile's meeting planes in a separate fitted-well revision and bind it to new geometry and physical-fit evidence. Suppressing or painting over the ledges does not remove them. Changing a sampled spring thickness does not address their cause.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step
-click: x=16.034 y=61.806 z=194.427
-click: x=88.416 y=61.806 z=194.427
-click: x=-88.416 y=61.806 z=194.427
+click: x=98.263 y=15.303 z=193.888
+click: x=96.267 y=15.303 z=193.874
+click: x=-98.263 y=81.212 z=193.888
+click: x=-96.267 y=81.212 z=193.874
 
 [thin] The lower barb is the requested pointed production tip: one 4.6 mm-high planar lead-in meets its flat catch at the outer corner. The local thickness approaches zero at that edge while the working spring remains 2 mm.
 alternatives: A vertical nose land makes the barb less pointed and adds an extra face. Thickening the leaf changes its bending section. The point and broad flat catch are integral with the retainer.
@@ -25,3 +22,5 @@ file: hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step
 click: x=-101.338 y=81.914 z=175.195
 click: x=101.338 y=14.601 z=175.195
 click: x=-101.343 y=14.602 z=175.207
+click: x=101.343 y=81.913 z=175.207
+click: x=101.343 y=81.913 z=175.195

@@ -1,0 +1,564 @@
+{
+  "piece": "front-top",
+  "printer": "Mark2",
+  "connection_key": "Mark2",
+  "nozzle": {
+    "side": "left",
+    "diameter_mm": 0.4,
+    "flow": "Standard",
+    "hardened": true,
+    "reason": "Every abrasive stock runs on the left hotend (hardware/ledger/tools.md, Which hotends fit an H2C); Mark1's fixed left hardened 0.4 mm carries black PET-GF (tools/bambu-printers.md, Purge and wipe).",
+    "sliced_diameter_mm": 0.4,
+    "sliced_volume_type": "Standard"
+  },
+  "material": "Polymaker Fiberon PET-GF15, black",
+  "bed_type": "Textured PEI Plate",
+  "requested_z_trim_mm": 0.04,
+  "emitted_textured_trim_mm": 0.02,
+  "project": "/Users/derekbredensteiner/Downloads/HSM-full-enclosure-2026-11-03/projects/HSM-000079-front-top-Mark2.3mf",
+  "project_sha256": "cf4cda549cf372141b42ab4a53ccf5f9b2b81f5f2532d8265202ba86f1c12d1c",
+  "profile": "hardware/printed-parts/petgf.3mf",
+  "profile_sha256": "45c16e8c8517e0a205107d7b9f7412d013f51a8de7ecf86125cc940079d37ed0",
+  "settings_sha256": "fffe822ec8dbab32e53637ed28bd4e707fb7eb244cc1496eb7c546f795e4059b",
+  "settings_changes": {
+    "extruder_ams_count": {
+      "from": [
+        "1#0|4#1",
+        "1#0|4#0"
+      ],
+      "to": [
+        "1#0|4#0",
+        "1#0|4#0"
+      ],
+      "reason": "Single external black PET-GF spool on the fixed left nozzle for model, support and interface."
+    },
+    "support_filament": {
+      "from": "0",
+      "to": "1",
+      "reason": "Single external black PET-GF spool on the fixed left nozzle for model, support and interface."
+    },
+    "support_interface_filament": {
+      "from": "0",
+      "to": "1",
+      "reason": "Single external black PET-GF spool on the fixed left nozzle for model, support and interface."
+    },
+    "flush_into_support": {
+      "from": "1",
+      "to": "0",
+      "reason": "Single external black PET-GF spool on the fixed left nozzle for model, support and interface."
+    },
+    "filament_colour": {
+      "from": [
+        "#000000"
+      ],
+      "to": [
+        "#161616"
+      ],
+      "reason": "Mark2's loaded black PET-GF colour reading."
+    },
+    "support_object_xy_distance": {
+      "from": "0.4",
+      "to": "0.5",
+      "reason": "Tree-trunk arches on front-top's top-facing seam land (v17 article). Front-top only; bottom Z 0.30 mm, top Z 0.45 mm and branch dimensions keep their profile values. enclosure/enclosure/support-bottom-gap/README.md."
+    }
+  },
+  "profile_changes": {
+    "machine_start_gcode": {
+      "from_sha256": "3cc9e41520dbf5622d6f9a96bce734db9d11b0b48b49f2abec047a6e01dc6a92",
+      "to_sha256": "b09bc598f2ed7c29dceb227188593905dfc663f0391b98ff708ef00e7ce01bee",
+      "requested_z_trim_mm": 0.04
+    },
+    "printer_settings_id": {
+      "from": "Bambu Lab H2C 0.4 nozzle 04 first layer by agent",
+      "to": "Bambu Lab H2C 0.4 Standard +0.04 Z trim"
+    },
+    "print_compatible_printers": {
+      "from": [
+        "Bambu Lab H2C 0.4 nozzle"
+      ],
+      "to": [
+        "Bambu Lab H2C 0.4 nozzle",
+        "Bambu Lab H2C 0.4 Standard +0.04 Z trim"
+      ]
+    }
+  },
+  "usable_plate_mm": [
+    [
+      0.0,
+      0.0
+    ],
+    [
+      325.0,
+      320.0
+    ]
+  ],
+  "plate_border_mm": 20.0,
+  "brim_allowance_mm": 0.0,
+  "plate_offset_mm": null,
+  "objects": [
+    {
+      "name": "enclosure-front-top",
+      "identify_id": 1901,
+      "object_id": 2,
+      "stl": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl",
+      "stl_sha256": "6ad55d860d0bee7ac607a99ff08d7676bb08ce5f2b4cd0521d61e72d961721d2",
+      "step_sha256": "91bf8eb2d2bf08011b2ecf82face9ae2948d9ea939016f73b0c4a59323210b52",
+      "facets": 426748,
+      "closed": {
+        "edges": 640122,
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "inconsistent_edges": 0,
+        "bodies": 1,
+        "closed_oriented_single_body": true
+      },
+      "pose": null,
+      "pose_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "yaw_degrees": 0,
+      "source_center_mm": [
+        0.0,
+        111.4000015258789,
+        257.625
+      ],
+      "build_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "translation_mm": [
+        162.5,
+        160.0,
+        97.375
+      ],
+      "plate_bounds_mm": [
+        [
+          55.0,
+          53.599998474121094,
+          0.0
+        ],
+        [
+          270.0,
+          266.4000015258789,
+          194.75
+        ]
+      ],
+      "model_bed_margin_mm": 53.599998474121094,
+      "seam_enforcer": null,
+      "object_settings": {},
+      "features": [
+        {
+          "name": "R6 roof side edges, level run",
+          "kind": "fine_band",
+          "span_print_z_mm": [
+            188.492431640625,
+            194.75
+          ],
+          "layer_height_mm": 0.08,
+          "components": [
+            {
+              "faces": 2371,
+              "area_mm2": 711.09,
+              "bounds_print_mm": [
+                [
+                  -107.5,
+                  -19.99,
+                  188.492
+                ],
+                [
+                  -105.208,
+                  106.4,
+                  194.75
+                ]
+              ]
+            },
+            {
+              "faces": 2183,
+              "area_mm2": 709.31,
+              "bounds_print_mm": [
+                [
+                  105.208,
+                  -19.987,
+                  188.493
+                ],
+                [
+                  107.5,
+                  106.4,
+                  194.75
+                ]
+              ]
+            }
+          ],
+          "reason": "Inward/top show round where the R6 side edges roll level into the roof, with the flute runout beneath it. enclosure/enclosure/README.md Display housing; print-readiness.md."
+        },
+        {
+          "name": "R18 display-to-roof roll",
+          "kind": "fine_band",
+          "span_print_z_mm": [
+            192.33847045898438,
+            194.709716796875
+          ],
+          "layer_height_mm": 0.08,
+          "components": [
+            {
+              "faces": 1475,
+              "area_mm2": 1379.815,
+              "bounds_print_mm": [
+                [
+                  -105.208,
+                  -25.056,
+                  192.338
+                ],
+                [
+                  105.208,
+                  -16.859,
+                  194.71
+                ]
+              ]
+            }
+          ],
+          "reason": "Inward/top show round where the 30-degree display plane rolls level into the roof. enclosure/enclosure/README.md Display housing."
+        }
+      ],
+      "ranges": [
+        {
+          "min_z": 188.252431640625,
+          "max_z": 194.83,
+          "options": {
+            "layer_height": "0.08"
+          },
+          "feature": "R6 roof side edges, level run + R18 display-to-roof roll"
+        }
+      ],
+      "verify_spans": [
+        {
+          "name": "R6 roof side edges, level run",
+          "print_z_mm": [
+            188.492431640625,
+            194.75
+          ],
+          "layer_height_mm": 0.08
+        },
+        {
+          "name": "R18 display-to-roof roll",
+          "print_z_mm": [
+            192.33847045898438,
+            194.709716796875
+          ],
+          "layer_height_mm": 0.08
+        }
+      ],
+      "ribbons": [],
+      "tie_windows": [],
+      "modifiers": [
+        {
+          "name": "Y seam knuckle and its wall root +1/231.35",
+          "source_bounds_mm": [
+            [
+              -107.499,
+              197.0,
+              230.6
+            ],
+            [
+              -91.5,
+              217.7990030517578,
+              265.0
+            ]
+          ],
+          "plate_bounds_mm": [
+            [
+              55.001000000000005,
+              245.5999984741211,
+              70.35
+            ],
+            [
+              71.0,
+              266.39900152587893,
+              104.75
+            ]
+          ],
+          "sparse_infill_density": "100%"
+        },
+        {
+          "name": "Y seam knuckle and its wall root +1/321.5",
+          "source_bounds_mm": [
+            [
+              -107.499,
+              197.0,
+              227.35
+            ],
+            [
+              -91.5,
+              217.7990030517578,
+              354.999
+            ]
+          ],
+          "plate_bounds_mm": [
+            [
+              55.001000000000005,
+              245.5999984741211,
+              67.1
+            ],
+            [
+              71.0,
+              266.39900152587893,
+              194.74900000000002
+            ]
+          ],
+          "sparse_infill_density": "100%"
+        },
+        {
+          "name": "Y seam knuckle and its wall root -1/231.35",
+          "source_bounds_mm": [
+            [
+              91.5,
+              197.0,
+              230.6
+            ],
+            [
+              107.499,
+              217.7990030517578,
+              265.0
+            ]
+          ],
+          "plate_bounds_mm": [
+            [
+              254.0,
+              245.5999984741211,
+              70.35
+            ],
+            [
+              269.999,
+              266.39900152587893,
+              104.75
+            ]
+          ],
+          "sparse_infill_density": "100%"
+        },
+        {
+          "name": "Y seam knuckle and its wall root -1/321.5",
+          "source_bounds_mm": [
+            [
+              91.5,
+              197.0,
+              227.35
+            ],
+            [
+              107.499,
+              217.7990030517578,
+              354.999
+            ]
+          ],
+          "plate_bounds_mm": [
+            [
+              254.0,
+              245.5999984741211,
+              67.1
+            ],
+            [
+              269.999,
+              266.39900152587893,
+              194.74900000000002
+            ]
+          ],
+          "sparse_infill_density": "100%"
+        },
+        {
+          "name": "Z rail, end stop and wall root -1",
+          "source_bounds_mm": [
+            [
+              -107.499,
+              5.001,
+              160.251
+            ],
+            [
+              -90.0,
+              200.0,
+              177.8
+            ]
+          ],
+          "plate_bounds_mm": [
+            [
+              55.001000000000005,
+              53.6009984741211,
+              0.0010000000000047748
+            ],
+            [
+              72.5,
+              248.5999984741211,
+              17.55000000000001
+            ]
+          ],
+          "sparse_infill_density": "100%"
+        },
+        {
+          "name": "Z rail, end stop and wall root +1",
+          "source_bounds_mm": [
+            [
+              90.0,
+              5.001,
+              160.251
+            ],
+            [
+              107.499,
+              200.0,
+              177.8
+            ]
+          ],
+          "plate_bounds_mm": [
+            [
+              252.5,
+              53.6009984741211,
+              0.0010000000000047748
+            ],
+            [
+              269.999,
+              248.5999984741211,
+              17.55000000000001
+            ]
+          ],
+          "sparse_infill_density": "100%"
+        },
+        {
+          "name": "Pump snap west receiver floor and full flank root",
+          "source_bounds_mm": [
+            [
+              -107.499,
+              14.0,
+              160.251
+            ],
+            [
+              -98.5,
+              82.515,
+              206.44500000000002
+            ]
+          ],
+          "plate_bounds_mm": [
+            [
+              55.001000000000005,
+              62.599998474121094,
+              0.0010000000000047748
+            ],
+            [
+              64.0,
+              131.11499847412108,
+              46.19500000000002
+            ]
+          ],
+          "sparse_infill_density": "100%"
+        },
+        {
+          "name": "Pump snap east receiver floor and full flank root",
+          "source_bounds_mm": [
+            [
+              98.5,
+              14.0,
+              160.251
+            ],
+            [
+              107.499,
+              82.515,
+              206.44500000000002
+            ]
+          ],
+          "plate_bounds_mm": [
+            [
+              261.0,
+              62.599998474121094,
+              0.0010000000000047748
+            ],
+            [
+              269.999,
+              131.11499847412108,
+              46.19500000000002
+            ]
+          ],
+          "sparse_infill_density": "100%"
+        },
+        {
+          "name": "Funnel frame receiver, blind cap and full flank root 1",
+          "source_bounds_mm": [
+            [
+              -107.499,
+              118.99999207671873,
+              335.8
+            ],
+            [
+              107.499,
+              130.99999207671874,
+              346.0
+            ]
+          ],
+          "plate_bounds_mm": [
+            [
+              55.001000000000005,
+              167.59999055083983,
+              175.55
+            ],
+            [
+              269.999,
+              179.59999055083983,
+              185.75
+            ]
+          ],
+          "sparse_infill_density": "100%"
+        }
+      ],
+      "fins": [],
+      "regions": {
+        "record": "hardware/printed-parts/enclosure/enclosure/heat-set-review/print-regions.json",
+        "record_sha256": "b0e06682e6c27f7697edc65d3183f2fe68d2a9dbb513c84e4b7af9777958ff78",
+        "part_process_overrides": null
+      }
+    }
+  ],
+  "pause": null,
+  "show_faces": ".cache/customer-finish/final-prints/2026-11-03-front-top-mark2-7f88d508/show-faces.npz",
+  "spec": "hardware/printed-parts/enclosure/trial-preparation/pieces.json",
+  "spec_sha256": "b47d2cf2e47dec4defd9326d421bc731ed68e5252d4f947ca3ec67b43ac623a9",
+  "tool_sha256": {
+    "hardware/printed-parts/enclosure/trial-preparation/_derive.py": "2ffa3fc3e716cfc6d1663f69767228eb0f6d9f8da147ffc2c90de2097cdac6e4",
+    "hardware/printed-parts/enclosure/trial-preparation/_mesh.py": "7ab22db36e370608f52df3709c4af1994c8e804ee06e101dcbf79210db99eead",
+    "hardware/printed-parts/enclosure/trial-preparation/_native.py": "1c99ce10842a141a942a19d7def2329512d14b676c00618496187e0d93cd29da",
+    "hardware/printed-parts/enclosure/trial-preparation/_seam.py": "9ffa509df701826563e18388fd3bcc57c604f4b2b8e5e4288821ddcd00bcb176",
+    "hardware/printed-parts/enclosure/trial-preparation/labels.py": "d172b8408f0b9ded097d7c8c2eeea682a067e5d487967576c77caf4204696d68",
+    "hardware/printed-parts/enclosure/trial-preparation/prepare.py": "bc5495142592e777cb1b94eb2cfe06e64ba15ee6bae94f3e95e62a556741b513",
+    "hardware/printed-parts/enclosure/trial-preparation/review.py": "9bd303fe370842fd34eb559dc5f53f887f75c42e478c598737397dd49dd539f7",
+    "hardware/printed-parts/enclosure/trial-preparation/step_meshes.py": "b50f7b50f52f1e8516be3b1fc9ecdb10e87fb188f8b9bebc0fac56737320fc44"
+  },
+  "prepared_utc": "2026-11-04T04:00:44+00:00",
+  "sliced": true,
+  "submitted": false,
+  "archive": "/Users/derekbredensteiner/Downloads/HSM-full-enclosure-2026-11-03/reviewed/HSM-000079-front-top-Mark2.gcode.3mf",
+  "archive_sha256": "fbb043260411168963d3d3129e6b79fba1a7293552953bfda8d08dbedcd43cd0",
+  "gcode_sha256": "b1109ff35ca8197b131e2f48a922593758337ffbb49f61f89747b42ad3622296",
+  "estimated_seconds": 131368.375,
+  "slicer_warnings": []
+}

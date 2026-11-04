@@ -1,0 +1,139 @@
+{
+  "scope": "Manual reading of each complete native slice, including every support body without interface labels. Removal routes refer to the unloaded individual printed parts. They establish tool access, not observed removal effort on these full articles.",
+  "policy": "Tree(auto)/Default automatic contact decisions retained. No manual normal-support override. Break support branches into removable pieces as needed; retain the model bearing faces and pointed hooks.",
+  "tools": [
+    "small flush cutters",
+    "needle-nose pliers",
+    "tiny flathead screwdriver that fits inside receiver cavities"
+  ],
+  "parts": {
+    "back-top": {
+      "body_count": 19,
+      "unlabelled_body_count": 0,
+      "removal_groups": [
+        {
+          "trees": [
+            1,
+            2
+          ],
+          "route": "Withdraw from the open fore seam and inboard flank mouths before the front shell is attached. These bed-rooted trees carry the fore seam/insert shoulders."
+        },
+        {
+          "trees": [
+            3,
+            4,
+            5
+          ],
+          "route": "Break the exposed bed-rooted branches from the open enclosure interior. Remove the fore ceiling-host, west-wall and east equipment-seat contacts through their empty inboard/fore mouths before fitting boards or fittings."
+        },
+        {
+          "trees": [
+            6,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14
+          ],
+          "route": "Use the tiny flathead through the empty snap-receiver flank mouths and centered receiver channels. Remove the model-rooted trees from the catch pockets before caps or hardware are fitted."
+        },
+        {
+          "trees": [
+            7,
+            8
+          ],
+          "route": "Remove the meter-seat branches westward through the open meter/ASSE loading room. Clear both column openings and the housing recess before installing the flow meter."
+        },
+        {
+          "trees": [
+            15,
+            18,
+            19
+          ],
+          "route": "Separate the exposed bed-rooted rear branches in the open shell, then clear rear pockets outward through their hardware apertures or inward through their empty seats. Leave all rear labels, inlet fittings and connectors out until this is complete."
+        },
+        {
+          "trees": [
+            16,
+            17
+          ],
+          "route": "Lift the short model-rooted branches out through the empty rear receiver/anchor mouths from the enclosure interior."
+        }
+      ],
+      "other_removable_stock": "Three groove ribbons print as separate sacrificial bodies. Break them along their release gaps and withdraw them along the open sliding channels. The native slice has no support roads crossing the tie windows or the ribbon envelopes."
+    },
+    "front-top": {
+      "body_count": 3,
+      "unlabelled_body_count": 1,
+      "removal_groups": [
+        {
+          "trees": [
+            1
+          ],
+          "route": "Cut the exposed main branches into pieces and withdraw downward through the empty pump-loading opening and motor bores. Clear both lower and upper display wing lanes through their cleanout mouths into the empty PCB room before pumps or display cover are installed."
+        },
+        {
+          "trees": [
+            2
+          ],
+          "route": "Remove the unlabelled east lower-display body through the lower 69.3 by 4.96 mm cleanout mouth into the empty PCB room. Its native bounds are X64.7–65.9, Y18.6–19.0, Z299.921–300.743 mm."
+        },
+        {
+          "trees": [
+            3
+          ],
+          "route": "Remove through the two open inboard Wago-pocket mouths before inserting connectors."
+        }
+      ]
+    },
+    "pump-retainer": {
+      "body_count": 2,
+      "unlabelled_body_count": 0,
+      "removal_groups": [
+        {
+          "trees": [
+            1,
+            2
+          ],
+          "route": "Withdraw from the two empty motor/fitting wells and open rear bearing room before installing the pumps. Contacts are at native Y71.81–72.29 and Y75.65–75.89 mm. Preserve the fitted skirt-bearing surfaces and both wing roots."
+        }
+      ]
+    },
+    "foam-cap-lid-top": {
+      "body_count": 13,
+      "unlabelled_body_count": 3,
+      "removal_groups": [
+        {
+          "trees": [
+            1,
+            2,
+            3,
+            4
+          ],
+          "route": "With the lid loose, remove through the open inboard pump-receiver and Wago-end mouths before fitting the pump, Wagos or pump cap. Tree 3 is the unlabelled end-wall body at native X−127.25…−118.45, Y20.8–22, Z26.12–31.88 mm."
+        },
+        {
+          "trees": [
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12
+          ],
+          "route": "Remove through the open flavor-valve saddles and the empty tube/clip entry mouths. Clear the upper saddle pockets before valves or tubing are fitted. Unlabelled trees 5 and 12 occupy native X66.75–69.15 and X91.55–93.95, Y32.4–35.2, Z43.64–49.64 mm."
+        },
+        {
+          "trees": [
+            13
+          ],
+          "route": "Remove the short bed-rooted branch from the lid edge through the open fitting/wall end before seating the lid on the cold core."
+        }
+      ],
+      "other_removable_stock": "The aft tie-passage exclusion is retained; the slice has no support roads crossing its specified tie window."
+    }
+  }
+}
