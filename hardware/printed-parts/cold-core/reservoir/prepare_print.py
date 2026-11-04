@@ -9,11 +9,11 @@ from __future__ import annotations
 import hashlib
 import json
 from pathlib import Path
+import shutil
 import uuid
 import xml.etree.ElementTree as ET
 import zipfile
 
-import cadquery as cq
 import numpy as np
 import trimesh
 
@@ -63,8 +63,22 @@ def write_archive(path: Path, members: dict[str, bytes]):
     temporary.replace(path)
 
 
+def print_mesh(source: Path, integration: dict):
+    """The emitted print triangles bound to the float sweep's current fine model."""
+    fine = source.with_name(source.name + ".npz")
+    if integration["files_sha256"].get(str(fine.relative_to(ROOT))) != sha(fine.read_bytes()):
+        raise ValueError(f"{fine.name} differs from the float integration record")
+    with np.load(fine, allow_pickle=False) as model:
+        printed = json.loads(model["document"].tobytes())["printed"]
+    emitted = fine.parent / printed["path"]
+    if sha(emitted.read_bytes()) != printed["sha256"]:
+        raise ValueError(f"{emitted.name} differs from its current fine model")
+    target = CACHE / f"{source.stem}.stl"
+    shutil.copyfile(emitted, target)
+    return trimesh.load(target, force="mesh", process=True)
+
+
 def main():
-    import reservoir
     CACHE.mkdir(parents=True, exist_ok=True)
     recipe = json.loads((HERE / "print-settings.json").read_text())
     settings = recipe["project_settings"]
@@ -131,10 +145,7 @@ def main():
             source_hash = sha(source.read_bytes())
             if integration["files_sha256"].get(str(source.relative_to(ROOT))) != source_hash:
                 raise ValueError(f"{source.name} differs from the float integration record")
-            shape = reservoir.import_part(source)
-            stl = CACHE / f"{name}.stl"
-            cq.exporters.export(shape, str(stl), tolerance=0.025, angularTolerance=0.08)
-            mesh = trimesh.load(stl, force="mesh", process=True)
+            mesh = print_mesh(source, integration)
             if not mesh.is_watertight or not mesh.is_winding_consistent or mesh.volume <= 0 or mesh.body_count != 1:
                 raise ValueError(f"{name} is not one closed, consistently oriented volume")
             center = mesh.bounds.mean(axis=0)
