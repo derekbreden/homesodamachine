@@ -624,7 +624,7 @@ def _fluid_supports(graph):
     half = meter.wire_root_width/2
     wire_room = (x0,wx(meter.wire_root[1]+meter.wire_root_depth/2)+air,
                  wy(-half)-fore-air,wy(half)+aft+air)
-    seat_y,cap_y = (386.,446.),(397.,435.)
+    seat_y,cap_y = plumbing.meter_spans()
     west = wx(meter.underside_y)
     st = snaps.station(0.,soda[1]+collar+air-mz+snaps.WALL,
                        *cap_y,split=0.,wing_root=west-air-mx)

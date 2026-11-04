@@ -56,11 +56,11 @@ J3-IO35,J3,IO35,J3.IO35,keystone.4,22,256.759,selected_layout,nominal,nominal,fi
 J3-IO33,J3,IO33,J3.IO33,keystone.5,22,254.089,selected_layout,nominal,nominal,fixed
 J4-3V3,J4,3V3,J4.3V3,temp-coil.V,22,355.11,selected_layout,nominal,nominal,fixed
 J4-IO26,J4,IO26,J4.IO26,temp-coil.DATA,22,343.098,selected_layout,nominal,nominal,fixed
-J4-V5,J4,V5,J4.V5,flow.V,22,298.671,selected_layout,nominal,nominal,fixed
-J4-IO25,J4,IO25,J4.IO25,flow.PULSE,22,297.98,selected_layout,nominal,nominal,fixed
+J4-V5,J4,V5,J4.V5,flow.V,22,297.204,selected_layout,nominal,nominal,fixed
+J4-IO25,J4,IO25,J4.IO25,flow.PULSE,22,296.513,selected_layout,nominal,nominal,fixed
 J4-GND,J4,GND,J4.GND,wago-sensors.1,22,51.795,selected_layout,nominal,nominal,fixed
 temp-GND,J4,GND,wago-sensors.2,temp-coil.GND,22,392.401,selected_layout,nominal,nominal,fixed
-flow-GND,J4,GND,wago-sensors.3,flow.GND,22,302.889,selected_layout,nominal,nominal,fixed
+flow-GND,J4,GND,wago-sensors.3,flow.GND,22,301.422,selected_layout,nominal,nominal,fixed
 temp-bus-V,J4,3V3,temp-coil.V,temp-carbonator.V,22,179.155,selected_layout,nominal,nominal,fixed
 temp-bus-DATA,J4,IO26,temp-coil.DATA,temp-carbonator.DATA,22,176.392,selected_layout,nominal,nominal,fixed
 temp-bus-GND,J4,GND,temp-coil.GND,temp-carbonator.GND,22,175.261,selected_layout,nominal,nominal,fixed

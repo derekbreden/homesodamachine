@@ -153,6 +153,10 @@
     ],
     [
       "tube-fluid-18",
+      "bulkhead-carb-nut"
+    ],
+    [
+      "tube-fluid-18",
       "bulkhead-flavor-b"
     ],
     [
@@ -735,7 +739,7 @@
           "overlap_mm3": 0.0
         },
         {
-          "gap_mm": 4.9260612,
+          "gap_mm": 28.7446872,
           "name": "foam-assembly",
           "overlap_mm3": 0.0
         }
@@ -773,7 +777,7 @@
           "overlap_mm3": 0.0
         },
         {
-          "gap_mm": 9.6303952,
+          "gap_mm": 33.6141063,
           "name": "foam-assembly",
           "overlap_mm3": 0.0
         }
@@ -811,9 +815,9 @@
           "overlap_mm3": 0.0
         },
         {
-          "gap_mm": 0.0765747,
+          "gap_mm": 0.0,
           "name": "digiten-flow",
-          "overlap_mm3": 0.0
+          "overlap_mm3": 0.0003577
         },
         {
           "gap_mm": 1.2357418,
@@ -851,7 +855,7 @@
           "overlap_mm3": 0.0
         },
         {
-          "gap_mm": 0.8036989,
+          "gap_mm": 0.8048758,
           "name": "soda-continuous-insulation",
           "overlap_mm3": 0.0
         },
@@ -866,8 +870,13 @@
           "overlap_mm3": 0.0
         },
         {
-          "gap_mm": 16.4305963,
+          "gap_mm": 16.6505962,
           "name": "bulkhead-carb",
+          "overlap_mm3": 0.0
+        },
+        {
+          "gap_mm": 14.3571652,
+          "name": "bulkhead-carb-nut",
           "overlap_mm3": 0.0
         },
         {
@@ -886,7 +895,7 @@
           "overlap_mm3": 0.0
         },
         {
-          "gap_mm": 0.9619997,
+          "gap_mm": 0.3490301,
           "name": "meter-snap-cap",
           "overlap_mm3": 0.0
         },
@@ -901,7 +910,7 @@
           "overlap_mm3": 0.0
         },
         {
-          "gap_mm": 10.3287393,
+          "gap_mm": 10.3293533,
           "name": "tube-soda-core-rise",
           "overlap_mm3": 0.0
         },
@@ -911,7 +920,7 @@
           "overlap_mm3": 0.0
         },
         {
-          "gap_mm": 0.327434,
+          "gap_mm": 0.3272359,
           "name": "tube-above-core-gas-core-drop",
           "overlap_mm3": 0.0
         },
@@ -1166,12 +1175,12 @@
           "overlap_mm3": 0.0
         },
         {
-          "gap_mm": 0.0493746,
+          "gap_mm": 4.87198,
           "name": "foam-assembly",
           "overlap_mm3": 0.0
         }
       ],
-      "passed": true,
+      "passed": false,
       "solids": 1,
       "valid": true
     },
@@ -1394,7 +1403,7 @@
           "overlap_mm3": 0.0
         },
         {
-          "gap_mm": 88.812569,
+          "gap_mm": 87.1876832,
           "name": "discharge-chain",
           "overlap_mm3": 0.0
         },
@@ -1539,7 +1548,7 @@
           "overlap_mm3": 0.0
         },
         {
-          "gap_mm": 0.0499849,
+          "gap_mm": 8.6,
           "name": "foam-assembly",
           "overlap_mm3": 0.0
         }
@@ -2564,7 +2573,7 @@
         "foam-cap-lid-top",
         "foam-cap-bottom"
       ],
-      "sha256": "eed754b2854e33c0f73cff110f78597234a1f7778b0caee6ed8b546767e01e25",
+      "sha256": "fdc135385a9e6efde1b2e8ed4d5c02e53c6bc731a3d6872b0d96e0a49684ac72",
       "transform": [
         [
           6.123233995736766e-17,
@@ -2588,7 +2597,7 @@
     },
     "physical": {
       "path": "hardware/manifold-layout/enclosure-assembly.step.npz",
-      "sha256": "4d5b6157efbb6cee95ab03b8efb84cd41d79ac8b3ed6d1c09346069467ea0226"
+      "sha256": "ea6fd8d7d2715e11abdfe403ce652283701e96fc21a2f921e38a7f74acaa145f"
     },
     "population": {
       "asse-drain-adapter": [
@@ -5387,32 +5396,32 @@
         }
       ]
     },
-    "route_specs_sha256": "088837fb8839829221f140b895679ce3b14670299f28f00cca7ef3a8cfd1a1af"
+    "route_specs_sha256": "1f129d9f06ac06758ce02c6c47fa68e7cc0fc7403832d271628d7bb3a4335ce7"
   },
-  "fine_query_count": 614,
+  "fine_query_count": 616,
   "installed_body_count": 295,
-  "passed": true,
+  "passed": false,
   "scope": "Nominal authoritative fine model clearance of the direct TPU ASSE sleeve and dedicated drain against the complete installed assembly population, including cold-core bodies and retained flavor returns. Connected interfaces are excluded. Tubes exclude flexible conductors and jackets as obstacles; connector housings remain. The white 4 mm return requires at least 1 mm to every other unconnected body. Pump occupied envelopes are read per component. The sleeve expanded shape is an occupancy approximation. Hardware tolerances, zip-tie heads, actual bending, seals and vent performance are unmeasured.",
   "selected_obstacles": null,
   "source_sha256": {
-    "hardware/manifold-layout/_drain.py": "fe820671a5415fbd7cdbc7bd63af8690a9a6412b0b22b9ff30f2f902cdc16d36",
-    "hardware/manifold-layout/_lines.py": "814a077be042d9335e897493e22cfff9bbdfd3df26e9014d3f562432c7f39375",
-    "hardware/manifold-layout/above-core.json": "e0b80674504eabcbfa8ce36559b94b30c737d80f2a99b782dd45cbb7cec05dec",
-    "hardware/manifold-layout/enclosure_assembly.py": "dd94e895cec102f4c0c3f49dc219965a2e27809bd478cd659ab943ddacbc38bb",
+    "hardware/manifold-layout/_drain.py": "0ad93b3c74802ca07367230e1762ffffe9a1b209ae94336f8c442f70667406c2",
+    "hardware/manifold-layout/_lines.py": "2b58dbf1bc279c4bee165d546fb29301f89a71473d62a05424700d9ce33bc0a5",
+    "hardware/manifold-layout/above-core.json": "c3ce79ed97206b1012531fa6fab1bcda858da2251dbe360b3eb3e1138412726f",
+    "hardware/manifold-layout/enclosure_assembly.py": "738a98bf5507c42304858fa56c1f0129b4006358d662209fa75012597172e3c1",
     "hardware/manifold-layout/enclosure_assembly.rs": "51367b083497a96d6fb048abef8bf39e49689d1ca8b5b1877d81fb93b7bdc606",
     "hardware/manifold-layout/machine_check_bounds.rs": "54f050bd466e9e84bb8a23d032e91a8eba87f7757c59da5d5152e7b7d9d9c165",
     "hardware/manifold-layout/machine_check_drain.rs": "607e556e7b8153fe05dd352b276338b31bac1568d0fa9b5aeabefe8c25af0f42",
-    "hardware/manifold-layout/machine_check_geometry.rs": "526b7f3a7c4f76a43e9225fa258897cb7ac36856e7aba15025cd2016ffb41175",
-    "hardware/manifold-layout/machine_check_report.rs": "b5f567f6a393c754484e4dfbbcf36ca7047f957e84a925799453dbec1bdca1dc",
+    "hardware/manifold-layout/machine_check_geometry.rs": "c3df67631f18f32727b40f5fe0e51d1d3538675d43822e5ccf043fad38cbfaf1",
+    "hardware/manifold-layout/machine_check_report.rs": "9bc0af0bc0920f4d0d23aa3d86663f862630ba4c58fae43607a1f4d9cc245963",
     "hardware/manifold-layout/machine_check_routes.rs": "b6fe857ce0bbbaa913571dea2285fd457952162d0eba65bc2bce533de836ff3a",
     "hardware/manifold-layout/machine_check_rules.json": "53b552b37cab2acc8e4b6cdeb27b677342f2e27d5efff1ba0ebeb6578742358f",
     "hardware/manifold-layout/machine_checks.rs": "b9aced58f223c18f9f9f55f0a1e26e9a8a7d97d17d45a97cc661d3a6db22c423",
-    "hardware/manifold-layout/rear_plumbing.py": "59bd783446f82048f72eb4e2aadfe6a3531c5778404455b13d4facea959ddb70",
-    "hardware/printed-parts/asse-drain-adapter/asse_drain_adapter.py": "115d59155216f206d8fb799f68c9468c88595ec2a576d967bd0be922c67590ed",
-    "hardware/reference/asse1022-assembly/asse1022_assembly.py": "8aaf9cc6d16062a5536d8ea6c8e6d0d79abe965eed761b2017e803f61298f081",
-    "hardware/reference/neofit-drain-bulkhead/neofit_drain_bulkhead.py": "df79886e90630cf93cce916d7f7a1f95b189a298619ac7b7cc53a3cdcc5817a7",
-    "hardware/scripts/_assembly_model.py": "77fa66f1d6936e66c02e7df7fab1c6bfc9dc1bf75476e37e550fc86dfc2becc6",
-    "hardware/scripts/_machine_checks.py": "99bab43a67dc15042375dda3183eefd3e3ddf649cd0eb88995de674987a8b447",
-    "hardware/scripts/check_asse_drain.py": "0964630a0181bb6280644f265bdd566e856e42720e9f163b9323ae7d7b9b8223"
+    "hardware/manifold-layout/rear_plumbing.py": "6ee2d8ce7d01fa4db7ce005c6532fc1fdfa1f79499b13e28d827911ca3c87184",
+    "hardware/printed-parts/asse-drain-adapter/asse_drain_adapter.py": "de7980e0f8bbe230efd6c3762af197e4ec645077ac151f72abcb6490bf9aa896",
+    "hardware/reference/asse1022-assembly/asse1022_assembly.py": "b7dc073c680bdac6e4a9c91d3dadab3d6fd5d7d52310a4b8c371fc88b9ed07ec",
+    "hardware/reference/neofit-drain-bulkhead/neofit_drain_bulkhead.py": "9c27c490487588671ee596756bd6b68010988e327a5db51709851f04212589ff",
+    "hardware/scripts/_assembly_model.py": "b2aeda329951c46118cb8121ea6f8a1fff2c23e2a092593f71cd90abeb3597d5",
+    "hardware/scripts/_machine_checks.py": "ca9e15d216bc4e09dd441e82a2f52e52bd10d8aca73ac81d8ccf95db831cdc3d",
+    "hardware/scripts/check_asse_drain.py": "5aa198f18b5b314dbbe9c4233ffe3f58fcf830d5d12bfb2bcd2a52f864dd1bea"
   }
 }
