@@ -9,11 +9,14 @@ import cadquery as cq
 
 HERE = Path(__file__).resolve().parent
 STEP = HERE / 'jg-pp0308e-elbow.step'
-TUBE_OD = 6.35
-COLLET_FACE = 20.56239
-FIXED_FACE = 18.84
-INSERTION = None
-RELEASE_TRAVEL = None
+
+_reference_hardware = next(p for p in Path(__file__).resolve().parents if p.name == 'hardware')
+import sys as _reference_sys
+_reference_sys.path.insert(0, str(_reference_hardware / 'reference'))
+from _reference_data import data as _reference_data
+_reference_values = _reference_data('elbow')
+globals().update({name: _reference_values[name] for name in ('TUBE_OD', 'COLLET_FACE', 'FIXED_FACE', 'INSERTION', 'RELEASE_TRAVEL')})
+
 
 
 def _turned(profile):
@@ -26,13 +29,12 @@ def _leg(part, leg):
 
 
 def port(leg):
-    """Observed/resting release face, not an insertion stop or travel endpoint."""
-    axis = {'y': (0., 1., 0.), 'z': (0., 0., 1.)}[leg]
-    return tuple(COLLET_FACE * a for a in axis), axis
+    'Observed/resting release face, not an insertion stop or travel endpoint.'
+    return _reference_data('elbow', 'port', (leg,), {})
 
 
 def stations():
-    return {leg: port(leg) for leg in ('y', 'z')}
+    return _reference_data('elbow', 'stations', (), {})
 
 
 def build():

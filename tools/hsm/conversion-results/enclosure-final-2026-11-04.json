@@ -1,0 +1,702 @@
+{
+  "algorithm_execution": "Statically compiled Rust expressions, loops, branches, closures, geometry-recipe construction and report values; no runtime source/AST evaluator and no fixed-output substitutions.",
+  "automatic_checks_added": false,
+  "cargo": {
+    "back_top_provider_profile": "Fresh machine-data release binary with typed value export and module override forwarding.",
+    "binary_sha256": "6a0d5f7d2fef1fa2eb3b7b23cf2a01908c9ff8a4cd48feac898247fea2e176b9",
+    "command": "python3 tools/run.py -- cargo build --release --locked --offline --manifest-path tools/hsm/Cargo.toml -p hsm-enclosure-data -j 2",
+    "passed": true
+  },
+  "changed_paths": [
+    "hardware/printed-parts/enclosure/_enclosure_dimensions.py",
+    "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead_ring.py",
+    "hardware/printed-parts/enclosure/data-ring/data_ring.py",
+    "hardware/printed-parts/enclosure/display-cover/display_cover.py",
+    "hardware/printed-parts/enclosure/display-gasket/display_gasket.py",
+    "hardware/printed-parts/enclosure/enclosure/_above_core_shell.py",
+    "hardware/printed-parts/enclosure/enclosure/_anchor_cap_interface.py",
+    "hardware/printed-parts/enclosure/enclosure/_back_top_meter.py",
+    "hardware/printed-parts/enclosure/enclosure/_data_wing_interface.py",
+    "hardware/printed-parts/enclosure/enclosure/_display_retention.py",
+    "hardware/printed-parts/enclosure/enclosure/_display_wing_interface.py",
+    "hardware/printed-parts/enclosure/enclosure/_disposal_artwork.py",
+    "hardware/printed-parts/enclosure/enclosure/_enclosure_back_top.py",
+    "hardware/printed-parts/enclosure/enclosure/_enclosure_compiled.py",
+    "hardware/printed-parts/enclosure/enclosure/_enclosure_core_data.py",
+    "hardware/printed-parts/enclosure/enclosure/_enclosure_datums.py",
+    "hardware/printed-parts/enclosure/enclosure/_enclosure_front_bottom.py",
+    "hardware/printed-parts/enclosure/enclosure/_enclosure_front_top.py",
+    "hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py",
+    "hardware/printed-parts/enclosure/enclosure/_enclosure_panel.py",
+    "hardware/printed-parts/enclosure/enclosure/_enclosure_presentation.py",
+    "hardware/printed-parts/enclosure/enclosure/_enclosure_pump_retainer.py",
+    "hardware/printed-parts/enclosure/enclosure/_enclosure_rust_driver.py",
+    "hardware/printed-parts/enclosure/enclosure/_enclosure_skin.py",
+    "hardware/printed-parts/enclosure/enclosure/_enclosure_structure.py",
+    "hardware/printed-parts/enclosure/enclosure/_fixed_pump_mount.py",
+    "hardware/printed-parts/enclosure/enclosure/_grip_interface.py",
+    "hardware/printed-parts/enclosure/enclosure/_nameplate_interface.py",
+    "hardware/printed-parts/enclosure/enclosure/_nameplate_wing_interface.py",
+    "hardware/printed-parts/enclosure/enclosure/_route_snaps.py",
+    "hardware/printed-parts/enclosure/enclosure/_rust_enclosure_checks.py",
+    "hardware/printed-parts/enclosure/enclosure/_rust_enclosure_presentation.py",
+    "hardware/printed-parts/enclosure/enclosure/_swept_top.py",
+    "hardware/printed-parts/enclosure/enclosure/_tube_snap_sites.py",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py",
+    "hardware/printed-parts/enclosure/nameplate/_nameplate_dimensions.py",
+    "hardware/printed-parts/enclosure/nameplate/nameplate.py",
+    "hardware/printed-parts/enclosure/pump-dock/dock_structure.py",
+    "hardware/printed-parts/enclosure/pump-dock/fixed_returns.py",
+    "hardware/printed-parts/enclosure/pump-tray/pump_case.py",
+    "hardware/printed-parts/enclosure/pump-tray/pump_tray.py",
+    "hardware/printed-parts/enclosure/rear-equipment-caps/rear_equipment_caps.py",
+    "hardware/printed-parts/enclosure/rear-identification/rear_identification.py",
+    "hardware/printed-parts/enclosure/valve-tray/valve_tray.py",
+    "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
+    "tools/hsm/conversion-results/enclosure-final-2026-11-04.json",
+    "tools/hsm/enclosure-data/src/compiled.rs",
+    "tools/hsm/enclosure-data/src/compiled/_above_core_shell.rs",
+    "tools/hsm/enclosure-data/src/compiled/_anchor_cap_interface.rs",
+    "tools/hsm/enclosure-data/src/compiled/_back_top_meter.rs",
+    "tools/hsm/enclosure-data/src/compiled/_data_wing_interface.rs",
+    "tools/hsm/enclosure-data/src/compiled/_display_retention.rs",
+    "tools/hsm/enclosure-data/src/compiled/_display_wing_interface.rs",
+    "tools/hsm/enclosure-data/src/compiled/_disposal_artwork.rs",
+    "tools/hsm/enclosure-data/src/compiled/_enclosure_back_top.rs",
+    "tools/hsm/enclosure-data/src/compiled/_enclosure_datums.rs",
+    "tools/hsm/enclosure-data/src/compiled/_enclosure_dimensions.rs",
+    "tools/hsm/enclosure-data/src/compiled/_enclosure_front_bottom.rs",
+    "tools/hsm/enclosure-data/src/compiled/_enclosure_front_top.rs",
+    "tools/hsm/enclosure-data/src/compiled/_enclosure_interface.rs",
+    "tools/hsm/enclosure-data/src/compiled/_enclosure_panel.rs",
+    "tools/hsm/enclosure-data/src/compiled/_enclosure_presentation.rs",
+    "tools/hsm/enclosure-data/src/compiled/_enclosure_pump_retainer.rs",
+    "tools/hsm/enclosure-data/src/compiled/_enclosure_rust_driver.rs",
+    "tools/hsm/enclosure-data/src/compiled/_enclosure_skin.rs",
+    "tools/hsm/enclosure-data/src/compiled/_enclosure_structure.rs",
+    "tools/hsm/enclosure-data/src/compiled/_fixed_pump_mount.rs",
+    "tools/hsm/enclosure-data/src/compiled/_grip_interface.rs",
+    "tools/hsm/enclosure-data/src/compiled/_nameplate_dimensions.rs",
+    "tools/hsm/enclosure-data/src/compiled/_nameplate_interface.rs",
+    "tools/hsm/enclosure-data/src/compiled/_nameplate_wing_interface.rs",
+    "tools/hsm/enclosure-data/src/compiled/_route_snaps.rs",
+    "tools/hsm/enclosure-data/src/compiled/_rust_enclosure_checks.rs",
+    "tools/hsm/enclosure-data/src/compiled/_rust_enclosure_presentation.rs",
+    "tools/hsm/enclosure-data/src/compiled/_swept_top.rs",
+    "tools/hsm/enclosure-data/src/compiled/_tube_snap_sites.rs",
+    "tools/hsm/enclosure-data/src/compiled/_y_wall_dimensions.rs",
+    "tools/hsm/enclosure-data/src/compiled/bulkhead_ring.rs",
+    "tools/hsm/enclosure-data/src/compiled/data_ring.rs",
+    "tools/hsm/enclosure-data/src/compiled/display_cover.rs",
+    "tools/hsm/enclosure-data/src/compiled/display_gasket.rs",
+    "tools/hsm/enclosure-data/src/compiled/dock_structure.rs",
+    "tools/hsm/enclosure-data/src/compiled/enclosure.rs",
+    "tools/hsm/enclosure-data/src/compiled/fixed_returns.rs",
+    "tools/hsm/enclosure-data/src/compiled/modules.rs",
+    "tools/hsm/enclosure-data/src/compiled/nameplate.rs",
+    "tools/hsm/enclosure-data/src/compiled/pump_case.rs",
+    "tools/hsm/enclosure-data/src/compiled/pump_tray.rs",
+    "tools/hsm/enclosure-data/src/compiled/rear_equipment_caps.rs",
+    "tools/hsm/enclosure-data/src/compiled/rear_identification.rs",
+    "tools/hsm/enclosure-data/src/compiled/valve_tray.rs",
+    "tools/hsm/enclosure-data/src/core_dimensions.rs",
+    "tools/hsm/enclosure-data/src/core_profiles.rs",
+    "tools/hsm/enclosure-data/src/main.rs"
+  ],
+  "date": "2026-11-04",
+  "datum_methods": {
+    "datum-location-identity": {
+      "elapsed_seconds": 0.007,
+      "pass": true
+    },
+    "datum-plane": {
+      "elapsed_seconds": 0.007,
+      "pass": true
+    },
+    "datum-vector": {
+      "elapsed_seconds": 0.49,
+      "pass": true
+    }
+  },
+  "dependencies": {
+    "compiled_import_names": [
+      "OCP.BRepAdaptor",
+      "OCP.BRepOffsetAPI",
+      "_above_core_shell",
+      "_anchor_cap_interface",
+      "_box_spec",
+      "_boxes",
+      "_cadq_export",
+      "_cold_core_interface",
+      "_data_wing_interface",
+      "_display_retention",
+      "_display_wing_interface",
+      "_disposal_artwork",
+      "_enclosure_back_top",
+      "_enclosure_core_data",
+      "_enclosure_data",
+      "_enclosure_datums",
+      "_enclosure_front_bottom",
+      "_enclosure_front_top",
+      "_enclosure_interface",
+      "_enclosure_panel",
+      "_enclosure_presentation",
+      "_enclosure_pump_retainer",
+      "_enclosure_rust_driver",
+      "_enclosure_skin",
+      "_enclosure_structure",
+      "_facts",
+      "_fixed_pump_mount",
+      "_grip_interface",
+      "_machine_export",
+      "_machine_layout",
+      "_material_base",
+      "_materials",
+      "_nameplate_dimensions",
+      "_nameplate_interface",
+      "_nameplate_wing_interface",
+      "_payload_rules",
+      "_route_snaps",
+      "_rust_enclosure_checks",
+      "_rust_enclosure_presentation",
+      "_rust_part",
+      "_swept_top",
+      "_tube_snap_sites",
+      "_y_wall_dimensions",
+      "above_core",
+      "above_core_parts",
+      "above_core_wiring",
+      "beduan_solenoid",
+      "bulkhead_ring",
+      "cadquery",
+      "cadquery.occ_impl.shapes",
+      "collections",
+      "condenser_block",
+      "contextlib",
+      "docgen",
+      "dock_structure",
+      "enclosure",
+      "enclosure_assembly",
+      "fits",
+      "fixed_returns",
+      "flute_skin",
+      "fontTools.pens.basePen",
+      "fontTools.svgLib.path",
+      "functools",
+      "funnel",
+      "funnel_frame",
+      "hardware.wiring.installed.retainers",
+      "hashlib",
+      "iec_c14_inlet",
+      "importlib",
+      "io",
+      "itertools",
+      "jg_bulkhead_union",
+      "json",
+      "kamoer_kphm400",
+      "math",
+      "meanwell_irm90",
+      "mq6_gas_sensor",
+      "nameplate",
+      "neofit_achv44_check",
+      "neofit_bulkhead",
+      "neofit_drain_bulkhead",
+      "neofit_stem_elbow",
+      "numpy",
+      "os",
+      "overhang_round",
+      "pathlib",
+      "port_chip",
+      "pump_case",
+      "pump_tray",
+      "qrcode",
+      "qrcode.util",
+      "re",
+      "rear_identification",
+      "rear_plumbing",
+      "rear_snaps",
+      "reeding",
+      "riteav_keystone",
+      "route_snap",
+      "shapely.geometry",
+      "shapely.ops",
+      "snap",
+      "struct",
+      "sys",
+      "tee_connector",
+      "tempfile",
+      "teyleten_relay",
+      "trimesh",
+      "types",
+      "valve_seat",
+      "valve_tray",
+      "wago_221",
+      "world_workplane",
+      "xml.etree.ElementTree"
+    ],
+    "observed_read_paths": [
+      "brand/mark.svg",
+      "hardware/printed-parts/enclosure/enclosure/disposal-warning-artwork.json",
+      "hardware/printed-parts/enclosure/enclosure/rear-seat-profiles.json",
+      "hardware/printed-parts/enclosure/nameplate/wordmark.svg",
+      "hardware/reference/yzmsz-water-regulator/reference-parameters.json"
+    ],
+    "python": [
+      "hardware/scripts/_rust_data.py",
+      "hardware/scripts/_rust_objects.py",
+      "hardware/scripts/_rust_part.py",
+      "hardware/printed-parts/enclosure/enclosure/_enclosure_data.py",
+      "hardware/printed-parts/enclosure/enclosure/_enclosure_compiled.py",
+      "hardware/printed-parts/enclosure/enclosure/_enclosure_core_data.py"
+    ],
+    "read_tracking": "Native Path file reads are forwarded through register_io to _cadq_export.note_read; SVG parser inputs are explicitly noted before the library call.",
+    "rust": [
+      "anyhow",
+      "serde_json (float_roundtrip)",
+      "hsm-documents::interop"
+    ]
+  },
+  "documents": {
+    "cases": 5,
+    "exact": true,
+    "files_written": false,
+    "sha256": "51d67d7a461457c558363344a41b0e3d5caf0f8f51c7e6ab51b74a57320487ad",
+    "values": 969
+  },
+  "fixed_input": {
+    "box_path": "hardware/manifold-layout/enclosure-box.json",
+    "box_sha256": "b96199cb04771a334c4c4aa5f43e81611242e25b646ea462351af03c53a644d5"
+  },
+  "foundation": {
+    "container_types_preserved": true,
+    "datums_exact": 224,
+    "swept_max_delta": 0.0,
+    "swept_numeric_values": 5154
+  },
+  "head_at_record": "63658e44888f13d7a7e657d435558580e4746902",
+  "modules": {
+    "_above_core_shell": {
+      "adapter_sha256": "16923f324504cc2894a16e7f7bee2d4296f8ab543c3d1f9f6f8e1f92c12d670b",
+      "baseline_source_sha256": "69361a9773ef2ef58c51e2be6d8aaf191e13d531eba1c899b1912241ab771721",
+      "python": "hardware/printed-parts/enclosure/enclosure/_above_core_shell.py",
+      "rust": "tools/hsm/enclosure-data/src/compiled/_above_core_shell.rs",
+      "rust_sha256": "d61ef95c1a4b07630b1a193ea69caca34adaff00ca1945b3f30e1f596027bc64"
+    },
+    "_anchor_cap_interface": {
+      "adapter_sha256": "bab15887a3c20798ce48c027ad2ef3416297561b6819f169406d8df4779a0f69",
+      "baseline_source_sha256": "a49c37fef29c15fceab1a5fc04a485aff9db1fc220d386feffe63fd91253883b",
+      "python": "hardware/printed-parts/enclosure/enclosure/_anchor_cap_interface.py",
+      "rust": "tools/hsm/enclosure-data/src/compiled/_anchor_cap_interface.rs",
+      "rust_sha256": "a05e3b68d49dc8f3de85d8b95b186fa3b38f5d786fdb1ec4d0bb772351feabaa"
+    },
+    "_back_top_meter": {
+      "adapter_sha256": "2d3f01389a873d0ca01d4875b3a35abf6b3fd024cbd058c1d29dfdd102322ad5",
+      "baseline_source_sha256": "ac59bd8b7d3bfcdfc87808f8f54fffa1d46b239a10fb50d0e9cd0de32f625ee3",
+      "python": "hardware/printed-parts/enclosure/enclosure/_back_top_meter.py",
+      "rust": "tools/hsm/enclosure-data/src/compiled/_back_top_meter.rs",
+      "rust_sha256": "0cc4da1265c2d39847b6df2b73a86478394b0d38a4593032c60cec04fd74f43f"
+    },
+    "_data_wing_interface": {
+      "adapter_sha256": "332f7014963ddee3c9e9153b76a20d51f18b4efcf5392ed41d26e723c38649b9",
+      "baseline_source_sha256": "0d54adcf7cc3fd1807be7fdf3f0edab4f8dbfa4efc31ae8a0e75333573ac5aed",
+      "python": "hardware/printed-parts/enclosure/enclosure/_data_wing_interface.py",
+      "rust": "tools/hsm/enclosure-data/src/compiled/_data_wing_interface.rs",
+      "rust_sha256": "f06b462cae2b0f8ef1a54a2c3ba453fffb7b6cfaad28a913c1aef228b8bd6bd2"
+    },
+    "_display_retention": {
+      "adapter_sha256": "6c6ce2982c8b89970410512a38c2d1fa0afd96ea41a87d4bad2a949263be074d",
+      "baseline_source_sha256": "e0b32a1909d78e3b64641020e9c938df127ee7ad8bd9df244bf681ec8a4c03e8",
+      "python": "hardware/printed-parts/enclosure/enclosure/_display_retention.py",
+      "rust": "tools/hsm/enclosure-data/src/compiled/_display_retention.rs",
+      "rust_sha256": "8389ad8144f09aeefabae5799bf93f6a6b01ef709979c238f2e04cc174ae5e1e"
+    },
+    "_display_wing_interface": {
+      "adapter_sha256": "b5f41ad14bd84c6b222132bd40e919e1126ead1a1f2d5e4bf4004814020cbf8e",
+      "baseline_source_sha256": "ed042c5df40c1f12e6a1e6caadf570f6375b9ed3832db16afd16a599df8e467f",
+      "python": "hardware/printed-parts/enclosure/enclosure/_display_wing_interface.py",
+      "rust": "tools/hsm/enclosure-data/src/compiled/_display_wing_interface.rs",
+      "rust_sha256": "2405ab18f6632fe9f9de248111a498a00ebaf73e14103d48a56acb0f9bf90e82"
+    },
+    "_disposal_artwork": {
+      "adapter_sha256": "0fccf857674d94fde058a3ce83f0b20923656c4f4ac1ff29d1ec500c5f8bab27",
+      "baseline_source_sha256": "f20505eac4afd117bc4425d53fc763582598192586c2d1777690b9b637909f6c",
+      "python": "hardware/printed-parts/enclosure/enclosure/_disposal_artwork.py",
+      "rust": "tools/hsm/enclosure-data/src/compiled/_disposal_artwork.rs",
+      "rust_sha256": "8cfbf488b3172471c7d0afa1712fd6a6e0b59edf427e679dd9f25d13aa67517e"
+    },
+    "_enclosure_back_top": {
+      "adapter_sha256": "6215167f736ed7ccb2ae14901a484ad1b79482871ee44d816b66f9d7d0c8cfc5",
+      "baseline_source_sha256": "ac642b09ca153d2d7da3a3b4f55adb2b110b53ffa328dcf0399147bdead59c33",
+      "python": "hardware/printed-parts/enclosure/enclosure/_enclosure_back_top.py",
+      "rust": "tools/hsm/enclosure-data/src/compiled/_enclosure_back_top.rs",
+      "rust_sha256": "8d58aee03fcf98e39a5a07fed55cd72b7705eb185faa26acacab65faa6a95a98"
+    },
+    "_enclosure_datums": {
+      "adapter_sha256": "c5424f0c6b503267b4ace418a92ec71c93d9f14a775a5af18f0f819de6b98f76",
+      "baseline_source_sha256": "8116cebd458f64983d7d92275951d51e9c706f6c8e79422eabff9eacf2546b14",
+      "python": "hardware/printed-parts/enclosure/enclosure/_enclosure_datums.py",
+      "rust": "tools/hsm/enclosure-data/src/compiled/_enclosure_datums.rs",
+      "rust_sha256": "27b84d5445b14d9106eff5f415d7dab99776c1c59921cbe157a2e101d4b90d14"
+    },
+    "_enclosure_dimensions": {
+      "adapter_sha256": "a4887ddff22e5d0ab6350db7bb48c38a7fd587a5280d55fa8c39724a79e10a5a",
+      "baseline_source_sha256": "ed243fbdbcad56cd7af46263974890e4cf9c631c484db8ad499fc57235ce2b4e",
+      "python": "hardware/printed-parts/enclosure/_enclosure_dimensions.py",
+      "rust": "tools/hsm/enclosure-data/src/compiled/_enclosure_dimensions.rs",
+      "rust_sha256": "b3628aa4063aa32ab695998c76b3f75b21ced08c46496b00fda5e789f70c169d"
+    },
+    "_enclosure_front_bottom": {
+      "adapter_sha256": "6cc7a3b86b893a3d65e8ca91e1089d5950e5525ed60db6346f56e804a1ef6e1d",
+      "baseline_source_sha256": "d87aa44703e7a9ba671a2d7f54d7448f3ddfe00b9f4ff9c4ddbb70e0d88d58fa",
+      "python": "hardware/printed-parts/enclosure/enclosure/_enclosure_front_bottom.py",
+      "rust": "tools/hsm/enclosure-data/src/compiled/_enclosure_front_bottom.rs",
+      "rust_sha256": "0f261efc35bcf5d345e79f888467907f60072728e577f9b0615736e202b91e8b"
+    },
+    "_enclosure_front_top": {
+      "adapter_sha256": "5f828c45957964d2e7df4f4a55346bc3d57696f992c69fc8639e4b36c9c72523",
+      "baseline_source_sha256": "45979832a535970439c4a8079b3889295dd48ccddda36fe4f72795430b07bbef",
+      "python": "hardware/printed-parts/enclosure/enclosure/_enclosure_front_top.py",
+      "rust": "tools/hsm/enclosure-data/src/compiled/_enclosure_front_top.rs",
+      "rust_sha256": "9ebd0e0d5db3cd7651122742e21fa25d0591c5b779b248e12a6d9f651041e5ce"
+    },
+    "_enclosure_interface": {
+      "adapter_sha256": "5a3fffa35c6bdbce425d822136b41a3d878210648b3cd7d92c28afbfd9fa482c",
+      "baseline_source_sha256": "c07a6c3c37c189e13e2287d6093a46f1d6535933fd065e0af12c7b592c6d5a34",
+      "python": "hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py",
+      "rust": "tools/hsm/enclosure-data/src/compiled/_enclosure_interface.rs",
+      "rust_sha256": "335951efa453906598f6aaf2a2f031318547fb705dc1152bcae67b5ab2a62e4a"
+    },
+    "_enclosure_panel": {
+      "adapter_sha256": "d3d80cce19b3195c2bb8d277f565ff2cfd45c2d4900fc1820a62e88f4ee389c8",
+      "baseline_source_sha256": "3aff5d1f47fba8e4419a283b8a87b60edf8a6c1b62029689a81807944d00800d",
+      "python": "hardware/printed-parts/enclosure/enclosure/_enclosure_panel.py",
+      "rust": "tools/hsm/enclosure-data/src/compiled/_enclosure_panel.rs",
+      "rust_sha256": "1e7b431add843442c136079eb00743ecbd8737c9c9a1ea326456ad823b82bcde"
+    },
+    "_enclosure_presentation": {
+      "adapter_sha256": "eb0138c3592bd5ab986e17be26c8e42c075bf7edadeb1d825fc3f3acc9dc5ffb",
+      "baseline_source_sha256": "86e81b0b7ef3c3497ce0f6dc8b95b9779d77984443f544ada0de7a9121d49245",
+      "python": "hardware/printed-parts/enclosure/enclosure/_enclosure_presentation.py",
+      "rust": "tools/hsm/enclosure-data/src/compiled/_enclosure_presentation.rs",
+      "rust_sha256": "e0efa174352ac9dce88a8dfaeb0daa288ac54f250bd24b5f34ba872cd893a772"
+    },
+    "_enclosure_pump_retainer": {
+      "adapter_sha256": "d5799114117e4f7b3e2767a903af7e4a29be83d048f7337af5f55e65ec2d4f67",
+      "baseline_source_sha256": "a2f78feea71ac68e2fe5dadc43889874c03dc32196bbde04449b330b8a53acce",
+      "python": "hardware/printed-parts/enclosure/enclosure/_enclosure_pump_retainer.py",
+      "rust": "tools/hsm/enclosure-data/src/compiled/_enclosure_pump_retainer.rs",
+      "rust_sha256": "a9f69a2e13c81fdc3f17459c819067367546e4e20eac0f8955e6f764d2e32fe0"
+    },
+    "_enclosure_rust_driver": {
+      "adapter_sha256": "1e729ab7e8db17cf9ae4b3adaf8737f58001848d0ce71e30638afe0bbec6c7f7",
+      "baseline_source_sha256": "1a06e4404d271a7b78478e5fcb8489a92422bce6a2b5ec75521691400f8d6b16",
+      "python": "hardware/printed-parts/enclosure/enclosure/_enclosure_rust_driver.py",
+      "rust": "tools/hsm/enclosure-data/src/compiled/_enclosure_rust_driver.rs",
+      "rust_sha256": "76d4d47226473d669ce14c174982e516dc383f32d52e965d294770a8b72f038b"
+    },
+    "_enclosure_skin": {
+      "adapter_sha256": "5eeb4240fe37f3c1e0b944c5bf704101298778b83b77c556e7cad8134fd71e57",
+      "baseline_source_sha256": "6ca365f64d3703317b204e06df9f21cb908ff8ff89a02adf9cd5e2cdea913542",
+      "python": "hardware/printed-parts/enclosure/enclosure/_enclosure_skin.py",
+      "rust": "tools/hsm/enclosure-data/src/compiled/_enclosure_skin.rs",
+      "rust_sha256": "20ccdd9bdef90267780dfba231ad766549729bdfaec7ee38baeb7c94b49695b1"
+    },
+    "_enclosure_structure": {
+      "adapter_sha256": "9cfcf69b8b0e39790a338291be8fb9f588af984b7bb8e149fcf23b9a254cd27b",
+      "baseline_source_sha256": "d5dbcf14f03a180fba1a7fae78a9b3ddbe44e7ee2a8863c1d9e3925165f7b2ea",
+      "python": "hardware/printed-parts/enclosure/enclosure/_enclosure_structure.py",
+      "rust": "tools/hsm/enclosure-data/src/compiled/_enclosure_structure.rs",
+      "rust_sha256": "9b75650c35b8d889cf4db9693df28024b514cff8bf32d701b3baf5b3f5089613"
+    },
+    "_fixed_pump_mount": {
+      "adapter_sha256": "7c7dcdd47062871cf8cb1968a3f802e30f47d3d393efcfd45c56aad75fc10452",
+      "baseline_source_sha256": "18f8292304595390e4b9b5e70ce40e935bc051f995f20c70a09c475aa707166b",
+      "python": "hardware/printed-parts/enclosure/enclosure/_fixed_pump_mount.py",
+      "rust": "tools/hsm/enclosure-data/src/compiled/_fixed_pump_mount.rs",
+      "rust_sha256": "d59be8213a6f444c9ba7bea1b4c92c875dd6f8312432b0dba577ab30bfc509b1"
+    },
+    "_grip_interface": {
+      "adapter_sha256": "941511f1f3c99c8e3f41e21ba340aa99d944d93b4ec0a5ed0cfa9a0fdbe32301",
+      "baseline_source_sha256": "839336757930b5120132e2ec5600a99f1a132879a76b20aa43d9699282dd159a",
+      "python": "hardware/printed-parts/enclosure/enclosure/_grip_interface.py",
+      "rust": "tools/hsm/enclosure-data/src/compiled/_grip_interface.rs",
+      "rust_sha256": "e4e4e91f10cd9aed25cb70ebc162a5b5476c460f5c377334f7401cbadb1aae7a"
+    },
+    "_nameplate_dimensions": {
+      "adapter_sha256": "032bc5c56a00e1ba655a357e793de59f1f5a12ed133a951f34786e574b5332e9",
+      "baseline_source_sha256": "8b66825bcf64c4ed45e1884ff08b322f64089c94c2d719f09749ea31a1033e5c",
+      "python": "hardware/printed-parts/enclosure/nameplate/_nameplate_dimensions.py",
+      "rust": "tools/hsm/enclosure-data/src/compiled/_nameplate_dimensions.rs",
+      "rust_sha256": "56d4ecbb3e249cd545742b8020fe6e40ea4f785a6055c79604a81cdb9cf9670e"
+    },
+    "_nameplate_interface": {
+      "adapter_sha256": "322ffe10f442ff340c0fed48883102fb8d62f688d9c92aefde6c975ea77a73f9",
+      "baseline_source_sha256": "db1c83d64256386a24b8d81b32f085e3b6952a6a061ad64beaa48e791fcef091",
+      "python": "hardware/printed-parts/enclosure/enclosure/_nameplate_interface.py",
+      "rust": "tools/hsm/enclosure-data/src/compiled/_nameplate_interface.rs",
+      "rust_sha256": "12dc2e2cb09a941af0a0d941b4f5a304218fa394691ebf5a9c7a053b981bcbd5"
+    },
+    "_nameplate_wing_interface": {
+      "adapter_sha256": "ed5b7e4ee1e3441550ca02a8f45d949376c7062ad51c64df7b35ba2da5b6b1a9",
+      "baseline_source_sha256": "5469c5fc3d96421be57b3eb90289795b6d1b25b635b03cf882d6b2ca2f710bd2",
+      "python": "hardware/printed-parts/enclosure/enclosure/_nameplate_wing_interface.py",
+      "rust": "tools/hsm/enclosure-data/src/compiled/_nameplate_wing_interface.rs",
+      "rust_sha256": "18dbaa8b0ff207533af9abdb729e93ca6c303a0b70bfc309fd27130cc7007b18"
+    },
+    "_route_snaps": {
+      "adapter_sha256": "afad39afb5ab48d1e98cc83188f451187e83ea8af1c622475dcb222837130516",
+      "baseline_source_sha256": "863a741a0d4025361c12d5397b0150a289fa8ffb6706a876dd8c002ae68e2967",
+      "python": "hardware/printed-parts/enclosure/enclosure/_route_snaps.py",
+      "rust": "tools/hsm/enclosure-data/src/compiled/_route_snaps.rs",
+      "rust_sha256": "2f0a0cc6e5563d03ed74f8f0d311d7d3e2b720dec05413181cf1a1e0311b0b26"
+    },
+    "_rust_enclosure_checks": {
+      "adapter_sha256": "9c4130f85d8b7463642dcbd76440840f9b467eada64af5c519831b5f9df4fde1",
+      "baseline_source_sha256": "ce1ce9ed6bd01a81839cd1097ae73a9ba00ccaca992ea55b25962b2b67825014",
+      "python": "hardware/printed-parts/enclosure/enclosure/_rust_enclosure_checks.py",
+      "rust": "tools/hsm/enclosure-data/src/compiled/_rust_enclosure_checks.rs",
+      "rust_sha256": "55f61c20efa2d39c00a07129f8538124af13be90366a7282fad71a040792a368"
+    },
+    "_rust_enclosure_presentation": {
+      "adapter_sha256": "6c44bfdb3d43b2102edb121e9f757ae2df054db1aa1bf91c34f79f9a3a717da8",
+      "baseline_source_sha256": "dcbd45c961ee19544437d4f4ca643540082a3ea69ffa21de0d2f50c6059d297d",
+      "python": "hardware/printed-parts/enclosure/enclosure/_rust_enclosure_presentation.py",
+      "rust": "tools/hsm/enclosure-data/src/compiled/_rust_enclosure_presentation.rs",
+      "rust_sha256": "aa3681c0443b13a53d0c9be9bea48d740df1f26c8dcfc8c49871cdcbd725ed69"
+    },
+    "_swept_top": {
+      "adapter_sha256": "76ef8534e72ddd489cf8664922f81879a7fab97a4b476f2ae7cc4f34156bb257",
+      "baseline_source_sha256": "488299f34bf984d9e2199ab7fb221c92e5bbfba489c0cc322f12894e4f29921f",
+      "python": "hardware/printed-parts/enclosure/enclosure/_swept_top.py",
+      "rust": "tools/hsm/enclosure-data/src/compiled/_swept_top.rs",
+      "rust_sha256": "6b912e22b6dc5c08f54b25f22217f820bce4aa7f567973338438fe9820f1344b"
+    },
+    "_tube_snap_sites": {
+      "adapter_sha256": "b97d91ce99014875898ee14dc5b60b8574d84ad8ebad1c4c70eda613447b7f08",
+      "baseline_source_sha256": "0b44f6afb120bbf0ba136500f0b2cd523142820120f1e6ac5f5d952590cb360e",
+      "python": "hardware/printed-parts/enclosure/enclosure/_tube_snap_sites.py",
+      "rust": "tools/hsm/enclosure-data/src/compiled/_tube_snap_sites.rs",
+      "rust_sha256": "20aae326ecf63167e3aea2a36c90cd6e362d83114d0cec9dd3b910c5e2a8dece"
+    },
+    "_y_wall_dimensions": {
+      "adapter_sha256": "7206c3b35c93e1758dd07573846eb742d9a0fbc86c0d0f39c28fa513f3aab9da",
+      "baseline_source_sha256": "baaa7fae0174ecbda66a2d01294cc1e1f26b4f7463fcef0ff9286a835a410a31",
+      "python": "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
+      "rust": "tools/hsm/enclosure-data/src/compiled/_y_wall_dimensions.rs",
+      "rust_sha256": "2340a906fe297d4590a5cead90c1037c15ab704e02803b98ade0d029612a438e"
+    },
+    "bulkhead_ring": {
+      "adapter_sha256": "8a1f513acff0920ce3b16e507cfff544ef577f6d70098d2466d0431730e04a49",
+      "baseline_source_sha256": "4849dcc8dbfd9e9cd902297638e80e3df23d1884420d741b90a192d6b4722581",
+      "python": "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead_ring.py",
+      "rust": "tools/hsm/enclosure-data/src/compiled/bulkhead_ring.rs",
+      "rust_sha256": "6f2f9b22231d8bfb377bb64afaaa7d3bc1983be6366571356995697cc262a349"
+    },
+    "data_ring": {
+      "adapter_sha256": "15dad77a367b4b3dcf8135d0329c713c64933bf1b8b592046ce3afa6beacc9aa",
+      "baseline_source_sha256": "adc245975962751f4ad96c6f3885bf754d842518f106d064ae4a3db54be74f6e",
+      "python": "hardware/printed-parts/enclosure/data-ring/data_ring.py",
+      "rust": "tools/hsm/enclosure-data/src/compiled/data_ring.rs",
+      "rust_sha256": "1e3b5e05d6a9f7b01689f6b3df0318fd72b1513fae466d72a90e64797de1c94b"
+    },
+    "display_cover": {
+      "adapter_sha256": "b859e391103b3a138dc41d03466b0afaf47d35a157d69698c288633813adeeac",
+      "baseline_source_sha256": "48d5ee3f35be11f51173c23f1a8b03f4aff2e80d3eae1759e8a92eaf6b851966",
+      "python": "hardware/printed-parts/enclosure/display-cover/display_cover.py",
+      "rust": "tools/hsm/enclosure-data/src/compiled/display_cover.rs",
+      "rust_sha256": "13a29028d66269063e367595c965f15dcea6306bf403c1513f2c25d13934c423"
+    },
+    "display_gasket": {
+      "adapter_sha256": "ae060c64f0f6bab4b1e5a938c045192c4d40c78e36e6c45a6bd9dc3908c4b701",
+      "baseline_source_sha256": "668cbc9f0deed8fea81d770cfc14b94215b7ec353a4b0395af9d0dcf4a8639ae",
+      "python": "hardware/printed-parts/enclosure/display-gasket/display_gasket.py",
+      "rust": "tools/hsm/enclosure-data/src/compiled/display_gasket.rs",
+      "rust_sha256": "a31b5ca4a39f0f9ebbd68d60e24e9115bc5a386b6eb24d0f9d417c99b518de56"
+    },
+    "dock_structure": {
+      "adapter_sha256": "ae781614993495be7ebb16f3c5aa90e6838b99e10c81da6594488dc7322a894c",
+      "baseline_source_sha256": "9bf17c2ade88ca156c9d859840067829d700ebccded368469ea4ea50700f9013",
+      "python": "hardware/printed-parts/enclosure/pump-dock/dock_structure.py",
+      "rust": "tools/hsm/enclosure-data/src/compiled/dock_structure.rs",
+      "rust_sha256": "dcb9fe8cc10771274ebe7b02e8ca3b40bfe2dfe03813b7b1b6f1559d6052bcd4"
+    },
+    "enclosure": {
+      "adapter_sha256": "4897c86989839a373c258a19d38c4cf854261aa5bd625c0dfaeb7ddb1e84d0a4",
+      "baseline_source_sha256": "094be4fa9b23167ee75f992aaf8bcf860a39ef6e102e542de06895f76cd80993",
+      "python": "hardware/printed-parts/enclosure/enclosure/enclosure.py",
+      "rust": "tools/hsm/enclosure-data/src/compiled/enclosure.rs",
+      "rust_sha256": "98c2ca6a599247c8372f16b70d9e5e7ba58639d72a5b28fcd8082e639fdb1644"
+    },
+    "fixed_returns": {
+      "adapter_sha256": "fac88463f1bbfc0f8e20322ad39b7c47d5508cde3e9e7537b4c9ac4d7fc0472a",
+      "baseline_source_sha256": "b203551dad030a7b3e64e6094b0ed964ebe6edf9d779bf0ed94cc549471471e3",
+      "python": "hardware/printed-parts/enclosure/pump-dock/fixed_returns.py",
+      "rust": "tools/hsm/enclosure-data/src/compiled/fixed_returns.rs",
+      "rust_sha256": "066db7ce55b8cfbac2531ad9a2a43a653b52ca8c6a248f658cb7cd6bfc246668"
+    },
+    "nameplate": {
+      "adapter_sha256": "8748751875cfd04d199dd882faa0bbc43c75b8e8f038835ed62ae8cf1fbcec27",
+      "baseline_source_sha256": "8866704b74c02d1833a5e8a9fb5abd9e6bda40ce589de9407a84281345f88198",
+      "python": "hardware/printed-parts/enclosure/nameplate/nameplate.py",
+      "rust": "tools/hsm/enclosure-data/src/compiled/nameplate.rs",
+      "rust_sha256": "42cfe865eeb2376c542d064934718a8b3edee65cc213116e081a0085b60dae0b"
+    },
+    "pump_case": {
+      "adapter_sha256": "037c3f6ca9e85edeab6385c55a9dd15a0efcbb63d1d89c7f808686508ce7c793",
+      "baseline_source_sha256": "290ce656e1ba174bc44b4f39d1dfc12f6b41ec9de1177fe228d95c199d779d14",
+      "python": "hardware/printed-parts/enclosure/pump-tray/pump_case.py",
+      "rust": "tools/hsm/enclosure-data/src/compiled/pump_case.rs",
+      "rust_sha256": "a58f58598ed00e51208581256e3f3e60545a730b0341cc4c680a75136f033e3a"
+    },
+    "pump_tray": {
+      "adapter_sha256": "6b206dc6865ddd3d035d1bd8681164ecc0be7b4130c9f3f0ab174b3283082704",
+      "baseline_source_sha256": "8b008035afb6b9749961efeea82b586e9c4f4d9889e6a588a7a49552b43f158f",
+      "python": "hardware/printed-parts/enclosure/pump-tray/pump_tray.py",
+      "rust": "tools/hsm/enclosure-data/src/compiled/pump_tray.rs",
+      "rust_sha256": "5e4ef72816d4388b6ca9656c11db8576d7390ebbaadc96342d57e62e358539ef"
+    },
+    "rear_equipment_caps": {
+      "adapter_sha256": "c3791c14dd8d174fc5c41ba4f3ceca77c83b0d0d7e779afbb01e2b5343f9f364",
+      "baseline_source_sha256": "2bc529cc77862a7193fc27655b6d13c67900ec1d4de6b1c32c197c0fbee30bf5",
+      "python": "hardware/printed-parts/enclosure/rear-equipment-caps/rear_equipment_caps.py",
+      "rust": "tools/hsm/enclosure-data/src/compiled/rear_equipment_caps.rs",
+      "rust_sha256": "25fd81f66b53b367ff83fb80f1df426ef643939a48e3c858267bbb94f6fce618"
+    },
+    "rear_identification": {
+      "adapter_sha256": "fbb7fc3d405dcfecb310643a09e43542f103bee96ae43ad623de858c0839065d",
+      "baseline_source_sha256": "1d1be22c6a04e1f9373c5f9fed2b02c09997016a2db2eb67e168fa117f08ee65",
+      "python": "hardware/printed-parts/enclosure/rear-identification/rear_identification.py",
+      "rust": "tools/hsm/enclosure-data/src/compiled/rear_identification.rs",
+      "rust_sha256": "2a4368d460dee5f333225a1d978b33aae294407ad9fcba0bf5d0b866c4351251"
+    },
+    "valve_tray": {
+      "adapter_sha256": "e92c34fe7bdd90c1746e91025e3466c2ee024f0cb801f360656999dece73dae2",
+      "baseline_source_sha256": "d67be366fb6d12d1e9171bcc5a14f95c1c6df6d8656580d4ad85de3b10696b34",
+      "python": "hardware/printed-parts/enclosure/valve-tray/valve_tray.py",
+      "rust": "tools/hsm/enclosure-data/src/compiled/valve_tray.rs",
+      "rust_sha256": "8094464f9d26254d69df8ed6c1d11413908dc6ff995ca871638ef1c13cc8372f"
+    }
+  },
+  "normal_graph_audit": {
+    "compiled_modules": 43,
+    "enclosure_python_inputs": 44,
+    "remaining_input": "hardware/printed-parts/enclosure/enclosure/_enclosure_data.py (existing JSON transport)",
+    "scope": "Baseline normal graph before root integration; the two new transport helpers are listed in dependencies."
+  },
+  "public_compatibility": {
+    "graph_python_field_identity": true,
+    "module_override_restore": true,
+    "mutable_bounds_shared": true,
+    "namedtuple_module": "enclosure",
+    "pass": true,
+    "public_data_containers": "concrete",
+    "source_provenance": {
+      "line": 605,
+      "path": "tools/hsm/enclosure-data/src/compiled/_enclosure_panel.rs"
+    }
+  },
+  "questions": {
+    "exact": true,
+    "nodes": 252,
+    "normalized_sha256": "b9c3d1ac84457972c9d2aec426171fce36cefc9737e961a4d8cfee06b1f382d1",
+    "query_ids": "identical",
+    "questions": 74
+  },
+  "recipe_comparison": {
+    "cases": {
+      "_enclosure_back_top.numbers": {
+        "baseline_normalized_sha256": "252fdd03ef9b75afd991d3fd4ff2440b4d12a75561f3014056214078bf636165",
+        "nodes": 747,
+        "numeric_values": 5834,
+        "pass": true
+      },
+      "_enclosure_back_top.print_numbers": {
+        "baseline_normalized_sha256": "4bf0a22238f0f7b5ecd1ad7d6046c250ac9b674a7bfa78d8fdba9d194ffc5c50",
+        "nodes": 747,
+        "numeric_values": 22728,
+        "pass": true
+      },
+      "_enclosure_front_bottom.numbers": {
+        "baseline_normalized_sha256": "45cfe95a3088da986c50bf52b16b2a87360ab203db7e8133ee76c51f380f7e91",
+        "nodes": 723,
+        "numeric_values": 7742,
+        "pass": true
+      },
+      "_enclosure_front_bottom.print_numbers": {
+        "baseline_normalized_sha256": "fb391085506142559ddfd619530a517926593ac62394d72d9e4862043964f912",
+        "nodes": 723,
+        "numeric_values": 24572,
+        "pass": true
+      },
+      "_enclosure_front_top.numbers": {
+        "baseline_normalized_sha256": "8b35e64d03416fa0dc1f2894411bcc8fd32716c6bf12d23cca0f3f51df2fcec1",
+        "nodes": 941,
+        "numeric_values": 7155,
+        "pass": true
+      },
+      "_enclosure_front_top.print_numbers": {
+        "baseline_normalized_sha256": "45316a032068d4a64a481681d29c2eb2952477e8af8eb959795f1ba86c99a0b4",
+        "nodes": 941,
+        "numeric_values": 23985,
+        "pass": true
+      },
+      "_enclosure_panel.numbers": {
+        "baseline_normalized_sha256": "30a094b1ea8feab303ee8af5ed13001a39134cdffa71a0367aed2f55a803686f",
+        "nodes": 227,
+        "numeric_values": 4547,
+        "pass": true
+      },
+      "_enclosure_panel.print_numbers": {
+        "baseline_normalized_sha256": "ffeaa2a7120375f7a59e43b3acf4a37b9b7733ddfb92559384b8cd96abdaa181",
+        "nodes": 227,
+        "numeric_values": 21373,
+        "pass": true
+      },
+      "_enclosure_pump_retainer.numbers": {
+        "baseline_normalized_sha256": "9957624ad8a07248c48151862e34ee2da197141f5a8550388114f20d9df2e6ea",
+        "nodes": 71,
+        "numeric_values": 2255,
+        "pass": true
+      },
+      "_enclosure_pump_retainer.numbers-seated": {
+        "baseline_normalized_sha256": "b31f1467f9a3e700e9821cab423563f667a5c2dd89fdbd7bb58e68c6ccebdbc6",
+        "nodes": 71,
+        "numeric_values": 2255,
+        "pass": true
+      },
+      "nameplate-1": {
+        "baseline_normalized_sha256": "ffd6dda0f8d70f518eb32ed73416afd3cd698f6491e5dd6039440878a5cbf743",
+        "nodes": 0,
+        "numeric_values": 2181,
+        "pass": true
+      },
+      "nameplate-1729": {
+        "baseline_normalized_sha256": "a7bf71f182e986ffc0e55944fbd68db0ed27e2d96065ced569f659a5baa1c8a6",
+        "nodes": 0,
+        "numeric_values": 2207,
+        "pass": true
+      },
+      "rear-caps": {
+        "baseline_normalized_sha256": "6dcbe6d043aef904736a9163e78e2327d3aba3bd2dee5a803216d852a57ccadb",
+        "nodes": 0,
+        "numeric_values": 758,
+        "pass": true
+      }
+    },
+    "comparison_tolerance": {
+      "absolute": 1e-10,
+      "relative": 1e-13
+    },
+    "kernel_chord_budget_mm": 0.005,
+    "max_numeric_delta": 1.4210854715202004e-14,
+    "numeric_values": 127592,
+    "source_metadata": "Authored construction provenance now names the compiled Rust source path and line; this metadata is excluded from geometric recipe comparisons."
+  },
+  "remaining": {
+    "full_normal_build": "Not run by this piece; root performs combined integration.",
+    "normal_build_enclosure_algorithms": [],
+    "outside_normal_build": "Manual print preparation, archived trials and review scripts under enclosure remain Python."
+  },
+  "scope": "All normal-build enclosure Python algorithms; import, type and third-party object marshalling remain in Python.",
+  "status": "complete"
+}

@@ -13,40 +13,31 @@ STEP_PATH = HERE / 'jg-bulkhead-union.step'
 PAYLOAD_PATH = HERE / 'jg-bulkhead-union.step.mesh'
 ASSET_MANIFEST_PATH = HERE / 'frozen-asset.json'
 
-PORT_D = TUBE_OD = 6.35
-THREAD_D = 16.7
-MOUNTING_HOLE_D = 17.0
-TUBE_STOP_DEPTH = PORT_DEPTH = 15.7
-OVERALL = 37.55273081350097
-near_ring_face_y = PROUD_LENGTH = 11.521369623928024
-far_ring_face_y = -26.031361189572948
-BODY_D = FLANGE_D = 23.34348
-RING_D = 10.9
-FLANGE_AF = 18.83501909374671
-NUT_AF = 20.001471308895436
-NUT_D = 22.50104
-NUT_LEN = 5.939959183240793
-CAPTURED_NUT_GAP = 5.691909221634731
-PANEL_THREAD = 13.5
+
+_reference_hardware = next(p for p in Path(__file__).resolve().parents if p.name == 'hardware')
+import sys as _reference_sys
+_reference_sys.path.insert(0, str(_reference_hardware / 'reference'))
+from _reference_data import data as _reference_data
+_reference_values = _reference_data('jg_bulkhead_union')
+globals().update({name: _reference_values[name] for name in ('PORT_D', 'TUBE_OD', 'THREAD_D', 'MOUNTING_HOLE_D', 'TUBE_STOP_DEPTH', 'PORT_DEPTH', 'OVERALL', 'near_ring_face_y', 'PROUD_LENGTH', 'far_ring_face_y', 'BODY_D', 'FLANGE_D', 'RING_D', 'FLANGE_AF', 'NUT_AF', 'NUT_D', 'NUT_LEN', 'CAPTURED_NUT_GAP', 'PANEL_THREAD')})
+
 
 
 def panel_hole_d(clearance):
-    """The manufacturer's round mounting-hole diameter plus the panel's slip."""
-    return MOUNTING_HOLE_D + clearance
+    "The manufacturer's round mounting-hole diameter plus the panel's slip."
+    return _reference_data('jg_bulkhead_union', 'panel_hole_d', (clearance,), {})
 
 
 def panel_footprint():
-    diameter = max(FLANGE_D, NUT_D)
-    return diameter, diameter
+    return _reference_data('jg_bulkhead_union', 'panel_footprint', (), {})
 
 
 def flange_footprint():
-    return FLANGE_D
+    return _reference_data('jg_bulkhead_union', 'flange_footprint', (), {})
 
 
 def port(side):
-    return ((0., near_ring_face_y if side > 0 else far_ring_face_y, 0.),
-            (0., 1. if side > 0 else -1., 0.))
+    return _reference_data('jg_bulkhead_union', 'port', (side,), {})
 
 
 def main():

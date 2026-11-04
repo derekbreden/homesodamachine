@@ -70,7 +70,8 @@ def main(output=None):
     out.mkdir(parents=True, exist_ok=True)
     said = _rust_part.cut("tooling", "tube-miter-box", numbers(), out)
     _document()
-    print(f"-> tube-miter-box STEP, STL and fine model; {said['bodies'][0]['volume'] / 1000:.2f} cm3")
+    from _part_output import summary
+    print(f"-> tube-miter-box STEP, STL and fine model; {summary(said['bodies'][0], volume_spec='.2f')['volume']} cm3")
 
 
 if __name__ == "__main__":

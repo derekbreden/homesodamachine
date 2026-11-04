@@ -98,11 +98,7 @@ HARVESTED = (
 
 
 def _sha256(path) -> str:
-    h = hashlib.sha256()
-    with open(path, "rb") as fh:
-        for chunk in iter(lambda: fh.read(1 << 20), b""):
-            h.update(chunk)
-    return h.hexdigest()
+    return _native("sha256", path=Path(path))
 
 
 def _facets(path) -> int:
@@ -110,13 +106,7 @@ def _facets(path) -> int:
 
     A binary STL is an 80-byte header and then a uint32 count, so this is four bytes at a known
     offset. An ASCII one opens `solid` and states no count; a STEP states none either."""
-    if Path(path).suffix != ".stl":
-        return -1
-    with open(path, "rb") as fh:
-        head = fh.read(84)
-    if len(head) < 84 or head[:5] == b"solid":
-        return -1
-    return int.from_bytes(head[80:84], "little")
+    return _native("facets", path=Path(path))
 
 
 def barren(root: Path, solid_hashes: dict) -> list:
@@ -132,17 +122,7 @@ def barren(root: Path, solid_hashes: dict) -> list:
     84 bytes and its count reads zero. And two distinct parts sharing a sha256 are two files with
     the same bytes, which for geometry means neither holds any; empties collide with each other
     precisely because there is nothing in them to differ."""
-    out = []
-    for rel in sorted(solid_hashes):
-        if _facets(root / rel) == 0:
-            out.append(f"{rel} declares 0 facets — {(root / rel).stat().st_size} bytes, an empty solid")
-    seen = {}
-    for rel, sha in sorted(solid_hashes.items()):
-        if sha in seen:
-            out.append(f"{rel} carries the bytes {seen[sha]} carries — sha256 {sha[:16]}")
-        else:
-            seen[sha] = rel
-    return out
+    return _native("barren", root=root, hashes=solid_hashes)
 
 
 # WHERE A MESH IS CARRIED TOO. A directory named here has its `.stl` bundled beside the solids.
@@ -342,40 +322,69 @@ BOARD_NOT_BUNDLED = (".step", ".circuit.json")
 UNWATCHED_PRODUCERS = BUNDLED_BOARD_DIRS
 
 
+def _native_config():
+    """Authored publication membership data for the native build inventory."""
+    from inventory import ACTION_INTERMEDIATE, IMPLICIT_SOLIDS
+    names = ("NOT_BUNDLED_DIRS", "HARVESTED", "BUNDLED_MESH_DIRS",
+             "BUNDLED_GLB_DIRS", "BUNDLED_PAYLOAD_DIRS", "BUNDLED_PAYLOAD_FILES",
+             "BUNDLED_ART_DIRS", "BUNDLED_ART_SUFFIXES", "BUNDLED_ART_FILES",
+             "BUNDLED_BOARD_DIRS", "BOARD_NOT_BUNDLED", "UNWATCHED_PRODUCERS")
+    return {**{name: globals()[name] for name in names},
+            "IMPLICIT_SOLIDS": IMPLICIT_SOLIDS,
+            "ACTION_INTERMEDIATE": list(ACTION_INTERMEDIATE)}
+
+
+def _plain(value):
+    if isinstance(value, Path):
+        return str(value.absolute())
+    if isinstance(value, dict):
+        return {key: _plain(item) for key, item in value.items()}
+    if isinstance(value, (tuple, list, set, frozenset)):
+        return [_plain(item) for item in value]
+    return value
+
+
+def _ordered(value):
+    if isinstance(value, dict):
+        return {"_publication_pairs": [[key, _ordered(item)] for key, item in value.items()]}
+    if isinstance(value, (tuple, list)):
+        return [_ordered(item) for item in value]
+    return value
+
+
+def _unorder(value):
+    if isinstance(value, dict) and set(value) == {"_publication_pairs"}:
+        return {key: _unorder(item) for key, item in value["_publication_pairs"]}
+    if isinstance(value, dict) and set(value) == {"$dict"}:
+        return {key: _unorder(item) for key, item in value["$dict"]}
+    if isinstance(value, list):
+        return [_unorder(item) for item in value]
+    return value
+
+
+def _native(op, **fields):
+    sys.path.insert(0, str(_ROOT / "hardware/scripts"))
+    from _build_data import request
+    return request("publication-" + op, config=_plain(_native_config()), **_plain(fields))
+
+
+def _patch(data, updates):
+    wire = [{"path": list(path), "value": _ordered(value)} for path, value in updates]
+    return _unorder(_native("patch", ordered=_ordered(data), updates=wire))
+
+
+def _inventory_rows(root):
+    sys.path.insert(0, str(root / "tools/bazel"))
+    from inventory import inventory, tracked
+    return [[list(generators), record] for generators, record in inventory(tracked()).items()]
+
+
 def _member_filter(frozen, root: Path = _ROOT):
     """The path policy shared by the disk walk and declared public outputs."""
-    skip = tuple(f"{d}/" for d in NOT_BUNDLED_DIRS)
-    meshes = tuple(f"{d}/" for d in BUNDLED_MESH_DIRS)
-    scenes = tuple(f"{d}/" for d in BUNDLED_GLB_DIRS)
-    payloads = tuple(f"{d}/" for d in BUNDLED_PAYLOAD_DIRS)
-    art = tuple(f"{d}/" for d in BUNDLED_ART_DIRS)
-    boards = tuple(f"{d}/" for d in BUNDLED_BOARD_DIRS)
-    singles = set(BUNDLED_PAYLOAD_FILES) | set(BUNDLED_ART_FILES) | set(frozen)
-    catalog = _website_paths(root) if (root / "hardware/ledger/materials.json").is_file() else set()
+    policy = _native("member-policy", root=root, frozen=list(frozen))
 
     def member(rel):
-        name = rel.rsplit("/", 1)[-1]
-        if not rel.startswith("hardware/") or "/node_modules/" in rel:
-            return False
-        if _retired(root, rel):
-            return False
-        if rel in catalog:
-            return True
-        if rel.startswith(skip):
-            return False
-        if rel in HARVESTED and rel not in frozen:
-            return False
-        if rel.startswith(boards):
-            return not name.endswith(BOARD_NOT_BUNDLED)
-        if name.startswith("."):
-            return False
-        return (name.endswith(".step")
-                or (name.endswith(".stl") and rel.startswith(meshes))
-                or (name.endswith(".step.mesh") and rel.startswith(payloads))
-                or (name.endswith(".glb") and rel.startswith(scenes))
-                or (name.endswith(BUNDLED_ART_SUFFIXES) and rel.startswith(art))
-                or rel in singles)
-
+        return _native("member-prepared", path=rel, policy=policy)
     return member
 
 
@@ -387,83 +396,20 @@ def solids(root: Path) -> list:
     has to be sent, and it is the pointer file that carries it into the index. One pass over
     `hardware/`, which steps into no `NOT_BUNDLED_DIRS` tree and follows no link, and lists
     again only a directory whose stat identity moved."""
-    from _artifact_digest import Listings
-
-    if not (root / "hardware").is_dir():
-        return []
-    skip = tuple(f"{d}/" for d in NOT_BUNDLED_DIRS)
-    member = _member_filter(frozen_assets(root), root)
-    listings = Listings(root)
-    out, todo = [], ["hardware"]
-    while todo:
-        here = todo.pop()
-        held = listings.listing(here)
-        if held is None:
-            continue
-        dirs, files = held
-        if ".retired" in files:
-            continue
-        for name in dirs:
-            rel = f"{here}/{name}"
-            # A dependency's own test fixtures are solids on this disk that no part of
-            # this machine is made of. `occt-import-js` ships eight.
-            if name != "node_modules" and not f"{rel}/".startswith(skip):
-                todo.append(rel)
-        for name in files:
-            rel = f"{here}/{name}"
-            if member(rel):
-                out.append(rel)
-    listings.save()
-    if (root / "hardware/ledger/materials.json").is_file():
-        allowed = _website_paths(root, out)
-        # Catalog membership enrolls companions and print files independently of
-        # the historical directory lists used by the generated-output walk.
-        out = set(out) | {rel for rel in allowed if (root / rel).is_file()}
-        graph = json.loads((root / "tools/bazel/graph.json").read_text())
-        required = set(frozen_assets(root))
-        required.update(path for node in graph.values()
-                        for key in ("reads", "writes") for path in node.get(key, ()))
-        from inventory import IMPLICIT_SOLIDS
-        required.update(path for paths in IMPLICIT_SOLIDS.values() for path in paths)
-        out = {rel for rel in out if rel in allowed or rel in required}
-    return sorted(out)
+    return _native("solids", root=root)
 
 
 def build(root: Path, rels: list, dest) -> str:
     """Write the bundle at `dest` and return its sha256. A member carries its path and its
     bytes; every other field a tar can hold is set flat."""
-    import gzip
-    import io
-    import tarfile
-
-    raw = io.BytesIO()
-    with tarfile.open(fileobj=raw, mode="w", format=tarfile.GNU_FORMAT) as tar:
-        for rel in rels:
-            src = root / rel
-            info = tarfile.TarInfo(rel)
-            info.size = src.stat().st_size
-            info.mtime = 0
-            info.mode = 0o644
-            info.type = tarfile.REGTYPE
-            info.uid = info.gid = 0
-            info.uname = info.gname = ""
-            with open(src, "rb") as fh:
-                tar.addfile(info, fh)
-    with open(dest, "wb") as fh:
-        # `filename=""` and not the default: handed a fileobj and no name, GzipFile takes
-        # `fileobj.name` and writes it into the header under the FNAME flag, which puts the path
-        # this was built at inside the bytes and moves the hash with it.
-        with gzip.GzipFile(filename="", fileobj=fh, mode="wb", compresslevel=6, mtime=0) as gz:
-            gz.write(raw.getvalue())
-    return _sha256(dest)
+    return _native("build", root=root, rels=list(rels), output=Path(dest))
 
 
 def _origin_slug(root: Path) -> str:
     """`owner/repo` for the origin remote, which is what the download URL is built from."""
     url = subprocess.run(["git", "-C", str(root), "remote", "get-url", "origin"],
-                         capture_output=True, text=True, check=True).stdout.strip()
-    slug = url.split("github.com", 1)[-1].lstrip(":/")
-    return slug[:-4] if slug.endswith(".git") else slug
+                         capture_output=True, text=True, check=True).stdout
+    return _native("origin-slug", url=url)
 
 
 def hashes(root: Path, rels: list) -> dict:
@@ -485,9 +431,7 @@ def line_times(held: dict, solid_hashes: dict, stamp: int) -> dict:
     copy it built from a copy it is merely holding: a file newer than its line was cut here
     since main last pointed at that member, a file older than its line is main's earlier
     bytes, and main's are the ones to take."""
-    was, times = held.get("solids", {}), held.get("moved", {})
-    return {rel: (times[rel] if was.get(rel) == digest and rel in times else stamp)
-            for rel, digest in sorted(solid_hashes.items())}
+    return _native("line-times", held=held, hashes=solid_hashes, stamp=stamp)
 
 
 def held_publish_plan(held: dict, rels: list, now: dict, mtimes: dict) -> tuple:
@@ -500,35 +444,18 @@ def held_publish_plan(held: dict, rels: list, now: dict, mtimes: dict) -> tuple:
     main's older bytes when it is older. The first is `built` and goes up; the second is
     `stale` and is taken from the release instead. A member main names that this disk does
     not hold is `absent`, and its line stands: retiring is `--prune`, never absence."""
-    was, times = held.get("solids", {}), held.get("moved", {})
-    built, fresh, stale = [], [], []
-    for rel in rels:
-        if rel not in was:
-            fresh.append(rel)
-        elif was[rel] != now[rel]:
-            (built if mtimes.get(rel, 0) > times.get(rel, 0) else stale).append(rel)
-    absent = sorted(set(was) - set(now))
-    return built, fresh, stale, absent
+    return tuple(_native("held-plan", held=held, rels=rels, now=now, mtimes=mtimes))
 
 
 def object_url(held: dict, digest: str):
     """Where one member's bytes are by hash: the store, else the release; None without either."""
-    store = held.get("store", {})
-    if store.get("url") and store.get("objects"):
-        return f"{store['url']}{store['objects']}{digest}.gz"
-    release = held.get("release", {})
-    url = release.get("url", "")
-    if not release.get("objects") or "/" not in url:
-        return None
-    return f"{url[: url.rfind('/') + 1]}{release['objects']}{digest}.gz"
+    return _native("object-url", held=held, digest=digest)
 
 
 def download_object(url: str) -> bytes:
-    import gzip
     from urllib.request import Request, urlopen
-
     with urlopen(Request(url, headers={"User-Agent": "pack.py"}), timeout=120) as resp:
-        return gzip.decompress(resp.read())
+        return bytes(_native("decompress", bytes=list(resp.read())))
 
 
 def adopt(root: Path, held: dict, rels: list) -> list:
@@ -547,16 +474,12 @@ def adopt(root: Path, held: dict, rels: list) -> list:
             continue
         try:
             data = download_object(url)
-        except Exception as exc:  # noqa: BLE001 — named, and the member stays as it was
+        except Exception as exc:
             print(f"  {rel}: main's bytes did not come ({exc}); left as it is")
             continue
-        if hashlib.sha256(data).hexdigest() != digest:
+        if not _native("adopt-bytes", root=root, path=rel, digest=digest, bytes=list(data)):
             print(f"  {rel}: the release's object does not hash to main's line; left as it is")
             continue
-        target = root / rel
-        tmp = target.with_name(target.name + ".adopt")
-        tmp.write_bytes(data)
-        os.replace(tmp, target)
         taken.append(rel)
     return taken
 
@@ -572,20 +495,18 @@ def _dirty_artifact_reach(root: Path) -> tuple:
     Ignored generated solids are intentionally absent from what `affected.changed` reports; they
     are the bytes being packed. What is left is the working tree standing outside HEAD, asked of
     HEAD by content, and the rules it reaches are the ones a reconciliation leaves uncut."""
-    sys.path.insert(0, str(root / "tools" / "bazel"))
+    sys.path.insert(0, str(root / "tools/bazel"))
     import affected
-
-    moved = set(affected.changed(root))
-    moved.discard("hardware/cad-artifacts.json")
-    # These are generated outputs this very publication carries.
-    moved -= set(sidecars(root)) | set(read_pointers(root).get("sidecars", {}))
-    moved = {path for path in moved if not affected.artifact_presentation_only(path)}
+    moved = list(affected.changed(root))
+    moved = _native("dirty-inputs", moved=moved, sidecars=sidecars(root),
+                    held_sidecars=list(read_pointers(root).get("sidecars", {})),
+                    presentation=[path for path in moved if affected.artifact_presentation_only(path)])
     if not moved:
         return [], []
-    found, _hit = affected.manifest_targets(sorted(moved))
-    reached = ((set(found) & affected.artifact_targets())
-               | affected.sentinel_targets(moved))
-    return sorted(reached), sorted(moved)
+    found, _hit = affected.manifest_targets(moved)
+    state = _native("set-plan", first=list(found), second=list(affected.artifact_targets()))
+    state = _native("set-plan", first=state["intersection"], second=list(affected.sentinel_targets(moved)))
+    return state["union"], moved
 
 
 #: How much newer than a member one of its generated inputs may stand and still be what its cut
@@ -597,24 +518,13 @@ GENERATED_SKEW_NS = 60 * 10**9
 def cut_after_inputs(root: Path, rel: str, graph: Graph) -> bool:
     """Whether `rel` was written after each input it reads last changed: an authored input no
     later than the member, a generated one no more than `GENERATED_SKEW_NS` later."""
-    try:
-        written = (root / rel).stat().st_mtime_ns
-    except OSError:
-        return False
-    for path in graph.inputs(rel):
-        try:
-            changed = (root / path).stat().st_mtime_ns
-        except OSError:
-            continue
-        if changed > written + (GENERATED_SKEW_NS if path in graph.writers else 0):
-            return False
-    return True
+    return _native("cut-after-inputs", root=root, path=rel, inputs=list(graph.inputs(rel)),
+                   writers=list(graph.writers), skew_ns=GENERATED_SKEW_NS)
 
 
 def _line(inputs: str = None, commit: str = None, unproven: bool = False) -> dict:
     """One `made` line, its keys in the order the pointer file holds them."""
-    out = {"inputs": inputs, "commit": commit, "unproven": unproven or None}
-    return {key: value for key, value in out.items() if value}
+    return _unorder(_native("line-ordered", inputs=inputs, commit=commit, unproven=unproven))
 
 
 def made_lines(held: dict, members, head: str, tree: dict, cut: dict = None,
@@ -626,88 +536,45 @@ def made_lines(held: dict, members, head: str, tree: dict, cut: dict = None,
     bytes `moved` otherwise, or that has no line yet, is unproven with nothing to say what cut
     it. The rest keep their lines, unproven where `tree` is not their inputs or `refuted`
     names them."""
-    out = {}
-    for rel in sorted(members):
-        line = held.get(rel) if isinstance(held.get(rel), dict) else None
-        if rel in derived:
-            out[rel] = _line(cut[rel], head, cut[rel] != tree[rel])
-        elif rel in moved or not line:
-            out[rel] = _line(commit=head, unproven=True)
-        elif not line.get("inputs"):
-            out[rel] = line
-        elif line["inputs"] == tree[rel] and rel not in refuted:
-            out[rel] = _line(line["inputs"], head) if line.get("unproven") else line
-        elif line.get("unproven"):
-            out[rel] = line
-        else:
-            out[rel] = _line(line["inputs"], line.get("commit"), True)
-    return out
+    return _unorder(_native("made-lines-ordered", held=held, held_order=_ordered(held),
+        members=list(members), head=head, tree=tree, cut=cut, derived=list(derived),
+        moved=list(moved), refuted=list(refuted)))
 
 
 def made_moves(held: dict, tree: dict) -> list:
     """The members whose `made` line moves though no bytes do: one with no line, a proven line
     whose inputs the tree has moved off, and an unproven one the tree has come back to."""
-    out = []
-    for rel, digest in tree.items():
-        line = held.get(rel)
-        if not isinstance(line, dict):
-            out.append(rel)
-        elif line.get("inputs") and (line["inputs"] == digest) == bool(line.get("unproven")):
-            out.append(rel)
-    return sorted(out)
+    return _native("made-moves", held=held, tree=tree)
 
 
 def tree_digests(root: Path, graph: Graph, lines: dict, index: dict = None) -> dict:
     """The input digest, as the tree commits it, of each declared member `lines` names."""
-    ident = committed(staged(root) if index is None else index, lines)
-    return {rel: graph.digest(rel, ident) for rel in lines if rel in graph.writers}
+    return _unorder(_native("tree-digests", root=root, graph=graph._wire(), lines=lines,
+                           line_order=list(lines), index=staged(root) if index is None else index))
 
 
 def made_for(held: dict, lines: dict, head: str, tree: dict, cut: dict = None,
              derived=(), moved=(), refuted=(), frozen=()) -> dict:
     """The pointer file's `made`: a line for each declared member `lines` names, and the line
     each undeclared one already has."""
-    out = made_lines(held, tree, head, tree, cut, derived, moved, refuted)
-    out.update({rel: line for rel, line in held.items() if rel in lines and rel not in out})
-    # A freeze records a source snapshot, not a fresh derivation. Keep existing lines; newly
-    # published static bytes have no proof of what cut them.
-    for rel in set(frozen) & set(lines):
-        if rel in moved or rel not in out:
-            out[rel] = _line(commit=head, unproven=True)
-    return dict(sorted(out.items()))
+    return _unorder(_native("made-for", held=held, held_order=_ordered(held), lines=lines,
+        head=head, tree=tree, cut=cut, derived=list(derived), moved=list(moved),
+        refuted=list(refuted), frozen=list(frozen)))
 
 
 def _members_of_targets(root: Path, labels: set) -> set:
     """Every bundle member and scorecard the named artifact rules produce.
 
     The inverse of `_targets_for_members`, off the same inventory."""
-    if not labels or root.resolve() != _ROOT.resolve():
+    if not _native("target-query", root=root, workspace=_ROOT, members=list(labels)):
         return set()
-    sys.path.insert(0, str(root / "tools" / "bazel"))
-    from gen_build import target_name
-    from inventory import inventory, tracked
-
-    inv = inventory(tracked())
-    seen, shared = set(), set()
-    for gens in inv:
-        for gen in gens:
-            stem = Path(gen).stem.strip("_").replace("_", "-")
-            (shared if stem in seen else seen).add(stem)
-
-    out = set()
-    for gens, made in inv.items():
-        if f"//:{target_name(gens[0], shared)}" in labels:
-            out |= set(made["solids"])
-    return out
+    return set(_native("target-members", targets=list(labels), inventory=_inventory_rows(root)))
 
 
 def _owed_artifact_targets(root: Path, made: dict, tree: dict) -> list:
     """The rules owning a member whose `made` line does not prove it against the tree."""
-    def proven(rel, digest):
-        line = made.get(rel)
-        return (isinstance(line, dict) and not line.get("unproven")
-                and line.get("inputs") == digest)
-    return _targets_for_members(root, {rel for rel, d in tree.items() if not proven(rel, d)})[0]
+    members = _native("owed-members", made=made, tree=tree)
+    return _targets_for_members(root, set(members))[0]
 
 
 def _behind(root: Path, targets: list) -> bool:
@@ -718,9 +585,7 @@ def _behind(root: Path, targets: list) -> bool:
         return False
     check = subprocess.run(["bazel", "build", "--check_up_to_date", *targets],
                            cwd=str(root), capture_output=True, text=True)
-    owed = [line for line in check.stderr.splitlines() if "not up-to-date" in line]
-    stale = [line for line in owed if "BazelWorkspaceStatusAction" not in line]
-    return check.returncode != 0 and bool(stale or not owed)
+    return _native("behind", returncode=check.returncode, stderr=check.stderr)
 
 
 def carry_the_cut(root: Path, targets: list) -> list:
@@ -749,21 +614,14 @@ def carry_the_cut(root: Path, targets: list) -> list:
         print(f"  {len(failed)} target(s) would not cut:")
         for label in failed[:8]:
             print(f"    {label}")
-    carried = [t for t in targets if t not in set(failed)]
+    carried = _native("set-plan", first=targets, second=failed)["difference"]
     if not carried:
         return failed, set()
     sys.path.insert(0, str(root / "tools" / "bazel"))
     from sync_tree import _runtime_output, _targets as cut_pairs
 
-    unheld = set()
-    for built, rel in cut_pairs(tuple(carried)).items():
-        if not _runtime_output(rel):
-            continue
-        here = root / rel
-        if not Path(built).is_file():
-            continue
-        if not here.is_file() or _sha256(built) != _sha256(here):
-            unheld.add(rel)
+    pairs = [[str(built), rel, _runtime_output(rel)] for built, rel in cut_pairs(tuple(carried)).items()]
+    unheld = set(_native("unheld", root=root, pairs=pairs))
     if unheld:
         print(f"  {len(unheld)} member(s) are not the bytes that cut just made, and are recorded:")
         for rel in sorted(unheld)[:8]:
@@ -778,29 +636,9 @@ def _targets_for_members(root: Path, members: set) -> tuple:
     moved independently because generated solids are ignored; mapping every changed member
     back to its producer makes `--write` prove those bytes came from a current Bazel output too.
     """
-    if not members:
-        return [], []
-    if root.resolve() != _ROOT.resolve():
+    if not _native("target-query", root=root, workspace=_ROOT, members=list(members)):
         return [], sorted(members)
-    sys.path.insert(0, str(root / "tools" / "bazel"))
-    from gen_build import target_name
-    from inventory import inventory, tracked
-
-    inv = inventory(tracked())
-    seen, shared = set(), set()
-    for gens in inv:
-        for gen in gens:
-            stem = Path(gen).stem.strip("_").replace("_", "-")
-            (shared if stem in seen else seen).add(stem)
-
-    remaining = set(members)
-    targets = set()
-    for gens, made in inv.items():
-        owned = remaining & set(made["solids"])
-        if owned:
-            targets.add(f"//:{target_name(gens[0], shared)}")
-            remaining -= owned
-    return sorted(targets), sorted(remaining)
+    return tuple(_native("member-targets", members=list(members), inventory=_inventory_rows(root)))
 
 
 #: The pointer file's keys, in the order it holds them.
@@ -809,196 +647,67 @@ KEYS = ("_", "release", "store", "bundle", "solids", "sidecars", "website", "mov
 
 def _retired(root: Path, rel: str) -> bool:
     """A retired directory and its descendants are outside website publication."""
-    parent = Path(rel).parent
-    while parent != Path("."):
-        if (root / parent / ".retired").is_file():
-            return True
-        parent = parent.parent
-    return False
+    return _native("retired", root=root, path=rel)
 
 
 def _website_paths(root: Path, available=()) -> set:
     """Catalog membership, companions and named print files, without a filename allowlist."""
-    from urllib.parse import unquote, urlsplit
-
-    catalog = json.loads((root / "hardware/ledger/materials.json").read_text())
-    models, own = set(), set()
-    for material in catalog.get("materials", ()):
-        if not material.get("id", "").startswith("HSM-"):
-            continue
-        for model in material.get("models", ()):
-            file = unquote(urlsplit(model.get("file", "")).path)
-            if not file:
-                continue
-            rel = "hardware/" + file.removeprefix("hardware/")
-            if ".." in Path(rel).parts or _retired(root, rel):
-                continue
-            models.add(rel)
-            if not model.get("context"):
-                own.add(rel)
-    allowed = set(models)
-    for rel in models:
-        path = Path(rel)
-        allowed.update((rel + ".mesh", rel + ".json", rel + ".png"))
-        allowed.update(str(path.with_suffix(suffix)) for suffix in
-                       (".scorecard.json", ".facts.json", ".frame.json"))
-    own_stls = {str(Path(rel).with_suffix(".stl")) for rel in own}
-    allowed.update(own_stls)
-    # Print preparation records name their source part and STL explicitly. A
-    # shared folder or matching filename prefix does not make a gauge a part.
-    by_name = {(Path(rel).parent, Path(rel).stem) for rel in own}
-    for directory in {Path(rel).parent for rel in own}:
-        for record in (root / directory).glob("*.print.json"):
-            if _retired(root, str(record.relative_to(root))):
-                continue
-            try:
-                report = json.loads(record.read_text())
-            except (OSError, ValueError):
-                continue
-            parts = report.get("parts", ())
-            if not isinstance(parts, list) or not parts:
-                continue
-            sources = []
-            for part in parts:
-                if not isinstance(part, dict):
-                    break
-                source = str(part.get("source", ""))
-                if not source.startswith("hardware/"):
-                    source = str(directory / source)
-                named = (directory, part.get("name")) in by_name
-                if (".." in Path(source).parts or Path(source).parent != directory
-                        or (source not in own_stls and not named)):
-                    break
-                sources.append(source)
-            else:
-                allowed.update(sources)
-                project = report.get("project")
-                if isinstance(project, str) and Path(project).name == project:
-                    allowed.add(str(directory / project))
-    art = tuple(d + "/" for d in BUNDLED_ART_DIRS)
-    scenes = tuple(d + "/" for d in BUNDLED_GLB_DIRS)
-    boards = tuple(d + "/" for d in BUNDLED_BOARD_DIRS
-                   if any(model.startswith(d + "/") for model in models))
-    for rel in available:
-        if ((rel.startswith(art) and rel.endswith(BUNDLED_ART_SUFFIXES))
-                or (rel.startswith(scenes) and rel.endswith(".glb"))
-                or (boards and rel.startswith(boards)
-                    and not rel.endswith((".step", ".stl", ".mesh", ".glb", ".npz")))
-                or rel in BUNDLED_ART_FILES):
-            allowed.add(rel)
-    return {rel for rel in allowed if not _retired(root, rel)}
+    return set(_native("website-paths", root=root, available=list(available)))
 
 
 def website_for(root: Path, data: dict) -> dict:
     """Catalog models and their files; the complete store inventory stays in `solids`."""
-    allowed = _website_paths(root, data.get("solids", {}))
-    return {kind: {rel: digest for rel, digest in sorted(data.get(kind, {}).items())
-                   if rel in allowed}
-            for kind in ("solids", "sidecars")}
+    return _unorder(_native("website-ordered", root=root, data=data))
 
 
 def pointers_for(root: Path, rels: list, digest: str, size: int, solid_hashes: dict = None,
              sidecar_hashes: dict = None, made: dict = None, held: dict = None,
              stamp: int = None) -> dict:
-    asset = f"cad-{digest[:16]}.tar.gz"
-    slug = _origin_slug(root)
     solid_hashes = solid_hashes if solid_hashes is not None else hashes(root, rels)
-    return {
-        "_": "The pointer file: main points at these bytes on the release, by hash. Written by"
-             " tools/cad-artifacts/pack.py; web/scripts/fetch-cad-artifacts.mjs reads it at deploy.",
-        "release": {
-            "tag": TAG,
-            "asset": asset,
-            "url": f"https://github.com/{slug}/releases/download/{TAG}/{asset}",
-        },
-        "store": {"url": STORE_URL, "objects": OBJECT_PREFIX},
-        "bundle": {"sha256": digest, "bytes": size, "solids": len(rels)},
-        "solids": solid_hashes,
-        "sidecars": sidecar_hashes if sidecar_hashes is not None
-                    else hashes(root, sidecars(root)),
-        "moved": line_times(held or {}, solid_hashes, stamp if stamp is not None else int(time.time())),
-        "made": made or None,
-    }
+    sidecar_hashes = sidecar_hashes if sidecar_hashes is not None else hashes(root, sidecars(root))
+    return _unorder(_native("pointers", root=root, rels=rels, digest=digest, size=size,
+        slug=_origin_slug(root), tag=TAG, store_url=STORE_URL, prefix=OBJECT_PREFIX,
+        hashes=solid_hashes, hashes_order=_ordered(solid_hashes),
+        sidecar_order=_ordered(sidecar_hashes), made=made, made_order=_ordered(made),
+        held=held or {}, stamp=stamp if stamp is not None else int(time.time())))
 
 
 def _pointer_file(data: dict) -> dict:
     """`data` as the pointer file holds it: the keys `KEYS` names, in that order, and each
     member map in path order."""
-    return {key: dict(sorted(data[key].items())) if key in ("solids", "sidecars") else data[key]
-            for key in KEYS if data.get(key) is not None}
+    return _unorder(_native("pointer-file", ordered=_ordered(data)))
 
 
 def read_pointers(root: Path = _ROOT) -> dict:
-    try:
-        return json.loads((root / "hardware" / "cad-artifacts.json").read_text())
-    except (OSError, ValueError):
-        return {}
+    return _unorder(_native("read-pointers-ordered", root=root))
 
 
 def _write_pointers(data: dict) -> None:
-    POINTERS.parent.mkdir(parents=True, exist_ok=True)
-    data = {**data, "website": website_for(_ROOT, data)}
-    POINTERS.write_text(json.dumps(_pointer_file(data), indent=2, sort_keys=False) + "\n")
+    _native("write-pointers", root=_ROOT, path=POINTERS, data=data, ordered=_ordered(data))
 
 
 def _declared(root: Path) -> set:
     """Every publishable graph output and frozen static reference member."""
-    frozen = set(frozen_assets(root))
-    declared = set(frozen)
-    try:
-        graph = json.loads((root / "tools" / "bazel" / "graph.json").read_text())
-    except (OSError, ValueError):
-        return declared
-    declared |= {
-        str(f)
-        for node in graph.values()
-        for f in (node.get("writes") or [])
-    }
-    if root.resolve() == _ROOT.resolve():
-        sys.path.insert(0, str(_ROOT / "tools" / "bazel"))
-        from inventory import ACTION_INTERMEDIATE, IMPLICIT_SOLIDS
-        declared |= {path for paths in IMPLICIT_SOLIDS.values() for path in paths}
-        declared -= ACTION_INTERMEDIATE
-    member = _member_filter(frozen, root)
-    return {path for path in declared if member(path)}
+    return set(_native("declared", root=root, same_root=root.resolve() == _ROOT.resolve()))
 
 
 def sidecars(root: Path, graph: Graph = None) -> list:
     """Graph-declared scorecards served directly from the committed tree, repo-relative."""
-    if graph is not None:
-        return sorted(rel for rel in graph.writers if rel.endswith(".scorecard.json"))
-    try:
-        graph = json.loads((root / "tools" / "bazel" / "graph.json").read_text())
-    except (OSError, ValueError):
-        return []
-    return sorted({
-        str(path)
-        for node in graph.values()
-        for path in (node.get("writes") or [])
-        if str(path).endswith(".scorecard.json")
-    })
+    return _native("sidecars", root=root, graph=graph._wire() if graph is not None else None)
 
 
 def sidecar_lines(root: Path, held: dict, graph: Graph = None) -> dict:
     """Each scorecard's line: the hash of the one the tree holds, and the line the pointer file
     already has for one the tree does not hold."""
-    present = [rel for rel in sidecars(root, graph) if (root / rel).is_file()]
-    here = set(present)
-    kept = {rel: digest for rel, digest in held.get("sidecars", {}).items() if rel not in here}
-    return {**kept, **hashes(root, present)}
+    return _native("sidecar-lines", root=root, held=held,
+                   graph=graph._wire() if graph is not None else None)
 
 
 def sidecar_debt_targets(root: Path) -> list:
     """Producer labels whose committed viewer scorecards do not match this pointer file."""
-    held = read_pointers(root).get("sidecars", {})
-    owed = {
-        rel for rel in sidecars(root)
-        if not (root / rel).is_file() or held.get(rel) != _sha256(root / rel)
-    }
-    targets, unowned = _targets_for_members(root, owed)
+    targets, unowned = _targets_for_members(root, set(_native("sidecar-debt", root=root)))
     if unowned:
-        raise SystemExit("scorecard output(s) have no current Bazel producer:\n  "
-                         + "\n  ".join(unowned))
+        raise SystemExit("scorecard output(s) have no current Bazel producer:\n  " + "\n  ".join(unowned))
     return targets
 
 
@@ -1007,10 +716,7 @@ def _graph_gaps(root: Path, rels: list) -> tuple:
 
     A sibling STEP is not a declaration for an STL or `.step.mesh`: every published member is
     named by its producing action or its frozen reference manifest."""
-    declared = _declared(root)
-    unwatched = tuple(f"{d}/" for d in UNWATCHED_PRODUCERS)
-    present = {rel for rel in rels if not rel.startswith(unwatched)}
-    return sorted(present - declared), sorted(declared - present)
+    return tuple(_native("graph-gaps", root=root, rels=rels, declared=list(_declared(root))))
 
 
 def _undeclared(root: Path, rels: list) -> list:
@@ -1028,47 +734,23 @@ def _retirement_evidence(root: Path, retired: list) -> list:
     A SOURCE THAT IS GONE FROM THE TREE HAS ALREADY ANSWERED. A rename older than that commit is
     behind it, so no diff over `commit..HEAD` holds it; whether the file is there now does not
     depend on a range at all."""
-    made = read_pointers(root).get("made") or {}
-    by_commit = {}
-    for rel in retired:
-        line = made.get(rel)
-        by_commit.setdefault(line.get("commit", "") if isinstance(line, dict) else "",
-                             []).append(rel)
-    unexplained = list(by_commit.pop("", []))
-    for commit, rels in sorted(by_commit.items()):
-        old = subprocess.run(
-            ["git", "-C", str(root), "show", f"{commit}:tools/bazel/graph.json"],
-            capture_output=True, text=True)
-        moved = subprocess.run(
-            ["git", "-C", str(root), "diff", "--name-only", commit, "HEAD"],
-            capture_output=True, text=True)
-        try:
-            graph = json.loads(old.stdout) if old.returncode == 0 else None
-        except ValueError:
-            graph = None
-        if graph is None or moved.returncode != 0:
-            unexplained += rels
+    groups = _native("retirement-groups", held=read_pointers(root), retired=retired)
+    records = []
+    for commit, rels in groups.items():
+        if not commit:
             continue
-        changed = set(moved.stdout.splitlines())
-        for rel in rels:
-            producers = {gen for gen, seen in graph.items() if rel in seen.get("writes", ())}
-            if producers:
-                explained = (bool(producers & changed)
-                             or not any((root / gen).is_file() for gen in producers))
-            else:
-                explained = "tools/bazel/inventory.py" in changed
-            if not explained:
-                unexplained.append(rel)
-    return sorted(unexplained)
+        old = subprocess.run(["git", "-C", str(root), "show", f"{commit}:tools/bazel/graph.json"],
+                             capture_output=True, text=True)
+        moved = subprocess.run(["git", "-C", str(root), "diff", "--name-only", commit, "HEAD"],
+                               capture_output=True, text=True)
+        records.append(dict(rels=rels, graph=old.stdout, graph_ok=old.returncode == 0,
+                            diff_ok=moved.returncode == 0, changed=moved.stdout.splitlines()))
+    return _native("retirement-evidence", root=root, records=records, unrecorded=groups.get("", []))
 
 
 def retired_outputs(root: Path) -> list:
     """Pointed-at solids or scorecards no current producer or static manifest declares."""
-    pointers = read_pointers(root)
-    return sorted(
-        (set(pointers.get("solids", {})) - _declared(root))
-        | (set(pointers.get("sidecars", {})) - set(sidecars(root)))
-    )
+    return _native("retired-outputs", root=root, declared=list(_declared(root)))
 
 
 def prune(root: Path, allow_retired: bool = False) -> int:
@@ -1086,19 +768,13 @@ def prune(root: Path, allow_retired: bool = False) -> int:
             print(f"  {rel}")
         print("  Correct the graph/source history, or review and pass --allow-retired.")
         return 2
-    removed = 0
-    hardware = (root / "hardware").resolve()
-    for rel in retired:
-        path = root / rel
-        try:
-            path.resolve().relative_to(hardware)
-        except ValueError:
-            raise SystemExit(f"refusing to prune a pointer file path outside hardware/: {rel}")
-        if path.is_file() or path.is_symlink():
-            path.unlink()
-            removed += 1
-            print(f"  {rel}")
-    print(f"{removed} retired pointed-at output(s) removed; recoverable from the prior commit")
+    try:
+        removed = _native("prune", root=root, retired=retired)
+    except ValueError as error:
+        raise SystemExit(str(error).removeprefix("build-data: ")) from None
+    for rel in removed:
+        print(f"  {rel}")
+    print(f"{len(removed)} retired pointed-at output(s) removed; recoverable from the prior commit")
     return 0
 
 
@@ -1121,10 +797,8 @@ def _release_asset_matches(root: Path, asset: str, digest: str, size: int) -> bo
     listing = _gh(root, "release", "view", TAG, "--json", "assets")
     if listing.returncode != 0:
         return False
-    have = {a["name"]: a for a in json.loads(listing.stdout).get("assets", [])}
-    old = have.get(asset)
-    return bool(old and old.get("state") == "uploaded" and old.get("size") == size
-                and old.get("digest") == f"sha256:{digest}")
+    return _native("release-match", assets=json.loads(listing.stdout).get("assets", []),
+                   asset=asset, digest=digest, size=size)
 
 
 OBJECT_PREFIX = "s-"
@@ -1164,7 +838,7 @@ RETIRE_FLOOR_S = 30 * 60
 
 def object_asset(sha: str) -> str:
     """The release asset holding one member's bytes, named by those bytes."""
-    return f"{OBJECT_PREFIX}{sha}.gz"
+    return _native("object-asset", prefix=OBJECT_PREFIX, digest=sha)
 
 
 def release_assets(root: Path) -> list:
@@ -1181,11 +855,7 @@ def pointer_assets(held: dict) -> set:
     A SCORECARD IS SERVED FROM THE COMMITTED TREE and `upload_objects` sends solids, so a
     scorecard's name here is one the release never holds. This is reach, and a superset of the
     names on the release is the safe direction for it."""
-    names = {object_asset(sha) for sha in
-             set((held.get("solids") or {}).values())
-             | set((held.get("sidecars") or {}).values())}
-    asset = (held.get("release") or {}).get("asset")
-    return names | ({asset} if asset else set())
+    return set(_native("pointer-assets", held=held, prefix=OBJECT_PREFIX))
 
 
 def _shallow(root: Path) -> bool:
@@ -1235,21 +905,8 @@ def too_new(assets: list, now: float = None) -> set:
 
     AN ASSET THIS FUNCTION CANNOT DATE IS NEW. A sweep with no ground to say when something
     landed has no ground to delete it, and the cost of keeping one is one slot."""
-    import datetime as dt
-
-    now = time.time() if now is None else now
-    out = set()
-    for asset in assets:
-        name = asset.get("name") or ""
-        stamp = asset.get("createdAt")
-        try:
-            born = dt.datetime.fromisoformat(stamp.replace("Z", "+00:00")).timestamp()
-        except (AttributeError, TypeError, ValueError):
-            out.add(name)
-            continue
-        if now - born < RETIRE_FLOOR_S:
-            out.add(name)
-    return out
+    return set(_native("too-new", assets=assets, now=time.time() if now is None else now,
+                       floor=RETIRE_FLOOR_S))
 
 
 def retirable(root: Path, keep_cuts: int = CUTS_KEPT, now: float = None) -> tuple:
@@ -1288,16 +945,10 @@ def retirable(root: Path, keep_cuts: int = CUTS_KEPT, now: float = None) -> tupl
             "against 0 from the whole history. Fetch it all (actions/checkout `fetch-depth: 0`) "
             "before asking what may be retired.")
     assets = release_assets(root)
-    on_release = {a["name"] for a in assets}
-    fresh = too_new(assets, now)
-    pointer_files = pointer_files_in_history(root)
-    disk = pointer_assets(read_pointers(root))
-    reachable = (set().union(*pointer_files) if pointer_files else set()) | disk
-    kept = (set().union(*pointer_files[:keep_cuts]) if pointer_files[:keep_cuts] else set()) | disk
-    unreachable = sorted(n for n in on_release if n not in reachable and n not in fresh)
-    superseded = sorted(n for n in on_release
-                        if n in reachable and n not in kept and n not in fresh)
-    return unreachable, superseded
+    history = [list(cut) for cut in pointer_files_in_history(root)]
+    return tuple(_native("retirable", assets=assets, history=history,
+        disk=list(pointer_assets(read_pointers(root))), keep_cuts=keep_cuts,
+        now=time.time() if now is None else now, floor=RETIRE_FLOOR_S))
 
 
 def held_and_free(root: Path) -> tuple:
@@ -1308,16 +959,15 @@ def held_and_free(root: Path) -> tuple:
     does not hold them must not be asked. `make_room` wants the first on every publish and the
     second only at the cliff, so asking them together is what put a shallow tree in front of a
     sweep."""
-    held = len(release_assets(root))
-    return held, RELEASE_ASSET_CAP - held
+    return tuple(_native("release-space", assets=release_assets(root), capacity=RELEASE_ASSET_CAP))
 
 
 def room(root: Path, keep_cuts: int = CUTS_KEPT) -> dict:
     """How many assets the release holds, how many it can still take, and what could leave."""
-    held = len(release_assets(root))
+    held, _free = held_and_free(root)
     unreachable, superseded = retirable(root, keep_cuts)
-    return {"held": held, "free": RELEASE_ASSET_CAP - held,
-            "unreachable": unreachable, "superseded": superseded}
+    return _native("release-room", held=held, capacity=RELEASE_ASSET_CAP,
+                   unreachable=unreachable, superseded=superseded)
 
 
 def retire(root: Path, keep_cuts: int = CUTS_KEPT, unreachable_only: bool = False) -> int:
@@ -1325,7 +975,7 @@ def retire(root: Path, keep_cuts: int = CUTS_KEPT, unreachable_only: bool = Fals
     import concurrent.futures as cf
 
     state = room(root, keep_cuts)
-    going = list(state["unreachable"]) + ([] if unreachable_only else list(state["superseded"]))
+    going = _native("retire-plan", state=state, unreachable_only=unreachable_only)
     if not going:
         print(f"release holds {state['held']} of {RELEASE_ASSET_CAP}; nothing to retire")
         return 0
@@ -1397,13 +1047,8 @@ def objects_on_release(root: Path) -> set:
     listing = _gh(root, "release", "view", TAG, "--json", "assets")
     if listing.returncode != 0:
         return set()
-    out = set()
-    for a in json.loads(listing.stdout).get("assets", []):
-        name = a.get("name", "")
-        if (name.startswith(OBJECT_PREFIX) and name.endswith(".gz")
-                and a.get("state") == "uploaded"):
-            out.add(name[len(OBJECT_PREFIX):-len(".gz")])
-    return out
+    return set(_native("objects-on-release", assets=json.loads(listing.stdout).get("assets", []),
+                       prefix=OBJECT_PREFIX))
 
 
 def objects_to_send(rels: list, solid_hashes: dict, known: set) -> list:
@@ -1415,14 +1060,7 @@ def objects_to_send(rels: list, solid_hashes: dict, known: set) -> list:
     failure costs the pointer file its `objects`, and every deploy then reads the whole bundle for
     members it already holds. The second member of a pair is not a second send; it is already
     there when the first lands."""
-    seen, todo = set(), []
-    for rel in rels:
-        sha = solid_hashes[rel]
-        if sha in known or sha in seen:
-            continue
-        seen.add(sha)
-        todo.append(rel)
-    return todo
+    return _native("objects-to-send", rels=rels, hashes=solid_hashes, known=list(known))
 
 
 def put_object(url: str, staged: Path) -> bool:
@@ -1445,7 +1083,7 @@ def objects_in_store(hashes) -> set:
     from urllib.request import Request, urlopen
 
     out = set()
-    for digest in set(hashes):
+    for digest in _native("unique", values=list(hashes)):
         try:
             with urlopen(Request(STORE_URL + object_asset(digest), method="HEAD",
                                  headers={"User-Agent": "pack.py"}), timeout=30) as resp:
@@ -1473,8 +1111,6 @@ def upload_objects(root: Path, rels: list, solid_hashes: dict, known: set) -> bo
     asset rather than 124, and a pointer file this does not finish is a pointer file the tarball still answers.
     """
     import concurrent.futures as cf
-    import gzip
-    import shutil
     import tempfile
 
     todo = objects_to_send(rels, solid_hashes, known)
@@ -1486,9 +1122,7 @@ def upload_objects(root: Path, rels: list, solid_hashes: dict, known: set) -> bo
         """gzip one member and put it up. Returns the rel on failure, None on success."""
         sha = solid_hashes[rel]
         staged = Path(d) / object_asset(sha)
-        with open(root / rel, "rb") as src, open(staged, "wb") as raw, \
-                gzip.GzipFile(filename="", mode="wb", fileobj=raw, mtime=0) as out:
-            shutil.copyfileobj(src, out)
+        _native("gzip", source=root / rel, output=staged, level=9)
         try:
             if put_object(STORE_URL + object_asset(sha), staged):
                 return None
@@ -1531,17 +1165,16 @@ def upload(root: Path, bundle: Path, asset: str, digest: str, size: int) -> None
         if made.returncode != 0:
             raise SystemExit(f"gh release create failed:\n{made.stderr}")
     else:
-        have = {a["name"]: a for a in json.loads(listing.stdout).get("assets", [])}
-        old = have.get(asset)
-        if (old and old.get("state") == "uploaded" and old.get("size") == size
-                and old.get("digest") == f"sha256:{digest}"):
+        state = _native("release-state", assets=json.loads(listing.stdout).get("assets", []),
+                        asset=asset, digest=digest, size=size)
+        if state["matches"]:
             print(f"  {asset} is already on the release at the verified size and digest")
             return
-        if old:
+        if state["exists"]:
             print(f"  {asset} exists without the expected size/digest — replacing it")
     with tempfile.TemporaryDirectory() as d:
         staged = Path(d) / asset
-        staged.write_bytes(bundle.read_bytes())
+        _native("copy-file", source=bundle, output=staged)
         up = _gh(root, "release", "upload", TAG, str(staged), "--clobber")
     if up.returncode != 0:
         raise SystemExit(f"gh release upload failed:\n{up.stderr}")
@@ -1556,18 +1189,14 @@ def made_here(root: Path, held: dict, graph: Graph, index: dict, head: str, line
     on this disk, with `walked` holding each member's hash as this disk held it before anything
     was adopted. The rest of `moved`, and whatever the enclosure graft wrote, has nothing to say
     what cut it."""
-    tree = tree_digests(root, graph, lines, index)
-    derived = {rel for rel in set(moved) & set(tree)
-               if rel not in grafted and cut_after_inputs(root, rel, graph)}
-    ident = on_disk(root, index, lines, walked, graph)
-    cut = {rel: graph.digest(rel, ident) for rel in derived}
-    return made_for(held.get("made") or {}, lines, head, tree, cut, derived, set(moved) - derived,
-                    frozen=frozen_assets(root))
+    return _unorder(_native("made-here", root=root, held=held, held_order=_ordered(held),
+        graph=graph._wire(), index=index, head=head, lines=lines, walked=walked,
+        moved=list(moved), grafted=list(grafted), frozen=list(frozen_assets(root)),
+        skew_ns=GENERATED_SKEW_NS))
 
 
 def _unproven(made: dict) -> str:
-    count = sum(1 for line in made.values() if line.get("unproven"))
-    return f" — {count} of {len(made)} member(s) unproven" if count else ""
+    return _native("unproven", made=made)
 
 
 def _bundle_on_release(held: dict, rels: list) -> None:
@@ -1603,7 +1232,7 @@ def cut_whole_bundle(held: dict, rels: list, now: dict, sidecar_now: dict, made:
         size = path.stat().st_size
         data = pointers_for(_ROOT, rels, digest, size, now, sidecar_now, made, held=held)
         if release.get("objects"):
-            data["release"]["objects"] = release["objects"]
+            data = _patch(data, [(('release', 'objects'), release["objects"])])
         make_room(_ROOT, 1)
         upload(_ROOT, path, data["release"]["asset"], digest, size)
     _write_pointers(data)
@@ -1617,7 +1246,7 @@ def cut_bundle(held: dict, rels: list, now: dict, sidecar_now: dict, made: dict,
     """A whole bundle of `rels` up on the release with every member it lacks, and pointed at."""
     import tempfile
 
-    total = sum((_ROOT / r).stat().st_size for r in rels)
+    total = _native("total-bytes", root=_ROOT, rels=rels)
     with tempfile.TemporaryDirectory() as d:
         bundle = Path(d) / "bundle.tar.gz"
         digest = build(_ROOT, rels, bundle)
@@ -1630,7 +1259,7 @@ def cut_bundle(held: dict, rels: list, now: dict, sidecar_now: dict, made: dict,
         # this pointer file does not name can stand on the release under an older pointer file's window and go
         # in the same sweep — `known` was read before that and would have this run skip an
         # object it no longer holds, leaving `objects` claiming a set the release is short of.
-        if make_room(_ROOT, 1 + sum(1 for r in rels if now[r] not in known)):
+        if make_room(_ROOT, _native("object-count", rels=rels, hashes=now, known=list(known), extra=1)):
             known = objects_on_release(_ROOT)
         upload(_ROOT, bundle, data["release"]["asset"], digest, size)
         complete = upload_objects(_ROOT, rels, now, known)
@@ -1640,7 +1269,7 @@ def cut_bundle(held: dict, rels: list, now: dict, sidecar_now: dict, made: dict,
     # leaves it off, and the pointer file is read from the bundle the way a pointer file without it is — the
     # claim is about the whole set, so a partial one is not a smaller claim but a false one.
     if complete:
-        data["release"]["objects"] = OBJECT_PREFIX
+        data = _patch(data, [(('release', 'objects'), OBJECT_PREFIX)])
 
     _write_pointers(data)
     print(f"pointed at from {POINTERS.relative_to(_ROOT)}{_unproven(made)}")
@@ -1661,74 +1290,56 @@ def publish_held(grafted: set) -> int:
     rels = solids(_ROOT)
     now = hashes(_ROOT, rels)
     sidecar_now = sidecar_lines(_ROOT, held, graph)
-    walked = {**now, **sidecar_now}
-
-    pinned = list(rels)
+    walked = _native("merge-lines", maps=[now, sidecar_now])
+    mtimes = _native("mtimes", root=_ROOT, rels=rels) if held.get("solids") else {}
+    state = _native("held-state", held=held, rels=rels, now=now, sidecar_now=sidecar_now, mtimes=mtimes)
     if held.get("solids"):
-        mtimes = {rel: int((_ROOT / rel).stat().st_mtime) for rel in rels}
-        built, fresh, stale, absent = held_publish_plan(held, rels, now, mtimes)
-        if stale:
-            print(f"{len(stale)} member(s) on this disk are older than main's pointers; taking main's bytes")
-            for rel in adopt(_ROOT, held, stale):
-                now[rel] = held["solids"][rel]
-        if absent:
-            print(f"{len(absent)} member(s) main points at are not on this disk; their lines stand")
-        pinned = built + fresh
-        if pinned:
-            print(f"{len(built)} member(s) cut here since main's pointers moved and {len(fresh)} new; "
-                  "those lines move")
-    held_sidecars = held.get("sidecars", {})
-    side_moved = [rel for rel, digest in sidecar_now.items() if held_sidecars.get(rel) != digest]
-    lines = {**held.get("solids", {}), **{rel: now[rel] for rel in pinned}}
-    moved = set(pinned) | set(side_moved)
-    made = made_here(_ROOT, held, graph, index, head, {**lines, **sidecar_now}, walked, moved,
-                     grafted)
+        if state["stale"]:
+            print(f"{len(state['stale'])} member(s) on this disk are older than main's pointers; taking main's bytes")
+            taken = adopt(_ROOT, held, state["stale"])
+            now = _native("updated-lines", held=now, new=held["solids"], paths=taken)
+        if state["absent"]:
+            print(f"{len(state['absent'])} member(s) main points at are not on this disk; their lines stand")
+        if state["pinned"]:
+            print(f"{len(state['built'])} member(s) cut here since main's pointers moved and {len(state['fresh'])} new; those lines move")
+    state = _native("held-state", held=held, rels=rels, now=now, sidecar_now=sidecar_now, mtimes=mtimes)
+    pinned, side_moved, lines = state["pinned"], state["side_moved"], state["lines"]
+    moved = set(state["moved"])
+    whole_lines = _native("merge-lines", maps=[lines, sidecar_now])
+    made = made_here(_ROOT, held, graph, index, head, whole_lines, walked, moved, grafted)
 
     if not pinned:
-        held_made = held.get("made") or {}
-        shifted = sum(1 for rel in set(made) | set(held_made) if made.get(rel) != held_made.get(rel))
-        if (not side_moved and not shifted
-                and held.get("website") == website_for(_ROOT, held)):
+        records = _native("held-record-state", held=held, made=made, side_moved=side_moved,
+                          website=website_for(_ROOT, held))
+        if records["unchanged"]:
             print("no unpublished bytes or `made` lines are held")
             return 0
-        held["sidecars"], held["made"] = sidecar_now, made
+        held = _patch(held, [(('sidecars',), sidecar_now), (('made',), made)])
         _write_pointers(held)
-        print(f"{len(side_moved)} scorecard(s) and {shifted} `made` line(s) moved, and no member's "
-              f"bytes{_unproven(made)}")
+        print(f"{len(side_moved)} scorecard(s) and {records['shifted']} `made` line(s) moved, and no member's bytes{_unproven(made)}")
         return 0
 
     known = objects_on_release(_ROOT)
-
-    # A HELD PUBLISH PUTS UP WHAT MOVED AND NOTHING ELSE. Every member of a pointer file is on the
-    # release under its own hash, and that is what `fetch-cad-artifacts.mjs` reads by
-    # (`release.objects`); the bundle is one asset holding all of them for a pointer file without that
-    # lane. Tarring and uploading it costs the whole tree — 173 MB and most of the minute a
-    # publish took — to move one member the site never reads from it. So the post-commit path
-    # sends the objects that moved, keeps the bundle the pointer file already names and says so with
-    # `bundle.behind`; the reconciler's plain `--write` cuts a whole one. A held
-    # publish with no bundle to keep, or one whose objects did not all land, cuts the bundle
-    # here, so a pointer file always names an asset that answers for it.
     prior_bundle = held.get("bundle", {})
     if prior_bundle.get("sha256"):
-        known |= objects_in_store(now[r] for r in pinned)
-        if make_room(_ROOT, sum(1 for r in pinned if now[r] not in known)):
-            known = objects_on_release(_ROOT) | objects_in_store(now[r] for r in pinned)
+        pin_hashes = _native("map-values", data=now, paths=pinned)
+        known = set(_native("set-plan", first=list(known), second=list(objects_in_store(pin_hashes)))["union"])
+        if make_room(_ROOT, _native("object-count", rels=pinned, hashes=now, known=list(known))):
+            known = set(_native("set-plan", first=list(objects_on_release(_ROOT)),
+                                second=list(objects_in_store(pin_hashes)))["union"])
         if upload_objects(_ROOT, pinned, now, known):
             data = pointers_for(_ROOT, sorted(lines), prior_bundle["sha256"],
                                 prior_bundle.get("bytes", 0), lines, sidecar_now, made, held=held)
-            data["bundle"] = {**prior_bundle, "behind": True}
-            data["release"]["objects"] = OBJECT_PREFIX
+            data = _patch(data, [(('bundle',), prior_bundle), (('bundle', 'behind'), True),
+                                 (('release', 'objects'), OBJECT_PREFIX)])
             _write_pointers(data)
-            print(f"{len(pinned)} member(s) up on their own hash; "
-                  f"{data['release']['asset']} stays behind for the reconciler")
+            print(f"{len(pinned)} member(s) up on their own hash; {data['release']['asset']} stays behind for the reconciler")
             print(f"pointed at from {POINTERS.relative_to(_ROOT)}{_unproven(made)}")
             return 0
         print("  not every object landed; cutting the bundle so this pointer file reads whole")
         known = objects_on_release(_ROOT)
-    whole = {**now, **sidecar_now}
     return cut_bundle(held, rels, now, sidecar_now,
-                      made_here(_ROOT, held, graph, index, head, whole, walked, moved, grafted),
-                      known)
+                      made_here(_ROOT, held, graph, index, head, state["whole"], walked, moved, grafted), known)
 
 
 def main(argv) -> int:
@@ -1792,14 +1403,14 @@ def main(argv) -> int:
 
     graph = Graph.load(_ROOT)
     rels = solids(_ROOT)
-    total = sum((_ROOT / r).stat().st_size for r in rels)
+    total = _native("total-bytes", root=_ROOT, rels=rels)
     print(f"{len(rels)} generated solid(s), {total / 1e6:.1f} MB in the tree")
 
     # A SCORECARD THE GRAPH DECLARES AND THE TREE DOES NOT HOLD IS NOT PINNABLE, and that is the
     # whole of what follows from it. It keeps the line it has and the rest are pointed at around it.
     declared_sidecars = sidecars(_ROOT, graph)
-    sidecar_rels = [rel for rel in declared_sidecars if (_ROOT / rel).is_file()]
-    for rel in sorted(set(declared_sidecars) - set(sidecar_rels)):
+    sidecar_rels = _native("existing", root=_ROOT, paths=declared_sidecars)
+    for rel in _native("set-plan", first=declared_sidecars, second=sidecar_rels)["difference"]:
         print(f"  no scorecard in the tree for a rule that declares one: {rel}")
 
     loose, missing = _graph_gaps(_ROOT, rels)
@@ -1822,7 +1433,7 @@ def main(argv) -> int:
 
     # Retirement takes a public thing away, which `--prune` does deliberately and this does not.
     # A scorecard whose producer is gone keeps the pointer it has until that runs.
-    kept = set(held.get("sidecars", {})) - set(sidecar_rels)
+    kept = _native("set-plan", first=list(held.get("sidecars", {})), second=sidecar_rels)["difference"]
     if kept:
         print(f"  {len(kept)} scorecard(s) hold their point at; --prune retires one")
     sidecar_now = sidecar_lines(_ROOT, held, graph)
@@ -1830,36 +1441,37 @@ def main(argv) -> int:
     if args.write:
         index, head = staged(_ROOT), _head(_ROOT)
         reached, dirty = _dirty_artifact_reach(_ROOT)
-        was = {**held.get("solids", {}), **held.get("sidecars", {})}
-        bytes_moved = {rel for rel, digest in {**now, **sidecar_now}.items()
-                       if was.get(rel) != digest}
-        tree = tree_digests(_ROOT, graph, {**now, **sidecar_now}, index)
-        debt = (set(_owed_artifact_targets(_ROOT, made, tree))
-                | set(_targets_for_members(_ROOT, bytes_moved)[0]))
+        was = _native("merge-lines", maps=[held.get("solids", {}), held.get("sidecars", {})])
+        lines = _native("merge-lines", maps=[now, sidecar_now])
+        bytes_moved = set(_native("changed-lines", old=was, new=lines))
+        tree = tree_digests(_ROOT, graph, lines, index)
+        debt = _native("set-plan", first=_owed_artifact_targets(_ROOT, made, tree),
+                       second=_targets_for_members(_ROOT, bytes_moved)[0])["union"]
         # A rule an uncommitted edit reaches has nothing at HEAD to be cut against, and the
         # record is what says so; the rest are cut and carried here.
-        would_not_cut, unheld = carry_the_cut(_ROOT, sorted(debt - set(reached)))
-        carried = debt - set(reached) - set(would_not_cut)
+        would_not_cut, unheld = carry_the_cut(_ROOT, _native("set-plan", first=debt, second=reached)["difference"])
+        carried = set(_native("set-plan", first=debt, second=reached, third=would_not_cut)["remaining"])
         # The carry writes bazel-bin into the tree, so the bytes this points at are read after it.
         rels = solids(_ROOT)
         now = hashes(_ROOT, rels)
         sidecar_now = sidecar_lines(_ROOT, held, graph)
-        lines = {**now, **sidecar_now}
+        lines = _native("merge-lines", maps=[now, sidecar_now])
         tree = tree_digests(_ROOT, graph, lines, index)
         # A MEMBER THIS TREE HOLDS THE CUT OF IS WHAT ITS INPUTS ON THIS DISK MAKE. One whose
         # bytes are not that cut's, or that reads one, is refuted, whatever its line said.
-        derived = {rel for rel in _members_of_targets(_ROOT, carried) & set(tree)
-                   if rel not in unheld and not graph.inputs(rel) & unheld}
-        ident = on_disk(_ROOT, index, lines, lines, graph)
-        bytes_moved = {rel for rel, digest in lines.items() if was.get(rel) != digest}
-        made = made_for(made, lines, head, tree, {rel: graph.digest(rel, ident) for rel in derived},
-                        derived, bytes_moved - derived, unheld, frozen=frozen_assets(_ROOT))
+        derived = set(_native("derived-members", members=list(_members_of_targets(_ROOT, carried)),
+                              tree=tree, unheld=list(unheld), graph=graph._wire()))
+        cut = _native("cut-digests", root=_ROOT, graph=graph._wire(), index=index,
+                      lines=lines, members=lines, paths=list(derived))
+        bytes_moved = _native("changed-lines", old=was, new=lines)
+        uncut = _native("set-plan", first=bytes_moved, second=list(derived))["difference"]
+        made = made_for(made, lines, head, tree, cut, derived, uncut, unheld, frozen=frozen_assets(_ROOT))
         if _unproven(made):
             print(f"{head[:12]}:{_unproven(made)}")
             for path in dirty[:8]:
                 print(f"  uncommitted: {path}")
-    same_solids = held.get("solids") == now
-    same_sidecars = held.get("sidecars") == sidecar_now
+    state = _native("reconcile-state", held=held, now=now, sidecars=sidecar_now)
+    same_solids, same_sidecars = state["same_solids"], state["same_sidecars"]
     if same_solids and same_sidecars:
         if args.write:
             release = held.get("release", {})
@@ -1874,17 +1486,14 @@ def main(argv) -> int:
             # this tree holds those bytes, so what the release is missing goes up without
             # cutting anything and without the pointer file naming a different asset.
             known = objects_on_release(_ROOT)
-            if make_room(_ROOT, sum(1 for r in rels if now[r] not in known)):
+            if make_room(_ROOT, _native("object-count", rels=rels, hashes=now, known=list(known))):
                 known = objects_on_release(_ROOT)
             whole = upload_objects(_ROOT, rels, now, known)
-            objects_was = release.get("objects")
-            if whole:
-                release["objects"] = OBJECT_PREFIX
-            else:
-                release.pop("objects", None)
-            if ((held.get("made") or {}) != made or release.get("objects") != objects_was
-                    or held.get("website") != website_for(_ROOT, held)):
-                held["made"] = made
+            records = _native("reconcile-records", held=held, held_order=_ordered(held),
+                              made=made, made_order=_ordered(made), complete=whole,
+                              prefix=OBJECT_PREFIX, website=website_for(_ROOT, held))
+            if records["changed"]:
+                held = _unorder(records["ordered"])
                 _write_pointers(held)
                 print(f"pointer file names this tree — {held['release']['asset']}; its records "
                       f"moved{_unproven(made)}")
@@ -1892,15 +1501,8 @@ def main(argv) -> int:
         print(f"pointer file names this tree — {held['release']['asset']}")
         return 0
 
-    was = held.get("solids", {})
-    moved = sorted(k for k in now if k in was and was[k] != now[k])
-    fresh = sorted(set(now) - set(was))
-    gone = sorted(set(was) - set(now))
-    side_was = held.get("sidecars", {})
-    side_moved = sorted(k for k in sidecar_now
-                        if k in side_was and side_was[k] != sidecar_now[k])
-    side_fresh = sorted(set(sidecar_now) - set(side_was))
-    side_gone = sorted(set(side_was) - set(sidecar_now))
+    moved, fresh, gone = state["solids"]
+    side_moved, side_fresh, side_gone = state["sidecars"]
     if not held:
         print("no pointer file yet — `--write` makes one")
     else:
@@ -1931,7 +1533,7 @@ def main(argv) -> int:
         if held.get("bundle", {}).get("behind"):
             return cut_whole_bundle(held, rels, now, sidecar_now, made)
         _bundle_on_release(held, rels)
-        held["sidecars"], held["made"] = sidecar_now, made
+        held = _patch(held, [(('sidecars',), sidecar_now), (('made',), made)])
         _write_pointers(held)
         print(f"pointed at current scorecards without rebuilding {release['asset']}")
         return 0

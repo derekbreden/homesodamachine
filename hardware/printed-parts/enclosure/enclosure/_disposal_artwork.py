@@ -1,41 +1,29 @@
 """The accepted disposal warning's glyph curves and layout metrics, in font units."""
+from __future__ import annotations
 
-from functools import cache
-import json
-from pathlib import Path
+import sys as _sys
+from pathlib import Path as _Path
 
+_hardware = next(p for p in _Path(__file__).resolve().parents if p.name == "hardware")
+_sys.path[:0] = [str(_hardware / "scripts"), str(_hardware / "printed-parts/enclosure/enclosure"), str(_hardware / "printed-parts/cadlib")]
+import _rust_part
+_rust_part.start()
+from _enclosure_compiled import compiled as _compiled
 
-@cache
-def numbers(family, kind):
-    artwork = json.loads(Path(__file__).with_name('disposal-warning-artwork.json').read_text())
-    if family != artwork['family'] or kind != artwork['kind']:
-        raise ValueError('the disposal warning needs artwork for its selected face')
-    return artwork
+_rust_enclosure_module = '_disposal_artwork'
 
+def __getattr__(name):
+    if name == "__all__":
+        return _compiled('_disposal_artwork', action="public-names")
+    if name.startswith("__"):
+        raise AttributeError(name)
+    try:
+        return _compiled('_disposal_artwork', action="get", path=(name,))
+    except ValueError as error:
+        raise AttributeError(name) from error
 
-def flat_bounds(lines, cap_height, depth, line_gap, family, kind):
-    """The complete raked warning's XY bounds before its placement on the rear wall."""
-    art = numbers(family, kind)
-    scale = (cap_height/art['cap_height_at_one'])/art['units_per_em']
-    rows = []
-    for line in lines:
-        advance = sum(art['glyphs'][char]['advance'] for char in line)
-        pen, boxes = 0.0, []
-        for char in line:
-            glyph = art['glyphs'][char]
-            if glyph['bounds'] is not None:
-                x0, x1, y0, y1 = glyph['bounds']
-                at = (-advance/2+pen)*scale
-                base = art['baseline_units']*scale
-                boxes.append((at+x0*scale, at+x1*scale,
-                              base+y0*scale, base+y1*scale))
-            pen += glyph['advance']
-        rows.append((max(b[1] for b in boxes)-min(b[0] for b in boxes),
-                     max(b[3] for b in boxes)-min(b[2] for b in boxes)))
-    row_height = max(height for _width, height in rows)
-    leading = row_height+line_gap
-    width = max(width for width, _height in rows)
-    spans = [(index*leading+(row_height-height)/2,
-              index*leading+(row_height-height)/2+height+depth)
-             for index, (_width, height) in enumerate(reversed(rows))]
-    return -width/2, width/2, min(a for a, _b in spans), max(b for _a, b in spans)
+from _enclosure_compiled import install as _install
+_install(_sys.modules[__name__])
+
+if __name__ == "__main__":
+    _compiled('_disposal_artwork', action="main")

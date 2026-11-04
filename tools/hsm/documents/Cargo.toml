@@ -10,3 +10,6 @@ publish = false
 anyhow.workspace = true
 serde = { workspace = true, features = ["derive"] }
 serde_json = { workspace = true, features = ["float_roundtrip"] }
+sha2.workspace = true
+regex = "1"
+blake2 = "0.10"

@@ -83,6 +83,27 @@ from world_workplane import WorldWorkplane, xy_plane_z_up, xz_plane_y_up
 # WORLD FRAME PRIMITIVES
 # ============================================================
 
+from _rust_data import request as _data_request
+
+
+def _shell_data(fn="datums", **values):
+    if fn in ("numbers", "_lever_outline"):
+        library = _data_request("faucet-data", "faucet-data", {"op": "geos-library"})
+        _cadq_export.note_read(library["path"])
+    if fn == "variables" and "directory" in values:
+        for name in ("faucet-shell-base.stl", "faucet-shell-tip.stl"):
+            _cadq_export.note_read(Path(values["directory"]) / name)
+    return _data_request("faucet-data", "faucet-data", {"op": "shell", "fn": fn, "slip": fits.slip, **values})
+
+
+_shell_values = _shell_data()
+globals().update(_shell_values["datums"])
+for _record in _shell_values["bounds"]:
+    _reading = _bounds.bound(_record["id"], _record["label"], _record["target"])
+    for _ok, _detail in _record["readings"]:
+        _reading(_ok, _detail)
+
+
 def _horizontal_plane(z_offset):
     """XY plane at world Z = z_offset; coords (world_x, world_y), +Z normal."""
     return WorldWorkplane(xy_plane_z_up).workplane(offset=z_offset)
@@ -100,158 +121,59 @@ def _vertical_plane(x_offset):
     return cq.Workplane(_yz_plane_x_normal).workplane(offset=x_offset)
 
 
-shell_center_x = 0.0
-shell_center_y = +3.175
-
-
 # ZONE 1 — first [13 mm](ZONE1_HEIGHT); the Westbrass is a full ⌀[31.5 mm](WESTBRASS_OD) cylinder here
 
-zone1_z_bottom = 0.0
-zone1_z_top = 13.0
-zone1_height = zone1_z_top - zone1_z_bottom  # [13 mm](ZONE1_HEIGHT)
-
-bore_clearance = 0.25  # mm per side
 
 # Westbrass bore — [32 mm](WESTBRASS_BORE_D); Westbrass OD [31.5 mm](WESTBRASS_OD).
-westbrass_bore_diameter = 31.5 + 2.0 * bore_clearance
-westbrass_bore_x = 0.0
-westbrass_bore_y = 0.0
+
 
 # Flavor-tube pill — 1/4" OD LLDPE tubes ([4 mm](FLAVOR_TUBE_OD) OD), tangent to the
 # Westbrass's +Y face (Y=+[15.75 mm](WESTBRASS_RECT_LONG_HALF)); the mounting row is F1-D-F2.
 # [18.15 mm](PILL_L) long axis (X), [7.25 mm](PILL_W) short axis (Y).
-flavor_pill_center = (_faucet_interface.bundle_slot_center_x, +flavor_tube_depth)
+
 
 # [13.18 mm](FLAVOR_PILL_Y_MINUS) — flat -Y edge of the flavor pill
 # cutout in zones 1-4, on the Westbrass-bore +Y wall at the cutout's X corners.
-flavor_pill_y_minus_edge = min(
-    +flavor_tube_depth - pill_width_y / 2.0,
-    +math.sqrt((westbrass_bore_diameter / 2.0) ** 2 - max(
-        abs(_faucet_interface.bundle_slot_left_x),
-        abs(_faucet_interface.bundle_slot_right_x)) ** 2),
-)
 
 
 # SHELL OUTER
-wall_thickness_min = 2.0
+
 
 # The donor and lever envelope owns the lower arch's construction datum.
-show_wall = 4.2
-print_layer_height = 0.24
-print_bead_width = 0.42
 
-_westbrass_bore_farthest_from_shell_center = (
-    (shell_center_y - westbrass_bore_y) + westbrass_bore_diameter / 2.0
-)  # = [19.18 mm](WESTBRASS_BORE_FARTHEST)
+
 # THE PILL'S FARTHEST POINT IS ON AN END CAP AND NOT ON ITS BACK EDGE. The cutout is a slot
 # with its cap circles at (±`flavor_tube_x_offset`, `flavor_tube_depth`), and the shell's outer
 # is a cylinder about `shell_center` — so the corner that reaches furthest from that centre is a
 # cap's own rim, `pill_width_y / 2` out from a centre standing off the axis in X as well as Y.
 # Read on the +Y edge alone the reach comes back 0.32 mm short, and the wall over the cap's
 # shoulder is that much thinner than the figure says.
-_pill_farthest_from_shell_center = (
-    math.hypot(abs(_faucet_interface.bundle_mount_x)+flavor_tube_x_offset,
-               flavor_tube_depth - shell_center_y) + pill_width_y / 2.0
-)  # = [20.29 mm](PILL_FARTHEST)
+
 # [24.49 mm](SHELL_OUTER_R) outer-cylinder radius.
-shell_outer_r = (
-    max(_westbrass_bore_farthest_from_shell_center, _pill_farthest_from_shell_center)
-    + show_wall
-)
 
 
 # ZONE 2
 
-zone2_z_bottom = zone1_z_top  # [13 mm](WESTBRASS_CYL_TOP_Z)
-zone2_z_top = 39.0  # Westbrass plateau
-zone2_height = zone2_z_top - zone2_z_bottom  # [26 mm](ZONE2_HEIGHT)
 
 # Body rectangle dimensions
-westbrass_rect_long_y = 31.5  # depth axis
-westbrass_rect_short_x = 17.0  # lateral axis
 
-westbrass_bore_rect_long_y = westbrass_rect_long_y + 2.0 * bore_clearance  # [32 mm](WESTBRASS_BORE_RECT_LONG)
-westbrass_bore_rect_short_x = westbrass_rect_short_x + 2.0 * bore_clearance  # [17.5 mm](WESTBRASS_BORE_RECT_SHORT)
 
 # Cove transition fillet — matches the Westbrass's transition_fillet_r.
-cove_r = 6.0
 
-zone2_bore_z_bottom = zone1_z_top + bore_clearance  # [13.25 mm](ZONE2_BORE_Z_BOTTOM)
 
 # [2 mm](WALL_MIN) cylindrical shell wall above the Westbrass cyl top before the cove.
-shell_outer_lip = wall_thickness_min + bore_clearance  # [2.25 mm](SHELL_OUTER_LIP)
-zone1_outer_z_top = zone1_z_top + shell_outer_lip  # [15.25 mm](ZONE1_OUTER_Z_TOP)
-zone2_outer_z_bottom = zone1_outer_z_top  # [15.25 mm](ZONE1_OUTER_Z_TOP)
 
 
 # BASE JOINT — three hidden M3 screws clamp the plate against the shell.
 # Three pedestals register the plate before the screws are tightened.
-foot_width = 58.0
-foot_depth = 59.0
-foot_center_y = 0.0
-base_pod_counterbore_dia = 6.15
-base_pod_shank_dia = 3.9
-base_pod_wall = wall_thickness_min
+
+
 # The lateral sockets clear the rear bundle and keep two millimetres
 # of continuous stock around both their socket and installed brass envelopes.
-base_pod_center_x = 22.5
-base_pod_center_y = -2.0
-base_pod_front_center_x = 0.0
-base_pod_front_center_y = -22.3
-base_pod_centers = [
-    (+base_pod_center_x, base_pod_center_y),
-    (-base_pod_center_x, base_pod_center_y),
-    (base_pod_front_center_x, base_pod_front_center_y),
-]
-base_pod_z_bottom = zone1_z_bottom
-base_pod_insert_dia = 4.0
-base_insert_outer_dia = 4.6
-base_insert_length = 4.0
-base_pedestal_dia = base_pod_shank_dia + 2.0 * base_pod_wall
-base_pedestal_height = 2.2
-base_pedestal_chamfer = 0.4
-base_pod_hole_dia = base_pedestal_dia + 2.0 * fits.slip
-base_pod_hole_depth = base_pedestal_height + 1.0
-base_insert_bottom_z = base_pod_z_bottom + base_pod_hole_depth
-base_pod_insert_depth = base_insert_length + 1.25
-base_pod_z_top = base_insert_bottom_z + base_pod_insert_depth + base_pod_wall
-base_pod_radius = base_insert_outer_dia / 2.0 + base_pod_wall
-base_screw_length = 8.0
-base_screw_head_height = 3.0
-base_screw_head_recess = 0.2
-base_screw_counterbore_depth = base_screw_head_height + base_screw_head_recess
-base_screw_seat_z = -above_counter_plate_thickness + base_screw_counterbore_depth
-base_plate_seat_thickness = base_pedestal_height - base_screw_seat_z
+
+
 # Positive material is measured against the inserted brass envelope, not its pilot.
-_base_insert_wall = _bounds.bound(
-    "faucet-base-insert-wall", "The base inserts keep a full wall to the Westbrass cavity",
-    f"at least {wall_thickness_min:g} mm")
-for _x, _y in base_pod_centers:
-    _stock = math.hypot(_x, _y) - westbrass_bore_diameter / 2.0 - base_insert_outer_dia / 2.0
-    _base_insert_wall(_stock >= wall_thickness_min,
-                      f"insert at ({_x:g}, {_y:g}) has {_stock:.4f} mm to the donor cavity")
-_bounds.state(
-    "faucet-base-screw-seat", "The hidden screw head bears on a full printed wall",
-    f"at least {wall_thickness_min:g} mm", base_plate_seat_thickness >= wall_thickness_min - 1e-9,
-    f"the {above_counter_plate_thickness:g} mm plate and {base_pedestal_height:g} mm pedestal "
-    f"retain {base_plate_seat_thickness:g} mm above the {base_screw_counterbore_depth:g} mm counterbore")
 
-
-lever_x_half = 6.5
-lever_fit_clearance = 0.35
-lever_sweep_allowance = 0.005
-lever_insertion_front_y = -65.0
-lever_rest_back_y = 9.0
-lever_clearance_x_half = lever_x_half + lever_fit_clearance
-lever_clearance_y_back = lever_rest_back_y + lever_fit_clearance + lever_sweep_allowance
-lever_rest_top_z = zone2_z_top + 13.0
-
-shell_rect_y_half = shell_outer_r  # [24.49 mm](SHELL_OUTER_R)
-shell_rect_x_half = westbrass_bore_rect_short_x / 2.0 + show_wall  # [12.95 mm](SHELL_RECT_X_HALF)
-shell_rect_y_width = 2.0 * shell_rect_y_half
-shell_rect_x_width = 2.0 * shell_rect_x_half
-shell_rect_y_max = shell_center_y + shell_rect_y_half  # [27.67 mm](SHELL_RECT_Y_MAX) (toward back)
-shell_rect_y_min = shell_center_y - shell_rect_y_half  # [-21.32 mm](SHELL_RECT_Y_MIN) (toward user)
 
 # ZONE 3 — arch wraps (two wings at ±X)
 #
@@ -260,129 +182,40 @@ shell_rect_y_min = shell_center_y - shell_rect_y_half  # [-21.32 mm](SHELL_RECT_
 # (∓15.75, 41) and (0, 46).
 # Plateau between the arches (X ∈ ±[6.75 mm](WING_INNER_X)) is open.
 
-zone3_z_bottom = zone2_z_top  # [39 mm](ZONE3_Z_BOTTOM)
-
-arch_z_base = 41.0  # Westbrass foot top
-arch_z_peak = 46.0  # Westbrass arc peak
-westbrass_arch_inner_x = 7.0
-westbrass_arch_outer_x = 8.5
-
-shell_arch_bore_inner_x = westbrass_arch_inner_x - bore_clearance  # [6.75 mm](SHELL_ARCH_BORE_INNER_X)
-shell_arch_bore_outer_x = westbrass_arch_outer_x + bore_clearance  # [8.75 mm](SHELL_ARCH_BORE_OUTER_X)
-shell_arch_bore_z_foot_top = arch_z_base + bore_clearance  # [41.25 mm](SHELL_ARCH_BORE_Z_FOOT_TOP)
-shell_arch_bore_z_peak = arch_z_peak + bore_clearance  # [46.25 mm](SHELL_ARCH_BORE_Z_PEAK)
-
-shell_arch_z_foot_top = arch_z_base + shell_outer_lip  # [43.25 mm](SHELL_ARCH_Z_FOOT_TOP)
-shell_arch_z_peak = arch_z_peak + shell_outer_lip  # [48.25 mm](SHELL_ARCH_Z_PEAK)
-wing_inner_x = shell_arch_bore_inner_x  # [6.75 mm](WING_INNER_X)
-wing_outer_x = shell_rect_x_half  # [12.95 mm](SHELL_RECT_X_HALF)
 
 # ZONE 3 — plateau fill (between the wings, Y ≥ fill_y_min).
-soda_faucet_tube_y = +8.875
+
 # 3/8" LLDPE soda faucet tube, internal to the faucet — sealed in the
 # Westbrass's 10.0 mm port via a printed TPU bushing (see
 # ../tpu-o-ring/).
-soda_faucet_tube_od = 0.375 * 25.4  # [9.525 mm](SODA_FAUCET_TUBE_OD)
+
 # [10.22 mm](SODA_FAUCET_HOLE_D) water bore.
-soda_faucet_hole_diameter = soda_faucet_tube_od + 2.0 * bore_clearance + 0.20
+
 
 # 4 mm LLDPE flavor tubes, tangent to the soda faucet tube at the dispense
 # point and sitting behind it (more +Y).
-flavor_tube_post_bend_y = soda_faucet_tube_y + _paths.TIGHT_FLAVOR_N
+
 # neoFlo LLDPE-4 (1/4-inch OD) supplier bend radius: 1 inch.
 # https://assets.freshwatersystems.com/image/upload/s--N9disqrx--/gjtidjfc0tlprqbhb4ka.pdf
-flavor_bend_min_radius = _paths.FLAVOR_MIN_BEND
-flavor_bend_radius = 40.0
-flavor_bend_start_z = _paths.LOWER_START_Z
-flavor_bend_angle_rad = math.acos(
-    1.0 - (flavor_tube_depth - flavor_tube_post_bend_y) / (2.0 * flavor_bend_radius)
-)
-
-fill_y_min = +10.46  # back third of the soda faucet tube (Y ≥ [10.46 mm](FILL_Y_MIN))
 
 
 # ZONE 4 — rect column above the arch (soda faucet tube + flavor pill cutouts).
-zone4_z_bottom = shell_arch_z_foot_top  # [43.25 mm](SHELL_ARCH_Z_FOOT_TOP)
+
 # Clears the pressed-lever head corner (Y=+6.78, Z=54.024), which sits
 # inside zone 5's water-circle outline (Y=+[8.875 mm](SODA_FAUCET_TUBE_Y),
 # R=[9.472 mm](TUBE_SHELL_SODA_R)); zone 5's bottom is above it.
-zone4_z_top = 57.5
-zone4_height = zone4_z_top - zone4_z_bottom  # [14.25 mm](ZONE4_HEIGHT)
 
 
 # ZONE 5 — round tube wrapper above the lever, carrying the soda bore
 # and flavor pill. Its wall contains both halves of the curved joint.
-zone5_z_bottom = zone4_z_top  # [57.5 mm](ZONE5_Z_BOTTOM)
-zone5_z_top = zone4_z_top + 10.0  # [67.5 mm](ZONE5_Z_TOP)
-zone5_height = zone5_z_top - zone5_z_bottom  # [10 mm](ZONE5_HEIGHT)
+
+
 # Water → flavor offset along world Y; positive — flavor sits behind water.
-flavor_offset_y_from_water = flavor_tube_post_bend_y - soda_faucet_tube_y  # ≈ [5.58 mm](FLAVOR_OFFSET_Y)
-
-split_socket_wall = wall_thickness_min
-split_plug_wall = wall_thickness_min
-split_slip = 2.0 * fits.slip
-zone5_wall = split_socket_wall + split_slip / 2.0 + split_plug_wall
-
-signal_lane_width = 5.0
-signal_lane_depth = 1.8
-signal_lane_center_n = 11.55
-signal_ribbon_max_width = _paths.RIBBON_WIDTH
-signal_ribbon_max_depth = _paths.RIBBON_DEPTH
-_tube_soda_bore_r = soda_faucet_hole_diameter / 2.0
-_tube_pill_bore_r = flavor_tube_hole_dia / 2.0
-_tube_pill_cap_x = (pill_length_x - pill_width_y) / 2.0
-_tube_bore_caps = (
-    (_paths.TIGHT_FLAVOR_X, _paths.TIGHT_FLAVOR_N, _tube_pill_bore_r),
-    (0.0, _paths.TIGHT_DRAIN_N, _faucet_interface.drain_tube_hole_dia / 2.0),
-    ((signal_lane_width-signal_lane_depth)/2, _paths.TIGHT_RIBBON_N, signal_lane_depth/2),
-)
-tube_shell_center_y = _paths.SHELL_CENTER_N
-tube_shell_bore_radius = max(
-    tube_shell_center_y + _tube_soda_bore_r,
-    *(math.hypot(x,n-tube_shell_center_y)+r for x,n,r in _tube_bore_caps))
-tube_shell_outer_r = _paths.SHELL_RADIUS
-tube_shell_soda_r_outer = tube_shell_outer_r - tube_shell_center_y  # [9.472 mm](TUBE_SHELL_SODA_R)
-tube_shell_pill_x_half_outer = pill_length_x / 2.0 + zone5_wall
-tube_shell_x_half_outer = tube_shell_outer_r
-tube_shell_x_outer = 2.0 * tube_shell_x_half_outer
-
-display_neck_outer_r = tube_shell_outer_r
-
-_neck_walls = _bounds.bound(
-    "faucet-neck-joint-walls", "The circular gooseneck joint carries two full walls",
-    f"socket and plug at least {wall_thickness_min:g} mm")
-_neck_walls(split_socket_wall >= wall_thickness_min,
-            f"socket wall {split_socket_wall:g} mm")
-_neck_plug_min_wall = tube_shell_outer_r - split_socket_wall - split_slip / 2.0 - max(
-    tube_shell_center_y + _tube_soda_bore_r,
-    *(math.hypot(x, y - tube_shell_center_y) + radius for x, y, radius in _tube_bore_caps),
-)
-_neck_walls(_neck_plug_min_wall >= wall_thickness_min - 1e-9,
-            f"plug wall {_neck_plug_min_wall:.4f} mm around all tube and cable passages")
 
 
 # ZONE 6 — gooseneck wrapper around the bent tubes: zone 5's
 # cross-section swept along one circular arc above the lever-swing envelope.
 # Mirrors constants in `faucet-assembly`.
-
-gn_bend1_sweep_rad = math.radians(30.0)
-gn_bend2_sweep_rad = math.radians(110.0)
-gn_mid_straight_len = 0.0
-gn_tip_straight_len = 25.0
-gn_outlet_y = -133.99672200476698
-gn_outlet_z = 180.38874339162197
-_path_total_rot = gn_bend1_sweep_rad + gn_bend2_sweep_rad  # [140°](GN_TOTAL_ROT) at the tip
-gn_bend1_r = (
-    soda_faucet_tube_y - gn_outlet_y - gn_tip_straight_len * math.sin(_path_total_rot)
-) / (1.0 - math.cos(_path_total_rot))
-gn_bend2_r = gn_bend1_r
-gn_bend1_z_start = (
-    gn_outlet_z - gn_bend1_r * math.sin(_path_total_rot)
-    - gn_tip_straight_len * math.cos(_path_total_rot)
-)  # ≈ [153.4 mm](GN_BEND1_Z_START)
-gn_bend1_z_mid = (
-    gn_bend1_z_start + gn_bend1_r * math.sin(gn_bend1_sweep_rad / 2.0)
-)  # [172 mm](GN_BEND1_Z_MID)
 
 
 # SPLIT — the shell prints in two pieces at the internal
@@ -392,18 +225,12 @@ gn_bend1_z_mid = (
 # Fit: the plug's outer surface sits slip/2 inside the socket's cavity
 # surface, all the way around the cross-section.
 
-split_junction_rot = _paths.JOINT_ANGLE  # [70°](SPLIT_JUNCTION_ROT)
 
 # Per-side overlap depth (mm of arc), socket wall (mm), and diametral
 # slip (mm), mapped onto `shrink`s (inward offsets of the outer
 # cross-section):
 #   socket shrink = socket_wall
 #   plug   shrink = socket_shrink + slip / 2
-split_socket_overlap_len = 20.0
-split_plug_overlap_len = 18.0
-
-split_socket_shrink = split_socket_wall
-split_plug_shrink = split_socket_shrink + split_slip / 2.0
 
 
 # SPLIT geometry.
@@ -414,139 +241,64 @@ split_plug_shrink = split_socket_shrink + split_slip / 2.0
 
 # Bend-2 sub-arcs covering the last overlap_len mm of arc before the
 # junction — separate arcs for the female socket and the male plug.
-split_socket_angle_rad = split_socket_overlap_len / gn_bend2_r
-split_plug_angle_rad = split_plug_overlap_len / gn_bend2_r
+
 
 # Cumulative path rotations from the +Z origin tangent.
-_path_socket_start_rot = split_junction_rot - split_socket_angle_rad
-_path_socket_mid_rot = split_junction_rot - split_socket_angle_rad / 2.0
-_path_plug_start_rot = split_junction_rot - split_plug_angle_rad
-_path_plug_mid_rot = split_junction_rot - split_plug_angle_rad / 2.0
+
 
 # Tangent unit-vectors in path-local (a, b).
-_tan_after_bend1 = (math.sin(gn_bend1_sweep_rad), math.cos(gn_bend1_sweep_rad))
-_tan_after_bend2 = (math.sin(_path_total_rot), math.cos(_path_total_rot))
-_tan_at_junction = (
-    math.sin(split_junction_rot), math.cos(split_junction_rot),
-)
-_tan_at_socket_start = (
-    math.sin(_path_socket_start_rot), math.cos(_path_socket_start_rot),
-)
-_tan_at_plug_start = (
-    math.sin(_path_plug_start_rot), math.cos(_path_plug_start_rot),
-)
+
 
 # Path-local waypoints, working forward from the path origin.
-_path_z_lift = gn_bend1_z_start - zone5_z_top
-_path_p2 = (  # end of bend 1 / start of mid-straight
-    gn_bend1_r * (1.0 - math.cos(gn_bend1_sweep_rad)),
-    _path_z_lift + gn_bend1_r * math.sin(gn_bend1_sweep_rad),
-)
-_path_p3 = (  # end of mid-straight / start of bend 2
-    _path_p2[0] + gn_mid_straight_len * _tan_after_bend1[0],
-    _path_p2[1] + gn_mid_straight_len * _tan_after_bend1[1],
-)
+
+
 # Bend-2 arc center.
-_path_center_bend2 = (
-    _path_p3[0] + gn_bend2_r * math.cos(gn_bend1_sweep_rad),
-    _path_p3[1] - gn_bend2_r * math.sin(gn_bend1_sweep_rad),
-)
 
 
 def _bend2_point(rot: float) -> tuple:
-    """Path-local (a, b) on bend 2 at cumulative rotation `rot` from vertical."""
-    return (
-        _path_center_bend2[0] - gn_bend2_r * math.cos(rot),
-        _path_center_bend2[1] + gn_bend2_r * math.sin(rot),
-    )
+    return _shell_data('_bend2_point', args=[rot])
 
-
-_path_junction = _bend2_point(split_junction_rot)
-_path_socket_start = _bend2_point(_path_socket_start_rot)
-_path_socket_mid = _bend2_point(_path_socket_mid_rot)
-_path_plug_start = _bend2_point(_path_plug_start_rot)
-_path_plug_mid = _bend2_point(_path_plug_mid_rot)
-_path_p4 = _bend2_point(_path_total_rot)  # end of bend 2 / start of tip
-_path_p5 = (  # end of tip
-    _path_p4[0] + gn_tip_straight_len * _tan_after_bend2[0],
-    _path_p4[1] + gn_tip_straight_len * _tan_after_bend2[1],
-)
 
 # SPLIT mating-plane geometry in world coords. The plane is
 # perpendicular to the gooseneck tangent at the junction.
-split_normal = (0.0, -_tan_at_junction[0], _tan_at_junction[1])
-split_junction_y = soda_faucet_tube_y - _path_junction[0]  # [-38.37 mm](SPLIT_JUNCTION_Y)
-split_junction_z = zone5_z_top + _path_junction[1]  # [220.9 mm](SPLIT_JUNCTION_Z)
+
 
 # PRINTING — the base beds on its foot (Z=0) with the -Y edge lifted
 # [15°](PRINT_TILT), keeping the long straight neck close to vertical.
 # The tip beds on the joint end with the crown lifted and its build
 # direction at the angular midpoint of the sweep it carries.
-print_base_build_rot = math.radians(15.0)
-print_tip_build_rot = (split_junction_rot + _path_total_rot) / 2.0
+
+
 # Tilt off the bed face. The foot is square to the path at rotation 0
 # and the joint face to the path at the junction.
-print_base_tilt_rad = print_base_build_rot
-print_tip_tilt_rad = print_tip_build_rot - split_junction_rot
-max_print_overhang_rad = max(
-    print_base_build_rot,
-    split_junction_rot - print_base_build_rot,
-    print_tip_build_rot - split_junction_rot,
-    _path_total_rot - print_tip_build_rot,
-)  # [55°](MAX_PRINT_OVERHANG)
 
 
 # ZONE 3 OUTER ARCH — single circular arc from the wing bottom
 # (zone3_z_bottom at the -Y end) up to zone4_z_top at Y=fill_y_min,
 # tangent-horizontal at the high end. Center is directly below the high end.
-_back_arch_dy = fill_y_min - shell_rect_y_min  # [31.78 mm](BACK_ARCH_DY) (positive depth span)
-back_arch_center_z = (
-    (zone4_z_top + zone3_z_bottom) / 2.0
-    - _back_arch_dy ** 2 / (2.0 * (zone4_z_top - zone3_z_bottom))
-)
-back_arch_r = zone4_z_top - back_arch_center_z
+
+
 # Angular midpoint of the arc, between the high end (fill_y_min) and the
 # low end (shell_rect_y_min, the -Y front/user edge of the rect column).
-_back_arch_a_low = math.atan2(zone3_z_bottom - back_arch_center_z,
-                              shell_rect_y_min - fill_y_min)
-_back_arch_a_mid = (math.pi / 2.0 + _back_arch_a_low) / 2.0
-back_arch_mid_y = fill_y_min + back_arch_r * math.cos(_back_arch_a_mid)
-back_arch_mid_z = back_arch_center_z + back_arch_r * math.sin(_back_arch_a_mid)
 
 
 # ZONE 4.5 — block capping the lever swing volume from above, reaching
 # up to Z=gn_bend1_z_start ≈ [153.4 mm](GN_BEND1_Z_START).
 
 # Round gooseneck section at world X=0.
-_z5_y_min = soda_faucet_tube_y + tube_shell_center_y - tube_shell_outer_r
-_z5_y_max = soda_faucet_tube_y + tube_shell_center_y + tube_shell_outer_r
+
 
 # Zone 4.5 Y extents — back edge follows the rect column; front edge
 # matched-margin from zone 5.
-zone45_front_y = min(
-    _z5_y_min - (shell_rect_y_max - _z5_y_max),
-    soda_faucet_tube_y - soda_faucet_hole_diameter / 2.0 - 4.0 * wall_thickness_min,
-)
+
 
 # Top sits 3 mm above zone 4's top on the back side (lid sits flat on
 # zone 4 top). The front bottom follows the back-arch curve down to
 # ≈ Z=[54.41 mm](ZONE45_Z_BOT_FRONT).
-zone45_z_top = zone4_z_top + 3.0  # [60.5 mm](ZONE45_Z_TOP)
-zone45_z_bottom_at_front = (
-    back_arch_center_z
-    + math.sqrt(back_arch_r ** 2 - (zone45_front_y - fill_y_min) ** 2)
-)
+
 
 # Mid-point of the bottom arch sub-arc, between zone45_front_y end
 # and fill_y_min end.
-_a_front = math.atan2(
-    zone45_z_bottom_at_front - back_arch_center_z,
-    zone45_front_y - fill_y_min,
-)
-_a_high = math.pi / 2.0  # fill_y_min end is directly above arch center
-_a_mid45 = (_a_front + _a_high) / 2.0
-zone45_bot_mid_y = fill_y_min + back_arch_r * math.cos(_a_mid45)
-zone45_bot_mid_z = back_arch_center_z + back_arch_r * math.sin(_a_mid45)
 
 
 # Joinery and retention: see ASSEMBLY.md.
@@ -625,16 +377,6 @@ def build_foot_outline(z_bottom: float, z_height: float) -> cq.Workplane:
 
 # The lower shell's oval sections, (z, width, depth, centre y), lofted up onto the round neck at
 # lower_neck_z; the neck's land stands on to neck_land_overrun past the zone-5 seam.
-lower_outer_sections = (
-    (0.0, foot_width, foot_depth, foot_center_y),
-    (8.5, foot_width, foot_depth, foot_center_y),
-    (20.0, 48.0, 53.5, 4.25),
-    (34.0, 44.0, 52.5, 5.25),
-    (43.0, 38.0, 50.0, 5.0),
-    (59.0, 30.0, 31.0, 11.5),
-)
-lower_neck_z = 65.0
-neck_land_overrun = 0.2
 
 
 def build_lower_outer() -> cq.Workplane:
@@ -651,14 +393,10 @@ def build_lower_outer() -> cq.Workplane:
 
 
 # The flat ribbon shares the rear mounting channel with the F1-D-F2 row.
-signal_lower_exit_x = _paths.LOWER_BUNDLE_X
-signal_lower_exit_y = _paths.LOWER_RIBBON_Y
-signal_lower_exit_angle = 0.0
 
 
 def _lower_signal_stations():
-    return ((14.0, signal_lower_exit_x, signal_lower_exit_y, 0.0),
-            (39.0, signal_lower_exit_x, signal_lower_exit_y, 0.0))
+    return _shell_data('_lower_signal_stations', args=[])
 
 
 def _lower_signal_profile(z, x, y, width, depth, rounded, angle=0.0):
@@ -668,23 +406,7 @@ def _lower_signal_profile(z, x, y, width, depth, rounded, angle=0.0):
 
 
 def _lower_signal_profiles(width, depth, rounded, bottom_z, turn_clearance=0.0):
-    """The sections the lower cable or its lane is ruled through, bottom first."""
-    stations = _lower_signal_stations()
-    profiles = [(z, signal_lower_exit_x, signal_lower_exit_y,
-                 width, depth, rounded, signal_lower_exit_angle)
-             for z in (bottom_z, stations[0][0] - 1.0)]
-    # Closely spaced angular sections preserve the complete ribbon envelope
-    # through its edge-on turn. Constant-angle spans remain exact ruled lofts.
-    turn_stations = [stations[0]]
-    for first, last in zip(stations, stations[1:]):
-        count = max(1, math.ceil((last[0] - first[0]) / 0.25)) if first[3] != last[3] else 1
-        turn_stations.extend(tuple(a + (b - a) * index / count
-                                   for a, b in zip(first, last))
-                             for index in range(1, count + 1))
-    profiles.extend((z, x, y, width + 2.0 * turn_clearance,
-                     depth + 2.0 * turn_clearance, rounded, angle)
-                 for z, x, y, angle in turn_stations)
-    return profiles
+    return _shell_data('_lower_signal_profiles', args=[width, depth, rounded, bottom_z, turn_clearance])
 
 
 def _lower_signal_wires(width, depth, rounded, bottom_z, turn_clearance=0.0):
@@ -701,7 +423,6 @@ def _lower_signal_solid(width, depth, rounded, bottom_z, turn_clearance=0.0):
 
 
 # The measured flat ribbon through the complete mount stack: its section, and its foot.
-lower_signal_ribbon = (signal_ribbon_max_width, signal_ribbon_max_depth, False, -50.0)
 
 
 def build_lower_signal_ribbon() -> cq.Workplane:
@@ -712,32 +433,14 @@ def build_lower_signal_ribbon() -> cq.Workplane:
 # The flat cable lane's foot, in the mounting stack below the counter; the bundle opening's
 # straight lands start bundle_land_below under zone 3's floor and stand bundle_land_above over
 # the loft's top.
-signal_lane_bottom_z = -6.2
-bundle_land_below = 0.5
-bundle_land_above = 0.2
 
 
 def _lower_opening_heights():
-    """The heights the lower bundle opening is lofted through, at most 0.4 mm apart."""
-    z0, z1 = _paths.LOWER_START_Z, _paths.LOWER_END_Z
-    count = math.ceil((z1-z0)/0.4)
-    return [z0+(z1-z0)*i/count for i in range(count+1)]
+    return _shell_data('_lower_opening_heights', args=[])
 
 
 def _lower_opening_circles(z):
-    """The soda bore, the flavor pair, the drain and the cable's two rounded ends at height `z`
-    of the lower bundle opening, as (x, y, r): the opening is their hull."""
-    left = _paths.lower_point(z,"flavor",-1)
-    right = _paths.lower_point(z,"flavor",1)
-    ribbon = _paths.lower_point(z,"ribbon")
-    drain = _paths.lower_point(z, "drain")
-    cable_half = (signal_lane_width-signal_lane_depth)/2.0
-    circles = [(0.0, soda_faucet_tube_y, soda_faucet_hole_diameter/2.0)]
-    circles += [(point[0], point[1], flavor_tube_hole_dia/2.0) for point in (left, right)]
-    circles.append((drain[0], drain[1], _faucet_interface.drain_tube_hole_dia/2.0))
-    circles += [(x, ribbon[1], signal_lane_depth/2.0)
-                for x in (ribbon[0]-cable_half, ribbon[0]+cable_half)]
-    return circles
+    return _shell_data('_lower_opening_circles', args=[z])
 
 
 def build_lower_signal_lane() -> cq.Workplane:
@@ -773,7 +476,6 @@ def build_lower_signal_lane() -> cq.Workplane:
 
 
 # How far the donor's cutters reach past its bore across Y, so their ends meet no face of it.
-bore_overrun = 2.0
 
 
 def _rect_cove_cyl(
@@ -1086,15 +788,7 @@ def _tube_shell_outer_sketch() -> cq.Sketch:
 
 
 def _tube_shell_inner_circles(*, include_signal=True, station=0.0):
-    """The soda opening, the flavor pair and, with `include_signal`, the cable's two rounded
-    ends at `station`, as (x, y, r) in the neck's section: the opening is their hull."""
-    x, n, _, ribbon_n, _ = _paths.positions(station)
-    circles = [(0.0, 0.0, soda_faucet_hole_diameter/2)]
-    circles += [(xx, n, flavor_tube_hole_dia/2) for xx in (-x, x)]
-    if include_signal:
-        half_span = (signal_lane_width-signal_lane_depth)/2
-        circles += [(xx, ribbon_n, signal_lane_depth/2) for xx in (-half_span, half_span)]
-    return circles
+    return _shell_data("_tube_shell_inner_circles", include_signal=include_signal, station=station)
 
 
 def _tube_shell_inner_sketch(*, include_signal=True, station=0.0):
@@ -1142,15 +836,11 @@ def _lower_neck_halfspace():
 
 
 def _ribbon_end_station():
-    end_angle = _path_total_rot-math.asin(
-        (display_ribbon_join_s-gn_tip_straight_len)/(gn_bend1_r+signal_lane_center_n))
-    return (end_angle-_paths.JOINT_ANGLE)*_paths.WATER_RADIUS
+    return _shell_data('_ribbon_end_station', args=[])
 
 
 def _bundle_stations(s0, s1):
-    """The stations the bundle opening is lofted through, at most 2 mm apart."""
-    count = max(2, math.ceil((s1 - s0) / 2.0))
-    return [s0 + (s1 - s0) * i / count for i in range(count + 1)]
+    return _shell_data('_bundle_stations', args=[s0, s1])
 
 
 def _bundle_opening_loft(s0, s1, *, include_signal):
@@ -1165,7 +855,6 @@ def _bundle_opening_loft(s0, s1, *, include_signal):
 
 
 # How far below the cable's exit the beverage outlets start, inside the shared passage.
-beverage_lead = 0.5
 
 
 @functools.lru_cache(maxsize=None)
@@ -1271,7 +960,6 @@ def _drip_guide_halfspace(station,offset,sign):
 
 
 # How far behind the drain's square-cut mouth its relief starts.
-drain_relief_lead = 0.25
 
 
 def build_drain_terminal_relief():
@@ -1286,17 +974,10 @@ def build_drain_terminal_relief():
 
 # How far inside the curved soda-clearance wall the vent outlet starts, so it opens across the
 # complete 4 mm hole. A shallow flat start leaves thin crescents beside that curvature.
-vent_outlet_reach = 0.6
 
 
 def _vent_outlet_frame():
-    """The vent outlet's station on the bend's underside, the direction it opens in, and how far
-    along that it starts."""
-    station=_paths.DRIP_HOLE_S
-    angle=split_junction_rot+station/gn_bend1_r
-    origin=_paths.station_point(station,n=tube_shell_center_y)
-    inner_offset = tube_shell_center_y + soda_faucet_hole_diameter / 2.0 - vent_outlet_reach
-    return origin, (0,-math.cos(angle),-math.sin(angle)), inner_offset
+    return _shell_data('_vent_outlet_frame', args=[])
 
 
 @functools.lru_cache(maxsize=None)
@@ -1385,89 +1066,25 @@ def _build_bend_overlap(sketch: cq.Sketch, *, side: str) -> cq.Workplane:
 # Four small feet pads support the display; the space over the tubes is open.
 # The vendor USB-C shell extends beyond the PCB and housing's lower end.
 # Bounds use the device's centred XY / feet-Z frame.
-display_usb_reference_file = "ESP32-S3-Touch-LCD-1_47_20250411.stp"
-display_usb_reference_url = "https://files.waveshare.com/wiki/ESP32-S3-Touch-LCD-1.47/ESP32-S3-Touch-LCD-1.47-2D3D.zip"
-display_usb_reference_sha256 = "15fddd5d2b699d0b7c5160f2e11f176a672e7b305604f43a6dbaa30b8cc0059e"
-display_usb_reference_bounds = (
-    (-4.799962, -22.484226, 0.750479),
-    (4.780038, -14.954223, 4.910479),
-)
-display_usb_half_width = math.ceil(max(abs(row[0]) for row in display_usb_reference_bounds) * 100.0) / 100.0
-display_usb_y_range = (math.floor(display_usb_reference_bounds[0][1] * 100.0) / 100.0,
-                       math.ceil(display_usb_reference_bounds[1][1] * 100.0) / 100.0)
-display_usb_top_z = math.ceil(display_usb_reference_bounds[1][2] * 100.0) / 100.0
-dispense_face_thickness = 2.0  # [2 mm](DISPENSE_FACE_T)
-display_seat_reference_n = 10.10
-display_additional_tube_clearance = 1.50
-display_nominal_tube_clearance = 0.30 + display_additional_tube_clearance
-display_feet_n = display_seat_reference_n + display_additional_tube_clearance
-display_floor_n = display_feet_n
-display_pocket_inset = tube_shell_center_y + display_neck_outer_r - display_feet_n
-display_cradle_clearance = 0.25
-display_wire_bend_radius = 2.5
-display_ribbon_join_s = 46.0
-display_ribbon_reference_start_s = display_ribbon_join_s + 0.5
-display_ribbon_side_x = -8.2
-display_ribbon_side_radius = 8.0
-display_ribbon_side_drop = 0.0
-display_ribbon_side_lift = 0.40
-display_ribbon_side_run_n = display_seat_reference_n + 1.0
-display_ribbon_pcb_gap = 0.30
-display_s_bottom = (dispense_face_thickness - display_usb_y_range[0]
-                    - display_housing_length / 2.0)
-display_s_top = display_s_bottom + display_housing_length + 2.0 * display_cradle_clearance
-_display_housing_center_s = display_s_bottom + display_cradle_clearance + display_housing_length / 2.0
-display_face_n = display_feet_n + display_total_depth
-display_cosmetic_wall = 1.30
-display_cover_top_n = display_face_n + display_cover_over_face + display_cosmetic_wall
+
+
 # Retain the neck's snap datums while the display and bezel move outward.
-display_cover_bottom_n = display_seat_reference_n - 6.8
-display_cover_shoulder_n = display_seat_reference_n + 0.5
-display_cover_face_width = 27.5
-display_cover_end_margin = 1.25
-display_cover_face_length = display_s_top + display_cover_end_margin
-_display_cover_center_s = display_cover_face_length / 2.0
-display_cover_skirt_width = 2.0 * (display_neck_outer_r + display_cover_slip + display_cosmetic_wall)
-display_cover_skirt_length = display_cover_face_length + 5.1
-display_cover_face_r = 7.25
-display_cover_skirt_r = 10.0
-display_cover_skirt_rear_s = _display_cover_center_s + display_cover_skirt_length / 2.0
+
+
 # Rear lower edge: s = s0 + ds_dn * n.
-display_cover_rear_rim_s0 = 41.7
-display_cover_rear_rim_ds_dn = 0.6
-display_head_s_min = 0.0
-display_head_s_max = display_cover_skirt_rear_s + 0.2
-display_clip_s_bottom = (_display_cover_center_s - display_cover_skirt_length / 2.0
-                         + display_cover_skirt_r + _display_snap.END_MARGIN)
-display_clip_s_top = (_display_cover_center_s + display_cover_skirt_length / 2.0
-                      - display_cover_skirt_r - _display_snap.END_MARGIN)
-display_clip_bottom_n = display_cover_bottom_n
-display_clip_top_n = display_clip_bottom_n + _display_snap.LIP_HEIGHT
-display_clip_lip_radius = display_neck_outer_r - _display_snap.ENGAGEMENT
-display_clip_groove_radius = display_clip_lip_radius - _display_snap.RADIAL_SLIP
-display_foot_pad_width = 3.0
-display_foot_pad_depth = wall_thickness_min + display_additional_tube_clearance
-display_channel_half_width = 6.75
+
+
 # Factory assembly: place the display in the open cover, approach from the
 # outlet at S=-slide, translate along S while lifted, then seat along -N.
 # A 9.5 mm factory lift clears the complete relaxed cover from the round neck
 # by 0.566 mm throughout the axial approach, before normal seating.
-display_cartridge_lift_n = 9.5
-display_cartridge_slide_s = 60.0
-display_loading_travel_n = 25.0
-display_foot_envelope_r = math.sqrt(3.0)  # 3 mm across-flats vendor hex standoff.
-display_foot_centers = tuple((x, display_s_bottom + display_cradle_clearance
-                                  + display_housing_length / 2.0 + y)
-                           for x in (-8.5, 8.5) for y in (-19.5, 19.5))
+
+
 # Viewed from the glass, the cable termination is in the southwest corner.
-display_ribbon_terminal_y = -11.0
-display_ribbon_terminal_s = _display_housing_center_s + display_ribbon_terminal_y
+
 
 def _tip_frame_data():
-    """The tube exit, up-gooseneck tangent and display normal as coordinate triples."""
-    ta, tb = _tan_after_bend2
-    return ((0.0, soda_faucet_tube_y - _path_p5[0], zone5_z_top + _path_p5[1]),
-            (0.0, ta, -tb), (0.0, tb, ta))
+    return _shell_data('_tip_frame_data', args=[])
 
 
 def _tip_frame():
@@ -1529,17 +1146,6 @@ def build_display_outer_envelope() -> cq.Workplane:
 
 # The display's clearance under the bezel: its (width, length, corner radius, n) rows about the
 # housing's centre, and the prism (half x, s0, s1, n0, n1) that stands its rear wall upright.
-display_cover_inner_rows = (
-    (display_cover_skirt_width - 2.0 * display_cosmetic_wall,
-     50.0, 8.7, display_cover_bottom_n - 1.0),
-    (display_cover_skirt_width - 2.0 * display_cosmetic_wall,
-     50.0, 8.7, display_cover_shoulder_n),
-    (display_housing_width + 2.0 * display_cradle_clearance,
-     display_housing_length + 2.0 * display_cradle_clearance,
-     display_corner_r + display_cradle_clearance,
-     display_face_n + display_cover_over_face),
-)
-display_cover_inner_clamp = (50.0, -20.0, display_s_top, -30.0, 40.0)
 
 
 def build_display_cover_inner_envelope() -> cq.Workplane:
@@ -1601,9 +1207,6 @@ def relieve_display_lip_inner_edges(lips: cq.Workplane) -> cq.Workplane:
 
 # How far past the neck each groove's band reaches across X; how far the device opening stands
 # over the cover's top; how far the open channel rises into the device opening.
-display_groove_reach = 1.0
-display_pocket_overrun = 1.0
-display_channel_overlap = 0.1
 
 
 def build_display_retention_grooves() -> cq.Workplane:
@@ -1641,89 +1244,7 @@ def build_display_usb_keepout() -> cq.Workplane:
 
 
 def _display_ribbon_frames(width: float, depth: float, top_n: float):
-    """The flat ribbon leaves the neck into the open volume below the PCB, ruled through these
-    sections, bottom first.
-
-    Sections follow explicit frames: width stays perpendicular to the lateral
-    turn, without the sudden ribbon twist of a Frenet frame at an inflection.
-    The S bend passes inside the rear foot and reaches the southwest termination.
-    """
-    origin, along, outward = _tip_frame_data()
-    frames = []
-
-    def natural(s):
-        radius = gn_bend1_r + signal_lane_center_n
-        square = math.sqrt(radius * radius - (s - gn_tip_straight_len) ** 2)
-        return square - gn_bend1_r, -(s - gn_tip_straight_len) / square
-
-    def add(x, s, n, dx, ds, dn):
-        point = (x, s, n)
-        if not frames or math.dist(frames[-1][0], point) >= 1e-8:
-            frames.append((point, (dx, ds, dn)))
-
-    for s in (display_ribbon_reference_start_s,
-              (display_ribbon_reference_start_s + display_ribbon_join_s) / 2.0,
-              display_ribbon_join_s):
-        n, slope = natural(s)
-        add(0.0, s, n, 0.0, -1.0, -slope)
-    side = math.copysign(1.0, display_ribbon_side_x)
-    side_x, radius = abs(display_ribbon_side_x), display_ribbon_side_radius
-    angle = math.acos(1.0 - side_x / (2.0 * radius))
-    for phase in (0, 1):
-        for step in range(13):
-            u = angle * step / 12.0
-            turn = u if phase == 0 else angle - u
-            if phase == 0:
-                x = radius * (1.0 - math.cos(u))
-                s = display_ribbon_join_s - radius * math.sin(u)
-            else:
-                x = radius * (1.0 - 2.0 * math.cos(angle) + math.cos(turn))
-                s = display_ribbon_join_s - radius * (2.0 * math.sin(angle) - math.sin(turn))
-            dx, ds = math.sin(turn), -math.cos(turn)
-            n, slope = natural(s)
-            fraction = x / side_x
-            n += (-display_ribbon_side_drop * fraction ** 4
-                  + display_ribbon_side_lift * 4.0 * fraction * (1.0 - fraction))
-            dn = (slope * ds - 4.0 * display_ribbon_side_drop * fraction ** 3 * dx / side_x
-                  + 4.0 * display_ribbon_side_lift * (1.0 - 2.0 * fraction) * dx / side_x)
-            add(side*x, s, n, side*dx, ds, dn)
-    x, s0, n0 = frames[-1][0]
-    _, ds, dn = frames[-1][1]
-    run_in = 3.0
-    m0 = run_in * dn / -ds
-    for step in range(1, 13):
-        t = step / 12.0
-        n = ((2*t**3 - 3*t*t + 1)*n0 + (t**3 - 2*t*t + t)*m0
-             + (-2*t**3 + 3*t*t)*display_ribbon_side_run_n)
-        dn = ((6*t*t - 6*t)*n0 + (3*t*t - 4*t + 1)*m0
-              + (-6*t*t + 6*t)*display_ribbon_side_run_n)
-        add(x, s0 - run_in*t, n, 0.0, -run_in, dn)
-    side_start = s0 - run_in
-    pre_rise_s = display_ribbon_terminal_s + display_wire_bend_radius
-    for step in range(1, 9):
-        add(x, side_start + (pre_rise_s-side_start)*step/8,
-            display_ribbon_side_run_n, 0.0, -1.0, 0.0)
-    for step in range(1, 17):
-        turn = math.pi / 2.0 * step / 16.0
-        s = pre_rise_s - display_wire_bend_radius * math.sin(turn)
-        n = display_ribbon_side_run_n + display_wire_bend_radius * (1.0 - math.cos(turn))
-        add(x, s, n, 0.0, -math.cos(turn), math.sin(turn))
-    if top_n <= frames[-1][0][2]:
-        raise ValueError("ribbon termination must reach above its smooth PCB-side bend")
-    add(x, s, top_n, 0.0, 0.0, 1.0)
-
-    sections = []
-    for (x, s, n), (dx, ds, dn) in frames:
-        centre = tuple(a + q + u*s + v*n for a, q, u, v in
-                       zip(origin, (x, 0.0, 0.0), along, outward))
-        tangent = tuple(q + u*ds + v*dn for q, u, v in
-                        zip((dx, 0.0, 0.0), along, outward))
-        cross = tuple(q + u*dx for q, u in zip((-ds, 0.0, 0.0), along))
-        if math.sqrt(sum(v*v for v in cross)) < 1e-8:
-            cross = (1.0, 0.0, 0.0)
-        sections.append({"origin": centre, "xdir": cross, "normal": tangent,
-                         "rect": (width, depth)})
-    return sections
+    return _shell_data('_display_ribbon_frames', args=[width, depth, top_n])
 
 
 def _display_ribbon_sections(width: float, depth: float, top_n: float):
@@ -1740,7 +1261,6 @@ def _display_ribbon_sweep(width: float, depth: float, top_n: float) -> cq.Workpl
 
 
 # The cable's top: the factory wire fan-out beside the PCB, short of its measured underside.
-display_ribbon_top_n = display_feet_n + _faucet_interface.display_pcb_bottom_z - display_ribbon_pcb_gap
 
 
 def build_display_ribbon_transition() -> cq.Workplane:
@@ -1790,48 +1310,7 @@ def build_lever_front_clearance() -> cq.Workplane:
 
 
 def _lever_outline():
-    """The lever's travel in the (Y, Z) plane: every pose of its swing and the edges swept
-    between them, grown by its fit clearance and opened through to the donor's plateau."""
-    from shapely.geometry import Polygon, box
-    from shapely.ops import unary_union
-
-    clearance = lever_fit_clearance
-    pivot_y = 1.5
-    pivot_z = zone2_z_top + 7.0
-    travel_deg = 18
-    profile = (
-        (-42.0, zone2_z_top + 10.0),
-        (-42.0, lever_rest_top_z),
-        (lever_rest_back_y, lever_rest_top_z),
-        (lever_rest_back_y, zone2_z_top + 1.0),
-        (-6.0, zone2_z_top + 1.0),
-        (-6.0, zone2_z_top + 4.5),
-    )
-    poses = []
-    for angle in range(travel_deg + 1):
-        c, s = math.cos(math.radians(angle)), math.sin(math.radians(angle))
-        poses.append([(pivot_y + c * (y - pivot_y) - s * (z - pivot_z),
-                       pivot_z + s * (y - pivot_y) + c * (z - pivot_z))
-                      for y, z in profile])
-    # Nominal front-entry corridor. The donor's actual aft/down/forward seating
-    # motion with the soda tube absent still needs a measured assembly pose.
-    regions = [Polygon(pose) for pose in poses]
-    regions.append(box(lever_insertion_front_y, zone2_z_top + 1.0, -5.9, lever_rest_top_z))
-    # Sweep each edge between adjacent poses in the planar profile before extruding.
-    # The 0.005 mm allowance covers the <0.002 mm one-degree arc sag and simplification.
-    for before, after in zip(poses, poses[1:]):
-        for i in range(len(profile)):
-            j = (i + 1) % len(profile)
-            regions.append(Polygon((before[i], before[j], after[j], after[i])).buffer(0))
-    envelope_allowance = clearance + lever_sweep_allowance
-    outline = unary_union(regions).simplify(0.001).buffer(envelope_allowance, join_style=2)
-    # A flat rear wall opens the donor plateau through the lever corridor.
-    # The central span retains the complete lever envelope; the side arches
-    # and the wall behind fill_y_min retain their stock.
-    plateau_join = box(-westbrass_bore_rect_long_y / 2.0, zone2_z_top - 0.01,
-                       fill_y_min, lever_rest_top_z)
-    outline = outline.union(plateau_join)
-    return list(outline.exterior.coords)[:-1]
+    return _shell_data('_lever_outline', args=[])
 
 
 def build_lever_clearance() -> cq.Workplane:
@@ -1997,18 +1476,11 @@ def build_shell_tip(full_shell=None):
 
 
 def print_height(stl: Path, build_rot: float) -> float:
-    """Height on the bed of the piece `stl` holds, built along the gooseneck
-    tangent at path rotation `build_rot` — the piece's print orientation."""
-    import numpy as np
-    record = np.dtype([("normal", "<f4", 3), ("corners", "<f4", (3, 3)), ("attribute", "<u2")])
-    corners = np.fromfile(stl, dtype=record, offset=84)["corners"].reshape(-1, 3).astype(float)
-    z = corners[:, 2] * math.cos(build_rot) - corners[:, 1] * math.sin(build_rot)
-    return float(z.max() - z.min())
+    _cadq_export.note_read(stl)
+    return _shell_data("print_height", path=str(stl), args=[build_rot])
 
 
 # Absolute millimetre deflection and angular deflection of the printable surface.
-piece_mesh_tol = 0.005
-piece_mesh_angle = 0.05
 
 
 def piece_mesh(solid) -> trimesh.Trimesh:
@@ -2081,119 +1553,11 @@ def write_bed_file(solid, path):
 
 
 def lower_bundle_numbers():
-    """What `lower_bundle_opening` (`tools/hsm/faucet/src/shell.rs`) cuts the cable lane and the
-    opening into the neck from, which the shell, the above-counter plate and its gasket are cut
-    through."""
-    return {
-        "signal_lane_z": [signal_lane_bottom_z, _lower_signal_stations()[-1][0]],
-        "signal_lower_exit": [signal_lower_exit_x, signal_lower_exit_y],
-        "signal_lower_exit_angle": signal_lower_exit_angle,
-        "signal_lane_width": signal_lane_width, "signal_lane_depth": signal_lane_depth,
-        "lower_opening_sections": [{"z": z, "circles": [[float(v) for v in row]
-                                                        for row in _lower_opening_circles(z)]}
-                                   for z in _lower_opening_heights()],
-        "bundle_land_bottom_z": zone3_z_bottom - bundle_land_below,
-        "bundle_land_above": bundle_land_above,
-    }
+    return _shell_data("lower_bundle_numbers")
 
 
 def numbers():
-    """What `faucet_shell.rs` cuts the shell from: the dimensions its builders
-    take, and the sections, frames and outline this module derives for them,
-    in the assembled frame."""
-    def floats(values):
-        return [float(v) for v in values]
-
-    def circles(rows):
-        return [floats(row) for row in rows]
-
-    end = _paths.CONVERGE_START_S + _paths.CONVERGE_LENGTH
-    _, drain_x, drain_t = _paths.station_plane(_paths.DRAIN_CUT_S)
-    vent_origin, vent_normal, vent_offset = _vent_outlet_frame()
-
-    def passage_section(station):
-        origin, xdir, normal = _paths.station_plane(station)
-        return {"origin": floats(origin), "xdir": floats(xdir), "normal": floats(normal),
-                "circles": circles(_tube_shell_inner_circles(station=station))}
-
-    return {
-        "name": "faucet-shell", "color": floats(linear(C_FAUCET_BLACK)),
-        # The gooseneck, the stock round it, and the split across its bend.
-        "zone5_z_top": zone5_z_top, "zone5_z_bottom": zone5_z_bottom,
-        "soda_faucet_tube_y": soda_faucet_tube_y, "gn_bend1_z_start": gn_bend1_z_start,
-        "gn_bend1_r": gn_bend1_r, "path_total_rot": _path_total_rot,
-        "gn_tip_straight_len": gn_tip_straight_len,
-        "joint_angle": _paths.JOINT_ANGLE, "water_radius": _paths.WATER_RADIUS,
-        "tube_shell_outer_r": tube_shell_outer_r, "tube_shell_center_y": tube_shell_center_y,
-        "shell_outer_r": shell_outer_r, "wall_thickness_min": wall_thickness_min,
-        "lower_outer_sections": circles(lower_outer_sections),
-        "lower_neck_z": lower_neck_z, "neck_land_overrun": neck_land_overrun,
-        "split_junction_rot": split_junction_rot,
-        "path_socket_start_rot": _path_socket_start_rot,
-        "split_socket_shrink": split_socket_shrink,
-        "path_plug_start_rot": _path_plug_start_rot, "split_plug_shrink": split_plug_shrink,
-        # The donor's bores, the flavor pill and the mounting pods.
-        "zone1_z_bottom": zone1_z_bottom, "zone1_height": zone1_height,
-        "zone2_bore_z_bottom": zone2_bore_z_bottom, "zone2_z_bottom": zone2_z_bottom,
-        "zone2_z_top": zone2_z_top, "zone2_height": zone2_height,
-        "zone3_z_bottom": zone3_z_bottom,
-        "westbrass_bore_x": westbrass_bore_x, "westbrass_bore_y": westbrass_bore_y,
-        "westbrass_bore_diameter": westbrass_bore_diameter,
-        "westbrass_bore_rect_short_x": westbrass_bore_rect_short_x,
-        "westbrass_bore_rect_long_y": westbrass_bore_rect_long_y,
-        "cove_r": cove_r, "bore_overrun": bore_overrun,
-        "shell_arch_bore_inner_x": shell_arch_bore_inner_x,
-        "shell_arch_bore_outer_x": shell_arch_bore_outer_x,
-        "shell_arch_bore_z_foot_top": shell_arch_bore_z_foot_top,
-        "shell_arch_bore_z_peak": shell_arch_bore_z_peak, "fill_y_min": fill_y_min,
-        "flavor_pill_center": floats(flavor_pill_center), "pill_length_x": pill_length_x,
-        "pill_width_y": pill_width_y, "flavor_pill_y_minus_edge": flavor_pill_y_minus_edge,
-        "base_pod_centers": circles(base_pod_centers),
-        "base_pod_z_bottom": base_pod_z_bottom, "base_pod_hole_dia": base_pod_hole_dia,
-        "base_pod_hole_depth": base_pod_hole_depth,
-        "base_insert_bottom_z": base_insert_bottom_z,
-        "base_pod_insert_dia": base_pod_insert_dia,
-        "base_pod_insert_depth": base_pod_insert_depth,
-        # The lever's travel, its overhead relief and its front corridor.
-        "lever_outline": circles(_lever_outline()),
-        "lever_clearance_x_half": lever_clearance_x_half,
-        "lever_clearance_y_back": lever_clearance_y_back,
-        "lever_insertion_front_y": lever_insertion_front_y,
-        "lever_rest_top_z": lever_rest_top_z,
-        "back_arch_r": back_arch_r, "back_arch_center_z": back_arch_center_z,
-        "zone45_front_y": zone45_front_y,
-        # The drain's mouth and the vent under the bend.
-        "drain_relief": {"origin": floats(_paths.tube_arc_point(_paths.DRAIN_CUT_S, "drain")),
-                         "xdir": floats(drain_x), "normal": floats(drain_t)},
-        "drain_relief_lead": drain_relief_lead,
-        "drain_tube_hole_dia": _faucet_interface.drain_tube_hole_dia,
-        "drip_end_clearance": _paths.DRIP_END_CLEARANCE_MM,
-        "vent_outlet": {"origin": floats(vent_origin), "normal": floats(vent_normal)},
-        "vent_outlet_offset": vent_offset, "drip_hole_diameter": _paths.DRIP_HOLE_DIAMETER,
-        # The display's pocket, feet, open channel and snap grooves, in the tip frame.
-        "dispense_face_thickness": dispense_face_thickness, "display_s_top": display_s_top,
-        "display_neck_outer_r": display_neck_outer_r,
-        "display_seat_reference_n": display_seat_reference_n,
-        "display_pocket_top_n": display_cover_top_n + display_pocket_overrun,
-        "display_channel_half_width": display_channel_half_width,
-        "display_channel_top_n": display_seat_reference_n + display_channel_overlap,
-        "display_foot_centers": circles(display_foot_centers),
-        "display_foot_pad_width": display_foot_pad_width,
-        "display_foot_pad_depth": display_foot_pad_depth, "display_feet_n": display_feet_n,
-        "display_groove_half_x": display_neck_outer_r + display_groove_reach,
-        "display_groove_core_r": display_neck_outer_r - (
-            display_neck_outer_r - display_clip_groove_radius),
-        "display_clip_s_bottom": display_clip_s_bottom, "display_clip_s_top": display_clip_s_top,
-        "display_clip_bottom_n": display_clip_bottom_n, "display_clip_top_n": display_clip_top_n,
-        "snap_end_slip": _display_snap.END_SLIP, "snap_bearing_slip": _display_snap.BEARING_SLIP,
-        # The cable lane, and the tube and cable passages up the neck to the tip.
-        **lower_bundle_numbers(),
-        "passage_sections": [passage_section(station)
-                             for station in _bundle_stations(_paths.CONVERGE_START_S, end)],
-        "converge_start_s": _paths.CONVERGE_START_S, "converge_length": _paths.CONVERGE_LENGTH,
-        "ribbon_end_s": _ribbon_end_station(), "beverage_lead": beverage_lead,
-        "beverage_circles": circles(_tube_shell_inner_circles(include_signal=False, station=end)),
-    }
+    return _shell_data("numbers", color=list(linear(C_FAUCET_BLACK)))
 
 
 def main():
@@ -2204,98 +1568,7 @@ def main():
     said = _rust_part.cut("faucet", "faucet-shell", numbers(), out_dir)
     print("-> " + ", ".join(said["files"]))
 
-    variables = {
-        "DISPENSE_FACE_T": f"{dispense_face_thickness:g} mm",
-        "NECK_DIAMETER": f"{2.0 * tube_shell_outer_r:.3f} mm",
-        "FOOT_WIDTH": f"{foot_width:g} mm",
-        "FOOT_DEPTH": f"{foot_depth:g} mm",
-        "PLATE_T": f"{above_counter_plate_thickness:g} mm",
-        "PEDESTAL_H": f"{base_pedestal_height:g} mm",
-        "BASE_INSERT_Z": f"{base_insert_bottom_z:g} mm",
-        "BASE_INSERT_L": f"{base_insert_length:g} mm",
-        "BASE_CBORE_D": f"{base_pod_counterbore_dia:g} mm",
-        "BASE_CBORE_DEPTH": f"{base_screw_counterbore_depth:g} mm",
-        "BASE_SCREW_L": f"{base_screw_length:g} mm",
-        "BASE_X": f"{base_pod_center_x:g}",
-        "BASE_Y": f"{base_pod_center_y:g}",
-        "BASE_FRONT_Y": f"{base_pod_front_center_y:g}",
-        "BORE_CLEAR": f"{bore_clearance:.4g} mm",
-        "WESTBRASS_BORE_D": f"{westbrass_bore_diameter:.4g} mm",
-        "WESTBRASS_OD": f"{westbrass_rect_long_y:.4g} mm",
-        "WESTBRASS_RECT_LONG": f"{westbrass_rect_long_y:.4g} mm",
-        "WESTBRASS_RECT_SHORT": f"{westbrass_rect_short_x:.4g} mm",
-        "WESTBRASS_CYL_TOP_Z": f"{zone1_z_top:.4g} mm",
-        "BORE_COVE_Z": f"{zone2_bore_z_bottom + cove_r:.4g} mm",
-        "PILL_L": f"{pill_length_x:.4g} mm",
-        "PILL_W": f"{pill_width_y:.4g} mm",
-        "FLAVOR_TUBE_OD": f"{flavor_tube_od:.4g} mm",
-        "WESTBRASS_RECT_LONG_HALF": f"{westbrass_rect_long_y / 2.0:.4g} mm",
-        "LEVER_REST_TOP_Z": f"{zone2_z_top + 13:.4g} mm",
-        "FLAVOR_TUBE_Y": f"{flavor_pill_center[1]:.4g} mm",
-        "FLAVOR_PILL_Y_MINUS": f"{flavor_pill_y_minus_edge:.4g} mm",
-        "BASE_POD_FRONT_CENTER_Y": f"{base_pod_front_center_y:.4g} mm",
-        "SHELL_OUTER_R": f"{shell_outer_r:.4g} mm",
-        "SHOW_WALL": f"{show_wall:.4g} mm",
-        "PRINT_LAYER": f"{print_layer_height:.4g} mm",
-        "PRINT_BEAD": f"{print_bead_width:.4g} mm",
-        "SODA_FAUCET_HOLE_D": f"{soda_faucet_hole_diameter:.4g} mm",
-        "WALL_MIN": f"{wall_thickness_min:.4g} mm",
-        "ZONE1_HEIGHT": f"{zone1_height:.4g} mm",
-        "ZONE2_HEIGHT": f"{zone2_height:.4g} mm",
-        "ZONE4_HEIGHT": f"{zone4_height:.4g} mm",
-        "ZONE5_HEIGHT": f"{zone5_height:.4g} mm",
-        "ZONE5_WALL": f"{zone5_wall:.4g} mm",
-        "WESTBRASS_BORE_FARTHEST": f"{_westbrass_bore_farthest_from_shell_center:.4g} mm",
-        "PILL_FARTHEST": f"{_pill_farthest_from_shell_center:.4g} mm",
-        "WESTBRASS_BORE_RECT_LONG": f"{westbrass_bore_rect_long_y:.4g} mm",
-        "WESTBRASS_BORE_RECT_SHORT": f"{westbrass_bore_rect_short_x:.4g} mm",
-        "ZONE2_BORE_Z_BOTTOM": f"{zone2_bore_z_bottom:.4g} mm",
-        "SHELL_OUTER_LIP": f"{shell_outer_lip:.4g} mm",
-        "ZONE1_OUTER_Z_TOP": f"{zone1_outer_z_top:.4g} mm",
-        "SHELL_RECT_X_HALF": f"{shell_rect_x_half:.4g} mm",
-        "SHELL_RECT_Y_MAX": f"{shell_rect_y_max:.4g} mm",
-        "SHELL_RECT_Y_MIN": f"{shell_rect_y_min:.4g} mm",
-        "ZONE3_Z_BOTTOM": f"{zone3_z_bottom:.4g} mm",
-        "WING_INNER_X": f"{wing_inner_x:.4g} mm",
-        "SHELL_ARCH_BORE_INNER_X": f"{shell_arch_bore_inner_x:.4g} mm",
-        "SHELL_ARCH_BORE_OUTER_X": f"{shell_arch_bore_outer_x:.4g} mm",
-        "SHELL_ARCH_BORE_Z_FOOT_TOP": f"{shell_arch_bore_z_foot_top:.4g} mm",
-        "SHELL_ARCH_BORE_Z_PEAK": f"{shell_arch_bore_z_peak:.4g} mm",
-        "SHELL_ARCH_Z_FOOT_TOP": f"{shell_arch_z_foot_top:.4g} mm",
-        "SHELL_ARCH_Z_PEAK": f"{shell_arch_z_peak:.4g} mm",
-        "SODA_FAUCET_TUBE_OD": f"{soda_faucet_tube_od:.4g} mm",
-        "SODA_FAUCET_TUBE_Y": f"{soda_faucet_tube_y:.4g} mm",
-        "TUBE_SHELL_SODA_R": f"{tube_shell_soda_r_outer:.4g} mm",
-        "FLAVOR_POST_BEND_Y": f"{flavor_tube_post_bend_y:.4g} mm",
-        "FILL_Y_MIN": f"{fill_y_min:.4g} mm",
-        "FILL_X_THICKNESS": f"{2.0 * wing_inner_x:.4g} mm",
-        "PILL_STRAIGHT_INNER": f"{pill_length_x - pill_width_y:.4g} mm",
-        "FLAVOR_OFFSET_Y": f"{flavor_offset_y_from_water:.4g} mm",
-        "ZONE5_Z_BOTTOM": f"{zone5_z_bottom:.4g} mm",
-        "ZONE5_Z_TOP": f"{zone5_z_top:.4g} mm",
-        "GN_BEND1_Z_MID": f"{gn_bend1_z_mid:.4g} mm",
-        "GN_BEND1_Z_START": f"{gn_bend1_z_start:.4g} mm",
-        "GN_BEND2_SWEEP_DEG": f"{math.degrees(gn_bend2_sweep_rad):.0f}°",
-        "GN_TOTAL_ROT": f"{math.degrees(_path_total_rot):.0f}°",
-        "SPLIT_JUNCTION_ROT": f"{math.degrees(split_junction_rot):.0f}°",
-        "SPLIT_JUNCTION_Y": f"{split_junction_y:.4g} mm",
-        "SPLIT_JUNCTION_Z": f"{split_junction_z:.4g} mm",
-        "SPLIT_OVERLAP": f"{split_socket_overlap_len:.4g} mm",
-        "SPLIT_SOCKET_WALL": f"{split_socket_wall:.4g} mm",
-        "SPLIT_PLUG_WALL": f"{split_plug_wall:.4g} mm",
-        "SPLIT_SLIP": f"{split_slip:.4g} mm",
-        "DISPLAY_INSTALL_LIFT": f"{display_cartridge_lift_n:g} mm",
-        "PRINT_TILT": f"{math.degrees(print_base_tilt_rad):.0f}°",
-        "MAX_PRINT_OVERHANG": f"{math.degrees(max_print_overhang_rad):.0f}°",
-        "BASE_PRINT_HEIGHT": (
-            f"{print_height(out_dir / 'faucet-shell-base.stl', print_base_build_rot):.1f} mm"),
-        "TIP_PRINT_HEIGHT": (
-            f"{print_height(out_dir / 'faucet-shell-tip.stl', print_tip_build_rot):.1f} mm"),
-        "BACK_ARCH_DY": f"{_back_arch_dy:.4g} mm",
-        "Z5_Y_MIN": f"{_z5_y_min:.4g} mm",
-        "ZONE45_Z_TOP": f"{zone45_z_top:.4g} mm",
-        "ZONE45_Z_BOT_FRONT": f"{zone45_z_bottom_at_front:.4g} mm",
-    }
+    variables = _shell_data('variables', directory=str(out_dir))
     substitute_md(
         out_dir / "ASSEMBLY.md",
         variables=variables,
@@ -2313,18 +1586,7 @@ def main():
     print(f"-> {Path(__file__).name} (self)")
 
     # Pinned dimensions living in the shared interface helper's prose.
-    interface_variables = {
-        "FLAVOR_TUBE_X_OFFSET": f"{_faucet_interface.flavor_tube_x_offset:.4g} mm",
-        "FLAVOR_TUBE_HOLE_DIA": f"{_faucet_interface.flavor_tube_hole_dia:.4g} mm",
-        "PILL_LENGTH_X": f"{_faucet_interface.pill_length_x:.4g} mm",
-        "PILL_WIDTH_Y": f"{_faucet_interface.pill_width_y:.4g} mm",
-        "FLAVOR_TUBE_DEPTH": f"{_faucet_interface.flavor_tube_depth:.5g} mm",
-        "DISPLAY_HOUSING_OVERHANG": (
-            f"{(_faucet_interface.display_housing_width - _faucet_interface.display_pcb_width) / 2.0:.4g} mm"
-        ),
-        "DISPLAY_PCB_BOTTOM_Z": f"{_faucet_interface.display_pcb_bottom_z:.4g} mm",
-        "DISPLAY_PCB_TOP_Z": f"{_faucet_interface.display_pcb_top_z:.4g} mm",
-    }
+    interface_variables = _shell_data('interface_variables')
     substitute_py_comments(
         Path(_faucet_interface.__file__),
         variables=interface_variables,

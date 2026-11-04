@@ -58,7 +58,8 @@ def main(output=None):
     out.mkdir(parents=True, exist_ok=True)
     result = _rust_part.cut('tooling','asse-drain-adapter',numbers(),out)
     _readme(out, result['bodies'][0]['volume'])
-    print(f"asse-drain-adapter: {result['bodies'][0]['volume']/1000:.3f} cm3")
+    from _part_output import summary
+    print(f"asse-drain-adapter: {summary(result['bodies'][0])['volume']} cm3")
 
 
 if __name__ == "__main__":

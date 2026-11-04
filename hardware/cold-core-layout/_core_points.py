@@ -1,34 +1,22 @@
-"""Tuple arithmetic for source-frame numbers; native builders retain their vectors."""
+'Tuple arithmetic for source-frame numbers; native builders retain their vectors.'
+from __future__ import annotations
 
-import math
+import sys as _sys
+from pathlib import Path as _Path
 
+_hardware = next(p for p in _Path(__file__).resolve().parents if p.name == "hardware")
+_sys.path[:0] = [str(_hardware / "scripts"), str(_hardware / "cold-core-layout")]
+from _cold_core_data import compiled as _compiled, member as _member
 
-def add(a, b):
-    return tuple(x + y for x, y in zip(a, b))
+def __getattr__(name):
+    if name == "__all__":
+        return _compiled('_core_points', action="public-names")
+    try:
+        return _member('_core_points', name)
+    except ValueError as error:
+        raise AttributeError(name) from error
 
-
-def sub(a, b):
-    return tuple(x - y for x, y in zip(a, b))
-
-
-def scale(a, factor):
-    return tuple(x * factor for x in a)
-
-
-def unit(a):
-    return scale(a, 1.0 / math.sqrt(sum(x * x for x in a)))
-
-
-def dot(a, b):
-    return sum(x * y for x, y in zip(a, b))
-
-
-def cross(a, b):
-    return (a[1] * b[2] - a[2] * b[1], a[2] * b[0] - a[0] * b[2],
-            a[0] * b[1] - a[1] * b[0])
-
-
-def turned(vector, axis, radians):
-    c, s = math.cos(radians), math.sin(radians)
-    return add(add(scale(vector, c), scale(cross(axis, vector), s)),
-               scale(axis, dot(axis, vector) * (1.0 - c)))
+if __name__ == "__main__":
+    import _rust_part
+    _rust_part.start()
+    _compiled('_core_points', action="main")

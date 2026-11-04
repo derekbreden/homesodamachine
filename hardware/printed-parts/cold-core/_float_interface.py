@@ -28,7 +28,3 @@ def reed_edge_distance(rod_axis, reed_axis):
 def reed_float_edge_distance(rod_axis, reed_axis):
     """Greatest collinear float-perimeter to reed-center distance with bore play."""
     return _read("float-edge", rod_axis=rod_axis, reed_axis=reed_axis, float_edge=True)
-
-
-assert minimum_wall_clearance > 1.0
-assert height == 28.0 and magnet_midplane == 14.0

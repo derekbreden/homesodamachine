@@ -85,16 +85,19 @@ import multiplex_asse1022 as bfp
 
 # Where each fitting lands on the flow axis, each read off the part it threads into.
 # The barrel's two shoulders are what the female fittings butt against.
-BARREL_UPSTREAM = bfp.INLET_LENGTH                        # the inlet thread's root
-BARREL_DOWNSTREAM = BARREL_UPSTREAM + bfp.BARREL_LENGTH   # the flare thread's root
+
+_reference_hardware = next(p for p in Path(__file__).resolve().parents if p.name == 'hardware')
+import sys as _reference_sys
+_reference_sys.path.insert(0, str(_reference_hardware / 'reference'))
+from _reference_data import data as _reference_data
+_reference_values = _reference_data('asse1022_assembly')
+globals().update({name: _reference_values[name] for name in ('BARREL_UPSTREAM', 'BARREL_DOWNSTREAM', 'COUPLING_X', 'PTC_X', 'OUTLET_X', 'TERMINALS')})
+
 # The coupling swallows the ASSE inlet to its full socket depth, so its large-end
 # face lands on that shoulder and its body reaches upstream by its own length.
-COUPLING_X = BARREL_UPSTREAM - coupling.LENGTH
 # The PTC's shank threads into the coupling's small socket, so the shank tip lands
 # that far inside the coupling's upstream face.
-PTC_X = COUPLING_X + coupling.SMALL_SOCKET_DEPTH - ptc.LENGTH
 # The swivel nut is drawn up over the flare, its face on the downstream shoulder.
-OUTLET_X = BARREL_DOWNSTREAM
 
 
 def _along(x) -> Seat:
@@ -104,12 +107,9 @@ def _along(x) -> Seat:
     return Seat.shift((x, 0.0, bfp.BODY_CENTER_Z))
 
 
-def flow_axis() -> tuple:
-    """The line every station on this chain stands on, in the assembly's own frame:
-    `(position, axis)` — the ASSE 1022's inlet plane on it, and the direction the water
-    runs. `_along` seats each fitting onto this line, and the cabinet that holds the chain
-    over a drain seats the whole assembly by it."""
-    return (0.0, 0.0, bfp.BODY_CENTER_Z), (1.0, 0.0, 0.0)
+def flow_axis():
+    "The line every station on this chain stands on, in the assembly's own frame:\n    `(position, axis)` — the ASSE 1022's inlet plane on it, and the direction the water\n    runs. `_along` seats each fitting onto this line, and the cabinet that holds the chain\n    over a drain seats the whole assembly by it."
+    return _reference_data('asse1022_assembly', 'flow_axis', (), {})
 
 
 # The chain, in the order the water meets it: what draws each station, the seat it takes,
@@ -127,11 +127,6 @@ def _stations():
 
 # This assembly's boundary: the two mouths the cabinet plumbs to, and the one it catches
 # under. Each names the station port it is.
-TERMINALS = {
-    "tube-in":  ("jg-pp010822e", "tube_port"),
-    "tube-out": ("flare38-14ptc", "tube_port"),
-    "vent-tip": ("multiplex-asse1022", "vent"),
-}
 
 
 def build():
@@ -154,9 +149,9 @@ def port(name: str) -> tuple:
     return seat.port(getattr(part, local)())
 
 
-def ports() -> dict:
-    """Every terminal, in the order the water meets them."""
-    return {name: port(name) for name in TERMINALS}
+def ports():
+    'Every terminal, in the order the water meets them.'
+    return _reference_data('asse1022_assembly', 'ports', (), {})
 
 
 def __getattr__(name):

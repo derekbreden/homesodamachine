@@ -1,0 +1,68 @@
+{
+  "ribbon22": {
+    "awg": 22,
+    "od_mm": 1.7,
+    "color": [
+      0.065,
+      0.075,
+      0.095
+    ],
+    "basis": "22 AWG silicone ribbon, 1.7 mm conductor section in cable-assemblies.md",
+    "construction": "stranded silicone; web retained along shared ribbon lanes"
+  },
+  "bulk22": {
+    "awg": 22,
+    "od_mm": 1.7,
+    "color": [
+      0.065,
+      0.075,
+      0.095
+    ],
+    "basis": "Layout uses the ribbon conductor OD; bulk insulation OD remains unmeasured",
+    "construction": "stranded silicone"
+  },
+  "power16": {
+    "awg": 16,
+    "od_mm": 3.0,
+    "color": [
+      0.045,
+      0.045,
+      0.055
+    ],
+    "basis": "3.0 mm nominal layout allowance; purchased insulation OD unmeasured",
+    "construction": "solid PVC at fixed cages; stranded at removable device leads"
+  },
+  "neutral16": {
+    "awg": 16,
+    "od_mm": 3.0,
+    "color": [
+      0.9,
+      0.9,
+      0.87
+    ],
+    "basis": "3.0 mm nominal layout allowance; purchased insulation OD unmeasured",
+    "construction": "solid PVC"
+  },
+  "earth16": {
+    "awg": 16,
+    "od_mm": 3.0,
+    "color": [
+      0.06,
+      0.42,
+      0.12
+    ],
+    "basis": "3.0 mm nominal layout allowance; purchased insulation OD unmeasured",
+    "construction": "stranded green silicone"
+  },
+  "cord18": {
+    "awg": 18,
+    "od_mm": 2.6,
+    "color": [
+      0.045,
+      0.045,
+      0.055
+    ],
+    "basis": "Individual conductor layout allowance inside the SJOOW lead",
+    "construction": "three stranded conductors in one continuous jacket"
+  }
+}

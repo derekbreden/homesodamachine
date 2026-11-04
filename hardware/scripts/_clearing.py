@@ -19,24 +19,17 @@ past the bodies sweeps the volume between them, and one told to stop returns at 
 caller that prints a gap as a measurement passes a horizon it expects to stay under.
 """
 
-import math
-
-import numpy as np
-
 import _meshes
+from _shared_data import call as _rust_scalar
 
 # mm³ two solids share before the pair counts as a contact. The same floor `_overlap`'s readers
 # use: under it the pair is a graze on a tangent surface, not something in the way.
-HIT_VOL = 1.0
+HIT_VOL = _rust_scalar('scalar.constants',group='clearing')['HIT_VOL']
 
 
-def box_gap(a, b) -> float:
-    """The least distance between two axis-aligned boxes, 0 when they overlap — a lower bound on
-    the solids' own gap, and sound to prefilter on for exactly that reason."""
-    dx = max(0.0, a.xmin - b.xmax, b.xmin - a.xmax)
-    dy = max(0.0, a.ymin - b.ymax, b.ymin - a.ymax)
-    dz = max(0.0, a.zmin - b.zmax, b.zmin - a.zmax)
-    return math.sqrt(dx * dx + dy * dy + dz * dz)
+def box_gap(a,b):
+    from _shared_data import call,box_record
+    return call('scalar.box_gap',a=box_record(a),b=box_record(b))
 
 
 def shadows(a, b) -> bool:
@@ -60,28 +53,15 @@ def gap(a, b, within: float, offset=(0.0, 0.0, 0.0)) -> float:
     return ma.min_gap(_meshes.meshed(b), within)
 
 
-def axis_min(shape, origin, axis) -> float:
-    """How far along `axis` from `origin` the nearest point of `shape` lies.
-
-    The shape is carried to the origin and turned until the axis lies on +Z, where its box's
-    `zmin` IS that distance. Taken this way rather than off the corners of an axis-aligned box,
-    which for a column running diagonally reads short and would invent an obstruction nearer
-    than the one that is there."""
-    d = np.array(_unit(axis))
-    # An orthonormal frame with the axis as its third row sends the axis to +Z: R·d = (0, 0, 1).
-    other = np.array((1.0, 0.0, 0.0)) if abs(d[0]) < 0.9 else np.array((0.0, 1.0, 0.0))
-    u = np.cross(other, d)
-    u /= np.linalg.norm(u)
-    rot = np.array([u, np.cross(d, u), d])
-    o = np.array([float(c) for c in origin])
-    return shape.transform(np.hstack([rot, (-rot @ o).reshape(3, 1)])).bounding_box()[2]
+def axis_min(shape,origin,axis):
+    from _shared_data import call
+    mesh = shape.to_mesh64() if hasattr(shape,'to_mesh64') else shape.to_mesh()
+    return call('scalar.axis_min',vertices=mesh.vert_properties,origin=origin,axis=axis)
 
 
-def _unit(v) -> tuple:
-    n = math.sqrt(sum(float(c) * float(c) for c in v))
-    if n < 1e-12:
-        raise ValueError(f"direction {tuple(v)} has no length")
-    return tuple(float(c) / n for c in v)
+def _unit(v):
+    from _shared_data import call
+    return tuple(call('scalar.unit',vector=v))
 
 
 def selftest():

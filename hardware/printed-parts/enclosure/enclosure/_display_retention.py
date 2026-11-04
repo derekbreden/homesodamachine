@@ -9,51 +9,31 @@ lane to one side, and under the catch nothing at all. The catch is the ceiling o
 cavity beside the display (`enclosure.display_storey_cavities`), one a side from the flex lane
 out to the side wall, open into the pump bay.
 """
+from __future__ import annotations
 
-import cadquery as cq
-import _nameplate_interface as _tab
-from _enclosure_interface import display_inset_x, display_cover_slip, display_cover_thickness
+import sys as _sys
+from pathlib import Path as _Path
 
-WALL = _tab.TAB_THICK
-LENGTH = 24.0
-LIP = _tab.LIP
-LIP_START = _tab.LIP_START
-LIP_LAND = _tab.LIP_LAND
-BEARING_SLIP = _tab.BEARING_SLIP
-END_SLIP = _tab.END_SLIP
-ROOT = display_cover_thickness
-DEPTH = ROOT + _tab.TAB_LENGTH
-OUTER_X = display_inset_x / 2.0 - display_cover_slip
-# The flat the lip catches under, one bearing slip above the lip's own shoulder.
-CATCH = ROOT + LIP_START - BEARING_SLIP
-# The slot runs the inset's own wall down to the catch; inboard it leaves the skirt room to
-# bend in by the whole lip.
-NECK_X = OUTER_X + display_cover_slip
-FLEX_X = OUTER_X - WALL - LIP
-RUN = LENGTH + 2.0 * END_SLIP
+_hardware = next(p for p in _Path(__file__).resolve().parents if p.name == "hardware")
+_sys.path[:0] = [str(_hardware / "scripts"), str(_hardware / "printed-parts/enclosure/enclosure"), str(_hardware / "printed-parts/cadlib")]
+import _rust_part
+_rust_part.start()
+from _enclosure_compiled import compiled as _compiled
 
+_rust_enclosure_module = '_display_retention'
 
-def _prism(profile, length=LENGTH):
-    wire = cq.Wire.makePolygon([cq.Vector(x, -length / 2.0, z)
-                               for x, z in [*profile, profile[0]]])
-    return cq.Solid.extrudeLinear(wire, [], cq.Vector(0, length, 0))
+def __getattr__(name):
+    if name == "__all__":
+        return _compiled('_display_retention', action="public-names")
+    if name.startswith("__"):
+        raise AttributeError(name)
+    try:
+        return _compiled('_display_retention', action="get", path=(name,))
+    except ValueError as error:
+        raise AttributeError(name) from error
 
+from _enclosure_compiled import install as _install
+_install(_sys.modules[__name__])
 
-def skirt(side=1):
-    """One broad skirt: the nameplate tab's square catch and tapered nose."""
-    x, r = OUTER_X, ROOT
-    profile = [(x - WALL, -r), (x, -r), (x, -r - LIP_START),
-               (x + LIP, -r - LIP_START), (x + LIP, -r - LIP_START - LIP_LAND),
-               (x, -DEPTH), (x - WALL, -DEPTH)]
-    return _prism([(side * px, z) for px, z in profile])
-
-
-def pocket(side=1):
-    """The skirt's slot down to the catch, and the part of the storey cavity under the catch
-    that the skirt hangs into: one more lip past the lip's tip, to the skirt's own depth."""
-    slot = _prism([(side * px, z) for px, z in [
-        (FLEX_X, 1.0), (NECK_X, 1.0), (NECK_X, -CATCH), (FLEX_X, -CATCH)]], RUN)
-    under = _prism([(side * px, z) for px, z in [
-        (FLEX_X, -CATCH), (OUTER_X + 2.0 * LIP, -CATCH),
-        (OUTER_X + 2.0 * LIP, -DEPTH - END_SLIP), (FLEX_X, -DEPTH - END_SLIP)]], RUN)
-    return slot.fuse(under)
+if __name__ == "__main__":
+    _compiled('_display_retention', action="main")

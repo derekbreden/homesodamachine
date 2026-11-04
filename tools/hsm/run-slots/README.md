@@ -1,7 +1,8 @@
 # Heavy runs
 
-`hsm-run-slots` and `hardware/scripts/_run_slots.py` share four host-wide flock
-slots. New logical runs use the live count in `/tmp/hsm-<uid>/heavy/count`
+`hsm-run-slots` owns the four host-wide flock slots. Python adapters call its native
+library in the same process, retaining the descriptor identities. `tools/run.py`
+executes the native `hsm-run` command wrapper. New logical runs use the live count in `/tmp/hsm-<uid>/heavy/count`
 (default 4, range 1–4). A concurrent start waits until the newest start among
 still-active runs is 30 seconds old. A completed run adds no delay; a start
 with no active run is immediate. Timing reserves all four slots. New roots wait
@@ -72,3 +73,14 @@ Engine workers wait for admission before taking Cargo or renderer locks, leaving
 query dispatch available to an admitted parent's RPC. Leases belong to each
 request and its children, not the resident renderer or daemon. Detached service
 startup strips lease environment and closes inherited lease descriptors.
+
+The installer keeps the runner, native library and source receipt in versioned
+`~/.local/lib/hsm/runtime/` directories. `runtime.json` names the current pair.
+The Python loader uses a current installed pair or a current checkout build.
+When neither matches the checkout source, the installed `hsm` compiles the runtime
+through its admitted run request. The native bootstrap takes the same compiler
+lease before building its library; it books no second logical run.
+
+The shared `hsm-run-slots` crate supplies a Rust library and the command runner.
+The `hsm-run-native` crate exports ABI1 through its separate `hsm_run_native`
+dynamic library. Ordinary producer builds retain Cargo's hashed Rust-library outputs.

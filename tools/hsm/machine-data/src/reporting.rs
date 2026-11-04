@@ -82,7 +82,7 @@ fn keys_in_order(value: &Value, order: Option<&Value>) -> Result<Vec<String>> {
         Ok(object(value)?.keys().cloned().collect())
     }
 }
-fn plain(value: &Value) -> Result<Value> {
+pub(crate) fn plain(value: &Value) -> Result<Value> {
     match value {
         Value::Array(rows) => rows
             .iter()

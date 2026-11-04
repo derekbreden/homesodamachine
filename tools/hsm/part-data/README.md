@@ -8,6 +8,9 @@ analytical measurements and document figures for these printed parts:
 - PCBA datums, populated-board GLB bounds and the shared electronics-tray recipe.
 - Valve-seat socket and plinth figures.
 - Funnel, drain-elbow cradle, removable frame, cover and casting mold.
+- Refrigeration fuse clamp, weld rotator, tee/valve bow trial and soda-bend holder reports.
+- Shop-storage catalog envelopes, holder layouts, fitting rules, stock manifest and recipes.
+- Dimension and port providers used from `hardware/reference` by the normal build.
 
 The existing geometry programs consume these recipes. Python compatibility modules
 expose their established names and functions through
@@ -26,5 +29,11 @@ chords. The cradle's cantilever calculation supplies its insertion deflection an
 slot lane. The mold report reads binary STL vertices for its chamber envelope and
 binds the report to its STEP, STL, fine-model and viewer-payload hashes.
 
-`comparison.json` records the fixed source/input hashes and the completed provider
-comparisons.
+The reference catalog compiles its formulas, source readers and control flow into Rust.
+`hardware/reference/_reference_data.py` marshals tuples, paths, envelope records,
+holder records and callback inputs, and registers raw files consumed by Rust.
+`_part_output.py` exposes output-unit conversions and the countertop's exported
+binary-STL reading.
+
+`comparison.json` and `tools/hsm/conversion-results/parts-final-2026-11-04.json` record the
+fixed source/input hashes and completed provider comparisons.

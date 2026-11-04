@@ -1,0 +1,127 @@
+{
+  "date": "2026-11-04",
+  "head_at_audit": "fc299ea501563636982690b98c9500f31be254ce",
+  "local_wall_verification": {
+    "actual_release_matches_oracle": true,
+    "cases": [
+      {
+        "case": "behind-low",
+        "panel_top": 160.0
+      },
+      {
+        "case": "overlap-low",
+        "error": "rear plain land reaches the back-bottom print boundary"
+      },
+      {
+        "case": "overlap-high",
+        "panel_top": 210.0
+      },
+      {
+        "case": "strict-tangent",
+        "panel_top": 210.0
+      },
+      {
+        "case": "other-land-forward",
+        "panel_top": 210.0
+      },
+      {
+        "case": "handhold-crown",
+        "panel_top": 220.0
+      },
+      {
+        "case": "optional-fore-land",
+        "panel_top": 210.0
+      }
+    ],
+    "geometry_built": false,
+    "oracle_commit": "0303dbc8665d2f5337c7078242d1daef99d36be3",
+    "oracle_function_ast_sha256": "fe4b26882689e8410ea1556245dd19394c80c6be7bb94d6ea8d2ea132b835d36"
+  },
+  "main_rs_sha256": "7560773e5301d229f091fc0930fbf971c288981862f869bacae156449630fd5b",
+  "modules": {
+    "_enclosure_back_top": {
+      "native_source": "tools/hsm/enclosure-data/src/compiled/_enclosure_back_top.rs",
+      "sha256": "07042a7f15905e944e4f18df0652335d52e84ee5476afd2dbf0ac2d1eb197a3b"
+    },
+    "_enclosure_panel": {
+      "native_source": "tools/hsm/enclosure-data/src/compiled/_enclosure_panel.rs",
+      "sha256": "354077682cc2474fd71c1ae9a7f7af107e8c770b01243d70a99da6176378d68c"
+    },
+    "_nameplate_interface": {
+      "native_source": "tools/hsm/enclosure-data/src/compiled/_nameplate_interface.rs",
+      "sha256": "438a249d3c7eab47565fc77c1ac60e90f3f4ad069e3f10f80c3a4b6c0ec0f3d2"
+    },
+    "_nameplate_wing_interface": {
+      "native_source": "tools/hsm/enclosure-data/src/compiled/_nameplate_wing_interface.rs",
+      "sha256": "a336e0c42028a69eb1cf6e75406942efc5ee75f149f043c83e9c014a36d91f49"
+    },
+    "nameplate": {
+      "native_source": "tools/hsm/enclosure-data/src/compiled/nameplate.rs",
+      "sha256": "d0e381059c52e05c79b1ef7df09ab47a3e6f794863e04b68137fb41bd2310e21"
+    },
+    "rear_identification": {
+      "native_source": "tools/hsm/enclosure-data/src/compiled/rear_identification.rs",
+      "sha256": "666231288cfa4f333f5d8e08ae8287cfdd2d7d3f3a06f7a8984ce6348c3f611f"
+    }
+  },
+  "production_source_edits": [],
+  "raw_assets": {
+    "hardware/manifold-layout/above-core.json": {
+      "matches_head": true,
+      "sha256": "6b3f9e9f16ef8e9eae479cc96fc62f5650534fe90f2a9c5ea05aeddad72c0a79"
+    },
+    "hardware/printed-parts/enclosure/nameplate/identification-glyphs.json": {
+      "matches_head": true,
+      "sha256": "838da8744da112edb466366cc199657361433355ca6e23d8b088144f4b1c4b17"
+    },
+    "hardware/printed-parts/enclosure/nameplate/wordmark.svg": {
+      "matches_head": true,
+      "sha256": "f66e524d5345204befda150f373ce2d124e8b3ad9e7d812847c6480b44c3afcb"
+    }
+  },
+  "staged_glyph_input_diagnosis": {
+    "geometry_built": false,
+    "graph_owner": "root",
+    "missing_reads": [
+      "hardware/printed-parts/enclosure/nameplate/identification-glyphs.json"
+    ],
+    "normal_artwork_consumers": [
+      "hardware/printed-parts/enclosure/nameplate/nameplate.py",
+      "hardware/manifold-layout/enclosure_assembly.py"
+    ],
+    "probe": "nameplate.numbers(1)",
+    "stage": "work-enclosure-assembly"
+  },
+  "status": "already-carried",
+  "upstream": {
+    "0303dbc8665d2f5337c7078242d1daef99d36be3": {
+      "carried": true,
+      "deltas": [
+        "_z_rail_runs complete Y extent",
+        "receiver pad_y and all plain lands must lie strictly behind rail_end_y",
+        "zero z_rise behind rails; retain z_rise when overlapping or tangent",
+        "handhold crown retained as max bound"
+      ]
+    },
+    "cae824bd047f5127644af3b79d4a190858c5fd86": {
+      "carried": true,
+      "deltas": [
+        "92x100 nameplate dimensions and corner5, separate from shared DATA dimensions",
+        "dynamic nameplate station dimensions",
+        "receiver corner-radius propagation in wing, rear-identification and back-top graph functions",
+        "QR integer-micron union with millimetre scaling and six-decimal output",
+        "fixed plus numbered unit glyph artwork, logo and QR placement, quiet-zone fit"
+      ]
+    },
+    "cb551cc402ccf5b2900c6ff410f00f9d48c6b6cd": {
+      "carried": true,
+      "deltas": [
+        "current raw receiver face_y_mm and field_proud_mm derived from face_y_mm minus wall ymax"
+      ]
+    },
+    "fc299ea501563636982690b98c9500f31be254ce": {
+      "kind": "build-input metadata only",
+      "mechanical_delta": false
+    }
+  }
+}

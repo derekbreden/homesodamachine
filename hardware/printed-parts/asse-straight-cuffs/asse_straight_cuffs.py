@@ -45,8 +45,9 @@ def main(output=None):
     out = HERE if output is None else Path(output)
     out.mkdir(parents=True, exist_ok=True)
     result = _rust_part.cut('tooling','asse-straight-cuffs',numbers(),out)
+    from _part_output import summary
     for body in result['bodies']:
-        print(f"{body['name']}: {body['volume']/1000:.3f} cm3")
+        print(f"{body['name']}: {summary(body)['volume']} cm3")
 
 
 if __name__ == '__main__':

@@ -15,35 +15,26 @@ HERE = Path(__file__).resolve().parent
 HW = next(p for p in HERE.parents if p.name == 'hardware')
 sys.path.insert(0, str(HW / 'scripts'))
 
-TUBE_D = 6.35
-LENGTH = 101.6
-SECTIONS = (
-    ('inlet collet', 11.4, 4.3),
-    ('inlet socket', 17.8, 13.0),
-    ('inlet hex', 24.5, 6.2),
-    ('shoulder', 29.3, 4.1),
-    ('label band', 30.3, 21.1),
-    ('body ring', 34.3, 19.2),
-    ('outlet hex', 21.7, 8.5),
-    ('outlet socket', 18.4, 21.6),
-    ('outlet collet', 11.4, 3.6),
-)
+
+_reference_hardware = next(p for p in Path(__file__).resolve().parents if p.name == 'hardware')
+import sys as _reference_sys
+_reference_sys.path.insert(0, str(_reference_hardware / 'reference'))
+from _reference_data import data as _reference_data
+_reference_values = _reference_data('shok_blok_regulator')
+globals().update({name: _reference_values[name] for name in ('TUBE_D', 'LENGTH', 'SECTIONS')})
+
 
 
 def sections():
-    result, s = [], 0.0
-    for label, diameter, length in SECTIONS:
-        result.append((label, diameter / 2, s, s + length))
-        s += length
-    return tuple(result)
+    return _reference_data('shok_blok_regulator', 'sections', (), {})
 
 
 def inlet():
-    return (0.0, 0.0, 0.0), (-1.0, 0.0, 0.0)
+    return _reference_data('shok_blok_regulator', 'inlet', (), {})
 
 
 def outlet():
-    return (LENGTH, 0.0, 0.0), (1.0, 0.0, 0.0)
+    return _reference_data('shok_blok_regulator', 'outlet', (), {})
 
 
 def build():

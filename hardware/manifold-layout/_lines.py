@@ -1,1310 +1,146 @@
-"""The enclosure assembly's tube runs — every line between two placed bodies, authored port to port.
-
-The manifold's own 21 segments are drawn by `manifold_layout.py`, which knows its butt joints
-and its lower returns. This module is for the runs BETWEEN sub-assemblies: a mouth on one placed body
-to a mouth on another, through whatever the pack leaves between them.
-
-Each run is one `R.bent(...)` — the source port, hand-placed interior waypoints, the destination
-port — swept at the port's own bore. `_routing` seats the largest arc each corner's two legs
-allow and records the shortfall of any that cannot: a run drawn past its stock's floor is still
-drawn, and `BLOCKED` says by how much.
-
-A RUN ARRIVES WITH THE BODIES IT JOINS. Both of its mouths have to be placed before it can be
-authored, so the set here grows as `enclosure_assembly.build_pack` grows, and a run with one end in
-the pack and the other nowhere is not written down as a guess. `build_seated_runs` is the same rule
-one step later: the box is sized on the pack, so a body seated in one of its WALLS is placed after
-it, and the lines reaching those bodies are drawn once the box exists.
-
-Frames come off the placed pack, so a run rides a move of its parts: change a pose in
-`enclosure_assembly.py` and every waypoint measured off that body's ports moves with it.
-
-Where a piece of a run can stand is read by sweeping it —
-[`probe.World.reroute`](/hardware/scripts/probe.py) slides named waypoints across a range of
-offsets, redraws the run at each one, and reports what it collides with there, the bands that
-are clear, and the radius each corner has left:
-
-    tools/cad-venv/bin/python hardware/scripts/probe.py route fluid-14
-    tools/cad-venv/bin/python hardware/scripts/probe.py reroute fluid-14 3-4 y- 0:80:2.5
-
-A bend, a fall, a crossing, a leg — whatever the piece is called it is some waypoints of the
-route, and those indices are the handle (`route` numbers them, `--near x,y,z` says which index
-a pick off the STEP is). The centreline is what moves; the ribs struck on the run, the cap's
-seat for it and the stretch it is graded on stand where they stand, and each sweep prints them.
-
-Run it through the assembly:
-    tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py
-"""
-
-import math
-import sys
+"""Typed compatibility surface for the machine's compiled Rust recipes."""
+from __future__ import annotations
 from pathlib import Path
+import sys
+_source = Path(__file__).resolve()
+_hardware = next(parent for parent in _source.parents if parent.name == "hardware")
+sys.path.insert(0, str(_hardware / "scripts"))
+import dataclasses
+from dataclasses import dataclass
+from collections.abc import Mapping
+from typing import NamedTuple
+from _machine_data import Module as _RustModule, Surface as _RustSurface
+_compiled = _RustModule('_lines')
 
-_here = Path(__file__).resolve()
-_hw = next(p for p in _here.parents if p.name == "hardware")
-# EVERY MODULE IMPORTED BELOW IS ON THIS LIST, this module's own directory among them. A module
-# that leans on its importer's path is one only that importer can import: the doc-sync drivers
-# reach this file without going through `enclosure_assembly`, and they set up their own path.
-for _p in (_hw / "scripts", _here.parent,
-           _hw / "printed-parts" / "cold-core",
-           _hw / "printed-parts" / "zone-c" / "funnel",
-           _hw / "printed-parts" / "enclosure" / "enclosure",
-           _hw / "reference" / "compressor",
-           _hw / "reference" / "condenser-block",
-           _hw / "reference" / "g-ganen-pump" / "installation",
-           _hw / "printed-parts" / "diaphragm-pump-sleeve",
-           _hw / "reference" / "neofit-achv44-check",
-           _hw / "reference" / "asse1022-assembly",
-           _hw / "reference" / "water-split",
-           _hw / "reference" / "shok-blok-regulator",
-           _hw / "reference" / "beduan-solenoid",
-           _hw / "reference" / "jg-bulkhead-union",
-           _hw / "reference" / "neofit-stem-elbow",
-           _hw / "reference" / "neofit-bulkhead",
-           _hw / "reference" / "neofit-drain-bulkhead",
-           _hw / "reference" / "neofit-flavor-reducer",
-           _hw / "reference" / "gasher-check-valve",
-           _hw / "reference" / "wr1110-regulator",
-           _hw / "reference" / "digiten-flow-sensor"):
-    sys.path.insert(0, str(_p))
-import _routing as R                                   # noqa: E402
-import _cold_core_interface as _cc                     # noqa: E402
-import _anchor_cap_interface as _anchor_cap           # noqa: E402
-import asse1022_assembly as _asse                      # noqa: E402
-import funnel as _funnel                        # noqa: E402
-import g_ganen_installation as _pump                         # noqa: E402
-import diaphragm_pump_sleeve as _pump_elbow            # noqa: E402
-import neofit_achv44_check as _dis                     # noqa: E402
-import beduan_solenoid as _beduan                      # noqa: E402
-import jg_bulkhead_union as _jg                        # noqa: E402
-import neofit_stem_elbow as _drain_elbow                # noqa: E402
-import neofit_drain_bulkhead as _drain_bulkhead
-import neofit_flavor_reducer as _flavor_reducer
-import neofit_bulkhead as _neofit                      # noqa: E402
-import shok_blok_regulator as _flowreg                 # noqa: E402
-import water_split as _split                           # noqa: E402
-import manifold_layout as _ml                           # noqa: E402
-import compressor as _comp                             # noqa: E402
-import condenser_block as _cond                        # noqa: E402
-import _copper_ports as _copper                          # noqa: E402
-import gasher_check_valve as _gasher                    # noqa: E402
-import wr1110_regulator as _wr1110                      # noqa: E402
-import _gas_chain                                      # noqa: E402
-import _anchor_cap_interface as _anchor_cap            # noqa: E402
-import digiten_flow_sensor as _digiten                  # noqa: E402
-# The one floor every pair on the card answers to, so a run drawn against a casting
-# and the reading taken of it afterwards cannot come off two different millimetres.
-import _scorecard as _card                             # noqa: E402
-
-BLOCKED = R.BLOCKED
-
-
-def _ea_cap(name):
-    """The core's cap conduit stations, read off `enclosure_assembly` at call time — importing it
-    here at module scope would close a cycle, since it imports this one."""
-    import enclosure_assembly
-    return enclosure_assembly.cap_conduit(name)
-
-# The 1/4" LLDPE's, which every fitting on the water side hands over on.
-TUBE_BEND = R.stock_min("water", _split.TUBE_D)
-# What a pump elbow stands about its barb's own axis: the clamped cuff, band and all. A lane
-# that passes a barb holds this off its axis, the way it would a hose.
-ELBOW_CUFF_D = _pump_elbow.BARB_OD_INSTALLED + 2.0 * _pump_elbow.BAND_T
-# The straights each pump-water run plants off its mouths, so both R14 corners seat between
-# them: the suction elbow's leg to V-K's outlet, and the discharge elbow's leg to the check's
-# inlet collet.
-SUCTION_LEAD = (22.0, 15.0)
-DISCHARGE_LEAD = (10.5, TUBE_BEND)
-# 1/4" soft ACR copper, the stock the sealed loop is cut from.
-CU_OD = 6.35
-# The straight each copper mouth takes before its first corner, so the arcs seat in the middle
-# of the run and neither brazed stub is asked to bend where it is made up.
-CU_BEND = R.stock_min("refrigerant", CU_OD)
-CU_LEAD = 20.0
-# The lane the compressor's suction turns in, off the −X wall's inner face: the straight the leg
-# leaves on and the radius its first corner carries past that straight.
-CU_SUCTION_LANE = 2.0 * CU_BEND
-# How far off its own axis a line may enter a CAP CONDUIT. The lid's hole is countersunk to this
-# angle (`_cold_core_interface.cap_conduit_entry_skew`), so the lip a leaning line crosses lies
-# along it and what the tube bears on there is a face.
-CAP_BORE_SKEW = _cc.cap_conduit_entry_skew
-
-# Which reference module states each placed body's stations, and the bore each one carries. The
-# module gives `(position, outward axis)` in the body's own frame; `enclosure_assembly`'s `carry`
-# takes that through the placement, so a port table is written once and rides every later move.
-# Physical adapters on logical valve ports, alongside the gas chain's adapters.
-PORT_ADAPTERS = {**_gas_chain.PORT_ADAPTERS,
-                 "valve-v-g.outlet": "flavor-reducer-v-g",
-                 "valve-v-j.outlet": "flavor-reducer-v-j"}
-
-STATIONS = {
-    # The cold core's cap conduits — bores up the cap's own columns, each opening on the lid's
-    # outer face. A line reaching one arrives at the deck, not at a body face.
-    "foam-assembly": {"water-in": (lambda: _ea_cap("water-in"), _split.TUBE_D),
-                      "carb-water-out": (lambda: _ea_cap("carb-water-out"), _split.TUBE_D),
-                      "reservoir-a": (lambda: _ea_cap("reservoir-a"), _split.TUBE_D),
-                      "reservoir-b": (lambda: _ea_cap("reservoir-b"), _split.TUBE_D),
-                      "reservoir-a-fill": (lambda: _ea_cap("reservoir-a-fill"), _split.TUBE_D),
-                      "reservoir-b-fill": (lambda: _ea_cap("reservoir-b-fill"), _split.TUBE_D),
-                      "co2-in": (lambda: _ea_cap("co2-in"), _split.TUBE_D),
-                      # The evaporator's two ends are copper, not LLDPE, and they open on
-                      # the core's own flanks rather than up its cap columns.
-                      "evap-outlet": (lambda: _copper.station("evap-outlet"), CU_OD),
-                      "evap-inlet": (lambda: _copper.station("evap-inlet"), CU_OD)},
-    "compressor": {"refrig-suction": (lambda: _comp.stations()["refrig-suction"], CU_OD),
-                   "refrig-discharge": (lambda: _comp.stations()["refrig-discharge"], CU_OD)},
-    "condenser+fan": {"refrig-outlet": (lambda: _cond.stations()["refrig-outlet"], CU_OD),
-                      "refrig-inlet": (lambda: _cond.stations()["refrig-inlet"], CU_OD)},
-    "g-ganen-pump": {"suction": (_pump.suction, ELBOW_CUFF_D),
-                    "discharge": (_pump.discharge, ELBOW_CUFF_D)},
-    "pump-elbow-suction": {"tube": (_pump_elbow.tube_port, _pump_elbow.TUBE_D)},
-    "pump-elbow-discharge": {"tube": (_pump_elbow.tube_port, _pump_elbow.TUBE_D)},
-    "discharge-chain": {"inlet": (_dis.inlet, _dis.TUBE_OD),
-                        "outlet": (_dis.outlet, _dis.TUBE_OD),
-                        "tube-port": (_dis.outlet, _dis.TUBE_OD)},
-    "asse1022-assembly": {"tube-in": (lambda: _asse.port("tube-in"), _split.TUBE_D),
-                          "tube-out": (lambda: _asse.port("tube-out"), _split.TUBE_D),
-                          "vent-tip": (lambda: _asse.port("vent-tip"), _asse.bfp.VENT_D)},
-    "vk-solenoid": {"inlet": (_beduan.inlet, _split.TUBE_D),
-                    "outlet": (_beduan.outlet, _split.TUBE_D)},
-    "flow-regulator": {"inlet": (_flowreg.inlet, _flowreg.TUBE_D),
-                       "outlet": (_flowreg.outlet, _flowreg.TUBE_D)},
-    "bulkhead-drain": {"inboard": (lambda: _drain_bulkhead.port(-1.0), _drain_bulkhead.TUBE_OD),
-                       "outboard": (lambda: _drain_bulkhead.port(1.0), _drain_bulkhead.TUBE_OD)},
-    "bulkhead-water": {"inboard": (lambda: _jg.port(-1.0), _jg.PORT_D),
-                       "outboard": (lambda: _jg.port(1.0), _jg.PORT_D)},
-    # The other inlet on that wall, and the same two mouths under the same names: the customer's
-    # red tether lands on the outboard collet and the gas chain leaves by the inboard one.
-    "co2-inlet": {"inboard": (lambda: _neofit.port(-1.0), _neofit.TUBE_OD),
-                  "outboard": (lambda: _neofit.port(1.0), _neofit.TUBE_OD)},
-    "gasher-co2": {"inlet": (_gas_chain.check_inlet, _split.TUBE_D),
-                   "outlet": (_gas_chain.check_outlet, _split.TUBE_D)},
-    "wr1110": {"inlet": (_gas_chain.regulator_inlet, _split.TUBE_D),
-               "outlet": (_gas_chain.regulator_outlet, _split.TUBE_D)},
-    "water-split": {"supply": (_split.supply, _split.TUBE_D),
-                    "to-vk": (_split.to_vk, _split.TUBE_D),
-                    "to-flavor": (_split.to_flavor, _split.TUBE_D)},
-    # The meter inline on the carb riser. Its two collets are coaxial on its own flow axis and
-    # the machine lays that axis fore and aft, so `inlet` faces forward and `outlet` aft. The
-    # bore takes the same 1/4" LLDPE the rest of the water side runs.
-    "digiten-flow": {"inlet": (_digiten.inlet, _split.TUBE_D),
-                     "outlet": (_digiten.outlet, _split.TUBE_D)},
-    # The funnel's gravity drain — the bore's exit on the plug's bottom face, facing the floor.
-    # `funnel.drain_local` is in the part's own frame, so it rides the funnel wherever the top
-    # wall carries it.
-    "funnel": {"drain": ((lambda: (_funnel.drain_local, (0.0, 0.0, -1.0))),
-                                _funnel.spout_id)},
-    # The ATEU44W elbow under the drain: its uncut stem enters the silicone bore,
-    # and its aft female socket starts `fluid-4`.
-    "funnel-drain-union": {"stub": (_drain_elbow.stem_tip, _drain_elbow.STEM_OD),
-                           "outlet": (_drain_elbow.socket, _drain_elbow.TUBE_OD)},
-}
-
-# The three unions the machine dispenses through, all on one row of the +Y wall of back-top. Each carries
-# the same two mouths the tap-water union does, under the names the topology gives them: the
-# INBOARD collet is what a run inside the box pushes into, the outboard one is what the
-# above-counter umbilical lands on.
-for _b in ("bulkhead-flavor-a", "bulkhead-flavor-b"):
-    STATIONS[_b] = {"tube-in": (lambda: _drain_bulkhead.port(-1.0), 4.0),
-                    "tube-out": (lambda: _drain_bulkhead.port(1.0), 4.0)}
-STATIONS["bulkhead-carb"] = {"tube-in": (lambda: _jg.port(-1.0), _jg.PORT_D),
-                             "tube-out": (lambda: _jg.port(1.0), _jg.PORT_D)}
-
-
-# The flavour manifold's ten solenoid valves. Each stands coil-up with its flow along the pack's
-# own ±Y, and the fold names its two collets `front` and `back`.
-# `enclosure_assembly.manifold_carry` takes both through the pose and the lift the pack is stood
-# at, so a run anchors on where the collet ends up.
-#
-# Which collet is the INLET is the valve's own turn. `manifold_layout` stands each body on
-# `valve_dirs(P[v]["arg"])`, and that argument is which way round it faces — the flow runs the
-# way the moulded arrow points, so the two turns present opposite ends. Six valves take +1 and
-# four take −1, and the manifold's own `MOUTHS` names the `front` collet of V-G and V-J
-# V-x-**O**.
-VALVES = ("V-A", "V-B", "V-C", "V-D", "V-E", "V-F", "V-G", "V-H", "V-I", "V-J")
-
-
-def valve_ends(v: str) -> tuple:
-    """A valve's two collets as `(inlet, outlet)` in the fold's own `front`/`back` names, read
-    off the turn `manifold_layout` stood the body at."""
-    return ("front", "back") if _ml.P[v]["arg"] > 0 else ("back", "front")
-
-
-for _v in VALVES:
-    _in, _out = valve_ends(_v)
-    STATIONS[f"valve-{_v.lower()}"] = {
-        "inlet": ((lambda v=_v, e=_in: (_ml.port(v, e), _ml.port_axis(v, e))),
-                  _split.TUBE_D),
-        "outlet": ((lambda v=_v, e=_out: (_ml.port(v, e), _ml.port_axis(v, e))),
-                   _split.TUBE_D),
-    }
-
-def flavor_outlet(v):
-    """4 mm socket beyond the reducer's nominal shoulder at the valve outlet."""
-    end = valve_ends(v)[1]
-    point, axis = _ml.port(v, end), _ml.port_axis(v, end)
-    return (tuple(point[i] + axis[i] * _flavor_reducer.PROUD_LENGTH for i in range(3)), axis)
-
-for _v in ("V-G", "V-J"):
-    STATIONS[f"valve-{_v.lower()}"]["outlet"] = (
-        lambda v=_v: flavor_outlet(v), _flavor_reducer.TUBE_OD)
-
-
-def frames(placed, carries, *, bounds=None):
-    """Register one `_routing.Frame` per body that states stations, so a run may anchor on
-    `"g-ganen-pump.suction"`. `placed` is the pack's solids by name; `carries` is the carry each
-    was placed by."""
-    out = {}
-    bounds = bounds or {}
-    import above_core_parts
-    for name in dict.fromkeys((*STATIONS, *placed, *bounds)):
-        if (name not in placed and name not in bounds) or name not in carries:
-            continue
-        carry = carries[name]
-        native = above_core_parts.port_stations(name)
-        if native is not None:
-            table = {port: (*carry((p, axis)), diameter)
-                     for port, (p, axis, diameter) in native.items()}
-            out[name] = _frame(name, placed, table, bounds)
-            continue
-        ports = STATIONS.get(name)
-        if ports is None:
-            continue
-        table = {}
-        for port, (station, diam) in ports.items():
-            pos, axis = carry(station())
-            table[port] = (pos, tuple(axis), diam)
-        out[name] = _frame(name, placed, table, bounds)
-    return out
-
-
-def _frame(name, placed, ports, bounds):
-    if name not in bounds:
-        return R.frame(name, placed[name], ports)
-    from types import SimpleNamespace
-    lower, upper = bounds[name]
-    values = dict(zip(('xmin', 'ymin', 'zmin'), lower))
-    values.update(zip(('xmax', 'ymax', 'zmax'), upper))
-    return R.frame(name, None, ports, bb=SimpleNamespace(**values))
-
-
-def build_runs(placed, carries):
-    """Every authored run, in the order they read.
-
-    Each one names what it carries and what it turns on. A run's waypoints are world points, so
-    the numbers in them are struck off the frames above — move a body and they move with it."""
-    F = frames(placed, carries)
-    runs = []
-    if {"compressor", "foam-assembly"} <= set(F):
-        runs.append(_refrig_3(F))
-    if {"compressor", "condenser+fan"} <= set(F):
-        runs.append(_refrig_1(F))
-    if {"condenser+fan", "foam-assembly"} <= set(F):
-        runs.append(_refrig_2(F))
-    if {"vk-solenoid", "pump-elbow-suction"} <= set(F):
-        runs.append(_water_7(F))
-    if {"pump-elbow-discharge", "discharge-chain"} <= set(F):
-        runs.append(_water_6(F))
-    if {"discharge-chain", "foam-assembly"} <= set(F):
-        runs.append(_water_5(F))
-    if {"asse1022-assembly", "water-split"} <= set(F):
-        runs.append(_water_2(F))
-    if {"water-split", "flow-regulator"} <= set(F):
-        runs.append(_fluid_1(F))
-    if {"water-split", "vk-solenoid"} <= set(F):
-        runs.append(_water_3(F))
-    if {"co2-inlet", "wr1110"} <= set(F):
-        runs.append(_co2_0(F))
-    if {"gasher-co2", "wr1110", "foam-assembly"} <= set(F):
-        runs.append(_co2_1(F))
-    if {"gasher-co2", "foam-assembly"} <= set(F):
-        runs.append(_co2_2(F))
-    if ({"flow-regulator", "valve-v-a", "water-split"} <= set(F)
-            and {"coil-v-a", "g-ganen-pump"} <= set(placed)):
-        runs.append(_fluid_2(F))
-    if {"foam-assembly", "digiten-flow"} <= set(F):
-        runs.append(_carb_1(F))
-    if {"digiten-flow", "bulkhead-carb"} <= set(F):
-        runs.append(_carb_2(F))
-    if {"valve-v-j", "bulkhead-flavor-b"} <= set(F) and "valve-v-i" in F:
-        runs.append(_fluid_28(F, placed))
-    if {"valve-v-g", "bulkhead-flavor-a"} <= set(F) and "valve-v-f" in F:
-        runs.append(_fluid_18(F, placed))
-    if {"valve-v-i", "foam-assembly"} <= set(F):
-        runs.append(_fluid_24(F))
-    if {"valve-v-h", "foam-assembly"} <= set(F):
-        runs.append(_fluid_26(F))
-    if {"valve-v-f", "foam-assembly"} <= set(F):
-        runs.append(_fluid_14(F, placed))
-    if {"valve-v-e", "foam-assembly"} <= set(F):
-        runs.append(_fluid_16(F))
-    return runs
-
-
-def build_seated_runs(placed, carries):
-    """The runs with a mouth on a body the BOX seats rather than the pack.
-
-    The box is sized on the pack, so a body seated in one of its walls is placed after it — and a
-    run reaching that body can only be authored once it is.
-    `enclosure_assembly.build_enclosure_assembly` calls this with the pack's own bodies and the
-    seated one added to them, so a run drawn here anchors on exactly the frames the pack's own runs
-    do."""
-    F = frames(placed, carries)
-    runs = []
-    if {"funnel-drain-union", "valve-v-b"} <= set(F):
-        runs.append(_fluid_4(F))
-    return runs
-
-
-def _co2_0(F):
-    """co2-0 — wall bulkhead to the fixed regulator's PI010822S inlet collet."""
-    return R.bent(
-        "co2-0", "co2-inlet.inboard", "wr1110.inlet",
-        kind="co2", note="CO2: rear-wall bulkhead → WR1110 inlet collet")
-
-
-def _co2_1(F):
-    """co2-1 — a forward U-turn between regulator and downstream check inlet collets."""
-    import enclosure as enc
-
-    src = F["wr1110"].at("outlet")
-    dst = F["gasher-co2"].at("inlet")
-    # The U turns beside the water crossing, one tied rib's reach off it: one wall beyond its
-    # slipped tube seat. Keep its near surface one clearance floor plus 0.1 mm behind that aft
-    # flank; the measured regulator's shorter body must not pull the bend onto the crossing.
-    # The crossing's own rib stands east of the U, at the head of its climb, where the anchor
-    # cap's wings clear it (`enclosure_assembly.tube_anchor_midpoint`).
-    water_y = F["foam-assembly"].at("carb-water-out")[1] - CARB_1_FORWARD_LEAN
-    cradle_aft = water_y + _split.TUBE_D / 2 + enc.fits.slip + enc.wall
-    turn_y = max(min(src[1], dst[1]) - 2.0 * TUBE_BEND + 1.0,
-                 cradle_aft + F["wr1110"].diam("outlet") / 2 + _card.CLEARANCE_FLOOR + .1)
-    return R.bent(
-        "co2-1", "wr1110.outlet", (src[0], turn_y, src[2]),
-        (dst[0], turn_y, dst[2]), "gasher-co2.inlet",
-        kind="co2", note="CO2: WR1110 outlet → downstream check inlet, U-turn above the pump")
-
-
-# The rear bulkhead's inboard collet and the ASSE 1022's inlet collet meet face to face, so the
-# first tube in the machine — everything the customer's supply line reaches passes through it —
-# is a length of stock cut to the two grips and swallowed whole. There is no free tube to sweep,
-# and no `water-1` in this table.
-
-
-# WHERE THE MACHINE IS CROSSABLE, and it is the cold core's own front step. The lid's outer face
-# runs forward at z 253.4 from the deck the valve cradles stand on, and the band over that face —
-# between the core's front and the funnel's drain union — is clear from wall to wall. The crossing
-# lies in it, one lane off the core it is assembled onto, and the core's cap prints the rib that
-# holds it there. Re-measure it by sweeping the cast in y —
-#
-#     w.cast((-78.0, y, z), (1, 0, 0), dia=6.35)
-#
-# WHAT MOVES IT IS THE FUNNEL'S OWN STATION. The band's forward bound is the drain union, standing
-# in its cradle under the frame's drain hole with its aft leg reaching toward the core, and the
-# drain stands `funnel.neck_dy` aft of the collar's Y centre — so this crossing walks with
-# `enclosure.funnel_front_y` and that offset, and with nothing else. The display wall is
-# `enclosure.housing_back_y`, one running fit ahead of the funnel frame's flat front.
-# The run is authored in `build_runs`, which draws the pack's own runs before the box seats the
-# funnel, so the union is not there to measure against and this is a Y rather than a standoff.
-# `clearance-floor` is what holds the two apart, and it is what caught the facet growing.
-_CORE_FRONT_Y = _cc.rear_plane_y - _cc.rear_seam_clear - _cc.outer_shell_x_length
-CROSS_Y = _CORE_FRONT_Y - 1.5
-# THE DODGE ONTO THE LID. `CROSS_Y` runs one and a half millimetres FORWARD of the core's own
-# front face, so over that stretch the lane has no lid beneath it and nothing there can hold it.
-# Where the run has to be gripped, it steps aft onto the lid and comes back — two shallow plan
-# corners each way — and the post that grips it stands on what it stepped onto
-# (`_cold_core_interface.cap_side_anchors["water-3"]`). The step is the post's own
-# front face plus the `axis_off` the pipe stands proud of it, which is what puts the axis here.
-#   THE SPAN IS THE POST'S, and it goes where the post goes: the aft flat has to run the post's
-# whole length under it or the pipe ramps inside the seat that grips it. `cap_tube_anchors`
-# refuses a post no leg passes through, which is what holds the two files together.
-#   IT SITS WEST OF THE CENTRELINE because that is the side with room. The run arrives from the
-# channel at `CHANNEL_X` and leaves on `CROSS_LIFT_X`, so east of centre the step's far corner
-# and the lift stand within a couple of millimetres of each other and the leg between them
-# falls under the stock's own bend radius. West of centre that leg is the whole crossing.
-#   Everywhere else the lane holds `CROSS_Y`: the reservoir draws and `water-5` cross this
-# storey on their own columns west of here, and the lane at `CROSS_Y` is what clears them.
-CROSS_DODGE_Y = _CORE_FRONT_Y + 2.0
-CROSS_DODGE_SPAN = (-22.0, -5.5)
-CROSS_DODGE_RAMP = 8.0
-# And how far UNDER V-K's own inlet plane it runs. The funnel's drain union hangs under the frame
-# on the drain's column and its body fills the storey at that plane, so the crossing drops
-# beneath the union's foot — and what it drops ONTO is the height the cap's rib holds it at over
-# the lid's face, which is what `_cold_core_interface.cap_anchors` states.
-CROSS_DROP = 7.1
-# THE CHANNEL THE BRANCH FALLS INTO, and it is the strip the box already leaves west of the core.
-# `enclosure.side_band_inset` is the band between the shell's own face and the wall's inner one,
-# and NOTHING UNDER IT IS THE CORE'S — which is what this run comes here for: a belly in the strip
-# is floored by the cabinet rather than by the cap lid the shell's own x-band stands over.
-#   TWO THINGS STAND IN IT. The Y SEAM, where the front piece laps the back one, puts a second
-# wall's thickness proud of the inner face on that plane, and this run crosses the seam on its way
-# forward — so the lap fences its west edge, and the raised first bend clears the core to its
-# east. And `fluid-28`'s anchor rib crosses the band bodily at tube height, on the slice of Y its
-# own `GATE_B_STEP_Y` places it in. This run is forward of that rib and does not meet it; a run
-# taken up the band aft of it would. Re-measure across at the seam's own plane, and along it for
-# the rib —
-#
-#     w.cast((-90.0, 213.1, z), (-1, 0, 0), dia=6.35)
-#     tools/cad-venv/bin/python hardware/scripts/probe.py hits --x -101.5,-90.5 --y 265,290 --z 260,280
-#
-CHANNEL_X = -94.0
-# HOW FAR UNDER THE CROSSING'S LANE THE FALL BOTTOMS OUT. The branch's corner turns through more
-# than a right angle: the leg leaving it leans west into the channel and rises onto the lane over
-# the run forward, so the fall ends beneath the storey it hands the water to.
-#
-# THE TEE ABOVE STANDS ONE TANGENT OVER THAT CORNER, which is what the fall costs it. The arc's
-# own belly is the deepest the run gets, one bend radius and the tube's half-diameter under the
-# branch collet, and it holds its lane over the lid's outer face.
-#
-# THE CROSSING IS SEATED ON THE CAP, so its intentional anchor contact cannot measure the free
-# first bend's clearance. Read that bend separately, aft of Y=190: its swept tube clears the core
-# by more than 1 mm, and the full run clears both enclosure halves by more than 1 mm. The height
-# and west channel position are paired dimensions; lowering the bend would spend the core gap.
-# Re-read the bend where it turns off the split's column —
-#
-#     tools/cad-venv/bin/python hardware/scripts/probe.py hits --x -99,-87 --y 220,242 --z 250,274
-#
-CROSS_RISE = 4.5
-# Where it starts leaning off the core again. The crossing hugs the core as far east as the
-# funnel's drain union, then leans forward and up in ONE leg onto V-K's column and inlet plane:
-# the collet needs its own straight, and a crossing that stayed against the core to the end would
-# leave a closing leg too short to turn a stock arc in.
-# WHERE THE RUN REACHES THE CHANNEL'S OWN COLUMN, and it is what carries the fall's belly out of
-# the lid's shadow. The branch collet fires down on `enclosure_assembly.SPLIT_COLUMN`, whose tube
-# stands its east face inside the shell's x-band — so a corner whose outgoing leg is mostly
-# FORWARD keeps its arc on that column and bellies over the cap. Struck aft of the crossing, the
-# leg out of that corner heads WEST instead, the arc swings with it, and the belly comes down in
-# the strip where the lid is not underneath. What the fall may then spend is `CROSS_RISE`, and
-# what that is worth is the tee's own height.
-#   IT IS FENCED BOTH WAYS. The leg into it has to seat corner 0's whole quarter-turn as tangent,
-# so it cannot be struck so near the branch that the fall has no room to turn; and the leg out of
-# it runs the channel to the crossing, which is what the run is in the strip FOR.
-CHANNEL_ENTRY_Y = _CORE_FRONT_Y + 44.0
-CROSS_LIFT_X = 24.0
-CROSS_APPROACH_Y = 164.0
-
-
-
-
-def _water_3(F):
-    """water-3 — the split's DOWNWARD branch to V-K's forward-facing inlet, and the one run in
-    the assembly that crosses the whole machine.
-
-    It has to. The split stands in the WEST lane and V-K stands on the EAST, and V-K's inlet
-    faces FORWARD — so the water leaves the split going down, and has to arrive at V-K from in
-    front of it. There is no shorter way round: the valve manifold occupies the storey between
-    the two columns and the band behind the drain union is the one window through it.
-
-    IT FALLS INTO THE CHANNEL AND RUNS IT. The branch drops on the split's own column, and its
-    corner turns WEST off that column into `CHANNEL_X` — the strip between the shell's face and
-    the wall's — reaching that column at `CHANNEL_ENTRY_Y`, aft of the crossing. What follows is
-    a leg down the channel itself, rising `CROSS_RISE` onto the crossing's storey as it goes.
-
-    THE TEE ABOVE STANDS ONE TANGENT OVER THAT CORNER, which is what the fall costs it, so where
-    the corner's arc bellies is what sets the tap's height. `SPLIT_COLUMN` stands the branch's own
-    tube with its east face inside the shell's x-band, so an arc that leaves mostly FORWARD stays
-    on that column and bellies over the cap lid. Leaving WEST swings the arc into the strip, where
-    what is under the belly is the cabinet floor rather than the lid.
-
-    IT CROSSES UNDER THE FUNNEL'S DRAIN UNION. The union stands in its cradle under the frame's
-    drain hole in the middle of that window, so the crossing runs `CROSS_DROP` under the inlet's
-    own plane, the whole width
-    of the machine beneath the union's foot and against the cold core's front, and climbs back
-    onto the inlet's plane on V-K'S OWN COLUMN — where the climb costs nothing, because the aft
-    leg into the collet is there anyway and the lean shares it. The cap's own side post grips the
-    run on that lane (`_cold_core_interface.cap_side_anchors`), which is what fixes its height.
-
-    The closing straight is planted on the collet's axis (`lead`), so the mouth is entered square
-    however the lean arrives at it."""
-    split, vk = F["water-split"], F["vk-solenoid"]
-    src, dst = split.at("to-vk"), vk.at("inlet")
-    z = dst[2] - CROSS_DROP
-    dx0, dx1 = CROSS_DODGE_SPAN
-    return R.bent(
-        "water-3", "water-split.to-vk",
-        (src[0], src[1], z - CROSS_RISE),   # the whole fall, on the branch's column, past the lane
-        (CHANNEL_X, CHANNEL_ENTRY_Y, z - CROSS_RISE),  # west OUT of the lid's shadow, still low
-        (CHANNEL_X, CROSS_Y, z),              # forward down the channel, rising onto the lane
-        (dx0 - CROSS_DODGE_RAMP, CROSS_Y, z),  # east along that lane, to the dodge
-        (dx0, CROSS_DODGE_Y, z),               # aft into the lid's notched corner, onto the lid
-        (dx1, CROSS_DODGE_Y, z),               # through the side post's own grip
-        (CROSS_LIFT_X, CROSS_Y, z),            # and back onto the lane
-        (dst[0], CROSS_APPROACH_Y, dst[2]),  # one lean off the core, onto V-K's column and plane
-        "vk-solenoid.inlet",
-        kind="water", lead=(None, _ml.STUB),
-        note="tap water: split branch → V-K inlet, down into the west channel, across the window "
-             "under the funnel's drain union — stepping aft onto the lid's side post — and up V-K's own "
-             "column into the mouth")
-
-
-FLUID_1_INBOARD = 29.85
-FLUID_1_APPROACH = 8.0
-FLUID_1_DIAGONAL = 20.0
-
-
-def _fluid_1(F):
-    """Feed the internal pressure valve below the frame and beside water-2."""
-    split, reg = F["water-split"], F["flow-regulator"]
-    src, dst = split.at("to-flavor"), reg.at("inlet")
-    fore = src[1] - TUBE_BEND
-    lane_x = src[0] + FLUID_1_INBOARD
-    approach = reg.normal("inlet")
-    join = tuple(dst[k] + 22.0*approach[k] for k in range(3))
-    return R.bent(
-        "fluid-1", "water-split.to-flavor",
-        (src[0], fore, src[2]),
-        (lane_x, fore, src[2]),
-        (lane_x, join[1] - FLUID_1_DIAGONAL, src[2]),
-        join,
-        "flow-regulator.inlet",
-        kind="fluid", bend=TUBE_BEND, lead=(0.0, FLUID_1_APPROACH),
-        note="flavor clean water: split run -> internal pressure regulator, below the frame")
-
-
-# What each collet on the step gets straight off its own axis before `water-2` starts to lean.
-# NOT A GRIP — a collet grips inside the fitting, behind the face, and a line starts curving at
-# that face. What this holds is the TANGENT its own corner seats on, R·tan(θ/2) for the lean the
-# step takes, so it is priced against the corner rather than against the push-fit. Taken out of
-# the reach `enclosure_assembly.WATER_2` gives.
-# The split's supply mouth faces aft. Its level lead ends where the climb begins.
-#   AND IT IS SELF-OPPOSING, which is what keeps it honest: the lead is taken out of the step's Y
-# and the fall is not, so a longer straight leaves the lean less run for the same drop and steepens
-# it. The corner's own demand rises with it — slower than the lead does, which is why there is a
-# figure that satisfies both, but the two move together and neither may be read alone.
-WATER_2_LEAD = 12.0
-# THE SPLIT END'S HORIZONTAL SECTION, stated as a leg rather than reached for as a lead. A lead
-# plants its point along the port's own axis and the climb's corner then backs its tangent into
-# that same straight, so what stands off the tee is the lead less that tangent. A waypoint is a
-# place the run passes through: the leg is the length, and the corner takes its tangent out of the
-# LEAN instead. What the eye reads standing off the collet is this figure less `R·tan(θ/2)`.
-# Aft, `wago-reeds-b`'s well opens at y 294.60 on that wall, and this leg's far end
-# stops short of it. `WATER_2_LEAD` and this share the lean; both corners spend
-# their tangents along it, so neither figure may be read alone. `bend-radius` reads the
-# pair back and `clearance-floor` reads the crossing.
-WATER_2_RUN = 21.25
-
-
-def _water_2(F):
-    """water-2 — the ASSE 1022's outlet to the split's supply, and the tap's whole step off the
-    panel deck.
-
-    ONE LEAN IN THE OPEN ROOM AFT OF THE FUNNEL. The chain hands the water over facing forward
-    down the west lane and the split's own run axis IS that lane, a storey lower — so the two
-    collets face each other down the lane with `enclosure_assembly.FLAVOR_STEP` between them.
-    The run leaves the chain on-axis off its own `WATER_2_LEAD` stub and arrives at the tee along
-    `WATER_2_RUN`, the level leg stated aft of it; the whole fall is taken in the lean between,
-    which lies in the room the bowl stops short of.
-
-    THE TWO ARE NOT ON ONE COLUMN. The chain's is the +Y wall of back-top's `PORT_WEST_COLUMN` and the
-    split's is `enclosure_assembly.SPLIT_COLUMN`, so the lean crosses as well as falls.
-
-    ONE END IS A STUB AND THE OTHER IS A PLACE, and that is the whole shape of it. At the chain,
-    `lead=` plants a point one reach along the collet's axis and the lean starts wherever the
-    corner off it leaves off — a standoff, spent by its own turn. At the tee, `WATER_2_RUN` is a
-    waypoint the run must pass through, so the level leg is the length it says and the lean starts
-    at its far end. The tee's stub is therefore 0, not open: `None` there would ask the router for
-    one bend radius along the same axis the waypoint already stands on.
-      The lean is the single leg between those two, and it turns twice — once out of the chain's
-    stub, once onto the tee's leg — at whatever angle the step's fall and crossing make of it."""
-    _S2 = F["water-split"].at("supply")
-    return R.bent(
-        "water-2", "asse1022-assembly.tube-out",
-        # A STATED HORIZONTAL SECTION off the tee, on the tee's own storey. `lead=` cannot carry
-        # this: it plants its point along the port axis and the climb's own corner then reaches
-        # back into it, so a longer lead is largely eaten before it is seen. A waypoint is a place
-        # the run must pass through, so this length is the length.
-        (_S2[0], _S2[1] + WATER_2_RUN, _S2[2]),
-        "water-split.supply",
-        kind="water", bend=TUBE_BEND, lead=(WATER_2_LEAD, 0.0),
-        note="tap water: ASSE outlet → split supply, one lean off the deck onto the lane the "
-             "funnel's bowl leaves")
-
-
-def _water_7(F):
-    """water-7 — V-K's outlet to the suction elbow's tube socket.
-
-    V-K fires aft and the elbow's leg looks forward at it, a storey up and a column west, so
-    the tube leaves the collet on its own axis, crosses that offset in one lean and enters the
-    socket on the leg's own axis. `SUCTION_LEAD` plants the two straights the corners seat
-    between."""
-    return R.bent(
-        "water-7", "vk-solenoid.outlet", "pump-elbow-suction.tube",
-        kind="water", bend=TUBE_BEND, lead=SUCTION_LEAD,
-        note="carb water: V-K outlet → the G Ganen's suction elbow, one lean up and west")
-
-
-def _water_6(F):
-    """water-6 — the discharge elbow's tube socket to the single check's inlet collet.
-
-    The elbow's leg points forward and down under the gravity drain's route; the chain lies
-    a column west on the cap's plane, inlet aft. `DISCHARGE_LEAD` plants the two straights."""
-    return R.bent(
-        "water-6", "pump-elbow-discharge.tube", "discharge-chain.inlet",
-        kind="water", bend=TUBE_BEND, lead=DISCHARGE_LEAD,
-        note="carb water: the G Ganen's discharge elbow → the single check's inlet collet")
-
-
-def _water_5(F):
-    """water-5 — the single discharge check's outlet to the cold core's water-in conduit, and the
-    tap-water path's only descent.
-
-    ONE SLANT ACROSS THE FALL. The collet looks forward off the far end of the laid-down chain
-    and the bore opens up out of the cap's lid on that chain's own column, ahead of it and
-    below it — so the tube leaves the collet straight on its own axis, crosses the fall at a
-    slant, and enters the bore dead on the vertical it is drilled at. Two gentle turns rather
-    than one square one; its height only ever descends.
-
-    `lead` is what plants the two straights: one stock bend radius off each mouth, so the
-    corners live in the middle of the run and both mouths take the tube unbent."""
-    return R.bent(
-        "water-5", "discharge-chain.tube-port", "foam-assembly.water-in",
-        kind="water", lead=TUBE_BEND, skew=(R.COLLET_SKEW, CAP_BORE_SKEW),
-        note="carb water: water check's outlet → the core's water-in cap conduit, one "
-             "slant across the fall")
-
-
-def _co2_2(F):
-    """co2-2 — check outlet collet, aft then east onto the existing cap-conduit column."""
-    out = F["gasher-co2"].at("outlet")
-    bore = F["foam-assembly"].at("co2-in")
-    turn_y = out[1] + 2.0 * TUBE_BEND
-    return R.bent(
-        "co2-2", "gasher-co2.outlet",
-        (out[0], turn_y, out[2]),
-        (bore[0], turn_y, out[2]),
-        (bore[0], bore[1], out[2]),
-        "foam-assembly.co2-in",
-        kind="co2", lead=(TUBE_BEND, TUBE_BEND), skew=(R.COLLET_SKEW, CAP_BORE_SKEW),
-        note="CO2: downstream check outlet → east lane → the core's CO2 cap conduit")
-
-
-# The outlet turns east ahead of the pan, then climbs in the lane west of the
-# pump. The high crossing approaches V-A on its existing vertical column.
-FLUID_2_LEAD = TUBE_BEND
-FLUID_2_RETURN_X = -54.0
-FLUID_2_RETURN_FORE_Y = 357.0
-FLUID_2_OVER_CAP = 66.1
-# The upper crossing descends gently onto the axial inlet quarter, leaving the
-# pump's rounded front casting its full clearance.
-FLUID_2_DESCENT_EAST = 0.5
-
-
-def _fluid_2(F):
-    """Turn above the regulator's rear end and return west of the pump into V-A."""
-    reg, vk_a = F["flow-regulator"], F["valve-v-a"]
-    out, inlet = reg.at("outlet"), vk_a.at("inlet")
-    heading = reg.normal("outlet")
-    turn = tuple(out[k] + 25.0*heading[k] for k in range(3))
-    cross_z = F["foam-assembly"].at("carb-water-out")[2] + FLUID_2_OVER_CAP
-    inlet_turn = inlet[1] + TUBE_BEND
-    return R.bent(
-        "fluid-2", "flow-regulator.outlet",
-        turn,
-        (FLUID_2_RETURN_X, turn[1], cross_z),
-        (FLUID_2_RETURN_X, FLUID_2_RETURN_FORE_Y, cross_z),
-        (inlet[0] + FLUID_2_DESCENT_EAST, inlet_turn, cross_z),
-        (inlet[0], inlet_turn, inlet[2]),
-        "valve-v-a.inlet",
-        kind="fluid", bend=TUBE_BEND, lead=(8.0, FLUID_2_LEAD),
-        note="clean water: internal regulator outlet, rear rising return west of the pump, "
-             "then V-A's axial inlet quarter")
-
-
-# --- the funnel's gravity drain ---------------------------------------------
-#
-# The drain leaves the elbow aft, level, through the gap between V-A and V-B. The G Ganen pump's
-# head stands across that gap close behind the valves' collets, so the line turns west over
-# V-B's collet boss, behind its coil and short of the pump's face, and runs aft down V-B's west
-# flank. One tilted U then brings it east and down into V-B's inlet, which faces aft. Every leg
-# before the U is level and the U only falls, so nothing on the line stands above the elbow.
-
-# The westward crossing's Y: aft of coil-v-b's end and forward of the pump head's face.
-FLUID_4_CROSS_Y = 282.0
-
-
-def _fluid_4(F):
-    """The funnel's gravity feed: aft off the elbow, west behind V-B's coil, aft down V-B's west
-    flank, and one U into V-B's inlet.
-
-    The U's two legs are a full `2 * TUBE_BEND` apart, so its corners hold the stock's minimum
-    radius; the flank stands that far, across the line's fall, from the inlet's own axis.
-    """
-    drain = F["funnel-drain-union"].at("outlet")
-    inlet = F["valve-v-b"].at("inlet")
-    fall = drain[2] - inlet[2]
-    flank_x = inlet[0] - math.sqrt((2 * TUBE_BEND) ** 2 - fall ** 2) - 0.25
-    turn_y = FLUID_4_CROSS_Y + 2 * TUBE_BEND
-    return R.bent(
-        "fluid-4", "funnel-drain-union.outlet",
-        (drain[0], FLUID_4_CROSS_Y, drain[2]),
-        (flank_x, FLUID_4_CROSS_Y, drain[2]),
-        (flank_x, turn_y, drain[2]),
-        (inlet[0], turn_y, inlet[2]),
-        "valve-v-b.inlet",
-        kind="fluid", bend=TUBE_BEND,
-        note="funnel drain elbow → V-B inlet: aft through the V-A/V-B gap, west behind V-B's "
-             "coil, aft down its west flank, and one U east and down into its aft-facing inlet")
-
-
-# --- the carb-water riser, and the two flavour gates' lines to the panel ----
-#
-# All three end on the panel deck (`enclosure_assembly.PANEL_X`), which is the band over the water
-# pump's crown, and all three reach it by a column that runs the machine's whole height.
-
-# The carbonated-water riser's deck station stands this far forward of its cap-conduit axis.
-# Its source is a countersunk lid bore which expressly accepts `CAP_BORE_SKEW`, so the run leans
-# gently over the full climb rather than spending another pair of corners on a one-millimetre
-# dogleg. At the electronics bay that lean keeps the tube one `clearance-floor` off the populated
-# main board while the horizontal deck leg and its ceiling anchor remain straight.
-CARB_1_FORWARD_LEAN = 1.0
-
-
-def _carb_1(F):
-    """carb-1 — the cold core's carbonated-water conduit to the meter's inlet.
-
-    UP THE PORT LANE AND WEST ALONG THE DECK. The bore opens out of the cap's lid facing the
-    ceiling and the meter lies fore and aft on the panel deck with its inlet facing forward, so
-    the run leans one millimetre forward over the full climb to keep its service air past the
-    main board, crosses west onto the meter's column, and runs aft down it into the collet.
-
-    The closing leg is THE COLLET'S OWN AXIS, so there is no closing corner: the column the run
-    turns onto is the meter's own X and the deck is its own Z, and what is left between them is
-    one straight length of tube."""
-    bore = F["foam-assembly"].at("carb-water-out")
-    inlet = F["digiten-flow"].at("inlet")
-    deck_y = bore[1] - CARB_1_FORWARD_LEAN
-    return R.bent(
-        "carb-1", "foam-assembly.carb-water-out",
-        (bore[0], deck_y, inlet[2]),         # lean forward over the climb onto the deck
-        (inlet[0], deck_y, inlet[2]),        # west along the deck onto the meter's column
-        "digiten-flow.inlet",                # and aft down it into the collet
-        kind="water", lead=(TUBE_BEND, TUBE_BEND), skew=(CAP_BORE_SKEW, R.COLLET_SKEW),
-        note="carb water: the core's carb-water cap conduit → DIGITEN inlet, leaning forward "
-             "up the port lane for main-board air, then west along the panel deck onto the "
-             "meter's own column")
-
-
-def _carb_2(F):
-    """carb-2 — a shallow rise from the meter's outlet to the carb union's inboard collet.
-
-    The meter's cover sets its axis below the panel deck. Four-millimetre waypoint leads leave
-    both collets on-axis while the two tangent R14 bends take that height difference.
-    """
-    return R.bent(
-        "carb-2", "digiten-flow.outlet", "bulkhead-carb.tube-in",
-        kind="water", lead=4.0, bend=TUBE_BEND,
-        note="carb water: DIGITEN outlet → rear union, a shallow rise between two on-axis ends")
-
-
-# How high the WEST gate's line climbs on its own column before it steps outboard. That gate has
-# its own channel's reservoir line standing over it, so the column is a bay and not a shaft, and
-# this is the air left under whatever that is.
-#
-# WHAT CROSSES A GATE'S COLUMN IS ITS OWN CHANNEL'S FILL LINE. West that is `fluid-24`, which
-# runs aft up the outboard lane on `RESERVOIR_CRUISE` and passes directly over V-J and fixes this
-# plane. Flavor A crosses the fore cap strip below this plane before it reaches the
-# west flank. This figure is the west gate's.
-GATE_STUB_CLEAR = 4.0
-# WHERE THE WEST GATE'S LINE RUNS AFT IS ITS OWN UNION'S COLUMN, and it takes that column at the
-# first corner it can and holds it to the wall. The gate stands on `LIMB_OUT_XW` and the union on
-# `PORT_WEST_COLUMN`, which are ONE MILLIMETRE apart — so the whole crossing between them is that
-# millimetre, and a line that spends it once has nothing left to spend. Everything aft of the jog
-# is one column: the cold core's whole length, the panel deck and the collet.
-#
-# WHAT THAT LEAVES IS THE WEST FLANK ITSELF. A run out in the outboard strip stands its section in
-# the one band the −X wall's own furniture wants — the tap-water split's cap reaches x −85.1
-# inboard and the three cluster lever nuts sit in that wall's wells — and it fences that band for
-# the whole height it crosses at. On the union's column the tube spans x[−81.2, −74.9] and the
-# strip outboard of it is the wall's.
-#
-# The main board and relay occupy the +X flank from y 232 aft. Flavor A crosses the
-# fore cap strip and runs aft on the west flank. What follows is the west gate's.
-#
-# HOW FAR AFT THE JOG IS TAKEN, and it is fenced from both sides. The leg has to hold the climb's
-# whole quarter-turn as tangent — a square corner spends its whole radius in each leg it touches,
-# so `TUBE_BEND` of this leg is spoken for before the jog's own corner asks for any — and the jog
-# turns only `atan(1 / reach)`, which `_routing._straighten` DROPS under 2°: past 28.6 mm of reach
-# there is no corner here at all and the run is drawn as one straight into the collet, off its
-# axis. This stands between the two, at 2.87° of turn.
-#
-# WHAT IT IS MEASURED FROM is V-J's own outlet, which rides `enclosure_assembly.PACK_Y`. Both
-# fences above are on the leg, so both are read from there too, and `bend-radius` is what reports
-# the climb's quarter when the leg is short of the first one.
-GATE_B_JOG_LEG = 32.0
-GATE_B_DRAIN_RETURN_RISE = 3.5
-GATE_B_RETURN_WEST = 16.5
-GATE_B_RETURN_HOLD_Y = 412.0
-GATE_B_UNION_APPROACH = 10.0
-# Where the line comes off the cruise plane onto its union's own storey. The rise is 2.9 mm and
-# the run holds the plane it climbed to for everything before it, so what this figure places is
-# THE ANCHOR: the rib rides the middle of the leg it names, and the middle of this one stands in
-# the daylight between the tap-water split's barrel (which ends at y 260) and the wall's own
-# cluster wells (which begin at y 295). It is the one stretch of that wall a rib can cross without
-# standing in something else's band, and it leaves 12 mm either side.
-GATE_B_STEP_Y = 393.0
-# What the rise takes fore and aft. Both its corners turn 8.1° and spend a millimetre of tangent
-# apiece, so nearly all of this is straight — the reach is here to keep the corner well over the
-# 2° a lean needs to be a lean, not because the arcs want it.
-GATE_B_RISE_RUN = 20.0
-# Flavor A crosses above the front valve coils, then follows the west side.
-# Its straight bearing lies behind the discharge-chain support on the cap lid.
-GATE_A_FRONT_Y = 135.0
-GATE_A_FRONT_Z = 283.0
-GATE_A_FRONT_JOIN_X = 35.0
-GATE_A_OUTER_X = -88.0
-GATE_A_DESCENT_START_Y = 175.0
-GATE_A_BEARING_JOIN_Y = 235.0
-GATE_A_BEARING_EXIT_Y = 295.0
-GATE_A_LOW_LANE_JOIN_Y = 325.0
-GATE_A_FORE_HEIGHT = 4.9
-GATE_A_WEST_X = -76.5
-GATE_A_RETURN_START_Y = 345.0
-GATE_A_UNION_JOIN_Y = 375.0
-GATE_A_UNION_LEVEL_RUN = 16.0
-GATE_A_RISE_RUN = 20.0
-
-def _gate_a_anchor(F) -> tuple:
-    """The installed crossing's axis at the middle of its capped lid rib, from the cap's own
-    placement declaration (`_cold_core_interface.cap_anchors["fluid-18"]`)."""
-    draw = F["foam-assembly"].at("reservoir-a")
-    anchor = _cc.cap_anchors["fluid-18"]
-    local_draw = _cc.cap_conduits["reservoir-a"]
-    # Installed cap +Y is world +X and cap +X is world -Y.
-    return (draw[0] + anchor.centre[1] - local_draw[1],
-            draw[1] + local_draw[0] - anchor.centre[0],
-            draw[2] + anchor.over_face)
-
-
-def gate_cruise(v_i_outlet_z: float) -> float:
-    """The storey the WEST flavour gate cruises aft at, off the collet of the valve whose own
-    channel crosses that gate's column.
-
-    The same figure struck on `RESERVOIR_CRUISE` instead of on a stub — what the west gate climbs
-    to under `fluid-24`. A run's own underside is one half-section below its axis, exactly as a
-    stub's box is, so the lane and the reservoir line crossing it come out on one plane.
-
-    IT IS WHAT BOTH UNIONS ARE STOOD ON, or the least of it: the west line cruises this plane the
-    whole way aft and the east line comes down its union's column onto it, so neither has a storey
-    to find at the end. What the unions actually take is `enclosure_assembly.flavor_storey`, which
-    carries this plane up to whatever passes their barrels over the pump's bracket.
-
-    Takes the Z rather than the frames, so a body may be STOOD on this plane before any run is
-    drawn — `enclosure_assembly.panel_z` puts the flavor-B union on it."""
-    # V-I stands ``FORE_STUB_GAP`` above the pump-barb tee so its short flex stub can work.
-    # That buys extra clearance over the flavour gate; it does not move the gate, its rear
-    # union or the long line between them to a new storey.
-    return (v_i_outlet_z - _ml.FORE_STUB_GAP
-            + RESERVOIR_CRUISE - _split.TUBE_D - GATE_STUB_CLEAR)
-
-
-def station(body: str, port: str):
-    """One body's station in its own frame, as a carry takes it."""
-    return STATIONS[body][port][0]()
-
-
-# How high the west gate's line climbs over the aft row's outlet plane before it cruises aft:
-# room for the reducer on V-J's outlet and the riser's R25 quarter off it, with flavor A's capped
-# bearing on the core's lid passing under the run and under the flanks of its back-top anchor.
-# V-J stands `manifold_layout.OUTER_AFT_DROP` below that row, so the climb is read off the row.
-GATE_B_CLIMB = 29.5
-
-
-def _gate_climb_under_cruise(F) -> float:
-    """`gate_cruise` read off the placed valve, or `GATE_B_CLIMB` over the aft row's outlet
-    plane, whichever is higher."""
-    return max(gate_cruise(F["valve-v-i"].at("outlet")[2]),
-               F["valve-v-j"].at("outlet")[2] + _ml.OUTER_AFT_DROP + GATE_B_CLIMB)
-
-
-def _fluid_28(F, solids):
-    """Flavor B retains the front support and follows its raised west return.
-
-    The return rises 3.5 mm, passes 16.5 mm west of the rear union's column and
-    reaches its collet on-axis. Its 10 mm approach is measured from the
-    actual union mouth along its outward normal. The rear corners hold R25.4.
-    """
-    gate = F["valve-v-j"].at("outlet")
-    tin = F["bulkhead-flavor-b"].at("tube-in")
-    climb = _gate_climb_under_cruise(F)
-    return R.bent(
-        "fluid-28", "valve-v-j.outlet",
-        (gate[0], gate[1], climb),                          # up what the reservoir stub leaves
-        (tin[0], gate[1] + GATE_B_JOG_LEG, climb),          # the one jog, onto the union's column
-        (tin[0], 302.0, climb),
-        (tin[0], 340.0, climb + GATE_B_DRAIN_RETURN_RISE),
-        (tin[0] - GATE_B_RETURN_WEST, 365.0, climb + GATE_B_DRAIN_RETURN_RISE),
-        (tin[0] - GATE_B_RETURN_WEST, GATE_B_RETURN_HOLD_Y, climb + GATE_B_DRAIN_RETURN_RISE),
-        "bulkhead-flavor-b.tube-in",
-        kind="fluid", lead=(0.0, GATE_B_UNION_APPROACH),
-        bend={1: 25.0, 2: 25.0,
-                            3: 25.4, 4: 25.4, 5: 25.4, 6: 25.4, 7: 25.4},
-        note="flavor B: V-J-O → rear union, through the front support and "
-             "a raised west return above the ASSE drain")
-
-
-def _fluid_18(F, solids):
-    """Flavor A crosses the front coils and returns along the west side at R25.
-
-    The cap-lid bearing holds the straight fore-aft section before the line
-    descends below the west-side terminals and returns over the pump's rear foot.
-    """
-    gate = F["valve-v-g"].at("outlet")
-    tin = F["bulkhead-flavor-a"].at("tube-in")
-    anchor_x, _anchor_y, bearing_z = _gate_a_anchor(F)
-    fore_z = F["foam-assembly"].at("reservoir-a")[2] + GATE_A_FORE_HEIGHT
-    low_z = (F["foam-assembly"].at("reservoir-a")[2] + _pump.observed_pad_upper_z()
-             + _split.TUBE_D / 2.0 + LANE_CLEAR)
-    rise_y = GATE_A_UNION_JOIN_Y + GATE_A_UNION_LEVEL_RUN
-    return R.bent(
-        "fluid-18", "valve-v-g.outlet",
-        (gate[0], gate[1], GATE_A_FRONT_Z),
-        (GATE_A_FRONT_JOIN_X, GATE_A_FRONT_Y, GATE_A_FRONT_Z),
-        (GATE_A_OUTER_X, GATE_A_FRONT_Y, GATE_A_FRONT_Z),
-        (GATE_A_OUTER_X, GATE_A_DESCENT_START_Y, GATE_A_FRONT_Z),
-        (anchor_x, GATE_A_BEARING_JOIN_Y, bearing_z),
-        (anchor_x, GATE_A_BEARING_EXIT_Y, bearing_z),
-        (GATE_A_WEST_X, GATE_A_LOW_LANE_JOIN_Y, fore_z),
-        (GATE_A_WEST_X, GATE_A_RETURN_START_Y, fore_z),
-        (tin[0], GATE_A_UNION_JOIN_Y, low_z),
-        (tin[0], rise_y, low_z),
-        (tin[0], rise_y + GATE_A_RISE_RUN, tin[2]),
-        "bulkhead-flavor-a.tube-in",
-        kind="fluid", bend=25.0,
-        note="flavor A: V-G-O → rear union, across the front coils, "
-             "through the west cap bearing and over the pump's west-rear foot")
-
-# --- the four reservoir lines, gate to reservoir and reservoir to gate --------
-#
-# Neither reservoir has a junction: each carries two mouths of its own, both bores in its own cap —
-# the fill, which ends above the liquid, and the draw, whose line goes on down the bore to the
-# floor as the reservoir's dip tube — so each pair's two valves reach one directly. Everything
-# entering has to cross the cavity to leave, so a purge displaces what is in there rather than
-# short-circuiting back out the way it came in.
-#
-# Both ends face up: a gate's lower-deck collet and a cap conduit open +Z.
-# Each line rises off its conduit and comes down onto its gate's lead.
-#
-# The two B lines use a lower crown and shallow gate leads, retaining their full R14 turns
-# below the funnel frame. Reservoir A's fill uses its own anchored low lane.
-RESERVOIR_CRUISE = TUBE_BEND
-RESERVOIR_B_CRUISE = TUBE_BEND - 0.6
-RESERVOIR_B_GATE_LEAN_DEG = 2.9
-# The two ends of `fluid-24`'s crossing from the outboard lane to the bore's own column.
-#
-# THE WEST HALF IS OPEN AT THIS PLANE ONLY FORWARD OF `water-5`. Swept east from x −80 at the
-# cruise, the strip runs clear across the machine at every station up to y 185 and then shuts:
-# `water-5` crosses this plane at x[−60.1, −53.2] over y[185.7, 203.2] on its way down to the
-# `water-in` bore, and the discharge chain takes x[−64.5, −49] from y 223 aft. So the crossing
-# is taken forward of both, and what the run does aft of it is hold the bore's column, which is
-# clear the machine's whole depth.
-# `water-5` leaves the anchored discharge chain's collet and slants down to its cap
-# bore. Its own placed route determines the crossing clearance in this plane.
-#   `FILL_B_LEAN_Y` holds the gate's column long enough to make the crossing steep.
-FILL_B_LEAN_Y = 170.0
-FILL_B_JOIN_Y = 192.0
-# What a line holds off a body it passes in a lane, where the lane is the whole of its room.
-LANE_CLEAR = 4.0
-# The high approach to the lane. The long low leg's column and height belong to
-# its cap anchor, in the native round-body gap between V-A and V-K. Its finished sweep must
-# retain the ordinary clearance floor to both valves; their boxes do not describe that gap.
-FILL_A_LANE_Z = 289.0
-# Straight lead off V-F before spending its lifted station in the diagonal. The completed
-# route below checks every bend rather than assuming this lead alone guarantees R14.
-FILL_A_GATE_LEAD = 14.6
-# A shallow aft lean keeps the gate approach below the complete funnel frame.
-FILL_A_GATE_LEAN_DEG = 2.9
-# How long the run holds that storey before it falls — one stock radius, of which the corner off
-# the diagonal and the corner into the fall take 11.2 between them. What is left is the only
-# straight between those two bends. Re-read the fall's room by sweeping the two waypoints that
-# carry it —
-#
-#     tools/cad-venv/bin/python hardware/scripts/probe.py reroute fluid-14 3-4 y- 0:6:0.5
-#
-# — clear to 2.5 mm forward of here, then that corner starves. The rib holding this run stands
-# in the cap's own frame and does not follow the fall: `_cold_core_interface.cap_anchors["fluid-14"]`.
-FILL_A_LANE_RUN = TUBE_BEND
-# How much depth the fall onto the cap takes. Both its corners spend `TUBE_BEND` as tangent, so
-# what reaches the cap's plane is the fall plus those two arcs.
-FILL_A_FALL_RUN = 6.0
-# After the complete cap bearing, a shallow descent passes under the suction elbow and the
-# tube leaving it. It ends where it did; its run is short enough that the bearing keeps its
-# whole straight aft of the rib. The rear fill approach keeps the cap anchor's storey;
-# neither printed anchor nor conduit moves.
-FILL_A_HOSE_DROP = 1.25
-FILL_A_HOSE_FALL_RUN = 12.0
-# The valve-side leg passes below the wide part of V-A, then returns to the
-# complete cap bearing before its fore edge. These gentle bends retain R14.
-FILL_A_VALVE_DROP = 1.5
-FILL_A_VALVE_RETURN_RUN = 8.0
-# THE CAP BEARING IS A STRAIGHT A SNAP CAP CLOSES ON: the rib's own length and a millimetre past
-# each end of it, level at the bearing's height and centred on the rib, before either corner
-# beside it begins to turn (`_anchor_cap_interface.RIB_LEN`).
-FILL_A_BEARING_STRAIGHT = _anchor_cap.RIB_LEN + 2.0
-
-# RESERVOIR A'S DRAW CROSSES THE DECK. Its dip tube comes up out of the aft pocket between the
-# pump's two east feet, and the gate it serves stands at the front of the machine. The run climbs
-# over the pump's suction elbow, holds that storey forward along the pump's east side, threads the
-# gap V-A's and V-K's coils leave between them, and leans down past the fill's fall onto the
-# gate's lead. The deck path rides the core — its stations are struck in the cap's own frame
-# (`_on_cap`) — and the approach rides the gate.
-#   The cruise stands over the lid's face clear of the suction elbow and its clamp, which reach
-# 35 mm over it.
-DRAW_A_CRUISE = 43.4
-# Where the cruise ends, aft of V-A's coil, and where the run comes out of the gap forward of
-# V-K: cap-frame stations, the second with its height over the lid's face.
-DRAW_A_NECK_IN = (56.5, 47.7)
-DRAW_A_NECK_OUT = (92.2, 42.9, 38.3)
-# The approach, off the gate: between the source step `step-fluid-3` and the fill's fall, low
-# enough that the lean onto the lead stays under the funnel frame.
-DRAW_A_APPROACH = (11.7, 90.1, -2.3)
-DRAW_A_GATE_LEAD = 16.4
-# RESERVOIR B'S DRAW rises out of the front pocket west of the funnel's drain line, crosses over
-# that line's elbow on the way forward, and comes about west of the elbow's cradle onto the gate's
-# lead. The crown stands over the lid's face clear of the drain line, which reaches 30 mm over it.
-DRAW_B_CRUISE = 34.6
-DRAW_B_APPROACH = (-11.65, 90.7, 2.8)
-DRAW_B_GATE_LEAD = 15.3
-DRAW_GATE_LEAN_DEG = 2.9
-
-
-def _fill_a_lane_y(solids) -> float:
-    """Where the run comes about onto the lane — one clear section forward of V-K's own face,
-    so the diagonal off the gate is on the lane's column before it reaches the valve it passes."""
-    return solids["vk-solenoid"].BoundingBox().ymin - _split.TUBE_D - LANE_CLEAR
-
-
-def _fill_a_cap_z(F) -> float:
-    """The cap's actual outer face plus its own fluid-14 bearing height."""
-    return (F["foam-assembly"].at("reservoir-a-fill")[2]
-            + _cc.cap_anchor_axis_over_face("fluid-14"))
-
-
-def _fill_a_turn_y(F) -> float:
-    """Where it leaves the cap's plane for the bore's own column — aft of the tap-water riser.
-
-    The suction elbow's clamped cuff stands over this lane on the pump's suction barb. The run
-    holds the lane past that cuff and leans east only behind it."""
-    return F["g-ganen-pump"].at("suction")[1] + (ELBOW_CUFF_D + _split.TUBE_D) / 2.0 + LANE_CLEAR
-
-
-def _fluid_14(F, solids):
-    """fluid-14 — the channel-A fill gate to the bore in reservoir A's own cap.
-
-    Rise off V-F, then fall into the round-body gap between V-A and V-K.
-    The valve-side leg passes below V-A and returns to its anchor's height before the
-    complete cap bearing. It descends gently under the suction elbow's tube, leaves that
-    lane aft of the elbow and returns to the anchor's storey on the fill-bore approach. Both
-    the route and its rib share one placement declaration."""
-    gate = F["valve-v-f"].at("outlet")
-    bore = F["foam-assembly"].at("reservoir-a-fill")
-    # The installed cap maps local +Y to world +X. Reference its draw conduit so a translated
-    # core moves the anchor and route together without assuming a world-origin placement.
-    lane_x = (F["foam-assembly"].at("reservoir-a")[0]
-              + _cc.cap_anchors["fluid-14"].centre[1] - _cc.cap_conduits["reservoir-a"][1])
-    fall = _fill_a_lane_y(solids) + FILL_A_LANE_RUN
-    cap = _fill_a_cap_z(F)
-    bearing_y = (F["foam-assembly"].at("reservoir-a")[1]
-                 + _cc.cap_conduits["reservoir-a"][0]
-                 - _cc.cap_anchors["fluid-14"].centre[0])
-    # The bearing's fore end is where the corner off the valve-side leg finishes turning.
-    kink = TUBE_BEND * math.tan(math.atan2(FILL_A_VALVE_DROP, FILL_A_VALVE_RETURN_RUN) / 2.0)
-    valve_return = bearing_y - FILL_A_BEARING_STRAIGHT / 2.0 - kink
-    valve_under = cap - FILL_A_VALVE_DROP
-    hose_fall_end = F["pump-elbow-suction"].at("tube")[1] - TUBE_BEND
-    hose_fall_start = hose_fall_end - FILL_A_HOSE_FALL_RUN
-    hose_under = cap - FILL_A_HOSE_DROP
-    return R.bent(
-        "fluid-14", "valve-v-f.outlet",
-        (gate[0], gate[1] + FILL_A_GATE_LEAD * math.tan(math.radians(FILL_A_GATE_LEAN_DEG)),
-         gate[2] + FILL_A_GATE_LEAD),                       # full-radius lead, leaning aft within the collet
-        (lane_x, _fill_a_lane_y(solids), FILL_A_LANE_Z),    # one diagonal aft, inboard and down
-        (lane_x, fall, FILL_A_LANE_Z),                      # one stock radius of it, over that lean
-        (lane_x, fall + FILL_A_FALL_RUN, valve_under),      # low through the V-A / V-K body gap
-        (lane_x, valve_return - FILL_A_VALVE_RETURN_RUN, valve_under),
-        (lane_x, valve_return, cap),                       # recover before the full cap bearing
-        (lane_x, hose_fall_start, cap),                    # complete straight bearing over the bracket
-        (lane_x, hose_fall_end, hose_under),               # shallow descent beneath the suction tube
-        (lane_x, _fill_a_turn_y(F), hose_under),            # hold low until aft of the elbow's cuff
-        (bore[0], bore[1], cap),                            # one lean east onto the bore's column
-        "foam-assembly.reservoir-a-fill",                   # and straight down the strip into it
-        kind="fluid", bend=TUBE_BEND, skew=(R.COLLET_SKEW, CAP_BORE_SKEW),
-        note="reservoir A fill: V-F-O → the fill bore in its own cap, straight down onto the cap, "
-             "then the whole way aft in the lane V-K and V-A leave to the bore's own column "
-             "behind the suction elbow")
-
-
-def _on_cap(F, cap_xy, over_face=0.0) -> tuple:
-    """A station struck in the top cap's own frame, carried into the world off the cap's own
-    `reservoir-a` conduit: the installed cap lays its +Y on world +X and its +X on world −Y."""
-    ref = F["foam-assembly"].at("reservoir-a")
-    local = _cc.cap_conduits["reservoir-a"]
-    return (ref[0] + cap_xy[1] - local[1], ref[1] + local[0] - cap_xy[0], ref[2] + over_face)
-
-
-def _gate_lead(gate, toward, lead: float) -> tuple:
-    """The top of a gate's lead: `lead` straight over its collet, leaning `DRAW_GATE_LEAN_DEG`
-    toward the point the run comes in from, within the collet's own allowance."""
-    dx, dy = toward[0] - gate[0], toward[1] - gate[1]
-    reach = math.hypot(dx, dy)
-    lean = lead * math.tan(math.radians(DRAW_GATE_LEAN_DEG))
-    return (gate[0] + lean * dx / reach, gate[1] + lean * dy / reach, gate[2] + lead)
-
-
-def _fluid_16(F):
-    """fluid-16 — reservoir A's dip tube, up out of its own cap and across the deck to the
-    channel-A draw gate.
-
-    The riser climbs off the conduit over the pump's suction elbow, the cruise runs forward along
-    the pump's east side, the run threads the gap between V-A's and V-K's coils, and one lean
-    brings it down past the fill's fall to the gate's full-radius lead."""
-    bore = F["foam-assembly"].at("reservoir-a")
-    gate = F["valve-v-e"].at("inlet")
-    cruise = bore[2] + DRAW_A_CRUISE
-    neck_in = _on_cap(F, DRAW_A_NECK_IN)
-    neck_out = _on_cap(F, DRAW_A_NECK_OUT[:2], DRAW_A_NECK_OUT[2])
-    approach = (gate[0] + DRAW_A_APPROACH[0], gate[1] + DRAW_A_APPROACH[1],
-                gate[2] + DRAW_A_APPROACH[2])
-    return R.bent(
-        "fluid-16", "foam-assembly.reservoir-a",
-        (bore[0], bore[1], cruise),             # straight up the conduit's axis
-        (neck_in[0], neck_in[1], cruise),       # forward along the pump's east side
-        neck_out,                               # through the gap V-A and V-K leave
-        approach,                               # down past the fill's fall
-        _gate_lead(gate, approach, DRAW_A_GATE_LEAD),
-        "valve-v-e.inlet",                      # and straight down into the collet
-        kind="fluid", bend=TUBE_BEND, skew=(CAP_BORE_SKEW, R.COLLET_SKEW),
-        note="reservoir A draw: the dip tube up out of A's cap → V-E-I, forward along the "
-             "pump's east side and between V-A and V-K onto the gate's lead")
-
-
-def _fluid_24(F):
-    """fluid-24 — the channel-B fill gate to the bore in reservoir B's own cap.
-
-    V-I-O opens up off the west outboard limb, on the same column the flavor-B gate climbs and
-    one storey under it. The run rises what a corner needs, holds that column aft the length of
-    the manifold — the outboard lane is clear of everything the west flank stands — and leans
-    inboard onto the bore only at `FILL_B_JOIN_Y`, behind the tap water's own descent."""
-    mouth = F["valve-v-i"].at("outlet")
-    bore = F["foam-assembly"].at("reservoir-b-fill")
-    cruise = mouth[2] + RESERVOIR_B_CRUISE
-    lane_x = mouth[0]
-    lead_aft = RESERVOIR_B_CRUISE * math.tan(math.radians(RESERVOIR_B_GATE_LEAN_DEG))
-    return R.bent(
-        "fluid-24", "valve-v-i.outlet",
-        (lane_x, mouth[1] + lead_aft, cruise), # shallow aft lead within the collet allowance
-        (lane_x, FILL_B_LEAN_Y, cruise),       # aft along the cleared outboard lane
-        (bore[0], FILL_B_JOIN_Y, cruise),       # one lean inboard onto the bore's column
-        (bore[0], bore[1], cruise),             # aft on it, past what shuts the strip west
-        "foam-assembly.reservoir-b-fill",       # and straight down into the bore
-        kind="fluid", bend=TUBE_BEND, skew=(R.COLLET_SKEW, CAP_BORE_SKEW),
-        note="reservoir B fill: V-I-O → the fill bore in its own cap, up the west outboard "
-             "lane and one lean inboard onto the bore")
-
-
-def _fluid_26(F):
-    """fluid-26 — reservoir B's dip tube, up out of its own cap to the channel-B draw gate.
-
-    The riser climbs off the conduit over the funnel's drain line; one diagonal takes it forward
-    and west of the drain elbow's cradle, and a lean brings it to the gate's full-radius lead."""
-    bore = F["foam-assembly"].at("reservoir-b")
-    gate = F["valve-v-h"].at("inlet")
-    approach = (gate[0] + DRAW_B_APPROACH[0], gate[1] + DRAW_B_APPROACH[1],
-                gate[2] + DRAW_B_APPROACH[2])
-    return R.bent(
-        "fluid-26", "foam-assembly.reservoir-b",
-        (bore[0], bore[1], bore[2] + DRAW_B_CRUISE),  # straight up the conduit's axis
-        approach,                               # forward, west of the drain elbow's cradle
-        _gate_lead(gate, approach, DRAW_B_GATE_LEAD),
-        "valve-v-h.inlet",                      # shallow approach into the gate's collet
-        kind="fluid", bend=TUBE_BEND, skew=(CAP_BORE_SKEW, R.COLLET_SKEW),
-        note="reservoir B draw: the dip tube up out of B's cap → V-H-I, forward west of the "
-             "funnel drain's elbow onto the gate's lead")
-
-
-def _refrig_3(F):
-    """refrig-3 — the evaporator's outlet back to the compressor's suction, in copper.
-
-    The other two joints of the sealed loop are made across a plane their bodies already share
-    and draw no tube. This one cannot be: the suction stands on the shell's WEST tangent, which
-    looks at the side wall and at no neighbour at all, and the core stands a lane behind the can
-    besides. So this leg is cut and brazed like any other run — out into the west lane, then one
-    long diagonal aft and back inboard, past the shell's own shoulder and down into the core's
-    outlet slot."""
-    return R.bent(
-        "refrig-3", "compressor.refrig-suction", "foam-assembly.evap-outlet",
-        kind="refrigerant", bend=CU_BEND, lead=CU_LEAD,
-        note="sealed loop: evaporator outlet → compressor suction, the one leg of the three "
-             "that is drawn rather than made across a shared plane")
-
-
-def _refrig_1(F):
-    """refrig-1 — the compressor's discharge into the condenser's intake, in copper.
-
-    BOTH MOUTHS FACE EACH OTHER ON ONE LINE. The can's discharge stub stands on its own +X
-    tangent and the block's header is re-dressed to that stub's column and plane, so what
-    crosses the lane the block's slide east opens is one length of tube."""
-    return R.bent(
-        "refrig-1", "compressor.refrig-discharge", "condenser+fan.refrig-inlet",
-        kind="refrigerant",
-        note="sealed loop: compressor discharge → condenser inlet, one straight across the lane")
-
-
-def _refrig_2(F):
-    """refrig-2 — the condenser's liquid line into the evaporator's inlet, in copper.
-
-    BOTH MOUTHS OPEN ONTO THE SAME LANE but not onto the same axis: the block stands off the east
-    flank\'s own section (`enclosure_assembly.east_lane_free`) and the core is packed to the rear,
-    so the two ports sit a wall\'s thickness apart across the lane. `lead` is what makes that a
-    tube rather than a skew — it leaves the outlet and enters the inlet on their own normals and
-    turns in between, which is the bend a fitter puts in this leg anyway. The drier stands inside
-    the block\'s own envelope, and what leaves it is this."""
-    return R.bent(
-        "refrig-2", "condenser+fan.refrig-outlet", "foam-assembly.evap-inlet",
-        kind="refrigerant", lead=2.0, min_bend=8.0,
-        note="sealed loop: condenser outlet → evaporator inlet, hand-formed across the lane")
-
-
-def authored() -> frozenset:
-    """The connection ids this module draws a run for, without building one. `enclosure_assembly`
-    reads it before the pack is assembled, to know which of the manifold's placeholder mouth stubs
-    a real line has replaced."""
-    return frozenset(_AUTHORED)
-
-
-# The ids `build_runs` can produce. One name per `_*` author below, and the guard each is behind
-# only decides whether the bodies to draw it are placed yet.
-_AUTHORED = ("water-7", "water-6", "water-5", "water-2", "fluid-1", "water-3",
-             "co2-0", "co2-1", "co2-2", "fluid-2", "fluid-4", "carb-1", "carb-2", "fluid-28",
-             "fluid-18", "fluid-24", "fluid-26", "fluid-14", "fluid-16", "refrig-3",
-             "refrig-2", "refrig-1")
-
-
-
-
-
-
-def tubes(runs):
-    """Each run swept at its own bore, as `(name, solid)` — what the assembly carries.
-
-    A RUN WHOSE ENDS MEET IS A BUTT and carries no solid. Both mouths are quick-connects, so
-    there is tube in each of them and none exposed between the two, the same joint
-    `manifold_layout.SEGMENTS` calls a butt on the pack's own interior. The run stays in the
-    ledger at its own length — it is still a connection, and `fluid-topology.md` still owes it
-    a row — but there is no stock to sweep.
-
-    `_routing.BUTT_MAX` is the reading, and it is a PHYSICAL figure and not a numeric one: what stands
-    between two collets is either a length of stock or nothing, and a collet swallows the better
-    part of a bore in tube before it grips. What lands under it here is the float residue two
-    faces brought together by a stated depth leave behind."""
-    return [(f"tube-{r.id}", R.tube(r)) for r in runs if r.length > R.BUTT_MAX]
-
-
-def report(runs):
-    """One line per run: what it joins, the stock it cuts, and the roundest corner it turns."""
-    if not runs:
-        return
-    print("\nruns")
-    for r in runs:
-        print(f"  {r.id:12} {r.frm:28} → {r.to:28} {r.length:7.1f} mm  "
-              f"{len(r.bends)} corner(s) at R{r.tightest:.1f} "
-              f"(stock floor R{R.stock_min(r.kind, r.diam):.1f})")
-    for cid, why in sorted(BLOCKED.items()):
-        print(f"  BLOCKED {cid}: {why}")
+def _ea_cap(*args, **kwargs):
+    return _compiled.call('_ea_cap', *args, **kwargs)
+
+def valve_ends(*args, **kwargs):
+    return _compiled.call('valve_ends', *args, **kwargs)
+
+def flavor_outlet(*args, **kwargs):
+    return _compiled.call('flavor_outlet', *args, **kwargs)
+
+def frames(*args, **kwargs):
+    return _compiled.call('frames', *args, **kwargs)
+
+def _frame(*args, **kwargs):
+    return _compiled.call('_frame', *args, **kwargs)
+
+def build_runs(*args, **kwargs):
+    return _compiled.call('build_runs', *args, **kwargs)
+
+def build_seated_runs(*args, **kwargs):
+    return _compiled.call('build_seated_runs', *args, **kwargs)
+
+def _co2_0(*args, **kwargs):
+    return _compiled.call('_co2_0', *args, **kwargs)
+
+def _co2_1(*args, **kwargs):
+    return _compiled.call('_co2_1', *args, **kwargs)
+
+def _water_3(*args, **kwargs):
+    return _compiled.call('_water_3', *args, **kwargs)
+
+def _fluid_1(*args, **kwargs):
+    return _compiled.call('_fluid_1', *args, **kwargs)
+
+def _water_2(*args, **kwargs):
+    return _compiled.call('_water_2', *args, **kwargs)
+
+def _water_7(*args, **kwargs):
+    return _compiled.call('_water_7', *args, **kwargs)
+
+def _water_6(*args, **kwargs):
+    return _compiled.call('_water_6', *args, **kwargs)
+
+def _water_5(*args, **kwargs):
+    return _compiled.call('_water_5', *args, **kwargs)
+
+def _co2_2(*args, **kwargs):
+    return _compiled.call('_co2_2', *args, **kwargs)
+
+def _fluid_2(*args, **kwargs):
+    return _compiled.call('_fluid_2', *args, **kwargs)
+
+def _fluid_4(*args, **kwargs):
+    return _compiled.call('_fluid_4', *args, **kwargs)
+
+def _carb_1(*args, **kwargs):
+    return _compiled.call('_carb_1', *args, **kwargs)
+
+def _carb_2(*args, **kwargs):
+    return _compiled.call('_carb_2', *args, **kwargs)
+
+def _gate_a_anchor(*args, **kwargs):
+    return _compiled.call('_gate_a_anchor', *args, **kwargs)
+
+def gate_cruise(*args, **kwargs):
+    return _compiled.call('gate_cruise', *args, **kwargs)
+
+def station(*args, **kwargs):
+    return _compiled.call('station', *args, **kwargs)
+
+def _gate_climb_under_cruise(*args, **kwargs):
+    return _compiled.call('_gate_climb_under_cruise', *args, **kwargs)
+
+def _fluid_28(*args, **kwargs):
+    return _compiled.call('_fluid_28', *args, **kwargs)
+
+def _fluid_18(*args, **kwargs):
+    return _compiled.call('_fluid_18', *args, **kwargs)
+
+def _fill_a_lane_y(*args, **kwargs):
+    return _compiled.call('_fill_a_lane_y', *args, **kwargs)
+
+def _fill_a_cap_z(*args, **kwargs):
+    return _compiled.call('_fill_a_cap_z', *args, **kwargs)
+
+def _fill_a_turn_y(*args, **kwargs):
+    return _compiled.call('_fill_a_turn_y', *args, **kwargs)
+
+def _fluid_14(*args, **kwargs):
+    return _compiled.call('_fluid_14', *args, **kwargs)
+
+def _on_cap(*args, **kwargs):
+    return _compiled.call('_on_cap', *args, **kwargs)
+
+def _gate_lead(*args, **kwargs):
+    return _compiled.call('_gate_lead', *args, **kwargs)
+
+def _fluid_16(*args, **kwargs):
+    return _compiled.call('_fluid_16', *args, **kwargs)
+
+def _fluid_24(*args, **kwargs):
+    return _compiled.call('_fluid_24', *args, **kwargs)
+
+def _fluid_26(*args, **kwargs):
+    return _compiled.call('_fluid_26', *args, **kwargs)
+
+def _refrig_3(*args, **kwargs):
+    return _compiled.call('_refrig_3', *args, **kwargs)
+
+def _refrig_1(*args, **kwargs):
+    return _compiled.call('_refrig_1', *args, **kwargs)
+
+def _refrig_2(*args, **kwargs):
+    return _compiled.call('_refrig_2', *args, **kwargs)
+
+def authored(*args, **kwargs):
+    return _compiled.call('authored', *args, **kwargs)
+
+def tubes(*args, **kwargs):
+    return _compiled.call('tubes', *args, **kwargs)
+
+def report(*args, **kwargs):
+    return _compiled.call('report', *args, **kwargs)
+
+def __getattr__(name):
+    return _compiled.get(name)
+
+def __dir__():
+    return _compiled.names()
+
+_rust_functions = frozenset(['_ea_cap', 'valve_ends', 'flavor_outlet', 'frames', '_frame', 'build_runs', 'build_seated_runs', '_co2_0', '_co2_1', '_water_3', '_fluid_1', '_water_2', '_water_7', '_water_6', '_water_5', '_co2_2', '_fluid_2', '_fluid_4', '_carb_1', '_carb_2', '_gate_a_anchor', 'gate_cruise', 'station', '_gate_climb_under_cruise', '_fluid_28', '_fluid_18', '_fill_a_lane_y', '_fill_a_cap_z', '_fill_a_turn_y', '_fluid_14', '_on_cap', '_gate_lead', '_fluid_16', '_fluid_24', '_fluid_26', '_refrig_3', '_refrig_1', '_refrig_2', 'authored', 'tubes', 'report'])
+_rust_exports = frozenset(['math', 'sys', 'Path', '_here', '_hw', '_p', 'R', '_cc', '_anchor_cap', '_asse', '_funnel', '_pump', '_pump_elbow', '_dis', '_beduan', '_jg', '_drain_elbow', '_drain_bulkhead', '_flavor_reducer', '_neofit', '_flowreg', '_split', '_ml', '_comp', '_cond', '_copper', '_gasher', '_wr1110', '_gas_chain', '_digiten', '_card', 'BLOCKED', '_ea_cap', 'TUBE_BEND', 'ELBOW_CUFF_D', 'SUCTION_LEAD', 'DISCHARGE_LEAD', 'CU_OD', 'CU_BEND', 'CU_LEAD', 'CU_SUCTION_LANE', 'CAP_BORE_SKEW', 'PORT_ADAPTERS', 'STATIONS', '_b', 'VALVES', 'valve_ends', '_v', '_in', '_out', 'flavor_outlet', 'frames', '_frame', 'build_runs', 'build_seated_runs', '_co2_0', '_co2_1', '_CORE_FRONT_Y', 'CROSS_Y', 'CROSS_DODGE_Y', 'CROSS_DODGE_SPAN', 'CROSS_DODGE_RAMP', 'CROSS_DROP', 'CHANNEL_X', 'CROSS_RISE', 'CHANNEL_ENTRY_Y', 'CROSS_LIFT_X', 'CROSS_APPROACH_Y', '_water_3', 'FLUID_1_INBOARD', 'FLUID_1_APPROACH', 'FLUID_1_DIAGONAL', '_fluid_1', 'WATER_2_LEAD', 'WATER_2_RUN', '_water_2', '_water_7', '_water_6', '_water_5', '_co2_2', 'FLUID_2_LEAD', 'FLUID_2_RETURN_X', 'FLUID_2_RETURN_FORE_Y', 'FLUID_2_OVER_CAP', 'FLUID_2_DESCENT_EAST', '_fluid_2', 'FLUID_4_CROSS_Y', '_fluid_4', 'CARB_1_FORWARD_LEAN', '_carb_1', '_carb_2', 'GATE_STUB_CLEAR', 'GATE_B_JOG_LEG', 'GATE_B_DRAIN_RETURN_RISE', 'GATE_B_RETURN_WEST', 'GATE_B_RETURN_HOLD_Y', 'GATE_B_UNION_APPROACH', 'GATE_B_STEP_Y', 'GATE_B_RISE_RUN', 'GATE_A_FRONT_Y', 'GATE_A_FRONT_Z', 'GATE_A_FRONT_JOIN_X', 'GATE_A_OUTER_X', 'GATE_A_DESCENT_START_Y', 'GATE_A_BEARING_JOIN_Y', 'GATE_A_BEARING_EXIT_Y', 'GATE_A_LOW_LANE_JOIN_Y', 'GATE_A_FORE_HEIGHT', 'GATE_A_WEST_X', 'GATE_A_RETURN_START_Y', 'GATE_A_UNION_JOIN_Y', 'GATE_A_UNION_LEVEL_RUN', 'GATE_A_RISE_RUN', '_gate_a_anchor', 'gate_cruise', 'station', 'GATE_B_CLIMB', '_gate_climb_under_cruise', '_fluid_28', '_fluid_18', 'RESERVOIR_CRUISE', 'RESERVOIR_B_CRUISE', 'RESERVOIR_B_GATE_LEAN_DEG', 'FILL_B_LEAN_Y', 'FILL_B_JOIN_Y', 'LANE_CLEAR', 'FILL_A_LANE_Z', 'FILL_A_GATE_LEAD', 'FILL_A_GATE_LEAN_DEG', 'FILL_A_LANE_RUN', 'FILL_A_FALL_RUN', 'FILL_A_HOSE_DROP', 'FILL_A_HOSE_FALL_RUN', 'FILL_A_VALVE_DROP', 'FILL_A_VALVE_RETURN_RUN', 'FILL_A_BEARING_STRAIGHT', 'DRAW_A_CRUISE', 'DRAW_A_NECK_IN', 'DRAW_A_NECK_OUT', 'DRAW_A_APPROACH', 'DRAW_A_GATE_LEAD', 'DRAW_B_CRUISE', 'DRAW_B_APPROACH', 'DRAW_B_GATE_LEAD', 'DRAW_GATE_LEAN_DEG', '_fill_a_lane_y', '_fill_a_cap_z', '_fill_a_turn_y', '_fluid_14', '_on_cap', '_gate_lead', '_fluid_16', '_fluid_24', '_fluid_26', '_refrig_3', '_refrig_1', '_refrig_2', 'authored', '_AUTHORED', 'tubes', 'report'])
+sys.modules[__name__].__class__ = _RustSurface

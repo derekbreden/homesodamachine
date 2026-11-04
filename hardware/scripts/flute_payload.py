@@ -324,81 +324,28 @@ def print_lineage(stl, printed):
 
 
 def solid_identity(step: Path):
-    """The name and the linear colour the viewer reads off `step`.
-
-    `export_assembly` writes the piece under its own `PRODUCT` and gives it the file's one
-    `COLOUR_RGB`, in sRGB. `_occt_color` repeats Quantity_Color's conversion and
-    float32 rounding, so the linear channels agree with a native STEP round trip."""
-    from _occt_color import rgba
-
-    text = step.read_text(errors="ignore")
-    names = [n for n in re.findall(r"PRODUCT\('([^']*)'", text) if not n.startswith("Open CASCADE")]
-    rgbs = set(re.findall(r"COLOUR_RGB\('',([\d.eE+-]+),([\d.eE+-]+),([\d.eE+-]+)\)", text))
-    if len(names) != 1:
-        raise ValueError(f"{step.name}: {len(names)} named products, expected the piece's own")
-    if len(rgbs) != 1:
-        raise ValueError(f"{step.name}: {len(rgbs)} colours, expected the piece's own")
-    srgb = [float(c) for c in next(iter(rgbs))]
-    converted = rgba(tuple(srgb), {})
-    if converted is None:
-        raise ValueError(f"{step.name}: RGB channels outside 0 to 1")
-    linear = list(converted[:3])
-    return names[0], linear
+    from _build_data import read
+    name, color = read("identity", step)
+    return name, color
 
 
 def pieces(directories=PIECES_DIRS):
-    """Every solid in `directories` that has a printed mesh beside it, as (step, stl) pairs.
-
-    THE MESH BESIDE THE SOLID IS WHAT DECLARES A PIECE FLUTED. Nothing here holds a list of
-    which parts carry a show skin: a generator that cuts one writes an `.stl` next to its
-    `.step`, and that pair is the whole of the claim."""
-    out = []
-    for directory in directories:
-        for step in sorted(directory.glob("*.step")):
-            stl = step.with_suffix(".stl")
-            if stl.is_file():
-                out.append((step, stl))
-    return out
+    from _build_data import request
+    return [(Path(step), Path(stl)) for step, stl in request("pieces", directories=list(map(str, directories)))]
 
 
 def payloads(directories=PIECES_DIRS):
-    """Every surface payload standing in `directories` — what `main` grafts the cut pieces into."""
-    return [path for directory in directories for path in sorted(directory.glob("*.step.mesh"))]
+    from _build_data import request
+    return [Path(path) for path in request("payloads", directories=list(map(str, directories)))]
 
 
 def surfaces(directories=PIECES_DIRS, *, packed=False):
-    """The fluted surfaces standing on this disk, keyed by the name a payload holds them under.
-
-    What `graft` is handed. A tree that has not cut them yet answers with nothing, and a graft
-    of nothing leaves every payload as it stands — which is the smooth solid, and is what a
-    machine with no printed mesh could draw anyway.
-
-    A PAYLOAD IS HANDED OVER ONLY FOR THE SOLID IT WAS CUT FROM. `cut` stamps each one with its
-    own piece's digest, and a piece recut since then answers to a different one. `graft` reads
-    where a surface stands and not what it is, so a payload of an older cut of the same piece
-    lands inside `PLACEMENT_TOL` and draws that older wall — a hole moved across a face changes
-    no bound the graft measures. The stamp is the reading that separates them, and it is taken
-    here, where both the payload and the solid beside it are open."""
-    out = {}
-    for step, _stl in pieces(directories):
-        # This unfluted spring prints relaxed; each assembly owns its seated
-        # geometry. Grafting the standalone mesh would spread its hooks again.
-        if step.stem == "enclosure-pump-retainer":
-            continue
-        payload = step.with_name(step.name + ".mesh")
-        held = read_payload(payload, packed=packed)
-        if not held or len(held) != 1:
-            continue
-        stamped = _mesh_payload.read_source(payload)
-        current = _mesh_payload.source_digest(step)
-        if stamped != current:
-            raise ValueError(
-                f"{payload.name} was cut from a {step.name} that is not the one beside it "
-                f"({str(stamped)[:12]} against {current[:12]}) — it draws that solid's surface "
-                f"wherever it is grafted. Recut it:\n"
-                f"    tools/cad-venv/bin/python hardware/scripts/flute_payload.py")
-        out[held[0]["name"]] = held[0]
-    return out
+    from _build_data import request
+    import _rust_part
+    result = request("surface-catalog", directories=list(map(str, directories)))
+    for source in result["reads"]:
+        _rust_part._READ_TARGETS.add(_rust_part._relative(Path(source)))
+    return {name: _mesh_types(mesh, packed=packed) for name, mesh in result["meshes"].items()}
 
 
 #: How far a grafted surface may stand from the bodies it replaces. A piece is cut where the
@@ -490,14 +437,10 @@ def graft_glb(path, fluted):
 
 
 def keeps_print_triangles(step: Path, requested=None):
-    """Keep complete faucet surfaces in every caller, including build reconciliation.
-
-    An explicit option also supports a standalone candidate outside the repository. Other
-    families retain their bounded reduction unless their caller explicitly opts in.
-    """
-    if requested is not None:
-        return bool(requested)
-    return Path(step).resolve().parent in FAUCET_DIRS
+    from _build_data import request
+    return request("preserve-print-triangles", path=str(Path(step).resolve()),
+                   faucet_directories=list(map(str, FAUCET_DIRS)),
+                   requested=bool(requested) if requested is not None else None)
 
 
 def _python_cut(step: Path, stl: Path, verbose=True, *, preserve_print_triangles=None):
@@ -549,49 +492,30 @@ def cut(step: Path, stl: Path, verbose=True, *, preserve_print_triangles=None):
 
 
 def read_payload(path, *, packed=False):
-    """The meshes `_mesh_payload.write` put in `path`, or None for anything else.
-
-    The reader the page runs is `decodeMeshPayload` in `web/public/js/viewer/step.js`; this is
-    the same header and the same four arrays, off the same offsets. Optional contributor
-    groups are carried only when aligned with those face ranges. ``packed`` retains
-    numeric buffers as read-only arrays; the default returns Python lists."""
+    """Restore lists or read-only NumPy buffers from Rust's payload reader."""
+    from _build_data import read
     try:
-        raw = Path(path).read_bytes()
-        head_len = struct.unpack("<I", raw[:4])[0]
-        head = json.loads(raw[4:4 + head_len])
-    except (OSError, ValueError, struct.error):
+        payload = read("read-payload", path)
+    except ValueError:
         return None
-    if head.get("v") not in _mesh_payload.DECODABLE:
-        return None
-    blob = memoryview(raw)[4 + head_len:] if packed else raw[4 + head_len:]
     out = []
-    for m in head["meshes"]:
-        entry = {"name": m["name"], "color": m["color"]}
+    for source in payload["meshes"]:
+        entry = {"name": source["name"], "color": source["color"]}
         for key, dtype in (("pos", "<f4"), ("nrm", "<f4"), ("idx", "<u4"), ("fac", "<u4")):
-            offset, count = m[key]
-            values = np.frombuffer(blob, dtype=dtype, count=count, offset=offset)
-            entry[key] = values if packed else values.tolist()
-        sources = _mesh_payload.aligned_face_sources(m.get("face_sources"), len(entry["fac"]) // 2)
-        if sources is not None:
-            entry["face_sources"] = sources
+            values = source[key]
+            if packed:
+                values = np.asarray(values, dtype=dtype)
+                values.flags.writeable = False
+            entry[key] = values
+        if "face_sources" in source:
+            entry["face_sources"] = source["face_sources"]
         out.append(entry)
     return out
 
 
 def payload_names(path):
-    """The names the payload at `path` holds, off its header alone.
-
-    A payload is up to fourteen megabytes of triangles behind a few hundred bytes of JSON, and
-    asking which bodies it holds is a question the header answers."""
-    try:
-        with open(path, "rb") as fh:
-            head_len = struct.unpack("<I", fh.read(4))[0]
-            head = json.loads(fh.read(head_len))
-    except (OSError, ValueError, struct.error):
-        return []
-    if head.get("v") not in _mesh_payload.DECODABLE:
-        return []
-    return [m["name"] for m in head["meshes"]]
+    from _build_data import read
+    return read("payload-names", path)
 
 
 def piece_names(directories=PIECES_DIRS):
@@ -615,126 +539,32 @@ _OWNER_ALIASES = {
 
 
 def payload_owner(path):
-    """The adjacent STEP's root product, or its canonical file name when absent.
-
-    A scene may have a different file name from the assembly it displays, so
-    an existing STEP supplies the owner. Reading only its first named PRODUCT
-    avoids loading geometry to recover that identity. Bare payloads retain
-    the explicit canonical file owner; they do not infer a family from the
-    available replacement surfaces.
-    """
-    path = Path(path)
-    step = path.with_suffix("") if path.suffix == ".mesh" else path.with_suffix(".step")
-    if step.is_file():
-        with step.open(errors="ignore") as source:
-            for line in source:
-                match = re.search(r"PRODUCT\('([^']*)'", line)
-                if match and not match[1].startswith("Open CASCADE"):
-                    return match[1].replace("_", "-")
-        return None
-    return step.stem.replace("_", "-")
+    from _build_data import read
+    return read("owner", path)
 
 
 def fluted_key(name, fluted, *, owner=None):
-    """Match a complete piece name, or a declared alias inside its own assembly.
-
-    Exact leaf names remain valid under any enclosing assembly path, such as
-    `cold-core/foam-shell`. A shortened `shell_base` or `shell_tip` is valid
-    only inside the explicitly named faucet owner. A generic `display-cover`
-    never means `faucet-display-cover`, even when that is the only suffix match.
-    A trailing numeric component names one solid of a body and cannot take a
-    replacement surface for the whole part.
-    """
-    name = name.replace("_", "-")
-    parent, _sep, own = name.rpartition("/")
-    if own.isdigit():
-        return None
-    if name in fluted:
-        return name
-    if parent and own in fluted:
-        return own
-    owners = parent.split("/") if parent else []
-    if owner:
-        owners.append(str(owner).replace("_", "-"))
-    matches = {_OWNER_ALIASES.get(scope, {}).get(own) for scope in owners}
-    matches.discard(None)
-    matches.intersection_update(fluted)
-    return next(iter(matches)) if len(matches) == 1 else None
+    from _build_data import request
+    return request("fluted-key", name=name, names=list(fluted), owner=owner)
 
 
 def _axis_rotations():
-    """The 24 rotations that carry the axes onto the axes — every signed permutation of them
-    whose determinant is +1.
-
-    THAT IS THE WHOLE SET A PLACEMENT IN THIS TREE EVER USES. A subassembly is stood on the
-    machine's floor at a quarter turn (`enclosure_assembly.build_foam`) and a scene poses a
-    piece to look at the face it wants, which can turn it over. Both land on an axis; neither
-    lands between two. A determinant of −1 is a mirror and no placement is one, so those are
-    left out rather than tried and rejected — a mirrored piece that fitted would be a piece
-    drawn inside out."""
-    out = []
-    for perm in itertools.permutations(range(3)):
-        for signs in itertools.product((1.0, -1.0), repeat=3):
-            m = np.zeros((3, 3))
-            for row, col in enumerate(perm):
-                m[row, col] = signs[row]
-            if round(float(np.linalg.det(m))) == 1:
-                out.append(m)
-    return out
+    from _build_data import request
+    return [np.asarray(rotation) for rotation in request("axis-rotations")]
 
 
 _AXIS_ROTATIONS = None
 
 
 def placement_onto(entry, surface, tol=PLACEMENT_TOL):
-    """The rigid transform carrying `surface` onto the body `entry` holds — `(R, t)` — or None.
-
-    A SUBASSEMBLY'S PLACEMENT IS A QUARTER TURN AND A SHIFT. The box's six pieces are cut in the
-    machine's own frame and need none; the cold core's three are cut in the core's, and the
-    machine stands that frame yawed and lifted (`enclosure_assembly.build_foam`), so their
-    surfaces have to be carried before they can stand in for a body.
-
-    THE TURN IS RECOVERED, NOT PLUMBED, because the payload already holds both ends of it: the
-    body as the machine places it, and the piece as it was cut. Boxes say which axes swapped, and
-    that is as far as boxes go — a part symmetric about its own mid-planes has the same box under
-    several turns. WHAT SEPARATES THEM IS THE PIECE ITSELF: the shell's ports are on one face and
-    its cavity is not centred, so only one turn lays its surface ON the body. That is measured,
-    point to surface, on the same reading `deviation` takes.
-
-    A piece that matches none of them is not this body, and gets nothing rather than a guess."""
-    body = entry if isinstance(entry, trimesh.Trimesh) else trimesh.Trimesh(
-        np.asarray(entry["pos"], dtype=np.float64).reshape(-1, 3),
-        np.asarray(entry["idx"], dtype=np.int64).reshape(-1, 3), process=False)
-    a = np.asarray(body.vertices, dtype=np.float64)
-    b = np.asarray(surface["pos"], dtype=np.float64).reshape(-1, 3)
-    rng = np.random.default_rng(0)
-    probe = b[rng.choice(len(b), min(1500, len(b)), replace=False)]
-    global _AXIS_ROTATIONS
-    if _AXIS_ROTATIONS is None:
-        _AXIS_ROTATIONS = _axis_rotations()
-    best = None
-    for R in _AXIS_ROTATIONS:
-        turned = b @ R.T
-        # The shift is what puts the two boxes on each other; if it cannot, this turn is wrong
-        # before any surface is measured.
-        t = ((a.min(0) + a.max(0)) - (turned.min(0) + turned.max(0))) / 2.0
-        if np.abs((turned.min(0) + t) - a.min(0)).max() > tol:
-            continue
-        # A HIGH PERCENTILE AND NOT THE MAX. The body being matched against is whatever
-        # tessellation that payload holds — a scene cuts its own, coarser than the piece's — so a
-        # handful of probe points land in a gap between its triangles and read far from a surface
-        # they are actually on. The max is that straggler; the 99th is the fit. It still
-        # separates the answer from every other turn by tens of millimetres.
-        dev = float(np.percentile(
-            trimesh.proximity.closest_point(body, probe @ R.T + t)[1], 99))
-        if best is None or dev < best[0]:
-            best = (dev, R, t)
-    if best is None:
+    from _build_data import request
+    if isinstance(entry, trimesh.Trimesh):
+        entry = dict(pos=entry.vertices.ravel().tolist(), idx=entry.faces.ravel().tolist())
+    frame = request("placement", body=_mesh_wire(entry), surface=_mesh_wire(surface), tolerance=tol)
+    if frame is None:
         return None
-    # A GROOVE IS THE ONLY THING THAT MAY STAND OFF THE SMOOTH BODY, so the reading a correct
-    # turn gives is a flute deep and no more. A wrong turn on this footprint is tens of mm out.
-    dev, R, t = best
-    return (R, t) if dev <= _FLUTE_STANDOFF else None
+    frame = np.asarray(frame)
+    return frame[:, :3], frame[:, 3]
 
 
 #: How far the fluted surface may stand from the smooth body it replaces and still BE it: the
@@ -744,136 +574,33 @@ _FLUTE_STANDOFF = 2.0
 
 
 def carried(surface, placement, *, packed=False):
-    """`surface` with its positions and normals carried by `placement` — a new dict, since the
-    same cut surface stands in several payloads at several placements."""
-    R, t = placement
-    pos = np.asarray(surface["pos"], dtype=np.float64).reshape(-1, 3) @ R.T + t
-    nrm = np.asarray(surface["nrm"], dtype=np.float64).reshape(-1, 3) @ R.T
-    return {**surface, "pos": pos.ravel() if packed else pos.ravel().tolist(),
-            "nrm": nrm.ravel() if packed else nrm.ravel().tolist()}
+    from _build_data import request
+    rotation, translation = placement
+    frame = np.column_stack((rotation, translation)).tolist()
+    result = request("carry", surface=_mesh_wire(surface), frame=frame)
+    pos, nrm = result["pos"], result["nrm"]
+    if packed:
+        pos, nrm = np.asarray(pos, dtype="<f8"), np.asarray(nrm, dtype="<f8")
+    return {**surface, "pos": pos, "nrm": nrm}
 
 
 def _placement_drift(entry, surface):
-    """How far a fluted surface stands from the body it would replace, in mm.
-
-    Bounding box to bounding box, which is the same reading `graft_glb` takes: the two are the
-    same solid to within a groove's depth, so a box that has moved is a placement and not a
-    shape."""
-    a = np.asarray(entry["pos"], dtype=np.float64).reshape(-1, 3)
-    b = np.asarray(surface["pos"], dtype=np.float64).reshape(-1, 3)
-    return float(max(np.abs(a.min(0) - b.min(0)).max(), np.abs(a.max(0) - b.max(0)).max()))
+    from _build_data import request
+    return request("drift", body=_mesh_wire(entry), surface=_mesh_wire(surface))
 
 
 def graft(path: Path, fluted: dict, *, same_frame=False, packed=False):
-    """Put the fluted surfaces into the payload at `path`, in place. Returns how many landed.
-
-    A PIECE IS THE SAME BODY WHEREVER IT IS PLACED. `enclosure.py` cuts the printed mesh off the
-    piece as the assembly stands it, so the triangles here are already in the coordinates every
-    payload that holds that piece places it at — the assembled box, the whole appliance, and each
-    bench scene agree with the piece's own solid to within a tessellation's deflection.
-
-    `same_frame` preserves those coordinates when the caller knows the host and pieces
-    share a frame. Added raised lettering changes a bounding box, not a placement.
-    Otherwise an unrecoverable placement leaves the host body where it stands.
-
-    A whole-appliance catalog spans coordinate frames: enclosure pieces are cut
-    in machine coordinates, while cold-core and faucet pieces have their own
-    frames. Leave placement recovery enabled for `surfaces()` without a family
-    filter. `same_frame=True` applies only to a family already in the host frame
-    or surfaces explicitly carried into it before this call.
-
-    THE HOST KEEPS ITS OWN NAME AND COLOUR. A body is coloured by the assembly that places it,
-    and swapping the surface is not swapping which part it is.
-
-    AND IT KEEPS ITS OWN DESCENT. `src` says which STEP's bytes this payload answers to
-    (`_mesh_payload.write`), and grafting a surface into it does not change that — the host
-    was cut from the solid it still sits beside. Recomputing it here would also ask for a
-    STEP that need not be on this disk: what is grafted into is a payload, and the graft is
-    the same operation whether or not its solid was carried along with it."""
-    header = _mesh_payload.read_header(path) if path.is_file() else {}
-    src = header.get("src")
-    cut = header.get("cut")
-    if src is None:
-        # A host written before `src` existed states none. Its solid is what it was cut from,
-        # so read it off the bytes beside it — and where there is no solid beside it, the
-        # payload simply keeps stating none rather than claiming a descent nobody can check.
-        solid = path.with_name(path.name[: -len(".mesh")])
-        if solid.is_file():
-            src = _mesh_payload.source_digest(solid)
-    held = read_payload(path, packed=packed)
-    if held is None:
-        return 0
-    owner = payload_owner(path)
-    moved = []
-    landed = 0
-    for entry in held:
-        surface = fluted.get(fluted_key(entry["name"], fluted, owner=owner) or "")
-        if surface is None:
-            continue
-        # A name establishes which body this is, but not where the assembly
-        # places it. A shared-frame edit is explicit; an unknown carry cannot
-        # be replaced with the piece's print coordinates.
-        drift = _placement_drift(entry, surface)
-        if drift > PLACEMENT_TOL and not same_frame:
-            placement = placement_onto(entry, surface)
-            if placement is not None:
-                surface = carried(surface, placement, packed=packed)
-            else:
-                moved.append((entry["name"], drift))
-                continue
-        entry.update({k: surface[k] for k in ("pos", "nrm", "idx", "fac")})
-        sources = _mesh_payload.aligned_face_sources(surface.get("face_sources"), len(surface["fac"]) // 2)
-        if sources is None:
-            entry.pop("face_sources", None)
-        else:
-            entry["face_sources"] = sources
-        landed += 1
-    for name, drift in moved:
-        print(f"   {Path(path).name}: {name} keeps its host surface; no placement recovered "
-              f"across {drift:.1f} mm")
-    if not landed:
-        return 0
-    # BYTES THAT DID NOT MOVE DO NOT MOVE THE FILE. A payload rewritten identically takes a new
-    # mtime, and every reader that keyed off it — the ETag the page revalidates against, the
-    # `_current` comparison `_cadq_export` skips a re-tessellation on — reads a change that did
-    # not happen. `render_scenes.write_payload` holds the same property for the payload it cuts.
-    path = Path(path)
-    tmp = path.with_name(path.name + ".tmp")
-    _mesh_payload.write(held, str(tmp), src=src, cut=cut)
-    if path.is_file() and path.read_bytes() == tmp.read_bytes():
-        tmp.unlink()
-    else:
-        tmp.replace(path)
-    return landed
+    from _build_data import write
+    result = write("graft-surfaces", path, same_frame=same_frame,
+                   surfaces_json=json.dumps({name: _mesh_wire(mesh) for name, mesh in fluted.items()}, separators=(",", ":")))
+    for row in result["moved"]:
+        print(f"   {Path(path).name}: {row['name']} keeps its host surface; no placement recovered "
+              f"across {row['drift_mm']:.1f} mm")
+    return result["landed"]
 
 
 def main(directories=PIECES_DIRS, *, preserve_print_triangles=None):
-    found = pieces(directories)
-    if not found:
-        raise SystemExit("no printed meshes beside the solids in "
-                         + ", ".join(str(d) for d in directories))
-    fluted = {}
-    for step, stl in found:
-        mesh = cut(step, stl, preserve_print_triangles=preserve_print_triangles)
-        fluted[mesh["name"]] = mesh
-
-    # AND INTO THE BOX THE SIX OF THEM MAKE. `enclosure.py` writes `enclosure.step` and the
-    # payload beside it off the same B-rep the pieces come out of, so that payload holds all six
-    # as smooth prisms and this is where they get their surface back.
-    #
-    # A PAYLOAD IS GRAFTED BY WHOEVER WRITES IT. Everywhere else the run that cuts one does its
-    # own graft as it goes — `manifold-layout/enclosure_assembly.py` for the appliance,
-    # `assembly/scenes/render_scenes.py` for each bench scene — so nothing here walks the tree
-    # looking for them, and this reads only the directories it was handed.
-    cut_here = {step.name + ".mesh" for step, _ in found}
-    for path in payloads(directories):
-        if path.name in cut_here:
-            continue
-        landed = graft(path, fluted)
-        if landed:
-            print(f"-> {path.relative_to(_ROOT)}  {landed} piece(s) grafted, "
-                  f"{path.stat().st_size / 1e6:.2f} MB")
-    return 0
+    return rust_main(directories, preserve_print_triangles=preserve_print_triangles)
 
 
 def rust_main(directories=PIECES_DIRS, *, preserve_print_triangles=None):
@@ -1354,6 +1081,23 @@ def selftest(matching_only=False, exact_only=False):
     bad = [c for c in checks if not c[0]]
     print(f"\n{len(checks) - len(bad)}/{len(checks)} checks passed")
     return 1 if bad else 0
+
+
+def _mesh_wire(mesh):
+    """Marshal optional arrays without changing their coordinates."""
+    defaults = dict(name="", color=None, pos=[], nrm=[], idx=[], fac=[])
+    defaults.update(mesh)
+    return {key: value.tolist() if hasattr(value, "tolist") else value
+            for key, value in defaults.items()}
+
+
+def _mesh_types(mesh, *, packed=False, dtype="<f4"):
+    entry = {key: value for key, value in mesh.items() if key not in ("col", "uv")}
+    if packed:
+        for key, kind in (("pos", dtype), ("nrm", dtype), ("idx", "<u4"), ("fac", "<u4")):
+            entry[key] = np.asarray(entry[key], dtype=kind)
+            entry[key].flags.writeable = False
+    return entry
 
 
 if __name__ == "__main__":

@@ -20,8 +20,8 @@ import trimesh
 from flute_skin import non_manifold_edges
 
 #: Absolute millimetre deflection and angular deflection of a printed surface.
-print_mesh_tol = 0.005
-print_mesh_angle = 0.05
+from _scalar_provider import call as _rust_scalar
+globals().update(_rust_scalar('scalar.constants',group='print_mesh'))
 
 
 def print_mesh(solid, tol: float = print_mesh_tol, angle: float = print_mesh_angle) -> trimesh.Trimesh:

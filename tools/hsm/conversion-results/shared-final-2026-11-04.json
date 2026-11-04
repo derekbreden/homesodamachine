@@ -1,0 +1,385 @@
+{
+  "date": "2026-11-04",
+  "integration_source_revision": "c646ae72a9a85d253ded1679fe0fd598a2499ee5",
+  "completed_scope": [
+    "Ledger purchase/evidence readers, exact decimal calculations, reconciliation, validation, privacy projections, summaries, JSON/CSV exports and reports",
+    "Shared materials/finish catalog processing, OCCT-compatible color arithmetic, PET-GF identity/palette selection",
+    "Routing constraints, free and orthogonal paths, simultaneous variable-radius seating, diagnostics, developed lengths, stock/spool choice and native adapter segment recipes",
+    "Shared fit/clip/snap/overhang datums, vectorized reeding fields, perimeter walks, rail station sampling, clearance and frame scalars",
+    "PET-GF cooling slot classification and configuration updates"
+  ],
+  "comparisons": {
+    "ledger_fixed_inputs": {
+      "checks": 161,
+      "failures": []
+    },
+    "ledger_contract_tests": {
+      "tests": 31,
+      "errors": [],
+      "failures": []
+    },
+    "shared_fixed_inputs": {
+      "checks": 660,
+      "failures": []
+    },
+    "shared_python_adapters": {
+      "checks": 633,
+      "failures": [],
+      "current_copper_route_assertions": 9,
+      "cooling_member_bytes_and_idempotence": 2
+    }
+  },
+  "comparison_details": {
+    "ledger": "32 analyze inputs compared as full records and exact JSON, CSV, report and audit strings, plus current purchase parsing. Existing 31 contract tests include no-op mtimes, CLI errors, exact currency, privacy allowlists and relationship validation.",
+    "shared": "256 hex colors, numeric color forms and curve edges, all material/finish rows, actual 3 copper paths and 7 synthetic constrained/blocked paths, cadlib datums/vector fields, PET-GF cooling settings and open/closed rail station sampling.",
+    "adapters": "517 shared cases and 105 cadlib/scalar cases through imported Python APIs; 9 actual copper route assertions; exact cooling member bytes and idempotence."
+  },
+  "numeric_tolerances": {
+    "color_results": "exact float equality",
+    "routing": {
+      "relative": 1e-10,
+      "absolute": 1e-10
+    },
+    "scalar_arrays": {
+      "relative": 1e-12,
+      "absolute": 1e-12
+    },
+    "adapter_numeric_values": {
+      "relative": 1e-10,
+      "absolute": 1e-10
+    },
+    "ledger": "exact records and exact text/bytes"
+  },
+  "baseline_python_sha256": {
+    "hardware/printed-parts/cadlib/cable_clip.py": "6aee5eb9a73a9c9c41c1637d3330580300018376115aa5c6c7371419db8fef85",
+    "hardware/printed-parts/cadlib/fits.py": "9815ebd9ffe112ea5173fd6ecc600086e3c7b53df00c29706b4826617390a509",
+    "hardware/printed-parts/cadlib/flute_skin.py": "96df0bcdfada1bd888057971031d8cb943357f2bc54fe5136b020e37da015325",
+    "hardware/printed-parts/cadlib/overhang_round.py": "9a5ef646cf3e47a89e616d5ca9caf7da1f0e98a708211f1eb2311302f818c60e",
+    "hardware/printed-parts/cadlib/petgf_cooling.py": "16d61d71b90ec1274af3b9e3bace4fb16a4290bf4efb688536bbe284d29f0ecf",
+    "hardware/printed-parts/cadlib/plan.py": "a30028cb3f7154a072d58e4cdb87816360ecf41ddf7da77219f945976c63ba23",
+    "hardware/printed-parts/cadlib/port_chip.py": "b6c3cd7c69fb4e540fba5fe9334cabaea70911fdc0d72a3bea31464d798e03b7",
+    "hardware/printed-parts/cadlib/print_mesh.py": "2d7336d1d59bf00535f1f40ef84fef760da8717710e16d99fc1aa3d0a94c891c",
+    "hardware/printed-parts/cadlib/reeding.py": "726c6341a30eb87d4a7ddd90222599bc9bf682dac118c0571f1903b8a45c98bb",
+    "hardware/printed-parts/cadlib/route_snap.py": "09eeb6ec001f014aaeff0c3e09f8caa85f01b47297a79b0553bc8e2b6dd31b36",
+    "hardware/printed-parts/cadlib/snap.py": "fd778525a5124fd9eff469d7cfecca56b2a339de84c0577f88033ee817409ddc",
+    "hardware/printed-parts/cadlib/world_workplane.py": "6fc15b2371091f653390c5ebb7390d2eb3b94b21f4194f07a188ef562dcd4226",
+    "hardware/scripts/_boxes.py": "8fb11a5c5069a8e9d02b997c39d52fa63df038ce1b2726cc50058355018b90ea",
+    "hardware/scripts/_card.py": "c4d44163993814b5a69f2c52964019ad3cb27b0bf023ccba1e034c54e25fef8f",
+    "hardware/scripts/_clearing.py": "da8783baaa09ed5e561af114fc21dca16a97feb3b3a14a531976844a35baa4ad",
+    "hardware/scripts/_finishes.py": "f05daae0ffd62596f9f3ba957f254c0e30db3b9d8359f7574fc3951e539617b2",
+    "hardware/scripts/_ledger_analysis.py": "4cba3ccdb36d3f3d17b34ba76c9c629af8b65c2a3d9f646f593c43ad4b9e547f",
+    "hardware/scripts/_ledger_totals.py": "22ca79ac2886361831fa744abcac63fc196417ff43e880d227d9050145fd8026",
+    "hardware/scripts/_material_base.py": "249b1670f63fc95bf4f1cee8fad8213c7b48e27949296843fe824dda80c49158",
+    "hardware/scripts/_materials.py": "ce915827df1b5bb2768170a3a76d6c32b5e47a8dd7f020bd833e1e540b19ea98",
+    "hardware/scripts/_occt_color.py": "c9180664d0a57d364ec145319d2c06e5dc12b06be6ba773317e80d8aa182859c",
+    "hardware/scripts/_overlap.py": "bd2ba9143feaae4ddea1a1cd0b1bc130eeee17ac2721ce4c1b7603843410962a",
+    "hardware/scripts/_routing.py": "682849cd011c7668735a807ca237a41ed37d1ea70346359cecf87c20e388b864",
+    "hardware/scripts/_seating.py": "bc953256c777dc4766e38168f2fe52a1ba870e381484f589b09ab57f3a4470f2"
+  },
+  "fixed_inputs_and_expected_sha256": {
+    "ledger-cases.json": "22929f21c91fd6dd857bb1d2497c78d38130eb32a953175ac29a62c588c44a6a",
+    "shared-cases.json": "ac31199478633e1303d86f9f5b66acdcbdb84bc7212ce5473eebbd03245579ef",
+    "scalar-cases.json": "fe98c0679a84118af907bb9e8f6c7e883c699ce103e7cdd67c2dc8c1a38a02ef",
+    "cooling-cases.json": "4b819d97f8d0f3a15ef6bd109fdaafbc52d1090550a337be9e6d880c19035c08",
+    "rail-cases.json": "a947e9be1265ec34d21b92d0c23cacca4491402dc5fdd52054d5f9db81260c32",
+    "copper-routing.json": "787a1b65aa27f9f6eecb3e841aea33c43a489ff769dba30c9dfe93dda89f3fa7"
+  },
+  "converted_sources_sha256": {
+    "hardware/printed-parts/cadlib/_scalar_provider.py": "5a3c0effaf87fa022b968e2ca2898d4119c4dc4484bc5efe0f560b1a55b681bb",
+    "hardware/printed-parts/cadlib/cable_clip.py": "82cd3f015f62fcb1a6c258c0b5a9872775394f24ee1ce7fab03dcccf0f95ef24",
+    "hardware/printed-parts/cadlib/fits.py": "19844e24fba8fc1fb3edc63dd12c2f20bd4b9f3b1cbb3bbc901daa59579bc807",
+    "hardware/printed-parts/cadlib/flute_skin.py": "5d9f50a47f1e37d57cbf01046a477573b1f1cd4a6ff001869e2981023e8cf2aa",
+    "hardware/printed-parts/cadlib/overhang_round.py": "44ef0d9a3569727550b83fa87c9b916062d8964cdd93f67bcd9efea049571e2d",
+    "hardware/printed-parts/cadlib/petgf_cooling.py": "83f938ee001975dd7354b5ef757f918770e0dc24b75e9d7230fac7f796ab4dbc",
+    "hardware/printed-parts/cadlib/port_chip.py": "a0644e9da5c3ec9d6965eb4e22ac917c08e9afa022f940997066c0ac4fe92af7",
+    "hardware/printed-parts/cadlib/print_mesh.py": "bac4668a7a83932037f3359cc8614922ca2c3d05a13a30c0ef5b84e607c1d50b",
+    "hardware/printed-parts/cadlib/reeding.py": "9b16a66432b903b372659b98976f526da27a655b4ca2c0a1d34f95b2cbe7830e",
+    "hardware/printed-parts/cadlib/route_snap.py": "8d40f6e4bc0666bfcd993df5c341298bebc5ac6cdff6f7407849ba957314410b",
+    "hardware/printed-parts/cadlib/snap.py": "53141456dba1fa389f4dc7eb66332929b864e62032381cac41ea41cda520c557",
+    "hardware/printed-parts/cadlib/world_workplane.py": "c984da35ce8e97ee12eec00431aa0b68031f7b42582d4cc04214bb4115653fda",
+    "hardware/scripts/_boxes.py": "db105c9c461bd02eeef6d9d7e8f362fd80d8af762605fc5af533520565f727ea",
+    "hardware/scripts/_card.py": "51c9b864a2d01a4379e86509addee562056a06a55b9bf1503d255de8e6130dda",
+    "hardware/scripts/_clearing.py": "7ba9f287178f9a8e4c4a91ad4dfa1af1642dd0dc9cc6601ee0d54473ad8a522e",
+    "hardware/scripts/_finishes.py": "70724a8dc69dcfbae49aa169f0b1878135798bbecf9af8be43ece76feb7959cc",
+    "hardware/scripts/_ledger_analysis.py": "e77ff3c7baf7c79a8dd182bfc25aba53b1d30d5b470becf1b6593d7d0ea2df02",
+    "hardware/scripts/_ledger_rust.py": "0f56ff0663c3fd34c92c6a9505ddb4b70ee36f98c4a41c62947949def2267ea2",
+    "hardware/scripts/_ledger_totals.py": "802d93780d59738d808e0e5ea60273e61baf20b1b5422c06a6b6800f381d7435",
+    "hardware/scripts/_material_base.py": "69e47bf8a040d01024531a493709e5ee3788b75623d18f787e5ac14b12b49dee",
+    "hardware/scripts/_materials.py": "da58435b0325e71bc996b80ab79348f88b09df6b7e1af47b887770335e7d6757",
+    "hardware/scripts/_occt_color.py": "265bcc46e1f9dfcd5ae98b732ef9e8b819fb400256d1cc11fb6779173c599488",
+    "hardware/scripts/_routing.py": "9b3652bfe58bca9ff2769d4f1071626aa8629921eeeb11a675f9233b00e05436",
+    "hardware/scripts/_seating.py": "e041c3fc1e6a72126d7fee82bb8cef464e1e313352a1cf0feb24234176556771",
+    "hardware/scripts/_shared_data.py": "cc0dbe97e5c90b6e38e1fe2138ba13fc7a83bca1d3a57a9825f682db84d86241",
+    "tools/hsm/ledger/Cargo.toml": "a3517e0c58af40137a1aacc0368fbf791206ce79003846715cbfea5bc724538f",
+    "tools/hsm/ledger/catalog/evidence.json": "a31ab697888557c475df4c9f5d993f0a9242d06bf9ae38da9019069200283b67",
+    "tools/hsm/ledger/src/analysis.rs": "2ca53c389b1ddbb302c6ac3950f2c34cabf04629f0f9d91b3bfa9dd3ae7f2e34",
+    "tools/hsm/ledger/src/analysis_export.rs": "bf781dd11d4ccfdc916233da83e21bd0a9ca2e34f2bb9ff6385703705b9272a0",
+    "tools/hsm/ledger/src/analysis_summary.rs": "e5f557813c03325b331b7ffa85b92e8853c502a18fb781c833409f9f9daaa3a1",
+    "tools/hsm/ledger/src/analysis_validate.rs": "9ac8fb43284ac14c82ad0775d374e86a6c136e76039a99821b2f7028b1cdb7f8",
+    "tools/hsm/ledger/src/bom.rs": "1c7c2aad95ab09e059ae72b4797b0cc6b195b85f07ee4eefba58767fb98e0847",
+    "tools/hsm/ledger/src/bom_sync.rs": "12a6b8cf63a8bb9c70ef45dccc9589f3bced15feaa37aa32cea328cd2f1dde16",
+    "tools/hsm/ledger/src/bom_sync_figures.rs": "e5431b2346cf5f9ff5319c78eea98f2bb4583397ed4165a2924be713b55032c2",
+    "tools/hsm/ledger/src/build_time.rs": "f832667428bcf97d8177b8ed573f631b5e93ce6c378c713bfa74b4890f84c534",
+    "tools/hsm/ledger/src/evidence_main.rs": "a95061c2b983dddaf9608af4859212269072cf1b6496a97be3943d76d9161573",
+    "tools/hsm/ledger/src/labor.rs": "2adec5b97c2cb40422edeadaf4bdd9add63a78f6fa0874c030caabdc4f44042b",
+    "tools/hsm/ledger/src/ledger_money.rs": "e6ca898d7af30f1d6dffd5718b387f1f7af059a638034d0c603b81239ff1d36c",
+    "tools/hsm/ledger/src/ledger_totals.rs": "ef2e74bbc89f04768acc81fd970af14101a9d72d43d1d9c888696d645a517519",
+    "tools/hsm/ledger/src/main.rs": "6fc769322c6870fc1cd50cc649f500eaefd26bc7b79ccff4d249fca622a49f56",
+    "tools/hsm/ledger/src/printing.rs": "06cef59b115f2782d16f47f60f488527781b0bbffa972225be64f5a79ce737f7",
+    "tools/hsm/ledger/src/shared.rs": "4d23edae265375253956962799d973469418751521c942351ee1475f275c1d23",
+    "tools/hsm/ledger/src/tools.rs": "98364306a62b3d77b09385f54f0af38592bb49f49652815f18dbe05be3e56eee",
+    "tools/hsm/shared-data/Cargo.toml": "53ffdfcba1d5cfcc43cf71f6e9fcab6161e171796c3e9af969bcbdec8e8435b8",
+    "tools/hsm/shared-data/catalog/materials.json": "80a97f615e467e9d75131d4ec97d316a99bba031093b781bfa5ccdf962445288",
+    "tools/hsm/shared-data/catalog/routing.json": "cb5c73f567dc8c113fea2b056331b1434bb99620524e3777e88214945e724d28",
+    "tools/hsm/shared-data/catalog/scalars.json": "5b3961976b887db9bfddc1917824d260c48cb95502c914ab2dacbb7f0c881574",
+    "tools/hsm/shared-data/src/color.rs": "ed1c3165daeac03f246a6e6e45dfd7fba158f12919a5fc253d243379121c1faf",
+    "tools/hsm/shared-data/src/common.rs": "dc8524a16024d104ce7d9f4ad81d37c7ebff46ca544cccef024b0412b2307666",
+    "tools/hsm/shared-data/src/cooling.rs": "84af7c511cba7f556fa26c804e352eba56e34b54da8e93a063c01860bdf4e85e",
+    "tools/hsm/shared-data/src/lib.rs": "464a096094152e5c7baf4add349efdb2551b93e623b3ac1afb00bcc70f3543f9",
+    "tools/hsm/shared-data/src/main.rs": "bf8f61dbbdc9473d9710ca2627dbb800ca1b617daba0211d11d7089ec467da7e",
+    "tools/hsm/shared-data/src/routing.rs": "8f492e1fa78cb66baf627dd33cd38968f1e802fd76cd268774a53c41e504215e",
+    "tools/hsm/shared-data/src/scalars.rs": "fd0689d38c75a542bbe137fe3f55f7377c8ea2106830cc2c1a582bc4174ce6e4"
+  },
+  "compared_programs_sha256": {
+    "ledger-analysis": "5ff4b76621f6f97bc76a2db5bfbfe3480f31344150a4c6f7aebd751bd92fe094",
+    "shared-data": "2b5026cd3b2ebb25d682634489b62acaa4adfcaba3cc17bf768bb95df9b7d7e0"
+  },
+  "manual_native_api_inventory": {
+    "hardware/scripts/_boxes.py": {
+      "apis": [
+        "boxed",
+        "loose",
+        "boxed_solids",
+        "native BREP box cache"
+      ],
+      "scope": "Manual native geometry. Normal routing passes saved bounding boxes; normal enclosure uses Rust records.",
+      "maintained_caller_sources": [
+        "hardware/printed-parts/enclosure/enclosure/enclosure.py",
+        "hardware/scripts/_routing.py"
+      ],
+      "normal_algorithm_fallback": false
+    },
+    "hardware/scripts/_overlap.py": {
+      "apis": [
+        "common",
+        "volume"
+      ],
+      "scope": "Manual manifold query adapter used by fit/probe and dormant native cold-core builders.",
+      "maintained_caller_sources": [
+        "hardware/printed-parts/cold-core/_internal_routes.py",
+        "hardware/scripts/fit.py",
+        "hardware/scripts/probe.py"
+      ],
+      "normal_algorithm_fallback": false
+    },
+    "hardware/scripts/_clearing.py": {
+      "apis": [
+        "shadows",
+        "gap"
+      ],
+      "scope": "Manual manifold query adapters. box_gap, axis_min and unit arithmetic run in shared-data.",
+      "maintained_caller_sources": [
+        "hardware/reference/g-ganen-pump/installation/verify_pump_routes.py",
+        "hardware/scripts/lanes.py",
+        "hardware/scripts/probe.py"
+      ],
+      "normal_algorithm_fallback": false
+    },
+    "hardware/scripts/_seating.py": {
+      "apis": [
+        "Seat.turn",
+        "Seat.shift",
+        "Seat.then",
+        "Seat.solid"
+      ],
+      "scope": "Native location/solid interoperability for manual fitting composition. Coordinate arithmetic runs in shared-data; normal reference geometry uses Rust records.",
+      "maintained_caller_sources": [
+        "hardware/reference/asse1022-assembly/asse1022_assembly.py",
+        "hardware/scripts/fit.py"
+      ],
+      "normal_algorithm_fallback": false
+    },
+    "hardware/scripts/_material_base.py": {
+      "apis": [
+        "one_body"
+      ],
+      "scope": "CadQuery assembly type boundary.",
+      "maintained_caller_sources": [
+        "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
+        "hardware/scripts/materialize_material_colors.py",
+        "tools/tube-insertion-guide/insertion_art.py"
+      ],
+      "normal_algorithm_fallback": false
+    },
+    "hardware/scripts/_routing.py": {
+      "apis": [
+        "centreline",
+        "tube"
+      ],
+      "scope": "Manual CadQuery primitive construction from Rust centerline segment and profile recipes.",
+      "maintained_caller_sources": [
+        "future/tube-bend-holder-exploration/tube_bend_holder.py",
+        "hardware/cold-core-layout/_coil.py",
+        "hardware/cold-core-layout/_cold_core_style.py",
+        "hardware/manifold-layout/manifold_layout.py",
+        "hardware/printed-parts/cold-core/_internal_routes.py",
+        "hardware/printed-parts/cold-core/foam-assembly/foam_assembly.py",
+        "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/verify_fluid2_guard_equivalence.py",
+        "hardware/reference/g-ganen-pump/installation/verify_pump_routes.py",
+        "hardware/scripts/_machine_equipment.py",
+        "hardware/scripts/_machine_layout.py",
+        "hardware/scripts/lanes.py",
+        "hardware/scripts/probe.py"
+      ],
+      "normal_algorithm_fallback": false
+    },
+    "hardware/printed-parts/cadlib/cable_clip.py": {
+      "apis": [
+        "local_geometry",
+        "apply"
+      ],
+      "scope": "Manual native clip construction; scalar datums, scaling and unit arithmetic run in shared-data.",
+      "maintained_caller_sources": [],
+      "normal_algorithm_fallback": false
+    },
+    "hardware/printed-parts/cadlib/overhang_round.py": {
+      "apis": [
+        "pocket_rim",
+        "three_side_fill",
+        "rectangular_edge_fill"
+      ],
+      "scope": "Manual native construction; transition arithmetic runs in shared-data.",
+      "maintained_caller_sources": [
+        "hardware/printed-parts/calibration/soda-studies/reference.py",
+        "hardware/printed-parts/enclosure/bottom-grip-print/prepare.py",
+        "hardware/printed-parts/enclosure/enclosure/_grip_interface.py",
+        "hardware/printed-parts/enclosure/enclosure/_swept_top.py",
+        "hardware/printed-parts/enclosure/enclosure/layer-policy-correction/prepare.py"
+      ],
+      "normal_algorithm_fallback": false
+    },
+    "hardware/printed-parts/cadlib/route_snap.py": {
+      "apis": [
+        "tube_clip",
+        "cable_hook",
+        "floor_cable_hook",
+        "cable_bank"
+      ],
+      "scope": "Dormant native builders retained for manual composition; normal geometry uses Rust equivalents.",
+      "maintained_caller_sources": [
+        "hardware/printed-parts/cold-core/_above_core_mounts.py",
+        "hardware/printed-parts/cold-core/_reservoir_a_c2.py",
+        "hardware/printed-parts/enclosure/enclosure/_route_snaps.py"
+      ],
+      "normal_algorithm_fallback": false
+    },
+    "hardware/printed-parts/cadlib/snap.py": {
+      "apis": [
+        "apply_ramp_out_first",
+        "apply_ramp_in_first"
+      ],
+      "scope": "Manual native profile application; scalar constants/frame datums run in shared-data.",
+      "maintained_caller_sources": [
+        "hardware/printed-parts/enclosure/pump-tray/pump_case.py"
+      ],
+      "normal_algorithm_fallback": false
+    },
+    "hardware/printed-parts/cadlib/port_chip.py": {
+      "apis": [
+        "outline"
+      ],
+      "scope": "Manual native geometry primitive.",
+      "maintained_caller_sources": [
+        "hardware/printed-parts/enclosure/enclosure/_data_wing_interface.py",
+        "hardware/printed-parts/enclosure/enclosure/enclosure.py"
+      ],
+      "normal_algorithm_fallback": false
+    },
+    "hardware/printed-parts/cadlib/print_mesh.py": {
+      "apis": [
+        "print_mesh",
+        "write_print_stl"
+      ],
+      "scope": "Manual native triangulation and STL export; normal exports use Rust.",
+      "maintained_caller_sources": [
+        "hardware/print-tests/pump-mount-fit/build.py",
+        "hardware/printed-parts/cold-core/_show_skin.py",
+        "hardware/printed-parts/enclosure/trial-preparation/labels.py",
+        "hardware/printed-parts/enclosure/trial-preparation/step_meshes.py"
+      ],
+      "normal_algorithm_fallback": false
+    },
+    "hardware/printed-parts/cadlib/flute_skin.py": {
+      "apis": [
+        "flute",
+        "native cutter helpers",
+        "non_manifold_edges",
+        "as_written"
+      ],
+      "scope": "Legacy native/manual print preparation. Normal flute field/mesh processing uses Rust; _rail_frames station selection now runs in shared-data.",
+      "maintained_caller_sources": [
+        "hardware/printed-parts/cadlib/print_mesh.py",
+        "hardware/printed-parts/calibration/soda-studies/reference.py",
+        "hardware/printed-parts/enclosure/enclosure/_enclosure_skin.py",
+        "hardware/printed-parts/enclosure/enclosure/enclosure.py",
+        "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py"
+      ],
+      "normal_algorithm_fallback": false
+    },
+    "hardware/printed-parts/cadlib/world_workplane.py": {
+      "apis": [
+        "WorldProfile",
+        "WorldWorkplane"
+      ],
+      "scope": "CadQuery typed dispatch adapters for manual composition; plane records and coordinate/radius transforms run in shared-data.",
+      "maintained_caller_sources": [
+        "hardware/printed-parts/cold-core/_cold_core_interface.py",
+        "hardware/printed-parts/cold-core/_foam_cap.py",
+        "hardware/printed-parts/cold-core/_outer_shell.py",
+        "hardware/printed-parts/cold-core/_reservoir_pocket_walls.py",
+        "hardware/printed-parts/enclosure/pump-tray/pump_case.py",
+        "hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.py",
+        "hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.py",
+        "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py",
+        "hardware/reference/touch-flo-faucet/westbrass-reference/westbrass_reference.py"
+      ],
+      "normal_algorithm_fallback": false
+    },
+    "hardware/printed-parts/cadlib/plan.py": {
+      "apis": [
+        "rect",
+        "union",
+        "closed",
+        "prism",
+        "native ring helpers"
+      ],
+      "scope": "Manual Shapely/OCCT library; no maintained import/call site found in tracked Python sources.",
+      "maintained_caller_sources": [],
+      "normal_algorithm_fallback": false
+    }
+  },
+  "normal_build_algorithm_fallbacks_in_completed_scope": [],
+  "graph_dependencies": {
+    "shared-data": [
+      "tools/hsm/shared-data/Cargo.toml",
+      "tools/hsm/shared-data/src/*.rs",
+      "tools/hsm/shared-data/catalog/*.json",
+      "tools/hsm/kernel",
+      "tools/hsm/documents",
+      "hardware/scripts/_shared_data.py",
+      "hardware/printed-parts/cadlib/_scalar_provider.py"
+    ],
+    "ledger-analysis": [
+      "tools/hsm/ledger/Cargo.toml",
+      "tools/hsm/ledger/src/evidence_main.rs",
+      "tools/hsm/ledger/src/analysis*.rs",
+      "tools/hsm/ledger/src/ledger_money.rs",
+      "tools/hsm/ledger/src/ledger_totals.rs",
+      "tools/hsm/ledger/src/shared.rs",
+      "tools/hsm/ledger/catalog/evidence.json",
+      "hardware/scripts/_ledger_rust.py"
+    ]
+  },
+  "file_read_registration": "ledger Rust responses report every table/evidence sidecar read and rewritten output; _ledger_rust records them for source tracing. Shared declarative catalog inputs are compile-time include_str dependencies recorded by _rust_part dep-info.",
+  "full_build": "Parent performs the combined normal build after integration; no full build was run for these pieces."
+}

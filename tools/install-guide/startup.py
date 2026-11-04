@@ -1,76 +1,26 @@
-#!/usr/bin/env python3
-"""Draw the cylinder handwheel and the factory-set regulator with both gauges pressurised."""
-import json
-import math
+'Draw the cylinder handwheel and the factory-set regulator with both gauges pressurised.'
+from __future__ import annotations
+from pathlib import Path as _Path
+import sys as _sys
+_sys.path.insert(0,str(_Path(__file__).resolve().parents[2]/"hardware/scripts"))
+from _guides_compiled import compiled as _compiled, bind as _bind
 
-import cadquery as cq
+def dial_print(*args, **kwargs):
+    "The dial's scale and a needle at the illustrated pressure."
+    return _compiled('startup',path=('dial_print',),args=args,kwargs=kwargs)
 
-import scenes
+def assembly(*args, **kwargs):
+    "The fitted regulator and top of the customer's cylinder."
+    return _compiled('startup',path=('assembly',),args=args,kwargs=kwargs)
 
+def points(*args, **kwargs):
+    return _compiled('startup',path=('points',),args=args,kwargs=kwargs)
 
-OUT = scenes.HARDWARE / 'install-guide/out/startup'
-ART = scenes.HARDWARE / 'install-guide/art'
-CAM = (.08, 1, .12)
-TARGET = (-35, 0, -4.5)
-SPAN = 103.5
-SIZE = (1800, 1200)
-reg = scenes.reg
-OUTLET_PSI = reg.FACTORY_SET_PSI
-CYLINDER_PSI = 800
+def main(*args, **kwargs):
+    return _compiled('startup',path=('main',),args=args,kwargs=kwargs)
 
-
-def dial_print(child, centre, pressure, full):
-    """The dial's scale and a needle at the illustrated pressure."""
-    face_y = reg.GAUGE_FACE_Y + reg.PRINT_T
-    marks = [solid for solid in child.obj.Solids()
-             if solid.BoundingBox().ymin < face_y - 1e-5]
-    plane = (cq.Workplane(reg._dial_plane).workplane(offset=face_y)
-             .center(-centre[0], centre[2]))
-    marks.append(reg._needle(reg._scale_deg(pressure, full), plane))
-    return cq.Compound.makeCompound(marks)
-
-
-def assembly():
-    """The fitted regulator and top of the customer's cylinder."""
-    result = cq.Assembly(name='startup-gas')
-    for child in scenes.cylinder().children:
-        if child.name == 'outlet-black-print':
-            obj = dial_print(child, reg.outlet_dial()[0], OUTLET_PSI, reg.OUTLET_FULL_PSI)
-            result.add(obj, name=child.name, color=child.color)
-        elif child.name == 'tank-black-print':
-            obj = dial_print(child, reg.tank_dial()[0], CYLINDER_PSI, reg.TANK_FULL_PSI)
-            result.add(obj, name=child.name, color=child.color)
-        else:
-            result.add(child)
-    return result
-
-
-def points():
-    angle = math.radians(reg._scale_deg(OUTLET_PSI, reg.OUTLET_FULL_PSI))
-    return {
-        'upper-gauge': reg.outlet_dial()[0],
-        'upper-needle-tip': (-reg.NEEDLE_R * math.cos(angle),
-                             reg.GAUGE_FACE_Y + reg.PRINT_T + .8,
-                             reg.OUTLET_REACH + reg.NEEDLE_R * math.sin(angle)),
-        'cylinder-gauge': reg.tank_dial()[0],
-        'factory-screw': reg.adjustment()[0],
-        'cylinder-handwheel': (-115, 0, 33),
-    }
-
-
-def main():
-    OUT.mkdir(parents=True, exist_ok=True)
-    ART.mkdir(exist_ok=True)
-    scenes.OUT, scenes.ART, scenes.jobs = OUT, ART, []
-    scenes.stage('startup-gas', assembly(), CAM, TARGET, SPAN,
-                 size=f'{SIZE[0]}x{SIZE[1]}')
-    scenes.render()
-    metadata = dict(cam=CAM, target=TARGET, span=SPAN, size=SIZE,
-                    outlet_psi=OUTLET_PSI, cylinder_psi=CYLINDER_PSI,
-                    points=points())
-    (OUT / 'points.json').write_text(json.dumps(metadata, indent=2) + '\n')
-    print(json.dumps(metadata, indent=2))
-
+__all__ = ['json', 'math', 'cq', 'scenes', 'OUT', 'ART', 'CAM', 'TARGET', 'SPAN', 'SIZE', 'reg', 'OUTLET_PSI', 'CYLINDER_PSI', 'dial_print', 'assembly', 'points', 'main']
+_bind('startup',globals())
 
 if __name__ == '__main__':
-    main()
+    _compiled('startup','main')

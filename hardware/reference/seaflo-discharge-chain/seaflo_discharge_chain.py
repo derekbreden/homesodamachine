@@ -61,53 +61,39 @@ sys.path.insert(0, str(_hw / "reference" / "jg-pp010822e"))
 import gasher_check_valve as check   # the middle fitting's own three sections
 import jg_pp010822e as male          # the inlet fitting's collet, hex and shank
 
-NPT_ENGAGE = 11.0           # how deep a 1/4" NPT male runs into its female
+
+_reference_hardware = next(p for p in Path(__file__).resolve().parents if p.name == 'hardware')
+import sys as _reference_sys
+_reference_sys.path.insert(0, str(_reference_hardware / 'reference'))
+from _reference_data import data as _reference_data
+_reference_values = _reference_data('seaflo_discharge_chain')
+globals().update({name: _reference_values[name] for name in ('NPT_ENGAGE', 'JG_SOCKET_D', 'JG_SOCKET_L', 'JG_HEX', 'JG_HEX_L', 'JG_COLLET_D', 'JG_COLLET_L', 'TUBE_D', 'SECTIONS', 'LENGTH')})
+
 
 # John Guest PP450822E 1/4" NPT F x 1/4" PTC.
-JG_SOCKET_D, JG_SOCKET_L = 15.0, 8.0
-JG_HEX, JG_HEX_L = 16.5, 5.0
-JG_COLLET_D, JG_COLLET_L = 14.0, 13.0
 
-TUBE_D = 6.35               # the 1/4" OD LLDPE both collets accept
 
 
 # The stack inlet first, as `(label, diameter, length)`. `build()` lays these down and a
 # holder reads the same list for the section it seats on — the check is metal and the two John
 # Guest fittings polypropylene, which is what says where a zip tie may close. A shank buried
 # whole in its mate stands no length of its own.
-SECTIONS = tuple(row for row in (
-    ("PP010822E collet", male.COLLET_D, male.COLLET_LENGTH),
-    ("PP010822E hex", male.HEX_ACROSS_CORNERS, male.HEX_LENGTH),
-    ("PP010822E NPT", male.SHANK_D, male.SHANK_LENGTH - NPT_ENGAGE),
-    ("GASHER socket", check.SOCKET_D, check.SOCKET_LENGTH),
-    ("GASHER hex", check.HEX_ACROSS_CORNERS, check.HEX_LENGTH),
-    ("GASHER stub", check.THREAD_D, check.STUB_LENGTH - NPT_ENGAGE),
-    ("PP450822E socket", JG_SOCKET_D, JG_SOCKET_L),
-    ("PP450822E hex", JG_HEX, JG_HEX_L),
-    ("PP450822E collet", JG_COLLET_D, JG_COLLET_L),
-) if row[2] > 0.0)
 
-LENGTH = sum(length for _label, _dia, length in SECTIONS)
 
 
 def sections():
-    """Every section as `(label, radius, s0, s1)`, `s` running from the inlet down the chain."""
-    out, s = [], 0.0
-    for label, dia, length in SECTIONS:
-        out.append((label, dia / 2.0, s, s + length))
-        s += length
-    return tuple(out)
+    'Every section as `(label, radius, s0, s1)`, `s` running from the inlet down the chain.'
+    return _reference_data('seaflo_discharge_chain', 'sections', (), {})
 
 
 def inlet():
-    """The PP010822E's 1/4" PTC mouth the discharge elbow's tube pushes into:
-    (position, outward axis)."""
-    return (0.0, 0.0, 0.0), (0.0, 0.0, 1.0)
+    'The PP010822E\'s 1/4" PTC mouth the discharge elbow\'s tube pushes into:\n    (position, outward axis).'
+    return _reference_data('seaflo_discharge_chain', 'inlet', (), {})
 
 
 def tube_port():
-    """The PP450822E's 1/4" PTC mouth the LLDPE to the core pushes into: (position, axis)."""
-    return (0.0, 0.0, -LENGTH), (0.0, 0.0, -1.0)
+    'The PP450822E\'s 1/4" PTC mouth the LLDPE to the core pushes into: (position, axis).'
+    return _reference_data('seaflo_discharge_chain', 'tube_port', (), {})
 
 
 def build():

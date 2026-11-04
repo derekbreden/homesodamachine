@@ -22,18 +22,14 @@ Deflection tuning:
 
 import cadquery as cq
 
-wall_thickness = 3.0
+from _scalar_provider import call as _rust_scalar
+globals().update(_rust_scalar('scalar.constants',group='snap'))
 # Outward growth added to the ramp_out_first outer face so the cut channel
 # has room without piercing the original wall.
-ramp_out_outer_growth = 2.0
-notch_wall_width = 2.0
-bump_height = 2.0
 
 # Inner-face to (grown) outer-face span the snap features inhabit on the
 # ramp_out_first side.
-channel_width = wall_thickness + ramp_out_outer_growth
 
-overcut = 0.1
 
 
 class Frame:
@@ -51,14 +47,8 @@ class Frame:
         coords. The snap grows from the wall toward +up.
     """
 
-    def __init__(self, *, extrusion_plane, outward_sign, up_axis, up_sign=1):
-        self.extrusion_plane = extrusion_plane
-        self.outward_sign = outward_sign
-        self.up_axis = up_axis
-        self.up_sign = up_sign
-        # In the cadquery plane name (e.g. "YZ"), the first letter is
-        # the local U-axis. If that matches up_axis, points are (up, outward).
-        self.up_first = extrusion_plane[0] == up_axis
+    def __init__(self,*,extrusion_plane,outward_sign,up_axis,up_sign=1):
+        self.__dict__.update(_rust_scalar('scalar.snap_frame',extrusion_plane=extrusion_plane,outward_sign=outward_sign,up_axis=up_axis,up_sign=up_sign))
 
 
 def _polyline_in_zone(frame, zone_range, points, overshoot=0.0):

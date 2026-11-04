@@ -36,6 +36,9 @@ import subprocess
 import sys
 from pathlib import Path
 
+sys.path.insert(0,str(Path(__file__).resolve().parent))
+from _bookkeeping import call as _bookkeeping_call
+
 _ROOT = Path(__file__).resolve().parents[2]
 
 #: Additional generated outputs not declared in the graph.
@@ -51,26 +54,14 @@ def _git(*args: str) -> str:
     ).stdout
 
 
-def _made_by_the_build() -> set[str]:
-    graph = json.loads((_ROOT / "tools/bazel/graph.json").read_text())
-    made: set[str] = set()
-    for step in graph.values():
-        made |= set(step.get("writes", ())) | set(step.get("rewritten", ()))
-    return made
+def _made_by_the_build():
+    from _bookkeeping import read
+    return set(read('drop.made',_ROOT/'tools/bazel/graph.json'))
 
 
-def _split(dirty: list[str]) -> tuple[list[str], list[str]]:
-    made = _made_by_the_build()
-    drop, keep = [], []
-    for path in dirty:
-        p = Path(path)
-        if any(p.full_match(k) for k in _KEEP):
-            keep.append(path)
-        elif path in made or any(p.full_match(u) for u in _UNDECLARED):
-            drop.append(path)
-        else:
-            keep.append(path)
-    return drop, keep
+def _split(dirty):
+    drop,keep = _bookkeeping_call('drop.split',dirty=dirty,made=_made_by_the_build())
+    return drop,keep
 
 
 def main() -> int:

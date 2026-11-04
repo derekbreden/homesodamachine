@@ -131,6 +131,80 @@ pub fn pchip_request(request: &Value) -> Result<Value> {
     Ok(json!(pchip(&points)?))
 }
 
+/// Restore the lever's authored frame from its side-down printed STL.
+/// Corners are read as f32, transformed in f64, and written as f32. The
+/// face normals are read from the transformed corners, as the mesh reader does.
+pub fn repack(request: &Value) -> Result<Value> {
+    let source = std::path::Path::new(request["source"].as_str().context("lever print STL")?);
+    let target = std::path::Path::new(request["target"].as_str().context("lever authored STL")?);
+    let bytes = std::fs::read(source)?;
+    ensure!(bytes.len() >= 84, "lever print STL header");
+    let count = u32::from_le_bytes(bytes[80..84].try_into().unwrap()) as usize;
+    ensure!(
+        bytes.len() == 84 + count * 50,
+        "lever print STL facet length"
+    );
+    let mut output = vec![0; 84 + count * 50];
+    output[80..84].copy_from_slice(&(count as u32).to_le_bytes());
+    let read = |row: &[u8], i: usize| f32::from_le_bytes(row[i..i + 4].try_into().unwrap()) as f64;
+    let write = |row: &mut [u8], i: usize, v: f64| {
+        let v = if v == 0.0 { 0.0 } else { v as f32 };
+        row[i..i + 4].copy_from_slice(&v.to_le_bytes());
+    };
+    for (facet, out) in bytes[84..]
+        .chunks_exact(50)
+        .zip(output[84..].chunks_exact_mut(50))
+    {
+        let mut points = [[0.0; 3]; 3];
+        for i in 0..3 {
+            let base = 12 + i * 12;
+            points[i] = [
+                PRINTED_OUTSIDE_WIDTH / 2.0 - read(facet, base + 8),
+                read(facet, base + 4),
+                read(facet, base),
+            ];
+            for value in &mut points[i] {
+                if *value == 0.0 {
+                    *value = 0.0;
+                }
+            }
+            write(
+                out,
+                base,
+                PRINTED_OUTSIDE_WIDTH / 2.0 - read(facet, base + 8),
+            );
+            write(out, base + 4, read(facet, base + 4));
+            write(out, base + 8, read(facet, base));
+        }
+        let a = [
+            points[1][0] - points[0][0],
+            points[1][1] - points[0][1],
+            points[1][2] - points[0][2],
+        ];
+        let b = [
+            points[2][0] - points[1][0],
+            points[2][1] - points[1][1],
+            points[2][2] - points[1][2],
+        ];
+        let cross = [
+            a[1] * b[2] - a[2] * b[1],
+            a[2] * b[0] - a[0] * b[2],
+            a[0] * b[1] - a[1] * b[0],
+        ];
+        let norm = ((cross[0] * cross[0] + cross[1] * cross[1]) + cross[2] * cross[2]).sqrt();
+        let normal = if norm > 1e-13 {
+            cross.map(|v| v * (1.0 / norm))
+        } else {
+            [0.0; 3]
+        };
+        for i in 0..3 {
+            out[i * 4..i * 4 + 4].copy_from_slice(&(normal[i] as f32).to_le_bytes());
+        }
+    }
+    hsm_documents::write_if_changed(target, &output)?;
+    Ok(json!({"facets":count,"source":source,"target":target}))
+}
+
 pub fn data(color: &Value) -> Result<Value> {
     let mut stop = vec![
         [CHANNEL_PRINTED_WIDTH / 2.0, 44.30],

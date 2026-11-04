@@ -15,3 +15,8 @@ anyhow.workspace = true
 serde.workspace = true
 serde_json = { workspace = true, features = ["float_roundtrip"] }
 hsm-documents = { path = "../documents" }
+hsm-kernel = { path = "../kernel" }
+hsm-faucet = { path = "../faucet" }
+libloading = "0.8.9"
+hsm-shared-data = { path = "../shared-data" }
+png = "0.18.1"

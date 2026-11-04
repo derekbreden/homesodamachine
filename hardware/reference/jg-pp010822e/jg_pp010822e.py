@@ -31,25 +31,24 @@ _here = Path(__file__).resolve()
 _hw = next(p for p in _here.parents if p.name == "hardware")
 sys.path.insert(0, str(_hw / "scripts"))
 
-COLLET_D = 14.0             # 1/4" PTC collet body OD
-COLLET_LENGTH = 13.5        # push-in cartridge + release collar
-HEX_ACROSS_CORNERS = 16.5   # 9/16" hex (14.29 across flats)
-HEX_LENGTH = 5.0            # wrench flat thickness
-SHANK_D = 13.7              # 1/4" NPT major Ø (simplified, no helix)
-SHANK_LENGTH = 11.0         # NPT engagement
-TUBE_D = 6.35               # the 1/4" OD LLDPE it accepts
-LENGTH = COLLET_LENGTH + HEX_LENGTH + SHANK_LENGTH
+
+_reference_hardware = next(p for p in Path(__file__).resolve().parents if p.name == 'hardware')
+import sys as _reference_sys
+_reference_sys.path.insert(0, str(_reference_hardware / 'reference'))
+from _reference_data import data as _reference_data
+_reference_values = _reference_data('jg_pp010822e')
+globals().update({name: _reference_values[name] for name in ('COLLET_D', 'COLLET_LENGTH', 'HEX_ACROSS_CORNERS', 'HEX_LENGTH', 'SHANK_D', 'SHANK_LENGTH', 'TUBE_D', 'LENGTH')})
+
 
 
 def tube_port():
-    """The PTC mouth the 1/4" LLDPE pushes into: (position, outward axis)."""
-    return (0.0, 0.0, 0.0), (-1.0, 0.0, 0.0)
+    'The PTC mouth the 1/4" LLDPE pushes into: (position, outward axis).'
+    return _reference_data('jg_pp010822e', 'tube_port', (), {})
 
 
 def shank_end():
-    """The far end of the NPT male shank: (position, outward axis) — it threads
-    SHANK_LENGTH into whatever female it meets."""
-    return (LENGTH, 0.0, 0.0), (1.0, 0.0, 0.0)
+    'The far end of the NPT male shank: (position, outward axis) — it threads\n    SHANK_LENGTH into whatever female it meets.'
+    return _reference_data('jg_pp010822e', 'shank_end', (), {})
 
 
 _FROZEN_DIR = Path(__file__).resolve().parent

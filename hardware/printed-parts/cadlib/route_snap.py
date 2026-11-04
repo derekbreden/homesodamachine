@@ -9,13 +9,8 @@ import math
 import cadquery as cq
 
 
-TUBE_DIAMETER_ALLOWANCE = 0.  # Selected C2 bore equals the nominal quarter-inch OD.
-TUBE_WING = 2.40
-TUBE_TIP_DEGREES = 125.42102606277044
-TUBE_SPAN = 8.
-CABLE_STOCK = 3.
-CABLE_SPAN = 16.
-ROOT_OVERLAP = .10
+from _scalar_provider import call as _rust_scalar
+globals().update(_rust_scalar('scalar.constants',group='route_snap'))
 
 
 def _unit(value):
@@ -103,12 +98,8 @@ def cable_hook(host_origin, outward, profile_up, *, seat_depth=2.20,
     return _prism(points,plane,span).clean()
 
 
-def cable_origin(centre, outward, profile_up, *, seat_depth=2.20,
-                 seat_height=7.75, stock=CABLE_STOCK):
-    """Root toe from the retained cable's centre, using the hook's own seat."""
-    n,p=_unit(outward),_unit(profile_up)
-    seat_middle=seat_depth+2*stock+seat_height/2.
-    return (cq.Vector(*centre)-n*(seat_depth/2.)-p*seat_middle).toTuple()
+def cable_origin(centre,outward,profile_up,*,seat_depth=2.20,seat_height=7.75,stock=CABLE_STOCK):
+    return tuple(_rust_scalar('scalar.cable_origin',centre=centre,outward=outward,profile_up=profile_up,seat_depth=seat_depth,seat_height=seat_height,stock=stock))
 
 
 def floor_cable_hook(origin, *, seat_height=9.60, seat_depth=2.20,

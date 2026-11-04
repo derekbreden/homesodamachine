@@ -7,6 +7,7 @@ use anyhow::{Context, Result, bail};
 use serde_json::{Value, json};
 
 pub mod coil;
+pub mod compiled;
 pub mod floats;
 pub mod interface;
 pub mod mandrel;
@@ -123,7 +124,22 @@ pub fn bond(top_plate_outer_z: f64) -> Value {
 }
 
 pub fn request(input: &Value) -> Result<Value> {
+    if let Some(result) = hsm_documents::interop::native_object(input) {
+        let result = result?;
+        compiled::register_io()?;
+        return Ok(result);
+    }
     match input["op"].as_str().context("request needs op")? {
+        "compiled" => {
+            let result = compiled::request(input)?;
+            compiled::register_io()?;
+            Ok(result)
+        }
+        "compiled-invoke" => {
+            let result = compiled::invoke(input)?;
+            compiled::register_io()?;
+            Ok(result)
+        }
         "stock" => Ok(stock()),
         "interface-base" => interface::base(&input["fits"]),
         "interface-reservoir-conduit" => {

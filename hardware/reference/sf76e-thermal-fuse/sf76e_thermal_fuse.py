@@ -55,29 +55,22 @@ _hw = next(p for p in _here.parents if p.name == "hardware")
 sys.path.insert(0, str(_hw / "scripts"))
 
 # --- SF/E series outline (datasheet, mm) ----------------------------------
-BODY_D = 4.2           # case diameter, ±0.2
-BODY_L = 11.0          # case length, ±0.5
-LEAD_D = 1.0           # lead wire, ±0.1
-LEAD_STUB = 3.0        # the datasheet's minimum straight before a bend is allowed
+
+_reference_hardware = next(p for p in Path(__file__).resolve().parents if p.name == 'hardware')
+import sys as _reference_sys
+_reference_sys.path.insert(0, str(_reference_hardware / 'reference'))
+from _reference_data import data as _reference_data
+_reference_values = _reference_data('sf76e_thermal_fuse')
+globals().update({name: _reference_values[name] for name in ('BODY_D', 'BODY_L', 'LEAD_D', 'LEAD_STUB', 'LEAD_SHORT', 'LEAD_LONG', 'OVERALL_L', 'TF_C', 'TH_C', 'TM_C', 'RATED_A', 'RATED_V', 'LENGTH', 'AXIS_Z', 'LEAD_STANDOFF')})
+
 # Stated, not modeled: the two leads are this long and the part measures this end
 # to end. Whoever cuts the harness needs the figures; the solid does not carry them.
-LEAD_SHORT = 20.0
-LEAD_LONG = 35.0
-OVERALL_L = 66.0
 
 # --- SF/E standard rating -------------------------------------------------
-TF_C = 77              # rated functioning temperature — where it opens for good
-TH_C = 62              # holding temperature — indefinitely safe below this
-TM_C = 150             # maximum temperature limit
-RATED_A = 10
-RATED_V = 250
 
 # --- what those give ------------------------------------------------------
-LENGTH = BODY_L + 2.0 * LEAD_STUB      # the modeled body's own X extent
-AXIS_Z = BODY_D / 2.0                  # the axis, one radius off the seating plane
 # The air under a lead. A Ø1 wire on the axis of a Ø4.2 case cannot reach the
 # surface the case lies on, so the case is the whole of the thermal contact.
-LEAD_STANDOFF = AXIS_Z - LEAD_D / 2.0
 
 
 def build():

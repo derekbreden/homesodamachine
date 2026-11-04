@@ -10,9 +10,15 @@ publish = false
 name = "assembly-docs"
 path = "src/main.rs"
 
+[[bin]]
+name = "wiring-data"
+path = "src/wiring/main.rs"
+
 [dependencies]
 anyhow.workspace = true
 serde = { workspace = true, features = ["derive"] }
 serde_json.workspace = true
 hsm-documents = { path = "../documents" }
 regex = "1"
+hsm-kernel = { path = "../kernel" }
+sha2.workspace = true

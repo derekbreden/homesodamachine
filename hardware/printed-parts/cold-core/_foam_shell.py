@@ -1,59 +1,22 @@
-"""Top-level foam-shell assembly: union the wall builders, then cut
-all the port holes and channel openings."""
+'Top-level foam-shell assembly: union the wall builders, then cut\nall the port holes and channel openings.'
+from __future__ import annotations
 
-from _cold_core_interface import foam_shell_outer_height
-from _reservoir_pocket_walls import build_reservoir_pocket_walls
-from _support_ring import build_carbonator_support_ring
-from _outer_shell import build_outer_shell, cut_insert_pockets
-from _port_cuts import (
-    cut_copper_ports,
-    cut_prv_vent_port,
-)
-from _reed_channels import (
-    build_reed_channels,
-    cut_reed_channel_openings,
-)
-import _reed_b_outlet
+import sys as _sys
+from pathlib import Path as _Path
 
+_hardware = next(p for p in _Path(__file__).resolve().parents if p.name == "hardware")
+_sys.path[:0] = [str(_hardware / "scripts"), str(_hardware / "cold-core-layout")]
+from _cold_core_data import compiled as _compiled, member as _member
 
-def build_full_shell():
-    # Reservoir fluid lines enter through their caps. B's dry reed ribbon
-    # leaves through its peaked fore side window below the shell rim.
-    foam_shell = (
-        build_reservoir_pocket_walls()
-        .union(build_carbonator_support_ring())
-        .union(build_outer_shell())
-        .union(build_reed_channels(side=+1))
-        .union(build_reed_channels(side=-1))
-    )
-    foam_shell = cut_insert_pockets(foam_shell)
-    for cut in (
-        cut_prv_vent_port,
-        cut_copper_ports,
-        cut_reed_channel_openings,
-    ):
-        foam_shell = cut(foam_shell)
-    import _reservoir_b_fill
-    from _above_core_mounts import world_shape_in_cap
-    from _foam_cap import top_cap_height
-    entry_air = (world_shape_in_cap(_reservoir_b_fill.channel_air())
-                 .rotate((0.,0.,0.),(0.,0.,1.),180.)
-                 .translate((0.,0.,foam_shell_outer_height+top_cap_height)))
-    return _reed_b_outlet.apply(foam_shell.cut(entry_air))
+def __getattr__(name):
+    if name == "__all__":
+        return _compiled('_foam_shell', action="public-names")
+    try:
+        return _member('_foam_shell', name)
+    except ValueError as error:
+        raise AttributeError(name) from error
 
-
-def import_shell(path):
-    """The shell for the caller's active kernel.
-
-    Mesh callers import the emitted full-precision model. Native callers keep
-    this module's construction surfaces while their assembly still uses OCCT.
-    """
-    import cadquery as cq
-    from _cadq_export import import_step
-
-    if not getattr(cq, 'MESH', False):
-        with open(path, 'rb') as stream:
-            triangles = b'meshcad tessellated' in stream.read(200)
-        if triangles:
-            return build_full_shell().val()
-    return import_step(str(path)).val()
+if __name__ == "__main__":
+    import _rust_part
+    _rust_part.start()
+    _compiled('_foam_shell', action="main")

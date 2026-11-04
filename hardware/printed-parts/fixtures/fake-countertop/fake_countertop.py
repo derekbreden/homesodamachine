@@ -57,23 +57,14 @@ def _document(volume, output=None):
 def main(output=None):
     """Write the current bench fixture with the Rust generator."""
     import _rust_part
-    import trimesh
-    from flute_skin import non_manifold_edges
     out = Path(output) if output is not None else _here.parent
     out.mkdir(parents=True, exist_ok=True)
     said = _rust_part.cut("tooling", "fake-countertop", numbers(), out)
-    written = trimesh.load_mesh(out / "fake-countertop.stl")
-    loose = non_manifold_edges(written)
-    if loose or not written.is_watertight or not written.is_winding_consistent or len(written.split()) != 1:
-        raise ValueError(f"fake-countertop.stl: expected one closed, consistently wound printable body; {loose} non-manifold edges")
-    body = said["bodies"][0]
-    print(json.dumps({
-        "status": "CAD checks passed; the print is untested",
-        "envelope_mm": [round(b-a, 2) for a, b in zip(body["min"], body["max"])],
-        "clear_under_slab_mm": clear_height,
-        "volume_cm3": round(body["volume"] / 1000, 1),
-    }, indent=2))
-    print(f"-> fake-countertop.step, fake-countertop.stl: {body['volume'] / 1000:.1f} cm³, {len(written.faces)} facets")
+    from _part_output import summary
+    body = said['bodies'][0]
+    report = summary(body, countertop_stl=out / 'fake-countertop.stl')
+    print(report['countertop_info_json'])
+    print(report['countertop_line'])
     _document(body["volume"], out)
 
 

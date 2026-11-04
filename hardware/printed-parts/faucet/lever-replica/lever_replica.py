@@ -191,10 +191,10 @@ def main():
     stl = HERE / "lever-replica.stl"
     print_stl = HERE / "lever-replica-side-down.stl"
     # The viewer and printer use the same emitted triangles in their own frames.
-    local_mesh = trimesh.load(print_stl, force="mesh", process=False)
-    local_mesh.apply_transform([[0, 0, -1, PRINTED_OUTSIDE_WIDTH / 2],
-                                [0, 1, 0, 0], [1, 0, 0, 0], [0, 0, 0, 1]])
-    local_mesh.export(stl)
+    from _cadq_export import note_read, note_write
+    note_read(print_stl)
+    request("faucet-data", "faucet-data", {"op": "lever-repack", "source": str(print_stl), "target": str(stl)})
+    note_write(stl)
     export_payload(step, stl, preserve_print_triangles=True)
 
 if __name__ == "__main__":

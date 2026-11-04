@@ -102,8 +102,10 @@ def main(output=None):
     solid_volume, foot = volume(), foot_area()
     height = _data()['height']
     _document(solid_volume, foot, height)
+    from _part_output import summary
+    printed_volume = summary({'volume': solid_volume})['volume']
     print(f"-> diaphragm-pump-sleeve.step, diaphragm-pump-sleeve.stl, "
-          f"diaphragm-pump-sleeve.step.mesh; {solid_volume / 1000:.3f} cm3")
+          f"diaphragm-pump-sleeve.step.mesh; {printed_volume} cm3")
     print(f"   tube axis {TUBE_AXIS:.2f} mm past the barb tip; foot {foot:.1f} mm2; "
           f"print height {height:.1f} mm")
 

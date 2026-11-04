@@ -36,23 +36,12 @@ import json
 import sys
 from pathlib import Path
 
+sys.path.insert(0,str(Path(__file__).resolve().parent))
+from _bookkeeping import call as _bookkeeping_call
 
-def failed(lines) -> list:
-    """Every label whose target or action event does not say it succeeded."""
-    out = []
-    for line in lines:
-        try:
-            event = json.loads(line)
-        except ValueError:
-            continue
-        ident = event.get("id", {})
-        label = ident.get("targetCompleted", {}).get("label")
-        if label and not event.get("completed", {}).get("success"):
-            out.append(label)
-        label = ident.get("actionCompleted", {}).get("label")
-        if label and not event.get("action", {}).get("success"):
-            out.append(label)
-    return sorted(set(out))
+
+def failed(lines):
+    return _bookkeeping_call('failed',lines=list(lines))
 
 
 def selftest() -> int:

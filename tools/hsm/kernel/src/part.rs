@@ -32,6 +32,11 @@ pub struct Numbers {
 }
 
 impl Numbers {
+    /// A recipe supplied directly by a Rust provider.
+    pub fn from_value(v: Value) -> Numbers {
+        Numbers { v, path: "<in-memory>".to_owned() }
+    }
+
     pub fn read(path: impl AsRef<Path>) -> Result<Numbers> {
         #[cfg(unix)]
         hsm_run_slots::process_enter(&hsm_run_slots::native_key())?;

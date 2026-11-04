@@ -1,0 +1,293 @@
+{
+  "fits": {
+    "slip": 0.15,
+    "sliding_extra": 0.1,
+    "supported_surface": 0.25,
+    "layer_transition": 0.1,
+    "m5_thread_pass_dia": 5.2
+  },
+  "reeding": {
+    "flute_pitch": 5.0,
+    "flute_width": 4.0,
+    "warp_amplitude": 5.0,
+    "warp_wavelength": 34.0,
+    "chevron_sharpness": 0.97,
+    "pierce_width": 3.1,
+    "pierce_shell": 1.74
+  },
+  "cable_clip": {
+    "GRID": 3.0,
+    "OVERLAP": 0.05,
+    "_UPPER": [
+      [
+        0.0,
+        10.0
+      ],
+      [
+        2.0,
+        12.0
+      ],
+      [
+        2.0,
+        13.0
+      ],
+      [
+        0.0,
+        13.0
+      ]
+    ],
+    "_LOWER": [
+      [
+        0.0,
+        0.0
+      ],
+      [
+        3.0,
+        3.0
+      ],
+      [
+        3.0,
+        10.0
+      ],
+      [
+        2.0,
+        10.0
+      ],
+      [
+        1.0,
+        9.0
+      ],
+      [
+        1.0,
+        8.0
+      ],
+      [
+        2.0,
+        7.0
+      ],
+      [
+        2.0,
+        4.0
+      ],
+      [
+        0.0,
+        4.0
+      ]
+    ],
+    "_CHANNEL": [
+      [
+        3.0,
+        10.0
+      ],
+      [
+        2.0,
+        12.0
+      ],
+      [
+        0.0,
+        10.0
+      ],
+      [
+        0.0,
+        4.0
+      ],
+      [
+        2.0,
+        4.0
+      ],
+      [
+        2.0,
+        7.0
+      ],
+      [
+        1.0,
+        8.0
+      ],
+      [
+        1.0,
+        9.0
+      ],
+      [
+        2.0,
+        10.0
+      ]
+    ]
+  },
+  "overhang_round": {
+    "OUTWARD_PER_HEIGHT": 0.5
+  },
+  "snap": {
+    "wall_thickness": 3.0,
+    "ramp_out_outer_growth": 2.0,
+    "notch_wall_width": 2.0,
+    "bump_height": 2.0,
+    "overcut": 0.1
+  },
+  "route_snap": {
+    "TUBE_DIAMETER_ALLOWANCE": 0.0,
+    "TUBE_WING": 2.4,
+    "TUBE_TIP_DEGREES": 125.42102606277044,
+    "TUBE_SPAN": 8.0,
+    "CABLE_STOCK": 3.0,
+    "CABLE_SPAN": 16.0,
+    "ROOT_OVERLAP": 0.1
+  },
+  "port_chip": {
+    "WIDTH": 32.0,
+    "LOWER_CORNER_RADIUS": 2.0
+  },
+  "print_mesh": {
+    "print_mesh_tol": 0.005,
+    "print_mesh_angle": 0.05
+  },
+  "flute_skin": {
+    "grid_across": 0.4,
+    "grid_along": 0.25,
+    "cut_margin": 0.4,
+    "cut_overrun": 1.0,
+    "plan_tol": 0.01,
+    "face_tol": 0.25
+  },
+  "petgf_cooling": {
+    "VALUES": {
+      "fan_min_speed": "0",
+      "fan_max_speed": "0",
+      "additional_cooling_fan_speed": "0",
+      "first_x_layer_fan_speed": "0",
+      "first_x_layer_part_fan_speed": "0",
+      "enable_overhang_bridge_fan": "1",
+      "overhang_fan_speed": "70",
+      "overhang_fan_threshold": "50%",
+      "reduce_fan_stop_start_freq": "0",
+      "pre_start_fan_time": "0"
+    }
+  },
+  "card": {
+    "GRADE_BANDS": [
+      [
+        1.5,
+        "A"
+      ],
+      [
+        1.0,
+        "B"
+      ],
+      [
+        0.75,
+        "C"
+      ],
+      [
+        0.5,
+        "D"
+      ],
+      [
+        0.0,
+        "F"
+      ]
+    ]
+  },
+  "world_workplane": {
+    "xy_plane_z_up": {
+      "origin": [
+        0,
+        0,
+        0
+      ],
+      "xDir": [
+        1,
+        0,
+        0
+      ],
+      "normal": [
+        0,
+        0,
+        1
+      ]
+    },
+    "xy_plane_z_down": {
+      "origin": [
+        0,
+        0,
+        0
+      ],
+      "xDir": [
+        1,
+        0,
+        0
+      ],
+      "normal": [
+        0,
+        0,
+        -1
+      ]
+    },
+    "xz_plane_y_up": {
+      "origin": [
+        0,
+        0,
+        0
+      ],
+      "xDir": [
+        1,
+        0,
+        0
+      ],
+      "normal": [
+        0,
+        1,
+        0
+      ]
+    },
+    "xz_plane_y_down": {
+      "origin": [
+        0,
+        0,
+        0
+      ],
+      "xDir": [
+        1,
+        0,
+        0
+      ],
+      "normal": [
+        0,
+        -1,
+        0
+      ]
+    },
+    "yz_plane_x_up": {
+      "origin": [
+        0,
+        0,
+        0
+      ],
+      "xDir": [
+        0,
+        1,
+        0
+      ],
+      "normal": [
+        1,
+        0,
+        0
+      ]
+    },
+    "yz_plane_x_down": {
+      "origin": [
+        0,
+        0,
+        0
+      ],
+      "xDir": [
+        0,
+        1,
+        0
+      ],
+      "normal": [
+        -1,
+        0,
+        0
+      ]
+    }
+  }
+}

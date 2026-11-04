@@ -43,56 +43,44 @@ STEP = _here.parent / "jg-pp0208e-tee.step"
 
 # --- the data sheet, Pp4608_01/23, 1/4" row ---------------------------------
 
-TUBE_OD = 6.35            # A — the tube the three ports accept, +0.03 / −0.10
-RUN_SPAN = 39.0           # B — collet face to collet face along the run
-REACH = 19.5              # C — body centre to any one of the three collet faces
-INSERTION = 15.7          # D — collet face to the internal tube stop
-COLLAR_D = 16.3           # E — the collar on each arm, and the fitting's widest section
-BORE_D = 4.3              # F — the through bore
-BRANCH_ENVELOPE = 27.7    # G — branch collet face to the far side of the run body
+
+_reference_hardware = next(p for p in Path(__file__).resolve().parents if p.name == 'hardware')
+import sys as _reference_sys
+_reference_sys.path.insert(0, str(_reference_hardware / 'reference'))
+from _reference_data import data as _reference_data
+_reference_values = _reference_data('jg_pp0208e_tee')
+globals().update({name: _reference_values[name] for name in ('TUBE_OD', 'RUN_SPAN', 'REACH', 'INSERTION', 'COLLAR_D', 'BORE_D', 'BRANCH_ENVELOPE', 'ARM_D', 'COLLAR_NEAR', 'COLLAR_FAR', 'COLLET_D', 'COLLET_BORE', 'COLLET_PROUD', 'MEASURE_TOL', 'ARMS')})
+
 
 # --- the arm's profile, shared with `../../quickstart/plumbing/` -------------
 # Outward from the hub each arm carries the same three sections: a barrel the neighbouring arm's
 # root crosses, then the collar standing full `COLLAR_D`, then the release collet standing proud
 # of the collar's face so a thumb reaches it around the tube.
-ARM_D = 10.6
-COLLAR_NEAR = 8.2         # where the barrel ends and the collar begins
-COLLAR_FAR = 16.3         # where the collar ends and the collet stands out of it
-COLLET_D = 9.7
-COLLET_BORE = 6.70        # the tube passes it with 0.35 of slip
-COLLET_PROUD = REACH - COLLAR_FAR
 
-MEASURE_TOL = 0.06        # what the data sheet's millimetre column is rounded to
 
 # The three arms, each as `(outward axis, the port's own name)`. The run's two are the tee's
 # straight-through path and the branch is what turns off it; which leg of a junction lands on
 # which is the topology's business (`../../topology/fluid-topology.md`).
-ARMS = (((0.0, 0.0, 1.0), "+z"), ((0.0, 0.0, -1.0), "-z"), ((0.0, 1.0, 0.0), "branch"))
 
 
-def run(sign: float) -> tuple:
-    """One of the run's two collinear ports, `sign` picking the +Z or −Z end:
-    `(position, outward axis)`. The station is the COLLET'S own outer face — the plane a tube
-    crosses to enter, and runs `INSERTION` beyond."""
-    s = 1.0 if sign > 0 else -1.0
-    return ((0.0, 0.0, s * REACH), (0.0, 0.0, s))
+def run(sign: float):
+    "One of the run's two collinear ports, `sign` picking the +Z or −Z end:\n    `(position, outward axis)`. The station is the COLLET'S own outer face — the plane a tube\n    crosses to enter, and runs `INSERTION` beyond."
+    return _reference_data('jg_pp0208e_tee', 'run', (sign,), {})
 
 
-def branch() -> tuple:
-    """The third port, perpendicular to the run, out +Y."""
-    return ((0.0, REACH, 0.0), (0.0, 1.0, 0.0))
+def branch():
+    'The third port, perpendicular to the run, out +Y.'
+    return _reference_data('jg_pp0208e_tee', 'branch', (), {})
 
 
-def stations() -> dict:
-    """All three ports, under the ends they stand on."""
-    return {"+z": run(+1.0), "-z": run(-1.0), "branch": branch()}
+def stations():
+    'All three ports, under the ends they stand on.'
+    return _reference_data('jg_pp0208e_tee', 'stations', (), {})
 
 
-def envelope() -> tuple:
-    """`(across the run, along the run, off the branch)` — the box the fitting takes, and what
-    crowds a neighbour. The branch reads to the far side of the run body, not to its own centre,
-    because that is the side a wall stands on."""
-    return (COLLAR_D, RUN_SPAN, BRANCH_ENVELOPE)
+def envelope():
+    '`(across the run, along the run, off the branch)` — the box the fitting takes, and what\n    crowds a neighbour. The branch reads to the far side of the run body, not to its own centre,\n    because that is the side a wall stands on.'
+    return _reference_data('jg_pp0208e_tee', 'envelope', (), {})
 
 
 _FROZEN_DIR = Path(__file__).resolve().parent

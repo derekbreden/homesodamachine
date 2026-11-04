@@ -38,26 +38,28 @@ from _bound import Env, Heap  # noqa: E402,F401
 
 
 #: A holder's own plastic, everywhere it is not a stock library profile.
-wall = 3.0
+
+import pathlib as _reference_pathlib
+_reference_hardware = next(p for p in _reference_pathlib.Path(__file__).resolve().parents if p.name == 'hardware')
+import sys as _reference_sys
+_reference_sys.path.insert(0, str(_reference_hardware / 'reference'))
+from _reference_data import data as _reference_data
+_reference_values = _reference_data('_holder')
+globals().update({name: _reference_values[name] for name in ('wall', 'slip', 'trough_angle', 'slot_mouth', 'slot_root', 'slot_taper', 'slot_floor')})
+
 
 #: Air between a stored thing and any surface that is not holding it.
-slip = 1.5
 
 #: The V a cradle's trough is cut at, measured from horizontal. At 45 degrees the
 #: trough prints as drawn and a round thing rests on two lines whatever its radius.
-trough_angle = 45.0
 
 #: A comb's slot: a parallel throat down to a taper, and a narrow root. Nothing between
 #: them is read from a content. A thick tool stands the length of the throat and stops
 #: where the taper meets its own thickness; a thin one runs to the root and is pinched
 #: there. Taper alone would hold the thick tool 9 mm down and let it wave about.
-slot_mouth = 34.0
-slot_root = 5.0
-slot_taper = 14.0
 
 #: A comb's slot floor stands this far above the holder's own floor, so a tool's point
 #: lands on plastic and not on the bin's base profile.
-slot_floor = 6.0
 
 
 # ============================================================
@@ -91,79 +93,23 @@ def tub(x_u, y_u, height_u, length_div=0, width_div=0, labels=True, scoops=False
 
 
 def tub_holds(x_u, y_u, height_u, length_div=0, width_div=0):
-    """What one compartment of that tub offers: clear X, clear Y, clear Z.
-
-    The Z is to the interior ceiling — the shelf the lip stands on — and not to the top
-    reference, so a thing that fits this is not crushed by whatever is stacked above.
-    """
-    return (
-        _kit.cell_span(x_u, length_div),
-        _kit.cell_span(y_u, width_div),
-        _kit.interior_ceiling_z(height_u) - _kit.bin_floor_z,
-    )
+    'What one compartment of that tub offers: clear X, clear Y, clear Z.\n\n    The Z is to the interior ceiling — the shelf the lip stands on — and not to the top\n    reference, so a thing that fits this is not crushed by whatever is stacked above.\n    '
+    return _reference_data('_holder', 'tub_holds', (x_u, y_u, height_u, length_div, width_div), {})
 
 
 def assert_tub_takes(name, env, x_u, y_u, height_u, length_div=0, width_div=0):
-    """The room one compartment of that tub leaves around `env`, lying in the pose the
-    catalog gives it.
-
-    Reads `env` only for an upper bound, so a parcel sizes a tub honestly: whatever came
-    out of that box goes into this compartment.
-    """
-    clear_x, clear_y, clear_z = tub_holds(x_u, y_u, height_u, length_div, width_div)
-    print(
-        f"   {name}: {env.name} in {clear_x:.1f} x {clear_y:.1f} x {clear_z:.1f} mm, "
-        f"{min(clear_x - env.most('x'), clear_y - env.most('y'), clear_z - env.most('z')):.1f} mm spare"
-    )
+    'The room one compartment of that tub leaves around `env`, lying in the pose the\n    catalog gives it.\n\n    Reads `env` only for an upper bound, so a parcel sizes a tub honestly: whatever came\n    out of that box goes into this compartment.\n    '
+    return _reference_data('_holder', 'assert_tub_takes', (name, env, x_u, y_u, height_u, length_div, width_div), {})
 
 
-def tub_height_for(x_u, y_u, takes, length_div=0, width_div=0, headroom=4.0,
-                   margin=slip, limit=30):
-    """The shortest tub that takes all of `takes`, in height units.
-
-    A tub's footprint and its divisions are a choice — how the bench wants the stock
-    laid out. Its height is not: it is whatever the deepest thing in it needs, and
-    writing that figure down by hand only invites it to go stale when a pack count
-    changes. So the catalog states the footprint and this states the height.
-    """
-    clear_x, clear_y, _ = tub_holds(x_u, y_u, 2, length_div, width_div)
-    for env in takes:
-        if isinstance(env, Heap):
-            continue
-        for axis, clear in (("x", clear_x), ("y", clear_y)):
-            if env.most(axis) + margin > clear:
-                raise ValueError(
-                    f"{env.name} is {env.most(axis):.1f} mm in {axis} and a {x_u}x{y_u} "
-                    f"split {length_div} x {width_div} offers {clear:.1f} mm. No depth "
-                    f"fixes a footprint: split it less, or stand it on a wider one."
-                )
-
-    for height_u in range(2, limit + 1):
-        clear_x, clear_y, clear_z = tub_holds(x_u, y_u, height_u, length_div, width_div)
-        floor = (clear_x - 2.0 * margin) * (clear_y - 2.0 * margin)
-        if floor <= 0.0:
-            continue
-        deepest = 0.0
-        for env in takes:
-            if isinstance(env, Heap):
-                deepest = max(deepest, env.volume / floor + headroom)
-            else:
-                deepest = max(deepest, env.most("z") + margin)
-        if deepest <= clear_z:
-            return height_u
-    raise ValueError(
-        f"nothing under {limit} units takes {len(takes)} things on a {x_u}x{y_u} "
-        f"footprint split {length_div} x {width_div}"
-    )
+def tub_height_for(x_u, y_u, takes, length_div=0, width_div=0, headroom=4.0, margin=slip, limit=30):
+    "The shortest tub that takes all of `takes`, in height units.\n\n    A tub's footprint and its divisions are a choice — how the bench wants the stock\n    laid out. Its height is not: it is whatever the deepest thing in it needs, and\n    writing that figure down by hand only invites it to go stale when a pack count\n    changes. So the catalog states the footprint and this states the height.\n    "
+    return _reference_data('_holder', 'tub_height_for', (x_u, y_u, takes, length_div, width_div, headroom, margin, limit), {})
 
 
 def assert_heap_fits(name, env, x_u, y_u, height_u, length_div=0, width_div=0):
-    """How deep a heap of loose pieces stands in one compartment."""
-    clear_x, clear_y, clear_z = tub_holds(x_u, y_u, height_u, length_div, width_div)
-    floor = (clear_x - 2.0 * slip) * (clear_y - 2.0 * slip)
-    stands = env.volume / floor
-    print(f"   {name}: {env.name} stands {stands:.1f} mm of {clear_z:.1f} mm")
-    return stands
+    'How deep a heap of loose pieces stands in one compartment.'
+    return _reference_data('_holder', 'assert_heap_fits', (name, env, x_u, y_u, height_u, length_div, width_div), {})
 
 
 # ============================================================
@@ -171,18 +117,8 @@ def assert_heap_fits(name, env, x_u, y_u, height_u, length_div=0, width_div=0):
 # ============================================================
 
 def cradle_profile(x_u, y_u, height_u, end_wall=wall, vertex_flat=2.0):
-    """The authored V cutter profile and its clear run."""
-    top_z = _kit.top_reference_z(height_u)
-    half_mouth, depth, length = cradle_trough(x_u, y_u, height_u, end_wall, vertex_flat)
-    half_mouth /= 2.0
-
-    profile = [
-        (-half_mouth, top_z + 0.2),
-        (-vertex_flat / 2.0, top_z - depth),
-        (vertex_flat / 2.0, top_z - depth),
-        (half_mouth, top_z + 0.2),
-    ]
-    return profile, length
+    'The authored V cutter profile and its clear run.'
+    return _reference_data('_holder', 'cradle_profile', (x_u, y_u, height_u, end_wall, vertex_flat), {})
 
 
 def cradle(x_u, y_u, height_u, end_wall=wall, vertex_flat=2.0):
@@ -209,76 +145,23 @@ def cradle(x_u, y_u, height_u, end_wall=wall, vertex_flat=2.0):
 
 
 def cradle_trough(x_u, y_u, height_u, end_wall=wall, vertex_flat=2.0):
-    """The trough's mouth width, its depth and its clear run along X."""
-    top_z = _kit.top_reference_z(height_u)
-    #: The V rises at 45 degrees, so its mouth is as wide as it is deep. It stops at
-    #: whichever comes first: the holder's own floor, or the plateau the lip stands on.
-    half_mouth = min(
-        vertex_flat / 2.0 + (top_z - _kit.bin_floor_z),
-        _kit.plateau_half(y_u) - wall,
-    )
-    depth = half_mouth - vertex_flat / 2.0
-    length = 2.0 * (_kit.plateau_half(x_u) - end_wall)
-    return 2.0 * half_mouth, depth, length
+    "The trough's mouth width, its depth and its clear run along X."
+    return _reference_data('_holder', 'cradle_trough', (x_u, y_u, height_u, end_wall, vertex_flat), {})
 
 
 def cradle_seat(mouth, depth, diameter, vertex_flat=2.0):
-    """Where a reel of `diameter` comes to rest in that trough, above the plateau.
-
-    Under the mouth it beds between the two 45-degree walls and its centre stands
-    `radius * sqrt(2)` above the vertex. Over the mouth it rests on the two mouth edges
-    instead and its centre stands over the plateau. Either way it is carried on two lines
-    and turns; the only thing that changes with diameter is how high it rides.
-    """
-    radius = diameter / 2.0
-    half_mouth = mouth / 2.0
-    if radius / 2.0 ** 0.5 <= half_mouth:
-        return radius * 2.0 ** 0.5 - depth
-    return (radius ** 2 - half_mouth ** 2) ** 0.5
+    'Where a reel of `diameter` comes to rest in that trough, above the plateau.\n\n    Under the mouth it beds between the two 45-degree walls and its centre stands\n    `radius * sqrt(2)` above the vertex. Over the mouth it rests on the two mouth edges\n    instead and its centre stands over the plateau. Either way it is carried on two lines\n    and turns; the only thing that changes with diameter is how high it rides.\n    '
+    return _reference_data('_holder', 'cradle_seat', (mouth, depth, diameter, vertex_flat), {})
 
 
 def assert_cradle_takes(name, env, x_u, y_u, height_u, end_wall=wall):
-    """The trough is longer than the reel is wide, and the reel clears what is beside it.
-
-    Every reading here is an upper bound — how wide the reel might be, how large across
-    it might be — so a parcel's figure is a fair input. Nothing in `cradle` asks how
-    *small* the reel is, which is the reading a parcel cannot give and exactly the one
-    four ramps spaced at a parcel's width were asking for.
-    """
-    mouth, depth, length = cradle_trough(x_u, y_u, height_u, end_wall)
-    width = env.thinnest  # no wider than the least side of its parcel
-    across = env.longest  # and no larger across than the greatest
-    if width + slip > length:
-        raise ValueError(
-            f"{name}: {env.name} is up to {width:.1f} mm wide in a {length:.1f} mm trough"
-        )
-    rides = cradle_seat(mouth, depth, across)
-    overhang = across / 2.0 - rides - _kit.outer_size(y_u) / 2.0
-    print(
-        f"   {name}: {env.name} up to {width:.1f} mm wide and {across:.1f} mm across, "
-        f"in a {mouth:.1f} mm mouth {depth:.1f} mm deep over {length:.1f} mm; "
-        f"riding {rides:+.1f} mm on the plateau and standing "
-        f"{across + rides:.0f} mm over the bench"
-    )
-    if overhang > 0.0:
-        print(
-            f"   {name}: and reaching {overhang:.1f} mm past the module in Y at its "
-            f"widest, so nothing tall stands beside it"
-        )
-    return rides
+    "The trough is longer than the reel is wide, and the reel clears what is beside it.\n\n    Every reading here is an upper bound — how wide the reel might be, how large across\n    it might be — so a parcel's figure is a fair input. Nothing in `cradle` asks how\n    *small* the reel is, which is the reading a parcel cannot give and exactly the one\n    four ramps spaced at a parcel's width were asking for.\n    "
+    return _reference_data('_holder', 'assert_cradle_takes', (name, env, x_u, y_u, height_u, end_wall), {})
 
 
 def spacer_profile(width, x_u, y_u, height_u, end_wall=wall, vertex_flat=2.0):
-    """The authored sliding V profile, in its flat-face-down print pose."""
-    mouth, depth, _ = cradle_trough(x_u, y_u, height_u, end_wall, vertex_flat)
-    half_mouth = mouth / 2.0 - 0.4
-    profile = [
-        (-half_mouth, 0.0),
-        (-vertex_flat / 2.0, depth),
-        (vertex_flat / 2.0, depth),
-        (half_mouth, 0.0),
-    ]
-    return profile
+    'The authored sliding V profile, in its flat-face-down print pose.'
+    return _reference_data('_holder', 'spacer_profile', (width, x_u, y_u, height_u, end_wall, vertex_flat), {})
 
 
 def spacer(width, x_u, y_u, height_u, end_wall=wall, vertex_flat=2.0):
@@ -305,48 +188,13 @@ def spacer(width, x_u, y_u, height_u, end_wall=wall, vertex_flat=2.0):
 # ============================================================
 
 def slot_mouth_for(env, clearance=2.0, least=8.0):
-    """How wide a slot has to be to take `env`, from an upper bound and nothing else.
-
-    A tool is no thicker than the least side of the box it came out of, whatever pose it
-    was packed in. That reading is the one a parcel gives honestly, and it is the only
-    reading a comb ever takes.
-    """
-    return max(least, env.thinnest + clearance)
+    'How wide a slot has to be to take `env`, from an upper bound and nothing else.\n\n    A tool is no thicker than the least side of the box it came out of, whatever pose it\n    was packed in. That reading is the one a parcel gives honestly, and it is the only\n    reading a comb ever takes.\n    '
+    return _reference_data('_holder', 'slot_mouth_for', (env, clearance, least), {})
 
 
 def comb_layout(x_u, y_u, height_u, mouths, root=slot_root, floor=slot_floor, taper=slot_taper):
-    """Slot profiles and clear run, shared by the native builder and kernel."""
-    top_z = _kit.top_reference_z(height_u)
-    floor_z = _kit.bin_floor_z + floor
-    throat_z = floor_z + taper
-    if throat_z >= top_z:
-        raise ValueError(
-            f"a {taper:.1f} mm taper leaves no throat in a {top_z - floor_z:.1f} mm slot"
-        )
-
-    length = 2.0 * (_kit.plateau_half(y_u) - wall)
-    run = 2.0 * (_kit.plateau_half(x_u) - wall)
-    span = sum(mouths) + wall * (len(mouths) - 1)
-    if span > run:
-        raise ValueError(
-            f"{len(mouths)} slots run {span:.1f} mm over a {run:.1f} mm plateau"
-        )
-
-    profiles = []
-    x = -span / 2.0
-    for mouth in mouths:
-        x += mouth / 2.0
-        profile = [
-            (x - mouth / 2.0, top_z + 0.2),
-            (x - mouth / 2.0, throat_z),
-            (x - root / 2.0, floor_z),
-            (x + root / 2.0, floor_z),
-            (x + mouth / 2.0, throat_z),
-            (x + mouth / 2.0, top_z + 0.2),
-        ]
-        profiles.append(profile)
-        x += mouth / 2.0 + wall
-    return profiles, length
+    'Slot profiles and clear run, shared by the native builder and kernel.'
+    return _reference_data('_holder', 'comb_layout', (x_u, y_u, height_u, mouths, root, floor, taper), {})
 
 
 def comb(x_u, y_u, height_u, mouths, root=slot_root, floor=slot_floor, taper=slot_taper):
@@ -379,50 +227,17 @@ def comb(x_u, y_u, height_u, mouths, root=slot_root, floor=slot_floor, taper=slo
 
 def comb_slot(y_u, height_u, mouth, root=slot_root, floor=slot_floor):
     """One slot's mouth, its root, its depth and its run along Y."""
-    depth = _kit.top_reference_z(height_u) - (_kit.bin_floor_z + floor)
-    return mouth, root, depth, 2.0 * (_kit.plateau_half(y_u) - wall)
+    return _reference_data('_holder', 'comb_slot', (y_u, height_u, mouth, root, floor), {})
 
 
 def comb_grip(depth, thickness, mouth, root=slot_root, taper=slot_taper):
-    """How far a tool `thickness` thick descends into a slot of that depth.
-
-    The throat first, then as far into the taper as its own thickness allows. This is
-    the figure that says whether a tool stands or waves about, and it is read from an
-    upper bound on the tool: a thicker reading gives a shallower answer, so a parcel's
-    figure understates the grip and never overstates it.
-    """
-    throat = depth - taper
-    if thickness >= mouth:
-        return throat
-    if thickness <= root:
-        return depth
-    return throat + taper * (mouth - thickness) / (mouth - root)
+    "How far a tool `thickness` thick descends into a slot of that depth.\n\n    The throat first, then as far into the taper as its own thickness allows. This is\n    the figure that says whether a tool stands or waves about, and it is read from an\n    upper bound on the tool: a thicker reading gives a shallower answer, so a parcel's\n    figure understates the grip and never overstates it.\n    "
+    return _reference_data('_holder', 'comb_grip', (depth, thickness, mouth, root, taper), {})
 
 
-def assert_comb_takes(name, env, y_u, height_u, mouth,
-                      root=slot_root, floor=slot_floor, taper=slot_taper):
-    """A tool goes into its slot and stands in it.
-
-    Upper bounds only. The tool is no thicker than the least side of its parcel, so the
-    mouth takes it and the taper stops it; no wider across than the middle side, so the
-    slot's run takes it; no longer than the greatest, so its lean is no worse than this.
-    """
-    mouth_w, root_w, depth, length = comb_slot(y_u, height_u, mouth, root, floor)
-    thick = env.thinnest
-    across = sorted((env.x, env.y, env.z))[1]
-    if across > length:
-        raise ValueError(
-            f"{name}: {env.name} is up to {across:.1f} mm across a {length:.1f} mm slot"
-        )
-    grip = comb_grip(depth, thick, mouth_w, root_w, taper)
-    stands = env.longest - grip
-    lean = env.longest * (mouth_w - thick) / grip
-    print(
-        f"   {name}: {env.name} up to {thick:.1f} mm thick in a {mouth_w:.1f} mm mouth, "
-        f"held over {grip:.1f} mm, standing {stands:.0f} mm proud, leaning at most "
-        f"{lean:.0f} mm"
-    )
-    return stands
+def assert_comb_takes(name, env, y_u, height_u, mouth, root=slot_root, floor=slot_floor, taper=slot_taper):
+    "A tool goes into its slot and stands in it.\n\n    Upper bounds only. The tool is no thicker than the least side of its parcel, so the\n    mouth takes it and the taper stops it; no wider across than the middle side, so the\n    slot's run takes it; no longer than the greatest, so its lean is no worse than this.\n    "
+    return _reference_data('_holder', 'assert_comb_takes', (name, env, y_u, height_u, mouth, root, floor, taper), {})
 
 
 # ============================================================
@@ -430,46 +245,8 @@ def assert_comb_takes(name, env, y_u, height_u, mouth,
 # ============================================================
 
 def index_layout(x_u, y_u, height_u, rows, depth=None, floor=4.0):
-    """Nominal bore positions and floor, shared by native and kernel builders."""
-    top_z = _kit.top_reference_z(height_u)
-    floor_z = _kit.bin_floor_z + floor
-    if depth is not None:
-        floor_z = max(floor_z, top_z - depth)
-
-    reach_x = _kit.plateau_half(x_u) - wall
-    reach_y = _kit.plateau_half(y_u) - wall
-
-    laid = []
-    for row in rows:
-        bores = [(env, env.size("x") + slip) for env, count in row for _ in range(count)]
-        run = sum(d for _, d in bores) + wall * (len(bores) - 1)
-        if run > 2.0 * reach_x:
-            raise ValueError(
-                f"a row of {len(bores)} bores runs {run:.1f} mm over a "
-                f"{2.0 * reach_x:.1f} mm plateau"
-            )
-        x = -run / 2.0
-        placed_row = []
-        for env, diameter in bores:
-            x += diameter / 2.0
-            placed_row.append((env, x, diameter))
-            x += diameter / 2.0 + wall
-        laid.append((placed_row, max(d for _, d in bores)))
-
-    height = sum(depth_y for _, depth_y in laid) + wall * (len(laid) - 1)
-    if height > 2.0 * reach_y:
-        raise ValueError(
-            f"{len(laid)} rows stand {height:.1f} mm over a {2.0 * reach_y:.1f} mm plateau"
-        )
-
-    placed = []
-    y = height / 2.0
-    for placed_row, row_depth in laid:
-        y -= row_depth / 2.0
-        for env, x, diameter in placed_row:
-            placed.append((env, x, y, diameter))
-        y -= row_depth / 2.0 + wall
-    return floor_z, top_z, placed
+    'Nominal bore positions and floor, shared by native and kernel builders.'
+    return _reference_data('_holder', 'index_layout', (x_u, y_u, height_u, rows, depth, floor), {})
 
 
 def index(x_u, y_u, height_u, rows, depth=None, floor=4.0):
@@ -493,23 +270,13 @@ def index(x_u, y_u, height_u, rows, depth=None, floor=4.0):
 
 
 def index_depth(height_u, floor=4.0, depth=None):
-    """How deep a bore runs from the plateau."""
-    top_z = _kit.top_reference_z(height_u)
-    floor_z = _kit.bin_floor_z + floor
-    if depth is not None:
-        floor_z = max(floor_z, top_z - depth)
-    return top_z - floor_z
+    'How deep a bore runs from the plateau.'
+    return _reference_data('_holder', 'index_depth', (height_u, floor, depth), {})
 
 
 def assert_index_holds(name, env, height_u, floor=4.0, depth=None):
-    """How far a thing standing in its bore is held, and how far it stands proud."""
-    grip = index_depth(height_u, floor, depth)
-    stands = env.size("z") - grip
-    print(
-        f"   {name}: {env.name} at {env.size('x'):.2f} mm, held over {grip:.1f} mm, "
-        f"standing {stands:.0f} mm proud"
-    )
-    return stands
+    'How far a thing standing in its bore is held, and how far it stands proud.'
+    return _reference_data('_holder', 'assert_index_holds', (name, env, height_u, floor, depth), {})
 
 
 # ============================================================

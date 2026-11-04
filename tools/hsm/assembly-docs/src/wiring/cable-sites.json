@@ -1,0 +1,232 @@
+[
+  {
+    "id": "dc1-west-pair",
+    "host": "enclosure-back-top",
+    "origin": [
+      -98.5,
+      320.5,
+      271.35
+    ],
+    "outward": [
+      1.0,
+      0.0,
+      0.0
+    ],
+    "profile_up": [
+      0.0,
+      0.0,
+      -1.0
+    ],
+    "seat_depth": 3.5,
+    "seat_height": 7.5,
+    "span": 16.0,
+    "stock": 3.0,
+    "beak": 0.75,
+    "centre_world_mm": [
+      -96.75,
+      320.5,
+      258.1
+    ],
+    "target_centers": {
+      "DC1-GND": [
+        -96.75,
+        320.5,
+        256.1
+      ],
+      "DC1-V12": [
+        -96.75,
+        320.5,
+        260.1
+      ]
+    },
+    "stock_basis": "Two nominal 3.0 mm insulated 16 AWG wires; physical insulation OD unmeasured.",
+    "fit_scope": "Matched two-wire seat; physical insertion, retention and layer survival remain observations."
+  },
+  {
+    "id": "fan-east-pair",
+    "host": "enclosure-front-top",
+    "origin": [
+      98.5,
+      150.0,
+      182.775
+    ],
+    "outward": [
+      -1.0,
+      0.0,
+      0.0
+    ],
+    "profile_up": [
+      0.0,
+      0.0,
+      1.0
+    ],
+    "seat_depth": 2.2,
+    "seat_height": 4.05,
+    "span": 16.0,
+    "stock": 3.0,
+    "beak": 0.75,
+    "centre_world_mm": [
+      97.4,
+      150.0,
+      193.0
+    ],
+    "target_centers": {
+      "J2-FAN": [
+        97.4,
+        150.0,
+        193.925
+      ],
+      "J2-positive-fan": [
+        97.4,
+        150.0,
+        192.075
+      ]
+    },
+    "stock_basis": "Two nominal 1.70 mm insulated 22 AWG fan leads on 1.85 mm pitch.",
+    "fit_scope": "The accepted retaining lip and 2.2 mm seat depth retain the fan-only pair; the donor fan landing remains unlocated."
+  },
+  {
+    "id": "j11-west-ribbon",
+    "host": "enclosure-front-bottom",
+    "origin": [
+      -98.5,
+      90.0,
+      5.925
+    ],
+    "outward": [
+      1.0,
+      0.0,
+      0.0
+    ],
+    "profile_up": [
+      0.0,
+      0.0,
+      1.0
+    ],
+    "seat_depth": 2.2,
+    "seat_height": 7.75,
+    "span": 16.0,
+    "stock": 3.0,
+    "beak": 0.75,
+    "centre_world_mm": [
+      -97.4,
+      90.0,
+      18.0
+    ],
+    "target_centers": {
+      "J11-GND": [
+        -97.4,
+        90.0,
+        20.775
+      ],
+      "J11-V5": [
+        -97.4,
+        90.0,
+        18.925
+      ],
+      "J11-DOUT": [
+        -97.4,
+        90.0,
+        17.075
+      ],
+      "J11-AOUT": [
+        -97.4,
+        90.0,
+        15.225
+      ]
+    },
+    "stock_basis": "Bare 4P 22 AWG ribbon, nominal 1.70 mm conductor OD on 1.85 mm pitch.",
+    "fit_scope": "The accepted 4P seat and entry section on a full solid wall root below the ventilation field; installed harness dressing remains a physical observation."
+  },
+  {
+    "id": "j5-west-ribbon",
+    "host": "enclosure-back-top",
+    "origin": [
+      -98.5,
+      267.0,
+      290.075
+    ],
+    "outward": [
+      1.0,
+      0.0,
+      0.0
+    ],
+    "profile_up": [
+      0.0,
+      0.0,
+      -1.0
+    ],
+    "seat_depth": 2.2,
+    "seat_height": 7.75,
+    "span": 16.0,
+    "stock": 3.0,
+    "beak": 0.75,
+    "centre_world_mm": [
+      -97.4,
+      267.0,
+      278.0
+    ],
+    "target_centers": {
+      "J5-GND": [
+        -97.4,
+        267.0,
+        280.775
+      ],
+      "J5-V5": [
+        -97.4,
+        267.0,
+        278.925
+      ],
+      "J5-IO2": [
+        -97.4,
+        267.0,
+        277.075
+      ],
+      "J5-IO19": [
+        -97.4,
+        267.0,
+        275.225
+      ]
+    },
+    "stock_basis": "Bare 4P 22 AWG ribbon, 1.70 mm modeled conductor OD on 1.85 mm pitch.",
+    "fit_scope": "Bare 4P fit accepted on the 16 mm coupon; installed routing and assembly access have their own scope."
+  },
+  {
+    "id": "vk-positive-east",
+    "host": "enclosure-back-top",
+    "origin": [
+      98.5,
+      274.0,
+      329.3
+    ],
+    "outward": [
+      -1.0,
+      0.0,
+      0.0
+    ],
+    "profile_up": [
+      0.0,
+      0.0,
+      -1.0
+    ],
+    "seat_depth": 2.2,
+    "seat_height": 2.2,
+    "span": 8.0,
+    "stock": 3.0,
+    "beak": 0.6,
+    "centre_world_mm": [
+      97.4,
+      274.0,
+      320.0
+    ],
+    "target_centers": {
+      "J2-positive-K": [
+        97.4,
+        274.0,
+        320.0
+      ]
+    },
+    "stock_basis": "One modeled 1.70 mm insulated 22 AWG silicone wire.",
+    "fit_scope": "Provisional compact seat, 1.60 mm mouth; soft-insulation entry is a physical fit observation."
+  }
+]

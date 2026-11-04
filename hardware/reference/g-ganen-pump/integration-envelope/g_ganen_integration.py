@@ -14,7 +14,14 @@ import numpy as np
 
 HERE = Path(__file__).resolve().parent
 REFERENCE = HERE.parent
-NATIVE = HERE/'g-ganen-integration-envelope.step'
+
+_reference_hardware = next(p for p in Path(__file__).resolve().parents if p.name == 'hardware')
+import sys as _reference_sys
+_reference_sys.path.insert(0, str(_reference_hardware / 'reference'))
+from _reference_data import data as _reference_data
+_reference_values = _reference_data('g_ganen_integration')
+globals().update({name: _reference_values[name] for name in ('NATIVE',)})
+
 sys.path.insert(0, str(REFERENCE))
 from g_ganen_pump import (parameters, port, suction, discharge, mount_slots,
                          port_profile, sliding_rails, mount_seat_z)

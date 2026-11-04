@@ -197,21 +197,12 @@ def _imported(path: Path) -> set:
 
 
 def source_files(start) -> list:
-    """Every file of this repo whose text can decide what `start` draws: its own, and each repo
-    module it imports, transitively. `start` is a path, so it does not matter whether the file
-    was run as a script or imported under its own name. Sorted, so the walk order never reaches
-    the key."""
-    seen, queue = set(), [Path(start).resolve()]
-    while queue:
-        path = queue.pop()
-        if path in seen:
-            continue
-        seen.add(path)
-        for name in _imported(path):
-            inner = _repo_file(name)
-            if inner is not None:
-                queue.append(inner)
-    return sorted(seen)
+    from _build_data import read
+    import _rust_part
+    files = read("source-files", start, root=str(_ROOT), callback=_source_callback)
+    for source in files:
+        _rust_part._READ_TARGETS.add(_rust_part._relative(Path(source)))
+    return [Path(source) for source in files]
 
 
 def sources(module_name: str) -> list:
@@ -228,44 +219,14 @@ _CODE: dict = {}
 
 
 def code_digest(path) -> str | None:
-    """A name for what a file COMPUTES, or None when it is not there.
-
-    THE PARSED CODE AND NOT THE TEXT. A comment is invisible to Python, so a file whose comments
-    moved draws the same walls, writes the same figures and takes the same picture — and a name
-    taken over its bytes says otherwise, which is a rebuild of the whole tree to arrive back
-    where it started. Two files that parse alike are named alike here.
-
-    Docstrings stay in the name: they are values the code carries, and a doc that prints one has
-    moved when it moves. Anything that will not parse is named by its bytes, which is what a
-    `.json` table and a file mid-edit both want."""
-    p = Path(path)
-    try:
-        st = p.stat()
-    except OSError:
-        return None
-    stamp = (st.st_mtime_ns, st.st_size)
-    hit = _CODE.get(path)
-    if hit is not None and hit[0] == stamp:
-        return hit[1]
-    try:
-        raw = p.read_bytes()
-    except OSError:
-        return None
-    try:
-        form = ast.dump(ast.parse(raw)).encode()
-    except (SyntaxError, ValueError):
-        form = raw
-    out = hashlib.blake2b(form, digest_size=16).hexdigest()
-    _CODE[path] = (stamp, out)
-    return out
+    """Rust's stat-cached digest of the standard parser's canonical source form."""
+    from _build_data import read
+    return read("code-digest", path, callback=_source_callback)
 
 
 def digest(paths) -> str:
-    """One name for what the whole of `paths` computes, in the order given."""
-    h = hashlib.blake2b(digest_size=16)
-    for path in paths:
-        h.update((code_digest(path) or "").encode())
-    return h.hexdigest()
+    from _build_data import request
+    return request("digest", paths=list(map(str, paths)), callback=_source_callback)
 
 
 def _description(value):
@@ -492,6 +453,29 @@ def selftest():
         # one run's, and a machine that runs this often keeps one per run otherwise.
         shutil.rmtree(_DIR, ignore_errors=True)
         _DIR = held
+
+
+def _ast_wire(value):
+    """Marshal standard-library AST objects for native source selection."""
+    if isinstance(value, ast.AST):
+        return {"_ast_type": type(value).__name__,
+                **{key: _ast_wire(item) for key, item in ast.iter_fields(value)}}
+    if isinstance(value, list):
+        return [_ast_wire(item) for item in value]
+    return value if value is None or isinstance(value, (bool, str, int, float)) else None
+
+
+def _source_callback(query):
+    if query["op"] == "parse-source":
+        try:
+            parsed = ast.parse(bytes(query["bytes"]))
+        except (SyntaxError, ValueError):
+            return {"dump": None, "tree": None}
+        return {"dump": ast.dump(parsed), "tree": _ast_wire(parsed)}
+    if query["op"] == "resolve-module":
+        path = _repo_file(query["name"])
+        return str(path) if path is not None else None
+    raise ValueError(f"unknown source provider query: {query['op']}")
 
 
 if __name__ == "__main__":

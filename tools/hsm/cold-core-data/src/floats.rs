@@ -38,6 +38,8 @@ pub fn aero_datums() -> Value {
     let wall_clearance = 2.;
     let rod_axis_from_inner_wall = diameter / 2. + wall_clearance;
     let guide_radial_clearance = (bore_diameter - guide_diameter) / 2.;
+    assert!(wall_clearance - guide_radial_clearance > 1.0);
+    assert!(height == 28.0 && magnet_midplane == 14.0);
     json!({
         "diameter": diameter, "bore_diameter": bore_diameter, "guide_diameter": guide_diameter,
         "magnet_od": magnet_od, "magnet_id": magnet_id, "magnet_thickness": magnet_thickness,

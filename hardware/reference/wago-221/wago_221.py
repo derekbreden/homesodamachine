@@ -28,23 +28,17 @@ ASSET_MANIFEST_PATH = _HERE / "frozen-asset.json"
 
 # --- Datasheet geometry ----------------------------------------------------
 # width (X) × height (Z) × depth (Y), poles, rows of levers
-SIZES = {
-    "413": {"width": 18.8, "height": 8.4, "depth": 18.6, "poles": 3, "rows": 1},
-    "415": {"width": 30.0, "height": 8.4, "depth": 18.6, "poles": 5, "rows": 1},
-    "420": {"width": 29.8, "height": 15.8, "depth": 18.3, "poles": 10, "rows": 2},
-}
-lever_open = 15.25     # measured on a 221-413, levers fully up off the seating plane
-lever_swing = lever_open - SIZES["413"]["height"]      # 6.85, off the hinging face
 
-groove_w = 3.0         # X per lever-indicating groove
-groove_d = 9.0         # Y reach of a groove — the front half; the rear half is blank
-groove_h = 0.6
+_reference_hardware = next(p for p in Path(__file__).resolve().parents if p.name == 'hardware')
+import sys as _reference_sys
+_reference_sys.path.insert(0, str(_reference_hardware / 'reference'))
+from _reference_data import data as _reference_data
+_reference_values = _reference_data('wago_221')
+globals().update({name: _reference_values[name] for name in ('SIZES', 'lever_open', 'lever_swing', 'groove_w', 'groove_d', 'groove_h', 'width', 'depth', 'height', 'poles')})
+
+
 
 # The 221-413's own numbers, for the callers that only ever wanted the one size.
-width = SIZES["413"]["width"]
-depth = SIZES["413"]["depth"]
-height = SIZES["413"]["height"]
-poles = SIZES["413"]["poles"]
 
 
 STEP_PATHS = {size: _HERE / f"wago-221-{size}.step" for size in SIZES}

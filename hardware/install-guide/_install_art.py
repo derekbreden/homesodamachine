@@ -1,650 +1,117 @@
-"""Shared installation scene builders and presentation props.
-
-The cabinet, countertop, CO2 cylinder, filter and power cord are illustration geometry.
-Rendered scenes are written to art/; owner documents keep their own print snapshots.
-
-    tools/cad-venv/bin/python hardware/install-guide/_install_art.py
-    tools/cad-venv/bin/python hardware/install-guide/_install_art.py --list
-    tools/cad-venv/bin/python hardware/install-guide/_install_art.py opening cabinet-plan
-"""
-
+'Shared installation scene builders and presentation props.\n\nThe cabinet, countertop, CO2 cylinder, filter and power cord are illustration geometry.\nRendered scenes are written to art/; owner documents keep their own print snapshots.\n\n    tools/cad-venv/bin/python hardware/install-guide/_install_art.py\n    tools/cad-venv/bin/python hardware/install-guide/_install_art.py --list\n    tools/cad-venv/bin/python hardware/install-guide/_install_art.py opening cabinet-plan'
 from __future__ import annotations
+from pathlib import Path as _Path
+import sys as _sys
+_sys.path.insert(0,str(_Path(__file__).resolve().parents[2]/"hardware/scripts"))
+from _guides_compiled import compiled as _compiled, bind as _bind
 
-import json
-import os
-import sys
-import tempfile
-from pathlib import Path
+def _box(*args, **kwargs):
+    return _compiled('_install_art',path=('_box',),args=args,kwargs=kwargs)
 
+def _cyl(*args, **kwargs):
+    'A cylinder of `length` from (x, y, z) along `axis`.'
+    return _compiled('_install_art',path=('_cyl',),args=args,kwargs=kwargs)
 
-import math
+def _run(*args, **kwargs):
+    'A tube along axis-aligned segments, with a ball at each turn.'
+    return _compiled('_install_art',path=('_run',),args=args,kwargs=kwargs)
 
-HERE = Path(__file__).resolve().parent
-HARDWARE = next(p for p in HERE.parents if p.name == "hardware")
-ROOT = HARDWARE.parent
-ART = HERE / "art"
-OUT = HERE / "out"
+def _bend(*args, **kwargs):
+    'A tube along axis-aligned segments whose corners are swept, not broken.\n\nEach turn is a quarter arc of `radius` tangent to both legs, in whatever plane\nthe two legs span, sampled into stubs with a ball at each joint. `_run` puts\none ball at the corner itself, which is the kink the filter page tells you not\nto make. The pieces overlap in a compound rather than a boolean union: same\ncolour, one read, no solid modelling for a shape that is only looked at.'
+    return _compiled('_install_art',path=('_bend',),args=args,kwargs=kwargs)
 
-sys.path.insert(0, str(HARDWARE / "scripts"))
-sys.path.insert(0, str(HARDWARE / "install-guide"))
-sys.path.insert(0, str(HARDWARE / "printed-parts" / "cadlib"))
-sys.path.insert(0, str(HARDWARE / "reference" / "iec-c14-inlet"))
+def _unit(*args, **kwargs):
+    return _compiled('_install_art',path=('_unit',),args=args,kwargs=kwargs)
 
-if __name__ == "__main__":
-    import _rust_part
-    _rust_part.start()
+def _add(*args, **kwargs):
+    return _compiled('_install_art',path=('_add',),args=args,kwargs=kwargs)
 
-import cadquery as cq  # noqa: E402
-from _cadq_export import import_step, note_read, note_write  # noqa: E402
-from world_workplane import xz_plane_y_up  # noqa: E402
-import iec_c14_inlet as _c14  # noqa: E402
-import _cad_art  # noqa: E402
-import _hsm_render  # noqa: E402
+def _machine(*args, **kwargs):
+    'The whole appliance with the colours its own payload carries.'
+    return _compiled('_install_art',path=('_machine',),args=args,kwargs=kwargs)
 
-MACHINE_MESH = _cad_art.MACHINE_MESH
-MACHINE_FACTS = _cad_art.MACHINE_FACTS
-COLLET_PRESS = HARDWARE / "printed-parts" / "collet-press" / "collet-press.step"
-REGULATOR_DIR = HARDWARE / "reference" / "taprite-3741-regulator"
-PLUMBING_DIR = HARDWARE / "install-guide" / "plumbing"
-MODERN_DIR = PLUMBING_DIR / "modern"
-C14_SOURCE = Path(_c14.__file__).resolve()
+def _hex(*args, **kwargs):
+    'A hexagonal prism of `across_flats`, from (x, y, z) along `axis`.'
+    return _compiled('_install_art',path=('_hex',),args=args,kwargs=kwargs)
 
+def _floor(*args, **kwargs):
+    return _compiled('_install_art',path=('_floor',),args=args,kwargs=kwargs)
 
-# The appliance's own frame, read off `enclosure-assembly.step` and its facts: X across the
-# front, Y from the front face back, Z up from the cabinet floor.
-BOX_X0, BOX_X1 = -113.5, 107.5
-BOX_Y0, BOX_Y1 = 5.0, 467.0
-BOX_Z0, BOX_Z1 = -6.0, 361.0
-BOX_MID_X = (BOX_X0 + BOX_X1) / 2.0
+def _rear_face(*args, **kwargs):
+    "Add the machine's rear-visible bodies, colours and all."
+    return _compiled('_install_art',path=('_rear_face',),args=args,kwargs=kwargs)
 
-#: The current assembly's funnel: its bounds reach the brim, and its mouth is centred here in plan.
-FUNNEL_BOUNDS = json.loads(MACHINE_FACTS.read_text())["bodies"]["funnel"]
-FUNNEL_MOUTH = tuple(json.loads(MACHINE_FACTS.read_text())["box"]["funnel"])
-PORT_FACE_Y = 476.5
-PORT_Z_UPPER, PORT_Z_LOWER = 336.2, 273.8
-PORT_X_WEST, PORT_X_EAST = -78.1, -37.8
+def _prism(*args, **kwargs):
+    "A rounded rectangular prism on the show face's own plane, running `length` in +Y."
+    return _compiled('_install_art',path=('_prism',),args=args,kwargs=kwargs)
 
-# The clearances page 7 asks the reader to leave. There is no pad in front: nothing on the front
-# face opens (`marketing/install-envelope.md`). Behind is 60 mm because the lead
-# turns 90° at R12 off a collet standing 9.5 mm proud, and that one is permanent. The side gap is
-# the one the machine needs every hour it runs; 40 mm is derived in `marketing/install-envelope.md`
-# so its intake and its exhaust are not the same air.
-CLEAR_BEHIND, CLEAR_SIDE = 60.0, 40.0
-CYLINDER_LANE = 133.0
+def _cable(*args, **kwargs):
+    'A round cord swept along a spline through `points`.'
+    return _compiled('_install_art',path=('_cable',),args=args,kwargs=kwargs)
 
-# Catalogue sizes for the things with no CAD.
-CYLINDER_D, CYLINDER_H = 133.0, 457.0
-FILTER_D, FILTER_L = 63.0, 311.0
-BOTTLE_D, BOTTLE_H = 72.0, 190.0
-BOTTLE_NECK_D, BOTTLE_NECK_H = 27.0, 34.0
-TUBE_D = 6.35
+def _c13_cordset(*args, **kwargs):
+    "The cord end on the inlet's mating axis, `gap` millimetres out from the show face.\n\nThe nose that enters the inlet's cavity, the moulding behind it, the strain relief and the\ncord. Its three contact slots stand where the inlet's own blades do."
+    return _compiled('_install_art',path=('_c13_cordset',),args=args,kwargs=kwargs)
 
-# Poured from the front, base toward the cabinet door and tipped this far past level, which
-# empties it: the mouth over the centre of the funnel's, the bottle's lowest point this far over
-# the brim.
-BOTTLE_TIP = 20.0
-BOTTLE_CLEARANCE = 3.0
+def s_cabinet_plan(*args, **kwargs):
+    'The slot the appliance stands in, with the clearances lying on the cabinet floor.'
+    return _compiled('_install_art',path=('s_cabinet_plan',),args=args,kwargs=kwargs)
 
-STONE = cq.Color(0.55, 0.55, 0.58, 1.0)
-CABINET = cq.Color(0.74, 0.70, 0.64, 1.0)
-CORAL = cq.Color(0.84, 0.25, 0.31, 1.0)
-STEEL = cq.Color(0.78, 0.79, 0.82, 1.0)
-BRASS = cq.Color(0.72, 0.58, 0.28, 1.0)
-WHITE_TUBE = cq.Color(0.90, 0.90, 0.93, 1.0)
-RED_TUBE = cq.Color(0.78, 0.20, 0.20, 1.0)
-BLUE_TUBE = cq.Color(0.16, 0.40, 0.75, 1.0)
-BLACK_PART = cq.Color(0.10, 0.10, 0.12, 1.0)
-CONCENTRATE = cq.Color(0.30, 0.10, 0.13, 1.0)
-BOTTLE_PET = cq.Color(0.86, 0.87, 0.90, 1.0)
-FILTER_BODY = cq.Color(0.905, 0.915, 0.94, 1.0)
-FILTER_CAP = cq.Color(0.42, 0.45, 0.49, 1.0)
-PRINTED = cq.Color(0.26, 0.27, 0.30, 1.0)
-CYLINDER = cq.Color(0.40, 0.42, 0.47, 1.0)
-ACETAL_GRAY = cq.Color(0.43, 0.44, 0.43, 1.0)
+def s_opening(*args, **kwargs):
+    'The one cut, from above: a 1-3/8 inch circle, with what it has to accept over it.'
+    return _compiled('_install_art',path=('s_opening',),args=args,kwargs=kwargs)
 
+def s_filter_in_cabinet(*args, **kwargs):
+    'The cartridge lying flat, the white run easing into both ends with no tight bend.'
+    return _compiled('_install_art',path=('s_filter_in_cabinet',),args=args,kwargs=kwargs)
 
-def _box(x0, y0, z0, sx, sy, sz):
-    return cq.Workplane("XY", origin=(x0, y0, z0)).box(sx, sy, sz, centered=(False, False, False))
+def s_collet_press(*args, **kwargs):
+    'The little printed tool: what takes any 1/4 inch push fitting in this system apart.'
+    return _compiled('_install_art',path=('s_collet_press',),args=args,kwargs=kwargs)
 
+def s_the_back_face(*args, **kwargs):
+    'Three rows of tube ports, with the power inlet and signal socket.'
+    return _compiled('_install_art',path=('s_the_back_face',),args=args,kwargs=kwargs)
 
-def _cyl(x, y, z, d, length, axis="Z"):
-    """A cylinder of `length` from (x, y, z) along `axis`."""
-    base = cq.Workplane("XY", origin=(x, y, z)).circle(d / 2.0).extrude(length)
-    if axis == "Z":
-        return base
-    if axis == "Y":
-        return base.rotate((x, y, z), (x + 1.0, y, z), -90.0)
-    return base.rotate((x, y, z), (x, y + 1.0, z), 90.0)
+def s_the_socket(*args, **kwargs):
+    "The top row's left-hand end with the cord home in it and its tail falling away.\n\nHome is the show face. The wall's opening is cut to the shroud alone and the shroud stands\n0.75 mm out of it, so the cordset's moulding comes to rest on the wall itself."
+    return _compiled('_install_art',path=('s_the_socket',),args=args,kwargs=kwargs)
 
+def s_nameplate(*args, **kwargs):
+    'The plate the back cover sends the reader to, with the serial and its link on it.'
+    return _compiled('_install_art',path=('s_nameplate',),args=args,kwargs=kwargs)
 
-def _run(points, diameter=TUBE_D):
-    """A tube along axis-aligned segments, with a ball at each turn."""
-    solid = None
-    for a, b in zip(points, points[1:]):
-        deltas = [b[i] - a[i] for i in range(3)]
-        moving = [i for i, d in enumerate(deltas) if abs(d) > 1e-6]
-        if not moving:
-            continue
-        if len(moving) != 1:
-            raise ValueError(f"{a} -> {b} is not axis-aligned")
-        axis = "XYZ"[moving[0]]
-        length = deltas[moving[0]]
-        start = list(a)
-        if length < 0:
-            start[moving[0]] += length
-        seg = _cyl(start[0], start[1], start[2], diameter, abs(length), axis=axis)
-        solid = seg if solid is None else solid.union(seg)
-    for point in points[1:-1]:
-        ball = cq.Workplane("XY", origin=point).sphere(diameter / 2.0)
-        solid = ball if solid is None else solid.union(ball)
-    return solid
+def s_plate_sideways(*args, **kwargs):
+    "The under-counter plate coming in from the side, which is the only way it goes on.\n\nSeen from under the counter on the plate's own side, so both mouths and all three lines\nare in the open. The plate stands off at -X with both mouths toward the shank and the\nflavor pair, the washer and nut hang at the bottom of the shank below the gap it slides\nthrough, and the seat itself is the install guide's frame."
+    return _compiled('_install_art',path=('s_plate_sideways',),args=args,kwargs=kwargs)
 
+def s_bottle_in_funnel(*args, **kwargs):
+    "The one action after the last push: a 440 mL bottle tipped past level over the funnel.\n\nThe funnel's lift-off cover comes off for every fill, so the machine stands here without it."
+    return _compiled('_install_art',path=('s_bottle_in_funnel',),args=args,kwargs=kwargs)
 
-def _bend(points, diameter=TUBE_D, radius=55.0, steps=20):
-    """A tube along axis-aligned segments whose corners are swept, not broken.
+def _load_regulator(*args, **kwargs):
+    'The shipped Taprite 3741, its PI010822S in the outlet port.'
+    return _compiled('_install_art',path=('_load_regulator',),args=args,kwargs=kwargs)
 
-    Each turn is a quarter arc of `radius` tangent to both legs, in whatever plane
-    the two legs span, sampled into stubs with a ball at each joint. `_run` puts
-    one ball at the corner itself, which is the kink the filter page tells you not
-    to make. The pieces overlap in a compound rather than a boolean union: same
-    colour, one read, no solid modelling for a shape that is only looked at.
-    """
-    samples = [list(points[0])]
-    for i, corner in enumerate(points[1:-1], start=1):
-        u = _unit([corner[k] - points[i - 1][k] for k in range(3)])
-        v = _unit([points[i + 1][k] - corner[k] for k in range(3)])
-        if abs(sum(a * b for a, b in zip(u, v))) > 1e-6:
-            raise ValueError("a bend turns a square corner")
-        centre = [corner[k] - u[k] * radius + v[k] * radius for k in range(3)]
-        # From the centre the entry lies at -v*R and the exit at +u*R, so the arc
-        # between them is centre + R*(-v cos t + u sin t) over a quarter turn.
-        for step in range(steps + 1):
-            t = math.pi / 2.0 * step / steps
-            samples.append([centre[k] + radius * (-v[k] * math.cos(t) + u[k] * math.sin(t))
-                            for k in range(3)])
-    samples.append(list(points[-1]))
+def _co2_tether(*args, **kwargs):
+    "The red tether out of the regulator's push-fit mouth: down `drop`, then `run` along +X."
+    return _compiled('_install_art',path=('_co2_tether',),args=args,kwargs=kwargs)
 
-    pieces = []
-    for a, b in zip(samples, samples[1:]):
-        span = cq.Vector(b[0] - a[0], b[1] - a[1], b[2] - a[2])
-        if span.Length < 1e-9:
-            continue
-        pieces.append(cq.Solid.makeCylinder(
-            diameter / 2.0, span.Length, cq.Vector(*a), span.normalized()))
-    for point in samples[1:-1]:
-        pieces.append(cq.Solid.makeSphere(
-            diameter / 2.0, cq.Vector(*point), angleDegrees1=-90.0))
-    return cq.Compound.makeCompound(pieces)
+def s_regulator(*args, **kwargs):
+    "The two dials, the locked adjusting screw and the red tether in the outlet's push-fit."
+    return _compiled('_install_art',path=('s_regulator',),args=args,kwargs=kwargs)
 
+def _load(*args, **kwargs):
+    return _compiled('_install_art',path=('_load',),args=args,kwargs=kwargs)
 
-def _unit(vec):
-    mag = math.sqrt(sum(c * c for c in vec))
-    return [c / mag for c in vec]
+def render(*args, **kwargs):
+    return _compiled('_install_art',path=('render',),args=args,kwargs=kwargs)
 
+def main(*args, **kwargs):
+    return _compiled('_install_art',path=('main',),args=args,kwargs=kwargs)
 
-def _add(assembly, shape, name, color):
-    if shape is not None:
-        assembly.add(shape, name=name, color=color)
+__all__ = ['annotations', 'json', 'os', 'sys', 'tempfile', 'Path', 'math', 'HERE', 'HARDWARE', 'ROOT', 'ART', 'OUT', 'cq', 'import_step', 'note_read', 'note_write', 'xz_plane_y_up', 'MACHINE_MESH', 'MACHINE_FACTS', 'COLLET_PRESS', 'REGULATOR_DIR', 'PLUMBING_DIR', 'MODERN_DIR', 'C14_SOURCE', 'BOX_X0', 'BOX_X1', 'BOX_Y0', 'BOX_Y1', 'BOX_Z0', 'BOX_Z1', 'BOX_MID_X', 'FUNNEL_BOUNDS', 'FUNNEL_MOUTH', 'PORT_FACE_Y', 'PORT_Z_UPPER', 'PORT_Z_LOWER', 'PORT_X_WEST', 'PORT_X_EAST', 'CLEAR_BEHIND', 'CLEAR_SIDE', 'CYLINDER_LANE', 'CYLINDER_D', 'CYLINDER_H', 'FILTER_D', 'FILTER_L', 'BOTTLE_D', 'BOTTLE_H', 'BOTTLE_NECK_D', 'BOTTLE_NECK_H', 'TUBE_D', 'BOTTLE_TIP', 'BOTTLE_CLEARANCE', 'STONE', 'CABINET', 'CORAL', 'STEEL', 'BRASS', 'WHITE_TUBE', 'RED_TUBE', 'BLUE_TUBE', 'BLACK_PART', 'CONCENTRATE', 'BOTTLE_PET', 'FILTER_BODY', 'FILTER_CAP', 'PRINTED', 'CYLINDER', 'ACETAL_GRAY', 'REAR_CHILDREN', 'REAR_RING_PREFIX', 'REAR_FACE_Y', 'C14_STATION', 'C13_SLIP', 'C13_WALL', 'C13_BODY_LEN', 'C13_NOSE_LEN', 'C13_BOOT_LEN', 'C13_BOOT_D', 'C13_CABLE_D', 'CORDSET', 's_cabinet_plan', 's_opening', 's_filter_in_cabinet', 's_collet_press', 's_the_back_face', 's_the_socket', 's_nameplate', 'PLATE_STANDOFF_X', 'WASHER_T', 'NUT_H', 'NUT_STEEL', 'PLATE_STEEL', 'BLACK_PART_LIT', 's_plate_sideways', 's_bottle_in_funnel', 'TETHER_IN_MOUTH', 's_regulator', 'SCENES', 'render', 'main']
+_bind('_install_art',globals())
 
-
-def _machine(assembly):
-    """The whole appliance with the colours its own payload carries."""
-    return _cad_art.borrow(assembly, _cad_art.machine_bodies())
-
-
-def _hex(x, y, z, across_flats, length, axis="Z"):
-    """A hexagonal prism of `across_flats`, from (x, y, z) along `axis`."""
-    r = across_flats / math.sqrt(3.0)
-    pts = [(r * math.cos(math.radians(a)), r * math.sin(math.radians(a)))
-           for a in range(0, 360, 60)]
-    base = cq.Workplane("XY", origin=(x, y, z)).polyline(pts).close().extrude(length)
-    if axis == "Z":
-        return base
-    if axis == "Y":
-        return base.rotate((x, y, z), (x + 1.0, y, z), -90.0)
-    return base.rotate((x, y, z), (x, y + 1.0, z), 90.0)
-
-
-def _floor(x0, y0, sx, sy):
-    return _box(x0, y0, -24.0, sx, sy, 18.0)
-
-
-# --- the back face ----------------------------------------------------------
-#
-# The bodies of `enclosure-assembly.step.mesh` a customer standing behind the machine can see.
-# Each carries its own colour out of the payload: the shell dark, the six bulkhead chips and their raised
-# words in their spool colours, the nameplate's ink white, and the funnel under its seated cover.
-REAR_CHILDREN = frozenset({
-    "bulkhead-drain",
-    "c14-inlet",
-    "keystone-jack",
-    "co2-inlet",
-    "bulkhead-water",
-    "bulkhead-carb",
-    "bulkhead-flavor-a",
-    "bulkhead-flavor-b",
-    "funnel",
-    "funnel-cover",
-    "nameplate",
-    "nameplate-ink",
-    "enclosure-back-bottom",
-    "enclosure-back-top",
-})
-REAR_RING_PREFIX = "bulkhead-ring-"
-
-#: `enclosure-assembly.facts.json`. The show face is the wall's +Y plane and the inlet stands on
-#: the top port row's own storey, so the cord goes in level with the tubes.
-_FACTS = json.loads(MACHINE_FACTS.read_text())
-REAR_FACE_Y = _FACTS["box"]["outer"][3]
-C14_STATION = tuple(_FACTS["constants"]["C14_STATION"])
-
-# The mating half of `reference/iec-c14-inlet`: the customer's own cord, which has no source CAD.
-# Its socket is that inlet's shroud plus a slip; wall, body, boot and cable are the catalogue
-# sizes of a moulded 18 AWG cordset.
-C13_SLIP = 0.35
-C13_WALL = 3.5
-C13_BODY_LEN = 31.0
-C13_NOSE_LEN = 9.5            # the C13 nose that enters the inlet's cavity
-C13_BOOT_LEN = 30.0
-C13_BOOT_D = (14.5, 9.0)
-C13_CABLE_D = 7.8
-CORDSET = cq.Color(0.035, 0.038, 0.043, 1.0)
-
-
-def _rear_face(assembly):
-    """Add the machine's rear-visible bodies, colours and all."""
-    return _cad_art.borrow(assembly, _cad_art.machine_bodies(
-        lambda name: name in REAR_CHILDREN or name.startswith(REAR_RING_PREFIX)))
-
-
-def _prism(w, h, r, length):
-    """A rounded rectangular prism on the show face's own plane, running `length` in +Y."""
-    return (cq.Workplane(xz_plane_y_up)
-            .rect(w, h).extrude(length).edges("|Y").fillet(r))
-
-
-def _cable(points, diameter, tangents):
-    """A round cord swept along a spline through `points`."""
-    vectors = [cq.Vector(*point) for point in points]
-    path = cq.Edge.makeSpline(vectors, tangents=[cq.Vector(*t) for t in tangents], scale=False)
-    profile = cq.Wire.makeCircle(diameter / 2.0, vectors[0], cq.Vector(*tangents[0]))
-    return cq.Solid.sweep(profile, [], path, makeSolid=True, isFrenet=False)
-
-
-def _c13_cordset(gap):
-    """The cord end on the inlet's mating axis, `gap` millimetres out from the show face.
-
-    The nose that enters the inlet's cavity, the moulding behind it, the strain relief and the
-    cord. Its three contact slots stand where the inlet's own blades do.
-    """
-    x, z = C14_STATION
-    y0 = REAR_FACE_Y + gap
-    nose_w = _c14.MOUTH_W - 2.0 * C13_SLIP
-    nose_h = _c14.MOUTH_H - 2.0 * C13_SLIP
-
-    body = _prism(nose_w + 2.0 * C13_WALL, nose_h + 2.0 * C13_WALL, 3.0, C13_BODY_LEN)
-    body = body.faces(">Y").chamfer(1.2)
-    nose = _prism(nose_w, nose_h, _c14.MOUTH_TOP_R - C13_SLIP, C13_NOSE_LEN).translate((0.0, -C13_NOSE_LEN, 0.0))
-    body = body.union(nose)
-    for blade in _c14.build_blades().val().Solids():
-        bb = blade.BoundingBox()
-        body = body.cut(_box(bb.xmin - 0.3, -C13_NOSE_LEN - 0.5, bb.zmin - 0.3,
-                             bb.xlen + 0.6, C13_NOSE_LEN + 0.5 + 6.0, bb.zlen + 0.6))
-    boot = (cq.Workplane(xz_plane_y_up).workplane(offset=C13_BODY_LEN)
-            .circle(C13_BOOT_D[0] / 2.0)
-            .workplane(offset=C13_BOOT_LEN).circle(C13_BOOT_D[1] / 2.0).loft())
-
-    tail = C13_BODY_LEN + C13_BOOT_LEN
-    cord = _cable(
-        ((0.0, tail, 0.0), (0.0, tail + 26.0, 0.0),
-         (7.0, tail + 48.0, -58.0), (11.0, tail + 55.0, -175.0)),
-        C13_CABLE_D,
-        ((0.0, 1.0, 0.0), (0.0, 0.0, -1.0)),
-    )
-    parts = [body.val(), boot.val(), cord]
-    return cq.Compound.makeCompound(parts).translate((x, y0, z))
-
-
-# --- scenes -----------------------------------------------------------------
-
-def s_cabinet_plan():
-    """The slot the appliance stands in, with the clearances lying on the cabinet floor."""
-    a = cq.Assembly(name="cabinet-plan-scene")
-    _machine(a)
-    x0 = BOX_X0 - CLEAR_SIDE - CYLINDER_LANE - 30.0
-    x1 = BOX_X1 + CLEAR_SIDE + 30.0
-    _add(a, _floor(x0, BOX_Y0 - 40.0, x1 - x0,
-                   BOX_Y1 - BOX_Y0 + CLEAR_BEHIND + 80.0),
-         "cabinet-floor", CABINET)
-    pads = (
-        ("behind", BOX_X0, BOX_Y1, BOX_X1 - BOX_X0, CLEAR_BEHIND),
-        ("side-west", BOX_X0 - CLEAR_SIDE, BOX_Y0, CLEAR_SIDE, BOX_Y1 - BOX_Y0),
-        ("side-east", BOX_X1, BOX_Y0, CLEAR_SIDE, BOX_Y1 - BOX_Y0),
-    )
-    for name, px, py, sx, sy in pads:
-        _add(a, _box(px, py, -6.0, sx, sy, 10.0), f"clear-{name}", CORAL)
-    cx = BOX_X0 - CLEAR_SIDE - CYLINDER_LANE / 2.0
-    _add(a, _cyl(cx, BOX_Y0 + 150.0, -6.0, CYLINDER_D, CYLINDER_H), "co2-cylinder", CYLINDER)
-    return a
-
-
-def s_opening():
-    """The one cut, from above: a 1-3/8 inch circle, with what it has to accept over it."""
-    fa = _cad_art._load_faucet_module()
-    parts = _cad_art._children_by_name(fa.build_assembly())
-    a = cq.Assembly(name="opening-scene")
-    slab = (
-        cq.Workplane("XY")
-        .workplane(offset=fa.countertop_bottom_z)
-        .box(320.0, 210.0, fa.countertop_thickness, centered=(True, True, False))
-        .cut(
-            cq.Workplane("XY")
-            .workplane(offset=fa.countertop_bottom_z - 1.0)
-            .center(0.0, fa.countertop_hole_center_y)
-            .circle(fa.hole_radius)
-            .extrude(fa.countertop_thickness + 2.0)
-        )
-    )
-    _add(a, slab, "countertop", STONE)
-    lift = 128.0
-    for name, colour in (("flavor_tube_pos_x", BLACK_PART),
-                         ("flavor_tube_neg_x", BLACK_PART),
-                         ("soda_umbilical_tube", BLUE_TUBE),
-                         ("drain_tube", WHITE_TUBE),
-                         ("display_signal_ribbon", BLACK_PART)):
-        child = parts.get(name)
-        if child is not None:
-            _add(a, _cad_art._clip_z(child.obj, -70.0, 40.0).translate((0, 0, lift)),
-                 name, colour)
-    shank = parts.get("westbrass")
-    if shank is not None:
-        _add(a, _cad_art._clip_z(shank.obj, -70.0, 40.0).translate((0, 0, lift)), "shank", STEEL)
-    return a
-
-
-def s_filter_in_cabinet():
-    """The cartridge lying flat, the white run easing into both ends with no tight bend."""
-    a = cq.Assembly(name="filter-scene")
-    z = FILTER_D / 2.0
-    half, cap = FILTER_L / 2.0, 26.0
-    _add(a, _cyl(-half + cap, 110.0, z, FILTER_D, FILTER_L - 2 * cap, axis="X"),
-         "cartridge", FILTER_BODY)
-    for side in (-1.0, 1.0):
-        end = half - cap if side > 0 else -half
-        _add(a, _cyl(end, 110.0, z, FILTER_D * 0.62, cap, axis="X"),
-             f"quick-connect-{'out' if side > 0 else 'in'}", FILTER_CAP)
-    _add(a, _bend([(-half, 110.0, z), (-330.0, 110.0, z), (-330.0, -40.0, z)]),
-         "white-run-in", WHITE_TUBE)
-    _add(a, _bend([(half, 110.0, z), (330.0, 110.0, z), (330.0, -40.0, z)]),
-         "white-run-out", WHITE_TUBE)
-    return a
-
-
-def s_collet_press():
-    """The little printed tool: what takes any 1/4 inch push fitting in this system apart."""
-    a = cq.Assembly(name="collet-press-scene")
-    a.add(import_step(str(COLLET_PRESS)), name="collet-press", color=PRINTED)
-    return a
-
-
-def s_the_back_face():
-    """Three rows of tube ports, with the power inlet and signal socket."""
-    return _rear_face(cq.Assembly(name="the-back-face-scene"))
-
-
-def s_the_socket():
-    """The top row's left-hand end with the cord home in it and its tail falling away.
-
-    Home is the show face. The wall's opening is cut to the shroud alone and the shroud stands
-    0.75 mm out of it, so the cordset's moulding comes to rest on the wall itself.
-    """
-    a = _rear_face(cq.Assembly(name="the-socket-scene"))
-    a.add(_c13_cordset(0.5), name="c13-cordset", color=CORDSET)
-    return a
-
-
-def s_nameplate():
-    """The plate the back cover sends the reader to, with the serial and its link on it."""
-    a = cq.Assembly(name="nameplate-scene")
-    _rear_face(a)
-    return a
-
-
-#: The plate's stand-off along the slide, from its seat. Both of its channels open on +X (the cut
-#: part turns its DXF a quarter about Z on the way into this frame), so it comes in from -X; at
-#: this stand-off its mouths sit a finger's width short of the shank and the flavor pair.
-PLATE_STANDOFF_X = -44.0
-#: The washer and nut the faucet ships with, in the installation illustrations: on the last thread at
-#: the bottom of the shank, under the gap the plate slides through.
-WASHER_T, NUT_H = 1.5, 5.0
-NUT_STEEL = cq.Color(0.43, 0.45, 0.48, 1.0)
-#: The plate in the installation illustrations, a step lighter than the washer it will meet.
-PLATE_STEEL = cq.Color(0.91, 0.92, 0.94, 1.0)
-#: One of the flavor pair a shade lighter, so the two stay countable where their silhouettes meet.
-BLACK_PART_LIT = cq.Color(0.20, 0.205, 0.215, 1.0)
-
-
-def s_plate_sideways():
-    """The under-counter plate coming in from the side, which is the only way it goes on.
-
-    Seen from under the counter on the plate's own side, so both mouths and all three lines
-    are in the open. The plate stands off at -X with both mouths toward the shank and the
-    flavor pair, the washer and nut hang at the bottom of the shank below the gap it slides
-    through, and the seat itself is the install guide's frame.
-    """
-    fa = _cad_art._load_faucet_module()
-    parts = _cad_art._children_by_name(fa.build_assembly())
-    a = cq.Assembly(name="plate-scene")
-    # A slab long on the slide axis and narrow across it, with stone beyond the plate's far rim.
-    slab = (
-        cq.Workplane("XY")
-        .workplane(offset=fa.countertop_bottom_z)
-        .center(-8.0, 0.0)
-        .box(142.0, 68.0, fa.countertop_thickness, centered=(True, True, False))
-        .cut(
-            cq.Workplane("XY")
-            .workplane(offset=fa.countertop_bottom_z - 1.0)
-            .center(0.0, fa.countertop_hole_center_y)
-            .circle(fa.hole_radius)
-            .extrude(fa.countertop_thickness + 2.0)
-        )
-    )
-    _add(a, slab, "countertop", STONE)
-    # Each flavor line is one black tube, built as its faucet run and its umbilical run,
-    # and each length is drawn where it reaches into the frame.
-    for name, colour in (("westbrass", STEEL),
-                         ("flavor_tube_pos_x", BLACK_PART),
-                         ("flavor_tube_neg_x", BLACK_PART_LIT),
-                         ("flavor_umbilical_tube_pos_x", BLACK_PART),
-                         ("flavor_umbilical_tube_neg_x", BLACK_PART_LIT),
-                         ("soda_umbilical_tube", BLUE_TUBE)):
-        child = parts.get(name)
-        if child is not None:
-            clipped = _cad_art._clip_z(child.obj, -88.0, -30.0)
-            if clipped.solids().size():
-                _add(a, clipped, name, colour)
-    washer_top = -fa.shank_length + NUT_H + WASHER_T
-    _add(a, (cq.Workplane("XY").workplane(offset=washer_top - WASHER_T)
-             .circle(12.0).circle(6.1).extrude(WASHER_T)), "retained-washer", STEEL)
-    _add(a, (cq.Workplane("XY").workplane(offset=washer_top - WASHER_T - NUT_H)
-             .polygon(6, 22.0).circle(6.1).extrude(NUT_H)), "retained-nut", NUT_STEEL)
-    plate = parts.get("under_counter_plate")
-    if plate is not None:
-        _add(a, plate.obj.translate((PLATE_STANDOFF_X, 0.0, 0.0)), "under-counter-plate", PLATE_STEEL)
-    return a
-
-
-def s_bottle_in_funnel():
-    """The one action after the last push: a 440 mL bottle tipped past level over the funnel.
-
-    The funnel's lift-off cover comes off for every fill, so the machine stands here without it.
-    """
-    a = _cad_art.borrow(cq.Assembly(name="bottle-scene"),
-                        _cad_art.machine_bodies(lambda name: name != "funnel-cover"))
-    # Built mouth down at the origin, then tipped about the mouth toward the cabinet door.
-    shoulder = BOTTLE_NECK_H
-    body = shoulder + 26.0
-    parts = [
-        (_cyl(0.0, 0.0, 0.0, BOTTLE_NECK_D, BOTTLE_NECK_H), "bottle-neck", BOTTLE_PET),
-        (cq.Workplane("XY", origin=(0.0, 0.0, shoulder)).circle(BOTTLE_NECK_D / 2.0)
-         .workplane(offset=26.0).circle(BOTTLE_D / 2.0).loft(), "bottle-shoulder", BOTTLE_PET),
-        (_cyl(0.0, 0.0, body, BOTTLE_D, BOTTLE_H), "bottle-body", CONCENTRATE),
-        (_cyl(0.0, 0.0, body + BOTTLE_H, BOTTLE_D * 0.62, 4.0), "bottle-base", BOTTLE_PET),
-    ]
-    parts = [(shape.rotate((0, 0, 0), (1, 0, 0), 90.0 - BOTTLE_TIP), name, colour)
-             for shape, name, colour in parts]
-    lowest = min(shape.val().BoundingBox().zmin for shape, _, _ in parts)
-    mouth = (*FUNNEL_MOUTH, FUNNEL_BOUNDS[5] + BOTTLE_CLEARANCE - lowest)
-    for shape, name, colour in parts:
-        _add(a, shape.translate(mouth), name, colour)
-    return a
-
-
-
-
-
-
-
-
-
-
-# The tether is pushed into the regulator's PI010822S at the factory, its end this far past the
-# push-fit's mouth: the picture shows a tube going in, not where in the collet it stops.
-TETHER_IN_MOUTH = 4.0
-
-
-def _load_regulator():
-    """The shipped Taprite 3741, its PI010822S in the outlet port."""
-    return _load(REGULATOR_DIR, "taprite_3741_regulator")
-
-
-def _co2_tether(mouth, drop, run, radius):
-    """The red tether out of the regulator's push-fit mouth: down `drop`, then `run` along +X."""
-    x, y, z = mouth
-    return _bend([(x, y, z + TETHER_IN_MOUTH), (x, y, z - drop), (x + run, y, z - drop)],
-                 radius=radius)
-
-
-def s_regulator():
-    """The two dials, the locked adjusting screw and the red tether in the outlet's push-fit."""
-    reg = _load_regulator()
-    a = reg.build_assembly()
-    mouth, _ = reg.outlet()
-    # The tether leaves sideways rather than hanging: the page's picture has to be wider
-    # than it is tall or the two dials print too small to read.
-    _add(a, _co2_tether(mouth, 46.0, 120.0, 22.0), "red-tether", RED_TUBE)
-    return a
-
-
-def _load(directory, stem):
-    import importlib.util
-    path = directory / f"{stem}.py"
-    note_read(path)
-    spec = importlib.util.spec_from_file_location(stem, path)
-    module = importlib.util.module_from_spec(spec)
-    # A dataclass defined in the module resolves its annotations through
-    # sys.modules[__module__], so the entry has to exist before it executes.
-    sys.modules[stem] = module
-    sys.path.insert(0, str(directory))
-    try:
-        spec.loader.exec_module(module)
-    finally:
-        sys.path.remove(str(directory))
-    return module
-
-
-SCENES = {
-    "cabinet-plan": (s_cabinet_plan, dict(cam=(0.0, 0.0, 1.0), up=(0, 1, 0),
-                                      size="1700x2000")),
-    "opening": (s_opening, dict(cam=(0.42, -0.80, 0.95), target=(0.0, 0.0, 24.0),
-                                span=120.0, size="1900x1600")),
-    "filter-in-cabinet": (s_filter_in_cabinet, dict(cam=(0.32, -1.0, 0.52),
-                                                size="2200x1200")),
-    # One span and one frame for both, and no trim, so the two halves of the fork are
-    # at the same scale in the same box: the comparison is the whole picture.
-    "two-tees": (None, dict(cam=(0.25, 1.0, 0.32), size="1600x900")),
-    "nameplate": (s_nameplate, dict(cam=(-0.14, 1.0, 0.10),
-                   target=(38.16, 467.0, 262.9), span=132.0, size="1600x1100")),
-    "plate-sideways": (s_plate_sideways, dict(cam=(-0.85, -1.0, -0.85),
-                        target=(-16.0, 0.0, -43.0), span=88.0, size="1700x950")),
-    # One camera per pair, and no trim, so before and after are the same frame.
-    "stop-open": (None, dict(cam=(1.05, 1.70, 0.62), target=(-6.0, 44.0, 96.0), span=86.0, size="1250x1150", trim=False)),
-    "stop-closed": (None, dict(cam=(1.05, 1.70, 0.62), target=(-6.0, 44.0, 96.0), span=86.0, size="1250x1150", trim=False)),
-    "tee-before": (None, dict(cam=(1.05, 1.70, 0.62), target=(-6.0, 44.0, 112.0), span=132.0, size="1250x1150", trim=False)),
-    "tee-after": (None, dict(cam=(1.05, 1.70, 0.62), target=(-6.0, 44.0, 112.0), span=132.0, size="1250x1150", trim=False)),
-    # Well round to the side and low, so the tipped bottle's mouth reads below its base.
-    "bottle-in-funnel": (s_bottle_in_funnel, dict(cam=(1.0, -0.5, 0.45),
-                          target=(20.0, 215.0, 190.0), span=265.0, size="1500x1180")),
-    "kitchen-push": (None, dict(cam=(1.05, -1.72, 0.72), target=(-46.0, 8.0, 100.0),
-                                          span=88.0, size="1500x980", trim=False)),
-    "kitchen-hose": (None, dict(cam=(1.05, 1.70, 0.62), target=(10.0, 53.0, 150.0),
-                                          span=88.0, size="1500x980", trim=False)),
-    "regulator": (s_regulator, dict(cam=(0.10, 1.0, 0.16), size="1700x1500")),
-    "collet-press": (s_collet_press, dict(cam=(-0.5, -0.9, 0.85), size="1700x1100")),
-    # On the wall's own column, tilted down. Screen up is world up, so every row is level. The
-    # frame holds all three port rows, the inlet, the jack, the nameplate, and a sliver of the top
-    # face over the wall's top edge.
-    "the-back-face": (s_the_back_face, dict(cam=(0.0, 1.0, 0.12),
-                                            target=(0.0, 467.0, 268.0),
-                                            span=100.0, size="3200x2240")),
-    # Off the column, on the top row: the four collets, the inlet with the cord home in it, and
-    # the tail leaving past the machine's +X corner.
-    "the-socket": (s_the_socket, dict(cam=(-0.26, 1.0, 0.16),
-                                      target=(5.0, REAR_FACE_Y, 334.1),
-                                      span=31.7, size="2200x668")),
-}
-
-
-def render(names: list[str]) -> None:
-    ART.mkdir(parents=True, exist_ok=True)
-    OUT.mkdir(parents=True, exist_ok=True)
-    note_read(MACHINE_MESH)
-    note_read(MACHINE_FACTS)
-    note_read(COLLET_PRESS)
-    note_read(C14_SOURCE)
-    with tempfile.TemporaryDirectory(prefix="install-art-", dir=OUT) as directory:
-        work = Path(directory)
-        from _install_art_mesh import payloads
-        shown = payloads(sys.modules[__name__], names, work)
-        jobs = []
-        for name in names:
-            _build, pose = SCENES[name]
-            step = work / f"{name}.step"
-            jobs.append({
-                "step": str(step.relative_to(HARDWARE)),
-                "payload": str(shown[name]),
-                "out": str(ART / f"{name}.png"),
-                "up": (0, 0, 1),
-                "bg": "#ffffff",
-                "trim": True,
-                "solid": True,
-                "ortho": True,
-                "ground": False,
-                "fog": False,
-                **pose,
-            })
-            print(f"  staged {name}")
-        _hsm_render.render(jobs)
-        for job in jobs:
-            out = Path(job["out"])
-            _cad_art._clear_connected_background(out)
-            note_write(out)
-            print(f"  -> art/{out.name} ({out.stat().st_size // 1024} KB)")
-
-
-def main(argv: list[str]) -> int:
-    if "--list" in argv:
-        for name in SCENES:
-            print(name)
-        return 0
-    wanted = [a for a in argv if not a.startswith("-")] or list(SCENES)
-    unknown = [n for n in wanted if n not in SCENES]
-    if unknown:
-        print(f"unknown scene(s): {', '.join(unknown)}", file=sys.stderr)
-        return 1
-    render(wanted)
-    return 0
-
-
-if __name__ == "__main__":
-    sys.exit(main(sys.argv[1:]))
+if __name__ == '__main__':
+    _compiled('_install_art','main')

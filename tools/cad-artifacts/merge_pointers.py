@@ -39,155 +39,49 @@ import subprocess
 import sys
 from pathlib import Path
 
+sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'bazel'))
+from _bookkeeping import call as _bookkeeping_call
+
+def _merge_native(name,*args):
+    result = _bookkeeping_call('merge.'+name,args_json=[json.dumps(value) for value in args])
+    if name=='render':
+        return result
+    result = json.loads(result)
+    return tuple(result) if name in {'merge_members','merge','merge_texts'} else result
+
+
 POINTERS_REL = "hardware/cad-artifacts.json"
 
 #: The order pack.py seats the keys in.
 KEYS = ("_", "release", "store", "bundle", "solids", "sidecars", "moved", "made")
 
 
-def merge_members(base: dict, ours: dict, theirs: dict) -> tuple[dict, list, list]:
-    """`(merged, moved on both sides, notes)` for one path→hash map.
-
-    Per key: equal on both sides stands; a side that left the key at its base value defers to
-    the other; both moved to different values takes theirs and names the key."""
-    base, ours, theirs = base or {}, ours or {}, theirs or {}
-    out, both, notes = {}, [], []
-    for key in sorted(set(base) | set(ours) | set(theirs)):
-        vb, vo, vt = base.get(key), ours.get(key), theirs.get(key)
-        if vo == vt:
-            if vo is not None:
-                out[key] = vo
-        elif vt == vb:
-            if vo is not None:
-                out[key] = vo
-        elif vo == vb:
-            if vt is not None:
-                out[key] = vt
-        elif vt is None:
-            out[key] = vo
-            both.append(key)
-            notes.append(f"{key}: retired on the incoming side and moved on main; main's stands")
-        elif vo is None:
-            out[key] = vt
-            both.append(key)
-            notes.append(f"{key}: retired on main and moved on the incoming side; the incoming "
-                         "hash stands")
-        else:
-            out[key] = vt
-            both.append(key)
-            notes.append(f"{key}: moved on both sides; the incoming hash stands and its `made` "
-                         "line is unproven")
-    return out, both, notes
+def merge_members(base,ours,theirs):
+    return _merge_native('merge_members',base,ours,theirs)
 
 
-def _proves(line) -> bool:
-    return isinstance(line, dict) and bool(line.get("inputs")) and not line.get("unproven")
+def _proves(line):
+    return _merge_native('_proves',line)
 
 
-def merge_made(ours: dict, theirs: dict, lines: dict, both: list) -> dict:
-    """The `made` line for each of `lines`, from a side whose hash it carries: the one that
-    proves the member where both do, else theirs. A member moved on both sides keeps its line
-    unproven."""
-    out = {}
-    for rel, digest in sorted(lines.items()):
-        found = [side_made[rel] for side, side_made in
-                 ((theirs, theirs.get("made") or {}), (ours, ours.get("made") or {}))
-                 if rel in side_made
-                 and {**(side.get("solids") or {}), **(side.get("sidecars") or {})}.get(rel) == digest]
-        if not found:
-            continue
-        line = next((line for line in found if _proves(line)), found[0])
-        out[rel] = {**line, "unproven": True} if rel in both else line
-    return out
+def merge_made(ours,theirs,lines,both):
+    return _merge_native('merge_made',ours,theirs,lines,both)
 
 
-def _seat(out: dict, ours: dict, theirs: dict) -> dict:
-    """`out` in pack.py's key order, with each key pack.py does not write that both sides hold
-    alike seated after the key it follows in `ours`."""
-    order = [key for key in KEYS if out.get(key) is not None]
-    keys = list(ours)
-    for i, key in enumerate(keys):
-        if key in KEYS or key not in theirs or theirs[key] != ours[key]:
-            continue
-        at = max((j + 1 for j, k in enumerate(order) if k in keys[:i]), default=0)
-        order.insert(at, key)
-        out[key] = ours[key]
-    return {key: out[key] for key in order}
+def _seat(out,ours,theirs):
+    return _merge_native('_seat',out,ours,theirs)
 
 
-def merge(base: dict, ours: dict, theirs: dict) -> tuple[dict, list]:
-    """`(merged pointer file, notes)`. `ours` is the side being merged onto (main, in a rebase or a
-    cherry-pick); `theirs` is the side being brought in."""
-    base, ours, theirs = base or {}, ours or {}, theirs or {}
-    # A side with no manifest at all — an emptied file, a side where the pointer file did not exist —
-    # contributes nothing, rather than reading as a side that retired every member.
-    if not ours:
-        return dict(theirs), []
-    if not theirs:
-        return dict(ours), []
-    notes = []
-    solids, both_s, n = merge_members(base.get("solids"), ours.get("solids"), theirs.get("solids"))
-    notes += n
-    sidecars, both_c, n = merge_members(base.get("sidecars"), ours.get("sidecars"),
-                                        theirs.get("sidecars"))
-    notes += n
-
-    # THE BUNDLE COMES FROM THE SIDE THAT CUT ONE. A held publish keeps the bundle it found and
-    # marks it behind; a plain `pack.py --write` cuts a new one. Whichever side's digest moved
-    # from the base is the side with the newer asset; main's when both moved.
-    base_digest = (base.get("bundle") or {}).get("sha256")
-    ours_new = (ours.get("bundle") or {}).get("sha256") != base_digest
-    theirs_new = (theirs.get("bundle") or {}).get("sha256") != base_digest
-    side = theirs if theirs_new and not ours_new else ours
-    if not side.get("bundle"):
-        side = theirs if theirs.get("bundle") else ours
-
-    release = {}
-    for key in ("tag", "asset", "url"):
-        if key in (side.get("release") or {}):
-            release[key] = side["release"][key]
-    objects_o = (ours.get("release") or {}).get("objects")
-    objects_t = (theirs.get("release") or {}).get("objects")
-    if objects_o and objects_t:
-        release["objects"] = objects_o
-
-    bundle = dict(side.get("bundle") or {})
-    behind = bool(bundle.pop("behind", False)) or solids != (side.get("solids") or {})
-    if behind and bundle:
-        bundle["behind"] = True
-
-    # A LINE'S TIME TRAVELS WITH ITS HASH: the side whose hash the merged line carries is the
-    # side whose time it carries, and where both sides carry the same hash the later time stands.
-    moved = {}
-    for rel, digest in solids.items():
-        candidates = [side.get("moved", {}).get(rel) for side in (ours, theirs)
-                      if (side.get("solids") or {}).get(rel) == digest and rel in (side.get("moved") or {})]
-        if candidates:
-            moved[rel] = max(candidates)
-    out = {
-        "_": ours.get("_") or theirs.get("_") or base.get("_"),
-        "release": release,
-        "store": ours.get("store") or theirs.get("store"),
-        "bundle": bundle,
-        "solids": solids,
-        "sidecars": sidecars,
-        "moved": moved or None,
-        "made": merge_made(ours, theirs, {**solids, **sidecars}, both_s + both_c) or None,
-    }
-    return _seat(out, ours, theirs), notes
+def merge(base,ours,theirs):
+    return _merge_native('merge',base,ours,theirs)
 
 
-def render(pointers: dict) -> str:
-    """The bytes pack.py writes for this dict."""
-    return json.dumps(pointers, indent=2, sort_keys=False) + "\n"
+def render(pointers):
+    return _merge_native('render',pointers)
 
 
-def merge_texts(base: str, ours: str, theirs: str) -> tuple[str, list]:
-    """The three files as text; an empty side is a pointer file that did not exist there yet."""
-    def load(text):
-        return json.loads(text) if text.strip() else {}
-    merged, notes = merge(load(base), load(ours), load(theirs))
-    return render(merged), notes
+def merge_texts(base,ours,theirs):
+    return _merge_native('merge_texts',base,ours,theirs)
 
 
 def main(argv: list) -> int:

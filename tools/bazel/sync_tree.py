@@ -42,6 +42,13 @@ _ROOT = _HERE.parents[2]
 sys.path.insert(0, str(_HERE.parent))
 from inventory import ACTION_INTERMEDIATE, build_inert    # noqa: E402
 
+from _bookkeeping import call as _bookkeeping_call
+from inventory import _native_config as _inventory_config
+
+def _native(op,**fields):
+    return _bookkeeping_call(op,config=_inventory_config(),**fields)
+
+
 
 #: An output is `…/bin/out/<target>/<the path the tree keeps it under>`. The query answers with
 #: every file of every target, and `//:node-packages` alone globs eleven thousand that are
@@ -56,8 +63,8 @@ _SOLID_OUTPUTS = (".step", ".stl", ".glb", ".step.mesh")
 _PUBLIC_EVIDENCE = (".scorecard.json",)
 
 
-def _runtime_output(path: str) -> bool:
-    return path.endswith(_SOLID_OUTPUTS + _PUBLIC_EVIDENCE)
+def _runtime_output(path):
+    return _native('sync.runtime',path=path)
 
 
 #: The publisher carries model bytes and the metadata belonging to that cut. The cloud
@@ -71,50 +78,21 @@ _MODEL_METADATA = frozenset({
 })
 
 
-def _publisher_owned(path: str) -> bool:
-    """Model outputs and print records that travel with the publisher's own cut."""
-    return (_runtime_output(path)
-            or path.endswith((".npz", ".facts.json", ".numbers.json",
-                              ".print.json", ".readiness.json"))
-            or path in _MODEL_METADATA
-            or (path.startswith("hardware/")
-                and Path(path).name in {"design.json", "geometry-check.json"})
-            or (path.startswith("hardware/print-tests/")
-                and "/prints/" in path and path.endswith(".json"))
-            or build_inert(path))
+def _publisher_owned(path):
+    return _native('sync.publisher',path=path)
 
 
-def stage_derived() -> int:
-    """Stage derived files and retain the committed model cohort for commit-back's rebase."""
-    status = subprocess.run(
-        ["git", "-c", "status.renames=false", "status", "--porcelain=v1", "-z",
-         "--untracked-files=all"], cwd=_ROOT, capture_output=True, check=True)
-    paths, held, staged, tracked = [], [], [], []
-    for entry in status.stdout.split(b"\0"):
-        if not entry:
-            continue
-        path = entry[3:]
-        if _publisher_owned(os.fsdecode(path)):
-            held.append(path)
-            if entry[0:1] not in (b" ", b"?"):
-                staged.append(path)
-            if entry[:2] != b"??" and entry[0:1] != b"A":
-                tracked.append(path)
-        else:
-            paths.append(path)
-
-    def change(command, selected):
-        if selected:
-            subprocess.run(["git", "--literal-pathspecs", *command,
-                            "--pathspec-from-file=-", "--pathspec-file-nul"],
-                           cwd=_ROOT, input=b"\0".join(selected) + b"\0", check=True)
-
-    change(["restore", "--staged"], staged)
-    change(["add", "-A"], paths)
-    # The commit-back rebases after its commit. Tracked publisher files keep HEAD's cohort;
-    # new publisher outputs stay untracked rather than joining the derived commit.
-    change(["restore", "--worktree", "--source=HEAD"], tracked)
-    print(f"{len(paths)} derived path(s) staged; {len(held)} publisher-owned path(s) left out")
+def stage_derived():
+    status = subprocess.run(['git','-c','status.renames=false','status','--porcelain=v1','-z','--untracked-files=all'],cwd=_ROOT,capture_output=True,check=True)
+    selected = _native('sync.stage',status_bytes=list(status.stdout))
+    def change(command,kind):
+        paths = [bytes(path) for path in selected[kind]]
+        if paths:
+            subprocess.run(['git','--literal-pathspecs',*command,'--pathspec-from-file=-','--pathspec-file-nul'],cwd=_ROOT,input=b'\0'.join(paths)+b'\0',check=True)
+    change(['restore','--staged'],'staged')
+    change(['add','-A'],'paths')
+    change(['restore','--worktree','--source=HEAD'],'tracked')
+    print(f"{len(selected['paths'])} derived path(s) staged; {len(selected['held'])} publisher-owned path(s) left out")
     return 0
 
 #: HOW A REWRITTEN MEDIUM IS CARRIED. `_SPLICE` names the three whose text is partly their own,
@@ -137,9 +115,8 @@ _WHOLE = (".json", ".png")
 _WHOLE_FILES = {"hardware/ledger/purchases.export.csv"}
 
 
-def _whole_rewritten(path: str) -> bool:
-    """Whether a rewritten output is generated in full."""
-    return Path(path).suffix in _WHOLE or path in _WHOLE_FILES
+def _whole_rewritten(path):
+    return _native('sync.whole',path=path)
 
 #: `docgen`'s own marker, and the section `substitute_md` maintains at the end of every markdown
 #: file it touches. Between them they are the whole of what a build writes into an authored
@@ -149,307 +126,72 @@ _SOURCES = re.compile(r"## Sources\n\[value\]\(NAME\) texts are updated by:\n"
                       r"(?:- `[^`\n]+`\n)+")
 
 
-def _rewritten() -> set:
-    """Every file a run read and wrote back over, as the writers recorded it.
-
-    `docgen` note each target they maintain; `trace_inputs` keeps that beside
-    the writes, and `inventory` sorts the docs from the solids by it. A reading taken without
-    it cannot tell a doc from a STEP — 102 solids stand in both the reads and the writes of
-    their own run, because `_atomic_write` opens the target to compare before it renames.
-    """
+def _rewritten():
+    from _bookkeeping import read
     try:
-        graph = json.loads((_HERE.parent / "graph.json").read_text())
-    except (OSError, ValueError) as exc:
-        raise SystemExit(f"  no build graph to read, so which files are rewritten in place is\n"
-                         f"  unknown, and copying one whole lands a build's text over an\n"
-                         f"  author's: {exc}")
-    return {f for seen in graph.values() for f in seen.get("rewritten", ())}
+        return set(read('sync.rewritten',_HERE.parent/'graph.json'))
+    except ValueError as exc:
+        raise SystemExit(str(exc)) from None
 
 
-def _labels(raw: str) -> list:
-    """Canonical labels in a comma- or whitespace-separated command-line slice."""
-    out = []
-    for item in re.split(r"[\s,]+", raw.strip()):
-        if not item:
-            continue
-        out.append(item if item.startswith("//") else f"//:{item.lstrip(':')}")
-    return sorted(set(out))
+def _labels(raw):
+    return _native('sync.labels',raw=raw)
 
 
-def _targets(labels=()) -> dict:
-    """`{bazel output path: tree path}` for an explicit slice, or the complete build."""
-    # `affected.py` already returns every reached producer. Expanding those labels through
-    # deps asks for unrelated sibling outputs of dependency actions when the build consumed
-    # only one output-file label; Bazel correctly need not materialize those siblings.
-    query = (f"set({' '.join(labels)})" if labels else "deps(//:everything)")
-    q = subprocess.run(["bazel", "cquery", query, "--output=files"],
-                       cwd=str(_ROOT), capture_output=True, text=True)
-    # A GRAPH THAT DOES NOT LOAD IS NOT A TREE THAT IS STALE. An unanswerable query and a
-    # tree nobody has built for come back the same way — no outputs — and reporting the
-    # second sends a reader to look at geometry when what failed was `BUILD.bazel`.
+def _targets(labels=()):
+    query = f"set({' '.join(labels)})" if labels else 'deps(//:everything)'
+    q = subprocess.run(['bazel','cquery',query,'--output=files'],cwd=str(_ROOT),capture_output=True,text=True)
     if q.returncode != 0:
-        first = next((ln for ln in q.stderr.splitlines() if ln.startswith("ERROR")), "")
-        raise SystemExit(f"  the build graph does not load, so nothing here can be read\n"
-                         f"  {first}")
-    out, claimed, collided = {}, {}, set()
-    for line in q.stdout.split():
-        m = _DECLARED.search(line)
-        if not m:
-            continue
-        hit = m.group(1)
-        if hit in ACTION_INTERMEDIATE:
-            continue
-        # TWO ACTIONS CUTTING ONE FILE is a file that cannot be carried into a tree, because
-        # the second copy decides and the first is lost. Named here rather than resolved —
-        # and it is ONE FILE. Refusing the whole carry over it held every other solid out of
-        # the tree, out of the lock and off the site, so that one is dropped from the carry
-        # (the tree keeps what it has for it) and the rest go through.
-        if hit in claimed:
-            print(f"  {hit} is cut by two targets: {claimed[hit]} and {line}")
-            print("  — carried by neither; the tree keeps the copy it holds.")
-            collided.add(hit)
-            continue
-        claimed[hit] = line
-        out[str(_ROOT / line)] = hit
-    return {built: tree for built, tree in out.items() if tree not in collided}
+        first = next((line for line in q.stderr.splitlines() if line.startswith('ERROR')),'')
+        raise SystemExit(f"  the build graph does not load, so nothing here can be read\n  {first}")
+    result = _native('sync.targets',root=str(_ROOT),stdout=q.stdout,intermediate=ACTION_INTERMEDIATE)
+    print(result['output'],end='')
+    return result['pairs']
 
 
 
 
-def _managed(text: str, suffix: str, names=None) -> list:
-    """The `(start, end)` slices of `text` a substituter rewrites markers inside.
-
-    The three scopes `docgen` writes through, and no wider: a markdown file whole; a mermaid
-    chart's `%%` comment lines alone, because a marker in a node or edge label would DRAW and
-    `substitute_mmd` leaves it standing; a Python file's `#` comments plus any string that
-    already carries one of `names`, which is how `substitute_py_comments` reaches a docstring
-    without ever touching functional string data. `names=None` asks for every string instead,
-    which is what reading a file's figures out of it wants — see `_figures`.
-
-    A `.py` the tree holds mid-edit does not tokenize, and nothing is carried into a file this
-    cannot read — the generator that owns it fails on the same text, and says so.
-    """
-    if suffix == ".md":
-        return [(0, len(text))]
-
-    starts, run = [], 0
-    for line in text.splitlines(keepends=True):
-        starts.append(run)
-        run += len(line)
-
-    if suffix == ".mmd":
-        return [(at, at + len(line))
-                for at, line in zip(starts, text.splitlines(keepends=True))
-                if line.lstrip().startswith("%%")]
-
-    spans = []
-    try:
-        for tok in tokenize.generate_tokens(io.StringIO(text).readline):
-            if tok.type == tokenize.COMMENT or (
-                    tok.type == tokenize.STRING
-                    and (names is None
-                         or any(m.group(2) in names for m in _LINK.finditer(tok.string)))):
-                spans.append((starts[tok.start[0] - 1] + tok.start[1],
-                              starts[tok.end[0] - 1] + tok.end[1]))
-    except (tokenize.TokenError, SyntaxError, IndentationError, IndexError):
-        return []
-    return spans
+def _managed(text,suffix,names=None):
+    return [tuple(span) for span in _native('sync.managed',text=text,suffix=suffix,names=names)]
 
 
-def _figures(text: str, suffix: str) -> dict:
-    """`{NAME: value}` for every marker standing in a scope a substituter writes.
-
-    READ WHERE THE WRITE REACHES AND NO FURTHER. `[^\\]]*` crosses newlines, so a bare `[`
-    typed in prose — `reservoir.py` opens a docstring with a literal `` `[` `` — runs on until
-    some later `](NAME)` closes it, and swallows every line between as that name's value. One
-    comment line and one string literal are each read alone, which is the length such a match
-    can reach in a file `docgen` rewrites through comments and strings.
-    """
-    out = {}
-    for start, end in _managed(text, suffix):
-        for m in _LINK.finditer(text[start:end]):
-            out[m.group(2)] = m.group(1)
-    return out
+def _figures(text,suffix):
+    return _native('sync.figures',text=text,suffix=suffix)
 
 
-def carried(built: str, tracked: str, suffix: str) -> str:
-    """`tracked` holding the figures `built` decided, and nothing else that `built` holds.
-
-    A NAME the build does not carry stays where it stands: a marker somebody has just typed is
-    filled by the build that next reads the file, and by nothing before it.
-    """
-    figures = _figures(built, suffix)
-
-    def fill(match: re.Match) -> str:
-        name = match.group(2)
-        return f"[{figures[name]}]({name})" if name in figures else match.group(0)
-
-    # Highest offset down, so an earlier slice can never shift a span not yet rewritten.
-    out = tracked
-    for start, end in sorted(set(_managed(tracked, suffix, figures)), reverse=True):
-        out = out[:start] + _LINK.sub(fill, out[start:end]) + out[end:]
-
-    # THE SOURCES SECTION IS THE BUILD'S TOO. It lists one bullet per script that keeps the
-    # file's markers, and `inventory._together` puts every such script in the one step that
-    # cuts the file — so the built section is the whole list, and carrying it whole is
-    # carrying what ran.
-    if suffix == ".md":
-        theirs, ours = _SOURCES.search(built), _SOURCES.search(out)
-        if theirs and ours:
-            out = out[:ours.start()] + theirs.group(0) + out[ours.end():]
-        elif theirs:
-            out = out.rstrip() + "\n\n" + theirs.group(0)
-    return out
+def carried(built,tracked,suffix):
+    return _native('sync.carried',built=built,tracked=tracked,suffix=suffix)
 
 
-def main() -> int:
+def main():
     ap = argparse.ArgumentParser(description=__doc__)
-    ap.add_argument("--write", action="store_true", help="copy what differs into the tree")
-    ap.add_argument("--failed", default="", metavar="TARGET[,TARGET…]",
-                    help="targets that failed this run; their outputs are not carried")
-    ap.add_argument("--targets", default="", metavar="TARGET[,TARGET…]",
-                    help="carry these explicitly built producers; default: //:everything")
+    ap.add_argument('--write',action='store_true',help='copy what differs into the tree')
+    ap.add_argument('--failed',default='',metavar='TARGET[,TARGET…]',help='targets that failed this run; their outputs are not carried')
+    ap.add_argument('--targets',default='',metavar='TARGET[,TARGET…]',help='carry these explicitly built producers; default: //:everything')
     scope = ap.add_mutually_exclusive_group()
-    scope.add_argument("--solids-only", "--runtime-only", dest="runtime_only",
-                       action="store_true",
-                       help="carry publishable viewer outputs, leaving derived work in bazel-bin")
-    scope.add_argument("--derived-only", action="store_true",
-                       help="carry docs and media, retaining publisher-owned models and metadata")
-    ap.add_argument("--stage", action="store_true",
-                    help="stage derived changes and retain the committed model cohort; requires --derived-only")
+    scope.add_argument('--solids-only','--runtime-only',dest='runtime_only',action='store_true',help='carry publishable viewer outputs, leaving derived work in bazel-bin')
+    scope.add_argument('--derived-only',action='store_true',help='carry docs and media, retaining publisher-owned models and metadata')
+    ap.add_argument('--stage',action='store_true',help='stage derived changes and retain the committed model cohort; requires --derived-only')
     args = ap.parse_args()
     if args.stage:
         if not args.derived_only or args.write or args.failed or args.targets:
-            ap.error("--stage is used only with --derived-only")
+            ap.error('--stage is used only with --derived-only')
         return stage_derived()
-    failed = {t.strip().lstrip("/").lstrip(":") for t in args.failed.split(",") if t.strip()}
+    failed = _native('sync.failed_labels',raw=args.failed)
     labels = _labels(args.targets)
-
-    # A BUILD THAT DID NOT FINISH LEAVES THE LAST ONE'S OUTPUTS STANDING. Bazel keeps what a
-    # target cut the last time it succeeded, so a failed build's `bazel-bin` is a mix of what
-    # this run made and what some earlier run made — and carrying that into the tree writes
-    # stale bytes over files somebody just got right. Which is not a wrong reading to fix
-    # later: it is the one move here that cannot be taken back.
-    #
-    # `--check_up_to_date` answers whether every output is the one its declared inputs make,
-    # runs no action, and costs a graph read. Only `--write` is held: reporting what differs
-    # against a half-built tree is still worth reading, and it changes nothing.
     if args.write:
-        q = subprocess.run(["bazel", "build", "--check_up_to_date",
-                            *(labels or ["//:everything"])],
-                           cwd=str(_ROOT), capture_output=True, text=True)
-        owed = [ln for ln in q.stderr.splitlines() if "not up-to-date" in ln]
-        # THE WORKSPACE STATUS ACTION IS NEVER UP TO DATE AND NEVER CAN BE. Bazel re-runs
-        # `BazelWorkspaceStatusAction` on every invocation because it is what captures the
-        # volatile facts a build could stamp, so `--check_up_to_date` names it whether or not
-        # anything else moved. It writes `stable-status.txt` and nothing in `graph.json`
-        # declares it, so it is not a file this carries and its staleness says nothing about
-        # the outputs that are. Held out by name, and everything else still refuses.
-        stale = [ln for ln in owed if "BazelWorkspaceStatusAction" not in ln]
-        # A TARGET NAMED `--failed` IS STALE BY DEFINITION, and its outputs are held back below,
-        # so its own line is no reason to refuse the carry of every target that did build.
-        stale = [ln for ln in stale
-                 if not ((m := re.search(r"//:([^\s']+)", ln)) and m.group(1) in failed)]
-        # AND A NON-ZERO EXIT THAT NAMED NOTHING IS STILL A REFUSAL. `--check_up_to_date` runs
-        # no action, so a failure carrying no `not up-to-date` line is bazel unable to answer —
-        # a broken graph, a missing input — which is not permission to carry.
-        if q.returncode != 0 and (stale or not owed):
-            print("  the build is not up to date, so what is in bazel-bin is not what these\n"
-                  "  sources make — carrying it into the tree would write stale bytes over\n"
-                  "  whatever is there. Build the requested target slice first.")
-            for ln in (stale or owed)[:5]:
-                print(f"  {ln.strip()}")
-            if len(stale or owed) > 5:
-                print(f"  …and {len(stale or owed) - 5} more")
+        q = subprocess.run(['bazel','build','--check_up_to_date',*(labels or ['//:everything'])],cwd=str(_ROOT),capture_output=True,text=True)
+        proof = _native('sync.freshness',failed=failed,status=q.returncode,stderr=q.stderr)
+        if proof['refused']:
+            print(proof['output'],end='')
             return 1
-
-    pairs = _targets(labels)
-    if args.runtime_only:
-        pairs = {built: tree for built, tree in pairs.items() if _runtime_output(tree)}
-    if args.derived_only and pairs:
-        selected = {built: tree for built, tree in pairs.items() if not _publisher_owned(tree)}
-        print(f"  {len(pairs) - len(selected)} publisher-owned output(s) left in the tree")
-        pairs = selected
-        if not pairs:
-            print("  no derived outputs in the requested slice")
-            return 0
-    if not pairs:
-        print("  nothing built — run the requested `bazel build` first")
-        return 1
-
-    # A TARGET THAT FAILED THIS RUN STILL HAS THE OUTPUTS OF THE LAST RUN THAT DID NOT. Bazel
-    # keeps those, and `--check_up_to_date` answers about inputs rather than about whether an
-    # action ran, so it calls them current — a red build reads up to date and its stale bytes
-    # are carryable. The path names the target it came from (`/bin/out/<target>/…`), so what
-    # is held back is those outputs and nothing else: every green target still owes its own.
-    if failed:
-        held = {b: t for b, t in pairs.items()
-                if (m := re.search(r"/bin/out/([^/]+)/", b)) and m.group(1) in failed}
-        pairs = {b: t for b, t in pairs.items() if b not in held}
-        print(f"  {len(held)} output(s) held back, cut by {len(failed)} target(s) that failed "
-              f"this run: {', '.join(sorted(failed))}")
-
-    back = _rewritten()
-    differs, missing, unknown = [], [], []
-    for built, tracked in sorted(pairs.items()):
-        b, t = Path(built), _ROOT / tracked
-        spliceable = tracked in back and t.suffix in _SPLICE
-        if not b.is_file():
-            missing.append(tracked)
-        # A MEDIUM READ BACK OVER THAT NOTHING HERE CAN SPLICE is left where it stands. The
-        # copy that would replace it holds the text the build was handed, and handing that to
-        # the tree is the one move this cannot take back.
-        elif tracked in back and not spliceable and not _whole_rewritten(tracked):
-            unknown.append(tracked)
-        # WHAT DIFFERS IS WHAT A WRITE WOULD CHANGE — every byte of a solid, and of a spliceable
-        # file its figures alone. One reading for both, so a tree that reports clean is a tree
-        # `--write` would leave where it is.
-        elif spliceable and t.is_file():
-            text = t.read_text()
-            want = carried(b.read_text(), text, t.suffix)
-            if want != text:
-                differs.append((b, t, tracked, want))
-        elif not t.is_file() or not filecmp.cmp(b, t, shallow=False):
-            differs.append((b, t, tracked, None))
-
-    for _b, _t, rel, _want in differs[:20]:
-        print(f"  {rel}")
-    if len(differs) > 20:
-        print(f"  …and {len(differs) - 20} more")
-    for rel in unknown:
-        print(f"  {rel} is read back over and {Path(rel).suffix} has no splice here — left "
-              f"alone rather than carried whole")
-
-    if args.write:
-        for b, t, _rel, want in differs:
-            t.parent.mkdir(parents=True, exist_ok=True)
-            if want is None:
-                # THE BYTES AND NOT THE MODE. Bazel leaves an output read-only and executable,
-                # and a copy that carries that over hands the tree a file its own generator
-                # cannot rewrite and git a mode change nobody made. `copyfile` keeps the mode
-                # the tree already has.
-                shutil.copyfile(b, t)
-            else:
-                t.write_text(want)
-        print(f"{len(differs)} carried into the tree"
-              + (f", {len(missing)} declared output(s) absent" if missing else ""))
-        # AND CARRYING IS NOT A FAULT. `differs` is the work this mode exists to do, so by the
-        # line above it is the work DONE. Sharing `--check`'s exit with it meant `--write`
-        # could only ever report success on a run with nothing to carry: derive 32480943980
-        # moved 53 files and came back 1, and `derive.yml` reads that as
-        # `sync_tree carried nothing` and warns that every step below it read the fetch.
-        # What is left undone is `unknown`, or an output the requested build never produced.
-        # Either makes the carry incomplete even when every available difference was copied.
-        return 0 if not unknown and not missing else 1
-    print(f"{len(pairs) - len(differs) - len(missing) - len(unknown)}/{len(pairs)} artifacts "
-          f"in the tree are the ones the build cut"
-          + (f", {len(missing)} not built" if missing else "")
-          + (f", {len(unknown)} with no splice" if unknown else ""))
-    # A CARRY THAT HAPPENED IS NOT A DIFFERENCE THAT REMAINS. `differs` is what the tree was
-    # missing when the comparison ran; under `--write` those files have just been written into
-    # it, so the tree now holds what the build cut. What is still owed either way is `unknown`
-    # — a rewritten medium with no carry in the table, which nothing here can hand over.
-    return 0 if not unknown and not missing and (args.write or not differs) else 1
+    scoped = _native('sync.carry',root=str(_ROOT),pairs=_targets(labels),runtime_only=args.runtime_only,derived_only=args.derived_only,scope_only=True)
+    print(scoped['output'],end='')
+    if scoped['status'] is not None:
+        return scoped['status']
+    result = _native('sync.carry',root=str(_ROOT),pairs=scoped['pairs'],rewritten=_rewritten(),failed=failed,write=args.write)
+    print(result['output'],end='')
+    return result['status']
 
 
 def selftest() -> int:

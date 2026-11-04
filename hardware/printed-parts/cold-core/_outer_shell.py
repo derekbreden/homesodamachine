@@ -1,169 +1,22 @@
-"""Outer rectangular cup (floor + four perimeter walls) with a cylindrical boss at
-every `attachment_stations` station and their heat-set insert pockets. Exterior
-corners rounded; each corner boss seated in the corner with its ⌀ tangent to the
-exterior wall arc, two short webs filling to the flanking flat walls — the
-cylinder + corner-fill teardrop idiom of the reservoir pocket-corner supports."""
+'Outer rectangular cup (floor + four perimeter walls) with a cylindrical boss at\nevery `attachment_stations` station and their heat-set insert pockets. Exterior\ncorners rounded; each corner boss seated in the corner with its ⌀ tangent to the\nexterior wall arc, two short webs filling to the flanking flat walls — the\ncylinder + corner-fill teardrop idiom of the reservoir pocket-corner supports.'
+from __future__ import annotations
 
-import cadquery as cq
-from world_workplane import WorldWorkplane, xy_plane_z_up
-import fits
-from _cold_core_interface import (
-    attachment_stations,
-    seam_channel_depth,
-    seam_channel_width,
-    outer_shell_wall,
-    wall_and_floor_thickness,
-    foam_shell_outer_height,
-    foam_shell_rim_z,
-    outer_shell_x_length,
-    outer_shell_y_length,
-    attachment_xy_positions,
-    screw_boss_size,
-    screw_guard_diameter,
-    screw_clearance_radius,
-    bottom_screw_bore_depth,
-    top_screw_bore_depth,
-    corner_round_radius,
-    insert_pocket_radius,
-    insert_pocket_depth,
-    make_box,
-)
+import sys as _sys
+from pathlib import Path as _Path
 
+_hardware = next(p for p in _Path(__file__).resolve().parents if p.name == "hardware")
+_sys.path[:0] = [str(_hardware / "scripts"), str(_hardware / "cold-core-layout")]
+from _cold_core_data import compiled as _compiled, member as _member
 
-def _rounded_footprint(height):
-    """The outer footprint with rounded corners, extruded to `height`."""
-    return (
-        WorldWorkplane(xy_plane_z_up)
-        .workplane(offset=0)
-        .rect(outer_shell_x_length, outer_shell_y_length)
-        .extrude(height)
-        .edges("|Z")
-        .fillet(corner_round_radius)
-    )
+def __getattr__(name):
+    if name == "__all__":
+        return _compiled('_outer_shell', action="public-names")
+    try:
+        return _member('_outer_shell', name)
+    except ValueError as error:
+        raise AttributeError(name) from error
 
-
-def cavity_plan(z0, z1, wall=None):
-    """The cup's cavity in plan between two heights — the footprint inset by `wall`, on the
-    concentric inner round a shell of that thickness leaves."""
-    w = outer_shell_wall if wall is None else wall
-    return (
-        WorldWorkplane(xy_plane_z_up)
-        .workplane(offset=z0)
-        .rect(outer_shell_x_length - 2 * w, outer_shell_y_length - 2 * w)
-        .extrude(z1 - z0)
-        .edges("|Z")
-        .fillet(corner_round_radius - w)
-    )
-
-
-def trim_cup_floor(cup, z0, z1, wall=None):
-    """Remove surplus closed-end stock while retaining the cup's vertical walls."""
-    return cup.cut(cavity_plan(z0, z1, wall=wall))
-
-
-def build_attachment_bosses(height, oversize=0.0, diameter=None):
-    """The ⌀screw_boss_size cylindrical boss + teardrop corner-fill webs at each station in
-    `attachment_stations`, extruded to `height` and trimmed flush to the rounded footprint.
-    Shared by the outer shell and the foam-cap stack; lid pads and their
-    receiving pockets apply their own growth to this base section.
-
-    `oversize` grows the section in the plane by that much on every free side.
-    A cap's mouth-end relief is the lid pad it receives, one slip oversize; the
-    footprint trim is common to both, so the two stay flush where they reach
-    the outer skin and clear each other everywhere they do not.
-
-    The webs are the cylinder + corner-fill idiom of the reservoir
-    pocket-corner supports: each is one boss radius wide off the boss center
-    (tangent to the boss circle) and runs out past the wall, filling the
-    crescent where the circle pulls off the flat wall. A corner boss sits
-    against two walls (a far ±X and an end ±Y wall) and gets a web toward
-    each, diagonal-inboard quadrant left open for foam; a mid-side boss sits
-    against one wall and gets a single web toward it (a D: flat to the wall,
-    round toward the foam).
-
-    WHICH WALL A BOSS LEANS ON IS THE STATION'S OWN, read off `attachment_stations` and never
-    off the sign of its coordinates. A station centred on a ±X wall stands at y = 0, where
-    that sign is neither — and a web run to a wall picked by it would sweep the whole half of
-    the shell between the boss and that wall, which unions in silently and reads only as a
-    part that came out heavy."""
-    r = (screw_boss_size if diameter is None else diameter) / 2 + oversize
-    corner_x = outer_shell_x_length / 2
-    corner_y = outer_shell_y_length / 2
-    bosses = (
-        WorldWorkplane(xy_plane_z_up)
-        .workplane(offset=0)
-        .pushPoints(attachment_xy_positions)
-        .circle(r)
-        .extrude(height)
-    )
-    for (cx, cy), wall in attachment_stations:
-        boss_webs = None
-        # The web toward this boss's ±Y wall — every boss but a ±X wall's own sits against one.
-        if wall in ("corner", "y"):
-            y_sign = 1 if cy > 0 else -1
-            boss_webs = make_box((cx - r, cx + r), (cy, y_sign * corner_y), (0.0, height))
-        # A corner boss also sits against a far ±X wall, and a ±X station sits against one alone.
-        if wall in ("corner", "x"):
-            x_sign = 1 if cx > 0 else -1
-            web = make_box((cx, x_sign * corner_x), (cy - r, cy + r), (0.0, height))
-            boss_webs = web if boss_webs is None else boss_webs.union(web)
-        bosses = bosses.union(boss_webs)
-    return bosses.intersect(_rounded_footprint(height).unwrap())
-
-
-def fold_seam_channel(shell):
-    """The seam channel down the +Y flank's centre line, end face to end face.
-
-    The flank gives up the channel and the wall's inner face takes the same depth back over
-    the channel's width plus one section either side, so every horizontal section through the
-    fold is still `outer_shell_wall` thick."""
-    face_y = outer_shell_y_length / 2.0
-    floor_y = face_y - seam_channel_depth
-    half = seam_channel_width / 2.0
-    h = foam_shell_rim_z
-    fold = make_box((-half - outer_shell_wall, half + outer_shell_wall),
-                    (floor_y - outer_shell_wall, floor_y), (0.0, h))
-    channel = make_box((-half, half), (floor_y, face_y + 1.0), (-1.0, h + 1.0))
-    return shell.union(fold).cut(channel)
-
-
-def build_outer_shell():
-    """Continuous standing walls, fixed floor, cap attachment bosses and the seam channel."""
-    h = foam_shell_rim_z
-    shell = _rounded_footprint(h).cut(cavity_plan(wall_and_floor_thickness, h))
-
-    hosts = build_attachment_bosses(h, diameter=screw_guard_diameter)
-    return fold_seam_channel(shell.union(hosts)).unwrap()
-
-
-def cut_insert_pockets(foam_shell):
-    """M5 insert pilots at both shell faces, with blind passages for the tails."""
-    def insert_pockets_at(z_floor, depth=insert_pocket_depth):
-        return (
-            WorldWorkplane(xy_plane_z_up)
-            .workplane(offset=z_floor)
-            .pushPoints(attachment_xy_positions)
-            .circle(insert_pocket_radius)
-            .extrude(depth)
-        )
-    # Bottom-facing blind ends narrow at 0.5 mm per millimetre of build rise.
-    # Full cylindrical pilot and screw-tip clearances end before each taper.
-    bottom_pockets = insert_pockets_at(0, insert_pocket_depth + fits.supported_surface).unwrap()
-    top_pockets = insert_pockets_at(foam_shell_rim_z - insert_pocket_depth).unwrap()
-    def tails(z0, depth):
-        return (WorldWorkplane(xy_plane_z_up).workplane(offset=z0)
-                .pushPoints(attachment_xy_positions).circle(screw_clearance_radius)
-                .extrude(depth)).unwrap()
-    def taper(z0, lower_radius, upper_radius):
-        height = 2.0 * (lower_radius - upper_radius)
-        return cq.Compound.makeCompound([
-            cq.Solid.makeCone(lower_radius, upper_radius, height,
-                              cq.Vector(x, y, z0))
-            for x, y in attachment_xy_positions])
-    pilot_end = insert_pocket_depth + fits.supported_surface
-    tail_end = bottom_screw_bore_depth + fits.supported_surface
-    return (foam_shell.cut(bottom_pockets).cut(top_pockets)
-            .cut(tails(0.0, tail_end))
-            .cut(taper(pilot_end, insert_pocket_radius, screw_clearance_radius))
-            .cut(taper(tail_end, screw_clearance_radius, 0.0))
-            .cut(tails(foam_shell_rim_z - top_screw_bore_depth, top_screw_bore_depth)))
+if __name__ == "__main__":
+    import _rust_part
+    _rust_part.start()
+    _compiled('_outer_shell', action="main")

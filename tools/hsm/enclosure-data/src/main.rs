@@ -1,12 +1,15 @@
 #![recursion_limit = "512"]
-//! Scalar interfaces and leaf recipes for the enclosure's trim and display.
+//! Enclosure interfaces, construction recipes, measurements and reports.
 use anyhow::{Result, anyhow, ensure};
 use serde_json::{Map, Value, json};
-use std::io::{self, BufRead, Write};
+use std::io::{self, Write};
 
 mod pump_case;
 mod pump_tray;
 mod valve_tray;
+mod core_dimensions;
+mod core_profiles;
+mod compiled;
 
 fn f(v: &Value, key: &str) -> Result<f64> {
     v[key].as_f64().ok_or_else(|| anyhow!("{key} is numeric"))
@@ -427,7 +430,21 @@ fn labels(v: &Value) -> Result<Value> {
 }
 
 fn dispatch(v: &Value) -> Result<Value> {
+    if let Some(result) = hsm_documents::interop::native_object(v) {
+        return result;
+    }
     let op = text(v, "op")?;
+    if op == "compiled" {
+        let result = compiled::request(v);
+        compiled::register_io()?;
+        return result;
+    }
+    if op.starts_with("core-") {
+        return core_dimensions::dispatch(v);
+    }
+    if op.starts_with("swept-") {
+        return core_profiles::dispatch(v);
+    }
     if op.starts_with("pump-case-") {
         return pump_case::dispatch(v);
     }
@@ -688,15 +705,20 @@ fn dispatch(v: &Value) -> Result<Value> {
 }
 
 fn main() -> Result<()> {
+    hsm_documents::interop::set_dispatch(|value| dispatch(&value));
     let args: Vec<_> = std::env::args().skip(1).collect();
     if args == ["--serve"] {
         let stdout = io::stdout();
         let mut out = stdout.lock();
-        for line in io::stdin().lock().lines() {
-            let reply = serde_json::from_str::<Value>(&line?)
+        loop {
+            let mut line = String::new();
+            if io::stdin().read_line(&mut line)? == 0 {
+                break;
+            }
+            let reply = serde_json::from_str::<Value>(&line)
                 .map_err(anyhow::Error::from)
                 .and_then(|v| dispatch(&v))
-                .unwrap_or_else(|e| json!({"error":e.to_string()}));
+                .unwrap_or_else(|e| json!({"error":format!("{e:#}")}));
             serde_json::to_writer(&mut out, &reply)?;
             writeln!(out)?;
             out.flush()?;

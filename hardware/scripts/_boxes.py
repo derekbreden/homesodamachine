@@ -40,7 +40,8 @@ _DIR = _realized._ROOT / ".cache" / "boxes"
 # Six numbers apiece, so what is kept here is the count of distinct placed bodies this tree has
 # ever drawn rather than anything that grows with the machine. The least recently read go once
 # the pile passes this, as `_meshes` does it.
-KEEP_BYTES = 1 << 24
+from _shared_data import call as _rust_scalar
+KEEP_BYTES = _rust_scalar('scalar.constants',group='boxes')['KEEP_BYTES']
 _pruned = False
 
 

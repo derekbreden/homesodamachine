@@ -7,14 +7,12 @@ original part envelope remain the limits of each fill.
 import math
 import cadquery as cq
 
-OUTWARD_PER_HEIGHT = .5
+from _scalar_provider import call as _rust_scalar
+globals().update(_rust_scalar('scalar.constants',group='overhang_round'))
 
 
 def transition(radius):
-    slope = OUTWARD_PER_HEIGHT
-    height = radius-radius*slope/math.sqrt(1+slope*slope)
-    inset = radius-radius/math.sqrt(1+slope*slope)
-    return height,inset+slope*height
+    return tuple(_rust_scalar('scalar.transition',radius=radius))
 
 
 def pocket_rim(before, x_face, inward, y0, y1, z0, roof, corner, radius, floor=True):

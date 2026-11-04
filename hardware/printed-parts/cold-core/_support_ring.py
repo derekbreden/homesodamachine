@@ -1,65 +1,22 @@
-"""Annular ring sitting at the bottom of the foam-shell's central
-zone, holding the carbonator up by its outer rim. The ring's outer face sits
-on the carbonator+coil envelope — inboard of the reservoir pockets' centerward
-wall, which stands off from it by the cylinder's foam blanket."""
+"Annular ring sitting at the bottom of the foam-shell's central\nzone, holding the carbonator up by its outer rim. The ring's outer face sits\non the carbonator+coil envelope — inboard of the reservoir pockets' centerward\nwall, which stands off from it by the cylinder's foam blanket."
+from __future__ import annotations
 
-import cadquery as cq
+import sys as _sys
+from pathlib import Path as _Path
 
-from _cold_core_interface import (
-    xz_plane_y_down,
-    wall_and_floor_thickness,
-    carbonator_coil_envelope_radius,
-    carbonator_support_ring_height,
-    support_ring_radial_width,
-)
+_hardware = next(p for p in _Path(__file__).resolve().parents if p.name == "hardware")
+_sys.path[:0] = [str(_hardware / "scripts"), str(_hardware / "cold-core-layout")]
+from _cold_core_data import compiled as _compiled, member as _member
 
+def __getattr__(name):
+    if name == "__all__":
+        return _compiled('_support_ring', action="public-names")
+    try:
+        return _member('_support_ring', name)
+    except ValueError as error:
+        raise AttributeError(name) from error
 
-slot_count = 4
-slot_angular_width = 30.0
-# The slots stand between the diagonals and are clocked off them, so the two lines that cross
-# the ring under the carbonator each cross inside one: the CO2's lean in from the port lane,
-# which keeps outboard of reservoir A's pocket corner, and the carbonated water's climb out
-# (`_port_cuts.co2-inlet-slot`, `water-outlet-slot`).
-slot_clock = -8.0
-# Slot overruns each ring face radially.
-slot_radial_margin = 1.0
-
-
-def revolve_rect(r_range, z_range, angle=360):
-    """Rectangular (r, z) profile on the XZ plane (first coord is radius),
-    revolved `angle` degrees about +Z from the +X axis."""
-    r_min, r_max = min(r_range), max(r_range)
-    z_min, z_max = min(z_range), max(z_range)
-    return (
-        cq.Workplane(xz_plane_y_down)
-        .moveTo(r_min, z_min)
-        .lineTo(r_max, z_min)
-        .lineTo(r_max, z_max)
-        .lineTo(r_min, z_max)
-        .lineTo(r_min, z_min)
-        .wire()
-        .revolve(angle)
-    )
-
-
-def build_carbonator_support_ring():
-    """Annular ring with equal-spaced angular slots cut through it; slot
-    boundaries lie on the same cylinders as the ring faces."""
-    r_outer = carbonator_coil_envelope_radius
-    r_inner = r_outer - support_ring_radial_width
-    z_bottom = wall_and_floor_thickness
-    z_top = z_bottom + carbonator_support_ring_height
-
-    ring_r_range = (r_inner, r_outer)
-    ring_z_range = (z_bottom, z_top)
-    slot_r_range = (r_inner - slot_radial_margin, r_outer + slot_radial_margin)
-
-    ring = revolve_rect(ring_r_range, ring_z_range)
-    slot_spacing_angle = 360 / slot_count
-    slot_template = revolve_rect(slot_r_range, ring_z_range, slot_angular_width)
-    for i in range(slot_count):
-        slot_center_angle = slot_spacing_angle * (i + 0.5) + slot_clock
-        slot_start_angle = slot_center_angle - slot_angular_width / 2
-        slot = slot_template.rotate((0, 0, 0), (0, 0, 1), slot_start_angle)
-        ring = ring.cut(slot)
-    return ring
+if __name__ == "__main__":
+    import _rust_part
+    _rust_part.start()
+    _compiled('_support_ring', action="main")

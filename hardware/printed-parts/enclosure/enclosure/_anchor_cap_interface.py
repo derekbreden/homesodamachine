@@ -22,210 +22,45 @@ end rather than from the axis plane. That length is what sets its strain going o
 THE CAP IS CUT FOR THE 1/4" TUBE'S SEAT AND PRINTS STANDING ON ITS END. Every layer is the
 whole section, so the wings bend along their extrusion lines, and no face overhangs.
 """
-import math
-import sys
-from pathlib import Path
+from __future__ import annotations
 
-_HERE = Path(__file__).resolve().parent
-sys.path.insert(0, str(_HERE))
-sys.path.insert(0, str(_HERE.parents[1] / "cadlib"))
-import _enclosure_interface as dims  # noqa: E402
-import fits  # noqa: E402
+import sys as _sys
+from pathlib import Path as _Path
 
-WALL = dims.wall
-# The tube every capped anchor holds, and the seat the rib bores for it.
-TUBE_OD = 6.35
-SEAT_R = TUBE_OD / 2.0 + fits.slip
-RIB_R = SEAT_R + WALL                   # the rib's half-width, the tie rib's own
-# Along the tube: the cap, its end air to each window end, and the rib's end webs past those.
-# One cap closes every capped crossing, so its rib has to stand whole on the shortest straight
-# among them: `co2-2`'s 16.85 mm between its two R14 bends.
-CAP_LEN = 10.0
-END_AIR = fits.slip
-WINDOW_LEN = CAP_LEN + 2.0 * END_AIR
-END_WEB = WALL
-RIB_LEN = WINDOW_LEN + 2.0 * END_WEB
-# The section.
-SADDLE = 2.5                            # the cap's half pipe, bore to the wing gap
-WING = 1.5                              # each spring wing
-WING_AIR = fits.slip                    # wing to rib flank
-ENGAGE = 1.2                            # the lip's reach off its wing, the faucet cover's engagement
-LIP_TIP = 0.9                           # the straight face at the lip's tip
-LEAD_IN = 30.0                          # the lip's ramp, degrees off the push
-WING_TOP = 10.3                         # the wings' tops above the axis plane
-CAVITY_DEG = 36.0                       # how far round the half pipe the wing gap runs
-MOUTH = 0.45                            # the cap bore's eased edges...
-MOUTH_DEG = 10.0                        # ...run out this far round the bore
-RIB_CHAMFER = 0.8                       # the rib's outer bottom edges, where the lips ride on
-HEADROOM = 0.6                          # wing top to the face the rib roots on
+_hardware = next(p for p in _Path(__file__).resolve().parents if p.name == "hardware")
+_sys.path[:0] = [str(_hardware / "scripts"), str(_hardware / "printed-parts/enclosure/enclosure"), str(_hardware / "printed-parts/cadlib")]
+import _rust_part
+_rust_part.start()
+from _enclosure_compiled import compiled as _compiled
 
-RAMP_H = ENGAGE / math.tan(math.radians(LEAD_IN))
-LIP_H = LIP_TIP + RAMP_H
-LIP_B = WING_TOP - LIP_H                # the lip's flat retention face
-WING_IN = RIB_R + WING_AIR
-WING_OUT = WING_IN + WING
-SADDLE_R = SEAT_R + SADDLE
-CAVITY = WING_IN - SADDLE_R             # `WALL + WING_AIR - SADDLE`, whatever the seat
-# The window: deep enough for the lip's whole engagement with a slip and the bridged roof's
-# finish allowance beyond it, from the bearing face a slip and that allowance under the seated
-# lip up to where the flank ends (`window_top`), which is past a slip over where the lip's ramp
-# crosses the flank (`WINDOW_B1`).
-BEARING_PLAY = fits.slip + fits.supported_surface
-WINDOW_DEPTH = ENGAGE + fits.slip + fits.supported_surface
-WINDOW_B0 = LIP_B - BEARING_PLAY
-WINDOW_B1 = LIP_B + LIP_TIP + (ENGAGE - WING_AIR) / ENGAGE * RAMP_H + fits.slip
-# The wing room a root face standing inside the wings' reach gives up: the wing, the spread its
-# lip makes passing the flank, and a slip either side, to `HEADROOM` over the wing tops.
-SLOT_W = WING_AIR + WING + ENGAGE + 2.0 * fits.slip
-SLOT_TOP = WING_TOP + HEADROOM
-
+_rust_enclosure_module = '_anchor_cap_interface'
 
 class Frame:
-    """An anchor's frame: `mid` on the tube's axis at the rib's centre, `u` along the tube, `n`
-    toward the root face."""
-
-    def __init__(self, mid, u, n):
-        self.mid = tuple(float(c) for c in mid)
-        self.u = tuple(float(c) for c in u)
-        self.n = tuple(float(c) for c in n)
-        u_, n_ = self.u, self.n
-        self.t = (n_[1] * u_[2] - n_[2] * u_[1], n_[2] * u_[0] - n_[0] * u_[2],
-                  n_[0] * u_[1] - n_[1] * u_[0])
-
-    def point(self, a, b, s=0.0):
-        return tuple(self.mid[k] + a * self.t[k] + b * self.n[k] + s * self.u[k] for k in range(3))
-
-    def plane(self, s):
-        """The section plane `s` along the tube; its x is `t` and its y comes out as `n`."""
-        import cadquery as cq
-        return cq.Plane(origin=cq.Vector(*self.point(0.0, 0.0, s)), xDir=cq.Vector(*self.t),
-                        normal=cq.Vector(*self.u))
-
-    def prism(self, pts, s0, s1):
-        import cadquery as cq
-        return cq.Workplane(self.plane(s0)).polyline(pts).close().extrude(s1 - s0).val()
-
-    def section(self, start, segments, s0, s1):
-        """Lines ("L", p) and three-point arcs ("A", via, end) in (a, b), extruded s0..s1."""
-        import cadquery as cq
-        wp = cq.Workplane(self.plane(s0)).moveTo(*start)
-        for seg in segments:
-            wp = wp.lineTo(*seg[1]) if seg[0] == "L" else wp.threePointArc(seg[1], seg[2])
-        return wp.close().extrude(s1 - s0).val()
-
-    def bore(self, r, s0, s1):
-        import cadquery as cq
-        return cq.Solid.makeCylinder(r, s1 - s0, cq.Vector(*self.point(0.0, 0.0, s0)),
-                                     cq.Vector(*self.u))
-
-
-def _lip(side):
-    """A wing's lip: the flat retention face under it, the straight tip, and the ramp back out to
-    the wing's top inner corner, so no strip of the wing's inner face stands over the ramp."""
-    pts = [(WING_IN + 0.05, LIP_B), (WING_IN - ENGAGE, LIP_B), (WING_IN - ENGAGE, LIP_B + LIP_TIP),
-           (WING_IN, LIP_B + LIP_H), (WING_IN + 0.05, LIP_B + LIP_H)]
-    return [(side * a, b) for a, b in pts]
-
-
-def _cavity(frame, side, s0, s1):
-    """The gap between half pipe and wing, from above the axis plane `CAVITY_DEG` round the pipe
-    and round-ended there, so the wing's root is a full radius."""
-    t = math.radians(CAVITY_DEG)
-    r0, r1 = SADDLE_R, WING_IN
-    rm, rh = (r0 + r1) / 2.0, (r1 - r0) / 2.0
-    end = (rm * math.cos(t) - rh * math.sin(t), -rm * math.sin(t) - rh * math.cos(t))
-    pts = [("L", (r1, 0.5)), ("L", (r1, 0.0)),
-           ("A", (r1 * math.cos(t / 2), -r1 * math.sin(t / 2)), (r1 * math.cos(t), -r1 * math.sin(t))),
-           ("A", end, (r0 * math.cos(t), -r0 * math.sin(t))),
-           ("A", (r0 * math.cos(t / 2), -r0 * math.sin(t / 2)), (r0, 0.0))]
-    mirror = [(k, *[(side * p[0], p[1]) for p in rest]) for k, *rest in pts]
-    return frame.section((side * r0, 0.5), mirror, s0, s1)
-
-
-def cap(frame, seat_r=SEAT_R):
-    """The cap pushed home: its shoulders on the rib's lips at b = 0, centred on the station."""
-    s0, s1 = -CAP_LEN / 2.0, CAP_LEN / 2.0
-    ca, sa = math.cos(math.radians(MOUTH_DEG)), math.sin(math.radians(MOUTH_DEG))
-    body = frame.section((WING_IN, WING_TOP), [
-        ("L", (WING_OUT, WING_TOP)), ("L", (WING_OUT, 0.0)),
-        ("A", (0.0, -WING_OUT), (-WING_OUT, 0.0)),
-        ("L", (-WING_OUT, WING_TOP)), ("L", (-WING_IN, WING_TOP)), ("L", (-WING_IN, 0.0)),
-        ("L", (-seat_r - MOUTH, 0.0)), ("L", (-seat_r * ca, -seat_r * sa)),
-        ("A", (0.0, -seat_r), (seat_r * ca, -seat_r * sa)),
-        ("L", (seat_r + MOUTH, 0.0)), ("L", (WING_IN, 0.0)),
-    ], s0, s1)
-    for side in (1, -1):
-        body = body.fuse(frame.prism(_lip(side), s0, s1))
-    for side in (1, -1):
-        body = body.cut(_cavity(frame, side, s0 - 1.0, s1 + 1.0))
-    return body.clean()
-
-
-def rib(frame, b_root, seat_r=SEAT_R):
-    """The rib, root face to the axis plane, its seat bored and its outer bottom edges chamfered.
-    The windows are cut from the piece once the rib is fused (`windows`)."""
-    c = RIB_CHAMFER
-    body = frame.prism([(-RIB_R + c, 0.0), (RIB_R - c, 0.0), (RIB_R, c), (RIB_R, b_root),
-                        (-RIB_R, b_root), (-RIB_R, c)], -RIB_LEN / 2.0, RIB_LEN / 2.0)
-    return body.cut(frame.bore(seat_r, -RIB_LEN / 2.0 - 1.0, RIB_LEN / 2.0 + 1.0))
-
-
-def window_top(b_face):
-    """Where a window ends toward the root: where the flank it is cut in ends, so no band of
-    flank stands between the window and that face. That is the root face, or the top of the
-    wing room cut into it (`wing_room`), whose inner wall the flank runs on up."""
-    return SLOT_TOP if b_face < SLOT_TOP - HEADROOM / 2.0 else b_face
-
-
-def windows(frame, b_face):
-    """The two catch windows, each run out past its flank so the cut is clean, from its bearing
-    face to where the flank ends (`window_top`)."""
-    top = window_top(b_face)
-    out = []
-    for side in (1, -1):
-        a_in, a_out = side * (RIB_R - WINDOW_DEPTH), side * (RIB_R + 2.0)
-        out.append(frame.prism([(a_in, WINDOW_B0), (a_out, WINDOW_B0), (a_out, top),
-                                (a_in, top)], -WINDOW_LEN / 2.0, WINDOW_LEN / 2.0))
-    return out
-
-
-def wing_room(frame, b_face):
-    """Where the face the rib roots on stands inside the wings' reach, the slot each wing and
-    its spread take through that face, from a millimetre under it to `SLOT_TOP`. None where the
-    face leaves the wing tops at least half their `HEADROOM`, which no slot that shallow would
-    improve on."""
-    if b_face >= SLOT_TOP - HEADROOM / 2.0:
-        return []
-    out = []
-    for side in (1, -1):
-        a0, a1 = side * RIB_R, side * (RIB_R + SLOT_W)
-        out.append(frame.prism([(a0, b_face - 1.0), (a1, b_face - 1.0), (a1, SLOT_TOP),
-                                (a0, SLOT_TOP)], -WINDOW_LEN / 2.0, WINDOW_LEN / 2.0))
-    return out
-
-
-def wing_strain():
-    """Peak strain in a wing as its lip passes the flank, on the beam estimate: the wing fixed
-    at the gap's round end, loaded across at the middle of the lip's flat tip, deflected by
-    `ENGAGE`. delta = F/EI * integral(lever^2 ds); strain = F * max lever * (WING / 2) / EI."""
-    rm = (WING_IN + WING_OUT) / 2.0
-    load_b = LIP_B + LIP_TIP / 2.0
-    pts = [(rm * math.cos(-math.radians(CAVITY_DEG) * (1 - i / 40)),
-            rm * math.sin(-math.radians(CAVITY_DEG) * (1 - i / 40))) for i in range(41)]
-    pts += [(rm, load_b * i / 20) for i in range(1, 21)]
-    integral = sum((load_b - (p[1] + q[1]) / 2.0) ** 2 * math.dist(p, q) for p, q in zip(pts, pts[1:]))
-    lever = max(abs(load_b - p[1]) for p in pts)
-    return ENGAGE * lever * (WING / 2.0) / integral
-
-
-def wing_flex_len():
-    """The wing's length from the gap's round end to the middle of the lip's tip."""
-    rm = (WING_IN + WING_OUT) / 2.0
-    return rm * math.radians(CAVITY_DEG) + LIP_B + LIP_TIP / 2.0
-
+    def __init__(self, *args, **kwargs):
+        return _compiled('_anchor_cap_interface', path=('Frame.__init__',), args=(self, *args), kwargs=kwargs)
+    def point(self, *args, **kwargs):
+        return _compiled('_anchor_cap_interface', path=('Frame.point',), args=(self, *args), kwargs=kwargs)
+    def plane(self, *args, **kwargs):
+        return _compiled('_anchor_cap_interface', path=('Frame.plane',), args=(self, *args), kwargs=kwargs)
+    def prism(self, *args, **kwargs):
+        return _compiled('_anchor_cap_interface', path=('Frame.prism',), args=(self, *args), kwargs=kwargs)
+    def section(self, *args, **kwargs):
+        return _compiled('_anchor_cap_interface', path=('Frame.section',), args=(self, *args), kwargs=kwargs)
+    def bore(self, *args, **kwargs):
+        return _compiled('_anchor_cap_interface', path=('Frame.bore',), args=(self, *args), kwargs=kwargs)
 
 def __getattr__(name):
-    if name == "cq":
-        import cadquery
-        return cadquery
-    raise AttributeError(f"module {__name__!r} has no attribute {name!r}")
+    if name == "__all__":
+        return _compiled('_anchor_cap_interface', action="public-names")
+    if name.startswith("__"):
+        raise AttributeError(name)
+    try:
+        return _compiled('_anchor_cap_interface', action="get", path=(name,))
+    except ValueError as error:
+        raise AttributeError(name) from error
+
+from _enclosure_compiled import install as _install
+_install(_sys.modules[__name__])
+
+if __name__ == "__main__":
+    _compiled('_anchor_cap_interface', action="main")

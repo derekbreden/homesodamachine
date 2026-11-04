@@ -34,30 +34,29 @@ sys.path.insert(0, str(_hw / "scripts"))
 
 STEP = _here.parent / "gasher-check-valve.step"
 
-HEX_ACROSS_CORNERS = 17.0   # hex circumdiameter (across corners)
-TOTAL_LENGTH = 40.0         # along the flow axis
-THREAD_D = 13.7             # 1/4" NPT major Ø (simplified, no helix)
-STUB_LENGTH = 11.0          # male NPT engagement, the outlet end
-SOCKET_D = 15.5             # female socket boss OD, the inlet end
-SOCKET_LENGTH = 11.0        # the depth a male NPT threads in
-HEX_LENGTH = TOTAL_LENGTH - STUB_LENGTH - SOCKET_LENGTH   # 18 mm hex barrel
+
+_reference_hardware = next(p for p in Path(__file__).resolve().parents if p.name == 'hardware')
+import sys as _reference_sys
+_reference_sys.path.insert(0, str(_reference_hardware / 'reference'))
+from _reference_data import data as _reference_data
+_reference_values = _reference_data('gasher_check_valve')
+globals().update({name: _reference_values[name] for name in ('HEX_ACROSS_CORNERS', 'TOTAL_LENGTH', 'THREAD_D', 'STUB_LENGTH', 'SOCKET_D', 'SOCKET_LENGTH', 'HEX_LENGTH')})
+
 
 
 def inlet():
-    """The mouth of the female NPT socket — where the upstream male threads in:
-    (position, outward axis)."""
-    return (0.0, -TOTAL_LENGTH / 2.0, 0.0), (0.0, -1.0, 0.0)
+    'The mouth of the female NPT socket — where the upstream male threads in:\n    (position, outward axis).'
+    return _reference_data('gasher_check_valve', 'inlet', (), {})
 
 
 def outlet():
-    """The far end of the male NPT stub — it threads SOCKET-deep into whatever
-    female it meets: (position, outward axis)."""
-    return (0.0, TOTAL_LENGTH / 2.0, 0.0), (0.0, 1.0, 0.0)
+    'The far end of the male NPT stub — it threads SOCKET-deep into whatever\n    female it meets: (position, outward axis).'
+    return _reference_data('gasher_check_valve', 'outlet', (), {})
 
 
-def stations() -> dict:
-    """Both ends, in the order the flow arrow runs."""
-    return {"inlet": inlet(), "outlet": outlet()}
+def stations():
+    'Both ends, in the order the flow arrow runs.'
+    return _reference_data('gasher_check_valve', 'stations', (), {})
 
 
 _FROZEN_DIR = Path(__file__).resolve().parent

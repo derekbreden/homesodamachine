@@ -347,31 +347,13 @@ def _cargo() -> str:
 
 
 def _compiled(dep_info: Path, workspace: Path) -> set:
-    """The files under `workspace` rustc compiled into a program, as its dep-info file names
-    them: one make rule, a space inside a path written `\\ `."""
-    rule = dep_info.read_text().split("\n\n")[0].replace("\\\n", " ")
-    _program, _, deps = rule.partition(": ")
-    out = set()
-    for dep in deps.replace("\\ ", "\0").split():
-        try:
-            out.add(Path(dep.replace("\0", " ")).resolve().relative_to(workspace).as_posix())
-        except ValueError:
-            pass
-    return out
+    from _build_data import request
+    return set(request("compiled", path=str(dep_info), workspace=str(workspace)))
 
 
 def _manifests(sources: set, crate: str, workspace: Path) -> set:
-    """The lockfile, the workspace's manifest, and the manifest of each package a source is
-    compiled in: the nearest `Cargo.toml` above it, or the crate's for a program kept beside its
-    part."""
-    out = {"tools/hsm/Cargo.toml", "tools/hsm/Cargo.lock", f"tools/hsm/{crate}/Cargo.toml"}
-    for src in sources:
-        parts = src.split("/")
-        for n in range(len(parts) - 1, 2, -1):
-            if parts[:2] == ["tools", "hsm"] and (workspace / "/".join(parts[:n]) / "Cargo.toml").is_file():
-                out.add("/".join(parts[:n]) + "/Cargo.toml")
-                break
-    return out
+    from _build_data import request
+    return set(request("manifests", sources=list(sources), crate=crate, workspace=str(workspace)))
 
 
 def _relative(path: Path) -> str:
@@ -388,85 +370,33 @@ LINEAR, ANGULAR = 0.005, 0.05
 
 
 def _src(payload: Path):
-    """The `src` a payload's header names, or None."""
+    from _build_data import read
     try:
-        with open(payload, "rb") as f:
-            return json.loads(f.read(int.from_bytes(f.read(4), "little"))).get("src")
-    except (OSError, ValueError):
+        return read("header", payload).get("src")
+    except ValueError:
         return None
 
 
 def step(path) -> str:
-    """The STEP at `path` named from the root, once a payload cut from it is on disk."""
+    """Register Rust's verified STEP import plan and any retained payload."""
+    from _build_data import request
     path = Path(path).resolve()
-    name = _relative(path)
-    data = path.read_bytes()
-    digest = hashlib.sha256(data).hexdigest()
-    _READ_TARGETS.add(name)
-    if b"meshcad tessellated" in data[:200]:
-        beside = path.with_name(path.name + ".mesh")
-        if _src(beside) != digest:
-            raise SystemExit(f"_rust_part: {name} is triangles, and the payload beside it was not "
-                             "cut from it; its own generator cuts both")
-        _READ_TARGETS.add(_relative(beside))
-        return name
-    cached = _workspace() / ".cache" / "hsm" / "import" / f"{digest}.step.mesh"
-    if not _adopt_fine_payload(path, cached, digest) and not cached.is_file():
-        _tessellate(path, cached, digest)
-    return name
+    result = request("step-input", path=str(path), root=str(ROOT), workspace=str(_workspace()),
+                     linear=LINEAR, angular=ANGULAR)
+    for source in result["reads"]:
+        _READ_TARGETS.add(_relative(Path(source)))
+    if result["tessellate"]:
+        _tessellate(path, Path(result["cached"]), result["digest"])
+    return result["name"]
 
 
 def _adopt_fine_payload(path: Path, out: Path, digest: str) -> bool:
-    """Seed the STEP cache from a frozen asset explicitly cut at the kernel's rule.
-
-    A display payload alone says nothing about its tessellation budget. The declaration binds
-    both member hashes and the fine rule, and the payload names the STEP it was cut from.
-    Unknown or stale declarations retain the ordinary B-rep conversion path.
-    """
-    manifest = path.parent / "frozen-asset.json"
-    if not manifest.is_file():
-        return False
-    _READ_TARGETS.add(_relative(manifest))
-    try:
-        record = json.loads(manifest.read_text())
-        fine, members = record.get("fine_payload"), record.get("members", {})
-        if not isinstance(fine, dict) or not isinstance(members, dict):
-            return False
-        if fine.get("source_step_sha256") != digest or members.get(path.name) != digest:
-            return False
-        for key, budget in (("linear_mm", LINEAR), ("angular_rad", ANGULAR)):
-            value = fine.get(key)
-            if isinstance(value, bool) or not isinstance(value, (int, float)) or not 0 < value <= budget:
-                return False
-        member, expected = fine.get("path"), fine.get("sha256")
-        if not isinstance(member, str) or not isinstance(expected, str) or members.get(member) != expected:
-            return False
-        payload = (path.parent / member).resolve()
-        if not payload.is_relative_to(path.parent.resolve()):
-            return False
-        data = payload.read_bytes()
-        if hashlib.sha256(data).hexdigest() != expected:
-            return False
-        header = json.loads(data[4:4 + int.from_bytes(data[:4], "little")])
-        if (header.get("v") != 3 or header.get("src") != digest
-                or not isinstance(header.get("meshes"), list) or not header["meshes"]):
-            return False
-    except (OSError, ValueError, TypeError, AttributeError):
-        return False
-    _READ_TARGETS.add(_relative(payload))
-    try:
-        if out.is_file() and hashlib.sha256(out.read_bytes()).hexdigest() == expected:
-            return True
-    except OSError:
-        pass
-    try:
-        out.parent.mkdir(parents=True, exist_ok=True)
-        temp = out.with_name(f".{out.name}.{os.getpid()}")
-        temp.write_bytes(data)
-        os.replace(temp, out)
-    except OSError as exc:
-        raise RuntimeError(f"_rust_part: could not install verified fine payload for {path}") from exc
-    return True
+    from _build_data import request
+    result = request("adopt-fine-payload", path=str(path), out=str(out), digest=digest,
+                     linear=LINEAR, angular=ANGULAR)
+    for source in result["reads"]:
+        _READ_TARGETS.add(_relative(Path(source)))
+    return result["adopted"]
 
 
 def _tessellate(path: Path, out: Path, digest: str) -> None:
@@ -553,8 +483,21 @@ def program(crate: str, name: str) -> Path:
     subprocess.run(_slots().command([cargo, "build", "--release", "--locked", "--quiet",
                     "--manifest-path", str(manifest), "--bin", name]), check=True,
                    **_slots().subprocess_kwargs(env))
-    sources = _compiled(target / "release" / f"{name}.d", workspace)
-    _READ_TARGETS.update(sources | _manifests(sources, crate, workspace))
+    metadata = dict(op="program-inputs", path=str(target / "release" / f"{name}.d"),
+                    workspace=str(workspace), crate=crate)
+    if (crate, name) == ("build-data", "build-data"):
+        # This program supplies the metadata reader itself. Bootstrap it by a
+        # direct command before its resident transport exists.
+        reply = subprocess.run([str(target / "release" / name)], input=json.dumps(metadata),
+                               stdout=subprocess.PIPE, text=True, check=True,
+                               **_slots().subprocess_kwargs())
+        inputs = json.loads(reply.stdout)
+        if isinstance(inputs, dict) and "error" in inputs:
+            raise ValueError(inputs["error"])
+    else:
+        from _build_data import request
+        inputs = request("program-inputs", path=metadata["path"], workspace=str(workspace), crate=crate)
+    _READ_TARGETS.update(inputs)
     return target / "release" / name
 
 
@@ -679,9 +622,10 @@ def check(crate: str, name: str, numbers: dict):
     """What `tools/hsm/<crate>`'s program `name` measures of the part `numbers` make, writing
     nothing: `<program> <numbers.json> --check`, with the numbers in a file of their own."""
     import tempfile
+    from _rust_data import json_default
     with tempfile.TemporaryDirectory() as tmp:
         path = Path(tmp) / f"{name}.numbers.json"
-        path.write_text(json.dumps(numbers, indent=1, sort_keys=True) + "\n")
+        path.write_text(json.dumps(numbers, indent=1, sort_keys=True, default=json_default) + "\n")
         return json.loads(run(crate, name, path, "--check"))
 
 
@@ -693,7 +637,8 @@ def cut(crate: str, name: str, numbers: dict, part_dir, *, numbers_name: str | N
     global _CUT
     part_dir = Path(part_dir)
     numbers_path = part_dir / f"{name if numbers_name is None else numbers_name}.numbers.json"
-    text = json.dumps(numbers, indent=1, sort_keys=True) + "\n"
+    from _rust_data import json_default
+    text = json.dumps(numbers, indent=1, sort_keys=True, default=json_default) + "\n"
     if not numbers_path.is_file() or numbers_path.read_text() != text:
         numbers_path.write_text(text)
     _WRITE_TARGETS.add(_relative(numbers_path))

@@ -4,54 +4,31 @@ X is across the display, Y runs up it, and Z points out of the visible face.
 The cover back and both wings share a bed plane. Pocket exits follow world
 print-down so supports leave through the empty display storey.
 """
-import math
+from __future__ import annotations
 
-import cadquery as cq
+import sys as _sys
+from pathlib import Path as _Path
 
-from _swept_top import rounded_prism
+_hardware = next(p for p in _Path(__file__).resolve().parents if p.name == "hardware")
+_sys.path[:0] = [str(_hardware / "scripts"), str(_hardware / "printed-parts/enclosure/enclosure"), str(_hardware / "printed-parts/cadlib")]
+import _rust_part
+_rust_part.start()
+from _enclosure_compiled import compiled as _compiled
 
-from _enclosure_data import dimensions as _dimensions
+_rust_enclosure_module = '_display_wing_interface'
 
-globals().update(_dimensions()['display'])
+def __getattr__(name):
+    if name == "__all__":
+        return _compiled('_display_wing_interface', action="public-names")
+    if name.startswith("__"):
+        raise AttributeError(name)
+    try:
+        return _compiled('_display_wing_interface', action="get", path=(name,))
+    except ValueError as error:
+        raise AttributeError(name) from error
 
+from _enclosure_compiled import install as _install
+_install(_sys.modules[__name__])
 
-def box(x0, x1, y0, y1, z0, z1):
-    return cq.Solid.makeBox(x1-x0, y1-y0, z1-z0, cq.Vector(x0,y0,z0))
-
-
-def wing(side):
-    return rounded_prism(WING_REACH+1, WING_SPAN, WING_END_R, BACK, BACK+WING_THICK).translate(
-        (side*(COVER_X/2+(WING_REACH-1)/2),0,0))
-
-
-def cover():
-    bezel=rounded_prism(COVER_X,COVER_Y,CORNER_R,BACK,0)
-    window=rounded_prism(WINDOW_X,WINDOW_Y,WINDOW_R,BACK-1,1)
-    return bezel.fuse(wing(-1),wing(1)).cut(window).clean()
-
-
-def support_exits(depth, inset=0., roof_drop=0.):
-    roof=BACK+WING_THICK+BEARING_AIR-roof_drop
-    shift_y=-depth*math.tan(math.radians(ANGLE))
-    exits=[]
-    for side in (-1,1):
-        xa,xb=sorted((side*(COVER_X/2-.1),side*(COVER_X/2+WING_REACH+TIP_AIR)))
-        xa,xb=xa+inset,xb-inset
-        y0,y1=-WING_SPAN/2-END_AIR+inset,WING_SPAN/2+END_AIR-inset
-        wire=cq.Wire.makePolygon([cq.Vector(x,y,roof) for x,y in
-                                 ((xa,y0),(xb,y0),(xb,y1),(xa,y1),(xa,y0))])
-        exits.append(cq.Solid.extrudeLinear(wire,[],cq.Vector(0,shift_y,-depth)))
-    return exits
-
-
-def cuts(pcb_depth, exit_depth):
-    inset=rounded_prism(COVER_X+2*BODY_X_AIR,COVER_Y+2*BODY_Y_AIR,
-                        CORNER_R+BODY_Y_AIR,BACK,1)
-    glass=rounded_prism(113.8,77.3,2.65,GLASS_SEAT,1)
-    pcb=box(.5-106.3/2,.5+106.3/2,-1-69.3/2,-1+69.3/2,-pcb_depth,1)
-    result=inset.fuse(glass,pcb)
-    for side in (-1,1):
-        xa,xb=sorted((side*(COVER_X/2-.1),side*(COVER_X/2+WING_REACH+TIP_AIR)))
-        result=result.fuse(box(xa,xb,-WING_SPAN/2-END_AIR,WING_SPAN/2+END_AIR,
-                               BACK,BACK+WING_THICK+BEARING_AIR))
-    return result.fuse(*support_exits(exit_depth)).clean()
+if __name__ == "__main__":
+    _compiled('_display_wing_interface', action="main")

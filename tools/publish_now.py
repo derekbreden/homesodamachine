@@ -41,7 +41,6 @@ import time
 STARTED = time.monotonic()
 
 import argparse  # noqa: E402
-import hashlib  # noqa: E402
 import importlib.util  # noqa: E402
 import json  # noqa: E402
 import os  # noqa: E402
@@ -51,7 +50,7 @@ from pathlib import Path  # noqa: E402
 from typing import NamedTuple  # noqa: E402
 
 import _single_flight  # noqa: E402
-from _artifact_inputs import blob_id, staged  # noqa: E402
+from _artifact_inputs import staged  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[1]
 PY = ROOT / "tools" / "cad-venv" / "bin" / "python"
@@ -85,6 +84,13 @@ def _pack():
     return pack
 
 
+def _native(op, **fields):
+    sys.path.insert(0, str(ROOT / "hardware/scripts"))
+    from _build_data import request
+    return request("publication-" + op, **{key: str(value.absolute()) if isinstance(value, Path) else value
+                                           for key, value in fields.items()})
+
+
 def bytes_drifted(pack=None, held: dict = None, graph=None) -> list:
     """The members and scorecards on this disk whose bytes are not the pointer file's lines,
     hashing only files whose stat changed. A member the pointer file names and this disk does
@@ -92,12 +98,8 @@ def bytes_drifted(pack=None, held: dict = None, graph=None) -> list:
     pack = pack or _pack()
     if held is None:
         held = json.loads((ROOT / POINTERS).read_text())
-    was, side_was = held.get("solids", {}), held.get("sidecars", {})
-    moved = [rel for rel, digest in pack.hashes(ROOT, pack.solids(ROOT)).items()
-             if was.get(rel) != digest]
-    moved += [rel for rel, digest in pack.sidecar_lines(ROOT, held, graph).items()
-              if side_was.get(rel) != digest]
-    return sorted(moved)
+    return _native("bytes-drifted", held=held, hashes=pack.hashes(ROOT, pack.solids(ROOT)),
+                   sidecar_hashes=pack.sidecar_lines(ROOT, held, graph))
 
 
 class Owed(NamedTuple):
@@ -121,29 +123,19 @@ def owed() -> Owed:
     recut. Asking only about sources is how a tree that had lost the enclosure's flutes read as
     owing nothing while the site drew a smooth box. Catalog membership also moves the website
     projection when all the stored member bytes and producer inputs remain unchanged."""
-    try:
-        text = (ROOT / POINTERS).read_text()
-    except OSError:
+    state = _native("pointer-state-ordered", root=ROOT, pointers=POINTERS)
+    if state["missing"]:
         return Owed("there is no pointer file yet", [], [], [])
-    held = json.loads(text)
     pack = _pack()
+    held = pack._unorder(state["ordered"])
     graph = pack.Graph.load(ROOT)
     moved = bytes_drifted(pack, held, graph)
     index = staged(ROOT)
-    lines = {**held.get("solids", {}), **held.get("sidecars", {})}
-    inputs = pack.made_moves(held.get("made") or {},
-                             pack.tree_digests(ROOT, graph, lines, index))
-    heal = [rel for rel in (POINTERS, *sidecar_paths(held))
-            if blob_id(ROOT / rel) != index.get(rel)]
-    catalog_moved = ((ROOT / "hardware/ledger/materials.json").is_file()
-                     and held.get("website") != pack.website_for(ROOT, held))
-    reason = "; ".join(part for part in (
-        f"{len(moved)} member(s) on this disk are not the bytes the pointer file names"
-        if moved else "",
-        f"the tree moves the `made` line of {len(inputs)} member(s)" if inputs else "",
-        "the numbered catalog changes the website files" if catalog_moved else "",
-    ) if part)
-    return Owed(reason, moved, inputs, heal)
+    lines = _native("merge-lines", maps=[held.get("solids", {}), held.get("sidecars", {})])
+    inputs = pack.made_moves(held.get("made") or {}, pack.tree_digests(ROOT, graph, lines, index))
+    catalog_moved = pack._native("catalog-moved", root=ROOT, held=held)
+    return Owed(*_native("owed", root=ROOT, held=held, index=index, pointers=POINTERS,
+                         moved=moved, inputs=inputs, catalog_moved=catalog_moved))
 
 
 def sidecar_paths(held: dict) -> list:
@@ -151,15 +143,11 @@ def sidecar_paths(held: dict) -> list:
 
     A path it names that is not a file here is one this commit has nothing to say about — the
     pack is what settles which scorecards exist."""
-    return [rel for rel in sorted(held.get("sidecars", {})) if (ROOT / rel).is_file()]
+    return _native("sidecar-paths", root=ROOT, held=held)
 
 
 def _sha256(path: Path) -> str:
-    digest = hashlib.sha256()
-    with open(path, "rb") as fh:
-        for chunk in iter(lambda: fh.read(1 << 20), b""):
-            digest.update(chunk)
-    return digest.hexdigest()
+    return _native("sha256", path=path)
 
 
 def piece_payloads(moved: list) -> list:
@@ -171,7 +159,7 @@ def piece_payloads(moved: list) -> list:
     before that surface can stand in for the source change. The viewer hosts are outputs of the
     graft and are not piece payloads: counting one would make a completed graft ask for itself
     again."""
-    return [rel for rel in moved if rel.startswith(PIECE_PAYLOADS) and rel.endswith(".step.mesh")]
+    return _native("piece-payloads", moved=moved, prefix=PIECE_PAYLOADS)
 
 
 def refresh_enclosure_viewer() -> None:
@@ -186,11 +174,11 @@ def refresh_enclosure_viewer() -> None:
         sys.path.insert(0, str(scripts))
     import flute_payload
 
-    pieces = [(step, stl) for step, stl in flute_payload.pieces(flute_payload.ENCLOSURE_DIRS)
-              if step.stem != "enclosure-pump-retainer"]
+    count = _native("refresh-count", pieces=[str(step) for step, _stl in
+                                             flute_payload.pieces(flute_payload.ENCLOSURE_DIRS)])
     fluted = flute_payload.surfaces(flute_payload.ENCLOSURE_DIRS)
-    if len(fluted) != len(pieces):
-        print(f"  {len(fluted)} of {len(pieces)} enclosure piece payload(s) are source-current; "
+    if len(fluted) != count:
+        print(f"  {len(fluted)} of {count} enclosure piece payload(s) are source-current; "
               f"the hosts take those")
     if not fluted:
         return
@@ -200,8 +188,8 @@ def refresh_enclosure_viewer() -> None:
             print(f"  the viewer host is absent: {host.relative_to(ROOT)}")
             continue
         # Each host receives the piece surfaces it holds, in the frame it holds them in.
-        expected = {flute_payload.fluted_key(name, fluted)
-                    for name in flute_payload.payload_names(host)} - {None}
+        matches = [flute_payload.fluted_key(name, fluted) for name in flute_payload.payload_names(host)]
+        expected = _native("refresh-selection", matches=matches, keys=list(fluted))
         landed = flute_payload.graft(host, {name: fluted[name] for name in expected},
                                      same_frame=True) if expected else 0
         print(f"  {host.relative_to(ROOT)}: {landed} of {len(expected)} piece surface(s) landed")
@@ -274,12 +262,11 @@ def publish(started: float) -> int:
     # the newer geometry. They are one cut, so they are one commit.
     held = json.loads((ROOT / POINTERS).read_text())
     index = staged(ROOT)
-    paths = [rel for rel in (POINTERS, *sidecar_paths(held))
-             if blob_id(ROOT / rel) != index.get(rel)]
+    paths = _native("heal", root=ROOT, pointers=POINTERS, held=held, index=index)
     if not paths:
         print(f"  the cut is the one already published ({time.monotonic() - started:.0f}s)")
         return 0
-    fresh = [rel for rel in paths if rel not in index]
+    fresh = _native("untracked-paths", paths=paths, index=index)
     if fresh:
         run(["git", "add", "--", *fresh], quiet=True)
     shown = run(["git", "show", f"HEAD:{POINTERS}"], quiet=True)
@@ -287,9 +274,9 @@ def publish(started: float) -> int:
         before = json.loads(shown.stdout) if shown.returncode == 0 else {}
     except ValueError:
         before = {}
-    served = any(before.get(key) != held.get(key) for key in SERVED)
-    msg = ("cad-artifacts: cut here, and the pointer file moved" if served
-           else "cad-artifacts: record which members' inputs moved")
+    plan = _native("commit-plan", root=ROOT, pointers=POINTERS, held=held, index=index,
+                   before=before, served=SERVED)
+    served, msg = plan["served"], plan["message"]
     # `--no-verify`: the pre-commit hook re-derives and stages, and this commit is these files by
     # name. `--only` keeps it that way whatever else the tree is holding.
     made = run(["git", "commit", "--no-verify", "--only", "-m", msg, "--", *paths], quiet=True)

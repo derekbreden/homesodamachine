@@ -41,33 +41,30 @@ _hw = next(p for p in _here.parents if p.name == "hardware")
 sys.path.insert(0, str(_hw / "scripts"))
 
 # --- PI4512F6S, 3/8" FFL swivel x 3/8" PTC -------------------------------
-NUT_ACROSS_CORNERS = 22.0   # 3/4" swivel nut hex, on the ASSE's 3/8" flare thread
-NUT_LENGTH = 14.0           # nut body along the flow axis — the flare it draws up
-NUT_BORE_D = 15.88          # 3/8" flare thread major Ø — bored, so the ASSE 1022's
+
+_reference_hardware = next(p for p in Path(__file__).resolve().parents if p.name == 'hardware')
+import sys as _reference_sys
+_reference_sys.path.insert(0, str(_reference_hardware / 'reference'))
+from _reference_data import data as _reference_data
+_reference_values = _reference_data('flare38_14ptc')
+globals().update({name: _reference_values[name] for name in ('NUT_ACROSS_CORNERS', 'NUT_LENGTH', 'NUT_BORE_D', 'NECK_D', 'NECK_LENGTH', 'COLLET38_D', 'COLLET38_LENGTH', 'COLLAR_LENGTH', 'COLLET14_D', 'COLLET14_LENGTH', 'TUBE_D', 'LENGTH')})
+
                             # flare nose occupies the nut rather than its metal
-NECK_D, NECK_LENGTH = 14.0, 8.0          # body between the nut and the 3/8" collet
-COLLET38_D, COLLET38_LENGTH = 17.5, 15.5  # 3/8" PTC cartridge + release collar
 
 # --- PP061208W, 3/8" stem x 1/4" PTC reducer -----------------------------
 # The stem itself is buried in the collet above; what stands proud is its collar
 # and the 1/4" collet body.
-COLLAR_LENGTH = 2.0
-COLLET14_D, COLLET14_LENGTH = 14.0, 13.5  # 1/4" PTC cartridge + release collar
 
-TUBE_D = 6.35              # the 1/4" OD LLDPE it accepts
-LENGTH = (NUT_LENGTH + NECK_LENGTH + COLLET38_LENGTH
-          + COLLAR_LENGTH + COLLET14_LENGTH)
 
 
 def flare_face():
-    """The swivel nut's seating face: (position, outward axis). Lands flat on the
-    ASSE 1022's flare outlet, so this face and that one are the same plane."""
-    return (0.0, 0.0, 0.0), (-1.0, 0.0, 0.0)
+    "The swivel nut's seating face: (position, outward axis). Lands flat on the\n    ASSE 1022's flare outlet, so this face and that one are the same plane."
+    return _reference_data('flare38_14ptc', 'flare_face', (), {})
 
 
 def tube_port():
-    """The 1/4" PTC mouth the LLDPE pushes into: (position, outward axis)."""
-    return (LENGTH, 0.0, 0.0), (1.0, 0.0, 0.0)
+    'The 1/4" PTC mouth the LLDPE pushes into: (position, outward axis).'
+    return _reference_data('flare38_14ptc', 'tube_port', (), {})
 
 
 _FROZEN_DIR = Path(__file__).resolve().parent

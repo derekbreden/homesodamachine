@@ -1,0 +1,2841 @@
+{
+  "date": "2026-11-04",
+  "scope": "All remaining normal-build cold-core numeric providers, recipes, readers, reports, entrypoints and maintained fabrication drawings in hardware/cold-core-layout, hardware/printed-parts/cold-core and hardware/cut-parts/carbonation.",
+  "algorithm_execution": "Statically compiled Rust functions, expressions, loops, branches, closures and recipe/document composition. No runtime source compiler, Python AST evaluator or fixed-output substitutions.",
+  "python_boundary": "Import/type and container marshalling, preserved record shells, opaque third-party library primitive calls and compiled service transport. Placement rotations/translations/matrix multiplication are native Rust; ndarray construction is type marshalling.",
+  "source_anchor_revision": "63658e44888f13d7a7e657d435558580e4746902",
+  "source_modules": {
+    "_bom": {
+      "path": "hardware/cold-core-layout/_bom.py",
+      "sha256": "d92dcdf857a81efdf44375965d5cd95a05425b2700fafe5d86cc06b2fb5adb58"
+    },
+    "_carbonator": {
+      "path": "hardware/cold-core-layout/_carbonator.py",
+      "sha256": "e6b0cea1914182c494737022c1706b600c4775d6e6d6ce3dfcc65633f68540f1"
+    },
+    "_cold_core_style": {
+      "path": "hardware/cold-core-layout/_cold_core_style.py",
+      "sha256": "fc5ae470dcc416456b27be6cb5a1dadd92f2d79836f93418792769e2253d29e8"
+    },
+    "_cold_scorecard": {
+      "path": "hardware/cold-core-layout/_cold_scorecard.py",
+      "sha256": "33ea758429d20a51d714f3bfe4a6392764049974b18edc7be481281d750656ec"
+    },
+    "_core_points": {
+      "path": "hardware/cold-core-layout/_core_points.py",
+      "sha256": "895013e0972e808a549d487b2f9aec5d810365aeda66894fbc5e77a0c7b7b66c"
+    },
+    "_core_presentation": {
+      "path": "hardware/cold-core-layout/_core_presentation.py",
+      "sha256": "4b840316bea775eda8557b77805cfa7fc2000fa1b3ee5143c8c01759d50bea0a"
+    },
+    "_fittings": {
+      "path": "hardware/cold-core-layout/_fittings.py",
+      "sha256": "e20eb1b0cb93363f50ec4c09b4917ef01b8c5e8b2265d0fcdb7e2a0e050ee3a6"
+    },
+    "_internals": {
+      "path": "hardware/cold-core-layout/_internals.py",
+      "sha256": "8ba893441a404e15681241e42ece23b7ee0982b49fdf5de8ba4d7a639e923648"
+    },
+    "_water_inlet_jet": {
+      "path": "hardware/cold-core-layout/_water_inlet_jet.py",
+      "sha256": "10178e16d8764e1d0753b8199031e796ccbe9cef0bc163983d98825e15bf2cd5"
+    },
+    "carbonator_vessel_drawing": {
+      "path": "hardware/cold-core-layout/carbonator_vessel_drawing.py",
+      "sha256": "2d028f8ece59583404c0bb207f4f9e7343739bbe1daff773c07d9c7fffec26d2"
+    },
+    "cold_core_assembly": {
+      "path": "hardware/cold-core-layout/cold_core_assembly.py",
+      "sha256": "685ed7efa3eae06d6269b0d8c6cd49d3276ef1ce1247b7ebcbf06f28286252fe"
+    },
+    "core_numbers": {
+      "path": "hardware/cold-core-layout/core_numbers.py",
+      "sha256": "e3a41f7f202445f58c29a8e692a730b725c6682ef3274f7282bc030c2043aad0"
+    },
+    "core_reference": {
+      "path": "hardware/cold-core-layout/core_reference.py",
+      "sha256": "8bf348d44d939d0dfa7d40e4357c51c527b8606ea3505276b06ab5e13475a143"
+    },
+    "evaporator_coil_drawing": {
+      "path": "hardware/cold-core-layout/evaporator_coil_drawing.py",
+      "sha256": "e4da6556a26a55aa2012e17495cff9ea5cb31f0eb4c92d7605f3dd877cec9652"
+    },
+    "water_inlet_jet_cap_drawing": {
+      "path": "hardware/cold-core-layout/water_inlet_jet_cap_drawing.py",
+      "sha256": "1d1ba3efe4e27343d38b136bad65eba297b6b790e4ae31cb9bac47985f782b70"
+    },
+    "water_inlet_jet_elbow_drawing": {
+      "path": "hardware/cold-core-layout/water_inlet_jet_elbow_drawing.py",
+      "sha256": "bdd5a20e84798eb4deb08c84725b11e733b33dc1090bb63fcbb9c20f4914156a"
+    },
+    "carbonator_tube_step": {
+      "path": "hardware/cut-parts/carbonation/carbonator-tube/carbonator_tube_step.py",
+      "sha256": "7cdf8e60e00981d8c5694777f050f0f611a554cc29ee53f3a185911880fbc03c"
+    },
+    "endcap_circular_drawing": {
+      "path": "hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_drawing.py",
+      "sha256": "8b51f686a0b00e1e9936367b31c20c86ffc9ed1676d899695d180b1c5d1a6513"
+    },
+    "endcap_circular_dxf": {
+      "path": "hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_dxf.py",
+      "sha256": "7a8f77ea161ec8cffb54dfa4456518ae306987efcba2f74d108d4df5aae875eb"
+    },
+    "endcap_circular_step": {
+      "path": "hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_step.py",
+      "sha256": "9faa6ca5df81811458f59f18a4b0279a8863b19b73a19577ef70f3ecc6e637bb"
+    },
+    "float_rod_drawing": {
+      "path": "hardware/cut-parts/carbonation/float-rod/float_rod_drawing.py",
+      "sha256": "919a5b3bf8f3bf202ff08e1706b0b13d6db6b49c949b189c5d415d63672051c0"
+    },
+    "reservoir_float_rod_drawing": {
+      "path": "hardware/cut-parts/carbonation/reservoir-float-rod/reservoir_float_rod_drawing.py",
+      "sha256": "8db1099aae9d956913e0003770d4b48df17987105fb8ae6b353729abc0ad2267"
+    },
+    "_above_core_mounts": {
+      "path": "hardware/printed-parts/cold-core/_above_core_mounts.py",
+      "sha256": "8290a45534a5332a04b375c96af90b86b4632e7cd0fb04d2615af9b2a4f2c07d"
+    },
+    "_cold_core_interface": {
+      "path": "hardware/printed-parts/cold-core/_cold_core_interface.py",
+      "sha256": "ef58ec3ed9e4986a0cb3162444bef57132b5c90c0ab14e04468d94ed333c1911"
+    },
+    "_copper_ports": {
+      "path": "hardware/printed-parts/cold-core/_copper_ports.py",
+      "sha256": "c85f7a0206583c09f9e5771baf2d6efe81034ef665b5f53b662070fbb01fda93"
+    },
+    "_foam_cap": {
+      "path": "hardware/printed-parts/cold-core/_foam_cap.py",
+      "sha256": "1a60d110a06b51c83bf245e365cd3436508e6c3e317a8ef353da93b9b662aa07"
+    },
+    "_foam_shell": {
+      "path": "hardware/printed-parts/cold-core/_foam_shell.py",
+      "sha256": "d6d29899a0696e52d900028a4f0fe1c1b8af8e97b860c75cc07862ae946bffa8"
+    },
+    "_internal_routes": {
+      "path": "hardware/printed-parts/cold-core/_internal_routes.py",
+      "sha256": "a6106c210b04cb35af1772effb0e80773363de703a28f48b03fe01b1eb6b5d94"
+    },
+    "_outer_shell": {
+      "path": "hardware/printed-parts/cold-core/_outer_shell.py",
+      "sha256": "8d7dc9ac69dd78d31705046aa60654cc73347798e40235c01473cf5e6f165beb"
+    },
+    "_port_cuts": {
+      "path": "hardware/printed-parts/cold-core/_port_cuts.py",
+      "sha256": "9710799e781b1be205c769d0d79edd7a27d4e0cf4c8a7c86ae098f5683048718"
+    },
+    "_reed_b_outlet": {
+      "path": "hardware/printed-parts/cold-core/_reed_b_outlet.py",
+      "sha256": "5bf2fb7268a598178b40cfb63cad17309dfa781215668ef1c00297e796341885"
+    },
+    "_reed_channels": {
+      "path": "hardware/printed-parts/cold-core/_reed_channels.py",
+      "sha256": "8d01f093e8949c658abb6614e77c6b6c49713894283afd56a40e44592ad932aa"
+    },
+    "_reservoir_a_anchors": {
+      "path": "hardware/printed-parts/cold-core/_reservoir_a_anchors.py",
+      "sha256": "247573e7043dd0e8e06ad6e61d27116015b9b32d6e00641a7e8e1ca335812ad5"
+    },
+    "_reservoir_a_c2": {
+      "path": "hardware/printed-parts/cold-core/_reservoir_a_c2.py",
+      "sha256": "073f314bf227dee8d5326b077fb4d2a050a70cc9164e2688dcb307393aea466e"
+    },
+    "_reservoir_b_fill": {
+      "path": "hardware/printed-parts/cold-core/_reservoir_b_fill.py",
+      "sha256": "b89e76cfd851edcdb1d603016b1aea31e2ed647b4aa2861ccf59ca96d6f3375b"
+    },
+    "_reservoir_pocket_walls": {
+      "path": "hardware/printed-parts/cold-core/_reservoir_pocket_walls.py",
+      "sha256": "fdc694879e2e91b862e0b2446aa0274cc59d454277af3810b7c3aa93fd4025dc"
+    },
+    "_reservoir_ports": {
+      "path": "hardware/printed-parts/cold-core/_reservoir_ports.py",
+      "sha256": "b603c4d7815a5952698e8f4c7e1d100bfc51bdc1cce0cef8a71553061343aef9"
+    },
+    "_show_skin": {
+      "path": "hardware/printed-parts/cold-core/_show_skin.py",
+      "sha256": "cc568f562387a1a7dbd3f60485846845f65369422d4c8bbe6e8bf27ef5c0de12"
+    },
+    "_support_ring": {
+      "path": "hardware/printed-parts/cold-core/_support_ring.py",
+      "sha256": "bed7cb2a949b3b4a2aa151e1352082e56c0ffbd0e53963376edb54b40b5dd93a"
+    },
+    "_water_pressure_regulator": {
+      "path": "hardware/printed-parts/cold-core/_water_pressure_regulator.py",
+      "sha256": "fdc279ab687697f005a83ef8348d46695db083ef975d1a9d95cdf874763cbbf6"
+    },
+    "foam_assembly": {
+      "path": "hardware/printed-parts/cold-core/foam-assembly/foam_assembly.py",
+      "sha256": "cedc754d1fda1eb74943ba81d47120ab124be26ae88c3b4f2eb76d3c7469b131"
+    },
+    "foam_numbers": {
+      "path": "hardware/printed-parts/cold-core/foam-assembly/foam_numbers.py",
+      "sha256": "cf20584303f8007e67d4c6cce841d92f18f521d236463657148e7206a224fa97"
+    },
+    "foam_cap": {
+      "path": "hardware/printed-parts/cold-core/foam-cap/foam_cap.py",
+      "sha256": "7432f98f87c08e6fb3463a38d79deb860025d1ba74cc4d86355307ffbbb1f919"
+    },
+    "foam_shell": {
+      "path": "hardware/printed-parts/cold-core/foam-shell/foam_shell.py",
+      "sha256": "2eb7f5cc727e3126469158c68b305a7f2d8f4f041f43b56f23a3a1b1776492d8"
+    },
+    "all_aero_float": {
+      "path": "hardware/printed-parts/cold-core/magnetic-float/all-aero/all_aero_float.py",
+      "sha256": "37855a63d4219f56e3c0d95a5127737b1187ef1db3496dca2e200e64141d9c21"
+    },
+    "integration": {
+      "path": "hardware/printed-parts/cold-core/magnetic-float/all-aero/integration.py",
+      "sha256": "30317f4c0ec9d8b96a254d4a708b0ef0e4ee1e5999ed0e8265204cee31e0ace0"
+    },
+    "magnetic_float": {
+      "path": "hardware/printed-parts/cold-core/magnetic-float/magnetic_float.py",
+      "sha256": "c8bc642f9e0a7a85373d450296f6270b378e8d14ef3d6b811e34d6d515826e26"
+    },
+    "prv_shroud": {
+      "path": "hardware/printed-parts/cold-core/prv-shroud/prv_shroud.py",
+      "sha256": "5af67736e46c98da67b7be077817dbb492f308411acbb61e9c7642f80e05b043"
+    },
+    "reed_bridge": {
+      "path": "hardware/printed-parts/cold-core/reed-bridge/reed_bridge.py",
+      "sha256": "71ed15d23113b6ecf3731807a517fc616934f6e35da930dafa9504c3d379a15e"
+    },
+    "reservoir": {
+      "path": "hardware/printed-parts/cold-core/reservoir/reservoir.py",
+      "sha256": "6a4615ae29eaa6a970f23bd4da358a4bfd3954494263f8e5e436ab5a324f53ec"
+    },
+    "coil_mandrel": {
+      "path": "hardware/printed-parts/cold-core/coil-mandrel/coil_mandrel.py",
+      "sha256": "63c2fb7ad7bf855403657f82a232a5acf53266208779990c94cc2873cd7fa09a"
+    }
+  },
+  "source_function_count": 402,
+  "replaced_python_source_lines": 10912,
+  "comparison": {
+    "compared_values": 27908,
+    "maximum_numeric_difference": 5.684341886080802e-14,
+    "differences": [],
+    "modules": 51,
+    "recipes": 16,
+    "cases": 76,
+    "pdfs": {
+      "carbonator_vessel_drawing": {
+        "before_sha256": "7b3ef4fa3dcf59b4135cb2589dbefb83259907b0bc2c9015b76a2c03c2e0b2f9",
+        "after_sha256": "7b3ef4fa3dcf59b4135cb2589dbefb83259907b0bc2c9015b76a2c03c2e0b2f9",
+        "exact": true
+      },
+      "evaporator_coil_drawing": {
+        "before_sha256": "00342a0d031401bbd683f88888d5f37210b9af22671633fe81ec4341f83a21c0",
+        "after_sha256": "00342a0d031401bbd683f88888d5f37210b9af22671633fe81ec4341f83a21c0",
+        "exact": true
+      },
+      "water_inlet_jet_cap_drawing": {
+        "before_sha256": "2d378fe1082ec2198a5e33ad8daf68c4831af9229adbd39483aaf9e583936ea0",
+        "after_sha256": "2d378fe1082ec2198a5e33ad8daf68c4831af9229adbd39483aaf9e583936ea0",
+        "exact": true
+      },
+      "water_inlet_jet_elbow_drawing": {
+        "before_sha256": "07778b62cc86814f0e7b8d838ecb8a7b7728f1a5aca6c7a5841cbadd11cc0cfd",
+        "after_sha256": "07778b62cc86814f0e7b8d838ecb8a7b7728f1a5aca6c7a5841cbadd11cc0cfd",
+        "exact": true
+      },
+      "endcap_circular_drawing": {
+        "before_sha256": "34f001fde523e60442a3083c554f9d832de27b4864c63efdf463efd09134f5aa",
+        "after_sha256": "34f001fde523e60442a3083c554f9d832de27b4864c63efdf463efd09134f5aa",
+        "exact": true
+      },
+      "float_rod_drawing": {
+        "before_sha256": "b32a05fc1f6d8add31282d39fae19249d9e83c4a3352e3a5b5726314e10eb599",
+        "after_sha256": "b32a05fc1f6d8add31282d39fae19249d9e83c4a3352e3a5b5726314e10eb599",
+        "exact": true
+      },
+      "reservoir_float_rod_drawing": {
+        "before_sha256": "1133e1a0789949793e6968717ac8818a383031cf077f1359f027e7d45d2e465b",
+        "after_sha256": "1133e1a0789949793e6968717ac8818a383031cf077f1359f027e7d45d2e465b",
+        "exact": true
+      }
+    }
+  },
+  "fixed_numeric_provider_replies": {
+    "rule": "Original and converted programs received the identical raw JSON provider request/reply pairs. Candidate requests absent from the original recording failed the comparison. Fixtures existed only in the private run directory.",
+    "file_sha256": "d8a24285cb51c7f062b56904da14b8df268726a53a16108869721f2cdcc77fb1",
+    "recorded_requests": 25,
+    "used_requests": 25,
+    "programs_sha256": {
+      "cold-core-data": "30c5634d6a8fab70c79dffd2abc45c4f77933b35941da55d95dd4d1aee9275a9"
+    },
+    "requests": [
+      {
+        "crate": "cold-core-data",
+        "program": "cold-core-data",
+        "payload_sha256": "49d72b6225ceb498b1be8f16bcefd7323a5f75de7f982aaab25724cfbe1ff3c4",
+        "reply_sha256": "1274e64a4dd6ae87626e97fc5543180055c170c2d2fda2167a465505e3a2cad5"
+      },
+      {
+        "crate": "cold-core-data",
+        "program": "cold-core-data",
+        "payload_sha256": "87cee4ea48fe32aa6176155cde51fa0c55ab4554a7f58f5ae99e7b43bfbdddfc",
+        "reply_sha256": "950a65130b0b79cdc3c3ac4489f9cbc16f8eb2b97c82871b58ef78a03e172a48"
+      },
+      {
+        "crate": "cold-core-data",
+        "program": "cold-core-data",
+        "payload_sha256": "9ec5a92bb4c901b4fe76ece7c835131c9418dcb893a5d28b9d0e43131a5f1b50",
+        "reply_sha256": "a8efb5cd60ed808a86424052017c38860bc31b0e295d538355973e75d213a587"
+      },
+      {
+        "crate": "cold-core-data",
+        "program": "cold-core-data",
+        "payload_sha256": "c62e92b24a7ffd936f30382a73b2c10514a4fc2cf4594bdd8ad51add4efd46f3",
+        "reply_sha256": "0f297d0d6815a33e5c068f9d9aadbcc70e8e5e670217da8d90ec11022e8cdfda"
+      },
+      {
+        "crate": "cold-core-data",
+        "program": "cold-core-data",
+        "payload_sha256": "f67558e10ef0f6f52932e01c4604aeaf7352203746a115b905ae1cd236e52cbc",
+        "reply_sha256": "dfe7bb2a9bcef7c22abce86fa57f1ff17cbd28a30974015272cf5cde134293b5"
+      },
+      {
+        "crate": "cold-core-data",
+        "program": "cold-core-data",
+        "payload_sha256": "3ab75622fdb2f11eb79496105bad38c2aea24ab3a793cef5b18ec63cbff8d0eb",
+        "reply_sha256": "044cc92162abf48e7ed8e7d9b6eb17621e9f3d66810bea408ac2cce21ccb81e5"
+      },
+      {
+        "crate": "cold-core-data",
+        "program": "cold-core-data",
+        "payload_sha256": "efeb381b2458715469db0310aca8f0f32fbc3fe3e21e350924065b5a1a5e2715",
+        "reply_sha256": "0a0a5927258cf62e8fa9a670bea4625e7f7e5657451d835c32a37e4251da1d55"
+      },
+      {
+        "crate": "cold-core-data",
+        "program": "cold-core-data",
+        "payload_sha256": "376e48211a2ca4c9d4f5ef6d6951f1f42cf4589ec6a432c9cfa149761a801e18",
+        "reply_sha256": "be9c814737465d8c11c649ae508c9b972c29ad9679ded999e63eff0274ff4c99"
+      },
+      {
+        "crate": "cold-core-data",
+        "program": "cold-core-data",
+        "payload_sha256": "219d9a39fc78dfd5d343fd6e6078a04f8943d8e6c26fa0388b8f4ba5f153df16",
+        "reply_sha256": "010efefb6b128c3cedb9aeef9bb10c48871058ccee771aadc7866e0dd65df76b"
+      },
+      {
+        "crate": "cold-core-data",
+        "program": "cold-core-data",
+        "payload_sha256": "d305687ca5582ea780fef2e4f6ee745a1418ee7dcf0cceb664ab9eba322491e8",
+        "reply_sha256": "40a79bde504ac1666197b1fe6f9155c7e0eedc824dd55e6e922a5a78312408a1"
+      },
+      {
+        "crate": "cold-core-data",
+        "program": "cold-core-data",
+        "payload_sha256": "6bde7917a07b06d6536e8ab2627c77d73580c5be4007b0f9068ff143a19d4055",
+        "reply_sha256": "d8f9bd82e288a15447fc03a0afaf651ef85ba7c459a3218ab3929ce6b96ea150"
+      },
+      {
+        "crate": "cold-core-data",
+        "program": "cold-core-data",
+        "payload_sha256": "a886e4f6d6c55fcdc3ec0418de7bef93488e935538af108da7f14b18f6b6210d",
+        "reply_sha256": "b7b6dcfc2941b43bba192a4bb458ec11e9e4575572e1a9255ee982b1ac8304bc"
+      },
+      {
+        "crate": "cold-core-data",
+        "program": "cold-core-data",
+        "payload_sha256": "7cd2ef505d7bd3e6bce162fc21a84031a146b2232a9433205309cf310562f596",
+        "reply_sha256": "836a3067577722bac9b0cc8b0c94c7a6d0af6a23a07c2f3ed2919dd2d4d4dda2"
+      },
+      {
+        "crate": "cold-core-data",
+        "program": "cold-core-data",
+        "payload_sha256": "0adf0e52173a6c7b99a4884f5934510db5fa7a7defb5b560ce07a9753368cd99",
+        "reply_sha256": "7931182ebbd7c983bed8b9f515bb25bbc17e902b29d08d848885cbe4679ff715"
+      },
+      {
+        "crate": "cold-core-data",
+        "program": "cold-core-data",
+        "payload_sha256": "58648901116b9b8b9128308ebf0b282283b2c17b671c565f16a6294d7b39f06a",
+        "reply_sha256": "3d0a3002e2f3eb5656b0a22774343508daae4ecd78b87697755c025614dedf12"
+      },
+      {
+        "crate": "cold-core-data",
+        "program": "cold-core-data",
+        "payload_sha256": "9971b181c8e862d05aa67dd733e556d8390fbfb98ac718a43aa4dbcfab02e99a",
+        "reply_sha256": "5857329019f038801e2184e7ec420a52d9d742384357d4397540c32cdd115d0c"
+      },
+      {
+        "crate": "cold-core-data",
+        "program": "cold-core-data",
+        "payload_sha256": "32bfdea1d8c7b4acbab19078a07e44b279b7e584b5d374645524b81db186e2f2",
+        "reply_sha256": "e9daa3aff3021a844986b1df439c5a515be2234581b59620ecd715ca5180eac2"
+      },
+      {
+        "crate": "cold-core-data",
+        "program": "cold-core-data",
+        "payload_sha256": "2d3aecd191905b13cbd0540a7b5c94052e726f05e2ee7556548d508894010c57",
+        "reply_sha256": "7681393d15b42c6f0bf96abbf5dc39a42f7d5e6b1c9ff6a41e5c0ea38d33163e"
+      },
+      {
+        "crate": "cold-core-data",
+        "program": "cold-core-data",
+        "payload_sha256": "ffad4acd574b2f08e6ef243bce0bc667183e39901ca75fa87a9334a5b5ff7f85",
+        "reply_sha256": "8e83f189743c06f822a32e81bdcaffa8ebc055a066a0eca93e14d5126defb55c"
+      },
+      {
+        "crate": "part-data",
+        "program": "part-data",
+        "payload_sha256": "cd23e8202b6a364d7eb0d6c49a50ad977f2c00cab39f026b119c07f504011afb",
+        "reply_sha256": "4464da03d888783b527e578741aef173480d3c6b5b8b02ae66d3ac8ffcd0b59b"
+      },
+      {
+        "crate": "cold-core-data",
+        "program": "cold-core-data",
+        "payload_sha256": "4b3452b4aa9c0f063b436e631d339db30b31b8170592e605b8df80319089c0b9",
+        "reply_sha256": "1f76b512f1aab6e5bf9dc42a259dacac6b6dcc3b6c58d56f386b73188a8ae4ad"
+      },
+      {
+        "crate": "cold-core-data",
+        "program": "cold-core-data",
+        "payload_sha256": "d0de2f2a7b108a32ce7bcdf9a9ae5ea74bb89502dbb4a3a9eed15481c0a28032",
+        "reply_sha256": "6c8e6a6a0f6266b454044d53cb4ad54a43661763b87facb422b2dbf17c984766"
+      },
+      {
+        "crate": "cold-core-data",
+        "program": "cold-core-data",
+        "payload_sha256": "d8054bd1d7b96d25e854ef2d9208f2cd411bd4632fd6c01cb81976540097b35e",
+        "reply_sha256": "e74902ebf63eccaf38cc7e1b0ad549163cb8b9e73e4497c0402ff0fad948dd56"
+      },
+      {
+        "crate": "cold-core-data",
+        "program": "cold-core-data",
+        "payload_sha256": "3ec3265d80d218e8ec0c264ee1845426f30a02e15a2b0fce227f32eb8bd74ed1",
+        "reply_sha256": "83a646a51d0300bfa6c69afc4fbc0726cdb78f320ffdecff08a3dac190534150"
+      },
+      {
+        "crate": "cold-core-data",
+        "program": "cold-core-data",
+        "payload_sha256": "c897066525eb8f33df1d25adbf25e0aabbbc41f81d994a8b06ce6cb17347b27d",
+        "reply_sha256": "7f1fd4921e561c7aafa970751ac273d07461bea180ebce8ad91f339d15dd58d1"
+      }
+    ]
+  },
+  "provider_sources": {
+    "hardware/scripts/_rust_part.py": {
+      "source": "d6a0b281d2866a4435ffaf056850efe960a74f1f:hardware/scripts/_rust_part.py",
+      "sha256": "20d764aaf44cadf633ba64e9f4b5e6208d35bd29a580cd51eb7de39cdb6e39ad"
+    },
+    "hardware/printed-parts/enclosure/enclosure/_enclosure_datums.py": {
+      "source": ".cache/runs/cold-core-final-20261104/providers/hardware/printed-parts/enclosure/enclosure/_enclosure_datums.py",
+      "sha256": "8116cebd458f64983d7d92275951d51e9c706f6c8e79422eabff9eacf2546b14"
+    },
+    "hardware/scripts/_card.py": {
+      "source": ".cache/runs/cold-core-final-20261104/providers/hardware/scripts/_card.py",
+      "sha256": "c4d44163993814b5a69f2c52964019ad3cb27b0bf023ccba1e034c54e25fef8f"
+    },
+    "tools/docgen/__init__.py": {
+      "source": "d6a0b281d2866a4435ffaf056850efe960a74f1f:tools/docgen/__init__.py",
+      "sha256": "1d7766d594df9a0791c4144af96954a7058414bda2d099203b5d1240688f50fb"
+    },
+    "hardware/reference/beduan-solenoid/beduan_solenoid.py": {
+      "source": ".cache/runs/parts-final-20261104/sources/hardware/reference/beduan-solenoid/beduan_solenoid.py",
+      "sha256": "ca07cecf19092580e43c765740e5c6be44185a225630e143cbdf60039fd5549c"
+    },
+    "hardware/reference/kamoer-kphm400/kamoer_kphm400.py": {
+      "source": ".cache/runs/parts-final-20261104/sources/hardware/reference/kamoer-kphm400/kamoer_kphm400.py",
+      "sha256": "f11d0f972620e46b48dfe20bce638562a15782fec33b53f86a5504548b41d8ca"
+    },
+    "hardware/printed-parts/enclosure/pump-tray/pump_case.py": {
+      "source": "d6a0b281d2866a4435ffaf056850efe960a74f1f:hardware/printed-parts/enclosure/pump-tray/pump_case.py",
+      "sha256": "4ae67d365f3ff3d347a07cec0eda4ba69688c4d7f01657e9d652671a1c0c002f"
+    },
+    "hardware/printed-parts/cadlib/world_workplane.py": {
+      "source": ".cache/runs/cold-core-final-20261104/providers/hardware/printed-parts/cadlib/world_workplane.py",
+      "sha256": "6fc15b2371091f653390c5ebb7390d2eb3b94b21f4194f07a188ef562dcd4226"
+    },
+    "hardware/printed-parts/cadlib/snap.py": {
+      "source": ".cache/runs/cold-core-final-20261104/providers/hardware/printed-parts/cadlib/snap.py",
+      "sha256": "fd778525a5124fd9eff469d7cfecca56b2a339de84c0577f88033ee817409ddc"
+    },
+    "hardware/reference/tee-connector/tee_connector.py": {
+      "source": ".cache/runs/parts-final-20261104/sources/hardware/reference/tee-connector/tee_connector.py",
+      "sha256": "cf74e9b5f38710ed180f6c8950953e3271969a5452c65c81ded52bbf97c4f7ff"
+    },
+    "hardware/reference/y-divider/y_divider.py": {
+      "source": ".cache/runs/parts-final-20261104/sources/hardware/reference/y-divider/y_divider.py",
+      "sha256": "6cde2ad3f1b8bfd2b5c09536df85fc7ba2d00c76b389439fab0ac947c1689ac9"
+    },
+    "hardware/scripts/_routing.py": {
+      "source": ".cache/runs/cold-core-final-20261104/providers/hardware/scripts/_routing.py",
+      "sha256": "682849cd011c7668735a807ca237a41ed37d1ea70346359cecf87c20e388b864"
+    },
+    "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py": {
+      "source": "d6a0b281d2866a4435ffaf056850efe960a74f1f:hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
+      "sha256": "9adf4df4281b9d338f7d1fba9e2907477da5506240a3d68c3b57a0f0855a7d5a"
+    },
+    "hardware/scripts/_material_base.py": {
+      "source": ".cache/runs/cold-core-final-20261104/providers/hardware/scripts/_material_base.py",
+      "sha256": "249b1670f63fc95bf4f1cee8fad8213c7b48e27949296843fe824dda80c49158"
+    },
+    "hardware/scripts/_occt_color.py": {
+      "source": ".cache/runs/cold-core-final-20261104/providers/hardware/scripts/_occt_color.py",
+      "sha256": "c9180664d0a57d364ec145319d2c06e5dc12b06be6ba773317e80d8aa182859c"
+    },
+    "hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py": {
+      "source": "d6a0b281d2866a4435ffaf056850efe960a74f1f:hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py",
+      "sha256": "5365e57b729a82fe3a0a04142ec24f2852c10ba94a6c62c87f6e7e40692e34ea"
+    },
+    "hardware/printed-parts/cadlib/fits.py": {
+      "source": ".cache/runs/cold-core-final-20261104/providers/hardware/printed-parts/cadlib/fits.py",
+      "sha256": "9815ebd9ffe112ea5173fd6ecc600086e3c7b53df00c29706b4826617390a509"
+    },
+    "hardware/printed-parts/enclosure/pump-dock/fixed_returns.py": {
+      "source": ".cache/runs/machine-final-20261104/providers/hardware/printed-parts/enclosure/pump-dock/fixed_returns.py",
+      "sha256": "b203551dad030a7b3e64e6094b0ed964ebe6edf9d779bf0ed94cc549471471e3"
+    },
+    "hardware/reference/neofit-stem-elbow/neofit_stem_elbow.py": {
+      "source": ".cache/runs/parts-final-20261104/sources/hardware/reference/neofit-stem-elbow/neofit_stem_elbow.py",
+      "sha256": "92c10e004f6c3bdb59b3ca90e9c587bcb5854e3362d9b5a09a5a7a7dd50fe1e1"
+    },
+    "hardware/scripts/_cadq_export.py": {
+      "source": "d6a0b281d2866a4435ffaf056850efe960a74f1f:hardware/scripts/_cadq_export.py",
+      "sha256": "7650a38267ecb6150b4945cfdbbddad15f915d1f25a4697a02b406611e95b416"
+    },
+    "hardware/scripts/_document_export.py": {
+      "source": "d6a0b281d2866a4435ffaf056850efe960a74f1f:hardware/scripts/_document_export.py",
+      "sha256": "3ee2ad311d66e6528412c833b7751def42e1052ee20f55567a76b33b48b45743"
+    },
+    "hardware/scripts/_materials.py": {
+      "source": ".cache/runs/cold-core-final-20261104/providers/hardware/scripts/_materials.py",
+      "sha256": "ce915827df1b5bb2768170a3a76d6c32b5e47a8dd7f020bd833e1e540b19ea98"
+    },
+    "hardware/scripts/_payload_rules.py": {
+      "source": "d6a0b281d2866a4435ffaf056850efe960a74f1f:hardware/scripts/_payload_rules.py",
+      "sha256": "5c2f1e175f9656bc0a55eb1591dd41ee3414b2b589f1e1f75a9ece6d7802a626"
+    },
+    "hardware/manifold-layout/above_core.py": {
+      "source": "d6a0b281d2866a4435ffaf056850efe960a74f1f:hardware/manifold-layout/above_core.py",
+      "sha256": "4ae1006309cfc55676c11ac286d0506a77d8fecd1b107818b2d6a665b787654e"
+    },
+    "hardware/manifold-layout/_layout_data.py": {
+      "source": "current:hardware/manifold-layout/_layout_data.py",
+      "sha256": "9339341add0d1e4fcb8408e2e4ff26d2accda50ab98de6abc67ab97c6eb7c581"
+    },
+    "hardware/reference/multiplex-asse1022/multiplex_asse1022.py": {
+      "source": ".cache/runs/parts-final-20261104/sources/hardware/reference/multiplex-asse1022/multiplex_asse1022.py",
+      "sha256": "e79e2d24d69112a1e0f4c83a7574fd9469db7cbd8ea88e47e6654efeb792785d"
+    },
+    "hardware/reference/g-ganen-pump/g_ganen_pump.py": {
+      "source": ".cache/runs/parts-final-20261104/sources/hardware/reference/g-ganen-pump/g_ganen_pump.py",
+      "sha256": "35c0183ce894befcea55ede830eeba4726778da1de9e1807974d82b23e4590b9"
+    },
+    "hardware/reference/jg-pp061208w/jg_pp061208w.py": {
+      "source": ".cache/runs/parts-final-20261104/sources/hardware/reference/jg-pp061208w/jg_pp061208w.py",
+      "sha256": "c3be9be9a6d681433ff7c23c1083646744ffb7812ca4e45534e919552b884d91"
+    },
+    "hardware/reference/jg-pp010822e/jg_pp010822e.py": {
+      "source": ".cache/runs/parts-final-20261104/sources/hardware/reference/jg-pp010822e/jg_pp010822e.py",
+      "sha256": "10db5f39209fb484944bea820b3d2d477f88ef39650501d41b620bda32ce80eb"
+    },
+    "hardware/reference/gasher-check-valve/gasher_check_valve.py": {
+      "source": ".cache/runs/parts-final-20261104/sources/hardware/reference/gasher-check-valve/gasher_check_valve.py",
+      "sha256": "b86da0efc1ad09b38fb1d611d99694c7da1a72a89f7fa4bf55ff2c4bbb145224"
+    },
+    "hardware/reference/wr1110-regulator/wr1110_regulator.py": {
+      "source": ".cache/runs/parts-final-20261104/sources/hardware/reference/wr1110-regulator/wr1110_regulator.py",
+      "sha256": "8e869c069880d17c8c065615607f4f1056931a95e8c39687f24015f6ca0657bd"
+    },
+    "hardware/reference/seaflo-discharge-chain/seaflo_discharge_chain.py": {
+      "source": ".cache/runs/parts-final-20261104/sources/hardware/reference/seaflo-discharge-chain/seaflo_discharge_chain.py",
+      "sha256": "b3b480d8678ea13d17bfd2b0720ce1aa7436fd0ae7db423c98747273da2a4d02"
+    },
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": {
+      "source": "d6a0b281d2866a4435ffaf056850efe960a74f1f:hardware/printed-parts/enclosure/enclosure/enclosure.py",
+      "sha256": "e117fb4c0cb52acaae1ca2b7c3975cd803e990a33a2777a2172308f19e4d6103"
+    },
+    "hardware/printed-parts/enclosure/enclosure/_fixed_pump_mount.py": {
+      "source": ".cache/runs/machine-final-20261104/providers/hardware/printed-parts/enclosure/enclosure/_fixed_pump_mount.py",
+      "sha256": "18f8292304595390e4b9b5e70ce40e935bc051f995f20c70a09c475aa707166b"
+    },
+    "hardware/printed-parts/cadlib/port_chip.py": {
+      "source": ".cache/runs/cold-core-final-20261104/providers/hardware/printed-parts/cadlib/port_chip.py",
+      "sha256": "b6c3cd7c69fb4e540fba5fe9334cabaea70911fdc0d72a3bea31464d798e03b7"
+    },
+    "hardware/printed-parts/cadlib/reeding.py": {
+      "source": ".cache/runs/cold-core-final-20261104/providers/hardware/printed-parts/cadlib/reeding.py",
+      "sha256": "726c6341a30eb87d4a7ddd90222599bc9bf682dac118c0571f1903b8a45c98bb"
+    },
+    "hardware/printed-parts/cadlib/flute_skin.py": {
+      "source": ".cache/runs/cold-core-final-20261104/providers/hardware/printed-parts/cadlib/flute_skin.py",
+      "sha256": "96df0bcdfada1bd888057971031d8cb943357f2bc54fe5136b020e37da015325"
+    },
+    "hardware/printed-parts/zone-c/funnel/funnel.py": {
+      "source": "d6a0b281d2866a4435ffaf056850efe960a74f1f:hardware/printed-parts/zone-c/funnel/funnel.py",
+      "sha256": "13442f739159c56f74e08cca210ff7c6b5e81c31f531af04374ed0333b106b23"
+    },
+    "hardware/printed-parts/zone-c/funnel/funnel_frame.py": {
+      "source": "d6a0b281d2866a4435ffaf056850efe960a74f1f:hardware/printed-parts/zone-c/funnel/funnel_frame.py",
+      "sha256": "7a6060b12504ad40eba59d786851f423a3499ae3ec40fabb36ef6a3f97d508f4"
+    },
+    "hardware/printed-parts/zone-c/funnel/elbow_cradle.py": {
+      "source": "d6a0b281d2866a4435ffaf056850efe960a74f1f:hardware/printed-parts/zone-c/funnel/elbow_cradle.py",
+      "sha256": "97d1416c36855cb0e9d93dfb0d183bd94db496b47f279f15c6e6f30de24e80b4"
+    },
+    "hardware/printed-parts/enclosure/enclosure/_above_core_shell.py": {
+      "source": ".cache/runs/machine-final-20261104/providers/hardware/printed-parts/enclosure/enclosure/_above_core_shell.py",
+      "sha256": "69361a9773ef2ef58c51e2be6d8aaf191e13d531eba1c899b1912241ab771721"
+    },
+    "hardware/reference/wago-221/wago_221.py": {
+      "source": ".cache/runs/parts-final-20261104/sources/hardware/reference/wago-221/wago_221.py",
+      "sha256": "f3d57535b75bf577111041e4b947d1779dc090fbe602c21cce5c900255edc655"
+    },
+    "hardware/reference/mq6-gas-sensor/mq6_gas_sensor.py": {
+      "source": ".cache/runs/parts-final-20261104/sources/hardware/reference/mq6-gas-sensor/mq6_gas_sensor.py",
+      "sha256": "c834d1a98e43a2e8889b3f13e234a7521581e55000cdced7acd2f872c7b03dba"
+    },
+    "hardware/reference/riteav-keystone/riteav_keystone.py": {
+      "source": ".cache/runs/parts-final-20261104/sources/hardware/reference/riteav-keystone/riteav_keystone.py",
+      "sha256": "df557f8a51ca3374e42c0102593f386842cc95dc647191643853c053db6ce408"
+    },
+    "hardware/reference/iec-c14-inlet/iec_c14_inlet.py": {
+      "source": ".cache/runs/parts-final-20261104/sources/hardware/reference/iec-c14-inlet/iec_c14_inlet.py",
+      "sha256": "1c42193213b6f69add6c07da68156557fac5fb8694caaa4f189a8efaafd0c14b"
+    },
+    "hardware/reference/jg-bulkhead-union/jg_bulkhead_union.py": {
+      "source": ".cache/runs/parts-final-20261104/sources/hardware/reference/jg-bulkhead-union/jg_bulkhead_union.py",
+      "sha256": "6f988051954605af0ef959f7c0fcb7cb79ef2d1dd080555d28061527f1e249be"
+    },
+    "hardware/printed-parts/valve-seat/valve_seat.py": {
+      "source": "d6a0b281d2866a4435ffaf056850efe960a74f1f:hardware/printed-parts/valve-seat/valve_seat.py",
+      "sha256": "4504c96e79a9ccc67060af6d44a4470ddb55109c6f81f1dd60a2b365c022a11a"
+    },
+    "hardware/printed-parts/enclosure/valve-tray/valve_tray.py": {
+      "source": "d6a0b281d2866a4435ffaf056850efe960a74f1f:hardware/printed-parts/enclosure/valve-tray/valve_tray.py",
+      "sha256": "b08be4fe1d9122eff95fa1bdc44cd720b477709da204b22c6d1f640d2b3b90c0"
+    },
+    "hardware/printed-parts/enclosure/pump-tray/pump_tray.py": {
+      "source": "d6a0b281d2866a4435ffaf056850efe960a74f1f:hardware/printed-parts/enclosure/pump-tray/pump_tray.py",
+      "sha256": "9de8bf7e18306f0d2646c92cdf042875df4c82c03850a58baacf01ecdc7b47f1"
+    },
+    "hardware/printed-parts/enclosure/pump-dock/dock_structure.py": {
+      "source": ".cache/runs/machine-final-20261104/providers/hardware/printed-parts/enclosure/pump-dock/dock_structure.py",
+      "sha256": "9bf17c2ade88ca156c9d859840067829d700ebccded368469ea4ea50700f9013"
+    },
+    "hardware/printed-parts/enclosure/enclosure/_swept_top.py": {
+      "source": "d6a0b281d2866a4435ffaf056850efe960a74f1f:hardware/printed-parts/enclosure/enclosure/_swept_top.py",
+      "sha256": "d550cfd5e4beaf8e83686c19f662d3409a28cd0002b7907eb3a6d8aa359da50c"
+    },
+    "hardware/printed-parts/enclosure/enclosure/_display_wing_interface.py": {
+      "source": "d6a0b281d2866a4435ffaf056850efe960a74f1f:hardware/printed-parts/enclosure/enclosure/_display_wing_interface.py",
+      "sha256": "e3e5f0251ab9f0f82324c82e94e45667cac0e5d9c505cf06fd6f525c6bf3ce82"
+    },
+    "hardware/printed-parts/enclosure/enclosure/_grip_interface.py": {
+      "source": ".cache/runs/machine-final-20261104/providers/hardware/printed-parts/enclosure/enclosure/_grip_interface.py",
+      "sha256": "839336757930b5120132e2ec5600a99f1a132879a76b20aa43d9699282dd159a"
+    },
+    "hardware/printed-parts/cadlib/overhang_round.py": {
+      "source": ".cache/runs/cold-core-final-20261104/providers/hardware/printed-parts/cadlib/overhang_round.py",
+      "sha256": "9a5ef646cf3e47a89e616d5ca9caf7da1f0e98a708211f1eb2311302f818c60e"
+    },
+    "hardware/printed-parts/enclosure/enclosure/_anchor_cap_interface.py": {
+      "source": ".cache/runs/machine-final-20261104/providers/hardware/printed-parts/enclosure/enclosure/_anchor_cap_interface.py",
+      "sha256": "a49c37fef29c15fceab1a5fc04a485aff9db1fc220d386feffe63fd91253883b"
+    },
+    "hardware/printed-parts/enclosure/enclosure/_nameplate_interface.py": {
+      "source": "d6a0b281d2866a4435ffaf056850efe960a74f1f:hardware/printed-parts/enclosure/enclosure/_nameplate_interface.py",
+      "sha256": "fb290e6f377fc5f33790b7e6532c59ff0fdab0472b2f519d808b17106e8629fc"
+    },
+    "hardware/printed-parts/enclosure/enclosure/_nameplate_wing_interface.py": {
+      "source": "d6a0b281d2866a4435ffaf056850efe960a74f1f:hardware/printed-parts/enclosure/enclosure/_nameplate_wing_interface.py",
+      "sha256": "67b5bc6d6a2920d6f030d3e415258b6532bd3e39fb2690b549e8017ee77ce714"
+    },
+    "hardware/printed-parts/enclosure/enclosure/_data_wing_interface.py": {
+      "source": "d6a0b281d2866a4435ffaf056850efe960a74f1f:hardware/printed-parts/enclosure/enclosure/_data_wing_interface.py",
+      "sha256": "9e46d2df92baa8d055ebe3d79d544103df53b8b60dd15e5ce199922fc6f00294"
+    },
+    "hardware/reference/compressor/compressor.py": {
+      "source": ".cache/runs/parts-final-20261104/sources/hardware/reference/compressor/compressor.py",
+      "sha256": "208d785780ba88ff1114e3c98d27e3c69997be4eceea146f875f838aef6c80dd"
+    },
+    "hardware/reference/sf76e-thermal-fuse/sf76e_thermal_fuse.py": {
+      "source": ".cache/runs/parts-final-20261104/sources/hardware/reference/sf76e-thermal-fuse/sf76e_thermal_fuse.py",
+      "sha256": "34c7897fb732e08b07c03611a98d272fba2230590b90a3cb8bc9b84789a8091c"
+    },
+    "hardware/printed-parts/electronics/pcba-tray/pcba_tray.py": {
+      "source": "d6a0b281d2866a4435ffaf056850efe960a74f1f:hardware/printed-parts/electronics/pcba-tray/pcba_tray.py",
+      "sha256": "2fee1c2633ab341fc162ec4f2365eaea94066446bc0d4e5292191a7a90c82876"
+    },
+    "hardware/printed-parts/electronics/module_tray.py": {
+      "source": "d6a0b281d2866a4435ffaf056850efe960a74f1f:hardware/printed-parts/electronics/module_tray.py",
+      "sha256": "1f848d867aacb2d0c1a667d876a5711527a97e49b75cc122ca55d18500152516"
+    },
+    "hardware/scripts/_box_spec.py": {
+      "source": ".cache/runs/machine-final-20261104/originals/_box_spec.py",
+      "sha256": "b7736cd2c5e3a3b7b7b4927f18c19bc9799185b8aa44b5e107d4417ffb7d87f9"
+    },
+    "hardware/manifold-layout/above_core_routes.py": {
+      "source": "d6a0b281d2866a4435ffaf056850efe960a74f1f:hardware/manifold-layout/above_core_routes.py",
+      "sha256": "3205253fffe5dbb13b996a16b199ec89ff4294155d7145bf494b3711b1556288"
+    },
+    "hardware/reference/meanwell-irm90/meanwell_irm90.py": {
+      "source": ".cache/runs/parts-final-20261104/sources/hardware/reference/meanwell-irm90/meanwell_irm90.py",
+      "sha256": "8db724ca45d590af40a82f9f505a2aaedf9f7381f930deb54fda3cc637b771d5"
+    },
+    "hardware/reference/teyleten-relay/teyleten_relay.py": {
+      "source": ".cache/runs/parts-final-20261104/sources/hardware/reference/teyleten-relay/teyleten_relay.py",
+      "sha256": "964bff50807efc1e21d463feff04930ddce31c31cb0face2c039aeb6b232ea5a"
+    },
+    "hardware/scripts/_assembly_model.py": {
+      "source": ".cache/runs/machine-final-20261104/originals/_assembly_model.py",
+      "sha256": "5104bc5b7a249fb6ee64e8a29641ed27c3329db58cbdba01722dd7a3734e8f30"
+    },
+    "hardware/scripts/_stated_bounds.py": {
+      "source": ".cache/runs/machine-final-20261104/originals/_stated_bounds.py",
+      "sha256": "aceb3e758743cfeb90e79c235a161898388ce8b4ad309bcc4839964fbfd86741"
+    },
+    "hardware/scripts/_carbonator_drawing.py": {
+      "source": "d6a0b281d2866a4435ffaf056850efe960a74f1f:hardware/scripts/_carbonator_drawing.py",
+      "sha256": "4718a5d7c987831472e16561323ec867376e43b611bbd0b2e4e6d2b1d3c4f5fc"
+    },
+    "hardware/scripts/_mesh_projection.py": {
+      "source": "d6a0b281d2866a4435ffaf056850efe960a74f1f:hardware/scripts/_mesh_projection.py",
+      "sha256": "48db1d45914805b317bd5a90a3f2e55b03e4d3a8718af7f7565dea3b367023ae"
+    },
+    "hardware/scripts/_fabrication_drawing.py": {
+      "source": "d6a0b281d2866a4435ffaf056850efe960a74f1f:hardware/scripts/_fabrication_drawing.py",
+      "sha256": "a87ac46413385f68dd66567a026ef1b6a2d3fb947baa984c11ac25b7591e9767"
+    },
+    "hardware/printed-parts/cadlib/print_mesh.py": {
+      "source": ".cache/runs/cold-core-final-20261104/providers/hardware/printed-parts/cadlib/print_mesh.py",
+      "sha256": "2d7336d1d59bf00535f1f40ef84fef760da8717710e16d99fc1aa3d0a94c891c"
+    },
+    "hardware/reference/shok-blok-regulator/shok_blok_regulator.py": {
+      "source": ".cache/runs/parts-final-20261104/sources/hardware/reference/shok-blok-regulator/shok_blok_regulator.py",
+      "sha256": "106a3066f1e38ec1f2ae05096685e1dc0964a2ebb53d1c55b6b6f86f6619a40f"
+    },
+    "hardware/manifold-layout/above_core_wiring.py": {
+      "source": ".cache/runs/machine-final-20261104/originals/above_core_wiring.py",
+      "sha256": "52c3e31a03c0998886f0f40b3c49141697c14a7c17bfbb6b5d15731bd178da2f"
+    },
+    "hardware/manifold-layout/rear_snaps.py": {
+      "source": ".cache/runs/machine-final-20261104/originals/rear_snaps.py",
+      "sha256": "a02224bf754055e126dfa4a600b825d717875c29c509189ff31ed53b06fe067e"
+    },
+    "hardware/wiring/installed/__init__.py": {
+      "source": "d6a0b281d2866a4435ffaf056850efe960a74f1f:hardware/wiring/installed/__init__.py",
+      "sha256": "ee1b685fb501666211eee4964ae86bb12c9ff7d6ffb75a7410ee0ad4117e3e10"
+    },
+    "hardware/wiring/installed/retainers.py": {
+      "source": "d6a0b281d2866a4435ffaf056850efe960a74f1f:hardware/wiring/installed/retainers.py",
+      "sha256": "22b3f474029f6d6349d3e2d5cb034e1b7ce403a86dc36f72dfb03d650a129932"
+    },
+    "hardware/manifold-layout/above_core_parts.py": {
+      "source": "d6a0b281d2866a4435ffaf056850efe960a74f1f:hardware/manifold-layout/above_core_parts.py",
+      "sha256": "ed33c15929127ab9b038869a629ac46a16610127c99374388107ccc73be87bff"
+    },
+    "hardware/manifold-layout/above_core_bom.py": {
+      "source": "d6a0b281d2866a4435ffaf056850efe960a74f1f:hardware/manifold-layout/above_core_bom.py",
+      "sha256": "83e37c4fb764fa1c9ef232e69225dc5ff602415ba576e8253409cbca128e119e"
+    },
+    "hardware/assembly/_pressure_vessel_sync.py": {
+      "source": "d6a0b281d2866a4435ffaf056850efe960a74f1f:hardware/assembly/_pressure_vessel_sync.py",
+      "sha256": "43c46b5d9f72deee58869bc142aa80775763249453037faed3151a353a846b40"
+    },
+    "hardware/reference/g-ganen-pump/installation/g_ganen_installation.py": {
+      "source": ".cache/runs/parts-final-20261104/sources/hardware/reference/g-ganen-pump/installation/g_ganen_installation.py",
+      "sha256": "79fca45c7856dd91bd2164af7d17a2a82ed58fb17ae554cad10ce53284a0ca1f"
+    },
+    "hardware/reference/g-ganen-pump/integration-envelope/g_ganen_integration.py": {
+      "source": ".cache/runs/parts-final-20261104/sources/hardware/reference/g-ganen-pump/integration-envelope/g_ganen_integration.py",
+      "sha256": "2ec9662bbc4cc10b1ac2fa1d756354c2b15aa4d6efeae184512f76fab85903c0"
+    },
+    "hardware/reference/g-ganen-pump/integration-envelope/native_queries.py": {
+      "source": ".cache/runs/parts-final-20261104/sources/hardware/reference/g-ganen-pump/integration-envelope/native_queries.py",
+      "sha256": "751efb3b7184c37cc85238c951cedccd60c06c1cb1926e9e9fdd7deaff2e4a11"
+    },
+    "hardware/reference/g-ganen-pump/common-foot/g_ganen_foot.py": {
+      "source": ".cache/runs/parts-final-20261104/sources/hardware/reference/g-ganen-pump/common-foot/g_ganen_foot.py",
+      "sha256": "ca6ff8cd43074132835169682cd05876b6cdcf120540da4cfc056a572685bb43"
+    },
+    "hardware/reference/neofit-achv44-check/neofit_achv44_check.py": {
+      "source": ".cache/runs/parts-final-20261104/sources/hardware/reference/neofit-achv44-check/neofit_achv44_check.py",
+      "sha256": "b9fe7b0d87cf2d3c3eeec8e7a61d7887c588d9af954b24fe921b3fb7080c7708"
+    },
+    "hardware/scripts/_build_time.py": {
+      "source": "d6a0b281d2866a4435ffaf056850efe960a74f1f:hardware/scripts/_build_time.py",
+      "sha256": "c6deddec54b3f9f9be869fa9a0eee870bbbc44f1c3ada511016a43552124aaed"
+    },
+    "hardware/reference/asse1022-assembly/asse1022_assembly.py": {
+      "source": ".cache/runs/parts-final-20261104/sources/hardware/reference/asse1022-assembly/asse1022_assembly.py",
+      "sha256": "7e3aa33188700d6767f1a6a203ad9ed7b437c543503cba5f403f7fc50f0938ca"
+    },
+    "hardware/reference/flare38-14ptc/flare38_14ptc.py": {
+      "source": ".cache/runs/parts-final-20261104/sources/hardware/reference/flare38-14ptc/flare38_14ptc.py",
+      "sha256": "8d07dde01b02f8572c5b00449ccc115fb266e1d74ea6e03889c4a223ba68e3a8"
+    },
+    "hardware/reference/gagira-reducing-coupling/gagira_reducing_coupling.py": {
+      "source": ".cache/runs/parts-final-20261104/sources/hardware/reference/gagira-reducing-coupling/gagira_reducing_coupling.py",
+      "sha256": "db1d6b1519afffb1e82842728ba00026c29ed5e9482ec33b0a81114177cf69c7"
+    },
+    "hardware/printed-parts/diaphragm-pump-sleeve/diaphragm_pump_sleeve.py": {
+      "source": "d6a0b281d2866a4435ffaf056850efe960a74f1f:hardware/printed-parts/diaphragm-pump-sleeve/diaphragm_pump_sleeve.py",
+      "sha256": "14a0786489dc1a7118f7695ad71056203591cb61617522306f947573d5ec51af"
+    },
+    "hardware/reference/neofit-drain-bulkhead/neofit_drain_bulkhead.py": {
+      "source": ".cache/runs/parts-final-20261104/sources/hardware/reference/neofit-drain-bulkhead/neofit_drain_bulkhead.py",
+      "sha256": "9c27c490487588671ee596756bd6b68010988e327a5db51709851f04212589ff"
+    },
+    "hardware/reference/neofit-flavor-reducer/neofit_flavor_reducer.py": {
+      "source": ".cache/runs/parts-final-20261104/sources/hardware/reference/neofit-flavor-reducer/neofit_flavor_reducer.py",
+      "sha256": "39d519d1194d30e5f2492023e616eb02151599578964b21b42627648c45907d8"
+    },
+    "hardware/reference/neofit-bulkhead/neofit_bulkhead.py": {
+      "source": ".cache/runs/parts-final-20261104/sources/hardware/reference/neofit-bulkhead/neofit_bulkhead.py",
+      "sha256": "bb708c8b96cab9119e69ea836e0796ba3bcb0e712d7e92fa66318a1979876fe8"
+    },
+    "hardware/reference/water-split/water_split.py": {
+      "source": ".cache/runs/parts-final-20261104/sources/hardware/reference/water-split/water_split.py",
+      "sha256": "c29df01087b3e1d97e6cea8d75b48fb2d46d51a6c3314cf12ac6467d7cc37b44"
+    },
+    "hardware/reference/condenser-block/condenser_block.py": {
+      "source": ".cache/runs/parts-final-20261104/sources/hardware/reference/condenser-block/condenser_block.py",
+      "sha256": "506cf17f52447545adb58c405eeda2c8cc45a65b5e7de73ac8c0cd621f82e8dd"
+    },
+    "hardware/reference/digiten-flow-sensor/digiten_flow_sensor.py": {
+      "source": ".cache/runs/parts-final-20261104/sources/hardware/reference/digiten-flow-sensor/digiten_flow_sensor.py",
+      "sha256": "ddd022d5682c5d8f3e6163a922e6b02ef88d431cdd5e0fe090c41d720aacd9e2"
+    },
+    "hardware/scripts/_boxes.py": {
+      "source": ".cache/runs/cold-core-final-20261104/providers/hardware/scripts/_boxes.py",
+      "sha256": "8fb11a5c5069a8e9d02b997c39d52fa63df038ce1b2726cc50058355018b90ea"
+    },
+    "hardware/scripts/_realized.py": {
+      "source": "d6a0b281d2866a4435ffaf056850efe960a74f1f:hardware/scripts/_realized.py",
+      "sha256": "9862766583d34c13d7d7d535a0e549a2bccd8e312f5d83b0e5cbd809072b44a8"
+    },
+    "hardware/scripts/_clearing.py": {
+      "source": ".cache/runs/cold-core-final-20261104/providers/hardware/scripts/_clearing.py",
+      "sha256": "da8783baaa09ed5e561af114fc21dca16a97feb3b3a14a531976844a35baa4ad"
+    },
+    "hardware/scripts/_meshes.py": {
+      "source": "d6a0b281d2866a4435ffaf056850efe960a74f1f:hardware/scripts/_meshes.py",
+      "sha256": "6dc2b146f36b3ab2d87cbd698bbbdab4a98ddd6f97b400181a89af8e609e4be8"
+    },
+    "hardware/scripts/_overlap.py": {
+      "source": "d6a0b281d2866a4435ffaf056850efe960a74f1f:hardware/scripts/_overlap.py",
+      "sha256": "bd2ba9143feaae4ddea1a1cd0b1bc130eeee17ac2721ce4c1b7603843410962a"
+    },
+    "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead_ring.py": {
+      "source": "d6a0b281d2866a4435ffaf056850efe960a74f1f:hardware/printed-parts/enclosure/bulkhead-ring/bulkhead_ring.py",
+      "sha256": "23211d119a86655e3dd6a43def64c39b69c97203965ad367b8859e2a3156edb0"
+    },
+    "hardware/printed-parts/enclosure/nameplate/nameplate.py": {
+      "source": ".cache/runs/machine-final-20261104/providers/hardware/printed-parts/enclosure/nameplate/nameplate.py",
+      "sha256": "8866704b74c02d1833a5e8a9fb5abd9e6bda40ce589de9407a84281345f88198"
+    },
+    "hardware/printed-parts/enclosure/nameplate/_nameplate_dimensions.py": {
+      "source": "d6a0b281d2866a4435ffaf056850efe960a74f1f:hardware/printed-parts/enclosure/nameplate/_nameplate_dimensions.py",
+      "sha256": "c3a59930689b4f5421dbe48d22bbd6048276b41f066fb9077ab7d6fcc4114994"
+    },
+    "hardware/manifold-layout/_drain.py": {
+      "source": "d6a0b281d2866a4435ffaf056850efe960a74f1f:hardware/manifold-layout/_drain.py",
+      "sha256": "0ad93b3c74802ca07367230e1762ffffe9a1b209ae94336f8c442f70667406c2"
+    }
+  },
+  "raw_inputs_sha256": {
+    "hardware/manifold-layout/above-core.json": "803fd300c839e7e101c49352aaa67747ed1e55f447d58283531bc3d3a5c16d9f",
+    "tools/hsm/run-slots.defaults.json": "bb2df07e3ee0248b58930844369118448d30a8e7c8d8e9472bceb929dae4e4fa",
+    "hardware/reference/jg-pp0308e-elbow/scan-measurements.json": "d977e38f2966b4d3839e7161f5d6fb9b0b276faf7ec2e4ed2b942b5f4b22dd1a",
+    "hardware/manifold-layout/reservoir-a-routes.json": "19e1578fe2b3764aad7cc941ab185612dec36ba53f1ede21d17a922934a7192f"
+  },
+  "raw_inputs_unchanged_after_comparison": true,
+  "api_checks": {
+    "fresh_evaporator_model": "9dd47698c974faf3befe32f5e03e70549d22294aaeb81ee0c203f55841063122",
+    "nested_frozenset_types": true,
+    "namedtuple_modules": true,
+    "public_numeric_dict": true,
+    "placement_ndarray_type": true,
+    "native_cad_loaded": false,
+    "shared_pdf_backend_identity_cases": 4,
+    "shared_foreign_exit_exception_triple": true,
+    "shared_legacy_exit_missing_args": true
+  },
+  "cargo": {
+    "command": "PATH=/opt/homebrew/opt/rustup/bin:$PATH python3 tools/run.py -- /opt/homebrew/opt/rustup/bin/cargo build --release --locked --manifest-path tools/hsm/cold-core-data/Cargo.toml --bin cold-core-data -j 2",
+    "passed": true,
+    "binary_sha256": "30c5634d6a8fab70c79dffd2abc45c4f77933b35941da55d95dd4d1aee9275a9"
+  },
+  "source_dependencies": {
+    "_bom": [
+      {
+        "import": "_cold_scorecard",
+        "source": "hardware/cold-core-layout/_cold_scorecard.py",
+        "scope": "<module>",
+        "line": 25,
+        "native_module": true
+      }
+    ],
+    "_carbonator": [
+      {
+        "import": "_fittings",
+        "source": "hardware/cold-core-layout/_fittings.py",
+        "scope": "<module>",
+        "line": 39,
+        "native_module": true
+      },
+      {
+        "import": "_cold_core_interface",
+        "source": "hardware/printed-parts/cold-core/_cold_core_interface.py",
+        "scope": "<module>",
+        "line": 40,
+        "native_module": true
+      },
+      {
+        "import": "_port_cuts",
+        "source": "hardware/printed-parts/cold-core/_port_cuts.py",
+        "scope": "<module>",
+        "line": 55,
+        "native_module": true
+      },
+      {
+        "import": "_internal_routes",
+        "source": "hardware/printed-parts/cold-core/_internal_routes.py",
+        "scope": "<module>",
+        "line": 56,
+        "native_module": true
+      },
+      {
+        "import": "endcap_circular_dxf",
+        "source": "hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_dxf.py",
+        "scope": "<module>",
+        "line": 61,
+        "native_module": true
+      }
+    ],
+    "_cold_core_style": [
+      {
+        "import": "_materials",
+        "source": "hardware/scripts/_materials.py",
+        "scope": "<module>",
+        "line": 19,
+        "native_module": false
+      },
+      {
+        "import": "_routing",
+        "source": "hardware/scripts/_routing.py",
+        "scope": "<module>",
+        "line": 20,
+        "native_module": false
+      }
+    ],
+    "_cold_scorecard": [
+      {
+        "import": "_card",
+        "source": "hardware/scripts/_card.py",
+        "scope": "<module>",
+        "line": 32,
+        "native_module": false
+      }
+    ],
+    "_core_presentation": [
+      {
+        "import": "_cadq_export",
+        "source": "hardware/scripts/_cadq_export.py",
+        "scope": "printed_surfaces",
+        "line": 59,
+        "native_module": false
+      },
+      {
+        "import": "_cadq_export",
+        "source": "hardware/scripts/_cadq_export.py",
+        "scope": "finish",
+        "line": 92,
+        "native_module": false
+      }
+    ],
+    "_internals": [
+      {
+        "import": "_fittings",
+        "source": "hardware/cold-core-layout/_fittings.py",
+        "scope": "<module>",
+        "line": 29,
+        "native_module": true
+      },
+      {
+        "import": "_carbonator",
+        "source": "hardware/cold-core-layout/_carbonator.py",
+        "scope": "<module>",
+        "line": 30,
+        "native_module": true
+      },
+      {
+        "import": "reservoir",
+        "source": "hardware/printed-parts/cold-core/reservoir/reservoir.py",
+        "scope": "<module>",
+        "line": 32,
+        "native_module": true
+      },
+      {
+        "import": "reed_bridge",
+        "source": "hardware/printed-parts/cold-core/reed-bridge/reed_bridge.py",
+        "scope": "<module>",
+        "line": 33,
+        "native_module": true
+      },
+      {
+        "import": "_internal_routes",
+        "source": "hardware/printed-parts/cold-core/_internal_routes.py",
+        "scope": "<module>",
+        "line": 34,
+        "native_module": true
+      },
+      {
+        "import": "_water_inlet_jet",
+        "source": "hardware/cold-core-layout/_water_inlet_jet.py",
+        "scope": "<module>",
+        "line": 35,
+        "native_module": true
+      },
+      {
+        "import": "_cold_core_interface",
+        "source": "hardware/printed-parts/cold-core/_cold_core_interface.py",
+        "scope": "<module>",
+        "line": 36,
+        "native_module": true
+      },
+      {
+        "import": "_reed_channels",
+        "source": "hardware/printed-parts/cold-core/_reed_channels.py",
+        "scope": "<module>",
+        "line": 42,
+        "native_module": true
+      },
+      {
+        "import": "jg_pp010822e",
+        "source": "hardware/reference/jg-pp010822e/jg_pp010822e.py",
+        "scope": "<module>",
+        "line": 47,
+        "native_module": false
+      },
+      {
+        "import": "_cadq_export",
+        "source": "hardware/scripts/_cadq_export.py",
+        "scope": "<module>",
+        "line": 48,
+        "native_module": false
+      }
+    ],
+    "carbonator_vessel_drawing": [
+      {
+        "import": "_carbonator_drawing",
+        "source": "hardware/scripts/_carbonator_drawing.py",
+        "scope": "<module>",
+        "line": 16,
+        "native_module": false
+      }
+    ],
+    "cold_core_assembly": [
+      {
+        "import": "_rust_part",
+        "source": "hardware/scripts/_rust_part.py",
+        "scope": "<module>",
+        "line": 37,
+        "native_module": false
+      },
+      {
+        "import": "foam_assembly",
+        "source": "hardware/printed-parts/cold-core/foam-assembly/foam_assembly.py",
+        "scope": "<module>",
+        "line": 41,
+        "native_module": true
+      },
+      {
+        "import": "_internal_routes",
+        "source": "hardware/printed-parts/cold-core/_internal_routes.py",
+        "scope": "<module>",
+        "line": 42,
+        "native_module": true
+      },
+      {
+        "import": "_cold_core_interface",
+        "source": "hardware/printed-parts/cold-core/_cold_core_interface.py",
+        "scope": "<module>",
+        "line": 43,
+        "native_module": true
+      },
+      {
+        "import": "_carbonator",
+        "source": "hardware/cold-core-layout/_carbonator.py",
+        "scope": "<module>",
+        "line": 44,
+        "native_module": true
+      },
+      {
+        "import": "_fittings",
+        "source": "hardware/cold-core-layout/_fittings.py",
+        "scope": "<module>",
+        "line": 46,
+        "native_module": true
+      },
+      {
+        "import": "_internals",
+        "source": "hardware/cold-core-layout/_internals.py",
+        "scope": "<module>",
+        "line": 47,
+        "native_module": true
+      },
+      {
+        "import": "_bom",
+        "source": "hardware/cold-core-layout/_bom.py",
+        "scope": "<module>",
+        "line": 48,
+        "native_module": true
+      },
+      {
+        "import": "prv_shroud",
+        "source": "hardware/printed-parts/cold-core/prv-shroud/prv_shroud.py",
+        "scope": "<module>",
+        "line": 49,
+        "native_module": true
+      },
+      {
+        "import": "_cold_scorecard",
+        "source": "hardware/cold-core-layout/_cold_scorecard.py",
+        "scope": "<module>",
+        "line": 50,
+        "native_module": true
+      },
+      {
+        "import": "_cold_core_style",
+        "source": "hardware/cold-core-layout/_cold_core_style.py",
+        "scope": "<module>",
+        "line": 51,
+        "native_module": true
+      },
+      {
+        "import": "_reservoir_ports",
+        "source": "hardware/printed-parts/cold-core/_reservoir_ports.py",
+        "scope": "<module>",
+        "line": 52,
+        "native_module": true
+      },
+      {
+        "import": "_above_core_mounts",
+        "source": "hardware/printed-parts/cold-core/_above_core_mounts.py",
+        "scope": "<module>",
+        "line": 53,
+        "native_module": true
+      },
+      {
+        "import": "_card",
+        "source": "hardware/scripts/_card.py",
+        "scope": "<module>",
+        "line": 54,
+        "native_module": false
+      },
+      {
+        "import": "_cold_scorecard",
+        "source": "hardware/cold-core-layout/_cold_scorecard.py",
+        "scope": "<module>",
+        "line": 55,
+        "native_module": true
+      },
+      {
+        "import": "_rust_part",
+        "source": "hardware/scripts/_rust_part.py",
+        "scope": "rust_main",
+        "line": 426,
+        "native_module": false
+      },
+      {
+        "import": "core_numbers",
+        "source": "hardware/cold-core-layout/core_numbers.py",
+        "scope": "rust_main",
+        "line": 427,
+        "native_module": true
+      },
+      {
+        "import": "_cadq_export",
+        "source": "hardware/scripts/_cadq_export.py",
+        "scope": "rust_main",
+        "line": 428,
+        "native_module": false
+      },
+      {
+        "import": "_core_presentation",
+        "source": "hardware/cold-core-layout/_core_presentation.py",
+        "scope": "rust_main",
+        "line": 454,
+        "native_module": true
+      }
+    ],
+    "core_numbers": [
+      {
+        "import": "cold_core_assembly",
+        "source": "hardware/cold-core-layout/cold_core_assembly.py",
+        "scope": "<module>",
+        "line": 10,
+        "native_module": true
+      },
+      {
+        "import": "_core_points",
+        "source": "hardware/cold-core-layout/_core_points.py",
+        "scope": "<module>",
+        "line": 11,
+        "native_module": true
+      },
+      {
+        "import": "_materials",
+        "source": "hardware/scripts/_materials.py",
+        "scope": "<module>",
+        "line": 12,
+        "native_module": false
+      },
+      {
+        "import": "_reservoir_b_fill",
+        "source": "hardware/printed-parts/cold-core/_reservoir_b_fill.py",
+        "scope": "numbers",
+        "line": 72,
+        "native_module": true
+      },
+      {
+        "import": "foam_numbers",
+        "source": "hardware/printed-parts/cold-core/foam-assembly/foam_numbers.py",
+        "scope": "numbers",
+        "line": 81,
+        "native_module": true
+      },
+      {
+        "import": "_cadq_export",
+        "source": "hardware/scripts/_cadq_export.py",
+        "scope": "numbers",
+        "line": 195,
+        "native_module": false
+      },
+      {
+        "import": "_payload_rules",
+        "source": "hardware/scripts/_payload_rules.py",
+        "scope": "numbers",
+        "line": 196,
+        "native_module": false
+      }
+    ],
+    "core_reference": [
+      {
+        "import": "_rust_part",
+        "source": "hardware/scripts/_rust_part.py",
+        "scope": "datums",
+        "line": 21,
+        "native_module": false
+      },
+      {
+        "import": "_cold_core_interface",
+        "source": "hardware/printed-parts/cold-core/_cold_core_interface.py",
+        "scope": "datums",
+        "line": 23,
+        "native_module": true
+      },
+      {
+        "import": "_copper_ports",
+        "source": "hardware/printed-parts/cold-core/_copper_ports.py",
+        "scope": "datums",
+        "line": 24,
+        "native_module": true
+      },
+      {
+        "import": "foam_assembly",
+        "source": "hardware/printed-parts/cold-core/foam-assembly/foam_assembly.py",
+        "scope": "datums",
+        "line": 25,
+        "native_module": true
+      },
+      {
+        "import": "_assembly_model",
+        "source": "hardware/scripts/_assembly_model.py",
+        "scope": "casing_bounds",
+        "line": 49,
+        "native_module": false
+      },
+      {
+        "import": "_assembly_model",
+        "source": "hardware/scripts/_assembly_model.py",
+        "scope": "instance",
+        "line": 64,
+        "native_module": false
+      }
+    ],
+    "evaporator_coil_drawing": [
+      {
+        "import": "_rust_part",
+        "source": "hardware/scripts/_rust_part.py",
+        "scope": "<module>",
+        "line": 21,
+        "native_module": false
+      },
+      {
+        "import": "_mesh_projection",
+        "source": "hardware/scripts/_mesh_projection.py",
+        "scope": "<module>",
+        "line": 23,
+        "native_module": false
+      },
+      {
+        "import": "coil_mandrel",
+        "source": "hardware/printed-parts/cold-core/coil-mandrel/coil_mandrel.py",
+        "scope": "<module>",
+        "line": 25,
+        "native_module": true
+      },
+      {
+        "import": "_fabrication_drawing",
+        "source": "hardware/scripts/_fabrication_drawing.py",
+        "scope": "<module>",
+        "line": 26,
+        "native_module": false
+      },
+      {
+        "import": "core_numbers",
+        "source": "hardware/cold-core-layout/core_numbers.py",
+        "scope": "drawing_model",
+        "line": 65,
+        "native_module": true
+      }
+    ],
+    "water_inlet_jet_cap_drawing": [
+      {
+        "import": "_document_export",
+        "source": "hardware/scripts/_document_export.py",
+        "scope": "<module>",
+        "line": 22,
+        "native_module": false
+      },
+      {
+        "import": "endcap_circular_drawing",
+        "source": "hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_drawing.py",
+        "scope": "<module>",
+        "line": 23,
+        "native_module": true
+      },
+      {
+        "import": "_water_inlet_jet",
+        "source": "hardware/cold-core-layout/_water_inlet_jet.py",
+        "scope": "<module>",
+        "line": 27,
+        "native_module": true
+      }
+    ],
+    "water_inlet_jet_elbow_drawing": [
+      {
+        "import": "_rust_part",
+        "source": "hardware/scripts/_rust_part.py",
+        "scope": "<module>",
+        "line": 25,
+        "native_module": false
+      },
+      {
+        "import": "_document_export",
+        "source": "hardware/scripts/_document_export.py",
+        "scope": "<module>",
+        "line": 27,
+        "native_module": false
+      },
+      {
+        "import": "endcap_circular_drawing",
+        "source": "hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_drawing.py",
+        "scope": "<module>",
+        "line": 28,
+        "native_module": true
+      },
+      {
+        "import": "_carbonator",
+        "source": "hardware/cold-core-layout/_carbonator.py",
+        "scope": "<module>",
+        "line": 32,
+        "native_module": true
+      },
+      {
+        "import": "_fittings",
+        "source": "hardware/cold-core-layout/_fittings.py",
+        "scope": "<module>",
+        "line": 33,
+        "native_module": true
+      },
+      {
+        "import": "water_inlet_jet_cap_drawing",
+        "source": "hardware/cold-core-layout/water_inlet_jet_cap_drawing.py",
+        "scope": "<module>",
+        "line": 34,
+        "native_module": true
+      },
+      {
+        "import": "_water_inlet_jet",
+        "source": "hardware/cold-core-layout/_water_inlet_jet.py",
+        "scope": "<module>",
+        "line": 35,
+        "native_module": true
+      }
+    ],
+    "carbonator_tube_step": [
+      {
+        "import": "_rust_part",
+        "source": "hardware/scripts/_rust_part.py",
+        "scope": "<module>",
+        "line": 32,
+        "native_module": false
+      },
+      {
+        "import": "_material_base",
+        "source": "hardware/scripts/_material_base.py",
+        "scope": "numbers",
+        "line": 64,
+        "native_module": false
+      },
+      {
+        "import": "_materials",
+        "source": "hardware/scripts/_materials.py",
+        "scope": "numbers",
+        "line": 65,
+        "native_module": false
+      },
+      {
+        "import": "_rust_part",
+        "source": "hardware/scripts/_rust_part.py",
+        "scope": "main",
+        "line": 72,
+        "native_module": false
+      }
+    ],
+    "endcap_circular_drawing": [
+      {
+        "import": "_document_export",
+        "source": "hardware/scripts/_document_export.py",
+        "scope": "<module>",
+        "line": 23,
+        "native_module": false
+      },
+      {
+        "import": "endcap_circular_dxf",
+        "source": "hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_dxf.py",
+        "scope": "<module>",
+        "line": 24,
+        "native_module": true
+      }
+    ],
+    "endcap_circular_dxf": [
+      {
+        "import": "_document_export",
+        "source": "hardware/scripts/_document_export.py",
+        "scope": "<module>",
+        "line": 64,
+        "native_module": false
+      }
+    ],
+    "endcap_circular_step": [
+      {
+        "import": "_rust_part",
+        "source": "hardware/scripts/_rust_part.py",
+        "scope": "<module>",
+        "line": 45,
+        "native_module": false
+      },
+      {
+        "import": "endcap_circular_dxf",
+        "source": "hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_dxf.py",
+        "scope": "<module>",
+        "line": 49,
+        "native_module": true
+      },
+      {
+        "import": "_material_base",
+        "source": "hardware/scripts/_material_base.py",
+        "scope": "numbers",
+        "line": 111,
+        "native_module": false
+      },
+      {
+        "import": "_materials",
+        "source": "hardware/scripts/_materials.py",
+        "scope": "numbers",
+        "line": 112,
+        "native_module": false
+      },
+      {
+        "import": "_rust_part",
+        "source": "hardware/scripts/_rust_part.py",
+        "scope": "main",
+        "line": 122,
+        "native_module": false
+      }
+    ],
+    "float_rod_drawing": [
+      {
+        "import": "_carbonator_drawing",
+        "source": "hardware/scripts/_carbonator_drawing.py",
+        "scope": "<module>",
+        "line": 15,
+        "native_module": false
+      }
+    ],
+    "reservoir_float_rod_drawing": [
+      {
+        "import": "reservoir",
+        "source": "hardware/printed-parts/cold-core/reservoir/reservoir.py",
+        "scope": "<module>",
+        "line": 15,
+        "native_module": true
+      },
+      {
+        "import": "_fabrication_drawing",
+        "source": "hardware/scripts/_fabrication_drawing.py",
+        "scope": "<module>",
+        "line": 16,
+        "native_module": false
+      }
+    ],
+    "_above_core_mounts": [
+      {
+        "import": "above_core",
+        "source": "hardware/manifold-layout/above_core.py",
+        "scope": "<module>",
+        "line": 31,
+        "native_module": false
+      },
+      {
+        "import": "hardware.wiring.installed.retainers",
+        "source": "hardware/wiring/installed/retainers.py",
+        "scope": "manifold_cable_bank",
+        "line": 96,
+        "native_module": false
+      },
+      {
+        "import": "hardware.wiring.installed.retainers",
+        "source": "hardware/wiring/installed/retainers.py",
+        "scope": "rear_level_cable_hook",
+        "line": 106,
+        "native_module": false
+      },
+      {
+        "import": "above_core_parts",
+        "source": "hardware/manifold-layout/above_core_parts.py",
+        "scope": "pump_cradle_datums",
+        "line": 153,
+        "native_module": false
+      },
+      {
+        "import": "fits",
+        "source": "hardware/printed-parts/cadlib/fits.py",
+        "scope": "pump_cradle_datums",
+        "line": 154,
+        "native_module": false
+      },
+      {
+        "import": "rear_snaps",
+        "source": "hardware/manifold-layout/rear_snaps.py",
+        "scope": "pump_cradle_datums",
+        "line": 155,
+        "native_module": false
+      },
+      {
+        "import": "fits",
+        "source": "hardware/printed-parts/cadlib/fits.py",
+        "scope": "pump_snap_cap",
+        "line": 262,
+        "native_module": false
+      },
+      {
+        "import": "rear_snaps",
+        "source": "hardware/manifold-layout/rear_snaps.py",
+        "scope": "pump_snap_cap",
+        "line": 265,
+        "native_module": false
+      },
+      {
+        "import": "rear_snaps",
+        "source": "hardware/manifold-layout/rear_snaps.py",
+        "scope": "pump_cradle",
+        "line": 286,
+        "native_module": false
+      },
+      {
+        "import": "fits",
+        "source": "hardware/printed-parts/cadlib/fits.py",
+        "scope": "pump_cradle",
+        "line": 300,
+        "native_module": false
+      },
+      {
+        "import": "fits",
+        "source": "hardware/printed-parts/cadlib/fits.py",
+        "scope": "check_support_datums",
+        "line": 436,
+        "native_module": false
+      },
+      {
+        "import": "fits",
+        "source": "hardware/printed-parts/cadlib/fits.py",
+        "scope": "union_support_datums",
+        "line": 521,
+        "native_module": false
+      }
+    ],
+    "_cold_core_interface": [
+      {
+        "import": "fits",
+        "source": "hardware/printed-parts/cadlib/fits.py",
+        "scope": "<module>",
+        "line": 29,
+        "native_module": false
+      },
+      {
+        "import": "valve_seat",
+        "source": "hardware/printed-parts/valve-seat/valve_seat.py",
+        "scope": "<module>",
+        "line": 30,
+        "native_module": false
+      },
+      {
+        "import": "_above_core_mounts",
+        "source": "hardware/printed-parts/cold-core/_above_core_mounts.py",
+        "scope": "<module>",
+        "line": 31,
+        "native_module": true
+      },
+      {
+        "import": "_stated_bounds",
+        "source": "hardware/scripts/_stated_bounds.py",
+        "scope": "<module>",
+        "line": 32,
+        "native_module": false
+      },
+      {
+        "import": "_enclosure_interface",
+        "source": "hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py",
+        "scope": "<module>",
+        "line": 33,
+        "native_module": false
+      },
+      {
+        "import": "_anchor_cap_interface",
+        "source": "hardware/printed-parts/enclosure/enclosure/_anchor_cap_interface.py",
+        "scope": "<module>",
+        "line": 35,
+        "native_module": false
+      },
+      {
+        "import": "world_workplane",
+        "source": "hardware/printed-parts/cadlib/world_workplane.py",
+        "scope": "make_box",
+        "line": 946,
+        "native_module": false
+      },
+      {
+        "import": "world_workplane",
+        "source": "hardware/printed-parts/cadlib/world_workplane.py",
+        "scope": "build_z_axis_hole_punch",
+        "line": 969,
+        "native_module": false
+      },
+      {
+        "import": "world_workplane",
+        "source": "hardware/printed-parts/cadlib/world_workplane.py",
+        "scope": "__getattr__",
+        "line": 1022,
+        "native_module": false
+      }
+    ],
+    "_copper_ports": [
+      {
+        "import": "_cold_core_interface",
+        "source": "hardware/printed-parts/cold-core/_cold_core_interface.py",
+        "scope": "<module>",
+        "line": 3,
+        "native_module": true
+      }
+    ],
+    "_foam_cap": [
+      {
+        "import": "world_workplane",
+        "source": "hardware/printed-parts/cadlib/world_workplane.py",
+        "scope": "<module>",
+        "line": 9,
+        "native_module": false
+      },
+      {
+        "import": "fits",
+        "source": "hardware/printed-parts/cadlib/fits.py",
+        "scope": "<module>",
+        "line": 10,
+        "native_module": false
+      },
+      {
+        "import": "_cold_core_interface",
+        "source": "hardware/printed-parts/cold-core/_cold_core_interface.py",
+        "scope": "<module>",
+        "line": 11,
+        "native_module": true
+      },
+      {
+        "import": "_outer_shell",
+        "source": "hardware/printed-parts/cold-core/_outer_shell.py",
+        "scope": "<module>",
+        "line": 51,
+        "native_module": true
+      },
+      {
+        "import": "_above_core_mounts",
+        "source": "hardware/printed-parts/cold-core/_above_core_mounts.py",
+        "scope": "<module>",
+        "line": 52,
+        "native_module": true
+      },
+      {
+        "import": "_internal_routes",
+        "source": "hardware/printed-parts/cold-core/_internal_routes.py",
+        "scope": "build_conduit_bores",
+        "line": 124,
+        "native_module": true
+      },
+      {
+        "import": "_reservoir_b_fill",
+        "source": "hardware/printed-parts/cold-core/_reservoir_b_fill.py",
+        "scope": "build_conduit_bores",
+        "line": 143,
+        "native_module": true
+      },
+      {
+        "import": "_reservoir_b_fill",
+        "source": "hardware/printed-parts/cold-core/_reservoir_b_fill.py",
+        "scope": "build_foam_cap_lid",
+        "line": 228,
+        "native_module": true
+      },
+      {
+        "import": "_cadq_export",
+        "source": "hardware/scripts/_cadq_export.py",
+        "scope": "import_cap_part",
+        "line": 262,
+        "native_module": false
+      },
+      {
+        "import": "_reservoir_b_fill",
+        "source": "hardware/printed-parts/cold-core/_reservoir_b_fill.py",
+        "scope": "import_cap_part",
+        "line": 279,
+        "native_module": true
+      }
+    ],
+    "_foam_shell": [
+      {
+        "import": "_cold_core_interface",
+        "source": "hardware/printed-parts/cold-core/_cold_core_interface.py",
+        "scope": "<module>",
+        "line": 4,
+        "native_module": true
+      },
+      {
+        "import": "_reservoir_pocket_walls",
+        "source": "hardware/printed-parts/cold-core/_reservoir_pocket_walls.py",
+        "scope": "<module>",
+        "line": 5,
+        "native_module": true
+      },
+      {
+        "import": "_support_ring",
+        "source": "hardware/printed-parts/cold-core/_support_ring.py",
+        "scope": "<module>",
+        "line": 6,
+        "native_module": true
+      },
+      {
+        "import": "_outer_shell",
+        "source": "hardware/printed-parts/cold-core/_outer_shell.py",
+        "scope": "<module>",
+        "line": 7,
+        "native_module": true
+      },
+      {
+        "import": "_port_cuts",
+        "source": "hardware/printed-parts/cold-core/_port_cuts.py",
+        "scope": "<module>",
+        "line": 8,
+        "native_module": true
+      },
+      {
+        "import": "_reed_channels",
+        "source": "hardware/printed-parts/cold-core/_reed_channels.py",
+        "scope": "<module>",
+        "line": 12,
+        "native_module": true
+      },
+      {
+        "import": "_reed_b_outlet",
+        "source": "hardware/printed-parts/cold-core/_reed_b_outlet.py",
+        "scope": "<module>",
+        "line": 16,
+        "native_module": true
+      },
+      {
+        "import": "_reservoir_b_fill",
+        "source": "hardware/printed-parts/cold-core/_reservoir_b_fill.py",
+        "scope": "build_full_shell",
+        "line": 36,
+        "native_module": true
+      },
+      {
+        "import": "_above_core_mounts",
+        "source": "hardware/printed-parts/cold-core/_above_core_mounts.py",
+        "scope": "build_full_shell",
+        "line": 37,
+        "native_module": true
+      },
+      {
+        "import": "_foam_cap",
+        "source": "hardware/printed-parts/cold-core/_foam_cap.py",
+        "scope": "build_full_shell",
+        "line": 38,
+        "native_module": true
+      },
+      {
+        "import": "_cadq_export",
+        "source": "hardware/scripts/_cadq_export.py",
+        "scope": "import_shell",
+        "line": 52,
+        "native_module": false
+      }
+    ],
+    "_internal_routes": [
+      {
+        "import": "_cold_core_interface",
+        "source": "hardware/printed-parts/cold-core/_cold_core_interface.py",
+        "scope": "<module>",
+        "line": 72,
+        "native_module": true
+      },
+      {
+        "import": "_foam_cap",
+        "source": "hardware/printed-parts/cold-core/_foam_cap.py",
+        "scope": "<module>",
+        "line": 98,
+        "native_module": true
+      },
+      {
+        "import": "_above_core_mounts",
+        "source": "hardware/printed-parts/cold-core/_above_core_mounts.py",
+        "scope": "<module>",
+        "line": 99,
+        "native_module": true
+      },
+      {
+        "import": "_port_cuts",
+        "source": "hardware/printed-parts/cold-core/_port_cuts.py",
+        "scope": "<module>",
+        "line": 100,
+        "native_module": true
+      },
+      {
+        "import": "reservoir",
+        "source": "hardware/printed-parts/cold-core/reservoir/reservoir.py",
+        "scope": "<module>",
+        "line": 106,
+        "native_module": true
+      },
+      {
+        "import": "prv_shroud",
+        "source": "hardware/printed-parts/cold-core/prv-shroud/prv_shroud.py",
+        "scope": "<module>",
+        "line": 107,
+        "native_module": true
+      },
+      {
+        "import": "_routing",
+        "source": "hardware/scripts/_routing.py",
+        "scope": "<module>",
+        "line": 108,
+        "native_module": false
+      },
+      {
+        "import": "_overlap",
+        "source": "hardware/scripts/_overlap.py",
+        "scope": "fit_route",
+        "line": 498,
+        "native_module": false
+      },
+      {
+        "import": "_overlap",
+        "source": "hardware/scripts/_overlap.py",
+        "scope": "report_routes",
+        "line": 543,
+        "native_module": false
+      }
+    ],
+    "_outer_shell": [
+      {
+        "import": "world_workplane",
+        "source": "hardware/printed-parts/cadlib/world_workplane.py",
+        "scope": "<module>",
+        "line": 8,
+        "native_module": false
+      },
+      {
+        "import": "fits",
+        "source": "hardware/printed-parts/cadlib/fits.py",
+        "scope": "<module>",
+        "line": 9,
+        "native_module": false
+      },
+      {
+        "import": "_cold_core_interface",
+        "source": "hardware/printed-parts/cold-core/_cold_core_interface.py",
+        "scope": "<module>",
+        "line": 10,
+        "native_module": true
+      }
+    ],
+    "_port_cuts": [
+      {
+        "import": "fits",
+        "source": "hardware/printed-parts/cadlib/fits.py",
+        "scope": "<module>",
+        "line": 18,
+        "native_module": false
+      },
+      {
+        "import": "_cold_core_interface",
+        "source": "hardware/printed-parts/cold-core/_cold_core_interface.py",
+        "scope": "<module>",
+        "line": 20,
+        "native_module": true
+      },
+      {
+        "import": "_support_ring",
+        "source": "hardware/printed-parts/cold-core/_support_ring.py",
+        "scope": "<module>",
+        "line": 35,
+        "native_module": true
+      },
+      {
+        "import": "_internal_routes",
+        "source": "hardware/printed-parts/cold-core/_internal_routes.py",
+        "scope": "cut_prv_vent_port",
+        "line": 194,
+        "native_module": true
+      },
+      {
+        "import": "_copper_ports",
+        "source": "hardware/printed-parts/cold-core/_copper_ports.py",
+        "scope": "cut_copper_ports",
+        "line": 203,
+        "native_module": true
+      }
+    ],
+    "_reed_channels": [
+      {
+        "import": "_cold_core_interface",
+        "source": "hardware/printed-parts/cold-core/_cold_core_interface.py",
+        "scope": "<module>",
+        "line": 4,
+        "native_module": true
+      }
+    ],
+    "_reservoir_a_anchors": [
+      {
+        "import": "_reservoir_a_c2",
+        "source": "hardware/printed-parts/cold-core/_reservoir_a_c2.py",
+        "scope": "<module>",
+        "line": 10,
+        "native_module": true
+      },
+      {
+        "import": "above_core_routes",
+        "source": "hardware/manifold-layout/above_core_routes.py",
+        "scope": "_route_station",
+        "line": 150,
+        "native_module": false
+      }
+    ],
+    "_reservoir_b_fill": [
+      {
+        "import": "fits",
+        "source": "hardware/printed-parts/cadlib/fits.py",
+        "scope": "passage",
+        "line": 30,
+        "native_module": false
+      }
+    ],
+    "_reservoir_pocket_walls": [
+      {
+        "import": "world_workplane",
+        "source": "hardware/printed-parts/cadlib/world_workplane.py",
+        "scope": "<module>",
+        "line": 8,
+        "native_module": false
+      },
+      {
+        "import": "_cold_core_interface",
+        "source": "hardware/printed-parts/cold-core/_cold_core_interface.py",
+        "scope": "<module>",
+        "line": 9,
+        "native_module": true
+      }
+    ],
+    "_show_skin": [
+      {
+        "import": "print_mesh",
+        "source": "hardware/printed-parts/cadlib/print_mesh.py",
+        "scope": "<module>",
+        "line": 3,
+        "native_module": false
+      }
+    ],
+    "_support_ring": [
+      {
+        "import": "_cold_core_interface",
+        "source": "hardware/printed-parts/cold-core/_cold_core_interface.py",
+        "scope": "<module>",
+        "line": 8,
+        "native_module": true
+      }
+    ],
+    "_water_pressure_regulator": [
+      {
+        "import": "shok_blok_regulator",
+        "source": "hardware/reference/shok-blok-regulator/shok_blok_regulator.py",
+        "scope": "<module>",
+        "line": 10,
+        "native_module": false
+      }
+    ],
+    "foam_assembly": [
+      {
+        "import": "_rust_part",
+        "source": "hardware/scripts/_rust_part.py",
+        "scope": "<module>",
+        "line": 22,
+        "native_module": false
+      },
+      {
+        "import": "_cold_core_interface",
+        "source": "hardware/printed-parts/cold-core/_cold_core_interface.py",
+        "scope": "<module>",
+        "line": 26,
+        "native_module": true
+      },
+      {
+        "import": "_foam_cap",
+        "source": "hardware/printed-parts/cold-core/_foam_cap.py",
+        "scope": "<module>",
+        "line": 44,
+        "native_module": true
+      },
+      {
+        "import": "_port_cuts",
+        "source": "hardware/printed-parts/cold-core/_port_cuts.py",
+        "scope": "<module>",
+        "line": 45,
+        "native_module": true
+      },
+      {
+        "import": "_internal_routes",
+        "source": "hardware/printed-parts/cold-core/_internal_routes.py",
+        "scope": "<module>",
+        "line": 46,
+        "native_module": true
+      },
+      {
+        "import": "_routing",
+        "source": "hardware/scripts/_routing.py",
+        "scope": "<module>",
+        "line": 47,
+        "native_module": false
+      },
+      {
+        "import": "_materials",
+        "source": "hardware/scripts/_materials.py",
+        "scope": "<module>",
+        "line": 48,
+        "native_module": false
+      },
+      {
+        "import": "_above_core_mounts",
+        "source": "hardware/printed-parts/cold-core/_above_core_mounts.py",
+        "scope": "<module>",
+        "line": 49,
+        "native_module": true
+      },
+      {
+        "import": "_rust_part",
+        "source": "hardware/scripts/_rust_part.py",
+        "scope": "rust_main",
+        "line": 253,
+        "native_module": false
+      },
+      {
+        "import": "foam_numbers",
+        "source": "hardware/printed-parts/cold-core/foam-assembly/foam_numbers.py",
+        "scope": "rust_main",
+        "line": 254,
+        "native_module": true
+      },
+      {
+        "import": "_core_presentation",
+        "source": "hardware/cold-core-layout/_core_presentation.py",
+        "scope": "rust_main",
+        "line": 268,
+        "native_module": true
+      }
+    ],
+    "foam_numbers": [
+      {
+        "import": "_cadq_export",
+        "source": "hardware/scripts/_cadq_export.py",
+        "scope": "stack_numbers",
+        "line": 14,
+        "native_module": false
+      },
+      {
+        "import": "_foam_cap",
+        "source": "hardware/printed-parts/cold-core/_foam_cap.py",
+        "scope": "stack_numbers",
+        "line": 15,
+        "native_module": true
+      },
+      {
+        "import": "_materials",
+        "source": "hardware/scripts/_materials.py",
+        "scope": "stack_numbers",
+        "line": 16,
+        "native_module": false
+      },
+      {
+        "import": "_cadq_export",
+        "source": "hardware/scripts/_cadq_export.py",
+        "scope": "numbers",
+        "line": 36,
+        "native_module": false
+      },
+      {
+        "import": "foam_assembly",
+        "source": "hardware/printed-parts/cold-core/foam-assembly/foam_assembly.py",
+        "scope": "numbers",
+        "line": 37,
+        "native_module": true
+      },
+      {
+        "import": "_materials",
+        "source": "hardware/scripts/_materials.py",
+        "scope": "numbers",
+        "line": 38,
+        "native_module": false
+      },
+      {
+        "import": "_payload_rules",
+        "source": "hardware/scripts/_payload_rules.py",
+        "scope": "numbers",
+        "line": 39,
+        "native_module": false
+      }
+    ],
+    "foam_cap": [
+      {
+        "import": "_rust_part",
+        "source": "hardware/scripts/_rust_part.py",
+        "scope": "<module>",
+        "line": 21,
+        "native_module": false
+      },
+      {
+        "import": "fits",
+        "source": "hardware/printed-parts/cadlib/fits.py",
+        "scope": "<module>",
+        "line": 24,
+        "native_module": false
+      },
+      {
+        "import": "_materials",
+        "source": "hardware/scripts/_materials.py",
+        "scope": "<module>",
+        "line": 25,
+        "native_module": false
+      },
+      {
+        "import": "valve_seat",
+        "source": "hardware/printed-parts/valve-seat/valve_seat.py",
+        "scope": "<module>",
+        "line": 26,
+        "native_module": false
+      },
+      {
+        "import": "_above_core_mounts",
+        "source": "hardware/printed-parts/cold-core/_above_core_mounts.py",
+        "scope": "<module>",
+        "line": 27,
+        "native_module": true
+      },
+      {
+        "import": "_reservoir_a_anchors",
+        "source": "hardware/printed-parts/cold-core/_reservoir_a_anchors.py",
+        "scope": "<module>",
+        "line": 28,
+        "native_module": true
+      },
+      {
+        "import": "above_core_wiring",
+        "source": "hardware/manifold-layout/above_core_wiring.py",
+        "scope": "<module>",
+        "line": 29,
+        "native_module": false
+      },
+      {
+        "import": "_reservoir_ports",
+        "source": "hardware/printed-parts/cold-core/_reservoir_ports.py",
+        "scope": "<module>",
+        "line": 30,
+        "native_module": true
+      },
+      {
+        "import": "_reservoir_b_fill",
+        "source": "hardware/printed-parts/cold-core/_reservoir_b_fill.py",
+        "scope": "<module>",
+        "line": 31,
+        "native_module": true
+      },
+      {
+        "import": "_foam_cap",
+        "source": "hardware/printed-parts/cold-core/_foam_cap.py",
+        "scope": "<module>",
+        "line": 32,
+        "native_module": true
+      },
+      {
+        "import": "_cold_core_interface",
+        "source": "hardware/printed-parts/cold-core/_cold_core_interface.py",
+        "scope": "<module>",
+        "line": 33,
+        "native_module": true
+      },
+      {
+        "import": "_cold_core_interface",
+        "source": "hardware/printed-parts/cold-core/_cold_core_interface.py",
+        "scope": "<module>",
+        "line": 34,
+        "native_module": true
+      },
+      {
+        "import": "_cold_core_interface",
+        "source": "hardware/printed-parts/cold-core/_cold_core_interface.py",
+        "scope": "numbers",
+        "line": 46,
+        "native_module": true
+      },
+      {
+        "import": "_reservoir_a_c2",
+        "source": "hardware/printed-parts/cold-core/_reservoir_a_c2.py",
+        "scope": "numbers",
+        "line": 47,
+        "native_module": true
+      },
+      {
+        "import": "above_core_routes",
+        "source": "hardware/manifold-layout/above_core_routes.py",
+        "scope": "numbers",
+        "line": 48,
+        "native_module": false
+      },
+      {
+        "import": "rear_snaps",
+        "source": "hardware/manifold-layout/rear_snaps.py",
+        "scope": "numbers",
+        "line": 49,
+        "native_module": false
+      },
+      {
+        "import": "_materials",
+        "source": "hardware/scripts/_materials.py",
+        "scope": "numbers",
+        "line": 50,
+        "native_module": false
+      },
+      {
+        "import": "hardware.wiring.installed.retainers",
+        "source": "hardware/wiring/installed/retainers.py",
+        "scope": "numbers",
+        "line": 53,
+        "native_module": false
+      },
+      {
+        "import": "_rust_part",
+        "source": "hardware/scripts/_rust_part.py",
+        "scope": "main",
+        "line": 156,
+        "native_module": false
+      }
+    ],
+    "foam_shell": [
+      {
+        "import": "_rust_part",
+        "source": "hardware/scripts/_rust_part.py",
+        "scope": "<module>",
+        "line": 16,
+        "native_module": false
+      },
+      {
+        "import": "_materials",
+        "source": "hardware/scripts/_materials.py",
+        "scope": "<module>",
+        "line": 19,
+        "native_module": false
+      },
+      {
+        "import": "_cold_core_interface",
+        "source": "hardware/printed-parts/cold-core/_cold_core_interface.py",
+        "scope": "<module>",
+        "line": 20,
+        "native_module": true
+      },
+      {
+        "import": "_reservoir_pocket_walls",
+        "source": "hardware/printed-parts/cold-core/_reservoir_pocket_walls.py",
+        "scope": "<module>",
+        "line": 66,
+        "native_module": true
+      },
+      {
+        "import": "_port_cuts",
+        "source": "hardware/printed-parts/cold-core/_port_cuts.py",
+        "scope": "<module>",
+        "line": 70,
+        "native_module": true
+      },
+      {
+        "import": "_cold_core_interface",
+        "source": "hardware/printed-parts/cold-core/_cold_core_interface.py",
+        "scope": "<module>",
+        "line": 71,
+        "native_module": true
+      },
+      {
+        "import": "_copper_ports",
+        "source": "hardware/printed-parts/cold-core/_copper_ports.py",
+        "scope": "<module>",
+        "line": 81,
+        "native_module": true
+      },
+      {
+        "import": "fits",
+        "source": "hardware/printed-parts/cadlib/fits.py",
+        "scope": "numbers",
+        "line": 86,
+        "native_module": false
+      },
+      {
+        "import": "_cold_core_interface",
+        "source": "hardware/printed-parts/cold-core/_cold_core_interface.py",
+        "scope": "numbers",
+        "line": 87,
+        "native_module": true
+      },
+      {
+        "import": "_reservoir_pocket_walls",
+        "source": "hardware/printed-parts/cold-core/_reservoir_pocket_walls.py",
+        "scope": "numbers",
+        "line": 88,
+        "native_module": true
+      },
+      {
+        "import": "_support_ring",
+        "source": "hardware/printed-parts/cold-core/_support_ring.py",
+        "scope": "numbers",
+        "line": 89,
+        "native_module": true
+      },
+      {
+        "import": "_reed_channels",
+        "source": "hardware/printed-parts/cold-core/_reed_channels.py",
+        "scope": "numbers",
+        "line": 90,
+        "native_module": true
+      },
+      {
+        "import": "_reed_b_outlet",
+        "source": "hardware/printed-parts/cold-core/_reed_b_outlet.py",
+        "scope": "numbers",
+        "line": 91,
+        "native_module": true
+      },
+      {
+        "import": "_internal_routes",
+        "source": "hardware/printed-parts/cold-core/_internal_routes.py",
+        "scope": "numbers",
+        "line": 92,
+        "native_module": true
+      },
+      {
+        "import": "_reservoir_b_fill",
+        "source": "hardware/printed-parts/cold-core/_reservoir_b_fill.py",
+        "scope": "numbers",
+        "line": 93,
+        "native_module": true
+      },
+      {
+        "import": "_above_core_mounts",
+        "source": "hardware/printed-parts/cold-core/_above_core_mounts.py",
+        "scope": "numbers",
+        "line": 94,
+        "native_module": true
+      },
+      {
+        "import": "_foam_cap",
+        "source": "hardware/printed-parts/cold-core/_foam_cap.py",
+        "scope": "numbers",
+        "line": 95,
+        "native_module": true
+      },
+      {
+        "import": "_materials",
+        "source": "hardware/scripts/_materials.py",
+        "scope": "numbers",
+        "line": 96,
+        "native_module": false
+      },
+      {
+        "import": "_rust_part",
+        "source": "hardware/scripts/_rust_part.py",
+        "scope": "main",
+        "line": 284,
+        "native_module": false
+      }
+    ],
+    "all_aero_float": [
+      {
+        "import": "_rust_part",
+        "source": "hardware/scripts/_rust_part.py",
+        "scope": "<module>",
+        "line": 17,
+        "native_module": false
+      },
+      {
+        "import": "_materials",
+        "source": "hardware/scripts/_materials.py",
+        "scope": "numbers",
+        "line": 40,
+        "native_module": false
+      },
+      {
+        "import": "_rust_part",
+        "source": "hardware/scripts/_rust_part.py",
+        "scope": "write",
+        "line": 46,
+        "native_module": false
+      }
+    ],
+    "integration": [
+      {
+        "import": "_rust_part",
+        "source": "hardware/scripts/_rust_part.py",
+        "scope": "<module>",
+        "line": 22,
+        "native_module": false
+      },
+      {
+        "import": "reservoir",
+        "source": "hardware/printed-parts/cold-core/reservoir/reservoir.py",
+        "scope": "<module>",
+        "line": 26,
+        "native_module": true
+      },
+      {
+        "import": "reed_bridge",
+        "source": "hardware/printed-parts/cold-core/reed-bridge/reed_bridge.py",
+        "scope": "<module>",
+        "line": 27,
+        "native_module": true
+      },
+      {
+        "import": "endcap_circular_dxf",
+        "source": "hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_dxf.py",
+        "scope": "<module>",
+        "line": 28,
+        "native_module": true
+      },
+      {
+        "import": "_pressure_vessel_sync",
+        "source": "hardware/assembly/_pressure_vessel_sync.py",
+        "scope": "<module>",
+        "line": 29,
+        "native_module": false
+      },
+      {
+        "import": "_reed_channels",
+        "source": "hardware/printed-parts/cold-core/_reed_channels.py",
+        "scope": "<module>",
+        "line": 30,
+        "native_module": true
+      },
+      {
+        "import": "_cold_core_interface",
+        "source": "hardware/printed-parts/cold-core/_cold_core_interface.py",
+        "scope": "<module>",
+        "line": 31,
+        "native_module": true
+      },
+      {
+        "import": "_assembly_model",
+        "source": "hardware/scripts/_assembly_model.py",
+        "scope": "<module>",
+        "line": 32,
+        "native_module": false
+      }
+    ],
+    "magnetic_float": [
+      {
+        "import": "_rust_part",
+        "source": "hardware/scripts/_rust_part.py",
+        "scope": "<module>",
+        "line": 23,
+        "native_module": false
+      },
+      {
+        "import": "_materials",
+        "source": "hardware/scripts/_materials.py",
+        "scope": "<module>",
+        "line": 26,
+        "native_module": false
+      },
+      {
+        "import": "_rust_part",
+        "source": "hardware/scripts/_rust_part.py",
+        "scope": "check",
+        "line": 145,
+        "native_module": false
+      },
+      {
+        "import": "_rust_part",
+        "source": "hardware/scripts/_rust_part.py",
+        "scope": "write",
+        "line": 151,
+        "native_module": false
+      }
+    ],
+    "prv_shroud": [
+      {
+        "import": "_rust_part",
+        "source": "hardware/scripts/_rust_part.py",
+        "scope": "<module>",
+        "line": 80,
+        "native_module": false
+      },
+      {
+        "import": "fits",
+        "source": "hardware/printed-parts/cadlib/fits.py",
+        "scope": "<module>",
+        "line": 83,
+        "native_module": false
+      },
+      {
+        "import": "_materials",
+        "source": "hardware/scripts/_materials.py",
+        "scope": "numbers",
+        "line": 117,
+        "native_module": false
+      },
+      {
+        "import": "_rust_part",
+        "source": "hardware/scripts/_rust_part.py",
+        "scope": "main",
+        "line": 161,
+        "native_module": false
+      }
+    ],
+    "reed_bridge": [
+      {
+        "import": "_rust_part",
+        "source": "hardware/scripts/_rust_part.py",
+        "scope": "<module>",
+        "line": 42,
+        "native_module": false
+      },
+      {
+        "import": "_cold_core_interface",
+        "source": "hardware/printed-parts/cold-core/_cold_core_interface.py",
+        "scope": "<module>",
+        "line": 47,
+        "native_module": true
+      },
+      {
+        "import": "_cold_core_interface",
+        "source": "hardware/printed-parts/cold-core/_cold_core_interface.py",
+        "scope": "<module>",
+        "line": 55,
+        "native_module": true
+      },
+      {
+        "import": "_materials",
+        "source": "hardware/scripts/_materials.py",
+        "scope": "<module>",
+        "line": 56,
+        "native_module": false
+      },
+      {
+        "import": "fits",
+        "source": "hardware/printed-parts/cadlib/fits.py",
+        "scope": "<module>",
+        "line": 57,
+        "native_module": false
+      },
+      {
+        "import": "coil_mandrel",
+        "source": "hardware/printed-parts/cold-core/coil-mandrel/coil_mandrel.py",
+        "scope": "<module>",
+        "line": 58,
+        "native_module": true
+      },
+      {
+        "import": "endcap_circular_dxf",
+        "source": "hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_dxf.py",
+        "scope": "<module>",
+        "line": 59,
+        "native_module": true
+      },
+      {
+        "import": "_materials",
+        "source": "hardware/scripts/_materials.py",
+        "scope": "numbers",
+        "line": 245,
+        "native_module": false
+      },
+      {
+        "import": "_rust_part",
+        "source": "hardware/scripts/_rust_part.py",
+        "scope": "main",
+        "line": 317,
+        "native_module": false
+      }
+    ],
+    "reservoir": [
+      {
+        "import": "_rust_part",
+        "source": "hardware/scripts/_rust_part.py",
+        "scope": "<module>",
+        "line": 22,
+        "native_module": false
+      },
+      {
+        "import": "_materials",
+        "source": "hardware/scripts/_materials.py",
+        "scope": "<module>",
+        "line": 26,
+        "native_module": false
+      },
+      {
+        "import": "fits",
+        "source": "hardware/printed-parts/cadlib/fits.py",
+        "scope": "<module>",
+        "line": 27,
+        "native_module": false
+      },
+      {
+        "import": "_reservoir_ports",
+        "source": "hardware/printed-parts/cold-core/_reservoir_ports.py",
+        "scope": "<module>",
+        "line": 28,
+        "native_module": true
+      },
+      {
+        "import": "_cold_core_interface",
+        "source": "hardware/printed-parts/cold-core/_cold_core_interface.py",
+        "scope": "<module>",
+        "line": 30,
+        "native_module": true
+      },
+      {
+        "import": "_reed_channels",
+        "source": "hardware/printed-parts/cold-core/_reed_channels.py",
+        "scope": "<module>",
+        "line": 46,
+        "native_module": true
+      },
+      {
+        "import": "_materials",
+        "source": "hardware/scripts/_materials.py",
+        "scope": "numbers",
+        "line": 402,
+        "native_module": false
+      },
+      {
+        "import": "_rust_part",
+        "source": "hardware/scripts/_rust_part.py",
+        "scope": "main",
+        "line": 534,
+        "native_module": false
+      }
+    ],
+    "coil_mandrel": [
+      {
+        "import": "_rust_part",
+        "source": "hardware/scripts/_rust_part.py",
+        "scope": "<module>",
+        "line": 33,
+        "native_module": false
+      },
+      {
+        "import": "_cold_core_interface",
+        "source": "hardware/printed-parts/cold-core/_cold_core_interface.py",
+        "scope": "<module>",
+        "line": 37,
+        "native_module": true
+      },
+      {
+        "import": "_materials",
+        "source": "hardware/scripts/_materials.py",
+        "scope": "__getattr__",
+        "line": 59,
+        "native_module": false
+      },
+      {
+        "import": "_materials",
+        "source": "hardware/scripts/_materials.py",
+        "scope": "numbers",
+        "line": 66,
+        "native_module": false
+      }
+    ]
+  },
+  "shared_dependencies": [
+    "hardware/scripts/_rust_data.py",
+    "hardware/scripts/_rust_objects.py",
+    "tools/hsm/documents/src/interop.rs",
+    "tools/hsm/documents/src/lib.rs"
+  ],
+  "changed_paths": [
+    "hardware/cold-core-layout/_bom.py",
+    "hardware/cold-core-layout/_carbonator.py",
+    "hardware/cold-core-layout/_cold_core_data.py",
+    "hardware/cold-core-layout/_cold_core_style.py",
+    "hardware/cold-core-layout/_cold_scorecard.py",
+    "hardware/cold-core-layout/_core_points.py",
+    "hardware/cold-core-layout/_core_presentation.py",
+    "hardware/cold-core-layout/_fittings.py",
+    "hardware/cold-core-layout/_internals.py",
+    "hardware/cold-core-layout/_water_inlet_jet.py",
+    "hardware/cold-core-layout/carbonator_vessel_drawing.py",
+    "hardware/cold-core-layout/cold_core_assembly.py",
+    "hardware/cold-core-layout/core_numbers.py",
+    "hardware/cold-core-layout/core_reference.py",
+    "hardware/cold-core-layout/evaporator_coil_drawing.py",
+    "hardware/cold-core-layout/water_inlet_jet_cap_drawing.py",
+    "hardware/cold-core-layout/water_inlet_jet_elbow_drawing.py",
+    "hardware/cut-parts/carbonation/carbonator-tube/carbonator_tube_step.py",
+    "hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_drawing.py",
+    "hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_dxf.py",
+    "hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_step.py",
+    "hardware/cut-parts/carbonation/float-rod/float_rod_drawing.py",
+    "hardware/cut-parts/carbonation/reservoir-float-rod/reservoir_float_rod_drawing.py",
+    "hardware/printed-parts/cold-core/_above_core_mounts.py",
+    "hardware/printed-parts/cold-core/_cold_core_interface.py",
+    "hardware/printed-parts/cold-core/_copper_ports.py",
+    "hardware/printed-parts/cold-core/_float_interface.py",
+    "hardware/printed-parts/cold-core/_foam_cap.py",
+    "hardware/printed-parts/cold-core/_foam_shell.py",
+    "hardware/printed-parts/cold-core/_internal_routes.py",
+    "hardware/printed-parts/cold-core/_outer_shell.py",
+    "hardware/printed-parts/cold-core/_port_cuts.py",
+    "hardware/printed-parts/cold-core/_reed_b_outlet.py",
+    "hardware/printed-parts/cold-core/_reed_channels.py",
+    "hardware/printed-parts/cold-core/_reservoir_a_anchors.py",
+    "hardware/printed-parts/cold-core/_reservoir_a_c2.py",
+    "hardware/printed-parts/cold-core/_reservoir_b_fill.py",
+    "hardware/printed-parts/cold-core/_reservoir_pocket_walls.py",
+    "hardware/printed-parts/cold-core/_reservoir_ports.py",
+    "hardware/printed-parts/cold-core/_show_skin.py",
+    "hardware/printed-parts/cold-core/_support_ring.py",
+    "hardware/printed-parts/cold-core/_water_pressure_regulator.py",
+    "hardware/printed-parts/cold-core/coil-mandrel/coil_mandrel.py",
+    "hardware/printed-parts/cold-core/foam-assembly/foam_assembly.py",
+    "hardware/printed-parts/cold-core/foam-assembly/foam_numbers.py",
+    "hardware/printed-parts/cold-core/foam-cap/foam_cap.py",
+    "hardware/printed-parts/cold-core/foam-shell/foam_shell.py",
+    "hardware/printed-parts/cold-core/magnetic-float/all-aero/all_aero_float.py",
+    "hardware/printed-parts/cold-core/magnetic-float/all-aero/integration.py",
+    "hardware/printed-parts/cold-core/magnetic-float/magnetic_float.py",
+    "hardware/printed-parts/cold-core/prv-shroud/prv_shroud.py",
+    "hardware/printed-parts/cold-core/reed-bridge/reed_bridge.py",
+    "hardware/printed-parts/cold-core/reservoir/reservoir.py",
+    "hardware/scripts/_rust_objects.py",
+    "tools/hsm/cold-core-data/src/compiled.rs",
+    "tools/hsm/cold-core-data/src/compiled/_above_core_mounts.rs",
+    "tools/hsm/cold-core-data/src/compiled/_bom.rs",
+    "tools/hsm/cold-core-data/src/compiled/_carbonator.rs",
+    "tools/hsm/cold-core-data/src/compiled/_cold_core_interface.rs",
+    "tools/hsm/cold-core-data/src/compiled/_cold_core_style.rs",
+    "tools/hsm/cold-core-data/src/compiled/_cold_scorecard.rs",
+    "tools/hsm/cold-core-data/src/compiled/_copper_ports.rs",
+    "tools/hsm/cold-core-data/src/compiled/_core_points.rs",
+    "tools/hsm/cold-core-data/src/compiled/_core_presentation.rs",
+    "tools/hsm/cold-core-data/src/compiled/_fittings.rs",
+    "tools/hsm/cold-core-data/src/compiled/_foam_cap.rs",
+    "tools/hsm/cold-core-data/src/compiled/_foam_shell.rs",
+    "tools/hsm/cold-core-data/src/compiled/_internal_routes.rs",
+    "tools/hsm/cold-core-data/src/compiled/_internals.rs",
+    "tools/hsm/cold-core-data/src/compiled/_outer_shell.rs",
+    "tools/hsm/cold-core-data/src/compiled/_port_cuts.rs",
+    "tools/hsm/cold-core-data/src/compiled/_reed_b_outlet.rs",
+    "tools/hsm/cold-core-data/src/compiled/_reed_channels.rs",
+    "tools/hsm/cold-core-data/src/compiled/_reservoir_a_anchors.rs",
+    "tools/hsm/cold-core-data/src/compiled/_reservoir_a_c2.rs",
+    "tools/hsm/cold-core-data/src/compiled/_reservoir_b_fill.rs",
+    "tools/hsm/cold-core-data/src/compiled/_reservoir_pocket_walls.rs",
+    "tools/hsm/cold-core-data/src/compiled/_reservoir_ports.rs",
+    "tools/hsm/cold-core-data/src/compiled/_show_skin.rs",
+    "tools/hsm/cold-core-data/src/compiled/_support_ring.rs",
+    "tools/hsm/cold-core-data/src/compiled/_water_inlet_jet.rs",
+    "tools/hsm/cold-core-data/src/compiled/_water_pressure_regulator.rs",
+    "tools/hsm/cold-core-data/src/compiled/all_aero_float.rs",
+    "tools/hsm/cold-core-data/src/compiled/carbonator_tube_step.rs",
+    "tools/hsm/cold-core-data/src/compiled/carbonator_vessel_drawing.rs",
+    "tools/hsm/cold-core-data/src/compiled/coil_mandrel.rs",
+    "tools/hsm/cold-core-data/src/compiled/cold_core_assembly.rs",
+    "tools/hsm/cold-core-data/src/compiled/core_numbers.rs",
+    "tools/hsm/cold-core-data/src/compiled/core_reference.rs",
+    "tools/hsm/cold-core-data/src/compiled/endcap_circular_drawing.rs",
+    "tools/hsm/cold-core-data/src/compiled/endcap_circular_dxf.rs",
+    "tools/hsm/cold-core-data/src/compiled/endcap_circular_step.rs",
+    "tools/hsm/cold-core-data/src/compiled/evaporator_coil_drawing.rs",
+    "tools/hsm/cold-core-data/src/compiled/float_rod_drawing.rs",
+    "tools/hsm/cold-core-data/src/compiled/foam_assembly.rs",
+    "tools/hsm/cold-core-data/src/compiled/foam_cap.rs",
+    "tools/hsm/cold-core-data/src/compiled/foam_numbers.rs",
+    "tools/hsm/cold-core-data/src/compiled/foam_shell.rs",
+    "tools/hsm/cold-core-data/src/compiled/integration.rs",
+    "tools/hsm/cold-core-data/src/compiled/magnetic_float.rs",
+    "tools/hsm/cold-core-data/src/compiled/modules.rs",
+    "tools/hsm/cold-core-data/src/compiled/prv_shroud.rs",
+    "tools/hsm/cold-core-data/src/compiled/reed_bridge.rs",
+    "tools/hsm/cold-core-data/src/compiled/reservoir.rs",
+    "tools/hsm/cold-core-data/src/compiled/reservoir_float_rod_drawing.rs",
+    "tools/hsm/cold-core-data/src/compiled/water_inlet_jet_cap_drawing.rs",
+    "tools/hsm/cold-core-data/src/compiled/water_inlet_jet_elbow_drawing.rs",
+    "tools/hsm/cold-core-data/src/floats.rs",
+    "tools/hsm/cold-core-data/src/lib.rs",
+    "tools/hsm/cold-core-data/src/main.rs",
+    "tools/hsm/conversion-results/cold-core-final-2026-11-04.json"
+  ],
+  "normal_build_algorithms_remaining_in_assigned_python_scope": [],
+  "outside_normal_build": [
+    "Dormant native CadQuery adapters in _coil.py and _reservoir_a_snap.py, and explicit legacy native geometry callbacks in the compiled modules.",
+    "Dated physical print records, source snapshots, manual pressure/review/preparation scripts."
+  ],
+  "automatic_checks_added": false,
+  "performance": "No end-to-end performance claim; parent owns combined normal-build integration.",
+  "temporary_run_files_removed": true,
+  "native_callback_imports": {
+    "Runtime.docgen": [
+      "hardware/scripts/_cadq_export.py:note_read",
+      "tools/docgen/__init__.py:note_rewritten"
+    ],
+    "Runtime.document_export": [
+      "hardware/scripts/_cadq_export.py:note_write"
+    ],
+    "compiled.register_io": [
+      "hardware/scripts/_cadq_export.py:note_read",
+      "hardware/scripts/_cadq_export.py:note_write"
+    ]
+  }
+}

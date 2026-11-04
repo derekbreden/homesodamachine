@@ -1,33 +1,22 @@
-"""What a scorecard row is, and the ladder a bend radius is graded on.
-
-Two assemblies write a card — `manifold-layout/_scorecard.py` for the appliance and
-`cold-core-layout/_cold_scorecard.py` for the core — and a row means the same thing on both,
-so the viewer reads one shape off either sidecar (`web/contracts/scorecard-sidecar.js`).
-"""
-
-from dataclasses import dataclass, field
-
+"""Scorecard row types and the Rust bend-radius grading ladder."""
+from dataclasses import dataclass,field
+from _shared_data import call
 
 @dataclass
 class Check:
     id: str
     label: str
-    kind: str            # "gate" | "goal"
-    status: str          # "pass" | "fail" | "warn"
+    kind: str
+    status: str
     value: str
     target: str
     detail: list = field(default_factory=list)
     active: bool = True
 
+GRADE_BANDS = tuple(tuple(v) for v in call('scalar.constants',group='card')['GRADE_BANDS'])
 
-def verdict(ok: bool) -> str:
-    return "pass" if ok else "fail"
+def verdict(ok):
+    return call('scalar.verdict',ok=bool(ok))
 
-
-# Grade bands on `radius ÷ the stock's minimum`. B is the requirement — a run AT its stock's
-# floor is buildable and nothing more; A is the room that survives a part moving a millimetre.
-GRADE_BANDS = ((1.5, "A"), (1.0, "B"), (0.75, "C"), (0.5, "D"), (0.0, "F"))
-
-
-def grade_of(ratio: float) -> str:
-    return next(g for lo, g in GRADE_BANDS if ratio >= lo)
+def grade_of(ratio):
+    return call('scalar.grade',ratio=ratio,bands=GRADE_BANDS)

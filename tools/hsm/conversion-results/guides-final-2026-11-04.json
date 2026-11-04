@@ -1,0 +1,554 @@
+{
+  "date": "2026-11-04",
+  "baseline_source_revision": "000284dc9531289a7809ac2a9dd2a86c20c0b898",
+  "baseline_source_sha256": {
+    "hardware/install-guide/_cad_art.py": "a3b0b1615d2ac30f06f12ecc9d0076534a23e1e54dc962fa2c589b7f9539a0d3",
+    "hardware/install-guide/_cad_art_mesh.py": "ce193aba5566fbec93010f61fcf349cbf7c602c6d15161a62dc2d787bebe5daf",
+    "hardware/install-guide/_install_art.py": "21323df9c9ff8d9789499105897e7d6333801d358b135ba330cdb4e467cd6884",
+    "hardware/install-guide/_install_art_mesh.py": "e46c508623a4b013b720ea12e0ecdf14208fa88fd6c647ec70c6364cbfeccbbd",
+    "hardware/install-guide/_plumbing_art_mesh.py": "f4b3d4be5becd0d3b8c40073f9a5d5625c63f966e065878b73922cc888127b0c",
+    "hardware/install-guide/plumbing/modern/render_modern_tee.py": "181a272095d4488e7887f67bc92f9c0e40dbb8a9e7927d21ddce4776bc6b0ee3",
+    "hardware/install-guide/plumbing/plumbing_scenes.py": "3551cec1eba75f8b1023b00abc9804bd373283be01b4ba6a9d4e9c1f4a829b01",
+    "tools/install-guide/build.py": "436144abc2cd9b9b55ceb74d3bd62b45e7aee941eb1d3d072b2d5282da948c11",
+    "tools/install-guide/contours.py": "94dc16d5652d98d8e9108beed25cf22d15ee046b3fbb1cd7810039b499bf5b85",
+    "tools/install-guide/cylinder_actions.py": "c8b0500d848ff29d428a372eb70608d5fdd7e6297db35039b004d47be6cb9922",
+    "tools/install-guide/fill_scene.py": "60b56b83674c49023580e8ea435790fb40501d6a4874a242a8be736cd0ab43e5",
+    "tools/install-guide/hold_scene.py": "5ce7734db09c34ac34f43b3fd2c2c7694fd0898ee4e4bd0907c8e3528ca12089",
+    "tools/install-guide/ice_scene.py": "a2cbfa906e9ae686445de70415608932207ef5a0fafa2e148506a21c4fab877b",
+    "tools/install-guide/insertion_actions.py": "9f26f9fabb79a34d2fccbd0a81eefc5605c312879383567fdb9d2b06fe0c3092",
+    "tools/install-guide/kit_art.py": "41da975a3ebfd6c13a3aac18e97cf9dcd3bc541aa985c59872a8331b962906e4",
+    "tools/install-guide/landscape.py": "b774e06f336f4b12d72d6d863af7b60f783c3e61435450a50b8e33df0d197750",
+    "tools/install-guide/opening_scene.py": "7db9ce4e6b3a3b11c027c7d9d51235b8e694eebc2c046f21bec6f31a8e8444a3",
+    "tools/install-guide/preflight.py": "a9bd58dd985f327a3c84bdb4d6f7872308dc91fe4b2936afdaac29b5c59c55d8",
+    "tools/install-guide/press.py": "d3b58ce03e3aa296054300fa55983f0d6da4c5bef4e8df39991869dbef6d69bb",
+    "tools/install-guide/scenes.py": "eef353f897cbb2b43f013339c244989a434975f73636125cc1e9a517598b9963",
+    "tools/install-guide/startup.py": "f9e75aadaaca5f90046be51ffb910e898c1867044b840ae44e476ecd244b108e",
+    "tools/faucet-assembly-guide/build.py": "663dbc55fb4fe097c80f4516f5e594d8990014cd7ad49c9472eab0d645a24434",
+    "tools/assembly-guides/common.py": "1ec932ef9dc4cae73205f3e9a3722a2c23710d08287aa03e9908a555ec0db885"
+  },
+  "concurrent_faucet_inputs": {
+    "hardware/install-guide/_plumbing_art_mesh.py": {
+      "previous_sha256": "210ce6a113c7074ad0e4c9b650aa32af50136abbfd1de140955259e09942fe9e",
+      "current_sha256": "f4b3d4be5becd0d3b8c40073f9a5d5625c63f966e065878b73922cc888127b0c"
+    },
+    "hardware/install-guide/plumbing/plumbing_scenes.py": {
+      "previous_sha256": "37c8ce9514388b9ab5400f1df6e3939eaa8cdf8aab02d31176b4ab88c60ff618",
+      "current_sha256": "3551cec1eba75f8b1023b00abc9804bd373283be01b4ba6a9d4e9c1f4a829b01"
+    },
+    "hardware/install-guide/plumbing/modern/render_modern_tee.py": {
+      "previous_sha256": "f0e33394cccf9298dbb7ab9fbd24854d32666a2666a9045d618e759f13c10c3f",
+      "current_sha256": "181a272095d4488e7887f67bc92f9c0e40dbb8a9e7927d21ddce4776bc6b0ee3"
+    }
+  },
+  "candidate_source_sha256": {
+    "hardware/install-guide/_cad_art.py": "ff7ba1022dd976c8933005c235bd663052d71879aa0a75830a939edddcc4109a",
+    "hardware/install-guide/_cad_art_mesh.py": "8c89e90241d493989d01804be107fdd5b22889863d81dba51a229295a49805a2",
+    "hardware/install-guide/_install_art.py": "abbddbb6d0b7174d8ff5e9a305e84f15639cb5d643c8f17d2ea9d18914b8d9f1",
+    "hardware/install-guide/_install_art_mesh.py": "35541222741cb24e1c6160993925dabd44ab868a4e86cb5d5e15e17c1bb526b8",
+    "hardware/install-guide/_plumbing_art_mesh.py": "78ca855681c37dfc84a4e603ec35c3f9743530ef431ec88655538edbc1d1e24e",
+    "hardware/install-guide/plumbing/modern/render_modern_tee.py": "4eb9e81b08b0f5b3c308597aeba9999b7236dcc55513bb21e297f27829cc5b45",
+    "hardware/install-guide/plumbing/plumbing_scenes.py": "ff8334bf8ae645eb075da69c63a1100273b5c974649bc99f08460ff21b0a5130",
+    "hardware/scripts/_guides_compiled.py": "d139774b27805a33d1b01b9d0f63fc6591448c9c13f61d6467045fff984c90b1",
+    "tools/assembly-guides/common.py": "5cba4efb1ca41d6e7129ec950723d71207e7c9952173f9a4e550308bde984698",
+    "tools/faucet-assembly-guide/build.py": "ba1b07b9f3dbcf828eada7bde03ba4c6c62d2908872490e4c743314ee9013a69",
+    "tools/hsm/documents/src/interop.rs": "dcc8359a391629a2a26c8fe53db723cc98d1614b7d0429007e189a9c26bfc8ed",
+    "tools/hsm/documents/src/interop/standard.rs": "924d3b0f5348aff05be9a42b706312d3fc415067f00afe2b323bfc3de8a4fbfe",
+    "tools/install-guide/build.py": "cb8e36581cc02c1abf614bb9e3bfecb0e8208c4c60793137515e11f605b112a4",
+    "tools/install-guide/contours.py": "d77d4f90a5db82ac3c99d98fa0199558d3c80c7506f717688c118113365c4404",
+    "tools/install-guide/cylinder_actions.py": "7c9544274543109d166949c308d427be599f3e1c1be74c6f4b29254a5e959320",
+    "tools/install-guide/fill_scene.py": "af5a8fcd06c190ac631c74ec11cb97c3b4a24708d7248571a64ae07209ab358f",
+    "tools/install-guide/hold_scene.py": "c0bd0b451d9dd4a7aa0e1549bf2f120c900c259c609e26e6d7891da2f55e1e93",
+    "tools/install-guide/ice_scene.py": "adb3c020c79fe5d119351727a136bb6878c2e4fff9d0ff59390b217502fc5873",
+    "tools/install-guide/insertion_actions.py": "9d5f324fc5acf974a0f6009bbc6f8ff87c38647f1e6dbe4fb55705abf3990f9f",
+    "tools/install-guide/kit_art.py": "5f2cd4389f503402e16a8cb125358ae6ba57ca33be2d075860e5836231308ffa",
+    "tools/install-guide/landscape.py": "055f60e4b6be9f4865a5f834bf315635fbda3b058d46f3d78f3d97d431e32aa6",
+    "tools/install-guide/opening_scene.py": "e046df7e34ae639e3017738991af3d9b1443f723909027ee2928bbbf5944049b",
+    "tools/install-guide/preflight.py": "9078089fd10755eafdba2f2fc7d54b226399ee527a37abbe00c00471d8baf45b",
+    "tools/install-guide/press.py": "6cb109997b723ef100eae79bd474186e421c2f0aa1decff16c631f28e8ae9578",
+    "tools/install-guide/scenes.py": "e3834a02d9c53d7a4b086a34fd39ee6f97b8ffe140ea3ff27014be0f43cddb06",
+    "tools/install-guide/startup.py": "69a46e4e33a7860c87f8da1a3c9fa1b022bcc2b3b5161654c05d9b2f118a8e7e",
+    "tools/hsm/guides/Cargo.toml": "e1c967dae2c20d24b47bf6563aa75086afa815eb4bee7891f8a91998bb0d9227",
+    "tools/hsm/guides/src/compiled.rs": "b961a71e8281e7e066008110c66ac8f3e812f4053ec351d2fcec54721927da04",
+    "tools/hsm/guides/src/compiled/modules.rs": "2f878d8c494c2b6ceb5215f66ebe15415fe30ab85e405cf1b7784587434a73d0",
+    "tools/hsm/guides/src/compiled/modules/_cad_art.rs": "f20654f107b1fd0845f93a1012e75e5079115a10290e9cfc82e5b49e5db714c1",
+    "tools/hsm/guides/src/compiled/modules/_cad_art_mesh.rs": "66fdfe232b36ec8f1a5293fa51d8e0016d76dca655d29e60f440a14834a36be5",
+    "tools/hsm/guides/src/compiled/modules/_install_art.rs": "43e0c4790b4f35ba3dc8d3891ab9363137d0b2644658a683a4c2ecdafd07c1ab",
+    "tools/hsm/guides/src/compiled/modules/_install_art_mesh.rs": "0655371cb4433963d47899c13c3f035f889dada0bcb982b214dabdff62e6e12a",
+    "tools/hsm/guides/src/compiled/modules/_plumbing_art_mesh.rs": "019cd1fc65e65cfe7efbcce4e7d918ecc0fb6f8295a0fc6002b880d3ef872090",
+    "tools/hsm/guides/src/compiled/modules/common.rs": "ca5964172f8db32846122166fde76151b0239c02547a7005d2747a52ddba5afa",
+    "tools/hsm/guides/src/compiled/modules/contours.rs": "6b931eae892a150a7518a58519996406fbbeee897c01f883f252a3e1d9b887b2",
+    "tools/hsm/guides/src/compiled/modules/cylinder_actions.rs": "f6983aedd582c6dd387a8f429ae4ec54963283629854867fd8a2a60115671e06",
+    "tools/hsm/guides/src/compiled/modules/faucet_book.rs": "7093cebe300616ccbca1c58b13af5851385bdcedd2e8cfe0ba6478f3711ffa2a",
+    "tools/hsm/guides/src/compiled/modules/fill_scene.rs": "70df6b9d856dff99d5f8d518262df2b97a1e3c4d58403d5985160b494ccbae2b",
+    "tools/hsm/guides/src/compiled/modules/hold_scene.rs": "abacede57980359063b4e8e5c7b7bd9c2f5fe6be5fa5820ec901f3a8c1f96a4f",
+    "tools/hsm/guides/src/compiled/modules/ice_scene.rs": "1284ba240615ee58b937d6417f93fc0275594edd8f57b528f435eeafe7abae1a",
+    "tools/hsm/guides/src/compiled/modules/insertion_actions.rs": "6a73d1b8eeaffadc265f36506e6807ed3930e1c8fe796d26ba01fe4100553975",
+    "tools/hsm/guides/src/compiled/modules/kit_art.rs": "a51eb5b9602db6d463eb153c41b6a89720c459aef8697b61a4788cd858301de4",
+    "tools/hsm/guides/src/compiled/modules/landscape.rs": "d5c37d3ba13b43020bc7d3e084af408d19fc10447e8dba396370958bb319b5ea",
+    "tools/hsm/guides/src/compiled/modules/opening_scene.rs": "d3c5ed58662f1cf88df1c84237a442cf3642a1c3bf32ed84391b1ea2103723a2",
+    "tools/hsm/guides/src/compiled/modules/plumbing_scenes.rs": "dd40c3ca91b3eeef6f927d8e57935d1112f0a6478a2bc5544de3bcdac983c413",
+    "tools/hsm/guides/src/compiled/modules/preflight.rs": "fe4e31ea35c67d720b329c6b134b775b3bdc84e62379ec9ae6392fc4d378827e",
+    "tools/hsm/guides/src/compiled/modules/press.rs": "e5f03aa2b0c56ad2a5f9df99c7a205e7d0bb89d4f06f72242853c2cc5f51f3ac",
+    "tools/hsm/guides/src/compiled/modules/render_modern_tee.rs": "0b922b1c5252b0d756c3eb38163438d712a20f976b4cc4f1a7fd72f52472f740",
+    "tools/hsm/guides/src/compiled/modules/scenes.rs": "708eb109ec2fa50190b8ffd08c0f3cea18890eba9cb9b44d11d1bf4dd38f4607",
+    "tools/hsm/guides/src/compiled/modules/startup.rs": "4d4c749da9e273a1074c40f4f3533f03f7698d9be641e874d9c8b95ff72a041d",
+    "tools/hsm/guides/src/lib.rs": "db8898a6d0e73fe437ff7aa024c9165fe8d5f67f19ac8b0d38e221a4f359497c",
+    "tools/hsm/guides/src/main.rs": "eb61a550fa25fc8d203775a00887dc1a9b2eb3819816c568753fc8ade0b14b23",
+    "tools/hsm/guides/src/native.rs": "2ba1cac289ea434f17a7b7993ede35ac7793fb320ce7523b81a295bbf0843a8c",
+    "hardware/scripts/_rust_objects.py": "833e60e0ddf09b4d8bd21fe63beedec6c13711d409030da71202d28ed9c0e274"
+  },
+  "scope": {
+    "python_compatibility_modules": 23,
+    "compiled_recipe_modules": 22,
+    "library": "tools/hsm/guides",
+    "dependencies": [
+      "anyhow",
+      "serde_json",
+      "hsm-documents",
+      "hsm-build-data"
+    ],
+    "native_operations": [
+      "document/page/SVG composition",
+      "PDF editions and deterministic order-bundle composition",
+      "ordered JSON and hashing",
+      "payload decoding, selection and translation",
+      "camera registration and homogeneous projection",
+      "ice vertex colors and drink face selection",
+      "filled exterior raster contours",
+      "file copy and source/output registration"
+    ],
+    "boundaries": "Python carries imported types, third-party primitive calls, CLI arguments and path registration. Authored arithmetic, branches, loops and file composition are statically compiled Rust. ReportLab, pypdf, PIL and existing optional manual illustration geometry primitives retain their library implementations.",
+    "runtime_source_or_ast_evaluation": false,
+    "new_automatic_checks": false
+  },
+  "fixed_comparisons": {
+    "artwork": {
+      "pieces": [
+        "real payload read",
+        "whole mesh selections/translations",
+        "camera corner registration",
+        "moved payload bytes and receipt",
+        "homogeneous camera projection",
+        "filled exterior silhouette contours",
+        "ice vertex color calculation"
+      ],
+      "numbers": 62017,
+      "max_delta": 0.0,
+      "input_payload": "hardware/reference/jg-pp0408w/jg-pp0408w.step.mesh",
+      "input_payload_sha256": "c9e764f9809d9305385f97d83e3f4894f83ec97a4f7765eeb073e224508c105a",
+      "moved_payload_sha256": "e83f933d8c901c295d00e257d9af2a474dc9cb78999f6e50807db2084fe8ed15"
+    },
+    "document_primitives": {
+      "cases": 304,
+      "exact": true
+    },
+    "context_exception_triples": {
+      "cases": 3,
+      "passed": true
+    },
+    "module_interfaces": {
+      "cases": 5,
+      "passed": true
+    },
+    "complete_preflight": {
+      "equal": true,
+      "files": 3,
+      "reading_pages": 34,
+      "interior_pages": 32,
+      "cover_pages": 1,
+      "baseline_seconds": 1.7607960410023225,
+      "candidate_seconds": 7.8705173329944955
+    },
+    "guide_artifacts": [
+      {
+        "path": "output/pdf/install-guide.pdf",
+        "before_sha256": "95d50032d57bdd34d3d9b8bd5d6753c37e6ad8577130fb99758ff69b60d9eaab",
+        "after_sha256": "95d50032d57bdd34d3d9b8bd5d6753c37e6ad8577130fb99758ff69b60d9eaab",
+        "bytes": 8614947,
+        "equal": true
+      },
+      {
+        "path": "output/pdf/install-guide-lulu-interior.pdf",
+        "before_sha256": "35bc8bcb298486a04188d51e6fdd7394f1b66032da060c5a65ea3b947edbe760",
+        "after_sha256": "35bc8bcb298486a04188d51e6fdd7394f1b66032da060c5a65ea3b947edbe760",
+        "bytes": 8265009,
+        "equal": true
+      },
+      {
+        "path": "output/pdf/install-guide-lulu-cover.pdf",
+        "before_sha256": "4056c6eeeb5730f125deb5b71357f487ec47a908d5b3ce8635423e277862ab81",
+        "after_sha256": "4056c6eeeb5730f125deb5b71357f487ec47a908d5b3ce8635423e277862ab81",
+        "bytes": 688170,
+        "equal": true
+      },
+      {
+        "path": "output/pdf/faucet-assembly-guide.pdf",
+        "before_sha256": "4c463c67ed5bdaca9e760715529c9af30da80415658d808504874178e019d6b8",
+        "after_sha256": "6228fb6a02fb91e189c3fcb4eed2d0ab2e9674ca630a41cd2e39cbcd908c3fd7",
+        "bytes": 495333,
+        "equal": false
+      },
+      {
+        "path": "install/install-guide.cover.png",
+        "before_sha256": "4bbe65be66b55ff017cba2f3309eaf483f25147c8c22ff4dfcab64b9c32ba870",
+        "after_sha256": "4bbe65be66b55ff017cba2f3309eaf483f25147c8c22ff4dfcab64b9c32ba870",
+        "bytes": 51298,
+        "equal": true
+      },
+      {
+        "path": "install/install-guide.pdf.json",
+        "before_sha256": "89028f5d1fe337ecbe69496015e34fec53af3df5996ca522f5f9aa0c559c0785",
+        "after_sha256": "89028f5d1fe337ecbe69496015e34fec53af3df5996ca522f5f9aa0c559c0785",
+        "bytes": 268,
+        "equal": true
+      },
+      {
+        "path": "install/out/layout-checks.json",
+        "before_sha256": "76ff62f4c778f7f816899439d243cc8937c94ee97ff196b0ecee4d52ed91d162",
+        "after_sha256": "76ff62f4c778f7f816899439d243cc8937c94ee97ff196b0ecee4d52ed91d162",
+        "bytes": 21108,
+        "equal": true
+      },
+      {
+        "path": "install/out/image-checks.json",
+        "before_sha256": "21b94c6f2c7f14a39d9f03e7920d32b253c25cba4890df754af647a797955e62",
+        "after_sha256": "21b94c6f2c7f14a39d9f03e7920d32b253c25cba4890df754af647a797955e62",
+        "bytes": 6867,
+        "equal": true
+      },
+      {
+        "path": "install/out/mount-slot-checks.json",
+        "before_sha256": "dfccb83a47565a4af976d3f0031cbc5416aa7c755c227c052936af4a22e5834f",
+        "after_sha256": "c74db65eaa6916d19dc755752065d7fb33a843c1caf0fcd548c66568fc1aeedb",
+        "bytes": 3373,
+        "equal": false
+      },
+      {
+        "path": "install/out/page-plan.json",
+        "before_sha256": "15f66261f3af68d1c07f76dccf249c9c48b833449497ec88c4e93969efe9fd3b",
+        "after_sha256": "15f66261f3af68d1c07f76dccf249c9c48b833449497ec88c4e93969efe9fd3b",
+        "bytes": 1061,
+        "equal": true
+      },
+      {
+        "path": "faucet/display-wiring.svg",
+        "before_sha256": "729ec2130303b5af68d3e2156c4b14450578d04a625c50d3072a4b18aceddc84",
+        "after_sha256": "729ec2130303b5af68d3e2156c4b14450578d04a625c50d3072a4b18aceddc84",
+        "bytes": 16877,
+        "equal": true
+      },
+      {
+        "path": "faucet/sig6-connector-wiring.svg",
+        "before_sha256": "712c5aeb2b14acc7eba24e32bc28634af3c2cc060a6dd9c99c51c10b84f4a170",
+        "after_sha256": "712c5aeb2b14acc7eba24e32bc28634af3c2cc060a6dd9c99c51c10b84f4a170",
+        "bytes": 8237,
+        "equal": true
+      },
+      {
+        "path": "faucet/faucet-assembly-guide.cover.png",
+        "before_sha256": "91bb059505a6a52319faaf500bcc02df25a3d9bbbd274ac5c6649d4f410da0cc",
+        "after_sha256": "91bb059505a6a52319faaf500bcc02df25a3d9bbbd274ac5c6649d4f410da0cc",
+        "bytes": 139771,
+        "equal": true
+      },
+      {
+        "path": "faucet/faucet-assembly-guide.pdf.json",
+        "before_sha256": "621788c4607bdde21e1f5216854d922754f7d67a4b651d6af681d83727fb9147",
+        "after_sha256": "621788c4607bdde21e1f5216854d922754f7d67a4b651d6af681d83727fb9147",
+        "bytes": 242,
+        "equal": true
+      },
+      {
+        "path": "output/pdf/install-guide-lulu-order.zip",
+        "before_sha256": "5f1fb50930a2c86f4c7209fe802ce66123ec6e706207e69a7186a3a0c753c452",
+        "after_sha256": "5f1fb50930a2c86f4c7209fe802ce66123ec6e706207e69a7186a3a0c753c452",
+        "bytes": 13805049,
+        "equal": true
+      }
+    ],
+    "faucet_pages": {
+      "count": 18,
+      "pixel_equal": true,
+      "instruction_streams_equal_after_content_based_image_identity": true,
+      "pdf_byte_difference": "ReportLab image resource identifiers include different temporary fixture art paths. Embedded image data and all page drawing instructions match."
+    },
+    "mount_slot_receipt": {
+      "geometry_and_values_equal": true,
+      "byte_difference": "Only a concurrently converted faucet-shell source hash differs."
+    },
+    "visual_review": {
+      "reading_pages": 52,
+      "contact_sheets": 5,
+      "issues": []
+    },
+    "integration_membership": {
+      "cases": 5,
+      "passed": true,
+      "coverage": [
+        "native bound Set.__contains__ positive/negative",
+        "whole mesh selector with a native membership callback",
+        "foreign iterator-only membership fallback positive/negative"
+      ]
+    },
+    "opening_scene_integration_checkpoint": {
+      "native_bound_membership_failure_resolved": true,
+      "upstream_enclosure_export_succeeded": true,
+      "completed_actions": 308,
+      "target_remaining_dependency": "hardware/scripts/_machine_data.py and its existing program closure",
+      "elapsed_seconds": 759.5,
+      "integration_owner": "root build graph"
+    },
+    "install_pdf_closed_boundary": {
+      "passed": true,
+      "mounting_figures": 2,
+      "programs": [
+        [
+          "enclosure-data",
+          "enclosure-data"
+        ],
+        [
+          "faucet-data",
+          "faucet-data"
+        ],
+        [
+          "guides",
+          "guides"
+        ],
+        [
+          "machine-data",
+          "machine-data"
+        ],
+        [
+          "part-data",
+          "part-data"
+        ],
+        [
+          "shared-data",
+          "shared-data"
+        ]
+      ],
+      "no_ocp_import": true,
+      "wrote_pdfs": false,
+      "copied_inputs": [
+        "hardware/cut-parts/faucet/under-counter-plate/stock-profile.json",
+        "hardware/cut-parts/faucet/under-counter-plate/under-counter-plate.dxf",
+        "hardware/cut-parts/faucet/under-counter-plate/under_counter_plate.py",
+        "hardware/faucet-layout/faucet_assembly.py",
+        "hardware/install-guide/assets/fill-scene-inputs.json",
+        "hardware/install-guide/assets/print-resolution.json",
+        "hardware/install-guide/fonts/Plex-Bold.ttf",
+        "hardware/install-guide/fonts/Plex-Regular.ttf",
+        "hardware/install-guide/fonts/Plex-Semibold.ttf",
+        "hardware/printed-parts/cadlib/_scalar_provider.py",
+        "hardware/printed-parts/cadlib/fits.py",
+        "hardware/printed-parts/cadlib/flute_skin.py",
+        "hardware/printed-parts/cadlib/port_chip.py",
+        "hardware/printed-parts/cadlib/reeding.py",
+        "hardware/printed-parts/cadlib/world_workplane.py",
+        "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead_ring.py",
+        "hardware/printed-parts/enclosure/enclosure/_enclosure_compiled.py",
+        "hardware/printed-parts/enclosure/enclosure/_enclosure_data.py",
+        "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
+        "hardware/printed-parts/faucet/_display_snap.py",
+        "hardware/printed-parts/faucet/_faucet_interface.py",
+        "hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.py",
+        "hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.py",
+        "hardware/printed-parts/faucet/faucet-display-cover/faucet_display_cover.py",
+        "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py",
+        "hardware/printed-parts/faucet/faucet_paths.py",
+        "hardware/printed-parts/faucet/lever-replica/lever-replica.frame.json",
+        "hardware/printed-parts/faucet/tpu-o-ring/tpu_o_ring.py",
+        "hardware/printed-parts/faucet/tube-collar/tube_collar.py",
+        "hardware/printed-parts/faucet/umbilical-organizer/umbilical_organizer.py",
+        "hardware/reference/_reference_data.py",
+        "hardware/reference/jg-bulkhead-union/jg_bulkhead_union.py",
+        "hardware/reference/neofit-bulkhead/neofit_bulkhead.py",
+        "hardware/reference/neofit-drain-bulkhead/neofit_drain_bulkhead.py",
+        "hardware/reference/touch-flo-faucet/display-reference/buttons.json",
+        "hardware/reference/touch-flo-faucet/display-reference/component-envelopes.json",
+        "hardware/scripts/_build_data.py",
+        "hardware/scripts/_cadq_export.py",
+        "hardware/scripts/_document_export.py",
+        "hardware/scripts/_guides_compiled.py",
+        "hardware/scripts/_machine_data.py",
+        "hardware/scripts/_material_base.py",
+        "hardware/scripts/_materials.py",
+        "hardware/scripts/_run_lock.py",
+        "hardware/scripts/_run_native.py",
+        "hardware/scripts/_run_slots.py",
+        "hardware/scripts/_rust_data.py",
+        "hardware/scripts/_rust_objects.py",
+        "hardware/scripts/_rust_part.py",
+        "hardware/scripts/_shared_data.py",
+        "hardware/scripts/_stated_bounds.py",
+        "tools/docgen/__init__.py",
+        "tools/hsm/faucet-data/src/lib.rs",
+        "tools/install-guide/build.py",
+        "tools/install-guide/contours.py",
+        "tools/install-guide/landscape.py",
+        "tools/install-guide/press.py",
+        "tools/install-guide/render-contours.mjs"
+      ],
+      "additional_missing_inputs": []
+    }
+  },
+  "verification_profile": "Debug guides binary; scalar provider release binaries; all Cargo builds through tools/run.py with two jobs. No full machine build was run by this piece.",
+  "normal_entrypoint": "tools/install-guide/build.py -> hsm-guides compiled landscape entrypoint",
+  "preserved_source_inputs": [
+    "tools/install-guide/landscape.py",
+    "tools/faucet-assembly-guide/build.py",
+    "hardware/install-guide/_plumbing_art_mesh.py",
+    "hardware/install-guide/plumbing/plumbing_scenes.py",
+    "hardware/install-guide/plumbing/modern/render_modern_tee.py"
+  ],
+  "baseline_literal_reader_reference": {
+    "path": "hardware/faucet-layout/faucet_assembly.py",
+    "sha256": "8dc7786fa5921cca98fdebeda80fc2db3f8520db087c8fec9af44f2f5a99d36d",
+    "use": "Test-only original source for the existing AST mounting-figure reader after its provider became a Rust facade; candidate reads the live provider."
+  },
+  "kit_art_import_dependency": {
+    "missing_boundary": "hardware/scripts/_machine_data.py",
+    "chain": [
+      "tools/install-guide/kit_art.py::models",
+      "hardware/install-guide/_cad_art.py::_load_faucet_module",
+      "hardware/faucet-layout/faucet_assembly.py",
+      "hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.py",
+      "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py",
+      "hardware/scripts/_stated_bounds.py",
+      "hardware/scripts/_machine_data.py"
+    ],
+    "integration_owner": "root build graph",
+    "consumers": [
+      "tools/install-guide/kit_art.py",
+      "tools/install-guide/opening_scene.py"
+    ]
+  },
+  "install_pdf_live_reader_closure": {
+    "consumer": "tools/install-guide/build.py",
+    "additional_python": [
+      "hardware/printed-parts/cadlib/_scalar_provider.py",
+      "hardware/printed-parts/cadlib/fits.py",
+      "hardware/printed-parts/cadlib/flute_skin.py",
+      "hardware/printed-parts/cadlib/port_chip.py",
+      "hardware/printed-parts/cadlib/reeding.py",
+      "hardware/printed-parts/cadlib/world_workplane.py",
+      "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead_ring.py",
+      "hardware/printed-parts/enclosure/enclosure/_enclosure_compiled.py",
+      "hardware/printed-parts/enclosure/enclosure/_enclosure_data.py",
+      "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
+      "hardware/printed-parts/faucet/_display_snap.py",
+      "hardware/printed-parts/faucet/_faucet_interface.py",
+      "hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.py",
+      "hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.py",
+      "hardware/printed-parts/faucet/faucet-display-cover/faucet_display_cover.py",
+      "hardware/printed-parts/faucet/tpu-o-ring/tpu_o_ring.py",
+      "hardware/printed-parts/faucet/tube-collar/tube_collar.py",
+      "hardware/printed-parts/faucet/umbilical-organizer/umbilical_organizer.py",
+      "hardware/reference/_reference_data.py",
+      "hardware/reference/jg-bulkhead-union/jg_bulkhead_union.py",
+      "hardware/reference/neofit-bulkhead/neofit_bulkhead.py",
+      "hardware/reference/neofit-drain-bulkhead/neofit_drain_bulkhead.py",
+      "hardware/scripts/_machine_data.py",
+      "hardware/scripts/_material_base.py",
+      "hardware/scripts/_materials.py",
+      "hardware/scripts/_run_lock.py",
+      "hardware/scripts/_run_native.py",
+      "hardware/scripts/_run_slots.py",
+      "hardware/scripts/_shared_data.py",
+      "hardware/scripts/_stated_bounds.py"
+    ],
+    "programs": [
+      [
+        "enclosure-data",
+        "enclosure-data"
+      ],
+      [
+        "faucet-data",
+        "faucet-data"
+      ],
+      [
+        "guides",
+        "guides"
+      ],
+      [
+        "machine-data",
+        "machine-data"
+      ],
+      [
+        "part-data",
+        "part-data"
+      ],
+      [
+        "shared-data",
+        "shared-data"
+      ]
+    ],
+    "raw_reader_inputs": [
+      "hardware/reference/touch-flo-faucet/display-reference/component-envelopes.json",
+      "hardware/reference/touch-flo-faucet/display-reference/buttons.json",
+      "hardware/printed-parts/faucet/lever-replica/lever-replica.frame.json"
+    ],
+    "explicit_chain": [
+      "landscape.mounting_slots",
+      "literals(source faucet_assembly.py)",
+      "docgen.load_module(guide_faucet_dimensions)",
+      "faucet_assembly.py import _materials",
+      "faucet_assembly.py import all matching part dimension facades",
+      "faucet_assembly._assembly_data(datums)"
+    ],
+    "optional_nonexistent_probe_excluded": "ezdxf.ini",
+    "notes": "Add the existing .d/manifests source closures for all listed programs. Program raw include_str inputs are in those closures. Existing build-data program closure and DXF/fonts/artwork inputs remain required.",
+    "python_source_sha256": {
+      "hardware/printed-parts/cadlib/_scalar_provider.py": "5a3c0effaf87fa022b968e2ca2898d4119c4dc4484bc5efe0f560b1a55b681bb",
+      "hardware/printed-parts/cadlib/fits.py": "19844e24fba8fc1fb3edc63dd12c2f20bd4b9f3b1cbb3bbc901daa59579bc807",
+      "hardware/printed-parts/cadlib/flute_skin.py": "5d9f50a47f1e37d57cbf01046a477573b1f1cd4a6ff001869e2981023e8cf2aa",
+      "hardware/printed-parts/cadlib/port_chip.py": "a0644e9da5c3ec9d6965eb4e22ac917c08e9afa022f940997066c0ac4fe92af7",
+      "hardware/printed-parts/cadlib/reeding.py": "9b16a66432b903b372659b98976f526da27a655b4ca2c0a1d34f95b2cbe7830e",
+      "hardware/printed-parts/cadlib/world_workplane.py": "c984da35ce8e97ee12eec00431aa0b68031f7b42582d4cc04214bb4115653fda",
+      "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead_ring.py": "8a1f513acff0920ce3b16e507cfff544ef577f6d70098d2466d0431730e04a49",
+      "hardware/printed-parts/enclosure/enclosure/_enclosure_compiled.py": "a6c2fe180c63ca6b5f29512ab6e008f431e5426f18726a2dfe843d9a5433fba9",
+      "hardware/printed-parts/enclosure/enclosure/_enclosure_data.py": "d222d1cba39b5288e36afdf87e5b773df11fa25b4ac48aebbb66ea5dac7cb3d7",
+      "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py": "7206c3b35c93e1758dd07573846eb742d9a0fbc86c0d0f39c28fa513f3aab9da",
+      "hardware/printed-parts/faucet/_display_snap.py": "b5cf84849e215bcdc66581e2e1213d421f5efec7c0ddc293cfc137a8a29e7217",
+      "hardware/printed-parts/faucet/_faucet_interface.py": "abdc4169b3f60c9f4a8da95ad5d14f7f4cb198443802dcd1069c2e2bed1a1ab4",
+      "hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.py": "534bdfe614111611c22e4e60fb0c8534bdc92e0a998aa2ed2bc3e7916f740c69",
+      "hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.py": "5f504063263de0f018cc9ee9aba499a9c16726956fd3d04fb9634850ea7e53e1",
+      "hardware/printed-parts/faucet/faucet-display-cover/faucet_display_cover.py": "fedd193ab9acdd4a549a3fbfabaac37834edb8ddb9b78f7071ec217cbf7766ac",
+      "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py": "a62efaf1dd0c69c1b2e136be3c68a234abdcd291a94f8150856858626fc16d2c",
+      "hardware/printed-parts/faucet/faucet_paths.py": "361dbf69d962cf7eb210c6467e64ec96b1e00b5e44f16a440a236e02b3424993",
+      "hardware/printed-parts/faucet/tpu-o-ring/tpu_o_ring.py": "0377c3d01bf0979240039a9895c1c3db9da016e75db7b6f41e8e24d6c9e81fc8",
+      "hardware/printed-parts/faucet/tube-collar/tube_collar.py": "2b490754e7d807d445353268f5966a67ed056f965e6c4af34bdae1b994b43fb6",
+      "hardware/printed-parts/faucet/umbilical-organizer/umbilical_organizer.py": "06883895a85cc93021d0858c9902c95e889d879fe0b16f8606c4d3ca9e1945d5",
+      "hardware/reference/_reference_data.py": "94cdf5d892568d39c10f460e40ec6522f6e67723a4646014b6c69720beaab8c8",
+      "hardware/reference/jg-bulkhead-union/jg_bulkhead_union.py": "18c3623efa69281ef6e80e5d7303f27d171a482604ca2dc6f068edd5ddd8f18c",
+      "hardware/reference/neofit-bulkhead/neofit_bulkhead.py": "9e1b002e33a9027946c78c9c686696fda942310875a7f45194c3a37a7dbee936",
+      "hardware/reference/neofit-drain-bulkhead/neofit_drain_bulkhead.py": "deb3220d1af3c177ac13c209c366c0dcfd1bfa86e21c2695767d55a77742b67e",
+      "hardware/scripts/_cadq_export.py": "7650a38267ecb6150b4945cfdbbddad15f915d1f25a4697a02b406611e95b416",
+      "hardware/scripts/_document_export.py": "c97d030b1384b0d47af988c60d2cb51996c831dc781febf9ac4d27d3fcf20307",
+      "hardware/scripts/_guides_compiled.py": "d139774b27805a33d1b01b9d0f63fc6591448c9c13f61d6467045fff984c90b1",
+      "hardware/scripts/_machine_data.py": "99420dee045be5bcb59258e5fe665dc6c23204d634d5500b6a18a363e9a0b731",
+      "hardware/scripts/_material_base.py": "69e47bf8a040d01024531a493709e5ee3788b75623d18f787e5ac14b12b49dee",
+      "hardware/scripts/_materials.py": "da58435b0325e71bc996b80ab79348f88b09df6b7e1af47b887770335e7d6757",
+      "hardware/scripts/_run_lock.py": "0f9d9610ebb95c90866ecb6281ac57e1ac5823db7c6a75ba956cc5a4bb8a31bb",
+      "hardware/scripts/_run_native.py": "3f182f80ef1a77867fce5d33d0949ae54254df61f69010aa486ac40b498997be",
+      "hardware/scripts/_run_slots.py": "b67cf9c2e6b9cf686234075c4cd4e83f14fedfc956392e8ec81753c3581d19ba",
+      "hardware/scripts/_rust_data.py": "de02dd4812b2b58d56a0b86fe63e4d68f329de094f2c09beea8b8eacce3babee",
+      "hardware/scripts/_rust_objects.py": "114f7f1a485052d9d25616c29eb6e451ef7391e6c42069e58dc2ff94d0695596",
+      "hardware/scripts/_rust_part.py": "79b44c6ead5fc743661e263ac15f9270e1cf7ea7b0893e8de135aaefb3478309",
+      "hardware/scripts/_shared_data.py": "cc0dbe97e5c90b6e38e1fe2138ba13fc7a83bca1d3a57a9825f682db84d86241",
+      "hardware/scripts/_stated_bounds.py": "09421a5b1a00f4093f5d029bb971e6b9f0ce4aa1cdf0fbc827f45c33b917db96",
+      "tools/docgen/__init__.py": "9feb7c5c9d558511bb75054422bd6804294791e603273ec223384256fce04938",
+      "tools/install-guide/contours.py": "d77d4f90a5db82ac3c99d98fa0199558d3c80c7506f717688c118113365c4404"
+    },
+    "raw_input_sha256": {
+      "hardware/reference/touch-flo-faucet/display-reference/component-envelopes.json": "bc39121b5724d5551fa3144647f3e3c13280a0f0d38a84e1bac0ef91da30b3ac",
+      "hardware/reference/touch-flo-faucet/display-reference/buttons.json": "5813343c9981ce28fa63ba0f1465b520526439c2e49539d28b9baf463930c366",
+      "hardware/printed-parts/faucet/lever-replica/lever-replica.frame.json": "46a1b7460149e02f8eeb9700565a0a6ce8efb37315a82d3243b695e2c7835fe6"
+    },
+    "existing_runtime_node_dependencies_verified": [
+      "tools/install-guide/render-contours.mjs",
+      "tools/run-slots.mjs",
+      "tools/run.py"
+    ]
+  }
+}

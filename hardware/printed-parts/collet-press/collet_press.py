@@ -68,9 +68,11 @@ def main(output=None):
     out.mkdir(parents=True, exist_ok=True)
     said = _rust_part.cut("tooling", "collet-press", numbers(), out)
     body = said["bodies"][0]
-    span = [high - low for high, low in zip(body["max"], body["min"])]
+    from _part_output import summary
+    report = summary(body, volume_spec='.2f')
+    span = report['span']
     _document(SimpleNamespace(xlen=span[0], ylen=span[1], zlen=span[2]), body["volume"])
-    print(f"-> collet-press STEP, STL, fine model and payload; {body['volume'] / 1000:.2f} cm3")
+    print(f"-> collet-press STEP, STL, fine model and payload; {report['volume']} cm3")
 
 
 if __name__ == "__main__":

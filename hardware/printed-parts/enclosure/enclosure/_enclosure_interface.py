@@ -4,109 +4,31 @@ Parts that mate with the shell import this module. The enclosure module re-expor
 names so its public geometry API stays intact without making a small mating part load the whole
 machine.
 """
+from __future__ import annotations
 
-import sys
-from pathlib import Path
+import sys as _sys
+from pathlib import Path as _Path
 
-sys.path.insert(0, str(next(p for p in Path(__file__).resolve().parents
-                            if p.name == "printed-parts") / "cadlib"))
+_hardware = next(p for p in _Path(__file__).resolve().parents if p.name == "hardware")
+_sys.path[:0] = [str(_hardware / "scripts"), str(_hardware / "printed-parts/enclosure/enclosure"), str(_hardware / "printed-parts/cadlib")]
+import _rust_part
+_rust_part.start()
+from _enclosure_compiled import compiled as _compiled
 
-import fits  # noqa: E402
+_rust_enclosure_module = '_enclosure_interface'
 
-z_seam = 160.0
-slide_slip = fits.running
-wall = 3.0
-ceiling_skin = 3.0
-# The outer-wall bead selected by the enclosure print profile.
-extrusion_w = 0.42
-rear_seam_clear = 3.0
-# The funnel pocket and upper Y seam stack share these shell interface dimensions.
-funnel_collar_air = fits.running
-y_stack_high_depth = 13.0
-# The rear inner face leaves the cold core 1.01 mm behind the full aft valve tray.
-rear_plane_y = 468.3
-co2_axis_drop = fits.supported_surface
+def __getattr__(name):
+    if name == "__all__":
+        return _compiled('_enclosure_interface', action="public-names")
+    if name.startswith("__"):
+        raise AttributeError(name)
+    try:
+        return _compiled('_enclosure_interface', action="get", path=(name,))
+    except ValueError as error:
+        raise AttributeError(name) from error
 
-# The visible enclosure rounds. Broad body corners use twice the shoulder radius;
-# hand openings keep an R6 inside corner and roll onto the wall with the same R6
-# shoulder as the top, making their outside outline R12.
-show_edge_r = 6.0
-show_corner_r = 2.0 * show_edge_r
+from _enclosure_compiled import install as _install
+_install(_sys.modules[__name__])
 
-# Signed pump-to-deck offset. The manifold subtracts it from the pump-outlet station and adds
-# it to the placement span, leaving the fixed tee deck on its own plane. The pump skirt's
-# slipped opening leaves 3 mm of cradle behind it at the common cartridge back.
-pump_station_lead = -0.074
-
-# THE PUMPS' VERTICAL SERVICE DATUM. In `manifold_layout`'s authored frame the pump depth axis
-# is Y; `enclosure_assembly` stands that axis on world Z. This shift therefore moves only the
-# two pumps and the four barb ends downward in the installed machine. The manifold has its
-# own independent rise, carried by its tees, valve seats and stationary tube endpoints.
-pump_station_drop = 3.0
-# The physical flange rests on the unchanged skirt lands below the holder's station datum.
-# The extra micron is the upper-well Boolean overlap, also used by cap_drop_start_z.
-pump_seated_drop = fits.running + 0.001
-manifold_rise = 2.0
-# The two source limbs, including their tees and aft valves, sit below the outer limbs.
-# WHAT THE FIGURE IS FOR is the funnel: V-A and V-B stand coil-up directly under its sloping
-# floor, and the drop clears the bowl's ramp above them. The current cavity volume is recorded
-# in zone-c/funnel/integration-review/forward-expansion-check.json. The drop follows
-# the measured Beduan's own height — the coil reaches 52.1 mm above the bearing face its posts
-# are pressed to — and `clearance-floor` reads what is left between the two.
-inner_limb_drop = 9.5
-
-# THE FIELD THE BOX'S SHOW FACES CARRY, in the two figures a piece that does NOT carry it still
-# has to know. The fade is driven by how far a station stands from the nearest edge of the show
-# face (`cadlib/flute_skin._depth_field`), so a band's own two faces are both edges and the
-# deepest station on a band of height h stands h / 2 from one — full depth only once that
-# clears `flute_rise`. `flute_full_depth_height` is that threshold, and the pieces let into the
-# box's faces read it to say which side of it they fall on: `display_cover.display-cover-reveal`.
-# `enclosure.py` cuts the field with the same two.
-flute_depth = 1.2
-flute_rise = 5.0
-flute_full_depth_height = 2.0 * flute_rise
-
-
-def flute_reach(band_height):
-    """How deep a groove lands on a band `band_height` tall — the field's own expression.
-
-    `flute_skin._depth_field` ramps on `smoothstep(far / flute_rise)`, where `far` is the
-    distance to the nearest edge of the show face; on a band the deepest station stands half
-    the height from either face. So this is what a piece gets for being as tall as it is, and
-    it is the reading a reveal is stated against rather than a number typed beside one."""
-    t = min(band_height / 2.0, flute_rise) / flute_rise
-    return flute_depth * t * t * (3.0 - 2.0 * t)
-
-screw_clear_dia = 3.0 + 2.0 * fits.slip
-head_cbore_dia = 5.5 + 2.0 * fits.slip
-heatset_dia = 4.0
-# THE INSERT'S OWN BODY, both lengths ruthex sells in M3. They are the same insert otherwise —
-# same ⌀4.6 knurl over the same ⌀4.0 recommended hole — so a station picks between them on the
-# depth of its own bore and nothing else, and `heatset_dia` serves either.
-#   A BORE IS NOT AN INSERT. `heatset_depth` is the POCKET: the body plus the relief a screw
-# that outruns it needs. Anything asking how much thread a screw actually takes reads a length
-# here and not that.
-heatset_len = 4.0        # RX-M3Sx4.0, where a station cannot give the long body its depth
-heatset_long_len = 5.7   # RX-M3x5.7, everywhere a station can
-heatset_depth = 5.25
-heatset_min_wall = 1.6  # ruthex RX-M3Sx4.0 / RX-M3x5.7, measured from the Ø4 pilot
-mount_boss_dia = 8.0   # 2 mm radial stock, including the supported-face bore allowance
-boss_ligament = (mount_boss_dia - heatset_dia) / 2.0
-if boss_ligament < heatset_min_wall:
-    raise ValueError("an M3 mounting boss needs ruthex's minimum surrounding wall")
-mount_bore_relief = 1.0
-relief_chamfer = 45.0
-
-display_bezel_x = 113.5
-display_bezel_slope = 77.0
-display_corner_r = 2.5
-display_inset_lap = 3.0
-display_inset_reach = 6.3
-display_inset_depth = 3.84
-display_inset_x = display_bezel_x + 2 * display_inset_reach
-display_inset_slope = 83.3
-display_cover_corner_r = show_edge_r
-display_cover_slip = 0.3
-display_inset_corner_r = display_cover_corner_r + fits.slip
-display_bezel_depth = 5.84
-display_cover_thickness = 3.84
+if __name__ == "__main__":
+    _compiled('_enclosure_interface', action="main")
