@@ -4592,6 +4592,10 @@
       "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2",
       "unproven": true
     },
+    "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.scorecard.json": {
+      "commit": "0f783ce81c1647e38611650d0bcab2f8fac1c7c3",
+      "unproven": true
+    },
     "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step": {
       "commit": "91e61d6f09bf475c9b0b038594f5db5ae8a92b43",
       "unproven": true
