@@ -1,14 +1,15 @@
-"""Integral above-core shell mounts beneath the continuous ceiling."""
+"""Above-core shell datums and composition of numeric panel recipes."""
 
 import functools
 import math
 import sys
 from pathlib import Path
 
-import cadquery as cq
+import _enclosure_datums
+_enclosure_datums.install()
 
 HERE = Path(__file__).resolve().parent
-sys.path.insert(0, str(HERE.parents[2] / 'manifold-layout'))
+sys.path.insert(0, str(HERE.parents[2] / "manifold-layout"))
 import above_core as layout
 from _enclosure_interface import flute_depth
 
@@ -18,23 +19,6 @@ def rear_identification():
     sys.path.insert(0, str(HERE.parent / 'rear-identification'))
     import rear_identification as identification
     return identification
-
-
-def box(x0, x1, y0, y1, z0, z1):
-    return cq.Solid.makeBox(x1-x0, y1-y0, z1-z0, cq.Vector(x0, y0, z0))
-
-
-def rectangle(bounds, radius=0):
-    shape = box(*(bounds[k] for k in ('xmin', 'xmax', 'ymin', 'ymax', 'zmin', 'zmax')))
-    return cq.Workplane(obj=shape).edges('|Z').fillet(radius).val() if radius else shape
-
-
-def zcylinder(radius, x, y, z0, z1):
-    return cq.Solid.makeCylinder(radius, z1-z0, cq.Vector(x, y, z0))
-
-
-def ycylinder(radius, x, z, y0, y1):
-    return cq.Solid.makeCylinder(radius, y1-y0, cq.Vector(x, y0, z), cq.Vector(0, 1, 0))
 
 
 def psu_fastener_plan():
@@ -72,27 +56,6 @@ def relay_fastener_plan():
             'screw_clearance_radius_mm':1.7,
             'pcb_support':'Four 3 mm edge ledges support the PCB; the terminal pair captures its top edges. The insert faces stand behind the pin envelope.',
             'parent':'enclosure-back-top', 'load_retention_qualified':False}
-
-
-def relay_edge_rails(name):
-    """Solid 3 mm rails capture the PCB edges beside its terminal block.
-
-    Both ends are open. Slide the board aft from 6.5 mm fore, then fit
-    the two screws at its header end. The rails hold the opposite end.
-    """
-    frame = layout.frame_location(layout.pose(name))
-    rails = []
-    for side in (-1.,1.):
-        outer = sorted((side*8.75,side*11.75))
-        lip = sorted((side*7.5,side*11.75))
-        root = box(29.5,35.25,*outer,-4.05,4.75)
-        bearing = box(29.5,35.25,*lip,1.75,4.75)
-        ledge = box(29.5,35.25,*lip,-3.,0.)
-        rails.append(root.fuse(bearing,ledge).clean().moved(frame))
-        front = box(-30.5,-24.75,*outer,-4.05,0.)
-        front = front.fuse(box(-30.5,-24.75,*lip,-3.,0.)).clean()
-        rails.append(front.moved(frame))
-    return tuple(rails)
 
 
 def wall_mount_datums():
@@ -156,150 +119,12 @@ def in_wall_fastener_lane(name, bounds, tolerance=1e-5):
                bounds[i + 3] <= hi[i] + tolerance for i in range(3))
 
 
-def _wall_hosts(names):
-    bosses, holes = [], []
-    datums = wall_mount_datums()
-    for name in names:
-        plan = datums[name]
-        for station in plan['stations']:
-            point, face, root, axis = (station[k] for k in
-                ('position_world_mm','insert_face_world_mm','stock_root_world_mm','axis_world'))
-            length = sum((p-r)*u for p,r,u in zip(face,root,axis))
-            bosses.append(cq.Solid.makeCylinder(plan['boss_radius_mm'],length,cq.Vector(*root),cq.Vector(*axis)))
-            if station['threaded']:
-                inward = tuple(-u for u in axis)
-                holes.append(cq.Solid.makeCylinder(plan['pilot_radius_mm'],plan['pilot_depth_mm']+.01,
-                    cq.Vector(*(p+.01*u for p,u in zip(face,axis))),cq.Vector(*inward)))
-                setback = plan.get('insert_face_setback_mm',0.)
-                if setback:
-                    holes.append(cq.Solid.makeCylinder(plan['screw_clearance_radius_mm'],setback+.02,
-                        cq.Vector(*(p+.01*u for p,u in zip(point,axis))),cq.Vector(*inward)))
-    # Plain bars join the insert roots behind the full pin envelope.
-    if set(names)=={'relay-1','relay-2'}:
-        for name in names:
-            bosses.extend(relay_edge_rails(name))
-        stations = [s for name in names for s in datums[name]['stations']]
-        for y in sorted(set(round(s['position_world_mm'][1],6) for s in stations)):
-            row = [s for s in stations if abs(s['position_world_mm'][1]-y)<1e-5]
-            z0,z1 = min(s['position_world_mm'][2] for s in row),max(s['position_world_mm'][2] for s in row)
-            x = min(s['insert_face_world_mm'][0] for s in row)
-            bosses.append(box(-98.52,x,y-5.,y+5.,z0,z1))
-    return tuple(bosses),tuple(holes)
-
-
-@functools.cache
-def relay_bosses():
-    return _wall_hosts(('relay-1','relay-2'))
-
-
-@functools.cache
-def psu_bosses():
-    return _wall_hosts(('psu',))
-
-
-def wall_bosses():
-    first,second=relay_bosses(),psu_bosses()
-    return first[0]+second[0],first[1]+second[1]
-
-
-def mount_hardware():
-    """M3 screws and short inserts on the actual PSU and relay hole axes."""
-    import math
-    from _materials import M_STAINLESS, M_BRASS
-    import above_core_parts as parts
-    rows = {}
-    for name,plan in wall_mount_datums().items():
-        for number,station in enumerate(plan['stations'],1):
-            if not station['threaded']:
-                continue
-            axis = cq.Vector(*station['axis_world'])
-            point = cq.Vector(*station['position_world_mm'])
-            face = cq.Vector(*station['insert_face_world_mm'])
-            head = point+axis*(6.7 if name=='psu' else 1.5)
-            length = plan['screw_length_mm']
-            screw = cq.Solid.makeCylinder(1.5,length,head-axis*length,axis).fuse(
-                cq.Solid.makeCylinder(2.75,3.,head,axis))
-            wide = cq.Vector(1.,0.,0.) if abs(axis.x)<.9 else cq.Vector(0.,1.,0.)
-            plane = cq.Plane(origin=head+axis*1.5,normal=axis,xDir=wide)
-            socket = cq.Workplane(plane).polygon(6,2.5/math.cos(math.pi/6.)).extrude(1.6).val()
-            screw = screw.cut(socket).clean()
-            insert = cq.Solid.makeCylinder(2.3,4.,face,axis*-1.).cut(
-                cq.Solid.makeCylinder(1.25,4.2,face+axis*.1,axis*-1.))
-            for kind,shape,color in (('screw',screw,M_STAINLESS),('insert',insert,M_BRASS)):
-                rows[f'{name}-{kind}-{number}'] = shape,color,parts._carry(parts._frame())
-    return rows
-
-
 def c14_fastener_plan():
     """The washer bridges the inlet's native countersink under a socket head."""
     return {'screw_length_mm': 10., 'washer_od_mm': 7., 'washer_thickness_mm': .5,
             'flange_thickness_mm': 3.25, 'insert_length_mm': 4.,
             'screw_reach_mm': 6.25, 'pilot_depth_mm': 7.25,
             'boss_depth_mm': 10.25, 'tip_air_mm': 1., 'backing_mm': 3.}
-
-
-def c14_rear_cutters():
-    """Separate the measured inboard body fit from the outboard flange recess.
-
-    The reference's measured 26.10 by 18.00 mm wiring body, including its
-    chamfers and upper rounds, sets the inboard aperture. The larger generic
-    panel-cutout recommendation would cut the neighboring WAGO wall and the
-    insert hosts. Actual body seating remains a physical fit question.
-    """
-    sys.path.insert(0, str(HERE.parents[2] / 'reference/iec-c14-inlet'))
-    import iec_c14_inlet as inlet
-
-    plan = layout.specification()['rear_wall']['dry_openings']['c14']
-    x, y, z = layout.pose('c14-inlet')['translation_mm']
-    clearance = plan['profile_clearance_mm']
-    flange = inlet.flange_prism(
-        clearance, plan['flange_pocket_ymin_mm'], y + 1.).val()
-    profile = inlet._body_profile()._faces.Faces()[0].outerWire()
-    outline = profile.offset2D(clearance)[0]
-    body = (cq.Workplane(inlet.xz_plane_y_up)
-            .workplane(offset=plan['body_opening_ymin_mm'])
-            .placeSketch(cq.Sketch().face(outline).reset())
-            .extrude(plan['flange_pocket_ymin_mm']
-                     - plan['body_opening_ymin_mm'] + .01).val())
-    return flange.translate((x, 0., z)), body.translate((x, 0., z))
-
-
-def keystone_rear_geometry(holds=(), keep_clear=None):
-    """The enclosure's fitted shoulder, catches and broad corbel at the jack.
-
-    THE BOSS STANDS ONE WALL PROUD OF THE REAR WALL'S FACE. The jack reaches 0.7 mm past the
-    wall to its catches; the boss carries the pocket on through its own depth behind them, so
-    its faces stand a full wall wide rather than 0.7 mm. Where a core hold's lane meets the
-    boss (`holds`, the pack's `(x0, x1, aft, crown)` stations), the boss runs across the whole
-    lane and its side lands on the bracket's own. `keep_clear` is the wiring's room, which the
-    boss and its corbel give back."""
-    import enclosure
-
-    jack = enclosure._keystone
-    x, y, z = layout.specification()['rear_wall']['dry_openings']['keystone'][
-        'face_center_mm']
-    root = layout.specification()['rear_wall']['rear_wall']['ymin']
-    growth = max(0., enclosure.fits.slip - jack.FIT_SLIP / 2.)
-    half_x = enclosure.keystone_pocket_width() / 2. + jack.RECEPTACLE_WALL
-    half_z = jack.POCKET_H / 2. + growth + jack.RECEPTACLE_WALL
-    fore = root - enclosure.wall
-    centre_z = z + jack.POCKET_RISE
-    x0, x1 = x - half_x, x + half_x
-    for lane0, lane1, _aft, _crown in holds:
-        if lane0 < x1 and lane1 > x0:
-            x0, x1 = min(x0, lane0), max(x1, lane1)
-    block = box(x0, x1, fore, root+.01, centre_z-half_z, centre_z+half_z)
-    stock = enclosure._supported_cut(block, enclosure.BACK_TOP_UP)
-    top = centre_z + half_z
-    stock = stock.fuse(enclosure._yz_prism(
-        x0, x1, ((root, top), (fore, top), (root, top+root-fore))))
-    if keep_clear is not None:
-        stock = stock.cut(keep_clear)
-    cutter, _ = enclosure._keystone_pocket_cut(x, z, y, back=fore)
-    _, catches = jack.receptacle_boss(x, z, y, root)
-    return (stock.clean(),
-            enclosure._supported_cut(cutter, enclosure.BACK_TOP_UP),
-            enclosure._keystone_catches(catches, enclosure.BACK_TOP_UP))
 
 
 def keystone_land():
@@ -314,31 +139,6 @@ def keystone_land():
     half_h = jack.FACE_H / 2. + enclosure.fits.slip + enclosure.wall
     return (x - half_w, x + half_w, y - 3., y + 1.,
             z - half_h, z + half_h + enclosure.keystone_ease_shoulder)
-
-
-def rear_geometry(piece, holds=(), keep_clear=None):
-    plan = layout.specification()['rear_wall']
-    relief = plan['interior_panel_relief']
-    piece = piece.cut(rectangle(relief))
-    for port in plan['wet_ports']:
-        piece = piece.cut(ycylinder(port['bore_diameter_mm']/2,
-                                    port['center_x_mm'], port['center_z_mm'],
-                                    458., 472.3))
-    c14 = plan['dry_openings']['c14']
-    x, y, z = layout.pose('c14-inlet')['translation_mm']
-    piece = piece.cut(*c14_rear_cutters())
-    # Two washer-backed M3 x 10 screws carry the flange on short inserts.
-    # Their blind pilots retain 3 mm stock behind the screw-tip relief.
-    seat_y = y-3.25
-    fasteners = c14_fastener_plan()
-    for dx in (-c14['mount_pitch_mm']/2, c14['mount_pitch_mm']/2):
-        piece = piece.fuse(ycylinder(5., x+dx, z,
-                                    seat_y-fasteners['boss_depth_mm'], seat_y))
-        piece = piece.cut(ycylinder(2., x+dx, z,
-                                    seat_y-fasteners['pilot_depth_mm'], seat_y+.01))
-    stock, cutter, catches = keystone_rear_geometry(holds, keep_clear)
-    piece = piece.fuse(stock).cut(cutter).fuse(catches)
-    return piece
 
 
 def gas_check_support_datums():
@@ -370,20 +170,6 @@ def gas_check_support_datums():
     }
 
 
-def gas_check_support():
-    """One broad east-wall saddle; the nominal release collets remain free."""
-    data = gas_check_support_datums()
-    x, y, z = data['centre_world_mm']
-    radius = data['seat_radius_mm']
-    half = data['bearing_width_mm'] / 2.
-    side = data['outer_half_y_mm']
-    saddle = box(x, data['wall_root_x_mm'], y-side, y+side, z-half, z+half)
-    return saddle.cut(
-        zcylinder(radius, x, y, z-half-.1, z+half+.1),
-        box(x+radius+3., x+radius+5.5, y-2., y+2., z-half-.1, z+half+.1),
-    ).clean()
-
-
 def valve_seat_datums():
     """Approved full socket plates rooted directly in the two sidewalls."""
     import itertools
@@ -412,102 +198,34 @@ def valve_seat_datums():
     return result
 
 
-@functools.cache
-def valve_seats():
-    """V-A's ceiling plinth and V-K's full east-wall socket plate."""
-    import valve_seat as seat
-    import rear_plumbing
-    result = {}
-    result['valve-v-a'] = seat.build_seat(rear_plumbing.plan()['joint']['PLINTH']).val().moved(layout.location('valve-v-a'))
-    row = valve_seat_datums()['vk-solenoid']
-    low,high = row['stock_min_world_mm'],row['stock_max_world_mm']
-    stock = box(low[0],high[0],low[1],high[1],low[2],high[2])
-    location = layout.location('vk-solenoid')
-    result['vk-solenoid'] = stock.cut(seat.build_sockets().val().moved(location),
-        seat.build_port_channel(2.*seat.seat_half_y+2.).val().moved(location)).clean()
-    return result
+# The panel recorder supplies these graph factories while it records the recipe.
+box = rectangle = ycylinder = zcylinder = rear_well_tower = wall_bosses = valve_seats = c14_rear_cutters = keystone_rear_geometry = fluid_supports = stacked_well_towers = None
 
 
-def tie_window(axis, lo, hi, a0, a1, z_mid):
-    """Straight tie passage with its existing 45-degree print-down closure."""
-    import enclosure
-    mid, half = (a0+a1)/2., (a1-a0)/2.
-    section = [(a0,z_mid+2.),(a1,z_mid+2.),(a1,z_mid-2.),
-               (mid,z_mid-2.-half),(a0,z_mid-2.)]
-    return (enclosure._xz_prism(lo,hi,section) if axis == 'y'
-            else enclosure._yz_prism(lo,hi,section))
+def rear_geometry(piece, holds=(), keep_clear=None):
+    plan = layout.specification()['rear_wall']
+    relief = plan['interior_panel_relief']
+    piece = piece.cut(rectangle(relief))
+    for port in plan['wet_ports']:
+        piece = piece.cut(ycylinder(port['bore_diameter_mm']/2,
+                                    port['center_x_mm'], port['center_z_mm'],
+                                    458., 472.3))
+    c14 = plan['dry_openings']['c14']
+    x, y, z = layout.pose('c14-inlet')['translation_mm']
+    piece = piece.cut(*c14_rear_cutters())
+    # Two washer-backed M3 x 10 screws carry the flange on short inserts.
+    # Their blind pilots retain 3 mm stock behind the screw-tip relief.
+    seat_y = y-3.25
+    fasteners = c14_fastener_plan()
+    for dx in (-c14['mount_pitch_mm']/2, c14['mount_pitch_mm']/2):
+        piece = piece.fuse(ycylinder(5., x+dx, z,
+                                    seat_y-fasteners['boss_depth_mm'], seat_y))
+        piece = piece.cut(ycylinder(2., x+dx, z,
+                                    seat_y-fasteners['pilot_depth_mm'], seat_y+.01))
+    stock, cutter, catches = keystone_rear_geometry(holds, keep_clear)
+    piece = piece.fuse(stock).cut(cutter).fuse(catches)
+    return piece
 
-
-@functools.cache
-def fluid_supports():
-    """Three slide seats and the regulator's push-up seat, integral with back-top."""
-    import rear_plumbing
-    return {n:s for n,s in rear_plumbing.seats().items() if n.endswith('-seat')}
-
-
-def closure_hardware(x, y, head_seat, insert_top, length=12.):
-    """Nominal socket-head envelope and annular full-length M3 insert."""
-    screw = zcylinder(1.5, x, y, head_seat-length, head_seat)
-    screw = screw.fuse(zcylinder(2.75, x, y, head_seat, head_seat+3.))
-    socket = (cq.Workplane('XY').workplane(offset=head_seat+1.5)
-              .center(x, y).polygon(6, 2.5/0.8660254037844386).extrude(1.6).val())
-    screw = screw.cut(socket).clean()
-    insert = zcylinder(2.3, x, y, insert_top-5.7, insert_top).cut(
-        zcylinder(1.25, x, y, insert_top-5.8, insert_top+.1))
-    return screw, insert
-
-
-def stacked_well_towers(stock, inner):
-    """Front-top's manifold wells, each connected cluster as one tower on its flank.
-
-    Each well's rear-half stock is drawn at its own inboard reach and span. Stacked, two wells
-    overlap in height and leave a step and a strip where their inboard faces differ, and a
-    print-down soffit under each. One tower takes the envelope of a cluster: one inboard face,
-    one span along the wall, and a 45 degree wedge carrying its print-down face to the wall.
-    The pockets are still cut at their own stations."""
-    towers = []
-    for solid in stock.Solids():
-        bb = solid.BoundingBox()
-        east = bb.xmax > 0.
-        wall_x = inner[1] if east else inner[0]
-        face_x = bb.xmin if east else bb.xmax
-        run = abs(wall_x - face_x)
-        wedge = (cq.Workplane('XZ')
-                 .polyline([(face_x, bb.zmin), (wall_x, bb.zmin), (wall_x, bb.zmin - run)])
-                 .close().extrude(-(bb.ymax - bb.ymin)).val().translate((0., bb.ymin, 0.)))
-        towers.append(box(bb.xmin, bb.xmax, bb.ymin, bb.ymax, bb.zmin, bb.zmax).fuse(wedge))
-    result = towers[0]
-    for tower in towers[1:]:
-        result = result.fuse(tower)
-    return result.clean()
-
-
-def rear_well_tower(stock, ceiling):
-    """Join rear wells to the wall with a full 3 mm roof.
-
-    The live/neutral cluster has a solid level roof beneath the data-jack seat;
-    the separate earth well rises at 45 degrees to the rear wall.
-    """
-    import above_core_wiring
-    neutral=above_core_wiring.placements()['wago-n']['translation_mm']
-    wall=layout.specification()['enclosure']['rear_y_mm']-9.+.5
-    roofs=[]
-    for solid in stock.Solids():
-        b=solid.BoundingBox()
-        run=max(0.,wall-b.ymin)
-        if run:
-            neutral_cluster=(b.xmin<=neutral[0]<=b.xmax and
-                             b.zmin<=neutral[2]<=b.zmax)
-            top=b.zmax if neutral_cluster else b.zmax+run
-            bottom=b.zmax-3.
-            if neutral_cluster:
-                live_stock,_=above_core_wiring._well('wago-h')
-                bottom=min(bottom,live_stock.BoundingBox().zmax)
-            roofs.append((cq.Workplane('YZ')
-                .polyline([(b.ymin,bottom),(b.ymin,b.zmax),
-                           (wall,top),(wall,bottom)])
-                .close().extrude(b.xmax-b.xmin).val().translate((b.xmin,0.,0.))))
-    return stock.fuse(*roofs).clean() if roofs else stock
 
 
 def apply(piece, box_spec, y_side, z_side):
