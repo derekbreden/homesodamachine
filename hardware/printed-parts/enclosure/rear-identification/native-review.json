@@ -13,9 +13,11 @@
     "hardware/printed-parts/enclosure/enclosure/_enclosure_panel.py": "3aff5d1f47fba8e4419a283b8a87b60edf8a6c1b62029689a81807944d00800d",
     "tools/hsm/layout-data/src/rear.rs": "0ff75c017931acf677a65c9a0a4a3cbeca6aa45c0a9b36e6f9a0394f86ee774c",
     "tools/hsm/machine-data/src/equipment.rs": "1e8dfa4d5316a41b0363cd7aa60ec6b47a2b5ac1dc1d233c2fb1f6604015c84f",
-    "hardware/manifold-layout/enclosure-assembly.step.npz": "6017b887d3aa3224f69ecc8c833068169d2508782f9cef1beb942f488878e852",
+    "hardware/manifold-layout/enclosure-assembly.step.npz": "fed882de520ebd4c88eeac450f86589804dfaf849e329aa620f5312f5dfc4187",
     "hardware/printed-parts/enclosure/enclosure/enclosure_back_top.rs": "83d253d9d8d3f24efcc001b7b8a635d7269375bd8748a58d29c976e59652a05f",
-    "hardware/printed-parts/enclosure/enclosure/_nameplate_wing_interface.py": "5469c5fc3d96421be57b3eb90289795b6d1b25b635b03cf882d6b2ca2f710bd2"
+    "hardware/printed-parts/enclosure/enclosure/_nameplate_wing_interface.py": "5469c5fc3d96421be57b3eb90289795b6d1b25b635b03cf882d6b2ca2f710bd2",
+    "tools/hsm/enclosure-data/src/main.rs": "381fc733314ab4553386d10e384752d510ea732356ccbd0c7005c4d1950afc3d",
+    "hardware/printed-parts/enclosure/rear-identification/label-words.json": "92acad5810f8515727aa4462a15571fefc90e92bef6fa66e5d514cf579662d1b"
   },
   "labels": {
     "co2": {
@@ -349,7 +351,7 @@
           "gap_mm_capped_at_5": 5.0
         }
       },
-      "flange_word_clearance_mm": 4.8408286638008855,
+      "flange_word_clearance_mm": 4.8514160198125555,
       "clamped_stack_mm": 6.0,
       "remaining_wall_mm": 4.0
     },
@@ -440,7 +442,7 @@
         "FLAVOR"
       ],
       [
-        "OVER",
+        "DRAIN",
         "FLAVOR"
       ]
     ]
@@ -852,7 +854,7 @@
   },
   "exported_solids_sha256": {
     "hardware/printed-parts/enclosure/rear-identification/rear-label-flavor-a.step": "58a8555f8ba98e609b121681072b364e9aee4b0ab1324e79120b6dd2993a0456",
-    "hardware/printed-parts/enclosure/rear-identification/rear-label-drain.step": "c6ebb1b44282684ed09990d9638979687b8731da9f2f3490f7ee580a0f9940c1",
+    "hardware/printed-parts/enclosure/rear-identification/rear-label-drain.step": "56e926522e3bfd2adcd556becd182d6ec44246bb17437e671e2012b623e13946",
     "hardware/printed-parts/enclosure/rear-identification/rear-label-co2.step": "b527a00d29737382fc6fae29ba4c43bf28cbabbecacbddc21a2bc6ccb077f0ad",
     "hardware/printed-parts/enclosure/rear-identification/rear-label-water.step": "b719013d945827b354e7b1cfe33029dc91e5074becf0dce581aaa5edf87b93ed",
     "hardware/printed-parts/enclosure/rear-identification/rear-label-carb.step": "132f4476a0453cf69c29636cbb78940a40b119ca3dd3cb6062417268c7bcba95",
@@ -978,5 +980,32 @@
     ],
     "same_continuous_five_degree_patch": true,
     "patch_faces": 12
+  },
+  "drain_identification": {
+    "card": {
+      "outer_bounds_mm": [
+        -21.0,
+        0.0,
+        -23.40000000037253,
+        21.0,
+        1.7999999998137355,
+        14.599999999627471
+      ],
+      "same_outer_bounds": true
+    },
+    "collar": {
+      "outer_bounds_mm": [
+        -6.0,
+        0.0,
+        -6.0,
+        6.0,
+        30.0,
+        7.0499999998137355
+      ],
+      "same_outer_bounds": true
+    },
+    "word": "DRAIN",
+    "card_word_to_bulkhead_gap_mm": 4.8514160198125555,
+    "word_bulkhead_shared_volume_mm3": 0.0
   }
 }

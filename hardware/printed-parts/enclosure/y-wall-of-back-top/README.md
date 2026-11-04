@@ -18,7 +18,7 @@ pitches are 37.0 and 30.2 mm.
 |---|---|---|
 | [331.200](GRID_TOP_Z) | CO2: PISCO inlet neck, red 1/4-inch | TAP: PP010822E threaded inlet chain, white 1/4-inch |
 | [294.200](GRID_MIDDLE_Z) | SODA: PP1208E, blue 1/4-inch outlet | FLAVOR: ABU44M-E, black 4 mm A outlet |
-| [264.000](GRID_BOTTOM_Z) | OVER: ABU44M-E, white 4 mm vent | FLAVOR: ABU44M-E, black 4 mm B outlet |
+| [264.000](GRID_BOTTOM_Z) | DRAIN: ABU44M-E, white 4 mm vent | FLAVOR: ABU44M-E, black 4 mm B outlet |
 
 The main rear wall is 9 mm stock. The fluid field retains a 6 mm clamping
 stack between Y465.3 and Y471.3. Each 1.8 mm identification tile stands in a
@@ -32,8 +32,8 @@ scanned adapter axis rather than the nominal tile centre.
 The water filter is upstream, on the customer's side of TAP. The threaded
 PP010822E–GAGIRA–ASSE–PI4512F6S–PP061208W chain feeds the raised stem tee,
 V-K and the flavor-water regulator. The ASSE vent points down into a TPU cup
-with its 4 mm OVER socket facing fore and clocked 15° toward the meter. PISCO's own inlet neck crosses the rear
-wall; the neoFit ACHV44-E check plugs directly into its outlet. OVER remains a
+with its 4 mm DRAIN socket facing fore and clocked 15° toward the meter. PISCO's own inlet neck crosses the rear
+wall; the neoFit ACHV44-E check plugs directly into its outlet. DRAIN remains a
 dedicated atmospheric return through the umbilical to its separate faucet
 outlet above the bowl. See [internal plumbing](/hardware/assembly/internal-plumbing.md)
 and [ASSE drain assembly](/hardware/assembly/asse-drain.md).
@@ -66,11 +66,11 @@ None of these changes the fluid flange or nut seating planes.
 ## Tube identification and bundle
 
 Blue identifies carbonated water, white identifies tap water and the separate
-smaller OVER return, red identifies CO2, and black identifies both flavors.
-The white TAP and OVER sockets take different tube diameters and carry their
+smaller DRAIN return, red identifies CO2, and black identifies both flavors.
+The white TAP and DRAIN sockets take different tube diameters and carry their
 own words. The same spool colors continue inside the enclosure.
 
-The faucet umbilical carries soda, two flavors, OVER and the signal ribbon.
+The faucet umbilical carries soda, two flavors, DRAIN and the signal ribbon.
 Connect the two black tails to the right column’s FLAVOR sockets in either
 order. The upper socket continues inboard to V-G; the lower socket to V-J.
 Only the soda tube receives the specified pipe insulation. PET braid covers

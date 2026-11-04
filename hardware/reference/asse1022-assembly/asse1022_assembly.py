@@ -7,7 +7,7 @@ reachable from 1/4" tube on both sides — the chain
 in the order it builds them:
 
     1/4" LLDPE → PP010822E → GAGIRA coupling → [ASSE 1022] → flare38-14ptc → 1/4" LLDPE
-                                                     └ TPU sleeve ↓ 4 mm OVER → faucet bowl
+                                                     └ TPU sleeve ↓ 4 mm DRAIN → faucet bowl
 
 The outlet leaves at 1/4" OD — the flare38-14ptc turns the ASSE's 3/8" male flare
 straight onto 1/4" LLDPE, so no 3/8" tubing runs on toward the pump; the 1/4" line
@@ -21,7 +21,7 @@ A station is its module, its seat and its hue. The seat carries the fitting's me
 the ports that fitting's module declares ([`_seating.py`](/hardware/scripts/_seating.py)).
 This assembly's own terminals are its stations' ports, named.
 
-The TPU sleeve covers the barb and connects directly to the 4 mm OVER return,
+The TPU sleeve covers the barb and connects directly to the 4 mm DRAIN return,
 bulkhead and the separate faucet outlet over the bowl
 ([`asse-drain.md`](/hardware/assembly/asse-drain.md)).
 

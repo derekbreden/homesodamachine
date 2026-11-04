@@ -62,7 +62,7 @@ have 3.2 mm of outward release travel.
 
 Viewed from behind, the left port column is X76.5 and the right is X28.8;
 rows are Z331.2, Z294.2 and Z264. TAP's bore follows the scanned inlet adapter's
-axis. The top row is CO2/TAP, the middle SODA/FLAVOR and the bottom OVER/FLAVOR.
+axis. The top row is CO2/TAP, the middle SODA/FLAVOR and the bottom DRAIN/FLAVOR.
 The 42 × 38 × 1.8 mm identification tiles slide into continuous channels with
 2 mm of overlap at each side, leaving 38 mm square visible faces. Their
 channel floor is Z240.6 and the seams between cards are 0.2 mm. The bottom
@@ -129,7 +129,7 @@ original TPU fill grip.
 
 The downward ASSE vent takes one
 [TPU cup with an aft-facing socket](../printed-parts/asse-drain-adapter/README.md).
-Its white 4 mm return runs directly to OVER. The dedicated faucet outlet remains
+Its white 4 mm return runs directly to DRAIN. The dedicated faucet outlet remains
 open over the bowl.
 
 ## Assembly
@@ -140,7 +140,7 @@ Prepare the meter with its continuous inlet, holder, foam and concealed outlet
 tube, and slide it onto the soda union. Load its cap 20 mm west and 40 mm fore
 of its station, slide it aft and press it east into the catches. Fit the ASSE
 group's lower cap after the meter cap. Fit the V-A/V-K header, vent cup and
-direct OVER return with both ties accessible.
+direct DRAIN return with both ties accessible.
 
 Service the rear caps with back-top separated from the core. Disconnect and
 dress their tubing and leads aside. Remove the ASSE cap first. Spread the

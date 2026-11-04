@@ -1,7 +1,7 @@
 # Rear identification
 
 Six 42 × 38 × 1.8 mm colour tiles identify the selected two-column, three-row
-rear grid. TAP and OVER use white, SODA blue, CO2 red and both FLAVOR ports
+rear grid. TAP and DRAIN use white, SODA blue, CO2 red and both FLAVOR ports
 black, with contrasting raised lettering. The tiles' centres follow rows
 Z331.2, Z294.2 and Z264; their bores follow the actual fitting axes. TAP's bore
 therefore includes the scanned adapter's offset from the nominal grid.

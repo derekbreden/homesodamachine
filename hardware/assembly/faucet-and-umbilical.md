@@ -3,9 +3,9 @@
 [Illustrated faucet assembly guide](../faucet-assembly-guide/README.md):
 18 Letter bench pages, with the [rear display wiring on page 2](https://homesodamachine.com/read/faucet-assembly-guide/faucet-assembly-guide.pdf#page=2).
 
-The faucet and four-tube umbilical ship as one attached assembly. Two continuous black **4 mm OD / 2.5 mm ID** flavor tubes run from the rear-wall ABU44M-E FLAVOR bulkheads to the dispense face, on either faucet finish. The blue **1/4-inch OD** soda supply connects permanently to the donor's lower compression port; its separate **3/8-inch OD** outlet tube continues through the gooseneck. The white **4 mm OD** OVER line and flat SIG-6 ribbon share the bundle.
+The faucet and four-tube umbilical ship as one attached assembly. Two continuous black **4 mm OD / 2.5 mm ID** flavor tubes run from the rear-wall ABU44M-E FLAVOR bulkheads to the dispense face, on either faucet finish. The blue **1/4-inch OD** soda supply connects permanently to the donor's lower compression port; its separate **3/8-inch OD** outlet tube continues through the gooseneck. The white **4 mm OD** DRAIN line and flat SIG-6 ribbon share the bundle.
 
-The customer drops the assembly through the 1-3/8-inch countertop hole, seats the rear bundle against the hole's wall, slides the stainless plate laterally into the captive washer/nut stack, and hand-tightens the nut. The purchased plate's 18.15 × 7.25 mm rear passage carries F1-D-F2 and the ribbon. Its clearance envelope and the gasket's coverage are retained. At the appliance, blue enters PP1208E SODA; the two black tubes enter the two ABU44M-E FLAVOR sockets; white enters the separate ABU44M-E OVER socket. SIG-6 plugs into its jack.
+The customer drops the assembly through the 1-3/8-inch countertop hole, seats the rear bundle against the hole's wall, slides the stainless plate laterally into the captive washer/nut stack, and hand-tightens the nut. The purchased plate's 18.15 × 7.25 mm rear passage carries F1-D-F2 and the ribbon. Its clearance envelope and the gasket's coverage are retained. At the appliance, blue enters PP1208E SODA; the two black tubes enter the two ABU44M-E FLAVOR sockets; white enters the separate ABU44M-E DRAIN socket. SIG-6 plugs into its jack.
 
 The drain ends square with local mouth clearance in the tip. Its round Ø4 mm
 underside hole is a visible fault-drip indicator over the bowl. Continuous close-fitting
@@ -15,7 +15,7 @@ and keep the hole exposed after tightening the mounting nut.
 
 ## Scope
 
-In: the printed faucet parts, retained Westbrass body/washer/nut, display and fasteners, fresh TPU soda sealing thimble, above-counter gasket, stainless under-counter plate, organizer, tube collars, tubing, foam, braid and unterminated signal ribbon. Flavor collars have 4.28 mm CAD bores; the SODA collar stays sized for 1/4-inch tubing. The organizer has one 6.65 mm soda bore and three 4.40 mm bores for flavor/OVER.
+In: the printed faucet parts, retained Westbrass body/washer/nut, display and fasteners, fresh TPU soda sealing thimble, above-counter gasket, stainless under-counter plate, organizer, tube collars, tubing, foam, braid and unterminated signal ribbon. Flavor collars have 4.28 mm CAD bores; the SODA collar stays sized for 1/4-inch tubing. The organizer has one 6.65 mm soda bore and three 4.40 mm bores for flavor/DRAIN.
 
 Out: the completed faucet with captive mounting hardware and gasket, permanent blue-tube connection, three beverage outlets flush with the dispense face, the separate open fault-drip outlet, four identified square-cut appliance tails and a terminated SIG-6 plug. The stainless plate ships loose in the installation bag.
 
@@ -77,11 +77,11 @@ Full spec and part rationale: [`/hardware/assembly/cable-assemblies.md`](/hardwa
 
 ### 1. Cut and stage the tubes
 
-Cut each continuous black 4 mm flavor run to **[1963](FLAVOR_CUT) mm**, blue 1/4-inch soda supply to **[1540](BLUE_CUT) mm**, the 3/8-inch soda faucet tube to **[330](SODA_FAUCET_CUT) mm**, and white 4 mm OVER to **[1871](DRAIN_CUT) mm**. These are factory lengths including cabinet/service reach; the beverage ends at the dispense face are trimmed flush after assembly. The SIG-6 ribbon's wall end is cut at step 2, where its plug is crimped. Cut square with the owned tube cutter and keep the sealing surfaces free of scratches.
+Cut each continuous black 4 mm flavor run to **[1963](FLAVOR_CUT) mm**, blue 1/4-inch soda supply to **[1540](BLUE_CUT) mm**, the 3/8-inch soda faucet tube to **[330](SODA_FAUCET_CUT) mm**, and white 4 mm DRAIN to **[1871](DRAIN_CUT) mm**. These are factory lengths including cabinet/service reach; the beverage ends at the dispense face are trimmed flush after assembly. The SIG-6 ribbon's wall end is cut at step 2, where its plug is crimped. Cut square with the owned tube cutter and keep the sealing surfaces free of scratches.
 
-The flavor runs have no intermediate fittings. Route them through the mounting row, organizer and R30 returns into the pack beside the insulated blue tube. The OVER path uses R25 returns. Keep every 4 mm bend at or above its **25 mm centerline minimum**; the 1/4-inch stock's bench bend result does not apply to it.
+The flavor runs have no intermediate fittings. Route them through the mounting row, organizer and R30 returns into the pack beside the insulated blue tube. The DRAIN path uses R25 returns. Keep every 4 mm bend at or above its **25 mm centerline minimum**; the 1/4-inch stock's bench bend result does not apply to it.
 
-Keep the service loop's lowest point below the appliance's socket/jack row so condensate drips from the loop. Leave the supplied OVER reach intact. Its square upper end stops at the terminal datum with 3 mm mouth clearance; [ASSE drain assembly](/hardware/assembly/asse-drain.md) describes that separate circuit.
+Keep the service loop's lowest point below the appliance's socket/jack row so condensate drips from the loop. Leave the supplied DRAIN reach intact. Its square upper end stops at the terminal datum with 3 mm mouth clearance; [ASSE drain assembly](/hardware/assembly/asse-drain.md) describes that separate circuit.
 
 ### 2. Assemble the faucet; preload the mount hardware
 
@@ -176,7 +176,7 @@ Physical J3 numbers include the wafer rotation in [`parts.tsx`](../pcb/pcba/part
 Jack labels follow the [RiteAV CAT3 USOC body legend](https://www.riteav.com/products/riteav-rj11-phone-black-punchdown-type-keystone-jack-10-pack)
 and [six-contact USOC terminal colors](https://leviton.com/content/dam/leviton/network-solutions/product_documents/instruction_sheet/Leviton-IST-41106-41108-Voice-Grade-Jacks.pdf).
 
-At the wall end of all four tubes: **leave them bare and square-cut.** The installer pushes the white 4 mm OVER and two black 4 mm FLAVOR tails into their own ABU44M-E sockets and the blue 1/4-inch SODA tail into PP1208E at field install; PP1208E's internal grab-ring + EPDM O-ring make the seal around the tube OD (same seal mechanism already in use on the reservoir-cap bulkhead per [`/hardware/printed-parts/cold-core/reservoir/reservoir.py`](/hardware/printed-parts/cold-core/reservoir/reservoir.py)).
+At the wall end of all four tubes: **leave them bare and square-cut.** The installer pushes the white 4 mm DRAIN and two black 4 mm FLAVOR tails into their own ABU44M-E sockets and the blue 1/4-inch SODA tail into PP1208E at field install; PP1208E's internal grab-ring + EPDM O-ring make the seal around the tube OD (same seal mechanism already in use on the reservoir-cap bulkhead per [`/hardware/printed-parts/cold-core/reservoir/reservoir.py`](/hardware/printed-parts/cold-core/reservoir/reservoir.py)).
 
 ### 3. Insulate and sleeve the run, a segment at a time
 
@@ -197,9 +197,9 @@ What the blue (foamed) tube carries is identification, not orientation — it go
 
 ### 4. Thread a collar onto each tail
 
-Slide one printed collar down each tube from its bare +Y wall end: `carb` on the blue, `flavor-a` and `flavor-b` on the two black, and `drain` on the white 4 mm tube. The SODA collar has a 6.68 mm CAD bore on Ø6.35 mm tubing. FLAVOR and OVER collars have 4.28 mm CAD bores on Ø4 mm tubing. The [collar calibration](../printed-parts/faucet/tube-collar/README.md#the-bore) is scoped to its measured PETG article. Confirm that each finished PET-GF collar threads by hand down the whole [30 mm](COLLAR_LENGTH), without scoring the stretch of tube that must seal in its fitting.
+Slide one printed collar down each tube from its bare +Y wall end: `carb` on the blue, `flavor-a` and `flavor-b` on the two black, and `drain` on the white 4 mm tube. The SODA collar has a 6.68 mm CAD bore on Ø6.35 mm tubing. FLAVOR and DRAIN collars have 4.28 mm CAD bores on Ø4 mm tubing. The [collar calibration](../printed-parts/faucet/tube-collar/README.md#the-bore) is scoped to its measured PETG article. Confirm that each finished PET-GF collar threads by hand down the whole [30 mm](COLLAR_LENGTH), without scoring the stretch of tube that must seal in its fitting.
 
-Run each collar up the tube until it butts the braid's own end — [75 mm](COLLAR_SLEEVE_TAIL) short of the tail — and turn its flag outward, away from the bundle's axis, so no two face each other. All four come out level. Each stays where it is put on the bend the tube came off the spool with: the tube is never straight through [30 mm](COLLAR_LENGTH) of bore, so it stands against the wall at both ends of one. Preserve the supplied OVER length, including during any cold-kit modification.
+Run each collar up the tube until it butts the braid's own end — [75 mm](COLLAR_SLEEVE_TAIL) short of the tail — and turn its flag outward, away from the bundle's axis, so no two face each other. All four come out level. Each stays where it is put on the bend the tube came off the spool with: the tube is never straight through [30 mm](COLLAR_LENGTH) of bore, so it stands against the wall at both ends of one. Preserve the supplied DRAIN length, including during any cold-kit modification.
 
 Keep the two flavor identities continuous from the faucet passages to their
 collared appliance tails. Connect `flavor-a` to the east rear FLAVOR socket at
@@ -230,8 +230,8 @@ A bagged sub-assembly that is:
 
 - One above-counter fixture stack with the four umbilical tubes installed
 - The umbilical is **permanently attached** to the faucet assembly — the blue carbonated-water tube is connected at the Westbrass's lower upstream compression port; a separate 3/8" soda faucet tube leaves the top port through the gooseneck; the two flavor tubes and the white 4 mm D between them pass through the mounting slot, with the flat SIG-6 ribbon behind them. The separate D ends inside the common passage and drains through its round Ø4 mm underside hole. Below the counter, the four umbilical tubes share one sleeve with foam on the cold blue tube only and the fitted SIG-6 ribbon alongside.
-- Blue SODA tail ready for PP1208E; two black FLAVOR tails and white OVER tail ready for their separate 4 mm ABU44M-E sockets
-- One printed collar on each tail, below the sleeve's end — `SODA` on the blue, `FLAVOR` on each black and `OVER` on the white 4 mm run, each matched to its socket.
+- Blue SODA tail ready for PP1208E; two black FLAVOR tails and white DRAIN tail ready for their separate 4 mm ABU44M-E sockets
+- One printed collar on each tail, below the sleeve's end — `SODA` on the blue, `FLAVOR` on each black and `DRAIN` on the white 4 mm run, each matched to its socket.
 - SIG-6 ribbon assembled and fitted at the faucet, its wall end crimped into an RJ11 6P4C plug 75 mm beyond the four bare tube tails. The plug mates the keystone jack on the +Y wall of back-top at field install. No signal conductor is cut or terminated in the field.
 - TPU above-counter gasket already in place on the shank between the above-counter plate's underside and where the countertop top surface will be (installed in this procedure, not in the install kit; customer never touches it)
 - Retained donor washer and shank nut captive on the bare shank above the permanent blue-tube connection; the same nut is hand-tightened at field install

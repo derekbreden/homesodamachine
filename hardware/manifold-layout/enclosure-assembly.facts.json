@@ -8410,7 +8410,7 @@
  ],
  "schema": 2,
  "sources": "19e0ad824b6ad7908bb8870fe6e59782",
- "step": "4bed7a23f9e95e41618f53d4bacf421a",
+ "step": "374226708eacad318a9b7f237c5c5764",
  "tube_export": {
   "fine_model": {
    "path": "hardware/manifold-layout/enclosure-assembly.step.npz",

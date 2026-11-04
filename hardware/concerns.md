@@ -54,7 +54,7 @@ and regulatory basis is [`/business/regulatory.md`](/business/regulatory.md), an
 | Refill and pour at once | Firmware blocks a refill during a pour and holds at most three valves on ([firmware and commissioning](/hardware/assembly/firmware-and-commissioning.md)). |
 | Valve-driver heat in a warm cabinet | The drivers are lower-loss TBD62083 parts ([driver note](/hardware/pcb/pcba/uln2803.md)). |
 | Muting the gas alarm | The gas alarm cannot be muted, and automatic dispensing injects no flavor while it sounds ([firmware and commissioning](/hardware/assembly/firmware-and-commissioning.md), [`machine.cpp`](/firmware/src_appliance/machine.cpp)). |
-| Carbonic-acid backflow into the house supply | Simply having a 1022 already puts us ahead of most of these products. A 1022 that vents into the bowl at the faucet would be the only home arrangement I've found where the vent's discharge is defined, drained and visible. An ASSE 1022 beverage backflow preventer guards the inlet; its dedicated 4 mm OVER line terminates over the bowl near the faucet joint ([safety](/hardware/README.md#safety), [drain assembly](/hardware/assembly/asse-drain.md)). |
+| Carbonic-acid backflow into the house supply | Simply having a 1022 already puts us ahead of most of these products. A 1022 that vents into the bowl at the faucet would be the only home arrangement I've found where the vent's discharge is defined, drained and visible. An ASSE 1022 beverage backflow preventer guards the inlet; its dedicated 4 mm DRAIN line terminates over the bowl near the faucet joint ([safety](/hardware/README.md#safety), [drain assembly](/hardware/assembly/asse-drain.md)). |
 
 ## Refill and clean
 

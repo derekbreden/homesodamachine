@@ -72,7 +72,7 @@ Disconnect and dress the flexible plumbing and leads aside. Reverse the
 following service sequence for assembly; fit the ASSE chain after the meter
 and PISCO. Fit the vent sleeve and its return tube after all three caps are
 seated, with the sleeve clocked 15° from fore toward the meter. For meter-cap
-service, disconnect OVER and remove the sleeve from the ASSE barb first.
+service, disconnect DRAIN and remove the sleeve from the ASSE barb first.
 
 For ASSE, remove the inlet header, disconnect the drain connection and remove the drain sleeve and
 rear drain bulkhead. Spread the exposed leaves and

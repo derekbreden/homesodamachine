@@ -134,7 +134,7 @@ plate with its inlet above its outlet.
    X−82.5/Y420/Z253.4, then reaches the carbonator's existing water
    fitting. The cap guide adds no joint or tube cut.
 6. Fit the downward vent cup, its two ties and the direct white 4 mm return
-   to OVER. Its [assembly record](asse-drain.md) defines the open faucet outlet.
+   to DRAIN. Its [assembly record](asse-drain.md) defines the open faucet outlet.
 
 Prepare push-fit ends to the actual receiving-stop marks. The native model
 retains each purchased fitting's frame and nominal insertion allowance; buried

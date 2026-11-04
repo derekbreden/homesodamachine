@@ -53,7 +53,7 @@ Tooling: standard hand tools — Phillips + hex (2.5 mm for M3 socket caps, 4 mm
 
 ## Procedure
 
-**The box closes in slides, and the slides fix the order.** Each column's top slides onto its bottom on the Z seams' hooked rails, and **the two columns are mirrored**: front-top enters fore of home, in open air ahead of the box, and draws AFT; back-top enters aft of home, in open air behind it, and draws FORE. Each arrives from the end of the box it stands at, so neither is lifted over the other. A top slides over everything its bottom holds, so the front column closes over the seated stratum with the flavour pack riding the moving piece (§4), and the back column closes over **nothing**: its tub is bare when back-top comes on (§6), because the cold core cannot pass under that piece's own +Y wall. The core enters afterward, through the mouth — the closed back assembly rides forward over the core where it stands tethered to the compressor bay, one continuous motion that ends in the Y seam's own telescope — and the four corner screws close the box. The same four open it. The OVER port and its rectangular chip are fitted while back-top is open on the bench.
+**The box closes in slides, and the slides fix the order.** Each column's top slides onto its bottom on the Z seams' hooked rails, and **the two columns are mirrored**: front-top enters fore of home, in open air ahead of the box, and draws AFT; back-top enters aft of home, in open air behind it, and draws FORE. Each arrives from the end of the box it stands at, so neither is lifted over the other. A top slides over everything its bottom holds, so the front column closes over the seated stratum with the flavour pack riding the moving piece (§4), and the back column closes over **nothing**: its tub is bare when back-top comes on (§6), because the cold core cannot pass under that piece's own +Y wall. The core enters afterward, through the mouth — the closed back assembly rides forward over the core where it stands tethered to the compressor bay, one continuous motion that ends in the Y seam's own telescope — and the four corner screws close the box. The same four open it. The DRAIN port and its rectangular chip are fitted while back-top is open on the bench.
 
 ### 1. Stage the printed pieces
 
@@ -117,7 +117,7 @@ below. Coordinates are world X/Z millimetres; screen-left is positive X.
 |---|---|---|
 | Z331.2 | CO2: 1/4-inch inlet, Ø13.857 bore | TAP: 1/4-inch water inlet, Ø19.307 bore |
 | Z294.2 | SODA: 1/4-inch outlet, Ø17.44 bore | FLAVOR: 4 mm outlet, Ø15.3 bore |
-| Z264 | OVER: 4 mm atmospheric vent, Ø15.3 bore | FLAVOR: 4 mm outlet, Ø15.3 bore |
+| Z264 | DRAIN: 4 mm atmospheric vent, Ø15.3 bore | FLAVOR: 4 mm outlet, Ø15.3 bore |
 
 The water inlet's fitted bore centre is X29.026/Z330.865. The other five bores
 use the nominal grid centres.

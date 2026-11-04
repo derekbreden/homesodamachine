@@ -90,8 +90,8 @@ fn defaults(v: &Value) -> Result<Value> {
         "RING_W":7.05,"THICK":2.,"RISE":18.789,
         "WORD_FONT":"Helvetica","WORD_KIND":"bold","WORD_SIZE":6.5,
         "WORD_CAP":4.951,"WORD_DEPTH":1.,"WORD_RAISE":0.48,"WORD_MARGIN":1.,
-        "WORD_WIDTHS":{"TAP":12.657,"SODA":18.411,"CO2":12.813,"FLAVOR":25.952,"OVER":17.827},
-        "STATIONS":{"water":"TAP","carb":"SODA","co2":"CO2","flavor-a":"FLAVOR","flavor-b":"FLAVOR","drain":"OVER"},
+        "WORD_WIDTHS":{"TAP":12.657,"SODA":18.411,"CO2":12.813,"FLAVOR":25.952,"DRAIN":19.671},
+        "STATIONS":{"water":"TAP","carb":"SODA","co2":"CO2","flavor-a":"FLAVOR","flavor-b":"FLAVOR","drain":"DRAIN"},
         "FLUIDS":{"water":"water","carb":"carb","co2":"co2","flavor-a":"flavor","flavor-b":"flavor","drain":"drain"},
         "width":port_width,"station_order":["water","carb","co2","flavor-a","flavor-b","drain"]
     });

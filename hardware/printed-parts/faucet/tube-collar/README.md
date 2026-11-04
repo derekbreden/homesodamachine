@@ -8,9 +8,9 @@ The collar has a half circle below the bore's axis and a rectangle above it for 
 
 | | |
 |---|---|
-| tube | Ø[6.35](COLLAR_TUBE_OD) mm 1/4" OD LLDPE on TAP, SODA and CO2; 4 mm OD on OVER and both FLAVOR lines |
+| tube | Ø[6.35](COLLAR_TUBE_OD) mm 1/4" OD LLDPE on TAP, SODA and CO2; 4 mm OD on DRAIN and both FLAVOR lines |
 | bore, 1/4-inch stations | Ø[6.68](COLLAR_BORE) mm modelled; Ø[6.58](COLLAR_BORE_PRINTED) mm PETG calibration estimate |
-| bore, 4 mm stations | Ø4.28 mm modelled for the OVER and both FLAVOR tails |
+| bore, 4 mm stations | Ø4.28 mm modelled for the DRAIN and both FLAVOR tails |
 | width | Ø[12](COLLAR_OD) mm |
 | height | [13.05](COLLAR_TALL) mm — [7.05](COLLAR_RISE) mm of rectangle over the axis, its own half circle under |
 | length | [30 mm](COLLAR_LENGTH) along the tube |
@@ -23,7 +23,7 @@ The collar has a half circle below the bore's axis and a rectangle above it for 
 |---|---|---|---|
 | `water` | TAP | white | the customer's tap-water run, up to their angle stop |
 | `carb` | SODA | blue | the umbilical's blue carbonated-water tail |
-| `drain` | OVER | white | the umbilical's 4 mm atmospheric-vent tail |
+| `drain` | DRAIN | white | the umbilical's 4 mm atmospheric-vent tail |
 | `co2` | CO2 | red | the customer's red tether, +Y wall of back-top to regulator |
 | `flavor-a` | FLAVOR | black | the umbilical's first black flavour tail |
 | `flavor-b` | FLAVOR | black | the umbilical's second black flavour tail |
@@ -89,4 +89,4 @@ the enclosure's own stock ([`bom.md`](/hardware/ledger/bom.md) §7).
 [value](NAME) texts are updated by:
 - `/hardware/printed-parts/faucet/tube-collar/tube_collar.py`
 
-The white OVER and black FLAVOR collars use a Ø4.28 mm modelled bore for 4 mm OD tubing: the published 0.076 mm tube tolerance, 0.10 mm print shrink and 0.10 mm slip over 4 mm (`bore_d`). The OVER collar's black word and three-face identification use the existing collar construction. The drain tail is separately accessible beside the three beverage tails. The allowance is a CAD value; the finished part's fit is checked on the actual tube.
+The white DRAIN and black FLAVOR collars use a Ø4.28 mm modelled bore for 4 mm OD tubing: the published 0.076 mm tube tolerance, 0.10 mm print shrink and 0.10 mm slip over 4 mm (`bore_d`). The DRAIN collar's black word and three-face identification use the existing collar construction. The drain tail is separately accessible beside the three beverage tails. The allowance is a CAD value; the finished part's fit is checked on the actual tube.

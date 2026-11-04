@@ -12,7 +12,7 @@ tube collars, and both take each station's word, its filament key and the letter
 | `co2` | CO2 | `co2` |
 | `flavor-a` | FLAVOR | `flavor` |
 | `flavor-b` | FLAVOR | `flavor` |
-| `drain` | OVER | `drain` |
+| `drain` | DRAIN | `drain` |
 
 What each key's chip and word print in is `chip_filaments` and `chip_word_colors` in
 [`../y-wall-of-back-top/_y_wall_dimensions.py`](../y-wall-of-back-top/_y_wall_dimensions.py).
@@ -21,7 +21,7 @@ What each key's chip and word print in is `chip_filaments` and `chip_word_colors
 
 Helvetica bold at a 6.5 mm em, which is a 4.951 mm cap. The face is the system's, not this
 repo's, so `WORD_WIDTHS` carries what each word measures across at that em: TAP 12.657, SODA
-18.411, CO2 12.813, FLAVOR 25.952 and OVER 17.827 mm. A reader that sets a word at another em
+18.411, CO2 12.813, FLAVOR 25.952 and DRAIN 19.671 mm. A reader that sets a word at another em
 scales those widths with it. A word fills a 1 mm recess in its label's outboard face, stands
 0.48 mm proud of it (two 0.24 mm layers in the word's colour alone) and keeps 1 mm clear of the
 edges of its band.
