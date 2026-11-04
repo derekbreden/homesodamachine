@@ -3,7 +3,7 @@
   "objects": [
     {
       "name": "pump-seat",
-      "vertices": 282,
+      "vertices": 274,
       "source_sha256_matches": true,
       "embedded_vertex_error_mm": 4.9735547236196e-07,
       "source_comparison": "source vertices in order",
@@ -32,7 +32,7 @@
     },
     {
       "name": "meter-seat",
-      "vertices": 2431,
+      "vertices": 2425,
       "source_sha256_matches": true,
       "embedded_vertex_error_mm": 4.997840505893691e-07,
       "source_comparison": "source vertices in order",
@@ -61,7 +61,7 @@
     },
     {
       "name": "asse-seat",
-      "vertices": 848,
+      "vertices": 844,
       "source_sha256_matches": true,
       "embedded_vertex_error_mm": 5.001953127248271e-07,
       "source_comparison": "source vertices in order",
@@ -90,7 +90,7 @@
     },
     {
       "name": "pisco-seat",
-      "vertices": 758,
+      "vertices": 710,
       "source_sha256_matches": true,
       "embedded_vertex_error_mm": 5.003476530873741e-07,
       "source_comparison": "source vertices in order",
@@ -119,7 +119,7 @@
     },
     {
       "name": "regulator-seat",
-      "vertices": 2711,
+      "vertices": 2681,
       "source_sha256_matches": true,
       "embedded_vertex_error_mm": 4.998779274956178e-07,
       "source_comparison": "source vertices in order",

@@ -1,0 +1,177 @@
+{
+  "views": [
+    {
+      "name": "receiver",
+      "caption": "A centered receiver opening reaches the solid pointed catch.",
+      "before": "receiver-before.webp",
+      "after": "receiver-after.webp",
+      "width": 1200,
+      "height": 900,
+      "marks": [
+        {
+          "x": 600,
+          "y": 450,
+          "r": 16.4,
+          "label": "Receiver blade entry",
+          "at": [
+            50.348,
+            417.284,
+            339.85
+          ]
+        }
+      ],
+      "model": "printed-parts/enclosure/enclosure/enclosure-back-top.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          67.63471090082686,
+          399.99728909917314,
+          329.4779734595039
+        ],
+        "target": [
+          50.348,
+          417.284,
+          339.85
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "fov": 45,
+        "near": 0.23391191676315223,
+        "far": 516.1108371848321,
+        "aspect": 1.3333333333333333,
+        "section": {
+          "at": [
+            50.348,
+            417.284,
+            339.85
+          ],
+          "normal": [
+            0,
+            -1,
+            0
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [
+        "enclosure-back-top"
+      ],
+      "ghost": [],
+      "only": [
+        "enclosure-back-top"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh",
+          "from": "snapshot",
+          "sha256": "714d5ad2f737e74280597c3f46df4e89ba8986e96b5f0e383853f2657afba278",
+          "commit": "e4ef6d1de48895ae6a9e48070ea0394d76a7b8fb",
+          "taken": "2026-11-03T20:36:13.711Z",
+          "published": true
+        },
+        "after": {
+          "payload": "printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh",
+          "from": "tree",
+          "sha256": "ecdb99416648fd2d365d8a5f43b87284c55c16340a76710d231d7c2af2b52a04",
+          "commit": "ccb194d75aea440bb34e0e944ad7075eb09de2c3",
+          "published": true
+        }
+      },
+      "changed": [
+        "enclosure-back-top"
+      ],
+      "withinMeshing": []
+    },
+    {
+      "name": "solid-tip",
+      "caption": "The pointed cap has one continuous solid retaining nose.",
+      "before": "solid-tip-before.webp",
+      "after": "solid-tip-after.webp",
+      "width": 1200,
+      "height": 900,
+      "marks": [
+        {
+          "x": 600,
+          "y": 450,
+          "r": 19.7,
+          "label": "Solid retaining nose",
+          "at": [
+            50.35,
+            417.284,
+            340.7
+          ]
+        }
+      ],
+      "model": "printed-parts/enclosure/rear-equipment-caps/rear-equipment-caps-installed.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          37.777846617580465,
+          404.7118466175805,
+          333.15670797054827
+        ],
+        "target": [
+          50.35,
+          417.284,
+          340.7
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "fov": 45,
+        "near": 0.05356394675555258,
+        "far": 117.3264434318171,
+        "aspect": 1.3333333333333333,
+        "section": {
+          "at": [
+            50.35,
+            417.284,
+            340.7
+          ],
+          "normal": [
+            0,
+            -1,
+            0
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [],
+      "ghost": [],
+      "only": [
+        "asse-snap-cap"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "printed-parts/enclosure/rear-equipment-caps/rear-equipment-caps-installed.step.mesh",
+          "from": "snapshot",
+          "sha256": "1ac33efd6c964f05056257d5841c3b7aaa70b6af362ff027a6f15a7a8cf208ef",
+          "commit": "e4ef6d1de48895ae6a9e48070ea0394d76a7b8fb",
+          "taken": "2026-11-03T20:36:13.711Z",
+          "published": true
+        },
+        "after": {
+          "payload": "printed-parts/enclosure/rear-equipment-caps/rear-equipment-caps-installed.step.mesh",
+          "from": "tree",
+          "sha256": "4ed0c60b6e009181e1e07e2670130361862a00575eaf651d692590bd29378d31",
+          "commit": "6147cd9a3fd41471a87ec1e1cc26b6b9d4e2f5e8",
+          "published": true
+        }
+      },
+      "changed": [
+        "asse-snap-cap",
+        "meter-snap-cap",
+        "pisco-snap-cap",
+        "regulator-snap-cap"
+      ],
+      "withinMeshing": []
+    }
+  ]
+}

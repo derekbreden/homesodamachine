@@ -66,5 +66,12 @@
       "added_material_mm3": -6.394884621840902e-13,
       "removed_material_mm3": 50.52091662296687
     }
+  },
+  "wall_review": {
+    "report": "wall-review.txt",
+    "lid_findings": 21,
+    "back_top_findings": 13,
+    "receiver_scope": "The final report contains no new thin channel lips, cavity-intersection fins, PISCO ledge shelf or pump airline-entry skin. Existing tube spring sections, fitted cavities, flute fields and connector features retain their readings.",
+    "scope_limit": "This is a local review of receiver changes, not a claim that every pre-existing finding in either complete part has been resolved."
   }
 }
