@@ -7953,12 +7953,12 @@
   }
  ],
  "schema": 2,
- "sources": "7f3cee8f2a9170b597f0c049e405062f",
- "step": "f951becb20d16beee4d3dba18adde360",
+ "sources": "2e5fdf583c4b053d5e3dbdb959a0305b",
+ "step": "74ab9e4cae674a8ac39d91c888562c8d",
  "tube_export": {
   "fine_model": {
    "path": "hardware/manifold-layout/enclosure-assembly.step.npz",
-   "sha256": "48f1267c130ec08d3aac211af9377609b64a79f6df23c35d0719ee57c67ef153"
+   "sha256": "0f417d6403d418f52bd17ec593765f236db7de268285dd752397e711c5a0b5ea"
   },
   "routing": {
    "anchor_sites": [
@@ -40846,12 +40846,12 @@
   },
   "scene": {
    "path": "hardware/manifold-layout/enclosure-assembly.scene.npz",
-   "sha256": "15fba5e295bc2cc2231dd71b3a0258a1dfcce3bfbcfc3d7d2184f388f6266eea"
+   "sha256": "c9be0fdef32a37273046709d30f5d2fb87af235fbb0f3325e9a618038e953e84"
   },
   "schema": 1,
   "step": {
    "path": "hardware/manifold-layout/enclosure-assembly.step",
-   "sha256": "64cacd5ce8f1e32b28c658286c5ee68a25ab12a7c019704ab1e5bd251e49c102"
+   "sha256": "663179127bc27b76ee40d6e338734c76ae2a19ad5e6cbbc5c370a06e46979af6"
   }
  },
  "valve_tray_stations": [

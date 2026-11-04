@@ -94353,10 +94353,10 @@
     "Nominal and unlocated terminals remain visible in the graph and manifest; no exact donor termination is invented.",
     "The electrical graph does not qualify grounding, mains isolation, current capacity or energization."
   ],
-  "physical_fine_model_sha256": "48f1267c130ec08d3aac211af9377609b64a79f6df23c35d0719ee57c67ef153",
+  "physical_fine_model_sha256": "0f417d6403d418f52bd17ec593765f236db7de268285dd752397e711c5a0b5ea",
   "wiring_fine_model_sha256": "a856eb1c654b429a81ff908fb01e9d7755341b61ef9058feb32f36890eda02c9",
-  "wiring_numbers_sha256": "a5927098777fb9bc851c21cce3844b04e01f55ff657e7ea16a8862e6662c2454",
-  "physical_scene_sha256": "516afa754fc88c66520f5f52ce80e75d327d281508cb32f5d1551d4db8929e8d",
+  "wiring_numbers_sha256": "5ded5f2daec3620d842c239a503cbc726c1a583432cc4a07345f26449eb6eb3c",
+  "physical_scene_sha256": "e057bb8cf96c4c9626d8ad2a8ece6255cda31a86f807a43c903b186fc16c77c7",
   "source_sha256": {
     "hardware/wiring/installed/build.py": "18ce61f6f8929526f47966f992520e78f821c1159b90e79f4b18cd7ba9eee787",
     "hardware/wiring/installed/connections.py": "aeb498f3d520e7910e4a45911c3ad793a9eb45eeeb096a5e50ff11a71631dc3d",
