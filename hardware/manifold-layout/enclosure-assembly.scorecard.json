@@ -61,7 +61,6 @@
         "gagira-coupling \u2014 asse-snap-cap: 0.147 mm \u2014 under the spacing preference",
         "gas-regulator \u2014 bulkhead-ring-co2: 0.148 mm \u2014 under the spacing preference",
         "digiten-flow \u2014 meter-snap-cap: 0.149 mm \u2014 under the spacing preference",
-        "asse1022-assembly \u2014 asse-snap-cap: 0.192 mm \u2014 under the spacing preference",
         "funnel \u2014 funnel-frame-front-west-screw: 0.200 mm \u2014 under the spacing preference",
         "funnel \u2014 funnel-frame-front-east-screw: 0.200 mm \u2014 under the spacing preference",
         "funnel \u2014 funnel-frame-back-west-screw: 0.200 mm \u2014 under the spacing preference",
@@ -73,6 +72,7 @@
         "bulkhead-flavor-a-nut \u2014 foam-assembly: 0.208 mm \u2014 under the spacing preference",
         "bulkhead-flavor-b-nut \u2014 foam-assembly: 0.208 mm \u2014 under the spacing preference",
         "flow-regulator \u2014 regulator-snap-cap: 0.246 mm \u2014 under the spacing preference",
+        "asse1022-assembly \u2014 asse-snap-cap: 0.250 mm \u2014 under the spacing preference",
         "funnel-frame \u2014 foam-assembly: 0.250 mm \u2014 under the spacing preference",
         "asse-drain-adapter \u2014 asse-snap-cap: 0.250 mm \u2014 under the spacing preference",
         "psu \u2014 pump-snap-cap: 0.261 mm \u2014 under the spacing preference",
@@ -654,7 +654,7 @@
       "label": "Every print-down slope on a ceiling-down piece has its stated carry",
       "status": "fail",
       "target": "no unaccounted slope a column could replace, and every named room standing",
-      "value": "17 print-down slope(s): 10 under a body, 4 within 1 mm of one, 0 in a kept room, 3 could be columns"
+      "value": "22 print-down slope(s): 15 under a body, 4 within 1 mm of one, 0 in a kept room, 3 could be columns"
     },
     {
       "active": true,
