@@ -576,7 +576,7 @@ fn dispatch(v: &Value) -> Result<Value> {
                 );
             Ok(json!({"center_x_mm":location["center_x_mm"],
                "center_z_mm":location["center_z_mm"],"face_y_mm":location["face_y_mm"],
-               "field_proud_mm":2.2,"plate_thickness_mm":v["nameplate"]["THICK"],
+               "field_proud_mm":f(&location,"face_y_mm")?-v["spec"]["rear_wall"]["rear_wall"]["ymax"].as_f64().unwrap_or(471.3),"plate_thickness_mm":v["nameplate"]["THICK"],
                "backing_mm":v["nameplate"]["FLOOR_STOCK"]}))
         }
         "face-values" => {

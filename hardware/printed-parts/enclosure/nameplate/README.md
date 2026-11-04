@@ -43,7 +43,7 @@ at the print-down mouth and slot end. The entry bevel is 1.10 mm wide × 0.40 mm
 deep. Minimum capture is 2.10 mm, including at least 1.00 mm of flat bearing.
 These interface dimensions come from the [accepted receiver coupon](horizontal-wing-trial/physical-acceptance.json).
 
-The plate centre is world X−43.85/Z220 and its face is Y473.5. Its 92 mm face leaves
+The plate centre is world X−43.85/Z220 and its face is Y474.25. Its 92 mm face leaves
 5.65 mm to both the R12 rear-corner tangent at X−95.5 and the adjacent colour-card
 edge at X7.8. The receiving mouth and side slots follow the same station.
 The receiver keeps 3.60 mm of backing and complete retaining lips through the fluted skin.
