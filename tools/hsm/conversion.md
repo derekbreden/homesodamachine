@@ -68,7 +68,7 @@ The normal construction, placement, equipment, routes, checks, print surfaces an
 use Rust. Each merged speed batch runs the combined normal build with the existing fit and drain
 checks; source/output bindings, artifact readback and publication belong to that combined batch.
 
-The source reconciliation covers all 102 graph entrypoints and their 322 declared Python files,
+The source reconciliation covers all 101 graph entrypoints and their 322 declared Python files,
 alongside the retained piece comparisons that prohibit native CAD imports. It identifies no
 remaining normal-build CadQuery, OCP or meshcad load. This is source and fixed-input evidence,
 not dynamic coverage of every optional command.
