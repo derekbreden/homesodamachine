@@ -1,0 +1,24 @@
+{
+  "part_number": "HSM-000079",
+  "description": "Complete enclosure front top",
+  "printer": "Mark1",
+  "connection_key": "H2C",
+  "print_archive": "/Users/derekbredensteiner/Downloads/HSM-full-enclosure-2026-11-03/HSM-000079-front-top-Mark1.gcode.3mf",
+  "archive_sha256": "e359e0e3ffdfd8cb4b88de61fc889c3bda72202457faef94f3e744d971f69b9c",
+  "gcode_sha256": {
+    "Metadata/plate_1.gcode": "efd0339000f8395ece9c9ac3c249013735e1587fe3479ff4b6f088d4b42e2109"
+  },
+  "stl_sha256": "6ad55d860d0bee7ac607a99ff08d7676bb08ce5f2b4cd0521d61e72d961721d2",
+  "project": "/Users/derekbredensteiner/Downloads/HSM-full-enclosure-2026-11-03/projects/HSM-000079-front-top-Mark1.3mf",
+  "reviewed_archive": "/Users/derekbredensteiner/Downloads/HSM-full-enclosure-2026-11-03/reviewed/HSM-000079-front-top-Mark1.gcode.3mf",
+  "native_review": true,
+  "project_check": true,
+  "minimum_bed_margin_mm": 53.47508800000003,
+  "emitted_textured_trim_mm": 0.16,
+  "estimated_seconds": 131381.5,
+  "submitted": true,
+  "reason": "Mark1 is free with black PET-GF loaded. The complete front top is independent of the rear ASSE alignment and release-tunnel changes.",
+  "job_id": "1405624302",
+  "accepted_at": "2026-11-04T05:02:44.371197+00:00",
+  "launch_receipt": "launch.json"
+}

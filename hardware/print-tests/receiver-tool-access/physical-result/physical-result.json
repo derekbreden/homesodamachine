@@ -1,0 +1,50 @@
+{
+  "reported_at": "2026-11-04T04:50:48.177473+00:00",
+  "print_job_id": "1404784448",
+  "plate": "receiver-access-rear-mark1",
+  "printer": "Mark1",
+  "scope": "The first completed matched snap job: ASSE, PISCO and water regulator. Mark2 pump/meter/cartridge job remains running; this report does not claim its completion.",
+  "pisco": {
+    "hardware_fit": "accepted",
+    "snap_fit": "accepted"
+  },
+  "water_regulator": {
+    "hardware_fit": "accepted",
+    "snap_fit": "accepted"
+  },
+  "asse": {
+    "adapter_in_cap_alone": "seats fully",
+    "body_in_cap_alone": "fits",
+    "assembled_body_and_adapter": "adapter-side cap remains lifted and angled",
+    "user_diagnosis": "Small relative centerline/height error between ASSE and adapter. Raise the modeled adapter slightly while retaining both individually fitting profiles."
+  },
+  "receiver_tool_access": {
+    "enclosed_base_tunnels": "rejected: available pry travel does not release the complete wings; the wing bends locally where the tool acts",
+    "front_paired_pump_open_flank_pry_windows": "accepted design direction",
+    "selected_action": "Omit the enclosed rear-style base tunnels. Preserve the front cartridge open pry windows and all cap wings/bearing profiles."
+  },
+  "next_print": "A complete production enclosure part. No additional ASSE coupon or trial print requested.",
+  "photos": [
+    {
+      "file": "/Users/derekbredensteiner/Downloads/HSM-snap-results-2026-11-03/1-Photo-1.jpg",
+      "sha256": "fa67af91a9f5ca3198500b70fdbd4cb6cd95249da579e781a87d613bac7f545c"
+    },
+    {
+      "file": "/Users/derekbredensteiner/Downloads/HSM-snap-results-2026-11-03/2-Photo-2.jpg",
+      "sha256": "e7c648c7c04dcfb984d254c48e37807115a054a0d3d213627db697b49e885c51"
+    },
+    {
+      "file": "/Users/derekbredensteiner/Downloads/HSM-snap-results-2026-11-03/3-Photo-3.jpg",
+      "sha256": "7163aecda67d83d2932ba4ae3e4836f319f16da8a39e4a09dc0dde8e13a3295c"
+    },
+    {
+      "file": "/Users/derekbredensteiner/Downloads/HSM-snap-results-2026-11-03/4-Photo-4.jpg",
+      "sha256": "7586ae390d48574e6a99fd56f5ba33884de1ec7899f44226b6645e542550341d"
+    }
+  ],
+  "user_words": [
+    "But when it's attached to the ASSE, you can see that basically the snap is lifted in the direction that it is even when it's being snapped into place.",
+    "Please just remove those. That type of screw hole release does not work.",
+    "The one that we've got on the pumps is the right idea."
+  ]
+}

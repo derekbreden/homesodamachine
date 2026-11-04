@@ -1,0 +1,437 @@
+{
+  "archive": "/Users/derekbredensteiner/Downloads/HSM-full-enclosure-2026-11-03/reviewed/HSM-000079-front-top-Mark1.gcode.3mf",
+  "archive_sha256": "d920b8efb1cac562b95b6b566e004e28d26a40f1dd2272b3a2ccd92489955fdd",
+  "gcode_md5_matches": true,
+  "emitted_z_trim_mm": [
+    0.0,
+    0.16
+  ],
+  "expected_emitted_textured_trim_mm": 0.16,
+  "layers": 1371,
+  "project_check": true,
+  "bead_envelope_plate_mm": [
+    [
+      54.875088,
+      53.485202
+    ],
+    [
+      270.124912,
+      266.524912
+    ]
+  ],
+  "bed_margins_mm": {
+    "left": 54.875088,
+    "front": 53.485202,
+    "right": 54.875088000000005,
+    "back": 53.47508800000003
+  },
+  "minimum_bed_margin_mm": 53.47508800000003,
+  "bed_border_mm": 20.0,
+  "fine_and_transition_bands": [
+    {
+      "object": 1901,
+      "name": "R6 roof side edges, level run",
+      "print_z_mm": [
+        188.492431640625,
+        194.75
+      ],
+      "wall_layer_count": 79,
+      "first_wall_layer": [
+        188.52,
+        0.080002
+      ],
+      "last_wall_layer": [
+        194.76,
+        0.080002
+      ],
+      "wrong_height_layers": [],
+      "uncovered_intervals_mm": [],
+      "pass": true
+    },
+    {
+      "object": 1901,
+      "name": "R18 display-to-roof roll",
+      "print_z_mm": [
+        192.33847045898438,
+        194.709716796875
+      ],
+      "wall_layer_count": 31,
+      "first_wall_layer": [
+        192.36,
+        0.080002
+      ],
+      "last_wall_layer": [
+        194.76,
+        0.080002
+      ],
+      "wrong_height_layers": [],
+      "uncovered_intervals_mm": [],
+      "pass": true
+    }
+  ],
+  "support_roads": 500255,
+  "show_face_minimum_bead_clearance_mm": null,
+  "show_face_contacts": [],
+  "tie_window_support_crossings": [],
+  "ribbon_support_crossings": [],
+  "ribbons": [],
+  "fine_band_unbacked_roads": [
+    {
+      "object": 1901,
+      "band": "R6 roof side edges, level run",
+      "roads": 151584,
+      "unbacked_mm": 4697.2725347674605,
+      "longest_mm": 202.91900000246403,
+      "bridge_mm": 1669.3099404588238,
+      "layers": 78
+    },
+    {
+      "object": 1901,
+      "band": "R18 display-to-roof roll",
+      "roads": 32732,
+      "unbacked_mm": 2333.9839843391715,
+      "longest_mm": 202.91900000246403,
+      "bridge_mm": 1669.3099404588238,
+      "layers": 30
+    }
+  ],
+  "first_second_layer_stack": {
+    "1901": {
+      "second_layer_model_bead_area_mm2": 9436.368913733768,
+      "fraction_over_first_layer": 0.9650663144045357,
+      "second_layer_centerline_outside_first_mm": 86.57308065588832
+    }
+  },
+  "solid_host_deposition": [
+    {
+      "object": 1901,
+      "name": "Y seam knuckle and its wall root +1/231.35",
+      "plate_bounds_mm": [
+        [
+          55.001000000000005,
+          245.5999984741211,
+          70.35
+        ],
+        [
+          71.0,
+          266.39900152587893,
+          104.75
+        ]
+      ],
+      "samples": [
+        {
+          "print_z_mm": 70.76,
+          "coverage": 0.9935826410237765,
+          "stock_mm2": 128.40916041116603
+        },
+        {
+          "print_z_mm": 87.56,
+          "coverage": 0.9938414007364572,
+          "stock_mm2": 228.8452707854815
+        },
+        {
+          "print_z_mm": 104.6,
+          "coverage": 0.9931681889801864,
+          "stock_mm2": 228.8452707547224
+        }
+      ],
+      "minimum_coverage": 0.9931681889801864
+    },
+    {
+      "object": 1901,
+      "name": "Y seam knuckle and its wall root +1/321.5",
+      "plate_bounds_mm": [
+        [
+          55.001000000000005,
+          245.5999984741211,
+          67.1
+        ],
+        [
+          71.0,
+          266.39900152587893,
+          194.74900000000002
+        ]
+      ],
+      "samples": [
+        {
+          "print_z_mm": 67.64,
+          "coverage": 0.9941218835233838,
+          "stock_mm2": 128.40916082180075
+        },
+        {
+          "print_z_mm": 131.0,
+          "coverage": 0.9865499666216346,
+          "stock_mm2": 47.06488683074372
+        },
+        {
+          "print_z_mm": 194.44,
+          "coverage": 0.992300010232968,
+          "stock_mm2": 152.88716480441457
+        }
+      ],
+      "minimum_coverage": 0.9865499666216346
+    },
+    {
+      "object": 1901,
+      "name": "Y seam knuckle and its wall root -1/231.35",
+      "plate_bounds_mm": [
+        [
+          254.0,
+          245.5999984741211,
+          70.35
+        ],
+        [
+          269.999,
+          266.39900152587893,
+          104.75
+        ]
+      ],
+      "samples": [
+        {
+          "print_z_mm": 70.76,
+          "coverage": 0.9939823398275872,
+          "stock_mm2": 128.4091605877452
+        },
+        {
+          "print_z_mm": 87.56,
+          "coverage": 0.9943274207809512,
+          "stock_mm2": 241.84518283927366
+        },
+        {
+          "print_z_mm": 104.6,
+          "coverage": 0.9934675589011136,
+          "stock_mm2": 241.84518248463073
+        }
+      ],
+      "minimum_coverage": 0.9934675589011136
+    },
+    {
+      "object": 1901,
+      "name": "Y seam knuckle and its wall root -1/321.5",
+      "plate_bounds_mm": [
+        [
+          254.0,
+          245.5999984741211,
+          67.1
+        ],
+        [
+          269.999,
+          266.39900152587893,
+          194.74900000000002
+        ]
+      ],
+      "samples": [
+        {
+          "print_z_mm": 67.64,
+          "coverage": 0.9936350949667776,
+          "stock_mm2": 128.40916076233526
+        },
+        {
+          "print_z_mm": 131.0,
+          "coverage": 0.9865817701689731,
+          "stock_mm2": 47.06488699867039
+        },
+        {
+          "print_z_mm": 194.44,
+          "coverage": 0.9924726808085363,
+          "stock_mm2": 152.88715326845616
+        }
+      ],
+      "minimum_coverage": 0.9865817701689731
+    },
+    {
+      "object": 1901,
+      "name": "Z rail, end stop and wall root -1",
+      "plate_bounds_mm": [
+        [
+          55.001000000000005,
+          53.6009984741211,
+          0.0010000000000047748
+        ],
+        [
+          72.5,
+          248.5999984741211,
+          17.55000000000001
+        ]
+      ],
+      "samples": [
+        {
+          "print_z_mm": 0.44,
+          "coverage": 0.9981830040298019,
+          "stock_mm2": 1915.6092514884824
+        },
+        {
+          "print_z_mm": 8.84,
+          "coverage": 0.9942912647477793,
+          "stock_mm2": 1276.8359390169906
+        },
+        {
+          "print_z_mm": 17.24,
+          "coverage": 0.9926116456902385,
+          "stock_mm2": 1288.5192383527835
+        }
+      ],
+      "minimum_coverage": 0.9926116456902385
+    },
+    {
+      "object": 1901,
+      "name": "Z rail, end stop and wall root +1",
+      "plate_bounds_mm": [
+        [
+          252.5,
+          53.6009984741211,
+          0.0010000000000047748
+        ],
+        [
+          269.999,
+          248.5999984741211,
+          17.55000000000001
+        ]
+      ],
+      "samples": [
+        {
+          "print_z_mm": 0.44,
+          "coverage": 0.9982674706407525,
+          "stock_mm2": 1915.6092372128878
+        },
+        {
+          "print_z_mm": 8.84,
+          "coverage": 0.9940833317945239,
+          "stock_mm2": 1276.835912969505
+        },
+        {
+          "print_z_mm": 17.24,
+          "coverage": 0.99265688314922,
+          "stock_mm2": 1288.5193981690622
+        }
+      ],
+      "minimum_coverage": 0.99265688314922
+    },
+    {
+      "object": 1901,
+      "name": "Pump snap west receiver floor and full flank root",
+      "plate_bounds_mm": [
+        [
+          55.001000000000005,
+          62.599998474121094,
+          0.0010000000000047748
+        ],
+        [
+          64.0,
+          131.11499847412108,
+          46.19500000000002
+        ]
+      ],
+      "samples": [
+        {
+          "print_z_mm": 0.44,
+          "coverage": 0.9982911521467597,
+          "stock_mm2": 615.5571207183957
+        },
+        {
+          "print_z_mm": 23.24,
+          "coverage": 0.9957664152972486,
+          "stock_mm2": 564.0395267712885
+        },
+        {
+          "print_z_mm": 46.04,
+          "coverage": 0.9951171410985432,
+          "stock_mm2": 563.9736454175951
+        }
+      ],
+      "minimum_coverage": 0.9951171410985432
+    },
+    {
+      "object": 1901,
+      "name": "Pump snap east receiver floor and full flank root",
+      "plate_bounds_mm": [
+        [
+          261.0,
+          62.599998474121094,
+          0.0010000000000047748
+        ],
+        [
+          269.999,
+          131.11499847412108,
+          46.19500000000002
+        ]
+      ],
+      "samples": [
+        {
+          "print_z_mm": 0.44,
+          "coverage": 0.9982998971072446,
+          "stock_mm2": 615.5567324245102
+        },
+        {
+          "print_z_mm": 23.24,
+          "coverage": 0.9956680215933625,
+          "stock_mm2": 564.0395392054006
+        },
+        {
+          "print_z_mm": 46.04,
+          "coverage": 0.9957835473666332,
+          "stock_mm2": 563.973653173515
+        }
+      ],
+      "minimum_coverage": 0.9956680215933625
+    },
+    {
+      "object": 1901,
+      "name": "Funnel frame receiver, blind cap and full flank root 1",
+      "plate_bounds_mm": [
+        [
+          55.001000000000005,
+          167.59999055083983,
+          175.55
+        ],
+        [
+          269.999,
+          179.59999055083983,
+          185.75
+        ]
+      ],
+      "samples": [
+        {
+          "print_z_mm": 176.12,
+          "coverage": 0.9941671053104608,
+          "stock_mm2": 448.27651768949477
+        },
+        {
+          "print_z_mm": 180.68,
+          "coverage": 0.9929260252855855,
+          "stock_mm2": 423.15395246535036
+        },
+        {
+          "print_z_mm": 185.48,
+          "coverage": 0.9926641514539105,
+          "stock_mm2": 423.1539833575175
+        }
+      ],
+      "minimum_coverage": 0.9926641514539105
+    }
+  ],
+  "support_topology": {
+    "1901": {
+      "support_bodies": 3,
+      "interface_islands": null,
+      "bed_rooted_bodies": 2,
+      "model_rooted_bodies": 1,
+      "shortest_build_up_mm": null,
+      "bodies_without_interface_labels": 1,
+      "explicit_interface_islands": 9,
+      "shortest_labelled_build_up_mm": 63.55
+    }
+  },
+  "scope": "Commanded paths and bead envelopes from this archive. Support removal, surface finish, fit and strength are physical observations.",
+  "checks": {
+    "archive": true,
+    "z_trim": true,
+    "bed_border": true,
+    "fine_and_transition_bands": true,
+    "show_faces_support_free": true,
+    "tie_windows_support_free": true,
+    "ribbons_support_free_and_printed": true,
+    "solid_hosts_sampled": true
+  },
+  "pass": true
+}

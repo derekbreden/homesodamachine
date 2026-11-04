@@ -1,0 +1,20 @@
+{
+  "source_archive": "/Users/derekbredensteiner/Downloads/HSM-full-enclosure-2026-11-03/reviewed/HSM-000079-front-top-Mark1.gcode.3mf",
+  "source_archive_sha256": "d920b8efb1cac562b95b6b566e004e28d26a40f1dd2272b3a2ccd92489955fdd",
+  "print_only_archive": "/Users/derekbredensteiner/Downloads/HSM-full-enclosure-2026-11-03/HSM-000079-front-top-Mark1.gcode.3mf",
+  "print_only_archive_sha256": "e359e0e3ffdfd8cb4b88de61fc889c3bda72202457faef94f3e744d971f69b9c",
+  "gcode_sha256": {
+    "Metadata/plate_1.gcode": "efd0339000f8395ece9c9ac3c249013735e1587fe3479ff4b6f088d4b42e2109"
+  },
+  "gcode_byte_identical": true,
+  "changed_container_entries": [
+    "3D/3dmodel.model",
+    "Metadata/model_settings.config"
+  ],
+  "omitted_editable_geometry_entries": [
+    "3D/Objects/object_1.model",
+    "3D/_rels/3dmodel.model.rels",
+    "Metadata/cut_information.xml",
+    "Metadata/layer_config_ranges.xml"
+  ]
+}

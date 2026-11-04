@@ -1,0 +1,97 @@
+{
+  "scope": "Current ASSE cavity and installed adapter alignment, rear receiver bases without enclosed release tunnels, and the unchanged front cartridge pry windows. Only explicitly named installed bodies move.",
+  "root": {
+    "replaced": [
+      "enclosure-back-top",
+      "asse-snap-cap",
+      "cold-core/foam-cap-lid-top",
+      "gagira-coupling"
+    ],
+    "unrelated_native_bodies_preserved": 434,
+    "step_sha256": "e44a39183b028a5795ef7aefb08af2f5b1738a607736bd9ff64b77e7ba0c4b2a",
+    "viewer_sha256": "00bbf767bfd8f0c95c862ff2316a796b67be191dd25ec35c0f2ba8d9092fe291"
+  },
+  "enclosure": {
+    "replaced": [
+      "enclosure_back_top"
+    ],
+    "unrelated_native_bodies_preserved": 24,
+    "step_sha256": "cb1c8c32714000624961c7998f83bd614264fbb8a3f818b2c2c315ac8fee05e3",
+    "viewer_sha256": "1d65112a4283c72274aae34e3b52ac2eccb58cef9a5c0aba8a0b449d55330837"
+  },
+  "core": {
+    "replaced": [
+      "foam-cap-lid-top"
+    ],
+    "unrelated_native_bodies_preserved": 84,
+    "step_sha256": "b9a24b08cd3d6b23f718aa325d50953a88c65d60449b76195edaacc8c64a6be9",
+    "viewer_sha256": "50a16a0d4556e267bd4e1035bd605cfd8625ccb3e05b29a10414fa28e40bdda6"
+  },
+  "foam": {
+    "replaced": [
+      "foam-cap-lid-top"
+    ],
+    "unrelated_native_bodies_preserved": 2,
+    "step_sha256": "0252b63368528b192eaef6d2e3dcfa215c3affd17ccb92d24ccbcfe397008acd",
+    "viewer_sha256": "4be2ae29b07aab3b7cb0de6178268f98e4174a6eb6ba318acb7e36718795c905"
+  },
+  "caps": {
+    "replaced": [
+      "asse-snap-cap"
+    ],
+    "unrelated_native_bodies_preserved": 3,
+    "step_sha256": "7884018155004732b65c67e7d23a35dfab401b58dab0a34bf75a99538a66f8ee",
+    "viewer_sha256": "5d2305b3941457c0b4557618241b44d1cf72f8a9474fef06eac70e3576824992"
+  },
+  "scene": {
+    "updated_native_arrays": 12,
+    "aliases_envelopes_and_scalar_metadata_retained": true
+  },
+  "installation_views": {
+    "cold-core": {
+      "updated_bodies": [
+        "cold-core/foam-cap-lid-top"
+      ],
+      "unrelated_buffer_views_preserved": 471,
+      "nodes_and_materials_retained": true,
+      "sha256": "b4e4d2408a94242ff4a8444a09fe25519a145bf3555eba17264874d53d66a034"
+    },
+    "cap-lid": {
+      "updated_bodies": [
+        "cold-core/foam-cap-lid-top"
+      ],
+      "unrelated_buffer_views_preserved": 201,
+      "nodes_and_materials_retained": true,
+      "sha256": "3334079d6e1792f9441e9b176d216173a69ed574332cc676dd29aae8d9e85df4"
+    },
+    "back-top": {
+      "updated_bodies": [
+        "asse-snap-cap",
+        "enclosure-back-top",
+        "gagira-coupling"
+      ],
+      "unrelated_buffer_views_preserved": 504,
+      "nodes_and_materials_retained": true,
+      "sha256": "ec60301ce5263e7c9aab371c33960e40dcfca50245d26356f857fe84b61ae8b5"
+    },
+    "back-half": {
+      "updated_bodies": [
+        "asse-snap-cap",
+        "cold-core/foam-cap-lid-top",
+        "enclosure-back-top",
+        "gagira-coupling"
+      ],
+      "unrelated_buffer_views_preserved": 741,
+      "nodes_and_materials_retained": true,
+      "sha256": "eb77b93d78deb753b2d244a6440b04c12a8d5b09ede36f0377a8dd6d17110574"
+    },
+    "cap-lid-fill": {
+      "updated_bodies": [
+        "cold-core/foam-cap-lid-top"
+      ],
+      "unrelated_buffer_views_preserved": 0,
+      "nodes_and_materials_retained": true,
+      "sha256": "c0d47466d06ce82d86be4b8b5adfde72a6444a552673cc81a310b23272c3c326"
+    }
+  }
+}

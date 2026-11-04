@@ -8,6 +8,8 @@ The ASSE cap holds the lower halves of both ASSE hexes and captures both
 axial shoulders of the inlet adapter's hex. Its solid lower body extends to
 Y461.078, while its springs retain Y396.453–438.114. The adapter pocket follows
 the captured profile and all six wrench-flat directions at the measured clock.
+Its complete fitted cavity and installed adapter sit 0.18 mm higher in Z than
+the captured chain pose, matching the wrench-band center height to the ASSE body axis.
 The three lower-facing flats have 0.25 mm additional vertical seating allowance;
 the upper flats, 0.15 mm cylindrical neck seats and both axial shoulder
 stations retain their fits. The hex's rounded corner room has 12.874 mm radius
@@ -55,15 +57,10 @@ height. The straight wall above the root blend is 20.75 mm, or 19.75 mm on
 the water regulator. ASSE, PISCO and meter have a 3 mm-rise single planar lead-in ending at a
 pointed free edge above a 1.6 mm solid nose land. The regulator retains its
 1 mm-rise pointed lead-in within the accepted pocket height. The matching receiver ceiling clears the complete point by
-0.5 mm. All retaining noses are solid. Centered 3.5 mm by 3 mm screwdriver channels
-belong to the receivers. ASSE and meter have two 50° approaches; PISCO has
-two 75° fore approaches, and the regulator has one 75° approach on its fore
-flank. Angles are measured from each cap's installation direction. The
-channels start at the snap neck planes, preserving the fitted cavity backing.
-Flat mouths meet the catch pocket and lower stock face with 3 mm shoulders.
-PISCO and water-regulator openings have one planar inner flare into the curved
-cavities, with the fitted axial shoulders and upper bearing crowns retained.
-They retain the enclosing roof and outer backing. The nominal catch
+0.5 mm. All retaining noses are solid. The rear receiver bases are continuous,
+with no enclosed screwdriver tunnels. Release the leaves from their exposed
+edges with the surrounding service room open. The front paired-pump cartridge
+uses its separate open flank pry windows. The nominal catch
 clearance is 0.4 mm. One three-mm-high planar bevel on the ASSE receiver's lower
 east fore corner clears the neighboring PISCO cap's service path; the neck
 retains 3 mm of stock and the upper end stop retains its fitted planes.
@@ -75,7 +72,7 @@ Disconnect and dress the flexible plumbing and leads aside. Reverse the
 following service sequence for assembly; fit the ASSE chain last.
 
 For ASSE, remove the inlet header, disconnect the drain connection and remove the drain sleeve and
-rear drain bulkhead. Release the leaves through the receiver channels and
+rear drain bulkhead. Spread the exposed leaves and
 lower the cap 18 mm. Support the ASSE chain and cap together, slide both
 32 mm fore, and withdraw them from the open side. The cap stays 18 mm below
 the chain during this move.
@@ -85,7 +82,7 @@ After removing the ASSE chain, release the meter leaves, withdraw the cap
 fore and out through the open side. Remove the meter, its disconnected soda
 line/insulation and bend holder before withdrawing the PISCO cap.
 
-Remove VK for screwdriver access to the PISCO receiver. Spread the PISCO
+Remove VK to expose the PISCO receiver's service room. Spread the PISCO
 leaves, lower the cap 3.6 mm, depress the exposed outlet collet and withdraw
 the stem check. Slide the cap 45 mm fore with the leaves held open. With the
 cap clear of the hardware, squeeze its free wings slightly inward, move it
@@ -96,10 +93,9 @@ fore receiver exits end at the hook-bearing plane; the solid stops above that
 plane retain the installed cap. The full rear bore and the approved body and
 neck bearings retain their fits.
 
-The regulator releases directly downward. Its fore receiver slot accepts a
-small flathead introduced below the cap's east end, then tilted west into
-the channel. The [tool readings](../../../print-tests/receiver-tool-access/tool-and-cartridge-review.json)
-include the staged approach and actual neighboring geometry.
+The regulator releases directly downward with its exposed leaves spread.
+The [physical result](../../../print-tests/receiver-tool-access/physical-result/physical-result.json)
+records the accepted first-job fits and the receiver-base release geometry.
 
 The standalone STEP and STL files use the print frame, with one axial end
 on Z0 and spring bending within the layer plane. The appliance uses their installed frames.
