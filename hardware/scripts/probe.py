@@ -9,7 +9,7 @@ line can travel before it hits something, and where a piece of a routed line can
 Where a solid stands in a scene, and the move along an axis that seats it against another or
 clears it off one, `where.py` reads off the scene's mesh payload and builds nothing.
 
-The world is one `enclosure_assembly.build_enclosure_assembly()`, body for body: `w.parts` are the
+The world is the Rust producer's saved machine scene, body for body: `w.parts` are the
 bodies, `w.pieces` are the box's four printable pieces, and both are in the one
 dict every query iterates. That is the point. The pieces are the walls, seam lips,
 corner stacks, bosses and ribs, they are what bounds a placement in a
@@ -122,15 +122,12 @@ from dataclasses import dataclass
 from pathlib import Path
 
 # THE WORLD IS READ OFF THE MACHINE'S SCENE FILE (`_machine`), which holds meshes. A process that
-# has not imported CadQuery yet takes the mesh kernel here, so the scene's bodies and every solid
-# a query strikes are the same kind of solid. One that already holds OCCT's builds its world.
+# uses the mesh kernel here, so the scene's bodies and every query volume are mesh solids.
 import meshcad
-if "cadquery" not in sys.modules:
-    meshcad.activate()
+meshcad.activate()
 
 import cadquery as cq
 
-from OCP.BRepExtrema import BRepExtrema_DistShapeShape
 
 import _clearing
 import _meshes
@@ -178,22 +175,12 @@ def _common_volume(a, b) -> float:
 # --- normalizing what the pack hands back ---------------------------------
 
 def shape(obj, label: str = "?"):
-    """The bare `cq.Shape` behind a pack entry: `(solid, color)` tuples and
-    `Workplane`s unwrap, a `Shape` passes through, anything else raises naming
-    its type. `enclosure_assembly._solids()` yields `(solid, color)` tuples and
-    `enclosure.build_pieces()` yields `Workplane`s, so a caller that unwraps by
-    hand gets one of them wrong."""
+    """The fine mesh behind a pack entry or mesh workplane."""
     obj = obj[0] if isinstance(obj, tuple) else obj
     obj = obj.val() if hasattr(obj, "val") else obj
-    if hasattr(obj, "bounding_box"):        # already a mesh — `common` hands these back
+    if hasattr(obj, "bounding_box") or meshcad.is_mesh(obj):
         return obj
-    if meshcad.is_mesh(obj):                # the mesh kernel's solid or compound: no B-rep
-        return obj
-    if not hasattr(obj, "wrapped"):
-        raise TypeError(
-            f"{label}: cannot read a solid out of {type(obj).__name__} — "
-            f"probe.shape() unwraps (solid, color) tuples and Workplanes; this is neither.")
-    return obj
+    raise TypeError(f"{label}: cannot read a fine mesh out of {type(obj).__name__}")
 
 
 # --- probe volumes --------------------------------------------------------
@@ -210,13 +197,9 @@ def box(x: tuple, y: tuple, z: tuple):
 
 
 def point(p) -> cq.Shape:
-    """One world point as a shape, so `gap` and `around` can be asked about a coordinate the
-    way they are asked about a body. Exact and dimensionless — a sphere would answer its own
-    radius short. The mesh kernel holds solids only, and there it is a cube a nanometre across."""
-    if meshcad.mesh_mode():
-        e = 1e-6
-        return cq.Solid.makeBox(e, e, e, cq.Vector(*(float(c) - e / 2.0 for c in p)))
-    return cq.Vertex.makeVertex(*(float(c) for c in p))
+    """A world point represented by the mesh kernel's one-nanometre cube."""
+    e = 1e-6
+    return cq.Solid.makeBox(e, e, e, cq.Vector(*(float(c) - e / 2.0 for c in p)))
 
 
 def rod(origin, direction, length: float, dia: float = TUBE_OD):
@@ -1051,14 +1034,7 @@ class World:
         approximation — a box gap is not a clearance."""
         sa = self.solid(a) if isinstance(a, str) else shape(a, "a")
         sb = self.solid(b) if isinstance(b, str) else shape(b, "b")
-        if meshcad.is_mesh(sa) or meshcad.is_mesh(sb):
-            return sa.distance(sb)
-        dss = BRepExtrema_DistShapeShape(sa.wrapped, sb.wrapped)
-        if not dss.IsDone():
-            raise RuntimeError(
-                f"exact distance failed between {a if isinstance(a, str) else 'a'} and "
-                f"{b if isinstance(b, str) else 'b'} — the result is unknown, not large")
-        return dss.Value()
+        return sa.distance(sb)
 
     def nearest(self, target, skip=()) -> tuple:
         """The closest body to `target` as `(gap_mm, name)`, skipping `skip`."""
@@ -1595,7 +1571,7 @@ def rebuild_sweep(module, attr: str, values, build, label: str = None) -> list:
 def bed_fit(pieces: dict = None, bed=None) -> list:
     """Each printed piece against the H2C's bed: `(name, xlen, ylen, zlen, fits)` per piece,
     on `BED_TOL`. With no `pieces`, the world's own. Values normalize through `shape()`, so a
-    `build_pieces()` Workplane is accepted. The pieces are stored in print orientation, so the
+    Mesh workplanes are accepted. The pieces are stored in print orientation, so the
     test is per-axis."""
     _ensure_paths()
     import enclosure
@@ -1627,12 +1603,7 @@ def _ensure_paths() -> None:
             sys.path.insert(0, str(d))
 
 
-def _assembly():
-    """`enclosure_assembly` — the module that states which bodies are placed, where each one is
-    turned to, what is seated in the walls and how the box is cut."""
-    _ensure_paths()
-    import enclosure_assembly
-    return enclosure_assembly
+
 
 
 # How a child of the enclosure assembly is tagged. The names carry the role: the box's four
@@ -1668,7 +1639,7 @@ def world(runs: bool = True, pieces: bool = True, reload: bool = False) -> World
 
     On the mesh kernel the world is the machine's scene file (`_machine.machine()`), read in
     seconds when no source has moved since it was written, and built and written when one has.
-    OCCT's process builds it.
+    The Rust assembly driver writes it when stale.
 
     Memoized per (runs, pieces) — building one places every body in the machine."""
     want_pieces = bool(pieces) and not os.environ.get(SKIP_PIECES)
@@ -1681,22 +1652,11 @@ def world(runs: bool = True, pieces: bool = True, reload: bool = False) -> World
     # The whole machine — pack bodies, the funnel and display seated in the walls, the four
     # printed pieces, the swept runs — with the frames and the box it was built from. The same
     # bodies the build exports and reports on.
-    if meshcad.mesh_mode():
-        _ensure_paths()
-        import _machine
-        m = _machine.machine()
-        placed = {name: m.bodies[name] for name in m.solids}
-        frames, shell, drawn, anchors = m.frames, m.box, m.runs, m.anchors
-    else:
-        m = None
-        a = _assembly().build_enclosure_assembly()
-        placed = {name: solid for name, (solid, _color) in _assembly()._solids(a).items()}
-        frames, shell = getattr(a, "frames", None), getattr(a, "box", None)
-        # The AUTHORED runs come across whether or not their tubes did: they are the
-        # centrelines `_lines` drew, and `reroute` asks what a piece of one could do.
-        drawn = {r.id: r for r in getattr(a, "runs", ())}
-        anchors = {k: tuple(getattr(a, k, ()) or ())
-                   for k in ("tube_anchors", "cap_tube_anchors", "body_anchors")}
+    _ensure_paths()
+    import _machine
+    m = _machine.machine()
+    placed = {name: m.bodies[name] for name in m.solids}
+    frames, shell, drawn, anchors = m.frames, m.box, m.runs, m.anchors
 
     solids, sources = {}, {}
 

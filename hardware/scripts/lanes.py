@@ -300,22 +300,14 @@ def take() -> dict:
 
     Bodies as boxes, runs as centrelines, ports as (position, axis, bore), and the cavity the
     box's four pieces leave. Nothing here is a summary of a measurement — every number is the
-    placed geometry's own, read off the bodies the build stood: the scene's on the mesh kernel,
-    which a process takes here when nothing has imported CadQuery yet."""
+    placed geometry's own, read from the Rust-built machine scene."""
     sys.path.insert(0, str(_ML))
     import meshcad                                                   # noqa: E402
-    if "cadquery" not in sys.modules:
-        meshcad.activate()
-    if meshcad.mesh_mode():
-        import _machine                                              # noqa: E402
-        m = _machine.machine()
-        placed = {name: m.bodies[name] for name in m.solids}
-        drawn, frames, shell = list(m.runs.values()), m.frames, m.box
-    else:
-        import enclosure_assembly as fh                              # noqa: E402
-        a = fh.build_enclosure_assembly()
-        placed = {name: solid for name, (solid, _colour) in fh._solids(a).items()}
-        drawn, frames, shell = a.runs, a.frames, a.box
+    meshcad.activate()
+    import _machine
+    m = _machine.machine()
+    placed = {name: m.bodies[name] for name in m.solids}
+    drawn, frames, shell = list(m.runs.values()), m.frames, m.box
     bodies = {}
     for name, solid in placed.items():
         tag = _tag(name)
