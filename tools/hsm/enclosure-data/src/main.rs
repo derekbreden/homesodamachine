@@ -234,38 +234,98 @@ fn data_recipe(v: &Value) -> Result<Value> {
     )
 }
 
+fn rear_identification(spec: &Value) -> Option<&Value> {
+    spec.get("rear_identification")
+        .filter(|plan| !plan.is_null())
+}
+
+fn label_width(v: &Value) -> Result<f64> {
+    if let Some(plan) = rear_identification(&v["spec"]) {
+        f(plan, "width_mm")
+    } else if v.get("port_width").is_some() {
+        f(v, "port_width")
+    } else {
+        f(v, "width")
+    }
+}
+
+fn legacy_label_top(spec: &Value, z: f64) -> Result<f64> {
+    let above = array(&spec["fluid_grid"], "rows_z_mm")?
+        .iter()
+        .map(|n| n.as_f64().ok_or_else(|| anyhow!("row Z is numeric")))
+        .collect::<Result<Vec<_>>>()?
+        .into_iter()
+        .filter(|height| *height > z)
+        .min_by(f64::total_cmp);
+    Ok(match above {
+        Some(height) => height - 12. - 0.2 - z,
+        None => 355. - z,
+    })
+}
+
+fn legacy_word_center(top: f64, which: &str) -> f64 {
+    let lift = match which {
+        "water" | "carb" => 0.25,
+        "flavor-a" | "flavor-b" => -0.75,
+        _ => 0.,
+    };
+    (12. + top) / 2. + lift
+}
+
 fn label_stations(spec: &Value) -> Result<Value> {
     let grid = &spec["fluid_grid"];
     let mapping = json!({"bulkhead-water":"water","co2-inlet":"co2", "bulkhead-drain":"drain",
                       "bulkhead-carb":"carb","bulkhead-flavor-a":"flavor-a","bulkhead-flavor-b":"flavor-b"});
     let ports = array(&spec["rear_wall"], "wet_ports")?;
     let mut result = Vec::new();
-    let plan = &spec["rear_identification"];
-    let height = f(plan, "height_mm")?;
-    let gap = f(plan, "tile_gap_mm")?;
-    let roof = f(&spec["enclosure"], "roof_z_mm")?;
+    let plan = rear_identification(spec);
     for (index, (z, names)) in array(grid, "rows_z_mm")?
         .iter()
         .zip(array(grid, "assignment")?)
         .enumerate()
     {
-        let top = roof - index as f64 * (height + gap);
-        let bottom = top - height;
-        let below = plan["text_below_rows"][index].as_bool()
-            .ok_or_else(|| anyhow!("each card row has a text side"))?;
-        let visible = names.as_array().ok_or_else(|| anyhow!("assignment row"))?
-            .iter().map(|name| -> Result<f64> {
-                let port = ports.iter().find(|p| p["name"] == *name)
-                    .ok_or_else(|| anyhow!("no wet port {name}"))?;
-                let which = mapping[name.as_str().ok_or_else(|| anyhow!("port name is text"))?]
-                    .as_str().ok_or_else(|| anyhow!("port has a label"))?;
-                Ok(f(port,"center_z_mm")? + plan["flange_z_offsets_mm"][which][if below {0} else {1}]
-                    .as_f64().ok_or_else(|| anyhow!("label has flange extents"))?)
-            }).collect::<Result<Vec<_>>>()?;
-        let flange = if below { visible.into_iter().min_by(f64::total_cmp) }
-            else { visible.into_iter().max_by(f64::total_cmp) }
+        let card = if let Some(plan) = plan {
+            let height = f(plan, "height_mm")?;
+            let gap = f(plan, "tile_gap_mm")?;
+            let roof = f(&spec["enclosure"], "roof_z_mm")?;
+            let top = roof - index as f64 * (height + gap);
+            let bottom = top - height;
+            let below = plan["text_below_rows"][index]
+                .as_bool()
+                .ok_or_else(|| anyhow!("each card row has a text side"))?;
+            let visible = names
+                .as_array()
+                .ok_or_else(|| anyhow!("assignment row"))?
+                .iter()
+                .map(|name| -> Result<f64> {
+                    let port = ports
+                        .iter()
+                        .find(|p| p["name"] == *name)
+                        .ok_or_else(|| anyhow!("no wet port {name}"))?;
+                    let which = mapping
+                        [name.as_str().ok_or_else(|| anyhow!("port name is text"))?]
+                    .as_str()
+                    .ok_or_else(|| anyhow!("port has a label"))?;
+                    Ok(f(port, "center_z_mm")?
+                        + plan["flange_z_offsets_mm"][which][if below { 0 } else { 1 }]
+                            .as_f64()
+                            .ok_or_else(|| anyhow!("label has flange extents"))?)
+                })
+                .collect::<Result<Vec<_>>>()?;
+            let flange = if below {
+                visible.into_iter().min_by(f64::total_cmp)
+            } else {
+                visible.into_iter().max_by(f64::total_cmp)
+            }
             .ok_or_else(|| anyhow!("empty label row"))?;
-        let word = (flange + if below { bottom } else { top }) / 2.;
+            Some((
+                bottom,
+                top,
+                (flange + if below { bottom } else { top }) / 2.,
+            ))
+        } else {
+            None
+        };
         for (x, name) in array(grid, "columns_x_mm")?
             .iter()
             .zip(names.as_array().ok_or_else(|| anyhow!("assignment row"))?)
@@ -289,6 +349,16 @@ fn label_stations(spec: &Value) -> Result<Value> {
             row.insert("face_y_mm".into(), json!(471.1));
             row.insert("floor_y_mm".into(), json!(469.3));
             row.insert("nut_y_mm".into(), json!(465.3));
+            let (bottom, top, word) = if let Some(card) = card {
+                card
+            } else {
+                let z = z.as_f64().ok_or_else(|| anyhow!("row Z is numeric"))?;
+                let which = row["which"]
+                    .as_str()
+                    .ok_or_else(|| anyhow!("port has a label"))?;
+                let top = legacy_label_top(spec, z)?;
+                (z - 12., z + top, z + legacy_word_center(top, which))
+            };
             row.insert("card_bottom_z_mm".into(), json!(bottom));
             row.insert("card_top_z_mm".into(), json!(top));
             row.insert("word_center_z_mm".into(), json!(word));
@@ -299,8 +369,11 @@ fn label_stations(spec: &Value) -> Result<Value> {
 }
 
 fn label_top(spec: &Value, row: &Value) -> Result<f64> {
-    let _ = spec;
-    Ok(f(row,"card_top_z_mm")? - f(row,"center_z_mm")?)
+    if rear_identification(spec).is_some() {
+        Ok(f(row, "card_top_z_mm")? - f(row, "center_z_mm")?)
+    } else {
+        legacy_label_top(spec, f(row, "center_z_mm")?)
+    }
 }
 
 fn labels(v: &Value) -> Result<Value> {
@@ -323,11 +396,19 @@ fn labels(v: &Value) -> Result<Value> {
             .as_str()
             .ok_or_else(|| anyhow!("missing {which} fluid"))?;
         let top = label_top(spec, row)?;
+        let (bottom, word_center) = if rear_identification(spec).is_some() {
+            (
+                f(row, "center_z_mm")? - f(row, "card_bottom_z_mm")?,
+                f(row, "word_center_z_mm")? - f(row, "center_z_mm")?,
+            )
+        } else {
+            (12., legacy_word_center(top, which))
+        };
         stations.push(json!({"name":format!("rear-label-{which}"),
             "body_name":format!("bulkhead-ring-{which}"),"word_name":format!("bulkhead-ring-{which}-word"),
             "word":word,"word_profiles":artwork["words"][word],"top":top,
-            "bottom":f(row,"center_z_mm")?-f(row,"card_bottom_z_mm")?,
-            "word_center_z":f(row,"word_center_z_mm")?-f(row,"center_z_mm")?,
+            "bottom":bottom,
+            "word_center_z":word_center,
             "bore_x":f(row,"bore_x_mm")?-f(row,"center_x_mm")?,
             "bore_z":f(row,"bore_z_mm")?-f(row,"center_z_mm")?,
             "bore_diameter":if which=="water" {spec["rear_plumbing"]["tap_tile_bore_mm"].clone()}
@@ -335,12 +416,14 @@ fn labels(v: &Value) -> Result<Value> {
             "chip_color":v["colors"][fluid]["chip"],"word_color":v["colors"][fluid]["word"],
             "word_width":f(&bulk["WORD_WIDTHS"],word)?*5./f(bulk,"WORD_SIZE")?}));
     }
-    Ok(
-        json!({"width":spec["rear_identification"]["width_mm"],"thick":1.8,"bore_overrun":0.1,
+    let mut recipe = json!({"width":label_width(v)?,"thick":1.8,"bore_overrun":0.1,
        "word_size":5.,"word_profiles_em":artwork["em_mm"],"word_font":bulk["WORD_FONT"],
        "word_kind":bulk["WORD_KIND"],"word_depth":bulk["WORD_DEPTH"],"word_raise":bulk["WORD_RAISE"],
-       "word_band_bottom":12.,"stations":stations}),
-    )
+       "word_band_bottom":12.,"stations":stations});
+    if rear_identification(spec).is_none() {
+        recipe["bottom"] = json!(12.);
+    }
+    Ok(recipe)
 }
 
 fn dispatch(v: &Value) -> Result<Value> {
@@ -400,17 +483,42 @@ fn dispatch(v: &Value) -> Result<Value> {
         "gasket" => gasket(v),
         "data-recipe" => data_recipe(v),
         "labels-recipe" => labels(v),
+        "label-width" => Ok(json!(label_width(v)?)),
         "label-stations" => label_stations(&v["spec"]),
         "label-top" => Ok(json!(label_top(&v["spec"], &v["row"])?)),
         "label-channels" => {
             let spec = &v["spec"];
-            let half = (f(&spec["rear_identification"],"width_mm")?+0.3)/2.;
-            let floor = f(&spec["rear_identification"],"channel_floor_z_mm")?;
-            let roof = f(&spec["enclosure"],"roof_z_mm")?;
-            Ok(json!(array(&spec["fluid_grid"],"columns_x_mm")?.iter().map(|x| {
-                let x = x.as_f64().unwrap();
-                (x-half,x+half,469.299,472.799,floor,roof+2.)
-            }).collect::<Vec<_>>()))
+            let width = label_width(v)?;
+            if rear_identification(spec).is_none() {
+                return Ok(json!(
+                    array(&spec["fluid_grid"], "columns_x_mm")?
+                        .iter()
+                        .map(|x| {
+                            let x = x.as_f64().unwrap();
+                            (
+                                x - width / 2. - 0.15,
+                                x + width / 2. + 0.15,
+                                469.299,
+                                472.799,
+                                252.,
+                                357.,
+                            )
+                        })
+                        .collect::<Vec<_>>()
+                ));
+            }
+            let half = (width + 0.3) / 2.;
+            let floor = f(&spec["rear_identification"], "channel_floor_z_mm")?;
+            let roof = f(&spec["enclosure"], "roof_z_mm")?;
+            Ok(json!(
+                array(&spec["fluid_grid"], "columns_x_mm")?
+                    .iter()
+                    .map(|x| {
+                        let x = x.as_f64().unwrap();
+                        (x - half, x + half, 469.299, 472.799, floor, roof + 2.)
+                    })
+                    .collect::<Vec<_>>()
+            ))
         }
         "label-rise" => {
             let rows = array(&v["spec"]["rear_wall"]["grid"], "rows_z_mm")?;
@@ -429,11 +537,26 @@ fn dispatch(v: &Value) -> Result<Value> {
             let west = xs[0].as_f64().ok_or_else(|| anyhow!("west X is numeric"))?;
             let east = xs[1].as_f64().ok_or_else(|| anyhow!("east X is numeric"))?;
             let roots = text(v, "op")? == "rail-roots";
-            let width = f(&v["spec"]["rear_identification"],"width_mm")?;
-            let edge = (width+0.3)/2.+3.;
-            let half = if roots { (width + 0.3) / 2. } else { width/2.-2. };
-            let floor = f(&v["spec"]["rear_identification"],"channel_floor_z_mm")?;
-            let roof = f(&v["spec"]["enclosure"],"roof_z_mm")?;
+            let width = label_width(v)?;
+            let (edge, half, floor, roof) = if let Some(plan) = rear_identification(&v["spec"]) {
+                (
+                    (width + 0.3) / 2. + 3.,
+                    if roots {
+                        (width + 0.3) / 2.
+                    } else {
+                        width / 2. - 2.
+                    },
+                    f(plan, "channel_floor_z_mm")?,
+                    f(&v["spec"]["enclosure"], "roof_z_mm")?,
+                )
+            } else {
+                (
+                    19.15,
+                    if roots { (width + 0.3) / 2. } else { 14. },
+                    252.,
+                    355.,
+                )
+            };
             let (y0, y1) = if roots {
                 (469.299, 471.31)
             } else {
@@ -445,12 +568,17 @@ fn dispatch(v: &Value) -> Result<Value> {
                 (east + half, east + edge, y0, y1, floor, roof)
             ]))
         }
-        "nameplate-placement" => Ok(
-            json!({"center_x_mm":v["spec"]["rear_identification"]["nameplate"]["center_x_mm"],
-           "center_z_mm":v["spec"]["rear_identification"]["nameplate"]["center_z_mm"],
-           "face_y_mm":v["spec"]["rear_identification"]["nameplate"]["face_y_mm"],
-           "field_proud_mm":2.2,"plate_thickness_mm":v["nameplate"]["THICK"],"backing_mm":v["nameplate"]["FLOOR_STOCK"]}),
-        ),
+        "nameplate-placement" => {
+            let location = rear_identification(&v["spec"])
+                .map(|plan| plan["nameplate"].clone())
+                .unwrap_or_else(
+                    || json!({"center_x_mm":-38.,"center_z_mm":228.,"face_y_mm":473.5}),
+                );
+            Ok(json!({"center_x_mm":location["center_x_mm"],
+               "center_z_mm":location["center_z_mm"],"face_y_mm":location["face_y_mm"],
+               "field_proud_mm":2.2,"plate_thickness_mm":v["nameplate"]["THICK"],
+               "backing_mm":v["nameplate"]["FLOOR_STOCK"]}))
+        }
         "face-values" => {
             let d = &v["face"];
             let neck = f(d, "TAB_X")? + f(d, "TAB_THICK")? / 2. + f(d, "SIDE_SLIP")?;

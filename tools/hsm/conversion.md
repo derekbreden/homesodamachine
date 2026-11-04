@@ -124,6 +124,7 @@ data and document programs. The comparison source is `d6a0b281d`; inputs are fix
 piece. It includes document byte comparisons, scalar and recipe comparisons, real archive/STL
 readers and complete native route sets. Pump profiles retain differences below the kernel's
 0.005 mm chord rule; their names, colours, bounds and source records agree.
+The record separates completed piece comparisons from the combined build outcome.
 
 The CPU and memory goal still needs performance work in Rust. Component reductions and
 incremental build measurements do not establish a matched whole-machine speed or memory gain;
