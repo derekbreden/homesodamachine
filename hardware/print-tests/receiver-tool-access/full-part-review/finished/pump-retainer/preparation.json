@@ -258,7 +258,7 @@
     }
   ],
   "pause": null,
-  "show_faces": ".cache/customer-finish/final-prints/2026-11-03-pump-retainer-mark1-8bd33822/show-faces.npz",
+  "show_faces": "/Users/derekbredensteiner/Downloads/HSM-full-enclosure-2026-11-03/review-data/pump-retainer/show-faces.npz",
   "spec": "hardware/printed-parts/enclosure/trial-preparation/pieces.json",
   "spec_sha256": "b47d2cf2e47dec4defd9326d421bc731ed68e5252d4f947ca3ec67b43ac623a9",
   "tool_sha256": {

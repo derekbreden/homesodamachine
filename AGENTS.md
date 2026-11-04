@@ -115,6 +115,22 @@ source edits immediately. Do not create branches, worktrees or separate reposito
 copies. Keep `main` current with `origin/main`, preserving other sessions' work,
 and commit and push directly to `main` using the path-scoped commit rule above.
 
+## Temporary Build Files
+
+Reuse the artifacts already held by Bazel and `hsm`. Do not copy whole build
+trees into `.cache` for comparisons, handoffs or publication. When a snapshot is
+needed, save only the required files in `.cache/runs/<purpose>-<run-id>`.
+Keep private benchmark caches inside the same run directory.
+
+Remove a run's temporary files when its comparison, publication or handoff is
+finished. Keep concise results, source revisions, artifact hashes and measured
+numbers. Keep finished deliverables and physical print records at their recorded
+destinations outside `.cache`; a scratch copy is not an archive.
+
+The existing six-hour cleanup removes individual run directories after three
+days without a write. A new run does not extend an older run's lifetime. Keep the
+shared geometry memo caches (`realized`, `meshes`, `boxes`) and installed runtimes.
+
 ## Heavy Runs
 
 Use `python3 tools/run.py -- <command>` for Cargo, Bazel, slicing and rendering.
