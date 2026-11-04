@@ -342,9 +342,9 @@ export function findGenerateScripts(roots) {
 
 // Walk the import graph backward from a module to every runnable script that
 // transitively imports it — covers shared `_foo.py` chains and the Blender
-// `--python` subprocess edge (`_blender_render.py` hands `_blender_scene.py` to
-// Blender as a path, never importing it). Without the transitive walk, edits to
-// a leaf module silently rebuild nothing.
+// `--python` subprocess edge (a script that hands another to Blender as a path,
+// never importing it). Without the transitive walk, edits to a leaf module
+// silently rebuild nothing.
 export const findRunnableScriptsTransitivelyImporting = memoized(importersOf);
 
 function importersOf(changedPath, roots) {
