@@ -528,3 +528,12 @@ jobs:
           done
           echo "could not land the derived commit after three tries" >&2
           exit 1
+
+      - name: Report incomplete build
+        if: ${{ always() && steps.cut.outputs.failed != '' }}
+        env:
+          FAILED_TARGETS: ${{ steps.cut.outputs.failed }}
+        run: |
+          echo "::error title=Incomplete build::Some targets failed; their outputs were held back. Successful derived outputs were processed above."
+          tr ',' '\n' <<< "$FAILED_TARGETS"
+          exit 1

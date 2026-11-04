@@ -1,0 +1,62 @@
+{
+  "root": {
+    "replaced": [
+      "enclosure-front-top",
+      "enclosure-back-top",
+      "enclosure-pump-retainer"
+    ],
+    "unrelated_fine_bodies_preserved": 435,
+    "step_sha256": "beaf4406f4f82fe2172fda67aed858be482bb978146867589112be89c713a766",
+    "payload_sha256": "5edd9fe8134ecc8c3a07114d4a0b7c2ff691fed1bc78f9a30105f59e2850a624"
+  },
+  "enclosure": {
+    "replaced": [
+      "enclosure_back_top",
+      "enclosure_front_top",
+      "enclosure_pump_retainer"
+    ],
+    "unrelated_fine_bodies_preserved": 22,
+    "step_sha256": "ad86b066255dd4a46bb153b4f261cd033f93d4a042df8206bed9c213a43ad697",
+    "payload_sha256": "54626ee137944a71deaedd2635af07213355679f7f16dde4360853daee94ed7e"
+  },
+  "scene": {
+    "replaced_arrays": 9,
+    "unrelated_bodies_preserved": 438,
+    "metadata": "Declared Box, aliases and scalar checks retained; scalar checks were not recomputed."
+  },
+  "installation": {
+    "pump-mount": {
+      "changed": [
+        "enclosure-front-top",
+        "enclosure-pump-retainer"
+      ],
+      "unrelated_buffer_views_preserved": 216,
+      "nodes_materials_and_unrelated_buffers_retained": true,
+      "sha256": "e11f0df3b9e65c7931e74051024fa4f538524735738e336ebbdf040d72886271"
+    },
+    "back-top": {
+      "changed": [
+        "enclosure-back-top"
+      ],
+      "unrelated_buffer_views_preserved": 510,
+      "nodes_materials_and_unrelated_buffers_retained": true,
+      "sha256": "e34cca717e2246640874a400314c6d74e535efee9e1937e6b40a382bd944cabb"
+    },
+    "back-half": {
+      "changed": [
+        "enclosure-back-top"
+      ],
+      "unrelated_buffer_views_preserved": 750,
+      "nodes_materials_and_unrelated_buffers_retained": true,
+      "sha256": "6e5af7a9c1790f21edbc6bf32d3216c7a287fc7cdd8115709186cf792db0ae70"
+    },
+    "front-top": {
+      "changed": [
+        "enclosure-front-top"
+      ],
+      "unrelated_buffer_views_preserved": 198,
+      "nodes_materials_and_unrelated_buffers_retained": true,
+      "sha256": "d915490d3176a0660f050ca9f4e16c0200ffeb06dcea3352672d4aa826ca50a2"
+    }
+  }
+}
