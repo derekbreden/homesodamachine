@@ -25,6 +25,15 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "320119579fcad9c21884f5c4861d16174d0e06250625266f50fe6898340abefa"
 
 [[package]]
+name = "aho-corasick"
+version = "1.1.5"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "c982642fa9e8606056828ee9a8505737230110bb1099153c79efe865c59d12ba"
+dependencies = [
+ "memchr",
+]
+
+[[package]]
 name = "allocator-api2"
 version = "0.2.21"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -742,6 +751,17 @@ dependencies = [
 ]
 
 [[package]]
+name = "hsm-assembly-docs"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "hsm-documents",
+ "regex",
+ "serde",
+ "serde_json",
+]
+
+[[package]]
 name = "hsm-cold-core"
 version = "0.1.0"
 dependencies = [
@@ -751,11 +771,38 @@ dependencies = [
 ]
 
 [[package]]
+name = "hsm-cold-core-data"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "hsm-documents",
+ "serde_json",
+]
+
+[[package]]
+name = "hsm-documents"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "serde",
+ "serde_json",
+]
+
+[[package]]
 name = "hsm-enclosure-components"
 version = "0.1.0"
 dependencies = [
  "anyhow",
  "hsm-kernel",
+ "serde_json",
+]
+
+[[package]]
+name = "hsm-enclosure-data"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "hsm-documents",
  "serde_json",
 ]
 
@@ -780,6 +827,16 @@ version = "0.1.0"
 dependencies = [
  "anyhow",
  "hsm-kernel",
+ "serde_json",
+]
+
+[[package]]
+name = "hsm-faucet-data"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "hsm-documents",
+ "serde",
  "serde_json",
 ]
 
@@ -827,6 +884,28 @@ dependencies = [
 ]
 
 [[package]]
+name = "hsm-layout-data"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "serde_json",
+]
+
+[[package]]
+name = "hsm-ledger"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "hsm-documents",
+ "hsm-kernel",
+ "num-bigint",
+ "num-traits",
+ "regex",
+ "serde_json",
+ "sha2",
+]
+
+[[package]]
 name = "hsm-machine"
 version = "0.1.0"
 dependencies = [
@@ -836,6 +915,26 @@ dependencies = [
  "serde_json",
  "sha2",
  "zip",
+]
+
+[[package]]
+name = "hsm-machine-data"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "hsm-layout-data",
+ "serde_json",
+ "zip",
+]
+
+[[package]]
+name = "hsm-part-data"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "hsm-documents",
+ "serde_json",
+ "sha2",
 ]
 
 [[package]]
@@ -1548,6 +1647,35 @@ checksum = "ed2bf2547551a7053d6fdfafda3f938979645c44812fbfcda098faae3f1a362d"
 dependencies = [
  "bitflags",
 ]
+
+[[package]]
+name = "regex"
+version = "1.13.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "f020237b6c8eed93db2e2cb53c00c60a8e1bc73da7d073199a1180401450218d"
+dependencies = [
+ "aho-corasick",
+ "memchr",
+ "regex-automata",
+ "regex-syntax",
+]
+
+[[package]]
+name = "regex-automata"
+version = "0.4.18"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "ad8553b9b26413251cbf30e620595c7a41b3887f03da04579c0e6b0d6a06b4b2"
+dependencies = [
+ "aho-corasick",
+ "memchr",
+ "regex-syntax",
+]
+
+[[package]]
+name = "regex-syntax"
+version = "0.8.11"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "d6f6ff9a378485b298a5286656da665ba74413d36db0979633275d2e708145d4"
 
 [[package]]
 name = "renderdoc-sys"

@@ -1,110 +1,52 @@
 """Doc-sync driver for hardware/assembly/wiring.md.
 
-Run: tools/cad-venv/bin/python hardware/assembly/_wiring_sync.py
-"""
-
+Run: tools/cad-venv/bin/python hardware/assembly/_wiring_sync.py"""
 import sys
 from pathlib import Path
-
 _here = Path(__file__).resolve().parent
-sys.path.insert(0, str(next(p for p in _here.parents if p.name == "hardware") / "scripts"))
-sys.path.insert(
-    0,
-    str(next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"),
-)
-from docgen import substitute_md
+sys.path.insert(0, str(next((p for p in _here.parents if p.name == 'hardware')) / 'scripts'))
+sys.path.insert(0, str(next((p for p in _here.parents if (p / 'tools' / 'docgen').is_dir())) / 'tools'))
+sys.path.insert(0, str(_here.parents[0] / 'wiring'))
+from _ac_wiring_schedule_sync import awg_mains as _sched_awg_mains, awg_ac_branch as _sched_awg_ac_branch, awg_compressor_lead as _sched_awg_compressor_lead, awg_sig as _sched_awg_sig, awg_lv as _sched_awg_lv, line_voltage_v as _sched_line_voltage_v, v_rail_dc as _sched_v_rail_dc, v_rail_logic as _sched_v_rail_logic, v_rail_io as _sched_v_rail_io, ds18b20_pullup_kohm as _sched_ds18b20_pullup_kohm, len_short_mm as _sched_len_short_mm, len_short_2_mm as _sched_len_short_2_mm, len_mid_mm as _sched_len_mid_mm, len_earth_carbonator_mm as _sched_len_earth_carbonator_mm, len_compressor_mm as _sched_len_compressor_mm, len_opening_join_mm as _sched_len_opening_join_mm, len_fan_mm as _sched_len_fan_mm, len_vk_mm as _sched_len_vk_mm, len_front_face_mm as _sched_len_front_face_mm, len_onewire_mm as _sched_len_onewire_mm, len_reeds_a_mm as _sched_len_reeds_a_mm, len_umbilical_m as _sched_len_umbilical_m, jst_pitch_mm as _sched_jst_pitch_mm
+
+_assembly_doc_root = next(p for p in Path(__file__).resolve().parents if (p / "hardware/scripts").is_dir())
+sys.path.insert(0, str(_assembly_doc_root / "hardware/assembly"))
+from _rust_docs import evaluate as _evaluate, update as _update
 
 
-# Import from the AC schedule's sync driver — the schedule is the source
-# for every per-run gauge, voltage, and length the procedure references.
-sys.path.insert(
-    0,
-    str(_here.parents[0] / "wiring"),
-)
-from _ac_wiring_schedule_sync import (  # noqa: E402
-    awg_mains as _sched_awg_mains,
-    awg_ac_branch as _sched_awg_ac_branch,
-    awg_compressor_lead as _sched_awg_compressor_lead,
-    awg_sig as _sched_awg_sig,
-    awg_lv as _sched_awg_lv,
-    line_voltage_v as _sched_line_voltage_v,
-    v_rail_dc as _sched_v_rail_dc,
-    v_rail_logic as _sched_v_rail_logic,
-    v_rail_io as _sched_v_rail_io,
-    ds18b20_pullup_kohm as _sched_ds18b20_pullup_kohm,
-    len_short_mm as _sched_len_short_mm,
-    len_short_2_mm as _sched_len_short_2_mm,
-    len_mid_mm as _sched_len_mid_mm,
-    len_earth_carbonator_mm as _sched_len_earth_carbonator_mm,
-    len_compressor_mm as _sched_len_compressor_mm,
-    len_opening_join_mm as _sched_len_opening_join_mm,
-    len_fan_mm as _sched_len_fan_mm,
-    len_vk_mm as _sched_len_vk_mm,
-    len_front_face_mm as _sched_len_front_face_mm,
-    len_onewire_mm as _sched_len_onewire_mm,
-    len_reeds_a_mm as _sched_len_reeds_a_mm,
-    len_umbilical_m as _sched_len_umbilical_m,
-    jst_pitch_mm as _sched_jst_pitch_mm,
-)
+def _inputs():
+    return {
+        '_sched_awg_mains': _sched_awg_mains,
+        '_sched_awg_ac_branch': _sched_awg_ac_branch,
+        '_sched_awg_sig': _sched_awg_sig,
+        '_sched_awg_lv': _sched_awg_lv,
+        '_sched_line_voltage_v': _sched_line_voltage_v,
+        '_sched_v_rail_dc': _sched_v_rail_dc,
+        '_sched_v_rail_logic': _sched_v_rail_logic,
+        '_sched_v_rail_io': _sched_v_rail_io,
+        '_sched_len_compressor_mm': _sched_len_compressor_mm,
+        '_sched_len_opening_join_mm': _sched_len_opening_join_mm,
+        '_sched_len_short_mm': _sched_len_short_mm,
+        '_sched_len_mid_mm': _sched_len_mid_mm,
+        '_sched_len_short_2_mm': _sched_len_short_2_mm,
+        '_sched_len_earth_carbonator_mm': _sched_len_earth_carbonator_mm,
+        '_sched_len_onewire_mm': _sched_len_onewire_mm,
+        '_sched_len_reeds_a_mm': _sched_len_reeds_a_mm,
+        '_sched_len_umbilical_m': _sched_len_umbilical_m,
+        '_sched_len_front_face_mm': _sched_len_front_face_mm,
+        '_sched_len_fan_mm': _sched_len_fan_mm,
+        '_sched_len_vk_mm': _sched_len_vk_mm,
+        '_sched_jst_pitch_mm': _sched_jst_pitch_mm,
+        '_sched_ds18b20_pullup_kohm': _sched_ds18b20_pullup_kohm,
+        '_sched_awg_compressor_lead': _sched_awg_compressor_lead,
+    }
 
 
-# ─── Procedure-only constants ───────────────────────────────────────────
-
-cabinet_slack_mm = 200       # umbilical-end ground-bond slack at cabinet side
-
-# Donor-compressor nameplate readings: the winding-resistance reference range
-# for the dielectric / continuity check, and the power class the AC side is
-# sized against.
-winding_r_low_ohm = 10
-winding_r_high_ohm = 30
-compressor_class_w = 100
+globals().update(_evaluate('wiring', _inputs())["exports"])
 
 
 def main():
-    variables = {
-        # Wire gauges.
-        "AWG_AC_MAIN": f"{_sched_awg_mains:.4g} AWG",
-        "AWG_AC_BRANCH_U": f"{_sched_awg_ac_branch:.4g} AWG",
-        "AWG_DC_BRANCH": f"{_sched_awg_sig:.4g} AWG",
-        "AWG_SIGNAL": f"{_sched_awg_lv:.4g} AWG",
-        "AWG_TRIPLE": f"{_sched_awg_mains:.4g}/{_sched_awg_sig:.4g} AWG",
-        # Voltages.
-        "AC_LINE_V": f"{_sched_line_voltage_v:.4g} VAC",
-        "DC_BUS_V": f"{_sched_v_rail_dc:.4g} V",
-        "LOGIC_V": f"{_sched_v_rail_logic:.4g} V",
-        "MCU_V": f"{_sched_v_rail_io:.4g} V",
-        # Run lengths.
-        "COMP_LEAD_LEN": f"~{_sched_len_compressor_mm:.4g} mm",
-        "JOIN_LEN": f"~{_sched_len_opening_join_mm:.4g} mm",
-        "COMP_FAN_OUT": f"~{_sched_len_short_mm:.4g} mm",
-        "AC1_LEN": f"~{_sched_len_mid_mm:.4g} mm",
-        "AC2_LEN": f"~{_sched_len_short_2_mm:.4g} mm",
-        "EARTH_CARBONATOR_LEN": f"~{_sched_len_earth_carbonator_mm:.4g} mm",
-        "SIG_ONEWIRE_LEN": f"~{_sched_len_onewire_mm:.4g} mm",
-        "SIG_REEDS_A_LEN": f"~{_sched_len_reeds_a_mm:.4g} mm",
-        "SIG_UMBILICAL_LEN": f"~{_sched_len_umbilical_m:.4g} m",
-        "SIG_DISPLAY_LEN": f"~{_sched_len_front_face_mm:.4g} mm",
-        "FAN_RUN_LEN": f"~{_sched_len_fan_mm:.4g} mm",
-        "VK_RUN_LEN": f"~{_sched_len_vk_mm:.4g} mm",
-        # Connector pitch.
-        "JST_PITCH": f"{_sched_jst_pitch_mm:.4g} mm",
-        # Electrical-component values.
-        "PULLUP_R": f"{_sched_ds18b20_pullup_kohm:.4g} kΩ",
-        # Procedure-only (local).
-        "CABINET_SLACK": f"{cabinet_slack_mm:.4g} mm",
-        "WINDING_R_LOW": f"{winding_r_low_ohm:.4g}",
-        "WINDING_R_HIGH": f"{winding_r_high_ohm:.4g} Ω",
-        "COMP_CLASS_W": f"{compressor_class_w:.4g} W",
-        # The compressor lead's own gauge — a purchased cord, so the schedule
-        # carries it beside the loose-wire classes rather than as one of them.
-        "COMP_LEAD_AWG": f"{_sched_awg_compressor_lead:.4g} AWG",
-    }
-
-    substitute_md(
-        _here / "wiring.md",
-        variables=variables,
-    )
-    print("-> wiring.md")
+    _update('wiring', _inputs())
 
 
 if __name__ == "__main__":

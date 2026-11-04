@@ -34,29 +34,18 @@ import nameplate
 from _cadq_export import export_assembly, import_step
 from _materials import step_safe
 
-WIDTH = port_chip.WIDTH
-THICK = 1.8
-WORD_SIZE = 4.6
-WORD_EM = 5.0
-WORD_DEPTH = original.WORD_DEPTH
-WORD_RAISE = original.WORD_RAISE
-# Keep the short upper-row words above the water and soda fitting flanges
-# with at least the 1 mm assembly air gap. Chip outlines and clamp planes stay fixed.
-WORD_LIFT = {'water': .25, 'carb': .25, 'flavor-a':-.75, 'flavor-b':-.75}
+from _enclosure_data import dimensions as _dimensions, read as _read
 
-STATIONS = {
-    'bulkhead-water': 'water', 'co2-inlet': 'co2',
-    'bulkhead-drain': 'drain', 'bulkhead-carb': 'carb',
-    'bulkhead-flavor-a': 'flavor-a', 'bulkhead-flavor-b': 'flavor-b',
-}
+_values = _dimensions()['labels']
+globals().update({name: value for name, value in _values.items() if name.isupper()})
+STATIONS = {name: _values['STATIONS'][name] for name in _values['station_order']}
+WIDTH = above_core.specification()['rear_identification']['width_mm']
 
 
 def nameplate_plan():
     """Accepted flat-wing interface on a plain field clearing the core."""
-    return {'center_x_mm': -38., 'center_z_mm': 228.,
-            'face_y_mm': 473.5, 'field_proud_mm': 2.2,
-            'plate_thickness_mm': nameplate.THICK,
-            'backing_mm': nameplate.wing_interface.FLOOR_STOCK}
+    return _read('nameplate-placement', nameplate=_dimensions()['nameplate'],
+                 spec=above_core.specification())
 
 
 def nameplate_station():
@@ -68,22 +57,12 @@ def nameplate_station():
 
 def rise():
     """Common chip top: the upper row finishes at the enclosure roof."""
-    spec = above_core.specification()
-    return spec['enclosure']['roof_z_mm'] - max(
-        spec['rear_wall']['grid']['rows_z_mm'])
+    return _read('label-rise', spec=above_core.specification())
 
 
 def stations():
     """Tiles slide in two continuous channels, with their bores on the fittings."""
-    spec = above_core.specification()
-    ports = {p['name']:p for p in spec['rear_wall']['wet_ports']}
-    rows = []
-    for z,names in zip(spec['fluid_grid']['rows_z_mm'],spec['fluid_grid']['assignment']):
-        for x,name in zip(spec['fluid_grid']['columns_x_mm'],names):
-            rows.append({**ports[name],'which':STATIONS[name],
-                'bore_x_mm':ports[name]['center_x_mm'],'bore_z_mm':ports[name]['center_z_mm'],
-                'center_x_mm':x,'center_z_mm':z,'face_y_mm':471.1,'floor_y_mm':469.3,'nut_y_mm':465.3})
-    return tuple(rows)
+    return tuple(_read('label-stations', spec=above_core.specification()))
 
 
 def _station(which):
@@ -91,11 +70,12 @@ def _station(which):
 
 
 def _top(which):
-    row = _station(which)
-    z = row['center_z_mm']
-    above = [height for height in above_core.specification()['fluid_grid']['rows_z_mm']
-             if height > z]
-    return min(above)-12.-.2-z if above else 355.-z
+    return _read('label-top', spec=above_core.specification(), row=_station(which))
+
+
+def channel_bounds():
+    """Two complete slide channels in the same datums as the printable cards."""
+    return tuple(tuple(row) for row in _read('label-channels', spec=above_core.specification()))
 
 
 @functools.cache
@@ -106,13 +86,15 @@ def word(which):
     letters = flat.rotate((0,0,0),(1,0,0),90.).rotate((0,0,0),(0,0,1),180.).val()
     b = letters.BoundingBox()
     return letters.translate((-(b.xmin+b.xmax)/2.,THICK-WORD_DEPTH-b.ymin,
-                               (12.+_top(which))/2.+WORD_LIFT.get(which,0.)-(b.zmin+b.zmax)/2.))
+                               _station(which)['word_center_z_mm']-_station(which)['center_z_mm']
+                               -(b.zmin+b.zmax)/2.))
 
 
 @functools.cache
 def chip(which):
     row = _station(which)
-    blank = cq.Solid.makeBox(WIDTH,THICK,_top(which)+12.,cq.Vector(-WIDTH/2.,0.,-12.))
+    bottom = row['card_bottom_z_mm']-row['center_z_mm']
+    blank = cq.Solid.makeBox(WIDTH,THICK,_top(which)-bottom,cq.Vector(-WIDTH/2.,0.,bottom))
     diameter = (above_core.specification()['rear_plumbing']['tap_tile_bore_mm']
                 if which=='water' else row['bore_diameter_mm'])
     bore = cq.Solid.makeCylinder(diameter/2.,THICK+.2,
@@ -186,23 +168,20 @@ def receiver_field():
 
 
 def rail_bounds():
-    west,east = above_core.specification()['fluid_grid']['columns_x_mm']
-    return tuple((x0,x1,471.3,474.3,252.,355.) for x0,x1 in (
-        (west-19.15,west-14.),(west+14.,east-14.),(east+14.,east+19.15)))
+    return tuple(tuple(bounds) for bounds in _read(
+        'rail-bounds', spec=above_core.specification(), width=WIDTH))
 
 
 def rail_roots():
     """Full roots outside the sliding tile channels, into the rear corner stock."""
-    west,east = above_core.specification()['fluid_grid']['columns_x_mm']
-    half = (WIDTH+.3)/2.
-    return tuple((x0,x1,469.299,471.31,252.,355.) for x0,x1 in (
-        (west-19.15,west-half),(west+half,east-half),(east+half,east+19.15)))
+    return tuple(tuple(bounds) for bounds in _read(
+        'rail-roots', spec=above_core.specification(), width=WIDTH))
 
 
 def apply(piece):
     """One open channel per column, with side rails and a flat bottom stop."""
-    for x in above_core.specification()['fluid_grid']['columns_x_mm']:
-        piece = piece.cut(cq.Solid.makeBox(WIDTH+.3,3.5,105.,cq.Vector(x-WIDTH/2.-.15,469.299,252.)))
+    for x0,x1,y0,y1,z0,z1 in channel_bounds():
+        piece = piece.cut(cq.Solid.makeBox(x1-x0,y1-y0,z1-z0,cq.Vector(x0,y0,z0)))
     for x0,x1,y0,y1,z0,z1 in (*rail_roots(),*rail_bounds()):
         piece = piece.fuse(cq.Solid.makeBox(x1-x0,y1-y0,z1-z0,cq.Vector(x0,y0,z0)))
     return _nameplate_receiver(piece).clean()
@@ -226,34 +205,16 @@ def plain_lands():
 
 def numbers():
     """The sliding tiles' native fitting-frame dimensions and filament colours."""
+    from _cadq_export import note_read
     from _materials import linear
-    artwork = json.loads((HERE / 'label-words.json').read_text())
-    spec = above_core.specification()
-    rows = []
-    for which in STATIONS.values():
-        row = _station(which)
-        fluid = original.FLUIDS[which]
-        label = original.STATIONS[which].word
-        rows.append({
-            'name': f'rear-label-{which}', 'body_name': f'bulkhead-ring-{which}',
-            'word_name': f'bulkhead-ring-{which}-word', 'word': label,
-            'word_profiles': artwork['words'][label],
-            'top': _top(which),
-            'word_center_z':(12.+_top(which))/2.+WORD_LIFT.get(which,0.),
-            'bore_x': row['bore_x_mm']-row['center_x_mm'],
-            'bore_z': row['bore_z_mm']-row['center_z_mm'],
-            'bore_diameter': (spec['rear_plumbing']['tap_tile_bore_mm']
-                              if which == 'water' else row['bore_diameter_mm']),
-            'chip_color': list(linear(_colour(colours.chip_color(fluid)))),
-            'word_color': list(linear(_colour(colours.word_color(fluid)))),
-            'word_width': original.WORD_WIDTHS[label]*WORD_EM/original.WORD_SIZE,
-        })
-    return {'width': WIDTH, 'thick': THICK, 'bottom': 12., 'bore_overrun': .1,
-            'word_size': WORD_EM, 'word_profiles_em': artwork['em_mm'],
-            'word_font': original.WORD_FONT,
-            'word_kind': original.WORD_KIND,
-            'word_depth': WORD_DEPTH, 'word_raise': WORD_RAISE,
-            'word_band_bottom': 12., 'stations': rows}
+    artwork = HERE / 'label-words.json'
+    note_read(artwork)
+    colors = {fluid: {'chip': linear(_colour(colours.chip_color(fluid))),
+                      'word': linear(_colour(colours.word_color(fluid)))}
+              for fluid in colours.chip_filaments}
+    return _read('labels-recipe', spec=above_core.specification(),
+                 bulkhead=_dimensions()['bulkhead'], port_width=port_chip.WIDTH,
+                 artwork_path=str(artwork), colors=colors)
 
 
 def main():

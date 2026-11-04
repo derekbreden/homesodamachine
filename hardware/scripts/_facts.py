@@ -55,29 +55,20 @@ GRAPH = _ROOT / "tools" / "bazel" / "graph.json"
 GENERATOR = "hardware/manifold-layout/enclosure_assembly.py"
 
 
+def _request(op, **values):
+    from _rust_data import request
+    return request('machine-data', 'machine-data', {'op': op, **values})
+
+
 def _read_graph() -> dict:
-    try:
-        return json.loads(GRAPH.read_text())
-    except (OSError, ValueError):
-        return {}
+    from _cadq_export import note_read
+    note_read(GRAPH)
+    return _request('read_json', path=str(GRAPH), optional=True)
 
 
 def _source_names(graph: dict) -> list:
-    """The generator's source names, derived from one already-read graph."""
-    entry = graph.get(GENERATOR)
-    if not entry:
-        return []
-    derived = set()
-    for e in graph.values():
-        derived.update(e.get("writes", ()))
-        derived.update(e.get("rewritten", ()))
-    # THE INDEX IS NOT ONE OF THE THINGS IT INDEXES. `_facts.write` opens the graph to obtain
-    # this list, so tracing sees that open. Hashing the entire graph would make a fixture-only
-    # trace change invalidate the enclosure's facts even though neither its source set nor a
-    # byte it computes from moved. The selected names already carry the graph's relevant
-    # semantics: adding, removing or reclassifying an enclosure input changes this list.
-    index = GRAPH.relative_to(_ROOT).as_posix()
-    return sorted(set(entry.get("reads", ())) - derived - {index})
+    """The generator's source projection, computed by Rust from the declared graph."""
+    return _request('facts_sources', graph=graph)
 
 
 def sources() -> list:
@@ -467,7 +458,11 @@ def read() -> Facts:
         raise FileNotFoundError(
             f"{ARTIFACT.relative_to(_ROOT)} is not written — run "
             f"tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py")
-    return Facts(json.loads(ARTIFACT.read_text()), json.loads(SCORECARD.read_text()))
+    from _cadq_export import note_read
+    note_read(ARTIFACT)
+    note_read(SCORECARD)
+    return Facts(_request('read_json', path=str(ARTIFACT)),
+                 _request('read_json', path=str(SCORECARD)))
 
 
 def selftest():

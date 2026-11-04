@@ -1,0 +1,274 @@
+{
+  "materials": {
+    "PETG": [
+      1.27,
+      11.2
+    ],
+    "PET-GF": [
+      1.43,
+      25.02
+    ]
+  },
+  "profiles": {
+    "cover": [
+      1.32,
+      0.44,
+      1.0
+    ],
+    "ext": [
+      0.87,
+      0.45,
+      0.15
+    ],
+    "shell": [
+      1.32,
+      0.45,
+      0.15
+    ],
+    "bulk": [
+      1.32,
+      0.45,
+      0.15
+    ],
+    "tight": [
+      3.6,
+      0.6,
+      1.0
+    ],
+    "petgf": [
+      0.87,
+      0.45,
+      0.15
+    ],
+    "small": [
+      0.87,
+      0.45,
+      0.15
+    ],
+    "tool": [
+      2.7,
+      0.45,
+      1.0
+    ],
+    "rings": [
+      0.87,
+      0.45,
+      0.15
+    ]
+  },
+  "gap": 0.5,
+  "parts": {
+    "Cold-core inner shell (foam-shell)": [
+      "cold-core/foam-shell/foam-shell.step"
+    ],
+    "Cold-core foam cap lid — top": [
+      "cold-core/foam-cap/foam-cap-lid-top.step"
+    ],
+    "Cold-core foam cap — bottom": [
+      "cold-core/foam-cap/foam-cap-bottom.step"
+    ],
+    "Reservoir B fill bend holder": [
+      "cold-core/foam-cap/reservoir-b-fill-guide.step"
+    ],
+    "PRV shroud": [
+      "cold-core/prv-shroud/prv-shroud.step"
+    ],
+    "Flavor reservoir body — left": [
+      "cold-core/reservoir/reservoir-left.step"
+    ],
+    "Flavor reservoir body — right": [
+      "cold-core/reservoir/reservoir-right.step"
+    ],
+    "Flavor reservoir cap — left": [
+      "cold-core/reservoir/reservoir-cap-left.step"
+    ],
+    "Flavor reservoir cap — right": [
+      "cold-core/reservoir/reservoir-cap-right.step"
+    ],
+    "Enclosure — front bottom + front top (two quadrants)": [
+      "enclosure/enclosure/enclosure-front-bottom.step",
+      "enclosure/enclosure/enclosure-front-top.step"
+    ],
+    "Enclosure — pump retainer": [
+      "enclosure/enclosure/enclosure-pump-retainer.step"
+    ],
+    "Carbonator reed bridge": [
+      "cold-core/reed-bridge/reed-bridge.step"
+    ],
+    "Enclosure — back bottom + back top (two quadrants)": [
+      "enclosure/enclosure/enclosure-back-bottom.step",
+      "enclosure/enclosure/enclosure-back-top.step"
+    ],
+    "Display cover plate": [
+      "enclosure/display-cover/display-cover.step"
+    ],
+    "Bulkhead ring — one per +Y-wall crossing": [
+      "enclosure/rear-identification/rear-label-water.step",
+      "enclosure/rear-identification/rear-label-carb.step",
+      "enclosure/rear-identification/rear-label-flavor-a.step",
+      "enclosure/rear-identification/rear-label-flavor-b.step",
+      "enclosure/rear-identification/rear-label-co2.step",
+      "enclosure/rear-identification/rear-label-drain.step"
+    ],
+    "Tube collar — one per +Y-wall crossing": [
+      "faucet/tube-collar/tube-collar-water.step",
+      "faucet/tube-collar/tube-collar-carb.step",
+      "faucet/tube-collar/tube-collar-flavor-a.step",
+      "faucet/tube-collar/tube-collar-flavor-b.step",
+      "faucet/tube-collar/tube-collar-co2.step",
+      "faucet/tube-collar/tube-collar-drain.step"
+    ],
+    "Collet press — install-kit customer tool": [
+      "collet-press/collet-press.step"
+    ],
+    "Nameplate — one per unit, serialized": [
+      "enclosure/nameplate/nameplate-001.step"
+    ],
+    "Fuse clamp": [
+      "refrigeration/fuse-clamp/fuse-clamp.step"
+    ],
+    "Faucet shell (2-piece: base + tip)": [
+      "faucet/faucet-shell/faucet-shell-base.step",
+      "faucet/faucet-shell/faucet-shell-tip.step"
+    ],
+    "Faucet display cover plate": [
+      "faucet/faucet-display-cover/faucet-display-cover.step"
+    ],
+    "Above-counter plate": [
+      "faucet/above-counter-plate/above-counter-plate.step"
+    ],
+    "Faucet lever": [
+      "faucet/lever-replica/lever-replica.step"
+    ],
+    "Umbilical organizer — below faucet mount": [
+      "faucet/umbilical-organizer/umbilical-organizer.step"
+    ],
+    "Soda inlet bend holder": [
+      "soda-bend-holder/soda-bend-holder.step"
+    ],
+    "Rear equipment snap caps": [
+      "enclosure/rear-equipment-caps/asse-snap-cap.step",
+      "enclosure/rear-equipment-caps/regulator-snap-cap.step",
+      "enclosure/rear-equipment-caps/pisco-snap-cap.step",
+      "enclosure/rear-equipment-caps/meter-snap-cap.step"
+    ],
+    "G Ganen pump snap cap": [
+      "cold-core/foam-cap/pump-snap-cap.step"
+    ],
+    "Funnel frame": [
+      "zone-c/funnel/funnel-frame.step"
+    ],
+    "Funnel cover": [
+      "zone-c/funnel-cover/funnel-cover.step"
+    ],
+    "Funnel drain-elbow cradle": [
+      "zone-c/funnel/elbow-cradle.step"
+    ]
+  },
+  "group_of": [
+    [
+      "Cold-core inner shell",
+      "shell"
+    ],
+    [
+      "Cold-core foam cap",
+      "bulk"
+    ],
+    [
+      "Enclosure — front",
+      "ext"
+    ],
+    [
+      "Enclosure — back",
+      "ext"
+    ],
+    [
+      "Enclosure — pump retainer",
+      "ext"
+    ],
+    [
+      "Display cover plate",
+      "ext"
+    ],
+    [
+      "Soda inlet bend holder",
+      "small"
+    ],
+    [
+      "Reservoir B fill bend holder",
+      "small"
+    ],
+    [
+      "Rear equipment snap caps",
+      "small"
+    ],
+    [
+      "G Ganen pump snap cap",
+      "tool"
+    ],
+    [
+      "Flavor reservoir",
+      "tight"
+    ],
+    [
+      "Faucet shell",
+      "petgf"
+    ],
+    [
+      "Faucet display cover plate",
+      "petgf"
+    ],
+    [
+      "Above-counter plate",
+      "petgf"
+    ],
+    [
+      "Faucet lever",
+      "petgf"
+    ],
+    [
+      "Umbilical organizer",
+      "small"
+    ],
+    [
+      "PRV shroud",
+      "small"
+    ],
+    [
+      "Carbonator reed bridge",
+      "small"
+    ],
+    [
+      "Fuse clamp",
+      "small"
+    ],
+    [
+      "Bulkhead ring",
+      "rings"
+    ],
+    [
+      "Tube collar",
+      "rings"
+    ],
+    [
+      "Collet press",
+      "tool"
+    ],
+    [
+      "Nameplate",
+      "petgf"
+    ],
+    [
+      "Funnel frame",
+      "ext"
+    ],
+    [
+      "Funnel cover",
+      "cover"
+    ],
+    [
+      "Funnel drain-elbow cradle",
+      "ext"
+    ]
+  ]
+}

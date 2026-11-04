@@ -5,11 +5,15 @@ much the agents get done. This is the build's plan for it.
 
 ## Completion
 
-No step of the normal build loads CadQuery, OpenCASCADE (OCP) or meshcad. Each generator keeps
-its numbers in Python and has a Rust program cut its geometry on the kernel, as the
-[parts the kernel cuts](README.md#parts-the-kernel-cuts) do, and the checks and exports that
-read the geometry run in Rust or on `hsm`. The conversion converts what the build has: the same
-parts, checks and outputs.
+The complete conversion puts the normal build's dimensions, numeric recipes, file readers,
+document generation, geometry, checks and exports in Rust. No step loads CadQuery,
+OpenCASCADE (OCP) or meshcad. The conversion keeps the same parts, names, placements,
+colours, check answers and outputs.
+
+An unconverted caller can use a thin Python import or command adapter for a finished Rust
+piece. That adapter supplies raw provider inputs, restores its caller's Python object types
+and registers source and output paths; the calculations and file transformations belong to
+Rust. The remaining Python algorithms below are conversion work.
 
 ## How the work runs
 
@@ -33,8 +37,8 @@ parts, checks and outputs.
 
 ## The normal geometry programs
 
-Python supplies dimensions, numeric construction recipes, file references and document data.
-The Rust programs construct and measure the solids and compose their model/viewer files.
+The Rust programs construct and measure solids and compose their model/viewer files. Their
+explicit input recipes come from Rust data providers or the Python providers awaiting conversion.
 
 | Piece | Rust program or data boundary | Source |
 | --- | --- | --- |
@@ -48,11 +52,11 @@ The Rust programs construct and measure the solids and compose their model/viewe
 | Print surfaces | `enclosure-presentation`; enclosure, cold-core and faucet reduction, shading and source records | `hardware/printed-parts/enclosure/enclosure/enclosure_presentation.rs` |
 | Machine checks | `machine-checks`; fit, clearance, drain and scalar reports | `hardware/manifold-layout/machine_checks.rs` |
 | Model exports | `machine-export`; physical models, display surfaces, wiring append and eleven scene GLBs | `hardware/assembly/scenes/machine_export.rs` |
-| Model context | Plain facts, scene documents and numerical wiring context | `hardware/manifold-layout/_machine_reporting.py` |
-| Document readers | Scalar dimensions and facts with explicit source dependencies and numeric provider imports | BOM, assembly procedures, topology, enclosure dimensions and assembly instructions |
+| Model context | `machine-data`; facts, scene documents and numerical wiring context | `tools/hsm/machine-data/` |
+| Document readers | Rust ledger and procedure programs, with explicit source dependencies and remaining raw provider inputs | `tools/hsm/ledger/`, `tools/hsm/assembly-docs/` |
 
-The install guide's twelve plumbing scenes use Rust geometry with plain Python dimensions,
-colours and render jobs.
+The install guide's twelve plumbing scenes use Rust geometry. Their dimensions, colours and
+render-job providers include Python pieces awaiting conversion.
 
 The final machine report carries its existing construction questions from current scalar source
 ledgers and Rust measurements, including handhold sections and supported sloping faces.
@@ -68,16 +72,58 @@ The normal construction, placement, equipment, routes, checks, print surfaces an
 use Rust. Each merged speed batch runs the combined normal build with the existing fit and drain
 checks; source/output bindings, artifact readback and publication belong to that combined batch.
 
-The source reconciliation covers all 101 graph entrypoints and their 322 declared Python files,
+The source graph covers 101 entrypoints and 329 declared Python source and adapter files,
 alongside the retained piece comparisons that prohibit native CAD imports. It identifies no
 remaining normal-build CadQuery, OCP or meshcad load. This is source and fixed-input evidence,
 not dynamic coverage of every optional command.
 
-Python remains for dimensions, numeric recipes, file readers and documents. The inventoried
-native generator options, hose and collet illustration builders, and their native-only manual
-review callers are absent. Print preparation retains its slicer, project and report options;
-historical print records bind retired generator sources through Git. There are no identified
-normal CAD conversion pieces awaiting an owner.
+The inventoried native generator options, hose and collet illustration builders, and their
+native-only manual review callers are absent. Print preparation retains its slicer, project
+and report options; historical print records bind retired generator sources through Git.
+
+## Scalar, recipe and document programs
+
+`hardware/scripts/_rust_data.py` is the temporary JSON transport for Python callers. One Rust
+process serves each program during an interpreter's lifetime. Cargo's dep-info supplies the
+compiled source dependencies; adapters also register the data files Rust reads and the authored
+files it maintains with the existing build trace registries.
+
+| Program | Converted work |
+| --- | --- |
+| `hsm-documents` | Managed markers, Sources blocks, figure sidecars, Python comment/string scopes, Mermaid comments, table cells, numeric formatting, atomic placement and PDF/DXF normalization |
+| `ledger-data` | BOM arithmetic and mass readers, build timing windows, machine and labor estimates, tool purchase resolution and funnel casting |
+| `assembly-docs` | Assembly procedure figures, electrical budgets and schedules, fluid topology and marketing dimension readers |
+| `cold-core-data` | Carbonator stock, float and rod datums, bond, coil paths and lengths, mandrel, Aero float and shared casing base dimensions |
+| `faucet-data` | Scalar interface and tube paths, countertop seals/plates, organizer, display covers, industrial composition, lever stations and under-counter DXF |
+| `enclosure-data` | Trim/display/nameplate datums, rear labels, pump-case profiles and pump/valve tray recipes and figures |
+| `machine-data` | Facts and Box readers, fine-archive metadata, scalar report and scene composition, and equipment recipe providers |
+| `part-data` | Drain adapters, cuffs, press and cutting fixtures, pump sleeve, PCBA readers/trays, valve seat and zone-C recipes |
+| `layout-data` | Appliance frames, selected fitting names, native tube construction and sampling, reservoir routes and soda inlet/holder recipes |
+
+## Remaining Python pieces
+
+- Core enclosure sizing, construction recipes and scalar interface/datums.
+- Main manifold/assembly placement, route and check input construction, mounting ledgers,
+  rear snap datums and installed wiring providers.
+- Cold-core cap mount/conduit queries, reservoir and foam recipes, core assembly providers,
+  reed/shroud/hybrid-float recipes and carbonator/end-cap drawings.
+- Faucet shell and full assembly recipes and their remaining provider modules.
+- Shop storage, refrigeration and remaining fixture recipes.
+- Purchased-reference dimension providers, shared CAD scalar helpers, materials and routing stock.
+- Purchase-evidence ledger reconciliation and analysis.
+- Install-guide artwork/document composition and build, cache, artifact and publication glue.
+
+The scalar providers in those pieces remain live inputs to the converted programs. Their
+current computed values are not stored as replacement constants.
+
+## Fixed-input evidence
+
+The [2026-11-04 comparison record](conversion-results/2026-11-04.json) retains the source
+revision, input and artifact hashes, measured differences and completed comparisons for the
+data and document programs. The comparison source is `d6a0b281d`; inputs are fixed for each
+piece. It includes document byte comparisons, scalar and recipe comparisons, real archive/STL
+readers and complete native route sets. Pump profiles retain differences below the kernel's
+0.005 mm chord rule; their names, colours, bounds and source records agree.
 
 The CPU and memory goal still needs performance work in Rust. Component reductions and
 incremental build measurements do not establish a matched whole-machine speed or memory gain;

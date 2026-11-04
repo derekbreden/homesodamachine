@@ -67,48 +67,36 @@ def __getattr__(name):
     raise AttributeError(f"module {__name__!r} has no attribute {name!r}")
 
 
-# --- what the tray adds over the seats it carries ---------------------------
-#
-# THE SEAT IS SUNK IN THE PLATE AND NOT STOOD ON IT. A boss is material round a socket, and a
-# plate thick enough to hold the socket is that material already — so this plate carries the
-# holes and nothing else (`valve_seat.build_sockets`), and its own face is the plane the valve's
-# round body boss lands on. What the plate spends is thickness, and what it buys back is the
-# print: `enclosure-front-top` stands this plate vertical, so a boss on it is a Ø13.2 cylinder
-# cantilevered off a wall into air, with its own underside to bridge and its root standing on
-# nothing. The sunk socket has no external underside; enclosure gives its horizontal round
-# crown the tangent roof that keeps the internal bore support-free.
-#
-# The plate's thickness: one socket, and one wall of floor behind it.
-THICK = _seat.socket_depth() + _seat.wall
-# Material carried past a socket's own boss circle, so the last seat is not a scallop in the
-# plate's end. One wall, the same figure `valve_seat` puts around each socket.
-MARGIN = 3.0
-# The seat: the face IS where the valve lands, so its mounting plane stands `seat_top_z` UNDER
-# the face and nothing protrudes. Negative, and that is the whole difference from a stood seat.
-SEAT = -_seat.seat_top_z
-# Air round the valve's PORT where the plate opens for it. The port hangs under the face the
-# valve lands on (`port_drop`), so a solid plate would bury it: the plate takes a channel on its
-# own Y instead, the port's barrel and this slip, straight across and out both ends. The barrel
-# is longer than the plate is high, so the channel is open at both — in the piece's own print
-# orientation it runs UP the standing plate and prints as a notch in the section, nothing
-# bridged and nothing to pick out. The slip is half a millimetre, not the box's one-millimetre
-# figure for air round a body: the valve is no loose neighbour here. Its corner posts press into
-# the sockets and its round boss lands on this face, so the barrel only has to stand clear, and
-# every tenth taken off this air goes into the web between a socket and the channel. At half a
-# millimetre that web is 3.15 mm where the valve's face meets the plate.
-PORT_SLIP = _seat.port_air
+sys.path.insert(0, str(_hw / 'printed-parts/enclosure/enclosure'))
+from _enclosure_data import read as _read
+
+
+def _source():
+    values = {name: getattr(_seat, name) for name in (
+        'wall', 'socket_floor_z', 'socket_radius', 'seat_half_y', 'seat_top_z',
+        'port_air', 'corner_inset_x', 'corner_inset_y')}
+    values.update(socket_depth=_seat.socket_depth(),
+                  port_center_z=_valve.port_center_z, port_radius=_valve.port_radius)
+    return values
+
+
+globals().update(_read('valve-tray-defaults', source=_source()))
+
+
+def _data(op, **values):
+    return _read('valve-tray-' + op, source=_source(),
+                 stock={name: globals()[name] for name in ('THICK', 'MARGIN', 'SEAT', 'PORT_SLIP')},
+                 **values)
 
 
 def reach() -> float:
     """The seat's reach along its port axis, which sets the plate's height."""
-    return _seat.seat_half_y
+    return _data('reach')
 
 
 def height(seats=()) -> float:
     """The seats' complete row span, their reach, and one `MARGIN` past each end."""
-    ys = [y for _x, y in seats]
-    span = max(ys) - min(ys) if ys else 0.0
-    return span + 2.0 * (reach() + MARGIN)
+    return _data('height', seats=seats)
 
 
 def wall_root_floors(seats) -> tuple:
@@ -118,9 +106,7 @@ def wall_root_floors(seats) -> tuple:
     each full-width wall root carries its outer valve's complete reach and margin.
     Coordinates are the seats' along-plate axis, world Z in the enclosure.
     """
-    xs = [x for x, _y in seats]
-    return tuple(min(y for x, y in seats if abs(x - edge) < 1e-6)
-                 - reach() - MARGIN for edge in (min(xs), max(xs)))
+    return tuple(_data('wall-root-floors', seats=seats))
 
 
 def port_drop() -> float:
@@ -131,12 +117,12 @@ def port_drop() -> float:
     that — so the barrel reaches this far inside a plate whose face is the landing plane. It is
     why the plate opens a channel and not why the plate is thick: the sockets set the thickness
     and the channel is cut back out of it."""
-    return _seat.seat_top_z - (_valve.port_center_z - _valve.port_radius)
+    return _data('port-drop')
 
 
 def port_channel_depth() -> float:
     """How deep that channel cuts below the face — the port's drop and its slip."""
-    return port_drop() + PORT_SLIP
+    return _data('channel-depth')
 
 
 def extrusion(width) -> float:
@@ -178,7 +164,7 @@ def grip() -> float:
     whole of what holds a valve down. A still deck's face is the valve's own landing plane and
     the post is in the plate over its whole length, on every deck — the release moves the tee
     it butts and not the valve itself, so no plate on this machine is set off its valves."""
-    return _seat.seat_top_z
+    return _data('grip')
 
 
 def build_port_channel(length: float):
@@ -257,10 +243,7 @@ def build_valve_tray(width: float, seats):
 
 def _segment_area(radius: float, over: float) -> float:
     """The area a circle of `radius` whose centre stands `over` a plane leaves BELOW it."""
-    if over >= radius:
-        return 0.0
-    return (radius ** 2 * math.acos(over / radius)
-            - over * math.sqrt(radius ** 2 - over ** 2))
+    return _data('segment', radius=radius, over=over)
 
 
 def tray_volume(width: float, seats) -> float:
@@ -272,17 +255,14 @@ def tray_volume(width: float, seats) -> float:
     straight out of both ends of the plate, and neither reaches the plate's back. So every cut
     is a whole prism of known section, and a tray that measures anything else has a socket in
     its channel or a channel out of its back."""
-    socket = math.pi * _seat.socket_radius ** 2 * _seat.socket_depth()
-    channel = height(seats) * _segment_area(_valve.port_radius + PORT_SLIP,
-                                       _valve.port_center_z - _seat.seat_top_z)
-    return width * height(seats) * THICK - len(seats) * (4.0 * socket + channel)
+    return _data('volume', width=width, seats=seats)
 
 
 def channel_floor() -> float:
     """What the plate keeps under a port channel at its deepest. The channel's own floor is the
     thinnest section on the plate — thinner than the socket floors, or the channel would be the
     thing that sets `THICK`."""
-    return THICK - port_channel_depth()
+    return _data('channel-floor')
 
 
 def depth() -> float:
@@ -356,101 +336,29 @@ def trays_of_machine(facts):
 
 
 def _socket_numbers(x, y, shift):
-    return [[x + sx * _seat.corner_inset_x, y + sy * _seat.corner_inset_y,
-             _seat.socket_floor_z + shift, _seat.socket_radius,
-             _seat.seat_top_z - _seat.socket_floor_z + 1.0]
-            for sx in (-1.0, 1.0) for sy in (-1.0, 1.0)]
+    return _data('sockets', x=x, y=y, shift=shift)
 
 
 def tray_stock_numbers(width, seats):
     """The stock and cylindrical cuts of ``build_valve_tray``, in its own frame."""
-    ys = [y for _x, y in seats]
-    mid_y = (min(ys) + max(ys)) / 2.0
-    tray_height = height(seats)
-    return {
-        "slab": [[-width / 2.0, mid_y - tray_height / 2.0, -THICK],
-                 [width / 2.0, mid_y + tray_height / 2.0, 0.0]],
-        "sockets": [s for x, y in seats for s in _socket_numbers(x, y, SEAT)],
-        "channels": [[x, y, _valve.port_center_z + SEAT,
-                      _valve.port_radius + PORT_SLIP,
-                      tray_height + 2.0 * abs(y - mid_y) + 2.0] for x, y in seats],
-    }
+    return _data('stock', width=width, seats=seats)
 
 
 def numbers(trays):
     """The original tray stock, socket/channel cylinders and finite web-reading solids."""
-    sys.path.insert(0, str(_hw / "printed-parts/enclosure/enclosure"))
-    import _enclosure_interface as interface                     # noqa: PLC0415
-
-    plans = []
-    for name, (width, seats) in sorted(trays.items()):
-        plans.append({"name": name, **tray_stock_numbers(width, seats)})
-    return {"trays": plans, "extrusion_w": interface.extrusion_w,
-            "web_sockets": _socket_numbers(0.0, 0.0, 0.0),
-            "web_channel": [0.0, 0.0, _valve.port_center_z,
-                            _valve.port_radius + PORT_SLIP, height() + 2.0]}
+    import _enclosure_interface as interface
+    return _data('recipe', trays=trays, extrusion_w=interface.extrusion_w)
 
 
 def main():
-    import _rust_part                                           # noqa: PLC0415
-    import _facts                                               # noqa: PLC0415
-
+    import _rust_part
+    import _facts
     trays = trays_of_machine(_facts.read())
-    measured = _rust_part.check("enclosure-components", "valve-tray", numbers(trays))
-    print(f"Valve tray — {len(trays)} stood in enclosure-front-top: "
-          f"{', '.join(sorted(trays))}")
-    total = 0.0
-    for row in measured["trays"]:
-        name = row["name"]
-        width, seats = trays[name]
-        total += row["volume"]
-        print(f"  {name}: {width:g} x {height(seats):g} x {THICK:g}, {len(seats)} seats at "
-              + ", ".join(f"({x:.3f}, {y:.3f})" for x, y in seats))
-        print(f"    material {row['volume'] / 1000.0:.2f} cm^3, closed form "
-              f"{tray_volume(width, seats) / 1000.0:.2f} cm^3, valid {row['valid']}")
-    width, seats = next(iter(sorted(trays.values())))
-    print(f"  a post stands {grip():.3f} mm in the plate of {_seat.seat_top_z:g} mm")
-    _ext = extrusion(measured["extrusion_w"])
-    _web = measured["web"]
-    print(f"  socket to port channel: {_web:.4f} mm — "
-          f"{100.0 * _web / _ext:.0f}% of a {_ext:g} bead")
-
-    substitute_md(
-        _here.parent / "README.md",
-        variables={
-            "TRAY_W": f"{width:g}",
-            "TRAY_H": "/".join(f"{h:g}" for h in sorted({height(s) for _w, s in trays.values()})),
-            "TRAY_T": f"{THICK:g}",
-            "TRAY_D": f"{depth():g}",
-            "TRAY_SEAT": f"{SEAT:g}",
-            "TRAY_MARGIN": f"{MARGIN:g}",
-            "TRAY_REACH": f"{reach():g}",
-            "TRAY_SEATS": f"{len(seats)}",
-            # The aft plate carries two elevations: its outer columns stand this far
-            # above its inner pair, which ride the source limbs down.
-            "TRAY_AFT_STEP": "/".join(
-                f"{max(y for _x, y in s) - min(y for _x, y in s):g}"
-                for _n, (_w, s) in sorted(trays.items())
-                if max(y for _x, y in s) - min(y for _x, y in s) > 1e-9),
-            "TRAY_COUNT": f"{len(trays)}",
-            "TRAY_VOL": f"{total / 1000.0:.2f}",
-            "SOCKET_DIA": f"{2 * _seat.socket_radius:.4g}",
-            "SOCKET_DEPTH": f"{_seat.socket_depth():g}",
-            "SOCKET_FLOOR": f"{THICK - _seat.socket_depth():g}",
-            "CHANNEL_DIA": f"{2 * (_valve.port_radius + PORT_SLIP):.4g}",
-            "CHANNEL_DEPTH": f"{port_channel_depth():.2f}",
-            "CHANNEL_FLOOR": f"{channel_floor():.2f}",
-            "PORT_DROP": f"{port_drop():.2f}",
-            "PORT_SLIP": f"{PORT_SLIP:g}",
-            "TRAY_POST": f"{_seat.seat_top_z:g}",
-            "TRAY_GRIP": f"{grip():.3f}",
-            "TRAY_WEB": f"{_web:.3f}",
-            "TRAY_PORT_SLIP": f"{PORT_SLIP:g}",
-            "TRAY_EXTRUSION": f"{_ext:g}",
-            "TRAY_WEB_PCT": f"{100.0 * _web / _ext:.0f}",
-        },
-    )
-    print("-> README.md")
+    measured = _rust_part.check('enclosure-components', 'valve-tray', numbers(trays))
+    report = _data('report', trays=trays, measured=measured)
+    print('\n'.join(report['lines']))
+    substitute_md(_here.parent / 'README.md', variables=report['variables'])
+    print('-> README.md')
 
 
 if __name__ == "__main__":

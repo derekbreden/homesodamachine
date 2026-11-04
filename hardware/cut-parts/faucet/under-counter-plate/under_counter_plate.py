@@ -57,170 +57,44 @@ Drawing is in mm with $INSUNITS = 4.
 """
 
 import sys
-import math
 from pathlib import Path
 
-import ezdxf
-
 _here = Path(__file__).resolve()
-sys.path.insert(
-    0,
-    str(next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"),
-)
 _hardware_dir = next(p for p in _here.parents if p.name == "hardware")
-sys.path.insert(0, str(_hardware_dir / "printed-parts" / "faucet"))
-sys.path.insert(0, str(_hardware_dir / "printed-parts" / "cadlib"))
-sys.path.insert(0, str(_hardware_dir / "scripts"))
+sys.path[:0] = [str(_hardware_dir.parent / "tools"), str(_hardware_dir / "scripts")]
 from docgen import substitute_md, substitute_py_comments
-from _document_export import export_dxf
-import _faucet_interface as interface
+from _document_export import _WRITE_TARGETS
+from _rust_data import request
 
-# Dimensions in mm. DXF $INSUNITS = 4 (millimeters).
-# Shared centered mounting interface for both faucet styles.
 
-shank_cx = 0.0
-shank_cy = 0.0
-# [12.6 mm](SHANK_HOLE_D) shank pocket — the threaded shank passes
-# through all three counter-stack parts.
-shank_diameter = interface.shank_hole_diameter
-shank_radius = shank_diameter / 2.0
+def _data(**values):
+    return request("faucet-data", "faucet-data", {"op": "under-counter-plate", **values})
 
-# Pill is Y-oriented (matching the gasket): long axis along Y, short
-# axis along X.
-# DXF axes are the plate's own laser-cut frame: this DXF X is the
-# depth-magnitude offset from the shank in world coords (the pill sits
-# at world +Y relative to the Westbrass axis); this DXF Y is the lateral
-# (world X) axis. Channels open in DXF -Y (lateral).
-# [18.93 mm](FLAVOR_TUBE_X) DXF +X offset of the steel pocket from the shank.
-pill_cx = interface.flavor_tube_depth
-pill_cy = 0.0
-# [18.15 mm](PILL_L) steel pocket long axis in DXF Y (= world-lateral X).
-pill_long_y = interface.bundle_slot_length_x
-# [7.25 mm](PILL_W) steel pocket short axis in DXF X (= world-depth Y).
-pill_short_x = interface.pill_width_y
-pill_half_long = pill_long_y / 2.0       # [9.075 mm](PILL_HALF_LONG)
-pill_half_short = pill_short_x / 2.0     # [3.625 mm](PILL_HALF_SHORT)
-pill_cap_radius = pill_half_short        # [3.625 mm](PILL_CAP_R)
-pill_top_cap_cy = pill_cy + (pill_half_long - pill_cap_radius)   # [5.45 mm](PILL_TOP_CAP_CY)
-pill_bot_cap_cy = pill_cy - (pill_half_long - pill_cap_radius)   # [-5.45 mm](PILL_BOT_CAP_CY)
-pill_left_x = pill_cx - pill_half_short     # [15.3 mm](PILL_LEFT_X)
-pill_right_x = pill_cx + pill_half_short    # [22.55 mm](PILL_RIGHT_X)
 
-# Circular bearing outline spans the countertop opening and both channels.
-# [54.55 mm](PLATE_D) disc centered at DXF ([3.275 mm](DISC_CX), 0).
-bore_front_x = -16.0   # [-16 mm](BORE_FRONT_X)
-disc_reach_margin = 8.0
-disc_cx = (pill_right_x + bore_front_x) / 2.0
-disc_cy = 0.0
-disc_radius = (pill_right_x - bore_front_x) / 2.0 + disc_reach_margin
-disc_diameter = 2.0 * disc_radius
+globals().update(_data()["datums"])
 
-# [1.5 mm](FILLET_R) fillet radius at the four channel-mouth corners
-# where a vertical channel wall meets the disc rim.
-fillet_radius = 1.5
 
 def rim_y_lower(x):
-    """Lower Y on the disc rim at the given X (the bottom of the disc)."""
-    return disc_cy - math.sqrt(disc_radius ** 2 - (x - disc_cx) ** 2)
+    """The disc rim's lower Y at X, from the Rust outline program."""
+    return _data(rim_x=x)
 
 
 def channel_corner_fillet(wall_x, material_side, r=None):
-    """
-    (fillet_center, wall_tangent_pt, rim_tangent_pt) for an arc of
-    radius r tangent to both the channel wall at x = wall_x and the
-    lower disc rim. material_side = -1 when material lies at x < wall_x
-    (left walls), +1 when material lies at x > wall_x (right walls).
-    """
-    if r is None:
-        r = fillet_radius
-    x_c = wall_x + material_side * r
-    dx = x_c - disc_cx
-    inner_r = disc_radius - r
-    # Lower-half intersection — channels exit the rim at y < 0.
-    y_c = disc_cy - math.sqrt(inner_r * inner_r - dx * dx)
-    fillet_center = (x_c, y_c)
-    wall_tangent = (wall_x, y_c)
-    ux = (x_c - disc_cx) / inner_r
-    uy = (y_c - disc_cy) / inner_r
-    rim_tangent = (disc_cx + disc_radius * ux,
-                   disc_cy + disc_radius * uy)
-    return fillet_center, wall_tangent, rim_tangent
+    """Fillet centre, wall tangent and rim tangent from the Rust outline program."""
+    return tuple(tuple(p) for p in _data(wall_x=wall_x, material_side=material_side, radius=r))
 
 
 def ccw_arc(msp, center, radius, start_pt, end_pt):
-    """CCW arc about center, from start_pt to end_pt."""
-    start_angle = math.degrees(math.atan2(start_pt[1] - center[1], start_pt[0] - center[0]))
-    end_angle = math.degrees(math.atan2(end_pt[1] - center[1], end_pt[0] - center[0]))
-    if end_angle <= start_angle:
-        end_angle += 360.0
-    msp.add_arc(center, radius, start_angle=start_angle, end_angle=end_angle)
+    """Compatibility for a native drawing caller's modelspace."""
+    arc = _data(arc={"center": center, "radius": radius, "start": start_pt, "end": end_pt})
+    msp.add_arc(center, radius, start_angle=arc["start_angle"], end_angle=arc["end_angle"])
 
 
 def make_dxf():
-    doc = ezdxf.new(dxfversion="R2010")
-    doc.header["$INSUNITS"] = 4   # 4 = millimeters
-    msp = doc.modelspace()
-
-    top_of_disc = (disc_cx, disc_cy + disc_radius)                     # ([3.275 mm](DISC_CX), [27.27 mm](TOP_OF_DISC_Y))
-
-    # Shank channel — extends in -Y from the shank's bottom semicircle
-    # to the rim, width [12.6 mm](SHANK_HOLE_D) in X.
-    shank_left_wall_x = shank_cx - shank_radius                        # [-6.3 mm](SHANK_LEFT_WALL_X)
-    shank_right_wall_x = shank_cx + shank_radius                       # [6.3 mm](SHANK_RIGHT_WALL_X)
-    shank_left_wall_top = (shank_left_wall_x, shank_cy)                # ([-6.3 mm](SHANK_LEFT_WALL_X), 0)
-    shank_right_wall_top = (shank_right_wall_x, shank_cy)              # ([6.3 mm](SHANK_RIGHT_WALL_X), 0)
-    # Pill channel — extends in -Y from the pill rectangle's bottom
-    # edge (Y = pill_bot_cap_cy = [-5.45 mm](PILL_BOT_CAP_CY)) to the rim,
-    # width [7.25 mm](PILL_W) in X.
-    pill_left_wall_top = (pill_left_x, pill_bot_cap_cy)                # ([15.3 mm](PILL_LEFT_X), [-5.45 mm](PILL_BOT_CAP_CY))
-    pill_right_wall_top = (pill_right_x, pill_bot_cap_cy)              # ([22.55 mm](PILL_RIGHT_X), [-5.45 mm](PILL_BOT_CAP_CY))
-
-    pill_rect_top_left = (pill_left_x, pill_top_cap_cy)                # ([15.3 mm](PILL_LEFT_X), [5.45 mm](PILL_TOP_CAP_CY))
-    pill_rect_top_right = (pill_right_x, pill_top_cap_cy)              # ([22.55 mm](PILL_RIGHT_X), [5.45 mm](PILL_TOP_CAP_CY))
-
-    disc_center = (disc_cx, disc_cy)
-
-    # Fillets at the four channel-mouth corners.
-    sl_c, sl_wt, sl_rt = channel_corner_fillet(shank_left_wall_x, -1)
-    sr_c, sr_wt, sr_rt = channel_corner_fillet(shank_right_wall_x, +1)
-    pl_c, pl_wt, pl_rt = channel_corner_fillet(pill_left_x, -1)
-    pr_c, pr_wt, pr_rt = channel_corner_fillet(pill_right_x, +1)
-
-    ccw_arc(msp, disc_center, disc_radius, top_of_disc, sl_rt)
-
-    ccw_arc(msp, sl_c, fillet_radius, sl_rt, sl_wt)
-
-    msp.add_line(sl_wt, shank_left_wall_top)
-
-    # Upper semicircle — the pocket half that captures the shank.
-    msp.add_arc((shank_cx, shank_cy), shank_radius,
-                start_angle=0.0, end_angle=180.0)
-
-    msp.add_line(shank_right_wall_top, sr_wt)
-
-    ccw_arc(msp, sr_c, fillet_radius, sr_wt, sr_rt)
-
-    # Rim arc across the strip of material between the two channels.
-    ccw_arc(msp, disc_center, disc_radius, sr_rt, pl_rt)
-
-    ccw_arc(msp, pl_c, fillet_radius, pl_rt, pl_wt)
-
-    msp.add_line(pl_wt, pill_rect_top_left)
-
-    # Upper semicircle — the pocket half that captures the pill.
-    msp.add_arc((pill_cx, pill_top_cap_cy), pill_cap_radius,
-                start_angle=0.0, end_angle=180.0)
-
-    msp.add_line(pill_rect_top_right, pr_wt)
-
-    ccw_arc(msp, pr_c, fillet_radius, pr_wt, pr_rt)
-
-    ccw_arc(msp, disc_center, disc_radius, pr_rt, top_of_disc)
-
-    out_dir = Path(__file__).resolve().parent
-    out_name = "under-counter-plate"
-    out = out_dir / f"{out_name}.dxf"
-    export_dxf(doc, str(out))
+    """Write the Rust program's analytic R2010 outline in millimetres."""
+    out = _here.parent / "under-counter-plate.dxf"
+    _data(output=str(out))
+    _WRITE_TARGETS.add(out.relative_to(_hardware_dir.parent).as_posix())
     return out
 
 
@@ -237,30 +111,8 @@ if __name__ == "__main__":
     print(f"  Material spec:  0.060\" (1.524 mm) 316 stainless, laser-cut, qty 1 per appliance")
     print(f"-> {out.name}")
 
-    variables = {
-        "PLATE_D": f"{disc_diameter:.4g} mm",
-        "DISC_CX": f"{disc_cx:.4g} mm",
-        "BORE_FRONT_X": f"{bore_front_x:.4g} mm",
-        "TOP_OF_DISC_Y": f"{disc_cy + disc_radius:.4g} mm",
-        "SHANK_HOLE_D": f"{shank_diameter:.4g} mm",
-        "SHANK_LEFT_WALL_X": f"{shank_cx - shank_radius:.4g} mm",
-        "SHANK_RIGHT_WALL_X": f"{shank_cx + shank_radius:.4g} mm",
-        "FLAVOR_TUBE_X": f"{pill_cx:.4g} mm",
-        "PILL_L": f"{pill_long_y:.4g} mm",
-        "PILL_W": f"{pill_short_x:.4g} mm",
-        "PILL_HALF_LONG": f"{pill_half_long:.4g} mm",
-        "PILL_HALF_SHORT": f"{pill_half_short:.4g} mm",
-        "PILL_CAP_R": f"{pill_cap_radius:.4g} mm",
-        "PILL_TOP_CAP_CY": f"{pill_top_cap_cy:.4g} mm",
-        "PILL_BOT_CAP_CY": f"{pill_bot_cap_cy:.4g} mm",
-        "PILL_LEFT_X": f"{pill_left_x:.4g} mm",
-        "PILL_RIGHT_X": f"{pill_right_x:.4g} mm",
-        "FILLET_R": f"{fillet_radius:.4g} mm",
-        "STEEL_PLATE_D": f"{disc_diameter:.4g} mm",
-        "STEEL_SHANK_HOLE_D": f"{shank_diameter:.4g} mm",
-        "STEEL_PILL_L": f"{pill_long_y:.4g} mm",
-        "STEEL_PILL_W": f"{pill_short_x:.4g} mm",
-    }
+    variables = _data()["variables"]
+
     substitute_py_comments(
         Path(__file__),
         variables=variables,

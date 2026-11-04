@@ -51,19 +51,17 @@ def split(shape):
 
 def numbers():
     """The shared DATA trim datums, original glyph controls and filament colours."""
-    artwork=json.loads((STEP.parent/'data-word.json').read_text())
+    from _cadq_export import note_read
+    from _enclosure_data import dimensions, read
+    artwork = STEP.parent/'data-word.json'
+    note_read(artwork)
     def color(rgb):
         return linear(step_safe(cq.Color(*(c/255. for c in rgb))))
-    return {'width':interface.WIDTH,'top':interface.TOP,'bottom':interface.BOTTOM,
-            'thick':interface.THICK,'corner_radius':interface.CORNER_R,
-            'projection':interface.PROJECTION,'wing_thick':interface.WING_THICK,
-            'wing_span':interface.WING_SPAN,'wing_end_radius':interface.nameplate.END_RADIUS,
-            'center_z':interface.CENTER_Z,
-            'opening_width':interface.OPENING_W,'opening_height':interface.OPENING_H,
-            'opening_radius':interface.OPENING_R,'opening_overrun':.01,
-            'word_profiles':artwork['profiles'],'word_scale':ring.WORD_SIZE/artwork['em_mm'],
-            'word_depth':interface.INK_DEPTH,'word_raise':ring.WORD_RAISE,'word_band_bottom':11.,
-            'chip_color':color(rear.chip_color('flavor')),'word_color':color(rear.word_color('flavor'))}
+    values = dimensions()
+    return read('data-recipe', data=values['data'], nameplate=values['nameplate'],
+                bulkhead=values['bulkhead'], artwork_path=str(artwork),
+                chip_color=color(rear.chip_color('flavor')),
+                word_color=color(rear.word_color('flavor')))
 
 
 def main():

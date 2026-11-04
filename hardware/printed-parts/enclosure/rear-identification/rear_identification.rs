@@ -34,7 +34,7 @@ fn build(n: &Numbers, station: &Value) -> Result<(Solid, Solid, Solid)> {
         f(station, "word_center_z")?
             - (bounds.min.z + bounds.max.z) / 2.0,
     ));
-    let blank = Solid::cuboid(v3(-n.f("width")? / 2.0, 0.0, -n.f("bottom")?),
+    let blank = Solid::cuboid(v3(-n.f("width")? / 2.0, 0.0, -f(station,"bottom")?),
                               v3(n.f("width")? / 2.0, thick, f(station, "top")?));
     let bore = Solid::cylinder(v3(f(station, "bore_x")?, -n.f("bore_overrun")?,
                                   f(station, "bore_z")?), V3::Y,

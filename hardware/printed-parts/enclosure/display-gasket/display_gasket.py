@@ -34,23 +34,18 @@ from _enclosure_interface import (
 )
 
 
-# THE RING IS THE LAP. Outer edge on the glass's own outline, inner edge on the cover plate's
-# window — so it lies under the border exactly, out of the screen and short of the bezel wall.
-outer_x = display_bezel_x                                     # [113.5 mm](GASKET_OUTER_X)
-outer_slope = display_bezel_slope                             # [77 mm](OUTER_SLOPE)
-inner_x = display_bezel_x - 2.0 * display_inset_lap           # [107.5 mm](INNER_X)
-inner_slope = display_bezel_slope - 2.0 * display_inset_lap   # [71 mm](INNER_SLOPE)
-corner_r = display_corner_r
+from _enclosure_data import read as _read
 
-# THE THICKNESS IS THE GAP, so it is derived and not chosen: the glass's front face down from
-# the display plane, less where the plate's underside sits. `glass_thickness` is the cover glass
-# standing proud of the display's own front face inside the bezel counterbore.
-glass_thickness = 1.0
-glass_face_depth = display_bezel_depth - glass_thickness      # [4.84 mm](GLASS_FACE_DEPTH)
-thickness = glass_face_depth - display_inset_depth            # [1 mm](THICKNESS)
 
-z_top = -display_inset_depth                                  # against the plate's underside
-z_bottom = z_top - thickness                                  # against the glass
+def _data():
+    return _read('gasket', display_bezel_x=display_bezel_x,
+                 display_bezel_slope=display_bezel_slope,
+                 display_corner_r=display_corner_r, display_inset_lap=display_inset_lap,
+                 display_bezel_depth=display_bezel_depth, display_inset_depth=display_inset_depth,
+                 color=linear(M_TPU_BLACK))
+
+
+globals().update(_data()['scalars'])
 
 
 def _rounded_prism(x, slope, r, z0, z1) -> cq.Workplane:
@@ -72,10 +67,7 @@ def build_display_gasket() -> cq.Workplane:
 
 def numbers():
     """The glass/window outlines and their shared compressed-gap thickness."""
-    return {'name':'display-gasket','color':linear(M_TPU_BLACK),
-            'outer':(outer_x,outer_slope,corner_r,z_bottom,z_top,0.,0.),
-            'window':(inner_x,inner_slope,corner_r,z_bottom-1.,z_top+1.,0.,0.),
-            'wings':[]}
+    return _data()['recipe']
 
 
 def main():
@@ -94,17 +86,7 @@ def main():
     print(f"  Bounding box: X [{lo[0]:.2f}, {hi[0]:.2f}]  Y [{lo[1]:.2f}, {hi[1]:.2f}]  "
           f"Z [{lo[2]:.2f}, {hi[2]:.2f}]")
 
-    variables = {
-        "GASKET_OUTER_X": f"{outer_x:.4g} mm",
-        "OUTER_SLOPE": f"{outer_slope:.4g} mm",
-        "INNER_X": f"{inner_x:.4g} mm",
-        "INNER_SLOPE": f"{inner_slope:.4g} mm",
-        "GASKET_RING_W": f"{display_inset_lap:.4g} mm",
-        "CORNER_R": f"{corner_r:.4g} mm",
-        "THICKNESS": f"{thickness:.4g} mm",
-        "GLASS_FACE_DEPTH": f"{glass_face_depth:.4g} mm",
-        "PLATE_UNDERSIDE": f"{display_inset_depth:.4g} mm",
-    }
+    variables = _data()['variables']
 
     substitute_md(_here.parent / "README.md", variables=variables)
     print("-> README.md")
