@@ -6,7 +6,6 @@ column carries both the meter and ASSE; their strap openings remain open.
 """
 
 import importlib
-import functools
 import math
 from pathlib import Path
 import sys
@@ -49,43 +48,6 @@ def meter_support_datums():
             'body_setback': ({'fore_face_y_mm':y-1.5, 'top_z_mm':315.}
                              if side == 1 else None),
         })
-    return tuple(result)
-
-
-@functools.cache
-def meter_supports():
-    """Two roof-rooted rectangular piers, with west-open circular seats."""
-    import cadquery as cq
-    result = []
-    for data in meter_support_datums():
-        low, high = data['stock_min_world_mm'], data['stock_max_world_mm']
-        x, y, z = data['centre_world_mm']
-        stock = cq.Solid.makeBox(*(high[i]-low[i] for i in range(3)), cq.Vector(*low))
-        bore = cq.Solid.makeCylinder(data['seat_radius_mm'],data['width_mm']+.2,
-            cq.Vector(x,low[1]-.1,z),cq.Vector(0,1,0))
-        a, b = data['tie_slot_min_world_mm'], data['tie_slot_max_world_mm']
-        slot = cq.Solid.makeBox(*(b[i]-a[i] for i in range(3)),cq.Vector(*a))
-        stock = stock.cut(bore, slot)
-        if data['body_setback']:
-            fit = data['body_setback']
-            stock = stock.cut(cq.Solid.makeBox(high[0]-low[0]+.2,
-                fit['fore_face_y_mm']-low[1]+.1,fit['top_z_mm']-low[2]+.1,
-                cq.Vector(low[0]-.1,low[1]-.1,low[2]-.1)))
-        if data['asse_bore']:
-            import _above_core_shell as shell
-            fit = data['asse_bore']
-            cx, cz = fit['centre_xz_mm']
-            stock = stock.cut(cq.Solid.makeCylinder(fit['radius_mm'],data['width_mm']+.2,
-                cq.Vector(cx,low[1]-.1,cz),cq.Vector(0,1,0)))
-            stock = stock.cut(shell.tie_window('y',low[1]-.1,high[1]+.1,
-                cx+fit['radius_mm']+3.,cx+fit['radius_mm']+5.5,cz))
-            # A straight west mouth admits the whole rigid collar. The open
-            # approach above it joins the ASSE bore, leaving no tapered web.
-            stock = stock.cut(shell.box(low[0]-.1,x,low[1]-.1,high[1]+.1,
-                z-data['seat_radius_mm'],z+data['seat_radius_mm']),
-                shell.box(low[0]-.1,data['tie_backing_x_mm'],y-1.5,y+1.5,
-                    a[2],cz))
-        result.append(stock.clean())
     return tuple(result)
 
 
