@@ -5617,8 +5617,8 @@
       ]
     },
     "nameplate": {
-      "center_x_mm": 0.0,
-      "center_z_mm": 200.0,
+      "center_x_mm": -43.85,
+      "center_z_mm": 220.0,
       "face_y_mm": 473.5
     }
   }

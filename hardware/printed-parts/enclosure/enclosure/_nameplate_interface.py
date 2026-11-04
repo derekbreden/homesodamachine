@@ -19,7 +19,9 @@ Nameplate = namedtuple("Nameplate", "x z width height corner bevel slip thick wa
 
 
 def station(x, z):
-    return Nameplate(x, z, WIDTH, HEIGHT, CORNER_R, BEVEL, SLIP, THICK, WALL)
+    plate = _dimensions()['nameplate']
+    return Nameplate(x, z, plate['WIDTH'], plate['HEIGHT'], plate['CORNER_R'],
+                     BEVEL, SLIP, plate['THICK'], WALL)
 
 
 def box(x0, x1, y0, y1, z0, z1):

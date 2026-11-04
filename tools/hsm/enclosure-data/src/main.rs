@@ -49,13 +49,13 @@ fn defaults(v: &Value) -> Result<Value> {
     });
     let floor_stock = 3.6;
     let nameplate = json!({
-        "WIDTH":width,"HEIGHT":height,"THICK":3.36,"FIELD_THICK":3.36,
+        "WIDTH":92.,"HEIGHT":100.,"CORNER_R":5.,"THICK":3.36,"FIELD_THICK":3.36,
         "PROJECTION":2.40,"WING_THICK":1.68,"WING_SPAN":30.,"END_RADIUS":0.6,
         "FACE_SLIP":slip,"BACK_AIR":slip,"FACE_X_AIR":0.15,"THICKNESS_AIR":0.45,
         "TIP_AIR":0.15+slip,"END_AIR":slip,"SUPPORTED_END_AIR":supported,
         "FLOOR_STOCK":floor_stock,"RUNOUT_LEAD":3.*2_f64.sqrt()-floor_stock,
         "ENTRY_BEVEL_WIDTH":1.10,"ENTRY_BEVEL_DEPTH":0.40,"EAST_BACKING":2.14,
-        "EAST_RELIEF_START":width/2.+0.125
+        "EAST_RELIEF_START":92./2.+0.125
     });
     let top = 18.789;
     let bottom = 11.;
