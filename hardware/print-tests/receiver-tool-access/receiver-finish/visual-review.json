@@ -49,14 +49,14 @@
       "visible": true
     },
     {
-      "followup": "Ready \u00b7 Mark1 \u00b7 5 parts \u00b7 6 h 25 min \u00b7 196.93 g",
+      "followup": "Ready \u00b7 Mark1 \u00b7 5 parts \u00b7 6 h 16 min \u00b7 195.14 g",
       "sampleDisabled": true,
       "overflow": false
     }
   ],
   "fragment": "/Users/derekbredensteiner/.codex/visualizations/2026/11/01/01a19503-4047-7cf0-ad82-9e42d010912e/receiver-tool-access.html",
-  "fragment_sha256": "68448833a563f3c8b612de57e9a08215350a3100ab8835d0922d4feaa3f28c91",
-  "fragment_bytes": 870053,
+  "fragment_sha256": "452651fcc7995f217b42fa6e938d32e4bf5da1d4694feac17c20043370166095",
+  "fragment_bytes": 867325,
   "geometry": "Current production receivers, unchanged solid pointed caps, exact submitted complete-set plates, prepared five-receiver plate and checked staged PISCO path.",
   "viewports": [
     "360 px light",

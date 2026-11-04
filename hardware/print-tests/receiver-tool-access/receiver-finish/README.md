@@ -16,8 +16,8 @@ repeated bending and practical support removal remain physical checks.
 The [prepared five-receiver plate](print-job.json) uses Mark1's left hardened
 0.4 mm Standard nozzle, black PET-GF, three Classic walls, 15% gyroid receiver
 bulk and Tree(auto)/Default. Every receiver keeps its production orientation.
-The native full-bead minimum bed margin is 56.03 mm. Estimated duration is
-6 h 25 min and filament use is 196.93 g. It is ready for the next clear Mark1
+The native full-bead minimum bed margin is 46.61 mm. Estimated duration is
+6 h 16 min and filament use is 195.14 g. It is ready for the next clear Mark1
 bed; the complete-set jobs continue running. The paired cartridge and all
 caps are omitted because the complete-set plates already contain them.
 

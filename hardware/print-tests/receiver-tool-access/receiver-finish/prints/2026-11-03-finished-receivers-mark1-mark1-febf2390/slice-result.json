@@ -1,44 +1,44 @@
 {
   "error_string": "Success.",
-  "export_time": 5427,
+  "export_time": 7220,
   "layer_height": 0.23999999463558197,
   "plate_index": 0,
-  "prepare_time": 33,
+  "prepare_time": 248,
   "return_code": 0,
   "sliced_plates": [
     {
       "feature_type_times": {
-        "Bottom surface": 523.0734252929688,
-        "Bridge": 2098.677001953125,
+        "Bottom surface": 523.0735473632812,
+        "Bridge": 2047.00341796875,
         "Custom": 302.8258361816406,
         "Flush": 15.0,
-        "Gap infill": 221.14337158203125,
-        "Inner wall": 3564.7353515625,
-        "Internal solid infill": 2432.5849609375,
-        "Outer wall": 2140.38671875,
-        "Overhang wall": 248.6038360595703,
-        "Sparse infill": 6406.77099609375,
-        "Support": 1791.220947265625,
-        "Support interface": 100.40208435058594,
-        "Top surface": 469.4014587402344,
-        "Travel": 2790.253662109375,
-        "Undefined": 2783.2978515625
+        "Gap infill": 223.8284912109375,
+        "Inner wall": 3497.868408203125,
+        "Internal solid infill": 2329.553955078125,
+        "Outer wall": 2087.747802734375,
+        "Overhang wall": 236.56642150878906,
+        "Sparse infill": 6436.05517578125,
+        "Support": 1764.9547119140625,
+        "Support interface": 94.31584930419922,
+        "Top surface": 455.9537048339844,
+        "Travel": 2590.62353515625,
+        "Undefined": 2583.667724609375
       },
       "filament_change_times": 0,
       "filaments": [
         {
           "filament_id": "GFT01",
           "id": 1,
-          "main_used_g": 196.9346160888672,
-          "total_used_g": 196.9346160888672
+          "main_used_g": 195.1392822265625,
+          "total_used_g": 195.13926696777344
         }
       ],
-      "generate_support_material_time": 2277,
+      "generate_support_material_time": 12800,
       "id": 1,
-      "infill_time": 1208,
+      "infill_time": 3075,
       "layer_filament_change": 0,
-      "main_predication": 22763.943359375,
-      "make_perimeters_time": 329,
+      "main_predication": 22261.626953125,
+      "make_perimeters_time": 1250,
       "obj_cached_cnt": 0,
       "objects": [
         {
@@ -52,7 +52,7 @@
           },
           "id": 5,
           "name": "pump-seat",
-          "triangle_count": 576
+          "triangle_count": 548
         },
         {
           "bbox": {
@@ -65,7 +65,7 @@
           },
           "id": 9,
           "name": "meter-seat",
-          "triangle_count": 4874
+          "triangle_count": 4854
         },
         {
           "bbox": {
@@ -78,7 +78,7 @@
           },
           "id": 13,
           "name": "asse-seat",
-          "triangle_count": 1704
+          "triangle_count": 1688
         },
         {
           "bbox": {
@@ -91,7 +91,7 @@
           },
           "id": 17,
           "name": "pisco-seat",
-          "triangle_count": 1516
+          "triangle_count": 1420
         },
         {
           "bbox": {
@@ -104,13 +104,13 @@
           },
           "id": 21,
           "name": "regulator-seat",
-          "triangle_count": 5418
+          "triangle_count": 5358
         }
       ],
-      "sliced_time": 10354,
-      "sliced_time_with_cache": 6169,
-      "total_predication": 23089.8125,
-      "triangle_count": 14088,
+      "sliced_time": 32483,
+      "sliced_time_with_cache": 14494,
+      "total_predication": 22587.49609375,
+      "triangle_count": 13868,
       "warning_message": ""
     }
   ],
