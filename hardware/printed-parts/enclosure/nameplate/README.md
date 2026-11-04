@@ -48,10 +48,13 @@ openings are in the receiver, accessible from outside the assembled enclosure.
 stock and cavities used by the production back-top. The local receiver export and
 website cutaway use that same interface.
 
-The plate centre is world X−45.4/Z220 and its face is Y474.3. The complete receiver
+The plate centre is world X−45.4/Z220 and its face is Y476.3. The complete receiver
 is 94.3 mm wide: its outside edges leave 2.95 mm to the rear-corner tangent at
 X−95.5 and 2.90 mm to the adjacent color-chip frame at X4.65. These are frame-to-frame
-and frame-to-corner spaces. The frame is flush with the color-chip rail in Y.
+and frame-to-corner spaces. The receiver stands 5 mm proud of the rear wall,
+2 mm beyond the color-chip rail.
+This depth retains at least 3 mm behind the clip pockets where the cold-core
+clearance trims the interior of back-top.
 [Production fit measurements](production-fit.json) record the geometry review.
 
 ## Printing and assembly

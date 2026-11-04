@@ -46,12 +46,14 @@ click: x=-8.400 y=3.600 z=-21.198
 click: x=-7.803 y=3.600 z=-30.805
 click: x=3.419 y=3.600 z=28.000
 
-[ceiling] Wrong print-axis classification: these are the divider and frame edges. The nameplate beds on its rear clip backs at Y−4 with CAD +Y upward (PRINT_TILT_X=90), while the ceiling finder only applies PRINT_UP to CAD Z. These edges stand vertically during the face-up print; they are not unsupported print-down ceilings. Reported to Derek.
+[ceiling] Wrong print-axis classification: these are the divider, frame and clip-root end edges. The nameplate beds on its rear clip backs at Y−4 with CAD +Y upward (PRINT_TILT_X=90), while the ceiling finder only applies PRINT_UP to CAD Z. These edges stand vertically during the face-up print; they are not unsupported print-down ceilings. Reported to Derek.
 alternatives: Evaluate ceiling normals and height in the complete print pose, as the ledge finder already does. Standing the plate on its Z end would create the overhangs the current ceiling report assumes.
 file: hardware/printed-parts/enclosure/nameplate/nameplate-001.step
 click: x=0.000 y=3.600 z=2.390
 click: x=0.000 y=3.600 z=44.790
 click: x=0.000 y=3.600 z=-45.210
+click: x=-41.000 y=-2.000 z=-35.500
+click: x=41.000 y=-2.000 z=-35.500
 
 [thin] Required First Edition graphic outlines: finite identification strokes begin at 0.325 mm; the frame and divider are 0.42 mm wide, and QR modules are 1.20 mm. The 0.003 mm, zero-area sample is a narrowing at a glyph curve junction, not a continuous membrane. These points belong to the specified raised lettering, QR and frame; this new artwork has CAD validation and no physical print acceptance.
 alternatives: Heavier glyphs or larger lettering change the approved type or its balanced layout. A wider frame changes the requested fine border. Larger QR modules increase its footprint; flush ink removes the required relief. Use a variable-width print process for the 0.325 mm identification strokes.
