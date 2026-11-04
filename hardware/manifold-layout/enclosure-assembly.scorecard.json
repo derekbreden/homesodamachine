@@ -254,6 +254,7 @@
         "gas-check \u2014 pisco-snap-cap: 1.833 mm",
         "fluid-24 \u2014 coil-v-i: 1.861 mm",
         "fluid-18 \u2014 funnel-frame: 1.901 mm",
+        "nameplate \u2014 foam-assembly: 1.940 mm",
         "The 1 mm spacing preference is informational. Fitted parts retain their applicable local allowances; pack-closes measures material outside the finite receiving interfaces. Conductors are excluded from this scene check."
       ],
       "id": "clearance-floor",
@@ -660,7 +661,7 @@
       "label": "Every print-down slope on a ceiling-down piece has its stated carry",
       "status": "fail",
       "target": "no unaccounted slope a column could replace, and every named room standing",
-      "value": "17 print-down slope(s): 10 under a body, 4 within 1 mm of one, 0 in a kept room, 3 could be columns"
+      "value": "15 print-down slope(s): 10 under a body, 2 within 1 mm of one, 0 in a kept room, 3 could be columns"
     },
     {
       "active": true,
