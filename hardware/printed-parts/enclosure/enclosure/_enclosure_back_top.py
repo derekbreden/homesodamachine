@@ -830,7 +830,10 @@ def print_numbers(shell,box):
     out = numbers(shell,box)
     out.update(_enclosure_skin.field_numbers([rail],shell.flute_pitch(box.outer),
                                              shell.flute_depth,shell.flute_rise))
-    out['print'] = {'embed':shell.disposal_embed,'raised_bounds':identification.rail_bounds()}
+    half_channel = (identification.WIDTH + .3) / 2.
+    out['print'] = {'embed':shell.disposal_embed,'raised_bounds':identification.rail_bounds(),
+        'label_channels':[(x-half_channel,x+half_channel,469.299,box.outer[3],252.,355.)
+            for x in identification.above_core.specification()['fluid_grid']['columns_x_mm']]}
     return out
 
 
