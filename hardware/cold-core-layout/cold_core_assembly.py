@@ -37,10 +37,7 @@ if __name__ == "__main__":
     import _rust_part
     _rust_part.start()
 
-import cadquery as cq
 
-from _cadq_export import export_assembly, import_step                 # noqa: E402
-import _overlap                                          # noqa: E402
 import foam_assembly as _foam                            # noqa: E402
 import _internal_routes as _routes                       # noqa: E402
 from _cold_core_interface import foam_shell_outer_height, carbonator_sensor_azimuth  # noqa: E402
@@ -54,8 +51,6 @@ import _cold_scorecard as _card                          # noqa: E402
 import _cold_core_style as _style                        # noqa: E402
 import _reservoir_ports as _tube_ports
 import _above_core_mounts as _above_mounts                # noqa: E402
-import above_core_parts as _above_parts                   # noqa: E402
-import above_core_routes as _above_routes                 # noqa: E402
 from _card import Check, grade_of, verdict                # noqa: E402
 from _cold_scorecard import Scorecard                     # noqa: E402
 
@@ -181,93 +176,6 @@ MADE_UP_ON = {
 }
 
 
-
-def _load(path: Path):
-    if Path(path).parent == _cold / "reservoir":
-        import reservoir
-        return reservoir.import_part(path)
-    if Path(path).parent == _cold / "reed-bridge":
-        import reed_bridge
-        return reed_bridge.import_part(path)
-    if Path(path).parent == _cold / "prv-shroud":
-        return _shroud.import_part(path)
-    return import_step(str(path)).val()
-
-
-def _world_in_core(shape):
-    return (_above_mounts.world_shape_in_cap(shape)
-            .rotate((0.,0.,0.),(0.,0.,1.),180.)
-            .translate((0.,0.,foam_shell_outer_height+_foam.top_cap_height)))
-
-
-def build_bodies() -> dict:
-    """Every solid in the core, by the name it goes into the assembly under."""
-    placed = {}
-
-    from _cold_core_interface import attachment_xy_positions, head_cbore_depth, head_pad_height
-    clamp = CAP_CLAMP
-    for side, seat, direction in (('top',_foam.cap_face_z-head_cbore_depth,-1.),
-                                  ('bottom',_foam.stack_floor_z+head_pad_height,1.)):
-        for i,(x,y) in enumerate(attachment_xy_positions,1):
-            base=cq.Vector(x,y,seat)
-            shaft=cq.Solid.makeCylinder(clamp['shaft_radius'],clamp['shaft_length'],base,cq.Vector(0,0,direction))
-            head=cq.Solid.makeCylinder(clamp['head_radius'],clamp['head_height'],base,cq.Vector(0,0,-direction))
-            h0,h1=(seat,seat+clamp['head_height']) if direction<0 else (seat-clamp['head_height'],seat)
-            s0,s1=((h1-clamp['socket_depth'],h1+clamp['tool_overrun']) if direction<0 else
-                   (h0-clamp['tool_overrun'],h0+clamp['socket_depth']))
-            socket=(cq.Workplane('XY').workplane(offset=s0).center(x,y)
-                    .polygon(6,clamp['socket_af']/math.cos(math.pi/6.)).extrude(s1-s0).val())
-            placed[f'cap-clamp-{side}-{i}']=shaft.fuse(head).cut(socket).clean()
-    import _reservoir_b_fill
-    placed['reservoir-b-fill-guide'] = _world_in_core(_reservoir_b_fill.guide_world())
-
-    _assy, foam = _foam.build()
-    for name, (solid, _c) in foam.items():
-        placed[name] = solid
-
-    placed.update(_V.bodies())
-
-    res_dir = _cold / "reservoir"
-    # One TPU gasket STEP, cut for the +X body; the −X body takes its mirror across x = 0
-    # (`reservoir.build_reservoir_gasket`). It fills the gap the body's wall top leaves under
-    # its cap, so its top face is the cap's own base plane.
-    gasket = _load(res_dir / "reservoir-gasket.step")
-    for name, stem in RESERVOIRS.items():
-        placed[name] = _load(res_dir / f"{stem}.step")
-        cap = _load(res_dir / f"{stem.replace('reservoir', 'reservoir-cap')}.step")
-        placed[f"{name}-cap"] = cap.translate((0, 0, _foam.RESERVOIR_CAP_Z))
-        side = gasket if stem.endswith("-right") else gasket.mirror("YZ")
-        placed[f"{name}-gasket"] = side.translate(
-            (0, 0, _foam.RESERVOIR_CAP_Z - side.BoundingBox().zmax))
-
-    for letter, side in (("a", +1), ("b", -1)):
-        # The seat starts at the reservoir plate's actual underside, independent
-        # of the body/gasket datums that place the complete cap.
-        import reservoir
-        z0 = _foam.RESERVOIR_CAP_Z + reservoir.cap_wall_height
-        for port, xy in (("fill", reservoir.fill_position[side]),
-                         ("draw", reservoir.draw_position[side])):
-            placed[f"reservoir-grip-{letter}-{port}"] = _tube_ports.build_grommet(
-                _tube_ports.liquid_grip, xy, z0)
-        placed[f"reservoir-grip-{letter}-air"] = _tube_ports.build_grommet(
-            _tube_ports.air_grip, _tube_ports.air_position[side], z0)
-        placed[f"tube-reservoir-air-{letter}"] = _tube_ports.build_air_tube(side, z0, _foam.cap_face_z)
-
-
-    placed.update(_C.bodies())
-    placed.update(_I.bodies(placed))
-    placed.update(_prv_stack())
-    placed["reed-bridge"] = (_load(_cold / "reed-bridge" / "reed-bridge.step")
-        .rotate((0, 0, 0), (0, 0, 1), carbonator_sensor_azimuth)
-        .translate((0, 0, _V.carbonator_bottom_z)))
-    for name,(world,_colour,_carry) in _above_parts.core_components().items():
-        placed[name] = _world_in_core(world)
-    for name,specification in _above_routes.core_route_specs().items():
-        placed['tube-'+name] = _world_in_core(_above_parts.route_shape(specification))
-
-    return placed
-
-
 # The shroud's own frame, as two directions. The cup is authored on +Z with its vent bored
 # radially through its own −Y (`prv-shroud/prv_shroud.py`), and standing it on the elbow's axis
 # fixes only two of its three freedoms — the roll about that axis is left, and the VENT is what
@@ -277,155 +185,9 @@ VENT_LOCAL = (0.0, -1.0, 0.0)
 VENT_WORLD = (0.0, 0.0, -1.0)
 
 
-def _turn(v: cq.Vector, axis: cq.Vector) -> cq.Vector:
-    """`_fittings._orient`'s own rotation, applied to a direction rather than a solid."""
-    z = cq.Vector(0, 0, 1)
-    dot = max(-1.0, min(1.0, z.dot(axis)))
-    if dot > 1 - 1e-12:
-        return v
-    if dot < -1 + 1e-12:
-        return cq.Vector(v.x, -v.y, -v.z)          # the 180° about +X `_orient` takes
-    n = z.cross(axis).normalized()
-    angle = math.acos(dot)
-    return (v.multiply(math.cos(angle))
-            + n.cross(v).multiply(math.sin(angle))
-            + n.multiply(n.dot(v) * (1.0 - math.cos(angle))))
-
-
-def _stand_shroud(solid):
-    """One body of the shroud's own frame, placed on the PRV elbow's mouth.
-
-    `_fittings._orient` stands the cup's +Z on the mouth's axis and picks the roll
-    INCIDENTALLY — it rotates about `z × axis`, and which way that lands the vent flips with
-    the sign of the port's own Y. So the roll is struck here instead of inherited: whatever
-    `_orient` leaves, this turns about the mouth's axis until the vent faces the shell's own
-    −Z. Both the cup and `prv_vent_mouth`'s marker go through this one placement, so the bore
-    the line starts on and the bore in the printed part cannot drift apart."""
-    mouth = _V.mouths()["prv"]
-    axis = cq.Vector(*mouth.axis).normalized()
-    vent = _turn(cq.Vector(*VENT_LOCAL), axis)
-    down = cq.Vector(*VENT_WORLD)
-    roll = math.degrees(math.atan2(axis.dot(vent.cross(down)), vent.dot(down)))
-    return (_F._orient(solid, axis)
-            .rotate(cq.Vector(0, 0, 0), axis, roll)
-            .translate(cq.Vector(*mouth.pos)))
-
-
-def _prv_stack() -> dict:
-    """The SV-125 made up on the top plate's PRV elbow, and the shroud standing over it.
-
-    The shroud is a cup on +Z with its open end at Z=0, so it stands on the elbow's own mouth
-    and reaches `prv_shroud.total_length` along the axis the valve leaves on."""
-    mouth = _V.mouths()["prv"]
-    valve = _F.sv125(at=mouth.pos, axis=mouth.axis)
-    shroud = _stand_shroud(_load(_cold / "prv-shroud" / "prv-shroud.step"))
-    return {"prv-sv125": valve, "prv-shroud": shroud}
-
-
-def prv_vent_mouth() -> tuple:
-    """Where the shroud's own vent bore opens, in the shell's frame.
-
-    `prv_shroud` authors the bore radially on its own −Y at `vent_station_z` along the barrel.
-    Standing the cup on the elbow's axis carries that point with it, so the line's start is
-    read off the SHROUD rather than restated here — a bore that moves takes its tube along."""
-    local = cq.Solid.makeSphere(0.001, cq.Vector(0.0, -_shroud.outer_diameter / 2.0,
-                                                 _shroud.vent_station_z))
-    at = _stand_shroud(local).BoundingBox()
-    return (round(at.center.x, 6), round(at.center.y, 6), round(at.center.z, 6))
-
-
-def trimmed_routes() -> dict:
-    """Every authored centreline, with each carbonator end moved out to the mouth its own fitting
-    presents.
-
-    `_internal_routes` draws each line to the PORT — the point on the plate's own axis that the
-    elbow, the collet and the ring bore all stand on. What a length of tube spans is the rest of
-    that line, from the collet outward, so the end that lands on a fitting moves to its mouth."""
-    out = {name: list(pts) for name, pts in _routes.routes.items()}
-    mouths = _V.mouths()
-    for port, (line, which) in _V.PORT_LINES.items():
-        out[line][0 if which == "start" else -1] = mouths[port].pos
-    # And the PRV vent starts on the shroud's own bore, wherever the placed cup puts it.
-    out["prv-vent"][0] = prv_vent_mouth()
-    return out
-
-
-def build_routes(placed: dict) -> dict:
-    """Every line inside the core, drawn at the arc its own corridor leaves.
-
-    The obstacles are the solids a line runs among — everything placed except the caps standing
-    over the shell's open top, which every riser passes on its way out."""
-    base = {n: s for n, s in placed.items()
-            if not n.startswith("foam-cap") and n not in TAIL_LINES}
-    out = {}
-    for name, pts in trimmed_routes().items():
-        exempt = MADE_UP_ON.get(name, ())
-        obstacles = {n: s for n, s in base.items() if n not in exempt}
-        bend, tube = _routes.fit_route(pts, obstacles)
-        out[name] = bend, _foam.installed_internal_route(name, tube)
-    return out
-
-
-def build_assembly():
-    placed = build_bodies()
-    fitted = build_routes(placed)
-
-    a = cq.Assembly(name="cold-core-assembly")
-    for name, solid in placed.items():
-        a.add(solid, name=name, color=_style.colour_for(name))
-    for name in sorted(fitted):
-        a.add(fitted[name][1], name=f"line-{name}", color=_style.ROUTE_COLORS[name])
-    a.placed = placed
-    a.fitted = fitted
-    a.points = trimmed_routes()
-    a.core_body_names = frozenset(placed)
-    return a
-
-
-def write_model(a, path=MODEL_OUT):
-    """The ordered source-frame bodies and colors consumed by the machine assembly."""
-    import os
-    from OCP.Quantity import Quantity_TypeOfColor
-    from meshcad import scene
-    from _cadq_export import note_write
-
-    bodies = [
-        (child.name, child.obj,
-         (list(child.color.wrapped.GetRGB().Values(Quantity_TypeOfColor.Quantity_TOC_RGB))
-          if child.color is not None else None))
-        for child in a.children
-    ]
-    document = {
-        "frame": "foam assembly source",
-        "schema": "hsm-cold-core-model-1",
-        "alpha_by_name": {child.name: float(child.color.wrapped.Alpha())
-                          for child in a.children if child.color is not None},
-    }
-    path = Path(path)
-    temporary = path.with_name(f".{path.name}.{os.getpid()}.tmp")
-    scene.write(bodies, temporary, document, preserve_partitions=True)
-    os.replace(temporary, path)
-    note_write(path)
-    return path
-
-
-def import_bodies(path=MODEL_OUT):
-    """Named fine geometry for mesh readers, construction bodies for native readers."""
-    if not getattr(cq, 'MESH', False):
-        return {child.name: (child.obj, child.color) for child in build_assembly().children}
-    from meshcad import scene
-    from _cadq_export import note_read
-
-    path = Path(path)
-    note_read(path)
-    alpha = (scene.document(path) or {}).get('alpha_by_name', {})
-    return {name: (shape, cq.Color(*rgb, alpha.get(name, 1.), False) if rgb is not None else None)
-            for name, (shape, rgb) in scene.load(path, snap=False, presentation=True).items()}
-
-
 # --- the card ----------------------------------------------------------------
 
-def _bodies_clear(placed: dict, *, volumes=None) -> Check:
+def _bodies_clear(placed: dict, *, volumes) -> Check:
     """No two solids share volume. Mating faces touch at zero."""
     names = sorted(placed)
     detail = []
@@ -433,7 +195,7 @@ def _bodies_clear(placed: dict, *, volumes=None) -> Check:
         for b in names[i + 1:]:
             if frozenset((a, b)) in JOINED or frozenset((a, b)) in RIDES_ON:
                 continue
-            vol = (_overlap.volume(placed[a], placed[b]) if volumes is None else volumes(a, b))
+            vol = (volumes(a, b))
             if vol > _card.TOUCH_VOLUME:
                 detail.append(f"{a} ∩ {b} = {vol:.2f} mm³")
     detail.sort(key=lambda s: -float(s.split("= ")[1].split(" ")[0]))
@@ -444,7 +206,7 @@ def _bodies_clear(placed: dict, *, volumes=None) -> Check:
                  f"{len([d for d in detail if 'RIDES_ON' not in d])} clash", "0 clash", detail)
 
 
-def _routes_fit(placed: dict, fitted: dict, *, volumes=None) -> Check:
+def _routes_fit(placed: dict, fitted: dict, *, volumes) -> Check:
     """No line meets a solid. A bore a line passes through is a void, so a line that reads
     blocked is a line with no hole in front of it."""
     detail = []
@@ -454,7 +216,7 @@ def _routes_fit(placed: dict, fitted: dict, *, volumes=None) -> Check:
         for other, solid in sorted(placed.items()):
             if other in TAIL_LINES or other in exempt:
                 continue
-            vol = _overlap.volume(tube, solid) if volumes is None else volumes(name, other)
+            vol = volumes(name, other)
             if vol > _card.TOUCH_VOLUME:
                 detail.append(f"{name} meets {other} by {vol:.2f} mm³")
     return Check("routes-fit", "No line meets a solid", "gate", verdict(not detail),
@@ -462,7 +224,7 @@ def _routes_fit(placed: dict, fitted: dict, *, volumes=None) -> Check:
                  "every line clear", detail)
 
 
-def _lines_apart(fitted: dict, placed: dict, *, volumes=None) -> Check:
+def _lines_apart(fitted: dict, placed: dict, *, volumes) -> Check:
     """No two runs want the same corridor.
 
     The population is every fluid line plus the two copper tails: a lane is one bore wide, so
@@ -475,21 +237,19 @@ def _lines_apart(fitted: dict, placed: dict, *, volumes=None) -> Check:
     detail = []
     for i, a in enumerate(names):
         for b in names[i + 1:]:
-            vol = _overlap.volume(runs[a], runs[b]) if volumes is None else volumes(a, b)
+            vol = volumes(a, b)
             if vol > _card.TOUCH_VOLUME:
                 detail.append(f"{a} and {b} share {vol:.2f} mm³ — two runs in one corridor")
     return Check("lines-apart", "No two runs want the same corridor", "gate",
                  verdict(not detail), f"{len(detail)} crossing", "0 crossing", detail)
 
 
-def _floats_couple(placed: dict, *, seats=None) -> Check:
+def _floats_couple(placed: dict, *, seats) -> Check:
     """Running clearance and float-edge to reed-center distance within the design limit.
 
     This is geometry, not installed reed actuation or liquid calibration.
     """
     detail = []
-    if seats is None:
-        seats = _I.float_seats({n: s for n, s in placed.items() if n.startswith("reservoir-")})
     good = 0
     for name, (park, wall, _centre, standoff) in sorted(seats.items()):
         minimum_gap = standoff - 2 * _I.FLOAT_SLOP
@@ -506,7 +266,7 @@ def _floats_couple(placed: dict, *, seats=None) -> Check:
                  f">=1 mm body clearance, <={_I.FLOAT_EDGE_DESIGN_MAXIMUM:g} mm float-edge to reed-centre; geometry only", detail)
 
 
-def _arcs_hold(fitted: dict, points: dict, *, corner_data=None) -> Check:
+def _arcs_hold(fitted: dict, points: dict, *, corner_data) -> Check:
     """Every corner at the stock arc, or the reading it came back at.
 
     A line is fitted at ONE arc, and that arc is what its corners ask for. What each one turns
@@ -519,7 +279,7 @@ def _arcs_hold(fitted: dict, points: dict, *, corner_data=None) -> Check:
     total = 0
     for name in sorted(fitted):
         bend, _tube = fitted[name]
-        v, radii = (_routes.corner_radii(points[name], bend) if corner_data is None else corner_data[name])
+        v, radii = (corner_data[name])
         for i, r in enumerate(radii[1:-1], start=1):
             total += 1
             if r < stock - 1e-9:
@@ -530,7 +290,7 @@ def _arcs_hold(fitted: dict, points: dict, *, corner_data=None) -> Check:
                  f"{stock:.2f} mm", detail)
 
 
-def _bend_rows(fitted: dict, points: dict, *, route_data=None) -> list:
+def _bend_rows(fitted: dict, points: dict, *, route_data) -> list:
     """One row per line: what it turns at, and how far it travels against how far it reaches.
 
     A line's REACH is the straight between its two ends. Length over reach says whether the run
@@ -541,11 +301,11 @@ def _bend_rows(fitted: dict, points: dict, *, route_data=None) -> list:
     for name in sorted(fitted):
         bend, _tube = fitted[name]
         pts = points[name]
-        v, radii = (_routes.corner_radii(pts, bend) if route_data is None else route_data[name]['corners'])
+        v, radii = (route_data[name]['corners'])
         corners = [r for r in radii[1:-1] if r > 0.0]
         tightest = min(corners) if corners else bend
-        length = (_routes.route_wire(pts, bend).Length() if route_data is None else route_data[name]['length'])
-        reach = ((cq.Vector(*pts[-1]) - cq.Vector(*pts[0])).Length if route_data is None else route_data[name]['reach'])
+        length = (route_data[name]['length'])
+        reach = (route_data[name]['reach'])
         ratio = tightest / stock
         rows.append({
             "id": name, "kind": "fluid",
@@ -582,28 +342,22 @@ def _goal(cid: str, label: str, done: int, total: int, target: str, detail=()) -
                  list(detail))
 
 
-def build_card(a, *, measurements=None) -> Scorecard:
+def build_card(a, *, measurements) -> Scorecard:
     placed, fitted = a.placed, a.fitted
-    mouths = ([("carbonator", n, m, n) for n, m in _V.mouths().items()]
-              if measurements is None else measurements['mouths'])
+    mouths = (measurements['mouths'])
     def volumes(key, symmetric=False):
-        if measurements is None:
-            return None
         table = {(row['a'], row['b']): row['volume'] for row in measurements[key]}
         return lambda a, b: table.get(tuple(sorted((a, b))) if symmetric else (a, b), 0.)
-    route_data = None
-    seats = None
-    if measurements is not None:
-        from collections import namedtuple
-        Point = namedtuple('Point', 'x y z')
-        route_data = {row['name']: {**row, 'corners': ([Point(*p) for p in row['corner_points']], row['radii'])}
-                      for row in measurements['routes']}
-        seats = {}
-        for name, park, wall in (
-                ('float-carb', _V.ROD_RADIUS, _V.TUBE_ID / 2.),
-                ('float-a', _I.RES_ROD_X, measurements['reservoir_walls']['a']),
-                ('float-b', _I.RES_ROD_X, measurements['reservoir_walls']['b'])):
-            seats[name] = (park, wall, *_I.float_ride(park, wall))
+    from collections import namedtuple
+    Point = namedtuple('Point', 'x y z')
+    route_data = {row['name']: {**row, 'corners': ([Point(*p) for p in row['corner_points']], row['radii'])}
+                  for row in measurements['routes']}
+    seats = {}
+    for name, park, wall in (
+            ('float-carb', _V.ROD_RADIUS, _V.TUBE_ID / 2.),
+            ('float-a', _I.RES_ROD_X, measurements['reservoir_walls']['a']),
+            ('float-b', _I.RES_ROD_X, measurements['reservoir_walls']['b'])):
+        seats[name] = (park, wall, *_I.float_ride(park, wall))
     # `by` is what FASTENS a body and `joint` the construction it stands on. Here they are the
     # same feature wherever one exists, and `by` is None for the two the tape holds — which is
     # what the `mounted` goal below counts.
@@ -615,8 +369,7 @@ def build_card(a, *, measurements=None) -> Scorecard:
         _routes_fit(placed, fitted, volumes=volumes('route_overlaps')),
         _lines_apart(fitted, placed, volumes=volumes('run_overlaps', True)),
         _bom_check.check(placed),
-        _arcs_hold(fitted, a.points, corner_data=(None if route_data is None else
-                                               {name: row['corners'] for name, row in route_data.items()})),
+        _arcs_hold(fitted, a.points, corner_data=({name: row['corners'] for name, row in route_data.items()})),
         _floats_couple(placed, seats=seats),
         Check("inlet-jet-qualified", "The inlet jet's actual joint and fit are qualified",
               "goal", "warn", "nominal layout only", "measured fit and qualified weld",
@@ -638,38 +391,30 @@ def build_card(a, *, measurements=None) -> Scorecard:
     return Scorecard(checks, _bend_rows(fitted, a.points, route_data=route_data), sorted(placed))
 
 
-def report(a, *, measurements=None, body_bounds=None) -> None:
+def report(a, *, measurements, body_bounds) -> None:
     print("\ncold core")
     for name, solid in sorted(a.placed.items()):
-        if body_bounds is None:
-            bb = solid.BoundingBox()
-        else:
-            from types import SimpleNamespace
-            low, high = body_bounds[name]
-            bb = SimpleNamespace(xmin=low[0], ymin=low[1], zmin=low[2],
-                                 xmax=high[0], ymax=high[1], zmax=high[2])
+        from types import SimpleNamespace
+        low, high = body_bounds[name]
+        bb = SimpleNamespace(xmin=low[0], ymin=low[1], zmin=low[2],
+                             xmax=high[0], ymax=high[1], zmax=high[2])
         print(f"  {name:24} [{bb.xmin:7.1f},{bb.xmax:7.1f}] [{bb.ymin:7.1f},{bb.ymax:7.1f}] "
               f"[{bb.zmin:7.1f},{bb.zmax:7.1f}]")
     print(f"\n  {len(a.placed)} bodies, {len(a.fitted)} lines, "
           f"shell z 0..{foam_shell_outer_height:.1f}, "
           f"stack floor {_foam.stack_floor_z:.1f}, cap face {_foam.cap_face_z:.1f}")
-    if measurements is None:
-        _V.report()
-        _C.report()
-        _I.report(a.placed)
-    else:
-        _V.report(port_mouths=measurements['mouths'])
-        points = _C.wrap_points_xyz()
-        _C.report(laid_length=sum(math.dist(a, b) for a, b in zip(points, points[1:])),
-                  tail_lengths={end: _C.tail_layout_length(end) for end in ('inlet', 'outlet')})
-        seats = {}
-        for name, park, wall in (
-                ('float-carb', _V.ROD_RADIUS, _V.TUBE_ID / 2.),
-                ('float-a', _I.RES_ROD_X, measurements['reservoir_walls']['a']),
-                ('float-b', _I.RES_ROD_X, measurements['reservoir_walls']['b'])):
-            seats[name] = (park, wall, *_I.float_ride(park, wall))
-        _I.report(rod_seats={letter: body_bounds[f'float-rod-{letter}'][0][2]
-                             for letter in ('a', 'b')}, seats=seats)
+    _V.report(port_mouths=measurements['mouths'])
+    points = _C.wrap_points_xyz()
+    _C.report(laid_length=sum(math.dist(a, b) for a, b in zip(points, points[1:])),
+              tail_lengths={end: _C.tail_layout_length(end) for end in ('inlet', 'outlet')})
+    seats = {}
+    for name, park, wall in (
+            ('float-carb', _V.ROD_RADIUS, _V.TUBE_ID / 2.),
+            ('float-a', _I.RES_ROD_X, measurements['reservoir_walls']['a']),
+            ('float-b', _I.RES_ROD_X, measurements['reservoir_walls']['b'])):
+        seats[name] = (park, wall, *_I.float_ride(park, wall))
+    _I.report(rod_seats={letter: body_bounds[f'float-rod-{letter}'][0][2]
+                         for letter in ('a', 'b')}, seats=seats)
 
 
 def rust_main(output=None):
@@ -720,40 +465,11 @@ def rust_main(output=None):
     return model
 
 
-def native_main(output=None) -> int:
-    """Construction geometry and reports for native readers and reference runs."""
-    output = Path(output) if output is not None else _here.parent
-    output.mkdir(parents=True, exist_ok=True)
-    step_out = output / STEP_OUT.name
-    foam_step = (FOAM_STEP if output.resolve() == _here.parent.resolve()
-                 else output / FOAM_STEP.name)
-    a = build_assembly()
-    export_assembly(a, str(step_out))
-    # Use the complete printed surfaces for this native cold-core assembly.
-    # Only the cold-core family belongs to this host.
-    import flute_payload                                                # noqa: E402
-    _grafted = flute_payload.graft(Path(str(step_out) + ".mesh"),
-                                   flute_payload.surfaces(flute_payload.COLD_CORE_DIRS))
-    if _grafted:
-        print(f"-> {step_out.name}.mesh  ({_grafted} fluted piece(s))")
-    print(f"-> {step_out.name}")
-    report(a)
-    sc = build_card(a)
-    _card.report(sc)
-    for step in (step_out, foam_step):
-        out = _card.write(sc, step)
-        print(f"\n-> {out}")
-    return 0
-
-
 def main(argv=None) -> int:
     import argparse
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--output', type=Path, help='directory for generated assembly files')
-    parser.add_argument('--native', action='store_true', help='use the construction-geometry builder')
     args = parser.parse_args(argv)
-    if args.native:
-        return native_main(args.output)
     rust_main(args.output)
     return 0
 
