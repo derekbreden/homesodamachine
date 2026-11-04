@@ -19,7 +19,6 @@ import sys
 from pathlib import Path
 
 
-
 _here = Path(__file__).resolve().parent
 _hardware = next(p for p in _here.parents if p.name == "hardware")
 _repo = _hardware.parent
@@ -32,21 +31,6 @@ if __name__ == "__main__":
     _rust_part.start()
 
 import jg_pp0408w as jg  # noqa: E402
-
-
-def __getattr__(name):
-    import importlib
-    if name == "cq":
-        value = importlib.import_module("cadquery")
-    else:
-        modules = {"_write_mesh_payload": "_cadq_export", "export_assembly": "_cadq_export",
-                   "note_write": "_cadq_export", "M_PETGF_BLACK": "_materials",
-                   "one_body": "_materials", "substitute_md": "docgen"}
-        if name not in modules:
-            raise AttributeError(name)
-        value = getattr(importlib.import_module(modules[name]), name)
-    globals()[name] = value
-    return value
 
 
 # --- working fit -----------------------------------------------------------
@@ -105,184 +89,6 @@ HANDLE_FRONT_TOP_X = _head_underside_x(HANDLE_THICKNESS)
 HANDLE_REAR_X = HANDLE_FRONT_BED_X - HANDLE_LENGTH
 
 
-def _rounded_prism(
-    length: float,
-    width: float,
-    height: float,
-    radius: float,
-    center_x: float,
-) -> cq.Workplane:
-    """Z extrusion of a plan-view rounded rectangle."""
-    import cadquery as cq
-    import _cadq_export
-    return (
-        cq.Workplane("XY")
-        .center(center_x, 0.0)
-        .rect(length, width)
-        .extrude(height)
-        .edges("|Z")
-        .fillet(radius)
-    )
-
-
-def build_handle() -> cq.Workplane:
-    """Broad bed-contact paddle ending on the head's own 45° underside."""
-    import cadquery as cq
-    import _cadq_export
-    # The raw rounded prism deliberately runs beyond the desired front.  The
-    # XZ half-space then removes its whole nose on z = x + HEAD_Z_SHIFT, so no
-    # horizontal material survives beyond the rising head.
-    raw_front = HANDLE_FRONT_TOP_X + 2.0
-    raw_length = raw_front - HANDLE_REAR_X
-    raw = _rounded_prism(
-        raw_length,
-        HANDLE_WIDTH,
-        HANDLE_THICKNESS,
-        HANDLE_CORNER_RADIUS,
-        (HANDLE_REAR_X + raw_front) / 2.0,
-    )
-    clip_low_z = -1.0
-    clip_high_z = HANDLE_THICKNESS + 1.0
-    clip = (
-        cq.Workplane("XZ")
-        .polyline(
-            [
-                (HANDLE_REAR_X - 2.0, clip_low_z),
-                (_head_underside_x(clip_low_z), clip_low_z),
-                (_head_underside_x(clip_high_z), clip_high_z),
-                (HANDLE_REAR_X - 2.0, clip_high_z),
-            ]
-        )
-        .close()
-        .extrude(HANDLE_WIDTH, both=True)
-    )
-    return raw.intersect(clip).clean()
-
-
-def build_head_local() -> cq.Workplane:
-    """The U-head before its local U/Y/W frame is tilted into world XYZ."""
-    import cadquery as cq
-    import _cadq_export
-    outer = (
-        cq.Workplane("XY")
-        .center(HEAD_CENTER_U, 0.0)
-        .rect(HEAD_LENGTH, HEAD_WIDTH)
-        .extrude(HEAD_THICKNESS)
-    )
-
-    # Rectangle open to +U plus a circular root: a true constant-width U-slot,
-    # not a V-notch.  The extra W at both ends guarantees a through-cut.
-    slot_straight = (
-        cq.Workplane("XY")
-        .center((JAW_ROOT_U + HEAD_FRONT_U + 1.0) / 2.0, 0.0)
-        .rect(HEAD_FRONT_U + 1.0 - JAW_ROOT_U, JAW_GAP)
-        .workplane(offset=-1.0)
-        .extrude(HEAD_THICKNESS + 2.0)
-    )
-    slot_root = (
-        cq.Workplane("XY")
-        .center(JAW_ROOT_U, 0.0)
-        .circle(JAW_RADIUS)
-        .workplane(offset=-1.0)
-        .extrude(HEAD_THICKNESS + 2.0)
-    )
-    sharp = outer.cut(slot_straight.union(slot_root)).clean()
-
-    # Round only the two outside and two inside corners at the open end.  The
-    # rear corners stay square and disappear inside the equal-width handle, so
-    # no shoulder or roundover interrupts the strip at its 45-degree crease.
-    # At the mouth, the fillets begin exactly at STRAIGHT_TIP_U, preserving a
-    # complete straight bearing land through the collet's forward OD tangent.
-    tip_edges = [
-        edge
-        for edge in sharp.edges("|Z").vals()
-        if abs(edge.Center().x - HEAD_FRONT_U) < 1e-6
-    ]
-    return sharp.newObject(tip_edges).fillet(TIP_RADIUS).clean()
-
-
-def _place_head(local: cq.Workplane) -> cq.Workplane:
-    """Carry head-local U/Y/W geometry into the print-oriented world frame."""
-    return (
-        local
-        .rotate((0.0, 0.0, 0.0), (0.0, 1.0, 0.0), -HEAD_ANGLE)
-        .translate((0.0, 0.0, HEAD_Z_SHIFT))
-    )
-
-
-def build_head() -> cq.Workplane:
-    """Tilt the complete head so its broad faces cross the layer stack at 45°."""
-    # CadQuery's -Y rotation maps +U toward both +X and +Z.  This shift puts
-    # the neck's lowest rear edge exactly on Z=0; most of that rear length is
-    # buried in the handle, leaving a wide fused root before the head emerges.
-    return _place_head(build_head_local())
-
-
-def build() -> cq.Workplane:
-    """One supportless solid: flat handle, buried root, angled U-head."""
-    import cadquery as cq
-    import _cadq_export
-    handle = build_handle()
-    tool = handle.union(build_head()).clean()
-
-    solids = tool.solids().vals()
-    if len(solids) != 1 or not solids[0].isValid():
-        raise ValueError("collet press must resolve to one valid printable solid")
-    if not (jg.PORT_D < JAW_GAP < jg.COLLET_BORE):
-        raise ValueError("jaw must pass the tube and remain inside the collet bore")
-
-    tube_local = (
-        cq.Workplane("XY")
-        .center(JAW_ROOT_U, 0.0)
-        .circle(jg.PORT_D / 2.0)
-        .workplane(offset=-2.0)
-        .extrude(HEAD_THICKNESS + 4.0)
-    )
-    tube_interference = sum(
-        solid.Volume()
-        for solid in tool.intersect(_place_head(tube_local)).solids().vals()
-    )
-    if tube_interference > 1e-6:
-        raise ValueError(
-            f"handle or head fills {tube_interference:.6f} mm³ of the tube path"
-        )
-    return tool
-
-
-def _native_main(output=None) -> None:
-    import cadquery as cq
-    import _cadq_export
-    from _cadq_export import _write_mesh_payload, export_assembly, note_write
-    from _materials import M_PETGF_BLACK, one_body
-    tool = build()
-    solid = tool.val()
-    bb = solid.BoundingBox()
-
-    out = Path(output) if output is not None else _here
-    out.mkdir(parents=True, exist_ok=True)
-    step_out = out / "collet-press.step"
-    stl_out = out / "collet-press.stl"
-    payload_out = Path(str(step_out) + ".mesh")
-    assembly = one_body(tool, "collet-press", M_PETGF_BLACK)
-    export_assembly(assembly, str(step_out))
-    # A sibling STL normally tells the shared exporter that a specialist owns
-    # the preview mesh.  This smooth part writes its STL directly, so it also
-    # refreshes the matching viewer payload directly on every regeneration.
-    note_write(payload_out)
-    _write_mesh_payload(step_out, assembly)
-    note_write(stl_out)
-    cq.exporters.export(tool, str(stl_out), tolerance=0.02, angularTolerance=0.1)
-    print(f"-> {step_out.name}")
-    print(f"-> {stl_out.name}")
-    print(
-        "   envelope "
-        f"{bb.xlen:.2f} x {bb.ylen:.2f} x {bb.zlen:.2f} mm; "
-        f"volume {solid.Volume() / 1000.0:.2f} cm^3"
-    )
-
-    _document(bb, solid.Volume())
-
-
 def numbers():
     """The original handle, U-profile and print-pose dimensions."""
     from _materials import M_PETGF_BLACK, linear
@@ -334,10 +140,7 @@ def _document(bb, volume):
     print("-> README.md")
 
 
-
-def main(output=None, native=False):
-    if native:
-        return _native_main(output)
+def main(output=None):
     import _rust_part
     from types import SimpleNamespace
     out = Path(output) if output is not None else _here
@@ -352,6 +155,5 @@ def main(output=None, native=False):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--output", type=Path)
-    parser.add_argument("--native", action="store_true")
     options = parser.parse_args()
-    main(options.output, options.native)
+    main(options.output)
