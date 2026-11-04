@@ -43,7 +43,6 @@ if __name__ == '__main__':
     _rust_part.start()
 
 
-from _cadq_export import export_assembly
 from docgen import substitute_md, substitute_py_comments
 from _cold_core_interface import (
     carbonator_outer_radius,
@@ -54,6 +53,7 @@ from _cold_core_interface import (
     carbonator_float_top_stop_diameter,
 )
 from _cold_core_interface import evap_tail_low_z, evap_tail_high_z
+from _materials import M_PETG_BLACK
 import fits as _fits
 from coil_mandrel import pitch, tube_radius, wrap_length
 from endcap_circular_dxf import (
@@ -222,122 +222,11 @@ carried_copper = wraps_carried * effective_lift_arc
 overcut = 1.0
 
 
-def _ring(section):
-    """A section's own points with the first repeated, so the closing edge is DRAWN.
-
-    `close()` infers it instead, from the last edge's end read back off OCCT — a few 1e-16 off
-    the point that was passed in — and a tangential boolean downstream resolves that vertex one
-    way in one process and the other way in the next. Naming the point is what makes the same
-    source write the same bytes."""
-    pts = list(section)
-    return pts if pts[0] == pts[-1] else pts + [pts[0]]
-
-
-def _native():
-    global cq, M_PETG_BLACK, one_body
-    import cadquery as cq
-    from _materials import M_PETG_BLACK, one_body
-
-
-def __getattr__(name):
-    if name in {"cq", "M_PETG_BLACK", "one_body"}:
-        _native()
-        return globals()[name]
-    raise AttributeError(name)
-
-
-def _ridge_ring():
-    """Revolved profile giving the axial ramps: a skirt_thickness band over
-    the whole height, standing to plateau_radius between the two ramps."""
-    _native()
-    return (
-        cq.Workplane("XZ")
-        .polyline(_ring([
-            (inner_radius, bridge_z_bottom),
-            (skirt_radius, bridge_z_bottom),
-            (plateau_radius, plateau_z_bottom),
-            (plateau_radius, plateau_z_top),
-            (skirt_radius, bridge_z_top),
-            (inner_radius, bridge_z_top),
-        ]))
-        .wire()
-        .revolve(360)
-    )
-
-
 def _plan_outline_radius(angle):
     if abs(angle) <= plateau_half_angle:
         return plateau_radius
     fraction = (abs(angle) - plateau_half_angle) / (bridge_half_angle - plateau_half_angle)
     return plateau_radius - fraction * (plateau_radius - skirt_radius)
-
-
-def _bump_prism():
-    """Extrusion along Z of the plan-view outline: plateau_radius across the
-    plateau, ramping to skirt_radius at each circumferential edge."""
-    _native()
-    steps = 48
-    outline = [(0.0, 0.0)]
-    for i in range(steps + 1):
-        angle = -bridge_half_angle + 2 * bridge_half_angle * i / steps
-        radius = _plan_outline_radius(angle)
-        outline.append((radius * math.cos(angle), radius * math.sin(angle)))
-    return (
-        cq.Workplane("XY")
-        .workplane(offset=bridge_z_bottom - overcut)
-        .polyline(_ring(outline))
-        .wire()
-        .extrude(bridge_height + 2 * overcut)
-    )
-
-
-def _radial_box(x_range, y_range, z_range):
-    _native()
-    x_min, x_max = x_range
-    y_min, y_max = y_range
-    z_min, z_max = z_range
-    return (
-        cq.Workplane("XY")
-        .workplane(offset=z_min)
-        .moveTo(x_min, y_min)
-        .rect(x_max - x_min, y_max - y_min, centered=False)
-        .extrude(z_max - z_min)
-    )
-
-
-def _reed_pocket(reed_z):
-    """Slot cut clear through to the wall, so the glass lands on bare 316L."""
-    return _radial_box(
-        (inner_radius - overcut, plateau_radius + overcut),
-        (-pocket_width / 2, pocket_width / 2),
-        (reed_z - pocket_length / 2, reed_z + pocket_length / 2),
-    )
-
-
-def _lead_notch(z_min):
-    """Cross-cut at a pocket end, taking that reed's lead out to the groove."""
-    return _radial_box(
-        (skirt_radius, plateau_radius + overcut),
-        (-pocket_width / 2, lead_groove_y + lead_groove_width / 2),
-        (z_min, z_min + lead_notch_length),
-    )
-
-
-def _lead_groove():
-    return _radial_box(
-        (skirt_radius, plateau_radius + overcut),
-        (lead_groove_y - lead_groove_width / 2, lead_groove_y + lead_groove_width / 2),
-        (plateau_z_bottom, bridge_z_top + overcut),
-    )
-
-
-def build_reed_bridge():
-    bridge = _ridge_ring().intersect(_bump_prism())
-    for reed_z in (reed_low_z, reed_high_z):
-        bridge = bridge.cut(_reed_pocket(reed_z))
-        bridge = bridge.cut(_lead_notch(reed_z - pocket_length / 2))
-        bridge = bridge.cut(_lead_notch(reed_z + pocket_length / 2 - lead_notch_length))
-    return bridge.cut(_lead_groove())
 
 
 # ═══════════════════════════════════════════════════════
@@ -351,28 +240,8 @@ gauge_hook_depth = 3.5
 gauge_hook_height = 4.0
 
 
-def build_setting_gauge():
-    """Band that hangs on the tube's bottom rim; its top face is where the
-    bridge's bottom edge goes."""
-    _native()
-    return (
-        cq.Workplane("XZ")
-        .polyline(_ring([
-            (inner_radius - gauge_hook_depth, -gauge_hook_height),
-            (inner_radius + gauge_wall, -gauge_hook_height),
-            (inner_radius + gauge_wall, bridge_z_bottom),
-            (inner_radius, bridge_z_bottom),
-            (inner_radius, 0.0),
-            (inner_radius - gauge_hook_depth, 0.0),
-        ]))
-        .wire()
-        .revolve(gauge_arc_degrees)
-    )
-
-
 def numbers():
     """The bridge's native profiles and cutters for reed_bridge.rs."""
-    _native()
     from _materials import linear
 
     def box(x, y, z):
@@ -419,23 +288,7 @@ def numbers():
     }
 
 
-def _report(name, shape):
-    solids = shape.solids().vals()
-    assert len(solids) == 1, f"{name}: expected 1 solid, got {len(solids)}"
-    solid = solids[0]
-    bb = solid.BoundingBox()
-    print(
-        f"-> {name}  "
-        f"X[{bb.xmin:7.2f}..{bb.xmax:7.2f}] "
-        f"Y[{bb.ymin:7.2f}..{bb.ymax:7.2f}] "
-        f"Z[{bb.zmin:7.2f}..{bb.zmax:7.2f}]  "
-        f"vol {solid.Volume():.0f} mm^3  valid={solid.isValid()}"
-    )
-    return solid
-
-
-def main(output=None, native=False):
-    _native()
+def main(output=None):
     assert reed_low_z > magnet_lowest_z, "low reed below the donut's reach"
     assert reed_high_z < magnet_highest_z, "high reed above the donut's reach"
 
@@ -461,20 +314,9 @@ def main(output=None, native=False):
 
     out_dir = Path(output) if output is not None else _here.parent
     out_dir.mkdir(parents=True, exist_ok=True)
-    if native:
-        bridge = build_reed_bridge()
-        gauge = build_setting_gauge()
-        bridge_solid = _report("reed-bridge.step", bridge)
-        gauge_solid = _report("reed-bridge-setting-gauge.step", gauge)
-        export_assembly(one_body(bridge, "reed-bridge", M_PETG_BLACK),
-                        str(out_dir / "reed-bridge.step"))
-        export_assembly(one_body(gauge, "reed-bridge-setting-gauge", M_PETG_BLACK),
-                        str(out_dir / "reed-bridge-setting-gauge.step"))
-        bridge_volume, gauge_volume = bridge_solid.Volume(), gauge_solid.Volume()
-    else:
-        import _rust_part
-        bodies = _rust_part.cut('cold-core', 'reed-bridge', numbers(), out_dir)['bodies']
-        bridge_volume, gauge_volume = (body['volume'] for body in bodies)
+    import _rust_part
+    bodies = _rust_part.cut('cold-core', 'reed-bridge', numbers(), out_dir)['bodies']
+    bridge_volume, gauge_volume = (body['volume'] for body in bodies)
 
     document(bridge_volume, gauge_volume)
 
@@ -548,25 +390,8 @@ def document(bridge_volume, gauge_volume):
     print(f"-> {Path(__file__).name} (self)")
 
 
-def import_part(path):
-    """The emitted bridge or gauge for the caller's native or f64 mesh API."""
-    _native()
-    from _cadq_export import import_step
-    path = Path(path)
-    if not getattr(cq, 'MESH', False):
-        with path.open('rb') as stream:
-            triangles = b'meshcad tessellated' in stream.read(200)
-        if triangles:
-            if path.stem == 'reed-bridge':
-                return build_reed_bridge().val()
-            if path.stem == 'reed-bridge-setting-gauge':
-                return build_setting_gauge().val()
-    return import_step(str(path)).val()
-
-
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--native', action='store_true', help='Run the retained native builders')
     parser.add_argument('--output', type=Path, default=_here.parent)
     args = parser.parse_args()
-    main(args.output, native=args.native)
+    main(args.output)
