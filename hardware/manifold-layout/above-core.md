@@ -10,14 +10,16 @@ wiring use those same frames. Front is −Y, rear is +Y and up is +Z.
 
 The enclosure body is 215 × 466.3 × 361 mm. The cold-core lid face is Z253.4.
 Back-top has a 9 mm roof and rear wall. The PSU's shallow running well retains
-7.75 mm of roof over its body. Its four M3 × 10 screws enter short RX-M3S × 4
+7.75 mm of roof over its body. A plain pocket above the ASSE and PISCO caps
+ends at Z348.55, leaving 6.45 mm of roof and 0.5 mm above their pointed tips.
+The PSU's four M3 × 10 screws enter short RX-M3S × 4
 inserts; the modeled ear range gives 2.3–4.3 mm of screw projection and 0.7 mm
 of tip air. The four blind pilots end below the full 3 mm roof show skin.
 
 | Equipment | Arrangement | Support |
 |---|---|---|
 | Multiplex ASSE 1022 | Threaded inlet chain fore–aft on TAP; both wrench flats horizontal; vent down | Integral swept hex seat and lower hex snap cap |
-| PISCO RVFUP1/4-1/4-0.3 | Its own inlet neck crosses the upper-right rear hole; ACVUS-44 stem check directly in its outlet | Integral slide seat and lower cap; current neck capture remains unresolved |
+| PISCO RVFUP1/4-1/4-0.3 | Its own inlet neck crosses the CO2 rear hole; ACVUS-44 stem check directly in its outlet | Integral slide seat and lower cap with approved body, neck and rear-hole fit |
 | DIGITEN meter | Outlet directly against the soda union; larger housing side down, label east | Integral east-wall slide seat and west-entering snap cap |
 | JG PP0208E water split | Raised on one gentle bend in the ASSE outlet stub | Connected header; V-K and regulator have their own mounts |
 | YZMSZ water regulator | East–west, above the pump | Integral ceiling seat and lower snap cap |
@@ -38,7 +40,10 @@ slip fit. The four separate caps are in
 
 V-K stands upright with 17.57 mm to the continuous ceiling. Its lower elbow
 clears the plain lid by 1.59 mm. The water-split run has a 3.39° tilt; its
-short V-K and regulator links retain full receiving depths on tangent bends. ASSE, regulator and V-A retain their aligned frames. The
+branch clocks 7.56° about that run to meet the raised ASSE outlet through a
+tangent stub with at least 55.9 mm bend radius. Both through-run sockets
+retain their stations, and the short V-K and regulator links retain full
+receiving depths on tangent bends. ASSE, regulator and V-A retain their aligned frames. The
 [native local fit](../mechanical-qualification/enclosure-above-core/vk-local-fit-review.json)
 records the body clearances and tube extrema.
 
@@ -55,11 +60,15 @@ straight 49.62 mm cover channel is recessed 2.5 mm, retaining 4.9 mm of lid
 floor. The four rear snap caps use the same flat-catch section; their leaves
 have 3.2 mm of outward release travel.
 
-The port columns are X28.8 and X76.5; rows are Z328, Z291 and Z264. TAP's bore
-follows the scanned inlet adapter's axis. The top row is TAP/CO2, the middle
-OVER/SODA, and the bottom flavor B/flavor A. The 1.8 mm identification tiles
-slide into continuous channels between side rails and stand on the channel
-floor at Z252. C14 is at X−68.5/Z330 and RJ11 at X−64/Z291.5.
+Viewed from behind, the left port column is X76.5 and the right is X28.8;
+rows are Z331.2, Z294.2 and Z264. TAP's bore follows the scanned inlet adapter's
+axis. The top row is CO2/TAP, the middle SODA/FLAVOR and the bottom OVER/FLAVOR.
+The 42 × 38 × 1.8 mm identification tiles slide into continuous channels with
+2 mm of overlap at each side, leaving 38 mm square visible faces. Their
+channel floor is Z240.6 and the seams between cards are 0.2 mm. The bottom
+row carries its words below the fittings; the other rows carry them above.
+The nameplate is centered at X0/Z200. C14 is at X−68.5/Z330 and RJ11 at
+X−64/Z291.5.
 
 The common chassis joint is Z160. The lowest tee-return elbow is Z160.913,
 above the entering front wall. The four straight upper links have 5.251 mm

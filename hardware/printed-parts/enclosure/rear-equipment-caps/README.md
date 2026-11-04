@@ -33,8 +33,8 @@ hex cavity with a 14.6 mm nominal upper apothem at the two wrench flats' mean
 clocking. Its three lower-facing planes have 0.25 mm additional vertical seating
 allowance over the main body and bonnet; all six flat directions are retained.
 The common envelope includes at least 0.15 mm slip clearance around both hexes. The ASSE seat allows 1.5 mm of threaded-joint position variation.
-The drain-sleeve window carries that full fore/aft adjustment and ends at
-Z309.4 above the sleeve's measured upper exterior.
+The drain-sleeve window carries that full fore/aft adjustment and clears the
+sleeve's measured upper exterior.
 The Pisco cap follows the scanned body and exposed neck with 0.15 mm radial
 and 0.25 mm axial air. The receiver has a 3 mm-wide upper ring bearing at
 Y438.125–441.125 with 0.15 mm radial air; its loading corridor retains 0.5 mm.
@@ -69,7 +69,10 @@ regulator enters directly upward. The caps close after their bodies seat.
 
 Work with back-top ceiling-down on the bench, separated from the cold core.
 Disconnect and dress the flexible plumbing and leads aside. Reverse the
-following service sequence for assembly; fit the ASSE chain last.
+following service sequence for assembly; fit the ASSE chain after the meter
+and PISCO. Fit the vent sleeve and its return tube after all three caps are
+seated, with the sleeve clocked 15° from fore toward the meter. For meter-cap
+service, disconnect OVER and remove the sleeve from the ASSE barb first.
 
 For ASSE, remove the inlet header, disconnect the drain connection and remove the drain sleeve and
 rear drain bulkhead. Spread the exposed leaves and

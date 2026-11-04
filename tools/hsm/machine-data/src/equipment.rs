@@ -417,7 +417,8 @@ pub fn numbers(request: &Value) -> Result<Value> {
     b.add(
         "soda-bend-holder",
         "reference",
-        pose(spec, "soda-bend-holder")?,
+        json!({"rotation":request["insulation_plan"]["holder_rotation"],
+               "translation_mm":request["insulation_plan"]["holder_translation_mm"]}),
         "M_PETGF_BLACK",
         json!({"source":SOURCES[19]}),
     )?;

@@ -140,7 +140,8 @@ pub fn route_specs(spec: &Value, stations: &Value, params: &Value) -> Result<Rou
         };
     let d = &plan["water_split_stub"];
     let p = points3(&d["points_mm"])?;
-    let [a, m, b] = [p[0], p[1], p[2]];
+    let a = p[0];
+    let b = *p.last().context("water split stub endpoint")?;
     let before = sub(
         a,
         mul(xyz(&d["flow_in"])?, number(&params["reducer_insertion"])?),
@@ -151,7 +152,7 @@ pub fn route_specs(spec: &Value, stations: &Value, params: &Value) -> Result<Rou
     );
     add(
         "above-core-water-split-stub",
-        vec![line(before, a), arc_three(&[a, m, b])?, line(b, after)],
+        vec![line(before, a), if d["kind"] == "bezier" { bezier(&p) } else { arc_three(&p)? }, line(b, after)],
         ["jg-pp061208w", "water-split"],
         Some(number(&d["radius_mm"])?),
     )?;
@@ -322,24 +323,17 @@ pub fn continuations(spec: &Value, stations: &Value, params: &Value) -> Result<R
     )?;
     let (a, ua) = station(stations, "asse-drain-adapter", "tube")?;
     let (b, ub) = station(stations, "bulkhead-drain", "inboard")?;
-    let span = b[1] - a[1];
-    let control = [
-        a,
-        crate::add(a, mul(ua, span / 3.)),
-        crate::add(b, mul(ub, span / 3.)),
-        b,
-    ];
+    let vent = &plan["drain_vent"];
+    let mut segments = vec![line(sub(a, mul(ua, 14.)), a)];
+    segments.extend(vent["segments"].as_array().context("vent return segments")?.clone());
+    segments.push(line(b, sub(b, mul(ub, 10.))));
     add_route(
         &mut out,
         "drain-vent",
-        vec![
-            line(sub(a, mul(ua, 14.)), a),
-            bezier(&control),
-            line(b, sub(b, mul(ub, 10.))),
-        ],
+        segments,
         ("asse-drain-adapter", "tube"),
         ("bulkhead-drain", "inboard"),
-        Some(25.),
+        Some(number(&vent["minimum_radius_mm"])?),
         "drain-white",
         4.,
         2.5,
@@ -362,23 +356,26 @@ pub fn flavor_s_bend(start: V3, heading: V3, offset: V3, axis: V3) -> Result<(Ve
 pub fn flavor_rear(flavor: &str, destination: V3) -> Result<Vec<Value>> {
     let radius = 25.;
     if flavor == "a" {
-        let start = [61., 369.5, 276.5];
-        let low_z = 262.;
-        let offset = [destination[0] - start[0], 0., low_z - start[2]];
+        // Pass between the pump and meter caps, below the ASSE and its sleeve.
+        // The final rise is aft of the sleeve's tube socket.
+        let start = [61., 360., 276.5];
+        let lane = 30.;
+        let offset = [lane - start[0], 0., 0.];
         let normal = unit(cross([0., 1., 0.], offset))?;
         let (mut fall, low) = flavor_s_bend(start, [0., 1., 0.], offset, normal)?;
-        let rise = [0., 0., destination[2] - low_z];
+        let rise = [destination[0] - lane, 0., destination[2] - start[2]];
         let angle = (1. - norm(rise) / (2. * radius)).acos();
         ensure!(angle.is_finite(), "math domain error");
-        let shift_start = [low[0], destination[1] - 2. * radius * angle.sin(), low_z];
-        let (shift, _) = flavor_s_bend(shift_start, [0., 1., 0.], rise, [1., 0., 0.])?;
+        let shift_start = [low[0], destination[1] - 2. * radius * angle.sin(), start[2]];
+        let normal = unit(cross([0., 1., 0.], rise))?;
+        let (shift, _) = flavor_s_bend(shift_start, [0., 1., 0.], rise, normal)?;
         fall.push(line(low, shift_start));
         fall.extend(shift);
         return Ok(fall);
     }
     let peak = 303.5;
     let low_z = destination[2];
-    let start = [35., 348., peak];
+    let start = [35., 343., peak];
     let offset = [0., 0., low_z - peak];
     let normal = unit(cross([0., 1., 0.], offset))?;
     let (mut fall, low) = flavor_s_bend(start, [0., 1., 0.], offset, normal)?;

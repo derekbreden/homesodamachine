@@ -282,14 +282,11 @@ def print_numbers(shell, box):
     station = identification.nameplate_station()
     wing = identification.nameplate.wing_interface
     plan = identification.nameplate_plan()
-    # apply()'s pad extends ph/2 to each side, plus one end margin. This wider
-    # whole-height bound contains it while the accepted run-out/end margins each
-    # remain within half the body height. Cutting the pad cannot enlarge that bound.
+    # apply()'s pad extends ph/2 plus its end or run-out margin. Use the larger
+    # margin for either print direction; cuts cannot enlarge this bound.
     runout = max(2.0, wing.FLOOR_STOCK+wing.RUNOUT_LEAD)
     end_margin = shell.wall+shell.fits.supported_surface
-    if max(runout, end_margin) > wing.HEIGHT/2:
-        raise ValueError('the receiver pad exceeds the back-bottom disjoint bound')
-    pad_floor = station.z-wing.HEIGHT-2*wing.FACE_SLIP
+    pad_floor = station.z-wing.HEIGHT/2-wing.FACE_SLIP-max(runout, end_margin)
     other = [*identification.rail_bounds(),
              *wing.plain_lips(station, plan['face_y_mm']),
              shell._above_core_shell.keystone_land()]

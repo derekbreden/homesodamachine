@@ -584,9 +584,9 @@ SCENES = {
     # On the wall's own column, tilted down. Screen up is world up, so every row is level. The
     # frame holds all three port rows, the inlet, the jack, the nameplate, and a sliver of the top
     # face over the wall's top edge.
-    "the-back-face": (s_the_back_face, dict(cam=(0.0, 1.0, 0.16),
-                                            target=(-3.0, REAR_FACE_Y, 292.0),
-                                            span=70.5, size="2200x1540")),
+    "the-back-face": (s_the_back_face, dict(cam=(0.0, 1.0, 0.12),
+                                            target=(0.0, 467.0, 268.0),
+                                            span=100.0, size="3200x2240")),
     # Off the column, on the top row: the four collets, the inlet with the cord home in it, and
     # the tail leaving past the machine's +X corner.
     "the-socket": (s_the_socket, dict(cam=(-0.26, 1.0, 0.16),

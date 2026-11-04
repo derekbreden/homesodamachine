@@ -219,14 +219,13 @@
         2.0,
         2.0
       ],
-      "coordinate_reference_path": "reference/drain-the-back-face.png",
-      "coordinate_reference_sha256": "945623ff0bbc3b2fb1c7086904b979e2fa2d18a90c78ea9a3502cef546b71fd3",
-      "render_sha256": "f402407ed6ec1560b706076431f6b6300e5617cd6db8e93874fb8118bc3ef8ce",
-      "source_sha256": "179e0db5703cea1662ac9cefbf0a9c16ec306b87b65ba9a8ebd69e6e18392ac0",
-      "scene_step_sha256": "c0943d4998d13857da0e936be411d744aacc2f6bb9539a1adad9e1efd36a1dba",
+      "coordinate_reference_path": "reference/rear-layout-the-back-face.png",
+      "coordinate_reference_sha256": "f5c292db3b6db970522b5eca5fd79e8bd5bcc83c0d6f114fac078617b577a0fd",
+      "render_sha256": "1fe89c7398c3cedcf47b72079918024fca408f2356c87ae8b063a42c9618d123",
+      "source_sha256": "0893b0707d4912d63a40e89490b2bf39d42a421f63a51c690f853bf4f04c3c7c",
       "fixed_native_crop": null,
       "lighting": "Default studio lighting; axial rear camera; native transparent background.",
-      "scene_mesh_sha256": "feb238c12eb857ba295e72bba5fd0e5ce8c594171074a0b9befad6b444f4e6bd",
+      "scene_mesh_sha256": "d4fcff82a491ff4b4f3ec84638419f247ed06d36a11f2f88aab39bf0c3bfee63",
       "registered_camera": {
         "cam": [
           0,
@@ -234,11 +233,11 @@
           0.12
         ],
         "target": [
-          -3,
+          0,
           467,
-          292.05227339500965
+          268
         ],
-        "span": 70.5,
+        "span": 100,
         "size": "3200x2240",
         "trim": false,
         "up": [
@@ -249,15 +248,15 @@
       },
       "anchors_reference_pixels": {
         "jack-port": [
-          1099.540425531915,
-          485.45337664196404
+          1158.4,
+          437.76653526313964
         ]
       },
       "anchor_source_mm": {
         "jack-port": [
-          -40.709999999999994,
-          467.94,
-          301.6172904687784
+          -64,
+          471.3,
+          290.5
         ]
       }
     },
@@ -306,18 +305,17 @@
         2.0,
         2.0
       ],
-      "coordinate_reference_path": "reference/drain-connect-rear-open.png",
-      "coordinate_reference_sha256": "0a2b794fcf07f3733d81c0a569eb04a69e6afe196ff915ec456a07dbcec5ea70",
-      "render_sha256": "ecc02c65d1a471916d273b139d89919f5424bb45c1b36cada8dbe291d8e36af0",
-      "source_sha256": "179e0db5703cea1662ac9cefbf0a9c16ec306b87b65ba9a8ebd69e6e18392ac0",
-      "scene_step_sha256": "712b23719acb2021d99644b04d22bd27299b74316c65d143959c752c8db5b51e",
+      "coordinate_reference_path": "reference/rear-layout-connect-rear-open.png",
+      "coordinate_reference_sha256": "c23f9a0630b354fb560ac4356746243bdb524744a265f3fb7fcad0fd29379c06",
+      "render_sha256": "ac5af23051b23c9d2e21235543396a1321a43e3c07d93b1304dba215af5c2c6a",
+      "source_sha256": "0893b0707d4912d63a40e89490b2bf39d42a421f63a51c690f853bf4f04c3c7c",
       "fixed_native_crop": [
         0,
         1300,
         2700,
         3600
       ],
-      "scene_mesh_sha256": "ac0921d606e323971dd241c156b2edfdf6f5c149bc6d9d25bc8169cb4132a432",
+      "scene_mesh_sha256": "6026c73d8c072c24602e77afe12f0d698bd31bff2ff9eacc335052444cd63d07",
       "registered_camera": {
         "cam": [
           0.7,
@@ -325,7 +323,7 @@
           0.16
         ],
         "target": [
-          -6,
+          44,
           630,
           370
         ],
@@ -336,6 +334,28 @@
           0,
           0,
           1
+        ]
+      },
+      "anchor_source_mm": {
+        "co2-mouth": [
+          76.5,
+          480.8,
+          331.2
+        ],
+        "co2-tube": [
+          76.5,
+          640.8,
+          331.2
+        ]
+      },
+      "anchors_reference_pixels": {
+        "co2-mouth": [
+          239.07190402061303,
+          375.0378068484388
+        ],
+        "co2-tube": [
+          697.8417795112755,
+          460.21523780426696
         ]
       }
     },
@@ -400,18 +420,17 @@
         2.0,
         2.0
       ],
-      "coordinate_reference_path": "reference/drain-connect-rear-connected.png",
-      "coordinate_reference_sha256": "2ca2d281ce6b100a82fc5b7a21c6982518fb56a81b6a4e90f20eaaf93da14a19",
-      "render_sha256": "8b0ff6ea2d9e50ff64b64674ad886d3ea93effe84fa1197087ba133b83540bb1",
-      "source_sha256": "179e0db5703cea1662ac9cefbf0a9c16ec306b87b65ba9a8ebd69e6e18392ac0",
-      "scene_step_sha256": "077e79172eec535eac1c02f74d0c6f3e7bbcf002de1460c3cc51af4d582d424e",
+      "coordinate_reference_path": "reference/rear-layout-connect-rear-connected.png",
+      "coordinate_reference_sha256": "37bb539bf6a47a82f21b201191010b5c3ec8c0668183c94cc19b93bb962b0d69",
+      "render_sha256": "0d903616d3f3f6492bbf09b9349e08c50cce5ff7e2592dc2922d3b523e647b02",
+      "source_sha256": "0893b0707d4912d63a40e89490b2bf39d42a421f63a51c690f853bf4f04c3c7c",
       "fixed_native_crop": [
         0,
         1300,
         2700,
         3600
       ],
-      "scene_mesh_sha256": "5e45ee6194195b9539dbd6529faedbe3102b74074658df3fdb806d2ecac7eb0f",
+      "scene_mesh_sha256": "3498ca2447adfdb311abcedb2cc2fa40e6d9f7539bf6b9efd8ca9ae150ab77d5",
       "registered_camera": {
         "cam": [
           0.7,
@@ -419,7 +438,7 @@
           0.16
         ],
         "target": [
-          -6,
+          44,
           630,
           370
         ],
@@ -470,10 +489,9 @@
         1,
         1
       ],
-      "render_sha256": "b4eeb4710bcc0724849323eb619e35665a50671927eb677056770f9599ebf891",
-      "scene_step_sha256": "453ef9f622be25f4b845de39492fb9baeedb47cf7da026ba3118576a7b96df64",
-      "scene_mesh_sha256": "273fbac9ae0150d68343e41f75fa5bc40ab98c29ec8e9de9a45d6e5cc44b9a39",
-      "source_sha256": "179e0db5703cea1662ac9cefbf0a9c16ec306b87b65ba9a8ebd69e6e18392ac0",
+      "render_sha256": "70443e1bfd433ae3b46b84e0e10eae753532720ed049014c7bf796fff5e879bd",
+      "scene_mesh_sha256": "14c414d10f8bc393b80ef237ce74c4ad1aa7732d564d09f4f9ae23b7fd4cb9c0",
+      "source_sha256": "0893b0707d4912d63a40e89490b2bf39d42a421f63a51c690f853bf4f04c3c7c",
       "registered_camera": {
         "cam": [
           -0.85,
@@ -481,9 +499,9 @@
           0.25
         ],
         "target": [
-          58.9,
-          501,
-          320.2105808375568
+          -76.5,
+          505.3,
+          314.0
         ],
         "span": 64,
         "size": "1800x1300",
@@ -492,6 +510,30 @@
           0,
           0,
           1
+        ]
+      },
+      "coordinate_reference_path": "reference/rear-layout-power-ready.png",
+      "coordinate_reference_sha256": "70443e1bfd433ae3b46b84e0e10eae753532720ed049014c7bf796fff5e879bd",
+      "anchor_source_mm": {
+        "cord-approach": [
+          -68.5,
+          554.0,
+          330.0
+        ],
+        "power-mouth": [
+          -68.5,
+          467.5,
+          330.0
+        ]
+      },
+      "anchors_reference_pixels": {
+        "cord-approach": [
+          517.7594501488513,
+          551.0422891712254
+        ],
+        "power-mouth": [
+          1086.7287067093475,
+          425.78852875728046
         ]
       }
     },

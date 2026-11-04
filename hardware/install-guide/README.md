@@ -20,6 +20,11 @@ on [Guides](https://homesodamachine.com/guides) and at
 The booklet covers installation and care. Braided-hose instructions begin on numbered page 13
 (PDF page 14). Connection checks begin on numbered page 31 (PDF page 32).
 The faucet has four attached tubes, including the small white 4 mm OVER tail.
+Viewed from behind the machine, the rear ports read CO2 / TAP across the top,
+SODA / FLAVOR across the middle, and OVER / FLAVOR across the bottom. Both black
+faucet tubes connect to the right column's FLAVOR ports in either order. The
+identification cards share square visible color faces, and the nameplate sits
+centered beneath them.
 Numbered pages 7–8 (PDF pages 8–9) show the seated plate from below, with a shared
 rear narrow slot for both black flavor tubes, white OVER and the flat display ribbon.
 The front wide slot carries the shank; the blue SODA tube connects beneath it.

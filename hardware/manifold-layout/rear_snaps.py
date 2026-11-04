@@ -468,8 +468,9 @@ def asse_service_corner(s):
 def pisco_station(axis_x, admitted_radius, axis_z, y0, y1):
     """Full 3 mm receiver walls beside the widened hardware passage."""
     web=WALL-REACH-fits.running
-    result=station(axis_x,half_width(admitted_radius,SPLIT,axis_z)+web,
-                   y0,y1,wing_root=axis_z-REAR_ROOT_DROP,
+    split=axis_z+7.
+    result=station(axis_x,half_width(admitted_radius,split,axis_z)+web,
+                   y0,y1,split=split,wing_root=axis_z-REAR_ROOT_DROP,
                    tool_angle_degrees=75.)
     result['tool_inner_slope']=2.
     return result
@@ -641,7 +642,7 @@ def build(parts, asse_axis, asse_at, asse_turn, pisco_axis, mouth_y, ceiling, re
     st_p = pisco_station(pisco_axis[0],cav2[m].max(),pisco_axis[1],*pcap)
     W = st_p['outer']
     front = pcap[0] - c - WALL
-    seat = box(pisco_axis[0] - W, pisco_axis[0] + W, front, rear + INTO, SPLIT, ceiling + INTO)
+    seat = box(pisco_axis[0] - W, pisco_axis[0] + W, front, rear + INTO, st_p['split'], ceiling + INTO)
     seat_profile=pisco_bearing_profile(
         steps(ys2,np.where(ys2>=front-1,cav2,0.)),profile,mouth_y)
     seat = seat.cut(turned(seat_profile, pisco_axis))

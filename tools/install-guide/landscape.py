@@ -294,7 +294,8 @@ def mounting_slots():
     sources = [plate_dir/'under-counter-plate.dxf', plate_dir/'under_counter_plate.py',
                ROOT/'hardware/printed-parts/faucet/faucet_paths.py',
                ROOT/'hardware/faucet-layout/faucet_assembly.py',
-               ROOT/'hardware/printed-parts/faucet/faucet-shell/faucet_shell.py']
+               ROOT/'hardware/printed-parts/faucet/faucet-shell/faucet_shell.py',
+               ROOT/'tools/hsm/faucet-data/src/lib.rs']
 
     def literals(path, names):
         values = {}
@@ -307,11 +308,14 @@ def mounting_slots():
             raise ValueError(f'Missing literal mounting dimensions: {path}')
         return values
 
-    coords = literals(sources[2], ('FLAVOR_OD', 'DRAIN_OD', 'LOWER_FLAVOR_X',
-                                   'LOWER_BUNDLE_X', 'LOWER_Y',
-                                   'LOWER_DRAIN_Y', 'LOWER_RIBBON_Y'))
+    sys.path.insert(0, str(ROOT/'hardware/printed-parts/faucet'))
+    import faucet_paths
+    coords = {name: float(getattr(faucet_paths, name)) for name in
+              ('FLAVOR_OD', 'DRAIN_OD', 'LOWER_FLAVOR_X', 'LOWER_BUNDLE_X',
+               'LOWER_Y', 'LOWER_DRAIN_Y', 'LOWER_RIBBON_Y')}
     shank = literals(sources[3], ('shank_od',))['shank_od']
-    cable = literals(sources[2], ('RIBBON_WIDTH', 'RIBBON_DEPTH'))
+    cable = {name: float(getattr(faucet_paths, name)) for name in
+             ('RIBBON_WIDTH', 'RIBBON_DEPTH')}
     drawing = ezdxf.readfile(sources[0])
     if drawing.header.get('$INSUNITS') != 4:
         raise ValueError('The mounting-slot diagram requires a millimetre DXF')
@@ -648,14 +652,14 @@ end()
 
 # Interior 17
 header('Match the rear connections', 'INSTALL / MATCH THE REAR CONNECTIONS', 3)
-p = pic('steps/the-back-face.png', M, 148, 282, 253, crop=(565, 40, 1565, 855))
-leader('DATA / Faucet cable', M, 414, p(*resolutions['steps/the-back-face.png']['anchors_reference_pixels']['jack-port']))
+p = pic('steps/the-back-face.png', M, 148, 282, 253, crop=(160, 20, 1440, 1120))
+leader('DATA / Faucet cable', M, 136, p(*resolutions['steps/the-back-face.png']['anchors_reference_pixels']['jack-port']))
 para('Pull off the <b>CO2 and TAP shipping caps.</b> They cover the fittings; leave the fittings mounted.', RIGHT, 136, RW, 12, 17, limit=68)
-rows = [('CO2', 'Red tube from the cylinder', '#D7333C', '#FFFFFF'),
-        ('SODA', 'Blue tube from the faucet', '#1670DB', '#FFFFFF'),
-        ('TAP', 'Larger white tube from the filter', '#FFFFFF', INK),
-        ('OVER', 'Small white 4 mm tube from the faucet', '#FFFFFF', INK),
-        ('FLAVOR', 'Two black tubes; either port', INK, '#FFFFFF')]
+rows = [('CO2', 'Top left / red tube from the cylinder', '#D7333C', '#FFFFFF'),
+        ('TAP', 'Top right / larger white filter tube', '#FFFFFF', INK),
+        ('SODA', 'Middle left / blue faucet tube', '#1670DB', '#FFFFFF'),
+        ('OVER', 'Bottom left / small white 4 mm tube', '#FFFFFF', INK),
+        ('FLAVOR', 'Right column / black tubes; either port', INK, '#FFFFFF')]
 for i, (name, desc, bg, fg) in enumerate(rows):
     y = 215+i*43
     rect(RIGHT, y, 71, 23, bg, RULE if bg == '#FFFFFF' else None, 3)
@@ -665,7 +669,7 @@ end()
 
 # Interior 18
 header('Push home. Then tug.', 'INSTALL / MATCH THE REAR CONNECTIONS', 3)
-pic('steps/connect-rear-open.png', M, 155, 283, 183, crop=(195, 160, 1350, 880))
+pic('steps/connect-rear-open.png', M, 155, 283, 183, crop=(60, 160, 1350, 880))
 caption('Push straight into the fitting, all the way to its stop.', 362)
 item('CHECK EVERY TUBE', 'Push to its stop', 'Match each tube label to its port. A fitting can grip before the tube reaches the seal. Push fully home, then tug gently.', 144)
 para('<b>Click the faucet cable into DATA.</b><br/><br/>Leave the OVER tube at its factory length. Lay the filter flat and route all tails in loose curves, clear of things that slide in and out.', RIGHT, 303, RW, 12, 17, limit=136)
@@ -688,8 +692,9 @@ end()
 
 # Interior 21
 header('Connect the red tether', 'TURN IT ON / PREPARE THE CYLINDER', 4)
-p = pic('steps/connect-rear-open.png', M, 156, 278, 230, crop=(195, 160, 1350, 880))
-arrow(*p(818.366, 400.378), *p(422.677, 326.913), head=10)
+p = pic('steps/connect-rear-open.png', M, 156, 278, 230, crop=(60, 160, 1350, 880))
+co2_anchors = resolutions['steps/connect-rear-open.png']['anchors_reference_pixels']
+arrow(*p(*co2_anchors['co2-tube']), *p(*co2_anchors['co2-mouth']), head=10)
 caption('Keep the regulator end of the tether assembled.', 402)
 item('3 / CO2 PORT', 'Red tube to red fitting', 'Push the free end of the red tether into the machine\'s red CO2 port. Push fully home, then tug gently.', 153)
 note('KEEP THE CYLINDER CLOSED', 'Finish all connections before opening water or gas. The next pages take you through water, gas and power in that order.', 319, RIGHT, RW)
@@ -715,8 +720,9 @@ end()
 # Interior 24
 header('Finally, connect power', 'TURN IT ON / WATER, GAS, POWER', 5)
 p = pic('steps/power-ready.png', M, 164, 278, 194, crop=(0, 160, 1800, 1140))
-arrow(*p(491.16, 602.56), *p(1089.73, 470.79), head=10)
-item('3 / POWER', 'Connect the supplied cord', 'Push it straight into the top-left socket on the back of the machine. Plug into a grounded 120 V outlet.', 144)
+power_anchors = resolutions['steps/power-ready.png']['anchors_reference_pixels']
+arrow(*p(*power_anchors['cord-approach']), *p(*power_anchors['power-mouth']), head=10)
+item('3 / POWER', 'Connect the supplied cord', 'Push it straight into the power socket at the upper right of the rear panel. Plug into a grounded 120 V outlet.', 144)
 para('The machine chimes and its display starts. Follow the display if it reports an issue.', RIGHT, 296, RW)
 caption('120 V, 60 Hz; 5 A, 600 W. The inlet\'s 250 V marking describes the connector.', 396, w=CW)
 end()

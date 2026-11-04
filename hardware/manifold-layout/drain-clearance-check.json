@@ -2,7 +2,9 @@
   "bend_radii": {
     "tube-drain-vent": {
       "centerline_radii_mm": [
-        55.6741128
+        25.5,
+        31.9549931,
+        216.1995497
       ],
       "method": "Producer centerline; circular arcs and cubic curvature extrema",
       "passed": true
@@ -41,6 +43,10 @@
     ],
     [
       "asse-drain-adapter",
+      "tube-fluid-16"
+    ],
+    [
+      "asse-drain-adapter",
       "cold-core/foam-cap-lid-top"
     ],
     [
@@ -61,7 +67,63 @@
     ],
     [
       "tube-drain-vent",
+      "digiten-flow"
+    ],
+    [
+      "tube-drain-vent",
+      "soda-bend-holder"
+    ],
+    [
+      "tube-drain-vent",
+      "soda-continuous-insulation"
+    ],
+    [
+      "tube-drain-vent",
+      "bulkhead-flavor-a"
+    ],
+    [
+      "tube-drain-vent",
+      "bulkhead-flavor-a-nut"
+    ],
+    [
+      "tube-drain-vent",
+      "bulkhead-carb"
+    ],
+    [
+      "tube-drain-vent",
+      "bulkhead-carb-nut"
+    ],
+    [
+      "tube-drain-vent",
+      "bulkhead-flavor-b"
+    ],
+    [
+      "tube-drain-vent",
+      "bulkhead-flavor-b-nut"
+    ],
+    [
+      "tube-drain-vent",
       "bulkhead-drain-nut"
+    ],
+    [
+      "tube-drain-vent",
+      "meter-snap-cap"
+    ],
+    [
+      "tube-drain-vent",
+      "tube-soda-core-rise"
+    ],
+    [
+      "tube-drain-vent",
+      "tube-soda-meter-bulkhead"
+    ],
+    [
+      "tube-drain-vent",
+      "tube-above-core-gas-core-drop"
+    ],
+    [
+      "tube-drain-vent",
+      "tube-above-core-va-fore-feed"
     ],
     [
       "tube-drain-vent",
@@ -70,6 +132,14 @@
     [
       "tube-drain-vent",
       "tube-fluid-28"
+    ],
+    [
+      "tube-drain-vent",
+      "tube-fluid-14"
+    ],
+    [
+      "tube-drain-vent",
+      "tube-fluid-16"
     ],
     [
       "tube-drain-vent",
@@ -141,11 +211,7 @@
     ],
     [
       "tube-fluid-18",
-      "bulkhead-drain"
-    ],
-    [
-      "tube-fluid-18",
-      "bulkhead-drain-nut"
+      "bulkhead-flavor-a-nut"
     ],
     [
       "tube-fluid-18",
@@ -165,7 +231,11 @@
     ],
     [
       "tube-fluid-18",
-      "bulkhead-flavor-a-nut"
+      "bulkhead-drain"
+    ],
+    [
+      "tube-fluid-18",
+      "bulkhead-drain-nut"
     ],
     [
       "tube-fluid-18",
@@ -437,19 +507,15 @@
     ],
     [
       "tube-fluid-28",
-      "bulkhead-drain"
+      "bulkhead-flavor-a"
     ],
     [
       "tube-fluid-28",
-      "bulkhead-drain-nut"
+      "bulkhead-flavor-a-nut"
     ],
     [
       "tube-fluid-28",
       "bulkhead-flavor-b-nut"
-    ],
-    [
-      "tube-fluid-28",
-      "asse-snap-cap"
     ],
     [
       "tube-fluid-28",
@@ -704,42 +770,47 @@
           "overlap_mm3": 0.0
         },
         {
-          "gap_mm": 42.2648033,
+          "gap_mm": 3.0194198,
           "name": "tube-fluid-18",
           "overlap_mm3": 0.0
         },
         {
-          "gap_mm": 19.1167611,
+          "gap_mm": 22.3167611,
           "name": "tube-fluid-28",
           "overlap_mm3": 0.0
         },
         {
-          "gap_mm": 23.8200224,
+          "gap_mm": 26.0455004,
           "name": "tube-fluid-14",
           "overlap_mm3": 0.0
         },
         {
-          "gap_mm": 4.9260612,
+          "gap_mm": 19.4506375,
+          "name": "tube-fluid-16",
+          "overlap_mm3": 0.0
+        },
+        {
+          "gap_mm": 7.3670292,
           "name": "cold-core/foam-cap-lid-top",
           "overlap_mm3": 0.0
         },
         {
-          "gap_mm": 12.2446293,
+          "gap_mm": 12.6520087,
           "name": "g-ganen-pump",
           "overlap_mm3": 0.0
         },
         {
-          "gap_mm": 1.526559,
+          "gap_mm": 3.0286673,
           "name": "pump-snap-cap",
           "overlap_mm3": 0.0
         },
         {
-          "gap_mm": 17.2228098,
+          "gap_mm": 20.8247471,
           "name": "enclosure-back-top",
           "overlap_mm3": 0.0
         },
         {
-          "gap_mm": 28.7446872,
+          "gap_mm": 23.8503446,
           "name": "foam-assembly",
           "overlap_mm3": 0.0
         }
@@ -752,37 +823,117 @@
       "minimum_unconnected_gap_mm": 1.0,
       "neighbors": [
         {
-          "gap_mm": 5.4978081,
+          "gap_mm": 0.8135986,
+          "name": "digiten-flow",
+          "overlap_mm3": 0.0
+        },
+        {
+          "gap_mm": 9.7101872,
+          "name": "soda-bend-holder",
+          "overlap_mm3": 0.0
+        },
+        {
+          "gap_mm": 2.9943082,
+          "name": "soda-continuous-insulation",
+          "overlap_mm3": 0.0
+        },
+        {
+          "gap_mm": 40.7299796,
+          "name": "bulkhead-flavor-a",
+          "overlap_mm3": 0.0
+        },
+        {
+          "gap_mm": 44.0748733,
+          "name": "bulkhead-flavor-a-nut",
+          "overlap_mm3": 0.0
+        },
+        {
+          "gap_mm": 19.8500224,
+          "name": "bulkhead-carb",
+          "overlap_mm3": 0.0
+        },
+        {
+          "gap_mm": 17.4518123,
+          "name": "bulkhead-carb-nut",
+          "overlap_mm3": 0.0
+        },
+        {
+          "gap_mm": 37.4527608,
+          "name": "bulkhead-flavor-b",
+          "overlap_mm3": 0.0
+        },
+        {
+          "gap_mm": 36.7000215,
+          "name": "bulkhead-flavor-b-nut",
+          "overlap_mm3": 0.0
+        },
+        {
+          "gap_mm": 5.4979023,
           "name": "bulkhead-drain-nut",
           "overlap_mm3": 0.0
         },
         {
-          "gap_mm": 50.8076751,
+          "gap_mm": 1.7816651,
+          "name": "meter-snap-cap",
+          "overlap_mm3": 0.0
+        },
+        {
+          "gap_mm": 12.5186759,
+          "name": "tube-soda-core-rise",
+          "overlap_mm3": 0.0
+        },
+        {
+          "gap_mm": 25.025022,
+          "name": "tube-soda-meter-bulkhead",
+          "overlap_mm3": 0.0
+        },
+        {
+          "gap_mm": 17.222911,
+          "name": "tube-above-core-gas-core-drop",
+          "overlap_mm3": 0.0
+        },
+        {
+          "gap_mm": 56.1240974,
+          "name": "tube-above-core-va-fore-feed",
+          "overlap_mm3": 0.0
+        },
+        {
+          "gap_mm": 2.3314722,
           "name": "tube-fluid-18",
           "overlap_mm3": 0.0
         },
         {
-          "gap_mm": 23.0,
+          "gap_mm": 12.1538274,
           "name": "tube-fluid-28",
           "overlap_mm3": 0.0
         },
         {
-          "gap_mm": 9.6303952,
+          "gap_mm": 9.8883508,
+          "name": "tube-fluid-14",
+          "overlap_mm3": 0.0
+        },
+        {
+          "gap_mm": 2.2082404,
+          "name": "tube-fluid-16",
+          "overlap_mm3": 0.0
+        },
+        {
+          "gap_mm": 8.5316651,
           "name": "cold-core/foam-cap-lid-top",
           "overlap_mm3": 0.0
         },
         {
-          "gap_mm": 7.8566433,
+          "gap_mm": 0.3476584,
           "name": "enclosure-back-top",
           "overlap_mm3": 0.0
         },
         {
-          "gap_mm": 33.6141063,
+          "gap_mm": 4.999777,
           "name": "foam-assembly",
           "overlap_mm3": 0.0
         }
       ],
-      "passed": true,
+      "passed": false,
       "solids": 1,
       "valid": true
     },
@@ -815,9 +966,9 @@
           "overlap_mm3": 0.0
         },
         {
-          "gap_mm": 0.0,
+          "gap_mm": 20.0661991,
           "name": "digiten-flow",
-          "overlap_mm3": 0.0003577
+          "overlap_mm3": 0.0
         },
         {
           "gap_mm": 1.2357418,
@@ -825,7 +976,7 @@
           "overlap_mm3": 0.0
         },
         {
-          "gap_mm": 42.2648033,
+          "gap_mm": 3.0194198,
           "name": "asse-drain-adapter",
           "overlap_mm3": 0.0
         },
@@ -850,43 +1001,13 @@
           "overlap_mm3": 0.0
         },
         {
-          "gap_mm": 6.692237,
+          "gap_mm": 6.7198617,
           "name": "soda-bend-holder",
           "overlap_mm3": 0.0
         },
         {
-          "gap_mm": 0.8048758,
+          "gap_mm": 0.8517666,
           "name": "soda-continuous-insulation",
-          "overlap_mm3": 0.0
-        },
-        {
-          "gap_mm": 44.2564258,
-          "name": "bulkhead-drain",
-          "overlap_mm3": 0.0
-        },
-        {
-          "gap_mm": 42.4195686,
-          "name": "bulkhead-drain-nut",
-          "overlap_mm3": 0.0
-        },
-        {
-          "gap_mm": 16.6505962,
-          "name": "bulkhead-carb",
-          "overlap_mm3": 0.0
-        },
-        {
-          "gap_mm": 14.3571652,
-          "name": "bulkhead-carb-nut",
-          "overlap_mm3": 0.0
-        },
-        {
-          "gap_mm": 37.4533,
-          "name": "bulkhead-flavor-b",
-          "overlap_mm3": 0.0
-        },
-        {
-          "gap_mm": 36.7005642,
-          "name": "bulkhead-flavor-b-nut",
           "overlap_mm3": 0.0
         },
         {
@@ -895,7 +1016,37 @@
           "overlap_mm3": 0.0
         },
         {
-          "gap_mm": 0.3490301,
+          "gap_mm": 36.0574304,
+          "name": "bulkhead-carb",
+          "overlap_mm3": 0.0
+        },
+        {
+          "gap_mm": 34.6555763,
+          "name": "bulkhead-carb-nut",
+          "overlap_mm3": 0.0
+        },
+        {
+          "gap_mm": 20.7005948,
+          "name": "bulkhead-flavor-b",
+          "overlap_mm3": 0.0
+        },
+        {
+          "gap_mm": 17.808291,
+          "name": "bulkhead-flavor-b-nut",
+          "overlap_mm3": 0.0
+        },
+        {
+          "gap_mm": 45.8435564,
+          "name": "bulkhead-drain",
+          "overlap_mm3": 0.0
+        },
+        {
+          "gap_mm": 44.074852,
+          "name": "bulkhead-drain-nut",
+          "overlap_mm3": 0.0
+        },
+        {
+          "gap_mm": 14.6671724,
           "name": "meter-snap-cap",
           "overlap_mm3": 0.0
         },
@@ -910,17 +1061,17 @@
           "overlap_mm3": 0.0
         },
         {
-          "gap_mm": 10.3293533,
+          "gap_mm": 10.3759891,
           "name": "tube-soda-core-rise",
           "overlap_mm3": 0.0
         },
         {
-          "gap_mm": 21.8255945,
+          "gap_mm": 42.4163488,
           "name": "tube-soda-meter-bulkhead",
           "overlap_mm3": 0.0
         },
         {
-          "gap_mm": 0.3272359,
+          "gap_mm": 0.3278018,
           "name": "tube-above-core-gas-core-drop",
           "overlap_mm3": 0.0
         },
@@ -930,7 +1081,7 @@
           "overlap_mm3": 0.0
         },
         {
-          "gap_mm": 50.8076751,
+          "gap_mm": 2.3314722,
           "name": "tube-drain-vent",
           "overlap_mm3": 0.0
         },
@@ -970,12 +1121,12 @@
           "overlap_mm3": 0.0
         },
         {
-          "gap_mm": 14.2980735,
+          "gap_mm": 47.0227877,
           "name": "cold-core/cap-clamp-top-4",
           "overlap_mm3": 0.0
         },
         {
-          "gap_mm": 71.04596,
+          "gap_mm": 45.7457911,
           "name": "cold-core/cap-clamp-top-5",
           "overlap_mm3": 0.0
         },
@@ -985,7 +1136,7 @@
           "overlap_mm3": 0.0
         },
         {
-          "gap_mm": 14.2859982,
+          "gap_mm": 14.36,
           "name": "cold-core/foam-shell",
           "overlap_mm3": 0.0
         },
@@ -995,7 +1146,7 @@
           "overlap_mm3": 0.0
         },
         {
-          "gap_mm": 46.6429236,
+          "gap_mm": 25.0073229,
           "name": "cold-core/tube-reservoir-air-a",
           "overlap_mm3": 0.0
         },
@@ -1015,12 +1166,12 @@
           "overlap_mm3": 0.0
         },
         {
-          "gap_mm": 27.4378352,
+          "gap_mm": 23.9507733,
           "name": "cold-core/line-reservoir-a",
           "overlap_mm3": 0.0
         },
         {
-          "gap_mm": 17.3421143,
+          "gap_mm": 32.0072926,
           "name": "cold-core/line-reservoir-a-fill",
           "overlap_mm3": 0.0
         },
@@ -1055,7 +1206,7 @@
           "overlap_mm3": 0.0
         },
         {
-          "gap_mm": 22.1787306,
+          "gap_mm": 18.1534541,
           "name": "g-ganen-pump",
           "overlap_mm3": 0.0
         },
@@ -1070,7 +1221,7 @@
           "overlap_mm3": 0.0
         },
         {
-          "gap_mm": 39.9151022,
+          "gap_mm": 6.2085802,
           "name": "pump-snap-cap",
           "overlap_mm3": 0.0
         },
@@ -1175,12 +1326,12 @@
           "overlap_mm3": 0.0
         },
         {
-          "gap_mm": 4.87198,
+          "gap_mm": 11.9712162,
           "name": "foam-assembly",
           "overlap_mm3": 0.0
         }
       ],
-      "passed": false,
+      "passed": true,
       "solids": 1,
       "valid": true
     },
@@ -1198,7 +1349,7 @@
           "overlap_mm3": 0.0
         },
         {
-          "gap_mm": 27.9156335,
+          "gap_mm": 33.4947761,
           "name": "asse1022-assembly",
           "overlap_mm3": 0.0
         },
@@ -1208,7 +1359,7 @@
           "overlap_mm3": 0.0
         },
         {
-          "gap_mm": 19.1167611,
+          "gap_mm": 22.3167611,
           "name": "asse-drain-adapter",
           "overlap_mm3": 0.0
         },
@@ -1218,7 +1369,7 @@
           "overlap_mm3": 0.0
         },
         {
-          "gap_mm": 87.0147891,
+          "gap_mm": 87.3673084,
           "name": "va-south-elbow",
           "overlap_mm3": 0.0
         },
@@ -1238,23 +1389,18 @@
           "overlap_mm3": 0.0
         },
         {
-          "gap_mm": 17.5,
-          "name": "bulkhead-drain",
+          "gap_mm": 20.7,
+          "name": "bulkhead-flavor-a",
           "overlap_mm3": 0.0
         },
         {
-          "gap_mm": 14.6076952,
-          "name": "bulkhead-drain-nut",
+          "gap_mm": 17.8076952,
+          "name": "bulkhead-flavor-a-nut",
           "overlap_mm3": 0.0
         },
         {
           "gap_mm": 5.4978081,
           "name": "bulkhead-flavor-b-nut",
-          "overlap_mm3": 0.0
-        },
-        {
-          "gap_mm": 28.826788,
-          "name": "asse-snap-cap",
           "overlap_mm3": 0.0
         },
         {
@@ -1288,7 +1434,7 @@
           "overlap_mm3": 0.0
         },
         {
-          "gap_mm": 23.0,
+          "gap_mm": 12.1538274,
           "name": "tube-drain-vent",
           "overlap_mm3": 0.0
         },
@@ -1363,12 +1509,12 @@
           "overlap_mm3": 0.0
         },
         {
-          "gap_mm": 45.2046158,
+          "gap_mm": 43.4245422,
           "name": "cold-core/line-carb-water-out",
           "overlap_mm3": 0.0
         },
         {
-          "gap_mm": 33.9396018,
+          "gap_mm": 31.123446,
           "name": "cold-core/line-co2-in",
           "overlap_mm3": 0.0
         },
@@ -1755,14 +1901,14 @@
           "record": {
             "R": 25.0,
             "c": [
-              79.256785338,
-              369.5,
-              259.421071781
+              36.0,
+              360.0,
+              276.5
             ],
             "d": [
-              -0.683157129,
               0.0,
-              -0.730271414
+              0.0,
+              1.0
             ],
             "kind": "TORUS",
             "op": "sweep",
@@ -1777,14 +1923,14 @@
           "record": {
             "R": 25.0,
             "c": [
-              58.243214662,
-              410.390078597,
-              279.078928219
+              55.0,
+              406.249324319,
+              276.5
             ],
             "d": [
-              0.683157129,
               0.0,
-              0.730271414
+              0.0,
+              -1.0
             ],
             "kind": "TORUS",
             "op": "sweep",
@@ -1799,14 +1945,14 @@
           "record": {
             "R": 25.0,
             "c": [
-              76.5,
-              435.838903925,
-              287.0
+              28.308965023,
+              411.637684861,
+              301.442742446
             ],
             "d": [
-              1.0,
+              0.997709698,
               0.0,
-              0.0
+              0.067641399
             ],
             "kind": "TORUS",
             "op": "sweep",
@@ -1821,14 +1967,14 @@
           "record": {
             "R": 25.0,
             "c": [
-              76.5,
+              30.491033848,
               449.838903925,
-              239.0
+              269.257257554
             ],
             "d": [
-              -1.0,
+              -0.997709698,
               0.0,
-              0.0
+              -0.067641399
             ],
             "kind": "TORUS",
             "op": "sweep",
@@ -1997,14 +2143,14 @@
           "record": {
             "R": 25.0,
             "c": [
-              79.256785338,
-              369.5,
-              259.421071781
+              36.0,
+              360.0,
+              276.5
             ],
             "d": [
-              -0.683157129,
               0.0,
-              -0.730271414
+              0.0,
+              1.0
             ],
             "kind": "TORUS",
             "op": "sweep",
@@ -2019,14 +2165,14 @@
           "record": {
             "R": 25.0,
             "c": [
-              58.243214662,
-              410.390078597,
-              279.078928219
+              55.0,
+              406.249324319,
+              276.5
             ],
             "d": [
-              0.683157129,
               0.0,
-              0.730271414
+              0.0,
+              -1.0
             ],
             "kind": "TORUS",
             "op": "sweep",
@@ -2041,14 +2187,14 @@
           "record": {
             "R": 25.0,
             "c": [
-              76.5,
-              435.838903925,
-              287.0
+              28.308965023,
+              411.637684861,
+              301.442742446
             ],
             "d": [
-              1.0,
+              0.997709698,
               0.0,
-              0.0
+              0.067641399
             ],
             "kind": "TORUS",
             "op": "sweep",
@@ -2063,14 +2209,14 @@
           "record": {
             "R": 25.0,
             "c": [
-              76.5,
+              30.491033848,
               449.838903925,
-              239.0
+              269.257257554
             ],
             "d": [
-              -1.0,
+              -0.997709698,
               0.0,
-              0.0
+              -0.067641399
             ],
             "kind": "TORUS",
             "op": "sweep",
@@ -2242,7 +2388,7 @@
             "R": 25.0,
             "c": [
               35.0,
-              348.0,
+              343.0,
               278.5
             ],
             "d": [
@@ -2264,7 +2410,7 @@
             "R": 25.0,
             "c": [
               35.0,
-              396.885069295,
+              391.885069295,
               289.0
             ],
             "d": [
@@ -2484,7 +2630,7 @@
             "R": 25.0,
             "c": [
               35.0,
-              348.0,
+              343.0,
               278.5
             ],
             "d": [
@@ -2506,7 +2652,7 @@
             "R": 25.0,
             "c": [
               35.0,
-              396.885069295,
+              391.885069295,
               289.0
             ],
             "d": [
@@ -2597,7 +2743,7 @@
     },
     "physical": {
       "path": "hardware/manifold-layout/enclosure-assembly.step.npz",
-      "sha256": "ea6fd8d7d2715e11abdfe403ce652283701e96fc21a2f921e38a7f74acaa145f"
+      "sha256": "42abdb7f53cf4ccefe6c5a0a315838618f7b15c8615026d91a6f1bb8cd9f857c"
     },
     "population": {
       "asse-drain-adapter": [
@@ -2637,28 +2783,28 @@
       ],
       "bulkhead-drain": [
         {
-          "entry_index": 120,
+          "entry_index": 126,
           "model": "physical",
           "qualified_name": "bulkhead-drain"
         }
       ],
       "bulkhead-drain-nut": [
         {
-          "entry_index": 121,
+          "entry_index": 127,
           "model": "physical",
           "qualified_name": "bulkhead-drain-nut"
         }
       ],
       "bulkhead-flavor-a": [
         {
-          "entry_index": 126,
+          "entry_index": 120,
           "model": "physical",
           "qualified_name": "bulkhead-flavor-a"
         }
       ],
       "bulkhead-flavor-a-nut": [
         {
-          "entry_index": 127,
+          "entry_index": 121,
           "model": "physical",
           "qualified_name": "bulkhead-flavor-a-nut"
         }
@@ -2679,29 +2825,29 @@
       ],
       "bulkhead-ring-carb": [
         {
-          "entry_index": 341,
+          "entry_index": 343,
           "model": "physical",
           "qualified_name": "bulkhead-ring-carb"
         }
       ],
       "bulkhead-ring-carb-word": [
         {
-          "entry_index": 342,
+          "entry_index": 344,
           "model": "physical",
           "qualified_name": "bulkhead-ring-carb-word/1"
         },
         {
-          "entry_index": 343,
+          "entry_index": 345,
           "model": "physical",
           "qualified_name": "bulkhead-ring-carb-word/2"
         },
         {
-          "entry_index": 344,
+          "entry_index": 346,
           "model": "physical",
           "qualified_name": "bulkhead-ring-carb-word/3"
         },
         {
-          "entry_index": 345,
+          "entry_index": 347,
           "model": "physical",
           "qualified_name": "bulkhead-ring-carb-word/4"
         }
@@ -2732,107 +2878,107 @@
       ],
       "bulkhead-ring-drain": [
         {
-          "entry_index": 336,
+          "entry_index": 355,
           "model": "physical",
           "qualified_name": "bulkhead-ring-drain"
         }
       ],
       "bulkhead-ring-drain-word": [
         {
-          "entry_index": 337,
+          "entry_index": 356,
           "model": "physical",
           "qualified_name": "bulkhead-ring-drain-word/1"
         },
         {
-          "entry_index": 338,
+          "entry_index": 357,
           "model": "physical",
           "qualified_name": "bulkhead-ring-drain-word/2"
         },
         {
-          "entry_index": 339,
+          "entry_index": 358,
           "model": "physical",
           "qualified_name": "bulkhead-ring-drain-word/3"
         },
         {
-          "entry_index": 340,
+          "entry_index": 359,
           "model": "physical",
           "qualified_name": "bulkhead-ring-drain-word/4"
         }
       ],
       "bulkhead-ring-flavor-a": [
         {
-          "entry_index": 353,
+          "entry_index": 336,
           "model": "physical",
           "qualified_name": "bulkhead-ring-flavor-a"
         }
       ],
       "bulkhead-ring-flavor-a-word": [
         {
-          "entry_index": 354,
+          "entry_index": 337,
           "model": "physical",
           "qualified_name": "bulkhead-ring-flavor-a-word/1"
         },
         {
-          "entry_index": 355,
+          "entry_index": 338,
           "model": "physical",
           "qualified_name": "bulkhead-ring-flavor-a-word/2"
         },
         {
-          "entry_index": 356,
+          "entry_index": 339,
           "model": "physical",
           "qualified_name": "bulkhead-ring-flavor-a-word/3"
         },
         {
-          "entry_index": 357,
+          "entry_index": 340,
           "model": "physical",
           "qualified_name": "bulkhead-ring-flavor-a-word/4"
         },
         {
-          "entry_index": 358,
+          "entry_index": 341,
           "model": "physical",
           "qualified_name": "bulkhead-ring-flavor-a-word/5"
         },
         {
-          "entry_index": 359,
+          "entry_index": 342,
           "model": "physical",
           "qualified_name": "bulkhead-ring-flavor-a-word/6"
         }
       ],
       "bulkhead-ring-flavor-b": [
         {
-          "entry_index": 346,
+          "entry_index": 348,
           "model": "physical",
           "qualified_name": "bulkhead-ring-flavor-b"
         }
       ],
       "bulkhead-ring-flavor-b-word": [
         {
-          "entry_index": 347,
+          "entry_index": 349,
           "model": "physical",
           "qualified_name": "bulkhead-ring-flavor-b-word/1"
         },
         {
-          "entry_index": 348,
+          "entry_index": 350,
           "model": "physical",
           "qualified_name": "bulkhead-ring-flavor-b-word/2"
         },
         {
-          "entry_index": 349,
+          "entry_index": 351,
           "model": "physical",
           "qualified_name": "bulkhead-ring-flavor-b-word/3"
         },
         {
-          "entry_index": 350,
+          "entry_index": 352,
           "model": "physical",
           "qualified_name": "bulkhead-ring-flavor-b-word/4"
         },
         {
-          "entry_index": 351,
+          "entry_index": 353,
           "model": "physical",
           "qualified_name": "bulkhead-ring-flavor-b-word/5"
         },
         {
-          "entry_index": 352,
+          "entry_index": 354,
           "model": "physical",
           "qualified_name": "bulkhead-ring-flavor-b-word/6"
         }
@@ -5396,9 +5542,9 @@
         }
       ]
     },
-    "route_specs_sha256": "1f129d9f06ac06758ce02c6c47fa68e7cc0fc7403832d271628d7bb3a4335ce7"
+    "route_specs_sha256": "72e41a4fc1d304c0fb77f739ce60c3f3e7e023c92932ef9bbead6142e6eb5fe7"
   },
-  "fine_query_count": 616,
+  "fine_query_count": 670,
   "installed_body_count": 295,
   "passed": false,
   "scope": "Nominal authoritative fine model clearance of the direct TPU ASSE sleeve and dedicated drain against the complete installed assembly population, including cold-core bodies and retained flavor returns. Connected interfaces are excluded. Tubes exclude flexible conductors and jackets as obstacles; connector housings remain. The white 4 mm return requires at least 1 mm to every other unconnected body. Pump occupied envelopes are read per component. The sleeve expanded shape is an occupancy approximation. Hardware tolerances, zip-tie heads, actual bending, seals and vent performance are unmeasured.",
@@ -5406,7 +5552,7 @@
   "source_sha256": {
     "hardware/manifold-layout/_drain.py": "0ad93b3c74802ca07367230e1762ffffe9a1b209ae94336f8c442f70667406c2",
     "hardware/manifold-layout/_lines.py": "2b58dbf1bc279c4bee165d546fb29301f89a71473d62a05424700d9ce33bc0a5",
-    "hardware/manifold-layout/above-core.json": "c3ce79ed97206b1012531fa6fab1bcda858da2251dbe360b3eb3e1138412726f",
+    "hardware/manifold-layout/above-core.json": "803fd300c839e7e101c49352aaa67747ed1e55f447d58283531bc3d3a5c16d9f",
     "hardware/manifold-layout/enclosure_assembly.py": "738a98bf5507c42304858fa56c1f0129b4006358d662209fa75012597172e3c1",
     "hardware/manifold-layout/enclosure_assembly.rs": "51367b083497a96d6fb048abef8bf39e49689d1ca8b5b1877d81fb93b7bdc606",
     "hardware/manifold-layout/machine_check_bounds.rs": "54f050bd466e9e84bb8a23d032e91a8eba87f7757c59da5d5152e7b7d9d9c165",
@@ -5416,11 +5562,11 @@
     "hardware/manifold-layout/machine_check_routes.rs": "b6fe857ce0bbbaa913571dea2285fd457952162d0eba65bc2bce533de836ff3a",
     "hardware/manifold-layout/machine_check_rules.json": "53b552b37cab2acc8e4b6cdeb27b677342f2e27d5efff1ba0ebeb6578742358f",
     "hardware/manifold-layout/machine_checks.rs": "b9aced58f223c18f9f9f55f0a1e26e9a8a7d97d17d45a97cc661d3a6db22c423",
-    "hardware/manifold-layout/rear_plumbing.py": "6ee2d8ce7d01fa4db7ce005c6532fc1fdfa1f79499b13e28d827911ca3c87184",
-    "hardware/printed-parts/asse-drain-adapter/asse_drain_adapter.py": "de7980e0f8bbe230efd6c3762af197e4ec645077ac151f72abcb6490bf9aa896",
+    "hardware/manifold-layout/rear_plumbing.py": "41237c4e5bb9c1d044e1b7d847a5c044ef614aa0460183ce0ca6dddc424442e8",
+    "hardware/printed-parts/asse-drain-adapter/asse_drain_adapter.py": "ab60b252b3510c1497056085e8de295f7484fc7e41809ebd797ba16e25bb3f41",
     "hardware/reference/asse1022-assembly/asse1022_assembly.py": "b7dc073c680bdac6e4a9c91d3dadab3d6fd5d7d52310a4b8c371fc88b9ed07ec",
     "hardware/reference/neofit-drain-bulkhead/neofit_drain_bulkhead.py": "9c27c490487588671ee596756bd6b68010988e327a5db51709851f04212589ff",
-    "hardware/scripts/_assembly_model.py": "b2aeda329951c46118cb8121ea6f8a1fff2c23e2a092593f71cd90abeb3597d5",
+    "hardware/scripts/_assembly_model.py": "5104bc5b7a249fb6ee64e8a29641ed27c3329db58cbdba01722dd7a3734e8f30",
     "hardware/scripts/_machine_checks.py": "ca9e15d216bc4e09dd441e82a2f52e52bd10d8aca73ac81d8ccf95db831cdc3d",
     "hardware/scripts/check_asse_drain.py": "5aa198f18b5b314dbbe9c4233ffe3f58fcf830d5d12bfb2bcd2a52f864dd1bea"
   }

@@ -23,8 +23,11 @@ sys.path.insert(0, str(HARDWARE / 'scripts'))
 import _hsm_render
 POWER_RETREAT = 25.0
 BOTTLE_LIFT = 50.0
+_machine_facts = json.loads((HARDWARE / 'manifold-layout/enclosure-assembly.facts.json').read_text())
+_power_x, _power_z = _machine_facts['constants']['C14_STATION']
+_rear_y = _machine_facts['box']['outer'][3]
 POSES = {
-    'power-ready': dict(cam=(-.85, 1, .25), target=(58.9, 501, 320.2105808375568),
+    'power-ready': dict(cam=(-.85, 1, .25), target=(_power_x-8, _rear_y+34, _power_z-16),
                         span=64, size=(1800, 1300)),
     'fill-ready': dict(cam=(.65, -1, .5), target=(0, 140, 465),
                        span=265, size=(1600, 1500)),

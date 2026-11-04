@@ -2330,7 +2330,7 @@
       "point": [
         91.3,
         416.5686388104271,
-        264.5
+        267.7
       ],
       "outward": [
         0.0,
@@ -2348,7 +2348,7 @@
       "point": [
         91.3,
         414.7686388104271,
-        264.5
+        267.7
       ],
       "outward": [
         0.0,
@@ -2366,7 +2366,7 @@
       "point": [
         91.3,
         412.9686388104271,
-        264.5
+        267.7
       ],
       "outward": [
         0.0,
@@ -2677,7 +2677,7 @@
       "outward": [
         0.0,
         -1.0,
-        0.0
+        -0.0
       ],
       "kind": "screw",
       "basis": "Representative terminal block; pole pitch and wire entry nominal",
@@ -2731,7 +2731,7 @@
       "outward": [
         0.0,
         -1.0,
-        0.0
+        -0.0
       ],
       "kind": "screw",
       "basis": "Representative terminal block; pole pitch and wire entry nominal",
@@ -4559,7 +4559,7 @@
       "translation_mm": [
         76.5,
         414.7686388104271,
-        291.0
+        294.2
       ],
       "maximum_extent_residual_mm": 0.0,
       "maximum_bounds_residual_mm": 2.842170943040401e-10
@@ -37636,17 +37636,17 @@
         [
           91.0,
           370.7586388104271,
-          259.0
+          262.2
         ],
         [
           91.0,
           382.7586388104271,
-          267.0
+          270.2
         ],
         [
           91.0,
           394.7586388104271,
-          267.0
+          270.2
         ],
         [
           91.0,
@@ -37656,12 +37656,12 @@
         [
           91.3,
           412.9686388104271,
-          263.0
+          266.2
         ],
         [
           91.3,
           412.9686388104271,
-          264.5
+          267.7
         ]
       ],
       "segments": [
@@ -37778,98 +37778,98 @@
             266.0
           ],
           "end_mm": [
-            88.02184672510356,
+            88.02189218272827,
             280.0000000200504,
             266.0
           ],
-          "length_mm": 87.29775075122525
+          "length_mm": 87.29779620884996
         },
         {
           "kind": "arc",
           "start_mm": [
-            88.02184672510356,
+            88.02189218272827,
             280.0000000200504,
             266.0
           ],
           "midpoint_mm": [
-            89.42827127807399,
-            280.57632846004384,
-            265.9555491451423
+            89.42830039817582,
+            280.5775179706127,
+            265.9758197319684
           ],
           "end_mm": [
-            90.02172605149286,
-            281.9721728349084,
-            265.84789095684994
+            90.02177100374699,
+            281.97625262440675,
+            265.9172557015327
           ],
           "radius_mm": 2.0,
-          "angle_radians": 1.5598111174555682,
-          "length_mm": 3.1196222349111364
+          "angle_radians": 1.559788138706352,
+          "length_mm": 3.119576277412704
         },
         {
           "kind": "line",
           "start_mm": [
-            90.02172605149286,
-            281.9721728349084,
-            265.84789095684994
+            90.02177100374699,
+            281.97625262440675,
+            265.9172557015327
           ],
           "end_mm": [
-            90.99241264118604,
-            370.07002313563805,
-            259.05311130475036
+            90.99282696628961,
+            370.10762657153447,
+            262.2272574218913
           ],
-          "length_mm": 88.3648260937901
+          "length_mm": 88.21393376782723
         },
         {
           "kind": "arc",
           "start_mm": [
-            90.99241264118604,
-            370.07002313563805,
-            259.05311130475036
+            90.99282696628961,
+            370.10762657153447,
+            262.2272574218913
           ],
           "midpoint_mm": [
-            90.99804974308766,
-            370.7293576887422,
-            259.1121323127158
+            90.99816152155918,
+            370.7307452577614,
+            262.2996285894619
           ],
           "end_mm": [
             91.0,
-            371.33333801847095,
-            259.38313280536255
+            371.30082116634117,
+            262.5614549039427
           ],
           "radius_mm": 2.0,
-          "angle_radians": 0.6650548009962516,
-          "length_mm": 1.3301096019925032
+          "angle_radians": 0.6299305776344566,
+          "length_mm": 1.2598611552689132
         },
         {
           "kind": "line",
           "start_mm": [
             91.0,
-            371.33333801847095,
-            259.38313280536255
+            371.30082116634117,
+            262.5614549039427
           ],
           "end_mm": [
             91.0,
             382.2547896934406,
-            266.6641005886757
+            269.8641005886757
           ],
-          "length_mm": 13.125951338868415
+          "length_mm": 13.165031731425271
         },
         {
           "kind": "arc",
           "start_mm": [
             91.0,
             382.2547896934406,
-            266.6641005886757
+            269.8641005886757
           ],
           "midpoint_mm": [
             91.0,
             382.78462178851424,
-            266.9141840529781
+            270.1141840529781
           ],
           "end_mm": [
             91.0,
             383.3641900858911,
-            267.0
+            270.2
           ],
           "radius_mm": 2.0,
           "angle_radians": 0.5880026035475674,
@@ -37880,123 +37880,123 @@
           "start_mm": [
             91.0,
             383.3641900858911,
-            267.0
+            270.2
           ],
           "end_mm": [
             91.0,
-            394.08265946219694,
-            267.0
+            393.7407610761115,
+            270.2
           ],
-          "length_mm": 10.718469376305848
+          "length_mm": 10.376570990220387
         },
         {
           "kind": "arc",
           "start_mm": [
             91.0,
-            394.08265946219694,
-            267.0
+            393.7407610761115,
+            270.2
           ],
           "midpoint_mm": [
             91.0,
-            394.7230496018686,
-            266.8947032667442
+            394.64791192634823,
+            269.98243578703824
           ],
           "end_mm": [
             91.0,
-            395.29600875182365,
-            266.5899004690113
+            395.3576992158157,
+            269.3770773349147
           ],
           "radius_mm": 1.9999999999999998,
-          "angle_radians": 0.6518707816581464,
-          "length_mm": 1.3037415633162925
+          "angle_radians": 0.9415462083160882,
+          "length_mm": 1.883092416632176
         },
         {
           "kind": "line",
           "start_mm": [
             91.0,
-            395.29600875182365,
-            266.5899004690113
+            395.3576992158157,
+            269.3770773349147
           ],
           "end_mm": [
             91.0,
-            399.4623196904627,
-            263.41033639170445
+            399.2088382326056,
+            264.086810185219
           ],
-          "length_mm": 5.240970764956025
+          "length_mm": 6.54356158691815
         },
         {
           "kind": "arc",
           "start_mm": [
             91.0,
-            399.4623196904627,
-            263.41033639170445
+            399.2088382326056,
+            264.086810185219
           ],
           "midpoint_mm": [
-            91.00401636357404,
-            400.0355643413154,
-            263.10536058511127
+            91.00824716823524,
+            400.14034452823785,
+            263.38492099585443
           ],
           "end_mm": [
-            91.01564209362547,
-            400.6761888748924,
-            263.0
+            91.03018376890437,
+            401.30480798952675,
+            263.3219602016465
           ],
-          "radius_mm": 1.9999999999999998,
-          "angle_radians": 0.652221157285835,
-          "length_mm": 1.3044423145716697
+          "radius_mm": 2.0,
+          "angle_radians": 1.1835657156781927,
+          "length_mm": 2.3671314313563854
         },
         {
           "kind": "line",
           "start_mm": [
-            91.01564209362547,
-            400.6761888748924,
-            263.0
+            91.03018376890437,
+            401.30480798952675,
+            263.3219602016465
           ],
           "end_mm": [
-            91.28473648260572,
-            412.3088153302168,
-            263.0
+            91.28518071971008,
+            412.3280191653928,
+            266.0419276769076
           ],
-          "length_mm": 11.635738482764845
+          "length_mm": 11.35669102948286
         },
         {
           "kind": "arc",
           "start_mm": [
-            91.28473648260572,
-            412.3088153302168,
-            263.0
+            91.28518071971008,
+            412.3280191653928,
+            266.0419276769076
           ],
           "midpoint_mm": [
-            91.29552941925998,
-            412.7753809874596,
-            263.1933095244169
+            91.29585415101995,
+            412.78941875047786,
+            266.34041952825334
           ],
           "end_mm": [
             91.3,
             412.9686388104271,
-            263.66
+            266.86
           ],
-          "radius_mm": 0.6599999999999999,
-          "angle_radians": 1.5707963267948966,
-          "length_mm": 1.0367255756846316
+          "radius_mm": 0.8425956516796542,
+          "angle_radians": 1.3289418711686776,
+          "length_mm": 1.119760641981751
         },
         {
           "kind": "line",
           "start_mm": [
             91.3,
             412.9686388104271,
-            263.66
+            266.86
           ],
           "end_mm": [
             91.3,
             412.9686388104271,
-            264.5
+            267.7
           ],
           "length_mm": 0.839999999999975
         }
       ],
-      "length_mm": 297.204,
-      "minimum_bend_mm": 0.66,
+      "length_mm": 299.429,
+      "minimum_bend_mm": 0.8426,
       "route_status": "selected_layout",
       "routing_note": "Dressed through the named retained guides and clear of larger installed bodies. Wires and tubing do not obstruct conductors."
     },
@@ -38039,17 +38039,17 @@
         [
           91.0,
           370.7586388104271,
-          259.0
+          262.2
         ],
         [
           91.0,
           382.7586388104271,
-          267.0
+          270.2
         ],
         [
           91.0,
           394.7586388104271,
-          267.0
+          270.2
         ],
         [
           91.0,
@@ -38059,12 +38059,12 @@
         [
           91.3,
           414.7686388104271,
-          263.0
+          266.2
         ],
         [
           91.3,
           414.7686388104271,
-          264.5
+          267.7
         ]
       ],
       "segments": [
@@ -38181,98 +38181,98 @@
             266.0
           ],
           "end_mm": [
-            88.02184672510356,
+            88.02189218272827,
             280.0000000200504,
             266.0
           ],
-          "length_mm": 87.29775075122525
+          "length_mm": 87.29779620884996
         },
         {
           "kind": "arc",
           "start_mm": [
-            88.02184672510356,
+            88.02189218272827,
             280.0000000200504,
             266.0
           ],
           "midpoint_mm": [
-            89.42827127807399,
-            280.57632846004384,
-            265.9555491451423
+            89.42830039817582,
+            280.5775179706127,
+            265.9758197319684
           ],
           "end_mm": [
-            90.02172605149286,
-            281.9721728349084,
-            265.84789095684994
+            90.02177100374699,
+            281.97625262440675,
+            265.9172557015327
           ],
           "radius_mm": 2.0,
-          "angle_radians": 1.5598111174555682,
-          "length_mm": 3.1196222349111364
+          "angle_radians": 1.559788138706352,
+          "length_mm": 3.119576277412704
         },
         {
           "kind": "line",
           "start_mm": [
-            90.02172605149286,
-            281.9721728349084,
-            265.84789095684994
+            90.02177100374699,
+            281.97625262440675,
+            265.9172557015327
           ],
           "end_mm": [
-            90.99241264118604,
-            370.07002313563805,
-            259.05311130475036
+            90.99282696628961,
+            370.10762657153447,
+            262.2272574218913
           ],
-          "length_mm": 88.3648260937901
+          "length_mm": 88.21393376782723
         },
         {
           "kind": "arc",
           "start_mm": [
-            90.99241264118604,
-            370.07002313563805,
-            259.05311130475036
+            90.99282696628961,
+            370.10762657153447,
+            262.2272574218913
           ],
           "midpoint_mm": [
-            90.99804974308766,
-            370.7293576887422,
-            259.1121323127158
+            90.99816152155918,
+            370.7307452577614,
+            262.2996285894619
           ],
           "end_mm": [
             91.0,
-            371.33333801847095,
-            259.38313280536255
+            371.30082116634117,
+            262.5614549039427
           ],
           "radius_mm": 2.0,
-          "angle_radians": 0.6650548009962516,
-          "length_mm": 1.3301096019925032
+          "angle_radians": 0.6299305776344566,
+          "length_mm": 1.2598611552689132
         },
         {
           "kind": "line",
           "start_mm": [
             91.0,
-            371.33333801847095,
-            259.38313280536255
+            371.30082116634117,
+            262.5614549039427
           ],
           "end_mm": [
             91.0,
             382.2547896934406,
-            266.6641005886757
+            269.8641005886757
           ],
-          "length_mm": 13.125951338868415
+          "length_mm": 13.165031731425271
         },
         {
           "kind": "arc",
           "start_mm": [
             91.0,
             382.2547896934406,
-            266.6641005886757
+            269.8641005886757
           ],
           "midpoint_mm": [
             91.0,
             382.78462178851424,
-            266.9141840529781
+            270.1141840529781
           ],
           "end_mm": [
             91.0,
             383.3641900858911,
-            267.0
+            270.2
           ],
           "radius_mm": 2.0,
           "angle_radians": 0.5880026035475674,
@@ -38283,123 +38283,123 @@
           "start_mm": [
             91.0,
             383.3641900858911,
-            267.0
+            270.2
           ],
           "end_mm": [
             91.0,
-            394.08265946219694,
-            267.0
+            393.7407610761115,
+            270.2
           ],
-          "length_mm": 10.718469376305848
+          "length_mm": 10.376570990220387
         },
         {
           "kind": "arc",
           "start_mm": [
             91.0,
-            394.08265946219694,
-            267.0
+            393.7407610761115,
+            270.2
           ],
           "midpoint_mm": [
             91.0,
-            394.7230496018686,
-            266.8947032667442
+            394.64791192634823,
+            269.98243578703824
           ],
           "end_mm": [
             91.0,
-            395.29600875182365,
-            266.5899004690113
+            395.3576992158157,
+            269.3770773349147
           ],
           "radius_mm": 1.9999999999999998,
-          "angle_radians": 0.6518707816581464,
-          "length_mm": 1.3037415633162925
+          "angle_radians": 0.9415462083160882,
+          "length_mm": 1.883092416632176
         },
         {
           "kind": "line",
           "start_mm": [
             91.0,
-            395.29600875182365,
-            266.5899004690113
+            395.3576992158157,
+            269.3770773349147
           ],
           "end_mm": [
             91.0,
-            399.46239070400117,
-            263.4102821969746
+            399.23300652331073,
+            264.0536104711022
           ],
-          "length_mm": 5.241060095753542
+          "length_mm": 6.58462650251582
         },
         {
           "kind": "arc",
           "start_mm": [
             91.0,
-            399.46239070400117,
-            263.4102821969746
+            399.23300652331073,
+            264.0536104711022
           ],
           "midpoint_mm": [
-            91.00352657646734,
-            400.03557003726166,
-            263.105345975106
+            91.00703743811025,
+            400.1377760687169,
+            263.361711671504
           ],
           "end_mm": [
-            91.01373466370556,
-            400.6761409581674,
-            263.0
+            91.02586719210572,
+            401.27341072416476,
+            263.27591671579444
           ],
           "radius_mm": 2.0,
-          "angle_radians": 0.6521409935277038,
-          "length_mm": 1.3042819870554077
+          "angle_radians": 1.1550101476700896,
+          "length_mm": 2.310020295340179
         },
         {
           "kind": "line",
           "start_mm": [
-            91.01373466370556,
-            400.6761409581674,
-            263.0
+            91.02586719210572,
+            401.27341072416476,
+            263.27591671579444
           ],
           "end_mm": [
-            91.28659597781919,
-            414.10877493644296,
-            263.0
+            91.28689984134755,
+            414.1237337721024,
+            266.0602649743738
           ],
-          "length_mm": 13.435405051246581
+          "length_mm": 13.1511039728755
         },
         {
           "kind": "arc",
           "start_mm": [
-            91.28659597781919,
-            414.10877493644296,
-            263.0
+            91.28689984134755,
+            414.1237337721024,
+            266.0602649743738
           ],
           "midpoint_mm": [
-            91.29607405279842,
-            414.5753691563972,
-            263.1933095244169
+            91.29631680735719,
+            414.5873196710572,
+            266.346275795337
           ],
           "end_mm": [
             91.3,
             414.7686388104271,
-            263.66
+            266.86
           ],
-          "radius_mm": 0.6599999999999999,
-          "angle_radians": 1.5707963267948966,
-          "length_mm": 1.0367255756846316
+          "radius_mm": 0.8182852060536207,
+          "angle_radians": 1.357462075605465,
+          "length_mm": 1.1107911342467935
         },
         {
           "kind": "line",
           "start_mm": [
             91.3,
             414.7686388104271,
-            263.66
+            266.86
           ],
           "end_mm": [
             91.3,
             414.7686388104271,
-            264.5
+            267.7
           ],
           "length_mm": 0.839999999999975
         }
       ],
-      "length_mm": 296.513,
-      "minimum_bend_mm": 0.66,
+      "length_mm": 298.708,
+      "minimum_bend_mm": 0.8183,
       "route_status": "selected_layout",
       "routing_note": "Dressed through the named retained guides and clear of larger installed bodies. Wires and tubing do not obstruct conductors."
     },
@@ -39416,17 +39416,17 @@
         [
           91.0,
           370.7586388104271,
-          259.0
+          262.2
         ],
         [
           91.0,
           382.7586388104271,
-          267.0
+          270.2
         ],
         [
           91.0,
           394.7586388104271,
-          267.0
+          270.2
         ],
         [
           91.0,
@@ -39436,12 +39436,12 @@
         [
           91.3,
           416.5686388104271,
-          263.0
+          266.2
         ],
         [
           91.3,
           416.5686388104271,
-          264.5
+          267.7
         ]
       ],
       "segments": [
@@ -39628,98 +39628,98 @@
             266.0000033333334
           ],
           "end_mm": [
-            88.02185053685189,
+            88.02189599432917,
             280.0,
             266.0000033333334
           ],
-          "length_mm": 84.8288323158017
+          "length_mm": 84.82887777327899
         },
         {
           "kind": "arc",
           "start_mm": [
-            88.02185053685189,
+            88.02189599432917,
             280.0,
             266.0000033333334
           ],
           "midpoint_mm": [
-            89.42827512027603,
-            280.5763284684031,
-            265.95555245512725
+            89.42830424028446,
+            280.57751797982337,
+            265.9758230428712
           ],
           "end_mm": [
-            90.02172986418223,
-            281.9721728947151,
-            265.84789421162486
+            90.02177481629258,
+            281.97625268706105,
+            265.9172589588389
           ],
           "radius_mm": 2.0,
-          "angle_radians": 1.5598111602889977,
-          "length_mm": 3.1196223205779954
+          "angle_radians": 1.5597881816152765,
+          "length_mm": 3.119576363230553
         },
         {
           "kind": "line",
           "start_mm": [
-            90.02172986418223,
-            281.9721728947151,
-            265.84789421162486
+            90.02177481629258,
+            281.97625268706105,
+            265.9172589588389
           ],
           "end_mm": [
-            90.99241267032816,
-            370.0700230972059,
-            259.0531113329939
+            90.99282699380998,
+            370.1076265324422,
+            262.22725744743207
           ],
-          "length_mm": 88.36482620238888
+          "length_mm": 88.21393375969572
         },
         {
           "kind": "arc",
           "start_mm": [
-            90.99241267032816,
-            370.0700230972059,
-            259.0531113329939
+            90.99282699380998,
+            370.1076265324422,
+            262.22725744743207
           ],
           "midpoint_mm": [
-            90.99804975057249,
-            370.7293576873661,
-            259.1121323260403
+            90.99816152860751,
+            370.7307452561543,
+            262.2996286019543
           ],
           "end_mm": [
             91.0,
-            371.3333380518925,
-            259.38313282764364
+            371.3008211994743,
+            262.56145492603144
           ],
           "radius_mm": 2.0,
-          "angle_radians": 0.6650548368837801,
-          "length_mm": 1.3301096737675602
+          "angle_radians": 0.6299306136340426,
+          "length_mm": 1.2598612272680851
         },
         {
           "kind": "line",
           "start_mm": [
             91.0,
-            371.3333380518925,
-            259.38313282764364
+            371.3008211994743,
+            262.56145492603144
           ],
           "end_mm": [
             91.0,
             382.2547896934406,
-            266.6641005886757
+            269.8641005886757
           ],
-          "length_mm": 13.125951298700688
+          "length_mm": 13.165031691604227
         },
         {
           "kind": "arc",
           "start_mm": [
             91.0,
             382.2547896934406,
-            266.6641005886757
+            269.8641005886757
           ],
           "midpoint_mm": [
             91.0,
             382.78462178851424,
-            266.9141840529781
+            270.1141840529781
           ],
           "end_mm": [
             91.0,
             383.3641900858911,
-            267.0
+            270.2
           ],
           "radius_mm": 2.0,
           "angle_radians": 0.5880026035475674,
@@ -39730,123 +39730,123 @@
           "start_mm": [
             91.0,
             383.3641900858911,
-            267.0
+            270.2
           ],
           "end_mm": [
             91.0,
-            394.08265946219694,
-            267.0
+            393.7407610761115,
+            270.2
           ],
-          "length_mm": 10.718469376305848
+          "length_mm": 10.376570990220387
         },
         {
           "kind": "arc",
           "start_mm": [
             91.0,
-            394.08265946219694,
-            267.0
+            393.7407610761115,
+            270.2
           ],
           "midpoint_mm": [
             91.0,
-            394.7230496018686,
-            266.8947032667442
+            394.64791192634823,
+            269.98243578703824
           ],
           "end_mm": [
             91.0,
-            395.29600875182365,
-            266.5899004690113
+            395.3576992158157,
+            269.3770773349147
           ],
           "radius_mm": 1.9999999999999998,
-          "angle_radians": 0.6518707816581464,
-          "length_mm": 1.3037415633162925
+          "angle_radians": 0.9415462083160882,
+          "length_mm": 1.883092416632176
         },
         {
           "kind": "line",
           "start_mm": [
             91.0,
-            395.29600875182365,
-            266.5899004690113
+            395.3576992158157,
+            269.3770773349147
           ],
           "end_mm": [
             91.0,
-            399.46243986829626,
-            263.4102446767249
+            399.25181974553044,
+            264.02776695544236
           ],
-          "length_mm": 5.24112194150561
+          "length_mm": 6.616592494318819
         },
         {
           "kind": "arc",
           "start_mm": [
             91.0,
-            399.46243986829626,
-            263.4102446767249
+            399.25181974553044,
+            264.02776695544236
           ],
           "midpoint_mm": [
-            91.00314328418618,
-            400.0355739785345,
-            263.1053358604156
+            91.0061272686319,
+            400.1355266281737,
+            263.3440447365747
           ],
           "end_mm": [
-            91.01224194305458,
-            400.67610777603034,
-            263.0
+            91.0225966751443,
+            401.247987162608,
+            263.24103120153916
           ],
-          "radius_mm": 2.0,
-          "angle_radians": 0.652085493053435,
-          "length_mm": 1.30417098610687
+          "radius_mm": 1.9999999999999998,
+          "angle_radians": 1.1324071856389613,
+          "length_mm": 2.264814371277922
         },
         {
           "kind": "line",
           "start_mm": [
-            91.01224194305458,
-            400.67610777603034,
-            263.0
+            91.0225966751443,
+            401.247987162608,
+            263.24103120153916
           ],
           "end_mm": [
-            91.2880516707759,
-            415.90874697275314,
-            263.0
+            91.28826840026944,
+            415.92071668174714,
+            266.07486293620747
           ],
-          "length_mm": 15.235135966030679
+          "length_mm": 14.946242849216683
         },
         {
           "kind": "arc",
           "start_mm": [
-            91.2880516707759,
-            415.90874697275314,
-            263.0
+            91.28826840026944,
+            415.92071668174714,
+            266.07486293620747
           ],
           "midpoint_mm": [
-            91.2965004153941,
-            416.3753609660221,
-            263.1933095244169
+            91.29668829630793,
+            416.38573740269095,
+            266.35098602077005
           ],
           "end_mm": [
             91.3,
             416.5686388104271,
-            263.66
+            266.86
           ],
-          "radius_mm": 0.6599999999999999,
-          "angle_radians": 1.5707963267948966,
-          "length_mm": 1.0367255756846316
+          "radius_mm": 0.7996416805636588,
+          "angle_radians": 1.380039944185643,
+          "length_mm": 1.1035374602135855
         },
         {
           "kind": "line",
           "start_mm": [
             91.3,
             416.5686388104271,
-            263.66
+            266.86
           ],
           "end_mm": [
             91.3,
             416.5686388104271,
-            264.5
+            267.7
           ],
           "length_mm": 0.839999999999975
         }
       ],
-      "length_mm": 301.422,
-      "minimum_bend_mm": 0.66,
+      "length_mm": 303.592,
+      "minimum_bend_mm": 0.7996,
       "route_status": "selected_layout",
       "routing_note": "Dressed through the named retained guides and clear of larger installed bodies. Wires and tubing do not obstruct conductors."
     },
@@ -94353,17 +94353,17 @@
     "Nominal and unlocated terminals remain visible in the graph and manifest; no exact donor termination is invented.",
     "The electrical graph does not qualify grounding, mains isolation, current capacity or energization."
   ],
-  "physical_fine_model_sha256": "ea6fd8d7d2715e11abdfe403ce652283701e96fc21a2f921e38a7f74acaa145f",
-  "wiring_fine_model_sha256": "8f91055f57e0b54c89acd52b7daefa26eaf61c358057d9a72451fcdb60df1be7",
-  "wiring_numbers_sha256": "fa398554b587b5158b7378515b153f12cb5694164a0f85d45b1c55208058d1b2",
-  "physical_scene_sha256": "7230eb44e5e417d0eb5505fe25f5ae83dbee0ba6618fe52f6d7dc8add642b4c9",
+  "physical_fine_model_sha256": "42abdb7f53cf4ccefe6c5a0a315838618f7b15c8615026d91a6f1bb8cd9f857c",
+  "wiring_fine_model_sha256": "d44ed6549ef4324cc3ad76fbd00788d2cf2707f63b95d42d33ec110f374edd55",
+  "wiring_numbers_sha256": "d6e48e753951e5426e976d70ca3ca2d773cf48be8bb94cd69ca92e0a6419462b",
+  "physical_scene_sha256": "aec47cc9070f01b8c9eea1ac2928996670d12d6d96aae81ce6109ff8cb386e69",
   "source_sha256": {
     "hardware/wiring/installed/build.py": "5a347ccb75069740ec5d4926212939450bc6a173c0cab03894e9efcb7adbb62d",
     "hardware/wiring/installed/connections.py": "ccd38b99d2e6d6df70b4b755fabed5fb341224335bb4f32ec871061d9fc7eada",
     "hardware/wiring/installed/model.py": "a1c14b50b7b3f8b0ca2d8f835bd2bda10f568b04eef73946796d9c5c9b94d090",
     "hardware/wiring/installed/terminals.py": "82aa4dd742487617e8f148aaf1db0e746e1d82c14d9144749cfb96f7e4f78e6b",
     "hardware/wiring/installed/_model_input.py": "a9b075b589b2d95631d3e2ad4fab984395644dec2509a0d31e31a7e83d2f88b0",
-    "hardware/scripts/_assembly_model.py": "b2aeda329951c46118cb8121ea6f8a1fff2c23e2a092593f71cd90abeb3597d5",
+    "hardware/scripts/_assembly_model.py": "5104bc5b7a249fb6ee64e8a29641ed27c3329db58cbdba01722dd7a3734e8f30",
     "hardware/scripts/_realized.py": "9862766583d34c13d7d7d535a0e549a2bccd8e312f5d83b0e5cbd809072b44a8",
     "hardware/manifold-layout/enclosure_assembly.rs": "51367b083497a96d6fb048abef8bf39e49689d1ca8b5b1877d81fb93b7bdc606",
     "hardware/wiring/installed/routes.py": "0e7962a671dda7515c8efb3a7edecf6fd96017c921d8bcd540f6d9c076686050",
@@ -94375,29 +94375,31 @@
     "hardware/wiring/installed/bundles.py": "557d4a15f2760c98019fea156ce6f45bdda7a0b121bef855717ce7c783152979",
     "hardware/wiring/installed/bundle-routes.json": "4a6fee285601daba0e0057fedac614badee32cc20f04457c89edb41f8f9a7711",
     "hardware/wiring/installed/connector-map.json": "8986c0f9b7e7394d965af41546f90fd4425f8ccb98a6360db6bbff8ba64a2126",
-    "hardware/manifold-layout/above_core.py": "4ae1006309cfc55676c11ac286d0506a77d8fecd1b107818b2d6a665b787654e",
-    "hardware/manifold-layout/above-core.json": "c3ce79ed97206b1012531fa6fab1bcda858da2251dbe360b3eb3e1138412726f",
+    "hardware/manifold-layout/above_core.py": "7ed5745a4eba5920d3de9e70a2abeece54e43563d7557258047b15dbc33c398b",
+    "hardware/manifold-layout/above-core.json": "803fd300c839e7e101c49352aaa67747ed1e55f447d58283531bc3d3a5c16d9f",
     "hardware/manifold-layout/above_core_wiring.py": "52c3e31a03c0998886f0f40b3c49141697c14a7c17bfbb6b5d15731bd178da2f",
-    "hardware/manifold-layout/enclosure-box.json": "8a94772dfe0b73c45124f61cab3381bbf47aee27d4774c34d92919c1a55bd6cc",
+    "hardware/manifold-layout/enclosure-box.json": "b96199cb04771a334c4c4aa5f43e81611242e25b646ea462351af03c53a644d5",
     "hardware/printed-parts/enclosure/enclosure/enclosure.py": "e117fb4c0cb52acaae1ca2b7c3975cd803e990a33a2777a2172308f19e4d6103",
     "hardware/printed-parts/enclosure/enclosure/_fixed_pump_mount.py": "18f8292304595390e4b9b5e70ce40e935bc051f995f20c70a09c475aa707166b",
     "hardware/printed-parts/cold-core/_above_core_mounts.py": "8290a45534a5332a04b375c96af90b86b4632e7cd0fb04d2615af9b2a4f2c07d",
-    "hardware/printed-parts/cold-core/_cold_core_interface.py": "365a8d7bb582b2570d9d107a2fe3e7dad9bc29112ef090bfa22a85c15306c2a0",
+    "hardware/printed-parts/cold-core/_cold_core_interface.py": "ef58ec3ed9e4986a0cb3162444bef57132b5c90c0ab14e04468d94ed333c1911",
     "hardware/printed-parts/cold-core/_foam_cap.py": "1a60d110a06b51c83bf245e365cd3436508e6c3e317a8ef353da93b9b662aa07",
     "hardware/cold-core-layout/_carbonator.py": "e6b0cea1914182c494737022c1706b600c4775d6e6d6ce3dfcc65633f68540f1",
-    "hardware/cold-core-layout/_carbonator_bond.py": "0f9a7fd741fa64f6d6fdb856cce93cc5f5c96abb8f8d11669015f001d9581b86",
+    "hardware/cold-core-layout/_carbonator_bond.py": "353af4e5c78badcc45c991c502139b9f10ffffc8315cf21698c99c62aee441e3",
     "hardware/assembly/harnesses/j2.json": "34ef4ac5c41910851100fd36a3f549b2028586440e250d0ebce949c8783c30a5",
     "hardware/assembly/harnesses/j13.json": "ea324cc287dce7e8040ab8d3db355c8b6648cf9737dbd8e5598963eb33a2b7e1",
-    "hardware/cold-core-layout/_carbonator_stock.py": "c25874cf23cad0e6c87321f5726674b5959dfc65c17400cbb7b11498270c9bc3",
+    "hardware/cold-core-layout/_carbonator_stock.py": "6a2216d877e9f63303594e45b44d9dedc71efc8b1ff101b1b11e3635754e882a",
+    "hardware/cold-core-layout/_cold_core_data.py": "943ec244e6c6c8b178a91c0cd0df5f69184d072df12a160d3e8d006934614f5d",
     "hardware/cold-core-layout/_fittings.py": "e20eb1b0cb93363f50ec4c09b4917ef01b8c5e8b2265d0fcdb7e2a0e050ee3a6",
     "hardware/cold-core-layout/core_reference.py": "8bf348d44d939d0dfa7d40e4357c51c527b8606ea3505276b06ab5e13475a143",
     "hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_dxf.py": "7a8f77ea161ec8cffb54dfa4456518ae306987efcba2f74d108d4df5aae875eb",
-    "hardware/manifold-layout/_machine_reporting.py": "bd8bbb13b373da39cf47dac5cddee04dc96b8e703cf179ac34982b67faef912c",
-    "hardware/manifold-layout/above_core_bom.py": "83e37c4fb764fa1c9ef232e69225dc5ff602415ba576e8253409cbca128e119e",
-    "hardware/manifold-layout/above_core_routes.py": "3205253fffe5dbb13b996a16b199ec89ff4294155d7145bf494b3711b1556288",
+    "hardware/manifold-layout/_layout_data.py": "9339341add0d1e4fcb8408e2e4ff26d2accda50ab98de6abc67ab97c6eb7c581",
+    "hardware/manifold-layout/_machine_reporting.py": "37a6efa166fa0ac88268cc3a174018100b020e8b0a444115c39090c51ddebe00",
+    "hardware/manifold-layout/above_core_bom.py": "eeede436d9a6b3425cf36891e18fb290ce3692595298934393218cf1d539974c",
+    "hardware/manifold-layout/above_core_routes.py": "39207b2dcf17fec4a045b788aa1e32f6561b13728bdfed6cb37807ff2b3c24af",
     "hardware/manifold-layout/enclosure_assembly.py": "738a98bf5507c42304858fa56c1f0129b4006358d662209fa75012597172e3c1",
     "hardware/manifold-layout/manifold_layout.py": "1c29b8771cd3d652bce78f4f9202c96914c3fdb039b635990cd9f0af6b0bd064",
-    "hardware/manifold-layout/soda_inlet.py": "696df331213f835bcc610d9e61d7208d3ade1ea1a337ec90d1d0402041d4e6bd",
+    "hardware/manifold-layout/soda_inlet.py": "98fa9dcf1e629219499274e3f13460812de1486b86bbf2d91cb61d2287110fb8",
     "hardware/printed-parts/cadlib/fits.py": "9815ebd9ffe112ea5173fd6ecc600086e3c7b53df00c29706b4826617390a509",
     "hardware/printed-parts/cadlib/flute_skin.py": "96df0bcdfada1bd888057971031d8cb943357f2bc54fe5136b020e37da015325",
     "hardware/printed-parts/cadlib/overhang_round.py": "9a5ef646cf3e47a89e616d5ca9caf7da1f0e98a708211f1eb2311302f818c60e",
@@ -94406,7 +94408,7 @@
     "hardware/printed-parts/cadlib/snap.py": "fd778525a5124fd9eff469d7cfecca56b2a339de84c0577f88033ee817409ddc",
     "hardware/printed-parts/cadlib/world_workplane.py": "6fc15b2371091f653390c5ebb7390d2eb3b94b21f4194f07a188ef562dcd4226",
     "hardware/printed-parts/cold-core/_copper_ports.py": "c85f7a0206583c09f9e5771baf2d6efe81034ef665b5f53b662070fbb01fda93",
-    "hardware/printed-parts/cold-core/_float_interface.py": "d2fc9c9029101bf471e06f81f9b1acbc4c6c841ba629e561fd9a33833319a72a",
+    "hardware/printed-parts/cold-core/_float_interface.py": "1adb2dc4383a173b302a62ac1e9235c9a438f540b7652c877cde6abe45691637",
     "hardware/printed-parts/cold-core/_internal_routes.py": "a6106c210b04cb35af1772effb0e80773363de703a28f48b03fe01b1eb6b5d94",
     "hardware/printed-parts/cold-core/_outer_shell.py": "8d7dc9ac69dd78d31705046aa60654cc73347798e40235c01473cf5e6f165beb",
     "hardware/printed-parts/cold-core/_port_cuts.py": "9710799e781b1be205c769d0d79edd7a27d4e0cf4c8a7c86ae098f5683048718",
@@ -94419,33 +94421,35 @@
     "hardware/printed-parts/cold-core/foam-assembly/foam_assembly.py": "cedc754d1fda1eb74943ba81d47120ab124be26ae88c3b4f2eb76d3c7469b131",
     "hardware/printed-parts/cold-core/prv-shroud/prv_shroud.py": "5af67736e46c98da67b7be077817dbb492f308411acbb61e9c7642f80e05b043",
     "hardware/printed-parts/cold-core/reservoir/reservoir.py": "6a4615ae29eaa6a970f23bd4da358a4bfd3954494263f8e5e436ab5a324f53ec",
-    "hardware/printed-parts/electronics/module_tray.py": "1f848d867aacb2d0c1a667d876a5711527a97e49b75cc122ca55d18500152516",
-    "hardware/printed-parts/electronics/pcba-tray/pcba_tray.py": "2fee1c2633ab341fc162ec4f2365eaea94066446bc0d4e5292191a7a90c82876",
-    "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead_ring.py": "23211d119a86655e3dd6a43def64c39b69c97203965ad367b8859e2a3156edb0",
+    "hardware/printed-parts/electronics/module_tray.py": "a50b46598f3ce99b5dc788e868d9b9de6b77e11e73607e6e2532350e80797579",
+    "hardware/printed-parts/electronics/pcba-tray/pcba_tray.py": "359afa40e54780bc95afa990fddea25f5375d61d256683dc32d7ae93526c6808",
+    "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead_ring.py": "4849dcc8dbfd9e9cd902297638e80e3df23d1884420d741b90a192d6b4722581",
     "hardware/printed-parts/enclosure/enclosure/_above_core_shell.py": "69361a9773ef2ef58c51e2be6d8aaf191e13d531eba1c899b1912241ab771721",
     "hardware/printed-parts/enclosure/enclosure/_anchor_cap_interface.py": "a49c37fef29c15fceab1a5fc04a485aff9db1fc220d386feffe63fd91253883b",
-    "hardware/printed-parts/enclosure/enclosure/_data_wing_interface.py": "9e46d2df92baa8d055ebe3d79d544103df53b8b60dd15e5ce199922fc6f00294",
-    "hardware/printed-parts/enclosure/enclosure/_display_wing_interface.py": "e3e5f0251ab9f0f82324c82e94e45667cac0e5d9c505cf06fd6f525c6bf3ce82",
+    "hardware/printed-parts/enclosure/enclosure/_data_wing_interface.py": "0d54adcf7cc3fd1807be7fdf3f0edab4f8dbfa4efc31ae8a0e75333573ac5aed",
+    "hardware/printed-parts/enclosure/enclosure/_display_wing_interface.py": "ed042c5df40c1f12e6a1e6caadf570f6375b9ed3832db16afd16a599df8e467f",
+    "hardware/printed-parts/enclosure/enclosure/_enclosure_data.py": "d222d1cba39b5288e36afdf87e5b773df11fa25b4ac48aebbb66ea5dac7cb3d7",
     "hardware/printed-parts/enclosure/enclosure/_enclosure_datums.py": "8116cebd458f64983d7d92275951d51e9c706f6c8e79422eabff9eacf2546b14",
     "hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py": "5365e57b729a82fe3a0a04142ec24f2852c10ba94a6c62c87f6e7e40692e34ea",
     "hardware/printed-parts/enclosure/enclosure/_enclosure_rust_driver.py": "1a06e4404d271a7b78478e5fcb8489a92422bce6a2b5ec75521691400f8d6b16",
     "hardware/printed-parts/enclosure/enclosure/_grip_interface.py": "839336757930b5120132e2ec5600a99f1a132879a76b20aa43d9699282dd159a",
-    "hardware/printed-parts/enclosure/enclosure/_nameplate_interface.py": "fb290e6f377fc5f33790b7e6532c59ff0fdab0472b2f519d808b17106e8629fc",
-    "hardware/printed-parts/enclosure/enclosure/_nameplate_wing_interface.py": "67b5bc6d6a2920d6f030d3e415258b6532bd3e39fb2690b549e8017ee77ce714",
+    "hardware/printed-parts/enclosure/enclosure/_nameplate_interface.py": "db1c83d64256386a24b8d81b32f085e3b6952a6a061ad64beaa48e791fcef091",
+    "hardware/printed-parts/enclosure/enclosure/_nameplate_wing_interface.py": "10950f3f8fefb44c9cf2463a9dc422c717bae77ec0b15b6b441bca1df88990f7",
     "hardware/printed-parts/enclosure/enclosure/_swept_top.py": "d550cfd5e4beaf8e83686c19f662d3409a28cd0002b7907eb3a6d8aa359da50c",
-    "hardware/printed-parts/enclosure/nameplate/_nameplate_dimensions.py": "c3a59930689b4f5421dbe48d22bbd6048276b41f066fb9077ab7d6fcc4114994",
+    "hardware/printed-parts/enclosure/nameplate/_nameplate_dimensions.py": "8b66825bcf64c4ed45e1884ff08b322f64089c94c2d719f09749ea31a1033e5c",
     "hardware/printed-parts/enclosure/nameplate/nameplate.py": "8866704b74c02d1833a5e8a9fb5abd9e6bda40ce589de9407a84281345f88198",
     "hardware/printed-parts/enclosure/pump-dock/dock_structure.py": "9bf17c2ade88ca156c9d859840067829d700ebccded368469ea4ea50700f9013",
     "hardware/printed-parts/enclosure/pump-dock/fixed_returns.py": "b203551dad030a7b3e64e6094b0ed964ebe6edf9d779bf0ed94cc549471471e3",
-    "hardware/printed-parts/enclosure/pump-tray/pump_case.py": "4ae67d365f3ff3d347a07cec0eda4ba69688c4d7f01657e9d652671a1c0c002f",
-    "hardware/printed-parts/enclosure/pump-tray/pump_tray.py": "9de8bf7e18306f0d2646c92cdf042875df4c82c03850a58baacf01ecdc7b47f1",
-    "hardware/printed-parts/enclosure/rear-identification/rear_identification.py": "dcb17f316208864714c1254c2aeeccb5f8ec49899134d6813dc382d1f71a2163",
-    "hardware/printed-parts/enclosure/valve-tray/valve_tray.py": "b08be4fe1d9122eff95fa1bdc44cd720b477709da204b22c6d1f640d2b3b90c0",
-    "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py": "9adf4df4281b9d338f7d1fba9e2907477da5506240a3d68c3b57a0f0855a7d5a",
-    "hardware/printed-parts/valve-seat/valve_seat.py": "4504c96e79a9ccc67060af6d44a4470ddb55109c6f81f1dd60a2b365c022a11a",
-    "hardware/printed-parts/zone-c/funnel/elbow_cradle.py": "97d1416c36855cb0e9d93dfb0d183bd94db496b47f279f15c6e6f30de24e80b4",
-    "hardware/printed-parts/zone-c/funnel/funnel.py": "13442f739159c56f74e08cca210ff7c6b5e81c31f531af04374ed0333b106b23",
-    "hardware/printed-parts/zone-c/funnel/funnel_frame.py": "7a6060b12504ad40eba59d786851f423a3499ae3ec40fabb36ef6a3f97d508f4",
+    "hardware/printed-parts/enclosure/pump-tray/pump_case.py": "290ce656e1ba174bc44b4f39d1dfc12f6b41ec9de1177fe228d95c199d779d14",
+    "hardware/printed-parts/enclosure/pump-tray/pump_tray.py": "8b008035afb6b9749961efeea82b586e9c4f4d9889e6a588a7a49552b43f158f",
+    "hardware/printed-parts/enclosure/rear-identification/rear_identification.py": "1d1be22c6a04e1f9373c5f9fed2b02c09997016a2db2eb67e168fa117f08ee65",
+    "hardware/printed-parts/enclosure/valve-tray/valve_tray.py": "d67be366fb6d12d1e9171bcc5a14f95c1c6df6d8656580d4ad85de3b10696b34",
+    "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py": "baaa7fae0174ecbda66a2d01294cc1e1f26b4f7463fcef0ff9286a835a410a31",
+    "hardware/printed-parts/valve-seat/valve_seat.py": "211fcbb57b7ab58397c9a228ff0ec0e8c2c76787dd7b32673de8f0aa0fe8c1e0",
+    "hardware/printed-parts/zone-c/funnel/_zone_data.py": "5096b0be915ca658c2d3edba8f5ff1c1327171b558e2c9de124bb48eb7ff04eb",
+    "hardware/printed-parts/zone-c/funnel/elbow_cradle.py": "2604eae726219b4b8e3f15976a80d71b4fb3af505e41c28bfb32614c0a8a4a05",
+    "hardware/printed-parts/zone-c/funnel/funnel.py": "b82f0bc2393e7df9a51795814e02b34d16064c152b7952e063be965de180896d",
+    "hardware/printed-parts/zone-c/funnel/funnel_frame.py": "3f094142b684da5ebb94184305cb15ec2a0bb606fa0f37bc465779943961445c",
     "hardware/reference/beduan-solenoid/beduan_solenoid.py": "ca07cecf19092580e43c765740e5c6be44185a225630e143cbdf60039fd5549c",
     "hardware/reference/compressor/compressor.py": "208d785780ba88ff1114e3c98d27e3c69997be4eceea146f875f838aef6c80dd",
     "hardware/reference/digiten-flow-sensor/digiten_flow_sensor.py": "ddd022d5682c5d8f3e6163a922e6b02ef88d431cdd5e0fe090c41d720aacd9e2",
@@ -94484,13 +94488,13 @@
     "hardware/reference/waveshare-43b-display/frozen-asset.json": "e2a31ad3d4619143b9deee89c48bad4f79be9b992ee8490fddf39f42d8298d5c",
     "hardware/reference/waveshare-43b-display/native-queries.json": "1c9bb1072769b2374c7dc7f648077030603613a3c5019830cec5d1aad3edb405",
     "hardware/reference/y-divider/y_divider.py": "6cde2ad3f1b8bfd2b5c09536df85fc7ba2d00c76b389439fab0ac947c1689ac9",
-    "hardware/scripts/_box_spec.py": "28a36eba80476971d762f9c8b941517c8978725de7fbe05a904d4f86199fcef8",
+    "hardware/scripts/_box_spec.py": "b7736cd2c5e3a3b7b7b4927f18c19bc9799185b8aa44b5e107d4417ffb7d87f9",
     "hardware/scripts/_cadq_export.py": "7650a38267ecb6150b4945cfdbbddad15f915d1f25a4697a02b406611e95b416",
-    "hardware/scripts/_document_export.py": "3ee2ad311d66e6528412c833b7751def42e1052ee20f55567a76b33b48b45743",
+    "hardware/scripts/_document_export.py": "c97d030b1384b0d47af988c60d2cb51996c831dc781febf9ac4d27d3fcf20307",
     "hardware/scripts/_machine_checks.py": "ca9e15d216bc4e09dd441e82a2f52e52bd10d8aca73ac81d8ccf95db831cdc3d",
-    "hardware/scripts/_machine_equipment.py": "c50003c26317bf4eb8725d34fe6c75861fd23ece88310737a21740c8c7ddb1e1",
+    "hardware/scripts/_machine_equipment.py": "087d35c3bc3c392c47936c554c0dd5047e7010989b4493eda035a938e1f2a804",
     "hardware/scripts/_machine_export.py": "64aa3eb6596dc3047994b7fb4433f03cff57e8387e180bed38817817c262bab6",
-    "hardware/scripts/_machine_layout.py": "db379dc6de70bde010fecc8ae1a06f8cf16cead46244d25c39e6e86bb3ba10b9",
+    "hardware/scripts/_machine_layout.py": "5b353c06ec0bec0759ea057193ac2597581ab24a47229c9433d0484938379eeb",
     "hardware/scripts/_machine_routes.py": "8e547ec119655432df0ac65bcc8dc8ee017318dd0e494fdd5c0f99a815ba3720",
     "hardware/scripts/_material_base.py": "249b1670f63fc95bf4f1cee8fad8213c7b48e27949296843fe824dda80c49158",
     "hardware/scripts/_materials.py": "ce915827df1b5bb2768170a3a76d6c32b5e47a8dd7f020bd833e1e540b19ea98",
@@ -94500,7 +94504,8 @@
     "hardware/scripts/_routing.py": "682849cd011c7668735a807ca237a41ed37d1ea70346359cecf87c20e388b864",
     "hardware/scripts/_run_lock.py": "a93447f0ee6762d556de1336716099ca4fa4a4902422e382a963775399889841",
     "hardware/scripts/_run_slots.py": "ec0be18cbab53b99775adfc31bf61195c5077de2b9785d565db2e6007157bef3",
-    "hardware/scripts/_rust_part.py": "20d764aaf44cadf633ba64e9f4b5e6208d35bd29a580cd51eb7de39cdb6e39ad",
+    "hardware/scripts/_rust_data.py": "5c19c83bf1a13a92428f8d649786e5d031d6d3141d639a4a540791153a0167e4",
+    "hardware/scripts/_rust_part.py": "13807ff9c3b20ca0d9174063259c5a291243b5a1e84bca714886bf04ccece373",
     "hardware/scripts/_stated_bounds.py": "aceb3e758743cfeb90e79c235a161898388ce8b4ad309bcc4839964fbfd86741",
     "hardware/wiring/installed/__init__.py": "ee1b685fb501666211eee4964ae86bb12c9ff7d6ffb75a7410ee0ad4117e3e10",
     "hardware/wiring/installed/_wire_spline.py": "61a563bbeaacd4494adfdcbcacfeef9887a89845b50a15b0bd710d66eb81ac9c",
@@ -95143,7 +95148,7 @@
     "tools/cad-venv/lib/python3.13/site-packages/trimesh/voxel/ops.py": "9eb4ef9709ed1ef5752c71c68dc90b0f1148551130f873a88da7897d3f4ba377",
     "tools/cad-venv/lib/python3.13/site-packages/trimesh/voxel/runlength.py": "855369a6706bb92090b274c9ec0bbd5ad1da5b46142ac5a0ece8997ff38ec19b",
     "tools/cad-venv/lib/python3.13/site-packages/trimesh/voxel/transforms.py": "128c8c04c205d45e9fe6119fd2c81c4ca284878751f186ddce7b54ac79797a3c",
-    "tools/docgen/__init__.py": "1d7766d594df9a0791c4144af96954a7058414bda2d099203b5d1240688f50fb",
+    "tools/docgen/__init__.py": "9feb7c5c9d558511bb75054422bd6804294791e603273ec223384256fce04938",
     "hardware/assembly/scenes/machine_export.rs": "a5201a397a54f04bfdf9a64a1e3b34b7eb0be8ea5fb110c9ccd1bd7d7ce9e9a3",
     "hardware/assembly/scenes/model_export/component_order.rs": "27085cea75b8d69085d1eedaac738f81777f76258d669d4c68846e5eb44eaaea",
     "hardware/assembly/scenes/model_export/gltf.rs": "9fa9d23be917ab65cfccc35df72cc7a2ee108230efb0d342d376d6d9b2bf5f06",
@@ -95154,18 +95159,34 @@
     "hardware/manifold-layout/machine_layout.rs": "cae7cc929f45c1c47587263b8acc7f5edd39a168696a381cbb472d6a3a9dbd10",
     "hardware/manifold-layout/machine_layout_refs.rs": "ffa620fa0fe21255f8b19226779ca70c5cd5bcc899bbc4d34d50caf879cd50d6",
     "hardware/manifold-layout/machine_routes.rs": "1ccb1c739ee106c4f85ce2a0bbc5c51ef4ef82df11ec7c90ae9621a755876d74",
+    "hardware/manifold-layout/reservoir-a-routes.json": "19e1578fe2b3764aad7cc941ab185612dec36ba53f1ede21d17a922934a7192f",
     "hardware/printed-parts/enclosure/nameplate/nameplate.rs": "5a9e017583377286b1cef36b652fae271d581ddb2aef2a0f31aed47af87e4449",
-    "hardware/printed-parts/enclosure/rear-identification/rear_identification.rs": "c1b019169d7b3e01d5c3a2e86cc5920c5d9d5a1abdec6ba2d31bbfee6ad01e56",
+    "hardware/printed-parts/enclosure/rear-identification/rear_identification.rs": "e54c501da176f80ebe44b30fb515efbb33b45cefb4a2ac5f067bbf286f8ffb12",
     "hardware/printed-parts/zone-c/funnel/funnel_frame.rs": "5c6d1dde769662ebc0467b111e1135d1955b8de6bb781147b4af070c1369d06c",
     "hardware/printed-parts/zone-c/funnel/funnel_geometry.rs": "01f6e66063bcf0d2ab461f2fc1475d0526252d44fa7928cd385d43aa99c209bb",
+    "hardware/reference/neofit-stem-elbow/reference-parameters.json": "a6d4486619514f64cad829bd281c90216c04cb94813d2784adea6a8a23fd5d8f",
     "hardware/reference/wago-221/wago-221-413.fine.step.mesh": "c63d87c73e1dd8902d883c4cc09f653066d543d004813286b2e9dfd191eefe87",
     "hardware/wiring/installed/wire_components.rs": "57b436eeab0fd858208eb3d4516db09708adc7e870bcab755b60e4a8173b80ca",
     "hardware/wiring/installed/wire_geometry.rs": "91675848cb0c711c420e9d8ec2eb3e7cbe129bcc96c05a63a472d2c9fd4c4cb5",
     "hardware/wiring/installed/wire_route_samples.rs": "a958e9d17403bff04a98a8ce27e3aa11afd9fab021022b47b992076b14b3242f",
-    "tools/hsm/Cargo.lock": "b8691f2a41fa956daafe7b68dcb07d2f505e9a540c2647b7df94bd5b6857996c",
-    "tools/hsm/Cargo.toml": "0570c49c5acf1329b942df5c0eb25360f4dcd1d9eb13df239c1c226341ab62fa",
+    "tools/hsm/Cargo.lock": "8cffcb4b32e6bf509b489208a4cb7d40e6516561b8bb21b600e16f86bb5cbf32",
+    "tools/hsm/Cargo.toml": "de35a12d5201b60a9f685c4787827801d7c61a79f2ecdf181b5bffe1f1ab1cb6",
+    "tools/hsm/cold-core-data/Cargo.toml": "1790718c5dc10edaff7c3745224550d632e84dcb6c50507aa7adee29584dda8a",
+    "tools/hsm/cold-core-data/src/coil.rs": "aa81911066359e9540c5473c4dda37ca784388afa8ff936246202ca1256ba4fe",
+    "tools/hsm/cold-core-data/src/floats.rs": "ad91bf965e1cbf258825e37ea480a5f9c0205ee18d40f019b44d20623da2511e",
+    "tools/hsm/cold-core-data/src/interface.rs": "f3d6156f192aea4eeb9c36bedf176804cfe0e21dfb863e07f2a47e967683f66f",
+    "tools/hsm/cold-core-data/src/lib.rs": "a252ce2b2c834c86dc43c1dd294d5652840f4e0501f2ab4ea825c6bfb770592c",
+    "tools/hsm/cold-core-data/src/main.rs": "4d2ab519ec88886dcdecc7efa42356fd22f5c176958a1f658e9a853472eddf2f",
+    "tools/hsm/cold-core-data/src/mandrel.rs": "526f605254f707f891079f3b544155d03d74f7e96bb2e5cdd8af2b8d025feab6",
+    "tools/hsm/documents/Cargo.toml": "dc2c1bbfa9dabb646fe44879cbf0ec82ea52f6638e2cf3ac1fc0fae1d5191537",
+    "tools/hsm/documents/src/lib.rs": "651f03cd1591b831be69fbfec043caf02844e553bc691eae715592c512326568",
     "tools/hsm/enclosure-components/Cargo.toml": "ac598ac232913281d2caa77597ccaa817a78da571bd45ec63774e21e2e8147b4",
     "tools/hsm/enclosure-components/src/lib.rs": "314db55f5baf182056be67799d7c453112ea6d84aa89790f49e8485cc889373d",
+    "tools/hsm/enclosure-data/Cargo.toml": "fb5759ba23135fb31496121f5ceb75886bac3cbd14e0cf1b7c06e77eedb9894d",
+    "tools/hsm/enclosure-data/src/main.rs": "0727968b710dea5812345030fc4b01f3dfae4f1eca1469f8f1d9799091ecc96a",
+    "tools/hsm/enclosure-data/src/pump_case.rs": "adb20592b1c338bdc08a0ea3a05da50f11ff18d4b18ba2e083d11e952fa7a8d5",
+    "tools/hsm/enclosure-data/src/pump_tray.rs": "6fd8a3817c45c26de582ca4a4baf60357ee757b7f39e638aee80585e551fa963",
+    "tools/hsm/enclosure-data/src/valve_tray.rs": "989b7222f19fbdc9f135cd959369b02a87fe3422406967db6e374658aba4e87b",
     "tools/hsm/funnel/Cargo.toml": "1012bbe4e1fce15548356d54adb23a2be8766112180512ed3e5af23da1f13f23",
     "tools/hsm/geometry/Cargo.toml": "e91db0ca0c4d8fe8cbac626f53655fc7cdeca8bd51a8d2e29ef41de7988272cb",
     "tools/hsm/geometry/src/lib.rs": "b313b8f7f5da4fca44b172a73d8e681dc5221ea2ef208a8ce47920c89559f263",
@@ -95201,7 +95222,28 @@
     "tools/hsm/kernel/src/topo.rs": "b1b7f17383168cfd3566ac9f7416332c4014a94660cab0f07f014ca50dc2aa07",
     "tools/hsm/kernel/src/triangulate.rs": "24ec94cd00b9ff134ab2fe77de43f65ab164068d57df62adf1e7cd03cba1da55",
     "tools/hsm/kernel/src/write.rs": "7548a9bf86f37e4ef550a2d9e5bafb58cfb24d1bcc1f40a8802a12a9011398d5",
+    "tools/hsm/layout-data/Cargo.toml": "63d2750e65e3826b5ee31a4d59135f43c2ab1cf3cd45a29cae51d99cb943d61c",
+    "tools/hsm/layout-data/src/fore.rs": "248b60bdd6f112fb804cf82584073e96e9eccd4dd282d978ef4fa2af8685d736",
+    "tools/hsm/layout-data/src/lib.rs": "f0186f9ae21190d7858825a6b57f695ce6680c5012e1e24a7397044ab91f9dd6",
+    "tools/hsm/layout-data/src/main.rs": "8f2d7db6bf567a8ccda79c80433f22c7e81afc1e5c5fdd788fff4858b676eb15",
+    "tools/hsm/layout-data/src/rear.rs": "0ff75c017931acf677a65c9a0a4a3cbeca6aa45c0a9b36e6f9a0394f86ee774c",
+    "tools/hsm/layout-data/src/routes.rs": "ad3504072bf686c83cbaa827056ba6ecd1e6a074a11ca6c4a56de6c2a705fcdd",
+    "tools/hsm/layout-data/src/soda.rs": "e0885a93774e03fb659f92e717107aa90610074f9cf098e28c5c1c35132c8c61",
+    "tools/hsm/machine-data/Cargo.toml": "8ccfef87e6c215a20b1b11682cbec0993780e78178ea2bb81d71a55c09228e46",
+    "tools/hsm/machine-data/src/archive.rs": "7423ca45f009ff363af974d2783792618a1f1748329d7dc480202f060cfce792",
+    "tools/hsm/machine-data/src/box_spec.rs": "bf4531bf9f1d4fd4ed1aebbd087ed0e6a69811b436483a6f241359d2caf9fd49",
+    "tools/hsm/machine-data/src/equipment.rs": "1e8dfa4d5316a41b0363cd7aa60ec6b47a2b5ac1dc1d233c2fb1f6604015c84f",
+    "tools/hsm/machine-data/src/equipment_ports.rs": "80424357d0df257bb21173e49a4b216eb3ef6aec21784e485f4c2811bb49b45f",
+    "tools/hsm/machine-data/src/main.rs": "24eca8dcc6d9d13ef331899114da1475a96b1ff6e6f4ac2c60a6a3bcb93edb89",
+    "tools/hsm/machine-data/src/queries.rs": "2ecf17f532532db830deef0114acda6749b2436855ae1746ca3904975edc3b6b",
+    "tools/hsm/machine-data/src/reporting.rs": "2379a5ffe357f1bd2f9ee09d64a6b5f909dc6b4c2331423e899022cdcdff1c5a",
+    "tools/hsm/machine-data/src/source.rs": "fa9451ae615ef73da624d677ad1faad3f858223c58473ac383ca0cf45c95958d",
     "tools/hsm/machine/Cargo.toml": "5ded5f7f5c405bd5c255365cf0cc9878dba607bd8dc9b9129aa6044aab29cd5a",
+    "tools/hsm/part-data/Cargo.toml": "099d3e04efeb3b6e229baf49cde07afbbcb8c3eed6815fd10c4ad3bb6b3eb093",
+    "tools/hsm/part-data/src/electronics.rs": "3dacb80259b2f58f056c4795f2f2c8dd03ebbdd913db6e6a6a24db1b68cc217d",
+    "tools/hsm/part-data/src/main.rs": "1f073dde67f702df79c93e4b2b04d815b85975911f2a284fd1d94d2236106c37",
+    "tools/hsm/part-data/src/sleeve.rs": "bce86bdb8a3fae6d5d543331d20f90bd1e44e6a194e05de12e160d2ed94d3965",
+    "tools/hsm/part-data/src/zone.rs": "b6ddc32079a6c2b1f010b6d4ae99bf3898cfd787be3613c868638bf1c03edbf7",
     "tools/hsm/run-slots.defaults.json": "bb2df07e3ee0248b58930844369118448d30a8e7c8d8e9472bceb929dae4e4fa",
     "tools/hsm/run-slots/Cargo.toml": "80ce4a35c0ffb1b90521c8c07330345e724a0463b0b87085570eca406c62ee7c",
     "tools/hsm/run-slots/src/ipc.rs": "59e5ed2b6913fe347d0a0f5714c870a77b7b969fff7a565f2f145bcb16822d03",
@@ -95214,7 +95256,7 @@
     "hardware/wiring/installed/model.py": "5045dd74be4b2219ada30cd2c19b32bc",
     "hardware/wiring/installed/terminals.py": "1ffe79c600ed84afccfbc325005c5a42",
     "hardware/wiring/installed/_model_input.py": "4348031b70bec62c847a35c68fb6de28",
-    "hardware/scripts/_assembly_model.py": "b79e821fa3908c7623801fb00a125dbd",
+    "hardware/scripts/_assembly_model.py": "2e9297b0ef8f0afa9302113c5807de4f",
     "hardware/scripts/_realized.py": "d092ef422dbd62927c98fdc21208e0a6",
     "hardware/wiring/installed/routes.py": "35d8e926c4161ed3ca50626fc007d021",
     "hardware/wiring/installed/retainers.py": "89aeebd7ac9ee2283d0d55546c565ec0",
@@ -95222,25 +95264,27 @@
     "hardware/wiring/installed/terminations.py": "c1472b93d7105c99f1e352cb177498e8",
     "hardware/wiring/installed/step_merge.py": "1cf77a131cc5370a40a4fed44bda3f85",
     "hardware/wiring/installed/bundles.py": "8fcacd7602c21da19d3410322a782e04",
-    "hardware/manifold-layout/above_core.py": "12fc2276f2656f56b445357f371c6e86",
+    "hardware/manifold-layout/above_core.py": "aa4a0a8b36bdd7930b7763ce6f1135aa",
     "hardware/manifold-layout/above_core_wiring.py": "3dbb3a2e1ea14bef64c1e8350a44db6f",
     "hardware/printed-parts/enclosure/enclosure/enclosure.py": "e763dcf9fe4482b510f5a98243849e2c",
     "hardware/printed-parts/enclosure/enclosure/_fixed_pump_mount.py": "67edf7f4d20a54b3589d5842bbbf11fd",
     "hardware/printed-parts/cold-core/_above_core_mounts.py": "63965d9f0120903fdd29157b01949dc4",
-    "hardware/printed-parts/cold-core/_cold_core_interface.py": "f1b2175b35a49b0e7ffa1fa549370ac2",
+    "hardware/printed-parts/cold-core/_cold_core_interface.py": "5742917784c6a1a6e95f07d9a6b1da88",
     "hardware/printed-parts/cold-core/_foam_cap.py": "b4a64de3f6bb7b7702c9f71f5f8c4bb4",
     "hardware/cold-core-layout/_carbonator.py": "bf0e831950309bb622b012bd3d06e60d",
-    "hardware/cold-core-layout/_carbonator_bond.py": "883b5453e2b7f7355f2a3bc964ab7821",
-    "hardware/cold-core-layout/_carbonator_stock.py": "79edf4c480736684ee72df0cae1dc5b7",
+    "hardware/cold-core-layout/_carbonator_bond.py": "6bac91b05ebc959004f956473532a0e2",
+    "hardware/cold-core-layout/_carbonator_stock.py": "8ea344a0fe3428fe530529a2309350c9",
+    "hardware/cold-core-layout/_cold_core_data.py": "d636de9101d1ca80d45fe939e151fcc8",
     "hardware/cold-core-layout/_fittings.py": "0159a1749f4fd6280e5861afb8b177d5",
     "hardware/cold-core-layout/core_reference.py": "99a90f68163fabc7ccb55fe0345f9e7a",
     "hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_dxf.py": "8df44c86d680d3b30688dd5200f1c9ef",
-    "hardware/manifold-layout/_machine_reporting.py": "3cab7b835582dca9c519e72e423c3996",
-    "hardware/manifold-layout/above_core_bom.py": "df74f175482fa839243aab1ace2c2906",
-    "hardware/manifold-layout/above_core_routes.py": "76e235c3e81474ebd4511e956fd70289",
+    "hardware/manifold-layout/_layout_data.py": "c2abf8f817b9d76a3654c4f7bd9e1646",
+    "hardware/manifold-layout/_machine_reporting.py": "2ff906ca32e9ece9430304cce1d08e58",
+    "hardware/manifold-layout/above_core_bom.py": "2f2b0f5adcf618436543b4ef4117aa5b",
+    "hardware/manifold-layout/above_core_routes.py": "8123848eefd40baddb20238f380e1eba",
     "hardware/manifold-layout/enclosure_assembly.py": "a84f98c387d2b242abac1b5311cf8b65",
     "hardware/manifold-layout/manifold_layout.py": "9737a657a3ee8fed6fa3b1b8fad79a26",
-    "hardware/manifold-layout/soda_inlet.py": "e4262894a7dcde91deb15632164b84af",
+    "hardware/manifold-layout/soda_inlet.py": "12ce81aa1bae0b17c8d48281014ed4f3",
     "hardware/printed-parts/cadlib/fits.py": "f51a39a20df1dc38c46fec697eeb3753",
     "hardware/printed-parts/cadlib/flute_skin.py": "743d6f0b51ffb103aa07afe5e99460f8",
     "hardware/printed-parts/cadlib/overhang_round.py": "b370d8aba04406611f6a095a97f9992a",
@@ -95249,7 +95293,7 @@
     "hardware/printed-parts/cadlib/snap.py": "261914a20ba15b0a1be3865d2865e4c3",
     "hardware/printed-parts/cadlib/world_workplane.py": "d1044abf2b025a5045fd5a6d9ed8ae32",
     "hardware/printed-parts/cold-core/_copper_ports.py": "76723cceefad35f23a5dc0ce952acae4",
-    "hardware/printed-parts/cold-core/_float_interface.py": "db10c36e170aa8a01a2885428f495bcb",
+    "hardware/printed-parts/cold-core/_float_interface.py": "b99c68efa2eb02ec7150ef93b412b2fc",
     "hardware/printed-parts/cold-core/_internal_routes.py": "5bef8aa0d061557f22d1ee0d972a98f5",
     "hardware/printed-parts/cold-core/_outer_shell.py": "6508543bfde8a3b43eac0347a90fa3ed",
     "hardware/printed-parts/cold-core/_port_cuts.py": "f7ee5e065ff086184bdd72183087b262",
@@ -95262,33 +95306,35 @@
     "hardware/printed-parts/cold-core/foam-assembly/foam_assembly.py": "22ba8b4c2e5a56500419aa7785dcf622",
     "hardware/printed-parts/cold-core/prv-shroud/prv_shroud.py": "cdcd2df63322420ace8cdb01dba76486",
     "hardware/printed-parts/cold-core/reservoir/reservoir.py": "fbe2273231ad749133af6dd0d51af506",
-    "hardware/printed-parts/electronics/module_tray.py": "d5592f2348f3527d8d3ee3d431656fdc",
-    "hardware/printed-parts/electronics/pcba-tray/pcba_tray.py": "37f303a227f645ad57838c1fd206f30d",
-    "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead_ring.py": "b06504b9898ddd75891daa12025e6d07",
+    "hardware/printed-parts/electronics/module_tray.py": "7a5fc483d15bb329d639245fc1e02c2e",
+    "hardware/printed-parts/electronics/pcba-tray/pcba_tray.py": "9e81599b6dfe19143cdb1168bb59fcb1",
+    "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead_ring.py": "4d99b0199df370c4584f957c011c77e0",
     "hardware/printed-parts/enclosure/enclosure/_above_core_shell.py": "e82e9cd0b8750431dedefa02dfeb8820",
     "hardware/printed-parts/enclosure/enclosure/_anchor_cap_interface.py": "91ad2473f7c78d640572aad416003829",
-    "hardware/printed-parts/enclosure/enclosure/_data_wing_interface.py": "2504dc2421b1df81820f9e4dcdc3bd9a",
-    "hardware/printed-parts/enclosure/enclosure/_display_wing_interface.py": "c77625ec7b419907e0cac51d256ec3dd",
+    "hardware/printed-parts/enclosure/enclosure/_data_wing_interface.py": "f7d1de1ff70a37412f46411bb25b5e51",
+    "hardware/printed-parts/enclosure/enclosure/_display_wing_interface.py": "745a909e5da505c3c62ef5efd24307b1",
+    "hardware/printed-parts/enclosure/enclosure/_enclosure_data.py": "26ad393b6c6927a9620e5e4462ae1a8e",
     "hardware/printed-parts/enclosure/enclosure/_enclosure_datums.py": "9b1f47c21b5d81bcf9d06eb7ce5024ff",
     "hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py": "3bbb499fd7527b5fb10bedfa992e5bf4",
     "hardware/printed-parts/enclosure/enclosure/_enclosure_rust_driver.py": "662131580e9aa7e26cda4b58c8c200df",
     "hardware/printed-parts/enclosure/enclosure/_grip_interface.py": "d6c84af6d84ae21f3404cc81ffeb73ff",
-    "hardware/printed-parts/enclosure/enclosure/_nameplate_interface.py": "13178a5e8bd60a33b5af929c6ea9d327",
-    "hardware/printed-parts/enclosure/enclosure/_nameplate_wing_interface.py": "5c6914876bfe03aa57667588339bcf96",
+    "hardware/printed-parts/enclosure/enclosure/_nameplate_interface.py": "8a98de36117f09903a090a58826e4b7f",
+    "hardware/printed-parts/enclosure/enclosure/_nameplate_wing_interface.py": "2e886b95c223fe8f561db472bcfb82ed",
     "hardware/printed-parts/enclosure/enclosure/_swept_top.py": "7e028ac152971251b442bc1b59a49ca6",
-    "hardware/printed-parts/enclosure/nameplate/_nameplate_dimensions.py": "37a218f26678cc5d7f07fd475ebca4f2",
+    "hardware/printed-parts/enclosure/nameplate/_nameplate_dimensions.py": "389e2a054f8408e676303d6cf8670d05",
     "hardware/printed-parts/enclosure/nameplate/nameplate.py": "9f6832ead55501f695dea8a70e2145f7",
     "hardware/printed-parts/enclosure/pump-dock/dock_structure.py": "361d3e16b046bd1a3b7d093babedf00c",
     "hardware/printed-parts/enclosure/pump-dock/fixed_returns.py": "4d7082f03f731ad650302ef63f189c35",
-    "hardware/printed-parts/enclosure/pump-tray/pump_case.py": "c2672dc02bf4b50054aafba4e6c2198d",
-    "hardware/printed-parts/enclosure/pump-tray/pump_tray.py": "351e57c46aa2d0ec8339939ab1fd2761",
-    "hardware/printed-parts/enclosure/rear-identification/rear_identification.py": "4ee13c1edc7522bd7556eb6be9222488",
-    "hardware/printed-parts/enclosure/valve-tray/valve_tray.py": "02433e5386643347feef0307ad90f18d",
-    "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py": "24139cd4999e95693e52557b9f6241c0",
-    "hardware/printed-parts/valve-seat/valve_seat.py": "eecf223592f656319a6e0beaa85fdd78",
-    "hardware/printed-parts/zone-c/funnel/elbow_cradle.py": "5d0300c0e88e2456c383ef999922bec7",
-    "hardware/printed-parts/zone-c/funnel/funnel.py": "29b9ebcf73f83200cdaac65f2e81a12d",
-    "hardware/printed-parts/zone-c/funnel/funnel_frame.py": "e8b84fc2c285c58dadabdde3056c4e7b",
+    "hardware/printed-parts/enclosure/pump-tray/pump_case.py": "a71fe7faeeff6a598d475d4f33bd3d2e",
+    "hardware/printed-parts/enclosure/pump-tray/pump_tray.py": "769adea5c5ceff068a17d2c80154fc61",
+    "hardware/printed-parts/enclosure/rear-identification/rear_identification.py": "8644ed3689fab4dc1d85a3fb7ba57a49",
+    "hardware/printed-parts/enclosure/valve-tray/valve_tray.py": "4b4f435963960cfb35c42e28963a81bb",
+    "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py": "cc9232734410d7ccf1a5016ea5f9e2da",
+    "hardware/printed-parts/valve-seat/valve_seat.py": "d34feacfd39ddf74b2f7eb32f733e4f5",
+    "hardware/printed-parts/zone-c/funnel/_zone_data.py": "88ac05c307789dfb757ae6e8579ac8fc",
+    "hardware/printed-parts/zone-c/funnel/elbow_cradle.py": "7b8c52f12ad8ba5caea519bd65283697",
+    "hardware/printed-parts/zone-c/funnel/funnel.py": "3122fb1e24733ea5af488c05c38e4cf9",
+    "hardware/printed-parts/zone-c/funnel/funnel_frame.py": "76c6e9b566b9b6e108c117e47cf42c17",
     "hardware/reference/beduan-solenoid/beduan_solenoid.py": "85d37226214e62a90376edbb7c704ba1",
     "hardware/reference/compressor/compressor.py": "166d60d208c28a2dc4dc47bd64e00831",
     "hardware/reference/digiten-flow-sensor/digiten_flow_sensor.py": "59289c52ee4357828ece30e5f2b74e34",
@@ -95307,13 +95353,13 @@
     "hardware/reference/teyleten-relay/teyleten_relay.py": "8843e4d2b43717fb2daff19d97b26d4a",
     "hardware/reference/wago-221/wago_221.py": "b08cc8e9d6e0b72f65a3c908b24481e2",
     "hardware/reference/y-divider/y_divider.py": "7cdcc3b39375cb248a4797239eeacc55",
-    "hardware/scripts/_box_spec.py": "0cbec0bd48acdd12de483d28062c1b7d",
+    "hardware/scripts/_box_spec.py": "7e14fc7a07751b79871bfbc423dc4619",
     "hardware/scripts/_cadq_export.py": "e88d2ca02b71617ee0c35f2885d422aa",
-    "hardware/scripts/_document_export.py": "26a11d40cb44803be4a86fd0c35a65b7",
+    "hardware/scripts/_document_export.py": "be5e5f4bf6963c01b2d815d761d5e02f",
     "hardware/scripts/_machine_checks.py": "40dd050151ef6d83523154cfe79470ca",
-    "hardware/scripts/_machine_equipment.py": "d5bd12381b4f411c42da89ceff48b57b",
+    "hardware/scripts/_machine_equipment.py": "704f3bdf36d585731510fd55f07d9312",
     "hardware/scripts/_machine_export.py": "f304b073c11704c6a1255df3c9b87700",
-    "hardware/scripts/_machine_layout.py": "f98b9ff9aaf78ec1b1170d4eceb99ad7",
+    "hardware/scripts/_machine_layout.py": "3b9990e7b8c3118387acbba369b74614",
     "hardware/scripts/_machine_routes.py": "b37a5d3f3cc7cf5bc1ed63bf03932700",
     "hardware/scripts/_material_base.py": "3632f24b4526995e5aa23ada061d5568",
     "hardware/scripts/_materials.py": "714fb22fa271a5ddcb0a2ad5486d1032",
@@ -95323,7 +95369,8 @@
     "hardware/scripts/_routing.py": "7ab78f8cabdda1ed0015a7094799ec09",
     "hardware/scripts/_run_lock.py": "c757c9cf717d128ae3c2cdcd21e060c3",
     "hardware/scripts/_run_slots.py": "9879cfff2f08b61ae37a561723909dde",
-    "hardware/scripts/_rust_part.py": "a7956ef676d8d66a9f37d6cb42b20ac5",
+    "hardware/scripts/_rust_data.py": "b9f709509510783d7afcf6ede1066252",
+    "hardware/scripts/_rust_part.py": "7fa7d61ebdae0f1b83dcad4010cefd7e",
     "hardware/scripts/_stated_bounds.py": "fc04dcc7bca4c1e4cb544735aa52454b",
     "hardware/wiring/installed/__init__.py": "92f95de9f4921152bf9b4c07ef27dde7",
     "hardware/wiring/installed/_wire_spline.py": "32ff7cb8a3fe8b247580be0728a55afa",
@@ -95966,6 +96013,6 @@
     "tools/cad-venv/lib/python3.13/site-packages/trimesh/voxel/ops.py": "b5338ffade90d3a2517197dda693862c",
     "tools/cad-venv/lib/python3.13/site-packages/trimesh/voxel/runlength.py": "add5c114ca62fb56eaee79ec7fb99b94",
     "tools/cad-venv/lib/python3.13/site-packages/trimesh/voxel/transforms.py": "e2e6d83b8b32ee40613989462f67ca46",
-    "tools/docgen/__init__.py": "518cbc2ab238db3fae3ee83132324d0f"
+    "tools/docgen/__init__.py": "a40b695630b8a01472f1e6e3fde7db97"
   }
 }
