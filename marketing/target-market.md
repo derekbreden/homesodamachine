@@ -190,7 +190,7 @@ lead time as production scales. Standard opens once the Founder Edition run is c
 
 ### What a unit costs to build
 
-Per-unit parts are [$1,439.70](BOM_GRAND) ([`bom.md`](/hardware/ledger/bom.md)). Attended build
+Per-unit parts are [$1,439.78](BOM_GRAND) ([`bom.md`](/hardware/ledger/bom.md)). Attended build
 time is [12 h](LAB_HM), which [`labor.md`](/hardware/ledger/labor.md) prices at
 [$100](LABOR_RATE)/hr — [$1,199.67](LAB_USD). Roughly [$2,600](UNIT_COST) of parts and hands
 stands behind each machine, before tools, freight, warranty, or any of the design that got here.
