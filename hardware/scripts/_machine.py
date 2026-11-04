@@ -1,31 +1,11 @@
-"""The machine as `enclosure_assembly` last built it, read off its scene file.
+"""The machine scene, scalar document and Rust fine-model export interface.
 
-Building the machine stands every body, draws every run and cuts the box. On the mesh kernel
-the build leaves what it stood in `hardware/manifold-layout/enclosure-assembly.scene.npz`
-(`meshcad.scene`): every body in world coordinates under its name, with its colour and face
-records, and a document of what the bodies alone do not say. That is the authored runs, each
-component's ports, the box, the anchor stations, the stamp of every source the build read, and
-what the build's checks read off these bodies: the scorecard and the ASSE drain check.
-`load()` hands it back as mesh solids a study can cut, measure and select faces on.
-
-    import _machine
-    m = _machine.machine()            # the scene, or the machine built and its scene written
-    back_top = m.bodies["enclosure-back-top"]
-    m.runs["fluid-14"].pts            # an authored run's waypoints
-    m.frames["g-ganen-pump"].at("suction")
-    m.card["gatesPass"]               # what its scorecard read
-
-`machine()` reads the scene when no source has moved since it was taken, and otherwise builds
-the machine on the mesh kernel, which runs its checks and writes the scene for the next reader.
-`load()` reads whatever scene is on disk, and `measured()` says which machine that is.
-
-A scene holds meshes, so it is read on the mesh kernel: a process reads one only when it has
-taken the kernel before anything imported CadQuery (`meshcad.activate()`).
+The scene holds world-placed bodies, runs, frames, Box data and check readings.
+`machine()` reads a current scene or runs the Rust assembly driver before reading it.
 """
 
 import dataclasses
 import json
-import os
 import sys
 import time
 import types
@@ -48,10 +28,10 @@ _FALLBACK_SOURCES = ("manifold-layout/enclosure_assembly.py", "manifold-layout/_
 
 
 def sources() -> tuple:
-    """Every Python file of this repo whose text can decide the machine, repo-relative: what the
-    build was watched reading, and the mesh kernel, which cut every body a scene holds and which
-    OCCT's build does not read. A tree with no `graph.json` names the five files that are
-    certainly among the first."""
+    """Sources that decide the machine scene and its mesh reader, repo-relative.
+
+    A tree without graph.json names the five source entry points directly.
+    """
     kernel = {str(p.relative_to(_ROOT)) for p in (_HERE.parent / "meshcad").glob("*.py")}
     try:
         entry = json.loads(_GRAPH.read_text())[_WORLD]
@@ -117,81 +97,31 @@ class Machine:
 # --- writing -----------------------------------------------------------------
 
 
-def _plain(value):
-    """`value` as JSON: tuples and arrays as lists, numpy scalars as floats."""
-    import numpy as np
-    if isinstance(value, dict):
-        return {str(k): _plain(v) for k, v in value.items()}
-    if isinstance(value, (list, tuple, np.ndarray)):
-        return [_plain(v) for v in value]
-    if isinstance(value, np.generic):
-        return value.item()
-    if hasattr(value, "toTuple"):                   # a cq.Vector
-        return list(value.toTuple())
-    return value
 
 
-def _rgb(colour):
-    if colour is None:
-        return None
-    from OCP.Quantity import Quantity_TypeOfColor
-    return list(colour.wrapped.GetRGB().Values(Quantity_TypeOfColor.Quantity_TOC_RGB))
+
+
 
 
 def document(a, taken=None, card=None, drain=None, *, solids=None, core=None) -> dict:
-    """What a reader of the built assembly `a` needs that its bodies do not say, and what its
-    checks read off them."""
-    if isinstance(a, dict):
-        metadata = a.get('metadata', a)
-        return {
-            'schema': SCHEMA,
-            'taken': time.time() if taken is None else taken,
-            'sources': stamps(),
-            'solids': list(solids or metadata.get('solids', ())),
-            'core': list(core or metadata.get('core_body_names', ())),
-            'runs': metadata.get('runs', []),
-            'frames': metadata.get('frames', {}),
-            'box': metadata.get('box'),
-            'anchors': metadata.get('anchors', {}),
-            'card': card,
-            'drain': drain,
-        }
-    import _box_spec
-    import enclosure_assembly as ea
-    frames = {name: {"ports": {port: _plain(row) for port, row in fr.ports.items()},
-                     "bb": [fr.bb.xmin, fr.bb.xmax, fr.bb.ymin, fr.bb.ymax, fr.bb.zmin, fr.bb.zmax]}
-              for name, fr in (getattr(a, "frames", None) or {}).items()}
-    box = getattr(a, "box", None)
+    """A machine document from scalar metadata and completed check readings."""
+    metadata = a.get('metadata', a)
     return {
-        "schema": SCHEMA,
-        "taken": time.time() if taken is None else taken,
-        "sources": stamps(),
-        "solids": list(ea._solids(a)) if solids is None else list(solids),
-        "core": list(ea._core_solids(a)) if core is None else list(core),
-        "runs": [_plain(dataclasses.asdict(r)) for r in getattr(a, "runs", ())],
-        "frames": frames,
-        "box": None if box is None else _box_spec.document(ea._enc.documented(box)),
-        "anchors": {k: _plain(getattr(a, k, ()) or ())
-                    for k in ("tube_anchors", "cap_tube_anchors", "body_anchors")},
-        "card": _plain(card),
-        "drain": _plain(drain),
+        'schema': SCHEMA,
+        'taken': time.time() if taken is None else taken,
+        'sources': stamps(),
+        'solids': list(solids or metadata.get('solids', ())),
+        'core': list(core or metadata.get('core_body_names', ())),
+        'runs': metadata.get('runs', []),
+        'frames': metadata.get('frames', {}),
+        'box': metadata.get('box'),
+        'anchors': metadata.get('anchors', {}),
+        'card': card,
+        'drain': drain,
     }
 
 
-def write(a, path=PATH, *, card=None, drain=None) -> Path:
-    """The built assembly `a` as its scene: the bodies `_solids` and `_core_solids` read, and its
-    document with the readings its checks took (`card`, `drain`). Written whole and then put in
-    place, so a reader never meets half of one."""
-    import enclosure_assembly as ea
-    from meshcad import scene
-    taken = time.time()
-    bodies = [(name, shape, _rgb(colour))
-              for name, (shape, colour) in {**ea._solids(a), **ea._core_solids(a)}.items()]
-    path = Path(path)
-    tmp = path.with_name(f".{path.name}.{os.getpid()}.tmp")
-    scene.write(bodies, tmp, document(a, taken, card, drain))
-    os.replace(tmp, path)
-    return path
+
 
 
 def write_from_fine(model, path=PATH, *, aliases, envelope, document) -> Path:
@@ -258,11 +188,6 @@ def _box(doc):
 
 def load(path=PATH):
     """The machine in the scene at `path`, or None when there is none."""
-    import meshcad
-    if not meshcad.mesh_mode():
-        raise RuntimeError("_machine: a scene holds meshes, and this process's CadQuery is "
-                           "OCCT's — take the mesh kernel (`meshcad.activate()`) before "
-                           "anything imports cadquery")
     path = Path(path)
     if not path.is_file():
         return None
@@ -294,30 +219,21 @@ def current(path=PATH):
     path = Path(path)
     if not path.is_file():
         return None
-    from meshcad import scene
-    doc = scene.document(path)
+    from _assembly_model import document
+    doc = document(path)
     if doc is None or doc.get("schema") != SCHEMA or doc["sources"] != stamps():
         return None
     return load(path)
 
 
 def machine():
-    """This tree's machine: the scene when it is current, or else the machine built on the mesh
-    kernel, its checks run and its scene written for the next reader, then read.
-
-    THE BUILD IS A PROCESS OF ITS OWN, `enclosure_assembly.py` run on the kernel as any mesh
-    build runs (`meshcad/run.py`). It stands the whole machine, and its memory goes back when it
-    exits, before the caller reads the scene. It queues on the CAD lock as a build does, or runs
-    under the caller's when the caller holds it. What it prints goes to stderr, so a caller's
-    own output stays its own."""
+    """Read this tree's current scene, building it through the Rust driver when stale."""
     m = current()
     if m is not None:
         return m
-    print("_machine: the scene is not this tree's; building the machine on the mesh kernel",
-          file=sys.stderr)
+    print("_machine: the scene is stale; running the Rust assembly driver", file=sys.stderr)
     import subprocess
     import _run_slots
-    subprocess.run([sys.executable, str(_HERE.parent / "meshcad" / "run.py"),
-                    str(_ML / "enclosure_assembly.py")],
+    subprocess.run([sys.executable, str(_ML / "enclosure_assembly.py")],
                    cwd=_ROOT, stdout=2, check=True, **_run_slots.subprocess_kwargs())
     return load()
