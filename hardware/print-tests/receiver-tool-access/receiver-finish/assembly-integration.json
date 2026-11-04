@@ -11,7 +11,7 @@
     ],
     "unrelated_fine_bodies_preserved": 431,
     "step_sha256": "798c4aa71a6692b4931099a48536532b3d9dffc105e3f20ff00b68f2c46ead98",
-    "payload_sha256": "ddcc8d86f5f86ed526dcb0497b0a564c6316908c4ec5cf7bddc3098968096a83"
+    "payload_sha256": "57d7a78438b78880886b68049fe98afaa2e8741b3dd6212e09e859b321b5ec1b"
   },
   "enclosure": {
     "replaced": [
@@ -19,7 +19,7 @@
     ],
     "unrelated_fine_bodies_preserved": 24,
     "step_sha256": "3a57a5d1de879f762227ff24aca0f42315e636c4e7daa1f8166625e9f6f25a0a",
-    "payload_sha256": "7cc7b6e6d16f32aeb5577cd2169e3f4f177a5a3b9a5092e74f9898d136c00f98"
+    "payload_sha256": "a81d3f7465d83f02d8bb1729021ea9d82f8e6785ec4ed6893c31cf3be4a275da"
   },
   "foam": {
     "replaced": [
@@ -67,6 +67,16 @@
       "unrelated_buffer_views_preserved": 735,
       "nodes_materials_and_unrelated_buffers_retained": true,
       "sha256": "22b5e1605be0a1ea2748d0d5ef62e4c76502ee47717dee6a6f3654e9a2686d05"
+    }
+  },
+  "latest_main_presentation": {
+    "hardware/manifold-layout/enclosure-assembly.step.mesh": {
+      "unrelated_entries_with_metadata_and_buffers_preserved": 550,
+      "sha256": "57d7a78438b78880886b68049fe98afaa2e8741b3dd6212e09e859b321b5ec1b"
+    },
+    "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh": {
+      "unrelated_entries_with_metadata_and_buffers_preserved": 24,
+      "sha256": "a81d3f7465d83f02d8bb1729021ea9d82f8e6785ec4ed6893c31cf3be4a275da"
     }
   }
 }
