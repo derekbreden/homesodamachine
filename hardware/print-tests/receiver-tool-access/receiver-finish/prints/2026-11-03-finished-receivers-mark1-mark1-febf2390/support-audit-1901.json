@@ -3,11 +3,11 @@
   "piece": "pump-seat",
   "inputs": {
     "gcode": "support-labels-1901.gcode",
-    "gcode_sha256": "cb5337ab270ed900cc447f60a09f1450044033f9ec55635efbf6b69182b12384",
+    "gcode_sha256": "dcd0d785ab9d4cd12ec5cf68943ba357b9a22f4c0cad37f87dd2970effee2144",
     "model": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/asse-body-seating/worktree/hardware/print-tests/receiver-tool-access/receiver-finish/parts/pump-seat.stl",
-    "model_sha256": "750e00731ca0deb42d7e6e5edb064ca58152381d91a9ca0d4007134922a8049f",
-    "profile": "hardware/print-tests/receiver-tool-access/receiver-finish/prints/2026-11-03-finished-receivers-mark1-mark1-0de50157/2026-11-03-finished-receivers-mark1-mark1-0de50157.3mf",
-    "profile_sha256": "30c635872119efde7d66d1bc88b17444643081f5960afbbb670ed6603c70f28a"
+    "model_sha256": "f8440305324913acd39a780334bb6e2de88db442695f4151f929f7ed3b08e3d9",
+    "profile": "hardware/print-tests/receiver-tool-access/receiver-finish/prints/2026-11-03-finished-receivers-mark1-mark1-febf2390/2026-11-03-finished-receivers-mark1-mark1-febf2390.3mf",
+    "profile_sha256": "2c2302d406446b1f5f79e759eef2ffd0cdc92a598300b71e2c3670c6e8118054"
   },
   "slicer": "BambuStudio 02.08.02.61",
   "first_layer_z_mm": 0.2,
@@ -47,12 +47,12 @@
   },
   "summary": {
     "support_bodies": 2,
-    "interface_islands": 2,
+    "interface_islands": 4,
     "bed_rooted_bodies": 2,
     "model_rooted_bodies": 0,
     "shortest_build_up_mm": 12.96,
     "bodies_without_interface_labels": 0,
-    "explicit_interface_islands": 2,
+    "explicit_interface_islands": 4,
     "shortest_labelled_build_up_mm": 12.96
   },
   "trees": [
@@ -64,20 +64,21 @@
       "shortest_build_up_mm": 12.96,
       "top_z_mm": 31.88,
       "bbox_xy_mm": [
-        60.0,
+        46.8,
         106.4,
-        76.0,
+        68.4,
         180.8
       ],
       "interfaces": [
-        "interface-1"
+        "interface-1",
+        "interface-2"
       ],
       "interface_reading": "explicit_feature",
       "bbox_cad_xyz_mm": [
-        -35.777,
+        -48.977,
         -17.498,
         0.2,
-        -19.777,
+        -27.377,
         56.902,
         31.88
       ]
@@ -90,21 +91,22 @@
       "shortest_build_up_mm": 12.96,
       "top_z_mm": 31.88,
       "bbox_xy_mm": [
-        115.6,
-        106.4,
-        131.2,
-        180.8
+        123.2,
+        106.0,
+        144.8,
+        181.2
       ],
       "interfaces": [
-        "interface-2"
+        "interface-3",
+        "interface-4"
       ],
       "interface_reading": "explicit_feature",
       "bbox_cad_xyz_mm": [
-        19.823,
-        -17.498,
+        27.423,
+        -17.898,
         0.2,
-        35.423,
-        56.902,
+        49.023,
+        57.302,
         31.88
       ]
     }
@@ -115,18 +117,18 @@
       "first_z_mm": 13.16,
       "last_z_mm": 13.64,
       "bbox_xy_mm": [
-        61.6,
-        106.4,
-        64.4,
+        60.8,
+        142.8,
+        64.0,
         159.6
       ],
       "tree": "tree-1",
       "build_up_mm": 12.96,
       "bbox_cad_xyz_mm": [
-        -34.177,
-        -17.498,
+        -34.977,
+        18.902,
         13.16,
-        -31.377,
+        -31.777,
         35.702,
         13.64
       ]
@@ -136,18 +138,60 @@
       "first_z_mm": 13.16,
       "last_z_mm": 13.64,
       "bbox_xy_mm": [
-        127.2,
+        61.6,
         106.4,
+        64.0,
+        130.4
+      ],
+      "tree": "tree-1",
+      "build_up_mm": 12.96,
+      "bbox_cad_xyz_mm": [
+        -34.177,
+        -17.498,
+        13.16,
+        -31.777,
+        6.502,
+        13.64
+      ]
+    },
+    {
+      "id": "interface-3",
+      "first_z_mm": 13.16,
+      "last_z_mm": 13.64,
+      "bbox_xy_mm": [
+        127.6,
+        106.0,
         130.0,
+        130.4
+      ],
+      "tree": "tree-2",
+      "build_up_mm": 12.96,
+      "bbox_cad_xyz_mm": [
+        31.823,
+        -17.898,
+        13.16,
+        34.223,
+        6.502,
+        13.64
+      ]
+    },
+    {
+      "id": "interface-4",
+      "first_z_mm": 13.16,
+      "last_z_mm": 13.64,
+      "bbox_xy_mm": [
+        127.6,
+        142.8,
+        130.8,
         159.6
       ],
       "tree": "tree-2",
       "build_up_mm": 12.96,
       "bbox_cad_xyz_mm": [
-        31.423,
-        -17.498,
+        31.823,
+        18.902,
         13.16,
-        34.223,
+        35.023,
         35.702,
         13.64
       ]
