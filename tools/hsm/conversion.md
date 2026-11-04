@@ -52,8 +52,7 @@ The Rust programs construct and measure the solids and compose their model/viewe
 | Document readers | Scalar dimensions and facts with explicit source dependencies and numeric provider imports | BOM, assembly procedures, topology, enclosure dimensions and assembly instructions |
 
 The install guide's twelve plumbing scenes use Rust geometry with plain Python dimensions,
-colours and render jobs. The optional hose and collet illustration builders load native CAD
-only when those hand-run tools request them.
+colours and render jobs.
 
 The final machine report carries its existing construction questions from current scalar source
 ledgers and Rust measurements, including handhold sections and supported sloping faces.
@@ -74,9 +73,11 @@ alongside the retained piece comparisons that prohibit native CAD imports. It id
 remaining normal-build CadQuery, OCP or meshcad load. This is source and fixed-input evidence,
 not dynamic coverage of every optional command.
 
-Python remains for dimensions, numeric recipes, file readers and documents. Optional native
-design and manual review tools remain outside the normal build. There are no identified normal
-CAD conversion pieces awaiting an owner.
+Python remains for dimensions, numeric recipes, file readers and documents. The inventoried
+native generator options, hose and collet illustration builders, and their native-only manual
+review callers are absent. Print preparation retains its slicer, project and report options;
+historical print records bind retired generator sources through Git. There are no identified
+normal CAD conversion pieces awaiting an owner.
 
 The CPU and memory goal still needs performance work in Rust. Component reductions and
 incremental build measurements do not establish a matched whole-machine speed or memory gain;
@@ -103,8 +104,8 @@ the normal build follows a batch merged to main.
 
 `enclosure.py` and `enclosure_assembly.py` retain their scalar and Rust-driver interfaces without
 native CAD builders or native-mode switches. The automatic local back-top preview uses fresh
-Rust/scalar sizing and Rust scene export. Other native hand-run tools, including the hose and collet illustration builders, are outside
-the two-driver removal.
+Rust/scalar sizing and Rust scene export. Part drivers retain the numeric recipes and default
+Rust programs used by the build. Manual fine-model probes use their existing saved-model reader.
 
 The exporter stages physical and installed drawings as separate files. The physical fine model
 names the drawing with the same body identities; generated wiring is appended to the installed
