@@ -1,0 +1,974 @@
+/Users/derekbredensteiner/Developer/homesodamachine/hardware/scripts/geometry_lint.py:642: DeprecationWarning: Arrays of 2-dimensional vectors are deprecated. Use arrays of 3-dimensional vectors instead. (deprecated in NumPy 2.0)
+  twice = np.abs(np.cross(uv[:, 1] - uv[:, 0], uv[:, 2] - uv[:, 0]))
+enclosure-front-top.stl · 450212 printed facets · 177 findings · 14 answered
+answers: hardware/printed-parts/lint-answers/enclosure/enclosure/enclosure-front-top.lint-answers · read hardware/printed-parts/lint-answers/AGENTS.md before writing one
+
+  [sliver] 0.002 mm strip, 110.5 mm long
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=-106.866 y=162.572 z=351.683
+    edge: x=-106.866 y=217.800 z=351.683 → x=-106.866 y=107.344 z=351.683 · len 110.456 · straight · dir x=0.000 y=-1.000 z=0.000
+    click: x=-106.866 y=162.572 z=351.683
+
+  [sliver] 0.002 mm strip, 110.5 mm long
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=106.866 y=162.572 z=351.683
+    edge: x=106.866 y=217.800 z=351.683 → x=106.866 y=107.344 z=351.683 · len 110.456 · straight · dir x=0.000 y=-1.000 z=0.000
+    click: x=106.866 y=162.572 z=351.683
+
+  [sliver] 0.003 mm strip, 11.1 mm long
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=-87.095 y=92.763 z=203.051
+    edge: x=-87.095 y=87.190 z=203.051 → x=-87.095 y=98.336 z=203.051 · len 11.146 · straight · dir x=0.000 y=1.000 z=0.000
+    click: x=-87.095 y=92.763 z=203.051
+
+  [sliver] 0.003 mm strip, 11.1 mm long
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=-77.105 y=92.763 z=203.051
+    edge: x=-77.105 y=87.190 z=203.051 → x=-77.105 y=98.336 z=203.051 · len 11.146 · straight · dir x=0.000 y=1.000 z=0.000
+    click: x=-77.105 y=92.763 z=203.051
+
+  [sliver] 0.003 mm strip, 11.1 mm long
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=-27.345 y=92.763 z=203.051
+    edge: x=-27.345 y=87.190 z=203.051 → x=-27.345 y=98.336 z=203.051 · len 11.146 · straight · dir x=0.000 y=1.000 z=0.000
+    click: x=-27.345 y=92.763 z=203.051
+
+  [sliver] 0.003 mm strip, 11.1 mm long
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=-17.355 y=92.763 z=203.051
+    edge: x=-17.355 y=87.190 z=203.051 → x=-17.355 y=98.336 z=203.051 · len 11.146 · straight · dir x=0.000 y=1.000 z=0.000
+    click: x=-17.355 y=92.763 z=203.051
+
+  [sliver] 0.003 mm strip, 11.1 mm long
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=17.355 y=92.763 z=203.051
+    edge: x=17.355 y=87.190 z=203.051 → x=17.355 y=98.336 z=203.051 · len 11.146 · straight · dir x=0.000 y=1.000 z=0.000
+    click: x=17.355 y=92.763 z=203.051
+
+  [sliver] 0.003 mm strip, 11.1 mm long
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=27.345 y=92.763 z=203.051
+    edge: x=27.345 y=87.190 z=203.051 → x=27.345 y=98.336 z=203.051 · len 11.146 · straight · dir x=0.000 y=1.000 z=0.000
+    click: x=27.345 y=92.763 z=203.051
+
+  [sliver] 0.003 mm strip, 11.1 mm long
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=77.105 y=92.763 z=203.051
+    edge: x=77.105 y=87.190 z=203.051 → x=77.105 y=98.336 z=203.051 · len 11.146 · straight · dir x=0.000 y=1.000 z=0.000
+    click: x=77.105 y=92.763 z=203.051
+
+  [sliver] 0.003 mm strip, 11.1 mm long
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=87.095 y=92.763 z=203.051
+    edge: x=87.095 y=87.190 z=203.051 → x=87.095 y=98.336 z=203.051 · len 11.146 · straight · dir x=0.000 y=1.000 z=0.000
+    click: x=87.095 y=92.763 z=203.051
+
+  [sliver] 0.001 mm strip, 6.2 mm long
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=-67.873 y=99.090 z=242.791
+    edge: x=-67.873 y=95.990 z=242.791 → x=-67.873 y=102.190 z=242.791 · len 6.200 · straight · dir x=0.000 y=1.000 z=0.000
+    click: x=-67.873 y=99.090 z=242.791
+
+  [sliver] 0.001 mm strip, 6.2 mm long
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=67.873 y=99.090 z=242.791
+    edge: x=67.873 y=95.990 z=242.791 → x=67.873 y=102.190 z=242.791 · len 6.200 · straight · dir x=0.000 y=1.000 z=0.000
+    click: x=67.873 y=99.090 z=242.791
+
+  [sliver] 0.001 mm strip, 6.2 mm long
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=-32.523 y=99.090 z=242.791
+    edge: x=-32.523 y=95.990 z=242.791 → x=-32.523 y=102.190 z=242.791 · len 6.200 · straight · dir x=0.000 y=1.000 z=0.000
+    click: x=-32.523 y=99.090 z=242.791
+
+  [sliver] 0.001 mm strip, 6.2 mm long
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=32.523 y=99.090 z=242.791
+    edge: x=32.523 y=95.990 z=242.791 → x=32.523 y=102.190 z=242.791 · len 6.200 · straight · dir x=0.000 y=1.000 z=0.000
+    click: x=32.523 y=99.090 z=242.791
+
+  [sliver] 0.001 mm strip, 6.2 mm long
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=-12.177 y=99.090 z=242.791
+    edge: x=-12.177 y=95.990 z=242.791 → x=-12.177 y=102.190 z=242.791 · len 6.200 · straight · dir x=0.000 y=1.000 z=0.000
+    click: x=-12.177 y=99.090 z=242.791
+
+  [sliver] 0.001 mm strip, 6.2 mm long
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=-8.123 y=99.090 z=242.791
+    edge: x=-8.123 y=95.990 z=242.791 → x=-8.123 y=102.190 z=242.791 · len 6.200 · straight · dir x=0.000 y=1.000 z=0.000
+    click: x=-8.123 y=99.090 z=242.791
+
+  [sliver] 0.001 mm strip, 6.2 mm long
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=8.123 y=99.090 z=242.791
+    edge: x=8.123 y=95.990 z=242.791 → x=8.123 y=102.190 z=242.791 · len 6.200 · straight · dir x=0.000 y=1.000 z=0.000
+    click: x=8.123 y=99.090 z=242.791
+
+  [sliver] 0.001 mm strip, 6.2 mm long
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=12.177 y=99.090 z=242.791
+    edge: x=12.177 y=95.990 z=242.791 → x=12.177 y=102.190 z=242.791 · len 6.200 · straight · dir x=0.000 y=1.000 z=0.000
+    click: x=12.177 y=99.090 z=242.791
+
+  [sliver] 0.001 mm strip, 6.2 mm long
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=-96.327 y=99.090 z=242.791
+    edge: x=-96.327 y=95.990 z=242.791 → x=-96.327 y=102.190 z=242.791 · len 6.200 · straight · dir x=0.000 y=1.000 z=0.000
+    click: x=-96.327 y=99.090 z=242.791
+
+  [sliver] 0.001 mm strip, 6.2 mm long
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=-92.273 y=99.090 z=242.791
+    edge: x=-92.273 y=95.990 z=242.791 → x=-92.273 y=102.190 z=242.791 · len 6.200 · straight · dir x=0.000 y=1.000 z=0.000
+    click: x=-92.273 y=99.090 z=242.791
+
+  [sliver] 0.001 mm strip, 6.2 mm long
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=-71.927 y=99.090 z=242.791
+    edge: x=-71.927 y=95.990 z=242.791 → x=-71.927 y=102.190 z=242.791 · len 6.200 · straight · dir x=0.000 y=1.000 z=0.000
+    click: x=-71.927 y=99.090 z=242.791
+
+  [sliver] 0.001 mm strip, 6.2 mm long
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=-36.577 y=99.090 z=242.791
+    edge: x=-36.577 y=95.990 z=242.791 → x=-36.577 y=102.190 z=242.791 · len 6.200 · straight · dir x=0.000 y=1.000 z=0.000
+    click: x=-36.577 y=99.090 z=242.791
+
+  [sliver] 0.001 mm strip, 6.2 mm long
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=36.577 y=99.090 z=242.791
+    edge: x=36.577 y=95.990 z=242.791 → x=36.577 y=102.190 z=242.791 · len 6.200 · straight · dir x=0.000 y=1.000 z=0.000
+    click: x=36.577 y=99.090 z=242.791
+
+  [sliver] 0.001 mm strip, 6.2 mm long
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=71.927 y=99.090 z=242.791
+    edge: x=71.927 y=95.990 z=242.791 → x=71.927 y=102.190 z=242.791 · len 6.200 · straight · dir x=0.000 y=1.000 z=0.000
+    click: x=71.927 y=99.090 z=242.791
+
+  [sliver] 0.001 mm strip, 6.2 mm long
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=92.273 y=99.090 z=242.791
+    edge: x=92.273 y=95.990 z=242.791 → x=92.273 y=102.190 z=242.791 · len 6.200 · straight · dir x=0.000 y=1.000 z=0.000
+    click: x=92.273 y=99.090 z=242.791
+
+  [sliver] 0.001 mm strip, 6.2 mm long
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=96.327 y=99.090 z=242.791
+    edge: x=96.327 y=95.990 z=242.791 → x=96.327 y=102.190 z=242.791 · len 6.200 · straight · dir x=0.000 y=1.000 z=0.000
+    click: x=96.327 y=99.090 z=242.791
+
+  [sliver] 0.001 mm strip, 6.2 mm long
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=-67.873 y=99.090 z=267.641
+    edge: x=-67.873 y=95.990 z=267.641 → x=-67.873 y=102.190 z=267.641 · len 6.200 · straight · dir x=0.000 y=1.000 z=0.000
+    click: x=-67.873 y=99.090 z=267.641
+
+  [sliver] 0.001 mm strip, 6.2 mm long
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=67.873 y=99.090 z=267.641
+    edge: x=67.873 y=95.990 z=267.641 → x=67.873 y=102.190 z=267.641 · len 6.200 · straight · dir x=0.000 y=1.000 z=0.000
+    click: x=67.873 y=99.090 z=267.641
+
+  [sliver] 0.001 mm strip, 6.2 mm long
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=-32.523 y=99.090 z=267.641
+    edge: x=-32.523 y=95.990 z=267.641 → x=-32.523 y=102.190 z=267.641 · len 6.200 · straight · dir x=0.000 y=1.000 z=0.000
+    click: x=-32.523 y=99.090 z=267.641
+
+  [sliver] 0.001 mm strip, 6.2 mm long
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=32.523 y=99.090 z=267.641
+    edge: x=32.523 y=95.990 z=267.641 → x=32.523 y=102.190 z=267.641 · len 6.200 · straight · dir x=0.000 y=1.000 z=0.000
+    click: x=32.523 y=99.090 z=267.641
+
+  [sliver] 0.001 mm strip, 6.2 mm long
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=-12.177 y=99.090 z=267.641
+    edge: x=-12.177 y=95.990 z=267.641 → x=-12.177 y=102.190 z=267.641 · len 6.200 · straight · dir x=0.000 y=1.000 z=0.000
+    click: x=-12.177 y=99.090 z=267.641
+
+  [sliver] 0.001 mm strip, 6.2 mm long
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=-8.123 y=99.090 z=267.641
+    edge: x=-8.123 y=95.990 z=267.641 → x=-8.123 y=102.190 z=267.641 · len 6.200 · straight · dir x=0.000 y=1.000 z=0.000
+    click: x=-8.123 y=99.090 z=267.641
+
+  [sliver] 0.001 mm strip, 6.2 mm long
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=8.123 y=99.090 z=267.641
+    edge: x=8.123 y=95.990 z=267.641 → x=8.123 y=102.190 z=267.641 · len 6.200 · straight · dir x=0.000 y=1.000 z=0.000
+    click: x=8.123 y=99.090 z=267.641
+
+  [sliver] 0.001 mm strip, 6.2 mm long
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=12.177 y=99.090 z=267.641
+    edge: x=12.177 y=95.990 z=267.641 → x=12.177 y=102.190 z=267.641 · len 6.200 · straight · dir x=0.000 y=1.000 z=0.000
+    click: x=12.177 y=99.090 z=267.641
+
+  [sliver] 0.001 mm strip, 6.2 mm long
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=-96.327 y=99.090 z=267.641
+    edge: x=-96.327 y=95.990 z=267.641 → x=-96.327 y=102.190 z=267.641 · len 6.200 · straight · dir x=0.000 y=1.000 z=0.000
+    click: x=-96.327 y=99.090 z=267.641
+
+  [sliver] 0.001 mm strip, 6.2 mm long
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=-92.273 y=99.090 z=267.641
+    edge: x=-92.273 y=95.990 z=267.641 → x=-92.273 y=102.190 z=267.641 · len 6.200 · straight · dir x=0.000 y=1.000 z=0.000
+    click: x=-92.273 y=99.090 z=267.641
+
+  [sliver] 0.001 mm strip, 6.2 mm long
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=-71.927 y=99.090 z=267.641
+    edge: x=-71.927 y=95.990 z=267.641 → x=-71.927 y=102.190 z=267.641 · len 6.200 · straight · dir x=0.000 y=1.000 z=0.000
+    click: x=-71.927 y=99.090 z=267.641
+
+  [sliver] 0.001 mm strip, 6.2 mm long
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=-36.577 y=99.090 z=267.641
+    edge: x=-36.577 y=95.990 z=267.641 → x=-36.577 y=102.190 z=267.641 · len 6.200 · straight · dir x=0.000 y=1.000 z=0.000
+    click: x=-36.577 y=99.090 z=267.641
+
+  [sliver] 0.001 mm strip, 6.2 mm long
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=36.577 y=99.090 z=267.641
+    edge: x=36.577 y=95.990 z=267.641 → x=36.577 y=102.190 z=267.641 · len 6.200 · straight · dir x=0.000 y=1.000 z=0.000
+    click: x=36.577 y=99.090 z=267.641
+
+  [sliver] 0.001 mm strip, 6.2 mm long
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=71.927 y=99.090 z=267.641
+    edge: x=71.927 y=95.990 z=267.641 → x=71.927 y=102.190 z=267.641 · len 6.200 · straight · dir x=0.000 y=1.000 z=0.000
+    click: x=71.927 y=99.090 z=267.641
+
+  [sliver] 0.001 mm strip, 6.2 mm long
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=92.273 y=99.090 z=267.641
+    edge: x=92.273 y=95.990 z=267.641 → x=92.273 y=102.190 z=267.641 · len 6.200 · straight · dir x=0.000 y=1.000 z=0.000
+    click: x=92.273 y=99.090 z=267.641
+
+  [sliver] 0.001 mm strip, 6.2 mm long
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=96.327 y=99.090 z=267.641
+    edge: x=96.327 y=95.990 z=267.641 → x=96.327 y=102.190 z=267.641 · len 6.200 · straight · dir x=0.000 y=1.000 z=0.000
+    click: x=96.327 y=99.090 z=267.641
+
+  [sliver] 0.001 mm strip, 6.2 mm long
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=-59.593 y=175.190 z=191.291
+    edge: x=-59.593 y=172.090 z=191.291 → x=-59.593 y=178.290 z=191.291 · len 6.200 · straight · dir x=0.000 y=1.000 z=0.000
+    click: x=-59.593 y=175.190 z=191.291
+
+  [sliver] 0.001 mm strip, 6.2 mm long
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=-32.523 y=175.190 z=191.291
+    edge: x=-32.523 y=172.090 z=191.291 → x=-32.523 y=178.290 z=191.291 · len 6.200 · straight · dir x=0.000 y=1.000 z=0.000
+    click: x=-32.523 y=175.190 z=191.291
+
+  [sliver] 0.001 mm strip, 6.2 mm long
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=32.523 y=175.190 z=191.291
+    edge: x=32.523 y=172.090 z=191.291 → x=32.523 y=178.290 z=191.291 · len 6.200 · straight · dir x=0.000 y=1.000 z=0.000
+    click: x=32.523 y=175.190 z=191.291
+
+  [sliver] 0.001 mm strip, 6.2 mm long
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=59.593 y=175.190 z=191.291
+    edge: x=59.593 y=172.090 z=191.291 → x=59.593 y=178.290 z=191.291 · len 6.200 · straight · dir x=0.000 y=1.000 z=0.000
+    click: x=59.593 y=175.190 z=191.291
+
+  [sliver] 0.001 mm strip, 6.2 mm long
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=-12.177 y=175.190 z=191.291
+    edge: x=-12.177 y=172.090 z=191.291 → x=-12.177 y=178.290 z=191.291 · len 6.200 · straight · dir x=0.000 y=1.000 z=0.000
+    click: x=-12.177 y=175.190 z=191.291
+
+  [sliver] 0.001 mm strip, 6.2 mm long
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=-8.123 y=175.190 z=191.291
+    edge: x=-8.123 y=172.090 z=191.291 → x=-8.123 y=178.290 z=191.291 · len 6.200 · straight · dir x=0.000 y=1.000 z=0.000
+    click: x=-8.123 y=175.190 z=191.291
+
+  [sliver] 0.001 mm strip, 6.2 mm long
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=8.123 y=175.190 z=191.291
+    edge: x=8.123 y=172.090 z=191.291 → x=8.123 y=178.290 z=191.291 · len 6.200 · straight · dir x=0.000 y=1.000 z=0.000
+    click: x=8.123 y=175.190 z=191.291
+
+  [sliver] 0.001 mm strip, 6.2 mm long
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=12.177 y=175.190 z=191.291
+    edge: x=12.177 y=172.090 z=191.291 → x=12.177 y=178.290 z=191.291 · len 6.200 · straight · dir x=0.000 y=1.000 z=0.000
+    click: x=12.177 y=175.190 z=191.291
+
+  [sliver] 0.001 mm strip, 6.2 mm long
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=-88.047 y=175.190 z=191.291
+    edge: x=-88.047 y=172.090 z=191.291 → x=-88.047 y=178.290 z=191.291 · len 6.200 · straight · dir x=0.000 y=1.000 z=0.000
+    click: x=-88.047 y=175.190 z=191.291
+
+  [sliver] 0.001 mm strip, 6.2 mm long
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=-83.993 y=175.190 z=191.291
+    edge: x=-83.993 y=172.090 z=191.291 → x=-83.993 y=178.290 z=191.291 · len 6.200 · straight · dir x=0.000 y=1.000 z=0.000
+    click: x=-83.993 y=175.190 z=191.291
+
+  [sliver] 0.001 mm strip, 6.2 mm long
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=-63.647 y=175.190 z=191.291
+    edge: x=-63.647 y=172.090 z=191.291 → x=-63.647 y=178.290 z=191.291 · len 6.200 · straight · dir x=0.000 y=1.000 z=0.000
+    click: x=-63.647 y=175.190 z=191.291
+
+  [sliver] 0.001 mm strip, 6.2 mm long
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=-36.577 y=175.190 z=191.291
+    edge: x=-36.577 y=172.090 z=191.291 → x=-36.577 y=178.290 z=191.291 · len 6.200 · straight · dir x=0.000 y=1.000 z=0.000
+    click: x=-36.577 y=175.190 z=191.291
+
+  [sliver] 0.001 mm strip, 6.2 mm long
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=36.577 y=175.190 z=191.291
+    edge: x=36.577 y=172.090 z=191.291 → x=36.577 y=178.290 z=191.291 · len 6.200 · straight · dir x=0.000 y=1.000 z=0.000
+    click: x=36.577 y=175.190 z=191.291
+
+  [sliver] 0.001 mm strip, 6.2 mm long
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=63.647 y=175.190 z=191.291
+    edge: x=63.647 y=172.090 z=191.291 → x=63.647 y=178.290 z=191.291 · len 6.200 · straight · dir x=0.000 y=1.000 z=0.000
+    click: x=63.647 y=175.190 z=191.291
+
+  [sliver] 0.001 mm strip, 6.2 mm long
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=83.993 y=175.190 z=191.291
+    edge: x=83.993 y=172.090 z=191.291 → x=83.993 y=178.290 z=191.291 · len 6.200 · straight · dir x=0.000 y=1.000 z=0.000
+    click: x=83.993 y=175.190 z=191.291
+
+  [sliver] 0.001 mm strip, 6.2 mm long
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=88.047 y=175.190 z=191.291
+    edge: x=88.047 y=172.090 z=191.291 → x=88.047 y=178.290 z=191.291 · len 6.200 · straight · dir x=0.000 y=1.000 z=0.000
+    click: x=88.047 y=175.190 z=191.291
+
+  [sliver] 0.001 mm strip, 6.2 mm long
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=-59.593 y=175.190 z=216.141
+    edge: x=-59.593 y=172.090 z=216.141 → x=-59.593 y=178.290 z=216.141 · len 6.200 · straight · dir x=0.000 y=1.000 z=0.000
+    click: x=-59.593 y=175.190 z=216.141
+
+  [sliver] 0.001 mm strip, 6.2 mm long
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=59.593 y=175.190 z=216.141
+    edge: x=59.593 y=172.090 z=216.141 → x=59.593 y=178.290 z=216.141 · len 6.200 · straight · dir x=0.000 y=1.000 z=0.000
+    click: x=59.593 y=175.190 z=216.141
+
+  [sliver] 0.001 mm strip, 6.2 mm long
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=-12.177 y=175.190 z=216.141
+    edge: x=-12.177 y=172.090 z=216.141 → x=-12.177 y=178.290 z=216.141 · len 6.200 · straight · dir x=0.000 y=1.000 z=0.000
+    click: x=-12.177 y=175.190 z=216.141
+
+  [sliver] 0.001 mm strip, 6.2 mm long
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=12.177 y=175.190 z=216.141
+    edge: x=12.177 y=172.090 z=216.141 → x=12.177 y=178.290 z=216.141 · len 6.200 · straight · dir x=0.000 y=1.000 z=0.000
+    click: x=12.177 y=175.190 z=216.141
+
+  [sliver] 0.001 mm strip, 6.2 mm long
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=-88.047 y=175.190 z=216.141
+    edge: x=-88.047 y=172.090 z=216.141 → x=-88.047 y=178.290 z=216.141 · len 6.200 · straight · dir x=0.000 y=1.000 z=0.000
+    click: x=-88.047 y=175.190 z=216.141
+
+  [sliver] 0.001 mm strip, 6.2 mm long
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=-83.993 y=175.190 z=216.141
+    edge: x=-83.993 y=172.090 z=216.141 → x=-83.993 y=178.290 z=216.141 · len 6.200 · straight · dir x=0.000 y=1.000 z=0.000
+    click: x=-83.993 y=175.190 z=216.141
+
+  [sliver] 0.001 mm strip, 6.2 mm long
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=-63.647 y=175.190 z=216.141
+    edge: x=-63.647 y=172.090 z=216.141 → x=-63.647 y=178.290 z=216.141 · len 6.200 · straight · dir x=0.000 y=1.000 z=0.000
+    click: x=-63.647 y=175.190 z=216.141
+
+  [sliver] 0.001 mm strip, 6.2 mm long
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=-36.577 y=175.190 z=216.141
+    edge: x=-36.577 y=172.090 z=216.141 → x=-36.577 y=178.290 z=216.141 · len 6.200 · straight · dir x=0.000 y=1.000 z=0.000
+    click: x=-36.577 y=175.190 z=216.141
+
+  [sliver] 0.001 mm strip, 6.2 mm long
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=36.577 y=175.190 z=216.141
+    edge: x=36.577 y=172.090 z=216.141 → x=36.577 y=178.290 z=216.141 · len 6.200 · straight · dir x=0.000 y=1.000 z=0.000
+    click: x=36.577 y=175.190 z=216.141
+
+  [sliver] 0.001 mm strip, 6.2 mm long
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=63.647 y=175.190 z=216.141
+    edge: x=63.647 y=172.090 z=216.141 → x=63.647 y=178.290 z=216.141 · len 6.200 · straight · dir x=0.000 y=1.000 z=0.000
+    click: x=63.647 y=175.190 z=216.141
+
+  [sliver] 0.001 mm strip, 6.2 mm long
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=83.993 y=175.190 z=216.141
+    edge: x=83.993 y=172.090 z=216.141 → x=83.993 y=178.290 z=216.141 · len 6.200 · straight · dir x=0.000 y=1.000 z=0.000
+    click: x=83.993 y=175.190 z=216.141
+
+  [sliver] 0.001 mm strip, 6.2 mm long
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=88.047 y=175.190 z=216.141
+    edge: x=88.047 y=172.090 z=216.141 → x=88.047 y=178.290 z=216.141 · len 6.200 · straight · dir x=0.000 y=1.000 z=0.000
+    click: x=88.047 y=175.190 z=216.141
+
+  [sliver] 0.002 mm strip, 4.7 mm long
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=-85.605 y=84.853 z=201.000
+    edge: x=-85.605 y=82.515 z=201.000 → x=-85.605 y=87.190 z=201.000 · len 4.675 · straight · dir x=0.000 y=1.000 z=0.000
+    click: x=-85.605 y=84.853 z=201.000
+
+  [sliver] 0.002 mm strip, 4.7 mm long
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=85.605 y=84.853 z=201.000
+    edge: x=85.605 y=82.515 z=201.000 → x=85.605 y=87.190 z=201.000 · len 4.675 · straight · dir x=0.000 y=1.000 z=0.000
+    click: x=85.605 y=84.853 z=201.000
+
+  [sliver] 0.002 mm strip, 4.7 mm long
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=-18.845 y=84.853 z=201.000
+    edge: x=-18.845 y=82.515 z=201.000 → x=-18.845 y=87.190 z=201.000 · len 4.675 · straight · dir x=0.000 y=1.000 z=0.000
+    click: x=-18.845 y=84.853 z=201.000
+
+  [sliver] 0.002 mm strip, 4.7 mm long
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=18.845 y=84.853 z=201.000
+    edge: x=18.845 y=82.515 z=201.000 → x=18.845 y=87.190 z=201.000 · len 4.675 · straight · dir x=0.000 y=1.000 z=0.000
+    click: x=18.845 y=84.853 z=201.000
+
+  [sliver] 0.002 mm strip, 4.7 mm long
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=-25.855 y=84.853 z=201.000
+    edge: x=-25.855 y=82.515 z=201.000 → x=-25.855 y=87.190 z=201.000 · len 4.675 · straight · dir x=0.000 y=1.000 z=0.000
+    click: x=-25.855 y=84.853 z=201.000
+
+  [sliver] 0.002 mm strip, 4.7 mm long
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=25.855 y=84.853 z=201.000
+    edge: x=25.855 y=82.515 z=201.000 → x=25.855 y=87.190 z=201.000 · len 4.675 · straight · dir x=0.000 y=1.000 z=0.000
+    click: x=25.855 y=84.853 z=201.000
+
+  [sliver] 0.002 mm strip, 4.7 mm long
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=-78.595 y=84.853 z=201.000
+    edge: x=-78.595 y=82.515 z=201.000 → x=-78.595 y=87.190 z=201.000 · len 4.675 · straight · dir x=0.000 y=1.000 z=0.000
+    click: x=-78.595 y=84.853 z=201.000
+
+  [sliver] 0.002 mm strip, 4.7 mm long
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=78.595 y=84.853 z=201.000
+    edge: x=78.595 y=82.515 z=201.000 → x=78.595 y=87.190 z=201.000 · len 4.675 · straight · dir x=0.000 y=1.000 z=0.000
+    click: x=78.595 y=84.853 z=201.000
+
+  [thin] 0.000 mm of material at its thinnest · 0.0 mm² of surface under 0.05 mm · spans 0.1 × 1.0 × 0.6 mm
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=-101.505 y=16.707 z=312.384
+
+  [thin] 0.000 mm of material at its thinnest · 0.0 mm² of surface under 0.05 mm · spans 0.0 × 0.0 × 0.0 mm
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=96.654 y=5.187 z=300.792
+
+  [thin] 0.000 mm of material at its thinnest · 0.0 mm² of surface under 0.05 mm · spans 0.1 × 0.1 × 0.1 mm
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=98.494 y=6.608 z=304.697
+
+  [thin] 0.000 mm of material at its thinnest · 0.0 mm² of surface under 0.05 mm · spans 0.0 × 0.0 × 0.0 mm
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=101.609 y=12.896 z=310.182
+
+  [thin] 0.000 mm of material at its thinnest · 0.0 mm² of surface under 0.05 mm · spans 1.1 × 1.0 × 2.0 mm · in 2 pieces
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=-98.493 y=6.609 z=304.699
+
+  [thin] 0.000 mm of material at its thinnest · 0.0 mm² of surface under 0.05 mm · spans 0.0 × 0.2 × 0.1 mm
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=107.067 y=16.194 z=307.768
+
+  [thin] 0.000 mm of material at its thinnest · 0.0 mm² of surface under 0.05 mm · spans 0.0 × 0.0 × 0.0 mm
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=-105.566 y=15.177 z=309.713
+
+  [thin] 0.000 mm of material at its thinnest · 0.0 mm² of surface under 0.05 mm · spans 0.0 × 4.1 × 0.0 mm · in 3 pieces
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=-83.993 y=173.123 z=191.291
+
+  [thin] 0.000 mm of material at its thinnest · 0.0 mm² of surface under 0.05 mm · spans 0.0 × 4.1 × 0.0 mm · in 3 pieces
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=88.047 y=173.123 z=191.291
+
+  [thin] 0.000 mm of material at its thinnest · 0.0 mm² of surface under 0.05 mm · spans 0.0 × 4.1 × 0.0 mm · in 3 pieces
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=-96.327 y=101.157 z=242.791
+
+  [thin] 0.000 mm of material at its thinnest · 0.0 mm² of surface under 0.05 mm · spans 0.0 × 4.1 × 0.0 mm · in 3 pieces
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=-71.927 y=101.157 z=242.791
+
+  [thin] 0.000 mm of material at its thinnest · 0.0 mm² of surface under 0.05 mm · spans 0.0 × 4.1 × 0.0 mm · in 3 pieces
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=92.273 y=101.157 z=242.791
+
+  [thin] 0.000 mm of material at its thinnest · 0.0 mm² of surface under 0.05 mm · spans 0.0 × 4.1 × 0.0 mm · in 3 pieces
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=-92.273 y=97.023 z=242.791
+
+  [thin] 0.000 mm of material at its thinnest · 0.0 mm² of surface under 0.05 mm · spans 0.0 × 4.1 × 0.0 mm · in 3 pieces
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=71.927 y=97.023 z=242.791
+
+  [thin] 0.000 mm of material at its thinnest · 0.0 mm² of surface under 0.05 mm · spans 0.0 × 4.1 × 0.0 mm · in 3 pieces
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=96.327 y=97.023 z=242.791
+
+  [thin] 0.000 mm of material at its thinnest · 0.0 mm² of surface under 0.05 mm · spans 0.0 × 4.1 × 0.0 mm · in 3 pieces
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=-36.577 y=101.157 z=242.791
+
+  [thin] 0.000 mm of material at its thinnest · 0.0 mm² of surface under 0.05 mm · spans 0.0 × 4.1 × 0.0 mm · in 3 pieces
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=-88.047 y=177.257 z=191.291
+
+  [thin] 0.000 mm of material at its thinnest · 0.0 mm² of surface under 0.05 mm · spans 0.0 × 4.1 × 0.0 mm · in 3 pieces
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=-63.647 y=177.257 z=191.291
+
+  [thin] 0.000 mm of material at its thinnest · 0.0 mm² of surface under 0.05 mm · spans 0.0 × 4.1 × 0.0 mm · in 3 pieces
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=-36.577 y=177.257 z=191.291
+
+  [thin] 0.000 mm of material at its thinnest · 0.0 mm² of surface under 0.05 mm · spans 0.0 × 4.1 × 0.0 mm · in 3 pieces
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=36.577 y=173.123 z=191.291
+
+  [thin] 0.000 mm of material at its thinnest · 0.0 mm² of surface under 0.05 mm · spans 0.0 × 4.1 × 0.0 mm · in 3 pieces
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=63.647 y=173.123 z=191.291
+
+  [thin] 0.000 mm of material at its thinnest · 0.0 mm² of surface under 0.05 mm · spans 0.0 × 4.1 × 0.0 mm · in 3 pieces
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=83.993 y=177.257 z=191.291
+
+  [thin] 0.000 mm of material at its thinnest · 0.0 mm² of surface under 0.05 mm · spans 0.0 × 4.1 × 0.0 mm · in 3 pieces
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=36.577 y=97.023 z=242.791
+
+  [thin] 0.000 mm of material at its thinnest · 0.0 mm² of surface under 0.05 mm · spans 0.0 × 4.1 × 0.0 mm · in 3 pieces
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=-83.993 y=173.123 z=216.141
+
+  [thin] 0.000 mm of material at its thinnest · 0.0 mm² of surface under 0.05 mm · spans 0.0 × 4.1 × 0.0 mm · in 3 pieces
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=88.047 y=173.123 z=216.141
+
+  [thin] 0.000 mm of material at its thinnest · 0.0 mm² of surface under 0.05 mm · spans 0.0 × 4.1 × 0.0 mm · in 3 pieces
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=-92.273 y=97.023 z=267.641
+
+  [thin] 0.000 mm of material at its thinnest · 0.0 mm² of surface under 0.05 mm · spans 0.0 × 4.1 × 0.0 mm · in 3 pieces
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=-88.047 y=177.257 z=216.141
+
+  [thin] 0.000 mm of material at its thinnest · 0.0 mm² of surface under 0.05 mm · spans 0.0 × 4.1 × 0.0 mm · in 3 pieces
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=83.993 y=177.257 z=216.141
+
+  [thin] 0.000 mm of material at its thinnest · 0.0 mm² of surface under 0.05 mm · spans 0.0 × 4.1 × 0.0 mm · in 3 pieces
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=-96.327 y=101.157 z=267.641
+
+  [thin] 0.000 mm of material at its thinnest · 0.0 mm² of surface under 0.05 mm · spans 0.0 × 4.1 × 0.0 mm · in 3 pieces
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=-71.927 y=101.157 z=267.641
+
+  [thin] 0.000 mm of material at its thinnest · 0.0 mm² of surface under 0.05 mm · spans 0.0 × 4.1 × 0.0 mm · in 3 pieces
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=92.273 y=101.157 z=267.641
+
+  [thin] 0.000 mm of material at its thinnest · 0.0 mm² of surface under 0.05 mm · spans 0.0 × 4.1 × 0.0 mm · in 3 pieces
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=71.927 y=97.023 z=267.641
+
+  [thin] 0.000 mm of material at its thinnest · 0.0 mm² of surface under 0.05 mm · spans 0.0 × 4.1 × 0.0 mm · in 3 pieces
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=96.327 y=97.023 z=267.641
+
+  [thin] 0.000 mm of material at its thinnest · 0.0 mm² of surface under 0.05 mm · spans 0.0 × 4.1 × 0.0 mm · in 3 pieces
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=-63.647 y=177.257 z=216.141
+
+  [thin] 0.000 mm of material at its thinnest · 0.0 mm² of surface under 0.05 mm · spans 0.0 × 4.1 × 0.0 mm · in 3 pieces
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=-36.577 y=177.257 z=216.141
+
+  [thin] 0.000 mm of material at its thinnest · 0.0 mm² of surface under 0.05 mm · spans 0.0 × 4.1 × 0.0 mm · in 3 pieces
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=36.577 y=173.123 z=216.141
+
+  [thin] 0.000 mm of material at its thinnest · 0.0 mm² of surface under 0.05 mm · spans 0.0 × 4.1 × 0.0 mm · in 3 pieces
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=63.647 y=173.123 z=216.141
+
+  [thin] 0.000 mm of material at its thinnest · 0.0 mm² of surface under 0.05 mm · spans 0.0 × 4.1 × 0.0 mm · in 3 pieces
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=-36.577 y=101.157 z=267.641
+
+  [thin] 0.000 mm of material at its thinnest · 0.0 mm² of surface under 0.05 mm · spans 0.0 × 4.1 × 0.0 mm · in 3 pieces
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=36.577 y=97.023 z=267.641
+
+  [thin] 0.000 mm of material at its thinnest · 0.0 mm² of surface under 0.05 mm · spans 0.0 × 4.1 × 0.0 mm · in 3 pieces
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=-8.123 y=97.023 z=242.791
+
+  [thin] 0.000 mm of material at its thinnest · 0.0 mm² of surface under 0.05 mm · spans 0.0 × 4.1 × 0.0 mm · in 3 pieces
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=12.177 y=97.023 z=242.791
+
+  [thin] 0.000 mm of material at its thinnest · 0.0 mm² of surface under 0.05 mm · spans 0.0 × 4.1 × 0.0 mm · in 3 pieces
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=-12.177 y=101.157 z=242.791
+
+  [thin] 0.000 mm of material at its thinnest · 0.0 mm² of surface under 0.05 mm · spans 0.0 × 4.1 × 0.0 mm · in 3 pieces
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=-8.123 y=173.123 z=191.291
+
+  [thin] 0.000 mm of material at its thinnest · 0.0 mm² of surface under 0.05 mm · spans 0.0 × 4.1 × 0.0 mm · in 3 pieces
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=8.123 y=101.157 z=242.791
+
+  [thin] 0.000 mm of material at its thinnest · 0.0 mm² of surface under 0.05 mm · spans 0.0 × 4.1 × 0.0 mm · in 3 pieces
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=12.177 y=173.123 z=191.291
+
+  [thin] 0.000 mm of material at its thinnest · 0.0 mm² of surface under 0.05 mm · spans 0.0 × 4.1 × 0.0 mm · in 3 pieces
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=-12.177 y=177.257 z=191.291
+
+  [thin] 0.000 mm of material at its thinnest · 0.0 mm² of surface under 0.05 mm · spans 0.0 × 4.1 × 0.0 mm · in 3 pieces
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=8.123 y=177.257 z=191.291
+
+  [thin] 0.000 mm of material at its thinnest · 0.0 mm² of surface under 0.05 mm · spans 0.0 × 4.1 × 0.0 mm · in 3 pieces
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=12.177 y=97.023 z=267.641
+
+  [thin] 0.000 mm of material at its thinnest · 0.0 mm² of surface under 0.05 mm · spans 0.0 × 4.1 × 0.0 mm · in 3 pieces
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=-12.177 y=177.257 z=216.141
+
+  [thin] 0.000 mm of material at its thinnest · 0.0 mm² of surface under 0.05 mm · spans 0.0 × 4.1 × 0.0 mm · in 3 pieces
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=-8.123 y=173.123 z=216.141
+
+  [thin] 0.000 mm of material at its thinnest · 0.0 mm² of surface under 0.05 mm · spans 0.0 × 4.1 × 0.0 mm · in 3 pieces
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=8.123 y=177.257 z=216.141
+
+  [thin] 0.000 mm of material at its thinnest · 0.0 mm² of surface under 0.05 mm · spans 0.0 × 4.1 × 0.0 mm · in 3 pieces
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=12.177 y=173.123 z=216.141
+
+  [thin] 0.000 mm of material at its thinnest · 0.0 mm² of surface under 0.05 mm · spans 0.0 × 4.1 × 0.0 mm · in 3 pieces
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=-12.177 y=101.157 z=267.641
+
+  [thin] 0.000 mm of material at its thinnest · 0.0 mm² of surface under 0.05 mm · spans 0.0 × 4.1 × 0.0 mm · in 3 pieces
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=8.123 y=101.157 z=267.641
+
+  [thin] 0.000 mm of material at its thinnest · 0.0 mm² of surface under 0.05 mm · spans 0.0 × 4.1 × 0.0 mm · in 3 pieces
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=-8.123 y=97.023 z=267.641
+
+  [thin] 0.000 mm of material at its thinnest · 0.0 mm² of surface under 0.05 mm · spans 0.0 × 4.1 × 0.0 mm · in 3 pieces
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=-59.593 y=173.123 z=191.291
+
+  [thin] 0.000 mm of material at its thinnest · 0.0 mm² of surface under 0.05 mm · spans 0.0 × 4.1 × 0.0 mm · in 3 pieces
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=-32.523 y=173.123 z=191.291
+
+  [thin] 0.000 mm of material at its thinnest · 0.0 mm² of surface under 0.05 mm · spans 0.0 × 4.1 × 0.0 mm · in 3 pieces
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=32.523 y=177.257 z=191.291
+
+  [thin] 0.000 mm of material at its thinnest · 0.0 mm² of surface under 0.05 mm · spans 0.0 × 4.1 × 0.0 mm · in 3 pieces
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=59.593 y=177.257 z=191.291
+
+  [thin] 0.000 mm of material at its thinnest · 0.0 mm² of surface under 0.05 mm · spans 0.0 × 4.1 × 0.0 mm · in 3 pieces
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=-32.523 y=97.023 z=242.791
+
+  [thin] 0.000 mm of material at its thinnest · 0.0 mm² of surface under 0.05 mm · spans 0.0 × 4.1 × 0.0 mm · in 3 pieces
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=32.523 y=101.157 z=242.791
+
+  [thin] 0.000 mm of material at its thinnest · 0.0 mm² of surface under 0.05 mm · spans 0.0 × 4.1 × 0.0 mm · in 3 pieces
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=32.523 y=101.157 z=267.641
+
+  [thin] 0.000 mm of material at its thinnest · 0.0 mm² of surface under 0.05 mm · spans 0.0 × 4.1 × 0.0 mm · in 3 pieces
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=32.523 y=177.257 z=216.141
+
+  [thin] 0.000 mm of material at its thinnest · 0.0 mm² of surface under 0.05 mm · spans 0.0 × 4.1 × 0.0 mm · in 3 pieces
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=59.593 y=177.257 z=216.141
+
+  [thin] 0.000 mm of material at its thinnest · 0.0 mm² of surface under 0.05 mm · spans 0.0 × 4.1 × 0.0 mm · in 3 pieces
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=-32.523 y=97.023 z=267.641
+
+  [thin] 0.000 mm of material at its thinnest · 0.0 mm² of surface under 0.05 mm · spans 0.0 × 4.1 × 0.0 mm · in 3 pieces
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=-59.593 y=173.123 z=216.141
+
+  [thin] 0.000 mm of material at its thinnest · 0.0 mm² of surface under 0.05 mm · spans 0.0 × 4.1 × 0.0 mm · in 3 pieces
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=-32.523 y=173.123 z=216.141
+
+  [thin] 0.000 mm of material at its thinnest · 0.0 mm² of surface under 0.05 mm · spans 0.0 × 4.1 × 0.0 mm · in 3 pieces
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=-67.873 y=97.023 z=242.791
+
+  [thin] 0.000 mm of material at its thinnest · 0.0 mm² of surface under 0.05 mm · spans 0.0 × 4.1 × 0.0 mm · in 3 pieces
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=67.873 y=101.157 z=242.791
+
+  [thin] 0.000 mm of material at its thinnest · 0.0 mm² of surface under 0.05 mm · spans 0.0 × 4.1 × 0.0 mm · in 3 pieces
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=-67.873 y=97.023 z=267.641
+
+  [thin] 0.000 mm of material at its thinnest · 0.0 mm² of surface under 0.05 mm · spans 0.0 × 4.1 × 0.0 mm · in 3 pieces
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=67.873 y=101.157 z=267.641
+
+  [thin] 0.000 mm of material at its thinnest · 0.0 mm² of surface under 0.05 mm · spans 0.0 × 0.0 × 0.2 mm
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=-96.595 y=5.200 z=300.877
+
+  [thin] 0.000 mm of material at its thinnest · 0.1 mm² of surface under 0.05 mm · spans 0.0 × 8.9 × 0.0 mm · in 5 pieces
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=77.107 y=97.221 z=203.051
+
+  [thin] 0.000 mm of material at its thinnest · 0.1 mm² of surface under 0.05 mm · spans 0.0 × 8.9 × 0.0 mm · in 5 pieces
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=-77.107 y=88.305 z=203.051
+
+  [thin] 0.000 mm of material at its thinnest · 0.1 mm² of surface under 0.05 mm · spans 0.0 × 8.9 × 0.0 mm · in 5 pieces
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=-27.343 y=97.221 z=203.051
+
+  [thin] 0.000 mm of material at its thinnest · 0.1 mm² of surface under 0.05 mm · spans 0.0 × 8.9 × 0.0 mm · in 5 pieces
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=27.343 y=88.305 z=203.051
+
+  [thin] 0.000 mm of material at its thinnest · 0.1 mm² of surface under 0.05 mm · spans 0.0 × 8.9 × 0.0 mm · in 5 pieces
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=-17.357 y=88.305 z=203.051
+
+  [thin] 0.000 mm of material at its thinnest · 0.1 mm² of surface under 0.05 mm · spans 0.0 × 8.9 × 0.0 mm · in 5 pieces
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=17.357 y=97.221 z=203.051
+
+  [thin] 0.000 mm of material at its thinnest · 0.1 mm² of surface under 0.05 mm · spans 0.0 × 8.9 × 0.0 mm · in 5 pieces
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=-87.093 y=97.221 z=203.051
+
+  [thin] 0.000 mm of material at its thinnest · 0.1 mm² of surface under 0.05 mm · spans 0.0 × 8.9 × 0.0 mm · in 5 pieces
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=87.093 y=88.305 z=203.051
+
+  [thin] 0.000 mm of material at its thinnest · 0.0 mm² of surface under 0.05 mm · spans 0.0 × 0.1 × 0.1 mm
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=-104.934 y=9.585 z=303.364
+
+  [thin] 0.000 mm of material at its thinnest · 0.0 mm² of surface under 0.05 mm · spans 0.0 × 0.1 × 0.0 mm
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=106.998 y=13.576 z=304.637
+
+  [thin] 0.000 mm of material at its thinnest · 0.0 mm² of surface under 0.05 mm · spans 0.0 × 2.3 × 0.0 mm · in 2 pieces
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=78.596 y=83.684 z=201.000
+
+  [thin] 0.000 mm of material at its thinnest · 0.0 mm² of surface under 0.05 mm · spans 0.0 × 2.3 × 0.0 mm · in 2 pieces
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=-78.596 y=86.021 z=201.000
+
+  [thin] 0.000 mm of material at its thinnest · 0.0 mm² of surface under 0.05 mm · spans 0.0 × 2.3 × 0.0 mm · in 2 pieces
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=-25.854 y=83.684 z=201.000
+
+  [thin] 0.000 mm of material at its thinnest · 0.0 mm² of surface under 0.05 mm · spans 0.0 × 2.3 × 0.0 mm · in 2 pieces
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=25.854 y=86.021 z=201.000
+
+  [thin] 0.000 mm of material at its thinnest · 0.0 mm² of surface under 0.05 mm · spans 0.0 × 2.3 × 0.0 mm · in 2 pieces
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=-18.846 y=86.021 z=201.000
+
+  [thin] 0.000 mm of material at its thinnest · 0.0 mm² of surface under 0.05 mm · spans 0.0 × 2.3 × 0.0 mm · in 2 pieces
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=18.846 y=83.684 z=201.000
+
+  [thin] 0.000 mm of material at its thinnest · 0.0 mm² of surface under 0.05 mm · spans 0.0 × 2.3 × 0.0 mm · in 2 pieces
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=-85.604 y=83.684 z=201.000
+
+  [thin] 0.000 mm of material at its thinnest · 0.0 mm² of surface under 0.05 mm · spans 0.0 × 2.3 × 0.0 mm · in 2 pieces
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=85.604 y=86.021 z=201.000
+
+  [thin] 0.000 mm of material at its thinnest · 0.0 mm² of surface under 0.05 mm · spans 0.0 × 0.0 × 0.0 mm
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=99.620 y=8.311 z=306.969
+
+  [thin] 0.000 mm of material at its thinnest · 0.0 mm² of surface under 0.05 mm · spans 0.0 × 0.1 × 0.0 mm
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=-107.032 y=13.690 z=304.690
+
+  [thin] 1.800 mm of material at its thinnest · 415.1 mm² of surface under 2.5 mm · spans 2.9 × 61.5 × 36.6 mm · in 2 pieces
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=66.890 y=19.433 z=311.879
+    click: x=66.890 y=18.533 z=313.438
+    answered: Accepted wing-retention lips: each reading is the 1.80 mm lip over one of the display cover's wings (3.84 - 1.44 - 0.60), which the accepted face-up cover needs: display-cover/face-up-trial records its 3.30 mm capture and the receiver passed the 2026-09-30 shake test.
+    alternatives: A thicker lip needs a deeper inset (cover below flush), thinner wings or less wing air, each a change to the accepted fit; the canonical wing lanes connect through two lower 69.3 by 4.96 mm cleanout mouths into the empty PCB room. Physical support-removal effort remains unqualified.
+
+  [thin] 1.800 mm of material at its thinnest · 431.0 mm² of surface under 2.5 mm · spans 2.9 × 61.6 × 36.6 mm · in 2 pieces
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=-66.822 y=18.681 z=313.523
+    click: x=-66.822 y=19.581 z=311.964
+
+  [thin] 1.801 mm of material at its thinnest · 862.8 mm² of surface under 2.5 mm · spans 2.5 × 16.0 × 29.9 mm · in 34 pieces
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=106.301 y=183.842 z=291.282
+    click: x=104.500 y=183.842 z=291.282
+    answered: Approved by Derek as drawn: each reading is the wall a flute groove leaves on a 3 mm section. The 1.2 mm groove (`flute_depth`) leaves 1.8 mm between its floor and the inner face (enclosure README, Nothing may relieve into the outermost 3 mm of a fluted face), on front-top's flanks, two of them where the east manifold tower's Wago pockets bottom on the flank's 3 mm outer wall. Derek, 2026-10-21: "The flute grooves on 3mm walls is good with me and approved by me."
+    alternatives: A 4.2 mm wall keeps 3 mm under every groove and takes 1.2 mm more of the room inside each flank; a shallower groove changes the texture the corner coupon set.
+
+  [thin] 1.807 mm of material at its thinnest · 431.8 mm² of surface under 2.5 mm · spans 2.5 × 8.6 × 30.1 mm · in 24 pieces
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=104.500 y=173.817 z=257.682
+    click: x=106.306 y=173.850 z=257.683
+    answered: Approved by Derek as drawn: each reading is the wall a flute groove leaves on a 3 mm section. The 1.2 mm groove (`flute_depth`) leaves 1.8 mm between its floor and the inner face (enclosure README, Nothing may relieve into the outermost 3 mm of a fluted face), on front-top's flanks, two of them where the east manifold tower's Wago pockets bottom on the flank's 3 mm outer wall. Derek, 2026-10-21: "The flute grooves on 3mm walls is good with me and approved by me."
+    alternatives: A 4.2 mm wall keeps 3 mm under every groove and takes 1.2 mm more of the room inside each flank; a shallower groove changes the texture the corner coupon set.
+
+  [thin] 1.808 mm of material at its thinnest · 60.4 mm² of surface under 2.5 mm · spans 2.3 × 4.8 × 6.5 mm · in 9 pieces
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=104.500 y=50.653 z=176.538
+    click: x=106.308 y=50.650 z=176.538
+
+  [thin] 1.808 mm of material at its thinnest · 60.4 mm² of surface under 2.5 mm · spans 2.4 × 4.8 × 6.5 mm · in 9 pieces
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=-104.500 y=50.653 z=170.552
+    click: x=-106.308 y=50.650 z=170.552
+
+  [ledge] 12.00 mm² flat face 0° off facing the bed · 16.0 × 0.8 mm · 34.8 mm up
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=96.550 y=147.333 z=195.025
+    click: x=96.550 y=147.333 z=195.025
+
+  [sliver · answered] Set aside by Derek: "I don't love it. But it's not the highest priority problem." These six faces bound the outer fore coils' 1.35 mm clearance pockets at the selected aligned pump, tee and valve stations.
+    alternatives: Moving each complete fore group 1.6 mm inboard removes these pocket boundaries and changes its pump seats, straight upper receiving links and lower returns. The small lower-elbow contacts involve flexible metal tabs, which Derek explicitly permits to bend; they are not rigid coil interferences. Moving only an outer valve or tee changes a straight receiving link. Moving the whole flank to the pocket floor changes the seam rail and funnel-frame grooves. The selected arrangement retains the named coil clearances and Derek's stated cosmetic priority.
+    1.350 mm strip, 34.6 mm long
+    face: plane · n x=0.000 y=-1.000 z=0.000 · thru x=-99.175 y=153.902 z=253.100
+    edge: x=-99.175 y=153.902 z=270.388 → x=-99.175 y=153.902 z=235.812 · len 34.577 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-99.175 y=153.902 z=253.100
+
+  [sliver · answered] Set aside by Derek: "I don't love it. But it's not the highest priority problem." These six faces bound the outer fore coils' 1.35 mm clearance pockets at the selected aligned pump, tee and valve stations.
+    alternatives: Moving each complete fore group 1.6 mm inboard removes these pocket boundaries and changes its pump seats, straight upper receiving links and lower returns. The small lower-elbow contacts involve flexible metal tabs, which Derek explicitly permits to bend; they are not rigid coil interferences. Moving only an outer valve or tee changes a straight receiving link. Moving the whole flank to the pocket floor changes the seam rail and funnel-frame grooves. The selected arrangement retains the named coil clearances and Derek's stated cosmetic priority.
+    1.350 mm strip, 34.6 mm long
+    face: plane · n x=0.000 y=-1.000 z=0.000 · thru x=99.175 y=153.632 z=253.100
+    edge: x=99.175 y=153.632 z=270.388 → x=99.175 y=153.632 z=235.812 · len 34.577 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=99.175 y=153.632 z=253.100
+
+  [sliver · answered] Set aside by Derek: "I don't love it. But it's not the highest priority problem." These six faces bound the outer fore coils' 1.35 mm clearance pockets at the selected aligned pump, tee and valve stations.
+    alternatives: Moving each complete fore group 1.6 mm inboard removes these pocket boundaries and changes its pump seats, straight upper receiving links and lower returns. The small lower-elbow contacts involve flexible metal tabs, which Derek explicitly permits to bend; they are not rigid coil interferences. Moving only an outer valve or tee changes a straight receiving link. Moving the whole flank to the pocket floor changes the seam rail and funnel-frame grooves. The selected arrangement retains the named coil clearances and Derek's stated cosmetic priority.
+    1.350 mm strip, 34.6 mm long
+    face: plane · n x=0.000 y=1.000 z=0.000 · thru x=-99.175 y=120.290 z=253.100
+    edge: x=-99.175 y=120.290 z=270.388 → x=-99.175 y=120.290 z=235.812 · len 34.577 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-99.175 y=120.290 z=253.100
+
+  [sliver · answered] Set aside by Derek: "I don't love it. But it's not the highest priority problem." These six faces bound the outer fore coils' 1.35 mm clearance pockets at the selected aligned pump, tee and valve stations.
+    alternatives: Moving each complete fore group 1.6 mm inboard removes these pocket boundaries and changes its pump seats, straight upper receiving links and lower returns. The small lower-elbow contacts involve flexible metal tabs, which Derek explicitly permits to bend; they are not rigid coil interferences. Moving only an outer valve or tee changes a straight receiving link. Moving the whole flank to the pocket floor changes the seam rail and funnel-frame grooves. The selected arrangement retains the named coil clearances and Derek's stated cosmetic priority.
+    1.350 mm strip, 34.6 mm long
+    face: plane · n x=0.000 y=1.000 z=0.000 · thru x=99.175 y=120.290 z=253.100
+    edge: x=99.175 y=120.290 z=270.388 → x=99.175 y=120.290 z=235.812 · len 34.577 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=99.175 y=120.290 z=253.100
+
+  [sliver · answered] Set aside by Derek: "I don't love it. But it's not the highest priority problem." These six faces bound the outer fore coils' 1.35 mm clearance pockets at the selected aligned pump, tee and valve stations.
+    alternatives: Moving each complete fore group 1.6 mm inboard removes these pocket boundaries and changes its pump seats, straight upper receiving links and lower returns. The small lower-elbow contacts involve flexible metal tabs, which Derek explicitly permits to bend; they are not rigid coil interferences. Moving only an outer valve or tee changes a straight receiving link. Moving the whole flank to the pocket floor changes the seam rail and funnel-frame grooves. The selected arrangement retains the named coil clearances and Derek's stated cosmetic priority.
+    1.350 mm strip, 33.6 mm long
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=-99.175 y=137.096 z=235.812
+    edge: x=-99.175 y=120.290 z=235.812 → x=-99.175 y=153.902 z=235.812 · len 33.612 · straight · dir x=0.000 y=1.000 z=0.000
+    click: x=-99.175 y=137.096 z=235.812
+
+  [sliver · answered] Set aside by Derek: "I don't love it. But it's not the highest priority problem." These six faces bound the outer fore coils' 1.35 mm clearance pockets at the selected aligned pump, tee and valve stations.
+    alternatives: Moving each complete fore group 1.6 mm inboard removes these pocket boundaries and changes its pump seats, straight upper receiving links and lower returns. The small lower-elbow contacts involve flexible metal tabs, which Derek explicitly permits to bend; they are not rigid coil interferences. Moving only an outer valve or tee changes a straight receiving link. Moving the whole flank to the pocket floor changes the seam rail and funnel-frame grooves. The selected arrangement retains the named coil clearances and Derek's stated cosmetic priority.
+    1.350 mm strip, 33.3 mm long
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=99.175 y=136.961 z=235.812
+    edge: x=99.175 y=120.290 z=235.812 → x=99.175 y=153.632 z=235.812 · len 33.342 · straight · dir x=0.000 y=1.000 z=0.000
+    click: x=99.175 y=136.961 z=235.812
+
+  [sliver · answered] Functional retaining underside of the approved fan-pair cable hook. The 0.75 mm projection closes the 2.20 mm seat to a 1.45 mm entry mouth for nominal 1.70 mm insulation, matching the accepted 4P cable clip's entry section. The flat underside supplies the catch after the insulation passes the mouth. The projection and mouth are the intentional retention geometry; the hook's structural section is 3 mm.
+    alternatives: A 3 mm projection closes the existing seat completely; keeping the same mouth with that projection requires a 4.45 mm deep seat, adding 2.25 mm of cable movement behind the catch. Reducing the projection opens the mouth toward the cable diameter and reduces capture. Sloping the retaining underside supplies an exit ramp instead of the flat catch.
+    0.750 mm strip, 16.0 mm long
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=96.675 y=150.000 z=195.025
+    edge: x=96.675 y=158.000 z=195.025 → x=96.675 y=142.000 z=195.025 · len 16.000 · straight · dir x=0.000 y=-1.000 z=0.000
+    click: x=96.675 y=150.000 z=195.025
+
+  [ceiling · answered] Specified supported pump-capture faces: the broad fixed block starts at the flange-bearing datum Z225.074, and the two fitted boss shoulders end at Z246.074. These planes have the supported-face allowance and close the pump capture when the underside snap retainer is seated. The block continues upward into the housing. The native print reading identifies support access through the unloaded pump opening and motor bores before hardware installation; physical cleanup and bearing finish remain unqualified.
+    alternatives: Filling the pump openings occupies the motor-first loading envelope. Sloping the entire underside removes the stated bearing datums. Retaining only the contact lands and adding separate ramps around them changes the approved plain broad block into additional outer boundaries.
+    10133 mm² flat print-down face at z=225.074 · 197.0 × 68.5 mm · open to the bed (64.8 mm up)
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=0.000 y=48.257 z=225.074
+    click: x=0.000 y=48.257 z=225.074
+
+  [ceiling · answered] Specified supported pump-capture faces: the broad fixed block starts at the flange-bearing datum Z225.074, and the two fitted boss shoulders end at Z246.074. These planes have the supported-face allowance and close the pump capture when the underside snap retainer is seated. The block continues upward into the housing. The native print reading identifies support access through the unloaded pump opening and motor bores before hardware installation; physical cleanup and bearing finish remain unqualified.
+    alternatives: Filling the pump openings occupies the motor-first loading envelope. Sloping the entire underside removes the stated bearing datums. Retaining only the contact lands and adding separate ramps around them changes the approved plain broad block into additional outer boundaries.
+    607 mm² flat print-down face at z=246.074 · 53.5 × 53.5 mm · open to the bed (85.8 mm up)
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=-52.225 y=44.859 z=246.074
+    click: x=-52.225 y=44.859 z=246.074
+
+  [ceiling · answered] Specified supported pump-capture faces: the broad fixed block starts at the flange-bearing datum Z225.074, and the two fitted boss shoulders end at Z246.074. These planes have the supported-face allowance and close the pump capture when the underside snap retainer is seated. The block continues upward into the housing. The native print reading identifies support access through the unloaded pump opening and motor bores before hardware installation; physical cleanup and bearing finish remain unqualified.
+    alternatives: Filling the pump openings occupies the motor-first loading envelope. Sloping the entire underside removes the stated bearing datums. Retaining only the contact lands and adding separate ramps around them changes the approved plain broad block into additional outer boundaries.
+    607 mm² flat print-down face at z=246.074 · 53.5 × 53.5 mm · open to the bed (85.8 mm up)
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=52.225 y=44.859 z=246.074
+    click: x=52.225 y=44.859 z=246.074
+
+  [ceiling · answered] Functional retention faces with stated support: each is the roof of a Wago pocket in the east manifold tower, Z258.15 over the 221-415 and Z292.05 over the 221-420, and holds the connector's end in its closed pocket. Under front-top's recipe (`max_bridge_length` 0) Tree(auto) carries each roof on support that enters through the pocket's open inboard face, and that support comes out the same way before the connector goes in. Removal effort remains unqualified.
+    alternatives: A roof rising 45 degrees toward the open face, or the side wells' two-tab lid with its 45-degree ramp, needs the tower about 6.5 mm taller over the 221-420 and gives up the flat capture across the connector's end. A gable cannot fit in the 3.8 mm between the two stacked pockets. A longer bridge length in front-top's recipe would print both roofs as bridges, but it changes every other bridge on the piece.
+    140 mm² flat print-down face at z=292.050 · 16.1 × 8.7 mm · drop 30.1–30.1 mm to material below
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=100.150 y=177.150 z=292.050
+    click: x=100.150 y=177.150 z=292.050
+
+  [ceiling · answered] Functional retention faces with stated support: each is the roof of a Wago pocket in the east manifold tower, Z258.15 over the 221-415 and Z292.05 over the 221-420, and holds the connector's end in its closed pocket. Under front-top's recipe (`max_bridge_length` 0) Tree(auto) carries each roof on support that enters through the pocket's open inboard face, and that support comes out the same way before the connector goes in. Removal effort remains unqualified.
+    alternatives: A roof rising 45 degrees toward the open face, or the side wells' two-tab lid with its 45-degree ramp, needs the tower about 6.5 mm taller over the 221-420 and gives up the flat capture across the connector's end. A gable cannot fit in the 3.8 mm between the two stacked pockets. A longer bridge length in front-top's recipe would print both roofs as bridges, but it changes every other bridge on the piece.
+    76 mm² flat print-down face at z=258.150 · 8.7 × 8.7 mm · drop 30.3–30.3 mm to material below
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=100.150 y=173.450 z=258.150
+    click: x=100.150 y=173.450 z=258.150
+
+  [slope · answered] Wrong supporting-wall selection for the diamond roof of the shared rear cable mouth. The two 45-degree faces close a 22 mm tunnel inward from both X feet at Z290. Native stock immediately below those feet is present at X±11.05 over Y84.01–92.74. The classifier pairs each roof with the rear Y wall and overlooks those lateral roots. Tree(auto)/Default retains the actual support decisions; the open motor/PCB room and rear mouth remain available before hardware installation.
+    alternatives: A rectangular roof makes a 22 mm flat ceiling. Adding vertical side walls below the same gable removes more of the floor stock and adds a face without improving the two existing roof feet. Filling the mouth blocks the common pump and display cable exit.
+    45° underside runs along a wall with no level foot · slope dir +1.00,+0.00 vs wall n -0.00,+1.00 · along 15.6 mm · 123 mm²
+    faceA: plane · n x=0.707 y=0.000 z=-0.707 · thru x=-5.500 y=88.375 z=295.500
+    faceB: plane · n x=0.000 y=1.000 z=0.000 · thru x=0.000 y=92.750 z=322.405
+    click: x=-5.500 y=88.375 z=295.500
+
+  [slope · answered] Wrong supporting-wall selection for the diamond roof of the shared rear cable mouth. The two 45-degree faces close a 22 mm tunnel inward from both X feet at Z290. Native stock immediately below those feet is present at X±11.05 over Y84.01–92.74. The classifier pairs each roof with the rear Y wall and overlooks those lateral roots. Tree(auto)/Default retains the actual support decisions; the open motor/PCB room and rear mouth remain available before hardware installation.
+    alternatives: A rectangular roof makes a 22 mm flat ceiling. Adding vertical side walls below the same gable removes more of the floor stock and adds a face without improving the two existing roof feet. Filling the mouth blocks the common pump and display cable exit.
+    45° underside runs along a wall with no level foot · slope dir -1.00,-0.00 vs wall n -0.00,+1.00 · along 15.6 mm · 123 mm²
+    faceA: plane · n x=-0.707 y=0.000 z=-0.707 · thru x=5.500 y=88.375 z=295.500
+    faceB: plane · n x=0.000 y=1.000 z=0.000 · thru x=0.000 y=92.750 z=322.405
+    click: x=5.500 y=88.375 z=295.500
