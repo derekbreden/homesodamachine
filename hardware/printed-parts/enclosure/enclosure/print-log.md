@@ -643,3 +643,12 @@ nozzle heating during startup, no print error and no HMS alert. Physical finish
 and cleanup remain unassessed.
 
 [Native slice, support contact check and launch record](../tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-24-enclosure-front-bottom-h2c-v7/README.md).
+
+## HSM-000079 complete front top · Mark1
+
+Black PET-GF on the fixed left hardened 0.4 mm Standard nozzle, Textured PEI,
++0.16 mm emitted trim. Job **1405624302** accepted 2026-11-04T05:02:44.371197+00:00.
+The complete-part estimate is 36 h 30 min; the native full-bead bed margin is
+53.48 mm. Timelapse and bed leveling are On; flow and nozzle-offset calibrations
+are Auto. The [launch and reviewed slice](../../../print-tests/receiver-tool-access/full-part-review/finished/front-top-mark1/print-job.json)
+bind the submitted archive and unchanged full production mesh.

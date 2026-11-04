@@ -4434,6 +4434,7 @@
     "assembly": "Slide the foam over the tube and accepted bend holder, insert the tube into the meter, load the meter seat forward and slide aft onto the soda union stub, then fit the west snap cap."
   },
   "rear_plumbing": {
+    "asse_adapter_rise_mm": 0.18,
     "suction-joint": {
       "rotation": [
         [
