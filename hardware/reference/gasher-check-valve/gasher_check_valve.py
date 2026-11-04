@@ -60,69 +60,10 @@ def stations() -> dict:
     return {"inlet": inlet(), "outlet": outlet()}
 
 
-def build():
-    """Female socket boss (−Y, inlet) → hex barrel → male stub (+Y, outlet).
-    Built along +Z low-to-high = upstream-to-downstream, then reoriented
-    +Z -> +Y and centred on the flow axis."""
-    import cadquery as cq
-    socket = cq.Workplane("XY").circle(SOCKET_D / 2.0).extrude(SOCKET_LENGTH)
-    hexb = (
-        cq.Workplane("XY")
-        .workplane(offset=SOCKET_LENGTH)
-        .polygon(6, HEX_ACROSS_CORNERS)
-        .extrude(HEX_LENGTH)
-    )
-    stub = (
-        cq.Workplane("XY")
-        .workplane(offset=SOCKET_LENGTH + HEX_LENGTH)
-        .circle(THREAD_D / 2.0)
-        .extrude(STUB_LENGTH)
-    )
-    part = socket.union(hexb).union(stub).translate((0, 0, -TOTAL_LENGTH / 2.0))
-    return part.rotate((0, 0, 0), (1, 0, 0), -90.0)
-
-
-def _native_main():
-    from _cadq_export import export_assembly
-    from _materials import M_NICKEL_PLATE, one_body
-    part = build()
-    bb = part.val().BoundingBox()
-    print("GASHER 1/4\" NPT inline check valve")
-    print(f"  Bounding box: X [{bb.xmin:.2f}, {bb.xmax:.2f}]  "
-          f"Y [{bb.ymin:.2f}, {bb.ymax:.2f}]  Z [{bb.zmin:.2f}, {bb.zmax:.2f}]")
-    print(f"  Hex: {HEX_ACROSS_CORNERS} across corners × {HEX_LENGTH:g} mm; "
-          f"female socket Ø{SOCKET_D} × {SOCKET_LENGTH:g} mm; "
-          f"male stub Ø{THREAD_D} × {STUB_LENGTH:g} mm; total {TOTAL_LENGTH:g} mm")
-    for label, (pos, axis) in (("inlet  (F)", inlet()), ("outlet (M)", outlet())):
-        print(f"  {label}: ({pos[0]:7.2f}, {pos[1]:6.2f}, {pos[2]:7.2f})  out {axis}")
-    export_assembly(one_body(part, "gasher-check-valve", M_NICKEL_PLATE), str(STEP))
-    print(f"-> {STEP.name}")
-
-
-
-
 _FROZEN_DIR = Path(__file__).resolve().parent
 STEP_PATH = _FROZEN_DIR / 'gasher-check-valve.step'
 PAYLOAD_PATH = _FROZEN_DIR / 'gasher-check-valve.step.mesh'
 ASSET_MANIFEST_PATH = _FROZEN_DIR / "frozen-asset.json"
-
-
-def __getattr__(name):
-    if name in globals():
-        return globals()[name]
-    if name in ('cq',):
-        import cadquery as cq
-        value = locals()[name]
-    elif name in ('export_assembly',):
-        from _cadq_export import export_assembly
-        value = locals()[name]
-    elif name in ('M_NICKEL_PLATE', 'one_body'):
-        from _materials import M_NICKEL_PLATE, one_body
-        value = locals()[name]
-    else:
-        raise AttributeError(name)
-    globals()[name] = value
-    return value
 
 
 def main():

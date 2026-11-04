@@ -10,9 +10,6 @@ Geometry is held in the frozen STEP and fine payload beside this module.
 
 from __future__ import annotations
 from pathlib import Path
-import argparse
-import json
-import math
 import sys
 
 
@@ -102,94 +99,10 @@ def tube_port():
     return (LENGTH, 0., 0.), (1., 0., 0.)
 
 
-def _turned(profile):
-    import cadquery as cq
-    points = [(profile[0][0], 0), *profile, (profile[-1][0], 0)]
-    return cq.Workplane('XY').polyline(points).close().revolve(360, (0, 0), (1, 0)).val()
-
-
-def _cylinder(radius, lo, hi):
-    import cadquery as cq
-    return cq.Solid.makeCylinder(radius, hi-lo, cq.Vector(lo, 0, 0), cq.Vector(1, 0, 0))
-
-
-def build_stem():
-    """Nominal straight 3/8-inch mating stem and illustrative tip lead-in."""
-    import cadquery as cq
-    lead = cq.Solid.makeCone(STEM_D/2-STEM_TIP_CHAMFER, STEM_D/2,
-                            STEM_TIP_CHAMFER, cq.Vector(0, 0, 0), cq.Vector(1, 0, 0))
-    return lead.fuse(_cylinder(STEM_D/2, STEM_TIP_CHAMFER, STEM_LENGTH))
-
-
-def build_body():
-    return _turned(PARAMETERS['body_profile_x_radius_mm'])
-
-
-def build_collet():
-    return _turned(PARAMETERS['collet_profile_x_radius_mm'])
-
-
-def build_bore_cut():
-    """Unmeasured layout passage and tube stop, retaining existing nominal depths."""
-    return (_cylinder(THROUGH_BORE_D/2, -.05, tube_stop_x+.02)
-            .fuse(_cylinder(TUBE_BORE_D/2, tube_stop_x, LENGTH+.05)))
-
-
-def parts():
-    bore = build_bore_cut()
-    fixed = build_stem().fuse(build_body()).cut(bore).clean().fix()
-    collet = build_collet().cut(bore).clean().fix()
-    return {'body_and_stem': fixed, 'release_collet': collet}
-
-
-def build():
-    """Assembly-compatible shape containing the fixed fitting and free collet."""
-    import cadquery as cq
-    return cq.Compound.makeCompound(list(parts().values()))
-
-
-def build_assembly():
-    import cadquery as cq
-    from _materials import M_JG_WHITE_PP
-    assembly = cq.Assembly(name='John_Guest_PP061208W_scan_reference')
-    for name, shape in parts().items():
-        assembly.add(shape, name=name, color=M_JG_WHITE_PP)
-    return assembly
-
-
 def captured_transform():
     """Part-to-captured-chain rigid transform; nominal buried tip remains explicit."""
     r, t = PARAMETERS['captured_rotation'], PARAMETERS['captured_tip_origin_mm']
     return [[*r[i], t[i]] for i in range(3)]+[[0., 0., 0., 1.]]
-
-
-def in_assembly(shape=None):
-    """Place a standalone shape in the preserved ASSE assembly's frame."""
-    r = PARAMETERS['captured_rotation']
-    angle = math.acos(max(-1., min(1., (sum(r[i][i] for i in range(3))-1)/2)))
-    shape = build() if shape is None else shape
-    if angle > 1e-10:
-        axis = (r[2][1]-r[1][2], r[0][2]-r[2][0], r[1][0]-r[0][1])
-        shape = shape.rotate((0, 0, 0), axis, math.degrees(angle))
-    return shape.translate(tuple(PARAMETERS['captured_tip_origin_mm']))
-
-
-def _native_main():
-    import cadquery as cq
-    from _cadq_export import export_assembly
-    parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--stl', type=Path, help='Also write a portable STL.')
-    args = parser.parse_args(); assembly = build_assembly()
-    export_assembly(assembly, str(STEP))
-    if args.stl:
-        cq.exporters.export(assembly.toCompound(), str(args.stl), tolerance=.025, angularTolerance=.08)
-    shape = assembly.toCompound(); bb = shape.BoundingBox()
-    print(json.dumps({'step': str(STEP), 'extent_mm': [bb.xlen, bb.ylen, bb.zlen],
-                      'components': {k: {'valid': s.isValid(), 'solids': len(s.Solids())} for k, s in parts().items()},
-                      'stem_tip': stem_tip(), 'stem_shoulder': stem_shoulder(), 'tube_port': tube_port(),
-                      'hidden_stem_length_nominal_mm': STEM_LENGTH}, indent=2))
-
-
 
 
 _FROZEN_DIR = Path(__file__).resolve().parent
@@ -198,27 +111,7 @@ PAYLOAD_PATH = _FROZEN_DIR / 'jg-pp061208w.step.mesh'
 ASSET_MANIFEST_PATH = _FROZEN_DIR / "frozen-asset.json"
 
 
-def __getattr__(name):
-    if name in globals():
-        return globals()[name]
-    if name in ('cq',):
-        import cadquery as cq
-        value = locals()[name]
-    elif name in ('export_assembly',):
-        from _cadq_export import export_assembly
-        value = locals()[name]
-    elif name in ('M_JG_WHITE_PP',):
-        from _materials import M_JG_WHITE_PP
-        value = locals()[name]
-    else:
-        raise AttributeError(name)
-    globals()[name] = value
-    return value
-
-
 def main():
-    if sys.argv[1:]:
-        return _native_main()
     print('jg-pp061208w frozen reference')
     print(f"  STEP: {STEP_PATH}")
     print(f"  Fine/display payload: {PAYLOAD_PATH}")
