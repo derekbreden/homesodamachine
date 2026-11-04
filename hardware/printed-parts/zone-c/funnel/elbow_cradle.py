@@ -96,6 +96,52 @@ def block():
     return (half, SLOT_FORE_Y, aft, elbow_z() - ry, WING_ROOT_Z)
 
 
+def _bent(points, length, tip):
+    """Wing and hook points `(x, h, x_neutral)` under a tip-loaded cantilever from the body top,
+    the hook rigid above the load line, with `tip` the deflection at `length`."""
+    th = 1.5 * tip / length
+    out = []
+    for x, h, xn in points:
+        if h <= length:
+            s = h / length
+            d = tip * s * s * (3 - s) / 2
+            t = tip * 3 / (2 * length) * (2 * s - s * s)
+            out.append((xn - d + (x - xn) * math.cos(t), h + (x - xn) * math.sin(t)))
+        else:
+            dx, dh = x - xn, h - length
+            out.append((xn - tip + dx * math.cos(th) - dh * math.sin(th),
+                        length + dx * math.sin(th) + dh * math.cos(th)))
+    return out
+
+
+def passage(w_in, w_out, tip, slot_out, base, face, top):
+    """The hook deflection needed to clear the slot's outer edge at every height on the way up,
+    and how far the wing's inner face then travels inward inside the web."""
+    length, height = face - base, top - base
+    xn = (w_in + w_out) / 2
+    n = 60
+    pts = [(x, height * k / n, xn) for k in range(n + 1) for x in (w_in, w_out)]
+    pts += [(w_out + (tip - w_out) * k / n, h, xn) for k in range(n + 1) for h in (length, height)]
+    pts += [(tip, length + (height - length) * k / n, xn) for k in range(n + 1)]
+    need = travel = 0.0
+    t = -top
+    while t <= WEB - face + 1e-9:
+        a, b = -base - t, WEB - base - t
+        lo, hi = 0.0, 6.0
+        for _ in range(40):
+            mid = (lo + hi) / 2
+            ok = all(not (a < h < b) or x <= slot_out - INSERTION_SLIP
+                     for x, h in _bent(pts, length, mid))
+            lo, hi = (lo, mid) if ok else (mid, hi)
+        need = max(need, hi)
+        moved = [w_in - x for (x, h), p in zip(_bent(pts, length, hi), pts)
+                 if p[0] == w_in and a < h < b]
+        travel = max([travel] + moved)
+        t += 0.05
+    return {"free_length": length, "hook_deflection": need, "inner_face_travel": travel,
+            "root_strain": 1.5 * (w_out - w_in) * need / length ** 2}
+
+
 @functools.cache
 def stations():
     """The snap's stations, local mm, distances from the hole's axis in X."""
