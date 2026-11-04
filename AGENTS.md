@@ -107,12 +107,13 @@ For requested dimensioned mechanical part drawings, use the
 finished-part requirements, generation, and separate annotation and layout
 reviews within that drawing task.
 
-## Worktrees
+## Shared Checkout
 
-Make a worktree with [`tools/worktree.py`](tools/worktree.py), which takes the
-arguments of `git worktree add`. It clones the main checkout's files and memo
-caches, so a worktree costs almost no disk until something in it changes, and
-its first build reads back the parts the main checkout already drew.
+All agents on this Mac work in `/Users/derekbredensteiner/Developer/homesodamachine`
+on `main`. Use this shared working directory so every agent sees the others'
+source edits immediately. Do not create branches, worktrees or separate repository
+copies. Keep `main` current with `origin/main`, preserving other sessions' work,
+and commit and push directly to `main` using the path-scoped commit rule above.
 
 ## Heavy Runs
 
@@ -129,8 +130,7 @@ with `python3 tools/run.py --count 1` or `--count 4`.
 Children share their parent's verified lease. Native work also takes the CAD
 lock; `HSM_NO_BUILD_LOCK=1` alone bypasses neither admission nor that lock. Keep
 Cargo at two jobs and run Cargo and Bazel through the wrapper so their compiler
-lock is shared. Bazel runs two heavy actions per inherited lease. Update an old
-worktree's run helpers before using its nested build scripts.
+lock is shared. Bazel runs two heavy actions per inherited lease.
 
 The protocol and entry points are in
 [`tools/hsm/run-slots/README.md`](tools/hsm/run-slots/README.md).
