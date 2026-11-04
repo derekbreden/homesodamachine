@@ -254,7 +254,6 @@
         "gas-check \u2014 pisco-snap-cap: 1.833 mm",
         "fluid-24 \u2014 coil-v-i: 1.861 mm",
         "fluid-18 \u2014 funnel-frame: 1.901 mm",
-        "nameplate \u2014 foam-assembly: 1.940 mm",
         "The 1 mm spacing preference is informational. Fitted parts retain their applicable local allowances; pack-closes measures material outside the finite receiving interfaces. Conductors are excluded from this scene check."
       ],
       "id": "clearance-floor",
@@ -838,7 +837,7 @@
       "label": "the printed box, outside face to outside face",
       "max": [
         107.5,
-        474.3,
+        476.3,
         355.0
       ],
       "min": [
@@ -848,7 +847,7 @@
       ],
       "mm": [
         215.0,
-        469.3,
+        471.3,
         361.0
       ]
     },
