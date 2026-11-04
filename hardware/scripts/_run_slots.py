@@ -268,7 +268,9 @@ def _send(peer, value, fds=()):
     sent = peer.sendmsg([data], ancillary)
     if sent <= 0:
         raise OSError('socket accepted no lease bytes')
-    peer.sendall(data[sent:])                 # rights belong only to the first write
+    # A fast peer can reply and close after the complete first write.
+    if sent < len(data):
+        peer.sendall(data[sent:])             # rights belong only to the first write
 
 
 def _from_broker():

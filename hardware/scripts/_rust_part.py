@@ -592,7 +592,8 @@ def _ask(request: dict, attach_lease=True):
             if descriptors:
                 sent = s.sendmsg([payload], [(socket.SOL_SOCKET, socket.SCM_RIGHTS,
                                              array.array('i', descriptors))])
-                s.sendall(payload[sent:])
+                if sent < len(payload):
+                    s.sendall(payload[sent:])
             else:
                 s.sendall(payload)
             reply = bytearray()
