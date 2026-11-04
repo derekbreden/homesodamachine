@@ -1,0 +1,29 @@
+{
+  "source": {
+    "path": "hardware/reference/neofit-acvus44-check/neofit_acvus44_check.rs",
+    "sha256": "93f750f112ae4288c77655080d6d9c83b69fda7bc9d903e0bde378f24b8b0f99",
+    "parameters_path": "hardware/reference/neofit-acvus44-check/reference-parameters.json",
+    "parameters_sha256": "c64d4eee6c87131864c983b371f03f5b24c42c130e33090419e61da1e56b8c6c"
+  },
+  "members": {
+    "neofit-acvus44-check.step": "d29c77b461831fdb17d19defdb88d887ec972932701b9c6155c42878a18983cf",
+    "neofit-acvus44-check.step.npz": "f256702fd2ba90570c71603db8f92682005ea7cd371708995b61876bca65b0eb",
+    "neofit-acvus44-check.step.mesh": "5e221eba998f9ddfdaa156b4697e486c3580bd7c5493920a869d5153ed810f0f"
+  },
+  "fine_model": {
+    "path": "neofit-acvus44-check.step.npz",
+    "sha256": "f256702fd2ba90570c71603db8f92682005ea7cd371708995b61876bca65b0eb"
+  },
+  "fine_models": {
+    "neofit-acvus44-check.step": {
+      "path": "neofit-acvus44-check.step.npz",
+      "sha256": "f256702fd2ba90570c71603db8f92682005ea7cd371708995b61876bca65b0eb"
+    }
+  },
+  "fine_payload": {
+    "path": "neofit-acvus44-check.step.mesh",
+    "sha256": "5e221eba998f9ddfdaa156b4697e486c3580bd7c5493920a869d5153ed810f0f",
+    "source_step_sha256": "d29c77b461831fdb17d19defdb88d887ec972932701b9c6155c42878a18983cf",
+    "producer": "hardware/reference/neofit-acvus44-check/neofit_acvus44_check.rs"
+  }
+}

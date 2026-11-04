@@ -119,7 +119,7 @@ def numbers():
         return at((x,0.,0.))[1]
     air=snaps.METER_AIR
     mx = wx(7.3)-air
-    seat_y,cap_y = (386.,446.),(397.,435.)
+    seat_y,cap_y = rear_plumbing.meter_spans()
     collar = max(meter.port_collar_radii)
     core,west = wx(meter.boss_y_range[0])-air,wx(meter.underside_y)
     st = snaps.station(0.,soda[1]+collar+air-mz+snaps.WALL,

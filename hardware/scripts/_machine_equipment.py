@@ -6,7 +6,6 @@ This module prepares numbers and port frames; it constructs no Python CAD object
 """
 from __future__ import annotations
 
-import ast
 from functools import cache
 import json
 import math
@@ -29,17 +28,6 @@ IDENTITY = {'rotation': [[1., 0., 0.], [0., 1., 0.], [0., 0., 1.]],
 
 def _read(relative):
     return json.loads((HW / relative).read_text())
-
-
-def _literal(relative, name):
-    """Read an authored numeric profile without importing its native CAD builder."""
-    source = HW / relative
-    for statement in ast.parse(source.read_text(), filename=str(source)).body:
-        if isinstance(statement, ast.Assign) and any(
-                isinstance(target, ast.Name) and target.id == name
-                for target in statement.targets):
-            return ast.literal_eval(statement.value)
-    raise KeyError(f'{source}: numeric profile {name}')
 
 
 def frame(rotation=None, translation=None):
@@ -106,8 +94,9 @@ def _reducer():
     return _read('reference/jg-pp061208w/reference-parameters.json')
 
 
-def _check_profile():
-    return _literal('reference/neofit-acvus44-check/neofit_acvus44_check.py', 'PROFILE')
+@cache
+def _check():
+    return _read('reference/neofit-acvus44-check/reference-parameters.json')
 
 
 def _bfp_port(name):
@@ -140,7 +129,7 @@ def local_ports(name):
                 'outboard': ((0., 0., 0.), (0., 0., -1.), 6.35),
                 'inboard': ((0., 0., 62.814), (0., 0., 1.), 6.35)}
     if name in ('gas-check', 'discharge-chain'):
-        end = _check_profile()[-1][0]
+        end = _check()['length_mm']
         return {'inlet': ((0., 0., 0.), (-1., 0., 0.), 6.35),
                 'outlet': ((end, 0., 0.), (1., 0., 0.), 6.35),
                 'tube-port': ((end, 0., 0.), (1., 0., 0.), 6.35)}
@@ -185,7 +174,8 @@ def local_ports(name):
         if name != row['name']:
             continue
         if row['native_kind'] == 'quarter':
-            a, b = 9.5, -24.79
+            d = _read('reference/jg-bulkhead-union/reference-parameters.json')
+            a, b = d['near_ring_face_y_mm'], d['far_ring_face_y_mm']
         else:
             d = _read('reference/neofit-drain-bulkhead/reference-parameters.json')
             a, b = d['near_ring_face_y_mm'], d['far_ring_face_y_mm']
@@ -333,7 +323,8 @@ def numbers(external_ports=None, extra_routes=(), *, input_root=None):
         exclude=['inlet_collet'])
     for name, pose in (('gas-check', rear['gas_check_frame']),
                        ('discharge-chain', layout.pose('discharge-chain'))):
-        add(name, 'stem-check', pose=pose, color='M_NEOFIT_WHITE_ACETAL', profile=_check_profile())
+        add(name, pose=pose, color='M_NEOFIT_WHITE_ACETAL',
+            source=modelpath('reference/neofit-acvus44-check/neofit-acvus44-check.step'))
     j = rear['joint']
     for side in ('suction', 'discharge'):
         add(side + '-tube', 'pump-tube', pose=rear[side + '-joint'], color='M_PVC_CLEAR',
@@ -387,6 +378,15 @@ def numbers(external_ports=None, extra_routes=(), *, input_root=None):
             continue
         name = row['name']
         color = 'M_JG_BLACK_PP' if row['native_kind'] == 'quarter' else 'M_NEOFIT_ACETAL'
+        if row['native_kind'] == 'quarter':
+            measured = _read('reference/jg-bulkhead-union/reference-parameters.json')
+            source = modelpath('reference/jg-bulkhead-union/jg-bulkhead-union.step')
+            add(name, color=color, source=source, select=['fitting'],
+                pose=frame(translation=[row['x'], row['flange_y'], row['z']]))
+            add(name + '-nut', color=color, source=source, select=['nut'],
+                pose=frame(translation=[row['x'], row['flange_y'] - 6.
+                                      + measured['captured_nut_gap_mm'], row['z']]))
+            continue
         source = modelpath('reference/neofit-drain-bulkhead/neofit-drain-bulkhead.step')
         add(name, 'bulkhead', color=color, data=row, source=source,
             pose=frame(translation=[row['x'], row['flange_y'], row['z']]))
@@ -678,12 +678,13 @@ def continuations(station):
     arcs = data['segments']
     a = arcs[0]['points_mm'][0]
     b = arcs[-1]['points_mm'][-1]
-    inserted = r._sub(a,r._mul(data['flow'],16.891))
+    inserted = r._sub(a,r._mul(data['flow'],_check()['socket_insertion_estimate_mm']))
     segments = [r._line(inserted,a),*arcs]
     add('water-5',segments,('discharge-chain','outlet'),('foam-assembly','water-in'),
         data['radius_mm'])
     a,ua,_ = station('digiten-flow','outlet');b,ub,_ = station('bulkhead-carb','tube-in')
-    add('soda-meter-bulkhead',[r._line(r._sub(a,r._mul(ua,15.7)),r._sub(b,r._mul(ub,12.7)))],
+    depth = _read('reference/jg-bulkhead-union/reference-parameters.json')['published']['tube_stop_depth_mm']
+    add('soda-meter-bulkhead',[r._line(r._sub(a,r._mul(ua,15.7)),r._sub(b,r._mul(ub,depth)))],
         ('digiten-flow','outlet'),('bulkhead-carb','tube-in'),None,spool='blue')
 
     gas = plan()['co2_tube']
@@ -691,7 +692,7 @@ def continuations(station):
     da,db = gas['bend_tangents_mm']; pa,pb = gas['s_tangents_mm']
     c1 = [a,[a[0],a[1]-da,a[2]],[top[0],top[1],top[2]+db],top]
     c2 = [top,[top[0],top[1],top[2]-pb],[floor[0],floor[1],floor[2]+pa],floor]
-    add('above-core-gas-core-drop',[r._line((a[0],a[1]+16.891,a[2]),a),r._bezier(c1),r._bezier(c2)],
+    add('above-core-gas-core-drop',[r._line((a[0],a[1]+_check()['socket_insertion_estimate_mm'],a[2]),a),r._bezier(c1),r._bezier(c2)],
         ('gas-check','outlet'),('foam-assembly','co2-in'),gas['minimum_radius_mm'],spool='red')
 
     # Full receiving straights and tangent bends through the occupied layout.

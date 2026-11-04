@@ -1,114 +1,64 @@
-"""Line-art reference solid of the 1/4" push-to-connect through-wall
-(bulkhead) union — the McMaster-Carr 51055K3 (gray acetal, NSF/ANSI 61
-for drinking water), reduced to coaxial cylinders: a wide body, a
-release ring, and the tube port — three concentric circles, which is
-all of it a line drawing of the rear face can show.
+"""Scan-fitted John Guest PP1208E 1/4-inch bulkhead union, HSM-000059.
 
-Real-world dimensions (mm):
-  Flange / collet body OD: 22.86 (0.90")
-  Release ring OD: 11.43
-  Threading / panel pass-through OD: 17.14 (0.67" mounting hole)
-  Tube port bore: 6.35 (1/4" tube OD)
-  Overall length: 34.29 (1.36")
-
-Coordinate convention:
-  Y = tube-flow axis. +Y = outward (toward the proud body's release ring
-      and tube port). -Y = inward (threading and the far end).
-  Origin = the body's panel-seating face (its inner face). The body and
-      everything beyond it sit at y ≥ 0; the threading and far end sit
-      at y < 0.
-  +Z = up. X completes the right-handed frame.
-
-Run:
-    tools/cad-venv/bin/python hardware/reference/jg-bulkhead-union/jg_bulkhead_union.py
-
-Geometry is held in the frozen STEP and fine payload beside this module.
-`frozen-asset.json` records their bytes and source snapshot.
++Y points outboard; Y0 is the fixed flange's panel-seating face. The frozen
+reference contains the fitting and its separate nut at the captured position.
+The manual Rust generator reads reference-parameters.json; assembly consumers
+use these frozen datums and the declared model, without opening the scan archive.
 """
-
-from __future__ import annotations
-
-import sys
 from pathlib import Path
+import sys
+
+HERE = Path(__file__).resolve().parent
+STEP_PATH = HERE / 'jg-bulkhead-union.step'
+PAYLOAD_PATH = HERE / 'jg-bulkhead-union.step.mesh'
+ASSET_MANIFEST_PATH = HERE / 'frozen-asset.json'
+
+PORT_D = TUBE_OD = 6.35
+THREAD_D = 16.7
+MOUNTING_HOLE_D = 17.0
+TUBE_STOP_DEPTH = PORT_DEPTH = 15.7
+OVERALL = 37.55273081350097
+near_ring_face_y = PROUD_LENGTH = 11.521369623928024
+far_ring_face_y = -26.031361189572948
+BODY_D = FLANGE_D = 23.34348
+RING_D = 10.9
+FLANGE_AF = 18.83501909374671
+NUT_AF = 20.001471308895436
+NUT_D = 22.50104
+NUT_LEN = 5.939959183240793
+CAPTURED_NUT_GAP = 5.691909221634731
+PANEL_THREAD = 13.5
 
 
-_here = Path(__file__).resolve()
-sys.path.insert(
-    0,
-    str(next(p for p in _here.parents if p.name == "hardware") / "scripts"),
-)
-sys.path.insert(
-    0,
-    str(next(p for p in _here.parents if p.name == "hardware") / "printed-parts" / "cadlib"),
-)
-
-BODY_D = 22.86       # flange + collet barrel
-RING_D = 11.43       # release ring
-THREAD_D = 17.14     # threading / panel pass-through
-PORT_D = 6.35        # 1/4" tube port bore
-
-# Body + release ring at each end, threading spanning the middle; the
-# segments sum to the 34.29 overall length.
-BODY_LEN = 5.0
-RING_LEN = 4.5
-THREAD_LEN = 15.29
-PORT_DEPTH = 4.0     # bore recess into each release-ring end face
-
-# Length standing proud of the seating face (one body + release ring),
-# clearing the mounting panel.
-PROUD_LENGTH = BODY_LEN + RING_LEN
-
-# Seating planes along Y where the coaxial segments meet. The near end
-# stands at y ≥ 0; the threading and far end sit at y ≤ 0, mirrored
-# about Y = -THREAD_LEN/2.
-near_body_to_ring_y = BODY_LEN
-near_ring_face_y = PROUD_LENGTH
-far_thread_to_body_y = -THREAD_LEN
-far_body_to_ring_y = -THREAD_LEN - BODY_LEN
-far_ring_face_y = -THREAD_LEN - BODY_LEN - RING_LEN
+def panel_hole_d(clearance):
+    """The manufacturer's round mounting-hole diameter plus the panel's slip."""
+    return MOUNTING_HOLE_D + clearance
 
 
-# --- What a panel owes this fitting -----------------------------------------
-# The union clamps THROUGH a wall, so a panel carrying one owes it two things and they are
-# different sizes: a hole the THREADING passes through, and face room for the NUT that clamps
-# on it. The nut is the wider by half again, so a row spaced to the holes fouls on the metal.
-
-def panel_hole_d(clearance: float) -> float:
-    """The through-hole diameter, given the slip a panel wants around the threading."""
-    return THREAD_D + clearance
+def panel_footprint():
+    diameter = max(FLANGE_D, NUT_D)
+    return diameter, diameter
 
 
-def panel_footprint() -> tuple:
-    """`(width, height)` the clamping nut takes on the panel FACE. Round, so one figure
-    twice — and it is what crowds a neighbour, a wall or a ceiling."""
-    return (BODY_D, BODY_D)
+def flange_footprint():
+    return FLANGE_D
 
 
-def flange_footprint() -> float:
-    """What the OUTBOARD flange covers, and so what a bulkhead ring has to reach past to show.
-    The flange and the collet barrel are one diameter on this fitting."""
-    return BODY_D
-
-
-def port(side: float) -> tuple:
-    """One of the two 1/4" tube ports: `(position, outward axis)`, `side` picking the near
-    (+Y, outboard) or far (−Y, inboard) end. The bore is recessed into the release ring's own
-    face, and a tube is pushed in to that face."""
-    face = near_ring_face_y if side > 0 else far_ring_face_y
-    return ((0.0, face, 0.0), (0.0, 1.0 if side > 0 else -1.0, 0.0))
-
-
-_FROZEN_DIR = Path(__file__).resolve().parent
-STEP_PATH = _FROZEN_DIR / 'jg-bulkhead-union.step'
-PAYLOAD_PATH = _FROZEN_DIR / 'jg-bulkhead-union.step.mesh'
-ASSET_MANIFEST_PATH = _FROZEN_DIR / "frozen-asset.json"
+def port(side):
+    return ((0., near_ring_face_y if side > 0 else far_ring_face_y, 0.),
+            (0., 1. if side > 0 else -1., 0.))
 
 
 def main():
-    print('jg-bulkhead-union frozen reference')
-    print(f"  STEP: {STEP_PATH}")
-    print(f"  Fine/display payload: {PAYLOAD_PATH}")
+    import json
+    sys.path.insert(0, str(HERE.parents[1] / 'scripts'))
+    import _rust_part
+    _rust_part.start()
+    from _materials import M_JG_BLACK_PP, linear
+    parameters = json.loads((HERE / 'reference-parameters.json').read_text())
+    _rust_part.cut('tooling', 'jg-bulkhead-reference',
+                   {**parameters, 'color': linear(M_JG_BLACK_PP)}, HERE)
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     main()

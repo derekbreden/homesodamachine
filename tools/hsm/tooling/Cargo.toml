@@ -67,6 +67,14 @@ name = "valve-socket-fit"
 path = "../../../hardware/printed-parts/fixtures/valve-socket-fit/valve_socket_fit.rs"
 
 
+[[bin]]
+name = "jg-bulkhead-reference"
+path = "../../../hardware/reference/jg-bulkhead-union/jg_bulkhead_union.rs"
+
+[[bin]]
+name = "stem-check-reference"
+path = "../../../hardware/reference/neofit-acvus44-check/neofit_acvus44_check.rs"
+
 [dependencies]
 anyhow.workspace = true
 hsm-kernel = { path = "../kernel" }

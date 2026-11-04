@@ -1,37 +1,69 @@
-# neoFit ACVUS-44 stem check valve
+# neoFit ACVUS44 stem check valve
 
-The [ACVUS-44](https://www.freshwatersystems.com/products/stem-reducer-check-valve-1-4-od-x-1-4-od-stem)
-is a white acetal check valve with a 1/4-inch OD stem on one end and a 1/4-inch OD tube socket on
-the other. Fresh Water Systems sells it as ACVUS-44:10PK. No purchase is recorded.
+**HSM-000383**, a white acetal check valve with a 1/4-inch male stem and a
+1/4-inch tube socket. Two installed instances use this reference: the water-side
+`discharge-chain` and `gas-check` after the Pisco regulator. The
+[supplier listing](https://www.freshwatersystems.com/products/stem-reducer-check-valve-1-4-od-x-1-4-od-stem)
+identifies the ACVUS-44 family.
 
-[`neofit_acvus44_check.py`](neofit_acvus44_check.py) builds its exterior from the silhouette of
-FWS's side photograph (`iruw2y9vbn7aaceto1p7`, 1000 × 1000 px), sampled every 2 px down the
-axis. The stem's 6.35 mm OD is 106.65 px wide, which sets the scale at 0.0595 mm/px. On that
-scale the socket collar is Ø15.8 mm, against the 15.494 mm maximum collar on neoFit's
-[ATRU444 sheet](https://assets.freshwatersystems.com/image/upload/s--rN_5qBOD--/nvkzj79bbgumy8drpkff.pdf).
+![Reconstructed ACVUS44 stem check](model-preview.png)
 
-| Feature | From the stem tip, mm | Diameter, mm |
-|---|---:|---:|
-| Stem | 0–15.6 | 6.35 |
-| Collar | 18.0–23.7 | 15.8 |
-| Check barrel | 26.0–33.5 | 9.9 |
-| Socket body | 35.4–46.4 | 14.1–15.8 |
-| Collet | 47.9–50.0 | 13.6 |
+The model follows the prepared MINI 2 scan at native scale. **X0 is the free stem
+tip; +X runs toward the socket mouth.** Y and Z are centered on the fitted stem
+axis. `stem_tip()` and `tube_port()` expose the two end datums and outward axes.
 
-The stem enters a host socket up to the collar, 15.6 mm. The socket takes the tube 16.891 mm,
-neoFit's 1/4-inch female engagement on the ATRU444 sheet.
+| Feature | Fitted reference, mm |
+| --- | ---: |
+| Tip-to-release-face datum span | 51.092 |
+| Stem tip to shoulder | 18.206 |
+| Fitted stem cylinder diameter | 6.368 |
+| Nominal stem/tube diameter | 6.350 |
 
-Not established by the trace:
+The Pisco socket uses its catalog's 17 mm stem insertion; the water-side ATEU44W
+socket uses its 16.891 mm insertion estimate. The measured shoulder remains
+outside each receiving mouth. The check's own socket retains the 16.891 mm family
+insertion estimate, which the exterior scan does not measure.
 
-- which way the check passes flow: none of FWS's three photographs shows an arrow;
-- the dimensions' tolerance: the camera looks slightly up at the part, and the ends are about
-  ±0.5 mm;
-- the internals, seals, collet teeth and release motion, which are not modelled;
-- the cracking pressure and whether the check closes gas-tight.
+## Capture and reconstruction
 
-neoFit's [catalogue](https://assets.freshwatersystems.com/image/upload/s--FacjKp_O--/xa3vlqau7opjabwxmc5o.pdf)
-rates its check valves for 0–230 psi working pressure and 34–140 °F, with NBR O-rings.
+Derek putty-mounted, framed and rotated the specimen. Revo Scan 6.3.2 recorded
+**754 frames**, MINI 2 High Accuracy / Feature / Normal, automatic depth exposure,
+colour and base removal off, and a 120-250 mm range. Native **0.10 mm fusion**
+produced **328,865 points**, without rescaling, smoothing, isolation or hole filling.
+
+One native project, frame database, calibration files, raw preview, fused cloud
+and SHA-256 manifest are retained in
+`~/Documents/3D Scans/2026-11-03-neofit-acvus44-stem-check/`.
+
+[`analyze_scan.py`](analyze_scan.py) fits the marker-table plane and the exposed
+stem cylinder, then the stem tip, shoulder and socket release face. Physical
+height and axial bounds exclude the putty before any model comparison. The
+selection, rigid transform and residuals are in [`scan-evidence.json`](scan-evidence.json).
+The turned exterior uses outward-facing 97.5th-percentile radii in 0.125 mm bins,
+a three-bin median and 0.035 mm radial simplification.
+The 17 mm mating portion of the stem uses nominal 6.35 mm OD, retaining the
+observed tip chamfer and groove; the source cloud is not rescaled.
+[`reference-parameters.json`](reference-parameters.json) holds these measurements;
+[`neofit_acvus44_check.rs`](neofit_acvus44_check.rs) constructs the model in Rust.
+
+![Retained scan observations compared with the reconstructed stem check](scan-model-check.png)
+
+[`scan-model-check.json`](scan-model-check.json) compares **30,831 observations**
+at 0.25 mm sampling with the reopened exported STL. The mesh has one watertight
+shell. Median distance is **0.062 mm**, the 95th percentile **0.600 mm**, and
+**94.0%** lie within 0.50 mm. The collar and fixed check body have a 95th-percentile
+discrepancy of **0.166 mm**; the free socket collet has larger local differences.
+All physically retained observations remain eligible for comparison.
+
+Hidden lower sectors continue the fitted turned forms. Collet slots and molded
+marks are omitted; the hidden bore and socket are display closures. Absolute
+optical scale is not independently calibrated. The scan measures the exterior;
+it does not establish hidden stops, check internals or flow direction.
+
+The STEP, fine model and viewer payload are frozen inputs declared in
+[`frozen-asset.json`](frozen-asset.json). Manual regeneration:
 
 ```sh
-tools/cad-venv/bin/python hardware/reference/neofit-acvus44-check/neofit_acvus44_check.py
+python3 tools/run.py -- tools/cad-venv/bin/python hardware/reference/neofit-acvus44-check/analyze_scan.py
+python3 tools/run.py -- tools/cad-venv/bin/python hardware/reference/neofit-acvus44-check/neofit_acvus44_check.py
 ```

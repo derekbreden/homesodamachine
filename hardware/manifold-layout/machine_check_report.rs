@@ -864,7 +864,7 @@ pub fn build(w: &mut World, spec: &Value) -> Result<Value> {
     checks.push(located(m));
     let (anchor, spans) = tube_anchored(m)?;
     checks.push(anchor);
-    checks.push(json!({"id":"gas-chain-qualified","label":"Warm gas fitting dimensions and made-up fit qualified","kind":"goal","status":"warn","value":"Compact gas references; physical fit pending","target":"qualify actual compact regulator/check and trimmed insertions","detail":["PISCO is the selected 0.3 MPa regulator; its purchased-body fit remains unqualified.","Both check positions use the purchased neoFit ACHV44-E reference, with published dimensions and explicitly estimated socket details.","Stem insertions retain the receiving-family estimates stated in above-core.json.","Geometry establishes neither sealing, pull-off retention nor pressure suitability."],"active":false}));
+    checks.push(json!({"id":"gas-chain-qualified","label":"Warm gas fitting dimensions and made-up fit qualified","kind":"goal","status":"warn","value":"Compact gas references; physical fit pending","target":"qualify actual compact regulator/check and trimmed insertions","detail":["PISCO is the selected 0.3 MPa regulator; its purchased-body fit remains unqualified.","Both check positions use the scan-fitted neoFit ACVUS44 stem-check exterior, with nominal mating stems and estimated socket details.","Stem insertions retain the receiving-family estimates stated in above-core.json.","Geometry establishes neither sealing, pull-off retention nor pressure suitability."],"active":false}));
     let gates = checks
         .iter()
         .filter(|r| r["kind"] == "gate")

@@ -1,33 +1,29 @@
 {
   "source": {
-    "commit": "a40b1dc0d4a41ea4dab2b765f997a841ed8b6678",
-    "path": "hardware/reference/jg-bulkhead-union/jg_bulkhead_union.py",
-    "sha256": "62b13c9c562db4ef857c159beae7e6adac08d1bb0d35aaa0c8903117b696f5c4"
+    "path": "hardware/reference/jg-bulkhead-union/jg_bulkhead_union.rs",
+    "sha256": "a7698cc42fe31f13853d7ba57f83258985cc645fe955fbe38fa4cdf3796275ac",
+    "parameters_path": "hardware/reference/jg-bulkhead-union/reference-parameters.json",
+    "parameters_sha256": "f6e9e4b37fa03c80af24a6adbc74dbbe6243d84c64accd13c9dfc8c91e77bb2d"
   },
   "members": {
-    "jg-bulkhead-union.step": "6991ac244069c1e6dc73f8bb786e7b08dfcca519fd88650862462f4a0465562d",
-    "jg-bulkhead-union.step.mesh": "b915a41a1955a42a4e335c3b8c01c86c83a58d9f3c6b39f6f4b95cbed4f16d53"
+    "jg-bulkhead-union.step": "a90b49bb1cfb89cf80798796832c4e5c10800c336ac3d19c42dc3d6559e97c80",
+    "jg-bulkhead-union.step.npz": "a7da569d730a4810a8bcc5b99af9a6838c11f6a1de922182f8d75e2730e9683d",
+    "jg-bulkhead-union.step.mesh": "3cd20fc9658b32fd7a78f1b08e2ec6b716c811a2bb6319a70be48471da7a62b6"
+  },
+  "fine_model": {
+    "path": "jg-bulkhead-union.step.npz",
+    "sha256": "a7da569d730a4810a8bcc5b99af9a6838c11f6a1de922182f8d75e2730e9683d"
+  },
+  "fine_models": {
+    "jg-bulkhead-union.step": {
+      "path": "jg-bulkhead-union.step.npz",
+      "sha256": "a7da569d730a4810a8bcc5b99af9a6838c11f6a1de922182f8d75e2730e9683d"
+    }
   },
   "fine_payload": {
-    "source_step_sha256": "6991ac244069c1e6dc73f8bb786e7b08dfcca519fd88650862462f4a0465562d",
     "path": "jg-bulkhead-union.step.mesh",
-    "sha256": "b915a41a1955a42a4e335c3b8c01c86c83a58d9f3c6b39f6f4b95cbed4f16d53",
-    "linear_mm": 0.005,
-    "angular_rad": 0.05,
-    "producer": "hardware/scripts/_rust_part.py:_tessellate",
-    "meshes": [
-      {
-        "name": "jg-bulkhead-union",
-        "color": [
-          0.2632734179496765,
-          0.27383843064308167,
-          0.2846466898918152
-        ],
-        "vertices": 7070,
-        "triangles": 7052,
-        "face_ranges": 15
-      }
-    ],
-    "color_space": "linear-rgb"
+    "sha256": "3cd20fc9658b32fd7a78f1b08e2ec6b716c811a2bb6319a70be48471da7a62b6",
+    "source_step_sha256": "a90b49bb1cfb89cf80798796832c4e5c10800c336ac3d19c42dc3d6559e97c80",
+    "producer": "hardware/reference/jg-bulkhead-union/jg_bulkhead_union.rs"
   }
 }

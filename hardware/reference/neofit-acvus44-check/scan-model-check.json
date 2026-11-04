@@ -1,0 +1,58 @@
+{
+  "units": "mm",
+  "coordinate_scale_factor": 1.0,
+  "method": "Closest distances to reopened exported STL; every retained observation eligible; physical selection precedes CAD; no distance rejection.",
+  "observation_voxel_mm": 0.25,
+  "watertight": true,
+  "winding_consistent": true,
+  "shells": 1,
+  "all_retained_observations": {
+    "samples": 30831,
+    "p50_p90_p95_p99_max_mm": [
+      0.062046549159798486,
+      0.289154052734375,
+      0.6003017425537109,
+      1.0452514572910678,
+      1.3380624791581617
+    ],
+    "fraction_within_0_50mm": 0.9399305893418961
+  },
+  "regions": {
+    "stem": {
+      "samples": 6115,
+      "p50_p90_p95_p99_max_mm": [
+        0.025097648699923876,
+        0.11999265898301864,
+        0.29142841840851763,
+        0.41579334991329325,
+        1.0809217517951242
+      ],
+      "fraction_within_0_50mm": 0.9941128372853638
+    },
+    "collar_and_check_body": {
+      "samples": 18160,
+      "p50_p90_p95_p99_max_mm": [
+        0.060327561507437996,
+        0.14198547052353114,
+        0.16643926566315992,
+        0.2925376587612772,
+        0.6597368808051842
+      ],
+      "fraction_within_0_50mm": 0.9987885462555066
+    },
+    "socket_collet": {
+      "samples": 6556,
+      "p50_p90_p95_p99_max_mm": [
+        0.1863213242304734,
+        0.8950293439377501,
+        1.0359220883117723,
+        1.2002325244577954,
+        1.3380624791581617
+      ],
+      "fraction_within_0_50mm": 0.7263575350823673
+    }
+  },
+  "step_sha256": "d29c77b461831fdb17d19defdb88d887ec972932701b9c6155c42878a18983cf",
+  "stl_sha256": "67b0a0da655f9c9bb56332fba87f923297f4148e31ce1662320f799196694e84",
+  "retained_cloud_sha256": "dff5b9ec3944cd914b81f94803829dd84a91c607f5d124e1c3139974a9c6d73f"
+}
