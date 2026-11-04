@@ -693,10 +693,8 @@ function onContentChange(absPath) {
   // Any .py change. The SEED scripts that must rebuild are:
   //   1. The file itself, if it's a runnable script (generator or drawing).
   //   2. Every other runnable script that transitively imports the file's
-  //      module — covers shared `_foo.py` modules anywhere under hardware/, a
-  //      generator that doubles as a base module (`bag_circuit_tray`, imported
-  //      by the other trays), and the cross-tree case where `enclosure_assembly` feeds
-  //      a drawing's `_appliance_model` → the `enclosure-iso-*` SVGs.
+  //      module — covers shared `_foo.py` modules anywhere under hardware/ and a
+  //      generator that doubles as a base module other generators import.
   // runWave then extends those seeds along STEP-load edges (the enclosures that
   // load the tray assemblies) and runs the lot once each, producers first.
   // The cadlib handler at the top of this listener is the shotgun version of

@@ -122,8 +122,8 @@ def _hook(event, args):
     # and moves it over the target, so the name the tree carries is never opened for writing.
     elif event in ("os.rename", "os.replace") and len(args) > 1:
         _keep(wrote, args[1])
-    # A tool opens its script outside Python's sight. `_blender_scene.py` is named on
-    # Blender's command line, so that script is read.
+    # A tool opens its script outside Python's sight: a file named on a subprocess's command
+    # line, such as a script handed to Blender, is read.
     elif event == "subprocess.Popen" and len(args) > 1:
         for a in (args[1] or ()):
             try:
@@ -338,7 +338,6 @@ ELSEWHERE = ("tools/", "hardware/pcb/pcba/",
              "hardware/install-guide/_cad_art.py",  # scene library kit_art.py and opening_scene.py import
              "hardware/install-guide/_install_art.py",  # scene library kit_art.py and opening_scene.py import
              "hardware/assembly/scenes/render_scenes.py",
-             "hardware/printed-parts/enclosure/drawings/line-art/",  # retained historical SVG studies
              "hardware/scripts/check_faucet_geometry.py",
              "hardware/printed-parts/enclosure/pump-dock/print-preparation/",
              "hardware/printed-parts/enclosure/enclosure/heat-set-review/print_regions.py",

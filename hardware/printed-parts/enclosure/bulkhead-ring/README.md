@@ -32,8 +32,7 @@ edges of its band.
 pockets, the bosses behind them and the clamp stack. A pocket is 32 mm wide plus its slip. It
 runs from the fitting's flange radius below the bore axis to 18.789 mm above it, or 19.039 mm at
 CO2, whose axis stands 0.25 mm lower. It is cut 2 mm into the outer face, with a boss as tall
-behind it. `RING_W` is 7.05 mm: the tube collar letters its word in a band that tall, and the
-line art paints each port's mark that far past its fitting.
+behind it. `RING_W` is 7.05 mm: the tube collar letters its word in a band that tall.
 
 `split` takes a two-colour label STEP back apart as `(tile, word)`. The one body on the inboard
 face, y = 0, is the tile, and every other body is a letter.
