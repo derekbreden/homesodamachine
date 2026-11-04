@@ -6,7 +6,7 @@ fittings that make it reachable from 1/4" tube on both sides.
 
 ```
 1/4" LLDPE → PP010822E → GAGIRA coupling → [ASSE 1022] → PI4512F6S + PP061208W → 1/4" LLDPE
-                                                 └ TPU sleeve → 4 mm OVER → faucet/bowl
+                                                 └ TPU sleeve → 4 mm DRAIN → faucet/bowl
 ```
 
 That is the chain `hardware/assembly/internal-plumbing.md` step 2 builds, in the
@@ -22,7 +22,7 @@ order it builds it. Parts and prices are in `hardware/ledger/bom.md` §3.
 ## The vent is the pose
 
 The assembly has an orientation rather than just an envelope because the
-atmospheric vent discharges through the separate 4 mm OVER circuit to its open faucet outlet over the sink bowl. [ASSE drain assembly](/hardware/assembly/asse-drain.md) specifies the direct
+atmospheric vent discharges through the separate 4 mm DRAIN circuit to its open faucet outlet over the sink bowl. [ASSE drain assembly](/hardware/assembly/asse-drain.md) specifies the direct
 [TPU sleeve](/hardware/printed-parts/asse-drain-adapter/README.md) and its two
 independent zip ties. The sleeve and return are placed by the appliance model.
 

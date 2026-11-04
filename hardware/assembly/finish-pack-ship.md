@@ -55,8 +55,8 @@ Inspect every exposed surface against the following pass criteria:
   flange or housing — the machine carries no cable gland.
 - The C14 inlet recessed cleanly into the +Y wall's printed shroud per [`/hardware/printed-parts/enclosure/y-wall-of-back-top/README.md`](/hardware/printed-parts/enclosure/y-wall-of-back-top/README.md); the bore's edge against the wall's outer face shows no gap, and the receptacle's rim stands square at the bottom of the cutout.
 - The +Y connection field has three rows of two. The TAP and SODA PP1208E
-  bulkheads, the CO2 ABU44-E bulkhead and the OVER and two FLAVOR ABU44M-E 4 mm
-  bulkheads sit square in their labelled chips, with no rotation play. OVER carries its white 4 mm return; TAP carries its
+  bulkheads, the CO2 ABU44-E bulkhead and the DRAIN and two FLAVOR ABU44M-E 4 mm
+  bulkheads sit square in their labelled chips, with no rotation play. DRAIN carries its white 4 mm return; TAP carries its
   larger white supply. The faucet's separate bottom vent opening remains exposed
   and unobstructed over the bowl, as specified in [drain assembly](asse-drain.md).
 - Condenser intake + exhaust grilles clear of any print-process debris that could shed into the airflow path on first run.
@@ -112,7 +112,7 @@ Inlet-by-inlet:
 - **Water inlet** — caps the PP1208E's outboard 1/4" push-to-connect collet, the one upstream of the backflow preventer that the customer's filtered tap supply lands on. Once installed at the customer site, the cap comes off and the installer pushes the supply line home; the cap never goes back on.
 - **CO2 inlet collet** — caps the PISCO secondary's outboard 1/4" inlet collet that the customer's CO2 regulator tether plugs into, in the east column's top station, directly above the blue-ringed SODA union. Cap is a press-on rubber plug sized to the collet's outer collar.
 
-The umbilical's four bulkheads on the +Y wall — SODA, OVER and both FLAVOR ports — are *not* capped. They take the umbilical tubes from the bagged faucet sub-assembly, and a cap there would be removed and discarded by the installer in any case. Their collets keep debris out of the bores well enough for the transit-only window.
+The umbilical's four bulkheads on the +Y wall — SODA, DRAIN and both FLAVOR ports — are *not* capped. They take the umbilical tubes from the bagged faucet sub-assembly, and a cap there would be removed and discarded by the installer in any case. Their collets keep debris out of the bores well enough for the transit-only window.
 
 No cap is specified or billed yet; each is a press-on rubber cap sized to its inlet's outer collar.
 

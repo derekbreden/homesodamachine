@@ -3,7 +3,7 @@
 **HSM-000061**, black acetal ABU44M-E from
 [Fresh Water Systems](https://www.freshwatersystems.com/products/neofit-acetal-black-bulkhead-connector-4mm-5-32-tube).
 Both sockets take 4 mm OD tubing. Three fit each appliance: two black-marked
-FLAVOR stations and one white-marked OVER station. The separate OVER tube is
+FLAVOR stations and one white-marked DRAIN station. The separate DRAIN tube is
 white, with its own white rectangular chip and black word.
 
 The native reference follows the sprayed specimen's MINI 2 scan. The STEP

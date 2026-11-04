@@ -222,4 +222,4 @@ They run as serial commands against the one shipping image — there is no separ
 [value](NAME) texts are updated by:
 - `/hardware/assembly/_firmware_and_commissioning_sync.py`
 
-The ASSE vent terminates visibly over the sink through the separate OVER circuit. J4 IO23/IO27 are reserved and unpopulated; commissioning records the open outlet and clear hose/tube route per [ASSE drain assembly](/hardware/assembly/asse-drain.md).
+The ASSE vent terminates visibly over the sink through the separate DRAIN circuit. J4 IO23/IO27 are reserved and unpopulated; commissioning records the open outlet and clear hose/tube route per [ASSE drain assembly](/hardware/assembly/asse-drain.md).
