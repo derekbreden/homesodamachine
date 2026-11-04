@@ -206,48 +206,5 @@ def main() -> None:
         print(f"  {output}")
 
 
-_NATIVE_BUILDERS = (
-    "_vector",
-    "_unit",
-    "_cylinder",
-    "_ring",
-    "_tube",
-    "_swept_round",
-    "_branch_points",
-    "_branch",
-    "_bore_witness",
-    "_add",
-    "_pp0208e_parts",
-    "_add_tee",
-    "_canonical_union_parts",
-    "_add_union",
-    "_add_source_line",
-    "_add_original_line",
-    "_add_assembly_stub",
-    "_add_connected_branch",
-    "_add_shipped_assembly",
-    "build_release_ready",
-    "build_release_pressed",
-    "build_release_withdrawn",
-    "_tee_scene",
-    "build_tee_assembly_ready",
-    "build_tee_line_ready",
-    "build_tee_complete",
-    "_add_modern_shutoff",
-    "build_water_on",
-    "build_water_off",
-    "_export_scene",
-)
-
-def __getattr__(name):
-    """Keep manual native builders outside the normal Rust scene driver."""
-    if name not in _NATIVE_BUILDERS:
-        raise AttributeError(name)
-    from _plumbing_native import load
-    native = load(sys.modules[__name__], 'modern')
-    globals().update({key: getattr(native, key) for key in _NATIVE_BUILDERS})
-    return globals()[name]
-
-
 if __name__ == "__main__":
     main()
