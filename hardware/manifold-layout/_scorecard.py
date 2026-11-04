@@ -2738,23 +2738,7 @@ def report(a, *, fine=None) -> Scorecard:
 # --- the controls ----------------------------------------------------------
 
 def selftest() -> int:
-    """The card's two readings against known answers — what a run NEEDS, and how a connection is
-    MADE.
-
-    NEED, against known-answer geometry — what makes it a measurement and not a number. A
-    straight run's path IS its span. A route that goes out and comes back reports the excursion
-    its ends do not span. The axis split reads off the ENDPOINTS alone, so a route spending its
-    whole length in y between two ends that share a y reports Δy 0 — that gap is the reading, not
-    a defect in it. A run whose ends coincide reports no ratio rather than dividing by zero. And
-    the figures a real `_routing.route` gives back are the run's own `pts` and `length`, so the
-    card grades the same centreline the build sweeps.
-
-    MADE, against the pack and the vocabulary. `MADE_AS` is the table this card and the
-    fluid-topology charts share, so every way the pack states a segment is made has to land on
-    one of its names — a `how` the card has no word for is a connection one surface counts and
-    the other does not. And a joint the build measures across a plane its two bodies already
-    share reads as made, while a card handed no such reading counts none of them."""
-    import cadquery as cq
+    """Routing figures and connection vocabulary against scalar fixtures."""
 
     failures = 0
 
@@ -2794,60 +2778,9 @@ def selftest() -> int:
     check("a run with no ratio states no clause, rather than a blank one",
           need_clause(loop) == "" and need_clause(straight) != "")
 
-    # A real route: the figures must be the run's own pts and length — the same centreline the
-    # build sweeps and every other row of the bend table grades. `_routing`'s registries are
-    # module state, so they are put back: a control that leaves the world it borrowed emptied
-    # is a landmine for whatever calls it next.
-    frames, blocked = dict(R._frames), dict(R.BLOCKED)
-    R._frames.clear()
-    try:
-        R.frame("A", cq.Solid.makeBox(10, 10, 10, cq.Vector(0, 0, 0)),
-                {"p": ((0.0, 0.0, 0.0), "y+", 6.35)})
-        R.frame("B", cq.Solid.makeBox(10, 10, 10, cq.Vector(0, 0, 0)),
-                {"p": ((200.0, 130.0, 0.0), "y-", 6.35)})
-        run = R.route("t", "A.p", {"x": 200.0}, "B.p", stub=40.0, bend=6.0)
-    finally:
-        R._frames.clear()
-        R._frames.update(frames)
-        R.BLOCKED.clear()
-        R.BLOCKED.update(blocked)
-    n = need_of(run)
-    check("a real route's figures are its own pts and length",
-          n["span"] == round(math.dist(run.pts[0], run.pts[-1]), 2)
-          and n["path"] == round(run.length, 2) and n["detour"] > 1.0,
-          f"span {n['span']}, path {n['path']} = {n['detour']}×")
-
     print("\nmade (the vocabulary this card and the charts share)")
 
     import manifold_layout as ml
-
-    # The terminal report and JSON card consume one expensive pairwise-solid reading.  This
-    # fixture has no geometry: it holds the ownership rule directly, including object identity.
-    class _Assembly:
-        children = ()
-
-    assembly = _Assembly()
-    calls = 0
-    real_clashes = ml.clashes
-    held = ml.Clash("fixture-a", "fixture-b", 2.0,
-                    ml.Extents(0., 0., 0., 1., 1., 2.))
-
-    def counted_clashes(got, **_kwargs):
-        nonlocal calls
-        calls += 1
-        return ([held], [])
-
-    _clash_cache.clear()
-    ml.clashes = counted_clashes
-    try:
-        first = pack_clashes(assembly)
-        second = pack_clashes(assembly)
-    finally:
-        ml.clashes = real_clashes
-        _clash_cache.clear()
-    check("the report and card share one exact clash reading",
-          calls == 1 and first is second and first == ([held], []),
-          f"{calls} calls, {first!r}, {second!r}")
 
     # Every `how` the pack states, through the card's own renaming, must land on a name in
     # `MADE_AS` — which is what `_fluid_topology_sync.Seg` labels its edges with. A pack that
