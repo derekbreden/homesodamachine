@@ -1,0 +1,255 @@
+foam-cap-lid-top.stl · 37598 printed facets · 28 findings · 10 answered
+answers: hardware/printed-parts/lint-answers/cold-core/foam-cap/foam-cap-lid-top.lint-answers · read hardware/printed-parts/lint-answers/AGENTS.md before writing one
+
+  [ceiling] 68 mm² flat print-down face at z=14.179 · 24.0 × 2.9 mm · drop 5.5–5.5 mm to material below
+    file: hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=-75.993 y=17.473 z=14.179
+    click: x=-75.993 y=17.473 z=14.179
+
+  [ceiling] 68 mm² flat print-down face at z=14.179 · 24.0 × 2.8 mm · drop 5.5–5.5 mm to material below
+    file: hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=-75.993 y=-47.836 z=14.179
+    click: x=-75.993 y=-47.836 z=14.179
+
+  [ceiling] 50 mm² flat print-down face at z=14.179 · 17.5 × 2.9 mm · drop 5.5–5.5 mm to material below
+    file: hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=-110.259 y=17.473 z=14.179
+    click: x=-110.259 y=17.473 z=14.179
+
+  [ceiling] 50 mm² flat print-down face at z=14.179 · 17.5 × 2.8 mm · drop 5.5–5.5 mm to material below
+    file: hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=-110.259 y=-47.836 z=14.179
+    click: x=-110.259 y=-47.836 z=14.179
+
+  [thin] 1.520 mm of material at its thinnest · 29.1 mm² of surface under 2.5 mm · spans 2.1 × 6.0 × 3.5 mm · in 7 pieces
+    file: hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step
+    click: x=61.309 y=23.603 z=50.653
+    click: x=59.812 y=23.603 z=50.394
+    answered: Specific 4 mm flavor-line flexures: these four free jaws use the C2 profile scaled from the 6.35 mm section to the 4 mm bore, giving a 1.52 mm working jaw. Their mouths permit direct press-in insertion; the filled roots retain 3 mm stock. The smaller section is a defined spring, with no transferred claim about measured force or fatigue.
+    alternatives: A 3 mm jaw changes the spring section and mouth compliance. Filling above the tube equator closes the loading mouth; a rigid saddle with a separate closure adds a part and an assembly step.
+
+  [thin] 1.520 mm of material at its thinnest · 51.7 mm² of surface under 2.5 mm · spans 6.1 × 2.1 × 4.5 mm · in 5 pieces
+    file: hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step
+    click: x=-93.200 y=36.856 z=18.871
+    click: x=-93.200 y=38.245 z=19.487
+    answered: Specific 4 mm flavor-line flexures: these four free jaws use the C2 profile scaled from the 6.35 mm section to the 4 mm bore, giving a 1.52 mm working jaw. Their mouths permit direct press-in insertion; the filled roots retain 3 mm stock. The smaller section is a defined spring, with no transferred claim about measured force or fatigue.
+    alternatives: A 3 mm jaw changes the spring section and mouth compliance. Filling above the tube equator closes the loading mouth; a rigid saddle with a separate closure adds a part and an assembly step.
+
+  [thin] 1.520 mm of material at its thinnest · 51.7 mm² of surface under 2.5 mm · spans 6.1 × 2.1 × 4.5 mm · in 5 pieces
+    file: hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step
+    click: x=-93.200 y=33.150 z=18.882
+    click: x=-93.200 y=31.792 z=19.565
+    answered: Specific 4 mm flavor-line flexures: these four free jaws use the C2 profile scaled from the 6.35 mm section to the 4 mm bore, giving a 1.52 mm working jaw. Their mouths permit direct press-in insertion; the filled roots retain 3 mm stock. The smaller section is a defined spring, with no transferred claim about measured force or fatigue.
+    alternatives: A 3 mm jaw changes the spring section and mouth compliance. Filling above the tube equator closes the loading mouth; a rigid saddle with a separate closure adds a part and an assembly step.
+
+  [thin] 1.520 mm of material at its thinnest · 53.6 mm² of surface under 2.5 mm · spans 2.1 × 5.9 × 4.5 mm · in 5 pieces
+    file: hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step
+    click: x=54.397 y=23.603 z=51.078
+    click: x=55.840 y=23.603 z=50.601
+    answered: Specific 4 mm flavor-line flexures: these four free jaws use the C2 profile scaled from the 6.35 mm section to the 4 mm bore, giving a 1.52 mm working jaw. Their mouths permit direct press-in insertion; the filled roots retain 3 mm stock. The smaller section is a defined spring, with no transferred claim about measured force or fatigue.
+    alternatives: A 3 mm jaw changes the spring section and mouth compliance. Filling above the tube equator closes the loading mouth; a rigid saddle with a separate closure adds a part and an assembly step.
+
+  [thin] 2.200 mm of material at its thinnest · 219.9 mm² of surface under 2.5 mm · spans 33.6 × 3.7 × 2.5 mm · in 17 pieces
+    file: hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step
+    click: x=132.305 y=-43.498 z=7.400
+    click: x=132.305 y=-43.500 z=5.200
+    answered: Specific straight B-fill passage roof: the Ø6.8 round passage and its 0.25 mm supported-roof allowance leave 2.20 mm of stock beneath the Z253.4 equipment face, at native Z5.20–7.40. This is the straight tube entrance leading to the separate R14 holder clearance window; the holder remains with the tube and cured foam. Its current native slice has one support body accessible through the open B-fill window before loading the tube.
+    alternatives: A 3 mm roof above the same passage grows 0.8 mm above the equipment face, into the PCB/service envelope. Lowering the roof reduces the selected tube passage; moving the passage changes its fixed fore entrance and reservoir route. Opening its full straight top removes the tube-bearing roof and the solid dry-seam surface under the foil.
+
+  [thin] 2.250 mm of material at its thinnest · 46.3 mm² of surface under 2.5 mm · spans 9.2 × 9.0 × 2.2 mm · in 6 pieces
+    file: hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step
+    click: x=-139.647 y=-64.132 z=0.000
+    click: x=-139.647 y=-64.132 z=2.250
+    answered: Specific M5 head-bearing floors: each outward-open Ø9 head pocket leaves 2.25 mm of solid floor below the 5.15 mm recess in the uniform 7.4 mm lid. The selected Ø8.5 × 5 mm screw heads sit 0.15 mm below its outside face. These floors are the clamped layer between each head and the continuous Ø11.6 shell host. The local native print regions make every head bearing solid.
+    alternatives: A 3 mm floor with the same recess raises the equipment face by 0.75 mm; keeping that face instead leaves the screw heads 0.60 mm proud. Shallower head pockets lose the recessed head/driver envelope. Moving the shared clamp stations changes both closures and the shell hosts.
+
+  [thin] 2.250 mm of material at its thinnest · 51.2 mm² of surface under 2.5 mm · spans 9.2 × 9.0 × 2.2 mm · in 3 pieces
+    file: hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step
+    click: x=-139.641 y=-2.453 z=0.000
+    click: x=-139.641 y=-2.453 z=2.250
+    answered: Specific M5 head-bearing floors: each outward-open Ø9 head pocket leaves 2.25 mm of solid floor below the 5.15 mm recess in the uniform 7.4 mm lid. The selected Ø8.5 × 5 mm screw heads sit 0.15 mm below its outside face. These floors are the clamped layer between each head and the continuous Ø11.6 shell host. The local native print regions make every head bearing solid.
+    alternatives: A 3 mm floor with the same recess raises the equipment face by 0.75 mm; keeping that face instead leaves the screw heads 0.60 mm proud. Shallower head pockets lose the recessed head/driver envelope. Moving the shared clamp stations changes both closures and the shell hosts.
+
+  [thin] 2.250 mm of material at its thinnest · 53.0 mm² of surface under 2.5 mm · spans 9.2 × 9.0 × 2.2 mm · in 5 pieces
+    file: hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step
+    click: x=-138.523 y=62.978 z=0.000
+    click: x=-138.523 y=62.978 z=2.250
+    answered: Specific M5 head-bearing floors: each outward-open Ø9 head pocket leaves 2.25 mm of solid floor below the 5.15 mm recess in the uniform 7.4 mm lid. The selected Ø8.5 × 5 mm screw heads sit 0.15 mm below its outside face. These floors are the clamped layer between each head and the continuous Ø11.6 shell host. The local native print regions make every head bearing solid.
+    alternatives: A 3 mm floor with the same recess raises the equipment face by 0.75 mm; keeping that face instead leaves the screw heads 0.60 mm proud. Shallower head pockets lose the recessed head/driver envelope. Moving the shared clamp stations changes both closures and the shell hosts.
+
+  [thin] 2.250 mm of material at its thinnest · 50.2 mm² of surface under 2.5 mm · spans 8.9 × 9.2 × 2.2 mm · in 3 pieces
+    file: hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step
+    click: x=-114.461 y=-87.130 z=0.000
+    click: x=-114.461 y=-87.130 z=2.250
+    answered: Specific M5 head-bearing floors: each outward-open Ø9 head pocket leaves 2.25 mm of solid floor below the 5.15 mm recess in the uniform 7.4 mm lid. The selected Ø8.5 × 5 mm screw heads sit 0.15 mm below its outside face. These floors are the clamped layer between each head and the continuous Ø11.6 shell host. The local native print regions make every head bearing solid.
+    alternatives: A 3 mm floor with the same recess raises the equipment face by 0.75 mm; keeping that face instead leaves the screw heads 0.60 mm proud. Shallower head pockets lose the recessed head/driver envelope. Moving the shared clamp stations changes both closures and the shell hosts.
+
+  [thin] 2.250 mm of material at its thinnest · 51.2 mm² of surface under 2.5 mm · spans 9.0 × 9.2 × 2.2 mm · in 3 pieces
+    file: hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step
+    click: x=-40.950 y=-89.060 z=0.000
+    click: x=-40.950 y=-89.060 z=2.250
+    answered: Specific M5 head-bearing floors: each outward-open Ø9 head pocket leaves 2.25 mm of solid floor below the 5.15 mm recess in the uniform 7.4 mm lid. The selected Ø8.5 × 5 mm screw heads sit 0.15 mm below its outside face. These floors are the clamped layer between each head and the continuous Ø11.6 shell host. The local native print regions make every head bearing solid.
+    alternatives: A 3 mm floor with the same recess raises the equipment face by 0.75 mm; keeping that face instead leaves the screw heads 0.60 mm proud. Shallower head pockets lose the recessed head/driver envelope. Moving the shared clamp stations changes both closures and the shell hosts.
+
+  [thin] 2.250 mm of material at its thinnest · 51.3 mm² of surface under 2.5 mm · spans 9.0 × 9.2 × 2.2 mm · in 4 pieces
+    file: hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step
+    click: x=-112.377 y=80.809 z=0.000
+    click: x=-112.377 y=80.809 z=2.250
+    answered: Specific M5 head-bearing floors: each outward-open Ø9 head pocket leaves 2.25 mm of solid floor below the 5.15 mm recess in the uniform 7.4 mm lid. The selected Ø8.5 × 5 mm screw heads sit 0.15 mm below its outside face. These floors are the clamped layer between each head and the continuous Ø11.6 shell host. The local native print regions make every head bearing solid.
+    alternatives: A 3 mm floor with the same recess raises the equipment face by 0.75 mm; keeping that face instead leaves the screw heads 0.60 mm proud. Shallower head pockets lose the recessed head/driver envelope. Moving the shared clamp stations changes both closures and the shell hosts.
+
+  [thin] 2.250 mm of material at its thinnest · 50.8 mm² of surface under 2.5 mm · spans 8.9 × 9.2 × 2.2 mm · in 5 pieces
+    file: hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step
+    click: x=-49.350 y=89.005 z=0.000
+    click: x=-49.350 y=89.005 z=2.250
+    answered: Specific M5 head-bearing floors: each outward-open Ø9 head pocket leaves 2.25 mm of solid floor below the 5.15 mm recess in the uniform 7.4 mm lid. The selected Ø8.5 × 5 mm screw heads sit 0.15 mm below its outside face. These floors are the clamped layer between each head and the continuous Ø11.6 shell host. The local native print regions make every head bearing solid.
+    alternatives: A 3 mm floor with the same recess raises the equipment face by 0.75 mm; keeping that face instead leaves the screw heads 0.60 mm proud. Shallower head pockets lose the recessed head/driver envelope. Moving the shared clamp stations changes both closures and the shell hosts.
+
+  [thin] 2.250 mm of material at its thinnest · 47.1 mm² of surface under 2.5 mm · spans 9.2 × 9.0 × 2.2 mm · in 4 pieces
+    file: hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step
+    click: x=132.775 y=-56.722 z=0.000
+    click: x=132.775 y=-56.722 z=2.250
+    answered: Specific M5 head-bearing floors: each outward-open Ø9 head pocket leaves 2.25 mm of solid floor below the 5.15 mm recess in the uniform 7.4 mm lid. The selected Ø8.5 × 5 mm screw heads sit 0.15 mm below its outside face. These floors are the clamped layer between each head and the continuous Ø11.6 shell host. The local native print regions make every head bearing solid.
+    alternatives: A 3 mm floor with the same recess raises the equipment face by 0.75 mm; keeping that face instead leaves the screw heads 0.60 mm proud. Shallower head pockets lose the recessed head/driver envelope. Moving the shared clamp stations changes both closures and the shell hosts.
+
+  [thin] 2.250 mm of material at its thinnest · 55.4 mm² of surface under 2.5 mm · spans 9.2 × 9.0 × 2.2 mm · in 4 pieces
+    file: hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step
+    click: x=131.855 y=57.931 z=0.000
+    click: x=131.855 y=57.931 z=2.250
+    answered: Specific M5 head-bearing floors: each outward-open Ø9 head pocket leaves 2.25 mm of solid floor below the 5.15 mm recess in the uniform 7.4 mm lid. The selected Ø8.5 × 5 mm screw heads sit 0.15 mm below its outside face. These floors are the clamped layer between each head and the continuous Ø11.6 shell host. The local native print regions make every head bearing solid.
+    alternatives: A 3 mm floor with the same recess raises the equipment face by 0.75 mm; keeping that face instead leaves the screw heads 0.60 mm proud. Shallower head pockets lose the recessed head/driver envelope. Moving the shared clamp stations changes both closures and the shell hosts.
+
+  [thin] 2.250 mm of material at its thinnest · 47.6 mm² of surface under 2.5 mm · spans 9.1 × 9.0 × 2.2 mm · in 4 pieces
+    file: hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step
+    click: x=134.749 y=-4.127 z=0.000
+    click: x=134.749 y=-4.127 z=2.250
+    answered: Specific M5 head-bearing floors: each outward-open Ø9 head pocket leaves 2.25 mm of solid floor below the 5.15 mm recess in the uniform 7.4 mm lid. The selected Ø8.5 × 5 mm screw heads sit 0.15 mm below its outside face. These floors are the clamped layer between each head and the continuous Ø11.6 shell host. The local native print regions make every head bearing solid.
+    alternatives: A 3 mm floor with the same recess raises the equipment face by 0.75 mm; keeping that face instead leaves the screw heads 0.60 mm proud. Shallower head pockets lose the recessed head/driver envelope. Moving the shared clamp stations changes both closures and the shell hosts.
+
+  [thin] 2.274 mm of material at its thinnest · 1.9 mm² of surface under 2.5 mm · spans 0.0 × 2.1 × 0.2 mm
+    file: hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step
+    click: x=-141.200 y=-32.756 z=5.489
+    click: x=-139.408 y=-32.712 z=6.889
+    answered: Retained leaning-line entry at native X−134.5/Y−32.5: the Ø7.5 mm conduit opens through the outer 2 mm of the lid as a 38-degree countersink. The ranked 2.20–2.49 mm section is between this conical tube-bearing mouth and the fixed casing edge. It is the entry profile for the leaning line.
+    alternatives: A 3 mm rim requires moving the conduit inward or narrowing the countersink. The first moves its cup column and installed route; the second reduces the specified 38-degree tube-exit allowance.
+
+  [thin] 2.399 mm of material at its thinnest · 27.3 mm² of surface under 2.5 mm · spans 5.1 × 2.8 × 3.7 mm · in 3 pieces
+    file: hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step
+    click: x=115.053 y=69.573 z=12.585
+    click: x=115.053 y=67.174 z=12.527
+    answered: Deliberate functional C2 spring section: these ranked surface groups belong to the six free jaws above the tube equators, four on the fore Reservoir A pair and two on the V-A feed seat. Their measured 2.400 mm wall is the C2 section Derek selected with the 6.35 mm bore on Mark2 task 1379240291, recorded in future/snap-fit-tests/2026-10-26-mark2-combined/physical-result.json. Ordinary stock below the equators remains filled; the V-A seat has a full-width root from the plain lid to its Z268.970 tube axis. Only the working upper jaws use this specific flexure exception. This answer preserves the thinness ranking and establishes no full-lid force, lifetime or print result.
+    alternatives: Increasing the jaws to 3 mm while keeping the same bore increases each outer radius by 0.6 mm and changes the selected spring section. On the fore pair it also consumes 1.2 mm of spread space: preserving the current conservative 1 mm-per-jaw envelope and its 0.35 mm opposing gap requires wider tube spacing and another routing change. Filling above the equators joins the free jaws and closes the press-in mouths. A rigid cradle with a separate closure adds a part and an assembly step instead of providing the selected direct snap.
+
+  [thin] 2.399 mm of material at its thinnest · 26.7 mm² of surface under 2.5 mm · spans 2.8 × 5.2 × 3.7 mm · in 3 pieces
+    file: hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step
+    click: x=111.110 y=17.587 z=24.407
+    click: x=113.422 y=17.597 z=23.767
+    answered: Deliberate functional C2 spring section: these ranked surface groups belong to the six free jaws above the tube equators, four on the fore Reservoir A pair and two on the V-A feed seat. Their measured 2.400 mm wall is the C2 section Derek selected with the 6.35 mm bore on Mark2 task 1379240291, recorded in future/snap-fit-tests/2026-10-26-mark2-combined/physical-result.json. Ordinary stock below the equators remains filled; the V-A seat has a full-width root from the plain lid to its Z268.970 tube axis. Only the working upper jaws use this specific flexure exception. This answer preserves the thinness ranking and establishes no full-lid force, lifetime or print result.
+    alternatives: Increasing the jaws to 3 mm while keeping the same bore increases each outer radius by 0.6 mm and changes the selected spring section. On the fore pair it also consumes 1.2 mm of spread space: preserving the current conservative 1 mm-per-jaw envelope and its 0.35 mm opposing gap requires wider tube spacing and another routing change. Filling above the equators joins the free jaws and closes the press-in mouths. A rigid cradle with a separate closure adds a part and an assembly step instead of providing the selected direct snap.
+
+  [thin] 2.399 mm of material at its thinnest · 26.7 mm² of surface under 2.5 mm · spans 2.8 × 5.2 × 3.7 mm · in 3 pieces
+    file: hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step
+    click: x=121.889 y=15.628 z=24.407
+    click: x=119.577 y=15.618 z=23.767
+    answered: Deliberate functional C2 spring section: these ranked surface groups belong to the six free jaws above the tube equators, four on the fore Reservoir A pair and two on the V-A feed seat. Their measured 2.400 mm wall is the C2 section Derek selected with the 6.35 mm bore on Mark2 task 1379240291, recorded in future/snap-fit-tests/2026-10-26-mark2-combined/physical-result.json. Ordinary stock below the equators remains filled; the V-A seat has a full-width root from the plain lid to its Z268.970 tube axis. Only the working upper jaws use this specific flexure exception. This answer preserves the thinness ranking and establishes no full-lid force, lifetime or print result.
+    alternatives: Increasing the jaws to 3 mm while keeping the same bore increases each outer radius by 0.6 mm and changes the selected spring section. On the fore pair it also consumes 1.2 mm of spread space: preserving the current conservative 1 mm-per-jaw envelope and its 0.35 mm opposing gap requires wider tube spacing and another routing change. Filling above the equators joins the free jaws and closes the press-in mouths. A rigid cradle with a separate closure adds a part and an assembly step instead of providing the selected direct snap.
+
+  [thin] 2.399 mm of material at its thinnest · 27.3 mm² of surface under 2.5 mm · spans 5.1 × 2.8 × 3.7 mm · in 3 pieces
+    file: hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step
+    click: x=115.053 y=45.319 z=14.554
+    click: x=115.053 y=47.557 z=13.690
+    answered: Deliberate functional C2 spring section: these ranked surface groups belong to the six free jaws above the tube equators, four on the fore Reservoir A pair and two on the V-A feed seat. Their measured 2.400 mm wall is the C2 section Derek selected with the 6.35 mm bore on Mark2 task 1379240291, recorded in future/snap-fit-tests/2026-10-26-mark2-combined/physical-result.json. Ordinary stock below the equators remains filled; the V-A seat has a full-width root from the plain lid to its Z268.970 tube axis. Only the working upper jaws use this specific flexure exception. This answer preserves the thinness ranking and establishes no full-lid force, lifetime or print result.
+    alternatives: Increasing the jaws to 3 mm while keeping the same bore increases each outer radius by 0.6 mm and changes the selected spring section. On the fore pair it also consumes 1.2 mm of spread space: preserving the current conservative 1 mm-per-jaw envelope and its 0.35 mm opposing gap requires wider tube spacing and another routing change. Filling above the equators joins the free jaws and closes the press-in mouths. A rigid cradle with a separate closure adds a part and an assembly step instead of providing the selected direct snap.
+
+  [thin] 2.399 mm of material at its thinnest · 36.1 mm² of surface under 2.5 mm · spans 2.0 × 7.9 × 2.8 mm · in 8 pieces
+    file: hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step
+    click: x=115.053 y=58.819 z=14.554
+    click: x=115.053 y=61.057 z=13.690
+    answered: Deliberate functional C2 spring section: these ranked surface groups belong to the six free jaws above the tube equators, four on the fore Reservoir A pair and two on the V-A feed seat. Their measured 2.400 mm wall is the C2 section Derek selected with the 6.35 mm bore on Mark2 task 1379240291, recorded in future/snap-fit-tests/2026-10-26-mark2-combined/physical-result.json. Ordinary stock below the equators remains filled; the V-A seat has a full-width root from the plain lid to its Z268.970 tube axis. Only the working upper jaws use this specific flexure exception. This answer preserves the thinness ranking and establishes no full-lid force, lifetime or print result.
+    alternatives: Increasing the jaws to 3 mm while keeping the same bore increases each outer radius by 0.6 mm and changes the selected spring section. On the fore pair it also consumes 1.2 mm of spread space: preserving the current conservative 1 mm-per-jaw envelope and its 0.35 mm opposing gap requires wider tube spacing and another routing change. Filling above the equators joins the free jaws and closes the press-in mouths. A rigid cradle with a separate closure adds a part and an assembly step instead of providing the selected direct snap.
+
+  [ledge] 12.00 mm² flat face 0° off facing the bed · 16.0 × 0.8 mm · 23.7 mm up
+    file: hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=128.533 y=74.950 z=23.700
+    click: x=128.533 y=74.950 z=23.700
+    answered: Functional flat retaining undersides of the J1/J2 cable hooks. Each 12 mm2 face is the 0.75 mm projection across the 16 mm cable span, backed by 3 mm hook stock. Its flat underside catches the leads beneath the 45-degree entry. The 2.2 mm seat depth, lip and entry follow the accepted cable-hook section; the installed seven-lead J1 grouping has its own physical-fit scope. Tree(auto)/Default supplies the current native support decisions.
+    alternatives: Removing or sloping the retaining underside changes the selected cable capture; filling beneath it closes the cable seat. The overhang is the named retaining interface, rather than a cut remnant between unrelated features.
+
+  [ledge] 12.00 mm² flat face 0° off facing the bed · 16.0 × 0.8 mm · 20.0 mm up
+    file: hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=-102.867 y=-73.050 z=20.000
+    click: x=-102.867 y=-73.050 z=20.000
+    answered: Functional flat catch of the approved Reservoir A level-lead hook. The accepted 0.75 mm retaining projection and 1.45 mm mouth retain nominal 1.70 mm insulated leads; the entry chamfer is on the opposite side of this face.
+    alternatives: A sloped underside lets the cable cam out through the mouth. Increasing the projection to 3 mm requires a 4.45 mm deep seat to preserve the mouth, adding 2.25 mm of movement behind the catch. Filling the entry prevents insertion from above.
+
+  [ledge] 12.00 mm² flat face 0° off facing the bed · 16.0 × 0.8 mm · 18.1 mm up
+    file: hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=128.533 y=80.150 z=18.150
+    click: x=128.533 y=80.150 z=18.150
+    answered: Functional flat retaining undersides of the J1/J2 cable hooks. Each 12 mm2 face is the 0.75 mm projection across the 16 mm cable span, backed by 3 mm hook stock. Its flat underside catches the leads beneath the 45-degree entry. The 2.2 mm seat depth, lip and entry follow the accepted cable-hook section; the installed seven-lead J1 grouping has its own physical-fit scope. Tree(auto)/Default supplies the current native support decisions.
+    alternatives: Removing or sloping the retaining underside changes the selected cable capture; filling beneath it closes the cable seat. The overhang is the named retaining interface, rather than a cut remnant between unrelated features.
+
+  [sliver · answered] R1.5 pump-spring root clearance: this 1.25 mm horizontal step is the difference between the spring-root relief and the catch neck. The relief includes 0.25 mm running allowance around the 2 mm leaf root while the deeper pocket retains the full 2.60 mm caught bearing. Both mouths open along the complete cap length.
+    alternatives: Filling the root relief interferes with the R1.5 fillet. Carrying the relief through the whole pocket removes part of the caught bearing; narrowing the fillet changes the selected spring root.
+    1.250 mm strip, 55.0 mm long
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=-91.518 y=18.273 z=34.279
+    edge: x=-64.018 y=18.273 z=34.279 → x=-119.018 y=18.273 z=34.279 · len 55.000 · straight · dir x=-1.000 y=0.000 z=0.000
+    click: x=-91.518 y=18.273 z=34.279
+
+  [sliver · answered] R1.5 pump-spring root clearance: this 1.25 mm horizontal step is the difference between the spring-root relief and the catch neck. The relief includes 0.25 mm running allowance around the 2 mm leaf root while the deeper pocket retains the full 2.60 mm caught bearing. Both mouths open along the complete cap length.
+    alternatives: Filling the root relief interferes with the R1.5 fillet. Carrying the relief through the whole pocket removes part of the caught bearing; narrowing the fillet changes the selected spring root.
+    1.250 mm strip, 55.0 mm long
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=-91.518 y=-48.636 z=34.279
+    edge: x=-64.018 y=-48.636 z=34.279 → x=-119.018 y=-48.636 z=34.279 · len 55.000 · straight · dir x=-1.000 y=0.000 z=0.000
+    click: x=-91.518 y=-48.636 z=34.279
+
+  [sliver · answered] The strip reading measures the 0.75 mm projection of each functional J1/J2 retaining lip, not the hook's material thickness. Each lip has 3 mm stock behind its flat underside and spans the bank's full 16 mm cable width. The 2.2 mm seat depth, 0.75 mm lip and 45-degree entry use the accepted cable-hook section. The two lips retain the front-going leads in the separate J1 and J2 cavities; the seven-lead J1 grouping retains its stated physical-fit scope.
+    alternatives: Removing the projection opens the retaining mouth to the full seat depth and removes the selected capture. Filling below it occupies the cable cavity. Thickening the projection into that cavity changes the accepted entry and retention section. This finding conflates the functional lip's reach with a thin structural wall.
+    0.750 mm strip, 16.0 mm long
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=131.200 y=74.825 z=23.700
+    edge: x=139.200 y=74.825 z=23.700 → x=123.200 y=74.825 z=23.700 · len 16.000 · straight · dir x=-1.000 y=0.000 z=0.000
+    click: x=131.200 y=74.825 z=23.700
+
+  [sliver · answered] Functional retaining underside of the approved Reservoir A level-lead hook. Its 0.75 mm projection closes the 2.20 mm seat to a 1.45 mm entry mouth for nominal 1.70 mm insulation, matching the accepted cable clip's entry section. The flat underside catches the five leads after insertion. The hook's walls and full floor retain 3 mm structural stock.
+    alternatives: A 3 mm projection closes this seat completely; retaining the same mouth with that projection requires a 4.45 mm deep seat, adding 2.25 mm of cable movement behind the catch. Reducing the projection opens the mouth toward the conductor diameter. Sloping the underside supplies an exit ramp instead of a flat catch.
+    0.750 mm strip, 16.0 mm long
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=-100.200 y=-73.175 z=20.000
+    edge: x=-92.200 y=-73.175 z=20.000 → x=-108.200 y=-73.175 z=20.000 · len 16.000 · straight · dir x=-1.000 y=0.000 z=0.000
+    click: x=-100.200 y=-73.175 z=20.000
+
+  [sliver · answered] The strip reading measures the 0.75 mm projection of each functional J1/J2 retaining lip, not the hook's material thickness. Each lip has 3 mm stock behind its flat underside and spans the bank's full 16 mm cable width. The 2.2 mm seat depth, 0.75 mm lip and 45-degree entry use the accepted cable-hook section. The two lips retain the front-going leads in the separate J1 and J2 cavities; the seven-lead J1 grouping retains its stated physical-fit scope.
+    alternatives: Removing the projection opens the retaining mouth to the full seat depth and removes the selected capture. Filling below it occupies the cable cavity. Thickening the projection into that cavity changes the accepted entry and retention section. This finding conflates the functional lip's reach with a thin structural wall.
+    0.750 mm strip, 16.0 mm long
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=131.200 y=80.025 z=18.150
+    edge: x=139.200 y=80.025 z=18.150 → x=123.200 y=80.025 z=18.150 · len 16.000 · straight · dir x=-1.000 y=0.000 z=0.000
+    click: x=131.200 y=80.025 z=18.150
+
+  [ceiling · answered] Functional upper end walls of the four rotated WAGO wells. Each flat 9.4 × 8.7 mm underside closes the rectangular pocket at one end of its 19.1 mm vertical body allowance, with 3 mm stock above it. The rear half of the connector slides into this rectangular seat along its own Y axis; its levers and the west face remain accessible. Tree(auto)/Default retains its automatic supports, which are removed through the open well mouth. The current native slice records their placement; physical release remains unmeasured.
+    alternatives: Filling the pocket below this end wall occupies the WAGO body. Sloping the underside enters that rectangular body allowance; retaining it with a thicker rising section raises the upper row toward the funnel frame. Opening the end removes axial capture of the connector. The current end wall preserves its purchased rectangular mating envelope.
+    82 mm² flat print-down face at z=50.650 · 9.5 × 8.7 mm · drop 19.1–19.1 mm to material below
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=74.981 y=17.500 z=50.650
+    click: x=74.981 y=17.500 z=50.650
+
+  [ceiling · answered] Functional upper end walls of the four rotated WAGO wells. Each flat 9.4 × 8.7 mm underside closes the rectangular pocket at one end of its 19.1 mm vertical body allowance, with 3 mm stock above it. The rear half of the connector slides into this rectangular seat along its own Y axis; its levers and the west face remain accessible. Tree(auto)/Default retains its automatic supports, which are removed through the open well mouth. The current native slice records their placement; physical release remains unmeasured.
+    alternatives: Filling the pocket below this end wall occupies the WAGO body. Sloping the underside enters that rectangular body allowance; retaining it with a thicker rising section raises the upper row toward the funnel frame. Opening the end removes axial capture of the connector. The current end wall preserves its purchased rectangular mating envelope.
+    82 mm² flat print-down face at z=28.550 · 9.5 × 8.7 mm · drop 19.1–19.1 mm to material below
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=74.981 y=17.500 z=28.550
+    click: x=74.981 y=17.500 z=28.550
+
+  [ceiling · answered] Functional upper end walls of the four rotated WAGO wells. Each flat 9.4 × 8.7 mm underside closes the rectangular pocket at one end of its 19.1 mm vertical body allowance, with 3 mm stock above it. The rear half of the connector slides into this rectangular seat along its own Y axis; its levers and the west face remain accessible. Tree(auto)/Default retains its automatic supports, which are removed through the open well mouth. The current native slice records their placement; physical release remains unmeasured.
+    alternatives: Filling the pocket below this end wall occupies the WAGO body. Sloping the underside enters that rectangular body allowance; retaining it with a thicker rising section raises the upper row toward the funnel frame. Opening the end removes axial capture of the connector. The current end wall preserves its purchased rectangular mating envelope.
+    82 mm² flat print-down face at z=50.650 · 9.4 × 8.7 mm · drop 19.1–19.1 mm to material below
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=87.531 y=17.500 z=50.650
+    click: x=87.531 y=17.500 z=50.650
+
+  [ceiling · answered] Functional upper end walls of the four rotated WAGO wells. Each flat 9.4 × 8.7 mm underside closes the rectangular pocket at one end of its 19.1 mm vertical body allowance, with 3 mm stock above it. The rear half of the connector slides into this rectangular seat along its own Y axis; its levers and the west face remain accessible. Tree(auto)/Default retains its automatic supports, which are removed through the open well mouth. The current native slice records their placement; physical release remains unmeasured.
+    alternatives: Filling the pocket below this end wall occupies the WAGO body. Sloping the underside enters that rectangular body allowance; retaining it with a thicker rising section raises the upper row toward the funnel frame. Opening the end removes axial capture of the connector. The current end wall preserves its purchased rectangular mating envelope.
+    82 mm² flat print-down face at z=28.550 · 9.4 × 8.7 mm · drop 19.1–19.1 mm to material below
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=87.531 y=17.500 z=28.550
+    click: x=87.531 y=17.500 z=28.550
+
+  [ceiling · answered] Functional aft paired-seat tie passage: the 3.2 mm-wide open tunnel has 1.575 mm clear height and a full 3 mm roof under the tube-bearing ridge. Its broad transition joins both tube grooves. The current slice bridges across the short X width with complete anchors on both sides and no support inside the passage.
+    alternatives: Opening the roof cuts the tube-bearing ridge; filling the tunnel prevents the tie from passing. A corbel into the passage reduces the selected tie clearance.
+    34 mm² flat print-down face at z=7.175 · 10.6 × 3.2 mm · drop 1.6–1.6 mm to material below
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=-66.700 y=50.763 z=7.175
+    click: x=-66.700 y=50.763 z=7.175

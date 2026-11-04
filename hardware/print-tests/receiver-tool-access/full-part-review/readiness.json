@@ -1,0 +1,104 @@
+{
+  "recorded_at": "2026-11-03T19:23:14.433937-06:00",
+  "source_commit": "f4f3bd435a74718df62af7d05d4a3d1ece44a0ed",
+  "scope": "Manual readiness assessment of the four requested complete production prints, assuming successful review of the current matched snap samples. No printer was contacted and no geometry was changed.",
+  "standard": "Finished usable appliance parts, with the full production geometry, reinforcement, print orientation, show surfaces, support removal and assembly access reviewed.",
+  "decision": "Not ready to release the four complete prints.",
+  "parts": [
+    {
+      "part_number": "HSM-000081",
+      "description": "Enclosure back top",
+      "stl": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl",
+      "stl_sha256": "a609c96acc9182b82dd8bb1a1783f365af03ab8c4f9acca7c8bae56fc3e64a29",
+      "all_seven_surface_classes_read": true,
+      "reader_summary": "enclosure-back-top.stl \u00b7 840722 printed facets \u00b7 52 findings \u00b7 44 answered",
+      "reader_summary_scope": "Classifier output retains named functional findings and answered ranked sections. Counts are not a defect count or a release verdict.",
+      "surface_report": "back-top-surface.txt",
+      "surface_report_sha256": "fafdba9fa02d2c274b18b49868989d853cc6ebaed8239e47bdd3720f18050411",
+      "reinforcement_region_binding": "stale",
+      "current_full_part_native_slice_and_support_review_verified": false
+    },
+    {
+      "part_number": "HSM-000079",
+      "description": "Enclosure front top",
+      "stl": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl",
+      "stl_sha256": "3ecbc26f4d77579bb598c084bc0c1a72d02a6191f1e6d57545069d77719f2069",
+      "all_seven_surface_classes_read": true,
+      "reader_summary": "enclosure-front-top.stl \u00b7 450212 printed facets \u00b7 177 findings \u00b7 14 answered",
+      "reader_summary_scope": "Classifier output retains named functional findings and answered ranked sections. Counts are not a defect count or a release verdict.",
+      "surface_report": "front-top-surface.txt",
+      "surface_report_sha256": "fb08810ec8e382894dbe623583f8e777a4a2ffd0559c7f7b08c012dd2b381617",
+      "reinforcement_region_binding": "stale",
+      "current_full_part_native_slice_and_support_review_verified": false
+    },
+    {
+      "part_number": "HSM-000082",
+      "description": "Lower pump retainer",
+      "stl": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.stl",
+      "stl_sha256": "aa50bbd4756029d7246f30bcc43b12ee2ba0cb27788d9a51d003a3e93464b69d",
+      "all_seven_surface_classes_read": true,
+      "reader_summary": "enclosure-pump-retainer.stl \u00b7 1756 printed facets \u00b7 7 findings \u00b7 5 answered",
+      "reader_summary_scope": "Classifier output retains named functional findings and answered ranked sections. Counts are not a defect count or a release verdict.",
+      "surface_report": "pump-retainer-surface.txt",
+      "surface_report_sha256": "9a3b65b201f24d1b78e0886a710e5a35dc1a0f8d6f0c5b6b6f1fac04af8900eb",
+      "reinforcement_region_binding": "stale",
+      "current_full_part_native_slice_and_support_review_verified": false
+    },
+    {
+      "part_number": "HSM-000020",
+      "description": "Cold-core insulation cap lid top",
+      "stl": "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.stl",
+      "stl_sha256": "256c74ff711a314fbdbcf61201a191109d2c38232cd8d6a6e5540abbf7c1a6db",
+      "all_seven_surface_classes_read": true,
+      "reader_summary": "foam-cap-lid-top.stl \u00b7 37598 printed facets \u00b7 28 findings \u00b7 10 answered",
+      "reader_summary_scope": "Classifier output retains named functional findings and answered ranked sections. Counts are not a defect count or a release verdict.",
+      "surface_report": "foam-cap-lid-top-surface.txt",
+      "surface_report_sha256": "c66a1550ab50fede21a0f1bc63101ef4e66b5baf0f6d6b91314d0c481e4b9d56",
+      "reinforcement_region_binding": "stale",
+      "current_full_part_native_slice_and_support_review_verified": false
+    }
+  ],
+  "remaining_work": [
+    {
+      "area": "Full-part surface review",
+      "work": "Resolve and classify the current exported-part findings, fixing unintended meeting-plane remnants while retaining the approved fitted profiles and the specified working flexures. Existing answers are feature-specific; they do not approve every new or displaced finding."
+    },
+    {
+      "area": "Lower retainer well transitions",
+      "work": "Reconcile the deferred 0.002 mm lower-well profile ledges at Z194.427. The fresh retainer reading confirms the matching left and right strips still exist. They are outside the spring revision and were explicitly not accepted as a finished surface in that revision.",
+      "reference": "hardware/printed-parts/lint-answers/enclosure/enclosure/enclosure-pump-retainer.lint-answers",
+      "locations_mm": [
+        [
+          -16.034,
+          61.806,
+          194.427
+        ],
+        [
+          16.034,
+          61.806,
+          194.427
+        ],
+        [
+          -88.416,
+          61.806,
+          194.427
+        ],
+        [
+          88.416,
+          61.806,
+          194.427
+        ]
+      ]
+    },
+    {
+      "area": "Current manufacturing inputs",
+      "work": "Regenerate the reinforcement-region records against the final complete-part meshes, then prepare and review the four complete native slices: actual dense host deposition, spring orientation, show-surface layer bands, support contacts and removal routes, driver access and full bead bed margins."
+    }
+  ],
+  "retained_work": [
+    "The receiver access and reversible cap service routes are integrated in the full enclosure.",
+    "The latest matched cap/receiver sets and paired cartridge sample retain their own geometric and physical-review scopes.",
+    "Approved hardware bearing profiles and selected thin functional sections are preserved as the basis of the remaining work."
+  ],
+  "qualification_scope": "This is a manual snapshot requested by Derek. It adds no recurring build, edit, commit or launch gate and requests no new physical procedure, destructive test or purchase."
+}
