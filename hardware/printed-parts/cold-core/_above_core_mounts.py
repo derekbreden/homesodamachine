@@ -503,11 +503,6 @@ def meter_support_datums():
     return _back_top_meter().meter_support_datums()
 
 
-def meter_supports():
-    """World-frame wall bearings; these are not native cold-core lid stock."""
-    return _back_top_meter().meter_supports()
-
-
 def _jg_band_radius(leg, first, last):
     """Largest observed fixed-body radius over a named bearing band."""
     import json
@@ -586,7 +581,6 @@ def union_support_cuts():
         passage = cq.Workplane(plane).polyline(data['tie_profile_mm']).close().extrude(80.).val()
         result[name] = world_shape_in_cap(passage)
     return result
-
 
 
 def _tie_arc_point(centre, u, v, radius, angle):

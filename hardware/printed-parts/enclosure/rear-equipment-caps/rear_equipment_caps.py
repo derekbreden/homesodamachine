@@ -12,16 +12,10 @@ if __name__=='__main__':
     import _rust_part
     _rust_part.start()
 
-import cadquery as cq
 import rear_plumbing
-from _cadq_export import export_assembly
-from _materials import M_PETGF_BLACK, linear, one_body
+from _materials import M_PETGF_BLACK, linear
 
 NAMES = ('asse-snap-cap','pisco-snap-cap','meter-snap-cap','regulator-snap-cap')
-
-
-def printable(name):
-    return rear_plumbing.printable_cap(name)
 
 
 def _world_bounds(frame, lo, hi):
