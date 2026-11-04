@@ -18,5 +18,16 @@ parry3d-f64 = { version = "0.25.1", features = ["enhanced-determinism"] }
 [profile.release]
 debug = 1
 
+# Generated recipe modules call hsm-documents' value runtime, which keeps the release
+# optimization. Unoptimized, these two recompile in a fifth to an eighth of the CPU time
+# and their steps run within about 15% of the optimized time.
+[profile.release.package.hsm-enclosure-data]
+opt-level = 0
+debug = 0
+
+[profile.release.package.hsm-cold-core-data]
+opt-level = 0
+debug = 0
+
 [patch.crates-io]
 manifold-csg-sys = { path = "vendor/manifold-csg-sys" }

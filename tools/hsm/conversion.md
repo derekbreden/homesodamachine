@@ -112,6 +112,16 @@ with the existing build trace registries.
 | `build-plan` | Generator action planning, dependency rules, graph projections and BUILD rendering |
 | `hsm-run`, `hsm-run-slots`, `hsm-run-native` | Host admission, inherited run/CAD/compiler leases, process execution, viewer notifications and runtime installation |
 
+The recipe, reader and document modules of `enclosure-data`, `machine-data`, `cold-core-data`
+and `guides` are Rust generated from their Python modules, about 37,700 authored lines. Each
+generated module is one `initialize` function over `hsm_documents::interop::Val`: Python
+names resolve at run time through `Env` scopes, and a module outside the compiled set is
+imported through the Python adapter's callback. No generator is retained, so edits go into
+the generated files. `enclosure-data` and `cold-core-data` compile at opt-level 0 with
+byte-identical outputs; `machine-data` and `guides` keep the release optimization for their
+hand-written mesh, archive and mask loops
+([record](conversion-results/generated-runtime-2026-11-04.json)).
+
 ## Fixed-input evidence
 
 The [earlier geometry and provider record](conversion-results/2026-11-04.json) retains its
@@ -133,6 +143,7 @@ artifact hashes, comparison counts, numerical differences and public type bounda
 - [Publication](conversion-results/publication-final-2026-11-04.json)
 - [Host runtime](conversion-results/runtime-final-2026-11-04.json)
 - [Build support and combined build](conversion-results/build-final-2026-11-04.json)
+- [Generated modules: run and compile cost](conversion-results/generated-runtime-2026-11-04.json)
 
 The CPU and memory goal still needs performance work in Rust. Component reductions and
 incremental build measurements do not establish a matched whole-machine speed or memory gain;
@@ -159,6 +170,7 @@ follows a batch merged to main.
 | Enclosure measurements | Model selections from the same file share one import pass |
 | Installed placement | Reference names and bounds avoid unrelated model data |
 | Fine-model reading | Typed array values decode directly into final vertex and triangle rows |
+| Generated recipe modules | Typed Rust functions and values in place of the generated `Val` modules of `enclosure-data`, `machine-data`, `cold-core-data` and `guides` |
 
 `enclosure.py` and `enclosure_assembly.py` retain their scalar and Rust-driver interfaces without
 native CAD builders or native-mode switches. The automatic local back-top preview uses fresh

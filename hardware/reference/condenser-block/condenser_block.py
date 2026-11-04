@@ -40,8 +40,6 @@ import sys
 from pathlib import Path
 
 import cadquery as cq
-from OCP.BRepClass3d import BRepClass3d_SolidClassifier
-from OCP.gp import gp_Pnt
 
 _here = Path(__file__).resolve()
 _hw = next(p for p in _here.parents if p.name == "hardware")
@@ -124,6 +122,9 @@ def mount_seats():
 def mounts_hold():
     """Hold the mount to the block it is cut in: both holes standing clear of all four sides,
     inside the aft recess's own depth, and material or air where each of those puts it."""
+    from OCP.BRepClass3d import BRepClass3d_SolidClassifier
+    from OCP.gp import gp_Pnt
+
     x, y = mount_xy()
     if not (MOUNT_D / 2.0 < x < AIRFLOW - MOUNT_D / 2.0):
         raise ValueError(
