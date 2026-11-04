@@ -23,8 +23,9 @@ The faucet has four attached tubes, including the small white 4 mm DRAIN tail.
 Viewed from behind the machine, the rear ports read CO2 / TAP across the top,
 SODA / FLAVOR across the middle, and DRAIN / FLAVOR across the bottom. Both black
 faucet tubes connect to the right column's FLAVOR ports in either order. The
-identification cards share square visible color faces, and the nameplate sits
-centered beneath them.
+identification cards share square visible color faces. The 92 × 100 mm First Edition
+nameplate is centred between the rear-corner tangent and the adjacent FLAVOR card,
+with matching edition and unit-number lines and a centred QR code.
 Numbered pages 7–8 (PDF pages 8–9) show the seated plate from below, with a shared
 rear narrow slot for both black flavor tubes, white DRAIN and the flat display ribbon.
 The front wide slot carries the shank; the blue SODA tube connects beneath it.

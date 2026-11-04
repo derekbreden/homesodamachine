@@ -1,6 +1,6 @@
 # Nameplate
 
-A [92 mm](PLATE_W) × [100 mm](PLATE_H) First Edition plate, flush with the rear wall of
+A [92 mm](PLATE_W) × [100 mm](PLATE_H) First Edition plate, seated flush in the raised rear receiver of
 `enclosure-back-top`. The faucet mark, two-line Georgia Bold company name, fine divider,
 matching Helvetica Neue Medium identification lines and QR share one vertical centreline.
 A 0.42 mm rounded white frame sits 5 mm inside the R5 outer edge.
