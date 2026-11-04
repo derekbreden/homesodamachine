@@ -1,10 +1,9 @@
-"""Native components and tube routes in the above-core arrangement.
+"""Reference frames, port stations and tube routes in the above-core arrangement.
 
 Purchased references remain exterior layout geometry. The ASSE's straight TPU
 cuffs are fit candidates; their displayed installed sections do not establish
 sealing, retention or pressure capacity. Tube insertions retain the named
-estimates in ``above-core.json``. All shapes are native CAD; the exploratory
-mesh libraries and study inheritance chain are not runtime inputs.
+estimates in ``above-core.json``.
 """
 
 from functools import cache
@@ -25,8 +24,7 @@ from above_core_bom import (stem_elbow_names, core_stem_elbow_names, reservoir_g
 IDENTITY = ((1., 0., 0.), (0., 1., 0.), (0., 0., 1.))
 ORIGIN = (0., 0., 0.)
 
-# Native sources are spelled out so the build dependency scanner sees each
-# reference as well as the production arrangement data.
+# Reference paths declare the models alongside the production arrangement data.
 REFERENCES = {
     'pcba': HW / 'printed-parts/electronics/pcba-tray/pcba-board.step',
     'psu': HW / 'reference/meanwell-irm90/meanwell-irm90.step',
@@ -45,45 +43,6 @@ REFERENCES = {
     'gas-check': HW / 'reference/neofit-achv44-check/neofit-achv44-check.step',
     'digiten-flow': HW / 'reference/digiten-flow-sensor/digiten-flow-sensor.step',
 }
-
-
-@cache
-def native_reference(name):
-    import cadquery as cq
-    from _cadq_export import import_step
-    if name == 'pcba' and not getattr(cq, 'MESH', False):
-        board = _module('above_core_pcba', 'printed-parts/electronics/pcba-tray/pcba_tray.py')
-        return board.board.build().val()
-    return import_step(REFERENCES[name]).val()
-
-
-@cache
-def valve_native(name):
-    """One purchased reference, with its movable release collets clocked.
-
-    Clock angles are about native +Y through the port centre. The inlet and
-    outlet collet solids occupy the observed end-mouth bands; every other
-    reference solid keeps its exact native shape and frame.
-    """
-    import cadquery as cq
-    native = native_reference('valve')
-    angles = layout.pose(name).get('collet_clock_degrees', {})
-    if not angles:
-        return native
-    ref = _module('above_core_beduan',
-                  'reference/beduan-solenoid/beduan_solenoid.py')
-    mouth_start = ref.port_length/2. - ref.port_mouth_depth
-    solids = []
-    for solid in native.Solids():
-        box = solid.BoundingBox()
-        port = ('inlet' if box.ymax < -mouth_start else
-                'outlet' if box.ymin > mouth_start else None)
-        angle = angles.get(port, 0.)
-        if angle:
-            solid = solid.rotate((0., 0., ref.port_center_z),
-                                 (0., 1., ref.port_center_z), angle)
-        solids.append(solid)
-    return cq.Compound.makeCompound(solids)
 
 
 @cache
@@ -122,14 +81,6 @@ def _compose(outer, inner):
     return _frame(rotation, layout.point(outer, inner['translation_mm']))
 
 
-def _carry(frame):
-    def carried(station):
-        xyz, axis = station
-        return layout.point(frame, xyz), layout.vector(frame['rotation'], axis)
-    carried.where = layout.frame_location(frame)
-    return carried
-
-
 def _snapshot(name, local=None):
     pose = layout.snapshot_pose(name)
     return pose if local is None else _compose(pose, local)
@@ -142,52 +93,6 @@ def route_port_frame(name):
         data = rear_plumbing.plan()
         return _compose(data['suction-joint'], data['joint']['suction_bend']['end_frame'])
     return _snapshot('reg' if name == 'flow-regulator' else name)
-
-
-def _placed(shape, frame):
-    carry = _carry(frame)
-    return shape.moved(carry.where), carry
-
-
-def _compound(shapes):
-    import cadquery as cq
-    return cq.Compound.makeCompound(list(shapes))
-
-
-@cache
-def pump_native():
-    """Bare installed pump, including its fixed casing rails."""
-    pump = _module('above_core_pump', 'reference/g-ganen-pump/g_ganen_pump.py')
-    parts = [part for name, part in pump.build_parts().items()
-             if 'rubber_slider' not in name]
-    return _compound(parts)
-
-
-def _asse_cuff(outlet=False):
-    cuffs = _module('above_core_asse_cuffs', 'printed-parts/asse-straight-cuffs/asse_straight_cuffs.py')
-    return cuffs.assembly_shape('outlet' if outlet else 'inlet')
-
-
-@cache
-def stem_elbow(depth=12.7):
-    """Stock NeoFit elbow, cut to the receiving socket's specified depth."""
-    import cadquery as cq
-    shoulder = stem_elbow_reference().stem_shoulder()[0][0]
-    tip = shoulder - float(depth)
-    # Only the straight male stem is cut. The body, collet and shoulder are
-    # the same native reference for every receiving family.
-    trim = cq.Solid.makeBox(100. + tip, 100., 100., cq.Vector(-100., -50., -50.))
-    return native_reference('stem-elbow').cut(trim)
-
-
-@cache
-def branch_tee():
-    import cadquery as cq
-    tee = _module('above_core_branch_tee', 'reference/branch-stem-tees/branch_stem_tees.py')
-    shoulder = tee.specification('neofit')['model_mm']['stem_shoulder_y']
-    end = shoulder + 15.
-    trim = cq.Solid.makeBox(100., 100., 100., cq.Vector(-50., end, -50.))
-    return native_reference('water-split').cut(trim)
 
 
 def _grid():
@@ -219,135 +124,9 @@ def _grid_module(row):
     return _module('above_core_four_bulkhead', 'reference/neofit-drain-bulkhead/neofit_drain_bulkhead.py')
 
 
-def _nut(row):
-    import cadquery as cq
-    plane = cq.Plane(origin=(row['x'], row['flange_y'] - 6., row['z']),
-                     xDir=(1, 0, 0), normal=(0, -1, 0))
-    shape = (cq.Workplane(plane).polygon(6, row['nut_af_mm'] / math.cos(math.pi / 6))
-             .circle(row['barrel_d_mm'] / 2).extrude(row['nut_depth_mm']).val())
-    # Selected bare-nut clocking: flats on +/-X and corners above/below.
-    return shape.rotate((row['x'], 0., row['z']), (row['x'], 1., row['z']), 30.)
-
-
-@cache
-def pp1208e_bulkhead():
-    """Selected PP1208E with a pass-through inboard installation envelope.
-
-    John Guest's PP4608_01/23 drawing specifies a 17.0 mm mounting hole
-    (N), an outside fixed flange and a smaller inboard end. The inboard
-    envelope here is bounded by the reference's conservative 17.14 mm
-    nominal thread diameter. Its larger outside flange is retained.
-
-    The drawing dimensions include released collets. Operating collet
-    extension and the inboard body's detailed profile are unmeasured;
-    both selected nominal port planes remain those of the reference.
-    This exterior envelope does not specify seals or thread engagement.
-
-    https://www.johnguest.com/sites/jg/files/2023-04/JG%20Drinks%20Polypropylene%20Bulkhead%20Connector%20Data%20Sheet.pdf
-    """
-    import cadquery as cq
-    source = _module('above_core_water_bulkhead',
-                     'reference/jg-bulkhead-union/jg_bulkhead_union.py')
-    passage = cq.Solid.makeCylinder(source.THREAD_D/2., -source.far_ring_face_y,
-                                   cq.Vector(0.,0.,0.), cq.Vector(0.,-1.,0.))
-    far = source.build_far_end().val().intersect(passage)
-    return source.build_near_end().union(source.build_threading()).union(far).val()
-
-
-@cache
-def abu44m_bulkhead():
-    """Selected ABU44M-E with its M15 inboard pass-through envelope.
-
-    The manufacturer's drawing places the inboard body and collet inside
-    the M15 x 1.5 barrel's diameter beyond the removable H2 nut. A 15.0 mm
-    envelope bounds that undimensioned profile. The conservative outside
-    flange and both selected nominal mouth planes remain unchanged.
-    B1/B2 are tube stop depths; operating collet details are unmeasured.
-
-    https://assets.freshwatersystems.com/image/upload/qnbgcy8djx3nj2weqz9v.pdf
-    """
-    import cadquery as cq
-    source = _module('above_core_four_bulkhead',
-                     'reference/neofit-drain-bulkhead/neofit_drain_bulkhead.py')
-    # The outside flange keeps the complete source envelope. The inboard
-    # barrel and collet must pass through the panel's M15 clearance hole.
-    lo = source.far_ring_face_y
-    outside = cq.Solid.makeBox(2.*source.FLANGE_D, source.near_ring_face_y,
-                               2.*source.FLANGE_D,
-                               cq.Vector(-source.FLANGE_D,0.,-source.FLANGE_D))
-    inboard = cq.Solid.makeCylinder(source.THREAD_D/2., -lo,
-                                    cq.Vector(0.,lo,0.), cq.Vector(0.,1.,0.))
-    return source.build().intersect(outside.fuse(inboard))
-
-
 def core_components():
     """Additional removable core-owned routing bodies."""
     return {}
-
-
-@cache
-def components():
-    """Return every placed native body, material and its reference port frame."""
-    from _materials import (C_C14, C_DIGITEN, C_PCBA, C_PSU, C_RELAY, C_VALVE,
-                            M_BRASS, M_DONOR_BLACK, M_JG_BLACK_PP,
-                            M_JG_WHITE_PP, M_NEOFIT_ACETAL, M_NEOFIT_WHITE_ACETAL, M_STAINLESS,
-                            M_TPU_BLACK, M_NITRILE_BLACK, M_PETGF_BLACK)
-    import rear_plumbing
-    result = {}
-
-    def add(name, shape, color, frame):
-        solid, carry = _placed(shape, frame)
-        result[name] = solid, color, carry
-
-    for name, color in (('pcba', C_PCBA), ('psu', C_PSU),
-                        ('relay-1', C_RELAY), ('relay-2', C_RELAY),
-                        ('c14-inlet', C_C14), ('asse1022-assembly', M_BRASS),
-                        ('digiten-flow', C_DIGITEN)):
-        add(name, native_reference(name), color, layout.pose(name))
-    for name in layout.valve_names():
-        add(name, valve_native(name), C_VALVE, layout.pose(name))
-    add('g-ganen-pump', pump_native(), M_DONOR_BLACK, layout.pose('g-ganen-pump'))
-    import _above_core_mounts
-    add('pump-snap-cap', _above_core_mounts.pump_snap_cap(), M_PETGF_BLACK, _frame())
-    adapter = _module('above_core_vent_adapter', 'printed-parts/asse-drain-adapter/asse_drain_adapter.py')
-    add('asse-drain-adapter', adapter.placed(rear_plumbing.chain().bfp.vent()[0]), M_TPU_BLACK,
-        layout.pose('asse1022-assembly'))
-    result.update(rear_plumbing.components())
-    face = layout.specification()['rear_wall']['dry_openings']['keystone']['face_center_mm']
-    add('keystone-jack', native_reference('keystone-jack'), C_C14, _frame(translation=face))
-
-    depths = {'tee-fold': 12.7, 'lower-valve-elbow': 12.7,
-              'lower-pump-elbow': (stem_elbow_reference().SOCKET_INSERTION
-                                   + layout.specification()['rear_plumbing']['water_male_shoulder_land_mm']),
-              'reg-va-elbow': 12.7, 'va-outlet-elbow': 12.7,
-              'va-south-elbow': stem_elbow_reference().SOCKET_INSERTION,
-              'carbonator-fold': (rear_plumbing.joint().reducer.TUBE_INSERTION_DEPTH
-                                  + layout.specification()['rear_plumbing']['water_male_shoulder_land_mm']),
-              'ya-stem-elbow': tee_reference().INSERTION,
-              'drain-outlet-stem': layout.specification()['fore_routes']['drain_stem_length_mm'],
-              'vb-inlet-turn': 12.7, 'vb-outlet-stem': 12.7,
-              'vb-outlet-return': 16.891, 'yb-stem-elbow': tee_reference().INSERTION}
-    depths.update({name: 12.7 for name in reservoir_gate_elbow_hosts()})
-    for name in stem_elbow_names():
-        add(name, stem_elbow(depths[name]), M_NEOFIT_WHITE_ACETAL, _snapshot(name))
-    for name in union_elbow_names():
-        add(name, native_reference('jg-turn-elbow'), M_JG_BLACK_PP, _snapshot(name))
-
-    import soda_inlet
-    add('soda-bend-holder', soda_inlet.holder_native(), M_PETGF_BLACK,
-        layout.pose('soda-bend-holder'))
-    neighbors = {name: result[name][0] for name in soda_inlet.SOFT_NEIGHBORS}
-    add('soda-continuous-insulation', soda_inlet.foam_occupied(neighbors), M_NITRILE_BLACK, _frame())
-    for row in _grid():
-        if row['name'] in ('bulkhead-water', 'co2-inlet'):
-            continue
-        source = _grid_module(row)
-        quarter = row['native_kind'] == 'quarter'
-        shape = pp1208e_bulkhead() if quarter else abu44m_bulkhead()
-        color = M_JG_BLACK_PP if quarter else M_NEOFIT_ACETAL
-        add(row['name'], shape, color, _frame(translation=(row['x'], row['flange_y'], row['z'])))
-        result[row['name']+'-nut'] = _nut(row), color, _carry(_frame())
-    return result
 
 
 def _offset(point, vector, length=1.):
@@ -516,34 +295,3 @@ def route_specs():
     return result
 
 
-def route_wire(specification):
-    """Exact line/Bezier wire, omitting coincident illustrative mouth points."""
-    import cadquery as cq
-    edges = []
-    for segment in specification['segments']:
-        if segment['kind'] == 'line':
-            a, b = (cq.Vector(*p) for p in segment['points_mm'])
-            if (b-a).Length > 1e-6:
-                edges.append(cq.Edge.makeLine(a, b))
-        elif segment['kind'] == 'bezier':
-            edges.append(cq.Edge.makeBezier([cq.Vector(*p) for p in segment['control_points_mm']]))
-        elif segment['kind'] == 'arc':
-            edges.append(cq.Edge.makeThreePointArc(*[cq.Vector(*p) for p in segment['points_mm']]))
-        else:
-            raise ValueError('Unknown native route segment: ' + segment['kind'])
-    return cq.Wire.assembleEdges(edges)
-
-
-def route_shape(specification):
-    import cadquery as cq
-    wire = route_wire(specification)
-    first = wire.Edges()[0]
-    start, normal = first.startPoint(), first.tangentAt(0.)
-    return (cq.Workplane(cq.Plane(origin=start, normal=normal))
-            .circle(specification['od_mm']/2).circle(specification['id_mm']/2)
-            .sweep(wire, isFrenet=False, transition='round').val())
-
-
-def tubes():
-    """Placed hollow native tube solids for the explicit completed local routes."""
-    return {name: route_shape(specification) for name, specification in route_specs().items()}
