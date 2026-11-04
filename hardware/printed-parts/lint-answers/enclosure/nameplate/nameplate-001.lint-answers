@@ -1,72 +1,152 @@
-[sliver] These strips are the 0.48 mm raised artwork sidewalls. In the accepted face-up print they span two ordinary 0.24 mm layers on the 0.72 mm embedded ink base; the print has physically accepted lettering, logo and QR. The strip height is not an isolated minimum wall thickness.
-click: x=42.434 y=3.600 z=-12.500
-click: x=-43.381 y=3.600 z=3.848
-click: x=-27.981 y=3.600 z=3.848
-click: x=-27.981 y=3.600 z=-11.550
-click: x=-27.981 y=3.600 z=-3.847
-click: x=-43.381 y=3.600 z=11.550
-click: x=-27.981 y=3.600 z=11.550
-click: x=-31.831 y=3.600 z=7.700
-click: x=-31.831 y=3.600 z=-7.700
-click: x=-47.231 y=3.600 z=7.700
-click: x=-39.529 y=3.600 z=7.700
-click: x=-24.131 y=3.600 z=7.700
-click: x=-24.131 y=3.600 z=-7.700
-click: x=13.541 y=3.600 z=8.419
-click: x=12.588 y=3.600 z=-8.435
-click: x=0.300 y=3.600 z=8.419
-click: x=-5.145 y=3.600 z=-8.435
-click: x=-7.452 y=3.600 z=-8.435
-click: x=-13.373 y=3.600 z=-8.435
-click: x=-14.558 y=3.600 z=-8.435
-click: x=-8.581 y=3.600 z=-8.435
-click: x=-6.226 y=3.600 z=-8.435
-click: x=-0.881 y=3.600 z=8.419
-click: x=-0.393 y=3.600 z=-8.435
-click: x=6.006 y=3.600 z=8.419
-click: x=18.294 y=3.600 z=8.419
-click: x=18.294 y=3.600 z=-8.435
-click: x=6.162 y=3.600 z=-0.042
-click: x=-25.233 y=3.600 z=7.700
-click: x=-25.233 y=3.600 z=-7.700
-click: x=-40.635 y=3.600 z=7.700
-click: x=-43.381 y=3.600 z=10.450
-click: x=-27.981 y=3.600 z=10.450
-click: x=-29.081 y=3.600 z=-2.754
-click: x=-27.981 y=3.600 z=-4.954
-click: x=-27.981 y=3.600 z=-10.444
-click: x=-44.481 y=3.600 z=1.655
-click: x=-43.381 y=3.600 z=4.952
-click: x=-27.981 y=3.600 z=4.952
-click: x=-46.128 y=3.600 z=7.700
-click: x=-30.731 y=3.600 z=7.700
-click: x=-30.731 y=3.600 z=-7.700
-click: x=26.591 y=3.600 z=-0.291
-click: x=-3.117 y=3.600 z=5.468
-click: x=-16.795 y=3.600 z=-11.386
-click: x=-42.836 y=3.600 z=-3.855
-click: x=-3.045 y=3.600 z=11.370
-click: x=-16.723 y=3.600 z=-5.484
-click: x=-9.730 y=3.600 z=-9.290
-click: x=-12.224 y=3.600 z=-7.544
-click: x=37.638 y=3.600 z=-10.465
-click: x=47.231 y=3.600 z=-10.465
-
-[step] All artwork is intentionally 0.48 mm proud of the flat black face. This is the accepted raised logo, lettering and QR, with the shared embedded colour volume beneath it. The step is the visible relief, not mismatched mating surfaces.
-alternatives: Flush artwork gives up the accepted relief that edges the white on the black face.
-click: x=41.417 y=3.840 z=-1.453
-
-[sliver] This 1.225 mm top-face strip is a letter stroke, printed on its complete embedded ink base and the surrounding plate. It is wider than two 0.4 mm nozzle paths and is part of the physically accepted face-up lettering.
-click: x=-6.839 y=3.840 z=-8.435
-
-[thin] Specific accepted artwork: each reading is a feature of the nameplate's raised artwork, physically accepted face-up: a stroke of the HOME SODA MACHINE wordmark, 0.83 mm at its thinnest, or a single 1.1 mm module of the QR (`QR_MODULE`), each 0.48 mm proud (`ARTWORK_RISE`) on the 0.72 mm embedded white base (`INK_DEPTH`).
-alternatives: Heavier strokes change the wordmark, and larger modules change the code's size on the plate.
+[step] Required graphic relief: the white frame, mark, lettering and QR rise 0.48 mm above the black face, over their 0.72 mm embedded colour volume. This is the specified two-layer relief of the First Edition artwork; the full plate has CAD review, with its printed artwork unqualified.
+alternatives: Flush inlay removes the raised edge; a larger rise adds an unnecessary taller edge to the same graphic.
 file: hardware/printed-parts/enclosure/nameplate/nameplate-001.step
-click: x=14.629 y=3.420 z=-6.650
-click: x=2.341 y=3.420 z=10.204
+click: x=-40.930 y=3.840 z=-14.333
 
-[thin] Accepted wing fit: each reading is one of the plate's two horizontal wings, 1.68 mm thick and projecting 2.40 mm, the thickness of the accepted horizontal-wing fit (horizontal-wing-trial/physical-acceptance.json); the receiver's 2.13 mm slot keeps its 1.23 mm retaining lip over it.
-alternatives: A thicker wing needs a thicker plate or a thinner lip, each a change to the accepted fit.
+[sliver] Required graphic outlines: these strips are the 0.48 mm-high sides of the frame, divider, QR and letter outlines, plus the divider's 0.42 mm-wide front. Their dimensions define the approved fine frame and type rather than an incidental junction between mechanical features.
+alternatives: Wider frame and divider strokes change the requested light border. Removing the raised side faces requires flush artwork; larger letterforms spend the balanced spacing to the identification lines and QR.
 file: hardware/printed-parts/enclosure/nameplate/nameplate-001.step
-click: x=-52.736 y=0.000 z=-13.981
-click: x=52.649 y=0.000 z=-13.256
+click: x=40.790 y=3.600 z=0.000
+click: x=-41.210 y=3.600 z=0.000
+click: x=-40.790 y=3.600 z=0.000
+click: x=41.210 y=3.600 z=0.000
+click: x=0.000 y=3.600 z=44.790
+click: x=0.000 y=3.600 z=-45.210
+click: x=0.000 y=3.600 z=-44.790
+click: x=0.000 y=3.600 z=45.210
+click: x=0.000 y=3.600 z=2.390
+click: x=0.000 y=3.600 z=2.810
+click: x=0.000 y=3.840 z=2.600
+click: x=4.200 y=3.600 z=-35.000
+click: x=12.600 y=3.600 z=-35.000
+click: x=8.400 y=3.600 z=-22.402
+click: x=-8.400 y=3.600 z=-22.402
+click: x=8.400 y=3.600 z=-39.200
+click: x=8.400 y=3.600 z=-30.797
+click: x=8.400 y=3.600 z=-14.000
+click: x=-8.400 y=3.600 z=-14.000
+click: x=4.200 y=3.600 z=-18.200
+click: x=-12.600 y=3.600 z=-18.200
+click: x=-4.199 y=3.600 z=-18.200
+click: x=12.600 y=3.600 z=-18.200
+click: x=11.399 y=3.600 z=-18.200
+click: x=-5.403 y=3.600 z=-18.200
+click: x=-11.399 y=3.600 z=-18.200
+click: x=5.400 y=3.600 z=-18.200
+click: x=-9.600 y=3.600 z=-24.795
+click: x=11.399 y=3.600 z=-35.000
+click: x=7.200 y=3.600 z=-29.604
+click: x=5.400 y=3.600 z=-35.000
+click: x=8.400 y=3.600 z=-15.200
+click: x=-8.400 y=3.600 z=-15.200
+click: x=8.400 y=3.600 z=-32.004
+click: x=8.400 y=3.600 z=-37.994
+click: x=8.400 y=3.600 z=-21.198
+click: x=-8.400 y=3.600 z=-21.198
+click: x=-7.803 y=3.600 z=-30.805
+click: x=3.419 y=3.600 z=28.000
+
+[ceiling] Wrong print-axis classification: these are the divider and frame edges. The nameplate beds on its rear clip backs at Y−4 with CAD +Y upward (PRINT_TILT_X=90), while the ceiling finder only applies PRINT_UP to CAD Z. These edges stand vertically during the face-up print; they are not unsupported print-down ceilings. Reported to Derek.
+alternatives: Evaluate ceiling normals and height in the complete print pose, as the ledge finder already does. Standing the plate on its Z end would create the overhangs the current ceiling report assumes.
+file: hardware/printed-parts/enclosure/nameplate/nameplate-001.step
+click: x=0.000 y=3.600 z=2.390
+click: x=0.000 y=3.600 z=44.790
+click: x=0.000 y=3.600 z=-45.210
+
+[thin] Required First Edition graphic outlines: finite identification strokes begin at 0.325 mm; the frame and divider are 0.42 mm wide, and QR modules are 1.20 mm. The 0.003 mm, zero-area sample is a narrowing at a glyph curve junction, not a continuous membrane. These points belong to the specified raised lettering, QR and frame; this new artwork has CAD validation and no physical print acceptance.
+alternatives: Heavier glyphs or larger lettering change the approved type or its balanced layout. A wider frame changes the requested fine border. Larger QR modules increase its footprint; flush ink removes the required relief. Use a variable-width print process for the 0.325 mm identification strokes.
+file: hardware/printed-parts/enclosure/nameplate/nameplate-001.step
+click: x=7.446 y=3.600 z=-2.946
+click: x=7.446 y=3.600 z=-2.950
+click: x=0.450 y=3.602 z=-5.995
+click: x=0.450 y=3.602 z=-6.320
+click: x=-8.778 y=3.602 z=-5.995
+click: x=-8.778 y=3.602 z=-6.320
+click: x=-26.786 y=3.602 z=17.842
+click: x=-27.020 y=3.602 z=17.599
+click: x=8.788 y=3.602 z=7.577
+click: x=8.554 y=3.602 z=7.334
+click: x=-20.772 y=3.598 z=17.774
+click: x=-21.019 y=3.598 z=17.531
+click: x=-12.507 y=3.599 z=10.670
+click: x=-12.271 y=3.599 z=10.936
+click: x=-2.072 y=3.599 z=10.670
+click: x=-1.835 y=3.599 z=10.935
+click: x=-9.094 y=3.601 z=-0.748
+click: x=-9.086 y=3.601 z=-0.392
+click: x=11.792 y=3.480 z=-1.840
+click: x=11.792 y=3.480 z=-1.483
+click: x=11.410 y=3.602 z=20.949
+click: x=11.650 y=3.602 z=21.218
+click: x=8.119 y=3.601 z=20.915
+click: x=8.365 y=3.601 z=21.185
+click: x=10.363 y=3.608 z=17.441
+click: x=10.363 y=3.608 z=17.063
+click: x=-3.175 y=3.608 z=7.176
+click: x=-3.175 y=3.608 z=6.799
+click: x=-13.600 y=3.608 z=7.176
+click: x=-13.600 y=3.608 z=6.799
+click: x=11.332 y=3.602 z=-8.108
+click: x=11.321 y=3.602 z=-7.730
+click: x=-10.116 y=3.608 z=7.178
+click: x=-10.116 y=3.608 z=6.799
+click: x=13.760 y=3.599 z=17.446
+click: x=13.760 y=3.599 z=17.063
+click: x=0.276 y=3.599 z=7.181
+click: x=0.276 y=3.599 z=6.799
+click: x=6.966 y=3.600 z=17.448
+click: x=6.966 y=3.600 z=17.063
+click: x=-26.270 y=3.584 z=22.045
+click: x=-26.277 y=3.584 z=21.657
+click: x=9.303 y=3.584 z=11.780
+click: x=9.297 y=3.584 z=11.393
+click: x=2.816 y=3.599 z=11.393
+click: x=2.810 y=3.599 z=11.783
+click: x=1.210 y=3.599 z=21.653
+click: x=1.218 y=3.599 z=22.047
+click: x=-19.452 y=3.599 z=11.388
+click: x=-19.444 y=3.599 z=11.782
+click: x=-13.795 y=3.599 z=17.303
+click: x=-13.802 y=3.599 z=16.909
+click: x=17.465 y=3.599 z=17.303
+click: x=17.458 y=3.599 z=16.909
+click: x=-13.816 y=3.599 z=21.653
+click: x=-13.823 y=3.599 z=22.048
+click: x=17.444 y=3.599 z=21.653
+click: x=17.436 y=3.599 z=22.048
+click: x=0.458 y=3.608 z=13.844
+click: x=0.479 y=3.608 z=14.242
+click: x=29.203 y=3.589 z=17.464
+click: x=29.203 y=3.589 z=17.063
+click: x=-20.228 y=3.588 z=24.106
+click: x=-20.208 y=3.588 z=24.507
+click: x=21.208 y=3.582 z=23.590
+click: x=21.208 y=3.582 z=23.992
+click: x=-6.459 y=3.596 z=11.179
+click: x=-6.438 y=3.596 z=11.585
+click: x=12.614 y=3.593 z=13.321
+click: x=12.614 y=3.593 z=13.728
+click: x=15.875 y=3.574 z=7.207
+click: x=15.875 y=3.574 z=6.799
+click: x=21.751 y=3.590 z=13.319
+click: x=21.751 y=3.590 z=13.728
+click: x=25.969 y=3.590 z=23.580
+click: x=25.969 y=3.590 z=23.992
+click: x=-41.209 y=3.593 z=-43.028
+click: x=-40.790 y=3.593 z=-43.018
+click: x=-23.949 y=3.591 z=2.390
+click: x=-23.949 y=3.591 z=2.810
+click: x=-21.880 y=3.591 z=7.722
+click: x=-21.521 y=3.591 z=8.027
+click: x=-1.218 y=3.591 z=17.987
+click: x=-0.860 y=3.591 z=18.291
+click: x=-7.601 y=3.597 z=23.676
+click: x=-7.650 y=3.597 z=24.153
+click: x=-7.093 y=3.578 z=16.886
+click: x=-7.122 y=3.578 z=17.375
+click: x=25.244 y=3.480 z=20.921
+click: x=25.244 y=3.480 z=20.418
+click: x=16.745 y=3.540 z=10.061
+click: x=16.265 y=3.540 z=9.873
+click: x=-4.977 y=3.560 z=19.264
+click: x=-4.432 y=3.560 z=19.250
