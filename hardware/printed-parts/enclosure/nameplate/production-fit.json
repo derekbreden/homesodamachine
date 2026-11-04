@@ -231,7 +231,7 @@
     "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step": "fc9de1a0be4650d624b2a2005632258cf475a16e37f31d9e6550614e99e46aa2",
     "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl": "63ba2d674f1dd6d336e5b5fa18f1027cd8611dc66aed937460a65f12c9d12980"
   },
-  "source_revision": "78404375d8529ef1610601ed6dc9b9a32f5b7238",
+  "source_revision": "14b5f52c5",
   "frame_gap_rays": [
     {
       "origin_xz": [
