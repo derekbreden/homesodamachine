@@ -5428,7 +5428,8 @@
     },
     "hardware/printed-parts/enclosure/nameplate/nameplate-receiver.step.mesh": {
       "inputs": "ac739f1347dc879b85967f6bfdeb6b4c6ff15661b25167699bb1cbdc9fe166a6",
-      "commit": "3c57e1f4141255f0044dd74b4fe71043a894460b"
+      "commit": "3c57e1f4141255f0044dd74b4fe71043a894460b",
+      "unproven": true
     },
     "hardware/printed-parts/enclosure/nameplate/nameplate-receiver.stl": {
       "inputs": "a0682d04005d27188aaa2825de276cb4e2908c8cca03ba0547adae3ae299bc69",
