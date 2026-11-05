@@ -704,7 +704,10 @@ fn project(shape: Solid, n: &Numbers) -> Result<Solid> {
         let origin = vector(&frame["origin"])?;
         let sign = frame["x_sign"].as_f64().context("corner hand")?;
         for (i, p) in vertices.iter_mut().enumerate() {
-            if !round[i] {
+            // Keep the shared cylinder seam fixed. Sliding its vertices along
+            // the cylinder folds the adjoining tall wall triangles.
+            if !round[i] || constraints[i].iter()
+                .any(|surface| matches!(surface, Surface::Cylinder { .. })) {
                 continue;
             }
             let q = *p - origin;
