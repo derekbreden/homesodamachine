@@ -1,153 +1,92 @@
-"""Measure opposing planar gaps on the four finished enclosure STEP solids.
+"""Measure opposing planar gaps on the four finished enclosure quadrants.
 
-Run after materializing the enclosure. This reads positive-area opposed faces,
-including exact contact that a whole-solid volume-intersection check misses.
-Every measured printed mating face requires its applicable fit and supported-face
-allowances, including clamping faces, seating shoulders, closure ends and rail ends.
-Y-normal head-on closure faces use static clearance; tangential sliding faces use running
-clearance. Faces printed against the actual build plate retain the base allowance without
-the supported-overhang addition. Rail ends retain their local 0.25 mm gap.
-Curved contacts, insertion sweeps and physical support finish are separate checks.
+Run after materializing the enclosure. The enclosure recipe places the required gaps; the
+kernel program `enclosure-mating` (tools/hsm/enclosure-shell/src/bin/enclosure-mating.rs)
+measures every reading on the quadrants' fine models, the `.step.npz` written beside each STEP.
+It reads positive-area opposed faces, including exact contact that a whole-solid
+volume-intersection check misses. Every measured printed mating face requires its applicable
+fit and supported-face allowances, including clamping faces, seating shoulders, closure ends and
+rail ends. Y-normal head-on closure faces use static clearance; tangential sliding faces use
+running clearance. Faces printed against the actual build plate retain the base allowance
+without the supported-overhang addition. Curved contacts, insertion sweeps and physical support
+finish are separate checks.
 """
-from itertools import combinations
 from pathlib import Path
-import hashlib
 import json
 import sys
 
-import cadquery as cq
-import numpy as np
-
 ROOT = Path(__file__).resolve().parents[2]
 DIRECTORY = ROOT / "hardware/printed-parts/enclosure/enclosure"
-sys.path.insert(0, str(DIRECTORY))
+sys.path[:0] = [str(DIRECTORY), str(ROOT / "hardware/scripts")]
 import enclosure as e
 import _box_spec
+import _rust_part
 
 NAMES = ("front-bottom", "back-bottom", "front-top", "back-top")
 PRINT_UP = {"front-bottom": 1, "back-bottom": 1, "front-top": 1, "back-top": -1}
-TOL = 1e-5
 
 
-def survey(directory=DIRECTORY):
-    box, _ = _box_spec.read(e.Box, e.Bound, (e.Pack, e.PortField, e.Nameplate))
-    groups, sources, solids, beds = {}, {}, {}, {}
-    for name in NAMES:
-        path = directory / f"enclosure-{name}.step"
-        sources[str(path.relative_to(ROOT))] = hashlib.sha256(path.read_bytes()).hexdigest()
-        solid = cq.importers.importStep(str(path)).val()
-        solids[name] = solid
-        bounds = solid.BoundingBox()
-        beds[name] = bounds.zmin if PRINT_UP[name] > 0 else bounds.zmax
-        groups[name] = {}
-        for index, face in enumerate(solid.Faces()):
-            if face.geomType() != "PLANE":
-                continue
-            normal = np.array(face.normalAt().toTuple())
-            key = tuple(np.round(normal, 5))
-            b = face.BoundingBox()
-            row = (index, face, normal, np.array(face.Center().toTuple()),
-                   np.array([b.xmin, b.ymin, b.zmin]), np.array([b.xmax, b.ymax, b.zmax]))
-            groups[name].setdefault(key, []).append(row)
-    readings = []
-    for first, second in combinations(NAMES, 2):
-        for key, faces in groups[first].items():
-            others = groups[second].get(tuple(-np.array(key)), [])
-            if not others:
-                continue
-            centers = np.array([r[3] for r in others])
-            lows, highs = (np.array([r[i] for r in others]) for i in (4, 5))
-            for ia, fa, normal, ca, low, high in faces:
-                gaps = (centers - ca) @ normal
-                overlap = (np.minimum(high, highs - gaps[:, None] * normal)
-                           - np.maximum(low, lows - gaps[:, None] * normal))
-                selected = (gaps >= -TOL) & (gaps <= .751) & (overlap >= -TOL).all(axis=1)
-                for j in np.flatnonzero(selected):
-                    ib, fb, nb, _cb, low_b, high_b = others[j]
-                    projected = fa.intersect(fb.translate(tuple(-gaps[j] * normal)))
-                    if projected.Area() < .05:
-                        continue
-                    center = projected.Center().toTuple()
-                    first_bedded = (abs(low[2] - beds[first]) < TOL
-                                    and abs(high[2] - beds[first]) < TOL)
-                    second_bedded = (abs(low_b[2] - beds[second]) < TOL
-                                     and abs(high_b[2] - beds[second]) < TOL)
-                    rough = (int(normal[2] * PRINT_UP[first] < -.99 and not first_bedded)
-                             + int(nb[2] * PRINT_UP[second] < -.99 and not second_bedded))
-                    head_on = abs(normal[1]) > .999
-                    ordinary = e.fits.slip if head_on else e.fits.running
-                    target = ordinary + rough * e.fits.supported_surface
-                    gap = float(max(0., gaps[j]))
-                    b = projected.BoundingBox()
-                    readings.append({
-                        "parts": [first, second], "face_indices": [ia, ib],
-                        "gap_mm": gap, "minimum_mm": target,
-                        "pass": bool(gap + TOL >= target),
-                        "classification": ("Head-on closure clearance" if head_on
-                                           else "Assembly sliding clearance"),
-                        "rough_faces_counted": rough,
-                        "area_mm2": projected.Area(), "center_mm": center,
-                        "normal_from_first": normal.tolist(),
-                        "bounds_mm": [b.xmin, b.ymin, b.zmin, b.xmax, b.ymax, b.zmax],
-                    })
-    assert all(hashlib.sha256((ROOT / p).read_bytes()).hexdigest() == h for p, h in sources.items())
-    probes = []
-    def measure(label, first, second, point, normal, gap):
-        other = tuple(a + gap*b for a,b in zip(point, normal))
-        errors = []
-        for name, xyz, direction in ((first, point, normal),
-                                      (second, other, tuple(-v for v in normal))):
-            vertex = cq.Vertex.makeVertex(*xyz)
-            faces = [f for f in solids[name].Faces() if f.geomType() == "PLANE"
-                     and np.dot(f.normalAt().toTuple(), direction) > .999]
-            errors.append(min(f.distance(vertex) for f in faces))
-        middle = tuple(a + gap*b/2 for a,b in zip(point, normal))
-        air = not any(solids[n].isInside(cq.Vector(*middle), TOL) for n in (first, second))
-        probes.append({"feature": label, "parts": [first, second],
-                       "face_points_mm": [point, other], "gap_mm": gap,
-                       "maximum_surface_error_mm": max(errors), "gap_contains_air": air,
-                       "pass": max(errors) < TOL and air})
-    _bed, roof, _crown = e._handhold_levels(box.inner)
+def required_gaps(box):
+    """Each gap the recipe sets at an intersection: a point on the first piece's face, the way
+    across to the second piece's face, and the gap between them."""
+    gaps = []
+    def gap_at(feature, first, second, point, normal, gap):
+        gaps.append({"feature": feature, "parts": [first, second], "point": list(point),
+                     "normal": list(normal), "gap": gap})
+    bed, roof, _crown = e._handhold_levels(box.inner)
     for xi, sx in ((box.inner[0], 1.), (box.inner[1], -1.)):
         side = "west" if sx > 0 else "east"
         _flank, cap = e._band_x(xi - sx*e.wall, sx)
         gap = e.fits.running + e.fits.supported_surface
-        # Probe the middle of the full fore rib beside the open head access.
-        # The opening has no opposing face, and the front inner wall ends at
-        # its separate backing joint before the aft rib's full width.
+        # The middle of the full fore rib beside the open head access. The opening has no
+        # opposing face, and the front inner wall ends at its separate backing joint before
+        # the aft rib's full width.
         fore_rib_y = box.y_joint + (e.lip_len - e.y_stack_cbore_dia)/4.0
-        measure(f"{side} handhold inner wall/knuckle fore rib", "front-bottom", "back-bottom",
-                (cap - sx*e.handhold_wall/2, fore_rib_y, roof - gap),
-                (0.,0.,1.), gap)
-        measure(f"{side} scarf/backing wall", "front-bottom", "back-bottom",
-                (cap+sx*e.fits.running, e._handhold_backing_end(box.y_joint,"back")+.5, -.5),
-                (-sx,0.,0.), e.fits.running)
+        gap_at(f"{side} handhold inner wall/knuckle fore rib", "front-bottom", "back-bottom",
+               (cap - sx*e.handhold_wall/2, fore_rib_y, roof - gap), (0., 0., 1.), gap)
+        # The floor and both inner walls close on one pair of plumb faces, the front's square
+        # end one running fit before the back's.
+        gap_at(f"{side} inner wall and floor square end", "front-bottom", "back-bottom",
+               (cap - sx*e.handhold_wall/2, e._handhold_backing_end(box.y_joint, "front"),
+                (bed + roof)/2), (0., 1., 0.), e.fits.running)
         _hk, _xf, arm, back = e._rail_x(xi, sx, "front")
-        measure(f"{side} rail entrance/tee wall", "front-bottom", "front-top",
-                ((arm+back)/2, box.pack.collet_plate["wall_aft_y"]+e.slide_slip, box.splits[0]+1.),
-                (0.,-1.,0.), e.slide_slip)
-    for x,y,_z in box.pack.vent_chase:
-        measure("vent chase seam", "back-bottom", "back-top",
-                (x-e.vent_rib_wall/2, y, box.splits[1]+e.z_rise), (0.,0.,1.), e.slide_slip)
+        gap_at(f"{side} rail entrance/tee wall", "front-bottom", "front-top",
+               ((arm + back)/2, box.pack.collet_plate["wall_aft_y"] + e.slide_slip,
+                box.splits[0] + 1.), (0., -1., 0.), e.slide_slip)
+    for x, y, _z in box.pack.vent_chase:
+        gap_at("vent chase seam", "back-bottom", "back-top",
+               (x - e.vent_rib_wall/2, y, box.splits[1] + e.z_rise), (0., 0., 1.), e.slide_slip)
     for col, zj in zip(("front", "back"), box.splits):
         for xi, sx, y0, y1, _lane in e._z_rail_runs(
                 box.inner, box.y_joint, col, box.pack.collet_plate, box.pack.vent_chase):
             sy = 1. if y1 > y0 else -1.
             x_hook, x_foot, _arm, _back = e._rail_x(xi, sx, col)
             side = "west" if sx > 0 else "east"
-            measure(f"{col} {side} rail end", f"{col}-top", f"{col}-bottom",
-                    ((x_hook+x_foot)/2, y1-sy*e.rail_stop_len, zj+e.hook_foot/2),
-                    (0.,sy,0.), e.slide_slip)
-    failures = [r for r in readings if not r["pass"]] + [r for r in probes if not r["pass"]]
-    return {"status": "fail" if failures else "pass", "source_sha256": sources,
-            "scope": "Opposed parallel planar patches above 0.05 mm2, gaps up to 0.751 mm, on four finished quadrant STEP solids. Excludes curved/nonparallel contacts, insertion sweeps, accessories and physical support quality.",
-            "checked_patches": len(readings), "failures": failures,
-            "required_gaps": probes, "patches": readings}
+            gap_at(f"{col} {side} rail end", f"{col}-top", f"{col}-bottom",
+                   ((x_hook + x_foot)/2, y1 - sy*e.rail_stop_len, zj + e.hook_foot/2),
+                   (0., sy, 0.), e.slide_slip)
+    return gaps
+
+
+def survey(directory=DIRECTORY):
+    box, _ = _box_spec.read(e.Box, e.Bound, (e.Pack, e.PortField, e.Nameplate))
+    numbers = {
+        "pieces": [{"name": name,
+                    "model": str((directory / f"enclosure-{name}.step.npz").relative_to(ROOT)),
+                    "print_up": PRINT_UP[name]} for name in NAMES],
+        "fits": {"slip": e.fits.slip, "running": e.fits.running,
+                 "supported_surface": e.fits.supported_surface},
+        "probes": required_gaps(box),
+    }
+    return _rust_part.check("enclosure-shell", "enclosure-mating", numbers)
 
 
 if __name__ == "__main__":
     report = survey()
     target = DIRECTORY.parent / "mating-clearance-check.json"
     target.write_text(json.dumps(report, indent=2) + "\n")
-    print(json.dumps({k: report[k] for k in ("status", "checked_patches", "failures")}, indent=2))
+    failed = len(report["failures"])
+    readings = f"{report['checked_patches']} mating patches and {len(report['required_gaps'])} required gaps"
+    print(f"✓ {readings} keep their fits." if not failed
+          else f"✗ {failed} of {readings} miss their fits; see {target.relative_to(ROOT)}.")
     raise SystemExit(0 if report["status"] == "pass" else 1)
