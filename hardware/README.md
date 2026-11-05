@@ -151,13 +151,9 @@ enough for the content-addressed bundle to publish them, because a reader at `/3
 printing a part both need the same bytes. `sync_tree.py` carries every declared output over;
 a tree it has nothing to say about is a tree holding the artifacts its sources make.
 
-WHAT AN EDIT COSTS IS THE STEPS THAT DECLARED THE FILE, and that is a count, not a guess.
-`_boxes.py` is declared by 95 of the 99 steps, so it is the worst case the tree has:
-
-| an edit to `_boxes.py` | steps | wall |
-|---|---|---|
-| a comment written into it | **1** — `pysrc` alone | **1.8 s** |
-| a line of code | 95 | 406 s |
+WHAT AN EDIT COSTS IS THE STEPS THAT DECLARED THE FILE, and that is a count, not a guess. A
+step declares each source as the tree holds it, so a comment reruns the same steps a line of
+code does.
 
 | | wall |
 |---|---|
@@ -166,24 +162,13 @@ WHAT AN EDIT COSTS IS THE STEPS THAT DECLARED THE FILE, and that is a count, not
 | every step rerun, the kept work standing | 88 s, 41 s of critical path |
 | every step rerun, the kept work regenerating | 386 s, 219 s of critical path |
 
-The last two are the same 99 actions and differ only in whether `.cache/` already holds the
+The last two are the same actions and differ only in whether `.cache/` already holds the
 shapes they cut. A geometry edit pays the second on the bodies it moved and the first on the
 rest. All of these were taken on a quiet machine; a reading taken while another build is
 running is roughly half speed for want of cores, and is a ceiling rather than a figure.
 
-A BYTE IS WHAT DECIDES A RERUN, and a comment is not a byte a step reads. `tools/bazel/pysrc.py`
-lays every Python source down with its comments out of it — a line carrying no code is gone,
-and the code lines come through verbatim and in order — and the steps declare that copy rather
-than the file. So writing a comment moves one short action, its output lands on the bytes Bazel
-already built against, and nothing under it runs. What comes out parses to what went in, and
-`pysrc` asserts that per file before it writes: the same reading `_realized.code_digest` takes,
-put where Bazel can see it.
-
 A step that actually starts Node is also handed `:node-packages`, which globs `tools/render/` and
 `web/` in whole.
-
-A line number in a sandbox traceback is that copy's, not the tree's. The line it names is in
-the tree, found by its text.
 
 AND AN ACTION HOLDS THE KEPT WORK. `.cache/` is the shapes `_realized` keeps, the meshes
 `_meshes` tessellates and the optimal boxes `_boxes` measures; `.bazelrc` mounts it into every
