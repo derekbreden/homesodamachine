@@ -2,8 +2,8 @@
   "checks": [
     {
       "check": "hardware/scripts/check_enclosure_mating_clearance.py",
-      "note": "ValueError: min() iterable argument is empty",
-      "status": "red"
+      "note": "✓ 49 mating patches and 11 required gaps keep their fits.",
+      "status": "ok"
     },
     {
       "check": "hardware/scripts/check_ledger.py",
@@ -32,33 +32,6 @@
     }
   ],
   "detail": {
-    "hardware/scripts/check_enclosure_mating_clearance.py": [
-      "   |                                  ^^^^^^^^^^^^^^^^^ help: convert the identifier to snake case: `m_machine_export`",
-      "warning: module `m__machine_routes` should have a snake case name",
-      "  --> machine-data/src/compiled/modules.rs:21:34",
-      "   |",
-      "21 | #[path=\"_machine_routes.rs\"] mod m__machine_routes;",
-      "   |                                  ^^^^^^^^^^^^^^^^^ help: convert the identifier to snake case: `m_machine_routes`",
-      "warning: module `m__assembly_questions` should have a snake case name",
-      "  --> machine-data/src/compiled/modules.rs:22:38",
-      "   |",
-      "22 | #[path=\"_assembly_questions.rs\"] mod m__assembly_questions;",
-      "   |                                      ^^^^^^^^^^^^^^^^^^^^^ help: convert the identifier to snake case: `m_assembly_questions`",
-      "Traceback (most recent call last):",
-      "  File \"/Users/derekbredensteiner/Developer/homesodamachine/hardware/scripts/check_enclosure_mating_clearance.py\", line 149, in <module>",
-      "    report = survey()",
-      "  File \"/Users/derekbredensteiner/Developer/homesodamachine/hardware/scripts/check_enclosure_mating_clearance.py\", line 119, in survey",
-      "    measure(f\"{side} handhold inner wall/knuckle fore rib\", \"front-bottom\", \"back-bottom\",",
-      "    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^",
-      "            (cap - sx*e.handhold_wall/2, fore_rib_y, roof - gap),",
-      "            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^",
-      "            (0.,0.,1.), gap)",
-      "            ^^^^^^^^^^^^^^^^",
-      "  File \"/Users/derekbredensteiner/Developer/homesodamachine/hardware/scripts/check_enclosure_mating_clearance.py\", line 103, in measure",
-      "    errors.append(min(f.distance(vertex) for f in faces))",
-      "                  ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^",
-      "ValueError: min() iterable argument is empty"
-    ],
     "hardware/scripts/check_pinmap.py": [
       "board GPIOs in use: 23 | documented: 23 (free: 3) | cross-table fns: 13",
       "DRIFT: 8 mismatch(es) between the main board and a derived artifact:",
