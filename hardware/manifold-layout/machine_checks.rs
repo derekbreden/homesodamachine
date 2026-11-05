@@ -1,13 +1,11 @@
 //! Machine fit readings over the immutable installed fine model.
 //!
 //! Placement supplies frames and scalar construction ledgers. This reader owns
-//! the overlap census, finite nominal mating masks, clearance ranking, drain
-//! readings and scorecard. No Python geometry object enters this boundary.
+//! the overlap census, finite nominal mating masks, clearance ranking and
+//! scorecard. No Python geometry object enters this boundary.
 #![allow(dead_code)]
 #[path = "machine_check_bounds.rs"]
 mod construction;
-#[path = "machine_check_drain.rs"]
-mod drain;
 #[path = "enclosure_assembly.rs"]
 mod fine;
 #[path = "machine_check_geometry.rs"]
@@ -453,7 +451,6 @@ fn main() -> Result<()> {
     );
     let request = numbers.get("request")?;
     let mut world = World::load(request)?;
-    let mut result = json!({});
     let mode = request.get("mode").and_then(Value::as_str).unwrap_or("all");
     if mode == "construction" {
         println!("{}", construction::construction_only(&mut world, request)?);
@@ -463,12 +460,7 @@ fn main() -> Result<()> {
         println!("{}", report::clearance_only(&mut world, request)?);
         return Ok(());
     }
-    if mode != "drain" {
-        result = report::build(&mut world, request)?;
-    }
-    if mode != "scorecard" && request.get("drain").and_then(Value::as_bool) != Some(false) {
-        result["drain"] = drain::final_read(&mut world, request)?;
-    }
+    let result = report::build(&mut world, request)?;
     println!("{result}");
     Ok(())
 }

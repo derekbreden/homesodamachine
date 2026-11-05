@@ -71,7 +71,6 @@ def _runtime_output(path):
 #: derive carries documents, figures and media while leaving this cohort in the tree.
 _MODEL_METADATA = frozenset({
     "hardware/cad-artifacts.json",
-    "hardware/manifold-layout/drain-clearance-check.json",
     "hardware/wiring/enclosure-wiring.json",
     "hardware/wiring/installed/integration-review.json",
     "web/public/tube-routes.json",

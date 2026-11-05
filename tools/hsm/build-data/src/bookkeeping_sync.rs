@@ -26,7 +26,6 @@ fn publisher(path: &str, cfg: &Value) -> bool {
         .any(|s| path.ends_with(s))
         || [
             "hardware/cad-artifacts.json",
-            "hardware/manifold-layout/drain-clearance-check.json",
             "hardware/wiring/enclosure-wiring.json",
             "hardware/wiring/installed/integration-review.json",
             "web/public/tube-routes.json",

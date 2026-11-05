@@ -33,15 +33,12 @@ def read(*args, **kwargs):
 def check(*args, **kwargs):
     return _compiled.call('check', *args, **kwargs)
 
-def drain(*args, **kwargs):
-    return _compiled.call('drain', *args, **kwargs)
-
 def __getattr__(name):
     return _compiled.get(name)
 
 def __dir__():
     return _compiled.names()
 
-_rust_functions = frozenset(['_path', '_sha', '_binding', '_plain', '_construction_metadata', 'read', 'check', 'drain'])
-_rust_exports = frozenset(['annotations', 'ast', 'redirect_stdout', 'hashlib', 'importlib', 'io', 'json', 'Path', 'sys', 'ROOT', '_path', '_sha', '_binding', '_plain', '_source_statements', '_construction_metadata', 'read', 'check', 'drain'])
+_rust_functions = frozenset(['_path', '_sha', '_binding', '_plain', '_construction_metadata', 'read', 'check'])
+_rust_exports = frozenset(['annotations', 'ast', 'redirect_stdout', 'hashlib', 'importlib', 'io', 'json', 'Path', 'sys', 'ROOT', '_path', '_sha', '_binding', '_plain', '_source_statements', '_construction_metadata', 'read', 'check'])
 sys.modules[__name__].__class__ = _RustSurface
