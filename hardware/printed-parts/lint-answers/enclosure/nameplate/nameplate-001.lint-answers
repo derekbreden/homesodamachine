@@ -1,15 +1,15 @@
 [step] Required graphic relief: the white frame, mark, lettering and QR rise 0.48 mm above the black face, over their 0.72 mm embedded colour volume. This is the specified two-layer relief of the First Edition artwork; the full plate has CAD review, with its printed artwork unqualified.
 alternatives: Flush inlay removes the raised edge; a larger rise adds an unnecessary taller edge to the same graphic.
 file: hardware/printed-parts/enclosure/nameplate/nameplate-001.step
-click: x=-40.930 y=3.840 z=-14.333
+click: x=-38.930 y=3.840 z=-14.333
 
 [sliver] Required graphic outlines: these strips are the 0.48 mm-high sides of the frame, divider, QR and letter outlines, plus the divider's 0.42 mm-wide front. Their dimensions define the approved fine frame and type rather than an incidental junction between mechanical features.
 alternatives: Wider frame and divider strokes change the requested light border. Removing the raised side faces requires flush artwork; larger letterforms spend the balanced spacing to the identification lines and QR.
 file: hardware/printed-parts/enclosure/nameplate/nameplate-001.step
-click: x=40.790 y=3.600 z=0.000
-click: x=-41.210 y=3.600 z=0.000
-click: x=-40.790 y=3.600 z=0.000
-click: x=41.210 y=3.600 z=0.000
+click: x=38.790 y=3.600 z=0.000
+click: x=-39.210 y=3.600 z=0.000
+click: x=-38.790 y=3.600 z=0.000
+click: x=39.210 y=3.600 z=0.000
 click: x=0.000 y=3.600 z=44.790
 click: x=0.000 y=3.600 z=-45.210
 click: x=0.000 y=3.600 z=-44.790
@@ -132,8 +132,8 @@ click: x=21.751 y=3.590 z=13.319
 click: x=21.751 y=3.590 z=13.728
 click: x=25.969 y=3.590 z=23.580
 click: x=25.969 y=3.590 z=23.992
-click: x=-41.209 y=3.593 z=-43.028
-click: x=-40.790 y=3.593 z=-43.018
+click: x=-39.209 y=3.593 z=-43.028
+click: x=-38.790 y=3.593 z=-43.018
 click: x=-23.949 y=3.591 z=2.390
 click: x=-23.949 y=3.591 z=2.810
 click: x=-21.880 y=3.591 z=7.722
@@ -154,7 +154,7 @@ click: x=-4.432 y=3.560 z=19.250
 [step] Required 1 mm counterbores requested by Derek: each Ø6.2 recess provides the flat seat for a Ø5.5 socket head, leaving a 2.36 mm bearing floor and 2 mm of visible head above the plate. These are the four deliberate fastener seats of the selected mount.
 alternatives: Removing the counterbores loses the requested head seats. A 3 mm-deep flush counterbore leaves only 0.36 mm beneath the head; thickening the entire plate for flush heads changes the requested protruding-head design.
 file: hardware/printed-parts/enclosure/nameplate/nameplate-001.step
-click: x=-35.398 y=2.360 z=-42.711
-click: x=35.398 y=2.360 z=-42.711
-click: x=-35.398 y=2.360 z=42.711
-click: x=35.398 y=2.360 z=42.711
+click: x=-31.137 y=2.360 z=-38.780
+click: x=31.137 y=2.360 z=-38.780
+click: x=-31.137 y=2.360 z=38.780
+click: x=31.137 y=2.360 z=38.780
