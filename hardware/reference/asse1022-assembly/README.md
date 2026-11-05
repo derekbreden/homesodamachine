@@ -33,7 +33,7 @@ deck's own storey over the pump's casting
 cabinet's axes. The yaw turns the chain's flow onto the cabinet's −Y, its inlet aft
 at the tap-water bulkhead and its 1/4" PTC collet forward onto the 1/4" LLDPE run to
 the water-split; there is no roll, so the vent hangs as it is built, dropping its
-TPU sleeve downward onto the 4 mm tube. The continuation is authored in [`_drain.py`](/hardware/manifold-layout/_drain.py); [`check_asse_drain.py`](/hardware/scripts/check_asse_drain.py) checks it against the installed appliance when run.
+TPU sleeve downward onto the 4 mm tube. The continuation is authored in [`_drain.py`](/hardware/manifold-layout/_drain.py).
 
 ## Model
 

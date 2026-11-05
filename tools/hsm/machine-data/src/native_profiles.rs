@@ -56,20 +56,6 @@ fn section(points:&[[f64;2]],span:[f64;2])->Value{
     json!({"segments":(0..points.len()).map(|i|json!({"line":[points[i],points[(i+1)%points.len()]]})).collect::<Vec<_>>(),"span":span})
 }
 fn external(rt:&Runtime,module:&str,path:&[&str])->Result<Val>{let mut value=rt.import_module(module)?;for name in path{value=value.attr(name)?;}Ok(value)}
-fn json_value(v:&Val)->Result<Value>{
-    Ok(match v {
-        Val::Tuple(rows)=>Value::Array(rows.iter().map(json_value).collect::<Result<_>>()?),
-        Val::List(rows)=>Value::Array(rows.borrow().iter().map(json_value).collect::<Result<_>>()?),
-        Val::Dict(rows)|Val::Namespace(rows)=>Value::Object(rows.borrow().iter().map(|(k,v)|Ok((k.str()?,json_value(v)?))).collect::<Result<_>>()?),
-        Val::Ref(_)=>{
-            let concrete=Val::decode(hsm_documents::interop::callback(json!({"op":"snapshot","object":v.encode()?}))?)?;
-            if matches!(concrete,Val::Ref(_)) {json_value(&v.attr("tolist")?.call(vec![],vec![])?)?}
-            else {json_value(&concrete)?}
-        },
-        _=>v.encode()?,
-    })
-}
-
 /// The absolute path of a stream opened `rb` from a named file, when `file_digest` is called as
 /// these modules call it: the stream and the digest, positionally.
 fn named_binary(args: &[Val], kwargs: &[(String, Val)]) -> Option<std::path::PathBuf> {
@@ -117,31 +103,10 @@ fn local_file_digest(hashlib: &Val) {
 
 pub fn install(rt: Runtime, e: &Env, module: &str) -> Result<()> {
     // These digest model files of several hundred MB.
-    if matches!(module, "_machine_checks" | "_machine_reporting" | "check_asse_drain") {
+    if matches!(module, "_machine_checks" | "_machine_reporting") {
         if let Ok(hashlib) = e.get("hashlib") {
             local_file_digest(&hashlib);
         }
-    }
-    if module=="check_asse_drain" {
-        e.set("centerline_radii",Val::function(|args,kw|value(json!(crate::curvature::centerline_radii(&json_value(arg(&args,&kw,0,"segments")?)?)?))))?;
-        e.set("_names",Val::function(|args,kw|{
-            let path=arg(&args,&kw,0,"path")?.str()?;
-            hsm_documents::interop::note_io(std::path::Path::new(&path),false);
-            value(crate::archive::metadata(&json!({"path":path,"kind":"names"}))?)
-        }))?;
-        e.set("_torus_records",Val::function(|args,kw|{
-            let path=arg(&args,&kw,0,"path")?.str()?;
-            let records=crate::archive::metadata(&json!({"path":path,"kind":"records"}))?;
-            hsm_documents::interop::note_io(std::path::Path::new(&path),false);
-            let mut out=Vec::new();
-            for pair in arg(&args,&kw,1,"entries")?.iter()? {
-                let pair=pair.iter()?;let index=pair[0].integer()? as usize;let name=pair[1].str()?;
-                for (face,record) in records[index].as_array().context("fine face records")?.iter().enumerate(){
-                    if record["kind"]=="TORUS" {out.push(json!({"entry_index":index,"qualified_name":name,"face_index":face,"record":record}));}
-                }
-            }
-            value(json!(out))
-        }))?;
     }
     if module == "_machine" {
         let root=rt.root_path().to_string_lossy().into_owned();
