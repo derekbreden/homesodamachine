@@ -26,8 +26,10 @@ pub fn apply(graph:&Val, piece:Val, plan:Val, wing:Val) -> Result<Val> {
     let y=plan.get("face_y_mm".into())?.num()?-t;
     let z=plan.get("center_z_mm".into())?.num()?;
     let half=s["frame_width"].as_f64().unwrap()/2.;
-    let bounds=json!([-half,half,s["floor_rear"],t,s["frame_bottom"],s["frame_top"]]);
+
     let add=|op:&str|->Result<Val>{
+        let rear=if op=="nameplate-stock" { &s["insert_stock_rear"] } else { &s["pilot_rear"] };
+        let bounds=json!([-half,half,rear,t,s["frame_bottom"],s["frame_top"]]);
         let shape=graph.attr("add")?.call(vec![op.into()],vec![
             ("snap".into(),Val::decode(s.clone())?),
             ("bounds".into(),Val::decode(bounds.clone())?)])?;

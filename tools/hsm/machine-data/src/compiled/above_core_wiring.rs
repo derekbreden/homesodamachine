@@ -39,6 +39,13 @@ let unpack53=unpack(item46,5)?;e.set("name",unpack53[0].clone())?;e.set("x",unpa
 }
 {let fun56=e.get("put")?;let mut args54=Vec::new();let mut kw55=Vec::new();args54.push(Val::Str("wago-mana".into()));args54.push(Val::Str("420".into()));args54.push(Val::Str("front-top".into()));args54.push(e.get("EAST_FLANK")?);args54.push({let mut s=Vec::new();s.push(Val::Float(95.2f64));s.push(Val::Float(185.05f64));s.push(Val::Float(277.0f64));Val::tuple(s)});args54.push(Val::Str("J1 valve common and eight A-H coil branches".into()));fun56.call(args54,kw55)?};
 {let fun59=e.get("put")?;let mut args57=Vec::new();let mut kw58=Vec::new();args57.push(Val::Str("wago-manb".into()));args57.push(Val::Str("415".into()));args57.push(Val::Str("front-top".into()));args57.push(e.get("EAST_FLANK")?);args57.push({let mut s=Vec::new();s.push(Val::Float(95.05f64));s.push(Val::Float(177.65f64));s.push(Val::Float(243.0f64));Val::tuple(s)});args57.push(Val::Str("J2 valve common, I/J/K coils and condenser fan".into()));fun59.call(args57,kw58)?};
+// Rear identification recess: preserve room behind its 3 mm floor.
+for name in ["wago-h", "wago-n"] {
+    let row=e.get("rows")?.get(name.into())?;
+    let xyz=row.get("translation_mm".into())?;
+    row.set("translation_mm".into(),Val::tuple(vec![xyz.get(Val::Int(0))?,
+        binary("sub",xyz.get(Val::Int(1))?,Val::Float(1.))?,xyz.get(Val::Int(2))?]))?;
+}
 return Ok(e.get("rows")?);
 Ok(Val::None)})})?;
 // hardware/manifold-layout/above_core_wiring.py:76 frame
