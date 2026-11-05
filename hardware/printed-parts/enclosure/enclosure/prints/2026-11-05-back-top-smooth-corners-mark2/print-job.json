@@ -1,0 +1,56 @@
+{
+  "part": "HSM-000081",
+  "part_name": "Enclosure back top",
+  "printer": "Mark2",
+  "status": "ready_waiting_for_unlocked_mac",
+  "user_authorization": "Looks good. Let’s start a print.",
+  "material": "Polymaker Fiberon PET-GF15, black",
+  "nozzle": {
+    "side": "left",
+    "diameter_mm": 0.4,
+    "flow": "Standard",
+    "hardened": true,
+    "reason": "Every abrasive stock runs on the left hotend (hardware/ledger/tools.md, Which hotends fit an H2C). Mark2's 2026-10-24 jobs ran black PET-GF on its fixed left hardened 0.4 mm Standard-flow hotend (faucet/industrial/prints/2026-10-24-buttons-sculpted-bands020-mark2/README.md, task 1372253517).",
+    "sliced_diameter_mm": 0.4,
+    "sliced_volume_type": "Standard"
+  },
+  "source_stl": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl",
+  "source_stl_sha256": "afef480e17bbad94f5b12c38e2f63048e052d9ae5dea3b3c5b403ace658ceca0",
+  "source_step_sha256": "b47d0f8fad3f7db0050c6274a16c3c37ee4f33a051e511374b20cc7955b063d9",
+  "archive": "/Users/derekbredensteiner/Downloads/HSM-smooth-corners-2026-11-05/HSM-000081-back-top-Mark2.gcode.3mf",
+  "archive_sha256": "9bf7e28a4573503f8e9954b7ffa82076b03b9b0bd201cbde67b22c763f0d7e3c",
+  "gcode_sha256": {
+    "Metadata/plate_1.gcode": "2420344466cd59636e9b513e5661f733230b06b1719fdb1d58c66bf13f455833"
+  },
+  "native_review_pass": true,
+  "minimum_bead_bed_margin_mm": 20.966093,
+  "estimated_seconds": 98005.6328125,
+  "estimated_filament_g": 795.4854125976562,
+  "layers": 812,
+  "emitted_z_trim_mm": [
+    0.0,
+    0.02
+  ],
+  "started": false,
+  "launch_blocker": "Mac console is locked; Bambu Connect’s window is unavailable.",
+  "launch_attempts": [
+    {
+      "sender": "tools/bambu_print.py",
+      "result": "focus: Bambu Connect did not come forward",
+      "sent": false
+    },
+    {
+      "sender": "tools/bambu_send.py",
+      "result": "Bambu Connect did not come up within 60 s",
+      "sent": false
+    }
+  ],
+  "launch_prerequisite": "Unlock the Mac and leave Bambu Connect open.",
+  "lock_last_verified_utc": "2026-11-05T15:03:28.352179+00:00",
+  "launch_command": [
+    "tools/cad-venv/bin/python",
+    "tools/bambu_print.py",
+    "/Users/derekbredensteiner/Downloads/HSM-smooth-corners-2026-11-05/HSM-000081-back-top-Mark2.gcode.3mf",
+    "Mark2"
+  ]
+}

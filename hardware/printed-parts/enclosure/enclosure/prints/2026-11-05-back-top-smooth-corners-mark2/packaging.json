@@ -1,0 +1,20 @@
+{
+  "source_archive": "/Users/derekbredensteiner/Downloads/HSM-smooth-corners-2026-11-05/2026-11-05-back-top-mark2-60917517/2026-11-05-back-top-mark2-60917517.gcode.3mf",
+  "source_archive_sha256": "fd35601dceac5ad17364961db41108862c3fa7c92182b05a4dcc5f80e0a86b35",
+  "print_only_archive": "/Users/derekbredensteiner/Downloads/HSM-smooth-corners-2026-11-05/HSM-000081-back-top-Mark2.gcode.3mf",
+  "print_only_archive_sha256": "9bf7e28a4573503f8e9954b7ffa82076b03b9b0bd201cbde67b22c763f0d7e3c",
+  "gcode_sha256": {
+    "Metadata/plate_1.gcode": "2420344466cd59636e9b513e5661f733230b06b1719fdb1d58c66bf13f455833"
+  },
+  "gcode_byte_identical": true,
+  "changed_container_entries": [
+    "3D/3dmodel.model",
+    "Metadata/model_settings.config"
+  ],
+  "omitted_editable_geometry_entries": [
+    "3D/Objects/object_1.model",
+    "3D/_rels/3dmodel.model.rels",
+    "Metadata/cut_information.xml",
+    "Metadata/layer_config_ranges.xml"
+  ]
+}
