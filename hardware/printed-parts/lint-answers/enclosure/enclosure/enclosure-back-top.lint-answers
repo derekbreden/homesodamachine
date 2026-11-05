@@ -516,24 +516,7 @@ alternatives: Group connected low-curvature facets before comparing plane offset
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=-83.329 y=462.253 z=312.728
 
-[ceiling] Fitted nameplate mouth, spring-root pockets and release windows. The level mouth stop locates the rectangular plate; the two root pockets admit its complete 5 mm-wide anchors, and the centered 6 mm tool windows expose the spring heads. Back-top prints ceiling-down with Tree(auto)/Default supports removed through the empty exterior mouth and side windows before plate installation. Support removal remains physically unqualified.
-alternatives: Sloping the mouth stop requires changing the plate outline. Filling or corbelling into the pockets blocks the spring roots or their inward travel; filling the windows removes the requested receiver-side release access. Widening the opening removes the 2 mm hook-bearing bands at either end.
+[ceiling] Required lower locating seat of the four-screw nameplate: this flat, 3.36 mm-deep edge supports the rectangular plate while the four screws are started and bounds the front receiver opening. Back-top prints ceiling down. Tree(auto)/Default supports reach this exposed exterior ledge and are removed through the empty mouth before pressing the inserts or fitting the plate. Physical support cleanup is not yet qualified.
+alternatives: Filling the mouth prevents fitting the full plate. A slope in the locating seat changes the rectangular seating profile or leaves a tapered lip; an open-bottom receiver removes this locating edge and the continuous protective frame.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=-45.400 y=474.545 z=169.600
-click: x=-4.400 y=470.740 z=184.250
-click: x=-86.400 y=470.740 z=184.250
-click: x=-0.500 y=472.495 z=217.000
-click: x=-90.300 y=472.495 z=217.000
-
-[thin] Fitted nameplate retaining shoulders: each 1.6 mm-deep shoulder lies between the rigid plate back and the hook shoulder. The plate has 0.15 mm back-face air, the hook has 0.25 mm axial clearance and 1.05 mm transverse capture. Two 2 mm-wide bearing bands straddle each centered release window. This is the working catch profile; the blind-pocket backing is a separate minimum 3 mm wall.
-alternatives: Thickening toward the front occupies the plate body; thickening toward the rear occupies the moving hook. Increasing the separation requires a deeper clip and receiver. Sloping or removing the shoulder creates a withdrawal ramp or removes positive capture.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=-88.525 y=471.190 z=216.063
-click: x=-88.525 y=472.790 z=216.063
-click: x=-88.525 y=471.190 z=224.024
-click: x=-88.525 y=472.790 z=224.024
-click: x=-2.275 y=471.190 z=215.687
-click: x=-2.275 y=472.790 z=215.687
-click: x=-2.058 y=471.190 z=224.941
-click: x=-2.058 y=472.790 z=224.941
-
+click: x=-45.400 y=477.620 z=166.600
