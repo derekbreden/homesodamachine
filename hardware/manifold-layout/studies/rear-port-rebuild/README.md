@@ -5,7 +5,8 @@ Each part goes where it has to be and is measured against what is already placed
 thin tubes come last; the soda inlet, the water split's stub, the CO2 tube and the short pieces of
 3/8 in tube in the pump's joints are the only tubes drawn.
 
-The [study](study.py) writes the scenes the [page spec](page.json) draws, the measurements in
+The [study](https://github.com/derekbreden/homesodamachine/blob/365ab749aa0b4bfb3f3955ef02cee1c5a8d2a1bc/hardware/manifold-layout/studies/rear-port-rebuild/study.py),
+in Git history, wrote the scenes the [page spec](page.json) draws, the measurements in
 [study.json](study.json), and the figures below. The page is published at
 https://claude.ai/artifact/RppC6x7HmYNP8n2d6EyTMN.
 

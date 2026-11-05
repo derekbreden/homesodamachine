@@ -420,7 +420,7 @@ specifies the following dimensions. Its minimum surrounding wall is measured fro
 
 Ruthex specifies at least 1.0 mm of blind relief below the installed insert.
 The [native core and faucet audit](core-and-faucet-heatsets.json), produced by
-[`check_core_and_faucet_heatsets.py`](../scripts/check_core_and_faucet_heatsets.py),
+[`check_core_and_faucet_heatsets.py`](https://github.com/derekbreden/homesodamachine/blob/365ab749aa0b4bfb3f3955ef02cee1c5a8d2a1bc/hardware/scripts/check_core_and_faucet_heatsets.py),
 checks complete annular stock over the full blind pocket, an open pilot and a closed end.
 Its 39 appliance pockets are the 20 cold-core cap stations, four water-pump columns,
 12 reservoir stations and three faucet-base stations. Four additional main-board

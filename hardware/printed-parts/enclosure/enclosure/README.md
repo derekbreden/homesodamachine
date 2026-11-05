@@ -138,7 +138,7 @@ that rises toward a free face levels off one wall short of it. Every face betwee
 keeps a running fit, measured square to the face.
 
 The screws pass through printed holes, the selected
-[M5 sample fit](/hardware/print-tests/m5-seam-bearing/physical-result.json).
+[M5 sample fit](https://github.com/derekbreden/homesodamachine/blob/archive-finished-trials/hardware/print-tests/m5-seam-bearing/physical-result.json).
 Long passages may require turning the screw before the insert engages. Each insert and
 the manufacturer's minimum stock round it, about the axis, fit
 inside the side band. The lower axes stand in from the exterior,

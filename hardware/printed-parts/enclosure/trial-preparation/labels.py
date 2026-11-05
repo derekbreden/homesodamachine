@@ -12,7 +12,8 @@ The collars lie on their flat faces.
 
 The recipe is `petgf.3mf` on both 0.4 mm nozzles with Mark2's +0.04 mm Z trim. White PET-GF is
 on the left nozzle, and the plate's colour is on the right. The right nozzle's registration
-offset comes from `calibration/dual-nozzle-registration/mark2-registration.json`. There are no
+offset comes from
+`hardware/printed-parts/calibration/dual-nozzle-registration/mark2-registration.json`. There are no
 supports and no brim. One shared layer schedule (`_derive.closing_schedule`) puts a layer top
 on every face-up chip face and lettering top, because the prime tower needs one schedule.
 

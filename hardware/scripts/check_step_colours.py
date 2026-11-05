@@ -1,57 +1,54 @@
 #!/usr/bin/env python3
-"""check_step_colours.py — whether each solid's own STEP carries the colour of what it is made of.
+"""check_step_colours.py — whether each model the site lists draws in the colour of what it is made of.
 
-    python3 hardware/scripts/check_step_colours.py     (0 = every STEP coloured, 1 = some are not)
+    python3 hardware/scripts/check_step_colours.py     (0 = every model coloured, 1 = some are not)
 
 A BODY IS COLOURED TWICE AND THE TWO ARE DIFFERENT QUESTIONS. The assembly that places a body
 paints it as it adds it, and `enclosure_assembly`'s `bodies-colored` row reads that: every placed
-solid carries a colour. A body's OWN STEP is the other half, and it is what the part's own card
-and `/3d` draw — `web/public/js/viewer/step.js` paints a body whose STEP carries no colour at
-`DEFAULT_FRONT`, a blue-grey that is no material on this machine. So a part can be black in the
-picture of the appliance and blue-grey in the picture of itself, with the assembly's own gate
-green over it.
+solid carries a colour. A model's OWN picture is the other half — its card and `/3d` — and
+`web/public/js/viewer/step.js` paints a body that names no colour at `DEFAULT_FRONT`, a blue-grey
+that is no material on this machine. So a part can be black in the picture of the appliance and
+blue-grey in the picture of itself, with the assembly's own gate green over it.
+
+THE SITE'S MODELS ARE THE READING: the `.step` files `hardware/cad-artifacts.json` selects for the
+website, which are the models `/api/steps` lists. The viewer draws a model from its `.step.mesh`
+payload when it has one, so each mesh colour the payload names is what a reader sees; a model with
+no payload is drawn from its STEP, and a STEP names its colours as `COLOUR_RGB` entities.
 
 `cq.exporters.export` writes geometry and no colour. `hardware/scripts/_materials.one_body` is
 what a generator wraps a solid in so `export_assembly` bakes the material in beside the geometry.
-
-`_solids.solids()` IS THE READING, and not the directory: it names the solids a fresh clone has —
-the lock's, which it fetches, and the index's — and a directory listing that finds another one
-there is reading leftovers.
 """
 
+import json
+import struct
 import sys
 from pathlib import Path
-
-sys.path.insert(0, str(Path(__file__).resolve().parent))
-from _solids import solids as _solids
 
 _here = Path(__file__).resolve()
 _hw = next(p for p in _here.parents if p.name == "hardware")
 _root = _hw.parent
+POINTERS = _hw / "cad-artifacts.json"
 
 # The STEP entity a colour arrives as. AP214 writes one per distinct colour, referenced by a
 # `STYLED_ITEM` per shape; a file with none names no colour for anything in it.
 COLOUR_ENTITY = b"COLOUR_RGB"
 _CHUNK = 1 << 20
 
-# Frozen copies a record names by hash: the plate sources a print was sliced from, and the bodies
-# a fit review was run against. Neither is a part's own STEP, and repainting one changes the bytes
-# its record binds.
-RECORD_COPIES = (
-    "hardware/printed-parts/prototype-gaskets-2026-10-08/sources/",
-    "hardware/printed-parts/enclosure/enclosure/accepted-fit-integration/",
-)
+
+def site_models() -> list:
+    """The STEPs the website selection carries, repo-relative: the models `/api/steps` lists."""
+    selection = json.loads(POINTERS.read_text())["website"]["solids"]
+    return sorted(p for p in selection if p.startswith("hardware/") and p.endswith(".step"))
 
 
-def _tracked_steps() -> list:
-    """Every STEP under `hardware/` this tree stands behind, repo-relative.
-
-    A SOLID IS NOT ALWAYS A STEP. `_solids.solids()` names every generated solid the lock
-    carries, and a mesh among them is an STL — a triangle soup with no colour channel at
-    all, so there is no `COLOUR_RGB` for it to be missing. The reading is of the format
-    that has one."""
-    return [p for p in _solids() if p.startswith("hardware/") and p.endswith(".step")
-            and not p.startswith(RECORD_COPIES)]
+def payload_colours(path):
+    """The colour each mesh of a `.step.mesh` payload names, or None when there is no payload."""
+    try:
+        data = path.read_bytes()
+    except OSError:
+        return None
+    (size,) = struct.unpack_from("<I", data)
+    return [mesh.get("color") for mesh in json.loads(data[4:4 + size])["meshes"]]
 
 
 def carries_colour(path) -> bool:
@@ -74,19 +71,33 @@ def carries_colour(path) -> bool:
         return False
 
 
+def draws_coloured(rel: str) -> bool:
+    """Whether the viewer draws every body of this model in a colour it names."""
+    colours = payload_colours(_root / f"{rel}.mesh")
+    if colours is None:
+        return carries_colour(_root / rel)
+    return all(colours)
+
+
 def main() -> int:
-    steps = _tracked_steps()
-    bare = [rel for rel in steps if not carries_colour(_root / rel)]
-    print(f"step colours: {len(steps) - len(bare)}/{len(steps)} carry the colour of what they are "
-          f"made of")
-    if not bare:
-        return 0
-    print(f"  {len(bare)} STEP(s) name no colour, so /3d and their own cards draw them at the "
-          f"viewer's blue-grey:")
-    for rel in bare:
-        print(f"    {rel}")
-    print("  A generator hands its solid to `_materials.one_body` and exports the assembly.")
-    return 1
+    models = site_models()
+    absent = [rel for rel in models if not (_root / rel).is_file()]
+    grey = [rel for rel in models if rel not in absent and not draws_coloured(rel)]
+    for rel in absent:
+        print(f"  not on this disk: {rel}")
+    if grey:
+        print(f"  {len(grey)} model(s) the site lists name no colour, so /3d and their own cards "
+              f"draw them at the viewer's blue-grey:")
+        for rel in grey:
+            print(f"    {rel}")
+        print("  A generator hands its solid to `_materials.one_body` and exports the assembly.")
+    if absent:
+        print(f"step colours: {len(absent)} of {len(models)} site models are not on this disk; "
+              f"`node web/scripts/fetch-cad-artifacts.mjs` fetches them.")
+        return 1
+    print(f"step colours: {len(models) - len(grey)}/{len(models)} site models draw in the colour "
+          f"of what they are made of")
+    return 1 if grey else 0
 
 
 if __name__ == "__main__":

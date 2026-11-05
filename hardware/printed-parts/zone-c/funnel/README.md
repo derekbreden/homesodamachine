@@ -199,7 +199,8 @@ pilots with `funnel_frame.shell_screw_cuts` after furniture is joined.
 
 ## Integration checks
 
-The manual [drop-in review](drop-in-review/review.py) measures the authored rigid
+The manual [drop-in review](https://github.com/derekbreden/homesodamachine/blob/c7d81e1eefee1c16b74229577bc128f648e315ec/hardware/printed-parts/zone-c/funnel/drop-in-review/review.py),
+in Git history, measures the authored rigid
 empty frame, ledges, silicone brim bearing, original snap web/socket and screw engagement.
 With production shells included, it also measures the nominal Ø3.3 mm J10 tool
 passages with the frame and its cradled drain removed.
@@ -208,13 +209,8 @@ upper shells are included. Its lift scope removes the drain cradle, elbow
 and connected tubing. Sampled geometry does not establish hand access,
 printed fit, support-removal effort, sealing, load capacity or lifetime.
 
-```sh
-tmp/takeover/cadq "funnel: drop-in review" -- tools/cad-venv/bin/python \
-  hardware/printed-parts/zone-c/funnel/drop-in-review/review.py --shells
-```
-
 The retained [horizontal rail-motion record](integration-review/rail-motion-check.json)
 and [frame print receipt](flush-roof-review/mark2-v1/README.md) apply only to the
-artifacts named in those records. The [cradle trial](cradle-trial/physical-acceptance.json)
+artifacts named in those records. The [cradle trial](https://github.com/derekbreden/homesodamachine/blob/archive-finished-trials/hardware/printed-parts/zone-c/funnel/cradle-trial/physical-acceptance.json)
 retains its accepted insertion scope. The drop-in frame and installed drain joint require their own physical print
 and assembly observations.

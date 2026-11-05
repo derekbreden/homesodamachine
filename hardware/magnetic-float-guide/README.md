@@ -35,14 +35,14 @@ the guides page.
 
 ```sh
 tools/cad-venv/bin/python tools/magnetic-float-guide/author.py
-tools/cad-venv/bin/python tools/magnetic-float-guide/float_art.py
 tools/cad-venv/bin/python tools/magnetic-float-guide/build.py
 ```
 
 [author.py](../../tools/magnetic-float-guide/author.py) reads the current design,
 integration, installation and physical records.
-[float_art.py](../../tools/magnetic-float-guide/float_art.py) renders native
-CadQuery solids, with coral motion cues and the same current CAD revision.
+The artwork is committed here.
+[float_art.py](https://github.com/derekbreden/homesodamachine/blob/7877f6193ead05647b529972ee9f50de305c8d44/tools/magnetic-float-guide/float_art.py),
+in Git history, rendered it from native CadQuery solids with coral motion cues.
 [build.py](../../tools/magnetic-float-guide/build.py) verifies input and image
 hashes, checks layout overflow, binds the pages with bookmarks and writes the
 cover and `.pdf.json` sidecar.

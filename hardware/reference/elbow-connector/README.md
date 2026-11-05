@@ -5,14 +5,8 @@ drinking-water elbow: a vendor STEP close to, but not the same as, the
 **John Guest PP0308E** 1/4" union elbow, black PP. It is a reference only;
 nothing in the machine places it.
 
-The machine's PP0308E is the scanned
-[PP0308E reference](/hardware/reference/jg-pp0308e-elbow/README.md).
-[`manifold-layout/enclosure_assembly.py`](/hardware/manifold-layout/enclosure_assembly.py)
-`build_drain_joint` places it under the funnel frame's drain hole to retain the raw
-tube stub. The silicone funnel's sealing land presses onto that stub and lifts off
-for cleaning. The stub takes its insertion, `UNION_INSERTION` =
-15.7 mm, from John Guest's data sheet for the 1/4" PP range
-([`funnel_drain_stub.py`](/hardware/reference/funnel-drain-stub/funnel_drain_stub.py)).
+The machine's PP0308E, the V-B return union in the [parts list](/hardware/ledger/bom.md), is
+the scanned [PP0308E reference](/hardware/reference/jg-pp0308e-elbow/README.md).
 
 ## Geometry (measured from the STEP)
 

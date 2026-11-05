@@ -1,5 +1,5 @@
 """Relay GPIO names for the electronics bay, computed by the Rust `assembly-docs` program.
-`hardware/scripts/check_pinmap.py` checks them against the pin map."""
+`hardware/scripts/check_pinmap.py` checks the program's constants against the pin map."""
 import sys
 from pathlib import Path
 HERE = Path(__file__).resolve().parent

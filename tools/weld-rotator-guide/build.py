@@ -6,8 +6,9 @@ and it keeps no `note_read` / `note_write` bookkeeping. Its outputs are committe
 than packed into the release asset, and reach the served disk on the deploy `render.yaml`'s
 build filter already names for this directory.
 
-    tools/cad-venv/bin/python tools/weld-rotator-guide/rotator_art.py   # the pictures, first
-    tools/cad-venv/bin/python tools/weld-rotator-guide/build.py         # then the book
+    tools/cad-venv/bin/python tools/weld-rotator-guide/build.py
+
+It binds the committed pictures in `art/`; `rotator_art.py`, which drew them, is in Git history.
 
 `pages()` is the bound order, read off the leaf filenames. The renderer prints page 1 of each
 leaf and nothing else; the `.card > header|main|footer` anatomy in `style.css` is what its spill
