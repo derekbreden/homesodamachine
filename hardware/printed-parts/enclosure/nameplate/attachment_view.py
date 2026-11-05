@@ -120,8 +120,11 @@ def main():
         put(scene,name,mesh,color)
     for name, mesh, color in plate_meshes+fasteners:
         put(scene,name,mesh,color,to_world)
-    for view in ('installed','full-context'):
-        target=VIEWER/(f'nameplate-shallow-{view}.glb' if view=='full-context' else f'nameplate-attachment-{view}.glb')
+    for view in ('installed','full-context','smooth-corners'):
+        if view=='smooth-corners':
+            target=VIEWER/'enclosure-smooth-corners-full-context.glb'
+        else:
+            target=VIEWER/(f'nameplate-shallow-{view}.glb' if view=='full-context' else f'nameplate-attachment-{view}.glb')
         target.write_bytes(scene.export(file_type='glb'))
         records[view]=str(target.relative_to(ROOT/'hardware'))
         print(target.name,flush=True)
