@@ -87,6 +87,18 @@ def above_core_regions(box, region):
         bounds = shape_bounds(host)
         bounds[3] = max(bounds[3], box.outer[3])
         region('back-top', f'C14 blind insert host and rear wall root {side:+g}', bounds)
+    nameplate_path = ENC.parent/'nameplate/nameplate.numbers.json'
+    mount = json.loads(nameplate_path.read_text())['snap']
+    plate = json.loads((ROOT/'hardware/manifold-layout/above-core.json').read_text())['rear_identification']['nameplate']
+    back = plate['face_y_mm'] - mount['thick']
+    radius = mount['insert_stock_radius']
+    for number, (dx, dz) in enumerate(mount['stations'], start=1):
+        x, z = plate['center_x_mm'] + dx, plate['center_z_mm'] + dz
+        region('back-top', f'Nameplate insert land and rear wall root {number}',
+               [x-radius, x+radius,
+                min(box.inner[3], back+mount['pilot_rear']-mount['floor_stock']),
+                back+mount['thick'],
+                z-radius, z+radius])
     if box.pack.funnel:
         frame = e._funnel_frame_part
         for col in ('front', 'back'):
@@ -99,8 +111,7 @@ def above_core_regions(box, region):
                            shape_bounds(shape))
 
 
-def main():
-    box, _bounds, box_path = _declared_box(_box_spec, e)
+def write_regions(box, _bounds, box_path):
     pieces = {name: [] for name in e.PIECE_COLORS}
     mesh_bounds = {
         name: trimesh.load_mesh(ENC/f'enclosure-{name}.stl', process=False).bounds
@@ -177,6 +188,8 @@ def main():
            Path(e._above_core_shell.__file__),
            Path(e._above_core_shell.layout.__file__),
            ROOT/'hardware/manifold-layout/above-core.json',
+           ENC.parent/'nameplate/nameplate.numbers.json',
+           ENC.parent/'nameplate/snap_dimensions.rs',
            ROOT/'hardware/reference/meanwell-irm90/meanwell_irm90.py',
            ROOT/'hardware/reference/teyleten-relay/teyleten_relay.py',
            Path(e._funnel_frame_part.__file__),
@@ -193,6 +206,17 @@ def main():
                 native_artifact_sha256={name:{suffix:hashlib.sha256((ENC/f'enclosure-{name}{suffix}').read_bytes()).hexdigest()
                                              for suffix in ('.step','.stl')} for name in pieces},pieces=pieces)
     (Path(__file__).parent/'print-regions.json').write_text(json.dumps(report,indent=2)+'\n')
+
+
+def main():
+    import _enclosure_panel as panel
+    import _enclosure_back_top as back_top
+
+    box, bounds, box_path = _declared_box(_box_spec, e)
+    graph = panel._Graph()
+    structure = graph.add('silhouette', bounds=box.outer)
+    with panel._record(e, graph, structure), back_top._leaves(e, graph, box):
+        write_regions(box, bounds, box_path)
 
 
 if __name__=='__main__':
