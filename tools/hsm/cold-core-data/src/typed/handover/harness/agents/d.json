@@ -1,0 +1,27 @@
+{
+ "group": "d",
+ "modules": [
+  "_foam_cap",
+  "_foam_shell",
+  "_internal_routes",
+  "foam_cap",
+  "foam_shell",
+  "foam_numbers",
+  "foam_assembly",
+  "core_reference",
+  "cold_core_assembly",
+  "core_numbers"
+ ],
+ "files": [
+  "cold_core_assembly.rs",
+  "core_numbers.rs",
+  "core_reference.rs",
+  "foam_assembly.rs",
+  "foam_cap.rs",
+  "foam_cap_parts.rs",
+  "foam_numbers.rs",
+  "foam_shell.rs",
+  "foam_shell_parts.rs",
+  "internal_routes.rs"
+ ]
+}

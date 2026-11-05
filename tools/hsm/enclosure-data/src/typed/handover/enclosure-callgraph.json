@@ -1,0 +1,1373 @@
+{
+"calls": {
+"print_up": [],
+"flute_backed_sections": [],
+"wago_stand": [],
+"wago_engage": [
+"wago_stand"
+],
+"wago_half": [
+"wago_stand"
+],
+"wago_swing": [
+"wago_stand"
+],
+"cond_slot_half": [],
+"cond_slot_mouth": [],
+"interior_x": [],
+"back_top_wall_face": [],
+"back_wall_t_at": [],
+"back_top_flank_face": [
+"interior_x"
+],
+"back_bottom_flank_face": [
+"interior_x"
+],
+"front_bottom_flank_face": [
+"interior_x"
+],
+"vent_flank_face": [
+"front_bottom_flank_face"
+],
+"front_top_flank_face": [
+"interior_x"
+],
+"front_top_flank_root_z": [
+"front_top_flank_face",
+"interior_x"
+],
+"tray_corbel_roots": [],
+"lip_face_x": [
+"interior_x"
+],
+"piece_root_faces": [
+"back_bottom_flank_face",
+"back_top_flank_face",
+"back_top_wall_face",
+"front_bottom_flank_face",
+"front_top_flank_face"
+],
+"_c14_pocket_landmarks": [],
+"c14_mount_half": [],
+"back_top_ceiling_face": [],
+"back_top_ceiling_stock": [
+"back_flank_start",
+"back_top_ceiling_face",
+"back_top_flank_face",
+"back_top_wall_face"
+],
+"back_flank_start": [],
+"documented": [],
+"record_bound": [],
+"_supported_cut": [],
+"_ring": [],
+"_column_arc": [],
+"_corner_column": [
+"_column_arc"
+],
+"_column_pillar": [
+"_corner_column",
+"_lip_band"
+],
+"_column_along": [],
+"wall_flat_from_corner": [
+"_column_along"
+],
+"_column_depth": [],
+"_cavity": [
+"_corner_column"
+],
+"_cradle_relief": [
+"cond_slot_half",
+"cond_slot_mouth"
+],
+"_column_relief": [
+"_column_pillar",
+"_cradle_relief"
+],
+"_column_relief_rise": [
+"_column_pillar",
+"cond_slot_half"
+],
+"wall_band_corner_y": [],
+"wall_boss_aft_limit": [],
+"east_band_free_y": [
+"wall_band_corner_y"
+],
+"front_band_free_y": [
+"y_stack_y"
+],
+"seam_bosses": [
+"_z_rail_runs",
+"y_stack",
+"y_stack_y"
+],
+"_in_a_boss": [],
+"_open_bands": [],
+"_clipped": [],
+"_bed_band": [],
+"_lip_band": [
+"_cavity"
+],
+"_lip_denied": [
+"_lip_lane_tool"
+],
+"_z_joints": [
+"_bed_band",
+"_box_bound_rows",
+"_clipped",
+"_lip_denied",
+"_open_bands",
+"record_bound"
+],
+"back_top_flank_bound": [
+"_box_bound_rows",
+"back_top_flank_face",
+"wago_half"
+],
+"_dims": [
+"_box_bound_rows",
+"_box_question_frame",
+"_column_pillar",
+"_floor_section_tool",
+"_front_floor",
+"_front_relief_regions",
+"_in_a_boss",
+"_reading_bounds",
+"_seat_back",
+"_under_lip_tool",
+"_z_joints",
+"back_top_flank_bound",
+"bay_x_span",
+"flute_backed_sections",
+"flute_pitch",
+"housing_back_y",
+"plan_perimeter",
+"plate_foot_envelope_clearance",
+"record_bound",
+"seam_bosses"
+],
+"_facet_geom": [],
+"housing_back_y": [],
+"pcb_ridge": [
+"display_plane"
+],
+"_ridge_join": [
+"pcb_ridge"
+],
+"_seat_back": [],
+"display_centre_x": [],
+"_facet_wedge": [
+"_facet_geom"
+],
+"flank_x_at": [],
+"_plan_segments": [],
+"seam_cap_z": [],
+"plate_outline": [],
+"plan_perimeter": [
+"_plan_segments"
+],
+"flute_pitch": [
+"plan_perimeter"
+],
+"plan_at": [
+"_plan_segments"
+],
+"flute_rails": [
+"disposal_field",
+"plan_at",
+"plan_perimeter"
+],
+"flute_centres": [
+"flute_pitch"
+],
+"housing_fill": [],
+"_display_point": [
+"_facet_geom",
+"display_centre_x"
+],
+"display_plane": [
+"_facet_geom",
+"display_centre_x"
+],
+"_display_cut_exit_depth": [],
+"_port_cuts": [
+"_supported_cut",
+"_teardrop_y"
+],
+"disposal_field": [],
+"disposal_figures": [
+"disposal_field"
+],
+"_nameplate": [
+"back_top_wall_face",
+"interior_x"
+],
+"_port_chip": [],
+"_port_field": [
+"_port_chip",
+"_port_cuts",
+"_supported_cut"
+],
+"_x_port_cuts": [
+"_supported_cut"
+],
+"_funnel_frame": [
+"housing_back_y"
+],
+"_funnel_hole": [],
+"_funnel_cut_plan": [
+"_funnel_hole"
+],
+"funnel_seat_z": [],
+"with_funnel": [
+"_funnel_frame",
+"_funnel_hole",
+"record_bound"
+],
+"_funnel_cut": [
+"_wago_pocket",
+"funnel_seat_z",
+"y_stack_axis"
+],
+"_seat_ledge_corbels": [
+"funnel_seat_z",
+"housing_back_y"
+],
+"_ceiling_tongue_air": [],
+"_handhold_levels": [],
+"_band_x": [],
+"y_stack_y": [
+"back_flank_start"
+],
+"_y_stack_gap": [],
+"_y_knuckle_faces": [],
+"y_stack": [
+"_handhold_levels",
+"_y_stack_gap"
+],
+"y_stack_axis": [],
+"y_stack_rods": [
+"y_stack"
+],
+"_y_face_z": [],
+"_y_under_face": [],
+"_y_between_faces": [
+"_y_face_z",
+"_y_under_face"
+],
+"_y_top_cap": [],
+"_y_knuckle": [
+"_handhold_levels",
+"_rail_x",
+"_y_between_faces",
+"_y_knuckle_faces",
+"_y_top_cap",
+"back_flank_start",
+"y_stack"
+],
+"_y_knuckle_air": [
+"_y_between_faces",
+"_y_knuckle_faces",
+"back_flank_start"
+],
+"_y_stack_bores": [
+"y_stack",
+"y_stack_axis",
+"y_stack_rods"
+],
+"_y_bore_reliefs": [
+"_y_face_z",
+"_y_knuckle_faces",
+"y_stack",
+"y_stack_axis",
+"y_stack_rods"
+],
+"_y_stacks": [
+"_funnel_cut",
+"_y_bore_reliefs",
+"_y_knuckle",
+"_y_knuckle_air",
+"_y_stack_bores",
+"y_stack"
+],
+"_front_lip": [],
+"_y_lip_channel": [],
+"_floor_tongue": [
+"_handhold_backing_end"
+],
+"_handhold_y": [],
+"grip_interface": [],
+"_handhold_backing_end": [],
+"_handhold_backing_joint": [
+"_band_x",
+"_handhold_backing_end",
+"_handhold_levels"
+],
+"_handhold_frame": [
+"_band_x",
+"_handhold_backing_end",
+"_handhold_backing_joint",
+"_handhold_levels",
+"_handhold_y",
+"_y_stack_gap"
+],
+"_handholds": [
+"_handhold_backing_joint",
+"_handhold_frame"
+],
+"_finish_handholds": [],
+"_z_rail_runs": [],
+"_z_rail_travel": [
+"_z_rail_runs"
+],
+"_rail_nominal_foot_face": [
+"back_bottom_flank_face",
+"back_top_flank_face",
+"front_bottom_flank_face",
+"front_top_flank_face"
+],
+"_rail_foot_face": [
+"_rail_nominal_foot_face"
+],
+"_rail_hook_lap": [],
+"_rail_x": [
+"_rail_foot_face",
+"_rail_hook_lap"
+],
+"_rail_channel_span": [
+"_rail_x"
+],
+"rail_catch_air": [],
+"_z_rail_heads": [
+"_rail_nominal_foot_face",
+"_rail_x",
+"_z_rail_runs",
+"rail_catch_air"
+],
+"_z_rail_feet": [
+"_rail_channel_span",
+"_rail_x",
+"_z_rail_runs"
+],
+"_rail_keep": [],
+"_z_rail_channels": [
+"_rail_channel_span",
+"_rail_keep",
+"_z_rail_runs"
+],
+"_lip_ring": [
+"_lip_band"
+],
+"_lip_underwall": [
+"_lip_ring"
+],
+"_front_bottom_flank_skin": [
+"front_bottom_flank_face",
+"lip_face_x"
+],
+"_plate_foot": [
+"front_bottom_flank_face"
+],
+"_plate_foot_clearance": [
+"front_bottom_flank_face"
+],
+"plate_foot_envelope_clearance": [
+"_plate_foot_clearance"
+],
+"plate_foot_condenser_clearance": [
+"_plate_foot_clearance"
+],
+"_back_bottom_flank_skin": [
+"back_bottom_flank_face",
+"back_flank_start",
+"lip_face_x"
+],
+"bay_x_span": [],
+"_pump_relief_regions": [],
+"_front_relief_regions": [
+"_pump_relief_regions"
+],
+"_front_relief_cuts": [],
+"_front_floor": [],
+"_front_flat_lip_drop": [
+"_column_pillar",
+"bay_x_span"
+],
+"bay_back_y": [],
+"_front_top_flank_bedding_cut": [
+"front_top_flank_face"
+],
+"_front_top_flanks": [
+"_front_top_flank_bedding_cut",
+"_port_cuts",
+"_x_port_cuts",
+"front_top_flank_face"
+],
+"_back_top_wall": [
+"_back_top_wall_relief_cut",
+"_port_cuts",
+"back_top_wall_face"
+],
+"_back_top_wall_relief_cut": [
+"back_top_wall_face"
+],
+"_back_top_flank_tie_cut": [
+"_asse_tie_channel_span",
+"back_top_flank_face",
+"lip_face_x"
+],
+"_flank_body_pockets": [],
+"_front_top_flank_pockets": [],
+"_back_top_flanks": [
+"_back_top_flank_tie_cut",
+"_x_port_cuts",
+"back_flank_start",
+"back_top_flank_face"
+],
+"_ceiling_tie_reliefs": [
+"anchor_capped",
+"back_top_ceiling_face"
+],
+"_ceiling_cap_reliefs": [
+"anchor_capped",
+"back_top_ceiling_face"
+],
+"_ceiling_tie_channel_relief": [
+"_asse_tie_channel_span",
+"back_top_ceiling_face",
+"back_top_flank_face"
+],
+"_back_top_ceiling": [
+"_back_top_wall_relief_cut",
+"_c14_aperture",
+"_ceiling_cap_reliefs",
+"_ceiling_tie_channel_relief",
+"_ceiling_tie_reliefs",
+"_funnel_cut_plan",
+"back_top_ceiling_face",
+"back_top_ceiling_stock",
+"back_top_flank_face",
+"back_top_wall_face"
+],
+"cap_split_z": [],
+"cap_terminal_opening_z": [],
+"cap_crown_z": [],
+"cap_terminal_crown_r": [
+"cap_crown_z",
+"cap_terminal_opening_z"
+],
+"pump_skirt_support_z": [
+"cap_split_z"
+],
+"pump_skirt_band_aft_y": [],
+"pump_cartridge_aft_y": [
+"bay_back_y",
+"pump_skirt_band_aft_y"
+],
+"_outlet_fore_miter_wedges": [],
+"_outlet_under_tangent_wedges": [],
+"pump_cartridge_figures": [],
+"bay_floor_z": [
+"_pump_relief_regions"
+],
+"_flank_lip_drop": [
+"_flank_lip_run"
+],
+"_flank_lip_run": [],
+"_bay_floor": [
+"bay_floor_z",
+"bay_x_span"
+],
+"_bulkhead": [
+"bay_back_y"
+],
+"_ridge_wall": [
+"funnel_seat_z"
+],
+"_teardrop_y": [],
+"build_pump_retainer": [],
+"pump_dock_figures": [
+"bay_back_y",
+"pump_cartridge_aft_y"
+],
+"_floor_bosses": [],
+"_east_boss_stem": [],
+"_east_wedge": [],
+"_east_boss_corbel": [
+"_east_wedge"
+],
+"east_boss_wings": [],
+"east_boss_pairs": [],
+"_east_bar": [],
+"_east_bar_support": [
+"_east_bar",
+"_east_boss_corbel"
+],
+"_east_boss_support": [
+"_east_boss_corbel",
+"_east_boss_stem"
+],
+"east_boss_insert_setback": [],
+"east_boss_sleeve_r": [],
+"east_sleeve_r": [],
+"_east_bosses": [
+"_east_bar",
+"_east_bar_support",
+"_east_boss_corbel",
+"_east_boss_stem",
+"_east_boss_support",
+"_supported_cut",
+"east_boss_bore_end",
+"east_boss_insert_setback",
+"east_boss_pairs",
+"east_boss_sleeve_r"
+],
+"east_boss_bore_end": [
+"flank_x_at"
+],
+"_wago_pocket": [
+"wago_engage",
+"wago_stand"
+],
+"_side_wells": [
+"_wago_pocket",
+"wago_engage",
+"wago_half"
+],
+"_vent_chase": [
+"_rail_channel_span",
+"_rail_x",
+"back_top_flank_face"
+],
+"_west_cradle": [
+"lip_face_x"
+],
+"_cond_cradle_corbel": [],
+"_cond_cradle": [
+"_cond_cradle_corbel",
+"cond_slot_half",
+"cond_slot_mouth"
+],
+"_cond_mount_corbel": [],
+"_cond_mount": [
+"_cond_mount_corbel"
+],
+"vent_band": [],
+"vent_transoms": [
+"vent_band"
+],
+"vent_segment": [
+"vent_band"
+],
+"vent_segments": [
+"vent_band",
+"vent_transoms"
+],
+"vent_grooves": [
+"flute_centres",
+"plan_at"
+],
+"_vent_runs": [
+"vent_band",
+"vent_flank_face",
+"vent_segments"
+],
+"_vent_cutter": [
+"vent_flank_face"
+],
+"vent_measure": [
+"vent_band",
+"vent_flank_face"
+],
+"_flank_vents": [
+"_vent_cutter",
+"_vent_runs",
+"vent_grooves",
+"vent_segments"
+],
+"vent_readings": [
+"_piece_bands",
+"vent_measure"
+],
+"_core_stop_handhold_air": [
+"_handhold_levels",
+"_handhold_y",
+"_y_stack_gap"
+],
+"_core_stops": [
+"_core_stop_handhold_air"
+],
+"_core_holds": [],
+"_core_fit_pocket": [],
+"_asse_tie_channel_span": [],
+"_asse_square_end": [],
+"_asse_cradle": [
+"_asse_square_end",
+"_asse_tie_channel_span",
+"_supported_cut"
+],
+"_digiten_bore": [],
+"_valve_socket_cutters": [
+"_teardrop_y"
+],
+"_valve_trays": [
+"_front_top_flank_bedding_cut",
+"_rail_channel_span",
+"_valve_socket_cutters",
+"_wago_pocket",
+"front_top_flank_face",
+"lip_face_x",
+"wago_half"
+],
+"_flow_meter_anchors": [
+"_digiten_bore"
+],
+"tube_anchor_tie_loop": [],
+"_anchor_plane": [],
+"tube_anchor_end_columns": [
+"anchor_capped"
+],
+"tube_anchor_corbel_depth": [
+"anchor_capped"
+],
+"tube_anchor_end_corbel_bounds": [
+"tube_anchor_corbel_depth",
+"tube_anchor_end_columns"
+],
+"back_top_frames": [
+"interior_x",
+"piece_root_faces"
+],
+"back_top_owns": [],
+"_tube_anchors": [
+"_capped_anchor",
+"_supported_cut",
+"anchor_capped"
+],
+"anchor_capped": [],
+"_capped_anchor": [
+"back_top_ceiling_face",
+"tube_anchor_corbel_depth"
+],
+"_c14_aperture": [],
+"_c14_tunnel_geometry": [
+"_c14_aperture",
+"_supported_cut",
+"back_wall_t_at",
+"c14_mount_half"
+],
+"keystone_pocket_width": [],
+"_keystone_pocket_cut": [
+"keystone_pocket_width"
+],
+"_keystone_catches": [],
+"_keystone_receptacle_geometry": [
+"_keystone_catches",
+"_keystone_pocket_cut",
+"_supported_cut",
+"back_wall_t_at",
+"keystone_pocket_width"
+],
+"_keystone_receptacle": [
+"_keystone_receptacle_geometry"
+],
+"_c14_tunnel": [
+"_c14_tunnel_geometry"
+],
+"_piece_bands": [],
+"_seam_fit_reliefs": [
+"_core_fit_pocket"
+],
+"build_piece": [
+"_asse_cradle",
+"_back_bottom_flank_skin",
+"_back_top_ceiling",
+"_back_top_flanks",
+"_back_top_wall",
+"_bay_floor",
+"_bulkhead",
+"_c14_tunnel",
+"_ceiling_tongue_air",
+"_column_relief",
+"_column_relief_rise",
+"_cond_cradle",
+"_cond_mount",
+"_core_holds",
+"_core_stops",
+"_east_bosses",
+"_finish_handholds",
+"_flank_body_pockets",
+"_flank_lip_drop",
+"_flank_vents",
+"_floor_bosses",
+"_flow_meter_anchors",
+"_front_bottom_flank_skin",
+"_front_flat_lip_drop",
+"_front_top_flank_bedding_cut",
+"_front_top_flank_pockets",
+"_front_top_flanks",
+"_funnel_cut",
+"_handholds",
+"_keystone_receptacle",
+"_lip_underwall",
+"_nameplate",
+"_piece_bands",
+"_plate_foot",
+"_port_field",
+"_ridge_wall",
+"_seam_fit_reliefs",
+"_seat_ledge_corbels",
+"_side_wells",
+"_tube_anchors",
+"_valve_trays",
+"_vent_chase",
+"_west_cradle",
+"_y_lip_channel",
+"_y_stacks",
+"_z_rail_channels",
+"_z_rail_feet",
+"_z_rail_heads",
+"_z_rail_runs",
+"back_top_wall_face",
+"back_wall_t_at",
+"bay_back_y",
+"funnel_seat_z",
+"housing_back_y",
+"piece_root_faces",
+"print_up"
+],
+"_report_facet": [
+"_facet_geom",
+"display_centre_x"
+],
+"_report_split": [
+"build_pump_retainer"
+],
+"_report_seams": [
+"_bed_band"
+],
+"y_stack_figures": [
+"y_stack",
+"y_stack_rods"
+],
+"_report_stacks": [
+"y_stack",
+"y_stack_rods"
+],
+"_report_slide": [
+"_rail_channel_span",
+"_rail_foot_face",
+"_rail_hook_lap",
+"_rail_x",
+"_z_rail_runs",
+"_z_rail_travel",
+"rail_catch_air",
+"record_bound"
+],
+"_handhold_bound": [
+"_band_x",
+"_floor_tongue",
+"_handhold_backing_end",
+"_handhold_backing_joint",
+"_handhold_levels",
+"_handhold_y",
+"_y_stack_bores",
+"_y_stack_gap",
+"record_bound"
+],
+"_ceiling_show_cap_bound": [
+"_funnel_cut",
+"back_flank_start",
+"back_top_flank_face",
+"back_top_wall_face",
+"record_bound"
+],
+"_silhouette_bound": [
+"disposal_field",
+"record_bound"
+],
+"stated_box": [
+"_dims"
+],
+"_report_columns": [],
+"_report_bounds": [],
+"_write_docs": [
+"_column_along",
+"_column_depth",
+"_plan_segments",
+"_rail_foot_face",
+"_rail_x",
+"_z_rail_runs",
+"anchor_capped",
+"back_top_ceiling_face",
+"back_top_flank_face",
+"disposal_figures",
+"flute_pitch",
+"interior_x",
+"plan_perimeter",
+"pump_cartridge_figures",
+"pump_dock_figures",
+"rail_catch_air",
+"tube_anchor_tie_loop",
+"vent_band",
+"vent_grooves",
+"vent_segment",
+"vent_transoms",
+"y_stack_figures"
+],
+"_reading_bounds": [],
+"_box_bound_rows": [
+"_reading_bounds"
+],
+"_box_question_frame": [
+"interior_x"
+],
+"_lip_lane_boxes": [
+"_rail_x",
+"_z_rail_runs"
+],
+"_lip_lane_tool": [
+"_lip_lane_boxes"
+],
+"_floor_section_tool": [],
+"_under_lip_tool": [
+"_column_pillar",
+"_front_flat_lip_drop",
+"_lip_underwall"
+],
+"box_question_tools": [
+"_box_question_frame",
+"_column_pillar",
+"_floor_section_tool",
+"_in_a_boss",
+"_lip_lane_tool",
+"_reading_bounds",
+"_under_lip_tool",
+"seam_bosses"
+],
+"main": []
+},
+"size": {
+"print_up": 4,
+"flute_backed_sections": 33,
+"wago_stand": 6,
+"wago_engage": 4,
+"wago_half": 6,
+"wago_swing": 6,
+"cond_slot_half": 3,
+"cond_slot_mouth": 4,
+"interior_x": 5,
+"back_top_wall_face": 8,
+"back_wall_t_at": 16,
+"back_top_flank_face": 16,
+"back_bottom_flank_face": 11,
+"front_bottom_flank_face": 10,
+"vent_flank_face": 11,
+"front_top_flank_face": 12,
+"front_top_flank_root_z": 4,
+"tray_corbel_roots": 12,
+"lip_face_x": 8,
+"piece_root_faces": 28,
+"_c14_pocket_landmarks": 27,
+"c14_mount_half": 9,
+"back_top_ceiling_face": 6,
+"back_top_ceiling_stock": 12,
+"back_flank_start": 8,
+"documented": 8,
+"record_bound": 4,
+"_supported_cut": 3,
+"_ring": 14,
+"_column_arc": 10,
+"_corner_column": 13,
+"_column_pillar": 17,
+"_column_along": 7,
+"wall_flat_from_corner": 12,
+"_column_depth": 6,
+"_cavity": 15,
+"_cradle_relief": 15,
+"_column_relief": 16,
+"_column_relief_rise": 36,
+"wall_band_corner_y": 20,
+"wall_boss_aft_limit": 18,
+"east_band_free_y": 19,
+"front_band_free_y": 17,
+"seam_bosses": 25,
+"_in_a_boss": 4,
+"_open_bands": 15,
+"_clipped": 4,
+"_bed_band": 9,
+"_lip_band": 21,
+"_lip_denied": 30,
+"_z_joints": 45,
+"back_top_flank_bound": 36,
+"_dims": 315,
+"_facet_geom": 6,
+"housing_back_y": 13,
+"pcb_ridge": 11,
+"_ridge_join": 6,
+"_seat_back": 5,
+"display_centre_x": 6,
+"_facet_wedge": 10,
+"flank_x_at": 14,
+"_plan_segments": 28,
+"seam_cap_z": 9,
+"plate_outline": 4,
+"plan_perimeter": 3,
+"flute_pitch": 6,
+"plan_at": 7,
+"flute_rails": 16,
+"flute_centres": 5,
+"housing_fill": 5,
+"_display_point": 6,
+"display_plane": 8,
+"_display_cut_exit_depth": 2,
+"_port_cuts": 21,
+"disposal_field": 11,
+"disposal_figures": 10,
+"_nameplate": 12,
+"_port_chip": 5,
+"_port_field": 29,
+"_x_port_cuts": 13,
+"_funnel_frame": 14,
+"_funnel_hole": 14,
+"_funnel_cut_plan": 5,
+"funnel_seat_z": 3,
+"with_funnel": 27,
+"_funnel_cut": 54,
+"_seat_ledge_corbels": 23,
+"_ceiling_tongue_air": 10,
+"_handhold_levels": 5,
+"_band_x": 4,
+"y_stack_y": 4,
+"_y_stack_gap": 3,
+"_y_knuckle_faces": 18,
+"y_stack": 40,
+"y_stack_axis": 4,
+"y_stack_rods": 18,
+"_y_face_z": 7,
+"_y_under_face": 9,
+"_y_between_faces": 7,
+"_y_top_cap": 8,
+"_y_knuckle": 71,
+"_y_knuckle_air": 12,
+"_y_stack_bores": 37,
+"_y_bore_reliefs": 48,
+"_y_stacks": 23,
+"_front_lip": 40,
+"_y_lip_channel": 14,
+"_floor_tongue": 32,
+"_handhold_y": 2,
+"grip_interface": 4,
+"_handhold_backing_end": 5,
+"_handhold_backing_joint": 14,
+"_handhold_frame": 23,
+"_handholds": 9,
+"_finish_handholds": 7,
+"_z_rail_runs": 41,
+"_z_rail_travel": 6,
+"_rail_nominal_foot_face": 9,
+"_rail_foot_face": 7,
+"_rail_hook_lap": 3,
+"_rail_x": 9,
+"_rail_channel_span": 14,
+"rail_catch_air": 4,
+"_z_rail_heads": 58,
+"_z_rail_feet": 45,
+"_rail_keep": 11,
+"_z_rail_channels": 78,
+"_lip_ring": 11,
+"_lip_underwall": 33,
+"_front_bottom_flank_skin": 9,
+"_plate_foot": 28,
+"_plate_foot_clearance": 18,
+"plate_foot_envelope_clearance": 8,
+"plate_foot_condenser_clearance": 23,
+"_back_bottom_flank_skin": 17,
+"bay_x_span": 6,
+"_pump_relief_regions": 15,
+"_front_relief_regions": 4,
+"_front_relief_cuts": 33,
+"_front_floor": 13,
+"_front_flat_lip_drop": 31,
+"bay_back_y": 3,
+"_front_top_flank_bedding_cut": 21,
+"_front_top_flanks": 39,
+"_back_top_wall": 30,
+"_back_top_wall_relief_cut": 38,
+"_back_top_flank_tie_cut": 14,
+"_flank_body_pockets": 12,
+"_front_top_flank_pockets": 14,
+"_back_top_flanks": 45,
+"_ceiling_tie_reliefs": 32,
+"_ceiling_cap_reliefs": 21,
+"_ceiling_tie_channel_relief": 21,
+"_back_top_ceiling": 53,
+"cap_split_z": 3,
+"cap_terminal_opening_z": 4,
+"cap_crown_z": 3,
+"cap_terminal_crown_r": 3,
+"pump_skirt_support_z": 3,
+"pump_skirt_band_aft_y": 4,
+"pump_cartridge_aft_y": 17,
+"_outlet_fore_miter_wedges": 17,
+"_outlet_under_tangent_wedges": 20,
+"pump_cartridge_figures": 3,
+"bay_floor_z": 18,
+"_flank_lip_drop": 14,
+"_flank_lip_run": 15,
+"_bay_floor": 16,
+"_bulkhead": 10,
+"_ridge_wall": 23,
+"_teardrop_y": 20,
+"build_pump_retainer": 3,
+"pump_dock_figures": 51,
+"_floor_bosses": 30,
+"_east_boss_stem": 15,
+"_east_wedge": 9,
+"_east_boss_corbel": 53,
+"east_boss_wings": 26,
+"east_boss_pairs": 27,
+"_east_bar": 6,
+"_east_bar_support": 13,
+"_east_boss_support": 7,
+"east_boss_insert_setback": 8,
+"east_boss_sleeve_r": 4,
+"east_sleeve_r": 29,
+"_east_bosses": 173,
+"east_boss_bore_end": 7,
+"_wago_pocket": 12,
+"_side_wells": 112,
+"_vent_chase": 176,
+"_west_cradle": 65,
+"_cond_cradle_corbel": 10,
+"_cond_cradle": 58,
+"_cond_mount_corbel": 8,
+"_cond_mount": 34,
+"vent_band": 10,
+"vent_transoms": 12,
+"vent_segment": 4,
+"vent_segments": 9,
+"vent_grooves": 24,
+"_vent_runs": 30,
+"_vent_cutter": 17,
+"vent_measure": 46,
+"_flank_vents": 48,
+"vent_readings": 18,
+"_core_stop_handhold_air": 18,
+"_core_stops": 43,
+"_core_holds": 39,
+"_core_fit_pocket": 30,
+"_asse_tie_channel_span": 6,
+"_asse_square_end": 18,
+"_asse_cradle": 125,
+"_digiten_bore": 10,
+"_valve_socket_cutters": 18,
+"_valve_trays": 136,
+"_flow_meter_anchors": 67,
+"tube_anchor_tie_loop": 14,
+"_anchor_plane": 7,
+"tube_anchor_end_columns": 40,
+"tube_anchor_corbel_depth": 15,
+"tube_anchor_end_corbel_bounds": 16,
+"back_top_frames": 7,
+"back_top_owns": 3,
+"_tube_anchors": 175,
+"anchor_capped": 4,
+"_capped_anchor": 67,
+"_c14_aperture": 18,
+"_c14_tunnel_geometry": 78,
+"keystone_pocket_width": 4,
+"_keystone_pocket_cut": 26,
+"_keystone_catches": 19,
+"_keystone_receptacle_geometry": 84,
+"_keystone_receptacle": 26,
+"_c14_tunnel": 16,
+"_piece_bands": 12,
+"_seam_fit_reliefs": 19,
+"build_piece": 331,
+"_report_facet": 29,
+"_report_split": 21,
+"_report_seams": 8,
+"y_stack_figures": 24,
+"_report_stacks": 10,
+"_report_slide": 214,
+"_handhold_bound": 60,
+"_ceiling_show_cap_bound": 23,
+"_silhouette_bound": 43,
+"stated_box": 9,
+"_report_columns": 13,
+"_report_bounds": 15,
+"_write_docs": 252,
+"_reading_bounds": 3,
+"_box_bound_rows": 5,
+"_box_question_frame": 7,
+"_lip_lane_boxes": 14,
+"_lip_lane_tool": 6,
+"_floor_section_tool": 3,
+"_under_lip_tool": 12,
+"box_question_tools": 43,
+"main": 3
+},
+"line": {
+"print_up": 221,
+"flute_backed_sections": 339,
+"wago_stand": 581,
+"wago_engage": 589,
+"wago_half": 595,
+"wago_swing": 603,
+"cond_slot_half": 695,
+"cond_slot_mouth": 700,
+"interior_x": 862,
+"back_top_wall_face": 869,
+"back_wall_t_at": 879,
+"back_top_flank_face": 897,
+"back_bottom_flank_face": 915,
+"front_bottom_flank_face": 928,
+"vent_flank_face": 940,
+"front_top_flank_face": 953,
+"front_top_flank_root_z": 967,
+"tray_corbel_roots": 973,
+"lip_face_x": 987,
+"piece_root_faces": 997,
+"_c14_pocket_landmarks": 1105,
+"c14_mount_half": 1141,
+"back_top_ceiling_face": 1210,
+"back_top_ceiling_stock": 1218,
+"back_flank_start": 1317,
+"documented": 1461,
+"record_bound": 1620,
+"_supported_cut": 1626,
+"_ring": 1631,
+"_column_arc": 1647,
+"_corner_column": 1659,
+"_column_pillar": 1674,
+"_column_along": 1693,
+"wall_flat_from_corner": 1702,
+"_column_depth": 1716,
+"_cavity": 1724,
+"_cradle_relief": 1750,
+"_column_relief": 1767,
+"_column_relief_rise": 1785,
+"wall_band_corner_y": 1823,
+"wall_boss_aft_limit": 1845,
+"east_band_free_y": 1865,
+"front_band_free_y": 1886,
+"seam_bosses": 1905,
+"_in_a_boss": 1932,
+"_open_bands": 1938,
+"_clipped": 1955,
+"_bed_band": 1961,
+"_lip_band": 1972,
+"_lip_denied": 1995,
+"_z_joints": 2032,
+"back_top_flank_bound": 2079,
+"_dims": 2117,
+"_facet_geom": 2436,
+"housing_back_y": 2444,
+"pcb_ridge": 2459,
+"_ridge_join": 2472,
+"_seat_back": 2480,
+"display_centre_x": 2487,
+"_facet_wedge": 2495,
+"flank_x_at": 2507,
+"_plan_segments": 2523,
+"seam_cap_z": 2553,
+"plate_outline": 2564,
+"plan_perimeter": 2575,
+"flute_pitch": 2580,
+"plan_at": 2588,
+"flute_rails": 2597,
+"flute_centres": 2615,
+"housing_fill": 2622,
+"_display_point": 2629,
+"display_plane": 2637,
+"_display_cut_exit_depth": 2647,
+"_port_cuts": 2662,
+"disposal_field": 2685,
+"disposal_figures": 2698,
+"_nameplate": 2710,
+"_port_chip": 2724,
+"_port_field": 2731,
+"_x_port_cuts": 2762,
+"_funnel_frame": 2779,
+"_funnel_hole": 2795,
+"_funnel_cut_plan": 2811,
+"funnel_seat_z": 2818,
+"with_funnel": 2823,
+"_funnel_cut": 2852,
+"_seat_ledge_corbels": 2908,
+"_ceiling_tongue_air": 2933,
+"_handhold_levels": 2966,
+"_band_x": 2973,
+"y_stack_y": 2979,
+"_y_stack_gap": 2985,
+"_y_knuckle_faces": 2990,
+"y_stack": 3010,
+"y_stack_axis": 3052,
+"y_stack_rods": 3058,
+"_y_face_z": 3078,
+"_y_under_face": 3087,
+"_y_between_faces": 3098,
+"_y_top_cap": 3107,
+"_y_knuckle": 3117,
+"_y_knuckle_air": 3190,
+"_y_stack_bores": 3204,
+"_y_bore_reliefs": 3243,
+"_y_stacks": 3293,
+"_front_lip": 3318,
+"_y_lip_channel": 3360,
+"_floor_tongue": 3376,
+"_handhold_y": 3412,
+"grip_interface": 3416,
+"_handhold_backing_end": 3422,
+"_handhold_backing_joint": 3429,
+"_handhold_frame": 3445,
+"_handholds": 3470,
+"_finish_handholds": 3481,
+"_z_rail_runs": 3501,
+"_z_rail_travel": 3544,
+"_rail_nominal_foot_face": 3552,
+"_rail_foot_face": 3563,
+"_rail_hook_lap": 3572,
+"_rail_x": 3577,
+"_rail_channel_span": 3588,
+"rail_catch_air": 3604,
+"_z_rail_heads": 3610,
+"_z_rail_feet": 3670,
+"_rail_keep": 3717,
+"_z_rail_channels": 3730,
+"_lip_ring": 3810,
+"_lip_underwall": 3823,
+"_front_bottom_flank_skin": 3858,
+"_plate_foot": 3869,
+"_plate_foot_clearance": 3899,
+"plate_foot_envelope_clearance": 3919,
+"plate_foot_condenser_clearance": 3929,
+"_back_bottom_flank_skin": 3954,
+"bay_x_span": 3975,
+"_pump_relief_regions": 3983,
+"_front_relief_regions": 4000,
+"_front_relief_cuts": 4006,
+"_front_floor": 4041,
+"_front_flat_lip_drop": 4056,
+"bay_back_y": 4089,
+"_front_top_flank_bedding_cut": 4094,
+"_front_top_flanks": 4117,
+"_back_top_wall": 4158,
+"_back_top_wall_relief_cut": 4190,
+"_back_top_flank_tie_cut": 4230,
+"_flank_body_pockets": 4246,
+"_front_top_flank_pockets": 4260,
+"_back_top_flanks": 4276,
+"_ceiling_tie_reliefs": 4323,
+"_ceiling_cap_reliefs": 4357,
+"_ceiling_tie_channel_relief": 4380,
+"_back_top_ceiling": 4403,
+"cap_split_z": 4458,
+"cap_terminal_opening_z": 4463,
+"cap_crown_z": 4469,
+"cap_terminal_crown_r": 4474,
+"pump_skirt_support_z": 4479,
+"pump_skirt_band_aft_y": 4484,
+"pump_cartridge_aft_y": 4490,
+"_outlet_fore_miter_wedges": 4509,
+"_outlet_under_tangent_wedges": 4528,
+"pump_cartridge_figures": 4550,
+"bay_floor_z": 4555,
+"_flank_lip_drop": 4575,
+"_flank_lip_run": 4591,
+"_bay_floor": 4608,
+"_bulkhead": 4626,
+"_ridge_wall": 4638,
+"_teardrop_y": 4663,
+"build_pump_retainer": 4685,
+"pump_dock_figures": 4690,
+"_floor_bosses": 4743,
+"_east_boss_stem": 4775,
+"_east_wedge": 4792,
+"_east_boss_corbel": 4803,
+"east_boss_wings": 4858,
+"east_boss_pairs": 4886,
+"_east_bar": 4915,
+"_east_bar_support": 4923,
+"_east_boss_support": 4938,
+"east_boss_insert_setback": 4947,
+"east_boss_sleeve_r": 4957,
+"east_sleeve_r": 4963,
+"_east_bosses": 4994,
+"east_boss_bore_end": 5169,
+"_wago_pocket": 5178,
+"_side_wells": 5192,
+"_vent_chase": 5336,
+"_west_cradle": 5514,
+"_cond_cradle_corbel": 5581,
+"_cond_cradle": 5593,
+"_cond_mount_corbel": 5653,
+"_cond_mount": 5663,
+"vent_band": 5699,
+"vent_transoms": 5711,
+"vent_segment": 5725,
+"vent_segments": 5731,
+"vent_grooves": 5742,
+"_vent_runs": 5768,
+"_vent_cutter": 5800,
+"vent_measure": 5819,
+"_flank_vents": 5867,
+"vent_readings": 5917,
+"_core_stop_handhold_air": 5937,
+"_core_stops": 5957,
+"_core_holds": 6002,
+"_core_fit_pocket": 6043,
+"_asse_tie_channel_span": 6137,
+"_asse_square_end": 6145,
+"_asse_cradle": 6165,
+"_digiten_bore": 6318,
+"_valve_socket_cutters": 6330,
+"_valve_trays": 6350,
+"_flow_meter_anchors": 6488,
+"tube_anchor_tie_loop": 6596,
+"_anchor_plane": 6617,
+"tube_anchor_end_columns": 6626,
+"tube_anchor_corbel_depth": 6668,
+"tube_anchor_end_corbel_bounds": 6685,
+"back_top_frames": 6703,
+"back_top_owns": 6712,
+"_tube_anchors": 6717,
+"anchor_capped": 6894,
+"_capped_anchor": 6900,
+"_c14_aperture": 6969,
+"_c14_tunnel_geometry": 6989,
+"keystone_pocket_width": 7078,
+"_keystone_pocket_cut": 7084,
+"_keystone_catches": 7112,
+"_keystone_receptacle_geometry": 7133,
+"_keystone_receptacle": 7219,
+"_c14_tunnel": 7247,
+"_piece_bands": 7265,
+"_seam_fit_reliefs": 7279,
+"build_piece": 7300,
+"_report_facet": 7635,
+"_report_split": 7666,
+"_report_seams": 7689,
+"y_stack_figures": 7699,
+"_report_stacks": 7725,
+"_report_slide": 7737,
+"_handhold_bound": 7953,
+"_ceiling_show_cap_bound": 8015,
+"_silhouette_bound": 8040,
+"stated_box": 8098,
+"_report_columns": 8109,
+"_report_bounds": 8124,
+"_write_docs": 8141,
+"_reading_bounds": 8399,
+"_box_bound_rows": 8404,
+"_box_question_frame": 8411,
+"_lip_lane_boxes": 8420,
+"_lip_lane_tool": 8436,
+"_floor_section_tool": 8444,
+"_under_lip_tool": 8449,
+"box_question_tools": 8463,
+"main": 8541
+}
+}

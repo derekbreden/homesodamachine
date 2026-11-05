@@ -1,0 +1,37 @@
+{
+ "group": "c",
+ "modules": [
+  "_copper_ports",
+  "_support_ring",
+  "_reed_b_outlet",
+  "_reservoir_pocket_walls",
+  "_reservoir_ports",
+  "_reed_channels",
+  "_reservoir_a_anchors",
+  "_reservoir_a_c2",
+  "_outer_shell",
+  "reservoir",
+  "_cold_core_style",
+  "coil_mandrel",
+  "_port_cuts",
+  "reed_bridge",
+  "integration"
+ ],
+ "files": [
+  "coil_mandrel.rs",
+  "cold_core_style.rs",
+  "copper_ports.rs",
+  "integration.rs",
+  "outer_shell.rs",
+  "port_cuts.rs",
+  "reed_b_outlet.rs",
+  "reed_bridge.rs",
+  "reed_channels.rs",
+  "reservoir.rs",
+  "reservoir_a_anchors.rs",
+  "reservoir_a_c2.rs",
+  "reservoir_pocket_walls.rs",
+  "reservoir_ports.rs",
+  "support_ring.rs"
+ ]
+}
