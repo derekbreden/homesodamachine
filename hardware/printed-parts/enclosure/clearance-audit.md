@@ -190,9 +190,9 @@ Those records do not qualify the pump dock; the [pump dock](pump-dock/README.md)
 specifies its collet plate's holes and tee bores with their
 clearances.
 
-The [quadrant reading](mating-clearance-check.json) records the four current enclosure
-STEP hashes and its complete finite-patch and explicit-probe results. Its measured
-local gaps include:
+The [quadrant reading](mating-clearance-check.json) records the hashes of the four current
+enclosure fine models, the `.step.npz` beside each STEP, and its complete finite-patch and
+explicit-probe results. Its measured local gaps include:
 
 | Intersection | Locations | Gap | Accounting |
 |---|---:|---:|---|
@@ -211,10 +211,12 @@ and acceptance criteria define each reading's scope. The review does not establi
 unmeasured curved contacts, a complete insertion sweep or physical surface finish.
 
 Run `tools/cad-venv/bin/python hardware/scripts/check_enclosure_mating_clearance.py`
-after materializing the quadrants. Its scope is parallel planar patches larger
-than 0.05 mm² within 0.751 mm of a mate, plus explicit surface probes at the eleven
-intersections above. Curved and nonparallel contacts, full insertion sweeps,
-accessories and physical support finish need their separate checks.
+after materializing the quadrants. The enclosure recipe places the probes, and the kernel
+program `enclosure-mating` measures the fine models: opposed parallel planar patches that
+overlap by more than an edge's sliver and stand no farther apart than the largest fit a pair
+can require, plus explicit surface probes at the intersections above and at the square ends
+where the floor and both inner walls close. Curved and nonparallel contacts, full insertion
+sweeps, accessories and physical support finish need their separate checks.
 
 Feature checks read supported relief on the actual print-up side, ordinary clearance on the
 opposite and lateral faces, retained wall sections, and clearance at seating planes. Enclosure
