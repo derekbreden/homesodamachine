@@ -8,7 +8,7 @@
   "world_receiver_bounds_mm": [
     [
       -92.55000305175781,
-      465.29998779296875,
+      465.55,
       163.60000610351562
     ],
     [
@@ -23,20 +23,20 @@
   "head_proud_mm": 2.0,
   "bearing_floor_mm": 2.36,
   "insert_engagement_mm": 3.64,
-  "insert_rear_wall_air_mm": 0.6399999999999997,
+  "insert_rear_wall_air_mm": 0.3899999999999997,
   "open_pilot_axes": [
     true,
     true,
     false,
     false
   ],
-  "upper_pilot_depth_mm": 4.64,
-  "upper_pilot_backing_mm": 3.0,
-  "upper_screw_tip_air_mm": 1.0,
-  "actual_centre_floor_stock_mm": 4.390012207031272,
+  "upper_pilot_depth_mm": 4.39,
+  "upper_pilot_backing_mm": 3.25,
+  "upper_screw_tip_air_mm": 0.7499999999999996,
+  "actual_centre_floor_stock_mm": 4.3900146484375,
   "insert_core_envelope_gap_mm": 0.9399999999999977,
   "screw_tip_core_envelope_gap_mm": 1.3000000000000114,
-  "receiver_core_envelope_gap_mm": 0.30000000000001137,
+  "receiver_core_envelope_gap_mm": 0.55,
   "border_bounds_plate_xz_mm": [
     [
       -39.209999999999994,
@@ -65,12 +65,12 @@
     "wago-n"
   ],
   "thermal_interference": "Insert OD 4.6 mm in a printed 4.0 mm pilot; intentional heat-set displacement.",
-  "physical_status": "Nameplate appearance and mounting approved in 3D; physical mounting remains unqualified. Printing held for the smooth-corner review.",
+  "physical_status": "Nameplate appearance and mounting approved in 3D. The production receiver print is prepared; launch awaits an unlocked Mac. Physical mounting is unqualified.",
   "source_sha256": {
     "hardware/printed-parts/enclosure/nameplate/nameplate-001.step.mesh": "2e362e82e69cfd2033e31385e1623a0bbc63a90102439e052f5c7c9c4b637eec",
-    "hardware/printed-parts/enclosure/nameplate/nameplate-fasteners.step.mesh": "a3f661421da8a9afd930ff46b4a7e37bce4fe8d3665c1f98be8d0b5e16eff312",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl": "59d56a905a873fbb9be466025826b7885e370f6c4ea0a7b4607008b54e1414ca",
-    "hardware/manifold-layout/enclosure-assembly.step.mesh": "bccab7abb0b76b1fa9ecdd457702db7bc5a3b54b23351e91d920265f498ad617"
+    "hardware/printed-parts/enclosure/nameplate/nameplate-fasteners.step.mesh": "844fab0c1199ef683e0b1d359e5b658c81c87ea389eb2329ad6a6d018a6c09f2",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl": "afef480e17bbad94f5b12c38e2f63048e052d9ae5dea3b3c5b403ace658ceca0",
+    "hardware/manifold-layout/enclosure-assembly.step.mesh": "945ce009ecff0f13c8d3d0c078bd995c1d73b76cb462a5a5fbb13440642b9a3f"
   },
   "native_check": {
     "artwork_rise_mm": 0.48,
@@ -80,7 +80,7 @@
     "head_proud_mm": 2.0,
     "insert_engagement_mm": 3.64,
     "insert_radial_stock_mm": 3.7,
-    "insert_rear_wall_air_mm": 0.6399999999999997,
+    "insert_rear_wall_air_mm": 0.3899999999999997,
     "mount": {
       "clearance_diameter": 3.4,
       "corner": 5.0,
@@ -101,7 +101,7 @@
       "insert_diameter": 4.6,
       "insert_length": 4.0,
       "insert_stock_radius": 6.0,
-      "insert_stock_rear": -4.64,
+      "insert_stock_rear": -4.39,
       "mouth_height": 100.3,
       "mouth_width": 88.3,
       "pilot_diameter": 4.0,
@@ -139,6 +139,7 @@
     "receiver_floor_stock_mm": 3.0,
     "screw_artwork_overlap_mm3": 0.0,
     "seated_overlap_mm3": 0.0,
+    "upper_pilot_depth_mm": 4.39,
     "valid_body": true,
     "valid_receiver": true
   },
@@ -166,7 +167,7 @@
   "wiring_manifest_sha256": "b5254c17275af14beffda671053a5efeaf533215ea1286beef7c4c930db0d0d6",
   "lint_review": {
     "plate": "Specified 0.48 mm graphic relief and 1 mm counterbores; manual review retained their functional outline and bearing faces.",
-    "back_top": "Upper bore-tail relief removes the thin crescents while retaining the 3 mm support-floor backing. A remaining 0.10 mm\u00b2 floor ledge at (-79.334,465.545,253.650) needs inspection before print release. The lower locating ledge and Wago pocket ceilings retain Tree(auto)/Default support; physical cleanup remains unqualified."
+    "back_top": "The blind upper pilots end on the continuous backing plane. The lower pilots continue through the rear lands. The bore-tail thin webs and relief ledge are absent from the current manual mesh reading. Functional keystone catches and cable bearings retain their recorded allowances."
   },
   "guide_review": {
     "pages": 34,
@@ -178,5 +179,55 @@
       34
     ]
   },
-  "visual_approval": "Nameplate looks good. Thank you."
+  "visual_approval": "Nameplate looks good. Thank you.",
+  "lower_pilot_reach_mm": 4.64,
+  "pilot_axis_reading": {
+    "source_stl_sha256": "afef480e17bbad94f5b12c38e2f63048e052d9ae5dea3b3c5b403ace658ceca0",
+    "rays": [
+      {
+        "axis_xz_mm": [
+          -78.4,
+          178
+        ],
+        "hit_y_mm": []
+      },
+      {
+        "axis_xz_mm": [
+          -12.4,
+          178
+        ],
+        "hit_y_mm": []
+      },
+      {
+        "axis_xz_mm": [
+          -78.4,
+          256
+        ],
+        "hit_y_mm": [
+          465.54998779296875,
+          462.29998779296875
+        ]
+      },
+      {
+        "axis_xz_mm": [
+          -12.4,
+          256
+        ],
+        "hit_y_mm": [
+          465.54998779296875,
+          462.29998779296875
+        ]
+      },
+      {
+        "axis_xz_mm": [
+          -45.4,
+          217
+        ],
+        "hit_y_mm": [
+          469.94000244140625,
+          465.54998779296875
+        ]
+      }
+    ]
+  }
 }
