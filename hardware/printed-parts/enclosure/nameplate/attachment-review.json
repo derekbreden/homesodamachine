@@ -8,8 +8,8 @@
     ],
     [
       4.600000000000001,
-      482.3,
-      280.15
+      476.3,
+      274.15
     ]
   ],
   "review_rotation_about_z_degrees": 180,
@@ -19,17 +19,20 @@
     "seated": "assembly/scenes/glb/nameplate-attachment-seated.glb",
     "separated": "assembly/scenes/glb/nameplate-attachment-separated.glb",
     "installed": "assembly/scenes/glb/nameplate-attachment-installed.glb",
-    "full-context": "assembly/scenes/glb/nameplate-four-screws-full-context.glb"
+    "full-context": "assembly/scenes/glb/nameplate-shallow-full-context.glb"
   },
   "source_sha256": {
-    "hardware/printed-parts/enclosure/nameplate/attachment_view.py": "7df18af9ad36943dec7d12ca090e5db6a1c6caf6f68b89970ee76edbe800ab9b",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl": "6fe4438cbe8b03f526c3f1cc754cbba824bef5481def0f755e516735f83a5fa4",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh": "f8b2d9b3ea90bc0c075d366b49ee51a82561fec54691e1dc36554ea6bf358869",
-    "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh": "42249cb5da632ceccf0a9ad5275f6afb6f353913d6a5e7b2cc3f51fea1f85ee9",
-    "hardware/printed-parts/enclosure/nameplate/nameplate-001.step.mesh": "12eb7b1bedd1123ed507289224ed91aeda8c686710ad6dcfb819c8ed455c1041",
-    "hardware/printed-parts/enclosure/nameplate/nameplate-fasteners.step.mesh": "d673f2e89ba7467e4b425547341034d815abe213db293a38f2b84d528800dd33",
-    "hardware/manifold-layout/enclosure-assembly.step.mesh": "171b214cc98c18764f78be6f798ff0476c5ceb73783a270d74a4368f867b71af",
-    "hardware/printed-parts/enclosure/nameplate/nameplate.numbers.json": "a5f50e3669dbab2876ef5aaf93ddd0aff1f83cf0dba734ca2d45cb8c5abfb6d2",
-    "hardware/manifold-layout/above-core.json": "a1ff49948158cacb14b044829f116907d21164dec2a80c553de07832829aa103"
+    "hardware/printed-parts/enclosure/nameplate/attachment_view.py": "56d02a47b7cd9eeec036aeef3d7703fff5fac5a5a22b40839a191f0ba9b75fbf",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl": "59d56a905a873fbb9be466025826b7885e370f6c4ea0a7b4607008b54e1414ca",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.mesh": "146461ed19f2ebcafa40e32a41e083175a57fa94af71c9f713328ddfc987e15b",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.mesh": "d95b8afc831403c8285f9e3063fb2c4402dbb68f0d41db3f31a42c0d37665a04",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh": "50d3123f58622ad5f1f03b4c94192c97aa5e2dbb3dcac4726f075e9107e85de4",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh": "487b87637bcf205684224bafb3be10afee0bf4ea75dc269625dfa5146762e015",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh": "5d27aeecd7d0264ddac7c71de6027b11464cd1a21db3245727adbd7243b22dae",
+    "hardware/printed-parts/enclosure/nameplate/nameplate-001.step.mesh": "2e362e82e69cfd2033e31385e1623a0bbc63a90102439e052f5c7c9c4b637eec",
+    "hardware/printed-parts/enclosure/nameplate/nameplate-fasteners.step.mesh": "a3f661421da8a9afd930ff46b4a7e37bce4fe8d3665c1f98be8d0b5e16eff312",
+    "hardware/manifold-layout/enclosure-assembly.step.mesh": "7faf96df6f91aa18d650eb9f5fec64ea663891eb033d1ac257f8de77199d55fb",
+    "hardware/printed-parts/enclosure/nameplate/nameplate.numbers.json": "d6a7e015a071526980404b72a3543af22d6844d378fc23d8ee2b17ef9a161564",
+    "hardware/manifold-layout/above-core.json": "48b5814622427c69464858e9577897d77bfe749335037ce9ce9122d7ac0757c1"
   }
 }

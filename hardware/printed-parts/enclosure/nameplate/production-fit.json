@@ -2,19 +2,19 @@
   "attachment": "four M3 x 6 socket screws in short RX-M3S x 4 inserts",
   "world_plate_back_mm": [
     -45.4,
-    475.94,
+    469.94,
     217.0
   ],
   "world_receiver_bounds_mm": [
     [
       -92.55000305175781,
-      467.94000244140625,
+      465.29998779296875,
       163.60000610351562
     ],
     [
       1.75,
-      479.29998779296875,
-      278.1499938964844
+      473.29998779296875,
+      272.1499938964844
     ]
   ],
   "screw_count": 4,
@@ -23,17 +23,36 @@
   "head_proud_mm": 2.0,
   "bearing_floor_mm": 2.36,
   "insert_engagement_mm": 3.64,
-  "screw_tip_bottom_air_mm": 1.36,
-  "actual_blind_backing_mm": [
-    2.9999975585937477,
-    2.9999975585937477,
-    2.9999975585937477,
-    2.9999975585937477
+  "insert_rear_wall_air_mm": 0.6399999999999997,
+  "open_pilot_axes": [
+    true,
+    true,
+    false,
+    false
   ],
-  "receiver_core_envelope_gap_mm": 2.9399999999999977,
-  "screw_head_rear_world_mm": 481.3,
+  "upper_pilot_depth_mm": 4.64,
+  "upper_pilot_backing_mm": 3.0,
+  "upper_screw_tip_air_mm": 1.0,
+  "actual_centre_floor_stock_mm": 4.390012207031272,
+  "insert_core_envelope_gap_mm": 0.9399999999999977,
+  "screw_tip_core_envelope_gap_mm": 1.3000000000000114,
+  "receiver_core_envelope_gap_mm": 0.30000000000001137,
+  "border_bounds_plate_xz_mm": [
+    [
+      -39.209999999999994,
+      -45.209999999999994
+    ],
+    [
+      39.21,
+      45.21
+    ]
+  ],
+  "white_border_edge_inset_mm": 4.79,
+  "screw_centre_edge_inset_mm": 11.0,
+  "head_to_nearest_white_border_gap_mm": 3.04,
+  "screw_head_rear_world_mm": 475.3,
   "bulkhead_rear_world_mm": 483.1274108886719,
-  "bulkheads_beyond_screw_heads_mm": 1.8274108886718636,
+  "bulkheads_beyond_screw_heads_mm": 7.827410888671864,
   "frame_corner_tangent_gap_mm": 2.95,
   "frame_color_card_gap_mm": 2.9,
   "seat_overlap_mm3": 0.0,
@@ -41,34 +60,39 @@
   "driver_diameter_mm": 6.0,
   "driver_outward_travel_mm": 80.0,
   "driver_obstacle_collisions": [],
-  "nearby_geometry_checked": [],
+  "nearby_geometry_checked": [
+    "wago-h",
+    "wago-n"
+  ],
   "thermal_interference": "Insert OD 4.6 mm in a printed 4.0 mm pilot; intentional heat-set displacement.",
-  "physical_status": "Implemented for 3D review; physical mounting has not been printed or verified.",
+  "physical_status": "Nameplate appearance and mounting approved in 3D; physical mounting remains unqualified. Printing held for the smooth-corner review.",
   "source_sha256": {
-    "hardware/printed-parts/enclosure/nameplate/nameplate-001.step.mesh": "12eb7b1bedd1123ed507289224ed91aeda8c686710ad6dcfb819c8ed455c1041",
-    "hardware/printed-parts/enclosure/nameplate/nameplate-fasteners.step.mesh": "d673f2e89ba7467e4b425547341034d815abe213db293a38f2b84d528800dd33",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl": "6fe4438cbe8b03f526c3f1cc754cbba824bef5481def0f755e516735f83a5fa4",
-    "hardware/manifold-layout/enclosure-assembly.step.mesh": "171b214cc98c18764f78be6f798ff0476c5ceb73783a270d74a4368f867b71af"
+    "hardware/printed-parts/enclosure/nameplate/nameplate-001.step.mesh": "2e362e82e69cfd2033e31385e1623a0bbc63a90102439e052f5c7c9c4b637eec",
+    "hardware/printed-parts/enclosure/nameplate/nameplate-fasteners.step.mesh": "a3f661421da8a9afd930ff46b4a7e37bce4fe8d3665c1f98be8d0b5e16eff312",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl": "59d56a905a873fbb9be466025826b7885e370f6c4ea0a7b4607008b54e1414ca",
+    "hardware/manifold-layout/enclosure-assembly.step.mesh": "bccab7abb0b76b1fa9ecdd457702db7bc5a3b54b23351e91d920265f498ad617"
   },
   "native_check": {
     "artwork_rise_mm": 0.48,
     "bearing_floor_mm": 2.36,
-    "blind_hole_backing_mm": 3.0,
     "body_ink_overlap_mm3": 0.0,
+    "bore": "Standalone receiver through; production upper pair ends against existing support-floor backing.",
     "head_proud_mm": 2.0,
     "insert_engagement_mm": 3.64,
+    "insert_radial_stock_mm": 3.7,
+    "insert_rear_wall_air_mm": 0.6399999999999997,
     "mount": {
       "clearance_diameter": 3.4,
       "corner": 5.0,
       "counterbore_depth": 1.0,
       "counterbore_diameter": 6.2,
-      "crown_y": -4.640000000000001,
-      "field_proud": 8.0,
-      "floor_rear": -8.0,
-      "floor_stock": 8.0,
+      "crown_y": 1.3599999999999999,
+      "field_proud": 2.0,
+      "floor_rear": -3.0,
+      "floor_stock": 3.0,
       "frame_bottom": -53.4,
       "frame_corner": 7.0,
-      "frame_top": 61.15,
+      "frame_top": 55.15,
       "frame_width": 94.3,
       "head_diameter": 5.5,
       "head_height": 3.0,
@@ -76,29 +100,31 @@
       "hex_key": 2.5,
       "insert_diameter": 4.6,
       "insert_length": 4.0,
+      "insert_stock_radius": 6.0,
+      "insert_stock_rear": -4.64,
       "mouth_height": 100.3,
       "mouth_width": 88.3,
-      "pilot_depth": 5.0,
       "pilot_diameter": 4.0,
+      "pilot_rear": -4.64,
       "screw_diameter": 3.0,
       "screw_length": 6.0,
       "slip": 0.15,
       "stations": [
         [
-          -35.0,
-          -41.0
+          -33.0,
+          -39.0
         ],
         [
-          35.0,
-          -41.0
+          33.0,
+          -39.0
         ],
         [
-          -35.0,
-          41.0
+          -33.0,
+          39.0
         ],
         [
-          35.0,
-          41.0
+          33.0,
+          39.0
         ]
       ],
       "supported": 0.25,
@@ -106,27 +132,51 @@
       "width": 88.0
     },
     "payload": "HTTPS://HOSM.US/0001",
+    "pilot_reach_mm": 4.64,
     "plate_components": 1,
     "quiet_zone_overlap_mm3": 0.0,
     "receiver_components": 1,
+    "receiver_floor_stock_mm": 3.0,
     "screw_artwork_overlap_mm3": 0.0,
-    "screw_tip_bottom_air_mm": 1.3599999999999999,
     "seated_overlap_mm3": 0.0,
     "valid_body": true,
     "valid_receiver": true
   },
-  "scene_meshes_screened_by_bounds": 591,
-  "nearest_wago_backing_gap_mm": 1.14,
-  "data_receiver_vertical_gap_mm": 2.545,
+  "frame_proud_of_rear_wall_mm": 2.0,
+  "screw_heads_proud_of_rear_wall_mm": 4.0,
+  "minimum_receiver_floor_stock_mm": 3.0,
+  "screw_grid_mm": [
+    66.0,
+    78.0
+  ],
   "normal_machine_plan_verified": true,
+  "wago_translation_delta_mm": {
+    "wago-h": [
+      0.0,
+      -1.0,
+      0.0
+    ],
+    "wago-n": [
+      0.0,
+      -1.0,
+      0.0
+    ]
+  },
+  "wiring_receipt": "hardware/wiring/installed/integration-review.json",
+  "wiring_manifest_sha256": "b5254c17275af14beffda671053a5efeaf533215ea1286beef7c4c930db0d0d6",
   "lint_review": {
-    "plate": "1 mm screw counterbores and retained graphic outlines are intentional.",
-    "back_top": "The lower locating seat needs accessible Tree(auto)/Default support; cleanup remains unqualified."
+    "plate": "Specified 0.48 mm graphic relief and 1 mm counterbores; manual review retained their functional outline and bearing faces.",
+    "back_top": "Upper bore-tail relief removes the thin crescents while retaining the 3 mm support-floor backing. A remaining 0.10 mm\u00b2 floor ledge at (-79.334,465.545,253.650) needs inspection before print release. The lower locating ledge and Wago pocket ceilings retain Tree(auto)/Default support; physical cleanup remains unqualified."
   },
   "guide_review": {
     "pages": 34,
     "preflight": "PASS Small Landscape",
     "minimum_reading_pdf_ppi": 332,
-    "reading_pdf_sha256": "4594c0390662d625042ebb4832ba785d0852611886fa1afbe570915cadc2e732"
-  }
+    "reading_pdf_sha256": "934a0ea00f8e4c127498475b50600c7e0a053272b5aaf023f88459f8b181c961",
+    "visual_pages_reviewed": [
+      18,
+      34
+    ]
+  },
+  "visual_approval": "Nameplate looks good. Thank you."
 }

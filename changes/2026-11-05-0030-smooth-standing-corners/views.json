@@ -1,0 +1,154 @@
+{
+  "views": [
+    {
+      "name": "rear",
+      "caption": "The complete corner arc is smooth at the flute-tip surface, with a 5 mm groove runout on the neighboring flat walls.",
+      "before": "rear-before.webp",
+      "after": "rear-after.webp",
+      "width": 1200,
+      "height": 900,
+      "marks": [
+        {
+          "x": 611.2,
+          "y": 447.1,
+          "r": 15.1,
+          "label": "Smooth R12",
+          "at": [
+            -103.985,
+            467.785,
+            185
+          ]
+        }
+      ],
+      "model": "printed-parts/enclosure/enclosure/enclosure.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          -323.41359372677397,
+          748.0169921584675,
+          239.6033984316935
+        ],
+        "target": [
+          -85,
+          450,
+          180
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "fov": 45,
+        "near": 213.28596907940698,
+        "far": 1028.5892670257508,
+        "aspect": 1.3333333333333333
+      },
+      "highlight": [],
+      "ghost": [],
+      "only": [
+        "enclosure_back_top",
+        "enclosure_back_bottom"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "printed-parts/enclosure/enclosure/enclosure.step.mesh",
+          "from": "snapshot",
+          "sha256": "1f514252d4012591a166803dd6959fea2f64938d8545e37fb35d32b85c9d38bc",
+          "commit": "fed6a961f1f23b40cbe9d360e1ebbec9a87a7a44",
+          "taken": "2026-11-05T06:24:14.130Z",
+          "published": true
+        },
+        "after": {
+          "payload": "printed-parts/enclosure/enclosure/enclosure.step.mesh",
+          "from": "tree",
+          "sha256": "5d27aeecd7d0264ddac7c71de6027b11464cd1a21db3245727adbd7243b22dae",
+          "commit": "f30ed3e112feac8f54a553234c3eeb4c6275947f",
+          "published": true
+        }
+      },
+      "changed": [
+        "enclosure_front_top",
+        "enclosure_back_top",
+        "enclosure_back_bottom",
+        "enclosure_front_bottom"
+      ],
+      "withinMeshing": []
+    },
+    {
+      "name": "front",
+      "caption": "The complete corner arc is smooth at the flute-tip surface, with a 5 mm groove runout on the neighboring flat walls.",
+      "before": "front-before.webp",
+      "after": "front-after.webp",
+      "width": 1200,
+      "height": 900,
+      "marks": [
+        {
+          "x": 613.6,
+          "y": 446.6,
+          "r": 15,
+          "label": "Smooth R12",
+          "at": [
+            103.985,
+            8.515,
+            185
+          ]
+        }
+      ],
+      "model": "printed-parts/enclosure/enclosure/enclosure.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          323.41359372677397,
+          -273.0169921584674,
+          239.6033984316935
+        ],
+        "target": [
+          85,
+          25,
+          180
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "fov": 45,
+        "near": 212.16554814042883,
+        "far": 977.5808852532095,
+        "aspect": 1.3333333333333333
+      },
+      "highlight": [],
+      "ghost": [],
+      "only": [
+        "enclosure_front_top",
+        "enclosure_front_bottom"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "printed-parts/enclosure/enclosure/enclosure.step.mesh",
+          "from": "snapshot",
+          "sha256": "1f514252d4012591a166803dd6959fea2f64938d8545e37fb35d32b85c9d38bc",
+          "commit": "fed6a961f1f23b40cbe9d360e1ebbec9a87a7a44",
+          "taken": "2026-11-05T06:24:14.130Z",
+          "published": true
+        },
+        "after": {
+          "payload": "printed-parts/enclosure/enclosure/enclosure.step.mesh",
+          "from": "tree",
+          "sha256": "5d27aeecd7d0264ddac7c71de6027b11464cd1a21db3245727adbd7243b22dae",
+          "commit": "f30ed3e112feac8f54a553234c3eeb4c6275947f",
+          "published": true
+        }
+      },
+      "changed": [
+        "enclosure_front_top",
+        "enclosure_back_top",
+        "enclosure_back_bottom",
+        "enclosure_front_bottom"
+      ],
+      "withinMeshing": []
+    }
+  ]
+}

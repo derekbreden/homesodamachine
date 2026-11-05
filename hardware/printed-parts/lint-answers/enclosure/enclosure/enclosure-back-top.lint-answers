@@ -329,9 +329,9 @@ click: x=95.350 y=408.010 z=269.350
 [ceiling] Fitted rear Wago half-well ends: each 19.1 by 9.5 mm flat is the blank half of a rectangular 221-413 pocket with 3 mm surrounding stock. The front half remains open for the levers and conductors. Tree(auto)/Default approaches through the open fore mouth before the Wagos are fitted; physical support cleanup remains unqualified.
 alternatives: Filling or sloping the pocket end occupies the purchased connector. Removing it opens axial capture. A separate holder adds a second part to perform the integral well’s job.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=-85.000 y=462.225 z=263.850
+click: x=-85.000 y=461.225 z=263.850
 click: x=-85.000 y=462.225 z=296.350
-click: x=-61.000 y=462.225 z=265.850
+click: x=-61.000 y=461.225 z=265.850
 
 [ledge] Complete lower boundary of the six-port nut-seat relief: the rectangular field ends at Z250 below the Z264 row, retaining one flat 6 mm rear panel behind the nuts. The ranked face is the east end of that boundary where it meets the rounded case, rather than an added pad. Back-top prints ceiling-down; Tree(auto)/Default approaches through the empty interior before the fittings and labels are installed.
 alternatives: Extending the relief downward changes the wall adjacent to the identification receiver. Filling or sloping its floor changes the common nut-installation field; separate local pockets add face breaks around the six fittings.
