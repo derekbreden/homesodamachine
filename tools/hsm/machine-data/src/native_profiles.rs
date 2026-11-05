@@ -70,7 +70,58 @@ fn json_value(v:&Val)->Result<Value>{
     })
 }
 
+/// The absolute path of a stream opened `rb` from a named file, when `file_digest` is called as
+/// these modules call it: the stream and the digest, positionally.
+fn named_binary(args: &[Val], kwargs: &[(String, Val)]) -> Option<std::path::PathBuf> {
+    let [stream, _digest] = args else { return None };
+    if !kwargs.is_empty() || !matches!(stream.attr("mode"), Ok(Val::Str(mode)) if mode == "rb") {
+        return None;
+    }
+    match stream.attr("name") {
+        Ok(Val::Str(name)) if std::path::Path::new(&name).is_absolute() => Some(name.into()),
+        _ => None,
+    }
+}
+
+/// A module's `hashlib.file_digest`, reading a named binary file in this process from the
+/// stream's position instead of block by block through the Python file object. The stream is
+/// left at its end, as `hashlib` leaves it.
+fn local_file_digest(hashlib: &Val) {
+    use std::io::{Read, Seek, SeekFrom};
+    let Val::Namespace(rows) = hashlib else { return };
+    let mut rows = rows.borrow_mut();
+    let Some(slot) = rows.iter_mut().find(|(key, _)| matches!(key, Val::Str(key) if key == "file_digest")) else {
+        return;
+    };
+    let standard = slot.1.clone();
+    slot.1 = Val::function(move |args, kwargs| {
+        let Some(path) = named_binary(&args, &kwargs) else { return standard.call(args, kwargs) };
+        let mut file = std::fs::File::open(&path)?;
+        file.seek(SeekFrom::Start(args[0].attr("tell")?.call(vec![], vec![])?.integer()?.try_into()?))?;
+        hsm_documents::interop::note_io(&path, false);
+        let file = std::cell::RefCell::new(file);
+        let reader = Val::namespace(vec![("read".into(), Val::function(move |args, _| {
+            let mut block = Vec::new();
+            let mut file = file.borrow_mut();
+            match args.first().map(Val::integer).transpose()? {
+                Some(size) if size >= 0 => (&mut *file).take(size as u64).read_to_end(&mut block)?,
+                _ => file.read_to_end(&mut block)?,
+            };
+            Ok(Val::Bytes(block))
+        }))]);
+        let hash = standard.call(vec![reader, args[1].clone()], vec![])?;
+        args[0].attr("seek")?.call(vec![Val::Int(0), Val::Int(2)], vec![])?;
+        Ok(hash)
+    });
+}
+
 pub fn install(rt: Runtime, e: &Env, module: &str) -> Result<()> {
+    // These digest model files of several hundred MB.
+    if matches!(module, "_machine_checks" | "_machine_reporting" | "check_asse_drain") {
+        if let Ok(hashlib) = e.get("hashlib") {
+            local_file_digest(&hashlib);
+        }
+    }
     if module=="check_asse_drain" {
         e.set("centerline_radii",Val::function(|args,kw|value(json!(crate::curvature::centerline_radii(&json_value(arg(&args,&kw,0,"segments")?)?)?))))?;
         e.set("_names",Val::function(|args,kw|{
