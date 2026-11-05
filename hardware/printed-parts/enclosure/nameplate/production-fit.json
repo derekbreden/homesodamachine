@@ -48,14 +48,85 @@
     "hardware/printed-parts/enclosure/nameplate/nameplate-001.step.mesh": "12eb7b1bedd1123ed507289224ed91aeda8c686710ad6dcfb819c8ed455c1041",
     "hardware/printed-parts/enclosure/nameplate/nameplate-fasteners.step.mesh": "d673f2e89ba7467e4b425547341034d815abe213db293a38f2b84d528800dd33",
     "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl": "6fe4438cbe8b03f526c3f1cc754cbba824bef5481def0f755e516735f83a5fa4",
-    "hardware/manifold-layout/enclosure-assembly.step.mesh": "4879476b3e2cb21c9005f02495786ee6b0381dd2c90dbbdd6040b316c7b11823"
+    "hardware/manifold-layout/enclosure-assembly.step.mesh": "171b214cc98c18764f78be6f798ff0476c5ceb73783a270d74a4368f867b71af"
+  },
+  "native_check": {
+    "artwork_rise_mm": 0.48,
+    "bearing_floor_mm": 2.36,
+    "blind_hole_backing_mm": 3.0,
+    "body_ink_overlap_mm3": 0.0,
+    "head_proud_mm": 2.0,
+    "insert_engagement_mm": 3.64,
+    "mount": {
+      "clearance_diameter": 3.4,
+      "corner": 5.0,
+      "counterbore_depth": 1.0,
+      "counterbore_diameter": 6.2,
+      "crown_y": -4.640000000000001,
+      "field_proud": 8.0,
+      "floor_rear": -8.0,
+      "floor_stock": 8.0,
+      "frame_bottom": -53.4,
+      "frame_corner": 7.0,
+      "frame_top": 61.15,
+      "frame_width": 94.3,
+      "head_diameter": 5.5,
+      "head_height": 3.0,
+      "height": 100.0,
+      "hex_key": 2.5,
+      "insert_diameter": 4.6,
+      "insert_length": 4.0,
+      "mouth_height": 100.3,
+      "mouth_width": 88.3,
+      "pilot_depth": 5.0,
+      "pilot_diameter": 4.0,
+      "screw_diameter": 3.0,
+      "screw_length": 6.0,
+      "slip": 0.15,
+      "stations": [
+        [
+          -35.0,
+          -41.0
+        ],
+        [
+          35.0,
+          -41.0
+        ],
+        [
+          -35.0,
+          41.0
+        ],
+        [
+          35.0,
+          41.0
+        ]
+      ],
+      "supported": 0.25,
+      "thick": 3.36,
+      "width": 88.0
+    },
+    "payload": "HTTPS://HOSM.US/0001",
+    "plate_components": 1,
+    "quiet_zone_overlap_mm3": 0.0,
+    "receiver_components": 1,
+    "screw_artwork_overlap_mm3": 0.0,
+    "screw_tip_bottom_air_mm": 1.3599999999999999,
+    "seated_overlap_mm3": 0.0,
+    "valid_body": true,
+    "valid_receiver": true
   },
   "scene_meshes_screened_by_bounds": 591,
   "nearest_wago_backing_gap_mm": 1.14,
   "data_receiver_vertical_gap_mm": 2.545,
-  "native_artwork_review": {
-    "body_ink_overlap_mm3": 0.0,
-    "screw_artwork_overlap_mm3": 0.0,
-    "qr_quiet_zone_overlap_mm3": 0.0
+  "normal_machine_plan_verified": true,
+  "lint_review": {
+    "plate": "1 mm screw counterbores and retained graphic outlines are intentional.",
+    "back_top": "The lower locating seat needs accessible Tree(auto)/Default support; cleanup remains unqualified."
+  },
+  "guide_review": {
+    "pages": 34,
+    "preflight": "PASS Small Landscape",
+    "minimum_reading_pdf_ppi": 332,
+    "reading_pdf_sha256": "4594c0390662d625042ebb4832ba785d0852611886fa1afbe570915cadc2e732"
   }
 }

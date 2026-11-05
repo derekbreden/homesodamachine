@@ -81,6 +81,7 @@ def main():
         mesh=mesh.copy()
         if shift is not None:
             mesh.vertices += shift
+        mesh.apply_transform(np.diag([-1.,-1.,1.,1.]))
         scene.add_geometry(material(mesh,color), node_name=name)
 
     for view in ('seated', 'separated'):
@@ -116,7 +117,7 @@ def main():
     for name, mesh, color in plate_meshes+fasteners:
         put(scene,name,mesh,color,to_world)
     for view in ('installed','full-context'):
-        target=VIEWER/f'nameplate-attachment-{view}.glb'
+        target=VIEWER/(f'nameplate-four-screws-{view}.glb' if view=='full-context' else f'nameplate-attachment-{view}.glb')
         target.write_bytes(scene.export(file_type='glb'))
         records[view]=str(target.relative_to(ROOT/'hardware'))
         print(target.name,flush=True)
@@ -125,6 +126,8 @@ def main():
     report={
         'geometry':'Complete production enclosure with the installed four-screw nameplate and rear connections.',
         'receiver_section_world_mm':[low,high],
+        'review_rotation_about_z_degrees':180,
+        'review_pose':'Presentation models turn 180 degrees about Z so the default website camera opens on the rear; production parts retain their original machine coordinates.',
         'separated_pose':'Plate moves 18 mm outwards in Y; screws move 35 mm. Inserts remain flush in their seats.',
         'views':records,
         'source_sha256':{str(p.relative_to(ROOT)):READ_SHA.get(p) or hashlib.sha256(p.read_bytes()).hexdigest() for p in sources}}

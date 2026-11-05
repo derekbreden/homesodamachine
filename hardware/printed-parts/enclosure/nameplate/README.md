@@ -80,7 +80,9 @@ held until that review; physical fit of this attachment is not yet qualified.
 ## Website review and generation
 
 [`attachment_view.py`](attachment_view.py) exports the complete appliance,
-seated detail and separated attachment views from production meshes. The
+seated detail and separated attachment views from production meshes. Review
+models turn 180° about Z to open on the rear with the website’s default camera;
+production models keep the machine coordinates. The
 separated view exposes the flat plate back, inserts and screw stations.
 
 ```sh

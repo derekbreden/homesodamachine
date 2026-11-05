@@ -126,10 +126,8 @@ Load the cards before fitting the bulkheads. The fluid panel uses nominal seat
 planes 6 mm apart. Its 42 × 38 × 1.8 mm identification
 tiles slide in continuous side channels. Each rail overlaps its edge by 2 mm,
 leaving a 38 × 38 mm visible color face; adjacent tiles have a 0.2 mm seam.
-Load each column's bottom tile first. Words sit below their bulkheads; the rear
-labels read WATER, CO2, SODA, FLAVOR, DRAIN and FLAVOR. Install the per-unit
-nameplate at final finishing, centred at world X−45.4/Z217 in the receiver beside
-the cards. Its four short inserts are pressed during shell preparation; four
+Load each column's bottom tile first. Install the per-unit nameplate at final
+finishing, centred at world X−45.4/Z217 in the receiver beside the cards. Its four short inserts are pressed during shell preparation; four
 black M3 × 6 screws secure the flat plate. See [`finish-pack-ship.md`](finish-pack-ship.md) §3.
 Seat each fitting flange
 outside and its panel nut on the relieved inside land. Keep moving release
