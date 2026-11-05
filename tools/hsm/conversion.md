@@ -118,7 +118,8 @@ and `guides` are Rust generated from their Python modules, about 37,700 authored
 generated module is one `initialize` function over `hsm_documents::interop::Val`: Python
 names resolve at run time through `Env` scopes, and a module outside the compiled set is
 imported through the Python adapter's callback. No generator is retained, so edits go into
-the generated files.
+the generated files. Unverified typed drafts of these modules, with their sessions' notes and
+harness, are in commit `59ad02ff5`: `git checkout 59ad02ff5 -- tools/hsm/<crate>/src/typed`.
 
 ## Fixed-input evidence
 
