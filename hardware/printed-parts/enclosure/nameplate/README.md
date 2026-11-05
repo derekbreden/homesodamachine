@@ -25,76 +25,72 @@ The full-domain address in written instructions is `homesodamachine.com/0001`.
 The separate [appliance marking specification](/hardware/markings/README.md) covers
 ratings, refrigerant warnings and disposal marking low on the enclosure.
 
-## Retention
+## Four-screw mounting
 
-The attachment is under review and the nameplate is held from printing.
-[Full-size attachment options](attachment-options/README.md) show broad walls
-joined continuously to the plate or receiver, and a rigid screw-mounted option.
-The interface described below is the currently generated geometry; it is not a
-released attachment.
+Four acquired black BNUOK M3 × 6 socket-head screws fasten the plate to four ruthex
+RX-M3S × 4 short heat-set inserts in the solid receiver of `enclosure-back-top`.
+The screw centres form a 70 × 82 mm rectangle, centred on the plate. Each Ø3.4 mm
+clearance hole has a Ø6.2 × 1 mm counterbore. The Ø5.5 × 3 mm screw heads stand
+2 mm above the black face; their 2.5 mm hex sockets face directly outward.
 
-The rigid plate presses straight into its receiver. Two hidden leaves flex inward
-behind it. Each leaf is 2 mm thick in X and 2 mm deep in Y, with an R1.5 transition
-at its root, a 25 mm free length to its head, and a single pointed 1.2 mm lead-in.
-The hooks capture 1.05 mm of receiver shoulder. Their insertion stroke is 1.2 mm;
-the receiver provides space for that stroke, the complete roots and both heads.
-The leaf outline lies within each face-up printed layer.
+The plate has a flat back, a 2.36 mm bearing floor beneath each counterbore and
+3.64 mm of screw engagement. The receiver takes Ø4 × 5 mm blind cold pilots;
+insert fronts finish flush with the seat. A seated screw stops 1.36 mm before
+the blind end. The pilots retain 3 mm of solid backing. The 4.6 mm installed
+insert envelope represents intentional thermal interference with the Ø4 pilot.
 
-The clip tips extend 4 mm behind the plate back. Blind receiver pockets have
-0.25 mm rear clearance, at least 3 mm of backing stock, 0.15 mm body clearance per
-side and 0.25 mm additional allowance at the print-down opening. The retaining
-shoulder is 1.6 mm deep. A centered 6 mm-wide front tool opening in each receiver
-side exposes its spring head while leaving a 2 mm bearing band at either end of
-the hook. Insert a small flat screwdriver beside the plate, push the head inward
-and lift that side; release the opposite head to remove the plate. The tool
-openings are in the receiver, accessible from outside the assembled enclosure.
+[`snap_dimensions.rs`](snap_dimensions.rs) supplies the shared mount record;
+[`snap_geometry.rs`](snap_geometry.rs) cuts the plate, receiver and separate
+purchased-hardware models. The production back-top uses the same stock and
+cavity construction. Hardware is separate from the printable plate's two-colour
+3MF and appears in the installed machine and attachment review.
 
-[`snap_dimensions.rs`](snap_dimensions.rs) supplies the common dimensions.
-[`snap_geometry.rs`](snap_geometry.rs) cuts the complete plate and the receiver
-stock and cavities used by the production back-top. The local receiver export and
-website cutaway use that same interface.
-
-The plate centre is world X−45.4/Z220 and its face is Y476.3. The complete receiver
-is 94.3 mm wide: its outside edges leave 2.95 mm to the rear-corner tangent at
-X−95.5 and 2.90 mm to the adjacent color-chip frame at X4.65. These are frame-to-frame
-and frame-to-corner spaces. The receiver stands 5 mm proud of the rear wall,
-2 mm beyond the color-chip rail.
-This depth retains at least 3 mm behind the clip pockets where the cold-core
-clearance trims the interior of back-top.
-[Production fit measurements](production-fit.json) record the geometry review.
+The plate centre is world X−45.4/Z217 and its face is Y479.3. The complete receiver
+is 94.3 mm wide. Its outside edges leave 2.95 mm to the rear-corner tangent at
+X−95.5 and 2.90 mm to the adjacent color-chip frame at X4.65. The receiver stands
+8 mm proud of the rear wall and has one 45° crown, retaining a 3 mm rim above
+the plate opening. The backing clears the cold-core envelope by 2.94 mm and the nearest Wago
+connectors by 1.14 mm. The screw heads finish 1.83 mm inside the rear extent of
+the bulkheads. All four screws are reached from outside the assembled machine.
+[Production measurements](production-fit.json) record the geometry review.
 
 ## Printing and assembly
 
-Print the nameplate face up, with the hidden clip backs on the bed and supports
-under the plate back. Remove supports through the open sides of the 2 mm space
-behind each leaf; keep its root and pointed head intact. Use the shared PET-GF
-material settings, a 0.20 mm first layer, Arachne walls and a 75% minimum bead width
-on the 0.4 mm nozzle to retain the 0.325 mm identification strokes.
+Print the nameplate flat, face up, with its complete back on the bed and the
+counterbores facing up. No supports are needed. Use the shared PET-GF material
+settings, a 0.20 mm first layer, Arachne walls and a 75% minimum bead width on
+the 0.4 mm nozzle to retain the 0.325 mm identification strokes.
 
 Preserve the accepted Mark2 black/white alignment compensation in the print
 package; it is not a CAD translation. The [colour registration print records](horizontal-wing-trial/README.md)
 identify that compensation and the external black/white PET-GF spools. Keep the
 standard nozzle-offset startup option at Auto.
 
-The receiver prints within back-top in its roof-down orientation using shared
-PET-GF tree supports. Clear the pockets through the front opening before
-installation. The complete hidden-leaf plate and enclosure attachment await
-physical verification; geometry checks do not establish plastic fatigue life.
+Back-top prints roof down using the shared PET-GF tree-support settings. Clear
+the receiver seat and pilots, then press its four short inserts flush while
+back-top is loose. Keep the insert axis normal to the seat; do not press past
+flush. Clean the bearing faces. Set the plate into the receiver and start all
+four M3 × 6 screws before tightening. Seat them lightly by hand with a 2.5 mm
+hex key, alternating diagonal corners. The plate must lie flat without bowing.
+Scan the installed QR and compare the unit number with the build record.
+
+The four-screw attachment is implemented for the website review. Printing is
+held until that review; physical fit of this attachment is not yet qualified.
 
 ## Website review and generation
 
-[`attachment_view.py`](attachment_view.py) exports seated, separated and installed
-GLB views from the actual production meshes. The separated plate is turned around
-to expose its leaves; that inspection pose is not its installation path.
+[`attachment_view.py`](attachment_view.py) exports the complete appliance,
+seated detail and separated attachment views from production meshes. The
+separated view exposes the flat plate back, inserts and screw stations.
 
 ```sh
 tools/cad-venv/bin/python hardware/printed-parts/enclosure/nameplate/nameplate.py 1
 tools/cad-venv/bin/python hardware/printed-parts/enclosure/nameplate/nameplate.py selftest
 ```
 
-First Edition plates are numbered 0001–0010. Every QR remains version 1. The manual
-self-test checks solid validity, disjoint inks, the QR quiet zone, seated clearance
-and an insertion sweep with the spring heads displaced inward.
+First Edition plates are numbered 0001–0010. Every QR remains version 1. The
+manual self-test checks solid validity, disjoint inks, the QR quiet zone,
+fastener/artwork clearance, seating, bearing, backing and screw engagement.
 
 ## Sources
 [value](NAME) texts are updated by:
