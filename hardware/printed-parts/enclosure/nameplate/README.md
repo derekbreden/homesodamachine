@@ -37,8 +37,10 @@ clearance hole has a Ø6.2 × 1 mm counterbore. The Ø5.5 × 3 mm screw heads st
 2 mm above the black face; their 2.5 mm hex sockets face directly outward.
 
 The plate has a flat back, a 2.36 mm bearing floor beneath each counterbore and
-3.64 mm of screw engagement. The receiver takes Ø4 mm cold pilots opening through
-the rear wall; insert fronts finish flush with the seat. The broad seat is
+3.64 mm of screw engagement. The receiver takes Ø4 × 4.64 mm cold pilots;
+insert fronts finish flush with the seat. The upper pair ends against the existing
+3 mm support floors; the lower pair opens through the rear wall. The closed
+pilots leave 0.64 mm behind each insert and 1 mm behind each screw tip. The broad seat is
 3 mm thick, with the four insert lands carried into the existing enclosure wall.
 Each land supplies at least 3.7 mm of radial stock around the installed insert.
 The 4.6 mm installed
@@ -81,8 +83,8 @@ four M3 × 6 screws before tightening. Seat them lightly by hand with a 2.5 mm
 hex key, alternating diagonal corners. The plate must lie flat without bowing.
 Scan the installed QR and compare the unit number with the build record.
 
-The four-screw attachment is implemented for the website review. Printing is
-held until that review; physical fit of this attachment is not yet qualified.
+The four-screw attachment has Derek's 3D approval. Its physical mounting and
+support cleanup are unqualified; printing is held for the enclosure corner review.
 
 ## Website review and generation
 

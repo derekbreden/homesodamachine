@@ -102,15 +102,19 @@ def main():
     # No panel is cropped away in this view.
     scene = trimesh.Scene()
     for name, mesh, color in payload_meshes(aggregate,
-            lambda n:n.startswith('enclosure_') and n!='enclosure_back_top'):
+            lambda n:n=='enclosure_pump_retainer'):
         put(scene,name,mesh,color)
     back_payload=enclosure.with_name('enclosure-back-top.step.mesh')
-    for name,mesh,color in payload_meshes(back_payload,lambda _:True):
-        put(scene,name,mesh,color)
+    quadrants=[enclosure.with_name(f'enclosure-{part}.step.mesh')
+               for part in ('front-bottom','back-bottom','front-top','back-top')]
+    for source in quadrants:
+        for name,mesh,color in payload_meshes(source,lambda _:True):
+            put(scene,name,mesh,color)
     def include(name):
         return (name.split('/')[0] in ('data-ring','keystone-jack',
             'c14-inlet','co2-inlet','bulkhead-water','bulkhead-carb','bulkhead-drain',
-            'bulkhead-flavor-a','bulkhead-flavor-b','funnel-cover','funnel-frame')
+            'bulkhead-flavor-a','bulkhead-flavor-b','funnel','funnel-cover','funnel-frame',
+            'display','display-cover','display-gasket')
             or name.startswith('bulkhead-ring-'))
     for name, mesh, color in payload_meshes(installed, include):
         put(scene,name,mesh,color)
@@ -121,7 +125,7 @@ def main():
         target.write_bytes(scene.export(file_type='glb'))
         records[view]=str(target.relative_to(ROOT/'hardware'))
         print(target.name,flush=True)
-    sources=[Path(__file__),enclosure,back_payload,aggregate,plate,hardware,installed,
+    sources=[Path(__file__),enclosure,*quadrants,aggregate,plate,hardware,installed,
              HERE/'nameplate.numbers.json',plan_path]
     report={
         'geometry':'Complete production enclosure with the installed four-screw nameplate and rear connections.',
