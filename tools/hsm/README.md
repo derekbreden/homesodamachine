@@ -538,12 +538,12 @@ the target's declared outputs under that directory's repository-relative paths; 
 is the checkout. Other actions remain with the normal build.
 
 `tools/bazel/gen_build.py::action_plan` supplies both BUILD and this action's declarations:
-generator entrypoints, inputs, optional inputs, producer edges, stripped Python and outputs.
-`tools/hsm/generate.py` stages those files, using the existing `pysrc` transformation, and
-executes each existing script entrypoint in order, in a separate Python interpreter as
-BUILD does. Co-writers share the staged files. Their Rust calls use `_rust_part.run`. The
-action key binds the declarations, staged input bytes, worker code, Python executable and
-version, and installed CAD package versions. An optional input's absence is part of the key.
+generator entrypoints, inputs, optional inputs, producer edges and outputs.
+`tools/hsm/generate.py` stages those files as the tree holds them and executes each
+existing script entrypoint in order, in a separate Python interpreter as BUILD does.
+Co-writers share the staged files. Their Rust calls use `_rust_part.run`. The action key
+binds the declarations, staged input bytes, worker code, Python executable and version, and
+installed CAD package versions. An optional input's absence is part of the key.
 Only declared files are staged; no appliance is composed or copied.
 
 The engine completes producer dependencies before their consumer. A producer-backed input

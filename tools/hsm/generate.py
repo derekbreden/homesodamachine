@@ -20,11 +20,10 @@ import sys
 ROOT = Path(__file__).resolve().parents[2]
 sys.path[:0] = [str(ROOT / "tools/bazel"), str(ROOT / "hardware/scripts")]
 from gen_build import action_plan, dependency_rules, support_argv
-from pysrc import same_code, stripped
 from sync_tree import _SPLICE, _whole_rewritten, carried
 
 SUPPORT = ("tools/hsm/generate.py", "tools/bazel/gen_build.py", "tools/bazel/inventory.py",
-           "tools/bazel/pysrc.py", "tools/bazel/sync_tree.py", "tools/_artifact_inputs.py",
+           "tools/bazel/sync_tree.py", "tools/_artifact_inputs.py",
            "tools/cad-artifacts/pack.py", "tools/cad-requirements.txt")
 ENROLLED = frozenset(("water-inlet-jet-fixture", "elbow-cradle", "funnel-mold"))
 
@@ -39,19 +38,6 @@ def relative(name):
     if path.is_absolute() or not path.parts or any(p in ("..", ".") for p in path.parts):
         raise ValueError("Generator paths are relative to their declared root: " + name)
     return path
-
-
-def source_bytes(path, mode):
-    raw = path.read_bytes()
-    if mode == "pysrc":
-        try:
-            result = stripped(raw)
-        except SyntaxError:
-            return raw
-        if not same_code(raw, result):
-            raise ValueError("Comment stripping changes code: " + str(path))
-        return result
-    return raw
 
 
 def describe(target):
@@ -92,7 +78,7 @@ def describe_support(target, rule):
     recipe = describe_action(target, {
         "generators": [argv[0]], "entrypoints": [argv], "dependencies": [],
         "reads": rule["srcs"] + rule["tools"], "solids": rule["outs"],
-        "docs": [], "optional": [], "stripped": [], "producers": {}, "support_inputs": {},
+        "docs": [], "optional": [], "producers": {}, "support_inputs": {},
     }, {})
     recipe["support_provider"] = {"name": target, **rule}
     return recipe
@@ -106,7 +92,6 @@ def describe_action(target, action, providers):
     inputs = []
     for name in sorted(set(action["reads"]) | set(action["optional"]) | set(SUPPORT)):
         path = ROOT / relative(name)
-        mode = "pysrc" if name in action["stripped"] else "raw"
         if output := action["support_inputs"].get(name):
             inputs.append({"path": name, "mode": "raw", "producer": providers[output][0],
                            "producer_output": output})
@@ -114,15 +99,15 @@ def describe_action(target, action, providers):
         producer = action["producers"].get(name)
         if producer and producer != target:
             # The engine binds this hash after this request completes the producer.
-            inputs.append({"path": name, "mode": mode, "producer": producer})
+            inputs.append({"path": name, "mode": "raw", "producer": producer})
             continue
         if not path.is_file():
             if name not in action["optional"]:
                 raise FileNotFoundError(path)
             digest = None
         else:
-            digest = hashlib.sha256(source_bytes(path, mode)).hexdigest()
-        inputs.append({"path": name, "mode": mode, "sha256": digest})
+            digest = sha(path)
+        inputs.append({"path": name, "mode": "raw", "sha256": digest})
     packages = {}
     for line in (ROOT / "tools/cad-requirements.txt").read_text().splitlines():
         if match := re.fullmatch(r"([A-Za-z0-9_.-]+)==[^\s]+", line):
@@ -156,8 +141,7 @@ def validate(recipe, root, *, sources_only=False):
         if sources_only and "producer" in row:
             continue
         path = root / relative(row["path"])
-        digest = (hashlib.sha256(source_bytes(path, row["mode"])).hexdigest()
-                  if path.is_file() else None)
+        digest = sha(path) if path.is_file() else None
         if digest != row["sha256"]:
             raise ValueError("Generator input changed: " + row["path"])
 
@@ -174,12 +158,7 @@ def execute(recipe, scratch, socket, blobs):
             source = blobs / row["sha256"]
         else:
             source = ROOT / relative(row["path"])
-        dest = stage / row["path"]
-        if row["mode"] == "pysrc":
-            dest.parent.mkdir(parents=True, exist_ok=True)
-            dest.write_bytes(source_bytes(source, row["mode"]))
-        else:
-            clone(source, dest)
+        clone(source, stage / row["path"])
     validate(recipe, stage)
     # Native memo stores remain the checkout's existing stores, as in a normal action.
     (stage / ".cache").symlink_to(ROOT / ".cache", target_is_directory=True)

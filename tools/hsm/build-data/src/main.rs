@@ -79,9 +79,6 @@ fn dispatch(v:&Value)->Result<Value> {
     match text(v,"op")? {
         "project-graph"=>Ok(support::project_graph(&v["graph"],text(v,"generator")?)),
         "project-graph-file"=>{support::write_projection(Path::new(text(v,"source")?),Path::new(text(v,"output")?),text(v,"generator")?)?;Ok(Value::Null)},
-        "same-source-code"=>Ok(json!(support::same_code(&serde_json::from_value::<Vec<u8>>(v["before"].clone())?,&serde_json::from_value::<Vec<u8>>(v["after"].clone())?,&mut callback)?)),
-        "stripped-source"=>Ok(json!(support::stripped(&serde_json::from_value::<Vec<u8>>(v["bytes"].clone())?,&mut callback)?)),
-        "strip-source-files"=>support::strip_files(Path::new(text(v,"root")?),&serde_json::from_value::<Vec<String>>(v["files"].clone())?,&mut callback),
         "blake2b16"=>Ok(json!(sources::blake2b16(&serde_json::from_value::<Vec<u8>>(v["bytes"].clone())?))),
         "code-digest"=>Ok(json!(sources::code_digest(path(v)?,&mut callback)?)),
         "digest"=>Ok(json!(sources::digest(&serde_json::from_value::<Vec<PathBuf>>(v["paths"].clone())?,&mut callback)?)),
