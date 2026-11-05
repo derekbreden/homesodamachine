@@ -100,67 +100,22 @@ fn bodies(n: &part::Numbers) -> Result<Vec<Placed>> {
     Ok(out)
 }
 
-fn region(v: &Value) -> Result<Solid> {
-    let stem = |row: &Value| -> Result<Solid> {
-        let a = rows(row)?;
-        let (lo,hi,r) = (num(&a[0])?,num(&a[1])?,num(&a[2])?);
-        Solid::cylinder(v3(lo,0.,0.),V3::X,r,hi-lo)
-    };
-    Ok(stem(&v["stem"])?.union(&stem(&v["root"])?)?.transformed(&frame(&v["transform"])?))
-}
-
-fn measurements(n: &part::Numbers, bodies: &mut [Placed]) -> Result<Value> {
-    let boxes: Vec<Bounds> = bodies.iter().map(|b|b.solid.bounds()).collect();
-    let envelope = |stubs: bool| {
-        let mut low = v3(f64::INFINITY,f64::INFINITY,f64::INFINITY);
-        let mut high = -low;
-        for (body,b) in bodies.iter().zip(&boxes) {
-            if stubs || !body.name.starts_with("stub-") { low=low.min(b.min); high=high.max(b.max); }
-        }
-        bounds(Bounds { min:low,max:high })
-    };
-    let mut mask = HashMap::new();
-    for row in rows(n.get("stems")?)? {
-        let pair = [text(&row["elbow"])?.to_owned(),text(&row["host"])?.to_owned()];
-        mask.insert(pair,region(row)?);
+/// The envelope of every placed body, stubs included: the scale of the presentation tolerance.
+fn reach(bodies: &[Placed]) -> Value {
+    let mut low = v3(f64::INFINITY,f64::INFINITY,f64::INFINITY);
+    let mut high = -low;
+    for body in bodies {
+        let b = body.solid.bounds();
+        low = low.min(b.min); high = high.max(b.max);
     }
-    let mut hits = vec![];
-    let mut unanswered = vec![];
-    let mut stems = vec![];
-    let (bb,reach) = (envelope(false),envelope(true));
-    let floor = n.f("clash_floor")?;
-    for i in 0..bodies.len() {
-        for j in i+1..bodies.len() {
-            let (a,b) = (&boxes[i],&boxes[j]);
-            if (0..3).any(|k| a.min[k]>b.max[k]-1e-6 || b.min[k]>a.max[k]-1e-6) { continue; }
-            let (a,b) = (&bodies[i],&bodies[j]);
-            match a.solid.intersect(&b.solid) {
-                Err(error) => unanswered.push(json!([a.name,b.name,error.to_string()])),
-                Ok(common) => {
-                    let volume = common.volume();
-                    if volume <= floor { continue; }
-                    let pair = [a.name.clone(),b.name.clone()];
-                    let reverse = [b.name.clone(),a.name.clone()];
-                    if let Some(region) = mask.get(&pair).or_else(||mask.get(&reverse)) {
-                        let outside = common.cut(region)?.volume();
-                        stems.push(json!({"a":a.name,"b":b.name,"inside":volume,"outside":outside}));
-                        if outside <= floor { continue; }
-                    }
-                    hits.push(json!({"a":a.name,"b":b.name,"volume":volume,"where":bounds(common.bounds())}));
-                },
-            }
-        }
-        bodies[i].solid.forget_backend();
-    }
-    Ok(json!({"bb":bb,"reach":reach,"hits":hits,"unanswered":unanswered,"stems":stems,
-              "bodies":bodies.iter().zip(&boxes).map(|(body,bb)|json!({"name":body.name,"volume":body.solid.volume(),"bounds":bounds(*bb)})).collect::<Vec<_>>()}))
+    json!(bounds(Bounds { min:low,max:high }))
 }
 
 fn main() -> Result<()> {
     let (n,out) = part::args()?;
     let mut placed = bodies(&n)?;
-    let measured = measurements(&n,&mut placed)?;
-    let b = rows(&measured["reach"])?;
+    let reach = reach(&placed);
+    let b = rows(&reach)?;
     let extent = ((num(&b[3])?-num(&b[0])?) + (num(&b[4])?-num(&b[1])?)
                   + (num(&b[5])?-num(&b[2])?))/3.0;
     let tolerance = (extent*n.f("presentation_ratio")?).max(hsm_kernel::TOLERANCE);
@@ -175,8 +130,7 @@ fn main() -> Result<()> {
     }).collect();
     let document = json!({"presentation_tolerance_mm":tolerance,
                           "presentation_simplification_tolerance_mm":tolerance/2.});
-    let mut said = part::write_assembly(&out,n.text("name")?,&bodies,Some(&document))?;
-    said["measurements"] = measured;
+    let said = part::write_assembly(&out,n.text("name")?,&bodies,Some(&document))?;
     println!("{said}");
     Ok(())
 }

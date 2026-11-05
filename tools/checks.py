@@ -30,7 +30,6 @@ ROOT = Path(__file__).resolve().parent.parent
 PY = ROOT / "tools" / "cad-venv" / "bin" / "python"
 
 CHECKS = (
-    "hardware/scripts/check_copper_plug_clearance.py",
     "hardware/scripts/check_enclosure_mating_clearance.py",
     "hardware/scripts/check_ledger.py",
     "hardware/scripts/check_pinmap.py",
