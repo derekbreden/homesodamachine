@@ -27,6 +27,12 @@ ratings, refrigerant warnings and disposal marking low on the enclosure.
 
 ## Retention
 
+The attachment is under review and the nameplate is held from printing.
+[Full-size attachment options](attachment-options/README.md) show broad walls
+joined continuously to the plate or receiver, and a rigid screw-mounted option.
+The interface described below is the currently generated geometry; it is not a
+released attachment.
+
 The rigid plate presses straight into its receiver. Two hidden leaves flex inward
 behind it. Each leaf is 2 mm thick in X and 2 mm deep in Y, with an R1.5 transition
 at its root, a 25 mm free length to its head, and a single pointed 1.2 mm lead-in.
