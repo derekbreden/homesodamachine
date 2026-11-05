@@ -1,0 +1,321 @@
+{
+ "deps": {
+  "_water_pressure_regulator": [],
+  "_show_skin": [],
+  "_reservoir_ports": [],
+  "_foam_cap": [
+   "_above_core_mounts",
+   "_cold_core_interface",
+   "_internal_routes",
+   "_outer_shell",
+   "_reservoir_b_fill"
+  ],
+  "_foam_shell": [
+   "_above_core_mounts",
+   "_cold_core_interface",
+   "_foam_cap",
+   "_outer_shell",
+   "_port_cuts",
+   "_reed_b_outlet",
+   "_reed_channels",
+   "_reservoir_b_fill",
+   "_reservoir_pocket_walls",
+   "_support_ring"
+  ],
+  "_port_cuts": [
+   "_cold_core_interface",
+   "_copper_ports",
+   "_internal_routes",
+   "_support_ring"
+  ],
+  "_copper_ports": [
+   "_cold_core_interface"
+  ],
+  "_reservoir_b_fill": [
+   "_cold_core_interface"
+  ],
+  "_reed_channels": [
+   "_cold_core_interface"
+  ],
+  "_reservoir_a_anchors": [],
+  "_internal_routes": [
+   "_above_core_mounts",
+   "_cold_core_interface",
+   "_foam_cap",
+   "_port_cuts",
+   "prv_shroud",
+   "reservoir"
+  ],
+  "_cold_core_interface": [
+   "_above_core_mounts"
+  ],
+  "_outer_shell": [
+   "_cold_core_interface"
+  ],
+  "_support_ring": [
+   "_cold_core_interface"
+  ],
+  "_reservoir_pocket_walls": [
+   "_cold_core_interface"
+  ],
+  "_above_core_mounts": [
+   "_cold_core_interface",
+   "_reservoir_b_fill",
+   "reservoir"
+  ],
+  "_reed_b_outlet": [
+   "_cold_core_interface"
+  ],
+  "prv_shroud": [],
+  "magnetic_float": [],
+  "all_aero_float": [],
+  "integration": [
+   "_cold_core_interface",
+   "_reed_channels",
+   "endcap_circular_dxf",
+   "reed_bridge",
+   "reservoir"
+  ],
+  "reservoir": [
+   "_cold_core_interface",
+   "_reed_channels",
+   "_reservoir_ports"
+  ],
+  "foam_shell": [
+   "_above_core_mounts",
+   "_cold_core_interface",
+   "_copper_ports",
+   "_foam_cap",
+   "_internal_routes",
+   "_port_cuts",
+   "_reed_b_outlet",
+   "_reed_channels",
+   "_reservoir_b_fill",
+   "_reservoir_pocket_walls",
+   "_support_ring"
+  ],
+  "foam_assembly": [
+   "_above_core_mounts",
+   "_cold_core_interface",
+   "_core_presentation",
+   "_foam_cap",
+   "_internal_routes",
+   "_port_cuts",
+   "foam_numbers",
+   "reservoir"
+  ],
+  "foam_numbers": [
+   "_foam_cap",
+   "foam_assembly",
+   "reservoir"
+  ],
+  "foam_cap": [
+   "_above_core_mounts",
+   "_cold_core_interface",
+   "_foam_cap",
+   "_reservoir_a_anchors",
+   "_reservoir_b_fill",
+   "_reservoir_ports"
+  ],
+  "reed_bridge": [
+   "_cold_core_interface",
+   "coil_mandrel",
+   "endcap_circular_dxf",
+   "reservoir"
+  ],
+  "coil_mandrel": [
+   "_cold_core_interface"
+  ],
+  "float_rod_drawing": [],
+  "endcap_circular_dxf": [],
+  "endcap_circular_step": [
+   "endcap_circular_dxf"
+  ],
+  "endcap_circular_drawing": [
+   "endcap_circular_dxf"
+  ],
+  "carbonator_tube_step": [],
+  "reservoir_float_rod_drawing": [
+   "reservoir"
+  ],
+  "core_numbers": [
+   "_cold_core_interface",
+   "_core_points",
+   "_reservoir_b_fill",
+   "cold_core_assembly",
+   "foam_numbers",
+   "reed_bridge",
+   "reservoir"
+  ],
+  "_core_presentation": [],
+  "_cold_scorecard": [],
+  "_core_points": [],
+  "cold_core_assembly": [
+   "_above_core_mounts",
+   "_bom",
+   "_carbonator",
+   "_cold_core_interface",
+   "_cold_core_style",
+   "_cold_scorecard",
+   "_core_presentation",
+   "_fittings",
+   "_internal_routes",
+   "_internals",
+   "_reservoir_ports",
+   "core_numbers",
+   "foam_assembly",
+   "prv_shroud",
+   "reservoir"
+  ],
+  "_cold_core_style": [
+   "reservoir"
+  ],
+  "_bom": [
+   "_cold_scorecard"
+  ],
+  "_internals": [
+   "_carbonator",
+   "_cold_core_interface",
+   "_fittings",
+   "_internal_routes",
+   "_reed_channels",
+   "_water_inlet_jet",
+   "reed_bridge",
+   "reservoir"
+  ],
+  "_carbonator": [
+   "_cold_core_interface",
+   "_fittings",
+   "_internal_routes",
+   "_port_cuts",
+   "endcap_circular_dxf"
+  ],
+  "evaporator_coil_drawing": [
+   "coil_mandrel",
+   "core_numbers"
+  ],
+  "water_inlet_jet_elbow_drawing": [
+   "_carbonator",
+   "_fittings",
+   "_water_inlet_jet",
+   "endcap_circular_drawing",
+   "water_inlet_jet_cap_drawing"
+  ],
+  "_water_inlet_jet": [],
+  "water_inlet_jet_cap_drawing": [
+   "_water_inlet_jet",
+   "endcap_circular_drawing"
+  ],
+  "_fittings": [],
+  "carbonator_vessel_drawing": [],
+  "core_reference": [
+   "_cold_core_interface",
+   "_copper_ports",
+   "foam_assembly"
+  ]
+ },
+ "paths": {
+  "_water_pressure_regulator": "./hardware/printed-parts/cold-core/_water_pressure_regulator.py",
+  "_show_skin": "./hardware/printed-parts/cold-core/_show_skin.py",
+  "_reservoir_ports": "./hardware/printed-parts/cold-core/_reservoir_ports.py",
+  "_foam_cap": "./hardware/printed-parts/cold-core/_foam_cap.py",
+  "_foam_shell": "./hardware/printed-parts/cold-core/_foam_shell.py",
+  "_port_cuts": "./hardware/printed-parts/cold-core/_port_cuts.py",
+  "_copper_ports": "./hardware/printed-parts/cold-core/_copper_ports.py",
+  "_reservoir_b_fill": "./hardware/printed-parts/cold-core/_reservoir_b_fill.py",
+  "_reed_channels": "./hardware/printed-parts/cold-core/_reed_channels.py",
+  "_reservoir_a_anchors": "./hardware/printed-parts/cold-core/_reservoir_a_anchors.py",
+  "_internal_routes": "./hardware/printed-parts/cold-core/_internal_routes.py",
+  "_cold_core_interface": "./hardware/printed-parts/cold-core/_cold_core_interface.py",
+  "_outer_shell": "./hardware/printed-parts/cold-core/_outer_shell.py",
+  "_support_ring": "./hardware/printed-parts/cold-core/_support_ring.py",
+  "_reservoir_pocket_walls": "./hardware/printed-parts/cold-core/_reservoir_pocket_walls.py",
+  "_above_core_mounts": "./hardware/printed-parts/cold-core/_above_core_mounts.py",
+  "_reed_b_outlet": "./hardware/printed-parts/cold-core/_reed_b_outlet.py",
+  "prv_shroud": "./hardware/printed-parts/cold-core/prv-shroud/prv_shroud.py",
+  "magnetic_float": "./hardware/printed-parts/cold-core/magnetic-float/magnetic_float.py",
+  "all_aero_float": "./hardware/printed-parts/cold-core/magnetic-float/all-aero/all_aero_float.py",
+  "integration": "./hardware/printed-parts/cold-core/magnetic-float/all-aero/integration.py",
+  "reservoir": "./hardware/printed-parts/cold-core/reservoir/reservoir.py",
+  "foam_shell": "./hardware/printed-parts/cold-core/foam-shell/foam_shell.py",
+  "foam_assembly": "./hardware/printed-parts/cold-core/foam-assembly/foam_assembly.py",
+  "foam_numbers": "./hardware/printed-parts/cold-core/foam-assembly/foam_numbers.py",
+  "foam_cap": "./hardware/printed-parts/cold-core/foam-cap/foam_cap.py",
+  "reed_bridge": "./hardware/printed-parts/cold-core/reed-bridge/reed_bridge.py",
+  "coil_mandrel": "./hardware/printed-parts/cold-core/coil-mandrel/coil_mandrel.py",
+  "float_rod_drawing": "./hardware/cut-parts/carbonation/float-rod/float_rod_drawing.py",
+  "endcap_circular_dxf": "./hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_dxf.py",
+  "endcap_circular_step": "./hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_step.py",
+  "endcap_circular_drawing": "./hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_drawing.py",
+  "carbonator_tube_step": "./hardware/cut-parts/carbonation/carbonator-tube/carbonator_tube_step.py",
+  "reservoir_float_rod_drawing": "./hardware/cut-parts/carbonation/reservoir-float-rod/reservoir_float_rod_drawing.py",
+  "core_numbers": "./hardware/cold-core-layout/core_numbers.py",
+  "_core_presentation": "./hardware/cold-core-layout/_core_presentation.py",
+  "_cold_scorecard": "./hardware/cold-core-layout/_cold_scorecard.py",
+  "_core_points": "./hardware/cold-core-layout/_core_points.py",
+  "cold_core_assembly": "./hardware/cold-core-layout/cold_core_assembly.py",
+  "_cold_core_style": "./hardware/cold-core-layout/_cold_core_style.py",
+  "_bom": "./hardware/cold-core-layout/_bom.py",
+  "_internals": "./hardware/cold-core-layout/_internals.py",
+  "_carbonator": "./hardware/cold-core-layout/_carbonator.py",
+  "evaporator_coil_drawing": "./hardware/cold-core-layout/evaporator_coil_drawing.py",
+  "water_inlet_jet_elbow_drawing": "./hardware/cold-core-layout/water_inlet_jet_elbow_drawing.py",
+  "_water_inlet_jet": "./hardware/cold-core-layout/_water_inlet_jet.py",
+  "water_inlet_jet_cap_drawing": "./hardware/cold-core-layout/water_inlet_jet_cap_drawing.py",
+  "_fittings": "./hardware/cold-core-layout/_fittings.py",
+  "carbonator_vessel_drawing": "./hardware/cold-core-layout/carbonator_vessel_drawing.py",
+  "core_reference": "./hardware/cold-core-layout/core_reference.py"
+ },
+ "lines": {
+  "_water_pressure_regulator": 52,
+  "_show_skin": 8,
+  "_reservoir_ports": 54,
+  "_foam_cap": 165,
+  "_foam_shell": 35,
+  "_port_cuts": 107,
+  "_copper_ports": 12,
+  "_reservoir_b_fill": 98,
+  "_reed_channels": 74,
+  "_reservoir_a_anchors": 113,
+  "_internal_routes": 412,
+  "_cold_core_interface": 571,
+  "_outer_shell": 103,
+  "_support_ring": 37,
+  "_reservoir_pocket_walls": 43,
+  "_above_core_mounts": 639,
+  "_reed_b_outlet": 27,
+  "prv_shroud": 140,
+  "magnetic_float": 119,
+  "all_aero_float": 43,
+  "integration": 113,
+  "reservoir": 147,
+  "foam_shell": 75,
+  "foam_assembly": 180,
+  "foam_numbers": 44,
+  "foam_cap": 90,
+  "reed_bridge": 174,
+  "coil_mandrel": 62,
+  "float_rod_drawing": 57,
+  "endcap_circular_dxf": 100,
+  "endcap_circular_step": 79,
+  "endcap_circular_drawing": 309,
+  "carbonator_tube_step": 59,
+  "reservoir_float_rod_drawing": 67,
+  "core_numbers": 146,
+  "_core_presentation": 91,
+  "_cold_scorecard": 70,
+  "_core_points": 24,
+  "cold_core_assembly": 271,
+  "_cold_core_style": 77,
+  "_bom": 54,
+  "_internals": 190,
+  "_carbonator": 186,
+  "evaporator_coil_drawing": 273,
+  "water_inlet_jet_elbow_drawing": 237,
+  "_water_inlet_jet": 8,
+  "water_inlet_jet_cap_drawing": 139,
+  "_fittings": 162,
+  "carbonator_vessel_drawing": 190,
+  "core_reference": 36
+ }
+}
