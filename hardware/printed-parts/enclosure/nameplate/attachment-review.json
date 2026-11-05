@@ -24,16 +24,16 @@
   },
   "source_sha256": {
     "hardware/printed-parts/enclosure/nameplate/attachment_view.py": "abf1983ed2c626a6593d45ac7b836003e46f25c61afb4c4d9cefd2b9e9b8808d",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl": "f8d1bbd85138fef69d71b85d09f3c3dba77f1f488d5f2de0a2dea58ad451ed60",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl": "c4b5fa3a6e7e8f9090e5f4e2ffa5662d59ad413a7ff9997cfc36062dd7f9557b",
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.mesh": "146461ed19f2ebcafa40e32a41e083175a57fa94af71c9f713328ddfc987e15b",
     "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.mesh": "d95b8afc831403c8285f9e3063fb2c4402dbb68f0d41db3f31a42c0d37665a04",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh": "50d3123f58622ad5f1f03b4c94192c97aa5e2dbb3dcac4726f075e9107e85de4",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh": "772e3e88546affde3d7b7b18205a3ea8641b08df454dcf921d936dc93dc491b1",
-    "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh": "1b81c98242a9792de79db0014a4ee28ff03d24e8765ea6bfc531440e59944546",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh": "e3c1a283ab7d2270496a83c03d2535530807293b54e7ce0a8f09c02ddcc9ed34",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh": "e00b896c3bce635d17441df164977aa4fe6b82fc858be61b973014da8130fb05",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh": "873da7e114ab305cb7ed4187d7d4c20a52cd422c3b35dda6d4cf2b0f92bf266f",
     "hardware/printed-parts/enclosure/nameplate/nameplate-001.step.mesh": "2e362e82e69cfd2033e31385e1623a0bbc63a90102439e052f5c7c9c4b637eec",
     "hardware/printed-parts/enclosure/nameplate/nameplate-fasteners.step.mesh": "a65ed90030f2dc80fd1a3dd9fc0c352daad1599c77db6191becd2a97aa59b44e",
-    "hardware/manifold-layout/enclosure-assembly.step.mesh": "bccab7abb0b76b1fa9ecdd457702db7bc5a3b54b23351e91d920265f498ad617",
-    "hardware/printed-parts/enclosure/nameplate/nameplate.numbers.json": "3538dd8f347db6edea0ab5501c30095b37725455369942859d6b9ddb8eb59a93",
+    "hardware/manifold-layout/enclosure-assembly.step.mesh": "8dcf6ac1e9934f331a5d2ff1e2fdd535c6685c51c4c0f609a47028b3d3f3a62e",
+    "hardware/printed-parts/enclosure/nameplate/nameplate.numbers.json": "ab509f9fa13d9f386e50d2e3854678baec429bc004d411a5607ecf6ed342929e",
     "hardware/manifold-layout/above-core.json": "48b5814622427c69464858e9577897d77bfe749335037ce9ce9122d7ac0757c1"
   }
 }

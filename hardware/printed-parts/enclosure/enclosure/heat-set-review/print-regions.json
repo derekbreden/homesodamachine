@@ -190,8 +190,8 @@
     "hardware/printed-parts/enclosure/enclosure/_above_core_shell.py": "16923f324504cc2894a16e7f7bee2d4296f8ab543c3d1f9f6f8e1f92c12d670b",
     "hardware/manifold-layout/above_core.py": "7ed5745a4eba5920d3de9e70a2abeece54e43563d7557258047b15dbc33c398b",
     "hardware/manifold-layout/above-core.json": "48b5814622427c69464858e9577897d77bfe749335037ce9ce9122d7ac0757c1",
-    "hardware/printed-parts/enclosure/nameplate/nameplate.numbers.json": "3538dd8f347db6edea0ab5501c30095b37725455369942859d6b9ddb8eb59a93",
-    "hardware/printed-parts/enclosure/nameplate/snap_dimensions.rs": "9d74ad361d3b511d18e98c1c1e3245e4530d7f5064876a48706f3353b65007de",
+    "hardware/printed-parts/enclosure/nameplate/nameplate.numbers.json": "ab509f9fa13d9f386e50d2e3854678baec429bc004d411a5607ecf6ed342929e",
+    "hardware/printed-parts/enclosure/nameplate/snap_dimensions.rs": "5b5d7e1e551ae1de05f9305f46cf19270614630bafd2ce2c9d7a19f10097d0f4",
     "hardware/reference/meanwell-irm90/meanwell_irm90.py": "fdc9753c62afab86f3bfa68d8b27482d46510d7af4d37ab1d453f45baf41d701",
     "hardware/reference/teyleten-relay/teyleten_relay.py": "c879eb738048f5e0d3dd9fa1ff81ef01b241fc5de6a23e17c27439afef557b36",
     "hardware/printed-parts/zone-c/funnel/funnel_frame.py": "15e1e6d06cfd39f31e9ce34e6109eb6c2dad4d355a846fad738d51c851472701",
@@ -206,16 +206,16 @@
       ".stl": "217f0b372b101e57bba88d91691be9d5043437887c29748df233e361ce4d93e4"
     },
     "front-top": {
-      ".step": "0a7aefba3940d4c8546956a43951ec8bc2179fd50e25612af9acfecdcd305b3a",
-      ".stl": "d3cfb45518d60fe56b361072ff3432a53e7cea825bc8fe5ebdeb62121a27c68e"
+      ".step": "0b3913391042801e783ed61393afd26ce69d7fd417e98cb885b3c46c220b8dfa",
+      ".stl": "07f3d3d0b89c0ca753d8a7c4552440dd7f98ac96765a1c3965947847f2621bea"
     },
     "back-bottom": {
       ".step": "f5508720030a8a8a5a37d5a508b6f4fb905e0f45cda2f1a8014f7f8dc2284107",
       ".stl": "2380f6602c1d1bd8c58d2193d1c572f3239c6d000dad64d3b1f6b34d847ba729"
     },
     "back-top": {
-      ".step": "32bf4d8bc824fe411e55c3b0f3111670bb569576ec7162db3e8725bf9c0d4cf9",
-      ".stl": "f8d1bbd85138fef69d71b85d09f3c3dba77f1f488d5f2de0a2dea58ad451ed60"
+      ".step": "d3018e3f895ab89da936f453a1b5747febdb6759d282642e8e4ef4f8260e5db6",
+      ".stl": "c4b5fa3a6e7e8f9090e5f4e2ffa5662d59ad413a7ff9997cfc36062dd7f9557b"
     },
     "pump-retainer": {
       ".step": "d150ee04c6f9e9d1e9cf64eb641f02f14305b08ac7152945b1e2f3098f33f6e7",
@@ -1598,7 +1598,7 @@
         "machine_bounds_mm": [
           -84.4,
           -72.4,
-          462.3,
+          462.55,
           473.3,
           172.0,
           184.0
@@ -1608,7 +1608,7 @@
         "applied_source_bounds_mm": [
           -84.4,
           -72.4,
-          462.3,
+          462.55,
           473.3,
           172.0,
           184.0
@@ -1617,7 +1617,7 @@
           -84.4,
           -72.4,
           -473.3,
-          -462.3,
+          -462.55,
           171.0,
           183.0
         ]
@@ -1627,7 +1627,7 @@
         "machine_bounds_mm": [
           -18.4,
           -6.399999999999999,
-          462.3,
+          462.55,
           473.3,
           172.0,
           184.0
@@ -1637,7 +1637,7 @@
         "applied_source_bounds_mm": [
           -18.4,
           -6.399999999999999,
-          462.3,
+          462.55,
           473.3,
           172.0,
           184.0
@@ -1646,7 +1646,7 @@
           -18.4,
           -6.399999999999999,
           -473.3,
-          -462.3,
+          -462.55,
           171.0,
           183.0
         ]
@@ -1656,7 +1656,7 @@
         "machine_bounds_mm": [
           -84.4,
           -72.4,
-          462.3,
+          462.55,
           473.3,
           250.0,
           262.0
@@ -1666,7 +1666,7 @@
         "applied_source_bounds_mm": [
           -84.4,
           -72.4,
-          462.3,
+          462.55,
           473.3,
           250.0,
           262.0
@@ -1675,7 +1675,7 @@
           -84.4,
           -72.4,
           -473.3,
-          -462.3,
+          -462.55,
           93.0,
           105.0
         ]
@@ -1685,7 +1685,7 @@
         "machine_bounds_mm": [
           -18.4,
           -6.399999999999999,
-          462.3,
+          462.55,
           473.3,
           250.0,
           262.0
@@ -1695,7 +1695,7 @@
         "applied_source_bounds_mm": [
           -18.4,
           -6.399999999999999,
-          462.3,
+          462.55,
           473.3,
           250.0,
           262.0
@@ -1704,7 +1704,7 @@
           -18.4,
           -6.399999999999999,
           -473.3,
-          -462.3,
+          -462.55,
           93.0,
           105.0
         ]
