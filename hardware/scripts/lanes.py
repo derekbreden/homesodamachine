@@ -137,8 +137,8 @@ os.environ.setdefault("HSM_NO_BUILD_LOCK", "1")
 
 # --- the floor and the walk's own weights ---------------------------------
 
-# The gate's own floor. `_scorecard`'s `clearance-floor` reads a millimetre between two things
-# the machine does not seat together, and a lane drawn under it is a lane that fails the card.
+# The clearance floor. `_scorecard`'s `clearance-floor` reads a millimetre between two things
+# the machine does not seat together, and a lane drawn under it fails that check.
 FLOOR = 1.0
 
 # WHAT THE WALK PAYS FOR A CORNER, AND NOTHING ELSE PAYS IT. A Dijkstra needs a scalar to settle
