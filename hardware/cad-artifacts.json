@@ -4542,7 +4542,8 @@
     },
     "hardware/manifold-layout/enclosure-assembly.physical.step.mesh": {
       "inputs": "cab33ce3100d4768b768fae77be80e596c57807d4ea960fb0910a444ac7d72ad",
-      "commit": "dddb01df7cd12e45718936d3e0395d543393df47"
+      "commit": "dddb01df7cd12e45718936d3e0395d543393df47",
+      "unproven": true
     },
     "hardware/manifold-layout/enclosure-assembly.scorecard.json": {
       "inputs": "645db4b0110bdf1b65eaebfa5fb747507f82861e1915d81f5f9f3c60cabec0ed",
@@ -4551,11 +4552,13 @@
     },
     "hardware/manifold-layout/enclosure-assembly.step": {
       "inputs": "cab33ce3100d4768b768fae77be80e596c57807d4ea960fb0910a444ac7d72ad",
-      "commit": "dddb01df7cd12e45718936d3e0395d543393df47"
+      "commit": "dddb01df7cd12e45718936d3e0395d543393df47",
+      "unproven": true
     },
     "hardware/manifold-layout/enclosure-assembly.step.mesh": {
       "inputs": "cab33ce3100d4768b768fae77be80e596c57807d4ea960fb0910a444ac7d72ad",
-      "commit": "dddb01df7cd12e45718936d3e0395d543393df47"
+      "commit": "dddb01df7cd12e45718936d3e0395d543393df47",
+      "unproven": true
     },
     "hardware/manifold-layout/manifold-layout.step": {
       "inputs": "8e2506276643f3fa7d00747bae6c42d84feffb09b13b68328b70d3a0510ea319",
@@ -5316,15 +5319,18 @@
     },
     "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step": {
       "inputs": "bd46ea8f1c2421f09fb1717a0a8de1fd01c8e55da5e8552cd4a44415a77e5849",
-      "commit": "fc74d2e4021fb6efb0a0a56f496b0874644520ab"
+      "commit": "fc74d2e4021fb6efb0a0a56f496b0874644520ab",
+      "unproven": true
     },
     "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh": {
       "inputs": "bd46ea8f1c2421f09fb1717a0a8de1fd01c8e55da5e8552cd4a44415a77e5849",
-      "commit": "fc74d2e4021fb6efb0a0a56f496b0874644520ab"
+      "commit": "fc74d2e4021fb6efb0a0a56f496b0874644520ab",
+      "unproven": true
     },
     "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl": {
       "inputs": "bd46ea8f1c2421f09fb1717a0a8de1fd01c8e55da5e8552cd4a44415a77e5849",
-      "commit": "fc74d2e4021fb6efb0a0a56f496b0874644520ab"
+      "commit": "fc74d2e4021fb6efb0a0a56f496b0874644520ab",
+      "unproven": true
     },
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step": {
       "commit": "127dcc73585fea0564506c270344befce2d97c5b",
