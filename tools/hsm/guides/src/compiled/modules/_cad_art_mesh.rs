@@ -1431,6 +1431,15 @@ pub fn initialize(rt: Runtime, e: Env) -> Result<()> {
                 s.push(Val::Str("funnel".into()));
                 s.push(Val::Str("nameplate".into()));
                 s.push(Val::Str("nameplate-ink".into()));
+                s.push(Val::Str("nameplate-screw-1".into()));
+                s.push(Val::Str("nameplate-insert-1".into()));
+                s.push(Val::Str("nameplate-screw-2".into()));
+                s.push(Val::Str("nameplate-insert-2".into()));
+                s.push(Val::Str("nameplate-screw-3".into()));
+                s.push(Val::Str("nameplate-insert-3".into()));
+                s.push(Val::Str("nameplate-screw-4".into()));
+                s.push(Val::Str("nameplate-insert-4".into()));
+
                 s.push(Val::Str("enclosure-back-bottom".into()));
                 s.push(Val::Str("enclosure-back-top".into()));
                 Val::set_values(s)

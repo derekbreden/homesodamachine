@@ -5618,8 +5618,8 @@
     },
     "nameplate": {
       "center_x_mm": -45.4,
-      "center_z_mm": 220.0,
-      "face_y_mm": 476.3
+      "center_z_mm": 217.0,
+      "face_y_mm": 479.3
     }
   }
 }
