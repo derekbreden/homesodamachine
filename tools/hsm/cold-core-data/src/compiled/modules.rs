@@ -600,7 +600,7 @@ pub fn documentation(name: &str) -> Option<&'static str> {
             "One-piece ASA Aero bench float with an RC62 at its axial midplane.\n\nFrame: open guide bore on Z, flat print bottom at Z=0. The enclosed annular\npocket is filled with the magnet during a native layer pause.\n",
         ),
         "integration" => Some(
-            "Verify the shared float datums against emitted vessel CAD and sync the guide.\n\nUpright geometry is checked over the whole translation range with bore play.\nPhysical sliding, expansion, immersion and directional reed switching are not\naccepted by this check. Run after the float/reservoir/end-cap generators.\n",
+            "Verify the shared float datums against emitted vessel CAD.\n\nUpright geometry is checked over the whole translation range with bore play.\nPhysical sliding, expansion, immersion and directional reed switching are not\naccepted by this check. Run after the float/reservoir/end-cap generators.\n",
         ),
         "magnetic_float" => Some(
             "RC62 magnetic float: PETG Translucent Clear envelope and fitted ASA Aero core.\n\nFrame: guide bore on Z, finished bottom at Z=0, roof at positive Z.\nThe separate Aero insert seats from Z=47 to the roof underside at Z=57.\n\nThis module holds the float's numbers and the figures derived from them, and writes the numbers\nthe geometry takes (`numbers()`) to `magnetic-float.numbers.json`; `magnetic_float.rs`, beside\nit, cuts each piece's STEP and payload, the printed pieces' STLs, and the assembly, section and\nexploded views from them on the kernel (`hardware/scripts/_rust_part.py`).\n",

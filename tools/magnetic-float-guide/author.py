@@ -16,6 +16,17 @@ FLOAT = ROOT / 'hardware/printed-parts/cold-core/magnetic-float/all-aero'
 PUBLIC = 'https://raw.githubusercontent.com/derekbreden/homesodamachine/main/'
 
 
+def rod_figures():
+    """The carbonator rod blank, the reservoir rod cut and its axial clearance, from their owners."""
+    import sys
+    sys.path[:0] = [str(ROOT / 'hardware/printed-parts/cold-core/reservoir'), str(ROOT / 'hardware/assembly')]
+    import reservoir
+    import _pressure_vessel_sync as vessel
+    length, tolerance = vessel.carbonator_rod_len, vessel.carbonator_rod_tolerance
+    return (f'{length / 25.4:.3f} ±{tolerance / 25.4:.3f} in ({length:.2f} ±{tolerance:.2f} mm)',
+            f'{reservoir.reservoir_rod_len:.3f} mm', f'{reservoir.reservoir_rod_clearance:g} mm')
+
+
 def figure(name, caption, size='tight'):
     return f'<figure class="{size}"><img src="art/{name}.png" alt="{escape(caption)}"><figcaption>{caption}</figcaption></figure>'
 
@@ -58,8 +69,7 @@ def main():
     preflight = json.loads((FLOAT / 'mark2-print/v1/float-preflight.json').read_text())
     observations = json.loads((FLOAT / 'physical-observations.json').read_text())
     integration = json.loads((FLOAT / 'integration-check.json').read_text())
-    installation = json.loads((FLOAT / 'installation.figures.json').read_text())[
-        '/hardware/printed-parts/cold-core/magnetic-float/all-aero/integration.py']
+    carb_rod, res_rod, res_rod_clearance = rod_figures()
     recipe = preflight['recipe']
     mapping = preflight['material_mapping']
     next_trial = observations['next_trial']
@@ -186,8 +196,8 @@ def main():
         table([
             ('Rod / radial running play', f'{rod} / {dims["guide_radial_clearance"]:g} mm'),
             ('Body-to-wall clearance', f'2 mm nominal &middot; {wall_range[0]:g}-{wall_range[1]:g} mm upright range'),
-            ('Carbonator rod blank', installation['CARB_ROD_LENGTH'] + ' &middot; hand-fit actual conical registers'),
-            ('Reservoir rod cut', installation['RES_ROD_LENGTH'] + ' &middot; ' + installation['RES_ROD_CLEARANCE'] + ' axial clearance'),
+            ('Carbonator rod blank', carb_rod + ' &middot; hand-fit actual conical registers'),
+            ('Reservoir rod cut', res_rod + ' &middot; ' + res_rod_clearance + ' axial clearance'),
             ('Greatest float-edge to reed distance', f'{reach["carbonator"]:.3f} mm carbonator / {reach["reservoir"]:.3f} mm reservoir')], True) +
         '<p>Use the ' + link(FLOAT / 'installation.md', 'installation record') + ' for the carbonator blind-drill coordinates and the matching reservoir body/cap bosses. Confirm free motion over the actual travel.</p>' +
         note('Carbonator capture', 'The 36 mm float is captured on the rod before final vessel closure. It cannot pass through the NPT ports. Welding exposure and post-closure function have no acceptance record.')))
@@ -244,12 +254,14 @@ def main():
             stale.unlink()
     inputs = [FLOAT / name for name in [
         'design.json', 'all_aero_float.py', 'float-aero.stl', 'prepare_print.py',
-        'README.md', 'installation.md', 'installation.figures.json',
+        'README.md', 'installation.md',
         'physical-observations.json', 'integration-check.json',
         'all-aero-float.3mf', 'mark2-print/v1/float-preflight.json',
         'mark2-print/v1/float-mark2-launch.json',
         'mark2-print/v1/evidence/magnet-insertion-overprint-2026-10-03.jpg']]
     inputs.extend([Path(__file__), ROOT / 'hardware/printed-parts/cold-core/_float_interface.py',
+                   ROOT / 'hardware/printed-parts/cold-core/reservoir/reservoir.py',
+                   ROOT / 'hardware/assembly/_pressure_vessel_sync.py',
                    ROOT / 'tools/magnetic-float-guide/build-recipe-sources.json'])
     manifest = {
         'title': 'ASA Aero magnetic float build guide',

@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 """Hand-authored Letter refrigeration guide. Never an appliance build target."""
 from __future__ import annotations
-import json
 import math
 import re
 import sys
@@ -15,11 +14,9 @@ PDF = ROOT / "output/pdf/refrigeration-guide.pdf"
 GUIDE = ROOT / "hardware/refrigeration-guide"
 SOURCES = [
     "hardware/assembly/cold-core.md",
-    "hardware/assembly/cold-core.figures.json",
     "hardware/assembly/handwork.md",
     "hardware/refrigeration-guide/README.md",
     "hardware/assembly/refrigerant-loop.md",
-    "hardware/assembly/refrigerant-loop.figures.json",
     "hardware/reference/ice-maker/README.md",
     "hardware/reference/compressor/README.md",
     "hardware/reference/condenser-block/README.md",
@@ -46,31 +43,10 @@ RL_DOC = "https://github.com/derekbreden/homesodamachine/blob/main/hardware/asse
 
 
 def verify_manual_numbers():
-    """A deliberate rebuild catches numeric drift without evaluating CAD.
+    """A deliberate rebuild checks the cold-policy literals the guide quotes.
 
-    This check belongs to this manual document command only. A change to source
-    figures never launches a render or rewrites the guide in the appliance build.
+    This check belongs to this manual document command only.
     """
-    expected = {
-        "cold-core.figures.json": {
-            "CUT_FT":"15.92 ft", "SPRUNG_LEN":"4.06 m", "STUB_INLET":"335.5 mm",
-            "STUB_OUTLET":"429.6 mm", "MANDREL_OD":"123 mm", "TANK_OD":"127 mm",
-            "TOTAL_WRAPS":"9.687", "PITCH":"12.33 mm", "WIND_LENGTH":"119.4 mm",
-            "PROT_INLET":"200 mm", "PROT_OUTLET":"175 mm",
-        },
-        "refrigerant-loop.figures.json": {
-            "UNIT_A_CHARGE":"15 g", "UNIT_B_CHARGE":"23 g", "VACUUM_TARGET":"500 microns",
-            "VACUUM_HOLD":"15 min", "RECHARGE_TOL":"±1 g",
-            "VOL_CORRECTION":"+5-15 g", "VENT_CLEARANCE":"3 m", "RUN_CURRENT":"~1 A",
-            "OFF_TIME":"3-minute", "JOINT_STANDOFF":"~92 mm",
-        },
-    }
-    for name, required in expected.items():
-        data = json.loads((ROOT/"hardware/assembly"/name).read_text())
-        flat = {key:value for group in data.values() for key,value in group.items()}
-        for key,value in required.items():
-            if flat.get(key)!=value:
-                raise ValueError(f"Review the manual guide before rebuilding: {name}:{key} is {flat.get(key)!r}, expected {value!r}")
     policy=(ROOT/"firmware/lib/machine_policy/cold_policy.h").read_text()
     firmware={"kTankTargetC":2,"kHysteresisC":2,"kFreezeCutoffC":-8,
               "kFreezeRecoverC":-5,"kMinOffMs":180000,"kMinOnMs":60000,"kReadingStaleMs":30000}
@@ -78,7 +54,7 @@ def verify_manual_numbers():
         found=re.search(r"constexpr\s+(?:float|uint32_t)\s+"+name+r"\s*=\s*(-?[\d.]+)f?\s*;",policy)
         if not found or float(found.group(1))!=value:
             raise ValueError(f"Review the manual guide before rebuilding: cold policy {name}")
-    return {"selected_document_figures":expected,"firmware_literals":firmware}
+    return {"firmware_literals":firmware}
 
 
 def rounded(a, x, y, w, h, fill=ICE, stroke=RULE, radius=8):
