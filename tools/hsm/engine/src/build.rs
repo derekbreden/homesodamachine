@@ -981,26 +981,29 @@ impl Builder {
         let older = |meta: &fs::Metadata, age: Duration| {
             meta.modified().ok().and_then(|t| now.duration_since(t).ok()).is_some_and(|a| a > age)
         };
+        let seconds = now.duration_since(SystemTime::UNIX_EPOCH).unwrap_or_default().as_secs();
         let (mut blobs, mut codes) = (BTreeSet::new(), BTreeSet::new());
         for entry in fs::read_dir(self.dir.join("runs"))?.flatten() {
             let mut path = entry.path();
             let Ok(meta) = entry.metadata() else { continue };
             match path.extension().and_then(|e| e.to_str()) {
+                // Its name carries when it retired, so its time stays its last use: a daemon
+                // that prunes the least recently used first still takes it before a live run.
                 Some("json") if older(&meta, keep) => {
-                    let retired = path.with_extension("retired");
+                    let retired = path.with_extension(format!("{seconds}.retired"));
                     if fs::rename(&path, &retired).is_ok() {
-                        let _ = fs::File::options()
-                            .write(true)
-                            .open(&retired)
-                            .and_then(|f| f.set_modified(now));
+                        path = retired;
                     }
-                    path = retired;
                 }
-                Some("retired") if older(&meta, RETIRE) => {
-                    let _ = fs::remove_file(&path);
-                    continue;
+                Some("retired") => {
+                    let at = path.file_stem().map(Path::new).and_then(|s| s.extension())
+                        .and_then(|e| e.to_str()?.parse::<u64>().ok());
+                    if at.map_or(older(&meta, RETIRE), |at| seconds.saturating_sub(at) > RETIRE.as_secs()) {
+                        let _ = fs::remove_file(&path);
+                        continue;
+                    }
                 }
-                Some("json" | "retired") => {}
+                Some("json") => {}
                 _ => continue,
             }
             let Ok(bytes) = fs::read(&path) else { continue };
