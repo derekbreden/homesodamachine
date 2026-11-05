@@ -2,7 +2,7 @@
   "part": "HSM-000081",
   "part_name": "Enclosure back top",
   "printer": "Mark2",
-  "status": "ready_waiting_for_unlocked_mac",
+  "status": "printing",
   "user_authorization": "Looks good. Let’s start a print.",
   "material": "Polymaker Fiberon PET-GF15, black",
   "nozzle": {
@@ -31,8 +31,7 @@
     0.0,
     0.02
   ],
-  "started": false,
-  "launch_blocker": "Mac console is locked; Bambu Connect’s window is unavailable.",
+  "started": true,
   "launch_attempts": [
     {
       "sender": "tools/bambu_print.py",
@@ -45,12 +44,20 @@
       "sent": false
     }
   ],
-  "launch_prerequisite": "Unlock the Mac and leave Bambu Connect open.",
-  "lock_last_verified_utc": "2026-11-05T15:03:28.352179+00:00",
   "launch_command": [
     "tools/cad-venv/bin/python",
     "tools/bambu_print.py",
     "/Users/derekbredensteiner/Downloads/HSM-smooth-corners-2026-11-05/HSM-000081-back-top-Mark2.gcode.3mf",
     "Mark2"
-  ]
+  ],
+  "started_at_utc": "2026-11-05T15:06:28.418432+00:00",
+  "printer_task_id": "1410263719",
+  "accepted_state": "PREPARE",
+  "launch_record": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-05-back-top-smooth-corners-mark2/launch.json",
+  "standing_options_verified": {
+    "timelapse": "On",
+    "bed_leveling": "On",
+    "flow_dynamic_calibration": "Auto",
+    "nozzle_offset_calibration": "Auto"
+  }
 }
