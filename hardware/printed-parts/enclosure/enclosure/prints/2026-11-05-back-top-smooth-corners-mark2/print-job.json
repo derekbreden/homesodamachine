@@ -59,5 +59,8 @@
     "bed_leveling": "On",
     "flow_dynamic_calibration": "Auto",
     "nozzle_offset_calibration": "Auto"
-  }
+  },
+  "startup_status_record": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-05-back-top-smooth-corners-mark2/startup-printers.json",
+  "confirmed_state": "RUNNING",
+  "confirmed_at_utc": "2026-11-05T15:08:42.832827+00:00"
 }
