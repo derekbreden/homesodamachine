@@ -102,6 +102,14 @@ fn norm(p: P2) -> f64 {
     p[0].hypot(p[1])
 }
 
+fn smooth_corner(rail: &Rail, i: usize) -> bool {
+    let n=rail.normal.len();
+    let curved=|j:usize| rail.normal[j][0].abs()>1e-6 && rail.normal[j][1].abs()>1e-6;
+    let before=if rail.closed {(i+n-1)%n} else {i.saturating_sub(1)};
+    let after=if rail.closed {(i+1)%n} else {(i+1).min(n-1)};
+    curved(i) || curved(before) || curved(after)
+}
+
 /// The intersection of one triangle with a horizontal plane. Coplanar facets contribute
 /// nothing; an on-plane edge belongs to the facet on its positive side, as in mesh_plane.
 fn section(mesh: &Mesh, triangle: &[usize; 3], z: f64) -> Option<[P2; 2]> {
@@ -431,8 +439,8 @@ fn cutter(mesh: &Mesh, rail: &Rail, f: &Field) -> Result<Option<(Mesh, serde_jso
     // Retain the complete outer quarter-rounds at the enclosure's four
     // vertical corners. Their surface is the same envelope as the flute tips;
     // the existing distance field eases the adjacent straight-wall grooves out.
-    for (i, normal) in rail.normal.iter().enumerate() {
-        if normal[0].abs() > 1e-6 && normal[1].abs() > 1e-6 {
+    for i in 0..n {
+        if smooth_corner(rail,i) {
             mask[i * h..(i + 1) * h].fill(false);
         }
     }
@@ -472,7 +480,11 @@ fn cutter(mesh: &Mesh, rail: &Rail, f: &Field) -> Result<Option<(Mesh, serde_jso
     let mut points = vec![[0.0; 3]; 2 * base];
     for (i, &col) in cols.iter().enumerate() {
         for (j, &height) in z.iter().enumerate() {
-            let d = if rail.band.is_none() && (j == 0 || j == nh - 1) {
+            // Keep the cutter off the retained corner, rather than coincident
+            // with its differently sampled analytic surface.
+            let d = if smooth_corner(rail,col) {
+                -f.margin/2.0
+            } else if rail.band.is_none() && (j == 0 || j == nh - 1) {
                 0.0
             } else {
                 depth[col * h + kept_rows[j - usize::from(rail.band.is_none())]]
