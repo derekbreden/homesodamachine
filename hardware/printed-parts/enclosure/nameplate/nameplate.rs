@@ -1,9 +1,9 @@
-//! The hidden-leaf nameplate and its receiver. `nameplate.py` carries the dimensions,
+//! The four-screw nameplate and its blind-insert receiver. `nameplate.py` carries the dimensions,
 //! original SVG control points and the unit's QR polygons.
 mod snap_geometry;
 
 use anyhow::{Result, anyhow, ensure};
-use hsm_kernel::part::{Numbers, args, write_part};
+use hsm_kernel::part::{Numbers, args, write_part, write_shown};
 use hsm_kernel::{Body, Loop, Plane, Profile, Seg, Solid, V2, v2, v3};
 use hsm_enclosure_components::write_colored_part;
 use serde_json::{Value, json};
@@ -153,45 +153,26 @@ fn check(n: &Numbers) -> Result<Value> {
     let quiet_overlap = wordmark(n, n.f("ink_depth")?)?.intersect(&boxed(n.get("qr_quiet")?)?)?.volume();
     ensure!(quiet_overlap < 1e-6, "the wordmark enters the QR quiet zone");
     ensure!(n.get("qr_fits")?.as_bool() == Some(true), "the QR quiet zone exceeds the plate");
-    let snap=n.get("snap")?;
+    let mount=n.get("snap")?;
     let seated=blank(n)?.intersect(&receiver)?.volume();
     ensure!(seated<1e-6,"seated nameplate intersects receiver by {seated} mm³");
-    let deflected=snap_geometry::plate_at_deflection(snap,1.2)?;
-    let mut sweep_overlap:f64=0.;
-    for i in 0..=32 {
-        let pose=deflected.translate(v3(0.,i as f64/4.,0.));
-        sweep_overlap=sweep_overlap.max(pose.intersect(&receiver)?.volume());
-    }
-    ensure!(sweep_overlap<1e-6,"compressed clip insertion intersects receiver by {sweep_overlap} mm³");
-    let mut tool_overlap:f64=0.;
-    let rigid_face=Solid::cuboid(v3(-n.f("width")?/2.,0.,-n.f("height")?/2.),
-        v3(n.f("width")?/2.,n.f("thick")?,n.f("height")?/2.));
-    for angle in [50_f64,55.,60.] {
-        let a=angle.to_radians();
-        let normal=v2(a.cos(),-a.sin())*0.4;
-        let fore=v2(n.f("width")?/2.+1.28+8.*a.tan(),8.);
-        let tip=v2(n.f("width")?/2.+1.28-2.4*a.tan(),-2.4);
-        let blade=Plane::XY.at(v3(0.,0.,-2.)).extrude(&Profile::polygon(&[
-            tip-normal,fore-normal,fore+normal,tip+normal]),4.)?;
-        for tool in [blade.clone(),blade.mirror(v3(0.,0.,0.),v3(1.,0.,0.))] {
-            tool_overlap=tool_overlap.max(tool.intersect(&receiver)?.volume())
-                .max(tool.intersect(&rigid_face)?.volume());
-        }
-    }
-    ensure!(tool_overlap<1e-6,"release blade intersects receiver or rigid face by {tool_overlap} mm³");
-    let capture=f(snap,"leaf_outer")?+f(snap,"hook_projection")?-f(snap,"catch_inner")?;
-    let free= snap["hook_z"][0].as_f64().unwrap()
-        -snap["root_z"][1].as_f64().unwrap()-f(snap,"root_radius")?;
-    Ok(json!({"valid_body": true, "valid_receiver": true,
-              "snap": n.get("snap")?,
-              "seated_overlap_mm3":seated,"compressed_insertion_sweep_overlap_mm3":sweep_overlap,
-              "capture_mm":capture,"inward_travel_mm":1.2,"free_spring_length_mm":free,
-              "beam_strain_estimate":1.5*f(snap,"leaf_thick")?*1.2/(free*free),
-              "release_tool_overlap_mm3":tool_overlap,
-              "release_tool":"4 × 0.8 mm flat blade, front approach and 50–60 degree inward tilt; spring contact is intentional.",
-              "motion_check":"Rigid plate; displaced spring heads with cantilever-shaped leaves, swept 0–8 mm outwards in Y. Material behavior requires the physical part.",
-              "artwork_rise_mm": n.f("artwork_rise")?, "payload": n.text("payload")?,
-              "body_ink_overlap_mm3": overlap, "quiet_zone_overlap_mm3": quiet_overlap}))
+    let screw_art_overlap=artwork(n,n.f("ink_depth")?+n.f("artwork_rise")?)?
+        .intersect(&snap_geometry::plate_cuts(mount)?)?.volume();
+    ensure!(screw_art_overlap<1e-6,"fastener openings enter artwork by {screw_art_overlap} mm³");
+    let bearing=f(mount,"thick")?-f(mount,"counterbore_depth")?;
+    let engagement=f(mount,"screw_length")?-bearing;
+    let bottom_air=f(mount,"pilot_depth")?-engagement;
+    let backing=-f(mount,"floor_rear")?-f(mount,"pilot_depth")?;
+    ensure!(bearing>=2. && backing>=3. && bottom_air>=1.,"fastener bearing or backing is insufficient");
+    ensure!(engagement<=f(mount,"insert_length")? && engagement>=3.5,"screw engagement exceeds short insert");
+    Ok(json!({"valid_body":true,"valid_receiver":true,"plate_components":body.components().len(),
+        "receiver_components":receiver.components().len(),"mount":mount,
+        "seated_overlap_mm3":seated,"screw_artwork_overlap_mm3":screw_art_overlap,
+        "bearing_floor_mm":bearing,"insert_engagement_mm":engagement,
+        "screw_tip_bottom_air_mm":bottom_air,"blind_hole_backing_mm":backing,
+        "head_proud_mm":f(mount,"head_height")?-f(mount,"counterbore_depth")?,
+        "artwork_rise_mm":n.f("artwork_rise")?,"payload":n.text("payload")?,
+        "body_ink_overlap_mm3":overlap,"quiet_zone_overlap_mm3":quiet_overlap}))
 }
 
 fn main() -> Result<()> {
@@ -212,6 +193,11 @@ fn main() -> Result<()> {
     ], &plate.union(&ink)?)?;
     println!("{said}");
     if n.f("unit")? == 1.0 {
+        let hardware=snap_geometry::hardware(n.get("snap")?)?;
+        let bodies=hardware.iter().map(|(name,solid,color)| Body {
+            name:name.as_str(),solid,color:Some(*color)
+        }).collect::<Vec<_>>();
+        println!("{}",write_shown(&out,"nameplate-fasteners",&bodies)?);
         let receiver = receiver(&n)?;
         println!("{}", write_part(&out, "nameplate-receiver", &[Body {
             name: "nameplate-receiver", color: Some(n.color("receiver_color")?), solid: &receiver,

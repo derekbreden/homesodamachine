@@ -1640,6 +1640,15 @@ pub fn initialize(rt: Runtime, e: Env) -> Result<()> {
             s.push(Val::Str("funnel-cover".into()));
             s.push(Val::Str("nameplate".into()));
             s.push(Val::Str("nameplate-ink".into()));
+                s.push(Val::Str("nameplate-screw-1".into()));
+                s.push(Val::Str("nameplate-insert-1".into()));
+                s.push(Val::Str("nameplate-screw-2".into()));
+                s.push(Val::Str("nameplate-insert-2".into()));
+                s.push(Val::Str("nameplate-screw-3".into()));
+                s.push(Val::Str("nameplate-insert-3".into()));
+                s.push(Val::Str("nameplate-screw-4".into()));
+                s.push(Val::Str("nameplate-insert-4".into()));
+
             s.push(Val::Str("enclosure-back-bottom".into()));
             s.push(Val::Str("enclosure-back-top".into()));
             Val::set_values(s)
@@ -4059,9 +4068,9 @@ pub fn initialize(rt: Runtime, e: Env) -> Result<()> {
                 }));
                 kw1070.push(("target".into(), {
                     let mut s = Vec::new();
-                    s.push(Val::Float(38.16f64));
-                    s.push(Val::Float(467.0f64));
-                    s.push(Val::Float(262.9f64));
+                    s.push(Val::Float(-45.4f64));
+                    s.push(Val::Float(479.3f64));
+                    s.push(Val::Float(217.0f64));
                     Val::tuple(s)
                 }));
                 kw1070.push(("span".into(), Val::Float(132.0f64)));

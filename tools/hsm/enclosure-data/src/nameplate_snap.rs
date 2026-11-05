@@ -26,7 +26,7 @@ pub fn apply(graph:&Val, piece:Val, plan:Val, wing:Val) -> Result<Val> {
     let y=plan.get("face_y_mm".into())?.num()?-t;
     let z=plan.get("center_z_mm".into())?.num()?;
     let half=s["frame_width"].as_f64().unwrap()/2.;
-    let bounds=json!([-half,half,-7.25,t,s["frame_bottom"],s["frame_top"]]);
+    let bounds=json!([-half,half,s["floor_rear"],t,s["frame_bottom"],s["frame_top"]]);
     let add=|op:&str|->Result<Val>{
         let shape=graph.attr("add")?.call(vec![op.into()],vec![
             ("snap".into(),Val::decode(s.clone())?),
@@ -45,4 +45,17 @@ pub fn plain_lips(station:Val, face:Val, wing:Val) -> Result<Val> {
     let half=s["frame_width"].as_f64().unwrap()/2.;
     Val::decode(json!([[x-half,x+half,y-11.,y+1.,
         z+s["frame_bottom"].as_f64().unwrap(),z+s["frame_top"].as_f64().unwrap()]]))
+}
+
+/// File references keep the purchased hardware out of the printable plate's 3MF.
+pub fn append_hardware(e:&Env) -> Result<()> {
+    let model=crate::compiled::binary("truediv",e.get("directory")?,"nameplate-fasteners.step.npz".into())?;
+    for index in 0..8 {
+        let name=format!("nameplate-{}-{}",if index%2==0 {"screw"} else {"insert"},index/2+1);
+        let instance=e.get("_model_instance")?.call(vec![model.clone(),name.into()],vec![
+            ("indices".into(),Val::decode(json!([index]))?),
+            ("transform".into(),e.get("transform")?)])?;
+        e.get("instances")?.attr("append")?.call(vec![instance],vec![])?;
+    }
+    Ok(())
 }

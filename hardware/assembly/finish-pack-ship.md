@@ -18,7 +18,7 @@ Per-unit BOM lives in [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §3 a
 
 | Item | Source | Notes |
 |---|---|---|
-| Per-unit nameplate, printed with its QR | [`/hardware/printed-parts/enclosure/nameplate/`](/hardware/printed-parts/enclosure/nameplate/) | One per machine, generated for its four-digit unit number. Scan and snap into place at step 3. |
+| Per-unit nameplate, printed with its QR | [`/hardware/printed-parts/enclosure/nameplate/`](/hardware/printed-parts/enclosure/nameplate/) | One per machine, generated for its four-digit unit number. Scan and fasten into place at step 3. |
 | Bagged faucet-and-umbilical sub-assembly | Output of [`faucet-and-umbilical.md`](/hardware/assembly/faucet-and-umbilical.md) | One permanently-attached faucet + umbilical unit, drops into the carton alongside the machine. Its donor washer and nut are already captive on the shank above the permanent blue-tube connection. The bag also holds the one loose part the countertop mount needs: the under-counter plate. (TPU gasket is already on the shank from the faucet build; not in the install kit.) |
 | The customer's plumbing | [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §3, §4 | Made up at step 6: **one tee subassembly** — the John Guest PP0208E tee, the short jumper in its run port, and the white tap-water run with the Waterdrop 15UC-UF filter inline in its branch, `tube-collar-water` on that run's `TAP` end; the John Guest ASVPP1LF angle stop adapter valve loose in its own bag for the scenario-B kitchen; the ~12 in red tether, its regulator end in the primary regulator's outlet since [acceptance](/hardware/assembly/acceptance-and-burn-in.md) step 1, with `tube-collar-co2` on its `CO2` end. The ends at the machine are bare, square-cut push-fit tails. |
 | Collet press | [`/hardware/printed-parts/collet-press/`](/hardware/printed-parts/collet-press/README.md); [`bom.md`](/hardware/ledger/bom.md) §7 | One PET-GF 1/4-inch release tool. It stays with the customer for the installation and for later disconnection or reconnection of any accessible 1/4-inch push fitting. |
@@ -75,14 +75,16 @@ Confirm dry here by: (a) listening at the gooseneck while gently tilting the mac
 
 Scan the printed plate's QR and compare its four-digit unit number with the order and the
 per-unit archive at `logs/<serial>/`. The [nameplate](/hardware/printed-parts/enclosure/nameplate/README.md)
-carries the faucet mark, `HOME / SODA / MACHINE` and the QR. Ratings and refrigerant warnings
-have their own marking locations. Reject an unreadable code or a plate for another unit.
+carries the faucet mark, two-line `Home Soda / Machine` title, `FIRST EDITION`,
+`UNIT 01 OF 10` and the QR. Ratings and refrigerant warnings have their own marking
+locations. Reject an unreadable code or a plate for another unit.
 
-Clean the two exposed retaining lips and the enclosure's receiving slots. Flex the plate's
-middle outward to enter both horizontal wings, then let its face seat against the pocket
-floor. Check that both wings are captured and scan the installed QR again. No screws or
-inserts are used at this joint. The [accepted fit](/hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/physical-acceptance.json) is for the matching receiver coupon and
-flat nameplate; check the prepared full back-top at assembly.
+Check the four short RX-M3S × 4 inserts installed flush in back-top's solid
+nameplate receiver at enclosure preparation. Clean its seat, set the plate in
+place and start four black M3 × 6 socket-head screws. Tighten lightly by hand
+with a 2.5 mm hex key, alternating diagonal corners. Each head seats in a 1 mm
+counterbore and stands 2 mm above the face. Check that the plate lies flat and
+scan the installed QR again.
 
 ### 3a. Refrigerant markings and unit record
 
@@ -183,7 +185,7 @@ A finished, ship-ready unit is:
 
 - Cosmetically wiped and visually inspected on every exposed surface, with cosmetic conditions within the [accepted defects and tolerances](/hardware/defects-and-tolerances.md)
 - Confirmed fluid-drained dry: no water in the carbonator or any line, no flavor in either reservoir, system at atmospheric pressure
-- Nameplate snapped into the +Y wall, retained and scanned to confirm this unit
+- Nameplate secured with four screws into the +Y wall, retained and scanned to confirm this unit
 - Water + CO2 inlets, both on the +Y wall, capped for transit
 - Carton sealed with the machine + bagged faucet-and-umbilical sub-assembly + install kit (the collet press, the regulator and the cold kit inside it) + customer documentation packet with the install guide face up
 - Shipping weight + dimensions recorded against the order in the per-serial run log

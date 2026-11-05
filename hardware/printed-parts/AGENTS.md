@@ -93,8 +93,8 @@ no part is thinned, skeletonized or pocketed to use less of it.
 Every printable piece in the enclosure assembly follows **Support-removal strategy** in
 [`enclosure/enclosure/README.md`](enclosure/enclosure/README.md#support-removal-strategy).
 Enclosure parts and their receiver coupons use the shared `petgf.3mf` tree supports and their
-production print orientation. The flat-wing nameplate prints without supports, with its back
-and both horizontal wings directly on the bed. Ordinary enclosure walls, webs and joint ends
+production print orientation. The four-screw nameplate prints without supports, with its flat back
+directly on the bed and counterbores facing upward. Ordinary enclosure walls, webs and joint ends
 use the nominal 3 mm wall section. Remove cut remnants and tapered tips that leave thin fins.
 Apply thinner-section exceptions only to the specific flexure, cover or other feature that
 requires them.

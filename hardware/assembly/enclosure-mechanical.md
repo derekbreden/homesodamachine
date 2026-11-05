@@ -45,7 +45,7 @@ Per-unit BOM lives in [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §7 (
 |---|---|---|
 | Integrated refrigerant-loop assembly | Output of [`refrigerant-loop.md`](/hardware/assembly/refrigerant-loop.md) | Cold core + plumbed compressor + condenser/fan, charged, run-up-verified, leak-checked |
 | Five printed enclosure pieces | [`/hardware/printed-parts/enclosure/`](/hardware/printed-parts/enclosure/) | PET-GF15 enclosure set: four quadrants and lower pump retainer |
-| Nameplate | [`/hardware/printed-parts/enclosure/nameplate/`](/hardware/printed-parts/enclosure/nameplate/) | Printed per unit with its identity encoded in the QR; scanned and snapped in at [`finish-pack-ship.md`](/hardware/assembly/finish-pack-ship.md), not here |
+| Nameplate | [`/hardware/printed-parts/enclosure/nameplate/`](/hardware/printed-parts/enclosure/nameplate/) | Printed per unit with its identity encoded in the QR; scanned and screwed in at [`finish-pack-ship.md`](/hardware/assembly/finish-pack-ship.md), not here |
 | Rear fluid fittings, C14 and RJ11 | [Production arrangement](/hardware/manifold-layout/above-core.md) | Six fluid fittings in a 2 × 3 grid; C14 west/upper, RJ11 west/lower |
 | Drop-in funnel frame and snap-in drain joint | [Funnel](/hardware/printed-parts/zone-c/funnel/README.md) | Cradle snaps into the frame’s 3 mm web; frame fastens from above |
 
@@ -66,7 +66,7 @@ results.
 
 Print-inspect all five enclosure pieces — the four quadrants and lower pump retainer — plus this unit's nameplate. Inspect front-top's fitted upper pump pockets, the retainer’s lower wells and skirt lands, both full-depth snap wings and hooks, the flank receiver floors and the central screwdriver-release openings. Verify that all four tee-wall tube-loading gates open from the underside into the collet openings and teardropped branch bores. Check the shared pump/display wire passage through the continuous upper stock and its shared rear exit at X0/Z280; the display backing's cavity face remains continuous around its required openings. Install and snap-retain the pumps while front-top is loose, before its tees, valves and chassis closure, per [`internal-plumbing.md`](/hardware/assembly/internal-plumbing.md) §3. Wipe down every interior face; remove brim residue and any stray support material at the +Y wall's bores, the rails' heads and channels — a bead in a channel is a 100 mm slide that binds at one station — the Y seam's lips and knuckles, and — above all — **the floor slab the cold core lands on**. The core bears on that slab across its whole footprint, so a bead of brim under it is a high spot, not a blemish. Both halves of the floor joint print on their bed faces and end square, one running fit apart. Set the nameplate aside in the unit's build folder; it does not go on at this step (see [`finish-pack-ship.md`](/hardware/assembly/finish-pack-ship.md)). **The display's two printed parts go in that folder with it**, not loose on the bench: the cover plate ([`/hardware/printed-parts/enclosure/display-cover/`](/hardware/printed-parts/enclosure/display-cover/README.md)) and, under it, the TPU gasket ring that goes between the plate's lap and the display's glass ([`/hardware/printed-parts/enclosure/display-gasket/`](/hardware/printed-parts/enclosure/display-gasket/README.md)). Both go on at §8, and the ring is soft, black and one wipe from being swept off a bench unnoticed — a display closed without it is a display the cover plate does not hold.
 
-Install ruthex heat-set inserts everywhere the pieces call for them. Standard procedure: soldering iron on the insert, press straight down until flush. All of them go in *before* anything is in the box, while there is bench access from every face.
+Install ruthex heat-set inserts everywhere the pieces call for them. Standard procedure: soldering iron on the insert, press straight down until flush. All of them go in *before* anything is in the box, while there is bench access from every face. The rear nameplate receiver takes four **short RX-M3S × 4** inserts in its Ø4 × 5 mm blind pilots. Press their fronts flush with the flat seat; retain the 3 mm backing. The four nameplate screws are black M3 × 6, installed at final finishing.
 
 Clear front-top's functional-cavity support through the empty display seat and
 open underside before installing hardware. The current
@@ -126,9 +126,12 @@ Load the cards before fitting the bulkheads. The fluid panel uses nominal seat
 planes 6 mm apart. Its 42 × 38 × 1.8 mm identification
 tiles slide in continuous side channels. Each rail overlaps its edge by 2 mm,
 leaving a 38 × 38 mm visible color face; adjacent tiles have a 0.2 mm seam.
-Load each column's bottom tile first. The upper two rows carry their words above
-the fitting and the bottom row carries its words below. Snap the nameplate into
-its centered receiver beneath the cards, at X0/Z200. Seat each fitting flange
+Load each column's bottom tile first. Words sit below their bulkheads; the rear
+labels read WATER, CO2, SODA, FLAVOR, DRAIN and FLAVOR. Install the per-unit
+nameplate at final finishing, centred at world X−45.4/Z217 in the receiver beside
+the cards. Its four short inserts are pressed during shell preparation; four
+black M3 × 6 screws secure the flat plate. See [`finish-pack-ship.md`](finish-pack-ship.md) §3.
+Seat each fitting flange
 outside and its panel nut on the relieved inside land. Keep moving release
 collets free. Actual fitting make-up and insertion witnesses determine physical
 assembly; the reference envelopes do not establish those dimensions.

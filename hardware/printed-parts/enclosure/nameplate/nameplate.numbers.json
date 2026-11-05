@@ -2275,55 +2275,49 @@
   0.036306485533714294
  ],
  "snap": {
-  "catch_front": -0.15,
-  "catch_inner": 42.15,
-  "catch_rear": -1.75,
+  "clearance_diameter": 3.4,
   "corner": 5.0,
-  "crown_y": -1.6400000000000001,
-  "field_proud": 5.0,
-  "floor_rear": -3.75,
-  "floor_stock": 3.6,
+  "counterbore_depth": 1.0,
+  "counterbore_diameter": 6.2,
+  "crown_y": -4.640000000000001,
+  "field_proud": 8.0,
+  "floor_rear": -8.0,
+  "floor_stock": 8.0,
   "frame_bottom": -53.4,
   "frame_corner": 7.0,
-  "frame_top": 58.15,
+  "frame_top": 61.15,
   "frame_width": 94.3,
+  "head_diameter": 5.5,
+  "head_height": 3.0,
   "height": 100.0,
-  "hook_projection": 1.2,
-  "hook_z": [
-   -5.0,
-   5.0
-  ],
-  "leaf_inner": 40.0,
-  "leaf_outer": 42.0,
-  "leaf_root_z": -31.5,
-  "leaf_thick": 2.0,
-  "leaf_top_z": 5.0,
-  "leaf_y": [
-   -4.0,
-   -2.0
-  ],
+  "hex_key": 2.5,
+  "insert_diameter": 4.6,
+  "insert_length": 4.0,
   "mouth_height": 100.3,
   "mouth_width": 88.3,
-  "pocket_bottom": -35.75,
-  "pocket_inner": 38.25,
-  "pocket_outer": 43.45,
-  "pocket_rear": -4.25,
-  "pocket_stock": 3.0,
-  "pocket_top": 5.4,
-  "release_inner_x": 41.8,
-  "release_outer_x": 47.65,
-  "release_width_z": 6.0,
-  "root_pocket_outer": 43.75,
-  "root_radius": 1.5,
-  "root_x": [
-   38.5,
-   43.5
-  ],
-  "root_z": [
-   -35.5,
-   -31.5
-  ],
+  "pilot_depth": 5.0,
+  "pilot_diameter": 4.0,
+  "screw_diameter": 3.0,
+  "screw_length": 6.0,
   "slip": 0.15,
+  "stations": [
+   [
+    -35.0,
+    -41.0
+   ],
+   [
+    35.0,
+    -41.0
+   ],
+   [
+    -35.0,
+    41.0
+   ],
+   [
+    35.0,
+    41.0
+   ]
+  ],
   "supported": 0.25,
   "thick": 3.36,
   "width": 88.0
