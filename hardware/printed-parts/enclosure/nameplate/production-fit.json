@@ -65,7 +65,7 @@
     "wago-n"
   ],
   "thermal_interference": "Insert OD 4.6 mm in a printed 4.0 mm pilot; intentional heat-set displacement.",
-  "physical_status": "Nameplate appearance and mounting approved in 3D. The production receiver print is prepared; launch awaits an unlocked Mac. Physical mounting is unqualified.",
+  "physical_status": "Nameplate appearance and mounting approved in 3D. The production rear-top receiver is printing on Mark2. Physical mounting is unqualified.",
   "source_sha256": {
     "hardware/printed-parts/enclosure/nameplate/nameplate-001.step.mesh": "2e362e82e69cfd2033e31385e1623a0bbc63a90102439e052f5c7c9c4b637eec",
     "hardware/printed-parts/enclosure/nameplate/nameplate-fasteners.step.mesh": "844fab0c1199ef683e0b1d359e5b658c81c87ea389eb2329ad6a6d018a6c09f2",

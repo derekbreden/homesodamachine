@@ -280,7 +280,7 @@
       "report": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-05-back-top-smooth-corners-mark2/back-top-mesh-lint.txt"
     }
   },
-  "print_release_status": "Back top prepared and reviewed for Mark2; launch awaits an unlocked Mac.",
+  "print_release_status": "HSM-000081 rear top accepted by Mark2 and preparing, job 1410263719.",
   "source_revision": "bee47bcd7",
   "print_record": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-05-back-top-smooth-corners-mark2/print-job.json",
   "public_model_verified": {
