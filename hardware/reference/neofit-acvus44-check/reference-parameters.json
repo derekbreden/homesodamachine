@@ -1,6 +1,6 @@
 {
   "units": "mm",
-  "material_id": "HSM-000383",
+  "material_id": "HSM-0383",
   "length_mm": 51.091994723978004,
   "stem_shoulder_x_mm": 18.20643880297786,
   "stem_cylinder_diameter_mm": 6.367791423240085,
@@ -260,5 +260,5 @@
     ]
   ],
   "profile_method": "97.5th percentile outward-facing radius in 0.125 mm axial bins; three-bin median; 0.035 mm radial simplification. The mating stem through X17 uses nominal 6.35 mm OD, retaining its observed tip chamfer and groove. No cloud rescaling.",
-  "scan_evidence_sha256": "70490c04d385b05b119550f6ab7e37a1d626f31754e1a8d0401d5eccb2a06a12"
+  "scan_evidence_sha256": "58c3f6e8a145bf37a7b92818e0ca82d8597dc9189d243eb3acdb8f724ed1e978"
 }

@@ -3,7 +3,7 @@
 //
 //   node web/scripts/part-costs.mjs            totals, reconciliation and findings
 //   node web/scripts/part-costs.mjs --tree     the finished unit's costed BOM, every level
-//   node web/scripts/part-costs.mjs HSM-000004 one material: its own cost and its roll-up
+//   node web/scripts/part-costs.mjs HSM-0004 one material: its own cost and its roll-up
 //
 // web/lib/part-costs.js does the allocation; this prints what it decided.
 import path from "node:path";

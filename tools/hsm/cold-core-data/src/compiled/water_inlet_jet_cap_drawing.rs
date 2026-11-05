@@ -1091,7 +1091,7 @@ Ok(Val::None)})})?;
                 args236.push(e.get("c")?);
                 args236.push(Val::Int(47i64));
                 args236.push(Val::Int(127i64));
-                args236.push(Val::Str("HSM-000011".into()));
+                args236.push(Val::Str("HSM-0011".into()));
                 args236.push(Val::Int(9i64));
                 kw237.push(("bold".into(), Val::Bool(true)));
                 fun238.call(args236, kw237)?

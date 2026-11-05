@@ -70,7 +70,7 @@
     }
   ],
   "catalog": {
-    "id": "HSM-000057",
+    "id": "HSM-0057",
     "description": "Water-pressure regulator \u00b7 Hydronix SB-FPV-40 \u00b7 internal 1/4 inch feed",
     "model": "reference/shok-blok-regulator/shok-blok-regulator.step",
     "pass": true

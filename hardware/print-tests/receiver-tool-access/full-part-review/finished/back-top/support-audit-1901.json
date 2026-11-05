@@ -6,7 +6,7 @@
     "gcode_sha256": "25fb78018a49b12e89e1d99b45ec6b3f7f74277c25ce73fc1723fda05a9e1cf6",
     "model": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl",
     "model_sha256": "2ed29e4d8e38aa0a95b5d1cbff7ae477ae5b60fc2dc5b1510a771a805ab2b2eb",
-    "profile": "/Users/derekbredensteiner/Downloads/HSM-full-enclosure-2026-11-03/projects/HSM-000081-back-top-Mark2.3mf",
+    "profile": "/Users/derekbredensteiner/Downloads/HSM-full-enclosure-2026-11-03/projects/HSM-0081-back-top-Mark2.3mf",
     "profile_sha256": "c1a39599be0b27f9bf1ec0abb909cdab876b6bc126f45e4d027c9cf79fea7f13"
   },
   "slicer": "BambuStudio 02.08.02.61",

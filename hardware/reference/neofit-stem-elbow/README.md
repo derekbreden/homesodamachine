@@ -1,6 +1,6 @@
 # neoFit ATEU44W 1/4-inch stem elbow
 
-**HSM-000330**, the [white acetal stem elbow](https://www.freshwatersystems.com/products/neofit-acetal-white-stem-elbow-1-4-tube-x-1-4-stem).
+**HSM-0330**, the [white acetal stem elbow](https://www.freshwatersystems.com/products/neofit-acetal-white-stem-elbow-1-4-tube-x-1-4-stem).
 The male stem enters another 1/4-inch push-fit socket and turns the path 90 degrees.
 The reference follows two sprayed specimens mounted at opposite ends in one
 MINI 2 capture. It contains an editable fixed body/stem and a separate oval

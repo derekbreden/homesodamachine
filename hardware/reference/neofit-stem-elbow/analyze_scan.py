@@ -183,7 +183,7 @@ def main():
               'Specimen A supplies the free stem tip and shoulder, specimen B the socket release face and exposed nose; the two registrations remain separate.',
               'Putty-hidden sectors are completed by rotational and bend symmetry. Fine collet finger slots, lettering and mold seams are omitted.',
               'The 4.3 mm flow bore, hidden transitions and collet underside are display geometry; 16.891 mm insertion is the published family value, not measured seal or grip geometry.']
-    evidence = {'units': 'mm', 'material_id': 'HSM-000330', 'coordinate_scale_factor': 1.,
+    evidence = {'units': 'mm', 'material_id': 'HSM-0330', 'coordinate_scale_factor': 1.,
                 'capture': capture, 'raw_preview': raw_meta, 'fused_cloud': fused_meta,
                 'registration_helpers_sha256': common.sha(HELPERS),
                 'table_plane_residual_mm': table_residual, 'specimens': registrations,
@@ -197,7 +197,7 @@ def main():
                 'retained_observation_policy': 'Physical table-height and per-specimen bounds are fixed before CAD comparison; no observations are rejected by distance to the model.',
                 'limits': limits}
     (HERE/'scan-evidence.json').write_text(json.dumps(evidence, indent=2)+'\n')
-    params = {'units': 'mm', 'material_id': 'HSM-000330', 'tube_od_mm': 6.35, 'stem_od_mm': 6.35,
+    params = {'units': 'mm', 'material_id': 'HSM-0330', 'tube_od_mm': 6.35, 'stem_od_mm': 6.35,
               'stem_tip_x_mm': tip, 'stem_shoulder_x_mm': shoulder, 'socket_mouth_y_mm': mouth,
               'stem_length_mm': shoulder-tip, 'flow_bore_display_mm': 4.3,
               'published_socket_insertion_mm': 16.891, 'fixed_nose_y_mm': 19.,

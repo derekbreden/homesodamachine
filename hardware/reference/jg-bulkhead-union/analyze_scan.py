@@ -176,7 +176,7 @@ def main():
                 'limits': limits}
     (HERE/'scan-evidence.json').write_text(json.dumps(evidence, indent=2)+'\n')
     parameters = {
-        'units': 'mm', 'material_id': 'HSM-000059', 'panel_seat_local_x_mm': seat,
+        'units': 'mm', 'material_id': 'HSM-0059', 'panel_seat_local_x_mm': seat,
         'outboard_mouth_local_x_mm': near, 'inboard_mouth_local_x_mm': far,
         'overall_mm': near-far, 'near_ring_face_y_mm': near-seat, 'far_ring_face_y_mm': far-seat,
         'body_hex': {k: body_hex[k] for k in ['across_flats_mm', 'center_yz_mm', 'vertex_clock_degrees']},

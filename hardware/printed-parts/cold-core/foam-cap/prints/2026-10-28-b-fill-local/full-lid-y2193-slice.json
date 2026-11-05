@@ -1,7 +1,7 @@
 {
   "scope": "One manual native slice review of this source STL and Mark1 archive. The receipt establishes commanded geometry and print settings; physical surface, support removal and installed fit are separate observations.",
   "piece": "foam-cap-lid-top",
-  "part_number": "HSM-000020",
+  "part_number": "HSM-0020",
   "clamp_stations": [
     {
       "name": "aft",

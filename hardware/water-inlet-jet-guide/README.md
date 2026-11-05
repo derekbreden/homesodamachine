@@ -16,7 +16,7 @@ The opening map links to each phase, and PDF bookmarks identify every step.
 Pages 2-3 show the issued drilling-fixture STL geometry. The blue result box
 on each build page identifies the assembly carried to the next step.
 
-The finished product is HSM-000338: one HSM-000011 drilled cap and one
+The finished product is HSM-0338: one HSM-0011 drilled cap and one
 purchased TAISHER elbow. Jaws, clamps, holder and gas fittings are bench tools.
 The [cap drawing](../cold-core-layout/water-inlet-jet-cap-drawing.pdf) and
 [welded elbow drawing](../cold-core-layout/water-inlet-jet-elbow-drawing.pdf)

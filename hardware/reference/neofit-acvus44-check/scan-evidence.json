@@ -3,7 +3,7 @@
   "coordinate_scale_factor": 1.0,
   "capture": {
     "date": "2026-11-03",
-    "material_id": "HSM-000383",
+    "material_id": "HSM-0383",
     "object": "neoFit ACVUS44 1/4-inch stem check valve",
     "preparation": "Putty-mounted, focused and rotated by Derek.",
     "device": "Revopoint MINI 2",
@@ -119,7 +119,7 @@
       }
     ]
   },
-  "registration_helpers_sha256": "ac7675b338377842844bd6685afd5a4139d795993592a8da178c81505c231960",
+  "registration_helpers_sha256": "590d41d4669d9a4153f43c89f01968570e5337d7edc6d399238d6c09af9dc43a",
   "raw_preview": {
     "path": "/Users/derekbredensteiner/Documents/3D Scans/2026-11-03-neofit-acvus44-stem-check/pass-01/native-project/raw_preview.ply",
     "sha256": "76d977af694d794fcef34a777da2699ab0828b90e669e6925e4c815d1c7c3357",

@@ -8,13 +8,13 @@ acceptance standard. The complete operating assembly includes the integrated col
 core and refrigeration provisions, even when a bench build uses the external Lillium
 carbonator.
 
-The requested next four parts are back-top HSM-000081, front-top HSM-000079,
-lower pump retainer HSM-000082 and equipment lid HSM-000020. Their
+The requested next four parts are back-top HSM-0081, front-top HSM-0079,
+lower pump retainer HSM-0082 and equipment lid HSM-0020. Their
 [manual full-part review](../../print-tests/receiver-tool-access/full-part-review/readiness.json)
 binds the final meshes, reinforcement regions and reviewed complete native slices.
 The [prepared print set](../../print-tests/receiver-tool-access/full-part-review/finished/README.md)
 includes the actual support-removal routes, surface readings, printer mappings and
-print-only archive hashes. Front-top HSM-000079 is printing on Mark1 as job
+print-only archive hashes. Front-top HSM-0079 is printing on Mark1 as job
 1405624302. Back-top, the lower retainer and equipment lid have prepared archives.
 The latest physical feedback accepts the other completed snap fits and calls for
 the ASSE adapter and its conforming cavity to rise 0.18 mm. The integrated

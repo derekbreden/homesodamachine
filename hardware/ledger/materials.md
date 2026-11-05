@@ -9,9 +9,10 @@ those relationships through every level.
 
 ## Identity
 
-Each material has a permanent `HSM-000001`-format `id`, a readable `description`
-and a `kind`. New records take the next unused number above the highest allocated
-number. Existing numbers stay with their material when descriptions, manufacturer
+Each material has a permanent `id`, a readable `description` and a `kind`. The
+`id` is `HSM-` and the number padded to four digits, as in `HSM-0001`; past
+`HSM-9999` the number takes a fifth digit and the earlier ids keep theirs. New
+records take the next unused number above the highest allocated number. Existing numbers stay with their material when descriptions, manufacturer
 numbers or file paths change. Allocated numbers are never reused.
 
 `aliases` and `manufacturer_number` are searchable vocabulary, alongside the id,
@@ -51,10 +52,10 @@ role, with stock details where useful.
 
 | Material | Canonical description | Naming role |
 | --- | --- | --- |
-| HSM-000268 | Faucet lever · PET-GF | Shared faucet part with its print stock |
-| HSM-000090 | Faucet tube sealing thimble · TPU 85A | Physical form, sealing role and stock |
-| HSM-000277 | Flavor A pump suction flex tube · 1/4 inch black LLDPE | Circuit, connection role and stock |
-| HSM-000331 | PISCO RVFUP1/4-1/4-0.3 preset regulator · CO₂ secondary · 0.3 MPa | Installed manufacturer identity, function and setting |
+| HSM-0268 | Faucet lever · PET-GF | Shared faucet part with its print stock |
+| HSM-0090 | Faucet tube sealing thimble · TPU 85A | Physical form, sealing role and stock |
+| HSM-0277 | Flavor A pump suction flex tube · 1/4 inch black LLDPE | Circuit, connection role and stock |
+| HSM-0331 | PISCO RVFUP1/4-1/4-0.3 preset regulator · CO₂ secondary · 0.3 MPa | Installed manufacturer identity, function and setting |
 
 CAD body keys, route IDs and file paths identify engineering representations.
 The component inspector shows the body key alongside the material name and
@@ -116,7 +117,7 @@ cold-core part, and the machine's model draws its free end above the lid. Multip
 one purchased material, and a combined envelope can represent several materials.
 Physical quantities come from the parts and assembly records.
 
-`contexts: [{"material": "HSM-000001"}]` allows an assembly with no separate model
+`contexts: [{"material": "HSM-0001"}]` allows an assembly with no separate model
 to be inspected in a containing material's model. The pump mount assembly uses
 the soda machine as its context; the vessel uses the cold core. Context inspection keeps the selected assembly's own identity and BOM and
 highlights its represented contents. A representation may also specify
@@ -143,17 +144,17 @@ assembly through a `?component=` view. That view allocates no second identity or
 CAD file. Its material record, containing assemblies and documents remain the
 same. Direct component-source lookup uses the catalog's canonical model first.
 
-The faucet lever is HSM-000268: one physically accepted printed shape, shared by
+The faucet lever is HSM-0268: one physically accepted printed shape, shared by
 both faucet styles and the standalone model. Its installation representation uses
 the authored nominal rest placement; physical fit/function evidence retains its
 recorded scope.
 
 ## Costs
 
-`cost_root` names the finished unit the ledgers price: HSM-000340, the machine,
+`cost_root` names the finished unit the ledgers price: HSM-0340, the machine,
 faucet and install kit as they ship. Every data row of [`bom.md`](bom.md) and
 every operation of [`labor.md`](labor.md) carries a hidden
-`<!--parts HSM-000010 HSM-000013:2-->` tag naming the part numbers its dollars
+`<!--parts HSM-0010 HSM-0013:2-->` tag naming the part numbers its dollars
 or minutes belong to:
 
 - a purchased part's row names that part, and its share is the part's price;
@@ -185,10 +186,10 @@ BOM, and a part number prints that part's cost.
 
 | Material | Contents and interfaces | Authority |
 | --- | --- | --- |
-| HSM-000161 — Pump mount assembly | Both prepared pumps with their four clamped LLDPE tubes, the snap-fit lower retainer, and the Fastons that land DC-5 on the motor tabs. Two full-depth integral wings engage front-top’s flank receivers and hold the lower retainer against the fitted upper half, whose broad stock continues into the display housing and roof. The prepared unit loads motor-first from below on loose front-top, before the pump tees and valve plumbing; pump and display wires share one rear passage. Physical fit and retention retain their qualification scope. | [Pump installation](../assembly/internal-plumbing.md), [pump mount](../printed-parts/enclosure/pump-dock/README.md) |
-| HSM-000004 — Carbonator vessel | Vessel, port fittings, pressure relief, captive float, welded guide rod and top-register float stop. The other two floats and guide rods belong to the cold core's reservoir installation. | [Vessel build](../assembly/pressure-vessel.md) |
-| HSM-000173 — Multiplex 19-0897 ASSE 1022 backflow preventer | The bare purchased body. Its two TPU 85A straight cuffs (HSM-000334, HSM-000335), the branch stem tee in the outlet cuff, the vent sleeve, return tube and saddles belong to the machine. | [Water and gas assembly](../assembly/internal-plumbing.md), [straight cuffs](../printed-parts/asse-straight-cuffs/README.md) |
-| HSM-000058 — neoFit ACHV44-E single check valve | One 1/4-inch push-connect check with a nominal 0.3 psi crack pressure, used at both the pump discharge and downstream of the PISCO CO2 regulator. Tubes, elbows and installation hardware belong to the machine. | [Water and gas assembly](../assembly/internal-plumbing.md), [check-valve scope](../reference/neofit-achv44-check/README.md) |
+| HSM-0161 — Pump mount assembly | Both prepared pumps with their four clamped LLDPE tubes, the snap-fit lower retainer, and the Fastons that land DC-5 on the motor tabs. Two full-depth integral wings engage front-top’s flank receivers and hold the lower retainer against the fitted upper half, whose broad stock continues into the display housing and roof. The prepared unit loads motor-first from below on loose front-top, before the pump tees and valve plumbing; pump and display wires share one rear passage. Physical fit and retention retain their qualification scope. | [Pump installation](../assembly/internal-plumbing.md), [pump mount](../printed-parts/enclosure/pump-dock/README.md) |
+| HSM-0004 — Carbonator vessel | Vessel, port fittings, pressure relief, captive float, welded guide rod and top-register float stop. The other two floats and guide rods belong to the cold core's reservoir installation. | [Vessel build](../assembly/pressure-vessel.md) |
+| HSM-0173 — Multiplex 19-0897 ASSE 1022 backflow preventer | The bare purchased body. Its two TPU 85A straight cuffs (HSM-0334, HSM-0335), the branch stem tee in the outlet cuff, the vent sleeve, return tube and saddles belong to the machine. | [Water and gas assembly](../assembly/internal-plumbing.md), [straight cuffs](../printed-parts/asse-straight-cuffs/README.md) |
+| HSM-0058 — neoFit ACHV44-E single check valve | One 1/4-inch push-connect check with a nominal 0.3 psi crack pressure, used at both the pump discharge and downstream of the PISCO CO2 regulator. Tubes, elbows and installation hardware belong to the machine. | [Water and gas assembly](../assembly/internal-plumbing.md), [check-valve scope](../reference/neofit-achv44-check/README.md) |
 
 The KPHM600-SW3B17 pump's fitted representation lives in the `kamoer-kphm400`
 reference directory. Both purchased check positions use the shared

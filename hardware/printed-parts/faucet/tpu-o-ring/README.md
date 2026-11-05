@@ -1,4 +1,4 @@
-# Faucet tube sealing thimble · HSM-000090
+# Faucet tube sealing thimble · HSM-0090
 
 Printed TPU 85A **sealing thimble** (closed bottom with a centered hole, open top,
 cylindrical wall) that seals the 3/8" OD LLDPE soda faucet tube into the

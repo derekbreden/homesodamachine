@@ -575,6 +575,6 @@
   "limits": [
     "Tube-to-guide allowance is intentional; it is not the appliance non-contact clearance floor.",
     "The native probe and exported manifold/STL checks do not qualify received hardware or fluid service.",
-    "B-fill requires a layout decision before printing HSM-000020."
+    "B-fill requires a layout decision before printing HSM-0020."
   ]
 }

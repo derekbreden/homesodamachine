@@ -1,16 +1,16 @@
 # Complete enclosure print set
 
-The complete HSM-000081 back top, HSM-000079 front top, HSM-000082 lower pump
-retainer and HSM-000020 equipment lid carry their production retention geometry.
+The complete HSM-0081 back top, HSM-0079 front top, HSM-0082 lower pump
+retainer and HSM-0020 equipment lid carry their production retention geometry.
 Front top is printing on Mark1 as job **1405624302**. The other three parts have
 prepared, reviewed archives and have not been submitted.
 
 | Complete part | Printer | Estimate | Current review |
 | --- | --- | --- | --- |
-| HSM-000079 front top | Mark1 | 36 h 30 min | [Native slice and launch](front-top-mark1/print-job.json) |
-| HSM-000081 back top | Mark2 | 27 h 45 min | [Continuous receiver bases](back-top-continuous-base/review.json) |
-| HSM-000082 lower pump retainer | Mark1 | 5 h 58 min | [Native slice](pump-retainer/review.json) |
-| HSM-000020 equipment lid | Mark1 | 7 h 12 min | [Continuous receiver bases](foam-cap-lid-top-continuous-base/review.json) |
+| HSM-0079 front top | Mark1 | 36 h 30 min | [Native slice and launch](front-top-mark1/print-job.json) |
+| HSM-0081 back top | Mark2 | 27 h 45 min | [Continuous receiver bases](back-top-continuous-base/review.json) |
+| HSM-0082 lower pump retainer | Mark1 | 5 h 58 min | [Native slice](pump-retainer/review.json) |
+| HSM-0020 equipment lid | Mark1 | 7 h 12 min | [Continuous receiver bases](foam-cap-lid-top-continuous-base/review.json) |
 
 The [readiness record](../readiness.json) binds each final mesh to its reviewed
 native project and print archive. Binary files are delivered in

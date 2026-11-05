@@ -1,10 +1,10 @@
 {
   "units": "mm",
-  "material_id": "HSM-000330",
+  "material_id": "HSM-0330",
   "coordinate_scale_factor": 1.0,
   "capture": {
     "date": "2026-10-29",
-    "material_id": "HSM-000330",
+    "material_id": "HSM-0330",
     "object": "neoFit ATEU44W 1/4 inch tube x 1/4 inch stem elbow; two opposing specimens",
     "preparation": "Putty-mounted at opposite ends, pointing away from one another; sprayed, focused and rotated by Derek.",
     "device": "Revopoint MINI 2",

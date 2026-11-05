@@ -27,9 +27,9 @@ function example({ id, title, usage, markup, sources }) {
 function renderGuide(hardwareDir) {
   const { materials } = readMaterialCatalog(hardwareDir);
   const find = id => materials.find(material => material.id === id);
-  const root = find('HSM-000006');
-  const samples = [root, find('HSM-000005'), find('HSM-000161')];
-  const rows = ['HSM-000151', 'HSM-000152', 'HSM-000155'].map(id => ({ material: find(id), item: root.bom.items.find(item => item.material === id) }));
+  const root = find('HSM-0006');
+  const samples = [root, find('HSM-0005'), find('HSM-0161')];
+  const rows = ['HSM-0151', 'HSM-0152', 'HSM-0155'].map(id => ({ material: find(id), item: root.bom.items.find(item => item.material === id) }));
   const materialLink = material => `/3d#material:${material.id}`;
   const documentLink = document => `/read/${document.path}`;
   const documents = materialDocuments({ materials }, root.id);
@@ -58,7 +58,7 @@ function renderGuide(hardwareDir) {
   <div class="material-actions"><button type="button" data-guide-clear>Clear search</button></div>
   <a class="material-link" href="${documentLink(documents[0])}">Assembly guide</a>
 </div>`;
-  const endcapDrawing = find('HSM-000009').documents.find(document => document.kind === 'engineering-drawing');
+  const endcapDrawing = find('HSM-0009').documents.find(document => document.kind === 'engineering-drawing');
   const drawingMarkup = `<a class="material-document material-drawing-feature" href="${documentLink(endcapDrawing)}">
   <span class="material-document-kind">Engineering drawing</span>
   <strong>${escape(endcapDrawing.title)}</strong>
@@ -80,7 +80,7 @@ function renderGuide(hardwareDir) {
 </header>`;
   const searchMarkup = `<div class="material-search">
   <label>Find a material<input id="guide-material-search" type="search" placeholder="Description, part number or alias…" aria-describedby="guide-search-status" autocomplete="off"></label>
-  <p class="material-search-status" id="guide-search-status" role="status">3 sample materials. Try ‘insertion’ or ‘HSM-000005’.</p>
+  <p class="material-search-status" id="guide-search-status" role="status">3 sample materials. Try ‘insertion’ or ‘HSM-0005’.</p>
   <div class="material-search-results">
 ${samples.map(material => `    <a href="${materialLink(material)}" data-guide-result="${escape([material.description, material.id, ...(material.aliases || [])].join(' ').toLowerCase())}"><strong>${escape(material.description)}</strong><span>${material.id} · ${material.kind}</span></a>`).join('\n')}
   </div>
@@ -106,7 +106,7 @@ ${documents.map(document => `  <a class="material-document" href="${documentLink
   // Costed rows come from the carbonator vessel, priced the way the explorer prices them.
   const catalog = readMaterialCatalog(hardwareDir);
   catalog.costs = readPartCosts(hardwareDir, catalog);
-  const vessel = catalog.materials.find(material => material.id === 'HSM-000004');
+  const vessel = catalog.materials.find(material => material.id === 'HSM-0004');
   const memo = new Map(), roll = id => rollupCost(catalog, id, catalog.costs.options, memo);
   const vesselCost = roll(vessel.id);
   const pct = (part, whole) => whole > 0 ? (part / whole * 100).toFixed(2) : '0';

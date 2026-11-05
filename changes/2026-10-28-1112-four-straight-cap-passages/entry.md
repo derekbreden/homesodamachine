@@ -11,6 +11,6 @@ Reservoir A's fill seat and reservoir B's draw seat each move 3.5 mm east to ali
 
 The native straight-tube probes clear both printed cap pieces by 0.575 mm radially. All four revised printable pieces are single valid solids, with watertight and consistently wound production STLs. The published surfaces received all seven geometry-lint classes; the manual results are beside the cap source.
 
-B-fill still contains its two fittings and short buried link. A straight rise at its existing reservoir bore enters the PCB. The higher external approach clears the PCB and draw tube but intersects the removable funnel-frame web. That route is not implemented, and HSM-000020 is not released for a production print.
+B-fill still contains its two fittings and short buried link. A straight rise at its existing reservoir bore enters the PCB. The higher external approach clears the PCB and draw tube but intersects the removable funnel-frame web. That route is not implemented, and HSM-0020 is not released for a production print.
 
 Derek: “Please do what you can to fix (remove the cap traversal) from all tube routes.”
