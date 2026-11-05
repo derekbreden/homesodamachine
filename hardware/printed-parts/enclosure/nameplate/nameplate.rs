@@ -171,7 +171,8 @@ fn check(n: &Numbers) -> Result<Value> {
         "seated_overlap_mm3":seated,"screw_artwork_overlap_mm3":screw_art_overlap,
         "bearing_floor_mm":bearing,"insert_engagement_mm":engagement,
         "insert_radial_stock_mm":radial_stock,"insert_rear_wall_air_mm":insert_rear_air,
-        "receiver_floor_stock_mm":f(mount,"floor_stock")?,"bore":"open through the existing rear wall",
+        "receiver_floor_stock_mm":f(mount,"floor_stock")?,"pilot_reach_mm":-f(mount,"pilot_rear")?,
+        "bore":"Standalone receiver through; production upper pair ends against existing support-floor backing.",
         "head_proud_mm":f(mount,"head_height")?-f(mount,"counterbore_depth")?,
         "artwork_rise_mm":n.f("artwork_rise")?,"payload":n.text("payload")?,
         "body_ink_overlap_mm3":overlap,"quiet_zone_overlap_mm3":quiet_overlap}))

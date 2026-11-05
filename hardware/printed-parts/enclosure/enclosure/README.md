@@ -205,8 +205,10 @@ front roll is R12 and its longer turn onto the roof is R18.
 
 The flutes use the same pitch, depth and 5 mm runout on these surfaces. Their
 ends taper into the rounded shoulder; the smooth shoulder continues through
-the corner and onto the lifting ceiling. The broad standing
-corners carry the flutes around them at constant arc-length spacing.
+the corner and onto the lifting ceiling. The four standing corners retain their
+complete smooth R12 quarter-rounds at the flute-tip envelope. Straight-wall
+grooves fade into these corners over 5 mm. The smooth bands follow each quadrant
+through its height and meet across the retained enclosure seams.
 
 The display's flush cover has R6 outline corners, with an offset R6.3 seat.
 Its optical opening follows the glass. The funnel's mouth, collar and brim
@@ -541,11 +543,11 @@ The production preparation retains Tree(auto)/Default.
 
 ## The reeded skin
 
-Every standing wall is **fluted** — half-round grooves [4 mm](FLUTE_WIDTH) across and
-[1.2 mm](FLUTE_DEPTH) deep, the profile `cadlib/reeding.py` carries and
-the corner coupon at `c14bb2fff` was printed on. That coupon is this box's own corner
-at this box's own `wall` and `corner_round`, so what printed there is what prints here, and
-neither can drift from the other while they read one function.
+The standing walls' flat show faces are **fluted** — half-round grooves
+[4 mm](FLUTE_WIDTH) across and [1.2 mm](FLUTE_DEPTH) deep, with the profile from
+`cadlib/reeding.py`. The four R12 standing corners are smooth through their full
+90° turn, at the same outer envelope as the flute tips. The exterior field adds
+up to 1.2 mm of material where a corner groove would otherwise cut inward.
 
 **It is in the MESH and not in the solid**, and that is a decision rather than a shortcut. The
 fade is what makes the texture look made rather than applied, and the fade is a FIELD OVER THE
@@ -556,21 +558,22 @@ once. So the STEP is a smooth body and [flute_skin.py](/hardware/printed-parts/c
 mesh on the way to the bed. Everywhere else on the machine the STEP is the whole of the part;
 here it is not, and the `.stl` beside it is.
 
-**Nothing tells it where an edge is.** At every station it asks the piece whether it has
+At every station the field asks the piece whether it has
 material AT the nominal plan — by level cut, not by naming features — and takes a distance
 transform of the answer. A flank opening, a port chip's seat, the nameplate's pocket, the bay's
 own mouth, the seam a piece simply ends on, the bed, the rounded top and display surround are
-one fact to it, and every one of them gets the same ramp over [5 mm](FLUTE_RISE), on the same
-smoothstep the coupon fades on. There is no list of edges anywhere, because there is nothing to
-list.
+one fact to it, and every one of them gets the same ramp over [5 mm](FLUTE_RISE).
+The rounded plan stations are kept plain; the same distance field fades the
+adjacent straight-wall grooves into them. The structural solid defines the
+internal seats, joints and complete outer corner envelope.
 
 A rim that runs WITH the flutes is not one of them: a groove ending along its own length has
 nothing to stop. The Y seam is one, and so is every jamb.
 
-**The field closes on itself.** [272](FLUTE_COUNT) grooves go round [1342 mm](FLUTE_PERIM) of
-plan, struck by ARC LENGTH from a datum on the front wall's centreline — which is what carries a
-flute across a [12 mm](COLUMN_ARC) corner turn at exactly the spacing it keeps on the flat. No
-station restarts the array and no two arrays meet anywhere. The pitch is what that count lands
+**The field closes on itself.** [272](FLUTE_COUNT) nominal stations go round
+[1342 mm](FLUTE_PERIM) of plan, struck by arc length from a datum on the front
+wall's centreline. The phase continues across each smooth [12 mm](COLUMN_ARC)
+corner turn. No station restarts the array and no two arrays meet anywhere. The pitch is what that count lands
 on, [4.9338 mm](FLUTE_PITCH) against the coupon's [5 mm](COUPON_PITCH). The **Y seam** — the
 one straight line running the full height of both side walls — lands [1.3 mm](FLUTE_SEAM_MISS)
 off a groove's centre, in the shadow that is already there rather than on a land.
