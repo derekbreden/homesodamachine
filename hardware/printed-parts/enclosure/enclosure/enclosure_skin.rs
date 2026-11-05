@@ -428,6 +428,14 @@ fn cutter(mesh: &Mesh, rail: &Rail, f: &Field) -> Result<Option<(Mesh, serde_jso
         return Ok(None);
     }
     bridge_grooves(&mut mask, rail, h, f);
+    // Retain the complete outer quarter-rounds at the enclosure's four
+    // vertical corners. Their surface is the same envelope as the flute tips;
+    // the existing distance field eases the adjacent straight-wall grooves out.
+    for (i, normal) in rail.normal.iter().enumerate() {
+        if normal[0].abs() > 1e-6 && normal[1].abs() > 1e-6 {
+            mask[i * h..(i + 1) * h].fill(false);
+        }
+    }
     for &[x0, x1, y0, y1, z0, z1] in &rail.plain {
         for (i, &[x, y]) in rail.point.iter().enumerate() {
             if x >= x0 && x <= x1 && y >= y0 && y <= y1 {
