@@ -1,0 +1,260 @@
+{
+  "inspection_colors": {
+    "blue": "rigid catch",
+    "green": "continuous root into the body",
+    "orange": "flexible wall"
+  },
+  "options": [
+    {
+      "body_ink_overlap_mm3": 0.0,
+      "geometry": {
+        "capture_mm": 0.25,
+        "clearance_travel_mm": 0.35,
+        "flexible_part": "nameplate",
+        "front_root_cover_mm": 1.2,
+        "plate_print_up": "+Z; brim, bending in XY within layers",
+        "rear_projection_mm": 5.0,
+        "receiver_backing_mm": 3.0,
+        "receiver_print_up": "-Z",
+        "receiver_proud_mm": 6.0,
+        "root_length_mm": 34.0,
+        "root_radius_mm": 0.8,
+        "wing_thickness_mm": 1.0,
+        "world_center_z": 220.0,
+        "world_plate_face_y": 477.3
+      },
+      "insertion_sweep": {
+        "head_displacement_mm": 0.35,
+        "max_overlap_mm3": 0.0,
+        "model": "idealized bent wall; passage only, not material response",
+        "step_mm": 0.5,
+        "stroke_mm": 9.0
+      },
+      "option": "a",
+      "plate_components": 1,
+      "plate_volume_mm3": 29000.4817361744,
+      "receiver_bounds": "Bounds { min: V3 { x: -47.15000000037253, y: -8.25, z: -53.40000000037253 }, max: V3 { x: 47.15000000037253, y: 3.360000000335276, z: 58.15000000037253 } }",
+      "receiver_components": 1,
+      "seated_overlap_mm3": 0.0,
+      "status": "Full-scale proposal for selection; insertion force and printed behavior are not qualified.",
+      "title": "A / PLATE WINGS"
+    },
+    {
+      "body_ink_overlap_mm3": 0.0,
+      "geometry": {
+        "capture_mm": 0.25,
+        "clearance_travel_mm": 0.35,
+        "face_recess_mm": 1.5,
+        "flexible_part": "enclosure receiver",
+        "plate_print_up": "+Y; flat back on bed",
+        "receiver_backing_mm": 3.0,
+        "receiver_print_up": "-Z; bending in XY within layers",
+        "receiver_proud_mm": 7.5,
+        "root_length_mm": 40.0,
+        "upper_frame_to_keystone_floor_mm": 3.045,
+        "wing_thickness_mm": 1.0,
+        "world_center_z": 218.0,
+        "world_plate_face_y": 477.3
+      },
+      "insertion_sweep": {
+        "head_displacement_mm": 0.35,
+        "max_overlap_mm3": 0.0,
+        "model": "idealized bent wall; passage only, not material response",
+        "step_mm": 0.5,
+        "stroke_mm": 9.0
+      },
+      "option": "b",
+      "plate_components": 1,
+      "plate_volume_mm3": 28929.44907245686,
+      "receiver_bounds": "Bounds { min: V3 { x: -47.15000000037253, y: -8.25, z: -53.40000000037253 }, max: V3 { x: 47.15000000037253, y: 4.860000000335276, z: 59.65000000037253 } }",
+      "receiver_components": 1,
+      "seated_overlap_mm3": 0.0,
+      "status": "Full-scale proposal for selection; insertion force and printed behavior are not qualified.",
+      "title": "B / RECEIVER WINGS"
+    },
+    {
+      "body_ink_overlap_mm3": 0.0,
+      "geometry": {
+        "blind_pilot_depth_mm": 5.0,
+        "cold_insert_pilot_mm": 4.0,
+        "counterbore_depth_mm": 1.2,
+        "counterbore_diameter_mm": 6.2,
+        "flexible_part": null,
+        "hardware": "2 acquired black M3 x 6 socket screws; 2 acquired RX-M3S x 4 inserts",
+        "insert_engagement_mm": 3.84,
+        "insert_length_mm": 4.0,
+        "installed_insert_envelope_mm": 4.6,
+        "plate_print_up": "+Y; flat back on bed",
+        "receiver_backing_mm": 3.25,
+        "receiver_print_up": "-Z",
+        "receiver_proud_mm": 6.0,
+        "screw_head_proud_mm": 1.8,
+        "world_center_z": 220.0,
+        "world_plate_face_y": 477.3
+      },
+      "insertion_sweep": {
+        "head_displacement_mm": 0.0,
+        "max_overlap_mm3": 0.0,
+        "model": "idealized bent wall; passage only, not material response",
+        "step_mm": 0.5,
+        "stroke_mm": 9.0
+      },
+      "option": "c",
+      "plate_components": 1,
+      "plate_volume_mm3": 28757.81406821452,
+      "receiver_bounds": "Bounds { min: V3 { x: -47.15000000037253, y: -8.25, z: -53.40000000037253 }, max: V3 { x: 47.15000000037253, y: 3.360000000335276, z: 58.15000000037253 } }",
+      "receiver_components": 1,
+      "seated_overlap_mm3": 0.0,
+      "status": "Full-scale proposal for selection; insertion force and printed behavior are not qualified.",
+      "title": "C / TWO M3 SCREWS"
+    }
+  ],
+  "plate_mm": [
+    88.0,
+    100.0,
+    3.36
+  ],
+  "production_change": "None: current enclosure and artwork remain in place pending selection.",
+  "source_model": "hardware/printed-parts/enclosure/nameplate/nameplate-001.step.npz",
+  "source_sha256": "7d4a13a9069cca6c8aacb0dc86faa347ce3ddb5bbe988ad2a507aa2861ce0c2b",
+  "native_program": {
+    "source": "hardware/printed-parts/enclosure/nameplate/attachment-options/review.rs",
+    "sha256": "cfcf1cddb657f036b796a7f7eee6abd0a35a078e6c56dc85607501fddaffc4ed",
+    "seconds": 13.43,
+    "peak_mb": 197
+  },
+  "artifacts": {
+    "nameplate-attachment-option-a.glb": {
+      "sha256": "d50af63da822089d433e22675fd0d7f12ff555bc22fbe68d228a7585019ab5df",
+      "bytes": 4149732
+    },
+    "nameplate-attachment-option-b.glb": {
+      "sha256": "842c440c611c759b2130483a5ae4b4efc0c414ff2abdbbce25996869f80be0d3",
+      "bytes": 4202848
+    },
+    "nameplate-attachment-option-c.glb": {
+      "sha256": "8b970d6c09481248e810f20b22c3d4f5bc3fbc562fac35578c03cf2d671b925f",
+      "bytes": 4444556
+    },
+    "nameplate-attachment-options.glb": {
+      "sha256": "020d0ca738cc672e752677348db8096c7f9fbf78df3aac5c26010f4a2ce4b9de",
+      "bytes": 13267152
+    }
+  },
+  "browser_review": {
+    "results": [
+      {
+        "view": "options",
+        "file": "assembly/scenes/glb/nameplate-attachment-options.glb",
+        "meshes": 41,
+        "size": [
+          318.29998779296875,
+          25.25,
+          387.89686584472656
+        ],
+        "width": 1300,
+        "scrollWidth": 1300
+      },
+      {
+        "view": "a",
+        "file": "assembly/scenes/glb/nameplate-attachment-option-a.glb",
+        "meshes": 11,
+        "size": [
+          205.1500015258789,
+          25.25,
+          258.1857376098633
+        ],
+        "width": 1100,
+        "scrollWidth": 1100
+      },
+      {
+        "view": "b",
+        "file": "assembly/scenes/glb/nameplate-attachment-option-b.glb",
+        "meshes": 12,
+        "size": [
+          206.1500015258789,
+          20.399999618530273,
+          258.1857376098633
+        ],
+        "width": 1100,
+        "scrollWidth": 1100
+      },
+      {
+        "view": "c",
+        "file": "assembly/scenes/glb/nameplate-attachment-option-c.glb",
+        "meshes": 15,
+        "size": [
+          205.1500015258789,
+          20.399999618530273,
+          258.1882781982422
+        ],
+        "width": 1100,
+        "scrollWidth": 1100
+      },
+      {
+        "view": "a-root",
+        "file": "assembly/scenes/glb/nameplate-attachment-option-a.glb",
+        "meshes": 11,
+        "size": [
+          26,
+          12.84000015258789,
+          48
+        ],
+        "names": [
+          "A__PLATE_WINGS",
+          "34_mm_continuous_roots",
+          "a_receiver__body",
+          "a_plate__body",
+          "a_plate__flexible_wall",
+          "a_plate__continuous_root",
+          "a__plate_artwork",
+          "Assembled_front",
+          "a__installed_receiver",
+          "a__installed_plate",
+          "a__installed_artwork"
+        ],
+        "width": 1000,
+        "scrollWidth": 1000
+      },
+      {
+        "view": "b-root",
+        "file": "assembly/scenes/glb/nameplate-attachment-option-b.glb",
+        "meshes": 12,
+        "size": [
+          26,
+          24.399999618530273,
+          48
+        ],
+        "names": [
+          "B__RECEIVER_WINGS",
+          "40_mm_continuous_roots",
+          "b_receiver__body",
+          "b_receiver__flexible_wall",
+          "b_receiver__continuous_root",
+          "b_plate__body",
+          "b_plate__rigid_catch",
+          "b__plate_artwork",
+          "Assembled_front",
+          "b__installed_receiver",
+          "b__installed_plate",
+          "b__installed_artwork"
+        ],
+        "width": 1000,
+        "scrollWidth": 1000
+      },
+      {
+        "view": "mobile",
+        "file": "assembly/scenes/glb/nameplate-attachment-options.glb",
+        "meshes": 41,
+        "size": [
+          318.29998779296875,
+          25.25,
+          387.89686584472656
+        ],
+        "width": 390,
+        "scrollWidth": 390
+      }
+    ],
+    "errors": []
+  }
+}
