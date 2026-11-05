@@ -2,7 +2,7 @@
 use super::*;
 
 pub fn initialize(rt:Runtime,e:Env)->Result<()> {
-e.set("__doc__",Val::Str("Read the dedicated ASSE drain against the actual installed appliance bodies.\n\nRead the explicitly bound physical fine model and the exact casing model in its\ninstalled frame. The normal caller excludes wiring; the standalone installed\nreader includes it under the existing tube exclusions. Connections share material\nby design. This is nominal geometry evidence, not vent-flow qualification.\n".into()))?;
+e.set("__doc__",Val::Str("Read the dedicated ASSE drain against the actual installed appliance bodies.\n\nRun by hand. Read the physical fine model, the installed wiring and the exact\ncasing model in its installed frame, with wiring under the existing tube\nexclusions. Connections share material by design. This is nominal geometry evidence, not vent-flow qualification.\n".into()))?;
 e.set("Path",rt.member("pathlib","Path")?)?;
 let imported=rt.import_module("hashlib")?;e.set("hashlib",imported)?;
 let imported=rt.import_module("json")?;e.set("json",imported)?;

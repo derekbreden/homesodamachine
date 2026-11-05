@@ -56,9 +56,8 @@ no supports. The bottom cap uses ten compact normal supports in its short,
 outward-open M5 head pockets to preserve the required bed border. The other
 pieces retain their named support recipes and removal lanes.
 
-The [drain and flavor check](../../manifold-layout/drain-clearance-check.json)
-checks the adapter, white DRAIN return and both flavor paths against the installed
-material. The vent return is R55.674 and the two 4 mm flavor lines retain R25.
+[`check_asse_drain.py`](../../scripts/check_asse_drain.py), run by hand, checks the
+adapter, white DRAIN return and both flavor paths against the installed material.
 The receiver interfaces are identified separately.
 
 The [connector-service review](connector-service-review.json) records complete
