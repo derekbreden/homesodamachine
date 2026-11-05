@@ -7,8 +7,10 @@ much the agents get done. This is the build's plan for it.
 
 The build runs no Python. Every build step is a Rust program that Bazel runs directly, and what
 the website shows and what prints come from it. Its recipes are typed Rust: structs, functions
-and constants the compiler checks, calling the kernel in-process. A program compiles once,
-apart from the steps that run it. [What Counts](../../AGENTS.md#what-counts) is the whole test;
+and constants the compiler checks, calling the kernel in-process. Each program is built from
+the code its outputs are made from, so an edit recompiles and reruns only what it changes, and
+it compiles in a step of its own, ahead of the steps that run it.
+[What Counts](../../AGENTS.md#what-counts) is the whole test;
 every other file, report and intermediate format can change or go. Speed is measured on the
 full build ([Speed work](#speed-work)).
 
