@@ -2,6 +2,9 @@
 //!
 //! Python supplies stations and formats the existing reports. Model import, tool
 //! construction, intersections, connected components and face readings stay here.
+#[path = "../nameplate/snap_geometry.rs"]
+#[allow(dead_code)]
+mod nameplate_snap;
 use anyhow::{bail, ensure, Context, Result};
 use hsm_kernel::*;
 use serde_json::{json, Value};
@@ -169,6 +172,8 @@ fn evaluate(document: &Value) -> Result<Value> {
         let op = v["op"].as_str().context("operation")?;
         let s = (|| -> Result<Solid> { Ok(match op {
             "empty" => Solid::empty(),
+            "nameplate-stock" => nameplate_snap::receiver_stock(&v["snap"])?,
+            "nameplate-cuts" => nameplate_snap::receiver_cuts(&v["snap"])?,
             "model" => model(v, &mut models)?,
             "box" => { let (lo, hi) = corners(&v["box"])?; Solid::cuboid(lo, hi) },
             "rounded-box" => {
