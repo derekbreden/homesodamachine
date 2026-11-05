@@ -85,6 +85,10 @@ Two things count: what I see on the website and what I print. Everything else is
 those two. An output, check or report that feeds neither can go, and so can an expensive detail
 of the website that isn't needed, such as a check in the `/3d` checks modal.
 
+Some outputs feed neither and are still needed: the files a part is ordered from, such as the
+DXFs for SendCutSend and the PCB's Gerbers. They stay generatable, outside the normal build, and
+are generated when an order needs them.
+
 A change keeps the machine the same when the website shows the same things and the same solids
 print, within the kernel's rule. Nothing else has to match: intermediate files, report wording,
 error text and float rounding can all change.
