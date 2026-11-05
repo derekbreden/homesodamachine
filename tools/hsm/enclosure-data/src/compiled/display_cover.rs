@@ -179,8 +179,6 @@ pub fn initialize(rt: Runtime, e: Env) -> Result<()> {
     e.set("M_PETGF_BLACK", rt.member("_materials", "M_PETGF_BLACK")?)?;
     e.set("linear", rt.member("_materials", "linear")?)?;
     e.set("one_body", rt.member("_materials", "one_body")?)?;
-    let mod40 = rt.import_module("docgen")?;
-    e.set("substitute_md", rt.member("docgen", "substitute_md")?)?;
     e.set("dims", rt.import_module("_enclosure_interface")?)?;
     e.set("wings", rt.import_module("_display_wing_interface")?)?;
     e.set("retention", rt.import_module("_display_retention")?)?;
@@ -444,52 +442,6 @@ pub fn initialize(rt: Runtime, e: Env) -> Result<()> {
             let mod91 = rt.import_module("_enclosure_data")?;
             e.set("dimensions", rt.member("_enclosure_data", "dimensions")?)?;
             e.set("read", rt.member("_enclosure_data", "read")?)?;
-            {
-                let _site = rt.source_at(
-                    "tools/hsm/enclosure-data/src/compiled/display_cover.rs",
-                    line!(),
-                );
-                {
-                    let fun94 = e.get("substitute_md")?;
-                    let mut args92 = Vec::new();
-                    let mut kw93 = Vec::new();
-                    args92.push(binary(
-                        "truediv",
-                        e.get("_here")?.attr("parent")?,
-                        Val::Str("README.md".into()),
-                    )?);
-                    kw93.push(("variables".into(), {
-                        let _site = rt.source_at(
-                            "tools/hsm/enclosure-data/src/compiled/display_cover.rs",
-                            line!(),
-                        );
-                        {
-                            let fun97 = e.get("read")?;
-                            let mut args95 = Vec::new();
-                            let mut kw96 = Vec::new();
-                            args95.push(Val::Str("cover-variables".into()));
-                            kw96.push((
-                                "display".into(),
-                                {
-                                    let _site = rt.source_at(
-                                        "tools/hsm/enclosure-data/src/compiled/display_cover.rs",
-                                        line!(),
-                                    );
-                                    {
-                                        let fun100 = e.get("dimensions")?;
-                                        let mut args98 = Vec::new();
-                                        let mut kw99 = Vec::new();
-                                        fun100.call(args98, kw99)?
-                                    }
-                                }
-                                .get(Val::Str("display".into()))?,
-                            ));
-                            fun97.call(args95, kw96)?
-                        }
-                    }));
-                    fun94.call(args92, kw93)?
-                }
-            };
             {
                 let _site = rt.source_at(
                     "tools/hsm/enclosure-data/src/compiled/display_cover.rs",

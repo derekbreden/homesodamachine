@@ -9,7 +9,7 @@ on its own feet without support, and it is the unit of being wrong: a figure tha
 out badly costs one module and not a column of them.
 
 The build cuts each holder, runs its shape's own checks against everything the holder is
-said to take, writes one coloured STEP per holder, and rewrites this directory's README.
+said to take, and writes one coloured STEP per holder.
 A holder whose contents do not fit does not export — the check raises and the build stops
 with the holder, the content and the two figures that disagree.
 """
@@ -209,10 +209,6 @@ def cradle_witness(holder, shape, diameters):
     return assembly
 
 
-def figures():
-    return _reference_data('holders', 'figures', (), {}, overrides={'HOLDERS': HOLDERS})
-
-
 def parcels():
     return _reference_data('holders', 'parcels', (), {}, overrides={'HOLDERS': HOLDERS, 'COMBS': COMBS})
 
@@ -241,7 +237,6 @@ def main():
         from _part_output import summary
         for line in summary(body, span_spec=".1f", shop=True)["lines"]:
             print(line)
-    _kit.substitute_md(here / "README.md", variables=figures())
     print(f"\n{len(HOLDERS)} holders")
 
 if __name__ == "__main__":

@@ -33,7 +33,6 @@ from _faucet_interface import (
     display_corner_r, display_cover_lap, display_cover_over_face,
     display_housing_length, display_housing_width,
 )
-from docgen import substitute_md
 import _display_snap
 import faucet_shell as shell
 
@@ -249,7 +248,6 @@ def main():
     said = _rust_part.cut("faucet", "faucet-display-cover", numbers(), _here.parent)
     print("-> " + ", ".join(said["files"]))
     out = _here.parent / "faucet-display-cover.step"
-    substitute_md(_here.parent / "README.md", variables=_data()["variables"])
     cover = next(body for body in said["bodies"] if body["name"] == out.stem)
     print(f"-> {out.name}; {cover['volume']:.0f} mm³")
 

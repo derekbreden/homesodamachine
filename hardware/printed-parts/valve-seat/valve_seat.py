@@ -20,7 +20,6 @@ sys.path.insert(0, str(next(p for p in _here.parents if (p / "tools" / "docgen")
 sys.path.insert(0, str(_hardware / "printed-parts" / "cadlib"))
 import fits
 import beduan_solenoid as valve
-from docgen import substitute_md
 
 
 from _rust_data import request as _request
@@ -98,8 +97,6 @@ def _port_clearance_from_dimensions():
 def main():
     result = _data(method='main')
     print(result['report'])
-    substitute_md(_here.parent / 'README.md', variables=result['variables'])
-    print('-> README.md')
 
 
 if __name__ == "__main__":

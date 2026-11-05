@@ -159,11 +159,6 @@ pub fn initialize(rt: Runtime, e: Env) -> Result<()> {
         });
         fun51.call(args49, kw50)?
     };
-    let mod55 = rt.import_module("docgen")?;
-    e.set(
-        "substitute_py_comments",
-        rt.member("docgen", "substitute_py_comments")?,
-    )?;
     let mod56 = rt.import_module("_cold_core_interface")?;
     e.set(
         "evap_tail_low_z",
@@ -536,50 +531,6 @@ pub fn initialize(rt: Runtime, e: Env) -> Result<()> {
                     fun152.call(args150, kw151)?
                 })?);
                 fun149.call(args147, kw148)?
-            };
-            let assigned153 = {
-                let fun156 = e.get("_recipe")?;
-                let mut args154 = Vec::new();
-                let mut kw155 = Vec::new();
-                args154.push(Val::Str("mandrel-variables".into()));
-                fun156.call(args154, kw155)?
-            };
-            e.set("variables", assigned153.clone())?;
-            {
-                let fun159 = e.get("substitute_py_comments")?;
-                let mut args157 = Vec::new();
-                let mut kw158 = Vec::new();
-                args157.push({
-                    let fun162 = e.get("Path")?;
-                    let mut args160 = Vec::new();
-                    let mut kw161 = Vec::new();
-                    args160.push(e.get("__file__")?);
-                    fun162.call(args160, kw161)?
-                });
-                kw158.push(("variables".into(), e.get("variables")?));
-                fun159.call(args157, kw158)?
-            };
-            {
-                let fun165 = e.get("print")?;
-                let mut args163 = Vec::new();
-                let mut kw164 = Vec::new();
-                args163.push({
-                    let mut str166 = String::new();
-                    str166.push_str("-> ");
-                    str166.push_str(&format(
-                        &{
-                            let fun169 = e.get("Path")?;
-                            let mut args167 = Vec::new();
-                            let mut kw168 = Vec::new();
-                            args167.push(e.get("__file__")?);
-                            fun169.call(args167, kw168)?
-                        }
-                        .attr("name")?,
-                        &String::new(),
-                    )?);
-                    Val::Str(str166)
-                });
-                fun165.call(args163, kw164)?
             };
             Ok(Val::None)
         })

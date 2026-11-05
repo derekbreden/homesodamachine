@@ -7,29 +7,29 @@ reservoir in the foam-shell channel. The float and installation datums are in
 
 ## Guide and float
 
-The rod axis is `(x = ±[106.25](ROD_POSITION_X), y = +[32.5](ROD_POSITION_Y))`
-in the assembled cold-core frame. It is **[20 mm](ROD_WALL_DISTANCE)** inward
-from the wet far wall at `x = ±[126.25](CAVITY_FAR_WALL_X)`. The float is
-**[36 × 28 mm](FLOAT_SIZE)** with a 4.8 mm through bore, sliding on the
-**[3.175 mm](ROD_DIAMETER)** rod. Its magnet center is 14 mm above its bottom.
+The rod axis is `(x = ±, y = +)`
+in the assembled cold-core frame. It is inward
+from the wet far wall at `x = ±`. The float is
+ with a 4.8 mm through bore, sliding on the
+ rod. Its magnet center is 14 mm above its bottom.
 This leaves 2 mm nominal wall clearance, with 1.1875 mm minimum under upright
 radial guide motion. Finished foam expansion and free travel need physical checks.
 
-Cut each rod to **[203.8 mm (8.02 in)](RESERVOIR_ROD_LEN)**. The lower end seats
+Cut each rod to . The lower end seats
 in a blind bore in a standing boss on the body's flat floor. The upper end enters
 the matching cap boss. The bosses share the same XY axis and are wider than the
 float bore, so they define its travel stops. The floor remains uncut beneath
-the lower rod seat. Rod end clearance is [0.15 mm](ROD_END_CLEARANCE); the cap must seat on its gasket.
+the lower rod seat. Rod end clearance is; the cap must seat on its gasket.
 
-The magnet-center travel is **[25.25–188.15 mm](FLOAT_TRAVEL)** in the assembled
-frame. Four provisional reed centers are **[25.70, 79.70, 133.70, 187.70](REED_CENTRES)
-mm**, at [54 mm](REED_PITCH) pitch, spanning that whole travel. These accessible CAD stations
+The magnet-center travel is in the assembled
+frame. Four provisional reed centers are **
+mm**, at pitch, spanning that whole travel. These accessible CAD stations
 are seeds for calibration, not quarter-volume measurements or final full/empty control
 thresholds.
 
 ## Reed channel and wiring
 
-Each column has **[4](REEDS_PER_RES)** vertical reeds, four signal conductors and
+Each column has vertical reeds, four signal conductors and
 one common return in BNTECHGO 22 AWG black silicone 5P ribbon. Solder and lace
 the column after [liquid calibration](../magnetic-float/all-aero/installation.md#reed-calibration)
 sets its positions. The 14 × 2.5 mm CAD capture envelope includes glass, tape
@@ -40,7 +40,7 @@ reservoir's far wall, centered on the same +Y rod/reed plane. It is open at the
 top and has a bottom shelf. The column drops into this dry channel after the
 foam pour has cured; it is mechanically captured by the shelf, sides and equipment lid.
 It is not embedded in foam. Reservoir A's ribbon rises vertically through a
-straight **[7.5 mm](CONDUIT_BORE_D)** passage through the equipment lid,
+straight passage through the equipment lid,
 directly above its reed channel at appliance X−32.5/Y458.3. Its upper mouth
 is on the Z253.4 lid face; the ribbon's bends and jogging are dressed above
 that face. Reservoir B's five conductors
@@ -107,13 +107,4 @@ pressure life or flavor compatibility.
 
 ## Sources
 
-[value](NAME) figures are updated by:
-- `/hardware/printed-parts/cold-core/reservoir/reservoir.py`
-- `/hardware/assembly/_cold_core_sync.py`
-
 Reed evidence and calibration are kept beside the [float](../magnetic-float/README.md).
-
-## Sources
-[value](NAME) texts are updated by:
-- `/hardware/printed-parts/cold-core/reed-bridge/reed_bridge.py`
-- `/hardware/printed-parts/cold-core/reservoir/reservoir.py`

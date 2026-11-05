@@ -16,9 +16,9 @@ pitches are 37.0 and 30.2 mm.
 
 | Row / Z | Left / X76.5 | Right / X28.8 |
 |---|---|---|
-| [331.200](GRID_TOP_Z) | CO2: PISCO inlet neck, red 1/4-inch | TAP: PP010822E threaded inlet chain, white 1/4-inch |
-| [294.200](GRID_MIDDLE_Z) | SODA: PP1208E, blue 1/4-inch outlet | FLAVOR: ABU44M-E, black 4 mm A outlet |
-| [264.000](GRID_BOTTOM_Z) | DRAIN: ABU44M-E, white 4 mm vent | FLAVOR: ABU44M-E, black 4 mm B outlet |
+| | CO2: PISCO inlet neck, red 1/4-inch | TAP: PP010822E threaded inlet chain, white 1/4-inch |
+| | SODA: PP1208E, blue 1/4-inch outlet | FLAVOR: ABU44M-E, black 4 mm A outlet |
+| | DRAIN: ABU44M-E, white 4 mm vent | FLAVOR: ABU44M-E, black 4 mm B outlet |
 
 The main rear wall is 9 mm stock. The fluid field retains a 6 mm clamping
 stack between Y465.3 and Y471.3. Each 1.8 mm identification tile stands in a
@@ -89,9 +89,4 @@ references and the [mechanical qualification index](/hardware/mechanical-qualifi
 
 ## Sources
 
-[value](NAME) texts are updated by `_y_wall_dimensions.py` from the production
-rear grid. Color helpers in that module serve labels, tubing and installation art.
-
-## Sources
-[value](NAME) texts are updated by:
-- `/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py`
+`_y_wall_dimensions.py` reads its dimensions from the production rear grid. Color helpers in that module serve labels, tubing and installation art.

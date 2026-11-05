@@ -97,7 +97,7 @@ The Lillium-fed build, the flavor side in the enclosure with none of the cold co
 | [`concerns.md`](/hardware/concerns.md) | Concerns already answered, by stage of the machine's life, each with where its answer lives. |
 | [`defects-and-tolerances.md`](/hardware/defects-and-tolerances.md) | Defects and tolerances accepted for shipping, with their scope and physical reference evidence. |
 | [`mechanical-qualification/`](/hardware/mechanical-qualification/README.md) | Current mechanical evidence and qualification needs: fasteners, joint locations, deposited print structure, retained clamp force, handling and endurance. Links accepted physical records and controlled profile comparisons. |
-| [`ledger/`](/hardware/ledger/) | Bookkeeping. [`purchases.md`](/hardware/ledger/purchases.md) is the source-of-truth capex ledger; [`bom.md`](/hardware/ledger/bom.md) (per-unit parts), [`tools.md`](/hardware/ledger/tools.md) (active tooling), and [`inventory.md`](/hardware/ledger/inventory.md) (spares / abandoned / donor / diagnostic stock) are views over it. Three more price time rather than parts: [`labor.md`](/hardware/ledger/labor.md) (attended minutes per unit), [`machine-time.md`](/hardware/ledger/machine-time.md) (hours a machine is occupied per unit), and [`build-time.md`](/hardware/ledger/build-time.md) (seconds a generator run takes, which is what a change to this repo costs rather than what a soda machine costs). |
+| [`ledger/`](/hardware/ledger/) | Bookkeeping. [`purchases.md`](/hardware/ledger/purchases.md) is the source-of-truth capex ledger; [`bom.md`](/hardware/ledger/bom.md) (per-unit parts), [`tools.md`](/hardware/ledger/tools.md) (active tooling), and [`inventory.md`](/hardware/ledger/inventory.md) (spares / abandoned / donor / diagnostic stock) are views over it. Two more price time rather than parts: [`labor.md`](/hardware/ledger/labor.md) (attended minutes per unit) and [`machine-time.md`](/hardware/ledger/machine-time.md) (hours a machine is occupied per unit). |
 | [`assembly/`](/hardware/assembly/) | Build procedures, one doc per subsystem, plus [`handwork.md`](/hardware/assembly/handwork.md) (the skilled-hand task summary). |
 | [`printed-parts/`](/hardware/printed-parts/) | FDM parts: CadQuery generators (`*.py`) + exported `*.step` + sidecars. Includes `cadlib/` (shared geometry helpers), `cold-core/`, `electronics/`, `enclosure/`, `faucet/`, `refrigeration/`, `valve-seat/`, `zone-c/`. |
 | [`cut-parts/`](/hardware/cut-parts/) | Laser-cut sheet parts: `*.dxf` outlines + sidecars (carbonation end-caps, under-counter plate). |
@@ -139,14 +139,12 @@ For a focused dirty-tree build:
 ONE ACTION PER STEP, EACH HOLDING WHAT IT DECLARED AND NOTHING ELSE. What it declared is what
 a run of it was watched reading — `tools/bazel/trace_inputs.py` installs an audit hook, runs
 the generator once, and keeps every path under this repo it opened, including the ones handed
-to a tool it starts. The median step declares nine files; `_cable_assemblies_sync` declares
-six, and the assembly syncs that import the machine to reach its constants declare eighty. The
-graph is `tools/bazel/graph.json`; `tools/bazel/gen_build.py` writes `BUILD.bazel` from it.
+to a tool it starts. The graph is `tools/bazel/graph.json`; `tools/bazel/gen_build.py` writes
+`BUILD.bazel` from it.
 
-A step is usually one generator. Four are several: `docgen` lets more than one script keep a
-doc's `[value](NAME)` figures, each managing its own names, so `faucet_shell.py` and
-`under_counter_plate.py` both write `ASSEMBLY.md` and are one action. `bazel` needs
-one action per file, and `inventory._together` is what groups them.
+A step is usually one generator. Scripts that write the same file are one action, because
+`bazel` needs one action per file: the ledger's scripts all write `bom.md`. `inventory._together`
+is what groups them.
 
 `bazel-bin/` is where a build lands. The tree commits its docs and holds ignored solids long
 enough for the content-addressed bundle to publish them, because a reader at `/3d` and a shop
@@ -181,9 +179,7 @@ already built against, and nothing under it runs. What comes out parses to what 
 `pysrc` asserts that per file before it writes: the same reading `_realized.code_digest` takes,
 put where Bazel can see it.
 
-The 32 generators whose own docstrings hold `[value](NAME)` figures are handed their file raw,
-because the run rewrites what it was given and `sync_tree` carries that back into the tree. A
-step that actually starts Node is also handed `:node-packages`, which globs `tools/render/` and
+A step that actually starts Node is also handed `:node-packages`, which globs `tools/render/` and
 `web/` in whole.
 
 A line number in a sandbox traceback is that copy's, not the tree's. The line it names is in

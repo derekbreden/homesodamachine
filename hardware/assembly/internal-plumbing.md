@@ -163,10 +163,10 @@ describe the fitted mounting surfaces and assembly clearances.
 
 While front-top is open, land the J1 and J2 trunks on the front coils V-C through V-J and their `COM` feeds in the 221-420 and 221-415 ([wiring](wiring.md#4-cabinet-side-12-v-runs-dc-3-dc-5-through-dc-9)).
 
-Lay out the ten Beduan valves and the [6](MANIFOLD_TEES) PP0208E tees. Cut stationary links from the [current manifold geometry](/hardware/manifold-layout/README.md), including engagement at both actual fittings. Exposed path length is not a tube-blank cut length. Use black LLDPE except for `fluid-3`, which uses white. Square-cut, deburr without scoring the sealing surface, and tag each segment.
+Lay out the ten Beduan valves and the PP0208E tees. Cut stationary links from the [current manifold geometry](/hardware/manifold-layout/README.md), including engagement at both actual fittings. Exposed path length is not a tube-blank cut length. Use black LLDPE except for `fluid-3`, which uses white. Square-cut, deburr without scoring the sealing surface, and tag each segment.
 
 1. **Prepare the pumps and set the tubes in the loose retainer.** Pull Kamoer's barbed
-   connectors out of both pumps' tube ends. Cut four [33.2 mm](DOCK_PUMP_TUBE_CUT) tubes of
+   connectors out of both pumps' tube ends. Cut four tubes of
    black 1/4" LLDPE, square and burr-free with eased outer edges, and push one into each
    BPT end under the loosened pump-head housing. Seat both pumps in the loose retainer's
    fitted wells with the tubes facing +Y. Set the tube setting jig on its flat rear face
@@ -195,9 +195,9 @@ Lay out the ten Beduan valves and the [6](MANIFOLD_TEES) PP0208E tees. Cut stati
 4. **Fit all four tees with their upper tubes and fore valves.** Keep the rear valve row
    absent for this straight approach from aft. The upper tubes are `fluid-10`
    (Y-C to V-E), `fluid-13` (Y-D to V-F), `fluid-20` (Y-F to V-H) and `fluid-23` (Y-G to
-   V-I). Each nominal blank is [28.901 mm](DOCK_UPPER_TAIL): [5.251 mm](DOCK_FORE_LINK)
-   exposed, [11.65 mm](DOCK_TEE_INSERTION) bottomed in the tee's extended upper collet and
-   an estimated [12 mm](DOCK_VALVE_INSERTION) in the valve. Seat uncut tube fully in the
+   V-I). Each nominal blank is:
+   exposed, bottomed in the tee's extended upper collet and
+   an estimated in the valve. Seat uncut tube fully in the
    actual fore valve's bottom collet, mark the tube at the collet face, and cut it the
    exposed length plus the tee's insertion beyond that mark. Push the tube fully into the
    tee's upper collet and the fore valve's bottom collet. Bring the tee, tube and valve in
@@ -214,9 +214,9 @@ Lay out the ten Beduan valves and the [6](MANIFOLD_TEES) PP0208E tees. Cut stati
    and keeps room for the collet and its stem elbow.
 
 6. **Cut the stem elbows.** Each lower return takes two NeoFit ATEU44W stem elbows. Cut each
-   tee elbow's stem square [11.65 mm](DOCK_TEE_ELBOW_STEM) past its shoulder, the run
-   collet's seat, and each valve elbow's [12 mm](DOCK_VALVE_ELBOW_STEM) past its shoulder:
-   an estimated [12 mm](DOCK_VALVE_INSERTION) seat in the valve, with its shoulder on the
+   tee elbow's stem square past its shoulder, the run
+   collet's seat, and each valve elbow's past its shoulder:
+   an estimated seat in the valve, with its shoulder on the
    collet face. Take the valve's
    seat from the actual received valve's fully seated mark. Chamfer each cut edge so it
    passes the O-ring without scoring it.
@@ -226,10 +226,10 @@ Lay out the ten Beduan valves and the [6](MANIFOLD_TEES) PP0208E tees. Cut stati
    into its rear valve's bottom collet until its stem bottoms. Turn each pair's sockets to
    face each other. `fluid-9` runs from Y-C to V-C and `fluid-19` from Y-F to V-D; `fluid-17`
    from Y-D to V-G and `fluid-27` from Y-G to V-J lean inboard to their valves. Each is one
-   continuous tube of black LLDPE, cut to [50.4 mm](DOCK_RETURN_INNER) for the inner two and
-   [50.96 mm](DOCK_RETURN_OUTER) for the outer two. Form two tangent arcs between the parallel
+   continuous tube of black LLDPE, cut to for the inner two and
+   for the outer two. Form two tangent arcs between the parallel
    sockets, R18.084 on the inner pair and R19.36 on the outer pair, with the rear mouths
-   3.749 mm lower. Keep the [16.89 mm](DOCK_ELBOW_SOCKET) inside each socket straight and
+   3.749 mm lower. Keep the inside each socket straight and
    fully seated. Use actual
    insertion marks and tug-check every push-fit joint. Complete this work while front-top is
    loose, before it closes over the condenser/compressor half.
@@ -274,8 +274,8 @@ unbroken through its plain core guide. Only the connection points and
 paired-anchor centres/axes are fixed; the bends and displayed lengths between
 them illustrate routing and may change to clear installed hardware and
 wires. The current drawn warm spans are
-[452.675 mm](RESERVOIR_A_FILL_WARM) for `fluid-14` fill and
-[407.907 mm](RESERVOIR_A_DRAW_WARM) for `fluid-16` draw. Each includes the
+ for `fluid-14` fill and
+ for `fluid-16` draw. Each includes the
 16.891 mm receiving length in its front-valve ATEU44W stem elbow. For the physical blank,
 continue through the guide to the reservoir fill bore or dip-tube tip and
 replace the socket allowance with its actual fully seated insertion mark.
@@ -397,10 +397,6 @@ food-contact suitability is not established. The pump/ASSE TPU
 interfaces, shortened fitting stems and selected gas hardware retain their
 part-specific open qualification items. No unit is declared primed-ready or
 safe to energize solely because the CAD paths connect.
-
-## Sources
-[value](NAME) texts are updated by:
-- `/hardware/assembly/_internal_plumbing_sync.py`
 
 ## Reservoir tube grips and passive air paths
 

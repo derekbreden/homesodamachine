@@ -55,7 +55,6 @@ from faucet_shell import (
     build_lower_signal_lane,
     lower_bundle_numbers,
 )
-from docgen import substitute_py_comments
 from world_workplane import WorldWorkplane, xy_plane_z_up
 
 
@@ -123,14 +122,6 @@ def main():
     said = _rust_part.cut("faucet", "above-counter-gasket", numbers(),
                           Path(__file__).resolve().parent)
     print("-> " + ", ".join(said["files"]))
-
-    variables = _data()["variables"]
-
-    substitute_py_comments(
-        Path(__file__),
-        variables=variables,
-    )
-    print(f"-> {Path(__file__).name} (self)")
 
 
 if __name__ == "__main__":

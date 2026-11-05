@@ -3,7 +3,7 @@
 Simply having a 1022 already puts us ahead of most of these products. A 1022 that vents into the bowl at the faucet would be the only home arrangement I've found where the vent's discharge is defined, drained and visible.
 
 The Multiplex 19-0897 vent discharges through a separate white
-[4](DRAIN_OD) mm OD / [2.5](DRAIN_ID) mm ID LLDPE tube. Its square-cut end is
+ mm OD / mm ID LLDPE tube. Its square-cut end is
 inside the faucet tip's unsealed pocket. A round Ø4 mm underside opening
 provides a visible major-fault drip over the sink bowl. Plain printed guide
 walls carry the continuous beverage tubes and insulated conductors; no
@@ -14,17 +14,17 @@ housing is accepted during that fault.
 
 | Part | Specification and source | Quantity |
 | --- | --- | --- |
-| DRAIN bulkhead | Black neoFit ABU44M-E, [4](DRAIN_OD) mm tube, M[15](DRAIN_THREAD_D) × [1.5](DRAIN_THREAD_PITCH) panel barrel, [FWS](https://www.freshwatersystems.com/products/neofit-acetal-black-bulkhead-connector-4mm-5-32-tube) | 1 |
+| DRAIN bulkhead | Black neoFit ABU44M-E, mm tube, M × panel barrel, [FWS](https://www.freshwatersystems.com/products/neofit-acetal-black-bulkhead-connector-4mm-5-32-tube) | 1 |
 | Direct vent sleeve | [Printed TPU 85A adapter](/hardware/printed-parts/asse-drain-adapter/README.md), 6.10 mm barb socket / 3.80 mm tube socket, 14 mm tube insertion; unprinted fit candidate | 1 |
 | Sleeve ties | Existing 4-inch nylon ties, 2.54 mm wide; one on each inserted part in its own recessed land | 2 |
-| Drain tube | White neoFlo LLDPE4M-WHITE, [FWS](https://www.freshwatersystems.com/products/white-4mm-od-lldpe-polyethylene-tubing). The [neoFlo manufacturer sheet](https://assets.freshwatersystems.com/image/upload/s--N9disqrx--/gjtidjfc0tlprqbhb4ka.pdf) specifies [4](DRAIN_OD) mm OD, [2.5](DRAIN_ID) mm ID, [0.75](DRAIN_WALL) mm wall and R[25](DRAIN_BEND_R) minimum bend radius; W denotes white. | Appliance return and one continuous umbilical/faucet run |
+| Drain tube | White neoFlo LLDPE4M-WHITE, [FWS](https://www.freshwatersystems.com/products/white-4mm-od-lldpe-polyethylene-tubing). The [neoFlo manufacturer sheet](https://assets.freshwatersystems.com/image/upload/s--N9disqrx--/gjtidjfc0tlprqbhb4ka.pdf) specifies mm OD, mm ID, mm wall and R minimum bend radius; W denotes white. | Appliance return and one continuous umbilical/faucet run |
 | Identification | White rectangular DRAIN ring with black lettering; white DRAIN collar bored 4.28 mm | 1 each |
 
 The black bulkhead matches the existing rear fittings. Its 4 mm socket distinguishes the white drain from the white 1/4-inch TAP supply by size. The faucet tube remains one continuous piece inside the sleeve and shell.
 
 ## Assembly
 
-1. Work on the open back-top. The ASSE, its vent sleeve and the DRAIN bulkhead all belong to back-top, and the connected vent rides with it as the box closes. Load the identification cards before the fittings. Make up the DRAIN bulkhead through its white rectangular card at the lower-left station, viewed from behind ([enclosure mechanical §2](/hardware/assembly/enclosure-mechanical.md#2-populate-the-rear-connection-face)). The 6 mm panel stack fits its [8.1](DRAIN_PANEL_BARREL) mm bare barrel. Tighten only enough to hold the card and fitting without distorting the printed wall; maximum nut torque from the neoFit sheet is 1.1 ft lb.
+1. Work on the open back-top. The ASSE, its vent sleeve and the DRAIN bulkhead all belong to back-top, and the connected vent rides with it as the box closes. Load the identification cards before the fittings. Make up the DRAIN bulkhead through its white rectangular card at the lower-left station, viewed from behind ([enclosure mechanical §2](/hardware/assembly/enclosure-mechanical.md#2-populate-the-rear-connection-face)). The 6 mm panel stack fits its mm bare barrel. Tighten only enough to hold the card and fitting without distorting the printed wall; maximum nut torque from the neoFit sheet is 1.1 ft lb.
 2. Seat the ASSE's two hexes in back-top's integral upper seat, with its vent pointing down. Snap the lower cap into the seat, keeping the vent in its bottom slot. Seat the PISCO and meter caps before adding the vent sleeve. Fit the [TPU vent elbow](/hardware/printed-parts/asse-drain-adapter/README.md) over the barb below the hex, with its small socket pointing toward the front and clocked 15° toward +X, the meter side. Close its two recessed tie lands around the barb and the marked 14 mm tube insertion.
 3. Route one continuous white tube forward from the sleeve, around the front of the meter and back beneath it to DRAIN. Follow `rear_plumbing.drain_vent` in [above-core.json](/hardware/manifold-layout/above-core.json): its tangent arcs have at least 25.5 mm radius and the nominal blank is about 152 mm including 14 mm in the sleeve and 10 mm in the rear fitting. Use the actual receiving marks when cutting and seating. The elbow and rear fitting remain together on back-top. Keep the atmospheric passage open and leave both tie heads accessible. For meter-cap service, disconnect DRAIN and remove the vent sleeve from the barb before sliding the cap; refit the sleeve and its ties after reseating the cap.
 4. Feed the white 4 mm tube between the two flavors through the counter stack and shell base. Its R25-or-larger bends gather against the cold-line foam under the common sleeve. Put the 4.28 mm bore DRAIN collar on the bare tail.
@@ -50,7 +50,3 @@ of the Ø2.5 mm tube bore. That is a geometric comparison, not a flow rating.
 The direct sleeve is an unprinted fit candidate; socket seating, zip-tie
 retention and water tightness have no acceptance record. Physical drip behavior
 and the complete rising vent route's capacity are unmeasured. The separate beverage flow remains inside the tubes and donor.
-
-## Sources
-[value](NAME) texts are updated by:
-- `/hardware/assembly/_asse_drain_sync.py`

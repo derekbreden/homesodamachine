@@ -8,14 +8,14 @@ The collar has a half circle below the bore's axis and a rectangle above it for 
 
 | | |
 |---|---|
-| tube | Ø[6.35](COLLAR_TUBE_OD) mm 1/4" OD LLDPE on TAP, SODA and CO2; 4 mm OD on DRAIN and both FLAVOR lines |
-| bore, 1/4-inch stations | Ø[6.68](COLLAR_BORE) mm modelled; Ø[6.58](COLLAR_BORE_PRINTED) mm PETG calibration estimate |
+| tube | Ø mm 1/4" OD LLDPE on TAP, SODA and CO2; 4 mm OD on DRAIN and both FLAVOR lines |
+| bore, 1/4-inch stations | Ø mm modelled; Ø mm PETG calibration estimate |
 | bore, 4 mm stations | Ø4.28 mm modelled for the DRAIN and both FLAVOR tails |
-| width | Ø[12](COLLAR_OD) mm |
-| height | [13.05](COLLAR_TALL) mm — [7.05](COLLAR_RISE) mm of rectangle over the axis, its own half circle under |
-| length | [30 mm](COLLAR_LENGTH) along the tube |
-| wall | [2.66](COLLAR_WALL) mm, with [1.66](COLLAR_BACKING) mm of it behind the lettering |
-| volume | [3.64](COLLAR_VOL) cm³ + [0.17](COLLAR_WORD_VOL) cm³ of word |
+| width | Ø mm |
+| height | mm — mm of rectangle over the axis, its own half circle under |
+| length | along the tube |
+| wall | mm, with mm of it behind the lettering |
+| volume | cm³ + cm³ of word |
 
 ## Where each one goes
 
@@ -39,34 +39,34 @@ ship made up in the install kit.
 ## The bore
 
 Sized off the biggest tube a spool runs and not off the nominal. The extrusion is held to about
-[0.13](COLLAR_LLDPE_TOL) mm, so the tube the bench meets can be Ø[6.48](COLLAR_TUBE_HIGH), and
-[30 mm](COLLAR_LENGTH) of bore turns any interference at all into a collar that goes on with a
+ mm, so the tube the bench meets can be Ø, and
+ of bore turns any interference at all into a collar that goes on with a
 mallet or not at all. It threads on end-first over a tail that is still bare, by hand.
 
 The collar prints flat face down with the bore's axis along the bed, so the hole's crown is
-unsupported. The [0.1](COLLAR_SHRINK) mm diameter allowance comes from a PETG collar printed
-with a 0.2 mm nozzle. For the 1/4-inch stations, Ø[6.68](COLLAR_BORE) goes to the slicer;
-the calibrated Ø[6.58](COLLAR_BORE_PRINTED) estimate gives [0.1](COLLAR_SLIP) mm of slip on the
-specified high tube diameter and [0.36](COLLAR_CLEARANCE) mm on the low diameter. The production
+unsupported. The mm diameter allowance comes from a PETG collar printed
+with a 0.2 mm nozzle. For the 1/4-inch stations, Ø goes to the slicer;
+the calibrated Ø estimate gives mm of slip on the
+specified high tube diameter and mm on the low diameter. The production
 PET-GF collar bore has no corresponding caliper record. Confirm that every finished collar
 threads by hand onto its actual tube before assembling the tail.
 
 WHAT HOLDS A COLLAR IS THE BEND THE TUBE CAME OFF THE SPOOL WITH, and not the bore. 1/4" LLDPE is
-never straight through [30 mm](COLLAR_LENGTH) of bore, so it stands against the wall at both ends
+never straight through of bore, so it stands against the wall at both ends
 of one and the collar stays where it is put. Neither end of the play above is close to enough to
 let go of a tube that is not straight.
 
-That play over [30 mm](COLLAR_LENGTH) of bore is [0.69](COLLAR_ROCK)° of cock, and
-[85](COLLAR_SWAY) µm at the flag's own face — the furthest anything on the collar stands from the
-line it would turn about. The same play on a chip's [2](COLLAR_CHIP_THICK) mm is
-[10.20](COLLAR_CHIP_ROCK)°. `rock()` and `flag_sway()` are those figures, and `selftest` reads the
+That play over of bore is ° of cock, and
+ µm at the flag's own face — the furthest anything on the collar stands from the
+line it would turn about. The same play on a chip's mm is
+°. `rock()` and `flag_sway()` are those figures, and `selftest` reads the
 pair against each other.
 
 ## The word
 
-A second solid in a second colour, lying in a recess [1](COLLAR_WORD_DEPTH) mm into the flat and
+A second solid in a second colour, lying in a recess mm into the flat and
 filling it flush, at [`../../enclosure/bulkhead-ring/`](../../enclosure/bulkhead-ring/README.md)'s own em and in its own face. The advance runs along the tube and the cap stands across it, in a flat that leaves
-[28](COLLAR_BAND_ALONG) mm one way and [10](COLLAR_BAND_ACROSS) mm the other. FLAVOR is the longest
+ mm one way and mm the other. FLAVOR is the longest
 of the station words and what `LENGTH` is set from.
 
 The letters are loose, one solid each. `_cadq_export._per_solid_color` writes every one as its own
@@ -84,9 +84,3 @@ the enclosure's own stock ([`bom.md`](/hardware/ledger/bom.md) §7).
 |---|---|
 | `tube_collar.py` | the part, its six stations and its selftest |
 | `tube-collar-<station>.step` | one per station, both bodies in the frame `seat()` places them by |
-
-## Sources
-[value](NAME) texts are updated by:
-- `/hardware/printed-parts/faucet/tube-collar/tube_collar.py`
-
-The white DRAIN and black FLAVOR collars use a Ø4.28 mm modelled bore for 4 mm OD tubing: the published 0.076 mm tube tolerance, 0.10 mm print shrink and 0.10 mm slip over 4 mm (`bore_d`). The DRAIN collar's black word and three-face identification use the existing collar construction. The drain tail is separately accessible beside the three beverage tails. The allowance is a CAD value; the finished part's fit is checked on the actual tube.

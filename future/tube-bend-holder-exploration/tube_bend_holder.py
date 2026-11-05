@@ -1,7 +1,7 @@
 """A PET-GF sleeve that holds 1/4" LLDPE round its tightest bend: a D on its back, swept a
 quarter turn round the tube's R14 centreline, with a teardrop channel the tube threads through.
 
-THE BEND IS THE STOCK'S FLOOR. `_routing.STOCKS` gives 1/4" LLDPE a [14 mm](BEND_R) centreline
+THE BEND IS THE STOCK'S FLOOR. `_routing.STOCKS` gives 1/4" LLDPE a centreline
 radius from the spool bench test, and every 1/4" LLDPE run in the enclosure turns at least one
 corner at exactly that radius. The tube reached it only wrapped tightly round a dense cylinder,
 so the corner needs a body round it that keeps the bent tube from flattening.
@@ -13,7 +13,7 @@ needs nothing under it either. A support inside a curved tunnel could never be t
 THE WALL IS THE LEAST MATERIAL ANYWHERE ROUND THE CHANNEL. The floor and the sides stand `wall`
 off the channel's circle, and the dome is centred `(sqrt(2) - 1) * r` above the circle's
 centre, which keeps `wall` over the teardrop's point as well. A dome centred on the circle
-would leave `wall - (sqrt(2) - 1) * r` there: [0.59 mm](CENTRED_POINT_WALL_W2) on the 2 mm holder.
+would leave `wall - (sqrt(2) - 1) * r` there: on the 2 mm holder.
 
 Frame: the bend's centre is the origin and its axis is +Z; the holder lies on Z = 0 and runs
 from the XZ plane (0 degrees) round to the YZ plane (90 degrees). Run with the CAD venv:
@@ -32,7 +32,6 @@ sys.path.insert(0, str(ROOT / "hardware" / "scripts"))
 sys.path.insert(0, str(ROOT / "tools"))
 from _cadq_export import export_step  # noqa: E402
 from _routing import stock_of  # noqa: E402
-from docgen import substitute_md, substitute_py_comments  # noqa: E402
 
 TUBE_OD = 6.35
 STOCK = stock_of("water", TUBE_OD)
@@ -40,7 +39,7 @@ BEND_R = STOCK.min_bend             # the channel centreline
 TURN = 90.0                         # the commonest turn among the routes' R14 corners
 # The channel's circle. The umbilical organizer's accepted straight sliding bore for this tube
 # is 6.65 (`hardware/printed-parts/faucet/umbilical-organizer/physical-acceptance.json`); a
-# curved tunnel the tube is pushed round takes [0.15 mm](CHANNEL_EXTRA) more.
+# curved tunnel the tube is pushed round takes more.
 ORGANIZER_BORE = 6.65
 CHANNEL_D = 6.8
 MOUTH = 0.5                         # the 45-degree lead-in at each end
@@ -122,28 +121,6 @@ def name(wall, leg=0.0):
     return f"holder-w{wall:g}" + (f"-leg{leg:g}" if leg else "")
 
 
-def document(volumes):
-    """Write the figures the README and this file's own comments quote."""
-    figures = {"BEND_R": f"{BEND_R:g} mm", "TURN": f"{TURN:g}°", "CHANNEL_D": f"Ø{CHANNEL_D:g} mm",
-               "CHANNEL_EXTRA": f"{CHANNEL_D - ORGANIZER_BORE:.2f} mm",
-               "ORGANIZER_BORE": f"Ø{ORGANIZER_BORE:g} mm", "MOUTH": f"{MOUTH:g} mm",
-               "DOME_LIFT": f"{LIFT:.2f} mm",
-               "CENTRED_POINT_WALL_W2": f"{WALLS[0] - LIFT:.2f} mm"}
-    for wall in WALLS:
-        s, tag = section(wall), f"W{wall:g}"
-        figures |= {f"WIDTH_{tag}": f"{s['width_mm']:.1f} mm",
-                    f"HEIGHT_{tag}": f"{s['height_mm']:.1f} mm",
-                    f"BASE_{tag}": f"R{s['base_inner_r_mm']:.1f}–R{s['base_outer_r_mm']:.1f}",
-                    f"MASS_{tag}": f"{volumes[wall, 0.0] / 1000.0 * PETGF_DENSITY:.1f} g"}
-    for leg in LEGS:
-        tag = f"LEG{leg:g}"
-        side = section(LEG_WALL)["base_outer_r_mm"] + leg
-        figures |= {f"SQUARE_{tag}": f"{side:.1f} mm",
-                    f"MASS_{tag}": f"{volumes[LEG_WALL, leg] / 1000.0 * PETGF_DENSITY:.1f} g"}
-    substitute_md(HERE / "README.md", variables=figures)
-    substitute_py_comments(Path(__file__), variables=figures)
-
-
 def main():
     volumes = {}
     for wall, leg in [(w, 0.0) for w in WALLS] + [(LEG_WALL, leg) for leg in LEGS]:
@@ -157,7 +134,6 @@ def main():
         s = section(wall)
         print(f"{name(wall, leg)}: {s['width_mm']:.1f} wide x {s['height_mm']:.2f} tall, "
               f"legs {leg:g} mm, {volumes[wall, leg] / 1000.0:.2f} cm3")
-    document(volumes)
 
 
 if __name__ == "__main__":

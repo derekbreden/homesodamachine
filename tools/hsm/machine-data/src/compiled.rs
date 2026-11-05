@@ -6,7 +6,7 @@ pub use hsm_documents::interop::{Val, binary, unary, compare, format};
 use hsm_documents::interop::{builtin, builtin_module, callback};
 use serde_json::{Value, json};
 use std::cell::RefCell;
-use std::collections::{BTreeMap, HashMap};
+use std::collections::HashMap;
 use std::path::{Path, PathBuf};
 use std::rc::Rc;
 
@@ -101,7 +101,6 @@ impl Runtime {
     fn new(root:PathBuf)->Self {Self(Rc::new(State{root,modules:RefCell::new(HashMap::new()),active:RefCell::new(vec![])}))}
     pub fn import_module(&self,name:&str)->Result<Val> {
         if let Some(value)=builtin_module(name){return Ok(value)}
-        if name=="docgen" {return self.docgen()}
         if name=="_document_export" {return self.document_export()}
         if let Some(path)=modules::source(name){
             if let Some(e)=self.0.modules.borrow().get(name){return Ok(e.0.values.clone())}
@@ -139,35 +138,6 @@ impl Runtime {
     fn note(&self,module:&str,function:&str,path:&Path)->Result<()> {
         let primitive=Val::decode(callback(json!({"op":"import","module":module}))?)?.attr(function)?;
         primitive.call(vec![Val::Path(path.to_owned())],vec![])?;Ok(())
-    }
-    fn docgen(&self)->Result<Val>{
-        let mut fields=vec![];
-        for (name,kind) in [("substitute_md",hsm_documents::Kind::Markdown),("substitute_mmd",hsm_documents::Kind::Mermaid),("substitute_py_comments",hsm_documents::Kind::Python)] {
-            let rt=self.clone();let caller=self.caller();
-            fields.push((name.into(),Val::function(move|args,kwargs|{
-                let path=PathBuf::from(args.first().context("substitute path")?.str()?);
-                let variables=args.get(1).cloned().or_else(||kwargs.iter().find(|(k,_)|k=="variables").map(|(_,v)|v.clone())).context("substitute variables")?;
-                let mut values=BTreeMap::new();for key in variables.iter()?{values.insert(key.str()?,variables.get(key)?.str()?);}
-                let source=caller.as_deref().and_then(|name|modules::source(name)).map(|p|format!("/{p}"));
-                let hardware=source.as_deref().is_some_and(|s|s.starts_with("/hardware/"));
-                rt.note("_cadq_export","note_read",&path)?;
-                if hardware && matches!(kind,hsm_documents::Kind::Markdown) {let sidecar=path.with_extension("figures.json");if sidecar.is_file(){rt.note("_cadq_export","note_read",&sidecar)?;}}
-                let result=hsm_documents::substitute(&path,kind,&values,source.as_deref(),hardware)?;
-                for maintained in result.maintained {rt.note("docgen","note_rewritten",&maintained)?;}
-                Ok(Val::None)
-            })));
-        }
-        fields.push(("cells".into(),Val::function(|args,_|Ok(Val::list(hsm_documents::cells(&args[0].str()?).into_iter().map(Val::Str).collect())))));
-        let rt=self.clone();
-        fields.push(("load_module".into(),Val::function(move|args,kwargs|{
-            let path=args.get(1).context("load_module path")?.str()?;
-            if let Some(name)=modules::by_path(&path){return rt.import_module(name)}
-            let module=Val::decode(callback(json!({"op":"import","module":"docgen"}))?)?;
-            module.attr("load_module")?.call(args,kwargs)
-        })));
-        let raw=Val::decode(callback(json!({"op":"import","module":"docgen"}))?)?;
-        fields.push(("note_rewritten".into(),raw.attr("note_rewritten")?));
-        Ok(Val::namespace(fields))
     }
     fn document_export(&self)->Result<Val>{
         let mut fields=vec![];

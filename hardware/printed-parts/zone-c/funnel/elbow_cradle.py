@@ -96,15 +96,9 @@ def numbers():
     return result
 
 
-def _document(s):
-    from docgen import substitute_md
-    substitute_md(_here.parent / 'README.md', variables=_data(method='document', stations=s))
-
-
 def main():
     import _rust_part
     said = _rust_part.cut('funnel', 'elbow-cradle', numbers(), _here.parent)
-    _document(stations())
     print(f"-> elbow-cradle STEP, model, payload and STL; {said['bodies'][0]['volume']:.1f} mm3")
 
 

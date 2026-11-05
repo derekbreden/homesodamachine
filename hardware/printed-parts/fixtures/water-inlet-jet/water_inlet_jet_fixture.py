@@ -26,7 +26,6 @@ for _path in (_hw / "scripts", _hw / "cold-core-layout", _repo / "tools"):
     sys.path.insert(0, str(_path))
 
 from _water_inlet_jet import JET_CAP_D, JET_PASSAGE_D  # noqa: E402
-from docgen import substitute_md  # noqa: E402
 
 
 if __name__ == "__main__":
@@ -51,16 +50,11 @@ def numbers():
     return _data(color=list(linear(M_PETGF_BLACK)))['numbers']
 
 
-def _document():
-    substitute_md(_here.parent / 'README.md', variables=_data()['variables'])
-
-
 def main(output=None):
     import _rust_part
     out = Path(output) if output is not None else _here.parent
     out.mkdir(parents=True, exist_ok=True)
     result = _rust_part.cut("tooling", "water-inlet-jet-fixture", numbers(), out)
-    _document()
     print(f"-> water inlet jet fixture: {len(result['files'])} files")
 
 

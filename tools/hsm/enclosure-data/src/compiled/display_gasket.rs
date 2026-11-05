@@ -153,12 +153,6 @@ pub fn initialize(rt: Runtime, e: Env) -> Result<()> {
     e.set("M_TPU_BLACK", rt.member("_materials", "M_TPU_BLACK")?)?;
     e.set("linear", rt.member("_materials", "linear")?)?;
     e.set("one_body", rt.member("_materials", "one_body")?)?;
-    let mod45 = rt.import_module("docgen")?;
-    e.set("substitute_md", rt.member("docgen", "substitute_md")?)?;
-    e.set(
-        "substitute_py_comments",
-        rt.member("docgen", "substitute_py_comments")?,
-    )?;
     let mod46 = rt.import_module("_enclosure_interface")?;
     e.set(
         "display_bezel_depth",
@@ -637,111 +631,6 @@ Ok(Val::None)})})?;
                         Val::Str(str133)
                     });
                     fun132.call(args130, kw131)?
-                }
-            };
-            let assigned140 = {
-                let _site = rt.source_at(
-                    "tools/hsm/enclosure-data/src/compiled/display_gasket.rs",
-                    line!(),
-                );
-                {
-                    let fun143 = e.get("_data")?;
-                    let mut args141 = Vec::new();
-                    let mut kw142 = Vec::new();
-                    fun143.call(args141, kw142)?
-                }
-            }
-            .get(Val::Str("variables".into()))?;
-            e.set("variables", assigned140.clone())?;
-            {
-                let _site = rt.source_at(
-                    "tools/hsm/enclosure-data/src/compiled/display_gasket.rs",
-                    line!(),
-                );
-                {
-                    let fun146 = e.get("substitute_md")?;
-                    let mut args144 = Vec::new();
-                    let mut kw145 = Vec::new();
-                    args144.push(binary(
-                        "truediv",
-                        e.get("_here")?.attr("parent")?,
-                        Val::Str("README.md".into()),
-                    )?);
-                    kw145.push(("variables".into(), e.get("variables")?));
-                    fun146.call(args144, kw145)?
-                }
-            };
-            {
-                let _site = rt.source_at(
-                    "tools/hsm/enclosure-data/src/compiled/display_gasket.rs",
-                    line!(),
-                );
-                {
-                    let fun149 = e.get("print")?;
-                    let mut args147 = Vec::new();
-                    let mut kw148 = Vec::new();
-                    args147.push(Val::Str("-> README.md".into()));
-                    fun149.call(args147, kw148)?
-                }
-            };
-            {
-                let _site = rt.source_at(
-                    "tools/hsm/enclosure-data/src/compiled/display_gasket.rs",
-                    line!(),
-                );
-                {
-                    let fun152 = e.get("substitute_py_comments")?;
-                    let mut args150 = Vec::new();
-                    let mut kw151 = Vec::new();
-                    args150.push({
-                        let _site = rt.source_at(
-                            "tools/hsm/enclosure-data/src/compiled/display_gasket.rs",
-                            line!(),
-                        );
-                        {
-                            let fun155 = e.get("Path")?;
-                            let mut args153 = Vec::new();
-                            let mut kw154 = Vec::new();
-                            args153.push(e.get("__file__")?);
-                            fun155.call(args153, kw154)?
-                        }
-                    });
-                    kw151.push(("variables".into(), e.get("variables")?));
-                    fun152.call(args150, kw151)?
-                }
-            };
-            {
-                let _site = rt.source_at(
-                    "tools/hsm/enclosure-data/src/compiled/display_gasket.rs",
-                    line!(),
-                );
-                {
-                    let fun158 = e.get("print")?;
-                    let mut args156 = Vec::new();
-                    let mut kw157 = Vec::new();
-                    args156.push({
-                        let mut str159 = String::new();
-                        str159.push_str("-> ");
-                        str159.push_str(&format(
-                            &{
-                                let _site = rt.source_at(
-                                    "tools/hsm/enclosure-data/src/compiled/display_gasket.rs",
-                                    line!(),
-                                );
-                                {
-                                    let fun162 = e.get("Path")?;
-                                    let mut args160 = Vec::new();
-                                    let mut kw161 = Vec::new();
-                                    args160.push(e.get("__file__")?);
-                                    fun162.call(args160, kw161)?
-                                }
-                            }
-                            .attr("name")?,
-                            &String::new(),
-                        )?);
-                        Val::Str(str159)
-                    });
-                    fun158.call(args156, kw157)?
                 }
             };
             Ok(Val::None)

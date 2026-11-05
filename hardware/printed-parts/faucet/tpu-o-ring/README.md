@@ -6,16 +6,16 @@ harvested Westbrass R2031-NL's top water port. Sits *in*
 that port. Sealing happens on **two interfaces in series**:
 
 1. **Radial seal** — outer cylindrical face of the thimble compresses
-   against the port wall (Ø [10.44 mm](ORING_OUTER_D) vs Ø [10 mm](WESTBRASS_PORT_D) = [0.22 mm](WESTBRASS_SQUEEZE)/side squeeze);
-   inner cylindrical face grips the LLDPE OD (Ø [9.2 mm](ORING_INNER_D) vs Ø [9.525 mm](LLDPE_OD) =
-   [0.1625 mm](LLDPE_INTERFERENCE)/side interference).
+   against the port wall (Ø vs Ø = /side squeeze);
+   inner cylindrical face grips the LLDPE OD (Ø vs Ø =
+   /side interference).
 2. **Face seal** — the LLDPE tube's square-cut bottom end face
    bottoms out on the thimble's cap and presses against it.
    Pressure-energized: water flowing up from the valve chamber pushes
    the LLDPE end harder onto the cap.
 
-The cap's centered hole (Ø [6.5 mm](CAP_HOLE_D)) sits between LLDPE
-ID (1/4" = [6.35 mm](LLDPE_ID)) and LLDPE OD ([9.525 mm](LLDPE_OD)).
+The cap's centered hole (Ø) sits between LLDPE
+ID (1/4" =) and LLDPE OD.
 The LLDPE bottoms out on the cap.
 
 ## Where this lives in the wet path
@@ -28,7 +28,7 @@ the faucet's wet path:
   nut seal the joint. See [`/hardware/assembly/faucet-and-umbilical.md`](/hardware/assembly/faucet-and-umbilical.md) step 2.
 - **Dispense (the Westbrass's top water port):** 3/8" OD LLDPE descends from
   the printed [`faucet-shell`](/hardware/printed-parts/faucet/faucet-shell/) gooseneck water
-  channel and enters the Ø [10 mm](WESTBRASS_PORT_D) top port. Water
+  channel and enters the Ø top port. Water
   flows up out of the valve into the LLDPE; this thimble seals
   around the outside of the tube where it enters the port.
 
@@ -36,18 +36,18 @@ the faucet's wet path:
 
 | Dimension | Value |
 |---|---|
-| Cylinder ID | **[9.2 mm](ORING_INNER_D)** |
-| Outer Ø | **[10.44 mm](ORING_OUTER_D)** |
-| Cylinder wall | **[0.62 mm](ORING_WALL_T)** |
-| Cap hole Ø | **[6.5 mm](CAP_HOLE_D)** |
-| Cap thickness | **[2.1 mm](ORING_CAP_T)** |
-| Cylinder length | **[13.5 mm](CYL_L)** |
-| Total height | **[15.6 mm](TOTAL_H)** |
+| Cylinder ID | |
+| Outer Ø | |
+| Cylinder wall | |
+| Cap hole Ø | |
+| Cap thickness | |
+| Cylinder length | |
+| Total height | |
 
 ## Print orientation
 
-Cap-down on the bed. First layer is the annular cap (Ø [10.44 mm](ORING_OUTER_D)
-solid disk with a Ø [6.5 mm](CAP_HOLE_D) hole); the [0.62 mm](ORING_WALL_T)
+Cap-down on the bed. First layer is the annular cap (Ø
+solid disk with a Ø hole); the
 cylindrical wall extrudes upward using the saved single-wall recipe.
 
 The saved spiral recipe commands three solid cap layers totaling **0.66 mm**
@@ -86,9 +86,9 @@ tube while fitting the sleeve.
 Attach the printed lever to the bare Touch-Flo before inserting the sleeved
 tube. Keep the lever **down at rest, not pressed**. Align the tube and sleeve
 with the empty metal top port and push them in together, **cap first**.
-The [0.22 mm](WESTBRASS_SQUEEZE) nominal radial compression at the outer
-face engages the port wall. Total sleeve height is [15.6 mm](TOTAL_H);
-nominal port depth is ≥ [20 mm](PORT_DEPTH_MIN).
+The nominal radial compression at the outer
+face engages the port wall. Total sleeve height is;
+nominal port depth is ≥.
 
 [Derek's observation](../lever-replica/assembly-observations.json)
 establishes that TPU slides against metal far more easily than against LLDPE.
@@ -109,7 +109,3 @@ replace on re-assembly and fit its replacement to the tube outside the donor.
 ```
 tools/cad-venv/bin/python tpu_o_ring.py
 ```
-
-## Sources
-[value](NAME) texts are updated by:
-- `/hardware/printed-parts/faucet/tpu-o-ring/tpu_o_ring.py`

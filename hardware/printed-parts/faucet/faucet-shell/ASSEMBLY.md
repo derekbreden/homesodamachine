@@ -10,26 +10,26 @@ existing stainless under-counter plate.
 ## Printed pieces and seams
 
 The shell base carries the oval foot, lever opening and lower gooseneck. The
-shell tip carries the upper gooseneck and display pocket. Their joint datum is at [70°](SPLIT_JUNCTION_ROT) around the arc.
+shell tip carries the upper gooseneck and display pocket. Their joint datum is at around the arc.
 The base has the 20 mm female socket; the tip has the 18 mm male plug.
 The visible outer seam follows that joint plane. The separate display cover has a perimeter
 seam around the display pocket. The above-counter plate meets the shell at
 its foot; the matching TPU gasket sits under that plate.
 
 Rigid structural walls, display supports, screw seats and insert backing
-are at least [2 mm](WALL_MIN) at the checked sections. The gooseneck lap has a
-[2 mm](SPLIT_SOCKET_WALL) socket wall and a [2 mm](SPLIT_PLUG_WALL) plug wall, separated by
-[0.3 mm](SPLIT_SLIP) diametral clearance. The display cover's side walls flex
+are at least at the checked sections. The gooseneck lap has a
+ socket wall and a plug wall, separated by
+ diametral clearance. The display cover's side walls flex
 around the rigid neck; the nominal skin is 1.30 mm thick, with a 1 mm
 minimum for the cover's thin sections. Its broad retaining lips are 3 mm high.
 The compressible above-counter gasket remains 2 mm TPU.
 
-The round stem, bend and dispense tip share a Ø[27.000 mm](NECK_DIAMETER)
+The round stem, bend and dispense tip share a Ø
 section. The display is placed inside its cover before the pair seats on the tip.
 
 ## Base joint
 
-The [58 mm](FOOT_WIDTH) × [59 mm](FOOT_DEPTH) oval plate is [4 mm](PLATE_T) thick, with three [2.2 mm](PEDESTAL_H) raised screw-seat pedestals. Three M3 × [8 mm](BASE_SCREW_L) socket-head screws
+The × oval plate is thick, with three raised screw-seat pedestals. Three M3 × socket-head screws
 enter from its underside, through 3 mm bearing seats, into ruthex
 RX-M3Sx4.0 inserts heat-set at the ceilings of the shell's pedestal sockets. The three
 chamfered pedestals register the plate. The gasket covers all three screw
@@ -38,7 +38,7 @@ heads on the completed faucet.
 1. Clear the donor cavity, pedestal sockets, tube passages and insert pilots
    of supports and stringing. Dry-fit the printed pieces before heat setting.
 2. Heat-set the three short M3 inserts into the shell's bottom-facing Ø4 mm
-   pilots, with their mouths at Z = [3.2 mm](BASE_INSERT_Z). Let them cool without disturbing their alignment.
+   pilots, with their mouths at Z =. Let them cool without disturbing their alignment.
 3. Keep the donor outside the shell, with its own lever removed and set aside,
    soda tube absent and base plate separate. Position the printed lever, in
    the faucet's finish, aft of its working position, lower it onto the valve,
@@ -73,7 +73,7 @@ heads on the completed faucet.
    sockets; the donor and shell foot seat on the plate. Keep the ribbon flat
    behind the flavor/drain bundle through the base, plate and gasket. The
    rear bundle eases into the centered neck arrangement inside the shell.
-9. Install the three M3 × [8 mm](BASE_SCREW_L) screws from below with a 2.5 mm hex key. Seat
+9. Install the three M3 × screws from below with a 2.5 mm hex key. Seat
    progressively so the plate closes evenly. Verify the lever through
    its full travel and confirm the flavor tubes stay in position and pass flow
    before adding the gasket.
@@ -100,16 +100,16 @@ Above that shoulder it follows the rounded front of the neck cap. The arched cle
 arm to rise when the front is pressed. Confirm this motion with the printed lever before
 closing the faucet base.
 
-The screw stations are (X,Y)=(±[22.5](BASE_X),[-2](BASE_Y)) and (0,[-22.3](BASE_FRONT_Y)) mm. The head recesses
-are Ø[6.15 mm](BASE_CBORE_D) × [3.2 mm](BASE_CBORE_DEPTH) deep. Each [4 mm](BASE_INSERT_L) insert receives the screw's full thread
+The screw stations are (X,Y)=(±,) and (0,) mm. The head recesses
+are Ø × deep. Each insert receives the screw's full thread
 engagement; the blind pilot provides tip relief.
 
 ## Gooseneck closure
 
 The tubes and close-fit curved lap retain the neck. Rotate the tip's curved
 plug into the base socket about the arc centre until the seam seats. The
-socket has [20 mm](SPLIT_OVERLAP) of engagement length and accepts the
-18 mm plug, with [0.3 mm](SPLIT_SLIP) diametral fit allowance. The smooth
+socket has of engagement length and accepts the
+18 mm plug, with diametral fit allowance. The smooth
 neck has no screw opening or external bridge.
 
 The donor arch clearance joins the shared tube opening behind the lever,
@@ -156,7 +156,7 @@ give the full endpoint map and plug/jack continuity procedure.
 2. Spread the cover's plastic wings and place the display inside it from
    the open underside. Keep the PCB clear of the retaining lips; spread the
    plastic by hand rather than using the board as a wedge.
-3. Hold the display and cover together [9.5 mm](DISPLAY_INSTALL_LIFT) above
+3. Hold the display and cover together above
    their final seat, measured normal to the glass. Slide the pair along the
    tip from the outlet end until the four metal feet align with their
    printed supports. Feed the ribbon through the neck as the pair moves.
@@ -179,7 +179,7 @@ fit reading. The current complete [Sculpted](../sculpted/README.md) and
 matching tip and cover in their selected orientations.
 Their native records identify the geometry, settings and support contacts.
 
-The dispense face has [2 mm](DISPENSE_FACE_T) axial stock. The display pocket and USB clearance
+The dispense face has axial stock. The display pocket and USB clearance
 share one flat plane behind it.
 
 The [display cover instructions](../faucet-display-cover/README.md) give the
@@ -201,9 +201,9 @@ Reserve the straight rear bundle through the steel below a 38 mm routing-envelop
 slab. R30 flavor returns and an R25 drain return connect the mounting row to the
 organizer below the nut/washer working area. The flat ribbon remains straight.
 
-The stainless plate has a Ø[54.55 mm](STEEL_PLATE_D) bearing outline, a
-Ø[12.6 mm](STEEL_SHANK_HOLE_D) shank pocket and an
-[18.15 mm](STEEL_PILL_L) × [7.25 mm](STEEL_PILL_W) rear pocket. Both channels open toward
+The stainless plate has a Ø bearing outline, a
+Ø shank pocket and an
+ × rear pocket. Both channels open toward
 the same side. Slide the plate around the shank and the entire centered rear
 bundle from that side before tightening the captive washer and nut.
 [Plate drawing and specification](../../../cut-parts/faucet/under-counter-plate/README.md)
@@ -243,8 +243,3 @@ current drip-hole geometry from physical discharge behavior and complete device 
 cover nominal geometry. The fit print must establish actual slip, insert
 seating, full lever travel, tube routing, display/cable fit, support removal
 and resistance to handling loads.
-
-## Sources
-[value](NAME) texts are updated by:
-- `/hardware/cut-parts/faucet/under-counter-plate/under_counter_plate.py`
-- `/hardware/printed-parts/faucet/faucet-shell/faucet_shell.py`

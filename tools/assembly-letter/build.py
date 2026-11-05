@@ -101,7 +101,7 @@ if not math.isclose(R["ENDCAP_RECESS"] / 25.4, 1 / 4):
 rig = (ROOT / SOURCES["rig"]).read_text()
 radial = re.search(r"radial runout at the weld end \*\*≤ ([\d.]+) mm TIR", rig).group(1)
 face = re.search(r"end-cap face runout at the weld circle \*\*≤ ([\d.]+) mm TIR", rig).group(1)
-for requirement in ["through two dry revolutions", "Start at **[8 mm/s](SPEED_NOM)"]:
+for requirement in ["through two dry revolutions"]:
     if requirement not in rig:
         raise ValueError(f"Review changed rotator procedure: {requirement}")
 if not 0 < D["register_depth"] < D["disc_thickness"]:

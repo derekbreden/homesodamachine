@@ -50,9 +50,9 @@ lines under the STEP it pins, and a line-scoped reader would not see it.
 
 WHAT IS NOT A LINK. Four dialects live in this tree and each would drown the answer:
 
-  - `[11](VALVE_COUNT)` is a docgen substitution, not a link — 1,870 of them, against 1,811
-    real links. The shape is docgen's own `_LINK_RE`, imported rather than guessed at, and
-    the `## Sources` preamble is cut the way `substitute_md` cuts it.
+  - `[11](VALVE_COUNT)` is a docgen substitution in the ledger, not a link. The shape is
+    docgen's own `_LINK_RE`, imported rather than guessed at, and the `## Sources` preamble
+    is cut the way `substitute_md` cuts it.
   - `#include "images/anim_00.h"` is relative to the .cpp that writes it, not to the root.
   - `hardware/foo/bar/foo_bar.py`, `path/to/drawing.svg`, `web/.../pcb-pick.js` are ways of
     writing "a path", not paths.
@@ -433,7 +433,7 @@ def check(files: set, dirs: set, solids: set, tags: set, routes: set) -> list[st
     # THIS FILE IS THE NOTATION, NOT A USE OF IT. Every rule above is written down beside
     # the case that earned it — `images/anim_00.h`, `hardware/a.md`, a tag family's prefix —
     # so a scan of this file reports the examples as though something meant them. Nothing
-    # does. `docgen.lint` skips `NAME` for the same reason and says so in the same breath.
+    # does.
     pinned = _pinned_copies(files)
     for rel in sorted(f for f in files
                       if f.endswith((".md",) + SOURCE_SUFFIXES)
