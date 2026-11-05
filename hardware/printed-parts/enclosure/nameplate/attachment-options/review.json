@@ -256,5 +256,99 @@
       }
     ],
     "errors": []
+  },
+  "public_verification": {
+    "checked_utc": "2026-11-05T04:10:30.826506+00:00",
+    "source_commit": "fe06c4a1ea421bf247f9841c215f5a347ff862c0",
+    "pointer_commit": "7fc299c1c3da1177dca6ca03bc65007585cebe7f",
+    "models": [
+      {
+        "file": "nameplate-attachment-option-a.glb",
+        "url": "https://homesodamachine.com/models/assembly/scenes/glb/nameplate-attachment-option-a.glb",
+        "status": 200,
+        "bytes": 4149732,
+        "sha256": "d50af63da822089d433e22675fd0d7f12ff555bc22fbe68d228a7585019ab5df",
+        "matches": true
+      },
+      {
+        "file": "nameplate-attachment-option-b.glb",
+        "url": "https://homesodamachine.com/models/assembly/scenes/glb/nameplate-attachment-option-b.glb",
+        "status": 200,
+        "bytes": 4202848,
+        "sha256": "842c440c611c759b2130483a5ae4b4efc0c414ff2abdbbce25996869f80be0d3",
+        "matches": true
+      },
+      {
+        "file": "nameplate-attachment-option-c.glb",
+        "url": "https://homesodamachine.com/models/assembly/scenes/glb/nameplate-attachment-option-c.glb",
+        "status": 200,
+        "bytes": 4444556,
+        "sha256": "8b970d6c09481248e810f20b22c3d4f5bc3fbc562fac35578c03cf2d671b925f",
+        "matches": true
+      },
+      {
+        "file": "nameplate-attachment-options.glb",
+        "url": "https://homesodamachine.com/models/assembly/scenes/glb/nameplate-attachment-options.glb",
+        "status": 200,
+        "bytes": 13267152,
+        "sha256": "020d0ca738cc672e752677348db8096c7f9fbf78df3aac5c26010f4a2ce4b9de",
+        "matches": true
+      }
+    ],
+    "browser": {
+      "results": [
+        {
+          "view": "b",
+          "file": "assembly/scenes/glb/nameplate-attachment-option-b.glb",
+          "meshes": 12,
+          "size": [
+            206.1500015258789,
+            20.399999618530273,
+            258.1857376098633
+          ],
+          "width": 1100,
+          "scrollWidth": 1100
+        },
+        {
+          "view": "b-root",
+          "file": "assembly/scenes/glb/nameplate-attachment-option-b.glb",
+          "meshes": 12,
+          "size": [
+            26,
+            24.399999618530273,
+            48
+          ],
+          "names": [
+            "B__RECEIVER_WINGS",
+            "40_mm_continuous_roots",
+            "b_receiver__body",
+            "b_receiver__flexible_wall",
+            "b_receiver__continuous_root",
+            "b_plate__body",
+            "b_plate__rigid_catch",
+            "b__plate_artwork",
+            "Assembled_front",
+            "b__installed_receiver",
+            "b__installed_plate",
+            "b__installed_artwork"
+          ],
+          "width": 1000,
+          "scrollWidth": 1000
+        },
+        {
+          "view": "mobile",
+          "file": "assembly/scenes/glb/nameplate-attachment-option-b.glb",
+          "meshes": 12,
+          "size": [
+            206.1500015258789,
+            20.399999618530273,
+            258.1857376098633
+          ],
+          "width": 390,
+          "scrollWidth": 390
+        }
+      ],
+      "errors": []
+    }
   }
 }
