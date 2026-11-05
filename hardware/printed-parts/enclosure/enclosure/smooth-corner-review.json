@@ -14,25 +14,22 @@
   ],
   "review_rotation_about_z_degrees": 180,
   "view": "assembly/scenes/glb/enclosure-smooth-corners-full-context.glb",
-  "review_sha256": "f37b3904e7eb5178745970617b2af14ca1663f0d1a7bdb72914edb53789d373c",
+  "review_sha256": "bf103cc2f5c9ec21654cf37e932156d5be1e6d785f894cda4d3dc06501e3a462",
   "source_sha256": {
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.mesh": "146461ed19f2ebcafa40e32a41e083175a57fa94af71c9f713328ddfc987e15b",
     "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.mesh": "d95b8afc831403c8285f9e3063fb2c4402dbb68f0d41db3f31a42c0d37665a04",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh": "50d3123f58622ad5f1f03b4c94192c97aa5e2dbb3dcac4726f075e9107e85de4",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh": "487b87637bcf205684224bafb3be10afee0bf4ea75dc269625dfa5146762e015",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh": "b2f3b7e42732f5a87e25be368ceaec2a86c3189f9519eb821e2631a07315c9eb",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh": "316153f6a0891c6f7dbe8d7eaa8617c220cb1bce6c2321ad3646efffd7dfb1a6",
     "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer-seated.step.mesh": "e1a0afad2c92f6506edb42ba5509180eb141a516eb9371cdde6df987f5cb348a",
-    "hardware/manifold-layout/enclosure-assembly.step.mesh": "7faf96df6f91aa18d650eb9f5fec64ea663891eb033d1ac257f8de77199d55fb",
+    "hardware/manifold-layout/enclosure-assembly.step.mesh": "945ce009ecff0f13c8d3d0c078bd995c1d73b76cb462a5a5fbb13440642b9a3f",
     "hardware/printed-parts/enclosure/nameplate/nameplate-001.step.mesh": "2e362e82e69cfd2033e31385e1623a0bbc63a90102439e052f5c7c9c4b637eec",
-    "hardware/printed-parts/enclosure/nameplate/nameplate-fasteners.step.mesh": "a3f661421da8a9afd930ff46b4a7e37bce4fe8d3665c1f98be8d0b5e16eff312"
+    "hardware/printed-parts/enclosure/nameplate/nameplate-fasteners.step.mesh": "844fab0c1199ef683e0b1d359e5b658c81c87ea389eb2329ad6a6d018a6c09f2"
   },
   "measured_sections": [
     {
       "piece": "front-bottom",
       "z_mm": 100,
-      "corners": [
-        "negative X",
-        "positive X"
-      ],
+      "hand": -1,
       "angles_degrees": [
         1,
         5,
@@ -44,15 +41,51 @@
         85,
         89
       ],
-      "retained_radius_mm": 12
+      "radius_samples_mm": [
+        11.99668627718792,
+        11.997499045655468,
+        11.996786138297747,
+        11.996787502898668,
+        12.000000773045237,
+        11.99678725997594,
+        11.99678756385605,
+        11.997501368573174,
+        11.996687454356708
+      ],
+      "source_stl_sha256": "217f0b372b101e57bba88d91691be9d5043437887c29748df233e361ce4d93e4"
+    },
+    {
+      "piece": "front-bottom",
+      "z_mm": 100,
+      "hand": 1,
+      "angles_degrees": [
+        1,
+        5,
+        15,
+        30,
+        45,
+        60,
+        75,
+        85,
+        89
+      ],
+      "radius_samples_mm": [
+        11.996686251156047,
+        11.997502182987011,
+        11.996786138297747,
+        11.996785605862216,
+        12.000000773050795,
+        11.996787009570316,
+        11.996787850459361,
+        11.997501307568426,
+        11.996687454356708
+      ],
+      "source_stl_sha256": "217f0b372b101e57bba88d91691be9d5043437887c29748df233e361ce4d93e4"
     },
     {
       "piece": "back-bottom",
       "z_mm": 100,
-      "corners": [
-        "negative X",
-        "positive X"
-      ],
+      "hand": -1,
       "angles_degrees": [
         1,
         5,
@@ -64,15 +97,51 @@
         85,
         89
       ],
-      "retained_radius_mm": 12
+      "radius_samples_mm": [
+        11.996686167939957,
+        11.997498716729334,
+        11.996785680469372,
+        11.996785908217486,
+        11.999998838493667,
+        11.99678831302237,
+        11.996786713692446,
+        11.997503975624449,
+        11.996682200499052
+      ],
+      "source_stl_sha256": "2380f6602c1d1bd8c58d2193d1c572f3239c6d000dad64d3b1f6b34d847ba729"
+    },
+    {
+      "piece": "back-bottom",
+      "z_mm": 100,
+      "hand": 1,
+      "angles_degrees": [
+        1,
+        5,
+        15,
+        30,
+        45,
+        60,
+        75,
+        85,
+        89
+      ],
+      "radius_samples_mm": [
+        11.996686167939957,
+        11.997498716729334,
+        11.996785680469387,
+        11.996785908217475,
+        11.999998838493667,
+        11.99678831302237,
+        11.996786713692446,
+        11.997503975624449,
+        11.996682200499052
+      ],
+      "source_stl_sha256": "2380f6602c1d1bd8c58d2193d1c572f3239c6d000dad64d3b1f6b34d847ba729"
     },
     {
       "piece": "front-top",
       "z_mm": 165,
-      "corners": [
-        "negative X",
-        "positive X"
-      ],
+      "hand": -1,
       "angles_degrees": [
         1,
         5,
@@ -84,15 +153,51 @@
         85,
         89
       ],
-      "retained_radius_mm": 12
+      "radius_samples_mm": [
+        11.99668630416649,
+        11.997499045655468,
+        11.996788945640192,
+        11.996784800808637,
+        12.000000773053431,
+        11.996786367543722,
+        11.996787294368655,
+        11.99750139433587,
+        11.996687454356708
+      ],
+      "source_stl_sha256": "51d999659bbc2098e520e5e3ea0179936c8bd86714890d6a7cd3c13ccaf63030"
+    },
+    {
+      "piece": "front-top",
+      "z_mm": 165,
+      "hand": 1,
+      "angles_degrees": [
+        1,
+        5,
+        15,
+        30,
+        45,
+        60,
+        75,
+        85,
+        89
+      ],
+      "radius_samples_mm": [
+        11.99668648754106,
+        11.997499045655468,
+        11.996788861557686,
+        11.996788130286808,
+        12.000000773041595,
+        11.996788231488377,
+        11.996787662024996,
+        11.997501403162579,
+        11.996687454356708
+      ],
+      "source_stl_sha256": "51d999659bbc2098e520e5e3ea0179936c8bd86714890d6a7cd3c13ccaf63030"
     },
     {
       "piece": "back-top",
       "z_mm": 200,
-      "corners": [
-        "negative X",
-        "positive X"
-      ],
+      "hand": -1,
       "angles_degrees": [
         1,
         5,
@@ -104,11 +209,50 @@
         85,
         89
       ],
-      "retained_radius_mm": 12
+      "radius_samples_mm": [
+        11.99668689107252,
+        11.997499057286232,
+        11.996784718373396,
+        11.996785908217486,
+        11.999998838493667,
+        11.99678831302237,
+        11.996786713692446,
+        11.997503975624449,
+        11.996682200499052
+      ],
+      "source_stl_sha256": "afef480e17bbad94f5b12c38e2f63048e052d9ae5dea3b3c5b403ace658ceca0"
+    },
+    {
+      "piece": "back-top",
+      "z_mm": 200,
+      "hand": 1,
+      "angles_degrees": [
+        1,
+        5,
+        15,
+        30,
+        45,
+        60,
+        75,
+        85,
+        89
+      ],
+      "radius_samples_mm": [
+        11.996686167939972,
+        11.997498716729334,
+        11.996785680469387,
+        11.996785908217475,
+        11.999998838493667,
+        11.99678831302237,
+        11.996786713692446,
+        11.997503975624449,
+        11.996682200499052
+      ],
+      "source_stl_sha256": "afef480e17bbad94f5b12c38e2f63048e052d9ae5dea3b3c5b403ace658ceca0"
     }
   ],
-  "maximum_printed_radius_error_mm": 0.0033177995,
-  "review_status": "Awaiting Derek\u2019s 3D review; no print started.",
+  "maximum_printed_radius_error_mm": 0.0033177995009481265,
+  "review_status": "Approved by Derek: Looks good. Let’s start a print.",
   "visible_implications": [
     "Full-depth smooth corner bands meet the straight-wall flutes at their tips.",
     "Grooves fade over 5 mm before the corner bands.",
@@ -123,19 +267,25 @@
     "errors": []
   },
   "manual_mesh_review": {
-    "front_top_baseline": "The same three highest-ranked near-zero thickness findings occur in the smooth structural mesh without flute subtraction and in the printed skin, at (98.946,5.506,299.384), (-102.556,7.296,302.279), and (105.204,9.941,302.441). These existing corner seams need resolution before print release; this review does not qualify them.",
-    "bare_structural_comparison_sha256": "5f23650d6a2f6fa97f4b3f30bbfd4e639d9aee87341ca58662be53ae04d67d29",
-    "back_top_tail_relief": {
-      "printed_facets": 711750,
-      "report_sha256": "47901f1a7c5d6cb53112a5291597d7adb0ce301385831fda589c428c3cd4b174",
-      "result": "The near-zero-thickness bore-tail crescents are gone. A 0.10 mm\u00b2 ledge remains at (-79.334,465.545,253.650) and needs inspection before print release."
+    "front_top_corner_seams": {
+      "result": "The folded cylinder-seam strips are absent. Remaining thin readings describe the retained display housing sections.",
+      "source_stl_sha256": "51d999659bbc2098e520e5e3ea0179936c8bd86714890d6a7cd3c13ccaf63030",
+      "report_sha256": "5d09b8e26d240b449db4028815f84880ca19f7acf6e3be435953a922e46691c1",
+      "report": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-05-back-top-smooth-corners-mark2/front-top-mesh-lint.txt"
+    },
+    "back_top_insert_tails": {
+      "result": "The upper-bore webs, relief ledge and lower-bore web are absent. The highest-ranked remaining thin readings are the previously accepted keystone catches.",
+      "source_stl_sha256": "afef480e17bbad94f5b12c38e2f63048e052d9ae5dea3b3c5b403ace658ceca0",
+      "report_sha256": "ef2864a52ba0c493345c59693fde0499aedfa520344babcc9fe822a11e8651e7",
+      "report": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-05-back-top-smooth-corners-mark2/back-top-mesh-lint.txt"
     }
   },
+  "print_release_status": "Back top prepared and reviewed for Mark2; launch awaits an unlocked Mac.",
+  "source_revision": "bee47bcd7",
+  "print_record": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-05-back-top-smooth-corners-mark2/print-job.json",
   "public_model_verified": {
     "url": "https://homesodamachine.com/models/assembly/scenes/glb/enclosure-smooth-corners-full-context.glb",
-    "sha256": "f37b3904e7eb5178745970617b2af14ca1663f0d1a7bdb72914edb53789d373c",
-    "bytes": 12601024
-  },
-  "print_release_status": "Held for Derek\u2019s corner review and completion of the recorded mesh cleanup.",
-  "source_revision": "59bb6feeb"
+    "sha256": "bf103cc2f5c9ec21654cf37e932156d5be1e6d785f894cda4d3dc06501e3a462",
+    "bytes": 12599032
+  }
 }

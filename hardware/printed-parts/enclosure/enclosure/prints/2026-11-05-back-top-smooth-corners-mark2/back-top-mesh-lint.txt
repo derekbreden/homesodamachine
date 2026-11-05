@@ -1,0 +1,46 @@
+/Users/derekbredensteiner/Developer/homesodamachine/hardware/scripts/geometry_lint.py:642: DeprecationWarning: Arrays of 2-dimensional vectors are deprecated. Use arrays of 3-dimensional vectors instead. (deprecated in NumPy 2.0)
+  twice = np.abs(np.cross(uv[:, 1] - uv[:, 0], uv[:, 2] - uv[:, 0]))
+enclosure-back-top.stl · 712018 printed facets · 18 findings · 56 answered · top 6 (--all for every one)
+answers: hardware/printed-parts/lint-answers/enclosure/enclosure/enclosure-back-top.lint-answers · read hardware/printed-parts/lint-answers/AGENTS.md before writing one
+
+  [thin] 1.300 mm of material at its thinnest · 57.1 mm² of surface under 1.6 mm · spans 14.8 × 1.3 × 1.9 mm
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+    click: x=-57.591 y=461.600 z=280.811
+    click: x=-57.591 y=462.900 z=280.811
+    answered: Approved by Derek as drawn: the keystone receptacle's two catches across its pocket's inner end, the upper 1.4 mm and the lower 1.3 mm thick (`CATCH_UPPER`, `CATCH_LOWER` in hardware/reference/riteav-keystone/riteav_keystone.py), which the jack's tang and latch hook. Test fits have held the jack stable, and they print. The delivered jack has nothing behind the upper catch where the model's block rises, so either catch has room to grow inboard should a fit ever ask for it. Derek, 2026-10-22: "So make a note of that in case it matters later, but test fitting has been good so far and quite stable and all printable, so let's leave it be. Approved as is."
+    alternatives: A thicker catch grows inboard, into the room the delivered jack leaves behind it; its face toward the opening is the jack's seat and stays where it is.
+
+  [thin] 1.357 mm of material at its thinnest · 68.8 mm² of surface under 2.5 mm · spans 14.6 × 2.5 × 2.2 mm · in 5 pieces
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+    click: x=-56.647 y=471.300 z=301.773
+    click: x=-56.647 y=470.260 z=300.901
+    answered: Specific fitted keystone swing ease: the face's lip over the keystone's swing ease thickens up the ease's 50° slope from 0.83 mm where its square shoulder meets the face (`keystone_ease_shoulder`, 1.0 mm over the aperture's top edge); the lint reads it 1.43 mm through, up the slope.
+    alternatives: Running the ease out on the aperture's edge meets the face in a knife edge, and a taller shoulder leaves more open face over the jack.
+
+  [thin] 1.400 mm of material at its thinnest · 38.6 mm² of surface under 1.6 mm · spans 14.6 × 1.4 × 1.2 mm
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+    click: x=-71.311 y=461.600 z=304.714
+    click: x=-71.311 y=463.000 z=304.714
+    answered: Approved by Derek as drawn: the keystone receptacle's two catches across its pocket's inner end, the upper 1.4 mm and the lower 1.3 mm thick (`CATCH_UPPER`, `CATCH_LOWER` in hardware/reference/riteav-keystone/riteav_keystone.py), which the jack's tang and latch hook. Test fits have held the jack stable, and they print. The delivered jack has nothing behind the upper catch where the model's block rises, so either catch has room to grow inboard should a fit ever ask for it. Derek, 2026-10-22: "So make a note of that in case it matters later, but test fitting has been good so far and quite stable and all printable, so let's leave it be. Approved as is."
+    alternatives: A thicker catch grows inboard, into the room the delivered jack leaves behind it; its face toward the opening is the jack's seat and stays where it is.
+
+  [ledge] 4.80 mm² flat face 0° off facing the bed · 8.0 × 0.6 mm · 36.1 mm up
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=96.700 y=272.667 z=318.900
+    click: x=96.700 y=272.667 z=318.900
+    answered: Required cable catch bearings: these are the same complete flat retention undersides of the V-K, DC-1 and J5 hooks, 0.60 x 8, 0.75 x 16 and 0.75 x 16 mm, in the ceiling-down production pose. Their square undercuts hold the cable behind its narrower entry; the surrounding arm stock is 3 mm. J5's 16 mm section has the specific physical fit/retention acceptance in future/snap-fit-tests/2026-10-26-mark2-combined/physical-result.json; that result does not qualify the other two seats or the full enclosure's support cleanup.
+    alternatives: A sloped bearing is a withdrawal ramp; filling under it closes the cable seat. A 3 mm bearing projection closes the two 2.20 mm seats' mouths and restricts the 3.50 mm seat to a 0.50 mm entry. Enlarging the complete seat changes the fitted cable envelope. Support placement for the complete enclosure belongs to its own native print preparation.
+
+  [ledge] 12.00 mm² flat face 0° off facing the bed · 16.0 × 0.8 mm · 100.6 mm up
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=-95.250 y=317.833 z=254.350
+    click: x=-95.250 y=317.833 z=254.350
+    answered: Required cable catch bearings: these are the same complete flat retention undersides of the V-K, DC-1 and J5 hooks, 0.60 x 8, 0.75 x 16 and 0.75 x 16 mm, in the ceiling-down production pose. Their square undercuts hold the cable behind its narrower entry; the surrounding arm stock is 3 mm. J5's 16 mm section has the specific physical fit/retention acceptance in future/snap-fit-tests/2026-10-26-mark2-combined/physical-result.json; that result does not qualify the other two seats or the full enclosure's support cleanup.
+    alternatives: A sloped bearing is a withdrawal ramp; filling under it closes the cable seat. A 3 mm bearing projection closes the two 2.20 mm seats' mouths and restricts the 3.50 mm seat to a 0.50 mm entry. Enlarging the complete seat changes the fitted cable envelope. Support placement for the complete enclosure belongs to its own native print preparation.
+
+  [ledge] 12.00 mm² flat face 0° off facing the bed · 16.0 × 0.8 mm · 80.9 mm up
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=-96.550 y=264.333 z=274.125
+    click: x=-96.550 y=264.333 z=274.125
+    answered: Required cable catch bearings: these are the same complete flat retention undersides of the V-K, DC-1 and J5 hooks, 0.60 x 8, 0.75 x 16 and 0.75 x 16 mm, in the ceiling-down production pose. Their square undercuts hold the cable behind its narrower entry; the surrounding arm stock is 3 mm. J5's 16 mm section has the specific physical fit/retention acceptance in future/snap-fit-tests/2026-10-26-mark2-combined/physical-result.json; that result does not qualify the other two seats or the full enclosure's support cleanup.
+    alternatives: A sloped bearing is a withdrawal ramp; filling under it closes the cable seat. A 3 mm bearing projection closes the two 2.20 mm seats' mouths and restricts the 3.50 mm seat to a 0.50 mm entry. Enlarging the complete seat changes the fitted cable envelope. Support placement for the complete enclosure belongs to its own native print preparation.

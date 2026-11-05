@@ -1,0 +1,91 @@
+{
+  "views": [
+    {
+      "name": "insert-tail",
+      "caption": "The upper pilot joins a continuous backing plane.",
+      "before": "insert-tail-before.webp",
+      "after": "insert-tail-after.webp",
+      "width": 1200,
+      "height": 900,
+      "marks": [
+        {
+          "x": 543.8,
+          "y": 517.5,
+          "r": 56.2,
+          "label": "Upper pilot tail",
+          "at": [
+            -78.4,
+            465.55,
+            254
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "orthographic",
+        "position": [
+          520.3391170537309,
+          465.8,
+          254.3
+        ],
+        "target": [
+          -78.4,
+          465.8,
+          254.3
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "half": 2,
+        "near": 286.5280607313475,
+        "far": 935.1621042062227,
+        "aspect": 1.3333333333333333,
+        "section": {
+          "at": [
+            -78.4,
+            466,
+            255
+          ],
+          "normal": [
+            1,
+            0,
+            0
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [
+        "enclosure-back-top"
+      ],
+      "ghost": [],
+      "only": [
+        "enclosure-back-top"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "bccab7abb0b76b1fa9ecdd457702db7bc5a3b54b23351e91d920265f498ad617",
+          "commit": "cee621a90e75e398a003314d5856230a8376367c",
+          "taken": "2026-11-05T13:48:12.548Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "945ce009ecff0f13c8d3d0c078bd995c1d73b76cb462a5a5fbb13440642b9a3f",
+          "commit": "2427f295f6205c4fe4192f531965f22d41833f8e",
+          "published": true
+        }
+      },
+      "changed": [],
+      "withinMeshing": [
+        "enclosure-back-top",
+        "enclosure-front-top"
+      ]
+    }
+  ]
+}

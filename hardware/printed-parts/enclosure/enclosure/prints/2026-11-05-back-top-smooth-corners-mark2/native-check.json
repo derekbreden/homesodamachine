@@ -1,0 +1,71 @@
+{
+  "artwork_rise_mm": 0.48,
+  "bearing_floor_mm": 2.36,
+  "body_ink_overlap_mm3": 0.0,
+  "bore": "Standalone receiver through; production upper pair ends against existing support-floor backing.",
+  "head_proud_mm": 2.0,
+  "insert_engagement_mm": 3.64,
+  "insert_radial_stock_mm": 3.7,
+  "insert_rear_wall_air_mm": 0.3899999999999997,
+  "mount": {
+    "clearance_diameter": 3.4,
+    "corner": 5.0,
+    "counterbore_depth": 1.0,
+    "counterbore_diameter": 6.2,
+    "crown_y": 1.3599999999999999,
+    "field_proud": 2.0,
+    "floor_rear": -3.0,
+    "floor_stock": 3.0,
+    "frame_bottom": -53.4,
+    "frame_corner": 7.0,
+    "frame_top": 55.15,
+    "frame_width": 94.3,
+    "head_diameter": 5.5,
+    "head_height": 3.0,
+    "height": 100.0,
+    "hex_key": 2.5,
+    "insert_diameter": 4.6,
+    "insert_length": 4.0,
+    "insert_stock_radius": 6.0,
+    "insert_stock_rear": -4.39,
+    "mouth_height": 100.3,
+    "mouth_width": 88.3,
+    "pilot_diameter": 4.0,
+    "pilot_rear": -4.64,
+    "screw_diameter": 3.0,
+    "screw_length": 6.0,
+    "slip": 0.15,
+    "stations": [
+      [
+        -33.0,
+        -39.0
+      ],
+      [
+        33.0,
+        -39.0
+      ],
+      [
+        -33.0,
+        39.0
+      ],
+      [
+        33.0,
+        39.0
+      ]
+    ],
+    "supported": 0.25,
+    "thick": 3.36,
+    "width": 88.0
+  },
+  "payload": "HTTPS://HOSM.US/0001",
+  "pilot_reach_mm": 4.64,
+  "plate_components": 1,
+  "quiet_zone_overlap_mm3": 0.0,
+  "receiver_components": 1,
+  "receiver_floor_stock_mm": 3.0,
+  "screw_artwork_overlap_mm3": 0.0,
+  "seated_overlap_mm3": 0.0,
+  "upper_pilot_depth_mm": 4.39,
+  "valid_body": true,
+  "valid_receiver": true
+}
