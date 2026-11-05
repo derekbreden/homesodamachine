@@ -1,6 +1,6 @@
 {
   "date": "2026-11-04",
-  "scope": "Run and compile cost of the generated recipe, reader and document modules; their opt-level 0 profile; the condenser reference's OpenCASCADE import",
+  "scope": "Run and compile cost of the generated recipe, reader and document modules; opt-level 0 builds of enclosure-data and cold-core-data; the condenser reference's OpenCASCADE import",
   "source_revisions": {
     "before_recipe_port": "d6a0b281d",
     "head": "a78cf15ba",
@@ -100,10 +100,12 @@
     "cold-core-assembly": {"files": 403, "differ": 0},
     "foam-cap": {"files": 384, "differ": 0}
   },
-  "workspace_build": "The shared target rebuilt enclosure-data and cold-core-data under the opt-level 0 profile from the main checkout's sources at 16:33 local time, 2026-11-04",
-  "kept_optimized": {
-    "machine-data": "Hand-written archive decoding and curvature loops",
-    "guides": "Hand-written per-vertex and per-pixel mask loops"
+  "sincos": {
+    "method": "C on this Mac, clang -O0: separate sin and cos against __sincos_stret on the same double",
+    "differing": {"uniform_minus_pi_to_pi": [89265, 20000000], "uniform_minus_100_to_100": [2903, 20000000], "tenth_degree_steps_minus_2pi_to_2pi": [10, 7201]},
+    "optimized_part_programs_importing___sincos_stret": 15,
+    "opt_level_0_enclosure_and_cold_core_binaries_importing___sincos_stret": 0,
+    "same_angle_pairs_in_hand_written_sources": ["tools/hsm/enclosure-data/src/core_profiles.rs", "tools/hsm/enclosure-data/src/pump_case.rs", "tools/hsm/cold-core-data/src/coil.rs", "tools/hsm/cold-core-data/src/compiled/_core_presentation.rs"]
   },
   "automatic_checks_added": false
 }

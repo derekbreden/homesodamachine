@@ -117,10 +117,7 @@ and `guides` are Rust generated from their Python modules, about 37,700 authored
 generated module is one `initialize` function over `hsm_documents::interop::Val`: Python
 names resolve at run time through `Env` scopes, and a module outside the compiled set is
 imported through the Python adapter's callback. No generator is retained, so edits go into
-the generated files. `enclosure-data` and `cold-core-data` compile at opt-level 0 with
-byte-identical outputs; `machine-data` and `guides` keep the release optimization for their
-hand-written mesh, archive and mask loops
-([record](conversion-results/generated-runtime-2026-11-04.json)).
+the generated files.
 
 ## Fixed-input evidence
 
