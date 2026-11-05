@@ -57,8 +57,8 @@ pub fn receiver_cuts(n:&Value) -> Result<Solid> {
             // floors. This relief is behind the installed insert and joins the
             // floor's open underside instead of leaving a thin crescent there.
             let rear=f(n,"pilot_rear");
-            cuts.push(Solid::cuboid(v3(x-2.1,rear,z-2.5),
-                v3(x+2.1,rear+0.3,z-1.65)));
+            cuts.push(Solid::cuboid(v3(x-2.0,rear,z-2.35),
+                v3(x+2.0,rear+0.25,z)));
         }
     }
     Solid::union_all(&cuts)
