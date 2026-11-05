@@ -1,5 +1,6 @@
 //! The casing stack in its source frame, from the printed parts' authoritative f64 models.
 #[path = "../../../cold-core-layout/core_routes.rs"]
+#[allow(dead_code)]
 mod core_routes;
 use anyhow::{Context, Result};
 use hsm_kernel::part::{AssemblyBody, Numbers, args, write_assembly};
@@ -101,11 +102,6 @@ fn obstacles(numbers: &Numbers, pieces: &[Piece]) -> Result<Vec<(String, Vec<Sol
     Ok(obstacles)
 }
 
-fn shared(a: &Solid, b: &[Solid]) -> Result<f64> {
-    b.iter()
-        .try_fold(0., |total, solid| Ok(total + a.shared_volume(solid)?))
-}
-
 fn trimmed(name: &str, fine: &Solid, numbers: &Numbers) -> Result<Solid> {
     if name != "prv-vent" {
         return Ok(fine.clone());
@@ -121,116 +117,6 @@ fn trimmed(name: &str, fine: &Solid, numbers: &Numbers) -> Result<Solid> {
         b.max.z - b.min.z + 2.,
     )?;
     fine.intersect(&keep)
-}
-
-fn report(numbers: &Numbers, pieces: &[Piece]) -> Result<Value> {
-    let data = numbers.get("report")?;
-    let shell = pieces
-        .iter()
-        .find(|p| p.name == "foam-shell")
-        .context("foam shell")?;
-    let bottom = pieces
-        .iter()
-        .find(|p| p.name == "foam-cap-bottom")
-        .context("bottom closure")?;
-    let co2: Vec<V3> = data["co2_points"]
-        .as_array()
-        .context("CO2 points")?
-        .iter()
-        .map(point)
-        .collect::<Result<_>>()?;
-    let path = core_routes::route_path(&co2, number(numbers.get("routing")?, "stock_bend")?)?;
-    let (start, end) = path
-        .legs
-        .iter()
-        .rev()
-        .find_map(|leg| match leg {
-            Leg::Line { a, b } => Some((*a, *b)),
-            _ => None,
-        })
-        .context("CO2 last straight")?;
-    let reach = end - start;
-    let co2_probe = Solid::cylinder(
-        start,
-        reach.unit(),
-        number(data, "co2_radius")?,
-        reach.norm(),
-    )?;
-    let mut passages = vec![];
-    for probe in data["probes"].as_array().context("passage probes")? {
-        let radius = number(probe, "radius")?;
-        let shape = if probe["kind"] == "route" {
-            let points: Vec<V3> = probe["points"]
-                .as_array()
-                .context("probe points")?
-                .iter()
-                .map(point)
-                .collect::<Result<_>>()?;
-            core_routes::build_route(&points, number(probe, "bend")?, radius)?
-        } else {
-            Solid::cylinder(
-                point(&probe["at"])?,
-                V3::Z,
-                radius,
-                number(probe, "height")?,
-            )?
-        };
-        let b = bottom.fine.bounds();
-        let xy = &probe["lower_xy"];
-        let lower = Solid::cylinder(
-            v3(
-                xy[0].as_f64().context("lower x")?,
-                xy[1].as_f64().context("lower y")?,
-                b.min.z - 2.,
-            ),
-            V3::Z,
-            number(data, "lower_probe_radius")?,
-            b.max.z - b.min.z + 4.,
-        )?;
-        let blocked: Vec<Value> = pieces
-            .iter()
-            .filter(|p| p.name == "foam-shell" || p.name == "foam-cap-lid-top")
-            .map(|part| Ok(json!({"name":part.name,"volume":part.fine.shared_volume(&shape)?})))
-            .collect::<Result<_>>()?;
-        passages.push(
-            json!({"name":probe["name"],"mouth":probe["mouth"],"blocked":blocked,
-                             "bottom_open":bottom.fine.shared_volume(&lower)? <= 1e-6}),
-        );
-    }
-    let mut screw_paths = vec![];
-    for part in pieces
-        .iter()
-        .filter(|p| p.name == "foam-cap-lid-top" || p.name == "foam-cap-bottom")
-    {
-        let bounds = part.fine.bounds();
-        for xy in data["screw_xy"].as_array().context("screw stations")? {
-            let at = v3(
-                xy[0].as_f64().context("screw x")?,
-                xy[1].as_f64().context("screw y")?,
-                bounds.min.z - 2.,
-            );
-            let probe = Solid::cylinder(
-                at,
-                V3::Z,
-                number(data, "screw_probe_radius")?,
-                bounds.max.z - bounds.min.z + 4.,
-            )?;
-            screw_paths
-                .push(json!({"name":part.name,"xy":xy,"blocked":part.fine.shared_volume(&probe)?}));
-        }
-    }
-    let mut clashes = vec![];
-    for i in 0..pieces.len() {
-        for j in i + 1..pieces.len() {
-            clashes.push(json!({"a":pieces[i].name,"b":pieces[j].name,
-                                "volume":pieces[i].fine.shared_volume(&pieces[j].fine)?}));
-        }
-    }
-    Ok(
-        json!({"co2":{"start":start.to_array(),"end":end.to_array(),"length":reach.norm(),
-                       "blocked":shell.fine.shared_volume(&co2_probe)?},
-              "passages":passages,"screw_paths":screw_paths,"clashes":clashes}),
-    )
 }
 
 fn main() -> Result<()> {
@@ -258,13 +144,12 @@ fn main() -> Result<()> {
             presentation: shown,
         })
         .collect();
-    let mut answer = write_assembly(
+    let answer = write_assembly(
         &out,
         "foam-assembly",
         &bodies,
         Some(numbers.get("document")?),
     )?;
-    answer["bodies"][0]["assembly_report"] = report(&numbers, &pieces)?;
     println!("{answer}");
 
     let obstacles = obstacles(&numbers, &pieces)?;
@@ -280,8 +165,6 @@ fn main() -> Result<()> {
         .map(|v| v.as_f64().context("bend rung"))
         .collect::<Result<_>>()?;
     let mut routes = vec![];
-    let mut untrimmed = vec![];
-    let mut measurements = vec![];
     for row in numbers.get("routes")?.as_array().context("routes")? {
         let name = row["name"].as_str().context("route name")?;
         let points: Vec<V3> = row["points"]
@@ -290,7 +173,7 @@ fn main() -> Result<()> {
             .iter()
             .map(point)
             .collect::<Result<_>>()?;
-        let (bend, tube) = core_routes::fit_route(
+        let (_, tube) = core_routes::fit_route(
             &points,
             number(dim, "stock_bend")?,
             number(dim, "floor")?,
@@ -299,27 +182,11 @@ fn main() -> Result<()> {
             number(dim, "touch_volume")?,
             &borrowed,
         )?;
-        let (corners, radii) = core_routes::corner_radii(&points, bend)?;
-        let blocked: Vec<Value> = obstacles
-            .iter()
-            .map(|(name, solids)| Ok(json!({"name":name,"volume":shared(&tube, solids)?})))
-            .collect::<Result<_>>()?;
-        measurements.push(json!({"name":name,"bend":bend,"radii":radii,
-                                 "length":core_routes::developed_length(&points,bend)?,
-                                 "points":corners.iter().map(|p|p.to_array()).collect::<Vec<_>>(),"blocked":blocked}));
-        untrimmed.push(tube.clone());
         routes.push(Piece {
             name: name.to_owned(),
             color: Some(point(&row["color"])?.to_array()),
             fine: trimmed(name, &tube, &numbers)?,
         });
-    }
-    let mut crossings = vec![];
-    for i in 0..routes.len() {
-        for j in i + 1..routes.len() {
-            crossings.push(json!({"a":routes[i].name,"b":routes[j].name,
-                                  "volume":untrimmed[i].shared_volume(&untrimmed[j])?}));
-        }
     }
     let shown: Vec<Solid> = routes
         .iter()
@@ -337,8 +204,7 @@ fn main() -> Result<()> {
         .collect();
     let document =
         json!({"frame":"foam assembly source","schema":"hsm-cold-core-internal-routes-1"});
-    let mut answer = write_assembly(&out, "internal-routes", &bodies, Some(&document))?;
-    answer["bodies"][0]["route_report"] = json!({"routes":measurements,"crossings":crossings});
+    let answer = write_assembly(&out, "internal-routes", &bodies, Some(&document))?;
     println!("{answer}");
     Ok(())
 }
