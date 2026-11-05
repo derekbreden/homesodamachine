@@ -10,7 +10,7 @@ the website shows and what prints come from it. Its recipes are typed Rust: stru
 and constants the compiler checks, calling the kernel in-process. A program compiles once,
 apart from the steps that run it. [What Counts](../../AGENTS.md#what-counts) is the whole test;
 every other file, report and intermediate format can change or go. Speed is measured on the
-cold full build ([Speed work](#speed-work)).
+full build ([Speed work](#speed-work)).
 
 Every step still starts Python. Its entry script imports thin modules that send each call to
 Rust over a JSON pipe, and runs the Rust part programs through the `hsm` engine's socket. The
@@ -23,7 +23,7 @@ build planner (`tools/bazel/trace_inputs.py`) knows a step only as a Python entr
   separate run in parallel.
 - **A step is converted** when Bazel runs its Rust program and no Python. The Python only that
   step used is deleted in the same change, which lands on main on its own with the step's share
-  of the cold full build before and after.
+  of the full build before and after.
 - **Typed recipes are written from what the current code computes**, read as the
   specification, not translated line by line. No Python interface, `Val` value or name looked up
   at run time stays inside the Rust.
@@ -158,16 +158,17 @@ a completed conversion does not by itself establish that this Mac is free of mem
 
 ## Speed work
 
-The number that matters most is the cold full build: the workspace compiled from clean, then
-every step run with nothing cached from an earlier build. Most edits reach the enclosure, which
-nearly every step reads, so most builds come close to it. Its deciding number is CPU seconds;
-wall time and peak memory are recorded beside it.
+The number that matters most is the full build: `//:everything` with every step rerun, as an
+edit that reaches the enclosure causes, on the compiled workspace and the caches a normal build
+keeps. Most edits reach the enclosure, which nearly every step reads, so most builds come close
+to it. Bazel's profile of each build records its wall time and every step's; the latest build
+that reran every step gives the number.
 
-A converted step or speed piece is measured by its share of the cold full build, before and
-after, on the same fixed inputs: its programs' CPU seconds computing every result afresh,
-client and `hsm` engine together, as the median of three runs, plus the CPU seconds its crates
-take to compile from clean. Other agents' load barely moves CPU seconds, so it needs no quiet
-Mac. A change within 10% either way is neither faster nor slower; the work aims at large
+A converted step or speed piece is measured by its share of the full build, before and after,
+on the same fixed inputs: its programs' CPU seconds computing every result afresh, client and
+`hsm` engine together, as the median of three runs, plus the CPU seconds to recompile after an
+edit to its recipes. Wall time and peak memory are recorded beside it. Other agents' load
+barely moves CPU seconds, so it needs no quiet Mac. A change within 10% either way is neither faster nor slower; the work aims at large
 improvements. A piece gets no full normal build; the normal build follows a batch merged to
 main. Independent pieces run in parallel.
 
