@@ -3,7 +3,7 @@
     "path": "hardware/reference/jg-bulkhead-union/jg_bulkhead_union.rs",
     "sha256": "a7698cc42fe31f13853d7ba57f83258985cc645fe955fbe38fa4cdf3796275ac",
     "parameters_path": "hardware/reference/jg-bulkhead-union/reference-parameters.json",
-    "parameters_sha256": "f6e9e4b37fa03c80af24a6adbc74dbbe6243d84c64accd13c9dfc8c91e77bb2d"
+    "parameters_sha256": "4c4e18e4615f3d8a4558630823179a7776d6681b12d1e0077af32ebacd761255"
   },
   "members": {
     "jg-bulkhead-union.step": "a90b49bb1cfb89cf80798796832c4e5c10800c336ac3d19c42dc3d6559e97c80",

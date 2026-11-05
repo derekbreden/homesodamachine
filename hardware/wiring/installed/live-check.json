@@ -97,7 +97,7 @@
   "all_match": true,
   "catalog": {
     "water_check": {
-      "id": "HSM-000058",
+      "id": "HSM-0058",
       "description": "Water-pump discharge check valve \u00b7 1/4 inch push-connect",
       "model": "reference/hlghlg-check-valve/hlghlg-check-valve.step"
     },

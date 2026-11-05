@@ -1,10 +1,10 @@
-# Faucet lever · HSM-000268
+# Faucet lever · HSM-0268
 
 A scan-derived, editable lever with **flat lateral faces and a 9.00 mm cylinder
 channel**. Derek confirmed the completed white PET-GF Mark2 print on 2026-09-20:
 "The lever you printed turned out great, fits and works functionally."
 The primary STEP, STL, viewer payload and preview represent this accepted shape.
-[HSM-000268 in the material explorer](https://homesodamachine.com/3d#material:HSM-000268)
+[HSM-0268 in the material explorer](https://homesodamachine.com/3d#material:HSM-0268)
 links the part to both faucet BOMs, its model and installation documents.
 The [physical acceptance record](physical-acceptance.json) binds the observation
 to the exact printed mesh and uniquely named job. Quantitative strength and

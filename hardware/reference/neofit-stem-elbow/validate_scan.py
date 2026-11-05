@@ -49,7 +49,7 @@ def main():
     stl_path = ARCHIVE/'neofit-ateu44w-stem-elbow.stl'
     pole_triangles = model.export_stl(shape, stl_path)
     stl = trimesh.load(str(stl_path), force='mesh')
-    report = {'units': 'mm', 'material_id': 'HSM-000330',
+    report = {'units': 'mm', 'material_id': 'HSM-0330',
               'method': 'Each physically retained specimen compared independently to the reopened exported STEP; rigid native scale, no CAD-distance rejection.',
               'model_source_sha256': sha(HERE/'neofit_stem_elbow.py'),
               'parameters_sha256': sha(HERE/'reference-parameters.json'),
@@ -85,7 +85,7 @@ def main():
             ax.set_title('Specimen '+name.upper())
     fig.subplots_adjust(left=.07, right=.88, top=.89, bottom=.12, hspace=.35, wspace=.25)
     bar = fig.colorbar(dots, cax=fig.add_axes([.92, .22, .018, .55])); bar.set_label('Distance to CAD, mm (saturates at 0.5)')
-    fig.suptitle('HSM-000330 · neoFit ATEU44W — complementary specimens against one reference', fontsize=14)
+    fig.suptitle('HSM-0330 · neoFit ATEU44W — complementary specimens against one reference', fontsize=14)
     fig.text(.07, .035, '868 frames • 0.10 mm native fusion • separate rigid registrations • nominal 90° crossing and 6.35 mm male OD', fontsize=10)
     fig.savefig(HERE/'scan-model-check.png', dpi=140, facecolor=fig.get_facecolor())
     print(json.dumps(report, indent=2))

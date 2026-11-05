@@ -2574,7 +2574,7 @@ pub fn initialize(rt: Runtime, e: Env) -> Result<()> {
                     let mut s = Vec::new();
                     s.push(Val::Str("1".into()));
                     s.push(Val::Str("1".into()));
-                    s.push(Val::Str("HSM-000008".into()));
+                    s.push(Val::Str("HSM-0008".into()));
                     s.push({
                         let mut str493 = String::new();
                         str493.push_str("316 SS TUBE; Ø");
@@ -2612,7 +2612,7 @@ pub fn initialize(rt: Runtime, e: Env) -> Result<()> {
                     let mut s = Vec::new();
                     s.push(Val::Str("2".into()));
                     s.push(Val::Str("2".into()));
-                    s.push(Val::Str("HSM-000009".into()));
+                    s.push(Val::Str("HSM-0009".into()));
                     s.push(Val::Str("316 SS FINISHED END CAP; END-CAP-01".into()));
                     Val::tuple(s)
                 });
@@ -2620,7 +2620,7 @@ pub fn initialize(rt: Runtime, e: Env) -> Result<()> {
                     let mut s = Vec::new();
                     s.push(Val::Str("3".into()));
                     s.push(Val::Str("1".into()));
-                    s.push(Val::Str("HSM-000336".into()));
+                    s.push(Val::Str("HSM-0336".into()));
                     s.push(Val::Str("316 SS FLOAT GUIDE ROD; FR-CARB-01".into()));
                     Val::tuple(s)
                 });
@@ -2628,7 +2628,7 @@ pub fn initialize(rt: Runtime, e: Env) -> Result<()> {
                     let mut s = Vec::new();
                     s.push(Val::Str("4".into()));
                     s.push(Val::Str("1".into()));
-                    s.push(Val::Str("HSM-000032".into()));
+                    s.push(Val::Str("HSM-0032".into()));
                     s.push(Val::Str(
                         "ASA AERO MAGNETIC FLOAT; INSTALL BEFORE CLOSURE".into(),
                     ));
@@ -2806,7 +2806,7 @@ pub fn initialize(rt: Runtime, e: Env) -> Result<()> {
     })?;
     // requirements
     e.set("requirements",{let params=vec![("c".into(),None,false)];let outer=e.clone();let runtime=rt.clone();Val::function(move |args,kwargs| {let rt=runtime.clone();let e=bind(&outer,&params,args,kwargs,None,None)?;let _frame=rt.frame(&outer);{let fun537=e.get("text")?;let mut args535=Vec::new();let mut kw536=Vec::new();args535.push(e.get("c")?);args535.push(Val::Int(650i64));args535.push(Val::Int(315i64));args535.push(Val::Str("ASSEMBLY REQUIREMENTS".into()));args535.push(Val::Int(10i64));kw536.push(("bold".into(),Val::Bool(true)));fun537.call(args535,kw536)?};
-let assigned538={let mut s=Vec::new();s.push(Val::Str("1. Fabrication state of HSM-000004 before permanent fittings. Component ports, registers and edge preparation: END-CAP-01. Stock dimensions are nominal.".into()));s.push({let mut str539=String::new();str539.push_str("2. Finished cap inside-face spacing AT ROD AXIS: ");str539.push_str(&format(&e.get("INSIDE_SPAN")?,&val_string({let mut str540=String::new();str540.push_str(".3f");Val::Str(str540)})?)?);str539.push_str(" ±");str539.push_str(&format(&e.get("INSIDE_SPAN_TOL")?,&val_string({let mut str541=String::new();str541.push_str(".3f");Val::Str(str541)})?)?);str539.push_str(". Set both outside faces 0.250 below adjacent tube rims. Align both port pairs on ±Y; both R1 register axes coaxial on -Y, opposite the reservoirs' +Y sensing stations.");Val::Str(str539)});s.push(Val::Str("3. Use the fixed-length rod per FR-CARB-01. Seat and tack it in the bottom register before the bottom closure weld. Install the float before top closure; verify top engagement, free travel and full cap seating at the specified spacing.".into()));s.push(Val::Str("4. W1: continuous internal-corner fillet around BOTH cap perimeters. ER316L .030 filler. Clean bore band and cap outside face; preserve the square cap weld root. T1: tack rod to bottom cap. Welding, inspection, hydro and passivation: pressure-vessel procedure, steps 2-8.".into()));s.push({let mut str542=String::new();str542.push_str("5. Upper stop: Ø");str542.push_str(&format(&binary("truediv",e.get("carb")?.attr("UPPER_STOP_D")?,e.get("MM")?)?,&val_string({let mut str543=String::new();str543.push_str(".3f");Val::Str(str543)})?)?);str542.push_str(" stock, Ø9/64 THRU, ");str542.push_str(&format(&binary("truediv",e.get("carb")?.attr("UPPER_STOP_H")?,e.get("MM")?)?,&val_string({let mut str544=String::new();str544.push_str(".4f");Val::Str(str544)})?)?);str542.push_str(" +0.0000/-0.0079 long; square faces, deburr. T2: tack concentrically over top R1 before closure. Keep bore clear. With inlet fitted, retain 0.039 MIN axial air above the stopped float; verify through full radial guide play. Stop attachment and installed clearance require qualification.");Val::Str(str542)});Val::list(s)};e.set("paragraphs",assigned538.clone())?;
+let assigned538={let mut s=Vec::new();s.push(Val::Str("1. Fabrication state of HSM-0004 before permanent fittings. Component ports, registers and edge preparation: END-CAP-01. Stock dimensions are nominal.".into()));s.push({let mut str539=String::new();str539.push_str("2. Finished cap inside-face spacing AT ROD AXIS: ");str539.push_str(&format(&e.get("INSIDE_SPAN")?,&val_string({let mut str540=String::new();str540.push_str(".3f");Val::Str(str540)})?)?);str539.push_str(" ±");str539.push_str(&format(&e.get("INSIDE_SPAN_TOL")?,&val_string({let mut str541=String::new();str541.push_str(".3f");Val::Str(str541)})?)?);str539.push_str(". Set both outside faces 0.250 below adjacent tube rims. Align both port pairs on ±Y; both R1 register axes coaxial on -Y, opposite the reservoirs' +Y sensing stations.");Val::Str(str539)});s.push(Val::Str("3. Use the fixed-length rod per FR-CARB-01. Seat and tack it in the bottom register before the bottom closure weld. Install the float before top closure; verify top engagement, free travel and full cap seating at the specified spacing.".into()));s.push(Val::Str("4. W1: continuous internal-corner fillet around BOTH cap perimeters. ER316L .030 filler. Clean bore band and cap outside face; preserve the square cap weld root. T1: tack rod to bottom cap. Welding, inspection, hydro and passivation: pressure-vessel procedure, steps 2-8.".into()));s.push({let mut str542=String::new();str542.push_str("5. Upper stop: Ø");str542.push_str(&format(&binary("truediv",e.get("carb")?.attr("UPPER_STOP_D")?,e.get("MM")?)?,&val_string({let mut str543=String::new();str543.push_str(".3f");Val::Str(str543)})?)?);str542.push_str(" stock, Ø9/64 THRU, ");str542.push_str(&format(&binary("truediv",e.get("carb")?.attr("UPPER_STOP_H")?,e.get("MM")?)?,&val_string({let mut str544=String::new();str544.push_str(".4f");Val::Str(str544)})?)?);str542.push_str(" +0.0000/-0.0079 long; square faces, deburr. T2: tack concentrically over top R1 before closure. Keep bore clear. With inlet fitted, retain 0.039 MIN axial air above the stopped float; verify through full radial guide play. Stop attachment and installed clearance require qualification.");Val::Str(str542)});Val::list(s)};e.set("paragraphs",assigned538.clone())?;
 let assigned545={let fun548=e.get("wrap_lines")?;let mut args546=Vec::new();let mut kw547=Vec::new();args546.push(e.get("c")?);args546.push(Val::Int(650i64));args546.push(Val::Int(297i64));args546.push(e.get("paragraphs")?);args546.push(Val::Int(525i64));kw547.push(("size".into(),Val::Float(8.0f64)));kw547.push(("leading".into(),Val::Float(10.2f64)));kw547.push(("gap".into(),Val::Int(4i64)));fun548.call(args546,kw547)?};e.set("end",assigned545.clone())?;
 return Ok(e.get("end")?);
 Ok(Val::None)})})?;
@@ -2822,7 +2822,7 @@ Ok(Val::None)})})?;
 {let fun579=e.get("parts_list")?;let mut args577=Vec::new();let mut kw578=Vec::new();args577.push(e.get("c")?);fun579.call(args577,kw578)?};
 {let fun582=e.get("requirements")?;let mut args580=Vec::new();let mut kw581=Vec::new();args580.push(e.get("c")?);fun582.call(args580,kw581)?};
 {let fun585=e.get("text")?;let mut args583=Vec::new();let mut kw584=Vec::new();args583.push(e.get("c")?);args583.push(Val::Int(47i64));args583.push(Val::Int(168i64));args583.push(Val::Str("RELEASE ITEMS: W1 SIZE AND WELD QUALIFICATION; REMAINING UNSPECIFIED ASSEMBLY TOLERANCES.".into()));args583.push(Val::Float(8.5f64));kw584.push(("bold".into(),Val::Bool(true)));fun585.call(args583,kw584)?};
-{let fun588=e.get("title_block")?;let mut args586=Vec::new();let mut kw587=Vec::new();args586.push(e.get("c")?);args586.push(e.get("SHEET")?);args586.push(Val::Str("CARBONATOR VESSEL - CLOSURE ASSEMBLY".into()));args586.push(Val::Str("CV-WLD-01".into()));args586.push(Val::Str("SEE PARTS LIST".into()));args586.push(Val::Str("1 PER MACHINE".into()));args586.push(Val::Str("HSM-000004 / FABRICATION STATE".into()));kw587.push(("revision".into(),Val::Str("C".into())));kw587.push(("date".into(),Val::Str("2026-10-28".into())));fun588.call(args586,kw587)?};
+{let fun588=e.get("title_block")?;let mut args586=Vec::new();let mut kw587=Vec::new();args586.push(e.get("c")?);args586.push(e.get("SHEET")?);args586.push(Val::Str("CARBONATOR VESSEL - CLOSURE ASSEMBLY".into()));args586.push(Val::Str("CV-WLD-01".into()));args586.push(Val::Str("SEE PARTS LIST".into()));args586.push(Val::Str("1 PER MACHINE".into()));args586.push(Val::Str("HSM-0004 / FABRICATION STATE".into()));kw587.push(("revision".into(),Val::Str("C".into())));kw587.push(("date".into(),Val::Str("2026-10-28".into())));fun588.call(args586,kw587)?};
 {let fun591=e.get("c")?.attr("showPage")?;let mut args589=Vec::new();let mut kw590=Vec::new();fun591.call(args589,kw590)?};
 {let fun594=e.get("c")?.attr("save")?;let mut args592=Vec::new();let mut kw593=Vec::new();fun594.call(args592,kw593)?};
 Ok(Val::None)})})?;

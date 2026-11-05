@@ -243,7 +243,7 @@ def title_block(c):
             line(c, a, bottom, a, 65)
         text(c, a + 9, 53, label, 7)
         text(c, a + 9, 37, value, 9, bold=True)
-    text(c, 47, 127, "HSM-000269", 9, bold=True)
+    text(c, 47, 127, "HSM-0269", 9, bold=True)
     text(c, 47, 110, "UNLESS SPECIFIED", 8, bold=True)
     text(c, 47, 97, f"LINEAR ±{PROFILE_TOL:.2f} mm", 9)
     text(c, 47, 80, "REF = REFERENCE", 8)

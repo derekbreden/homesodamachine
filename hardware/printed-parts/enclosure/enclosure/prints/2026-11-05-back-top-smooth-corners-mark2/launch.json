@@ -2,7 +2,7 @@
   "printer": "Mark2",
   "observed_at": "2026-11-05T15:06:28.418432+00:00",
   "archive": {
-    "name": "HSM-000081-back-top-Mark2.gcode.3mf",
+    "name": "HSM-0081-back-top-Mark2.gcode.3mf",
     "sha256": "9bf7e28a4573503f8e9954b7ffa82076b03b9b0bd201cbde67b22c763f0d7e3c",
     "gcode_sha256": "2420344466cd59636e9b513e5661f733230b06b1719fdb1d58c66bf13f455833",
     "slots": {
@@ -17,7 +17,7 @@
   },
   "printer_task_id": "1410263719",
   "gcode_state": "PREPARE",
-  "subtask_name": "HSM-000081-back-top-Mark2.gcode.3mf",
+  "subtask_name": "HSM-0081-back-top-Mark2.gcode.3mf",
   "print_error": 0,
   "hms": [],
   "layer_num": 284,

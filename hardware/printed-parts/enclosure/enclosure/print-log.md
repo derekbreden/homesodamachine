@@ -644,7 +644,7 @@ and cleanup remain unassessed.
 
 [Native slice, support contact check and launch record](../tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-24-enclosure-front-bottom-h2c-v7/README.md).
 
-## HSM-000079 complete front top · Mark1
+## HSM-0079 complete front top · Mark1
 
 Black PET-GF on the fixed left hardened 0.4 mm Standard nozzle, Textured PEI,
 +0.16 mm emitted trim. Job **1405624302** accepted 2026-11-04T05:02:44.371197+00:00.

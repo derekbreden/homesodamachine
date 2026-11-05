@@ -6,7 +6,7 @@
     "gcode_sha256": "d6751a6dd130c7d680e46c0ae0c2b96407b3ed34fef7c17d55c3603a8a5a6cbc",
     "model": "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.stl",
     "model_sha256": "256c74ff711a314fbdbcf61201a191109d2c38232cd8d6a6e5540abbf7c1a6db",
-    "profile": "/Users/derekbredensteiner/Downloads/HSM-full-enclosure-2026-11-03/projects/HSM-000020-foam-cap-lid-top-Mark1.3mf",
+    "profile": "/Users/derekbredensteiner/Downloads/HSM-full-enclosure-2026-11-03/projects/HSM-0020-foam-cap-lid-top-Mark1.3mf",
     "profile_sha256": "d6b6c7623c64dd69197d334c2383d49a21c7c0ecc47734f885e441bfff3fd649"
   },
   "slicer": "BambuStudio 02.08.02.61",

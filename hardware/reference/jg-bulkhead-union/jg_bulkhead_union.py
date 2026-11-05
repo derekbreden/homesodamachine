@@ -1,4 +1,4 @@
-"""Scan-fitted John Guest PP1208E 1/4-inch bulkhead union, HSM-000059.
+"""Scan-fitted John Guest PP1208E 1/4-inch bulkhead union, HSM-0059.
 
 +Y points outboard; Y0 is the fixed flange's panel-seating face. The frozen
 reference contains the fitting and its separate nut at the captured position.

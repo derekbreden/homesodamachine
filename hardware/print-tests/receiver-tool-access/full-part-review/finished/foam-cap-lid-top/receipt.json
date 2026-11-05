@@ -1,14 +1,14 @@
 {
-  "part_number": "HSM-000020",
+  "part_number": "HSM-0020",
   "part": "foam-cap-lid-top",
   "printer": "Mark1",
   "stl": "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.stl",
   "stl_sha256": "256c74ff711a314fbdbcf61201a191109d2c38232cd8d6a6e5540abbf7c1a6db",
-  "project": "/Users/derekbredensteiner/Downloads/HSM-full-enclosure-2026-11-03/projects/HSM-000020-foam-cap-lid-top-Mark1.3mf",
+  "project": "/Users/derekbredensteiner/Downloads/HSM-full-enclosure-2026-11-03/projects/HSM-0020-foam-cap-lid-top-Mark1.3mf",
   "project_sha256": "d6b6c7623c64dd69197d334c2383d49a21c7c0ecc47734f885e441bfff3fd649",
-  "reviewed_archive": "/Users/derekbredensteiner/Downloads/HSM-full-enclosure-2026-11-03/reviewed/HSM-000020-foam-cap-lid-top-Mark1.gcode.3mf",
+  "reviewed_archive": "/Users/derekbredensteiner/Downloads/HSM-full-enclosure-2026-11-03/reviewed/HSM-0020-foam-cap-lid-top-Mark1.gcode.3mf",
   "reviewed_archive_sha256": "f3e6f0b4c1f0ba750c5428016f803f36ec34dfebca46d7bb70c1dfcfbb39f593",
-  "print_archive": "/Users/derekbredensteiner/Downloads/HSM-full-enclosure-2026-11-03/HSM-000020-foam-cap-lid-top-Mark1.gcode.3mf",
+  "print_archive": "/Users/derekbredensteiner/Downloads/HSM-full-enclosure-2026-11-03/HSM-0020-foam-cap-lid-top-Mark1.gcode.3mf",
   "print_archive_sha256": "7c4bfdee12fd1e926d71c272e05be9ce7ed0cbf8e8b2e374064df5dbf62cfd2f",
   "gcode_sha256": {
     "Metadata/plate_1.gcode": "d80f87c68618b7c77741cb43dde7014d967753a71786ab76cd0ecf94c0bdb43e"

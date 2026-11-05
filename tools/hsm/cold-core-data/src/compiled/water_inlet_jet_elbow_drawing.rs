@@ -144,7 +144,7 @@ pub fn initialize(rt: Runtime, e: Env) -> Result<()> {
     e.set("JET_OFFSET_MAX", assigned32.clone())?;
     let assigned33 = Val::Str("A".into());
     e.set("REVISION", assigned33.clone())?;
-    let assigned34 = Val::Str("HSM-000338".into());
+    let assigned34 = Val::Str("HSM-0338".into());
     e.set("MATERIAL_ID", assigned34.clone())?;
     let assigned35 = binary(
         "sub",
@@ -2186,7 +2186,7 @@ pub fn initialize(rt: Runtime, e: Env) -> Result<()> {
                         let mut s = Vec::new();
                         s.push(Val::Str("1".into()));
                         s.push(Val::Str("1".into()));
-                        s.push(Val::Str("HSM-000010".into()));
+                        s.push(Val::Str("HSM-0010".into()));
                         s.push(Val::Str("TAISHER 316L STREET ELBOW, 1/4 NPT M X F".into()));
                         Val::tuple(s)
                     });
@@ -2200,7 +2200,7 @@ pub fn initialize(rt: Runtime, e: Env) -> Result<()> {
                         let mut s = Vec::new();
                         s.push(Val::Str("2".into()));
                         s.push(Val::Str("1".into()));
-                        s.push(Val::Str("HSM-000011".into()));
+                        s.push(Val::Str("HSM-0011".into()));
                         s.push(Val::Str("316 STAINLESS DRILLED CAP; JET-CAP-01".into()));
                         Val::tuple(s)
                     });

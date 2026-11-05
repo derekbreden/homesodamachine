@@ -1,7 +1,7 @@
 {
-  "source_archive": "/Users/derekbredensteiner/Downloads/HSM-full-enclosure-2026-11-03/reviewed/HSM-000079-front-top-Mark2.gcode.3mf",
+  "source_archive": "/Users/derekbredensteiner/Downloads/HSM-full-enclosure-2026-11-03/reviewed/HSM-0079-front-top-Mark2.gcode.3mf",
   "source_archive_sha256": "fbb043260411168963d3d3129e6b79fba1a7293552953bfda8d08dbedcd43cd0",
-  "print_only_archive": "/Users/derekbredensteiner/Downloads/HSM-full-enclosure-2026-11-03/HSM-000079-front-top-Mark2.gcode.3mf",
+  "print_only_archive": "/Users/derekbredensteiner/Downloads/HSM-full-enclosure-2026-11-03/HSM-0079-front-top-Mark2.gcode.3mf",
   "print_only_archive_sha256": "55f7aa72bdab15b60af6144acf04e9afd4b627f65447584a176f1d29ee4e631b",
   "gcode_sha256": {
     "Metadata/plate_1.gcode": "b1109ff35ca8197b131e2f48a922593758337ffbb49f61f89747b42ad3622296"

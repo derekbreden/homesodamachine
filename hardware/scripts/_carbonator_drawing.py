@@ -10,6 +10,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 for folder in ("hardware/cold-core-layout", "hardware/assembly",
+               "hardware/printed-parts/cold-core",
                "hardware/cut-parts/carbonation/endcaps-circular",
                "hardware/cut-parts/carbonation/float-rod"):
     sys.path.insert(0, str(ROOT / folder))

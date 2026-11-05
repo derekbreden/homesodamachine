@@ -1,4 +1,4 @@
-"""Scan-fitted neoFit ACVUS44 1/4-inch stem check, HSM-000383.
+"""Scan-fitted neoFit ACVUS44 1/4-inch stem check, HSM-0383.
 
 +X runs from the free stem tip at X0 to the socket mouth. The frozen model
 retains the measured turned exterior; its bore and socket are display closures.

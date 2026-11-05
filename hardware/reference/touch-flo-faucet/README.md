@@ -21,7 +21,7 @@ The Touch-Flo faucet's self-closing spring-return poppet valve gives consumer-ap
 - Donor countertop-mount washer and nut
 
 **Discarded:**
-- Factory lever — the [printed faucet lever](../../printed-parts/faucet/lever-replica/README.md), HSM-000268, operates the valve
+- Factory lever — the [printed faucet lever](../../printed-parts/faucet/lever-replica/README.md), HSM-0268, operates the valve
 - Donor deck plate — the printed above-counter plate takes its place
 
 ## Three-tube gooseneck

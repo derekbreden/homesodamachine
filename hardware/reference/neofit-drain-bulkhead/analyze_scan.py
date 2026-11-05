@@ -1,4 +1,4 @@
-"""Fit HSM-000061 from the preserved ABU44M-E bulkhead-and-nut capture."""
+"""Fit HSM-0061 from the preserved ABU44M-E bulkhead-and-nut capture."""
 from pathlib import Path
 import importlib.util
 import json
@@ -140,7 +140,7 @@ def main():
                     'url': 'https://assets.freshwatersystems.com/image/upload/qnbgcy8djx3nj2weqz9v.pdf'},
                 'limits': limits}
     (HERE/'scan-evidence.json').write_text(json.dumps(evidence, indent=2)+'\n')
-    parameters = {'units': 'mm', 'material_id': 'HSM-000061', 'panel_seat_local_x_mm': seat,
+    parameters = {'units': 'mm', 'material_id': 'HSM-0061', 'panel_seat_local_x_mm': seat,
                   'outboard_mouth_local_x_mm': near, 'inboard_mouth_local_x_mm': far,
                   'overall_mm': far-near, 'near_ring_face_y_mm': seat-near, 'far_ring_face_y_mm': seat-far,
                   'body_hex': {k: body_hex[k] for k in ['across_flats_mm', 'center_yz_mm', 'vertex_clock_degrees']},

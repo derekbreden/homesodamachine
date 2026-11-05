@@ -89,7 +89,7 @@ def main():
     }
     (HERE/'scan-evidence.json').write_text(json.dumps(evidence, indent=2)+'\n')
     parameters = {
-        'units': 'mm', 'material_id': 'HSM-000383', 'length_mm': tip-mouth,
+        'units': 'mm', 'material_id': 'HSM-0383', 'length_mm': tip-mouth,
         'stem_shoulder_x_mm': tip-shoulder, 'stem_cylinder_diameter_mm': 2*fitted['radius_mm'],
         'nominal_stem_diameter_mm': 6.35, 'socket_display_diameter_mm': 6.5,
         'nominal_mating_stem_length_mm': mating_length,

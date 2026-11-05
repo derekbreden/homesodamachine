@@ -1,4 +1,4 @@
-'Carbonator closure assembly: source-defined sections and an exterior end view.\n\nFabrication state of HSM-000004, before permanent fittings. Registers show their\nactual drill points; the rod has its fixed finished length and the cap spacing\nis controlled to its specified interface tolerance. Weld profiles are\ndiagrammatic because a qualified weld size is not established by the procedure.\n'
+'Carbonator closure assembly: source-defined sections and an exterior end view.\n\nFabrication state of HSM-0004, before permanent fittings. Registers show their\nactual drill points; the rod has its fixed finished length and the cap spacing\nis controlled to its specified interface tolerance. Weld profiles are\ndiagrammatic because a qualified weld size is not established by the procedure.\n'
 from __future__ import annotations
 
 import sys as _sys

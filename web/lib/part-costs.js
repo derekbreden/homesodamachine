@@ -3,7 +3,7 @@
 //   * bom.md prices it line by line in delivered dollars;
 //   * labor.md times it operation by operation in attended minutes.
 //
-// Each data row of both carries a hidden `<!--parts HSM-000010 HSM-000013:2-->`
+// Each data row of both carries a hidden `<!--parts HSM-0010 HSM-0013:2-->`
 // tag naming the part numbers it belongs to. A row's amount is divided among
 // the parts present in the finished unit (`cost_root` in materials.json), by the
 // weight after each colon, or by each part's quantity in the unit when no
@@ -23,7 +23,7 @@ import { FAUCET_FINISHES } from "../contracts/faucet-options.js";
 import { parseRun } from "../contracts/part-costs.js";
 
 const PARTS_RE = /<!--parts\s+([\s\S]*?)-->/;
-const TARGET_RE = /HSM-\d{6}(?::\d+(?:\.\d+)?)?/g;
+const TARGET_RE = /HSM-\d{4,}(?::\d+(?:\.\d+)?)?/g;
 const CATEGORY_RE = /<!--@([a-z][a-z-]*)-->/;
 const MONEY_RE = /\$\s?([0-9][0-9,]*(?:\.[0-9]+)?)/;
 const COMMENT_RE = /<!--[\s\S]*?-->/g;

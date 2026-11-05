@@ -7,7 +7,7 @@ one of the identical purchased SendCutSend blanks. The other top port carries
 the PRV, and the bottom ports carry plain CO2 and soda-water elbows.
 
 The [jet elbow assembly drawing](../cold-core-layout/water-inlet-jet-elbow-drawing.pdf)
-(JET-ELB-01, Rev A) defines the complete welded assembly, HSM-000338: one
+(JET-ELB-01, Rev A) defines the complete welded assembly, HSM-0338: one
 purchased TAISHER elbow and one finished cap. Its sections identify the
 continuous circumferential joint and the required fusion to the wetted root.
 Fitting geometry is shown as reference; measured fit and small-joint weld

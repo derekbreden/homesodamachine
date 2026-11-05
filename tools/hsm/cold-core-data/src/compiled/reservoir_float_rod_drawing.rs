@@ -113,7 +113,7 @@ pub fn initialize(rt: Runtime, e: Env) -> Result<()> {
     let unpack36 = unpack(assigned35.clone(), 2)?;
     e.set("ENDPLAY_MIN", unpack36[0].clone())?;
     e.set("ENDPLAY_MAX", unpack36[1].clone())?;
-    let assigned37 = Val::Str("HSM-000339".into());
+    let assigned37 = Val::Str("HSM-0339".into());
     e.set("MATERIAL_ID", assigned37.clone())?;
     let assigned38 = {
         let mut s = Vec::new();

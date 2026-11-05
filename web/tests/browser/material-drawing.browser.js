@@ -6,7 +6,7 @@ import path from "node:path";
 import { start } from "../../server.js";
 
 const require = createRequire(new URL("../../../tools/render/package.json", import.meta.url));
-const materialUrl = "/3d#material:HSM-000009";
+const materialUrl = "/3d#material:HSM-0009";
 const searchUrl = materialUrl + "?panel=materials";
 const capFile = "cut-parts/carbonation/endcaps-circular/endcap-circular-2hole.step";
 const reviewDir = path.resolve(".cache/material-workspace");
@@ -50,20 +50,20 @@ async function assertPane(page, open) {
 
 test("3D thumbnails and model navigation start closed after an open materials pane", async () => {
   const page = await browser.newPage();
-  const card = '.card[data-material="HSM-000180"] .assembly-model-link';
+  const card = '.card[data-material="HSM-0180"] .assembly-model-link';
   const file = "printed-parts/calibration/soda-studies/the-pour.step";
   try {
     await page.setViewport({ width: 1440, height: 1000 });
     await page.goto(baseUrl + "/3d", { waitUntil: "domcontentloaded" });
     await page.waitForSelector(card);
-    assert.equal(await page.$eval(card, link => link.getAttribute("href")), "/3d#material:HSM-000180");
+    assert.equal(await page.$eval(card, link => link.getAttribute("href")), "/3d#material:HSM-0180");
     await page.click(card);
     await materialReady(page, file);
     await assertPane(page, false);
     await page.click(".materials-toggle");
     await assertPane(page, true);
     const canvas = await page.$("canvas.cad-viewport");
-    await page.evaluate(() => { location.hash = "material:HSM-000009"; });
+    await page.evaluate(() => { location.hash = "material:HSM-0009"; });
     await materialReady(page);
     await assertPane(page, false);
     assert.equal(await canvas.evaluate(node => node === document.querySelector("canvas.cad-viewport")), true);
@@ -74,7 +74,7 @@ test("3D thumbnails and model navigation start closed after an open materials pa
     await materialReady(page);
     await assertPane(page, false);
     await page.click(".materials-toggle");
-    await page.type(".material-panel .material-search input", "HSM-000009");
+    await page.type(".material-panel .material-search input", "HSM-0009");
     await page.click(".material-panel .material-search-results a");
     await page.waitForFunction(() => location.hash.endsWith("?panel=materials"));
     await assertPane(page, true); // The same model can be entered as a search result.
@@ -91,10 +91,10 @@ test("one workspace toolbar contains navigation, view mode and document controls
   const parentFile = "printed-parts/calibration/soda-studies/the-pour.step";
   try {
     await page.setViewport({ width: 1440, height: 1000 });
-    await page.goto(baseUrl + "/3d#material:HSM-000180", { waitUntil: "domcontentloaded" });
+    await page.goto(baseUrl + "/3d#material:HSM-0180", { waitUntil: "domcontentloaded" });
     await materialReady(page, parentFile);
     await page.click(".materials-toggle");
-    await page.type(".material-panel .material-search input", "HSM-000009");
+    await page.type(".material-panel .material-search input", "HSM-0009");
     await page.click(".material-panel .material-search-results a");
     await materialReady(page);
     const layout = await page.evaluate(() => {
@@ -133,7 +133,7 @@ test("material search opens the pane and features a working drawing beside the p
     await page.setViewport({ width: 1440, height: 1000 });
     await page.goto(baseUrl + "/3d", { waitUntil: "domcontentloaded" });
     await page.waitForSelector(".material-search input");
-    await page.type(".material-search input", "HSM-000009");
+    await page.type(".material-search input", "HSM-0009");
     await page.waitForSelector(".material-search-results a");
     const href = await page.$eval(".material-search-results a", link => link.getAttribute("href"));
     assert.equal(href, searchUrl);
@@ -194,7 +194,7 @@ test("material search opens the pane and features a working drawing beside the p
 
     // Selecting another search result while reading must discard the old part's
     // drawing and return to the newly selected material's model.
-    await page.type(".material-panel .material-search input", "HSM-000008");
+    await page.type(".material-panel .material-search input", "HSM-0008");
     await page.click(".material-panel .material-search-results a");
     await materialReady(page, "cut-parts/carbonation/carbonator-tube/carbonator-tube.step");
     assert.equal(await page.$(".material-drawing-view"), null);
@@ -214,7 +214,7 @@ test("phone searches open the pane under the model; drawings keep the pane and t
     await page.setViewport({ width: 390, height: 844, deviceScaleFactor: 2, isMobile: true, hasTouch: true });
     await page.goto(baseUrl + "/3d", { waitUntil: "domcontentloaded" });
     await page.waitForSelector(".material-search input");
-    await page.type(".material-search input", "HSM-000009");
+    await page.type(".material-search input", "HSM-0009");
     await page.click(".material-search-results a");
     await materialReady(page);
     await assertPane(page, true);
@@ -239,7 +239,7 @@ test("phone searches open the pane under the model; drawings keep the pane and t
     await page.waitForSelector(".cad-wrapper:not(.drawing-open)");
     assert.equal(await page.$eval(".material-view-switch button[aria-pressed=true]", button => button.textContent), "3D");
     assert.deepEqual(await cameraPose(page), pose);
-    await page.type(".material-panel .material-search input", "HSM-000008");
+    await page.type(".material-panel .material-search input", "HSM-0008");
     await page.click(".material-panel .material-search-results a");
     await materialReady(page, "cut-parts/carbonation/carbonator-tube/carbonator-tube.step");
     await assertPane(page, true);

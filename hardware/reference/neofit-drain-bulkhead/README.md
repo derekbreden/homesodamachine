@@ -1,6 +1,6 @@
 # neoFit ABU44M-E 4 mm bulkhead union
 
-**HSM-000061**, black acetal ABU44M-E from
+**HSM-0061**, black acetal ABU44M-E from
 [Fresh Water Systems](https://www.freshwatersystems.com/products/neofit-acetal-black-bulkhead-connector-4mm-5-32-tube).
 Both sockets take 4 mm OD tubing. Three fit each appliance: two black-marked
 FLAVOR stations and one white-marked DRAIN station. The separate DRAIN tube is

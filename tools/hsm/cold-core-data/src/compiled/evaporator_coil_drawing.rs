@@ -152,7 +152,7 @@ pub fn initialize(rt: Runtime, e: Env) -> Result<()> {
     e.set("CUT_LENGTH", assigned39.clone())?;
     let assigned55 = Val::Int(10i64);
     e.set("CUT_PLUS", assigned55.clone())?;
-    let assigned56 = Val::Str("HSM-000015".into());
+    let assigned56 = Val::Str("HSM-0015".into());
     e.set("MATERIAL_ID", assigned56.clone())?;
     let assigned57 = Val::Str("C".into());
     e.set("REVISION", assigned57.clone())?;

@@ -6,7 +6,7 @@
     "gcode_sha256": "c630082fc1d18d75c9847b408754b89f42683a14a0ed171fdc57af8411dc4347",
     "model": "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl",
     "model_sha256": "6ad55d860d0bee7ac607a99ff08d7676bb08ce5f2b4cd0521d61e72d961721d2",
-    "profile": "/Users/derekbredensteiner/Downloads/HSM-full-enclosure-2026-11-03/projects/HSM-000079-front-top-Mark1.3mf",
+    "profile": "/Users/derekbredensteiner/Downloads/HSM-full-enclosure-2026-11-03/projects/HSM-0079-front-top-Mark1.3mf",
     "profile_sha256": "6612f67e41e819ed1ad3c52cf8106969f90f72f3722a5cd99f7999a7bff037b4"
   },
   "slicer": "BambuStudio 02.08.02.61",

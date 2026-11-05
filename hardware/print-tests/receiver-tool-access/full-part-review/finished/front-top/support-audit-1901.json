@@ -6,7 +6,7 @@
     "gcode_sha256": "aafdb9a24ad23301dcab1aef3bbd498c0a21b88b214159eb41bc43d21ebfa0e0",
     "model": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl",
     "model_sha256": "6ad55d860d0bee7ac607a99ff08d7676bb08ce5f2b4cd0521d61e72d961721d2",
-    "profile": "/Users/derekbredensteiner/Downloads/HSM-full-enclosure-2026-11-03/projects/HSM-000079-front-top-Mark2.3mf",
+    "profile": "/Users/derekbredensteiner/Downloads/HSM-full-enclosure-2026-11-03/projects/HSM-0079-front-top-Mark2.3mf",
     "profile_sha256": "cf4cda549cf372141b42ab4a53ccf5f9b2b81f5f2532d8265202ba86f1c12d1c"
   },
   "slicer": "BambuStudio 02.08.02.61",

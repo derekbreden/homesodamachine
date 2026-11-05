@@ -20,7 +20,7 @@ test("public model paths follow numbered membership and store retention keeps bu
     website: { solids: { [part]: "public" }, sidecars: {} } };
   const pointer = path.join(root, "cad-artifacts.json");
   await writeFile(pointer, JSON.stringify(pointers));
-  const catalog = { materials: [{ id: "HSM-000001", models: [{ file: "parts/part.step" }] }] };
+  const catalog = { materials: [{ id: "HSM-0001", models: [{ file: "parts/part.step" }] }] };
   const catalogPath = path.join(hardware, "ledger/materials.json");
   await writeFile(catalogPath, JSON.stringify(catalog));
   const old = process.env.RENDER_GIT_COMMIT;
@@ -37,7 +37,7 @@ test("public model paths follow numbered membership and store retention keeps bu
   assert.deepEqual(Object.keys((await (await get("/api/objects")).json()).objects), ["parts/part.step"]);
   assert.deepEqual(namedBy(pointers), new Set(["public", "build"]));
   // A material number changes access without a filename allowlist edit.
-  catalog.materials.push({ id: "HSM-000002", models: [{ file: "studies/study.step", context: true }] });
+  catalog.materials.push({ id: "HSM-0002", models: [{ file: "studies/study.step", context: true }] });
   await writeFile(catalogPath, JSON.stringify(catalog));
   assert.equal((await get("/steps/studies/study.step")).status, 200);
   // A local render/build tree retains the build input even though the site omits it.

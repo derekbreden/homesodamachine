@@ -11,6 +11,8 @@ export function materialHash(id, { tab = null, panel = null } = {}) {
 }
 
 export async function openMaterial(id, pushHistory = true, { tab = null, panel = null } = {}) {
+  // Links written with six-digit ids (`HSM-000546`) open the same material.
+  id = id.replace(/^HSM-0*(\d+)$/, (_, n) => "HSM-" + n.padStart(4, "0"));
   const material = materialIndex(state.materialCatalog).get(id);
   if (!material) {
     const notice = document.createElement("p"); notice.className = "material-catalog-status";

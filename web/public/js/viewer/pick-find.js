@@ -1,6 +1,6 @@
 // Find box — the edge picker's round trip, and the way in for anyone who
 // only knows what a thing is called. Type a material description, part number
-// or CAD key (`Faucet lever`, `HSM-000090`, `fluid-17`) and its bodies light
+// or CAD key (`Faucet lever`, `HSM-0090`, `fluid-17`) and its bodies light
 // up. Paste pick text — a copy-all blob, a single row, a whole
 // multi-pick message from either side of the conversation — and every
 // recognizable pick in it is matched against the loaded model's

@@ -1,6 +1,6 @@
 {
   "units": "mm",
-  "material_id": "HSM-000059",
+  "material_id": "HSM-0059",
   "panel_seat_local_x_mm": 4.901853251431952,
   "outboard_mouth_local_x_mm": 16.423222875359976,
   "inboard_mouth_local_x_mm": -21.129507938140996,
@@ -288,5 +288,5 @@
     "tube_stop_depth_mm": 15.7,
     "through_bore_mm": 5.3
   },
-  "scan_evidence_sha256": "debe8cf691481e3f403ccbcdb486910f64dd4692f844bcdc48dbaae2c37709ea"
+  "scan_evidence_sha256": "347f48147ee5fa1f747e89133ee0cbcda0357b87da256a1d9851dcbee10277a2"
 }

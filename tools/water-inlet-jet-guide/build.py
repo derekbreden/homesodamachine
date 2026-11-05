@@ -5,9 +5,7 @@ inputs and source receipt belong to this document's on-demand review.
 """
 from __future__ import annotations
 
-import ast
 import json
-import operator
 import sys
 from pathlib import Path
 
@@ -55,33 +53,21 @@ SOURCES = [
 ]
 
 
-def numbers(relative, names, initial=None):
-    """Read only this guide's simple scalar inputs without importing CAD."""
-    tree=ast.parse((ROOT/relative).read_text())
-    expr={target.id:node.value for node in tree.body if isinstance(node,ast.Assign)
-          for target in node.targets if isinstance(target,ast.Name)}
-    ops={ast.Add:operator.add,ast.Sub:operator.sub,ast.Mult:operator.mul,ast.Div:operator.truediv}
-    values=dict(initial or {})
-    def calc(node):
-        if isinstance(node,ast.Constant) and isinstance(node.value,(int,float)):return node.value
-        if isinstance(node,ast.Name):return get(node.id)
-        if isinstance(node,ast.BinOp) and type(node.op) in ops:return ops[type(node.op)](calc(node.left),calc(node.right))
-        raise ValueError(f"Review numeric input {relative}: {ast.dump(node)}")
-    def get(name):
-        if name not in values:values[name]=calc(expr[name])
-        return values[name]
-    return {name:get(name) for name in names}
-
-
-GEOM = numbers("hardware/cold-core-layout/_water_inlet_jet.py",["JET_CAP_D","JET_CAP_T","JET_PASSAGE_D"])
-LIMIT = numbers("hardware/cold-core-layout/water_inlet_jet_cap_drawing.py",["OD_TOL","THICKNESS_TOL","BORE_PLUS","BORE_MINUS",
+# The jet, cap-drawing and fixture modules answer their numbers by name from Rust.
+sys.path[:0] = [str(ROOT / "hardware/cold-core-layout"),
+                str(ROOT / "hardware/printed-parts/fixtures/water-inlet-jet")]
+import _water_inlet_jet as jet_source
+import water_inlet_jet_cap_drawing as cap_source
+import water_inlet_jet_fixture as fixture_source
+GEOM = {name:getattr(jet_source,name) for name in ["JET_CAP_D","JET_CAP_T","JET_PASSAGE_D"]}
+LIMIT = {name:getattr(cap_source,name) for name in ["OD_TOL","THICKNESS_TOL","BORE_PLUS","BORE_MINUS",
                           "RADIAL_OFFSET_MAX","AXIS_ANGLE_MAX","FACE_GAP_MAX",
-                          "THICKNESS_VARIATION_MAX","HOLE_EDGE_BREAK_MAX"])
+                          "THICKNESS_VARIATION_MAX","HOLE_EDGE_BREAK_MAX"]}
 D,T,BORE=(GEOM[k] for k in ["JET_CAP_D","JET_CAP_T","JET_PASSAGE_D"])
-FIXTURE = numbers("hardware/printed-parts/fixtures/water-inlet-jet/water_inlet_jet_fixture.py",
-                  ["BASE_X","BASE_Y","BASE_T","JAW_X","JAW_DEPTH","GRIP_Z",
-                   "HANDLING_BLANK_L","MIN_HANDLING_BLANK_L","OPEN_JAW_GAP",
-                   "GROOVE_R","JAW_CLAMP_X","BASE_CLAMP_X"],{"JET_CAP_D":D})
+FIXTURE = {name:getattr(fixture_source,name) for name in
+           ["BASE_X","BASE_Y","BASE_T","JAW_X","JAW_DEPTH","GRIP_Z",
+            "HANDLING_BLANK_L","MIN_HANDLING_BLANK_L","OPEN_JAW_GAP",
+            "GROOVE_R","JAW_CLAMP_X","BASE_CLAMP_X"]}
 fixture.FIXTURE=FIXTURE
 fixture.ROD_D=D
 
@@ -132,7 +118,7 @@ def cover(c):
     for row,target in enumerate([2,6,9,11]):
         y=207+row*86
         c.linkRect("",f"page-{target}",(52,H-y-72,568,H-y),relative=1,thickness=0)
-    paragraph(c,"<b>The finished jet has two parts:</b> one drilled 316 cap (HSM-000011) and one TAISHER elbow. Together they make HSM-000338.<br/>"
+    paragraph(c,"<b>The finished jet has two parts:</b> one drilled 316 cap (HSM-0011) and one TAISHER elbow. Together they make HSM-0338.<br/>"
               "The jaws, clamps, holder and gas fittings stay at the bench.",
               35,580,541,12.2,16,max_height=65)
     lower(c,"START AT A / THE FIXTURE IS PART OF THIS BUILD",
@@ -241,7 +227,7 @@ def build():
          "Proposed travel order. Coral is the current arc; black is completed travel. Release the trigger before repositioning or changing the restraint.",
          ["Trace the seam at the selected focus, attitude, wire delivery and travel. Fuse the cap to the elbow while keeping the jet passage open.",
           "Work the opposing arc, then connect the other sides. Tie each restart into the existing fusion boundary until the rim is closed.",
-          "The finished assembly is <b>JET-ELB-01 / HSM-000338</b>. Its cap projects into the carbonator headspace when the elbow is installed at top Port 2."],
+          "The finished assembly is <b>JET-ELB-01 / HSM-0338</b>. Its cap projects into the carbonator headspace when the elbow is installed at top Port 2."],
          "YOU HAVE / THE WELDED WATER-INLET JET","The required fusion reaches the wetted root; a rim bead alone does not show it. Supporting qualification and post-build instructions are linked on p. 14.",["S2","S4","M3"])
     references(c);c.save()
     receipt={"geometry_mm":GEOM,"finished_limits_mm":LIMIT,"fixture_inputs_mm":FIXTURE,
