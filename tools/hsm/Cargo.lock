@@ -913,12 +913,22 @@ dependencies = [
 ]
 
 [[package]]
-name = "hsm-guides"
+name = "hsm-guide-native"
 version = "0.1.0"
 dependencies = [
  "anyhow",
  "hsm-build-data",
  "hsm-documents",
+ "serde_json",
+]
+
+[[package]]
+name = "hsm-guides"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "hsm-documents",
+ "hsm-guide-native",
  "serde_json",
 ]
 

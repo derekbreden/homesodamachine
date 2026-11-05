@@ -108,7 +108,7 @@ with the existing build trace registries.
 | `part-data` | Purchased reference providers, storage catalogues, refrigeration/printing fixtures, drain adapters, cuffs, press, sleeve, trays and zone-C recipes |
 | `shared-data` | Materials, finishes, colour arithmetic, stock routing and shared fit/snap/reeding/cooling helpers |
 | `layout-data` | Appliance frames, fitting names, native tube construction and sampling, reservoir routes and soda inlet/holder recipes |
-| `guides` | Install and faucet guide layout, artwork, camera/mask/shading calculations, plumbing render plans and document composition |
+| `guides`, `guide-native` | Install and faucet guide layout, artwork, camera/mask/shading calculations, plumbing render plans and document composition |
 | `build-data`, `bookkeeping-data` | Mesh payloads, projection, source hashes, fine-asset adoption, print/graft planning, artifact identity/caches, inventory, source stripping, carry/selection/pointers and publication archives |
 | `build-plan` | Generator action planning, dependency rules, graph projections and BUILD rendering |
 | `hsm-run`, `hsm-run-slots`, `hsm-run-native` | Host admission, inherited run/CAD/compiler leases, process execution, viewer notifications and runtime installation |
@@ -118,9 +118,9 @@ and `guides` are Rust generated from their Python modules, about 37,700 authored
 generated module is one `initialize` function over `hsm_documents::interop::Val`: Python
 names resolve at run time through `Env` scopes, and a module outside the compiled set is
 imported through the Python adapter's callback. No generator is retained, so edits go into
-the generated files. `enclosure-data` and `cold-core-data` compile at opt-level 0;
-`machine-data` and `guides` keep the release optimization for their hand-written mesh,
-archive and mask loops ([record](conversion-results/generated-runtime-2026-11-04.json)).
+the generated files. The four crates compile at opt-level 0, while `hsm-documents`' value
+runtime and their other dependencies keep the release optimization. The guides' hand-written
+mesh and mask loops are in `guide-native`, a dependency of `guides`.
 Unverified typed drafts of these modules, with their sessions' notes and
 harness, are in commit `59ad02ff5`: `git checkout 59ad02ff5 -- tools/hsm/<crate>/src/typed`.
 

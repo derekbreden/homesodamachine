@@ -18,4 +18,3 @@ pub fn request(value: Value) -> Result<Value> {
 }
 
 pub mod compiled;
-mod native;
