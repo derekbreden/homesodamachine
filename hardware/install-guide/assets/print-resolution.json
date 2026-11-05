@@ -220,12 +220,12 @@
         2.0
       ],
       "coordinate_reference_path": "reference/rear-layout-the-back-face.png",
-      "coordinate_reference_sha256": "bc7bd5dc2434bfcd9c417da778f42af6f4cdd6afb9fdfbfa70d3289ccf4d34d7",
-      "render_sha256": "64791f16fc4050bb5a294ed8eed70ac0a3a05d6b1dbd63c95c6570518829a911",
-      "source_sha256": "acaad2f3a496dfdf7b4f064d2815fe78d150d677a271c46ca49d70b49130c314",
+      "coordinate_reference_sha256": "179dc6292ac96e0f4b5f67d222420995ff79a75ad30f0eabcea90ccdab2a8a7a",
+      "render_sha256": "706f51982a57580df57754155c4d86b581e326531d803bcca71c08ca7a1d2b62",
+      "source_sha256": "7faf96df6f91aa18d650eb9f5fec64ea663891eb033d1ac257f8de77199d55fb",
       "fixed_native_crop": null,
       "lighting": "Default studio lighting; axial rear camera; native transparent background.",
-      "scene_mesh_sha256": "4f44dd956fac3518ff4abdc271772c2707e06a4173d388572f2db947bda64c67",
+      "scene_mesh_sha256": "8e175c29bfa70e0051620b23f7721a877a7ca23abdb97381af90ec3ba630ebd3",
       "registered_camera": {
         "cam": [
           0,
