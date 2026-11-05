@@ -2,7 +2,7 @@
   "printer": "H2C",
   "observed_at": "2026-11-04T05:02:44.371197+00:00",
   "archive": {
-    "name": "HSM-000079-front-top-Mark1.gcode.3mf",
+    "name": "HSM-0079-front-top-Mark1.gcode.3mf",
     "sha256": "e359e0e3ffdfd8cb4b88de61fc889c3bda72202457faef94f3e744d971f69b9c",
     "gcode_sha256": "efd0339000f8395ece9c9ac3c249013735e1587fe3479ff4b6f088d4b42e2109",
     "slots": {
@@ -17,7 +17,7 @@
   },
   "printer_task_id": "1405624302",
   "gcode_state": "PREPARE",
-  "subtask_name": "HSM-000079-front-top-Mark1.gcode.3mf",
+  "subtask_name": "HSM-0079-front-top-Mark1.gcode.3mf",
   "print_error": 0,
   "hms": [],
   "layer_num": 269,

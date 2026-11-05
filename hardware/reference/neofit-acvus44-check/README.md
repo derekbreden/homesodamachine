@@ -1,6 +1,6 @@
 # neoFit ACVUS44 stem check valve
 
-**HSM-000383**, a white acetal check valve with a 1/4-inch male stem and a
+**HSM-0383**, a white acetal check valve with a 1/4-inch male stem and a
 1/4-inch tube socket. Two installed instances use this reference: the water-side
 `discharge-chain` and `gas-check` after the Pisco regulator. The
 [supplier listing](https://www.freshwatersystems.com/products/stem-reducer-check-valve-1-4-od-x-1-4-od-stem)

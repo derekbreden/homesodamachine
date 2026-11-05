@@ -1,12 +1,12 @@
 # Removable fore paired-cap article review
 
-This record describes the HSM-000337 cap and receiver identified by the source,
+This record describes the HSM-0337 cap and receiver identified by the source,
 native export and print archive hashes below. Its fit and print readings belong
 to that article. The [production lid](../README.md) documents the integral fore
 C2 pair.
 
-HSM-000337 is one removable PET-GF cap on the integral fore receiver in
-HSM-000020, the cold-core top lid. Its two upper half-pipes close over the
+HSM-0337 is one removable PET-GF cap on the integral fore receiver in
+HSM-0020, the cold-core top lid. Its two upper half-pipes close over the
 continuous ¼-inch fill and draw tubes. The full-width wings spread outward
 over the receiver's ledges, then recover beneath them. Both wings and their
 hooks span the cap's entire 6 mm Y length. Pull the exposed wings outward

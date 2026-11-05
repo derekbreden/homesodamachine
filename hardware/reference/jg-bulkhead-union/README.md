@@ -1,6 +1,6 @@
 # John Guest PP1208E 1/4-inch bulkhead union
 
-**HSM-000059**, black polypropylene union at the rear **SODA** station. The
+**HSM-0059**, black polypropylene union at the rear **SODA** station. The
 reference follows the prepared MINI 2 scan at native scale. The fitting and its
 separate nut are two named solids; both exported mesh shells are watertight.
 

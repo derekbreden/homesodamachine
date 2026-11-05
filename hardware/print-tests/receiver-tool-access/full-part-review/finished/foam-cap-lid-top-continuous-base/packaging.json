@@ -1,7 +1,7 @@
 {
-  "source_archive": "/Users/derekbredensteiner/Downloads/HSM-full-enclosure-2026-11-03/reviewed/HSM-000020-foam-cap-lid-top-Mark1.gcode.3mf",
+  "source_archive": "/Users/derekbredensteiner/Downloads/HSM-full-enclosure-2026-11-03/reviewed/HSM-0020-foam-cap-lid-top-Mark1.gcode.3mf",
   "source_archive_sha256": "014da1eb47bc6178e6f660ac0a782abc0aedd6ea400b3b099ea45bde9889f8bd",
-  "print_only_archive": "/Users/derekbredensteiner/Downloads/HSM-full-enclosure-2026-11-03/HSM-000020-foam-cap-lid-top-Mark1.gcode.3mf",
+  "print_only_archive": "/Users/derekbredensteiner/Downloads/HSM-full-enclosure-2026-11-03/HSM-0020-foam-cap-lid-top-Mark1.gcode.3mf",
   "print_only_archive_sha256": "703dcf810051759f1a6e95301f8720b5db2538b7e7098011500fcf7e84211e0f",
   "gcode_sha256": {
     "Metadata/plate_1.gcode": "c2b1299ab90ae6d59299e7690e64c17b410f7c8437fc3cae2a20650abbc12f01"

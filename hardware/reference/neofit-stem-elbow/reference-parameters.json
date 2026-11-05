@@ -1,6 +1,6 @@
 {
   "units": "mm",
-  "material_id": "HSM-000330",
+  "material_id": "HSM-0330",
   "tube_od_mm": 6.35,
   "stem_od_mm": 6.35,
   "stem_tip_x_mm": -27.02535353479422,
@@ -184,5 +184,5 @@
       ]
     ]
   },
-  "scan_evidence_sha256": "3e0b546b32ac3c669df6d45378f6d28642550becc5c6e87d00e01f29baa7b559"
+  "scan_evidence_sha256": "e04699c3d443b69e31c1c4e9f0864ce6c365c6055f804d188d2bb86f16b567a3"
 }

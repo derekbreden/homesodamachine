@@ -8,7 +8,7 @@ function filterMaterials() {
   const count = results.filter(result => !result.hidden).length;
   searchStatus.textContent = query
     ? `${count} sample ${count === 1 ? 'material' : 'materials'} found.`
-    : "3 sample materials. Try ‘insertion’ or ‘HSM-000005’.";
+    : "3 sample materials. Try ‘insertion’ or ‘HSM-0005’.";
 }
 search.addEventListener('input', filterMaterials);
 document.querySelector('[data-guide-focus]').addEventListener('click', () => search.focus());

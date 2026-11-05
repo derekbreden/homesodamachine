@@ -1,14 +1,14 @@
 {
-  "part_number": "HSM-000081",
+  "part_number": "HSM-0081",
   "part": "back-top",
   "printer": "Mark2",
   "stl": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl",
   "stl_sha256": "2ed29e4d8e38aa0a95b5d1cbff7ae477ae5b60fc2dc5b1510a771a805ab2b2eb",
-  "project": "/Users/derekbredensteiner/Downloads/HSM-full-enclosure-2026-11-03/projects/HSM-000081-back-top-Mark2.3mf",
+  "project": "/Users/derekbredensteiner/Downloads/HSM-full-enclosure-2026-11-03/projects/HSM-0081-back-top-Mark2.3mf",
   "project_sha256": "c1a39599be0b27f9bf1ec0abb909cdab876b6bc126f45e4d027c9cf79fea7f13",
-  "reviewed_archive": "/Users/derekbredensteiner/Downloads/HSM-full-enclosure-2026-11-03/reviewed/HSM-000081-back-top-Mark2.gcode.3mf",
+  "reviewed_archive": "/Users/derekbredensteiner/Downloads/HSM-full-enclosure-2026-11-03/reviewed/HSM-0081-back-top-Mark2.gcode.3mf",
   "reviewed_archive_sha256": "c212aea1b46b1a9282e44ccbe69c98efd26fb8fa08467c7827edd1879c83cdbd",
-  "print_archive": "/Users/derekbredensteiner/Downloads/HSM-full-enclosure-2026-11-03/HSM-000081-back-top-Mark2.gcode.3mf",
+  "print_archive": "/Users/derekbredensteiner/Downloads/HSM-full-enclosure-2026-11-03/HSM-0081-back-top-Mark2.gcode.3mf",
   "print_archive_sha256": "4ffcad950a96011451f99f107029d03beed8b791a891e0bbc9b50a504e153a9d",
   "gcode_sha256": {
     "Metadata/plate_1.gcode": "9503d1e2114a9214a8bccd1a0c78c19c2677185b5d4bdc9c48194d53bebf6943"

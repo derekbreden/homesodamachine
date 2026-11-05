@@ -5,16 +5,16 @@
   "decision": "Proceed with complete enclosure parts under Derek\u2019s latest physical-fit feedback and print instruction.",
   "parts": [
     {
-      "part_number": "HSM-000081",
+      "part_number": "HSM-0081",
       "part": "back-top",
       "printer": "Mark2",
       "stl": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl",
       "stl_sha256": "c7d986ddb2f59ce7a08996d0031d5165ccf0a45be31055dfb8cac7e29dba9767",
-      "project": "/Users/derekbredensteiner/Downloads/HSM-full-enclosure-2026-11-03/projects/HSM-000081-back-top-Mark2.3mf",
+      "project": "/Users/derekbredensteiner/Downloads/HSM-full-enclosure-2026-11-03/projects/HSM-0081-back-top-Mark2.3mf",
       "project_sha256": "01b0c56c91f7479b627a91a7e37bb4eece2742500a3faa383ae9e5bbe7d4561c",
-      "reviewed_archive": "/Users/derekbredensteiner/Downloads/HSM-full-enclosure-2026-11-03/reviewed/HSM-000081-back-top-Mark2.gcode.3mf",
+      "reviewed_archive": "/Users/derekbredensteiner/Downloads/HSM-full-enclosure-2026-11-03/reviewed/HSM-0081-back-top-Mark2.gcode.3mf",
       "reviewed_archive_sha256": "54a0d428cb9cbff5fc17948c0e48cc4abfea6936a1854a5a60f86a182f7d53d3",
-      "print_archive": "/Users/derekbredensteiner/Downloads/HSM-full-enclosure-2026-11-03/HSM-000081-back-top-Mark2.gcode.3mf",
+      "print_archive": "/Users/derekbredensteiner/Downloads/HSM-full-enclosure-2026-11-03/HSM-0081-back-top-Mark2.gcode.3mf",
       "print_archive_sha256": "f047246c276b9393328ea239573f0b463a65aa393264a0c8036c85ab663cca47",
       "gcode_sha256": {
         "Metadata/plate_1.gcode": "e297a7b9d03fb4b5efcb5c4b85dc6438af109941d59e02efaa97dce871f9c223"
@@ -71,16 +71,16 @@
       "minimum_sampled_dense_host_bead_coverage": 0.9595125477742562
     },
     {
-      "part_number": "HSM-000079",
+      "part_number": "HSM-0079",
       "part": "front-top",
       "printer": "Mark1",
       "stl": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl",
       "stl_sha256": "6ad55d860d0bee7ac607a99ff08d7676bb08ce5f2b4cd0521d61e72d961721d2",
-      "project": "/Users/derekbredensteiner/Downloads/HSM-full-enclosure-2026-11-03/projects/HSM-000079-front-top-Mark1.3mf",
+      "project": "/Users/derekbredensteiner/Downloads/HSM-full-enclosure-2026-11-03/projects/HSM-0079-front-top-Mark1.3mf",
       "project_sha256": "6612f67e41e819ed1ad3c52cf8106969f90f72f3722a5cd99f7999a7bff037b4",
-      "reviewed_archive": "/Users/derekbredensteiner/Downloads/HSM-full-enclosure-2026-11-03/reviewed/HSM-000079-front-top-Mark1.gcode.3mf",
+      "reviewed_archive": "/Users/derekbredensteiner/Downloads/HSM-full-enclosure-2026-11-03/reviewed/HSM-0079-front-top-Mark1.gcode.3mf",
       "reviewed_archive_sha256": "d920b8efb1cac562b95b6b566e004e28d26a40f1dd2272b3a2ccd92489955fdd",
-      "print_archive": "/Users/derekbredensteiner/Downloads/HSM-full-enclosure-2026-11-03/HSM-000079-front-top-Mark1.gcode.3mf",
+      "print_archive": "/Users/derekbredensteiner/Downloads/HSM-full-enclosure-2026-11-03/HSM-0079-front-top-Mark1.gcode.3mf",
       "print_archive_sha256": "e359e0e3ffdfd8cb4b88de61fc889c3bda72202457faef94f3e744d971f69b9c",
       "gcode_sha256": {
         "Metadata/plate_1.gcode": "efd0339000f8395ece9c9ac3c249013735e1587fe3479ff4b6f088d4b42e2109"
@@ -140,16 +140,16 @@
       "print_job": "finished/front-top-mark1/print-job.json"
     },
     {
-      "part_number": "HSM-000082",
+      "part_number": "HSM-0082",
       "part": "pump-retainer",
       "printer": "Mark1",
       "stl": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.stl",
       "stl_sha256": "d2f999e640039b2d322c418821be80242130b459e56e97a57f9f3c7dd9ce8b6d",
-      "project": "/Users/derekbredensteiner/Downloads/HSM-full-enclosure-2026-11-03/projects/HSM-000082-pump-retainer-Mark1.3mf",
+      "project": "/Users/derekbredensteiner/Downloads/HSM-full-enclosure-2026-11-03/projects/HSM-0082-pump-retainer-Mark1.3mf",
       "project_sha256": "a368c52f311b893a3052a436dbe6a4dcb89e3c7ea49061f288134b5c3d197dd4",
-      "reviewed_archive": "/Users/derekbredensteiner/Downloads/HSM-full-enclosure-2026-11-03/reviewed/HSM-000082-pump-retainer-Mark1.gcode.3mf",
+      "reviewed_archive": "/Users/derekbredensteiner/Downloads/HSM-full-enclosure-2026-11-03/reviewed/HSM-0082-pump-retainer-Mark1.gcode.3mf",
       "reviewed_archive_sha256": "49555a320b69a99944d2083f53657b70986dcb0590758f726309c077594b3a46",
-      "print_archive": "/Users/derekbredensteiner/Downloads/HSM-full-enclosure-2026-11-03/HSM-000082-pump-retainer-Mark1.gcode.3mf",
+      "print_archive": "/Users/derekbredensteiner/Downloads/HSM-full-enclosure-2026-11-03/HSM-0082-pump-retainer-Mark1.gcode.3mf",
       "print_archive_sha256": "792318561079ddac26bf29bdff49759154595924be16b9d93e1029f6dc4485f1",
       "gcode_sha256": {
         "Metadata/plate_1.gcode": "d5006ce40672d9c1377923b2510d578d3c69f0868e964ef43ecb2ad76e285cf0"
@@ -206,16 +206,16 @@
       "minimum_sampled_dense_host_bead_coverage": 0.988015382408195
     },
     {
-      "part_number": "HSM-000020",
+      "part_number": "HSM-0020",
       "part": "foam-cap-lid-top",
       "printer": "Mark1",
       "stl": "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.stl",
       "stl_sha256": "2408a3edeeca8f60c1aa8b1e32a190695d1776cdfc45b70f6ec3686a73232f07",
-      "project": "/Users/derekbredensteiner/Downloads/HSM-full-enclosure-2026-11-03/projects/HSM-000020-foam-cap-lid-top-Mark1.3mf",
+      "project": "/Users/derekbredensteiner/Downloads/HSM-full-enclosure-2026-11-03/projects/HSM-0020-foam-cap-lid-top-Mark1.3mf",
       "project_sha256": "8441e1e8d74beff8d3c062e7d59f384f2069f4121999b1cc41778d55c7b4b72f",
-      "reviewed_archive": "/Users/derekbredensteiner/Downloads/HSM-full-enclosure-2026-11-03/reviewed/HSM-000020-foam-cap-lid-top-Mark1.gcode.3mf",
+      "reviewed_archive": "/Users/derekbredensteiner/Downloads/HSM-full-enclosure-2026-11-03/reviewed/HSM-0020-foam-cap-lid-top-Mark1.gcode.3mf",
       "reviewed_archive_sha256": "014da1eb47bc6178e6f660ac0a782abc0aedd6ea400b3b099ea45bde9889f8bd",
-      "print_archive": "/Users/derekbredensteiner/Downloads/HSM-full-enclosure-2026-11-03/HSM-000020-foam-cap-lid-top-Mark1.gcode.3mf",
+      "print_archive": "/Users/derekbredensteiner/Downloads/HSM-full-enclosure-2026-11-03/HSM-0020-foam-cap-lid-top-Mark1.gcode.3mf",
       "print_archive_sha256": "703dcf810051759f1a6e95301f8720b5db2538b7e7098011500fcf7e84211e0f",
       "gcode_sha256": {
         "Metadata/plate_1.gcode": "c2b1299ab90ae6d59299e7690e64c17b410f7c8437fc3cae2a20650abbc12f01"

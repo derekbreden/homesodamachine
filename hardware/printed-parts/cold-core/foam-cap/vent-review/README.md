@@ -1,6 +1,6 @@
 # Reservoir B vent and V-B wall junctions
 
-HSM-000020 carries the four core junctions at world X29.0, with one broad
+HSM-0020 carries the four core junctions at world X29.0, with one broad
 X32.0 backing plane. Reservoir B's 4 mm vent remains at X32.5/Y221.8 and ends
 at Z259.4. Its straight Ø5.2 passage passes through the adjacent wall.
 

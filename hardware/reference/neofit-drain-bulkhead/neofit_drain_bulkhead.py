@@ -1,4 +1,4 @@
-"""Scan-fitted neoFit ABU44M-E 4 mm bulkhead union, HSM-000061.
+"""Scan-fitted neoFit ABU44M-E 4 mm bulkhead union, HSM-0061.
 
 Native +Y points outboard. The origin is the fixed flange's panel-seating
 face; the nut retains its captured free position. build() supplies the bare
