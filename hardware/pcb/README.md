@@ -28,10 +28,10 @@ change lands in `pcba.tsx` first, then propagates to these views.
 
 This direction is **enforced** by a drift-check:
 [`/hardware/scripts/check_pinmap.py`](/hardware/scripts/check_pinmap.py) reads the
-canonical pin map from `pcba.tsx` and fails if `esp32-pinout.mmd`, the assembly
-sync drivers, or the BOM disagree — a board pin missing from the docs, a sync GPIO
-on the wrong role, or an electrical BOM part with no pad (the failure that left the
-piezo buzzer and the MQ-6 gas sensor wired to nothing). Run `python3
+canonical pin map from `pcba.tsx` and fails if `esp32-pinout.mmd`, the GPIO constants
+of the assembly documents' Rust program, or the BOM disagree — a board pin missing from
+the docs, a document's GPIO on the wrong role, or an electrical BOM part with no pad
+(the failure that left the piezo buzzer and the MQ-6 gas sensor wired to nothing). Run `python3
 hardware/scripts/check_pinmap.py` before committing a pin change or ordering the
 board; it is CI-ready (exit 0 = in sync, 1 = drift).
 

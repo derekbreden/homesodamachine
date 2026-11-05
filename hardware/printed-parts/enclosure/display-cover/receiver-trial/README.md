@@ -7,7 +7,7 @@ uses the accepted horizontal wings.
 
 One rigid, full-width surround for the machine display cover. The receiver datums
 and clearances below use the 1.2 mm skirt-inset reference cover; the reach-trial pairing's
-clearances are in the [reach-trial geometry reading](../reach-trial/geometry-check.json).
+clearances are in the [reach-trial geometry reading](https://github.com/derekbreden/homesodamachine/blob/archive-finished-trials/hardware/printed-parts/enclosure/display-cover/reach-trial/geometry-check.json).
 The coupon holds the 126.1 × 83.6 mm bezel pocket, glass seat and
 both receivers on the enclosure's 30° display plane. Two side cheeks and a front
 foot carry the surround in front-top's print orientation. The underside and back

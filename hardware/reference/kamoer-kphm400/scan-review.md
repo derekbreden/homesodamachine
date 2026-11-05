@@ -104,8 +104,9 @@ the complete cradle and pumps, so the trial uses the matching new cradle.
 
 ## Checks and assembly test
 
-[check_pump_contacts.py](check_pump_contacts.py) and [contact-check.json](contact-check.json)
-record the current cap at the archived station: one valid solid, a clear sampled vertical
+[contact-check.json](contact-check.json), written by
+[check_pump_contacts.py](https://github.com/derekbreden/homesodamachine/blob/5d633291918a02e34734ef15445158dcaa97d8c8/hardware/reference/kamoer-kphm400/check_pump_contacts.py),
+records the current cap at the archived station: one valid solid, a clear sampled vertical
 path through the native cradle, open motor-terminal wells and a flat floor corridor.
 The fitted boss/can band is compared to vertices and triangle centers from the retained
 September 13 print input in a common pump-local frame. The maximum surface discrepancy is

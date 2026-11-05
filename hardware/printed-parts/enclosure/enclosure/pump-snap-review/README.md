@@ -1,6 +1,6 @@
 # Pump retainer snap evidence
 
-The [cartridge trial](../../../print-tests/pump-cartridge-snaps/README.md) binds
+The [cartridge trial](../../../../print-tests/pump-cartridge-snaps/README.md) binds
 the production 2.0 mm leaves, 22.25 mm root-to-catch length, 1.5 mm inside root
 blend and 2.6 mm seated catch overlap. Both full-Y wings have 0.25 mm receiver
 end clearance. The receiver floor has 0.4 mm static catch allowance and a
@@ -13,9 +13,9 @@ The retainer prints Y-end down, with X/Z spring bending within the layer
 plane. Front-top retains its seam-plane pose. Its pockets keep 6.4 mm of
 outer backing and the tool openings keep a 3 mm outer wall.
 
-The current [geometry reading](../../../print-tests/pump-cartridge-snaps/geometry-review.json)
+The current [geometry reading](../../../../print-tests/pump-cartridge-snaps/geometry-review.json)
 measures the exported fine/printed meshes, both pumps, seated overlap and
-retaining-floor contact. [Print jobs](../../../print-tests/pump-cartridge-snaps/print-jobs.json)
+retaining-floor contact. [Print jobs](../../../../print-tests/pump-cartridge-snaps/print-jobs.json)
 bind the compact full-Y ramp comparison, complete two-pump fixture and
 separate pointed rear-cap comparison. They are prepared and unsubmitted.
 Physical support removal, distributed bending, force, retention, repeated
@@ -24,5 +24,6 @@ release, vibration, load capacity, creep and lifetime remain unqualified.
 [`native-review.json`](native-review.json), [`print-review.json`](print-review.json)
 and [`baseline-hardware.json`](baseline-hardware.json) identify their own
 archived articles, source hashes, member lists and print processes. Their
-results apply to those inputs. The manual analytic reader [`review.py`](review.py)
-is retained with those records; it is not a build, hook or scorecard check.
+results apply to those inputs. The manual analytic reader,
+[`review.py`](https://github.com/derekbreden/homesodamachine/blob/5d633291918a02e34734ef15445158dcaa97d8c8/hardware/printed-parts/enclosure/enclosure/pump-snap-review/review.py),
+is in Git history.

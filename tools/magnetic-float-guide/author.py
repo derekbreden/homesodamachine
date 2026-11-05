@@ -1,6 +1,6 @@
 """Author the current one-piece ASA Aero float guide from its design and evidence.
 
-Run manually, then float_art.py and build.py. No printer submission is made.
+Run manually, then build.py. No printer submission is made.
 """
 
 from __future__ import annotations

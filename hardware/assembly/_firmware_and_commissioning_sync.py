@@ -1,5 +1,6 @@
 """Firmware constants (relay GPIOs, valve count), computed by the Rust `assembly-docs` program.
-`_acceptance_and_burn_in_sync.py` and `hardware/scripts/check_pinmap.py` read them."""
+`_acceptance_and_burn_in_sync.py` reads them; `hardware/scripts/check_pinmap.py` checks the
+program's constants against the pin map."""
 import sys
 from pathlib import Path
 _here = Path(__file__).resolve().parent

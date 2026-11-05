@@ -224,7 +224,5 @@ assembly checks also cover whole-part intersections, cradle and cap insertion, h
 envelopes, and seam capture. Zero whole-part overlap does not establish positive
 clearance between printed mating faces.
 
-The separate [copper-plug reading](../cold-core/copper-plugs/clearance-check.json) records its
-own input hashes, scope and result. This enclosure pass does not resolve those rigid-part
-fits or waive their required allowances. Neither source values nor a retained reading of
+Neither source values nor a retained reading of
 another build establish the final printed fit.

@@ -1,6 +1,6 @@
 """Manually render and bind the illustrated float build guide.
 
-Run author.py and float_art.py first. This guide is not a CAD build dependency.
+Run author.py first. This guide is not a CAD build dependency.
 """
 
 from __future__ import annotations

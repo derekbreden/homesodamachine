@@ -15,7 +15,7 @@ panel's rear foot.
 | 6.80 | V68 | 6.80 mm | −0.10 mm |
 
 The 7.20 mm control retains the dimensions of the [accepted socket
-coupon](../physical-acceptance.json). That acceptance covers easy valve location
+coupon](https://github.com/derekbreden/homesodamachine/blob/archive-finished-trials/hardware/printed-parts/fixtures/valve-socket-fit/physical-acceptance.json). That acceptance covers easy valve location
 with zip ties providing positive retention. That acceptance retains its scope.
 
 The current [physical fit selection](../../../enclosure/enclosure/magnet-retention/fit-coupons/physical-fit-selection.json)

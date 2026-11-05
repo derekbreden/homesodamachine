@@ -9,6 +9,6 @@ The fore and aft stations each seat both Reservoir A tubes under one shared nomi
 
 The selected free curves use R14 bends through the fixed port and seat points. Their longest developed spans between held points are 192.7 mm for A-fill and 154.5 mm for A-draw. These curves and lengths illustrate routing; they are not tube-cut instructions.
 
-The ground stack sits at X37/Y195. Fasten it before dressing the neighboring AC4-H and AC5-N leads. Its insert surround and blind backing retain their separate [native stock record](/hardware/printed-parts/cold-core/foam-cap/ground-relocation-review.json).
+The ground stack sits at X37/Y195. Fasten it before dressing the neighboring AC4-H and AC5-N leads. Its insert surround and blind backing retain their separate [native stock record](https://github.com/derekbreden/homesodamachine/blob/6a97c7e05c9860d065d53e3758a23ae2e19e5fe9/hardware/printed-parts/cold-core/foam-cap/ground-relocation-review.json).
 
 The [anchor](/hardware/printed-parts/cold-core/foam-cap/reservoir-a-anchor-review.json), [tube-route](/hardware/mechanical-qualification/enclosure-above-core/reservoir-a-route-review.json) and [wiring](/hardware/wiring/installed/above-core-review/installed-wiring-binding.json) records bind the geometry they read. Nominal clearances establish no tie threading, printed holding capacity, flexible dressing or lifetime.

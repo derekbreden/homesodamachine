@@ -162,7 +162,8 @@ stem. The bulkhead's own stem seats shoulder-flush.
 
 ### Selected continuous inlet and insulation
 
-[continuous_soda_bend.py](continuous_soda_bend.py) consumes the shared production
+[continuous_soda_bend.py](https://github.com/derekbreden/homesodamachine/blob/7877f6193ead05647b529972ee9f50de305c8d44/hardware/manifold-layout/studies/funnel-gate/continuous_soda_bend.py),
+in Git history, consumes the shared production
 [soda_inlet.py](../../soda_inlet.py) plan and native builders. It shows a continuous
 1/4-inch LLDPE tube through the accepted R14 PET-GF bend holder, with its 2 mm wall and
 3 mm legs, into the meter's inlet socket. The holder carries no fluid joint.

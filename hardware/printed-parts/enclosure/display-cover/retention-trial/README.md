@@ -26,8 +26,8 @@ a 0.20 mm first layer, two walls, and the saved speeds and wall order. Supports 
 the flat hook bearings and receiver seats. The cover's support lanes are exposed beside
 the leaves; the receiver opens underneath and at the back for support removal.
 
-The [geometry reading](geometry-check.json) measures both axes of cover symmetry,
-root stock, the unchanged bezel, seated clearance and engagement. The [physical fit report](physical-acceptance.json) passes shaking and records a very small
+The [geometry reading](https://github.com/derekbreden/homesodamachine/blob/archive-finished-trials/hardware/printed-parts/enclosure/display-cover/retention-trial/geometry-check.json) measures both axes of cover symmetry,
+root stock, the unchanged bezel, seated clearance and engagement. The [physical fit report](https://github.com/derekbreden/homesodamachine/blob/archive-finished-trials/hardware/printed-parts/enclosure/display-cover/retention-trial/physical-acceptance.json) passes shaking and records a very small
 bow with the snaps fully engaged. Insertion force and repeated-use performance are
 unmeasured. The [arm-reach trials](../retention-reach-trial/README.md) use this same receiver.
 

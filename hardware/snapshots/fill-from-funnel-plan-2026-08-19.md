@@ -120,7 +120,7 @@ most three. The commissioning screen
 rising pitch. The end is detected, not elapsed. A reservoir already full refuses.
 
 **8. The dry-mode sequencer**, which falls out of item 1. It reaches step 1 of
-[`/hardware/service/pump-replacement.md`](/hardware/service/pump-replacement.md), the procedure
+[`/hardware/service/pump-replacement.md`](https://github.com/derekbreden/homesodamachine/blob/65c5bf5de3df8d60fef7b6a1b3ea88e245893ea9/hardware/service/pump-replacement.md), the procedure
 the pump cartridge exists to serve.
 
 **9. `/hardware/design-pressures.md` lists field service under Not optimised** and says the pump

@@ -1,29 +1,25 @@
 # Accepted cover interfaces in the upper enclosure
 
-This directory retains the identified cover/nameplate integration evidence and provides
-a check of those accepted mating interfaces against the current upper-shell exports.
+This directory retains the identified cover/nameplate integration evidence and a check
+of those accepted mating interfaces against the upper-shell exports it read.
 The current production geometry and print records are indexed in
 [print readiness](../../print-readiness.md).
 
-## Current interface check
+## Interface check
 
-[`verify_geometry.py`](verify_geometry.py) reads the declared production Box and existing
-front-top, back-top and pump-cap exports. It writes
-[`current-geometry-check.json`](current-geometry-check.json), leaving the retained
-[`geometry-check.json`](geometry-check.json) with its identified source snapshot.
-
-```sh
-tools/cad-venv/bin/python hardware/printed-parts/enclosure/enclosure/accepted-fit-integration/verify_geometry.py
-```
+[`verify_geometry.py`](https://github.com/derekbreden/homesodamachine/blob/5d633291918a02e34734ef15445158dcaa97d8c8/hardware/printed-parts/enclosure/enclosure/accepted-fit-integration/verify_geometry.py),
+in Git history, read the declared production Box and the front-top, back-top and pump-cap
+exports and wrote [`current-geometry-check.json`](current-geometry-check.json), leaving the
+retained [`geometry-check.json`](geometry-check.json) with its identified source snapshot.
 
 The check compares the display cover and nameplate with their accepted physical parts,
 checks seated fit and individual-axis clearances, display capture, support-removal exits,
 the complete deeper display module, the current funnel and PSU clearance. It binds the
-current exports, placement sources and accepted mating parts by hash. It does not claim
+exports, placement sources and accepted mating parts by hash. It does not claim
 combined translation extremes or full-enclosure physical fit.
 
 The display-cover pockets are integrated into front-top. The complete deeper module
-clears the shell and funnel in the current native check. The accepted cover's physical
+clears the shell and funnel in that check. The accepted cover's physical
 fit and appearance remain evidence for that cover and receiver geometry; assembled
 full-shell retention remains a separate observation.
 
