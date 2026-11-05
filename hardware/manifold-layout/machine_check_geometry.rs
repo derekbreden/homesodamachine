@@ -552,7 +552,7 @@ fn touching(w: &World, m: &Value, rules: &Value) -> BTreeSet<(String, String)> {
     pairs.retain(|(a, b)| w.index.contains_key(a) && w.index.contains_key(b));
     pairs
 }
-pub fn read(w: &mut World, m: &Value, rules: &Value) -> Result<Readings> {
+pub fn read(w: &mut World, m: &Value, rules: &Value, with_clearance: bool) -> Result<Readings> {
     let logical = w.populations.iter().flatten().cloned().collect::<Vec<_>>();
     let mut census = Vec::new();
     let mut owners = Vec::new();
@@ -761,7 +761,11 @@ pub fn read(w: &mut World, m: &Value, rules: &Value) -> Result<Readings> {
             clashes.push(hit);
         }
     }
-    let (clearances, lanes) = clearance(w, m, rules)?;
+    let (clearances, lanes) = if with_clearance {
+        clearance(w, m, rules)?
+    } else {
+        (Vec::new(), Vec::new())
+    };
     Ok(Readings {
         clashes,
         unanswered,
