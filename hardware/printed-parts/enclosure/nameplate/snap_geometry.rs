@@ -52,14 +52,6 @@ pub fn receiver_cuts(n:&Value) -> Result<Solid> {
     let mut cuts=vec![mouth.clone(),mouth.translate(v3(0.,0.,-f(n,"supported")))];
     for (x,z) in stations(n) {
         cuts.push(cylinder_y(x,z,f(n,"pilot_diameter")/2.,f(n,"pilot_rear"),0.01)?);
-        if z>0. {
-            // Clear the two bore-tail intersections with the adjoining support
-            // floors. This relief is behind the installed insert and joins the
-            // floor's open underside instead of leaving a thin crescent there.
-            let rear=f(n,"pilot_rear");
-            cuts.push(Solid::cuboid(v3(x-2.0,rear,z-2.35),
-                v3(x+2.0,rear+0.25,z)));
-        }
     }
     Solid::union_all(&cuts)
 }
