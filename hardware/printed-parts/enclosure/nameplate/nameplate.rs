@@ -1,4 +1,4 @@
-//! The four-screw nameplate and its blind-insert receiver. `nameplate.py` carries the dimensions,
+//! The four-screw nameplate and its recessed insert receiver. `nameplate.py` carries the dimensions,
 //! original SVG control points and the unit's QR polygons.
 mod snap_geometry;
 
@@ -161,15 +161,17 @@ fn check(n: &Numbers) -> Result<Value> {
     ensure!(screw_art_overlap<1e-6,"fastener openings enter artwork by {screw_art_overlap} mm³");
     let bearing=f(mount,"thick")?-f(mount,"counterbore_depth")?;
     let engagement=f(mount,"screw_length")?-bearing;
-    let bottom_air=f(mount,"pilot_depth")?-engagement;
-    let backing=-f(mount,"floor_rear")?-f(mount,"pilot_depth")?;
-    ensure!(bearing>=2. && backing>=3. && bottom_air>=1.,"fastener bearing or backing is insufficient");
+    let radial_stock=f(mount,"insert_stock_radius")?-f(mount,"insert_diameter")?/2.;
+    let insert_rear_air=-f(mount,"insert_stock_rear")?-f(mount,"insert_length")?;
+    ensure!(bearing>=2. && f(mount,"floor_stock")?>=3. && radial_stock>=3.,"fastener bearing or surrounding stock is insufficient");
     ensure!(engagement<=f(mount,"insert_length")? && engagement>=3.5,"screw engagement exceeds short insert");
+    ensure!(f(mount,"pilot_rear")?<f(mount,"insert_stock_rear")?,"the insert bore must open through the rear wall");
     Ok(json!({"valid_body":true,"valid_receiver":true,"plate_components":body.components().len(),
         "receiver_components":receiver.components().len(),"mount":mount,
         "seated_overlap_mm3":seated,"screw_artwork_overlap_mm3":screw_art_overlap,
         "bearing_floor_mm":bearing,"insert_engagement_mm":engagement,
-        "screw_tip_bottom_air_mm":bottom_air,"blind_hole_backing_mm":backing,
+        "insert_radial_stock_mm":radial_stock,"insert_rear_wall_air_mm":insert_rear_air,
+        "receiver_floor_stock_mm":f(mount,"floor_stock")?,"bore":"open through the existing rear wall",
         "head_proud_mm":f(mount,"head_height")?-f(mount,"counterbore_depth")?,
         "artwork_rise_mm":n.f("artwork_rise")?,"payload":n.text("payload")?,
         "body_ink_overlap_mm3":overlap,"quiet_zone_overlap_mm3":quiet_overlap}))

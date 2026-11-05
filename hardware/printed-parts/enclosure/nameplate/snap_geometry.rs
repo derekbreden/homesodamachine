@@ -37,14 +37,21 @@ pub fn receiver_stock(n:&Value) -> Result<Solid> {
         v2(f(n,"crown_y")-0.01,top+0.01),v2(t+0.01,top+0.01),
         v2(t+0.01,top-f(n,"field_proud")-0.01)
     ]),2.*f(n,"frame_width"))?;
-    frame.cut(&crown)
+    let mut parts=vec![frame.cut(&crown)?];
+    // These short, broad insert lands coincide with the enclosure's existing
+    // rear wall. They keep the standalone receiver model complete as well.
+    for (x,z) in stations(n) {
+        parts.push(cylinder_y(x,z,f(n,"insert_stock_radius"),
+            f(n,"insert_stock_rear"),f(n,"floor_rear")+0.1)?);
+    }
+    Solid::union_all(&parts)
 }
 pub fn receiver_cuts(n:&Value) -> Result<Solid> {
     let mouth=xz(Profile::new(Loop::rounded_rect(v2(0.,0.),f(n,"mouth_width"),
         f(n,"mouth_height"),f(n,"corner")+f(n,"slip"))?),0.,f(n,"thick")+1.)?;
     let mut cuts=vec![mouth.clone(),mouth.translate(v3(0.,0.,-f(n,"supported")))];
     for (x,z) in stations(n) {
-        cuts.push(cylinder_y(x,z,f(n,"pilot_diameter")/2.,-f(n,"pilot_depth"),0.01)?);
+        cuts.push(cylinder_y(x,z,f(n,"pilot_diameter")/2.,f(n,"pilot_rear"),0.01)?);
     }
     Solid::union_all(&cuts)
 }

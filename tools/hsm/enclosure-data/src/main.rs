@@ -53,7 +53,7 @@ fn defaults(v: &Value) -> Result<Value> {
     });
     let floor_stock = 3.6;
     let nameplate = json!({
-        "WIDTH":88.,"HEIGHT":100.,"CORNER_R":5.,"THICK":3.36,"FIELD_THICK":3.36,"FIELD_PROUD":8.,
+        "WIDTH":88.,"HEIGHT":100.,"CORNER_R":5.,"THICK":3.36,"FIELD_THICK":3.36,"FIELD_PROUD":2.,
         "PROJECTION":2.40,"WING_THICK":1.68,"WING_SPAN":30.,"END_RADIUS":0.6,
         "FACE_SLIP":slip,"BACK_AIR":slip,"FACE_X_AIR":0.15,"THICKNESS_AIR":0.45,
         "TIP_AIR":0.15+slip,"END_AIR":slip,"SUPPORTED_END_AIR":supported,
