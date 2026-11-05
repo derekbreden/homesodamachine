@@ -1,0 +1,75 @@
+{
+  "views": [
+    {
+      "name": "receiver",
+      "caption": "The rear frame stands 2 mm off the wall, with the insert pilots opening through the existing wall.",
+      "before": "receiver-before.webp",
+      "after": "receiver-after.webp",
+      "width": 1200,
+      "height": 900,
+      "marks": [
+        {
+          "x": 669.1,
+          "y": 363,
+          "r": 13,
+          "label": "Insert-pilot",
+          "at": [
+            -78.4,
+            469.94,
+            256
+          ]
+        }
+      ],
+      "model": "printed-parts/enclosure/enclosure/enclosure.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          -317.0529021967756,
+          810.8661277459695,
+          318.8698383237909
+        ],
+        "target": [
+          -45.4,
+          471.3,
+          217
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "fov": 45,
+        "near": 319.54482219687344,
+        "far": 973.7900279353821,
+        "aspect": 1.3333333333333333
+      },
+      "highlight": [],
+      "ghost": [],
+      "only": [
+        "enclosure_back_top"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "printed-parts/enclosure/enclosure/enclosure.step.mesh",
+          "from": "snapshot",
+          "sha256": "42249cb5da632ceccf0a9ad5275f6afb6f353913d6a5e7b2cc3f51fea1f85ee9",
+          "commit": "e8dd9434c524c84eb3b6876a6486d6a4da803ea3",
+          "taken": "2026-11-05T05:35:21.537Z",
+          "published": true
+        },
+        "after": {
+          "payload": "printed-parts/enclosure/enclosure/enclosure.step.mesh",
+          "from": "tree",
+          "sha256": "f9a4ebac464a498250564af88080ee1e3069a2d4aba95a447159a6f72a433ca9",
+          "commit": "a8ec2f8a7acce5d6a0ec7ebd4021b11389df3161",
+          "published": true
+        }
+      },
+      "changed": [
+        "enclosure_back_top"
+      ],
+      "withinMeshing": []
+    }
+  ]
+}
