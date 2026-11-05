@@ -167,7 +167,7 @@ fn the_default_endpoint_names_the_build_without_starting_a_daemon() {
 fn an_explicit_socket_refuses_different_budgets_without_stopping_its_daemon() {
     let f = Fixture::new();
     let before = f.query(&["status"]);
-    for flag in ["--cache-mb", "--build-mb", "--keep-mb"] {
+    for flag in ["--cache-mb", "--build-mb", "--keep-hours"] {
         let refused = f.command().args([flag, "1", "status"]).output().unwrap();
         assert!(!refused.status.success(), "{flag}");
         assert!(String::from_utf8_lossy(&refused.stderr).contains("serves configuration"), "{flag}");

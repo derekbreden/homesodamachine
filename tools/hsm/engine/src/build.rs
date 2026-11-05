@@ -42,6 +42,8 @@ const CARGO_PEAK: u64 = 700 << 20;
 const VARIANTS: usize = 4;
 /// `kern.memorystatus_vm_pressure_level` at which nothing new starts.
 const CRITICAL: i32 = 4;
+/// How long a retired run stays before a prune deletes it.
+const RETIRE: Duration = Duration::from_secs(10 * 60);
 
 /// What a run is asked for over the socket: `{"op":"run", ...}`.
 #[derive(Debug, Deserialize, Serialize)]
@@ -884,6 +886,11 @@ impl Builder {
             if !blob.is_file() {
                 fs::rename(entry.path(), &blob)?;
             }
+            // Fresh until the run that names it lands, however long the program ran.
+            let _ = fs::File::options()
+                .write(true)
+                .open(&blob)
+                .and_then(|f| f.set_modified(SystemTime::now()));
             files.push((name, digest));
         }
         }
@@ -965,47 +972,55 @@ impl Builder {
         Ticket { builder: self, bytes }
     }
 
-    /// Runs, least recently used first, go until what the rest hold fits in `cap` bytes; then
-    /// the blobs and programs no remaining run names.
-    pub fn prune(&self, cap: u64) -> Result<()> {
-        let mut runs: Vec<(SystemTime, PathBuf, Vec<Kept>)> = vec![];
+    /// A run unused for `keep` retires: renamed where no lookup finds it, and deleted at a prune
+    /// `RETIRE` later, when an ask that found it before has placed its files. Blobs no live or
+    /// retiring run names go once unwritten for `keep`; a landing run names its files only after
+    /// they are in. With `programs`, so do the programs no such run names.
+    pub fn prune(&self, keep: Duration, programs: bool) -> Result<()> {
+        let now = SystemTime::now();
+        let older = |meta: &fs::Metadata, age: Duration| {
+            meta.modified().ok().and_then(|t| now.duration_since(t).ok()).is_some_and(|a| a > age)
+        };
+        let (mut blobs, mut codes) = (BTreeSet::new(), BTreeSet::new());
         for entry in fs::read_dir(self.dir.join("runs"))?.flatten() {
-            let Ok(bytes) = fs::read(entry.path()) else { continue };
-            let kept = serde_json::from_slice(&bytes).unwrap_or_default();
-            let used = entry.metadata().and_then(|m| m.modified()).unwrap_or(SystemTime::UNIX_EPOCH);
-            runs.push((used, entry.path(), kept));
-        }
-        runs.sort_by(|a, b| b.0.cmp(&a.0));
-        let size = |p: &Path| fs::metadata(p).map(|m| m.len()).unwrap_or(0);
-        let (mut held, mut blobs, mut codes) = (0u64, BTreeSet::new(), BTreeSet::new());
-        for (_, path, kept) in &runs {
-            let mut cost = 0;
-            for k in kept {
-                for (_, d) in &k.files {
-                    if !blobs.contains(d) {
-                        cost += size(&self.dir.join("blobs").join(d));
+            let mut path = entry.path();
+            let Ok(meta) = entry.metadata() else { continue };
+            match path.extension().and_then(|e| e.to_str()) {
+                Some("json") if older(&meta, keep) => {
+                    let retired = path.with_extension("retired");
+                    if fs::rename(&path, &retired).is_ok() {
+                        let _ = fs::File::options()
+                            .write(true)
+                            .open(&retired)
+                            .and_then(|f| f.set_modified(now));
                     }
+                    path = retired;
                 }
+                Some("retired") if older(&meta, RETIRE) => {
+                    let _ = fs::remove_file(&path);
+                    continue;
+                }
+                Some("json" | "retired") => {}
+                _ => continue,
             }
-            if held + cost > cap {
-                let _ = fs::remove_file(path);
-                continue;
-            }
-            held += cost;
-            for k in kept {
-                blobs.extend(k.files.iter().map(|(_, d)| d.clone()));
-                codes.insert(k.code.clone());
+            let Ok(bytes) = fs::read(&path) else { continue };
+            for k in serde_json::from_slice::<Vec<Kept>>(&bytes).unwrap_or_default() {
+                blobs.extend(k.files.into_iter().map(|(_, d)| d));
+                codes.insert(k.code);
             }
         }
         for entry in fs::read_dir(self.dir.join("blobs"))?.flatten() {
-            if !blobs.contains(&entry.file_name().to_string_lossy().into_owned()) {
+            let name = entry.file_name().to_string_lossy().into_owned();
+            if !blobs.contains(&name) && entry.metadata().is_ok_and(|m| older(&m, keep)) {
                 let _ = fs::remove_file(entry.path());
             }
         }
-        for entry in fs::read_dir(self.dir.join("programs"))?.flatten() {
-            let name = entry.file_name().to_string_lossy().into_owned();
-            if entry.path().is_dir() && !codes.contains(&name) {
-                let _ = fs::remove_dir_all(entry.path());
+        if programs {
+            for entry in fs::read_dir(self.dir.join("programs"))?.flatten() {
+                let name = entry.file_name().to_string_lossy().into_owned();
+                if entry.path().is_dir() && !codes.contains(&name) && entry.metadata().is_ok_and(|m| older(&m, keep)) {
+                    let _ = fs::remove_dir_all(entry.path());
+                }
             }
         }
         Ok(())
