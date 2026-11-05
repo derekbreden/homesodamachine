@@ -39,8 +39,8 @@ clearance hole has a Ø6.2 × 1 mm counterbore. The Ø5.5 × 3 mm screw heads st
 The plate has a flat back, a 2.36 mm bearing floor beneath each counterbore and
 3.64 mm of screw engagement. The receiver takes Ø4 × 4.64 mm cold pilots;
 insert fronts finish flush with the seat. The upper pair ends against the existing
-3 mm support floors; the lower pair opens through the rear wall. The closed
-pilots leave 0.64 mm behind each insert and 1 mm behind each screw tip.
+support floors; the lower pair opens through the rear wall. The closed pilots
+clear the inserts and screw tips.
 The insert lands end on the adjoining cold-core clearance plane.
 The broad seat is
 3 mm thick, with the four insert lands carried into the existing enclosure wall.
