@@ -1,5 +1,5 @@
 [workspace]
-members = ["geometry", "engine", "kernel", "render", "refrigeration", "cold-core", "faucet", "funnel", "run-slots", "run-native", "machine", "enclosure-components", "enclosure-shell", "tooling", "documents", "ledger", "assembly-docs", "cold-core-data", "faucet-data", "enclosure-data", "machine-data", "part-data", "layout-data", "shared-data", "guides", "build-data", "build-plan"]
+members = ["geometry", "engine", "kernel", "render", "refrigeration", "cold-core", "faucet", "funnel", "run-slots", "run-native", "machine", "enclosure-components", "enclosure-shell", "tooling", "documents", "ledger", "assembly-docs", "cold-core-data", "faucet-data", "enclosure-data", "machine-data", "part-data", "layout-data", "shared-data", "guides", "guide-native", "build-data", "build-plan"]
 resolver = "2"
 exclude = ["vendor/manifold-csg-sys"]
 
@@ -19,13 +19,22 @@ parry3d-f64 = { version = "0.25.1", features = ["enhanced-determinism"] }
 debug = 1
 
 # Generated recipe modules spend their time in hsm-documents' value runtime, which stays
-# optimized. Unoptimized, these two recompile in a fraction of the CPU time and run about
-# as fast.
+# optimized. Unoptimized, these four recompile in a fraction of the CPU time and run about
+# as fast. The guides' hand-written mesh and mask loops are in hsm-guide-native, which keeps
+# the release optimization.
 [profile.release.package.hsm-enclosure-data]
 opt-level = 0
 debug = 0
 
 [profile.release.package.hsm-cold-core-data]
+opt-level = 0
+debug = 0
+
+[profile.release.package.hsm-machine-data]
+opt-level = 0
+debug = 0
+
+[profile.release.package.hsm-guides]
 opt-level = 0
 debug = 0
 
