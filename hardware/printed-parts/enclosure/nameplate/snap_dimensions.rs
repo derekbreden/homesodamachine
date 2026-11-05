@@ -15,6 +15,6 @@ pub fn dimensions(width: f64, height: f64, thick: f64, slip: f64, supported: f64
         "clearance_diameter":3.4,"counterbore_diameter":6.2,"counterbore_depth":1.,
         "screw_length":6.,"screw_diameter":3.,"head_diameter":5.5,"head_height":3.,
         "hex_key":2.5,"insert_diameter":4.6,"insert_length":4.,
-        "pilot_diameter":4.,"pilot_rear":-4.39
+        "pilot_diameter":4.,"pilot_rear":-4.64
     })
 }

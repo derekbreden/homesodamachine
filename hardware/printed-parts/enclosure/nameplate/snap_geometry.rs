@@ -51,7 +51,10 @@ pub fn receiver_cuts(n:&Value) -> Result<Solid> {
         f(n,"mouth_height"),f(n,"corner")+f(n,"slip"))?),0.,f(n,"thick")+1.)?;
     let mut cuts=vec![mouth.clone(),mouth.translate(v3(0.,0.,-f(n,"supported")))];
     for (x,z) in stations(n) {
-        cuts.push(cylinder_y(x,z,f(n,"pilot_diameter")/2.,f(n,"pilot_rear"),0.01)?);
+        // Upper bores end against the adjoining support floors. Lower bores
+        // continue through the rear land into the cold-core clearance.
+        let rear=if z>0. { f(n,"insert_stock_rear") } else { f(n,"pilot_rear") };
+        cuts.push(cylinder_y(x,z,f(n,"pilot_diameter")/2.,rear,0.01)?);
     }
     Solid::union_all(&cuts)
 }

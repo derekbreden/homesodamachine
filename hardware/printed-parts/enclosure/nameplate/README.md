@@ -37,7 +37,7 @@ clearance hole has a Ø6.2 × 1 mm counterbore. The Ø5.5 × 3 mm screw heads st
 2 mm above the black face; their 2.5 mm hex sockets face directly outward.
 
 The plate has a flat back, a 2.36 mm bearing floor beneath each counterbore and
-3.64 mm of screw engagement. The receiver takes Ø4 × 4.64 mm cold pilots;
+3.64 mm of screw engagement. The receiver uses the cold pilots in the shared mount coordinates;
 insert fronts finish flush with the seat. The upper pair ends against the existing
 support floors; the lower pair opens through the rear wall. The closed pilots
 clear the inserts and screw tips.

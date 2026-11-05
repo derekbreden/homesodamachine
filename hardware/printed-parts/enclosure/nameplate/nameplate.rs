@@ -172,6 +172,7 @@ fn check(n: &Numbers) -> Result<Value> {
         "bearing_floor_mm":bearing,"insert_engagement_mm":engagement,
         "insert_radial_stock_mm":radial_stock,"insert_rear_wall_air_mm":insert_rear_air,
         "receiver_floor_stock_mm":f(mount,"floor_stock")?,"pilot_reach_mm":-f(mount,"pilot_rear")?,
+        "upper_pilot_depth_mm":-f(mount,"insert_stock_rear")?,
         "bore":"Standalone receiver through; production upper pair ends against existing support-floor backing.",
         "head_proud_mm":f(mount,"head_height")?-f(mount,"counterbore_depth")?,
         "artwork_rise_mm":n.f("artwork_rise")?,"payload":n.text("payload")?,
