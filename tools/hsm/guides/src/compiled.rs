@@ -228,10 +228,10 @@ impl Runtime {
             return Ok(value);
         }
         if name == "_guide_native" {
-            return super::native::module();
+            return hsm_guide_native::module();
         }
         if name == "shutil" {
-            return super::native::files();
+            return hsm_guide_native::files();
         }
         if name == "docgen" {
             return self.docgen();
