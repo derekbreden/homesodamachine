@@ -216,13 +216,16 @@ struct State {
     root: PathBuf,
     modules: RefCell<HashMap<String, Env>>,
     active: RefCell<Vec<String>>,
-    locations: RefCell<Vec<(String, u32)>>,
+    /// Each site entered, and whether a compiled function or module body was running then.
+    /// A module's own `__main__` statements run in neither.
+    locations: RefCell<Vec<(String, u32, bool)>>,
 }
 thread_local! {static ACTIVE:RefCell<Option<Runtime>>=const{RefCell::new(None)};}
 
 impl Runtime {
     pub fn source_at(&self, path: &str, line: u32) -> SourceSite {
-        self.0.locations.borrow_mut().push((path.into(), line));
+        let inside = !self.0.active.borrow().is_empty();
+        self.0.locations.borrow_mut().push((path.into(), line, inside));
         SourceSite(self.clone())
     }
     fn new(root: PathBuf) -> Self {
@@ -467,10 +470,13 @@ fn source_info() -> Result<Val> {
         .with(|held| held.borrow().clone())
         .context("source location outside a compiled call")?;
     let sites = rt.0.locations.borrow();
+    // A `__main__` statement is where a program starts, not where anything is constructed:
+    // a construction it leads to names the site it would name from any other entry, so the
+    // same recipe makes the same numbers whichever program asked for it.
     let source = sites
         .iter()
         .rev()
-        .find(|(path, _)| path.ends_with("/enclosure.rs"))
+        .find(|(path, _, inside)| *inside && path.ends_with("/enclosure.rs"))
         .or_else(|| sites.iter().rev().nth(1))
         .or_else(|| sites.last())
         .context("construction source location")?;
