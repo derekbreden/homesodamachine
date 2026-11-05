@@ -3,7 +3,7 @@
 
 The main board (`hardware/pcb/pcba/pcba.tsx`) is the canonical source of truth
 for the ESP32 GPIO / MCP-bank pin map (see `hardware/pcb/README.md`). The pinout
-diagram, the assembly doc-sync drivers, and the BOM are DERIVED views. They are
+diagram, the GPIO numbers the assembly documents state, and the BOM are DERIVED views. They are
 hand-maintained, so they drift — and that drift is exactly what left the piezo
 buzzer and the MQ-6 gas sensor wired to nothing, the condenser fan unlabeled, the
 compressor relay documented on the 1-wire pin, and the carbonator reeds on the
@@ -15,8 +15,8 @@ This check reads the main board, then FAILS (exit 1) if a derived artifact disag
      esp32-pinout.mmd, and every non-"free" documented GPIO is actually on the
      board. (Catches the piezo/gas failure: a board pin absent from the docs, and
      phantom pins documented but unbuilt.)
-  2. SYNC-DRIVER ROLES — the assembly sync drivers' hardcoded GPIO numbers match
-     the role the pinout assigns. (Catches `relay_compressor_gpio = 14`, i.e. the
+  2. DOCUMENT GPIO ROLES — the GPIO constants the assembly documents' Rust program
+     (`tools/hsm/assembly-docs`) states match the role the pinout assigns. (Catches the
      compressor relay pointed at the 1-wire pin.)
   3. BOM <-> BOARD CROSS-TABLE — every tracked electrical function is present in
      BOTH the main board and the BOM; and any electrical-looking BOM line not in the
@@ -34,8 +34,8 @@ ROOT = Path(__file__).resolve().parents[2]
 BOARD = ROOT / "hardware/pcb/pcba/pcba.tsx"
 PINOUT = ROOT / "hardware/wiring/esp32-pinout.mmd"
 BOM = ROOT / "hardware/ledger/bom.md"
-SHELF_SYNC = ROOT / "hardware/assembly/_electronics_bay_sync.py"
-FW_SYNC = ROOT / "hardware/assembly/_firmware_and_commissioning_sync.py"
+SHELF_SYNC = ROOT / "tools/hsm/assembly-docs/src/procedures.rs"
+FW_SYNC = ROOT / "tools/hsm/assembly-docs/src/procedures/specialized.rs"
 
 failures: list[str] = []
 notes: list[str] = []
@@ -74,9 +74,9 @@ for g in sorted(board_gpios - doc_gpios):
 for g in sorted(doc_gpios - board_gpios - free_gpios):
     fail(f"GPIO{g}: documented in esp32-pinout.mmd (role {doc_roles[g]!r}) but NOT used on the main board")
 
-# ── 2. Sync-driver role checks ────────────────────────────────────────────
-def pyval(text: str, var: str):
-    m = re.search(rf"^{var}\s*=\s*(\d+)", text, re.M)
+# ── 2. Document GPIO role checks ──────────────────────────────────────────
+def constant(text: str, var: str):
+    m = re.search(rf"\blet\s+{var}\s*(?::\s*\w+\s*)?=\s*(\d+)(?:\.0*)?\s*;", text)
     return int(m.group(1)) if m else None
 
 
@@ -85,7 +85,7 @@ def gpio_for_role(keyword: str):
     return hits
 
 
-# (source text, sync var, role keyword the pinout uses for that function)
+# (program source, constant, role keyword the pinout uses for that function)
 SYNC_CHECKS = [
     (shelf, "relay_compressor_gpio", "compressor"),
     (shelf, "relay_diaphragm_gpio", "diaphragm"),
@@ -95,10 +95,10 @@ SYNC_CHECKS = [
     (fw, "gpio_flow", "flow meter"),
 ]
 for text, var, kw in SYNC_CHECKS:
-    val = pyval(text, var)
+    val = constant(text, var)
     hits = gpio_for_role(kw)
     if val is None:
-        fail(f"sync var {var!r} not found (renamed?)")
+        fail(f"GPIO constant {var!r} not found in tools/hsm/assembly-docs (renamed?)")
     elif len(hits) != 1:
         fail(f"role ~{kw!r} is not uniquely identifiable in the pinout (matched {hits}) — can't check {var}")
     elif val != hits[0]:
@@ -132,15 +132,13 @@ for name, mk, bk in CROSS:
 # Electrical BOM parts that legitimately need NO dedicated board signal pin:
 # the SMD silicon / expanders / driver chips that carry their own pins, plus the
 # power supply. Matched against the part NAME.
-#   A DIN 912 cap screw is on this list because a fastener row is named for the
-# body it fastens, so the pump's bracket screws read as a pump to `ELECTRICAL`.
-# Hardware carries no signal. The pump cradle and both display cover plates are
-# the same reading of the same rule: a printed piece is named for what it carries,
-# and neither the wall that carries both Kamoers nor the border that holds the glass
-# in its facet is a load. Either facet's border reads the same, so
-# the term takes both. The displays themselves are on the CROSS table.
-NO_PIN = (r"ESP32-WROOM|MCP23017|DS3231|Mean Well|DIN 912"
-          r"|pump cradle|[Dd]isplay cover plate")
+#   A part is named for what it carries or joins, so the pump retainer, the pump's
+# tube joints and both display cover plates read as loads to `ELECTRICAL`. None
+# carries a signal: the retainer holds both Kamoers, the joints carry fluid, and each
+# border holds the glass in its facet. Either facet's border reads the same, so the
+# term takes both. The displays themselves are on the CROSS table.
+NO_PIN = (r"ESP32-WROOM|MCP23017|DS3231|Mean Well"
+          r"|pump retainer|pump joints|[Dd]isplay cover plate")
 
 # Enforce the piezo failure mode away: every BOM line whose PART NAME looks like a
 # controller-facing electrical part must be covered by a CROSS bom-marker or the
@@ -172,4 +170,4 @@ if failures:
     for f in failures:
         print(f"  ✗ {f}")
     sys.exit(1)
-print("\n✓ pin map in sync: pinout, sync drivers, and BOM all agree with the main board.")
+print("\n✓ pin map in sync: pinout, document GPIOs and BOM all agree with the main board.")

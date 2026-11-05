@@ -54,7 +54,8 @@ flank stock, flat display backing and clearance from nearby installed bodies.
 reads the printable meshes at sampled front/rear insertion and shell
 closing poses, with capture against 2 mm translations along all axes.
 
-[`refresh_aggregate.py`](refresh_aggregate.py) replaces only the named
+[`refresh_aggregate.py`](https://github.com/derekbreden/homesodamachine/blob/0fb256bc890515f1ddef44b79ccaa93b0c16eeb4/hardware/printed-parts/zone-c/funnel/flush-roof-review/refresh_aggregate.py),
+in Git history, replaces only the named
 front-top, pump-cartridge and funnel-frame prototypes in each original STEP document using
 the native XCAF API, the repository's assembly reader and viewer graft. Its
 [`aggregate-refresh.json`](aggregate-refresh.json) verifies retained

@@ -7,8 +7,8 @@ pogo pair: J13's ribbon lands on Fastons at the pump motors' own tabs
 ([J13 bench guide](/hardware/assembly/harnesses/j13.md)).
 [`geometry-check.json`](geometry-check.json) records each crop, each coupon's machine-to-bed
 transform, the bed position of every seat feature a slice review looks for, and the hashes of the
-files it was cut from. [`contact_pair_coupon.py`](contact_pair_coupon.py) reads pogo seats
-that the current enclosure source does not define, so it does not rebuild against it.
+files it was cut from. [`contact_pair_coupon.py`](https://github.com/derekbreden/homesodamachine/blob/5d633291918a02e34734ef15445158dcaa97d8c8/hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/contact_pair_coupon.py),
+in Git history, cut them from pogo seats that the current enclosure source does not define.
 
 | Coupon | Size | Cut from | Prints | Holds |
 |---|---|---|---|---|

@@ -5,7 +5,7 @@ whether the production snap goes together and holds as drawn: full-length wings 
 the cradle's body, flat hooks reaching outward over the frame's bottom web, and straight
 slots with square edges. The trial's source dimensions and meshes define its fit scope;
 the [production joint](../README.md) has its own artifact-bound geometry review.
-The accepted [v4 result](physical-acceptance.json) applies to its frozen
+The accepted [v4 result](https://github.com/derekbreden/homesodamachine/blob/archive-finished-trials/hardware/printed-parts/zone-c/funnel/cradle-trial/physical-acceptance.json) applies to its frozen
 meshes. It does not establish the current production joint's insertion force,
 loaded retention or lifetime.
 
@@ -27,7 +27,7 @@ support. The cradle prints on its bottom with the pocket opening upward. The two
 undersides are retention bearings above the bed and take accessible supports from the
 bed under them. Nothing else on the cradle needs support.
 
-The H2C print and its native slice are recorded in [`h2c-print/`](h2c-print/README.md).
+The H2C print and its native slice are recorded in [`h2c-print/`](https://github.com/derekbreden/homesodamachine/blob/archive-finished-trials/hardware/printed-parts/zone-c/funnel/cradle-trial/h2c-print/README.md).
 The current offline [cradle slice](../integration-review/native-slice-reviews/2026-10-03-elbow-cradle-h2c-v2/README.md)
 and [receiver slice](../integration-review/native-slice-reviews/2026-10-03-cradle-trial-receiver-h2c-v1/README.md)
 bind the current meshes and emitted support-removal paths. No print has been

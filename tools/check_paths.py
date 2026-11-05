@@ -103,9 +103,14 @@ REVISION_RE = re.compile(r"(?<![\w/:-])([\w.][\w./-]*):([\w][\w./-]*\.[\w]+|[\w]
 # blob URL pinned to the commit that still holds it —
 #   https://github.com/<owner>/<repo>/blob/<sha>/hardware/…/scorecard.py#L472
 # — and the sha is the whole point of it. A pin at a sha where the path is not actually
-# there reads as a working citation and is not one, so the sha is asked.
+# there reads as a working citation and is not one, so the sha is asked. A pin into another
+# project's repository names that project's commit, which this clone cannot ask.
 BLOB_URL_RE = re.compile(
-    r"https://github\.com/[\w.-]+/[\w.-]+/blob/([0-9a-f]{7,40})/([^)\s#\"'<>]+)")
+    r"https://github\.com/([\w.-]+/[\w.-]+)/blob/([0-9a-f]{7,40})/([^)\s#\"'<>]+)")
+REPO = "derekbreden/homesodamachine"
+
+# An inline code span shows its text and links nowhere, so `[text](href)` in one is notation.
+CODE_SPAN_RE = re.compile(r"(`+)[^\n]*?\1")
 
 # Ways of writing "a path" that are not paths.
 SHA_RE = re.compile(r"(?<![\w/])([0-9a-f]{8,40})(?![\w/])")
@@ -126,8 +131,12 @@ SYSTEM_ROOTS = {"tmp", "Users", "home", "opt", "usr", "var", "private", "etc", "
 # shape — `/tour/:step`, `/steps/*splat` — and stands for a family rather than a page.
 ROUTE_RE = re.compile(r"""\bapp\.get\(\s*["'](/[^"'\n]*)["']""")
 
+# One shape route names a file: the reader at `/read/<path>` opens the document at
+# `hardware/<path>` (`web/lib/viewer-routes.js`).
+READER = "/read/"
+
 SKIP_TREES = ("node_modules/", "tools/cad-venv/", "tools/pcb-venv/", "tools/video-venv/",
-              ".pio/", "bazel-")
+              "tools/hsm/vendor/", ".pio/", "bazel-")
 
 
 def _is_transcript(rel: str) -> bool:
@@ -302,6 +311,7 @@ def _md_targets(text: str) -> list[tuple[int, str]]:
     """
     sources = _SOURCES_SECTION_RE.search(text)
     body = _strip_fences(text[:sources.start()] if sources else text)
+    body = CODE_SPAN_RE.sub(lambda m: " " * len(m.group(0)), body)
     matches = list(MD_LINK_RE.finditer(body))
     if not matches:
         return []
@@ -484,7 +494,8 @@ def check(files: set, dirs: set, solids: set, tags: set, routes: set) -> list[st
                 # nothing by that name and is not asked to.
                 if (path.rstrip("/") or "/") in routes:
                     continue
-                cands = [str(Path(path.lstrip("/")))]
+                cands = [str(Path("hardware") / path[len(READER):]) if path.startswith(READER)
+                         else str(Path(path.lstrip("/")))]
             elif is_md:
                 cands = [str(Path(rel).parent / path)]
             else:
@@ -549,7 +560,9 @@ def check(files: set, dirs: set, solids: set, tags: set, routes: set) -> list[st
         # before the path can be asked of it — a pin at a commit nobody fetched is its own
         # kind of dead reference.
         for m in BLOB_URL_RE.finditer(body):
-            sha, path = m.group(1), m.group(2)
+            repo, sha, path = m.group(1), m.group(2), m.group(3)
+            if repo.lower() != REPO:
+                continue
             line = body[:m.start()].count("\n") + 1
             # A SHA THIS REPO DOES NOT HAVE IS A DEAD LINK. The history was rewritten and
             # every pin taken before 2026-08-17 names a commit that was dropped — but the
@@ -591,6 +604,13 @@ def _selftest() -> int:
          [(4, "/hardware/README.md")])
     hold("angle-bracketed target unwraps",
          _md_targets("[a](</hardware/ledger/bom.md>)"), [(1, "/hardware/ledger/bom.md")])
+    hold("a link in a code span is notation",
+         _md_targets("Links read `[text](href)`; see [y](/hardware/README.md)."),
+         [(1, "/hardware/README.md")])
+    hold("another project's pin is its own",
+         [m.group(1) for m in BLOB_URL_RE.finditer(
+             "https://github.com/bambulab/BambuStudio/blob/926a7192/src/a.cpp")],
+         ["bambulab/BambuStudio"])
 
     # A line suffix is part of the reference, not part of the path.
     hold("line suffix stripped", _clean("/hardware/pcb/pcba/pcba.tsx:210"),

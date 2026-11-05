@@ -1,7 +1,7 @@
 # Machine display cover reach trials
 
 **Shake retention failed:** the +0.5 mm hook-reach cover with 0.9 mm skirt inset per
-side pops out intact from the printed receiver. The [physical reading](physical-acceptance.json)
+side pops out intact from the printed receiver. The [physical reading](https://github.com/derekbreden/homesodamachine/blob/archive-finished-trials/hardware/printed-parts/enclosure/display-cover/reach-trial/physical-acceptance.json)
 binds this observation to Mark2 task 1289413482 and the exact printed geometry.
 The broad-leaf pairing is recorded in the [retention trial](../retention-trial/README.md).
 The [production cover](../README.md) uses the accepted horizontal wings.
