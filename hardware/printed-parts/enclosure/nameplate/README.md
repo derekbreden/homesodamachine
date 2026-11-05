@@ -41,7 +41,7 @@ The plate has a flat back, a 2.36 mm bearing floor beneath each counterbore and
 insert fronts finish flush with the seat. The upper pair ends against the existing
 3 mm support floors; the lower pair opens through the rear wall. The closed
 pilots leave 0.64 mm behind each insert and 1 mm behind each screw tip.
-The last 0.3 mm of each upper bore has an underside relief behind the insert,
+The last 0.25 mm of each upper bore has an underside relief behind the insert,
 joining the adjoining support floor without a thin crescent.
 The broad seat is
 3 mm thick, with the four insert lands carried into the existing enclosure wall.
