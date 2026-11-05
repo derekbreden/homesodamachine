@@ -72,6 +72,16 @@ A script you write because nothing in the repo answers your question is a tool t
 
 Every change to the enclosure's geometry has an entry in [`changes/`](changes/README.md), shown at [homesodamachine.com/changes](https://homesodamachine.com/changes): a before and an after picture of what changed, from one camera, with a short lede. The before is the snapshot taken ahead of the rebuild, `node tools/changes/change.mjs snapshot`; nothing else keeps it. [`changes/README.md`](changes/README.md) has the rest. Recording follows the change and never holds it up.
 
+## What Counts
+
+Two things count: what I see on the website and what I print. Everything else is a means to
+those two. An output, check or report that feeds neither can go, and so can an expensive detail
+of the website that isn't needed, such as a check in the `/3d` checks modal.
+
+A change keeps the machine the same when the website shows the same things and the same solids
+print, within the kernel's rule. Nothing else has to match: intermediate files, report wording,
+error text and float rounding can all change.
+
 ## Speed
 
 Every agent's builds run on this one Mac, an 8 GB M3. The goal is that its CPU and memory stop
