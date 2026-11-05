@@ -52,7 +52,7 @@
     "observed": "enclosure-dimensions at a78cf15ba loaded OCP.OCP: the generated enclosure modules import hardware/reference/condenser-block/condenser_block.py through the adapter callback, and its module-level OCP imports loaded OpenCASCADE",
     "normal_entrypoints_reading_condenser_block": 8,
     "static_scan": "Of the 341 Python files the build graph reads, condenser_block.py is the only one importing OCP or meshcad at module level",
-    "after_lazy_import": "cadquery deferred; no OCP or meshcad module loaded in cold-core-sync or enclosure-dimensions"
+    "after_lazy_import": "CadQuery deferred or never imported and no OCP or meshcad module loaded in all eight steps reading condenser_block.py at e3453c8d7 (enclosure-dimensions, asse-drain-sync, enclosure-mechanical-sync, internal-plumbing-sync, fluid-topology-sync, bom-masses, enclosure-box, enclosure-assembly), and in cold-core-sync at a78cf15ba with the lazy import"
   },
   "compile": {
     "command": "cargo build --release -j2 -p <crate>, private target, deps already built",
@@ -83,7 +83,14 @@
     },
     "enclosure-dimensions": {"opt3_cpu_seconds": 5.12, "opt0_cpu_seconds": 4.34, "swapped": ["enclosure-data"]},
     "cold-core-sync": {"opt3_cpu_seconds": 1.71, "opt0_cpu_seconds": 1.93, "swapped": ["enclosure-data", "cold-core-data"]},
-    "enclosure-box": {"opt3_cpu_seconds": 48.72, "opt0_cpu_seconds": 41.17, "opt3_runs": [40.3, 48.72, 109.32], "opt0_runs": [71.14, 41.17, 34.8], "swapped": ["enclosure-data"]}
+    "enclosure-box": {"opt3_cpu_seconds": 48.72, "opt0_cpu_seconds": 41.17, "opt3_runs": [40.3, 48.72, 109.32], "opt0_runs": [71.14, 41.17, 34.8], "swapped": ["enclosure-data"]},
+    "enclosure-assembly": {
+      "revision": "e3453c8d7",
+      "cpu_seconds_warm_runs": [122.12, 127.63, 124.12],
+      "worker_cpu_seconds": {"machine-data": 52.01, "wiring-data": 7.51, "cold-core-data": 2.39, "enclosure-data": 1.1, "layout-data": 0.9, "build-data": 0.37},
+      "worker_method": "ps samples of each worker every half second through one run",
+      "note": "The two opt-level 0 workers use 3.5 of the step's 125 CPU s; the generator's own Python uses about 60"
+    }
   },
   "output_identity": {
     "method": "SHA-256 of every file the staged step leaves, opt-level 3 workers against opt-level 0 workers",
