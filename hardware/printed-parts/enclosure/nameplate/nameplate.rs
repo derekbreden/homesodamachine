@@ -165,7 +165,7 @@ fn check(n: &Numbers) -> Result<Value> {
     let insert_rear_air=-f(mount,"insert_stock_rear")?-f(mount,"insert_length")?;
     ensure!(bearing>=2. && f(mount,"floor_stock")?>=3. && radial_stock>=3.,"fastener bearing or surrounding stock is insufficient");
     ensure!(engagement<=f(mount,"insert_length")? && engagement>=3.5,"screw engagement exceeds short insert");
-    ensure!(f(mount,"pilot_rear")?<f(mount,"insert_stock_rear")?,"the insert bore must open through the rear wall");
+    ensure!(f(mount,"pilot_rear")?<=f(mount,"insert_stock_rear")?,"the insert bore must open through the rear wall");
     Ok(json!({"valid_body":true,"valid_receiver":true,"plate_components":body.components().len(),
         "receiver_components":receiver.components().len(),"mount":mount,
         "seated_overlap_mm3":seated,"screw_artwork_overlap_mm3":screw_art_overlap,

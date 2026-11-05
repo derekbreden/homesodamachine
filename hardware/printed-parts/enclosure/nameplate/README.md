@@ -91,6 +91,8 @@ seated detail and separated attachment views from production meshes. Review
 models turn 180° about Z to open on the rear with the website’s default camera;
 production models keep the machine coordinates. The
 separated view exposes the flat plate back, inserts and screw stations.
+The [complete enclosure review](https://homesodamachine.com/3d#glb:assembly%2Fscenes%2Fglb%2Fnameplate-shallow-full-context.glb)
+opens directly on the rear of the appliance.
 
 ```sh
 tools/cad-venv/bin/python hardware/printed-parts/enclosure/nameplate/nameplate.py 1
