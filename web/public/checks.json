@@ -1,19 +1,9 @@
 {
   "checks": [
     {
-      "check": "hardware/scripts/check_copper_plug_clearance.py",
-      "note": "PASS: /Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/cold-core/copper-plugs/clearance-check.json",
-      "status": "ok"
-    },
-    {
-      "check": "hardware/scripts/check_core_and_faucet_heatsets.py",
-      "note": "43 native pockets: PASS; /Users/derekbredensteiner/Developer/homesodamachine/hardware/mechanical-qualification/core-and-faucet-heatsets.json",
-      "status": "ok"
-    },
-    {
       "check": "hardware/scripts/check_enclosure_mating_clearance.py",
-      "note": "}",
-      "status": "ok"
+      "note": "ValueError: min() iterable argument is empty",
+      "status": "red"
     },
     {
       "check": "hardware/scripts/check_ledger.py",
@@ -22,8 +12,8 @@
     },
     {
       "check": "hardware/scripts/check_pinmap.py",
-      "note": "✓ pin map in sync: pinout, sync drivers, and BOM all agree with the main board.",
-      "status": "ok"
+      "note": "✗ untracked electrical BOM part (give it a CROSS pin entry, or add to NO_PIN): Enclosure — pump retainer",
+      "status": "red"
     },
     {
       "check": "hardware/scripts/check_purchase_evidence.py",
@@ -32,15 +22,109 @@
     },
     {
       "check": "hardware/scripts/check_step_colours.py",
-      "note": "step colours: 493/493 carry the colour of what they are made of",
-      "status": "ok"
+      "note": "A generator hands its solid to `_materials.one_body` and exports the assembly.",
+      "status": "red"
     },
     {
       "check": "tools/check_paths.py",
-      "note": "paths: every reference lands — 7515 tracked, 1215 fetched solids, 61 tags, 40 site routes",
-      "status": "ok"
+      "note": "53 reference(s) name a path nothing holds.",
+      "status": "red"
     }
   ],
-  "detail": {},
-  "green": true
+  "detail": {
+    "hardware/scripts/check_enclosure_mating_clearance.py": [
+      "   |                                  ^^^^^^^^^^^^^^^^^ help: convert the identifier to snake case: `m_machine_export`",
+      "warning: module `m__machine_routes` should have a snake case name",
+      "  --> machine-data/src/compiled/modules.rs:21:34",
+      "   |",
+      "21 | #[path=\"_machine_routes.rs\"] mod m__machine_routes;",
+      "   |                                  ^^^^^^^^^^^^^^^^^ help: convert the identifier to snake case: `m_machine_routes`",
+      "warning: module `m__assembly_questions` should have a snake case name",
+      "  --> machine-data/src/compiled/modules.rs:22:38",
+      "   |",
+      "22 | #[path=\"_assembly_questions.rs\"] mod m__assembly_questions;",
+      "   |                                      ^^^^^^^^^^^^^^^^^^^^^ help: convert the identifier to snake case: `m_assembly_questions`",
+      "Traceback (most recent call last):",
+      "  File \"/Users/derekbredensteiner/Developer/homesodamachine/hardware/scripts/check_enclosure_mating_clearance.py\", line 149, in <module>",
+      "    report = survey()",
+      "  File \"/Users/derekbredensteiner/Developer/homesodamachine/hardware/scripts/check_enclosure_mating_clearance.py\", line 119, in survey",
+      "    measure(f\"{side} handhold inner wall/knuckle fore rib\", \"front-bottom\", \"back-bottom\",",
+      "    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+      "            (cap - sx*e.handhold_wall/2, fore_rib_y, roof - gap),",
+      "            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+      "            (0.,0.,1.), gap)",
+      "            ^^^^^^^^^^^^^^^^",
+      "  File \"/Users/derekbredensteiner/Developer/homesodamachine/hardware/scripts/check_enclosure_mating_clearance.py\", line 103, in measure",
+      "    errors.append(min(f.distance(vertex) for f in faces))",
+      "                  ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+      "ValueError: min() iterable argument is empty"
+    ],
+    "hardware/scripts/check_pinmap.py": [
+      "board GPIOs in use: 23 | documented: 23 (free: 3) | cross-table fns: 13",
+      "DRIFT: 8 mismatch(es) between the main board and a derived artifact:",
+      "  ✗ sync var 'relay_compressor_gpio' not found (renamed?)",
+      "  ✗ sync var 'relay_diaphragm_gpio' not found (renamed?)",
+      "  ✗ sync var 'gpio_relay1' not found (renamed?)",
+      "  ✗ sync var 'gpio_relay2' not found (renamed?)",
+      "  ✗ sync var 'gpio_onewire' not found (renamed?)",
+      "  ✗ sync var 'gpio_flow' not found (renamed?)",
+      "  ✗ untracked electrical BOM part (give it a CROSS pin entry, or add to NO_PIN): [Reinforced PVC pump joints](/hardware/reference/pump-barb-joint/READM",
+      "  ✗ untracked electrical BOM part (give it a CROSS pin entry, or add to NO_PIN): Enclosure — pump retainer"
+    ],
+    "hardware/scripts/check_step_colours.py": [
+      "    hardware/printed-parts/faucet/faucet-display-cover/fit-review/2026-10-24/printedSculpted.step",
+      "    hardware/printed-parts/faucet/faucet-display-cover/fit-review/2026-10-24/printedSculptedPrint.step",
+      "    hardware/printed-parts/faucet/faucet-display-cover/fit-review/2026-10-24/screen.step",
+      "    hardware/printed-parts/faucet/faucet-display-cover/fit-review/2026-10-24/tip.step",
+      "    hardware/printed-parts/faucet/faucet-display-cover/fit-review/2026-10-24/vendor-button-211.step",
+      "    hardware/printed-parts/faucet/faucet-display-cover/fit-review/2026-10-24/vendor-button-212.step",
+      "    hardware/printed-parts/faucet/finish-coupons/flat-curved-seam-v1/curved.step",
+      "    hardware/printed-parts/faucet/finish-coupons/flat-curved-seam-v1/flat.step",
+      "    hardware/printed-parts/faucet/industrial/display-seat-review/2026-10-24/candidate-cover.step",
+      "    hardware/printed-parts/faucet/industrial/display-seat-review/2026-10-24/candidate-tip.step",
+      "    hardware/printed-parts/faucet/industrial/prints/2026-10-24-sculpted-cover-uniform024-mark2/sculpted-display-cover-low45.step",
+      "    hardware/reference/ecoreg-regulator/geometry/ecoreg-body.step",
+      "    hardware/reference/ecoreg-regulator/geometry/ecoreg-inlet-adapter.step",
+      "    hardware/reference/ecoreg-regulator/geometry/ecoreg-outlet-adapter.step",
+      "    hardware/reference/ecoreg-regulator/geometry/ecoreg-regulator.step",
+      "    hardware/reference/ecoreg-regulator/geometry/ecoreg-with-adapters.step",
+      "    hardware/reference/frizzlife-prv01/geometry/frizzlife-body.step",
+      "    hardware/reference/frizzlife-prv01/geometry/frizzlife-inlet-clip.step",
+      "    hardware/reference/frizzlife-prv01/geometry/frizzlife-inlet-collet.step",
+      "    hardware/reference/frizzlife-prv01/geometry/frizzlife-outlet-clip.step",
+      "    hardware/reference/frizzlife-prv01/geometry/frizzlife-outlet-collet.step",
+      "    hardware/reference/frizzlife-prv01/geometry/frizzlife-prv01.step",
+      "    hardware/reference/touch-flo-faucet/display-reference/button-left.step",
+      "    hardware/reference/touch-flo-faucet/display-reference/button-right.step",
+      "  A generator hands its solid to `_materials.one_body` and exports the assembly."
+    ],
+    "tools/check_paths.py": [
+      "  hardware/printed-parts/fixtures/weld-rotator/README.md:4 — hardware/print-tests/m5-seam-bearing/physical-result.json is held nowhere, and no tag is named for it",
+      "  hardware/printed-parts/zone-c/funnel/README.md:202 — hardware/printed-parts/zone-c/funnel/drop-in-review/review.py is held nowhere, and no tag is named for it",
+      "  hardware/printed-parts/zone-c/funnel/README.md:218 — hardware/printed-parts/zone-c/funnel/cradle-trial/physical-acceptance.json is held nowhere, and no tag is named for it",
+      "  hardware/printed-parts/zone-c/funnel/cradle-trial/README.md:8 — hardware/printed-parts/zone-c/funnel/cradle-trial/physical-acceptance.json is held nowhere, and no tag is named for it",
+      "  hardware/printed-parts/zone-c/funnel/cradle-trial/README.md:30 — hardware/printed-parts/zone-c/funnel/cradle-trial/h2c-print/README.md is held nowhere, and no tag is named for it",
+      "  hardware/printed-parts/zone-c/funnel/flush-roof-review/README.md:57 — hardware/printed-parts/zone-c/funnel/flush-roof-review/refresh_aggregate.py is held nowhere, and no tag is named for it",
+      "  hardware/reference/elbow-connector/README.md:15 — hardware/reference/funnel-drain-stub/funnel_drain_stub.py is held nowhere, and no tag is named for it",
+      "  hardware/reference/kamoer-kphm400/scan-review.md:107 — hardware/reference/kamoer-kphm400/check_pump_contacts.py is held nowhere, and no tag is named for it",
+      "  hardware/snapshots/fill-from-funnel-plan-2026-08-19.md:123 — hardware/service/pump-replacement.md is held nowhere, and no tag is named for it",
+      "  hardware/weld-rotator-guide/README.md:22 — tools/weld-rotator-guide/rotator_art.py is held nowhere, and no tag is named for it",
+      "  tools/hsm/vendor/manifold-csg-sys/README.md:37 — tools/hsm/vendor/manifold-csg-sys/crates/manifold-csg/src/manifold.rs is held nowhere, and no tag is named for it",
+      "  tools/hsm/vendor/manifold-csg-sys/README.md:41 — tools/hsm/vendor/manifold-csg-sys/crates/manifold-csg/src/cross_section.rs is held nowhere, and no tag is named for it",
+      "  tools/hsm/vendor/manifold-csg-sys/README.md:44 — tools/hsm/vendor/manifold-csg-sys/crates/manifold-csg/src/mesh.rs is held nowhere, and no tag is named for it",
+      "  tools/hsm/vendor/manifold-csg-sys/README.md:45 — tools/hsm/vendor/manifold-csg-sys/crates/manifold-csg/src/mesh.rs is held nowhere, and no tag is named for it",
+      "  tools/hsm/vendor/manifold-csg-sys/README.md:47 — tools/hsm/vendor/manifold-csg-sys/crates/manifold-csg/src/triangulation.rs is held nowhere, and no tag is named for it",
+      "  tools/hsm/vendor/manifold-csg-sys/README.md:52 — tools/hsm/vendor/manifold-csg-sys/API_COVERAGE.md is held nowhere, and no tag is named for it",
+      "  tools/hsm/vendor/manifold-csg-sys/README.md:89 — tools/hsm/vendor/manifold-csg-sys/crates/manifold-csg/examples is held nowhere, and no tag is named for it",
+      "  tools/hsm/vendor/manifold-csg-sys/README.md:96 — tools/hsm/vendor/manifold-csg-sys/crates/manifold-csg is held nowhere, and no tag is named for it",
+      "  tools/hsm/vendor/manifold-csg-sys/README.md:97 — tools/hsm/vendor/manifold-csg-sys/crates/manifold-csg-sys is held nowhere, and no tag is named for it",
+      "  tools/hsm/vendor/manifold-csg-sys/README.md:227 — tools/hsm/vendor/manifold-csg-sys/crates/manifold-csg-playground is held nowhere, and no tag is named for it",
+      "  tools/hsm/vendor/manifold-csg-sys/README.md:243 — tools/hsm/vendor/manifold-csg-sys/docs/plans/wasm-unknown-unknown.md is held nowhere, and no tag is named for it",
+      "  tools/hsm/vendor/manifold-csg-sys/README.md:257 — tools/hsm/vendor/manifold-csg-sys/API_COVERAGE.md is held nowhere, and no tag is named for it",
+      "  tools/hsm/vendor/manifold-csg-sys/README.md:260 — tools/hsm/vendor/manifold-csg-sys/crates/manifold-csg/examples is held nowhere, and no tag is named for it",
+      "  tools/weld-rotator-guide/build.py:9 — tools/weld-rotator-guide/rotator_art.py is held nowhere, and no tag is named for it",
+      "53 reference(s) name a path nothing holds."
+    ]
+  },
+  "green": false
 }
