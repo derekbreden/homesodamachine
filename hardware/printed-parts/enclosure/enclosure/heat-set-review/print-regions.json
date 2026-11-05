@@ -182,38 +182,40 @@
   },
   "part_process_overrides": {},
   "source_sha256": {
-    "hardware/printed-parts/enclosure/enclosure/heat-set-review/print_regions.py": "f8b1bf16feecac57352e71d8f2061673045ff005bd34f5d8b2d9bc2a4e824e8e",
-    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "e117fb4c0cb52acaae1ca2b7c3975cd803e990a33a2777a2172308f19e4d6103",
-    "hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py": "5365e57b729a82fe3a0a04142ec24f2852c10ba94a6c62c87f6e7e40692e34ea",
-    "hardware/printed-parts/enclosure/enclosure/_fixed_pump_mount.py": "18f8292304595390e4b9b5e70ce40e935bc051f995f20c70a09c475aa707166b",
-    "hardware/manifold-layout/enclosure-box.json": "8a94772dfe0b73c45124f61cab3381bbf47aee27d4774c34d92919c1a55bd6cc",
-    "hardware/printed-parts/enclosure/enclosure/_above_core_shell.py": "69361a9773ef2ef58c51e2be6d8aaf191e13d531eba1c899b1912241ab771721",
-    "hardware/manifold-layout/above_core.py": "4ae1006309cfc55676c11ac286d0506a77d8fecd1b107818b2d6a665b787654e",
-    "hardware/manifold-layout/above-core.json": "57e7208ad228b4068f64084545e2dde2464d510a33e71a3c9f541378695dac3b",
-    "hardware/reference/meanwell-irm90/meanwell_irm90.py": "8db724ca45d590af40a82f9f505a2aaedf9f7381f930deb54fda3cc637b771d5",
-    "hardware/reference/teyleten-relay/teyleten_relay.py": "964bff50807efc1e21d463feff04930ddce31c31cb0face2c039aeb6b232ea5a",
-    "hardware/printed-parts/zone-c/funnel/funnel_frame.py": "7a6060b12504ad40eba59d786851f423a3499ae3ec40fabb36ef6a3f97d508f4",
-    "hardware/printed-parts/zone-c/funnel/funnel.py": "13442f739159c56f74e08cca210ff7c6b5e81c31f531af04374ed0333b106b23",
-    "hardware/printed-parts/enclosure/pump-dock/dock_structure.py": "9bf17c2ade88ca156c9d859840067829d700ebccded368469ea4ea50700f9013",
-    "hardware/printed-parts/enclosure/pump-dock/fixed_returns.py": "b203551dad030a7b3e64e6094b0ed964ebe6edf9d779bf0ed94cc549471471e3",
+    "hardware/printed-parts/enclosure/enclosure/heat-set-review/print_regions.py": "9c79dc52216dfbbd2bd82dbca1943d1d9da054411689b034a8d0e7f61cb00508",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "4897c86989839a373c258a19d38c4cf854261aa5bd625c0dfaeb7ddb1e84d0a4",
+    "hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py": "5a3fffa35c6bdbce425d822136b41a3d878210648b3cd7d92c28afbfd9fa482c",
+    "hardware/printed-parts/enclosure/enclosure/_fixed_pump_mount.py": "7c7dcdd47062871cf8cb1968a3f802e30f47d3d393efcfd45c56aad75fc10452",
+    "hardware/manifold-layout/enclosure-box.json": "e25ca2be5c46310082f002a72a9a9f20c08bee4af1e634e065de87d848c3ad3b",
+    "hardware/printed-parts/enclosure/enclosure/_above_core_shell.py": "16923f324504cc2894a16e7f7bee2d4296f8ab543c3d1f9f6f8e1f92c12d670b",
+    "hardware/manifold-layout/above_core.py": "7ed5745a4eba5920d3de9e70a2abeece54e43563d7557258047b15dbc33c398b",
+    "hardware/manifold-layout/above-core.json": "48b5814622427c69464858e9577897d77bfe749335037ce9ce9122d7ac0757c1",
+    "hardware/printed-parts/enclosure/nameplate/nameplate.numbers.json": "3538dd8f347db6edea0ab5501c30095b37725455369942859d6b9ddb8eb59a93",
+    "hardware/printed-parts/enclosure/nameplate/snap_dimensions.rs": "9d74ad361d3b511d18e98c1c1e3245e4530d7f5064876a48706f3353b65007de",
+    "hardware/reference/meanwell-irm90/meanwell_irm90.py": "fdc9753c62afab86f3bfa68d8b27482d46510d7af4d37ab1d453f45baf41d701",
+    "hardware/reference/teyleten-relay/teyleten_relay.py": "c879eb738048f5e0d3dd9fa1ff81ef01b241fc5de6a23e17c27439afef557b36",
+    "hardware/printed-parts/zone-c/funnel/funnel_frame.py": "15e1e6d06cfd39f31e9ce34e6109eb6c2dad4d355a846fad738d51c851472701",
+    "hardware/printed-parts/zone-c/funnel/funnel.py": "4bf267e07a6639585f6bc2151962447ab74bfeb1afe029b9352030d2c497647c",
+    "hardware/printed-parts/enclosure/pump-dock/dock_structure.py": "ae781614993495be7ebb16f3c5aa90e6838b99e10c81da6594488dc7322a894c",
+    "hardware/printed-parts/enclosure/pump-dock/fixed_returns.py": "fac88463f1bbfc0f8e20322ad39b7c47d5508cde3e9e7537b4c9ac4d7fc0472a",
     "hardware/printed-parts/petgf.3mf": "45c16e8c8517e0a205107d7b9f7412d013f51a8de7ecf86125cc940079d37ed0"
   },
   "native_artifact_sha256": {
     "front-bottom": {
-      ".step": "7f82d3c0c98e0cf59591b23b07cfbe4de189bf299807ed9ad7b0b13d474ef267",
-      ".stl": "9770ea64d37cb6d0390c4fd7231ab8135e388289b22163eaf08368d27e0e93a0"
+      ".step": "a5366b87b6cdb606eb48e8f922948fe213a3308877123fd75fd441b6f16ba0ef",
+      ".stl": "217f0b372b101e57bba88d91691be9d5043437887c29748df233e361ce4d93e4"
     },
     "front-top": {
-      ".step": "91bf8eb2d2bf08011b2ecf82face9ae2948d9ea939016f73b0c4a59323210b52",
-      ".stl": "6ad55d860d0bee7ac607a99ff08d7676bb08ce5f2b4cd0521d61e72d961721d2"
+      ".step": "0a7aefba3940d4c8546956a43951ec8bc2179fd50e25612af9acfecdcd305b3a",
+      ".stl": "d3cfb45518d60fe56b361072ff3432a53e7cea825bc8fe5ebdeb62121a27c68e"
     },
     "back-bottom": {
-      ".step": "8b209146563cf015f8f19bf2b09cc53c2ab61add4aad58e19a7a84f77a800064",
-      ".stl": "293a4e8ff8ab39a23afe5ac12f0ded0a398611abcb52fe2a0765dc14e1121a83"
+      ".step": "f5508720030a8a8a5a37d5a508b6f4fb905e0f45cda2f1a8014f7f8dc2284107",
+      ".stl": "2380f6602c1d1bd8c58d2193d1c572f3239c6d000dad64d3b1f6b34d847ba729"
     },
     "back-top": {
-      ".step": "02b72695686af7a3692469f74c4fecf14d77ef3523480759fd119e3d9be36335",
-      ".stl": "c7d986ddb2f59ce7a08996d0031d5165ccf0a45be31055dfb8cac7e29dba9767"
+      ".step": "32bf4d8bc824fe411e55c3b0f3111670bb569576ec7162db3e8725bf9c0d4cf9",
+      ".stl": "f8d1bbd85138fef69d71b85d09f3c3dba77f1f488d5f2de0a2dea58ad451ed60"
     },
     "pump-retainer": {
       ".step": "d150ee04c6f9e9d1e9cf64eb641f02f14305b08ac7152945b1e2f3098f33f6e7",
@@ -1589,6 +1591,122 @@
           -457.79999999999995,
           20.0,
           30.0
+        ]
+      },
+      {
+        "name": "Nameplate insert land and rear wall root 1",
+        "machine_bounds_mm": [
+          -84.4,
+          -72.4,
+          462.3,
+          473.3,
+          172.0,
+          184.0
+        ],
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag",
+        "applied_source_bounds_mm": [
+          -84.4,
+          -72.4,
+          462.3,
+          473.3,
+          172.0,
+          184.0
+        ],
+        "print_bounds_mm": [
+          -84.4,
+          -72.4,
+          -473.3,
+          -462.3,
+          171.0,
+          183.0
+        ]
+      },
+      {
+        "name": "Nameplate insert land and rear wall root 2",
+        "machine_bounds_mm": [
+          -18.4,
+          -6.399999999999999,
+          462.3,
+          473.3,
+          172.0,
+          184.0
+        ],
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag",
+        "applied_source_bounds_mm": [
+          -18.4,
+          -6.399999999999999,
+          462.3,
+          473.3,
+          172.0,
+          184.0
+        ],
+        "print_bounds_mm": [
+          -18.4,
+          -6.399999999999999,
+          -473.3,
+          -462.3,
+          171.0,
+          183.0
+        ]
+      },
+      {
+        "name": "Nameplate insert land and rear wall root 3",
+        "machine_bounds_mm": [
+          -84.4,
+          -72.4,
+          462.3,
+          473.3,
+          250.0,
+          262.0
+        ],
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag",
+        "applied_source_bounds_mm": [
+          -84.4,
+          -72.4,
+          462.3,
+          473.3,
+          250.0,
+          262.0
+        ],
+        "print_bounds_mm": [
+          -84.4,
+          -72.4,
+          -473.3,
+          -462.3,
+          93.0,
+          105.0
+        ]
+      },
+      {
+        "name": "Nameplate insert land and rear wall root 4",
+        "machine_bounds_mm": [
+          -18.4,
+          -6.399999999999999,
+          462.3,
+          473.3,
+          250.0,
+          262.0
+        ],
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag",
+        "applied_source_bounds_mm": [
+          -18.4,
+          -6.399999999999999,
+          462.3,
+          473.3,
+          250.0,
+          262.0
+        ],
+        "print_bounds_mm": [
+          -18.4,
+          -6.399999999999999,
+          -473.3,
+          -462.3,
+          93.0,
+          105.0
         ]
       },
       {
