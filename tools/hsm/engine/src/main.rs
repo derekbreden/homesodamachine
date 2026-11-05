@@ -47,9 +47,9 @@ struct Args {
     /// Memory the part runs a daemon this call starts may hold at once, by their measured peaks.
     #[arg(long, global = true, default_value_t = 1024)]
     build_mb: u64,
-    /// What the kept part runs may hold on disk; the least recently used go at idle exit.
-    #[arg(long, global = true, default_value_t = 4096)]
-    keep_mb: u64,
+    /// Hours a kept part run stays unused before it and the files only it names go.
+    #[arg(long, global = true, default_value_t = 2.0)]
+    keep_hours: f64,
     /// Minutes without a query before a daemon this call starts exits; 0 keeps it running.
     #[arg(long, global = true, default_value_t = 15.0)]
     idle_minutes: f64,
@@ -134,9 +134,12 @@ pub struct Client {
     scene: String,
     cache_mb: u64,
     build_mb: u64,
-    keep_mb: u64,
+    keep_hours: f64,
     idle_minutes: f64,
 }
+
+/// How often a daemon prunes its kept part runs while it runs; it prunes again at an idle exit.
+const PRUNE_EVERY: Duration = Duration::from_secs(10 * 60);
 
 fn build_id() -> String {
     let mut h = Sha256::new();
@@ -191,8 +194,8 @@ fn store_path(path: &Path) -> Result<PathBuf> {
     bail!("cannot resolve store {}", path.display())
 }
 
-fn configuration(store: &Path, cache_mb: u64, build_mb: u64, keep_mb: u64) -> Value {
-    json!({"store": store, "cache_mb": cache_mb, "build_mb": build_mb, "keep_mb": keep_mb})
+fn configuration(store: &Path, cache_mb: u64, build_mb: u64, keep_hours: f64) -> Value {
+    json!({"store": store, "cache_mb": cache_mb, "build_mb": build_mb, "keep_hours": keep_hours})
 }
 
 fn default_socket(configuration: &Value) -> PathBuf {
@@ -261,7 +264,7 @@ fn control(query: Query) -> Request {
 
 impl Client {
     fn configuration(&self) -> Value {
-        configuration(&self.store, self.cache_mb, self.build_mb, self.keep_mb)
+        configuration(&self.store, self.cache_mb, self.build_mb, self.keep_hours)
     }
 
     fn compatible(&self, response: &Value) -> Result<()> {
@@ -360,8 +363,8 @@ impl Client {
             .arg(self.cache_mb.to_string())
             .arg("--build-mb")
             .arg(self.build_mb.to_string())
-            .arg("--keep-mb")
-            .arg(self.keep_mb.to_string())
+            .arg("--keep-hours")
+            .arg(self.keep_hours.to_string())
             .arg("--idle-minutes")
             .arg(self.idle_minutes.to_string())
             .arg("daemon")
@@ -420,6 +423,14 @@ fn serve(client: &Client) -> Result<()> {
     fs::set_permissions(&client.socket, fs::Permissions::from_mode(0o600))?;
     let mut store = store::Store::new(client.cache_mb)?;
     let builds = Arc::new(build::Builder::new(&client.store, client.build_mb)?);
+    let keep = Duration::from_secs_f64(client.keep_hours * 3600.0);
+    let pruning = builds.clone();
+    thread::spawn(move || loop {
+        if let Err(e) = pruning.prune(keep, false) {
+            eprintln!("hsm: pruning kept part runs: {e:#}");
+        }
+        thread::sleep(PRUNE_EVERY);
+    });
     let build = build_id();
     let configuration = client.configuration();
     eprintln!(
@@ -451,7 +462,7 @@ fn serve(client: &Client) -> Result<()> {
                 answer(stream, &mut store, &builds, &build, &configuration, &client.socket)?;
             }
             builds.wait_idle();
-            if let Err(e) = builds.prune(client.keep_mb.saturating_mul(1 << 20)) {
+            if let Err(e) = builds.prune(keep, true) {
                 eprintln!("hsm: pruning kept part runs: {e:#}");
             }
             eprintln!(
@@ -610,7 +621,7 @@ fn run() -> Result<bool> {
     let store = store_path(&store)?;
     let socket = args.socket
         .or_else(|| std::env::var_os("HSM_SOCKET").map(PathBuf::from))
-        .unwrap_or_else(|| default_socket(&configuration(&store, args.cache_mb, args.build_mb, args.keep_mb)));
+        .unwrap_or_else(|| default_socket(&configuration(&store, args.cache_mb, args.build_mb, args.keep_hours)));
     if socket.parent() == Some(runtime_dir().as_path()) {
         private_directory(&runtime_dir())?;
     }
@@ -625,12 +636,16 @@ fn run() -> Result<bool> {
         scene: args.scene,
         cache_mb: args.cache_mb,
         build_mb: args.build_mb,
-        keep_mb: args.keep_mb,
+        keep_hours: args.keep_hours,
         idle_minutes: args.idle_minutes,
     };
     ensure!(
         client.idle_minutes.is_finite() && client.idle_minutes >= 0.0,
         "--idle-minutes must be a nonnegative number"
+    );
+    ensure!(
+        client.keep_hours.is_finite() && client.keep_hours > 0.0,
+        "--keep-hours must be a positive number"
     );
     let query = match args.command {
         Action::Endpoint => {
