@@ -7,8 +7,8 @@ much the agents get done. This is the build's plan for it.
 
 The normal build's dimensions, numeric recipes, file readers, document generation, geometry,
 checks and exports execute in Rust. No normal step loads CadQuery,
-OpenCASCADE (OCP) or meshcad. The conversion keeps the same parts, names, placements,
-colours, check answers and outputs.
+OpenCASCADE (OCP) or meshcad. The conversion keeps what the website shows and what prints
+([What Counts](../../AGENTS.md#what-counts)): the same parts, names, placements and colours.
 
 An unconverted caller can use a thin Python import or command adapter for a finished Rust
 piece. That adapter supplies raw provider inputs, restores its caller's Python object types
@@ -26,9 +26,10 @@ control flow and values; they do not evaluate Python source at runtime.
 - **Pieces run in parallel.** The integration lead splits what is left into pieces with separate
   files, and one agent takes each piece, as many at once as the thread limit allows.
 - **A piece is converted whole** before anything in it is verified.
-- **A piece is verified once, at its end, on fixed inputs:** its outputs against the ones they
-  replace, from the same inputs. The same solids within the kernel's rule; the same names,
-  placements and colours; the same check answers. No full normal build, whole-build memory
+- **A piece is verified once, at its end, on fixed inputs:** what the website shows and what
+  prints, against what the code it replaces makes from the same inputs. The same solids within
+  the kernel's rule; the same names, placements and colours. Other files, checks and reports can
+  differ or go. No full normal build, whole-build memory
   sample or old-against-new timing gates a single change. A normal build runs when a batch
   merges to main.
 - **Memory is cut in the Rust programs** and verified the same way. The Python side of a program
