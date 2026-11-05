@@ -17,7 +17,6 @@ use super::*;
 #[path="_machine.rs"] mod m__machine;
 #[path="_stated_bounds.rs"] mod m__stated_bounds;
 #[path="_tube_export.rs"] mod m__tube_export;
-#[path="check_asse_drain.rs"] mod m_check_asse_drain;
 #[path="_machine_export.rs"] mod m__machine_export;
 #[path="_machine_routes.rs"] mod m__machine_routes;
 #[path="_assembly_questions.rs"] mod m__assembly_questions;
@@ -40,7 +39,6 @@ pub fn source(name:&str)->Option<&'static str>{match name {
 "_machine"=>Some("hardware/scripts/_machine.py"),
 "_stated_bounds"=>Some("hardware/scripts/_stated_bounds.py"),
 "_tube_export"=>Some("hardware/scripts/_tube_export.py"),
-"check_asse_drain"=>Some("hardware/scripts/check_asse_drain.py"),
 "_machine_export"=>Some("hardware/scripts/_machine_export.py"),
 "_machine_routes"=>Some("hardware/scripts/_machine_routes.py"),
 "_assembly_questions"=>Some("hardware/manifold-layout/enclosure_assembly.py"),
@@ -64,7 +62,6 @@ pub fn initialize(rt:Runtime,e:Env,name:&str)->Result<()>{match name {
 "_machine"=>m__machine::initialize(rt,e),
 "_stated_bounds"=>m__stated_bounds::initialize(rt,e),
 "_tube_export"=>m__tube_export::initialize(rt,e),
-"check_asse_drain"=>m_check_asse_drain::initialize(rt,e),
 "_machine_export"=>m__machine_export::initialize(rt,e),
 "_machine_routes"=>m__machine_routes::initialize(rt,e),
 "_assembly_questions"=>m__assembly_questions::initialize(rt,e),
@@ -88,7 +85,6 @@ pub fn entrypoint(rt:Runtime,e:Env,name:&str)->Result<Val>{match name {
 "_machine"=>m__machine::entrypoint(rt,e),
 "_stated_bounds"=>m__stated_bounds::entrypoint(rt,e),
 "_tube_export"=>m__tube_export::entrypoint(rt,e),
-"check_asse_drain"=>m_check_asse_drain::entrypoint(rt,e),
 "_machine_export"=>m__machine_export::entrypoint(rt,e),
 "_machine_routes"=>m__machine_routes::entrypoint(rt,e),
 "_assembly_questions"=>m__assembly_questions::entrypoint(rt,e),
@@ -112,7 +108,6 @@ if path.ends_with("hardware/scripts/_facts.py") {return Some("_facts");}
 if path.ends_with("hardware/scripts/_machine.py") {return Some("_machine");}
 if path.ends_with("hardware/scripts/_stated_bounds.py") {return Some("_stated_bounds");}
 if path.ends_with("hardware/scripts/_tube_export.py") {return Some("_tube_export");}
-if path.ends_with("hardware/scripts/check_asse_drain.py") {return Some("check_asse_drain");}
 if path.ends_with("hardware/scripts/_machine_export.py") {return Some("_machine_export");}
 if path.ends_with("hardware/scripts/_machine_routes.py") {return Some("_machine_routes");}
 if path.ends_with("hardware/manifold-layout/enclosure_assembly.py") {return Some("_assembly_questions");}

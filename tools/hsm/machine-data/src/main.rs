@@ -14,7 +14,6 @@ mod source;
 mod io;
 mod compiled;
 mod native_profiles;
-mod curvature;
 
 fn answer(request: &Value) -> Result<Value> {
     if let Some(result) = hsm_documents::interop::native_object(request) {
