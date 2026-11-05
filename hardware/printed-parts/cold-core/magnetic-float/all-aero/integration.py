@@ -1,4 +1,4 @@
-'Verify the shared float datums against emitted vessel CAD and sync the guide.\n\nUpright geometry is checked over the whole translation range with bore play.\nPhysical sliding, expansion, immersion and directional reed switching are not\naccepted by this check. Run after the float/reservoir/end-cap generators.\n'
+'Verify the shared float datums against emitted vessel CAD.\n\nUpright geometry is checked over the whole translation range with bore play.\nPhysical sliding, expansion, immersion and directional reed switching are not\naccepted by this check. Run after the float/reservoir/end-cap generators.\n'
 from __future__ import annotations
 
 import sys as _sys
