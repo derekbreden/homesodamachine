@@ -207,7 +207,7 @@ fn quote(text: &str) -> String {
 pub fn launcher(current: &Path, legacy: Option<&Path>, sockets: &[String]) -> String {
     let mut text = MARKER.to_owned();
     if let Some(legacy) = legacy {
-        text.push_str("socket=\nprevious=\naction=\nfor arg in \"$@\"; do\n    if [ -n \"$previous\" ]; then\n        if [ \"$previous\" = --socket ]; then socket=$arg; fi\n        previous=\n        continue\n    fi\n    case \"$arg\" in\n        --socket) previous=--socket ;;\n        --socket=*) socket=${arg#--socket=} ;;\n        --root|--scene|--store|--cache-mb|--build-mb|--keep-mb|--idle-minutes) previous=value ;;\n        -*) ;;\n        *) if [ -z \"$action\" ]; then action=$arg; fi ;;\n    esac\ndone\nif [ \"$action\" = daemon ]; then\n    case \"$socket\" in\n");
+        text.push_str("socket=\nprevious=\naction=\nfor arg in \"$@\"; do\n    if [ -n \"$previous\" ]; then\n        if [ \"$previous\" = --socket ]; then socket=$arg; fi\n        previous=\n        continue\n    fi\n    case \"$arg\" in\n        --socket) previous=--socket ;;\n        --socket=*) socket=${arg#--socket=} ;;\n        --root|--scene|--store|--cache-mb|--build-mb|--keep-mb|--keep-hours|--idle-minutes) previous=value ;;\n        -*) ;;\n        *) if [ -z \"$action\" ]; then action=$arg; fi ;;\n    esac\ndone\nif [ \"$action\" = daemon ]; then\n    case \"$socket\" in\n");
         text.push_str("        ");
         text.push_str(
             &sockets

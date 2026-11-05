@@ -519,9 +519,9 @@ it. The program runs from `root` with `HOME`, `PATH=/usr/bin:/bin`, `HSM_READS`,
 
 Runs and builds start in turn within `--build-mb` (default 1024 MiB), each counted at the peak it
 last reached, a program not yet measured at 512 MiB and a cargo at 700 MiB. While macOS reports
-critical memory pressure, one starts only when nothing else runs. At an idle exit, runs go least
-recently used first until the files of the rest fit `--keep-mb` (default 4096 MiB), and the blobs
-and programs no remaining run names go with them.
+critical memory pressure, one starts only when nothing else runs. Every ten minutes, a run unused
+for `--keep-hours` (default 2) retires out of lookup's reach; ten minutes later it is deleted, and
+with it the blobs no other run names. At an idle exit, so are the programs no run names.
 
 Where no `hsm` is installed, or `HSM_NO_ENGINE` is set, `_rust_part` takes shared admission, builds the
 program with cargo and runs it itself, and the files hold the same bytes. Native imports also take the CAD lock. A daemon too old to know `run` is replaced
