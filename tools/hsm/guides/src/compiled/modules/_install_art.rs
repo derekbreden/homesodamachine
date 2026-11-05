@@ -4069,7 +4069,7 @@ pub fn initialize(rt: Runtime, e: Env) -> Result<()> {
                 kw1070.push(("target".into(), {
                     let mut s = Vec::new();
                     s.push(Val::Float(-45.4f64));
-                    s.push(Val::Float(479.3f64));
+                    s.push(Val::Float(473.3f64));
                     s.push(Val::Float(217.0f64));
                     Val::tuple(s)
                 }));
