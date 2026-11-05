@@ -8,8 +8,8 @@ use std::path::Path;
 fn main() -> Result<()> {
     let (n,out) = args()?;
     let cradle = cradle_geometry::cradle(&n)?;
-    cradle_geometry::selftest(&n,&cradle)?;
     if out == Path::new("--check") {
+        cradle_geometry::selftest(&n,&cradle)?;
         println!("{{\"checked\":true}}");
     } else {
         let printed = cradle.translate(v3(0.0,0.0,-n.list("block")?[3]));
