@@ -107,7 +107,3 @@ tools/cad-venv/bin/python hardware/printed-parts/enclosure/nameplate/nameplate.p
 First Edition plates are numbered 0001–0010. Every QR remains version 1. The
 manual self-test checks solid validity, disjoint inks, the QR quiet zone,
 fastener/artwork clearance, seating, bearing, insert stock and screw engagement.
-
-## Sources
-[value](NAME) texts are updated by:
-- `/hardware/printed-parts/enclosure/nameplate/nameplate.py`

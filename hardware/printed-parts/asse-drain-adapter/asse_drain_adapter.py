@@ -45,19 +45,12 @@ def numbers(*, installed=False):
     return result
 
 
-def _readme(output, volume):
-    sys.path.insert(0, str(HARDWARE.parent / 'tools'))
-    from docgen import substitute_md
-    substitute_md(output / 'README.md', variables=_data(volume=volume)['variables'])
-
-
 def main(output=None):
     import _rust_part
     _rust_part.start()
     out = HERE if output is None else Path(output)
     out.mkdir(parents=True, exist_ok=True)
     result = _rust_part.cut('tooling','asse-drain-adapter',numbers(),out)
-    _readme(out, result['bodies'][0]['volume'])
     from _part_output import summary
     print(f"asse-drain-adapter: {summary(result['bodies'][0])['volume']} cm3")
 

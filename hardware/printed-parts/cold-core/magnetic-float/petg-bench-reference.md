@@ -25,18 +25,18 @@ insertion views.
 
 | Feature | Dimension |
 | --- | --- |
-| Finished diameter × height | [36 mm](FLOAT_DIAMETER) × [60.06 mm](FLOAT_HEIGHT) |
-| Open guide bore | [4.8 mm](FLOAT_BORE) |
-| PETG outer wall | [3 mm](OUTER_WALL) |
-| PETG bore lining | [1.8 mm](BORE_WALL) |
-| PETG floor / roof | [3 mm](FLOOR) / [3.06 mm](ROOF) |
-| Seated Aero insert, OD × ID × height | [30 × 8.4 × 10 mm](INSERT_SIZE) |
-| RC62 magnet, OD × ID × thickness | [19.05 × 9.525 × 3.175 mm](MAGNET_SIZE) |
-| Magnet seat above finished bottom | [43.6 mm](MAGNET_SEAT) |
-| Insert bottom / top | [47 / 57 mm](INSERT_STATIONS) |
-| Roof underside | [57 mm](ROOF_BOTTOM) |
-| Nominal unfilled internal volume | [0.124 cm³](UNFILLED_VOLUME) |
-| Water displacement, fully submerged | [60.05 g](DISPLACEMENT) |
+| Finished diameter × height | × |
+| Open guide bore | |
+| PETG outer wall | |
+| PETG bore lining | |
+| PETG floor / roof | / |
+| Seated Aero insert, OD × ID × height | |
+| RC62 magnet, OD × ID × thickness | |
+| Magnet seat above finished bottom | |
+| Insert bottom / top | |
+| Roof underside | |
+| Nominal unfilled internal volume | |
+| Water displacement, fully submerged | |
 
 The 3.175 mm bench guide rod has 0.8125 mm radial clearance. This float's guide
 position and envelope are separate from the current ASA Aero float and its
@@ -44,11 +44,11 @@ rod registers. The larger bench article is not an installed drop-in replacement.
 
 Both Aero pieces print independently, flat on Z=0. Each has 0.5 × 0.5 mm
 45° lower-edge lead-ins at its outside and bore. The straight lands have
-[0.05 mm](FIT_ALLOWANCE) radial contour expansion and bore reduction in Studio:
+ radial contour expansion and bore reduction in Studio:
 target OD/ID 30.10/8.30 mm. The leading edges start at OD/ID 29.10/9.30 mm.
 The RC62 seats in a 19.35 × 9.225 × 3.40 mm pocket, providing at least 0.05 mm
 nominal radial clearance after compensation and 0.125 mm depth clearance at
-the magnet's ±0.1 mm dimensional tolerance. The [0.124 cm³](UNFILLED_VOLUME)
+the magnet's ±0.1 mm dimensional tolerance. The
 intentional internal relief is confined to those lead-ins and the magnet
 pocket. The insert's full-width upper face supports the complete roof annulus.
 
@@ -92,19 +92,19 @@ both walls, zero seam gap, and top-surface ironing.
    its chamfered end down. Let the chamber cool to **35 °C or below** for PETG,
    fit the textured plate, and open
    `magnetic-float.3mf`. Load **Bambu PETG Translucent Clear** on the left. Print its single
-   plate. The shell pauses before **[57.18 mm](PAUSE_LAYER)**, after its walls
-   reach [57 mm](ROOF_BOTTOM).
+   plate. The shell pauses before , after its walls
+   reach.
 4. Keep the bed at 70 °C and the shell attached during the pause. Lower the
    prepared core into the shell, chamfered end first, over the PETG bore
    lining. Place the short insert on top, chamfered end down. Press it evenly
    with a clean plastic pusher to seat the core on the floor and bring the
    insert top level with the PETG rim. Remove the pusher and loose strings.
 5. Close the enclosure and resume promptly.
-   **[17 layers](ROOF_LAYERS)** close the roof, joining the outer wall
+    close the roof, joining the outer wall
    to the bore lining across the insert. Let the part and plate cool to
    **35 °C or below**; remove the float and trim its outer brim.
 
-The seated magnet's top remains at least [10.125 mm](MAGNET_ROOF_GAP) below the
+The seated magnet's top remains at least below the
 roof underside, including thickness tolerance. The close-fitting pocket locates
 the magnet; the upper insert and printed roof retain it.
 [Pause-bond research](pressure-printing-research.md) supports preparing the parts
@@ -114,11 +114,11 @@ before the pause and resuming promptly.
 
 | Aero bulk density | Assembled mass | Spare lift in water |
 | --- | --- | --- |
-| 0.46 g/cm³ | [51.99 g](MASS_046) | [8.06 g](LIFT_046) |
-| 0.53 g/cm³ | [54.40 g](MASS_053) | [5.65 g](LIFT_053) |
-| 0.55 g/cm³ | [55.08 g](MASS_055) | [4.96 g](LIFT_055) |
-| 0.60 g/cm³ | [56.80 g](MASS_060) | [3.25 g](LIFT_060) |
-| 0.65 g/cm³ | [58.52 g](MASS_065) | [1.53 g](LIFT_065) |
+| 0.46 g/cm³ | | |
+| 0.53 g/cm³ | | |
+| 0.55 g/cm³ | | |
+| 0.60 g/cm³ | | |
+| 0.65 g/cm³ | | |
 
 [design.json](design.json) records the exact volumes. Neutral buoyancy occurs
 at 0.694 g/cm³ core density. The open guide bore contributes no displacement.
@@ -185,7 +185,3 @@ and their evidence here. Verification of an existing slice:
 ```sh
 tools/cad-venv/bin/python hardware/printed-parts/cold-core/magnetic-float/verify.py --directory .cache/magnetic-float-print
 ```
-
-## Sources
-[value](NAME) texts are updated by:
-- `/hardware/printed-parts/cold-core/magnetic-float/magnetic_float.py`

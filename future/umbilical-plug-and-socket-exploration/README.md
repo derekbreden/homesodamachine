@@ -64,34 +64,34 @@ The dimensions below describe the saved unguarded coupling. The open-guard candi
 has a matching wider socket/receiver and is documented in the
 [protection review](assessment/protection.md).
 
-**The socket sits flush in back-top.** Its [47.0](UMB_FACE_W) × [44.6](UMB_FACE_H) mm face fills
-a stepped hole: the face's own section for [3](UMB_FLANGE_T) mm, then the body's, so a
-[2.5](UMB_LEDGE) mm ledge each side takes the push. Two snap leaves, one each side, ramp through
-the hole and catch the wall's inner face by [1.45](UMB_HOOK_OVERLAP) mm. The hole is all back-top
+**The socket sits flush in back-top.** Its × mm face fills
+a stepped hole: the face's own section for mm, then the body's, so a
+ mm ledge each side takes the push. Two snap leaves, one each side, ramp through
+the hole and catch the wall's inner face by mm. The hole is all back-top
 needs: its roofs close on the same 36-degree planes as its other horizontal holes, and it has no
-pause. Behind the wall the socket and its retainer reach [81](UMB_SOCKET_DEPTH) mm into the
+pause. Behind the wall the socket and its retainer reach mm into the
 machine.
 
-**The cup is [34](UMB_CUP_DEPTH) mm deep** with [0.25](UMB_CUP_CLR) mm a side around the plug, so
-the plug is [7.7](UMB_CUP_LEAD) mm in and running straight before a stub reaches its hole.
+**The cup is mm deep** with mm a side around the plug, so
+the plug is mm in and running straight before a stub reaches its hole.
 
-**The floor** carries three Ø[6.6](UMB_HOLE_Q) holes for the 1/4″ tubes and a Ø[4.3](UMB_HOLE_D)
-hole for DRAIN's 4 mm tube on a [16.15](UMB_PITCH) mm square, the
+**The floor** carries three Ø holes for the 1/4″ tubes and a Ø
+hole for DRAIN's 4 mm tube on a mm square, the
 [YYFKGCP pogo](/hardware/reference/yyfkgcp-pogo-4p/README.md) spring-pin half on end
 between the columns with its two M1.4 inserts and screws, and a
 [K&J SB443-IN](https://www.kjmagnetics.com/sb443-in-neodymium-stepped-block-magnet) bar each side,
-[9.0](UMB_MAG_X) mm out, pole face flush and bare, its grooves on printed rails. Each bar keeps
-[1.5](UMB_WEB) mm of PET-GF to the tube holes. The pogo halves stand
-[0.246](UMB_POGO_GAP) mm apart when the faces meet, as on the pump cartridge.
+ mm out, pole face flush and bare, its grooves on printed rails. Each bar keeps
+ mm of PET-GF to the tube holes. The pogo halves stand
+ mm apart when the faces meet, as on the pump cartridge.
 
 **The unions float.** Three John Guest [PP0408W](/hardware/reference/jg-pp0408w/) and a neoFit
 [AUC44M](https://www.freshwatersystems.com/products/neofit-acetal-black-union-connector-4mm-5-32-tube-x-4mm-5-32-tube)
-for DRAIN slide in from the back, [1.05](UMB_CLR_UNION) mm apart, and a retainer screwed over them
-(two M3 × 8 into RX-M3x5.7 inserts) stops them [0.5](UMB_NOSE_AIR) mm behind the floor's back face.
+for DRAIN slide in from the back, mm apart, and a retainer screwed over them
+(two M3 × 8 into RX-M3x5.7 inserts) stops them mm behind the floor's back face.
 Pushing the plug in drives them against the retainer. Pulling it drags each union forward until
-its collet sleeve lands on that face, [9.8](UMB_RELEASE) mm behind the floor; the face holds the
+its collet sleeve lands on that face, mm behind the floor; the face holds the
 sleeve while the body keeps coming, which opens the collet, and the stub slides out. Each union
-has [1.83](UMB_FLOAT) mm of travel for it. That is the pump cartridge's fixed release plate
+has mm of travel for it. That is the pump cartridge's fixed release plate
 ([`internal-plumbing.md`](/hardware/assembly/internal-plumbing.md) §4), turned to face the plug.
 Pressure and bundle loads must be carried through the plug, unions, retainer and snapped-in
 socket. Stable union position and installed retention under those loads are unestablished.
@@ -102,11 +102,11 @@ Shutdown and depressurization are required before unplugging.
 
 ## Plug side
 
-**The blue boot is [98](UMB_PLUG_L) mm long:** a 15 mm fabric cuff, a 45 mm curved tube
-transition and a 38 mm straight nose. Its simple round rear body is Ø[34](UMB_BOOT_D) mm.
-The nose uses the mating profile, Ø[32.44](UMB_PLUG_D) across its round sides and
-[30.00](UMB_PLUG_H) mm between flats. The largest rigid section has
-[0.46](UMB_COUNTER_SIDE) mm nominal radial clearance through the existing 1-3/8″ counter hole.
+**The blue boot is mm long:** a 15 mm fabric cuff, a 45 mm curved tube
+transition and a 38 mm straight nose. Its simple round rear body is Ø mm.
+The nose uses the mating profile, Ø across its round sides and
+ mm between flats. The largest rigid section has
+ mm nominal radial clearance through the existing 1-3/8″ counter hole.
 
 **The shoulder marks the seated depth.** A 4 mm chamfer joins the round rear body to the
 nose profile at 34.3 mm behind the mating face. At the face stop, the cup encloses 34 mm
@@ -123,13 +123,13 @@ for the tube key. The final diameters match the
 that acceptance covers its 10 mm article, not the longer boot's friction or retention.
 The nominal internal minimum bend radii are recorded in [boot-packing.json](boot-packing.json).
 
-The tubes stand proud of the face, the 1/4″ tubes [26.3](UMB_STUB_Q) mm and DRAIN
-[24.1](UMB_STUB_D) mm. The quarter-inch projection reaches the modeled fitting stop.
+The tubes stand proud of the face, the 1/4″ tubes mm and DRAIN
+ mm. The quarter-inch projection reaches the modeled fitting stop.
 The drain projection is provisional; a functional assembly must achieve full insertion
 into each real fitting. The
 [review](assessment/README.md#the-main-engineering-problem-is-consistent-seating-and-release)
 describes the tolerance stack and the drain's dimensional uncertainty.
-One printed key across the plug between the tube rows bites [0.15](UMB_KEY_BITE) mm into all
+One printed key across the plug between the tube rows bites mm into all
 four, its lug reaching down to the thinner DRAIN tube. It goes in from the DRAIN side, the only
 way it fits.
 
@@ -169,12 +169,12 @@ and front cable pocket. It is an unpowered tactile article with filled magnet po
 
 | Job | Parts | Pause | Print |
 | --- | --- | --- | --- |
-| [`machine-side`](print/machine-side-mark2.3mf) · [sliced](https://github.com/derekbreden/homesodamachine/blob/33d50d2ecd2a0fb6b518483a44c8031e3a0c1617/future/umbilical-plug-and-socket-exploration/print/machine-side-mark2.gcode.3mf) | Socket, retainer, wall coupon | Before Z [25.88](UMB_PAUSE_SOCKET): two bars into the cup floor | [2 h 39 min](UMB_TIME_SOCKET), [87](UMB_G_SOCKET) g |
-| [`plug-side`](print/plug-side-mark2.3mf) · [sliced](https://github.com/derekbreden/homesodamachine/blob/33d50d2ecd2a0fb6b518483a44c8031e3a0c1617/future/umbilical-plug-and-socket-exploration/print/plug-side-mark2.gcode.3mf) | Plug, tube key | Before Z [18.68](UMB_PAUSE_PLUG): two bars into the face | [58 min](UMB_TIME_PLUG), [28](UMB_G_PLUG) g |
+| [`machine-side`](print/machine-side-mark2.3mf) · [sliced](https://github.com/derekbreden/homesodamachine/blob/33d50d2ecd2a0fb6b518483a44c8031e3a0c1617/future/umbilical-plug-and-socket-exploration/print/machine-side-mark2.gcode.3mf) | Socket, retainer, wall coupon | Before Z: two bars into the cup floor |, g |
+| [`plug-side`](print/plug-side-mark2.3mf) · [sliced](https://github.com/derekbreden/homesodamachine/blob/33d50d2ecd2a0fb6b518483a44c8031e3a0c1617/future/umbilical-plug-and-socket-exploration/print/plug-side-mark2.gcode.3mf) | Plug, tube key | Before Z: two bars into the face |, g |
 
 These saved jobs omit the guided boot and fabric/foam tuck. They use black PET-GF on
-[Mark2](UMB_PRINTER)'s left 0.4 mm nozzle with the
-[shared profile](/hardware/printed-parts/petgf.3mf), [+0.04](UMB_TRIM) mm trim, supports off,
+'s left 0.4 mm nozzle with the
+[shared profile](/hardware/printed-parts/petgf.3mf), mm trim, supports off,
 four walls and 25 % infill. Every overhang closes on a 36-degree plane or lies over a bar, so
 neither job has supports. The socket stands on its flats with the cup on its side, the plug lies
 upside down on its top flat, and the coupon stands roof-down on its foot as back-top does.
@@ -182,7 +182,7 @@ upside down on its top flat, and the coupon stands roof-down on its foot as back
 At each pause, slide a bar down each slot, grooves on the rails and pole face flush with the
 mating face. Looking at the mating face, the left bar shows N and the right bar S, on both parts;
 mark each bar's N face with a compass first. The first layer after the pause bridges over the bars
-with [0.165](UMB_AIR_SOCKET) and [0.265](UMB_AIR_PLUG) mm of air. Each job's
+with and mm of air. Each job's
 [`print.json`](print/machine-side-mark2.print.json) records where the slicer put the pause and what
 it laid over the bars either side of it.
 
@@ -245,8 +245,3 @@ payloads to `out/`, which git ignores, and prints its clearance check.
 `prepare_prints.py` writes the two projects from the shared profile, slices them with the
 installed Bambu Studio, checks the pause in the emitted G-code and sends nothing to a printer;
 `--printer H2C` writes the same jobs with H2C's trim.
-
-## Sources
-[value](NAME) texts are updated by:
-- `/future/umbilical-plug-and-socket-exploration/prepare_prints.py`
-- `/future/umbilical-plug-and-socket-exploration/scene.py`

@@ -426,11 +426,6 @@ pub fn initialize(rt: Runtime, e: Env) -> Result<()> {
         "outer_shell_y_length",
         rt.member("_cold_core_interface", "outer_shell_y_length")?,
     )?;
-    let mod65 = rt.import_module("docgen")?;
-    e.set(
-        "substitute_py_comments",
-        rt.member("docgen", "substitute_py_comments")?,
-    )?;
     // deck_boss_z_top
     e.set("deck_boss_z_top", {
         let params = vec![("name".into(), None, false)];

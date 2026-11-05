@@ -942,46 +942,6 @@ fn limb_variables(input: &Value, limbs: &Sets) -> Result<Variables> {
         ("PUMP_COUNT".into(), list(input, "pumps")?.len().to_string()),
     ]))
 }
-fn stale_markers(path: &str, text: &str, variables: &Variables) -> Result<Vec<String>> {
-    let mut stale = Vec::new();
-    // The procedure authors manifold variables first, followed by limb variables.
-    // Keep that order in diagnostics while document sidecars remain key sorted.
-    for name in [
-        "SEGMENT_COUNT",
-        "DRAWN_COUNT",
-        "BUTT_COUNT",
-        "UPPER_LINK_COUNT",
-        "UPPER_LINK_EXPOSED",
-        "LOWER_RETURN_COUNT",
-        "OPEN_COUNT",
-        "FLUID_TOTAL",
-        "FLUID_BENDS",
-        "LONGEST_ID",
-        "LONGEST_LEN",
-        "LIMB_COUNT",
-        "LIMB_VALVES",
-        "TEE_COUNT",
-        "PURCHASED_TEE_COUNT",
-        "PUMP_TEE_COUNT",
-        "UPPER_COUNT",
-        "LOWER_COUNT",
-        "PUMP_COUNT",
-    ] {
-        let Some(want) = variables.get(name) else {
-            continue;
-        };
-        let re = Regex::new(&format!(r"\[([^\]]*)\]\({}\)", regex::escape(name)))?;
-        if let Some(c) = re.captures(text) {
-            if &c[1] != want {
-                stale.push(format!(
-                    "  {path}: [{}]({name}) should be [{want}]({name})",
-                    &c[1]
-                ));
-            }
-        }
-    }
-    Ok(stale)
-}
 fn name(path: &str) -> &str {
     path.rsplit('/').next().unwrap()
 }
@@ -1037,8 +997,6 @@ pub fn run(request: &Request) -> Result<Output> {
     let owed = owed(&texts[TOPOLOGY], &p);
     let mf_vars = manifold_variables(input, &segments)?;
     let limb_vars = limb_variables(input, &limbs)?;
-    let mut all_vars = mf_vars.clone();
-    all_vars.extend(limb_vars.clone());
     let mut output = Output {
         exports: BTreeMap::from([
             ("status".into(), json!(0)),
@@ -1153,9 +1111,6 @@ pub fn run(request: &Request) -> Result<Output> {
                 }
             }
         }
-        stale.extend(stale_markers(name(MANIFOLD), &texts[MANIFOLD], &mf_vars)?);
-        stale.extend(stale_markers(name(LIMBS), &texts[LIMBS], &limb_vars)?);
-        stale.extend(stale_markers(name(TOPOLOGY), &texts[TOPOLOGY], &all_vars)?);
         if !stale.is_empty() {
             return Ok(failure(
                 stale,
@@ -1176,23 +1131,6 @@ pub fn run(request: &Request) -> Result<Output> {
             output.maintained.push(path.into());
         }
     }
-    output.jobs = vec![
-        Job {
-            path: MANIFOLD.into(),
-            kind: "mermaid".into(),
-            variables: mf_vars,
-        },
-        Job {
-            path: LIMBS.into(),
-            kind: "mermaid".into(),
-            variables: limb_vars.clone(),
-        },
-        Job {
-            path: TOPOLOGY.into(),
-            kind: "markdown".into(),
-            variables: all_vars,
-        },
-    ];
     let mut fluid = segments
         .iter()
         .filter(|s| s.id.starts_with("fluid-"))

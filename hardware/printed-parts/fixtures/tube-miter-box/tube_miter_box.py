@@ -59,17 +59,11 @@ def numbers():
     return _data(color=list(linear(M_PETGF_BLACK)))['numbers']
 
 
-def _document():
-    from docgen import substitute_md
-    substitute_md(_here.parent / 'README.md', variables=_data()['variables'])
-
-
 def main(output=None):
     import _rust_part
     out = Path(output) if output is not None else _here.parent
     out.mkdir(parents=True, exist_ok=True)
     said = _rust_part.cut("tooling", "tube-miter-box", numbers(), out)
-    _document()
     from _part_output import summary
     print(f"-> tube-miter-box STEP, STL and fine model; {summary(said['bodies'][0], volume_spec='.2f')['volume']} cm3")
 

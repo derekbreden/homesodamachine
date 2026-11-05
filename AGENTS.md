@@ -18,6 +18,13 @@ There is no machine on the market that gives a home user this experience — tur
 
 See `marketing/target-market.md` for details.
 
+## Numbers in Prose
+
+Don't write numbers into code comments or documents. They go stale when the code moves, and a
+stale number does more harm than good. There are plenty of other ways to get a number when you
+need it: the constant that owns it, the program that prints it, `hsm` for the geometry. What the
+site shows is the exception: the ledger behind the costs page keeps its figures.
+
 ## Questions
 
 Don't ask Derek what the repo already answers. What he owns and has on hand is in [`hardware/ledger/`](hardware/ledger/): every purchase in `purchases.md`, sorted by role into `bom.md`, `tools.md` and `inventory.md`.

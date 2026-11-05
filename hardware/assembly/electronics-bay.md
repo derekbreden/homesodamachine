@@ -210,7 +210,3 @@ bond or exact donor termination from CAD alone.
 
 Leave the assembly unpowered. Firmware and first power-up belong to
 [firmware-and-commissioning.md](firmware-and-commissioning.md).
-
-## Sources
-[value](NAME) texts are updated by:
-- `/hardware/assembly/_electronics_bay_sync.py`

@@ -456,12 +456,6 @@ jobs:
           tools/cad-venv/bin/python hardware/scripts/_bom_totals.py
           tools/cad-venv/bin/python hardware/scripts/_labor_totals.py
           tools/cad-venv/bin/python hardware/scripts/_machine_time.py
-          tools/cad-venv/bin/python hardware/scripts/_build_time.py
-
-      - name: The docs
-        run: |
-          tools/cad-venv/bin/python hardware/assembly/_enclosure_mechanical_sync.py
-          tools/cad-venv/bin/python hardware/printed-parts/enclosure/_enclosure_dimensions.py
 
       # `publish_now.py` moves the pointer file from the machine that cut the solids. This full
       # derive verifies that its carried tree is complete and reports a behind pointer file

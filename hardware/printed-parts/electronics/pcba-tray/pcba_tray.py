@@ -1,7 +1,7 @@
 """PCBA tray — the main board's bench mount, off the +X wall of back-top.
 
 Carries the JLCPCB-assembled main board ([`pcba.tsx`](/hardware/pcb/pcba/pcba.tsx),
-[85 × 72.8 mm](PCBA_SIZE) as fabbed): four M3 heat-set standoff bosses under the board's
+ as fabbed): four M3 heat-set standoff bosses under the board's
 four electrically isolated plated mounting holes (MH1–MH4, 3.2 mm hole /
 4.0 mm pad, a 78.0 × 66.3 mm rectangle) — M3 SHCS down through the board into
 ruthex inserts, the board's bottom face seating on the boss tops. A single
@@ -34,7 +34,6 @@ sys.path.insert(
     0,
     str(next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"),
 )
-from docgen import substitute_py_comments
 from module_tray import Mount
 
 from _rust_data import request as _request
@@ -147,10 +146,3 @@ def stations_hold():
             "the placed solid no longer gives the mounting plane its stated below-board air.")
 
 
-def main():
-    substitute_py_comments(_here, variables=_data()['variables'])
-    print(f'-> {_here.name}')
-
-
-if __name__ == "__main__":
-    main()

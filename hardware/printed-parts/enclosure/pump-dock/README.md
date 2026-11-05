@@ -16,34 +16,34 @@ populated lower enclosure.
 
 ## Tees and tee wall
 
-One PP0208E stands on each pump port: Y-C and Y-D on pump A, Y-F and Y-G on pump B, west to east Y-G, Y-F, Y-C, Y-D. Each tee's branch faces its pump on the pump tube's axis, [Z196.174](DOCK_ROW_Z); its run stands upright.
+One PP0208E stands on each pump port: Y-C and Y-D on pump A, Y-F and Y-G on pump B, west to east Y-G, Y-F, Y-C, Y-D. Each tee's branch faces its pump on the pump tube's axis,; its run stands upright.
 
-Front-top's bay bulkhead is the tee wall: one flat slab of PET-GF the bay's whole width and height, [15.821 mm](DOCK_WALL_T) thick from the bay face at [Y82.515](DOCK_BAY_FACE_Y) to its aft face at [Y98.336](DOCK_WALL_AFT_Y). Its fore band, the collet plate, [4.675 mm](DOCK_PLATE_T) thick, ends at the bore face, [Y87.19](DOCK_BORE_FACE_Y). Each tee has two teardropped cuts on its branch axis: a [Ø11.93 mm](DOCK_HOLE_D) collet opening through the fore band and a [Ø17 mm](DOCK_BORE) branch bore from the bore face through the wall's aft face, [11.15 mm](DOCK_BORE_DEPTH) long. The collar's [Ø16.5 mm](DOCK_COLLAR_ENVELOPE) reference envelope has [0.25 mm](DOCK_BORE_AIR) of running air. A bottom-open tube-loading gate joins each pair of openings to the underside. The remaining bore-face land stops the fixed branch barrel. The wall also roots the fore valve tray and joins the continuous pump/display body above it.
+Front-top's bay bulkhead is the tee wall: one flat slab of PET-GF the bay's whole width and height, thick from the bay face at to its aft face at. Its fore band, the collet plate, thick, ends at the bore face,. Each tee has two teardropped cuts on its branch axis: a collet opening through the fore band and a branch bore from the bore face through the wall's aft face, long. The collar's reference envelope has of running air. A bottom-open tube-loading gate joins each pair of openings to the underside. The remaining bore-face land stops the fixed branch barrel. The wall also roots the fore valve tray and joins the continuous pump/display body above it.
 
-Each tee stands with its fixed branch barrel [0.6 mm](DOCK_BARREL_AIR) aft of the bore face, its run axis at [Y108.04](DOCK_TEE_Y). Its branch collet stands extended in the collet plate's hole, its whole [1.5 mm](DOCK_STROKE) stroke fore of the bore face, and grips the pump tube; the tube bottoms at the tee's own stop and seals on the collet's O-ring. The collet reaches [2.1 mm](DOCK_COLLET_PROUD) past the fixed barrel, and the hole runs on to the bay face, so with the tee pushed fore onto its barrel the collet still stands clear of the wall and keeps its grip.
+Each tee stands with its fixed branch barrel aft of the bore face, its run axis at. Its branch collet stands extended in the collet plate's hole, its whole stroke fore of the bore face, and grips the pump tube; the tube bottoms at the tee's own stop and seals on the collet's O-ring. The collet reaches past the fixed barrel, and the hole runs on to the bay face, so with the tee pushed fore onto its barrel the collet still stands clear of the wall and keeps its grip.
 
 ## What holds each tee
 
-The bore holds the tee's branch in X and Z. Its fixed branch barrel stops it fore, landing on the bore face's annulus, and its lower return, anchored in the rear valve, stops it aft. The wall's aft face stands [1.454 mm](DOCK_BODY_AIR) clear of the tee's run barrel.
+The bore holds the tee's branch in X and Z. Its fixed branch barrel stops it fore, landing on the bore face's annulus, and its lower return, anchored in the rear valve, stops it aft. The wall's aft face stands clear of the tee's run barrel.
 
 ## Fore valves and upper tubes
 
-V-E, V-F, V-H and V-I stand fixed on their tray posts directly over the tees, bottom collets at [Z222.675](DOCK_FORE_VALVE_Z). Each fore valve's axis is [Y108.04](DOCK_FORE_VALVE_Y), over its tee's run axis, so the short upper tube between them, [5.251 mm](DOCK_UPPER_TUBE) exposed, stands straight.
+V-E, V-F, V-H and V-I stand fixed on their tray posts directly over the tees, bottom collets at. Each fore valve's axis is, over its tee's run axis, so the short upper tube between them, exposed, stands straight.
 
 ## Lower returns
 
-Each lower return joins a tee's lower collet ([Z174.924](DOCK_LOWER_PORT_Z)) to its rear valve's bottom collet with two NeoFit ATEU44W stem elbows and one continuous tube of the machine's black 1/4" LLDPE. Both elbow shoulders stand on their collet faces, with stems cut for full seating. The tee's elbow crosses [6.11 mm](DOCK_ELBOW_DROP) below its collet at [Z168.81](DOCK_RETURN_Z). The rear collets stand at [Z171.175](DOCK_RETURN_VALVE_Z), putting their sockets 3.749 mm lower. Two tangent arcs join the parallel socket mouths: R18.084 on the inner pair and R19.36 on the outer pair. Their exposed lengths are [16.61 mm](DOCK_RETURN_TUBE) and [17.18 mm](DOCK_OUTER_RETURN_TUBE). The outer pair also aims inboard toward V-G and V-J at [X±73.82](DOCK_OUTER_RETURN_X). The stem lengths are 11.65 mm in the tees and 12 mm in the valves; verify the actual fully seated marks when cutting.
+Each lower return joins a tee's lower collet to its rear valve's bottom collet with two NeoFit ATEU44W stem elbows and one continuous tube of the machine's black 1/4" LLDPE. Both elbow shoulders stand on their collet faces, with stems cut for full seating. The tee's elbow crosses below its collet at. The rear collets stand at, putting their sockets 3.749 mm lower. Two tangent arcs join the parallel socket mouths: R18.084 on the inner pair and R19.36 on the outer pair. Their exposed lengths are and. The outer pair also aims inboard toward V-G and V-J at. The stem lengths are 11.65 mm in the tees and 12 mm in the valves; verify the actual fully seated marks when cutting.
 
-The tee elbows' lowest surface is Z160.913, clear of the Z160 front sliding lip. The complete return's lowest surface is [Z157.164](DOCK_RETURN_FLOOR), [11.2 mm](DOCK_CONDENSER_AIR) above the condenser. Both pumps, all four tees and the fore valves retain straight axes. The connecting tubes carry the small height difference.
+The tee elbows' lowest surface is Z160.913, clear of the Z160 front sliding lip. The complete return's lowest surface is, above the condenser. Both pumps, all four tees and the fore valves retain straight axes. The connecting tubes carry the small height difference.
 
 ## Pump tubes and lower retainer
 
-Each pump carries two straight [33.2 mm](DOCK_PUMP_TUBE) tubes of the machine's black 1/4" LLDPE, pushed into its BPT tube ends in place of Kamoer's barbs. The pump head's own housing, tightened at the factory, clamps the tube around each one. The tubes pass the retainer's open passages and rise through the tee-wall loading gates; their tips stand at [Y97.19](DOCK_TIP_Y), [14.925 mm](DOCK_TIP_FROM_BACK) behind the retainer's flat back at [Y82.265](DOCK_CRADLE_BACK), bottomed at the tees' stops.
+Each pump carries two straight tubes of the machine's black 1/4" LLDPE, pushed into its BPT tube ends in place of Kamoer's barbs. The pump head's own housing, tightened at the factory, clamps the tube around each one. The tubes pass the retainer's open passages and rise through the tee-wall loading gates; their tips stand at, behind the retainer's flat back at, bottomed at the tees' stops.
 
 Set the tips with both pumps seated in the loose lower retainer on the bench. The existing
 tube setting jig bears on that flat rear face. Remove it before raising the prepared unit
 into front-top: the jig's broad body needs the space occupied by the fixed tee wall.
-Installed, the retainer's back stands [0.25 mm](DOCK_FRAME_GAP) ahead of the wall's bay face.
+Installed, the retainer's back stands ahead of the wall's bay face.
 The two lower hooks seat on the receiver floors and retain the molded-skirt capture. Pump
 removal requires opening the front assembly and disconnecting its plumbing and motor leads.
 Each receiver has a central screwdriver opening to flex its wing inward for release.
@@ -110,8 +110,8 @@ absent while loading and securing the pumps.
 | Part / quantity | Material / export stem |
 | --- | --- |
 | Lower pump retainer, 1 | PET-GF; `enclosure-pump-retainer` |
-| Pump tee, [4](PUMP_TEE_COUNT) | John Guest PP0208E, purchased |
-| Stem elbow, [8](DOCK_ELBOWS) | NeoFit ATEU44W, purchased, stem cut to length |
+| Pump tee, | John Guest PP0208E, purchased |
+| Stem elbow, | NeoFit ATEU44W, purchased, stem cut to length |
 | Tube setting jig, factory tool | PET-GF; `enclosure-pump-tube-setting-jig` |
 
 The tee wall, fitted upper pump inverses, display backing and surrounding continuous body
@@ -137,8 +137,3 @@ clamp's hold on each tube, the tees' running fit in their gated bores and the se
 the complete assembly remain unmeasured. The valve's seat depth, which sets its elbow's
 stem cut, is a layout estimate, and the stem elbows' seal with a cut stem is unqualified.
 Material data alone do not establish finished wet-part food-contact suitability.
-
-## Sources
-[value](NAME) texts are updated by:
-- `/<stdin>`
-- `/hardware/printed-parts/enclosure/enclosure/enclosure.py`

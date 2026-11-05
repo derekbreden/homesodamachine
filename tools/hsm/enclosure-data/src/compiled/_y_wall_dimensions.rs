@@ -139,8 +139,6 @@ pub fn initialize(rt: Runtime, e: Env) -> Result<()> {
             fun39.call(args37, kw38)?
         }
     };
-    let mod43 = rt.import_module("docgen")?;
-    e.set("substitute_md", rt.member("docgen", "substitute_md")?)?;
     let mod44 = rt.import_module("_material_base")?;
     e.set("stock_srgb", rt.member("_material_base", "stock_srgb")?)?;
     {
@@ -598,50 +596,6 @@ Ok(Val::None)})})?;
             .get(Val::Str("grid".into()))?
             .get(Val::Str("rows_z_mm".into()))?;
             e.set("rows", assigned117.clone())?;
-            {
-                let _site = rt.source_at(
-                    "tools/hsm/enclosure-data/src/compiled/_y_wall_dimensions.rs",
-                    line!(),
-                );
-                {
-                    let fun123 = e.get("substitute_md")?;
-                    let mut args121 = Vec::new();
-                    let mut kw122 = Vec::new();
-                    args121.push(binary(
-                        "truediv",
-                        e.get("_here")?,
-                        Val::Str("README.md".into()),
-                    )?);
-                    kw122.push(("variables".into(), {
-                        let _site = rt.source_at(
-                            "tools/hsm/enclosure-data/src/compiled/_y_wall_dimensions.rs",
-                            line!(),
-                        );
-                        {
-                            let fun126 = e.get("_read")?;
-                            let mut args124 = Vec::new();
-                            let mut kw125 = Vec::new();
-                            args124.push(Val::Str("grid-variables".into()));
-                            kw125.push(("rows".into(), e.get("rows")?));
-                            fun126.call(args124, kw125)?
-                        }
-                    }));
-                    fun123.call(args121, kw122)?
-                }
-            };
-            {
-                let _site = rt.source_at(
-                    "tools/hsm/enclosure-data/src/compiled/_y_wall_dimensions.rs",
-                    line!(),
-                );
-                {
-                    let fun129 = e.get("print")?;
-                    let mut args127 = Vec::new();
-                    let mut kw128 = Vec::new();
-                    args127.push(Val::Str("-> README.md".into()));
-                    fun129.call(args127, kw128)?
-                }
-            };
             Ok(Val::None)
         })
     })?;

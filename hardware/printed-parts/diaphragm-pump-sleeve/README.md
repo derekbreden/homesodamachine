@@ -8,33 +8,33 @@ water check's inlet ([internal plumbing](/hardware/assembly/internal-plumbing.md
 One clamp band closes on each socket's plain outside.
 
 The turn happens inside the elbow, not in the tube. The tube leaves on an axis
-[4.92](TUBE_AXIS) mm past the barb tip, and its mouth stands [18.5](TUBE_MOUTH) mm
+ mm past the barb tip, and its mouth stands mm
 from the barb axis, so both lines stay inside the pump's own width.
 
 | Feature | Relaxed print dimension |
 |---|---|
-| Barb socket | Ø[9.00](BARB_BORE) mm × [11](BARB_DEPTH) mm, ending on the passage shelf |
-| Tube socket | Ø[6.10](TUBE_BORE) mm × [15](TUBE_DEPTH) mm, ending on a shelf [3.5](TUBE_STOP) mm above the barb axis |
-| Corner passage | Ø[4.40](PASSAGE) mm, two overlapping round bores |
-| Barb / tube outside diameter | Ø[14.6](BARB_OD) / Ø[11.7](TUBE_OD) mm |
-| Radial wall, both sockets | [2.80](MIN_WALL) mm |
-| Heel and neck | the barb leg's own sphere about the corner, then a [6.5](NECK) mm smooth reduction to the tube leg |
-| Clamp seats | complete [9](CLAMP_BAND) mm round bands at both mouths; [1](BAND_AIR) mm between the barb band and the tube leg |
-| Flat foot | [88.9](FOOT_AREA) mm² across the heel's outer corner |
-| Solid CAD volume | [3.432](VOLUME) cm³ |
+| Barb socket | Ø mm × mm, ending on the passage shelf |
+| Tube socket | Ø mm × mm, ending on a shelf mm above the barb axis |
+| Corner passage | Ø mm, two overlapping round bores |
+| Barb / tube outside diameter | Ø / Ø mm |
+| Radial wall, both sockets | mm |
+| Heel and neck | the barb leg's own sphere about the corner, then a mm smooth reduction to the tube leg |
+| Clamp seats | complete mm round bands at both mouths; mm between the barb band and the tube leg |
+| Flat foot | mm² across the heel's outer corner |
+| Solid CAD volume | cm³ |
 
 ## Fit basis
 
 The [scanned G Ganen ports](/hardware/reference/g-ganen-pump/README.md) carry two
-shallow barb crests each. Inside the socket's [11](BARB_DEPTH) mm the largest
-scanned diameter on either port is Ø[10.26](CREST) mm, and the deepest valley
-between the crests is Ø[9.23](VALLEY) mm. The [9.00](BARB_BORE) mm socket stretches
-about [14](CREST_STRETCH)% over the crests and grips the valleys. The socket mouth
-stands at the scanned Ø[10.26](ROOT) mm station, short of the casting's root band.
+shallow barb crests each. Inside the socket's mm the largest
+scanned diameter on either port is Ø mm, and the deepest valley
+between the crests is Ø mm. The mm socket stretches
+about % over the crests and grips the valleys. The socket mouth
+stands at the scanned Ø mm station, short of the casting's root band.
 
-The [6.10](TUBE_BORE) mm tube socket has [0.25](INTERFERENCE) mm nominal diametral
+The mm tube socket has mm nominal diametral
 interference with the 6.35 mm tube. Installed, the elbow measures about
-Ø[15.41](BARB_OD_INSTALLED) mm over the barb and Ø[11.83](TUBE_OD_INSTALLED) mm over
+Ø mm over the barb and Ø mm over
 the tube, conserving the annular section. The assembly places that installed
 envelope; it is placement geometry, not an elastomer strain, sealing pressure or
 retained clamp load.
@@ -65,7 +65,7 @@ paths and timelapse off. Use the processed archive directly; reslicing the
 editable project omits this path processing.
 
 The STL is exported in its print pose: a V standing on the flat foot, both
-mouths up, [22.2](PRINT_HEIGHT) mm tall, every bore crown and lower face at 45° or
+mouths up, mm tall, every bore crown and lower face at 45° or
 steeper. The
 [Mark2 pair's physical result](/future/pump-elbow-exploration/prints/2026-10-22-deposited-links-siraya85a-mark2/physical-result.json)
 records no strings seen and seal seeming as good as before. The
@@ -92,7 +92,7 @@ is chosen after the trial's pressure and retention result.
 2. Push the barb socket onto the port until the barb tip stops on its shelf. Warm
    water eases the stretch; do not oil the barb.
 3. Turn the elbow on the barb so the tube leg points along its line.
-4. Square-cut the tube, mark [15](TUBE_DEPTH) mm from its end, and push it in until
+4. Square-cut the tube, mark mm from its end, and push it in until
    it stops on its shelf with the mark at the mouth.
 5. Seat the barb clamp's band flush with the barb mouth and the tube clamp's band
    flush with the tube mouth, each housing turned away from the other leg. Tighten
@@ -130,7 +130,3 @@ Regenerate from the repository root:
 ```sh
 tools/cad-venv/bin/python hardware/printed-parts/diaphragm-pump-sleeve/diaphragm_pump_sleeve.py
 ```
-
-## Sources
-[value](NAME) texts are updated by:
-- `/hardware/printed-parts/diaphragm-pump-sleeve/diaphragm_pump_sleeve.py`

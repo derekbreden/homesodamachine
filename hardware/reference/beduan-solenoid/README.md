@@ -22,19 +22,19 @@ at the mean center of the four posts, on their end-face mounting plane.
 
 | Interface | Model dimension |
 |---|---|
-| Post center spacing, X × Y | [24.4](POST_PITCH_X) × [24.85](POST_PITCH_Y) mm |
-| Lower posts | Ø[6.9](POST_DIA) mm; shoulder at Z[11](POST_SHOULDER_Z) mm |
-| Underside boss | Ø[24.3](BEARING_DIA) mm; bearing face at Z[5.2](BOSS_Z0) mm |
-| Main body | Ø[31](SOLENOID_BODY_DIA) mm with four upper corner bosses |
-| Cap envelope, X × Y | [33.5](CAP_X) × [33.8](CAP_Y) mm, with central edge notches |
-| Port barrels | Ø[15.2](SOLENOID_PORT_DIA) mm; axis at Z[11.05](PORT_CENTER_Z) mm |
-| Port face spacing | [59.5](PORT_LEN) mm |
-| Collet ring and ear sweep | Ø[10.2](COLLET_DIA) mm ring; Ø[13.8](COLLET_SWEEP_DIA) mm swept envelope |
-| Terminal blades | [6.3](SPADE_W) × [0.8](SPADE_T) mm; centers [14.9](SPADE_SPACING) mm apart |
-| Terminal position | center Z[52.2](SPADE_Z) mm, tips at Y[27.1](SPADE_Y_END) mm |
-| Overall envelope | [33.5](CAP_X) × [59.5](PORT_LEN) × [57.3](COIL_TOP) mm |
+| Post center spacing, X × Y | × mm |
+| Lower posts | Ø mm; shoulder at Z mm |
+| Underside boss | Ø mm; bearing face at Z mm |
+| Main body | Ø mm with four upper corner bosses |
+| Cap envelope, X × Y | × mm, with central edge notches |
+| Port barrels | Ø mm; axis at Z mm |
+| Port face spacing | mm |
+| Collet ring and ear sweep | Ø mm ring; Ø mm swept envelope |
+| Terminal blades | × mm; centers mm apart |
+| Terminal position | center Z mm, tips at Y mm |
+| Overall envelope | × × mm |
 
-`body_width_x` is the existing [34.25](STATION_PITCH) mm assembly station pitch,
+`body_width_x` is the existing mm assembly station pitch,
 including air. The physical cap dimensions are `cap_width_x` and `cap_depth_y`.
 The rectangular socket pattern comes from `mounting_centers()`; callers must
 retain both axes when turning a valve into a support's coordinate frame.
@@ -86,7 +86,3 @@ tools/cad-venv/bin/python hardware/reference/beduan-solenoid/beduan_solenoid.py
 The generator writes the colored STEP, viewer payload and validity/bounds report.
 `build_beduan_solenoid()` supplies the complete exterior compound to assemblies;
 `build_assembly()` retains the material components for direct inspection.
-
-## Sources
-[value](NAME) texts are updated by:
-- `/hardware/reference/beduan-solenoid/beduan_solenoid.py`

@@ -263,9 +263,6 @@ if __name__=='__main__':
 
 
 def __getattr__(name):
-    if name == "substitute_md":
-        from docgen import substitute_md
-        return substitute_md
     if name == "cq":
         import cadquery
         return cadquery

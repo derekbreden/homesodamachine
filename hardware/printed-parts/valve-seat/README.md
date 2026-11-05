@@ -12,20 +12,20 @@ paths provide their positive retention.
 in their continuous plate.
 
 `build_seat(seat)` supplies a raised plinth for the cold-core lid. Each plinth is
-[37.6](PLINTH_WIDTH) × [38.05](PLINTH_DEPTH) mm in valve X and Y, with
-R[3](PLINTH_CORNER) mm outer corners. Its broad bearing face carries the valve
+ × mm in valve X and Y, with
+R mm outer corners. Its broad bearing face carries the valve
 beside an open cylindrical channel for the port.
 The plinth's height places that face on the installed valve's bearing plane.
 
 | Feature | Dimension |
 |---|---|
-| valve corner post | ⌀[6.9](POST_DIA) mm, on [24.4](CORNER_PITCH_X) × [24.85](CORNER_PITCH_Y) mm centres in valve X and Y |
-| socket | ⌀[6.9](SOCKET_DIA) mm; [0 mm](SOCKET_CLEAR) nominal radial clearance |
-| socket depth | [6.2](SOCKET_DEPTH) mm |
-| bearing face | valve-frame Z[5.2](SEAT_TOP_Z) mm |
-| socket floor | valve-frame Z[-1](SOCKET_FLOOR_Z) mm |
-| stock to the outer outline | at least [3 mm](WALL) |
-| valve port | ⌀[15.2](PORT_DIA) mm, with [0.500 mm](PORT_CLEARANCE) radial channel clearance |
+| valve corner post | ⌀ mm, on × mm centres in valve X and Y |
+| socket | ⌀ mm; nominal radial clearance |
+| socket depth | mm |
+| bearing face | valve-frame Z mm |
+| socket floor | valve-frame Z mm |
+| stock to the outer outline | at least |
+| valve port | ⌀ mm, with radial channel clearance |
 
 The port channel follows the valve's Y axis. A placed plinth turns with the valve.
 `port_clearance()` reads the actual gap.
@@ -51,7 +51,3 @@ The [cold-core top lid](/hardware/printed-parts/cold-core/foam-cap/foam_cap.py)
 carries V-B's integral upright socket wall (`_above_core_mounts.valve_support`), the
 lid's only valve seat; V-A and V-K seat in back-top's integral sidewall seats. The
 lid's pour opening and vents remain accessible.
-
-## Sources
-[value](NAME) texts are updated by:
-- `/hardware/printed-parts/valve-seat/valve_seat.py`

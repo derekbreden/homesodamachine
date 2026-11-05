@@ -48,12 +48,6 @@ def numbers():
     return _data(color=list(linear(M_PETGF_BLACK)))['numbers']
 
 
-def _document(volume, output=None):
-    from docgen import substitute_md
-    out = Path(output) if output is not None else _here.parent
-    substitute_md(out / 'README.md', variables=_data(volume=volume)['variables'])
-
-
 def main(output=None):
     """Write the current bench fixture with the Rust generator."""
     import _rust_part
@@ -65,7 +59,6 @@ def main(output=None):
     report = summary(body, countertop_stl=out / 'fake-countertop.stl')
     print(report['countertop_info_json'])
     print(report['countertop_line'])
-    _document(body["volume"], out)
 
 
 if __name__ == "__main__":

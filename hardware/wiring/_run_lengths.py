@@ -9,7 +9,7 @@ This tool multiplies board-to-device centre distance by the recorded DC-5
 or check clearance. The factor applies one mock-up observation to other runs;
 different bends and terminal positions can require longer or shorter cuts.
 
-The doc driver _ac_wiring_schedule_sync.py carries bench cuts without building
+The wiring schedule module _ac_wiring_schedule_sync.py carries bench cuts without building
 the machine. Its manifold, fan and V-K cuts instead use the authored wire paths
 and qualifications in manifold-junction-clearance-check.json. This tool's
 corresponding rows remain reach estimates, not those routed cut lengths.

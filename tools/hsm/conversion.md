@@ -98,9 +98,9 @@ with the existing build trace registries.
 
 | Program | Converted work |
 | --- | --- |
-| `hsm-documents` | Managed markers, Sources blocks, figure sidecars, Python comment/string scopes, Mermaid comments, tables, formatting, placement, PDF/DXF normalization and native value/library interoperation |
+| `hsm-documents` | The ledger's managed markers, Sources blocks and figure sidecars, tables, formatting, placement, PDF/DXF normalization and native value/library interoperation |
 | `ledger-data`, `ledger-analysis` | BOM arithmetic, mass/timing/cost readers, purchase evidence, exact decimal reconciliation, validation, CSV/JSON and reports |
-| `assembly-docs` | Assembly procedure figures, electrical budgets, schedules, fluid topology and the installed wiring model, routing and readers |
+| `assembly-docs` | Assembly constants, electrical budgets, schedules, fluid-topology diagrams and the installed wiring model, routing and readers |
 | `cold-core-data` | Complete cold-core dimensions, recipes, assembly, reservoir/foam/float/mandrel providers and maintained fabrication drawings |
 | `faucet-data` | Complete faucet shell and assembly recipes, scalar interfaces, tube paths, seals, collars, lever, plumbing scenes and DXF |
 | `enclosure-data` | Complete enclosure sizing, interface/datums, panel/dock/tray/cap/nameplate recipes, measurement graph and document providers |

@@ -54,24 +54,14 @@ def numbers():
     return _data(color=list(linear(M_PETGF_BLACK)))['numbers']
 
 
-def _document(bb, volume):
-    from docgen import substitute_md
-    variables = _data(volume=volume, span=[bb.xlen, bb.ylen, bb.zlen])['variables']
-    substitute_md(_here / 'README.md', variables=variables)
-    print('-> README.md')
-
-
 def main(output=None):
     import _rust_part
-    from types import SimpleNamespace
     out = Path(output) if output is not None else _here
     out.mkdir(parents=True, exist_ok=True)
     said = _rust_part.cut("tooling", "collet-press", numbers(), out)
     body = said["bodies"][0]
     from _part_output import summary
     report = summary(body, volume_spec='.2f')
-    span = report['span']
-    _document(SimpleNamespace(xlen=span[0], ylen=span[1], zlen=span[2]), body["volume"])
     print(f"-> collet-press STEP, STL, fine model and payload; {report['volume']} cm3")
 
 

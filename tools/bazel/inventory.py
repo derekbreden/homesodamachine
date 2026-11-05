@@ -47,9 +47,9 @@ BUILD_INERT_SUFFIXES = (".3mf", ".bbscfg")
 # reading taken off the machine at the start of the print. Nozzles, chamber temperatures, layer
 # heights, plate trims and verification of a solid that is already cut.
 #
-# NAMED ONE BY ONE, because `.json` beside a part is the tree's load-bearing kind: `.figures.json`
-# carries a doc's derived numbers, `.scene.json` a render, `.facts.json` a measured solid, and
-# `cad-artifacts.json` the shipped bundle. Each slicer record joins by being named here.
+# NAMED ONE BY ONE, because `.json` beside a part is the tree's load-bearing kind: `.scene.json`
+# carries a render, `.facts.json` a measured solid, and `cad-artifacts.json` the shipped bundle.
+# Each slicer record joins by being named here.
 BUILD_INERT_BASENAMES = frozenset({
     "print-profile.json",
     "faucet-petgf.print.json",

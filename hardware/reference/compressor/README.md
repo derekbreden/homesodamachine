@@ -17,42 +17,42 @@ Two bodies. A stamped base plate, and an oblong shell standing on it.
 
 | body | size | stands |
 |---|---|---|
-| plate | [96](BASE_X) × [160](BASE_Y) × [15](BASE_Z) | centered on the origin, underside on the mounting plane |
-| shell | [110](SHELL_X) × [125](SHELL_Y) ellipse × [120](SHELL_Z) | centered on X, offset [10](SHELL_OFFSET_Y) on Y, on the plate's crown |
-| power box | [45](POWER_X) × [27.5](POWER_Y) × [45](POWER_Z) | centered on X, filling the plate's long reach at −Y, hanging off the shell with its underside at [30](POWER_Z0) |
+| plate | × × | centered on the origin, underside on the mounting plane |
+| shell | × ellipse × | centered on X, offset on Y, on the plate's crown |
+| power box | × × | centered on X, filling the plate's long reach at −Y, hanging off the shell with its underside at |
 
-Overall **[110](SHELL_X) × [160](BASE_Y) × [135](OVERALL_H) mm** — and the three
+Overall ** × × mm** — and the three
 figures come from three different places. The width is the *shell's*, the depth is
 the *plate's*, and the height is the two stacked.
 
 The shell is a cylinder pressed slightly oblong: viewed down Z it is an ellipse,
-[110](SHELL_X) across the machine and [125](SHELL_Y) along it.
+ across the machine and along it.
 
 ## Overhang and offset
 
-**The belly overhangs its own plate.** The shell is [110](SHELL_X) across and the
-plate only [96](BASE_X), so the widest part of the compressor is
-[7](SHELL_OVERHANG_X) mm proud of its footprint on each side — and it starts
-[15](BASE_Z) mm up, not at the deck. A wall set to clear the plate does not clear
+**The belly overhangs its own plate.** The shell is across and the
+plate only, so the widest part of the compressor is
+ mm proud of its footprint on each side — and it starts
+ mm up, not at the deck. A wall set to clear the plate does not clear
 the shell.
 
 **The shell is off-center on the plate.** The offset leaves
-[27.5](PLATE_REACH_LONG) mm of plate reaching past the shell at −Y and
-[7.5](PLATE_REACH_SHORT) mm at +Y. The **power box** stands in that long reach —
-[27.5](POWER_Y) mm deep, the reach exactly, its aft face on the shell's own tangent
-plane at y = [-52.5](SHELL_TANGENT_Y). It hangs off the shell, not off the plate:
-underside at z = [30](POWER_Z0), crown at z = [75](POWER_Z1), with air between it and the
+ mm of plate reaching past the shell at −Y and
+ mm at +Y. The **power box** stands in that long reach —
+ mm deep, the reach exactly, its aft face on the shell's own tangent
+plane at y =. It hangs off the shell, not off the plate:
+underside at z =, crown at z =, with air between it and the
 plate's crown. The box carries the compressor's terminal block
 and clip-on PTC start relay under the donor's own moulded cover, and it is the one feature
 that tells the two ends apart: **−Y is the power end.**
 
 ## Mounting
 
-Four Ø[14](MOUNT_D) mm holes through the plate, each inset
-[14.5](MOUNT_INSET) mm from both edges it sits in from — center to center
-**[67](MOUNT_PITCH_X) × [131](MOUNT_PITCH_Y) mm**, symmetric about the origin.
+Four Ø mm holes through the plate, each inset
+ mm from both edges it sits in from — center to center
+** × mm**, symmetric about the origin.
 
-That inset leaves **[7.5](MOUNT_LIGAMENT) mm of plate** outboard of each hole — the
+That inset leaves ** mm of plate** outboard of each hole — the
 ligament the plate keeps between a hole and the edge it is inset from. `mounts_hold()`
 raises in `selftest()` if a figure ever moves far enough to close it and open the hole into a slot.
 
@@ -71,10 +71,10 @@ valve clamped on one both answer to the can.
 The third stub, and the only one not in the loop: a short copper tube pinched and brazed
 shut at the factory ([`../ice-maker/README.md`](/hardware/reference/ice-maker/README.md)
 "Process tube"). It leaves the −X tangent — the same flank the suction leaves by — at
-z = [100](PROCESS_Z), [40](PROCESS_OVER_SUCTION) mm above the suction's own station, so
+z =, mm above the suction's own station, so
 the saddle and the suction leg share one lane down the machine's west side.
 
-`process_tube()` reads [20](PROCESS_CLAMP) mm out along that stub, where the Supco
+`process_tube()` reads mm out along that stub, where the Supco
 BPV31's saddle bands it. The valve goes on once and stays for the life of the appliance —
 [`assembly/refrigerant-loop.md`](/hardware/assembly/refrigerant-loop.md).
 
@@ -106,7 +106,3 @@ tools/cad-venv/bin/python hardware/reference/compressor/compressor.py
 ```
 tools/cad-venv/bin/python hardware/reference/compressor/compressor.py selftest
 ```
-
-## Sources
-[value](NAME) texts are updated by:
-- `/hardware/reference/compressor/compressor.py`

@@ -86,10 +86,7 @@ def main():
     step = HERE / "umbilical-organizer.step"
     import flute_payload
     flute_payload.cut(step, stl, preserve_print_triangles=True)
-    sys.path.insert(0, str(HARDWARE.parent / "tools"))
-    from docgen import substitute_md
-    substitute_md(HERE / "README.md", variables=_data()["variables"])
-    print(f"-> {step.name}, {stl.name}, {step.name}.mesh, README.md")
+    print(f"-> {step.name}, {stl.name}, {step.name}.mesh")
 
 
 if __name__ == "__main__":

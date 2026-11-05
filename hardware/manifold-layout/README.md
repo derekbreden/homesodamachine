@@ -86,7 +86,3 @@ live in [installed wiring](/hardware/wiring/installed/).
 The refrigerator loop retains its own compressor, condenser and cold-core
 fitting datums. Its physical joints and formed copper runs remain distinct
 from these flavor and water paths.
-
-## Sources
-[value](NAME) texts are updated by:
-- `/hardware/manifold-layout/manifold_layout.py`

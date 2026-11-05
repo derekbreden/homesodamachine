@@ -1,7 +1,7 @@
 """Fuse clamp — the printed bracket that holds the SF76E's case against the compressor's
 power box.
 
-A [77](CLAMP_TF) °C cutoff opens on the temperature of ITS OWN CASE, so what the machine owes
+A °C cutoff opens on the temperature of ITS OWN CASE, so what the machine owes
 the part is contact: the case pressed onto the moulded cover over the terminal block and the
 PTC start relay, which is the surface whose temperature the cutoff exists to answer to. Leads
 carry no thermal load, and a case laid loose against a face reads cabinet air.
@@ -11,7 +11,7 @@ carry no thermal load, and a case laid loose against a face reads cabinet air.
               cover and the crown, and the clamp never comes between the two
     NECK      one plank down the cover's own flank, from the head to the plate's crown,
               bearing on the cover the whole way
-    LEAVES    two of them, reaching inboard off the neck into the [15](CLAMP_GAP) mm of air the
+    LEAVES    two of them, reaching inboard off the neck into the mm of air the
               power box hangs over its own base plate — the upper on the box's underside,
               the lower on the plate's crown
 
@@ -22,7 +22,7 @@ pressing straight out of the front, and no band closes around a box whose aft fa
 onto the shell. The plate's four holes are spoken for — donor grommet and the floor's own
 printed post rising through each — and the grommet is the isolation element, so anything
 landing on that screw is fastened to the CABINET while the cover it presses rides the can. What
-is left is the gap: a slot [15](CLAMP_GAP) mm tall whose two faces, the box's underside and the
+is left is the gap: a slot mm tall whose two faces, the box's underside and the
 plate's crown, both belong to the compressor. The leaves press it, so the clamp rides the
 compressor, the vibration is common to the clamp, the cutoff and the face, and nothing bridges
 to the cabinet.
@@ -35,9 +35,9 @@ one compliant thing here.
 NOTHING IS DRILLED AND THE COVER IS NOT TOUCHED. Everything the clamp closes on the donor
 already has.
 
-ONE WIDTH FOR THE WHOLE PART, [18](CLAMP_PART_X), and it comes from the lead: the channel holds
-the whole [3](CLAMP_LEAD_STUB) mm of straight the SF/E datasheet reserves against a bend and
-lets the lead go [0.5](CLAMP_LEAD_RELEASE) mm past it, leaving [16.5](CLAMP_SPLICE_FREE) mm of
+ONE WIDTH FOR THE WHOLE PART,, and it comes from the lead: the channel holds
+the whole mm of straight the SF/E datasheet reserves against a bend and
+lets the lead go mm past it, leaving mm of
 the short lead in the open for the splice. Every feature is then a prism on that one width, so
 the part is one profile swept across it and prints on its side with nothing under it.
 
@@ -52,12 +52,12 @@ head stands over the can's own metal, and the gap the leaves press runs the box'
 footprint and is entered from here as readily as from the front. What the front had that this
 does not is the shell, which stands on the box's aft plane — a leaf reaching off the front runs
 AT the belly, and one reaching off the flank runs along under the box, fenced by the box's own
-[45](CLAMP_BOX_DEPTH) mm of width.
+ mm of width.
 
 Coordinate frame — the CUTOFF'S OWN, so `enclosure_assembly` lays both bodies with one turn on
 one station and they cannot land apart:
 
-- X = the cutoff's axis, across the cover's own [27.5](CLAMP_FACE_X) mm flank.
+- X = the cutoff's axis, across the cover's own mm flank.
 - Z = 0 is the SEATING PLANE — the cover's +X flank, the plane `compressor.power_face` states;
   +Z is out of it into the cabinet, and only the leaves reach behind it.
 - Y is up, 0 on the face's centre — which is the case's own axis and the box's mid-height.
@@ -65,7 +65,7 @@ one station and they cannot land apart:
 THE KERNEL CUTS THE FILES. This module holds the numbers and writes the ones the geometry takes
 (`numbers()`) to `fuse-clamp.numbers.json`; `fuse_clamp.rs`, beside it, cuts `fuse-clamp.step`,
 its payload and `fuse-clamp.stl` from them (`hardware/scripts/_rust_part.py`), once the part has
-held its pinch: a case grown [0.01](CLAMP_CONTACT_TOL) mm proud of its own diameter meets the
+held its pinch: a case grown mm proud of its own diameter meets the
 crown. `build()` draws the same part in CadQuery, which is the body `enclosure_assembly` seats.
 
 Run:
@@ -94,7 +94,6 @@ import _stated_bounds as _bounds  # noqa: E402
 import compressor as _comp  # noqa: E402
 import sf76e_thermal_fuse as _fuse  # noqa: E402
 import fits  # noqa: E402
-from docgen import substitute_md, substitute_py_comments  # noqa: E402
 
 # --- the donor, read off its own module -----------------------------------
 # Every figure the clamp closes on comes from the part it closes on, so a re-calipered
@@ -186,10 +185,6 @@ def main():
     said = _rust_part.cut('refrigeration', 'fuse-clamp', numbers(), _here.parent)
     part = said['bodies'][0]
     _reference_data('fuse_clamp', '_report', (part, said['files']), {}, inputs=_reference_inputs())
-    variables = _reference_data('fuse_clamp', '_docvars', (part,), {}, inputs=_reference_inputs())
-    substitute_py_comments(Path(__file__), variables=variables)
-    substitute_md(_here.parent / 'README.md', variables=variables)
-    print('-> README.md')
 
 
 if __name__ == "__main__":
