@@ -1,0 +1,303 @@
+{
+ "above-counter-gasket": {
+  "files": 260,
+  "cpu_s": 2.39,
+  "wall_s": 7.27,
+  "error": false,
+  "tree_sha256": "11a2eb7fe8600ceafbafb7653770b6c75392a9be58f0e2bfa5078b8601d920da"
+ },
+ "above-counter-plate": {
+  "files": 263,
+  "cpu_s": 2.09,
+  "wall_s": 5.3,
+  "error": false,
+  "tree_sha256": "d8a0f0e90e48f5bb7b241f7dc7f257912504a9ed0dd735623f02e68e661b8097"
+ },
+ "acceptance-and-burn-in-sync": {
+  "files": 333,
+  "cpu_s": 1.06,
+  "wall_s": 5.33,
+  "error": false,
+  "tree_sha256": "8d69350f8bb8e6e98065948cae8eca46d8acb16901d93c4d408957c1c964d6da"
+ },
+ "bom-masses": {
+  "files": 832,
+  "cpu_s": 14.97,
+  "wall_s": 68.85,
+  "error": false,
+  "tree_sha256": "126dcf27393e3f10f4f1623ee6ea7276f2d9b6dd4aff563507330d8faee6a853"
+ },
+ "coil-mandrel": {
+  "files": 324,
+  "cpu_s": 0.6,
+  "wall_s": 2.51,
+  "error": false,
+  "tree_sha256": "39d92efe28f657e61dc7a635cfca5052344d19b3f441454c51b4b7749f4e4145"
+ },
+ "cold-core-assembly": {
+  "files": 405,
+  "cpu_s": 1.46,
+  "wall_s": 7.18,
+  "error": false,
+  "tree_sha256": "bd616a7085e07407ab92f65a757d6b36dec803b8ceb2e1b0ed08ab3b612e100b"
+ },
+ "cold-core-interface": {
+  "files": 295,
+  "cpu_s": 0.44,
+  "wall_s": 1.57,
+  "error": false,
+  "tree_sha256": "3368ace4950bc59175e5b2ba1c767c98a0ed7940e1561d6f189a732b724303be"
+ },
+ "cold-core-sync": {
+  "files": 331,
+  "cpu_s": 0.74,
+  "wall_s": 2.32,
+  "error": false,
+  "tree_sha256": "0a9508155830165f344d03257ae71f35f0bb91cb4e1be658a76e64180a467757"
+ },
+ "enclosure": {
+  "files": 624,
+  "cpu_s": 39.88,
+  "wall_s": 204.2,
+  "error": true,
+  "tree_sha256": "fb1fa8e3d63dc1777b10923d86debdc9490e688f294850e0ca730d839530a750"
+ },
+ "enclosure-assembly": {
+  "files": 940,
+  "cpu_s": 158.82,
+  "wall_s": 529.42,
+  "error": false,
+  "tree_sha256": "2be2c1b208621c866f6be13578a32952ca9581e6b1305e3825d6ca3b37bf181f",
+  "pinned_tree_sha256": "4b4a5aba21865107bf36b6c5929f4c15972f1372522305c858663ea935451579",
+  "pinned_run": {
+   "cpu": 70.38,
+   "wall": 436.74,
+   "maxrss_mb": 1066.0,
+   "errors": []
+  }
+ },
+ "enclosure-box": {
+  "files": 664,
+  "cpu_s": 84.26,
+  "wall_s": 751.01,
+  "error": false,
+  "tree_sha256": "6d600c1414e6097f7259165943ae71a3de7c2773984b834d733f4c2e4cb96394"
+ },
+ "enclosure-dimensions": {
+  "files": 665,
+  "cpu_s": 3.04,
+  "wall_s": 11.93,
+  "error": false,
+  "tree_sha256": "bb3f30d93b2fca5a045fb6e0121805f177aa4bdd659a6c35d0abea27cf265687"
+ },
+ "enclosure-mechanical-sync": {
+  "files": 671,
+  "cpu_s": 3.1,
+  "wall_s": 17.24,
+  "error": false,
+  "tree_sha256": "41430c81d4a953c5f01f80b9e43fabe76c6198c90442fd9564cbfb207338e307"
+ },
+ "faucet-and-umbilical-sync": {
+  "files": 317,
+  "cpu_s": 3.0,
+  "wall_s": 16.08,
+  "error": false,
+  "tree_sha256": "90fa76319bf0a99fdfd26ec80739164b04fb1766ddf0030dc20d6a3f12e5e122"
+ },
+ "faucet-assembly": {
+  "files": 344,
+  "cpu_s": 5.06,
+  "wall_s": 20.29,
+  "error": false,
+  "tree_sha256": "b47f96826ceecadb5c3ad27afd34d48c29410573580a672dbf427b1f2c87ad40"
+ },
+ "faucet-display-cover": {
+  "files": 266,
+  "cpu_s": 2.33,
+  "wall_s": 9.7,
+  "error": false,
+  "tree_sha256": "b35817c0f86fbf33ab5990583ddf407175a279c5c0dd663218cd767b4a411183"
+ },
+ "faucet-industrial-assembly": {
+  "files": 347,
+  "cpu_s": 4.39,
+  "wall_s": 12.55,
+  "error": false,
+  "tree_sha256": "fb7b6e919beda3dc04e519badc6e91d246a9b8fb95cbd18d1da2306ec95f5f8e"
+ },
+ "firmware-and-commissioning-sync": {
+  "files": 332,
+  "cpu_s": 0.88,
+  "wall_s": 2.45,
+  "error": false,
+  "tree_sha256": "98024e17c3c68c5cc2c40bf2f2aee638b9ddd3b67cdfd9becb77202c7137b6f5"
+ },
+ "fluid-topology-sync": {
+  "files": 678,
+  "cpu_s": 1.32,
+  "wall_s": 4.61,
+  "error": false,
+  "tree_sha256": "67972715ad9a2b3df4dca775dae28c0661da587ac43df018814e24f15ea0263a"
+ },
+ "flute-payload-cold-core": {
+  "files": 205,
+  "cpu_s": 0.35,
+  "wall_s": 2.09,
+  "error": false,
+  "tree_sha256": "8be75cad78f9ce4ff11ff72ae648e9ce4c43e460dd42f1c30f9e3a8e5091264d"
+ },
+ "flute-payload-faucet": {
+  "files": 222,
+  "cpu_s": 0.42,
+  "wall_s": 3.17,
+  "error": false,
+  "tree_sha256": "003fb5712c753ec783922ed1ebf331f367d91d8ff518bacdd3ffa250c551725f"
+ },
+ "foam-assembly": {
+  "files": 376,
+  "cpu_s": 0.95,
+  "wall_s": 3.57,
+  "error": false,
+  "tree_sha256": "45eeb1b93ee86453f321108036b82594b6545cef372fbeeb7d3f451fa8a4d03e"
+ },
+ "foam-cap": {
+  "files": 386,
+  "cpu_s": 12.73,
+  "wall_s": 606.85,
+  "error": false,
+  "tree_sha256": "f089978d914399e4067ee28aac8bf792074a391dd5bca58afeb80a02666e4ae3"
+ },
+ "foam-shell": {
+  "files": 333,
+  "cpu_s": 0.63,
+  "wall_s": 3.87,
+  "error": false,
+  "tree_sha256": "39c0f3da6bf96d222a282cfeb8deaaf67635631d06607f9fee2573b8c572dcfc"
+ },
+ "fuse-clamp": {
+  "files": 246,
+  "cpu_s": 0.43,
+  "wall_s": 3.52,
+  "error": false,
+  "tree_sha256": "5d9bad4659ddaa6d8561f20b119d18a2e9dc316a5e2fbddff70b62102ccab8d9"
+ },
+ "handwork-sync": {
+  "files": 329,
+  "cpu_s": 0.67,
+  "wall_s": 6.15,
+  "error": false,
+  "tree_sha256": "76839963a7b1f2713e7508fb32677634a5f18f0a868568c6e0598f790a44b8f5"
+ },
+ "industrial-faucet": {
+  "files": 289,
+  "cpu_s": 2.57,
+  "wall_s": 19.88,
+  "error": false,
+  "tree_sha256": "157ac2a88c9adb87983aa86e6ee08e505ce8b16a14fbed7ac3a0cbc1e5de5064"
+ },
+ "install-envelope-sync": {
+  "files": 139,
+  "cpu_s": 0.49,
+  "wall_s": 19.42,
+  "error": false,
+  "tree_sha256": "8d41a24b3772e95db973b8beeccff327b737959c0a9557b4bc7bf69e8a68233d"
+ },
+ "install-guide-build": {
+  "files": 411,
+  "cpu_s": 80.34,
+  "wall_s": 3662.06,
+  "error": false,
+  "tree_sha256": "4cc7b81c9461d94ab8ba4aa2ed385931efcbd7a096fbaccc9fb3fb1052a6b4f9"
+ },
+ "integration": {
+  "files": 334,
+  "cpu_s": 0.22,
+  "wall_s": 39.18,
+  "error": false,
+  "tree_sha256": "10c145047942b3a11e1e2424166848f9e2392b25231d299878a0ecaa03d53276"
+ },
+ "internal-plumbing-sync": {
+  "files": 671,
+  "cpu_s": 0.77,
+  "wall_s": 0.93,
+  "error": false,
+  "tree_sha256": "3c67e5225ec787a19f65c2d72cca4f60c806b91de93cffad132baea7b1c59d58"
+ },
+ "kit-art": {
+  "files": 356,
+  "cpu_s": 4.46,
+  "wall_s": 5.42,
+  "error": false,
+  "tree_sha256": "2c7bcfda9629e38f1fcf4b44187ed1348b1d1df40254229f3c3270f52ac9765a"
+ },
+ "manifold-layout": {
+  "files": 270,
+  "cpu_s": 0.36,
+  "wall_s": 0.46,
+  "error": false,
+  "tree_sha256": "5e7784271e9585f710cfc913d1628c393bdeb23c4359968446899311b10efe3b"
+ },
+ "opening-scene": {
+  "files": 361,
+  "cpu_s": 4.02,
+  "wall_s": 137.0,
+  "error": false,
+  "tree_sha256": "49466f449e230f58e8a49081e844c5c8818b2cefaea6043ee664154e00e4e621"
+ },
+ "pressure-vessel-sync": {
+  "files": 309,
+  "cpu_s": 0.2,
+  "wall_s": 0.28,
+  "error": false,
+  "tree_sha256": "3ffda687e181b1c2a4a21fed3991e92a2caff1a98105ef94dee6b534a4f24f17"
+ },
+ "pump-tray": {
+  "files": 248,
+  "cpu_s": 0.21,
+  "wall_s": 0.37,
+  "error": false,
+  "tree_sha256": "f3dfdf5d3fd9dd2e4bf11b188b8198f227ec3ed91752a9fba49fe01e77c2c252"
+ },
+ "rear-equipment-caps": {
+  "files": 278,
+  "cpu_s": 0.37,
+  "wall_s": 0.72,
+  "error": false,
+  "tree_sha256": "d5ea7806777477aa7d7f5f4b1b417a3cea99b9dec3c66b1af74e9957eb1fc3e9"
+ },
+ "reed-bridge": {
+  "files": 374,
+  "cpu_s": 0.68,
+  "wall_s": 119.98,
+  "error": false,
+  "tree_sha256": "b3163fb5d7884b87c45011d40644da617331c86bf204f4ef6a711874d3b192de"
+ },
+ "refrigerant-loop-sync": {
+  "files": 307,
+  "cpu_s": 0.25,
+  "wall_s": 0.69,
+  "error": false,
+  "tree_sha256": "f0746fb9376a0c034f6def748b623b658f70c527839d3e269de000f708320a8a"
+ },
+ "under-counter-plate": {
+  "files": 271,
+  "cpu_s": 1.42,
+  "wall_s": 3.41,
+  "error": false,
+  "tree_sha256": "6a8fe27373a19c1d1708dee7827978001e3aecc21ceb17f524969a786bf275cb"
+ },
+ "valve-tray": {
+  "files": 248,
+  "cpu_s": 0.2,
+  "wall_s": 0.29,
+  "error": false,
+  "tree_sha256": "822614f326c0317be2156d7e97fb7b661b92a29087703b51378e7c119e548250"
+ },
+ "weld-rotation-rig-sync": {
+  "files": 311,
+  "cpu_s": 0.23,
+  "wall_s": 0.34,
+  "error": false,
+  "tree_sha256": "33f6775db184c04ad36ae3c338a134eac79d220650d96988ee06cd6fe462992f"
+ }
+}

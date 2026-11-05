@@ -1,0 +1,18 @@
+{
+ "modules": [
+  "_cad_art",
+  "_cad_art_mesh",
+  "_install_art_mesh",
+  "_plumbing_art_mesh",
+  "plumbing_scenes",
+  "render_modern_tee"
+ ],
+ "files": [
+  "cad_art.rs",
+  "cad_art_mesh.rs",
+  "install_art_mesh.rs",
+  "plumbing_art_mesh.rs",
+  "plumbing_scenes.rs",
+  "render_modern_tee.rs"
+ ]
+}
