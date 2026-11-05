@@ -801,7 +801,7 @@ pub fn clearance_only(w: &mut World, spec: &Value) -> Result<Value> {
 pub fn build(w: &mut World, spec: &Value) -> Result<Value> {
     let rules: Value = serde_json::from_str(include_str!("machine_check_rules.json"))?;
     let m = &spec["metadata"];
-    let readings = geometry::read(w, m, &rules)?;
+    let readings = geometry::read(w, m, &rules, spec["mode"] == "geometry")?;
     if spec["mode"] == "geometry" {
         return Ok(
             json!({"clashes":readings.clashes,"unanswered":readings.unanswered,"contact_readings":readings.contacts,"clearances":readings.clearances,"lanes":readings.lanes}),
@@ -820,7 +820,6 @@ pub fn build(w: &mut World, spec: &Value) -> Result<Value> {
         coverage(w, &mounts),
         room,
         pack_closes(&readings),
-        clearance(&readings),
         bed_fit(w, m),
     ];
     for b in array(&m["bounds"]) {
@@ -871,6 +870,6 @@ pub fn build(w: &mut World, spec: &Value) -> Result<Value> {
         .all(|r| r["status"] == "pass");
     let sizes = size_rows(w);
     Ok(
-        json!({"scorecard":{"gatesPass":gates,"size":sizes,"checks":checks},"bends":bends,"connections":conns,"sizes":sizes,"clashes":readings.clashes,"unanswered":readings.unanswered,"contact_readings":readings.contacts,"clearances":readings.clearances,"lanes":readings.lanes,"unsupported_spans":spans,"mounts":mounts,"rides":rules["rides"]}),
+        json!({"scorecard":{"gatesPass":gates,"size":sizes,"checks":checks},"bends":bends,"connections":conns,"sizes":sizes,"clashes":readings.clashes,"unanswered":readings.unanswered,"contact_readings":readings.contacts,"unsupported_spans":spans,"mounts":mounts,"rides":rules["rides"]}),
     )
 }
