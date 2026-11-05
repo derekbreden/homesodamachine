@@ -3,39 +3,45 @@
 [AGENTS.md](../../AGENTS.md#speed) states the goal: this Mac's CPU and memory stop limiting how
 much the agents get done. This is the build's plan for it.
 
-## Completion
+## Destination
 
-The normal build's dimensions, numeric recipes, file readers, document generation, geometry,
-checks and exports execute in Rust. No normal step loads CadQuery,
-OpenCASCADE (OCP) or meshcad. The conversion keeps what the website shows and what prints
-([What Counts](../../AGENTS.md#what-counts)): the same parts, names, placements and colours.
+The build runs no Python. Every build step is a Rust program that Bazel runs directly, and what
+the website shows and what prints come from it. Its recipes are typed Rust: structs, functions
+and constants the compiler checks, calling the kernel in-process. Bazel's action graph decides
+what reruns after an edit, and a program compiles once, apart from the steps that run it.
+[What Counts](../../AGENTS.md#what-counts) is the whole test; every other file, report and
+intermediate format can change or go.
 
-An unconverted caller can use a thin Python import or command adapter for a finished Rust
-piece. That adapter supplies raw provider inputs, restores its caller's Python object types
-and registers source and output paths; the calculations and file transformations belong to
-Rust. Python library backends provide rendering and document primitives; authored calculations,
-layout and file transformations execute in Rust. Native recipe modules use compiled Rust
-control flow and values; they do not evaluate Python source at runtime.
+Every step still starts Python. Its entry script imports thin modules that send each call to
+Rust over a JSON pipe, and runs the Rust part programs through the `hsm` engine's socket. The
+build planner (`tools/bazel/trace_inputs.py`) knows a step only as a Python entry script.
 
 ## How the work runs
 
-- **The bet is on Rust.** A piece moves as soon as its Rust program makes the outputs it
+- **One step at a time, biggest first:** the enclosure, then the whole-machine assembly
+  (`enclosure_assembly.py`), then the graph's other entries by CPU. Steps whose files are
+  separate run in parallel.
+- **A step is converted** when Bazel runs its Rust program and no Python. The Python only that
+  step used is deleted in the same change, which lands on main on its own with the step's CPU
+  before and after.
+- **Typed recipes are written from what the current code computes**, read as the
+  specification, not translated line by line. No Python interface, `Val` value or name looked up
+  at run time stays inside the Rust.
+- **The bet is on Rust.** A step moves as soon as its Rust program makes the outputs it
   replaces. One that is slower on its first try lands anyway and is made faster in Rust
   afterwards. One that stays slower after that goes to Derek to re-examine, and holds up nothing
   else.
-- **Pieces run in parallel.** The integration lead splits what is left into pieces with separate
-  files, and one agent takes each piece, as many at once as the thread limit allows.
-- **A piece is converted whole** before anything in it is verified.
-- **A piece is verified once, at its end, on fixed inputs:** what the website shows and what
+- **A step is converted whole** before anything in it is verified.
+- **A step is verified once, at its end, on fixed inputs:** what the website shows and what
   prints, against what the code it replaces makes from the same inputs. The same solids within
-  the kernel's rule; the same names, placements and colours. Other files, checks and reports can
-  differ or go. No full normal build, whole-build memory
+  the kernel's rule (`tools/hsm/kernel/src/rule.rs`); the same names, placements and colours.
+  Other files, checks and reports can differ or go. No full normal build, whole-build memory
   sample or old-against-new timing gates a single change. A normal build runs when a batch
   merges to main.
 - **Memory is cut in the Rust programs** and verified the same way. The Python side of a program
   being converted gets no tuning.
-- **Mechanical changes keep landing.** One that reaches main while its piece is being converted
-  is carried into the Rust version before that piece merges. Once a piece is in Rust on main,
+- **Mechanical changes keep landing.** One that reaches main while its step is being converted
+  is carried into the Rust version before that step merges. Once a step is in Rust on main,
   its mechanical edits are made there.
 
 ## The normal geometry programs
@@ -120,9 +126,8 @@ names resolve at run time through `Env` scopes, and a module outside the compile
 imported through the Python adapter's callback. No generator is retained, so edits go into
 the generated files. The four crates compile at opt-level 0, while `hsm-documents`' value
 runtime and their other dependencies keep the release optimization. The guides' hand-written
-mesh and mask loops are in `guide-native`, a dependency of `guides`.
-Unverified typed drafts of these modules, with their sessions' notes and
-harness, are in commit `59ad02ff5`: `git checkout 59ad02ff5 -- tools/hsm/<crate>/src/typed`.
+mesh and mask loops are in `guide-native`, a dependency of `guides`. Typed Rust replaces each
+module as the steps that use it convert, and a module goes when no step uses it.
 
 ## Fixed-input evidence
 
@@ -172,12 +177,10 @@ follows a batch merged to main.
 | Enclosure measurements | Model selections from the same file share one import pass |
 | Installed placement | Reference names and bounds avoid unrelated model data |
 | Fine-model reading | Typed array values decode directly into final vertex and triangle rows |
-| Generated recipe modules | Typed Rust functions and values in place of the generated `Val` modules of `enclosure-data`, `machine-data`, `cold-core-data` and `guides` |
 
-`enclosure.py` and `enclosure_assembly.py` retain their scalar and Rust-driver interfaces without
-native CAD builders or native-mode switches. The automatic local back-top preview uses fresh
-Rust/scalar sizing and Rust scene export. Part drivers retain thin numeric interfaces to the
-Rust recipes and programs used by the build. Manual fine-model probes use their existing saved-model reader.
+`enclosure.py` and `enclosure_assembly.py` have no native CAD builders or native-mode switches.
+The automatic local back-top preview uses fresh Rust/scalar sizing and Rust scene export.
+Manual fine-model probes use their existing saved-model reader.
 
 The exporter stages physical and installed drawings as separate files. The physical fine model
 names the drawing with the same body identities; generated wiring is appended to the installed
