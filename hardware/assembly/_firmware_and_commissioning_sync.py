@@ -1,6 +1,5 @@
-"""Doc-sync driver for hardware/assembly/firmware-and-commissioning.md.
-
-Run: tools/cad-venv/bin/python hardware/assembly/_firmware_and_commissioning_sync.py"""
+"""Firmware constants (relay GPIOs, valve count), computed by the Rust `assembly-docs` program.
+`_acceptance_and_burn_in_sync.py` and `hardware/scripts/check_pinmap.py` read them."""
 import sys
 from pathlib import Path
 _here = Path(__file__).resolve().parent
@@ -20,7 +19,7 @@ _cold_policy = next((p for p in _here.parents if (p / 'firmware').is_dir())) / '
 
 _assembly_doc_root = next(p for p in Path(__file__).resolve().parents if (p / "hardware/scripts").is_dir())
 sys.path.insert(0, str(_assembly_doc_root / "hardware/assembly"))
-from _rust_docs import evaluate as _evaluate, update as _update
+from _rust_docs import evaluate as _evaluate
 
 
 def _inputs():
@@ -40,11 +39,3 @@ globals().update(_evaluate('firmware-and-commissioning', _inputs())["exports"])
 
 def _constexpr(name):
     return _evaluate("firmware-and-commissioning", {"name": name}, operation="constexpr")["exports"]["value"]
-
-
-def main():
-    _update('firmware-and-commissioning', _inputs())
-
-
-if __name__ == "__main__":
-    main()

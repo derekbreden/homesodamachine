@@ -34,7 +34,6 @@ sys.path.insert(0, str(_here.parent))
 sys.path.insert(0, str(_hw / 'printed-parts/cadlib'))
 import fits
 
-from docgen import substitute_md, substitute_py_comments  # noqa: E402
 
 import _rotator_interface as interface  # noqa: E402
 
@@ -85,15 +84,15 @@ globals().update({name: _reference_values[name] for name in ('BASE_X', 'BASE_Y',
 # running load.
 
 # Printed 90T pulley.  Exact 5 mm pitch; the groove is a printable clearance
-# trapezoid — [3.6](WR_PULLEY_OPENING) mm at the tip circle — that accepts
+# trapezoid — mm at the tip circle — that accepts
 # the belt tooth's 3.05 mm root and absorbs accumulated pitch error over the
 # 45 engaged teeth.  The first belt-fit coupon is the acceptance gate before
 # the complete turntable is printed.
 
 # The central pedestal places the replaceable precision nest above the belt.
 
-# Tube nest — the [4.5](WR_PILOT_H) pilot fits above a welded plate's
-# [6.35](WR_RECESS) recess.  Three radial screws bear directly on the OD;
+# Tube nest — the pilot fits above a welded plate's
+# recess.  Three radial screws bear directly on the OD;
 # the pilot carries the ID; the end face lands on the annular seat between them.
 
 # The purchased belt fixes the exact nominal centre.  Slots only move the motor
@@ -143,19 +142,11 @@ def numbers():
     return _reference_data('weld_rotator', 'numbers', (), {}, inputs=_reference_inputs('numbers'))
 
 
-def _document():
-    variables = _reference_data('weld_rotator', '_docvars', (), {}, inputs=_reference_inputs())
-    substitute_py_comments(_here, variables=variables)
-    substitute_md(_here.parent / 'README.md', variables=variables)
-    print('-> README.md')
-
-
 def main(output=None):
     import _rust_part
     out = Path(output) if output is not None else _here.parent
     out.mkdir(parents=True, exist_ok=True)
     result = _rust_part.cut("tooling", "weld-rotator", numbers(), out)
-    _document()
     print(f"-> weld rotator: {len(result['files'])} files")
 
 

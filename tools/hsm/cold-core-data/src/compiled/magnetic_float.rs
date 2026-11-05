@@ -87,8 +87,6 @@ pub fn initialize(rt: Runtime, e: Env) -> Result<()> {
     };
     let mod29 = rt.import_module("_materials")?;
     e.set("linear", rt.member("_materials", "linear")?)?;
-    let mod30 = rt.import_module("docgen")?;
-    e.set("substitute_md", rt.member("docgen", "substitute_md")?)?;
     let assigned31 = Val::Float(36.0f64);
     e.set("diameter", assigned31.clone())?;
     let assigned32 = Val::Float(60.06f64);
@@ -933,14 +931,6 @@ Ok(Val::None)})})?;
                         assigned222.clone(),
                     )?;
                 }
-                {
-                    let fun228 = e.get("substitute_md")?;
-                    let mut args226 = Vec::new();
-                    let mut kw227 = Vec::new();
-                    args226.push(e.get("readme")?);
-                    args226.push(e.get("figures")?);
-                    fun228.call(args226, kw227)?
-                };
             }
             {
                 let fun231 = e.get("print")?;

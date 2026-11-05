@@ -27,9 +27,9 @@ operation, only briefly elevated during a relief event.
 
 ## Geometry
 
-[19.1 mm](PRV_INNER_D) ID × [23.1 mm](PRV_OUTER_D) OD × [46 mm](TOTAL_L) overall length, [2 mm](PRV_WALL_T) wall and [2 mm](PRV_CAP_T) cap,
-single ⌀[6.8 mm](PRV_VENT_D) vent bored radially through the barrel's −Y wall
-[37.88 mm](VENT_STATION) from the open end.
+ ID × OD × overall length, wall and cap,
+single ⌀ vent bored radially through the barrel's −Y wall
+ from the open end.
 
 Reference dimensions measured at the install (SV-125 hand-tight in
 the TAISHER M×F 90° elbow, no PTFE torque applied):
@@ -38,7 +38,7 @@ the TAISHER M×F 90° elbow, no PTFE torque applied):
 |---|---|
 | TAISHER elbow smooth cylinder OD (the seat surface) | 18.8 mm |
 | SV-125 hex outer corners (across points) | 16.0 mm |
-| Shroud ID | [19.1 mm](PRV_INNER_D) |
+| Shroud ID | |
 
 ID is sized for a 0.15 mm radial slip-fit over the elbow's
 controlled-OD smooth cylinder at the seat end (the only good
@@ -46,10 +46,10 @@ sealing surface in the stack). Above that, the shroud floats around
 the SV-125's body with ~1.5 mm radial gap at the hex and larger gaps
 above.
 
-The [44 mm](CAVITY_L) cavity length matches the measured stack from the bottom
+The cavity length matches the measured stack from the bottom
 of the elbow's smooth cylinder to the very tip of the SV-125
 pull-ring with the valve hand-tight in the elbow. After full PTFE
-torque the stack shortens by a turn or two; the [2 mm](PRV_CAP_T) cap thickness
+torque the stack shortens by a turn or two; the cap thickness
 gives a few mm of clearance above the pull-ring at full torque.
 
 Print with the closed cap on the bed. The radial vent has an additional
@@ -122,11 +122,7 @@ geometry shift and should land with a measured rationale.
 
 | metric | value |
 |---|---|
-| bbox X | [-11.550 to 11.550 mm](PRV_BBOX_X) |
-| bbox Z | [0.000 to 46.000 mm](PRV_BBOX_Z) |
-| bbox Y | [-11.550 to 11.550 mm](PRV_BBOX_Y) |
-| volume | [6594.415 mm³](PRV_VOLUME) |
-
-## Sources
-[value](NAME) texts are updated by:
-- `/hardware/printed-parts/cold-core/prv-shroud/prv_shroud.py`
+| bbox X | |
+| bbox Z | |
+| bbox Y | |
+| volume | |

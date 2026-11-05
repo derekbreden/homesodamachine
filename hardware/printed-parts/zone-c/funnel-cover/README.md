@@ -1,8 +1,8 @@
 # Flavor-fill funnel cover
 
 The black PETG cover closes the silicone funnel between fills. Its solid plate
-sits on the silicone apron, adding [3 mm](PLATE) above its Z358 seating plane.
-Its fitted top is Z361, 6 mm above the rigid enclosure roof. A [6 mm](SKIRT) locating
+sits on the silicone apron, adding above its Z358 seating plane.
+Its fitted top is Z361, 6 mm above the rigid enclosure roof. A locating
 skirt enters the existing mouth and locates the cover sideways. The plate rests
 on the silicone brim under gravity. Lift the broad front edge to remove it
 before pouring or lifting the silicone out for cleaning. Press it down until
@@ -10,12 +10,12 @@ the plate rests evenly on the brim after the fill is complete.
 
 ![The cover's underside, locating skirt and broad front lifting edge](underside.png)
 
-The plate is [182 mm](WIDTH) across and [179.392 mm](DEPTH) front to back.
-Its entire front edge extends [4 mm](FRONT_EXTENSION) toward the display,
-beyond the [1.5 mm](OVERHANG) brim overlap. A shallow
-[1.2 mm](FRONT_RELIEF) recess under that edge provides lifting access.
-The skirt has [3 mm](WALL) walls and
-[0.25 mm](AIR) nominal running air around its continuous surface. Its lower
+The plate is across and front to back.
+Its entire front edge extends toward the display,
+beyond the brim overlap. A shallow
+ recess under that edge provides lifting access.
+The skirt has walls and
+ nominal running air around its continuous surface. Its lower
 lead-in guides insertion into the mouth. The plate has no holes;
 the lifting recess opens only underneath the extended front edge.
 
@@ -42,7 +42,7 @@ removal remain physical observations, not results of the CAD checks.
 ## Manufacture and evidence
 
 The print STEP and STL place the complete flat exterior on the bed, with the
-skirt growing upward. The part is [9 mm](PRINT_HEIGHT) tall in that pose.
+skirt growing upward. The part is tall in that pose.
 Use plain black PETG, a 0.20 mm first layer, 0.24 mm layers, three walls and
 100% infill; no supports touch the underside or skirt. Keep the plate solid.
 The front recess prints as a thinner strip of the bed-facing plate; inspect
@@ -74,7 +74,3 @@ tools/cad-venv/bin/python hardware/printed-parts/zone-c/funnel-cover/check_cover
 `funnel-cover.step` and `funnel-cover.stl` use the assembled seating datum.
 `funnel-cover-print.step` and `funnel-cover-print.stl` use the flat exterior bed face. The appliance places
 the cover on the mouth's plan center and Z358 silicone seating plane.
-
-## Sources
-[value](NAME) texts are updated by:
-- `/hardware/printed-parts/zone-c/funnel-cover/funnel_cover.py`

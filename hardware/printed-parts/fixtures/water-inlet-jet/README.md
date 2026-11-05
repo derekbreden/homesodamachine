@@ -33,10 +33,10 @@ six walls, six top/bottom
 layers and 50% infill. The jaws have vertical, open grooves and need no
 support. This profile and the grip have not had a physical trial.
 
-The base is [120 × 90 × 8 mm](JET_FIXTURE_BASE); the jaws support
-[30 mm](JET_FIXTURE_GRIP) of rod. Their nominal grooves are
-[9.8 mm](JET_FIXTURE_GROOVE) in diameter, with a
-[1 mm](JET_FIXTURE_GAP) open split. That extra diameter permits the loose
+The base is; the jaws support
+ of rod. Their nominal grooves are
+ in diameter, with a
+ open split. That extra diameter permits the loose
 jaw to close before the two flat faces touch. Nominal 9.5 mm stock takes up
 0.3 mm of travel; the remaining split is a visible check that the faces have
 not bottomed out. Real stock and print dimensions decide the actual grip.
@@ -50,7 +50,7 @@ the stock or drill with inadequate grip.
 ## Set up on the drill table
 
 1. With the saw, cut a handling blank approximately
-   [50 mm](JET_FIXTURE_BLANK) long from the 400 mm rod; 50–60 mm gives a
+   long from the 400 mm rod; 50–60 mm gives a
    manageable first setup. Deburr its ends. Do not stand the complete
    400 mm rod under the drill press.
 2. Put the fixed base flat on the owned plywood/MDF backer on the drill
@@ -58,12 +58,12 @@ the stock or drill with inadequate grip.
    on the same base. Seat the rod on the solid floor between the grooves.
 3. Close the two jaws using **two C-clamps with horizontal screw axes**,
    one on each side of the rod. Their pads bear on the flat outer jaw
-   faces, approximately [±20 mm](JET_FIXTURE_JAW_CLAMP_X) from the rod
+   faces, approximately from the rod
    axis. Point the C-frames outward, away from the spindle. Tighten
    evenly until the rod cannot turn, rock or lift by a firm hand check;
    the split must remain visible. Do not crush the printed jaws.
 4. Use the **other two C-clamps vertically** on the base's left and right
-   flanges, approximately [±46 mm](JET_FIXTURE_BASE_CLAMP_X) from the rod
+   flanges, approximately from the rod
    axis, clamping the base and backer to the drill table. They must reach
    a solid table edge; neither a table slot nor a loose backer is the
    lower bearing surface. The actual clamp pads and frames are unmeasured:
@@ -90,7 +90,7 @@ It is a drilling fixture and does not enter the laser welding setup.
 Remove the rod from the fixture for each bandsaw cutoff. Before the next
 hole, clear chips from the floor, reseat the stock and realign the drill.
 Stop using a handling blank when less than
-[40 mm](JET_FIXTURE_MIN_BLANK) remains; the actual chuck clearance can
+ remains; the actual chuck clearance can
 require more.
 Keep the short remainder for other coupons.
 
@@ -109,7 +109,3 @@ path clear of the plastic. They do not model
 the real C-clamp frames, friction, clamp force, print tolerance or the WEN
 chuck. The nominal rod diameter is shared with the candidate jet CAD; the
 fixture is not an input to enclosure or cold-core geometry.
-
-## Sources
-[value](NAME) texts are updated by:
-- `/hardware/printed-parts/fixtures/water-inlet-jet/water_inlet_jet_fixture.py`

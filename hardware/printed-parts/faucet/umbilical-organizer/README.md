@@ -18,16 +18,16 @@ access are unmeasured.
 
 | Feature | Dimension |
 |---|---|
-| Round stock | Ø[32 mm](ORGANIZER_OD) × [10 mm](ORGANIZER_LENGTH) |
-| Soda bore | Ø[6.65 mm](ORGANIZER_TUBE_BORE) |
-| Both flavor bores | Ø[4.40 mm](ORGANIZER_FLAVOR_BORE) |
-| Drain bore | Ø[4.40 mm](ORGANIZER_DRAIN_BORE) |
-| Loose flat signal slot | [5.4 × 1.8 mm](ORGANIZER_CABLE_SLOT) |
-| Tube entrance chamfers, both ends | [0.4 mm](ORGANIZER_ENTRY) × 45° |
-| Smooth tube contact length | [9.2 mm](ORGANIZER_CONTACT) |
-| Cable entrance chamfers, both ends | [0.2 mm](ORGANIZER_CABLE_ENTRY) × 45° |
-| Outer rim chamfers | [0.2 mm](ORGANIZER_RIM_EASE) × 45° |
-| Minimum material between passages or to the outside, including chamfers | [1.5 mm](ORGANIZER_MIN_MATERIAL) |
+| Round stock | Ø × |
+| Soda bore | Ø |
+| Both flavor bores | Ø |
+| Drain bore | Ø |
+| Loose flat signal slot | |
+| Tube entrance chamfers, both ends | × 45° |
+| Smooth tube contact length | |
+| Cable entrance chamfers, both ends | × 45° |
+| Outer rim chamfers | × 45° |
+| Minimum material between passages or to the outside, including chamfers | |
 
 The body is one cylinder with four straight round bores, one straight capsule
 slot and entrance/rim chamfers. The slot is wide along faucet X and holds the
@@ -50,15 +50,15 @@ steel plate for the illustrated 30 mm slab, or 42.476 mm below the plate for a
 The rear passages follow the plate's F1–D–F2 row, with the flat ribbon behind D.
 The soda bore stays on the shank axis. Soda, drain, ribbon and the round stock
 share X=0; the flavors are equally spaced on either side. Relative to the mounting row, each flavor
-bore is [2.4 mm](ORGANIZER_FLAVOR_SPREAD) farther outward along X and
-[1.8 mm](ORGANIZER_FLAVOR_FORWARD) forward along Y; D is
-[2.3 mm](ORGANIZER_DRAIN_FORWARD) forward. The signal slot is directly under its
+bore is farther outward along X and
+ forward along Y; D is
+ forward. The signal slot is directly under its
 mounting axis. The flavor spread provides room for the central drain while the
 forward offsets keep the round stock inside the countertop opening.
 All lines are straight and parallel through the puck; tangent R30 flavor
 and R25 drain bends connect it to the mounting row above.
 
-The minimum material requirement is [1.5 mm](ORGANIZER_MIN_MATERIAL), including both entrance chamfers and the outer rim chamfers. The [integration check](integration-check.json) measures the current geometry. These are geometric thicknesses; physical load capacity and endurance are unmeasured.
+The minimum material requirement is, including both entrance chamfers and the outer rim chamfers. The [integration check](integration-check.json) measures the current geometry. These are geometric thicknesses; physical load capacity and endurance are unmeasured.
 
 The flavor R30 and drain R25 returns begin 3 mm below the organizer's bottom and gather beside the insulated soda line. Thread the organizer before clamping the blue tube into the Westbrass and before crimping the signal plug. Set positions with two hands, leaving the mounting hardware's working area clear. The organizer floats with the bundle inside the upper braid.
 
@@ -96,7 +96,3 @@ The separate frozen [Ø4.30 mm drain-fit archive](../../../../future/umbilical-o
 is an unsubmitted trial, outside the current production selection.
 Regenerate the production geometry manually with
 `tools/cad-venv/bin/python hardware/printed-parts/faucet/umbilical-organizer/umbilical_organizer.py`.
-
-## Sources
-[value](NAME) texts are updated by:
-- `/hardware/printed-parts/faucet/umbilical-organizer/umbilical_organizer.py`

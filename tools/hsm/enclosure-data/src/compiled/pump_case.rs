@@ -206,11 +206,6 @@ pub fn initialize(rt: Runtime, e: Env) -> Result<()> {
         "apply_ramp_in_first",
         rt.member("snap", "apply_ramp_in_first")?,
     )?;
-    let mod51 = rt.import_module("docgen")?;
-    e.set(
-        "substitute_py_comments",
-        rt.member("docgen", "substitute_py_comments")?,
-    )?;
     {
         let _site = rt.source_at(
             "tools/hsm/enclosure-data/src/compiled/pump_case.rs",
@@ -2342,37 +2337,6 @@ Ok(Val::None)})})?;
             let rt = runtime.clone();
             let e = bind(&outer, &params, args, kwargs, None, None)?;
             let _frame = rt.frame(&outer);
-            {
-                let _site = rt.source_at(
-                    "tools/hsm/enclosure-data/src/compiled/pump_case.rs",
-                    line!(),
-                );
-                {
-                    let fun922 = e.get("substitute_py_comments")?;
-                    let mut args920 = Vec::new();
-                    let mut kw921 = Vec::new();
-                    args920.push(binary(
-                        "truediv",
-                        e.get("_here")?,
-                        Val::Str("pump_case.py".into()),
-                    )?);
-                    kw921.push(("variables".into(), {
-                        let _site = rt.source_at(
-                            "tools/hsm/enclosure-data/src/compiled/pump_case.rs",
-                            line!(),
-                        );
-                        {
-                            let fun925 = e.get("_read")?;
-                            let mut args923 = Vec::new();
-                            let mut kw924 = Vec::new();
-                            args923.push(Val::Str("pump-case-variables".into()));
-                            kw924.push(("case".into(), e.get("_case")?));
-                            fun925.call(args923, kw924)?
-                        }
-                    }));
-                    fun922.call(args920, kw921)?
-                }
-            };
             {
                 let _site = rt.source_at(
                     "tools/hsm/enclosure-data/src/compiled/pump_case.rs",

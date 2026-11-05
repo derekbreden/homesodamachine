@@ -3,18 +3,18 @@
 What the pieces have actually been printed in, and at what settings:
 [print-log.md](print-log.md).
 
-A PET-GF15 box. [3 mm](WALL_T) is the section a piece starts from and every exterior
-wall carries at least [6 mm](LIP_UNDERWALL), each taken INWARD so the silhouette
+A PET-GF15 box. is the section a piece starts from and every exterior
+wall carries at least, each taken INWARD so the silhouette
 and `interior_x` both stand still: a bottom piece's three lipped sides get
-[6 mm](LIP_UNDERWALL) as the lip's own skin carried to the slab, front-top's ±X
-flanks are [9 mm](FRONT_TOP_FLANK), back-top's are [9 mm](BACK_TOP_FLANK) and its
+ as the lip's own skin carried to the slab, front-top's ±X
+flanks are, back-top's are and its
 +Y wall 9 mm. The floor is the one section taken OUTWARD:
-[6 mm](FLOOR_T) of slab under both bottom pieces, with the stated height struck to
+ of slab under both bottom pieces, with the stated height struck to
 its underside, so it stands in the silhouette and the cavity's floor plane — the
 one the pack sets its bodies on — does not move. **Split into four printable pieces** — front/back × bottom/top, every piece inside the H2C bed. Each
 column's top SLIDES onto its bottom on hooked rails; the two halves telescope and four M5
 screws, two at each Y-seam corner, close the whole box.
-It measures [215 × 466.3 × 361 mm](BOX_SIZE), and **width, height and the +Y wall
+It measures, and **width, height and the +Y wall
 are all stated bounds**. `_dims` measures the pack against each one and enters the
 reading in `BOUNDS`; the box comes back at its stated size regardless, so a pack
 that overruns one gets a wall drawn through it, a red row naming by how much, and a
@@ -29,7 +29,7 @@ clash in `pack-closes` at the body that overran.
   core is the widest of the floor bodies, yawed a quarter turn
   (`enclosure_assembly.FOAM_YAW`) so what crosses the machine is its 181 mm short face
   instead of its 283 mm long one. The yaw is the thin machine.
-- **Height** is a stated [361 mm](APPLIANCE_HEIGHT), floor slab's underside to the
+- **Height** is a stated, floor slab's underside to the
   top wall's outer face. The contents do not lift it; they have to fit under it.
 
 **Depth** is stated at the back — `rear_plane_y` — and follows the pack at the
@@ -97,14 +97,14 @@ the halves.
 
 Each ±X corner of that seam is a **stack of knuckles**: blocks of one piece standing in the
 other's overlap, alternating up the corner, with two vertical M5 screws through them
-(`_y_stacks`). A front knuckle roots [3 mm](Y_STACK_FRONT_ROOT) fore of the seam in its own
+(`_y_stacks`). A front knuckle roots fore of the seam in its own
 flank and runs aft one running fit inside the back piece's skin; a back knuckle grows out of
-that skin and on into the thickened flank. Every knuckle stands in the [17.8 mm](LIP_LEN)
-overlap and the [14 mm](SIDE_BAND) side band, its screw mid-overlap in Y.
+that skin and on into the thickened flank. Every knuckle stands in the
+overlap and the side band, its screw mid-overlap in Y.
 
 - **The lower stack** is three knuckles inside the bottom pieces: back-bottom's
   knuckle over the handhold, front-bottom's, and back-bottom's under the Z seam. An
-  [M5 × 100](LOWER_ROD) drives up from the handhold ceiling at Z[29.25](Y_STACK_CEILING),
+  drives up from the handhold ceiling at Z,
   its head seated at Z60.8 in the lower back knuckle, through front-bottom's knuckle into a ruthex RX-M5x9.5
   pressed into the top of the upper back knuckle, flush with the Z seam; its tip stands just
   past the insert's open top. Back-bottom holds the screw at both ends and front-bottom's
@@ -113,10 +113,10 @@ overlap and the [14 mm](SIDE_BAND) side band, its screw mid-overlap in Y.
   bottom stands above the Z seam.
 - **The upper stack**, from the head downward, is front-top's roof head block,
   back-top's middle block and front-top's lower insert block. The
-  [M5 × 100](UPPER_ROD) enters from above and ends in a closed pocket below the insert.
-  Front-top's lower block rises from Z[231.3](Y_STACK_UPPER_FLOOR) to its insert mouth at
-  Z[265](Y_STACK_DATUM); the head block's underside crosses the screw axis at
-  Z[330.4](Y_STACK_HEAD_INTERFACE). Both front-top blocks join its wall and capture
+  enters from above and ends in a closed pocket below the insert.
+  Front-top's lower block rises from Z to its insert mouth at
+  Z; the head block's underside crosses the screw axis at
+  Z. Both front-top blocks join its wall and capture
   back-top between them. The middle block retains its running fit; tightening the screw
   seats its head in front-top rather than directly clamping back-top axially.
   Front-top's −X insert block has a 5.1 mm inboard-aft chamfer (`y_stack_upper_chamfer`).
@@ -135,17 +135,17 @@ Tree(auto)/Default remains the support policy for each fresh native preparation.
 Front-bottom's fore knuckle root stands directly on its handhold roof.
 The slopes run across the slide or close as the front half slides aft, and a top
 that rises toward a free face levels off one wall short of it. Every face between knuckles
-keeps a [0.25 mm](Y_STACK_GAP) running fit, measured square to the face.
+keeps a running fit, measured square to the face.
 
-The screws pass through printed [Ø5.2](Y_STACK_CLEARANCE) holes, the selected
+The screws pass through printed holes, the selected
 [M5 sample fit](/hardware/print-tests/m5-seam-bearing/physical-result.json).
 Long passages may require turning the screw before the insert engages. Each insert and
-the manufacturer's minimum stock round it, [Ø11.6](Y_STACK_INSERT_BOSS) about the axis, fit
-inside the side band. The lower axes stand [9.25 mm](Y_STACK_LOWER_AXIS_OUT) in from the exterior,
+the manufacturer's minimum stock round it, about the axis, fit
+inside the side band. The lower axes stand in from the exterior,
 where the head passes the handhold's inner wall on its way up; the upper axes
-[9.8 mm](Y_STACK_AXIS_OUT), which leaves 3 mm outboard of the roof opening and 3 mm inboard
+, which leaves 3 mm outboard of the roof opening and 3 mm inboard
 of front-top's insert. Each head bears on a printed floor in a Ø9 opening,
-[31.55 mm](Y_STACK_LOWER_CBORE) up into the handhold ceiling and [8 mm](Y_STACK_CBORE) down
+ up into the handhold ceiling and down
 into the roof. The lower opening ends on the plane of the handhold's inner wall; the upper
 one runs on into the funnel opening. Seat the heads with a 4 mm hex key and stop when they
 meet their floors; the printed joint has no qualified installation torque.
@@ -178,9 +178,9 @@ resistance requires assembled physical qualification.
 
 The +Y wall of back-bottom carries the full [household disposal warning](../../../markings/README.md)
 as integral raised lettering in the enclosure's own material. Each line is centered on the
-rear wall. The bottom of the lettering stands [14 mm](DISPOSAL_BOTTOM) above the enclosure's
-base. Its H capitals are [6.5 mm](DISPOSAL_CAP_HEIGHT) high, and the letters are raised
-[0.6 mm](DISPOSAL_RELIEF) from the wall.
+rear wall. The bottom of the lettering stands above the enclosure's
+base. Its H capitals are high, and the letters are raised
+ from the wall.
 The generator measures every warning letter's outline against the 6.4 mm minimum.
 
 Back-bottom prints floor-down, so the letters stand on a vertical wall. Every stroke's
@@ -188,8 +188,8 @@ underside is raked: it rises out of the wall at 45° to the letter's face, a fac
 beneath carries. Every top is level and meets the face square, and the face keeps the
 letter's whole outline.
 
-The wall stays flat beneath the text and its [5 mm](DISPOSAL_MARGIN) margin, over a
-[181.0 mm](DISPOSAL_FIELD_WIDTH) by [64.5 mm](DISPOSAL_FIELD_HEIGHT) field. The surrounding
+The wall stays flat beneath the text and its margin, over a
+ by field. The surrounding
 flutes fade into this smooth area. It is the wall's own surface, without a border or a
 separate carrier. The raised text is fused into the STEP body and retained on the printable
 STL and viewer payload after the mesh flute cut.
@@ -219,11 +219,11 @@ Hardware openings follow their mating parts. The rear top edge remains square.
 ## Handholds
 
 One handhold in each ±X flank opens through the standing floor. The recesses are
-[80 mm](HANDHOLD_LENGTH) long in Y, centered at **Y[214 mm](HANDHOLD_Y)**, and
-[35.25 mm](HANDHOLD_HEIGHT) high from the slab's underside to the uncovered lifting ceiling.
-The [6 mm](HANDHOLD_CORNER_R) inside corner rounds join the ceiling to the end walls.
-The exterior lifting edges retain their [6 mm](HANDHOLD_EDGE_R) rounds.
-Each ceiling carries a full [12 mm](HANDHOLD_ROOF) section,
+ long in Y, centered at **Y**, and
+ high from the slab's underside to the uncovered lifting ceiling.
+The inside corner rounds join the ceiling to the end walls.
+The exterior lifting edges retain their rounds.
+Each ceiling carries a full section,
 joined to the floor by the opening's end walls and to the corner stack above it.
 The R6 roll joins the flat lifting ceiling, end walls and fluted exterior
 tangentially, including the two corner blends. Its full section and flute
@@ -238,7 +238,7 @@ there are no grip covers, cover seats or wing slots. Tree(auto)/Default supports
 the flat ceiling during printing. Surface finish and gripping comfort remain
 unqualified on the complete production handholds.
 
-The [3 mm](HANDHOLD_WALL) inner wall stands between |X|90.75 and |X|93.75,
+The inner wall stands between |X|90.75 and |X|93.75,
 0.25 mm outboard of the cold core's |X|90.5 flank. The complete wall, including its
 rounded ends, uses that offset. Each opening
 is closed toward the interior and open outward and downward. Both bottom pieces form each
@@ -264,18 +264,18 @@ lifting roof, screw passages and assembled fit.
 
 Bottom↔top, per column, at `enclosure.z_seam`: **a full-travel slide on hooked rails, and
 no screw anywhere on it.** Down each flank's **straight run** the bottom piece raises an
-**4.5 mm arm** on its mouth, standing one [0.25 mm](SLIDE_SLIP) inboard of the top's own wall,
+**4.5 mm arm** on its mouth, standing one inboard of the top's own wall,
 and the arm's **head** steps back out over the **groove** between them: a
-[5 mm](FRONT_HOOK_LAP) overlap on the front column and [5 mm](BACK_HOOK_LAP) on the back.
+ overlap on the front column and on the back.
 The top piece's wall runs to the mouth at full section — the **foot**, its caught face
-[8.7 mm](HOOK_FOOT) over the mouth — with a **notch** in its inboard face that swallows
+ over the mouth — with a **notch** in its inboard face that swallows
 the head. Back-top closes that channel back to the full wall on one horizontal roof;
-front-top alone uses a 45° roof over the void it prints mouth-down. The storey is [14.8 mm](Z_RISE)
+front-top alone uses a 45° roof over the void it prints mouth-down. The storey is
 mouth to rim, and **the flavour deck is its ceiling** — the rim stands under the lowest
 valve plate (`z-seam-under-deck`), which is the whole height the box has to spend here.
-It buys the groove first: [9.2 mm](HOOK_NECK) of it, the top piece's own sliding tongue,
-with [5.6 mm](HOOK_HEAD) of head over the front catch. The rear groove is
-[9.45 mm](BACK_HOOK_NECK) tall with [5.35 mm](BACK_HOOK_HEAD) of head over it. That height is the Z seam's own — `lip_len` is the Y
+It buys the groove first: of it, the top piece's own sliding tongue,
+with of head over the front catch. The rear groove is
+ tall with of head over it. That height is the Z seam's own — `lip_len` is the Y
 seam's overlap, which its corner stacks stand in, and the two are independent figures. The two columns
 enter from opposite ends: **front-top enters fore of home and slides AFT**, over the front
 wall's own plane in open air ahead of the box; **back-top enters aft of home and slides FORE**,
@@ -288,19 +288,19 @@ retain 3.75 mm of length and bound overtravel; the upper seam screws join the tw
 tops. Reaching the assembled position does not require compressing the rail ends.
 
 On both columns, the foot carries the flank's full 6 mm inward section from `interior_x` to
-the nominal 9 mm face on both sides: [6 mm](FRONT_RAIL_FOOT) in front and
-[6 mm](BACK_RAIL_FOOT) in back. Each bottom hook carries a 5 mm bearing overlap at that
-face's inboard edge. Their arms reach [10.75 mm](FRONT_RAIL_INBOARD) in front and
-[10.75 mm](BACK_RAIL_INBOARD) in back from `interior_x`, inside the 14 mm body-free seam
+the nominal 9 mm face on both sides: in front and
+ in back. Each bottom hook carries a 5 mm bearing overlap at that
+face's inboard edge. Their arms reach in front and
+ in back from `interior_x`, inside the 14 mm body-free seam
 band. Each catch lies wholly over its six-millimetre foot and keeps a complete exterior wall
 outside its channel.
 
 **Lifting a seated top lands each foot's flat top face on its head's flat underside,
-along both whole runs** — [93 mm](RAIL_RUN_FRONT) per flank on the front column,
-[232 mm](RAIL_RUN_BACK) and [220 mm](RAIL_RUN_BACK_W) on the back — horizontal printed
+along both whole runs** — per flank on the front column,
+ and on the back — horizontal printed
 face on horizontal printed face after the specified clearance is taken up. The two
 back flanks differ by the PRV passage: it crosses the −X run and takes
-[12 mm](VENT_CHANNEL_W) of it, which is the figure that flank is already short by.
+ of it, which is the figure that flank is already short by.
 **The two columns end their runs on different things.** Aft of the front run the top
 piece carries nothing but its own seam band and the Y-seam tongue, and both are inboard
 surfaces the channel may cut — so that lane runs clear off the piece's aft end, nothing is
@@ -314,7 +314,7 @@ are held to different rules (`_vent_chase`): the RIB keeps out of the band the j
 since it is solid and would sweep the rail, and it parts on the seam's rim so each piece
 stands its own height of it and neither crosses into the other's travel; the PASSAGE is the
 hole through that rib, sweeps nothing, and goes straight across — the rail gives up
-[12 mm](VENT_CHANNEL_W) where the one opening that has to cross it does, and the duct keeps
+ where the one opening that has to cross it does, and the duct keeps
 its whole section. Both pieces cut that passage, so the groove's discharge leaves through
 the flank on either side of the seam rather than half of it standing in the other's wall.
 **Each top escapes toward the end of the box it stands at** — front-top fore into the room,
@@ -359,7 +359,7 @@ floor slab spans the interior wall to wall, so a body laid on a wall's face woul
 leave the seam machinery nowhere to stand. A **floor body is held one
 `side_band_inset` in from the ±X walls where it meets the seam's furniture** — the
 Y seam's corner stacks, or the rail band over the seam's own storey. Each column's full-section foot,
-groove, arm and head reach [10.8 mm](RAIL_REACH) inward from `interior_x`, inside that same
+groove, arm and head reach inward from `interior_x`, inside that same
 band.
 The **+Y wall keeps one `rear_seam_clear`**, the rear Z-seam lip's own thickness. That is a requirement
 on the body where it meets one, not a rule about the wall: beside one — over or under
@@ -458,12 +458,12 @@ wall. The base rail and lower finger run to the floor slab. The crown rail and u
 not: each carries its entire down-facing plane on a 45° corbel rooted on the wall or fin it grows
 from (`_cond_cradle_corbel`, `_cond_mount_corbel`).
 
-The crown wedge is only the rail's [3 mm](COND_SLOT_GRIP) reach. The aft wedge is longer, but it
+The crown wedge is only the rail's reach. The aft wedge is longer, but it
 lies wholly in the donor block's open end recess and stops on the fin's west face. The condenser stays fixed and the closer
 one keeps `cond_mount_clear` of assembly air.
 
-Each fore-flange groove keeps its exact [0.9 mm](COND_SLOT_OPEN) opening at the seated wall stop,
-then its roof rises toward the bay at 45° and leaves through the rail's aft face [3 mm](COND_SLOT_GRIP) higher, a full rail wall under the crown.
+Each fore-flange groove keeps its exact opening at the seated wall stop,
+then its roof rises toward the bay at 45° and leaves through the rail's aft face higher, a full rail wall under the crown.
 The groove keeps 0.25 mm on each face of the sheet at its datum. Its sloping roof prints without support.
 
 ## Closing and final access
@@ -496,21 +496,21 @@ on the core together.
 Four features bearing on the core's own faces:
 
 - **Front corner blocks** (`_core_stops`, on `enclosure-front-bottom`). A block in each front
-  corner of the slab, [38 mm](CORE_STOP_WIDE) across — the ±X wall inboard to one corner round
-  past the tangent — and [40 mm](CORE_STOP_RISE) off the slab. **The pocket in it is the core's
-  own rounded plan outline offset by 0.25 mm**: a Ø[24.5 mm](CORE_STOP_BORE)
+  corner of the slab, across — the ±X wall inboard to one corner round
+  past the tangent — and off the slab. **The pocket in it is the core's
+  own rounded plan outline offset by 0.25 mm**: a Ø
   bore on the round's own axis outboard of the tangent, and the core's own flat front face
   inboard of it. So the block bears flat where the core is flat and round where it is round —
   the flat bounds forward travel and the round bounds sideways travel and yaw after the
-  modeled allowance is taken up. The web ahead of that outline is [6 mm](CORE_STOP_WEB) at every point of it,
+  modeled allowance is taken up. The web ahead of that outline is at every point of it,
   including the tangent, where a bore alone leaves it thinnest. Underside on the slab, outboard
   face on the wall: a corner bracket in one piece with both faces it stands on, the card slot's
   own form.
 - **Aft brackets** (`_core_holds`, on `enclosure-back-top`). A right trapezoid in section,
-  [6.1 mm](CORE_HOLD_WIDE) wide on the west and 9 mm on the east: the bearing face along the cap from [12 mm](CORE_HOLD_REACH)
-  forward of the core's aft face back to the wall, a leg [40 mm](CORE_HOLD_RISE) up that wall in
+  wide on the west and 9 mm on the east: the bearing face along the cap from
+  forward of the core's aft face back to the wall, a leg up that wall in
   the `rear_seam_clear` band, and one straight from the head of the leg down to the foot's tip,
-  [8 mm](CORE_HOLD_LAND) over the bracket's foot plane. The whole bracket profile stands
+  over the bracket's foot plane. The whole bracket profile stands
   0.25 mm above the core's cap crown, putting the cap-facing foot at Z253.65.
   This face prints upward with back-top inverted and adds no supported-face allowance.
   The straight web carries the flange. The west bracket occupies X−43.6..−37.5;
@@ -544,7 +544,7 @@ The production preparation retains Tree(auto)/Default.
 ## The reeded skin
 
 The standing walls' flat show faces are **fluted** — half-round grooves
-[4 mm](FLUTE_WIDTH) across and [1.2 mm](FLUTE_DEPTH) deep, with the profile from
+ across and deep, with the profile from
 `cadlib/reeding.py`. The four R12 standing corners are smooth through their full
 90° turn, at the same outer envelope as the flute tips. The exterior field adds
 up to 1.2 mm of material where a corner groove would otherwise cut inward.
@@ -562,7 +562,7 @@ At every station the field asks the piece whether it has
 material AT the nominal plan — by level cut, not by naming features — and takes a distance
 transform of the answer. A flank opening, a port chip's seat, the nameplate's pocket, the bay's
 own mouth, the seam a piece simply ends on, the bed, the rounded top and display surround are
-one fact to it, and every one of them gets the same ramp over [5 mm](FLUTE_RISE).
+one fact to it, and every one of them gets the same ramp over.
 The rounded plan stations are kept plain; the same distance field fades the
 adjacent straight-wall grooves into them. The structural solid defines the
 internal seats, joints and complete outer corner envelope.
@@ -570,12 +570,12 @@ internal seats, joints and complete outer corner envelope.
 A rim that runs WITH the flutes is not one of them: a groove ending along its own length has
 nothing to stop. The Y seam is one, and so is every jamb.
 
-**The field closes on itself.** [272](FLUTE_COUNT) nominal stations go round
-[1342 mm](FLUTE_PERIM) of plan, struck by arc length from a datum on the front
-wall's centreline. The phase continues across each smooth [12 mm](COLUMN_ARC)
+**The field closes on itself.** nominal stations go round
+ of plan, struck by arc length from a datum on the front
+wall's centreline. The phase continues across each smooth
 corner turn. No station restarts the array and no two arrays meet anywhere. The pitch is what that count lands
-on, [4.9338 mm](FLUTE_PITCH) against the coupon's [5 mm](COUPON_PITCH). The **Y seam** — the
-one straight line running the full height of both side walls — lands [1.3 mm](FLUTE_SEAM_MISS)
+on, against the coupon's. The **Y seam** — the
+one straight line running the full height of both side walls — lands
 off a groove's centre, in the shadow that is already there rather than on a land.
 **`flute-closes`** holds the pitch to the coupon's.
 
@@ -588,12 +588,12 @@ The pump pockets, lower retainer, skirt lands, tube passages and wire passages a
 interior surfaces. They stay plain. `flute_rails` supplies the exterior plan only; the
 integral upper mount and its broad stock do not create an indoor decorative field.
 
-**Nothing may relieve into the outermost [3 mm](FLUTE_BACKING) of a fluted face.** The exterior
+**Nothing may relieve into the outermost of a fluted face.** The exterior
 profile ([print-log.md](print-log.md)) lays two wall loops a side at 0.42 and 0.45, so one
 `wall` is 1.74 mm of solid perimeter and a groove floor still has all four of them, with 0.06 mm
 to spare. Take more out of the far side and the two pairs of loops meet: the slicer stops laying
 four walls, and the change in what it lays under the groove reads THROUGH to the show face as a
-mark you can find with a fingertip. What a groove leaves is [1.8 mm](FLUTE_LEFT), and
+mark you can find with a fingertip. What a groove leaves is, and
 **`flute-backed`** reads every stated section on a fluted face against the rule — with two of
 them computed rather than typed, because the survey that measured this found them and the file
 had not stated them: the measured backing below the front curve, and
@@ -602,27 +602,27 @@ surface inboard of the plane the bore was struck on.
 
 **It is free to print.** Every groove runs down the build axis, so its own side surfaces are
 drawn by the nozzle in XY, carry no layer quantisation at all, and hang over nothing. The ramps
-are `flute_depth` of relief over `flute_rise` of height — [19.8°](FLUTE_RAMP) off the wall at the
+are `flute_depth` of relief over `flute_rise` of height — off the wall at the
 smoothstep's steepest, against the 45° every relief on this box is struck at.
 
 ## The condenser's vents
 
 **The vent is the flutes, pierced.** The condenser's fan draws through one flank of the block
 and blows out the other, and both flanks of the box already carry the reeded field — so a slot
-[3.1 mm](VENT_SLOT) across is struck down the FLOOR of every groove standing over the finstack,
-on the field's own centres, clean through the [6 mm](VENT_FLANK_T) a bottom piece's lipped flank
+ across is struck down the FLOOR of every groove standing over the finstack,
+on the field's own centres, clean through the a bottom piece's lipped flank
 carries. Both jambs run WITH the flute and the groove carries on past both ends of the slot at
 full depth, so nothing crosses a flute anywhere here and no edge it makes is one the skin stops
 on. Off-normal the wall reads as unbroken reeding; head-on it is a grille.
 
 **The mullion is the governing number, not the section behind the groove.** A slot takes its
-width out of the pitch, and what is left between two of them is [1.8338 mm](VENT_MULLION) at
-[4.9338 mm](FLUTE_PITCH) centres — against the [1.74 mm](VENT_SHELL) of loops the exterior
+width out of the pitch, and what is left between two of them is at
+ centres — against the of loops the exterior
 profile lays (2 × 0.42 outer + 2 × 0.45 inner, [print-log.md](print-log.md)), which leaves
-[0.0938 mm](VENT_SPARE) and ceilings a slot down every groove at [3.1938 mm](VENT_CEILING). The
+ and ceilings a slot down every groove at. The
 two figures move OPPOSITE ways: the jamb stands half a slot off the groove's centre, out on the
 half-ellipse where the groove is shallower, so the flank behind a jamb is
-[5.2416 mm](VENT_JAMB) rather than the 4.8 under the groove's own floor — a wider slot never
+ rather than the 4.8 under the groove's own floor — a wider slot never
 thins the wall and only ever thins the mullion.
 The coupon at `c14bb2fff` printed this scheme beside the ceiling slot and a full-groove-width slot
 down alternate grooves, on a section of this same flank at this same pitch.
@@ -631,35 +631,35 @@ down alternate grooves, on a section of this same flank at this same pitch.
 asks `plan_at` where each one landed, so a slot is struck at a groove centre by construction and
 the vent follows the field if `flute_count` is ever retuned — there is no Y station typed
 anywhere in the feature. A groove is in when its whole slot lies inside the block's AIRWAY: the
-[34..148 mm](VENT_WINDOW) between the block's two recesses, which is finstack. The 20 mm at
+ between the block's two recesses, which is finstack. The 20 mm at
 either end is the sheet the box holds the block by, and the fan draws through neither.
-[23](VENT_GROOVES) grooves stand in that window on each flank.
+ grooves stand in that window on each flank.
 
 **In height the band is the FAN, not the airway.** What moves air through this wall is the axial
 fan bolted to the block's own flank; the finstack either side of it is served by whatever that fan
 pushes, and wall opened opposite it is opening on metal. So the band is the placed block brought
-in [22 mm](VENT_FAN_RISE) at its base and [5 mm](VENT_FAN_DROP) at its crown —
-[31..141 mm](VENT_BAND), a [110 mm](VENT_BAND_H) band, the fan's own footprint and nothing wider.
+in at its base and at its crown —
+, a band, the fan's own footprint and nothing wider.
 Both insets are read against the block where it stands, so raising the block raises the vent.
 
 **Less whatever the flank carries behind that particular groove.** Nothing is listed: the piece
 is asked, groove by groove, what stands ROOTED on its inner face, probing one
-[3 mm](VENT_CLEAR) wall inward and keeping that same margin past both jambs and both ends. The
+ wall inward and keeping that same margin past both jambs and both ends. The
 transoms are the opening vocabulary: if a root's margin enters one course, that whole segment
 stays solid and fluted rather than becoming a one-off short slit. A single opening marooned past
 such a land stays wall too. The MQ-6's two posts stop below the vent band, and its can stands
 off the flank face, so nothing of the sensor reaches the vent. All
-[92](VENT_RUNS_IN) realized intake openings are the full [24.5 mm](VENT_SHORTEST) segment;
-[0](VENT_SHORT) have a different height.
+ realized intake openings are the full segment;
+ have a different height.
 
-**[3](VENT_TRANSOMS) transom bands cross that vent, and they are why it prints.** A mullion is
-[1.8338 mm](VENT_MULLION) across. Pierced clean over the whole band it would stand
-[60:1](VENT_ASPECT_BARE) — a picket that tall with nothing tying its top to anything. The brace
+** transom bands cross that vent, and they are why it prints.** A mullion is
+ across. Pierced clean over the whole band it would stand
+ — a picket that tall with nothing tying its top to anything. The brace
 is **not** a bar between two mullions, and nothing stands at 45° across a groove: at
-[3](VENT_TRANSOMS) heights — [57.5, 86, 114.5 mm](VENT_TRANSOM_Z) — the wall is simply **not
+ heights — — the wall is simply **not
 pierced**, so every mullion and both jambs run into one plate of full section
-[4 mm](VENT_TRANSOM_H) tall. Nothing bridges and nothing grows out of a tower. What is left is
-[4](VENT_SEGMENTS) slot segments of [24.5 mm](VENT_SEGMENT) apiece, and the four of them plus the
+ tall. Nothing bridges and nothing grows out of a tower. What is left is
+ slot segments of apiece, and the four of them plus the
 three transoms close exactly on the band — `vent_transoms` divides the band rather than listing
 stations, so the layout stays symmetric about its own mid-height whichever of the three figures
 moves.
@@ -667,19 +667,19 @@ moves.
 **The groove runs through a transom unbroken.** Only the piercing stops. The field is struck on
 the flank's whole plan, so a transom is invisible off-normal and the reeding reads continuous down
 the wall — head-on it is a grille in four courses. Both ends of every one of those
-[4](VENT_SEGMENTS) segments are closed by a 45° hip, the angle every relief on this box rises at:
+ segments are closed by a 45° hip, the angle every relief on this box rises at:
 each hip sits down inside the groove's own shadow, the sill only takes material away as the print
 climbs, and the ceiling closes at exactly the angle the box supports nothing steeper than.
 
 | | slots | openings | thinnest mullion | tallest opening | free area |
 |---|---|---|---|---|---|
-| −X intake | [23](VENT_SLOTS_IN) | [92](VENT_RUNS_IN) | [1.8338 mm](VENT_MEAS_MULLION) | [24.5 mm](VENT_TOWER_IN) | [65.5 cm²](VENT_OPEN_IN) |
-| +X exhaust | [23](VENT_SLOTS_OUT) | [92](VENT_RUNS_OUT) | [1.8338 mm](VENT_MEAS_MULLION) | [24.5 mm](VENT_TOWER_OUT) | [65.5 cm²](VENT_OPEN_OUT) |
+| −X intake | | | | | |
+| +X exhaust | | | | | |
 
 Both read off the built piece at the flank's mid-section, over the fan's own band. A pierced field
-is [62.8 %](VENT_OPEN_PCT) open where every slot runs; the readings above are what the band came
-out at with the transoms, the hips and the intake's rail in it. The tallest opening on either flank is [24.5 mm](VENT_TOWER) on a
-[1.8338 mm](VENT_MEAS_MULLION) mullion, which is [13.4:1](VENT_ASPECT).
+is open where every slot runs; the readings above are what the band came
+out at with the transoms, the hips and the intake's rail in it. The tallest opening on either flank is on a
+ mullion, which is.
 
 **The air path is the donor's.** The condenser, its fan and shroud, and the compressor beside
 them stand in the donor ice maker's own arrangement
@@ -942,14 +942,14 @@ on the ±X exterior walls and runs out into their own rounds.
 
 Inside those verticals stand the **columns**, and each one is that relief
 **mirrored** — congruent, which is what fixes it. The relief outside is a **quarter turn**
-of [12 mm](COLUMN_ARC); a mirror is congruent or it is not a mirror, so the column's face is
+of; a mirror is congruent or it is not a mirror, so the column's face is
 a quarter turn of the same radius — the **same arc and the same length**. The only place such
 a turn fits inside the cavity with its ends on the two inner faces is swung from the corner
 they meet at, and that is the whole construction: one radius, one centre.
 
 It lands on each face at 90°, so a standing vertical presents **two sharp corners** opposite
-each other, [12 mm](COLUMN_ALONG) along each inner face, with the arc between them. The
-section stands [8.27 mm](COLUMN_DEPTH) out of the cove at the corner's diagonal.
+each other, along each inner face, with the arc between them. The
+section stands out of the cove at the corner's diagonal.
 
 **The corner behind it is solid.** The face is the column's only free surface — a second arc
 back there would leave a through slot the column's whole height — so the column is everything
@@ -1041,13 +1041,13 @@ and insert entries remain clear for cleanup before fitting the hardware.
 
 The **PRV chase's closed roof leans from the −X wall too**. Where its open exterior groove
 becomes the closed fall, the groove's roof is level across the
-[3 mm](VENT_GROOVE_ROOF) show-skin section: it looks print-up on back-top and meets the show
+ show-skin section: it looks print-up on back-top and meets the show
 face square. The closed passage's roof is one X plane
 from its liner inside the flank through the wall and out to the cold-core lip, and the lip
-keeps [3.05 mm](VENT_RIB_LAND) of solid land below the square mouth. The lip ends
+keeps of solid land below the square mouth. The lip ends
 at X−90.75, 0.25 mm outboard of the core's X−90.5 flank. Back-top's share of the rib
 stands square on the seam rim, which looks print-up on that piece. Its exterior crown is flat
-at the lip's height across the [8 mm](VENT_RIB_BASE) to the grown flank, with the complete
+at the lip's height across the to the grown flank, with the complete
 first printed section carried by removable tree support. The inner passage roof keeps its
 45° plane. The mouth's floor is a `vent_channel_w` bridge
 between the passage's two jambs. The exterior groove edge, the square passage and the back
@@ -1079,23 +1079,23 @@ existing roof silhouette. Only the fitted pump rooms, display receiver, tube cle
 wire passages, snap receivers and required fastener holes remove material from that field.
 
 The separate `enclosure-pump-retainer` (`build_pump_retainer`) has a broad rectangular core,
-[196.5 mm](PUMP_RETAINER_W) across, [68.015 mm](PUMP_RETAINER_D) fore–aft and
-[49.229 mm](PUMP_RETAINER_H) high. Its fitted lower wells preserve the head profiles and
+ across, fore–aft and
+ high. Its fitted lower wells preserve the head profiles and
 flat skirt lands supplied by `pump_tray.py`. Its outside ends on broad planes rather than
 following the outlines of the pumps. An integral full-depth wing on each side snaps into
 front-top’s flank receiver.
 
 The pump holder stations are X±52.225, Y45.859, Z214.925. The actual seated flange is
-[224.674 mm](PUMP_FLANGE_Z), [0.251 mm](PUMP_SEATED_DROP) below that holder datum. The
+, below that holder datum. The
 reference boss and motor share an axis 1 mm toward Y− from the head datum; their upper
 inverse follows Y44.859. Keeping those two axes distinct preserves the fitted lower wells
 and the four existing tube axes.
 
-Each molded skirt is [8 mm](PUMP_SKIRT_DEPTH) deep. Its fitted lower land remains at
-[216.674 mm](PUMP_SKIRT_SUPPORT_Z), with continuous bearing on X−, Y− and X+ and between
+Each molded skirt is deep. Its fitted lower land remains at
+, with continuous bearing on X−, Y− and X+ and between
 the two tube passages on Y+. The integral upper bearing plane is
-[225.074 mm](PUMP_FIXED_BEARING_Z): the flange datum plus the supported-face allowance.
-The retainer's nonbearing top ends at [224.424 mm](PUMP_RETAINER_TOP_Z), leaving nominal
+: the flange datum plus the supported-face allowance.
+The retainer's nonbearing top ends at, leaving nominal
 space between the printed halves. These face allowances describe the CAD and print
 process; they are not a measured axial-play or retention result.
 
@@ -1132,16 +1132,16 @@ complete back-top print's cleanup, installed release forces or lifetime.
 
 ## Prepared tubes and underside loading
 
-Each pump carries two straight [33.2 mm](DOCK_PUMP_TUBE) stubs of the machine's black
+Each pump carries two straight stubs of the machine's black
 1/4-inch LLDPE. The pump head's housing clamps its BPT tube around each stub. Four open
 passages in the retainer clear the molded casings and let the tubes stand straight toward
-the tee wall. Each fitted casing passage is [13.25 mm](CAP_TUBE_OPEN) wide around the
-[12.75 mm](CAP_TUBE_PART) reference casing; each pair has [59.75 mm](CAP_TUBE_PITCH)
+the tee wall. Each fitted casing passage is wide around the
+ reference casing; each pair has
 axis spacing.
 
 Set the four tips with both pumps seated in the loose retainer on the bench. The existing
 [tube setting jig](enclosure-pump-tube-setting-jig.stl) seats on its flat rear face at
-[Y82.265](DOCK_CRADLE_BACK) and sets the tips to [Y97.19](DOCK_TIP_Y). Tighten the pump-head
+ and sets the tips to. Tighten the pump-head
 housings and remove the jig before approaching front-top; its broad body needs the space
 occupied by the tee wall.
 
@@ -1157,13 +1157,13 @@ owns the complete order.
 ## Fixed plumbing behind the mount
 
 Four purchased PP0208E tees receive the pump tubes on X±82.1 and X±22.35 at
-[Z196.174](DOCK_ROW_Z). Each branch approaches its fixed tube from aft; the pump mount
+. Each branch approaches its fixed tube from aft; the pump mount
 stays in place. The extended branch collet grips the tube and the O-ring seals it. The
 snap-fit retainer holds the pumps in front-top.
 
 Each tee's upper collet takes one short tube up to its fore valve at
-[Y108.04](DOCK_FORE_VALVE_Y). Its lower return uses two trimmed stem elbows and one
-continuous tube with two tangent bends below [Z168.81](DOCK_RETURN_Z) to reach the rear valve. Install all four prepared
+. Its lower return uses two trimmed stem elbows and one
+continuous tube with two tangent bends below to reach the rear valve. Install all four prepared
 tee, upper-tube and fore-valve groups straight from aft before fitting the rear valve row.
 Complete both rows and the returns while front-top is loose, before its aft slide over the populated
 lower enclosure. The [pump-mount record](../pump-dock/README.md) supplies the fitting
@@ -1171,23 +1171,23 @@ stations and physical qualification scope.
 
 ## The underside opening and tee wall
 
-Front-top retains its continuous [9 mm](FRONT_WALL) front wall and both
-[9 mm](FRONT_TOP_FLANK) flanks. The underside loading opening spans X−98.5..98.5, from
-Y14 to the tee wall at [Y82.515](DOCK_BAY_FACE_Y). The retainer has running clearance
-around its rectangular core and at the ends of its snap wings. Its bottom is [175.195 mm](PUMP_RETAINER_BOTTOM_Z).
+Front-top retains its continuous front wall and both
+ flanks. The underside loading opening spans X−98.5..98.5, from
+Y14 to the tee wall at. The retainer has running clearance
+around its rectangular core and at the ends of its snap wings. Its bottom is.
 The front face and rounded enclosure corners belong to front-top.
 
-The tee wall is one broad slab, [15.821 mm](DOCK_WALL_T) deep, reaching aft to
-[Y98.336](DOCK_WALL_AFT_Y). The fore [4.675 mm](DOCK_PLATE_T) collet band ends at the bore
-face, [Y87.19](DOCK_BORE_FACE_Y). Each tee stands in a teardropped
-[Ø17 mm](DOCK_BORE) branch bore, with its extended collet in the smaller
-[Ø11.93 mm](DOCK_HOLE_D) opening ahead of it. A [6.85 mm](PUMP_TUBE_GATE_WIDTH) bottom-open
+The tee wall is one broad slab, deep, reaching aft to
+. The fore collet band ends at the bore
+face,. Each tee stands in a teardropped
+ branch bore, with its extended collet in the smaller
+ opening ahead of it. A bottom-open
 gate joins each tube axis to the underside. The remaining bore-face land stops the fixed
 branch barrel; its lower return stops the tee aft.
 
 Front-bottom's front and flank lips drop over the pump-loading run. Two broad lower feet
-support the tee wall's end regions, each [10 mm](PLATE_FOOT_X) × [20 mm](PLATE_FOOT_Y), with
-[3 mm](PLATE_FOOT_T) section and a [45°](PLATE_FOOT_ANGLE) underside. The remaining flank
+support the tee wall's end regions, each ×, with
+ section and a underside. The remaining flank
 rails keep their complete working runs aft of the tee wall.
 
 ## Pump snap retention and release
@@ -1233,7 +1233,7 @@ retain their separately identified exports and assembly queries.
 ## The pump lead
 
 DC-5 and SIG-7 use one rear wire passage through the continuous pump/display body. Its
-[22 mm](PUMP_SHARED_WIRE_SPAN) diamond passage is centred at X0/Z280 and opens through Y99.
+ diamond passage is centred at X0/Z280 and opens through Y99.
 Its rear upper half opens straight over the bulkhead lip, leaving no tapered banks.
 The pump branches reach their terminal rooms through a cross passage between the two motor
 axes. Its level floor at Z274.224 joins the motor rooms and shared outlet beneath a 45° roof.
@@ -1255,7 +1255,7 @@ exports and does not qualify this passage or actual harness dressing.
 
 ## Display housing
 
-The machine display sits on a 30° plane within the enclosure's [215 × 466.3 × 361 mm](BOX_SIZE)
+The machine display sits on a 30° plane within the enclosure's
 outside dimensions. An R12 tangent curve joins that plane to the front wall, and
 an R18 tangent curve joins it to the roof. The long side edges are R6. The rear
 top edge remains square. The flat display plane is 87 mm long along its slope;
@@ -1364,9 +1364,3 @@ silhouette; the wall and component datums stay fixed.
 facet constants are at the top of `enclosure.py`. Prints the facet size, the
 Y seam's corner stacks and screws, each piece's envelope vs. the H2C
 bed, every piece-pair's slip fit, and the cold-core clearance.
-
-## Sources
-[value](NAME) texts are updated by:
-- `/<stdin>`
-- `/hardware/printed-parts/enclosure/enclosure/enclosure.py`
-- `/tmp/above-core-implementation/refresh_joint_figures.py`

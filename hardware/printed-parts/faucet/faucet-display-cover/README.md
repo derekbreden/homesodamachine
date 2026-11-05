@@ -36,30 +36,30 @@ exact approved cover and matching lowered tip for subsequent Industrial prints.
 
 ## Geometry
 
-The planar face is [27.5 mm](PLATE_X) wide and [48.49 mm](PLATE_S) long. Its
+The planar face is wide and long. Its
 rounded skin tapers to the skirt around the neck. The bezel is
-[1.3 mm](COSMETIC_WALL) thick. The finished rim has a 1 mm minimum cosmetic
-section; the front wall is [2 mm](DISPENSE_FACE_T) thick. Two broad [3 mm](LIP_HEIGHT)-high retaining lips
+ thick. The finished rim has a 1 mm minimum cosmetic
+section; the front wall is thick. Two broad -high retaining lips
 continue inward from the side walls. The four metal-foot bearing pads are
-[3 mm](FOOT_PAD_WIDTH) along the display and 3.25 mm across it, with
-inner faces flush to the open channel, and [3.5 mm](FOOT_PAD_DEPTH) deep.
+ along the display and 3.25 mm across it, with
+inner faces flush to the open channel, and deep.
 
 The rear wall closes within the rounded skirt outline. Its inner face is
 vertical at the display's rear clearance plane; its lower edge slopes upward
 across the curved neck opening. The lower rear skirt extends
-[1.2 mm](REAR_SKIRT_EXT) aft along s, with its front edge and planar bezel
+ aft along s, with its front edge and planar bezel
 at their shared display datums. Its rear opening follows
-s = [42.1 mm](REAR_TRIM_S0) + [0.6](REAR_TRIM_DS_DN) × n.
+s = + × n.
 The underside remains open.
 
-The lips follow the neck profile with [1.2 mm](SNAP_ENGAGEMENT) nominal radial
-engagement in [1.2 mm](GROOVE_DEPTH)-deep grooves. The seated lip and groove
+The lips follow the neck profile with nominal radial
+engagement in -deep grooves. The seated lip and groove
 roots share a contact surface. The relaxed print pulls each wing inward by
-[1.25 mm](WING_PRELOAD) at the lip top and [1.488 mm](WING_BOTTOM_PRELOAD) at
+ at the lip top and at
 its bottom. This inset tapers to zero at the bezel's inner face.
-The grooves leave [0.48 mm](GROOVE_ROOF_CLEARANCE) above the lip tops and
-[0.3 mm](GROOVE_END_CLEARANCE) at their ends. The lips' inner upper and lower
-corners carry [0.25 mm](LIP_INNER_EDGE_RELIEF) chamfers. Their central curved
+The grooves leave above the lip tops and
+ at their ends. The lips' inner upper and lower
+corners carry chamfers. Their central curved
 faces contact the groove roots under preload, and the remaining flat lower
 lands seat on the groove floors before the bezel can reach the glass.
 
@@ -68,9 +68,9 @@ The faucet assembly shows the nominal seated fit surface. That surface
 does not predict the closed cover's elastic deformation, insertion force
 or long-term preload.
 
-The window is [20.5 mm](WINDOW_X) × [40.5 mm](WINDOW_S). Its lip overlaps the
-module housing and leaves [0.1 mm](COVER_OVER_FACE) above the glass. The display
-feet sit at n = [11.6 mm](DISPLAY_FEET_N). The measured device and corrected
+The window is ×. Its lip overlaps the
+module housing and leaves above the glass. The display
+feet sit at n =. The measured device and corrected
 vendor component envelopes leave 1.80064 mm between the flavor tubes and
 the limiting USB-C housing. The underside over the tubes is open; four small
 pads support the metal feet.
@@ -91,7 +91,7 @@ neck, so the parting line stays below the display face.
    corner as viewed from the glass, clear of the USB socket and underside
    components, with slack for the assembly motion.
 3. Approach from the tube-outlet end with the display and cover held together
-   [9.5 mm](DISPLAY_INSTALL_LIFT) above their seated position. Slide along the
+   above their seated position. Slide along the
    gooseneck to align the module with its four metal-foot pads, then lower the
    pair squarely toward the neck. Both lips enter their grooves below the
    retaining shoulders. The wings remain spread from their relaxed positions.
@@ -144,7 +144,3 @@ records the reported print and retention observations.
 ```
 tools/cad-venv/bin/python hardware/printed-parts/faucet/faucet-display-cover/faucet_display_cover.py
 ```
-
-## Sources
-[value](NAME) texts are updated by:
-- `/hardware/printed-parts/faucet/faucet-display-cover/faucet_display_cover.py`

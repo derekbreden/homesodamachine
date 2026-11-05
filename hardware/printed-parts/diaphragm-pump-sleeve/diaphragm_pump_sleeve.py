@@ -87,13 +87,6 @@ def volume():
     return _data(method='volume')
 
 
-def _document(solid_volume, foot, height):
-    sys.path.insert(0, str(HARDWARE.parent / 'tools'))
-    from docgen import substitute_md
-    variables = _data(method='document', volume=solid_volume, foot_area=foot, height=height)['variables']
-    substitute_md(HERE / 'README.md', variables=variables)
-
-
 def main(output=None):
     import _rust_part
     out = Path(output) if output is not None else HERE
@@ -101,7 +94,6 @@ def main(output=None):
     _rust_part.cut("tooling", "diaphragm-pump-sleeve", numbers(), out)
     solid_volume, foot = volume(), foot_area()
     height = _data()['height']
-    _document(solid_volume, foot, height)
     from _part_output import summary
     printed_volume = summary({'volume': solid_volume})['volume']
     print(f"-> diaphragm-pump-sleeve.step, diaphragm-pump-sleeve.stl, "

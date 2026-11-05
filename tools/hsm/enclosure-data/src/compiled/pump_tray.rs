@@ -139,8 +139,6 @@ pub fn initialize(rt: Runtime, e: Env) -> Result<()> {
     e.set("_kp", rt.import_module("kamoer_kphm400")?)?;
     e.set("_pc", rt.import_module("pump_case")?)?;
     e.set("fits", rt.import_module("fits")?)?;
-    let mod38 = rt.import_module("docgen")?;
-    e.set("substitute_md", rt.member("docgen", "substitute_md")?)?;
     {
         let _site = rt.source_at(
             "tools/hsm/enclosure-data/src/compiled/pump_tray.rs",
@@ -1203,40 +1201,6 @@ Ok(Val::None)})})?;
                         }
                     });
                     fun598.call(args596, kw597)?
-                }
-            };
-            {
-                let _site = rt.source_at(
-                    "tools/hsm/enclosure-data/src/compiled/pump_tray.rs",
-                    line!(),
-                );
-                {
-                    let fun604 = e.get("substitute_md")?;
-                    let mut args602 = Vec::new();
-                    let mut kw603 = Vec::new();
-                    args602.push(binary(
-                        "truediv",
-                        e.get("_here")?.attr("parent")?,
-                        Val::Str("README.md".into()),
-                    )?);
-                    kw603.push((
-                        "variables".into(),
-                        e.get("report")?.get(Val::Str("variables".into()))?,
-                    ));
-                    fun604.call(args602, kw603)?
-                }
-            };
-            {
-                let _site = rt.source_at(
-                    "tools/hsm/enclosure-data/src/compiled/pump_tray.rs",
-                    line!(),
-                );
-                {
-                    let fun607 = e.get("print")?;
-                    let mut args605 = Vec::new();
-                    let mut kw606 = Vec::new();
-                    args605.push(Val::Str("-> README.md".into()));
-                    fun607.call(args605, kw606)?
                 }
             };
             Ok(Val::None)

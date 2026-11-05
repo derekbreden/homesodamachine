@@ -9,13 +9,13 @@ Two stacked rectangular blocks sharing one X-Z center, the screen facing
 the user (-Y, forward):
 
 - Main body — the PCB, display module, and rear components as one block:
-  [106 mm](BODY_WIDTH) (X) x [69 mm](BODY_HEIGHT) (Z) x [17 mm](BODY_DEPTH) (Y).
+  (X) x (Z) x (Y).
 - Bezel — the front cover-glass / touch-panel plate, standing proud of the
   body front and overhanging it on every side, larger than the body and offset
-  on it, its outline corners rounded [2.5 mm](BEZEL_CORNER_R):
-  [113.5 mm](BEZEL_WIDTH) (X) x [77 mm](BEZEL_HEIGHT) (Z) x [1 mm](BEZEL_DEPTH) (Y).
+  on it, its outline corners rounded:
+  (X) x (Z) x (Y).
 
-Overall envelope: [113.5 mm](BEZEL_WIDTH) (X) x [77 mm](BEZEL_HEIGHT) (Z) x [18 mm](TOTAL_DEPTH) (Y).
+Overall envelope: (X) x (Z) x (Y).
 
 Coordinate frame (the repo world frame)
 ---------------------------------------
@@ -26,9 +26,9 @@ Coordinate frame (the repo world frame)
                extends back into the appliance toward +Y.
 
 Origin is the center of the body in X-Z; the body is centered on it and the
-bezel is offset [-0.5 mm](BEZEL_OFFSET_X) in X and [1 mm](BEZEL_OFFSET_Z) in Z.
-The bezel caps the front, Y 0 -> [1 mm](BEZEL_DEPTH); the body runs behind it,
-Y [1 mm](BEZEL_DEPTH) -> [18 mm](TOTAL_DEPTH).
+bezel is offset in X and in Z.
+The bezel caps the front, Y 0 ->; the body runs behind it,
+Y ->.
 
 
 The reference STEP and payloads are declared in `frozen-asset.json`.
@@ -145,7 +145,4 @@ def __getattr__(name):
     if name in {'C_DISPLAY_GLASS', 'C_DISPLAY'}:
         import _materials
         return getattr(_materials, name)
-    if name in {'substitute_py_comments', 'substitute_md'}:
-        import docgen
-        return getattr(docgen, name)
     raise AttributeError(f"module {__name__!r} has no attribute {name!r}")

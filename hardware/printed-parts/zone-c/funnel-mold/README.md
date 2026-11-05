@@ -146,7 +146,3 @@ tools/cad-venv/bin/python tools/funnel-mold-print/review_chamber.py
 
 After publication, run `tools/funnel-mold-print/review_geometry.py --models hardware/printed-parts/zone-c/funnel-mold` in the
 recorded print orientations and address its findings.
-
-## Sources
-[value](NAME) texts are updated by:
-- `/tools/funnel-mold-print/verify_print.py`

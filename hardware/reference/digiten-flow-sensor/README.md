@@ -15,15 +15,15 @@ for placement. Dimensions below are millimetres.
 
 | Feature | Model dimension |
 |---|---|
-| Collet face to face | [61](PORT_SPAN) |
-| Cover flange diameter | [35](FLOW_BODY_DIA) |
-| Overall depth, including screw heads | [28.3](BODY_LEN) |
-| Housing centre toward the lead, above the port axis | [8.9](BODY_OFFSET) |
-| Fixed port neck diameter | [15.9](NECK_DIA) |
-| Fixed collar maximum diameter | [18.3](FLOW_PORT_DIA) |
-| Fixed collar, measured outward along either port | [19.6](COLLAR_START) to [26.8](COLLAR_END), length [7.2](COLLAR_LEN) |
-| Separate collet beyond the fixed collar | [3.7](COLLET_LEN) long |
-| Lead-root envelope | [6](WIRE_ROOT_WIDTH) × [3](WIRE_ROOT_DEPTH) × [1.5](WIRE_BOSS_LEN) |
+| Collet face to face | |
+| Cover flange diameter | |
+| Overall depth, including screw heads | |
+| Housing centre toward the lead, above the port axis | |
+| Fixed port neck diameter | |
+| Fixed collar maximum diameter | |
+| Fixed collar, measured outward along either port | to, length |
+| Separate collet beyond the fixed collar | long |
+| Lead-root envelope | × × |
 
 The collar is gently drafted, with radius 8.95 mm at its inner end and 9.15 mm
 at its outer end. `mounting_profile(sign)` supplies the fixed neck and collar
@@ -106,7 +106,3 @@ Recheck the preserved observations:
 ```sh
 tools/cad-venv/bin/python hardware/reference/digiten-flow-sensor/validate_scan.py
 ```
-
-## Sources
-[value](NAME) texts are updated by:
-- `/hardware/reference/digiten-flow-sensor/digiten_flow_sensor.py`

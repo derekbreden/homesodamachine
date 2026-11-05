@@ -73,12 +73,6 @@ def front_roof_clearance(inner, centre, seat, y_joint):
     return roof_blank(inner, centre, seat, enc.slide_slip, y_joint)
 
 
-def _document():
-    sys.path.insert(0, str(ROOT / 'tools'))
-    from docgen import substitute_md
-    substitute_md(Path(__file__).resolve().parent / 'README.md', variables=_data(method='document'))
-
-
 def numbers(inner=DEFAULT_INNER, y_joint=200.0, centre=(0.0, center_y), seat=349.0):
     return _data(method='numbers', inner=inner, y_joint=y_joint, centre=centre, seat=seat)
 
@@ -88,7 +82,6 @@ def main(output=None):
     out = Path(output) if output is not None else Path(__file__).resolve().parent
     out.mkdir(parents=True, exist_ok=True)
     said = _rust_part.cut('funnel', 'funnel-frame', numbers(), out)
-    _document()
     print(f'-> funnel-frame STEP, STL and payload; {said["bodies"][0]["volume"]:.1f} mm3; '
           f'floor Z {datums()[0]:g}')
 

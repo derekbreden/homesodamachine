@@ -1,6 +1,5 @@
-"""Doc-sync driver for hardware/assembly/pressure-vessel.md.
-
-Run: tools/cad-venv/bin/python hardware/assembly/_pressure_vessel_sync.py"""
+"""The pressure vessel's constants and gas physics, computed by the Rust `assembly-docs`
+program. `tools/model/model.py` and the all-aero float integration read them."""
 import sys
 from pathlib import Path
 _here = Path(__file__).resolve().parent
@@ -15,7 +14,7 @@ import float_rod_dimensions as rod_spec
 
 _assembly_doc_root = next(p for p in Path(__file__).resolve().parents if (p / "hardware/scripts").is_dir())
 sys.path.insert(0, str(_assembly_doc_root / "hardware/assembly"))
-from _rust_docs import evaluate as _evaluate, update as _update
+from _rust_docs import evaluate as _evaluate
 
 
 def _inputs():
@@ -49,11 +48,3 @@ def headspace_air_atm(t_c):
 
 def carbonation_volumes(t_c, air):
     return _evaluate("pressure-vessel", {**_inputs(), "t_c": t_c, "air": air}, operation="carbonation_volumes")["exports"]["value"]
-
-
-def main():
-    _update('pressure-vessel', _inputs())
-
-
-if __name__ == "__main__":
-    main()

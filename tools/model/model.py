@@ -6,8 +6,8 @@ Run:
     tools/cad-venv/bin/python tools/model/model.py --set regulator_psi=72 --set glass_g=268
     tools/cad-venv/bin/python tools/model/model.py volumes 21 1.4 --liquid-g 452 --bottle-ml 528 --snift 33 --snift 24
 
-The first form rewrites the [value](NAME) figures in `future/model.md`. `--set` pins an input
-read at the sink, so the page states the narrowed prediction before the pour that tests it.
+The first form prints the model's figures. `--set` pins an input read at the sink, so the
+prediction narrows before the pour that tests it.
 `volumes` turns a carbonation-tester reading into volumes of CO2.
 
 It runs when someone asks. No commit or build calls it (CLAUDE.md, "What Runs Every Time"), and
@@ -15,7 +15,7 @@ It runs when someone asks. No commit or build calls it (CLAUDE.md, "What Runs Ev
 
 Each uncertain input is drawn uniformly from its range (the absorption time log-uniformly), and
 a figure's band is the middle 80 % of what the draws give. The seed is fixed, so the same inputs
-give the same page.
+give the same figures.
 """
 
 import argparse
@@ -35,14 +35,13 @@ ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "tools"))
 sys.path.insert(0, str(ROOT / "hardware" / "assembly"))
 
-from docgen import load_module, substitute_md  # noqa: E402
+from docgen import load_module  # noqa: E402
 
 # The appliance's CO2 solubility, air build-up and feed live in the pressure-vessel driver; the
 # glass, the 1:20 label and the 6 °C target in the acceptance driver.
 import _pressure_vessel_sync as pv  # noqa: E402
 import _acceptance_and_burn_in_sync as ab  # noqa: E402
 
-PAGE = ROOT / "future" / "model.md"
 DRAWS = 2000
 SEED = 20261009
 
@@ -431,7 +430,7 @@ def band(values):
     return v[len(v) // 10], v[len(v) // 2], v[(9 * len(v)) // 10]
 
 
-# ── The page ─────────────────────────────────────────────────────────────────────────────────
+# ── The figures ──────────────────────────────────────────────────────────────────────────────
 
 def figures(results, pinned):
     one = lambda v: f"{v:.1f}"            # noqa: E731
@@ -598,8 +597,8 @@ def main():
             parser.error(f"unknown input {name!r}")
         pinned[name] = float(value)
     results = list(draws(pinned))
-    substitute_md(PAGE, variables=figures(results, pinned))
-    print(f"-> {PAGE.relative_to(ROOT)}")
+    for name, value in figures(results, pinned).items():
+        print(f"{name:<28} {value}")
 
 
 if __name__ == "__main__":

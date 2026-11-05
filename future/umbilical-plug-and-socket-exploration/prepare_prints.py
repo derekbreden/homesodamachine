@@ -220,15 +220,6 @@ def main():
         path.with_suffix(".print.json").write_text(json.dumps(report, indent=2) + "\n")
         summary[name] = report["native"]
         print(json.dumps({name: report["native"]}, indent=2), flush=True)
-    m, q = summary["machine-side"], summary["plug-side"]
-    fig = {"UMB_PRINTER": args.printer, "UMB_TRIM": f"{TRIMS[args.printer]:+.2f}",
-           "UMB_PAUSE_SOCKET": f"{m['pause_opens_layer_z']:.2f}", "UMB_PAUSE_PLUG": f"{q['pause_opens_layer_z']:.2f}",
-           "UMB_AIR_SOCKET": f"{m['air_over_bar_mm']:.3f}", "UMB_AIR_PLUG": f"{q['air_over_bar_mm']:.3f}",
-           "UMB_TIME_SOCKET": short_time(m["estimated_time"]), "UMB_TIME_PLUG": short_time(q["estimated_time"]),
-           "UMB_G_SOCKET": f"{m['filament_g'][0]:.0f}", "UMB_G_PLUG": f"{q['filament_g'][0]:.0f}"}
-    sys.path.insert(0, str(ROOT / "tools"))
-    from docgen import substitute_md
-    substitute_md(_HERE.parent / "README.md", fig)
     return summary
 
 

@@ -50,7 +50,6 @@ from faucet_shell import (
     signal_lower_exit_x,
     signal_lower_exit_y,
 )
-from docgen import substitute_md
 from world_workplane import WorldWorkplane, xy_plane_z_up
 
 from _rust_data import request
@@ -128,10 +127,6 @@ def main():
 
     said = _rust_part.cut("faucet", "above-counter-plate", numbers(), _here)
     print("-> " + ", ".join(said["files"]))
-    variables = _data()["variables"]
-
-    substitute_md(_here / "README.md", variables=variables)
-    print("-> README.md")
 
 
 if __name__ == "__main__":

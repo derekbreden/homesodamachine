@@ -256,9 +256,6 @@ FIG = {
     "UMB_CLR_UNION": f2(checks["union_to_union"]),
     "UMB_CLR_SCREW": f2(checks["screw_tip_to_union_cavity"]),
 }
-sys.path.insert(0, str(ROOT / "tools"))
-from docgen import substitute_md  # noqa: E402
-substitute_md(_HERE.parent / "README.md", FIG)
 
 rel = OUT.resolve().relative_to(ROOT).as_posix()
 

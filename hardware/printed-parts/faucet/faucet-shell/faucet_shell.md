@@ -50,11 +50,9 @@ fix this doc.
 
 ## Dimensions that also appear in prose
 
-- A number written in both the code and a human-facing doc is written once and
-  coupled, never copied. `[value](NAME)` markers (`tools/docgen/`) tie a comment
-  or a markdown dimension to the constant that owns it; `main()` rewrites them
-  and asserts their counts. A dimension in prose that docgen doesn't own is a
-  dimension waiting to drift.
+- A dimension is written once, in the code that owns it. A comment or doc names
+  the constant instead of restating its number; a number copied into prose is a
+  number waiting to drift.
 
 ## Comments
 

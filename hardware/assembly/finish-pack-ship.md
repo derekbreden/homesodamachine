@@ -2,7 +2,7 @@
 
 The procedure for the final stage of the soda machine's assembly — from a unit that passed [`acceptance-and-burn-in.md`](/hardware/assembly/acceptance-and-burn-in.md) to a tracked carton on a carrier's truck. Cosmetic inspection, identity-marking with the per-unit QR nameplate, fluid-drain confirmation for transit, install-kit pack-out, customer documentation, outer label, and carrier handoff. After it comes the customer's countertop install, supported by the bound install guide in the kit ([`/marketing/unboxing-and-installation.md`](/marketing/unboxing-and-installation.md)).
 
-Design intent for the Founder Edition shipping experience lives in [`/marketing/unboxing-and-installation.md`](/marketing/unboxing-and-installation.md), [`/hardware/README.md`](/hardware/README.md) "Enclosure (back to front)", and [`/marketing/target-market.md`](/marketing/target-market.md) "Founder Edition". The dev-phase task list for the very first unit ships lives in [`/hardware/assembly/handwork.md`](/hardware/assembly/handwork.md); this doc is the per-unit procedure across the [50](FOUNDER_EDITION_COUNT)-unit Founder Edition run.
+Design intent for the Founder Edition shipping experience lives in [`/marketing/unboxing-and-installation.md`](/marketing/unboxing-and-installation.md), [`/hardware/README.md`](/hardware/README.md) "Enclosure (back to front)", and [`/marketing/target-market.md`](/marketing/target-market.md) "Founder Edition". The dev-phase task list for the very first unit ships lives in [`/hardware/assembly/handwork.md`](/hardware/assembly/handwork.md); this doc is the per-unit procedure across the -unit Founder Edition run.
 
 ## Scope
 
@@ -67,9 +67,9 @@ Failures at this step: cosmetic blemishes are repaired in place where possible (
 
 The machine ships **DRY**. Carbonator and both flavor reservoirs are emptied at [`acceptance-and-burn-in.md`](/hardware/assembly/acceptance-and-burn-in.md) step 13, after the burn-in refill defined in [`/hardware/topology/fluid-topology.md`](/hardware/topology/fluid-topology.md) "Air Purge In/Out" — pump air through each reservoir into the gooseneck until the discharge runs dry, with the carbonator drained through the dispense path under residual CO2 pressure first.
 
-Carton-weight references: ~[20 kg](SLOSH_CARTON_W) full carton; emptied reservoirs save ~[~1.5 kg](WATER_DRAINED) water + ~[~1 kg](FLAVOR_DRAINED) flavor.
+Carton-weight references: ~ full carton; emptied reservoirs save ~ water + ~ flavor.
 
-Confirm dry here by: (a) listening at the gooseneck while gently tilting the machine [~15°](TILT_ANGLE) side-to-side and front-to-back — no liquid splash, no pooled-water "thunk"; (b) opening each reservoir cap and visually inspecting the sump for residual flavor (must be zero — the air-purge sequence pumps the reservoirs dry, so any residual flavor here means the purge cycle didn't complete); (c) opening the faucet lever with the system de-pressurized and the rear CO2 line disconnected — no liquid discharge at the gooseneck, no audible CO2 vent (the system should already be at atmospheric pressure after burn-in). Any wet finding sends the unit back to the bench rig for a re-purge cycle; it is not corrected here.
+Confirm dry here by: (a) listening at the gooseneck while gently tilting the machine side-to-side and front-to-back — no liquid splash, no pooled-water "thunk"; (b) opening each reservoir cap and visually inspecting the sump for residual flavor (must be zero — the air-purge sequence pumps the reservoirs dry, so any residual flavor here means the purge cycle didn't complete); (c) opening the faucet lever with the system de-pressurized and the rear CO2 line disconnected — no liquid discharge at the gooseneck, no audible CO2 vent (the system should already be at atmospheric pressure after burn-in). Any wet finding sends the unit back to the bench rig for a re-purge cycle; it is not corrected here.
 
 ### 3. Apply the per-unit nameplate
 
@@ -157,25 +157,25 @@ Side voids — the carton is sized so the machine + foam end-caps leave two flan
 - **Faucet-and-umbilical bag** (output of [`faucet-and-umbilical.md`](/hardware/assembly/faucet-and-umbilical.md)) lays into one side void, coiled to its 8–12" loop diameter per that bench's bagging step. Orient the bag so the faucet sits at the carton's TOP end — keeps the heavier faucet away from the carton's bottom drop zone, which the foam end-caps already cover for the machine itself.
 - **Install kit box** lays into the other side void, customer-documentation face up.
 
-Wedge both items with foam corner-blocks so they don't shift during transit. Close the carton's top flaps in the standard short-flap-first / long-flap-second order. Seal with kraft tape across all three top seams (long center + both short ends), then the same on the bottom. The Founder Edition unit is a [$7,500](FOUNDER_EDITION_PRICE) D2C ship — the seal isn't load-bearing, but it telegraphs care to the customer at unboxing.
+Wedge both items with foam corner-blocks so they don't shift during transit. Close the carton's top flaps in the standard short-flap-first / long-flap-second order. Seal with kraft tape across all three top seams (long center + both short ends), then the same on the bottom. The Founder Edition unit is a D2C ship — the seal isn't load-bearing, but it telegraphs care to the customer at unboxing.
 
 ### 8. Weigh, measure, and record against the order
 
-Place the sealed carton on the platform scale, level surface, zero the scale empty first. Record actual weight to [0.1 kg](SCALE_PRECISION) precision. Measure length × width × height with a tape measure across the carton's longest dimension on each axis (not the foam end-cap recess — the carrier dim-weight algorithm uses external dimensions, not internal void). Record both against the order in the run log (`logs/<serial>/finish/ship-dims.txt` is the working format, containing: serial, gross weight in kg, length × width × height in cm, and the run-log entry's timestamp).
+Place the sealed carton on the platform scale, level surface, zero the scale empty first. Record actual weight to precision. Measure length × width × height with a tape measure across the carton's longest dimension on each axis (not the foam end-cap recess — the carrier dim-weight algorithm uses external dimensions, not internal void). Record both against the order in the run log (`logs/<serial>/finish/ship-dims.txt` is the working format, containing: serial, gross weight in kg, length × width × height in cm, and the run-log entry's timestamp).
 
-Expected envelope: the machine at ~[10](APPLIANCE_W_LOW)–[15 kg](APPLIANCE_W_HIGH) + packaging + install kit + faucet-and-umbilical bag lands the carton at **[15](CARTON_W_LOW)–[20 kg](CARTON_W_HIGH)** and roughly [60](CARTON_L) × [50](CARTON_W_DIM) × [50 cm](CARTON_H_DIM) — both numbers are working assumptions, not precision specs, and the first-unit measurement is what calibrates the carrier-cost model for the run.
+Expected envelope: the machine at ~– + packaging + install kit + faucet-and-umbilical bag lands the carton at **–** and roughly × × — both numbers are working assumptions, not precision specs, and the first-unit measurement is what calibrates the carrier-cost model for the run.
 
-If the weight exceeds the carrier's ground threshold (typically [70 lb](CARRIER_LIMIT_LB) / [~32 kg](CARRIER_LIMIT_KG) for UPS Ground / FedEx Ground residential), escalate to LTL freight. At the Founder Edition unit's expected [15](CARTON_W_LOW)–[20 kg](CARTON_W_HIGH), no escalation is anticipated, but the measurement is the gate.
+If the weight exceeds the carrier's ground threshold (typically / for UPS Ground / FedEx Ground residential), escalate to LTL freight. At the Founder Edition unit's expected –, no escalation is anticipated, but the measurement is the gate.
 
 ### 9. Generate the shipping label, hand off to carrier, email tracking
 
-Carrier selection — UPS Ground vs FedEx Ground vs LTL freight, per package weight and customer ZIP — is undecided; working default for the [50](FOUNDER_EDITION_COUNT)-unit Founder run is ground freight to lower 48 US states. International is out of scope.
+Carrier selection — UPS Ground vs FedEx Ground vs LTL freight, per package weight and customer ZIP — is undecided; working default for the -unit Founder run is ground freight to lower 48 US states. International is out of scope.
 
-Generate the carrier label from the carrier's web portal against the customer's shipping address. Declared value at the carrier's insurance level is TBD pending the damage-claim decision; working assumption is full declared value of [$7,500](FOUNDER_EDITION_PRICE). Affix the label to the carton's top face (so the carrier's scanner reads it on the loading dock without rotating the carton) with the label-pouch's adhesive backing, not loose-taped — the carton sees rough handling and a corner-lifted label peels off in transit.
+Generate the carrier label from the carrier's web portal against the customer's shipping address. Declared value at the carrier's insurance level is TBD pending the damage-claim decision; working assumption is full declared value of. Affix the label to the carton's top face (so the carrier's scanner reads it on the loading dock without rotating the carton) with the label-pouch's adhesive backing, not loose-taped — the carton sees rough handling and a corner-lifted label peels off in transit.
 
 Hand the carton off to the carrier at scheduled pickup. Scan the carton out of the run log at handoff (`logs/<serial>/finish/shipped.txt` records the tracking number, carrier, handoff date/time, and the carrier's pickup-driver acknowledgment).
 
-Email the tracking number to the customer the same day, against the email on file with the order. The Founder Edition framing per [`/marketing/target-market.md`](/marketing/target-market.md) "Trust at Founder Edition: the brand is a person" makes the carrier-handoff email a personal touch from the founder — written from `derek@homesodamachine.com`, naming the unit's serial number, attaching the +Y wall's photo from step 5 — not a templated drop-ship notification. The customer paid [$7,500](FOUNDER_EDITION_PRICE) to one of the first [50](FOUNDER_EDITION_COUNT) hand-built units; the handoff email reads accordingly.
+Email the tracking number to the customer the same day, against the email on file with the order. The Founder Edition framing per [`/marketing/target-market.md`](/marketing/target-market.md) "Trust at Founder Edition: the brand is a person" makes the carrier-handoff email a personal touch from the founder — written from `derek@homesodamachine.com`, naming the unit's serial number, attaching the +Y wall's photo from step 5 — not a templated drop-ship notification. The customer paid to one of the first hand-built units; the handoff email reads accordingly.
 
 Damage-claim and warranty-registration workflow at carrier handoff is undecided.
 
@@ -192,7 +192,3 @@ A finished, ship-ready unit is:
 - Outer shipping label affixed to the carton's top face; carrier tracking number assigned
 - Tracking number emailed to the customer from the founder's address with the +Y wall photo attached
 - Per-serial photo set + ship-dims + tracking number archived under `logs/<serial>/finish/`
-
-## Sources
-[value](NAME) texts are updated by:
-- `/hardware/assembly/_finish_pack_ship_sync.py`

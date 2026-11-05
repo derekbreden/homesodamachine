@@ -35,29 +35,29 @@ The dedicated controller is
 
 ## Joint and speed
 
-The end plate is an ID-fit plug recessed [6.35 mm](RECESS). Its outer face and
+The end plate is an ID-fit plug recessed. Its outer face and
 the tube bore make a circular corner fillet:
 
 | Quantity | Value |
 |---|---:|
-| Weld-circle diameter | [123.70 mm](BEAD_D) |
-| One revolution at the bead | [388.61 mm](BEAD_C) |
-| Rotating mass, first / second closure | [1.40 kg](MASS_FIRST) / [2.01 kg](MASS_SECOND) |
-| Allowed bead travel | [5 mm/s](SPEED_MIN)–[15 mm/s](SPEED_MAX) |
-| Corresponding table range | [0.772–2.316 rpm](RPM_WINDOW) |
+| Weld-circle diameter | |
+| One revolution at the bead | |
+| Rotating mass, first / second closure | / |
+| Allowed bead travel | – |
+| Corresponding table range | |
 
 Travel speed is the recipe setting; table rpm follows from `v = ωr` at the
 tube ID. The current 12 mm/s wire-feed setting is shown only to make deposited
 area visible during process iteration:
 
-| Travel | Table rpm | 360° | Step pulses/s | Calculated triangular fillet leg at [12 mm/s](WIRE_FEED) wire |
+| Travel | Table rpm | 360° | Step pulses/s | Calculated triangular fillet leg at wire |
 |---:|---:|---:|---:|---:|
-| 5 mm/s | [0.772](RPM_5) | [77.7](REV_5) s | [185.3](PULSE_5) | [1.48](LEG_5) mm |
-| 6 mm/s | [0.926](RPM_6) | [64.8](REV_6) s | [222.3](PULSE_6) | [1.35](LEG_6) mm |
-| **8 mm/s** | **[1.235](RPM_8)** | **[48.6](REV_8) s** | **[296.4](PULSE_8)** | **[1.17](LEG_8) mm** |
-| 10 mm/s | [1.544](RPM_10) | [38.9](REV_10) s | [370.6](PULSE_10) | [1.05](LEG_10) mm |
-| 12 mm/s | [1.853](RPM_12) | [32.4](REV_12) s | [444.7](PULSE_12) | [0.96](LEG_12) mm |
-| 15 mm/s | [2.316](RPM_15) | [25.9](REV_15) s | [555.8](PULSE_15) | [0.85](LEG_15) mm |
+| 5 mm/s | | s | | mm |
+| 6 mm/s | | s | | mm |
+| **8 mm/s** | | ** s** | | ** mm** |
+| 10 mm/s | | s | | mm |
+| 12 mm/s | | s | | mm |
+| 15 mm/s | | s | | mm |
 
 The 5–15 mm/s bounds keep the calculated wire-only triangular leg between
 0.85 and 1.48 mm and keep a full revolution between 25.9 and 77.7 seconds.
@@ -65,25 +65,25 @@ The drive has more speed available, but the controller clamps commands to this
 process-development window; changing speed outside it requires an explicit
 firmware and procedure review.
 
-Start at **[8 mm/s](SPEED_NOM)**. It is centered inside the useful window, runs
-the table at [1.235 rpm](RPM_NOM), and turns 360° in [48.6](REV_8) s. Keep laser power, wobble, wire feed, standoff and
+Start at . It is centered inside the useful window, runs
+the table at, and turns 360° in s. Keep laser power, wobble, wire feed, standoff and
 shielding fixed while changing one variable. Use 1 mm/s speed increments after
 the first 316L coupon; record PT, section and hydro results beside the exact
 stored setpoint. This is the commissioning window for iteration, not a
 qualified weld schedule; coupon evidence sets the production value.
 
-At 3,200 pulses per motor revolution and a [4.5:1](RATIO) reduction, the table
-has [14,400](TABLE_PULSES) pulses/revolution. One pulse is
-[0.025°](TABLE_STEP_DEG), or [0.027 mm](TABLE_STEP_MM) at the bead — the
+At 3,200 pulses per motor revolution and a reduction, the table
+has pulses/revolution. One pulse is
+, or at the bead — the
 resolution the console's turned-so-far readout is quantised to. The motor turns
-only [5.558 rpm](MOTOR_RPM_NOM) at the nominal recipe.
+only at the nominal recipe.
 
 ## Mechanical fixture
 
 The stationary base is one 300 × 250 × 12 mm PET-GF print. Four 10 mm bench
 holes make clamping part of setup, and the rotary race and motor-tower inserts
 share the same uninterrupted printed datum. Four printed feet hold the base
-[24 mm](BASE_CLEARANCE) above the bench. A concentric [90 mm](SERVICE_BORE)
+ above the bench. A concentric
 passage through the nest, turntable, retainer, and base exposes both recessed
 ports in an already-welded lower end plate, so the second closure has a real
 purge inlet and outlet rather than trapping the connections against the bench.
@@ -98,7 +98,7 @@ it catches lift without carrying running load.
 
 The turntable carries an integral 90T HTD-5M pulley. With the purchased 20T
 pulley and 550 mm belt, nominal shaft center distance is
-[125.1 mm](BELT_CENTER). The purchased pulley is 20 mm long on the motor's
+. The purchased pulley is 20 mm long on the motor's
 21 mm shaft. Its motor-side flange is gauged 0.25 mm off the front face of the
 motor's 1.6 mm-long Ø38.1 pilot, placing its 16 mm land from 33.5 to 49.5 mm
 above the base bottom and centered in the printed tooth zone. The outer flange
@@ -112,8 +112,8 @@ travel. Two M5 × 20 countersunk screws pass through 10.2 mm 90-degree recesses
 in the carriage arms and the rear pair of the motor's flange holes into M5
 square nuts in its open corner channels; the front pair stays open because the
 belt's swept path crosses it at full tension.
-Small-pulley wrap is [127.1°](SMALL_WRAP), or
-[7.1](SMALL_WRAP_TEETH) engaged teeth. Print and check the 12-tooth belt coupon
+Small-pulley wrap is, or
+ engaged teeth. Print and check the 12-tooth belt coupon
 against the delivered belt before printing the complete turntable.
 
 The direct belt train is backdrivable. Releasing the pedal removes step motion,
@@ -302,7 +302,7 @@ orientation is set only after this direction convention is true.
    for the verified direction.
 6. Hold the head at the qualified angle and standoff, then press and hold the
    pedal. Once rotation is steady, hold the laser trigger for the bead. Carry
-   the bead past the first tack by about [20°](OVERLAP_DEG) — judged at the
+   the bead past the first tack by about — judged at the
    index mark, with the console's degrees as a check — and stop there.
 7. Release the trigger, then the pedal. A wire that sticks in the puddle is
    snipped, not lasered off: keep the head where it stopped and cut the wire
@@ -319,7 +319,6 @@ laser is enabled.
 ## Regenerate
 
 ```bash
-tools/cad-venv/bin/python hardware/assembly/_weld_rotation_rig_sync.py
 tools/cad-venv/bin/python hardware/printed-parts/fixtures/weld-rotator/weld_rotator.py
 ~/.platformio/penv/bin/pio test -e native -f test_weld_rotator_policy
 ~/.platformio/penv/bin/pio run -e weld_rotator
@@ -327,13 +326,6 @@ tools/cad-venv/bin/python hardware/printed-parts/fixtures/weld-rotator/weld_rota
 
 ## Reference data
 
-[value](NAME) texts are updated by:
-- `/hardware/assembly/_weld_rotation_rig_sync.py`
-
 Purchased drive data:
 - [STEPPERONLINE 23HS30-2804S motor](https://www.omc-stepperonline.com/nema-23-bipolar-1-8deg-1-9nm-269oz-in-2-8a-3-2v-57x57x76mm-4-wires-23hs30-2804s)
 - [STEPPERONLINE DM542T V4.0 manual](https://www.omc-stepperonline.com/download/DM542T_V4.0.pdf)
-
-## Sources
-[value](NAME) texts are updated by:
-- `/hardware/assembly/_weld_rotation_rig_sync.py`

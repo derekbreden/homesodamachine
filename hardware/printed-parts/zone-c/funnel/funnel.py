@@ -51,18 +51,11 @@ def numbers():
     return _data(method='numbers')['numbers']
 
 
-def _document(fill):
-    from docgen import substitute_md
-    substitute_md(_here.parent / 'README.md', variables=_data(fill=fill)['variables'])
-    print('-> README.md')
-
-
 def main(output=None):
     import _rust_part
     out = Path(output) if output is not None else _here.parent
     out.mkdir(parents=True, exist_ok=True)
     said = _rust_part.cut('funnel', 'funnel', numbers(), out)
-    _document(said['bodies'][0]['fill_mm3'])
     print(f"-> funnel STEP, fine model and payload; {said['bodies'][0]['volume']:.1f} mm3")
 
 

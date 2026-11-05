@@ -58,7 +58,6 @@ from _cadq_export import export_assembly, import_step  # noqa: E402
 from _materials import step_safe  # noqa: E402
 import _y_wall_dimensions as _rear  # noqa: E402
 import bulkhead_ring as _ring  # noqa: E402
-from docgen import substitute_md  # noqa: E402
 
 # THE BEVERAGE, TAP AND CO2 TUBE SIZE. Those lines are 1/4" OD LLDPE, off the
 # four colour-coded spools in `ledger/bom.md` §3. It is the nominal and not a bench figure: the tube on
@@ -413,8 +412,6 @@ def main():
     report = _collar_data("report", bodies=said["bodies"])
     for line in report["lines"]:
         print(line)
-    substitute_md(_here.parent / "README.md", variables=report["variables"])
-    print("-> README.md")
 
 
 if __name__ == "__main__":

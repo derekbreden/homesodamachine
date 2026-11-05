@@ -33,7 +33,7 @@ deck's own storey over the pump's casting
 cabinet's axes. The yaw turns the chain's flow onto the cabinet's −Y, its inlet aft
 at the tap-water bulkhead and its 1/4" PTC collet forward onto the 1/4" LLDPE run to
 the water-split; there is no roll, so the vent hangs as it is built, dropping its
-TPU sleeve downward onto the 4 mm tube. The continuation is authored in [`_drain.py`](/hardware/manifold-layout/_drain.py) and checked against the installed appliance in [`drain-clearance-check.json`](/hardware/manifold-layout/drain-clearance-check.json).
+TPU sleeve downward onto the 4 mm tube. The continuation is authored in [`_drain.py`](/hardware/manifold-layout/_drain.py); [`check_asse_drain.py`](/hardware/scripts/check_asse_drain.py) checks it against the installed appliance when run.
 
 ## Model
 
@@ -48,11 +48,11 @@ assembly's own, and `port(name)` reads one off its station's seat:
 
 | terminal | station port | position | out |
 |---|---|---|---|
-| `port("tube-in")` | `jg-pp010822e.tube_port` | [(-36.30, 0.00, 27.45)](ASSE_TUBE_IN) | −X |
-| `port("tube-out")` | `flare38-14ptc.tube_port` | [(102.20, 0.00, 27.45)](ASSE_TUBE_OUT) | +X |
-| `port("vent-tip")` | `multiplex-asse1022.vent` | [(24.65, 0.07, 0.00)](ASSE_VENT_TIP) | −Z |
+| `port("tube-in")` | `jg-pp010822e.tube_port` | | −X |
+| `port("tube-out")` | `flare38-14ptc.tube_port` | | +X |
+| `port("vent-tip")` | `multiplex-asse1022.vent` | | −Z |
 
-Overall [138.5 × 33.1 × 41.9 mm](ASSE_ENVELOPE) for the water-fitting chain.
+Overall for the water-fitting chain.
 The exposed vent tip is the actual reference barb datum, with no hose stub.
 The installed TPU sleeve and the two-bend R25 return are separate appliance
 members. The sleeve's printable sockets are trial fit dimensions; its expanded
@@ -68,7 +68,3 @@ Builds its parts from their modules in-process, so only this one command:
 ```
 tools/cad-venv/bin/python hardware/reference/asse1022-assembly/asse1022_assembly.py
 ```
-
-## Sources
-[value](NAME) texts are updated by:
-- `/hardware/reference/asse1022-assembly/asse1022_assembly.py`

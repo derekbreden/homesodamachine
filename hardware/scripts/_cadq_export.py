@@ -28,13 +28,11 @@ Usage from any generator script:
     export_pdf(lambda p: build_pdf_at(p), str(out_path))
 """
 
-import atexit
 import hashlib
 import os
 import re
 import subprocess
 import sys
-import time
 from collections import Counter, defaultdict
 from pathlib import Path
 
@@ -45,15 +43,9 @@ from pathlib import Path
 _HERE = Path(__file__).resolve()
 _ROOT = _HERE.parents[2]
 
-# WHERE THIS RUN'S SECONDS START. Every generator imports this module before it cuts
-# anything. The interpreter's own start and CadQuery's import stand ahead of this line,
-# and `build-time.md` counts a generator's seconds from here.
-_STARTED = time.perf_counter()
-
 from _run_lock import acquire as _acquire_build_lock
 
-# WHAT THIS RUN IS, named once. The lock says it to whoever it supersedes, and
-# `build-time.md` files this run's seconds under it.
+# WHAT THIS RUN IS, named once. The lock says it to whoever it supersedes.
 _ENTRY = None
 if sys.argv and sys.argv[0].endswith(".py"):
     _entry = Path(sys.argv[0]).resolve()
@@ -453,28 +445,6 @@ def note_write(path):
         _WRITE_TARGETS.add(Path(path).resolve().relative_to(_ROOT).as_posix())
     except ValueError:
         pass                             # a file outside this repo is nothing this tree cuts
-
-
-# --- What this run cost ------------------------------------------------------
-#
-# `ledger/build-time.md` carries the seconds a generator takes. This files one reading of
-# them under the entry script's name, on the way out — see `_build_time.py`.
-#
-# A run that cut nothing files nothing: an import that raised, a build superseded off the
-# machine, a script that only measured. `_WRITE_TARGETS` is what `_atomic_write` was handed.
-# A part the Rust kernel cuts files its own, from the process's start (`_rust_part.start`).
-def _file_elapsed():
-    rust = sys.modules.get("_rust_part")
-    if _ENTRY is None or not _WRITE_TARGETS or getattr(rust, "_STARTED", None) is not None:
-        return
-    try:
-        import _build_time
-        _build_time.record(_ENTRY, time.perf_counter() - _STARTED)
-    except Exception:
-        pass                             # a reading that does not land costs the ledger one run
-
-
-atexit.register(_file_elapsed)
 
 
 def import_step(path):

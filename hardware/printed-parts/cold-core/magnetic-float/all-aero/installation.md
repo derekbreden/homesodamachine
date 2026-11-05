@@ -1,25 +1,25 @@
 # ASA Aero float installation
 
 The carbonator and both flavor reservoirs use the same one-piece ASA Aero
-float: **[36 × 28 mm](FLOAT_SIZE)**, **[4.8 mm](FLOAT_BORE)** open guide bore,
-and an RC62 center **[14 mm](MAGNET_CENTER)** above its bottom. Each
-**[3.175 mm](ROD_DIAMETER)** rod stands **[20 mm](WALL_DATUM)** from the inside
+float: , open guide bore,
+and an RC62 center above its bottom. Each
+ rod stands from the inside
 wall. The guide-axis distance is a drilling datum. The reed-distance limit is
-**[18 mm](FLOAT_REED_DESIGN_MAX) from the nearest float edge to the reed center**,
+** from the nearest float edge to the reed center**,
 including upright guide play. Liquid switching heights need calibration.
 
 ## Rod and drilling datums
 
 | Location | Datum and dimension |
 | --- | --- |
-| Carbonator, both end caps | Register center **(−[41.849 mm](CARB_RADIUS), 0)** in the inside-face drawing frame, beyond the negative port on the two-port line |
-| Same carbonator position, inches | **(−[1.6476 in](CARB_RADIUS_IN), 0)**; radius equals half the 4.870 in tube ID minus 20 mm |
+| Carbonator, both end caps | Register center **(−, 0)** in the inside-face drawing frame, beyond the negative port on the two-port line |
+| Same carbonator position, inches | **(−, 0)**; radius equals half the 4.870 in tube ID minus 20 mm |
 | Carbonator installed axis | Rod **(0, −41.849) mm** and reeds **(0, −64.75) mm** in the shell frame; both reservoirs sense at +Y |
 | Carbonator register drill | 9/64 in (3.5719 mm), blind **0.100 in (2.54 mm) to drill tip**, on the inside face; 0.150 in (3.81 mm) of plate remains |
-| Reservoir body and matching cap | Rod axis **(x = ±[106.25 mm](RES_X), y = +[32.5 mm](RES_Y))** in the assembled cold-core frame; sign selects the mirrored reservoir |
+| Reservoir body and matching cap | Rod axis **(x = ±, y = +)** in the assembled cold-core frame; sign selects the mirrored reservoir |
 | Reservoir local datum | Rod axis is 20 mm inward from its wet far wall, x = ±126.25 mm; body and cap registers share this axis |
-| Carbonator rod cut | **[5.110 ±0.005 in (129.79 ±0.13 mm)](CARB_ROD_LENGTH)** finished length, per FR-CARB-01; cap inside-face spacing 5.000 ±0.010 in per CV-WLD-01 |
-| Reservoir rod cut | **[203.750 mm](RES_ROD_LENGTH)**, with **[0.15 mm](RES_ROD_CLEARANCE)** axial clearance |
+| Carbonator rod cut | finished length, per FR-CARB-01; cap inside-face spacing 5.000 ±0.010 in per CV-WLD-01 |
+| Reservoir rod cut | , with axial clearance |
 
 The reservoir rods share [FR-RES-01](/hardware/cut-parts/carbonation/reservoir-float-rod/reservoir-float-rod-drawing.pdf):
 finished length **203.75 mm +0.00/−0.10 mm**, with controlled diameter, straightness
@@ -41,22 +41,22 @@ submission. A saved project alone does not establish that its guide has moved.
 
 ## Running room and magnetic path
 
-The 4.8 mm bore gives **[0.8125 mm](GUIDE_SLOP)** radial motion on the 3.175 mm
-rod. Nominal body-to-wall clearance is **[2 mm](WALL_CLEARANCE)**, with an upright
-CAD range of **[1.1875–2.8125 mm](WALL_CLEARANCE_RANGE)**. Foam expansion,
+The 4.8 mm bore gives radial motion on the 3.175 mm
+rod. Nominal body-to-wall clearance is , with an upright
+CAD range of . Foam expansion,
 rod alignment, tilt and finished sliding are physical checks.
 
 | Vessel | Greatest float-edge to reed-center distance | Greatest RC62-edge to reed-center distance |
 | --- | --- | --- |
-| Carbonator, reed against the bare tube | **[5.713 mm](CARB_FLOAT_REED_PATH)** | [14.188 mm](CARB_REED_PATH) |
-| Reservoir, reed in the foam-shell channel | **[11.062 mm](RES_FLOAT_REED_PATH)** | [19.538 mm](RES_REED_PATH) |
+| Carbonator, reed against the bare tube | | |
+| Reservoir, reed in the foam-shell channel | | |
 
 Both distance columns include the float's maximum upright retreat through the
 bore. The RC62 edge is 8.475 mm inside the float perimeter. The 20 mm
 guide-axis-to-inside-wall datum is neither of these reed distances.
 
 The [printed-float bench report](physical-observations.json) gives a usable
-float-edge-to-reed-center limit of **[20 mm](FLOAT_REED_REPORTED_LIMIT)**,
+float-edge-to-reed-center limit of ,
 intermittent response at 21–24 mm and consistently absent response at 25 mm.
 The provisional 18 mm design maximum keeps below that reported limit. Both
 installed layouts meet it; the rod/drill coordinates above retain running room.
@@ -74,12 +74,12 @@ CAD; use the assembly datum rather than the local underside of a loose printed c
 
 | Quantity | Current design datum |
 | --- | --- |
-| Carbonator target liquid levels, pump-on / pump-off | **[67.098 / 95.250 mm](CARB_WATER_LEVELS)** |
-| Carbonator provisional reed centers, CLO / CHI | **[58.332 / 86.484 mm](CARB_REED_CENTERS)** |
-| Carbonator magnet-center mechanical travel | **[28.200–121.700 mm](CARB_TRAVEL)** |
-| Reservoir magnet-center mechanical travel | **[25.250–188.150 mm](RES_TRAVEL)** |
-| Reservoir four provisional reed centers | **[25.700, 79.700, 133.700, 187.700 mm](RES_REED_CENTERS)** |
-| Reservoir provisional reed pitch | **[54 mm](RES_REED_PITCH)** |
+| Carbonator target liquid levels, pump-on / pump-off | |
+| Carbonator provisional reed centers, CLO / CHI | |
+| Carbonator magnet-center mechanical travel | |
+| Reservoir magnet-center mechanical travel | |
+| Reservoir four provisional reed centers | |
+| Reservoir provisional reed pitch | |
 
 A 4 mm-long stainless annular stop is tacked around the top plate's rod
 register before closure. The stop holds the float below the water-inlet tip.
@@ -92,7 +92,7 @@ and register depth retain their specified datums.
 The carbonator target water-level difference displaces one 338.1 mL water
 serving. Its provisional reed centers assume 0.65 g/cm³ foam, a dry pocket,
 0.9997 g/cm³ water, and closure at the magnet midplane. That model puts the
-magnet **[8.766 mm](MAGNET_SUBMERGENCE)** below the surface. The actual float
+magnet below the surface. The actual float
 mass, syrup density and reed's directional activation lobes change the offset.
 The reservoir centers distribute four reeds over accessible travel; they are
 not measured quarter-volume marks or calibrated full/empty thresholds.
@@ -170,9 +170,3 @@ orientation. The [selection guide](https://www.littelfuse.com/assetdocs/reed-swi
 gives the MDSR-7 glass length. These sources do not supply this installation's
 measured switching heights.
 
-[value](NAME) figures are updated by `integration.py` from the CAD sources.
-
-## Sources
-[value](NAME) texts are updated by:
-- `/<stdin>`
-- `/hardware/printed-parts/cold-core/magnetic-float/all-aero/integration.py`

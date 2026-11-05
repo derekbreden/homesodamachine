@@ -59,11 +59,11 @@ nominal geometry; actual elbow compatibility is established by the fit readings.
 
 | Feature | Nominal geometry |
 |---|---|
-| Cap OD | [9.5 mm](CAP_OD); verify elbow land and port clearance below |
-| Finished cap thickness | [2 mm](CAP_THICKNESS), ±0.2 mm after face finishing and deburring |
-| Axial hole | [1/16 inch / 1.5875 mm](JET_BORE) |
-| Passage length / diameter | [1.26](JET_LD), from the nominal thickness and bore |
-| Nominal passage area | [1.979 mm²](JET_AREA), not a measured flow coefficient |
+| Cap OD |; verify elbow land and port clearance below |
+| Finished cap thickness |, ±0.2 mm after face finishing and deburring |
+| Axial hole | |
+| Passage length / diameter |, from the nominal thickness and bore |
+| Nominal passage area |, not a measured flow coefficient |
 
 Before cutting the batch, record the following on an actual elbow and a loose
 tapped plate:
@@ -102,8 +102,8 @@ does not grip correctly. Do not drill a rod that can turn or rock in the jaws.
 1. Seat the rod vertically with a flat, clean end under the drill. Align the
    stopped drill tip with the rod axis and check that the chuck grips the
    1/16-inch shank concentrically.
-2. Set the WEN 4208T to **[1100 rpm](DRILL_RPM)**, approximately
-   [18.0 surface feet/minute](DRILL_SFM) at this diameter. This is a trial
+2. Set the WEN 4208T to , approximately
+   at this diameter. This is a trial
    starting point, not a validated feed/speed recipe. Apply Tap Magic and
    feed positively enough to cut chips. Retract to clear chips and renew
    fluid; do not dwell with the bit rubbing. Stop for squealing, stalled
@@ -112,7 +112,7 @@ does not grip correctly. Do not drill a rod that can turn or rock in the jaws.
    the hole beyond the proposed cap's back face. Do not drill the entire
    handling length.
 4. Put the rod in the bandsaw vise, set the cut square and begin the 24 TPI
-   blade trial at the saw's low speed. Set a nominal [2 mm](CAP_THICKNESS)
+   blade trial at the saw's low speed. Set a nominal
    slice from the drilled end, accounting for which side of the blade the
    stop references. Clamp the retained rod; keep the cutoff free to fall
    into a tray, without a stop trapping it against the moving blade.
@@ -274,7 +274,3 @@ the cold-core pour.
 | Root/oxide cleaning, residue removal and passivation acceptance | Unqualified |
 | Per-part inspection and flow acceptance band | Cap limits in JET-CAP-01; small-joint examination and flow band pending qualification |
 | Integrated G Ganen refill, idle behaviour and in-glass carbonation | Unmeasured |
-
-## Sources
-[value](NAME) texts are updated by:
-- `/hardware/assembly/_water_inlet_jet_sync.py`

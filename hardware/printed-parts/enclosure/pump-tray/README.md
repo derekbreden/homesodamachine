@@ -8,16 +8,16 @@ head profiles, the boss's octagonal bore and the motor-can opening. The producti
 construction is in
 [`_fixed_pump_mount.py`](/hardware/printed-parts/enclosure/enclosure/_fixed_pump_mount.py).
 
-The flavour manifold carries [2](TRAY_COUNT) KPHM600-SW3B17 pumps.
+The flavour manifold carries KPHM600-SW3B17 pumps.
 
 | | |
 |---|---|
-| case-profile footprint | [70](CASE_W) mm square |
-| octagonal location | [53](SOCKET_SPAN) mm at the flats, [1.5](SOCKET_LEDGE) mm ledges, [21](BOSS_DEPTH) mm deep |
-| motor-can opening | Ø[37](CAN_BORE) mm |
-| pump envelope below it | [62.61](HEAD_W) mm head, [47.88](HEAD_D) mm deep |
-| molded flange envelope | [62.61](BRACKET_W) mm across, with an 8 mm skirt between bearing faces |
-| rear stack axis | [1](REAR_AXIS_Y_SHIFT) mm toward Y− from the head and lower-retainer datum |
+| case-profile footprint | mm square |
+| octagonal location | mm at the flats, mm ledges, mm deep |
+| motor-can opening | Ø mm |
+| pump envelope below it | mm head, mm deep |
+| molded flange envelope | mm across, with an 8 mm skirt between bearing faces |
+| rear stack axis | mm toward Y− from the head and lower-retainer datum |
 
 ## How production uses the profiles
 
@@ -64,7 +64,3 @@ to those production pieces ([`bom.md`](/hardware/ledger/bom.md) §7).
 - `pump_case.py` — the case-derived geometry supplying the head, skirt and rear-stack profiles
 
 Run with `tools/cad-venv/bin/python` per the hardware context file.
-
-## Sources
-[value](NAME) texts are updated by:
-- `/hardware/printed-parts/enclosure/pump-tray/pump_tray.py`

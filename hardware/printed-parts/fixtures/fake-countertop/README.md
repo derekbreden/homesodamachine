@@ -1,13 +1,13 @@
 # Fake countertop
 
-The bench stand that stands in for a counter: an inverted U [190 × 310 mm](FCT_SLAB) across
-and [220 mm](FCT_HEIGHT) tall, its legs [130 mm](FCT_CAVITY) apart, the narrow cavity under the
+The bench stand that stands in for a counter: an inverted U across
+and tall, its legs apart, the narrow cavity under the
 counter in Derek's kitchen, and as deep as the H2C's plate takes under its left nozzle with a
-5 mm border. One thickness of [30 mm](FCT_T) throughout: 3 cm, the thickness most US kitchen
+5 mm border. One thickness of throughout: 3 cm, the thickness most US kitchen
 counters are and the one the faucet layout stands the faucet on. One faucet clamps through its
-[34.92 mm](FCT_HOLE) hole, the 1-3/8" the shank is sized for, and the umbilical hangs and
-bends under the slab with [190 mm](FCT_CLEAR) clear: the shank and the umbilical stub reach
-[104 mm](FCT_UMBILICAL) below the counter's top face with the gather's bend, and the rest is
+ hole, the 1-3/8" the shank is sized for, and the umbilical hangs and
+bends under the slab with clear: the shank and the umbilical stub reach
+ below the counter's top face with the gather's bend, and the rest is
 hand room. The two open sides are where the umbilical leaves and where a camera looks in.
 
 **Status: CAD checked, print untested.** This is bench tooling, separate from the machine
@@ -29,11 +29,11 @@ project carries that machine's +0.04 and the H2C project its +0.18. A plate that
 printed out to 5 mm from its front and back edges holds this first layer only after one layer
 there at Bambu's own offset, the stock project (`prepare_print.py --variant black-mark2-stock`),
 stopped once that layer is down. The slab's edges
-on the plate are sharp. The four outer corners are rounded at [6 mm](FCT_CORNER_R), the
-legs meet the slab on a [6 mm](FCT_ROOT_R) root, and the legs' inner edges and feet are
-rounded at [3 mm](FCT_FOOT_R). The STL uses 0.005 mm absolute-tolerance triangulation,
+on the plate are sharp. The four outer corners are rounded at, the
+legs meet the slab on a root, and the legs' inner edges and feet are
+rounded at. The STL uses 0.005 mm absolute-tolerance triangulation,
 read back and refused on any open or non-manifold edge, so the
-rounds print as rounds. The solid is [5266 cm³](FCT_VOLUME) before infill; the slice says
+rounds print as rounds. The solid is before infill; the slice says
 what it weighs.
 
 ## Use
@@ -41,7 +41,3 @@ what it weighs.
 Stand it legs down. The faucet's shank goes through the hole with its plate and gasket on
 the show face and the under-counter plate and nut below, the way the counter takes them.
 The slab is the thickness of a stone counter, inside the 3/4 to 1-1/2 in the install guide takes.
-
-## Sources
-[value](NAME) texts are updated by:
-- `/hardware/printed-parts/fixtures/fake-countertop/fake_countertop.py`

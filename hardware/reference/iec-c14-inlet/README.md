@@ -25,15 +25,15 @@ ears, the plane the wall's seating face carries.
 
 | Interface | Model dimension |
 |---|---|
-| Flange, nose to nose × across the long flats | [49.77](FLANGE_W) × [21.9](FLANGE_H) mm, [3.25](FLANGE_T) thick |
-| Ears and tapers | R[4.885](EAR_R) arcs centred [20](EAR_CX) from the axis, [17.98](FLANGE_END_CHORD) mm from shoulder to nose |
-| Screw holes | Ø[3.24](SCREW_D), [40.21](SCREW_PITCH) mm apart on the mating axis, 90° countersunk to Ø[6.1](CSK_D) outboard |
-| Rim round the cavity mouth | [31.03](RIM_W) × [22.13](RIM_H) mm R[6](RIM_R), [1.84](RIM_PROUD) proud of the ears |
-| Cavity mouth | [24.82](MOUTH_W) × [16.26](MOUTH_H) mm, R[2.3](MOUTH_TOP_R) above, [4.8](MOUTH_CHAMFER) mm chamfers below |
-| Cavity floor | [14.3](CAVITY_FLOOR_Y) mm below the seating plane |
-| Housing | [26.1](BODY_W) × [18](BODY_H) mm, [13.65](BODY_DEPTH) deep behind the flange, lower edges chamfered [4.85](BODY_CHAMFER_LEG) |
-| Tab bosses | three [4](BOSS_W) × [10](BOSS_H) mm, [1.17](BOSS_PROUD) proud of the housing's end |
-| Solder tabs | [0.8](TAB_T) × [6.3](TAB_W) mm, tips [25](TAB_TIP_Y) mm behind the seating plane |
+| Flange, nose to nose × across the long flats | × mm, thick |
+| Ears and tapers | R arcs centred from the axis, mm from shoulder to nose |
+| Screw holes | Ø, mm apart on the mating axis, 90° countersunk to Ø outboard |
+| Rim round the cavity mouth | × mm R, proud of the ears |
+| Cavity mouth | × mm, R above, mm chamfers below |
+| Cavity floor | mm below the seating plane |
+| Housing | × mm, deep behind the flange, lower edges chamfered |
+| Tab bosses | three × mm, proud of the housing's end |
+| Solder tabs | × mm, tips mm behind the seating plane |
 
 `flange_profile()` draws the flange's outline; `bore_outline()` is the rim;
 `panel_cutout()` is the manufacturer's stated opening. `panel_screws()`,
@@ -83,7 +83,3 @@ The generator writes the STEP and viewer payload. `analyze_scan.py` rebuilds the
 part frames, registers the three archived clouds and writes
 `scan-measurements.json`; `validate_scan.py` compares the registered cloud with
 the model.
-
-## Sources
-[value](NAME) texts are updated by:
-- `/hardware/reference/iec-c14-inlet/iec_c14_inlet.py`

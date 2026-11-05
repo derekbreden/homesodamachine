@@ -107,8 +107,6 @@ pub fn initialize(rt: Runtime, e: Env) -> Result<()> {
             fun20.call(args18, kw19)?
         }
     };
-    let mod24 = rt.import_module("docgen")?;
-    e.set("substitute_md", rt.member("docgen", "substitute_md")?)?;
     {
         let _site = rt.source_at(
             "tools/hsm/enclosure-data/src/compiled/_nameplate_dimensions.rs",
@@ -274,98 +272,6 @@ pub fn initialize(rt: Runtime, e: Env) -> Result<()> {
             let rt = runtime.clone();
             let e = bind(&outer, &params, args, kwargs, None, None)?;
             let _frame = rt.frame(&outer);
-            let assigned50 = {
-                let _site = rt.source_at(
-                    "tools/hsm/enclosure-data/src/compiled/_nameplate_dimensions.rs",
-                    line!(),
-                );
-                {
-                    let fun53 = e.get("_read")?;
-                    let mut args51 = Vec::new();
-                    let mut kw52 = Vec::new();
-                    args51.push(Val::Str("plan-variables".into()));
-                    kw52.push((
-                        "plan".into(),
-                        {
-                            let _site = rt.source_at(
-                                "tools/hsm/enclosure-data/src/compiled/_nameplate_dimensions.rs",
-                                line!(),
-                            );
-                            {
-                                let fun56 = e.get("_dimensions")?;
-                                let mut args54 = Vec::new();
-                                let mut kw55 = Vec::new();
-                                fun56.call(args54, kw55)?
-                            }
-                        }
-                        .get(Val::Str("plan".into()))?,
-                    ));
-                    fun53.call(args51, kw52)?
-                }
-            };
-            e.set("variables", assigned50.clone())?;
-            {
-                let _site = rt.source_at(
-                    "tools/hsm/enclosure-data/src/compiled/_nameplate_dimensions.rs",
-                    line!(),
-                );
-                {
-                    let fun59 = e.get("substitute_md")?;
-                    let mut args57 = Vec::new();
-                    let mut kw58 = Vec::new();
-                    args57.push(binary(
-                        "truediv",
-                        e.get("_here")?,
-                        Val::Str("README.md".into()),
-                    )?);
-                    kw58.push(("variables".into(), e.get("variables")?));
-                    fun59.call(args57, kw58)?
-                }
-            };
-            {
-                let _site = rt.source_at(
-                    "tools/hsm/enclosure-data/src/compiled/_nameplate_dimensions.rs",
-                    line!(),
-                );
-                {
-                    let fun62 = e.get("print")?;
-                    let mut args60 = Vec::new();
-                    let mut kw61 = Vec::new();
-                    args60.push(Val::Str("-> README.md".into()));
-                    fun62.call(args60, kw61)?
-                }
-            };
-            {
-                let _site = rt.source_at(
-                    "tools/hsm/enclosure-data/src/compiled/_nameplate_dimensions.rs",
-                    line!(),
-                );
-                {
-                    let fun65 = e.get("substitute_md")?;
-                    let mut args63 = Vec::new();
-                    let mut kw64 = Vec::new();
-                    args63.push(binary(
-                        "truediv",
-                        binary("truediv", e.get("_root")?, Val::Str("future".into()))?,
-                        Val::Str("unit-links.md".into()),
-                    )?);
-                    kw64.push(("variables".into(), e.get("variables")?));
-                    fun65.call(args63, kw64)?
-                }
-            };
-            {
-                let _site = rt.source_at(
-                    "tools/hsm/enclosure-data/src/compiled/_nameplate_dimensions.rs",
-                    line!(),
-                );
-                {
-                    let fun68 = e.get("print")?;
-                    let mut args66 = Vec::new();
-                    let mut kw67 = Vec::new();
-                    args66.push(Val::Str("-> future/unit-links.md".into()));
-                    fun68.call(args66, kw67)?
-                }
-            };
             Ok(Val::None)
         })
     })?;

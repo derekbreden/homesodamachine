@@ -80,7 +80,6 @@ if __name__ == "__main__":
 import cadquery as cq
 from _cadq_export import import_step
 import _materials as _mat
-from docgen import substitute_py_comments
 
 
 _assembly_dir = Path(__file__).resolve().parent
@@ -161,21 +160,21 @@ def _assembly_data(fn="datums", **values):
 globals().update(_assembly_data())
 
 
-# Soda faucet tube — ⌀[9.525 mm](SODA_FAUCET_TUBE_OD) (3/8" LLDPE) — seated in the
+# Soda faucet tube — ⌀ (3/8" LLDPE) — seated in the
 # Westbrass's 10.0 mm water port and running up through the gooseneck. The
 # 0.475 mm diametric (0.2375 mm radial) gap is sealed by a printed TPU
 # bushing on the real tube (not modeled).
-# [9.525 mm](SODA_FAUCET_TUBE_OD) — 3/8" LLDPE in millimeters.
+# — 3/8" LLDPE in millimeters.
 
 
 # Black 4 mm flavor tubes pass behind the Westbrass, on either side of D.
 # The lower row shares the purchased plate's rear channel with D and ribbon;
 # the shared paths return it to the centered neck and symmetric drink face.
 # The upper organizer follows the mounting row; gather returns begin below it.
-# [4 mm](FLAVOR_TUBE_OD) — black LLDPE in millimeters.
+# — black LLDPE in millimeters.
 
 
-# [18.93 mm](FLAVOR_TUBE_DEPTH_LOWER) — tangent to the Westbrass's +Y (back) face.
+# — tangent to the Westbrass's +Y (back) face.
 
 
 # THE COUNTER THE STACK CLAMPS THROUGH. The slab is not a part — it is the customer's kitchen — but
@@ -201,7 +200,7 @@ globals().update(_assembly_data())
 
 # Where each flavour tube's axis stands in depth once it is tangent to that foam, at the X it
 # already has. Same Pythagorean tangency `flavor_tube_depth_upper` is struck on, one circle out.
-# [13.6524 mm](PACK_FLAVOR_DEPTH) — tangent to the foam on the blue tube.
+# — tangent to the foam on the blue tube.
 
 
 # The dedicated white vent line passes between the flavor pair. Below the counter it
@@ -248,7 +247,7 @@ def gather_rise(x_sign):
 
 
 # THE PACK STARTS where the longer gather lands, and the foam and the braid's run over the pack start
-# with it. [-176.5 mm](UMBILICAL_Z_BOTTOM)
+# with it.
 
 
 # THE FACTORY CUT, off `faucet-and-umbilical.md` §1 — what the bench cuts, installer-trim allowance
@@ -264,7 +263,7 @@ def gather_rise(x_sign):
 
 
 # Carbonated water arrives at the OTHER port: the compression fitting on the
-# bottom of the shank, [44 mm](SODA_UMBILICAL_BELOW_COUNTER) below the countertop's top
+# bottom of the shank, below the countertop's top
 # face, and rises inside the shank to it. So the blue tube is 1/4" and is
 # entirely below the counter, where the 3/8" soda faucet tube above is not. The
 # harvested Westbrass models no shank bore and no fitting, so this butts on the
@@ -272,27 +271,27 @@ def gather_rise(x_sign):
 
 
 # All four tails share the termination plane.
-# [-350 mm](UMBILICAL_TAIL_Z) — the square-cut end, as drawn.
+# — the square-cut end, as drawn.
 
 
 # The foam's own run on that tube (`faucet-and-umbilical.md` §3): five 1-ft segments butted from the
 # pack's first plane, bare above it past the mounting returns to the compression end, and bare again at the
 # wall. `foam_length` is what the five come to; what is drawn is the run's two ends.
 
-# [126.5 mm](FOAM_BARE_AT_WESTBRASS) of bare blue tube below the compression port.
+# of bare blue tube below the compression port.
 
 
-# [14.4545 mm](FLAVOR_TUBE_DEPTH_UPPER) — tight upstream pack depth.
+# — tight upstream pack depth.
 
 
 # Lower centerlines use the shared smooth transition in faucet_paths.py.
 # These dimensional references remain available to the assembly/document readers.
 
 
-# [0.3359 rad](FLAVOR_BEND_THETA) — per-bend angle absorbing the S-bend depth offset.
+# — per-bend angle absorbing the S-bend depth offset.
 
 
-# [40 mm](PRE_BEND_Z) — S-bend starts here.
+# — S-bend starts here.
 
 
 # Above the lever the shared gooseneck bends toward −Y. Soda follows its
@@ -302,9 +301,9 @@ def gather_rise(x_sign):
 # The tip's exit angle below horizontal = (bend1_sweep + bend2_sweep) - 90°.
 
 
-# [172 mm](GN_BEND_MID_Z) — bend-1 midpoint, 35 mm above lever_top_z.
+# — bend-1 midpoint, 35 mm above lever_top_z.
 
-# [153.39 mm](GN_BEND_START_Z) — bend-1 start.
+# — bend-1 start.
 
 
 # Flavor tubes sit further +Y than the soda faucet tube (deeper, behind it).
@@ -315,9 +314,9 @@ def gather_rise(x_sign):
 # of the centerline separation shrinks below water_r + flavor_r and the
 # tubes ride into each other through the bend.
 
-# [77.3795 mm](GN_FLAVOR_BEND_ONE_R) — parallel offset of gn_bend1_r.
+# — parallel offset of gn_bend1_r.
 
-# [77.3795 mm](GN_FLAVOR_BEND_TWO_R) — parallel offset of gn_bend2_r.
+# — parallel offset of gn_bend2_r.
 
 
 def load_westbrass():
@@ -553,8 +552,8 @@ def bare_bundle_girth() -> float:
     return _assembly_data('bare_bundle_girth', args=[])
 
 
-# [0.7511 mm](SLEEVE_CENTER_Y) behind the Westbrass's axis — the pack's own centre of area, which is what
-# a collar's flag is turned away from. Ø[31.18 mm](SLEEVE_BORE) is what the braid opens to over it
+# behind the Westbrass's axis — the pack's own centre of area, which is what
+# a collar's flag is turned away from. Ø is what the braid opens to over it
 # — a 1" nominal PET braid that expands 50% (`ledger/bom.md` §11; the wall above is the figure the
 # assembly draws it at).
 # THE BRAID'S RUN IS THE FOAM'S, AND THE TOP ONE COVERS THE MOUNTING RETURNS. One braid segment goes over
@@ -572,11 +571,11 @@ def bare_bundle_girth() -> float:
 # forward of them, not the two flavours against each other.
 
 
-# [13.372 mm](TAIL_HALF_X) — each flavour tail's own X, off the Westbrass's axis.
+# — each flavour tail's own X, off the Westbrass's axis.
 
 # The splay, as the gather and the S-bend are: two arcs of one radius sharing an angle.
 
-# [0.6497 rad](SPLAY_THETA) — per-arc angle absorbing the lateral the pair comes out by.
+# — per-arc angle absorbing the lateral the pair comes out by.
 
 # What it spends of the un-sleeved stretch getting there.
 
@@ -610,7 +609,7 @@ def tail_z(x_sign):
     return _assembly_data('tail_z', args=[x_sign])
 
 
-# [0.7926 mm](TAILS_APART) — how far apart the three tails land: the flavor cut's rounding to a
+# — how far apart the three tails land: the flavor cut's rounding to a
 # whole millimetre, and flavor-a's shorter route against the one cut both take.
 
 
@@ -874,9 +873,9 @@ def seated_hole_center_y():
     return _assembly_data('seated_hole_center_y', args=[])
 
 
-# [4.765 mm](HOLE_CENTER_Y) behind the Westbrass's axis, once it is back against the wall.
+# behind the Westbrass's axis, once it is back against the wall.
 
-# [7.2 mm](HOLE_MARGIN) of slab forward of the shank — the play the faucet has
+# of slab forward of the shank — the play the faucet has
 # left to give, which is what lets the gasket cover the hole behind it.
 
 
@@ -1188,7 +1187,6 @@ def main():
     report = _assembly_data("report")
     for line in report["lines"]:
         print(line)
-    substitute_py_comments(Path(__file__), variables=report["variables"])
 
 
 if __name__ == "__main__":

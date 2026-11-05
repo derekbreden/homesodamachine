@@ -402,7 +402,7 @@ stand-in colour answers `toTuple`, `==`, `hash` and `_materials.linear` with OCC
 `linear` of a `#RRGGBB` string does (`hardware/scripts/_occt_color.py`). If CadQuery loads, each
 stand-in becomes the value it stands for, in place, and whenever OCP loads, its loops end in
 Python as `_cadq_export` ends them. So a part's run ends with neither `cadquery` nor `OCP.OCP`
-loaded, and puts its seconds, interpreter and imports included, into `build-time.md`'s window.
+loaded.
 `hardware/scripts/test_rust_part.py` holds the template to all of it.
 
 The generator runs the program through

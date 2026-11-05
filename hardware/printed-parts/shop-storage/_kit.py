@@ -48,7 +48,6 @@ def GridfinityBaseplate(*args, **kwargs):
 
 from _cadq_export import export_assembly  # noqa: E402
 from _materials import M_PETG_BLACK, one_body  # noqa: E402
-from docgen import substitute_md  # noqa: E402,F401
 
 
 # ============================================================

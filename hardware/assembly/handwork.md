@@ -10,14 +10,14 @@ Order isn't strict — pressure-testing waits on tap + weld being complete on th
 
 Form GOORY 1/4" OD × 0.031" wall ACR copper tubing to the complete
 [EVAP-01 production drawing](/hardware/cold-core-layout/evaporator-coil-drawing.pdf).
-The final winding is 9½ right-hand turns over 119.4 mm at [12.57 mm](PITCH)
+The final winding is 9½ right-hand turns over 119.4 mm at
 pitch on the 5" OD vessel, with the specified local relief over the reed bridge.
 Use the undersized printed [coil mandrel](/hardware/printed-parts/cold-core/coil-mandrel/coil_mandrel.py)
 for rough forming, then feed material from the unfinished ends as the finished
 winding is set on the vessel fixture. Form the R15 tangent tails and verify
-their exit stations before foam. Copper allocation is [13.15 ft](LAID_FT) in
-the laid winding plus [354.4 mm](STUB_INLET) at the inlet and
-[446.9 mm](STUB_OUTLET) at the outlet, including each in-core form and its own
+their exit stations before foam. Copper allocation is in
+the laid winding plus at the inlet and
+ at the outlet, including each in-core form and its own
 working tail. The finished stock cut and working lengths are controlled by
 EVAP-01. Apply 3M 425 foil as the continuous vessel-to-coil thermal interface.
 
@@ -34,7 +34,7 @@ See [assembly/pressure-vessel.md](/hardware/assembly/pressure-vessel.md) step 1 
 
 ## Weld 316L end caps to 316L tubes
 
-Join the 1/4"-thick 316L end-cap plates to the 5" OD × 0.065" wall 316L tube ends with the XLaserlab X1 Pro handheld laser welder, STARTECHWELD ER316L .030 filler (matches the 316L parent metal — undermatching with 308L would lose the molybdenum across the joint). Top + bottom plates per carbonator × 10 carbonators of stock. The 1/8" 316 SS float rod (Tandefio B0CY4DWJFQ, finished length [5.110 ±0.005 in (129.79 ±0.13 mm)](ROD_LEN) per FR-CARB-01) tack-welds vertically to the inside face of the bottom plate as part of this same operation, before the bottom-plate-to-tube weld closes the carbonator ([hardware/README.md](/hardware/README.md) "Carbonation").
+Join the 1/4"-thick 316L end-cap plates to the 5" OD × 0.065" wall 316L tube ends with the XLaserlab X1 Pro handheld laser welder, STARTECHWELD ER316L .030 filler (matches the 316L parent metal — undermatching with 308L would lose the molybdenum across the joint). Top + bottom plates per carbonator × 10 carbonators of stock. The 1/8" 316 SS float rod (Tandefio B0CY4DWJFQ, finished length per FR-CARB-01) tack-welds vertically to the inside face of the bottom plate as part of this same operation, before the bottom-plate-to-tube weld closes the carbonator ([hardware/README.md](/hardware/README.md) "Carbonation").
 
 See [assembly/pressure-vessel.md](/hardware/assembly/pressure-vessel.md) steps 2-5 for the production-procedure framing.
 
@@ -71,7 +71,3 @@ See [reservoir/level-sensing.md](/hardware/printed-parts/cold-core/reservoir/lev
 Hydro-test each fully welded + tapped carbonator to 180 PSI for 30 minutes, 1.44× the SV-125's 125 PSI set pressure. This fabrication proof test does not establish the completed carbonator's pressure rating. Done after tapping and welding are both complete on a given carbonator. Beyond the 30-min hydro-test minimum, the in-vessel SENCTRL pressure-test gauge (B0BCHMQLFB, ACQUIRED in [purchases.md](/hardware/ledger/purchases.md) §1) supports hour-scale leak soaks for catching slow weep before passivation and service.
 
 See [assembly/pressure-vessel.md](/hardware/assembly/pressure-vessel.md) step 6 for the production-procedure framing, including the rig + criteria + failure-handling gaps still open.
-
-## Sources
-[value](NAME) texts are updated by:
-- `/hardware/assembly/_handwork_sync.py`

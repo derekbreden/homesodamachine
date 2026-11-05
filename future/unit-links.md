@@ -97,7 +97,3 @@ joins at diagonal-only white contacts to keep the CAD colour interface manifold.
 `nameplate.py` explicitly selects version 1, error correction M and alphanumeric mode;
 serials outside 0001–9999 are rejected. Its self-test checks the code size and clear field.
 A finished physical plate must scan to its own unit before and after installation.
-
-## Sources
-[value](NAME) texts are updated by:
-- `/hardware/printed-parts/enclosure/nameplate/_nameplate_dimensions.py`

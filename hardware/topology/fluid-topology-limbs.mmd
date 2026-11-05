@@ -8,9 +8,9 @@ flowchart LR
   %% `manifold_layout.LIMBS` and holds exactly the bodies that limb chains;
   %% `_fluid_topology_sync.py` gates it against that table.
 
-  %% [4](LIMB_COUNT) limbs carry the [10](LIMB_VALVES) valves and [6](TEE_COUNT) junctions,
-  %% all [6](PURCHASED_TEE_COUNT) purchased PP0208E tees and [4](PUMP_TEE_COUNT) of them on the
-  %% pump ports, over [2](PUMP_COUNT) pumps.
+  %% limbs carry the valves and junctions,
+  %% all purchased PP0208E tees and of them on the
+  %% pump ports, over pumps.
 
   %% A LIMB IS A LANE. Every valve is straight through and every junction's run takes two valve
   %% ports, so a limb is a lane of valves and one junction. A pump tee takes a prepared pump's
@@ -18,8 +18,8 @@ flowchart LR
   %% on a lower return: two stem elbows and a straight tube.
 
   %% THE PACK OCCUPIES TWO FIXED DECKS joined by the pump tees' four lower returns.
-  %% [8](UPPER_COUNT) bodies ride up onto the second deck — drawn with a dashed border — and
-  %% [8](LOWER_COUNT) stay on the first.
+  %% bodies ride up onto the second deck — drawn with a dashed border — and
+  %% stay on the first.
 
   %% Neither reservoir appears here and neither has a junction: each carries two mouths of its
   %% own, so each pair's two valves reach them directly.

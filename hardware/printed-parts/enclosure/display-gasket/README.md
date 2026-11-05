@@ -6,8 +6,8 @@ cover glass.
 Material: Bambu TPU 90A (black), from the same per-unit-trivial stock as the
 foam-cap and reservoir gaskets.
 
-The plate's underside lies [3.84 mm](PLATE_UNDERSIDE) below the display plane and the glass's
-front face [4.84 mm](GLASS_FACE_DEPTH) below it. This fills what is between them, so the
+The plate's underside lies below the display plane and the glass's
+front face below it. This fills what is between them, so the
 snap-retained cover bears on the glass through the soft ring, and the face a
 customer wipes closes at its edge.
 
@@ -15,11 +15,11 @@ customer wipes closes at its edge.
 
 | | |
 |---|---|
-| outer | [113.5 mm](GASKET_OUTER_X) × [77 mm](OUTER_SLOPE), the glass's own outline |
-| inner | [107.5 mm](INNER_X) × [71 mm](INNER_SLOPE), the cover plate's window |
-| width | [3 mm](GASKET_RING_W) all round — the plate's lap |
-| corners | r[2.5 mm](CORNER_R), the glass's own |
-| thickness | [1 mm](THICKNESS) |
+| outer | ×, the glass's own outline |
+| inner | ×, the cover plate's window |
+| width | all round — the plate's lap |
+| corners | r, the glass's own |
+| thickness | |
 
 The thickness is derived rather than chosen: it is where the glass's front face
 stands, less where the plate's underside sits. Change either and this follows.
@@ -33,7 +33,3 @@ Same plate as the machine's other soft seals. No supports; the ring lies flat.
 ```
 tools/cad-venv/bin/python hardware/printed-parts/enclosure/display-gasket/display_gasket.py
 ```
-
-## Sources
-[value](NAME) texts are updated by:
-- `/hardware/printed-parts/enclosure/display-gasket/display_gasket.py`

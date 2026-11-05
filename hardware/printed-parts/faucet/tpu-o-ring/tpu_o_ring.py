@@ -21,7 +21,6 @@ if __name__ == "__main__":
 
 import cadquery as cq
 from _materials import M_TPU_BLACK, linear
-from docgen import substitute_md, substitute_py_comments
 from world_workplane import xy_plane_z_up
 
 
@@ -70,20 +69,6 @@ def main():
 
     said = _rust_part.cut("faucet", "tpu-o-ring", numbers(), _here)
     print("-> " + ", ".join(said["files"]))
-
-    variables = _data()["variables"]
-
-    substitute_md(
-        _here / "README.md",
-        variables=variables,
-    )
-    print("-> README.md")
-
-    substitute_py_comments(
-        __file__,
-        variables=variables,
-    )
-    print(f"-> {Path(__file__).name}")
 
 
 if __name__ == "__main__":

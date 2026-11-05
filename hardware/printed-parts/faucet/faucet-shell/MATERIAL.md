@@ -3,13 +3,13 @@
 The shell base, shell tip, display cover and above-counter plate use PET-GF.
 Use the selected style's reviewed printer, left 0.4 mm nozzle and saved
 Polymaker Fiberon PET-GF15 material settings. Ordinary model layers are
-[0.24 mm](PRINT_LAYER) above the 0.20 mm first bed layer. The
+ above the 0.20 mm first bed layer. The
 [complete Industrial recipe](../industrial/faucet-industrial-petgf.md) uses
 0.12 mm on its two selected base shoulder bands.
 
 Rigid structural walls, fastener seats, display supports and insert
-backing use a [2 mm](WALL_MIN) minimum at the checked sections. The round gooseneck
-provides [2 mm](SPLIT_SOCKET_WALL) socket and [2 mm](SPLIT_PLUG_WALL) plug walls at its close-fit curved joint.
+backing use a minimum at the checked sections. The round gooseneck
+provides socket and plug walls at its close-fit curved joint.
 The display cover flexes around the rigid neck. Its inward-preformed wings
 carry broad retaining lips. The nominal skin is 1.30 mm, with a 1 mm minimum
 for its thin sections. The [cover geometry](../faucet-display-cover/README.md)
@@ -24,8 +24,8 @@ spreading remain physical readings. The 2 mm TPU countertop gasket and
 The base and tip use build rotations of −15° and −105° about the CAD X axis.
 The tip's build direction is at the angular midpoint of its gooseneck sweep,
 with the joint end toward the bed and the crown raised. Their print heights are
-[245.3 mm](BASE_PRINT_HEIGHT) and [137.9 mm](TIP_PRINT_HEIGHT). The visible swept gooseneck flanks reach
-[55°](MAX_PRINT_OVERHANG) of overhang. Those angles do not describe every face
+ and. The visible swept gooseneck flanks reach
+ of overhang. Those angles do not describe every face
 of the lower body or the hidden curved plug.
 
 The separate cover prints bezel up at −50° about the CAD X axis. Its lower
@@ -56,7 +56,3 @@ The countertop gasket and donor thimble are separate TPU prints.
 
 Use the drying and handling procedure recorded in the
 [print log](print-log.md) and [tool ledger](/hardware/ledger/tools.md).
-
-## Sources
-[value](NAME) texts are updated by:
-- `/hardware/printed-parts/faucet/faucet-shell/faucet_shell.py`

@@ -9,19 +9,19 @@ is what this module draws.
 Coordinate frame
 ----------------
 - Z = 0 is the MOUNTING PLANE, the plate's underside. The plate stands the shell
-  [15](BASE_Z) up, and the shell's own [120](SHELL_Z) carries the crown to
-  [135](OVERALL_H).
-- The PLATE is centered on the origin, so its four Ø[14](MOUNT_D) holes stand symmetric
-  about it on a [67](MOUNT_PITCH_X) x [131](MOUNT_PITCH_Y) rectangle, each inset
-  [14.5](MOUNT_INSET) from both edges it sits in from. A floor that carries this pattern
+  up, and the shell's own carries the crown to
+ .
+- The PLATE is centered on the origin, so its four Ø holes stand symmetric
+  about it on a x rectangle, each inset
+  from both edges it sits in from. A floor that carries this pattern
   carries it about its own center.
-- The SHELL is centered on X and offset [10](SHELL_OFFSET_Y) on Y, so the plate reaches
-  [27.5](PLATE_REACH_LONG) past it at -Y and [7.5](PLATE_REACH_SHORT) at +Y.
+- The SHELL is centered on X and offset on Y, so the plate reaches
+  past it at -Y and at +Y.
 - The POWER BOX stands in that long reach, hanging off the shell with air under it:
-  [45](POWER_X) across, [27.5](POWER_Y) deep — the reach exactly — and [45](POWER_Z) tall,
-  its underside at [30](POWER_Z0), its aft face on the shell's own tangent plane at
-  y = [-52.5](SHELL_TANGENT_Y). **-Y is the power end.** It is narrower than the plate,
-  which reaches [25.5](POWER_FLANK_REACH) past each of its flanks — so a body pressed on a
+  across, deep — the reach exactly — and tall,
+  its underside at, its aft face on the shell's own tangent plane at
+  y =. **-Y is the power end.** It is narrower than the plate,
+  which reaches past each of its flanks — so a body pressed on a
   flank stands over the can's own metal, and `power_face()` is the +X one.
 
 The suction, discharge and process stubs are not modeled. All three are STATIONS instead —
@@ -31,10 +31,10 @@ carries the compressor's terminal block and clip-on
 PTC start relay under the donor's own moulded cover, so it is the one feature that tells the
 two ends apart: the bolt pattern is symmetric about the origin, the box is not.
 
-The shell is WIDER THAN ITS OWN PLATE — [110](SHELL_X) across against the plate's
-[96](BASE_X) — so the widest thing on the part is its belly, overhanging
-[7](SHELL_OVERHANG_X) each side and starting [15](BASE_Z) up. A floor sees
-[96](BASE_X) x [160](BASE_Y); a wall beside it sees [110](SHELL_X), and sees it
+The shell is WIDER THAN ITS OWN PLATE — across against the plate's
+ — so the widest thing on the part is its belly, overhanging
+ each side and starting up. A floor sees
+ x; a wall beside it sees, and sees it
 one plate-thickness off the deck.
 
 Run:
@@ -98,17 +98,17 @@ globals().update({name: _reference_values[name] for name in ('BASE_X', 'BASE_Y',
 
 
 def mount_pattern():
-    'The four hole centers on the mounting plane — the corners of a\n    [67](MOUNT_PITCH_X) x [131](MOUNT_PITCH_Y) rectangle, symmetric about the origin.'
+    'The four hole centers on the mounting plane — the corners of a\n    x rectangle, symmetric about the origin.'
     return _reference_data('compressor', 'mount_pattern', (), {})
 
 
 def power_face():
-    "The +X FLANK of the POWER BOX, as `(centre, outward axis)` in this frame.\n\n    The box is the donor's own moulded cover over the terminal block and the PTC start\n    relay, and every face of it is that same moulding — so a case pressed on this one is\n    pressed on the cover as surely as on the box's front.\n\n    WHAT THIS FLANK HAS THAT THE FRONT DOES NOT is that nothing standing proud of it costs\n    the machine any DEPTH. The box's -Y face is the deepest plane on the whole donor —\n    `POWER_Y0` is the plate's own edge — so a body laid there is the frontmost thing in the\n    cabinet and the appliance's front wall stands off IT. Laid on the flank instead, the same\n    body stands over the plate's own [25.5](POWER_FLANK_REACH) mm of reach at +X, in air the\n    can already owns, and the front plane answers to the box.\n\n    The gap the clamp's leaves press runs the box's whole footprint, so it is reached from\n    this face as readily as from the front — and the shell is not a fence here at all, since\n    the box's aft plane IS the shell's own tangent and this face's whole width stands forward\n    of it."
+    "The +X FLANK of the POWER BOX, as `(centre, outward axis)` in this frame.\n\n    The box is the donor's own moulded cover over the terminal block and the PTC start\n    relay, and every face of it is that same moulding — so a case pressed on this one is\n    pressed on the cover as surely as on the box's front.\n\n    WHAT THIS FLANK HAS THAT THE FRONT DOES NOT is that nothing standing proud of it costs\n    the machine any DEPTH. The box's -Y face is the deepest plane on the whole donor —\n    `POWER_Y0` is the plate's own edge — so a body laid there is the frontmost thing in the\n    cabinet and the appliance's front wall stands off IT. Laid on the flank instead, the same\n    body stands over the plate's own mm of reach at +X, in air the\n    can already owns, and the front plane answers to the box.\n\n    The gap the clamp's leaves press runs the box's whole footprint, so it is reached from\n    this face as readily as from the front — and the shell is not a fence here at all, since\n    the box's aft plane IS the shell's own tangent and this face's whole width stands forward\n    of it."
     return _reference_data('compressor', 'power_face', (), {})
 
 
 def process_tube():
-    "Where the piercing valve bands the PROCESS TUBE, as `(the point on the stub's own\n    axis, the stub's outward direction)` in this frame.\n\n    The stub leaves the -X tangent, `PROCESS_Z` up — the same flank the suction leaves by,\n    [40](PROCESS_OVER_SUCTION) above it, so the saddle bands the copper in the lane that leg\n    already runs in and both are reached from the machine's west side.\n\n    The point is on the STUB: `PROCESS_CLAMP` out along the tube, where the clamp grips."
+    "Where the piercing valve bands the PROCESS TUBE, as `(the point on the stub's own\n    axis, the stub's outward direction)` in this frame.\n\n    The stub leaves the -X tangent, `PROCESS_Z` up — the same flank the suction leaves by,\n    above it, so the saddle bands the copper in the lane that leg\n    already runs in and both are reached from the machine's west side.\n\n    The point is on the STUB: `PROCESS_CLAMP` out along the tube, where the clamp grips."
     return _reference_data('compressor', 'process_tube', (), {})
 
 
@@ -211,7 +211,4 @@ def __getattr__(name):
     if name in {'C_COMP', 'one_body'}:
         import _materials
         return getattr(_materials, name)
-    if name in {'substitute_py_comments', 'substitute_md'}:
-        import docgen
-        return getattr(docgen, name)
     raise AttributeError(f"module {__name__!r} has no attribute {name!r}")

@@ -46,7 +46,3 @@ and native assembly clearance. Geometry establishes an open path; printed
 grip and installed airflow have no physical acceptance
 result yet. The [manufacturer tubing sheet](https://assets.freshwatersystems.com/image/upload/s--N9disqrx--/gjtidjfc0tlprqbhb4ka.pdf)
 specifies the 2.5 mm ID and 25 mm minimum bend radius. These short runs are straight.
-
-## Sources
-[value](NAME) texts are updated by:
-- `/hardware/printed-parts/cold-core/reservoir/reservoir.py`

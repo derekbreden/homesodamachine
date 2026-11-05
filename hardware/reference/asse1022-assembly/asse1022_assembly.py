@@ -166,9 +166,6 @@ def __getattr__(name):
     if name in {'Seat'}:
         import _seating
         return getattr(_seating, name)
-    if name in {'substitute_md'}:
-        import docgen
-        return getattr(docgen, name)
     if name in {'M_JG_BLACK_PP', 'M_BRASS', 'M_JG_GREY_ACETAL', 'M_STAINLESS'}:
         import _materials
         return getattr(_materials, name)

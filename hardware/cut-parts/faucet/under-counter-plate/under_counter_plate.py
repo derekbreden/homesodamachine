@@ -62,7 +62,6 @@ from pathlib import Path
 _here = Path(__file__).resolve()
 _hardware_dir = next(p for p in _here.parents if p.name == "hardware")
 sys.path[:0] = [str(_hardware_dir.parent / "tools"), str(_hardware_dir / "scripts")]
-from docgen import substitute_md, substitute_py_comments
 from _document_export import _WRITE_TARGETS
 from _rust_data import request
 
@@ -110,19 +109,3 @@ if __name__ == "__main__":
     print(f"  Units in DXF:   mm (DXF $INSUNITS = 4)")
     print(f"  Material spec:  0.060\" (1.524 mm) 316 stainless, laser-cut, qty 1 per appliance")
     print(f"-> {out.name}")
-
-    variables = _data()["variables"]
-
-    substitute_py_comments(
-        Path(__file__),
-        variables=variables,
-    )
-    print(f"-> {Path(__file__).name}")
-
-    # The shell's ASSEMBLY.md carries this plate's spec as a one-stop
-    # reference; the plate-derived values there are this generator's.
-    substitute_md(
-        _hardware_dir / "printed-parts" / "faucet" / "faucet-shell" / "ASSEMBLY.md",
-        variables=variables,
-    )
-    print("-> ASSEMBLY.md")

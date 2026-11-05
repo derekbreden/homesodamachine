@@ -25,9 +25,7 @@ A PART'S OWN RUN BEGINS HERE, before its module imports anything else:
 `start` starts the run's clock at the process's own start and defers CadQuery. The CAD lock
 (`_run_lock`, as `_cadq_export` takes it for every other generator) is taken when CadQuery or OCP
 loads, or before cargo and the program run in this process, so a run the part engine answers
-that loads neither waits behind no OCCT build. A run that cut files puts its
-seconds, interpreter and imports included, into `build-time.md`'s window (`_build_time`) on the
-way out.
+that loads neither waits behind no OCCT build.
 
 THE PART ENGINE RUNS THE PROGRAM WHERE `hsm` IS INSTALLED (`tools/hsm/README.md`, "Part runs").
 `run` asks the daemon over its socket. The daemon keeps each run by the program's code and what
@@ -72,7 +70,6 @@ checkout's kernel into the other's program. The directory is the checkout's own 
 """
 from __future__ import annotations
 
-import atexit
 import hashlib
 import importlib.machinery
 import importlib.util
@@ -96,8 +93,6 @@ _ENGINE_SOCKET: str | None = None
 #: `start` has run.
 _STARTED: float | None = None
 _IMPORTED = time.time()
-#: Whether a program has cut files this run, which is what files a reading.
-_CUT = False
 #: The run `start` began, which takes the CAD lock if CadQuery or OCP loads in it.
 _LOCK_FOR: str | None = None
 
@@ -117,10 +112,6 @@ def start() -> None:
         sys.meta_path.insert(0, _OCPFinder())
     entry = _entry()
     _LOCK_FOR = entry
-    # Exit-time records can call Rust. Keep their worker cleanup and inherited
-    # run/compiler leases alive until the timing callback has finished.
-    import _rust_data
-    atexit.register(_file_elapsed, entry)
 
 
 def _lock() -> None:
@@ -158,18 +149,6 @@ def _process_start() -> float:
     except (OSError, ValueError, AttributeError):
         pass
     return _IMPORTED
-
-
-def _file_elapsed(entry) -> None:
-    """This run's seconds, into `build-time.md`'s window under the entry script's name. A run no
-    program cut files for files nothing."""
-    if entry is None or not _CUT:
-        return
-    try:
-        import _build_time
-        _build_time.record(entry, time.perf_counter() - _STARTED)
-    except Exception:
-        pass                             # a reading that does not land costs the ledger one run
 
 
 # --- CadQuery, deferred --------------------------------------------------------
@@ -634,7 +613,6 @@ def cut(crate: str, name: str, numbers: dict, part_dir, *, numbers_name: str | N
     and return what it says it wrote. `results` retains each complete JSON record, alongside
     the aggregated `files` and `bodies`. `numbers_name` sets the numbers file's stem; by default
     it is the program's `name`."""
-    global _CUT
     part_dir = Path(part_dir)
     numbers_path = part_dir / f"{name if numbers_name is None else numbers_name}.numbers.json"
     from _rust_data import json_default
@@ -652,9 +630,7 @@ def cut(crate: str, name: str, numbers: dict, part_dir, *, numbers_name: str | N
             said["results"].append(each)
     wrote = {_relative(numbers_path)} | {_relative(part_dir / f) for f in said["files"]}
     _WRITE_TARGETS.update(wrote)
-    _CUT = True
-    # A run `start` did not begin is timed by `_cadq_export`'s clock, which files a reading for a
-    # run that wrote what it is told of.
+    # A run `start` did not begin tells `_cadq_export` what it wrote.
     if _STARTED is None and (export := sys.modules.get("_cadq_export")) is not None:
         for path in sorted(wrote):
             export.note_write(ROOT / path)

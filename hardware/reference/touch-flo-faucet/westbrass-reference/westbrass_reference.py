@@ -9,18 +9,18 @@ part:
     +Y = back  — the water port sits toward +Y, behind the body axis.
     +X = lateral; the body is symmetric across the X = 0 plane.
 
-  Dimensions below are in the body's measurement frame (long [31.5 mm](BODY_OD)
+  Dimensions below are in the body's measurement frame (long
   axis along local X, port toward +localX, lever side toward -localX,
-  short [17 mm](RECT_SHORT) axis along local Y); the exported STEP is in the world
+  short axis along local Y); the exported STEP is in the world
   frame, related by a +90 deg turn about Z:
     +localX (port / rear)  -> +worldY (back)
     -localX (lever / front)-> -worldY (front)
     local Y (short axis)   -> world X (lateral)
 
-Top-face features (measurement frame; z = plateau_z = [39 mm](PLATEAU_Z)):
+Top-face features (measurement frame; z = plateau_z =):
   - Brass actuator plunger at body center (x=0, y=0)
-  - Water port at local x = +[8.75 mm](PORT_X) (seats to world +Y, the back)
-  - ~[1 mm](PLUNGER_GAP) gap between port wall and plunger wall
+  - Water port at local x = + (seats to world +Y, the back)
+  - ~ gap between port wall and plunger wall
   - Lever attaches to the plunger and swings in the -localX half
     (seats to world -Y, the front)
 
@@ -62,17 +62,17 @@ sys.path.insert(
 
 # Zone 0 — threaded shank, clamped through the deck from below by a
 # locknut. Thread profile not modeled.
-# [11 mm](SHANK_OD) shank OD — passes through 1-3/8" countertop hole.
+# shank OD — passes through 1-3/8" countertop hole.
 shank_od = 11.0
-# [50 mm](SHANK_LEN) shank length below the deck.
+# shank length below the deck.
 shank_length = 50.0
 shank_r = shank_od / 2
 
 # Zone 1 — cylindrical base, z = 0 → cylinder_height.
-# [31.5 mm](BODY_OD) body OD — also = long dim of the rectangular column above.
+# body OD — also = long dim of the rectangular column above.
 body_od = 31.50
 body_r = body_od / 2
-# [13 mm](CYL_TOP_Z) — cylinder ends / rect column begins here.
+# — cylinder ends / rect column begins here.
 cylinder_height = 13.0
 
 # Zone 2 — rectangular column, z = cylinder_height → plateau_z. Long X
@@ -80,13 +80,13 @@ cylinder_height = 13.0
 # axis. The two Y-facing short faces meet the cylinder top in a concave
 # cove.
 rect_long = body_od
-# [17 mm](RECT_SHORT) — short (Y) dim of the rect column.
+# — short (Y) dim of the rect column.
 rect_short = 17.0
 rect_short_half = rect_short / 2
 rect_long_half = rect_long / 2
-# [39 mm](PLATEAU_Z) — top of the rect column / plateau between the arches.
+# — top of the rect column / plateau between the arches.
 plateau_z = 39.0
-# [6 mm](TRANSITION_FILLET_R) cylinder→rectangle cove radius.
+# cylinder→rectangle cove radius.
 transition_fillet_r = 6.0
 
 # Zone 3 — arch features (z = plateau_z → arc_peak_z). Two identical
@@ -96,44 +96,44 @@ transition_fillet_r = 6.0
 # `arc_peak_z` at x = 0, atop a rectangular foot from `plateau_z` to
 # `arc_base_z`. The plateau between them is `plateau_width_y` wide;
 # the plunger and water port both live in this plateau.
-# [41 mm](ARC_BASE_Z) — arches start curving upward.
+# — arches start curving upward.
 arc_base_z = 41.0
-# [46 mm](ARC_PEAK_Z) — arch peak at X=0.
+# — arch peak at X=0.
 arc_peak_z = 46.0
-# [1.5 mm](ARCH_WIDTH) — Y thickness of each arch ridge.
+# — Y thickness of each arch ridge.
 arch_block_width_y = 1.5
 arch_y_offset = rect_short_half - arch_block_width_y / 2
-# [14 mm](PLATEAU_WIDTH) plateau Y width.
+# plateau Y width.
 plateau_width_y = rect_short - 2 * arch_block_width_y
 
 # Water port — single bore through the top face at plateau level,
-# exiting straight upward. [2 mm](PORT_EDGE_GAP) gap from the +X short
+# exiting straight upward. gap from the +X short
 # face (x = +rect_long_half) to the port wall.
-# [10 mm](VALVE_PORT_D) port diameter.
+# port diameter.
 port_diameter = 10.0
 port_radius = port_diameter / 2
 port_edge_gap_x = 2.0
-# [8.75 mm](PORT_X) port center X.
+# port center X.
 port_center_x = rect_long_half - port_edge_gap_x - port_radius
 port_center_y = 0.0
 port_bore_depth = 20.0
 
-# External reference — the deck hole the [11 mm](SHANK_OD) shank passes through.
-# [34.93 mm](COUNTERTOP_HOLE) = 1-3/8" standard countertop hole.
+# External reference — the deck hole the shank passes through.
+# = 1-3/8" standard countertop hole.
 countertop_hole_diameter = 34.93
 
-# Plunger geometry. ~[1 mm](PLUNGER_GAP) gap between the port wall (x =
-# [3.75 mm](PORT_WALL_X)) and the plunger wall; plunger OD ≈ [5.5 mm](PLUNGER_OD_EST).
+# Plunger geometry. ~ gap between the port wall (x =
+#) and the plunger wall; plunger OD ≈.
 plunger_gap_to_port = 1.0
 port_wall_x = port_center_x - port_radius
 plunger_od_estimate = 2 * (port_wall_x - plunger_gap_to_port)
 
 # Derived geometry.
-arc_rise = arc_peak_z - arc_base_z                          # [5 mm](ARC_RISE)
-plateau_inset = arc_base_z - plateau_z                      # [2 mm](PLATEAU_INSET)
-rect_upper_height = plateau_z - cylinder_height             # [26 mm](RECT_UPPER_H)
-port_arch_gap_y = (plateau_width_y - port_diameter) / 2.0   # [2 mm](PORT_ARCH_GAP)
-rect_long_half_v = rect_long / 2.0                          # [15.75 mm](RECT_LONG_HALF) — half body OD = short-face x
+arc_rise = arc_peak_z - arc_base_z                          #
+plateau_inset = arc_base_z - plateau_z                      #
+rect_upper_height = plateau_z - cylinder_height             #
+port_arch_gap_y = (plateau_width_y - port_diameter) / 2.0   #
+rect_long_half_v = rect_long / 2.0                          # — half body OD = short-face x
 
 
 def build_shank():
@@ -290,9 +290,6 @@ def __getattr__(name):
     if name in {'M_DONOR_BLACK', 'one_body'}:
         import _materials
         return getattr(_materials, name)
-    if name in {'substitute_py_comments', 'substitute_md'}:
-        import docgen
-        return getattr(docgen, name)
     if name in {'WorldWorkplane', 'xy_plane_z_up', 'yz_plane_x_up', 'xz_plane_y_up', 'xy_plane_z_down'}:
         import world_workplane
         return getattr(world_workplane, name)

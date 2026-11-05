@@ -20,7 +20,6 @@ if __name__ == '__main__':
 
 import funnel
 from _materials import M_PETG_BLACK, linear
-from docgen import substitute_md
 
 from _zone_data import data as _zone
 
@@ -43,7 +42,6 @@ def numbers():
 def main():
     import _rust_part
     said = _rust_part.cut('funnel', 'funnel-cover', numbers(), HERE)
-    substitute_md(HERE / 'README.md', variables=_data()['variables'])
     print(f'-> cover STEP, print STEP, STL and payload; {said["bodies"][0]["volume"]:.1f} mm3')
 
 

@@ -49,7 +49,7 @@ import fits
 # Manifold validation and the ledger of named geometric bounds.
 import flute_skin as _flute_skin
 import _stated_bounds as _bounds
-import _cadq_export  # noqa: E402,F401  the CAD lock, and build-time.md's clock
+import _cadq_export  # noqa: E402,F401  the CAD lock
 from _materials import C_FAUCET_BLACK, linear
 import _faucet_interface
 import faucet_paths as _paths
@@ -75,7 +75,6 @@ from _faucet_interface import (
     display_cover_lap,
     display_cover_over_face,
 )
-from docgen import substitute_md, substitute_py_comments
 from world_workplane import WorldWorkplane, xy_plane_z_up, xz_plane_y_up
 
 
@@ -121,18 +120,18 @@ def _vertical_plane(x_offset):
     return cq.Workplane(_yz_plane_x_normal).workplane(offset=x_offset)
 
 
-# ZONE 1 — first [13 mm](ZONE1_HEIGHT); the Westbrass is a full ⌀[31.5 mm](WESTBRASS_OD) cylinder here
+# ZONE 1 — first; the Westbrass is a full ⌀ cylinder here
 
 
-# Westbrass bore — [32 mm](WESTBRASS_BORE_D); Westbrass OD [31.5 mm](WESTBRASS_OD).
+# Westbrass bore —; Westbrass OD.
 
 
-# Flavor-tube pill — 1/4" OD LLDPE tubes ([4 mm](FLAVOR_TUBE_OD) OD), tangent to the
-# Westbrass's +Y face (Y=+[15.75 mm](WESTBRASS_RECT_LONG_HALF)); the mounting row is F1-D-F2.
-# [18.15 mm](PILL_L) long axis (X), [7.25 mm](PILL_W) short axis (Y).
+# Flavor-tube pill — 1/4" OD LLDPE tubes ( OD), tangent to the
+# Westbrass's +Y face (Y=+); the mounting row is F1-D-F2.
+# long axis (X), short axis (Y).
 
 
-# [13.18 mm](FLAVOR_PILL_Y_MINUS) — flat -Y edge of the flavor pill
+# — flat -Y edge of the flavor pill
 # cutout in zones 1-4, on the Westbrass-bore +Y wall at the cutout's X corners.
 
 
@@ -149,7 +148,7 @@ def _vertical_plane(x_offset):
 # Read on the +Y edge alone the reach comes back 0.32 mm short, and the wall over the cap's
 # shoulder is that much thinner than the figure says.
 
-# [24.49 mm](SHELL_OUTER_R) outer-cylinder radius.
+# outer-cylinder radius.
 
 
 # ZONE 2
@@ -161,7 +160,7 @@ def _vertical_plane(x_offset):
 # Cove transition fillet — matches the Westbrass's transition_fillet_r.
 
 
-# [2 mm](WALL_MIN) cylindrical shell wall above the Westbrass cyl top before the cove.
+# cylindrical shell wall above the Westbrass cyl top before the cove.
 
 
 # BASE JOINT — three hidden M3 screws clamp the plate against the shell.
@@ -180,7 +179,7 @@ def _vertical_plane(x_offset):
 # Body arches: 1.5 mm ridges at X = ±7.75, full Y width (±15.75); profile
 # in (Y, Z) is a 2 mm foot from Z=39→41 then a 3-point arc through
 # (∓15.75, 41) and (0, 46).
-# Plateau between the arches (X ∈ ±[6.75 mm](WING_INNER_X)) is open.
+# Plateau between the arches (X ∈ ±) is open.
 
 
 # ZONE 3 — plateau fill (between the wings, Y ≥ fill_y_min).
@@ -189,7 +188,7 @@ def _vertical_plane(x_offset):
 # Westbrass's 10.0 mm port via a printed TPU bushing (see
 # ../tpu-o-ring/).
 
-# [10.22 mm](SODA_FAUCET_HOLE_D) water bore.
+# water bore.
 
 
 # 4 mm LLDPE flavor tubes, tangent to the soda faucet tube at the dispense
@@ -202,8 +201,8 @@ def _vertical_plane(x_offset):
 # ZONE 4 — rect column above the arch (soda faucet tube + flavor pill cutouts).
 
 # Clears the pressed-lever head corner (Y=+6.78, Z=54.024), which sits
-# inside zone 5's water-circle outline (Y=+[8.875 mm](SODA_FAUCET_TUBE_Y),
-# R=[9.472 mm](TUBE_SHELL_SODA_R)); zone 5's bottom is above it.
+# inside zone 5's water-circle outline (Y=+,
+# R=); zone 5's bottom is above it.
 
 
 # ZONE 5 — round tube wrapper above the lever, carrying the soda bore
@@ -219,7 +218,7 @@ def _vertical_plane(x_offset):
 
 
 # SPLIT — the shell prints in two pieces at the internal
-# [70°](SPLIT_JUNCTION_ROT) datum. The base has the 20 mm female socket;
+# datum. The base has the 20 mm female socket;
 # the tip carries the 18 mm male land. The
 # mating surfaces follow the arc and the tip swings shut about its axis.
 # Fit: the plug's outer surface sits slip/2 inside the socket's cavity
@@ -264,7 +263,7 @@ def _bend2_point(rot: float) -> tuple:
 
 
 # PRINTING — the base beds on its foot (Z=0) with the -Y edge lifted
-# [15°](PRINT_TILT), keeping the long straight neck close to vertical.
+#, keeping the long straight neck close to vertical.
 # The tip beds on the joint end with the crown lifted and its build
 # direction at the angular midpoint of the sweep it carries.
 
@@ -283,7 +282,7 @@ def _bend2_point(rot: float) -> tuple:
 
 
 # ZONE 4.5 — block capping the lever swing volume from above, reaching
-# up to Z=gn_bend1_z_start ≈ [153.4 mm](GN_BEND1_Z_START).
+# up to Z=gn_bend1_z_start ≈.
 
 # Round gooseneck section at world X=0.
 
@@ -294,7 +293,7 @@ def _bend2_point(rot: float) -> tuple:
 
 # Top sits 3 mm above zone 4's top on the back side (lid sits flat on
 # zone 4 top). The front bottom follows the back-arch curve down to
-# ≈ Z=[54.41 mm](ZONE45_Z_BOT_FRONT).
+# ≈ Z=.
 
 
 # Mid-point of the bottom arch sub-arc, between zone45_front_y end
@@ -1567,31 +1566,6 @@ def main():
     out_dir = Path(__file__).resolve().parent
     said = _rust_part.cut("faucet", "faucet-shell", numbers(), out_dir)
     print("-> " + ", ".join(said["files"]))
-
-    variables = _shell_data('variables', directory=str(out_dir))
-    substitute_md(
-        out_dir / "ASSEMBLY.md",
-        variables=variables,
-    )
-    print("-> ASSEMBLY.md")
-    substitute_md(
-        out_dir / "MATERIAL.md",
-        variables=variables,
-    )
-    print("-> MATERIAL.md")
-    substitute_py_comments(
-        Path(__file__),
-        variables=variables,
-    )
-    print(f"-> {Path(__file__).name} (self)")
-
-    # Pinned dimensions living in the shared interface helper's prose.
-    interface_variables = _shell_data('interface_variables')
-    substitute_py_comments(
-        Path(_faucet_interface.__file__),
-        variables=interface_variables,
-    )
-    print(f"-> {Path(_faucet_interface.__file__).name} (interface)")
 
     # The bounds this file states about its own constants, read at import. `check_show_faces.py`
     # is where they are held for the board; this is the reading the run itself leaves.

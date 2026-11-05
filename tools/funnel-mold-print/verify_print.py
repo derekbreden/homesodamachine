@@ -154,33 +154,23 @@ def geometry_figures(info):
         'HEAD_PRESSURE': f"{info['load_screen']['head_pressure_kpa']:.3f} kPa"}
 
 
-def write_figures(models, figures, merge=False):
-    sys.path.insert(0, str(HERE.parent))
-    from docgen import substitute_md
-    sidecar = models/'README.figures.json'
-    key = '/tools/funnel-mold-print/verify_print.py'
-    held = json.loads(sidecar.read_text()).get(key, {}) if merge and sidecar.exists() else {}
-    held.update(figures)
-    for retired in ('SOCKET', 'SOCKET_VENT', 'SPOUT_WALL', 'SPOUT_OD', 'SPOUT_LAND',
-                    'TIP_LENGTH', 'TIP_CAP', 'ROD_MIN_WALL', 'ROD_TIE_WIDTH', 'ROD_SEAL_DEPTH', 'ROD_EXTRA', 'ROD_ROOF_GAP',
-                    'LOAD_MODULUS', 'LOAD_DEFLECTION'):
-        held.pop(retired, None)
-    substitute_md(models/'README.md', variables=figures)
-    sidecar.write_text(json.dumps({key: held}, indent=2, sort_keys=True)+'\n')
+def _show(figures):
+    for name, value in sorted(figures.items()):
+        print(f'{name:<16} {value}')
 
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--models', type=Path, required=True)
     parser.add_argument('--slices', type=Path)
-    parser.add_argument('--geometry-only', action='store_true', help='Refresh CAD dimensions before slicing.')
+    parser.add_argument('--geometry-only', action='store_true', help='Print the CAD dimensions without slicing.')
     parser.add_argument('--project-stem', default='funnel-mold')
     parser.add_argument('--single', action='store_true', help='Audit only the default Z trim.')
     parser.add_argument('--comparison-slices', type=Path, help='Also audit a 0.4 mm default slice for comparison.')
     args = parser.parse_args()
     info = json.loads((args.models/'design.json').read_text())
     if args.geometry_only:
-        write_figures(args.models, geometry_figures(info), merge=True)
+        _show(geometry_figures(info))
         return
     if args.slices is None:
         parser.error('--slices is required unless --geometry-only is used')
@@ -257,7 +247,7 @@ def main():
         alt = comparison['slice_result']['sliced_plates']
         figures.update({'FINE_TIME': duration({'total_predication': seconds(alt)}),
                         'FINE_MASS': f'{mass(alt)/1000:.2f} kg'})
-    write_figures(args.models, figures)
+    _show(figures)
     for record in records:
         print(record['project'], record['effective_setting_count'], 'settings checked')
         for plate in record['slice_result']['sliced_plates']:

@@ -13,7 +13,7 @@ US kitchen sink base cabinets are standard stock: **34.5" high × 24" deep**, in
 **30", 33" and 36"** (24", 27", 39" and 42" are catalogued). Every major line — Hampton Bay,
 Thomasville, Diamond, the RTA houses — ships those three numbers.
 
-Interior clear height is **[755.7 mm](CABINET_CLEAR_H)**: the 34.5" carcass less the 4" toe
+Interior clear height is : the 34.5" carcass less the 4" toe
 kick less the 3/4" deck. That derivation is the one the umbilical's length stack-up already runs on
 ([`/hardware/assembly/faucet-and-umbilical.md`](/hardware/assembly/faucet-and-umbilical.md)
 §1), and it is the cabinet number the machine's own geometry is sized against.
@@ -47,10 +47,10 @@ plus 133 mm plus a working gap is what the pair asks of the slot.
 
 ## What the machine needs beyond its own box
 
-- **[75.3274 mm](TURN_IN) behind the rear face** — 38.5 mm straight lead, a 90° bend at R25, and the outermost socket. The 4 mm FLAVOR sockets
-  stand [11.8274 mm](COLLET_PROUD) proud of the wall's own outer face; the 1/4-inch SODA/TAP sockets stand 9.5 mm proud.
-  The continuous rear channels capture the [1.8 mm](BULKHEAD_RING_THICK)
-  identification tiles [0.2 mm](BULKHEAD_RING_RECESS) below that face
+- ** behind the rear face** — 38.5 mm straight lead, a 90° bend at R25, and the outermost socket. The 4 mm FLAVOR sockets
+  stand proud of the wall's own outer face; the 1/4-inch SODA/TAP sockets stand 9.5 mm proud.
+  The continuous rear channels capture the
+  identification tiles below that face
   (`faucet-and-umbilical.md` §1, `printed-parts/enclosure/rear-identification/`).
 - **300 mm of pull-forward** — the umbilical's service loop, sized to bring the +Y wall of
   back-top to the cabinet face so its own connections can be reached.
@@ -107,7 +107,3 @@ axis, and the mated [compressor](/hardware/reference/compressor/README.md) and
 millimetres of each other, and the thin edition's width is built
 on the first of them
 ([`enclosure/README.md`](/hardware/printed-parts/enclosure/README.md)).
-
-## Sources
-[value](NAME) texts are updated by:
-- `/marketing/_install_envelope_sync.py`

@@ -21,14 +21,14 @@ symmetry on the equatorial plane, the tangential component by axisymmetry.
 Both reeds stand with their glass vertical; a reed tilted θ off vertical
 has a smaller axial projection as it tilts.
 
-The wind's pitch is [12.33 mm](WRAP_PITCH) over [6.35 mm](COPPER_OD) tube,
-leaving [5.976 mm](INTER_WRAP_CLEAR) of bare wall between adjacent wraps at
-any one azimuth. The mounting envelope is [14 mm](REED_GLASS_L), so a reed
+The wind's pitch is over tube,
+leaving of bare wall between adjacent wraps at
+any one azimuth. The mounting envelope is, so a reed
 standing vertical spans at least one wrap and at most two.
 
 Each reed lies in a pocket cut clear through the bridge to the wall — the
 pocket floor is the carbonator's steel. The plateau around it stands
-[3.25 mm](POCKET_DEPTH) proud, clearing a ⌀[2.5 mm](REED_GLASS_D) capture
+ proud, clearing a ⌀ capture
 envelope by copper_clearance_over_glass. Nothing sits between the reed and
 the wall.
 
@@ -37,7 +37,7 @@ the wall.
 | Stage | Holding it |
 |---|---|
 | Bench handling, foil skinning | A 3M 425 capture patch over each pocket, then the continuous 3M 425 skin over the whole bridge |
-| Coil transfer | Ramps on all four sides — [10 mm](AXIAL_RAMP) axial, [16 mm](ARC_RAMP) circumferential — that each wrap rides up and over |
+| Coil transfer | Ramps on all four sides — axial, circumferential — that each wrap rides up and over |
 | Drop into the foam-shell cavity | The coil's hoop tension clamps the bridge to the wall |
 | Foam pour | Cured closed-cell PU |
 
@@ -48,39 +48,39 @@ carbonator support ring.
 
 **The column.** Each end plate is an ID-fit plug recessed 1/4" below its
 tube end. The wetted column runs from the bottom plate's inside face at
-[12.7 mm](INTERIOR_FLOOR) to the top plate's inside face at
-[139.7 mm](INTERIOR_CEILING) — [127 mm](INTERIOR_H) of height in a
-[123.7 mm](TUBE_ID_MM) bore, [12.01 mL](ML_PER_MM) per mm,
-[1497 mL](INTERIOR_ML) brim-full.
+ to the top plate's inside face at
+ — of height in a
+ bore, per mm,
+ brim-full.
 
 **The serving.** 12 US fl oz of finished soda at the syrup's 1:20 ratio is
-[338.1 mL](WATER_PER_SERVING) of carbonated water — [28.15 mm](SERVING_RISE)
+ of carbonated water —
 of level.
 
 **CHI — pump off** at 65 % of the wetted height: level
-[95.25 mm](HIGH_LEVEL). [968.6 mL](STORED_ML) = [2.86](STORED_SERVINGS)
-servings stored above the floor, [528.4 mL](HEADSPACE_ML) of CO2 headspace
+. =
+servings stored above the floor, of CO2 headspace
 (35 %) above it for the inlet jet and the level surge.
 
-**CLO — pump on** one serving below: level [67.1 mm](LOW_LEVEL). The
-refill increment is one drink. Below CLO, [630.5 mL](RESERVE_ML) =
-[1.86](RESERVE_SERVINGS) servings of reserve.
+**CLO — pump on** one serving below: level. The
+refill increment is one drink. Below CLO, =
+ servings of reserve.
 
 **Reach.** The Aero float's magnetic midplane travels between
-[28.2 mm](MAGNET_LOWEST), sitting on the rod's tack bead, and
-[121.7 mm](MAGNET_HIGHEST), against the 4 mm stainless stop below the top plate. Both reed heights fall
-inside the wind band, [15 mm](BAND_BOTTOM) … [134.4 mm](BAND_TOP).
+, sitting on the rod's tack bead, and
+, against the 4 mm stainless stop below the top plate. Both reed heights fall
+inside the wind band, ….
 
 **Reed centres and calibration.** The geometric seed centres are
-CLO [58.332 mm](REED_LOW_Z) and CHI [86.484 mm](REED_HIGH_Z), above the tube bottom rim.
-The 28 mm float's magnet is [-8.766 mm](MAGNET_LEAD) relative to the waterline
+CLO and CHI, above the tube bottom rim.
+The 28 mm float's magnet is relative to the waterline
 at the assumed 0.65 g/cm³ foam density. These seed centres align magnet and
 reed; they do not predict the rising/falling contact thresholds. Measure the
 finished float in water through the actual stainless wall before printing a
 final bridge or bonding it in place. [Calibration and datums](../magnetic-float/all-aero/installation.md).
 
 **Azimuth.** The rod axis is 20 mm inside the wet wall. The float has
-[2 mm](FLOAT_WALL_CLEARANCE) nominal body clearance and ±0.8125 mm radial guide
+ nominal body clearance and ±0.8125 mm radial guide
 motion. The conservative nearest RC62-edge to reed-centre distance is at most
 14.189 mm on this azimuth. Keep the reeds vertical. The mount retains a
 14 × 2.5 mm envelope for the smaller MDSR-7-10-15 glass and capture tape.
@@ -91,23 +91,23 @@ wetting and actual density can change them.
 
 ## The part
 
-Cylindrical shell segment on a 127 mm OD, [3.25 mm](POCKET_DEPTH) proud at the
-plateau, [0.8 mm](SKIRT_T) at the skirt.
+Cylindrical shell segment on a 127 mm OD, proud at the
+plateau, at the skirt.
 
-- **Extent** — Z [38.18 mm](BRIDGE_Z_BOTTOM) … [106.6 mm](BRIDGE_Z_TOP),
-  [68.45 mm](BRIDGE_H) tall × [51.4 mm](BRIDGE_ARC) of arc,
-  [6.8 cm³](BRIDGE_VOL) of PETG.
-- **Reed pockets** — two, [14.3 mm](POCKET_L) × [2.8 mm](POCKET_W), through to
+- **Extent** — Z …,
+  tall × of arc,
+  of PETG.
+- **Reed pockets** — two, ×, through to
   the wall, centred on the two reed heights. The part is symmetric end for
   end. Lower reed is `CLO`, upper is `CHI`.
-- **Lead groove** — [5.6 mm](LEAD_GROOVE_W) × [2.3 mm](LEAD_GROOVE_D),
+- **Lead groove** — ×,
   offset off the pocket column, carrying `CLO`, `CHI` and the shared common
   out the top edge. A cross-notch at each pocket end brings that reed's
   leads into it.
-- **Copper it carries** — [5.55](WRAPS_CARRIED) wraps cross the bridge; at
+- **Copper it carries** — wraps cross the bridge; at
   full standoff over the plateau and half over the ramps, that is
-  [35.4 mm](EFFECTIVE_ARC) of arc each, [197 mm](CARRIED_COPPER) of the
-  3.877 m wrap — [4.8 %](CARRIED_FRACTION).
+  of arc each, of the
+  3.877 m wrap —.
 
 **Print** — PETG, outer (convex) face down on the plate. The lead-groove floor
 bridges above the bed; its retained strands have a 0.25 mm allowance in the
@@ -117,10 +117,10 @@ pockets pass completely through the bridge.
 
 ## Setting gauge
 
-`reed-bridge-setting-gauge.step` — a [60°](GAUGE_ARC_DEG) band that hangs
+`reed-bridge-setting-gauge.step` — a band that hangs
 on the tube's bottom rim by an inward hook. Its top face is at
-[38.18 mm](BRIDGE_Z_BOTTOM), the bridge's bottom edge.
-[9.54 cm³](GAUGE_VOL) of PETG. Shop tooling, printed once and reused across
+, the bridge's bottom edge.
+ of PETG. Shop tooling, printed once and reused across
 carbonators like the coil mandrel.
 
 ## Bench procedure
@@ -148,7 +148,3 @@ before printing the bridge/setting gauge or fixing the reed heights.
    X−78/Y320/Z253.4. Lay it before the pour; foam locates it below the lid.
    Thread the free ends through the lid before fitting outside terminations,
    then dress the three reed ends to J7 and the existing reed-common WAGO.
-
-## Sources
-[value](NAME) texts are updated by:
-- `/hardware/printed-parts/cold-core/reed-bridge/reed_bridge.py`

@@ -166,8 +166,6 @@ pub fn initialize(rt: Runtime, e: Env) -> Result<()> {
     };
     e.set("_valve", rt.import_module("beduan_solenoid")?)?;
     e.set("_seat", rt.import_module("valve_seat")?)?;
-    let mod38 = rt.import_module("docgen")?;
-    e.set("substitute_md", rt.member("docgen", "substitute_md")?)?;
     // __getattr__
     e.set("__getattr__", {
         let params = vec![("name".into(), None, false)];
@@ -1164,40 +1162,6 @@ Ok(Val::None)})})?;
                         }
                     });
                     fun461.call(args459, kw460)?
-                }
-            };
-            {
-                let _site = rt.source_at(
-                    "tools/hsm/enclosure-data/src/compiled/valve_tray.rs",
-                    line!(),
-                );
-                {
-                    let fun467 = e.get("substitute_md")?;
-                    let mut args465 = Vec::new();
-                    let mut kw466 = Vec::new();
-                    args465.push(binary(
-                        "truediv",
-                        e.get("_here")?.attr("parent")?,
-                        Val::Str("README.md".into()),
-                    )?);
-                    kw466.push((
-                        "variables".into(),
-                        e.get("report")?.get(Val::Str("variables".into()))?,
-                    ));
-                    fun467.call(args465, kw466)?
-                }
-            };
-            {
-                let _site = rt.source_at(
-                    "tools/hsm/enclosure-data/src/compiled/valve_tray.rs",
-                    line!(),
-                );
-                {
-                    let fun470 = e.get("print")?;
-                    let mut args468 = Vec::new();
-                    let mut kw469 = Vec::new();
-                    args468.push(Val::Str("-> README.md".into()));
-                    fun470.call(args468, kw469)?
                 }
             };
             Ok(Val::None)

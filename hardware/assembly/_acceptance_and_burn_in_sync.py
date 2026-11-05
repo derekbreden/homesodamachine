@@ -1,6 +1,5 @@
-"""Doc-sync driver for hardware/assembly/acceptance-and-burn-in.md.
-
-Run: tools/cad-venv/bin/python hardware/assembly/_acceptance_and_burn_in_sync.py"""
+"""Acceptance targets (the glass, the ratio, the dispense temperature), computed by the Rust
+`assembly-docs` program. `tools/model/model.py` reads them."""
 import sys
 from pathlib import Path
 _here = Path(__file__).resolve().parent
@@ -11,7 +10,7 @@ from _pressure_vessel_sync import carbonation_basis_c, secondary_regulator_press
 
 _assembly_doc_root = next(p for p in Path(__file__).resolve().parents if (p / "hardware/scripts").is_dir())
 sys.path.insert(0, str(_assembly_doc_root / "hardware/assembly"))
-from _rust_docs import evaluate as _evaluate, update as _update
+from _rust_docs import evaluate as _evaluate
 
 
 def _inputs():
@@ -24,11 +23,3 @@ def _inputs():
 
 
 globals().update(_evaluate('acceptance-and-burn-in', _inputs())["exports"])
-
-
-def main():
-    _update('acceptance-and-burn-in', _inputs())
-
-
-if __name__ == "__main__":
-    main()

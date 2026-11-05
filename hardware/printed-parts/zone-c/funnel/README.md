@@ -1,6 +1,6 @@
 # Flavor-fill funnel and drop-in frame
 
-The removable silicone funnel holds nominally [698 mL](FUNNEL_CAP). Its PET-GF
+The removable silicone funnel holds nominally. Its PET-GF
 frame lowers vertically through the closed upper enclosure and fastens from above
 with four M3 × 12 screws. The drain cradle snaps into the frame’s 3 mm lower web
 and supports an uncut NeoFit ATEU44W stem elbow.
@@ -40,7 +40,7 @@ The [overflow review](overflow-review/README.md) records native coverage,
 roof fit, mold fit and lift-out clearance. Water exclusion has not been
 measured on a cast part.
 
-The integral silicone plug is a [36 × 41.0 mm](FUNNEL_PLUG) rectangle with square corners,
+The integral silicone plug is a rectangle with square corners,
 centred on the outlet, 12.85 mm tall with its flat bottom at Z306.05 resting on the cradle's
 hook tops.
 Its walls run up into the bowl's underside, so none of its top shows. Its straight
@@ -60,8 +60,8 @@ complete block and cylindrical outlet.
 
 ## PET-GF frame
 
-The complete rigid flange is [196.5 mm](FRAME_WIDTH) wide ahead of Y199.75 and
-[182.5 mm](FRAME_REAR_WIDTH) wide aft of that shoulder, beside the upper M5 seam
+The complete rigid flange is wide ahead of Y199.75 and
+ wide aft of that shoulder, beside the upper M5 seam
 blocks. Its full Y envelope is 182.692 mm. The flange's flat underside bears at
 Z346. The front surround finishes at Z355. The rear surround is a flat Z349
 brim bearing, with two finite screw-head pads at Z351.8. The silicone brim
@@ -71,7 +71,7 @@ R6 aft corners. Its 5 mm aft access extension opens the J10 screw-tool passages
 when the frame and drain are removed. Both upper shells have the matching
 stepped roof pocket.
 
-The [175.5 mm](FRAME_BODY_WIDTH) lower body passes between the shell ledges.
+The lower body passes between the shell ledges.
 Its lower front and rear feet reach Z299.9 and keep their 30° end corbels.
 Plain open-bottom notches pass all four ledges. The lower body carries
 the drain socket and its 3 mm snap web. The empty frame’s vertical passage is
@@ -79,7 +79,7 @@ reviewed with the drain cradle, elbow and connected tubing removed.
 There are no sliding rails or outboard lower foot wings.
 
 Four broad shell-rooted ledges bear the flange: one pair in front-top and one in
-back-top. Four [M3 × 12 mm](FRAME_SCREWS) socket-head screws enter from above
+back-top. Four socket-head screws enter from above
 into full-length RX-M3×5.7 inserts. The front axes are X±93.0, Y125.0;
 the rear axes are X±87.7, Y259.492. Each Ø4 mm pilot has a full 3 mm radial
 surround in its 10 mm host. The rear ledges' inner planes are X±82.7, leaving
@@ -107,13 +107,13 @@ stiffness, insertion force and lifetime remain unqualified.
 ## Drain socket and snap web
 
 The removable frame’s underside is Z299.9 and the socket floor is Z302.9.
-The 3 mm web beneath the [36.6 × 41.6 mm](FRAME_SOCKET) socket carries the
+The 3 mm web beneath the socket carries the
 cradle’s two snap hooks. The socket extends 19 mm above that web; its R0.25
 receiver corners and 1 mm mouth lead-in retain room around the square silicone
 plug and released hook tips. The plug’s lower face bears on the hooks at Z306.05.
 
-Only the [11.25 mm](FRAME_HOLE) drain hole and two straight
-[5.54 × 32.3 mm](FRAME_SLOTS) wing slots pierce this web. The complete catches
+Only the drain hole and two straight
+ wing slots pierce this web. The complete catches
 bear above the 3 mm web on both sides. The elbow's socket collar stands
 1.713 mm below the frame's underside in the released pose.
 
@@ -131,7 +131,7 @@ under the frame's drain hole, with its stem up and female socket aft. The
 bend axis is X0, Y179.20, Z290.289. The uncut stem ends at the bowl opening;
 the socket collar has 1.713 mm air below the frame's lower web.
 
-The pocket adds [0.15 mm](CRADLE_SLIP) radially to the scanned profiles and
+The pocket adds radially to the scanned profiles and
 axially across the socket collar's transitions. Its
 lower horizontal seat follows the body through the widest collar station and
 carries that radius through the aft exit, with a full 3 mm floor. The open
@@ -145,11 +145,11 @@ straight black LLDPE link is 36.469 mm long including 16.891 mm insertion at
 each end, with 2.687 mm exposed tube. The frame carries this assembled drain
 joint; disconnect it before withdrawing the frame.
 
-The body is [30.1 mm](CRADLE_WIDTH) wide. Both X sides carry
-[1.3 mm](CRADLE_WING_T) wings along its full [30.0 mm](CRADLE_LENGTH) length,
-[15.64 mm](CRADLE_WING_H) above the body, through the frame's slots. Each flat hook
-reaches [3.1 mm](CRADLE_HOOK) outward, [2.6 mm](CRADLE_OVERLAP) past its slot's
-outer edge. The hook tip has [0.15 mm](CRADLE_TIP_GAP) X air to the socket wall;
+The body is wide. Both X sides carry
+ wings along its full length,
+ above the body, through the frame's slots. Each flat hook
+reaches outward, past its slot's
+outer edge. The hook tip has X air to the socket wall;
 the receiver's R0.25 corners preserve at least 0.15 mm normal static air at the
 hook ends. The slots extend 0.25 mm beyond the fore wing ends and 2.10 mm
 beyond their aft ends.
@@ -161,20 +161,20 @@ collar. The flexure roots are at Z290.410;
 the wing slots, hooks and silicone bearing planes share the frame's fixed
 interface datums.
 
-The installed cradle stands [0.65 mm](CRADLE_CATCH) below its insertion datum.
-The hook undersides are at Z303.3, [0.40 mm](CRADLE_WEB_AIR) above the frame's
+The installed cradle stands below its insertion datum.
+The hook undersides are at Z303.3, above the frame's
 Z302.9 web top: 0.15 mm static allowance plus 0.25 mm for the supported hook
-underside. Each hook is [2.75 mm](CRADLE_HOOK_T) thick, with its top at Z306.05
+underside. Each hook is thick, with its top at Z306.05
 under the silicone plug's flat lower face. This finite rectangular snap hook
 is a named local thickness feature; the cradle's body wall and frame web are
 3 mm. The silicone plug, drain seal, elbow and installed joint poses retain
 their specified dimensions.
 
 Each hook passes its slot's outer edge with 0.25 mm air while the wing is pinched
-inward. The source's tip-loaded cantilever model sizes a [3.74 mm](CRADLE_LANE)
-inboard lane and estimates [2.67 mm](CRADLE_BEND) deflection over a 12.89 mm free
-length, about [3.1%](CRADLE_STRAIN) nominal root strain. The remaining web from
-the slot to the drain-hole edge is [4.39 mm](CRADLE_WEB). This model describes
+inward. The source's tip-loaded cantilever model sizes a
+inboard lane and estimates deflection over a 12.89 mm free
+length, about nominal root strain. The remaining web from
+the slot to the drain-hole edge is. This model describes
 nominal passage geometry; it does not establish insertion force or strain capacity.
 The [cradle trial](cradle-trial/README.md) records accepted insertion for its
 identified meshes; it does not establish this joint's loaded retention or lifetime.
@@ -218,9 +218,3 @@ and [frame print receipt](flush-roof-review/mark2-v1/README.md) apply only to th
 artifacts named in those records. The [cradle trial](cradle-trial/physical-acceptance.json)
 retains its accepted insertion scope. The drop-in frame and installed drain joint require their own physical print
 and assembly observations.
-
-## Sources
-[value](NAME) texts are updated by:
-- `/hardware/printed-parts/zone-c/funnel/elbow_cradle.py`
-- `/hardware/printed-parts/zone-c/funnel/funnel.py`
-- `/hardware/printed-parts/zone-c/funnel/funnel_frame.py`
