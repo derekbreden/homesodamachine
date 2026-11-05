@@ -46,14 +46,12 @@ click: x=-8.400 y=3.600 z=-21.198
 click: x=-7.803 y=3.600 z=-30.805
 click: x=3.419 y=3.600 z=28.000
 
-[ceiling] Wrong print-axis classification: these are the divider, frame and clip-root end edges. The nameplate beds on its rear clip backs at Y−4 with CAD +Y upward (PRINT_TILT_X=90), while the ceiling finder only applies PRINT_UP to CAD Z. These edges stand vertically during the face-up print; they are not unsupported print-down ceilings. Reported to Derek.
+[ceiling] Wrong print-axis classification: these are the divider and frame end edges. The nameplate beds on its flat back at Y0 with CAD +Y upward (PRINT_TILT_X=90), while the ceiling finder only applies PRINT_UP to CAD Z. These edges stand vertically during the face-up print; they are not unsupported print-down ceilings. Reported to Derek.
 alternatives: Evaluate ceiling normals and height in the complete print pose, as the ledge finder already does. Standing the plate on its Z end would create the overhangs the current ceiling report assumes.
 file: hardware/printed-parts/enclosure/nameplate/nameplate-001.step
 click: x=0.000 y=3.600 z=2.390
 click: x=0.000 y=3.600 z=44.790
 click: x=0.000 y=3.600 z=-45.210
-click: x=-41.000 y=-2.000 z=-35.500
-click: x=41.000 y=-2.000 z=-35.500
 
 [thin] Required First Edition graphic outlines: finite identification strokes begin at 0.325 mm; the frame and divider are 0.42 mm wide, and QR modules are 1.20 mm. The 0.003 mm, zero-area sample is a narrowing at a glyph curve junction, not a continuous membrane. These points belong to the specified raised lettering, QR and frame; this new artwork has CAD validation and no physical print acceptance.
 alternatives: Heavier glyphs or larger lettering change the approved type or its balanced layout. A wider frame changes the requested fine border. Larger QR modules increase its footprint; flush ink removes the required relief. Use a variable-width print process for the 0.325 mm identification strokes.
@@ -152,3 +150,11 @@ click: x=16.745 y=3.540 z=10.061
 click: x=16.265 y=3.540 z=9.873
 click: x=-4.977 y=3.560 z=19.264
 click: x=-4.432 y=3.560 z=19.250
+
+[step] Required 1 mm counterbores requested by Derek: each Ø6.2 recess provides the flat seat for a Ø5.5 socket head, leaving a 2.36 mm bearing floor and 2 mm of visible head above the plate. These are the four deliberate fastener seats of the selected mount.
+alternatives: Removing the counterbores loses the requested head seats. A 3 mm-deep flush counterbore leaves only 0.36 mm beneath the head; thickening the entire plate for flush heads changes the requested protruding-head design.
+file: hardware/printed-parts/enclosure/nameplate/nameplate-001.step
+click: x=-35.398 y=2.360 z=-42.711
+click: x=35.398 y=2.360 z=-42.711
+click: x=-35.398 y=2.360 z=42.711
+click: x=35.398 y=2.360 z=42.711

@@ -1,0 +1,75 @@
+{
+  "views": [
+    {
+      "name": "receiver",
+      "caption": "Solid receiver with four blind M3 insert pilots, clear of the adjacent color-card frame.",
+      "before": "receiver-before.webp",
+      "after": "receiver-after.webp",
+      "width": 1200,
+      "height": 1000,
+      "marks": [
+        {
+          "x": 884.8,
+          "y": 201.5,
+          "r": 31.2,
+          "label": "Insert-pilot",
+          "at": [
+            -80.4,
+            475.94,
+            258
+          ]
+        }
+      ],
+      "model": "printed-parts/enclosure/enclosure/enclosure.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          -75.74210637240394,
+          638.7105318620197,
+          244.19368509792315
+        ],
+        "target": [
+          -43,
+          475,
+          218
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "fov": 45,
+        "near": 57.08783209858262,
+        "far": 711.3353725248278,
+        "aspect": 1.2
+      },
+      "highlight": [],
+      "ghost": [],
+      "only": [
+        "enclosure_back_top"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "printed-parts/enclosure/enclosure/enclosure.step.mesh",
+          "from": "snapshot",
+          "sha256": "94036c84708542312b7671c304c9e2560fb6724808dd377698fa419b98c174be",
+          "commit": "a7c05a2969039c2c79cdeedc0c9c78f84388dc51",
+          "taken": "2026-11-05T04:16:43.437Z",
+          "published": true
+        },
+        "after": {
+          "payload": "printed-parts/enclosure/enclosure/enclosure.step.mesh",
+          "from": "tree",
+          "sha256": "42249cb5da632ceccf0a9ad5275f6afb6f353913d6a5e7b2cc3f51fea1f85ee9",
+          "commit": "d3b753d76db0f07c9105f38e96845888482ec41a",
+          "published": true
+        }
+      },
+      "changed": [
+        "enclosure_back_top"
+      ],
+      "withinMeshing": []
+    }
+  ]
+}

@@ -12,21 +12,23 @@
       280.15
     ]
   ],
+  "review_rotation_about_z_degrees": 180,
+  "review_pose": "Presentation models turn 180 degrees about Z so the default website camera opens on the rear; production parts retain their original machine coordinates.",
   "separated_pose": "Plate moves 18 mm outwards in Y; screws move 35 mm. Inserts remain flush in their seats.",
   "views": {
     "seated": "assembly/scenes/glb/nameplate-attachment-seated.glb",
     "separated": "assembly/scenes/glb/nameplate-attachment-separated.glb",
     "installed": "assembly/scenes/glb/nameplate-attachment-installed.glb",
-    "full-context": "assembly/scenes/glb/nameplate-attachment-full-context.glb"
+    "full-context": "assembly/scenes/glb/nameplate-four-screws-full-context.glb"
   },
   "source_sha256": {
-    "hardware/printed-parts/enclosure/nameplate/attachment_view.py": "425971cdeb0eb26a9afe7649c2829906c5f7c5f0b91ceda2f3d53f0f659cdb5b",
+    "hardware/printed-parts/enclosure/nameplate/attachment_view.py": "7df18af9ad36943dec7d12ca090e5db6a1c6caf6f68b89970ee76edbe800ab9b",
     "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl": "6fe4438cbe8b03f526c3f1cc754cbba824bef5481def0f755e516735f83a5fa4",
     "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh": "f8b2d9b3ea90bc0c075d366b49ee51a82561fec54691e1dc36554ea6bf358869",
-    "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh": "94036c84708542312b7671c304c9e2560fb6724808dd377698fa419b98c174be",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh": "42249cb5da632ceccf0a9ad5275f6afb6f353913d6a5e7b2cc3f51fea1f85ee9",
     "hardware/printed-parts/enclosure/nameplate/nameplate-001.step.mesh": "12eb7b1bedd1123ed507289224ed91aeda8c686710ad6dcfb819c8ed455c1041",
     "hardware/printed-parts/enclosure/nameplate/nameplate-fasteners.step.mesh": "d673f2e89ba7467e4b425547341034d815abe213db293a38f2b84d528800dd33",
-    "hardware/manifold-layout/enclosure-assembly.step.mesh": "4879476b3e2cb21c9005f02495786ee6b0381dd2c90dbbdd6040b316c7b11823",
+    "hardware/manifold-layout/enclosure-assembly.step.mesh": "171b214cc98c18764f78be6f798ff0476c5ceb73783a270d74a4368f867b71af",
     "hardware/printed-parts/enclosure/nameplate/nameplate.numbers.json": "a5f50e3669dbab2876ef5aaf93ddd0aff1f83cf0dba734ca2d45cb8c5abfb6d2",
     "hardware/manifold-layout/above-core.json": "a1ff49948158cacb14b044829f116907d21164dec2a80c553de07832829aa103"
   }
