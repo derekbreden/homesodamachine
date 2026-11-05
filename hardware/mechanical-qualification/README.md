@@ -57,8 +57,8 @@ is an unprinted TPU 85A fit candidate with separate barb/tube sockets and two
 zip ties. Its 6.10 mm barb socket uses the manufacturer's 1/4-inch hose size;
 the reference's 8 mm occupied cylinder is not a measured sealing diameter.
 The 3.80 mm tube socket is independent of the organizer's PET-GF sliding fit.
-The [drain clearance record](../manifold-layout/drain-clearance-check.json)
-supplies nominal placement evidence for the expanded sleeve and two R25 bends.
+[`check_asse_drain.py`](../scripts/check_asse_drain.py), run by hand, reads the
+expanded sleeve and its bends against the installed appliance.
 Socket fit, retained tie tension, leakage and complete fault flow are unmeasured.
 
 The [diaphragm pump elbow](../printed-parts/diaphragm-pump-sleeve/README.md)

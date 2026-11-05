@@ -3992,9 +3992,7 @@ genrule(
         "out/enclosure-assembly/hardware/assembly/scenes/glb/front-top.glb",
         "out/enclosure-assembly/hardware/assembly/scenes/glb/funnel-drain.glb",
         "out/enclosure-assembly/hardware/assembly/scenes/glb/pump-mount.glb",
-        "out/enclosure-assembly/hardware/manifold-layout/drain-clearance-check.json",
         "out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.facts.json",
-        "out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.physical.step.mesh",
         "out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.scene.npz",
         "out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.scorecard.json",
         "out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.step",
@@ -4042,21 +4040,19 @@ O7=$$PWD/$(location out/enclosure-assembly/hardware/assembly/scenes/glb/en07-ele
 O8=$$PWD/$(location out/enclosure-assembly/hardware/assembly/scenes/glb/front-top.glb)
 O9=$$PWD/$(location out/enclosure-assembly/hardware/assembly/scenes/glb/funnel-drain.glb)
 O10=$$PWD/$(location out/enclosure-assembly/hardware/assembly/scenes/glb/pump-mount.glb)
-O11=$$PWD/$(location out/enclosure-assembly/hardware/manifold-layout/drain-clearance-check.json)
-O12=$$PWD/$(location out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.facts.json)
-O13=$$PWD/$(location out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.physical.step.mesh)
-O14=$$PWD/$(location out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.scene.npz)
-O15=$$PWD/$(location out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.scorecard.json)
-O16=$$PWD/$(location out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.step)
-O17=$$PWD/$(location out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.step.mesh)
-O18=$$PWD/$(location out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.step.npz)
-O19=$$PWD/$(location out/enclosure-assembly/hardware/wiring/enclosure-wiring.csv)
-O20=$$PWD/$(location out/enclosure-assembly/hardware/wiring/enclosure-wiring.json)
-O21=$$PWD/$(location out/enclosure-assembly/hardware/wiring/enclosure-wiring.numbers.json)
-O22=$$PWD/$(location out/enclosure-assembly/hardware/wiring/enclosure-wiring.step)
-O23=$$PWD/$(location out/enclosure-assembly/hardware/wiring/enclosure-wiring.step.mesh)
-O24=$$PWD/$(location out/enclosure-assembly/hardware/wiring/enclosure-wiring.step.npz)
-O25=$$PWD/$(location out/enclosure-assembly/hardware/wiring/installed/integration-review.json)
+O11=$$PWD/$(location out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.facts.json)
+O12=$$PWD/$(location out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.scene.npz)
+O13=$$PWD/$(location out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.scorecard.json)
+O14=$$PWD/$(location out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.step)
+O15=$$PWD/$(location out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.step.mesh)
+O16=$$PWD/$(location out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.step.npz)
+O17=$$PWD/$(location out/enclosure-assembly/hardware/wiring/enclosure-wiring.csv)
+O18=$$PWD/$(location out/enclosure-assembly/hardware/wiring/enclosure-wiring.json)
+O19=$$PWD/$(location out/enclosure-assembly/hardware/wiring/enclosure-wiring.numbers.json)
+O20=$$PWD/$(location out/enclosure-assembly/hardware/wiring/enclosure-wiring.step)
+O21=$$PWD/$(location out/enclosure-assembly/hardware/wiring/enclosure-wiring.step.mesh)
+O22=$$PWD/$(location out/enclosure-assembly/hardware/wiring/enclosure-wiring.step.npz)
+O23=$$PWD/$(location out/enclosure-assembly/hardware/wiring/installed/integration-review.json)
 rm -rf work-enclosure-assembly
 for f in $(SRCS); do
   case $$f in
@@ -4086,21 +4082,19 @@ copy_file hardware/assembly/scenes/glb/en07-electronics-bay.glb "$$O7"
 copy_file hardware/assembly/scenes/glb/front-top.glb "$$O8"
 copy_file hardware/assembly/scenes/glb/funnel-drain.glb "$$O9"
 copy_file hardware/assembly/scenes/glb/pump-mount.glb "$$O10"
-copy_file hardware/manifold-layout/drain-clearance-check.json "$$O11"
-copy_file hardware/manifold-layout/enclosure-assembly.facts.json "$$O12"
-copy_file hardware/manifold-layout/enclosure-assembly.physical.step.mesh "$$O13"
-copy_file hardware/manifold-layout/enclosure-assembly.scene.npz "$$O14"
-copy_file hardware/manifold-layout/enclosure-assembly.scorecard.json "$$O15"
-copy_file hardware/manifold-layout/enclosure-assembly.step "$$O16"
-copy_file hardware/manifold-layout/enclosure-assembly.step.mesh "$$O17"
-copy_file hardware/manifold-layout/enclosure-assembly.step.npz "$$O18"
-copy_file hardware/wiring/enclosure-wiring.csv "$$O19"
-copy_file hardware/wiring/enclosure-wiring.json "$$O20"
-copy_file hardware/wiring/enclosure-wiring.numbers.json "$$O21"
-copy_file hardware/wiring/enclosure-wiring.step "$$O22"
-copy_file hardware/wiring/enclosure-wiring.step.mesh "$$O23"
-copy_file hardware/wiring/enclosure-wiring.step.npz "$$O24"
-copy_file hardware/wiring/installed/integration-review.json "$$O25"
+copy_file hardware/manifold-layout/enclosure-assembly.facts.json "$$O11"
+copy_file hardware/manifold-layout/enclosure-assembly.scene.npz "$$O12"
+copy_file hardware/manifold-layout/enclosure-assembly.scorecard.json "$$O13"
+copy_file hardware/manifold-layout/enclosure-assembly.step "$$O14"
+copy_file hardware/manifold-layout/enclosure-assembly.step.mesh "$$O15"
+copy_file hardware/manifold-layout/enclosure-assembly.step.npz "$$O16"
+copy_file hardware/wiring/enclosure-wiring.csv "$$O17"
+copy_file hardware/wiring/enclosure-wiring.json "$$O18"
+copy_file hardware/wiring/enclosure-wiring.numbers.json "$$O19"
+copy_file hardware/wiring/enclosure-wiring.step "$$O20"
+copy_file hardware/wiring/enclosure-wiring.step.mesh "$$O21"
+copy_file hardware/wiring/enclosure-wiring.step.npz "$$O22"
+copy_file hardware/wiring/installed/integration-review.json "$$O23"
 cd .. && rm -rf work-enclosure-assembly
 """,
 )
