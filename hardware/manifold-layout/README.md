@@ -86,21 +86,3 @@ live in [installed wiring](/hardware/wiring/installed/).
 The refrigerator loop retains its own compressor, condenser and cold-core
 fitting datums. Its physical joints and formed copper runs remain distinct
 from these flavor and water paths.
-
-## The assembly's checks
-
-The fit, clearance and scalar checks the 3D viewer's checks modal shows run on
-request, not in the build:
-
-```sh
-python3 tools/run.py -- tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py --checks
-```
-
-It builds the assembly as the build does, then runs `machine-checks` over it and
-writes [`enclosure-assembly.scorecard.json`](enclosure-assembly.scorecard.json),
-stamped with the commit and the time of the run, and the machine's scene archive,
-`enclosure-assembly.scene.npz`, which
-[`probe.py`](/hardware/scripts/probe.py) and [`lanes.py`](/hardware/scripts/lanes.py)
-read. The modal says when the card it shows was written. The build's own scene
-GLBs take their fastening from the tables in `_scorecard`, so they do not wait on
-the checks.
