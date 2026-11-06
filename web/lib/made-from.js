@@ -94,10 +94,13 @@ function modelAmong(index, steps, folder) {
 
 const modelOf = (index, step) => modelAmong(index, [step], path.posix.basename(path.posix.dirname(step)));
 
-// A part, by the folder its sources stand in: its model when a step there makes one.
+// A part, by the folder its sources stand in: its model when a step there makes one, named for
+// the folder when that model's name says only that it is an assembly.
 function partOf(index, folder) {
   const model = modelAmong(index, index.stepsIn.get(folder) || [], path.posix.basename(folder));
-  return { kind: "part", key: folder, file: model, label: model ? label(model) : path.posix.basename(folder) };
+  const named = model && label(model) !== "assembly" ? label(model)
+    : model ? `${path.posix.basename(folder)} assembly` : path.posix.basename(folder);
+  return { kind: "part", key: folder, file: model, label: named };
 }
 
 // What one file the record names stands for, beside the step that read it.
@@ -131,7 +134,9 @@ function standsFor(index, step, file) {
       return folder === own || folder.startsWith(own + "/") ? { kind: "own" } : partOf(index, folder);
     }
   }
-  const crate = file.match(/^tools\/hsm\/([^/]+)\//);
+  // A crate's manifest only packages it: a part's numbers crate keeps its numbers in the part's
+  // folder, which stands as the part.
+  const crate = !file.endsWith("/Cargo.toml") && file.match(/^tools\/hsm\/([^/]+)\//);
   const name = crate ? CODE_NAMES[crate[1]] || (crate[1].endsWith("-data") ? crate[1].slice(0, -5) + " recipes" : crate[1] + " programs")
     : file.startsWith("tools/hsm/") ? "Cargo files"
     : TOOL_NAMES[file.split("/").slice(0, 2).join("/")] || file.split("/").slice(0, 2).join("/");
