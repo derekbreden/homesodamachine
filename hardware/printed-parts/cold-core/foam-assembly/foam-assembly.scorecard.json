@@ -231,6 +231,12 @@
    "binding": null,
    "corners": [
     {
+     "at": 0,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B"
+    },
+    {
      "at": 1,
      "radius": 14.0,
      "ratio": 1.0,
@@ -265,12 +271,6 @@
      "radius": 14.0,
      "ratio": 1.0,
      "grade": "B"
-    },
-    {
-     "at": 7,
-     "radius": 14.0,
-     "ratio": 1.0,
-     "grade": "B"
     }
    ],
    "need": {
@@ -295,6 +295,12 @@
    "binding": null,
    "corners": [
     {
+     "at": 0,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B"
+    },
+    {
      "at": 1,
      "radius": 14.0,
      "ratio": 1.0,
@@ -302,12 +308,6 @@
     },
     {
      "at": 2,
-     "radius": 14.0,
-     "ratio": 1.0,
-     "grade": "B"
-    },
-    {
-     "at": 3,
      "radius": 14.0,
      "ratio": 1.0,
      "grade": "B"
@@ -335,7 +335,7 @@
    "binding": null,
    "corners": [
     {
-     "at": 1,
+     "at": 0,
      "radius": 14.0,
      "ratio": 1.0,
      "grade": "B"
@@ -384,13 +384,13 @@
    "binding": null,
    "corners": [
     {
-     "at": 1,
+     "at": 0,
      "radius": 14.0,
      "ratio": 1.0,
      "grade": "B"
     },
     {
-     "at": 2,
+     "at": 1,
      "radius": 14.0,
      "ratio": 1.0,
      "grade": "B"
@@ -439,7 +439,7 @@
    "binding": null,
    "corners": [
     {
-     "at": 1,
+     "at": 0,
      "radius": 14.0,
      "ratio": 1.0,
      "grade": "B"
@@ -466,6 +466,12 @@
    "reachGrade": "D",
    "binding": null,
    "corners": [
+    {
+     "at": 0,
+     "radius": 14.0,
+     "ratio": 1.0,
+     "grade": "B"
+    },
     {
      "at": 1,
      "radius": 14.0,
@@ -498,12 +504,6 @@
     },
     {
      "at": 6,
-     "radius": 14.0,
-     "ratio": 1.0,
-     "grade": "B"
-    },
-    {
-     "at": 7,
      "radius": 14.0,
      "ratio": 1.0,
      "grade": "B"

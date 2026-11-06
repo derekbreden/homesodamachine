@@ -40,14 +40,14 @@
     "hardware/assembly/scenes/glb/nameplate-shallow-full-context.glb": "bf103cc2f5c9ec21654cf37e932156d5be1e6d785f894cda4d3dc06501e3a462",
     "hardware/assembly/scenes/glb/pump-cartridge.glb": "8329920973ebf1302d8a0d0e3053f8fbd41766bd3e5fe57909db932a2c1ecb2e",
     "hardware/assembly/scenes/glb/pump-mount.glb": "7d0dd57fedd4ab5683edd98f94fd98af6a7fffc40d0615b01f2bad8e6ce9532f",
-    "hardware/cold-core-layout/cold-core-assembly.scorecard.json": "cb93d894c4c530a2b7de523803847f14c783c76a55764fb1b64318e1f0615e5a",
-    "hardware/cold-core-layout/cold-core-assembly.step": "b20f0edf87d449d7af0017bfc6b26132e2c48727b25e66d41cc729238a7b93cc",
-    "hardware/cold-core-layout/cold-core-assembly.step.mesh": "45ce792bef0026c561d93f4b9158587db4f6df42f7e6acb9f246cce16d679a08",
+    "hardware/cold-core-layout/cold-core-assembly.scorecard.json": "650573ea0645bba89df00ca9181bff2d50e4b5db9d6fe20fbe44e9b4bc1797a3",
+    "hardware/cold-core-layout/cold-core-assembly.step": "e7b8cd63e754c4c8cc5bf2e3b15d862c4b8919bfd77a655e08bf3dfc1a368f3b",
+    "hardware/cold-core-layout/cold-core-assembly.step.mesh": "27b1af2ea37645caf30a8c69888c755c247b2d449d80269731bd3123543551dd",
     "hardware/cut-parts/carbonation/carbonator-tube/carbonator-tube.step": "360d0b80c538b44809405087d75429f55f368fe283f2ea515392232985f271f5",
     "hardware/cut-parts/carbonation/carbonator-tube/carbonator-tube.step.mesh": "a1357c56534ef2428014d0de8922fb29b7e46edc5f5bcf47ae271bb3c846271b",
-    "hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole.step": "a6d5e99fa50d2809649267c9240a6d168979daa98e0631b80c61af951a237228",
+    "hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole.step": "7b91cbd4205f93eac94f47c439af9b0ecc5fb006c45cfcb2703abd3647824462",
     "hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole.step.json": "861f12c619cfa1d6e91386bb44625add75f9a23902b5886e2b40481395189dec",
-    "hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole.step.mesh": "a2f7acdf37114c54c2622ee070b7f73f2ff73c2197a3bdd8fdb09979d87ccb83",
+    "hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole.step.mesh": "766d9fdd9fb520d474db6962728dd32c25fd0d13a38341ecedff8f9f0171722a",
     "hardware/cut-parts/faucet/under-counter-plate/under-counter-plate.dxf": "8b1196fa7451cc7b3af804dffbbecbdf1ed217db43a6e1ec0f00741b580eca5b",
     "hardware/cut-parts/faucet/under-counter-plate/under-counter-plate.dxf.json": "d0104c2e8a994dc859257b9361c9f0a12ed026b5339c1c3f54165c65cd039675",
     "hardware/faucet-layout/faucet-assembly.step": "c61a97ec79a48a640382ffc405de35c8005112c81e60a0851be0509e7efda9fc",
@@ -1750,9 +1750,9 @@
     "hardware/wiring/enclosure-wiring.step.mesh": "36199ec854723df0448e791c3cb941048b3882bbe827d81e124131c2ad1d0e5e"
   },
   "sidecars": {
-    "hardware/cold-core-layout/cold-core-assembly.scorecard.json": "cb93d894c4c530a2b7de523803847f14c783c76a55764fb1b64318e1f0615e5a",
+    "hardware/cold-core-layout/cold-core-assembly.scorecard.json": "650573ea0645bba89df00ca9181bff2d50e4b5db9d6fe20fbe44e9b4bc1797a3",
     "hardware/manifold-layout/enclosure-assembly.scorecard.json": "bbb83bf0ca1b03c3333ad349a8557993881234547d4e797c04b5f31e4c56803e",
-    "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.scorecard.json": "cb93d894c4c530a2b7de523803847f14c783c76a55764fb1b64318e1f0615e5a"
+    "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.scorecard.json": "650573ea0645bba89df00ca9181bff2d50e4b5db9d6fe20fbe44e9b4bc1797a3"
   },
   "website": {
     "solids": {
@@ -1779,14 +1779,14 @@
       "hardware/assembly/scenes/glb/nameplate-shallow-full-context.glb": "bf103cc2f5c9ec21654cf37e932156d5be1e6d785f894cda4d3dc06501e3a462",
       "hardware/assembly/scenes/glb/pump-cartridge.glb": "8329920973ebf1302d8a0d0e3053f8fbd41766bd3e5fe57909db932a2c1ecb2e",
       "hardware/assembly/scenes/glb/pump-mount.glb": "7d0dd57fedd4ab5683edd98f94fd98af6a7fffc40d0615b01f2bad8e6ce9532f",
-      "hardware/cold-core-layout/cold-core-assembly.scorecard.json": "cb93d894c4c530a2b7de523803847f14c783c76a55764fb1b64318e1f0615e5a",
-      "hardware/cold-core-layout/cold-core-assembly.step": "b20f0edf87d449d7af0017bfc6b26132e2c48727b25e66d41cc729238a7b93cc",
-      "hardware/cold-core-layout/cold-core-assembly.step.mesh": "45ce792bef0026c561d93f4b9158587db4f6df42f7e6acb9f246cce16d679a08",
+      "hardware/cold-core-layout/cold-core-assembly.scorecard.json": "650573ea0645bba89df00ca9181bff2d50e4b5db9d6fe20fbe44e9b4bc1797a3",
+      "hardware/cold-core-layout/cold-core-assembly.step": "e7b8cd63e754c4c8cc5bf2e3b15d862c4b8919bfd77a655e08bf3dfc1a368f3b",
+      "hardware/cold-core-layout/cold-core-assembly.step.mesh": "27b1af2ea37645caf30a8c69888c755c247b2d449d80269731bd3123543551dd",
       "hardware/cut-parts/carbonation/carbonator-tube/carbonator-tube.step": "360d0b80c538b44809405087d75429f55f368fe283f2ea515392232985f271f5",
       "hardware/cut-parts/carbonation/carbonator-tube/carbonator-tube.step.mesh": "a1357c56534ef2428014d0de8922fb29b7e46edc5f5bcf47ae271bb3c846271b",
-      "hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole.step": "a6d5e99fa50d2809649267c9240a6d168979daa98e0631b80c61af951a237228",
+      "hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole.step": "7b91cbd4205f93eac94f47c439af9b0ecc5fb006c45cfcb2703abd3647824462",
       "hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole.step.json": "861f12c619cfa1d6e91386bb44625add75f9a23902b5886e2b40481395189dec",
-      "hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole.step.mesh": "a2f7acdf37114c54c2622ee070b7f73f2ff73c2197a3bdd8fdb09979d87ccb83",
+      "hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole.step.mesh": "766d9fdd9fb520d474db6962728dd32c25fd0d13a38341ecedff8f9f0171722a",
       "hardware/cut-parts/faucet/under-counter-plate/under-counter-plate.dxf": "8b1196fa7451cc7b3af804dffbbecbdf1ed217db43a6e1ec0f00741b580eca5b",
       "hardware/cut-parts/faucet/under-counter-plate/under-counter-plate.dxf.json": "d0104c2e8a994dc859257b9361c9f0a12ed026b5339c1c3f54165c65cd039675",
       "hardware/faucet-layout/faucet-assembly.step": "c61a97ec79a48a640382ffc405de35c8005112c81e60a0851be0509e7efda9fc",
@@ -2474,7 +2474,7 @@
       "hardware/reference/yzmsz-water-regulator/geometry/yzmsz-water-regulator.step.mesh": "4baeedc052b285056e6f4e57189aebc5187a82fc320ad96e5526a1535e065513"
     },
     "sidecars": {
-      "hardware/cold-core-layout/cold-core-assembly.scorecard.json": "cb93d894c4c530a2b7de523803847f14c783c76a55764fb1b64318e1f0615e5a",
+      "hardware/cold-core-layout/cold-core-assembly.scorecard.json": "650573ea0645bba89df00ca9181bff2d50e4b5db9d6fe20fbe44e9b4bc1797a3",
       "hardware/manifold-layout/enclosure-assembly.scorecard.json": "bbb83bf0ca1b03c3333ad349a8557993881234547d4e797c04b5f31e4c56803e"
     }
   },
@@ -2502,14 +2502,14 @@
     "hardware/assembly/scenes/glb/nameplate-shallow-full-context.glb": 1793889242,
     "hardware/assembly/scenes/glb/pump-cartridge.glb": 1792921613,
     "hardware/assembly/scenes/glb/pump-mount.glb": 1793787235,
-    "hardware/cold-core-layout/cold-core-assembly.scorecard.json": 1793712586,
-    "hardware/cold-core-layout/cold-core-assembly.step": 1793774578,
-    "hardware/cold-core-layout/cold-core-assembly.step.mesh": 1793774578,
+    "hardware/cold-core-layout/cold-core-assembly.scorecard.json": 1793933600,
+    "hardware/cold-core-layout/cold-core-assembly.step": 1793933600,
+    "hardware/cold-core-layout/cold-core-assembly.step.mesh": 1793933600,
     "hardware/cut-parts/carbonation/carbonator-tube/carbonator-tube.step": 1793626644,
     "hardware/cut-parts/carbonation/carbonator-tube/carbonator-tube.step.mesh": 1793626644,
-    "hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole.step": 1793626644,
+    "hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole.step": 1793933600,
     "hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole.step.json": 1793750338,
-    "hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole.step.mesh": 1793626644,
+    "hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole.step.mesh": 1793933600,
     "hardware/cut-parts/faucet/under-counter-plate/under-counter-plate.dxf": 1793811159,
     "hardware/cut-parts/faucet/under-counter-plate/under-counter-plate.dxf.json": 1793750338,
     "hardware/faucet-layout/faucet-assembly.step": 1793811159,
@@ -4262,16 +4262,18 @@
       "unproven": true
     },
     "hardware/cold-core-layout/cold-core-assembly.scorecard.json": {
-      "inputs": "68f1bf09a3b59cca5dfcf326659d4f01f33729379e4e5535dcd8bfa1c29238c5",
-      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2",
+      "inputs": "fe3cf3bcb1022df927e3f1c370d3a15e5b73405394b8f17156f254c9b2b2e3d3",
+      "commit": "d033d36e0137485ba59448a22a3e83c9fd587f15",
       "unproven": true
     },
     "hardware/cold-core-layout/cold-core-assembly.step": {
-      "commit": "525c812bdc9bed4069bd3b00afe20a53ec0e32c3",
+      "inputs": "fe3cf3bcb1022df927e3f1c370d3a15e5b73405394b8f17156f254c9b2b2e3d3",
+      "commit": "d033d36e0137485ba59448a22a3e83c9fd587f15",
       "unproven": true
     },
     "hardware/cold-core-layout/cold-core-assembly.step.mesh": {
-      "commit": "525c812bdc9bed4069bd3b00afe20a53ec0e32c3",
+      "inputs": "fe3cf3bcb1022df927e3f1c370d3a15e5b73405394b8f17156f254c9b2b2e3d3",
+      "commit": "d033d36e0137485ba59448a22a3e83c9fd587f15",
       "unproven": true
     },
     "hardware/cut-parts/carbonation/carbonator-tube/carbonator-tube.step": {
@@ -4285,13 +4287,13 @@
       "unproven": true
     },
     "hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole.step": {
-      "inputs": "0a6350ad4f3e2b03b3507896c6008db8fe314db7303066184c9a606cef2effd9",
-      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2",
+      "inputs": "885bfce474581ffb3b5cb4af04e7714727c7e5b06111a4e959e59eb7c6f37b1e",
+      "commit": "d033d36e0137485ba59448a22a3e83c9fd587f15",
       "unproven": true
     },
     "hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole.step.mesh": {
-      "inputs": "0a6350ad4f3e2b03b3507896c6008db8fe314db7303066184c9a606cef2effd9",
-      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2",
+      "inputs": "885bfce474581ffb3b5cb4af04e7714727c7e5b06111a4e959e59eb7c6f37b1e",
+      "commit": "d033d36e0137485ba59448a22a3e83c9fd587f15",
       "unproven": true
     },
     "hardware/cut-parts/faucet/under-counter-plate/under-counter-plate.dxf": {
@@ -4634,7 +4636,8 @@
       "unproven": true
     },
     "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.scorecard.json": {
-      "commit": "0f783ce81c1647e38611650d0bcab2f8fac1c7c3",
+      "inputs": "fe3cf3bcb1022df927e3f1c370d3a15e5b73405394b8f17156f254c9b2b2e3d3",
+      "commit": "d033d36e0137485ba59448a22a3e83c9fd587f15",
       "unproven": true
     },
     "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step": {
