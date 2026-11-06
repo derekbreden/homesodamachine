@@ -1,0 +1,47 @@
+{
+  "authority": "Derek, physical pump assembly feedback",
+  "status": "printed article requires local pump fit correction",
+  "printer_task_id": "1412449251",
+  "source_stl_sha256": "d2f999e640039b2d322c418821be80242130b459e56e97a57f9f3c7dd9ce8b6d",
+  "observations": [
+    "Pumps rest offset in the loose retainer; a flange protrudes when the other features align.",
+    "The loaded retainer remains tilted while entering the fixed receiver.",
+    "Further pressing appears to strain the pumps and printed parts."
+  ],
+  "requested_work": "Trace retained scans, earlier accepted fits and manual offsets; correct the pump fit while retaining working snaps.",
+  "photos": [
+    {
+      "path": "/tmp/codex-remote-attachments/01a19503-4047-7cf0-ad82-9e42d010912e/292469FD-A564-486D-B977-79DB1ED08AEC/1-Photo-1.jpg",
+      "sha256": "9057efd09ee61e097397eff19375128df211c681b5d9cdd30b262c5211badd73"
+    },
+    {
+      "path": "/tmp/codex-remote-attachments/01a19503-4047-7cf0-ad82-9e42d010912e/292469FD-A564-486D-B977-79DB1ED08AEC/2-Photo-2.jpg",
+      "sha256": "d669b3c68ae48074f4f590f85f25f7e5f088667473d1c132e50e9b0afffb74f8"
+    },
+    {
+      "path": "/tmp/codex-remote-attachments/01a19503-4047-7cf0-ad82-9e42d010912e/292469FD-A564-486D-B977-79DB1ED08AEC/3-Photo-3.jpg",
+      "sha256": "e661e1c5027034db2a50186491d9d65c8fdc9582a91003b6351470bf96d7dd95"
+    },
+    {
+      "path": "/tmp/codex-remote-attachments/01a19503-4047-7cf0-ad82-9e42d010912e/292469FD-A564-486D-B977-79DB1ED08AEC/4-Photo-4.jpg",
+      "sha256": "1a493029a49ca7966db231567060c0a546aa871572d0127d60d747fea135f8d0"
+    },
+    {
+      "path": "/tmp/codex-remote-attachments/01a19503-4047-7cf0-ad82-9e42d010912e/292469FD-A564-486D-B977-79DB1ED08AEC/5-Photo-5.jpg",
+      "sha256": "a0af17b228f8c1680e0a6f6298a3070083e5ad7a4fa9b2d84cff21e364f685ab"
+    },
+    {
+      "path": "/tmp/codex-remote-attachments/01a19503-4047-7cf0-ad82-9e42d010912e/292469FD-A564-486D-B977-79DB1ED08AEC/6-Photo-6.jpg",
+      "sha256": "8430dc628256ae0d4280aceb9562a3c858c1008d3591fa71f3a4b963784646b2"
+    },
+    {
+      "path": "/tmp/codex-remote-attachments/01a19503-4047-7cf0-ad82-9e42d010912e/292469FD-A564-486D-B977-79DB1ED08AEC/7-Photo-7.jpg",
+      "sha256": "064cd526d63c343c61ec987dcbc3bbc97335725a5d138de348a90b98be719963"
+    },
+    {
+      "path": "/tmp/codex-remote-attachments/01a19503-4047-7cf0-ad82-9e42d010912e/292469FD-A564-486D-B977-79DB1ED08AEC/8-Photo-8.jpg",
+      "sha256": "5a68fdee017e18b005be6aa0ebe0b9e86dfda0a7f2119d488d3673700960ecb6"
+    }
+  ],
+  "current_correction": "../../pump-fit-review/scan-fit.json"
+}

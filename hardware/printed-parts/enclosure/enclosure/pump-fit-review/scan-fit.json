@@ -1,0 +1,168 @@
+{
+  "scope": "Rigid observations in the retained scan registration, seated on the measured underside strips. The registration retains the authored head-to-motor datum. No physical acceptance or scanner absolute accuracy is implied.",
+  "raw_scan_sha256": {
+    "/Users/derekbredensteiner/Documents/3D Scans/2026-09-20-kamoer-pump/pass-01-upright/Fused 0920_1 (0.10mm).ply": "8df2a6f04f30afec5655df8c1d051a6c9f280283d83fc2f7c197598a54a14c97",
+    "/Users/derekbredensteiner/Documents/3D Scans/2026-09-20-kamoer-pump/pass-02-remounted/Fused 0920_1 (0.10mm).ply": "0247db27a6d9a219d0bb00c6c033c97e8e142e15ae20116a2d9edccd21c24fc1"
+  },
+  "sampling": {
+    "raw_stride": 6,
+    "aft_wall_stride": 4,
+    "selection_common_mm": {
+      "abs_x_max": 20,
+      "y_min": 21,
+      "z_span": [
+        -40,
+        -8.5
+      ],
+      "outward_y_normal_min": 0.85
+    },
+    "exposed_pass": 1
+  },
+  "source_sha256": {
+    "hardware/printed-parts/enclosure/enclosure/retainer/retainer.rs": "f0869048a0cbc9379ff7a68550d51e780f674becfff2a77aecbdd0d048191fc2",
+    "hardware/reference/kamoer-kphm400/scan-registration.json": "4a8a89c6caf7dd60af29b71a646b8a6f954ea3e0601c69a0d4e4165b90749114",
+    "hardware/reference/kamoer-kphm400/scan-measurements.json": "4389eeb0fd000242ee69efa903d60269a6e8e9497c7235d8d48187d5cf9075a9",
+    "hardware/manifold-layout/enclosure-box.json": "e25ca2be5c46310082f002a72a9a9f20c08bee4af1e634e065de87d848c3ad3b"
+  },
+  "artifact_sha256": {
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.stl": "ef26f7f75a453ce6204330e1186696b22f38f95e459d7971cec99e26926acd37",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step": "1768b60cc8edb2abe77b2f6c377bc79224d25d7382bcc650867b275087e0144a",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step.mesh": "c29746d9b91f905aa16943f3818ce9750af182b2f42c61a3d0976ce78fe7aef1",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer-seated.step": "ef6567b16b94de519e95607a12d7fead7991195559c7e9d0095a0bc8175f2bb2",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer-seated.step.npz": "94cf5f5fbc018a12de9807dfa62f1731935f71c2745ca1b77c38bddae4925a06",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer-seated.step.mesh": "3e927d837970077f65d7c2122eb2df2aec075bfa38a161439ea2d2fcfdb0caea"
+  },
+  "correction": {
+    "fitted_body_aft_y_mm": 27.45,
+    "new_full_opening_aft_y_mm": 27.7,
+    "retained_skirt_opening_aft_y_mm": 27.028,
+    "full_relief_native_z_mm": -20,
+    "removed_volume_mm3": 2491.623088829229,
+    "added_volume_mm3": 1.448742542227895e-06,
+    "closed_oriented_body": true,
+    "body_count": 1,
+    "old_bounds_mm": [
+      [
+        -101.3499984741211,
+        14.25,
+        175.19500732421875
+      ],
+      [
+        101.3499984741211,
+        82.26499938964844,
+        224.4239959716797
+      ]
+    ],
+    "new_bounds_mm": [
+      [
+        -101.3499984741211,
+        14.25,
+        175.19500732421875
+      ],
+      [
+        101.3499984741211,
+        82.26499938964844,
+        224.4239959716797
+      ]
+    ],
+    "skirt_land_world_z_mm": 216.674,
+    "boolean_triangle_bounds_including_zero_volume_sheets_mm": [
+      [
+        -87.625,
+        72.88700103759766,
+        175.19500732421875
+      ],
+      [
+        87.625,
+        82.26499938964844,
+        216.6739959716797
+      ]
+    ],
+    "removed_volume_aft_of_full_relief_mm3": 0.0,
+    "full_relief_machine_y_mm": 73.559,
+    "numeric_volume_tolerance_mm3": 0.0001,
+    "preserved_features": [
+      "skirt support land",
+      "upper flange room",
+      "pump holder and motor datums",
+      "outer retainer",
+      "spring wings and receiver"
+    ]
+  },
+  "rows": [
+    {
+      "region": "rigid_aft_head_body",
+      "geometry": "printed",
+      "observations": 3927,
+      "inside": 338,
+      "signed_clearance_mm": {
+        "n": 3927,
+        "min": -0.3963416497542198,
+        "p05": -0.1168204866051539,
+        "median": 1.2043555273588993,
+        "p95": 3.81712630121814,
+        "max": 5.762030901840518
+      },
+      "head_datum_y_mm": {
+        "n": 3927,
+        "min": 21.265970135757136,
+        "p05": 23.210874736379516,
+        "median": 25.823645510238755,
+        "p95": 27.144821524202808,
+        "max": 27.424342687351874
+      }
+    },
+    {
+      "region": "rigid_aft_head_body",
+      "geometry": "corrected",
+      "observations": 3927,
+      "inside": 0,
+      "signed_clearance_mm": {
+        "n": 3927,
+        "min": 0.2756554205582802,
+        "p05": 0.5551765837073461,
+        "median": 1.7447270794923497,
+        "p95": 4.414562938851165,
+        "max": 5.811239613818104
+      },
+      "head_datum_y_mm": {
+        "n": 3927,
+        "min": 21.265970135757136,
+        "p05": 23.210874736379516,
+        "median": 25.823645510238755,
+        "p95": 27.144821524202808,
+        "max": 27.424342687351874
+      }
+    },
+    {
+      "region": "exposed_white_boss",
+      "fore_shift_mm": 0,
+      "observations": 64209,
+      "outside": 0,
+      "signed_planar_clearance_mm": {
+        "n": 64209,
+        "min": 0.043808690964493024,
+        "p05": 0.3577591528265647,
+        "median": 1.484412357360744,
+        "p95": 5.426846710093566,
+        "max": 8.022759194734848
+      }
+    },
+    {
+      "region": "exposed_white_boss",
+      "fore_shift_mm": -0.397,
+      "observations": 64209,
+      "outside": 1770,
+      "signed_planar_clearance_mm": {
+        "n": 64209,
+        "min": -0.35319130903550544,
+        "p05": 0.06559579585174437,
+        "median": 1.4758571144110217,
+        "p95": 5.442053385602747,
+        "max": 8.183149626882765
+      }
+    }
+  ],
+  "interpretation": "The printed retainer rear wall intersects the exposed rigid rear head below the skirt. Avoiding that wall by moving the pump fore conflicts with the separately located upper boss. The corrected rear relief keeps the original skirt bearing and pump datum and clears the observed rear head wall.",
+  "printed_retainer_stl_sha256": "d2f999e640039b2d322c418821be80242130b459e56e97a57f9f3c7dd9ce8b6d"
+}
