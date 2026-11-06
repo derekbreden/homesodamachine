@@ -68,7 +68,7 @@ requires the Pisco and ASSE receiver interiors to print without supports: the
 full-size walls prevent screwdriver access. Preserve their approved component
 seats, catch planes and wing travel. The rear enclosure prints with its rear face
 toward the bed and a gentle tilt; its receiver catches and sliding grooves grow
-through successive layers. Fine layers follow the rear show face. Native
+through successive layers. Fine layers follow the shallow end faces and rear show surface. Native
 preparation excludes supports from the receiver interiors.
 Covered rear bulkhead bores and horizontal valve sockets retain their teardrop
 clearances. The vent cap has a rooted chamfer; its passage stays clear of supports.

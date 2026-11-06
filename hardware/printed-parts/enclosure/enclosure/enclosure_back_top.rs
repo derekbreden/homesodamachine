@@ -45,9 +45,16 @@ fn print_features(dir: &Path, b: &spec::Box) -> Result<()> {
     use hsm_enclosure_solid::pieces::digest;
     let mut regions = vec![];
     for (name, bounds, span) in supports::bridge_regions() {
+        let mut blocking = bounds;
+        for k in 0..3 {
+            blocking[2*k] -= shell::WALL + catalog::running();
+            blocking[2*k+1] += shell::WALL + catalog::running();
+        }
+        blocking[5] = b.outer[5];
         regions.push(json!({"name": name, "bounds_source_mm": bounds, "bridge_span_mm": span,
+            "blocking_bounds_source_mm": blocking,
             "bridge_axis_source": [0, 1, 0],
-            "reason": "Inaccessible receiver interior; flat catches bridge between their full end shoulders."}));
+            "reason": "The fitted catches and end shoulders grow through fine layers without interior supports."}));
     }
     for (index, bounds) in rear_wall::label_channels().into_iter().enumerate() {
         let mut bounds = bounds;
@@ -65,9 +72,15 @@ fn print_features(dir: &Path, b: &spec::Box) -> Result<()> {
             "bounds_source_mm":[open.min(far),open.max(far),run.y0.min(run.lane_aft),run.y0.max(run.lane_aft),
                                 b.splits[1]-1.0,roof+shell::WALL],
             "bridge_span_mm":(far-open).abs(),"bridge_axis_source":[1,0,0],"bridge_print_axis_source":[1,0,0],
-            "reason":"The groove closing floor crosses its short width from the wall to its removable tree supports."}));
+            "reason":"The fitted sliding bearings retain local solid deposition."}));
     }
     let wall = &layout::layout().rear_wall;
+    let panel = &wall.interior_panel_relief;
+    regions.push(json!({"name":"Wet-column rear face",
+        "bounds_source_mm":[panel.xmin-shell::WALL,panel.xmax+shell::WALL,
+                            wall.rear_wall.ymin,b.outer[3]+shell::WALL,panel.zmin,b.outer[5]+1.0],
+        "support_print_up_source":[0,-1,0],"support_direction_cosine_min":0.95,
+        "reason":"The tilted rear face grows through fine layers without trees through its covered bores."}));
     let roof_angle = shell::shell().teardrop_roof_angle.to_radians();
     for port in &wall.wet_ports {
         let r = port.bore_diameter_mm / 2.0;
@@ -75,8 +88,8 @@ fn print_features(dir: &Path, b: &spec::Box) -> Result<()> {
             "bounds_source_mm": [port.center_x_mm-r, port.center_x_mm+r, rear::WET_PORT_Y[0], rear::WET_PORT_Y[1],
                                  port.center_z_mm-r/roof_angle.cos(), port.center_z_mm+r],
             "void_source": {"kind":"teardrop_y", "centre_xz_mm":[port.center_x_mm,port.center_z_mm],
-                            "radius_mm":r,"span_y_mm":rear::WET_PORT_Y,"roof_angle_deg":shell::shell().teardrop_roof_angle},
-            "reason": "Teardrop roof in the roof-down print; circular bulkhead clearance is retained."}));
+                            "radius_mm":r,"span_y_mm":[panel.ymax,wall.rear_wall.ymax],"roof_angle_deg":shell::shell().teardrop_roof_angle},
+            "reason": "The covered bore retains its circular hardware clearance inside the pointed roof."}));
     }
     for (name, pose) in [("Inlet valve", &layout::layout().parts.valve_v_a),
                          ("Soda valve", &layout::layout().parts.vk_solenoid)] {
@@ -98,12 +111,12 @@ fn print_features(dir: &Path, b: &spec::Box) -> Result<()> {
                     "bounds_source_mm": [lo[0],hi[0],lo[1],hi[1],lo[2],hi[2]],
                     "void_source": if name == "Soda valve" {
                         let a = pose.point([centre[0],centre[1],valves::seat::SOCKET_FLOOR_Z]);
-                        let b = pose.point([centre[0],centre[1],valves::seat::SEAT_TOP_Z+1.0]);
+                        let b = pose.point([centre[0],centre[1],valves::seat::SEAT_TOP_Z]);
                         json!({"kind":"teardrop_y","centre_xz_mm":[a[0],a[2]],"radius_mm":r,
                             "span_y_mm":[a[1],b[1]],"roof_angle_deg":shell::shell().teardrop_roof_angle})
                     } else {
                         json!({"kind":"cylinder","start_mm":pose.point([centre[0],centre[1],valves::seat::SOCKET_FLOOR_Z]),
-                            "end_mm":pose.point([centre[0],centre[1],valves::seat::SEAT_TOP_Z+1.0]),"radius_mm":r})
+                            "end_mm":pose.point([centre[0],centre[1],valves::seat::SEAT_TOP_Z]),"radius_mm":r})
                     },
                     "reason": "Open build-axis socket or horizontal teardrop socket; keep supports out of the post fit."}));
             }
@@ -113,8 +126,9 @@ fn print_features(dir: &Path, b: &spec::Box) -> Result<()> {
         if station[2]+shell::VENT_CHANNEL_W/2.0 <= b.splits[1] { continue; }
         regions.push(json!({"name": "PRV vent mouth",
             "bounds_source_mm": hsm_enclosure_quadrants::vent::mouth_support_bounds(&b.inner, *station),
+            "blocking_bounds_source_mm": hsm_enclosure_quadrants::vent::mouth_blocking_bounds(&b.inner, *station),
             "void_source": hsm_enclosure_quadrants::vent::mouth_void(&b.inner, *station),
-            "reason": "The cap rises from its wall root in the roof-down print; the short mouth lip bridges between its side walls."}));
+            "reason": "The cap root and end-wall backing keep supports out of the clear passage."}));
     }
     let record = json!({"source_stl_sha256": digest(&std::fs::read(dir.join("enclosure-back-top.stl"))?),
         "producer": "enclosure-back-top", "boundary_overlap_mm": catalog::running(), "support_free_regions": regions,
