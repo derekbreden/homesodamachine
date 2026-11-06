@@ -113,7 +113,7 @@ explicit input recipes come from Rust data providers.
 | Enclosure measurements | `enclosure-checks`; piece bounds and Box measurements | `hardware/printed-parts/enclosure/enclosure/enclosure_checks.rs` |
 | Print surfaces | `print-payload`, for the payloads `flute_payload.py` cuts, and the library the enclosure piece programs link; reduction, shading and source records | `tools/hsm/print-payload/` |
 | End cap | `endcap-circular-step`; the machined cap's files from the numbers crates of the tube, the float and the cap | `hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_step.rs` |
-| Machine checks | `machine-checks`; fit, clearance and scalar reports | `hardware/manifold-layout/machine_checks.rs` |
+| Machine checks | `machine-checks`; fit, clearance and scalar reports, run on request by `enclosure_assembly.py --checks` and not in the build | `hardware/manifold-layout/machine_checks.rs` |
 | Model exports | `machine-export`; physical models, display surfaces, wiring append and eleven scene GLBs | `hardware/assembly/scenes/machine_export.rs` |
 | Model context | `machine-data`; facts, scene documents and numerical wiring context | `tools/hsm/machine-data/` |
 | Document readers | Rust ledger and procedure programs, with explicit source dependencies and remaining raw provider inputs | `tools/hsm/ledger/`, `tools/hsm/assembly-docs/` |
@@ -140,7 +140,7 @@ CadQuery, OCP or meshcad.
 
 The source graph and shared runtime inputs cover 101 entrypoints, 341 Python source and adapter
 files, and 426 Rust sources, alongside Cargo manifests and raw files. The retained comparisons cover complete pieces on fixed inputs;
-the combined normal build exercises their integration and the existing fit and drain checks.
+the combined normal build exercises their integration, and the fit checks run on request.
 This is evidence for the maintained build, not dynamic coverage of every optional command.
 
 Historical print records, dated studies and optional native CAD probes retain their recorded
