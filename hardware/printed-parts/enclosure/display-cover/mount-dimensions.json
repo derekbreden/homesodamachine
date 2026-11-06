@@ -8,6 +8,7 @@
     83.0,
     3.0
   ],
+  "display_slide_x_mm": -27.75,
   "gasket_thickness_mm": 1.0,
   "glass_thickness_mm": 1.0,
   "head_diameter_mm": 5.5,
@@ -16,6 +17,10 @@
   "insert": "ruthex RX-M3S x 4 short heat-set insert",
   "insert_diameter_mm": 4.6,
   "insert_length_mm": 4.0,
+  "led_bore_diameter_mm": 6.4,
+  "led_set_back_mm": 1.0,
+  "light_aperture_diameter_mm": 1.5,
+  "light_centre_local_y_mm": -7.4,
   "pilot_depth_mm": 4.4,
   "pilot_diameter_mm": 4.0,
   "required_backing_mm": 3.0,
@@ -41,6 +46,30 @@
     ],
     [
       62.25,
+      36.0
+    ]
+  ],
+  "status_plate_centre_local_x_mm": 98.5,
+  "status_plate_mm": [
+    49.5,
+    83.0,
+    3.0
+  ],
+  "status_stations_local_xy_mm": [
+    [
+      79.25,
+      -36.0
+    ],
+    [
+      117.75,
+      -36.0
+    ],
+    [
+      79.25,
+      36.0
+    ],
+    [
+      117.75,
       36.0
     ]
   ],

@@ -157,6 +157,13 @@ then write the output byte to `0x38` where `EXIO_n = bit n`.
 | EXIO3 | LCD_RST (RGB panel reset) |
 | EXIO4 | SD_CS (microSD; held high = deselected) |
 
+The expander's open-drain outputs are a byte at an address of their own, and a clear bit pulls its
+line low. OC0 lights the optocoupler behind the board's DOUT0, whose transistor then sinks the
+status light's LED to ground; the LED runs from the strip's VIN terminal to DOUT0. The firmware
+clears OC0 during bring-up, so the light comes on with the board and stays on while it runs,
+with the glass lit or dark. The expander's reset state leaves every output off, so the light is
+dark until this board runs.
+
 ## Idle backlight-off + touch
 
 **The main board keeps the quiet stretch, across both glasses.** A finger on either
@@ -243,6 +250,7 @@ Newline-terminated, 115200 baud over the native USB CDC:
   VSYNC-phased panel-control actions, caught EOF shortfalls, draw/frame timeouts, and
   CH422G write errors
 - `BL:0` / `BL:1` → backlight off / on (drives CH422G EXIO2)
+- `LIGHT:0` / `LIGHT:1` → status light off / on (drives CH422G OC0, the board's DOUT0)
 - `IDLE:0`..`IDLE:3` → wake, or take a rung of the idle ladder without waiting it out
 - `PAGE:0`..`PAGE:3` → On tap, Prime, Fill, Clean;
   `PAGE:4` → system status
