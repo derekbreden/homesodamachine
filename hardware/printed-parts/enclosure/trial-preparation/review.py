@@ -580,6 +580,9 @@ def review(directory: Path, audit: bool = True) -> dict:
         result["support_free_regions"] = [{"object": oid, **region} for oid, region in excluded]
         result["excluded_support_crossings"] = stats["excluded_support"][:200]
         result["excluded_support_crossing_count"] = len(stats["excluded_support"])
+        result["excluded_support_counts_by_region"] = {
+            region["name"]: sum(r["name"] == region["name"] for r in stats["excluded_support"])
+            for _, region in excluded}
         checks["declared_interiors_support_free"] = not stats["excluded_support"]
     result["checks"] = checks
     result["pass"] = all(checks.values())

@@ -83,7 +83,7 @@ for fixed-width brim types.
 | --- | --- | --- | --- | --- |
 | `front-top` | Mark1, left 0.4 | PET-GF black | 0.08 mm band over the R6 roof side edges' level run and the R18 display-to-roof roll | Support XY 0.50 mm |
 | `front-bottom` | Mark1, left 0.4 | PET-GF black | Six-wall band through the handhold lifting-edge transition and its corner returns; 0.8 mm boundary strip of the flat lifting ceiling; removable arc fins along the lifting edges | — |
-| `back-top` | Mark2, left 0.4 | PET-GF black | Six-wall band through the roof side edges on the bed; support-free receiver catches; branching supports in accessible sliding grooves | Tree Slim with bed roots and compact root brims; declared bridge limit and plate offset |
+| `back-top` | Mark2, left 0.4 | PET-GF black | Rear face toward the bed with a gentle tilt; fine layers over the show face; local solid rail hosts | Tree Slim beneath accessible features; support-free receiver interiors, passages and sockets |
 | `back-bottom` | Mark2, left 0.4 | PET-GF black | Six-wall band through the handhold lifting-edge transition and its corner returns; 0.8 mm boundary strip of the flat lifting ceiling; removable arc fins on feet along the lifting edges | Plate offset Y +18.8 mm; automatic-tree branch angle 20° |
 | `pump-retainer` | Mark1, left 0.4 | PET-GF black | Broad lower retainer, Y-minus end on the bed; build axis +Y | Three Classic walls; local solid snap hosts |
 | `rear-equipment-caps` | Mark2, left 0.4 | PET-GF black | ASSE, Pisco, regulator and meter caps as exported, mouths up; 15 mm spacing | — |
@@ -111,9 +111,10 @@ Each feature selects faces by orientation and by place on the part's own bounds 
 print frame, and states an `expect` range. A feature whose faces are missing, or whose
 measured extent leaves its range, stops the preparation and reports what was found.
 
-- **`fine_band`** — an inward/top show round. Its connected faces' print-Z extent is the
+- **`fine_band`** — a show surface. Its connected faces' print-Z extent is the
   span; the 0.08 mm layer range starts one ordinary layer below it and ends one fine layer
   above it, so the span's top lies inside a fine layer. Its faces are painted support-blocked.
+  `allow_support` retains accessible external contacts on a supported show surface.
 - **`transition_band`** — an expanding print-down round with the 0.5:1 additive chamfer of
   [`overhang_round.py`](../../cadlib/overhang_round.py). The foot is the flat face most
   chamfer area starts from; the measured chamfer rise matches the declared radius within
@@ -126,8 +127,10 @@ measured extent leaves its range, stops the preparation and reports what was fou
   print pose and plate placement. Downward faces are painted and the named volumes
   block support requests. The native review reads support beads against the actual
   passage profiles, including branches routed toward other features. Back-top uses
-  this for its inaccessible receivers, teardrop bores,
-  valve sockets and chamfered vent mouth.
+  this for its inaccessible receivers, teardrop bores, valve sockets and vent passage.
+  Direction-specific exclusions apply when their source-frame direction matches the
+  build direction. Its separate bridge regions add local solid modifiers with the
+  corresponding plate-space bridge angle. These do not block supports.
 
 - **`groove_ribbons`** — each long, narrow flat face printing down at the top of the part is
   a caught face over a sliding groove. A two-wall, hollow ribbon stands in the groove one empty
