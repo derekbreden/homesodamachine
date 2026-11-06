@@ -555,6 +555,9 @@ General shop equipment supporting fabrication, assembly, and teardown. Not proje
 | <!--purchase:pur-d93ee965bacf499aa09cd8ddb8f80f01--> AESUB Orange sublimating 3D-scanning spray, 13.5 fl oz — matting coat for the MINI 2 above. Sublimates off the part on its own, so a donor component is never wiped or solvent-cleaned after a scan. The two surfaces this build has to capture are the worst cases for optical scanning — the donor lever is black plastic, the Westbrass is chrome — and because the lever comes off the faucet it can be sprayed on the bench with nothing installed at risk. Sole item on its invoice, $40.99 + $2.97 NE tax | [B08ZYVRHLF](https://www.amazon.com/dp/B08ZYVRHLF) | 1 | $43.96 | 112-7976233-8525838 | 2026-09-16 | 2026-09-18 | ACQUIRED |
 | <!--purchase:pur-7f71ebbec5d24e919cf06ba8171082b5--> Revopoint AB6 sublimating 3D-scanning spray, 500 ml — second matting coat for the MINI 2 above, alongside the AESUB Orange. Sublimates off the part on its own, so a donor component is never wiped or solvent-cleaned after a scan. A 6.5 µm layer against AESUB Orange's 2–6 µm, holding an optimal scan surface for about 6 h and sublimating in 6–24 h. Two cans at $35.99 each, sole item on its invoice, $71.98 + $5.22 NE tax, shipping $0.00. Amazon replaced the shipment at no charge on 113-0268248-7908209, the row below | [B0F542GY3M](https://www.amazon.com/dp/B0F542GY3M) | 2 | $77.20 | 114-1317201-9708267 | 2026-09-19 | 2026-09-22 | REPLACED (replacement complete; no return required) |
 | <!--purchase:pur-ca80817b142c456fa4251cfe5d736544--> Revopoint AB6 sublimating 3D-scanning spray, 500 ml — Amazon's no-charge replacement for the two cans on 114-1317201-9708267, above; $0.00 invoice. Amazon estimates 2026-09-24 | [B0F542GY3M](https://www.amazon.com/dp/B0F542GY3M) | 2 | $0.00 | 113-0268248-7908209 | 2026-09-22 | 2026-09-24 | ACQUIRED (no-charge replacement) |
+| <!--purchase:pur-a9aeeb7107e24ef68654ee86aa1fbe14--> InoKraft MaxHeat MH-E7500 7,500 W garage heater, 240 V, NEMA 14-50P on an 8.2 ft STW 8 AWG cord — heats the shop and holds the X1 Pro above its 50 °F storage minimum. It plugs into the car charger's 50 A outlet, which the car and the heater take turns on. Sold by InoKraft, shipped by Amazon; $203.99 + $14.79 estimated NE tax, free shipping; Amazon order details verified 2026-11-05, arriving 2026-11-07 | [B0FLJTSTDC](https://www.amazon.com/dp/B0FLJTSTDC) | 1 | $218.78 | 112-5769102-6239435 | 2026-11-05 | — | ON-ORDER |
+| <!--purchase:pur-5f9b203a9810468f8bab74284d78f44d--> Xpokcai 1/4" × 3" hex-head lag screws, 304 stainless, 15 with flat washers, pilot bit and socket — the heater bracket's single lag through the garage ceiling's 5/8" drywall into a truss bottom chord. Sold by Xpokcai; $9.99 + $0.72 estimated NE tax, free shipping; Amazon order details verified 2026-11-05, arriving 2026-11-07 | [B0FYWYHS7X](https://www.amazon.com/dp/B0FYWYHS7X) | 1 pk (15) | $10.71 | 112-8431385-7749045 | 2026-11-05 | — | ON-ORDER |
+| <!--purchase:pur-3fca793e96a64c20b79ac0831efc3b50--> Etoolia vinyl-coated screw-in utility hooks, 5.7", 6-pack — on the garage studs, one carries the heater cord's slack and one holds whichever 14-50 plug is unplugged. Sold by E-Tools Store; $6.99 + $0.51 estimated NE tax, free shipping; Amazon order details verified 2026-11-05, arriving 2026-11-07 | [B08GYMXKPY](https://www.amazon.com/dp/B08GYMXKPY) | 1 pk (6) | $7.50 | 112-6378482-5879429 | 2026-11-05 | — | ON-ORDER |
 
 ## 13. Printing consumables
 
@@ -831,17 +834,17 @@ Printed copies of the [install guide](/hardware/install-guide/README.md). Lulu o
 | Acquired hardware valuation — includes replaced/returned originals | [$40,350.44](LEDGER_ACQUIRED_HW) |
 | Engineering services (§18) | [$6,519.51](LEDGER_LABOR) |
 | Acquired procurement valuation (combined) | [$46,869.95](LEDGER_ACQUIRED_COMBINED) |
-| ON-ORDER | [$2,071.57](LEDGER_ON_ORDER) |
+| ON-ORDER | [$2,308.56](LEDGER_ON_ORDER) |
 | MISSING — not in hand | [$53.07](LEDGER_MISSING) |
 | LIKELY-TO-BUY | $0.00 |
-| **Recorded procurement valuation — includes commitments** | [$48,994.59](LEDGER_GRAND_TOTAL) |
+| **Recorded procurement valuation — includes commitments** | [$49,231.58](LEDGER_GRAND_TOTAL) |
 
 Price evidence within the procurement valuation:
 
 | Amount basis | USD |
 |---|---|
 | Final vendor amounts | [$21,019.46](LEDGER_FINAL_VENDOR) |
-| Estimated amounts | [$3,985.45](LEDGER_ESTIMATES) |
+| Estimated amounts | [$4,222.44](LEDGER_ESTIMATES) |
 | Legacy / unverified amounts | [$23,989.68](LEDGER_LEGACY_UNVERIFIED) |
 
 Merchant-evidenced payments (project shares; includes the undated bucket):
