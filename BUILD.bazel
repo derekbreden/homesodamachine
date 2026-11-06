@@ -2538,9 +2538,12 @@ genrule(
         "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead_ring.py",
         "hardware/printed-parts/enclosure/bulkhead-ring/numbers.rs",
         "hardware/printed-parts/enclosure/data-ring/data_ring.py",
+        ":out/display-cover/hardware/printed-parts/enclosure/display-cover/display-cover-fasteners.step.npz",
         ":out/display-cover/hardware/printed-parts/enclosure/display-cover/display-cover.step.mesh",
         ":out/display-cover/hardware/printed-parts/enclosure/display-cover/display-cover.step.npz",
         "hardware/printed-parts/enclosure/display-cover/display_cover.py",
+        ":out/display-cover/hardware/printed-parts/enclosure/display-cover/status-plate-fasteners.step.npz",
+        ":out/display-cover/hardware/printed-parts/enclosure/display-cover/status-plate.step.npz",
         ":out/display-gasket/hardware/printed-parts/enclosure/display-gasket/display-gasket.step.mesh",
         ":out/display-gasket/hardware/printed-parts/enclosure/display-gasket/display-gasket.step.npz",
         "hardware/printed-parts/enclosure/display-gasket/display_gasket.py",
@@ -8645,6 +8648,7 @@ cd .. && rm -rf work-data-ring
 genrule(
     name = "display-cover",
     srcs = [
+        "brand/mark.svg",
         "hardware/manifold-layout/above-core.json",
         "hardware/printed-parts/cadlib/_scalar_provider.py",
         "hardware/printed-parts/cadlib/fits.py",
@@ -8679,6 +8683,7 @@ genrule(
         "hardware/printed-parts/enclosure/enclosure/numbers/shell.rs",
         "hardware/printed-parts/enclosure/enclosure/numbers/spec.rs",
         "hardware/printed-parts/enclosure/enclosure/numbers/structure.rs",
+        "hardware/printed-parts/enclosure/nameplate/identification-glyphs.json",
         "hardware/printed-parts/enclosure/nameplate/snap_dimensions.rs",
         "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
         "hardware/printed-parts/valve-seat/numbers.rs",
@@ -8850,11 +8855,14 @@ genrule(
         "tools/run.py",
     ],
     outs = [
+        "out/display-cover/hardware/printed-parts/enclosure/display-cover/display-cover-fasteners.step.npz",
         "out/display-cover/hardware/printed-parts/enclosure/display-cover/display-cover.numbers.json",
         "out/display-cover/hardware/printed-parts/enclosure/display-cover/display-cover.step",
         "out/display-cover/hardware/printed-parts/enclosure/display-cover/display-cover.step.mesh",
         "out/display-cover/hardware/printed-parts/enclosure/display-cover/display-cover.step.npz",
         "out/display-cover/hardware/printed-parts/enclosure/display-cover/display-cover.stl",
+        "out/display-cover/hardware/printed-parts/enclosure/display-cover/status-plate-fasteners.step.npz",
+        "out/display-cover/hardware/printed-parts/enclosure/display-cover/status-plate.step.npz",
     ],
     tags = ["no-sandbox"],
     cmd = """
@@ -8879,11 +8887,14 @@ case "$$(uname -s)" in
     };;
   *) copy_file() { cp "$$@"; };;
 esac
-O0=$$PWD/$(location out/display-cover/hardware/printed-parts/enclosure/display-cover/display-cover.numbers.json)
-O1=$$PWD/$(location out/display-cover/hardware/printed-parts/enclosure/display-cover/display-cover.step)
-O2=$$PWD/$(location out/display-cover/hardware/printed-parts/enclosure/display-cover/display-cover.step.mesh)
-O3=$$PWD/$(location out/display-cover/hardware/printed-parts/enclosure/display-cover/display-cover.step.npz)
-O4=$$PWD/$(location out/display-cover/hardware/printed-parts/enclosure/display-cover/display-cover.stl)
+O0=$$PWD/$(location out/display-cover/hardware/printed-parts/enclosure/display-cover/display-cover-fasteners.step.npz)
+O1=$$PWD/$(location out/display-cover/hardware/printed-parts/enclosure/display-cover/display-cover.numbers.json)
+O2=$$PWD/$(location out/display-cover/hardware/printed-parts/enclosure/display-cover/display-cover.step)
+O3=$$PWD/$(location out/display-cover/hardware/printed-parts/enclosure/display-cover/display-cover.step.mesh)
+O4=$$PWD/$(location out/display-cover/hardware/printed-parts/enclosure/display-cover/display-cover.step.npz)
+O5=$$PWD/$(location out/display-cover/hardware/printed-parts/enclosure/display-cover/display-cover.stl)
+O6=$$PWD/$(location out/display-cover/hardware/printed-parts/enclosure/display-cover/status-plate-fasteners.step.npz)
+O7=$$PWD/$(location out/display-cover/hardware/printed-parts/enclosure/display-cover/status-plate.step.npz)
 rm -rf work-display-cover
 for f in $(SRCS); do
   case $$f in
@@ -8900,11 +8911,14 @@ cd work-display-cover
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
 HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/enclosure/display-cover/display_cover.py > /dev/null
-copy_file hardware/printed-parts/enclosure/display-cover/display-cover.numbers.json "$$O0"
-copy_file hardware/printed-parts/enclosure/display-cover/display-cover.step "$$O1"
-copy_file hardware/printed-parts/enclosure/display-cover/display-cover.step.mesh "$$O2"
-copy_file hardware/printed-parts/enclosure/display-cover/display-cover.step.npz "$$O3"
-copy_file hardware/printed-parts/enclosure/display-cover/display-cover.stl "$$O4"
+copy_file hardware/printed-parts/enclosure/display-cover/display-cover-fasteners.step.npz "$$O0"
+copy_file hardware/printed-parts/enclosure/display-cover/display-cover.numbers.json "$$O1"
+copy_file hardware/printed-parts/enclosure/display-cover/display-cover.step "$$O2"
+copy_file hardware/printed-parts/enclosure/display-cover/display-cover.step.mesh "$$O3"
+copy_file hardware/printed-parts/enclosure/display-cover/display-cover.step.npz "$$O4"
+copy_file hardware/printed-parts/enclosure/display-cover/display-cover.stl "$$O5"
+copy_file hardware/printed-parts/enclosure/display-cover/status-plate-fasteners.step.npz "$$O6"
+copy_file hardware/printed-parts/enclosure/display-cover/status-plate.step.npz "$$O7"
 cd .. && rm -rf work-display-cover
 """,
 )
