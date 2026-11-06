@@ -1,0 +1,197 @@
+{
+  "views": [
+    {
+      "name": "lower",
+      "caption": "Cut across at the live and neutral connectors, from above: the corner column at the rear corner is whole, and both connectors sit further in",
+      "before": "lower-before.webp",
+      "after": "lower-after.webp",
+      "width": 1200,
+      "height": 900,
+      "marks": [
+        {
+          "x": 463.3,
+          "y": 396.9,
+          "r": 24.1,
+          "label": "corner column",
+          "at": [
+            -97,
+            464,
+            268
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          -80,
+          413.1354938357132,
+          393.32716046939095
+        ],
+        "target": [
+          -80,
+          457,
+          268
+        ],
+        "up": [
+          0,
+          1,
+          0
+        ],
+        "fov": 45,
+        "near": 0.3497252897478121,
+        "far": 574.02205624306,
+        "aspect": 1.3333333333333333,
+        "section": {
+          "at": [
+            -80,
+            458,
+            268
+          ],
+          "normal": [
+            0,
+            0,
+            1
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [],
+      "ghost": [],
+      "only": [
+        "enclosure-back-top",
+        "wago-h",
+        "wago-n"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "8e1ea33b5b494ffac0878b7b46d694731a1804edaf110f1f627922ac06225326",
+          "commit": "e6b8024a6251251d9dd100c0aad111dee4339338",
+          "taken": "2026-11-06T20:08:49.772Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "file",
+          "sha256": "e1308a8290fd0dcc04c474e59cdbc9dfcd2d0f1a6a8b822943fdf5b683ce1aab",
+          "commit": null
+        }
+      },
+      "changed": [
+        "wire-AC1-PE",
+        "wago-g",
+        "wire-PE-carbonator",
+        "wire-AC6-PE",
+        "enclosure-back-top",
+        "wire-AC1-N",
+        "wire-AC1-L",
+        "wire-AC2-L",
+        "wire-AC2-N",
+        "wire-AC3-L",
+        "wire-AC5-pigtail",
+        "wago-n",
+        "wago-h"
+      ],
+      "withinMeshing": []
+    },
+    {
+      "name": "upper",
+      "caption": "Cut across at the earth connector, from above: it stands on end, clear of the corner column and of the network jack beside it",
+      "before": "upper-before.webp",
+      "after": "upper-after.webp",
+      "width": 1200,
+      "height": 900,
+      "marks": [
+        {
+          "x": 463.3,
+          "y": 396.9,
+          "r": 24.1,
+          "label": "corner column",
+          "at": [
+            -97,
+            464,
+            300
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          -80,
+          413.1354938357132,
+          425.32716046939095
+        ],
+        "target": [
+          -80,
+          457,
+          300
+        ],
+        "up": [
+          0,
+          1,
+          0
+        ],
+        "fov": 45,
+        "near": 0.4014268716995416,
+        "far": 599.8728472189248,
+        "aspect": 1.3333333333333333,
+        "section": {
+          "at": [
+            -80,
+            458,
+            300
+          ],
+          "normal": [
+            0,
+            0,
+            1
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [],
+      "ghost": [],
+      "only": [
+        "enclosure-back-top",
+        "wago-g"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "8e1ea33b5b494ffac0878b7b46d694731a1804edaf110f1f627922ac06225326",
+          "commit": "e6b8024a6251251d9dd100c0aad111dee4339338",
+          "taken": "2026-11-06T20:08:49.772Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "file",
+          "sha256": "e1308a8290fd0dcc04c474e59cdbc9dfcd2d0f1a6a8b822943fdf5b683ce1aab",
+          "commit": null
+        }
+      },
+      "changed": [
+        "wire-AC1-PE",
+        "wago-g",
+        "wire-PE-carbonator",
+        "wire-AC6-PE",
+        "enclosure-back-top",
+        "wire-AC1-N",
+        "wire-AC1-L",
+        "wire-AC2-L",
+        "wire-AC2-N",
+        "wire-AC3-L",
+        "wire-AC5-pigtail",
+        "wago-n",
+        "wago-h"
+      ],
+      "withinMeshing": []
+    }
+  ]
+}
