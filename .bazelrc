@@ -57,3 +57,8 @@ build --action_env=HSM_SKIP_MESH_PAYLOAD=1
 # The shared host count controls independent runs; metadata queries keep Bazel's defaults.
 build --jobs=auto
 test --test_output=errors
+
+# Bazel keeps a profile of each command in its output base, and `tools/build_times.py` reads each
+# full build's time off them. Enough are kept that the queries agents run between two commits do
+# not push a full build's profile out first.
+common --profiles_to_retain=100

@@ -13,8 +13,69 @@
 // Below the card, the Checks section: every check in the tree and what it
 // answered, out of the verdict this deploy carries. It is what the gear's dot
 // is the summary of — shell.js colours that dot, this page names the rows.
+//
+// Below the checks, the Build time section: how long each full build took,
+// newest first, out of `public/build-times.json` (`tools/build_times.py`).
+// Both are read per request, since artifacts-live.js carries both files onto
+// the running container.
 
+import fs from "fs";
+import path from "path";
+import { fileURLToPath } from "url";
 import { renderHead, renderNav, renderPageHeader, renderFooter, renderChecksRows } from "./shell.js";
+
+const BUILD_TIMES_FILE = path.join(path.dirname(fileURLToPath(import.meta.url)), "..", "public", "build-times.json");
+const BUILDS_SHOWN = 12;
+const ZONE = "America/Chicago";
+
+function readBuildTimes() {
+  try {
+    const value = JSON.parse(fs.readFileSync(BUILD_TIMES_FILE, "utf-8"));
+    return Array.isArray(value.builds) ? value.builds : null;
+  } catch {
+    return null;
+  }
+}
+
+function escape(s) {
+  return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+}
+
+function duration(seconds) {
+  const s = Math.round(seconds);
+  const m = Math.floor(s / 60);
+  return m ? `${m} min ${String(s % 60).padStart(2, "0")} s` : `${s} s`;
+}
+
+function when(iso) {
+  return new Date(iso).toLocaleString("en-US", {
+    timeZone: ZONE, month: "short", day: "numeric", hour: "numeric", minute: "2-digit",
+  });
+}
+
+function renderBuildTimeRows() {
+  const builds = readBuildTimes();
+  if (!builds?.length) {
+    return `    <div class="setting-row">
+      <div><div class="setting-help">No full build is recorded yet.</div></div>
+    </div>`;
+  }
+  return builds
+    .slice(-BUILDS_SHOWN)
+    .reverse()
+    .map((b) => {
+      const reran = b.steps ? `reran ${b.reran} of ${b.steps} steps` : `reran ${b.reran} steps`;
+      const help = [when(b.started), reran, b.commit].filter(Boolean).join(" · ");
+      const label = b.finished ? duration(b.seconds) : `Failed after ${duration(b.seconds)}`;
+      return `    <div class="setting-row">
+      <div>
+        <div class="setting-label${b.finished ? "" : " build-failed"}">${escape(label)}</div>
+        <div class="setting-help">${escape(help)}</div>
+      </div>
+    </div>`;
+    })
+    .join("\n");
+}
 
 const PAGE_STYLES = `
 .modal-backdrop {
@@ -72,6 +133,7 @@ h2.section { font-size: 14px; font-weight: 600; margin: 2rem 0 0.75rem; color: v
 .checks-mark { font-size: 14px; line-height: 1.5; padding-left: 12px; }
 .checks-mark.ok { color: var(--ok); }
 .checks-mark.red { color: var(--err); }
+.setting-label.build-failed { color: var(--err); }
 .checks-detail {
   margin-top: 6px;
   font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
@@ -82,7 +144,7 @@ h2.section { font-size: 14px; font-weight: 600; margin: 2rem 0 0.75rem; color: v
 }
 `;
 
-const BODY = `<main class="settings-wrap site-content">
+const body = () => `<main class="settings-wrap site-content">
   <div class="settings-card">
     <div class="setting-row" id="row-notifs" hidden>
       <div>
@@ -107,6 +169,11 @@ const BODY = `<main class="settings-wrap site-content">
   <h2 class="section">Checks</h2>
   <div class="settings-card">
 ${renderChecksRows()}
+  </div>
+
+  <h2 class="section">Build time</h2>
+  <div class="settings-card">
+${renderBuildTimeRows()}
   </div>
 </main>
 
@@ -135,8 +202,8 @@ export function mountSettingsRoutes(app) {
         pageClass: "site-interior",
       }) +
       renderNav({ active: "settings" }) +
-      renderPageHeader({ eyebrow: "Settings", title: "Stay connected.", description: "Choose how you follow the build, and see the project’s latest check results." }) +
-      BODY +
+      renderPageHeader({ eyebrow: "Settings", title: "Stay connected.", description: "Choose how you follow the build, and see the project’s latest check results and build times." }) +
+      body() +
       renderFooter({ siteFooter: true }),
     );
   });
