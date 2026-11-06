@@ -7891,7 +7891,7 @@
       ]
     }
   ],
-  "input_fingerprint": "sha256:f98cdc03ee36072c87411eaca6ad2c8ba947e1a22b4673e758ef272a7e3dce55",
+  "input_fingerprint": "sha256:cc9b442e0bdcc7293a412b90f49f7f26772e063def912c8b84375f2593bbf6cd",
   "orders": [
     {
       "allocation_status": "all_project",
@@ -8205,6 +8205,23 @@
       "reference": "112-0610257-0936212",
       "source_ids": [
         "saved-amazon:112-0610257-0936212"
+      ],
+      "vendor": "Amazon"
+    },
+    {
+      "allocation_status": "all_project",
+      "event_ids": [],
+      "order_date": {
+        "precision": "day",
+        "value": "2026-11-05"
+      },
+      "order_id": "amazon:112-0673623-4429031",
+      "purchase_ids": [
+        "pur-9fe3b15945c3487da36214f92b80f9ee"
+      ],
+      "reference": "112-0673623-4429031",
+      "source_ids": [
+        "src-0e5230e241814fb2a9d81a1b0ade8fa4"
       ],
       "vendor": "Amazon"
     },
@@ -38382,6 +38399,50 @@
     {
       "allocation_status": "all_project",
       "amount_evidence": "estimate",
+      "amount_minor": 1071,
+      "contributes": true,
+      "currency": "USD",
+      "delivery_date": null,
+      "description": "Zulkit IP65 ABS electrical box, hinged shell, 2 cable glands, 5.9 × 3.9 × 2.8 in — holds the Shelly 1 Mini on the ceiling beside the garage heater; plastic so its Wi-Fi gets out. Sold by VeSumly; $9.99 + $0.72 estimated NE tax, free shipping; Amazon order details verified 2026-11-05, arriving 2026-11-07",
+      "event_ids": [],
+      "fulfillment": "ON-ORDER",
+      "invoice_date": null,
+      "ledger_purchase_id": "pur-9fe3b15945c3487da36214f92b80f9ee",
+      "merchant_charge_allocated_minor": 0,
+      "merchant_refund_allocated_minor": 0,
+      "order_date": {
+        "precision": "day",
+        "value": "2026-11-05"
+      },
+      "order_ids": [
+        "amazon:112-0673623-4429031"
+      ],
+      "payment_evidence": "unknown",
+      "price_basis": "row_total",
+      "purchase_id": "pur-9fe3b15945c3487da36214f92b80f9ee",
+      "purpose": "equipment_tooling",
+      "quantity": 1,
+      "quantity_text": "1",
+      "receipt_date": null,
+      "record_role": "purchase",
+      "row_date": {
+        "precision": "day",
+        "value": "2026-11-05"
+      },
+      "row_date_basis": "order_date",
+      "section": "12. Shop / bench infrastructure",
+      "service_period": null,
+      "source_ids": [
+        "src-0e5230e241814fb2a9d81a1b0ade8fa4"
+      ],
+      "split_charge": false,
+      "stream": "purchase",
+      "unit_amount_minor": null,
+      "vendor": "Amazon"
+    },
+    {
+      "allocation_status": "all_project",
+      "amount_evidence": "estimate",
       "amount_minor": 1286,
       "contributes": true,
       "currency": "USD",
@@ -56961,6 +57022,22 @@
     {
       "document_date": {
         "precision": "day",
+        "value": "2026-11-05"
+      },
+      "document_type": "order_details",
+      "note": "Signed-in Amazon order details: ordered 2026-11-05; Zulkit IP65 Waterproof ABS Plastic Electrical Box - Hinged Shell, 2 Cable Glands, 5.9 x 3.9 x 2.8 inch (B08KY7VK8W) × 1 at USD 9.99, sold by VeSumly, arriving 2026-11-07. USD 9.99 item subtotal, USD 0.00 shipping, USD 0.72 estimated tax and USD 10.71 grand total.",
+      "proves": [
+        "order_date",
+        "price"
+      ],
+      "reference": "112-0673623-4429031",
+      "source_id": "src-0e5230e241814fb2a9d81a1b0ade8fa4",
+      "vendor": "Amazon",
+      "verified_at": "2026-11-05"
+    },
+    {
+      "document_date": {
+        "precision": "day",
         "value": "2026-10-09"
       },
       "document_type": "delivery_confirmation",
@@ -62568,7 +62645,7 @@
           "unknown_amount_ids": []
         },
         {
-          "amount_minor": 236064,
+          "amount_minor": 237135,
           "currency": "USD",
           "fulfillment": "ON-ORDER",
           "purchase_ids": [
@@ -62589,6 +62666,7 @@
             "pur-7f5e5ae2f85e4d74bca9edb78b7332f0",
             "pur-8b3d0e7a5c9f4e2b4a7d1c3e5f6a8b07",
             "pur-9d9726d27ea04842b803208c17fd1b37",
+            "pur-9fe3b15945c3487da36214f92b80f9ee",
             "pur-a326599d5b464456b43259262c4808ba",
             "pur-a9aeeb7107e24ef68654ee86aa1fbe14",
             "pur-abd647629bfa41e1ae7de9bf129dbf44",
@@ -62628,6 +62706,7 @@
         "pur-7f5e5ae2f85e4d74bca9edb78b7332f0",
         "pur-8b3d0e7a5c9f4e2b4a7d1c3e5f6a8b07",
         "pur-9d9726d27ea04842b803208c17fd1b37",
+        "pur-9fe3b15945c3487da36214f92b80f9ee",
         "pur-a326599d5b464456b43259262c4808ba",
         "pur-a9aeeb7107e24ef68654ee86aa1fbe14",
         "pur-abd647629bfa41e1ae7de9bf129dbf44",
@@ -63715,7 +63794,7 @@
         },
         {
           "currency": "USD",
-          "estimate_minor": 28907,
+          "estimate_minor": 29978,
           "evidence_scope": "retrieved_records_only",
           "final_vendor_amount_minor": 0,
           "legacy_unverified_minor": 0,
@@ -63726,9 +63805,10 @@
             "pur-3fca793e96a64c20b79ac0831efc3b50",
             "pur-5f9b203a9810468f8bab74284d78f44d",
             "pur-7ebe706384b34c718af7af886e0988d7",
+            "pur-9fe3b15945c3487da36214f92b80f9ee",
             "pur-a9aeeb7107e24ef68654ee86aa1fbe14"
           ],
-          "total_minor": 28907,
+          "total_minor": 29978,
           "unknown_amount_ids": []
         },
         {
@@ -63765,7 +63845,7 @@
           "purpose": "engineering_software_services"
         },
         {
-          "amount_minor": 2375276,
+          "amount_minor": 2376347,
           "currency": "USD",
           "purpose": "equipment_tooling"
         },
@@ -63783,10 +63863,10 @@
       "totals": [
         {
           "currency": "USD",
-          "estimate_minor": 427452,
+          "estimate_minor": 428523,
           "final_vendor_amount_minor": 2101946,
           "legacy_unverified_minor": 2398968,
-          "total_minor": 4928366
+          "total_minor": 4929437
         }
       ],
       "undated_unallocated": [
@@ -63940,11 +64020,11 @@
       "by_currency": [
         {
           "currency": "USD",
-          "estimated_purchase_minor": 427452,
+          "estimated_purchase_minor": 428523,
           "legacy_unverified_purchase_minor": 2398968,
           "order_only_charge_allocation_minor": 6561,
           "partial_charge_purchase_minor": 0,
-          "purchases_without_merchant_charge_minor": 3146967,
+          "purchases_without_merchant_charge_minor": 3148038,
           "undated_charge_minor": 57998,
           "undated_refund_minor": 0,
           "undated_unallocated_purchase_minor": 922346,
@@ -63988,6 +64068,7 @@
         "pur-8fb96099b6b34dbfa04c2e6d93c55a42",
         "pur-91bd3b099e80493ab591655550b439ca",
         "pur-9c025ba9576044b38a4745d084361ea5",
+        "pur-9fe3b15945c3487da36214f92b80f9ee",
         "pur-a02ce33a2d984d9fbea615cbad793ab3",
         "pur-a326599d5b464456b43259262c4808ba",
         "pur-a61e59a7635c4aa0887475454ad04b04",
@@ -64929,6 +65010,7 @@
         "pur-9f1d0a0093fa41998cc583b3dec261be",
         "pur-9f4f2f41bd0e473e99f1ba6d885d8c3c",
         "pur-9f81aa36ad4e47ac8232415d46371a22",
+        "pur-9fe3b15945c3487da36214f92b80f9ee",
         "pur-a02ce33a2d984d9fbea615cbad793ab3",
         "pur-a065b01d45c946409f7342ac3e821a22",
         "pur-a0715d56214f4690b90294677aee5b42",
@@ -65343,7 +65425,7 @@
       "coverage-fee7edc5545c4ce58fba854587790eb4: evidence coverage is partial",
       "Legacy order 112-0019658-3684217: row valuation USD 139.80, preserved project invoice USD 139.81; historical allocation residual USD +0.01. Original prices retained; no balancing payment invented.",
       "Legacy order 112-0066205-0960237: row valuation USD 423.94, preserved project invoice USD 423.95; historical allocation residual USD +0.01. Original prices retained; no balancing payment invented.",
-      "11 legacy named order(s) lack an exact invoice allocation check",
+      "12 legacy named order(s) lack an exact invoice allocation check",
       "1 preserved potentially project order(s) have no named Markdown row"
     ]
   }

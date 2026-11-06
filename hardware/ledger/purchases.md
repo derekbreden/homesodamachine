@@ -561,6 +561,7 @@ General shop equipment supporting fabrication, assembly, and teardown. Not proje
 | <!--purchase:pur-3161c146b8ef40e5817e13af4dc07846--> Shelly 1 Mini Gen4 smart relay, Wi-Fi, Matter and Zigbee, one channel, 8 A dry contacts — the garage heater's thermostat contact on its terminals 1 and 2 with the rear switch on II, switched by the Garage Temperature sensor. Sold by Shelly USA; $24.98 + $1.81 estimated NE tax, free shipping; Amazon order details verified 2026-11-05, arriving 2026-11-07 | [B0DZHZDJXT](https://www.amazon.com/dp/B0DZHZDJXT) | 1 | $26.79 | 112-1658930-0707414 | 2026-11-05 | — | ON-ORDER |
 | <!--purchase:pur-7ebe706384b34c718af7af886e0988d7--> nVent Gardner Bender PS915143 appliance cord, 9 ft, 14/3 SJTW, 15 A/125 V — cut in two: the plug end powers the Shelly 1 Mini above from a garage outlet, and the cut-off end is the 14 AWG lead from the Shelly's I and O terminals to the heater's terminals 1 and 2. Sold by Amazon.com; $10.59 + $0.77 estimated NE tax, free shipping; Amazon order details verified 2026-11-05, arriving 2026-11-07 | [B07BQ8PY21](https://www.amazon.com/dp/B07BQ8PY21) | 1 | $11.36 | 112-6057627-7806613 | 2026-11-05 | — | ON-ORDER |
 | <!--purchase:pur-24623d00c3e94898adf2465f7537b1bd--> LISTENJIALE nylon cable glands with gaskets, PG7–PG19, 50 pcs — one seals the 14 AWG thermostat lead into the heater's second knockout. Sold by ListenJiaLe; $12.99 + $0.94 estimated NE tax, free shipping; Amazon order details verified 2026-11-05, arriving 2026-11-07 | [B09Z24H77M](https://www.amazon.com/dp/B09Z24H77M) | 1 pk (50) | $13.93 | 112-5039065-3785859 | 2026-11-05 | — | ON-ORDER |
+| <!--purchase:pur-9fe3b15945c3487da36214f92b80f9ee--> Zulkit IP65 ABS electrical box, hinged shell, 2 cable glands, 5.9 × 3.9 × 2.8 in — holds the Shelly 1 Mini on the ceiling beside the garage heater; plastic so its Wi-Fi gets out. Sold by VeSumly; $9.99 + $0.72 estimated NE tax, free shipping; Amazon order details verified 2026-11-05, arriving 2026-11-07 | [B08KY7VK8W](https://www.amazon.com/dp/B08KY7VK8W) | 1 | $10.71 | 112-0673623-4429031 | 2026-11-05 | — | ON-ORDER |
 
 ## 13. Printing consumables
 
@@ -837,17 +838,17 @@ Printed copies of the [install guide](/hardware/install-guide/README.md). Lulu o
 | Acquired hardware valuation — includes replaced/returned originals | [$40,350.44](LEDGER_ACQUIRED_HW) |
 | Engineering services (§18) | [$6,519.51](LEDGER_LABOR) |
 | Acquired procurement valuation (combined) | [$46,869.95](LEDGER_ACQUIRED_COMBINED) |
-| ON-ORDER | [$2,360.64](LEDGER_ON_ORDER) |
+| ON-ORDER | [$2,371.35](LEDGER_ON_ORDER) |
 | MISSING — not in hand | [$53.07](LEDGER_MISSING) |
 | LIKELY-TO-BUY | $0.00 |
-| **Recorded procurement valuation — includes commitments** | [$49,283.66](LEDGER_GRAND_TOTAL) |
+| **Recorded procurement valuation — includes commitments** | [$49,294.37](LEDGER_GRAND_TOTAL) |
 
 Price evidence within the procurement valuation:
 
 | Amount basis | USD |
 |---|---|
 | Final vendor amounts | [$21,019.46](LEDGER_FINAL_VENDOR) |
-| Estimated amounts | [$4,274.52](LEDGER_ESTIMATES) |
+| Estimated amounts | [$4,285.23](LEDGER_ESTIMATES) |
 | Legacy / unverified amounts | [$23,989.68](LEDGER_LEGACY_UNVERIFIED) |
 
 Merchant-evidenced payments (project shares; includes the undated bucket):
