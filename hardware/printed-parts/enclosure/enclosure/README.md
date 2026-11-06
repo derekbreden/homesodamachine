@@ -14,7 +14,7 @@ its underside, so it stands in the silhouette and the cavity's floor plane — t
 one the pack sets its bodies on — does not move. **Split into four printable pieces** — front/back × bottom/top, every piece inside the H2C bed. Each
 column's top SLIDES onto its bottom on hooked rails; the two halves telescope and four M5
 screws, two at each Y-seam corner, close the whole box.
-It measures, and **width, height and the +Y wall
+It measures, and **width, height and both Y walls
 are all stated bounds**. `_dims` measures the pack against each one and enters the
 reading in `BOUNDS`; the box comes back at its stated size regardless, so a pack
 that overruns one gets a wall drawn through it, a red row naming by how much, and a
@@ -32,10 +32,9 @@ clash in `pack-closes` at the body that overran.
 - **Height** is a stated, floor slab's underside to the
   top wall's outer face. The contents do not lift it; they have to fit under it.
 
-**Depth** is stated at the back — `rear_plane_y` — and follows the pack at the
-front, where the wall stands one `front_seam_clear` ahead of the frontmost body
-placed by
-[`../../../manifold-layout/enclosure_assembly.py`](/hardware/manifold-layout/enclosure_assembly.py).
+**Depth** is stated at both walls: the front plane `FRONT_PLANE_Y`
+([`numbers/shell.rs`](numbers/shell.rs)) and the rear plane `REAR_PLANE_Y`
+([`interface/lib.rs`](interface/lib.rs)). The contents do not move either wall.
 The compressor bay stands on the floor at the front and the cold core sits
 behind it, front face mated flush against the compressor bay's aft plane.
 
