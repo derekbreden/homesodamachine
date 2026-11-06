@@ -80,12 +80,16 @@ fn defaults(v: &Value) -> Result<Value> {
         "FLOOR_STOCK":floor_stock,"ENTRY_WIDTH":nameplate["ENTRY_BEVEL_WIDTH"],
         "ENTRY_DEPTH":nameplate["ENTRY_BEVEL_DEPTH"],"CORNER_R":port_corner
     });
-    let thick = 3.84;
+    let thick = hsm_enclosure_numbers::display_mount::THICK;
     let wing_thick = 1.44;
     let bearing_air = 0.60;
     let display = json!({
-        "COVER_X":125.5,"COVER_Y":83.,"CORNER_R":6.,
-        "WINDOW_X":107.5,"WINDOW_Y":71.,"WINDOW_R":2.5,
+        "COVER_X":hsm_enclosure_numbers::display_mount::WIDTH,
+        "COVER_Y":hsm_enclosure_numbers::display_mount::HEIGHT,
+        "CORNER_R":hsm_enclosure_numbers::display_mount::CORNER,
+        "WINDOW_X":hsm_enclosure_numbers::display_mount::WINDOW[0],
+        "WINDOW_Y":hsm_enclosure_numbers::display_mount::WINDOW[1],
+        "WINDOW_R":hsm_enclosure_numbers::display_mount::WINDOW[2],
         "THICK":thick,"WING_THICK":wing_thick,"WING_REACH":3.60,
         "WING_SPAN":70.,"WING_END_R":0.60,"BODY_X_AIR":0.30,
         "BODY_Y_AIR":0.15,"TIP_AIR":0.55,"END_AIR":0.15,"BEARING_AIR":bearing_air,
@@ -131,20 +135,7 @@ fn unit(v: &Value) -> Result<Value> {
 fn cover(v: &Value) -> Result<Value> {
     let d = &v["display"];
     let back = f(d, "BACK")?;
-    let wings = [-1., 1.]
-        .iter()
-        .map(|side| {
-            json!([
-                f(d, "WING_REACH").unwrap() + 1.,
-                d["WING_SPAN"],
-                d["WING_END_R"],
-                back,
-                back + f(d, "WING_THICK").unwrap(),
-                side * (f(d, "COVER_X").unwrap() / 2. + (f(d, "WING_REACH").unwrap() - 1.) / 2.),
-                0.
-            ])
-        })
-        .collect::<Vec<_>>();
+    let wings: Vec<Value> = vec![];
     Ok(json!({"name":"display-cover","color":v["color"],
         "outer":[d["COVER_X"],d["COVER_Y"],d["CORNER_R"],back,0.,0.,0.],
         "window":[d["WINDOW_X"],d["WINDOW_Y"],d["WINDOW_R"],back-1.,1.,0.,0.],
@@ -404,6 +395,19 @@ fn dispatch(v: &Value) -> Result<Value> {
         let result = compiled::request(v);
         compiled::register_io()?;
         return result;
+    }
+    if op == "core-interface" {
+        use hsm_enclosure_numbers::display_mount as m;
+        let mut result = core_dimensions::dispatch(v)?;
+        result["display_inset_reach"] = json!((m::WIDTH - m::GLASS[0]) / 2.0 + 0.3);
+        result["display_inset_depth"] = json!(m::THICK);
+        result["display_inset_x"] = json!(m::WIDTH + 0.6);
+        result["display_inset_slope"] = json!(m::HEIGHT + 0.3);
+        result["display_cover_corner_r"] = json!(m::CORNER);
+        result["display_inset_corner_r"] = json!(m::CORNER + f(&v["fits"], "slip")?);
+        result["display_bezel_depth"] = json!(m::THICK + m::GASKET_THICK + m::GLASS_THICK);
+        result["display_cover_thickness"] = json!(m::THICK);
+        return Ok(result);
     }
     if op.starts_with("core-") {
         return core_dimensions::dispatch(v);

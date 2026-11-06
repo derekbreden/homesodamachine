@@ -1,0 +1,52 @@
+{
+  "clearance_diameter_mm": 3.4,
+  "corner_radius_mm": 5.0,
+  "counterbore_depth_mm": 1.0,
+  "counterbore_diameter_mm": 6.2,
+  "cover_mm": [
+    135.5,
+    83.0,
+    3.0
+  ],
+  "gasket_thickness_mm": 1.0,
+  "glass_thickness_mm": 1.0,
+  "head_diameter_mm": 5.5,
+  "head_height_mm": 3.0,
+  "head_proud_mm": 2.0,
+  "insert": "ruthex RX-M3S x 4 short heat-set insert",
+  "insert_diameter_mm": 4.6,
+  "insert_length_mm": 4.0,
+  "pilot_depth_mm": 4.4,
+  "pilot_diameter_mm": 4.0,
+  "required_backing_mm": 3.0,
+  "screw": "Black M3 x 6 socket-head cap screw",
+  "screw_engagement_mm": 4.0,
+  "screw_length_mm": 6.0,
+  "screw_to_outer_border_mm": [
+    5.5,
+    5.5
+  ],
+  "stations_local_xy_mm": [
+    [
+      -62.25,
+      -36.0
+    ],
+    [
+      62.25,
+      -36.0
+    ],
+    [
+      -62.25,
+      36.0
+    ],
+    [
+      62.25,
+      36.0
+    ]
+  ],
+  "window_mm": [
+    107.5,
+    71.0,
+    2.5
+  ]
+}

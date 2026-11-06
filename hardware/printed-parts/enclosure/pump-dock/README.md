@@ -18,7 +18,11 @@ populated lower enclosure.
 
 One PP0208E stands on each pump port: Y-C and Y-D on pump A, Y-F and Y-G on pump B, west to east Y-G, Y-F, Y-C, Y-D. Each tee's branch faces its pump on the pump tube's axis,; its run stands upright.
 
-Front-top's bay bulkhead is the tee wall: one flat slab of PET-GF the bay's whole width and height, thick from the bay face at to its aft face at. Its fore band, the collet plate, thick, ends at the bore face,. Each tee has two teardropped cuts on its branch axis: a collet opening through the fore band and a branch bore from the bore face through the wall's aft face, long. The collar's reference envelope has of running air. A bottom-open tube-loading gate joins each pair of openings to the underside. The remaining bore-face land stops the fixed branch barrel. The wall also roots the fore valve tray and joins the continuous pump/display body above it.
+Front-top's bay bulkhead is the tee wall: one flat slab of PET-GF across the bay.
+Each tee has a teardropped collet opening through the fore band and a branch bore
+through the wall behind it. Flexible pump stubs feed through the closed bores.
+The bore-face land stops the fixed branch barrel. The wall also roots the fore
+valve tray and joins the continuous pump/display body above it.
 
 Each tee stands with its fixed branch barrel aft of the bore face, its run axis at. Its branch collet stands extended in the collet plate's hole, its whole stroke fore of the bore face, and grips the pump tube; the tube bottoms at the tee's own stop and seals on the collet's O-ring. The collet reaches past the fixed barrel, and the hole runs on to the bay face, so with the tee pushed fore onto its barrel the collet still stands clear of the wall and keeps its grip.
 
@@ -89,7 +93,7 @@ absent while loading and securing the pumps.
    tighten the pump-head housings and remove the jig.
 2. Thread the bare DC-5 pump end from the shared rear passage to the open underside. Crimp,
    ring out and land its Fastons on the loose pumps, with the +X pair serving pump A.
-3. Raise the prepared unit motor-first. Guide the four tubes up their loading gates while
+3. Raise the prepared unit motor-first. Guide the flexible tubes through the wall bores while
    drawing lead slack aft. Press upward until both wings spring outward and their lower
    hooks seat on the receiver floors. Inspect both engagements before fitting plumbing.
 4. With the rear valve row absent, make up each tee, upper tube and fore valve, then bring

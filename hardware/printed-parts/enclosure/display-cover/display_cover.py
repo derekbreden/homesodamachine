@@ -1,6 +1,6 @@
-"""Accepted face-up display bezel with coplanar horizontal retaining wings.
+"""Face-up display bezel with side screws and shallow head seats.
 
-The visible face is local Z=0. The back and both wings share one flat bed plane.
+The visible face is local Z=0. Its back is the flat bed plane.
 The TPU ring separates the bezel from the glass.
 """
 from __future__ import annotations

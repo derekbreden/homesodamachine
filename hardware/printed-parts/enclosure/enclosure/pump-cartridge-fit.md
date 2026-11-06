@@ -6,8 +6,8 @@ and skirt lands. Two integral, full-depth wings engage front-top’s flank recei
 retain the molded-skirt capture between these parts. The [pump dock](../pump-dock/README.md)
 defines their dimensions, screwdriver release and factory assembly order.
 
-The prepared pumps enter motor-first from underneath loose front-top. The four tube
-stubs rise through bottom-open gates. After the retainer is secured, each prepared tee,
+The pumps enter motor-first from underneath loose front-top with only their flexible
+tube stubs attached. Feed the flexible stubs through the closed port bores. After the retainer is secured, each prepared tee,
 upper tube and fore valve approaches its fixed pump tube individually from aft. The
 tee's branch collet grips and seals that tube. Pump and display leads use the shared
 rear passage.

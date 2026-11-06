@@ -376,9 +376,9 @@ fn counts(input: &Value) -> Result<Value> {
     put!(nameplate_inserts_per_build, 4.);
     put!(nameplate_wings_per_build, 0.);
     put!(nameplate_screws_per_build, 4.);
-    put!(display_cover_inserts_per_build, 0.);
-    put!(display_cover_screws_per_build, 0.);
-    put!(display_cover_wings_per_build, 2.);
+    put!(display_cover_inserts_per_build, 4.);
+    put!(display_cover_screws_per_build, 4.);
+    put!(display_cover_wings_per_build, 0.);
     put!(
         pump_retainer_inserts_per_build,
         length(&input["pump_fasteners"])
@@ -423,7 +423,6 @@ fn counts(input: &Value) -> Result<Value> {
         shelf_pcba_screws_per_build
             + cond_screws_per_build
             + shelf_relay_screws_per_build
-            + display_cover_screws_per_build
             + faucet_display_cover_screws_per_build
             + touchflo_screws_per_build
     );
@@ -467,13 +466,12 @@ fn counts(input: &Value) -> Result<Value> {
         foam_cap_inserts_per_build
             + reservoir_cap_inserts_per_build
             + cond_inserts_per_build
-            + display_cover_inserts_per_build
             + pump_retainer_inserts_per_build
             + roof_closure_inserts_per_build
     );
     put!(
         m3_short_inserts_per_build,
-        nameplate_inserts_per_build + touchflo_inserts_per_build
+        nameplate_inserts_per_build + display_cover_inserts_per_build + touchflo_inserts_per_build
             + shelf_inserts_per_build
             + faucet_display_cover_inserts_per_build
             + c14_inserts_per_build

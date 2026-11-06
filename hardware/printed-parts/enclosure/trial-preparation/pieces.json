@@ -37,6 +37,10 @@
         "support_object_xy_distance": {
           "value": "0.5",
           "reason": "Tree-trunk arches on front-top's top-facing seam land (v17 article). Front-top only; bottom Z 0.30 mm, top Z 0.45 mm and branch dimensions keep their profile values. enclosure/enclosure/support-bottom-gap/README.md."
+        },
+        "support_style": {
+          "value": "tree_slim",
+          "reason": "Branching supports in the pump-mount cavities. Derek reports that the rectangular cavity supports are very difficult to remove."
         }
       },
       "parts": [
@@ -376,6 +380,10 @@
         "wall_generator": {
           "value": "classic",
           "reason": "Shared snap fixed-width wall recipe."
+        },
+        "support_style": {
+          "value": "tree_slim",
+          "reason": "Branching supports in the pump-mount cavities. Derek reports that the rectangular cavity supports are very difficult to remove."
         }
       }
     },
@@ -445,7 +453,21 @@
           "stl": "hardware/printed-parts/enclosure/display-cover/display-cover.stl"
         }
       ],
-      "pose_reason": "As exported: the back and both wings lie directly on the bed, face up (display-cover/README.md). The same bytes are the accepted face-up trial (display-cover/face-up-trial/physical-acceptance.json), sliced at rotation 0 on H2C (tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-29-display-flat-wings-h2c-v1/preparation.json)."
+      "pose_reason": "The flat cover back lies on the bed; counterbores face up. Side screws clamp the flat gasket and glass border.",
+      "settings": {
+        "sparse_infill_density": {
+          "value": "100%",
+          "reason": "Solid screw-bearing stock throughout the thin display bezel."
+        },
+        "sparse_infill_pattern": {
+          "value": "zig-zag",
+          "reason": "A continuous solid fill pattern for the screw-bearing bezel."
+        },
+        "enable_support": {
+          "value": "0",
+          "reason": "The flat bezel prints on its back with open upward-facing counterbores."
+        }
+      }
     },
     "elbow-cradle": {
       "printer": "Mark1",

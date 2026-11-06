@@ -1,0 +1,14 @@
+{
+  "pump_loading": "Derek confirms that the pumps can enter with only flexible tube stubs attached. The downward tube-loading channels are unnecessary.",
+  "pump_wall_gap": "Derek identifies unused space between the rigid pump flange and the tee-wall face. The wall location is a coordinated layout study; retain the fitted pump seats and snaps while reviewing that change.",
+  "cavity_supports": "Derek reports rectangular cavity supports are very difficult to remove. Front-top and pump-retainer recipes explicitly select branching Tree Slim supports.",
+  "display_mount": "Derek reports the display snap-pocket supports cannot be removed and requests screw retention along the east and west sides.",
+  "display_design": "Derek requests a redesign from the glass and screw-clamp requirements, including thickness, in the tone and style of the rear nameplate.",
+  "gasket_decision": "Retain the flat compliant ring to spread clamp pressure along the glass border and accommodate printed surface variation. It stays beneath the cover.",
+  "photos": [
+    "/tmp/codex-remote-attachments/01a19503-4047-7cf0-ad82-9e42d010912e/997B4A5A-B04E-42A6-B3A2-19394E11C5E5/1-Photo-1.jpg",
+    "/tmp/codex-remote-attachments/01a19503-4047-7cf0-ad82-9e42d010912e/997B4A5A-B04E-42A6-B3A2-19394E11C5E5/2-Photo-2.jpg",
+    "/tmp/codex-remote-attachments/01a19503-4047-7cf0-ad82-9e42d010912e/4D15182C-2300-467A-9AA7-90226AD73188/1-Photo-1.jpg",
+    "/tmp/codex-remote-attachments/01a19503-4047-7cf0-ad82-9e42d010912e/4D15182C-2300-467A-9AA7-90226AD73188/2-Photo-2.jpg"
+  ]
+}

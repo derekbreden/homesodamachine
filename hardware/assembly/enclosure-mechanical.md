@@ -64,9 +64,12 @@ Remove loose support material before closing the two halves. The current
 bare surfaces' finish, cleanup and comfort remain unqualified by other parts' underside
 results.
 
-Print-inspect all five enclosure pieces — the four quadrants and lower pump retainer — plus this unit's nameplate. Inspect front-top's fitted upper pump pockets, the retainer’s lower wells and skirt lands, both full-depth snap wings and hooks, the flank receiver floors and the central screwdriver-release openings. Verify that all four tee-wall tube-loading gates open from the underside into the collet openings and teardropped branch bores. Check the shared pump/display wire passage through the continuous upper stock and its shared rear exit at X0/Z280; the display backing's cavity face remains continuous around its required openings. Install and snap-retain the pumps while front-top is loose, before its tees, valves and chassis closure, per [`internal-plumbing.md`](/hardware/assembly/internal-plumbing.md) §3. Wipe down every interior face; remove brim residue and any stray support material at the +Y wall's bores, the rails' heads and channels — a bead in a channel is a 100 mm slide that binds at one station — the Y seam's lips and knuckles, and — above all — **the floor slab the cold core lands on**. The core bears on that slab across its whole footprint, so a bead of brim under it is a high spot, not a blemish. Both halves of the floor joint print on their bed faces and end square, one running fit apart. Set the nameplate aside in the unit's build folder; it does not go on at this step (see [`finish-pack-ship.md`](/hardware/assembly/finish-pack-ship.md)). **The display's two printed parts go in that folder with it**, not loose on the bench: the cover plate ([`/hardware/printed-parts/enclosure/display-cover/`](/hardware/printed-parts/enclosure/display-cover/README.md)) and, under it, the TPU gasket ring that goes between the plate's lap and the display's glass ([`/hardware/printed-parts/enclosure/display-gasket/`](/hardware/printed-parts/enclosure/display-gasket/README.md)). Both go on at §8, and the ring is soft, black and one wipe from being swept off a bench unnoticed — a display closed without it is a display the cover plate does not hold.
+Print-inspect all five enclosure pieces — the four quadrants and lower pump retainer — plus this unit's nameplate. Inspect front-top's fitted upper pump pockets, the retainer’s lower wells and skirt lands, both full-depth snap wings and hooks, the flank receiver floors and the central screwdriver-release openings. Inspect the closed tee-wall collet openings and teardropped branch bores; flexible pump stubs feed through these openings during loading. Check the shared pump/display wire passage through the continuous upper stock and its shared rear exit at X0/Z280; the display backing's cavity face remains continuous around its required openings. Install and snap-retain the pumps while front-top is loose, before its tees, valves and chassis closure, per [`internal-plumbing.md`](/hardware/assembly/internal-plumbing.md) §3. Wipe down every interior face; remove brim residue and any stray support material at the +Y wall's bores, the rails' heads and channels — a bead in a channel is a 100 mm slide that binds at one station — the Y seam's lips and knuckles, and — above all — **the floor slab the cold core lands on**. The core bears on that slab across its whole footprint, so a bead of brim under it is a high spot, not a blemish. Both halves of the floor joint print on their bed faces and end square, one running fit apart. Set the nameplate aside in the unit's build folder; it does not go on at this step (see [`finish-pack-ship.md`](/hardware/assembly/finish-pack-ship.md)). **The display's two printed parts go in that folder with it**, not loose on the bench: the cover plate ([`/hardware/printed-parts/enclosure/display-cover/`](/hardware/printed-parts/enclosure/display-cover/README.md)) and, under it, the TPU gasket ring that goes between the plate's lap and the display's glass ([`/hardware/printed-parts/enclosure/display-gasket/`](/hardware/printed-parts/enclosure/display-gasket/README.md)). Both go on at §8, and the ring is soft, black and one wipe from being swept off a bench unnoticed — a display closed without it is a display the cover plate does not hold.
 
 Install ruthex heat-set inserts everywhere the pieces call for them. Standard procedure: soldering iron on the insert, press straight down until flush. All of them go in *before* anything is in the box, while there is bench access from every face. The rear nameplate receiver takes four **short RX-M3S × 4** inserts in its Ø4 × 4.64 mm pilots. The upper pair has 3 mm of existing support-floor backing; the lower pair opens through the rear wall. Press their fronts flush with the flat seat; do not drive them beyond it. The four nameplate screws are black M3 × 6, installed at final finishing.
+
+Install the display cover’s short inserts flush with their seats from the open
+display face, before fitting the glass.
 
 Clear front-top's functional-cavity support through the empty display seat and
 open underside before installing hardware. The current
@@ -342,13 +345,12 @@ the shared pump/display passage and out the open facet, and land it on the displ
 ([wiring.md](wiring.md) §5). Then seat its glass in the shallow counterbore with the
 PCB passing through the housing. Handle it ESD-safe.
 
-Place the 1 mm TPU ring on the glass border, aligned with the cover window. Flex
-the accepted cover's middle outward to enter both horizontal wings into their
-pockets, then let the bezel seat against its back datum. Its visible face finishes
-flush with the housing. Confirm that both wings are captured and the cover
-resists lift. The [accepted cover](../printed-parts/enclosure/display-cover/README.md)
-and [bound native integration check](../printed-parts/enclosure/enclosure/accepted-fit-integration/current-geometry-check.json)
-identify the accepted receiver geometry within the check's listed source hashes; there are no display-cover screws.
+Place the flat TPU ring on the glass border, aligned with the cover window.
+Seat the bezel on its housing lands. Start the side screws in the short inserts
+before tightening any of them, then draw them down evenly until the cover rests
+on its seats and the glass is retained. The heads sit in their shallow recesses.
+The [cover's mount dimensions](../printed-parts/enclosure/display-cover/mount-dimensions.json)
+identify the hardware and engagement.
 
 The display loom and J13 pump ribbon share the diamond passage centred at X0/Z280,
 22 × 22 mm and open through Y99. Its rear upper half opens over the bulkhead lip.

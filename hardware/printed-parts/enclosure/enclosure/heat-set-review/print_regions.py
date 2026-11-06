@@ -161,6 +161,17 @@ def write_regions(box, _bounds, box_path):
                [xa, xb, snap['receiver_y0'], snap['receiver_y1'],
                 snap['receiver_z0'], snap['receiver_z1']])
     above_core_regions(box, region, cut['receivers'])
+    display_mount_path = ENC.parent/'display-cover/mount-dimensions.json'
+    display_mount = json.loads(display_mount_path.read_text())
+    display_placement_path = ROOT/'hardware/manifold-layout/machine-export-physical.numbers.json'
+    display_placement = json.loads(display_placement_path.read_text())['spec']
+    display_frame = next(row['transform'] for row in display_placement['instances']
+                         if row.get('name') == 'display-cover')
+    thick = display_mount['cover_mm'][2]
+    rear = -thick-display_mount['pilot_depth_mm']-display_mount['required_backing_mm']
+    for number, (x, y) in enumerate(display_mount['stations_local_xy_mm'], start=1):
+        bounds = transformed_bounds([x-6.,x+6.,y-6.,y+6.,rear,-thick],display_frame)
+        region('front-top',f'Display side insert and continuous housing root {number}',bounds)
     poses = {}
     for name, rows in pieces.items():
         bounds = mesh_bounds[name]
@@ -186,7 +197,7 @@ def write_regions(box, _bounds, box_path):
            Path(__file__).with_name('region_bounds.rs'),
            Path(e._dock.__file__),
            Path(e._dock.plumbing.__file__),
-           ROOT/'hardware/printed-parts/petgf.3mf']
+           ROOT/'hardware/printed-parts/petgf.3mf',display_mount_path,display_placement_path]
     report=dict(scope='Local 100% infill modifiers in existing native material; complete insert hosts, blind caps, pump snap wings and receivers, roots and seam load paths. No load capacity or lifetime qualification.',
                 use='Manual print-preparation specification only. Modifier boxes intersect existing material and add no geometry. applied_source_bounds_mm clips each requested box to the model bounds before its prescribed print transform; plate X/Y nesting is separate. Bind a fresh native project and emitted paths to these hashes before production printing; this is not a build gate or a sliced-print result.',
                 coordinate_frames={name: 'Source STEP/STL coordinates in the appliance frame' for name in pieces},

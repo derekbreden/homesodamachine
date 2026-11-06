@@ -17,8 +17,6 @@ const SHARED_HALF_SPAN: f64 = 11.0;
 const INTERNAL_WIRE_HALF_SPAN: f64 = 6.0;
 /// The display link's diamond half span.
 const DISPLAY_LINK_HALF_SPAN: f64 = 9.0;
-/// Each pump tube's gate down through the tee wall: the tube and a quarter millimetre each side.
-const TUBE_GATE_WIDTH: f64 = 6.35 + 2.0 * 0.25;
 /// The bay's air over the motors' ends.
 const BAY_CROWN_AIR: f64 = 1.7;
 /// The shared corridor's axis over the motors' ends, the cross run's over that, and the
@@ -206,20 +204,13 @@ fn upper_wire_room(g: &mut Graph, b: &Box, wires: &[(Shape, Vec<P3>)]) -> Shape 
 }
 
 /// Everything the mount takes out of front-top: the loading opening, the pumps' inverse, the
-/// wiring's passages and the room over the motors, the display wings' cleanouts and each pump
-/// tube's gate down through the tee wall.
+/// wiring's passages and the room over the motors.
 pub fn fixed_cuts(g: &mut Graph, b: &Box) -> Vec<Shape> {
     let mut out = vec![loading_opening(g, b)];
     out.extend(inverse_cuts(g, b));
     let wires = wire_cuts(g, b);
     out.extend(wires.iter().map(|(shape, _)| *shape));
     out.push(upper_wire_room(g, b, &wires));
-    out.extend(display::cleanouts(g, &b.outer));
-    let plate = &b.pack.collet_plate;
-    for &[x, z] in &plate.holes {
-        out.push(g.box_([x - TUBE_GATE_WIDTH / 2.0, x + TUBE_GATE_WIDTH / 2.0, plate.fore_y - 0.01, plate.wall_aft_y + 0.01,
-                         Z_SEAM - 20.0, z + 0.01]));
-    }
     out
 }
 

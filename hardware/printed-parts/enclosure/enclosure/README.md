@@ -209,8 +209,8 @@ complete smooth R12 quarter-rounds at the flute-tip envelope. Straight-wall
 grooves fade into these corners over 5 mm. The smooth bands follow each quadrant
 through its height and meet across the retained enclosure seams.
 
-The display's flush cover has R6 outline corners, with an offset R6.3 seat.
-Its optical opening follows the glass. The funnel's mouth, collar and brim
+The display cover and its matching seat follow the rear nameplate's rounded
+outline style. Its optical opening follows the glass. The funnel's mouth, collar and brim
 are concentric rounded rectangles with constant-width bands; the supporting
 recess follows the brim. The rear First Edition nameplate uses an R5 outline.
 Hardware openings follow their mating parts. The rear top edge remains square.
@@ -1024,12 +1024,11 @@ and the tee wall's supporting end regions. The rectangular retainer enters throu
 opening and snaps into the two flank receivers before chassis closure.
 
 The **tee wall** grows from the seam region into the continuous upper stock. Each branch
-bore and collet opening has a teardropped roof. A narrow bottom-open gate admits the prepared
-tube from below without opening the entire branch-bore width. The remaining bore-face lands
+bore and collet opening has a teardropped roof. Flexible pump stubs feed through the
+closed bores during loading. The bore-face lands
 locate the fixed tee barrels. The shared rear wire passage has a diamond roof forward of
 the bulkhead; its motor rooms close with 36° conical roofs. The cross passage has one level
-floor and a 45° roof. The display receiver keeps its required seats and complete 12 mm wing
-exits. The exact native slice supplies the support/contact reading for those
+floor and a 45° roof. The display receiver carries the glass seat, PCB opening and blind side-screw pilots. The exact native slice supplies the support/contact reading for those
 functional faces; no earlier slice establishes cleanup of this geometry.
 
 The six rear fluid bores pass through the named 6 mm clamping land. Their
@@ -1146,8 +1145,8 @@ occupied by the tee wall.
 
 Thread the bare pump-end ribbon through the common wire passage, then crimp, ring out and
 land its four Fastons on the loose motors. Raise the complete prepared pump/retainer unit
-motor-first from underneath. The four tubes rise through their individual bottom-open
-tee-wall gates. Draw wire slack aft without loading the terminals. Press upward until
+motor-first from underneath. Guide the flexible tubes through their individual
+tee-wall bores. Draw wire slack aft without loading the terminals. Press upward until
 both wings spring outward and their lower hooks seat on the receiver floors. Inspect both
 engagements while front-top is loose and the tees, valve rows, display and funnel frame are
 absent. The [assembly procedure](../../../assembly/internal-plumbing.md#3-flavor-manifold-v-a-through-v-j--y-a-y-b-y-c-y-d-y-f-y-g--pumps)
@@ -1180,8 +1179,8 @@ The tee wall is one broad slab, deep, reaching aft to
 . The fore collet band ends at the bore
 face,. Each tee stands in a teardropped
  branch bore, with its extended collet in the smaller
- opening ahead of it. A bottom-open
-gate joins each tube axis to the underside. The remaining bore-face land stops the fixed
+ opening ahead of it. The pump loads with only its flexible tube stubs attached;
+the stubs feed through the closed bores. The bore-face land stops the fixed
 branch barrel; its lower return stops the tee aft.
 
 Front-bottom's front and flank lips drop over the pump-loading run. Two broad lower feet
@@ -1266,29 +1265,16 @@ forming one continuous surface around each top-front corner.
 The print-down roof fill follows the curved display junction at both side edges;
 it joins the retained rounds without an exposed horizontal underside.
 
-The face-up PET-GF display cover measures 125.5 × 83 × 3.84 mm with R6 corners.
-It seats flush, with 0.30 mm clearance per side in X and 0.15 mm along the slope.
-Its 107.5 × 71 mm window laps the glass through the 1 mm TPU gasket. The glass
-face is 4.84 mm below the display plane and its back is 5.84 mm below it. The
-106 × 69 × 17 mm module is offset 0.5 mm laterally and 1 mm down the slope.
-The PCB opening is 23.84 mm deep, retaining 1 mm behind the module's rear face.
-The flat display backing keeps at least 3.02 mm of stock behind the deepest
-PCB-pocket corner.
+The flat display bezel uses the enclosure's nominal wall section and the rear
+nameplate's rounded-corner and shallow screw-seat style. Side borders carry the
+screws with equal insets from the nearest outside edges. Its face seats flush with
+the display facet. The [mount dimensions](../display-cover/mount-dimensions.json)
+define its glass lap, gasket stack, counterbores, short inserts and engagement.
 
-Each horizontal wing is 1.44 mm thick, projects 3.60 mm and spans 70 mm. It has
-0.60 mm clearance below the retaining roof and at least 3.00 mm of capture at
-full sideways float. The 1.80 mm lips carry the cover; its back seats directly
-against the receiver. Each pocket keeps its complete 12 mm print-down exit into the empty
-display receiver. A plain side cleanout connects each wing exit to the empty PCB room, with
-a 69.3 × 4.96 mm nominal clear aperture and 3 mm retained below the glass seat. Clear supports
-through the open display and PCB room before fitting the pumps and screen, using the current
-native slice to identify the actual bodies and access routes. Physical support removal
-remains unqualified.
-
-The [accepted cover](../display-cover/face-up-trial/physical-acceptance.json)
-passes shaking and has acceptable appearance with a small residual bow. Its
-physical geometry and clearances are retained in the
-[integrated checks](accepted-fit-integration/geometry-check.json).
+Blind insert pilots sit in the broad housing stock beside the glass and PCB.
+Install the inserts from the open display face. The flat gasket ring spreads the
+light clamp load around the glass border. Start all screws before drawing the
+bezel onto its seats.
 
 The 19 mm housing joins the enclosure sides and the continuous pump-mount stock. That
 stock runs to the existing outer roof around the actual display pocket; it has no separate

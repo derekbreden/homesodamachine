@@ -66,6 +66,11 @@ footprint constraint needs an automatic tree-support placement review before
 choosing an explicit normal override. Do not impose a trees-only rule or add
 blanket blockers to Bambu's automatically generated normal sections.
 
+Front-top's enclosed pump mount and the lower pump retainer use branching tree
+supports. Derek reports that rectangular supports inside these cavities are very
+difficult to remove. Their piece recipes select Tree Slim explicitly; inspect the
+resulting cavity branches when preparing their next print.
+
 The [rear equipment fit trial](../print-tests/rear-snap-retention/physical-result/physical-result.json)
 records tiny automatic cavity supports that Derek removed easily with a tiny
 flathead screwdriver that fits inside the cavity. Retain such accessible
