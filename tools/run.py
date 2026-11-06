@@ -2,6 +2,7 @@
 """Run a heavy command through the native host runner."""
 import os
 from pathlib import Path
+import shutil
 import sys
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -36,6 +37,13 @@ def viewer_completed(producer, before):
 
 
 def main():
+    # cargo where rustup puts it when the shell has none on its PATH: Homebrew's rustup on a Mac,
+    # then `~/.cargo`, as the Bazel rules and `_rust_part._cargo` look.
+    if not shutil.which("cargo"):
+        for bin in (Path("/opt/homebrew/opt/rustup/bin"), Path.home() / ".cargo" / "bin"):
+            if (bin / "cargo").is_file():
+                os.environ["PATH"] = os.pathsep.join([str(bin), os.environ.get("PATH", "")])
+                break
     runner = str(executable())
     os.execv(runner, [runner, *sys.argv[1:]])
 
