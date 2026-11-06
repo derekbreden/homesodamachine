@@ -46,11 +46,11 @@ struct Junction {
 /// earth and neutral buses under the ceiling PSU, and the two valve-manifold commons.
 const JUNCTIONS: [Junction; 5] = [
     Junction { name: "wago-h", wago: WAGO_413, host: Y::Back, rotation: PORTS_FORE,
-               translation: [-85.0, 456.5, 264.0], mouth: 0.0 },
-    Junction { name: "wago-g", wago: WAGO_413, host: Y::Back, rotation: PORTS_FORE,
-               translation: [-85.0, 457.5, 296.5], mouth: 0.0 },
+               translation: [-81.0, 456.5, 264.0], mouth: 0.0 },
+    Junction { name: "wago-g", wago: WAGO_413, host: Y::Back, rotation: UPRIGHT_PORTS_FORE,
+               translation: [-90.6, 457.5, 295.5], mouth: 0.0 },
     Junction { name: "wago-n", wago: WAGO_413, host: Y::Back, rotation: UPRIGHT_PORTS_FORE,
-               translation: [-69.4, 456.5, 267.5], mouth: 0.0 },
+               translation: [-65.4, 456.5, 267.5], mouth: 0.0 },
     Junction { name: "wago-mana", wago: WAGO_420, host: Y::Front, rotation: EAST_FLANK,
                translation: [95.20, 185.05, 277.0], mouth: -0.75 },
     Junction { name: "wago-manb", wago: WAGO_415, host: Y::Front, rotation: EAST_FLANK,
