@@ -142,6 +142,11 @@ the generator once, and keeps every path under this repo it opened, including th
 to a tool it starts. The graph is `tools/bazel/graph.json`; `tools/bazel/gen_build.py` writes
 `BUILD.bazel` from it.
 
+A step that makes only the files a part is ordered from, such as a DXF for SendCutSend, keeps
+its target and stays out of `//:everything`: `ON_DEMAND` in
+[`gen_build.rs`](/tools/hsm/build-plan/src/compiled/modules/gen_build.rs) names it, and its build
+command is where that part's ordering is described.
+
 A step is usually one generator. Scripts that write the same file are one action, because
 `bazel` needs one action per file: the ledger's scripts all write `bom.md`. `inventory._together`
 is what groups them.

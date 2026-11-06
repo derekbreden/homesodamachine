@@ -23797,7 +23797,6 @@ filegroup(
         ":cold-core-assembly",
         ":carbonator-tube-step",
         ":endcap-circular-drawing",
-        ":endcap-circular-dxf",
         ":endcap-circular-step",
         ":under-counter-plate",
         ":faucet-assembly",
