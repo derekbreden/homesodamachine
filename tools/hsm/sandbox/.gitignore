@@ -1,0 +1,3 @@
+# A concept is throwaway: its file stays here until its question is answered.
+examples/*
+!examples/plate.rs

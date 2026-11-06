@@ -104,6 +104,9 @@ kernel. The bet is on Rust. A program converted to Rust lands even when it isn't
 first try, and is made faster in Rust afterwards. [`tools/hsm/conversion.md`](tools/hsm/conversion.md)
 is the plan.
 
+A concept, a throwaway part or a study starts in Rust too: [`tools/hsm/sandbox`](tools/hsm/sandbox/README.md)
+is a file to copy and a command to rerun, with nothing to set up.
+
 ## What Runs Every Time
 
 "Correctness" is far too broad a goal to enforce on every commit. Everyone can defend a check once it is in; no one defends keeping one out. I will. Whatever runs on every commit, every build or every edit costs time on each run, and you don't predict well how often it will run when it doesn't need to.
