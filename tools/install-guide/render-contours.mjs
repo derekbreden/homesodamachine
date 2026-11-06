@@ -11,7 +11,7 @@ for (const [index, job] of jobs.entries()) {
   const temporary = `${job.out}.${process.pid}.tmp`;
   try {
     // librsvg receives a self-contained SVG: its file-access policy does not allow
-    // references from out/contours to the source PNGs in the sibling assets tree.
+    // references from the contour cache to the source PNGs in the assets tree.
     const svg = fs.readFileSync(job.svg, 'utf8').replace(/\bhref="(file:[^"]+)"/g,
       (_match, source) => `href="data:image/png;base64,${
         fs.readFileSync(new URL(source)).toString('base64')}"`);
