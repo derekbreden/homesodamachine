@@ -21,16 +21,26 @@ A COLOUR IS THREE COMPONENTS by the time it is drawn: `_mesh_payload` hands over
 carries and occt-import-js reads back the same three.
 """
 
-import sys
-from pathlib import Path
 import cadquery as cq
 from _shared_data import call, color_record
 from _material_base import one_body, step_safe
 
-_yw = Path(__file__).resolve().parents[1] / 'printed-parts/enclosure/y-wall-of-back-top'
-if str(_yw) not in sys.path:
-    sys.path.insert(0,str(_yw))
-import _y_wall_dimensions as _rear
+# The machine's port colours: each port's colour, the filament its chip on the wall prints in,
+# and the colour of the word on that chip. The chips, the collars and the routes read them too.
+_CHIPS = call('color.chips')
+
+
+def chip_color(fluid):
+    return tuple(_CHIPS['chip_filaments'][fluid][1])
+
+
+def word_color(fluid):
+    return tuple(_CHIPS['chip_word_colors'][fluid])
+
+
+def port_color(fluid):
+    return tuple(_CHIPS['port_colors'][fluid])
+
 
 _CATALOG = call('color.catalog')
 for _name,_args in _CATALOG['colors'].items():
@@ -41,8 +51,8 @@ WALL_COLORS = {name:M_PETGF_BLACK for name in _CATALOG['wall_names']}
 PETGF_BLACK_PARTS = set(_CATALOG['petgf_black_parts'])
 _METAL, _DIELECTRIC = 1.0,0.0
 FINISHES = [(globals()[name],rough,metal) for name,rough,metal in _CATALOG['finishes']]
-_palette_args = call('color.palette_constructors',rgbs=[_rear.chip_color(f) for f in _rear.chip_filaments]
-                     + [_rear.word_color(f) for f in _rear.chip_word_colors])
+_palette_args = call('color.palette_constructors',rgbs=[chip_color(f) for f in _CHIPS['filament_order']]
+                     + [word_color(f) for f in _CHIPS['filament_order']])
 FINISHES.extend((cq.Color(*args),.85,0.0) for args in _palette_args)
 
 
@@ -55,8 +65,8 @@ def linear(color):
 
 def petgf_color(name):
     value = call('color.petgf',name=name,
-                 chip_colors={f:_rear.chip_color(f) for f in _rear.chip_filaments},
-                 word_colors={f:_rear.word_color(f) for f in _rear.chip_word_colors})
+                 chip_colors={f:chip_color(f) for f in _CHIPS['filament_order']},
+                 word_colors={f:word_color(f) for f in _CHIPS['filament_order']})
     if value is None:
         return None
     return globals()[value['symbol']] if 'symbol' in value else cq.Color(*value['args'])
