@@ -19,14 +19,10 @@ fn number(value: &Value, name: &str) -> Result<f64> {
 }
 
 pub fn stock() -> Value {
-    let carbonator_outer_radius = 63.5;
-    let carbonator_height = 152.4;
-    let tube_od = 2. * carbonator_outer_radius;
-    let tube_wall = 0.065 * 25.4;
-    let tube_id = tube_od - 2. * tube_wall;
-    json!({"carbonator_outer_radius": carbonator_outer_radius,
-           "carbonator_height": carbonator_height,
-           "TUBE_OD": tube_od, "TUBE_WALL": tube_wall, "TUBE_ID": tube_id})
+    use hsm_carbonator_tube_numbers as tube;
+    json!({"carbonator_outer_radius": tube::OUTER_RADIUS,
+           "carbonator_height": tube::LENGTH,
+           "TUBE_OD": tube::OD, "TUBE_WALL": tube::WALL, "TUBE_ID": tube::ID})
 }
 
 pub fn rod() -> Value {
