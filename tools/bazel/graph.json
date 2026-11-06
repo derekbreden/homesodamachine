@@ -1994,9 +1994,12 @@
       "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead_ring.py",
       "hardware/printed-parts/enclosure/bulkhead-ring/numbers.rs",
       "hardware/printed-parts/enclosure/data-ring/data_ring.py",
+      "hardware/printed-parts/enclosure/display-cover/display-cover-fasteners.step.npz",
       "hardware/printed-parts/enclosure/display-cover/display-cover.step.mesh",
       "hardware/printed-parts/enclosure/display-cover/display-cover.step.npz",
       "hardware/printed-parts/enclosure/display-cover/display_cover.py",
+      "hardware/printed-parts/enclosure/display-cover/status-plate-fasteners.step.npz",
+      "hardware/printed-parts/enclosure/display-cover/status-plate.step.npz",
       "hardware/printed-parts/enclosure/display-gasket/display-gasket.step.mesh",
       "hardware/printed-parts/enclosure/display-gasket/display-gasket.step.npz",
       "hardware/printed-parts/enclosure/display-gasket/display_gasket.py",
@@ -6909,6 +6912,7 @@
   },
   "hardware/printed-parts/enclosure/display-cover/display_cover.py": {
     "reads": [
+      "brand/mark.svg",
       "hardware/manifold-layout/above-core.json",
       "hardware/printed-parts/cadlib/_scalar_provider.py",
       "hardware/printed-parts/cadlib/fits.py",
@@ -6944,6 +6948,7 @@
       "hardware/printed-parts/enclosure/enclosure/numbers/shell.rs",
       "hardware/printed-parts/enclosure/enclosure/numbers/spec.rs",
       "hardware/printed-parts/enclosure/enclosure/numbers/structure.rs",
+      "hardware/printed-parts/enclosure/nameplate/identification-glyphs.json",
       "hardware/printed-parts/enclosure/nameplate/snap_dimensions.rs",
       "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
       "hardware/printed-parts/valve-seat/numbers.rs",
@@ -7105,11 +7110,14 @@
     ],
     "rewritten": [],
     "writes": [
+      "hardware/printed-parts/enclosure/display-cover/display-cover-fasteners.step.npz",
       "hardware/printed-parts/enclosure/display-cover/display-cover.numbers.json",
       "hardware/printed-parts/enclosure/display-cover/display-cover.step",
       "hardware/printed-parts/enclosure/display-cover/display-cover.step.mesh",
       "hardware/printed-parts/enclosure/display-cover/display-cover.step.npz",
-      "hardware/printed-parts/enclosure/display-cover/display-cover.stl"
+      "hardware/printed-parts/enclosure/display-cover/display-cover.stl",
+      "hardware/printed-parts/enclosure/display-cover/status-plate-fasteners.step.npz",
+      "hardware/printed-parts/enclosure/display-cover/status-plate.step.npz"
     ]
   },
   "hardware/printed-parts/enclosure/display-gasket/display_gasket.py": {

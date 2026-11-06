@@ -6,7 +6,6 @@ use hsm_enclosure_numbers::display_mount as m;
 use hsm_kernel::{Body, Loop, Pen, Plane, Profile, Seg, Solid, V2, v2, v3};
 use hsm_kernel::part::{args, write_part};
 use serde_json::{Value, json};
-use std::path::Path;
 
 /// The status plate's black, the catalog's black PETG.
 const PLATE_BLACK: [f64; 3] = [0.019382361322641373, 0.019382361322641373, 0.022173885256052017];
@@ -23,12 +22,10 @@ fn slab(profile: &Profile, lo: f64, hi: f64) -> Result<Solid> {
     Plane::XY.at(v3(0., 0., lo)).extrude(profile, hi - lo)
 }
 
-/// A file of the tree, read where the build names its reads.
-fn read_tree(path: &str) -> Result<Vec<u8>> {
-    let bytes = std::fs::read(path).with_context(|| format!("reading {path}"))?;
-    hsm_kernel::reads::read(Path::new(path), &bytes);
-    Ok(bytes)
-}
+/// The brand mark and the nameplate's identification letterforms, compiled in, so the program's
+/// build names them among its inputs.
+const MARK_SVG: &str = include_str!("../../../../brand/mark.svg");
+const GLYPHS_JSON: &str = include_str!("../nameplate/identification-glyphs.json");
 
 /// Each station's black socket-head screw and short insert, named `<prefix>-screw-<n>` and
 /// `<prefix>-insert-<n>`.
@@ -66,9 +63,9 @@ fn attr<'a>(svg: &'a str, element: &str, name: &str) -> Result<&'a str> {
 /// The brand mark's faucet and drop from `brand/mark.svg`, `width` across, centred on `c`, its
 /// up the plate's. The faucet's path is lines and semicircles, carried as they stand.
 fn mark(c: V2, width: f64) -> Result<Vec<Profile>> {
-    let svg = String::from_utf8(read_tree("brand/mark.svg")?)?;
-    let d = attr(&svg, "<path", "d")?;
-    let drop = |k: &str| -> Result<f64> { Ok(attr(&svg, "<circle", k)?.parse::<f64>()?) };
+    let svg = MARK_SVG;
+    let d = attr(svg, "<path", "d")?;
+    let drop = |k: &str| -> Result<f64> { Ok(attr(svg, "<circle", k)?.parse::<f64>()?) };
     let (dx, dy, dr) = (drop("cx")?, drop("cy")?, drop("r")?);
     // Tokens, then one move, lines and arcs in the master's own frame.
     let mut tokens = Vec::new();
@@ -146,7 +143,7 @@ fn mark(c: V2, width: f64) -> Result<Vec<Profile>> {
 
 /// `text` in the rear nameplate's identification letterforms, centred on `c`.
 fn lettering(text: &str, c: V2) -> Result<Vec<Profile>> {
-    let set: Value = serde_json::from_slice(&read_tree("hardware/printed-parts/enclosure/nameplate/identification-glyphs.json")?)?;
+    let set: Value = serde_json::from_str(GLYPHS_JSON)?;
     let tracking = set["tracking_mm"].as_f64().context("the glyphs' tracking")?;
     let point = |v: &Value| -> Result<V2> {
         Ok(v2(v[0].as_f64().context("a glyph point")?, v[1].as_f64().context("a glyph point")?))
