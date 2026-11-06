@@ -1,0 +1,26 @@
+{
+  "printer": "H2C",
+  "observed_at": "2026-11-06T05:31:22.646650+00:00",
+  "archive": {
+    "name": "HSM-000082-pump-retainer-Mark1.gcode.3mf",
+    "sha256": "792318561079ddac26bf29bdff49759154595924be16b9d93e1029f6dc4485f1",
+    "gcode_sha256": "d5006ce40672d9c1377923b2510d578d3c69f0868e964ef43ecb2ad76e285cf0",
+    "slots": {
+      "1": {
+        "type": "PET-CF",
+        "colour": "000000"
+      }
+    },
+    "objects": [
+      "enclosure-pump-retainer"
+    ]
+  },
+  "printer_task_id": "1412449251",
+  "gcode_state": "PREPARE",
+  "subtask_name": "HSM-000082-pump-retainer-Mark1.gcode.3mf",
+  "print_error": 0,
+  "hms": [],
+  "layer_num": 1371,
+  "total_layer_num": 1371,
+  "mc_remaining_time": 0
+}
