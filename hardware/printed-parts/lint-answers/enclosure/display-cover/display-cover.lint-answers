@@ -1,9 +1,16 @@
-[ceiling] The accepted cover prints face up with its back and both horizontal wings directly on the bed. These faces are the tops of the wings at print Z=1.44 mm. They are supported by their own complete wing stock and need no generated support. The lint's default face-down orientation does not apply.
-click: x=-64.550 y=0.000 z=-2.400
-click: x=64.550 y=0.000 z=-2.400
-
-[thin] Accepted wing fit: each reading is one of the bezel's two horizontal wings, 1.44 mm thick, projecting 3.60 mm and spanning 70 mm, the wing of the accepted face-up bezel (face-up-trial/physical-acceptance.json), which prints with its back and both wings on the bed.
-alternatives: A thicker wing needs a deeper pocket in front-top or a thinner retaining lip, each a change to the accepted fit.
+[step] Intentional socket-head locating seat in the shallow visible-head style Derek requested. The parallel planes are the bezel face and the floor of its counterbore, not a leftover skin or an unintended ledge.
+alternatives: Removing the recess omits the requested head seat. A fully buried head changes the visible-head design.
 file: hardware/printed-parts/enclosure/display-cover/display-cover.step
-click: x=-65.438 y=-34.215 z=-3.840
-click: x=65.513 y=28.433 z=-3.840
+click: x=-62.039 y=-37.912 z=-1.000
+
+[thin] The shallow screw seats use the cover and bearing-floor section explicitly included in the proposal Derek approved with "All of that sounds good." This exception belongs to the agreed cover section; it does not apply to the surrounding housing. The native slice deposits the complete bezel as solid stock.
+alternatives: Thickening the floor while holding the face and head seat in place deepens the cover and glass seat and reduces the selected screw's insert engagement; preserving engagement requires a different screw or receiver stack. Filling the counterbore removes its locating seat.
+file: hardware/printed-parts/enclosure/display-cover/display-cover.step
+click: x=-65.060 y=-35.447 z=-3.000
+click: x=-65.060 y=-35.447 z=-1.000
+click: x=-64.820 y=34.584 z=-3.000
+click: x=-64.820 y=34.584 z=-1.000
+click: x=59.426 y=-35.601 z=-3.000
+click: x=59.426 y=-35.601 z=-1.000
+click: x=59.424 y=35.530 z=-3.000
+click: x=59.424 y=35.530 z=-1.000

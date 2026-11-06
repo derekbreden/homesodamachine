@@ -1,0 +1,155 @@
+{
+  "views": [
+    {
+      "name": "display-cover",
+      "caption": "The flat bezel has side screw seats with balanced border spacing.",
+      "before": "display-cover-before.webp",
+      "after": "display-cover-after.webp",
+      "width": 1100,
+      "height": 800,
+      "marks": [
+        {
+          "x": 1028,
+          "y": 644.7,
+          "r": 62.6,
+          "label": "Side screw seat",
+          "at": [
+            62.25,
+            -36,
+            0
+          ]
+        }
+      ],
+      "model": "printed-parts/enclosure/display-cover/display-cover.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          24.179478469907234,
+          -40.299130783178725,
+          136.01704466280768
+        ],
+        "target": [
+          0,
+          0,
+          -1
+        ],
+        "up": [
+          0,
+          1,
+          0
+        ],
+        "fov": 45,
+        "near": 46.381778499466535,
+        "far": 304.66987032622757,
+        "aspect": 1.375
+      },
+      "highlight": [],
+      "ghost": [],
+      "only": [],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "printed-parts/enclosure/display-cover/display-cover.step.mesh",
+          "from": "snapshot",
+          "sha256": "ccadd6328ee54ed20a6386bb8322430acac937db5cefb89470ec6f0248192ca1",
+          "commit": "2fe3a373ac918e0270e6f253b20fe9b93ef9aad8",
+          "taken": "2026-11-06T05:51:06.902Z",
+          "published": true
+        },
+        "after": {
+          "payload": "printed-parts/enclosure/display-cover/display-cover.step.mesh",
+          "from": "tree",
+          "sha256": "eb2135769f99d774ee0d306f041e403634bcd58be3406e5826d6d8ffb8098848",
+          "commit": "215270852487f5d9d3bd42102df9a309005bc571",
+          "published": true
+        }
+      },
+      "changed": [
+        "display-cover"
+      ],
+      "withinMeshing": []
+    },
+    {
+      "name": "pump-bores",
+      "caption": "Closed tee-wall bores accept flexible pump stubs during loading.",
+      "before": "pump-bores-before.webp",
+      "after": "pump-bores-after.webp",
+      "width": 1100,
+      "height": 450,
+      "marks": [
+        {
+          "x": 448.3,
+          "y": 265.5,
+          "r": 18.2,
+          "label": "Closed wall below the bore",
+          "at": [
+            22.35,
+            90,
+            178
+          ]
+        }
+      ],
+      "model": "printed-parts/enclosure/enclosure/enclosure-front-top.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          0,
+          209.37517777092143,
+          169.09372333436178
+        ],
+        "target": [
+          0,
+          90,
+          187
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "fov": 45,
+        "near": 0.26412102165869644,
+        "far": 491.88085922518775,
+        "aspect": 2.4444444444444446,
+        "section": {
+          "at": [
+            0,
+            99,
+            187
+          ],
+          "normal": [
+            0,
+            1,
+            0
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [],
+      "ghost": [],
+      "only": [],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh",
+          "from": "snapshot",
+          "sha256": "cee25d4759e879209f967b29a70ffd6412e5662fed16ecb6012e0c7f4aacbe9d",
+          "commit": "2fe3a373ac918e0270e6f253b20fe9b93ef9aad8",
+          "taken": "2026-11-06T05:44:08.204Z",
+          "published": true
+        },
+        "after": {
+          "payload": "printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh",
+          "from": "tree",
+          "sha256": "6774b7a77e798e9ffc0f95a0fc588a81fa15df3fc9f2f23c18d95184f11799f9",
+          "commit": "5c98d7f42fe785d39e907b183ed76949862da793",
+          "published": true
+        }
+      },
+      "changed": [
+        "enclosure-front-top"
+      ],
+      "withinMeshing": []
+    }
+  ]
+}
