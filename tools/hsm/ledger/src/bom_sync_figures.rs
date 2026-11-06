@@ -309,8 +309,9 @@ fn figures(input: &Value, n: &Value, casting: &Value) -> Result<(Variables, Vari
         fmt(num(&n["nameplate_screws_per_build"])?, ".4g"),
     );
     bom.insert("NAMEPLATE_MOUNT".into(),format!("retained in `enclosure-back-top` by {} black M3 × 6 socket-head screws and {} short RX-M3S × 4 inserts in a solid receiver.",fmt(num(&n["nameplate_screws_per_build"])?,""),fmt(num(&n["nameplate_inserts_per_build"])?,"")));
-    bom.insert("M3X6_TOTAL".into(),fmt(num(&n["nameplate_screws_per_build"])?,".4g"));
-    bom.insert("M3X6_COST".into(),pack_cost(num(&n["nameplate_screws_per_build"])?,"7.64","120")?);
+    let m3x6 = num(&n["nameplate_screws_per_build"])? + num(&n["display_cover_screws_per_build"])?;
+    bom.insert("M3X6_TOTAL".into(),fmt(m3x6,".4g"));
+    bom.insert("M3X6_COST".into(),pack_cost(m3x6,"7.64","120")?);
     bom.insert(
         "DISPLAY_COVER_INSERTS".into(),
         fmt(num(&n["display_cover_inserts_per_build"])?, ".4g"),
@@ -319,7 +320,7 @@ fn figures(input: &Value, n: &Value, casting: &Value) -> Result<(Variables, Vari
         "DISPLAY_COVER_SCREWS".into(),
         fmt(num(&n["display_cover_screws_per_build"])?, ".4g"),
     );
-    bom.insert("DISPLAY_COVER_MOUNT".into(),format!("retained flush with `enclosure-front-top`'s {}° display plane by {} coplanar horizontal wings. The TPU ring bears between the cover's lap and the glass. The cover takes {} screws and {} inserts.",fmt(num(&input["display_angle"])?,"g"),fmt(num(&n["display_cover_wings_per_build"])?,""),fmt(num(&n["display_cover_screws_per_build"])?,""),fmt(num(&n["display_cover_inserts_per_build"])?,"")));
+    bom.insert("DISPLAY_COVER_MOUNT".into(),format!("retained flush with `enclosure-front-top`'s display plane by {} black M3 socket-head screws in {} short inserts, arranged along the side borders. The flat TPU ring bears between the cover's lap and the glass.",fmt(num(&n["display_cover_screws_per_build"])?,""),fmt(num(&n["display_cover_inserts_per_build"])?,"")));
     bom.insert(
         "M3X10_TOTAL".into(),
         fmt(num(&n["m3x10_per_build"])?, ".4g"),

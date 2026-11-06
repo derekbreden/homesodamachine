@@ -1288,6 +1288,12 @@ fn installed(layout: &mut Layout, v: &Value) -> Result<()> {
         )?;
         layout.station_seat(name, cover.point(V3::ZERO));
     }
+    let display_fasteners = Path::new(source(v, "display_cover")?)
+        .with_file_name("display-cover-fasteners.step.npz");
+    layout.add(
+        display_fasteners.to_str().context("display fastener model path")?,
+        Some("display-cover-fasteners"), "", None, cover, None,
+    )?;
     for row in extras["instances"]
         .as_array()
         .map(Vec::as_slice)

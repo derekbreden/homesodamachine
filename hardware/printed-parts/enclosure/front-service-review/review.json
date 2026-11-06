@@ -1,0 +1,205 @@
+{
+  "geometry": "Current production front-top, display bezel, gasket and hardware. Orange marks the flange-to-wall span, including existing retainer stock. Blue marks a proposed wall position; both are layout annotations.",
+  "display_frame_world": [
+    [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      0.8660254037844387,
+      -0.49999999999999994,
+      48.67210506462308
+    ],
+    [
+      0.0,
+      0.49999999999999994,
+      0.8660254037844387,
+      330.8384572681199
+    ],
+    [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "display_module_normal_adjustment_mm": -1.448158508310371e-05,
+  "dimensions": {
+    "clearance_diameter_mm": 3.4,
+    "corner_radius_mm": 5.0,
+    "counterbore_depth_mm": 1.0,
+    "counterbore_diameter_mm": 6.2,
+    "cover_mm": [
+      135.5,
+      83.0,
+      3.0
+    ],
+    "gasket_thickness_mm": 1.0,
+    "glass_thickness_mm": 1.0,
+    "head_diameter_mm": 5.5,
+    "head_height_mm": 3.0,
+    "head_proud_mm": 2.0,
+    "insert": "ruthex RX-M3S x 4 short heat-set insert",
+    "insert_diameter_mm": 4.6,
+    "insert_length_mm": 4.0,
+    "pilot_depth_mm": 4.4,
+    "pilot_diameter_mm": 4.0,
+    "required_backing_mm": 3.0,
+    "screw": "Black M3 x 6 socket-head cap screw",
+    "screw_engagement_mm": 4.0,
+    "screw_length_mm": 6.0,
+    "screw_to_outer_border_mm": [
+      5.5,
+      5.5
+    ],
+    "stations_local_xy_mm": [
+      [
+        -62.25,
+        -36.0
+      ],
+      [
+        62.25,
+        -36.0
+      ],
+      [
+        -62.25,
+        36.0
+      ],
+      [
+        62.25,
+        36.0
+      ]
+    ],
+    "window_mm": [
+      107.5,
+      71.0,
+      2.5
+    ]
+  },
+  "cover_enclosure_overlap_mm3": 0.004159754150548885,
+  "screws": [
+    {
+      "name": "display-screw-1",
+      "enclosure_overlap_mm3": 0.0,
+      "glass_and_module_overlap_mm3": 0.0
+    },
+    {
+      "name": "display-screw-2",
+      "enclosure_overlap_mm3": 0.0,
+      "glass_and_module_overlap_mm3": 0.0
+    },
+    {
+      "name": "display-screw-3",
+      "enclosure_overlap_mm3": 0.0,
+      "glass_and_module_overlap_mm3": 0.0
+    },
+    {
+      "name": "display-screw-4",
+      "enclosure_overlap_mm3": 0.0,
+      "glass_and_module_overlap_mm3": 0.0
+    }
+  ],
+  "pilot_backing": [
+    {
+      "station_local_xy_mm": [
+        -62.25,
+        -36.0
+      ],
+      "axial_hits_local_z_mm": [
+        -7.400005581906574,
+        -22.853999547020727,
+        -91.95326823522565,
+        -101.34166013796532,
+        -130.03961772253038,
+        -161.68161601354595
+      ],
+      "backing_mm": 15.453993965114154
+    },
+    {
+      "station_local_xy_mm": [
+        62.25,
+        -36.0
+      ],
+      "axial_hits_local_z_mm": [
+        -7.40000722227503,
+        -22.853996896655183,
+        -91.95326823522565,
+        -101.34166013796532,
+        -130.03961772253032,
+        -161.68161601354595
+      ],
+      "backing_mm": 15.453989674380153
+    },
+    {
+      "station_local_xy_mm": [
+        -62.25,
+        36.0
+      ],
+      "axial_hits_local_z_mm": [
+        -7.400006237615017,
+        -25.80194553948521,
+        -189.0587043875919,
+        -202.88194737053996
+      ],
+      "backing_mm": 18.401939301870193
+    },
+    {
+      "station_local_xy_mm": [
+        62.25,
+        36.0
+      ],
+      "axial_hits_local_z_mm": [
+        -7.400007545255951,
+        -25.80194553948521,
+        -189.0587043875919,
+        -202.88194737053993
+      ],
+      "backing_mm": 18.401937994229257
+    }
+  ],
+  "tee_wall_bores_open": [
+    true,
+    true,
+    true,
+    true
+  ],
+  "tube_loading_slots_closed": [
+    true,
+    true,
+    true,
+    true
+  ],
+  "front_top_watertight": true,
+  "cover_watertight": true,
+  "pump_gap": {
+    "axis": "Y",
+    "rigid_flange_rear_y_mm": 75.96900177001953,
+    "wall_front_y_mm": 82.515,
+    "gap_mm": 6.545998229980469,
+    "study_wall_front_y_mm": 76.5,
+    "study_shift_mm": 6.015000000000001,
+    "study_flange_gap_mm": 0.5309982299804688,
+    "scope": "Wall-position study only. The retainer aft edge, wing Y span, tee stack and fore valve supports require a coordinated revision before moving this wall."
+  },
+  "views": {
+    "pump_space": "assembly/scenes/glb/pump-port-space.glb",
+    "display": "assembly/scenes/glb/display-side-screws.glb",
+    "separated": "assembly/scenes/glb/display-side-screws-separated.glb",
+    "full_context": "assembly/scenes/glb/display-side-screws-full-context.glb"
+  },
+  "source_sha256": {
+    "hardware/manifold-layout/enclosure-assembly.step.mesh": "9f4c24dbec342cf8d907c5014052b384281d00015f2f49af88ddaa78e517d9aa",
+    "hardware/printed-parts/enclosure/display-cover/display-cover.step.mesh": "eb2135769f99d774ee0d306f041e403634bcd58be3406e5826d6d8ffb8098848",
+    "hardware/printed-parts/enclosure/display-gasket/display-gasket.step.mesh": "5be84e829917b7062ab5917d678c2074a3aa81b7107d84c26b24afce322c592d",
+    "hardware/printed-parts/enclosure/display-cover/display-cover-fasteners.step.mesh": "a346fd937a2732f377e71d757f5bbfd811bd18b81cd5493b42d665c9b8590a61",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh": "ea565211fb20984fca0b943ce852892aa75346da1df864cc34b8a0571ecdaacb",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.mesh": "7ed3b2ae8fc1032bea03716f847dbc0a9e4722ecc35a7a959c7260b1319c9a32",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.mesh": "0add41ae7ceb7eb81fd9ce4e5c92231c36e64cd41e0e454fa815f72cfa56f888",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh": "6774b7a77e798e9ffc0f95a0fc588a81fa15df3fc9f2f23c18d95184f11799f9",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh": "07a6bb3c376e05c1a2edb52abddd3be1d550812ec02f03635f54fc227a633afa",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl": "acdf5acc6723039050b3fdb54f8764ae94c541d061c0bf20baecad50eb6540ef"
+  }
+}

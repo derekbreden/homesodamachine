@@ -1,0 +1,104 @@
+{
+  "scope": "Manual offline native slicing and emitted-path review. No printer contacted.",
+  "recipes_sha256": "471a61305f8d5cba0adca2fe1fcbb98a2dc3886d326f3c30d9da726d3f8d5aca",
+  "records": [
+    {
+      "piece": "front-top",
+      "preparation": "/Users/derekbredensteiner/Downloads/HSM-front-service-2026-11-06/2026-11-06-front-top-mark1-ca86ca30/preparation.json",
+      "archive": "/Users/derekbredensteiner/Downloads/HSM-front-service-2026-11-06/2026-11-06-front-top-mark1-ca86ca30/2026-11-06-front-top-mark1-ca86ca30.gcode.3mf",
+      "archive_sha256": "9a3fc2fb9779dde584e80b3c06ecae7c0a7fca8fdd487f267b662b70ad3bebaa",
+      "gcode_sha256": "fb60e7fb5b0bf6bf8e9d36f466017fe25e7403ec02ac4ec70e2d819d022b0f08",
+      "checks": {
+        "archive": true,
+        "z_trim": true,
+        "bed_border": true,
+        "fine_and_transition_bands": true,
+        "show_faces_support_free": true,
+        "tie_windows_support_free": true,
+        "ribbons_support_free_and_printed": true,
+        "solid_hosts_sampled": true
+      },
+      "support": {
+        "support_type": "tree(auto)",
+        "support_style": "tree_slim",
+        "support_object_xy_distance": "0.5",
+        "max_bridge_length": "0",
+        "tree_support_branch_diameter": "2",
+        "tree_support_branch_diameter_angle": "5",
+        "brim_type": "auto_brim"
+      },
+      "support_topology": {
+        "1901": {
+          "support_bodies": 2,
+          "interface_islands": 5,
+          "bed_rooted_bodies": 2,
+          "model_rooted_bodies": 0,
+          "shortest_build_up_mm": 63.83,
+          "bodies_without_interface_labels": 0,
+          "explicit_interface_islands": 5,
+          "shortest_labelled_build_up_mm": 63.83
+        }
+      },
+      "minimum_bed_margin_mm": 53.46575100000001,
+      "estimated_seconds": 123469.40625,
+      "filament_grams": 969.4577026367188,
+      "objects": [
+        {
+          "name": "enclosure-front-top",
+          "stl": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl",
+          "stl_sha256": "acdf5acc6723039050b3fdb54f8764ae94c541d061c0bf20baecad50eb6540ef",
+          "step_sha256": "6d9281f77b6a6d8fb949f90f40a3afe14b287acb3a34104660f3ba8010b7c642"
+        }
+      ]
+    },
+    {
+      "piece": "display-cover",
+      "preparation": "/Users/derekbredensteiner/Downloads/HSM-front-service-2026-11-06-solid/2026-11-06-display-cover-mark1-ae017cb8/preparation.json",
+      "archive": "/Users/derekbredensteiner/Downloads/HSM-front-service-2026-11-06-solid/2026-11-06-display-cover-mark1-ae017cb8/2026-11-06-display-cover-mark1-ae017cb8.gcode.3mf",
+      "archive_sha256": "5e15fad042efc2b23f390f2b295a325f630e67a00b0e935a390f4d8f2234d0c6",
+      "gcode_sha256": "825f895b1c27b5f7950aaff7981873370fa6e7ef3da728c52b087a68eec5eef3",
+      "checks": {
+        "archive": true,
+        "z_trim": true,
+        "bed_border": true,
+        "fine_and_transition_bands": true,
+        "show_faces_support_free": true,
+        "tie_windows_support_free": true,
+        "ribbons_support_free_and_printed": true,
+        "solid_hosts_sampled": true
+      },
+      "support": {
+        "support_type": "tree(auto)",
+        "support_style": "default",
+        "support_object_xy_distance": "0.4",
+        "max_bridge_length": "0",
+        "tree_support_branch_diameter": "2",
+        "tree_support_branch_diameter_angle": "5",
+        "brim_type": "auto_brim"
+      },
+      "support_topology": {
+        "1901": {
+          "support_bodies": 0,
+          "interface_islands": 0,
+          "bed_rooted_bodies": 0,
+          "model_rooted_bodies": 0,
+          "shortest_build_up_mm": null,
+          "bodies_without_interface_labels": 0,
+          "explicit_interface_islands": 0,
+          "shortest_labelled_build_up_mm": null
+        }
+      },
+      "minimum_bed_margin_mm": 94.66559249999999,
+      "estimated_seconds": 1549.015869140625,
+      "filament_grams": 13.494701385498047,
+      "objects": [
+        {
+          "name": "display-cover",
+          "stl": "hardware/printed-parts/enclosure/display-cover/display-cover.stl",
+          "stl_sha256": "3594ee4fb113b440326981b1e5cef4bba11f439d2fa586544a5fae44e4dc5f34",
+          "step_sha256": "fc9c7d1d36910bc54d8ad1df9b9050f841e6de9f78a27e8f7010b444b9d0db76"
+        }
+      ]
+    }
+  ]
+}

@@ -883,6 +883,7 @@ name = "hsm-enclosure-components"
 version = "0.1.0"
 dependencies = [
  "anyhow",
+ "hsm-enclosure-numbers",
  "hsm-kernel",
  "serde_json",
 ]
