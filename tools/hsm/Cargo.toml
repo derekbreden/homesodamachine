@@ -1,5 +1,5 @@
 [workspace]
-members = ["geometry", "engine", "kernel", "render", "refrigeration", "cold-core", "faucet", "funnel", "run-slots", "run-native", "machine", "enclosure-components", "enclosure-shell", "tooling", "documents", "ledger", "assembly-docs", "cold-core-data", "faucet-data", "enclosure-data", "machine-data", "part-data", "layout-data", "shared-data", "guides", "guide-native", "build-data", "build-plan", "model-export", "enclosure-numbers", "enclosure-dock-numbers", "enclosure-retainer-numbers", "enclosure-solid", "enclosure-quadrants", "enclosure-front", "enclosure-front-bottom", "enclosure-front-top", "enclosure-back-bottom", "enclosure-back-top", "enclosure-pump-retainer", "enclosure-pump-tube-setting-jig", "enclosure", "carbonator-tube-numbers", "aero-float-numbers", "endcap-circular-numbers", "endcap-circular"]
+members = ["geometry", "engine", "kernel", "render", "refrigeration", "cold-core", "faucet", "funnel", "run-slots", "run-native", "machine", "enclosure-components", "enclosure-shell", "tooling", "documents", "ledger", "assembly-docs", "cold-core-data", "faucet-data", "enclosure-data", "machine-data", "part-data", "layout-data", "shared-data", "guides", "guide-native", "build-data", "build-plan", "model-export", "enclosure-numbers", "enclosure-dock-numbers", "enclosure-retainer-numbers", "enclosure-solid", "enclosure-quadrants", "enclosure-front", "enclosure-front-bottom", "enclosure-front-top", "enclosure-back-bottom", "enclosure-back-top", "enclosure-pump-retainer", "enclosure-pump-tube-setting-jig", "enclosure", "carbonator-tube-numbers", "aero-float-numbers", "endcap-circular-numbers", "endcap-circular", "print-payload", "enclosure-interface", "bulkhead-ring-numbers"]
 resolver = "2"
 exclude = ["vendor/manifold-csg-sys"]
 
@@ -38,6 +38,9 @@ debug = 0
 opt-level = 0
 debug = 0
 
+[profile.release.package.hsm-enclosure-interface]
+debug = 0
+
 [profile.release.package.hsm-enclosure-numbers]
 debug = 0
 
@@ -48,6 +51,9 @@ debug = 0
 debug = 0
 
 [profile.release.package.hsm-enclosure-solid]
+debug = 0
+
+[profile.release.package.hsm-print-payload]
 debug = 0
 
 [profile.release.package.hsm-enclosure-quadrants]

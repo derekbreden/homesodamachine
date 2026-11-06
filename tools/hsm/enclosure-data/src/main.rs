@@ -96,15 +96,20 @@ fn defaults(v: &Value) -> Result<Value> {
         "BACK":-thick,"GLASS_SEAT":-thick-2.,
         "LIP_THICK":thick-wing_thick-bearing_air,"ANGLE":30.
     });
-    let bulkhead = json!({
-        "RING_W":7.05,"THICK":2.,"RISE":18.789,
-        "WORD_FONT":"Helvetica","WORD_KIND":"bold","WORD_SIZE":6.5,
-        "WORD_CAP":4.951,"WORD_DEPTH":1.,"WORD_RAISE":0.48,"WORD_MARGIN":1.,
-        "WORD_WIDTHS":{"TAP":12.657,"SODA":18.411,"CO2":12.813,"FLAVOR":25.952,"DRAIN":19.671},
-        "STATIONS":{"water":"TAP","carb":"SODA","co2":"CO2","flavor-a":"FLAVOR","flavor-b":"FLAVOR","drain":"DRAIN"},
-        "FLUIDS":{"water":"water","carb":"carb","co2":"co2","flavor-a":"flavor","flavor-b":"flavor","drain":"drain"},
-        "width":port_width,"station_order":["water","carb","co2","flavor-a","flavor-b","drain"]
-    });
+    let bulkhead = {
+        use hsm_bulkhead_ring_numbers as ring;
+        let words: Map<String, Value> = ring::WORD_WIDTHS.iter().map(|&(w, x)| (w.into(), json!(x))).collect();
+        let stations: Map<String, Value> = ring::STATIONS.iter().map(|&(s, w, _)| (s.into(), json!(w))).collect();
+        let fluids: Map<String, Value> = ring::STATIONS.iter().map(|&(s, _, f)| (s.into(), json!(f))).collect();
+        let order: Vec<&str> = ring::STATIONS.iter().map(|&(s, _, _)| s).collect();
+        json!({
+            "RING_W":ring::RING_W,"THICK":ring::THICK,"RISE":ring::RISE,
+            "WORD_FONT":ring::WORD_FONT,"WORD_KIND":ring::WORD_KIND,"WORD_SIZE":ring::WORD_SIZE,
+            "WORD_CAP":ring::WORD_CAP,"WORD_DEPTH":ring::WORD_DEPTH,"WORD_RAISE":ring::WORD_RAISE,"WORD_MARGIN":ring::WORD_MARGIN,
+            "WORD_WIDTHS":words,"STATIONS":stations,"FLUIDS":fluids,
+            "width":port_width,"station_order":order
+        })
+    };
     let plan = json!({"nameplate_nozzle_diameter":0.4,"bulk_enclosure_nozzle_diameter":0.4,
                       "layer_height_min":0.24,"layer_height_max":0.24,"portal_host":"hosm.us"});
     let labels = json!({"WIDTH":port_width,"THICK":1.8,"WORD_SIZE":4.6,"WORD_EM":5.,

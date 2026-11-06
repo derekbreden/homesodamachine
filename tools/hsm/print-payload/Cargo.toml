@@ -1,0 +1,20 @@
+[package]
+name = "hsm-print-payload"
+version = "0.1.0"
+edition.workspace = true
+license.workspace = true
+rust-version.workspace = true
+publish = false
+
+[[bin]]
+name = "print-payload"
+path = "src/main.rs"
+
+[dependencies]
+anyhow.workspace = true
+hsm-geometry = { path = "../geometry" }
+hsm-kernel = { path = "../kernel" }
+npyz = "0.9.1"
+serde_json.workspace = true
+sha2.workspace = true
+zip = { version = "9.1.2", default-features = false, features = ["deflate-flate2-zlib-rs"] }

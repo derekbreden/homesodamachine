@@ -1,4 +1,5 @@
 //! The shared fits and material colours, from the catalogs every program reads.
+pub use hsm_enclosure_interface::fits::{running, slip, supported};
 use serde::Deserialize;
 use std::sync::OnceLock;
 
@@ -58,16 +59,6 @@ fn scalars() -> &'static Scalars {
     })
 }
 
-/// Head-on seats take the slip allowance.
-pub fn slip() -> f64 {
-    scalars().fits.slip
-}
-
-/// Faces that slide past their mates take the running allowance.
-pub fn running() -> f64 {
-    let f = &scalars().fits;
-    f.slip + f.sliding_extra
-}
 
 /// One mating face's allowance: motion, a supported overhang's finish and a cavity floor's turn.
 pub fn clearance(sliding: bool, supported: bool, at_floor: bool) -> f64 {
@@ -78,10 +69,6 @@ pub fn clearance(sliding: bool, supported: bool, at_floor: bool) -> f64 {
         + if at_floor { f.layer_transition } else { 0.0 }
 }
 
-/// A face printed over support takes this allowance for its rougher finish.
-pub fn supported() -> f64 {
-    scalars().fits.supported_surface
-}
 
 pub fn m5_thread_pass_dia() -> f64 {
     scalars().fits.m5_thread_pass_dia

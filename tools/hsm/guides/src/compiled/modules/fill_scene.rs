@@ -106,7 +106,6 @@ pub fn initialize(rt: Runtime, e: Env) -> Result<()> {
     e.set("_mesh_payload", rt.import_module("_mesh_payload")?)?;
     let mod32 = rt.import_module("flute_payload")?;
     e.set("read_payload", rt.member("flute_payload", "read_payload")?)?;
-    e.set("_swept_top", rt.import_module("_swept_top")?)?;
     e.set(
         "_enclosure_interface",
         rt.import_module("_enclosure_interface")?,
@@ -192,17 +191,11 @@ pub fn initialize(rt: Runtime, e: Env) -> Result<()> {
     let unpack60 = unpack(assigned59.clone(), 2)?;
     e.set("SWING_R", unpack60[0].clone())?;
     e.set("SWING_FROM", unpack60[1].clone())?;
-    let assigned61 = {
-        let fun64 = e.get("_swept_top")?.attr("profile")?;
-        let mut args62 = Vec::new();
-        let mut kw63 = Vec::new();
-        args62.push(
-            e.get("ASSEMBLY_FACTS")?
-                .get(Val::Str("box".into()))?
-                .get(Val::Str("outer".into()))?,
-        );
-        fun64.call(args62, kw63)?
-    };
+    let assigned61 = swept_profile(
+        e.get("ASSEMBLY_FACTS")?
+            .get(Val::Str("box".into()))?
+            .get(Val::Str("outer".into()))?,
+    )?;
     e.set("DISPLAY_PROFILE", assigned61.clone())?;
     let assigned65 = {
         let fun68 = e.get("dict")?;
@@ -210,7 +203,7 @@ pub fn initialize(rt: Runtime, e: Env) -> Result<()> {
         let mut kw67 = Vec::new();
         kw67.push(("width".into(), Val::Float(103.5f64)));
         kw67.push(("height".into(), Val::Float(62.1f64)));
-        kw67.push(("angle_deg".into(), e.get("_swept_top")?.attr("ANGLE")?));
+        kw67.push(("angle_deg".into(), Val::Float(hsm_enclosure_interface::swept::ANGLE)));
         kw67.push(("origin".into(), {
             let e = e.child();
             let out69 = Val::list(vec![]);
@@ -2767,7 +2760,7 @@ Ok(Val::None)})})?;
                                     let fun827 = e.get("Path")?;
                                     let mut args825 = Vec::new();
                                     let mut kw826 = Vec::new();
-                                    args825.push(e.get("_swept_top")?.attr("__file__")?);
+                                    args825.push(binary("truediv", e.get("ROOT")?, Val::Str("hardware/printed-parts/enclosure/enclosure/interface/swept.rs".into()))?);
                                     fun827.call(args825, kw826)?
                                 }
                                 .attr("resolve")?;

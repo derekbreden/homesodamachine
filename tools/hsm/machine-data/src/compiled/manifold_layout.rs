@@ -22,7 +22,7 @@ let imported=rt.import_module("tee_connector")?;e.set("tee",imported)?;
 let imported=rt.import_module("y_divider")?;e.set("ydiv",imported)?;
 let imported=rt.import_module("_routing")?;e.set("_routing",imported)?;
 let imported=rt.import_module("_stated_bounds")?;e.set("_bounds",imported)?;
-let imported=rt.import_module("_enclosure_interface")?;e.set("_enc_if",imported)?;
+
 let imported=rt.import_module("fixed_returns")?;e.set("_returns",imported)?;
 let assigned47=binary("truediv",binary("truediv",binary("truediv",e.get("_hw")?,Val::Str("reference".into()))?,Val::Str("elbow-connector".into()))?,Val::Str("elbow-connector.step".into()))?;e.set("ELBOW_STEP",assigned47.clone())?;
 let assigned48=binary("truediv",binary("truediv",binary("truediv",e.get("_hw")?,Val::Str("reference".into()))?,Val::Str("tee-connector".into()))?,Val::Str("tee-connector.step".into()))?;e.set("TEE_STEP",assigned48.clone())?;
@@ -44,8 +44,8 @@ let assigned66=e.get("kp")?.attr("motor_dia")?;e.set("MOTOR_D",assigned66.clone(
 let assigned67=binary("sub",e.get("kp")?.attr("arch_xs")?.get(Val::Int(1i64))?,e.get("kp")?.attr("arch_xs")?.get(Val::Int(0i64))?)?;e.set("BARB_PITCH",assigned67.clone())?;
 let assigned68=binary("sub",e.get("kp")?.attr("arch_plane_z")?,e.get("kp")?.attr("head_front_z")?)?;e.set("BARB_INSET",assigned68.clone())?;
 let assigned69=Val::Float(0.0f64);e.set("BUTT",assigned69.clone())?;
-let assigned70=binary("sub",binary("add",binary("add",e.get("_enc_if")?.attr("pump_station_drop")?,e.get("_enc_if")?.attr("manifold_rise")?)?,e.get("_enc_if")?.attr("pump_seated_drop")?)?,e.get("kp")?.attr("outlet_above_skirt_bottom")?)?;e.set("CARRIER_DROP",assigned70.clone())?;
-let assigned71=e.get("_enc_if")?.attr("inner_limb_drop")?;e.set("INNER_LIMB_DROP",assigned71.clone())?;
+let assigned70=binary("sub",binary("add",binary("add",Val::Float(hsm_enclosure_interface::PUMP_STATION_DROP),Val::Float(hsm_enclosure_interface::MANIFOLD_RISE))?,Val::Float(hsm_enclosure_interface::pump_seated_drop()))?,e.get("kp")?.attr("outlet_above_skirt_bottom")?)?;e.set("CARRIER_DROP",assigned70.clone())?;
+let assigned71=Val::Float(hsm_enclosure_interface::INNER_LIMB_DROP);e.set("INNER_LIMB_DROP",assigned71.clone())?;
 let assigned72=Val::Float(0.0f64);e.set("FORE_VALVE_RISE",assigned72.clone())?;
 let assigned73=binary("add",e.get("FORE_VALVE_RISE")?,e.get("CARRIER_DROP")?)?;e.set("FORE_STUB_GAP",assigned73.clone())?;
 let assigned74={let fun77=e.get("frozenset")?;let mut args75=Vec::new();let mut kw76=Vec::new();args75.push({let mut s=Vec::new();s.push(Val::Str("V-E".into()));s.push(Val::Str("V-F".into()));s.push(Val::Str("V-H".into()));s.push(Val::Str("V-I".into()));Val::tuple(s)});fun77.call(args75,kw76)?};e.set("FORE_VALVES",assigned74.clone())?;
@@ -62,10 +62,10 @@ let assigned87=binary("add",e.get("BARB_TO_PLATE")?,e.get("_returns")?.attr("TIP
 let assigned88=Val::Float(13.149f64);e.set("PUMP_TUBE_HELD",assigned88.clone())?;
 let assigned89=binary("add",e.get("PUMP_TUBE_HELD")?,e.get("PUMP_STUB_PROJECTION")?)?;e.set("PUMP_TUBE_CUT",assigned89.clone())?;
 let assigned90=Val::Float(5.526f64);e.set("PUMP_BARBS_TO_BORE_FACE",assigned90.clone())?;
-let assigned91=binary("sub",binary("sub",binary("sub",e.get("PUMP_BARBS_TO_BORE_FACE")?,e.get("_enc_if")?.attr("pump_station_lead")?)?,e.get("CARRIER_DATUM_SHIFT")?)?,e.get("tee")?.attr("BRANCH_COLLET_TRAVEL")?)?;e.set("BARB_PLATE_BERTH",assigned91.clone())?;
-let assigned92=binary("sub",e.get("HEAD_W")?,e.get("_enc_if")?.attr("pump_station_lead")?)?;e.set("PUMP_BARB_Z",assigned92.clone())?;
-let assigned93=binary("sub",binary("sub",binary("sub",e.get("kp")?.attr("outlet_above_skirt_bottom")?,e.get("_enc_if")?.attr("pump_station_drop")?)?,e.get("_enc_if")?.attr("pump_seated_drop")?)?,e.get("_enc_if")?.attr("manifold_rise")?)?;e.set("PUMP_Y",assigned93.clone())?;
-let assigned94=binary("add",e.get("BARB_PLATE_BERTH")?,e.get("_enc_if")?.attr("pump_station_lead")?)?;e.set("BARB_STANDOFF",assigned94.clone())?;
+let assigned91=binary("sub",binary("sub",binary("sub",e.get("PUMP_BARBS_TO_BORE_FACE")?,Val::Float(hsm_enclosure_interface::PUMP_STATION_LEAD))?,e.get("CARRIER_DATUM_SHIFT")?)?,e.get("tee")?.attr("BRANCH_COLLET_TRAVEL")?)?;e.set("BARB_PLATE_BERTH",assigned91.clone())?;
+let assigned92=binary("sub",e.get("HEAD_W")?,Val::Float(hsm_enclosure_interface::PUMP_STATION_LEAD))?;e.set("PUMP_BARB_Z",assigned92.clone())?;
+let assigned93=binary("sub",binary("sub",binary("sub",e.get("kp")?.attr("outlet_above_skirt_bottom")?,Val::Float(hsm_enclosure_interface::PUMP_STATION_DROP))?,Val::Float(hsm_enclosure_interface::pump_seated_drop()))?,Val::Float(hsm_enclosure_interface::MANIFOLD_RISE))?;e.set("PUMP_Y",assigned93.clone())?;
+let assigned94=binary("add",e.get("BARB_PLATE_BERTH")?,Val::Float(hsm_enclosure_interface::PUMP_STATION_LEAD))?;e.set("BARB_STANDOFF",assigned94.clone())?;
 let assigned95=Val::Float(0.0f64);e.set("CROSSBAR",assigned95.clone())?;
 let assigned96={let fun99=e.get("float")?;let mut args97=Vec::new();let mut kw98=Vec::new();args97.push({let fun102=e.get("os")?.attr("environ")?.attr("get")?;let mut args100=Vec::new();let mut kw101=Vec::new();args100.push(Val::Str("HSM_LIMB_PITCH".into()));args100.push(e.get("BARB_PITCH")?);fun102.call(args100,kw101)?});fun99.call(args97,kw98)?};e.set("LIMB_PITCH",assigned96.clone())?;
 let assigned103=binary("add",e.get("TEE_BRANCH")?,binary("truediv",e.get("CROSSBAR")?,Val::Float(2.0f64))?)?;e.set("INNER_X",assigned103.clone())?;

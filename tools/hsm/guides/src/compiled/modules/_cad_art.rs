@@ -250,7 +250,7 @@ pub fn initialize(rt: Runtime, e: Env) -> Result<()> {
     e.set("note_read", rt.member("_cadq_export", "note_read")?)?;
     e.set("note_write", rt.member("_cadq_export", "note_write")?)?;
     e.set("_hsm_render", rt.import_module("_hsm_render")?)?;
-    e.set("_rear", rt.import_module("_y_wall_dimensions")?)?;
+    e.set("_materials", rt.import_module("_materials")?)?;
     // _load_faucet_module
     e.set("_load_faucet_module", {
         let params = vec![];
@@ -3857,7 +3857,7 @@ pub fn initialize(rt: Runtime, e: Env) -> Result<()> {
                                 let e = e.child();
                                 let out1040 = Val::list(vec![]);
                                 for item1041 in {
-                                    let fun1044 = e.get("_rear")?.attr("chip_color")?;
+                                    let fun1044 = e.get("_materials")?.attr("chip_color")?;
                                     let mut args1042 = Vec::new();
                                     let mut kw1043 = Vec::new();
                                     args1042.push(e.get("fluid")?);
@@ -3905,7 +3905,7 @@ pub fn initialize(rt: Runtime, e: Env) -> Result<()> {
                                 let e = e.child();
                                 let out1055 = Val::list(vec![]);
                                 for item1056 in {
-                                    let fun1059 = e.get("_rear")?.attr("word_color")?;
+                                    let fun1059 = e.get("_materials")?.attr("word_color")?;
                                     let mut args1057 = Vec::new();
                                     let mut kw1058 = Vec::new();
                                     args1057.push(e.get("fluid")?);

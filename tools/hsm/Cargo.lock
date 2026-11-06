@@ -805,6 +805,10 @@ dependencies = [
 ]
 
 [[package]]
+name = "hsm-bulkhead-ring-numbers"
+version = "0.1.0"
+
+[[package]]
 name = "hsm-carbonator-tube-numbers"
 version = "0.1.0"
 
@@ -825,6 +829,7 @@ dependencies = [
  "hsm-aero-float-numbers",
  "hsm-carbonator-tube-numbers",
  "hsm-documents",
+ "hsm-enclosure-interface",
  "hsm-endcap-circular-numbers",
  "serde_json",
 ]
@@ -893,7 +898,9 @@ name = "hsm-enclosure-data"
 version = "0.1.0"
 dependencies = [
  "anyhow",
+ "hsm-bulkhead-ring-numbers",
  "hsm-documents",
+ "hsm-enclosure-interface",
  "hsm-enclosure-numbers",
  "serde_json",
 ]
@@ -942,10 +949,19 @@ dependencies = [
 ]
 
 [[package]]
+name = "hsm-enclosure-interface"
+version = "0.1.0"
+dependencies = [
+ "serde",
+ "serde_json",
+]
+
+[[package]]
 name = "hsm-enclosure-numbers"
 version = "0.1.0"
 dependencies = [
  "anyhow",
+ "hsm-enclosure-interface",
  "serde",
  "serde_json",
 ]
@@ -996,12 +1012,9 @@ name = "hsm-enclosure-shell"
 version = "0.1.0"
 dependencies = [
  "anyhow",
- "hsm-geometry",
  "hsm-kernel",
- "npyz",
  "serde_json",
  "sha2",
- "zip",
 ]
 
 [[package]]
@@ -1012,6 +1025,7 @@ dependencies = [
  "hsm-enclosure-numbers",
  "hsm-geometry",
  "hsm-kernel",
+ "hsm-print-payload",
  "manifold-csg",
  "serde",
  "serde_json",
@@ -1050,6 +1064,7 @@ name = "hsm-faucet-data"
 version = "0.1.0"
 dependencies = [
  "anyhow",
+ "hsm-bulkhead-ring-numbers",
  "hsm-documents",
  "hsm-faucet",
  "hsm-kernel",
@@ -1101,6 +1116,7 @@ version = "0.1.0"
 dependencies = [
  "anyhow",
  "hsm-documents",
+ "hsm-enclosure-interface",
  "hsm-guide-native",
  "serde_json",
 ]
@@ -1165,6 +1181,7 @@ version = "0.1.0"
 dependencies = [
  "anyhow",
  "hsm-documents",
+ "hsm-enclosure-interface",
  "hsm-layout-data",
  "serde",
  "serde_json",
@@ -1189,9 +1206,23 @@ version = "0.1.0"
 dependencies = [
  "anyhow",
  "hsm-documents",
+ "hsm-enclosure-interface",
  "serde",
  "serde_json",
  "sha2",
+]
+
+[[package]]
+name = "hsm-print-payload"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "hsm-geometry",
+ "hsm-kernel",
+ "npyz",
+ "serde_json",
+ "sha2",
+ "zip",
 ]
 
 [[package]]

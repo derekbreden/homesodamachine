@@ -17,10 +17,10 @@ made up in the install kit, and their collars go on at `assembly/finish-pack-shi
 THE LENGTH IS THE BORE'S. `rock()` is the angle a collar can cock on its loosest tube — a bore of
 length L with diametral play c binds at two diagonal corners, leaving atan(c/L) — and `flag_sway()`
 carries that angle out to the word's face, the furthest anything on the collar stands from the line
-it would turn about. `selftest` reads both against `bulkhead_ring.THICK`, which is the same
+it would turn about. `selftest` reads both against the bulkhead ring's `THICK`, which is the same
 identification carried on a chip.
 
-Coordinate frame — THE TUBE'S, the same one `bulkhead_ring` gives the fitting:
+Coordinate frame — THE TUBE'S, the same one the bulkhead ring gives the fitting:
   Y = the tube's axis. +Y = outboard, toward the free end and the customer.
   Origin = the collar's INBOARD end face; it spans y = 0 to y = LENGTH.
   +Z = up, the way the flag stands. X completes the right-handed frame.
@@ -38,13 +38,12 @@ import collections
 import json
 import math
 import sys
+import types
 from pathlib import Path
 
 _here = Path(__file__).resolve()
 _hw = next(p for p in _here.parents if p.name == "hardware")
-for _p in (_hw / "scripts",
-           _hw / "printed-parts" / "enclosure" / "bulkhead-ring"):
-    sys.path.insert(0, str(_p))
+sys.path.insert(0, str(_hw / "scripts"))
 sys.path.insert(0, str(next(p for p in _here.parents
                             if (p / "tools" / "docgen").is_dir()) / "tools"))
 if __name__ == "__main__":
@@ -55,7 +54,6 @@ import cadquery as cq
 
 from _cadq_export import export_assembly, import_step  # noqa: E402
 from _materials import chip_color, step_safe, word_color  # noqa: E402
-import bulkhead_ring as _ring  # noqa: E402
 
 # THE BEVERAGE, TAP AND CO2 TUBE SIZE. Those lines are 1/4" OD LLDPE, off the
 # four colour-coded spools in `ledger/bom.md` §3. It is the nominal and not a bench figure: the tube on
@@ -64,21 +62,18 @@ from _rust_data import request as _data_request
 
 
 def _collar_data(fn="datums", **values):
-    ring = {name: getattr(_ring, name) for name in
-            ("RING_W", "WORD_DEPTH", "WORD_MARGIN", "WORD_SIZE", "WORD_CAP", "THICK")}
-    ring["STATIONS"] = {name: row.word for name, row in _ring.STATIONS.items()}
-    ring["FLUIDS"] = _ring.FLUIDS
     if fn == "numbers":
-        from _materials import linear
         values["palette"] = {fluid: {
             "color": chip_color(fluid),
             "word_color": word_color(fluid),
         } for fluid in set(_ring.FLUIDS.values())}
-    return _data_request("faucet-data", "faucet-data", {"op": "collar", "fn": fn, "ring": ring, **values})
+    return _data_request("faucet-data", "faucet-data", {"op": "collar", "fn": fn, **values})
 
 
 _collar_values = _collar_data()
 globals().update(_collar_values["datums"])
+# The bulkhead ring's lettering and stations, which the collar op reads from the ring's numbers.
+_ring = types.SimpleNamespace(**_collar_values["ring"])
 Collar = collections.namedtuple("Collar", "word fluid tube fitted")
 STATIONS = {row["name"]: Collar(*(row[k] for k in ("word", "fluid", "tube", "fitted")))
             for row in _collar_values["stations"]}
@@ -109,16 +104,16 @@ FACES = tuple(FACES)
 # colour between the bore and each of the three flats.
 
 # HOW FAR THE RECTANGLE STANDS ABOVE THE AXIS, and so how tall the two side flats are. It is
-# `bulkhead_ring.RING_W`, the band a port's identification is lettered in.
+# the bulkhead ring's `RING_W`, the band a port's identification is lettered in.
 
 # THE RUN ALONG THE TUBE. It is the longest station word plus its margins, set at
-# `bulkhead_ring.WORD_SIZE`, and `selftest` holds this to it.
+# the bulkhead ring's `WORD_SIZE`, and `selftest` holds this to it.
 
 # How deep the word's recess is cut into the flat, and what the flat keeps clear of it. Both are
-# `bulkhead_ring`'s.
+# the bulkhead ring's.
 
 
-# ONE COLLAR PER CHIP. The six keys are `bulkhead_ring.STATIONS`' own, and each takes its word and its
+# ONE COLLAR PER CHIP. The six keys are the bulkhead ring's `STATIONS`, and each takes its word and its
 # spool from the chip at that station — a word changed on the wall is changed on the tube by the
 # same edit.
 #
@@ -284,12 +279,12 @@ def split(shape) -> tuple:
 
 
 def words_hold():
-    """Hold the emitted fine-model lettering to `bulkhead_ring`'s figures.
+    """Hold the emitted fine-model lettering to the bulkhead ring's figures.
 
-    THE FACE IS THE SYSTEM'S. `bulkhead_ring.WORD_FONT` names one this repo does not ship, so a machine
+    THE FACE IS THE SYSTEM'S. The bulkhead ring's `WORD_FONT` names one this repo does not ship, so a machine
     that resolves it elsewhere letters a collar with a different word on it — same colour, same
     outline — and nothing about that shows up in a bore or an extent. The word is set at
-    `bulkhead_ring`'s own em, so the widths it carries are the widths these come out at."""
+    the bulkhead ring's own em, so the widths it carries are the widths these come out at."""
     import numpy as np
 
     for which, step in STEPS.items():
@@ -358,17 +353,17 @@ def selftest() -> int:
                 fails.append(
                     f"the {which} collar letters a {_ring.WORD_CAP:g} mm cap across its {face} "
                     f"flat, which leaves {across:.3f} mm between its margins")
-        if collar.word != _ring.STATIONS[which].word:
+        if collar.word != _ring.STATIONS[which]:
             fails.append(
                 f"the {which} collar says '{collar.word}' and the chip on the wall at that same "
-                f"station says '{_ring.STATIONS[which].word}' — a tube and the ring it goes "
+                f"station says '{_ring.STATIONS[which]}' — a tube and the ring it goes "
                 f"through are read by one word or by neither")
     needed = max(_ring.WORD_WIDTHS[c.word] for c in STATIONS.values()) + 2.0 * WORD_MARGIN
     if LENGTH < needed - 1e-9:
         fails.append(
             f"the longest of these words asks {needed:.3f} mm along the tube and `LENGTH` is "
             f"{LENGTH:g}")
-    # `bulkhead_ring.THICK` is the same identification carried on a chip, on the same tube's play.
+    # The bulkhead ring's `THICK` is the same identification carried on a chip, on the same tube's play.
     chip_rock = math.degrees(math.atan2(clearance(), _ring.THICK))
     if rock() >= chip_rock:
         fails.append(

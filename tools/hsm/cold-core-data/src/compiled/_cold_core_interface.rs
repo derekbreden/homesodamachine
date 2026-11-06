@@ -194,24 +194,10 @@ pub fn initialize(rt: Runtime, e: Env) -> Result<()> {
     let mod60 = rt.import_module("_stated_bounds")?;
     e.set("bound", rt.member("_stated_bounds", "bound")?)?;
     e.set("state", rt.member("_stated_bounds", "state")?)?;
-    let mod61 = rt.import_module("_enclosure_interface")?;
-    e.set(
-        "manifold_rise",
-        rt.member("_enclosure_interface", "manifold_rise")?,
-    )?;
-    e.set(
-        "inner_limb_drop",
-        rt.member("_enclosure_interface", "inner_limb_drop")?,
-    )?;
-    e.set(
-        "rear_plane_y",
-        rt.member("_enclosure_interface", "rear_plane_y")?,
-    )?;
-    e.set(
-        "rear_seam_clear",
-        rt.member("_enclosure_interface", "rear_seam_clear")?,
-    )?;
-    e.set("_anchor_cap", rt.import_module("_anchor_cap_interface")?)?;
+    e.set("manifold_rise", Val::Float(hsm_enclosure_interface::MANIFOLD_RISE))?;
+    e.set("inner_limb_drop", Val::Float(hsm_enclosure_interface::INNER_LIMB_DROP))?;
+    e.set("rear_plane_y", Val::Float(hsm_enclosure_interface::REAR_PLANE_Y))?;
+    e.set("rear_seam_clear", Val::Float(hsm_enclosure_interface::REAR_SEAM_CLEAR))?;
     let mod62 = rt.import_module("_carbonator_stock")?;
     e.set(
         "carbonator_outer_radius",
@@ -3101,10 +3087,10 @@ Ok(Val::None)})})?;
                         };
                         let v829 = binary(
                             "sub",
-                            e.get("_anchor_cap")?.attr("SLOT_TOP")?,
+                            Val::Float(hsm_enclosure_interface::anchor_cap::slot_top()),
                             binary(
                                 "truediv",
-                                e.get("_anchor_cap")?.attr("HEADROOM")?,
+                                Val::Float(hsm_enclosure_interface::anchor_cap::HEADROOM),
                                 Val::Float(2.0f64),
                             )?,
                         )?;
@@ -3139,11 +3125,11 @@ Ok(Val::None)})})?;
             }
             .truthy()?
             {
-                let assigned838 = e.get("_anchor_cap")?.attr("RIB_LEN")?;
+                let assigned838 = Val::Float(hsm_enclosure_interface::anchor_cap::rib_len());
                 e.set("length", assigned838.clone())?;
                 let assigned839 = binary(
                     "add",
-                    e.get("_anchor_cap")?.attr("RIB_R")?,
+                    Val::Float(hsm_enclosure_interface::anchor_cap::rib_r()),
                     if {
                         let fun842 = e.get("cap_anchor_slotted")?;
                         let mut args840 = Vec::new();
@@ -3153,7 +3139,7 @@ Ok(Val::None)})})?;
                     }
                     .truthy()?
                     {
-                        e.get("_anchor_cap")?.attr("SLOT_W")?
+                        Val::Float(hsm_enclosure_interface::anchor_cap::slot_w())
                     } else {
                         Val::Float(0.0f64)
                     },

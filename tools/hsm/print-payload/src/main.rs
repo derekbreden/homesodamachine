@@ -1,6 +1,8 @@
-//! Printed enclosure presentation at the viewer's existing surface policy.
-#[path = "solid/presentation.rs"]
-mod presentation;
+//! A print's viewer payload at the viewer's existing surface policy, and the graft plans that carry
+//! one print's surfaces into another payload.
+//!
+//!     print-payload <numbers.json> <out directory>
+use hsm_print_payload as presentation;
 use anyhow::{ensure,Context,Result};
 use hsm_geometry::parry::{math::Point,query::PointQuery};
 use hsm_geometry::payload;
@@ -118,7 +120,7 @@ fn graft_plan(n:&Value)->Result<Value>{
     Ok(json!({"files":[],"bodies":[],"skins":skins,"moved":moved}))
 }
 fn main()->Result<()> {
-    let args=std::env::args().collect::<Vec<_>>();ensure!(args.len()==3,"usage: enclosure-presentation <numbers.json> <out directory>");
+    let args=std::env::args().collect::<Vec<_>>();ensure!(args.len()==3,"usage: print-payload <numbers.json> <out directory>");
     let bytes=std::fs::read(&args[1])?;hsm_kernel::reads::read(Path::new(&args[1]),&bytes);
     let numbers:Value=serde_json::from_slice(&bytes)?;
     let result=if numbers["op"]=="graft_plan"{graft_plan(&numbers)?}else{run(&numbers,Path::new(&args[2]))?};
