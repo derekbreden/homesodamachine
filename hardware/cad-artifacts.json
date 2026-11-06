@@ -374,9 +374,9 @@
     "hardware/printed-parts/enclosure/data-ring/data-ring.step": "62269718df81afb30e57187d2573971f18b513dc4b8f9e0f35e53f8608d5243d",
     "hardware/printed-parts/enclosure/data-ring/data-ring.step.mesh": "d54048f9ddceb8d83473007c064f437b9fbae9bbe222bac656471ad8ad489301",
     "hardware/printed-parts/enclosure/data-ring/data-ring.stl": "09bf5340b87b42166228c4559ff658dc1ab4e5b96ea890a5ab7f442ccc563e69",
-    "hardware/printed-parts/enclosure/display-cover/display-cover.step": "5842c25c80f951089ca46062b276cc0050698ea844b83aa7fd4a14478f42aa45",
-    "hardware/printed-parts/enclosure/display-cover/display-cover.step.mesh": "ccadd6328ee54ed20a6386bb8322430acac937db5cefb89470ec6f0248192ca1",
-    "hardware/printed-parts/enclosure/display-cover/display-cover.stl": "0663d879b4626bfdff4341718895e0816c2b92ae495f33dbcfe910f693e70246",
+    "hardware/printed-parts/enclosure/display-cover/display-cover.step": "7a4b886e4674fc6f608fd3eb3a86ef6552a644f24bd4c428b9e79d9d35b93bb9",
+    "hardware/printed-parts/enclosure/display-cover/display-cover.step.mesh": "5f8d84731639959c399f2c933642dd13ef066895a00ee60d058b975d0da92e0c",
+    "hardware/printed-parts/enclosure/display-cover/display-cover.stl": "4fe38ffaaec51dbf31570f86af526438d86fdfbbbb41b9d57da62b3532e6136a",
     "hardware/printed-parts/enclosure/display-cover/face-up-trial/display-cover-flat-wings.step": "2ef12c8034de1b401fa10fe9f3157b797da236a9d55be915435f129082226d52",
     "hardware/printed-parts/enclosure/display-cover/face-up-trial/display-cover-flat-wings.step.mesh": "77c5d076a4abb649555664d09bd69239c9588fc78ef30e1fd1991e74f3e8bc53",
     "hardware/printed-parts/enclosure/display-cover/face-up-trial/display-cover-flat-wings.stl": "bd0545aa076fed3d7adc895df205b098f11a08b6fc37c883893115aec83dd5f2",
@@ -418,9 +418,9 @@
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step": "a5366b87b6cdb606eb48e8f922948fe213a3308877123fd75fd441b6f16ba0ef",
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.mesh": "7ed3b2ae8fc1032bea03716f847dbc0a9e4722ecc35a7a959c7260b1319c9a32",
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl": "217f0b372b101e57bba88d91691be9d5043437887c29748df233e361ce4d93e4",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step": "d1d84d0a5d19a78c9664803271933a79d782b1d528e1d356cff49d8e0cddbb69",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh": "cee25d4759e879209f967b29a70ffd6412e5662fed16ecb6012e0c7f4aacbe9d",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl": "51d999659bbc2098e520e5e3ea0179936c8bd86714890d6a7cd3c13ccaf63030",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step": "723b33b056cb0bb7a1db259ab0653a20bbe8692fbac2aced23accf35bda3ebee",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh": "af35dc374d8fca6f8f4a7c2789e470ba8f0a8c35d8a6c5ea8c4c70045a2c413b",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl": "157295be4fd37fdb81728f9e7bb6ff60743fb2ab3c85bddb15ba4072f9697b6c",
     "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step": "002676b99d9abd0dcc5c9ef9b16abf7a3de1636a65f003e9077cc63c50ef329a",
     "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step.mesh": "1106be80aa555dbec51057e85e02651d2995983aff55cd3d5c2f2d5e4d8b54b0",
     "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.stl": "fa10132c600a16b3ea0a1ff0ff3a32af7fb457747e6b21337176b298945bf7b1",
@@ -1904,9 +1904,9 @@
       "hardware/printed-parts/enclosure/data-ring/data-ring.step": "62269718df81afb30e57187d2573971f18b513dc4b8f9e0f35e53f8608d5243d",
       "hardware/printed-parts/enclosure/data-ring/data-ring.step.mesh": "d54048f9ddceb8d83473007c064f437b9fbae9bbe222bac656471ad8ad489301",
       "hardware/printed-parts/enclosure/data-ring/data-ring.stl": "09bf5340b87b42166228c4559ff658dc1ab4e5b96ea890a5ab7f442ccc563e69",
-      "hardware/printed-parts/enclosure/display-cover/display-cover.step": "5842c25c80f951089ca46062b276cc0050698ea844b83aa7fd4a14478f42aa45",
-      "hardware/printed-parts/enclosure/display-cover/display-cover.step.mesh": "ccadd6328ee54ed20a6386bb8322430acac937db5cefb89470ec6f0248192ca1",
-      "hardware/printed-parts/enclosure/display-cover/display-cover.stl": "0663d879b4626bfdff4341718895e0816c2b92ae495f33dbcfe910f693e70246",
+      "hardware/printed-parts/enclosure/display-cover/display-cover.step": "7a4b886e4674fc6f608fd3eb3a86ef6552a644f24bd4c428b9e79d9d35b93bb9",
+      "hardware/printed-parts/enclosure/display-cover/display-cover.step.mesh": "5f8d84731639959c399f2c933642dd13ef066895a00ee60d058b975d0da92e0c",
+      "hardware/printed-parts/enclosure/display-cover/display-cover.stl": "4fe38ffaaec51dbf31570f86af526438d86fdfbbbb41b9d57da62b3532e6136a",
       "hardware/printed-parts/enclosure/display-gasket/display-gasket.step": "c32c9b407f2cd239b4a5c6d639311f2c7fa133b0b8645c8b35c88361832157bf",
       "hardware/printed-parts/enclosure/display-gasket/display-gasket.step.mesh": "260a4cc7e325c043f9fce9df978f75d1c764fe3453b3daaa24be391b231d4c5f",
       "hardware/printed-parts/enclosure/display-gasket/display-gasket.stl": "ee4acd517ff6aaf030939e61c188b057cd7b74b3e92647dee7465cc8584bbe93",
@@ -1919,9 +1919,9 @@
       "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step": "a5366b87b6cdb606eb48e8f922948fe213a3308877123fd75fd441b6f16ba0ef",
       "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.mesh": "7ed3b2ae8fc1032bea03716f847dbc0a9e4722ecc35a7a959c7260b1319c9a32",
       "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl": "217f0b372b101e57bba88d91691be9d5043437887c29748df233e361ce4d93e4",
-      "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step": "d1d84d0a5d19a78c9664803271933a79d782b1d528e1d356cff49d8e0cddbb69",
-      "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh": "cee25d4759e879209f967b29a70ffd6412e5662fed16ecb6012e0c7f4aacbe9d",
-      "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl": "51d999659bbc2098e520e5e3ea0179936c8bd86714890d6a7cd3c13ccaf63030",
+      "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step": "723b33b056cb0bb7a1db259ab0653a20bbe8692fbac2aced23accf35bda3ebee",
+      "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh": "af35dc374d8fca6f8f4a7c2789e470ba8f0a8c35d8a6c5ea8c4c70045a2c413b",
+      "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl": "157295be4fd37fdb81728f9e7bb6ff60743fb2ab3c85bddb15ba4072f9697b6c",
       "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step": "d150ee04c6f9e9d1e9cf64eb641f02f14305b08ac7152945b1e2f3098f33f6e7",
       "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step.mesh": "1d83411b259f4a71dd097c88ea1431998e1f6c1f118d9e4fa3fcd5635a011251",
       "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.stl": "d2f999e640039b2d322c418821be80242130b459e56e97a57f9f3c7dd9ce8b6d",
@@ -2836,9 +2836,9 @@
     "hardware/printed-parts/enclosure/data-ring/data-ring.step": 1793626644,
     "hardware/printed-parts/enclosure/data-ring/data-ring.step.mesh": 1793626644,
     "hardware/printed-parts/enclosure/data-ring/data-ring.stl": 1793626644,
-    "hardware/printed-parts/enclosure/display-cover/display-cover.step": 1793568839,
-    "hardware/printed-parts/enclosure/display-cover/display-cover.step.mesh": 1793568839,
-    "hardware/printed-parts/enclosure/display-cover/display-cover.stl": 1793568839,
+    "hardware/printed-parts/enclosure/display-cover/display-cover.step": 1793945762,
+    "hardware/printed-parts/enclosure/display-cover/display-cover.step.mesh": 1793945762,
+    "hardware/printed-parts/enclosure/display-cover/display-cover.stl": 1793945762,
     "hardware/printed-parts/enclosure/display-cover/face-up-trial/display-cover-flat-wings.step": 1791257167,
     "hardware/printed-parts/enclosure/display-cover/face-up-trial/display-cover-flat-wings.step.mesh": 1791257167,
     "hardware/printed-parts/enclosure/display-cover/face-up-trial/display-cover-flat-wings.stl": 1790720655,
@@ -2880,9 +2880,9 @@
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step": 1793787235,
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.mesh": 1793932654,
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl": 1793861321,
-    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step": 1793888259,
-    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh": 1793942170,
-    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl": 1793888259,
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step": 1793945762,
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh": 1793945762,
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl": 1793945762,
     "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step": 1792920710,
     "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step.mesh": 1793787394,
     "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.stl": 1792920710,
@@ -4293,7 +4293,8 @@
     },
     "hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole.step.mesh": {
       "inputs": "5bc873b3ec81976c4b4c63fc86ace9ccda8e7cdea50461b727b0f3605158e2b0",
-      "commit": "4221906a471a9cda4778809596f35e4bc12dfc63"
+      "commit": "4221906a471a9cda4778809596f35e4bc12dfc63",
+      "unproven": true
     },
     "hardware/cut-parts/faucet/under-counter-plate/under-counter-plate.dxf": {
       "inputs": "cf1ff75b512d64b07cc2dc71e447074e9fea76d02e96fb658b01c8d7a3c713cc",
@@ -5191,18 +5192,15 @@
       "unproven": true
     },
     "hardware/printed-parts/enclosure/display-cover/display-cover.step": {
-      "inputs": "4dd5e2c10d72b74ef0bb524711e55ec2a82fbb832cbdcb6b3eb98f67fe9da6f5",
-      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2",
+      "commit": "d03a8d89572b3331fa81719d0c2418fac7560351",
       "unproven": true
     },
     "hardware/printed-parts/enclosure/display-cover/display-cover.step.mesh": {
-      "inputs": "4dd5e2c10d72b74ef0bb524711e55ec2a82fbb832cbdcb6b3eb98f67fe9da6f5",
-      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2",
+      "commit": "d03a8d89572b3331fa81719d0c2418fac7560351",
       "unproven": true
     },
     "hardware/printed-parts/enclosure/display-cover/display-cover.stl": {
-      "inputs": "4dd5e2c10d72b74ef0bb524711e55ec2a82fbb832cbdcb6b3eb98f67fe9da6f5",
-      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2",
+      "commit": "d03a8d89572b3331fa81719d0c2418fac7560351",
       "unproven": true
     },
     "hardware/printed-parts/enclosure/display-cover/reach-trial/display-cover-reach-05.step": {
@@ -5346,17 +5344,15 @@
       "unproven": true
     },
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step": {
-      "inputs": "b2353a22eda3dd8e4c913caf4d311cbfe255d7f852092c79ead150831bf4592a",
-      "commit": "b599ba6ae774f45ce292e370a8b2bc889d82f9b0",
+      "commit": "d03a8d89572b3331fa81719d0c2418fac7560351",
       "unproven": true
     },
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh": {
-      "commit": "2efa805eec5ef86bea0ac84d0afd068bdab1b478",
+      "commit": "d03a8d89572b3331fa81719d0c2418fac7560351",
       "unproven": true
     },
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl": {
-      "inputs": "b2353a22eda3dd8e4c913caf4d311cbfe255d7f852092c79ead150831bf4592a",
-      "commit": "b599ba6ae774f45ce292e370a8b2bc889d82f9b0",
+      "commit": "d03a8d89572b3331fa81719d0c2418fac7560351",
       "unproven": true
     },
     "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step.mesh": {
