@@ -3,7 +3,7 @@
 //! profile, with the flank pockets its snap cap's spring wings ride in.
 use crate::catalog::{clearance, running, slip};
 use crate::layout::{Pose, Station, layout};
-use crate::plan::{Graph, Op, P2, P3, Shape};
+use crate::plan::{Bounds, Graph, Op, P2, P3, Shape};
 use crate::quadrant::sorted;
 use crate::shapes::place;
 use crate::shell::back_top_ceiling_face;
@@ -209,6 +209,41 @@ fn station(axis_x: f64, neck: f64, [y0, y1]: P2, split: f64, root: f64) -> Stati
               ceiling: tip + 2.0 * running(), root, root_radius: ROOT_RADIUS }
 }
 
+/// Inaccessible rear receiver interiors. Their catches bridge between the full end shoulders.
+pub fn bridge_regions() -> Vec<(&'static str, Bounds, f64)> {
+    [("ASSE receiver", asse_station()), ("Pisco receiver", pisco_station())]
+        .into_iter().map(|(name, s)| {
+            let a = running();
+            (name, [s.axis_x - s.outer - a, s.axis_x + s.outer + a,
+                    s.y0 - a, s.y1 + a, s.root - a, s.ceiling + a], s.y1 - s.y0 + 2.0 * a)
+        }).collect()
+}
+
+fn asse_station() -> Station {
+    let frame = &layout().rear_plumbing.chain_frame;
+    let c = running();
+    let centre = frame.point([0.0, 0.0, asse::BODY_CENTER_Z]);
+    let along = |x: f64| frame.point([x, 0.0, asse::BODY_CENTER_Z])[1];
+    let span = [along(asse::BONNET_X) - slip(), along(profiles().asse.gagira_fore_x) - slip()];
+    let profile = runs(&profiles().asse.seat_runs, frame, 0, c);
+    let widest = widest(&profile, span).chain(asse::WRENCHES.iter().map(|w| w.widest + c))
+        .fold(f64::NEG_INFINITY, f64::max);
+    let split = centre[2] + c;
+    station(centre[0], half_width(widest, split, centre[2]) + WALL, span, split, centre[2] - REAR_ROOT_DROP)
+}
+
+fn pisco_station() -> Station {
+    let frame = &layout().rear_plumbing.gas_frame;
+    let c = running();
+    let mouth = frame.point([0.0; 3]);
+    let span = [mouth[1] - pisco_exterior().component_ranges_mm.outlet_collet[0] + c + 0.01, rear() - WALL - c];
+    let profile = runs(&profiles().pisco.seat_runs, frame, 2, c + PISCO_RADIAL_RELIEF);
+    let widest = widest(&profile, span).fold(f64::NEG_INFINITY, f64::max);
+    let split = mouth[2] + PISCO_SPLIT_RISE;
+    station(mouth[0], half_width(widest, split, mouth[2]) + (WALL - REACH - c), span, split,
+            mouth[2] - REAR_ROOT_DROP)
+}
+
 /// Both flank pockets of one station: beside the ledge from the split to the bearing plane,
 /// beside the neck above it to the pocket's ceiling, and the round at the wing's root. The
 /// station's ends are the cap's shoulders.
@@ -334,9 +369,8 @@ fn asse(g: &mut Graph) -> Shape {
         let (y0, y1) = sorted(along(w.x[0]), along(w.x[1]));
         ([y0, y1], w.across_flats / 2.0, w.clock + asse::TURN, w.widest)
     });
-    let widest = widest(&profile, cap_y).chain(wrenches.iter().map(|w| w.3 + c)).fold(f64::NEG_INFINITY, f64::max);
     let split = axis[1] + c;
-    let st = station(axis[0], half_width(widest, split, axis[1]) + WALL, cap_y, split, axis[1] - REAR_ROOT_DROP);
+    let st = asse_station();
     let stock = g.box_([axis[0] - st.outer, axis[0] + st.outer, cap_y[0] - c - WALL, rear() + INTO, split,
                         ceiling() + INTO]);
     let mut room = turned(g, profile, axis);
@@ -386,10 +420,8 @@ fn pisco(g: &mut Graph) -> Shape {
     let profile = runs(&profiles().pisco.seat_runs, frame, 2, c + PISCO_RADIAL_RELIEF);
     let exterior = pisco_exterior();
     let cap_y = [mouth_y - exterior.component_ranges_mm.outlet_collet[0] + c + 0.01, rear() - WALL - c];
-    let widest = widest(&profile, cap_y).fold(f64::NEG_INFINITY, f64::max);
     let split = axis[1] + PISCO_SPLIT_RISE;
-    let st = station(axis[0], half_width(widest, split, axis[1]) + (WALL - REACH - c), cap_y, split,
-                     axis[1] - REAR_ROOT_DROP);
+    let st = pisco_station();
     let profile = bearing_profile(&profile, &exterior.profile_z_radius_mm, mouth_y);
     let stock = g.box_([axis[0] - st.outer, axis[0] + st.outer, cap_y[0] - c - WALL, rear() + INTO, split,
                         ceiling() + INTO]);

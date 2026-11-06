@@ -200,8 +200,8 @@
     "hardware/printed-parts/enclosure/pump-dock/dock_structure.py": "ae781614993495be7ebb16f3c5aa90e6838b99e10c81da6594488dc7322a894c",
     "hardware/printed-parts/enclosure/pump-dock/fixed_returns.py": "fac88463f1bbfc0f8e20322ad39b7c47d5508cde3e9e7537b4c9ac4d7fc0472a",
     "hardware/printed-parts/petgf.3mf": "45c16e8c8517e0a205107d7b9f7412d013f51a8de7ecf86125cc940079d37ed0",
-    "hardware/printed-parts/enclosure/display-cover/mount-dimensions.json": "6dc0ad321fa70c0b66152ea6eb4d2d6bed34c9a87f305a1038b90e9307385526",
-    "hardware/manifold-layout/machine-export-physical.numbers.json": "666ee9a05e4590a5b8a32f049068d0624a793f3d32c632e4f9ca2b30cdde81e8"
+    "hardware/printed-parts/enclosure/display-cover/mount-dimensions.json": "252088731c6f82ec6213b8ad411f12badbb67f75b1b09719cc4e35e31abd5e6d",
+    "hardware/manifold-layout/machine-export-physical.numbers.json": "90f9a464b95d19a4de7a9a51a3fd7d6d6bd7b01abe99d64dc01eb0f24b39c0dd"
   },
   "native_artifact_sha256": {
     "front-bottom": {
@@ -209,16 +209,16 @@
       ".stl": "217f0b372b101e57bba88d91691be9d5043437887c29748df233e361ce4d93e4"
     },
     "front-top": {
-      ".step": "6d9281f77b6a6d8fb949f90f40a3afe14b287acb3a34104660f3ba8010b7c642",
-      ".stl": "acdf5acc6723039050b3fdb54f8764ae94c541d061c0bf20baecad50eb6540ef"
+      ".step": "69a2a114f86e93878a5898c22cdd510025418cfba91846adc3bdf04a2f178598",
+      ".stl": "144dc8fdb8c686aecd63bd6f03578b2ca60404996c8febbc48ec891436bfabf0"
     },
     "back-bottom": {
       ".step": "f5508720030a8a8a5a37d5a508b6f4fb905e0f45cda2f1a8014f7f8dc2284107",
       ".stl": "2380f6602c1d1bd8c58d2193d1c572f3239c6d000dad64d3b1f6b34d847ba729"
     },
     "back-top": {
-      ".step": "7daada668a16da62960aee3a3085bf0b255a817881e2bde0acb0126405d647ba",
-      ".stl": "2423bac3ba1637092bbf112353bdde55d66eb5bef6202a61cd6f59e1bb8c3578"
+      ".step": "4498daa7a9e7aee7e82424cdb96e2aad46312d24d02e8e91cfa93c9877c3c2c9",
+      ".stl": "815df586b5e9f8edaa64b3c7ba5248171fd759ed2d3141157eaa4fd97a0f40fb"
     },
     "pump-retainer": {
       ".step": "d150ee04c6f9e9d1e9cf64eb641f02f14305b08ac7152945b1e2f3098f33f6e7",
@@ -783,8 +783,8 @@
       {
         "name": "Display side insert and continuous housing root 1",
         "machine_bounds_mm": [
-          -68.25,
-          -56.25,
+          -96.0,
+          -84.0,
           13.799038105676658,
           27.89134295108992,
           300.8317930687617,
@@ -793,16 +793,16 @@
         "sparse_infill_density": "100%",
         "sparse_infill_pattern": "zig-zag",
         "applied_source_bounds_mm": [
-          -68.25,
-          -56.25,
+          -96.0,
+          -84.0,
           13.799038105676658,
           27.89134295108992,
           300.8317930687617,
           313.2403810567666
         ],
         "print_bounds_mm": [
-          -68.25,
-          -56.25,
+          -96.0,
+          -84.0,
           13.799038105676658,
           27.89134295108992,
           140.58179306876173,
@@ -812,8 +812,8 @@
       {
         "name": "Display side insert and continuous housing root 2",
         "machine_bounds_mm": [
-          56.25,
-          68.25,
+          28.5,
+          40.5,
           13.799038105676658,
           27.89134295108992,
           300.8317930687617,
@@ -822,16 +822,16 @@
         "sparse_infill_density": "100%",
         "sparse_infill_pattern": "zig-zag",
         "applied_source_bounds_mm": [
-          56.25,
-          68.25,
+          28.5,
+          40.5,
           13.799038105676658,
           27.89134295108992,
           300.8317930687617,
           313.2403810567666
         ],
         "print_bounds_mm": [
-          56.25,
-          68.25,
+          28.5,
+          40.5,
           13.799038105676658,
           27.89134295108992,
           140.58179306876173,
@@ -841,8 +841,8 @@
       {
         "name": "Display side insert and continuous housing root 3",
         "machine_bounds_mm": [
-          -68.25,
-          -56.25,
+          -96.0,
+          -84.0,
           76.15286717815624,
           90.24517202356951,
           336.8317930687617,
@@ -851,16 +851,16 @@
         "sparse_infill_density": "100%",
         "sparse_infill_pattern": "zig-zag",
         "applied_source_bounds_mm": [
-          -68.25,
-          -56.25,
+          -96.0,
+          -84.0,
           76.15286717815624,
           90.24517202356951,
           336.8317930687617,
           349.2403810567666
         ],
         "print_bounds_mm": [
-          -68.25,
-          -56.25,
+          -96.0,
+          -84.0,
           76.15286717815624,
           90.24517202356951,
           176.58179306876173,
@@ -870,8 +870,8 @@
       {
         "name": "Display side insert and continuous housing root 4",
         "machine_bounds_mm": [
-          56.25,
-          68.25,
+          28.5,
+          40.5,
           76.15286717815624,
           90.24517202356951,
           336.8317930687617,
@@ -880,16 +880,16 @@
         "sparse_infill_density": "100%",
         "sparse_infill_pattern": "zig-zag",
         "applied_source_bounds_mm": [
-          56.25,
-          68.25,
+          28.5,
+          40.5,
           76.15286717815624,
           90.24517202356951,
           336.8317930687617,
           349.2403810567666
         ],
         "print_bounds_mm": [
-          56.25,
-          68.25,
+          28.5,
+          40.5,
           76.15286717815624,
           90.24517202356951,
           176.58179306876173,

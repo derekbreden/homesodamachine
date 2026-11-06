@@ -30,6 +30,8 @@ pub fn vent_chase(
         let owns = z0 <= vent && vent <= z1;
         let mouth_top = sz + VENT_CHANNEL_W / 2.0;
         let mouth_bot = sz - VENT_CHANNEL_W / 2.0 - if up < 0.0 { supported() } else { 0.0 };
+        // The inboard lip rises away from its wall root in the roof-down print.
+        let mouth_lip = mouth_bot - if up < 0.0 { rib_x + 1.0 - floor_x } else { 0.0 };
         let groove_top = sz - VENT_DUCT_DROP;
         let groove_rise = if up > 0.0 { 1.0 } else { 0.0 };
         let ramp_top = groove_top - VENT_GROOVE_DROP;
@@ -48,7 +50,7 @@ pub fn vent_chase(
                                                          [rib_x, ramp_top - under], [inner[0], rib_end - under]]);
         let cap_root = roof_root + 2.0 * VENT_RIB_WALL;
         let cap_lip = cap_root + roof_run;
-        let cap_wall = if up < 0.0 { cap_lip } else { cap_root };
+        let cap_wall = if up < 0.0 { cap_lip + roof_run } else { cap_root };
         let cap = g.xz_prism(sy - half, sy + half, vec![[root_x, sz + half], [rib_x, sz + half], [rib_x, cap_lip],
                                                          [root_x, cap_wall]]);
         let rib = g.union(rib, &[cap]);
@@ -70,7 +72,7 @@ pub fn vent_chase(
         }
         solid = g.union(solid, &[share]);
         let duct = g.xz_prism(sy - VENT_CHANNEL_W / 2.0, sy + VENT_CHANNEL_W / 2.0, vec![
-            [rib_x + 1.0, mouth_top], [rib_x + 1.0, mouth_bot], [floor_x, mouth_bot], [floor_x, ramp_top],
+            [rib_x + 1.0, mouth_top], [rib_x + 1.0, mouth_lip], [floor_x, mouth_bot], [floor_x, ramp_top],
             [outer[0] - 1.0, ramp_bot - over], [outer[0] - 1.0, groove_top - groove_rise],
             [inner[0], groove_top + groove_rise * (inner[0] - outer[0])], [inner[0], rim + slide_slip()],
             [liner_x, rim + slide_slip()], [liner_x, mouth_top]]);
@@ -80,6 +82,17 @@ pub fn vent_chase(
         solid = g.cut(solid, &[passage]);
     }
     solid
+}
+
+/// The roof-down mouth's chamfered cap and lip, with their complete wall root.
+pub fn mouth_support_bounds(inner: &Bounds, [x, y, z]: [f64; 3]) -> Bounds {
+    let rib = x - running();
+    let root = back_top_flank_face()[0];
+    let half = VENT_CHANNEL_W / 2.0;
+    let liner = inner[0] + slide_slip() + VENT_RIB_WALL;
+    let cap_root = z + half + root - liner + 2.0 * VENT_RIB_WALL;
+    [root, rib, y-half-VENT_RIB_WALL, y+half+VENT_RIB_WALL,
+     z-half-supported()-VENT_RIB_WALL, cap_root+2.0*(rib-root)]
 }
 
 /// The height the condenser's vents are pierced over: the fan's footprint on the flank.

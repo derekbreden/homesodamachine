@@ -129,7 +129,7 @@ The knuckle faces follow their pieces' print orientations: front-bottom's knuckl
 aft off its handhold roof, back-bottom's upper knuckle rises inboard off its skin and
 front-top's insert block rises inboard off its lip band. Front-top's head block has an
 aft-rising underside matched by back-top's middle block; back-top prints roof-down.
-Tree(auto)/Default remains the support policy for each fresh native preparation.
+Cavity recipes use branching trees with accessible removal lanes.
 Front-bottom's fore knuckle root stands directly on its handhold roof.
 The slopes run across the slide or close as the front half slides aft, and a top
 that rises toward a free face levels off one wall short of it. Every face between knuckles
@@ -740,22 +740,24 @@ individual prepared plates record their brim setting in their
 ## Support-removal strategy
 
 Enclosure parts and receiver test coupons use the tree support settings from
-`../../petgf.3mf` in each part's production print orientation. The flat-wing
-nameplate itself has no supports: its back and both horizontal wings print
-directly on the bed.
+`../../petgf.3mf` in each part's production print orientation. The screw-mounted
+nameplate prints with its flat back on the bed and its screw seats facing upward.
 
-Use Tree (auto) with the saved default style and retain Bambu's automatic
-support choices, including normal sections it generates. Explicit normal-support
-overrides have caused difficult removal: the
-[Normal Snug receiver coupon](../tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-29-nameplate-flat-wing-receiver-h2c-v1/physical-result.json)
-is rejected for impossible support removal. An explicit normal choice needs a
-named feature that specifically requires it, or evidence of easier removal;
-record and explain the exception's reason and scope before printing. An open
-removal lane or smaller footprint alone does not establish easy cleanup.
-Retain the required bed margin when reviewing automatic tree-support placement;
-if that cannot fit, explain the concrete constraint before choosing an override.
-Do not replace the automatic recipe with a trees-only rule or blanket blockers
-for automatically generated normal sections.
+Use Tree (auto) for accessible exterior features. Enclosed cavities require
+branching trees; normal rectangular supports are not removable there. The rear
+enclosure, front pump cavities and lower pump retainer select Tree Slim. Inspect
+the actual branches and removal openings in the emitted native slice. A smaller
+footprint or an open-looking lane alone does not establish easy cleanup.
+
+The rear Pisco and ASSE receiver interiors print without supports. Their flat
+catches bridge between their complete end shoulders; the approved component
+seats and catch planes remain intact. Native construction emits the exclusion
+regions beside the STL, bound to its digest. Preparation carries them through
+orientation and placement as support blockers and painted surfaces. The covered
+bulkhead bores and horizontal valve sockets use teardrop roofs; build-axis valve
+sockets remain circular and open. The PRV mouth floor chamfers away from its root
+in the roof-down print. The native review reads support beads inside these named
+regions, including ordinary support paths without interface labels.
 
 A production-profile slice reports the connected support bodies which reach the model and their
 separate interface islands. One body can reach several distinct contact regions. Two further
@@ -769,17 +771,14 @@ are read on the physical print and nowhere else.
 
 **What decides removal is the lane, not the reading.** A body comes away easily when its faces
 stand in open air, nothing is installed over it, and it leaves in one piece along a straight run.
-It fights when it is walled on several sides, when a branch re-enters a pocket behind its own
-interface, or when the hardware goes in first. The Z-seam catches need a short support ribbon contained in the open sliding
-groove and rooted on nearby model stock. Derek reports easy release of
-that arrangement on the other enclosure quadrants. The
-[back-top article](../../drain-readiness/prints/2026-10-10-current-back-top-bridge50-mark1/physical-result.json)
-has long fragile stems trapped in walls and failed sliding-groove cleanup. Their
-physical starting points are unknown. A back-top preparation must trace the
-groove contacts below their own model floor and keep the support removal lane
-clear; diameter growth alone does not establish that routing. Short native
-roots still require physical cleanup assessment. A
-stub of the same build-up inside a 3 mm tie channel is a different job entirely.
+It fights when it is walled on several sides, when a branch re-enters a pocket
+behind its own interface, or when the hardware goes in first. The Z-seam catches
+retain their flat sliding bearings and use branching supports with accessible
+removal lanes. The rear enclosure has no added rectangular support ribbons.
+The [full rear enclosure result](prints/2026-11-05-back-top-smooth-corners-mark2/physical-result.json)
+records trapped rail supports and inaccessible receiver supports. Inspect the
+complete part, rather than applying a coupon's cleanup result to walls that
+block the tool.
 
 What a root means depends on the face the piece prints on. On a piece whose cavity opens toward
 the bed — the bottoms on their floors, front-top on its mouth — the bed and the model are two
@@ -806,7 +805,7 @@ short support bodies without an interface label.
 
 Printed working faces meet the clearance, supported-surface and stock requirements.
 A seating or bearing role does not waive them. The face keeps its required working
-shape, and support carries it.
+shape. Accessible trees or anchored bridge paths carry it in the print.
 The C14 inlet's flange pocket keeps its floor, because that floor is what the receptacle lands
 on; each handhold keeps its flat lifting ceiling, because that ceiling is the surface a hand
 pulls up on; the Z-seam catches are broad square planes because they bear against lift along the
