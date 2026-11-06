@@ -161,7 +161,7 @@ post-closure function, have no acceptance record.
 
 ## Source
 
-Dimensions and geometry checks: [`integration.py`](integration.py),
+Dimensions and geometry checks, run on request: [`integration.py`](integration.py),
 [`integration-check.json`](integration-check.json), and shared
 [`_float_interface.py`](../../_float_interface.py).
 [Littelfuse activation guidance](https://www.littelfuse.com/assetdocs/reed-switch-and-reed-sensor-activation-application-note?assetguid=fa9045a4-e577-4f55-9e9b-4232faacffd9)
