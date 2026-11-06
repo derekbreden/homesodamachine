@@ -471,6 +471,14 @@
   border-color: color-mix(in srgb, var(--accent) 55%, transparent);
   background: color-mix(in srgb, var(--accent) 18%, rgba(16, 49, 156, 0.85));
 }
+/* The build's record below them: a heading, its models as chips that wrap, and
+   what the site does not list named on a muted line. */
+.related-section { margin-top: 6px; padding-top: 6px; border-top: 1px solid var(--border); }
+.related-menu > .related-section:first-child { margin-top: 0; padding-top: 0; border-top: 0; }
+.related-heading { padding: 2px 6px 4px; font-size: 12px; color: var(--text); }
+.related-chips { display: flex; flex-wrap: wrap; gap: 2px; }
+.related-chips > .related-chip { display: inline-flex; width: auto; min-height: 32px; }
+.related-named { padding: 4px 6px; font-size: 12px; line-height: 1.4; color: var(--text-2); }
 /* The glyph beside a label. Sized to the label's own cap height so the two
    read as one word, and painted in currentColor so it carries the control's
    lit/unlit state with the text rather than needing its own. */

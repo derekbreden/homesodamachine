@@ -8,6 +8,10 @@
 // contracts/related-steps.js; this file presents those that have a part number
 // in one compact disclosure with a scrollable list.
 //
+// Below those, the build's own record (/api/made-from): the parts and code a
+// change to which remakes this model, and the models a change to this one
+// remakes. A model the site lists is a chip; anything else is named.
+//
 // Taking one is a drill: the model you came from goes on the trail, so the
 // breadcrumb and the browser's Back both walk back through it.
 //
@@ -61,6 +65,74 @@ export function closeRelated(wrapper, focus = false) {
   return true;
 }
 
+// The disclosure in this rail, made the first time something goes in it.
+function groupIn(rail) {
+  let group = rail.querySelector("." + GROUP_CLASS);
+  if (group) return group;
+  group = document.createElement("details");
+  group.className = GROUP_CLASS;
+  const summary = document.createElement("summary");
+  summary.className = "tool-btn";
+  summary.title = "Related models";
+  group.appendChild(summary);
+  const list = document.createElement("div");
+  list.className = "related-menu";
+  group.appendChild(list);
+  rail.appendChild(group);
+  return group;
+}
+
+function count(group) {
+  const summary = group.querySelector("summary");
+  summary.textContent = `Related (${group.querySelectorAll(".related-chip").length})`;
+  summary.insertAdjacentHTML("beforeend", iconSvg("chevron", "tool-icon"));
+}
+
+// One heading of the build's record: the listed models as chips, then the rest named.
+function section(heading, items, named = []) {
+  const box = document.createElement("div");
+  box.className = "related-section";
+  const title = document.createElement("div");
+  title.className = "related-heading";
+  title.textContent = heading;
+  box.appendChild(title);
+  const chips = document.createElement("div");
+  chips.className = "related-chips";
+  for (const item of items) {
+    const btn = chip({ file: item.file });
+    btn.title = item.file;
+    chips.appendChild(btn);
+  }
+  box.appendChild(chips);
+  for (const [lead, names] of named) {
+    if (!names.length) continue;
+    const line = document.createElement("div");
+    line.className = "related-named";
+    line.textContent = `${lead}: ${names.join(", ")}`;
+    box.appendChild(line);
+  }
+  return box;
+}
+
+function drawMadeFrom(rail, made) {
+  const listed = new Set(state.allFiles || []);
+  const linked = (items) => items.filter((i) => i.file && listed.has(i.file));
+  const unlinked = (items) => items.filter((i) => !(i.file && listed.has(i.file))).map((i) => i.label);
+  const inputs = [...made.parts, ...made.outputs];
+  const boxes = [];
+  if (inputs.length || made.code.length) {
+    boxes.push(section("Remade when these change", linked(inputs),
+      [["Parts", unlinked(inputs)], ["Code", made.code.map((c) => c.label)]]));
+  }
+  if (made.usedIn.length) {
+    boxes.push(section("Changing this remakes", linked(made.usedIn), [["Also", unlinked(made.usedIn)]]));
+  }
+  if (!boxes.length) return;
+  const group = groupIn(rail);
+  for (const box of boxes) group.querySelector(".related-menu").appendChild(box);
+  count(group);
+}
+
 /**
  * Draw the models related to `file` into the rail this wrapper holds, replacing
  * whatever the last model left there. A model with nothing beside it leaves the
@@ -76,25 +148,25 @@ export function mountRelated(wrapper, file, trail = []) {
   const rail = wrapper.querySelector(".tool-rail");
   if (!rail) return;
   removeRelated(wrapper);
+  wrapper.relatedFor = file;
 
   const related = relatedSteps(file, state.allFiles || [], trail)
     .filter((rel) => !(faucetStyleFor(file) && faucetStyleFor(rel.file)))
     .filter((rel) => materialForFile(state.materialCatalog, rel.file));
   const assemblies = relatedAssemblyLinks(file);
-  if (!related.length && !assemblies.length) return;
+  if (related.length || assemblies.length) {
+    const group = groupIn(rail);
+    const list = group.querySelector(".related-menu");
+    for (const rel of assemblies) list.appendChild(assemblyLink(rel));
+    for (const rel of related) list.appendChild(chip(rel));
+    count(group);
+  }
 
-  const group = document.createElement("details");
-  group.className = GROUP_CLASS;
-  const summary = document.createElement("summary");
-  summary.className = "tool-btn";
-  summary.textContent = `Related (${related.length + assemblies.length})`;
-  summary.title = "Related models";
-  summary.insertAdjacentHTML("beforeend", iconSvg("chevron", "tool-icon"));
-  group.appendChild(summary);
-  const list = document.createElement("div");
-  list.className = "related-menu";
-  for (const rel of assemblies) list.appendChild(assemblyLink(rel));
-  for (const rel of related) list.appendChild(chip(rel));
-  group.appendChild(list);
-  rail.appendChild(group);
+  fetch("/api/made-from/" + file.split("/").map(encodeURIComponent).join("/"))
+    .then((res) => (res.ok ? res.json() : null))
+    .then((made) => {
+      // A later move has drawn another model's list since this was asked for.
+      if (made && wrapper.relatedFor === file) drawMadeFrom(rail, made);
+    })
+    .catch(() => {});
 }
