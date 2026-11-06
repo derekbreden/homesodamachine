@@ -828,10 +828,18 @@ dependencies = [
  "anyhow",
  "hsm-aero-float-numbers",
  "hsm-carbonator-tube-numbers",
+ "hsm-cold-core-interface",
  "hsm-documents",
  "hsm-enclosure-interface",
  "hsm-endcap-circular-numbers",
  "serde_json",
+]
+
+[[package]]
+name = "hsm-cold-core-interface"
+version = "0.1.0"
+dependencies = [
+ "hsm-carbonator-tube-numbers",
 ]
 
 [[package]]
@@ -899,6 +907,7 @@ version = "0.1.0"
 dependencies = [
  "anyhow",
  "hsm-bulkhead-ring-numbers",
+ "hsm-cold-core-interface",
  "hsm-documents",
  "hsm-enclosure-interface",
  "hsm-enclosure-numbers",

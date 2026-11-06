@@ -507,7 +507,6 @@ pub fn initialize(rt: Runtime, e: Env) -> Result<()> {
                     let mut args161 = Vec::new();
                     let mut kw162 = Vec::new();
                     args161.push(Val::Str("interface-reservoir-conduit".into()));
-                    kw162.push(("fits".into(), e.get("_interface_fits")?));
                     kw162.push(("kind".into(), Val::Str("fill".into())));
                     kw162.push(("side".into(), e.get("side")?));
                     fun163.call(args161, kw162)?
@@ -535,7 +534,6 @@ pub fn initialize(rt: Runtime, e: Env) -> Result<()> {
                     let mut args167 = Vec::new();
                     let mut kw168 = Vec::new();
                     args167.push(Val::Str("interface-reservoir-conduit".into()));
-                    kw168.push(("fits".into(), e.get("_interface_fits")?));
                     kw168.push(("kind".into(), Val::Str("draw".into())));
                     kw168.push(("side".into(), e.get("side")?));
                     fun169.call(args167, kw168)?
@@ -925,7 +923,7 @@ pub fn initialize(rt: Runtime, e: Env) -> Result<()> {
     e.set("cap_cradle_half_y", assigned261.clone())?;
     let assigned262 = e.get("_valve_seat")?.attr("seat_corner_radius")?;
     e.set("cap_cradle_corner_radius", assigned262.clone())?;
-    let assigned263 = Val::Float(1.0f64);
+    let assigned263 = Val::Float(hsm_cold_core_interface::CAP_CRADLE_ROOM_GAP);
     e.set("cap_cradle_room_gap", assigned263.clone())?;
     // cap_cradle_xy
     e.set("cap_cradle_xy", {
@@ -1690,60 +1688,29 @@ pub fn initialize(rt: Runtime, e: Env) -> Result<()> {
             Ok(Val::None)
         })
     })?;
-    let assigned457 = Val::Float(6.35f64);
+    let assigned457 = Val::Float(hsm_cold_core_interface::LLDPE_TUBE_OD);
     e.set("lldpe_tube_od", assigned457.clone())?;
-    let assigned458 = e.get("port_hole_radius")?;
+    let assigned458 = Val::Float(hsm_cold_core_interface::CAP_CONDUIT_BORE_RADIUS);
     e.set("cap_conduit_bore_radius", assigned458.clone())?;
     let assigned459 = {
         let d = Val::dict(vec![]);
-        d.set(Val::Str("reservoir-a-fill".into()), Val::Float(5.5f64))?;
+        for (name, radius) in hsm_cold_core_interface::CAP_CONDUIT_BORE_RADII {
+            d.set(Val::Str(name.into()), Val::Float(radius))?;
+        }
         d
     };
     e.set("cap_conduit_bore_radii", assigned459.clone())?;
-    let assigned460 = e.get("wall_thickness")?;
+    let assigned460 = Val::Float(hsm_cold_core_interface::CAP_CONDUIT_WALL);
     e.set("cap_conduit_wall", assigned460.clone())?;
-    let assigned461 = binary(
-        "add",
-        e.get("cap_conduit_bore_radius")?,
-        e.get("cap_conduit_wall")?,
-    )?;
+    let assigned461 = Val::Float(hsm_cold_core_interface::CAP_CONDUIT_BOSS_RADIUS);
     e.set("cap_conduit_boss_radius", assigned461.clone())?;
-    let assigned462 = e.get("deck_mount_lid_slip")?;
+    let assigned462 = Val::Float(hsm_cold_core_interface::cap_conduit_lid_slip(&crate::interface::module_fits(&e.get("_interface_fits")?)?));
     e.set("cap_conduit_lid_slip", assigned462.clone())?;
-    let assigned463 = Val::Float(38.0f64);
+    let assigned463 = Val::Float(hsm_cold_core_interface::CAP_CONDUIT_ENTRY_SKEW);
     e.set("cap_conduit_entry_skew", assigned463.clone())?;
-    let assigned464 = binary(
-        "add",
-        e.get("cap_conduit_bore_radius")?,
-        binary("mul", e.get("wall_and_floor_thickness")?, {
-            let fun467 = e.get("math")?.attr("tan")?;
-            let mut args465 = Vec::new();
-            let mut kw466 = Vec::new();
-            args465.push({
-                let fun470 = e.get("math")?.attr("radians")?;
-                let mut args468 = Vec::new();
-                let mut kw469 = Vec::new();
-                args468.push(e.get("cap_conduit_entry_skew")?);
-                fun470.call(args468, kw469)?
-            });
-            fun467.call(args465, kw466)?
-        })?,
-    )?;
+    let assigned464 = Val::Float(hsm_cold_core_interface::cap_conduit_entry_relief_radius());
     e.set("cap_conduit_entry_relief_radius", assigned464.clone())?;
-    let assigned471 = {
-        let fun474 = e.get("math")?.attr("degrees")?;
-        let mut args472 = Vec::new();
-        let mut kw473 = Vec::new();
-        args472.push({
-            let fun477 = e.get("math")?.attr("atan2")?;
-            let mut args475 = Vec::new();
-            let mut kw476 = Vec::new();
-            args475.push(e.get("cap_conduit_wall")?);
-            args475.push(e.get("wall_and_floor_thickness")?);
-            fun477.call(args475, kw476)?
-        });
-        fun474.call(args472, kw473)?
-    };
+    let assigned471 = Val::Float(hsm_cold_core_interface::cap_conduit_entry_skew_ceiling());
     e.set("cap_conduit_entry_skew_ceiling", assigned471.clone())?;
     {
         let fun480 = e.get("state")?;
@@ -1863,7 +1830,7 @@ pub fn initialize(rt: Runtime, e: Env) -> Result<()> {
         });
         fun480.call(args478, kw479)?
     };
-    let assigned508 = Val::Float(48.0f64);
+    let assigned508 = Val::Float(hsm_cold_core_interface::CO2_LANE_X);
     e.set("co2_lane_x", assigned508.clone())?;
     let assigned509 = {
         let fun512 = e.get("_above_mounts")?.attr("gas_guide_xy")?;
@@ -1873,24 +1840,15 @@ pub fn initialize(rt: Runtime, e: Env) -> Result<()> {
     }
     .get(Val::Int(0i64))?;
     e.set("co2_cap_x", assigned509.clone())?;
-    let assigned513 = unary("neg", Val::Float(48.5f64))?;
+    let assigned513 = Val::Float(hsm_cold_core_interface::WATER_OUTLET_CLIMB_X);
     e.set("water_outlet_climb_x", assigned513.clone())?;
-    let assigned514 = unary("neg", Val::Float(35.0f64))?;
+    let assigned514 = Val::Float(hsm_cold_core_interface::WATER_OUTLET_UPPER_CLIMB_X);
     e.set("water_outlet_upper_climb_x", assigned514.clone())?;
-    let assigned515 = {
-        let mut s = Vec::new();
-        s.push(binary(
-            "add",
-            binary("add", e.get("evap_tail_low_z")?, e.get("lldpe_tube_od")?)?,
-            Val::Float(2.0f64),
-        )?);
-        s.push(Val::Float(140.0f64));
-        Val::tuple(s)
-    };
+    let assigned515 = crate::interface::tuple(&hsm_cold_core_interface::WATER_OUTLET_DRIFT_Z);
     e.set("water_outlet_drift_z", assigned515.clone())?;
-    let assigned516 = e.get("reed_column_axis_x")?;
+    let assigned516 = Val::Float(hsm_cold_core_interface::REED_CABLE_CONDUIT_X);
     e.set("reed_cable_conduit_x", assigned516.clone())?;
-    let assigned517 = e.get("level_rod_y")?;
+    let assigned517 = Val::Float(hsm_cold_core_interface::REED_CABLE_CONDUIT_Y);
     e.set("reed_cable_conduit_y", assigned517.clone())?;
     // reed_cable_conduit_xy
     e.set("reed_cable_conduit_xy", {
@@ -1921,12 +1879,7 @@ pub fn initialize(rt: Runtime, e: Env) -> Result<()> {
             let mut args519 = Vec::new();
             let mut kw520 = Vec::new();
             args519.push(Val::Str("water-in".into()));
-            args519.push({
-                let mut s = Vec::new();
-                s.push(Val::Float(86.2532889963965f64));
-                s.push(Val::Float(32.80179966121266f64));
-                Val::tuple(s)
-            });
+            args519.push(crate::interface::tuple(&hsm_cold_core_interface::WATER_IN_CONDUIT_XY));
             fun521.call(args519, kw520)?
         })?;
         d.set(Val::Str("reservoir-a".into()), {
@@ -1976,12 +1929,7 @@ pub fn initialize(rt: Runtime, e: Env) -> Result<()> {
             let mut args540 = Vec::new();
             let mut kw541 = Vec::new();
             args540.push(Val::Str("carb-water-out".into()));
-            args540.push({
-                let mut s = Vec::new();
-                s.push(Val::Float(52.2f64));
-                s.push(unary("neg", e.get("port_lane_mid_y")?)?);
-                Val::tuple(s)
-            });
+            args540.push(crate::interface::tuple(&hsm_cold_core_interface::CARB_WATER_OUT_CONDUIT_XY));
             fun542.call(args540, kw541)?
         })?;
         d.set(Val::Str("co2-in".into()), {
@@ -2002,12 +1950,10 @@ pub fn initialize(rt: Runtime, e: Env) -> Result<()> {
             args547.push(unary("pos", Val::Int(1i64))?);
             fun549.call(args547, kw548)?
         })?;
-        d.set(Val::Str("sensor-cable".into()), {
-            let mut s = Vec::new();
-            s.push(unary("neg", Val::Float(23.2f64))?);
-            s.push(unary("neg", Val::Float(48.0f64))?);
-            Val::tuple(s)
-        })?;
+        d.set(
+            Val::Str("sensor-cable".into()),
+            crate::interface::tuple(&hsm_cold_core_interface::SENSOR_CABLE_CONDUIT_XY),
+        )?;
         d
     };
     e.set("cap_cable_floor_conduits", assigned546.clone())?;
@@ -2102,7 +2048,7 @@ pub fn initialize(rt: Runtime, e: Env) -> Result<()> {
         Val::tuple(s)
     };
     e.set("cap_conduit_links", assigned579.clone())?;
-    let assigned580 = Val::Float(5.0f64);
+    let assigned580 = Val::Float(hsm_cold_core_interface::CAP_CONDUIT_LINK_WIDTH);
     e.set("cap_conduit_link_width", assigned580.clone())?;
     let assigned581 = {
         let e = e.child();
@@ -2181,27 +2127,11 @@ pub fn initialize(rt: Runtime, e: Env) -> Result<()> {
         args593.push({let mut str602=String::new();str602.push_str("reservoir fills: ");str602.push_str(&format(&{let fun605=e.get("sorted")?;let mut args603=Vec::new();let mut kw604=Vec::new();args603.push(e.get("_fill_conduits")?);fun605.call(args603,kw604)?},&String::new())?);str602.push_str(" stand on the cap, but `reservoir_fill_sides` cuts ");str602.push_str(&format(&e.get("reservoir_fill_sides")?,&String::new())?);str602.push_str(" — a conduit with no bore under it is a hole into a sealed pocket, and a bore with no conduit over it is a blind one");Val::Str(str602)});
         fun595.call(args593, kw594)?
     };
-    let assigned606 = binary(
-        "add",
-        binary(
-            "add",
-            e.get("wall_and_floor_thickness")?,
-            e.get("carbonator_support_ring_height")?,
-        )?,
-        e.get("carbonator_height")?,
-    )?;
+    let assigned606 = Val::Float(hsm_cold_core_interface::CARBONATOR_TOP_PLATE_Z);
     e.set("carbonator_top_plate_z", assigned606.clone())?;
-    let assigned607 = binary(
-        "sub",
-        e.get("foam_shell_outer_height")?,
-        binary(
-            "add",
-            e.get("carbonator_top_plate_z")?,
-            e.get("hole_shift_from_edge")?,
-        )?,
-    )?;
+    let assigned607 = Val::Float(hsm_cold_core_interface::TOP_BAND_TO_CAP);
     e.set("top_band_to_cap", assigned607.clone())?;
-    let assigned608 = binary("mul", Val::Float(4.0f64), e.get("lldpe_tube_od")?)?;
+    let assigned608 = Val::Float(hsm_cold_core_interface::LLDPE_BEND_RADIUS);
     e.set("lldpe_bend_radius", assigned608.clone())?;
     // cap_conduit_wall_neck
     e.set("cap_conduit_wall_neck", {
@@ -2879,23 +2809,15 @@ pub fn initialize(rt: Runtime, e: Env) -> Result<()> {
         d
     };
     e.set("cap_anchors", assigned770.clone())?;
-    let assigned771 = Val::Float(2.5f64);
+    let assigned771 = Val::Float(hsm_cold_core_interface::CAP_ANCHOR_TIE_W);
     e.set("cap_anchor_tie_w", assigned771.clone())?;
-    let assigned772 = binary("mul", Val::Float(2.0f64), e.get("fits")?.attr("slip")?)?;
+    let assigned772 = Val::Float(hsm_cold_core_interface::cap_anchor_cav_buffer(&crate::interface::module_fits(&e.get("_interface_fits")?)?));
     e.set("cap_anchor_cav_buffer", assigned772.clone())?;
-    let assigned773 = binary(
-        "add",
-        e.get("cap_anchor_tie_w")?,
-        e.get("cap_anchor_cav_buffer")?,
-    )?;
+    let assigned773 = Val::Float(hsm_cold_core_interface::cap_anchor_cav_w(&crate::interface::module_fits(&e.get("_interface_fits")?)?));
     e.set("cap_anchor_cav_w", assigned773.clone())?;
-    let assigned774 = Val::Float(3.0f64);
+    let assigned774 = Val::Float(hsm_cold_core_interface::CAP_ANCHOR_CAV_WALL);
     e.set("cap_anchor_cav_wall", assigned774.clone())?;
-    let assigned775 = binary(
-        "add",
-        e.get("cap_anchor_cav_w")?,
-        binary("mul", Val::Float(2.0f64), e.get("cap_anchor_cav_wall")?)?,
-    )?;
+    let assigned775 = Val::Float(hsm_cold_core_interface::cap_anchor_len(&crate::interface::module_fits(&e.get("_interface_fits")?)?));
     e.set("cap_anchor_len", assigned775.clone())?;
     let assigned776 = e.get("cap_cradle_wall")?;
     e.set("cap_anchor_wall", assigned776.clone())?;
@@ -3572,23 +3494,19 @@ Ok(Val::None)})})?;
     e.set("SideAnchor", assigned951.clone())?;
     let assigned955 = e.get("cap_anchor_wall")?;
     e.set("cap_side_wall", assigned955.clone())?;
-    let assigned956 = e.get("cap_anchor_len")?;
+    let assigned956 = Val::Float(hsm_cold_core_interface::cap_side_len(&crate::interface::module_fits(&e.get("_interface_fits")?)?));
     e.set("cap_side_len", assigned956.clone())?;
-    let assigned957 = e.get("cap_anchor_cav_w")?;
+    let assigned957 = Val::Float(hsm_cold_core_interface::cap_side_cav_w(&crate::interface::module_fits(&e.get("_interface_fits")?)?));
     e.set("cap_side_cav_w", assigned957.clone())?;
-    let assigned958 = binary(
-        "truediv",
-        binary("sub", e.get("cap_side_len")?, e.get("cap_side_cav_w")?)?,
-        Val::Float(2.0f64),
-    )?;
+    let assigned958 = Val::Float(hsm_cold_core_interface::cap_side_flank(&crate::interface::module_fits(&e.get("_interface_fits")?)?));
     e.set("cap_side_flank", assigned958.clone())?;
-    let assigned959 = Val::Float(1.0f64);
+    let assigned959 = Val::Float(hsm_cold_core_interface::CAP_SIDE_TIE_T);
     e.set("cap_side_tie_t", assigned959.clone())?;
     let assigned960 = e.get("cap_side_wall")?;
     e.set("cap_side_cav_h", assigned960.clone())?;
-    let assigned961 = Val::Float(1.0f64);
+    let assigned961 = Val::Float(hsm_cold_core_interface::CAP_SIDE_CAV_BACKING_MIN);
     e.set("cap_side_cav_backing_min", assigned961.clone())?;
-    let assigned962 = Val::Float(1.2f64);
+    let assigned962 = Val::Float(hsm_cold_core_interface::CAP_SIDE_BACK_RELIEF);
     e.set("cap_side_back_relief", assigned962.clone())?;
     let assigned963 = e.get("cap_side_wall")?;
     e.set("cap_side_web", assigned963.clone())?;

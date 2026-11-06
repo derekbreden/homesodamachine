@@ -287,18 +287,17 @@ pub fn initialize(rt: Runtime, e: Env) -> Result<()> {
             };
         }
     }
-    let mod57 = rt.import_module("_cold_core_interface")?;
     e.set(
         "foam_shell_outer_height",
-        rt.member("_cold_core_interface", "foam_shell_outer_height")?,
+        Val::Float(hsm_cold_core_interface::FOAM_SHELL_OUTER_HEIGHT),
     )?;
     e.set(
         "outer_shell_x_length",
-        rt.member("_cold_core_interface", "outer_shell_x_length")?,
+        Val::Float(hsm_cold_core_interface::OUTER_SHELL_X_LENGTH),
     )?;
     e.set(
         "outer_shell_y_length",
-        rt.member("_cold_core_interface", "outer_shell_y_length")?,
+        Val::Float(hsm_cold_core_interface::OUTER_SHELL_Y_LENGTH),
     )?;
     let assigned59 = {
         let _site = rt.source_at(

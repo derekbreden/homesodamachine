@@ -1,0 +1,13 @@
+[package]
+name = "hsm-cold-core-interface"
+version = "0.1.0"
+edition.workspace = true
+license.workspace = true
+rust-version.workspace = true
+publish = false
+
+[lib]
+path = "../../../hardware/printed-parts/cold-core/interface/lib.rs"
+
+[dependencies]
+hsm-carbonator-tube-numbers = { path = "../carbonator-tube-numbers" }
