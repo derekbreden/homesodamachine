@@ -1,0 +1,56 @@
+enclosure-pump-retainer.stl · 1848 printed facets · 6 findings · 2 answered
+answers: hardware/printed-parts/lint-answers/enclosure/enclosure/enclosure-pump-retainer.lint-answers · read hardware/printed-parts/lint-answers/AGENTS.md before writing one
+
+  [thin] 0.010 mm of material at its thinnest · 2.4 mm² of surface under 0.1 mm · spans 0.1 × 2.8 × 0.0 mm
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step
+    click: x=-101.338 y=81.914 z=175.195
+    click: x=-101.347 y=81.914 z=175.200
+    answered: The lower barb is the requested pointed production tip: one 4.6 mm-high planar lead-in meets its flat catch at the outer corner. The local thickness approaches zero at that edge while the working spring remains 2 mm.
+    alternatives: A vertical nose land makes the barb less pointed and adds an extra face. Thickening the leaf changes its bending section. The point and broad flat catch are integral with the retainer.
+
+  [thin] 0.010 mm of material at its thinnest · 2.4 mm² of surface under 0.1 mm · spans 0.1 × 2.8 × 0.0 mm
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step
+    click: x=101.338 y=14.601 z=175.195
+    click: x=101.347 y=14.601 z=175.200
+    answered: The lower barb is the requested pointed production tip: one 4.6 mm-high planar lead-in meets its flat catch at the outer corner. The local thickness approaches zero at that edge while the working spring remains 2 mm.
+    alternatives: A vertical nose land makes the barb less pointed and adds an extra face. Thickening the leaf changes its bending section. The point and broad flat catch are integral with the retainer.
+
+  [thin] 0.012 mm of material at its thinnest · 1.9 mm² of surface under 0.1 mm · spans 0.0 × 2.1 × 0.1 mm
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step
+    click: x=-101.343 y=14.602 z=175.207
+    click: x=-101.343 y=14.602 z=175.195
+    answered: The lower barb is the requested pointed production tip: one 4.6 mm-high planar lead-in meets its flat catch at the outer corner. The local thickness approaches zero at that edge while the working spring remains 2 mm.
+    alternatives: A vertical nose land makes the barb less pointed and adds an extra face. Thickening the leaf changes its bending section. The point and broad flat catch are integral with the retainer.
+
+  [thin] 0.012 mm of material at its thinnest · 1.9 mm² of surface under 0.1 mm · spans 0.0 × 2.1 × 0.1 mm
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step
+    click: x=101.343 y=81.913 z=175.207
+    click: x=101.343 y=81.913 z=175.195
+    answered: The lower barb is the requested pointed production tip: one 4.6 mm-high planar lead-in meets its flat catch at the outer corner. The local thickness approaches zero at that edge while the working spring remains 2 mm.
+    alternatives: A vertical nose land makes the barb less pointed and adds an extra face. Thickening the leaf changes its bending section. The point and broad flat catch are integral with the retainer.
+
+  [thin] 1.996 mm of material at its thinnest · 2327.5 mm² of surface under 2.5 mm · spans 2.5 × 66.0 × 19.6 mm · in 6 pieces
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step
+    click: x=98.263 y=15.303 z=193.888
+    click: x=96.267 y=15.303 z=193.874
+    answered: Required 2.0 mm nominal spring wall selected for the production flexure. The reading lies on the hook and posed leaf, with the tangent root and 22.25 mm root-to-catch span. These complete walls have local solid infill in the retained native projects. This is the explicitly thinner flexure, not an ordinary enclosure wall or residual fin. Force, distributed bending and life require the complete paired physical check.
+    alternatives: A thicker leaf repeats the reported corner-only bending problem. Filling the spring corridor prevents inward travel. The connected full-Y sample retains both production wings and their matched receivers, with only the non-snap center shortened.
+
+  [thin] 1.996 mm of material at its thinnest · 2327.5 mm² of surface under 2.5 mm · spans 2.5 × 66.0 × 19.6 mm · in 6 pieces
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step
+    click: x=-98.263 y=81.212 z=193.888
+    click: x=-96.267 y=81.212 z=193.874
+    answered: Required 2.0 mm nominal spring wall selected for the production flexure. The reading lies on the hook and posed leaf, with the tangent root and 22.25 mm root-to-catch span. These complete walls have local solid infill in the retained native projects. This is the explicitly thinner flexure, not an ordinary enclosure wall or residual fin. Force, distributed bending and life require the complete paired physical check.
+    alternatives: A thicker leaf repeats the reported corner-only bending problem. Filling the spring corridor prevents inward travel. The connected full-Y sample retains both production wings and their matched receivers, with only the non-snap center shortened.
+
+  [ceiling · answered] Wrong print-direction classification for the full-Y spring corridor. The retainer prints on its Y-minus end, with source +Y as the build axis. The named Z197.445 surface is vertical in that print frame; it is not a horizontal print-down ceiling. The source corridor is 3.35 mm wide below the tangent 1.5 mm root blend. The native projects in print-tests/pointed-snaps bind the actual 90 degree X pose.
+    alternatives: Filling this corridor joins the spring to its carrier and removes the required inward travel. Returning to a Z-up print changes the layer direction through the flexure. The ceiling classifier uses source Z for this class even when the recorded tilt is used for ledge findings.
+    126 mm² flat print-down face at z=197.445 · 68.0 × 1.8 mm · open to the bed (22.2 mm up)
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=93.825 y=48.257 z=197.445
+    click: x=93.825 y=48.257 z=197.445
+
+  [ceiling · answered] Wrong print-direction classification for the full-Y spring corridor. The retainer prints on its Y-minus end, with source +Y as the build axis. The named Z197.445 surface is vertical in that print frame; it is not a horizontal print-down ceiling. The source corridor is 3.35 mm wide below the tangent 1.5 mm root blend. The native projects in print-tests/pointed-snaps bind the actual 90 degree X pose.
+    alternatives: Filling this corridor joins the spring to its carrier and removes the required inward travel. Returning to a Z-up print changes the layer direction through the flexure. The ceiling classifier uses source Z for this class even when the recorded tilt is used for ledge findings.
+    126 mm² flat print-down face at z=197.445 · 68.0 × 1.8 mm · open to the bed (22.2 mm up)
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=-93.825 y=48.257 z=197.445
+    click: x=-93.825 y=48.257 z=197.445

@@ -22,7 +22,7 @@
     "hardware/printed-parts/enclosure/enclosure/retainer/retainer.rs": "f303b4af303ee03bb0d8c77cbb4588ece8077eb6612415f3f03c8cb959fa4994",
     "hardware/reference/kamoer-kphm400/scan-registration.json": "4a8a89c6caf7dd60af29b71a646b8a6f954ea3e0601c69a0d4e4165b90749114",
     "hardware/reference/kamoer-kphm400/scan-measurements.json": "4389eeb0fd000242ee69efa903d60269a6e8e9497c7235d8d48187d5cf9075a9",
-    "hardware/manifold-layout/enclosure-box.json": "e25ca2be5c46310082f002a72a9a9f20c08bee4af1e634e065de87d848c3ad3b",
+    "hardware/manifold-layout/enclosure-box.json": "b7bfbd9cbd4813ccb1d74c9d56da0847d381dcb8c8162c9e3ab0e1fa2a13144c",
     "tools/hsm/shared-data/catalog/scalars.json": "5b3961976b887db9bfddc1917824d260c48cb95502c914ab2dacbb7f0c881574",
     "hardware/printed-parts/enclosure/enclosure/numbers/pump.rs": "86009021bdcbacc44c3bc5e188c759de380cbde54ed6d28e2f7d5121e90e7bdd",
     "hardware/printed-parts/enclosure/enclosure/numbers/shell.rs": "95ddbe827f215a7f3d8c024ea15258d9cf0f43e1c2bd7468b5505490f7a73b05"
@@ -173,5 +173,32 @@
     }
   ],
   "interpretation": "The printed retainer rear wall intersects the exposed rigid rear head below the skirt. Avoiding that wall by moving the pump fore conflicts with the separately located upper boss. The corrected rear relief keeps the original skirt bearing and pump datum and clears the observed rear head wall.",
-  "printed_retainer_stl_sha256": "d2f999e640039b2d322c418821be80242130b459e56e97a57f9f3c7dd9ce8b6d"
+  "printed_retainer_stl_sha256": "d2f999e640039b2d322c418821be80242130b459e56e97a57f9f3c7dd9ce8b6d",
+  "assembly_frame": {
+    "pump_trays_mm": [
+      [
+        52.225,
+        45.859,
+        224.925
+      ],
+      [
+        -52.225,
+        45.859,
+        224.925
+      ]
+    ],
+    "reference_tray_mm": [
+      52.225,
+      45.859,
+      224.925
+    ],
+    "world_bearing_origin_mm": [
+      52.225,
+      44.859,
+      216.674
+    ],
+    "motor_y_from_head_datum_mm": -1.0,
+    "head_to_skirt_mm": 8.0,
+    "seated_drop_mm": 0.251
+  }
 }

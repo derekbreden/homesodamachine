@@ -1,0 +1,99 @@
+{
+  "views": [
+    {
+      "name": "rear-head-section",
+      "caption": "The aft head wall clears below the retained skirt bearing.",
+      "before": "rear-head-section-before.webp",
+      "after": "rear-head-section-after.webp",
+      "width": 1100,
+      "height": 900,
+      "marks": [
+        {
+          "x": 544.2,
+          "y": 539.6,
+          "r": 18,
+          "label": "Head clearance",
+          "at": [
+            52.225,
+            73.809,
+            202
+          ]
+        },
+        {
+          "x": 556,
+          "y": 320.5,
+          "r": 18,
+          "label": "Skirt bearing",
+          "at": [
+            52.225,
+            74.6,
+            216.674
+          ]
+        }
+      ],
+      "model": "printed-parts/enclosure/enclosure/enclosure-pump-retainer.step",
+      "camera": {
+        "projection": "orthographic",
+        "position": [
+          377.383553240279,
+          35.18097361116652,
+          240.5158553240279
+        ],
+        "target": [
+          52.225,
+          74.2,
+          208
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "half": 30,
+        "near": 242.67211548060348,
+        "far": 599.198827237137,
+        "aspect": 1.2222222222222223,
+        "section": {
+          "at": [
+            52.225,
+            74.2,
+            208
+          ],
+          "normal": [
+            1,
+            0,
+            0
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [
+        "enclosure-pump-retainer"
+      ],
+      "ghost": [],
+      "only": [],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "printed-parts/enclosure/enclosure/enclosure-pump-retainer.step.mesh",
+          "from": "snapshot",
+          "sha256": "1d83411b259f4a71dd097c88ea1431998e1f6c1f118d9e4fa3fcd5635a011251",
+          "commit": "ead018c20d1d1045473d604e2c88f2731121f714",
+          "taken": "2026-11-06T18:50:55.170Z",
+          "published": true
+        },
+        "after": {
+          "payload": "printed-parts/enclosure/enclosure/enclosure-pump-retainer.step.mesh",
+          "from": "tree",
+          "sha256": "c121f5f7bdc688670f0f9b8fd62c146c94c5eb124d292e633d31752fc083031f",
+          "commit": "ee9b276d741ac52f0a4ee49c359f6d32579170c0",
+          "published": true
+        }
+      },
+      "changed": [
+        "enclosure-pump-retainer"
+      ],
+      "withinMeshing": []
+    }
+  ]
+}
