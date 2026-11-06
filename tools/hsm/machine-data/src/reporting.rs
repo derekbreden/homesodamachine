@@ -809,7 +809,7 @@ pub fn facts(request: &Value) -> Result<Value> {
         [0., 0., number(&request["foam_cap_face_z"])?],
     )?[2];
     Ok(
-        json!({"schema":2,"card":request["card_digest"],"step":request["step_digest"],"sources":request["source_digest"],"box":projected,"constants":constants,
+        json!({"schema":2,"card":request["card_digest"],"step":request["step_digest"],"box":projected,"constants":constants,
         "hopper_hole":[center[0]-width/2.,center[0]+width/2.,center[1]-depth/2.,center[1]+depth/2.],"manifold_bodies":manifold,
         "valve_trays":tray[0],"valve_tray_stations":tray[1],"pump_trays":tray[2],"pack":{"placed":placed,"body_anchors":metadata.get("body_anchors").cloned().unwrap_or_else(||json!([])),"tube_anchors":metadata.get("tube_anchors").cloned().unwrap_or_else(||json!([]))},
         "bodies":bounds,"mouths":mouths,"card_ports":port_rows,"run_near":{},"runs":routes[0],"native_runs":routes[1],
