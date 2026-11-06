@@ -1,0 +1,31 @@
+{
+  "purpose": "The installed pump retainer on the live site matches the final native assembly surface.",
+  "payload": "manifold-layout/enclosure-assembly.step.mesh",
+  "url": "https://homesodamachine.com/meshes/manifold-layout/enclosure-assembly.step.mesh",
+  "retainers": [
+    {
+      "name": "enclosure-pump-retainer",
+      "arrays_match": {
+        "pos": true,
+        "nrm": true,
+        "idx": true,
+        "fac": true
+      },
+      "world_bounds_mm": [
+        [
+          -101.0999984741211,
+          14.25,
+          175.19500732421875
+        ],
+        [
+          101.0999984741211,
+          82.26499938964844,
+          224.4239959716797
+        ]
+      ]
+    }
+  ],
+  "observed_utc": "2026-11-06T20:18:55.569473+00:00",
+  "local_payload_sha256": "8e1ea33b5b494ffac0878b7b46d694731a1804edaf110f1f627922ac06225326",
+  "seated_native_sha256": "2605568f371cde2c3bbf8172bb4a7d62c898d53bf2833fb7a7afc0e9e9ce38f5"
+}

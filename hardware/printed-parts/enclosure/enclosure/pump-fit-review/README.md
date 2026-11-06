@@ -18,6 +18,9 @@ The relaxed export is the printable retainer. The seated export supplies the enc
 appliance assemblies. Physical fit of this correction remains to be checked on the finished
 assembly.
 
+The [live assembly reading](live-assembly.json) compares the installed retainer's viewer
+arrays fetched from the site with the native assembly's corrected seated surface.
+
 The [prepared native print](native-print.json) uses branching cavity supports and the saved
 printer recipe. Its emitted paths and bead envelope pass the retained review. It has not
 been submitted to a printer.
