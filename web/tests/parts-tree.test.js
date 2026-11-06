@@ -137,17 +137,15 @@ test("a fabricated customer tool belongs to the delivered install kit", () => {
   assert.deepEqual(tree.unseated, []);
 });
 
-test("standalone shop namespaces are tooling without per-project seating", () => {
+test("the fixtures namespace is tooling without per-project seating", () => {
   const tree = seatParts({
     steps: [
       "printed-parts/fixtures/weld-rotator/weld-rotator-assembly.step",
       "printed-parts/fixtures/future-jig/future-jig.step",
-      "printed-parts/shop-storage/jst-crimping/jst-crimping-tower.step",
-      "printed-parts/shop-storage/future-job/future-job-kit.step",
     ],
   });
   assert.deepEqual(names(tree.tooling),
-    ["future-jig", "weld-rotator-assembly", "future-job-kit", "jst-crimping-tower"]);
+    ["future-jig", "weld-rotator-assembly"]);
   assert.deepEqual(tree.unseated, []);
 });
 
