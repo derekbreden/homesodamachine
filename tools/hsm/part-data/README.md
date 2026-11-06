@@ -9,8 +9,12 @@ analytical measurements and document figures for these printed parts:
 - Valve-seat socket and plinth figures.
 - Funnel, drain-elbow cradle, removable frame, cover and casting mold.
 - Refrigeration fuse clamp, weld rotator, tee/valve bow trial and soda-bend holder reports.
-- Shop-storage catalog envelopes, holder layouts, fitting rules, stock manifest and recipes.
 - Dimension and port providers used from `hardware/reference` by the normal build.
+
+The shop-storage providers left in `reference_catalog.rs`, their value types in
+`storage.rs` and their `$env`, `$holder` and `$namespace` codecs in
+`hardware/reference/_reference_data.py` serve no part. The next change to this crate takes
+them out; edited alone, the crate reruns every build rule that reads it.
 
 The existing geometry programs consume these recipes. Python compatibility modules
 expose their established names and functions through
