@@ -35,7 +35,60 @@ fn main() -> Result<()> {
     let field = field::field(&b.outer);
     let top = backtop::construction(&b);
     write(&out, &top.graph, top.result, top.receiver_field, &silhouette, &field, &top.rails, &top.print,
-          catalog::wall_color())
+          catalog::wall_color())?;
+    print_features(&out, &b)
+}
+
+/// Support exclusions belong to the constructed features, in the source frame.
+fn print_features(dir: &Path, b: &spec::Box) -> Result<()> {
+    use serde_json::json;
+    use hsm_enclosure_solid::pieces::digest;
+    let mut regions = vec![];
+    for (name, bounds, span) in supports::bridge_regions() {
+        regions.push(json!({"name": name, "bounds_source_mm": bounds, "bridge_span_mm": span,
+            "bridge_axis_source": [0, 1, 0],
+            "reason": "Inaccessible receiver interior; flat catches bridge between their full end shoulders."}));
+    }
+    let wall = &layout::layout().rear_wall;
+    let roof_angle = shell::shell().teardrop_roof_angle.to_radians();
+    for port in &wall.wet_ports {
+        let r = port.bore_diameter_mm / 2.0;
+        regions.push(json!({"name": format!("Covered bulkhead at X{} Z{}", port.center_x_mm, port.center_z_mm),
+            "bounds_source_mm": [port.center_x_mm-r, port.center_x_mm+r, rear::WET_PORT_Y[0], rear::WET_PORT_Y[1],
+                                 port.center_z_mm-r/roof_angle.cos(), port.center_z_mm+r],
+            "reason": "Teardrop roof in the roof-down print; circular bulkhead clearance is retained."}));
+    }
+    for (name, pose) in [("Inlet valve", &layout::layout().parts.valve_v_a),
+                         ("Soda valve", &layout::layout().parts.vk_solenoid)] {
+        for sx in [-1.0, 1.0] {
+            for sy in [-1.0, 1.0] {
+                let r = valves::seat::SOCKET_RADIUS;
+                let centre = [sx*valves::valve::CORNER_INSET_X, sy*valves::valve::CORNER_INSET_Y];
+                let mut lo = [f64::INFINITY; 3];
+                let mut hi = [f64::NEG_INFINITY; 3];
+                for x in [centre[0]-r, centre[0]+r] {
+                    for y in [centre[1]-r/roof_angle.cos(), centre[1]+r/roof_angle.cos()] {
+                        for z in [valves::seat::SOCKET_FLOOR_Z, valves::seat::SEAT_TOP_Z+1.0] {
+                            let p = pose.point([x,y,z]);
+                            for k in 0..3 { lo[k] = lo[k].min(p[k]); hi[k] = hi[k].max(p[k]); }
+                        }
+                    }
+                }
+                regions.push(json!({"name": format!("{name} post socket {sx}/{sy}"),
+                    "bounds_source_mm": [lo[0],hi[0],lo[1],hi[1],lo[2],hi[2]],
+                    "reason": "Open build-axis socket or horizontal teardrop socket; keep supports out of the post fit."}));
+            }
+        }
+    }
+    for station in &b.pack.vent_chase {
+        if station[2]+shell::VENT_CHANNEL_W/2.0 <= b.splits[1] { continue; }
+        regions.push(json!({"name": "PRV vent mouth",
+            "bounds_source_mm": hsm_enclosure_quadrants::vent::mouth_support_bounds(&b.inner, *station),
+            "reason": "The mouth cap and floor chamfer away from their wall root in the roof-down print."}));
+    }
+    let record = json!({"source_stl_sha256": digest(&std::fs::read(dir.join("enclosure-back-top.stl"))?),
+        "producer": "enclosure-back-top", "boundary_overlap_mm": catalog::running(), "support_free_regions": regions});
+    keep(&dir.join("enclosure-back-top.print-features.json"), &serde_json::to_vec_pretty(&record)?)
 }
 
 /// The back half over the seam with its flanks, rail feet, rear wall and ceiling; the shared

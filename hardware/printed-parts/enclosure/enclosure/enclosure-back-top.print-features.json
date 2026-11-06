@@ -1,0 +1,223 @@
+{
+  "boundary_overlap_mm": 0.25,
+  "producer": "enclosure-back-top",
+  "source_stl_sha256": "815df586b5e9f8edaa64b3c7ba5248171fd759ed2d3141157eaa4fd97a0f40fb",
+  "support_free_regions": [
+    {
+      "bounds_source_mm": [
+        3.401860222036486,
+        54.19813977796352,
+        396.2032545933731,
+        438.3679848073112,
+        320.95,
+        348.8
+      ],
+      "bridge_axis_source": [
+        0,
+        1,
+        0
+      ],
+      "bridge_span_mm": 42.16473021393807,
+      "name": "ASSE receiver",
+      "reason": "Inaccessible receiver interior; flat catches bridge between their full end shoulders."
+    },
+    {
+      "bounds_source_mm": [
+        61.84438431246909,
+        91.15561568753091,
+        420.09571720240064,
+        462.3,
+        320.95,
+        348.8
+      ],
+      "bridge_axis_source": [
+        0,
+        1,
+        0
+      ],
+      "bridge_span_mm": 42.204282797599376,
+      "name": "Pisco receiver",
+      "reason": "Inaccessible receiver interior; flat catches bridge between their full end shoulders."
+    },
+    {
+      "bounds_source_mm": [
+        19.372358982281966,
+        38.67935898228196,
+        458.0,
+        472.3,
+        318.93233266023236,
+        340.5182148810266
+      ],
+      "name": "Covered bulkhead at X29.025858982281964 Z330.8647148810266",
+      "reason": "Teardrop roof in the roof-down print; circular bulkhead clearance is retained."
+    },
+    {
+      "bounds_source_mm": [
+        69.5715,
+        83.4285,
+        458.0,
+        472.3,
+        322.6359030178927,
+        338.1285
+      ],
+      "name": "Covered bulkhead at X76.5 Z331.2",
+      "reason": "Teardrop roof in the roof-down print; circular bulkhead clearance is retained."
+    },
+    {
+      "bounds_source_mm": [
+        68.85,
+        84.15,
+        458.0,
+        472.3,
+        254.5440799721266,
+        271.65
+      ],
+      "name": "Covered bulkhead at X76.5 Z264",
+      "reason": "Teardrop roof in the roof-down print; circular bulkhead clearance is retained."
+    },
+    {
+      "bounds_source_mm": [
+        67.78,
+        85.22,
+        458.0,
+        472.3,
+        283.4214872362018,
+        302.92
+      ],
+      "name": "Covered bulkhead at X76.5 Z294.2",
+      "reason": "Teardrop roof in the roof-down print; circular bulkhead clearance is retained."
+    },
+    {
+      "bounds_source_mm": [
+        21.149998871231602,
+        36.4499988712316,
+        458.0,
+        472.3,
+        284.7440799721266,
+        301.84999999999997
+      ],
+      "name": "Covered bulkhead at X28.7999988712316 Z294.2",
+      "reason": "Teardrop roof in the roof-down print; circular bulkhead clearance is retained."
+    },
+    {
+      "bounds_source_mm": [
+        21.149998871231602,
+        36.4499988712316,
+        458.0,
+        472.3,
+        254.5440799721266,
+        271.65
+      ],
+      "name": "Covered bulkhead at X28.7999988712316 Z264",
+      "reason": "Teardrop roof in the roof-down print; circular bulkhead clearance is retained."
+    },
+    {
+      "bounds_source_mm": [
+        -72.39304631511553,
+        -65.45571068553501,
+        326.41358967835646,
+        334.9722973411118,
+        336.82045921114616,
+        344.02086273593386
+      ],
+      "name": "Inlet valve post socket -1/-1",
+      "reason": "Open build-axis socket or horizontal teardrop socket; keep supports out of the post fit."
+    },
+    {
+      "bounds_source_mm": [
+        -72.50079734000667,
+        -65.56346171042615,
+        351.26335606994644,
+        359.82206373270185,
+        336.8204529430124,
+        344.0208564678001
+      ],
+      "name": "Inlet valve post socket -1/1",
+      "reason": "Open build-axis socket or horizontal teardrop socket; keep supports out of the post fit."
+    },
+    {
+      "bounds_source_mm": [
+        -96.79281689575417,
+        -89.85548126617365,
+        326.3077898790891,
+        334.8664975418445,
+        336.8190398183822,
+        344.0194433431699
+      ],
+      "name": "Inlet valve post socket 1/-1",
+      "reason": "Open build-axis socket or horizontal teardrop socket; keep supports out of the post fit."
+    },
+    {
+      "bounds_source_mm": [
+        -96.90056792064532,
+        -89.9632322910648,
+        351.15755627067915,
+        359.7162639334345,
+        336.81903355024843,
+        344.01943707503614
+      ],
+      "name": "Inlet valve post socket 1/1",
+      "reason": "Open build-axis socket or horizontal teardrop socket; keep supports out of the post fit."
+    },
+    {
+      "bounds_source_mm": [
+        62.10799977207788,
+        69.00799977207788,
+        295.81499514598534,
+        303.0149951459853,
+        306.8433328886993,
+        315.37220193344785
+      ],
+      "name": "Soda valve post socket -1/-1",
+      "reason": "Open build-axis socket or horizontal teardrop socket; keep supports out of the post fit."
+    },
+    {
+      "bounds_source_mm": [
+        62.10799977207788,
+        69.00799977207788,
+        295.81499514598534,
+        303.0149951459853,
+        281.99333288869934,
+        290.5222019334479
+      ],
+      "name": "Soda valve post socket -1/1",
+      "reason": "Open build-axis socket or horizontal teardrop socket; keep supports out of the post fit."
+    },
+    {
+      "bounds_source_mm": [
+        86.50799977207788,
+        93.40799977207789,
+        295.81499514598534,
+        303.0149951459853,
+        306.8433328886993,
+        315.37220193344785
+      ],
+      "name": "Soda valve post socket 1/-1",
+      "reason": "Open build-axis socket or horizontal teardrop socket; keep supports out of the post fit."
+    },
+    {
+      "bounds_source_mm": [
+        86.50799977207788,
+        93.40799977207789,
+        295.81499514598534,
+        303.0149951459853,
+        281.99333288869934,
+        290.5222019334479
+      ],
+      "name": "Soda valve post socket 1/1",
+      "reason": "Open build-axis socket or horizontal teardrop socket; keep supports out of the post fit."
+    },
+    {
+      "bounds_source_mm": [
+        -98.5,
+        -90.75000000018628,
+        314.79999999962746,
+        332.79999999962746,
+        182.6,
+        222.09999999962744
+      ],
+      "name": "PRV vent mouth",
+      "reason": "The mouth cap and floor chamfer away from their wall root in the roof-down print."
+    }
+  ]
+}

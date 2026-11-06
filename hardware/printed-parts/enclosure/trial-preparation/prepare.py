@@ -147,6 +147,21 @@ def derive(mesh: Mesh, declared: list[dict]) -> list[dict]:
             if ceiling is None:
                 raise _derive.FeatureMissing(f"{feature['name']}: declare its ceiling first")
             found.append(_derive.edge_fins(mesh.geometry, feature, ceiling))
+        elif kind == "native_support_free":
+            path = ROOT / feature["record"]
+            native = json.loads(path.read_text())
+            if native["source_stl_sha256"] != mesh.sha256:
+                raise ValueError(f"{relative(path)} describes a different STL; rebuild {native['producer']}")
+            centres = mesh.print_to_local(mesh.geometry.c) + mesh.center
+            overlap = native["boundary_overlap_mm"]
+            for region in native["support_free_regions"]:
+                bounds = np.asarray(region["bounds_source_mm"], float).reshape(3, 2)
+                low, high = bounds[:, 0] - overlap, bounds[:, 1] + overlap
+                inside = np.all((centres >= low) & (centres <= high), axis=1)
+                faces = np.flatnonzero(inside & (mesh.geometry.n[:, 2] < 0.0))
+                found.append({**region, "kind": "support_free", "record": relative(path),
+                              "record_sha256": _mesh.sha256(path), "paint_faces": faces,
+                              "painted_faces": len(faces), "blocker_source_mm": [low.tolist(), high.tolist()]})
         else:
             raise ValueError(f"unknown feature kind {kind}")
     return found
@@ -364,7 +379,8 @@ def prepare(name: str, printer: str | None = None, parts: list[dict] | None = No
                   "plate_bounds_mm": [low.tolist(), high.tolist()], "model_bed_margin_mm": margin,
                   "seam_enforcer": mesh.seam_record,
                   "object_settings": part.get("object_settings", {}), "features": [], "ranges": [],
-                  "verify_spans": [], "ribbons": [], "tie_windows": [], "modifiers": [], "fins": []}
+                  "verify_spans": [], "ribbons": [], "tie_windows": [], "modifiers": [], "fins": [],
+                  "support_free_regions": []}
         ribbon_source_boxes = []
         for f in inst["features"]:
             entry = {k: v for k, v in f.items() if k not in ("paint_faces", "paint_codes", "region", "ribbons", "windows", "fins")}
@@ -385,6 +401,16 @@ def prepare(name: str, printer: str | None = None, parts: list[dict] | None = No
                     ribbon_source_boxes.append((local.min(axis=0) + mesh.center, local.max(axis=0) + mesh.center))
                     placed = to_plate(corners)
                     record["ribbons"].append({**ribbon, "box_plate_mm": [placed.min(axis=0).tolist(), placed.max(axis=0).tolist()]})
+            if f["kind"] == "support_free":
+                low_b, high_b = np.array(f["blocker_source_mm"])
+                vertices, faces = _mesh.box_mesh(low_b - mesh.center, high_b - mesh.center)
+                plate.add_part(obj, f"{f['name']} support exclusion", vertices, faces, subtype="support_blocker")
+                corners = np.array([[x, y, z] for x in (low_b[0], high_b[0])
+                                    for y in (low_b[1], high_b[1]) for z in (low_b[2], high_b[2])])
+                placed = (corners - mesh.center) @ (r_yaw @ mesh.rotation).T + translation
+                record["support_free_regions"].append({"name": f["name"],
+                    "box_plate_mm": [placed.min(axis=0).tolist(), placed.max(axis=0).tolist()],
+                    "reason": f["reason"]})
             if f["kind"] == "tie_windows":
                 for window in f["windows"]:
                     low_b, high_b = window["box_print_mm"]

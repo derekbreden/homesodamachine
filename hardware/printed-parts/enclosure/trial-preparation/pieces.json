@@ -191,7 +191,7 @@
         },
         "tree_support_branch_diameter_angle": {
           "value": "0.5",
-          "reason": "Bed-rooted trunks with the profile's 5-degree growth leave less than the 20 mm unseasoned-plate border around back-top's footprint; 0.5 degrees keeps the complete model/support/brim footprint inside it (2026-10-09 preparation, git d5f17da3bd). The groove ribbons below carry the caught faces that the 2026-10-10 article's trapped stems reached. Back-top only."
+          "reason": "Controls growth of the branching trunks to retain the required bed border around the rear enclosure."
         },
         "tree_support_branch_diameter": {
           "value": "3",
@@ -200,6 +200,10 @@
         "elefant_foot_compensation": {
           "value": "0",
           "reason": "The roof-down additive chamfer retains its uncompensated bed perimeter. X/Y locating fits begin above this roof band. enclosure/accepted-fit-integration/prepare_prints.py."
+        },
+        "support_style": {
+          "value": "tree_slim",
+          "reason": "Cavity supports must be branching trees that can be removed through their access openings."
         }
       },
       "parts": [
@@ -232,39 +236,10 @@
               "reason": "Back-top's roof side edges print on the bed as the additive 0.24 mm treatment. print-readiness.md; printed-parts/AGENTS.md."
             },
             {
-              "name": "Z-seam sliding-groove ribbons",
-              "kind": "groove_ribbons",
-              "select": {
-                "top_mm": 20,
-                "exterior_x_mm": 16
-              },
-              "min_length_mm": 40,
-              "width_mm": [
-                3.5,
-                8.0
-              ],
-              "max_depth_mm": 12,
-              "side_clearance_mm": 0.4,
-              "expect": {
-                "count": [
-                  2,
-                  4
-                ],
-                "total_length_mm": [
-                  300,
-                  560
-                ]
-              },
-              "ribbon_settings": {
-                "extruder": "1",
-                "wall_loops": "2",
-                "sparse_infill_density": "0%",
-                "top_shell_layers": "2",
-                "bottom_shell_layers": "2",
-                "top_shell_thickness": "0",
-                "bottom_shell_thickness": "0"
-              },
-              "reason": "Each caught face prints down from back-top's ceiling over its open sliding groove. A removable two-wall ribbon stands on the groove floor one empty layer up and stops two empty layers under the caught face; automatic support is blocked on the caught faces and the ribbons, and the solid-host modifiers stop at the ribbons. The 2026-10-10 article's long groove stems were trapped in the walls; the other quadrants' groove supports released easily. enclosure/enclosure/README.md Support-removal strategy; drain-readiness/prints/2026-10-10-current-back-top-bridge50-mark1/physical-result.json."
+              "name": "Rear inaccessible features",
+              "kind": "native_support_free",
+              "record": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
+              "reason": "Receiver bridges, covered bulkhead roofs, valve sockets and vent lip must not grow trapped supports."
             }
           ]
         }
