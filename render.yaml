@@ -85,6 +85,9 @@ services:
         # minutes after the tree it describes. `web/lib/artifacts-live.js` carries it onto the
         # running container on the same look that adopts the artifact pointer file.
         - web/public/checks.json
+        # The build times are the same kind of reading: `tools/build_times.py` commits a row per
+        # full build, and `artifacts-live.js` carries the file the same way.
+        - web/public/build-times.json
         # AND THE SUITE IS NOT SHIPPED. `buildCommand` runs `npm ci --omit=dev`, so the
         # dependencies these need are not installed and no step of a deploy runs them — a
         # container cannot behave differently for a test that changed, because it never had

@@ -61,6 +61,12 @@ const CHECKS = path.join(WEB, "public", "checks.json");
 const CHECKS_URL =
   "https://api.github.com/repos/derekbreden/homesodamachine/contents/web/public/checks.json?ref=main";
 
+// The build times, `tools/build_times.py`'s rows, ride the same look. They come off the raw
+// file, which the contents API's unauthenticated ceiling below does not count.
+const BUILD_TIMES = path.join(WEB, "public", "build-times.json");
+const BUILD_TIMES_URL =
+  "https://raw.githubusercontent.com/derekbreden/homesodamachine/main/web/public/build-times.json";
+
 // Two minutes is 30 calls an hour against an unauthenticated ceiling of 60, which leaves room
 // for the posts and for anything else on this address asking GitHub the same way.
 const POLL_MS = 120_000;
@@ -168,6 +174,23 @@ async function carryChecks() {
   if (here === text) return { moved: false };
   await writeFile(CHECKS, text);
   return { moved: true, green: verdict.green === true, checks: verdict.checks.length };
+}
+
+// The build times on main onto this disk: parsed before written, failing on their own.
+async function carryBuildTimes() {
+  const res = await fetch(BUILD_TIMES_URL, { headers: { "user-agent": "homesodamachine-site" } });
+  if (res.status === 404) return { moved: false };
+  if (!res.ok) throw new Error(`GitHub says ${res.status} ${res.statusText}`);
+  const text = await res.text();
+  const document = JSON.parse(text);
+  if (!Array.isArray(document.builds)) throw new Error("no builds in it");
+  let here = null;
+  try {
+    here = await readFile(BUILD_TIMES, "utf-8");
+  } catch { /* a container whose clone predates the file */ }
+  if (here === text) return { moved: false };
+  await writeFile(BUILD_TIMES, text);
+  return { moved: true, builds: document.builds.length };
 }
 
 // The pointer file's own shape, before it is written anywhere. A truncated or half-published pointer file that
@@ -348,13 +371,18 @@ export function refreshArtifacts(ctx, { force = false } = {}) {
     return pending;
   }
   lastLook = now;
-  running = Promise.allSettled([adopt(ctx), carryChecks()])
-    .then(([geometry, checks]) => {
+  running = Promise.allSettled([adopt(ctx), carryChecks(), carryBuildTimes()])
+    .then(([geometry, checks, builds]) => {
       if (checks.status === "fulfilled" && checks.value.moved) {
         console.log(`[artifacts-live] carried the verdict — `
           + `${checks.value.green ? "green" : "RED"}, ${checks.value.checks} check(s)`);
       } else if (checks.status === "rejected") {
         console.error(`[artifacts-live] ${checks.reason.message} — the band is the one already here`);
+      }
+      if (builds.status === "fulfilled" && builds.value.moved) {
+        console.log(`[artifacts-live] carried the build times — ${builds.value.builds} build(s)`);
+      } else if (builds.status === "rejected") {
+        console.error(`[artifacts-live] ${builds.reason.message} — the build times are the ones already here`);
       }
       if (geometry.status === "rejected") throw geometry.reason;
       const r = geometry.value;
