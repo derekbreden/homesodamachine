@@ -8,6 +8,8 @@ Design intent and material rationale live in [`/hardware/README.md`](/hardware/R
 
 In: commodity 316L SS tube (OnlineMetals #12498) + laser-cut 316L SS end plates (SendCutSend [`endcap-circular-2hole.dxf`](/hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole.dxf)) + the small parts listed under "Inputs" below.
 
+The end-plate DXF is built when an order needs it, outside the normal build: `python3 tools/run.py -- bazel build //:endcap-circular-dxf`, then `tools/cad-venv/bin/python tools/bazel/sync_tree.py --write --targets //:endcap-circular-dxf` carries it into the tree.
+
 Out: one tapped, welded, hydro-tested and passivated carbonator with its captive float, four port elbows, qualified water-inlet jet and upper-rim earth-clamp interface — ready for evaporator coil wrap. The two end plates are the identical purchased SendCutSend blanks, each with two 7/16-inch tap-pilot holes.
 
 The refill pump is the G Ganen B07F35PTFR diaphragm pump, powered by the existing Mean Well supply. Its flow through the jet against carbonator pressure is a bench reading still to be made. The conditional higher-pressure arrangement and its decision criteria live in [`future/carbonation-plan-b.md`](/future/carbonation-plan-b.md).
