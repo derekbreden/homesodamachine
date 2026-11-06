@@ -43,7 +43,6 @@ from pathlib import Path
 _here = Path(__file__).resolve()
 _hw = next(p for p in _here.parents if p.name == "hardware")
 for _p in (_hw / "scripts",
-           _hw / "printed-parts" / "enclosure" / "y-wall-of-back-top",
            _hw / "printed-parts" / "enclosure" / "bulkhead-ring"):
     sys.path.insert(0, str(_p))
 sys.path.insert(0, str(next(p for p in _here.parents
@@ -55,8 +54,7 @@ if __name__ == "__main__":
 import cadquery as cq
 
 from _cadq_export import export_assembly, import_step  # noqa: E402
-from _materials import step_safe  # noqa: E402
-import _y_wall_dimensions as _rear  # noqa: E402
+from _materials import chip_color, step_safe, word_color  # noqa: E402
 import bulkhead_ring as _ring  # noqa: E402
 
 # THE BEVERAGE, TAP AND CO2 TUBE SIZE. Those lines are 1/4" OD LLDPE, off the
@@ -73,8 +71,8 @@ def _collar_data(fn="datums", **values):
     if fn == "numbers":
         from _materials import linear
         values["palette"] = {fluid: {
-            "color": _rear.chip_color(fluid),
-            "word_color": _rear.word_color(fluid),
+            "color": chip_color(fluid),
+            "word_color": word_color(fluid),
         } for fluid in set(_ring.FLUIDS.values())}
     return _data_request("faucet-data", "faucet-data", {"op": "collar", "fn": fn, "ring": ring, **values})
 
@@ -252,13 +250,13 @@ def _filament(rgb) -> "cq.Color":
 
 def build_part(which: str) -> cq.Assembly:
     """One station as it prints: the collar, and the word lying in its recess, each in the filament
-    it comes off — `_y_wall_dimensions`' table, the one the chip on the wall reads."""
+    it comes off — shared-data's `color.chips`, the table the chip on the wall reads."""
     fluid = STATIONS[which].fluid
     a = cq.Assembly()
     a.add(build_collar(which), name=f"tube-collar-{which}",
-          color=_filament(_rear.chip_color(fluid)))
+          color=_filament(chip_color(fluid)))
     a.add(build_word(which), name=f"tube-collar-{which}-word",
-          color=_filament(_rear.word_color(fluid)))
+          color=_filament(word_color(fluid)))
     return a
 
 

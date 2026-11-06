@@ -173,29 +173,20 @@ pub fn initialize(rt: Runtime, e: Env) -> Result<()> {
     };
     let mod51 = rt.import_module("_enclosure_data")?;
     e.set("_read", rt.member("_enclosure_data", "read")?)?;
+    // The port colours are the machine's, not the wall's: shared-data holds them for the chips,
+    // the collars, the routes and the palette alike.
+    let mod52 = rt.import_module("_shared_data")?;
+    e.set("_shared", rt.member("_shared_data", "call")?)?;
     let assigned52 = {
         let _site = rt.source_at(
             "tools/hsm/enclosure-data/src/compiled/_y_wall_dimensions.rs",
             line!(),
         );
         {
-            let fun55 = e.get("_read")?;
+            let fun55 = e.get("_shared")?;
             let mut args53 = Vec::new();
-            let mut kw54 = Vec::new();
-            args53.push(Val::Str("rear".into()));
-            kw54.push(("black_srgb".into(), {
-                let _site = rt.source_at(
-                    "tools/hsm/enclosure-data/src/compiled/_y_wall_dimensions.rs",
-                    line!(),
-                );
-                {
-                    let fun58 = e.get("stock_srgb")?;
-                    let mut args56 = Vec::new();
-                    let mut kw57 = Vec::new();
-                    args56.push(Val::Str("M_PETGF_BLACK".into()));
-                    fun58.call(args56, kw57)?
-                }
-            }));
+            let kw54 = Vec::new();
+            args53.push(Val::Str("color.chips".into()));
             fun55.call(args53, kw54)?
         }
     };

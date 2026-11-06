@@ -14,8 +14,8 @@ tube collars, and both take each station's word, its filament key and the letter
 | `flavor-b` | FLAVOR | `flavor` |
 | `drain` | DRAIN | `drain` |
 
-What each key's chip and word print in is `chip_filaments` and `chip_word_colors` in
-[`../y-wall-of-back-top/_y_wall_dimensions.py`](../y-wall-of-back-top/_y_wall_dimensions.py).
+What each key's chip and word print in is shared-data's `color.chips`, in
+[`tools/hsm/shared-data/src/color.rs`](/tools/hsm/shared-data/src/color.rs).
 
 ## The lettering
 

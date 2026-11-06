@@ -38,14 +38,8 @@ Coordinates are the assembly's world frame. Authorship:
 """
 
 from dataclasses import dataclass, field, asdict
-from pathlib import Path
-import sys
 from _shared_data import call, box_record
 
-_yw = Path(__file__).resolve().parents[1] / 'printed-parts/enclosure/y-wall-of-back-top'
-if str(_yw) not in sys.path:
-    sys.path.insert(0, str(_yw))
-import _y_wall_dimensions as _rear
 
 BLOCKED = {}
 _frames = {}
@@ -66,7 +60,9 @@ def _call(op, **values):
     BLOCKED.update(result['blocked'])
     return result['value']
 
-_DEFINITIONS = _call('definitions', palette=_rear.port_colors)
+_CHIPS = call('color.chips')
+_DEFINITIONS = _call('definitions', palette={name: tuple(_CHIPS['port_colors'][name])
+                                             for name in _CHIPS['port_order']})
 FACE_NORMAL = {k:tuple(v) for k,v in _DEFINITIONS['face_normal'].items()}
 AXES = ('x','y','z')
 BEND_RATIO = _DEFINITIONS['constants']['bend_ratio']
