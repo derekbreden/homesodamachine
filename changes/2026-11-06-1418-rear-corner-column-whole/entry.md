@@ -1,6 +1,6 @@
 ---
 title: The rear corner column stays whole
-lede: The live, neutral and earth connectors no longer reach into back-top's rear corner column, so the column prints without the pockets cut for them.
+lede: The live and earth connectors no longer reach into back-top's rear corner column, so the column prints whole.
 date: 2026-11-06T14:19:56-06:00
 commit: d8012a94e
 model: manifold-layout/enclosure-assembly.step
