@@ -197,3 +197,6 @@ hardware/reference/xlaserlab-sup29f-xh/reference-models.zip
 /result.json
 # Sessions' scratch space at the repository root.
 /tmp/
+
+# The build derives this from the workspace manifest and lock file (tools/bazel/cargo_config.py).
+tools/hsm/cargo-config.json

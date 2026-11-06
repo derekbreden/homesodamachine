@@ -76,12 +76,21 @@ pub fn render(name: &str, declaration: &Value, made: &[String], copy_files: &[St
     anyhow::ensure!(outs.len() == made.len(), "{name} declares {} outputs and makes {}", outs.len(), made.len());
     let built = format!("out/{name}-program/{}", program.name);
     let mut text = String::new();
+    // A source another rule makes, such as the workspace's cargo-config.json, by that rule's
+    // label, as the step's own srcs name it.
+    let srcs: Vec<&str> = declaration["srcs"].as_array().context("a step's srcs")?.iter().filter_map(Value::as_str).collect();
+    let path_of = |label: &str| -> Option<String> {
+        label.strip_prefix(":out/").and_then(|rest| rest.split_once('/')).map(|(_, path)| path.to_owned())
+    };
+    let label_of = |source: &str| -> String {
+        srcs.iter().find(|s| path_of(s).as_deref() == Some(source)).map(|s| (*s).to_owned()).unwrap_or_else(|| source.to_owned())
+    };
 
     // The program: compiled where the checkout's other programs are, so a recipe edit
     // recompiles only the crates it reaches.
     text += &format!("genrule(\n    name = \"{name}-program\",\n    srcs = [\n");
     for source in &program.sources {
-        text += &format!("        \"{source}\",\n");
+        text += &format!("        \"{}\",\n", label_of(source));
     }
     text += &format!("    ],\n    outs = [\"{built}\"],\n    tags = [\"no-sandbox\"],\n    cmd = \"\"\"\nset -e\n");
     for line in copy_files.iter().map(String::as_str).chain(RUNNER).chain(CARGO) {
@@ -97,12 +106,11 @@ pub fn render(name: &str, declaration: &Value, made: &[String], copy_files: &[St
     text += &format!("copy_file target/release/{} \"$$O0\"\n\"\"\",\n)\n\n", program.name);
 
     // The step: the program, run where only what it declared stands at its repository path.
-    let sources: BTreeSet<&str> = declaration["srcs"]
-        .as_array()
-        .context("a step's srcs")?
+    let sources: BTreeSet<&str> = srcs
         .iter()
-        .filter_map(Value::as_str)
+        .copied()
         .filter(|source| !program.sources.contains(*source))
+        .filter(|source| path_of(source).is_none_or(|path| !program.sources.contains(&path)))
         .collect();
     text += &format!("genrule(\n    name = \"{name}\",\n    srcs = [\n        \":{built}\",\n");
     for source in &sources {
