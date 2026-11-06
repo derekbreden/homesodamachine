@@ -204,6 +204,14 @@
         "support_style": {
           "value": "tree_slim",
           "reason": "Cavity supports must be branching trees that can be removed through their access openings."
+        },
+        "support_on_build_plate_only": {
+          "value": "1",
+          "reason": "Keep meter-support roots off the inaccessible Pisco receiver and route trees from outside the shell."
+        },
+        "tree_support_brim_width": {
+          "value": "3",
+          "reason": "Provide root adhesion without extending the support envelope into the unseasoned bed border."
         }
       },
       "parts": [

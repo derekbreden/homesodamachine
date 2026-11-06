@@ -1,0 +1,20 @@
+{
+  "scope": "Rejected digital preparation; never submitted to a printer.",
+  "stl_sha256": "815df586b5e9f8edaa64b3c7ba5248171fd759ed2d3141157eaa4fd97a0f40fb",
+  "archive_sha256": "58e3de453682f06dedc3ca04b927c6104674ef15c7a8776f6af530a368992748",
+  "checks": {
+    "archive": true,
+    "z_trim": true,
+    "bed_border": false,
+    "fine_and_transition_bands": true,
+    "show_faces_support_free": true,
+    "tie_windows_support_free": true,
+    "ribbons_support_free_and_printed": true,
+    "solid_hosts_sampled": true,
+    "declared_interiors_support_free": false
+  },
+  "minimum_bed_margin_mm": 8.188735000000008,
+  "excluded_support_crossing_count": 33199,
+  "finding": "Meter tree roots in the Pisco wing space despite support-free receiver contacts.",
+  "tree_support_style": "tree_slim"
+}

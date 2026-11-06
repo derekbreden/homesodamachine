@@ -1,7 +1,7 @@
 {
   "boundary_overlap_mm": 0.25,
   "producer": "enclosure-back-top",
-  "source_stl_sha256": "815df586b5e9f8edaa64b3c7ba5248171fd759ed2d3141157eaa4fd97a0f40fb",
+  "source_stl_sha256": "aa82e1c62f7cec29473e3372d6d6357a673e1a46f1e9efe543b0c2e0f110a85b",
   "support_free_regions": [
     {
       "bounds_source_mm": [
@@ -217,7 +217,7 @@
         222.09999999962744
       ],
       "name": "PRV vent mouth",
-      "reason": "The mouth cap and floor chamfer away from their wall root in the roof-down print."
+      "reason": "The cap rises from its wall root in the roof-down print; the short mouth lip bridges between its side walls."
     }
   ]
 }

@@ -84,7 +84,7 @@ fn print_features(dir: &Path, b: &spec::Box) -> Result<()> {
         if station[2]+shell::VENT_CHANNEL_W/2.0 <= b.splits[1] { continue; }
         regions.push(json!({"name": "PRV vent mouth",
             "bounds_source_mm": hsm_enclosure_quadrants::vent::mouth_support_bounds(&b.inner, *station),
-            "reason": "The mouth cap and floor chamfer away from their wall root in the roof-down print."}));
+            "reason": "The cap rises from its wall root in the roof-down print; the short mouth lip bridges between its side walls."}));
     }
     let record = json!({"source_stl_sha256": digest(&std::fs::read(dir.join("enclosure-back-top.stl"))?),
         "producer": "enclosure-back-top", "boundary_overlap_mm": catalog::running(), "support_free_regions": regions});
@@ -139,7 +139,7 @@ fn write(dir: &Path, g: &Graph, result: Shape, receiver_field: Shape, silhouette
          rails: &[Rail], print: &BackTopPrint, color: Color) -> Result<()> {
     let name = "enclosure-back-top";
     let [solid, receiver] = solids(g, [result, receiver_field], Some(silhouette))?;
-    let (_, model) = shown(dir, name, &solid, color)?;
+    let (step, _) = shown(dir, name, &solid, color)?;
     let o = silhouette.structure.outer;
     let b = receiver.bounds();
     let land = [b.min.x, b.max.x, b.min.y, o[3] + 1., b.min.z, b.max.z];
@@ -163,5 +163,5 @@ fn write(dir: &Path, g: &Graph, result: Shape, receiver_field: Shape, silhouette
     }
     let stl = ops::print_stl_bytes(&ops::quantized(&joined)?);
     keep(&dir.join(format!("{name}.stl")), &stl)?;
-    payload(dir, name, color, &stl, &model, None)
+    payload(dir, name, color, &stl, &step, None)
 }
