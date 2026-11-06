@@ -83,7 +83,7 @@ for fixed-width brim types.
 | --- | --- | --- | --- | --- |
 | `front-top` | Mark1, left 0.4 | PET-GF black | 0.08 mm band over the R6 roof side edges' level run and the R18 display-to-roof roll | Support XY 0.50 mm |
 | `front-bottom` | Mark1, left 0.4 | PET-GF black | Six-wall band through the handhold lifting-edge transition and its corner returns; 0.8 mm boundary strip of the flat lifting ceiling; removable arc fins along the lifting edges | — |
-| `back-top` | Mark2, left 0.4 | PET-GF black | Six-wall band through the roof side edges on the bed; one ribbon per sliding groove | 50 mm bridge limit; 3 mm tree branches, 0.5° growth; plate offset X −4.25 mm |
+| `back-top` | Mark2, left 0.4 | PET-GF black | Six-wall band through the roof side edges on the bed; support-free receiver catches; branching supports in accessible sliding grooves | Tree Slim with bed roots and compact root brims; declared bridge limit and plate offset |
 | `back-bottom` | Mark2, left 0.4 | PET-GF black | Six-wall band through the handhold lifting-edge transition and its corner returns; 0.8 mm boundary strip of the flat lifting ceiling; removable arc fins on feet along the lifting edges | Plate offset Y +18.8 mm; automatic-tree branch angle 20° |
 | `pump-retainer` | Mark1, left 0.4 | PET-GF black | Broad lower retainer, Y-minus end on the bed; build axis +Y | Three Classic walls; local solid snap hosts |
 | `rear-equipment-caps` | Mark2, left 0.4 | PET-GF black | ASSE, Pisco, regulator and meter caps as exported, mouths up; 15 mm spacing | — |
@@ -124,8 +124,9 @@ measured extent leaves its range, stops the preparation and reports what was fou
 - **`native_support_free`** — reads support exclusions emitted by the native part
   generator and bound to the source STL. Source-frame bounds follow the object's
   print pose and plate placement. Downward faces are painted and the named volumes
-  exclude tree branches. The native review reports any support beads in those
-  interiors. Back-top uses this for its inaccessible receivers, teardrop bores,
+  block support requests. The native review reads support beads against the actual
+  passage profiles, including branches routed toward other features. Back-top uses
+  this for its inaccessible receivers, teardrop bores,
   valve sockets and chamfered vent mouth.
 
 - **`groove_ribbons`** — each long, narrow flat face printing down at the top of the part is

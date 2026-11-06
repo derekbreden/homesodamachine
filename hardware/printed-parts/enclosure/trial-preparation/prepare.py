@@ -410,6 +410,8 @@ def prepare(name: str, printer: str | None = None, parts: list[dict] | None = No
                 placed = (corners - mesh.center) @ (r_yaw @ mesh.rotation).T + translation
                 record["support_free_regions"].append({"name": f["name"],
                     "box_plate_mm": [placed.min(axis=0).tolist(), placed.max(axis=0).tolist()],
+                    "bounds_source_mm": f["bounds_source_mm"],
+                    **({"void_source": f["void_source"]} if "void_source" in f else {}),
                     "reason": f["reason"]})
             if f["kind"] == "tie_windows":
                 for window in f["windows"]:
