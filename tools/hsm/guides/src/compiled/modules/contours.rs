@@ -412,10 +412,12 @@ pub fn initialize(rt: Runtime, e: Env) -> Result<()> {
         Val::Str("hardware/install-guide/assets".into()),
     )?;
     e.set("ART", assigned84.clone())?;
+    // The renders are named by a digest of everything drawn into them, so they are kept in the
+    // shared .cache: a build's work directory starts without them.
     let assigned85 = binary(
         "truediv",
         e.get("ROOT")?,
-        Val::Str("hardware/install-guide/out/contours".into()),
+        Val::Str(".cache/install-guide-contours".into()),
     )?;
     e.set("OUT", assigned85.clone())?;
     let assigned86 = Val::Int(3i64);
