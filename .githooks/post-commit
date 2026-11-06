@@ -72,4 +72,7 @@ _py="$root/tools/cad-venv/bin/python"
 mkdir -p "$root/.cache"
 nohup "$_py" -S "$root/tools/publish_now.py" \
   >>"$root/.cache/publish-now.log" 2>&1 &
+# Each full build's time onto /settings, out of Bazel's own records; it commits only a new build.
+nohup "$_py" -S "$root/tools/build_times.py" \
+  >>"$root/.cache/build-times.log" 2>&1 &
 exit 0
