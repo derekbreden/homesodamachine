@@ -138,21 +138,14 @@ pub fn request(input: &Value) -> Result<Value> {
         }
         "stock" => Ok(stock()),
         "interface-base" => interface::base(&input["fits"]),
-        "interface-reservoir-conduit" => {
-            let key = input["side"]
-                .as_i64()
-                .context("reservoir conduit needs side")?
-                .to_string();
-            let kind = input["kind"]
+        "interface-reservoir-conduit" => interface::reservoir_conduit(
+            input["kind"]
                 .as_str()
-                .context("reservoir conduit needs kind")?;
-            let base = interface::base(&input["fits"])?;
-            let xy = &base[format!("reservoir_{kind}_port")][key];
-            Ok(json!([
-                -xy[0].as_f64().context("unknown reservoir side")?,
-                -xy[1].as_f64().context("unknown reservoir side")?
-            ]))
-        }
+                .context("reservoir conduit needs kind")?,
+            input["side"]
+                .as_i64()
+                .context("reservoir conduit needs side")?,
+        ),
         "float" => Ok(floats::aero_datums()),
         "float-waterline" => Ok(json!(floats::waterline(
             input["mass_g"].as_f64(),
