@@ -236,7 +236,6 @@ genrule(
         "tools/hsm/machine-data/src/compiled/_machine_routes.rs",
         "tools/hsm/machine-data/src/compiled/_scorecard.rs",
         "tools/hsm/machine-data/src/compiled/_stated_bounds.rs",
-        "tools/hsm/machine-data/src/compiled/_tube_export.rs",
         "tools/hsm/machine-data/src/compiled/above_core_bom.rs",
         "tools/hsm/machine-data/src/compiled/above_core_parts.rs",
         "tools/hsm/machine-data/src/compiled/above_core_wiring.rs",
@@ -1493,7 +1492,6 @@ genrule(
         "tools/hsm/machine-data/src/compiled/_machine_routes.rs",
         "tools/hsm/machine-data/src/compiled/_scorecard.rs",
         "tools/hsm/machine-data/src/compiled/_stated_bounds.rs",
-        "tools/hsm/machine-data/src/compiled/_tube_export.rs",
         "tools/hsm/machine-data/src/compiled/above_core_bom.rs",
         "tools/hsm/machine-data/src/compiled/above_core_parts.rs",
         "tools/hsm/machine-data/src/compiled/above_core_wiring.rs",
@@ -1760,7 +1758,6 @@ genrule(
         "tools/hsm/machine-data/src/compiled/_machine_routes.rs",
         "tools/hsm/machine-data/src/compiled/_scorecard.rs",
         "tools/hsm/machine-data/src/compiled/_stated_bounds.rs",
-        "tools/hsm/machine-data/src/compiled/_tube_export.rs",
         "tools/hsm/machine-data/src/compiled/above_core_bom.rs",
         "tools/hsm/machine-data/src/compiled/above_core_parts.rs",
         "tools/hsm/machine-data/src/compiled/above_core_wiring.rs",
@@ -2921,7 +2918,6 @@ genrule(
         "hardware/scripts/_seating.py",
         "hardware/scripts/_shared_data.py",
         "hardware/scripts/_stated_bounds.py",
-        "hardware/scripts/_tube_export.py",
         "hardware/scripts/flute_payload.py",
         "hardware/scripts/meshcad/__init__.py",
         "hardware/scripts/meshcad/build.py",
@@ -3172,7 +3168,6 @@ genrule(
         "tools/hsm/machine-data/src/compiled/_machine_routes.rs",
         "tools/hsm/machine-data/src/compiled/_scorecard.rs",
         "tools/hsm/machine-data/src/compiled/_stated_bounds.rs",
-        "tools/hsm/machine-data/src/compiled/_tube_export.rs",
         "tools/hsm/machine-data/src/compiled/above_core_bom.rs",
         "tools/hsm/machine-data/src/compiled/above_core_parts.rs",
         "tools/hsm/machine-data/src/compiled/above_core_wiring.rs",
@@ -3267,13 +3262,9 @@ genrule(
         "out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.step",
         "out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.step.mesh",
         "out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.step.npz",
-        "out/enclosure-assembly/hardware/wiring/enclosure-wiring.csv",
-        "out/enclosure-assembly/hardware/wiring/enclosure-wiring.json",
-        "out/enclosure-assembly/hardware/wiring/enclosure-wiring.numbers.json",
         "out/enclosure-assembly/hardware/wiring/enclosure-wiring.step",
         "out/enclosure-assembly/hardware/wiring/enclosure-wiring.step.mesh",
         "out/enclosure-assembly/hardware/wiring/enclosure-wiring.step.npz",
-        "out/enclosure-assembly/hardware/wiring/installed/integration-review.json",
     ],
     tags = ["no-sandbox"],
     cmd = """
@@ -3315,13 +3306,9 @@ O13=$$PWD/$(location out/enclosure-assembly/hardware/manifold-layout/enclosure-a
 O14=$$PWD/$(location out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.step)
 O15=$$PWD/$(location out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.step.mesh)
 O16=$$PWD/$(location out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.step.npz)
-O17=$$PWD/$(location out/enclosure-assembly/hardware/wiring/enclosure-wiring.csv)
-O18=$$PWD/$(location out/enclosure-assembly/hardware/wiring/enclosure-wiring.json)
-O19=$$PWD/$(location out/enclosure-assembly/hardware/wiring/enclosure-wiring.numbers.json)
-O20=$$PWD/$(location out/enclosure-assembly/hardware/wiring/enclosure-wiring.step)
-O21=$$PWD/$(location out/enclosure-assembly/hardware/wiring/enclosure-wiring.step.mesh)
-O22=$$PWD/$(location out/enclosure-assembly/hardware/wiring/enclosure-wiring.step.npz)
-O23=$$PWD/$(location out/enclosure-assembly/hardware/wiring/installed/integration-review.json)
+O17=$$PWD/$(location out/enclosure-assembly/hardware/wiring/enclosure-wiring.step)
+O18=$$PWD/$(location out/enclosure-assembly/hardware/wiring/enclosure-wiring.step.mesh)
+O19=$$PWD/$(location out/enclosure-assembly/hardware/wiring/enclosure-wiring.step.npz)
 rm -rf work-enclosure-assembly
 for f in $(SRCS); do
   case $$f in
@@ -3356,13 +3343,9 @@ copy_file hardware/manifold-layout/enclosure-assembly.scorecard.json "$$O13"
 copy_file hardware/manifold-layout/enclosure-assembly.step "$$O14"
 copy_file hardware/manifold-layout/enclosure-assembly.step.mesh "$$O15"
 copy_file hardware/manifold-layout/enclosure-assembly.step.npz "$$O16"
-copy_file hardware/wiring/enclosure-wiring.csv "$$O17"
-copy_file hardware/wiring/enclosure-wiring.json "$$O18"
-copy_file hardware/wiring/enclosure-wiring.numbers.json "$$O19"
-copy_file hardware/wiring/enclosure-wiring.step "$$O20"
-copy_file hardware/wiring/enclosure-wiring.step.mesh "$$O21"
-copy_file hardware/wiring/enclosure-wiring.step.npz "$$O22"
-copy_file hardware/wiring/installed/integration-review.json "$$O23"
+copy_file hardware/wiring/enclosure-wiring.step "$$O17"
+copy_file hardware/wiring/enclosure-wiring.step.mesh "$$O18"
+copy_file hardware/wiring/enclosure-wiring.step.npz "$$O19"
 cd .. && rm -rf work-enclosure-assembly
 """,
 )
@@ -3957,7 +3940,6 @@ genrule(
         "tools/hsm/machine-data/src/compiled/_machine_routes.rs",
         "tools/hsm/machine-data/src/compiled/_scorecard.rs",
         "tools/hsm/machine-data/src/compiled/_stated_bounds.rs",
-        "tools/hsm/machine-data/src/compiled/_tube_export.rs",
         "tools/hsm/machine-data/src/compiled/above_core_bom.rs",
         "tools/hsm/machine-data/src/compiled/above_core_parts.rs",
         "tools/hsm/machine-data/src/compiled/above_core_wiring.rs",
@@ -4278,7 +4260,6 @@ genrule(
         "tools/hsm/machine-data/src/compiled/_machine_routes.rs",
         "tools/hsm/machine-data/src/compiled/_scorecard.rs",
         "tools/hsm/machine-data/src/compiled/_stated_bounds.rs",
-        "tools/hsm/machine-data/src/compiled/_tube_export.rs",
         "tools/hsm/machine-data/src/compiled/above_core_bom.rs",
         "tools/hsm/machine-data/src/compiled/above_core_parts.rs",
         "tools/hsm/machine-data/src/compiled/above_core_wiring.rs",
@@ -4925,7 +4906,6 @@ genrule(
         "tools/hsm/machine-data/src/compiled/_machine_routes.rs",
         "tools/hsm/machine-data/src/compiled/_scorecard.rs",
         "tools/hsm/machine-data/src/compiled/_stated_bounds.rs",
-        "tools/hsm/machine-data/src/compiled/_tube_export.rs",
         "tools/hsm/machine-data/src/compiled/above_core_bom.rs",
         "tools/hsm/machine-data/src/compiled/above_core_parts.rs",
         "tools/hsm/machine-data/src/compiled/above_core_wiring.rs",
@@ -5250,7 +5230,6 @@ genrule(
         "tools/hsm/machine-data/src/compiled/_machine_routes.rs",
         "tools/hsm/machine-data/src/compiled/_scorecard.rs",
         "tools/hsm/machine-data/src/compiled/_stated_bounds.rs",
-        "tools/hsm/machine-data/src/compiled/_tube_export.rs",
         "tools/hsm/machine-data/src/compiled/above_core_bom.rs",
         "tools/hsm/machine-data/src/compiled/above_core_parts.rs",
         "tools/hsm/machine-data/src/compiled/above_core_wiring.rs",
@@ -5592,7 +5571,6 @@ genrule(
         "tools/hsm/machine-data/src/compiled/_machine_routes.rs",
         "tools/hsm/machine-data/src/compiled/_scorecard.rs",
         "tools/hsm/machine-data/src/compiled/_stated_bounds.rs",
-        "tools/hsm/machine-data/src/compiled/_tube_export.rs",
         "tools/hsm/machine-data/src/compiled/above_core_bom.rs",
         "tools/hsm/machine-data/src/compiled/above_core_parts.rs",
         "tools/hsm/machine-data/src/compiled/above_core_wiring.rs",
@@ -5927,7 +5905,6 @@ genrule(
         "tools/hsm/machine-data/src/compiled/_machine_routes.rs",
         "tools/hsm/machine-data/src/compiled/_scorecard.rs",
         "tools/hsm/machine-data/src/compiled/_stated_bounds.rs",
-        "tools/hsm/machine-data/src/compiled/_tube_export.rs",
         "tools/hsm/machine-data/src/compiled/above_core_bom.rs",
         "tools/hsm/machine-data/src/compiled/above_core_parts.rs",
         "tools/hsm/machine-data/src/compiled/above_core_wiring.rs",
@@ -6515,7 +6492,6 @@ genrule(
         "tools/hsm/machine-data/src/compiled/_machine_routes.rs",
         "tools/hsm/machine-data/src/compiled/_scorecard.rs",
         "tools/hsm/machine-data/src/compiled/_stated_bounds.rs",
-        "tools/hsm/machine-data/src/compiled/_tube_export.rs",
         "tools/hsm/machine-data/src/compiled/above_core_bom.rs",
         "tools/hsm/machine-data/src/compiled/above_core_parts.rs",
         "tools/hsm/machine-data/src/compiled/above_core_wiring.rs",
@@ -7313,7 +7289,6 @@ genrule(
         "tools/hsm/machine-data/src/compiled/_machine_routes.rs",
         "tools/hsm/machine-data/src/compiled/_scorecard.rs",
         "tools/hsm/machine-data/src/compiled/_stated_bounds.rs",
-        "tools/hsm/machine-data/src/compiled/_tube_export.rs",
         "tools/hsm/machine-data/src/compiled/above_core_bom.rs",
         "tools/hsm/machine-data/src/compiled/above_core_parts.rs",
         "tools/hsm/machine-data/src/compiled/above_core_wiring.rs",
@@ -7621,7 +7596,6 @@ genrule(
         "tools/hsm/machine-data/src/compiled/_machine_routes.rs",
         "tools/hsm/machine-data/src/compiled/_scorecard.rs",
         "tools/hsm/machine-data/src/compiled/_stated_bounds.rs",
-        "tools/hsm/machine-data/src/compiled/_tube_export.rs",
         "tools/hsm/machine-data/src/compiled/above_core_bom.rs",
         "tools/hsm/machine-data/src/compiled/above_core_parts.rs",
         "tools/hsm/machine-data/src/compiled/above_core_wiring.rs",
@@ -11301,7 +11275,6 @@ genrule(
         "tools/hsm/machine-data/src/compiled/_machine_routes.rs",
         "tools/hsm/machine-data/src/compiled/_scorecard.rs",
         "tools/hsm/machine-data/src/compiled/_stated_bounds.rs",
-        "tools/hsm/machine-data/src/compiled/_tube_export.rs",
         "tools/hsm/machine-data/src/compiled/above_core_bom.rs",
         "tools/hsm/machine-data/src/compiled/above_core_parts.rs",
         "tools/hsm/machine-data/src/compiled/above_core_wiring.rs",
@@ -11968,7 +11941,6 @@ genrule(
         "tools/hsm/machine-data/src/compiled/_machine_routes.rs",
         "tools/hsm/machine-data/src/compiled/_scorecard.rs",
         "tools/hsm/machine-data/src/compiled/_stated_bounds.rs",
-        "tools/hsm/machine-data/src/compiled/_tube_export.rs",
         "tools/hsm/machine-data/src/compiled/above_core_bom.rs",
         "tools/hsm/machine-data/src/compiled/above_core_parts.rs",
         "tools/hsm/machine-data/src/compiled/above_core_wiring.rs",
@@ -12204,7 +12176,6 @@ genrule(
         "tools/hsm/machine-data/src/compiled/_machine_routes.rs",
         "tools/hsm/machine-data/src/compiled/_scorecard.rs",
         "tools/hsm/machine-data/src/compiled/_stated_bounds.rs",
-        "tools/hsm/machine-data/src/compiled/_tube_export.rs",
         "tools/hsm/machine-data/src/compiled/above_core_bom.rs",
         "tools/hsm/machine-data/src/compiled/above_core_parts.rs",
         "tools/hsm/machine-data/src/compiled/above_core_wiring.rs",
@@ -12440,7 +12411,6 @@ genrule(
         "tools/hsm/machine-data/src/compiled/_machine_routes.rs",
         "tools/hsm/machine-data/src/compiled/_scorecard.rs",
         "tools/hsm/machine-data/src/compiled/_stated_bounds.rs",
-        "tools/hsm/machine-data/src/compiled/_tube_export.rs",
         "tools/hsm/machine-data/src/compiled/above_core_bom.rs",
         "tools/hsm/machine-data/src/compiled/above_core_parts.rs",
         "tools/hsm/machine-data/src/compiled/above_core_wiring.rs",
@@ -12684,7 +12654,6 @@ genrule(
         "tools/hsm/machine-data/src/compiled/_machine_routes.rs",
         "tools/hsm/machine-data/src/compiled/_scorecard.rs",
         "tools/hsm/machine-data/src/compiled/_stated_bounds.rs",
-        "tools/hsm/machine-data/src/compiled/_tube_export.rs",
         "tools/hsm/machine-data/src/compiled/above_core_bom.rs",
         "tools/hsm/machine-data/src/compiled/above_core_parts.rs",
         "tools/hsm/machine-data/src/compiled/above_core_wiring.rs",
@@ -12945,7 +12914,6 @@ genrule(
         "tools/hsm/machine-data/src/compiled/_machine_routes.rs",
         "tools/hsm/machine-data/src/compiled/_scorecard.rs",
         "tools/hsm/machine-data/src/compiled/_stated_bounds.rs",
-        "tools/hsm/machine-data/src/compiled/_tube_export.rs",
         "tools/hsm/machine-data/src/compiled/above_core_bom.rs",
         "tools/hsm/machine-data/src/compiled/above_core_parts.rs",
         "tools/hsm/machine-data/src/compiled/above_core_wiring.rs",
@@ -15150,7 +15118,6 @@ genrule(
         "tools/hsm/machine-data/src/compiled/_machine_routes.rs",
         "tools/hsm/machine-data/src/compiled/_scorecard.rs",
         "tools/hsm/machine-data/src/compiled/_stated_bounds.rs",
-        "tools/hsm/machine-data/src/compiled/_tube_export.rs",
         "tools/hsm/machine-data/src/compiled/above_core_bom.rs",
         "tools/hsm/machine-data/src/compiled/above_core_parts.rs",
         "tools/hsm/machine-data/src/compiled/above_core_wiring.rs",
@@ -16470,7 +16437,6 @@ genrule(
         "hardware/manifold-layout/above_core_routes.py",
         "hardware/manifold-layout/above_core_wiring.py",
         ":out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.facts.json",
-        ":out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.scorecard.json",
         ":out/enclosure-box/hardware/manifold-layout/enclosure-box.json",
         "hardware/manifold-layout/enclosure_assembly.py",
         "hardware/manifold-layout/enclosure_assembly.rs",
@@ -16851,7 +16817,6 @@ genrule(
         "hardware/scripts/_seating.py",
         "hardware/scripts/_shared_data.py",
         "hardware/scripts/_stated_bounds.py",
-        "hardware/scripts/_tube_export.py",
         "hardware/scripts/flute_payload.py",
         "hardware/scripts/materialize_pump_cartridge.py",
         "hardware/scripts/meshcad/__init__.py",
@@ -17143,7 +17108,6 @@ genrule(
         "tools/hsm/machine-data/src/compiled/_machine_routes.rs",
         "tools/hsm/machine-data/src/compiled/_scorecard.rs",
         "tools/hsm/machine-data/src/compiled/_stated_bounds.rs",
-        "tools/hsm/machine-data/src/compiled/_tube_export.rs",
         "tools/hsm/machine-data/src/compiled/above_core_bom.rs",
         "tools/hsm/machine-data/src/compiled/above_core_parts.rs",
         "tools/hsm/machine-data/src/compiled/above_core_wiring.rs",
@@ -17726,7 +17690,6 @@ genrule(
         "tools/hsm/machine-data/src/compiled/_machine_routes.rs",
         "tools/hsm/machine-data/src/compiled/_scorecard.rs",
         "tools/hsm/machine-data/src/compiled/_stated_bounds.rs",
-        "tools/hsm/machine-data/src/compiled/_tube_export.rs",
         "tools/hsm/machine-data/src/compiled/above_core_bom.rs",
         "tools/hsm/machine-data/src/compiled/above_core_parts.rs",
         "tools/hsm/machine-data/src/compiled/above_core_wiring.rs",
@@ -17928,7 +17891,6 @@ genrule(
         "tools/hsm/machine-data/src/compiled/_machine_routes.rs",
         "tools/hsm/machine-data/src/compiled/_scorecard.rs",
         "tools/hsm/machine-data/src/compiled/_stated_bounds.rs",
-        "tools/hsm/machine-data/src/compiled/_tube_export.rs",
         "tools/hsm/machine-data/src/compiled/above_core_bom.rs",
         "tools/hsm/machine-data/src/compiled/above_core_parts.rs",
         "tools/hsm/machine-data/src/compiled/above_core_wiring.rs",
@@ -18071,7 +18033,6 @@ genrule(
         "hardware/manifold-layout/above_core_routes.py",
         "hardware/manifold-layout/above_core_wiring.py",
         ":out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.facts.json",
-        ":out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.scorecard.json",
         "hardware/manifold-layout/enclosure_assembly.py",
         "hardware/manifold-layout/enclosure_assembly.rs",
         "hardware/manifold-layout/machine_check_bounds.rs",
@@ -18335,7 +18296,6 @@ genrule(
         "hardware/scripts/_seating.py",
         "hardware/scripts/_shared_data.py",
         "hardware/scripts/_stated_bounds.py",
-        "hardware/scripts/_tube_export.py",
         "hardware/scripts/flute_payload.py",
         "hardware/scripts/meshcad/__init__.py",
         "hardware/scripts/meshcad/build.py",
@@ -18595,7 +18555,6 @@ genrule(
         "tools/hsm/machine-data/src/compiled/_machine_routes.rs",
         "tools/hsm/machine-data/src/compiled/_scorecard.rs",
         "tools/hsm/machine-data/src/compiled/_stated_bounds.rs",
-        "tools/hsm/machine-data/src/compiled/_tube_export.rs",
         "tools/hsm/machine-data/src/compiled/above_core_bom.rs",
         "tools/hsm/machine-data/src/compiled/above_core_parts.rs",
         "tools/hsm/machine-data/src/compiled/above_core_wiring.rs",
@@ -18930,7 +18889,6 @@ genrule(
         "tools/hsm/machine-data/src/compiled/_machine_routes.rs",
         "tools/hsm/machine-data/src/compiled/_scorecard.rs",
         "tools/hsm/machine-data/src/compiled/_stated_bounds.rs",
-        "tools/hsm/machine-data/src/compiled/_tube_export.rs",
         "tools/hsm/machine-data/src/compiled/above_core_bom.rs",
         "tools/hsm/machine-data/src/compiled/above_core_parts.rs",
         "tools/hsm/machine-data/src/compiled/above_core_wiring.rs",
@@ -19221,7 +19179,6 @@ genrule(
         "tools/hsm/machine-data/src/compiled/_machine_routes.rs",
         "tools/hsm/machine-data/src/compiled/_scorecard.rs",
         "tools/hsm/machine-data/src/compiled/_stated_bounds.rs",
-        "tools/hsm/machine-data/src/compiled/_tube_export.rs",
         "tools/hsm/machine-data/src/compiled/above_core_bom.rs",
         "tools/hsm/machine-data/src/compiled/above_core_parts.rs",
         "tools/hsm/machine-data/src/compiled/above_core_wiring.rs",
@@ -19537,7 +19494,6 @@ genrule(
         "tools/hsm/machine-data/src/compiled/_machine_routes.rs",
         "tools/hsm/machine-data/src/compiled/_scorecard.rs",
         "tools/hsm/machine-data/src/compiled/_stated_bounds.rs",
-        "tools/hsm/machine-data/src/compiled/_tube_export.rs",
         "tools/hsm/machine-data/src/compiled/above_core_bom.rs",
         "tools/hsm/machine-data/src/compiled/above_core_parts.rs",
         "tools/hsm/machine-data/src/compiled/above_core_wiring.rs",

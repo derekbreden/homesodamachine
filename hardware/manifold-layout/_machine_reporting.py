@@ -36,17 +36,8 @@ def _route_rows(*args, **kwargs):
 def _run_length(*args, **kwargs):
     return _compiled.call('_run_length', *args, **kwargs)
 
-def route_metadata(*args, **kwargs):
-    return _compiled.call('route_metadata', *args, **kwargs)
-
 def scene_document(*args, **kwargs):
     return _compiled.call('scene_document', *args, **kwargs)
-
-def _tray_inputs(*args, **kwargs):
-    return _compiled.call('_tray_inputs', *args, **kwargs)
-
-def _tray_reports(*args, **kwargs):
-    return _compiled.call('_tray_reports', *args, **kwargs)
 
 def gather(*args, **kwargs):
     return _compiled.call('gather', *args, **kwargs)
@@ -60,6 +51,6 @@ def __getattr__(name):
 def __dir__():
     return _compiled.names()
 
-_rust_functions = frozenset(['_paths', 'plain', 'scalar_namespace', '_request', '_bounds', '_ports', '_route_rows', '_run_length', 'route_metadata', 'scene_document', '_tray_inputs', '_tray_reports', 'gather', 'write'])
-_rust_exports = frozenset(['annotations', 'hashlib', 'importlib', 'json', 'Path', 'sys', 'time', 'SimpleNamespace', 'ROOT', 'HW', 'LAYOUT', '_ANCHOR_SITES', '_paths', 'plain', 'scalar_namespace', '_request', '_bounds', '_ports', '_route_rows', '_run_length', 'route_metadata', 'scene_document', '_tray_inputs', '_tray_reports', 'gather', 'write'])
+_rust_functions = frozenset(['_paths', 'plain', 'scalar_namespace', '_request', '_bounds', '_ports', '_route_rows', '_run_length', 'scene_document', 'gather', 'write'])
+_rust_exports = frozenset(['annotations', 'hashlib', 'importlib', 'json', 'Path', 'sys', 'time', 'SimpleNamespace', 'ROOT', 'HW', 'LAYOUT', '_paths', 'plain', 'scalar_namespace', '_request', '_bounds', '_ports', '_route_rows', '_run_length', 'scene_document', 'gather', 'write'])
 sys.modules[__name__].__class__ = _RustSurface

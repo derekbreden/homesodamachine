@@ -79,8 +79,9 @@ leads and heat-shrunk on the open back-top.
 
 The [installed wiring model](../wiring/README.md) gives each conductor a stable
 ID in the populated enclosure, including its attachment direction, proposed
-route and modeled length. Its [worksheet](../wiring/enclosure-wiring.csv) is a
-routing record, not a finished cut list. Each reservoir column uses one continuous
+route and modeled length. Its worksheet, `hardware/wiring/enclosure-wiring.csv`, is a
+routing record, not a finished cut list; it is written when the wiring is materialized
+([`python3 tools/run.py -- tools/cad-venv/bin/python hardware/wiring/installed/build.py`](../wiring/README.md#editing-and-materializing)). Each reservoir column uses one continuous
 common with four insulated reed taps; the carbonator pair shares a separate
 common. Their Wagos join the column/pair commons to the board return.
 The carbonator's CLO, CHI and continuous common join the temperature-bus
