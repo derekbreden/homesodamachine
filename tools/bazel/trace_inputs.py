@@ -442,15 +442,16 @@ def _vendored(seen: set, files: set) -> set:
 
 
 def _compiled_from(krate: str, name: str, files: set) -> list:
-    """What cargo compiled into `krate`'s program `name`, and the manifests that chose it: the
-    workspace's, its lockfile, and the manifest of every crate of this tree in the program."""
+    """What cargo compiled into `krate`'s program `name`, and the manifests that chose it: what
+    of the workspace's manifest and lockfile can change a program (`cargo_config.py`), and the
+    manifest of every crate of this tree in the program."""
     sys.path.insert(0, str(_ROOT / "hardware/scripts"))
     from _build_data import request
     target = _ROOT / "tools/hsm/target/release"
     sources = set(request("compiled", path=str(target / f"{name}.d"), workspace=str(_ROOT)))
     packages = {package["id"]: package for package in _cargo_metadata()["packages"]}
     seen = _crates_of([_ROOT / "tools/hsm" / krate / "Cargo.toml"])
-    sources |= {"tools/hsm/Cargo.toml", "tools/hsm/Cargo.lock"}
+    sources |= {"tools/hsm/cargo-config.json"}
     for pid in seen:
         path = Path(packages[pid]["manifest_path"])
         if path.is_relative_to(_ROOT):
