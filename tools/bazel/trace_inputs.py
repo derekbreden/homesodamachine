@@ -369,6 +369,8 @@ RUST_STEPS = {
         ("enclosure-pump-retainer", "enclosure-pump-retainer", "hardware/printed-parts/enclosure/enclosure"),
     "hardware/printed-parts/enclosure/enclosure/enclosure_pump_tube_setting_jig.rs":
         ("enclosure-pump-tube-setting-jig", "enclosure-pump-tube-setting-jig", "hardware/printed-parts/enclosure/enclosure"),
+    "hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_step.rs":
+        ("endcap-circular", "endcap-circular-step", "hardware/cut-parts/carbonation/endcaps-circular"),
 }
 
 

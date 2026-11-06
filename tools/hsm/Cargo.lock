@@ -761,6 +761,10 @@ dependencies = [
 ]
 
 [[package]]
+name = "hsm-aero-float-numbers"
+version = "0.1.0"
+
+[[package]]
 name = "hsm-assembly-docs"
 version = "0.1.0"
 dependencies = [
@@ -801,6 +805,10 @@ dependencies = [
 ]
 
 [[package]]
+name = "hsm-carbonator-tube-numbers"
+version = "0.1.0"
+
+[[package]]
 name = "hsm-cold-core"
 version = "0.1.0"
 dependencies = [
@@ -814,7 +822,10 @@ name = "hsm-cold-core-data"
 version = "0.1.0"
 dependencies = [
  "anyhow",
+ "hsm-aero-float-numbers",
+ "hsm-carbonator-tube-numbers",
  "hsm-documents",
+ "hsm-endcap-circular-numbers",
  "serde_json",
 ]
 
@@ -1003,6 +1014,24 @@ dependencies = [
  "serde",
  "serde_json",
  "sha2",
+]
+
+[[package]]
+name = "hsm-endcap-circular"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "hsm-endcap-circular-numbers",
+ "hsm-kernel",
+ "serde_json",
+]
+
+[[package]]
+name = "hsm-endcap-circular-numbers"
+version = "0.1.0"
+dependencies = [
+ "hsm-aero-float-numbers",
+ "hsm-carbonator-tube-numbers",
 ]
 
 [[package]]

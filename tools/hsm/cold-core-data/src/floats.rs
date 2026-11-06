@@ -4,7 +4,7 @@ use serde_json::{Value, json};
 use std::f64::consts::PI;
 
 pub fn aero_datums() -> Value {
-    let diameter: f64 = 36.;
+    let diameter: f64 = hsm_aero_float_numbers::DIAMETER;
     let bore_diameter: f64 = 4.8;
     let guide_diameter = 3.175;
     let magnet_od = 19.05;
@@ -35,8 +35,8 @@ pub fn aero_datums() -> Value {
     let displacement_cc = annular_area * height / 1000.;
     let foam_cc = displacement_cc - pocket_volume / 1000.;
     let design_mass_g = foam_cc * design_foam_density + magnet_mass;
-    let wall_clearance = 2.;
-    let rod_axis_from_inner_wall = diameter / 2. + wall_clearance;
+    let wall_clearance = hsm_aero_float_numbers::WALL_CLEARANCE;
+    let rod_axis_from_inner_wall = hsm_aero_float_numbers::ROD_AXIS_FROM_INNER_WALL;
     let guide_radial_clearance = (bore_diameter - guide_diameter) / 2.;
     assert!(wall_clearance - guide_radial_clearance > 1.0);
     assert!(height == 28.0 && magnet_midplane == 14.0);

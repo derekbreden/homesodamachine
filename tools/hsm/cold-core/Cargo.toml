@@ -44,10 +44,6 @@ name = "carbonator-tube"
 path = "../../../hardware/cut-parts/carbonation/carbonator-tube/carbonator_tube_step.rs"
 
 [[bin]]
-name = "endcap-circular-step"
-path = "../../../hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_step.rs"
-
-[[bin]]
 name = "foam-assembly"
 path = "../../../hardware/printed-parts/cold-core/foam-assembly/foam_assembly.rs"
 
