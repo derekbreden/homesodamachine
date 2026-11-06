@@ -101,16 +101,19 @@ pub fn inventory(_root:&Path,graph:&Value,mut files:BTreeSet<String>,config:&Val
     }
     let mut output=Vec::new();
     for generators in together(&writes) {
-        // A Rust step runs its program and no Python, so it holds none of the Python runtime.
+        // The job runner's files are not what any step is made from: a Python step copies the
+        // checkout's current ones into its folder when it runs, and a Rust step holds none.
         let program=generators.iter().find_map(|g|rows.get(g).and_then(|row|row.get("program")).cloned());
-        let mut reads=if program.is_some(){BTreeSet::new()}else{names(&config["runtime_reads"])};
+        let mut reads=BTreeSet::new();
         let mut rewritten=BTreeSet::new();let mut targets=BTreeSet::new();
         for generator in &generators {
             reads.extend(names(&graph[generator]["reads"]).intersection(&files).cloned());
             rewritten.extend(names(&graph[generator]["rewritten"]).intersection(&files).cloned());
             targets.extend(writes[generator].iter().cloned());
         }
-        if program.is_none()&&reads.iter().any(|p|p.starts_with("tools/hsm/")&&p.ends_with("/Cargo.toml")){reads.extend(names(&config["rust_runtime_reads"]));}
+        if program.is_none(){
+            for runner in names(&config["runtime_reads"]).union(&names(&config["rust_runtime_reads"])){reads.remove(runner);}
+        }
         let(docs,solids):(Vec<_>,Vec<_>)=targets.into_iter().partition(|p|rewritten.contains(p));
         let mut made=json!({"solids":solids,"docs":docs,"reads":reads});
         if let Some(program)=program {made["program"]=program;}
