@@ -37,6 +37,11 @@
  *                                changes exactly when the bytes do
  */
 
+/**
+ * @typedef {{ label: string, file: string|null, files: number }} MadeFromItem
+ * @typedef {{ parts: MadeFromItem[], outputs: MadeFromItem[], code: MadeFromItem[], usedIn: MadeFromItem[] }} MadeFrom
+ */
+
 // Endpoints:
 //   GET /api/steps      -> PathList   the models a part number names (materials.js numberedModels)
 //   GET /api/glbs       -> PathList
@@ -52,6 +57,8 @@
 //   GET /api/mermaid-content/<path>  -> text/plain (raw .mmd)
 //   GET /api/pcb-content/<path>      -> image/svg+xml   (confined by pcb-out.js VIEW_REQUEST_RE)
 //   GET /api/pcb-picks/<path>        -> PicksFile        (picks-schema.ts; confined by PICKS_REQUEST_RE)
+//   GET /api/made-from/<path>        -> MadeFrom         (lib/made-from.js) what the build remakes a model
+//                                       on and the models it remakes; `file` is null for a model not listed
 //   GET /steps/<path>  /dxfs/<path>  -> file bytes
 //   GET /thumbs/<path>               -> image/png        (server-rendered STEP thumbnail)
 //   GET /docs/<path>                 -> application/pdf   (confined by documents.js — a sidecar makes it a document)
