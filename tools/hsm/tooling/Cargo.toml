@@ -43,10 +43,6 @@ name = "water-inlet-jet-fixture"
 path = "../../../hardware/printed-parts/fixtures/water-inlet-jet/water_inlet_jet_fixture.rs"
 
 [[bin]]
-name = "shop-storage"
-path = "../../../hardware/printed-parts/shop-storage/holders.rs"
-
-[[bin]]
 name = "rear-snap-retention"
 path = "../../../hardware/print-tests/rear-snap-retention/rear_snap_retention.rs"
 

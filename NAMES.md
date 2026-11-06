@@ -103,7 +103,6 @@ to **Derek approved** when he recognises them, or are replaced when he doesn't.
 
 | Name | Point at | Not |
 | --- | --- | --- |
-| **holder** | one printed Gridfinity module of `printed-parts/shop-storage/`, holding one kind of thing | tool tray, tool caddy, organizer, bin |
 | **tee wall** | front-top's bay bulkhead, one flat slab whose fore band is the collet plate, with a bore through it for each pump tee's branch | |
 | **window cover** | `enclosure-window-cover-west` and `-east`, the printed slabs that close each front flank's tee-carrier window aft of the seated carrier in the Lillium build, each hung on a post of front-top's | cosmetic hole covering plate |
 | **Sculpted** | the faucet style with smooth curves and softly blended transitions | Arc |

@@ -148,7 +148,7 @@ export const INSTALL_KIT = [
 ];
 
 // MADE IN ORDER TO MAKE THE MACHINE, OR A PICTURE OF IT — never part of it. The
-// fixtures, shop-storage and calibration namespaces are bench tooling by definition,
+// fixtures and calibration namespaces are bench tooling by definition,
 // so adding another fixture, job kit or printer coupon does not demand a fictitious
 // seat in the appliance.
 // Moulds, mandrels and gauges that live beside their host remain named here because
@@ -159,7 +159,6 @@ export const TOOLING = [
   "printed-parts/cold-core/magnetic-float",
   "assembly/scenes/glb",
   "printed-parts/fixtures",
-  "printed-parts/shop-storage",
   "printed-parts/calibration",
   "printed-parts/cold-core/coil-mandrel",
   "printed-parts/zone-c/funnel-mold",

@@ -179,7 +179,6 @@ BUNDLED_MESH_DIRS = (
     "hardware/printed-parts/cold-core/coil-mandrel",
     "hardware/printed-parts/fixtures/weld-rotator",
     "hardware/printed-parts/fixtures/water-inlet-jet",
-    "hardware/printed-parts/shop-storage/holders",
     "hardware/printed-parts/asse-drain-adapter",
     "hardware/printed-parts/fixtures/tee-valve-bow-trial",
 )
@@ -253,7 +252,6 @@ BUNDLED_PAYLOAD_DIRS = (
     "hardware/printed-parts/cold-core/coil-mandrel",
     "hardware/printed-parts/fixtures/weld-rotator",
     "hardware/printed-parts/fixtures/water-inlet-jet",
-    "hardware/printed-parts/shop-storage/holders",
     "hardware/printed-parts/asse-drain-adapter",
     "hardware/printed-parts/asse-straight-cuffs",
     "hardware/printed-parts/fixtures/tee-valve-bow-trial",
