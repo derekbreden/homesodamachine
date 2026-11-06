@@ -77,7 +77,8 @@ fn status_cuts(g: &mut Graph) -> Shape {
     let tilt = crate::structure::ANGLE.to_radians();
     let (up, across) = ([tilt.sin(), tilt.cos()], [tilt.cos(), -tilt.sin()]);
     let r = mount::LEAD_HALF_SPAN;
-    let c = [mount::LIGHT_Y, foot + r];
+    // Where it passes under the glass border its top stays a backing below the glass seat.
+    let c = [mount::LIGHT_Y, GLASS_SEAT - mount::BACKING - r * up[1]];
     let section = vec![
         [c[0] + r * up[0], c[1] + r * up[1]],
         [c[0] + r * across[0], c[1] + r * across[1]],
