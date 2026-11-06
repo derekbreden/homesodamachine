@@ -1,0 +1,21 @@
+{
+  "scope": "Manual mesh inspection after publication; native STL surfaces.",
+  "source_sha256": {
+    "front_top": "acdf5acc6723039050b3fdb54f8764ae94c541d061c0bf20baecad50eb6540ef",
+    "display_cover": "3594ee4fb113b440326981b1e5cef4bba11f439d2fa586544a5fae44e4dc5f34"
+  },
+  "front_top": {
+    "findings": "Existing approved flute-wall sections and the cable-hook catch. The complete thin-section list was examined.",
+    "answers": "hardware/printed-parts/lint-answers/enclosure/enclosure/enclosure-front-top.lint-answers"
+  },
+  "display_cover": {
+    "findings": "Intentional shallow head seats and their agreed bearing floors.",
+    "answers": "hardware/printed-parts/lint-answers/enclosure/display-cover/display-cover.lint-answers"
+  },
+  "website_verified": {
+    "display_full_context": "assembly/scenes/glb/display-side-screws-full-context.glb",
+    "display_separated": "assembly/scenes/glb/display-side-screws-separated.glb",
+    "pump_wall_study": "assembly/scenes/glb/pump-port-space.glb",
+    "method": "Downloaded each published GLB and matched its SHA-256 to the local artifact."
+  }
+}
