@@ -1,13 +1,22 @@
 // The scorecard sidecar — <model>.scorecard.json beside a 3D STEP model, carrying the
-// enclosure's requirements verdict (the same one the build prints to the terminal). Produced
-// by hardware/manifold-layout/_scorecard.py::write, called at the tail of enclosure_assembly.py's
-// run, served path-confined by web/lib/viewer-routes.js (/api/step-scorecard/*), and read by
-// web/public/js/viewer/scorecard-3d.js to draw the bottom bar + drill-down modal.
+// enclosure's requirements verdict (the same one the run prints to the terminal). The
+// enclosure assembly's is written when its checks are run on request (`ON_REQUEST` below), the
+// cold core's by its build; served path-confined by web/lib/viewer-routes.js
+// (/api/step-scorecard/*), and read by web/public/js/viewer/scorecard-3d.js to draw the bottom
+// bar + drill-down modal.
 //
 // One verdict, two surfaces: this file is the contract between the Python emitter and the JS
 // viewer. web/tests/scorecard-sidecar.test.js asserts the committed sidecar conforms.
 
 export const SCORECARD_SUFFIX = ".scorecard.json";
+
+// The models whose checks run on request rather than on every build, by their STEP's path under
+// hardware/ (the path the viewer opens), with the command that runs them and writes the
+// scorecard. A card that command writes carries `run`.
+export const ON_REQUEST = {
+  "manifold-layout/enclosure-assembly.step":
+    "python3 tools/run.py -- tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py --checks",
+};
 
 // A STEP path -> its scorecard sidecar path (both root-relative). The viewer derives the
 // sidecar to fetch from the model it is opening.
@@ -121,9 +130,14 @@ export function scorecardPathFor(stepPath) {
  * A run's corner grades reach a reader through the `bend-radius` check's own detail, and every
  * body's fastening through `mounted`'s.
  *
- * EVERY FIELD IS A READING, and there is no build stamp — one tree writes one file however
- * often it is built, so a card that comes back changed is a card whose numbers moved. What the
- * build could reach is what `BUILD.bazel` declares as the action's inputs instead.
+ * @property {{commit: string|null, date: string}} [run]  the on-request run that wrote the
+ *                               card: the commit it ran at and when, an ISO 8601 time. Absent
+ *                               from a card a build wrote.
+ *
+ * EVERY OTHER FIELD IS A READING. A build's card carries no stamp — one tree writes one file
+ * however often it is built, so a card that comes back changed is a card whose numbers moved.
+ * A card written on request does carry `run`, because the tree moves on after it and a reader
+ * has to tell an old verdict from a current one.
  */
 
 // ── Size ─────────────────────────────────────────────────────────────────────────────────────
@@ -164,6 +178,8 @@ export function isScorecard(o) {
   if (!o || typeof o !== "object") return false;
   if (typeof o.gatesPass !== "boolean") return false;
   if (!Array.isArray(o.checks)) return false;
+  if (o.run !== undefined && !(o.run && typeof o.run.date === "string"
+      && (o.run.commit === null || typeof o.run.commit === "string"))) return false;
   const checksOk = o.checks.every(
     (c) =>
       c &&
