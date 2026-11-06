@@ -1,0 +1,35 @@
+[step] Required graphic relief, the rear nameplate's construction: the frame, mark, rule, light ring and ON rise above the black face over their embedded colour volume. The parallel planes are the face and the artwork's top.
+alternatives: Flush inlay removes the raised edge the nameplate's style carries; a taller rise adds a heavier edge to the same graphic.
+file: hardware/printed-parts/enclosure/display-cover/status-plate.step
+click: x=83.530 y=10.000 z=0.480
+
+[step] Intentional socket-head locating seat, the display cover's in the shallow visible-head style Derek requested. The parallel planes are the plate face and the floor of its counterbore.
+alternatives: Removing the recess omits the requested head seat. A fully buried head changes the visible-head design.
+file: hardware/printed-parts/enclosure/display-cover/status-plate.step
+click: x=78.525 y=-37.600 z=-1.000
+
+[sliver] Required graphic outlines, as on the nameplate: these strips are the raised sides of the frame and light ring and the rule's front, at the nameplate's frame weight. They define the fine frame and rule rather than an incidental junction between mechanical features.
+alternatives: Wider strokes change the nameplate's light border. Removing the raised side faces requires flush artwork.
+file: hardware/printed-parts/enclosure/display-cover/status-plate.step
+click: x=113.330 y=0.000 z=0.240
+click: x=83.250 y=0.000 z=0.240
+click: x=83.670 y=0.000 z=0.240
+click: x=113.750 y=0.000 z=0.240
+click: x=98.500 y=0.100 z=0.480
+click: x=94.915 y=3.807 z=0.240
+
+[thin] Required graphic outlines, the nameplate's: the frame, rule and light ring are the nameplate's frame weight, and ON uses the nameplate's identification letterforms, whose finite strokes are its finest. These points belong to the raised artwork; it has CAD validation and no physical print acceptance.
+alternatives: Heavier lines change the nameplate's fine border; heavier glyphs change its identification type. Use a variable-width print process for the finest strokes.
+file: hardware/printed-parts/enclosure/display-cover/status-plate.step
+click: x=97.190 y=-13.592 z=0.238
+click: x=113.568 y=-30.833 z=0.245
+click: x=96.146 y=-7.959 z=0.233
+click: x=107.317 y=-0.110 z=0.228
+
+[thin] The shallow screw seats use the display cover's section and bearing floor, which Derek approved with "All of that sounds good." The plate is the cover's thickness and takes the same screws, seats and short inserts.
+alternatives: Thickening the floor while holding the face and head seat in place deepens the plate's seat and reduces the screw's insert engagement; filling the counterbore removes its locating seat.
+file: hardware/printed-parts/enclosure/display-cover/status-plate.step
+click: x=76.702 y=-34.848 z=-3.000
+click: x=77.657 y=33.436 z=-3.000
+click: x=115.707 y=34.060 z=-3.000
+click: x=116.837 y=-38.648 z=-3.000

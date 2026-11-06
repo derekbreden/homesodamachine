@@ -262,11 +262,13 @@ fn main() -> Result<()> {
     }).collect::<Vec<_>>();
     println!("{}", write_part(&out, "display-cover-fasteners", &parts)?);
 
+    // Both colour volumes stand in the STEP, the model and the payload; the STL is their combined
+    // exterior, as the nameplate's is.
     let (plate, white) = status_plate()?;
-    println!("{}", write_part(&out, "status-plate", &[
+    println!("{}", hsm_enclosure_components::write_colored_part(&out, "status-plate", &[
         Body { name: "status-plate", color: Some(PLATE_BLACK), solid: &plate },
         Body { name: "status-plate-ink", color: Some(INK_WHITE), solid: &white },
-    ])?);
+    ], &plate.union(&white)?)?);
     let mut status_hardware = hardware("status", &m::STATUS_STATIONS)?;
     status_hardware.push(("status-led".into(), status_led()?, LED_BLUE));
     let parts = status_hardware.iter().map(|(name, solid, color)| Body {
