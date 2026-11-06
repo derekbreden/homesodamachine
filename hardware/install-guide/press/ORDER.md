@@ -2,6 +2,8 @@
 
 This is the **9 × 7 inch landscape edition with 32 interior pages**. The two upload PDFs are in
 the order bundle with a reading copy, these instructions and SHA-256 checksums.
+`HSM_PRESS=1 tools/cad-venv/bin/python tools/install-guide/build.py` writes the bundle in
+`output/pdf/` from the current guide; the normal build does not.
 
 ## Lulu settings
 
