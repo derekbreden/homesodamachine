@@ -31,7 +31,7 @@ tree needs no edit here.
 
 - **parts-tree.js** — the two units `/3d` browses (the soda machine, which holds the cold core,
   and the faucet and umbilical), the directories each places from, the bought geometry no one of them
-  owns, and the tooling a bench works from, including the fixture and shop-storage namespaces; plus
+  owns, and the tooling a bench works from, including the fixture namespace; plus
   `seatParts`, which walks that nesting and folds a part's `.step` / `.dxf` / `.glb` into one card.
   Read from `/api/{steps,dxf,glbs}` by `web/public/js/viewer/parts.js`; pinned by
   `web/tests/parts-tree.test.js`.
