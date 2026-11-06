@@ -564,6 +564,11 @@ Ok(Val::None)})})?;
                 args183.push(Val::Str("Home Soda Machine - Install guide".into()));
                 fun185.call(args183, kw184)?
             };
+            // The press editions below are the Lulu upload files, written only when an order
+            // needs them (HSM_PRESS=1).
+            if std::env::var_os("HSM_PRESS").is_none() {
+                return Ok(Val::None);
+            }
             let assigned186 = {
                 let fun189 = e.get("PdfWriter")?;
                 let mut args187 = Vec::new();

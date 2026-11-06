@@ -18775,9 +18775,6 @@
       "hardware/install-guide/fonts/Plex-Regular.ttf",
       "hardware/install-guide/fonts/Plex-Semibold.ttf",
       "hardware/install-guide/install-guide.pdf",
-      "hardware/install-guide/press/ORDER.md",
-      "hardware/install-guide/press/cover.pdf",
-      "hardware/install-guide/press/interior.pdf",
       "hardware/printed-parts/cadlib/_scalar_provider.py",
       "hardware/printed-parts/cadlib/fits.py",
       "hardware/printed-parts/cadlib/flute_skin.py",
@@ -18821,11 +18818,6 @@
       "hardware/scripts/_rust_part.py",
       "hardware/scripts/_shared_data.py",
       "hardware/scripts/_stated_bounds.py",
-      "output/pdf/install-guide-lulu-SHA256SUMS.txt",
-      "output/pdf/install-guide-lulu-cover.pdf",
-      "output/pdf/install-guide-lulu-interior.pdf",
-      "output/pdf/install-guide-lulu-order.md",
-      "output/pdf/install-guide.pdf",
       "tools/docgen/__init__.py",
       "tools/hsm/Cargo.lock",
       "tools/hsm/Cargo.toml",
@@ -19072,15 +19064,7 @@
     "writes": [
       "hardware/install-guide/install-guide.cover.png",
       "hardware/install-guide/install-guide.pdf",
-      "hardware/install-guide/install-guide.pdf.json",
-      "hardware/install-guide/press/cover.pdf",
-      "hardware/install-guide/press/interior.pdf",
-      "output/pdf/install-guide-lulu-SHA256SUMS.txt",
-      "output/pdf/install-guide-lulu-cover.pdf",
-      "output/pdf/install-guide-lulu-interior.pdf",
-      "output/pdf/install-guide-lulu-order.md",
-      "output/pdf/install-guide-lulu-order.zip",
-      "output/pdf/install-guide.pdf"
+      "hardware/install-guide/install-guide.pdf.json"
     ]
   },
   "tools/install-guide/kit_art.py": {
