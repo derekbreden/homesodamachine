@@ -12,17 +12,17 @@
     "sliced_volume_type": "Standard"
   },
   "material": "Polymaker Fiberon PET-GF15, black",
-  "project": "/Users/derekbredensteiner/Downloads/HSM-pump-fit-2026-11-06-final/2026-11-06-pump-retainer-mark1-2d0ac687/2026-11-06-pump-retainer-mark1-2d0ac687.3mf",
-  "project_sha256": "f91995ffb7482223e4e03942f1c4669eb6d53fbaaf543fba029f4e7bc9f97b4b",
-  "archive": "/Users/derekbredensteiner/Downloads/HSM-pump-fit-2026-11-06-final/2026-11-06-pump-retainer-mark1-2d0ac687/2026-11-06-pump-retainer-mark1-2d0ac687.gcode.3mf",
-  "archive_sha256": "9ae544e97ca132e4310efac8c8cfb1220cf74e819cdb93162d54100eccc5cb4b",
-  "gcode_sha256": "ed4243c91b090673398f6924ee50aee033a08dbb3d0e256682cf46c2dc8d4a33",
-  "estimated_seconds": 19062.70703125,
-  "prepared_utc": "2026-11-06T19:21:44+00:00",
+  "project": "/Users/derekbredensteiner/Downloads/HSM-pump-fit-2026-11-06-final/2026-11-06-pump-retainer-mark1-331ac1a6/2026-11-06-pump-retainer-mark1-331ac1a6.3mf",
+  "project_sha256": "890e036c5cd2f53aede719403ca0913394557ba6628ed2fec135fea8d5d17840",
+  "archive": "/Users/derekbredensteiner/Downloads/HSM-pump-fit-2026-11-06-final/2026-11-06-pump-retainer-mark1-331ac1a6/2026-11-06-pump-retainer-mark1-331ac1a6.gcode.3mf",
+  "archive_sha256": "d701c094e8d983cbd6b8245a2020f5652ad9c74429d25abeef7d9a09ff001e6d",
+  "gcode_sha256": "8548ee893ba53d76c02eff89f769b77cdfdd9a0ab0e5a7916b8c7968e54c8620",
+  "estimated_seconds": 20004.822265625,
+  "prepared_utc": "2026-11-06T19:52:36+00:00",
   "status": "prepared_not_submitted",
-  "preparation": "/Users/derekbredensteiner/Downloads/HSM-pump-fit-2026-11-06-final/2026-11-06-pump-retainer-mark1-2d0ac687/preparation.json",
-  "review": "/Users/derekbredensteiner/Downloads/HSM-pump-fit-2026-11-06-final/2026-11-06-pump-retainer-mark1-2d0ac687/review.json",
-  "review_sha256": "63bffb70f72664686023341a77d90d4f4133fd450130f2ffa9948d1164520048",
+  "preparation": "/Users/derekbredensteiner/Downloads/HSM-pump-fit-2026-11-06-final/2026-11-06-pump-retainer-mark1-331ac1a6/preparation.json",
+  "review": "/Users/derekbredensteiner/Downloads/HSM-pump-fit-2026-11-06-final/2026-11-06-pump-retainer-mark1-331ac1a6/review.json",
+  "review_sha256": "33c24ae053d08a1cef821d5936a14916927edf3217a18c73b969cc0af6d6c723",
   "minimum_bed_margin_mm": 61.210033,
   "checks": {
     "archive": true,
@@ -53,5 +53,10 @@
     "support_top_z_distance": "0.45",
     "support_object_xy_distance": "0.4"
   },
-  "source_stl_sha256": "1e2b2a86cf98bc3c745093e17fa3fc41d921e0d67eed506471b4b8947e4224a2"
+  "source_stl_sha256": "c88b02141986bdae52b92b8d5af890856ae55de43247525dbec4f64e71b1cb37",
+  "support_access": {
+    "image": "/Users/derekbredensteiner/Downloads/HSM-pump-fit-2026-11-06-final/2026-11-06-pump-retainer-mark1-331ac1a6/support-access.png",
+    "image_sha256": "f2d8af10f132d98ab842f8c4ca54bdd1032b5fe98107d22e5dcf9aa3278a67d9",
+    "inspection": "The emitted branches are exposed through the pump openings and open underside. The aft-wall and skirt-edge interface paths can be reached from those openings. Physical removal effort remains unverified."
+  }
 }
