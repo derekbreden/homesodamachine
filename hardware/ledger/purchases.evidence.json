@@ -8663,6 +8663,18 @@
       "source_ids": [
         "src-eed2cf5000974d36baf0375355543249"
       ]
+    },
+    "pur-9fe3b15945c3487da36214f92b80f9ee": {
+      "vendor": "Amazon",
+      "purpose": "equipment_tooling",
+      "amount_evidence": "estimate",
+      "order_ids": [
+        "amazon:112-0673623-4429031"
+      ],
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-0e5230e241814fb2a9d81a1b0ade8fa4"
+      ]
     }
   },
   "orders": {
@@ -14618,6 +14630,18 @@
       "allocation_status": "all_project",
       "source_ids": [
         "src-eed2cf5000974d36baf0375355543249"
+      ]
+    },
+    "amazon:112-0673623-4429031": {
+      "vendor": "Amazon",
+      "reference": "112-0673623-4429031",
+      "order_date": {
+        "precision": "day",
+        "value": "2026-11-05"
+      },
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-0e5230e241814fb2a9d81a1b0ade8fa4"
       ]
     }
   },
@@ -30173,6 +30197,21 @@
       ],
       "verified_at": "2026-11-05",
       "note": "Signed-in Amazon order details: ordered 2026-11-05; LISTENJIALE 50 pcs adjustable 3-16mm waterproof cable glands, PG7 PG9 PG11 PG13.5 PG16 PG19 (B09Z24H77M) × 1 at USD 12.99, sold by ListenJiaLe, arriving 2026-11-07. USD 12.99 item subtotal, USD 0.00 shipping, USD 0.94 estimated tax and USD 13.93 grand total."
+    },
+    "src-0e5230e241814fb2a9d81a1b0ade8fa4": {
+      "vendor": "Amazon",
+      "document_type": "order_details",
+      "reference": "112-0673623-4429031",
+      "document_date": {
+        "precision": "day",
+        "value": "2026-11-05"
+      },
+      "proves": [
+        "order_date",
+        "price"
+      ],
+      "verified_at": "2026-11-05",
+      "note": "Signed-in Amazon order details: ordered 2026-11-05; Zulkit IP65 Waterproof ABS Plastic Electrical Box - Hinged Shell, 2 Cable Glands, 5.9 x 3.9 x 2.8 inch (B08KY7VK8W) × 1 at USD 9.99, sold by VeSumly, arriving 2026-11-07. USD 9.99 item subtotal, USD 0.00 shipping, USD 0.72 estimated tax and USD 10.71 grand total."
     }
   },
   "coverage": [
