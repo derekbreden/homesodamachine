@@ -56,6 +56,8 @@ fn print_features(dir: &Path, b: &spec::Box) -> Result<()> {
         regions.push(json!({"name": format!("Covered bulkhead at X{} Z{}", port.center_x_mm, port.center_z_mm),
             "bounds_source_mm": [port.center_x_mm-r, port.center_x_mm+r, rear::WET_PORT_Y[0], rear::WET_PORT_Y[1],
                                  port.center_z_mm-r/roof_angle.cos(), port.center_z_mm+r],
+            "void_source": {"kind":"teardrop_y", "centre_xz_mm":[port.center_x_mm,port.center_z_mm],
+                            "radius_mm":r,"span_y_mm":rear::WET_PORT_Y,"roof_angle_deg":shell::shell().teardrop_roof_angle},
             "reason": "Teardrop roof in the roof-down print; circular bulkhead clearance is retained."}));
     }
     for (name, pose) in [("Inlet valve", &layout::layout().parts.valve_v_a),
@@ -76,6 +78,15 @@ fn print_features(dir: &Path, b: &spec::Box) -> Result<()> {
                 }
                 regions.push(json!({"name": format!("{name} post socket {sx}/{sy}"),
                     "bounds_source_mm": [lo[0],hi[0],lo[1],hi[1],lo[2],hi[2]],
+                    "void_source": if name == "Soda valve" {
+                        let a = pose.point([centre[0],centre[1],valves::seat::SOCKET_FLOOR_Z]);
+                        let b = pose.point([centre[0],centre[1],valves::seat::SEAT_TOP_Z+1.0]);
+                        json!({"kind":"teardrop_y","centre_xz_mm":[a[0],a[2]],"radius_mm":r,
+                            "span_y_mm":[a[1],b[1]],"roof_angle_deg":shell::shell().teardrop_roof_angle})
+                    } else {
+                        json!({"kind":"cylinder","start_mm":pose.point([centre[0],centre[1],valves::seat::SOCKET_FLOOR_Z]),
+                            "end_mm":pose.point([centre[0],centre[1],valves::seat::SEAT_TOP_Z+1.0]),"radius_mm":r})
+                    },
                     "reason": "Open build-axis socket or horizontal teardrop socket; keep supports out of the post fit."}));
             }
         }
@@ -84,6 +95,7 @@ fn print_features(dir: &Path, b: &spec::Box) -> Result<()> {
         if station[2]+shell::VENT_CHANNEL_W/2.0 <= b.splits[1] { continue; }
         regions.push(json!({"name": "PRV vent mouth",
             "bounds_source_mm": hsm_enclosure_quadrants::vent::mouth_support_bounds(&b.inner, *station),
+            "void_source": hsm_enclosure_quadrants::vent::mouth_void(&b.inner, *station),
             "reason": "The cap rises from its wall root in the roof-down print; the short mouth lip bridges between its side walls."}));
     }
     let record = json!({"source_stl_sha256": digest(&std::fs::read(dir.join("enclosure-back-top.stl"))?),

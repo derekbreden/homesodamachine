@@ -215,7 +215,7 @@ pub fn bridge_regions() -> Vec<(&'static str, Bounds, f64)> {
         .into_iter().map(|(name, s)| {
             let a = running();
             (name, [s.axis_x - s.outer - a, s.axis_x + s.outer + a,
-                    s.y0 - a, s.y1 + a, s.root - a, s.ceiling + a], s.y1 - s.y0 + 2.0 * a)
+                    s.y0 - a, s.y1 + a, s.split - a, s.ceiling + a], s.y1 - s.y0 + 2.0 * a)
         }).collect()
 }
 

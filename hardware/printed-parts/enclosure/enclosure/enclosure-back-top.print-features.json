@@ -9,7 +9,7 @@
         54.19813977796352,
         396.2032545933731,
         438.3679848073112,
-        320.95,
+        331.2,
         348.8
       ],
       "bridge_axis_source": [
@@ -27,7 +27,7 @@
         91.15561568753091,
         420.09571720240064,
         462.3,
-        320.95,
+        337.95,
         348.8
       ],
       "bridge_axis_source": [
@@ -49,7 +49,20 @@
         340.5182148810266
       ],
       "name": "Covered bulkhead at X29.025858982281964 Z330.8647148810266",
-      "reason": "Teardrop roof in the roof-down print; circular bulkhead clearance is retained."
+      "reason": "Teardrop roof in the roof-down print; circular bulkhead clearance is retained.",
+      "void_source": {
+        "centre_xz_mm": [
+          29.025858982281964,
+          330.8647148810266
+        ],
+        "kind": "teardrop_y",
+        "radius_mm": 9.6535,
+        "roof_angle_deg": 36.0,
+        "span_y_mm": [
+          458.0,
+          472.3
+        ]
+      }
     },
     {
       "bounds_source_mm": [
@@ -61,7 +74,20 @@
         338.1285
       ],
       "name": "Covered bulkhead at X76.5 Z331.2",
-      "reason": "Teardrop roof in the roof-down print; circular bulkhead clearance is retained."
+      "reason": "Teardrop roof in the roof-down print; circular bulkhead clearance is retained.",
+      "void_source": {
+        "centre_xz_mm": [
+          76.5,
+          331.2
+        ],
+        "kind": "teardrop_y",
+        "radius_mm": 6.9285,
+        "roof_angle_deg": 36.0,
+        "span_y_mm": [
+          458.0,
+          472.3
+        ]
+      }
     },
     {
       "bounds_source_mm": [
@@ -73,7 +99,20 @@
         271.65
       ],
       "name": "Covered bulkhead at X76.5 Z264",
-      "reason": "Teardrop roof in the roof-down print; circular bulkhead clearance is retained."
+      "reason": "Teardrop roof in the roof-down print; circular bulkhead clearance is retained.",
+      "void_source": {
+        "centre_xz_mm": [
+          76.5,
+          264.0
+        ],
+        "kind": "teardrop_y",
+        "radius_mm": 7.65,
+        "roof_angle_deg": 36.0,
+        "span_y_mm": [
+          458.0,
+          472.3
+        ]
+      }
     },
     {
       "bounds_source_mm": [
@@ -85,7 +124,20 @@
         302.92
       ],
       "name": "Covered bulkhead at X76.5 Z294.2",
-      "reason": "Teardrop roof in the roof-down print; circular bulkhead clearance is retained."
+      "reason": "Teardrop roof in the roof-down print; circular bulkhead clearance is retained.",
+      "void_source": {
+        "centre_xz_mm": [
+          76.5,
+          294.2
+        ],
+        "kind": "teardrop_y",
+        "radius_mm": 8.72,
+        "roof_angle_deg": 36.0,
+        "span_y_mm": [
+          458.0,
+          472.3
+        ]
+      }
     },
     {
       "bounds_source_mm": [
@@ -97,7 +149,20 @@
         301.84999999999997
       ],
       "name": "Covered bulkhead at X28.7999988712316 Z294.2",
-      "reason": "Teardrop roof in the roof-down print; circular bulkhead clearance is retained."
+      "reason": "Teardrop roof in the roof-down print; circular bulkhead clearance is retained.",
+      "void_source": {
+        "centre_xz_mm": [
+          28.7999988712316,
+          294.2
+        ],
+        "kind": "teardrop_y",
+        "radius_mm": 7.65,
+        "roof_angle_deg": 36.0,
+        "span_y_mm": [
+          458.0,
+          472.3
+        ]
+      }
     },
     {
       "bounds_source_mm": [
@@ -109,7 +174,20 @@
         271.65
       ],
       "name": "Covered bulkhead at X28.7999988712316 Z264",
-      "reason": "Teardrop roof in the roof-down print; circular bulkhead clearance is retained."
+      "reason": "Teardrop roof in the roof-down print; circular bulkhead clearance is retained.",
+      "void_source": {
+        "centre_xz_mm": [
+          28.7999988712316,
+          264.0
+        ],
+        "kind": "teardrop_y",
+        "radius_mm": 7.65,
+        "roof_angle_deg": 36.0,
+        "span_y_mm": [
+          458.0,
+          472.3
+        ]
+      }
     },
     {
       "bounds_source_mm": [
@@ -121,7 +199,21 @@
         344.02086273593386
       ],
       "name": "Inlet valve post socket -1/-1",
-      "reason": "Open build-axis socket or horizontal teardrop socket; keep supports out of the post fit."
+      "reason": "Open build-axis socket or horizontal teardrop socket; keep supports out of the post fit.",
+      "void_source": {
+        "end_mm": [
+          -68.92416907975205,
+          330.6929435097341,
+          336.8206609796312
+        ],
+        "kind": "cylinder",
+        "radius_mm": 3.45,
+        "start_mm": [
+          -68.92458792089849,
+          330.6929435097341,
+          344.02066096744875
+        ]
+      }
     },
     {
       "bounds_source_mm": [
@@ -133,7 +225,21 @@
         344.0208564678001
       ],
       "name": "Inlet valve post socket -1/1",
-      "reason": "Open build-axis socket or horizontal teardrop socket; keep supports out of the post fit."
+      "reason": "Open build-axis socket or horizontal teardrop socket; keep supports out of the post fit.",
+      "void_source": {
+        "end_mm": [
+          -69.03192010464318,
+          355.54270990132414,
+          336.82065471149747
+        ],
+        "kind": "cylinder",
+        "radius_mm": 3.45,
+        "start_mm": [
+          -69.03233894578963,
+          355.54270990132414,
+          344.020654699315
+        ]
+      }
     },
     {
       "bounds_source_mm": [
@@ -145,7 +251,21 @@
         344.0194433431699
       ],
       "name": "Inlet valve post socket 1/-1",
-      "reason": "Open build-axis socket or horizontal teardrop socket; keep supports out of the post fit."
+      "reason": "Open build-axis socket or horizontal teardrop socket; keep supports out of the post fit.",
+      "void_source": {
+        "end_mm": [
+          -93.32393966039069,
+          330.5871437104668,
+          336.8192415868673
+        ],
+        "kind": "cylinder",
+        "radius_mm": 3.45,
+        "start_mm": [
+          -93.32435850153713,
+          330.5871437104668,
+          344.0192415746848
+        ]
+      }
     },
     {
       "bounds_source_mm": [
@@ -157,7 +277,21 @@
         344.01943707503614
       ],
       "name": "Inlet valve post socket 1/1",
-      "reason": "Open build-axis socket or horizontal teardrop socket; keep supports out of the post fit."
+      "reason": "Open build-axis socket or horizontal teardrop socket; keep supports out of the post fit.",
+      "void_source": {
+        "end_mm": [
+          -93.43169068528184,
+          355.43691010205686,
+          336.81923531873355
+        ],
+        "kind": "cylinder",
+        "radius_mm": 3.45,
+        "start_mm": [
+          -93.43210952642828,
+          355.43691010205686,
+          344.0192353065511
+        ]
+      }
     },
     {
       "bounds_source_mm": [
@@ -169,7 +303,20 @@
         315.37220193344785
       ],
       "name": "Soda valve post socket -1/-1",
-      "reason": "Open build-axis socket or horizontal teardrop socket; keep supports out of the post fit."
+      "reason": "Open build-axis socket or horizontal teardrop socket; keep supports out of the post fit.",
+      "void_source": {
+        "centre_xz_mm": [
+          65.55799977207788,
+          311.1077674110736
+        ],
+        "kind": "teardrop_y",
+        "radius_mm": 3.45,
+        "roof_angle_deg": 36.0,
+        "span_y_mm": [
+          295.81499514598534,
+          303.0149951459853
+        ]
+      }
     },
     {
       "bounds_source_mm": [
@@ -181,7 +328,20 @@
         290.5222019334479
       ],
       "name": "Soda valve post socket -1/1",
-      "reason": "Open build-axis socket or horizontal teardrop socket; keep supports out of the post fit."
+      "reason": "Open build-axis socket or horizontal teardrop socket; keep supports out of the post fit.",
+      "void_source": {
+        "centre_xz_mm": [
+          65.55799977207788,
+          286.2577674110736
+        ],
+        "kind": "teardrop_y",
+        "radius_mm": 3.45,
+        "roof_angle_deg": 36.0,
+        "span_y_mm": [
+          295.81499514598534,
+          303.0149951459853
+        ]
+      }
     },
     {
       "bounds_source_mm": [
@@ -193,7 +353,20 @@
         315.37220193344785
       ],
       "name": "Soda valve post socket 1/-1",
-      "reason": "Open build-axis socket or horizontal teardrop socket; keep supports out of the post fit."
+      "reason": "Open build-axis socket or horizontal teardrop socket; keep supports out of the post fit.",
+      "void_source": {
+        "centre_xz_mm": [
+          89.95799977207788,
+          311.1077674110736
+        ],
+        "kind": "teardrop_y",
+        "radius_mm": 3.45,
+        "roof_angle_deg": 36.0,
+        "span_y_mm": [
+          295.81499514598534,
+          303.0149951459853
+        ]
+      }
     },
     {
       "bounds_source_mm": [
@@ -205,7 +378,20 @@
         290.5222019334479
       ],
       "name": "Soda valve post socket 1/1",
-      "reason": "Open build-axis socket or horizontal teardrop socket; keep supports out of the post fit."
+      "reason": "Open build-axis socket or horizontal teardrop socket; keep supports out of the post fit.",
+      "void_source": {
+        "centre_xz_mm": [
+          89.95799977207788,
+          286.2577674110736
+        ],
+        "kind": "teardrop_y",
+        "radius_mm": 3.45,
+        "roof_angle_deg": 36.0,
+        "span_y_mm": [
+          295.81499514598534,
+          303.0149951459853
+        ]
+      }
     },
     {
       "bounds_source_mm": [
@@ -217,7 +403,40 @@
         222.09999999962744
       ],
       "name": "PRV vent mouth",
-      "reason": "The cap rises from its wall root in the roof-down print; the short mouth lip bridges between its side walls."
+      "reason": "The cap rises from its wall root in the roof-down print; the short mouth lip bridges between its side walls.",
+      "void_source": {
+        "kind": "prism_y",
+        "profile_xz_mm": [
+          [
+            -101.25,
+            197.85
+          ],
+          [
+            -101.25,
+            141.85
+          ],
+          [
+            -93.75000000018628,
+            141.85
+          ],
+          [
+            -93.75000000018628,
+            185.6
+          ],
+          [
+            -90.75000000018628,
+            185.6
+          ],
+          [
+            -90.75000000018628,
+            208.34999999981372
+          ]
+        ],
+        "span_y_mm": [
+          317.79999999962746,
+          329.79999999962746
+        ]
+      }
     }
   ]
 }

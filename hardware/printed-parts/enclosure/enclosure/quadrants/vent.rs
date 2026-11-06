@@ -93,6 +93,20 @@ pub fn mouth_support_bounds(inner: &Bounds, [x, y, z]: [f64; 3]) -> Bounds {
      z-half-supported()-VENT_RIB_WALL, cap_root+2.0*(rib-root)]
 }
 
+/// The mouth's open passage, used to distinguish a branch inside it from an exterior tree.
+pub fn mouth_void(inner: &Bounds, [x, y, z]: [f64; 3]) -> serde_json::Value {
+    let rib = x-running();
+    let floor = rib-VENT_RIB_WALL;
+    let liner = inner[0]+slide_slip()+VENT_RIB_WALL;
+    let half = VENT_CHANNEL_W/2.0;
+    let top = z+half;
+    let bottom = z-half-supported();
+    let shaft = z-VENT_DUCT_DROP-VENT_GROOVE_DROP;
+    serde_json::json!({"kind":"prism_y","span_y_mm":[y-half,y+half],
+        "profile_xz_mm":[[liner,top],[liner,shaft],[floor,shaft],[floor,bottom],
+                         [rib,bottom],[rib,top+rib-liner]]})
+}
+
 /// The height the condenser's vents are pierced over: the fan's footprint on the flank.
 pub fn vent_band(airway: &[f64; 4]) -> [f64; 2] {
     [airway[2] + COND_FAN_RISE, airway[3] - COND_FAN_DROP]

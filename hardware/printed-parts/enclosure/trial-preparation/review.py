@@ -305,6 +305,51 @@ def pause_reading(archive: Path, pause: dict) -> dict:
             "air_over_stack_mm": pause["layer"]["air_over_stack_mm"], "message": pause["message"]}
 
 
+def support_in_void(road, z, height, region, record) -> bool:
+    """Read the support bead inside the named passage, excluding its solid bounding-box corners."""
+    x0, y0, x1, y1, width = road
+    length = math.hypot(x1-x0, y1-y0)
+    t = np.linspace(0, 1, max(2, math.ceil(length/0.15)+1))
+    path = np.stack([x0+(x1-x0)*t, y0+(y1-y0)*t], axis=1)
+    normal = np.array([-(y1-y0), x1-x0])/length if length else np.array([1., 0.])
+    samples = np.concatenate([path+normal*offset for offset in [-width/2, 0., width/2]])
+    plate = np.concatenate([np.column_stack([samples, np.full(len(samples), level)])
+                            for level in [z-height+0.02, z-height/2, z-0.02]])
+    source = ((plate-np.array(record["translation_mm"])) @ np.array(record["build_rotation"])
+              + np.array(record["source_center_mm"]))
+    shape = region.get("void_source")
+    if shape is None:
+        b = region["bounds_source_mm"]
+        return bool(((source > np.array(b)[[0, 2, 4]]+0.02)
+                     & (source < np.array(b)[[1, 3, 5]]-0.02)).all(axis=1).any())
+    if shape["kind"] == "teardrop_y":
+        cx, cz = shape["centre_xz_mm"]
+        radius = shape["radius_mm"]
+        angle = math.radians(shape["roof_angle_deg"])
+        dx, rise = source[:, 0]-cx, cz-source[:, 2]
+        round_part = dx*dx+rise*rise < (radius-0.02)**2
+        apex = radius/math.cos(angle)
+        roof = ((rise >= radius*math.cos(angle)) & (rise < apex-0.02)
+                & (np.abs(dx) < (apex-rise)/math.tan(angle)-0.02))
+        low, high = sorted(shape["span_y_mm"])
+        return bool(((round_part | roof) & (source[:, 1] > low+0.02)
+                     & (source[:, 1] < high-0.02)).any())
+    if shape["kind"] == "cylinder":
+        a, b = np.array(shape["start_mm"]), np.array(shape["end_mm"])
+        axis = b-a
+        along = (source-a) @ axis/(axis @ axis)
+        radial = source-a-along[:, None]*axis
+        return bool(((along > 0) & (along < 1)
+                     & ((radial*radial).sum(axis=1) < (shape["radius_mm"]-0.02)**2)).any())
+    if shape["kind"] == "prism_y":
+        from shapely import contains_xy
+        from shapely.geometry import Polygon
+        low, high = sorted(shape["span_y_mm"])
+        inside = contains_xy(Polygon(shape["profile_xz_mm"]).buffer(-0.02), source[:, 0], source[:, 2])
+        return bool((inside & (source[:, 1] > low+0.02) & (source[:, 1] < high-0.02)).any())
+    raise ValueError(f"unknown support-free passage: {shape['kind']}")
+
+
 def review(directory: Path, audit: bool = True) -> dict:
     directory = Path(directory)
     preparation = json.loads((directory / "preparation.json").read_text())
@@ -395,7 +440,8 @@ def review(directory: Path, audit: bool = True) -> dict:
                 for oid, region in excluded:
                     (bx0, by0, bz0), (bx1, by1, bz1) = region["box_plate_mm"]
                     if z - height < bz1 - 0.02 and z > bz0 + 0.02 and bead.intersects(
-                            shapely_box(bx0 + 0.02, by0 + 0.02, bx1 - 0.02, by1 - 0.02)):
+                            shapely_box(bx0 + 0.02, by0 + 0.02, bx1 - 0.02, by1 - 0.02)) and support_in_void(
+                                r[index], z, height, region, objects[oid]):
                         stats["excluded_support"].append({"object": oid, "name": region["name"], "z_mm": z,
                             "road": r[index].tolist(), "feature": features[index]})
                 for oid, ((bx0, by0, bz0), (bx1, by1, bz1)) in slots:
