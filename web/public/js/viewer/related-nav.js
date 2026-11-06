@@ -101,6 +101,7 @@ function section(heading, items, named = []) {
   for (const item of items) {
     const btn = chip({ file: item.file });
     btn.title = item.file;
+    btn.querySelector(".tool-label").textContent = item.label;
     chips.appendChild(btn);
   }
   box.appendChild(chips);

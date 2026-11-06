@@ -76,6 +76,9 @@ function load(graphPath) {
 }
 
 const label = (file) => path.posix.basename(file).replace(/\.step$/, "");
+// A model as the list names it: by its file, or by its folder when the file says only that it
+// is an assembly.
+const nameOf = (file) => label(file) === "assembly" ? `${path.posix.basename(path.posix.dirname(file))} assembly` : label(file);
 
 // The model that stands for a set of steps, root-relative to hardware/ as the viewer names models:
 // the one named for the folder or a step, else the shortest named from the folder, else the
@@ -94,13 +97,10 @@ function modelAmong(index, steps, folder) {
 
 const modelOf = (index, step) => modelAmong(index, [step], path.posix.basename(path.posix.dirname(step)));
 
-// A part, by the folder its sources stand in: its model when a step there makes one, named for
-// the folder when that model's name says only that it is an assembly.
+// A part, by the folder its sources stand in: its model when a step there makes one.
 function partOf(index, folder) {
   const model = modelAmong(index, index.stepsIn.get(folder) || [], path.posix.basename(folder));
-  const named = model && label(model) !== "assembly" ? label(model)
-    : model ? `${path.posix.basename(folder)} assembly` : path.posix.basename(folder);
-  return { kind: "part", key: folder, file: model, label: named };
+  return { kind: "part", key: folder, file: model, label: model ? nameOf(model) : path.posix.basename(folder) };
 }
 
 // What one file the record names stands for, beside the step that read it.
@@ -111,13 +111,13 @@ function standsFor(index, step, file) {
   if (model) {
     const stepFile = model[1].endsWith(".step") ? model[1] : model[1] + ".step";
     if (path.posix.dirname("hardware/" + stepFile) === own) return { kind: "own" };
-    return { kind: "output", key: stepFile, file: stepFile, label: label(stepFile) };
+    return { kind: "output", key: stepFile, file: stepFile, label: nameOf(stepFile) };
   }
   const from = index.writer.get(file);
   if (from && from !== step) {
     const made = modelOf(index, from);
     // An output with no model, such as a report, is not a part to open.
-    return made ? { kind: "output", key: made, file: made, label: label(made) } : { kind: "none" };
+    return made ? { kind: "output", key: made, file: made, label: nameOf(made) } : { kind: "none" };
   }
   if (file.startsWith("hardware/")) {
     const folder = path.posix.dirname(file);
@@ -180,7 +180,7 @@ export function madeFrom(graphPath, file) {
   const usedIn = new Map();
   for (const user of index.users.get(path.posix.dirname(step)) || []) {
     const model = user === step ? null : modelOf(index, user);
-    if (model && !usedIn.has(model)) usedIn.set(model, { label: label(model), file: model, files: 1 });
+    if (model && !usedIn.has(model)) usedIn.set(model, { label: nameOf(model), file: model, files: 1 });
   }
   return {
     parts: sorted(groups.part.values()),
