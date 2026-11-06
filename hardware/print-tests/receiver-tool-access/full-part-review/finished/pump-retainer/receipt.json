@@ -1,14 +1,14 @@
 {
-  "part_number": "HSM-0082",
+  "part_number": "HSM-000082",
   "part": "pump-retainer",
   "printer": "Mark1",
   "stl": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.stl",
   "stl_sha256": "d2f999e640039b2d322c418821be80242130b459e56e97a57f9f3c7dd9ce8b6d",
-  "project": "/Users/derekbredensteiner/Downloads/HSM-full-enclosure-2026-11-03/projects/HSM-0082-pump-retainer-Mark1.3mf",
+  "project": "/Users/derekbredensteiner/Downloads/HSM-full-enclosure-2026-11-03/projects/HSM-000082-pump-retainer-Mark1.3mf",
   "project_sha256": "a368c52f311b893a3052a436dbe6a4dcb89e3c7ea49061f288134b5c3d197dd4",
-  "reviewed_archive": "/Users/derekbredensteiner/Downloads/HSM-full-enclosure-2026-11-03/reviewed/HSM-0082-pump-retainer-Mark1.gcode.3mf",
+  "reviewed_archive": "/Users/derekbredensteiner/Downloads/HSM-full-enclosure-2026-11-03/reviewed/HSM-000082-pump-retainer-Mark1.gcode.3mf",
   "reviewed_archive_sha256": "49555a320b69a99944d2083f53657b70986dcb0590758f726309c077594b3a46",
-  "print_archive": "/Users/derekbredensteiner/Downloads/HSM-full-enclosure-2026-11-03/HSM-0082-pump-retainer-Mark1.gcode.3mf",
+  "print_archive": "/Users/derekbredensteiner/Downloads/HSM-full-enclosure-2026-11-03/HSM-000082-pump-retainer-Mark1.gcode.3mf",
   "print_archive_sha256": "792318561079ddac26bf29bdff49759154595924be16b9d93e1029f6dc4485f1",
   "gcode_sha256": {
     "Metadata/plate_1.gcode": "d5006ce40672d9c1377923b2510d578d3c69f0868e964ef43ecb2ad76e285cf0"
@@ -52,5 +52,8 @@
     }
   },
   "support_removal": "../support-removal.json",
-  "submitted": false
+  "submitted": true,
+  "printer_task_id": "1412449251",
+  "started_at_utc": "2026-11-06T05:31:22.646650+00:00",
+  "print_job": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-05-pump-retainer-mark1/print-job.json"
 }

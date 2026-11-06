@@ -1,0 +1,95 @@
+{
+  "part_number": "HSM-000082",
+  "part_name": "Lower pump retainer / front pump snap",
+  "printer": "Mark1",
+  "connection_key": "H2C",
+  "user_authorization": "Mark1 is clear. I'd like the front pump snap at least.",
+  "status": "printing",
+  "started": true,
+  "started_at_utc": "2026-11-06T05:31:22.646650+00:00",
+  "printer_task_id": "1412449251",
+  "accepted_state": "PREPARE",
+  "archive": "/Users/derekbredensteiner/Downloads/HSM-full-enclosure-2026-11-03/HSM-000082-pump-retainer-Mark1.gcode.3mf",
+  "archive_sha256": "792318561079ddac26bf29bdff49759154595924be16b9d93e1029f6dc4485f1",
+  "gcode_sha256": {
+    "Metadata/plate_1.gcode": "d5006ce40672d9c1377923b2510d578d3c69f0868e964ef43ecb2ad76e285cf0"
+  },
+  "source_stl": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.stl",
+  "source_stl_sha256": "d2f999e640039b2d322c418821be80242130b459e56e97a57f9f3c7dd9ce8b6d",
+  "source_step_sha256": "d150ee04c6f9e9d1e9cf64eb641f02f14305b08ac7152945b1e2f3098f33f6e7",
+  "geometry_matches_prepared_review": true,
+  "gcode_byte_identical_to_reviewed_slice": true,
+  "prepared_receipt": "hardware/print-tests/receiver-tool-access/full-part-review/finished/pump-retainer/receipt.json",
+  "native_review": "hardware/print-tests/receiver-tool-access/full-part-review/finished/pump-retainer/review.json",
+  "native_checks": {
+    "archive": true,
+    "z_trim": true,
+    "bed_border": true,
+    "fine_and_transition_bands": true,
+    "show_faces_support_free": true,
+    "tie_windows_support_free": true,
+    "ribbons_support_free_and_printed": true,
+    "solid_hosts_sampled": true
+  },
+  "material": "Polymaker Fiberon PET-GF15, black",
+  "nozzle": {
+    "side": "left",
+    "diameter_mm": 0.4,
+    "flow": "Standard",
+    "hardened": true,
+    "reason": "Every abrasive stock runs on the left hotend (hardware/ledger/tools.md, Which hotends fit an H2C); Mark1's fixed left hardened 0.4 mm carries black PET-GF (tools/bambu-printers.md, Purge and wipe).",
+    "sliced_diameter_mm": 0.4,
+    "sliced_volume_type": "Standard"
+  },
+  "external_spool": 254,
+  "external_spool_metadata": {
+    "type": "PET-CF",
+    "colour": "000000FF"
+  },
+  "build_pose": {
+    "turns": [
+      [
+        "x",
+        90
+      ]
+    ],
+    "reason": "Y-end down keeps the X/Z spring bending plane within each layer."
+  },
+  "emitted_z_trim_mm": [
+    0.0,
+    0.16
+  ],
+  "estimated_seconds": 21460.44921875,
+  "estimated_filament_g": 172.17919921875,
+  "layers": 284,
+  "minimum_bead_bed_margin_mm": 61.212204499999984,
+  "support_removal_record": "hardware/print-tests/receiver-tool-access/full-part-review/finished/support-removal.json",
+  "support_summary": {
+    "1901": {
+      "support_bodies": 2,
+      "interface_islands": 6,
+      "bed_rooted_bodies": 2,
+      "model_rooted_bodies": 0,
+      "shortest_build_up_mm": 57.36,
+      "bodies_without_interface_labels": 0,
+      "explicit_interface_islands": 6,
+      "shortest_labelled_build_up_mm": 57.36
+    }
+  },
+  "launch_record": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-05-pump-retainer-mark1/launch.json",
+  "standing_options_verified": {
+    "timelapse": "On",
+    "bed_leveling": "On",
+    "flow_dynamic_calibration": "Auto",
+    "nozzle_offset_calibration": "Auto"
+  },
+  "other_printer_start": {
+    "printer": "Mark2",
+    "printer_task_id": "1410263719",
+    "accepted_at_utc": "2026-11-05T15:06:28.418432+00:00",
+    "separation_seconds": 51894.228218
+  },
+  "startup_status_record": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-05-pump-retainer-mark1/startup-printer.json",
+  "confirmed_state": "RUNNING",
+  "confirmed_at_utc": "2026-11-06T05:32:32.651314+00:00"
+}
