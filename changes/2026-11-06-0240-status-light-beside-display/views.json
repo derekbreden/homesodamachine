@@ -1,0 +1,73 @@
+{
+  "views": [
+    {
+      "name": "facet",
+      "caption": "The display's pocket slides left; the status plate's seat, pilots and LED bore take the facet's right.",
+      "before": "facet-before.webp",
+      "after": "facet-after.webp",
+      "width": 1200,
+      "height": 700,
+      "marks": [
+        {
+          "x": 825.1,
+          "y": 373.5,
+          "r": 15.9,
+          "label": "light",
+          "at": [
+            70.75,
+            42.26,
+            327.14
+          ]
+        }
+      ],
+      "model": "printed-parts/enclosure/enclosure/enclosure-front-top.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          0,
+          -84.1146672253338,
+          560.8230436342781
+        ],
+        "target": [
+          0,
+          48.67,
+          330.84
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "fov": 45,
+        "near": 135.87389715590476,
+        "far": 720.581963299144,
+        "aspect": 1.7142857142857142
+      },
+      "highlight": [],
+      "ghost": [],
+      "only": [],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh",
+          "from": "snapshot",
+          "sha256": "6774b7a77e798e9ffc0f95a0fc588a81fa15df3fc9f2f23c18d95184f11799f9",
+          "commit": "d62665096fcec34e97264bc281adb3502393e1d5",
+          "taken": "2026-11-06T08:07:14.868Z",
+          "published": true
+        },
+        "after": {
+          "payload": "printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh",
+          "from": "tree",
+          "sha256": "5335193ba112424585315348225ead7324d7c42f61f50e3bfeba2182fe268bdd",
+          "commit": "d62665096fcec34e97264bc281adb3502393e1d5",
+          "published": false
+        }
+      },
+      "changed": [
+        "enclosure-front-top"
+      ],
+      "withinMeshing": []
+    }
+  ]
+}
