@@ -288,7 +288,7 @@ fn moved_records(raw: &str, frame: &Frame) -> Result<String> {
     }
     Ok(serde_json::to_string(&rows)?)
 }
-struct NumericPart {
+pub(crate) struct NumericPart {
     v: Vec<u8>,
     t: Vec<u8>,
     f: Vec<u8>,
@@ -320,23 +320,53 @@ fn split_parts(path: &Path, index: usize, frame: &Frame) -> Result<Vec<NumericPa
         })
         .collect()
 }
-pub fn component_count(path: &Path, index: usize) -> Result<usize> {
-    let source = hsm_kernel::import::model(path)?;
-    Ok(source
-        .get(index)
-        .context("component source index")?
-        .solid
-        .components()
-        .len())
-}
+/// One body of a physical model: an entry of a stored model, placed, named and coloured as the
+/// model shows it, or numeric arrays this process holds.
 #[derive(Clone)]
-struct Ref {
-    path: PathBuf,
-    index: usize,
-    name: String,
-    color: Value,
-    frame: Frame,
-    owned: Option<std::sync::Arc<NumericPart>>,
+pub struct Ref {
+    pub(crate) path: PathBuf,
+    pub(crate) index: usize,
+    pub(crate) name: String,
+    pub(crate) color: Value,
+    pub(crate) frame: Frame,
+    pub(crate) owned: Option<std::sync::Arc<NumericPart>>,
+}
+impl Ref {
+    /// Entry `index` of the stored model at `path`, unmoved.
+    pub fn stored(path: &Path, index: usize, name: &str, color: Option<[f64; 3]>) -> Self {
+        Self {
+            path: path.to_owned(),
+            index,
+            name: name.to_owned(),
+            color: json!(color),
+            frame: Frame::read(None).expect("the identity frame"),
+            owned: None,
+        }
+    }
+    /// Bodies made in this process, one entry each, in order.
+    pub fn made(bodies: &[hsm_kernel::write::Body<'_>]) -> Result<Vec<Self>> {
+        let mut archive = ZipArchive::new(Cursor::new(hsm_kernel::step::model_bytes(bodies)))?;
+        let records = spans(npy_data(&member(&mut archive, "records.npy")?)?)?;
+        bodies
+            .iter()
+            .enumerate()
+            .map(|(index, body)| {
+                Ok(Self {
+                    path: PathBuf::new(),
+                    index,
+                    name: body.name.to_owned(),
+                    color: json!(body.color),
+                    frame: Frame::read(None)?,
+                    owned: Some(std::sync::Arc::new(NumericPart {
+                        v: member(&mut archive, &format!("V{index}.npy"))?,
+                        t: member(&mut archive, &format!("T{index}.npy"))?,
+                        f: member(&mut archive, &format!("F{index}.npy"))?,
+                        records: records[index].clone(),
+                    })),
+                })
+            })
+            .collect()
+    }
 }
 fn references(instances: &Value, sources: &mut Models) -> Result<Vec<Ref>> {
     let mut rows = Vec::new();
@@ -430,14 +460,13 @@ fn write_refs_using(
     ));
     let mut writer = ZipWriter::new(File::create(&temp)?);
     let options = SimpleFileOptions::default().compression_method(zip::CompressionMethod::Stored);
-    for row in rows {
+    for row in rows.iter().filter(|row| row.owned.is_none()) {
         if !sources.contains_key(&row.path) {
             sources.insert(row.path.clone(), Model::open(&row.path)?);
         }
     }
     let mut records = Vec::new();
     for (ordinal, row) in rows.iter().enumerate() {
-        let source = sources.get_mut(&row.path).unwrap();
         for kind in ["V", "T", "F"] {
             let mut bytes = if let Some(part) = &row.owned {
                 match kind {
@@ -446,6 +475,7 @@ fn write_refs_using(
                     _ => part.f.clone(),
                 }
             } else {
+                let source = sources.get_mut(&row.path).unwrap();
                 member(&mut source.archive, &format!("{kind}{}.npy", row.index))?
             };
             if !row.frame.identity() && (kind == "V" || (kind == "T" && row.frame.det() < 0.)) {
@@ -481,11 +511,10 @@ fn write_refs_using(
             writer.start_file(format!("{kind}{ordinal}.npy"), options)?;
             writer.write_all(&bytes)?;
         }
-        let record = row
-            .owned
-            .as_ref()
-            .map(|part| part.records.as_str())
-            .unwrap_or(&source.records[row.index]);
+        let record = match &row.owned {
+            Some(part) => part.records.as_str(),
+            None => &sources[&row.path].records[row.index],
+        };
         records.push(if row.frame.identity() {
             record.to_owned()
         } else {
@@ -521,7 +550,7 @@ fn write_refs_using(
     Ok(())
 }
 /// Write buffers directly to an atomic output, retaining the old file when bytes match.
-pub(super) fn put_stream(
+pub fn put_stream(
     path: &Path,
     write: impl FnOnce(&mut BufWriter<File>) -> Result<()>,
 ) -> Result<()> {
@@ -788,28 +817,48 @@ fn copy_payload(from: &Path, to: &Path) -> Result<()> {
 
 pub fn physical(spec: &Value, output: &Path) -> Result<Value> {
     let name = spec["name"].as_str().unwrap_or("enclosure-assembly");
-    let model = output.join(format!("{name}.step.npz"));
-    let step = output.join(format!("{name}.step"));
-    let mesh = output.join(format!("{name}.step.mesh"));
-    let presentation = spec["physical_presentation"]
-        .as_str()
-        .map(|file| output.join(file))
-        .unwrap_or_else(|| mesh.clone());
     let instances = spec.get("instances").context("physical instances")?;
     let mut sources = Models::new();
     let rows = references(instances, &mut sources)?;
+    let presentation = spec["physical_presentation"].as_str().map(|file| output.join(file));
+    let skins = spec.get("presentation");
+    let (files, names, src) =
+        export(name, rows, &mut sources, presentation, skins, spec.get("document"), output)?;
+    let model = output.join(format!("{name}.step.npz"));
+    let mesh = output.join(format!("{name}.step.mesh"));
+    Ok(
+        json!({"files":files,"bodies":names,"model":model,"payload":mesh,"physical_step_sha256":src}),
+    )
+}
+/// The physical model `name` of `rows` in `output`: its fine archive, its STEP and the payload
+/// drawn from each stored entry's own presentation, or from its solid.
+pub fn physical_rows(name: &str, rows: Vec<Ref>, output: &Path) -> Result<()> {
+    export(name, rows, &mut Models::new(), None, None, None, output).map(drop)
+}
+fn export(
+    name: &str, rows: Vec<Ref>, sources: &mut Models, presentation: Option<PathBuf>,
+    skins: Option<&Value>, document: Option<&Value>, output: &Path,
+) -> Result<(Vec<String>, Vec<Value>, String)> {
+    let model = output.join(format!("{name}.step.npz"));
+    let step = output.join(format!("{name}.step"));
+    let mesh = output.join(format!("{name}.step.mesh"));
+    let presentation = presentation.unwrap_or_else(|| mesh.clone());
     // The physical model's document is attached after its presentation is complete.
     // Reuse each immutable input archive across reference, copy and presentation phases.
-    write_refs_using(&rows, None, &model, &mut sources)?;
+    write_refs_using(&rows, None, &model, sources)?;
+    let placed: Vec<_> = rows
+        .iter()
+        .map(|row| row.owned.is_none().then(|| (row.path.clone(), row.index, row.frame)))
+        .collect();
     drop(rows);
     let mut fine = Model::open_file(&model, false)?;
     let src = write_step_stream(&mut fine, &step, name)?;
-    let mut shown = super::payload::placed_surfaces(instances, &mut fine, &mut sources)?;
-    drop(sources);
+    let mut shown = super::payload::placed_surfaces(&placed, &mut fine, sources)?;
+    sources.clear();
     let names: Vec<_> = fine.names.iter().map(|name| json!({"name":name})).collect();
     drop(fine);
     shown.header["src"] = json!(src);
-    if let Some(skins) = spec.get("presentation") {
+    if let Some(skins) = skins {
         shown.graft(skins)?;
     }
     shown.write(&presentation)?;
@@ -817,7 +866,7 @@ pub fn physical(spec: &Value, output: &Path) -> Result<Value> {
     if presentation != mesh {
         copy_payload(&presentation, &mesh)?;
     }
-    bind_fresh(&model, &presentation, spec.get("document"))?;
+    bind_fresh(&model, &presentation, document)?;
     let mut files = vec![
         super::output_name(&step, output),
         super::output_name(&model, output),
@@ -826,9 +875,7 @@ pub fn physical(spec: &Value, output: &Path) -> Result<Value> {
     if presentation != mesh {
         files.push(super::output_name(&presentation, output));
     }
-    Ok(
-        json!({"files":files,"bodies":names,"model":model,"payload":mesh,"physical_step_sha256":src}),
-    )
+    Ok((files, names, src))
 }
 pub fn scene(spec: &Value, output: &Path) -> Result<Value> {
     let path = PathBuf::from(super::text(spec, "model")?);

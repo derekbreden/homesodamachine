@@ -101,15 +101,20 @@ pub fn inventory(_root:&Path,graph:&Value,mut files:BTreeSet<String>,config:&Val
     }
     let mut output=Vec::new();
     for generators in together(&writes) {
-        let mut reads=names(&config["runtime_reads"]);let mut rewritten=BTreeSet::new();let mut targets=BTreeSet::new();
+        // A Rust step runs its program and no Python, so it holds none of the Python runtime.
+        let program=generators.iter().find_map(|g|rows.get(g).and_then(|row|row.get("program")).cloned());
+        let mut reads=if program.is_some(){BTreeSet::new()}else{names(&config["runtime_reads"])};
+        let mut rewritten=BTreeSet::new();let mut targets=BTreeSet::new();
         for generator in &generators {
             reads.extend(names(&graph[generator]["reads"]).intersection(&files).cloned());
             rewritten.extend(names(&graph[generator]["rewritten"]).intersection(&files).cloned());
             targets.extend(writes[generator].iter().cloned());
         }
-        if reads.iter().any(|p|p.starts_with("tools/hsm/")&&p.ends_with("/Cargo.toml")){reads.extend(names(&config["rust_runtime_reads"]));}
+        if program.is_none()&&reads.iter().any(|p|p.starts_with("tools/hsm/")&&p.ends_with("/Cargo.toml")){reads.extend(names(&config["rust_runtime_reads"]));}
         let(docs,solids):(Vec<_>,Vec<_>)=targets.into_iter().partition(|p|rewritten.contains(p));
-        output.push(json!([generators,{"solids":solids,"docs":docs,"reads":reads}]));
+        let mut made=json!({"solids":solids,"docs":docs,"reads":reads});
+        if let Some(program)=program {made["program"]=program;}
+        output.push(json!([generators,made]));
     }
     Ok(json!(output))
 }

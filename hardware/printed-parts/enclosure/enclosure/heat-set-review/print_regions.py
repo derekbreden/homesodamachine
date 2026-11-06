@@ -16,13 +16,9 @@ ENC = ROOT / 'hardware/printed-parts/enclosure/enclosure'
 sys.path[:0] = [str(ROOT / 'hardware/scripts'), str(ENC)]
 import enclosure as e
 import _box_spec
+import _rust_part
 import _fixed_pump_mount as fixed_mount
 from materialize_pump_cartridge import _declared_box
-
-
-def shape_bounds(shape):
-    b = shape.BoundingBox()
-    return [b.xmin, b.xmax, b.ymin, b.ymax, b.zmin, b.zmax]
 
 
 def transformed_bounds(bounds, transform):
@@ -47,7 +43,7 @@ def print_pose(piece, mesh_bounds):
                                     [0, 0, sign, offset], [0, 0, 0, 1]])
 
 
-def above_core_regions(box, region):
+def above_core_regions(box, region, receivers):
     """Complete fixed-shell hosts from the selected native interface helpers."""
     shell = e._above_core_shell
     for component, plan in shell.wall_mount_datums().items():
@@ -81,12 +77,12 @@ def above_core_regions(box, region):
     depth = fasteners['boss_depth_mm']
     pitch = shell.layout.specification()['rear_wall']['dry_openings']['c14']['mount_pitch_mm']
     for side in (-1, 1):
-        # Use the same native cylinder as rear_geometry(); carry its complete
-        # blind end and backing through the supporting exterior rear wall.
-        host = shell.ycylinder(5., x + side*pitch/2, z, seat-depth, seat)
-        bounds = shape_bounds(host)
-        bounds[3] = max(bounds[3], box.outer[3])
-        region('back-top', f'C14 blind insert host and rear wall root {side:+g}', bounds)
+        # The rear wall's blind boss round each screw, with its complete blind end and
+        # backing carried through the supporting exterior rear wall.
+        cx, radius = x + side*pitch/2, 5.
+        region('back-top', f'C14 blind insert host and rear wall root {side:+g}',
+               [cx-radius, cx+radius, seat-depth, max(seat, box.outer[3]),
+                z-radius, z+radius])
     nameplate_path = ENC.parent/'nameplate/nameplate.numbers.json'
     mount = json.loads(nameplate_path.read_text())['snap']
     plate = json.loads((ROOT/'hardware/manifold-layout/above-core.json').read_text())['rear_identification']['nameplate']
@@ -100,15 +96,10 @@ def above_core_regions(box, region):
                 back+mount['thick'],
                 z-radius, z+radius])
     if box.pack.funnel:
-        frame = e._funnel_frame_part
         for col in ('front', 'back'):
-            receivers = frame.receivers(box.inner, box.outer, box.y_joint,
-                                        box.pack.funnel, e.funnel_seat_z(box.outer), col)
-            if receivers is not None:
-                for number, shape in enumerate(receivers.Solids(), start=1):
-                    region(f'{col}-top',
-                           f'Funnel frame receiver, blind cap and full flank root {number}',
-                           shape_bounds(shape))
+            if col in receivers:
+                region(f'{col}-top', 'Funnel frame receiver, blind cap and full flank root 1',
+                       receivers[col])
 
 
 def write_regions(box, _bounds, box_path):
@@ -121,18 +112,16 @@ def write_regions(box, _bounds, box_path):
         pieces[piece].append(dict(name=name, machine_bounds_mm=bounds,
                                  sparse_infill_density='100%', sparse_infill_pattern='zig-zag',
                                  **evidence))
-    lower, upper = e.y_stack(box.inner)
-    for xi, sx in ((box.inner[0], 1.0), (box.inner[1], -1.0)):
-        for rows, depth in ((lower, e.y_stack_low_depth), (upper, e.y_stack_high_depth)):
-            for who, z0, z1, _g0, _g1 in rows:
-                b = e._y_knuckle(box.inner, box.outer, xi, sx, box.y_joint, who, z0, z1,
-                                depth).BoundingBox()
-                # Carry the modifier through the supporting exterior wall, not
-                # just the projecting block that the knuckle helper returns.
-                xa = min(b.xmin, box.outer[0]) if sx > 0 else b.xmin
-                xb = max(b.xmax, box.outer[1]) if sx < 0 else b.xmax
-                region(who, f'Y seam knuckle and its wall root {sx:+g}/{z0:g}',
-                       [xa, xb, b.ymin, b.ymax, b.zmin, b.zmax])
+    # The knuckles' and receivers' bounds from the pieces' construction plan.
+    cut = json.loads(_rust_part.run('enclosure', 'enclosure-region-bounds', '--box', box_path))
+    for knuckle in cut['knuckles']:
+        sx, (x0, x1, y0, y1, z0, z1) = knuckle['sx'], knuckle['bounds']
+        # Carry the modifier through the supporting exterior wall, not
+        # just the projecting block that the knuckle recipe returns.
+        xa = min(x0, box.outer[0]) if sx > 0 else x0
+        xb = max(x1, box.outer[1]) if sx < 0 else x1
+        region(knuckle['piece'], f"Y seam knuckle and its wall root {sx:+g}/{knuckle['z0']:g}",
+               [xa, xb, y0, y1, z0, z1])
     for col, y0, y1 in (('front',box.outer[2],box.y_joint),('back',box.y_joint,box.outer[3])):
         for sx in (-1,1):
             xa,xb=sorted((sx*90.0,sx*107.5))
@@ -171,7 +160,7 @@ def write_regions(box, _bounds, box_path):
         region('front-top', f'Pump snap {side} receiver floor and full flank root',
                [xa, xb, snap['receiver_y0'], snap['receiver_y1'],
                 snap['receiver_z0'], snap['receiver_z1']])
-    above_core_regions(box, region)
+    above_core_regions(box, region, cut['receivers'])
     poses = {}
     for name, rows in pieces.items():
         bounds = mesh_bounds[name]
@@ -192,8 +181,9 @@ def write_regions(box, _bounds, box_path):
            ENC.parent/'nameplate/snap_dimensions.rs',
            ROOT/'hardware/reference/meanwell-irm90/meanwell_irm90.py',
            ROOT/'hardware/reference/teyleten-relay/teyleten_relay.py',
-           Path(e._funnel_frame_part.__file__),
-           Path(e._funnel_frame_part.funnel.__file__),
+           ENC/'recipe/funnel.rs',
+           ENC/'recipe/ystacks.rs',
+           Path(__file__).with_name('region_bounds.rs'),
            Path(e._dock.__file__),
            Path(e._dock.plumbing.__file__),
            ROOT/'hardware/printed-parts/petgf.3mf']
@@ -209,14 +199,7 @@ def write_regions(box, _bounds, box_path):
 
 
 def main():
-    import _enclosure_panel as panel
-    import _enclosure_back_top as back_top
-
-    box, bounds, box_path = _declared_box(_box_spec, e)
-    graph = panel._Graph()
-    structure = graph.add('silhouette', bounds=box.outer)
-    with panel._record(e, graph, structure), back_top._leaves(e, graph, box):
-        write_regions(box, bounds, box_path)
+    write_regions(*_declared_box(_box_spec, e))
 
 
 if __name__=='__main__':

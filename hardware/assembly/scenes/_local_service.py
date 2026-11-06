@@ -5,9 +5,10 @@
     tools/cad-venv/bin/python hardware/assembly/scenes/_local_service.py selftest
 
 This is the short design loop for work inside ``enclosure-back-top``. The current Rust
-placement plan and scalar Box size one structural back-top, and the Rust scene exporter draws
-the existing ``back-top`` bench unit from its placed model references. The other enclosure
-pieces, scorecard, pictures and production scene meshes are not part of this producer.
+placement plan and scalar Box size one back-top, which the enclosure program cuts alone, and
+the Rust scene exporter draws the existing ``back-top`` bench unit from its placed model
+references. The other enclosure pieces, scorecard, pictures and production scene meshes are
+not part of this producer.
 
 The output is deliberately named ``out/local-back-top.glb``.  ``out/`` is ignored and excluded
 from the CAD artifact pack; the exact remote artifact remains ``glb/back-top.glb``.  The local
@@ -94,10 +95,10 @@ def _instances(plan, names):
 
 def build_current(directory=None):
     """Return a fresh, file-reference back-top scene without the full assembly."""
+    import _box_spec
     import _scenes
     import _enclosure_rust_driver
     _enclosure_rust_driver.load()
-    import _enclosure_back_top
     import _machine_export
     import _machine_layout
     import _rust_part
@@ -108,8 +109,8 @@ def build_current(directory=None):
     from _materials import linear
     piece = directory / "piece"
     piece.mkdir(parents=True, exist_ok=True)
-    _rust_part.cut("enclosure-shell", "enclosure-back-top",
-                   _enclosure_back_top.numbers(shell, box), piece)
+    declared = _box_spec.write(box, shell.BOUNDS, directory / "enclosure-box.json")
+    _rust_part.run("enclosure", "enclosure", "--box", declared, "--piece", PIECE_ID, piece)
     scene = _scenes.SCENE_BY_ID[SCENE_ID]
     names = _members(plan, scene)
     if PIECE_NAME not in names:

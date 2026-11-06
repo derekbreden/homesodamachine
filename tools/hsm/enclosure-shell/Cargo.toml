@@ -7,40 +7,8 @@ rust-version.workspace = true
 publish = false
 
 [[bin]]
-name = "enclosure-skin"
-path = "../../../hardware/printed-parts/enclosure/enclosure/enclosure_skin.rs"
-
-[[bin]]
-name = "enclosure-structure"
-path = "../../../hardware/printed-parts/enclosure/enclosure/enclosure_structure.rs"
-
-[[bin]]
-name = "enclosure-panel"
-path = "../../../hardware/printed-parts/enclosure/enclosure/enclosure_panel.rs"
-
-[[bin]]
-name = "enclosure-pump-retainer"
-path = "../../../hardware/printed-parts/enclosure/enclosure/enclosure_pump_retainer.rs"
-
-[[bin]]
-name = "enclosure-front-bottom"
-path = "../../../hardware/printed-parts/enclosure/enclosure/enclosure_front_bottom.rs"
-
-[[bin]]
-name = "enclosure-back-top"
-path = "../../../hardware/printed-parts/enclosure/enclosure/enclosure_back_top.rs"
-
-[[bin]]
-name = "enclosure-front-top"
-path = "../../../hardware/printed-parts/enclosure/enclosure/enclosure_front_top.rs"
-
-[[bin]]
 name = "enclosure-checks"
 path = "../../../hardware/printed-parts/enclosure/enclosure/enclosure_checks.rs"
-
-[[bin]]
-name = "enclosure-dock"
-path = "../../../hardware/printed-parts/enclosure/enclosure/enclosure_dock.rs"
 
 [[bin]]
 name = "enclosure-presentation"
@@ -50,9 +18,7 @@ path = "../../../hardware/printed-parts/enclosure/enclosure/enclosure_presentati
 anyhow.workspace = true
 hsm-kernel = { path = "../kernel" }
 hsm-geometry = { path = "../geometry" }
-manifold-csg = { version = "0.4.1", default-features = false }
 npyz = "0.9.1"
-serde = { workspace = true, features = ["derive"] }
 serde_json.workspace = true
 sha2.workspace = true
 zip = { version = "9.1.2", default-features = false, features = ["deflate-flate2-zlib-rs"] }

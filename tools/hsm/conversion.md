@@ -15,9 +15,11 @@ ahead of the steps that run it.
 every other file, report and intermediate format can change or go. Speed is measured on the
 full build ([Speed work](#speed-work)).
 
-Every step still starts Python. Its entry script imports thin modules that send each call to
-Rust over a JSON pipe, and runs the Rust part programs through the `hsm` engine's socket. The
-build planner (`tools/bazel/trace_inputs.py`) knows a step only as a Python entry script.
+The enclosure step is a Rust program Bazel runs directly. Every other step still starts Python:
+its entry script imports thin modules that send each call to Rust over a JSON pipe, and runs the
+Rust part programs through the `hsm` engine's socket. The build planner
+(`tools/bazel/trace_inputs.py`) knows those steps by their Python entry scripts, and a Rust step
+by what cargo compiled into its program and the files the program reads.
 
 ## What an output is made from
 
@@ -63,12 +65,12 @@ read there, with each Python file replaced by the Rust that took its place.
 ## How the work runs
 
 - **True dependencies come first** ([What an output is made from](#what-an-output-is-made-from)).
-  A step whose outputs come out the same stops the reruns after it. Today a step's recorded
-  inputs are everything compiled into the programs it calls, the shared Python and the Cargo
-  files: an edit to one part's recipe reruns every step that runs its subsystem's recipe
+  A step whose outputs come out the same stops the reruns after it. Today a Python step's
+  recorded inputs are everything compiled into the programs it calls, the shared Python and the
+  Cargo files: an edit to one part's recipe reruns every step that runs its subsystem's recipe
   program, and an edit to the bookkeeping reruns every step.
-- **One step at a time, biggest first:** the enclosure, then the whole-machine assembly
-  (`enclosure_assembly.py`), then the graph's other entries by CPU. Steps whose files are
+- **One step at a time, biggest first:** the whole-machine assembly (`enclosure_assembly.py`),
+  then the graph's other entries by CPU. Steps whose files are
   separate run in parallel.
 - **A step is converted** when Bazel runs its Rust program and no Python. The Python only that
   step used is deleted in the same change, which lands on main on its own with the step's share
@@ -104,10 +106,9 @@ explicit input recipes come from Rust data providers.
 | Equipment | `machine-equipment`; fittings, clamps, bulkheads and mounting hardware | `hardware/manifold-layout/machine_equipment.rs` |
 | Fluid and refrigeration tubes | `machine-routes`; sweeps, insulation and developed lengths | `hardware/manifold-layout/machine_routes.rs` |
 | Wire curves | `wire-route-samples`; interpolation, lengths and curvature | `hardware/wiring/installed/wire_route_samples.rs` |
-| Enclosure generation | Panel kernels, `enclosure-dock`, numeric Box and model references | `hardware/printed-parts/enclosure/enclosure/` |
-| Selected enclosure pieces | Existing Rust part and print programs; STEP, fine model, STL and bound viewer payload | `hardware/scripts/materialize_pump_cartridge.py` |
+| Enclosure | `enclosure`; every printed piece's files and the enclosure model, from the declared Box through the typed recipes | `hardware/printed-parts/enclosure/enclosure/enclosure.rs` |
 | Enclosure measurements | `enclosure-checks`; piece bounds and Box measurements | `hardware/printed-parts/enclosure/enclosure/enclosure_checks.rs` |
-| Print surfaces | `enclosure-presentation`; enclosure, cold-core and faucet reduction, shading and source records | `hardware/printed-parts/enclosure/enclosure/enclosure_presentation.rs` |
+| Print surfaces | The enclosure program, and `enclosure-presentation` for the payloads `flute_payload.py` cuts; reduction, shading and source records | `hardware/printed-parts/enclosure/enclosure/solid/presentation.rs` |
 | Machine checks | `machine-checks`; fit, clearance and scalar reports | `hardware/manifold-layout/machine_checks.rs` |
 | Model exports | `machine-export`; physical models, display surfaces, wiring append and eleven scene GLBs | `hardware/assembly/scenes/machine_export.rs` |
 | Model context | `machine-data`; facts, scene documents and numerical wiring context | `tools/hsm/machine-data/` |

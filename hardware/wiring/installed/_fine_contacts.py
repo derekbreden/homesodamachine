@@ -632,7 +632,7 @@ def valve_wall_geometry(context,names=('valve-v-a','vk-solenoid')):
     import manifold3d as m3d
     layout=source_layout(context)
     source=context.root/'hardware/printed-parts/enclosure/enclosure/_above_core_shell.py'
-    producer=source.with_name('_enclosure_back_top.py')
+    producer=context.root/'hardware/printed-parts/enclosure/enclosure/recipe/rear.rs'
     beduan=context.root/'hardware/reference/beduan-solenoid/beduan_solenoid.py'
     valve=SimpleNamespace(**numeric_values(beduan,('corner_inset_x','corner_inset_y','corner_boss_radius',
                                                  'boss_z_range','port_center_z','port_radius')))

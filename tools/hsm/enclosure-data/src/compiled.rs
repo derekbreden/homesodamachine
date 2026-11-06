@@ -81,18 +81,6 @@ impl Env {
     pub fn set_global(&self, name: &str, value: Val) -> Result<()> {
         self.root().set(name, value)
     }
-    pub fn set_nonlocal(&self, name: &str, value: Val) -> Result<()> {
-        let parent = self
-            .0
-            .parent
-            .as_ref()
-            .context("nonlocal outside a function")?;
-        if parent.0.values.get(name.into()).is_ok() {
-            parent.set(name, value)
-        } else {
-            parent.set_nonlocal(name, value)
-        }
-    }
     fn root(&self) -> Self {
         self.0
             .parent

@@ -3,13 +3,15 @@
 ## Publish loop
 
     node tools/changes/change.mjs snapshot
-    tools/cad-venv/bin/python hardware/scripts/materialize_pump_cartridge.py
+    python3 tools/run.py -- cargo build --release --locked --manifest-path tools/hsm/Cargo.toml -p hsm-enclosure --bin enclosure
+    python3 tools/run.py -- tools/hsm/target/release/enclosure --piece <piece>
     tools/cad-venv/bin/python tools/publish_now.py
 
 The snapshot sets aside the geometry the generator replaces, for the change's
 [before and after](../../changes/README.md). The piece's own generator cuts its STEP, STL and
-payload (the pump retainer and front-top have the dedicated materializer above);
-`publish_now.py` grafts the changed payload into both viewer hosts — the enclosure aggregate
+payload. The enclosure program above cuts the enclosure's printed pieces: each `--piece` names
+one by its files' name without `enclosure-`, and with none it cuts every piece and the enclosure
+model. `publish_now.py` grafts the changed payload into both viewer hosts — the enclosure aggregate
 and the appliance assembly — and tells the site.
 
 The pump retainer's standalone files carry its relaxed wings. Its installed shape belongs to

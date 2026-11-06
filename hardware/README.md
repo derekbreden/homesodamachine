@@ -178,9 +178,8 @@ A step that actually starts Node is also handed `:node-packages`, which globs `t
 AND AN ACTION HOLDS THE KEPT WORK. `.cache/` is the shapes `_realized` keeps, the meshes
 `_meshes` tessellates and the optimal boxes `_boxes` measures; `.bazelrc` mounts it into every
 action and `_realized.key` mixes in `HSM_INPUT_DIGEST`, a hash over the solids the action was
-given. The import walk covers the Python and that digest covers the other half — a solid loaded
-off disk is not an import, and `enclosure.py` makes no `import_step` call of its own while its
-action declares 28 solids it reaches through what it imports.
+given. The import walk covers the Python and that digest covers the other half: a solid loaded
+off disk is not an import.
 
 A SOLID ONE GENERATOR CUTS AND THE NEXT LOADS IS AN EDGE LIKE ANY OTHER HERE. `foam_assembly`
 reads `foam-cap-lid-top.step` from `//:foam-cap` and `enclosure_assembly` reads

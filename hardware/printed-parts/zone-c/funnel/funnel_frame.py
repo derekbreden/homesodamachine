@@ -22,11 +22,6 @@ if __name__ == '__main__':
     _rust_part.start()
 
 
-# Construction leaves supplied by _enclosure_back_top._frame_leaves while
-# recording the enclosure numeric graph; dimensions remain in numbers().
-body_blank = roof_blank = receivers = shell_screw_cuts = None
-
-
 from _zone_data import data as _zone
 
 
@@ -61,16 +56,6 @@ def drain_seat_datums(centre=(0.0, center_y), seat=349.0):
 def body_side_half_width(inner=DEFAULT_INNER, y_joint=200.0,
                          centre=(0.0, center_y), seat=349.0):
     return _data(method='body_half', inner=inner, y_joint=y_joint, centre=centre, seat=seat)
-
-
-def shell_clearance(centre, seat, inner=DEFAULT_INNER, y_joint=200.0):
-    import enclosure as enc
-    return body_blank(centre, seat, enc.slide_slip, inner, y_joint)
-
-
-def front_roof_clearance(inner, centre, seat, y_joint):
-    import enclosure as enc
-    return roof_blank(inner, centre, seat, enc.slide_slip, y_joint)
 
 
 def numbers(inner=DEFAULT_INNER, y_joint=200.0, centre=(0.0, center_y), seat=349.0):

@@ -20,6 +20,12 @@ keep the target even when its bytes stay in place.
 A generator that raises is traced to where it stopped. What it read is what it read; what it
 had not yet written is absent from its outputs, and the copy at the end of its action finds
 nothing there.
+
+A RUST STEP IS A PROGRAM, NOT A SCRIPT. `RUST_STEPS` names each by the source of its `main`. Its
+trace compiles the program, runs it into an empty directory with the kernel naming every file
+it reads (`HSM_READS`), and carries what landed there into the tree. Its entry's `program` holds
+what cargo compiled into it and the manifests that chose those crates; `gen_build.py` compiles
+the program in a rule of its own from them, ahead of the rule that runs it.
 """
 
 import argparse
@@ -27,8 +33,10 @@ import hashlib
 import json
 import os
 import runpy
+import shutil
 import subprocess
 import sys
+import tempfile
 from pathlib import Path
 
 _HERE = Path(__file__).resolve()
@@ -344,10 +352,105 @@ ELSEWHERE = ("tools/", "hardware/pcb/pcba/",
              "hardware/printed-parts/faucet/lever-replica/check_replica.py")
 
 
+#: THE RUST STEPS, by the source of each program's `main`: the crate under `tools/hsm` whose
+#: `[[bin]]` it is, the program's name, and the directory it writes into when given none.
+RUST_STEPS = {
+    "hardware/printed-parts/enclosure/enclosure/enclosure.rs":
+        ("enclosure", "enclosure", "hardware/printed-parts/enclosure/enclosure"),
+}
+
+
+def _compiled_from(krate: str, name: str, files: set) -> list:
+    """What cargo compiled into `krate`'s program `name`, and the manifests that chose it: the
+    workspace's, its lockfile, and the manifest of every crate of this tree in the program."""
+    sys.path.insert(0, str(_ROOT / "hardware/scripts"))
+    from _build_data import request
+    from _rust_part import _cargo
+    target = _ROOT / "tools/hsm/target/release"
+    sources = set(request("compiled", path=str(target / f"{name}.d"), workspace=str(_ROOT)))
+    # Only the host's dependencies: offline, cargo cannot read another platform's manifests.
+    # cargo asks the `rustc` beside it, so its own directory comes first on the PATH.
+    cargo = _cargo()
+    env = dict(os.environ, PATH=os.pathsep.join([str(Path(cargo).parent), os.environ.get("PATH", "")]))
+    host = next(line.removeprefix("host: ") for line in subprocess.run(
+        [str(Path(cargo).with_name("rustc")), "-vV"], capture_output=True, text=True,
+        check=True, env=env).stdout.splitlines() if line.startswith("host: "))
+    meta = json.loads(subprocess.run(
+        [cargo, "metadata", "--format-version", "1", "--offline", "--locked",
+         "--filter-platform", host, "--manifest-path", str(_ROOT / "tools/hsm/Cargo.toml")],
+        cwd=str(_ROOT / "tools/hsm"), capture_output=True, text=True, check=True, env=env).stdout)
+    packages = {package["id"]: package for package in meta["packages"]}
+    nodes = {node["id"]: node for node in meta["resolve"]["nodes"]}
+    manifest = str(_ROOT / "tools/hsm" / krate / "Cargo.toml")
+    todo = [pid for pid, package in packages.items() if package["manifest_path"] == manifest]
+    seen = set()
+    while todo:
+        pid = todo.pop()
+        if pid in seen:
+            continue
+        seen.add(pid)
+        # A dev-dependency builds the crate's tests, never the program.
+        todo += [dep["pkg"] for dep in nodes[pid]["deps"]
+                 if any(kind["kind"] != "dev" for kind in dep["dep_kinds"])]
+    sources |= {"tools/hsm/Cargo.toml", "tools/hsm/Cargo.lock"}
+    members = set(meta["workspace_members"])
+    for pid in seen:
+        path = Path(packages[pid]["manifest_path"])
+        if not path.is_relative_to(_ROOT):
+            continue
+        sources.add(path.relative_to(_ROOT).as_posix())
+        # A vendored crate is no member, and cargo names none of its files: it is all of them.
+        if pid not in members:
+            crate = path.parent.relative_to(_ROOT).as_posix() + "/"
+            sources |= {f for f in files if f.startswith(crate)}
+    return sorted(p for p in sources if p in files and not build_inert(p))
+
+
+def trace_rust(gen: str, files: set) -> dict:
+    """What the Rust step `gen` read and wrote, and the program it ran."""
+    krate, name, output = RUST_STEPS[gen]
+    sys.path.insert(0, str(_ROOT / "hardware/scripts"))
+    import _rust_part
+    program = _rust_part.program(krate, name)
+    sources = _compiled_from(krate, name, files)
+    with tempfile.TemporaryDirectory(prefix=f"hsm-trace-{name}-") as scratch:
+        made, log = Path(scratch) / "out", Path(scratch) / "reads"
+        made.mkdir()
+        slots = _rust_part._slots()
+        try:
+            ran = subprocess.run(slots.command([program, made]), cwd=str(_ROOT), capture_output=True,
+                                 text=True, timeout=DEADLINE,
+                                 **slots.subprocess_kwargs(dict(os.environ, HSM_READS=str(log))))
+        except subprocess.TimeoutExpired:
+            return {"reads": [], "writes": [], "raised": f"TimeoutExpired after {DEADLINE} s"}
+        if ran.returncode:
+            return {"reads": [], "writes": [],
+                    "raised": ran.stderr.strip().splitlines()[-1] if ran.stderr.strip() else f"exit {ran.returncode}"}
+        wrote = sorted(p.relative_to(made).as_posix() for p in made.rglob("*") if p.is_file())
+        # The trace is a cut, as a generator's is: what the program made lands in the tree.
+        for rel in wrote:
+            into = _ROOT / output / rel
+            into.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copyfile(made / rel, into.with_name(into.name + ".trace"))
+            os.replace(into.with_name(into.name + ".trace"), into)
+        read = set()
+        for line in log.read_text().splitlines()[1:]:
+            path = Path(line.split("\t")[0])
+            if path.is_relative_to(_ROOT):
+                read.add(path.relative_to(_ROOT).as_posix())
+    writes = sorted(f"{output}/{rel}" for rel in wrote if not build_inert(f"{output}/{rel}"))
+    reads = (({p for p in read if p in files and not build_inert(p)} | set(sources)) - set(writes))
+    return {"reads": sorted(reads), "writes": writes, "rewritten": [],
+            "program": {"crate": krate, "name": name, "sources": sources}}
+
+
 def _generators(files: set) -> list:
-    """Every `.py` with a `__main__` this tree builds through — see `ELSEWHERE`."""
+    """Every `.py` with a `__main__` this tree builds through — see `ELSEWHERE` — and every Rust
+    step's program."""
     out = []
     for f in sorted(files):
+        if f in RUST_STEPS:
+            out.append(f)
         if not f.endswith(".py") or f.startswith(ELSEWHERE):
             continue
         try:
@@ -529,7 +632,7 @@ def main() -> int:
     shrank = []
     wrote = set()
     for i, gen in enumerate(gens, 1):
-        seen = trace(gen, files)
+        seen = trace_rust(gen, files) if gen in RUST_STEPS else trace(gen, files)
         # `probe.py`, `fit.py` and `lanes.py` are instruments: they answer and write nothing,
         # and a generator this has never watched write is not a step of the build.
         #

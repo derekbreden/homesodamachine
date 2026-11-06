@@ -19,36 +19,6 @@ pub fn numbers(numbers:Val, e:&Env) -> Result<Val> {
     Ok(numbers)
 }
 
-pub fn apply(graph:&Val, piece:Val, plan:Val, wing:Val) -> Result<Val> {
-    let s=spec(&wing)?;
-    let t=s["thick"].as_f64().unwrap();
-    let x=plan.get("center_x_mm".into())?.num()?;
-    let y=plan.get("face_y_mm".into())?.num()?-t;
-    let z=plan.get("center_z_mm".into())?.num()?;
-    let half=s["frame_width"].as_f64().unwrap()/2.;
-
-    let add=|op:&str|->Result<Val>{
-        let rear=if op=="nameplate-stock" { &s["insert_stock_rear"] } else { &s["pilot_rear"] };
-        let bounds=json!([-half,half,rear,t,s["frame_bottom"],s["frame_top"]]);
-        let shape=graph.attr("add")?.call(vec![op.into()],vec![
-            ("snap".into(),Val::decode(s.clone())?),
-            ("bounds".into(),Val::decode(bounds.clone())?)])?;
-        shape.attr("translate")?.call(vec![Val::decode(json!([x,y,z]))?],vec![])
-    };
-    let stock=piece.attr("fuse")?.call(vec![add("nameplate-stock")?],vec![])?;
-    stock.attr("cut")?.call(vec![add("nameplate-cuts")?],vec![])
-}
-
-pub fn plain_lips(station:Val, face:Val, wing:Val) -> Result<Val> {
-    let s=spec(&wing)?;
-    let x=station.attr("x")?.num()?;
-    let z=station.attr("z")?.num()?;
-    let y=face.num()?;
-    let half=s["frame_width"].as_f64().unwrap()/2.;
-    Val::decode(json!([[x-half,x+half,y-11.,y+1.,
-        z+s["frame_bottom"].as_f64().unwrap(),z+s["frame_top"].as_f64().unwrap()]]))
-}
-
 /// File references keep the purchased hardware out of the printable plate's 3MF.
 pub fn append_hardware(e:&Env) -> Result<()> {
     let model=crate::compiled::binary("truediv",e.get("directory")?,"nameplate-fasteners.step.npz".into())?;

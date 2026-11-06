@@ -831,6 +831,18 @@ dependencies = [
 ]
 
 [[package]]
+name = "hsm-enclosure"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "hsm-enclosure-solid",
+ "hsm-kernel",
+ "hsm-model-export",
+ "serde",
+ "serde_json",
+]
+
+[[package]]
 name = "hsm-enclosure-components"
 version = "0.1.0"
 dependencies = [
@@ -855,12 +867,23 @@ dependencies = [
  "anyhow",
  "hsm-geometry",
  "hsm-kernel",
- "manifold-csg",
  "npyz",
- "serde",
  "serde_json",
  "sha2",
  "zip",
+]
+
+[[package]]
+name = "hsm-enclosure-solid"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "hsm-geometry",
+ "hsm-kernel",
+ "manifold-csg",
+ "serde",
+ "serde_json",
+ "sha2",
 ]
 
 [[package]]
@@ -980,6 +1003,7 @@ dependencies = [
  "anyhow",
  "hsm-geometry",
  "hsm-kernel",
+ "hsm-model-export",
  "serde_json",
  "sha2",
  "zip",
@@ -994,6 +1018,18 @@ dependencies = [
  "hsm-layout-data",
  "serde",
  "serde_json",
+ "zip",
+]
+
+[[package]]
+name = "hsm-model-export"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "hsm-geometry",
+ "hsm-kernel",
+ "serde_json",
+ "sha2",
  "zip",
 ]
 

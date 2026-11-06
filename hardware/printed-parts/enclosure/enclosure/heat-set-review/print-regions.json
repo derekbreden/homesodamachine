@@ -182,8 +182,8 @@
   },
   "part_process_overrides": {},
   "source_sha256": {
-    "hardware/printed-parts/enclosure/enclosure/heat-set-review/print_regions.py": "9c79dc52216dfbbd2bd82dbca1943d1d9da054411689b034a8d0e7f61cb00508",
-    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "4897c86989839a373c258a19d38c4cf854261aa5bd625c0dfaeb7ddb1e84d0a4",
+    "hardware/printed-parts/enclosure/enclosure/heat-set-review/print_regions.py": "1654578076edef9d3d67c870318048eb5f693ee93edfe334cedd062af7561382",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "6d1d8c3903404598d5d4de276539edfef80b40e0c520da1436e042365e4f9901",
     "hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py": "5a3fffa35c6bdbce425d822136b41a3d878210648b3cd7d92c28afbfd9fa482c",
     "hardware/printed-parts/enclosure/enclosure/_fixed_pump_mount.py": "7c7dcdd47062871cf8cb1968a3f802e30f47d3d393efcfd45c56aad75fc10452",
     "hardware/manifold-layout/enclosure-box.json": "e25ca2be5c46310082f002a72a9a9f20c08bee4af1e634e065de87d848c3ad3b",
@@ -194,8 +194,9 @@
     "hardware/printed-parts/enclosure/nameplate/snap_dimensions.rs": "9d74ad361d3b511d18e98c1c1e3245e4530d7f5064876a48706f3353b65007de",
     "hardware/reference/meanwell-irm90/meanwell_irm90.py": "fdc9753c62afab86f3bfa68d8b27482d46510d7af4d37ab1d453f45baf41d701",
     "hardware/reference/teyleten-relay/teyleten_relay.py": "c879eb738048f5e0d3dd9fa1ff81ef01b241fc5de6a23e17c27439afef557b36",
-    "hardware/printed-parts/zone-c/funnel/funnel_frame.py": "15e1e6d06cfd39f31e9ce34e6109eb6c2dad4d355a846fad738d51c851472701",
-    "hardware/printed-parts/zone-c/funnel/funnel.py": "4bf267e07a6639585f6bc2151962447ab74bfeb1afe029b9352030d2c497647c",
+    "hardware/printed-parts/enclosure/enclosure/recipe/funnel.rs": "a1553f857e197f0749d815f61300a8e4de751d042dd6d07230d1f590a145d255",
+    "hardware/printed-parts/enclosure/enclosure/recipe/ystacks.rs": "42202691c000339599e0b2ca3605c8294affd0a7ca8ea68962becc87cd722a4d",
+    "hardware/printed-parts/enclosure/enclosure/heat-set-review/region_bounds.rs": "380277753f0a9f90cb26cc874031929ce6f04d537f702782b6b28f7507f17139",
     "hardware/printed-parts/enclosure/pump-dock/dock_structure.py": "ae781614993495be7ebb16f3c5aa90e6838b99e10c81da6594488dc7322a894c",
     "hardware/printed-parts/enclosure/pump-dock/fixed_returns.py": "fac88463f1bbfc0f8e20322ad39b7c47d5508cde3e9e7537b4c9ac4d7fc0472a",
     "hardware/printed-parts/petgf.3mf": "45c16e8c8517e0a205107d7b9f7412d013f51a8de7ecf86125cc940079d37ed0"
@@ -214,8 +215,8 @@
       ".stl": "2380f6602c1d1bd8c58d2193d1c572f3239c6d000dad64d3b1f6b34d847ba729"
     },
     "back-top": {
-      ".step": "b47d0f8fad3f7db0050c6274a16c3c37ee4f33a051e511374b20cc7955b063d9",
-      ".stl": "afef480e17bbad94f5b12c38e2f63048e052d9ae5dea3b3c5b403ace658ceca0"
+      ".step": "7daada668a16da62960aee3a3085bf0b255a817881e2bde0acb0126405d647ba",
+      ".stl": "2423bac3ba1637092bbf112353bdde55d66eb5bef6202a61cd6f59e1bb8c3578"
     },
     "pump-retainer": {
       ".step": "d150ee04c6f9e9d1e9cf64eb641f02f14305b08ac7152945b1e2f3098f33f6e7",

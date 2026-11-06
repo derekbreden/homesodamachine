@@ -45,7 +45,7 @@ reach either side of the seating plane.
 Back-top's inlet tunnel pockets the part with the rim bearing on the pocket
 floor around a 25.3 × 19.3 mm bore, the ears 1.84 mm off that floor and the two
 screws through them. The pocket outline, bore and screw pitch are the print's
-own figures in `enclosure.py`; this model is what stands in them, and the C13
+own figures in the [rear wall's recipe](../../printed-parts/enclosure/enclosure/recipe/rear.rs); this model is what stands in them, and the C13
 cord mates through that bore.
 
 ## Chosen fidelity
