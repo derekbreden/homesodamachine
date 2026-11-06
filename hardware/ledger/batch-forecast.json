@@ -3124,7 +3124,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 772
+            "line": 773
           }
         ],
         "note": "Recorded purchase supplies 1098 g. A provisional one-machine consumption reserve of 411 is deducted for development; the remaining stock is uncounted and marked *."
@@ -3159,7 +3159,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 773
+            "line": 774
           }
         ],
         "note": "Recorded purchase supplies 150 g. A provisional one-machine consumption reserve of 1.5 is deducted for development; the remaining stock is uncounted and marked *."
@@ -3194,7 +3194,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 774
+            "line": 775
           }
         ],
         "note": "Recorded purchase supplies 50 builds. A provisional one-machine consumption reserve of 1 is deducted for development; the remaining stock is uncounted and marked *."
@@ -3229,7 +3229,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 775
+            "line": 776
           }
         ],
         "note": "Recorded purchase supplies 25 pieces. A provisional one-machine consumption reserve of 1 is deducted for development; the remaining stock is uncounted and marked *."
@@ -5040,7 +5040,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 616
+            "line": 617
           }
         ],
         "note": "Existing assortments do not have recorded usable counts in the required sizes. No numerical stock credit; size-specific refill/assortment allowance remains *."
@@ -5207,7 +5207,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 584
+            "line": 585
           }
         ],
         "note": "Approximately 14.3 kg: the October 4 report of about 12 kg, less about 1.6 kg in the prints logged through October 6 and about 5.1 kg in the 35 Black PET-GF15 jobs logged October 7\u201313 (4,590 slicer grams at the profile's 1.29 g/cm\u00b3, 1.43 g/cm\u00b3 for Fiberon; failed and stopped jobs at their upper bounds, jobs still printing in full), plus the three 3 kg spools delivered October 10. This current balance replaces purchase totals as the forecast credit."
@@ -5271,7 +5271,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 581
+            "line": 582
           }
         ],
         "note": "Remaining quantity is provisional: 0.8 kg credited from acquired stock after a development-use reserve. No current measured balance; estimate marked *."
@@ -5335,7 +5335,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 580
+            "line": 581
           }
         ],
         "note": "Remaining quantity is provisional: 0.9 kg credited from acquired stock after a development-use reserve. No current measured balance; estimate marked *."
@@ -5399,7 +5399,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 579
+            "line": 580
           }
         ],
         "note": "Remaining quantity is provisional: 0.9 kg credited from acquired stock after a development-use reserve. No current measured balance; estimate marked *."
@@ -5481,7 +5481,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 677
+            "line": 678
           }
         ],
         "note": "Approximately 12.3 kg: about 3 kg after the prints logged through October 6, less 0.65 kg in the funnel-mold core and the right reservoir and cap printed October 7, plus the ten 1 kg refills delivered October 8. This current balance replaces purchase totals as the forecast credit."
@@ -5594,11 +5594,11 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 658
+            "line": 659
           },
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 678
+            "line": 679
           }
         ],
         "note": "Remaining quantity is provisional: one of the two 1 kg White 46100 spools acquired in April is credited, less the 42 g three-float print of October 8; the other remains reserved for development. Two more spools ordered October 8 are in transit."
@@ -5630,11 +5630,11 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 661
+            "line": 662
           },
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 675
+            "line": 676
           }
         ],
         "note": "Remaining quantity is provisional: 0.5 kg credited across the acquired Bambu TPU 90A and 85A spools after a development-use reserve, less about 0.1 kg in the TPU jobs logged October 8\u201313. No current measured balance; estimate marked *."
