@@ -51,9 +51,9 @@
     "hardware/cut-parts/faucet/under-counter-plate/under-counter-plate.dxf": "8b1196fa7451cc7b3af804dffbbecbdf1ed217db43a6e1ec0f00741b580eca5b",
     "hardware/cut-parts/faucet/under-counter-plate/under-counter-plate.dxf.json": "d0104c2e8a994dc859257b9361c9f0a12ed026b5339c1c3f54165c65cd039675",
     "hardware/faucet-layout/faucet-assembly.step": "c61a97ec79a48a640382ffc405de35c8005112c81e60a0851be0509e7efda9fc",
-    "hardware/faucet-layout/faucet-assembly.step.mesh": "113cf3e87bad2748f255fe9f135d0123ecd5dd6b8b0d942c8eee63436acfa10b",
-    "hardware/faucet-layout/faucet-industrial-assembly.step": "1ff94247d873faa25b943b9c6ba08366f9d1c9389909e2e00b0110210719ca48",
-    "hardware/faucet-layout/faucet-industrial-assembly.step.mesh": "65f387170017d61c2e12fa67a7d44f9956d1dfb5527ae0bbca2d5d3c11a65997",
+    "hardware/faucet-layout/faucet-assembly.step.mesh": "5e36812ec08fc96fa439fdea7ea8fb04915f2770887444973f0695323656d426",
+    "hardware/faucet-layout/faucet-industrial-assembly.step": "6d3a227935c833ec589de8328d359e5926ee35bd417cdc3bab7f353c468641a1",
+    "hardware/faucet-layout/faucet-industrial-assembly.step.mesh": "145b115b629ab5c7f24dad693b110ad3856423f6de6eaba092cd3eb9c2ea7aeb",
     "hardware/gun-positioner/mounting/controller-backplane.stl": "903cf6432048f4435a33bc69869c9327c7e3827a98dc2f94328c1e89d55a70f7",
     "hardware/gun-positioner/mounting/fan-stand-80mm.stl": "e745cb9e043154a89c1658d7888f85df51050a734b987e454af175077f1fe789",
     "hardware/gun-positioner/mounting/m3-insulating-spacer-6mm.stl": "1e327389bc3b9da45449d0263bafb22abb27fbc2733eb01a6875ea8a352d8718",
@@ -243,16 +243,16 @@
     "hardware/printed-parts/calibration/soda-studies/the-pour.step": "345dd05143e2e03c286a704df56b9b86712d30799636d0894b6623d3ee724093",
     "hardware/printed-parts/calibration/soda-studies/the-pour.step.mesh": "b6ecee2c0d5dfccb655bb99d073975b82920f13443b9e376f1037e5a44c30ab3",
     "hardware/printed-parts/calibration/soda-studies/the-pour.step.png": "b68fa8a321f26b798bae5478713403399b0501db0e50c2eec896c65e84780816",
-    "hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.step": "9e1980c423caf8bde5e4f74e7ef2af1d4c8849decdbc0ff104640b3024937230",
-    "hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.step.mesh": "bf220ed7b1a38c07af869b1710b996409fe80f013de4bce4dd0fd9997b3d5fc6",
-    "hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.stl": "07242bb34a17b7db7fabfad0054608a96e6d86167b531092d789f9d35ac49d00",
+    "hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.step": "e256dd652f0b91612a556c2c54ac70cb349e9ad6857df19da989c96e9a6676ec",
+    "hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.step.mesh": "33020e9d825251717a86ef783c9ba720de5fa76984153c53c239e3f20517f07c",
+    "hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.stl": "88ce9688c63c6614811545febac096fbed1c2096a9c699d1818af29e6f0c007f",
     "hardware/printed-parts/cold-core/copper-plugs/copper-plug-port.step": "bd45e743447c9bcc0d5346fd19de77c0987f4fd2e9d778f8f471f9c6bc6af45e",
     "hardware/printed-parts/cold-core/copper-plugs/copper-plug-port.stl": "3add087b416cbbe6d110311bf9c6bb0e93703a4c92230acee5a3cee0e8450be1",
     "hardware/printed-parts/cold-core/copper-plugs/copper-plug-west.step": "ffaf6c36da12bd2a3232ef8274baebeadb86de629da63a68c57479a6c468c28b",
     "hardware/printed-parts/cold-core/copper-plugs/copper-plug-west.stl": "3add087b416cbbe6d110311bf9c6bb0e93703a4c92230acee5a3cee0e8450be1",
-    "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step": "0252b63368528b192eaef6d2e3dcfa215c3affd17ccb92d24ccbcfe397008acd",
-    "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step.mesh": "4be2ae29b07aab3b7cb0de6178268f98e4174a6eb6ba318acb7e36718795c905",
-    "hardware/printed-parts/cold-core/foam-assembly/internal-routes.step": "f359f610c18dd3891c9459b7b16e78b3d322f77392096e18e520f6fcb0708f49",
+    "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step": "b3ddc2ded545209c0494fc98f013361dc558420f27a60e26b57ed3f4b77e767a",
+    "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step.mesh": "18354389946d91f94c3c4d8754a50e8c49f5d8f87d3345105d010e3a265fd8d6",
+    "hardware/printed-parts/cold-core/foam-assembly/internal-routes.step": "44ed9b0b22570627a3744ad13046f85e4e08e8ac9393ef0921a6bbef3a3eae1c",
     "hardware/printed-parts/cold-core/foam-assembly/internal-routes.step.mesh": "571470b6270f814c60d11845bf5fc852aa6aca6ae63ee979858daf1644e34ab2",
     "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step": "91ddfea3e9ca8cf046cb385a8d7e653b0b2deb3a343d6b1c9170ead4ed7c5929",
     "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step.mesh": "0a3305dfd2a6b75dc88e0b758ac4cf434b70d22496bdcee4230332e22fe053d8",
@@ -576,14 +576,14 @@
     "hardware/printed-parts/faucet/faucet-display-cover/fit-review/2026-10-24/tip.step": "1bc7647438385f2017afc34e93448b5658458b58b12fe5e1f0692b179f9073c8",
     "hardware/printed-parts/faucet/faucet-display-cover/fit-review/2026-10-24/vendor-button-211.step": "b515134b75baa15f5bd048f48835b65631c5b7a9c423f3cc3343cb7dcef9bdca",
     "hardware/printed-parts/faucet/faucet-display-cover/fit-review/2026-10-24/vendor-button-212.step": "d802e4c740ed808daa07d19f8eba0db25d59b76c3b61c03e90ad0945694c2fdc",
-    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step": "9aaba7002254fa171fe86d8b52b11bd7fadcf14cc53de174502c91c7011ba7b5",
+    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step": "370b52b71fa0d4201ca3ee2770e166ed29c5fe12fe87902f272984a2a262bb5f",
     "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step.mesh": "cf9ab1730b34710d059b02e39268294dc45db845945be5b7eba0711897977712",
-    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.stl": "65862e5f622ab81d8d1a9317ff585dfe2d081fe6cfd84978d963a73d2cfcdc48",
-    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step": "2cb1480ca8d6864357ada02075ec1bf254492323d9e7e08dcb5167ef5df67d20",
+    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.stl": "d406ac6132feffe241b9978719cc14c67b048d7bfda815cb969454483adbdb90",
+    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step": "71c8b93c97e93e113ce5145becb08180c453cd531d9b1aa452da87e5c62aa2e9",
     "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step.mesh": "3e486252b6b83dafd8863058a49e8c28d5d0f6ca69bf73f7e3bed4be7f2f5c77",
-    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl": "aa10a8f75d12f769a4c9de7ad6cb0f1930e8dead85712d43ef045feebdd8b23a",
-    "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step": "00fc24e48d52bee3775f4cc78684942115d22f375e3f22987517ac19d9524caa",
-    "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step.mesh": "8a8014cc669cf5d399e96c71b06e27ea5507bc09adb5e7a1cd74bc2f0baf007e",
+    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl": "a3f80020d3756ea99dc7135a3173c89f9ed05bebebb63ce211d0492e92dc14ad",
+    "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step": "939b0698f62bc913831cd6e1cd6adf1fb23de93a757b3c163638b6b44bd0ab71",
+    "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step.mesh": "368a0056145366725c4807c0a74d549ef1d6388bfdff2326f00ff62f25765477",
     "hardware/printed-parts/faucet/finish-coupons/2026-10-10/faucet-foot-section.step": "7a2283681513fcb62692e71efff37b45c788a6ae35e3d1e3c3cd465ea0f9ad56",
     "hardware/printed-parts/faucet/finish-coupons/2026-10-10/faucet-neck-section.step": "26daad25466ecdd7e18e84648edfc31d26574f72623a1d08a8abd0dbd6654abd",
     "hardware/printed-parts/faucet/finish-coupons/coarse-start-v1/faucet-lip-section.step": "196435fdef01524d62fa7c3d5fe161ddbb752e14c548ece3719989ae62e65634",
@@ -605,9 +605,9 @@
     "hardware/printed-parts/faucet/industrial/industrial-display-cover.step": "0a3397f4647b0bd5306e4e8587092b96a0ef0b62c92389b5ccf1ebf0d8497f0f",
     "hardware/printed-parts/faucet/industrial/industrial-display-cover.step.mesh": "e9167b8198f9f25e3cff745d4335fa873ce24b080fcb17e799eaebf851327de1",
     "hardware/printed-parts/faucet/industrial/industrial-display-cover.stl": "abdcb313ca246ab797897859c700eb2b2b5578931893046ec8c76467b560d812",
-    "hardware/printed-parts/faucet/industrial/industrial-shell-base.step": "b87fd33320a3ab03d560200069ea5346d7009ed5f7a31854490b28e543d5791e",
-    "hardware/printed-parts/faucet/industrial/industrial-shell-base.step.mesh": "b059d86a2a3c4177bbecfab186f8dd62800c74d0813227755d454c2684e311a2",
-    "hardware/printed-parts/faucet/industrial/industrial-shell-base.stl": "96b2621f9c821354d46d044635a5d274b4b6e011d997e632d5e95be6e974f1cb",
+    "hardware/printed-parts/faucet/industrial/industrial-shell-base.step": "d5326ee565253a91bc7c27382aaa3a390944dd70cf72d89e2f3403800f0a41a7",
+    "hardware/printed-parts/faucet/industrial/industrial-shell-base.step.mesh": "a97c554e5c0fe0510af4b586e342add02cd73b67ffec69a6060f89e90102dd72",
+    "hardware/printed-parts/faucet/industrial/industrial-shell-base.stl": "8f2929b9dfafe1549510c99579b65b910a8ceeb18e260ea5d522a72d7b9a8477",
     "hardware/printed-parts/faucet/industrial/prints/2026-10-24-sculpted-cover-uniform024-mark2/sculpted-display-cover-low45.step": "1c6f3aeac91ec3b927a830a5004dcc27f81ef20181c6cf288118e318fa88fd1a",
     "hardware/printed-parts/faucet/industrial/prints/2026-10-24-sculpted-cover-uniform024-mark2/sculpted-display-cover-low45.stl": "95f8c4708d6527fb84f12aed8d4e4b776d39fe78137d51c1c4ced83b0d995af2",
     "hardware/printed-parts/faucet/industrial/production/2026-10-25/faucet-shell-tip.stl": "35ec9f0b99c5e90f038836549e6f5e8f112b2af03e1849b08b2d759050d260e6",
@@ -1366,8 +1366,8 @@
     "hardware/printed-parts/fixtures/water-inlet-jet/water-inlet-jet-fixture-loose.step": "08a7d22ff6e635309e5dfecc990566412e24d7db60b860b0d5c9b6d396baa57f",
     "hardware/printed-parts/fixtures/water-inlet-jet/water-inlet-jet-fixture-loose.step.mesh": "35d767144421b06a3106ed6cc46ad51c41f161254205872c68d8218f8270a3f7",
     "hardware/printed-parts/fixtures/water-inlet-jet/water-inlet-jet-fixture-loose.stl": "cb72908a0c3588a4b27f30969928007aa7758bd8e0aa79cf43bb8b64b2f614ed",
-    "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-assembly.step": "f144084b45deaa3281bf457c73565934284586af2092597322705772502ecf8c",
-    "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-assembly.step.mesh": "765410f18e2f82de4947bfd3c8983bc2373db2ab42f4408ba87bb1a2ec9138b1",
+    "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-assembly.step": "173b1ca5965e403394847821baa161b97f93fa0250cb4e6361a30970c85b90fd",
+    "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-assembly.step.mesh": "0dc4802734393825e43a8fd2e23cc693ba9097fd5eae37b51ea589e25e0ad58c",
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ball-cage.step": "5ac3b058b8a4b99002702c3d5e3e25c8f00f9750a97e7de89470918d16c6c861",
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ball-cage.step.mesh": "4dca2269e970d7081ed5711798cf5762a5407a997758e8f5b369533f2a54223f",
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ball-cage.stl": "7eb0ddf0087b5c556ad5d9e9432b037bc967b08ca83e6ab092a0a44ef67836ac",
@@ -1385,9 +1385,9 @@
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ground-tower.step": "35ecc41dbd9c17a51eb7b0bf291338f995f44b808167ab247d440bea0074ad47",
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ground-tower.step.mesh": "add8535eb08944604fdeff818f4f039ce2c186f52449d0041c017fd4aae87eb7",
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ground-tower.stl": "a2a2a1bfd1aa81b4ef77d40999738522ce61b652ca2ef6bec0c80d3ef8b49aa5",
-    "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-carriage.step": "56e72f401bb288f064891d3e9d635254c2bdaaa5ee333a0158ec2aaf3195684a",
-    "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-carriage.step.mesh": "539efb88b27fcf9193cfaf658ab6bcc25d2ab863c7ac35145be2f5fe5ef938b7",
-    "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-carriage.stl": "f67bf8063688b4bfc44978a263e3e70d3df70b5c027332f284fc6ced36b0f1b7",
+    "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-carriage.step": "e3b1c6857686225a0224fc041a4c4c6cfdd68fb2983b66894a42be071f73d708",
+    "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-carriage.step.mesh": "6c47e107315e1e58482bbb7295d58285eff302f80d0b65555b66a7f52199cd04",
+    "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-carriage.stl": "bcd6d4d6043e569c2e24478708e8e81c9f1cf79917a64130df7d43c6f432cc63",
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-clamp-pad.step": "c60dfd88e91d330393154715ced3118df3f76d5115e8a1844919a55615126433",
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-clamp-pad.step.mesh": "0e751ea3be54eb6ec01484ac6ce45551cbaeee35b7f69b52f8a6f73ee9caf17c",
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-clamp-pad.stl": "aea6517a3d8c0810e132af0748770f95ab39b0a9dcc76865db5974c0391bcb49",
@@ -1420,16 +1420,16 @@
     "hardware/printed-parts/refrigeration/fuse-clamp/fuse-clamp.step.mesh": "236841e40cf0d756bcd0d1f2d59bdcfe0ef82221246fbf01d67d6d184273e1be",
     "hardware/printed-parts/refrigeration/fuse-clamp/fuse-clamp.stl": "fb4db7bf16cab5a6206f4d055fc0f1f7f41469559c431096b1dc2a1a9cd55528",
     "hardware/printed-parts/shop-storage/holders/adapter-tub.step": "2093a5b831a2451201b93f65092f9aeac8f41db1fb9f44616036bca94ede96c1",
-    "hardware/printed-parts/shop-storage/holders/adapter-tub.step.mesh": "3b8743a4cc415186565af7b02ef1b561134c6b97f619f03790e683f80521a5c7",
+    "hardware/printed-parts/shop-storage/holders/adapter-tub.step.mesh": "d770ab1f9bca15ada407b7f18e853e6bb4176d99b381a1e37579ad8fbc2bcc65",
     "hardware/printed-parts/shop-storage/holders/adapter-tub.stl": "a23c977872b39faef0f1b51d87cf81d73aa2226c418db88bb0702d784ba65393",
     "hardware/printed-parts/shop-storage/holders/brush-quiver.step": "0368a1b2a365e2f27919118b9ac9655dd01f9453715a734428c5cd89863de9dd",
     "hardware/printed-parts/shop-storage/holders/brush-quiver.step.mesh": "5f73da889671921b2eb5a94e482660cc5f032860b9b8728c50e1dd37d81ec513",
     "hardware/printed-parts/shop-storage/holders/brush-quiver.stl": "d37cc5bc49dbf8643d41e5361fae0fc79800fe7073ebc85e2c32392f5ecd1577",
     "hardware/printed-parts/shop-storage/holders/bulkhead-tub.step": "4f6723a0157897df97338ebdcf64875eebeca5b394708f3562c53d94b1896146",
-    "hardware/printed-parts/shop-storage/holders/bulkhead-tub.step.mesh": "3076129786188c5b2048533c07b68e2b7d0d093b603ac3a18779a6f506720dfd",
+    "hardware/printed-parts/shop-storage/holders/bulkhead-tub.step.mesh": "cb2e45612a3fc34045b0eba1bd4200e573ab3d7acdd957aba5561878f4fc6669",
     "hardware/printed-parts/shop-storage/holders/bulkhead-tub.stl": "1b32bfe87771fbd8ac6b0c63b936fb667a85fb0ae587d3f076ffd6d926e428b2",
     "hardware/printed-parts/shop-storage/holders/copper-tub.step": "d6ba0a05e1d232e08bd4f8d0af77da5499c4283fdded58dadcfd8730649490a8",
-    "hardware/printed-parts/shop-storage/holders/copper-tub.step.mesh": "52b73f7e7a72ce6bfd9f5d08162639a7284546ced9a9125b1411f1b7cc1f67f7",
+    "hardware/printed-parts/shop-storage/holders/copper-tub.step.mesh": "eb2f8eb699f4cdc7a9821566e7893f10dd6a613d13a26b587d6f64b5f16eccfd",
     "hardware/printed-parts/shop-storage/holders/copper-tub.stl": "8519251d65c61cafbb6bd632aca367e693d8b7009a1b09807c3b3b746e07504a",
     "hardware/printed-parts/shop-storage/holders/crimp-comb.step": "9fb44415e382d7ded0d68bb07106ff78baeae05f026e68e0af33b926a2de4254",
     "hardware/printed-parts/shop-storage/holders/crimp-comb.step.mesh": "c69ca6c678b696f9f1083c35ecbbefd81731f548c0ebe092f05db9443c20249f",
@@ -1438,7 +1438,7 @@
     "hardware/printed-parts/shop-storage/holders/cut-comb.step.mesh": "4d375e4f3e85fe820ff1835eef3b7f9a0c8d6cfc50d26ddfedd02dd0bd5378d4",
     "hardware/printed-parts/shop-storage/holders/cut-comb.stl": "20c2432254c2f651b025fb1e494b453d6e4694beca1c688bee0b7837d935d455",
     "hardware/printed-parts/shop-storage/holders/deburr-tub.step": "26bf5cce4cfc084fc3f236d83d7494c47b54165c9665774dd3f16f1861fe2817",
-    "hardware/printed-parts/shop-storage/holders/deburr-tub.step.mesh": "cc53f7fa2378dffed10947296e715ef50d3ea03e1122f5dcad89fbe2ccf767cc",
+    "hardware/printed-parts/shop-storage/holders/deburr-tub.step.mesh": "95d4a2b76214122b5168e42d679d3a183634038411e21e20340f1e23f3b9895f",
     "hardware/printed-parts/shop-storage/holders/deburr-tub.stl": "2ecd1bc3c1ca671b41c822422f04255d5e9bc1fdb5f78e3da265af557760c80c",
     "hardware/printed-parts/shop-storage/holders/depressor-quiver.step": "fa4034ff10de117daa626ee34c2f01eab9ec41a1644712ed07071639431dcdeb",
     "hardware/printed-parts/shop-storage/holders/depressor-quiver.step.mesh": "923bd2ebb1e8094f0f873da3fd6f96b8d05fc96646d990eae40adac69dd18dcd",
@@ -1449,53 +1449,53 @@
     "hardware/printed-parts/shop-storage/holders/dock-3x3.step": "d097e9c0739618f014d1a7626497e9d57e9a53a9ddea63d8b9722d3a75bb6b58",
     "hardware/printed-parts/shop-storage/holders/dock-3x3.step.mesh": "20b60e41e63aff3e6d52594f239f6f8a279046fc6e24ece6e0a40b0d32ea2ce2",
     "hardware/printed-parts/shop-storage/holders/dock-3x3.stl": "4e3c56ebf22c7feafef4f302966d14920d703dbb5aeb2c7fbadfb709c109c28f",
-    "hardware/printed-parts/shop-storage/holders/dowel-index.step": "b4e9a6cfc275d641192616feb3f77d40177833d43bbf5bcf8dbb75f53af31af7",
-    "hardware/printed-parts/shop-storage/holders/dowel-index.step.mesh": "c40c3fbe92e62a800a7fa78e4a663062b192666c6d8437b7fa034a5baeb79ba5",
-    "hardware/printed-parts/shop-storage/holders/dowel-index.stl": "11b650dcf997a3690421dfdf64f29785b30525cdc973043dbdd1f202186e9b14",
-    "hardware/printed-parts/shop-storage/holders/drill-index.step": "e28bbe6321c6f0170a23f03d069850150c30a7876f7a5b4e6a7e4da283e6ff1f",
-    "hardware/printed-parts/shop-storage/holders/drill-index.step.mesh": "583f3f64340c587dfaf999e7bde64653213adaeeba3e7d4ab149a0eb18b48308",
-    "hardware/printed-parts/shop-storage/holders/drill-index.stl": "5a64937fd032e62d824274dc41156ee9491acc075e8b1dc51721ea6fcb3bd6dc",
+    "hardware/printed-parts/shop-storage/holders/dowel-index.step": "28a06be63057fdbd8b6983d34e45bca36e4b6de02e6a449b5a0e3b9e7c7b4f64",
+    "hardware/printed-parts/shop-storage/holders/dowel-index.step.mesh": "c890102ad861197711a89b8cc3f42670af87a4c62cd3a2c292e598f5ca099299",
+    "hardware/printed-parts/shop-storage/holders/dowel-index.stl": "8dfa3c97ef7ed9432111527c2357a9d1d375912d6e7e68c476517394962f2d42",
+    "hardware/printed-parts/shop-storage/holders/drill-index.step": "31f5597070ed48229fdfdf730b011011c5764cbe834c24a0c27ebeb44766a514",
+    "hardware/printed-parts/shop-storage/holders/drill-index.step.mesh": "182c129b5da1d4accd1d46e8c773c9b6ca5f578aa4dfab876c6aab47354e19d8",
+    "hardware/printed-parts/shop-storage/holders/drill-index.stl": "730a00d9d4e44215ecec72617bbcde7c61b7221ab242dc65ab46903c94320c26",
     "hardware/printed-parts/shop-storage/holders/ferrule-tub.step": "1e9b8e688bf5b6688fbb1399425b10f81cf4efa89b19f34db63071accb7e542c",
-    "hardware/printed-parts/shop-storage/holders/ferrule-tub.step.mesh": "a7fbb1bd07824ddfffd9ab65ac59f2df08f2667242229ba4f6bc5967d5d33ad8",
+    "hardware/printed-parts/shop-storage/holders/ferrule-tub.step.mesh": "ae811275c5879e462f37da5c9ecdfb06f80dbe58a6497bb5c21f2b3f371ecb1f",
     "hardware/printed-parts/shop-storage/holders/ferrule-tub.stl": "940019f02e5ff95bbaa3b5d43266cd82b581fa6c14594717bd9c950b9a209bff",
     "hardware/printed-parts/shop-storage/holders/fine-comb.step": "6e29dbf8dfd52ccfd2f970263622dad8c7f315b5f81fa829cc39b5fa572198e8",
     "hardware/printed-parts/shop-storage/holders/fine-comb.step.mesh": "bea17a57245d261d82774755d136a3ce033d7d641388b14bad4a0bcbf63f928e",
     "hardware/printed-parts/shop-storage/holders/fine-comb.stl": "75010f95663ab059e5ac5ba8b1353577c833a1da6c3aa8502c5a13e6a7e988c7",
     "hardware/printed-parts/shop-storage/holders/flux-tub.step": "ec2b1389d639e9dca7bfff734d747be8fa7d8f2d8d75704caf8652471dd79528",
-    "hardware/printed-parts/shop-storage/holders/flux-tub.step.mesh": "6371a10579d8ae766e2315ae198bf5086eb94e1113784ab46a19e37bcfe01968",
+    "hardware/printed-parts/shop-storage/holders/flux-tub.step.mesh": "5738d8ee495713af991b45fad9f73dc82aae6bef283c4587a7719a532dc87d98",
     "hardware/printed-parts/shop-storage/holders/flux-tub.stl": "c80b9a21c9e5c887e6f1746537992d8255bb6f6635860a529bfc2459a1f6e183",
     "hardware/printed-parts/shop-storage/holders/heat-gun-tub.step": "4c10514a513d834b9f2df4e5f425e8a391fca245f371d771dcb4ca55a4bad3bf",
     "hardware/printed-parts/shop-storage/holders/heat-gun-tub.step.mesh": "7383ffeefba45c787772cde96a97635955b7b3ae102fdf97f93ef7692b78cd2a",
     "hardware/printed-parts/shop-storage/holders/heat-gun-tub.stl": "34d1084faa54121b4859c6d0fa782db39a85d1a012fcfd22984967a47dbd727d",
     "hardware/printed-parts/shop-storage/holders/hotend-tub.step": "6c9d107ad0c064288345ecb62118dea87145f5c0f4313078f1937715b9bf4d69",
-    "hardware/printed-parts/shop-storage/holders/hotend-tub.step.mesh": "ef534ec6f05c757c72a7fa61db6357c2499a85af7c9ed21c659e266ec7fa50b3",
+    "hardware/printed-parts/shop-storage/holders/hotend-tub.step.mesh": "84ed4ffb52e4bb84a8c0bb4b8694927cba0af5912f03fa92931e2becccf56a0b",
     "hardware/printed-parts/shop-storage/holders/hotend-tub.stl": "3e878dcf5b5edc2f13c3fb9671c4a2342d6da10e7b4872ffb37becc95687d405",
     "hardware/printed-parts/shop-storage/holders/insert-tub.step": "a028f3951d6b57ae29549e65c86b30c7f3f58a3b1cf46bb282544291ade086c6",
-    "hardware/printed-parts/shop-storage/holders/insert-tub.step.mesh": "2058df3bcb07239c4bd61bb26ce125ae1aece399d1c3d953ad5237badf334b24",
+    "hardware/printed-parts/shop-storage/holders/insert-tub.step.mesh": "e9926aee397e4f8b9e00bd483159c3519b20056248f941445ad32307d70c3836",
     "hardware/printed-parts/shop-storage/holders/insert-tub.stl": "b62da772688482a66c864715989a67be30aee89c1845f361d0b9a732ee49f235",
     "hardware/printed-parts/shop-storage/holders/junction-tub.step": "cf3e62addb6aec0b2a041d4dfe1b64f2785a300cc0a7ada3a411dd066df4347f",
-    "hardware/printed-parts/shop-storage/holders/junction-tub.step.mesh": "a9dfaa0aabf9d79c1182aa1fc7c6cb0102d33437a27f9c1e6dac5e61370b71e9",
+    "hardware/printed-parts/shop-storage/holders/junction-tub.step.mesh": "3211fafc365a1cb00b6bacecd1aa62b6f6d2fb1537a7d39665b7515f3aa60c55",
     "hardware/printed-parts/shop-storage/holders/junction-tub.stl": "4b556a75b0a891f1a769832753c35841c74e11a7726bf627b8d04a8470285d04",
     "hardware/printed-parts/shop-storage/holders/keystone-tub.step": "64a23c2a98ebe2458e8f45d675b3156bb5adca8786f6ed9b6f4edd2fb9ea2c55",
-    "hardware/printed-parts/shop-storage/holders/keystone-tub.step.mesh": "605199c880b1e7a7023b64449d20687242cbd1c1ca434cabbc6895a83033d0ae",
+    "hardware/printed-parts/shop-storage/holders/keystone-tub.step.mesh": "78ec8a0a30ed7059fa694452f9afd97fa2cc1f4cac0b128b4b9b9bd760eec419",
     "hardware/printed-parts/shop-storage/holders/keystone-tub.stl": "95d196fbd4f27ad0947232226b548dbbe3080f7729927c958e16ff2bfe907e4d",
     "hardware/printed-parts/shop-storage/holders/lever-tub.step": "e0bd5e7a3ee17170f28b756005906cf7f1a3b01c723aad6c757d857821752da0",
-    "hardware/printed-parts/shop-storage/holders/lever-tub.step.mesh": "4ad757afd8262aae149dafc12a675e0c0d752a207945e9fa01a513ec62ec151d",
+    "hardware/printed-parts/shop-storage/holders/lever-tub.step.mesh": "5c621a0c180447eb3f0dcc28373cb3f56e74df96fc04f7949a64896f03027bdc",
     "hardware/printed-parts/shop-storage/holders/lever-tub.stl": "db196d1deb1bad4682927996c37081f200eb85178c4a3f57dd64a3d771f628ee",
     "hardware/printed-parts/shop-storage/holders/m3-tub.step": "2a355f44f101a5975908915e84a8482345def80df1252b8524a3ca15e4d1913f",
-    "hardware/printed-parts/shop-storage/holders/m3-tub.step.mesh": "dc5edc2891324a4ee9b373c267c0df4c9d1c904d0817e280bdb475263615043d",
+    "hardware/printed-parts/shop-storage/holders/m3-tub.step.mesh": "768ecb2c05e123b583ebcfac80e807e1d94e281af4e20f5b708c1b9335f7bc35",
     "hardware/printed-parts/shop-storage/holders/m3-tub.stl": "ffcaa6dd29899983152d6a37a02372a3bc3f2df6e8e30846442b9091d2860da3",
     "hardware/printed-parts/shop-storage/holders/m5-tub.step": "c3bac649e3ae60f9e05a554771812c2f032e526cee342aae1ba3bb510e2c1c59",
-    "hardware/printed-parts/shop-storage/holders/m5-tub.step.mesh": "e13d0874ef1b5adfca4a0b97d81506303041bf15b91af310cbabaea3f4bd11f6",
+    "hardware/printed-parts/shop-storage/holders/m5-tub.step.mesh": "01f9ee9f1ab252079a0271392eb33d1495f94ade57949b04c40d074ec86343b6",
     "hardware/printed-parts/shop-storage/holders/m5-tub.stl": "5635cb366b03a047aa5d1f5b6a256b0614c0ab7f53755605c26e1af13de1d3e3",
     "hardware/printed-parts/shop-storage/holders/npt-tub.step": "28640bcfc6f2e809a220c09f5a19896ed1da8e767d9e2a919a72671a3c183fa9",
-    "hardware/printed-parts/shop-storage/holders/npt-tub.step.mesh": "2220e4ad497c3eeb1f818f45c53524fd9936e738566c5ee41f1a62a3a8906c9b",
+    "hardware/printed-parts/shop-storage/holders/npt-tub.step.mesh": "074de859166bf030bbf36108638883e2ccfd55895e443bc6e5e3225c0f2f0a92",
     "hardware/printed-parts/shop-storage/holders/npt-tub.stl": "bb4f1623bfbbf275e4bf2c9b0ee981a1e9619dd6f66f9f2fd707e1ac9f933224",
     "hardware/printed-parts/shop-storage/holders/pigment-tub.step": "31b6d4d2e141463b8450d95949853867e942328bf2b1bb97d842e81a733e84fa",
     "hardware/printed-parts/shop-storage/holders/pigment-tub.step.mesh": "ebd709288d9e223b4a28e920a91fef670605bd1127c0c4bddccc3331931ffc51",
     "hardware/printed-parts/shop-storage/holders/pigment-tub.stl": "031dc0b8a2016bd4697da9aad4a04d0e0ff481b1b424a7d7fee6b7a5c7558243",
     "hardware/printed-parts/shop-storage/holders/pressure-tub.step": "c8a5c708769f625a9021bb06b7c78101a65dd89a13f8d1052f3eafd3f0733eef",
-    "hardware/printed-parts/shop-storage/holders/pressure-tub.step.mesh": "0675334d874830aab9c1f7b1eaf36a16b3789701b60396b895759e1e38b5c8de",
+    "hardware/printed-parts/shop-storage/holders/pressure-tub.step.mesh": "95b10a13b02a1ce2b15a2d31358891208458bfb5350d9bb0056061f1b72e5028",
     "hardware/printed-parts/shop-storage/holders/pressure-tub.stl": "79c1a74bb69c1eb5b5ed321765e989b1f241792fec6a1fc91825654d3d1486a0",
     "hardware/printed-parts/shop-storage/holders/punch-comb.step": "cffefbb30fb745caac83c83f6f2447a050b7ddc8050a49fd4382ccd240630c8e",
     "hardware/printed-parts/shop-storage/holders/punch-comb.step.mesh": "2a90989c982dafee2810f8223e87ff2bb9e1906d1e129f580a0c92293ccd3e8b",
@@ -1518,25 +1518,25 @@
     "hardware/printed-parts/shop-storage/holders/saw-tub.step.mesh": "1bf2f4b6aa271e2ca29952c3c7b432ee6522b8af020351ccd3aa0073a4fee647",
     "hardware/printed-parts/shop-storage/holders/saw-tub.stl": "a08917a35361cd143e625cd22c3492c1111bada01e5a1041951cc549269faaaf",
     "hardware/printed-parts/shop-storage/holders/service-tub.step": "e26d097bfd0e57aeac7a7df4b4f22425c934cfefc57a42b88a0eb404a32f2c56",
-    "hardware/printed-parts/shop-storage/holders/service-tub.step.mesh": "6a379de747f25c75af2ce61144c9b86bfb4ab13db3431008f3708f652b4766b2",
+    "hardware/printed-parts/shop-storage/holders/service-tub.step.mesh": "05bc2798a9a9014e397200903332335f24607ddfe2ecd13365655446973e7c7a",
     "hardware/printed-parts/shop-storage/holders/service-tub.stl": "d3278220141ed52dacdce6afafdfc3fa6a9aad6303d8c20268c4ae3a21b8f175",
     "hardware/printed-parts/shop-storage/holders/shrink-tub.step": "0ca982dfa3f8a567a7132c114e1b55fe2d960010d883bb9f8e1827236d3409ec",
-    "hardware/printed-parts/shop-storage/holders/shrink-tub.step.mesh": "32311e63c2b51bb6be3a6cd2ca2bf44ed4fbdfe595bbee9a691b8b6afdd78c53",
+    "hardware/printed-parts/shop-storage/holders/shrink-tub.step.mesh": "9ff58f2759fd2dbfab47af84928fc6620e41fb42a6a6b7ef88c9453dfefee01f",
     "hardware/printed-parts/shop-storage/holders/shrink-tub.stl": "940019f02e5ff95bbaa3b5d43266cd82b581fa6c14594717bd9c950b9a209bff",
     "hardware/printed-parts/shop-storage/holders/small-tub.step": "1f8dd32c178bb5a0efb018a6f0d0bff7e39e50f127012fa65280b8422dd5a8a5",
-    "hardware/printed-parts/shop-storage/holders/small-tub.step.mesh": "ffe8624ccf39ef2d6b6ac2e48ec30de6ac4388583831fe64a85bc4c0caa63c40",
+    "hardware/printed-parts/shop-storage/holders/small-tub.step.mesh": "28d0504d80b76d4469780d736898e4458cdf6073e2affda0cd717966db14509f",
     "hardware/printed-parts/shop-storage/holders/small-tub.stl": "9d3b6cc1438f3286e3a41e6591312b7cd700e86521aea6235b2ad54247ad1a94",
     "hardware/printed-parts/shop-storage/holders/stock-tub.step": "7f6fa3e0a499950f84b84b1759fb5d22db69b9fef196e78eb41d1f68166464ea",
-    "hardware/printed-parts/shop-storage/holders/stock-tub.step.mesh": "1d41fdbee485e08f5c0bb86bdaace26fa23f7c1a2b2d0ea1f0e5c46c567e1317",
+    "hardware/printed-parts/shop-storage/holders/stock-tub.step.mesh": "fc42076230b2d792eac4effa2588edd98735d666a9176fc479a41fe24840c869",
     "hardware/printed-parts/shop-storage/holders/stock-tub.stl": "cb5b59ef15e10a2847e5cdd5be02a1324e416461bca7f0d5253dada796cb0eba",
     "hardware/printed-parts/shop-storage/holders/strip-comb.step": "bec520a6e3b39f57f9de56e68da91e947747c3c273e5886086983a33cc30766e",
     "hardware/printed-parts/shop-storage/holders/strip-comb.step.mesh": "e42773c5bb43148882195074d0868cb1277844cb5b7d75b3c15372297148fdf0",
     "hardware/printed-parts/shop-storage/holders/strip-comb.stl": "6bec8a8555f5e28a0bf63b56280e9a4e8b4b309b38a15be442d4801ccae80663",
     "hardware/printed-parts/shop-storage/holders/terminal-tub.step": "a6e69ddf6fb456a088f5f3b79908bc89a5b5a507544e9976c2613062734f9406",
-    "hardware/printed-parts/shop-storage/holders/terminal-tub.step.mesh": "8b4fd3890373bef0adca1e0f2854289da15920559add81c77b5c0516a9e9acd8",
+    "hardware/printed-parts/shop-storage/holders/terminal-tub.step.mesh": "5dd1085711b2ed1d6fce88aa6814785b439b074b207cc595833d4a6102120944",
     "hardware/printed-parts/shop-storage/holders/terminal-tub.stl": "1af8319fc2867607015da3ce48d65f57e702bd2842f8d766b56029e8d51e6ace",
     "hardware/printed-parts/shop-storage/holders/tie-tub.step": "5e6b8825bf945f8c1576042eef416543c34c70f943cf602f138cb2a090c6f649",
-    "hardware/printed-parts/shop-storage/holders/tie-tub.step.mesh": "6e9ce8f7cdb0dd0ee3813f160e18b33df22cdc033379caea49d89a3fe0da1ce0",
+    "hardware/printed-parts/shop-storage/holders/tie-tub.step.mesh": "6d7f3fd238b4b8a2b05a20e315c7693a4b59d08d2d64ffd6b91775c243e723d3",
     "hardware/printed-parts/shop-storage/holders/tie-tub.stl": "6eadb13f15dff0cb4ed162629be384ccd85ffe502102438c2de775e34b725af7",
     "hardware/printed-parts/shop-storage/holders/tip-index.step": "8899bd3f6fe82b80d44e82941e75d66d71b1fb4be9d179e756812ab8a3710e0d",
     "hardware/printed-parts/shop-storage/holders/tip-index.step.mesh": "bc0aefeb65e7cb4c5d221b18d330a11b39ae6e3a8ef12e0d63276c5392e46148",
@@ -1545,7 +1545,7 @@
     "hardware/printed-parts/shop-storage/holders/tube-comb.step.mesh": "753ccc78105c2c2356faea2983958534937bf4e3fbea58516cd72b5cfe926f0e",
     "hardware/printed-parts/shop-storage/holders/tube-comb.stl": "e5454dbdb5b5f7784616789e399c0dd2c487ce3839f6b09b739d39602eafc70c",
     "hardware/printed-parts/shop-storage/holders/xh-tub.step": "3ea70a170e7bc33e129bf6ed2996c742eb4c8905c9ee3554931d160f6b85dcb9",
-    "hardware/printed-parts/shop-storage/holders/xh-tub.step.mesh": "85d6cbad494996011399c5c08597f8ace5cae71b96b9665dfcc9d35b1b1c8184",
+    "hardware/printed-parts/shop-storage/holders/xh-tub.step.mesh": "8cb98d9accfc51a2a8314d3d5607a366f4eba16d5b558e2b1eee73178b9aabfb",
     "hardware/printed-parts/shop-storage/holders/xh-tub.stl": "08a605215352d0496ff21bf7c8f1459a2eafd28fcccac3a714dee1e6d30bc6bd",
     "hardware/printed-parts/soda-bend-holder/soda-bend-holder.step": "d6cac70239b625a770ea64b987835e18b285f5851cbc494b74bc577f27c49171",
     "hardware/printed-parts/soda-bend-holder/soda-bend-holder.step.json": "f193a83d4d787eea44142880cc436150ac72eb44152e5ced50be751222f783ee",
@@ -1559,7 +1559,7 @@
     "hardware/printed-parts/zone-c/funnel-cover/funnel-cover.step.mesh": "d4ae60d332ac14010f8705ff7a665bbdb0d88141dc588fa4b80ebe43c5ec7ffa",
     "hardware/printed-parts/zone-c/funnel-cover/funnel-cover.stl": "8d6011183082a8df09dce32dc1d2955c0fbe5ba07e27b61b072fff7e166971c2",
     "hardware/printed-parts/zone-c/funnel-mold/assembly.step": "762cd3ecb68990d8958815b5fd0a70339b72234052b9fd2502bcb39d2cca0ef3",
-    "hardware/printed-parts/zone-c/funnel-mold/assembly.step.mesh": "16c5dc5a992a0d203bed06931f798ea0ae86ca82dddfa0bb5976f48277422db0",
+    "hardware/printed-parts/zone-c/funnel-mold/assembly.step.mesh": "adea9759f718bffe9d45419c8808315d0d0c8a515f88b08c447c3c9dbb737dc2",
     "hardware/printed-parts/zone-c/funnel-mold/backs.step": "b002e3f842c926da58dbe072afb2c1205bc0ccf6983d905a3c9719c70e4af319",
     "hardware/printed-parts/zone-c/funnel-mold/backs.step.mesh": "1bf422db845d3076dc5c63e4c2715589a16dcf9c5cbcae53d125f82636b7ff96",
     "hardware/printed-parts/zone-c/funnel-mold/cavity.step": "722aebc15bd9f92422a64caf6ef017ce0bc95263f31de8c233cab57e92403d17",
@@ -1573,9 +1573,9 @@
     "hardware/printed-parts/zone-c/funnel-mold/overview.step": "e5c3fdb83b6b4d87aaa372fd9e32ca281b0b1ded5b32a546dbb505bb926ab37a",
     "hardware/printed-parts/zone-c/funnel-mold/overview.step.mesh": "a6a47eb0cadcdd78636365875257504ed821613467c57ba55c9353ebc48c0598",
     "hardware/printed-parts/zone-c/funnel-mold/rod.step": "6d03f09648448baf833c60ad301638a1506d9268a44045fc8442bd7c3299040e",
-    "hardware/printed-parts/zone-c/funnel-mold/rod.step.mesh": "8ce659a4faf4baccd9c95dfcbb71f43423176389e6c472a2b42e05206043c073",
+    "hardware/printed-parts/zone-c/funnel-mold/rod.step.mesh": "7c7c51ffa8cb5c0044d1af9fd208fcbf96880222079107d818bf0eef1c25e89e",
     "hardware/printed-parts/zone-c/funnel-mold/section.step": "35ddac7b012d7fb89b5da2efb651c54943edb4935340e9321ae9ec878e970492",
-    "hardware/printed-parts/zone-c/funnel-mold/section.step.mesh": "b732f523471961b2fbee957cc208bc38a89b1a62c0a19a0803444027a11293ee",
+    "hardware/printed-parts/zone-c/funnel-mold/section.step.mesh": "a91f7c05006479bf33c78cffd0da9f7a97918cef99d8161b4c1b1a066bad764f",
     "hardware/printed-parts/zone-c/funnel/cradle-trial/test-cradle.step": "df19a7a2720d133eade484005a914c4ade3f7c53d38f7049d6b59d933e70f7b5",
     "hardware/printed-parts/zone-c/funnel/cradle-trial/test-cradle.step.mesh": "d17152cde22f5739a9b0fffb607a77f6c53262c87ab77a53d044ae942dd5f124",
     "hardware/printed-parts/zone-c/funnel/cradle-trial/test-cradle.stl": "91ea0bab447ae8c323ec9473ed9a8293714c38b012497005d272191442099aff",
@@ -1790,9 +1790,9 @@
       "hardware/cut-parts/faucet/under-counter-plate/under-counter-plate.dxf": "8b1196fa7451cc7b3af804dffbbecbdf1ed217db43a6e1ec0f00741b580eca5b",
       "hardware/cut-parts/faucet/under-counter-plate/under-counter-plate.dxf.json": "d0104c2e8a994dc859257b9361c9f0a12ed026b5339c1c3f54165c65cd039675",
       "hardware/faucet-layout/faucet-assembly.step": "c61a97ec79a48a640382ffc405de35c8005112c81e60a0851be0509e7efda9fc",
-      "hardware/faucet-layout/faucet-assembly.step.mesh": "113cf3e87bad2748f255fe9f135d0123ecd5dd6b8b0d942c8eee63436acfa10b",
-      "hardware/faucet-layout/faucet-industrial-assembly.step": "1ff94247d873faa25b943b9c6ba08366f9d1c9389909e2e00b0110210719ca48",
-      "hardware/faucet-layout/faucet-industrial-assembly.step.mesh": "65f387170017d61c2e12fa67a7d44f9956d1dfb5527ae0bbca2d5d3c11a65997",
+      "hardware/faucet-layout/faucet-assembly.step.mesh": "5e36812ec08fc96fa439fdea7ea8fb04915f2770887444973f0695323656d426",
+      "hardware/faucet-layout/faucet-industrial-assembly.step": "6d3a227935c833ec589de8328d359e5926ee35bd417cdc3bab7f353c468641a1",
+      "hardware/faucet-layout/faucet-industrial-assembly.step.mesh": "145b115b629ab5c7f24dad693b110ad3856423f6de6eaba092cd3eb9c2ea7aeb",
       "hardware/install-guide/plumbing/art/plumbing-pre-tee.png": "f777688d43515f39d4445c50e2d31ea18b2d7dd9b0eb149cbf4c49fc8d2a01f7",
       "hardware/install-guide/plumbing/art/plumbing-tee-installed.png": "2c9f151c05dca1102d00f63c984b2b3f8b29bc5be2b0aa1e005b408dc32affb2",
       "hardware/install-guide/plumbing/art/plumbing-valve-off.png": "60d310a111f2437e7197a1721a65494b5030e2e8b1aff8d78c96b1b06ec4328f",
@@ -1830,9 +1830,9 @@
       "hardware/printed-parts/calibration/soda-studies/the-pour.step": "345dd05143e2e03c286a704df56b9b86712d30799636d0894b6623d3ee724093",
       "hardware/printed-parts/calibration/soda-studies/the-pour.step.mesh": "b6ecee2c0d5dfccb655bb99d073975b82920f13443b9e376f1037e5a44c30ab3",
       "hardware/printed-parts/calibration/soda-studies/the-pour.step.png": "b68fa8a321f26b798bae5478713403399b0501db0e50c2eec896c65e84780816",
-      "hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.step": "9e1980c423caf8bde5e4f74e7ef2af1d4c8849decdbc0ff104640b3024937230",
-      "hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.step.mesh": "bf220ed7b1a38c07af869b1710b996409fe80f013de4bce4dd0fd9997b3d5fc6",
-      "hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.stl": "07242bb34a17b7db7fabfad0054608a96e6d86167b531092d789f9d35ac49d00",
+      "hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.step": "e256dd652f0b91612a556c2c54ac70cb349e9ad6857df19da989c96e9a6676ec",
+      "hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.step.mesh": "33020e9d825251717a86ef783c9ba720de5fa76984153c53c239e3f20517f07c",
+      "hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.stl": "88ce9688c63c6614811545febac096fbed1c2096a9c699d1818af29e6f0c007f",
       "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step": "91ddfea3e9ca8cf046cb385a8d7e653b0b2deb3a343d6b1c9170ead4ed7c5929",
       "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step.mesh": "0a3305dfd2a6b75dc88e0b758ac4cf434b70d22496bdcee4230332e22fe053d8",
       "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.stl": "acdcff8c0842d7158aa15ed797dc22ef6173eb27f662f7e19d505000f4c84e0a",
@@ -1975,12 +1975,12 @@
       "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step": "8a65db96dc2b8ea902d7f509affc360d646f1cb75bf0fe60200703bcc2c2dfcc",
       "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step.mesh": "808b2fe75933690f719c84334fe1b732bd480808aa710b0d82df3065f0875f0a",
       "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.stl": "780532e3d3019d8fc52220223873fc72c2f30cccee1260cfe5b74c7bb14e8df2",
-      "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step": "9aaba7002254fa171fe86d8b52b11bd7fadcf14cc53de174502c91c7011ba7b5",
+      "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step": "370b52b71fa0d4201ca3ee2770e166ed29c5fe12fe87902f272984a2a262bb5f",
       "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step.mesh": "cf9ab1730b34710d059b02e39268294dc45db845945be5b7eba0711897977712",
-      "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.stl": "65862e5f622ab81d8d1a9317ff585dfe2d081fe6cfd84978d963a73d2cfcdc48",
-      "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step": "2cb1480ca8d6864357ada02075ec1bf254492323d9e7e08dcb5167ef5df67d20",
+      "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.stl": "d406ac6132feffe241b9978719cc14c67b048d7bfda815cb969454483adbdb90",
+      "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step": "71c8b93c97e93e113ce5145becb08180c453cd531d9b1aa452da87e5c62aa2e9",
       "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step.mesh": "3e486252b6b83dafd8863058a49e8c28d5d0f6ca69bf73f7e3bed4be7f2f5c77",
-      "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl": "aa10a8f75d12f769a4c9de7ad6cb0f1930e8dead85712d43ef045feebdd8b23a",
+      "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl": "a3f80020d3756ea99dc7135a3173c89f9ed05bebebb63ce211d0492e92dc14ad",
       "hardware/printed-parts/faucet/industrial/industrial-above-counter-gasket.step": "e65e6b2faddc02de044fd69dadbf71ac288bd8f9de7157320a6f6d83ee51253c",
       "hardware/printed-parts/faucet/industrial/industrial-above-counter-gasket.step.mesh": "67bff92af5f94e1f9373173828a44490aadc833e0086572c47baa2b2ffda1199",
       "hardware/printed-parts/faucet/industrial/industrial-above-counter-gasket.stl": "4dfefcced0e35110d8f7bdac1b07be5a374a66e03bf339beb426236b5d19a894",
@@ -1990,9 +1990,9 @@
       "hardware/printed-parts/faucet/industrial/industrial-display-cover.step": "0a3397f4647b0bd5306e4e8587092b96a0ef0b62c92389b5ccf1ebf0d8497f0f",
       "hardware/printed-parts/faucet/industrial/industrial-display-cover.step.mesh": "e9167b8198f9f25e3cff745d4335fa873ce24b080fcb17e799eaebf851327de1",
       "hardware/printed-parts/faucet/industrial/industrial-display-cover.stl": "abdcb313ca246ab797897859c700eb2b2b5578931893046ec8c76467b560d812",
-      "hardware/printed-parts/faucet/industrial/industrial-shell-base.step": "b87fd33320a3ab03d560200069ea5346d7009ed5f7a31854490b28e543d5791e",
-      "hardware/printed-parts/faucet/industrial/industrial-shell-base.step.mesh": "b059d86a2a3c4177bbecfab186f8dd62800c74d0813227755d454c2684e311a2",
-      "hardware/printed-parts/faucet/industrial/industrial-shell-base.stl": "96b2621f9c821354d46d044635a5d274b4b6e011d997e632d5e95be6e974f1cb",
+      "hardware/printed-parts/faucet/industrial/industrial-shell-base.step": "d5326ee565253a91bc7c27382aaa3a390944dd70cf72d89e2f3403800f0a41a7",
+      "hardware/printed-parts/faucet/industrial/industrial-shell-base.step.mesh": "a97c554e5c0fe0510af4b586e342add02cd73b67ffec69a6060f89e90102dd72",
+      "hardware/printed-parts/faucet/industrial/industrial-shell-base.stl": "8f2929b9dfafe1549510c99579b65b910a8ceeb18e260ea5d522a72d7b9a8477",
       "hardware/printed-parts/faucet/lever-replica/lever-replica-petgf-white.3mf": "17b77ae11542557832a808ea36569099909606ad33a09904d39741eeaa5d9b18",
       "hardware/printed-parts/faucet/lever-replica/lever-replica-petgf.3mf": "5e672edc6a405c10c1e1b6cfb5a25a272dbc4308ecdf8e874fc31ea800e421df",
       "hardware/printed-parts/faucet/lever-replica/lever-replica-side-down.stl": "19d420b9193d0d691959aadb80095523164afe380189aae1af9eb0c13f8f2d21",
@@ -2207,8 +2207,8 @@
       "hardware/printed-parts/fixtures/water-inlet-jet/water-inlet-jet-fixture-loose.step": "08a7d22ff6e635309e5dfecc990566412e24d7db60b860b0d5c9b6d396baa57f",
       "hardware/printed-parts/fixtures/water-inlet-jet/water-inlet-jet-fixture-loose.step.mesh": "35d767144421b06a3106ed6cc46ad51c41f161254205872c68d8218f8270a3f7",
       "hardware/printed-parts/fixtures/water-inlet-jet/water-inlet-jet-fixture-loose.stl": "cb72908a0c3588a4b27f30969928007aa7758bd8e0aa79cf43bb8b64b2f614ed",
-      "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-assembly.step": "f144084b45deaa3281bf457c73565934284586af2092597322705772502ecf8c",
-      "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-assembly.step.mesh": "765410f18e2f82de4947bfd3c8983bc2373db2ab42f4408ba87bb1a2ec9138b1",
+      "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-assembly.step": "173b1ca5965e403394847821baa161b97f93fa0250cb4e6361a30970c85b90fd",
+      "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-assembly.step.mesh": "0dc4802734393825e43a8fd2e23cc693ba9097fd5eae37b51ea589e25e0ad58c",
       "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ball-cage.step": "5ac3b058b8a4b99002702c3d5e3e25c8f00f9750a97e7de89470918d16c6c861",
       "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ball-cage.step.mesh": "4dca2269e970d7081ed5711798cf5762a5407a997758e8f5b369533f2a54223f",
       "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ball-cage.stl": "7eb0ddf0087b5c556ad5d9e9432b037bc967b08ca83e6ab092a0a44ef67836ac",
@@ -2226,9 +2226,9 @@
       "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ground-tower.step": "35ecc41dbd9c17a51eb7b0bf291338f995f44b808167ab247d440bea0074ad47",
       "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ground-tower.step.mesh": "add8535eb08944604fdeff818f4f039ce2c186f52449d0041c017fd4aae87eb7",
       "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ground-tower.stl": "a2a2a1bfd1aa81b4ef77d40999738522ce61b652ca2ef6bec0c80d3ef8b49aa5",
-      "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-carriage.step": "56e72f401bb288f064891d3e9d635254c2bdaaa5ee333a0158ec2aaf3195684a",
-      "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-carriage.step.mesh": "539efb88b27fcf9193cfaf658ab6bcc25d2ab863c7ac35145be2f5fe5ef938b7",
-      "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-carriage.stl": "f67bf8063688b4bfc44978a263e3e70d3df70b5c027332f284fc6ced36b0f1b7",
+      "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-carriage.step": "e3b1c6857686225a0224fc041a4c4c6cfdd68fb2983b66894a42be071f73d708",
+      "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-carriage.step.mesh": "6c47e107315e1e58482bbb7295d58285eff302f80d0b65555b66a7f52199cd04",
+      "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-carriage.stl": "bcd6d4d6043e569c2e24478708e8e81c9f1cf79917a64130df7d43c6f432cc63",
       "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-clamp-pad.step": "c60dfd88e91d330393154715ced3118df3f76d5115e8a1844919a55615126433",
       "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-clamp-pad.step.mesh": "0e751ea3be54eb6ec01484ac6ce45551cbaeee35b7f69b52f8a6f73ee9caf17c",
       "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-clamp-pad.stl": "aea6517a3d8c0810e132af0748770f95ab39b0a9dcc76865db5974c0391bcb49",
@@ -2255,16 +2255,16 @@
       "hardware/printed-parts/refrigeration/fuse-clamp/fuse-clamp.step.mesh": "236841e40cf0d756bcd0d1f2d59bdcfe0ef82221246fbf01d67d6d184273e1be",
       "hardware/printed-parts/refrigeration/fuse-clamp/fuse-clamp.stl": "fb4db7bf16cab5a6206f4d055fc0f1f7f41469559c431096b1dc2a1a9cd55528",
       "hardware/printed-parts/shop-storage/holders/adapter-tub.step": "2093a5b831a2451201b93f65092f9aeac8f41db1fb9f44616036bca94ede96c1",
-      "hardware/printed-parts/shop-storage/holders/adapter-tub.step.mesh": "3b8743a4cc415186565af7b02ef1b561134c6b97f619f03790e683f80521a5c7",
+      "hardware/printed-parts/shop-storage/holders/adapter-tub.step.mesh": "d770ab1f9bca15ada407b7f18e853e6bb4176d99b381a1e37579ad8fbc2bcc65",
       "hardware/printed-parts/shop-storage/holders/adapter-tub.stl": "a23c977872b39faef0f1b51d87cf81d73aa2226c418db88bb0702d784ba65393",
       "hardware/printed-parts/shop-storage/holders/brush-quiver.step": "0368a1b2a365e2f27919118b9ac9655dd01f9453715a734428c5cd89863de9dd",
       "hardware/printed-parts/shop-storage/holders/brush-quiver.step.mesh": "5f73da889671921b2eb5a94e482660cc5f032860b9b8728c50e1dd37d81ec513",
       "hardware/printed-parts/shop-storage/holders/brush-quiver.stl": "d37cc5bc49dbf8643d41e5361fae0fc79800fe7073ebc85e2c32392f5ecd1577",
       "hardware/printed-parts/shop-storage/holders/bulkhead-tub.step": "4f6723a0157897df97338ebdcf64875eebeca5b394708f3562c53d94b1896146",
-      "hardware/printed-parts/shop-storage/holders/bulkhead-tub.step.mesh": "3076129786188c5b2048533c07b68e2b7d0d093b603ac3a18779a6f506720dfd",
+      "hardware/printed-parts/shop-storage/holders/bulkhead-tub.step.mesh": "cb2e45612a3fc34045b0eba1bd4200e573ab3d7acdd957aba5561878f4fc6669",
       "hardware/printed-parts/shop-storage/holders/bulkhead-tub.stl": "1b32bfe87771fbd8ac6b0c63b936fb667a85fb0ae587d3f076ffd6d926e428b2",
       "hardware/printed-parts/shop-storage/holders/copper-tub.step": "d6ba0a05e1d232e08bd4f8d0af77da5499c4283fdded58dadcfd8730649490a8",
-      "hardware/printed-parts/shop-storage/holders/copper-tub.step.mesh": "52b73f7e7a72ce6bfd9f5d08162639a7284546ced9a9125b1411f1b7cc1f67f7",
+      "hardware/printed-parts/shop-storage/holders/copper-tub.step.mesh": "eb2f8eb699f4cdc7a9821566e7893f10dd6a613d13a26b587d6f64b5f16eccfd",
       "hardware/printed-parts/shop-storage/holders/copper-tub.stl": "8519251d65c61cafbb6bd632aca367e693d8b7009a1b09807c3b3b746e07504a",
       "hardware/printed-parts/shop-storage/holders/crimp-comb.step": "9fb44415e382d7ded0d68bb07106ff78baeae05f026e68e0af33b926a2de4254",
       "hardware/printed-parts/shop-storage/holders/crimp-comb.step.mesh": "c69ca6c678b696f9f1083c35ecbbefd81731f548c0ebe092f05db9443c20249f",
@@ -2273,7 +2273,7 @@
       "hardware/printed-parts/shop-storage/holders/cut-comb.step.mesh": "4d375e4f3e85fe820ff1835eef3b7f9a0c8d6cfc50d26ddfedd02dd0bd5378d4",
       "hardware/printed-parts/shop-storage/holders/cut-comb.stl": "20c2432254c2f651b025fb1e494b453d6e4694beca1c688bee0b7837d935d455",
       "hardware/printed-parts/shop-storage/holders/deburr-tub.step": "26bf5cce4cfc084fc3f236d83d7494c47b54165c9665774dd3f16f1861fe2817",
-      "hardware/printed-parts/shop-storage/holders/deburr-tub.step.mesh": "cc53f7fa2378dffed10947296e715ef50d3ea03e1122f5dcad89fbe2ccf767cc",
+      "hardware/printed-parts/shop-storage/holders/deburr-tub.step.mesh": "95d4a2b76214122b5168e42d679d3a183634038411e21e20340f1e23f3b9895f",
       "hardware/printed-parts/shop-storage/holders/deburr-tub.stl": "2ecd1bc3c1ca671b41c822422f04255d5e9bc1fdb5f78e3da265af557760c80c",
       "hardware/printed-parts/shop-storage/holders/depressor-quiver.step": "fa4034ff10de117daa626ee34c2f01eab9ec41a1644712ed07071639431dcdeb",
       "hardware/printed-parts/shop-storage/holders/depressor-quiver.step.mesh": "923bd2ebb1e8094f0f873da3fd6f96b8d05fc96646d990eae40adac69dd18dcd",
@@ -2284,53 +2284,53 @@
       "hardware/printed-parts/shop-storage/holders/dock-3x3.step": "d097e9c0739618f014d1a7626497e9d57e9a53a9ddea63d8b9722d3a75bb6b58",
       "hardware/printed-parts/shop-storage/holders/dock-3x3.step.mesh": "20b60e41e63aff3e6d52594f239f6f8a279046fc6e24ece6e0a40b0d32ea2ce2",
       "hardware/printed-parts/shop-storage/holders/dock-3x3.stl": "4e3c56ebf22c7feafef4f302966d14920d703dbb5aeb2c7fbadfb709c109c28f",
-      "hardware/printed-parts/shop-storage/holders/dowel-index.step": "b4e9a6cfc275d641192616feb3f77d40177833d43bbf5bcf8dbb75f53af31af7",
-      "hardware/printed-parts/shop-storage/holders/dowel-index.step.mesh": "c40c3fbe92e62a800a7fa78e4a663062b192666c6d8437b7fa034a5baeb79ba5",
-      "hardware/printed-parts/shop-storage/holders/dowel-index.stl": "11b650dcf997a3690421dfdf64f29785b30525cdc973043dbdd1f202186e9b14",
-      "hardware/printed-parts/shop-storage/holders/drill-index.step": "e28bbe6321c6f0170a23f03d069850150c30a7876f7a5b4e6a7e4da283e6ff1f",
-      "hardware/printed-parts/shop-storage/holders/drill-index.step.mesh": "583f3f64340c587dfaf999e7bde64653213adaeeba3e7d4ab149a0eb18b48308",
-      "hardware/printed-parts/shop-storage/holders/drill-index.stl": "5a64937fd032e62d824274dc41156ee9491acc075e8b1dc51721ea6fcb3bd6dc",
+      "hardware/printed-parts/shop-storage/holders/dowel-index.step": "28a06be63057fdbd8b6983d34e45bca36e4b6de02e6a449b5a0e3b9e7c7b4f64",
+      "hardware/printed-parts/shop-storage/holders/dowel-index.step.mesh": "c890102ad861197711a89b8cc3f42670af87a4c62cd3a2c292e598f5ca099299",
+      "hardware/printed-parts/shop-storage/holders/dowel-index.stl": "8dfa3c97ef7ed9432111527c2357a9d1d375912d6e7e68c476517394962f2d42",
+      "hardware/printed-parts/shop-storage/holders/drill-index.step": "31f5597070ed48229fdfdf730b011011c5764cbe834c24a0c27ebeb44766a514",
+      "hardware/printed-parts/shop-storage/holders/drill-index.step.mesh": "182c129b5da1d4accd1d46e8c773c9b6ca5f578aa4dfab876c6aab47354e19d8",
+      "hardware/printed-parts/shop-storage/holders/drill-index.stl": "730a00d9d4e44215ecec72617bbcde7c61b7221ab242dc65ab46903c94320c26",
       "hardware/printed-parts/shop-storage/holders/ferrule-tub.step": "1e9b8e688bf5b6688fbb1399425b10f81cf4efa89b19f34db63071accb7e542c",
-      "hardware/printed-parts/shop-storage/holders/ferrule-tub.step.mesh": "a7fbb1bd07824ddfffd9ab65ac59f2df08f2667242229ba4f6bc5967d5d33ad8",
+      "hardware/printed-parts/shop-storage/holders/ferrule-tub.step.mesh": "ae811275c5879e462f37da5c9ecdfb06f80dbe58a6497bb5c21f2b3f371ecb1f",
       "hardware/printed-parts/shop-storage/holders/ferrule-tub.stl": "940019f02e5ff95bbaa3b5d43266cd82b581fa6c14594717bd9c950b9a209bff",
       "hardware/printed-parts/shop-storage/holders/fine-comb.step": "6e29dbf8dfd52ccfd2f970263622dad8c7f315b5f81fa829cc39b5fa572198e8",
       "hardware/printed-parts/shop-storage/holders/fine-comb.step.mesh": "bea17a57245d261d82774755d136a3ce033d7d641388b14bad4a0bcbf63f928e",
       "hardware/printed-parts/shop-storage/holders/fine-comb.stl": "75010f95663ab059e5ac5ba8b1353577c833a1da6c3aa8502c5a13e6a7e988c7",
       "hardware/printed-parts/shop-storage/holders/flux-tub.step": "ec2b1389d639e9dca7bfff734d747be8fa7d8f2d8d75704caf8652471dd79528",
-      "hardware/printed-parts/shop-storage/holders/flux-tub.step.mesh": "6371a10579d8ae766e2315ae198bf5086eb94e1113784ab46a19e37bcfe01968",
+      "hardware/printed-parts/shop-storage/holders/flux-tub.step.mesh": "5738d8ee495713af991b45fad9f73dc82aae6bef283c4587a7719a532dc87d98",
       "hardware/printed-parts/shop-storage/holders/flux-tub.stl": "c80b9a21c9e5c887e6f1746537992d8255bb6f6635860a529bfc2459a1f6e183",
       "hardware/printed-parts/shop-storage/holders/heat-gun-tub.step": "4c10514a513d834b9f2df4e5f425e8a391fca245f371d771dcb4ca55a4bad3bf",
       "hardware/printed-parts/shop-storage/holders/heat-gun-tub.step.mesh": "7383ffeefba45c787772cde96a97635955b7b3ae102fdf97f93ef7692b78cd2a",
       "hardware/printed-parts/shop-storage/holders/heat-gun-tub.stl": "34d1084faa54121b4859c6d0fa782db39a85d1a012fcfd22984967a47dbd727d",
       "hardware/printed-parts/shop-storage/holders/hotend-tub.step": "6c9d107ad0c064288345ecb62118dea87145f5c0f4313078f1937715b9bf4d69",
-      "hardware/printed-parts/shop-storage/holders/hotend-tub.step.mesh": "ef534ec6f05c757c72a7fa61db6357c2499a85af7c9ed21c659e266ec7fa50b3",
+      "hardware/printed-parts/shop-storage/holders/hotend-tub.step.mesh": "84ed4ffb52e4bb84a8c0bb4b8694927cba0af5912f03fa92931e2becccf56a0b",
       "hardware/printed-parts/shop-storage/holders/hotend-tub.stl": "3e878dcf5b5edc2f13c3fb9671c4a2342d6da10e7b4872ffb37becc95687d405",
       "hardware/printed-parts/shop-storage/holders/insert-tub.step": "a028f3951d6b57ae29549e65c86b30c7f3f58a3b1cf46bb282544291ade086c6",
-      "hardware/printed-parts/shop-storage/holders/insert-tub.step.mesh": "2058df3bcb07239c4bd61bb26ce125ae1aece399d1c3d953ad5237badf334b24",
+      "hardware/printed-parts/shop-storage/holders/insert-tub.step.mesh": "e9926aee397e4f8b9e00bd483159c3519b20056248f941445ad32307d70c3836",
       "hardware/printed-parts/shop-storage/holders/insert-tub.stl": "b62da772688482a66c864715989a67be30aee89c1845f361d0b9a732ee49f235",
       "hardware/printed-parts/shop-storage/holders/junction-tub.step": "cf3e62addb6aec0b2a041d4dfe1b64f2785a300cc0a7ada3a411dd066df4347f",
-      "hardware/printed-parts/shop-storage/holders/junction-tub.step.mesh": "a9dfaa0aabf9d79c1182aa1fc7c6cb0102d33437a27f9c1e6dac5e61370b71e9",
+      "hardware/printed-parts/shop-storage/holders/junction-tub.step.mesh": "3211fafc365a1cb00b6bacecd1aa62b6f6d2fb1537a7d39665b7515f3aa60c55",
       "hardware/printed-parts/shop-storage/holders/junction-tub.stl": "4b556a75b0a891f1a769832753c35841c74e11a7726bf627b8d04a8470285d04",
       "hardware/printed-parts/shop-storage/holders/keystone-tub.step": "64a23c2a98ebe2458e8f45d675b3156bb5adca8786f6ed9b6f4edd2fb9ea2c55",
-      "hardware/printed-parts/shop-storage/holders/keystone-tub.step.mesh": "605199c880b1e7a7023b64449d20687242cbd1c1ca434cabbc6895a83033d0ae",
+      "hardware/printed-parts/shop-storage/holders/keystone-tub.step.mesh": "78ec8a0a30ed7059fa694452f9afd97fa2cc1f4cac0b128b4b9b9bd760eec419",
       "hardware/printed-parts/shop-storage/holders/keystone-tub.stl": "95d196fbd4f27ad0947232226b548dbbe3080f7729927c958e16ff2bfe907e4d",
       "hardware/printed-parts/shop-storage/holders/lever-tub.step": "e0bd5e7a3ee17170f28b756005906cf7f1a3b01c723aad6c757d857821752da0",
-      "hardware/printed-parts/shop-storage/holders/lever-tub.step.mesh": "4ad757afd8262aae149dafc12a675e0c0d752a207945e9fa01a513ec62ec151d",
+      "hardware/printed-parts/shop-storage/holders/lever-tub.step.mesh": "5c621a0c180447eb3f0dcc28373cb3f56e74df96fc04f7949a64896f03027bdc",
       "hardware/printed-parts/shop-storage/holders/lever-tub.stl": "db196d1deb1bad4682927996c37081f200eb85178c4a3f57dd64a3d771f628ee",
       "hardware/printed-parts/shop-storage/holders/m3-tub.step": "2a355f44f101a5975908915e84a8482345def80df1252b8524a3ca15e4d1913f",
-      "hardware/printed-parts/shop-storage/holders/m3-tub.step.mesh": "dc5edc2891324a4ee9b373c267c0df4c9d1c904d0817e280bdb475263615043d",
+      "hardware/printed-parts/shop-storage/holders/m3-tub.step.mesh": "768ecb2c05e123b583ebcfac80e807e1d94e281af4e20f5b708c1b9335f7bc35",
       "hardware/printed-parts/shop-storage/holders/m3-tub.stl": "ffcaa6dd29899983152d6a37a02372a3bc3f2df6e8e30846442b9091d2860da3",
       "hardware/printed-parts/shop-storage/holders/m5-tub.step": "c3bac649e3ae60f9e05a554771812c2f032e526cee342aae1ba3bb510e2c1c59",
-      "hardware/printed-parts/shop-storage/holders/m5-tub.step.mesh": "e13d0874ef1b5adfca4a0b97d81506303041bf15b91af310cbabaea3f4bd11f6",
+      "hardware/printed-parts/shop-storage/holders/m5-tub.step.mesh": "01f9ee9f1ab252079a0271392eb33d1495f94ade57949b04c40d074ec86343b6",
       "hardware/printed-parts/shop-storage/holders/m5-tub.stl": "5635cb366b03a047aa5d1f5b6a256b0614c0ab7f53755605c26e1af13de1d3e3",
       "hardware/printed-parts/shop-storage/holders/npt-tub.step": "28640bcfc6f2e809a220c09f5a19896ed1da8e767d9e2a919a72671a3c183fa9",
-      "hardware/printed-parts/shop-storage/holders/npt-tub.step.mesh": "2220e4ad497c3eeb1f818f45c53524fd9936e738566c5ee41f1a62a3a8906c9b",
+      "hardware/printed-parts/shop-storage/holders/npt-tub.step.mesh": "074de859166bf030bbf36108638883e2ccfd55895e443bc6e5e3225c0f2f0a92",
       "hardware/printed-parts/shop-storage/holders/npt-tub.stl": "bb4f1623bfbbf275e4bf2c9b0ee981a1e9619dd6f66f9f2fd707e1ac9f933224",
       "hardware/printed-parts/shop-storage/holders/pigment-tub.step": "31b6d4d2e141463b8450d95949853867e942328bf2b1bb97d842e81a733e84fa",
       "hardware/printed-parts/shop-storage/holders/pigment-tub.step.mesh": "ebd709288d9e223b4a28e920a91fef670605bd1127c0c4bddccc3331931ffc51",
       "hardware/printed-parts/shop-storage/holders/pigment-tub.stl": "031dc0b8a2016bd4697da9aad4a04d0e0ff481b1b424a7d7fee6b7a5c7558243",
       "hardware/printed-parts/shop-storage/holders/pressure-tub.step": "c8a5c708769f625a9021bb06b7c78101a65dd89a13f8d1052f3eafd3f0733eef",
-      "hardware/printed-parts/shop-storage/holders/pressure-tub.step.mesh": "0675334d874830aab9c1f7b1eaf36a16b3789701b60396b895759e1e38b5c8de",
+      "hardware/printed-parts/shop-storage/holders/pressure-tub.step.mesh": "95b10a13b02a1ce2b15a2d31358891208458bfb5350d9bb0056061f1b72e5028",
       "hardware/printed-parts/shop-storage/holders/pressure-tub.stl": "79c1a74bb69c1eb5b5ed321765e989b1f241792fec6a1fc91825654d3d1486a0",
       "hardware/printed-parts/shop-storage/holders/punch-comb.step": "cffefbb30fb745caac83c83f6f2447a050b7ddc8050a49fd4382ccd240630c8e",
       "hardware/printed-parts/shop-storage/holders/punch-comb.step.mesh": "2a90989c982dafee2810f8223e87ff2bb9e1906d1e129f580a0c92293ccd3e8b",
@@ -2351,25 +2351,25 @@
       "hardware/printed-parts/shop-storage/holders/saw-tub.step.mesh": "1bf2f4b6aa271e2ca29952c3c7b432ee6522b8af020351ccd3aa0073a4fee647",
       "hardware/printed-parts/shop-storage/holders/saw-tub.stl": "a08917a35361cd143e625cd22c3492c1111bada01e5a1041951cc549269faaaf",
       "hardware/printed-parts/shop-storage/holders/service-tub.step": "e26d097bfd0e57aeac7a7df4b4f22425c934cfefc57a42b88a0eb404a32f2c56",
-      "hardware/printed-parts/shop-storage/holders/service-tub.step.mesh": "6a379de747f25c75af2ce61144c9b86bfb4ab13db3431008f3708f652b4766b2",
+      "hardware/printed-parts/shop-storage/holders/service-tub.step.mesh": "05bc2798a9a9014e397200903332335f24607ddfe2ecd13365655446973e7c7a",
       "hardware/printed-parts/shop-storage/holders/service-tub.stl": "d3278220141ed52dacdce6afafdfc3fa6a9aad6303d8c20268c4ae3a21b8f175",
       "hardware/printed-parts/shop-storage/holders/shrink-tub.step": "0ca982dfa3f8a567a7132c114e1b55fe2d960010d883bb9f8e1827236d3409ec",
-      "hardware/printed-parts/shop-storage/holders/shrink-tub.step.mesh": "32311e63c2b51bb6be3a6cd2ca2bf44ed4fbdfe595bbee9a691b8b6afdd78c53",
+      "hardware/printed-parts/shop-storage/holders/shrink-tub.step.mesh": "9ff58f2759fd2dbfab47af84928fc6620e41fb42a6a6b7ef88c9453dfefee01f",
       "hardware/printed-parts/shop-storage/holders/shrink-tub.stl": "940019f02e5ff95bbaa3b5d43266cd82b581fa6c14594717bd9c950b9a209bff",
       "hardware/printed-parts/shop-storage/holders/small-tub.step": "1f8dd32c178bb5a0efb018a6f0d0bff7e39e50f127012fa65280b8422dd5a8a5",
-      "hardware/printed-parts/shop-storage/holders/small-tub.step.mesh": "ffe8624ccf39ef2d6b6ac2e48ec30de6ac4388583831fe64a85bc4c0caa63c40",
+      "hardware/printed-parts/shop-storage/holders/small-tub.step.mesh": "28d0504d80b76d4469780d736898e4458cdf6073e2affda0cd717966db14509f",
       "hardware/printed-parts/shop-storage/holders/small-tub.stl": "9d3b6cc1438f3286e3a41e6591312b7cd700e86521aea6235b2ad54247ad1a94",
       "hardware/printed-parts/shop-storage/holders/stock-tub.step": "7f6fa3e0a499950f84b84b1759fb5d22db69b9fef196e78eb41d1f68166464ea",
-      "hardware/printed-parts/shop-storage/holders/stock-tub.step.mesh": "1d41fdbee485e08f5c0bb86bdaace26fa23f7c1a2b2d0ea1f0e5c46c567e1317",
+      "hardware/printed-parts/shop-storage/holders/stock-tub.step.mesh": "fc42076230b2d792eac4effa2588edd98735d666a9176fc479a41fe24840c869",
       "hardware/printed-parts/shop-storage/holders/stock-tub.stl": "cb5b59ef15e10a2847e5cdd5be02a1324e416461bca7f0d5253dada796cb0eba",
       "hardware/printed-parts/shop-storage/holders/strip-comb.step": "bec520a6e3b39f57f9de56e68da91e947747c3c273e5886086983a33cc30766e",
       "hardware/printed-parts/shop-storage/holders/strip-comb.step.mesh": "e42773c5bb43148882195074d0868cb1277844cb5b7d75b3c15372297148fdf0",
       "hardware/printed-parts/shop-storage/holders/strip-comb.stl": "6bec8a8555f5e28a0bf63b56280e9a4e8b4b309b38a15be442d4801ccae80663",
       "hardware/printed-parts/shop-storage/holders/terminal-tub.step": "a6e69ddf6fb456a088f5f3b79908bc89a5b5a507544e9976c2613062734f9406",
-      "hardware/printed-parts/shop-storage/holders/terminal-tub.step.mesh": "8b4fd3890373bef0adca1e0f2854289da15920559add81c77b5c0516a9e9acd8",
+      "hardware/printed-parts/shop-storage/holders/terminal-tub.step.mesh": "5dd1085711b2ed1d6fce88aa6814785b439b074b207cc595833d4a6102120944",
       "hardware/printed-parts/shop-storage/holders/terminal-tub.stl": "1af8319fc2867607015da3ce48d65f57e702bd2842f8d766b56029e8d51e6ace",
       "hardware/printed-parts/shop-storage/holders/tie-tub.step": "5e6b8825bf945f8c1576042eef416543c34c70f943cf602f138cb2a090c6f649",
-      "hardware/printed-parts/shop-storage/holders/tie-tub.step.mesh": "6e9ce8f7cdb0dd0ee3813f160e18b33df22cdc033379caea49d89a3fe0da1ce0",
+      "hardware/printed-parts/shop-storage/holders/tie-tub.step.mesh": "6d7f3fd238b4b8a2b05a20e315c7693a4b59d08d2d64ffd6b91775c243e723d3",
       "hardware/printed-parts/shop-storage/holders/tie-tub.stl": "6eadb13f15dff0cb4ed162629be384ccd85ffe502102438c2de775e34b725af7",
       "hardware/printed-parts/shop-storage/holders/tip-index.step": "8899bd3f6fe82b80d44e82941e75d66d71b1fb4be9d179e756812ab8a3710e0d",
       "hardware/printed-parts/shop-storage/holders/tip-index.step.mesh": "bc0aefeb65e7cb4c5d221b18d330a11b39ae6e3a8ef12e0d63276c5392e46148",
@@ -2378,7 +2378,7 @@
       "hardware/printed-parts/shop-storage/holders/tube-comb.step.mesh": "753ccc78105c2c2356faea2983958534937bf4e3fbea58516cd72b5cfe926f0e",
       "hardware/printed-parts/shop-storage/holders/tube-comb.stl": "e5454dbdb5b5f7784616789e399c0dd2c487ce3839f6b09b739d39602eafc70c",
       "hardware/printed-parts/shop-storage/holders/xh-tub.step": "3ea70a170e7bc33e129bf6ed2996c742eb4c8905c9ee3554931d160f6b85dcb9",
-      "hardware/printed-parts/shop-storage/holders/xh-tub.step.mesh": "85d6cbad494996011399c5c08597f8ace5cae71b96b9665dfcc9d35b1b1c8184",
+      "hardware/printed-parts/shop-storage/holders/xh-tub.step.mesh": "8cb98d9accfc51a2a8314d3d5607a366f4eba16d5b558e2b1eee73178b9aabfb",
       "hardware/printed-parts/shop-storage/holders/xh-tub.stl": "08a605215352d0496ff21bf7c8f1459a2eafd28fcccac3a714dee1e6d30bc6bd",
       "hardware/printed-parts/soda-bend-holder/soda-bend-holder.step": "d6cac70239b625a770ea64b987835e18b285f5851cbc494b74bc577f27c49171",
       "hardware/printed-parts/soda-bend-holder/soda-bend-holder.step.json": "f193a83d4d787eea44142880cc436150ac72eb44152e5ced50be751222f783ee",
@@ -2390,7 +2390,7 @@
       "hardware/printed-parts/zone-c/funnel-cover/funnel-cover.step.mesh": "d4ae60d332ac14010f8705ff7a665bbdb0d88141dc588fa4b80ebe43c5ec7ffa",
       "hardware/printed-parts/zone-c/funnel-cover/funnel-cover.stl": "8d6011183082a8df09dce32dc1d2955c0fbe5ba07e27b61b072fff7e166971c2",
       "hardware/printed-parts/zone-c/funnel-mold/assembly.step": "762cd3ecb68990d8958815b5fd0a70339b72234052b9fd2502bcb39d2cca0ef3",
-      "hardware/printed-parts/zone-c/funnel-mold/assembly.step.mesh": "16c5dc5a992a0d203bed06931f798ea0ae86ca82dddfa0bb5976f48277422db0",
+      "hardware/printed-parts/zone-c/funnel-mold/assembly.step.mesh": "adea9759f718bffe9d45419c8808315d0d0c8a515f88b08c447c3c9dbb737dc2",
       "hardware/printed-parts/zone-c/funnel-mold/cavity.step": "722aebc15bd9f92422a64caf6ef017ce0bc95263f31de8c233cab57e92403d17",
       "hardware/printed-parts/zone-c/funnel-mold/cavity.step.mesh": "a7746571ddba9753b5e92b71f174156c5d1c55c8423c95808cd3143e4b75ff1d",
       "hardware/printed-parts/zone-c/funnel-mold/cavity.stl": "a5ae1b39b716e956d030fab9c10843968383bad95f15a89171f23c4574ba4ae5",
@@ -2398,7 +2398,7 @@
       "hardware/printed-parts/zone-c/funnel-mold/core.step.mesh": "d8796374f5192030060aad04349bfdd115d7b32c54346687f1030e722d6b30b1",
       "hardware/printed-parts/zone-c/funnel-mold/core.stl": "9939f10c4d2c0e78c26b7e3203819dda078bd3a32b2f6a75bc497b4ac2c9c2af",
       "hardware/printed-parts/zone-c/funnel-mold/rod.step": "6d03f09648448baf833c60ad301638a1506d9268a44045fc8442bd7c3299040e",
-      "hardware/printed-parts/zone-c/funnel-mold/rod.step.mesh": "8ce659a4faf4baccd9c95dfcbb71f43423176389e6c472a2b42e05206043c073",
+      "hardware/printed-parts/zone-c/funnel-mold/rod.step.mesh": "7c7c51ffa8cb5c0044d1af9fd208fcbf96880222079107d818bf0eef1c25e89e",
       "hardware/printed-parts/zone-c/funnel/elbow-cradle.step": "4d1eac2b83e2cab19e34ab1e52bbecffcfddd2b684ed94dd17ccba614ebb63bb",
       "hardware/printed-parts/zone-c/funnel/elbow-cradle.step.mesh": "6b2f59a26b39b6ac9e2fd27e7019a1724a1a1efecbf23a7bb4a0343618b30020",
       "hardware/printed-parts/zone-c/funnel/elbow-cradle.stl": "59ac96f327ffa74e41fbff08a954fcd51d29a8aa5684978047146be15a42f52b",
@@ -2513,9 +2513,9 @@
     "hardware/cut-parts/faucet/under-counter-plate/under-counter-plate.dxf": 1793811159,
     "hardware/cut-parts/faucet/under-counter-plate/under-counter-plate.dxf.json": 1793750338,
     "hardware/faucet-layout/faucet-assembly.step": 1793811159,
-    "hardware/faucet-layout/faucet-assembly.step.mesh": 1793811159,
-    "hardware/faucet-layout/faucet-industrial-assembly.step": 1793626644,
-    "hardware/faucet-layout/faucet-industrial-assembly.step.mesh": 1793712586,
+    "hardware/faucet-layout/faucet-assembly.step.mesh": 1793934190,
+    "hardware/faucet-layout/faucet-industrial-assembly.step": 1793934190,
+    "hardware/faucet-layout/faucet-industrial-assembly.step.mesh": 1793934190,
     "hardware/gun-positioner/mounting/controller-backplane.stl": 1791160706,
     "hardware/gun-positioner/mounting/fan-stand-80mm.stl": 1791160706,
     "hardware/gun-positioner/mounting/m3-insulating-spacer-6mm.stl": 1791160706,
@@ -2705,16 +2705,16 @@
     "hardware/printed-parts/calibration/soda-studies/the-pour.step": 1791782119,
     "hardware/printed-parts/calibration/soda-studies/the-pour.step.mesh": 1791782119,
     "hardware/printed-parts/calibration/soda-studies/the-pour.step.png": 1793750338,
-    "hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.step": 1793712586,
-    "hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.step.mesh": 1793712586,
-    "hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.stl": 1793712586,
+    "hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.step": 1793934190,
+    "hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.step.mesh": 1793934190,
+    "hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.stl": 1793934190,
     "hardware/printed-parts/cold-core/copper-plugs/copper-plug-port.step": 1789519123,
     "hardware/printed-parts/cold-core/copper-plugs/copper-plug-port.stl": 1792922058,
     "hardware/printed-parts/cold-core/copper-plugs/copper-plug-west.step": 1789519123,
     "hardware/printed-parts/cold-core/copper-plugs/copper-plug-west.stl": 1792922058,
-    "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step": 1793769253,
-    "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step.mesh": 1793769253,
-    "hardware/printed-parts/cold-core/foam-assembly/internal-routes.step": 1793626644,
+    "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step": 1793934190,
+    "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step.mesh": 1793934190,
+    "hardware/printed-parts/cold-core/foam-assembly/internal-routes.step": 1793934190,
     "hardware/printed-parts/cold-core/foam-assembly/internal-routes.step.mesh": 1793555606,
     "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step": 1793568839,
     "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step.mesh": 1793712586,
@@ -3038,14 +3038,14 @@
     "hardware/printed-parts/faucet/faucet-display-cover/fit-review/2026-10-24/tip.step": 1792893021,
     "hardware/printed-parts/faucet/faucet-display-cover/fit-review/2026-10-24/vendor-button-211.step": 1792893021,
     "hardware/printed-parts/faucet/faucet-display-cover/fit-review/2026-10-24/vendor-button-212.step": 1792893021,
-    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step": 1793626644,
+    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step": 1793934190,
     "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step.mesh": 1793712586,
-    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.stl": 1793626644,
-    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step": 1793626644,
+    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.stl": 1793934190,
+    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step": 1793934190,
     "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step.mesh": 1793712586,
-    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl": 1793626644,
-    "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step": 1793626644,
-    "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step.mesh": 1793626644,
+    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl": 1793934190,
+    "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step": 1793934190,
+    "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step.mesh": 1793934190,
     "hardware/printed-parts/faucet/finish-coupons/2026-10-10/faucet-foot-section.step": 1791675122,
     "hardware/printed-parts/faucet/finish-coupons/2026-10-10/faucet-neck-section.step": 1791675122,
     "hardware/printed-parts/faucet/finish-coupons/coarse-start-v1/faucet-lip-section.step": 1791700588,
@@ -3067,9 +3067,9 @@
     "hardware/printed-parts/faucet/industrial/industrial-display-cover.step": 1793626644,
     "hardware/printed-parts/faucet/industrial/industrial-display-cover.step.mesh": 1793712586,
     "hardware/printed-parts/faucet/industrial/industrial-display-cover.stl": 1793626644,
-    "hardware/printed-parts/faucet/industrial/industrial-shell-base.step": 1793626644,
-    "hardware/printed-parts/faucet/industrial/industrial-shell-base.step.mesh": 1793712586,
-    "hardware/printed-parts/faucet/industrial/industrial-shell-base.stl": 1793626644,
+    "hardware/printed-parts/faucet/industrial/industrial-shell-base.step": 1793934190,
+    "hardware/printed-parts/faucet/industrial/industrial-shell-base.step.mesh": 1793934190,
+    "hardware/printed-parts/faucet/industrial/industrial-shell-base.stl": 1793934190,
     "hardware/printed-parts/faucet/industrial/prints/2026-10-24-sculpted-cover-uniform024-mark2/sculpted-display-cover-low45.step": 1792893021,
     "hardware/printed-parts/faucet/industrial/prints/2026-10-24-sculpted-cover-uniform024-mark2/sculpted-display-cover-low45.stl": 1792893021,
     "hardware/printed-parts/faucet/industrial/production/2026-10-25/faucet-shell-tip.stl": 1792961269,
@@ -3828,8 +3828,8 @@
     "hardware/printed-parts/fixtures/water-inlet-jet/water-inlet-jet-fixture-loose.step": 1793652093,
     "hardware/printed-parts/fixtures/water-inlet-jet/water-inlet-jet-fixture-loose.step.mesh": 1793652093,
     "hardware/printed-parts/fixtures/water-inlet-jet/water-inlet-jet-fixture-loose.stl": 1793652093,
-    "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-assembly.step": 1793652093,
-    "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-assembly.step.mesh": 1793652093,
+    "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-assembly.step": 1793934190,
+    "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-assembly.step.mesh": 1793934190,
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ball-cage.step": 1793652093,
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ball-cage.step.mesh": 1793652093,
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ball-cage.stl": 1793652093,
@@ -3847,9 +3847,9 @@
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ground-tower.step": 1793652093,
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ground-tower.step.mesh": 1793652093,
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ground-tower.stl": 1793652093,
-    "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-carriage.step": 1793652093,
-    "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-carriage.step.mesh": 1793652093,
-    "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-carriage.stl": 1793652093,
+    "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-carriage.step": 1793934190,
+    "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-carriage.step.mesh": 1793934190,
+    "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-carriage.stl": 1793934190,
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-clamp-pad.step": 1793652093,
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-clamp-pad.step.mesh": 1793652093,
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-clamp-pad.stl": 1793652093,
@@ -3882,16 +3882,16 @@
     "hardware/printed-parts/refrigeration/fuse-clamp/fuse-clamp.step.mesh": 1793568839,
     "hardware/printed-parts/refrigeration/fuse-clamp/fuse-clamp.stl": 1793568839,
     "hardware/printed-parts/shop-storage/holders/adapter-tub.step": 1793652093,
-    "hardware/printed-parts/shop-storage/holders/adapter-tub.step.mesh": 1793652093,
+    "hardware/printed-parts/shop-storage/holders/adapter-tub.step.mesh": 1793934190,
     "hardware/printed-parts/shop-storage/holders/adapter-tub.stl": 1793652093,
     "hardware/printed-parts/shop-storage/holders/brush-quiver.step": 1793652093,
     "hardware/printed-parts/shop-storage/holders/brush-quiver.step.mesh": 1793652093,
     "hardware/printed-parts/shop-storage/holders/brush-quiver.stl": 1793652093,
     "hardware/printed-parts/shop-storage/holders/bulkhead-tub.step": 1793652093,
-    "hardware/printed-parts/shop-storage/holders/bulkhead-tub.step.mesh": 1793652093,
+    "hardware/printed-parts/shop-storage/holders/bulkhead-tub.step.mesh": 1793934190,
     "hardware/printed-parts/shop-storage/holders/bulkhead-tub.stl": 1793652093,
     "hardware/printed-parts/shop-storage/holders/copper-tub.step": 1793652093,
-    "hardware/printed-parts/shop-storage/holders/copper-tub.step.mesh": 1793652093,
+    "hardware/printed-parts/shop-storage/holders/copper-tub.step.mesh": 1793934190,
     "hardware/printed-parts/shop-storage/holders/copper-tub.stl": 1793652093,
     "hardware/printed-parts/shop-storage/holders/crimp-comb.step": 1793652093,
     "hardware/printed-parts/shop-storage/holders/crimp-comb.step.mesh": 1793652093,
@@ -3900,7 +3900,7 @@
     "hardware/printed-parts/shop-storage/holders/cut-comb.step.mesh": 1793652093,
     "hardware/printed-parts/shop-storage/holders/cut-comb.stl": 1793652093,
     "hardware/printed-parts/shop-storage/holders/deburr-tub.step": 1793652093,
-    "hardware/printed-parts/shop-storage/holders/deburr-tub.step.mesh": 1793652093,
+    "hardware/printed-parts/shop-storage/holders/deburr-tub.step.mesh": 1793934190,
     "hardware/printed-parts/shop-storage/holders/deburr-tub.stl": 1793652093,
     "hardware/printed-parts/shop-storage/holders/depressor-quiver.step": 1793652093,
     "hardware/printed-parts/shop-storage/holders/depressor-quiver.step.mesh": 1793652093,
@@ -3911,53 +3911,53 @@
     "hardware/printed-parts/shop-storage/holders/dock-3x3.step": 1793652093,
     "hardware/printed-parts/shop-storage/holders/dock-3x3.step.mesh": 1793652093,
     "hardware/printed-parts/shop-storage/holders/dock-3x3.stl": 1793652093,
-    "hardware/printed-parts/shop-storage/holders/dowel-index.step": 1793652093,
-    "hardware/printed-parts/shop-storage/holders/dowel-index.step.mesh": 1793652093,
-    "hardware/printed-parts/shop-storage/holders/dowel-index.stl": 1793652093,
-    "hardware/printed-parts/shop-storage/holders/drill-index.step": 1793652093,
-    "hardware/printed-parts/shop-storage/holders/drill-index.step.mesh": 1793652093,
-    "hardware/printed-parts/shop-storage/holders/drill-index.stl": 1793652093,
+    "hardware/printed-parts/shop-storage/holders/dowel-index.step": 1793934190,
+    "hardware/printed-parts/shop-storage/holders/dowel-index.step.mesh": 1793934190,
+    "hardware/printed-parts/shop-storage/holders/dowel-index.stl": 1793934190,
+    "hardware/printed-parts/shop-storage/holders/drill-index.step": 1793934190,
+    "hardware/printed-parts/shop-storage/holders/drill-index.step.mesh": 1793934190,
+    "hardware/printed-parts/shop-storage/holders/drill-index.stl": 1793934190,
     "hardware/printed-parts/shop-storage/holders/ferrule-tub.step": 1793652093,
-    "hardware/printed-parts/shop-storage/holders/ferrule-tub.step.mesh": 1793652093,
+    "hardware/printed-parts/shop-storage/holders/ferrule-tub.step.mesh": 1793934190,
     "hardware/printed-parts/shop-storage/holders/ferrule-tub.stl": 1793652093,
     "hardware/printed-parts/shop-storage/holders/fine-comb.step": 1793652093,
     "hardware/printed-parts/shop-storage/holders/fine-comb.step.mesh": 1793652093,
     "hardware/printed-parts/shop-storage/holders/fine-comb.stl": 1793652093,
     "hardware/printed-parts/shop-storage/holders/flux-tub.step": 1793652093,
-    "hardware/printed-parts/shop-storage/holders/flux-tub.step.mesh": 1793652093,
+    "hardware/printed-parts/shop-storage/holders/flux-tub.step.mesh": 1793934190,
     "hardware/printed-parts/shop-storage/holders/flux-tub.stl": 1793652093,
     "hardware/printed-parts/shop-storage/holders/heat-gun-tub.step": 1793652093,
     "hardware/printed-parts/shop-storage/holders/heat-gun-tub.step.mesh": 1793652093,
     "hardware/printed-parts/shop-storage/holders/heat-gun-tub.stl": 1793652093,
     "hardware/printed-parts/shop-storage/holders/hotend-tub.step": 1793652093,
-    "hardware/printed-parts/shop-storage/holders/hotend-tub.step.mesh": 1793652093,
+    "hardware/printed-parts/shop-storage/holders/hotend-tub.step.mesh": 1793934190,
     "hardware/printed-parts/shop-storage/holders/hotend-tub.stl": 1793652093,
     "hardware/printed-parts/shop-storage/holders/insert-tub.step": 1793652093,
-    "hardware/printed-parts/shop-storage/holders/insert-tub.step.mesh": 1793652093,
+    "hardware/printed-parts/shop-storage/holders/insert-tub.step.mesh": 1793934190,
     "hardware/printed-parts/shop-storage/holders/insert-tub.stl": 1793652093,
     "hardware/printed-parts/shop-storage/holders/junction-tub.step": 1793652093,
-    "hardware/printed-parts/shop-storage/holders/junction-tub.step.mesh": 1793652093,
+    "hardware/printed-parts/shop-storage/holders/junction-tub.step.mesh": 1793934190,
     "hardware/printed-parts/shop-storage/holders/junction-tub.stl": 1793652093,
     "hardware/printed-parts/shop-storage/holders/keystone-tub.step": 1793652093,
-    "hardware/printed-parts/shop-storage/holders/keystone-tub.step.mesh": 1793652093,
+    "hardware/printed-parts/shop-storage/holders/keystone-tub.step.mesh": 1793934190,
     "hardware/printed-parts/shop-storage/holders/keystone-tub.stl": 1793652093,
     "hardware/printed-parts/shop-storage/holders/lever-tub.step": 1793652093,
-    "hardware/printed-parts/shop-storage/holders/lever-tub.step.mesh": 1793652093,
+    "hardware/printed-parts/shop-storage/holders/lever-tub.step.mesh": 1793934190,
     "hardware/printed-parts/shop-storage/holders/lever-tub.stl": 1793652093,
     "hardware/printed-parts/shop-storage/holders/m3-tub.step": 1793652093,
-    "hardware/printed-parts/shop-storage/holders/m3-tub.step.mesh": 1793652093,
+    "hardware/printed-parts/shop-storage/holders/m3-tub.step.mesh": 1793934190,
     "hardware/printed-parts/shop-storage/holders/m3-tub.stl": 1793652093,
     "hardware/printed-parts/shop-storage/holders/m5-tub.step": 1793652093,
-    "hardware/printed-parts/shop-storage/holders/m5-tub.step.mesh": 1793652093,
+    "hardware/printed-parts/shop-storage/holders/m5-tub.step.mesh": 1793934190,
     "hardware/printed-parts/shop-storage/holders/m5-tub.stl": 1793652093,
     "hardware/printed-parts/shop-storage/holders/npt-tub.step": 1793652093,
-    "hardware/printed-parts/shop-storage/holders/npt-tub.step.mesh": 1793652093,
+    "hardware/printed-parts/shop-storage/holders/npt-tub.step.mesh": 1793934190,
     "hardware/printed-parts/shop-storage/holders/npt-tub.stl": 1793652093,
     "hardware/printed-parts/shop-storage/holders/pigment-tub.step": 1793652093,
     "hardware/printed-parts/shop-storage/holders/pigment-tub.step.mesh": 1793652093,
     "hardware/printed-parts/shop-storage/holders/pigment-tub.stl": 1793652093,
     "hardware/printed-parts/shop-storage/holders/pressure-tub.step": 1793652093,
-    "hardware/printed-parts/shop-storage/holders/pressure-tub.step.mesh": 1793652093,
+    "hardware/printed-parts/shop-storage/holders/pressure-tub.step.mesh": 1793934190,
     "hardware/printed-parts/shop-storage/holders/pressure-tub.stl": 1793652093,
     "hardware/printed-parts/shop-storage/holders/punch-comb.step": 1793652093,
     "hardware/printed-parts/shop-storage/holders/punch-comb.step.mesh": 1793652093,
@@ -3980,25 +3980,25 @@
     "hardware/printed-parts/shop-storage/holders/saw-tub.step.mesh": 1793652093,
     "hardware/printed-parts/shop-storage/holders/saw-tub.stl": 1793652093,
     "hardware/printed-parts/shop-storage/holders/service-tub.step": 1793652093,
-    "hardware/printed-parts/shop-storage/holders/service-tub.step.mesh": 1793652093,
+    "hardware/printed-parts/shop-storage/holders/service-tub.step.mesh": 1793934190,
     "hardware/printed-parts/shop-storage/holders/service-tub.stl": 1793652093,
     "hardware/printed-parts/shop-storage/holders/shrink-tub.step": 1793652093,
-    "hardware/printed-parts/shop-storage/holders/shrink-tub.step.mesh": 1793652093,
+    "hardware/printed-parts/shop-storage/holders/shrink-tub.step.mesh": 1793934190,
     "hardware/printed-parts/shop-storage/holders/shrink-tub.stl": 1793652093,
     "hardware/printed-parts/shop-storage/holders/small-tub.step": 1793652093,
-    "hardware/printed-parts/shop-storage/holders/small-tub.step.mesh": 1793652093,
+    "hardware/printed-parts/shop-storage/holders/small-tub.step.mesh": 1793934190,
     "hardware/printed-parts/shop-storage/holders/small-tub.stl": 1793652093,
     "hardware/printed-parts/shop-storage/holders/stock-tub.step": 1793652093,
-    "hardware/printed-parts/shop-storage/holders/stock-tub.step.mesh": 1793652093,
+    "hardware/printed-parts/shop-storage/holders/stock-tub.step.mesh": 1793934190,
     "hardware/printed-parts/shop-storage/holders/stock-tub.stl": 1793652093,
     "hardware/printed-parts/shop-storage/holders/strip-comb.step": 1793652093,
     "hardware/printed-parts/shop-storage/holders/strip-comb.step.mesh": 1793652093,
     "hardware/printed-parts/shop-storage/holders/strip-comb.stl": 1793652093,
     "hardware/printed-parts/shop-storage/holders/terminal-tub.step": 1793652093,
-    "hardware/printed-parts/shop-storage/holders/terminal-tub.step.mesh": 1793652093,
+    "hardware/printed-parts/shop-storage/holders/terminal-tub.step.mesh": 1793934190,
     "hardware/printed-parts/shop-storage/holders/terminal-tub.stl": 1793652093,
     "hardware/printed-parts/shop-storage/holders/tie-tub.step": 1793652093,
-    "hardware/printed-parts/shop-storage/holders/tie-tub.step.mesh": 1793652093,
+    "hardware/printed-parts/shop-storage/holders/tie-tub.step.mesh": 1793934190,
     "hardware/printed-parts/shop-storage/holders/tie-tub.stl": 1793652093,
     "hardware/printed-parts/shop-storage/holders/tip-index.step": 1793652093,
     "hardware/printed-parts/shop-storage/holders/tip-index.step.mesh": 1793652093,
@@ -4007,7 +4007,7 @@
     "hardware/printed-parts/shop-storage/holders/tube-comb.step.mesh": 1793652093,
     "hardware/printed-parts/shop-storage/holders/tube-comb.stl": 1793652093,
     "hardware/printed-parts/shop-storage/holders/xh-tub.step": 1793652093,
-    "hardware/printed-parts/shop-storage/holders/xh-tub.step.mesh": 1793652093,
+    "hardware/printed-parts/shop-storage/holders/xh-tub.step.mesh": 1793934190,
     "hardware/printed-parts/shop-storage/holders/xh-tub.stl": 1793652093,
     "hardware/printed-parts/soda-bend-holder/soda-bend-holder.step": 1793626644,
     "hardware/printed-parts/soda-bend-holder/soda-bend-holder.step.json": 1793750338,
@@ -4021,7 +4021,7 @@
     "hardware/printed-parts/zone-c/funnel-cover/funnel-cover.step.mesh": 1793626644,
     "hardware/printed-parts/zone-c/funnel-cover/funnel-cover.stl": 1793525739,
     "hardware/printed-parts/zone-c/funnel-mold/assembly.step": 1793712586,
-    "hardware/printed-parts/zone-c/funnel-mold/assembly.step.mesh": 1793712586,
+    "hardware/printed-parts/zone-c/funnel-mold/assembly.step.mesh": 1793934190,
     "hardware/printed-parts/zone-c/funnel-mold/backs.step": 1793712586,
     "hardware/printed-parts/zone-c/funnel-mold/backs.step.mesh": 1793712586,
     "hardware/printed-parts/zone-c/funnel-mold/cavity.step": 1793712586,
@@ -4035,9 +4035,9 @@
     "hardware/printed-parts/zone-c/funnel-mold/overview.step": 1793712586,
     "hardware/printed-parts/zone-c/funnel-mold/overview.step.mesh": 1793712586,
     "hardware/printed-parts/zone-c/funnel-mold/rod.step": 1793712586,
-    "hardware/printed-parts/zone-c/funnel-mold/rod.step.mesh": 1793712586,
+    "hardware/printed-parts/zone-c/funnel-mold/rod.step.mesh": 1793934190,
     "hardware/printed-parts/zone-c/funnel-mold/section.step": 1793712586,
-    "hardware/printed-parts/zone-c/funnel-mold/section.step.mesh": 1793712586,
+    "hardware/printed-parts/zone-c/funnel-mold/section.step.mesh": 1793934190,
     "hardware/printed-parts/zone-c/funnel/cradle-trial/test-cradle.step": 1793495877,
     "hardware/printed-parts/zone-c/funnel/cradle-trial/test-cradle.step.mesh": 1792060413,
     "hardware/printed-parts/zone-c/funnel/cradle-trial/test-cradle.stl": 1793495877,
@@ -4306,17 +4306,15 @@
       "unproven": true
     },
     "hardware/faucet-layout/faucet-assembly.step.mesh": {
-      "commit": "fedeef18c245ebd8b1dba711c1e5cf29b7d9109e",
+      "commit": "164c8f9e0cb07eab6075a14cde0adf29fda29596",
       "unproven": true
     },
     "hardware/faucet-layout/faucet-industrial-assembly.step": {
-      "inputs": "691c70e497c511564d18c1cda57ccd3b9665e809a740afa1576d4cc76252fd91",
-      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2",
+      "commit": "164c8f9e0cb07eab6075a14cde0adf29fda29596",
       "unproven": true
     },
     "hardware/faucet-layout/faucet-industrial-assembly.step.mesh": {
-      "inputs": "691c70e497c511564d18c1cda57ccd3b9665e809a740afa1576d4cc76252fd91",
-      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2",
+      "commit": "164c8f9e0cb07eab6075a14cde0adf29fda29596",
       "unproven": true
     },
     "hardware/install-guide/art/bottle-in-funnel.png": {
@@ -4621,18 +4619,15 @@
       "unproven": true
     },
     "hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.step": {
-      "inputs": "5c06eac0b7964193bc711ce7124a1b0cad0e16c00907b923871a4e4edecf2712",
-      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2",
+      "commit": "164c8f9e0cb07eab6075a14cde0adf29fda29596",
       "unproven": true
     },
     "hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.step.mesh": {
-      "inputs": "5c06eac0b7964193bc711ce7124a1b0cad0e16c00907b923871a4e4edecf2712",
-      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2",
+      "commit": "164c8f9e0cb07eab6075a14cde0adf29fda29596",
       "unproven": true
     },
     "hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.stl": {
-      "inputs": "5c06eac0b7964193bc711ce7124a1b0cad0e16c00907b923871a4e4edecf2712",
-      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2",
+      "commit": "164c8f9e0cb07eab6075a14cde0adf29fda29596",
       "unproven": true
     },
     "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.scorecard.json": {
@@ -4641,16 +4636,15 @@
       "unproven": true
     },
     "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step": {
-      "commit": "91e61d6f09bf475c9b0b038594f5db5ae8a92b43",
+      "commit": "164c8f9e0cb07eab6075a14cde0adf29fda29596",
       "unproven": true
     },
     "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step.mesh": {
-      "commit": "91e61d6f09bf475c9b0b038594f5db5ae8a92b43",
+      "commit": "164c8f9e0cb07eab6075a14cde0adf29fda29596",
       "unproven": true
     },
     "hardware/printed-parts/cold-core/foam-assembly/internal-routes.step": {
-      "inputs": "e1da88f72406097dd356e1fa858098ff1b98aa2813b81e3586ee2d4496b528db",
-      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2",
+      "commit": "164c8f9e0cb07eab6075a14cde0adf29fda29596",
       "unproven": true
     },
     "hardware/printed-parts/cold-core/foam-assembly/internal-routes.step.mesh": {
@@ -5687,8 +5681,8 @@
       "unproven": true
     },
     "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step": {
-      "inputs": "7510a727bcfe5f17e3a3a87db9f9138c76b0f42623fee2b4362e3981c3346178",
-      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2",
+      "inputs": "c9035a3434e54adcc7068085a44548eac687909b88021a0a9da3395999d3b316",
+      "commit": "164c8f9e0cb07eab6075a14cde0adf29fda29596",
       "unproven": true
     },
     "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step.mesh": {
@@ -5697,13 +5691,13 @@
       "unproven": true
     },
     "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.stl": {
-      "inputs": "7510a727bcfe5f17e3a3a87db9f9138c76b0f42623fee2b4362e3981c3346178",
-      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2",
+      "inputs": "c9035a3434e54adcc7068085a44548eac687909b88021a0a9da3395999d3b316",
+      "commit": "164c8f9e0cb07eab6075a14cde0adf29fda29596",
       "unproven": true
     },
     "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step": {
-      "inputs": "7510a727bcfe5f17e3a3a87db9f9138c76b0f42623fee2b4362e3981c3346178",
-      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2",
+      "inputs": "c9035a3434e54adcc7068085a44548eac687909b88021a0a9da3395999d3b316",
+      "commit": "164c8f9e0cb07eab6075a14cde0adf29fda29596",
       "unproven": true
     },
     "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step.mesh": {
@@ -5712,18 +5706,18 @@
       "unproven": true
     },
     "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl": {
-      "inputs": "7510a727bcfe5f17e3a3a87db9f9138c76b0f42623fee2b4362e3981c3346178",
-      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2",
+      "inputs": "c9035a3434e54adcc7068085a44548eac687909b88021a0a9da3395999d3b316",
+      "commit": "164c8f9e0cb07eab6075a14cde0adf29fda29596",
       "unproven": true
     },
     "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step": {
-      "inputs": "7510a727bcfe5f17e3a3a87db9f9138c76b0f42623fee2b4362e3981c3346178",
-      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2",
+      "inputs": "c9035a3434e54adcc7068085a44548eac687909b88021a0a9da3395999d3b316",
+      "commit": "164c8f9e0cb07eab6075a14cde0adf29fda29596",
       "unproven": true
     },
     "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step.mesh": {
-      "inputs": "7510a727bcfe5f17e3a3a87db9f9138c76b0f42623fee2b4362e3981c3346178",
-      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2",
+      "inputs": "c9035a3434e54adcc7068085a44548eac687909b88021a0a9da3395999d3b316",
+      "commit": "164c8f9e0cb07eab6075a14cde0adf29fda29596",
       "unproven": true
     },
     "hardware/printed-parts/faucet/industrial/industrial-above-counter-gasket.step": {
@@ -5782,18 +5776,18 @@
       "unproven": true
     },
     "hardware/printed-parts/faucet/industrial/industrial-shell-base.step": {
-      "inputs": "f14a46959111daa899f558fe84eec3b09f242758e1a8f25010f1819f7e7246f8",
-      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2",
+      "inputs": "5ab714a1187dd625f4788121ca4e13c4be7fc0180723d44e54871bee605bfc41",
+      "commit": "164c8f9e0cb07eab6075a14cde0adf29fda29596",
       "unproven": true
     },
     "hardware/printed-parts/faucet/industrial/industrial-shell-base.step.mesh": {
-      "inputs": "f14a46959111daa899f558fe84eec3b09f242758e1a8f25010f1819f7e7246f8",
-      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2",
+      "inputs": "5ab714a1187dd625f4788121ca4e13c4be7fc0180723d44e54871bee605bfc41",
+      "commit": "164c8f9e0cb07eab6075a14cde0adf29fda29596",
       "unproven": true
     },
     "hardware/printed-parts/faucet/industrial/industrial-shell-base.stl": {
-      "inputs": "f14a46959111daa899f558fe84eec3b09f242758e1a8f25010f1819f7e7246f8",
-      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2",
+      "inputs": "5ab714a1187dd625f4788121ca4e13c4be7fc0180723d44e54871bee605bfc41",
+      "commit": "164c8f9e0cb07eab6075a14cde0adf29fda29596",
       "unproven": true
     },
     "hardware/printed-parts/faucet/lever-replica/lever-replica-side-down.stl": {
@@ -6133,13 +6127,13 @@
       "unproven": true
     },
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-assembly.step": {
-      "inputs": "75c6ba01c5633b248b304bb770c02f8b8958d9175ee0faffd0ba3ce802750a9a",
-      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2",
+      "inputs": "b548204ee2a0d9d31aef7b56ddb796f5dbc9235faf3425bd945874dfe3222fc5",
+      "commit": "164c8f9e0cb07eab6075a14cde0adf29fda29596",
       "unproven": true
     },
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-assembly.step.mesh": {
-      "inputs": "75c6ba01c5633b248b304bb770c02f8b8958d9175ee0faffd0ba3ce802750a9a",
-      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2",
+      "inputs": "b548204ee2a0d9d31aef7b56ddb796f5dbc9235faf3425bd945874dfe3222fc5",
+      "commit": "164c8f9e0cb07eab6075a14cde0adf29fda29596",
       "unproven": true
     },
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ball-cage.step": {
@@ -6228,18 +6222,18 @@
       "unproven": true
     },
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-carriage.step": {
-      "inputs": "75c6ba01c5633b248b304bb770c02f8b8958d9175ee0faffd0ba3ce802750a9a",
-      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2",
+      "inputs": "b548204ee2a0d9d31aef7b56ddb796f5dbc9235faf3425bd945874dfe3222fc5",
+      "commit": "164c8f9e0cb07eab6075a14cde0adf29fda29596",
       "unproven": true
     },
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-carriage.step.mesh": {
-      "inputs": "75c6ba01c5633b248b304bb770c02f8b8958d9175ee0faffd0ba3ce802750a9a",
-      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2",
+      "inputs": "b548204ee2a0d9d31aef7b56ddb796f5dbc9235faf3425bd945874dfe3222fc5",
+      "commit": "164c8f9e0cb07eab6075a14cde0adf29fda29596",
       "unproven": true
     },
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-carriage.stl": {
-      "inputs": "75c6ba01c5633b248b304bb770c02f8b8958d9175ee0faffd0ba3ce802750a9a",
-      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2",
+      "inputs": "b548204ee2a0d9d31aef7b56ddb796f5dbc9235faf3425bd945874dfe3222fc5",
+      "commit": "164c8f9e0cb07eab6075a14cde0adf29fda29596",
       "unproven": true
     },
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-clamp-pad.step": {
@@ -6368,8 +6362,8 @@
       "unproven": true
     },
     "hardware/printed-parts/shop-storage/holders/adapter-tub.step.mesh": {
-      "inputs": "dd4d3cb875eb418e5093f1e22bad308c6387495f8905836c3146f1eb71fb7874",
-      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2",
+      "inputs": "eb0a2f54284f0c8d724f3f5d5a54c0470f6496b50a73ebd633ee0c0517adcb48",
+      "commit": "164c8f9e0cb07eab6075a14cde0adf29fda29596",
       "unproven": true
     },
     "hardware/printed-parts/shop-storage/holders/adapter-tub.stl": {
@@ -6398,8 +6392,8 @@
       "unproven": true
     },
     "hardware/printed-parts/shop-storage/holders/bulkhead-tub.step.mesh": {
-      "inputs": "dd4d3cb875eb418e5093f1e22bad308c6387495f8905836c3146f1eb71fb7874",
-      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2",
+      "inputs": "eb0a2f54284f0c8d724f3f5d5a54c0470f6496b50a73ebd633ee0c0517adcb48",
+      "commit": "164c8f9e0cb07eab6075a14cde0adf29fda29596",
       "unproven": true
     },
     "hardware/printed-parts/shop-storage/holders/bulkhead-tub.stl": {
@@ -6413,8 +6407,8 @@
       "unproven": true
     },
     "hardware/printed-parts/shop-storage/holders/copper-tub.step.mesh": {
-      "inputs": "dd4d3cb875eb418e5093f1e22bad308c6387495f8905836c3146f1eb71fb7874",
-      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2",
+      "inputs": "eb0a2f54284f0c8d724f3f5d5a54c0470f6496b50a73ebd633ee0c0517adcb48",
+      "commit": "164c8f9e0cb07eab6075a14cde0adf29fda29596",
       "unproven": true
     },
     "hardware/printed-parts/shop-storage/holders/copper-tub.stl": {
@@ -6458,8 +6452,8 @@
       "unproven": true
     },
     "hardware/printed-parts/shop-storage/holders/deburr-tub.step.mesh": {
-      "inputs": "dd4d3cb875eb418e5093f1e22bad308c6387495f8905836c3146f1eb71fb7874",
-      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2",
+      "inputs": "eb0a2f54284f0c8d724f3f5d5a54c0470f6496b50a73ebd633ee0c0517adcb48",
+      "commit": "164c8f9e0cb07eab6075a14cde0adf29fda29596",
       "unproven": true
     },
     "hardware/printed-parts/shop-storage/holders/deburr-tub.stl": {
@@ -6513,33 +6507,33 @@
       "unproven": true
     },
     "hardware/printed-parts/shop-storage/holders/dowel-index.step": {
-      "inputs": "dd4d3cb875eb418e5093f1e22bad308c6387495f8905836c3146f1eb71fb7874",
-      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2",
+      "inputs": "eb0a2f54284f0c8d724f3f5d5a54c0470f6496b50a73ebd633ee0c0517adcb48",
+      "commit": "164c8f9e0cb07eab6075a14cde0adf29fda29596",
       "unproven": true
     },
     "hardware/printed-parts/shop-storage/holders/dowel-index.step.mesh": {
-      "inputs": "dd4d3cb875eb418e5093f1e22bad308c6387495f8905836c3146f1eb71fb7874",
-      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2",
+      "inputs": "eb0a2f54284f0c8d724f3f5d5a54c0470f6496b50a73ebd633ee0c0517adcb48",
+      "commit": "164c8f9e0cb07eab6075a14cde0adf29fda29596",
       "unproven": true
     },
     "hardware/printed-parts/shop-storage/holders/dowel-index.stl": {
-      "inputs": "dd4d3cb875eb418e5093f1e22bad308c6387495f8905836c3146f1eb71fb7874",
-      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2",
+      "inputs": "eb0a2f54284f0c8d724f3f5d5a54c0470f6496b50a73ebd633ee0c0517adcb48",
+      "commit": "164c8f9e0cb07eab6075a14cde0adf29fda29596",
       "unproven": true
     },
     "hardware/printed-parts/shop-storage/holders/drill-index.step": {
-      "inputs": "dd4d3cb875eb418e5093f1e22bad308c6387495f8905836c3146f1eb71fb7874",
-      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2",
+      "inputs": "eb0a2f54284f0c8d724f3f5d5a54c0470f6496b50a73ebd633ee0c0517adcb48",
+      "commit": "164c8f9e0cb07eab6075a14cde0adf29fda29596",
       "unproven": true
     },
     "hardware/printed-parts/shop-storage/holders/drill-index.step.mesh": {
-      "inputs": "dd4d3cb875eb418e5093f1e22bad308c6387495f8905836c3146f1eb71fb7874",
-      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2",
+      "inputs": "eb0a2f54284f0c8d724f3f5d5a54c0470f6496b50a73ebd633ee0c0517adcb48",
+      "commit": "164c8f9e0cb07eab6075a14cde0adf29fda29596",
       "unproven": true
     },
     "hardware/printed-parts/shop-storage/holders/drill-index.stl": {
-      "inputs": "dd4d3cb875eb418e5093f1e22bad308c6387495f8905836c3146f1eb71fb7874",
-      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2",
+      "inputs": "eb0a2f54284f0c8d724f3f5d5a54c0470f6496b50a73ebd633ee0c0517adcb48",
+      "commit": "164c8f9e0cb07eab6075a14cde0adf29fda29596",
       "unproven": true
     },
     "hardware/printed-parts/shop-storage/holders/ferrule-tub.step": {
@@ -6548,8 +6542,8 @@
       "unproven": true
     },
     "hardware/printed-parts/shop-storage/holders/ferrule-tub.step.mesh": {
-      "inputs": "dd4d3cb875eb418e5093f1e22bad308c6387495f8905836c3146f1eb71fb7874",
-      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2",
+      "inputs": "eb0a2f54284f0c8d724f3f5d5a54c0470f6496b50a73ebd633ee0c0517adcb48",
+      "commit": "164c8f9e0cb07eab6075a14cde0adf29fda29596",
       "unproven": true
     },
     "hardware/printed-parts/shop-storage/holders/ferrule-tub.stl": {
@@ -6578,8 +6572,8 @@
       "unproven": true
     },
     "hardware/printed-parts/shop-storage/holders/flux-tub.step.mesh": {
-      "inputs": "dd4d3cb875eb418e5093f1e22bad308c6387495f8905836c3146f1eb71fb7874",
-      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2",
+      "inputs": "eb0a2f54284f0c8d724f3f5d5a54c0470f6496b50a73ebd633ee0c0517adcb48",
+      "commit": "164c8f9e0cb07eab6075a14cde0adf29fda29596",
       "unproven": true
     },
     "hardware/printed-parts/shop-storage/holders/flux-tub.stl": {
@@ -6608,8 +6602,8 @@
       "unproven": true
     },
     "hardware/printed-parts/shop-storage/holders/hotend-tub.step.mesh": {
-      "inputs": "dd4d3cb875eb418e5093f1e22bad308c6387495f8905836c3146f1eb71fb7874",
-      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2",
+      "inputs": "eb0a2f54284f0c8d724f3f5d5a54c0470f6496b50a73ebd633ee0c0517adcb48",
+      "commit": "164c8f9e0cb07eab6075a14cde0adf29fda29596",
       "unproven": true
     },
     "hardware/printed-parts/shop-storage/holders/hotend-tub.stl": {
@@ -6623,8 +6617,8 @@
       "unproven": true
     },
     "hardware/printed-parts/shop-storage/holders/insert-tub.step.mesh": {
-      "inputs": "dd4d3cb875eb418e5093f1e22bad308c6387495f8905836c3146f1eb71fb7874",
-      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2",
+      "inputs": "eb0a2f54284f0c8d724f3f5d5a54c0470f6496b50a73ebd633ee0c0517adcb48",
+      "commit": "164c8f9e0cb07eab6075a14cde0adf29fda29596",
       "unproven": true
     },
     "hardware/printed-parts/shop-storage/holders/insert-tub.stl": {
@@ -6638,8 +6632,8 @@
       "unproven": true
     },
     "hardware/printed-parts/shop-storage/holders/junction-tub.step.mesh": {
-      "inputs": "dd4d3cb875eb418e5093f1e22bad308c6387495f8905836c3146f1eb71fb7874",
-      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2",
+      "inputs": "eb0a2f54284f0c8d724f3f5d5a54c0470f6496b50a73ebd633ee0c0517adcb48",
+      "commit": "164c8f9e0cb07eab6075a14cde0adf29fda29596",
       "unproven": true
     },
     "hardware/printed-parts/shop-storage/holders/junction-tub.stl": {
@@ -6653,8 +6647,8 @@
       "unproven": true
     },
     "hardware/printed-parts/shop-storage/holders/keystone-tub.step.mesh": {
-      "inputs": "dd4d3cb875eb418e5093f1e22bad308c6387495f8905836c3146f1eb71fb7874",
-      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2",
+      "inputs": "eb0a2f54284f0c8d724f3f5d5a54c0470f6496b50a73ebd633ee0c0517adcb48",
+      "commit": "164c8f9e0cb07eab6075a14cde0adf29fda29596",
       "unproven": true
     },
     "hardware/printed-parts/shop-storage/holders/keystone-tub.stl": {
@@ -6668,8 +6662,8 @@
       "unproven": true
     },
     "hardware/printed-parts/shop-storage/holders/lever-tub.step.mesh": {
-      "inputs": "dd4d3cb875eb418e5093f1e22bad308c6387495f8905836c3146f1eb71fb7874",
-      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2",
+      "inputs": "eb0a2f54284f0c8d724f3f5d5a54c0470f6496b50a73ebd633ee0c0517adcb48",
+      "commit": "164c8f9e0cb07eab6075a14cde0adf29fda29596",
       "unproven": true
     },
     "hardware/printed-parts/shop-storage/holders/lever-tub.stl": {
@@ -6683,8 +6677,8 @@
       "unproven": true
     },
     "hardware/printed-parts/shop-storage/holders/m3-tub.step.mesh": {
-      "inputs": "dd4d3cb875eb418e5093f1e22bad308c6387495f8905836c3146f1eb71fb7874",
-      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2",
+      "inputs": "eb0a2f54284f0c8d724f3f5d5a54c0470f6496b50a73ebd633ee0c0517adcb48",
+      "commit": "164c8f9e0cb07eab6075a14cde0adf29fda29596",
       "unproven": true
     },
     "hardware/printed-parts/shop-storage/holders/m3-tub.stl": {
@@ -6698,8 +6692,8 @@
       "unproven": true
     },
     "hardware/printed-parts/shop-storage/holders/m5-tub.step.mesh": {
-      "inputs": "dd4d3cb875eb418e5093f1e22bad308c6387495f8905836c3146f1eb71fb7874",
-      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2",
+      "inputs": "eb0a2f54284f0c8d724f3f5d5a54c0470f6496b50a73ebd633ee0c0517adcb48",
+      "commit": "164c8f9e0cb07eab6075a14cde0adf29fda29596",
       "unproven": true
     },
     "hardware/printed-parts/shop-storage/holders/m5-tub.stl": {
@@ -6713,8 +6707,8 @@
       "unproven": true
     },
     "hardware/printed-parts/shop-storage/holders/npt-tub.step.mesh": {
-      "inputs": "dd4d3cb875eb418e5093f1e22bad308c6387495f8905836c3146f1eb71fb7874",
-      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2",
+      "inputs": "eb0a2f54284f0c8d724f3f5d5a54c0470f6496b50a73ebd633ee0c0517adcb48",
+      "commit": "164c8f9e0cb07eab6075a14cde0adf29fda29596",
       "unproven": true
     },
     "hardware/printed-parts/shop-storage/holders/npt-tub.stl": {
@@ -6743,8 +6737,8 @@
       "unproven": true
     },
     "hardware/printed-parts/shop-storage/holders/pressure-tub.step.mesh": {
-      "inputs": "dd4d3cb875eb418e5093f1e22bad308c6387495f8905836c3146f1eb71fb7874",
-      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2",
+      "inputs": "eb0a2f54284f0c8d724f3f5d5a54c0470f6496b50a73ebd633ee0c0517adcb48",
+      "commit": "164c8f9e0cb07eab6075a14cde0adf29fda29596",
       "unproven": true
     },
     "hardware/printed-parts/shop-storage/holders/pressure-tub.stl": {
@@ -6858,8 +6852,8 @@
       "unproven": true
     },
     "hardware/printed-parts/shop-storage/holders/service-tub.step.mesh": {
-      "inputs": "dd4d3cb875eb418e5093f1e22bad308c6387495f8905836c3146f1eb71fb7874",
-      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2",
+      "inputs": "eb0a2f54284f0c8d724f3f5d5a54c0470f6496b50a73ebd633ee0c0517adcb48",
+      "commit": "164c8f9e0cb07eab6075a14cde0adf29fda29596",
       "unproven": true
     },
     "hardware/printed-parts/shop-storage/holders/service-tub.stl": {
@@ -6873,8 +6867,8 @@
       "unproven": true
     },
     "hardware/printed-parts/shop-storage/holders/shrink-tub.step.mesh": {
-      "inputs": "dd4d3cb875eb418e5093f1e22bad308c6387495f8905836c3146f1eb71fb7874",
-      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2",
+      "inputs": "eb0a2f54284f0c8d724f3f5d5a54c0470f6496b50a73ebd633ee0c0517adcb48",
+      "commit": "164c8f9e0cb07eab6075a14cde0adf29fda29596",
       "unproven": true
     },
     "hardware/printed-parts/shop-storage/holders/shrink-tub.stl": {
@@ -6888,8 +6882,8 @@
       "unproven": true
     },
     "hardware/printed-parts/shop-storage/holders/small-tub.step.mesh": {
-      "inputs": "dd4d3cb875eb418e5093f1e22bad308c6387495f8905836c3146f1eb71fb7874",
-      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2",
+      "inputs": "eb0a2f54284f0c8d724f3f5d5a54c0470f6496b50a73ebd633ee0c0517adcb48",
+      "commit": "164c8f9e0cb07eab6075a14cde0adf29fda29596",
       "unproven": true
     },
     "hardware/printed-parts/shop-storage/holders/small-tub.stl": {
@@ -6903,8 +6897,8 @@
       "unproven": true
     },
     "hardware/printed-parts/shop-storage/holders/stock-tub.step.mesh": {
-      "inputs": "dd4d3cb875eb418e5093f1e22bad308c6387495f8905836c3146f1eb71fb7874",
-      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2",
+      "inputs": "eb0a2f54284f0c8d724f3f5d5a54c0470f6496b50a73ebd633ee0c0517adcb48",
+      "commit": "164c8f9e0cb07eab6075a14cde0adf29fda29596",
       "unproven": true
     },
     "hardware/printed-parts/shop-storage/holders/stock-tub.stl": {
@@ -6933,8 +6927,8 @@
       "unproven": true
     },
     "hardware/printed-parts/shop-storage/holders/terminal-tub.step.mesh": {
-      "inputs": "dd4d3cb875eb418e5093f1e22bad308c6387495f8905836c3146f1eb71fb7874",
-      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2",
+      "inputs": "eb0a2f54284f0c8d724f3f5d5a54c0470f6496b50a73ebd633ee0c0517adcb48",
+      "commit": "164c8f9e0cb07eab6075a14cde0adf29fda29596",
       "unproven": true
     },
     "hardware/printed-parts/shop-storage/holders/terminal-tub.stl": {
@@ -6948,8 +6942,8 @@
       "unproven": true
     },
     "hardware/printed-parts/shop-storage/holders/tie-tub.step.mesh": {
-      "inputs": "dd4d3cb875eb418e5093f1e22bad308c6387495f8905836c3146f1eb71fb7874",
-      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2",
+      "inputs": "eb0a2f54284f0c8d724f3f5d5a54c0470f6496b50a73ebd633ee0c0517adcb48",
+      "commit": "164c8f9e0cb07eab6075a14cde0adf29fda29596",
       "unproven": true
     },
     "hardware/printed-parts/shop-storage/holders/tie-tub.stl": {
@@ -6993,8 +6987,8 @@
       "unproven": true
     },
     "hardware/printed-parts/shop-storage/holders/xh-tub.step.mesh": {
-      "inputs": "dd4d3cb875eb418e5093f1e22bad308c6387495f8905836c3146f1eb71fb7874",
-      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2",
+      "inputs": "eb0a2f54284f0c8d724f3f5d5a54c0470f6496b50a73ebd633ee0c0517adcb48",
+      "commit": "164c8f9e0cb07eab6075a14cde0adf29fda29596",
       "unproven": true
     },
     "hardware/printed-parts/shop-storage/holders/xh-tub.stl": {
@@ -7053,8 +7047,8 @@
       "unproven": true
     },
     "hardware/printed-parts/zone-c/funnel-mold/assembly.step.mesh": {
-      "inputs": "ec28451abaa491ea14abca3ef361eb295d6dc23d6972124394e6b391705e324b",
-      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2",
+      "inputs": "cb668822d25a396ae6a3029737ca0c64842995e535274ec277f5d9acd7a19400",
+      "commit": "164c8f9e0cb07eab6075a14cde0adf29fda29596",
       "unproven": true
     },
     "hardware/printed-parts/zone-c/funnel-mold/backs.step": {
@@ -7123,8 +7117,8 @@
       "unproven": true
     },
     "hardware/printed-parts/zone-c/funnel-mold/rod.step.mesh": {
-      "inputs": "ec28451abaa491ea14abca3ef361eb295d6dc23d6972124394e6b391705e324b",
-      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2",
+      "inputs": "cb668822d25a396ae6a3029737ca0c64842995e535274ec277f5d9acd7a19400",
+      "commit": "164c8f9e0cb07eab6075a14cde0adf29fda29596",
       "unproven": true
     },
     "hardware/printed-parts/zone-c/funnel-mold/section.step": {
@@ -7133,8 +7127,8 @@
       "unproven": true
     },
     "hardware/printed-parts/zone-c/funnel-mold/section.step.mesh": {
-      "inputs": "ec28451abaa491ea14abca3ef361eb295d6dc23d6972124394e6b391705e324b",
-      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2",
+      "inputs": "cb668822d25a396ae6a3029737ca0c64842995e535274ec277f5d9acd7a19400",
+      "commit": "164c8f9e0cb07eab6075a14cde0adf29fda29596",
       "unproven": true
     },
     "hardware/printed-parts/zone-c/funnel/cradle-trial/test-cradle.step": {
