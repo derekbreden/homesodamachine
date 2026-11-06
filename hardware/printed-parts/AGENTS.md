@@ -69,8 +69,8 @@ full-size walls prevent screwdriver access. Preserve their approved component
 seats, catch planes and wing travel. Native preparation bridges the catches
 between their end shoulders and excludes supports from those interiors.
 Covered rear bulkhead bores and horizontal valve sockets use teardrop roofs;
-build-axis valve sockets remain open. The vent mouth has a print-direction
-chamfer. Sliding rails use branching supports, without added rectangular ribbons.
+build-axis valve sockets remain open. The vent cap has a print-direction
+chamfer; its short mouth lip bridges between the side walls. Sliding rails use branching supports, without added rectangular ribbons.
 
 The [rear equipment fit trial](../print-tests/rear-snap-retention/physical-result/physical-result.json)
 records easy screwdriver removal of tiny supports in accessible coupons. That
