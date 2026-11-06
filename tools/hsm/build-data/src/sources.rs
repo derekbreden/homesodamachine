@@ -130,7 +130,7 @@ pub fn compiled(dep_info:&Path,workspace:&Path)->Result<Vec<String>> {
 }
 
 pub fn manifests(sources:&[String],krate:&str,workspace:&Path)->Vec<String> {
-    let mut out:BTreeSet<_>=["tools/hsm/Cargo.toml".into(),"tools/hsm/Cargo.lock".into(),format!("tools/hsm/{krate}/Cargo.toml")].into();
+    let mut out:BTreeSet<_>=["tools/hsm/cargo-config.json".into(),format!("tools/hsm/{krate}/Cargo.toml")].into();
     for source in sources {
         let parts:Vec<_>=source.split('/').collect();
         if parts.len()<4 || parts[..2]!=["tools","hsm"] {continue;}
