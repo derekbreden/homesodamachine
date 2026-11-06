@@ -84,11 +84,7 @@ fn lower_well(g: &mut Graph, trays: &[[f64; 3]]) -> Shape {
     let body = profile_prism(g, lower, bottom, support);
     let lower_room = g.intersect(well, &[body]);
     let [open0, open1] = t.skirt_body_open_y_bounds;
-    let aft = AFT_BODY_Y + clearance(true, true, false);
-    let lower_mask = g.yz_prism(c.center_x - c.cutter_half_extent, c.center_x + c.cutter_half_extent,
-                              vec![[c.center_y + open0, bottom], [c.center_y + aft, bottom],
-                                   [c.center_y + aft, AFT_BODY_FULL_Z], [c.center_y + open1, support],
-                                   [c.center_y + open0, support]]);
+    let lower_mask = mask(g, bottom, support, open0, open1);
     let lower_room = g.intersect(lower_room, &[lower_mask]);
     let upper_skirt = profile_prism(g, upper, support, 0.0);
     let lower_skirt = profile_prism(g, lower, support, 0.0);
@@ -105,6 +101,19 @@ fn lower_well(g: &mut Graph, trays: &[[f64; 3]]) -> Shape {
         room = g.union(room, &[minus, plus]);
     }
     room
+}
+
+/// One continuous rear-head relief through the outlet room and its miter intersections.
+/// The sloping clearance starts at the retained skirt bearing.
+fn aft_head_room(g: &mut Graph, trays: &[[f64; 3]]) -> Shape {
+    let e = shell();
+    let t = tray();
+    let support = e.pump_skirt_support_z(trays) - e.cap_split_z(trays);
+    let bottom = case().lower_cap_top_z - case().overcut;
+    let near = t.skirt_body_open_y_bounds[1];
+    let far = AFT_BODY_Y + clearance(true, true, false);
+    g.yz_prism(-t.outlet_open_half, t.outlet_open_half,
+               vec![[near, bottom], [far, bottom], [far, AFT_BODY_FULL_Z], [near, support]])
 }
 
 /// The outlet tubes' circles break where the under-tangent planes leave them.
@@ -160,6 +169,7 @@ fn lower_voids(g: &mut Graph, b: &Box) -> Vec<Shape> {
     let trays = &b.pack.pump_trays;
     let d = datums(b);
     let source = lower_well(g, trays);
+    let aft = aft_head_room(g, trays);
     let wall_offset = c.skirt_wall - e.cap_pump_air;
     let upper_half = c.skirt_base_half_extent - wall_offset;
     let corner_r = c.corner_r - wall_offset;
@@ -183,6 +193,8 @@ fn lower_voids(g: &mut Graph, b: &Box) -> Vec<Shape> {
         for wedge in fore_miter_wedges(g, cx, cy, cz) {
             body = g.cut(body, &[wedge]);
         }
+        let relief = g.translate(aft, [cx, cy, cz]);
+        body = g.union(body, &[relief]);
         let loading = g.box_([cx - upper_half, cx + upper_half, d.y0 - 1.0,
                               cy - upper_half + corner_r + 0.01, support, d.retainer_top_z + 1.0]);
         body = g.union(body, &[loading]);
