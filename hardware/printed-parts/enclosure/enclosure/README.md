@@ -778,7 +778,7 @@ It fights when it is walled on several sides, when a branch re-enters a pocket
 behind its own interface, or when the hardware goes in first. The Z-seam catches
 retain their flat sliding bearings. The rear enclosure prints with its rear face
 toward the bed and a gentle tilt; its receiver catches and sliding grooves grow
-through successive layers. A fine band follows the rear show face. Local modifiers
+through successive layers. A fine band follows the shallow end faces and rear show surface. Local modifiers
 retain solid rail hosts. Its grooves contain no
 rectangular ribbons.
 The [full rear enclosure result](prints/2026-11-05-back-top-smooth-corners-mark2/physical-result.json)
