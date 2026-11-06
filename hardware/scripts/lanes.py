@@ -37,6 +37,7 @@ Use from anywhere in the repo:
     import lanes
 
     snap = lanes.snapshot()                       # the world, flat — off disk, not rebuilt
+                                                  # (the scene enclosure_assembly.py --checks writes)
     print(lanes.measured(snap))                   # what this reading is about
 
     got = lanes.lanes("fluid-4", floor=0.7)       # every corridor between that run's two mouths

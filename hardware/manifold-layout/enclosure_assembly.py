@@ -351,7 +351,17 @@ sys.modules[__name__].__class__ = _RustSurface
 
 def main():
     import _machine_layout
-    return _machine_layout.main()
+    checks = '--checks' in sys.argv[1:]
+    return _machine_layout.main(checks=checks, run=_checks_run() if checks else None)
+
+def _checks_run():
+    """The commit and time an on-request checks run stamps the scorecard with."""
+    import datetime
+    import subprocess
+    head = subprocess.run(['git', 'rev-parse', 'HEAD'], cwd=_hardware.parent,
+                          capture_output=True, text=True)
+    return {'commit': head.stdout.strip() or None,
+            'date': datetime.datetime.now().astimezone().isoformat(timespec='seconds')}
 
 if __name__ == '__main__':
     main()

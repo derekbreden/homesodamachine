@@ -54,6 +54,7 @@ fn answer(request: &Value) -> Result<Value> {
         "report_run_length" => Ok(json!(reporting::run_length(&request["row"])?)),
         "report_scene" => reporting::scene(request),
         "report_facts" => reporting::facts(request),
+        "scene_mounts" => reporting::scene_mounts(request),
         _ => bail!("unknown machine-data operation {op:?}"),
     }
 }

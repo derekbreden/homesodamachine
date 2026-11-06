@@ -2437,12 +2437,7 @@ genrule(
         ":out/enclosure-box/hardware/manifold-layout/enclosure-box.json",
         "hardware/manifold-layout/enclosure_assembly.py",
         "hardware/manifold-layout/enclosure_assembly.rs",
-        "hardware/manifold-layout/machine_check_bounds.rs",
-        "hardware/manifold-layout/machine_check_geometry.rs",
-        "hardware/manifold-layout/machine_check_report.rs",
-        "hardware/manifold-layout/machine_check_routes.rs",
         "hardware/manifold-layout/machine_check_rules.json",
-        "hardware/manifold-layout/machine_checks.rs",
         "hardware/manifold-layout/machine_equipment.rs",
         "hardware/manifold-layout/machine_layout.rs",
         "hardware/manifold-layout/machine_layout_refs.rs",
@@ -2592,7 +2587,6 @@ genrule(
         ":out/enclosure-pump-tube-setting-jig/hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step.npz",
         ":out/enclosure-pump-tube-setting-jig/hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.stl",
         "hardware/printed-parts/enclosure/enclosure/enclosure.py",
-        "hardware/printed-parts/enclosure/enclosure/enclosure_checks.rs",
         "hardware/printed-parts/enclosure/enclosure/interface/anchor_cap.rs",
         "hardware/printed-parts/enclosure/enclosure/interface/fits.rs",
         "hardware/printed-parts/enclosure/enclosure/interface/lib.rs",
@@ -2894,7 +2888,6 @@ genrule(
         "hardware/scripts/_facts.py",
         "hardware/scripts/_finishes.py",
         "hardware/scripts/_machine.py",
-        "hardware/scripts/_machine_checks.py",
         "hardware/scripts/_machine_data.py",
         "hardware/scripts/_machine_equipment.py",
         "hardware/scripts/_machine_export.py",
@@ -3257,8 +3250,6 @@ genrule(
         "out/enclosure-assembly/hardware/assembly/scenes/glb/funnel-drain.glb",
         "out/enclosure-assembly/hardware/assembly/scenes/glb/pump-mount.glb",
         "out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.facts.json",
-        "out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.scene.npz",
-        "out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.scorecard.json",
         "out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.step",
         "out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.step.mesh",
         "out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.step.npz",
@@ -3301,14 +3292,12 @@ O8=$$PWD/$(location out/enclosure-assembly/hardware/assembly/scenes/glb/front-to
 O9=$$PWD/$(location out/enclosure-assembly/hardware/assembly/scenes/glb/funnel-drain.glb)
 O10=$$PWD/$(location out/enclosure-assembly/hardware/assembly/scenes/glb/pump-mount.glb)
 O11=$$PWD/$(location out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.facts.json)
-O12=$$PWD/$(location out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.scene.npz)
-O13=$$PWD/$(location out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.scorecard.json)
-O14=$$PWD/$(location out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.step)
-O15=$$PWD/$(location out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.step.mesh)
-O16=$$PWD/$(location out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.step.npz)
-O17=$$PWD/$(location out/enclosure-assembly/hardware/wiring/enclosure-wiring.step)
-O18=$$PWD/$(location out/enclosure-assembly/hardware/wiring/enclosure-wiring.step.mesh)
-O19=$$PWD/$(location out/enclosure-assembly/hardware/wiring/enclosure-wiring.step.npz)
+O12=$$PWD/$(location out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.step)
+O13=$$PWD/$(location out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.step.mesh)
+O14=$$PWD/$(location out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.step.npz)
+O15=$$PWD/$(location out/enclosure-assembly/hardware/wiring/enclosure-wiring.step)
+O16=$$PWD/$(location out/enclosure-assembly/hardware/wiring/enclosure-wiring.step.mesh)
+O17=$$PWD/$(location out/enclosure-assembly/hardware/wiring/enclosure-wiring.step.npz)
 rm -rf work-enclosure-assembly
 for f in $(SRCS); do
   case $$f in
@@ -3338,14 +3327,12 @@ copy_file hardware/assembly/scenes/glb/front-top.glb "$$O8"
 copy_file hardware/assembly/scenes/glb/funnel-drain.glb "$$O9"
 copy_file hardware/assembly/scenes/glb/pump-mount.glb "$$O10"
 copy_file hardware/manifold-layout/enclosure-assembly.facts.json "$$O11"
-copy_file hardware/manifold-layout/enclosure-assembly.scene.npz "$$O12"
-copy_file hardware/manifold-layout/enclosure-assembly.scorecard.json "$$O13"
-copy_file hardware/manifold-layout/enclosure-assembly.step "$$O14"
-copy_file hardware/manifold-layout/enclosure-assembly.step.mesh "$$O15"
-copy_file hardware/manifold-layout/enclosure-assembly.step.npz "$$O16"
-copy_file hardware/wiring/enclosure-wiring.step "$$O17"
-copy_file hardware/wiring/enclosure-wiring.step.mesh "$$O18"
-copy_file hardware/wiring/enclosure-wiring.step.npz "$$O19"
+copy_file hardware/manifold-layout/enclosure-assembly.step "$$O12"
+copy_file hardware/manifold-layout/enclosure-assembly.step.mesh "$$O13"
+copy_file hardware/manifold-layout/enclosure-assembly.step.npz "$$O14"
+copy_file hardware/wiring/enclosure-wiring.step "$$O15"
+copy_file hardware/wiring/enclosure-wiring.step.mesh "$$O16"
+copy_file hardware/wiring/enclosure-wiring.step.npz "$$O17"
 cd .. && rm -rf work-enclosure-assembly
 """,
 )
