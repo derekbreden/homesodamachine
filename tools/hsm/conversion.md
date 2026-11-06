@@ -20,6 +20,11 @@ build planner (`tools/bazel/trace_inputs.py`) knows a step only as a Python entr
 
 ## How the work runs
 
+- **True dependencies come first.** A step reruns only when what its outputs are made from
+  changes, and a step whose outputs come out the same stops the reruns after it. Today a step's
+  recorded inputs are everything compiled into the programs it calls, the shared Python and the
+  Cargo files, so nearly every edit reruns nearly every step and most of them make the same files
+  again.
 - **One step at a time, biggest first:** the enclosure, then the whole-machine assembly
   (`enclosure_assembly.py`), then the graph's other entries by CPU. Steps whose files are
   separate run in parallel.
@@ -164,7 +169,8 @@ The number that matters most is the full build: `//:everything` with every step 
 edit that reaches the enclosure causes, on the compiled workspace and the caches a normal build
 keeps. Most edits reach the enclosure, which nearly every step reads, so most builds come close
 to it. Bazel's profile of each build records its wall time and every step's; the latest build
-that reran every step gives the number.
+that reran every step gives the number. The same records say how many steps each build reran,
+which true dependencies cut.
 
 A converted step or speed piece is measured by its share of the full build, before and after,
 on the same fixed inputs: its programs' CPU seconds computing every result afresh, client and
