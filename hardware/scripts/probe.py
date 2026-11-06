@@ -9,8 +9,7 @@ line can travel before it hits something, and where a piece of a routed line can
 Where a solid stands in a scene, and the move along an axis that seats it against another or
 clears it off one, `where.py` reads off the scene's mesh payload and builds nothing.
 
-The world is the Rust producer's saved machine scene, written by the assembly's on-request
-checks (`enclosure_assembly.py --checks`), body for body: `w.parts` are the
+The world is the Rust producer's saved machine scene, body for body: `w.parts` are the
 bodies, `w.pieces` are the box's four printable pieces, and both are in the one
 dict every query iterates. That is the point. The pieces are the walls, seam lips,
 corner stacks, bosses and ribs, they are what bounds a placement in a
