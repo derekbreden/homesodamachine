@@ -13,7 +13,8 @@ import subprocess
 import sys
 from pathlib import Path
 
-# Runtime admission is present in every heavy action, independent of its geometry trace.
+# The job runner every heavy action runs through. No step is made from it: a Python step copies
+# the checkout's current files into its folder when it runs, so an edit to them reruns nothing.
 RUNTIME_READS = frozenset({'hardware/scripts/_run_slots.py', 'hardware/scripts/_run_lock.py',
                            'hardware/scripts/_run_native.py',
                            'tools/run.py', 'tools/run-slots.mjs', 'tools/hsm/run-slots.defaults.json'})

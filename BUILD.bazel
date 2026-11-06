@@ -93,9 +93,6 @@ genrule(
         "hardware/scripts/_occt_color.py",
         "hardware/scripts/_payload_rules.py",
         "hardware/scripts/_routing.py",
-        "hardware/scripts/_run_lock.py",
-        "hardware/scripts/_run_native.py",
-        "hardware/scripts/_run_slots.py",
         "hardware/scripts/_rust_data.py",
         "hardware/scripts/_rust_objects.py",
         "hardware/scripts/_rust_part.py",
@@ -266,18 +263,6 @@ genrule(
         "tools/hsm/part-data/src/sleeve.rs",
         "tools/hsm/part-data/src/storage.rs",
         "tools/hsm/part-data/src/zone.rs",
-        "tools/hsm/run-native/Cargo.toml",
-        "tools/hsm/run-native/src/lib.rs",
-        "tools/hsm/run-slots.defaults.json",
-        "tools/hsm/run-slots/Cargo.toml",
-        "tools/hsm/run-slots/src/ipc.rs",
-        "tools/hsm/run-slots/src/lib.rs",
-        "tools/hsm/run-slots/src/main.rs",
-        "tools/hsm/run-slots/src/runtime.rs",
-        "tools/hsm/run-slots/src/runtime/cad.rs",
-        "tools/hsm/run-slots/src/runtime/install.rs",
-        "tools/hsm/run-slots/src/runtime/runner.rs",
-        "tools/hsm/run-slots/src/runtime/slots.rs",
         "tools/hsm/shared-data/Cargo.toml",
         "tools/hsm/shared-data/catalog/materials.json",
         "tools/hsm/shared-data/catalog/routing.json",
@@ -289,8 +274,6 @@ genrule(
         "tools/hsm/shared-data/src/main.rs",
         "tools/hsm/shared-data/src/routing.rs",
         "tools/hsm/shared-data/src/scalars.rs",
-        "tools/run-slots.mjs",
-        "tools/run.py",
     ],
     outs = [
         "out/cold-core-assembly/hardware/cold-core-layout/cold-core-assembly.numbers.json",
@@ -343,6 +326,9 @@ done
 for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
   if [ -d $$d ]; then mkdir -p work-cold-core-assembly/$$(dirname $$d); ln -sfn $$PWD/$$d work-cold-core-assembly/$$d; fi
 done
+for f in hardware/scripts/_run_lock.py hardware/scripts/_run_native.py hardware/scripts/_run_slots.py tools/hsm/run-slots.defaults.json tools/run-slots.mjs tools/run.py; do
+  mkdir -p work-cold-core-assembly/$$(dirname $$f); cp $$HSM_WORKSPACE/$$f work-cold-core-assembly/$$f
+done
 cd work-cold-core-assembly
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
@@ -377,9 +363,6 @@ genrule(
         "hardware/scripts/_build_data.py",
         "hardware/scripts/_material_base.py",
         "hardware/scripts/_materials.py",
-        "hardware/scripts/_run_lock.py",
-        "hardware/scripts/_run_native.py",
-        "hardware/scripts/_run_slots.py",
         "hardware/scripts/_rust_data.py",
         "hardware/scripts/_rust_objects.py",
         "hardware/scripts/_rust_part.py",
@@ -500,18 +483,6 @@ genrule(
         "tools/hsm/kernel/src/topo.rs",
         "tools/hsm/kernel/src/triangulate.rs",
         "tools/hsm/kernel/src/write.rs",
-        "tools/hsm/run-native/Cargo.toml",
-        "tools/hsm/run-native/src/lib.rs",
-        "tools/hsm/run-slots.defaults.json",
-        "tools/hsm/run-slots/Cargo.toml",
-        "tools/hsm/run-slots/src/ipc.rs",
-        "tools/hsm/run-slots/src/lib.rs",
-        "tools/hsm/run-slots/src/main.rs",
-        "tools/hsm/run-slots/src/runtime.rs",
-        "tools/hsm/run-slots/src/runtime/cad.rs",
-        "tools/hsm/run-slots/src/runtime/install.rs",
-        "tools/hsm/run-slots/src/runtime/runner.rs",
-        "tools/hsm/run-slots/src/runtime/slots.rs",
         "tools/hsm/shared-data/Cargo.toml",
         "tools/hsm/shared-data/catalog/materials.json",
         "tools/hsm/shared-data/catalog/routing.json",
@@ -523,8 +494,6 @@ genrule(
         "tools/hsm/shared-data/src/main.rs",
         "tools/hsm/shared-data/src/routing.rs",
         "tools/hsm/shared-data/src/scalars.rs",
-        "tools/run-slots.mjs",
-        "tools/run.py",
     ],
     outs = [
         "out/carbonator-tube-step/hardware/cut-parts/carbonation/carbonator-tube/carbonator-tube.numbers.json",
@@ -571,6 +540,9 @@ done
 for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
   if [ -d $$d ]; then mkdir -p work-carbonator-tube-step/$$(dirname $$d); ln -sfn $$PWD/$$d work-carbonator-tube-step/$$d; fi
 done
+for f in hardware/scripts/_run_lock.py hardware/scripts/_run_native.py hardware/scripts/_run_slots.py tools/hsm/run-slots.defaults.json tools/run-slots.mjs tools/run.py; do
+  mkdir -p work-carbonator-tube-step/$$(dirname $$f); cp $$HSM_WORKSPACE/$$f work-carbonator-tube-step/$$f
+done
 cd work-carbonator-tube-step
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
@@ -600,9 +572,6 @@ genrule(
         "hardware/scripts/_build_data.py",
         "hardware/scripts/_cadq_export.py",
         "hardware/scripts/_document_export.py",
-        "hardware/scripts/_run_lock.py",
-        "hardware/scripts/_run_native.py",
-        "hardware/scripts/_run_slots.py",
         "hardware/scripts/_rust_data.py",
         "hardware/scripts/_rust_objects.py",
         "hardware/scripts/_rust_part.py",
@@ -723,22 +692,8 @@ genrule(
         "tools/hsm/kernel/src/topo.rs",
         "tools/hsm/kernel/src/triangulate.rs",
         "tools/hsm/kernel/src/write.rs",
-        "tools/hsm/run-native/Cargo.toml",
-        "tools/hsm/run-native/src/lib.rs",
-        "tools/hsm/run-slots.defaults.json",
-        "tools/hsm/run-slots/Cargo.toml",
-        "tools/hsm/run-slots/src/ipc.rs",
-        "tools/hsm/run-slots/src/lib.rs",
-        "tools/hsm/run-slots/src/main.rs",
-        "tools/hsm/run-slots/src/runtime.rs",
-        "tools/hsm/run-slots/src/runtime/cad.rs",
-        "tools/hsm/run-slots/src/runtime/install.rs",
-        "tools/hsm/run-slots/src/runtime/runner.rs",
-        "tools/hsm/run-slots/src/runtime/slots.rs",
         "tools/hsm/shared-data/Cargo.toml",
         "tools/hsm/shared-data/catalog/scalars.json",
-        "tools/run-slots.mjs",
-        "tools/run.py",
     ],
     outs = [
         "out/endcap-circular-drawing/hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole-drawing.pdf",
@@ -779,6 +734,9 @@ done
 for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
   if [ -d $$d ]; then mkdir -p work-endcap-circular-drawing/$$(dirname $$d); ln -sfn $$PWD/$$d work-endcap-circular-drawing/$$d; fi
 done
+for f in hardware/scripts/_run_lock.py hardware/scripts/_run_native.py hardware/scripts/_run_slots.py tools/hsm/run-slots.defaults.json tools/run-slots.mjs tools/run.py; do
+  mkdir -p work-endcap-circular-drawing/$$(dirname $$f); cp $$HSM_WORKSPACE/$$f work-endcap-circular-drawing/$$f
+done
 cd work-endcap-circular-drawing
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
@@ -804,9 +762,6 @@ genrule(
         "hardware/scripts/_build_data.py",
         "hardware/scripts/_cadq_export.py",
         "hardware/scripts/_document_export.py",
-        "hardware/scripts/_run_lock.py",
-        "hardware/scripts/_run_native.py",
-        "hardware/scripts/_run_slots.py",
         "hardware/scripts/_rust_data.py",
         "hardware/scripts/_rust_objects.py",
         "hardware/scripts/_rust_part.py",
@@ -927,22 +882,8 @@ genrule(
         "tools/hsm/kernel/src/topo.rs",
         "tools/hsm/kernel/src/triangulate.rs",
         "tools/hsm/kernel/src/write.rs",
-        "tools/hsm/run-native/Cargo.toml",
-        "tools/hsm/run-native/src/lib.rs",
-        "tools/hsm/run-slots.defaults.json",
-        "tools/hsm/run-slots/Cargo.toml",
-        "tools/hsm/run-slots/src/ipc.rs",
-        "tools/hsm/run-slots/src/lib.rs",
-        "tools/hsm/run-slots/src/main.rs",
-        "tools/hsm/run-slots/src/runtime.rs",
-        "tools/hsm/run-slots/src/runtime/cad.rs",
-        "tools/hsm/run-slots/src/runtime/install.rs",
-        "tools/hsm/run-slots/src/runtime/runner.rs",
-        "tools/hsm/run-slots/src/runtime/slots.rs",
         "tools/hsm/shared-data/Cargo.toml",
         "tools/hsm/shared-data/catalog/scalars.json",
-        "tools/run-slots.mjs",
-        "tools/run.py",
     ],
     outs = [
         "out/endcap-circular-dxf/hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole.dxf",
@@ -982,6 +923,9 @@ for f in $(SRCS); do
 done
 for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
   if [ -d $$d ]; then mkdir -p work-endcap-circular-dxf/$$(dirname $$d); ln -sfn $$PWD/$$d work-endcap-circular-dxf/$$d; fi
+done
+for f in hardware/scripts/_run_lock.py hardware/scripts/_run_native.py hardware/scripts/_run_slots.py tools/hsm/run-slots.defaults.json tools/run-slots.mjs tools/run.py; do
+  mkdir -p work-endcap-circular-dxf/$$(dirname $$f); cp $$HSM_WORKSPACE/$$f work-endcap-circular-dxf/$$f
 done
 cd work-endcap-circular-dxf
 ln -sfn $$HSM_WORKSPACE/.cache .cache
@@ -1177,9 +1121,6 @@ genrule(
         "hardware/scripts/_build_data.py",
         "hardware/scripts/_document_export.py",
         "hardware/scripts/_realized.py",
-        "hardware/scripts/_run_lock.py",
-        "hardware/scripts/_run_native.py",
-        "hardware/scripts/_run_slots.py",
         "hardware/scripts/_rust_data.py",
         "hardware/scripts/_rust_part.py",
         "tools/docgen/__init__.py",
@@ -1263,25 +1204,11 @@ genrule(
         "tools/hsm/kernel/src/topo.rs",
         "tools/hsm/kernel/src/triangulate.rs",
         "tools/hsm/kernel/src/write.rs",
-        "tools/hsm/run-native/Cargo.toml",
-        "tools/hsm/run-native/src/lib.rs",
-        "tools/hsm/run-slots.defaults.json",
-        "tools/hsm/run-slots/Cargo.toml",
-        "tools/hsm/run-slots/src/ipc.rs",
-        "tools/hsm/run-slots/src/lib.rs",
-        "tools/hsm/run-slots/src/main.rs",
-        "tools/hsm/run-slots/src/runtime.rs",
-        "tools/hsm/run-slots/src/runtime/cad.rs",
-        "tools/hsm/run-slots/src/runtime/install.rs",
-        "tools/hsm/run-slots/src/runtime/runner.rs",
-        "tools/hsm/run-slots/src/runtime/slots.rs",
         "tools/hsm/shared-data/Cargo.toml",
         "tools/hsm/shared-data/catalog/materials.json",
         "tools/hsm/shared-data/src/color.rs",
         "tools/hsm/shared-data/src/common.rs",
         "tools/hsm/shared-data/src/lib.rs",
-        "tools/run-slots.mjs",
-        "tools/run.py",
     ],
     outs = [
         "out/under-counter-plate/hardware/cut-parts/faucet/under-counter-plate/under-counter-plate.dxf",
@@ -1321,6 +1248,9 @@ for f in $(SRCS); do
 done
 for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
   if [ -d $$d ]; then mkdir -p work-under-counter-plate/$$(dirname $$d); ln -sfn $$PWD/$$d work-under-counter-plate/$$d; fi
+done
+for f in hardware/scripts/_run_lock.py hardware/scripts/_run_native.py hardware/scripts/_run_slots.py tools/hsm/run-slots.defaults.json tools/run-slots.mjs tools/run.py; do
+  mkdir -p work-under-counter-plate/$$(dirname $$f); cp $$HSM_WORKSPACE/$$f work-under-counter-plate/$$f
 done
 cd work-under-counter-plate
 ln -sfn $$HSM_WORKSPACE/.cache .cache
@@ -1415,9 +1345,6 @@ genrule(
         "hardware/scripts/_materials.py",
         "hardware/scripts/_mesh_payload.py",
         "hardware/scripts/_payload_rules.py",
-        "hardware/scripts/_run_lock.py",
-        "hardware/scripts/_run_native.py",
-        "hardware/scripts/_run_slots.py",
         "hardware/scripts/_rust_data.py",
         "hardware/scripts/_rust_objects.py",
         "hardware/scripts/_rust_part.py",
@@ -1509,18 +1436,6 @@ genrule(
         "tools/hsm/layout-data/src/rear.rs",
         "tools/hsm/layout-data/src/routes.rs",
         "tools/hsm/layout-data/src/soda.rs",
-        "tools/hsm/run-native/Cargo.toml",
-        "tools/hsm/run-native/src/lib.rs",
-        "tools/hsm/run-slots.defaults.json",
-        "tools/hsm/run-slots/Cargo.toml",
-        "tools/hsm/run-slots/src/ipc.rs",
-        "tools/hsm/run-slots/src/lib.rs",
-        "tools/hsm/run-slots/src/main.rs",
-        "tools/hsm/run-slots/src/runtime.rs",
-        "tools/hsm/run-slots/src/runtime/cad.rs",
-        "tools/hsm/run-slots/src/runtime/install.rs",
-        "tools/hsm/run-slots/src/runtime/runner.rs",
-        "tools/hsm/run-slots/src/runtime/slots.rs",
         "tools/hsm/shared-data/Cargo.toml",
         "tools/hsm/shared-data/catalog/materials.json",
         "tools/hsm/shared-data/catalog/routing.json",
@@ -1532,8 +1447,6 @@ genrule(
         "tools/hsm/shared-data/src/main.rs",
         "tools/hsm/shared-data/src/routing.rs",
         "tools/hsm/shared-data/src/scalars.rs",
-        "tools/run-slots.mjs",
-        "tools/run.py",
     ],
     outs = [
         "out/faucet-assembly/hardware/faucet-layout/faucet-assembly.numbers.json",
@@ -1579,6 +1492,9 @@ for f in $(SRCS); do
 done
 for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
   if [ -d $$d ]; then mkdir -p work-faucet-assembly/$$(dirname $$d); ln -sfn $$PWD/$$d work-faucet-assembly/$$d; fi
+done
+for f in hardware/scripts/_run_lock.py hardware/scripts/_run_native.py hardware/scripts/_run_slots.py tools/hsm/run-slots.defaults.json tools/run-slots.mjs tools/run.py; do
+  mkdir -p work-faucet-assembly/$$(dirname $$f); cp $$HSM_WORKSPACE/$$f work-faucet-assembly/$$f
 done
 cd work-faucet-assembly
 ln -sfn $$HSM_WORKSPACE/.cache .cache
@@ -1678,9 +1594,6 @@ genrule(
         "hardware/scripts/_materials.py",
         "hardware/scripts/_mesh_payload.py",
         "hardware/scripts/_payload_rules.py",
-        "hardware/scripts/_run_lock.py",
-        "hardware/scripts/_run_native.py",
-        "hardware/scripts/_run_slots.py",
         "hardware/scripts/_rust_data.py",
         "hardware/scripts/_rust_objects.py",
         "hardware/scripts/_rust_part.py",
@@ -1772,18 +1685,6 @@ genrule(
         "tools/hsm/layout-data/src/rear.rs",
         "tools/hsm/layout-data/src/routes.rs",
         "tools/hsm/layout-data/src/soda.rs",
-        "tools/hsm/run-native/Cargo.toml",
-        "tools/hsm/run-native/src/lib.rs",
-        "tools/hsm/run-slots.defaults.json",
-        "tools/hsm/run-slots/Cargo.toml",
-        "tools/hsm/run-slots/src/ipc.rs",
-        "tools/hsm/run-slots/src/lib.rs",
-        "tools/hsm/run-slots/src/main.rs",
-        "tools/hsm/run-slots/src/runtime.rs",
-        "tools/hsm/run-slots/src/runtime/cad.rs",
-        "tools/hsm/run-slots/src/runtime/install.rs",
-        "tools/hsm/run-slots/src/runtime/runner.rs",
-        "tools/hsm/run-slots/src/runtime/slots.rs",
         "tools/hsm/shared-data/Cargo.toml",
         "tools/hsm/shared-data/catalog/materials.json",
         "tools/hsm/shared-data/catalog/routing.json",
@@ -1795,8 +1696,6 @@ genrule(
         "tools/hsm/shared-data/src/main.rs",
         "tools/hsm/shared-data/src/routing.rs",
         "tools/hsm/shared-data/src/scalars.rs",
-        "tools/run-slots.mjs",
-        "tools/run.py",
     ],
     outs = [
         "out/faucet-industrial-assembly/hardware/faucet-layout/faucet-industrial-assembly.numbers.json",
@@ -1843,6 +1742,9 @@ done
 for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
   if [ -d $$d ]; then mkdir -p work-faucet-industrial-assembly/$$(dirname $$d); ln -sfn $$PWD/$$d work-faucet-industrial-assembly/$$d; fi
 done
+for f in hardware/scripts/_run_lock.py hardware/scripts/_run_native.py hardware/scripts/_run_slots.py tools/hsm/run-slots.defaults.json tools/run-slots.mjs tools/run.py; do
+  mkdir -p work-faucet-industrial-assembly/$$(dirname $$f); cp $$HSM_WORKSPACE/$$f work-faucet-industrial-assembly/$$f
+done
 cd work-faucet-industrial-assembly
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
@@ -1875,9 +1777,6 @@ genrule(
         "hardware/scripts/_build_data.py",
         "hardware/scripts/_guides_compiled.py",
         "hardware/scripts/_hsm_render.py",
-        "hardware/scripts/_run_lock.py",
-        "hardware/scripts/_run_native.py",
-        "hardware/scripts/_run_slots.py",
         "hardware/scripts/_rust_data.py",
         "hardware/scripts/_rust_objects.py",
         "hardware/scripts/_rust_part.py",
@@ -2018,18 +1917,6 @@ genrule(
         "tools/hsm/render/src/shaders/shadow.wgsl",
         "tools/hsm/render/src/shaders/surface.wgsl",
         "tools/hsm/render/src/shadow.rs",
-        "tools/hsm/run-native/Cargo.toml",
-        "tools/hsm/run-native/src/lib.rs",
-        "tools/hsm/run-slots.defaults.json",
-        "tools/hsm/run-slots/Cargo.toml",
-        "tools/hsm/run-slots/src/ipc.rs",
-        "tools/hsm/run-slots/src/lib.rs",
-        "tools/hsm/run-slots/src/main.rs",
-        "tools/hsm/run-slots/src/runtime.rs",
-        "tools/hsm/run-slots/src/runtime/cad.rs",
-        "tools/hsm/run-slots/src/runtime/install.rs",
-        "tools/hsm/run-slots/src/runtime/runner.rs",
-        "tools/hsm/run-slots/src/runtime/slots.rs",
         "tools/hsm/shared-data/Cargo.toml",
         "tools/hsm/shared-data/catalog/materials.json",
         "tools/hsm/shared-data/catalog/routing.json",
@@ -2038,8 +1925,6 @@ genrule(
         "tools/hsm/shared-data/src/common.rs",
         "tools/hsm/shared-data/src/lib.rs",
         "tools/hsm/tooling/Cargo.toml",
-        "tools/run-slots.mjs",
-        "tools/run.py",
         "web/public/finishes.json",
     ],
     outs = [
@@ -2101,6 +1986,9 @@ done
 for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
   if [ -d $$d ]; then mkdir -p work-render-modern-tee/$$(dirname $$d); ln -sfn $$PWD/$$d work-render-modern-tee/$$d; fi
 done
+for f in hardware/scripts/_run_lock.py hardware/scripts/_run_native.py hardware/scripts/_run_slots.py tools/hsm/run-slots.defaults.json tools/run-slots.mjs tools/run.py; do
+  mkdir -p work-render-modern-tee/$$(dirname $$f); cp $$HSM_WORKSPACE/$$f work-render-modern-tee/$$f
+done
 cd work-render-modern-tee
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
@@ -2136,9 +2024,6 @@ genrule(
         "hardware/scripts/_build_data.py",
         "hardware/scripts/_guides_compiled.py",
         "hardware/scripts/_hsm_render.py",
-        "hardware/scripts/_run_lock.py",
-        "hardware/scripts/_run_native.py",
-        "hardware/scripts/_run_slots.py",
         "hardware/scripts/_rust_data.py",
         "hardware/scripts/_rust_objects.py",
         "hardware/scripts/_rust_part.py",
@@ -2270,18 +2155,6 @@ genrule(
         "tools/hsm/render/src/shaders/shadow.wgsl",
         "tools/hsm/render/src/shaders/surface.wgsl",
         "tools/hsm/render/src/shadow.rs",
-        "tools/hsm/run-native/Cargo.toml",
-        "tools/hsm/run-native/src/lib.rs",
-        "tools/hsm/run-slots.defaults.json",
-        "tools/hsm/run-slots/Cargo.toml",
-        "tools/hsm/run-slots/src/ipc.rs",
-        "tools/hsm/run-slots/src/lib.rs",
-        "tools/hsm/run-slots/src/main.rs",
-        "tools/hsm/run-slots/src/runtime.rs",
-        "tools/hsm/run-slots/src/runtime/cad.rs",
-        "tools/hsm/run-slots/src/runtime/install.rs",
-        "tools/hsm/run-slots/src/runtime/runner.rs",
-        "tools/hsm/run-slots/src/runtime/slots.rs",
         "tools/hsm/shared-data/Cargo.toml",
         "tools/hsm/shared-data/catalog/materials.json",
         "tools/hsm/shared-data/catalog/routing.json",
@@ -2290,8 +2163,6 @@ genrule(
         "tools/hsm/shared-data/src/common.rs",
         "tools/hsm/shared-data/src/lib.rs",
         "tools/hsm/tooling/Cargo.toml",
-        "tools/run-slots.mjs",
-        "tools/run.py",
         "web/public/finishes.json",
     ],
     outs = [
@@ -2362,6 +2233,9 @@ for f in $(SRCS); do
 done
 for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
   if [ -d $$d ]; then mkdir -p work-plumbing-scenes/$$(dirname $$d); ln -sfn $$PWD/$$d work-plumbing-scenes/$$d; fi
+done
+for f in hardware/scripts/_run_lock.py hardware/scripts/_run_native.py hardware/scripts/_run_slots.py tools/hsm/run-slots.defaults.json tools/run-slots.mjs tools/run.py; do
+  mkdir -p work-plumbing-scenes/$$(dirname $$f); cp $$HSM_WORKSPACE/$$f work-plumbing-scenes/$$f
 done
 cd work-plumbing-scenes
 ln -sfn $$HSM_WORKSPACE/.cache .cache
@@ -2909,9 +2783,6 @@ genrule(
         "hardware/scripts/_payload_rules.py",
         "hardware/scripts/_realized.py",
         "hardware/scripts/_routing.py",
-        "hardware/scripts/_run_lock.py",
-        "hardware/scripts/_run_native.py",
-        "hardware/scripts/_run_slots.py",
         "hardware/scripts/_rust_data.py",
         "hardware/scripts/_rust_objects.py",
         "hardware/scripts/_rust_part.py",
@@ -3193,18 +3064,6 @@ genrule(
         "tools/hsm/part-data/src/storage.rs",
         "tools/hsm/part-data/src/zone.rs",
         "tools/hsm/refrigeration/Cargo.toml",
-        "tools/hsm/run-native/Cargo.toml",
-        "tools/hsm/run-native/src/lib.rs",
-        "tools/hsm/run-slots.defaults.json",
-        "tools/hsm/run-slots/Cargo.toml",
-        "tools/hsm/run-slots/src/ipc.rs",
-        "tools/hsm/run-slots/src/lib.rs",
-        "tools/hsm/run-slots/src/main.rs",
-        "tools/hsm/run-slots/src/runtime.rs",
-        "tools/hsm/run-slots/src/runtime/cad.rs",
-        "tools/hsm/run-slots/src/runtime/install.rs",
-        "tools/hsm/run-slots/src/runtime/runner.rs",
-        "tools/hsm/run-slots/src/runtime/slots.rs",
         "tools/hsm/shared-data/Cargo.toml",
         "tools/hsm/shared-data/catalog/materials.json",
         "tools/hsm/shared-data/catalog/routing.json",
@@ -3239,8 +3098,6 @@ genrule(
         "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/memory",
         "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/mutex",
         "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/libcxx-extras.cpp",
-        "tools/run-slots.mjs",
-        "tools/run.py",
     ],
     outs = [
         "out/enclosure-assembly/hardware/assembly/scenes/glb/back-half.glb",
@@ -3319,6 +3176,9 @@ for f in $(SRCS); do
 done
 for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
   if [ -d $$d ]; then mkdir -p work-enclosure-assembly/$$(dirname $$d); ln -sfn $$PWD/$$d work-enclosure-assembly/$$d; fi
+done
+for f in hardware/scripts/_run_lock.py hardware/scripts/_run_native.py hardware/scripts/_run_slots.py tools/hsm/run-slots.defaults.json tools/run-slots.mjs tools/run.py; do
+  mkdir -p work-enclosure-assembly/$$(dirname $$f); cp $$HSM_WORKSPACE/$$f work-enclosure-assembly/$$f
 done
 cd work-enclosure-assembly
 ln -sfn $$HSM_WORKSPACE/.cache .cache
@@ -3415,9 +3275,6 @@ genrule(
         "hardware/scripts/_materials.py",
         "hardware/scripts/_payload_rules.py",
         "hardware/scripts/_routing.py",
-        "hardware/scripts/_run_lock.py",
-        "hardware/scripts/_run_native.py",
-        "hardware/scripts/_run_slots.py",
         "hardware/scripts/_rust_data.py",
         "hardware/scripts/_rust_objects.py",
         "hardware/scripts/_rust_part.py",
@@ -3571,18 +3428,6 @@ genrule(
         "tools/hsm/part-data/src/sleeve.rs",
         "tools/hsm/part-data/src/storage.rs",
         "tools/hsm/part-data/src/zone.rs",
-        "tools/hsm/run-native/Cargo.toml",
-        "tools/hsm/run-native/src/lib.rs",
-        "tools/hsm/run-slots.defaults.json",
-        "tools/hsm/run-slots/Cargo.toml",
-        "tools/hsm/run-slots/src/ipc.rs",
-        "tools/hsm/run-slots/src/lib.rs",
-        "tools/hsm/run-slots/src/main.rs",
-        "tools/hsm/run-slots/src/runtime.rs",
-        "tools/hsm/run-slots/src/runtime/cad.rs",
-        "tools/hsm/run-slots/src/runtime/install.rs",
-        "tools/hsm/run-slots/src/runtime/runner.rs",
-        "tools/hsm/run-slots/src/runtime/slots.rs",
         "tools/hsm/shared-data/Cargo.toml",
         "tools/hsm/shared-data/catalog/materials.json",
         "tools/hsm/shared-data/catalog/routing.json",
@@ -3594,8 +3439,6 @@ genrule(
         "tools/hsm/shared-data/src/main.rs",
         "tools/hsm/shared-data/src/routing.rs",
         "tools/hsm/shared-data/src/scalars.rs",
-        "tools/run-slots.mjs",
-        "tools/run.py",
     ],
     outs = [
         "out/manifold-layout/hardware/manifold-layout/manifold-layout.numbers.json",
@@ -3642,6 +3485,9 @@ done
 for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
   if [ -d $$d ]; then mkdir -p work-manifold-layout/$$(dirname $$d); ln -sfn $$PWD/$$d work-manifold-layout/$$d; fi
 done
+for f in hardware/scripts/_run_lock.py hardware/scripts/_run_native.py hardware/scripts/_run_slots.py tools/hsm/run-slots.defaults.json tools/run-slots.mjs tools/run.py; do
+  mkdir -p work-manifold-layout/$$(dirname $$f); cp $$HSM_WORKSPACE/$$f work-manifold-layout/$$f
+done
 cd work-manifold-layout
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
@@ -3668,9 +3514,6 @@ genrule(
         "hardware/scripts/_material_base.py",
         "hardware/scripts/_materials.py",
         "hardware/scripts/_part_output.py",
-        "hardware/scripts/_run_lock.py",
-        "hardware/scripts/_run_native.py",
-        "hardware/scripts/_run_slots.py",
         "hardware/scripts/_rust_data.py",
         "hardware/scripts/_rust_part.py",
         "hardware/scripts/_shared_data.py",
@@ -3739,18 +3582,6 @@ genrule(
         "tools/hsm/part-data/src/sleeve.rs",
         "tools/hsm/part-data/src/storage.rs",
         "tools/hsm/part-data/src/zone.rs",
-        "tools/hsm/run-native/Cargo.toml",
-        "tools/hsm/run-native/src/lib.rs",
-        "tools/hsm/run-slots.defaults.json",
-        "tools/hsm/run-slots/Cargo.toml",
-        "tools/hsm/run-slots/src/ipc.rs",
-        "tools/hsm/run-slots/src/lib.rs",
-        "tools/hsm/run-slots/src/main.rs",
-        "tools/hsm/run-slots/src/runtime.rs",
-        "tools/hsm/run-slots/src/runtime/cad.rs",
-        "tools/hsm/run-slots/src/runtime/install.rs",
-        "tools/hsm/run-slots/src/runtime/runner.rs",
-        "tools/hsm/run-slots/src/runtime/slots.rs",
         "tools/hsm/shared-data/Cargo.toml",
         "tools/hsm/shared-data/catalog/materials.json",
         "tools/hsm/shared-data/catalog/routing.json",
@@ -3763,8 +3594,6 @@ genrule(
         "tools/hsm/shared-data/src/routing.rs",
         "tools/hsm/shared-data/src/scalars.rs",
         "tools/hsm/tooling/Cargo.toml",
-        "tools/run-slots.mjs",
-        "tools/run.py",
     ],
     outs = [
         "out/asse-drain-adapter/hardware/printed-parts/asse-drain-adapter/asse-drain-adapter.numbers.json",
@@ -3813,6 +3642,9 @@ done
 for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
   if [ -d $$d ]; then mkdir -p work-asse-drain-adapter/$$(dirname $$d); ln -sfn $$PWD/$$d work-asse-drain-adapter/$$d; fi
 done
+for f in hardware/scripts/_run_lock.py hardware/scripts/_run_native.py hardware/scripts/_run_slots.py tools/hsm/run-slots.defaults.json tools/run-slots.mjs tools/run.py; do
+  mkdir -p work-asse-drain-adapter/$$(dirname $$f); cp $$HSM_WORKSPACE/$$f work-asse-drain-adapter/$$f
+done
 cd work-asse-drain-adapter
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
@@ -3840,9 +3672,6 @@ genrule(
         "hardware/scripts/_material_base.py",
         "hardware/scripts/_materials.py",
         "hardware/scripts/_part_output.py",
-        "hardware/scripts/_run_lock.py",
-        "hardware/scripts/_run_native.py",
-        "hardware/scripts/_run_slots.py",
         "hardware/scripts/_rust_data.py",
         "hardware/scripts/_rust_part.py",
         "hardware/scripts/_shared_data.py",
@@ -3911,18 +3740,6 @@ genrule(
         "tools/hsm/part-data/src/sleeve.rs",
         "tools/hsm/part-data/src/storage.rs",
         "tools/hsm/part-data/src/zone.rs",
-        "tools/hsm/run-native/Cargo.toml",
-        "tools/hsm/run-native/src/lib.rs",
-        "tools/hsm/run-slots.defaults.json",
-        "tools/hsm/run-slots/Cargo.toml",
-        "tools/hsm/run-slots/src/ipc.rs",
-        "tools/hsm/run-slots/src/lib.rs",
-        "tools/hsm/run-slots/src/main.rs",
-        "tools/hsm/run-slots/src/runtime.rs",
-        "tools/hsm/run-slots/src/runtime/cad.rs",
-        "tools/hsm/run-slots/src/runtime/install.rs",
-        "tools/hsm/run-slots/src/runtime/runner.rs",
-        "tools/hsm/run-slots/src/runtime/slots.rs",
         "tools/hsm/shared-data/Cargo.toml",
         "tools/hsm/shared-data/catalog/materials.json",
         "tools/hsm/shared-data/catalog/routing.json",
@@ -3935,8 +3752,6 @@ genrule(
         "tools/hsm/shared-data/src/routing.rs",
         "tools/hsm/shared-data/src/scalars.rs",
         "tools/hsm/tooling/Cargo.toml",
-        "tools/run-slots.mjs",
-        "tools/run.py",
     ],
     outs = [
         "out/asse-straight-cuffs/hardware/printed-parts/asse-straight-cuffs/asse-inlet-cuff.step",
@@ -3993,6 +3808,9 @@ done
 for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
   if [ -d $$d ]; then mkdir -p work-asse-straight-cuffs/$$(dirname $$d); ln -sfn $$PWD/$$d work-asse-straight-cuffs/$$d; fi
 done
+for f in hardware/scripts/_run_lock.py hardware/scripts/_run_native.py hardware/scripts/_run_slots.py tools/hsm/run-slots.defaults.json tools/run-slots.mjs tools/run.py; do
+  mkdir -p work-asse-straight-cuffs/$$(dirname $$f); cp $$HSM_WORKSPACE/$$f work-asse-straight-cuffs/$$f
+done
 cd work-asse-straight-cuffs
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
@@ -4042,9 +3860,6 @@ genrule(
         "hardware/scripts/_machine_data.py",
         "hardware/scripts/_material_base.py",
         "hardware/scripts/_materials.py",
-        "hardware/scripts/_run_lock.py",
-        "hardware/scripts/_run_native.py",
-        "hardware/scripts/_run_slots.py",
         "hardware/scripts/_rust_data.py",
         "hardware/scripts/_rust_objects.py",
         "hardware/scripts/_rust_part.py",
@@ -4182,18 +3997,6 @@ genrule(
         "tools/hsm/part-data/src/sleeve.rs",
         "tools/hsm/part-data/src/storage.rs",
         "tools/hsm/part-data/src/zone.rs",
-        "tools/hsm/run-native/Cargo.toml",
-        "tools/hsm/run-native/src/lib.rs",
-        "tools/hsm/run-slots.defaults.json",
-        "tools/hsm/run-slots/Cargo.toml",
-        "tools/hsm/run-slots/src/ipc.rs",
-        "tools/hsm/run-slots/src/lib.rs",
-        "tools/hsm/run-slots/src/main.rs",
-        "tools/hsm/run-slots/src/runtime.rs",
-        "tools/hsm/run-slots/src/runtime/cad.rs",
-        "tools/hsm/run-slots/src/runtime/install.rs",
-        "tools/hsm/run-slots/src/runtime/runner.rs",
-        "tools/hsm/run-slots/src/runtime/slots.rs",
         "tools/hsm/shared-data/Cargo.toml",
         "tools/hsm/shared-data/catalog/materials.json",
         "tools/hsm/shared-data/catalog/routing.json",
@@ -4205,8 +4008,6 @@ genrule(
         "tools/hsm/shared-data/src/main.rs",
         "tools/hsm/shared-data/src/routing.rs",
         "tools/hsm/shared-data/src/scalars.rs",
-        "tools/run-slots.mjs",
-        "tools/run.py",
     ],
     outs = [
         "out/coil-mandrel/hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.numbers.json",
@@ -4254,6 +4055,9 @@ for f in $(SRCS); do
 done
 for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
   if [ -d $$d ]; then mkdir -p work-coil-mandrel/$$(dirname $$d); ln -sfn $$PWD/$$d work-coil-mandrel/$$d; fi
+done
+for f in hardware/scripts/_run_lock.py hardware/scripts/_run_native.py hardware/scripts/_run_slots.py tools/hsm/run-slots.defaults.json tools/run-slots.mjs tools/run.py; do
+  mkdir -p work-coil-mandrel/$$(dirname $$f); cp $$HSM_WORKSPACE/$$f work-coil-mandrel/$$f
 done
 cd work-coil-mandrel
 ln -sfn $$HSM_WORKSPACE/.cache .cache
@@ -4338,9 +4142,6 @@ genrule(
         "hardware/scripts/_mesh_payload.py",
         "hardware/scripts/_payload_rules.py",
         "hardware/scripts/_routing.py",
-        "hardware/scripts/_run_lock.py",
-        "hardware/scripts/_run_native.py",
-        "hardware/scripts/_run_slots.py",
         "hardware/scripts/_rust_data.py",
         "hardware/scripts/_rust_objects.py",
         "hardware/scripts/_rust_part.py",
@@ -4511,18 +4312,6 @@ genrule(
         "tools/hsm/part-data/src/sleeve.rs",
         "tools/hsm/part-data/src/storage.rs",
         "tools/hsm/part-data/src/zone.rs",
-        "tools/hsm/run-native/Cargo.toml",
-        "tools/hsm/run-native/src/lib.rs",
-        "tools/hsm/run-slots.defaults.json",
-        "tools/hsm/run-slots/Cargo.toml",
-        "tools/hsm/run-slots/src/ipc.rs",
-        "tools/hsm/run-slots/src/lib.rs",
-        "tools/hsm/run-slots/src/main.rs",
-        "tools/hsm/run-slots/src/runtime.rs",
-        "tools/hsm/run-slots/src/runtime/cad.rs",
-        "tools/hsm/run-slots/src/runtime/install.rs",
-        "tools/hsm/run-slots/src/runtime/runner.rs",
-        "tools/hsm/run-slots/src/runtime/slots.rs",
         "tools/hsm/shared-data/Cargo.toml",
         "tools/hsm/shared-data/catalog/materials.json",
         "tools/hsm/shared-data/catalog/routing.json",
@@ -4534,8 +4323,6 @@ genrule(
         "tools/hsm/shared-data/src/main.rs",
         "tools/hsm/shared-data/src/routing.rs",
         "tools/hsm/shared-data/src/scalars.rs",
-        "tools/run-slots.mjs",
-        "tools/run.py",
     ],
     outs = [
         "out/foam-assembly/hardware/printed-parts/cold-core/foam-assembly/foam-assembly.numbers.json",
@@ -4587,6 +4374,9 @@ for f in $(SRCS); do
 done
 for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
   if [ -d $$d ]; then mkdir -p work-foam-assembly/$$(dirname $$d); ln -sfn $$PWD/$$d work-foam-assembly/$$d; fi
+done
+for f in hardware/scripts/_run_lock.py hardware/scripts/_run_native.py hardware/scripts/_run_slots.py tools/hsm/run-slots.defaults.json tools/run-slots.mjs tools/run.py; do
+  mkdir -p work-foam-assembly/$$(dirname $$f); cp $$HSM_WORKSPACE/$$f work-foam-assembly/$$f
 done
 cd work-foam-assembly
 ln -sfn $$HSM_WORKSPACE/.cache .cache
@@ -4647,9 +4437,6 @@ genrule(
         "hardware/scripts/_materials.py",
         "hardware/scripts/_mesh_payload.py",
         "hardware/scripts/_payload_rules.py",
-        "hardware/scripts/_run_lock.py",
-        "hardware/scripts/_run_native.py",
-        "hardware/scripts/_run_slots.py",
         "hardware/scripts/_rust_data.py",
         "hardware/scripts/_rust_objects.py",
         "hardware/scripts/_rust_part.py",
@@ -4854,18 +4641,6 @@ genrule(
         "tools/hsm/print-payload/src/lib.rs",
         "tools/hsm/print-payload/src/main.rs",
         "tools/hsm/print-payload/src/quadric.rs",
-        "tools/hsm/run-native/Cargo.toml",
-        "tools/hsm/run-native/src/lib.rs",
-        "tools/hsm/run-slots.defaults.json",
-        "tools/hsm/run-slots/Cargo.toml",
-        "tools/hsm/run-slots/src/ipc.rs",
-        "tools/hsm/run-slots/src/lib.rs",
-        "tools/hsm/run-slots/src/main.rs",
-        "tools/hsm/run-slots/src/runtime.rs",
-        "tools/hsm/run-slots/src/runtime/cad.rs",
-        "tools/hsm/run-slots/src/runtime/install.rs",
-        "tools/hsm/run-slots/src/runtime/runner.rs",
-        "tools/hsm/run-slots/src/runtime/slots.rs",
         "tools/hsm/shared-data/Cargo.toml",
         "tools/hsm/shared-data/catalog/materials.json",
         "tools/hsm/shared-data/catalog/routing.json",
@@ -4877,8 +4652,6 @@ genrule(
         "tools/hsm/shared-data/src/main.rs",
         "tools/hsm/shared-data/src/routing.rs",
         "tools/hsm/shared-data/src/scalars.rs",
-        "tools/run-slots.mjs",
-        "tools/run.py",
     ],
     outs = [
         "out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step",
@@ -4951,6 +4724,9 @@ done
 for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
   if [ -d $$d ]; then mkdir -p work-foam-cap/$$(dirname $$d); ln -sfn $$PWD/$$d work-foam-cap/$$d; fi
 done
+for f in hardware/scripts/_run_lock.py hardware/scripts/_run_native.py hardware/scripts/_run_slots.py tools/hsm/run-slots.defaults.json tools/run-slots.mjs tools/run.py; do
+  mkdir -p work-foam-cap/$$(dirname $$f); cp $$HSM_WORKSPACE/$$f work-foam-cap/$$f
+done
 cd work-foam-cap
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
@@ -5011,9 +4787,6 @@ genrule(
         "hardware/scripts/_material_base.py",
         "hardware/scripts/_materials.py",
         "hardware/scripts/_routing.py",
-        "hardware/scripts/_run_lock.py",
-        "hardware/scripts/_run_native.py",
-        "hardware/scripts/_run_slots.py",
         "hardware/scripts/_rust_data.py",
         "hardware/scripts/_rust_objects.py",
         "hardware/scripts/_rust_part.py",
@@ -5151,18 +4924,6 @@ genrule(
         "tools/hsm/part-data/src/sleeve.rs",
         "tools/hsm/part-data/src/storage.rs",
         "tools/hsm/part-data/src/zone.rs",
-        "tools/hsm/run-native/Cargo.toml",
-        "tools/hsm/run-native/src/lib.rs",
-        "tools/hsm/run-slots.defaults.json",
-        "tools/hsm/run-slots/Cargo.toml",
-        "tools/hsm/run-slots/src/ipc.rs",
-        "tools/hsm/run-slots/src/lib.rs",
-        "tools/hsm/run-slots/src/main.rs",
-        "tools/hsm/run-slots/src/runtime.rs",
-        "tools/hsm/run-slots/src/runtime/cad.rs",
-        "tools/hsm/run-slots/src/runtime/install.rs",
-        "tools/hsm/run-slots/src/runtime/runner.rs",
-        "tools/hsm/run-slots/src/runtime/slots.rs",
         "tools/hsm/shared-data/Cargo.toml",
         "tools/hsm/shared-data/catalog/materials.json",
         "tools/hsm/shared-data/catalog/routing.json",
@@ -5174,8 +4935,6 @@ genrule(
         "tools/hsm/shared-data/src/main.rs",
         "tools/hsm/shared-data/src/routing.rs",
         "tools/hsm/shared-data/src/scalars.rs",
-        "tools/run-slots.mjs",
-        "tools/run.py",
     ],
     outs = [
         "out/foam-shell/hardware/printed-parts/cold-core/foam-shell/foam-shell.numbers.json",
@@ -5222,6 +4981,9 @@ done
 for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
   if [ -d $$d ]; then mkdir -p work-foam-shell/$$(dirname $$d); ln -sfn $$PWD/$$d work-foam-shell/$$d; fi
 done
+for f in hardware/scripts/_run_lock.py hardware/scripts/_run_native.py hardware/scripts/_run_slots.py tools/hsm/run-slots.defaults.json tools/run-slots.mjs tools/run.py; do
+  mkdir -p work-foam-shell/$$(dirname $$f); cp $$HSM_WORKSPACE/$$f work-foam-shell/$$f
+done
 cd work-foam-shell
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
@@ -5256,9 +5018,6 @@ genrule(
         "hardware/scripts/_materials.py",
         "hardware/scripts/_mesh_payload.py",
         "hardware/scripts/_payload_rules.py",
-        "hardware/scripts/_run_lock.py",
-        "hardware/scripts/_run_native.py",
-        "hardware/scripts/_run_slots.py",
         "hardware/scripts/_rust_data.py",
         "hardware/scripts/_rust_objects.py",
         "hardware/scripts/_rust_part.py",
@@ -5385,18 +5144,6 @@ genrule(
         "tools/hsm/print-payload/src/lib.rs",
         "tools/hsm/print-payload/src/main.rs",
         "tools/hsm/print-payload/src/quadric.rs",
-        "tools/hsm/run-native/Cargo.toml",
-        "tools/hsm/run-native/src/lib.rs",
-        "tools/hsm/run-slots.defaults.json",
-        "tools/hsm/run-slots/Cargo.toml",
-        "tools/hsm/run-slots/src/ipc.rs",
-        "tools/hsm/run-slots/src/lib.rs",
-        "tools/hsm/run-slots/src/main.rs",
-        "tools/hsm/run-slots/src/runtime.rs",
-        "tools/hsm/run-slots/src/runtime/cad.rs",
-        "tools/hsm/run-slots/src/runtime/install.rs",
-        "tools/hsm/run-slots/src/runtime/runner.rs",
-        "tools/hsm/run-slots/src/runtime/slots.rs",
         "tools/hsm/shared-data/Cargo.toml",
         "tools/hsm/shared-data/catalog/materials.json",
         "tools/hsm/shared-data/catalog/routing.json",
@@ -5408,8 +5155,6 @@ genrule(
         "tools/hsm/shared-data/src/main.rs",
         "tools/hsm/shared-data/src/routing.rs",
         "tools/hsm/shared-data/src/scalars.rs",
-        "tools/run-slots.mjs",
-        "tools/run.py",
     ],
     outs = [
         "out/all-aero-float/hardware/printed-parts/cold-core/magnetic-float/all-aero/all-aero-float.numbers.json",
@@ -5478,6 +5223,9 @@ done
 for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
   if [ -d $$d ]; then mkdir -p work-all-aero-float/$$(dirname $$d); ln -sfn $$PWD/$$d work-all-aero-float/$$d; fi
 done
+for f in hardware/scripts/_run_lock.py hardware/scripts/_run_native.py hardware/scripts/_run_slots.py tools/hsm/run-slots.defaults.json tools/run-slots.mjs tools/run.py; do
+  mkdir -p work-all-aero-float/$$(dirname $$f); cp $$HSM_WORKSPACE/$$f work-all-aero-float/$$f
+done
 cd work-all-aero-float
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
@@ -5518,9 +5266,6 @@ genrule(
         "hardware/scripts/_build_data.py",
         "hardware/scripts/_material_base.py",
         "hardware/scripts/_materials.py",
-        "hardware/scripts/_run_lock.py",
-        "hardware/scripts/_run_native.py",
-        "hardware/scripts/_run_slots.py",
         "hardware/scripts/_rust_data.py",
         "hardware/scripts/_rust_objects.py",
         "hardware/scripts/_rust_part.py",
@@ -5641,18 +5386,6 @@ genrule(
         "tools/hsm/kernel/src/topo.rs",
         "tools/hsm/kernel/src/triangulate.rs",
         "tools/hsm/kernel/src/write.rs",
-        "tools/hsm/run-native/Cargo.toml",
-        "tools/hsm/run-native/src/lib.rs",
-        "tools/hsm/run-slots.defaults.json",
-        "tools/hsm/run-slots/Cargo.toml",
-        "tools/hsm/run-slots/src/ipc.rs",
-        "tools/hsm/run-slots/src/lib.rs",
-        "tools/hsm/run-slots/src/main.rs",
-        "tools/hsm/run-slots/src/runtime.rs",
-        "tools/hsm/run-slots/src/runtime/cad.rs",
-        "tools/hsm/run-slots/src/runtime/install.rs",
-        "tools/hsm/run-slots/src/runtime/runner.rs",
-        "tools/hsm/run-slots/src/runtime/slots.rs",
         "tools/hsm/shared-data/Cargo.toml",
         "tools/hsm/shared-data/catalog/materials.json",
         "tools/hsm/shared-data/catalog/routing.json",
@@ -5664,8 +5397,6 @@ genrule(
         "tools/hsm/shared-data/src/main.rs",
         "tools/hsm/shared-data/src/routing.rs",
         "tools/hsm/shared-data/src/scalars.rs",
-        "tools/run-slots.mjs",
-        "tools/run.py",
     ],
     outs = [
         "out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/body-aero.step",
@@ -5756,6 +5487,9 @@ done
 for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
   if [ -d $$d ]; then mkdir -p work-magnetic-float/$$(dirname $$d); ln -sfn $$PWD/$$d work-magnetic-float/$$d; fi
 done
+for f in hardware/scripts/_run_lock.py hardware/scripts/_run_native.py hardware/scripts/_run_slots.py tools/hsm/run-slots.defaults.json tools/run-slots.mjs tools/run.py; do
+  mkdir -p work-magnetic-float/$$(dirname $$f); cp $$HSM_WORKSPACE/$$f work-magnetic-float/$$f
+done
 cd work-magnetic-float
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
@@ -5809,9 +5543,6 @@ genrule(
         "hardware/scripts/_build_data.py",
         "hardware/scripts/_material_base.py",
         "hardware/scripts/_materials.py",
-        "hardware/scripts/_run_lock.py",
-        "hardware/scripts/_run_native.py",
-        "hardware/scripts/_run_slots.py",
         "hardware/scripts/_rust_data.py",
         "hardware/scripts/_rust_objects.py",
         "hardware/scripts/_rust_part.py",
@@ -5932,18 +5663,6 @@ genrule(
         "tools/hsm/kernel/src/topo.rs",
         "tools/hsm/kernel/src/triangulate.rs",
         "tools/hsm/kernel/src/write.rs",
-        "tools/hsm/run-native/Cargo.toml",
-        "tools/hsm/run-native/src/lib.rs",
-        "tools/hsm/run-slots.defaults.json",
-        "tools/hsm/run-slots/Cargo.toml",
-        "tools/hsm/run-slots/src/ipc.rs",
-        "tools/hsm/run-slots/src/lib.rs",
-        "tools/hsm/run-slots/src/main.rs",
-        "tools/hsm/run-slots/src/runtime.rs",
-        "tools/hsm/run-slots/src/runtime/cad.rs",
-        "tools/hsm/run-slots/src/runtime/install.rs",
-        "tools/hsm/run-slots/src/runtime/runner.rs",
-        "tools/hsm/run-slots/src/runtime/slots.rs",
         "tools/hsm/shared-data/Cargo.toml",
         "tools/hsm/shared-data/catalog/materials.json",
         "tools/hsm/shared-data/catalog/routing.json",
@@ -5955,8 +5674,6 @@ genrule(
         "tools/hsm/shared-data/src/main.rs",
         "tools/hsm/shared-data/src/routing.rs",
         "tools/hsm/shared-data/src/scalars.rs",
-        "tools/run-slots.mjs",
-        "tools/run.py",
     ],
     outs = [
         "out/prv-shroud/hardware/printed-parts/cold-core/prv-shroud/prv-shroud.numbers.json",
@@ -6005,6 +5722,9 @@ done
 for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
   if [ -d $$d ]; then mkdir -p work-prv-shroud/$$(dirname $$d); ln -sfn $$PWD/$$d work-prv-shroud/$$d; fi
 done
+for f in hardware/scripts/_run_lock.py hardware/scripts/_run_native.py hardware/scripts/_run_slots.py tools/hsm/run-slots.defaults.json tools/run-slots.mjs tools/run.py; do
+  mkdir -p work-prv-shroud/$$(dirname $$f); cp $$HSM_WORKSPACE/$$f work-prv-shroud/$$f
+done
 cd work-prv-shroud
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
@@ -6050,9 +5770,6 @@ genrule(
         "hardware/scripts/_machine_data.py",
         "hardware/scripts/_material_base.py",
         "hardware/scripts/_materials.py",
-        "hardware/scripts/_run_lock.py",
-        "hardware/scripts/_run_native.py",
-        "hardware/scripts/_run_slots.py",
         "hardware/scripts/_rust_data.py",
         "hardware/scripts/_rust_objects.py",
         "hardware/scripts/_rust_part.py",
@@ -6190,18 +5907,6 @@ genrule(
         "tools/hsm/part-data/src/sleeve.rs",
         "tools/hsm/part-data/src/storage.rs",
         "tools/hsm/part-data/src/zone.rs",
-        "tools/hsm/run-native/Cargo.toml",
-        "tools/hsm/run-native/src/lib.rs",
-        "tools/hsm/run-slots.defaults.json",
-        "tools/hsm/run-slots/Cargo.toml",
-        "tools/hsm/run-slots/src/ipc.rs",
-        "tools/hsm/run-slots/src/lib.rs",
-        "tools/hsm/run-slots/src/main.rs",
-        "tools/hsm/run-slots/src/runtime.rs",
-        "tools/hsm/run-slots/src/runtime/cad.rs",
-        "tools/hsm/run-slots/src/runtime/install.rs",
-        "tools/hsm/run-slots/src/runtime/runner.rs",
-        "tools/hsm/run-slots/src/runtime/slots.rs",
         "tools/hsm/shared-data/Cargo.toml",
         "tools/hsm/shared-data/catalog/materials.json",
         "tools/hsm/shared-data/catalog/routing.json",
@@ -6213,8 +5918,6 @@ genrule(
         "tools/hsm/shared-data/src/main.rs",
         "tools/hsm/shared-data/src/routing.rs",
         "tools/hsm/shared-data/src/scalars.rs",
-        "tools/run-slots.mjs",
-        "tools/run.py",
     ],
     outs = [
         "out/reed-bridge/hardware/printed-parts/cold-core/reed-bridge/reed-bridge-setting-gauge.step",
@@ -6271,6 +5974,9 @@ done
 for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
   if [ -d $$d ]; then mkdir -p work-reed-bridge/$$(dirname $$d); ln -sfn $$PWD/$$d work-reed-bridge/$$d; fi
 done
+for f in hardware/scripts/_run_lock.py hardware/scripts/_run_native.py hardware/scripts/_run_slots.py tools/hsm/run-slots.defaults.json tools/run-slots.mjs tools/run.py; do
+  mkdir -p work-reed-bridge/$$(dirname $$f); cp $$HSM_WORKSPACE/$$f work-reed-bridge/$$f
+done
 cd work-reed-bridge
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
@@ -6322,9 +6028,6 @@ genrule(
         "hardware/scripts/_materials.py",
         "hardware/scripts/_mesh_payload.py",
         "hardware/scripts/_payload_rules.py",
-        "hardware/scripts/_run_lock.py",
-        "hardware/scripts/_run_native.py",
-        "hardware/scripts/_run_slots.py",
         "hardware/scripts/_rust_data.py",
         "hardware/scripts/_rust_objects.py",
         "hardware/scripts/_rust_part.py",
@@ -6468,18 +6171,6 @@ genrule(
         "tools/hsm/print-payload/src/lib.rs",
         "tools/hsm/print-payload/src/main.rs",
         "tools/hsm/print-payload/src/quadric.rs",
-        "tools/hsm/run-native/Cargo.toml",
-        "tools/hsm/run-native/src/lib.rs",
-        "tools/hsm/run-slots.defaults.json",
-        "tools/hsm/run-slots/Cargo.toml",
-        "tools/hsm/run-slots/src/ipc.rs",
-        "tools/hsm/run-slots/src/lib.rs",
-        "tools/hsm/run-slots/src/main.rs",
-        "tools/hsm/run-slots/src/runtime.rs",
-        "tools/hsm/run-slots/src/runtime/cad.rs",
-        "tools/hsm/run-slots/src/runtime/install.rs",
-        "tools/hsm/run-slots/src/runtime/runner.rs",
-        "tools/hsm/run-slots/src/runtime/slots.rs",
         "tools/hsm/shared-data/Cargo.toml",
         "tools/hsm/shared-data/catalog/materials.json",
         "tools/hsm/shared-data/catalog/routing.json",
@@ -6491,8 +6182,6 @@ genrule(
         "tools/hsm/shared-data/src/main.rs",
         "tools/hsm/shared-data/src/routing.rs",
         "tools/hsm/shared-data/src/scalars.rs",
-        "tools/run-slots.mjs",
-        "tools/run.py",
     ],
     outs = [
         "out/reservoir/hardware/printed-parts/cold-core/reservoir/reservoir-air-grip.step",
@@ -6589,6 +6278,9 @@ done
 for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
   if [ -d $$d ]; then mkdir -p work-reservoir/$$(dirname $$d); ln -sfn $$PWD/$$d work-reservoir/$$d; fi
 done
+for f in hardware/scripts/_run_lock.py hardware/scripts/_run_native.py hardware/scripts/_run_slots.py tools/hsm/run-slots.defaults.json tools/run-slots.mjs tools/run.py; do
+  mkdir -p work-reservoir/$$(dirname $$f); cp $$HSM_WORKSPACE/$$f work-reservoir/$$f
+done
 cd work-reservoir
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
@@ -6642,9 +6334,6 @@ genrule(
         "hardware/scripts/_material_base.py",
         "hardware/scripts/_materials.py",
         "hardware/scripts/_part_output.py",
-        "hardware/scripts/_run_lock.py",
-        "hardware/scripts/_run_native.py",
-        "hardware/scripts/_run_slots.py",
         "hardware/scripts/_rust_data.py",
         "hardware/scripts/_rust_part.py",
         "hardware/scripts/_shared_data.py",
@@ -6713,18 +6402,6 @@ genrule(
         "tools/hsm/part-data/src/sleeve.rs",
         "tools/hsm/part-data/src/storage.rs",
         "tools/hsm/part-data/src/zone.rs",
-        "tools/hsm/run-native/Cargo.toml",
-        "tools/hsm/run-native/src/lib.rs",
-        "tools/hsm/run-slots.defaults.json",
-        "tools/hsm/run-slots/Cargo.toml",
-        "tools/hsm/run-slots/src/ipc.rs",
-        "tools/hsm/run-slots/src/lib.rs",
-        "tools/hsm/run-slots/src/main.rs",
-        "tools/hsm/run-slots/src/runtime.rs",
-        "tools/hsm/run-slots/src/runtime/cad.rs",
-        "tools/hsm/run-slots/src/runtime/install.rs",
-        "tools/hsm/run-slots/src/runtime/runner.rs",
-        "tools/hsm/run-slots/src/runtime/slots.rs",
         "tools/hsm/shared-data/Cargo.toml",
         "tools/hsm/shared-data/catalog/materials.json",
         "tools/hsm/shared-data/catalog/routing.json",
@@ -6737,8 +6414,6 @@ genrule(
         "tools/hsm/shared-data/src/routing.rs",
         "tools/hsm/shared-data/src/scalars.rs",
         "tools/hsm/tooling/Cargo.toml",
-        "tools/run-slots.mjs",
-        "tools/run.py",
     ],
     outs = [
         "out/collet-press/hardware/printed-parts/collet-press/collet-press.numbers.json",
@@ -6787,6 +6462,9 @@ done
 for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
   if [ -d $$d ]; then mkdir -p work-collet-press/$$(dirname $$d); ln -sfn $$PWD/$$d work-collet-press/$$d; fi
 done
+for f in hardware/scripts/_run_lock.py hardware/scripts/_run_native.py hardware/scripts/_run_slots.py tools/hsm/run-slots.defaults.json tools/run-slots.mjs tools/run.py; do
+  mkdir -p work-collet-press/$$(dirname $$f); cp $$HSM_WORKSPACE/$$f work-collet-press/$$f
+done
 cd work-collet-press
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
@@ -6816,9 +6494,6 @@ genrule(
         "hardware/scripts/_occt_color.py",
         "hardware/scripts/_part_output.py",
         "hardware/scripts/_realized.py",
-        "hardware/scripts/_run_lock.py",
-        "hardware/scripts/_run_native.py",
-        "hardware/scripts/_run_slots.py",
         "hardware/scripts/_rust_data.py",
         "hardware/scripts/_rust_part.py",
         "hardware/scripts/_shared_data.py",
@@ -6889,18 +6564,6 @@ genrule(
         "tools/hsm/part-data/src/sleeve.rs",
         "tools/hsm/part-data/src/storage.rs",
         "tools/hsm/part-data/src/zone.rs",
-        "tools/hsm/run-native/Cargo.toml",
-        "tools/hsm/run-native/src/lib.rs",
-        "tools/hsm/run-slots.defaults.json",
-        "tools/hsm/run-slots/Cargo.toml",
-        "tools/hsm/run-slots/src/ipc.rs",
-        "tools/hsm/run-slots/src/lib.rs",
-        "tools/hsm/run-slots/src/main.rs",
-        "tools/hsm/run-slots/src/runtime.rs",
-        "tools/hsm/run-slots/src/runtime/cad.rs",
-        "tools/hsm/run-slots/src/runtime/install.rs",
-        "tools/hsm/run-slots/src/runtime/runner.rs",
-        "tools/hsm/run-slots/src/runtime/slots.rs",
         "tools/hsm/shared-data/Cargo.toml",
         "tools/hsm/shared-data/catalog/materials.json",
         "tools/hsm/shared-data/catalog/routing.json",
@@ -6935,8 +6598,6 @@ genrule(
         "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/memory",
         "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/mutex",
         "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/libcxx-extras.cpp",
-        "tools/run-slots.mjs",
-        "tools/run.py",
     ],
     outs = [
         "out/diaphragm-pump-sleeve/hardware/printed-parts/diaphragm-pump-sleeve/diaphragm-pump-sleeve.numbers.json",
@@ -6985,6 +6646,9 @@ done
 for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
   if [ -d $$d ]; then mkdir -p work-diaphragm-pump-sleeve/$$(dirname $$d); ln -sfn $$PWD/$$d work-diaphragm-pump-sleeve/$$d; fi
 done
+for f in hardware/scripts/_run_lock.py hardware/scripts/_run_native.py hardware/scripts/_run_slots.py tools/hsm/run-slots.defaults.json tools/run-slots.mjs tools/run.py; do
+  mkdir -p work-diaphragm-pump-sleeve/$$(dirname $$f); cp $$HSM_WORKSPACE/$$f work-diaphragm-pump-sleeve/$$f
+done
 cd work-diaphragm-pump-sleeve
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
@@ -7014,9 +6678,6 @@ genrule(
         "hardware/scripts/_build_data.py",
         "hardware/scripts/_material_base.py",
         "hardware/scripts/_materials.py",
-        "hardware/scripts/_run_lock.py",
-        "hardware/scripts/_run_native.py",
-        "hardware/scripts/_run_slots.py",
         "hardware/scripts/_rust_data.py",
         "hardware/scripts/_rust_part.py",
         "hardware/scripts/_shared_data.py",
@@ -7087,18 +6748,6 @@ genrule(
         "tools/hsm/part-data/src/sleeve.rs",
         "tools/hsm/part-data/src/storage.rs",
         "tools/hsm/part-data/src/zone.rs",
-        "tools/hsm/run-native/Cargo.toml",
-        "tools/hsm/run-native/src/lib.rs",
-        "tools/hsm/run-slots.defaults.json",
-        "tools/hsm/run-slots/Cargo.toml",
-        "tools/hsm/run-slots/src/ipc.rs",
-        "tools/hsm/run-slots/src/lib.rs",
-        "tools/hsm/run-slots/src/main.rs",
-        "tools/hsm/run-slots/src/runtime.rs",
-        "tools/hsm/run-slots/src/runtime/cad.rs",
-        "tools/hsm/run-slots/src/runtime/install.rs",
-        "tools/hsm/run-slots/src/runtime/runner.rs",
-        "tools/hsm/run-slots/src/runtime/slots.rs",
         "tools/hsm/shared-data/Cargo.toml",
         "tools/hsm/shared-data/catalog/materials.json",
         "tools/hsm/shared-data/catalog/routing.json",
@@ -7110,8 +6759,6 @@ genrule(
         "tools/hsm/shared-data/src/main.rs",
         "tools/hsm/shared-data/src/routing.rs",
         "tools/hsm/shared-data/src/scalars.rs",
-        "tools/run-slots.mjs",
-        "tools/run.py",
     ],
     outs = [
         "out/pcba-assembly/hardware/printed-parts/electronics/pcba-tray/pcba-assembly.numbers.json",
@@ -7163,6 +6810,9 @@ for f in $(SRCS); do
 done
 for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
   if [ -d $$d ]; then mkdir -p work-pcba-assembly/$$(dirname $$d); ln -sfn $$PWD/$$d work-pcba-assembly/$$d; fi
+done
+for f in hardware/scripts/_run_lock.py hardware/scripts/_run_native.py hardware/scripts/_run_slots.py tools/hsm/run-slots.defaults.json tools/run-slots.mjs tools/run.py; do
+  mkdir -p work-pcba-assembly/$$(dirname $$f); cp $$HSM_WORKSPACE/$$f work-pcba-assembly/$$f
 done
 cd work-pcba-assembly
 ln -sfn $$HSM_WORKSPACE/.cache .cache
@@ -7232,9 +6882,6 @@ genrule(
         "hardware/scripts/_material_base.py",
         "hardware/scripts/_materials.py",
         "hardware/scripts/_occt_color.py",
-        "hardware/scripts/_run_lock.py",
-        "hardware/scripts/_run_native.py",
-        "hardware/scripts/_run_slots.py",
         "hardware/scripts/_rust_data.py",
         "hardware/scripts/_rust_objects.py",
         "hardware/scripts/_rust_part.py",
@@ -7352,18 +6999,6 @@ genrule(
         "tools/hsm/part-data/src/sleeve.rs",
         "tools/hsm/part-data/src/storage.rs",
         "tools/hsm/part-data/src/zone.rs",
-        "tools/hsm/run-native/Cargo.toml",
-        "tools/hsm/run-native/src/lib.rs",
-        "tools/hsm/run-slots.defaults.json",
-        "tools/hsm/run-slots/Cargo.toml",
-        "tools/hsm/run-slots/src/ipc.rs",
-        "tools/hsm/run-slots/src/lib.rs",
-        "tools/hsm/run-slots/src/main.rs",
-        "tools/hsm/run-slots/src/runtime.rs",
-        "tools/hsm/run-slots/src/runtime/cad.rs",
-        "tools/hsm/run-slots/src/runtime/install.rs",
-        "tools/hsm/run-slots/src/runtime/runner.rs",
-        "tools/hsm/run-slots/src/runtime/slots.rs",
         "tools/hsm/shared-data/Cargo.toml",
         "tools/hsm/shared-data/catalog/materials.json",
         "tools/hsm/shared-data/catalog/routing.json",
@@ -7398,8 +7033,6 @@ genrule(
         "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/memory",
         "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/mutex",
         "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/libcxx-extras.cpp",
-        "tools/run-slots.mjs",
-        "tools/run.py",
     ],
     outs = [
         "out/data-ring/hardware/printed-parts/enclosure/data-ring/data-ring.numbers.json",
@@ -7447,6 +7080,9 @@ for f in $(SRCS); do
 done
 for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
   if [ -d $$d ]; then mkdir -p work-data-ring/$$(dirname $$d); ln -sfn $$PWD/$$d work-data-ring/$$d; fi
+done
+for f in hardware/scripts/_run_lock.py hardware/scripts/_run_native.py hardware/scripts/_run_slots.py tools/hsm/run-slots.defaults.json tools/run-slots.mjs tools/run.py; do
+  mkdir -p work-data-ring/$$(dirname $$f); cp $$HSM_WORKSPACE/$$f work-data-ring/$$f
 done
 cd work-data-ring
 ln -sfn $$HSM_WORKSPACE/.cache .cache
@@ -7512,9 +7148,6 @@ genrule(
         "hardware/scripts/_materials.py",
         "hardware/scripts/_occt_color.py",
         "hardware/scripts/_realized.py",
-        "hardware/scripts/_run_lock.py",
-        "hardware/scripts/_run_native.py",
-        "hardware/scripts/_run_slots.py",
         "hardware/scripts/_rust_data.py",
         "hardware/scripts/_rust_objects.py",
         "hardware/scripts/_rust_part.py",
@@ -7623,18 +7256,6 @@ genrule(
         "tools/hsm/kernel/src/topo.rs",
         "tools/hsm/kernel/src/triangulate.rs",
         "tools/hsm/kernel/src/write.rs",
-        "tools/hsm/run-native/Cargo.toml",
-        "tools/hsm/run-native/src/lib.rs",
-        "tools/hsm/run-slots.defaults.json",
-        "tools/hsm/run-slots/Cargo.toml",
-        "tools/hsm/run-slots/src/ipc.rs",
-        "tools/hsm/run-slots/src/lib.rs",
-        "tools/hsm/run-slots/src/main.rs",
-        "tools/hsm/run-slots/src/runtime.rs",
-        "tools/hsm/run-slots/src/runtime/cad.rs",
-        "tools/hsm/run-slots/src/runtime/install.rs",
-        "tools/hsm/run-slots/src/runtime/runner.rs",
-        "tools/hsm/run-slots/src/runtime/slots.rs",
         "tools/hsm/shared-data/Cargo.toml",
         "tools/hsm/shared-data/catalog/materials.json",
         "tools/hsm/shared-data/catalog/routing.json",
@@ -7668,8 +7289,6 @@ genrule(
         "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/memory",
         "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/mutex",
         "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/libcxx-extras.cpp",
-        "tools/run-slots.mjs",
-        "tools/run.py",
     ],
     outs = [
         "out/display-cover/hardware/printed-parts/enclosure/display-cover/display-cover-fasteners.step.npz",
@@ -7723,6 +7342,9 @@ for f in $(SRCS); do
 done
 for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
   if [ -d $$d ]; then mkdir -p work-display-cover/$$(dirname $$d); ln -sfn $$PWD/$$d work-display-cover/$$d; fi
+done
+for f in hardware/scripts/_run_lock.py hardware/scripts/_run_native.py hardware/scripts/_run_slots.py tools/hsm/run-slots.defaults.json tools/run-slots.mjs tools/run.py; do
+  mkdir -p work-display-cover/$$(dirname $$f); cp $$HSM_WORKSPACE/$$f work-display-cover/$$f
 done
 cd work-display-cover
 ln -sfn $$HSM_WORKSPACE/.cache .cache
@@ -7784,9 +7406,6 @@ genrule(
         "hardware/scripts/_materials.py",
         "hardware/scripts/_occt_color.py",
         "hardware/scripts/_realized.py",
-        "hardware/scripts/_run_lock.py",
-        "hardware/scripts/_run_native.py",
-        "hardware/scripts/_run_slots.py",
         "hardware/scripts/_rust_data.py",
         "hardware/scripts/_rust_objects.py",
         "hardware/scripts/_rust_part.py",
@@ -7895,18 +7514,6 @@ genrule(
         "tools/hsm/kernel/src/topo.rs",
         "tools/hsm/kernel/src/triangulate.rs",
         "tools/hsm/kernel/src/write.rs",
-        "tools/hsm/run-native/Cargo.toml",
-        "tools/hsm/run-native/src/lib.rs",
-        "tools/hsm/run-slots.defaults.json",
-        "tools/hsm/run-slots/Cargo.toml",
-        "tools/hsm/run-slots/src/ipc.rs",
-        "tools/hsm/run-slots/src/lib.rs",
-        "tools/hsm/run-slots/src/main.rs",
-        "tools/hsm/run-slots/src/runtime.rs",
-        "tools/hsm/run-slots/src/runtime/cad.rs",
-        "tools/hsm/run-slots/src/runtime/install.rs",
-        "tools/hsm/run-slots/src/runtime/runner.rs",
-        "tools/hsm/run-slots/src/runtime/slots.rs",
         "tools/hsm/shared-data/Cargo.toml",
         "tools/hsm/shared-data/catalog/materials.json",
         "tools/hsm/shared-data/catalog/routing.json",
@@ -7940,8 +7547,6 @@ genrule(
         "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/memory",
         "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/mutex",
         "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/libcxx-extras.cpp",
-        "tools/run-slots.mjs",
-        "tools/run.py",
     ],
     outs = [
         "out/display-gasket/hardware/printed-parts/enclosure/display-gasket/display-gasket.numbers.json",
@@ -7989,6 +7594,9 @@ for f in $(SRCS); do
 done
 for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
   if [ -d $$d ]; then mkdir -p work-display-gasket/$$(dirname $$d); ln -sfn $$PWD/$$d work-display-gasket/$$d; fi
+done
+for f in hardware/scripts/_run_lock.py hardware/scripts/_run_native.py hardware/scripts/_run_slots.py tools/hsm/run-slots.defaults.json tools/run-slots.mjs tools/run.py; do
+  mkdir -p work-display-gasket/$$(dirname $$f); cp $$HSM_WORKSPACE/$$f work-display-gasket/$$f
 done
 cd work-display-gasket
 ln -sfn $$HSM_WORKSPACE/.cache .cache
@@ -9686,9 +9294,6 @@ genrule(
         "hardware/scripts/_materials.py",
         "hardware/scripts/_occt_color.py",
         "hardware/scripts/_realized.py",
-        "hardware/scripts/_run_lock.py",
-        "hardware/scripts/_run_native.py",
-        "hardware/scripts/_run_slots.py",
         "hardware/scripts/_rust_data.py",
         "hardware/scripts/_rust_objects.py",
         "hardware/scripts/_rust_part.py",
@@ -9797,18 +9402,6 @@ genrule(
         "tools/hsm/kernel/src/topo.rs",
         "tools/hsm/kernel/src/triangulate.rs",
         "tools/hsm/kernel/src/write.rs",
-        "tools/hsm/run-native/Cargo.toml",
-        "tools/hsm/run-native/src/lib.rs",
-        "tools/hsm/run-slots.defaults.json",
-        "tools/hsm/run-slots/Cargo.toml",
-        "tools/hsm/run-slots/src/ipc.rs",
-        "tools/hsm/run-slots/src/lib.rs",
-        "tools/hsm/run-slots/src/main.rs",
-        "tools/hsm/run-slots/src/runtime.rs",
-        "tools/hsm/run-slots/src/runtime/cad.rs",
-        "tools/hsm/run-slots/src/runtime/install.rs",
-        "tools/hsm/run-slots/src/runtime/runner.rs",
-        "tools/hsm/run-slots/src/runtime/slots.rs",
         "tools/hsm/shared-data/Cargo.toml",
         "tools/hsm/shared-data/catalog/materials.json",
         "tools/hsm/shared-data/catalog/routing.json",
@@ -9842,8 +9435,6 @@ genrule(
         "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/memory",
         "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/mutex",
         "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/libcxx-extras.cpp",
-        "tools/run-slots.mjs",
-        "tools/run.py",
     ],
     outs = [
         "out/nameplate/hardware/printed-parts/enclosure/nameplate/nameplate-001.step",
@@ -9899,6 +9490,9 @@ for f in $(SRCS); do
 done
 for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
   if [ -d $$d ]; then mkdir -p work-nameplate/$$(dirname $$d); ln -sfn $$PWD/$$d work-nameplate/$$d; fi
+done
+for f in hardware/scripts/_run_lock.py hardware/scripts/_run_native.py hardware/scripts/_run_slots.py tools/hsm/run-slots.defaults.json tools/run-slots.mjs tools/run.py; do
+  mkdir -p work-nameplate/$$(dirname $$f); cp $$HSM_WORKSPACE/$$f work-nameplate/$$f
 done
 cd work-nameplate
 ln -sfn $$HSM_WORKSPACE/.cache .cache
@@ -9979,9 +9573,6 @@ genrule(
         "hardware/scripts/_material_base.py",
         "hardware/scripts/_materials.py",
         "hardware/scripts/_occt_color.py",
-        "hardware/scripts/_run_lock.py",
-        "hardware/scripts/_run_native.py",
-        "hardware/scripts/_run_slots.py",
         "hardware/scripts/_rust_data.py",
         "hardware/scripts/_rust_objects.py",
         "hardware/scripts/_rust_part.py",
@@ -10138,18 +9729,6 @@ genrule(
         "tools/hsm/part-data/src/sleeve.rs",
         "tools/hsm/part-data/src/storage.rs",
         "tools/hsm/part-data/src/zone.rs",
-        "tools/hsm/run-native/Cargo.toml",
-        "tools/hsm/run-native/src/lib.rs",
-        "tools/hsm/run-slots.defaults.json",
-        "tools/hsm/run-slots/Cargo.toml",
-        "tools/hsm/run-slots/src/ipc.rs",
-        "tools/hsm/run-slots/src/lib.rs",
-        "tools/hsm/run-slots/src/main.rs",
-        "tools/hsm/run-slots/src/runtime.rs",
-        "tools/hsm/run-slots/src/runtime/cad.rs",
-        "tools/hsm/run-slots/src/runtime/install.rs",
-        "tools/hsm/run-slots/src/runtime/runner.rs",
-        "tools/hsm/run-slots/src/runtime/slots.rs",
         "tools/hsm/shared-data/Cargo.toml",
         "tools/hsm/shared-data/catalog/materials.json",
         "tools/hsm/shared-data/catalog/routing.json",
@@ -10184,8 +9763,6 @@ genrule(
         "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/memory",
         "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/mutex",
         "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/libcxx-extras.cpp",
-        "tools/run-slots.mjs",
-        "tools/run.py",
     ],
     outs = [
         "out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step",
@@ -10263,6 +9840,9 @@ for f in $(SRCS); do
 done
 for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
   if [ -d $$d ]; then mkdir -p work-rear-equipment-caps/$$(dirname $$d); ln -sfn $$PWD/$$d work-rear-equipment-caps/$$d; fi
+done
+for f in hardware/scripts/_run_lock.py hardware/scripts/_run_native.py hardware/scripts/_run_slots.py tools/hsm/run-slots.defaults.json tools/run-slots.mjs tools/run.py; do
+  mkdir -p work-rear-equipment-caps/$$(dirname $$f); cp $$HSM_WORKSPACE/$$f work-rear-equipment-caps/$$f
 done
 cd work-rear-equipment-caps
 ln -sfn $$HSM_WORKSPACE/.cache .cache
@@ -10348,9 +9928,6 @@ genrule(
         "hardware/scripts/_material_base.py",
         "hardware/scripts/_materials.py",
         "hardware/scripts/_occt_color.py",
-        "hardware/scripts/_run_lock.py",
-        "hardware/scripts/_run_native.py",
-        "hardware/scripts/_run_slots.py",
         "hardware/scripts/_rust_data.py",
         "hardware/scripts/_rust_objects.py",
         "hardware/scripts/_rust_part.py",
@@ -10475,18 +10052,6 @@ genrule(
         "tools/hsm/part-data/src/sleeve.rs",
         "tools/hsm/part-data/src/storage.rs",
         "tools/hsm/part-data/src/zone.rs",
-        "tools/hsm/run-native/Cargo.toml",
-        "tools/hsm/run-native/src/lib.rs",
-        "tools/hsm/run-slots.defaults.json",
-        "tools/hsm/run-slots/Cargo.toml",
-        "tools/hsm/run-slots/src/ipc.rs",
-        "tools/hsm/run-slots/src/lib.rs",
-        "tools/hsm/run-slots/src/main.rs",
-        "tools/hsm/run-slots/src/runtime.rs",
-        "tools/hsm/run-slots/src/runtime/cad.rs",
-        "tools/hsm/run-slots/src/runtime/install.rs",
-        "tools/hsm/run-slots/src/runtime/runner.rs",
-        "tools/hsm/run-slots/src/runtime/slots.rs",
         "tools/hsm/shared-data/Cargo.toml",
         "tools/hsm/shared-data/catalog/materials.json",
         "tools/hsm/shared-data/catalog/routing.json",
@@ -10521,8 +10086,6 @@ genrule(
         "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/memory",
         "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/mutex",
         "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/libcxx-extras.cpp",
-        "tools/run-slots.mjs",
-        "tools/run.py",
     ],
     outs = [
         "out/rear-identification/hardware/printed-parts/enclosure/rear-identification/rear-identification.numbers.json",
@@ -10611,6 +10174,9 @@ done
 for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
   if [ -d $$d ]; then mkdir -p work-rear-identification/$$(dirname $$d); ln -sfn $$PWD/$$d work-rear-identification/$$d; fi
 done
+for f in hardware/scripts/_run_lock.py hardware/scripts/_run_native.py hardware/scripts/_run_slots.py tools/hsm/run-slots.defaults.json tools/run-slots.mjs tools/run.py; do
+  mkdir -p work-rear-identification/$$(dirname $$f); cp $$HSM_WORKSPACE/$$f work-rear-identification/$$f
+done
 cd work-rear-identification
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
@@ -10669,9 +10235,6 @@ genrule(
         "hardware/scripts/_machine_data.py",
         "hardware/scripts/_material_base.py",
         "hardware/scripts/_materials.py",
-        "hardware/scripts/_run_lock.py",
-        "hardware/scripts/_run_native.py",
-        "hardware/scripts/_run_slots.py",
         "hardware/scripts/_rust_data.py",
         "hardware/scripts/_rust_objects.py",
         "hardware/scripts/_rust_part.py",
@@ -10762,18 +10325,6 @@ genrule(
         "tools/hsm/layout-data/src/rear.rs",
         "tools/hsm/layout-data/src/routes.rs",
         "tools/hsm/layout-data/src/soda.rs",
-        "tools/hsm/run-native/Cargo.toml",
-        "tools/hsm/run-native/src/lib.rs",
-        "tools/hsm/run-slots.defaults.json",
-        "tools/hsm/run-slots/Cargo.toml",
-        "tools/hsm/run-slots/src/ipc.rs",
-        "tools/hsm/run-slots/src/lib.rs",
-        "tools/hsm/run-slots/src/main.rs",
-        "tools/hsm/run-slots/src/runtime.rs",
-        "tools/hsm/run-slots/src/runtime/cad.rs",
-        "tools/hsm/run-slots/src/runtime/install.rs",
-        "tools/hsm/run-slots/src/runtime/runner.rs",
-        "tools/hsm/run-slots/src/runtime/slots.rs",
         "tools/hsm/shared-data/Cargo.toml",
         "tools/hsm/shared-data/catalog/materials.json",
         "tools/hsm/shared-data/catalog/routing.json",
@@ -10785,8 +10336,6 @@ genrule(
         "tools/hsm/shared-data/src/main.rs",
         "tools/hsm/shared-data/src/routing.rs",
         "tools/hsm/shared-data/src/scalars.rs",
-        "tools/run-slots.mjs",
-        "tools/run.py",
     ],
     outs = [
         "out/above-counter-gasket/hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.numbers.json",
@@ -10833,6 +10382,9 @@ done
 for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
   if [ -d $$d ]; then mkdir -p work-above-counter-gasket/$$(dirname $$d); ln -sfn $$PWD/$$d work-above-counter-gasket/$$d; fi
 done
+for f in hardware/scripts/_run_lock.py hardware/scripts/_run_native.py hardware/scripts/_run_slots.py tools/hsm/run-slots.defaults.json tools/run-slots.mjs tools/run.py; do
+  mkdir -p work-above-counter-gasket/$$(dirname $$f); cp $$HSM_WORKSPACE/$$f work-above-counter-gasket/$$f
+done
 cd work-above-counter-gasket
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
@@ -10870,9 +10422,6 @@ genrule(
         "hardware/scripts/_machine_data.py",
         "hardware/scripts/_material_base.py",
         "hardware/scripts/_materials.py",
-        "hardware/scripts/_run_lock.py",
-        "hardware/scripts/_run_native.py",
-        "hardware/scripts/_run_slots.py",
         "hardware/scripts/_rust_data.py",
         "hardware/scripts/_rust_objects.py",
         "hardware/scripts/_rust_part.py",
@@ -10963,18 +10512,6 @@ genrule(
         "tools/hsm/layout-data/src/rear.rs",
         "tools/hsm/layout-data/src/routes.rs",
         "tools/hsm/layout-data/src/soda.rs",
-        "tools/hsm/run-native/Cargo.toml",
-        "tools/hsm/run-native/src/lib.rs",
-        "tools/hsm/run-slots.defaults.json",
-        "tools/hsm/run-slots/Cargo.toml",
-        "tools/hsm/run-slots/src/ipc.rs",
-        "tools/hsm/run-slots/src/lib.rs",
-        "tools/hsm/run-slots/src/main.rs",
-        "tools/hsm/run-slots/src/runtime.rs",
-        "tools/hsm/run-slots/src/runtime/cad.rs",
-        "tools/hsm/run-slots/src/runtime/install.rs",
-        "tools/hsm/run-slots/src/runtime/runner.rs",
-        "tools/hsm/run-slots/src/runtime/slots.rs",
         "tools/hsm/shared-data/Cargo.toml",
         "tools/hsm/shared-data/catalog/materials.json",
         "tools/hsm/shared-data/catalog/routing.json",
@@ -10986,8 +10523,6 @@ genrule(
         "tools/hsm/shared-data/src/main.rs",
         "tools/hsm/shared-data/src/routing.rs",
         "tools/hsm/shared-data/src/scalars.rs",
-        "tools/run-slots.mjs",
-        "tools/run.py",
     ],
     outs = [
         "out/above-counter-plate/hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.numbers.json",
@@ -11034,6 +10569,9 @@ done
 for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
   if [ -d $$d ]; then mkdir -p work-above-counter-plate/$$(dirname $$d); ln -sfn $$PWD/$$d work-above-counter-plate/$$d; fi
 done
+for f in hardware/scripts/_run_lock.py hardware/scripts/_run_native.py hardware/scripts/_run_slots.py tools/hsm/run-slots.defaults.json tools/run-slots.mjs tools/run.py; do
+  mkdir -p work-above-counter-plate/$$(dirname $$f); cp $$HSM_WORKSPACE/$$f work-above-counter-plate/$$f
+done
 cd work-above-counter-plate
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
@@ -11071,9 +10609,6 @@ genrule(
         "hardware/scripts/_machine_data.py",
         "hardware/scripts/_material_base.py",
         "hardware/scripts/_materials.py",
-        "hardware/scripts/_run_lock.py",
-        "hardware/scripts/_run_native.py",
-        "hardware/scripts/_run_slots.py",
         "hardware/scripts/_rust_data.py",
         "hardware/scripts/_rust_objects.py",
         "hardware/scripts/_rust_part.py",
@@ -11164,18 +10699,6 @@ genrule(
         "tools/hsm/layout-data/src/rear.rs",
         "tools/hsm/layout-data/src/routes.rs",
         "tools/hsm/layout-data/src/soda.rs",
-        "tools/hsm/run-native/Cargo.toml",
-        "tools/hsm/run-native/src/lib.rs",
-        "tools/hsm/run-slots.defaults.json",
-        "tools/hsm/run-slots/Cargo.toml",
-        "tools/hsm/run-slots/src/ipc.rs",
-        "tools/hsm/run-slots/src/lib.rs",
-        "tools/hsm/run-slots/src/main.rs",
-        "tools/hsm/run-slots/src/runtime.rs",
-        "tools/hsm/run-slots/src/runtime/cad.rs",
-        "tools/hsm/run-slots/src/runtime/install.rs",
-        "tools/hsm/run-slots/src/runtime/runner.rs",
-        "tools/hsm/run-slots/src/runtime/slots.rs",
         "tools/hsm/shared-data/Cargo.toml",
         "tools/hsm/shared-data/catalog/materials.json",
         "tools/hsm/shared-data/catalog/routing.json",
@@ -11187,8 +10710,6 @@ genrule(
         "tools/hsm/shared-data/src/main.rs",
         "tools/hsm/shared-data/src/routing.rs",
         "tools/hsm/shared-data/src/scalars.rs",
-        "tools/run-slots.mjs",
-        "tools/run.py",
     ],
     outs = [
         "out/faucet-display-cover/hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover-seated.step",
@@ -11241,6 +10762,9 @@ done
 for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
   if [ -d $$d ]; then mkdir -p work-faucet-display-cover/$$(dirname $$d); ln -sfn $$PWD/$$d work-faucet-display-cover/$$d; fi
 done
+for f in hardware/scripts/_run_lock.py hardware/scripts/_run_native.py hardware/scripts/_run_slots.py tools/hsm/run-slots.defaults.json tools/run-slots.mjs tools/run.py; do
+  mkdir -p work-faucet-display-cover/$$(dirname $$f); cp $$HSM_WORKSPACE/$$f work-faucet-display-cover/$$f
+done
 cd work-faucet-display-cover
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
@@ -11280,9 +10804,6 @@ genrule(
         "hardware/scripts/_machine_data.py",
         "hardware/scripts/_material_base.py",
         "hardware/scripts/_materials.py",
-        "hardware/scripts/_run_lock.py",
-        "hardware/scripts/_run_native.py",
-        "hardware/scripts/_run_slots.py",
         "hardware/scripts/_rust_data.py",
         "hardware/scripts/_rust_objects.py",
         "hardware/scripts/_rust_part.py",
@@ -11373,18 +10894,6 @@ genrule(
         "tools/hsm/layout-data/src/rear.rs",
         "tools/hsm/layout-data/src/routes.rs",
         "tools/hsm/layout-data/src/soda.rs",
-        "tools/hsm/run-native/Cargo.toml",
-        "tools/hsm/run-native/src/lib.rs",
-        "tools/hsm/run-slots.defaults.json",
-        "tools/hsm/run-slots/Cargo.toml",
-        "tools/hsm/run-slots/src/ipc.rs",
-        "tools/hsm/run-slots/src/lib.rs",
-        "tools/hsm/run-slots/src/main.rs",
-        "tools/hsm/run-slots/src/runtime.rs",
-        "tools/hsm/run-slots/src/runtime/cad.rs",
-        "tools/hsm/run-slots/src/runtime/install.rs",
-        "tools/hsm/run-slots/src/runtime/runner.rs",
-        "tools/hsm/run-slots/src/runtime/slots.rs",
         "tools/hsm/shared-data/Cargo.toml",
         "tools/hsm/shared-data/catalog/materials.json",
         "tools/hsm/shared-data/catalog/routing.json",
@@ -11396,8 +10905,6 @@ genrule(
         "tools/hsm/shared-data/src/main.rs",
         "tools/hsm/shared-data/src/routing.rs",
         "tools/hsm/shared-data/src/scalars.rs",
-        "tools/run-slots.mjs",
-        "tools/run.py",
     ],
     outs = [
         "out/faucet-shell/hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step",
@@ -11456,6 +10963,9 @@ done
 for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
   if [ -d $$d ]; then mkdir -p work-faucet-shell/$$(dirname $$d); ln -sfn $$PWD/$$d work-faucet-shell/$$d; fi
 done
+for f in hardware/scripts/_run_lock.py hardware/scripts/_run_native.py hardware/scripts/_run_slots.py tools/hsm/run-slots.defaults.json tools/run-slots.mjs tools/run.py; do
+  mkdir -p work-faucet-shell/$$(dirname $$f); cp $$HSM_WORKSPACE/$$f work-faucet-shell/$$f
+done
 cd work-faucet-shell
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
@@ -11504,9 +11014,6 @@ genrule(
         "hardware/scripts/_materials.py",
         "hardware/scripts/_mesh_payload.py",
         "hardware/scripts/_payload_rules.py",
-        "hardware/scripts/_run_lock.py",
-        "hardware/scripts/_run_native.py",
-        "hardware/scripts/_run_slots.py",
         "hardware/scripts/_rust_data.py",
         "hardware/scripts/_rust_objects.py",
         "hardware/scripts/_rust_part.py",
@@ -11603,18 +11110,6 @@ genrule(
         "tools/hsm/print-payload/src/lib.rs",
         "tools/hsm/print-payload/src/main.rs",
         "tools/hsm/print-payload/src/quadric.rs",
-        "tools/hsm/run-native/Cargo.toml",
-        "tools/hsm/run-native/src/lib.rs",
-        "tools/hsm/run-slots.defaults.json",
-        "tools/hsm/run-slots/Cargo.toml",
-        "tools/hsm/run-slots/src/ipc.rs",
-        "tools/hsm/run-slots/src/lib.rs",
-        "tools/hsm/run-slots/src/main.rs",
-        "tools/hsm/run-slots/src/runtime.rs",
-        "tools/hsm/run-slots/src/runtime/cad.rs",
-        "tools/hsm/run-slots/src/runtime/install.rs",
-        "tools/hsm/run-slots/src/runtime/runner.rs",
-        "tools/hsm/run-slots/src/runtime/slots.rs",
         "tools/hsm/shared-data/Cargo.toml",
         "tools/hsm/shared-data/catalog/materials.json",
         "tools/hsm/shared-data/catalog/routing.json",
@@ -11626,8 +11121,6 @@ genrule(
         "tools/hsm/shared-data/src/main.rs",
         "tools/hsm/shared-data/src/routing.rs",
         "tools/hsm/shared-data/src/scalars.rs",
-        "tools/run-slots.mjs",
-        "tools/run.py",
     ],
     outs = [
         "out/industrial-faucet/hardware/printed-parts/faucet/industrial/industrial-above-counter-gasket.step",
@@ -11706,6 +11199,9 @@ done
 for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
   if [ -d $$d ]; then mkdir -p work-industrial-faucet/$$(dirname $$d); ln -sfn $$PWD/$$d work-industrial-faucet/$$d; fi
 done
+for f in hardware/scripts/_run_lock.py hardware/scripts/_run_native.py hardware/scripts/_run_slots.py tools/hsm/run-slots.defaults.json tools/run-slots.mjs tools/run.py; do
+  mkdir -p work-industrial-faucet/$$(dirname $$f); cp $$HSM_WORKSPACE/$$f work-industrial-faucet/$$f
+done
 cd work-industrial-faucet
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
@@ -11748,9 +11244,6 @@ genrule(
         "hardware/scripts/_materials.py",
         "hardware/scripts/_mesh_payload.py",
         "hardware/scripts/_payload_rules.py",
-        "hardware/scripts/_run_lock.py",
-        "hardware/scripts/_run_native.py",
-        "hardware/scripts/_run_slots.py",
         "hardware/scripts/_rust_data.py",
         "hardware/scripts/_rust_part.py",
         "hardware/scripts/_rust_print_payload.py",
@@ -11839,18 +11332,6 @@ genrule(
         "tools/hsm/print-payload/src/lib.rs",
         "tools/hsm/print-payload/src/main.rs",
         "tools/hsm/print-payload/src/quadric.rs",
-        "tools/hsm/run-native/Cargo.toml",
-        "tools/hsm/run-native/src/lib.rs",
-        "tools/hsm/run-slots.defaults.json",
-        "tools/hsm/run-slots/Cargo.toml",
-        "tools/hsm/run-slots/src/ipc.rs",
-        "tools/hsm/run-slots/src/lib.rs",
-        "tools/hsm/run-slots/src/main.rs",
-        "tools/hsm/run-slots/src/runtime.rs",
-        "tools/hsm/run-slots/src/runtime/cad.rs",
-        "tools/hsm/run-slots/src/runtime/install.rs",
-        "tools/hsm/run-slots/src/runtime/runner.rs",
-        "tools/hsm/run-slots/src/runtime/slots.rs",
         "tools/hsm/shared-data/Cargo.toml",
         "tools/hsm/shared-data/catalog/materials.json",
         "tools/hsm/shared-data/catalog/routing.json",
@@ -11862,8 +11343,6 @@ genrule(
         "tools/hsm/shared-data/src/main.rs",
         "tools/hsm/shared-data/src/routing.rs",
         "tools/hsm/shared-data/src/scalars.rs",
-        "tools/run-slots.mjs",
-        "tools/run.py",
     ],
     outs = [
         "out/lever-replica/hardware/printed-parts/faucet/lever-replica/lever-replica-side-down.stl",
@@ -11914,6 +11393,9 @@ done
 for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
   if [ -d $$d ]; then mkdir -p work-lever-replica/$$(dirname $$d); ln -sfn $$PWD/$$d work-lever-replica/$$d; fi
 done
+for f in hardware/scripts/_run_lock.py hardware/scripts/_run_native.py hardware/scripts/_run_slots.py tools/hsm/run-slots.defaults.json tools/run-slots.mjs tools/run.py; do
+  mkdir -p work-lever-replica/$$(dirname $$f); cp $$HSM_WORKSPACE/$$f work-lever-replica/$$f
+done
 cd work-lever-replica
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
@@ -11939,9 +11421,6 @@ genrule(
         "hardware/scripts/_build_data.py",
         "hardware/scripts/_material_base.py",
         "hardware/scripts/_materials.py",
-        "hardware/scripts/_run_lock.py",
-        "hardware/scripts/_run_native.py",
-        "hardware/scripts/_run_slots.py",
         "hardware/scripts/_rust_data.py",
         "hardware/scripts/_rust_part.py",
         "hardware/scripts/_shared_data.py",
@@ -12024,18 +11503,6 @@ genrule(
         "tools/hsm/kernel/src/topo.rs",
         "tools/hsm/kernel/src/triangulate.rs",
         "tools/hsm/kernel/src/write.rs",
-        "tools/hsm/run-native/Cargo.toml",
-        "tools/hsm/run-native/src/lib.rs",
-        "tools/hsm/run-slots.defaults.json",
-        "tools/hsm/run-slots/Cargo.toml",
-        "tools/hsm/run-slots/src/ipc.rs",
-        "tools/hsm/run-slots/src/lib.rs",
-        "tools/hsm/run-slots/src/main.rs",
-        "tools/hsm/run-slots/src/runtime.rs",
-        "tools/hsm/run-slots/src/runtime/cad.rs",
-        "tools/hsm/run-slots/src/runtime/install.rs",
-        "tools/hsm/run-slots/src/runtime/runner.rs",
-        "tools/hsm/run-slots/src/runtime/slots.rs",
         "tools/hsm/shared-data/Cargo.toml",
         "tools/hsm/shared-data/catalog/materials.json",
         "tools/hsm/shared-data/catalog/routing.json",
@@ -12047,8 +11514,6 @@ genrule(
         "tools/hsm/shared-data/src/main.rs",
         "tools/hsm/shared-data/src/routing.rs",
         "tools/hsm/shared-data/src/scalars.rs",
-        "tools/run-slots.mjs",
-        "tools/run.py",
     ],
     outs = [
         "out/tpu-o-ring/hardware/printed-parts/faucet/tpu-o-ring/tpu-o-ring.numbers.json",
@@ -12097,6 +11562,9 @@ done
 for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
   if [ -d $$d ]; then mkdir -p work-tpu-o-ring/$$(dirname $$d); ln -sfn $$PWD/$$d work-tpu-o-ring/$$d; fi
 done
+for f in hardware/scripts/_run_lock.py hardware/scripts/_run_native.py hardware/scripts/_run_slots.py tools/hsm/run-slots.defaults.json tools/run-slots.mjs tools/run.py; do
+  mkdir -p work-tpu-o-ring/$$(dirname $$f); cp $$HSM_WORKSPACE/$$f work-tpu-o-ring/$$f
+done
 cd work-tpu-o-ring
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
@@ -12122,9 +11590,6 @@ genrule(
         "hardware/scripts/_document_export.py",
         "hardware/scripts/_material_base.py",
         "hardware/scripts/_materials.py",
-        "hardware/scripts/_run_lock.py",
-        "hardware/scripts/_run_native.py",
-        "hardware/scripts/_run_slots.py",
         "hardware/scripts/_rust_data.py",
         "hardware/scripts/_rust_part.py",
         "hardware/scripts/_shared_data.py",
@@ -12207,18 +11672,6 @@ genrule(
         "tools/hsm/kernel/src/topo.rs",
         "tools/hsm/kernel/src/triangulate.rs",
         "tools/hsm/kernel/src/write.rs",
-        "tools/hsm/run-native/Cargo.toml",
-        "tools/hsm/run-native/src/lib.rs",
-        "tools/hsm/run-slots.defaults.json",
-        "tools/hsm/run-slots/Cargo.toml",
-        "tools/hsm/run-slots/src/ipc.rs",
-        "tools/hsm/run-slots/src/lib.rs",
-        "tools/hsm/run-slots/src/main.rs",
-        "tools/hsm/run-slots/src/runtime.rs",
-        "tools/hsm/run-slots/src/runtime/cad.rs",
-        "tools/hsm/run-slots/src/runtime/install.rs",
-        "tools/hsm/run-slots/src/runtime/runner.rs",
-        "tools/hsm/run-slots/src/runtime/slots.rs",
         "tools/hsm/shared-data/Cargo.toml",
         "tools/hsm/shared-data/catalog/materials.json",
         "tools/hsm/shared-data/catalog/routing.json",
@@ -12230,8 +11683,6 @@ genrule(
         "tools/hsm/shared-data/src/main.rs",
         "tools/hsm/shared-data/src/routing.rs",
         "tools/hsm/shared-data/src/scalars.rs",
-        "tools/run-slots.mjs",
-        "tools/run.py",
     ],
     outs = [
         "out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-carb.step",
@@ -12320,6 +11771,9 @@ done
 for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
   if [ -d $$d ]; then mkdir -p work-tube-collar/$$(dirname $$d); ln -sfn $$PWD/$$d work-tube-collar/$$d; fi
 done
+for f in hardware/scripts/_run_lock.py hardware/scripts/_run_native.py hardware/scripts/_run_slots.py tools/hsm/run-slots.defaults.json tools/run-slots.mjs tools/run.py; do
+  mkdir -p work-tube-collar/$$(dirname $$f); cp $$HSM_WORKSPACE/$$f work-tube-collar/$$f
+done
 cd work-tube-collar
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
@@ -12368,9 +11822,6 @@ genrule(
         "hardware/scripts/_materials.py",
         "hardware/scripts/_mesh_payload.py",
         "hardware/scripts/_payload_rules.py",
-        "hardware/scripts/_run_lock.py",
-        "hardware/scripts/_run_native.py",
-        "hardware/scripts/_run_slots.py",
         "hardware/scripts/_rust_data.py",
         "hardware/scripts/_rust_part.py",
         "hardware/scripts/_rust_print_payload.py",
@@ -12459,18 +11910,6 @@ genrule(
         "tools/hsm/print-payload/src/lib.rs",
         "tools/hsm/print-payload/src/main.rs",
         "tools/hsm/print-payload/src/quadric.rs",
-        "tools/hsm/run-native/Cargo.toml",
-        "tools/hsm/run-native/src/lib.rs",
-        "tools/hsm/run-slots.defaults.json",
-        "tools/hsm/run-slots/Cargo.toml",
-        "tools/hsm/run-slots/src/ipc.rs",
-        "tools/hsm/run-slots/src/lib.rs",
-        "tools/hsm/run-slots/src/main.rs",
-        "tools/hsm/run-slots/src/runtime.rs",
-        "tools/hsm/run-slots/src/runtime/cad.rs",
-        "tools/hsm/run-slots/src/runtime/install.rs",
-        "tools/hsm/run-slots/src/runtime/runner.rs",
-        "tools/hsm/run-slots/src/runtime/slots.rs",
         "tools/hsm/shared-data/Cargo.toml",
         "tools/hsm/shared-data/catalog/materials.json",
         "tools/hsm/shared-data/catalog/routing.json",
@@ -12482,8 +11921,6 @@ genrule(
         "tools/hsm/shared-data/src/main.rs",
         "tools/hsm/shared-data/src/routing.rs",
         "tools/hsm/shared-data/src/scalars.rs",
-        "tools/run-slots.mjs",
-        "tools/run.py",
     ],
     outs = [
         "out/umbilical-organizer/hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer.numbers.json",
@@ -12532,6 +11969,9 @@ done
 for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
   if [ -d $$d ]; then mkdir -p work-umbilical-organizer/$$(dirname $$d); ln -sfn $$PWD/$$d work-umbilical-organizer/$$d; fi
 done
+for f in hardware/scripts/_run_lock.py hardware/scripts/_run_native.py hardware/scripts/_run_slots.py tools/hsm/run-slots.defaults.json tools/run-slots.mjs tools/run.py; do
+  mkdir -p work-umbilical-organizer/$$(dirname $$f); cp $$HSM_WORKSPACE/$$f work-umbilical-organizer/$$f
+done
 cd work-umbilical-organizer
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
@@ -12559,9 +11999,6 @@ genrule(
         "hardware/scripts/_material_base.py",
         "hardware/scripts/_materials.py",
         "hardware/scripts/_part_output.py",
-        "hardware/scripts/_run_lock.py",
-        "hardware/scripts/_run_native.py",
-        "hardware/scripts/_run_slots.py",
         "hardware/scripts/_rust_data.py",
         "hardware/scripts/_rust_part.py",
         "hardware/scripts/_shared_data.py",
@@ -12630,18 +12067,6 @@ genrule(
         "tools/hsm/part-data/src/sleeve.rs",
         "tools/hsm/part-data/src/storage.rs",
         "tools/hsm/part-data/src/zone.rs",
-        "tools/hsm/run-native/Cargo.toml",
-        "tools/hsm/run-native/src/lib.rs",
-        "tools/hsm/run-slots.defaults.json",
-        "tools/hsm/run-slots/Cargo.toml",
-        "tools/hsm/run-slots/src/ipc.rs",
-        "tools/hsm/run-slots/src/lib.rs",
-        "tools/hsm/run-slots/src/main.rs",
-        "tools/hsm/run-slots/src/runtime.rs",
-        "tools/hsm/run-slots/src/runtime/cad.rs",
-        "tools/hsm/run-slots/src/runtime/install.rs",
-        "tools/hsm/run-slots/src/runtime/runner.rs",
-        "tools/hsm/run-slots/src/runtime/slots.rs",
         "tools/hsm/shared-data/Cargo.toml",
         "tools/hsm/shared-data/catalog/materials.json",
         "tools/hsm/shared-data/catalog/routing.json",
@@ -12654,8 +12079,6 @@ genrule(
         "tools/hsm/shared-data/src/routing.rs",
         "tools/hsm/shared-data/src/scalars.rs",
         "tools/hsm/tooling/Cargo.toml",
-        "tools/run-slots.mjs",
-        "tools/run.py",
     ],
     outs = [
         "out/fake-countertop/hardware/printed-parts/fixtures/fake-countertop/fake-countertop.step",
@@ -12700,6 +12123,9 @@ done
 for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
   if [ -d $$d ]; then mkdir -p work-fake-countertop/$$(dirname $$d); ln -sfn $$PWD/$$d work-fake-countertop/$$d; fi
 done
+for f in hardware/scripts/_run_lock.py hardware/scripts/_run_native.py hardware/scripts/_run_slots.py tools/hsm/run-slots.defaults.json tools/run-slots.mjs tools/run.py; do
+  mkdir -p work-fake-countertop/$$(dirname $$f); cp $$HSM_WORKSPACE/$$f work-fake-countertop/$$f
+done
 cd work-fake-countertop
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
@@ -12735,9 +12161,6 @@ genrule(
         "hardware/scripts/_material_base.py",
         "hardware/scripts/_materials.py",
         "hardware/scripts/_part_output.py",
-        "hardware/scripts/_run_lock.py",
-        "hardware/scripts/_run_native.py",
-        "hardware/scripts/_run_slots.py",
         "hardware/scripts/_rust_data.py",
         "hardware/scripts/_rust_part.py",
         "hardware/scripts/_shared_data.py",
@@ -12806,18 +12229,6 @@ genrule(
         "tools/hsm/part-data/src/sleeve.rs",
         "tools/hsm/part-data/src/storage.rs",
         "tools/hsm/part-data/src/zone.rs",
-        "tools/hsm/run-native/Cargo.toml",
-        "tools/hsm/run-native/src/lib.rs",
-        "tools/hsm/run-slots.defaults.json",
-        "tools/hsm/run-slots/Cargo.toml",
-        "tools/hsm/run-slots/src/ipc.rs",
-        "tools/hsm/run-slots/src/lib.rs",
-        "tools/hsm/run-slots/src/main.rs",
-        "tools/hsm/run-slots/src/runtime.rs",
-        "tools/hsm/run-slots/src/runtime/cad.rs",
-        "tools/hsm/run-slots/src/runtime/install.rs",
-        "tools/hsm/run-slots/src/runtime/runner.rs",
-        "tools/hsm/run-slots/src/runtime/slots.rs",
         "tools/hsm/shared-data/Cargo.toml",
         "tools/hsm/shared-data/catalog/materials.json",
         "tools/hsm/shared-data/catalog/routing.json",
@@ -12830,8 +12241,6 @@ genrule(
         "tools/hsm/shared-data/src/routing.rs",
         "tools/hsm/shared-data/src/scalars.rs",
         "tools/hsm/tooling/Cargo.toml",
-        "tools/run-slots.mjs",
-        "tools/run.py",
     ],
     outs = [
         "out/tee-valve-bow-trial/hardware/printed-parts/fixtures/tee-valve-bow-trial/tee-valve-bow-trial-assembly.step",
@@ -12894,6 +12303,9 @@ done
 for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
   if [ -d $$d ]; then mkdir -p work-tee-valve-bow-trial/$$(dirname $$d); ln -sfn $$PWD/$$d work-tee-valve-bow-trial/$$d; fi
 done
+for f in hardware/scripts/_run_lock.py hardware/scripts/_run_native.py hardware/scripts/_run_slots.py tools/hsm/run-slots.defaults.json tools/run-slots.mjs tools/run.py; do
+  mkdir -p work-tee-valve-bow-trial/$$(dirname $$f); cp $$HSM_WORKSPACE/$$f work-tee-valve-bow-trial/$$f
+done
 cd work-tee-valve-bow-trial
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
@@ -12930,9 +12342,6 @@ genrule(
         "hardware/scripts/_material_base.py",
         "hardware/scripts/_materials.py",
         "hardware/scripts/_part_output.py",
-        "hardware/scripts/_run_lock.py",
-        "hardware/scripts/_run_native.py",
-        "hardware/scripts/_run_slots.py",
         "hardware/scripts/_rust_data.py",
         "hardware/scripts/_rust_part.py",
         "hardware/scripts/_shared_data.py",
@@ -13001,18 +12410,6 @@ genrule(
         "tools/hsm/part-data/src/sleeve.rs",
         "tools/hsm/part-data/src/storage.rs",
         "tools/hsm/part-data/src/zone.rs",
-        "tools/hsm/run-native/Cargo.toml",
-        "tools/hsm/run-native/src/lib.rs",
-        "tools/hsm/run-slots.defaults.json",
-        "tools/hsm/run-slots/Cargo.toml",
-        "tools/hsm/run-slots/src/ipc.rs",
-        "tools/hsm/run-slots/src/lib.rs",
-        "tools/hsm/run-slots/src/main.rs",
-        "tools/hsm/run-slots/src/runtime.rs",
-        "tools/hsm/run-slots/src/runtime/cad.rs",
-        "tools/hsm/run-slots/src/runtime/install.rs",
-        "tools/hsm/run-slots/src/runtime/runner.rs",
-        "tools/hsm/run-slots/src/runtime/slots.rs",
         "tools/hsm/shared-data/Cargo.toml",
         "tools/hsm/shared-data/catalog/materials.json",
         "tools/hsm/shared-data/catalog/routing.json",
@@ -13025,8 +12422,6 @@ genrule(
         "tools/hsm/shared-data/src/routing.rs",
         "tools/hsm/shared-data/src/scalars.rs",
         "tools/hsm/tooling/Cargo.toml",
-        "tools/run-slots.mjs",
-        "tools/run.py",
     ],
     outs = [
         "out/tube-miter-box/hardware/printed-parts/fixtures/tube-miter-box/tube-miter-box.numbers.json",
@@ -13073,6 +12468,9 @@ done
 for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
   if [ -d $$d ]; then mkdir -p work-tube-miter-box/$$(dirname $$d); ln -sfn $$PWD/$$d work-tube-miter-box/$$d; fi
 done
+for f in hardware/scripts/_run_lock.py hardware/scripts/_run_native.py hardware/scripts/_run_slots.py tools/hsm/run-slots.defaults.json tools/run-slots.mjs tools/run.py; do
+  mkdir -p work-tube-miter-box/$$(dirname $$f); cp $$HSM_WORKSPACE/$$f work-tube-miter-box/$$f
+done
 cd work-tube-miter-box
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
@@ -13104,9 +12502,6 @@ genrule(
         "hardware/scripts/_build_data.py",
         "hardware/scripts/_material_base.py",
         "hardware/scripts/_materials.py",
-        "hardware/scripts/_run_lock.py",
-        "hardware/scripts/_run_native.py",
-        "hardware/scripts/_run_slots.py",
         "hardware/scripts/_rust_data.py",
         "hardware/scripts/_rust_objects.py",
         "hardware/scripts/_rust_part.py",
@@ -13235,18 +12630,6 @@ genrule(
         "tools/hsm/part-data/src/sleeve.rs",
         "tools/hsm/part-data/src/storage.rs",
         "tools/hsm/part-data/src/zone.rs",
-        "tools/hsm/run-native/Cargo.toml",
-        "tools/hsm/run-native/src/lib.rs",
-        "tools/hsm/run-slots.defaults.json",
-        "tools/hsm/run-slots/Cargo.toml",
-        "tools/hsm/run-slots/src/ipc.rs",
-        "tools/hsm/run-slots/src/lib.rs",
-        "tools/hsm/run-slots/src/main.rs",
-        "tools/hsm/run-slots/src/runtime.rs",
-        "tools/hsm/run-slots/src/runtime/cad.rs",
-        "tools/hsm/run-slots/src/runtime/install.rs",
-        "tools/hsm/run-slots/src/runtime/runner.rs",
-        "tools/hsm/run-slots/src/runtime/slots.rs",
         "tools/hsm/shared-data/Cargo.toml",
         "tools/hsm/shared-data/catalog/materials.json",
         "tools/hsm/shared-data/catalog/routing.json",
@@ -13259,8 +12642,6 @@ genrule(
         "tools/hsm/shared-data/src/routing.rs",
         "tools/hsm/shared-data/src/scalars.rs",
         "tools/hsm/tooling/Cargo.toml",
-        "tools/run-slots.mjs",
-        "tools/run.py",
     ],
     outs = [
         "out/water-inlet-jet-fixture/hardware/printed-parts/fixtures/water-inlet-jet/water-inlet-jet-fixture-fixed.step",
@@ -13317,6 +12698,9 @@ done
 for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
   if [ -d $$d ]; then mkdir -p work-water-inlet-jet-fixture/$$(dirname $$d); ln -sfn $$PWD/$$d work-water-inlet-jet-fixture/$$d; fi
 done
+for f in hardware/scripts/_run_lock.py hardware/scripts/_run_native.py hardware/scripts/_run_slots.py tools/hsm/run-slots.defaults.json tools/run-slots.mjs tools/run.py; do
+  mkdir -p work-water-inlet-jet-fixture/$$(dirname $$f); cp $$HSM_WORKSPACE/$$f work-water-inlet-jet-fixture/$$f
+done
 cd work-water-inlet-jet-fixture
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
@@ -13353,9 +12737,6 @@ genrule(
         "hardware/scripts/_materials.py",
         "hardware/scripts/_mesh_payload.py",
         "hardware/scripts/_payload_rules.py",
-        "hardware/scripts/_run_lock.py",
-        "hardware/scripts/_run_native.py",
-        "hardware/scripts/_run_slots.py",
         "hardware/scripts/_rust_data.py",
         "hardware/scripts/_rust_part.py",
         "hardware/scripts/_shared_data.py",
@@ -13424,18 +12805,6 @@ genrule(
         "tools/hsm/part-data/src/sleeve.rs",
         "tools/hsm/part-data/src/storage.rs",
         "tools/hsm/part-data/src/zone.rs",
-        "tools/hsm/run-native/Cargo.toml",
-        "tools/hsm/run-native/src/lib.rs",
-        "tools/hsm/run-slots.defaults.json",
-        "tools/hsm/run-slots/Cargo.toml",
-        "tools/hsm/run-slots/src/ipc.rs",
-        "tools/hsm/run-slots/src/lib.rs",
-        "tools/hsm/run-slots/src/main.rs",
-        "tools/hsm/run-slots/src/runtime.rs",
-        "tools/hsm/run-slots/src/runtime/cad.rs",
-        "tools/hsm/run-slots/src/runtime/install.rs",
-        "tools/hsm/run-slots/src/runtime/runner.rs",
-        "tools/hsm/run-slots/src/runtime/slots.rs",
         "tools/hsm/shared-data/Cargo.toml",
         "tools/hsm/shared-data/catalog/materials.json",
         "tools/hsm/shared-data/catalog/routing.json",
@@ -13448,8 +12817,6 @@ genrule(
         "tools/hsm/shared-data/src/routing.rs",
         "tools/hsm/shared-data/src/scalars.rs",
         "tools/hsm/tooling/Cargo.toml",
-        "tools/run-slots.mjs",
-        "tools/run.py",
     ],
     outs = [
         "out/weld-rotator/hardware/printed-parts/fixtures/weld-rotator/weld-rotator-assembly.step",
@@ -13606,6 +12973,9 @@ done
 for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
   if [ -d $$d ]; then mkdir -p work-weld-rotator/$$(dirname $$d); ln -sfn $$PWD/$$d work-weld-rotator/$$d; fi
 done
+for f in hardware/scripts/_run_lock.py hardware/scripts/_run_native.py hardware/scripts/_run_slots.py tools/hsm/run-slots.defaults.json tools/run-slots.mjs tools/run.py; do
+  mkdir -p work-weld-rotator/$$(dirname $$f); cp $$HSM_WORKSPACE/$$f work-weld-rotator/$$f
+done
 cd work-weld-rotator
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
@@ -13692,9 +13062,6 @@ genrule(
         "hardware/scripts/_machine_data.py",
         "hardware/scripts/_material_base.py",
         "hardware/scripts/_materials.py",
-        "hardware/scripts/_run_lock.py",
-        "hardware/scripts/_run_native.py",
-        "hardware/scripts/_run_slots.py",
         "hardware/scripts/_rust_data.py",
         "hardware/scripts/_rust_objects.py",
         "hardware/scripts/_rust_part.py",
@@ -13772,18 +13139,6 @@ genrule(
         "tools/hsm/part-data/src/storage.rs",
         "tools/hsm/part-data/src/zone.rs",
         "tools/hsm/refrigeration/Cargo.toml",
-        "tools/hsm/run-native/Cargo.toml",
-        "tools/hsm/run-native/src/lib.rs",
-        "tools/hsm/run-slots.defaults.json",
-        "tools/hsm/run-slots/Cargo.toml",
-        "tools/hsm/run-slots/src/ipc.rs",
-        "tools/hsm/run-slots/src/lib.rs",
-        "tools/hsm/run-slots/src/main.rs",
-        "tools/hsm/run-slots/src/runtime.rs",
-        "tools/hsm/run-slots/src/runtime/cad.rs",
-        "tools/hsm/run-slots/src/runtime/install.rs",
-        "tools/hsm/run-slots/src/runtime/runner.rs",
-        "tools/hsm/run-slots/src/runtime/slots.rs",
         "tools/hsm/shared-data/Cargo.toml",
         "tools/hsm/shared-data/catalog/materials.json",
         "tools/hsm/shared-data/catalog/routing.json",
@@ -13795,8 +13150,6 @@ genrule(
         "tools/hsm/shared-data/src/main.rs",
         "tools/hsm/shared-data/src/routing.rs",
         "tools/hsm/shared-data/src/scalars.rs",
-        "tools/run-slots.mjs",
-        "tools/run.py",
     ],
     outs = [
         "out/fuse-clamp/hardware/printed-parts/refrigeration/fuse-clamp/fuse-clamp.numbers.json",
@@ -13845,6 +13198,9 @@ done
 for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
   if [ -d $$d ]; then mkdir -p work-fuse-clamp/$$(dirname $$d); ln -sfn $$PWD/$$d work-fuse-clamp/$$d; fi
 done
+for f in hardware/scripts/_run_lock.py hardware/scripts/_run_native.py hardware/scripts/_run_slots.py tools/hsm/run-slots.defaults.json tools/run-slots.mjs tools/run.py; do
+  mkdir -p work-fuse-clamp/$$(dirname $$f); cp $$HSM_WORKSPACE/$$f work-fuse-clamp/$$f
+done
 cd work-fuse-clamp
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
@@ -13876,9 +13232,6 @@ genrule(
         "hardware/scripts/_material_base.py",
         "hardware/scripts/_materials.py",
         "hardware/scripts/_part_output.py",
-        "hardware/scripts/_run_lock.py",
-        "hardware/scripts/_run_native.py",
-        "hardware/scripts/_run_slots.py",
         "hardware/scripts/_rust_data.py",
         "hardware/scripts/_rust_part.py",
         "hardware/scripts/_shared_data.py",
@@ -13954,18 +13307,6 @@ genrule(
         "tools/hsm/part-data/src/sleeve.rs",
         "tools/hsm/part-data/src/storage.rs",
         "tools/hsm/part-data/src/zone.rs",
-        "tools/hsm/run-native/Cargo.toml",
-        "tools/hsm/run-native/src/lib.rs",
-        "tools/hsm/run-slots.defaults.json",
-        "tools/hsm/run-slots/Cargo.toml",
-        "tools/hsm/run-slots/src/ipc.rs",
-        "tools/hsm/run-slots/src/lib.rs",
-        "tools/hsm/run-slots/src/main.rs",
-        "tools/hsm/run-slots/src/runtime.rs",
-        "tools/hsm/run-slots/src/runtime/cad.rs",
-        "tools/hsm/run-slots/src/runtime/install.rs",
-        "tools/hsm/run-slots/src/runtime/runner.rs",
-        "tools/hsm/run-slots/src/runtime/slots.rs",
         "tools/hsm/shared-data/Cargo.toml",
         "tools/hsm/shared-data/catalog/materials.json",
         "tools/hsm/shared-data/catalog/routing.json",
@@ -13978,8 +13319,6 @@ genrule(
         "tools/hsm/shared-data/src/routing.rs",
         "tools/hsm/shared-data/src/scalars.rs",
         "tools/hsm/tooling/Cargo.toml",
-        "tools/run-slots.mjs",
-        "tools/run.py",
     ],
     outs = [
         "out/soda-bend-holder/hardware/printed-parts/soda-bend-holder/soda-bend-holder.numbers.json",
@@ -14028,6 +13367,9 @@ done
 for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
   if [ -d $$d ]; then mkdir -p work-soda-bend-holder/$$(dirname $$d); ln -sfn $$PWD/$$d work-soda-bend-holder/$$d; fi
 done
+for f in hardware/scripts/_run_lock.py hardware/scripts/_run_native.py hardware/scripts/_run_slots.py tools/hsm/run-slots.defaults.json tools/run-slots.mjs tools/run.py; do
+  mkdir -p work-soda-bend-holder/$$(dirname $$f); cp $$HSM_WORKSPACE/$$f work-soda-bend-holder/$$f
+done
 cd work-soda-bend-holder
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
@@ -14060,9 +13402,6 @@ genrule(
         "hardware/scripts/_material_base.py",
         "hardware/scripts/_materials.py",
         "hardware/scripts/_payload_rules.py",
-        "hardware/scripts/_run_lock.py",
-        "hardware/scripts/_run_native.py",
-        "hardware/scripts/_run_slots.py",
         "hardware/scripts/_rust_data.py",
         "hardware/scripts/_rust_part.py",
         "hardware/scripts/_shared_data.py",
@@ -14132,18 +13471,6 @@ genrule(
         "tools/hsm/part-data/src/sleeve.rs",
         "tools/hsm/part-data/src/storage.rs",
         "tools/hsm/part-data/src/zone.rs",
-        "tools/hsm/run-native/Cargo.toml",
-        "tools/hsm/run-native/src/lib.rs",
-        "tools/hsm/run-slots.defaults.json",
-        "tools/hsm/run-slots/Cargo.toml",
-        "tools/hsm/run-slots/src/ipc.rs",
-        "tools/hsm/run-slots/src/lib.rs",
-        "tools/hsm/run-slots/src/main.rs",
-        "tools/hsm/run-slots/src/runtime.rs",
-        "tools/hsm/run-slots/src/runtime/cad.rs",
-        "tools/hsm/run-slots/src/runtime/install.rs",
-        "tools/hsm/run-slots/src/runtime/runner.rs",
-        "tools/hsm/run-slots/src/runtime/slots.rs",
         "tools/hsm/shared-data/Cargo.toml",
         "tools/hsm/shared-data/catalog/materials.json",
         "tools/hsm/shared-data/catalog/routing.json",
@@ -14155,8 +13482,6 @@ genrule(
         "tools/hsm/shared-data/src/main.rs",
         "tools/hsm/shared-data/src/routing.rs",
         "tools/hsm/shared-data/src/scalars.rs",
-        "tools/run-slots.mjs",
-        "tools/run.py",
     ],
     outs = [
         "out/funnel-cover/hardware/printed-parts/zone-c/funnel-cover/funnel-cover-print.step",
@@ -14213,6 +13538,9 @@ done
 for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
   if [ -d $$d ]; then mkdir -p work-funnel-cover/$$(dirname $$d); ln -sfn $$PWD/$$d work-funnel-cover/$$d; fi
 done
+for f in hardware/scripts/_run_lock.py hardware/scripts/_run_native.py hardware/scripts/_run_slots.py tools/hsm/run-slots.defaults.json tools/run-slots.mjs tools/run.py; do
+  mkdir -p work-funnel-cover/$$(dirname $$f); cp $$HSM_WORKSPACE/$$f work-funnel-cover/$$f
+done
 cd work-funnel-cover
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
@@ -14251,9 +13579,6 @@ genrule(
         "hardware/scripts/_material_base.py",
         "hardware/scripts/_materials.py",
         "hardware/scripts/_payload_rules.py",
-        "hardware/scripts/_run_lock.py",
-        "hardware/scripts/_run_native.py",
-        "hardware/scripts/_run_slots.py",
         "hardware/scripts/_rust_data.py",
         "hardware/scripts/_rust_part.py",
         "hardware/scripts/_shared_data.py",
@@ -14323,18 +13648,6 @@ genrule(
         "tools/hsm/part-data/src/sleeve.rs",
         "tools/hsm/part-data/src/storage.rs",
         "tools/hsm/part-data/src/zone.rs",
-        "tools/hsm/run-native/Cargo.toml",
-        "tools/hsm/run-native/src/lib.rs",
-        "tools/hsm/run-slots.defaults.json",
-        "tools/hsm/run-slots/Cargo.toml",
-        "tools/hsm/run-slots/src/ipc.rs",
-        "tools/hsm/run-slots/src/lib.rs",
-        "tools/hsm/run-slots/src/main.rs",
-        "tools/hsm/run-slots/src/runtime.rs",
-        "tools/hsm/run-slots/src/runtime/cad.rs",
-        "tools/hsm/run-slots/src/runtime/install.rs",
-        "tools/hsm/run-slots/src/runtime/runner.rs",
-        "tools/hsm/run-slots/src/runtime/slots.rs",
         "tools/hsm/shared-data/Cargo.toml",
         "tools/hsm/shared-data/catalog/materials.json",
         "tools/hsm/shared-data/catalog/routing.json",
@@ -14346,8 +13659,6 @@ genrule(
         "tools/hsm/shared-data/src/main.rs",
         "tools/hsm/shared-data/src/routing.rs",
         "tools/hsm/shared-data/src/scalars.rs",
-        "tools/run-slots.mjs",
-        "tools/run.py",
     ],
     outs = [
         "out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/assembly.step",
@@ -14442,6 +13753,9 @@ done
 for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
   if [ -d $$d ]; then mkdir -p work-funnel-mold/$$(dirname $$d); ln -sfn $$PWD/$$d work-funnel-mold/$$d; fi
 done
+for f in hardware/scripts/_run_lock.py hardware/scripts/_run_native.py hardware/scripts/_run_slots.py tools/hsm/run-slots.defaults.json tools/run-slots.mjs tools/run.py; do
+  mkdir -p work-funnel-mold/$$(dirname $$f); cp $$HSM_WORKSPACE/$$f work-funnel-mold/$$f
+done
 cd work-funnel-mold
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
@@ -14501,9 +13815,6 @@ genrule(
         "hardware/scripts/_material_base.py",
         "hardware/scripts/_materials.py",
         "hardware/scripts/_payload_rules.py",
-        "hardware/scripts/_run_lock.py",
-        "hardware/scripts/_run_native.py",
-        "hardware/scripts/_run_slots.py",
         "hardware/scripts/_rust_data.py",
         "hardware/scripts/_rust_part.py",
         "hardware/scripts/_shared_data.py",
@@ -14573,18 +13884,6 @@ genrule(
         "tools/hsm/part-data/src/sleeve.rs",
         "tools/hsm/part-data/src/storage.rs",
         "tools/hsm/part-data/src/zone.rs",
-        "tools/hsm/run-native/Cargo.toml",
-        "tools/hsm/run-native/src/lib.rs",
-        "tools/hsm/run-slots.defaults.json",
-        "tools/hsm/run-slots/Cargo.toml",
-        "tools/hsm/run-slots/src/ipc.rs",
-        "tools/hsm/run-slots/src/lib.rs",
-        "tools/hsm/run-slots/src/main.rs",
-        "tools/hsm/run-slots/src/runtime.rs",
-        "tools/hsm/run-slots/src/runtime/cad.rs",
-        "tools/hsm/run-slots/src/runtime/install.rs",
-        "tools/hsm/run-slots/src/runtime/runner.rs",
-        "tools/hsm/run-slots/src/runtime/slots.rs",
         "tools/hsm/shared-data/Cargo.toml",
         "tools/hsm/shared-data/catalog/materials.json",
         "tools/hsm/shared-data/catalog/routing.json",
@@ -14596,8 +13895,6 @@ genrule(
         "tools/hsm/shared-data/src/main.rs",
         "tools/hsm/shared-data/src/routing.rs",
         "tools/hsm/shared-data/src/scalars.rs",
-        "tools/run-slots.mjs",
-        "tools/run.py",
     ],
     outs = [
         "out/elbow-cradle/hardware/printed-parts/zone-c/funnel/elbow-cradle.numbers.json",
@@ -14646,6 +13943,9 @@ done
 for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
   if [ -d $$d ]; then mkdir -p work-elbow-cradle/$$(dirname $$d); ln -sfn $$PWD/$$d work-elbow-cradle/$$d; fi
 done
+for f in hardware/scripts/_run_lock.py hardware/scripts/_run_native.py hardware/scripts/_run_slots.py tools/hsm/run-slots.defaults.json tools/run-slots.mjs tools/run.py; do
+  mkdir -p work-elbow-cradle/$$(dirname $$f); cp $$HSM_WORKSPACE/$$f work-elbow-cradle/$$f
+done
 cd work-elbow-cradle
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
@@ -14678,9 +13978,6 @@ genrule(
         "hardware/scripts/_material_base.py",
         "hardware/scripts/_materials.py",
         "hardware/scripts/_payload_rules.py",
-        "hardware/scripts/_run_lock.py",
-        "hardware/scripts/_run_native.py",
-        "hardware/scripts/_run_slots.py",
         "hardware/scripts/_rust_data.py",
         "hardware/scripts/_rust_part.py",
         "hardware/scripts/_shared_data.py",
@@ -14750,18 +14047,6 @@ genrule(
         "tools/hsm/part-data/src/sleeve.rs",
         "tools/hsm/part-data/src/storage.rs",
         "tools/hsm/part-data/src/zone.rs",
-        "tools/hsm/run-native/Cargo.toml",
-        "tools/hsm/run-native/src/lib.rs",
-        "tools/hsm/run-slots.defaults.json",
-        "tools/hsm/run-slots/Cargo.toml",
-        "tools/hsm/run-slots/src/ipc.rs",
-        "tools/hsm/run-slots/src/lib.rs",
-        "tools/hsm/run-slots/src/main.rs",
-        "tools/hsm/run-slots/src/runtime.rs",
-        "tools/hsm/run-slots/src/runtime/cad.rs",
-        "tools/hsm/run-slots/src/runtime/install.rs",
-        "tools/hsm/run-slots/src/runtime/runner.rs",
-        "tools/hsm/run-slots/src/runtime/slots.rs",
         "tools/hsm/shared-data/Cargo.toml",
         "tools/hsm/shared-data/catalog/materials.json",
         "tools/hsm/shared-data/catalog/routing.json",
@@ -14773,8 +14058,6 @@ genrule(
         "tools/hsm/shared-data/src/main.rs",
         "tools/hsm/shared-data/src/routing.rs",
         "tools/hsm/shared-data/src/scalars.rs",
-        "tools/run-slots.mjs",
-        "tools/run.py",
     ],
     outs = [
         "out/funnel/hardware/printed-parts/zone-c/funnel/funnel.numbers.json",
@@ -14821,6 +14104,9 @@ done
 for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
   if [ -d $$d ]; then mkdir -p work-funnel/$$(dirname $$d); ln -sfn $$PWD/$$d work-funnel/$$d; fi
 done
+for f in hardware/scripts/_run_lock.py hardware/scripts/_run_native.py hardware/scripts/_run_slots.py tools/hsm/run-slots.defaults.json tools/run-slots.mjs tools/run.py; do
+  mkdir -p work-funnel/$$(dirname $$f); cp $$HSM_WORKSPACE/$$f work-funnel/$$f
+done
 cd work-funnel
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
@@ -14857,9 +14143,6 @@ genrule(
         "hardware/scripts/_material_base.py",
         "hardware/scripts/_materials.py",
         "hardware/scripts/_payload_rules.py",
-        "hardware/scripts/_run_lock.py",
-        "hardware/scripts/_run_native.py",
-        "hardware/scripts/_run_slots.py",
         "hardware/scripts/_rust_data.py",
         "hardware/scripts/_rust_part.py",
         "hardware/scripts/_shared_data.py",
@@ -14929,18 +14212,6 @@ genrule(
         "tools/hsm/part-data/src/sleeve.rs",
         "tools/hsm/part-data/src/storage.rs",
         "tools/hsm/part-data/src/zone.rs",
-        "tools/hsm/run-native/Cargo.toml",
-        "tools/hsm/run-native/src/lib.rs",
-        "tools/hsm/run-slots.defaults.json",
-        "tools/hsm/run-slots/Cargo.toml",
-        "tools/hsm/run-slots/src/ipc.rs",
-        "tools/hsm/run-slots/src/lib.rs",
-        "tools/hsm/run-slots/src/main.rs",
-        "tools/hsm/run-slots/src/runtime.rs",
-        "tools/hsm/run-slots/src/runtime/cad.rs",
-        "tools/hsm/run-slots/src/runtime/install.rs",
-        "tools/hsm/run-slots/src/runtime/runner.rs",
-        "tools/hsm/run-slots/src/runtime/slots.rs",
         "tools/hsm/shared-data/Cargo.toml",
         "tools/hsm/shared-data/catalog/materials.json",
         "tools/hsm/shared-data/catalog/routing.json",
@@ -14952,8 +14223,6 @@ genrule(
         "tools/hsm/shared-data/src/main.rs",
         "tools/hsm/shared-data/src/routing.rs",
         "tools/hsm/shared-data/src/scalars.rs",
-        "tools/run-slots.mjs",
-        "tools/run.py",
     ],
     outs = [
         "out/funnel-frame/hardware/printed-parts/zone-c/funnel/funnel-frame.numbers.json",
@@ -15001,6 +14270,9 @@ for f in $(SRCS); do
 done
 for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
   if [ -d $$d ]; then mkdir -p work-funnel-frame/$$(dirname $$d); ln -sfn $$PWD/$$d work-funnel-frame/$$d; fi
+done
+for f in hardware/scripts/_run_lock.py hardware/scripts/_run_native.py hardware/scripts/_run_slots.py tools/hsm/run-slots.defaults.json tools/run-slots.mjs tools/run.py; do
+  mkdir -p work-funnel-frame/$$(dirname $$f); cp $$HSM_WORKSPACE/$$f work-funnel-frame/$$f
 done
 cd work-funnel-frame
 ln -sfn $$HSM_WORKSPACE/.cache .cache
@@ -15475,9 +14747,6 @@ genrule(
         "hardware/scripts/_payload_rules.py",
         "hardware/scripts/_realized.py",
         "hardware/scripts/_routing.py",
-        "hardware/scripts/_run_lock.py",
-        "hardware/scripts/_run_native.py",
-        "hardware/scripts/_run_slots.py",
         "hardware/scripts/_rust_data.py",
         "hardware/scripts/_rust_objects.py",
         "hardware/scripts/_rust_part.py",
@@ -15800,18 +15069,6 @@ genrule(
         "tools/hsm/part-data/src/storage.rs",
         "tools/hsm/part-data/src/zone.rs",
         "tools/hsm/refrigeration/Cargo.toml",
-        "tools/hsm/run-native/Cargo.toml",
-        "tools/hsm/run-native/src/lib.rs",
-        "tools/hsm/run-slots.defaults.json",
-        "tools/hsm/run-slots/Cargo.toml",
-        "tools/hsm/run-slots/src/ipc.rs",
-        "tools/hsm/run-slots/src/lib.rs",
-        "tools/hsm/run-slots/src/main.rs",
-        "tools/hsm/run-slots/src/runtime.rs",
-        "tools/hsm/run-slots/src/runtime/cad.rs",
-        "tools/hsm/run-slots/src/runtime/install.rs",
-        "tools/hsm/run-slots/src/runtime/runner.rs",
-        "tools/hsm/run-slots/src/runtime/slots.rs",
         "tools/hsm/shared-data/Cargo.toml",
         "tools/hsm/shared-data/catalog/materials.json",
         "tools/hsm/shared-data/catalog/routing.json",
@@ -15833,8 +15090,6 @@ genrule(
         "tools/hsm/vendor/manifold-csg-sys/build/patch.rs",
         "tools/hsm/vendor/manifold-csg-sys/build/wasm.rs",
         "tools/hsm/vendor/manifold-csg-sys/src/lib.rs",
-        "tools/run-slots.mjs",
-        "tools/run.py",
     ] + glob(
         [
             "hardware/ledger/bom.figures.json",
@@ -15888,6 +15143,9 @@ done
 for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
   if [ -d $$d ]; then mkdir -p work-bom-masses/$$(dirname $$d); ln -sfn $$PWD/$$d work-bom-masses/$$d; fi
 done
+for f in hardware/scripts/_run_lock.py hardware/scripts/_run_native.py hardware/scripts/_run_slots.py tools/hsm/run-slots.defaults.json tools/run-slots.mjs tools/run.py; do
+  mkdir -p work-bom-masses/$$(dirname $$f); cp $$HSM_WORKSPACE/$$f work-bom-masses/$$f
+done
 cd work-bom-masses
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
@@ -15915,9 +15173,6 @@ genrule(
         "hardware/scripts/_ledger_rust.py",
         "hardware/scripts/_ledger_totals.py",
         "hardware/scripts/_realized.py",
-        "hardware/scripts/_run_lock.py",
-        "hardware/scripts/_run_native.py",
-        "hardware/scripts/_run_slots.py",
         "hardware/scripts/_rust_data.py",
         "hardware/scripts/_rust_part.py",
         "tools/docgen/__init__.py",
@@ -15998,20 +15253,6 @@ genrule(
         "tools/hsm/ledger/src/printing.rs",
         "tools/hsm/ledger/src/shared.rs",
         "tools/hsm/ledger/src/tools.rs",
-        "tools/hsm/run-native/Cargo.toml",
-        "tools/hsm/run-native/src/lib.rs",
-        "tools/hsm/run-slots.defaults.json",
-        "tools/hsm/run-slots/Cargo.toml",
-        "tools/hsm/run-slots/src/ipc.rs",
-        "tools/hsm/run-slots/src/lib.rs",
-        "tools/hsm/run-slots/src/main.rs",
-        "tools/hsm/run-slots/src/runtime.rs",
-        "tools/hsm/run-slots/src/runtime/cad.rs",
-        "tools/hsm/run-slots/src/runtime/install.rs",
-        "tools/hsm/run-slots/src/runtime/runner.rs",
-        "tools/hsm/run-slots/src/runtime/slots.rs",
-        "tools/run-slots.mjs",
-        "tools/run.py",
     ] + glob(
         [
             "hardware/ledger/purchases.export.json",
@@ -16064,6 +15305,9 @@ done
 for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
   if [ -d $$d ]; then mkdir -p work-ledger-totals/$$(dirname $$d); ln -sfn $$PWD/$$d work-ledger-totals/$$d; fi
 done
+for f in hardware/scripts/_run_lock.py hardware/scripts/_run_native.py hardware/scripts/_run_slots.py tools/hsm/run-slots.defaults.json tools/run-slots.mjs tools/run.py; do
+  mkdir -p work-ledger-totals/$$(dirname $$f); cp $$HSM_WORKSPACE/$$f work-ledger-totals/$$f
+done
 cd work-ledger-totals
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
@@ -16098,9 +15342,6 @@ genrule(
         "hardware/scripts/_ledger_rust.py",
         "hardware/scripts/_machine_time.py",
         "hardware/scripts/_realized.py",
-        "hardware/scripts/_run_lock.py",
-        "hardware/scripts/_run_native.py",
-        "hardware/scripts/_run_slots.py",
         "hardware/scripts/_rust_data.py",
         "hardware/scripts/_rust_part.py",
         "tools/docgen/__init__.py",
@@ -16173,20 +15414,6 @@ genrule(
         "tools/hsm/ledger/src/printing.rs",
         "tools/hsm/ledger/src/shared.rs",
         "tools/hsm/ledger/src/tools.rs",
-        "tools/hsm/run-native/Cargo.toml",
-        "tools/hsm/run-native/src/lib.rs",
-        "tools/hsm/run-slots.defaults.json",
-        "tools/hsm/run-slots/Cargo.toml",
-        "tools/hsm/run-slots/src/ipc.rs",
-        "tools/hsm/run-slots/src/lib.rs",
-        "tools/hsm/run-slots/src/main.rs",
-        "tools/hsm/run-slots/src/runtime.rs",
-        "tools/hsm/run-slots/src/runtime/cad.rs",
-        "tools/hsm/run-slots/src/runtime/install.rs",
-        "tools/hsm/run-slots/src/runtime/runner.rs",
-        "tools/hsm/run-slots/src/runtime/slots.rs",
-        "tools/run-slots.mjs",
-        "tools/run.py",
     ] + glob(
         [
             "hardware/ledger/machine-time.figures.json",
@@ -16234,6 +15461,9 @@ done
 for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
   if [ -d $$d ]; then mkdir -p work-machine-time/$$(dirname $$d); ln -sfn $$PWD/$$d work-machine-time/$$d; fi
 done
+for f in hardware/scripts/_run_lock.py hardware/scripts/_run_native.py hardware/scripts/_run_slots.py tools/hsm/run-slots.defaults.json tools/run-slots.mjs tools/run.py; do
+  mkdir -p work-machine-time/$$(dirname $$f); cp $$HSM_WORKSPACE/$$f work-machine-time/$$f
+done
 cd work-machine-time
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
@@ -16267,9 +15497,6 @@ genrule(
         "hardware/scripts/_machine_export.py",
         "hardware/scripts/_mesh_payload.py",
         "hardware/scripts/_payload_rules.py",
-        "hardware/scripts/_run_lock.py",
-        "hardware/scripts/_run_native.py",
-        "hardware/scripts/_run_slots.py",
         "hardware/scripts/_rust_data.py",
         "hardware/scripts/_rust_objects.py",
         "hardware/scripts/_rust_part.py",
@@ -16375,22 +15602,8 @@ genrule(
         "tools/hsm/print-payload/src/lib.rs",
         "tools/hsm/print-payload/src/main.rs",
         "tools/hsm/print-payload/src/quadric.rs",
-        "tools/hsm/run-native/Cargo.toml",
-        "tools/hsm/run-native/src/lib.rs",
-        "tools/hsm/run-slots.defaults.json",
-        "tools/hsm/run-slots/Cargo.toml",
-        "tools/hsm/run-slots/src/ipc.rs",
-        "tools/hsm/run-slots/src/lib.rs",
-        "tools/hsm/run-slots/src/main.rs",
-        "tools/hsm/run-slots/src/runtime.rs",
-        "tools/hsm/run-slots/src/runtime/cad.rs",
-        "tools/hsm/run-slots/src/runtime/install.rs",
-        "tools/hsm/run-slots/src/runtime/runner.rs",
-        "tools/hsm/run-slots/src/runtime/slots.rs",
         "tools/hsm/shared-data/Cargo.toml",
         "tools/hsm/shared-data/catalog/scalars.json",
-        "tools/run-slots.mjs",
-        "tools/run.py",
     ],
     outs = [
         "out/flute-payload-cold-core/hardware/printed-parts/cold-core/foam-shell/foam-shell.step.mesh",
@@ -16430,6 +15643,9 @@ for f in $(SRCS); do
 done
 for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
   if [ -d $$d ]; then mkdir -p work-flute-payload-cold-core/$$(dirname $$d); ln -sfn $$PWD/$$d work-flute-payload-cold-core/$$d; fi
+done
+for f in hardware/scripts/_run_lock.py hardware/scripts/_run_native.py hardware/scripts/_run_slots.py tools/hsm/run-slots.defaults.json tools/run-slots.mjs tools/run.py; do
+  mkdir -p work-flute-payload-cold-core/$$(dirname $$f); cp $$HSM_WORKSPACE/$$f work-flute-payload-cold-core/$$f
 done
 cd work-flute-payload-cold-core
 ln -sfn $$HSM_WORKSPACE/.cache .cache
@@ -16474,9 +15690,6 @@ genrule(
         "hardware/scripts/_machine_export.py",
         "hardware/scripts/_mesh_payload.py",
         "hardware/scripts/_payload_rules.py",
-        "hardware/scripts/_run_lock.py",
-        "hardware/scripts/_run_native.py",
-        "hardware/scripts/_run_slots.py",
         "hardware/scripts/_rust_data.py",
         "hardware/scripts/_rust_objects.py",
         "hardware/scripts/_rust_part.py",
@@ -16582,22 +15795,8 @@ genrule(
         "tools/hsm/print-payload/src/lib.rs",
         "tools/hsm/print-payload/src/main.rs",
         "tools/hsm/print-payload/src/quadric.rs",
-        "tools/hsm/run-native/Cargo.toml",
-        "tools/hsm/run-native/src/lib.rs",
-        "tools/hsm/run-slots.defaults.json",
-        "tools/hsm/run-slots/Cargo.toml",
-        "tools/hsm/run-slots/src/ipc.rs",
-        "tools/hsm/run-slots/src/lib.rs",
-        "tools/hsm/run-slots/src/main.rs",
-        "tools/hsm/run-slots/src/runtime.rs",
-        "tools/hsm/run-slots/src/runtime/cad.rs",
-        "tools/hsm/run-slots/src/runtime/install.rs",
-        "tools/hsm/run-slots/src/runtime/runner.rs",
-        "tools/hsm/run-slots/src/runtime/slots.rs",
         "tools/hsm/shared-data/Cargo.toml",
         "tools/hsm/shared-data/catalog/scalars.json",
-        "tools/run-slots.mjs",
-        "tools/run.py",
     ],
     outs = [
         "out/flute-payload-faucet/hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step.mesh",
@@ -16645,6 +15844,9 @@ for f in $(SRCS); do
 done
 for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
   if [ -d $$d ]; then mkdir -p work-flute-payload-faucet/$$(dirname $$d); ln -sfn $$PWD/$$d work-flute-payload-faucet/$$d; fi
+done
+for f in hardware/scripts/_run_lock.py hardware/scripts/_run_native.py hardware/scripts/_run_slots.py tools/hsm/run-slots.defaults.json tools/run-slots.mjs tools/run.py; do
+  mkdir -p work-flute-payload-faucet/$$(dirname $$f); cp $$HSM_WORKSPACE/$$f work-flute-payload-faucet/$$f
 done
 cd work-flute-payload-faucet
 ln -sfn $$HSM_WORKSPACE/.cache .cache
@@ -17008,9 +16210,6 @@ genrule(
         "hardware/scripts/_payload_rules.py",
         "hardware/scripts/_realized.py",
         "hardware/scripts/_routing.py",
-        "hardware/scripts/_run_lock.py",
-        "hardware/scripts/_run_native.py",
-        "hardware/scripts/_run_slots.py",
         "hardware/scripts/_rust_data.py",
         "hardware/scripts/_rust_objects.py",
         "hardware/scripts/_rust_part.py",
@@ -17301,18 +16500,6 @@ genrule(
         "tools/hsm/part-data/src/storage.rs",
         "tools/hsm/part-data/src/zone.rs",
         "tools/hsm/refrigeration/Cargo.toml",
-        "tools/hsm/run-native/Cargo.toml",
-        "tools/hsm/run-native/src/lib.rs",
-        "tools/hsm/run-slots.defaults.json",
-        "tools/hsm/run-slots/Cargo.toml",
-        "tools/hsm/run-slots/src/ipc.rs",
-        "tools/hsm/run-slots/src/lib.rs",
-        "tools/hsm/run-slots/src/main.rs",
-        "tools/hsm/run-slots/src/runtime.rs",
-        "tools/hsm/run-slots/src/runtime/cad.rs",
-        "tools/hsm/run-slots/src/runtime/install.rs",
-        "tools/hsm/run-slots/src/runtime/runner.rs",
-        "tools/hsm/run-slots/src/runtime/slots.rs",
         "tools/hsm/shared-data/Cargo.toml",
         "tools/hsm/shared-data/catalog/materials.json",
         "tools/hsm/shared-data/catalog/routing.json",
@@ -17334,8 +16521,6 @@ genrule(
         "tools/hsm/vendor/manifold-csg-sys/build/patch.rs",
         "tools/hsm/vendor/manifold-csg-sys/build/wasm.rs",
         "tools/hsm/vendor/manifold-csg-sys/src/lib.rs",
-        "tools/run-slots.mjs",
-        "tools/run.py",
     ],
     outs = [
         "out/fluid-topology-sync/hardware/topology/fluid-topology-carbonator.mmd",
@@ -17379,6 +16564,9 @@ done
 for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
   if [ -d $$d ]; then mkdir -p work-fluid-topology-sync/$$(dirname $$d); ln -sfn $$PWD/$$d work-fluid-topology-sync/$$d; fi
 done
+for f in hardware/scripts/_run_lock.py hardware/scripts/_run_native.py hardware/scripts/_run_slots.py tools/hsm/run-slots.defaults.json tools/run-slots.mjs tools/run.py; do
+  mkdir -p work-fluid-topology-sync/$$(dirname $$f); cp $$HSM_WORKSPACE/$$f work-fluid-topology-sync/$$f
+done
 cd work-fluid-topology-sync
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
@@ -17392,26 +16580,9 @@ cd .. && rm -rf work-fluid-topology-sync
 genrule(
     name = "cargo-config",
     srcs = [
-        "hardware/scripts/_run_lock.py",
-        "hardware/scripts/_run_native.py",
-        "hardware/scripts/_run_slots.py",
         "tools/bazel/cargo_config.py",
         "tools/hsm/Cargo.lock",
         "tools/hsm/Cargo.toml",
-        "tools/hsm/run-native/Cargo.toml",
-        "tools/hsm/run-native/src/lib.rs",
-        "tools/hsm/run-slots.defaults.json",
-        "tools/hsm/run-slots/Cargo.toml",
-        "tools/hsm/run-slots/src/ipc.rs",
-        "tools/hsm/run-slots/src/lib.rs",
-        "tools/hsm/run-slots/src/main.rs",
-        "tools/hsm/run-slots/src/runtime.rs",
-        "tools/hsm/run-slots/src/runtime/cad.rs",
-        "tools/hsm/run-slots/src/runtime/install.rs",
-        "tools/hsm/run-slots/src/runtime/runner.rs",
-        "tools/hsm/run-slots/src/runtime/slots.rs",
-        "tools/run-slots.mjs",
-        "tools/run.py",
     ],
     outs = [
         "out/cargo-config/tools/hsm/cargo-config.json",
@@ -17451,6 +16622,9 @@ for f in $(SRCS); do
 done
 for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
   if [ -d $$d ]; then mkdir -p work-cargo-config/$$(dirname $$d); ln -sfn $$PWD/$$d work-cargo-config/$$d; fi
+done
+for f in hardware/scripts/_run_lock.py hardware/scripts/_run_native.py hardware/scripts/_run_slots.py tools/hsm/run-slots.defaults.json tools/run-slots.mjs tools/run.py; do
+  mkdir -p work-cargo-config/$$(dirname $$f); cp $$HSM_WORKSPACE/$$f work-cargo-config/$$f
 done
 cd work-cargo-config
 ln -sfn $$HSM_WORKSPACE/.cache .cache
@@ -17540,9 +16714,6 @@ genrule(
         "hardware/scripts/_machine_data.py",
         "hardware/scripts/_material_base.py",
         "hardware/scripts/_materials.py",
-        "hardware/scripts/_run_lock.py",
-        "hardware/scripts/_run_native.py",
-        "hardware/scripts/_run_slots.py",
         "hardware/scripts/_rust_data.py",
         "hardware/scripts/_rust_objects.py",
         "hardware/scripts/_rust_part.py",
@@ -17663,18 +16834,6 @@ genrule(
         "tools/hsm/layout-data/src/rear.rs",
         "tools/hsm/layout-data/src/routes.rs",
         "tools/hsm/layout-data/src/soda.rs",
-        "tools/hsm/run-native/Cargo.toml",
-        "tools/hsm/run-native/src/lib.rs",
-        "tools/hsm/run-slots.defaults.json",
-        "tools/hsm/run-slots/Cargo.toml",
-        "tools/hsm/run-slots/src/ipc.rs",
-        "tools/hsm/run-slots/src/lib.rs",
-        "tools/hsm/run-slots/src/main.rs",
-        "tools/hsm/run-slots/src/runtime.rs",
-        "tools/hsm/run-slots/src/runtime/cad.rs",
-        "tools/hsm/run-slots/src/runtime/install.rs",
-        "tools/hsm/run-slots/src/runtime/runner.rs",
-        "tools/hsm/run-slots/src/runtime/slots.rs",
         "tools/hsm/shared-data/Cargo.toml",
         "tools/hsm/shared-data/catalog/materials.json",
         "tools/hsm/shared-data/catalog/routing.json",
@@ -17691,8 +16850,6 @@ genrule(
         "tools/install-guide/landscape.py",
         "tools/install-guide/press.py",
         "tools/install-guide/render-contours.mjs",
-        "tools/run-slots.mjs",
-        "tools/run.py",
     ],
     outs = [
         "out/install-guide-build/hardware/install-guide/install-guide.cover.png",
@@ -17736,6 +16893,9 @@ for f in $(SRCS); do
 done
 for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
   if [ -d $$d ]; then mkdir -p work-install-guide-build/$$(dirname $$d); ln -sfn $$PWD/$$d work-install-guide-build/$$d; fi
+done
+for f in hardware/scripts/_run_lock.py hardware/scripts/_run_native.py hardware/scripts/_run_slots.py tools/hsm/run-slots.defaults.json tools/run-slots.mjs tools/run.py; do
+  mkdir -p work-install-guide-build/$$(dirname $$f); cp $$HSM_WORKSPACE/$$f work-install-guide-build/$$f
 done
 cd work-install-guide-build
 ln -sfn $$HSM_WORKSPACE/.cache .cache
@@ -17799,9 +16959,6 @@ genrule(
         "hardware/scripts/_material_base.py",
         "hardware/scripts/_materials.py",
         "hardware/scripts/_mesh_projection.py",
-        "hardware/scripts/_run_lock.py",
-        "hardware/scripts/_run_native.py",
-        "hardware/scripts/_run_slots.py",
         "hardware/scripts/_rust_data.py",
         "hardware/scripts/_rust_objects.py",
         "hardware/scripts/_rust_part.py",
@@ -17935,18 +17092,6 @@ genrule(
         "tools/hsm/render/src/shaders/line.wgsl",
         "tools/hsm/render/src/shaders/shadow.wgsl",
         "tools/hsm/render/src/shaders/surface.wgsl",
-        "tools/hsm/run-native/Cargo.toml",
-        "tools/hsm/run-native/src/lib.rs",
-        "tools/hsm/run-slots.defaults.json",
-        "tools/hsm/run-slots/Cargo.toml",
-        "tools/hsm/run-slots/src/ipc.rs",
-        "tools/hsm/run-slots/src/lib.rs",
-        "tools/hsm/run-slots/src/main.rs",
-        "tools/hsm/run-slots/src/runtime.rs",
-        "tools/hsm/run-slots/src/runtime/cad.rs",
-        "tools/hsm/run-slots/src/runtime/install.rs",
-        "tools/hsm/run-slots/src/runtime/runner.rs",
-        "tools/hsm/run-slots/src/runtime/slots.rs",
         "tools/hsm/shared-data/Cargo.toml",
         "tools/hsm/shared-data/catalog/materials.json",
         "tools/hsm/shared-data/catalog/routing.json",
@@ -17960,8 +17105,6 @@ genrule(
         "tools/hsm/shared-data/src/scalars.rs",
         "tools/hsm/tooling/Cargo.toml",
         "tools/install-guide/kit_art.py",
-        "tools/run-slots.mjs",
-        "tools/run.py",
     ],
     outs = [
         "out/kit-art/hardware/install-guide/assets/kit/cold-kit.svg",
@@ -18017,6 +17160,9 @@ for f in $(SRCS); do
 done
 for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
   if [ -d $$d ]; then mkdir -p work-kit-art/$$(dirname $$d); ln -sfn $$PWD/$$d work-kit-art/$$d; fi
+done
+for f in hardware/scripts/_run_lock.py hardware/scripts/_run_native.py hardware/scripts/_run_slots.py tools/hsm/run-slots.defaults.json tools/run-slots.mjs tools/run.py; do
+  mkdir -p work-kit-art/$$(dirname $$f); cp $$HSM_WORKSPACE/$$f work-kit-art/$$f
 done
 cd work-kit-art
 ln -sfn $$HSM_WORKSPACE/.cache .cache
@@ -18084,9 +17230,6 @@ genrule(
         "hardware/scripts/_materials.py",
         "hardware/scripts/_mesh_payload.py",
         "hardware/scripts/_payload_rules.py",
-        "hardware/scripts/_run_lock.py",
-        "hardware/scripts/_run_native.py",
-        "hardware/scripts/_run_slots.py",
         "hardware/scripts/_rust_data.py",
         "hardware/scripts/_rust_objects.py",
         "hardware/scripts/_rust_part.py",
@@ -18236,18 +17379,6 @@ genrule(
         "tools/hsm/render/src/shaders/shadow.wgsl",
         "tools/hsm/render/src/shaders/surface.wgsl",
         "tools/hsm/render/src/shadow.rs",
-        "tools/hsm/run-native/Cargo.toml",
-        "tools/hsm/run-native/src/lib.rs",
-        "tools/hsm/run-slots.defaults.json",
-        "tools/hsm/run-slots/Cargo.toml",
-        "tools/hsm/run-slots/src/ipc.rs",
-        "tools/hsm/run-slots/src/lib.rs",
-        "tools/hsm/run-slots/src/main.rs",
-        "tools/hsm/run-slots/src/runtime.rs",
-        "tools/hsm/run-slots/src/runtime/cad.rs",
-        "tools/hsm/run-slots/src/runtime/install.rs",
-        "tools/hsm/run-slots/src/runtime/runner.rs",
-        "tools/hsm/run-slots/src/runtime/slots.rs",
         "tools/hsm/shared-data/Cargo.toml",
         "tools/hsm/shared-data/catalog/materials.json",
         "tools/hsm/shared-data/catalog/routing.json",
@@ -18261,8 +17392,6 @@ genrule(
         "tools/hsm/shared-data/src/scalars.rs",
         "tools/hsm/tooling/Cargo.toml",
         "tools/install-guide/opening_scene.py",
-        "tools/run-slots.mjs",
-        "tools/run.py",
         "web/public/finishes.json",
     ] + glob(
         [
@@ -18312,6 +17441,9 @@ for f in $(SRCS); do
 done
 for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
   if [ -d $$d ]; then mkdir -p work-opening-scene/$$(dirname $$d); ln -sfn $$PWD/$$d work-opening-scene/$$d; fi
+done
+for f in hardware/scripts/_run_lock.py hardware/scripts/_run_native.py hardware/scripts/_run_slots.py tools/hsm/run-slots.defaults.json tools/run-slots.mjs tools/run.py; do
+  mkdir -p work-opening-scene/$$(dirname $$f); cp $$HSM_WORKSPACE/$$f work-opening-scene/$$f
 done
 cd work-opening-scene
 ln -sfn $$HSM_WORKSPACE/.cache .cache
