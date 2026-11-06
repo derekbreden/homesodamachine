@@ -1,10 +1,10 @@
 // The 3D viewer's checks badge + drill-down modal — the enclosure's requirements verdict,
 // mirroring the PCB board-checks UI (public/js/viewer/pcb.js) for the STEP viewer. Reads the
-// <model>.scorecard.json sidecar (contracts/scorecard-sidecar.js), and draws a badge at the
-// bottom of the canvas that opens a modal drilling each gate/goal into its detail rows. One
-// verdict, two surfaces: the same data the terminal prints.
+// <model>.scorecard.json sidecar (contracts/scorecard-sidecar.js) written by the build's
+// _scorecard.py, and draws a badge at the bottom of the canvas that opens a modal drilling each
+// gate/goal into its detail rows. One verdict, two surfaces: the same data the terminal prints.
 
-import { scorecardPathFor, isScorecard, sizeText, gatesFailing, gatesUnread, ON_REQUEST } from "/contracts/scorecard-sidecar.js";
+import { scorecardPathFor, isScorecard, sizeText, gatesFailing, gatesUnread } from "/contracts/scorecard-sidecar.js";
 import { scenePartNames, highlightParts, leaveHighlight } from "./part-highlight.js";
 
 const MARK = { pass: "✓", fail: "✗", warn: "•", unread: "○" };
@@ -109,22 +109,7 @@ function appendSize(card, sc) {
   }
 }
 
-// WHEN THE CHECKS RAN. A model whose checks run on request says so, and how to run them; its
-// card names the commit and the date of the run that wrote it, and a card without one is older
-// than that run. Either way an old verdict is not read as the current machine's.
-function appendRun(card, sc, command) {
-  const note = el("div", "sc-run");
-  note.appendChild(el("div", null, sc.run
-    ? `Checks run on request. Last run ${sc.run.date.slice(0, 16).replace("T", " ")}`
-      + (sc.run.commit ? `, at commit ${sc.run.commit.slice(0, 9)}` : "") + "."
-    : "Checks run on request, and have not run since they left the build: this result is older."));
-  const run = el("div", null, "Run them: ");
-  run.appendChild(el("code", null, command));
-  note.appendChild(run);
-  card.appendChild(note);
-}
-
-function openModal(wrapper, sc, title, file) {
+function openModal(wrapper, sc, title) {
   closeModal(wrapper);
   leaveHighlight({ owner: "scorecard" }); // reopening the checks restores the full model and its view
   const modal = el("div", "sc-modal");
@@ -143,7 +128,6 @@ function openModal(wrapper, sc, title, file) {
   x.addEventListener("click", () => closeModal(wrapper));
   head.appendChild(x);
   card.appendChild(head);
-  if (ON_REQUEST[file]) appendRun(card, sc, ON_REQUEST[file]);
 
   const gates = sc.checks.filter((c) => c.kind === "gate");
   const goals = sc.checks.filter((c) => c.kind === "goal");
@@ -192,7 +176,7 @@ function openModal(wrapper, sc, title, file) {
 // is `✗ 2 gates`; a gate whose checker has not answered yet is `○ 2 gates`, and a reader does
 // something different about each. Failing wins the badge when both are present, because a
 // verdict that came back bad is the one worth reading first.
-function buildBadge(wrapper, sc, title, file) {
+function buildBadge(wrapper, sc, title) {
   removeScorecard(wrapper);
   const fail = gatesFailing(sc);
   const unread = gatesUnread(sc);
@@ -202,7 +186,7 @@ function buildBadge(wrapper, sc, title, file) {
       : unread ? `○ ${unread} gate${unread === 1 ? "" : "s"}`
       : "✓ checks");
   badge.type = "button";
-  badge.addEventListener("click", (e) => { e.stopPropagation(); openModal(wrapper, sc, title, file); });
+  badge.addEventListener("click", (e) => { e.stopPropagation(); openModal(wrapper, sc, title); });
   const footer = wrapper.querySelector(".cad-footer") || wrapper;
   footer.insertBefore(badge, footer.querySelector(".reset-view"));
 }
@@ -231,5 +215,5 @@ export async function mountScorecard(wrapper, file) {
   // Whatever the last model left on screen goes, card or no card.
   removeScorecard(wrapper);
   if (!sc || !isScorecard(sc)) return;
-  buildBadge(wrapper, sc, file.split("/").pop().replace(/\.step$/, ""), file);
+  buildBadge(wrapper, sc, file.split("/").pop().replace(/\.step$/, ""));
 }
