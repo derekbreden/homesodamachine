@@ -51,13 +51,20 @@ pub fn vent_chase(
         let cap_wall = if up < 0.0 { cap_lip + roof_run } else { cap_root };
         let cap = g.xz_prism(sy - half, sy + half, vec![[root_x, sz + half], [rib_x, sz + half], [rib_x, cap_lip],
                                                          [root_x, cap_wall]]);
-        let rib = g.union(rib, &[cap]);
+        let mut rib = g.union(rib, &[cap]);
+        if up < 0.0 {
+            let rear = sy + half;
+            let backing = g.xy_prism(rim + WALL, cap_lip, vec![
+                [root_x, rear], [rib_x, rear], [root_x, rear + roof_run]]);
+            rib = g.union(rib, &[backing]);
+        }
         let arm_end = rail_x(1.0, Y::Back).arm_end;
         let lane = g.box_([inner[0] - 1.0, arm_end + if owns { 0.0 } else { slide_slip() }, sy - half - 1.0,
                            sy + half + 1.0, Z_SEAM, rim]);
         let rib = g.cut(rib, &[lane]);
         let band = if owns { (outer[4] - 1.0, rim) } else { (rim + slide_slip(), outer[5] + 1.0) };
-        let keep = g.box_([outer[0] - 1.0, outer[1] + 1.0, sy - half - 1.0, sy + half + 1.0, band.0, band.1]);
+        let rear_reach = if up < 0.0 { roof_run } else { 0.0 };
+        let keep = g.box_([outer[0] - 1.0, outer[1] + 1.0, sy - half - 1.0, sy + half + rear_reach + 1.0, band.0, band.1]);
         let mut share = g.intersect(rib, &[keep]);
         if !owns && up > 0.0 {
             let [_, _, far] = rail_channel_span(1.0, Y::Back);
@@ -88,6 +95,16 @@ pub fn mouth_support_bounds(inner: &Bounds, [x, y, z]: [f64; 3]) -> Bounds {
     let half = VENT_CHANNEL_W / 2.0;
     let liner = inner[0] + slide_slip() + VENT_RIB_WALL;
     [liner, rib, y-half, y+half, Z_SEAM-1.0, z+half+rib-liner]
+}
+
+/// The mouth's end walls and their backing grow without supports through the passage.
+pub fn mouth_blocking_bounds(inner: &Bounds, [x, y, z]: [f64; 3]) -> Bounds {
+    let rib = x - running();
+    let root = back_top_flank_face()[0];
+    let liner = inner[0] + slide_slip() + VENT_RIB_WALL;
+    let half = VENT_CHANNEL_W / 2.0 + VENT_RIB_WALL;
+    let top = z + VENT_CHANNEL_W / 2.0 + root - liner + 2.0 * VENT_RIB_WALL + 2.0 * (rib-root);
+    [root-WALL, rib+1.0, y-half, y+half+rib-root, Z_SEAM-1.0, top]
 }
 
 /// The mouth's open passage, used to distinguish a branch inside it from an exterior tree.

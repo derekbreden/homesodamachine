@@ -160,9 +160,9 @@ def derive(mesh: Mesh, declared: list[dict]) -> list[dict]:
             for region_kind, region in regions:
                 if "support_print_up_source" in region:
                     print_up = mesh.rotation.T @ np.array([0., 0., 1.])
-                    if np.dot(print_up, region["support_print_up_source"]) < .99:
+                    if np.dot(print_up, region["support_print_up_source"]) < region.get("support_direction_cosine_min", .99):
                         continue
-                bounds = np.asarray(region["bounds_source_mm"], float).reshape(3, 2)
+                bounds = np.asarray(region.get("blocking_bounds_source_mm",region["bounds_source_mm"]), float).reshape(3, 2)
                 low, high = bounds[:, 0] - overlap, bounds[:, 1] + overlap
                 inside = np.all((centres >= low) & (centres <= high), axis=1)
                 faces = np.flatnonzero(inside & (mesh.geometry.n[:, 2] < 0.0)) if region_kind == "support_free" else []
@@ -505,6 +505,8 @@ def prepare(name: str, printer: str | None = None, parts: list[dict] | None = No
             axis = (r_yaw @ mesh.rotation) @ np.array(feature["bridge_print_axis_source"])
             angle = math.degrees(math.atan2(axis[1], axis[0])) % 180 or 180
             low_b, high_b = np.array(feature["blocker_source_mm"])
+            low_b = np.maximum(low_b,mesh.vertices.min(axis=0)+0.001)
+            high_b = np.minimum(high_b,mesh.vertices.max(axis=0)-0.001)
             vertices, faces = _mesh.box_mesh(low_b-mesh.center, high_b-mesh.center)
             plate.add_part(obj, feature["name"]+" transverse bridge", vertices, faces, subtype="modifier_part",
                            settings={"bridge_angle": str(angle), "sparse_infill_density": "100%",

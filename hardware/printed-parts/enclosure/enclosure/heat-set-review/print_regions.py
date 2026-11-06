@@ -31,6 +31,18 @@ def transformed_bounds(bounds, transform):
 
 def print_pose(piece, mesh_bounds):
     """Source-coordinate orientation and bed datum; plate X/Y nesting is separate."""
+    if piece == 'back-top':
+        preparation = ROOT/'hardware/printed-parts/enclosure/trial-preparation'
+        sys.path.insert(0,str(preparation))
+        from _mesh import rotation
+        recipe = json.loads((preparation/'pieces.json').read_text())['pieces'][piece]
+        turn = rotation(recipe['parts'][0]['pose'])
+        points = trimesh.load_mesh(ENC/f'enclosure-{piece}.stl',process=False).vertices
+        bed = -float((points @ turn.T)[:,2].min())
+        transform = [list(row)+[bed if k == 2 else 0.0] for k,row in enumerate(turn)]
+        transform.append([0.0,0.0,0.0,1.0])
+        return dict(up_axis_in_source=turn[2].tolist(),bed_face='Tilted rear face',
+                    source_to_print_mm=transform)
     if piece == 'pump-retainer':
         return dict(up_axis_in_source=[0,1,0], bed_face='Y minus',
                     source_to_print_mm=[[1,0,0,0],[0,0,-1,0],
@@ -197,7 +209,8 @@ def write_regions(box, _bounds, box_path):
            Path(__file__).with_name('region_bounds.rs'),
            Path(e._dock.__file__),
            Path(e._dock.plumbing.__file__),
-           ROOT/'hardware/printed-parts/petgf.3mf',display_mount_path,display_placement_path]
+           ROOT/'hardware/printed-parts/petgf.3mf',display_mount_path,display_placement_path,
+           ENC.parent/'trial-preparation/pieces.json', ENC.parent/'trial-preparation/_mesh.py']
     report=dict(scope='Local 100% infill modifiers in existing native material; complete insert hosts, blind caps, pump snap wings and receivers, roots and seam load paths. No load capacity or lifetime qualification.',
                 use='Manual print-preparation specification only. Modifier boxes intersect existing material and add no geometry. applied_source_bounds_mm clips each requested box to the model bounds before its prescribed print transform; plate X/Y nesting is separate. Bind a fresh native project and emitted paths to these hashes before production printing; this is not a build gate or a sliced-print result.',
                 coordinate_frames={name: 'Source STEP/STL coordinates in the appliance frame' for name in pieces},

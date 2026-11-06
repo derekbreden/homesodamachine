@@ -22,7 +22,7 @@
       ],
       "bridge_span_mm": 10.25,
       "name": "Sliding rail 1",
-      "reason": "The groove closing floor crosses its short width from the wall to its removable tree supports."
+      "reason": "The fitted sliding bearings retain local solid deposition."
     },
     {
       "bounds_source_mm": [
@@ -45,13 +45,21 @@
       ],
       "bridge_span_mm": 10.25,
       "name": "Sliding rail -1",
-      "reason": "The groove closing floor crosses its short width from the wall to its removable tree supports."
+      "reason": "The fitted sliding bearings retain local solid deposition."
     }
   ],
   "producer": "enclosure-back-top",
-  "source_stl_sha256": "f94e92373793415ea6259c254bae0ee402b1a8ec5eea2874e1d486eb5de99d16",
+  "source_stl_sha256": "9dffa9196a42bda63057411ad19dfb10a2e7ae98818851dbac9494d34fe6556b",
   "support_free_regions": [
     {
+      "blocking_bounds_source_mm": [
+        0.1518602220364862,
+        57.44813977796352,
+        392.9532545933731,
+        441.6179848073112,
+        327.95,
+        355.0
+      ],
       "bounds_source_mm": [
         3.401860222036486,
         54.19813977796352,
@@ -67,9 +75,17 @@
       ],
       "bridge_span_mm": 42.16473021393807,
       "name": "ASSE receiver",
-      "reason": "Inaccessible receiver interior; flat catches bridge between their full end shoulders."
+      "reason": "The fitted catches and end shoulders grow through fine layers without interior supports."
     },
     {
+      "blocking_bounds_source_mm": [
+        58.59438431246909,
+        94.40561568753091,
+        416.84571720240064,
+        465.55,
+        334.7,
+        355.0
+      ],
       "bounds_source_mm": [
         61.84438431246909,
         91.15561568753091,
@@ -85,7 +101,7 @@
       ],
       "bridge_span_mm": 42.204282797599376,
       "name": "Pisco receiver",
-      "reason": "Inaccessible receiver interior; flat catches bridge between their full end shoulders."
+      "reason": "The fitted catches and end shoulders grow through fine layers without interior supports."
     },
     {
       "bounds_source_mm": [
@@ -135,6 +151,24 @@
     },
     {
       "bounds_source_mm": [
+        12.549999999999997,
+        93.0,
+        462.3,
+        474.3,
+        250.0,
+        356.0
+      ],
+      "name": "Wet-column rear face",
+      "reason": "The tilted rear face grows through fine layers without trees through its covered bores.",
+      "support_direction_cosine_min": 0.95,
+      "support_print_up_source": [
+        0,
+        -1,
+        0
+      ]
+    },
+    {
+      "bounds_source_mm": [
         19.372358982281966,
         38.67935898228196,
         458.0,
@@ -143,7 +177,7 @@
         340.5182148810266
       ],
       "name": "Covered bulkhead at X29.025858982281964 Z330.8647148810266",
-      "reason": "Teardrop roof in the roof-down print; circular bulkhead clearance is retained.",
+      "reason": "The covered bore retains its circular hardware clearance inside the pointed roof.",
       "void_source": {
         "centre_xz_mm": [
           29.025858982281964,
@@ -153,8 +187,8 @@
         "radius_mm": 9.6535,
         "roof_angle_deg": 36.0,
         "span_y_mm": [
-          458.0,
-          472.3
+          465.3,
+          471.3
         ]
       }
     },
@@ -168,7 +202,7 @@
         338.1285
       ],
       "name": "Covered bulkhead at X76.5 Z331.2",
-      "reason": "Teardrop roof in the roof-down print; circular bulkhead clearance is retained.",
+      "reason": "The covered bore retains its circular hardware clearance inside the pointed roof.",
       "void_source": {
         "centre_xz_mm": [
           76.5,
@@ -178,8 +212,8 @@
         "radius_mm": 6.9285,
         "roof_angle_deg": 36.0,
         "span_y_mm": [
-          458.0,
-          472.3
+          465.3,
+          471.3
         ]
       }
     },
@@ -193,7 +227,7 @@
         271.65
       ],
       "name": "Covered bulkhead at X76.5 Z264",
-      "reason": "Teardrop roof in the roof-down print; circular bulkhead clearance is retained.",
+      "reason": "The covered bore retains its circular hardware clearance inside the pointed roof.",
       "void_source": {
         "centre_xz_mm": [
           76.5,
@@ -203,8 +237,8 @@
         "radius_mm": 7.65,
         "roof_angle_deg": 36.0,
         "span_y_mm": [
-          458.0,
-          472.3
+          465.3,
+          471.3
         ]
       }
     },
@@ -218,7 +252,7 @@
         302.92
       ],
       "name": "Covered bulkhead at X76.5 Z294.2",
-      "reason": "Teardrop roof in the roof-down print; circular bulkhead clearance is retained.",
+      "reason": "The covered bore retains its circular hardware clearance inside the pointed roof.",
       "void_source": {
         "centre_xz_mm": [
           76.5,
@@ -228,8 +262,8 @@
         "radius_mm": 8.72,
         "roof_angle_deg": 36.0,
         "span_y_mm": [
-          458.0,
-          472.3
+          465.3,
+          471.3
         ]
       }
     },
@@ -243,7 +277,7 @@
         301.84999999999997
       ],
       "name": "Covered bulkhead at X28.7999988712316 Z294.2",
-      "reason": "Teardrop roof in the roof-down print; circular bulkhead clearance is retained.",
+      "reason": "The covered bore retains its circular hardware clearance inside the pointed roof.",
       "void_source": {
         "centre_xz_mm": [
           28.7999988712316,
@@ -253,8 +287,8 @@
         "radius_mm": 7.65,
         "roof_angle_deg": 36.0,
         "span_y_mm": [
-          458.0,
-          472.3
+          465.3,
+          471.3
         ]
       }
     },
@@ -268,7 +302,7 @@
         271.65
       ],
       "name": "Covered bulkhead at X28.7999988712316 Z264",
-      "reason": "Teardrop roof in the roof-down print; circular bulkhead clearance is retained.",
+      "reason": "The covered bore retains its circular hardware clearance inside the pointed roof.",
       "void_source": {
         "centre_xz_mm": [
           28.7999988712316,
@@ -278,8 +312,8 @@
         "radius_mm": 7.65,
         "roof_angle_deg": 36.0,
         "span_y_mm": [
-          458.0,
-          472.3
+          465.3,
+          471.3
         ]
       }
     },
@@ -296,9 +330,9 @@
       "reason": "Open build-axis socket or horizontal teardrop socket; keep supports out of the post fit.",
       "void_source": {
         "end_mm": [
-          -68.92416907975205,
+          -68.92422725213349,
           330.6929435097341,
-          336.8206609796312
+          337.8206609779392
         ],
         "kind": "cylinder",
         "radius_mm": 3.45,
@@ -322,9 +356,9 @@
       "reason": "Open build-axis socket or horizontal teardrop socket; keep supports out of the post fit.",
       "void_source": {
         "end_mm": [
-          -69.03192010464318,
+          -69.03197827702463,
           355.54270990132414,
-          336.82065471149747
+          337.82065470980547
         ],
         "kind": "cylinder",
         "radius_mm": 3.45,
@@ -348,9 +382,9 @@
       "reason": "Open build-axis socket or horizontal teardrop socket; keep supports out of the post fit.",
       "void_source": {
         "end_mm": [
-          -93.32393966039069,
+          -93.32399783277214,
           330.5871437104668,
-          336.8192415868673
+          337.8192415851753
         ],
         "kind": "cylinder",
         "radius_mm": 3.45,
@@ -374,9 +408,9 @@
       "reason": "Open build-axis socket or horizontal teardrop socket; keep supports out of the post fit.",
       "void_source": {
         "end_mm": [
-          -93.43169068528184,
+          -93.43174885766328,
           355.43691010205686,
-          336.81923531873355
+          337.81923531704155
         ],
         "kind": "cylinder",
         "radius_mm": 3.45,
@@ -408,7 +442,7 @@
         "roof_angle_deg": 36.0,
         "span_y_mm": [
           295.81499514598534,
-          303.0149951459853
+          302.0149951459853
         ]
       }
     },
@@ -433,7 +467,7 @@
         "roof_angle_deg": 36.0,
         "span_y_mm": [
           295.81499514598534,
-          303.0149951459853
+          302.0149951459853
         ]
       }
     },
@@ -458,7 +492,7 @@
         "roof_angle_deg": 36.0,
         "span_y_mm": [
           295.81499514598534,
-          303.0149951459853
+          302.0149951459853
         ]
       }
     },
@@ -483,11 +517,19 @@
         "roof_angle_deg": 36.0,
         "span_y_mm": [
           295.81499514598534,
-          303.0149951459853
+          302.0149951459853
         ]
       }
     },
     {
+      "blocking_bounds_source_mm": [
+        -101.5,
+        -89.75000000018628,
+        314.79999999962746,
+        340.5499999994412,
+        159.0,
+        222.09999999962744
+      ],
       "bounds_source_mm": [
         -101.25,
         -90.75000000018628,
@@ -497,7 +539,7 @@
         208.34999999981372
       ],
       "name": "PRV vent mouth",
-      "reason": "The cap rises from its wall root in the roof-down print; the short mouth lip bridges between its side walls.",
+      "reason": "The cap root and end-wall backing keep supports out of the clear passage.",
       "void_source": {
         "kind": "prism_y",
         "profile_xz_mm": [

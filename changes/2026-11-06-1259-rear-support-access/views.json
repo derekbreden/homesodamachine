@@ -154,6 +154,64 @@
         "enclosure-back-top"
       ],
       "withinMeshing": []
+    },
+    {
+      "name": "vent-backing",
+      "caption": "A broad backing chamfer roots the vent end wall outside its clear passage.",
+      "before": "vent-backing-before.webp",
+      "after": "vent-backing-after.webp",
+      "width": 1000,
+      "height": 860,
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          -40.93522252768062,
+          377.0518219778555,
+          216.51943324169582
+        ],
+        "target": [
+          -96,
+          333,
+          200
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "fov": 45,
+        "near": 0.14073038713581093,
+        "far": 469.5246049370594,
+        "aspect": 1.1627906976744187
+      },
+      "highlight": [
+        "enclosure-back-top"
+      ],
+      "ghost": [],
+      "only": [
+        "enclosure-back-top"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "684620dc1d42cd790b65f5093d14ea6843002b5e6a84bbc5d3132f7654be209a",
+          "commit": "398411128177e8156e2aadb471280b4a7179ac3d",
+          "taken": "2026-11-06T22:48:04.305Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "501cf3043725953ca6f1c78345aed9295f13eaf251b37fa3a647c7a846938802",
+          "commit": "68a9c1b611c4f52c4d8d4ebd490439e872ef389a",
+          "published": true
+        }
+      },
+      "changed": [],
+      "withinMeshing": []
     }
   ]
 }
