@@ -6,9 +6,9 @@ use crate::piece::Build;
 use crate::plan::{Graph, Shape};
 use crate::quadrant::Quadrant;
 use crate::rear::{self, BackTopPrint};
-use crate::shell::{BACK_TOP_FLANK_T, BACK_TOP_WALL_T, HOOK_FOOT, WALL, Z_RISE, back_top_ceiling_face, back_top_wall_face};
+use crate::shell::{BACK_TOP_FLANK_T, BACK_TOP_WALL_T, HOOK_FOOT, STATED_BOUND_TOL, WALL, Z_RISE, back_top_ceiling_face, back_top_wall_face};
 use crate::spec::Box;
-use crate::walls::{STATED_BOUND_TOL, back_flank_start, back_top_flank_face, cavity};
+use crate::walls::{back_flank_start, back_top_flank_face, cavity};
 
 /// Back-top as its files are written: the construction and its solid, the nameplate receiver's
 /// field the print keeps plain, the print rail, and the print's raised lands.

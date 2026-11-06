@@ -1,11 +1,12 @@
 //! Standing valve plate dimensions, stock and document readings.
 use super::{array, f, text};
 use anyhow::{Result, anyhow, ensure};
+use hsm_enclosure_numbers::shell;
 use serde_json::{Value, json};
 
 fn settings(source: &Value) -> Result<Value> {
     Ok(
-        json!({"THICK":f(source,"socket_depth")?+f(source,"wall")?,"MARGIN":3.,
+        json!({"THICK":f(source,"socket_depth")?+f(source,"wall")?,"MARGIN":shell::VALVE_TRAY_MARGIN,
               "SEAT":-f(source,"seat_top_z")?,"PORT_SLIP":source["port_air"]}),
     )
 }

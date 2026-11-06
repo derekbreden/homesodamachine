@@ -1,6 +1,7 @@
 //! Display-roof curves and numeric loft sections.
 use super::{array, f, text};
 use anyhow::{Result, anyhow};
+use hsm_enclosure_numbers::structure;
 use serde_json::{Value, json};
 
 fn outer(v: &Value) -> Result<[f64; 6]> {
@@ -94,9 +95,9 @@ fn roof_fill(v: &Value) -> Result<Value> {
 pub fn dispatch(v: &Value) -> Result<Value> {
     match text(v, "op")? {
         "swept-defaults" => Ok(
-            json!({"ANGLE":30.,"FLAT":87.,"FRONT_RADIUS":v["dimensions"]["show_corner_r"],
-            "TOP_RADIUS":3.*f(&v["dimensions"],"show_edge_r")?,
-            "SIDE_RADIUS":v["dimensions"]["show_edge_r"],"FUNNEL_SEAT":6.}),
+            json!({"ANGLE":structure::ANGLE,"FLAT":structure::FLAT,"FRONT_RADIUS":structure::FRONT_RADIUS,
+            "TOP_RADIUS":structure::TOP_RADIUS,"SIDE_RADIUS":structure::SIDE_RADIUS,
+            "FUNNEL_SEAT":structure::FUNNEL_SEAT}),
         ),
         "swept-profile" => profile(v),
         "swept-roof-fill" => roof_fill(v),

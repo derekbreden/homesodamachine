@@ -893,6 +893,7 @@ version = "0.1.0"
 dependencies = [
  "anyhow",
  "hsm-documents",
+ "hsm-enclosure-numbers",
  "serde_json",
 ]
 

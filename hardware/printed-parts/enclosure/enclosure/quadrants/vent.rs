@@ -2,7 +2,6 @@
 //! vents through the flank, and the condenser's grilles pierced through both flanks' flutes.
 use crate::catalog::{pierce_width, running, supported};
 use crate::field::{flute_pitch, plan_at};
-use crate::walls::STATED_BOUND_TOL;
 use crate::plan::{Bounds, FlankVents, Graph, Op, Shape, VentColumn};
 use crate::quadrant::{Y, sorted};
 use crate::rails::{rail_channel_span, rail_x};
@@ -82,19 +81,6 @@ pub fn vent_chase(
     }
     solid
 }
-
-/// The vent's root clearance round anything standing on the flank, and how far inboard the
-/// flank is read for what stands on it.
-pub const COND_VENT_CLEAR: f64 = WALL;
-pub const COND_VENT_PROBE: f64 = WALL;
-/// One opening marooned past a solid land is a nick, not a grille.
-pub const COND_VENT_ISLAND_MIN: usize = 2;
-/// The fan's bottom over the block's base, and its top under the block's crown.
-pub const COND_FAN_RISE: f64 = 22.0;
-pub const COND_FAN_DROP: f64 = 5.0;
-/// The unpierced bands crossing the vent, each tying every mullion and both jambs together.
-pub const COND_VENT_TRANSOMS: usize = 3;
-pub const COND_VENT_TRANSOM_H: f64 = 4.0;
 
 /// The height the condenser's vents are pierced over: the fan's footprint on the flank.
 pub fn vent_band(airway: &[f64; 4]) -> [f64; 2] {

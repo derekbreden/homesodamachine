@@ -9,7 +9,7 @@ use crate::plan::{Bounds, Graph, P3, Shape};
 use crate::shell::*;
 use crate::spec::Box;
 use crate::structure::profile;
-use crate::walls::{CEILING_LIP_DROP, STATED_BOUND_TOL, cavity, floor_tongue};
+use crate::walls::{CEILING_LIP_DROP, cavity, floor_tongue};
 
 /// The half-space on a plane's positive side: a square four extents across, one extent deep.
 pub fn halfspace(g: &mut Graph, origin: P3, normal: P3, extent: f64) -> Shape {

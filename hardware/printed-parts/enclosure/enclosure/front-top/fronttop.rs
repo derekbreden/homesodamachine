@@ -4,7 +4,7 @@
 //! evaluator draws.
 use crate::catalog::running;
 use crate::dock;
-use crate::walls::{CEILING_LIP_DROP, STATED_BOUND_TOL, flank_bedding_cut};
+use crate::walls::{CEILING_LIP_DROP, flank_bedding_cut};
 use crate::funnel::{self, BODY_WIDTH};
 use crate::mount;
 use crate::plan::{Bounds, Graph, Shape};
