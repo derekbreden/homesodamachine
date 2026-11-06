@@ -4833,7 +4833,8 @@
     },
     "hardware/printed-parts/enclosure/display-cover/display-cover.step.mesh": {
       "inputs": "5c7e6e5b59266c9e4ab22b730bc04758ddd642e0707ed6c262587def20b1b889",
-      "commit": "f67b46c3a0d0a8c67875ae6766f27d287317cd5b"
+      "commit": "f67b46c3a0d0a8c67875ae6766f27d287317cd5b",
+      "unproven": true
     },
     "hardware/printed-parts/enclosure/display-cover/display-cover.stl": {
       "commit": "01119b116d2a30fd17f8f3dbc41e823c21871237",
