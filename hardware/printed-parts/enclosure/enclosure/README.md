@@ -755,8 +755,8 @@ seats and catch planes remain intact. Native construction emits the exclusion
 regions beside the STL, bound to its digest. Preparation carries them through
 orientation and placement as support blockers and painted surfaces. The covered
 bulkhead bores and horizontal valve sockets use teardrop roofs; build-axis valve
-sockets remain circular and open. The PRV mouth floor chamfers away from its root
-in the roof-down print. The native review reads support beads inside these named
+sockets remain circular and open. The PRV cap rises from its root
+in the roof-down print; the short mouth lip bridges between its side walls. The native review reads support beads inside these named
 regions, including ordinary support paths without interface labels.
 
 A production-profile slice reports the connected support bodies which reach the model and their
