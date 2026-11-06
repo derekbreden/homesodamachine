@@ -1409,7 +1409,7 @@
       "purchase_id": "pur-e09e5d28db894792aef087da03caea51"
     }
   ],
-  "as_of": "2026-10-28",
+  "as_of": "2026-11-05",
   "coverage": [
     {
       "checked_at": "2026-10-04",
@@ -7891,7 +7891,7 @@
       ]
     }
   ],
-  "input_fingerprint": "sha256:c16b7a664b1fa84a42b79eb411c7c3c820b16a3282b8428575fda1930ada25ec",
+  "input_fingerprint": "sha256:66351e7dff0300907d143dbceef4a608825c4f0a30f5211a0c0d720b4225cc9c",
   "orders": [
     {
       "allocation_status": "all_project",
@@ -10551,6 +10551,23 @@
       "event_ids": [],
       "order_date": {
         "precision": "day",
+        "value": "2026-11-05"
+      },
+      "order_id": "amazon:112-5769102-6239435",
+      "purchase_ids": [
+        "pur-a9aeeb7107e24ef68654ee86aa1fbe14"
+      ],
+      "reference": "112-5769102-6239435",
+      "source_ids": [
+        "src-25e766501eac432382839f9946322324"
+      ],
+      "vendor": "Amazon"
+    },
+    {
+      "allocation_status": "all_project",
+      "event_ids": [],
+      "order_date": {
+        "precision": "day",
         "value": "2026-04-23"
       },
       "order_id": "amazon:112-5788053-3609032",
@@ -10807,6 +10824,23 @@
       "reference": "112-6362998-4945816",
       "source_ids": [
         "saved-amazon:112-6362998-4945816"
+      ],
+      "vendor": "Amazon"
+    },
+    {
+      "allocation_status": "all_project",
+      "event_ids": [],
+      "order_date": {
+        "precision": "day",
+        "value": "2026-11-05"
+      },
+      "order_id": "amazon:112-6378482-5879429",
+      "purchase_ids": [
+        "pur-3fca793e96a64c20b79ac0831efc3b50"
+      ],
+      "reference": "112-6378482-5879429",
+      "source_ids": [
+        "src-90bc01d9bacd48c7afd5ebe7ecbb72bd"
       ],
       "vendor": "Amazon"
     },
@@ -11680,6 +11714,23 @@
       "reference": "112-8278354-1449064",
       "source_ids": [
         "saved-amazon:112-8278354-1449064"
+      ],
+      "vendor": "Amazon"
+    },
+    {
+      "allocation_status": "all_project",
+      "event_ids": [],
+      "order_date": {
+        "precision": "day",
+        "value": "2026-11-05"
+      },
+      "order_id": "amazon:112-8431385-7749045",
+      "purchase_ids": [
+        "pur-5f9b203a9810468f8bab74284d78f44d"
+      ],
+      "reference": "112-8431385-7749045",
+      "source_ids": [
+        "src-7df9aab746b345d58fe00d83a461fdaf"
       ],
       "vendor": "Amazon"
     },
@@ -24153,6 +24204,50 @@
     },
     {
       "allocation_status": "all_project",
+      "amount_evidence": "estimate",
+      "amount_minor": 750,
+      "contributes": true,
+      "currency": "USD",
+      "delivery_date": null,
+      "description": "Etoolia vinyl-coated screw-in utility hooks, 5.7\", 6-pack — on the garage studs, one carries the heater cord's slack and one holds whichever 14-50 plug is unplugged. Sold by E-Tools Store; $6.99 + $0.51 estimated NE tax, free shipping; Amazon order details verified 2026-11-05, arriving 2026-11-07",
+      "event_ids": [],
+      "fulfillment": "ON-ORDER",
+      "invoice_date": null,
+      "ledger_purchase_id": "pur-3fca793e96a64c20b79ac0831efc3b50",
+      "merchant_charge_allocated_minor": 0,
+      "merchant_refund_allocated_minor": 0,
+      "order_date": {
+        "precision": "day",
+        "value": "2026-11-05"
+      },
+      "order_ids": [
+        "amazon:112-6378482-5879429"
+      ],
+      "payment_evidence": "unknown",
+      "price_basis": "row_total",
+      "purchase_id": "pur-3fca793e96a64c20b79ac0831efc3b50",
+      "purpose": "equipment_tooling",
+      "quantity": 1,
+      "quantity_text": "1 pk (6)",
+      "receipt_date": null,
+      "record_role": "purchase",
+      "row_date": {
+        "precision": "day",
+        "value": "2026-11-05"
+      },
+      "row_date_basis": "order_date",
+      "section": "12. Shop / bench infrastructure",
+      "service_period": null,
+      "source_ids": [
+        "src-90bc01d9bacd48c7afd5ebe7ecbb72bd"
+      ],
+      "split_charge": false,
+      "stream": "purchase",
+      "unit_amount_minor": null,
+      "vendor": "Amazon"
+    },
+    {
+      "allocation_status": "all_project",
       "amount_evidence": "legacy_unverified",
       "amount_minor": 13310,
       "contributes": true,
@@ -28664,6 +28759,50 @@
       "service_period": null,
       "source_ids": [
         "src-f1858fd8ad6e4488986599b5ba971c31"
+      ],
+      "split_charge": false,
+      "stream": "purchase",
+      "unit_amount_minor": null,
+      "vendor": "Amazon"
+    },
+    {
+      "allocation_status": "all_project",
+      "amount_evidence": "estimate",
+      "amount_minor": 1071,
+      "contributes": true,
+      "currency": "USD",
+      "delivery_date": null,
+      "description": "Xpokcai 1/4\" × 3\" hex-head lag screws, 304 stainless, 15 with flat washers, pilot bit and socket — the heater bracket's single lag through the garage ceiling's 5/8\" drywall into a truss bottom chord. Sold by Xpokcai; $9.99 + $0.72 estimated NE tax, free shipping; Amazon order details verified 2026-11-05, arriving 2026-11-07",
+      "event_ids": [],
+      "fulfillment": "ON-ORDER",
+      "invoice_date": null,
+      "ledger_purchase_id": "pur-5f9b203a9810468f8bab74284d78f44d",
+      "merchant_charge_allocated_minor": 0,
+      "merchant_refund_allocated_minor": 0,
+      "order_date": {
+        "precision": "day",
+        "value": "2026-11-05"
+      },
+      "order_ids": [
+        "amazon:112-8431385-7749045"
+      ],
+      "payment_evidence": "unknown",
+      "price_basis": "row_total",
+      "purchase_id": "pur-5f9b203a9810468f8bab74284d78f44d",
+      "purpose": "equipment_tooling",
+      "quantity": 1,
+      "quantity_text": "1 pk (15)",
+      "receipt_date": null,
+      "record_role": "purchase",
+      "row_date": {
+        "precision": "day",
+        "value": "2026-11-05"
+      },
+      "row_date_basis": "order_date",
+      "section": "12. Shop / bench infrastructure",
+      "service_period": null,
+      "source_ids": [
+        "src-7df9aab746b345d58fe00d83a461fdaf"
       ],
       "split_charge": false,
       "stream": "purchase",
@@ -38957,6 +39096,50 @@
       "source_ids": [
         "legacy-ledger-2026",
         "saved-amazon:112-7687617-6094631"
+      ],
+      "split_charge": false,
+      "stream": "purchase",
+      "unit_amount_minor": null,
+      "vendor": "Amazon"
+    },
+    {
+      "allocation_status": "all_project",
+      "amount_evidence": "estimate",
+      "amount_minor": 21878,
+      "contributes": true,
+      "currency": "USD",
+      "delivery_date": null,
+      "description": "InoKraft MaxHeat MH-E7500 7,500 W garage heater, 240 V, NEMA 14-50P on an 8.2 ft STW 8 AWG cord — heats the shop and holds the X1 Pro above its 50 °F storage minimum. It plugs into the car charger's 50 A outlet, which the car and the heater take turns on. Sold by InoKraft, shipped by Amazon; $203.99 + $14.79 estimated NE tax, free shipping; Amazon order details verified 2026-11-05, arriving 2026-11-07",
+      "event_ids": [],
+      "fulfillment": "ON-ORDER",
+      "invoice_date": null,
+      "ledger_purchase_id": "pur-a9aeeb7107e24ef68654ee86aa1fbe14",
+      "merchant_charge_allocated_minor": 0,
+      "merchant_refund_allocated_minor": 0,
+      "order_date": {
+        "precision": "day",
+        "value": "2026-11-05"
+      },
+      "order_ids": [
+        "amazon:112-5769102-6239435"
+      ],
+      "payment_evidence": "unknown",
+      "price_basis": "row_total",
+      "purchase_id": "pur-a9aeeb7107e24ef68654ee86aa1fbe14",
+      "purpose": "equipment_tooling",
+      "quantity": 1,
+      "quantity_text": "1",
+      "receipt_date": null,
+      "record_role": "purchase",
+      "row_date": {
+        "precision": "day",
+        "value": "2026-11-05"
+      },
+      "row_date_basis": "order_date",
+      "section": "12. Shop / bench infrastructure",
+      "service_period": null,
+      "source_ids": [
+        "src-25e766501eac432382839f9946322324"
       ],
       "split_charge": false,
       "stream": "purchase",
@@ -56994,6 +57177,22 @@
     {
       "document_date": {
         "precision": "day",
+        "value": "2026-11-05"
+      },
+      "document_type": "order_details",
+      "note": "Signed-in Amazon order details: ordered 2026-11-05; InoKraft 7500W Electric Garage Heater, 240V with NEMA 14-50P Plug (B0FLJTSTDC) × 1 at USD 203.99, sold by InoKraft, arriving 2026-11-07. USD 203.99 item subtotal, USD 0.00 shipping, USD 14.79 estimated tax and USD 218.78 grand total.",
+      "proves": [
+        "order_date",
+        "price"
+      ],
+      "reference": "112-5769102-6239435",
+      "source_id": "src-25e766501eac432382839f9946322324",
+      "vendor": "Amazon",
+      "verified_at": "2026-11-05"
+    },
+    {
+      "document_date": {
+        "precision": "day",
         "value": "2026-10-28"
       },
       "document_type": "merchant_order_page",
@@ -58768,6 +58967,22 @@
     {
       "document_date": {
         "precision": "day",
+        "value": "2026-11-05"
+      },
+      "document_type": "order_details",
+      "note": "Signed-in Amazon order details: ordered 2026-11-05; Xpokcai Hex Head Lag Bolts for Wood, Lag Screws 1/4\" x 3\", 15 PCS, 304 stainless with flat washers (B0FYWYHS7X) × 1 at USD 9.99, sold by Xpokcai, arriving 2026-11-07. USD 9.99 item subtotal, USD 0.00 shipping, USD 0.72 estimated tax and USD 10.71 grand total.",
+      "proves": [
+        "order_date",
+        "price"
+      ],
+      "reference": "112-8431385-7749045",
+      "source_id": "src-7df9aab746b345d58fe00d83a461fdaf",
+      "vendor": "Amazon",
+      "verified_at": "2026-11-05"
+    },
+    {
+      "document_date": {
+        "precision": "day",
         "value": "2026-05-16"
       },
       "document_type": "order_confirmation",
@@ -59068,6 +59283,22 @@
       "source_id": "src-8f254298770d47ef917186489f593f32",
       "vendor": "Bambu Lab",
       "verified_at": "2026-10-13"
+    },
+    {
+      "document_date": {
+        "precision": "day",
+        "value": "2026-11-05"
+      },
+      "document_type": "order_details",
+      "note": "Signed-in Amazon order details: ordered 2026-11-05; Etoolia 6 Pack Heavy Duty Garage Bike Storage and Utility Hooks, 5.7 inches (B08GYMXKPY) × 1 at USD 6.99, sold by E-Tools Store, arriving 2026-11-07. USD 6.99 item subtotal, USD 0.00 shipping, USD 0.51 estimated tax and USD 7.50 grand total.",
+      "proves": [
+        "order_date",
+        "price"
+      ],
+      "reference": "112-6378482-5879429",
+      "source_id": "src-90bc01d9bacd48c7afd5ebe7ecbb72bd",
+      "vendor": "Amazon",
+      "verified_at": "2026-11-05"
     },
     {
       "document_date": {
@@ -62106,7 +62337,7 @@
           "unknown_amount_ids": []
         },
         {
-          "amount_minor": 207157,
+          "amount_minor": 230856,
           "currency": "USD",
           "fulfillment": "ON-ORDER",
           "purchase_ids": [
@@ -62114,15 +62345,18 @@
             "pur-242d69307ce84a69948b9e502ff3dd71",
             "pur-2c46198fe81f4cf7bf5a65d4e4ec638a",
             "pur-3d8a298bd6054af6a120b520e7a8da65",
+            "pur-3fca793e96a64c20b79ac0831efc3b50",
             "pur-4eaf76e6557740d7b0e85e0be8664f71",
             "pur-4fe40749fe864533992cc92b1e791c63",
             "pur-5f404f5035cb425a9a8d90c69010a404",
+            "pur-5f9b203a9810468f8bab74284d78f44d",
             "pur-6bc71f4f15b34503ac9bf8beea6ef815",
             "pur-7a2c9d6f4b8e4d1a3f6c0b2d4e5f7a96",
             "pur-7f5e5ae2f85e4d74bca9edb78b7332f0",
             "pur-8b3d0e7a5c9f4e2b4a7d1c3e5f6a8b07",
             "pur-9d9726d27ea04842b803208c17fd1b37",
             "pur-a326599d5b464456b43259262c4808ba",
+            "pur-a9aeeb7107e24ef68654ee86aa1fbe14",
             "pur-abd647629bfa41e1ae7de9bf129dbf44",
             "pur-ae7d87fe77614d0098db388d7f0fa11d",
             "pur-d95243a541864bd887feefcc369098d4",
@@ -62147,15 +62381,18 @@
         "pur-242d69307ce84a69948b9e502ff3dd71",
         "pur-2c46198fe81f4cf7bf5a65d4e4ec638a",
         "pur-3d8a298bd6054af6a120b520e7a8da65",
+        "pur-3fca793e96a64c20b79ac0831efc3b50",
         "pur-4eaf76e6557740d7b0e85e0be8664f71",
         "pur-4fe40749fe864533992cc92b1e791c63",
         "pur-5f404f5035cb425a9a8d90c69010a404",
+        "pur-5f9b203a9810468f8bab74284d78f44d",
         "pur-6bc71f4f15b34503ac9bf8beea6ef815",
         "pur-7a2c9d6f4b8e4d1a3f6c0b2d4e5f7a96",
         "pur-7f5e5ae2f85e4d74bca9edb78b7332f0",
         "pur-8b3d0e7a5c9f4e2b4a7d1c3e5f6a8b07",
         "pur-9d9726d27ea04842b803208c17fd1b37",
         "pur-a326599d5b464456b43259262c4808ba",
+        "pur-a9aeeb7107e24ef68654ee86aa1fbe14",
         "pur-abd647629bfa41e1ae7de9bf129dbf44",
         "pur-ae7d87fe77614d0098db388d7f0fa11d",
         "pur-b6c01a5b012340fc888139c1070dc054",
@@ -63241,13 +63478,17 @@
         },
         {
           "currency": "USD",
-          "estimate_minor": 0,
+          "estimate_minor": 23699,
           "evidence_scope": "retrieved_records_only",
           "final_vendor_amount_minor": 0,
           "legacy_unverified_minor": 0,
           "month": "2026-11",
-          "purchase_ids": [],
-          "total_minor": 0,
+          "purchase_ids": [
+            "pur-3fca793e96a64c20b79ac0831efc3b50",
+            "pur-5f9b203a9810468f8bab74284d78f44d",
+            "pur-a9aeeb7107e24ef68654ee86aa1fbe14"
+          ],
+          "total_minor": 23699,
           "unknown_amount_ids": []
         },
         {
@@ -63284,7 +63525,7 @@
           "purpose": "engineering_software_services"
         },
         {
-          "amount_minor": 2346369,
+          "amount_minor": 2370068,
           "currency": "USD",
           "purpose": "equipment_tooling"
         },
@@ -63302,10 +63543,10 @@
       "totals": [
         {
           "currency": "USD",
-          "estimate_minor": 398545,
+          "estimate_minor": 422244,
           "final_vendor_amount_minor": 2101946,
           "legacy_unverified_minor": 2398968,
-          "total_minor": 4899459
+          "total_minor": 4923158
         }
       ],
       "undated_unallocated": [
@@ -63459,11 +63700,11 @@
       "by_currency": [
         {
           "currency": "USD",
-          "estimated_purchase_minor": 398545,
+          "estimated_purchase_minor": 422244,
           "legacy_unverified_purchase_minor": 2398968,
           "order_only_charge_allocation_minor": 6561,
           "partial_charge_purchase_minor": 0,
-          "purchases_without_merchant_charge_minor": 3118060,
+          "purchases_without_merchant_charge_minor": 3141759,
           "undated_charge_minor": 57998,
           "undated_refund_minor": 0,
           "undated_unallocated_purchase_minor": 922346,
@@ -63484,6 +63725,7 @@
         "pur-3ce173932d6c45f184bcd60237a2c790",
         "pur-3d8a298bd6054af6a120b520e7a8da65",
         "pur-3e2e38c4658c47eba0f7b8efe6bb4734",
+        "pur-3fca793e96a64c20b79ac0831efc3b50",
         "pur-406788001c4d41f39213bbd4ec7a35ad",
         "pur-4d9f6a3c1e5b4a8d0c3f7e9a1b2c4d63",
         "pur-4eaf76e6557740d7b0e85e0be8664f71",
@@ -63492,6 +63734,7 @@
         "pur-5da1ea9540d44a8897b0c2774fe1ff35",
         "pur-5e0a7b4d2f6c4b9e1d4a8f0b2c3d5e74",
         "pur-5f404f5035cb425a9a8d90c69010a404",
+        "pur-5f9b203a9810468f8bab74284d78f44d",
         "pur-6f1b8c5e3a7d4c0f2e5b9a1c3d4e6f85",
         "pur-7a2c9d6f4b8e4d1a3f6c0b2d4e5f7a96",
         "pur-7cb5c1d8028249feb0e80687059fc82e",
@@ -63506,6 +63749,7 @@
         "pur-a326599d5b464456b43259262c4808ba",
         "pur-a61e59a7635c4aa0887475454ad04b04",
         "pur-a667e3ee975c42218852bc7b225d75a8",
+        "pur-a9aeeb7107e24ef68654ee86aa1fbe14",
         "pur-ae7d87fe77614d0098db388d7f0fa11d",
         "pur-b03a2dd1d7054c408d12d07ac3eaa1ec",
         "pur-c08cee116c73400bae488deb2d2015f4",
@@ -64211,6 +64455,7 @@
         "pur-3f610c61869547abb6f636978fb3c63c",
         "pur-3f6de21c0d6f4fe4a39aed9b05b32fc9",
         "pur-3f7c2f57bc594cc8abbc5e9896c1503a",
+        "pur-3fca793e96a64c20b79ac0831efc3b50",
         "pur-3fd35fa4c22c45f1b2d62e92652a2757",
         "pur-406788001c4d41f39213bbd4ec7a35ad",
         "pur-415e4865fe8f4ce2b2eca1a2e49db87b",
@@ -64286,6 +64531,7 @@
         "pur-5f32a9e9bb164a428dc6bb489ccd1b8b",
         "pur-5f39080fdb1b4961aae31ac2a7050338",
         "pur-5f404f5035cb425a9a8d90c69010a404",
+        "pur-5f9b203a9810468f8bab74284d78f44d",
         "pur-5fae169d013f41d197ba6f7e6a43c212",
         "pur-5fd0030147254e7ea4b08f7f09ff66f7",
         "pur-60b1975ac8e740ba9b68c87b90dd9143",
@@ -64452,6 +64698,7 @@
         "pur-a61e59a7635c4aa0887475454ad04b04",
         "pur-a748e002d30f4feaa479ad9601062796",
         "pur-a905c347f2ff42f5a0870c953cb18946",
+        "pur-a9aeeb7107e24ef68654ee86aa1fbe14",
         "pur-aa976356e62445be80822f3ba9966bd3",
         "pur-ab0a53e3b8ab4340aaa9a4612b4ddb00",
         "pur-ab6c1aedc885487f9041593fc16cc55f",
@@ -64850,7 +65097,7 @@
       "coverage-fee7edc5545c4ce58fba854587790eb4: evidence coverage is partial",
       "Legacy order 112-0019658-3684217: row valuation USD 139.80, preserved project invoice USD 139.81; historical allocation residual USD +0.01. Original prices retained; no balancing payment invented.",
       "Legacy order 112-0066205-0960237: row valuation USD 423.94, preserved project invoice USD 423.95; historical allocation residual USD +0.01. Original prices retained; no balancing payment invented.",
-      "5 legacy named order(s) lack an exact invoice allocation check",
+      "8 legacy named order(s) lack an exact invoice allocation check",
       "1 preserved potentially project order(s) have no named Markdown row"
     ]
   }
