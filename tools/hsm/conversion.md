@@ -76,9 +76,12 @@ read there, with each Python file replaced by the Rust that took its place.
   - only what is left is converted.
 - **True dependencies come first** ([What an output is made from](#what-an-output-is-made-from)).
   A step whose outputs come out the same stops the reruns after it. Today a Python step's
-  recorded inputs are everything compiled into the programs it calls, the shared Python and the
-  Cargo files: an edit to one part's recipe reruns every step that runs its subsystem's recipe
-  program, and an edit to the bookkeeping reruns every step.
+  recorded inputs are everything compiled into the programs it calls, the shared Python, and
+  `tools/hsm/cargo-config.json`, the part of the workspace manifest and lock file that can change
+  a program (`tools/bazel/cargo_config.py`). The job runner is not among them: each step copies
+  the checkout's runner files in when it runs. An edit to one part's recipe still reruns every
+  step that runs its subsystem's recipe program, and an edit to the kernel or the bookkeeping
+  reruns every step that uses them.
 - **One step at a time, biggest first:** the whole-machine assembly (`enclosure_assembly.py`),
   then the graph's other entries by CPU. Steps whose files are
   separate run in parallel.
