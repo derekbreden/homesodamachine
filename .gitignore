@@ -84,6 +84,12 @@ tools/cad-venv
 # one file a study reads instead of standing it again (hardware/scripts/_machine.py).
 *.step.npz
 *.scene.npz
+# The wiring's resolved model, conductor worksheet and route numbers, written when
+# hardware/wiring/installed/build.py is run for them; the wires program's numbers are also
+# written beside its outputs on every assembly run.
+hardware/wiring/enclosure-wiring.json
+hardware/wiring/enclosure-wiring.csv
+hardware/wiring/enclosure-wiring.numbers.json
 hardware/printed-parts/zone-c/funnel/funnel-frame.stl
 hardware/printed-parts/enclosure/electronics-access-panel/electronics-access-panel.stl
 hardware/printed-parts/enclosure/rear-identification/rear-label-*.stl

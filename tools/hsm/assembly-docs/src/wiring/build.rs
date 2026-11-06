@@ -216,7 +216,11 @@ fn build_export(request: &Request, kernel: bool, numbers_only: bool) -> Result<V
     let fine_digest = readers::digest(&model)?;
     numbers["physical_fine_model_sha256"] = json!(fine_digest);
     manifest["physical_fine_model_sha256"] = json!(fine_digest);
-    let source_names = source_paths(&request.root, &numbers)?;
+    let source_names = if kernel {
+        source_paths(&request.root, &numbers)?
+    } else {
+        Vec::new()
+    };
     if numbers_only {
         let data = json!({"numbers":numbers,"manifest":manifest,"sources":source_names});
         std::fs::write(
@@ -230,15 +234,17 @@ fn build_export(request: &Request, kernel: bool, numbers_only: bool) -> Result<V
     )?;
     let wire = PathBuf::from(format!("{}.step", output.display()));
     let wire_model = PathBuf::from(format!("{}.step.npz", output.display()));
-    let mut receipt = if kernel {
-        step::install(
-            &json!({"host":target,"wire_step":wire,"wire_model":wire_model,"verify_retained":boolean(d,"verify_retained",false)}),
-        )?
-    } else {
-        provider(
+    if !kernel {
+        // The assembly build cuts and installs the wires and stops there: the resolved model
+        // and the worksheet are written when the wiring is materialized by hand.
+        let receipt = provider(
             json!({"kind":"append_wiring","host":target,"wire_step":wire,"wire_model":wire_model}),
-        )?
-    };
+        )?;
+        return Ok(json!({"receipt":receipt}));
+    }
+    let receipt = step::install(
+        &json!({"host":target,"wire_step":wire,"wire_model":wire_model,"verify_retained":boolean(d,"verify_retained",false)}),
+    )?;
     manifest["wiring_fine_model_sha256"] = receipt["wiring_fine_model"]["sha256"].clone();
     manifest["wiring_numbers_sha256"] =
         json!(readers::digest(&output.with_extension("numbers.json"))?);
@@ -252,45 +258,23 @@ fn build_export(request: &Request, kernel: bool, numbers_only: bool) -> Result<V
             sources.push(path);
         }
     }
-    if kernel {
-        sources.insert(
-            0,
-            request
-                .root
-                .join("hardware/wiring/installed/wire_geometry.py"),
-        );
-    }
+    sources.insert(
+        0,
+        request
+            .root
+            .join("hardware/wiring/installed/wire_geometry.py"),
+    );
     let additional = json!(sources);
-    let physical = if kernel {
-        None
-    } else {
-        receipt["physical_step_sha256"].as_str()
-    };
-    manifest = write_manifest(
-        &request.root,
-        manifest,
-        &target,
-        &output,
-        &additional,
-        physical,
-    )?;
-    receipt["connection_count"] = manifest["connection_count"].clone();
-    let review = parent.join("installed/integration-review.json");
-    std::fs::create_dir_all(review.parent().unwrap())?;
-    std::fs::write(review, serde_json::to_string_pretty(&receipt)? + "\n")?;
-    if kernel {
-        let residual = manifest["reference_frames"]
-            .as_object()
-            .context("wiring reference frames")?
-            .values()
-            .filter_map(|r| r["maximum_extent_residual_mm"].as_f64())
-            .fold(f64::NEG_INFINITY, f64::max);
-        Ok(
-            json!({"conductors":manifest["connection_count"],"harnesses":manifest["harnesses"].as_object().unwrap().len(),"terminal_status":manifest["terminal_status_counts"],"frame_max_residual_mm":residual}),
-        )
-    } else {
-        Ok(json!({"manifest":manifest,"receipt":receipt}))
-    }
+    manifest = write_manifest(&request.root, manifest, &target, &output, &additional, None)?;
+    let residual = manifest["reference_frames"]
+        .as_object()
+        .context("wiring reference frames")?
+        .values()
+        .filter_map(|r| r["maximum_extent_residual_mm"].as_f64())
+        .fold(f64::NEG_INFINITY, f64::max);
+    Ok(
+        json!({"conductors":manifest["connection_count"],"harnesses":manifest["harnesses"].as_object().unwrap().len(),"terminal_status":manifest["terminal_status_counts"],"frame_max_residual_mm":residual}),
+    )
 }
 pub fn request(request: &Request) -> Result<Value> {
     let d = &request.data;
