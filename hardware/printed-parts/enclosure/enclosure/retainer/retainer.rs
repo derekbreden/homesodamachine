@@ -1,7 +1,7 @@
 //! The lower pump retainer: a cartridge installed from below the pumps, held by two snap wings
 //! whose hooks catch the front-top flanks, with the fitted skirt wells and outlet tube passages
 //! cut through it. The print carries the wings relaxed; the assemblies carry them seated.
-use crate::catalog::{running, wall_color};
+use crate::catalog::{clearance, wall_color};
 use crate::plan::{Graph, P2, P3, Seg, Shape};
 use crate::pump::{case, tray};
 use crate::shell::shell;
@@ -84,7 +84,7 @@ fn lower_well(g: &mut Graph, trays: &[[f64; 3]]) -> Shape {
     let body = profile_prism(g, lower, bottom, support);
     let lower_room = g.intersect(well, &[body]);
     let [open0, open1] = t.skirt_body_open_y_bounds;
-    let aft = AFT_BODY_Y + running();
+    let aft = AFT_BODY_Y + clearance(true, true, false);
     let lower_mask = g.yz_prism(c.center_x - c.cutter_half_extent, c.center_x + c.cutter_half_extent,
                               vec![[c.center_y + open0, bottom], [c.center_y + aft, bottom],
                                    [c.center_y + aft, AFT_BODY_FULL_Z], [c.center_y + open1, support],
