@@ -35,8 +35,6 @@ for _path in (
     _hw / "scripts",
     _hw / "reference" / "tee-connector",
     _hw / "reference" / "beduan-solenoid",
-    _hw / "printed-parts" / "enclosure" / "valve-tray",
-    _hw / "printed-parts" / "valve-seat",
     _repo / "tools",
 ):
     sys.path.insert(0, str(_path))
@@ -47,19 +45,18 @@ if __name__ == "__main__":
 
 import beduan_solenoid as valve  # noqa: E402
 import tee_connector as tee  # noqa: E402
-import valve_tray as tray  # noqa: E402
 
 
 # The four trial dimensions.  They are local on purpose: this fixture is the experiment which
 # decides whether these provisional appliance dimensions survive contact with the real parts.
 
 def _reference_inputs(method='state'):
-    values = {'tray': {'THICK': tray.THICK, 'SEAT': tray.SEAT}}
+    values = {}
     if method == 'numbers':
         import _rust_part
         from _material_base import M_PETGF_BLACK
         from _materials import C_VALVE, M_JG_BLACK_PP, linear
-        values.update(tray_stock=tray.tray_stock_numbers(FRAME_X, ((0.0, 0.0),)),
+        values.update(
             tee_step=_rust_part.step(tee.STEP), valve_step=_rust_part.step(valve.STEP_PATH),
             black_color=list(linear(M_PETGF_BLACK)), tee_color=list(linear(M_JG_BLACK_PP)),
             valve_color=list(linear(C_VALVE)))
@@ -77,7 +74,7 @@ globals().update({name: _reference_values[name] for name in ('SLEEVE_FACE_SEPARA
 # The tee-wall journal's current radial slip, copied here rather than importing the entire
 # appliance assembly into a bench tool.  The reference tee supplies the collar radius.
 
-# One actual valve-tray seat, backed by a broad flat trial card.  `tray.SEAT` places the valve's
+# One actual valve-tray seat, backed by a broad flat trial card.  The tray's `SEAT` places the valve's
 # natural origin below the tray face so its central boss lands on that face, exactly as it does
 # in enclosure-front-top.  Turning that local frame +90 degrees about X makes the valve inlet
 # face down toward the tee.
