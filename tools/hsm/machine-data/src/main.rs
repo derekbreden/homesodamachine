@@ -52,9 +52,7 @@ fn answer(request: &Value) -> Result<Value> {
         "report_ports" => reporting::ports(&request["frame"]),
         "report_routes" => reporting::route_rows(&request["metadata"]),
         "report_run_length" => Ok(json!(reporting::run_length(&request["row"])?)),
-        "report_route_metadata" => reporting::route_metadata(request),
         "report_scene" => reporting::scene(request),
-        "report_trays" => reporting::trays(request),
         "report_facts" => reporting::facts(request),
         _ => bail!("unknown machine-data operation {op:?}"),
     }

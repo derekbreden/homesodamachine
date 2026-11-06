@@ -152,16 +152,18 @@ enter these two nuts. Each switched return runs directly to its board OUT pin.
 
 The [installed enclosure wiring model](README.md) carries all populated board
 connectors and their shared-rail branches together in the complete machine.
-[The resolved manifest](enclosure-wiring.json) names every
+The resolved manifest, `enclosure-wiring.json`, names every
 conductor, attachment, nominal profile, route, length and assembly owner. The
-[worksheet](enclosure-wiring.csv) gives the same conductors as individual rows.
+worksheet, `enclosure-wiring.csv`, gives the same conductors as individual rows.
+Both are written when the wiring is materialized
+([Editing and materializing](README.md#editing-and-materializing)).
 
 Board pin positions come from the fabricated circuit JSON and the native board
 pose. Valve wire attachments follow the separate metal spades. Proposed wire
 exits permit the flexible tab/disconnect dressing at G/J. The model includes the
 removable XH housing envelopes and the fuse-splice insulation.
 
-The [installed manifest](enclosure-wiring.json) gives each conductor's selected
+The installed manifest gives each conductor's selected
 centreline, mounting parents, endpoint status and length. The
 [manual review](installed/routing-review.json) binds the larger-body clearance
 readings and preparation budget to those exported artifacts. Wires and tubes

@@ -8,17 +8,17 @@ is an explicit electrical interface.
 - [Populated enclosure](../manifold-layout/enclosure-assembly.step): hardware,
   printed pieces, wiring, connector housings and fuse-splice insulation together.
 - [Wiring assembly](enclosure-wiring.step): the same installed wiring on its own.
-- [Resolved model](enclosure-wiring.json): terminal positions and directions,
+- The resolved model, `enclosure-wiring.json`: terminal positions and directions,
   sources, nominal dimensions, connections, routes, lengths and service boundaries.
-- [Conductor worksheet](enclosure-wiring.csv): one row per physical conductor.
+  The conductor worksheet, `enclosure-wiring.csv`: one row per physical conductor.
+  Both are written when the wiring is materialized by hand
+  ([Editing and materializing](#editing-and-materializing)), not by the assembly build.
 - [Routing review](installed/routing-review.json): manually requested interference,
   native-solid and integration readings, bound to their actual artifact hashes.
 - [Exact contact follow-up](installed/contact-review.json): native-solid readings
   of the remaining mesh contact witnesses and their local electrical endpoints.
 - [Cap passage review](installed/cap-passage-review.json): saved native cup/lid
   geometry and shared-bore scope through its three assembly hosts.
-- [Integration record](installed/integration-review.json): wiring subassembly and
-  retained physical assembly scope.
 - [Integral pump-mount wiring review](installed/integral-pump-mount-review.json):
   the eight pump/display conductors, shared passage and current printed stock.
 - [Manifold junction wiring review](installed/manifold-wago-shift-review.json):
@@ -178,31 +178,29 @@ The editable source is under [`installed/`](installed/):
 | `terminations.py` | Removable housings, dressed fuse leads and joint insulation |
 | `build.py` | Native wiring assembly, manifest, worksheet and enclosure integration |
 
-Rebuild the wiring against the current populated native enclosure:
+The assembly build (`enclosure_assembly.py`) resolves the wiring from its placed
+hardware, exports the physical fine model, then builds the Rust wiring and installs
+its paired STEP and viewer payload. It writes the wiring model and nothing else of
+the wiring's.
+
+The resolved model, the worksheet and `enclosure-wiring.numbers.json`, the bound
+conductor and component recipes, are written by materializing the wiring against
+the current populated native enclosure by hand:
 
 ```sh
-tools/cad-venv/bin/python hardware/wiring/installed/build.py
+python3 tools/run.py -- tools/cad-venv/bin/python hardware/wiring/installed/build.py
 ```
 
-The explicit kernel materializer reads `enclosure-assembly.step.npz`, resolves
-the attachments in a native child process, then builds after that child exits:
+It reads `enclosure-assembly.step.npz`, resolves the attachments in a native child
+process, then builds after that child exits. It writes the fine wiring to
+`enclosure-wiring.step.npz` and appends its STEP and viewer bodies to the populated
+enclosure; the physical fine model stays unchanged. The manifest binds the physical
+fine input, route numbers and fine wiring by SHA-256. It retains source byte hashes
+and records Python source identities with `_realized.code_digest`, so Bazel's
+stripped sources and the checkout share the same code identity. Comments leave that
+identity unchanged; code and docstring changes invalidate it. The three files are
+not in Git; run it before reading them.
 
-```sh
-python3 tools/run.py -- tools/cad-venv/bin/python hardware/wiring/installed/build.py --kernel
-```
-
-It writes the fine wiring to `enclosure-wiring.step.npz` and appends its STEP and
-viewer bodies to the populated enclosure. The physical fine model stays unchanged.
-The manifest binds the physical fine input, route numbers and fine wiring by SHA-256.
-It retains source byte hashes and records Python source identities with
-`_realized.code_digest`, so Bazel's stripped sources and the checkout share the
-same code identity. Comments leave that identity unchanged; code and docstring
-changes invalidate it.
-
-The normal `enclosure_assembly.py` CLI resolves wiring from its placed hardware,
-exports the physical fine model, then builds the Rust wiring and installs its
-paired STEP and viewer payload. `enclosure-wiring.numbers.json` carries the bound
-conductor and component recipes.
 The wiring-only materializer replaces its own marked STEP subassembly and viewer
 meshes; existing physical component records and meshes are retained. Native and
 viewer outputs use the same `wire-<ID>` and `terminal-<ID>` names. For example,
