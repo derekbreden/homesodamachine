@@ -29,7 +29,8 @@ The collar has a half circle below the bore's axis and a rectangle above it for 
 | `flavor-b` | FLAVOR | black | the umbilical's second black flavour tail |
 
 One collar per chip, on the same six stations, with the same station words and fluid colours —
-`bulkhead_ring.STATIONS` and `_y_wall_dimensions.chip_filaments` are what both read.
+the bulkhead ring's `STATIONS` ([`numbers.rs`](/hardware/printed-parts/enclosure/bulkhead-ring/numbers.rs)) and
+shared-data's `color.chips` are what both read.
 
 The four on the umbilical go on at [`assembly/faucet-and-umbilical.md`](/hardware/assembly/faucet-and-umbilical.md)
 §4, up to the braid's own end, and ride to the +Y wall of back-top on the un-sleeved tail. The other

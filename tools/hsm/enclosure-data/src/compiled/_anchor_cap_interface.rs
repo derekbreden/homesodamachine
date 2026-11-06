@@ -114,49 +114,37 @@ pub fn initialize(rt: Runtime, e: Env) -> Result<()> {
     };
     e.set("dims", rt.import_module("_enclosure_interface")?)?;
     e.set("fits", rt.import_module("fits")?)?;
-    let assigned21 = e.get("dims")?.attr("wall")?;
+    let assigned21 = Val::Float(hsm_enclosure_interface::WALL);
     e.set("WALL", assigned21.clone())?;
-    let assigned22 = Val::Float(6.35f64);
+    let assigned22 = Val::Float(hsm_enclosure_interface::anchor_cap::TUBE_OD);
     e.set("TUBE_OD", assigned22.clone())?;
-    let assigned23 = binary(
-        "add",
-        binary("truediv", e.get("TUBE_OD")?, Val::Float(2.0f64))?,
-        e.get("fits")?.attr("slip")?,
-    )?;
+    let assigned23 = Val::Float(hsm_enclosure_interface::anchor_cap::seat_r());
     e.set("SEAT_R", assigned23.clone())?;
-    let assigned24 = binary("add", e.get("SEAT_R")?, e.get("WALL")?)?;
+    let assigned24 = Val::Float(hsm_enclosure_interface::anchor_cap::rib_r());
     e.set("RIB_R", assigned24.clone())?;
-    let assigned25 = Val::Float(10.0f64);
+    let assigned25 = Val::Float(hsm_enclosure_interface::anchor_cap::CAP_LEN);
     e.set("CAP_LEN", assigned25.clone())?;
-    let assigned26 = e.get("fits")?.attr("slip")?;
+    let assigned26 = Val::Float(hsm_enclosure_interface::anchor_cap::end_air());
     e.set("END_AIR", assigned26.clone())?;
-    let assigned27 = binary(
-        "add",
-        e.get("CAP_LEN")?,
-        binary("mul", Val::Float(2.0f64), e.get("END_AIR")?)?,
-    )?;
+    let assigned27 = Val::Float(hsm_enclosure_interface::anchor_cap::window_len());
     e.set("WINDOW_LEN", assigned27.clone())?;
-    let assigned28 = e.get("WALL")?;
+    let assigned28 = Val::Float(hsm_enclosure_interface::anchor_cap::END_WEB);
     e.set("END_WEB", assigned28.clone())?;
-    let assigned29 = binary(
-        "add",
-        e.get("WINDOW_LEN")?,
-        binary("mul", Val::Float(2.0f64), e.get("END_WEB")?)?,
-    )?;
+    let assigned29 = Val::Float(hsm_enclosure_interface::anchor_cap::rib_len());
     e.set("RIB_LEN", assigned29.clone())?;
     let assigned30 = Val::Float(2.5f64);
     e.set("SADDLE", assigned30.clone())?;
-    let assigned31 = Val::Float(1.5f64);
+    let assigned31 = Val::Float(hsm_enclosure_interface::anchor_cap::WING);
     e.set("WING", assigned31.clone())?;
-    let assigned32 = e.get("fits")?.attr("slip")?;
+    let assigned32 = Val::Float(hsm_enclosure_interface::anchor_cap::wing_air());
     e.set("WING_AIR", assigned32.clone())?;
-    let assigned33 = Val::Float(1.2f64);
+    let assigned33 = Val::Float(hsm_enclosure_interface::anchor_cap::ENGAGE);
     e.set("ENGAGE", assigned33.clone())?;
     let assigned34 = Val::Float(0.9f64);
     e.set("LIP_TIP", assigned34.clone())?;
     let assigned35 = Val::Float(30.0f64);
     e.set("LEAD_IN", assigned35.clone())?;
-    let assigned36 = Val::Float(10.3f64);
+    let assigned36 = Val::Float(hsm_enclosure_interface::anchor_cap::WING_TOP);
     e.set("WING_TOP", assigned36.clone())?;
     let assigned37 = Val::Float(36.0f64);
     e.set("CAVITY_DEG", assigned37.clone())?;
@@ -166,7 +154,7 @@ pub fn initialize(rt: Runtime, e: Env) -> Result<()> {
     e.set("MOUTH_DEG", assigned39.clone())?;
     let assigned40 = Val::Float(0.8f64);
     e.set("RIB_CHAMFER", assigned40.clone())?;
-    let assigned41 = Val::Float(0.6f64);
+    let assigned41 = Val::Float(hsm_enclosure_interface::anchor_cap::HEADROOM);
     e.set("HEADROOM", assigned41.clone())?;
     let assigned42 = binary("truediv", e.get("ENGAGE")?, {
         let _site = rt.source_at(
@@ -238,17 +226,9 @@ pub fn initialize(rt: Runtime, e: Env) -> Result<()> {
         e.get("fits")?.attr("slip")?,
     )?;
     e.set("WINDOW_B1", assigned58.clone())?;
-    let assigned59 = binary(
-        "add",
-        binary(
-            "add",
-            binary("add", e.get("WING_AIR")?, e.get("WING")?)?,
-            e.get("ENGAGE")?,
-        )?,
-        binary("mul", Val::Float(2.0f64), e.get("fits")?.attr("slip")?)?,
-    )?;
+    let assigned59 = Val::Float(hsm_enclosure_interface::anchor_cap::slot_w());
     e.set("SLOT_W", assigned59.clone())?;
-    let assigned60 = binary("add", e.get("WING_TOP")?, e.get("HEADROOM")?)?;
+    let assigned60 = Val::Float(hsm_enclosure_interface::anchor_cap::slot_top());
     e.set("SLOT_TOP", assigned60.clone())?;
     e.set("Frame.__init__",{let params=vec![("self".into(),None,false),("mid".into(),None,false),("u".into(),None,false),("n".into(),None,false)];let outer=e.clone();let runtime=rt.clone();Val::function(move |args,kwargs| {let rt=runtime.clone();let e=bind(&outer,&params,args,kwargs,None,None)?;let _frame=rt.frame(&outer);let assigned61={let _site=rt.source_at("tools/hsm/enclosure-data/src/compiled/_anchor_cap_interface.rs",line!());{let fun64=e.get("tuple")?;let mut args62=Vec::new();let mut kw63=Vec::new();args62.push({let e=e.child();let out65=Val::list(vec![]);for item66 in e.get("mid")?.iter()? {e.set("c",item66)?;out65.attr("append")?.call(vec![{let _site=rt.source_at("tools/hsm/enclosure-data/src/compiled/_anchor_cap_interface.rs",line!());{let fun69=e.get("float")?;let mut args67=Vec::new();let mut kw68=Vec::new();args67.push(e.get("c")?);fun69.call(args67,kw68)?}}],vec![])?;}out65});fun64.call(args62,kw63)?}};e.get("self")?.setattr("mid",assigned61.clone())?;
 let assigned70={let _site=rt.source_at("tools/hsm/enclosure-data/src/compiled/_anchor_cap_interface.rs",line!());{let fun73=e.get("tuple")?;let mut args71=Vec::new();let mut kw72=Vec::new();args71.push({let e=e.child();let out74=Val::list(vec![]);for item75 in e.get("u")?.iter()? {e.set("c",item75)?;out74.attr("append")?.call(vec![{let _site=rt.source_at("tools/hsm/enclosure-data/src/compiled/_anchor_cap_interface.rs",line!());{let fun78=e.get("float")?;let mut args76=Vec::new();let mut kw77=Vec::new();args76.push(e.get("c")?);fun78.call(args76,kw77)?}}],vec![])?;}out74});fun73.call(args71,kw72)?}};e.get("self")?.setattr("u",assigned70.clone())?;

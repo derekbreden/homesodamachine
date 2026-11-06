@@ -2,6 +2,7 @@
 use crate::{num, opt, variables};
 use anyhow::{Context, Result, bail};
 use hsm_documents::format_number;
+use hsm_enclosure_interface as interface;
 use serde_json::{Value, json};
 use sha2::{Digest, Sha256};
 use std::{collections::BTreeMap, fs, path::Path};
@@ -550,11 +551,10 @@ fn roof(v: &Value) -> Result<Value> {
 }
 fn fasteners(v: &Value) -> Result<Vec<Value>> {
     let [cx, _cy] = frame_center(v)?;
-    let enc = &v["enclosure"];
     let r = roof(v)?;
     let ledge = num(&r, "floor")?;
     let head_seat = ledge + SCREW_GRIP;
-    let heatset = num(enc, "heatset_long_len")?;
+    let heatset = interface::HEATSET_LONG_LEN;
     let bore_bottom = ledge - heatset - PILOT_RELIEF;
     let mut rows = vec![];
     for (col, x, y) in [
@@ -566,9 +566,9 @@ fn fasteners(v: &Value) -> Result<Vec<Value>> {
             rows.push(json!({"name":format!("{col}-{name}"),"col":col,"side":side,"x":cx+side as f64*x,"y":y,
                 "ledge_z":ledge,"head_seat_z":head_seat,"head_top_z":head_seat+HEAD_H,
                 "insert_top_z":ledge,"insert_bottom_z":ledge-heatset,"bore_bottom_z":bore_bottom,
-                "host_bottom_z":bore_bottom-num(enc,"wall")?,"screw_length":SCREW_LENGTH,
+                "host_bottom_z":bore_bottom-interface::WALL,"screw_length":SCREW_LENGTH,
                 "screw_length_allowance":SCREW_ALLOW,"tip_z":head_seat-SCREW_LENGTH,
-                "host_radius_mm":num(enc,"heatset_dia")?/2.0+num(enc,"wall")?}));
+                "host_radius_mm":interface::HEATSET_DIA/2.0+interface::WALL}));
         }
     }
     Ok(rows)
@@ -581,7 +581,7 @@ fn body_half(v: &Value) -> Result<f64> {
         .map(|r| {
             Ok((num(&r, "x")? - cx).abs()
                 - num(&r, "host_radius_mm")?
-                - num(&v["enclosure"], "slide_slip")?)
+                - interface::slide_slip())
         })
         .collect::<Result<Vec<_>>>()?
         .into_iter()
@@ -589,7 +589,6 @@ fn body_half(v: &Value) -> Result<f64> {
         .context("No front frame fasteners")
 }
 fn frame_numbers(v: &Value) -> Result<Value> {
-    let enc = &v["enclosure"];
     let [cx, cy] = frame_center(v)?;
     let seat = opt(v, "seat", 349.0);
     let [floor, plug, _rail] = frame_datums(seat);
@@ -600,8 +599,8 @@ fn frame_numbers(v: &Value) -> Result<Value> {
     let gap = (2.0 * SOCKET_HALF - PLUG_W) / 2.0;
     let inner = v.get("inner").cloned().unwrap_or(json!(DEFAULT_INNER));
     let rear_limit = inner[1].as_f64().context("Inner east face")?
-        - num(enc, "y_stack_high_depth")?
-        - num(enc, "slide_slip")?;
+        - interface::Y_STACK_HIGH_DEPTH
+        - interface::slide_slip();
     let screws: Vec<_> = rows
         .iter()
         .map(|r| {
@@ -620,14 +619,14 @@ fn frame_numbers(v: &Value) -> Result<Value> {
         "roof_width":r["width"],"body_width":BODY_WIDTH,"front":num(&r,"front")?-cy,"back":num(&r,"back")?-cy,
         "roof_floor":num(&r,"floor")?-floor,"roof_top":num(&r,"top")?-floor,"seat":seat-floor,
         "corner_radius":FRAME_CORNER,"rear_limits":[-rear_limit-cx,rear_limit-cx],
-        "rear_start":opt(v,"y_joint",200.0)-num(enc,"slide_slip")?-cy,
+        "rear_start":opt(v,"y_joint",200.0)-interface::slide_slip()-cy,
         "corbel_half_depth":27.5+(FORWARD+AFT)/2.0,"corbel_slope":30_f64.to_radians().tan(),
-        "ledge_pad_half_y":PAD_HALF_Y,"slide_slip":enc["slide_slip"],"screw_clear_radius":num(enc,"screw_clear_dia")?/2.0,
-        "head_radius":num(enc,"head_cbore_dia")?/2.0,"rear_pad_radius":HEAD_D/2.0,
-        "front_head_inside":COLLAR_W/2.0+OVERHANG+num(enc,"funnel_collar_air")?,"screws":screws,
+        "ledge_pad_half_y":PAD_HALF_Y,"slide_slip":interface::slide_slip(),"screw_clear_radius":interface::screw_clear_dia()/2.0,
+        "head_radius":interface::head_cbore_dia()/2.0,"rear_pad_radius":HEAD_D/2.0,
+        "front_head_inside":COLLAR_W/2.0+OVERHANG+interface::funnel_collar_air(),"screws":screws,
         "body_half_width":body_half(v)?,
-        "brim_half_size":[COLLAR_W/2.0+OVERHANG+num(enc,"funnel_collar_air")?,COLLAR_D/2.0+OVERHANG+num(enc,"funnel_collar_air")?],
-        "brim_radius":BRIM_R+num(enc,"funnel_collar_air")?,"drain_xy":[0.0,0.0],
+        "brim_half_size":[COLLAR_W/2.0+OVERHANG+interface::funnel_collar_air(),COLLAR_D/2.0+OVERHANG+interface::funnel_collar_air()],
+        "brim_radius":BRIM_R+interface::funnel_collar_air(),"drain_xy":[0.0,0.0],
         "socket_size":[2.0*(half+gap),2.0*(plug_half_length(half)+gap)],"socket_radius":SOCKET_CORNER,
         "socket_z":WEB,"socket_height":SOCKET_DEPTH,"socket_flare":[2.0,1.0],"hole_radius":HOLE_D/2.0,
         "web_cut_z":[-1.0,WEB+1.0],"slot_x":[snap["slot_in"],snap["slot_out"]],
@@ -657,8 +656,8 @@ fn frame(v: &Value) -> Result<Value> {
         "document" => {
             let snap = Cradle::read(v)?.stations(v)?;
             let rear = DEFAULT_INNER[1]
-                - num(&v["enclosure"], "y_stack_high_depth")?
-                - num(&v["enclosure"], "slide_slip")?;
+                - interface::Y_STACK_HIGH_DEPTH
+                - interface::slide_slip();
             let mut vars = variables(&[
                 ("FRAME_WIDTH", FRAME_WIDTH, "g", " mm"),
                 ("FRAME_BODY_WIDTH", 2.0 * body_half(v)?, "g", " mm"),

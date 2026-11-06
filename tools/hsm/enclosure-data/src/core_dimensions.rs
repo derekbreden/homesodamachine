@@ -1,6 +1,7 @@
 //! Enclosure scalar interfaces and construction datums.
 use super::{array, f, text};
 use anyhow::{Result, anyhow, ensure};
+use hsm_enclosure_interface as interface;
 use hsm_enclosure_numbers::{rear_wall, shell};
 use serde_json::{Value, json};
 
@@ -22,27 +23,27 @@ fn wago_swing(v: &Value, size: &str) -> Result<f64> {
 fn interface(v: &Value) -> Result<Value> {
     let fit = &v["fits"];
     let z_seam: f64 = shell::Z_SEAM;
-    let slide_slip: f64 = f(fit, "running")?;
+    let slide_slip: f64 = interface::slide_slip();
     let wall: f64 = shell::WALL;
     let ceiling_skin: f64 = shell::CEILING_SKIN;
     let extrusion_w: f64 = 0.42;
-    let rear_seam_clear: f64 = 3.0;
-    let funnel_collar_air: f64 = f(fit, "running")?;
+    let rear_seam_clear: f64 = interface::REAR_SEAM_CLEAR;
+    let funnel_collar_air: f64 = interface::funnel_collar_air();
     let y_stack_high_depth: f64 = shell::Y_STACK_HIGH_DEPTH;
     let rear_plane_y: f64 = shell::REAR_PLANE_Y;
-    let co2_axis_drop: f64 = f(fit, "supported_surface")?;
+    let co2_axis_drop: f64 = interface::co2_axis_drop();
     let show_edge_r: f64 = shell::SHOW_EDGE_R;
     let show_corner_r: f64 = shell::CORNER_ROUND;
-    let pump_station_lead: f64 = -0.074;
+    let pump_station_lead: f64 = interface::PUMP_STATION_LEAD;
     let pump_station_drop: f64 = shell::shell().pump_station_drop;
     let pump_seated_drop: f64 = shell::shell().pump_seated_drop;
-    let manifold_rise: f64 = 2.0;
-    let inner_limb_drop: f64 = 9.5;
+    let manifold_rise: f64 = interface::MANIFOLD_RISE;
+    let inner_limb_drop: f64 = interface::INNER_LIMB_DROP;
     let flute_depth: f64 = shell::FLUTE_DEPTH;
     let flute_rise: f64 = shell::FLUTE_RISE;
     let flute_full_depth_height: f64 = 2.0 * flute_rise;
-    let screw_clear_dia: f64 = 3.0 + (2.0 * f(fit, "slip")?);
-    let head_cbore_dia: f64 = 5.5 + (2.0 * f(fit, "slip")?);
+    let screw_clear_dia: f64 = interface::screw_clear_dia();
+    let head_cbore_dia: f64 = interface::head_cbore_dia();
     let heatset_dia: f64 = shell::HEATSET_DIA;
     let heatset_len: f64 = 4.0;
     let heatset_long_len: f64 = shell::HEATSET_LONG_LEN;

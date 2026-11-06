@@ -255,14 +255,9 @@ _FLUTE_TREES = tuple(sorted({r for roots in _FLUTE_ROOTS.values() for r in roots
                            | {"hardware/printed-parts/enclosure/enclosure/",
                               "hardware/printed-parts/cold-core/foam-cap/",
                               "hardware/printed-parts/faucet/asse-vent-seals/"}))
-# The independent family consumers share this Rust source, without enclosure models or data.
-_FLUTE_SHARED_SOURCES = frozenset({
-    "hardware/printed-parts/enclosure/enclosure/_enclosure_compiled.py",
-    "hardware/printed-parts/enclosure/enclosure/_rust_enclosure_presentation.py",
-    "hardware/printed-parts/enclosure/enclosure/enclosure_presentation.rs",
-    "hardware/printed-parts/enclosure/enclosure/enclosure_presentation/quadric.rs",
-    "hardware/printed-parts/enclosure/enclosure/solid/presentation.rs",
-})
+# Sources inside the trees above that every wrapper reads besides its own tree's. The print
+# payload program the wrappers share is outside them, in tools/hsm/print-payload.
+_FLUTE_SHARED_SOURCES = frozenset()
 
 
 def _one_tree(roots: tuple) -> tuple:

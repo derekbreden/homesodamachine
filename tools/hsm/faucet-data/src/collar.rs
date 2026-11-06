@@ -8,8 +8,18 @@ fn f(v: &Value, k: &str) -> Result<f64> {
 fn g(v: f64) -> String {
     hsm_documents::format_number(v, "g").unwrap()
 }
+/// The bulkhead ring's lettering and stations, as its numbers hold them.
+fn ring_numbers() -> Value {
+    use hsm_bulkhead_ring_numbers as n;
+    let words: serde_json::Map<String, Value> = n::WORD_WIDTHS.iter().map(|&(w, x)| (w.into(), json!(x))).collect();
+    let stations: serde_json::Map<String, Value> = n::STATIONS.iter().map(|&(s, w, _)| (s.into(), json!(w))).collect();
+    let fluids: serde_json::Map<String, Value> = n::STATIONS.iter().map(|&(s, _, f)| (s.into(), json!(f))).collect();
+    json!({"RING_W":n::RING_W,"THICK":n::THICK,"RISE":n::RISE,"WORD_FONT":n::WORD_FONT,"WORD_KIND":n::WORD_KIND,
+           "WORD_SIZE":n::WORD_SIZE,"WORD_CAP":n::WORD_CAP,"WORD_DEPTH":n::WORD_DEPTH,"WORD_RAISE":n::WORD_RAISE,
+           "WORD_MARGIN":n::WORD_MARGIN,"WORD_WIDTHS":words,"STATIONS":stations,"FLUIDS":fluids})
+}
 pub fn dispatch(r: &Value) -> Result<Value> {
-    let ring = &r["ring"];
+    let ring = &ring_numbers();
     let od: f64 = 12.0;
     let tube_od: f64 = 6.35;
     let tolerance: f64 = 0.13;
@@ -95,7 +105,7 @@ pub fn dispatch(r: &Value) -> Result<Value> {
         return Ok(json!(band(r["face"].as_str().unwrap_or("top"))));
     }
     if fn_name == "datums" {
-        return Ok(json!({"datums":datum,"stations":stations}));
+        return Ok(json!({"datums":datum,"stations":stations,"ring":ring}));
     }
     if fn_name == "numbers" {
         let artwork: Value = serde_json::from_slice(&std::fs::read(

@@ -13,7 +13,7 @@ e.set("_p",item16)?;{let fun19=e.get("sys")?.attr("path")?.attr("insert")?;let m
 }
 let imported=rt.import_module("_routing")?;e.set("R",imported)?;
 let imported=rt.import_module("_cold_core_interface")?;e.set("_cc",imported)?;
-let imported=rt.import_module("_anchor_cap_interface")?;e.set("_anchor_cap",imported)?;
+
 let imported=rt.import_module("asse1022_assembly")?;e.set("_asse",imported)?;
 let imported=rt.import_module("funnel")?;e.set("_funnel",imported)?;
 let imported=rt.import_module("g_ganen_installation")?;e.set("_pump",imported)?;
@@ -34,7 +34,7 @@ let imported=rt.import_module("_copper_ports")?;e.set("_copper",imported)?;
 let imported=rt.import_module("gasher_check_valve")?;e.set("_gasher",imported)?;
 let imported=rt.import_module("wr1110_regulator")?;e.set("_wr1110",imported)?;
 let imported=rt.import_module("_gas_chain")?;e.set("_gas_chain",imported)?;
-let imported=rt.import_module("_anchor_cap_interface")?;e.set("_anchor_cap",imported)?;
+
 let imported=rt.import_module("digiten_flow_sensor")?;e.set("_digiten",imported)?;
 let imported=rt.import_module("_scorecard")?;e.set("_card",imported)?;
 let assigned23=e.get("R")?.attr("BLOCKED")?;e.set("BLOCKED",assigned23.clone())?;
@@ -381,7 +381,7 @@ let assigned821=Val::Float(1.25f64);e.set("FILL_A_HOSE_DROP",assigned821.clone()
 let assigned822=Val::Float(12.0f64);e.set("FILL_A_HOSE_FALL_RUN",assigned822.clone())?;
 let assigned823=Val::Float(1.5f64);e.set("FILL_A_VALVE_DROP",assigned823.clone())?;
 let assigned824=Val::Float(8.0f64);e.set("FILL_A_VALVE_RETURN_RUN",assigned824.clone())?;
-let assigned825=binary("add",e.get("_anchor_cap")?.attr("RIB_LEN")?,Val::Float(2.0f64))?;e.set("FILL_A_BEARING_STRAIGHT",assigned825.clone())?;
+let assigned825=binary("add",Val::Float(hsm_enclosure_interface::anchor_cap::rib_len()),Val::Float(2.0f64))?;e.set("FILL_A_BEARING_STRAIGHT",assigned825.clone())?;
 let assigned826=Val::Float(43.4f64);e.set("DRAW_A_CRUISE",assigned826.clone())?;
 let assigned827={let mut s=Vec::new();s.push(Val::Float(56.5f64));s.push(Val::Float(47.7f64));Val::tuple(s)};e.set("DRAW_A_NECK_IN",assigned827.clone())?;
 let assigned828={let mut s=Vec::new();s.push(Val::Float(92.2f64));s.push(Val::Float(42.9f64));s.push(Val::Float(38.3f64));Val::tuple(s)};e.set("DRAW_A_NECK_OUT",assigned828.clone())?;

@@ -934,7 +934,7 @@ front-left and front-right verticals, the back pieces the back-left and
 back-right, and **every seam edge stays 90°**. Assembled, all four verticals
 read as relieved, each sourced from a different quadrant. Of the horizontal
 front-to-back arrises, side-wall↔floor is square and side-wall↔ceiling is the top's
-rounded side edge (`_swept_top.SIDE_RADIUS`).
+rounded side edge (`SIDE_RADIUS` in [`interface/swept.rs`](interface/swept.rs)).
 
 The display facet raises no fifth standing vertical: running wall to wall, it ends
 on the ±X exterior walls and runs out into their own rounds.

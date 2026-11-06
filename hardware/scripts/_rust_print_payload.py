@@ -1,21 +1,34 @@
 """Command adapters for Rust's print surfaces and surface-graft input plans."""
+import json
+import tempfile
 from pathlib import Path
 
 
-def _presentation():
-    import sys
-    root = Path(__file__).resolve().parents[2]
-    sys.path.insert(0, str(root / "hardware/printed-parts/enclosure/enclosure"))
-    import _rust_enclosure_presentation
-    return _rust_enclosure_presentation
-
-
 def cut(step, stl, *, verbose=True, preserve_print_triangles=False, identity=None):
+    """Cut `step`'s viewer payload from the print triangles in `stl`, beside the STEP."""
+    import _rust_part
+    from _payload_rules import CREASE_DEG, LINEAR_DEFLECTION_RATIO
     if identity is None:
         import flute_payload
         identity = flute_payload.solid_identity(step)
-    return _presentation().print_payload(Path(step), stl=Path(stl), source=Path(step),
-        identity=identity, verbose=verbose, preserve_print_triangles=preserve_print_triangles)
+    step = Path(step).resolve()
+    numbers = dict(step_name=step.name, model=str(step.with_name(step.name + ".npz")),
+                   stl=str(Path(stl).resolve()), check_print=False,
+                   preserve_print_triangles=preserve_print_triangles,
+                   crease_deg=CREASE_DEG, deflection_ratio=LINEAR_DEFLECTION_RATIO,
+                   source=str(step))
+    if identity is not None:
+        numbers["identity"] = identity
+    with tempfile.TemporaryDirectory(prefix="hsm-print-payload-") as directory:
+        source = Path(directory) / "print-payload.numbers.json"
+        source.write_text(json.dumps(numbers, sort_keys=True) + "\n")
+        result = json.loads(_rust_part.run("print-payload", "print-payload", source, step.parent))
+    target = step.with_name(step.name + ".mesh")
+    _rust_part._WRITE_TARGETS.add(_rust_part._relative(target))
+    if verbose:
+        print(f"-> {target.name}  {result['printed_triangles']} -> {result['drawing_triangles']} "
+              f"facets, {result['deviation']:.3f} mm inside a {result['bound']:.3f} mm budget")
+    return result
 
 
 def _header(path):
@@ -42,7 +55,7 @@ def main(directories, *, preserve_print_triangles=None):
         _rust_part._READ_TARGETS.add(_rust_part._relative(Path(source)))
     for item in pending["requests"]:
         path = Path(item["path"])
-        plan = _rust_part.check("enclosure-shell", "enclosure-presentation", item["numbers"])
+        plan = _rust_part.check("print-payload", "print-payload", item["numbers"])
         for row in plan.get("moved", ()):
             print(f"   {path.name}: {row['name']} keeps its host surface; no placement "
                   f"recovered across {row['drift_mm']:.1f} mm")

@@ -2,21 +2,10 @@
 //! plane and the round onto the roof, and the print-down fills along the display's side edges.
 use crate::catalog::outward_per_height;
 use crate::{Bounds, P2};
-use crate::shell::SHOW_EDGE_R;
+pub use hsm_enclosure_interface::swept::{
+    ANGLE, FLAT, FRONT_RADIUS, Profile, SIDE_RADIUS, TOP_RADIUS, profile,
+};
 use serde::{Deserialize, Serialize};
-
-/// YZ stations of the front round, the display plane and the round onto the roof.
-#[derive(Clone, Copy, Debug, Serialize, Deserialize)]
-pub struct Profile {
-    pub foot: P2,
-    pub front_mid: P2,
-    pub start: P2,
-    pub end: P2,
-    pub top_mid: P2,
-    pub roof: P2,
-    pub origin: [f64; 3],
-    pub normal: [f64; 3],
-}
 
 /// One section of the side-edge fill at the curved display top.
 #[derive(Clone, Copy, Debug, Serialize, Deserialize)]
@@ -55,36 +44,8 @@ pub struct RoofTransition {
     pub outward_per_height: f64,
 }
 
-/// The display plane's tilt from level.
-pub const ANGLE: f64 = 30.0;
-/// The display plane's flat run.
-pub const FLAT: f64 = 87.0;
-pub const FRONT_RADIUS: f64 = 2.0 * SHOW_EDGE_R;
-pub const TOP_RADIUS: f64 = 3.0 * SHOW_EDGE_R;
-pub const SIDE_RADIUS: f64 = SHOW_EDGE_R;
 /// The funnel seat's thickness under the brim.
 pub const FUNNEL_SEAT: f64 = 6.0;
-
-pub fn profile(outer: &Bounds) -> Profile {
-    let (yf, zt) = (outer[2], outer[5]);
-    let a = ANGLE.to_radians();
-    let (rb, rt) = (FRONT_RADIUS, TOP_RADIUS);
-    let zb = zt - rb * a.cos() - FLAT * a.sin() - rt * (1.0 - a.cos());
-    let start = [yf + rb * (1.0 - a.sin()), zb + rb * a.cos()];
-    let end = [start[0] + FLAT * a.cos(), start[1] + FLAT * a.sin()];
-    let roof = [end[0] + rt * a.sin(), zt];
-    let amid = (180.0 - (90.0 - ANGLE) / 2.0).to_radians();
-    Profile {
-        foot: [yf, zb],
-        front_mid: [yf + rb + rb * amid.cos(), zb + rb * amid.sin()],
-        start,
-        end,
-        top_mid: [roof[0] - rt * (a / 2.0).sin(), zt - rt + rt * (a / 2.0).cos()],
-        roof,
-        origin: [0.0, (start[0] + end[0]) / 2.0, (start[1] + end[1]) / 2.0],
-        normal: [0.0, -a.sin(), a.cos()],
-    }
-}
 
 /// The additive chamfer a print-down round takes: its height and its foot's reach.
 pub fn transition(radius: f64) -> (f64, f64) {

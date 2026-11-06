@@ -403,7 +403,7 @@ observations do not transfer to the pump dock.
 
 ## Screw diameter and insert anchorage
 
-The [enclosure interface](../printed-parts/enclosure/enclosure/_enclosure_interface.py)
+The [enclosure interface](../printed-parts/enclosure/enclosure/interface/lib.rs)
 uses M3 inserts with a 4.0 mm nominal bore. Short inserts are 4.0 mm long; full-length
 inserts are 5.7 mm long. The [compressor floor posts](../printed-parts/enclosure/enclosure/quadrants/floor.rs)
 use M5 inserts 9.5 mm long and a 6.4 mm nominal bore. Thread engagement and blind relief

@@ -2,14 +2,16 @@
 use crate::catalog::{clearance, running};
 use crate::pump::tray;
 use crate::spec::ColletPlate;
+pub use hsm_enclosure_interface::{
+    HEATSET_DIA, HEATSET_LONG_LEN, REAR_PLANE_Y, WALL, Y_STACK_HIGH_DEPTH, funnel_collar_air, slide_slip,
+};
+use hsm_enclosure_interface::{PUMP_STATION_DROP, pump_seated_drop};
 use std::sync::OnceLock;
 
-/// The printed wall section.
-pub const WALL: f64 = 3.0;
 /// The one level line the bottom and top pieces part at.
 pub const Z_SEAM: f64 = 160.0;
 /// The show edges' round, and the plan corners' round twice that.
-pub const SHOW_EDGE_R: f64 = 6.0;
+pub use hsm_enclosure_interface::swept::SHOW_EDGE_R;
 pub const CORNER_ROUND: f64 = 2.0 * SHOW_EDGE_R;
 /// The corner columns stand on the cavity's corners at the plan round.
 pub const COLUMN_ROUND: f64 = CORNER_ROUND;
@@ -25,8 +27,6 @@ pub const BACK_TOP_FLANK_T: f64 = 9.0;
 pub const BACK_BOTTOM_FLANK_T: f64 = 9.0;
 pub const FRONT_BOTTOM_FLANK_T: f64 = 9.0;
 pub const FRONT_TOP_FLANK_T: f64 = 9.0;
-/// The rear wall's interior datum.
-pub const REAR_PLANE_Y: f64 = 468.3;
 /// The front wall's interior datum and its wall.
 pub const FRONT_PLANE_Y: f64 = 14.0;
 /// The Y joint the declared halves part at.
@@ -62,7 +62,6 @@ pub const HANDHOLD_EDGE_R: f64 = SHOW_EDGE_R;
 /// The Y-joint screw stacks: axes, bores, rods and their datums.
 pub const Y_STACK_AXIS_IN: f64 = 6.8;
 pub const Y_STACK_LOWER_AXIS_IN: f64 = 6.25;
-pub const Y_STACK_HIGH_DEPTH: f64 = 13.0;
 pub const Y_STACK_FRONT_ROOT: f64 = WALL;
 pub const Y_STACK_CBORE_DIA: f64 = 9.0;
 pub const Y_STACK_HEAD_RECESS: f64 = 3.0;
@@ -79,10 +78,7 @@ pub const Y_STACK_UPPER_DATUM: f64 = 265.0;
 pub const Y_STACK_UPPER_HEAD_DATUM: f64 = 321.5;
 
 /// M3 and M5 inserts and their bosses.
-pub const HEATSET_DIA: f64 = 4.0;
 pub const HEATSET_DEPTH: f64 = 5.25;
-/// The long heat-set insert, everywhere a station can take it.
-pub const HEATSET_LONG_LEN: f64 = 5.7;
 pub const MOUNT_BOSS_DIA: f64 = 8.0;
 pub const MOUNT_BORE_RELIEF: f64 = 1.0;
 pub const FLOOR_HEATSET_DIA: f64 = 6.4;
@@ -161,19 +157,9 @@ pub fn slab_t() -> f64 {
     FLOOR_T - clearance(true, false, true)
 }
 
-/// Faces that slide along the seams take the running allowance.
-pub fn slide_slip() -> f64 {
-    running()
-}
-
 /// How far a rail's flare drops under its head, from the arm's end back to the wall.
 pub fn rail_flare_drop() -> f64 {
     slide_slip() + HOOK_ARM + 0.5
-}
-
-/// The funnel collar's running air in the roof.
-pub fn funnel_collar_air() -> f64 {
-    running()
 }
 
 /// The lower Y stacks stand in the side band, a running fit off its face.
@@ -201,8 +187,8 @@ pub struct Shell {
 pub fn shell() -> &'static Shell {
     static SHELL: OnceLock<Shell> = OnceLock::new();
     SHELL.get_or_init(|| Shell {
-        pump_station_drop: 3.0,
-        pump_seated_drop: running() + 0.001,
+        pump_station_drop: PUMP_STATION_DROP,
+        pump_seated_drop: pump_seated_drop(),
         pump_relief_z_air: 1.0,
         pump_cartridge_z_clearance: running(),
         pump_bay_floor_relief: 2.6,

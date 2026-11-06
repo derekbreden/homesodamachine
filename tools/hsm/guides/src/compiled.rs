@@ -489,3 +489,22 @@ pub fn request(input: &Value) -> Result<Value> {
         action => bail!("unknown compiled recipe action {action}"),
     }
 }
+
+/// The swept exterior's section at `outer`, the box's X, Y and Z spans: each station a tuple, as
+/// the recipes read it.
+pub fn swept_profile(outer: Val) -> Result<Val> {
+    let bounds = outer.iter()?.iter().map(Val::num).collect::<Result<Vec<_>>>()?;
+    let bounds: [f64; 6] = bounds.try_into().map_err(|_| anyhow::anyhow!("an outer box has six bounds"))?;
+    let p = hsm_enclosure_interface::swept::profile(&bounds);
+    let station = |v: &[f64]| Val::tuple(v.iter().map(|&x| Val::Float(x)).collect());
+    Ok(Val::dict(vec![
+        (Val::Str("end".into()), station(&p.end)),
+        (Val::Str("foot".into()), station(&p.foot)),
+        (Val::Str("front_mid".into()), station(&p.front_mid)),
+        (Val::Str("normal".into()), station(&p.normal)),
+        (Val::Str("origin".into()), station(&p.origin)),
+        (Val::Str("roof".into()), station(&p.roof)),
+        (Val::Str("start".into()), station(&p.start)),
+        (Val::Str("top_mid".into()), station(&p.top_mid)),
+    ]))
+}

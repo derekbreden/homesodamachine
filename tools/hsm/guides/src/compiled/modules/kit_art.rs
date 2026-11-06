@@ -183,7 +183,6 @@ pub fn initialize(rt: Runtime, e: Env) -> Result<()> {
             let e = bind(&outer, &params, args, kwargs, None, None)?;
             let _frame = rt.frame(&outer);
             e.set("shared", rt.import_module("_install_art")?)?;
-            e.set("_swept_top", rt.import_module("_swept_top")?)?;
             let assigned24 = {
                 let fun27 = e.get("json")?.attr("loads")?;
                 let mut args25 = Vec::new();
@@ -338,17 +337,14 @@ pub fn initialize(rt: Runtime, e: Env) -> Result<()> {
                                 .get(Val::Str("box".into()))?
                                 .get(Val::Str("outer".into()))?,
                         )?;
-                        d.set(Val::Str("profile".into()), {
-                            let fun68 = e.get("_swept_top")?.attr("profile")?;
-                            let mut args66 = Vec::new();
-                            let mut kw67 = Vec::new();
-                            args66.push(
+                        d.set(
+                            Val::Str("profile".into()),
+                            swept_profile(
                                 e.get("facts")?
                                     .get(Val::Str("box".into()))?
                                     .get(Val::Str("outer".into()))?,
-                            );
-                            fun68.call(args66, kw67)?
-                        })?;
+                            )?,
+                        )?;
                         d.set(
                             Val::Str("cover".into()),
                             e.get("facts")?

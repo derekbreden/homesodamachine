@@ -14,4 +14,6 @@ path = "src/main.rs"
 anyhow.workspace = true
 serde_json = { workspace = true, features = ["float_roundtrip"] }
 hsm-documents = { path = "../documents" }
+hsm-bulkhead-ring-numbers = { path = "../bulkhead-ring-numbers" }
+hsm-enclosure-interface = { path = "../enclosure-interface" }
 hsm-enclosure-numbers = { path = "../enclosure-numbers" }
