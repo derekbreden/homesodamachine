@@ -112,8 +112,9 @@ tools/cad-venv/bin/python tools/install-guide/preflight.py --json hardware/insta
 pdftoppm -scale-to 1000 -png hardware/install-guide/install-guide.pdf hardware/install-guide/out/landscape/page
 ```
 
-The composer writes the reading PDF, print PDFs, thumbnail and document metadata. Copies for
-ordering are in `output/pdf/`. It checks text boxes against the footer and generates page-space
+The composer writes the reading PDF, thumbnail and document metadata. With `HSM_PRESS=1` it
+also writes the print PDFs and the order bundle in `output/pdf/`, which an order needs and the
+normal build does not. It checks text boxes against the footer and generates page-space
 contours from the saved artwork. Native illustration resolution must be at least 300 PPI at
 the placed size. The preflight checks the finished PDFs' dimensions, page order,
 fonts, images and reading links. `out/` holds local renders and layout measurements. Review every
@@ -129,7 +130,8 @@ Contour images are rasterized at 432 PPI.
 all trimmed to 9 × 7 inches without bleed. PDF page labels match the printed interior numbers;
 bookmarks and the route page link to each installation step.
 
-`press/` holds the two Lulu upload files, written on each build:
+`press/` holds the two Lulu upload files. An order writes them with
+`HSM_PRESS=1 tools/cad-venv/bin/python tools/install-guide/build.py`:
 
 | File | Size including bleed | Holds |
 | --- | --- | --- |

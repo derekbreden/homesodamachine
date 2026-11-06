@@ -8705,13 +8705,14 @@ pub fn entrypoint(rt: Runtime, e: Env) -> Result<Val> {
         });
         fun2209.call(args2207, kw2208)?
     };
-    {
+    // The Lulu order bundle is written only when an order needs it (HSM_PRESS=1).
+    if std::env::var_os("HSM_PRESS").is_some() {
         let fun2216 = e.get("make_order_bundle")?;
         let mut args2214 = Vec::new();
         let mut kw2215 = Vec::new();
         args2214.push(e.get("PRESS_DIR")?);
         args2214.push(e.get("OUTPUT")?);
-        fun2216.call(args2214, kw2215)?
-    };
+        fun2216.call(args2214, kw2215)?;
+    }
     Ok(Val::None)
 }

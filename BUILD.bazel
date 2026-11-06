@@ -22486,7 +22486,6 @@ genrule(
         "hardware/install-guide/fonts/Plex-Bold.ttf",
         "hardware/install-guide/fonts/Plex-Regular.ttf",
         "hardware/install-guide/fonts/Plex-Semibold.ttf",
-        "hardware/install-guide/press/ORDER.md",
         "hardware/printed-parts/cadlib/_scalar_provider.py",
         "hardware/printed-parts/cadlib/fits.py",
         "hardware/printed-parts/cadlib/flute_skin.py",
@@ -22778,14 +22777,6 @@ genrule(
         "out/install-guide-build/hardware/install-guide/install-guide.cover.png",
         "out/install-guide-build/hardware/install-guide/install-guide.pdf",
         "out/install-guide-build/hardware/install-guide/install-guide.pdf.json",
-        "out/install-guide-build/hardware/install-guide/press/cover.pdf",
-        "out/install-guide-build/hardware/install-guide/press/interior.pdf",
-        "out/install-guide-build/output/pdf/install-guide-lulu-SHA256SUMS.txt",
-        "out/install-guide-build/output/pdf/install-guide-lulu-cover.pdf",
-        "out/install-guide-build/output/pdf/install-guide-lulu-interior.pdf",
-        "out/install-guide-build/output/pdf/install-guide-lulu-order.md",
-        "out/install-guide-build/output/pdf/install-guide-lulu-order.zip",
-        "out/install-guide-build/output/pdf/install-guide.pdf",
     ],
     tags = ["no-sandbox"],
     cmd = """
@@ -22813,14 +22804,6 @@ esac
 O0=$$PWD/$(location out/install-guide-build/hardware/install-guide/install-guide.cover.png)
 O1=$$PWD/$(location out/install-guide-build/hardware/install-guide/install-guide.pdf)
 O2=$$PWD/$(location out/install-guide-build/hardware/install-guide/install-guide.pdf.json)
-O3=$$PWD/$(location out/install-guide-build/hardware/install-guide/press/cover.pdf)
-O4=$$PWD/$(location out/install-guide-build/hardware/install-guide/press/interior.pdf)
-O5=$$PWD/$(location out/install-guide-build/output/pdf/install-guide-lulu-SHA256SUMS.txt)
-O6=$$PWD/$(location out/install-guide-build/output/pdf/install-guide-lulu-cover.pdf)
-O7=$$PWD/$(location out/install-guide-build/output/pdf/install-guide-lulu-interior.pdf)
-O8=$$PWD/$(location out/install-guide-build/output/pdf/install-guide-lulu-order.md)
-O9=$$PWD/$(location out/install-guide-build/output/pdf/install-guide-lulu-order.zip)
-O10=$$PWD/$(location out/install-guide-build/output/pdf/install-guide.pdf)
 rm -rf work-install-guide-build
 for f in $(SRCS); do
   case $$f in
@@ -22840,14 +22823,6 @@ HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/pyth
 copy_file hardware/install-guide/install-guide.cover.png "$$O0"
 copy_file hardware/install-guide/install-guide.pdf "$$O1"
 copy_file hardware/install-guide/install-guide.pdf.json "$$O2"
-copy_file hardware/install-guide/press/cover.pdf "$$O3"
-copy_file hardware/install-guide/press/interior.pdf "$$O4"
-copy_file output/pdf/install-guide-lulu-SHA256SUMS.txt "$$O5"
-copy_file output/pdf/install-guide-lulu-cover.pdf "$$O6"
-copy_file output/pdf/install-guide-lulu-interior.pdf "$$O7"
-copy_file output/pdf/install-guide-lulu-order.md "$$O8"
-copy_file output/pdf/install-guide-lulu-order.zip "$$O9"
-copy_file output/pdf/install-guide.pdf "$$O10"
 cd .. && rm -rf work-install-guide-build
 """,
 )
