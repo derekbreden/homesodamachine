@@ -7,8 +7,8 @@ the collars that name the same lines, and both take each station's word, the key
 are read under and the lettering from here, so a word changed for a port is changed on the wall
 and on the tube by one edit. `data_ring` letters in the same face.
 
-    STATIONS, FLUIDS    each station's word, and the key `_y_wall_dimensions` reads its chip and
-                        word filaments under
+    STATIONS, FLUIDS    each station's word, and the key shared-data's `color.chips` names its
+                        chip and word filaments under
     WORD_*              the face, em, recess depth, raise and measured widths of the lettering
     RING_W, THICK, RISE, od, bottom, rise
                         the label envelope `enclosure_assembly` reads for the wall's port

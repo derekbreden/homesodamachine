@@ -106,10 +106,9 @@ sys.path.insert(0, str(_faucet_printed_dir / "faucet-display-cover"))
 # and one colour table, shared with the chips on the +Y wall of back-top.
 sys.path.insert(0, str(_faucet_printed_dir / "tube-collar"))
 sys.path.insert(0, str(_faucet_printed_dir / "umbilical-organizer"))
-sys.path.insert(0, str(_repo_hardware_dir / "printed-parts" / "enclosure" / "y-wall-of-back-top"))
 import tube_collar
 import umbilical_organizer
-import _y_wall_dimensions as _rear
+from _materials import chip_color, port_color, word_color
 import above_counter_plate
 import above_counter_gasket
 import tpu_o_ring
@@ -149,7 +148,7 @@ def _assembly_data(fn="datums", **values):
         _note_scalar_read(root / name)
     if fn == "numbers":
         values["colors"] = {name: list(_mat.linear(color)) for name, color in body_colors.items()}
-        values["collar_palette"] = {name: [_rear.chip_color(row.fluid), _rear.word_color(row.fluid)]
+        values["collar_palette"] = {name: [chip_color(row.fluid), word_color(row.fluid)]
                                     for name, row in tube_collar.STATIONS.items()}
     return _data_request("faucet-data", "faucet-data", {
         "op": "assembly", "fn": fn, "root": str(root), "slip": fits.slip,
@@ -1019,8 +1018,8 @@ def _collar_azimuth(x, y):
 def _collar_colors(which):
     """A collar's chip colour and its word's: the filaments its chip on the +Y wall prints in."""
     fluid = tube_collar.STATIONS[which].fluid
-    return (cq.Color(*(c / 255.0 for c in _rear.chip_color(fluid))),
-            cq.Color(*(c / 255.0 for c in _rear.word_color(fluid))))
+    return (cq.Color(*(c / 255.0 for c in chip_color(fluid))),
+            cq.Color(*(c / 255.0 for c in word_color(fluid))))
 
 
 def umbilical_collars():
@@ -1036,7 +1035,7 @@ def umbilical_collars():
 
 
 # THE COLOUR OF EACH BODY. The umbilical tubes carry the identification colour of their stock, off
-# the one table that says what a colour means on this machine — `_y_wall_dimensions.port_colors`,
+# the one table that says what a colour means on this machine — shared-data's `color.chips`,
 # the same read by the bulkhead rings, the runs inside the cabinet and the collars on these three
 # tails. The blue 1/4-inch soda umbilical tube stops on the Westbrass's lower compression port. The
 # separate 3/8-inch soda faucet tube follows the selected faucet finish. Both continuous 4 mm
@@ -1050,7 +1049,7 @@ def umbilical_collars():
 # under its black printed cover. The glass is drawn dark because a screen is lit only while the
 # machine is dispensing, and a render that paints it lit is drawing a state rather than a part.
 def _spool(fluid):
-    return cq.Color(*_assembly_data("rgb8-srgb", rgb=_rear.port_colors[fluid]))
+    return cq.Color(*_assembly_data("rgb8-srgb", rgb=port_color(fluid)))
 
 
 body_colors = {

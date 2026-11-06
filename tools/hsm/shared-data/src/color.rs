@@ -27,6 +27,25 @@ pub fn rgb8_linear(rgb:&Value,step_safe:bool)->Result<[f64;3]>{
     Ok([linear[0],linear[1],linear[2]])
 }
 fn stock()->Value{serde_json::from_str(include_str!("../catalog/materials.json")).unwrap()}
+fn stock_srgb(name:&str)->Result<[f64;3]>{let args=constructor(&stock()["colors"][name])?;let c=rgba(&args,&json!({}))?.context("stock color")?;Ok(srgb([c[0],c[1],c[2]]))}
+/// The machine's port colours: each port's own colour, the filament its chip on the wall prints
+/// in, and the colour of the word on that chip. The wall's chips, the faucet's tube collars, the
+/// routes and the palette all take them from here.
+pub fn chips()->Result<Value>{
+    let colors=json!({"carb":[31,111,235],"drain":[255,255,255],"water":[255,255,255],"co2":[214,58,58],"flavor":[38,38,41]});
+    let black=stock_srgb("M_PETGF_BLACK")?.map(|c|c*255.);
+    let white=json!([235,236,234]);
+    let filaments=json!({"drain":["Fiberon PET-GF15 White",white],"water":["Fiberon PET-GF15 White",white],
+        "carb":["Fiberon PET-GF15 Blue",[105,180,247]],"co2":["Fiberon PET-GF15 Red",[228,83,87]],"flavor":["Fiberon PET-GF15 Black",black]});
+    let words=json!({"drain":black,"water":black,"carb":white,"co2":white,"flavor":white});
+    let(mut hex,mut svg)=(serde_json::Map::new(),serde_json::Map::new());
+    for(name,color)in colors.as_object().unwrap(){
+        let c=array(color);let(r,g,b)=(c[0].as_u64().unwrap(),c[1].as_u64().unwrap(),c[2].as_u64().unwrap());
+        hex.insert(name.clone(),json!(format!("#{r:02x}{g:02x}{b:02x}")));svg.insert(name.clone(),json!(format!("rgb({r}, {g}, {b})")));
+    }
+    Ok(json!({"port_order":["carb","drain","water","co2","flavor"],"filament_order":["drain","water","carb","co2","flavor"],
+        "port_colors":colors,"chip_filaments":filaments,"chip_word_colors":words,"hex":hex,"svg":svg}))
+}
 fn constructor(v:&Value)->Result<Value>{
     if let Some(bytes)=v["bytes"].as_array(){return Ok(json!(bytes.iter().map(|v|number(v).map(|v|v/255.)).collect::<Result<Vec<_>>>()?))}
     Ok(v["args"].clone())
@@ -89,7 +108,8 @@ pub fn dispatch(op:&str,r:&Value)->Result<Value>{
         "rgb8_linear"=>json!(rgb8_linear(&r["rgb"],r["step_safe"].as_bool().unwrap_or(false))?),
         "catalog"=>{let mut data=stock();data["whitest"]=json!(254./255.);let colors=data["colors"].as_object().unwrap().iter().map(|(k,v)|Ok((k.clone(),constructor(v)?))).collect::<Result<serde_json::Map<String,Value>>>()?;data["colors"]=json!(colors);let mut parts=array(&data["petgf_black_parts"]).to_vec();parts.extend(array(&data["wall_names"]).iter().map(|n|json!(format!("enclosure-{}",text(n)))));data["petgf_black_parts"]=json!(parts);data},
         "palette_constructors"=>{let mut seen=BTreeSet::new();let mut out=vec![];for rgb in array(&r["rgbs"]){if seen.insert(rgb.to_string()){out.push(constructor(&json!({"bytes":rgb}))?);}}json!(out)},
-        "stock_srgb"=>{let data=stock();let args=constructor(&data["colors"][text(&r["name"])] )?;let c=rgba(&args,&json!({}))?.context("stock color")?;json!(srgb([c[0],c[1],c[2]]))},
+        "stock_srgb"=>json!(stock_srgb(text(&r["name"]))?),
+        "chips"=>chips()?,
         "linear"=>json!(raw_linear(&r["color"])?),
         "petgf"=>petgf(r)?,
         "step_safe"=>{let a=array(&r["srgb"]);if a.len()>=3&&a[..3].iter().all(|v|v.as_f64().is_some_and(|n|n>=254./255.)){json!([254./255.,254./255.,254./255.,a.get(3).cloned().unwrap_or(json!(1.))])}else{Value::Null}},

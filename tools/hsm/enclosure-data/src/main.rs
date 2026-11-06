@@ -126,43 +126,6 @@ fn unit(v: &Value) -> Result<Value> {
     )
 }
 
-fn rear(v: &Value) -> Result<Value> {
-    let colors = json!({"carb":[31,111,235],"drain":[255,255,255],
-                       "water":[255,255,255],"co2":[214,58,58],"flavor":[38,38,41]});
-    let black = array(v, "black_srgb")?
-        .iter()
-        .map(|c| {
-            c.as_f64()
-                .map(|c| json!(c * 255.))
-                .ok_or_else(|| anyhow!("black sRGB is numeric"))
-        })
-        .collect::<Result<Vec<_>>>()?;
-    ensure!(black.len() == 3, "black sRGB has three channels");
-    let white = json!([235, 236, 234]);
-    let filaments = json!({
-        "drain":["Fiberon PET-GF15 White",white],"water":["Fiberon PET-GF15 White",white],
-        "carb":["Fiberon PET-GF15 Blue",[105,180,247]],
-        "co2":["Fiberon PET-GF15 Red",[228,83,87]],
-        "flavor":["Fiberon PET-GF15 Black",black]
-    });
-    let words = json!({"drain":black,"water":black,"carb":white,"co2":white,"flavor":white});
-    let mut hex = Map::new();
-    let mut svg = Map::new();
-    for (name, color) in colors.as_object().unwrap() {
-        let c = color.as_array().unwrap();
-        let (r, g, b) = (
-            c[0].as_u64().unwrap(),
-            c[1].as_u64().unwrap(),
-            c[2].as_u64().unwrap(),
-        );
-        hex.insert(name.clone(), json!(format!("#{r:02x}{g:02x}{b:02x}")));
-        svg.insert(name.clone(), json!(format!("rgb({r}, {g}, {b})")));
-    }
-    Ok(json!({"port_order":["carb","drain","water","co2","flavor"],
-              "filament_order":["drain","water","carb","co2","flavor"],"port_colors":colors,"chip_filaments":filaments,"chip_word_colors":words,
-              "hex":hex,"svg":svg}))
-}
-
 fn cover(v: &Value) -> Result<Value> {
     let d = &v["display"];
     let back = f(d, "BACK")?;
@@ -496,7 +459,6 @@ fn dispatch(v: &Value) -> Result<Value> {
             Ok(Value::Object(result))
         }
 
-        "rear" => rear(v),
         "cover-recipe" => cover(v),
         "gasket" => gasket(v),
         "data-recipe" => data_recipe(v),
