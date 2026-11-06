@@ -1,0 +1,19 @@
+[package]
+name = "hsm-enclosure-back-bottom"
+version = "0.1.0"
+edition.workspace = true
+license.workspace = true
+rust-version.workspace = true
+publish = false
+
+[dependencies]
+anyhow.workspace = true
+hsm-enclosure-numbers = { path = "../enclosure-numbers" }
+hsm-enclosure-quadrants = { path = "../enclosure-quadrants" }
+hsm-enclosure-solid = { path = "../enclosure-solid" }
+hsm-kernel = { path = "../kernel" }
+serde_json = { workspace = true, features = ["float_roundtrip"] }
+
+[[bin]]
+name = "enclosure-back-bottom"
+path = "../../../hardware/printed-parts/enclosure/enclosure/enclosure_back_bottom.rs"

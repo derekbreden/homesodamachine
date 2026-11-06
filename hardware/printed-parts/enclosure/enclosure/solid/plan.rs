@@ -9,9 +9,7 @@ use std::collections::HashMap;
 use std::panic::Location;
 use std::rc::Rc;
 
-pub type Bounds = [f64; 6];
-pub type P2 = [f64; 2];
-pub type P3 = [f64; 3];
+pub use hsm_enclosure_numbers::{Bounds, P2, P3};
 
 /// One edge of a line-and-cubic outline.
 #[derive(Clone, Debug, PartialEq)]

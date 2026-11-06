@@ -835,9 +835,34 @@ name = "hsm-enclosure"
 version = "0.1.0"
 dependencies = [
  "anyhow",
- "hsm-enclosure-solid",
+ "hsm-enclosure-dock-numbers",
+ "hsm-enclosure-numbers",
  "hsm-kernel",
  "hsm-model-export",
+ "serde_json",
+]
+
+[[package]]
+name = "hsm-enclosure-back-bottom"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "hsm-enclosure-numbers",
+ "hsm-enclosure-quadrants",
+ "hsm-enclosure-solid",
+ "hsm-kernel",
+ "serde_json",
+]
+
+[[package]]
+name = "hsm-enclosure-back-top"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "hsm-enclosure-numbers",
+ "hsm-enclosure-quadrants",
+ "hsm-enclosure-solid",
+ "hsm-kernel",
  "serde",
  "serde_json",
 ]
@@ -861,6 +886,99 @@ dependencies = [
 ]
 
 [[package]]
+name = "hsm-enclosure-dock-numbers"
+version = "0.1.0"
+dependencies = [
+ "hsm-enclosure-numbers",
+ "serde",
+ "serde_json",
+]
+
+[[package]]
+name = "hsm-enclosure-front"
+version = "0.1.0"
+dependencies = [
+ "hsm-enclosure-quadrants",
+ "hsm-enclosure-retainer-numbers",
+]
+
+[[package]]
+name = "hsm-enclosure-front-bottom"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "hsm-enclosure-front",
+ "hsm-enclosure-numbers",
+ "hsm-enclosure-quadrants",
+ "hsm-enclosure-solid",
+]
+
+[[package]]
+name = "hsm-enclosure-front-top"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "hsm-enclosure-dock-numbers",
+ "hsm-enclosure-front",
+ "hsm-enclosure-numbers",
+ "hsm-enclosure-quadrants",
+ "hsm-enclosure-solid",
+ "hsm-kernel",
+ "serde",
+ "serde_json",
+]
+
+[[package]]
+name = "hsm-enclosure-numbers"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "serde",
+ "serde_json",
+]
+
+[[package]]
+name = "hsm-enclosure-pump-retainer"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "hsm-enclosure-numbers",
+ "hsm-enclosure-retainer-numbers",
+ "hsm-enclosure-solid",
+ "hsm-kernel",
+]
+
+[[package]]
+name = "hsm-enclosure-pump-tube-setting-jig"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "hsm-enclosure-dock-numbers",
+ "hsm-enclosure-numbers",
+ "hsm-enclosure-solid",
+ "hsm-kernel",
+]
+
+[[package]]
+name = "hsm-enclosure-quadrants"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "hsm-enclosure-numbers",
+ "hsm-enclosure-solid",
+ "hsm-kernel",
+ "serde",
+ "serde_json",
+]
+
+[[package]]
+name = "hsm-enclosure-retainer-numbers"
+version = "0.1.0"
+dependencies = [
+ "hsm-enclosure-numbers",
+]
+
+[[package]]
 name = "hsm-enclosure-shell"
 version = "0.1.0"
 dependencies = [
@@ -878,6 +996,7 @@ name = "hsm-enclosure-solid"
 version = "0.1.0"
 dependencies = [
  "anyhow",
+ "hsm-enclosure-numbers",
  "hsm-geometry",
  "hsm-kernel",
  "manifold-csg",
