@@ -10,12 +10,8 @@ use crate::shell::*;
 use crate::structure::FUNNEL_SEAT;
 pub use crate::faces::*;
 
-/// The roof skin over the lip's ceiling run.
-pub const CEILING_SKIN: f64 = 3.0;
 /// The lip's ceiling stands this far under the cavity roof, clear of the funnel's seat.
 pub const CEILING_LIP_DROP: f64 = FUNNEL_SEAT + funnel::BRIM_T - CEILING_SKIN;
-/// A stated bound within this of zero reads as the pack's floor.
-pub const STATED_BOUND_TOL: f64 = 1e-6;
 
 /// The solid column standing on one cavity corner, grown by `grow`.
 pub fn corner_column(g: &mut Graph, inner: &Bounds, sx: f64, sy: f64, grow: f64, z: [f64; 2]) -> Shape {

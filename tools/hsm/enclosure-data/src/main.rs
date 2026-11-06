@@ -1,6 +1,7 @@
 #![recursion_limit = "512"]
 //! Enclosure interfaces, construction recipes, measurements and reports.
 use anyhow::{Result, anyhow, ensure};
+use hsm_enclosure_numbers::rear_wall;
 use serde_json::{Map, Value, json};
 use std::io::{self, Write};
 
@@ -53,10 +54,11 @@ fn defaults(v: &Value) -> Result<Value> {
     });
     let floor_stock = 3.6;
     let nameplate = json!({
-        "WIDTH":88.,"HEIGHT":100.,"CORNER_R":5.,"THICK":3.36,"FIELD_THICK":3.36,"FIELD_PROUD":2.,
-        "PROJECTION":2.40,"WING_THICK":1.68,"WING_SPAN":30.,"END_RADIUS":0.6,
-        "FACE_SLIP":slip,"BACK_AIR":slip,"FACE_X_AIR":0.15,"THICKNESS_AIR":0.45,
-        "TIP_AIR":0.15+slip,"END_AIR":slip,"SUPPORTED_END_AIR":supported,
+        "WIDTH":rear_wall::PLATE_WIDTH,"HEIGHT":rear_wall::PLATE_HEIGHT,"CORNER_R":5.,"THICK":rear_wall::PLATE_THICK,
+        "FIELD_THICK":3.36,"FIELD_PROUD":rear_wall::FIELD_PROUD,
+        "PROJECTION":rear_wall::WING_PROJECTION,"WING_THICK":1.68,"WING_SPAN":rear_wall::WING_SPAN,"END_RADIUS":0.6,
+        "FACE_SLIP":slip,"BACK_AIR":slip,"FACE_X_AIR":rear_wall::WING_FACE_AIR,"THICKNESS_AIR":0.45,
+        "TIP_AIR":rear_wall::WING_FACE_AIR+slip,"END_AIR":slip,"SUPPORTED_END_AIR":supported,
         "FLOOR_STOCK":floor_stock,"RUNOUT_LEAD":3.*2_f64.sqrt()-floor_stock,
         "ENTRY_BEVEL_WIDTH":1.10,"ENTRY_BEVEL_DEPTH":0.40,"EAST_BACKING":2.14,
         "EAST_RELIEF_START":92./2.+0.125

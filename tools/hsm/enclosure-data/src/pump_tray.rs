@@ -1,6 +1,7 @@
 //! Pump collar stock, outlet joins and dimension reports.
 use super::{array, f, text};
 use anyhow::{Result, anyhow, ensure};
+use hsm_enclosure_numbers::pump;
 use serde_json::{Value, json};
 
 fn defaults(v: &Value) -> Result<Value> {
@@ -8,7 +9,7 @@ fn defaults(v: &Value) -> Result<Value> {
     let c = &v["case"];
     let fit = &v["fits"];
     let head_half: f64 = f(p, "head_w")? / 2.0;
-    let head_depth: f64 = 48.88;
+    let head_depth: f64 = pump::tray().head_depth;
     let head_front_z: f64 = f(p, "head_front_z")?;
     let head_front_below_skirt: f64 = f(p, "head_front_below_skirt")?;
     let boss_half: f64 = f(c, "bore_half_span")?;
@@ -45,7 +46,7 @@ fn defaults(v: &Value) -> Result<Value> {
     let outlet_axis_z: f64 = f(c, "skirt_bottom_z")?;
     let case_half: f64 = f(c, "footprint_half_extent")?;
     let plate: f64 = f(c, "base_thickness")?;
-    let shoulder: f64 = 3.0;
+    let shoulder: f64 = pump::tray().shoulder;
     Ok(json!({
         "head_half":head_half,
         "head_depth":head_depth,

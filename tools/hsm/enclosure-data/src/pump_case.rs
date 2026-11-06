@@ -1,37 +1,38 @@
 //! Pump case polygonal stock and signed axial dimensions.
 use super::{array, f, shown};
 use anyhow::{Result, anyhow, ensure};
+use hsm_enclosure_numbers::pump;
 use serde_json::{Value, json};
 
 pub fn defaults() -> Result<Value> {
-    let footprint_x: f64 = 70.0;
-    let footprint_y: f64 = 70.0;
-    let corner_r: f64 = 6.0;
-    let wall_thickness: f64 = 3.0;
+    let footprint_x: f64 = pump::stock::FOOTPRINT_X;
+    let footprint_y: f64 = pump::stock::FOOTPRINT_Y;
+    let corner_r: f64 = pump::stock::CORNER_R;
+    let wall_thickness: f64 = pump::stock::WALL_THICKNESS;
     let center_x: f64 = footprint_x / 2.0;
     let center_y: f64 = footprint_y / 2.0;
     let footprint_half_extent: f64 = footprint_x / 2.0;
-    let base_thickness: f64 = 3.0;
-    let ramp_from_skirt_to_octagon_height: f64 = 18.0;
-    let skirt_upper_height: f64 = 21.0;
+    let base_thickness: f64 = pump::stock::BASE_THICKNESS;
+    let ramp_from_skirt_to_octagon_height: f64 = pump::stock::RAMP_FROM_SKIRT_TO_OCTAGON_HEIGHT;
+    let skirt_upper_height: f64 = pump::stock::SKIRT_UPPER_HEIGHT;
     let skirt_wall: f64 = wall_thickness;
-    let skirt_wide_flare_per_side: f64 = 3.0;
-    let skirt_narrow_taper_per_side: f64 = 4.0;
-    let skirt_wide_straight_height: f64 = 4.5;
+    let skirt_wide_flare_per_side: f64 = pump::stock::SKIRT_WIDE_FLARE_PER_SIDE;
+    let skirt_narrow_taper_per_side: f64 = pump::stock::SKIRT_NARROW_TAPER_PER_SIDE;
+    let skirt_wide_straight_height: f64 = pump::stock::SKIRT_WIDE_STRAIGHT_HEIGHT;
     let skirt_support_band: f64 = skirt_narrow_taper_per_side;
-    let bore_square_side: f64 = 43.0;
-    let ledge_depth: f64 = 1.5;
-    let ledge_shelf_span: f64 = 26.03;
+    let bore_square_side: f64 = pump::stock::BORE_SQUARE_SIDE;
+    let ledge_depth: f64 = pump::stock::LEDGE_DEPTH;
+    let ledge_shelf_span: f64 = pump::stock::LEDGE_SHELF_SPAN;
     let bore_half_diag: f64 = (bore_square_side * 2.0_f64.sqrt()) / 2.0;
-    let bore_half_span: f64 = 53.0 / 2.0;
+    let bore_half_span: f64 = pump::stock::BORE_SPAN / 2.0;
     let vertex_far: f64 = bore_half_span;
     let vertex_near: f64 = bore_half_diag - bore_half_span;
-    let tower_height: f64 = 60.0;
-    let tower_cap_thickness: f64 = 3.0;
-    let cylinder_id: f64 = 37.0;
+    let tower_height: f64 = pump::stock::TOWER_HEIGHT;
+    let tower_cap_thickness: f64 = pump::stock::TOWER_CAP_THICKNESS;
+    let cylinder_id: f64 = pump::stock::CYLINDER_ID;
     let cylinder_r_inner: f64 = cylinder_id / 2.0;
-    let lower_height: f64 = 23.0;
-    let lower_cap_thickness: f64 = 3.0;
+    let lower_height: f64 = pump::stock::LOWER_HEIGHT;
+    let lower_cap_thickness: f64 = pump::stock::LOWER_CAP_THICKNESS;
     let lower_footprint_straight: f64 = skirt_wide_straight_height;
     let step_height: f64 = 19.0;
     let step_y_clearance: f64 = 6.0;
@@ -44,8 +45,8 @@ pub fn defaults() -> Result<Value> {
         (center_x - (arch_pitch / 2.0)),
         (center_x + (arch_pitch / 2.0)),
     ];
-    let snap_protrusion_per_side: f64 = 2.5;
-    let tube_protrusion_length: f64 = 11.3;
+    let snap_protrusion_per_side: f64 = pump::stock::SNAP_PROTRUSION_PER_SIDE;
+    let tube_protrusion_length: f64 = pump::stock::TUBE_PROTRUSION_LENGTH;
     let case_outer_x: f64 = footprint_x + (2.0 * snap_protrusion_per_side);
     let case_outer_y: f64 =
         (footprint_y + (2.0 * skirt_wide_flare_per_side)) + tube_protrusion_length;
@@ -57,12 +58,12 @@ pub fn defaults() -> Result<Value> {
         + lower_height)
         + lower_cap_thickness;
     let cutter_half_extent: f64 = (case_outer_x.max(case_outer_y) / 2.0) + 5.0;
-    let overcut: f64 = 0.1;
+    let overcut: f64 = pump::stock::OVERCUT;
     let arc_segments: f64 = 8.0;
     let octagon_wall_outer_extent: f64 = vertex_far + wall_thickness;
     let bore_depth: f64 = base_thickness + ramp_from_skirt_to_octagon_height;
     let bore_bottom_z: f64 = bore_depth;
-    let cylinder_cardinal_step: f64 = 0.5;
+    let cylinder_cardinal_step: f64 = pump::stock::CYLINDER_CARDINAL_STEP;
     let cylinder_r_outer: f64 = octagon_wall_outer_extent + cylinder_cardinal_step;
     let cylinder_top_z: f64 = (footprint_half_extent + base_thickness) - cylinder_r_outer;
     let cylinder_bottom_z: f64 = bore_bottom_z + tower_height;

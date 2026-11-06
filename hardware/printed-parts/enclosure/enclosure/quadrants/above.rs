@@ -4,7 +4,7 @@
 use crate::plan::{Bounds, Graph, P3, Shape};
 use crate::quadrant::Y;
 use crate::shapes::place;
-use crate::shell::back_top_wall_face;
+use crate::shell::{WAGO_WELL_WALL, back_top_wall_face};
 use crate::spec::Box;
 
 /// A Wago 221 lever connector, by its body: across its poles, along its wire axis, and its height.
@@ -19,8 +19,7 @@ const WAGO_413: Wago = Wago { width: 18.8, depth: 18.6, height: 8.4 };
 const WAGO_415: Wago = Wago { width: 30.0, depth: 18.6, height: 8.4 };
 const WAGO_420: Wago = Wago { width: 29.8, depth: 18.3, height: 15.8 };
 
-/// A well's stock round its pocket, and the connector's fit in that pocket.
-const WELL_WALL: f64 = 3.0;
+/// The connector's fit in its well's pocket; the well's stock round it is the shell's.
 const WELL_FIT: f64 = 0.15;
 
 /// The plane back-top's wells reach back to inside the rear wall.
@@ -90,7 +89,7 @@ fn union_all(g: &mut Graph, shapes: &[Shape]) -> Option<Shape> {
 /// and the pocket it inserts into butt first. Back-top's wells reach back into the rear wall,
 /// and each connected cluster of them roofs over to the wall.
 fn wells(g: &mut Graph, host: Y) -> (Vec<Shape>, Vec<Shape>) {
-    let (wall, fit) = (WELL_WALL, WELL_FIT);
+    let (wall, fit) = (WAGO_WELL_WALL, WELL_FIT);
     let mut stocks = Vec::new();
     let mut pockets = Vec::new();
     for j in JUNCTIONS.iter().filter(|j| j.host == host) {

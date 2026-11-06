@@ -93,10 +93,6 @@ pub fn rail_catch_air(col: Y) -> f64 {
     slide_slip() + supported_faces * supported()
 }
 
-pub fn rail_flare_drop() -> f64 {
-    slide_slip() + HOOK_ARM + 0.5
-}
-
 /// The hooked heads a bottom piece carries over the seam on each flank.
 pub fn z_rail_heads(
     g: &mut Graph,
