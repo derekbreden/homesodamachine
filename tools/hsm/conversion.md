@@ -79,9 +79,10 @@ read there, with each Python file replaced by the Rust that took its place.
   recorded inputs are everything compiled into the programs it calls, the shared Python, and
   `tools/hsm/cargo-config.json`, the part of the workspace manifest and lock file that can change
   a program (`tools/bazel/cargo_config.py`). The job runner is not among them: each step copies
-  the checkout's runner files in when it runs. An edit to one part's recipe still reruns every
-  step that runs its subsystem's recipe program, and an edit to the kernel or the bookkeeping
-  reruns every step that uses them.
+  the checkout's runner files in when it runs. Of a generated recipe crate, a step takes only the
+  modules it reaches from the stubs it calls, so an edit to one recipe module reruns the steps
+  that reach it. A hand-written crate is taken whole, and an edit to the kernel or the
+  bookkeeping reruns every step that uses them.
 - **One step at a time, biggest first:** the whole-machine assembly (`enclosure_assembly.py`),
   then the graph's other entries by CPU. Steps whose files are
   separate run in parallel.
