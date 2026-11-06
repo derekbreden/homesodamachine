@@ -5,60 +5,36 @@ use crate::plan::{Bounds, Graph, Shape};
 use crate::quadrant::{Quadrant, Y};
 use crate::rails::{Run, rail_channel_span, z_rail_runs};
 use crate::shapes::rounded;
-use crate::shell::{STATED_BOUND_TOL, VALVE_TRAY_MARGIN as MARGIN, Z_RISE, shell, slide_slip};
+use crate::catalog::slip;
+use crate::shell::{STATED_BOUND_TOL, Z_RISE, shell, slide_slip};
 use crate::spec::Box;
 use crate::walls::{front_top_flank_face, lip_face_x};
 
-/// The Beduan solenoid valve, calipered. Its frame's Z = 0 is the plane of its four mounting
-/// posts' ends, +Z up through the body, the port on Y.
-pub mod valve {
-    pub const CORNER_INSET_X: f64 = 24.4 / 2.0;
-    pub const CORNER_INSET_Y: f64 = 24.85 / 2.0;
-    pub const CORNER_BOSS_RADIUS: f64 = 3.45;
-    pub const POST_SHOULDER_Z: f64 = 11.0;
-    pub const UPPER_CORNER_RADIUS: f64 = 3.8;
-    pub const BODY_RADIUS: f64 = 15.5;
-    pub const BEARING_RADIUS: f64 = 12.15;
-    pub const BEARING_Z: [f64; 2] = [5.2, 14.4];
-    pub const BODY_MAIN_Z: [f64; 2] = [11.0, 24.5];
-    pub const CAP_WIDTH_X: f64 = 33.5;
-    pub const CAP_DEPTH_Y: f64 = 33.8;
-    pub const CAP_CORNER_RADIUS: f64 = 4.5;
-    pub const TOP_BOX_Z: [f64; 2] = [24.3, 26.0];
-    pub const BODY_TOP_Z: f64 = TOP_BOX_Z[1];
-    pub const PORT_RADIUS: f64 = 7.6;
-    pub const PORT_CENTER_Z: f64 = 11.05;
-}
+pub use hsm_valve_seat_numbers::valve;
 
 /// The valve seat: four blind sockets the valve's corner posts press into, sunk to the plane
 /// the valve's bearing boss lands on.
 pub mod seat {
-    use super::valve;
     use crate::catalog::slip;
+    pub use hsm_valve_seat_numbers::{
+        CORNER_RADIUS, PORT_AIR, SEAT_TOP_Z, SOCKET_DEPTH, SOCKET_FLOOR_Z, SOCKET_RADIUS, WALL,
+    };
 
-    pub const SOCKET_RADIUS: f64 = 6.9 / 2.0;
-    pub const WALL: f64 = 3.0;
-    pub const SOCKET_FLOOR_Z: f64 = -1.0;
-    pub const SEAT_TOP_Z: f64 = valve::BEARING_Z[0];
-    pub const PORT_AIR: f64 = 0.5;
-    pub const SOCKET_DEPTH: f64 = SEAT_TOP_Z - SOCKET_FLOOR_Z;
+    /// The seat's half-width across, and its reach along its port axis off the valve's centre.
+    pub fn half_x() -> f64 {
+        hsm_valve_seat_numbers::half_x(slip())
+    }
 
-    /// The seat's reach along its port axis off the valve's centre.
     pub fn half_y() -> f64 {
-        valve::CORNER_INSET_Y + valve::CORNER_BOSS_RADIUS + slip() + WALL
+        hsm_valve_seat_numbers::half_y(slip())
     }
 }
 
-/// The plate is one socket and one wall thick.
-const THICK: f64 = seat::SOCKET_DEPTH + seat::WALL;
-/// The valve-side face stands at the seat's landing plane.
-const SEAT: f64 = -seat::SEAT_TOP_Z;
-const PORT_SLIP: f64 = seat::PORT_AIR;
+use hsm_valve_seat_numbers::tray::{PORT_SLIP, SEAT, THICK};
 
 /// The seats' complete row span along the plate, their reach, and one margin past each end.
 fn height(seats: &[[f64; 2]]) -> f64 {
-    let (lo, hi) = span(seats.iter().map(|s| s[1]));
-    hi - lo + 2.0 * (seat::half_y() + MARGIN)
+    hsm_valve_seat_numbers::tray::height(seats, slip())
 }
 
 fn span(values: impl Iterator<Item = f64>) -> (f64, f64) {
@@ -67,15 +43,7 @@ fn span(values: impl Iterator<Item = f64>) -> (f64, f64) {
 
 /// The plate's lower edge at each wall, west then east, under that side's outermost valve row.
 fn wall_root_floors(seats: &[[f64; 2]]) -> [f64; 2] {
-    let (lo, hi) = span(seats.iter().map(|s| s[0]));
-    [lo, hi].map(|edge| {
-        let floor = seats
-            .iter()
-            .filter(|s| (s[0] - edge).abs() < 1e-6)
-            .map(|s| s[1])
-            .fold(f64::INFINITY, f64::min);
-        floor - seat::half_y() - MARGIN
-    })
+    hsm_valve_seat_numbers::tray::wall_root_floors(seats, slip()).expect("a valve tray has seats")
 }
 
 /// The stepped valve body with its slip all round, in the valve's frame.

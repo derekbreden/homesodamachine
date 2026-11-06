@@ -17,3 +17,4 @@ hsm-documents = { path = "../documents" }
 hsm-bulkhead-ring-numbers = { path = "../bulkhead-ring-numbers" }
 hsm-enclosure-interface = { path = "../enclosure-interface" }
 hsm-enclosure-numbers = { path = "../enclosure-numbers" }
+hsm-valve-seat-numbers = { path = "../valve-seat-numbers" }

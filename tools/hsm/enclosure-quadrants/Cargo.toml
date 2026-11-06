@@ -14,6 +14,7 @@ anyhow.workspace = true
 hsm-enclosure-numbers = { path = "../enclosure-numbers" }
 hsm-enclosure-solid = { path = "../enclosure-solid" }
 hsm-kernel = { path = "../kernel" }
+hsm-valve-seat-numbers = { path = "../valve-seat-numbers" }
 serde = { workspace = true, features = ["derive"] }
 serde_json = { workspace = true, features = ["float_roundtrip"] }
 
