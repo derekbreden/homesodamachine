@@ -108,8 +108,6 @@ class Facts:
         return _compiled.call('Facts.agrees_with_card', *args, **kwargs)
     def agrees_with_step(*args, **kwargs):
         return _compiled.call('Facts.agrees_with_step', *args, **kwargs)
-    def agrees_with_sources(*args, **kwargs):
-        return _compiled.call('Facts.agrees_with_sources', *args, **kwargs)
     def stale(*args, **kwargs):
         return _compiled.call('Facts.stale', *args, **kwargs)
 
@@ -124,12 +122,6 @@ def _source_names(*args, **kwargs):
 
 def sources(*args, **kwargs):
     return _compiled.call('sources', *args, **kwargs)
-
-def _source_digest(*args, **kwargs):
-    return _compiled.call('_source_digest', *args, **kwargs)
-
-def source_digest(*args, **kwargs):
-    return _compiled.call('source_digest', *args, **kwargs)
 
 def _plain(*args, **kwargs):
     return _compiled.call('_plain', *args, **kwargs)
@@ -161,8 +153,8 @@ def __getattr__(name):
 def __dir__():
     return _compiled.names()
 
-_rust_functions = frozenset(['_request', '_read_graph', '_source_names', 'sources', '_source_digest', 'source_digest', '_plain', '_box_plain', '_tube_handoff', 'write', '_disagrees', 'read', 'selftest', 'main'])
-_rust_exports = frozenset(['json', 'sys', 'Path', '_HERE', '_HW', '_ROOT', '_p', '_realized', 'ARTIFACT', 'SCORECARD', 'STEP', 'SCHEMA', 'GRAPH', 'GENERATOR', '_request', '_read_graph', '_source_names', 'sources', '_source_digest', 'source_digest', 'DECLARED_GAPS', 'DECLARED_RUN_NEIGHBOURS', 'CARD_PORT_BODIES', '_plain', '_BOX_FACT_ORDER', '_BOX_FACT_EXCLUDED', '_box_plain', '_tube_handoff', 'write', '_BB', '_Frame', '_Row', 'Facts', '_disagrees', 'read', 'selftest', 'main'])
+_rust_functions = frozenset(['_request', '_read_graph', '_source_names', 'sources', '_plain', '_box_plain', '_tube_handoff', 'write', '_disagrees', 'read', 'selftest', 'main'])
+_rust_exports = frozenset(['json', 'sys', 'Path', '_HERE', '_HW', '_ROOT', '_p', '_realized', 'ARTIFACT', 'SCORECARD', 'STEP', 'SCHEMA', 'GRAPH', '_request', '_read_graph', '_source_names', 'sources', 'DECLARED_GAPS', 'DECLARED_RUN_NEIGHBOURS', 'CARD_PORT_BODIES', '_plain', '_BOX_FACT_ORDER', '_BOX_FACT_EXCLUDED', '_box_plain', '_tube_handoff', 'write', '_BB', '_Frame', '_Row', 'Facts', '_disagrees', 'read', 'selftest', 'main'])
 sys.modules[__name__].__class__ = _RustSurface
 
 if __name__ == '__main__':
