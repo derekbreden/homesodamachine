@@ -121,6 +121,13 @@ measured extent leaves its range, stops the preparation and reports what was fou
   six walls, and its downward exterior faces are painted support-blocked.
 - **`ceiling_inset`** — the flat ceiling at a transition's foot keeps tree contacts the
   declared distance inside its boundary, painted on subdivided facets.
+- **`native_support_free`** — reads support exclusions emitted by the native part
+  generator and bound to the source STL. Source-frame bounds follow the object's
+  print pose and plate placement. Downward faces are painted and the named volumes
+  exclude tree branches. The native review reports any support beads in those
+  interiors. Back-top uses this for its inaccessible receivers, teardrop bores,
+  valve sockets and chamfered vent mouth.
+
 - **`groove_ribbons`** — each long, narrow flat face printing down at the top of the part is
   a caught face over a sliding groove. A two-wall, hollow ribbon stands in the groove one empty
   layer above its floor and stops two empty layers under the caught face, 0.40 mm inside its

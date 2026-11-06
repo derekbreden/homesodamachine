@@ -6,7 +6,7 @@ use crate::layout::{Pose, layout};
 use crate::plan::{Bounds, Flange, Graph, Op, P2, P3, Shape, Snap};
 use crate::quadrant::{Quadrant, sorted};
 use crate::shapes::{place, rounded};
-use crate::shell::{DISPOSAL_EMBED, WALL};
+use crate::shell::{DISPOSAL_EMBED, WALL, shell};
 use crate::spec::Box;
 use crate::supports::supports;
 use crate::disposal::disposal_field;
@@ -19,7 +19,7 @@ use std::rc::Rc;
 mod snap_dimensions;
 
 /// The wet ports' bores run through the rear wall from inside its relief to past its face.
-const WET_PORT_Y: P2 = [458.0, 472.3];
+pub const WET_PORT_Y: P2 = [458.0, 472.3];
 
 /// The wall's insert bosses and their pilots, for the C14 inlet's screws and the parts it hosts.
 const BOSS_RADIUS: f64 = 5.0;
@@ -37,7 +37,8 @@ pub fn apply(g: &mut Graph, mut piece: Shape, b: &Box, keep_clear: Option<Shape>
     let relief = rounded(g, 2, wall.interior_panel_relief.bounds(), 0.0, &[0, 1, 2, 3]);
     piece = g.cut(piece, &[relief]);
     for port in &wall.wet_ports {
-        let bore = g.ycyl(port.bore_diameter_mm / 2.0, port.center_x_mm, port.center_z_mm, WET_PORT_Y[0], WET_PORT_Y[1]);
+        let bore = g.teardrop_y(shell().teardrop_roof_angle, port.bore_diameter_mm / 2.0,
+                                port.center_x_mm, port.center_z_mm, WET_PORT_Y[0], WET_PORT_Y[1], -1.0);
         piece = g.cut(piece, &[bore]);
     }
     let inlet = c14_cutters(g);
@@ -353,7 +354,13 @@ fn valve_seats(g: &mut Graph, piece: Shape) -> Shape {
         block[1] = SEAT_ROOT_X;
     }
     let block = g.box_(block);
-    let vk_sockets = place(g, sockets, vk.rotation, vk.translation_mm);
+    let vk_sockets: Vec<Shape> = corners.iter().map(|&(sx, sy)| {
+        let at = [sx * valve::CORNER_INSET_X, sy * valve::CORNER_INSET_Y];
+        let a = vk.point([at[0], at[1], seat::SOCKET_FLOOR_Z]);
+        let b = vk.point([at[0], at[1], seat::SEAT_TOP_Z + 1.0]);
+        g.teardrop_y(shell().teardrop_roof_angle, seat::SOCKET_RADIUS, a[0], a[2], a[1], b[1], -1.0)
+    }).collect();
+    let vk_sockets = g.union(vk_sockets[0], &vk_sockets[1..]);
     let vk_channel = place(g, channel, vk.rotation, vk.translation_mm);
     let solenoid = g.cut(block, &[vk_sockets, vk_channel]);
     let piece = g.union(piece, &[inlet]);

@@ -1,0 +1,23 @@
+{
+  "print_job": "print-job.json",
+  "result": "Support cleanup requires revision",
+  "source_stl_sha256": "afef480e17bbad94f5b12c38e2f63048e052d9ae5dea3b3c5b403ace658ceca0",
+  "source_archive_sha256": "9bf7e28a4573503f8e9954b7ffa82076b03b9b0bd201cbde67b22c763f0d7e3c",
+  "observations": {
+    "rails": "Rectangular supports cannot be removed from the sliding cavities.",
+    "prv_vent": "A tall tree reaches the flat mouth lip; a self-supporting chamfer is requested.",
+    "pisco_and_asse_receivers": "Full-size enclosure walls block screwdriver access to the tiny supports. These interiors must print without supports.",
+    "rear_bulkhead_bores": "Color plates cover the wall bores, allowing teardrop roofs instead of supported circular crowns.",
+    "valve_post_sockets": "Small valve holes should print without supports."
+  },
+  "photos": [
+    "/tmp/codex-remote-attachments/01a19503-4047-7cf0-ad82-9e42d010912e/B4896754-D589-4FFD-B029-465465CB0624/1-Photo-1.jpg",
+    "/tmp/codex-remote-attachments/01a19503-4047-7cf0-ad82-9e42d010912e/B4896754-D589-4FFD-B029-465465CB0624/2-Photo-2.jpg",
+    "/tmp/codex-remote-attachments/01a19503-4047-7cf0-ad82-9e42d010912e/B4896754-D589-4FFD-B029-465465CB0624/3-Photo-3.jpg"
+  ],
+  "user_words": [
+    "The normal supports aren't removable.",
+    "I can't reach in that far to remove those tiny little supports.",
+    "The bulkhead holes on the back, why aren't those teardrop shaped?"
+  ]
+}

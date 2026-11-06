@@ -2,8 +2,8 @@
   "part": "HSM-0081",
   "part_name": "Enclosure back top",
   "printer": "Mark2",
-  "status": "printing",
-  "user_authorization": "Looks good. Let’s start a print.",
+  "status": "finished",
+  "user_authorization": "Looks good. Let\u2019s start a print.",
   "material": "Polymaker Fiberon PET-GF15, black",
   "nozzle": {
     "side": "left",
@@ -62,5 +62,6 @@
   },
   "startup_status_record": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-05-back-top-smooth-corners-mark2/startup-printers.json",
   "confirmed_state": "RUNNING",
-  "confirmed_at_utc": "2026-11-05T15:08:42.832827+00:00"
+  "confirmed_at_utc": "2026-11-05T15:08:42.832827+00:00",
+  "status_basis": "Derek reports the finished print and supplies physical cleanup observations."
 }

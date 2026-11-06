@@ -55,28 +55,27 @@ settles whether what somebody saw in the viewer was there.
 
 ## Supports
 
-Use Tree (auto) with the saved Bambu default style by default, retaining Bambu's
-automatic support decisions, including normal sections it generates. Derek accepts
-those automatic choices. His difficult-removal reports concern explicit normal
-support overrides. A manual normal-support choice needs a specific feature that
-requires it, or evidence that it is easier to remove there; explain and record the
-reason and scope before printing. Do not generalize a local override to other
-features or parts. Geometric access alone does not establish easy removal. A bed
-footprint constraint needs an automatic tree-support placement review before
-choosing an explicit normal override. Do not impose a trees-only rule or add
-blanket blockers to Bambu's automatically generated normal sections.
+Use Tree (auto) with the saved Bambu default style for accessible exterior
+features. Enclosed cavities must not contain rectangular normal supports,
+whether explicitly added or chosen automatically. Select Tree Slim for the
+front pump cavities, lower pump retainer and rear enclosure, and inspect the
+emitted branches and their removal openings. Geometric access alone does not
+establish easy removal. A bed-footprint constraint does not justify trapped
+normal supports.
 
-Front-top's enclosed pump mount and the lower pump retainer use branching tree
-supports. Derek reports that rectangular supports inside these cavities are very
-difficult to remove. Their piece recipes select Tree Slim explicitly; inspect the
-resulting cavity branches when preparing their next print.
+The full rear enclosure's [physical result](enclosure/enclosure/prints/2026-11-05-back-top-smooth-corners-mark2/physical-result.json)
+requires the Pisco and ASSE receiver interiors to print without supports: the
+full-size walls prevent screwdriver access. Preserve their approved component
+seats, catch planes and wing travel. Native preparation bridges the catches
+between their end shoulders and excludes supports from those interiors.
+Covered rear bulkhead bores and horizontal valve sockets use teardrop roofs;
+build-axis valve sockets remain open. The vent mouth has a print-direction
+chamfer. Sliding rails use branching supports, without added rectangular ribbons.
 
 The [rear equipment fit trial](../print-tests/rear-snap-retention/physical-result/physical-result.json)
-records tiny automatic cavity supports that Derek removed easily with a tiny
-flathead screwdriver that fits inside the cavity. Retain such accessible
-supports beneath the functional ceilings on these mounts and list that tool
-in their post-processing instructions. The observed removal applies to these
-cavities; another support topology needs its own access reading.
+records easy screwdriver removal of tiny supports in accessible coupons. That
+result applies only where the same access remains available in the complete
+part. Where a screwdriver cannot reach, the feature must print without supports.
 
 For visible overhang edges with reported roughness, follow the edge with a
 removable fin wall and retain Tree(auto)/Default on the remaining surfaces.
