@@ -64,7 +64,7 @@ to registration/spray uncertainty; it is not a large repeatable clash or a zero-
 certification. Physical insertion remains the acceptance check.
 
 The assembly model places the pump 0.251 mm below the holder station datum on its skirt lands.
-`_enclosure_interface.pump_seated_drop` is shared by the pump placement, holder-datum recovery
+`pump_seated_drop` in the [enclosure interface](/hardware/printed-parts/enclosure/enclosure/interface/lib.rs) is shared by the pump placement, holder-datum recovery
 and outlet calculation. The manifold's four outlet paths and carried tee axes consume
 that seated pose. The tee reference's own measured length can change the whole manifold's
 placement; that global placement change is distinct from the local pump seating correction.

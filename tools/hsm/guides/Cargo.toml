@@ -14,4 +14,5 @@ path = "src/main.rs"
 anyhow.workspace = true
 serde_json.workspace = true
 hsm-documents = { path = "../documents" }
+hsm-enclosure-interface = { path = "../enclosure-interface" }
 hsm-guide-native = { path = "../guide-native" }

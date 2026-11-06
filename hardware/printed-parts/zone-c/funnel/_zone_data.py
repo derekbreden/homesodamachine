@@ -32,11 +32,6 @@ def data(part, *, method='state', **payload):
     values = {'part': part, 'method': method, 'root': str(ROOT),
               'slip': fits.slip, 'running': fits.running,
               'supported_surface': fits.supported_surface}
-    if part == 'funnel-frame' and method in ('fasteners', 'body_half', 'numbers', 'document'):
-        import _enclosure_interface as enc
-        values['enclosure'] = {name: getattr(enc, name) for name in (
-            'heatset_long_len', 'wall', 'heatset_dia', 'slide_slip',
-            'y_stack_high_depth', 'screw_clear_dia', 'head_cbore_dia', 'funnel_collar_air')}
     if method == 'numbers':
         from _materials import M_PETGF_BLACK, M_PETG_BLACK, M_SILICONE_BLACK, linear
         from _payload_rules import LINEAR_DEFLECTION_RATIO

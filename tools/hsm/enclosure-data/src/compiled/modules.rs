@@ -37,8 +37,6 @@ mod _nameplate_interface;
 mod _nameplate_wing_interface;
 #[path = "_rust_enclosure_checks.rs"]
 mod _rust_enclosure_checks;
-#[path = "_rust_enclosure_presentation.rs"]
-mod _rust_enclosure_presentation;
 #[path = "_swept_top.rs"]
 mod _swept_top;
 #[path = "_y_wall_dimensions.rs"]
@@ -124,9 +122,6 @@ pub fn source(name: &str) -> Option<&'static str> {
         "_rust_enclosure_checks" => {
             Some("hardware/printed-parts/enclosure/enclosure/_rust_enclosure_checks.py")
         }
-        "_rust_enclosure_presentation" => {
-            Some("hardware/printed-parts/enclosure/enclosure/_rust_enclosure_presentation.py")
-        }
         "_swept_top" => Some("hardware/printed-parts/enclosure/enclosure/_swept_top.py"),
         "_y_wall_dimensions" => {
             Some("hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py")
@@ -174,7 +169,6 @@ pub fn initialize(rt: Runtime, e: Env, name: &str) -> Result<()> {
         "_nameplate_interface" => _nameplate_interface::initialize(rt, e),
         "_nameplate_wing_interface" => _nameplate_wing_interface::initialize(rt, e),
         "_rust_enclosure_checks" => _rust_enclosure_checks::initialize(rt, e),
-        "_rust_enclosure_presentation" => _rust_enclosure_presentation::initialize(rt, e),
         "_swept_top" => _swept_top::initialize(rt, e),
         "_y_wall_dimensions" => _y_wall_dimensions::initialize(rt, e),
         "bulkhead_ring" => bulkhead_ring::initialize(rt, e),
@@ -214,7 +208,6 @@ pub fn entrypoint(rt: Runtime, e: Env, name: &str) -> Result<Val> {
         "_nameplate_interface" => _nameplate_interface::entrypoint(rt, e),
         "_nameplate_wing_interface" => _nameplate_wing_interface::entrypoint(rt, e),
         "_rust_enclosure_checks" => _rust_enclosure_checks::entrypoint(rt, e),
-        "_rust_enclosure_presentation" => _rust_enclosure_presentation::entrypoint(rt, e),
         "_swept_top" => _swept_top::entrypoint(rt, e),
         "_y_wall_dimensions" => _y_wall_dimensions::entrypoint(rt, e),
         "bulkhead_ring" => bulkhead_ring::entrypoint(rt, e),
@@ -300,12 +293,6 @@ pub fn by_path(path: &str) -> Option<&'static str> {
             .ends_with("hardware/printed-parts/enclosure/enclosure/_rust_enclosure_checks.py") =>
         {
             Some("_rust_enclosure_checks")
-        }
-        p if p.ends_with(
-            "hardware/printed-parts/enclosure/enclosure/_rust_enclosure_presentation.py",
-        ) =>
-        {
-            Some("_rust_enclosure_presentation")
         }
         p if p.ends_with("hardware/printed-parts/enclosure/enclosure/_swept_top.py") => {
             Some("_swept_top")

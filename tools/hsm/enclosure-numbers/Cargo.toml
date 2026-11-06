@@ -11,5 +11,6 @@ path = "../../../hardware/printed-parts/enclosure/enclosure/numbers/lib.rs"
 
 [dependencies]
 anyhow.workspace = true
+hsm-enclosure-interface = { path = "../enclosure-interface" }
 serde = { workspace = true, features = ["derive"] }
 serde_json = { workspace = true, features = ["float_roundtrip"] }

@@ -15,6 +15,7 @@ anyhow.workspace = true
 serde.workspace = true
 serde_json = { workspace = true, features = ["float_roundtrip"] }
 hsm-documents = { path = "../documents" }
+hsm-bulkhead-ring-numbers = { path = "../bulkhead-ring-numbers" }
 hsm-kernel = { path = "../kernel" }
 hsm-faucet = { path = "../faucet" }
 libloading = "0.8.9"

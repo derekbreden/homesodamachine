@@ -5,7 +5,7 @@ pub mod letters;
 pub mod ops;
 pub mod pieces;
 pub mod plan;
-pub mod presentation;
+pub use hsm_print_payload as presentation;
 pub mod run;
 pub mod skin;
 #[path = "../../nameplate/snap_geometry.rs"]
