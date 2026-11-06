@@ -13,6 +13,7 @@ import { numberedModels } from "../contracts/materials.js";
 import { readPartCosts } from "./part-costs.js";
 import { websitePointers } from "../contracts/artifact-scope.js";
 import { RETIRED_MARKER } from "./retired.js";
+import { madeFrom } from "./made-from.js";
 
 const relOf = (req) => req.params.splat.join("/");
 
@@ -209,6 +210,23 @@ export function mountViewerRoutes(app, { hardwareDir, store, pointersPath }) {
     if (!fs.existsSync(abs)) return res.status(404).send("Not found");
     res.set("Cache-Control", "no-cache");
     res.type("application/json").send(fs.readFileSync(abs, "utf-8"));
+  });
+
+  // What the build remakes a model on and what it remakes, read off the build's own record
+  // (lib/made-from.js) for the Related list (public/js/viewer/related-nav.js). A model the site
+  // does not list is named and not linked.
+  const graphPath = path.join(hardwareDir, "..", "tools", "bazel", "graph.json");
+  app.get("/api/made-from/*splat", (req, res) => {
+    const rel = relOf(req);
+    if (rel.includes("..") || !rel.endsWith(".step")) return res.status(400).send("Invalid path");
+    if (!publishedFile(rel)) return res.status(404).send("Not found");
+    const made = madeFrom(graphPath, rel);
+    if (!made) return res.status(404).send("Not found");
+    let listed = null;
+    try { listed = new Set(numberedModels(readMaterialCatalog(hardwareDir), Object.values(made).flat().map((i) => i.file).filter(Boolean))); } catch { /* none linked */ }
+    for (const item of Object.values(made).flat()) if (item.file && !listed?.has(item.file)) item.file = null;
+    res.set("Cache-Control", "no-cache");
+    res.json(made);
   });
 
   // sendFile races against the atomic-rename window in
