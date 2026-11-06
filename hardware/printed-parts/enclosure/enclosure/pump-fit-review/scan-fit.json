@@ -19,26 +19,29 @@
     "exposed_pass": 1
   },
   "source_sha256": {
-    "hardware/printed-parts/enclosure/enclosure/retainer/retainer.rs": "f0869048a0cbc9379ff7a68550d51e780f674becfff2a77aecbdd0d048191fc2",
+    "hardware/printed-parts/enclosure/enclosure/retainer/retainer.rs": "9486e0f606d9dfac65be607d249d5cfa8bfc7780f65757b593d5582bf2f58ddd",
     "hardware/reference/kamoer-kphm400/scan-registration.json": "4a8a89c6caf7dd60af29b71a646b8a6f954ea3e0601c69a0d4e4165b90749114",
     "hardware/reference/kamoer-kphm400/scan-measurements.json": "4389eeb0fd000242ee69efa903d60269a6e8e9497c7235d8d48187d5cf9075a9",
-    "hardware/manifold-layout/enclosure-box.json": "e25ca2be5c46310082f002a72a9a9f20c08bee4af1e634e065de87d848c3ad3b"
+    "hardware/manifold-layout/enclosure-box.json": "e25ca2be5c46310082f002a72a9a9f20c08bee4af1e634e065de87d848c3ad3b",
+    "tools/hsm/shared-data/catalog/scalars.json": "5b3961976b887db9bfddc1917824d260c48cb95502c914ab2dacbb7f0c881574",
+    "hardware/printed-parts/enclosure/enclosure/numbers/pump.rs": "86009021bdcbacc44c3bc5e188c759de380cbde54ed6d28e2f7d5121e90e7bdd",
+    "hardware/printed-parts/enclosure/enclosure/numbers/shell.rs": "95ddbe827f215a7f3d8c024ea15258d9cf0f43e1c2bd7468b5505490f7a73b05"
   },
   "artifact_sha256": {
-    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.stl": "ef26f7f75a453ce6204330e1186696b22f38f95e459d7971cec99e26926acd37",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step": "1768b60cc8edb2abe77b2f6c377bc79224d25d7382bcc650867b275087e0144a",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step.mesh": "c29746d9b91f905aa16943f3818ce9750af182b2f42c61a3d0976ce78fe7aef1",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer-seated.step": "ef6567b16b94de519e95607a12d7fead7991195559c7e9d0095a0bc8175f2bb2",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer-seated.step.npz": "94cf5f5fbc018a12de9807dfa62f1731935f71c2745ca1b77c38bddae4925a06",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer-seated.step.mesh": "3e927d837970077f65d7c2122eb2df2aec075bfa38a161439ea2d2fcfdb0caea"
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.stl": "1e2b2a86cf98bc3c745093e17fa3fc41d921e0d67eed506471b4b8947e4224a2",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step": "66bdbd3bd180a371008da8ad956ab59c88a4d1fa7239229759231f0217c122da",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step.mesh": "572006b3858aae3e12f6080b57597cdf1296e140cbb99b2a4a152f4b6eae466d",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer-seated.step": "19e3d77dc1e1aa709e36eb4e8e241d4a23746fa3276ed07a96f4329e4ceba90b",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer-seated.step.npz": "9c85b8738f53051518095bee743ca7ad5be047c5071658b6315ab4037bd6c2e1",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer-seated.step.mesh": "002bbe82945ac794199d1b1d6476d0088cb627d395cf600e21323df244d6bec9"
   },
   "correction": {
     "fitted_body_aft_y_mm": 27.45,
-    "new_full_opening_aft_y_mm": 27.7,
+    "new_full_opening_aft_y_mm": 27.95,
     "retained_skirt_opening_aft_y_mm": 27.028,
     "full_relief_native_z_mm": -20,
-    "removed_volume_mm3": 2491.623088829229,
-    "added_volume_mm3": 1.448742542227895e-06,
+    "removed_volume_mm3": 3418.5702388418613,
+    "added_volume_mm3": 1.4487425990713139e-06,
     "closed_oriented_body": true,
     "body_count": 1,
     "old_bounds_mm": [
@@ -78,9 +81,14 @@
         216.6739959716797
       ]
     ],
-    "removed_volume_aft_of_full_relief_mm3": 0.0,
-    "full_relief_machine_y_mm": 73.559,
+    "full_relief_machine_y_mm": 73.809,
     "numeric_volume_tolerance_mm3": 0.0001,
+    "aft_wall_stock_mm": 8.456000000000003,
+    "retained_spring_root_margin_mm": 5.275000000000006,
+    "air_mm": {
+      "running": 0.25,
+      "supported_face": 0.25
+    },
     "preserved_features": [
       "skirt support land",
       "upper flange room",
@@ -102,28 +110,6 @@
         "median": 1.2043555273588993,
         "p95": 3.81712630121814,
         "max": 5.762030901840518
-      },
-      "head_datum_y_mm": {
-        "n": 3927,
-        "min": 21.265970135757136,
-        "p05": 23.210874736379516,
-        "median": 25.823645510238755,
-        "p95": 27.144821524202808,
-        "max": 27.424342687351874
-      }
-    },
-    {
-      "region": "rigid_aft_head_body",
-      "geometry": "corrected",
-      "observations": 3927,
-      "inside": 0,
-      "signed_clearance_mm": {
-        "n": 3927,
-        "min": 0.2756554205582802,
-        "p05": 0.5551765837073461,
-        "median": 1.7447270794923497,
-        "p95": 4.414562938851165,
-        "max": 5.811239613818104
       },
       "head_datum_y_mm": {
         "n": 3927,
@@ -160,6 +146,28 @@
         "median": 1.4758571144110217,
         "p95": 5.442053385602747,
         "max": 8.183149626882765
+      }
+    },
+    {
+      "region": "rigid_aft_head_body",
+      "geometry": "corrected",
+      "observations": 3927,
+      "inside": 0,
+      "signed_clearance_mm": {
+        "n": 3927,
+        "min": 0.5256554205582802,
+        "p05": 0.8051765837073461,
+        "median": 1.9596384093988775,
+        "p95": 4.633776513951003,
+        "max": 5.824670183669668
+      },
+      "head_datum_y_mm": {
+        "n": 3927,
+        "min": 21.265970135757136,
+        "p05": 23.210874736379516,
+        "median": 25.823645510238755,
+        "p95": 27.144821524202808,
+        "max": 27.424342687351874
       }
     }
   ],
