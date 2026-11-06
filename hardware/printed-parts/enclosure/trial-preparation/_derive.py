@@ -83,7 +83,7 @@ def _record(geo: Geometry, faces: np.ndarray) -> dict:
 
 
 def fine_band(geo: Geometry, feature: dict) -> dict:
-    """An inward/top show round: its complete print-Z span takes the fine layer height."""
+    """A show surface's complete print-Z span takes the fine layer height."""
     kept, records = [], []
     for members in geo.components(geo.select(feature["select"])):
         if geo.a[members].sum() < feature.get("min_component_area_mm2", 10.0):
@@ -101,7 +101,8 @@ def fine_band(geo: Geometry, feature: dict) -> dict:
     _check(feature, "area", float(geo.a[faces].sum()), "area_mm2")
     return {"name": feature["name"], "kind": "fine_band", "span_print_z_mm": [low, high],
             "layer_height_mm": feature.get("layer_height_mm", 0.08), "components": records,
-            "paint_faces": faces, "reason": feature["reason"]}
+            "paint_faces": [] if feature.get("allow_support", False) else faces,
+            "reason": feature["reason"]}
 
 
 def transition_band(geo: Geometry, feature: dict) -> dict:
