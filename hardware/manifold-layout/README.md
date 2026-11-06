@@ -86,3 +86,22 @@ live in [installed wiring](/hardware/wiring/installed/).
 The refrigerator loop retains its own compressor, condenser and cold-core
 fitting datums. Its physical joints and formed copper runs remain distinct
 from these flavor and water paths.
+
+## The interior, written down
+
+[`enclosure-box.json`](enclosure-box.json) holds where the enclosure is cut and built up
+for the parts inside it: the condenser's cradles, mount and airway, the pump and valve trays,
+the cold core's stops and holds, the floor bosses, the ceiling, flank and corner-column
+reliefs, the vent chase, the collet plate and the pump bay's wall. The enclosure's printed
+pieces and the whole-machine assembly read it as it is committed; nothing in the build works
+it out.
+
+When a part inside the enclosure moves, `enclosure_box.py` packs the interior again from the
+current arrangement and rewrites the file, and the new file is committed with the move:
+
+```sh
+python3 tools/run.py -- tools/cad-venv/bin/python hardware/manifold-layout/enclosure_box.py
+```
+
+The whole-machine fit checks run in every build, so a part that moved without the file
+changing shows up in them.

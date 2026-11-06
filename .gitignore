@@ -119,10 +119,6 @@ hardware/printed-parts/enclosure/display-gasket/display-gasket.stl
 hardware/printed-parts/enclosure/data-ring/data-ring.stl
 hardware/printed-parts/enclosure/nameplate/nameplate-*.stl
 hardware/printed-parts/refrigeration/fuse-clamp/fuse-clamp.stl
-# The placement pass hands this description directly from `//:enclosure-box` to the enclosure,
-# ceiling and full-assembly actions. Direct design runs derive the live placement and never read
-# a checkout copy, so retaining one here would only preserve a stale action intermediate.
-hardware/manifold-layout/enclosure-box.json
 # Except the harvested solids, which have no builder here — y_divider.py:3 says it of its own,
 # and manifold_layout.py places the elbow and the tee. `pack.py`'s HARVESTED names the same three.
 !hardware/reference/elbow-connector/elbow-connector.step
