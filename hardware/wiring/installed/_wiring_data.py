@@ -101,9 +101,13 @@ def provider(ea=None, assembly=None):
             return _machine_export.append_wiring(query["host"], query["wire_step"],
                                                  wire_model=query.get("wire_model"))
         if kind == "module_files":
+            # This repo's own modules, by `_realized`'s rule for a repo file: a library in a
+            # site-packages directory is not a wiring source, though the checkout's virtualenv
+            # puts its libraries under the root.
             from ._model_input import QUERY_SOURCES
             return [*[str(module.__file__) for module in tuple(sys.modules.values())
-                       if getattr(module, "__file__", None) and str(module.__file__).endswith(".py")],
+                       if getattr(module, "__file__", None) and str(module.__file__).endswith(".py")
+                       and "site-packages" not in Path(module.__file__).parts],
                     *map(str, QUERY_SOURCES)]
         if kind == "compiled_sources":
             return list(_rust_part._READ_TARGETS)
