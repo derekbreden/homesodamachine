@@ -1,11 +1,11 @@
 //! The flavour manifold's valve decks: each tray a plate of valve seats standing wall to wall
 //! across a top piece, sunk with each valve's four post sockets and cleared for its body and port.
-use crate::walls::{STATED_BOUND_TOL, flank_bedding_cut};
+use crate::walls::flank_bedding_cut;
 use crate::plan::{Bounds, Graph, Shape};
 use crate::quadrant::{Quadrant, Y};
 use crate::rails::{Run, rail_channel_span, z_rail_runs};
 use crate::shapes::rounded;
-use crate::shell::{Z_RISE, shell, slide_slip};
+use crate::shell::{STATED_BOUND_TOL, VALVE_TRAY_MARGIN as MARGIN, Z_RISE, shell, slide_slip};
 use crate::spec::Box;
 use crate::walls::{front_top_flank_face, lip_face_x};
 
@@ -51,8 +51,6 @@ pub mod seat {
 
 /// The plate is one socket and one wall thick.
 const THICK: f64 = seat::SOCKET_DEPTH + seat::WALL;
-/// The plate runs this far past its outermost seats' reach.
-const MARGIN: f64 = 3.0;
 /// The valve-side face stands at the seat's landing plane.
 const SEAT: f64 = -seat::SEAT_TOP_Z;
 const PORT_SLIP: f64 = seat::PORT_AIR;

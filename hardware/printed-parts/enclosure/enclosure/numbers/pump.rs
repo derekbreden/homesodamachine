@@ -71,6 +71,33 @@ impl Reference {
     }
 }
 
+/// The pump case's stock numbers, in the case frame, as its polygonal stock is built from them.
+pub mod stock {
+    pub const FOOTPRINT_X: f64 = 70.0;
+    pub const FOOTPRINT_Y: f64 = 70.0;
+    pub const CORNER_R: f64 = 6.0;
+    pub const WALL_THICKNESS: f64 = 3.0;
+    pub const BASE_THICKNESS: f64 = 3.0;
+    pub const RAMP_FROM_SKIRT_TO_OCTAGON_HEIGHT: f64 = 18.0;
+    pub const SKIRT_UPPER_HEIGHT: f64 = 21.0;
+    pub const SKIRT_WIDE_FLARE_PER_SIDE: f64 = 3.0;
+    pub const SKIRT_NARROW_TAPER_PER_SIDE: f64 = 4.0;
+    pub const SKIRT_WIDE_STRAIGHT_HEIGHT: f64 = 4.5;
+    pub const BORE_SQUARE_SIDE: f64 = 43.0;
+    pub const TOWER_HEIGHT: f64 = 60.0;
+    pub const CYLINDER_ID: f64 = 37.0;
+    pub const LOWER_HEIGHT: f64 = 23.0;
+    pub const SNAP_PROTRUSION_PER_SIDE: f64 = 2.5;
+    pub const TUBE_PROTRUSION_LENGTH: f64 = 11.3;
+    pub const LOWER_CAP_THICKNESS: f64 = 3.0;
+    pub const LEDGE_DEPTH: f64 = 1.5;
+    pub const LEDGE_SHELF_SPAN: f64 = 26.03;
+    pub const BORE_SPAN: f64 = 53.0;
+    pub const TOWER_CAP_THICKNESS: f64 = 3.0;
+    pub const CYLINDER_CARDINAL_STEP: f64 = 0.5;
+    pub const OVERCUT: f64 = 0.1;
+}
+
 /// The pump case's polygonal stock, in the case frame.
 pub struct Case {
     pub footprint_x: f64,
@@ -129,30 +156,30 @@ pub fn case() -> &'static Case {
 
 impl Case {
     fn new() -> Case {
-        let footprint_x = 70.0;
-        let footprint_y = 70.0;
-        let corner_r = 6.0;
-        let wall_thickness = 3.0;
+        let footprint_x = stock::FOOTPRINT_X;
+        let footprint_y = stock::FOOTPRINT_Y;
+        let corner_r = stock::CORNER_R;
+        let wall_thickness = stock::WALL_THICKNESS;
         let footprint_half_extent = footprint_x / 2.0;
-        let base_thickness = 3.0;
-        let ramp_from_skirt_to_octagon_height = 18.0;
-        let skirt_upper_height = 21.0;
-        let skirt_wide_flare_per_side = 3.0;
-        let skirt_narrow_taper_per_side = 4.0;
-        let skirt_wide_straight_height = 4.5;
-        let bore_square_side: f64 = 43.0;
+        let base_thickness = stock::BASE_THICKNESS;
+        let ramp_from_skirt_to_octagon_height = stock::RAMP_FROM_SKIRT_TO_OCTAGON_HEIGHT;
+        let skirt_upper_height = stock::SKIRT_UPPER_HEIGHT;
+        let skirt_wide_flare_per_side = stock::SKIRT_WIDE_FLARE_PER_SIDE;
+        let skirt_narrow_taper_per_side = stock::SKIRT_NARROW_TAPER_PER_SIDE;
+        let skirt_wide_straight_height = stock::SKIRT_WIDE_STRAIGHT_HEIGHT;
+        let bore_square_side: f64 = stock::BORE_SQUARE_SIDE;
         let bore_half_diag = bore_square_side * 2.0_f64.sqrt() / 2.0;
-        let bore_half_span = 53.0 / 2.0;
-        let tower_height = 60.0;
-        let cylinder_id = 37.0;
-        let lower_height = 23.0;
-        let snap_protrusion_per_side = 2.5;
-        let tube_protrusion_length = 11.3;
+        let bore_half_span = stock::BORE_SPAN / 2.0;
+        let tower_height = stock::TOWER_HEIGHT;
+        let cylinder_id = stock::CYLINDER_ID;
+        let lower_height = stock::LOWER_HEIGHT;
+        let snap_protrusion_per_side = stock::SNAP_PROTRUSION_PER_SIDE;
+        let tube_protrusion_length = stock::TUBE_PROTRUSION_LENGTH;
         let case_outer_x: f64 = footprint_x + 2.0 * snap_protrusion_per_side;
         let case_outer_y: f64 = footprint_y + 2.0 * skirt_wide_flare_per_side + tube_protrusion_length;
         let vertex_far = bore_half_span;
         let bore_depth = base_thickness + ramp_from_skirt_to_octagon_height;
-        let cylinder_r_outer = vertex_far + wall_thickness + 0.5;
+        let cylinder_r_outer = vertex_far + wall_thickness + stock::CYLINDER_CARDINAL_STEP;
         let skirt_base_half_extent = footprint_half_extent;
         let skirt_narrow_half_extent = skirt_base_half_extent - skirt_narrow_taper_per_side;
         let skirt_narrow_straight_height =
@@ -165,7 +192,7 @@ impl Case {
         ];
         let skirt_bottom_z: f64 = skirt_z_steps.iter().sum();
         let lower_cap_top_z = skirt_bottom_z - lower_height;
-        let lower_cap_thickness = 3.0;
+        let lower_cap_thickness = stock::LOWER_CAP_THICKNESS;
         Case {
             footprint_x,
             footprint_y,
@@ -182,20 +209,20 @@ impl Case {
             skirt_narrow_taper_per_side,
             skirt_wide_straight_height,
             skirt_support_band: skirt_narrow_taper_per_side,
-            ledge_depth: 1.5,
-            ledge_shelf_span: 26.03,
+            ledge_depth: stock::LEDGE_DEPTH,
+            ledge_shelf_span: stock::LEDGE_SHELF_SPAN,
             bore_half_span,
             vertex_far,
             vertex_near: bore_half_diag - bore_half_span,
             tower_height,
-            tower_cap_thickness: 3.0,
+            tower_cap_thickness: stock::TOWER_CAP_THICKNESS,
             cylinder_id,
             cylinder_r_inner: cylinder_id / 2.0,
             lower_height,
             lower_cap_thickness,
             lower_footprint_straight: skirt_wide_straight_height,
             cutter_half_extent: case_outer_x.max(case_outer_y) / 2.0 + 5.0,
-            overcut: 0.1,
+            overcut: stock::OVERCUT,
             arc_segments: 8,
             bore_depth,
             bore_bottom_z: bore_depth,

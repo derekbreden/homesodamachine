@@ -166,6 +166,11 @@ pub fn slide_slip() -> f64 {
     running()
 }
 
+/// How far a rail's flare drops under its head, from the arm's end back to the wall.
+pub fn rail_flare_drop() -> f64 {
+    slide_slip() + HOOK_ARM + 0.5
+}
+
 /// The funnel collar's running air in the roof.
 pub fn funnel_collar_air() -> f64 {
     running()
@@ -260,3 +265,26 @@ impl Shell {
         )
     }
 }
+
+/// The roof skin over the lip's ceiling run.
+pub const CEILING_SKIN: f64 = 3.0;
+/// A stated bound within this of zero reads as the pack's floor.
+pub const STATED_BOUND_TOL: f64 = 1e-6;
+
+/// The vent's root clearance round anything standing on the flank, and how far inboard the
+/// flank is read for what stands on it.
+pub const COND_VENT_CLEAR: f64 = WALL;
+pub const COND_VENT_PROBE: f64 = WALL;
+/// One opening marooned past a solid land is a nick, not a grille.
+pub const COND_VENT_ISLAND_MIN: usize = 2;
+/// The fan's bottom over the block's base, and its top under the block's crown.
+pub const COND_FAN_RISE: f64 = 22.0;
+pub const COND_FAN_DROP: f64 = 5.0;
+/// The unpierced bands crossing the vent, each tying every mullion and both jambs together.
+pub const COND_VENT_TRANSOMS: usize = 3;
+pub const COND_VENT_TRANSOM_H: f64 = 4.0;
+
+/// A Wago well's stock round its pocket.
+pub const WAGO_WELL_WALL: f64 = 3.0;
+/// A valve tray's plate runs this far past its outermost seats' reach.
+pub const VALVE_TRAY_MARGIN: f64 = 3.0;

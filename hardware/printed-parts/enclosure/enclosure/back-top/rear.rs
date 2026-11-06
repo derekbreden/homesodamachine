@@ -11,7 +11,7 @@ use crate::spec::Box;
 use crate::supports::supports;
 use crate::disposal::disposal_field;
 use crate::valves::{seat, valve};
-use crate::rear_wall::{FIELD_PROUD, PLATE_HEIGHT, PLATE_THICK, PLATE_WIDTH, keystone, keystone_land, label_channels, rail_bounds, rail_roots};
+use crate::rear_wall::{FIELD_PROUD, PLATE_HEIGHT, PLATE_THICK, PLATE_WIDTH, c14, keystone, keystone_land, label_channels, rail_bounds, rail_roots};
 use serde::{Deserialize, Serialize};
 use std::rc::Rc;
 
@@ -24,25 +24,6 @@ const WET_PORT_Y: P2 = [458.0, 472.3];
 /// The wall's insert bosses and their pilots, for the C14 inlet's screws and the parts it hosts.
 const BOSS_RADIUS: f64 = 5.0;
 const PILOT_RADIUS: f64 = 2.0;
-
-/// The IEC C14 inlet: its flange across its noses and its long flats, the chord from a nose to a
-/// flat's end, its ears' centres off its axis, the knuckle round between flat and taper, and its
-/// thickness; its body behind the flange, the chamfers on its lower edges and the rounds on its
-/// upper ones. Two washer-backed screws carry the flange on short inserts.
-mod c14 {
-    pub const FLANGE_W: f64 = 49.77;
-    pub const FLANGE_H: f64 = 21.9;
-    pub const FLANGE_END_CHORD: f64 = 17.98;
-    pub const EAR_CX: f64 = 20.0;
-    pub const KNUCKLE_R: f64 = 1.2;
-    pub const FLANGE_T: f64 = 3.25;
-    pub const BODY_W: f64 = 26.10;
-    pub const BODY_H: f64 = 18.00;
-    pub const BODY_CHAMFER_LEG: f64 = 4.85;
-    pub const BODY_TOP_R: f64 = 1.0;
-    pub const BOSS_DEPTH: f64 = 10.25;
-    pub const PILOT_DEPTH: f64 = 7.25;
-}
 
 /// The PSU's ceiling bosses root at this plane, the relays' bosses and bars this far into the
 /// west flank, and the valve seats this far into their flanks.
