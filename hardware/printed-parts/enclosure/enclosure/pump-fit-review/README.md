@@ -17,3 +17,7 @@ that wall without changing the pump placement or widening the upper inverse.
 The relaxed export is the printable retainer. The seated export supplies the enclosure and
 appliance assemblies. Physical fit of this correction remains to be checked on the finished
 assembly.
+
+The [prepared native print](native-print.json) uses branching cavity supports and the saved
+printer recipe. Its emitted paths and bead envelope pass the retained review. It has not
+been submitted to a printer.
