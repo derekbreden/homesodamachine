@@ -282,7 +282,13 @@ def trace(gen: str, files: set, argv=()) -> dict:
     # would have had anyway, bar the two the lock reads above — a flag that turned work off
     # here would be a reading of a shorter run than the one an action performs, and the graph
     # would name less than the sandbox has to hold.
-    env = dict(os.environ, HSM_BUILD_SOURCE="trace", HSM_NO_BUILD_ATTACH="1")
+    #
+    # SO IT TAKES NO ANSWER THAT SKIPS THE READING. A run the `hsm` engine kept, or a result
+    # the realized cache holds, comes back without opening what decided it, and an action on a
+    # cold engine opens all of it. With both turned off the traced run does all of that work
+    # itself, so what it reads is what any action can need.
+    env = dict(os.environ, HSM_BUILD_SOURCE="trace", HSM_NO_BUILD_ATTACH="1",
+               HSM_NO_ENGINE="1", HSM_NO_REALIZED_CACHE="1")
     sys.path.insert(0, str(_ROOT / 'hardware/scripts'))
     import _run_slots
     try:
@@ -301,6 +307,13 @@ def trace(gen: str, files: set, argv=()) -> dict:
         # The runner left no reading: killed, or stopped before its own `finally`.
         return {"reads": [], "writes": [], "raised": "no reading"}
     out = _filtered(seen, files)
+    # A WORKER'S VENDORED CRATES. `_rust_part.program` names what cargo's dep-info lists, and
+    # the dep-info names none of a vendored crate's files, so a run that found its programs
+    # fresh would name none of what compiling them reads.
+    manifests = [_ROOT / r for r in out["reads"]
+                 if r.startswith("tools/hsm/") and r.endswith("/Cargo.toml") and r.count("/") == 3]
+    if manifests:
+        out["reads"] |= _vendored(_crates_of(manifests), files)
     # A SCANNED DIRECTORY IS READ FOR ITS OWN ENTRIES. A listing names the files standing in
     # that folder and nothing in the folders beneath it: `flute_payload` globs
     # `enclosure/enclosure/*.step`, and the print records filed under it are not what the
@@ -374,29 +387,34 @@ RUST_STEPS = {
 }
 
 
-def _compiled_from(krate: str, name: str, files: set) -> list:
-    """What cargo compiled into `krate`'s program `name`, and the manifests that chose it: the
-    workspace's, its lockfile, and the manifest of every crate of this tree in the program."""
-    sys.path.insert(0, str(_ROOT / "hardware/scripts"))
-    from _build_data import request
-    from _rust_part import _cargo
-    target = _ROOT / "tools/hsm/target/release"
-    sources = set(request("compiled", path=str(target / f"{name}.d"), workspace=str(_ROOT)))
-    # Only the host's dependencies: offline, cargo cannot read another platform's manifests.
-    # cargo asks the `rustc` beside it, so its own directory comes first on the PATH.
-    cargo = _cargo()
-    env = dict(os.environ, PATH=os.pathsep.join([str(Path(cargo).parent), os.environ.get("PATH", "")]))
-    host = next(line.removeprefix("host: ") for line in subprocess.run(
-        [str(Path(cargo).with_name("rustc")), "-vV"], capture_output=True, text=True,
-        check=True, env=env).stdout.splitlines() if line.startswith("host: "))
-    meta = json.loads(subprocess.run(
-        [cargo, "metadata", "--format-version", "1", "--offline", "--locked",
-         "--filter-platform", host, "--manifest-path", str(_ROOT / "tools/hsm/Cargo.toml")],
-        cwd=str(_ROOT / "tools/hsm"), capture_output=True, text=True, check=True, env=env).stdout)
-    packages = {package["id"]: package for package in meta["packages"]}
+_METADATA = []
+
+
+def _cargo_metadata() -> dict:
+    """The workspace's `cargo metadata` for this host, read once per tracer run."""
+    if not _METADATA:
+        sys.path.insert(0, str(_ROOT / "hardware/scripts"))
+        from _rust_part import _cargo
+        # Only the host's dependencies: offline, cargo cannot read another platform's manifests.
+        # cargo asks the `rustc` beside it, so its own directory comes first on the PATH.
+        cargo = _cargo()
+        env = dict(os.environ, PATH=os.pathsep.join([str(Path(cargo).parent), os.environ.get("PATH", "")]))
+        host = next(line.removeprefix("host: ") for line in subprocess.run(
+            [str(Path(cargo).with_name("rustc")), "-vV"], capture_output=True, text=True,
+            check=True, env=env).stdout.splitlines() if line.startswith("host: "))
+        _METADATA.append(json.loads(subprocess.run(
+            [cargo, "metadata", "--format-version", "1", "--offline", "--locked",
+             "--filter-platform", host, "--manifest-path", str(_ROOT / "tools/hsm/Cargo.toml")],
+            cwd=str(_ROOT / "tools/hsm"), capture_output=True, text=True, check=True, env=env).stdout))
+    return _METADATA[0]
+
+
+def _crates_of(manifests) -> set:
+    """The packages the crates at `manifests` are compiled from, theirs included."""
+    meta = _cargo_metadata()
     nodes = {node["id"]: node for node in meta["resolve"]["nodes"]}
-    manifest = str(_ROOT / "tools/hsm" / krate / "Cargo.toml")
-    todo = [pid for pid, package in packages.items() if package["manifest_path"] == manifest]
+    wanted = {str(m) for m in manifests}
+    todo = [package["id"] for package in meta["packages"] if package["manifest_path"] in wanted]
     seen = set()
     while todo:
         pid = todo.pop()
@@ -406,17 +424,38 @@ def _compiled_from(krate: str, name: str, files: set) -> list:
         # A dev-dependency builds the crate's tests, never the program.
         todo += [dep["pkg"] for dep in nodes[pid]["deps"]
                  if any(kind["kind"] != "dev" for kind in dep["dep_kinds"])]
+    return seen
+
+
+def _vendored(seen: set, files: set) -> set:
+    """Every file of the vendored crates among the packages `seen`. A vendored crate is no
+    member, and cargo names none of its files: it is all of them."""
+    meta = _cargo_metadata()
+    packages = {package["id"]: package for package in meta["packages"]}
+    out = set()
+    for pid in seen - set(meta["workspace_members"]):
+        path = Path(packages[pid]["manifest_path"])
+        if path.is_relative_to(_ROOT):
+            crate = path.parent.relative_to(_ROOT).as_posix() + "/"
+            out |= {f for f in files if f.startswith(crate) and not build_inert(f)}
+    return out
+
+
+def _compiled_from(krate: str, name: str, files: set) -> list:
+    """What cargo compiled into `krate`'s program `name`, and the manifests that chose it: the
+    workspace's, its lockfile, and the manifest of every crate of this tree in the program."""
+    sys.path.insert(0, str(_ROOT / "hardware/scripts"))
+    from _build_data import request
+    target = _ROOT / "tools/hsm/target/release"
+    sources = set(request("compiled", path=str(target / f"{name}.d"), workspace=str(_ROOT)))
+    packages = {package["id"]: package for package in _cargo_metadata()["packages"]}
+    seen = _crates_of([_ROOT / "tools/hsm" / krate / "Cargo.toml"])
     sources |= {"tools/hsm/Cargo.toml", "tools/hsm/Cargo.lock"}
-    members = set(meta["workspace_members"])
     for pid in seen:
         path = Path(packages[pid]["manifest_path"])
-        if not path.is_relative_to(_ROOT):
-            continue
-        sources.add(path.relative_to(_ROOT).as_posix())
-        # A vendored crate is no member, and cargo names none of its files: it is all of them.
-        if pid not in members:
-            crate = path.parent.relative_to(_ROOT).as_posix() + "/"
-            sources |= {f for f in files if f.startswith(crate)}
+        if path.is_relative_to(_ROOT):
+            sources.add(path.relative_to(_ROOT).as_posix())
+    sources |= _vendored(seen, files)
     return sorted(p for p in sources if p in files and not build_inert(p))
 
 
