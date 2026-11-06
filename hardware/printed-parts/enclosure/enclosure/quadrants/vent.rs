@@ -82,15 +82,12 @@ pub fn vent_chase(
     solid
 }
 
-/// The roof-down mouth's chamfered cap and lip, with their complete wall root.
+/// The vent's open passage stays clear while its exterior walls can receive accessible trees.
 pub fn mouth_support_bounds(inner: &Bounds, [x, y, z]: [f64; 3]) -> Bounds {
     let rib = x - running();
-    let root = back_top_flank_face()[0];
     let half = VENT_CHANNEL_W / 2.0;
     let liner = inner[0] + slide_slip() + VENT_RIB_WALL;
-    let cap_root = z + half + root - liner + 2.0 * VENT_RIB_WALL;
-    [root, rib, y-half-VENT_RIB_WALL, y+half+VENT_RIB_WALL,
-     z-half-supported()-VENT_RIB_WALL, cap_root+2.0*(rib-root)]
+    [liner, rib, y-half, y+half, Z_SEAM-1.0, z+half+rib-liner]
 }
 
 /// The mouth's open passage, used to distinguish a branch inside it from an exterior tree.

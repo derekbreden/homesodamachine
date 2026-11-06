@@ -49,6 +49,24 @@ fn print_features(dir: &Path, b: &spec::Box) -> Result<()> {
             "bridge_axis_source": [0, 1, 0],
             "reason": "Inaccessible receiver interior; flat catches bridge between their full end shoulders."}));
     }
+    for (index, bounds) in rear_wall::label_channels().into_iter().enumerate() {
+        let mut bounds = bounds;
+        bounds[4] -= catalog::running();
+        regions.push(json!({"name": format!("Identification channel {}", index+1),
+            "bounds_source_mm":bounds,"bridge_span_mm":bounds[1]-bounds[0],"bridge_axis_source":[1,0,0],
+            "support_print_up_source":[0,0,-1],
+            "reason":"The shallow channel stop bridges between its rails, backed by the rear wall; keep its supporting trees out of the bulkhead column."}));
+    }
+    let mut bridges=vec![];
+    for run in hsm_enclosure_quadrants::rails::z_rail_runs(&b.inner,b.y_joint,quadrant::Y::Back,Some(&b.pack.collet_plate)) {
+        let [open,_,far]=hsm_enclosure_quadrants::rails::rail_channel_span(run.sx,quadrant::Y::Back);
+        let roof=b.splits[1]+shell::Z_RISE+shell::slide_slip();
+        bridges.push(json!({"name":format!("Sliding rail {}",run.sx),
+            "bounds_source_mm":[open.min(far),open.max(far),run.y0.min(run.lane_aft),run.y0.max(run.lane_aft),
+                                b.splits[1]-1.0,roof+shell::WALL],
+            "bridge_span_mm":(far-open).abs(),"bridge_axis_source":[1,0,0],"bridge_print_axis_source":[1,0,0],
+            "reason":"The groove closing floor crosses its short width from the wall to its removable tree supports."}));
+    }
     let wall = &layout::layout().rear_wall;
     let roof_angle = shell::shell().teardrop_roof_angle.to_radians();
     for port in &wall.wet_ports {
@@ -99,7 +117,8 @@ fn print_features(dir: &Path, b: &spec::Box) -> Result<()> {
             "reason": "The cap rises from its wall root in the roof-down print; the short mouth lip bridges between its side walls."}));
     }
     let record = json!({"source_stl_sha256": digest(&std::fs::read(dir.join("enclosure-back-top.stl"))?),
-        "producer": "enclosure-back-top", "boundary_overlap_mm": catalog::running(), "support_free_regions": regions});
+        "producer": "enclosure-back-top", "boundary_overlap_mm": catalog::running(), "support_free_regions": regions,
+        "bridge_regions":bridges});
     keep(&dir.join("enclosure-back-top.print-features.json"), &serde_json::to_vec_pretty(&record)?)
 }
 

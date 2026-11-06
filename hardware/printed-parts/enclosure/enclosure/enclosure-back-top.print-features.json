@@ -1,7 +1,55 @@
 {
   "boundary_overlap_mm": 0.25,
+  "bridge_regions": [
+    {
+      "bounds_source_mm": [
+        -103.75,
+        -93.5,
+        199.0,
+        456.3,
+        159.0,
+        178.05
+      ],
+      "bridge_axis_source": [
+        1,
+        0,
+        0
+      ],
+      "bridge_print_axis_source": [
+        1,
+        0,
+        0
+      ],
+      "bridge_span_mm": 10.25,
+      "name": "Sliding rail 1",
+      "reason": "The groove closing floor crosses its short width from the wall to its removable tree supports."
+    },
+    {
+      "bounds_source_mm": [
+        93.5,
+        103.75,
+        199.0,
+        456.3,
+        159.0,
+        178.05
+      ],
+      "bridge_axis_source": [
+        1,
+        0,
+        0
+      ],
+      "bridge_print_axis_source": [
+        1,
+        0,
+        0
+      ],
+      "bridge_span_mm": 10.25,
+      "name": "Sliding rail -1",
+      "reason": "The groove closing floor crosses its short width from the wall to its removable tree supports."
+    }
+  ],
   "producer": "enclosure-back-top",
-  "source_stl_sha256": "aa82e1c62f7cec29473e3372d6d6357a673e1a46f1e9efe543b0c2e0f110a85b",
+  "source_stl_sha256": "f94e92373793415ea6259c254bae0ee402b1a8ec5eea2874e1d486eb5de99d16",
   "support_free_regions": [
     {
       "bounds_source_mm": [
@@ -38,6 +86,52 @@
       "bridge_span_mm": 42.204282797599376,
       "name": "Pisco receiver",
       "reason": "Inaccessible receiver interior; flat catches bridge between their full end shoulders."
+    },
+    {
+      "bounds_source_mm": [
+        7.6499988712316025,
+        49.9499988712316,
+        469.299,
+        472.799,
+        240.35,
+        357.0
+      ],
+      "bridge_axis_source": [
+        1,
+        0,
+        0
+      ],
+      "bridge_span_mm": 42.3,
+      "name": "Identification channel 1",
+      "reason": "The shallow channel stop bridges between its rails, backed by the rear wall; keep its supporting trees out of the bulkhead column.",
+      "support_print_up_source": [
+        0,
+        0,
+        -1
+      ]
+    },
+    {
+      "bounds_source_mm": [
+        55.35,
+        97.65,
+        469.299,
+        472.799,
+        240.35,
+        357.0
+      ],
+      "bridge_axis_source": [
+        1,
+        0,
+        0
+      ],
+      "bridge_span_mm": 42.300000000000004,
+      "name": "Identification channel 2",
+      "reason": "The shallow channel stop bridges between its rails, backed by the rear wall; keep its supporting trees out of the bulkhead column.",
+      "support_print_up_source": [
+        0,
+        0,
+        -1
+      ]
     },
     {
       "bounds_source_mm": [
@@ -395,12 +489,12 @@
     },
     {
       "bounds_source_mm": [
-        -98.5,
+        -101.25,
         -90.75000000018628,
-        314.79999999962746,
-        332.79999999962746,
-        182.6,
-        222.09999999962744
+        317.79999999962746,
+        329.79999999962746,
+        159.0,
+        208.34999999981372
       ],
       "name": "PRV vent mouth",
       "reason": "The cap rises from its wall root in the roof-down print; the short mouth lip bridges between its side walls.",

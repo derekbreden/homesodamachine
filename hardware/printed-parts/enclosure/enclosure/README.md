@@ -757,7 +757,10 @@ orientation and placement as support blockers and painted surfaces. The covered
 bulkhead bores and horizontal valve sockets use teardrop roofs; build-axis valve
 sockets remain circular and open. The PRV cap rises from its root
 in the roof-down print; the short mouth lip bridges between its side walls. The native review reads support beads inside these named
-regions, including ordinary support paths without interface labels.
+regions, including ordinary support paths without interface labels. Exclusions
+specific to a print direction carry that direction in the native record. The
+rear-face-down preparation supports the identification frames from their exposed
+outside faces and keeps the vent passage clear.
 
 A production-profile slice reports the connected support bodies which reach the model and their
 separate interface islands. One body can reach several distinct contact regions. Two further
@@ -773,8 +776,11 @@ are read on the physical print and nowhere else.
 stand in open air, nothing is installed over it, and it leaves in one piece along a straight run.
 It fights when it is walled on several sides, when a branch re-enters a pocket
 behind its own interface, or when the hardware goes in first. The Z-seam catches
-retain their flat sliding bearings and use branching supports with accessible
-removal lanes. The rear enclosure has no added rectangular support ribbons.
+retain their flat sliding bearings. The rear enclosure prints with its rear face
+toward the bed and a gentle tilt; its receiver catches and sliding grooves grow
+through successive layers. A fine band follows the rear show face. Local modifiers
+retain solid rail hosts. Its grooves contain no
+rectangular ribbons.
 The [full rear enclosure result](prints/2026-11-05-back-top-smooth-corners-mark2/physical-result.json)
 records trapped rail supports and inaccessible receiver supports. Inspect the
 complete part, rather than applying a coupon's cleanup result to walls that

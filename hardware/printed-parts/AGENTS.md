@@ -66,11 +66,14 @@ normal supports.
 The full rear enclosure's [physical result](enclosure/enclosure/prints/2026-11-05-back-top-smooth-corners-mark2/physical-result.json)
 requires the Pisco and ASSE receiver interiors to print without supports: the
 full-size walls prevent screwdriver access. Preserve their approved component
-seats, catch planes and wing travel. Native preparation bridges the catches
-between their end shoulders and excludes supports from those interiors.
-Covered rear bulkhead bores and horizontal valve sockets use teardrop roofs;
-build-axis valve sockets remain open. The vent cap has a print-direction
-chamfer; its short mouth lip bridges between the side walls. Sliding rails use branching supports, without added rectangular ribbons.
+seats, catch planes and wing travel. The rear enclosure prints with its rear face
+toward the bed and a gentle tilt; its receiver catches and sliding grooves grow
+through successive layers. Fine layers follow the rear show face. Native
+preparation excludes supports from the receiver interiors.
+Covered rear bulkhead bores and horizontal valve sockets retain their teardrop
+clearances. The vent cap has a rooted chamfer; its passage stays clear of supports.
+The rails retain their flat bearings and local solid hosts. Accessible exterior
+features receive branching trees. There are no added rectangular groove ribbons.
 
 The [rear equipment fit trial](../print-tests/rear-snap-retention/physical-result/physical-result.json)
 records easy screwdriver removal of tiny supports in accessible coupons. That

@@ -20,6 +20,7 @@ import argparse
 import datetime
 import hashlib
 import json
+import math
 import os
 import shutil
 import subprocess
@@ -154,12 +155,18 @@ def derive(mesh: Mesh, declared: list[dict]) -> list[dict]:
                 raise ValueError(f"{relative(path)} describes a different STL; rebuild {native['producer']}")
             centres = mesh.print_to_local(mesh.geometry.c) + mesh.center
             overlap = native["boundary_overlap_mm"]
-            for region in native["support_free_regions"]:
+            regions = [("support_free", r) for r in native["support_free_regions"]]
+            regions += [("bridge_direction", r) for r in native.get("bridge_regions", [])]
+            for region_kind, region in regions:
+                if "support_print_up_source" in region:
+                    print_up = mesh.rotation.T @ np.array([0., 0., 1.])
+                    if np.dot(print_up, region["support_print_up_source"]) < .99:
+                        continue
                 bounds = np.asarray(region["bounds_source_mm"], float).reshape(3, 2)
                 low, high = bounds[:, 0] - overlap, bounds[:, 1] + overlap
                 inside = np.all((centres >= low) & (centres <= high), axis=1)
-                faces = np.flatnonzero(inside & (mesh.geometry.n[:, 2] < 0.0))
-                found.append({**region, "kind": "support_free", "record": relative(path),
+                faces = np.flatnonzero(inside & (mesh.geometry.n[:, 2] < 0.0)) if region_kind == "support_free" else []
+                found.append({**region, "kind": region_kind, "record": relative(path),
                               "record_sha256": _mesh.sha256(path), "paint_faces": faces,
                               "painted_faces": len(faces), "blocker_source_mm": [low.tolist(), high.tolist()]})
         else:
@@ -492,6 +499,22 @@ def prepare(name: str, printer: str | None = None, parts: list[dict] | None = No
                         record["modifiers"].append({"name": row["name"], "source_bounds_mm": [box_low, box_high],
                                                     "plate_bounds_mm": [placed.min(axis=0).tolist(), placed.max(axis=0).tolist()],
                                                     "sparse_infill_density": row.get("sparse_infill_density", "100%")})
+        for feature in inst["features"]:
+            if "bridge_print_axis_source" not in feature:
+                continue
+            axis = (r_yaw @ mesh.rotation) @ np.array(feature["bridge_print_axis_source"])
+            angle = math.degrees(math.atan2(axis[1], axis[0])) % 180 or 180
+            low_b, high_b = np.array(feature["blocker_source_mm"])
+            vertices, faces = _mesh.box_mesh(low_b-mesh.center, high_b-mesh.center)
+            plate.add_part(obj, feature["name"]+" transverse bridge", vertices, faces, subtype="modifier_part",
+                           settings={"bridge_angle": str(angle), "sparse_infill_density": "100%",
+                                     "sparse_infill_pattern": "zig-zag"})
+            corners = np.array([[x,y,z] for x in (low_b[0],high_b[0]) for y in (low_b[1],high_b[1]) for z in (low_b[2],high_b[2])])
+            placed = (corners-mesh.center) @ (r_yaw @ mesh.rotation).T + translation
+            record["modifiers"].append({"name":feature["name"]+" transverse bridge",
+                "source_bounds_mm":[low_b.tolist(),high_b.tolist()],
+                "plate_bounds_mm":[placed.min(axis=0).tolist(),placed.max(axis=0).tolist()],
+                "sparse_infill_density":"100%","bridge_angle_deg":angle})
         obj["ranges"] = layer_ranges(inst["features"])
         record["ranges"] = obj["ranges"]
         records.append(record)
