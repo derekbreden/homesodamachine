@@ -8,8 +8,9 @@ much the agents get done. This is the build's plan for it.
 The build runs no Python. Every build step is a Rust program that Bazel runs directly, and what
 the website shows and what prints come from it. Its recipes are typed Rust: structs, functions
 and constants the compiler checks, calling the kernel in-process. Each program is built from
-the code its outputs are made from, so an edit recompiles and reruns only what it changes, and
-it compiles in a step of its own, ahead of the steps that run it.
+what its outputs are made from ([What an output is made from](#what-an-output-is-made-from)),
+so an edit recompiles and reruns only what it changes, and it compiles in a step of its own,
+ahead of the steps that run it.
 [What Counts](../../AGENTS.md#what-counts) is the whole test;
 every other file, report and intermediate format can change or go. Speed is measured on the
 full build ([Speed work](#speed-work)).
@@ -18,13 +19,54 @@ Every step still starts Python. Its entry script imports thin modules that send 
 Rust over a JSON pipe, and runs the Rust part programs through the `hsm` engine's socket. The
 build planner (`tools/bazel/trace_inputs.py`) knows a step only as a Python entry script.
 
+## What an output is made from
+
+An output reruns only when something it is made from changes. What each output is made from is
+written down for its part, and it is these and nothing else:
+
+1. **The part's own numbers.**
+2. **The numbers it takes from other parts, by name.** The end cap takes the carbonator tube's
+   inside diameter and the float rod's offset from the tube wall.
+3. **The code that makes that kind of output:** the kernel for a solid, the drawing code for a
+   drawing.
+4. **For an output built from other outputs,** such as an assembly or a picture, those outputs'
+   files, not the code that made them.
+
+Other parts' recipes, code that shares a program with the part's, and the bookkeeping that
+records outputs after they are made are not among them.
+
+In Rust it is written down in the code. A part's numbers are in a crate of their own.
+A part's program depends on the numbers crates of the parts it takes from and names each number
+it uses, and it is compiled from its own recipe, those crates and the kernel or the drawing code.
+A step that builds from other outputs lists their files. The bookkeeping runs in steps of its
+own, over the outputs. A program whose inputs come out the same as before, such as one whose
+binary is unchanged after an edit to a number it does not use, does not rerun.
+
+A converted part meets this when these edits do what is predicted:
+
+- An edit to the foam shell reruns the foam shell and the parts that use its numbers, and not
+  the end cap.
+- An edit to the tube's length leaves the end cap's outputs as they are: the end cap uses only
+  the tube's inside diameter.
+- An edit to the drawing code reruns drawings and nothing else.
+- An edit to the kernel reruns solids, and an output built from a solid reruns only if that
+  solid came out different.
+- An edit to the bookkeeping reruns only the bookkeeping's own outputs.
+
+The edits are tried once, when a part is converted, not on every commit.
+
+What each step read when its recipe was Python is its ceiling. `tools/bazel/graph.json` at
+`35b0c1756^` lists every step's reads, and the Python modules at that revision name each number
+a part takes in their `from … import` lines. A converted part is made from no more than its step
+read there, with each Python file replaced by the Rust that took its place.
+
 ## How the work runs
 
-- **True dependencies come first.** A step reruns only when what its outputs are made from
-  changes, and a step whose outputs come out the same stops the reruns after it. Today a step's
-  recorded inputs are everything compiled into the programs it calls, the shared Python and the
-  Cargo files, so nearly every edit reruns nearly every step and most of them make the same files
-  again.
+- **True dependencies come first** ([What an output is made from](#what-an-output-is-made-from)).
+  A step whose outputs come out the same stops the reruns after it. Today a step's recorded
+  inputs are everything compiled into the programs it calls, the shared Python and the Cargo
+  files: an edit to one part's recipe reruns every step that runs its subsystem's recipe
+  program, and an edit to the bookkeeping reruns every step.
 - **One step at a time, biggest first:** the enclosure, then the whole-machine assembly
   (`enclosure_assembly.py`), then the graph's other entries by CPU. Steps whose files are
   separate run in parallel.
