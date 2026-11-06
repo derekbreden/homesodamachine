@@ -11,6 +11,7 @@ path = "../../../hardware/printed-parts/enclosure/enclosure/solid/lib.rs"
 
 [dependencies]
 anyhow.workspace = true
+hsm-enclosure-numbers = { path = "../enclosure-numbers" }
 hsm-geometry = { path = "../geometry" }
 hsm-kernel = { path = "../kernel" }
 manifold-csg = { version = "0.4.1", default-features = false, features = ["parallel"] }

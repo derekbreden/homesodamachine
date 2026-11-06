@@ -1,6 +1,6 @@
 //! The enclosure's print flute field, cut from the smooth mesh along its rail stations.
 //! The structural model and its callers remain separate from this print surface.
-use crate::numbers::{Field, Rail};
+use hsm_enclosure_numbers::field::{Field, Rail};
 use crate::plan::Bounds;
 use anyhow::{Context, Result, ensure};
 use manifold_csg::Manifold;

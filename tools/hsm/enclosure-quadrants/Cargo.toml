@@ -1,0 +1,22 @@
+[package]
+name = "hsm-enclosure-quadrants"
+version = "0.1.0"
+edition.workspace = true
+license.workspace = true
+rust-version.workspace = true
+publish = false
+
+[lib]
+path = "../../../hardware/printed-parts/enclosure/enclosure/quadrants/lib.rs"
+
+[dependencies]
+anyhow.workspace = true
+hsm-enclosure-numbers = { path = "../enclosure-numbers" }
+hsm-enclosure-solid = { path = "../enclosure-solid" }
+hsm-kernel = { path = "../kernel" }
+serde = { workspace = true, features = ["derive"] }
+serde_json = { workspace = true, features = ["float_roundtrip"] }
+
+[[bin]]
+name = "enclosure-region-bounds"
+path = "../../../hardware/printed-parts/enclosure/enclosure/heat-set-review/region_bounds.rs"

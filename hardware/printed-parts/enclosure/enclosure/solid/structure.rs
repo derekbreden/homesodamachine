@@ -1,5 +1,5 @@
 //! The structural enclosure exterior, swept from the display and roof stations.
-use crate::numbers::Structure;
+use hsm_enclosure_numbers::structure::Structure;
 use crate::plan::P2;
 use anyhow::Result;
 use hsm_kernel::*;

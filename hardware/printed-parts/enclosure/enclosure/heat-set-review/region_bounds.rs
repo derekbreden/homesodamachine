@@ -9,12 +9,12 @@
 //! them, and every knuckle flank by flank, the lower stack then the upper, bottom to top. It runs
 //! at the repository root.
 use anyhow::{Context, Result, bail};
-use hsm_enclosure::funnel;
-use hsm_enclosure::plan::Graph;
-use hsm_enclosure::quadrant::Y;
-use hsm_enclosure::shell::{Y_STACK_HIGH_DEPTH, y_stack_low_depth};
-use hsm_enclosure::spec::Box;
-use hsm_enclosure::ystacks::{y_knuckle, y_stack};
+use hsm_enclosure_quadrants::funnel;
+use hsm_enclosure_quadrants::plan::Graph;
+use hsm_enclosure_quadrants::quadrant::Y;
+use hsm_enclosure_quadrants::shell::{Y_STACK_HIGH_DEPTH, y_stack_low_depth};
+use hsm_enclosure_quadrants::spec::Box;
+use hsm_enclosure_quadrants::ystacks::{y_knuckle, y_stack};
 use serde_json::{Map, json};
 use std::path::PathBuf;
 
