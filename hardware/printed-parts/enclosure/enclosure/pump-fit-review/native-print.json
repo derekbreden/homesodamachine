@@ -1,0 +1,57 @@
+{
+  "piece": "pump-retainer",
+  "printer": "Mark1",
+  "connection_key": "H2C",
+  "nozzle": {
+    "side": "left",
+    "diameter_mm": 0.4,
+    "flow": "Standard",
+    "hardened": true,
+    "reason": "Every abrasive stock runs on the left hotend (hardware/ledger/tools.md, Which hotends fit an H2C); Mark1's fixed left hardened 0.4 mm carries black PET-GF (tools/bambu-printers.md, Purge and wipe).",
+    "sliced_diameter_mm": 0.4,
+    "sliced_volume_type": "Standard"
+  },
+  "material": "Polymaker Fiberon PET-GF15, black",
+  "project": "/Users/derekbredensteiner/Downloads/HSM-pump-fit-2026-11-06-final/2026-11-06-pump-retainer-mark1-2d0ac687/2026-11-06-pump-retainer-mark1-2d0ac687.3mf",
+  "project_sha256": "f91995ffb7482223e4e03942f1c4669eb6d53fbaaf543fba029f4e7bc9f97b4b",
+  "archive": "/Users/derekbredensteiner/Downloads/HSM-pump-fit-2026-11-06-final/2026-11-06-pump-retainer-mark1-2d0ac687/2026-11-06-pump-retainer-mark1-2d0ac687.gcode.3mf",
+  "archive_sha256": "9ae544e97ca132e4310efac8c8cfb1220cf74e819cdb93162d54100eccc5cb4b",
+  "gcode_sha256": "ed4243c91b090673398f6924ee50aee033a08dbb3d0e256682cf46c2dc8d4a33",
+  "estimated_seconds": 19062.70703125,
+  "prepared_utc": "2026-11-06T19:21:44+00:00",
+  "status": "prepared_not_submitted",
+  "preparation": "/Users/derekbredensteiner/Downloads/HSM-pump-fit-2026-11-06-final/2026-11-06-pump-retainer-mark1-2d0ac687/preparation.json",
+  "review": "/Users/derekbredensteiner/Downloads/HSM-pump-fit-2026-11-06-final/2026-11-06-pump-retainer-mark1-2d0ac687/review.json",
+  "review_sha256": "63bffb70f72664686023341a77d90d4f4133fd450130f2ffa9948d1164520048",
+  "minimum_bed_margin_mm": 61.210033,
+  "checks": {
+    "archive": true,
+    "z_trim": true,
+    "bed_border": true,
+    "fine_and_transition_bands": true,
+    "show_faces_support_free": true,
+    "tie_windows_support_free": true,
+    "ribbons_support_free_and_printed": true,
+    "solid_hosts_sampled": true
+  },
+  "support_topology": {
+    "1901": {
+      "support_bodies": 2,
+      "interface_islands": 4,
+      "bed_rooted_bodies": 2,
+      "model_rooted_bodies": 0,
+      "shortest_build_up_mm": 57.831,
+      "bodies_without_interface_labels": 0,
+      "explicit_interface_islands": 4,
+      "shortest_labelled_build_up_mm": 57.831
+    }
+  },
+  "support_settings": {
+    "enable_support": "1",
+    "support_type": "tree(auto)",
+    "support_style": "tree_slim",
+    "support_top_z_distance": "0.45",
+    "support_object_xy_distance": "0.4"
+  },
+  "source_stl_sha256": "1e2b2a86cf98bc3c745093e17fa3fc41d921e0d67eed506471b4b8947e4224a2"
+}
