@@ -34,9 +34,10 @@ pub fn pcb_cut_through() -> f64 {
     BEZEL_DEPTH + 17.0 + 1.0 - FACET_THICKNESS
 }
 
-/// The X the glass is centred on: the box's middle, since the facet runs wall to wall.
+/// The X the glass is centred on: the box's middle, moved by the display's slide toward −X, which
+/// leaves the facet's far run to the status plate.
 pub fn centre_x(outer: &Bounds) -> f64 {
-    (outer[0] + outer[1]) / 2.0
+    (outer[0] + outer[1]) / 2.0 + mount::SLIDE_X
 }
 
 /// The display plane's frame: its +X the box's, +Y up the slope, +Z out at the user.
@@ -55,11 +56,37 @@ fn cuts(g: &mut Graph, pcb_depth: f64) -> Shape {
     let pcb = g.box_([BODY_OFFSET_X - pcb_x() / 2.0, BODY_OFFSET_X + pcb_x() / 2.0, BODY_OFFSET_SLOPE - pcb_slope() / 2.0,
                       BODY_OFFSET_SLOPE + pcb_slope() / 2.0, -pcb_depth, 1.0]);
     let mut result = g.union(inset, &[glass, pcb]);
-    for [x, y] in mount::STATIONS {
+    for [x, y] in mount::STATIONS.into_iter().chain(mount::STATUS_STATIONS) {
         let pilot = g.zcyl(mount::PILOT_DIA / 2.0, x, y, BACK - mount::PILOT_DEPTH, BACK + 0.01);
         result = g.union(result, &[pilot]);
     }
-    result
+    let status = status_cuts(g);
+    g.union(result, &[status])
+}
+
+/// The status plate's seat beside the cover, the bore its LED sits back in, and the channel that
+/// carries the LED's leads from the bore's foot into the PCB pocket.
+fn status_cuts(g: &mut Graph) -> Shape {
+    let seat = rounded_prism(g, mount::STATUS_WIDTH + 2.0 * BODY_X_AIR, mount::STATUS_HEIGHT + 2.0 * BODY_Y_AIR,
+                             mount::CORNER + BODY_Y_AIR, BACK, 1.0, mount::STATUS_CX, 0.0);
+    let foot = BACK - mount::LED_SET_BACK - mount::LED_LENGTH;
+    let bore = g.zcyl(mount::LED_BORE_DIA / 2.0, mount::STATUS_CX, mount::LIGHT_Y, foot - 0.5, BACK + 0.01);
+    // The channel's section is a square standing on one corner in the printer's frame, so no face
+    // of it overhangs flat. Up the slope and out of the face carry the box's up as the sine and
+    // cosine of the facet's tilt.
+    let tilt = crate::structure::ANGLE.to_radians();
+    let (up, across) = ([tilt.sin(), tilt.cos()], [tilt.cos(), -tilt.sin()]);
+    let r = mount::LEAD_HALF_SPAN;
+    let c = [mount::LIGHT_Y, foot + r];
+    let section = vec![
+        [c[0] + r * up[0], c[1] + r * up[1]],
+        [c[0] + r * across[0], c[1] + r * across[1]],
+        [c[0] - r * up[0], c[1] - r * up[1]],
+        [c[0] - r * across[0], c[1] - r * across[1]],
+    ];
+    let pcb_edge = BODY_OFFSET_X + pcb_x() / 2.0;
+    let channel = g.prism(0, pcb_edge - 1.0, mount::STATUS_CX, section);
+    g.union(seat, &[bore, channel])
 }
 
 /// The display and its side-screw pilots, placed on the display plane.

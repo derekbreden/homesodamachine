@@ -155,6 +155,15 @@ static int rs485Tx = 44;
 #define EXIO_LCD_RST  (1 << 3)  // EXIO3 — RGB panel reset
 #define EXIO_SD_CS    (1 << 4)  // EXIO4 — microSD chip select (held high = deselected)
 
+// The expander's other outputs, OC0..OC3, are one byte at their own address, and a clear bit
+// pulls its line low. OC0 lights the optocoupler behind the board's DOUT0, whose transistor then
+// sinks the status light's LED to ground: the LED runs from the strip's VIN terminal to DOUT0.
+// Every bit set is the expander's reset state, every output off.
+#define CH422G_WR_OC    0x23
+#define OC_STATUS_LIGHT (1 << 0)
+static volatile uint8_t ocState = 0x0F;
+static bool statusLightOn = false;
+
 // Shadow of the EXIO output byte so backlight toggles don't disturb the
 // reset / SD-CS lines.
 static volatile uint8_t exioState = 0;
@@ -744,6 +753,18 @@ static bool exioApply() {
   return ok;
 }
 
+// The status light beside the glass: lit while this board runs, so a dark cabinet still shows
+// the machine is on when the panel sleeps. It touches no panel line, so it needs no blank.
+static bool setStatusLight(bool on) {
+  const uint8_t next = on ? (ocState & ~OC_STATUS_LIGHT) : (ocState | OC_STATUS_LIGHT);
+  const bool ok = ch422gWrite(CH422G_WR_OC, next);
+  if (ok) {
+    ocState = next;
+    statusLightOn = on;
+  }
+  return ok;
+}
+
 static bool setBacklightLocked(bool on) {
   if (on) exioState |= EXIO_BL; else exioState &= ~EXIO_BL;
   if (!exioApplyLocked()) return false;
@@ -791,6 +812,7 @@ static void ch422gBringUp() {
   delay(20);
   exioState = EXIO_SD_CS | EXIO_LCD_RST | EXIO_TP_RST;  // backlight still off
   exioApply();
+  setStatusLight(true);
   delay(120);  // panel reset-recovery
 }
 
@@ -5245,6 +5267,13 @@ static void processTextLine(const char *line) {
     } else {
       setBacklight(line[3] == '1');
       Serial.printf("OK:BL=%d\n", backlightOn ? 1 : 0);
+    }
+  } else if (strncmp(line, "LIGHT:", 6) == 0) {
+    if (line[6] != '0' && line[6] != '1') {
+      Serial.println("ERR:LIGHT expects 0 or 1");
+    } else {
+      setStatusLight(line[6] == '1');
+      Serial.printf("OK:LIGHT=%d\n", statusLightOn ? 1 : 0);
     }
   } else if (strncmp(line, "IDLE:", 5) == 0) {
     // Walk the idle ladder without waiting it out. 0 wakes; 1 goes dark; 2 and 3 take the

@@ -309,7 +309,8 @@ fn figures(input: &Value, n: &Value, casting: &Value) -> Result<(Variables, Vari
         fmt(num(&n["nameplate_screws_per_build"])?, ".4g"),
     );
     bom.insert("NAMEPLATE_MOUNT".into(),format!("retained in `enclosure-back-top` by {} black M3 × 6 socket-head screws and {} short RX-M3S × 4 inserts in a solid receiver.",fmt(num(&n["nameplate_screws_per_build"])?,""),fmt(num(&n["nameplate_inserts_per_build"])?,"")));
-    let m3x6 = num(&n["nameplate_screws_per_build"])? + num(&n["display_cover_screws_per_build"])?;
+    let m3x6 = num(&n["nameplate_screws_per_build"])? + num(&n["display_cover_screws_per_build"])?
+        + num(&n["status_plate_screws_per_build"])?;
     bom.insert("M3X6_TOTAL".into(),fmt(m3x6,".4g"));
     bom.insert("M3X6_COST".into(),pack_cost(m3x6,"7.64","120")?);
     bom.insert(

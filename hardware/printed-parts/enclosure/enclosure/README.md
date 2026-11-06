@@ -1276,6 +1276,14 @@ Install the inserts from the open display face. The flat gasket ring spreads the
 light clamp load around the glass border. Start all screws before drawing the
 bezel onto its seats.
 
+The display sits off the box's middle toward −X, and the
+[status plate](../display-cover/README.md#status-plate) takes the rest of the facet's flat
+run, with equal margins at both side edges and between the two. Its seat is the cover's in
+form: a flush pocket with blind pilots for the same short inserts, its screws level with the
+cover's. Under the plate's light a bore sets the LED back behind the aperture. A channel from
+the bore's foot to the display's PCB pocket carries the LED's leads; its section stands on one
+corner in the print frame, so no face of it overhangs flat.
+
 The 19 mm housing joins the enclosure sides and the continuous pump-mount stock. That
 stock runs to the existing outer roof around the actual display pocket; it has no separate
 ceiling over an empty pump-to-display storey. The display backing presents one broad aft

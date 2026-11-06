@@ -342,8 +342,12 @@ The machine display sits in the rounded 30° top. Flash the 4.3B on the bench fi
 ([firmware-and-commissioning.md](firmware-and-commissioning.md) step 4): its USB-C
 is enclosed once it is seated. Feed the J9 loom's display end from inside through
 the shared pump/display passage and out the open facet, and land it on the display's terminals
-([wiring.md](wiring.md) §5). Then seat its glass in the shallow counterbore with the
-PCB passing through the housing. Handle it ESD-safe.
+([wiring.md](wiring.md) §5). Before seating the display, fit the status light: press the
+status plate's four short inserts flush in its seat, then push the blue prewired LED into the
+bore under the plate's aperture, lens first, feeding its leads down the channel at the bore's
+foot until they come out into the display pocket. Land the LED's red lead on the display's VIN
+terminal beside the loom's V12 and its black lead on DOUT0. Then seat the glass in the shallow
+counterbore with the PCB passing through the housing. Handle it ESD-safe.
 
 Place the flat TPU ring on the glass border, aligned with the cover window.
 Seat the bezel on its housing lands. Start the side screws in the short inserts
@@ -351,6 +355,10 @@ before tightening any of them, then draw them down evenly until the cover rests
 on its seats and the glass is retained. The heads sit in their shallow recesses.
 The [cover's mount dimensions](../printed-parts/enclosure/display-cover/mount-dimensions.json)
 identify the hardware and engagement.
+
+Seat the [status plate](../printed-parts/enclosure/display-cover/README.md#status-plate) in its
+pocket beside the cover, its aperture over the LED, and draw its four screws down the same way.
+Power the machine and check that the light comes on as the display boots.
 
 The display loom and J13 pump ribbon share the diamond passage centred at X0/Z280,
 22 × 22 mm and open through Y99. Its rear upper half opens over the bulkhead lip.

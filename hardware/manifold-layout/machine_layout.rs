@@ -1294,6 +1294,15 @@ fn installed(layout: &mut Layout, v: &Value) -> Result<()> {
         display_fasteners.to_str().context("display fastener model path")?,
         Some("display-cover-fasteners"), "", None, cover, None,
     )?;
+    // The status plate, its screws, inserts and LED are drawn in the cover's own frame beside it,
+    // so the cover's transform places them.
+    for (file, name) in [
+        ("status-plate.step.npz", "status-plate"),
+        ("status-plate-fasteners.step.npz", "status-plate-fasteners"),
+    ] {
+        let model = Path::new(source(v, "display_cover")?).with_file_name(file);
+        layout.add(model.to_str().context("status plate model path")?, Some(name), "", None, cover, None)?;
+    }
     for row in extras["instances"]
         .as_array()
         .map(Vec::as_slice)

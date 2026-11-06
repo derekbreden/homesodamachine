@@ -4674,14 +4674,19 @@ Ok(Val::None)})})?;
             let rt = runtime.clone();
             let e = bind(&outer, &params, args, kwargs, None, None)?;
             let _frame = rt.frame(&outer);
+            // The box's middle, moved by the display's slide, as `quadrants/display.rs` cuts it.
             return Ok(binary(
-                "truediv",
+                "add",
                 binary(
-                    "add",
-                    e.get("outer")?.get(Val::Int(0i64))?,
-                    e.get("outer")?.get(Val::Int(1i64))?,
+                    "truediv",
+                    binary(
+                        "add",
+                        e.get("outer")?.get(Val::Int(0i64))?,
+                        e.get("outer")?.get(Val::Int(1i64))?,
+                    )?,
+                    Val::Float(2.0f64),
                 )?,
-                Val::Float(2.0f64),
+                Val::Float(hsm_enclosure_numbers::display_mount::SLIDE_X),
             )?);
             Ok(Val::None)
         })
