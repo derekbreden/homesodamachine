@@ -58,9 +58,9 @@ format. `--step`, `--image` and `--fragment` build a page with no spec file.
   opens the whole machine), for context that has to stay in the picture.
 - Every panel shares one camera, one target and one span, so a part that moved between panels is
   seen to move. `"frame": "each"` is for models that do not share a coordinate frame.
-- A candidate that is in no assembly yet goes through a scene STEP: `export_assembly` from
-  `hardware/scripts/_cadq_export.py` into `hardware/assembly/scenes/out/`, which is ignored, and the
-  export writes the payload beside it.
+- A candidate that is in no assembly yet is cut in the [sandbox](../../../tools/hsm/sandbox/README.md),
+  which writes its STEP and the payload beside it into the scratchpad; a panel's `models` put it
+  beside the parts it sits among.
 - The whole enclosure is 1.08 million triangles and a 10.5 MB page. It opens, slowly on a phone.
   Narrow with `only` to what the question is about. An Artifact carries 16 MB and the builder
   refuses a page past that.

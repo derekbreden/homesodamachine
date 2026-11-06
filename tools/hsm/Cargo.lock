@@ -1274,6 +1274,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "hsm-sandbox"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "hsm-kernel",
+ "serde_json",
+]
+
+[[package]]
 name = "hsm-shared-data"
 version = "0.1.0"
 dependencies = [
