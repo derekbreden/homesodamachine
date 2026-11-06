@@ -7,7 +7,7 @@ import path from "path";
 
 export const LOCAL_BACK_TOP = Object.freeze({
   source: path.join(
-    "hardware", "printed-parts", "enclosure", "enclosure", "enclosure.py",
+    "hardware", "printed-parts", "enclosure", "enclosure", "recipe", "backtop.rs",
   ),
   script: path.join("hardware", "assembly", "scenes", "_local_service.py"),
   output: path.join("hardware", "assembly", "scenes", "out", "local-back-top.glb"),

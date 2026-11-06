@@ -108,11 +108,9 @@ rails' hooks bear over every millimetre both flanks carry, and the stop
 blocks and end walls close the travel. At each Y-seam corner the upper screw pins
 front-top to back-top, retaining front-top on its slide.
 
-main() exports the four printable pieces (enclosure-front-bottom.step,
-enclosure-front-top.step, enclosure-back-bottom.step, enclosure-back-top.step)
-plus enclosure.step — the four as separate solids in assembled position,
-seams intact (mirrors `faucet_shell.py`). All five come through the same
-code from a `Box`.
+The enclosure program, `enclosure.rs`, cuts every printed piece from the declared Box
+with the typed recipes in `recipe/`, then the enclosure model the site draws. This module
+is the description the assembly, Box and bill-of-materials steps read.
 """
 from __future__ import annotations
 
@@ -139,6 +137,3 @@ def __getattr__(name):
 
 from _enclosure_compiled import install as _install
 _install(_sys.modules[__name__])
-
-if __name__ == "__main__":
-    _compiled('enclosure', action="main")

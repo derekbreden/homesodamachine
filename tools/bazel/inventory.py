@@ -197,12 +197,6 @@ IMPLICIT_SOLIDS = {
     "hardware/cold-core-layout/cold_core_assembly.py": (
         "hardware/cold-core-layout/cold-core-assembly.step.mesh",
     ),
-    "hardware/printed-parts/enclosure/enclosure/enclosure.py": (
-        "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh",
-    ) + tuple(
-        f"hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.{suffix}"
-        for suffix in ("step", "stl", "step.mesh")
-    ),
     "hardware/printed-parts/cold-core/foam-cap/foam_cap.py": tuple(
         f"hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.{suffix}"
         for suffix in ("step", "stl", "step.mesh")
@@ -267,6 +261,7 @@ _FLUTE_SHARED_SOURCES = frozenset({
     "hardware/printed-parts/enclosure/enclosure/_rust_enclosure_presentation.py",
     "hardware/printed-parts/enclosure/enclosure/enclosure_presentation.rs",
     "hardware/printed-parts/enclosure/enclosure/enclosure_presentation/quadric.rs",
+    "hardware/printed-parts/enclosure/enclosure/solid/presentation.rs",
 })
 
 

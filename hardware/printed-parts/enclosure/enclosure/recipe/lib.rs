@@ -1,0 +1,37 @@
+//! The enclosure's typed recipes: each printed piece's construction plan, read from the declared
+//! Box and the shared catalogs, ready for the kernel to evaluate.
+pub mod above;
+pub mod backtop;
+pub mod catalog;
+pub mod columns;
+pub mod display;
+pub mod dock;
+pub mod field;
+pub mod floor;
+pub mod front;
+pub mod fronttop;
+pub mod funnel;
+pub mod handholds;
+pub mod layout;
+pub mod mount;
+pub mod panel;
+pub mod piece;
+pub mod pump;
+pub mod quadrant;
+pub mod rails;
+pub mod rear;
+pub mod retainer;
+pub mod routes;
+pub mod seam;
+pub mod seat;
+pub mod shapes;
+pub mod shell;
+pub mod spec;
+pub mod structure;
+pub mod supports;
+pub mod text;
+pub mod valves;
+pub mod vent;
+pub mod walls;
+pub mod ystacks;
+pub use hsm_enclosure_solid::plan;

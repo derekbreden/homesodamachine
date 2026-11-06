@@ -313,21 +313,27 @@ impl Payload {
     }
 }
 
-pub fn placed_surfaces(instances: &Value, fine: &mut Model, models: &mut Models) -> Result<Payload> {
+/// The payload of `fine`, entry by entry: a stored entry's own presentation, carried to its
+/// frame, where its model has one; otherwise a drawing of the entry's solid.
+pub fn placed_surfaces(
+    placed: &[Option<(PathBuf, usize, Frame)>], fine: &mut Model, models: &mut Models,
+) -> Result<Payload> {
     let mut selected = Vec::new();
     let mut presentations = std::collections::BTreeMap::new();
-    let instances = instances.as_array().context("instances")?;
     let mut remaining = std::collections::BTreeMap::new();
-    for instance in instances {
-        *remaining.entry(PathBuf::from(super::text(instance, "model")?)).or_insert(0usize) += 1;
+    for (path, _, _) in placed.iter().flatten() {
+        *remaining.entry(path.clone()).or_insert(0usize) += 1;
     }
-    for instance in instances {
-        let path = PathBuf::from(super::text(instance, "model")?);
-        if !models.contains_key(&path) {
-            models.insert(path.clone(), Model::open(&path)?);
+    for entry in placed {
+        let Some((path, index, frame)) = entry else {
+            selected.push(None);
+            continue;
+        };
+        if !models.contains_key(path) {
+            models.insert(path.clone(), Model::open(path)?);
         }
-        let source = &models[&path];
-        if !presentations.contains_key(&path) {
+        let source = &models[path];
+        if !presentations.contains_key(path) {
             let binding = source.document.get("presentation");
             let payload_path = binding
                 .and_then(|v| v["path"].as_str())
@@ -357,24 +363,12 @@ pub fn placed_surfaces(instances: &Value, fine: &mut Model, models: &mut Models)
             }
             presentations.insert(path.clone(), surfaces);
         }
-        let surfaces = &presentations[&path];
-        let frame = Frame::read(instance.get("transform"))?;
-        for index in source.selected(instance)? {
-            if instance["split_components"].as_bool().unwrap_or(false) {
-                selected.extend((0..super::model::component_count(&path, index)?).map(|_| None));
-            } else {
-                selected.push(
-                    surfaces
-                        .as_ref()
-                        .map(|rows| rows[index].clone().carried(&frame)),
-                );
-            }
-        }
-        let count = remaining.get_mut(&path).unwrap();
+        selected.push(presentations[path].as_ref().map(|rows| rows[*index].clone().carried(frame)));
+        let count = remaining.get_mut(path).unwrap();
         *count -= 1;
         if *count == 0 {
-            models.remove(&path);
-            presentations.remove(&path);
+            models.remove(path);
+            presentations.remove(path);
         }
     }
     ensure!(

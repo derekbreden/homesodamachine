@@ -46,6 +46,7 @@ path = "../../../hardware/wiring/installed/wire_route_samples.rs"
 anyhow.workspace = true
 hsm-kernel = { path = "../kernel" }
 hsm-geometry = { path = "../geometry" }
+hsm-model-export = { path = "../model-export" }
 serde_json = { workspace = true, features = ["float_roundtrip"] }
 sha2.workspace = true
 zip = { version = "9.1.2", default-features = false, features = ["deflate-flate2-zlib-rs"] }
