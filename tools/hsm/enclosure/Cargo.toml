@@ -6,21 +6,14 @@ license.workspace = true
 rust-version.workspace = true
 publish = false
 
-[lib]
-path = "../../../hardware/printed-parts/enclosure/enclosure/recipe/lib.rs"
-
 [dependencies]
 anyhow.workspace = true
-hsm-enclosure-solid = { path = "../enclosure-solid" }
+hsm-enclosure-dock-numbers = { path = "../enclosure-dock-numbers" }
+hsm-enclosure-numbers = { path = "../enclosure-numbers" }
 hsm-kernel = { path = "../kernel" }
 hsm-model-export = { path = "../model-export" }
-serde = { workspace = true, features = ["derive"] }
 serde_json = { workspace = true, features = ["float_roundtrip"] }
 
 [[bin]]
 name = "enclosure"
 path = "../../../hardware/printed-parts/enclosure/enclosure/enclosure.rs"
-
-[[bin]]
-name = "enclosure-region-bounds"
-path = "../../../hardware/printed-parts/enclosure/enclosure/heat-set-review/region_bounds.rs"

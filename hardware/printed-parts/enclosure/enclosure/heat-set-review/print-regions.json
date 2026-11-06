@@ -182,7 +182,7 @@
   },
   "part_process_overrides": {},
   "source_sha256": {
-    "hardware/printed-parts/enclosure/enclosure/heat-set-review/print_regions.py": "1654578076edef9d3d67c870318048eb5f693ee93edfe334cedd062af7561382",
+    "hardware/printed-parts/enclosure/enclosure/heat-set-review/print_regions.py": "236538c19809d396999429048d05d73c115d737af510cf9cc42711f221aac267",
     "hardware/printed-parts/enclosure/enclosure/enclosure.py": "6d1d8c3903404598d5d4de276539edfef80b40e0c520da1436e042365e4f9901",
     "hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py": "5a3fffa35c6bdbce425d822136b41a3d878210648b3cd7d92c28afbfd9fa482c",
     "hardware/printed-parts/enclosure/enclosure/_fixed_pump_mount.py": "7c7dcdd47062871cf8cb1968a3f802e30f47d3d393efcfd45c56aad75fc10452",
@@ -194,9 +194,9 @@
     "hardware/printed-parts/enclosure/nameplate/snap_dimensions.rs": "9d74ad361d3b511d18e98c1c1e3245e4530d7f5064876a48706f3353b65007de",
     "hardware/reference/meanwell-irm90/meanwell_irm90.py": "fdc9753c62afab86f3bfa68d8b27482d46510d7af4d37ab1d453f45baf41d701",
     "hardware/reference/teyleten-relay/teyleten_relay.py": "c879eb738048f5e0d3dd9fa1ff81ef01b241fc5de6a23e17c27439afef557b36",
-    "hardware/printed-parts/enclosure/enclosure/recipe/funnel.rs": "a1553f857e197f0749d815f61300a8e4de751d042dd6d07230d1f590a145d255",
-    "hardware/printed-parts/enclosure/enclosure/recipe/ystacks.rs": "42202691c000339599e0b2ca3605c8294affd0a7ca8ea68962becc87cd722a4d",
-    "hardware/printed-parts/enclosure/enclosure/heat-set-review/region_bounds.rs": "380277753f0a9f90cb26cc874031929ce6f04d537f702782b6b28f7507f17139",
+    "hardware/printed-parts/enclosure/enclosure/quadrants/funnel.rs": "a1553f857e197f0749d815f61300a8e4de751d042dd6d07230d1f590a145d255",
+    "hardware/printed-parts/enclosure/enclosure/quadrants/ystacks.rs": "42202691c000339599e0b2ca3605c8294affd0a7ca8ea68962becc87cd722a4d",
+    "hardware/printed-parts/enclosure/enclosure/heat-set-review/region_bounds.rs": "69e68ccae6244720ff74a74e466d44d8c48aa92571e3bc7fb9132f2e4c68fe7c",
     "hardware/printed-parts/enclosure/pump-dock/dock_structure.py": "ae781614993495be7ebb16f3c5aa90e6838b99e10c81da6594488dc7322a894c",
     "hardware/printed-parts/enclosure/pump-dock/fixed_returns.py": "fac88463f1bbfc0f8e20322ad39b7c47d5508cde3e9e7537b4c9ac4d7fc0472a",
     "hardware/printed-parts/petgf.3mf": "45c16e8c8517e0a205107d7b9f7412d013f51a8de7ecf86125cc940079d37ed0"

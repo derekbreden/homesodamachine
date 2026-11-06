@@ -4,7 +4,7 @@ Back-top carries simple integral clips for accessible straight tube and cable
 runs. Their filled roots join the existing roof or wall, with open mouths for
 installation and release. Tube and wire runs seat directly in the printed part.
 
-The [routes recipe](../recipe/routes.rs) holds each tube seat's straight, host plane and
+The [routes recipe](../quadrants/routes.rs) holds each tube seat's straight, host plane and
 section, and builds the seats and hooks. The
 [cable-site provider](../../../../wiring/installed/retainers.py) supplies each
 hook's frame, retained conductors and local route dressing. Positions belong to

@@ -3,16 +3,17 @@
 ## Publish loop
 
     node tools/changes/change.mjs snapshot
-    python3 tools/run.py -- cargo build --release --locked --manifest-path tools/hsm/Cargo.toml -p hsm-enclosure --bin enclosure
-    python3 tools/run.py -- tools/hsm/target/release/enclosure --piece <piece>
+    python3 tools/run.py -- cargo build --release --locked --manifest-path tools/hsm/Cargo.toml -p hsm-<piece> --bin <piece>
+    python3 tools/run.py -- tools/hsm/target/release/<piece>
     tools/cad-venv/bin/python tools/publish_now.py
 
 The snapshot sets aside the geometry the generator replaces, for the change's
 [before and after](../../changes/README.md). The piece's own generator cuts its STEP, STL and
-payload. The enclosure program above cuts the enclosure's printed pieces: each `--piece` names
-one by its files' name without `enclosure-`, and with none it cuts every piece and the enclosure
-model. `publish_now.py` grafts the changed payload into both viewer hosts — the enclosure aggregate
-and the appliance assembly — and tells the site.
+payload. Each of the enclosure's printed pieces has a program of its own, named as its files are:
+`enclosure-front-bottom`, `enclosure-front-top`, `enclosure-back-bottom`, `enclosure-back-top`,
+`enclosure-pump-retainer` and `enclosure-pump-tube-setting-jig`. `enclosure` builds the
+enclosure model from their files. `publish_now.py` grafts the changed payload into both viewer
+hosts — the enclosure aggregate and the appliance assembly — and tells the site.
 
 The pump retainer's standalone files carry its relaxed wings. Its installed shape belongs to
 both native assemblies and the installation GLBs. Rebuild those when changing the snap:

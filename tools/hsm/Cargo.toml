@@ -1,5 +1,5 @@
 [workspace]
-members = ["geometry", "engine", "kernel", "render", "refrigeration", "cold-core", "faucet", "funnel", "run-slots", "run-native", "machine", "enclosure-components", "enclosure-shell", "tooling", "documents", "ledger", "assembly-docs", "cold-core-data", "faucet-data", "enclosure-data", "machine-data", "part-data", "layout-data", "shared-data", "guides", "guide-native", "build-data", "build-plan", "model-export", "enclosure-solid", "enclosure"]
+members = ["geometry", "engine", "kernel", "render", "refrigeration", "cold-core", "faucet", "funnel", "run-slots", "run-native", "machine", "enclosure-components", "enclosure-shell", "tooling", "documents", "ledger", "assembly-docs", "cold-core-data", "faucet-data", "enclosure-data", "machine-data", "part-data", "layout-data", "shared-data", "guides", "guide-native", "build-data", "build-plan", "model-export", "enclosure-numbers", "enclosure-dock-numbers", "enclosure-retainer-numbers", "enclosure-solid", "enclosure-quadrants", "enclosure-front", "enclosure-front-bottom", "enclosure-front-top", "enclosure-back-bottom", "enclosure-back-top", "enclosure-pump-retainer", "enclosure-pump-tube-setting-jig", "enclosure"]
 resolver = "2"
 exclude = ["vendor/manifold-csg-sys"]
 
@@ -36,6 +36,45 @@ debug = 0
 
 [profile.release.package.hsm-guides]
 opt-level = 0
+debug = 0
+
+[profile.release.package.hsm-enclosure-numbers]
+debug = 0
+
+[profile.release.package.hsm-enclosure-dock-numbers]
+debug = 0
+
+[profile.release.package.hsm-enclosure-retainer-numbers]
+debug = 0
+
+[profile.release.package.hsm-enclosure-solid]
+debug = 0
+
+[profile.release.package.hsm-enclosure-quadrants]
+debug = 0
+
+[profile.release.package.hsm-enclosure-front]
+debug = 0
+
+[profile.release.package.hsm-enclosure-front-bottom]
+debug = 0
+
+[profile.release.package.hsm-enclosure-front-top]
+debug = 0
+
+[profile.release.package.hsm-enclosure-back-bottom]
+debug = 0
+
+[profile.release.package.hsm-enclosure-back-top]
+debug = 0
+
+[profile.release.package.hsm-enclosure-pump-retainer]
+debug = 0
+
+[profile.release.package.hsm-enclosure-pump-tube-setting-jig]
+debug = 0
+
+[profile.release.package.hsm-enclosure]
 debug = 0
 
 [patch.crates-io]

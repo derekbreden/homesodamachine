@@ -357,6 +357,18 @@ ELSEWHERE = ("tools/", "hardware/pcb/pcba/",
 RUST_STEPS = {
     "hardware/printed-parts/enclosure/enclosure/enclosure.rs":
         ("enclosure", "enclosure", "hardware/printed-parts/enclosure/enclosure"),
+    "hardware/printed-parts/enclosure/enclosure/enclosure_back_bottom.rs":
+        ("enclosure-back-bottom", "enclosure-back-bottom", "hardware/printed-parts/enclosure/enclosure"),
+    "hardware/printed-parts/enclosure/enclosure/enclosure_back_top.rs":
+        ("enclosure-back-top", "enclosure-back-top", "hardware/printed-parts/enclosure/enclosure"),
+    "hardware/printed-parts/enclosure/enclosure/enclosure_front_bottom.rs":
+        ("enclosure-front-bottom", "enclosure-front-bottom", "hardware/printed-parts/enclosure/enclosure"),
+    "hardware/printed-parts/enclosure/enclosure/enclosure_front_top.rs":
+        ("enclosure-front-top", "enclosure-front-top", "hardware/printed-parts/enclosure/enclosure"),
+    "hardware/printed-parts/enclosure/enclosure/enclosure_pump_retainer.rs":
+        ("enclosure-pump-retainer", "enclosure-pump-retainer", "hardware/printed-parts/enclosure/enclosure"),
+    "hardware/printed-parts/enclosure/enclosure/enclosure_pump_tube_setting_jig.rs":
+        ("enclosure-pump-tube-setting-jig", "enclosure-pump-tube-setting-jig", "hardware/printed-parts/enclosure/enclosure"),
 }
 
 

@@ -405,7 +405,7 @@ observations do not transfer to the pump dock.
 
 The [enclosure interface](../printed-parts/enclosure/enclosure/_enclosure_interface.py)
 uses M3 inserts with a 4.0 mm nominal bore. Short inserts are 4.0 mm long; full-length
-inserts are 5.7 mm long. The [compressor floor posts](../printed-parts/enclosure/enclosure/recipe/floor.rs)
+inserts are 5.7 mm long. The [compressor floor posts](../printed-parts/enclosure/enclosure/quadrants/floor.rs)
 use M5 inserts 9.5 mm long and a 6.4 mm nominal bore. Thread engagement and blind relief
 are separate dimensions.
 
@@ -534,7 +534,7 @@ published PLA/SPIROL insert loads cannot be transferred to ruthex inserts in thi
 | Compressor | Four M5 stations follow the donor plate and grommets. [Mount geometry](../manifold-layout/enclosure_assembly.py). | The donor mounting pattern and isolation geometry provide a starting basis. They do not establish the strength of the printed posts, roots or floor under handling and transport. |
 | Fixed pump mount and snap-fit lower retainer | Two full-depth integral wings transfer load through their upper roots and lower hooks to front-top’s receiver floors. The fitted upper and lower lands capture the molded pump skirts. | The [pump-snap review](../printed-parts/enclosure/enclosure/pump-snap-review/README.md) records geometric scope. Physical fit, retention, insertion/release forces, handling capacity, operating vibration and lifetime are unassessed; the cradle/cap no-play report retains its own article scope. |
 
-The [floor thickness is 6.0 mm and grip roofs are 12.0 mm](../printed-parts/enclosure/enclosure/recipe/shell.rs).
+The [floor thickness is 6.0 mm and grip roofs are 12.0 mm](../printed-parts/enclosure/enclosure/numbers/shell.rs).
 Those geometric dimensions do not define load capacity. Engineering assessment must include
 the grips, their supports, seams, floor and attached masses, with asymmetric loading where
 the grip geometry permits it. Derive any proof load, acceptable deflection and permanent-set

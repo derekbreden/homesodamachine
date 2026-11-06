@@ -113,7 +113,7 @@ def write_regions(box, _bounds, box_path):
                                  sparse_infill_density='100%', sparse_infill_pattern='zig-zag',
                                  **evidence))
     # The knuckles' and receivers' bounds from the pieces' construction plan.
-    cut = json.loads(_rust_part.run('enclosure', 'enclosure-region-bounds', '--box', box_path))
+    cut = json.loads(_rust_part.run('enclosure-quadrants', 'enclosure-region-bounds', '--box', box_path))
     for knuckle in cut['knuckles']:
         sx, (x0, x1, y0, y1, z0, z1) = knuckle['sx'], knuckle['bounds']
         # Carry the modifier through the supporting exterior wall, not
@@ -181,8 +181,8 @@ def write_regions(box, _bounds, box_path):
            ENC.parent/'nameplate/snap_dimensions.rs',
            ROOT/'hardware/reference/meanwell-irm90/meanwell_irm90.py',
            ROOT/'hardware/reference/teyleten-relay/teyleten_relay.py',
-           ENC/'recipe/funnel.rs',
-           ENC/'recipe/ystacks.rs',
+           ENC/'quadrants/funnel.rs',
+           ENC/'quadrants/ystacks.rs',
            Path(__file__).with_name('region_bounds.rs'),
            Path(e._dock.__file__),
            Path(e._dock.plumbing.__file__),

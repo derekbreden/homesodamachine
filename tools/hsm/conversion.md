@@ -15,7 +15,9 @@ ahead of the steps that run it.
 every other file, report and intermediate format can change or go. Speed is measured on the
 full build ([Speed work](#speed-work)).
 
-The enclosure step is a Rust program Bazel runs directly. Every other step still starts Python:
+The enclosure's steps are Rust programs Bazel runs directly: one for each printed piece, compiled
+from its own recipe and the numbers it takes, and one for the enclosure model, built from the
+pieces' files. Every other step still starts Python:
 its entry script imports thin modules that send each call to Rust over a JSON pipe, and runs the
 Rust part programs through the `hsm` engine's socket. The build planner
 (`tools/bazel/trace_inputs.py`) knows those steps by their Python entry scripts, and a Rust step
@@ -106,9 +108,10 @@ explicit input recipes come from Rust data providers.
 | Equipment | `machine-equipment`; fittings, clamps, bulkheads and mounting hardware | `hardware/manifold-layout/machine_equipment.rs` |
 | Fluid and refrigeration tubes | `machine-routes`; sweeps, insulation and developed lengths | `hardware/manifold-layout/machine_routes.rs` |
 | Wire curves | `wire-route-samples`; interpolation, lengths and curvature | `hardware/wiring/installed/wire_route_samples.rs` |
-| Enclosure | `enclosure`; every printed piece's files and the enclosure model, from the declared Box through the typed recipes | `hardware/printed-parts/enclosure/enclosure/enclosure.rs` |
+| Enclosure pieces | `enclosure-front-bottom`, `enclosure-front-top`, `enclosure-back-bottom`, `enclosure-back-top`, `enclosure-pump-retainer`, `enclosure-pump-tube-setting-jig`; each printed piece's files from the declared Box through its typed recipe | `hardware/printed-parts/enclosure/enclosure/enclosure_*.rs` |
+| Enclosure model | `enclosure`; the shown pieces in place from their fine models, with the dock's tees and stem elbows | `hardware/printed-parts/enclosure/enclosure/enclosure.rs` |
 | Enclosure measurements | `enclosure-checks`; piece bounds and Box measurements | `hardware/printed-parts/enclosure/enclosure/enclosure_checks.rs` |
-| Print surfaces | The enclosure program, and `enclosure-presentation` for the payloads `flute_payload.py` cuts; reduction, shading and source records | `hardware/printed-parts/enclosure/enclosure/solid/presentation.rs` |
+| Print surfaces | The enclosure piece programs, and `enclosure-presentation` for the payloads `flute_payload.py` cuts; reduction, shading and source records | `hardware/printed-parts/enclosure/enclosure/solid/presentation.rs` |
 | Machine checks | `machine-checks`; fit, clearance and scalar reports | `hardware/manifold-layout/machine_checks.rs` |
 | Model exports | `machine-export`; physical models, display surfaces, wiring append and eleven scene GLBs | `hardware/assembly/scenes/machine_export.rs` |
 | Model context | `machine-data`; facts, scene documents and numerical wiring context | `tools/hsm/machine-data/` |

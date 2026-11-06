@@ -110,7 +110,7 @@ def build_current(directory=None):
     piece = directory / "piece"
     piece.mkdir(parents=True, exist_ok=True)
     declared = _box_spec.write(box, shell.BOUNDS, directory / "enclosure-box.json")
-    _rust_part.run("enclosure", "enclosure", "--box", declared, "--piece", PIECE_ID, piece)
+    _rust_part.run("enclosure-back-top", "enclosure-back-top", "--box", declared, piece)
     scene = _scenes.SCENE_BY_ID[SCENE_ID]
     names = _members(plan, scene)
     if PIECE_NAME not in names:

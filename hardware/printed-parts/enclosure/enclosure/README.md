@@ -1358,10 +1358,25 @@ silhouette; the wall and component datums stay fixed.
 
 ## Regenerate
 
-    python3 tools/run.py -- cargo build --release --locked --manifest-path tools/hsm/Cargo.toml -p hsm-enclosure --bin enclosure
-    python3 tools/run.py -- tools/hsm/target/release/enclosure
+    python3 tools/run.py -- cargo build --release --locked --manifest-path tools/hsm/Cargo.toml -p hsm-enclosure-back-top --bin enclosure-back-top
+    python3 tools/run.py -- tools/hsm/target/release/enclosure-back-top
 
-→ every printed piece's `.step`, `.step.npz`, `.step.mesh` and `.stl`, then `enclosure.step`,
-from the declared Box. `--piece <piece>` cuts only the pieces it names. The recipes are typed
-Rust in [`recipe/`](recipe/), with the wall, seam and boss constants in
-[`recipe/shell.rs`](recipe/shell.rs); [`solid/`](solid/) evaluates them and writes the files.
+→ back-top's `.step`, `.step.npz`, `.step.mesh` and `.stl`, from the declared Box. Each printed
+piece has its own program, named as its files are: `enclosure-front-bottom`,
+`enclosure-front-top`, `enclosure-back-bottom`, `enclosure-back-top`, `enclosure-pump-retainer`
+and `enclosure-pump-tube-setting-jig`. `enclosure` reads the shown pieces' fine models and writes
+`enclosure.step`, the enclosure model, with the pump dock's tees and stem elbows.
+
+Each program is compiled from its own recipe, the numbers it takes and the construction it
+shares, all typed Rust:
+
+- [`numbers/`](numbers/): the Box's types, the wall, seam and boss constants in
+  [`numbers/shell.rs`](numbers/shell.rs), the catalog, the structure and the rear wall's lands;
+- [`retainer-numbers/`](retainer-numbers/) and [`dock-numbers/`](dock-numbers/): the numbers
+  front-top and the model take from the retainer and the dock;
+- [`quadrants/`](quadrants/): the construction two or more quadrants share, and
+  [`front/`](front/), the front half both front pieces are cut from;
+- each piece's own recipe: [`front-bottom/`](front-bottom/), [`front-top/`](front-top/),
+  [`back-bottom/`](back-bottom/), [`back-top/`](back-top/) and [`retainer/`](retainer/), the jig's
+  in its program;
+- [`solid/`](solid/): the plan, its evaluator, and the steps every piece's files share.

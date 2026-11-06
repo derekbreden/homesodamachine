@@ -2872,32 +2872,32 @@ genrule(
         "hardware/printed-parts/enclosure/enclosure/_nameplate_wing_interface.py",
         "hardware/printed-parts/enclosure/enclosure/_rust_enclosure_checks.py",
         "hardware/printed-parts/enclosure/enclosure/_swept_top.py",
-        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step",
-        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.mesh",
-        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.npz",
-        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl",
-        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step",
-        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh",
-        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.npz",
-        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl",
-        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step",
-        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.mesh",
-        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.npz",
-        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl",
-        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step",
-        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh",
-        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.npz",
-        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl",
-        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer-seated.step.mesh",
-        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer-seated.step.npz",
-        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step",
-        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step.mesh",
-        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step.npz",
-        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.stl",
-        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step",
-        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step.mesh",
-        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step.npz",
-        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.stl",
+        ":out/enclosure-back-bottom/hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step",
+        ":out/enclosure-back-bottom/hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.mesh",
+        ":out/enclosure-back-bottom/hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.npz",
+        ":out/enclosure-back-bottom/hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl",
+        ":out/enclosure-back-top/hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step",
+        ":out/enclosure-back-top/hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh",
+        ":out/enclosure-back-top/hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.npz",
+        ":out/enclosure-back-top/hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl",
+        ":out/enclosure-front-bottom/hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step",
+        ":out/enclosure-front-bottom/hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.mesh",
+        ":out/enclosure-front-bottom/hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.npz",
+        ":out/enclosure-front-bottom/hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl",
+        ":out/enclosure-front-top/hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step",
+        ":out/enclosure-front-top/hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh",
+        ":out/enclosure-front-top/hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.npz",
+        ":out/enclosure-front-top/hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl",
+        ":out/enclosure-pump-retainer/hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer-seated.step.mesh",
+        ":out/enclosure-pump-retainer/hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer-seated.step.npz",
+        ":out/enclosure-pump-retainer/hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step",
+        ":out/enclosure-pump-retainer/hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step.mesh",
+        ":out/enclosure-pump-retainer/hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step.npz",
+        ":out/enclosure-pump-retainer/hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.stl",
+        ":out/enclosure-pump-tube-setting-jig/hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step",
+        ":out/enclosure-pump-tube-setting-jig/hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step.mesh",
+        ":out/enclosure-pump-tube-setting-jig/hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step.npz",
+        ":out/enclosure-pump-tube-setting-jig/hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.stl",
         "hardware/printed-parts/enclosure/enclosure/enclosure.py",
         "hardware/printed-parts/enclosure/enclosure/enclosure_checks.rs",
         "hardware/printed-parts/enclosure/enclosure/enclosure_presentation.rs",
@@ -9752,68 +9752,26 @@ genrule(
         "hardware/assembly/scenes/model_export/payload.rs",
         "hardware/manifold-layout/above-core.json",
         "hardware/printed-parts/enclosure/enclosure/disposal-warning-artwork.json",
+        "hardware/printed-parts/enclosure/enclosure/dock-numbers/lib.rs",
         "hardware/printed-parts/enclosure/enclosure/enclosure.rs",
-        "hardware/printed-parts/enclosure/enclosure/enclosure_presentation/quadric.rs",
-        "hardware/printed-parts/enclosure/enclosure/front-corner-controls.json",
-        "hardware/printed-parts/enclosure/enclosure/rear-seat-profiles.json",
-        "hardware/printed-parts/enclosure/enclosure/recipe/above.rs",
-        "hardware/printed-parts/enclosure/enclosure/recipe/backtop.rs",
-        "hardware/printed-parts/enclosure/enclosure/recipe/catalog.rs",
-        "hardware/printed-parts/enclosure/enclosure/recipe/columns.rs",
-        "hardware/printed-parts/enclosure/enclosure/recipe/display.rs",
-        "hardware/printed-parts/enclosure/enclosure/recipe/dock.rs",
-        "hardware/printed-parts/enclosure/enclosure/recipe/field.rs",
-        "hardware/printed-parts/enclosure/enclosure/recipe/floor.rs",
-        "hardware/printed-parts/enclosure/enclosure/recipe/front.rs",
-        "hardware/printed-parts/enclosure/enclosure/recipe/fronttop.rs",
-        "hardware/printed-parts/enclosure/enclosure/recipe/funnel.rs",
-        "hardware/printed-parts/enclosure/enclosure/recipe/handholds.rs",
-        "hardware/printed-parts/enclosure/enclosure/recipe/layout.rs",
-        "hardware/printed-parts/enclosure/enclosure/recipe/lib.rs",
-        "hardware/printed-parts/enclosure/enclosure/recipe/mount.rs",
-        "hardware/printed-parts/enclosure/enclosure/recipe/panel.rs",
-        "hardware/printed-parts/enclosure/enclosure/recipe/piece.rs",
-        "hardware/printed-parts/enclosure/enclosure/recipe/pump.rs",
-        "hardware/printed-parts/enclosure/enclosure/recipe/quadrant.rs",
-        "hardware/printed-parts/enclosure/enclosure/recipe/rails.rs",
-        "hardware/printed-parts/enclosure/enclosure/recipe/rear.rs",
-        "hardware/printed-parts/enclosure/enclosure/recipe/retainer.rs",
-        "hardware/printed-parts/enclosure/enclosure/recipe/routes.rs",
-        "hardware/printed-parts/enclosure/enclosure/recipe/seam.rs",
-        "hardware/printed-parts/enclosure/enclosure/recipe/seat.rs",
-        "hardware/printed-parts/enclosure/enclosure/recipe/shapes.rs",
-        "hardware/printed-parts/enclosure/enclosure/recipe/shell.rs",
-        "hardware/printed-parts/enclosure/enclosure/recipe/spec.rs",
-        "hardware/printed-parts/enclosure/enclosure/recipe/structure.rs",
-        "hardware/printed-parts/enclosure/enclosure/recipe/supports.rs",
-        "hardware/printed-parts/enclosure/enclosure/recipe/text.rs",
-        "hardware/printed-parts/enclosure/enclosure/recipe/valves.rs",
-        "hardware/printed-parts/enclosure/enclosure/recipe/vent.rs",
-        "hardware/printed-parts/enclosure/enclosure/recipe/walls.rs",
-        "hardware/printed-parts/enclosure/enclosure/recipe/ystacks.rs",
-        "hardware/printed-parts/enclosure/enclosure/solid/corner.rs",
-        "hardware/printed-parts/enclosure/enclosure/solid/eval.rs",
-        "hardware/printed-parts/enclosure/enclosure/solid/letters.rs",
-        "hardware/printed-parts/enclosure/enclosure/solid/lib.rs",
-        "hardware/printed-parts/enclosure/enclosure/solid/numbers.rs",
-        "hardware/printed-parts/enclosure/enclosure/solid/ops.rs",
-        "hardware/printed-parts/enclosure/enclosure/solid/pieces.rs",
-        "hardware/printed-parts/enclosure/enclosure/solid/plan.rs",
-        "hardware/printed-parts/enclosure/enclosure/solid/presentation.rs",
-        "hardware/printed-parts/enclosure/enclosure/solid/skin.rs",
-        "hardware/printed-parts/enclosure/enclosure/solid/sources.rs",
-        "hardware/printed-parts/enclosure/enclosure/solid/structure.rs",
-        "hardware/printed-parts/enclosure/enclosure/solid/text.rs",
-        "hardware/printed-parts/enclosure/nameplate/snap_dimensions.rs",
-        "hardware/printed-parts/enclosure/nameplate/snap_geometry.rs",
-        "hardware/reference/compact-inline-candidates/dimensions.json",
+        "hardware/printed-parts/enclosure/enclosure/numbers/catalog.rs",
+        "hardware/printed-parts/enclosure/enclosure/numbers/disposal.rs",
+        "hardware/printed-parts/enclosure/enclosure/numbers/faces.rs",
+        "hardware/printed-parts/enclosure/enclosure/numbers/field.rs",
+        "hardware/printed-parts/enclosure/enclosure/numbers/layout.rs",
+        "hardware/printed-parts/enclosure/enclosure/numbers/lib.rs",
+        "hardware/printed-parts/enclosure/enclosure/numbers/pump.rs",
+        "hardware/printed-parts/enclosure/enclosure/numbers/quadrant.rs",
+        "hardware/printed-parts/enclosure/enclosure/numbers/rear_wall.rs",
+        "hardware/printed-parts/enclosure/enclosure/numbers/shell.rs",
+        "hardware/printed-parts/enclosure/enclosure/numbers/spec.rs",
+        "hardware/printed-parts/enclosure/enclosure/numbers/structure.rs",
         "hardware/reference/jg-pp0208e-tee/branch-operating-measurements.json",
         "hardware/reference/neofit-stem-elbow/reference-parameters.json",
-        "hardware/reference/yzmsz-water-regulator/reference-parameters.json",
         "tools/hsm/Cargo.lock",
         "tools/hsm/Cargo.toml",
-        "tools/hsm/assembly-docs/src/wiring/cable-sites.json",
-        "tools/hsm/enclosure-solid/Cargo.toml",
+        "tools/hsm/enclosure-dock-numbers/Cargo.toml",
+        "tools/hsm/enclosure-numbers/Cargo.toml",
         "tools/hsm/enclosure/Cargo.toml",
         "tools/hsm/geometry/Cargo.toml",
         "tools/hsm/geometry/src/lib.rs",
@@ -9931,39 +9889,21 @@ genrule(
     name = "enclosure",
     srcs = [
         ":out/enclosure-program/enclosure",
+        ":out/enclosure-back-bottom/hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.mesh",
+        ":out/enclosure-back-bottom/hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.npz",
+        ":out/enclosure-back-top/hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh",
+        ":out/enclosure-back-top/hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.npz",
         ":out/enclosure-box/hardware/manifold-layout/enclosure-box.json",
+        ":out/enclosure-front-bottom/hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.mesh",
+        ":out/enclosure-front-bottom/hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.npz",
+        ":out/enclosure-front-top/hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh",
+        ":out/enclosure-front-top/hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.npz",
+        ":out/enclosure-pump-retainer/hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer-seated.step.mesh",
+        ":out/enclosure-pump-retainer/hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer-seated.step.npz",
         "hardware/reference/neofit-stem-elbow/neofit-stem-elbow.fine.step.npz",
         "hardware/reference/tee-connector/tee-connector.step.mesh",
     ],
     outs = [
-        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step",
-        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.mesh",
-        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.npz",
-        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl",
-        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step",
-        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh",
-        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.npz",
-        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl",
-        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step",
-        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.mesh",
-        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.npz",
-        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl",
-        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step",
-        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh",
-        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.npz",
-        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl",
-        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl.sources.json",
-        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer-seated.step",
-        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer-seated.step.mesh",
-        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer-seated.step.npz",
-        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step",
-        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step.mesh",
-        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step.npz",
-        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.stl",
-        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step",
-        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step.mesh",
-        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step.npz",
-        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.stl",
         "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure.step",
         "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh",
         "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure.step.npz",
@@ -9995,37 +9935,9 @@ for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.js
   if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
 done
 if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
-O0=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step)
-O1=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.mesh)
-O2=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.npz)
-O3=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl)
-O4=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step)
-O5=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh)
-O6=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.npz)
-O7=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl)
-O8=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step)
-O9=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.mesh)
-O10=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.npz)
-O11=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl)
-O12=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step)
-O13=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh)
-O14=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.npz)
-O15=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl)
-O16=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl.sources.json)
-O17=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer-seated.step)
-O18=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer-seated.step.mesh)
-O19=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer-seated.step.npz)
-O20=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step)
-O21=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step.mesh)
-O22=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step.npz)
-O23=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.stl)
-O24=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step)
-O25=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step.mesh)
-O26=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step.npz)
-O27=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.stl)
-O28=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure.step)
-O29=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh)
-O30=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure.step.npz)
+O0=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure.step)
+O1=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh)
+O2=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure.step.npz)
 rm -rf work
 for f in $(SRCS); do
   case $$f in
@@ -10036,37 +9948,1383 @@ for f in $(SRCS); do
 done
 cd work
 "$$hsm_run" -- ./enclosure > /dev/null
+copy_file hardware/printed-parts/enclosure/enclosure/enclosure.step "$$O0"
+copy_file hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh "$$O1"
+copy_file hardware/printed-parts/enclosure/enclosure/enclosure.step.npz "$$O2"
+""",
+)
+
+genrule(
+    name = "enclosure-back-bottom-program",
+    srcs = [
+        "hardware/manifold-layout/above-core.json",
+        "hardware/printed-parts/enclosure/enclosure/back-bottom/flanks.rs",
+        "hardware/printed-parts/enclosure/enclosure/back-bottom/panel.rs",
+        "hardware/printed-parts/enclosure/enclosure/back-bottom/text.rs",
+        "hardware/printed-parts/enclosure/enclosure/disposal-warning-artwork.json",
+        "hardware/printed-parts/enclosure/enclosure/enclosure_back_bottom.rs",
+        "hardware/printed-parts/enclosure/enclosure/enclosure_presentation/quadric.rs",
+        "hardware/printed-parts/enclosure/enclosure/numbers/catalog.rs",
+        "hardware/printed-parts/enclosure/enclosure/numbers/disposal.rs",
+        "hardware/printed-parts/enclosure/enclosure/numbers/faces.rs",
+        "hardware/printed-parts/enclosure/enclosure/numbers/field.rs",
+        "hardware/printed-parts/enclosure/enclosure/numbers/layout.rs",
+        "hardware/printed-parts/enclosure/enclosure/numbers/lib.rs",
+        "hardware/printed-parts/enclosure/enclosure/numbers/pump.rs",
+        "hardware/printed-parts/enclosure/enclosure/numbers/quadrant.rs",
+        "hardware/printed-parts/enclosure/enclosure/numbers/rear_wall.rs",
+        "hardware/printed-parts/enclosure/enclosure/numbers/shell.rs",
+        "hardware/printed-parts/enclosure/enclosure/numbers/spec.rs",
+        "hardware/printed-parts/enclosure/enclosure/numbers/structure.rs",
+        "hardware/printed-parts/enclosure/enclosure/quadrants/above.rs",
+        "hardware/printed-parts/enclosure/enclosure/quadrants/columns.rs",
+        "hardware/printed-parts/enclosure/enclosure/quadrants/display.rs",
+        "hardware/printed-parts/enclosure/enclosure/quadrants/floor.rs",
+        "hardware/printed-parts/enclosure/enclosure/quadrants/funnel.rs",
+        "hardware/printed-parts/enclosure/enclosure/quadrants/handholds.rs",
+        "hardware/printed-parts/enclosure/enclosure/quadrants/lib.rs",
+        "hardware/printed-parts/enclosure/enclosure/quadrants/piece.rs",
+        "hardware/printed-parts/enclosure/enclosure/quadrants/rails.rs",
+        "hardware/printed-parts/enclosure/enclosure/quadrants/routes.rs",
+        "hardware/printed-parts/enclosure/enclosure/quadrants/seam.rs",
+        "hardware/printed-parts/enclosure/enclosure/quadrants/seat.rs",
+        "hardware/printed-parts/enclosure/enclosure/quadrants/shapes.rs",
+        "hardware/printed-parts/enclosure/enclosure/quadrants/valves.rs",
+        "hardware/printed-parts/enclosure/enclosure/quadrants/vent.rs",
+        "hardware/printed-parts/enclosure/enclosure/quadrants/walls.rs",
+        "hardware/printed-parts/enclosure/enclosure/quadrants/ystacks.rs",
+        "hardware/printed-parts/enclosure/enclosure/solid/eval.rs",
+        "hardware/printed-parts/enclosure/enclosure/solid/letters.rs",
+        "hardware/printed-parts/enclosure/enclosure/solid/lib.rs",
+        "hardware/printed-parts/enclosure/enclosure/solid/ops.rs",
+        "hardware/printed-parts/enclosure/enclosure/solid/pieces.rs",
+        "hardware/printed-parts/enclosure/enclosure/solid/plan.rs",
+        "hardware/printed-parts/enclosure/enclosure/solid/presentation.rs",
+        "hardware/printed-parts/enclosure/enclosure/solid/run.rs",
+        "hardware/printed-parts/enclosure/enclosure/solid/skin.rs",
+        "hardware/printed-parts/enclosure/enclosure/solid/sources.rs",
+        "hardware/printed-parts/enclosure/enclosure/solid/structure.rs",
+        "hardware/printed-parts/enclosure/enclosure/solid/text.rs",
+        "hardware/printed-parts/enclosure/nameplate/snap_geometry.rs",
+        "tools/hsm/Cargo.lock",
+        "tools/hsm/Cargo.toml",
+        "tools/hsm/assembly-docs/src/wiring/cable-sites.json",
+        "tools/hsm/enclosure-back-bottom/Cargo.toml",
+        "tools/hsm/enclosure-numbers/Cargo.toml",
+        "tools/hsm/enclosure-quadrants/Cargo.toml",
+        "tools/hsm/enclosure-solid/Cargo.toml",
+        "tools/hsm/geometry/Cargo.toml",
+        "tools/hsm/geometry/src/lib.rs",
+        "tools/hsm/geometry/src/payload.rs",
+        "tools/hsm/geometry/src/queries.rs",
+        "tools/hsm/kernel/Cargo.toml",
+        "tools/hsm/kernel/src/boolean.rs",
+        "tools/hsm/kernel/src/build.rs",
+        "tools/hsm/kernel/src/dxf.rs",
+        "tools/hsm/kernel/src/edge.rs",
+        "tools/hsm/kernel/src/face.rs",
+        "tools/hsm/kernel/src/import.rs",
+        "tools/hsm/kernel/src/lib.rs",
+        "tools/hsm/kernel/src/mapped.rs",
+        "tools/hsm/kernel/src/mass.rs",
+        "tools/hsm/kernel/src/math.rs",
+        "tools/hsm/kernel/src/part.rs",
+        "tools/hsm/kernel/src/plane.rs",
+        "tools/hsm/kernel/src/profile.rs",
+        "tools/hsm/kernel/src/reads.rs",
+        "tools/hsm/kernel/src/round.rs",
+        "tools/hsm/kernel/src/round/rolled.rs",
+        "tools/hsm/kernel/src/rule.rs",
+        "tools/hsm/kernel/src/screw.rs",
+        "tools/hsm/kernel/src/sketch_hull.rs",
+        "tools/hsm/kernel/src/solid.rs",
+        "tools/hsm/kernel/src/spline.rs",
+        "tools/hsm/kernel/src/step.rs",
+        "tools/hsm/kernel/src/step/analytic.rs",
+        "tools/hsm/kernel/src/sweep.rs",
+        "tools/hsm/kernel/src/text.rs",
+        "tools/hsm/kernel/src/thru.rs",
+        "tools/hsm/kernel/src/topo.rs",
+        "tools/hsm/kernel/src/triangulate.rs",
+        "tools/hsm/kernel/src/write.rs",
+        "tools/hsm/run-native/Cargo.toml",
+        "tools/hsm/run-native/src/lib.rs",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/hsm/run-slots/Cargo.toml",
+        "tools/hsm/run-slots/src/ipc.rs",
+        "tools/hsm/run-slots/src/lib.rs",
+        "tools/hsm/run-slots/src/main.rs",
+        "tools/hsm/run-slots/src/runtime.rs",
+        "tools/hsm/run-slots/src/runtime/cad.rs",
+        "tools/hsm/run-slots/src/runtime/install.rs",
+        "tools/hsm/run-slots/src/runtime/runner.rs",
+        "tools/hsm/run-slots/src/runtime/slots.rs",
+        "tools/hsm/shared-data/catalog/materials.json",
+        "tools/hsm/shared-data/catalog/scalars.json",
+        "tools/hsm/vendor/manifold-csg-sys/.cargo_vcs_info.json",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.lock",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.toml",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.toml.orig",
+        "tools/hsm/vendor/manifold-csg-sys/LICENSE-APACHE",
+        "tools/hsm/vendor/manifold-csg-sys/LICENSE-MIT",
+        "tools/hsm/vendor/manifold-csg-sys/README.md",
+        "tools/hsm/vendor/manifold-csg-sys/build.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/build.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/fetch.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/patch.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/wasm.rs",
+        "tools/hsm/vendor/manifold-csg-sys/cache-version",
+        "tools/hsm/vendor/manifold-csg-sys/patches/README.md",
+        "tools/hsm/vendor/manifold-csg-sys/src/lib.rs",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/CMakeLists.txt",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/diagnose.sh",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/__assertion_handler",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/__config_site",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/memory",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/mutex",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/libcxx-extras.cpp",
+    ],
+    outs = ["out/enclosure-back-bottom-program/enclosure-back-bottom"],
+    tags = ["no-sandbox"],
+    cmd = """
+set -e
+case "$$(uname -s)" in
+  Darwin)
+    copy_mask=$$((8#$$(umask)))
+    copy_bits=("" x w wx r rx rw rwx)
+    copy_mode="u-$${copy_bits[$$((copy_mask >> 6 & 7))]},g-$${copy_bits[$$((copy_mask >> 3 & 7))]},o-$${copy_bits[$$((copy_mask & 7))]}"
+    copy_file() {
+      local copy_dest="$${!#}" copy_target copy_permissions="$$copy_mode"
+      if [ -e "$$copy_dest" ] || [ -L "$$copy_dest" ]; then
+        if [ ! -f "$$copy_dest" ] || [ -L "$$copy_dest" ]; then cp "$$@"; return; fi
+        copy_permissions=$$(stat -f %Lp "$$copy_dest")
+        copy_target=$$(mktemp "$$copy_dest.hsm-copy.XXXXXX")
+      else copy_target="$$copy_dest"; fi
+      if cp -c "$${@:1:$$(( $$# - 1 ))}" "$$copy_target" 2>/dev/null; then
+        chmod "$$copy_permissions" "$$copy_target"
+        touch "$$copy_target"
+        if [ "$$copy_target" != "$$copy_dest" ]; then mv -f "$$copy_target" "$$copy_dest"; fi
+      else rm -f "$$copy_target"; cp "$$@"; fi
+    };;
+  *) copy_file() { cp "$$@"; };;
+esac
+hsm_run=
+for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
+  if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
+done
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+cargo=$$(command -v cargo || true)
+for c in "$$cargo" /opt/homebrew/opt/rustup/bin/cargo ~/.cargo/bin/cargo; do if [ -x "$$c" ]; then cargo=$$c; break; fi; done
+if [ ! -x "$$cargo" ]; then echo "cargo is not installed (https://rustup.rs)" >&2; exit 1; fi
+export HOME=~ PATH="$$(dirname "$$cargo"):$$PATH"
+O0=$$PWD/$(location out/enclosure-back-bottom-program/enclosure-back-bottom)
+cd "$$HSM_WORKSPACE/tools/hsm"
+CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet --manifest-path enclosure-back-bottom/Cargo.toml --bin enclosure-back-bottom
+copy_file target/release/enclosure-back-bottom "$$O0"
+""",
+)
+
+genrule(
+    name = "enclosure-back-bottom",
+    srcs = [
+        ":out/enclosure-back-bottom-program/enclosure-back-bottom",
+        ":out/enclosure-box/hardware/manifold-layout/enclosure-box.json",
+    ],
+    outs = [
+        "out/enclosure-back-bottom/hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step",
+        "out/enclosure-back-bottom/hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.mesh",
+        "out/enclosure-back-bottom/hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.npz",
+        "out/enclosure-back-bottom/hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl",
+    ],
+    cmd = """
+set -e
+case "$$(uname -s)" in
+  Darwin)
+    copy_mask=$$((8#$$(umask)))
+    copy_bits=("" x w wx r rx rw rwx)
+    copy_mode="u-$${copy_bits[$$((copy_mask >> 6 & 7))]},g-$${copy_bits[$$((copy_mask >> 3 & 7))]},o-$${copy_bits[$$((copy_mask & 7))]}"
+    copy_file() {
+      local copy_dest="$${!#}" copy_target copy_permissions="$$copy_mode"
+      if [ -e "$$copy_dest" ] || [ -L "$$copy_dest" ]; then
+        if [ ! -f "$$copy_dest" ] || [ -L "$$copy_dest" ]; then cp "$$@"; return; fi
+        copy_permissions=$$(stat -f %Lp "$$copy_dest")
+        copy_target=$$(mktemp "$$copy_dest.hsm-copy.XXXXXX")
+      else copy_target="$$copy_dest"; fi
+      if cp -c "$${@:1:$$(( $$# - 1 ))}" "$$copy_target" 2>/dev/null; then
+        chmod "$$copy_permissions" "$$copy_target"
+        touch "$$copy_target"
+        if [ "$$copy_target" != "$$copy_dest" ]; then mv -f "$$copy_target" "$$copy_dest"; fi
+      else rm -f "$$copy_target"; cp "$$@"; fi
+    };;
+  *) copy_file() { cp "$$@"; };;
+esac
+hsm_run=
+for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
+  if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
+done
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+O0=$$PWD/$(location out/enclosure-back-bottom/hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step)
+O1=$$PWD/$(location out/enclosure-back-bottom/hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.mesh)
+O2=$$PWD/$(location out/enclosure-back-bottom/hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.npz)
+O3=$$PWD/$(location out/enclosure-back-bottom/hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl)
+rm -rf work
+for f in $(SRCS); do
+  case $$f in
+    */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
+    *) t=$$f;;
+  esac
+  mkdir -p "work/$$(dirname "$$t")"; copy_file -L "$$f" "work/$$t"
+done
+cd work
+"$$hsm_run" -- ./enclosure-back-bottom > /dev/null
 copy_file hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step "$$O0"
 copy_file hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.mesh "$$O1"
 copy_file hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.npz "$$O2"
 copy_file hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl "$$O3"
-copy_file hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step "$$O4"
-copy_file hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh "$$O5"
-copy_file hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.npz "$$O6"
-copy_file hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl "$$O7"
-copy_file hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step "$$O8"
-copy_file hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.mesh "$$O9"
-copy_file hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.npz "$$O10"
-copy_file hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl "$$O11"
-copy_file hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step "$$O12"
-copy_file hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh "$$O13"
-copy_file hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.npz "$$O14"
-copy_file hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl "$$O15"
-copy_file hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl.sources.json "$$O16"
-copy_file hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer-seated.step "$$O17"
-copy_file hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer-seated.step.mesh "$$O18"
-copy_file hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer-seated.step.npz "$$O19"
-copy_file hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step "$$O20"
-copy_file hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step.mesh "$$O21"
-copy_file hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step.npz "$$O22"
-copy_file hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.stl "$$O23"
-copy_file hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step "$$O24"
-copy_file hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step.mesh "$$O25"
-copy_file hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step.npz "$$O26"
-copy_file hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.stl "$$O27"
-copy_file hardware/printed-parts/enclosure/enclosure/enclosure.step "$$O28"
-copy_file hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh "$$O29"
-copy_file hardware/printed-parts/enclosure/enclosure/enclosure.step.npz "$$O30"
+""",
+)
+
+genrule(
+    name = "enclosure-back-top-program",
+    srcs = [
+        "hardware/manifold-layout/above-core.json",
+        "hardware/printed-parts/enclosure/enclosure/back-top/backtop.rs",
+        "hardware/printed-parts/enclosure/enclosure/back-top/rear.rs",
+        "hardware/printed-parts/enclosure/enclosure/back-top/supports.rs",
+        "hardware/printed-parts/enclosure/enclosure/disposal-warning-artwork.json",
+        "hardware/printed-parts/enclosure/enclosure/enclosure_back_top.rs",
+        "hardware/printed-parts/enclosure/enclosure/enclosure_presentation/quadric.rs",
+        "hardware/printed-parts/enclosure/enclosure/numbers/catalog.rs",
+        "hardware/printed-parts/enclosure/enclosure/numbers/disposal.rs",
+        "hardware/printed-parts/enclosure/enclosure/numbers/faces.rs",
+        "hardware/printed-parts/enclosure/enclosure/numbers/field.rs",
+        "hardware/printed-parts/enclosure/enclosure/numbers/layout.rs",
+        "hardware/printed-parts/enclosure/enclosure/numbers/lib.rs",
+        "hardware/printed-parts/enclosure/enclosure/numbers/pump.rs",
+        "hardware/printed-parts/enclosure/enclosure/numbers/quadrant.rs",
+        "hardware/printed-parts/enclosure/enclosure/numbers/rear_wall.rs",
+        "hardware/printed-parts/enclosure/enclosure/numbers/shell.rs",
+        "hardware/printed-parts/enclosure/enclosure/numbers/spec.rs",
+        "hardware/printed-parts/enclosure/enclosure/numbers/structure.rs",
+        "hardware/printed-parts/enclosure/enclosure/quadrants/above.rs",
+        "hardware/printed-parts/enclosure/enclosure/quadrants/columns.rs",
+        "hardware/printed-parts/enclosure/enclosure/quadrants/display.rs",
+        "hardware/printed-parts/enclosure/enclosure/quadrants/floor.rs",
+        "hardware/printed-parts/enclosure/enclosure/quadrants/funnel.rs",
+        "hardware/printed-parts/enclosure/enclosure/quadrants/handholds.rs",
+        "hardware/printed-parts/enclosure/enclosure/quadrants/lib.rs",
+        "hardware/printed-parts/enclosure/enclosure/quadrants/piece.rs",
+        "hardware/printed-parts/enclosure/enclosure/quadrants/rails.rs",
+        "hardware/printed-parts/enclosure/enclosure/quadrants/routes.rs",
+        "hardware/printed-parts/enclosure/enclosure/quadrants/seam.rs",
+        "hardware/printed-parts/enclosure/enclosure/quadrants/seat.rs",
+        "hardware/printed-parts/enclosure/enclosure/quadrants/shapes.rs",
+        "hardware/printed-parts/enclosure/enclosure/quadrants/valves.rs",
+        "hardware/printed-parts/enclosure/enclosure/quadrants/vent.rs",
+        "hardware/printed-parts/enclosure/enclosure/quadrants/walls.rs",
+        "hardware/printed-parts/enclosure/enclosure/quadrants/ystacks.rs",
+        "hardware/printed-parts/enclosure/enclosure/rear-seat-profiles.json",
+        "hardware/printed-parts/enclosure/enclosure/solid/eval.rs",
+        "hardware/printed-parts/enclosure/enclosure/solid/letters.rs",
+        "hardware/printed-parts/enclosure/enclosure/solid/lib.rs",
+        "hardware/printed-parts/enclosure/enclosure/solid/ops.rs",
+        "hardware/printed-parts/enclosure/enclosure/solid/pieces.rs",
+        "hardware/printed-parts/enclosure/enclosure/solid/plan.rs",
+        "hardware/printed-parts/enclosure/enclosure/solid/presentation.rs",
+        "hardware/printed-parts/enclosure/enclosure/solid/run.rs",
+        "hardware/printed-parts/enclosure/enclosure/solid/skin.rs",
+        "hardware/printed-parts/enclosure/enclosure/solid/sources.rs",
+        "hardware/printed-parts/enclosure/enclosure/solid/structure.rs",
+        "hardware/printed-parts/enclosure/enclosure/solid/text.rs",
+        "hardware/printed-parts/enclosure/nameplate/snap_dimensions.rs",
+        "hardware/printed-parts/enclosure/nameplate/snap_geometry.rs",
+        "hardware/reference/compact-inline-candidates/dimensions.json",
+        "hardware/reference/yzmsz-water-regulator/reference-parameters.json",
+        "tools/hsm/Cargo.lock",
+        "tools/hsm/Cargo.toml",
+        "tools/hsm/assembly-docs/src/wiring/cable-sites.json",
+        "tools/hsm/enclosure-back-top/Cargo.toml",
+        "tools/hsm/enclosure-numbers/Cargo.toml",
+        "tools/hsm/enclosure-quadrants/Cargo.toml",
+        "tools/hsm/enclosure-solid/Cargo.toml",
+        "tools/hsm/geometry/Cargo.toml",
+        "tools/hsm/geometry/src/lib.rs",
+        "tools/hsm/geometry/src/payload.rs",
+        "tools/hsm/geometry/src/queries.rs",
+        "tools/hsm/kernel/Cargo.toml",
+        "tools/hsm/kernel/src/boolean.rs",
+        "tools/hsm/kernel/src/build.rs",
+        "tools/hsm/kernel/src/dxf.rs",
+        "tools/hsm/kernel/src/edge.rs",
+        "tools/hsm/kernel/src/face.rs",
+        "tools/hsm/kernel/src/import.rs",
+        "tools/hsm/kernel/src/lib.rs",
+        "tools/hsm/kernel/src/mapped.rs",
+        "tools/hsm/kernel/src/mass.rs",
+        "tools/hsm/kernel/src/math.rs",
+        "tools/hsm/kernel/src/part.rs",
+        "tools/hsm/kernel/src/plane.rs",
+        "tools/hsm/kernel/src/profile.rs",
+        "tools/hsm/kernel/src/reads.rs",
+        "tools/hsm/kernel/src/round.rs",
+        "tools/hsm/kernel/src/round/rolled.rs",
+        "tools/hsm/kernel/src/rule.rs",
+        "tools/hsm/kernel/src/screw.rs",
+        "tools/hsm/kernel/src/sketch_hull.rs",
+        "tools/hsm/kernel/src/solid.rs",
+        "tools/hsm/kernel/src/spline.rs",
+        "tools/hsm/kernel/src/step.rs",
+        "tools/hsm/kernel/src/step/analytic.rs",
+        "tools/hsm/kernel/src/sweep.rs",
+        "tools/hsm/kernel/src/text.rs",
+        "tools/hsm/kernel/src/thru.rs",
+        "tools/hsm/kernel/src/topo.rs",
+        "tools/hsm/kernel/src/triangulate.rs",
+        "tools/hsm/kernel/src/write.rs",
+        "tools/hsm/run-native/Cargo.toml",
+        "tools/hsm/run-native/src/lib.rs",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/hsm/run-slots/Cargo.toml",
+        "tools/hsm/run-slots/src/ipc.rs",
+        "tools/hsm/run-slots/src/lib.rs",
+        "tools/hsm/run-slots/src/main.rs",
+        "tools/hsm/run-slots/src/runtime.rs",
+        "tools/hsm/run-slots/src/runtime/cad.rs",
+        "tools/hsm/run-slots/src/runtime/install.rs",
+        "tools/hsm/run-slots/src/runtime/runner.rs",
+        "tools/hsm/run-slots/src/runtime/slots.rs",
+        "tools/hsm/shared-data/catalog/materials.json",
+        "tools/hsm/shared-data/catalog/scalars.json",
+        "tools/hsm/vendor/manifold-csg-sys/.cargo_vcs_info.json",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.lock",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.toml",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.toml.orig",
+        "tools/hsm/vendor/manifold-csg-sys/LICENSE-APACHE",
+        "tools/hsm/vendor/manifold-csg-sys/LICENSE-MIT",
+        "tools/hsm/vendor/manifold-csg-sys/README.md",
+        "tools/hsm/vendor/manifold-csg-sys/build.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/build.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/fetch.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/patch.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/wasm.rs",
+        "tools/hsm/vendor/manifold-csg-sys/cache-version",
+        "tools/hsm/vendor/manifold-csg-sys/patches/README.md",
+        "tools/hsm/vendor/manifold-csg-sys/src/lib.rs",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/CMakeLists.txt",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/diagnose.sh",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/__assertion_handler",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/__config_site",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/memory",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/mutex",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/libcxx-extras.cpp",
+    ],
+    outs = ["out/enclosure-back-top-program/enclosure-back-top"],
+    tags = ["no-sandbox"],
+    cmd = """
+set -e
+case "$$(uname -s)" in
+  Darwin)
+    copy_mask=$$((8#$$(umask)))
+    copy_bits=("" x w wx r rx rw rwx)
+    copy_mode="u-$${copy_bits[$$((copy_mask >> 6 & 7))]},g-$${copy_bits[$$((copy_mask >> 3 & 7))]},o-$${copy_bits[$$((copy_mask & 7))]}"
+    copy_file() {
+      local copy_dest="$${!#}" copy_target copy_permissions="$$copy_mode"
+      if [ -e "$$copy_dest" ] || [ -L "$$copy_dest" ]; then
+        if [ ! -f "$$copy_dest" ] || [ -L "$$copy_dest" ]; then cp "$$@"; return; fi
+        copy_permissions=$$(stat -f %Lp "$$copy_dest")
+        copy_target=$$(mktemp "$$copy_dest.hsm-copy.XXXXXX")
+      else copy_target="$$copy_dest"; fi
+      if cp -c "$${@:1:$$(( $$# - 1 ))}" "$$copy_target" 2>/dev/null; then
+        chmod "$$copy_permissions" "$$copy_target"
+        touch "$$copy_target"
+        if [ "$$copy_target" != "$$copy_dest" ]; then mv -f "$$copy_target" "$$copy_dest"; fi
+      else rm -f "$$copy_target"; cp "$$@"; fi
+    };;
+  *) copy_file() { cp "$$@"; };;
+esac
+hsm_run=
+for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
+  if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
+done
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+cargo=$$(command -v cargo || true)
+for c in "$$cargo" /opt/homebrew/opt/rustup/bin/cargo ~/.cargo/bin/cargo; do if [ -x "$$c" ]; then cargo=$$c; break; fi; done
+if [ ! -x "$$cargo" ]; then echo "cargo is not installed (https://rustup.rs)" >&2; exit 1; fi
+export HOME=~ PATH="$$(dirname "$$cargo"):$$PATH"
+O0=$$PWD/$(location out/enclosure-back-top-program/enclosure-back-top)
+cd "$$HSM_WORKSPACE/tools/hsm"
+CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet --manifest-path enclosure-back-top/Cargo.toml --bin enclosure-back-top
+copy_file target/release/enclosure-back-top "$$O0"
+""",
+)
+
+genrule(
+    name = "enclosure-back-top",
+    srcs = [
+        ":out/enclosure-back-top-program/enclosure-back-top",
+        ":out/enclosure-box/hardware/manifold-layout/enclosure-box.json",
+    ],
+    outs = [
+        "out/enclosure-back-top/hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step",
+        "out/enclosure-back-top/hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh",
+        "out/enclosure-back-top/hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.npz",
+        "out/enclosure-back-top/hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl",
+    ],
+    cmd = """
+set -e
+case "$$(uname -s)" in
+  Darwin)
+    copy_mask=$$((8#$$(umask)))
+    copy_bits=("" x w wx r rx rw rwx)
+    copy_mode="u-$${copy_bits[$$((copy_mask >> 6 & 7))]},g-$${copy_bits[$$((copy_mask >> 3 & 7))]},o-$${copy_bits[$$((copy_mask & 7))]}"
+    copy_file() {
+      local copy_dest="$${!#}" copy_target copy_permissions="$$copy_mode"
+      if [ -e "$$copy_dest" ] || [ -L "$$copy_dest" ]; then
+        if [ ! -f "$$copy_dest" ] || [ -L "$$copy_dest" ]; then cp "$$@"; return; fi
+        copy_permissions=$$(stat -f %Lp "$$copy_dest")
+        copy_target=$$(mktemp "$$copy_dest.hsm-copy.XXXXXX")
+      else copy_target="$$copy_dest"; fi
+      if cp -c "$${@:1:$$(( $$# - 1 ))}" "$$copy_target" 2>/dev/null; then
+        chmod "$$copy_permissions" "$$copy_target"
+        touch "$$copy_target"
+        if [ "$$copy_target" != "$$copy_dest" ]; then mv -f "$$copy_target" "$$copy_dest"; fi
+      else rm -f "$$copy_target"; cp "$$@"; fi
+    };;
+  *) copy_file() { cp "$$@"; };;
+esac
+hsm_run=
+for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
+  if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
+done
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+O0=$$PWD/$(location out/enclosure-back-top/hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step)
+O1=$$PWD/$(location out/enclosure-back-top/hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh)
+O2=$$PWD/$(location out/enclosure-back-top/hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.npz)
+O3=$$PWD/$(location out/enclosure-back-top/hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl)
+rm -rf work
+for f in $(SRCS); do
+  case $$f in
+    */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
+    *) t=$$f;;
+  esac
+  mkdir -p "work/$$(dirname "$$t")"; copy_file -L "$$f" "work/$$t"
+done
+cd work
+"$$hsm_run" -- ./enclosure-back-top > /dev/null
+copy_file hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step "$$O0"
+copy_file hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh "$$O1"
+copy_file hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.npz "$$O2"
+copy_file hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl "$$O3"
+""",
+)
+
+genrule(
+    name = "enclosure-front-bottom-program",
+    srcs = [
+        "hardware/manifold-layout/above-core.json",
+        "hardware/printed-parts/enclosure/enclosure/disposal-warning-artwork.json",
+        "hardware/printed-parts/enclosure/enclosure/enclosure_front_bottom.rs",
+        "hardware/printed-parts/enclosure/enclosure/enclosure_presentation/quadric.rs",
+        "hardware/printed-parts/enclosure/enclosure/front-bottom/flanks.rs",
+        "hardware/printed-parts/enclosure/enclosure/front/front.rs",
+        "hardware/printed-parts/enclosure/enclosure/front/lib.rs",
+        "hardware/printed-parts/enclosure/enclosure/front/mount.rs",
+        "hardware/printed-parts/enclosure/enclosure/numbers/catalog.rs",
+        "hardware/printed-parts/enclosure/enclosure/numbers/disposal.rs",
+        "hardware/printed-parts/enclosure/enclosure/numbers/faces.rs",
+        "hardware/printed-parts/enclosure/enclosure/numbers/field.rs",
+        "hardware/printed-parts/enclosure/enclosure/numbers/layout.rs",
+        "hardware/printed-parts/enclosure/enclosure/numbers/lib.rs",
+        "hardware/printed-parts/enclosure/enclosure/numbers/pump.rs",
+        "hardware/printed-parts/enclosure/enclosure/numbers/quadrant.rs",
+        "hardware/printed-parts/enclosure/enclosure/numbers/rear_wall.rs",
+        "hardware/printed-parts/enclosure/enclosure/numbers/shell.rs",
+        "hardware/printed-parts/enclosure/enclosure/numbers/spec.rs",
+        "hardware/printed-parts/enclosure/enclosure/numbers/structure.rs",
+        "hardware/printed-parts/enclosure/enclosure/quadrants/above.rs",
+        "hardware/printed-parts/enclosure/enclosure/quadrants/columns.rs",
+        "hardware/printed-parts/enclosure/enclosure/quadrants/display.rs",
+        "hardware/printed-parts/enclosure/enclosure/quadrants/floor.rs",
+        "hardware/printed-parts/enclosure/enclosure/quadrants/funnel.rs",
+        "hardware/printed-parts/enclosure/enclosure/quadrants/handholds.rs",
+        "hardware/printed-parts/enclosure/enclosure/quadrants/lib.rs",
+        "hardware/printed-parts/enclosure/enclosure/quadrants/piece.rs",
+        "hardware/printed-parts/enclosure/enclosure/quadrants/rails.rs",
+        "hardware/printed-parts/enclosure/enclosure/quadrants/routes.rs",
+        "hardware/printed-parts/enclosure/enclosure/quadrants/seam.rs",
+        "hardware/printed-parts/enclosure/enclosure/quadrants/seat.rs",
+        "hardware/printed-parts/enclosure/enclosure/quadrants/shapes.rs",
+        "hardware/printed-parts/enclosure/enclosure/quadrants/valves.rs",
+        "hardware/printed-parts/enclosure/enclosure/quadrants/vent.rs",
+        "hardware/printed-parts/enclosure/enclosure/quadrants/walls.rs",
+        "hardware/printed-parts/enclosure/enclosure/quadrants/ystacks.rs",
+        "hardware/printed-parts/enclosure/enclosure/retainer-numbers/lib.rs",
+        "hardware/printed-parts/enclosure/enclosure/solid/eval.rs",
+        "hardware/printed-parts/enclosure/enclosure/solid/letters.rs",
+        "hardware/printed-parts/enclosure/enclosure/solid/lib.rs",
+        "hardware/printed-parts/enclosure/enclosure/solid/ops.rs",
+        "hardware/printed-parts/enclosure/enclosure/solid/pieces.rs",
+        "hardware/printed-parts/enclosure/enclosure/solid/plan.rs",
+        "hardware/printed-parts/enclosure/enclosure/solid/presentation.rs",
+        "hardware/printed-parts/enclosure/enclosure/solid/run.rs",
+        "hardware/printed-parts/enclosure/enclosure/solid/skin.rs",
+        "hardware/printed-parts/enclosure/enclosure/solid/sources.rs",
+        "hardware/printed-parts/enclosure/enclosure/solid/structure.rs",
+        "hardware/printed-parts/enclosure/enclosure/solid/text.rs",
+        "hardware/printed-parts/enclosure/nameplate/snap_geometry.rs",
+        "tools/hsm/Cargo.lock",
+        "tools/hsm/Cargo.toml",
+        "tools/hsm/assembly-docs/src/wiring/cable-sites.json",
+        "tools/hsm/enclosure-front-bottom/Cargo.toml",
+        "tools/hsm/enclosure-front/Cargo.toml",
+        "tools/hsm/enclosure-numbers/Cargo.toml",
+        "tools/hsm/enclosure-quadrants/Cargo.toml",
+        "tools/hsm/enclosure-retainer-numbers/Cargo.toml",
+        "tools/hsm/enclosure-solid/Cargo.toml",
+        "tools/hsm/geometry/Cargo.toml",
+        "tools/hsm/geometry/src/lib.rs",
+        "tools/hsm/geometry/src/payload.rs",
+        "tools/hsm/geometry/src/queries.rs",
+        "tools/hsm/kernel/Cargo.toml",
+        "tools/hsm/kernel/src/boolean.rs",
+        "tools/hsm/kernel/src/build.rs",
+        "tools/hsm/kernel/src/dxf.rs",
+        "tools/hsm/kernel/src/edge.rs",
+        "tools/hsm/kernel/src/face.rs",
+        "tools/hsm/kernel/src/import.rs",
+        "tools/hsm/kernel/src/lib.rs",
+        "tools/hsm/kernel/src/mapped.rs",
+        "tools/hsm/kernel/src/mass.rs",
+        "tools/hsm/kernel/src/math.rs",
+        "tools/hsm/kernel/src/part.rs",
+        "tools/hsm/kernel/src/plane.rs",
+        "tools/hsm/kernel/src/profile.rs",
+        "tools/hsm/kernel/src/reads.rs",
+        "tools/hsm/kernel/src/round.rs",
+        "tools/hsm/kernel/src/round/rolled.rs",
+        "tools/hsm/kernel/src/rule.rs",
+        "tools/hsm/kernel/src/screw.rs",
+        "tools/hsm/kernel/src/sketch_hull.rs",
+        "tools/hsm/kernel/src/solid.rs",
+        "tools/hsm/kernel/src/spline.rs",
+        "tools/hsm/kernel/src/step.rs",
+        "tools/hsm/kernel/src/step/analytic.rs",
+        "tools/hsm/kernel/src/sweep.rs",
+        "tools/hsm/kernel/src/text.rs",
+        "tools/hsm/kernel/src/thru.rs",
+        "tools/hsm/kernel/src/topo.rs",
+        "tools/hsm/kernel/src/triangulate.rs",
+        "tools/hsm/kernel/src/write.rs",
+        "tools/hsm/run-native/Cargo.toml",
+        "tools/hsm/run-native/src/lib.rs",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/hsm/run-slots/Cargo.toml",
+        "tools/hsm/run-slots/src/ipc.rs",
+        "tools/hsm/run-slots/src/lib.rs",
+        "tools/hsm/run-slots/src/main.rs",
+        "tools/hsm/run-slots/src/runtime.rs",
+        "tools/hsm/run-slots/src/runtime/cad.rs",
+        "tools/hsm/run-slots/src/runtime/install.rs",
+        "tools/hsm/run-slots/src/runtime/runner.rs",
+        "tools/hsm/run-slots/src/runtime/slots.rs",
+        "tools/hsm/shared-data/catalog/materials.json",
+        "tools/hsm/shared-data/catalog/scalars.json",
+        "tools/hsm/vendor/manifold-csg-sys/.cargo_vcs_info.json",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.lock",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.toml",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.toml.orig",
+        "tools/hsm/vendor/manifold-csg-sys/LICENSE-APACHE",
+        "tools/hsm/vendor/manifold-csg-sys/LICENSE-MIT",
+        "tools/hsm/vendor/manifold-csg-sys/README.md",
+        "tools/hsm/vendor/manifold-csg-sys/build.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/build.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/fetch.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/patch.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/wasm.rs",
+        "tools/hsm/vendor/manifold-csg-sys/cache-version",
+        "tools/hsm/vendor/manifold-csg-sys/patches/README.md",
+        "tools/hsm/vendor/manifold-csg-sys/src/lib.rs",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/CMakeLists.txt",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/diagnose.sh",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/__assertion_handler",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/__config_site",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/memory",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/mutex",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/libcxx-extras.cpp",
+    ],
+    outs = ["out/enclosure-front-bottom-program/enclosure-front-bottom"],
+    tags = ["no-sandbox"],
+    cmd = """
+set -e
+case "$$(uname -s)" in
+  Darwin)
+    copy_mask=$$((8#$$(umask)))
+    copy_bits=("" x w wx r rx rw rwx)
+    copy_mode="u-$${copy_bits[$$((copy_mask >> 6 & 7))]},g-$${copy_bits[$$((copy_mask >> 3 & 7))]},o-$${copy_bits[$$((copy_mask & 7))]}"
+    copy_file() {
+      local copy_dest="$${!#}" copy_target copy_permissions="$$copy_mode"
+      if [ -e "$$copy_dest" ] || [ -L "$$copy_dest" ]; then
+        if [ ! -f "$$copy_dest" ] || [ -L "$$copy_dest" ]; then cp "$$@"; return; fi
+        copy_permissions=$$(stat -f %Lp "$$copy_dest")
+        copy_target=$$(mktemp "$$copy_dest.hsm-copy.XXXXXX")
+      else copy_target="$$copy_dest"; fi
+      if cp -c "$${@:1:$$(( $$# - 1 ))}" "$$copy_target" 2>/dev/null; then
+        chmod "$$copy_permissions" "$$copy_target"
+        touch "$$copy_target"
+        if [ "$$copy_target" != "$$copy_dest" ]; then mv -f "$$copy_target" "$$copy_dest"; fi
+      else rm -f "$$copy_target"; cp "$$@"; fi
+    };;
+  *) copy_file() { cp "$$@"; };;
+esac
+hsm_run=
+for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
+  if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
+done
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+cargo=$$(command -v cargo || true)
+for c in "$$cargo" /opt/homebrew/opt/rustup/bin/cargo ~/.cargo/bin/cargo; do if [ -x "$$c" ]; then cargo=$$c; break; fi; done
+if [ ! -x "$$cargo" ]; then echo "cargo is not installed (https://rustup.rs)" >&2; exit 1; fi
+export HOME=~ PATH="$$(dirname "$$cargo"):$$PATH"
+O0=$$PWD/$(location out/enclosure-front-bottom-program/enclosure-front-bottom)
+cd "$$HSM_WORKSPACE/tools/hsm"
+CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet --manifest-path enclosure-front-bottom/Cargo.toml --bin enclosure-front-bottom
+copy_file target/release/enclosure-front-bottom "$$O0"
+""",
+)
+
+genrule(
+    name = "enclosure-front-bottom",
+    srcs = [
+        ":out/enclosure-front-bottom-program/enclosure-front-bottom",
+        ":out/enclosure-box/hardware/manifold-layout/enclosure-box.json",
+    ],
+    outs = [
+        "out/enclosure-front-bottom/hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step",
+        "out/enclosure-front-bottom/hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.mesh",
+        "out/enclosure-front-bottom/hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.npz",
+        "out/enclosure-front-bottom/hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl",
+    ],
+    cmd = """
+set -e
+case "$$(uname -s)" in
+  Darwin)
+    copy_mask=$$((8#$$(umask)))
+    copy_bits=("" x w wx r rx rw rwx)
+    copy_mode="u-$${copy_bits[$$((copy_mask >> 6 & 7))]},g-$${copy_bits[$$((copy_mask >> 3 & 7))]},o-$${copy_bits[$$((copy_mask & 7))]}"
+    copy_file() {
+      local copy_dest="$${!#}" copy_target copy_permissions="$$copy_mode"
+      if [ -e "$$copy_dest" ] || [ -L "$$copy_dest" ]; then
+        if [ ! -f "$$copy_dest" ] || [ -L "$$copy_dest" ]; then cp "$$@"; return; fi
+        copy_permissions=$$(stat -f %Lp "$$copy_dest")
+        copy_target=$$(mktemp "$$copy_dest.hsm-copy.XXXXXX")
+      else copy_target="$$copy_dest"; fi
+      if cp -c "$${@:1:$$(( $$# - 1 ))}" "$$copy_target" 2>/dev/null; then
+        chmod "$$copy_permissions" "$$copy_target"
+        touch "$$copy_target"
+        if [ "$$copy_target" != "$$copy_dest" ]; then mv -f "$$copy_target" "$$copy_dest"; fi
+      else rm -f "$$copy_target"; cp "$$@"; fi
+    };;
+  *) copy_file() { cp "$$@"; };;
+esac
+hsm_run=
+for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
+  if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
+done
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+O0=$$PWD/$(location out/enclosure-front-bottom/hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step)
+O1=$$PWD/$(location out/enclosure-front-bottom/hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.mesh)
+O2=$$PWD/$(location out/enclosure-front-bottom/hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.npz)
+O3=$$PWD/$(location out/enclosure-front-bottom/hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl)
+rm -rf work
+for f in $(SRCS); do
+  case $$f in
+    */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
+    *) t=$$f;;
+  esac
+  mkdir -p "work/$$(dirname "$$t")"; copy_file -L "$$f" "work/$$t"
+done
+cd work
+"$$hsm_run" -- ./enclosure-front-bottom > /dev/null
+copy_file hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step "$$O0"
+copy_file hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.mesh "$$O1"
+copy_file hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.npz "$$O2"
+copy_file hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl "$$O3"
+""",
+)
+
+genrule(
+    name = "enclosure-front-top-program",
+    srcs = [
+        "hardware/manifold-layout/above-core.json",
+        "hardware/printed-parts/enclosure/enclosure/disposal-warning-artwork.json",
+        "hardware/printed-parts/enclosure/enclosure/dock-numbers/lib.rs",
+        "hardware/printed-parts/enclosure/enclosure/enclosure_front_top.rs",
+        "hardware/printed-parts/enclosure/enclosure/enclosure_presentation/quadric.rs",
+        "hardware/printed-parts/enclosure/enclosure/front-corner-controls.json",
+        "hardware/printed-parts/enclosure/enclosure/front-top/corner.rs",
+        "hardware/printed-parts/enclosure/enclosure/front-top/dock.rs",
+        "hardware/printed-parts/enclosure/enclosure/front-top/fronttop.rs",
+        "hardware/printed-parts/enclosure/enclosure/front/front.rs",
+        "hardware/printed-parts/enclosure/enclosure/front/lib.rs",
+        "hardware/printed-parts/enclosure/enclosure/front/mount.rs",
+        "hardware/printed-parts/enclosure/enclosure/numbers/catalog.rs",
+        "hardware/printed-parts/enclosure/enclosure/numbers/disposal.rs",
+        "hardware/printed-parts/enclosure/enclosure/numbers/faces.rs",
+        "hardware/printed-parts/enclosure/enclosure/numbers/field.rs",
+        "hardware/printed-parts/enclosure/enclosure/numbers/layout.rs",
+        "hardware/printed-parts/enclosure/enclosure/numbers/lib.rs",
+        "hardware/printed-parts/enclosure/enclosure/numbers/pump.rs",
+        "hardware/printed-parts/enclosure/enclosure/numbers/quadrant.rs",
+        "hardware/printed-parts/enclosure/enclosure/numbers/rear_wall.rs",
+        "hardware/printed-parts/enclosure/enclosure/numbers/shell.rs",
+        "hardware/printed-parts/enclosure/enclosure/numbers/spec.rs",
+        "hardware/printed-parts/enclosure/enclosure/numbers/structure.rs",
+        "hardware/printed-parts/enclosure/enclosure/quadrants/above.rs",
+        "hardware/printed-parts/enclosure/enclosure/quadrants/columns.rs",
+        "hardware/printed-parts/enclosure/enclosure/quadrants/display.rs",
+        "hardware/printed-parts/enclosure/enclosure/quadrants/floor.rs",
+        "hardware/printed-parts/enclosure/enclosure/quadrants/funnel.rs",
+        "hardware/printed-parts/enclosure/enclosure/quadrants/handholds.rs",
+        "hardware/printed-parts/enclosure/enclosure/quadrants/lib.rs",
+        "hardware/printed-parts/enclosure/enclosure/quadrants/piece.rs",
+        "hardware/printed-parts/enclosure/enclosure/quadrants/rails.rs",
+        "hardware/printed-parts/enclosure/enclosure/quadrants/routes.rs",
+        "hardware/printed-parts/enclosure/enclosure/quadrants/seam.rs",
+        "hardware/printed-parts/enclosure/enclosure/quadrants/seat.rs",
+        "hardware/printed-parts/enclosure/enclosure/quadrants/shapes.rs",
+        "hardware/printed-parts/enclosure/enclosure/quadrants/valves.rs",
+        "hardware/printed-parts/enclosure/enclosure/quadrants/vent.rs",
+        "hardware/printed-parts/enclosure/enclosure/quadrants/walls.rs",
+        "hardware/printed-parts/enclosure/enclosure/quadrants/ystacks.rs",
+        "hardware/printed-parts/enclosure/enclosure/retainer-numbers/lib.rs",
+        "hardware/printed-parts/enclosure/enclosure/solid/eval.rs",
+        "hardware/printed-parts/enclosure/enclosure/solid/letters.rs",
+        "hardware/printed-parts/enclosure/enclosure/solid/lib.rs",
+        "hardware/printed-parts/enclosure/enclosure/solid/ops.rs",
+        "hardware/printed-parts/enclosure/enclosure/solid/pieces.rs",
+        "hardware/printed-parts/enclosure/enclosure/solid/plan.rs",
+        "hardware/printed-parts/enclosure/enclosure/solid/presentation.rs",
+        "hardware/printed-parts/enclosure/enclosure/solid/run.rs",
+        "hardware/printed-parts/enclosure/enclosure/solid/skin.rs",
+        "hardware/printed-parts/enclosure/enclosure/solid/sources.rs",
+        "hardware/printed-parts/enclosure/enclosure/solid/structure.rs",
+        "hardware/printed-parts/enclosure/enclosure/solid/text.rs",
+        "hardware/printed-parts/enclosure/nameplate/snap_geometry.rs",
+        "hardware/reference/jg-pp0208e-tee/branch-operating-measurements.json",
+        "hardware/reference/neofit-stem-elbow/reference-parameters.json",
+        "tools/hsm/Cargo.lock",
+        "tools/hsm/Cargo.toml",
+        "tools/hsm/assembly-docs/src/wiring/cable-sites.json",
+        "tools/hsm/enclosure-dock-numbers/Cargo.toml",
+        "tools/hsm/enclosure-front-top/Cargo.toml",
+        "tools/hsm/enclosure-front/Cargo.toml",
+        "tools/hsm/enclosure-numbers/Cargo.toml",
+        "tools/hsm/enclosure-quadrants/Cargo.toml",
+        "tools/hsm/enclosure-retainer-numbers/Cargo.toml",
+        "tools/hsm/enclosure-solid/Cargo.toml",
+        "tools/hsm/geometry/Cargo.toml",
+        "tools/hsm/geometry/src/lib.rs",
+        "tools/hsm/geometry/src/payload.rs",
+        "tools/hsm/geometry/src/queries.rs",
+        "tools/hsm/kernel/Cargo.toml",
+        "tools/hsm/kernel/src/boolean.rs",
+        "tools/hsm/kernel/src/build.rs",
+        "tools/hsm/kernel/src/dxf.rs",
+        "tools/hsm/kernel/src/edge.rs",
+        "tools/hsm/kernel/src/face.rs",
+        "tools/hsm/kernel/src/import.rs",
+        "tools/hsm/kernel/src/lib.rs",
+        "tools/hsm/kernel/src/mapped.rs",
+        "tools/hsm/kernel/src/mass.rs",
+        "tools/hsm/kernel/src/math.rs",
+        "tools/hsm/kernel/src/part.rs",
+        "tools/hsm/kernel/src/plane.rs",
+        "tools/hsm/kernel/src/profile.rs",
+        "tools/hsm/kernel/src/reads.rs",
+        "tools/hsm/kernel/src/round.rs",
+        "tools/hsm/kernel/src/round/rolled.rs",
+        "tools/hsm/kernel/src/rule.rs",
+        "tools/hsm/kernel/src/screw.rs",
+        "tools/hsm/kernel/src/sketch_hull.rs",
+        "tools/hsm/kernel/src/solid.rs",
+        "tools/hsm/kernel/src/spline.rs",
+        "tools/hsm/kernel/src/step.rs",
+        "tools/hsm/kernel/src/step/analytic.rs",
+        "tools/hsm/kernel/src/sweep.rs",
+        "tools/hsm/kernel/src/text.rs",
+        "tools/hsm/kernel/src/thru.rs",
+        "tools/hsm/kernel/src/topo.rs",
+        "tools/hsm/kernel/src/triangulate.rs",
+        "tools/hsm/kernel/src/write.rs",
+        "tools/hsm/run-native/Cargo.toml",
+        "tools/hsm/run-native/src/lib.rs",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/hsm/run-slots/Cargo.toml",
+        "tools/hsm/run-slots/src/ipc.rs",
+        "tools/hsm/run-slots/src/lib.rs",
+        "tools/hsm/run-slots/src/main.rs",
+        "tools/hsm/run-slots/src/runtime.rs",
+        "tools/hsm/run-slots/src/runtime/cad.rs",
+        "tools/hsm/run-slots/src/runtime/install.rs",
+        "tools/hsm/run-slots/src/runtime/runner.rs",
+        "tools/hsm/run-slots/src/runtime/slots.rs",
+        "tools/hsm/shared-data/catalog/materials.json",
+        "tools/hsm/shared-data/catalog/scalars.json",
+        "tools/hsm/vendor/manifold-csg-sys/.cargo_vcs_info.json",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.lock",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.toml",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.toml.orig",
+        "tools/hsm/vendor/manifold-csg-sys/LICENSE-APACHE",
+        "tools/hsm/vendor/manifold-csg-sys/LICENSE-MIT",
+        "tools/hsm/vendor/manifold-csg-sys/README.md",
+        "tools/hsm/vendor/manifold-csg-sys/build.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/build.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/fetch.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/patch.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/wasm.rs",
+        "tools/hsm/vendor/manifold-csg-sys/cache-version",
+        "tools/hsm/vendor/manifold-csg-sys/patches/README.md",
+        "tools/hsm/vendor/manifold-csg-sys/src/lib.rs",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/CMakeLists.txt",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/diagnose.sh",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/__assertion_handler",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/__config_site",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/memory",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/mutex",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/libcxx-extras.cpp",
+    ],
+    outs = ["out/enclosure-front-top-program/enclosure-front-top"],
+    tags = ["no-sandbox"],
+    cmd = """
+set -e
+case "$$(uname -s)" in
+  Darwin)
+    copy_mask=$$((8#$$(umask)))
+    copy_bits=("" x w wx r rx rw rwx)
+    copy_mode="u-$${copy_bits[$$((copy_mask >> 6 & 7))]},g-$${copy_bits[$$((copy_mask >> 3 & 7))]},o-$${copy_bits[$$((copy_mask & 7))]}"
+    copy_file() {
+      local copy_dest="$${!#}" copy_target copy_permissions="$$copy_mode"
+      if [ -e "$$copy_dest" ] || [ -L "$$copy_dest" ]; then
+        if [ ! -f "$$copy_dest" ] || [ -L "$$copy_dest" ]; then cp "$$@"; return; fi
+        copy_permissions=$$(stat -f %Lp "$$copy_dest")
+        copy_target=$$(mktemp "$$copy_dest.hsm-copy.XXXXXX")
+      else copy_target="$$copy_dest"; fi
+      if cp -c "$${@:1:$$(( $$# - 1 ))}" "$$copy_target" 2>/dev/null; then
+        chmod "$$copy_permissions" "$$copy_target"
+        touch "$$copy_target"
+        if [ "$$copy_target" != "$$copy_dest" ]; then mv -f "$$copy_target" "$$copy_dest"; fi
+      else rm -f "$$copy_target"; cp "$$@"; fi
+    };;
+  *) copy_file() { cp "$$@"; };;
+esac
+hsm_run=
+for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
+  if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
+done
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+cargo=$$(command -v cargo || true)
+for c in "$$cargo" /opt/homebrew/opt/rustup/bin/cargo ~/.cargo/bin/cargo; do if [ -x "$$c" ]; then cargo=$$c; break; fi; done
+if [ ! -x "$$cargo" ]; then echo "cargo is not installed (https://rustup.rs)" >&2; exit 1; fi
+export HOME=~ PATH="$$(dirname "$$cargo"):$$PATH"
+O0=$$PWD/$(location out/enclosure-front-top-program/enclosure-front-top)
+cd "$$HSM_WORKSPACE/tools/hsm"
+CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet --manifest-path enclosure-front-top/Cargo.toml --bin enclosure-front-top
+copy_file target/release/enclosure-front-top "$$O0"
+""",
+)
+
+genrule(
+    name = "enclosure-front-top",
+    srcs = [
+        ":out/enclosure-front-top-program/enclosure-front-top",
+        ":out/enclosure-box/hardware/manifold-layout/enclosure-box.json",
+    ],
+    outs = [
+        "out/enclosure-front-top/hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step",
+        "out/enclosure-front-top/hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh",
+        "out/enclosure-front-top/hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.npz",
+        "out/enclosure-front-top/hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl",
+        "out/enclosure-front-top/hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl.sources.json",
+    ],
+    cmd = """
+set -e
+case "$$(uname -s)" in
+  Darwin)
+    copy_mask=$$((8#$$(umask)))
+    copy_bits=("" x w wx r rx rw rwx)
+    copy_mode="u-$${copy_bits[$$((copy_mask >> 6 & 7))]},g-$${copy_bits[$$((copy_mask >> 3 & 7))]},o-$${copy_bits[$$((copy_mask & 7))]}"
+    copy_file() {
+      local copy_dest="$${!#}" copy_target copy_permissions="$$copy_mode"
+      if [ -e "$$copy_dest" ] || [ -L "$$copy_dest" ]; then
+        if [ ! -f "$$copy_dest" ] || [ -L "$$copy_dest" ]; then cp "$$@"; return; fi
+        copy_permissions=$$(stat -f %Lp "$$copy_dest")
+        copy_target=$$(mktemp "$$copy_dest.hsm-copy.XXXXXX")
+      else copy_target="$$copy_dest"; fi
+      if cp -c "$${@:1:$$(( $$# - 1 ))}" "$$copy_target" 2>/dev/null; then
+        chmod "$$copy_permissions" "$$copy_target"
+        touch "$$copy_target"
+        if [ "$$copy_target" != "$$copy_dest" ]; then mv -f "$$copy_target" "$$copy_dest"; fi
+      else rm -f "$$copy_target"; cp "$$@"; fi
+    };;
+  *) copy_file() { cp "$$@"; };;
+esac
+hsm_run=
+for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
+  if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
+done
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+O0=$$PWD/$(location out/enclosure-front-top/hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step)
+O1=$$PWD/$(location out/enclosure-front-top/hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh)
+O2=$$PWD/$(location out/enclosure-front-top/hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.npz)
+O3=$$PWD/$(location out/enclosure-front-top/hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl)
+O4=$$PWD/$(location out/enclosure-front-top/hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl.sources.json)
+rm -rf work
+for f in $(SRCS); do
+  case $$f in
+    */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
+    *) t=$$f;;
+  esac
+  mkdir -p "work/$$(dirname "$$t")"; copy_file -L "$$f" "work/$$t"
+done
+cd work
+"$$hsm_run" -- ./enclosure-front-top > /dev/null
+copy_file hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step "$$O0"
+copy_file hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh "$$O1"
+copy_file hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.npz "$$O2"
+copy_file hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl "$$O3"
+copy_file hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl.sources.json "$$O4"
+""",
+)
+
+genrule(
+    name = "enclosure-pump-retainer-program",
+    srcs = [
+        "hardware/manifold-layout/above-core.json",
+        "hardware/printed-parts/enclosure/enclosure/disposal-warning-artwork.json",
+        "hardware/printed-parts/enclosure/enclosure/enclosure_presentation/quadric.rs",
+        "hardware/printed-parts/enclosure/enclosure/enclosure_pump_retainer.rs",
+        "hardware/printed-parts/enclosure/enclosure/numbers/catalog.rs",
+        "hardware/printed-parts/enclosure/enclosure/numbers/disposal.rs",
+        "hardware/printed-parts/enclosure/enclosure/numbers/faces.rs",
+        "hardware/printed-parts/enclosure/enclosure/numbers/field.rs",
+        "hardware/printed-parts/enclosure/enclosure/numbers/layout.rs",
+        "hardware/printed-parts/enclosure/enclosure/numbers/lib.rs",
+        "hardware/printed-parts/enclosure/enclosure/numbers/pump.rs",
+        "hardware/printed-parts/enclosure/enclosure/numbers/quadrant.rs",
+        "hardware/printed-parts/enclosure/enclosure/numbers/rear_wall.rs",
+        "hardware/printed-parts/enclosure/enclosure/numbers/shell.rs",
+        "hardware/printed-parts/enclosure/enclosure/numbers/spec.rs",
+        "hardware/printed-parts/enclosure/enclosure/numbers/structure.rs",
+        "hardware/printed-parts/enclosure/enclosure/retainer-numbers/lib.rs",
+        "hardware/printed-parts/enclosure/enclosure/retainer/retainer.rs",
+        "hardware/printed-parts/enclosure/enclosure/solid/eval.rs",
+        "hardware/printed-parts/enclosure/enclosure/solid/letters.rs",
+        "hardware/printed-parts/enclosure/enclosure/solid/lib.rs",
+        "hardware/printed-parts/enclosure/enclosure/solid/ops.rs",
+        "hardware/printed-parts/enclosure/enclosure/solid/pieces.rs",
+        "hardware/printed-parts/enclosure/enclosure/solid/plan.rs",
+        "hardware/printed-parts/enclosure/enclosure/solid/presentation.rs",
+        "hardware/printed-parts/enclosure/enclosure/solid/run.rs",
+        "hardware/printed-parts/enclosure/enclosure/solid/skin.rs",
+        "hardware/printed-parts/enclosure/enclosure/solid/sources.rs",
+        "hardware/printed-parts/enclosure/enclosure/solid/structure.rs",
+        "hardware/printed-parts/enclosure/enclosure/solid/text.rs",
+        "hardware/printed-parts/enclosure/nameplate/snap_geometry.rs",
+        "tools/hsm/Cargo.lock",
+        "tools/hsm/Cargo.toml",
+        "tools/hsm/enclosure-numbers/Cargo.toml",
+        "tools/hsm/enclosure-pump-retainer/Cargo.toml",
+        "tools/hsm/enclosure-retainer-numbers/Cargo.toml",
+        "tools/hsm/enclosure-solid/Cargo.toml",
+        "tools/hsm/geometry/Cargo.toml",
+        "tools/hsm/geometry/src/lib.rs",
+        "tools/hsm/geometry/src/payload.rs",
+        "tools/hsm/geometry/src/queries.rs",
+        "tools/hsm/kernel/Cargo.toml",
+        "tools/hsm/kernel/src/boolean.rs",
+        "tools/hsm/kernel/src/build.rs",
+        "tools/hsm/kernel/src/dxf.rs",
+        "tools/hsm/kernel/src/edge.rs",
+        "tools/hsm/kernel/src/face.rs",
+        "tools/hsm/kernel/src/import.rs",
+        "tools/hsm/kernel/src/lib.rs",
+        "tools/hsm/kernel/src/mapped.rs",
+        "tools/hsm/kernel/src/mass.rs",
+        "tools/hsm/kernel/src/math.rs",
+        "tools/hsm/kernel/src/part.rs",
+        "tools/hsm/kernel/src/plane.rs",
+        "tools/hsm/kernel/src/profile.rs",
+        "tools/hsm/kernel/src/reads.rs",
+        "tools/hsm/kernel/src/round.rs",
+        "tools/hsm/kernel/src/round/rolled.rs",
+        "tools/hsm/kernel/src/rule.rs",
+        "tools/hsm/kernel/src/screw.rs",
+        "tools/hsm/kernel/src/sketch_hull.rs",
+        "tools/hsm/kernel/src/solid.rs",
+        "tools/hsm/kernel/src/spline.rs",
+        "tools/hsm/kernel/src/step.rs",
+        "tools/hsm/kernel/src/step/analytic.rs",
+        "tools/hsm/kernel/src/sweep.rs",
+        "tools/hsm/kernel/src/text.rs",
+        "tools/hsm/kernel/src/thru.rs",
+        "tools/hsm/kernel/src/topo.rs",
+        "tools/hsm/kernel/src/triangulate.rs",
+        "tools/hsm/kernel/src/write.rs",
+        "tools/hsm/run-native/Cargo.toml",
+        "tools/hsm/run-native/src/lib.rs",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/hsm/run-slots/Cargo.toml",
+        "tools/hsm/run-slots/src/ipc.rs",
+        "tools/hsm/run-slots/src/lib.rs",
+        "tools/hsm/run-slots/src/main.rs",
+        "tools/hsm/run-slots/src/runtime.rs",
+        "tools/hsm/run-slots/src/runtime/cad.rs",
+        "tools/hsm/run-slots/src/runtime/install.rs",
+        "tools/hsm/run-slots/src/runtime/runner.rs",
+        "tools/hsm/run-slots/src/runtime/slots.rs",
+        "tools/hsm/shared-data/catalog/materials.json",
+        "tools/hsm/shared-data/catalog/scalars.json",
+        "tools/hsm/vendor/manifold-csg-sys/.cargo_vcs_info.json",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.lock",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.toml",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.toml.orig",
+        "tools/hsm/vendor/manifold-csg-sys/LICENSE-APACHE",
+        "tools/hsm/vendor/manifold-csg-sys/LICENSE-MIT",
+        "tools/hsm/vendor/manifold-csg-sys/README.md",
+        "tools/hsm/vendor/manifold-csg-sys/build.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/build.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/fetch.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/patch.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/wasm.rs",
+        "tools/hsm/vendor/manifold-csg-sys/cache-version",
+        "tools/hsm/vendor/manifold-csg-sys/patches/README.md",
+        "tools/hsm/vendor/manifold-csg-sys/src/lib.rs",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/CMakeLists.txt",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/diagnose.sh",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/__assertion_handler",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/__config_site",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/memory",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/mutex",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/libcxx-extras.cpp",
+    ],
+    outs = ["out/enclosure-pump-retainer-program/enclosure-pump-retainer"],
+    tags = ["no-sandbox"],
+    cmd = """
+set -e
+case "$$(uname -s)" in
+  Darwin)
+    copy_mask=$$((8#$$(umask)))
+    copy_bits=("" x w wx r rx rw rwx)
+    copy_mode="u-$${copy_bits[$$((copy_mask >> 6 & 7))]},g-$${copy_bits[$$((copy_mask >> 3 & 7))]},o-$${copy_bits[$$((copy_mask & 7))]}"
+    copy_file() {
+      local copy_dest="$${!#}" copy_target copy_permissions="$$copy_mode"
+      if [ -e "$$copy_dest" ] || [ -L "$$copy_dest" ]; then
+        if [ ! -f "$$copy_dest" ] || [ -L "$$copy_dest" ]; then cp "$$@"; return; fi
+        copy_permissions=$$(stat -f %Lp "$$copy_dest")
+        copy_target=$$(mktemp "$$copy_dest.hsm-copy.XXXXXX")
+      else copy_target="$$copy_dest"; fi
+      if cp -c "$${@:1:$$(( $$# - 1 ))}" "$$copy_target" 2>/dev/null; then
+        chmod "$$copy_permissions" "$$copy_target"
+        touch "$$copy_target"
+        if [ "$$copy_target" != "$$copy_dest" ]; then mv -f "$$copy_target" "$$copy_dest"; fi
+      else rm -f "$$copy_target"; cp "$$@"; fi
+    };;
+  *) copy_file() { cp "$$@"; };;
+esac
+hsm_run=
+for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
+  if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
+done
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+cargo=$$(command -v cargo || true)
+for c in "$$cargo" /opt/homebrew/opt/rustup/bin/cargo ~/.cargo/bin/cargo; do if [ -x "$$c" ]; then cargo=$$c; break; fi; done
+if [ ! -x "$$cargo" ]; then echo "cargo is not installed (https://rustup.rs)" >&2; exit 1; fi
+export HOME=~ PATH="$$(dirname "$$cargo"):$$PATH"
+O0=$$PWD/$(location out/enclosure-pump-retainer-program/enclosure-pump-retainer)
+cd "$$HSM_WORKSPACE/tools/hsm"
+CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet --manifest-path enclosure-pump-retainer/Cargo.toml --bin enclosure-pump-retainer
+copy_file target/release/enclosure-pump-retainer "$$O0"
+""",
+)
+
+genrule(
+    name = "enclosure-pump-retainer",
+    srcs = [
+        ":out/enclosure-pump-retainer-program/enclosure-pump-retainer",
+        ":out/enclosure-box/hardware/manifold-layout/enclosure-box.json",
+    ],
+    outs = [
+        "out/enclosure-pump-retainer/hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer-seated.step",
+        "out/enclosure-pump-retainer/hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer-seated.step.mesh",
+        "out/enclosure-pump-retainer/hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer-seated.step.npz",
+        "out/enclosure-pump-retainer/hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step",
+        "out/enclosure-pump-retainer/hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step.mesh",
+        "out/enclosure-pump-retainer/hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step.npz",
+        "out/enclosure-pump-retainer/hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.stl",
+    ],
+    cmd = """
+set -e
+case "$$(uname -s)" in
+  Darwin)
+    copy_mask=$$((8#$$(umask)))
+    copy_bits=("" x w wx r rx rw rwx)
+    copy_mode="u-$${copy_bits[$$((copy_mask >> 6 & 7))]},g-$${copy_bits[$$((copy_mask >> 3 & 7))]},o-$${copy_bits[$$((copy_mask & 7))]}"
+    copy_file() {
+      local copy_dest="$${!#}" copy_target copy_permissions="$$copy_mode"
+      if [ -e "$$copy_dest" ] || [ -L "$$copy_dest" ]; then
+        if [ ! -f "$$copy_dest" ] || [ -L "$$copy_dest" ]; then cp "$$@"; return; fi
+        copy_permissions=$$(stat -f %Lp "$$copy_dest")
+        copy_target=$$(mktemp "$$copy_dest.hsm-copy.XXXXXX")
+      else copy_target="$$copy_dest"; fi
+      if cp -c "$${@:1:$$(( $$# - 1 ))}" "$$copy_target" 2>/dev/null; then
+        chmod "$$copy_permissions" "$$copy_target"
+        touch "$$copy_target"
+        if [ "$$copy_target" != "$$copy_dest" ]; then mv -f "$$copy_target" "$$copy_dest"; fi
+      else rm -f "$$copy_target"; cp "$$@"; fi
+    };;
+  *) copy_file() { cp "$$@"; };;
+esac
+hsm_run=
+for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
+  if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
+done
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+O0=$$PWD/$(location out/enclosure-pump-retainer/hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer-seated.step)
+O1=$$PWD/$(location out/enclosure-pump-retainer/hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer-seated.step.mesh)
+O2=$$PWD/$(location out/enclosure-pump-retainer/hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer-seated.step.npz)
+O3=$$PWD/$(location out/enclosure-pump-retainer/hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step)
+O4=$$PWD/$(location out/enclosure-pump-retainer/hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step.mesh)
+O5=$$PWD/$(location out/enclosure-pump-retainer/hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step.npz)
+O6=$$PWD/$(location out/enclosure-pump-retainer/hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.stl)
+rm -rf work
+for f in $(SRCS); do
+  case $$f in
+    */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
+    *) t=$$f;;
+  esac
+  mkdir -p "work/$$(dirname "$$t")"; copy_file -L "$$f" "work/$$t"
+done
+cd work
+"$$hsm_run" -- ./enclosure-pump-retainer > /dev/null
+copy_file hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer-seated.step "$$O0"
+copy_file hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer-seated.step.mesh "$$O1"
+copy_file hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer-seated.step.npz "$$O2"
+copy_file hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step "$$O3"
+copy_file hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step.mesh "$$O4"
+copy_file hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step.npz "$$O5"
+copy_file hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.stl "$$O6"
+""",
+)
+
+genrule(
+    name = "enclosure-pump-tube-setting-jig-program",
+    srcs = [
+        "hardware/manifold-layout/above-core.json",
+        "hardware/printed-parts/enclosure/enclosure/disposal-warning-artwork.json",
+        "hardware/printed-parts/enclosure/enclosure/dock-numbers/lib.rs",
+        "hardware/printed-parts/enclosure/enclosure/enclosure_presentation/quadric.rs",
+        "hardware/printed-parts/enclosure/enclosure/enclosure_pump_tube_setting_jig.rs",
+        "hardware/printed-parts/enclosure/enclosure/numbers/catalog.rs",
+        "hardware/printed-parts/enclosure/enclosure/numbers/disposal.rs",
+        "hardware/printed-parts/enclosure/enclosure/numbers/faces.rs",
+        "hardware/printed-parts/enclosure/enclosure/numbers/field.rs",
+        "hardware/printed-parts/enclosure/enclosure/numbers/layout.rs",
+        "hardware/printed-parts/enclosure/enclosure/numbers/lib.rs",
+        "hardware/printed-parts/enclosure/enclosure/numbers/pump.rs",
+        "hardware/printed-parts/enclosure/enclosure/numbers/quadrant.rs",
+        "hardware/printed-parts/enclosure/enclosure/numbers/rear_wall.rs",
+        "hardware/printed-parts/enclosure/enclosure/numbers/shell.rs",
+        "hardware/printed-parts/enclosure/enclosure/numbers/spec.rs",
+        "hardware/printed-parts/enclosure/enclosure/numbers/structure.rs",
+        "hardware/printed-parts/enclosure/enclosure/solid/eval.rs",
+        "hardware/printed-parts/enclosure/enclosure/solid/letters.rs",
+        "hardware/printed-parts/enclosure/enclosure/solid/lib.rs",
+        "hardware/printed-parts/enclosure/enclosure/solid/ops.rs",
+        "hardware/printed-parts/enclosure/enclosure/solid/pieces.rs",
+        "hardware/printed-parts/enclosure/enclosure/solid/plan.rs",
+        "hardware/printed-parts/enclosure/enclosure/solid/presentation.rs",
+        "hardware/printed-parts/enclosure/enclosure/solid/run.rs",
+        "hardware/printed-parts/enclosure/enclosure/solid/skin.rs",
+        "hardware/printed-parts/enclosure/enclosure/solid/sources.rs",
+        "hardware/printed-parts/enclosure/enclosure/solid/structure.rs",
+        "hardware/printed-parts/enclosure/enclosure/solid/text.rs",
+        "hardware/printed-parts/enclosure/nameplate/snap_geometry.rs",
+        "hardware/reference/jg-pp0208e-tee/branch-operating-measurements.json",
+        "hardware/reference/neofit-stem-elbow/reference-parameters.json",
+        "tools/hsm/Cargo.lock",
+        "tools/hsm/Cargo.toml",
+        "tools/hsm/enclosure-dock-numbers/Cargo.toml",
+        "tools/hsm/enclosure-numbers/Cargo.toml",
+        "tools/hsm/enclosure-pump-tube-setting-jig/Cargo.toml",
+        "tools/hsm/enclosure-solid/Cargo.toml",
+        "tools/hsm/geometry/Cargo.toml",
+        "tools/hsm/geometry/src/lib.rs",
+        "tools/hsm/geometry/src/payload.rs",
+        "tools/hsm/geometry/src/queries.rs",
+        "tools/hsm/kernel/Cargo.toml",
+        "tools/hsm/kernel/src/boolean.rs",
+        "tools/hsm/kernel/src/build.rs",
+        "tools/hsm/kernel/src/dxf.rs",
+        "tools/hsm/kernel/src/edge.rs",
+        "tools/hsm/kernel/src/face.rs",
+        "tools/hsm/kernel/src/import.rs",
+        "tools/hsm/kernel/src/lib.rs",
+        "tools/hsm/kernel/src/mapped.rs",
+        "tools/hsm/kernel/src/mass.rs",
+        "tools/hsm/kernel/src/math.rs",
+        "tools/hsm/kernel/src/part.rs",
+        "tools/hsm/kernel/src/plane.rs",
+        "tools/hsm/kernel/src/profile.rs",
+        "tools/hsm/kernel/src/reads.rs",
+        "tools/hsm/kernel/src/round.rs",
+        "tools/hsm/kernel/src/round/rolled.rs",
+        "tools/hsm/kernel/src/rule.rs",
+        "tools/hsm/kernel/src/screw.rs",
+        "tools/hsm/kernel/src/sketch_hull.rs",
+        "tools/hsm/kernel/src/solid.rs",
+        "tools/hsm/kernel/src/spline.rs",
+        "tools/hsm/kernel/src/step.rs",
+        "tools/hsm/kernel/src/step/analytic.rs",
+        "tools/hsm/kernel/src/sweep.rs",
+        "tools/hsm/kernel/src/text.rs",
+        "tools/hsm/kernel/src/thru.rs",
+        "tools/hsm/kernel/src/topo.rs",
+        "tools/hsm/kernel/src/triangulate.rs",
+        "tools/hsm/kernel/src/write.rs",
+        "tools/hsm/run-native/Cargo.toml",
+        "tools/hsm/run-native/src/lib.rs",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/hsm/run-slots/Cargo.toml",
+        "tools/hsm/run-slots/src/ipc.rs",
+        "tools/hsm/run-slots/src/lib.rs",
+        "tools/hsm/run-slots/src/main.rs",
+        "tools/hsm/run-slots/src/runtime.rs",
+        "tools/hsm/run-slots/src/runtime/cad.rs",
+        "tools/hsm/run-slots/src/runtime/install.rs",
+        "tools/hsm/run-slots/src/runtime/runner.rs",
+        "tools/hsm/run-slots/src/runtime/slots.rs",
+        "tools/hsm/shared-data/catalog/materials.json",
+        "tools/hsm/shared-data/catalog/scalars.json",
+        "tools/hsm/vendor/manifold-csg-sys/.cargo_vcs_info.json",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.lock",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.toml",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.toml.orig",
+        "tools/hsm/vendor/manifold-csg-sys/LICENSE-APACHE",
+        "tools/hsm/vendor/manifold-csg-sys/LICENSE-MIT",
+        "tools/hsm/vendor/manifold-csg-sys/README.md",
+        "tools/hsm/vendor/manifold-csg-sys/build.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/build.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/fetch.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/patch.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/wasm.rs",
+        "tools/hsm/vendor/manifold-csg-sys/cache-version",
+        "tools/hsm/vendor/manifold-csg-sys/patches/README.md",
+        "tools/hsm/vendor/manifold-csg-sys/src/lib.rs",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/CMakeLists.txt",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/diagnose.sh",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/__assertion_handler",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/__config_site",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/memory",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/mutex",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/libcxx-extras.cpp",
+    ],
+    outs = ["out/enclosure-pump-tube-setting-jig-program/enclosure-pump-tube-setting-jig"],
+    tags = ["no-sandbox"],
+    cmd = """
+set -e
+case "$$(uname -s)" in
+  Darwin)
+    copy_mask=$$((8#$$(umask)))
+    copy_bits=("" x w wx r rx rw rwx)
+    copy_mode="u-$${copy_bits[$$((copy_mask >> 6 & 7))]},g-$${copy_bits[$$((copy_mask >> 3 & 7))]},o-$${copy_bits[$$((copy_mask & 7))]}"
+    copy_file() {
+      local copy_dest="$${!#}" copy_target copy_permissions="$$copy_mode"
+      if [ -e "$$copy_dest" ] || [ -L "$$copy_dest" ]; then
+        if [ ! -f "$$copy_dest" ] || [ -L "$$copy_dest" ]; then cp "$$@"; return; fi
+        copy_permissions=$$(stat -f %Lp "$$copy_dest")
+        copy_target=$$(mktemp "$$copy_dest.hsm-copy.XXXXXX")
+      else copy_target="$$copy_dest"; fi
+      if cp -c "$${@:1:$$(( $$# - 1 ))}" "$$copy_target" 2>/dev/null; then
+        chmod "$$copy_permissions" "$$copy_target"
+        touch "$$copy_target"
+        if [ "$$copy_target" != "$$copy_dest" ]; then mv -f "$$copy_target" "$$copy_dest"; fi
+      else rm -f "$$copy_target"; cp "$$@"; fi
+    };;
+  *) copy_file() { cp "$$@"; };;
+esac
+hsm_run=
+for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
+  if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
+done
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+cargo=$$(command -v cargo || true)
+for c in "$$cargo" /opt/homebrew/opt/rustup/bin/cargo ~/.cargo/bin/cargo; do if [ -x "$$c" ]; then cargo=$$c; break; fi; done
+if [ ! -x "$$cargo" ]; then echo "cargo is not installed (https://rustup.rs)" >&2; exit 1; fi
+export HOME=~ PATH="$$(dirname "$$cargo"):$$PATH"
+O0=$$PWD/$(location out/enclosure-pump-tube-setting-jig-program/enclosure-pump-tube-setting-jig)
+cd "$$HSM_WORKSPACE/tools/hsm"
+CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet --manifest-path enclosure-pump-tube-setting-jig/Cargo.toml --bin enclosure-pump-tube-setting-jig
+copy_file target/release/enclosure-pump-tube-setting-jig "$$O0"
+""",
+)
+
+genrule(
+    name = "enclosure-pump-tube-setting-jig",
+    srcs = [
+        ":out/enclosure-pump-tube-setting-jig-program/enclosure-pump-tube-setting-jig",
+        ":out/enclosure-box/hardware/manifold-layout/enclosure-box.json",
+    ],
+    outs = [
+        "out/enclosure-pump-tube-setting-jig/hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step",
+        "out/enclosure-pump-tube-setting-jig/hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step.mesh",
+        "out/enclosure-pump-tube-setting-jig/hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step.npz",
+        "out/enclosure-pump-tube-setting-jig/hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.stl",
+    ],
+    cmd = """
+set -e
+case "$$(uname -s)" in
+  Darwin)
+    copy_mask=$$((8#$$(umask)))
+    copy_bits=("" x w wx r rx rw rwx)
+    copy_mode="u-$${copy_bits[$$((copy_mask >> 6 & 7))]},g-$${copy_bits[$$((copy_mask >> 3 & 7))]},o-$${copy_bits[$$((copy_mask & 7))]}"
+    copy_file() {
+      local copy_dest="$${!#}" copy_target copy_permissions="$$copy_mode"
+      if [ -e "$$copy_dest" ] || [ -L "$$copy_dest" ]; then
+        if [ ! -f "$$copy_dest" ] || [ -L "$$copy_dest" ]; then cp "$$@"; return; fi
+        copy_permissions=$$(stat -f %Lp "$$copy_dest")
+        copy_target=$$(mktemp "$$copy_dest.hsm-copy.XXXXXX")
+      else copy_target="$$copy_dest"; fi
+      if cp -c "$${@:1:$$(( $$# - 1 ))}" "$$copy_target" 2>/dev/null; then
+        chmod "$$copy_permissions" "$$copy_target"
+        touch "$$copy_target"
+        if [ "$$copy_target" != "$$copy_dest" ]; then mv -f "$$copy_target" "$$copy_dest"; fi
+      else rm -f "$$copy_target"; cp "$$@"; fi
+    };;
+  *) copy_file() { cp "$$@"; };;
+esac
+hsm_run=
+for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
+  if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
+done
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+O0=$$PWD/$(location out/enclosure-pump-tube-setting-jig/hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step)
+O1=$$PWD/$(location out/enclosure-pump-tube-setting-jig/hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step.mesh)
+O2=$$PWD/$(location out/enclosure-pump-tube-setting-jig/hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step.npz)
+O3=$$PWD/$(location out/enclosure-pump-tube-setting-jig/hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.stl)
+rm -rf work
+for f in $(SRCS); do
+  case $$f in
+    */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
+    *) t=$$f;;
+  esac
+  mkdir -p "work/$$(dirname "$$t")"; copy_file -L "$$f" "work/$$t"
+done
+cd work
+"$$hsm_run" -- ./enclosure-pump-tube-setting-jig > /dev/null
+copy_file hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step "$$O0"
+copy_file hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step.mesh "$$O1"
+copy_file hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step.npz "$$O2"
+copy_file hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.stl "$$O3"
 """,
 )
 
@@ -16692,16 +17950,16 @@ genrule(
         "hardware/printed-parts/enclosure/enclosure/_nameplate_wing_interface.py",
         "hardware/printed-parts/enclosure/enclosure/_rust_enclosure_checks.py",
         "hardware/printed-parts/enclosure/enclosure/_swept_top.py",
-        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step",
-        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.npz",
-        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step",
-        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.npz",
-        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step",
-        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.npz",
-        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step",
-        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.npz",
-        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step",
-        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step.npz",
+        ":out/enclosure-back-bottom/hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step",
+        ":out/enclosure-back-bottom/hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.npz",
+        ":out/enclosure-back-top/hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step",
+        ":out/enclosure-back-top/hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.npz",
+        ":out/enclosure-front-bottom/hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step",
+        ":out/enclosure-front-bottom/hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.npz",
+        ":out/enclosure-front-top/hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step",
+        ":out/enclosure-front-top/hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.npz",
+        ":out/enclosure-pump-retainer/hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step",
+        ":out/enclosure-pump-retainer/hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step.npz",
         "hardware/printed-parts/enclosure/enclosure/enclosure.py",
         "hardware/printed-parts/enclosure/enclosure/enclosure_checks.rs",
         "hardware/printed-parts/enclosure/enclosure/enclosure_presentation.rs",
@@ -20154,6 +21412,12 @@ filegroup(
         ":display-cover",
         ":display-gasket",
         ":enclosure",
+        ":enclosure-back-bottom",
+        ":enclosure-back-top",
+        ":enclosure-front-bottom",
+        ":enclosure-front-top",
+        ":enclosure-pump-retainer",
+        ":enclosure-pump-tube-setting-jig",
         ":nameplate",
         ":rear-equipment-caps",
         ":rear-identification",
