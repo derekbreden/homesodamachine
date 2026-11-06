@@ -1,0 +1,159 @@
+{
+  "views": [
+    {
+      "name": "covered-bores",
+      "caption": "Covered bulkhead passages retain their round clearance and gain pointed print roofs.",
+      "before": "covered-bores-before.webp",
+      "after": "covered-bores-after.webp",
+      "width": 1000,
+      "height": 860,
+      "marks": [
+        {
+          "x": 301.2,
+          "y": 336.9,
+          "r": 42.3,
+          "label": "Print roof",
+          "at": [
+            76.5,
+            469,
+            323
+          ]
+        }
+      ],
+      "model": "printed-parts/enclosure/enclosure/enclosure-back-top.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          53,
+          591.7106781186548,
+          312
+        ],
+        "target": [
+          53,
+          471,
+          312
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "fov": 45,
+        "near": 16.098263983050145,
+        "far": 664.7323074579253,
+        "aspect": 1.1627906976744187
+      },
+      "highlight": [
+        "enclosure-back-top"
+      ],
+      "ghost": [],
+      "only": [],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh",
+          "from": "snapshot",
+          "sha256": "07a6bb3c376e05c1a2edb52abddd3be1d550812ec02f03635f54fc227a633afa",
+          "commit": "ead018c20d1d1045473d604e2c88f2731121f714",
+          "taken": "2026-11-06T18:35:57.964Z",
+          "published": true
+        },
+        "after": {
+          "payload": "printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh",
+          "from": "tree",
+          "sha256": "15979a25795728247b6e9143525573f4c9a6933bfd401a1fea3dca48e1ca6175",
+          "commit": "4a9a93ce0b09ea95898ffed1774cc83591096fbc",
+          "published": true
+        }
+      },
+      "changed": [
+        "enclosure-back-top"
+      ],
+      "withinMeshing": []
+    },
+    {
+      "name": "vent-cap",
+      "caption": "The vent cap grows from its wall root as a printable chamfer. The short mouth lip bridges between its side walls.",
+      "before": "vent-cap-before.webp",
+      "after": "vent-cap-after.webp",
+      "width": 1000,
+      "height": 860,
+      "marks": [
+        {
+          "x": 534.4,
+          "y": 206.4,
+          "r": 86,
+          "label": "Rooted cap",
+          "at": [
+            -94,
+            323.8,
+            215
+          ]
+        }
+      ],
+      "model": "printed-parts/enclosure/enclosure/enclosure-back-top.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          -96,
+          263.44466094067263,
+          202
+        ],
+        "target": [
+          -96,
+          323.8,
+          202
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "fov": 45,
+        "near": 0.2664810002398481,
+        "far": 532.399911489078,
+        "aspect": 1.1627906976744187,
+        "section": {
+          "at": [
+            0,
+            323.8,
+            0
+          ],
+          "normal": [
+            0,
+            -1,
+            0
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [
+        "enclosure-back-top"
+      ],
+      "ghost": [],
+      "only": [],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh",
+          "from": "snapshot",
+          "sha256": "07a6bb3c376e05c1a2edb52abddd3be1d550812ec02f03635f54fc227a633afa",
+          "commit": "ead018c20d1d1045473d604e2c88f2731121f714",
+          "taken": "2026-11-06T18:35:57.964Z",
+          "published": true
+        },
+        "after": {
+          "payload": "printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh",
+          "from": "tree",
+          "sha256": "15979a25795728247b6e9143525573f4c9a6933bfd401a1fea3dca48e1ca6175",
+          "commit": "4a9a93ce0b09ea95898ffed1774cc83591096fbc",
+          "published": true
+        }
+      },
+      "changed": [
+        "enclosure-back-top"
+      ],
+      "withinMeshing": []
+    }
+  ]
+}
