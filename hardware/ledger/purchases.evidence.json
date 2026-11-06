@@ -8627,6 +8627,42 @@
       "source_ids": [
         "src-90bc01d9bacd48c7afd5ebe7ecbb72bd"
       ]
+    },
+    "pur-3161c146b8ef40e5817e13af4dc07846": {
+      "vendor": "Amazon",
+      "purpose": "equipment_tooling",
+      "amount_evidence": "estimate",
+      "order_ids": [
+        "amazon:112-1658930-0707414"
+      ],
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-35f369bc6e3446ec949a14ece09fd73d"
+      ]
+    },
+    "pur-7ebe706384b34c718af7af886e0988d7": {
+      "vendor": "Amazon",
+      "purpose": "equipment_tooling",
+      "amount_evidence": "estimate",
+      "order_ids": [
+        "amazon:112-6057627-7806613"
+      ],
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-31109b54fe584e64ba1562e2ae77d7af"
+      ]
+    },
+    "pur-24623d00c3e94898adf2465f7537b1bd": {
+      "vendor": "Amazon",
+      "purpose": "equipment_tooling",
+      "amount_evidence": "estimate",
+      "order_ids": [
+        "amazon:112-5039065-3785859"
+      ],
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-eed2cf5000974d36baf0375355543249"
+      ]
     }
   },
   "orders": {
@@ -14546,6 +14582,42 @@
       "allocation_status": "all_project",
       "source_ids": [
         "src-90bc01d9bacd48c7afd5ebe7ecbb72bd"
+      ]
+    },
+    "amazon:112-1658930-0707414": {
+      "vendor": "Amazon",
+      "reference": "112-1658930-0707414",
+      "order_date": {
+        "precision": "day",
+        "value": "2026-11-05"
+      },
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-35f369bc6e3446ec949a14ece09fd73d"
+      ]
+    },
+    "amazon:112-6057627-7806613": {
+      "vendor": "Amazon",
+      "reference": "112-6057627-7806613",
+      "order_date": {
+        "precision": "day",
+        "value": "2026-11-05"
+      },
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-31109b54fe584e64ba1562e2ae77d7af"
+      ]
+    },
+    "amazon:112-5039065-3785859": {
+      "vendor": "Amazon",
+      "reference": "112-5039065-3785859",
+      "order_date": {
+        "precision": "day",
+        "value": "2026-11-05"
+      },
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-eed2cf5000974d36baf0375355543249"
       ]
     }
   },
@@ -30056,6 +30128,51 @@
       ],
       "verified_at": "2026-11-05",
       "note": "Signed-in Amazon order details: ordered 2026-11-05; Etoolia 6 Pack Heavy Duty Garage Bike Storage and Utility Hooks, 5.7 inches (B08GYMXKPY) × 1 at USD 6.99, sold by E-Tools Store, arriving 2026-11-07. USD 6.99 item subtotal, USD 0.00 shipping, USD 0.51 estimated tax and USD 7.50 grand total."
+    },
+    "src-35f369bc6e3446ec949a14ece09fd73d": {
+      "vendor": "Amazon",
+      "document_type": "order_details",
+      "reference": "112-1658930-0707414",
+      "document_date": {
+        "precision": "day",
+        "value": "2026-11-05"
+      },
+      "proves": [
+        "order_date",
+        "price"
+      ],
+      "verified_at": "2026-11-05",
+      "note": "Signed-in Amazon order details: ordered 2026-11-05; Shelly 1 Mini Gen4 Smart Relay Switch, Wi-Fi, Matter & Zigbee, 1-Channel 8A, Dry Contacts (B0DZHZDJXT) × 1 at USD 24.98, sold by Shelly USA, arriving 2026-11-07. USD 24.98 item subtotal, USD 0.00 shipping, USD 1.81 estimated tax and USD 26.79 grand total."
+    },
+    "src-31109b54fe584e64ba1562e2ae77d7af": {
+      "vendor": "Amazon",
+      "document_type": "order_details",
+      "reference": "112-6057627-7806613",
+      "document_date": {
+        "precision": "day",
+        "value": "2026-11-05"
+      },
+      "proves": [
+        "order_date",
+        "price"
+      ],
+      "verified_at": "2026-11-05",
+      "note": "Signed-in Amazon order details: ordered 2026-11-05; nVent Gardner Bender PS915143, 9 ft, 14/3 SJTW Appliance Power Cord, 15A/125V (B07BQ8PY21) × 1 at USD 10.59, sold by Amazon.com, arriving 2026-11-07. USD 10.59 item subtotal, USD 0.00 shipping, USD 0.77 estimated tax and USD 11.36 grand total."
+    },
+    "src-eed2cf5000974d36baf0375355543249": {
+      "vendor": "Amazon",
+      "document_type": "order_details",
+      "reference": "112-5039065-3785859",
+      "document_date": {
+        "precision": "day",
+        "value": "2026-11-05"
+      },
+      "proves": [
+        "order_date",
+        "price"
+      ],
+      "verified_at": "2026-11-05",
+      "note": "Signed-in Amazon order details: ordered 2026-11-05; LISTENJIALE 50 pcs adjustable 3-16mm waterproof cable glands, PG7 PG9 PG11 PG13.5 PG16 PG19 (B09Z24H77M) × 1 at USD 12.99, sold by ListenJiaLe, arriving 2026-11-07. USD 12.99 item subtotal, USD 0.00 shipping, USD 0.94 estimated tax and USD 13.93 grand total."
     }
   },
   "coverage": [
