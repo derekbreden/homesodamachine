@@ -19,7 +19,7 @@
     "exposed_pass": 1
   },
   "source_sha256": {
-    "hardware/printed-parts/enclosure/enclosure/retainer/retainer.rs": "9486e0f606d9dfac65be607d249d5cfa8bfc7780f65757b593d5582bf2f58ddd",
+    "hardware/printed-parts/enclosure/enclosure/retainer/retainer.rs": "f303b4af303ee03bb0d8c77cbb4588ece8077eb6612415f3f03c8cb959fa4994",
     "hardware/reference/kamoer-kphm400/scan-registration.json": "4a8a89c6caf7dd60af29b71a646b8a6f954ea3e0601c69a0d4e4165b90749114",
     "hardware/reference/kamoer-kphm400/scan-measurements.json": "4389eeb0fd000242ee69efa903d60269a6e8e9497c7235d8d48187d5cf9075a9",
     "hardware/manifold-layout/enclosure-box.json": "e25ca2be5c46310082f002a72a9a9f20c08bee4af1e634e065de87d848c3ad3b",
@@ -28,20 +28,20 @@
     "hardware/printed-parts/enclosure/enclosure/numbers/shell.rs": "95ddbe827f215a7f3d8c024ea15258d9cf0f43e1c2bd7468b5505490f7a73b05"
   },
   "artifact_sha256": {
-    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.stl": "1e2b2a86cf98bc3c745093e17fa3fc41d921e0d67eed506471b4b8947e4224a2",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step": "66bdbd3bd180a371008da8ad956ab59c88a4d1fa7239229759231f0217c122da",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step.mesh": "572006b3858aae3e12f6080b57597cdf1296e140cbb99b2a4a152f4b6eae466d",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer-seated.step": "19e3d77dc1e1aa709e36eb4e8e241d4a23746fa3276ed07a96f4329e4ceba90b",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer-seated.step.npz": "9c85b8738f53051518095bee743ca7ad5be047c5071658b6315ab4037bd6c2e1",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer-seated.step.mesh": "002bbe82945ac794199d1b1d6476d0088cb627d395cf600e21323df244d6bec9"
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.stl": "c88b02141986bdae52b92b8d5af890856ae55de43247525dbec4f64e71b1cb37",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step": "b72be19c5c32ade44f94d23eb1f9913ed52b98917eaf41366de4df14a7dc08e0",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step.mesh": "c121f5f7bdc688670f0f9b8fd62c146c94c5eb124d292e633d31752fc083031f",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer-seated.step": "f814cef3190d72a69e966591b1a30d0226a82f0ad8cd1bcb12f475d3e8775e97",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer-seated.step.npz": "2605568f371cde2c3bbf8172bb4a7d62c898d53bf2833fb7a7afc0e9e9ce38f5",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer-seated.step.mesh": "8e986e3ed90807382a42ca92c5c8a612ad0c64f6bf7c3d677b75b22d0ea9d461"
   },
   "correction": {
     "fitted_body_aft_y_mm": 27.45,
     "new_full_opening_aft_y_mm": 27.95,
     "retained_skirt_opening_aft_y_mm": 27.028,
     "full_relief_native_z_mm": -20,
-    "removed_volume_mm3": 3418.5702388418613,
-    "added_volume_mm3": 1.4487425990713139e-06,
+    "removed_volume_mm3": 3836.1958749225737,
+    "added_volume_mm3": 0.0,
     "closed_oriented_body": true,
     "body_count": 1,
     "old_bounds_mm": [
@@ -71,12 +71,12 @@
     "skirt_land_world_z_mm": 216.674,
     "boolean_triangle_bounds_including_zero_volume_sheets_mm": [
       [
-        -87.625,
+        -88.7249984741211,
         72.88700103759766,
         175.19500732421875
       ],
       [
-        87.625,
+        88.7249984741211,
         82.26499938964844,
         216.6739959716797
       ]
@@ -84,7 +84,8 @@
     "full_relief_machine_y_mm": 73.809,
     "numeric_volume_tolerance_mm3": 0.0001,
     "aft_wall_stock_mm": 8.456000000000003,
-    "retained_spring_root_margin_mm": 5.275000000000006,
+    "retained_spring_root_margin_mm": 4.175000000000011,
+    "outlet_span_half_width_mm": 36.5,
     "air_mm": {
       "running": 0.25,
       "supported_face": 0.25
