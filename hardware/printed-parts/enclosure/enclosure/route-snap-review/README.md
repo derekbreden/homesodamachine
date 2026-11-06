@@ -4,13 +4,11 @@ Back-top carries simple integral clips for accessible straight tube and cable
 runs. Their filled roots join the existing roof or wall, with open mouths for
 installation and release. Tube and wire runs seat directly in the printed part.
 
-The [tube-site provider](../_tube_snap_sites.py) supplies each route, straight
-segment, host plane, installation order and section. The
+The [routes recipe](../recipe/routes.rs) holds each tube seat's straight, host plane and
+section, and builds the seats and hooks. The
 [cable-site provider](../../../../wiring/installed/retainers.py) supplies each
-hook's frame, retained conductors and local route dressing.
-[The enclosure adapter](../_route_snaps.py) constructs these additions with the
-shared [native profiles](../../../cadlib/route_snap.py). Positions belong to
-those providers rather than a second coordinate table here.
+hook's frame, retained conductors and local route dressing. Positions belong to
+those sources rather than a second coordinate table here.
 
 ## Selected tube runs
 
@@ -34,8 +32,7 @@ Seat the flavor tubes upward from below while back-top is open, keeping the
 vent clear of their loading approaches. Flavor A connects V-G to the east
 rear socket at X77.5; flavor B connects V-J to the west socket at X37.25.
 Keep those logical identities through the collars and faucet umbilical.
-Seat `fluid-14` before `fluid-16`. The provider's
-`install_before` entries are the installation-order source.
+Seat `fluid-14` before `fluid-16`.
 
 Reservoir A's fore pair uses two integral C2 clips on the
 [cold-core lid](../../../cold-core/foam-cap/README.md), with 13.5 mm centre spacing
@@ -82,7 +79,7 @@ the coupon archive does not establish those properties for the complete shell.
 Release attached tubes and cables from the clips before sliding back-top during
 opening. Support the free runs while separating the existing inter-quadrant
 connections described in the [wiring sequence](../../../../assembly/wiring.md).
-Re-seat the runs in the provider's installation order when assembling. Open
+Re-seat the runs in the installation order above when assembling. Open
 mouths provide the release access; no additional tool pocket is part of these
 routing clips.
 

@@ -1,5 +1,5 @@
 [workspace]
-members = ["geometry", "engine", "kernel", "render", "refrigeration", "cold-core", "faucet", "funnel", "run-slots", "run-native", "machine", "enclosure-components", "enclosure-shell", "tooling", "documents", "ledger", "assembly-docs", "cold-core-data", "faucet-data", "enclosure-data", "machine-data", "part-data", "layout-data", "shared-data", "guides", "guide-native", "build-data", "build-plan"]
+members = ["geometry", "engine", "kernel", "render", "refrigeration", "cold-core", "faucet", "funnel", "run-slots", "run-native", "machine", "enclosure-components", "enclosure-shell", "tooling", "documents", "ledger", "assembly-docs", "cold-core-data", "faucet-data", "enclosure-data", "machine-data", "part-data", "layout-data", "shared-data", "guides", "guide-native", "build-data", "build-plan", "model-export", "enclosure-solid", "enclosure"]
 resolver = "2"
 exclude = ["vendor/manifold-csg-sys"]
 

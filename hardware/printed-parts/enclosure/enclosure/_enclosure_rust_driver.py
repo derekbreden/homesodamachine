@@ -1,4 +1,4 @@
-"""Normal enclosure construction from scalar recipes and ordered fine-model references."""
+"""The enclosure's Box from the placement plan, and the parts installed in it."""
 from __future__ import annotations
 
 import sys as _sys
@@ -24,6 +24,3 @@ def __getattr__(name):
 
 from _enclosure_compiled import install as _install
 _install(_sys.modules[__name__])
-
-if __name__ == "__main__":
-    _compiled('_enclosure_rust_driver', action="main")

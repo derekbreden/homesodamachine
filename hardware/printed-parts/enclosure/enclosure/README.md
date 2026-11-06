@@ -68,13 +68,12 @@ Each root follows its outermost valve row. The staggered aft tray's lower band a
 its foot run below, inset on the lip's own face. The ring's front segment across
 the flat span is the pump mount's (`_front_flat_lip_drop`): its underside loading
 opening and retainer occupy that run, so the flat front carries no lip there.
-`main()` prints each seam, how it landed, and the band the bed allowed it.
 
-`enclosure.py` exports the four printable pieces (`enclosure-front-bottom`,
-`enclosure-front-top`, `enclosure-back-bottom`, `enclosure-back-top`), the underside
-pump retainer `enclosure-pump-retainer`, and
-`enclosure.step` — all of them as separate solids in assembled position, seams
-intact (mirrors `faucet/faucet-shell`).
+The enclosure program, [`enclosure.rs`](enclosure.rs), cuts the four printable pieces
+(`enclosure-front-bottom`, `enclosure-front-top`, `enclosure-back-bottom`,
+`enclosure-back-top`), the underside pump retainer `enclosure-pump-retainer` and the pump
+tube-setting jig, then `enclosure.step`: the pieces as separate solids in assembled position,
+seams intact, with the pump dock's tees and elbows (mirrors `faucet/faucet-shell`).
 
 ## Seams + corner stacks
 
@@ -392,7 +391,7 @@ about the pieces — what each has to carry, and what a hand reaches when the fr
 assembly is off.
 
 `rear_seam_clear` is the single source for the +Y wall: `enclosure_assembly` seats the
-rear-wall bodies against it and `enclosure.py` builds the box to it, so the wall
+rear-wall bodies against it and the declared Box the pieces are cut from is built to it, so the wall
 the bulkheads mount through and the wall the box is built to cannot drift apart.
 
 PET-GF bulkhead rings retain their flush front poses, with 0.15 mm behind each ring.
@@ -1359,8 +1358,10 @@ silhouette; the wall and component datums stay fixed.
 
 ## Regenerate
 
-`tools/cad-venv/bin/python hardware/printed-parts/enclosure/enclosure/enclosure.py`
-→ the four `enclosure-*.step` pieces + `enclosure.step`. Wall, seam, boss, and
-facet constants are at the top of `enclosure.py`. Prints the facet size, the
-Y seam's corner stacks and screws, each piece's envelope vs. the H2C
-bed, every piece-pair's slip fit, and the cold-core clearance.
+    python3 tools/run.py -- cargo build --release --locked --manifest-path tools/hsm/Cargo.toml -p hsm-enclosure --bin enclosure
+    python3 tools/run.py -- tools/hsm/target/release/enclosure
+
+→ every printed piece's `.step`, `.step.npz`, `.step.mesh` and `.stl`, then `enclosure.step`,
+from the declared Box. `--piece <piece>` cuts only the pieces it names. The recipes are typed
+Rust in [`recipe/`](recipe/), with the wall, seam and boss constants in
+[`recipe/shell.rs`](recipe/shell.rs); [`solid/`](solid/) evaluates them and writes the files.

@@ -13,28 +13,16 @@ mod _display_retention;
 mod _display_wing_interface;
 #[path = "_disposal_artwork.rs"]
 mod _disposal_artwork;
-#[path = "_enclosure_back_top.rs"]
-mod _enclosure_back_top;
 #[path = "_enclosure_datums.rs"]
 mod _enclosure_datums;
 #[path = "_enclosure_dimensions.rs"]
 mod _enclosure_dimensions;
-#[path = "_enclosure_front_bottom.rs"]
-mod _enclosure_front_bottom;
-#[path = "_enclosure_front_top.rs"]
-mod _enclosure_front_top;
 #[path = "_enclosure_interface.rs"]
 mod _enclosure_interface;
 #[path = "_enclosure_panel.rs"]
 mod _enclosure_panel;
-#[path = "_enclosure_presentation.rs"]
-mod _enclosure_presentation;
-#[path = "_enclosure_pump_retainer.rs"]
-mod _enclosure_pump_retainer;
 #[path = "_enclosure_rust_driver.rs"]
 mod _enclosure_rust_driver;
-#[path = "_enclosure_skin.rs"]
-mod _enclosure_skin;
 #[path = "_enclosure_structure.rs"]
 mod _enclosure_structure;
 #[path = "_fixed_pump_mount.rs"]
@@ -47,16 +35,12 @@ mod _nameplate_dimensions;
 mod _nameplate_interface;
 #[path = "_nameplate_wing_interface.rs"]
 mod _nameplate_wing_interface;
-#[path = "_route_snaps.rs"]
-mod _route_snaps;
 #[path = "_rust_enclosure_checks.rs"]
 mod _rust_enclosure_checks;
 #[path = "_rust_enclosure_presentation.rs"]
 mod _rust_enclosure_presentation;
 #[path = "_swept_top.rs"]
 mod _swept_top;
-#[path = "_tube_snap_sites.rs"]
-mod _tube_snap_sites;
 #[path = "_y_wall_dimensions.rs"]
 mod _y_wall_dimensions;
 #[path = "bulkhead_ring.rs"]
@@ -106,20 +90,11 @@ pub fn source(name: &str) -> Option<&'static str> {
         "_disposal_artwork" => {
             Some("hardware/printed-parts/enclosure/enclosure/_disposal_artwork.py")
         }
-        "_enclosure_back_top" => {
-            Some("hardware/printed-parts/enclosure/enclosure/_enclosure_back_top.py")
-        }
         "_enclosure_datums" => {
             Some("hardware/printed-parts/enclosure/enclosure/_enclosure_datums.py")
         }
         "_enclosure_dimensions" => {
             Some("hardware/printed-parts/enclosure/_enclosure_dimensions.py")
-        }
-        "_enclosure_front_bottom" => {
-            Some("hardware/printed-parts/enclosure/enclosure/_enclosure_front_bottom.py")
-        }
-        "_enclosure_front_top" => {
-            Some("hardware/printed-parts/enclosure/enclosure/_enclosure_front_top.py")
         }
         "_enclosure_interface" => {
             Some("hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py")
@@ -127,16 +102,9 @@ pub fn source(name: &str) -> Option<&'static str> {
         "_enclosure_panel" => {
             Some("hardware/printed-parts/enclosure/enclosure/_enclosure_panel.py")
         }
-        "_enclosure_presentation" => {
-            Some("hardware/printed-parts/enclosure/enclosure/_enclosure_presentation.py")
-        }
-        "_enclosure_pump_retainer" => {
-            Some("hardware/printed-parts/enclosure/enclosure/_enclosure_pump_retainer.py")
-        }
         "_enclosure_rust_driver" => {
             Some("hardware/printed-parts/enclosure/enclosure/_enclosure_rust_driver.py")
         }
-        "_enclosure_skin" => Some("hardware/printed-parts/enclosure/enclosure/_enclosure_skin.py"),
         "_enclosure_structure" => {
             Some("hardware/printed-parts/enclosure/enclosure/_enclosure_structure.py")
         }
@@ -153,7 +121,6 @@ pub fn source(name: &str) -> Option<&'static str> {
         "_nameplate_wing_interface" => {
             Some("hardware/printed-parts/enclosure/enclosure/_nameplate_wing_interface.py")
         }
-        "_route_snaps" => Some("hardware/printed-parts/enclosure/enclosure/_route_snaps.py"),
         "_rust_enclosure_checks" => {
             Some("hardware/printed-parts/enclosure/enclosure/_rust_enclosure_checks.py")
         }
@@ -161,9 +128,6 @@ pub fn source(name: &str) -> Option<&'static str> {
             Some("hardware/printed-parts/enclosure/enclosure/_rust_enclosure_presentation.py")
         }
         "_swept_top" => Some("hardware/printed-parts/enclosure/enclosure/_swept_top.py"),
-        "_tube_snap_sites" => {
-            Some("hardware/printed-parts/enclosure/enclosure/_tube_snap_sites.py")
-        }
         "_y_wall_dimensions" => {
             Some("hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py")
         }
@@ -198,28 +162,20 @@ pub fn initialize(rt: Runtime, e: Env, name: &str) -> Result<()> {
         "_display_retention" => _display_retention::initialize(rt, e),
         "_display_wing_interface" => _display_wing_interface::initialize(rt, e),
         "_disposal_artwork" => _disposal_artwork::initialize(rt, e),
-        "_enclosure_back_top" => _enclosure_back_top::initialize(rt, e),
         "_enclosure_datums" => _enclosure_datums::initialize(rt, e),
         "_enclosure_dimensions" => _enclosure_dimensions::initialize(rt, e),
-        "_enclosure_front_bottom" => _enclosure_front_bottom::initialize(rt, e),
-        "_enclosure_front_top" => _enclosure_front_top::initialize(rt, e),
         "_enclosure_interface" => _enclosure_interface::initialize(rt, e),
         "_enclosure_panel" => _enclosure_panel::initialize(rt, e),
-        "_enclosure_presentation" => _enclosure_presentation::initialize(rt, e),
-        "_enclosure_pump_retainer" => _enclosure_pump_retainer::initialize(rt, e),
         "_enclosure_rust_driver" => _enclosure_rust_driver::initialize(rt, e),
-        "_enclosure_skin" => _enclosure_skin::initialize(rt, e),
         "_enclosure_structure" => _enclosure_structure::initialize(rt, e),
         "_fixed_pump_mount" => _fixed_pump_mount::initialize(rt, e),
         "_grip_interface" => _grip_interface::initialize(rt, e),
         "_nameplate_dimensions" => _nameplate_dimensions::initialize(rt, e),
         "_nameplate_interface" => _nameplate_interface::initialize(rt, e),
         "_nameplate_wing_interface" => _nameplate_wing_interface::initialize(rt, e),
-        "_route_snaps" => _route_snaps::initialize(rt, e),
         "_rust_enclosure_checks" => _rust_enclosure_checks::initialize(rt, e),
         "_rust_enclosure_presentation" => _rust_enclosure_presentation::initialize(rt, e),
         "_swept_top" => _swept_top::initialize(rt, e),
-        "_tube_snap_sites" => _tube_snap_sites::initialize(rt, e),
         "_y_wall_dimensions" => _y_wall_dimensions::initialize(rt, e),
         "bulkhead_ring" => bulkhead_ring::initialize(rt, e),
         "data_ring" => data_ring::initialize(rt, e),
@@ -246,28 +202,20 @@ pub fn entrypoint(rt: Runtime, e: Env, name: &str) -> Result<Val> {
         "_display_retention" => _display_retention::entrypoint(rt, e),
         "_display_wing_interface" => _display_wing_interface::entrypoint(rt, e),
         "_disposal_artwork" => _disposal_artwork::entrypoint(rt, e),
-        "_enclosure_back_top" => _enclosure_back_top::entrypoint(rt, e),
         "_enclosure_datums" => _enclosure_datums::entrypoint(rt, e),
         "_enclosure_dimensions" => _enclosure_dimensions::entrypoint(rt, e),
-        "_enclosure_front_bottom" => _enclosure_front_bottom::entrypoint(rt, e),
-        "_enclosure_front_top" => _enclosure_front_top::entrypoint(rt, e),
         "_enclosure_interface" => _enclosure_interface::entrypoint(rt, e),
         "_enclosure_panel" => _enclosure_panel::entrypoint(rt, e),
-        "_enclosure_presentation" => _enclosure_presentation::entrypoint(rt, e),
-        "_enclosure_pump_retainer" => _enclosure_pump_retainer::entrypoint(rt, e),
         "_enclosure_rust_driver" => _enclosure_rust_driver::entrypoint(rt, e),
-        "_enclosure_skin" => _enclosure_skin::entrypoint(rt, e),
         "_enclosure_structure" => _enclosure_structure::entrypoint(rt, e),
         "_fixed_pump_mount" => _fixed_pump_mount::entrypoint(rt, e),
         "_grip_interface" => _grip_interface::entrypoint(rt, e),
         "_nameplate_dimensions" => _nameplate_dimensions::entrypoint(rt, e),
         "_nameplate_interface" => _nameplate_interface::entrypoint(rt, e),
         "_nameplate_wing_interface" => _nameplate_wing_interface::entrypoint(rt, e),
-        "_route_snaps" => _route_snaps::entrypoint(rt, e),
         "_rust_enclosure_checks" => _rust_enclosure_checks::entrypoint(rt, e),
         "_rust_enclosure_presentation" => _rust_enclosure_presentation::entrypoint(rt, e),
         "_swept_top" => _swept_top::entrypoint(rt, e),
-        "_tube_snap_sites" => _tube_snap_sites::entrypoint(rt, e),
         "_y_wall_dimensions" => _y_wall_dimensions::entrypoint(rt, e),
         "bulkhead_ring" => bulkhead_ring::entrypoint(rt, e),
         "data_ring" => data_ring::entrypoint(rt, e),
@@ -310,22 +258,11 @@ pub fn by_path(path: &str) -> Option<&'static str> {
         p if p.ends_with("hardware/printed-parts/enclosure/enclosure/_disposal_artwork.py") => {
             Some("_disposal_artwork")
         }
-        p if p.ends_with("hardware/printed-parts/enclosure/enclosure/_enclosure_back_top.py") => {
-            Some("_enclosure_back_top")
-        }
         p if p.ends_with("hardware/printed-parts/enclosure/enclosure/_enclosure_datums.py") => {
             Some("_enclosure_datums")
         }
         p if p.ends_with("hardware/printed-parts/enclosure/_enclosure_dimensions.py") => {
             Some("_enclosure_dimensions")
-        }
-        p if p
-            .ends_with("hardware/printed-parts/enclosure/enclosure/_enclosure_front_bottom.py") =>
-        {
-            Some("_enclosure_front_bottom")
-        }
-        p if p.ends_with("hardware/printed-parts/enclosure/enclosure/_enclosure_front_top.py") => {
-            Some("_enclosure_front_top")
         }
         p if p.ends_with("hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py") => {
             Some("_enclosure_interface")
@@ -334,23 +271,9 @@ pub fn by_path(path: &str) -> Option<&'static str> {
             Some("_enclosure_panel")
         }
         p if p
-            .ends_with("hardware/printed-parts/enclosure/enclosure/_enclosure_presentation.py") =>
-        {
-            Some("_enclosure_presentation")
-        }
-        p if p.ends_with(
-            "hardware/printed-parts/enclosure/enclosure/_enclosure_pump_retainer.py",
-        ) =>
-        {
-            Some("_enclosure_pump_retainer")
-        }
-        p if p
             .ends_with("hardware/printed-parts/enclosure/enclosure/_enclosure_rust_driver.py") =>
         {
             Some("_enclosure_rust_driver")
-        }
-        p if p.ends_with("hardware/printed-parts/enclosure/enclosure/_enclosure_skin.py") => {
-            Some("_enclosure_skin")
         }
         p if p.ends_with("hardware/printed-parts/enclosure/enclosure/_enclosure_structure.py") => {
             Some("_enclosure_structure")
@@ -373,9 +296,6 @@ pub fn by_path(path: &str) -> Option<&'static str> {
         {
             Some("_nameplate_wing_interface")
         }
-        p if p.ends_with("hardware/printed-parts/enclosure/enclosure/_route_snaps.py") => {
-            Some("_route_snaps")
-        }
         p if p
             .ends_with("hardware/printed-parts/enclosure/enclosure/_rust_enclosure_checks.py") =>
         {
@@ -389,9 +309,6 @@ pub fn by_path(path: &str) -> Option<&'static str> {
         }
         p if p.ends_with("hardware/printed-parts/enclosure/enclosure/_swept_top.py") => {
             Some("_swept_top")
-        }
-        p if p.ends_with("hardware/printed-parts/enclosure/enclosure/_tube_snap_sites.py") => {
-            Some("_tube_snap_sites")
         }
         p if p.ends_with(
             "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",

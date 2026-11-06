@@ -1,4 +1,5 @@
 mod compiled;
+mod rust_step;
 use anyhow::Result;
 use hsm_documents::interop;
 use serde_json::{Value,json};
