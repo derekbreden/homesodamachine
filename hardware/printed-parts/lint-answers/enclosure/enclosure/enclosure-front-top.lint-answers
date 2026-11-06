@@ -79,3 +79,8 @@ alternatives: A rectangular roof makes a 22 mm flat ceiling. Adding vertical sid
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
 click: x=5.499 y=88.375 z=295.499
 click: x=-5.499 y=88.375 z=295.499
+
+[slope] Wrong supporting-wall selection for the diamond roof of the status light's lead channel. The channel's two roof faces rise from its own side corners along its whole run from the LED bore to the display's PCB pocket. Where it opens into the pocket, the classifier pairs the roof with the pocket's side wall and reports no level foot. Tree(auto)/Default keeps the actual support decisions; the channel has CAD validation and no physical print.
+alternatives: A flat roof makes a horizontal ceiling over the leads. Ending the channel short of the pocket leaves the leads no way into it. A level foot at the mouth adds a step where the channel meets the pocket wall.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+click: x=47.786 y=49.529 z=319.335

@@ -188,7 +188,9 @@ fn upper_wire_room(g: &mut Graph, b: &Box, wires: &[(Shape, Vec<P3>)]) -> Shape 
     let base = d.flange_z + t.motor_crown - WALL + radius - t.can_half;
     let peak = base + radius * shell().teardrop_roof_angle.to_radians().tan();
     let (x0, x1) = (display::BODY_OFFSET_X - display::pcb_x() / 2.0, display::BODY_OFFSET_X + display::pcb_x() / 2.0);
-    let mut cloud: Vec<P3> = [x0, x1]
+    // The crowns' run is the PCB's span across the box, where the display stands on the facet.
+    let at = display::centre_x(&b.outer);
+    let mut cloud: Vec<P3> = [x0 + at, x1 + at]
         .iter()
         .flat_map(|&x| [[d.motor_y - radius, base], [d.motor_y + radius, base], [d.motor_y, peak]].map(|[y, z]| [x, y, z]))
         .collect();
@@ -197,8 +199,11 @@ fn upper_wire_room(g: &mut Graph, b: &Box, wires: &[(Shape, Vec<P3>)]) -> Shape 
                display::BODY_OFFSET_SLOPE + display::pcb_slope() / 2.0,
                -display::FACET_THICKNESS - display::pcb_cut_through(), display::GLASS_SEAT];
     cloud.extend(box_points(&pcb).into_iter().map(|p| on_display(&rotation, &translation, p)));
+    // The room wraps the cross run and the link within the PCB's span; past it, each is cut in
+    // its own right.
+    let (lo, hi) = (x0 + at, x1 + at);
     for (_, points) in &wires[2..] {
-        cloud.extend(points);
+        cloud.extend(points.iter().map(|p| [p[0].clamp(lo, hi), p[1], p[2]]));
     }
     corridor(g, &cloud).0
 }
