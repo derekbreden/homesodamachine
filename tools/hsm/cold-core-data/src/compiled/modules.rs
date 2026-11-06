@@ -17,8 +17,6 @@ mod m_core_reference;
 mod m_endcap_circular_drawing;
 #[path = "endcap_circular_dxf.rs"]
 mod m_endcap_circular_dxf;
-#[path = "endcap_circular_step.rs"]
-mod m_endcap_circular_step;
 #[path = "evaporator_coil_drawing.rs"]
 mod m_evaporator_coil_drawing;
 #[path = "float_rod_drawing.rs"]
@@ -135,9 +133,6 @@ pub fn source(name: &str) -> Option<&'static str> {
         "endcap_circular_dxf" => {
             Some("hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_dxf.py")
         }
-        "endcap_circular_step" => {
-            Some("hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_step.py")
-        }
         "float_rod_drawing" => {
             Some("hardware/cut-parts/carbonation/float-rod/float_rod_drawing.py")
         }
@@ -246,9 +241,6 @@ pub fn by_path(path: &str) -> Option<&'static str> {
     }
     if path.ends_with("hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_dxf.py") {
         return Some("endcap_circular_dxf");
-    }
-    if path.ends_with("hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_step.py") {
-        return Some("endcap_circular_step");
     }
     if path.ends_with("hardware/cut-parts/carbonation/float-rod/float_rod_drawing.py") {
         return Some("float_rod_drawing");
@@ -367,7 +359,6 @@ pub fn initialize(rt: Runtime, e: Env, name: &str) -> Result<()> {
         "carbonator_tube_step" => m_carbonator_tube_step::initialize(rt, e),
         "endcap_circular_drawing" => m_endcap_circular_drawing::initialize(rt, e),
         "endcap_circular_dxf" => m_endcap_circular_dxf::initialize(rt, e),
-        "endcap_circular_step" => m_endcap_circular_step::initialize(rt, e),
         "float_rod_drawing" => m_float_rod_drawing::initialize(rt, e),
         "reservoir_float_rod_drawing" => m_reservoir_float_rod_drawing::initialize(rt, e),
         "_above_core_mounts" => m_private_above_core_mounts::initialize(rt, e),
@@ -427,7 +418,6 @@ pub fn entrypoint(rt: Runtime, e: Env, name: &str) -> Result<()> {
         "carbonator_tube_step" => m_carbonator_tube_step::entrypoint(rt, e).map(|_| ()),
         "endcap_circular_drawing" => m_endcap_circular_drawing::entrypoint(rt, e).map(|_| ()),
         "endcap_circular_dxf" => m_endcap_circular_dxf::entrypoint(rt, e).map(|_| ()),
-        "endcap_circular_step" => m_endcap_circular_step::entrypoint(rt, e).map(|_| ()),
         "float_rod_drawing" => m_float_rod_drawing::entrypoint(rt, e).map(|_| ()),
         "reservoir_float_rod_drawing" => {
             m_reservoir_float_rod_drawing::entrypoint(rt, e).map(|_| ())
@@ -526,9 +516,6 @@ pub fn documentation(name: &str) -> Option<&'static str> {
         ),
         "endcap_circular_dxf" => Some(
             "\nCarbonator end-cap disc — circular carbonator, 2 ports per cap.\n\nTwo identical discs per carbonator, each with 2x tap-drill holes for 1/4\"-18 NPT.\n4 ports/carbonator split 2+2 across both caps.\n\n── Dimensions ──\n\n  Disc diameter:          (= tube ID 4.870\" − 0.010\" slip-fit)\n  Disc thickness:         (1/4\" 316 SS, laser-cut)\n  Hole diameter:          (7/16\" — tap drill for 1/4\"-18 NPT)\n  Hole spacing:           (center-to-center along one axis)\n  Hole positions:      (-, 0) and (+, 0)\n\n── Rod register (in-house DRILLED secondary op — deliberately NOT in the cut) ──\n\n  The level-sensing float rod (1/8\" 316L) is welded to the bottom plate and\n  its top end seats in a shallow blind register in the top plate's inside\n  face. That register is a BLIND hole — it must not pierce the plate, because\n  the plate is the 90 PSI pressure boundary (hydro 180 PSI). A laser DXF cuts\n  THROUGH, so the register cannot live in this cut file without breaching the\n  carbonator. It is drilled in-house on the WEN 4208T after the discs arrive; the\n  laser geometry below is unchanged, so existing discs need no re-cut.\n\n  Both discs are drilled identically (kept interchangeable): top plate captures\n  the rod tip, bottom plate seats/locates the rod base for its tack weld.\n\n  Register center:     (−, 0) on the −X axis, beyond P1.\n                       Radius = tube-ID radius \n                       minus, the shared Aero float guide datum.\n                       A 36 mm float has 2 mm nominal clearance from the wet wall;\n                       its 4.8 mm bore allows 0.8125 mm radial motion on the 1/8\" rod.\n                       The external reed lies on this same azimuth. Exact metric\n                       radius is 41.849 mm. Liquid switching height needs calibration.\n  Register drill:      9/64\"  — slip-fit on the 1/8\" rod; snug, which\n                       self-locates the rod base in the bottom plate for its tack\n                       weld. Open the TOP plate's pocket to 5/32\" (0.156\") only if\n                       the cap fights to seat over the rod tip at closure (step 5).\n  Register depth:       blind, to the drill-point tip, from the inside face\n                       — leaves of the plate as intact pressure\n                       boundary. 135° split-point bit ⇒ ~0.07\" of full-diameter\n                       pocket gripping the rod tip: ample, non-load-bearing capture.\n\n── Material ──\n\n  316 stainless steel, thick, laser-cut.\n\nUnits: inches.  DXF $INSUNITS = 1 (inches).\n",
-        ),
-        "endcap_circular_step" => Some(
-            "\nCarbonator end-cap — 3D solid for CNC machining quotes.\n\nThe complete machined cap: the × 1/4\" 316 SS disc, the two 1/4\"-18 NPT\ntap-drill through-holes, AND the blind level-sensing rod register. This is the\nquote artifact for CNC vendors (Xometry / Protolabs / Fictiv / RapidDirect),\nwhere the register IS a machined feature — unlike the laser cut file\n`endcap-circular-2hole.dxf`, which omits it because a laser cuts only THROUGH\nand a through-hole there would breach the 90 PSI pressure boundary.\n\nOne part covers both caps: the top and bottom plates are this identical\ngeometry (the top-plate register captures the float-rod tip; the bottom-plate\nregister seats it for the tack weld). The two holes are modelled at tap-drill\ndiameter — the vendor taps 1/4\"-18 NPT per the drawing callout.\n\n── Geometry (built in mm; the cap's source specs are in inches) ──\n\n  Disc:            Ø ×  (4.860\" × 1/4\", = tube ID 4.870\" − 0.010\")\n  NPT tap-drill:   2× Ø  (7/16\") THRU, at X = ± (±0.750\")\n  Rod register:    Ø (9/64\") blind, (0.100\") deep, at\n                   (−, 0) on the inside (+Z) face — leaves \n                   (0.150\") of plate as intact pressure boundary.\n\nThe register sits on the +Z face = the carbonator INSIDE face; the −Z face is the\nplain outside face. STEP is exported in millimetres (CadQuery / CNC default).\n\nUnits: millimetres.\n",
         ),
         "float_rod_drawing" => Some(
             "Finished carbonator guide rod: fixed cut length, tolerances and end finish.\n\nThe controlled cap spacing and conical-register tolerance basis are stated on\nthe sheet. All rod dimensions and fit assumptions come from float_rod_dimensions.\n",

@@ -151,22 +151,17 @@ pub fn initialize(rt: Runtime, e: Env) -> Result<()> {
         });
         fun40.call(args38, kw39)?
     };
-    let mod51 = rt.import_module("_float_interface")?;
-    e.set(
-        "rod_axis_from_inner_wall",
-        rt.member("_float_interface", "rod_axis_from_inner_wall")?,
-    )?;
-    let assigned52 = Val::Float(4.86f64);
+    let assigned52 = Val::Float(hsm_endcap_circular_numbers::DIAMETER_IN);
     e.set("disc_diameter", assigned52.clone())?;
     let assigned53 = binary("truediv", e.get("disc_diameter")?, Val::Int(2i64))?;
     e.set("disc_radius", assigned53.clone())?;
-    let assigned54 = Val::Float(0.25f64);
+    let assigned54 = Val::Float(hsm_endcap_circular_numbers::THICKNESS_IN);
     e.set("disc_thickness", assigned54.clone())?;
-    let assigned55 = Val::Float(0.438f64);
+    let assigned55 = Val::Float(hsm_endcap_circular_numbers::HOLE_DIAMETER_IN);
     e.set("hole_diameter", assigned55.clone())?;
     let assigned56 = binary("truediv", e.get("hole_diameter")?, Val::Int(2i64))?;
     e.set("hole_radius", assigned56.clone())?;
-    let assigned57 = Val::Float(1.5f64);
+    let assigned57 = Val::Float(hsm_endcap_circular_numbers::HOLE_SPACING_IN);
     e.set("hole_spacing", assigned57.clone())?;
     let assigned58 = {
         let mut s = Vec::new();
@@ -193,19 +188,11 @@ pub fn initialize(rt: Runtime, e: Env) -> Result<()> {
         Val::list(s)
     };
     e.set("hole_positions", assigned58.clone())?;
-    let assigned59 = Val::Float(4.87f64);
+    let assigned59 = Val::Float(hsm_endcap_circular_numbers::TUBE_ID_IN);
     e.set("tube_id", assigned59.clone())?;
     let assigned60 = binary("truediv", e.get("tube_id")?, Val::Int(2i64))?;
     e.set("tube_id_radius", assigned60.clone())?;
-    let assigned61 = binary(
-        "sub",
-        e.get("tube_id_radius")?,
-        binary(
-            "truediv",
-            e.get("rod_axis_from_inner_wall")?,
-            Val::Float(25.4f64),
-        )?,
-    )?;
+    let assigned61 = Val::Float(hsm_endcap_circular_numbers::REGISTER_RADIUS_IN);
     e.set("register_radius", assigned61.clone())?;
     let assigned62 = {
         let mut s = Vec::new();
@@ -214,9 +201,9 @@ pub fn initialize(rt: Runtime, e: Env) -> Result<()> {
         Val::tuple(s)
     };
     e.set("register_position", assigned62.clone())?;
-    let assigned63 = Val::Float(0.140625f64);
+    let assigned63 = Val::Float(hsm_endcap_circular_numbers::REGISTER_DRILL_IN);
     e.set("register_drill_diameter", assigned63.clone())?;
-    let assigned64 = Val::Float(0.1f64);
+    let assigned64 = Val::Float(hsm_endcap_circular_numbers::REGISTER_DEPTH_IN);
     e.set("register_depth", assigned64.clone())?;
     let assigned65 = {
         let fun68 = {
