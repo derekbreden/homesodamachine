@@ -19,9 +19,10 @@ The frame holds the two real purchased parts in the machine's relative axes:
 envelope and a Ø17.0 printed journal. Its branch face, body/sleeve seam and release rim
 remain explicit unqualified axial/nose datums. The trial itself uses the production PP0208E
 in hand. Its guide clears the full translating run envelope with 0.25 mm air and retains
-3.93 mm of the measured branch collar band at the experimental ceiling. The valve seat reads
-the production stock, socket and port-channel dimensions through `valve_tray.tray_stock_numbers`,
-from the Beduan reference's post pattern.
+3.93 mm of the measured branch collar band at the experimental ceiling. The valve seat takes
+the production stock, socket and port-channel dimensions from the
+[valve seat's numbers](/hardware/printed-parts/valve-seat/numbers.rs), from the Beduan
+reference's post pattern.
 
 This coupon keeps its 10.0/12.0 mm gap/length and 3.15/4.62 mm travel experiment.
 Those values do not define the production tees' travel. A pass here does not qualify a different
@@ -147,5 +148,4 @@ ledger in that later change.
 - `/hardware/reference/tee-connector/tee_connector.py`
 - `/hardware/reference/tee-connector/tee-connector.step`
 - `/hardware/reference/beduan-solenoid/beduan_solenoid.py`
-- `/hardware/printed-parts/enclosure/valve-tray/valve_tray.py`
-- `/hardware/printed-parts/valve-seat/valve_seat.py`
+- `/hardware/printed-parts/valve-seat/numbers.rs`

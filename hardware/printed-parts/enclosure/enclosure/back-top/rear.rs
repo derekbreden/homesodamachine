@@ -31,9 +31,6 @@ const PSU_ROOT_Z: f64 = 349.25;
 const RELAY_ROOT_X: f64 = -98.52;
 const SEAT_ROOT_X: f64 = 98.51;
 
-/// The valve seat's corner round.
-const SEAT_CORNER: f64 = 3.0;
-
 /// The rear wall's features on back-top, after its wells; `keep_clear` is the wells' pockets.
 pub fn apply(g: &mut Graph, mut piece: Shape, b: &Box, keep_clear: Option<Shape>) -> Shape {
     let wall = &layout().rear_wall;
@@ -323,7 +320,7 @@ fn hosts(g: &mut Graph, mut piece: Shape) -> Shape {
 /// channel, the inlet valve's on its native plate and the solenoid's on a block out to its flank.
 fn valve_seats(g: &mut Graph, piece: Shape) -> Shape {
     let l = layout();
-    let half_x = valve::CORNER_INSET_X + valve::CORNER_BOSS_RADIUS + slip() + seat::WALL;
+    let half_x = seat::half_x();
     let half_y = seat::half_y();
     let corners = [(-1.0, -1.0), (-1.0, 1.0), (1.0, -1.0), (1.0, 1.0)];
     let sockets: Vec<Shape> = corners
@@ -335,7 +332,7 @@ fn valve_seats(g: &mut Graph, piece: Shape) -> Shape {
     let length = 2.0 * half_y + 2.0;
     let channel = g.ycyl(valve::PORT_RADIUS + seat::PORT_AIR, 0.0, valve::PORT_CENTER_Z, -length / 2.0, length / 2.0);
     let plinth = l.rear_plumbing.joint.plinth;
-    let native = rounded(g, 2, [-half_x, half_x, -half_y, half_y, -plinth, seat::SEAT_TOP_Z], SEAT_CORNER, &[0, 1, 2, 3]);
+    let native = rounded(g, 2, [-half_x, half_x, -half_y, half_y, -plinth, seat::SEAT_TOP_Z], seat::CORNER_RADIUS, &[0, 1, 2, 3]);
     let native = g.cut(native, &[sockets, channel]);
     let inlet = &l.parts.valve_v_a;
     let inlet = place(g, native, inlet.rotation, inlet.translation_mm);

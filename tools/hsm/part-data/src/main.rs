@@ -327,19 +327,25 @@ fn collet(v: &Value) -> Result<Value> {
 }
 
 fn valve_seat(v: &Value) -> Result<Value> {
-    let inset_x = num(v, "corner_inset_x")?;
-    let inset_y = num(v, "corner_inset_y")?;
-    let post_r = num(v, "corner_post_radius")?;
-    let seat_top = num(v, "seat_top_z")?;
-    let port_r = num(v, "port_radius")?;
-    let port_z = num(v, "port_center_z")?;
+    use hsm_valve_seat_numbers::{self as seat, valve};
+    let (inset_x, inset_y) = (valve::CORNER_INSET_X, valve::CORNER_INSET_Y);
+    let post_r = valve::CORNER_BOSS_RADIUS;
+    let seat_top = seat::SEAT_TOP_Z;
+    let (port_r, port_z) = (valve::PORT_RADIUS, valve::PORT_CENTER_Z);
     let slip = num(v, "slip")?;
-    let (socket_d, alternate_d, wall, floor, corner, air) = (6.9, 7.0, 3.0, -1.0, 3.0, 0.5);
-    let socket_r = socket_d / 2.0;
+    let (socket_d, alternate_d, wall, floor, corner, air) = (
+        seat::SOCKET_DIAMETER,
+        seat::ALTERNATE_SOCKET_DIAMETER,
+        seat::WALL,
+        seat::SOCKET_FLOOR_Z,
+        seat::CORNER_RADIUS,
+        seat::PORT_AIR,
+    );
+    let socket_r = seat::SOCKET_RADIUS;
     let clearance = socket_r - post_r;
-    let boss_r = post_r + slip + wall;
-    let (hx, hy) = (inset_x + boss_r, inset_y + boss_r);
-    let socket_depth = seat_top - floor;
+    let boss_r = seat::boss_radius(slip);
+    let (hx, hy) = (seat::half_x(slip), seat::half_y(slip));
+    let socket_depth = seat::SOCKET_DEPTH;
     let area = 4.0 * hx * hy - (4.0 - std::f64::consts::PI) * corner * corner;
     let r = port_r + air;
     let d = port_z - seat_top;

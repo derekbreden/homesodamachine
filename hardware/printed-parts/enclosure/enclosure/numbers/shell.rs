@@ -272,5 +272,3 @@ pub const COND_VENT_TRANSOM_H: f64 = 4.0;
 
 /// A Wago well's stock round its pocket.
 pub const WAGO_WELL_WALL: f64 = 3.0;
-/// A valve tray's plate runs this far past its outermost seats' reach.
-pub const VALVE_TRAY_MARGIN: f64 = 3.0;

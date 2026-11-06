@@ -129,7 +129,7 @@ pub(super) fn globals(cx: &mut Context, module: &str) -> Result<Env> {
             e.insert("_hw".into(), path(cx, "hardware"));
             e.insert("HW".into(), path(cx, "hardware"));
             {
-                let temp1 = t(vec![json!(24.4), json!(24.85)]);
+                let temp1 = t(vec![json!(hsm_valve_seat_numbers::valve::CORNER_SPACING_X), json!(hsm_valve_seat_numbers::valve::CORNER_SPACING_Y)]);
                 e.insert("corner_spacing_x".into(), ix(temp1.clone(), json!(0)));
                 e.insert("corner_spacing_y".into(), ix(temp1.clone(), json!(1)));
             }
@@ -143,30 +143,30 @@ pub(super) fn globals(cx: &mut Context, module: &str) -> Result<Env> {
             }
             e.insert("corner_spacing".into(), g(&e, "corner_spacing_x"));
             e.insert("corner_inset".into(), g(&e, "corner_inset_x"));
-            e.insert("corner_boss_radius".into(), json!(3.45));
-            e.insert("post_shoulder_z".into(), json!(11.0));
-            e.insert("upper_corner_radius".into(), json!(3.8));
+            e.insert("corner_boss_radius".into(), json!(hsm_valve_seat_numbers::valve::CORNER_BOSS_RADIUS));
+            e.insert("post_shoulder_z".into(), json!(hsm_valve_seat_numbers::valve::POST_SHOULDER_Z));
+            e.insert("upper_corner_radius".into(), json!(hsm_valve_seat_numbers::valve::UPPER_CORNER_RADIUS));
             {
                 let temp3 = t(vec![json!(1.6), json!(3.0)]);
                 e.insert("post_mouth_radius".into(), ix(temp3.clone(), json!(0)));
                 e.insert("post_mouth_depth".into(), ix(temp3.clone(), json!(1)));
             }
-            e.insert("body_radius".into(), json!(15.5));
+            e.insert("body_radius".into(), json!(hsm_valve_seat_numbers::valve::BODY_RADIUS));
             e.insert("body_width".into(), b("*", json!(2), g(&e, "body_radius")));
-            e.insert("bearing_radius".into(), json!(12.15));
-            e.insert("bearing_z_range".into(), t(vec![json!(5.2), json!(14.4)]));
+            e.insert("bearing_radius".into(), json!(hsm_valve_seat_numbers::valve::BEARING_RADIUS));
+            e.insert("bearing_z_range".into(), t(vec![json!(hsm_valve_seat_numbers::valve::BEARING_Z[0]), json!(hsm_valve_seat_numbers::valve::BEARING_Z[1])]));
             e.insert("lower_edge_fillet".into(), json!(2.5));
             e.insert(
                 "body_main_z_range".into(),
-                t(vec![json!(11.0), json!(24.5)]),
+                t(vec![json!(hsm_valve_seat_numbers::valve::BODY_MAIN_Z[0]), json!(hsm_valve_seat_numbers::valve::BODY_MAIN_Z[1])]),
             );
             {
-                let temp4 = t(vec![json!(33.5), json!(33.8), json!(4.5)]);
+                let temp4 = t(vec![json!(hsm_valve_seat_numbers::valve::CAP_WIDTH_X), json!(hsm_valve_seat_numbers::valve::CAP_DEPTH_Y), json!(hsm_valve_seat_numbers::valve::CAP_CORNER_RADIUS)]);
                 e.insert("cap_width_x".into(), ix(temp4.clone(), json!(0)));
                 e.insert("cap_depth_y".into(), ix(temp4.clone(), json!(1)));
                 e.insert("cap_corner_radius".into(), ix(temp4.clone(), json!(2)));
             }
-            e.insert("top_box_z_range".into(), t(vec![json!(24.3), json!(26.0)]));
+            e.insert("top_box_z_range".into(), t(vec![json!(hsm_valve_seat_numbers::valve::TOP_BOX_Z[0]), json!(hsm_valve_seat_numbers::valve::TOP_BOX_Z[1])]));
             e.insert("body_top_z".into(), ix(g(&e, "top_box_z_range"), json!(1)));
             e.insert(
                 "top_box_height".into(),
@@ -226,7 +226,7 @@ pub(super) fn globals(cx: &mut Context, module: &str) -> Result<Env> {
                 e.insert("screw_head_height".into(), ix(temp7.clone(), json!(1)));
             }
             {
-                let temp8 = t(vec![json!(7.6), json!(59.5), json!(11.05)]);
+                let temp8 = t(vec![json!(hsm_valve_seat_numbers::valve::PORT_RADIUS), json!(59.5), json!(hsm_valve_seat_numbers::valve::PORT_CENTER_Z)]);
                 e.insert("port_radius".into(), ix(temp8.clone(), json!(0)));
                 e.insert("port_length".into(), ix(temp8.clone(), json!(1)));
                 e.insert("port_center_z".into(), ix(temp8.clone(), json!(2)));
@@ -4433,6 +4433,18 @@ pub(super) fn globals(cx: &mut Context, module: &str) -> Result<Env> {
                 ),
             );
             e.insert("FRAME_X".into(), json!(70.0));
+            {
+                use anyhow::Context as _;
+                use hsm_valve_seat_numbers::tray;
+                let width = g(&e, "FRAME_X").as_f64().context("the trial card's width")?;
+                let stock = tray::stock(width, &[[0.0, 0.0]], hsm_enclosure_interface::fits::slip())
+                    .context("the trial tray has its seat")?;
+                e.insert("tray".into(), json!({"THICK": tray::THICK, "SEAT": tray::SEAT}));
+                e.insert(
+                    "tray_stock".into(),
+                    json!({"slab": stock.slab, "sockets": stock.sockets, "channels": stock.channels}),
+                );
+            }
             e.insert("FRAME_Z_MIN".into(), u("-", json!(45.0)));
             e.insert("FRAME_Z_MAX".into(), json!(66.5));
             e.insert(

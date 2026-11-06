@@ -1,14 +1,12 @@
 //! Standing valve plate dimensions, stock and document readings.
 use super::{array, f, text};
 use anyhow::{Result, anyhow, ensure};
-use hsm_enclosure_numbers::shell;
+use hsm_enclosure_interface::fits::slip;
+use hsm_valve_seat_numbers::tray;
 use serde_json::{Value, json};
 
-fn settings(source: &Value) -> Result<Value> {
-    Ok(
-        json!({"THICK":f(source,"socket_depth")?+f(source,"wall")?,"MARGIN":shell::VALVE_TRAY_MARGIN,
-              "SEAT":-f(source,"seat_top_z")?,"PORT_SLIP":source["port_air"]}),
-    )
+fn settings() -> Value {
+    json!({"THICK":tray::THICK,"MARGIN":tray::MARGIN,"SEAT":tray::SEAT,"PORT_SLIP":tray::PORT_SLIP})
 }
 
 fn coordinates(v: &Value) -> Result<Vec<[f64; 2]>> {
@@ -37,51 +35,17 @@ fn span(ys: impl Iterator<Item = f64>) -> Option<(f64, f64)> {
     })
 }
 
-fn height(v: &Value, seats: &[[f64; 2]]) -> Result<f64> {
-    let range = span(seats.iter().map(|p| p[1]));
-    Ok(range.map_or(0., |(lo, hi)| hi - lo)
-        + 2. * (f(&v["source"], "seat_half_y")? + f(&v["stock"], "MARGIN")?))
+fn height(seats: &[[f64; 2]]) -> f64 {
+    tray::height(seats, slip())
 }
 
-fn sockets(v: &Value, x: f64, y: f64, shift: f64) -> Result<Vec<[f64; 5]>> {
-    let s = &v["source"];
-    let mut result = Vec::new();
-    for sx in [-1., 1.] {
-        for sy in [-1., 1.] {
-            result.push([
-                x + sx * f(s, "corner_inset_x")?,
-                y + sy * f(s, "corner_inset_y")?,
-                f(s, "socket_floor_z")? + shift,
-                f(s, "socket_radius")?,
-                f(s, "seat_top_z")? - f(s, "socket_floor_z")? + 1.,
-            ]);
-        }
-    }
-    Ok(result)
+fn sockets(x: f64, y: f64, shift: f64) -> Vec<[f64; 5]> {
+    tray::sockets(x, y, shift)
 }
 
-fn stock(v: &Value, width: f64, seats: &[[f64; 2]]) -> Result<Value> {
-    let (lo, hi) =
-        span(seats.iter().map(|p| p[1])).ok_or_else(|| anyhow!("tray stock has seats"))?;
-    let mid = (lo + hi) / 2.;
-    let h = height(v, seats)?;
-    let seat = f(&v["stock"], "SEAT")?;
-    let mut cuts = Vec::new();
-    let mut channels = Vec::new();
-    for &[x, y] in seats {
-        cuts.extend(sockets(v, x, y, seat)?);
-        channels.push([
-            x,
-            y,
-            f(&v["source"], "port_center_z")? + seat,
-            f(&v["source"], "port_radius")? + f(&v["stock"], "PORT_SLIP")?,
-            h + 2. * (y - mid).abs() + 2.,
-        ]);
-    }
-    Ok(
-        json!({"slab":[[-width/2.,mid-h/2.,-f(&v["stock"],"THICK")?],
-                        [width/2.,mid+h/2.,0.]],"sockets":cuts,"channels":channels}),
-    )
+fn stock(width: f64, seats: &[[f64; 2]]) -> Result<Value> {
+    let s = tray::stock(width, seats, slip()).ok_or_else(|| anyhow!("tray stock has seats"))?;
+    Ok(json!({"slab":s.slab,"sockets":s.sockets,"channels":s.channels}))
 }
 
 fn recipe(v: &Value) -> Result<Value> {
@@ -93,14 +57,14 @@ fn recipe(v: &Value) -> Result<Value> {
         let width = row[0]
             .as_f64()
             .ok_or_else(|| anyhow!("tray width is numeric"))?;
-        let mut plan = stock(v, width, &coordinates(&row[1])?)?;
+        let mut plan = stock(width, &coordinates(&row[1])?)?;
         plan["name"] = json!(name);
         plans.push(plan);
     }
     Ok(json!({"trays":plans,"extrusion_w":v["extrusion_w"],
-        "web_sockets":sockets(v,0.,0.,0.)?,
+        "web_sockets":sockets(0.,0.,0.),
         "web_channel":[0.,0.,v["source"]["port_center_z"],
-            f(&v["source"],"port_radius")?+f(&v["stock"],"PORT_SLIP")?,height(v,&[])?+2.]}))
+            f(&v["source"],"port_radius")?+f(&v["stock"],"PORT_SLIP")?,height(&[])+2.]}))
 }
 
 fn segment(radius: f64, over: f64) -> f64 {
@@ -115,12 +79,12 @@ fn volume(v: &Value, width: f64, seats: &[[f64; 2]]) -> Result<f64> {
     let s = &v["source"];
     let st = &v["stock"];
     let socket = std::f64::consts::PI * f(s, "socket_radius")?.powi(2) * f(s, "socket_depth")?;
-    let channel = height(v, seats)?
+    let channel = height(seats)
         * segment(
             f(s, "port_radius")? + f(st, "PORT_SLIP")?,
             f(s, "port_center_z")? - f(s, "seat_top_z")?,
         );
-    Ok(width * height(v, seats)? * f(st, "THICK")? - seats.len() as f64 * (4. * socket + channel))
+    Ok(width * height(seats) * f(st, "THICK")? - seats.len() as f64 * (4. * socket + channel))
 }
 
 fn scalar(v: &Value, op: &str) -> Result<f64> {
@@ -175,7 +139,7 @@ fn report(v: &Value) -> Result<Value> {
         lines.push(format!(
             "  {name}: {} x {} x {}, {} seats at {poses}",
             number(width, "g")?,
-            number(height(v, &seats)?, "g")?,
+            number(height(&seats), "g")?,
             number(f(&v["stock"], "THICK")?, "g")?,
             seats.len()
         ));
@@ -226,7 +190,7 @@ fn report(v: &Value) -> Result<Value> {
     ));
     let mut heights = trays
         .values()
-        .map(|p| height(v, &coordinates(&p[1])?))
+        .map(|p| Ok(height(&coordinates(&p[1])?)))
         .collect::<Result<Vec<_>>>()?;
     heights.sort_by(f64::total_cmp);
     heights.dedup();
@@ -293,26 +257,13 @@ pub fn dispatch(v: &Value) -> Result<Value> {
         .strip_prefix("valve-tray-")
         .ok_or_else(|| anyhow!("valve tray op"))?;
     Ok(match op {
-        "defaults" => settings(&v["source"])?,
-        "height" => json!(height(v, &coordinates(&v["seats"])?)?),
-        "wall-root-floors" => {
-            let seats = coordinates(&v["seats"])?;
-            let (lo, hi) =
-                span(seats.iter().map(|p| p[0])).ok_or_else(|| anyhow!("wall roots have seats"))?;
-            let mut floors = Vec::new();
-            for edge in [lo, hi] {
-                let floor = seats
-                    .iter()
-                    .filter(|p| (p[0] - edge).abs() < 1e-6)
-                    .map(|p| p[1])
-                    .min_by(f64::total_cmp)
-                    .ok_or_else(|| anyhow!("wall has an outer row"))?;
-                floors.push(floor - scalar(v, "reach")? - f(&v["stock"], "MARGIN")?);
-            }
-            json!(floors)
-        }
-        "sockets" => json!(sockets(v, f(v, "x")?, f(v, "y")?, f(v, "shift")?)?),
-        "stock" => stock(v, f(v, "width")?, &coordinates(&v["seats"])?)?,
+        "defaults" => settings(),
+        "height" => json!(height(&coordinates(&v["seats"])?)),
+        "wall-root-floors" => json!(
+            tray::wall_root_floors(&coordinates(&v["seats"])?, slip()).ok_or_else(|| anyhow!("wall roots have seats"))?
+        ),
+        "sockets" => json!(sockets(f(v, "x")?, f(v, "y")?, f(v, "shift")?)),
+        "stock" => stock(f(v, "width")?, &coordinates(&v["seats"])?)?,
         "recipe" => recipe(v)?,
         "segment" => json!(segment(f(v, "radius")?, f(v, "over")?)),
         "volume" => json!(volume(v, f(v, "width")?, &coordinates(&v["seats"])?)?),

@@ -26,11 +26,7 @@ from _rust_data import request as _request
 
 
 def _data(**payload):
-    return _request('part-data', 'part-data', {'part': 'valve-seat',
-        'corner_inset_x': valve.corner_inset_x, 'corner_inset_y': valve.corner_inset_y,
-        'corner_post_radius': valve.corner_boss_radius, 'seat_top_z': valve.boss_z_range[0],
-        'port_radius': valve.port_radius, 'port_center_z': valve.port_center_z,
-        'slip': fits.slip, **payload})
+    return _request('part-data', 'part-data', {'part': 'valve-seat', 'slip': fits.slip, **payload})
 
 
 globals().update(_data()['values'])
