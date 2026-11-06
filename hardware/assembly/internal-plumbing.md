@@ -151,9 +151,9 @@ with the broad stock continuing into the display housing and roof. The broad
 wings engage front-top’s flank receivers and retain the molded-skirt capture between
 the two fitted halves.
 
-Front-top also carries the valve trays and tee wall. Four bottom-open tube-loading gates
-lead into its collet openings and branch bores. The prepared pump tubes rise through these
-gates while the tees are absent. After the retainer is secured, each purchased PP0208E
+Front-top also carries the valve trays and tee wall. Load the pumps with only
+their flexible tube stubs attached and feed the stubs through the closed collet
+openings and branch bores. After the retainer is secured, each purchased PP0208E
 tee approaches from aft and pushes onto its fixed pump tube, with its branch in the wall
 bore and its run upright. Y-C and Y-D serve pump A; Y-F and Y-G serve pump B. The extended
 branch collet grips the tube and its O-ring seals it. The [pump mount and tee wall](/hardware/printed-parts/enclosure/pump-dock/README.md)
@@ -183,8 +183,7 @@ Lay out the ten Beduan valves and the PP0208E tees. Cut stationary links from th
    and the −X pair on pump B. Keep the board end free and support its slack.
 
 3. **Load and secure the pumps from underneath.** Raise the prepared pumps and retainer
-   motor-first into front-top's fitted upper half. Guide each straight stub up its own
-   bottom-open tee-wall gate while drawing the lead slack aft through the common wire
+   motor-first into front-top's fitted upper half. Feed each flexible stub through its tee-wall bore while drawing the lead slack aft through the common wire
    passage. The lower fitted lands support the molded skirts and the integral upper
    faces capture them from above. Press the retainer upward so both upper-rooted wings
    flex inward, then spring outward with their lower hooks seated on the receiver floors.

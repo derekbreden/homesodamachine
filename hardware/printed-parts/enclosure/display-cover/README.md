@@ -1,31 +1,21 @@
 # Machine display cover
 
-The accepted face-up PET-GF bezel uses two coplanar horizontal wings. It passes the
-shake test and has acceptable appearance with a small residual bow. The suspected
-residual bend from insertion is unverified. The
-[physical record](face-up-trial/physical-acceptance.json) identifies the exact tested pair.
+The flat PET-GF bezel retains the display with black socket-head screws along its
+side borders. Rounded corners, equal screw insets and shallow head seats echo the
+rear nameplate. The heads remain visible above the bezel face.
 
-The cover is 125.5 × 83 × 3.84 mm with R6 outer corners and a 107.5 × 71 mm window.
-Each wing is 1.44 mm thick, projects 3.60 mm and spans 70 mm, with R0.6 ends.
-The back and both wings lie directly on the bed; print face up without supports.
+The cover section follows the enclosure's nominal wall. Its counterbores retain a
+solid bearing floor; the screws engage short heat-set inserts in broad, continuous
+housing stock. The [mount dimensions](mount-dimensions.json) define the cover,
+window, screw stations and hardware engagement. Glass clearance and the PCB opening
+belong to the matching enclosure receiver.
 
-Front-top carries the matching pockets. Main-body clearance is 0.30 mm per side
-in X and 0.15 mm per side up the display. Each wing has 0.60 mm above its seated
-bearing face and 0.15 mm at either end. Wing-tip clearance is 0.55 mm centered,
-0.25 mm at full sideways float. Capture remains at least 3.00 mm. The retaining
-lip is 1.80 mm thick. Flex the middle outward to enter the wings, then let the
-bezel seat against its back datum.
+A flat TPU ring lies between the cover's lap and the glass border. It spreads the
+light clamping load and accommodates printed surface variation. Seat the glass,
+place the ring and cover, start every screw, and draw them down evenly until the
+cover rests on its seats. The gasket retains the glass without hard clamping
+against individual printed high spots.
 
-The visible face is flush with the enclosure's 30° display plane. A 1 mm TPU ring
-and 1 mm glass lie beneath the cover. Glass back depth is 5.84 mm. The complete
-17 mm module behind the glass has 1 mm rear clearance; the supporting rib retains
-3 mm stock. The PCB opening and funnel clearance are checked in the
-[current integrated geometry](../enclosure/accepted-fit-integration/current-geometry-check.json).
-
-The wing pockets open down through the display storey to its existing floor.
-Remove shared-profile tree supports through the empty bay before installing the
-screen. No short support strip is enclosed beneath a wing pocket.
-
-[`display_cover.py`](display_cover.py) and
-[`_display_wing_interface.py`](../enclosure/_display_wing_interface.py) generate the
-cover and production receiver. Their cover solid equals the accepted specimen.
+Install the short inserts through the open display face before fitting the glass.
+The cover prints face up on its flat back, without supports. The counterbores face
+upward. Its screw-bearing stock uses solid deposition.
