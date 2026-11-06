@@ -66,6 +66,14 @@ read there, with each Python file replaced by the Rust that took its place.
 
 ## How the work runs
 
+- **Delete, declare, convert, in that order.** Before a step is converted:
+  - what it makes that feeds neither the website nor a print goes
+    ([What Counts](../../AGENTS.md#what-counts)), and the files a part is ordered from leave
+    the normal build;
+  - what it works out that could be written down is written down: where a part sits, where the
+    enclosure is cut for it, which runs a diagram draws. A search for a good arrangement is a
+    tool someone runs when they rearrange the machine, and its answer is written down;
+  - only what is left is converted.
 - **True dependencies come first** ([What an output is made from](#what-an-output-is-made-from)).
   A step whose outputs come out the same stops the reruns after it. Today a Python step's
   recorded inputs are everything compiled into the programs it calls, the shared Python and the
@@ -77,9 +85,9 @@ read there, with each Python file replaced by the Rust that took its place.
 - **A step is converted** when Bazel runs its Rust program and no Python. The Python only that
   step used is deleted in the same change, which lands on main on its own with the step's share
   of the full build before and after.
-- **Typed recipes are written from what the current code computes**, read as the
-  specification, not translated line by line. No Python interface, `Val` value or name looked up
-  at run time stays inside the Rust.
+- **Typed recipes are written from what the website shows and what prints.** The current code
+  shows how a step makes those; it is not the specification, and it is not translated line by
+  line. No Python interface, `Val` value or name looked up at run time stays inside the Rust.
 - **The bet is on Rust.** A step moves as soon as its Rust program makes the outputs it
   replaces. One that is slower on its first try lands anyway and is made faster in Rust
   afterwards. One that stays slower after that goes to Derek to re-examine, and holds up nothing
