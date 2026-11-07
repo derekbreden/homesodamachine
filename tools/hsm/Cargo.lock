@@ -1235,6 +1235,36 @@ dependencies = [
 ]
 
 [[package]]
+name = "hsm-foam-cap"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "hsm-cold-core-interface",
+ "hsm-cold-core-layout",
+ "hsm-foam-cap-numbers",
+ "hsm-kernel",
+ "hsm-print-payload",
+ "hsm-valve-seat-numbers",
+ "serde",
+ "serde_json",
+ "sha2",
+]
+
+[[package]]
+name = "hsm-foam-cap-numbers"
+version = "0.1.0"
+dependencies = [
+ "hsm-cold-core-catalog",
+ "hsm-cold-core-interface",
+ "hsm-cold-core-layout",
+ "hsm-enclosure-numbers",
+ "hsm-reservoir-numbers",
+ "hsm-valve-seat-numbers",
+ "serde",
+ "serde_json",
+]
+
+[[package]]
 name = "hsm-foam-shell"
 version = "0.1.0"
 dependencies = [
