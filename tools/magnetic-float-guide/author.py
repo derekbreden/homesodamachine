@@ -143,7 +143,7 @@ def main():
             ('Walls', f'{recipe["wall_loops"]} loops &middot; nested foaming perimeters'),
             ('Other paths', '0 sparse infill, top/bottom skin, skirt, brim and support')]) +
         actions('Open the current STL with the retained right-nozzle ASA Aero process. Keep the body upright on the plate.',
-                'Use ' + link(FLOAT / 'prepare_print.py', 'prepare_print.py') + ' to prepare a separate v2 project and review record. It does not submit a print.',
+                'Use ' + link(FLOAT / 'prepare_print.rs', 'prepare_print.rs') + ' to prepare a separate v2 project and review record. It does not submit a print.',
                 'Review the actual native geometry, recipe, pause and covering roads. Bind the reviewed project/archive to the current source hashes before submission.') +
         note('Current preparation state', 'The current CAD has a <b>3.60 mm pocket</b>. Its v2 native archive has not been prepared or submitted. The saved <b>all-aero-float.3mf</b> belongs to the identified v1 article and is listed as evidence on page 13.') +
         '<p class="dim">Nested perimeters include seams, wipes and short transitions. This process is not a zero-travel spiral.</p>'))
@@ -232,7 +232,7 @@ def main():
         ('Current STL', FLOAT / 'float-aero.stl', 'Current v2 geometry; prepare and review a fresh native slice.'),
         ('Design and installation', FLOAT / 'README.md', 'Dimensions, selected process and qualification limits.'),
         ('Rod and reed datums', FLOAT / 'installation.md', 'Drilling, guide motion and directional liquid calibration.'),
-        ('Print preparation', FLOAT / 'prepare_print.py', 'Writes a separate v2 project/review; submits no print.'),
+        ('Print preparation', FLOAT / 'prepare_print.rs', 'Writes a separate v2 project/review; submits no print.'),
         ('Identified v1 project', FLOAT / 'all-aero-float.3mf', 'Frozen v1 project, 3.40 mm pocket; evidence for task ' + str(task_id) + '.'),
         ('Identified v1 review', FLOAT / 'mark2-print/v1/float-preflight.json', 'Native paths, pause and source hashes for that article.'),
         ('Physical observations', FLOAT / 'physical-observations.json', 'Insertion, initial overprint and reported reed reach, with their scope.'),
@@ -253,7 +253,7 @@ def main():
         if stale.name not in expected:
             stale.unlink()
     inputs = [FLOAT / name for name in [
-        'design.json', 'all_aero_float.rs', 'float-aero.stl', 'prepare_print.py',
+        'design.json', 'all_aero_float.rs', 'float-aero.stl', 'prepare_print.rs',
         'README.md', 'installation.md',
         'physical-observations.json', 'integration-check.json',
         'all-aero-float.3mf', 'mark2-print/v1/float-preflight.json',

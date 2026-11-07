@@ -60,8 +60,9 @@ The current CAD has a 3.60 mm pocket and preserves the magnet's Z14.0 center.
 The expected insertion pause is before the first covering plane at Z16.2,
 layer 81 at 0.20 mm. A separate native slice review must verify the seat,
 last open pocket, pause and covering roads before another submission.
-[`prepare_print.py`](prepare_print.py) writes into `mark2-print/v2` and a
-separate v2 archive; no v2 archive has been prepared or submitted.
+[`prepare_print.rs`](prepare_print.rs), the `aero-float-print-project` program, takes the
+recipe from the identified v1 project, [`all-aero-float.3mf`](all-aero-float.3mf), and writes
+into `mark2-print/v2` and a separate v2 archive; no v2 archive has been prepared or submitted.
 
 Mark2's recipe is the glued Engineering plate, +0.04 mm user trim, fixed right
 hardened standard-flow 0.4 mm nozzle and ASA Aero White GFB02 from the Polymaker
@@ -121,7 +122,9 @@ submission.
 
 ```sh
 python3 tools/run.py -- bazel build //:all-aero-float
+python3 tools/run.py -- cargo build --release --locked -j 2 --manifest-path tools/hsm/Cargo.toml -p hsm-print-prep --bin aero-float-print-project
+python3 tools/run.py -- tools/hsm/target/release/aero-float-print-project
 ```
 
-A future print preparation uses `prepare_print.py` and requires review of the
+A future print preparation uses `aero-float-print-project` and requires review of the
 new native slice. Geometry regeneration alone creates no accepted print job.
