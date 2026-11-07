@@ -1,0 +1,23 @@
+{
+  "purpose": "The corrected inlet is present in the published rear-top and installed-machine payloads.",
+  "checked_utc": "2026-11-07T19:11:55+00:00",
+  "members": [
+    {
+      "payload": "hardware/manifold-layout/enclosure-assembly.step.mesh",
+      "sha256": "3a917981401ec3bdb088a032d72422f41ae60e3fd8f2c13cbc78e1c3315c9c98",
+      "live_object": "https://objects.homesodamachine.com/s-3a917981401ec3bdb088a032d72422f41ae60e3fd8f2c13cbc78e1c3315c9c98.gz",
+      "live_pointer_matches": true,
+      "http_status": 206,
+      "gzip_signature_matches": true
+    },
+    {
+      "payload": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh",
+      "sha256": "86502d5ecfe249e6dfd2fc4917e1f34541b7b751ed2e8a57d378b274fd9d1738",
+      "live_object": "https://objects.homesodamachine.com/s-86502d5ecfe249e6dfd2fc4917e1f34541b7b751ed2e8a57d378b274fd9d1738.gz",
+      "live_pointer_matches": true,
+      "http_status": 206,
+      "gzip_signature_matches": true
+    }
+  ],
+  "passed": true
+}
