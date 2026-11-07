@@ -311,12 +311,10 @@ Helvetica.
 A part the kernel cuts keeps its numbers in Python and its geometry in Rust, side by side in its
 folder. The fuse clamp (`hardware/printed-parts/refrigeration/fuse-clamp`) is one; the coil
 mandrel and the magnetic float (`hardware/printed-parts/cold-core/coil-mandrel` and
-`magnetic-float`, crate `tools/hsm/cold-core`), the
-faucet shell (`hardware/printed-parts/faucet/faucet-shell`, crate `tools/hsm/faucet`), its
-display cover (`hardware/printed-parts/faucet/faucet-display-cover`), the above-counter plate
-and gasket (`hardware/printed-parts/faucet/above-counter-plate` and `above-counter-gasket`), the industrial faucet
-(`hardware/printed-parts/faucet/industrial`) and the two faucet assemblies
-(`hardware/faucet-layout`), all of the same crate, are others.
+`magnetic-float`, crate `tools/hsm/cold-core`) are others. The faucet's parts and its two
+assemblies keep their numbers in typed crates instead: each part's `numbers.rs` beside its
+program, what they share in `hardware/printed-parts/faucet/numbers` (crate `hsm-faucet-numbers`),
+and the assemblies' in `hardware/faucet-layout/numbers.rs`.
 
 A part moves onto the kernel as soon as its program makes the outputs its generator made, faster
 on the first try or not; [`conversion.md`](conversion.md) is the plan. The commit that moves it
@@ -338,16 +336,15 @@ writes a set without the STL, for bodies the page draws and nothing prints, and
 `hardware/scripts/flute_payload.py` cuts from its STL. A program that writes several sets prints
 each one's answer on a line of its own, and its standard output carries nothing else. The magnetic
 float's program writes seven: a set with an STL for each printed piece, and a set without one for
-the magnet and for the assembly, section and exploded views. The faucet
-shell writes the assembled pair with `write_shown` and each of its two prints with `write_printed`;
-the display cover writes its print with `write_printed` and itself as it sits on the tip with
-`write_shown`, and the industrial faucet writes its four prints with `write_printed` and its display
-cover as it sits on the tip with `write_shown`. The faucet's programs are `[[bin]]`s of
-`tools/hsm/faucet`, whose library holds what they share: the gooseneck, the display's frame at its
-tip, the shapes their numbers come in, `shell`, the shell's stock and the cutters the industrial
-faucet also cuts its own round stock with, `display`, the lips and the relaxed print both display
-covers are cut with, and `assembly`, the faucet and its umbilical as the bench bags them, which both
-assemblies cut from the numbers `faucet_assembly.py` writes.
+the magnet and for the assembly, section and exploded views. The faucet's printed pieces cut
+their own payloads from their STLs, every triangle kept (`hsm_print_payload::printed`): the shell
+its two prints, the display cover its print and the industrial faucet its four, and each display
+cover writes itself as it sits on the tip with `write_shown`. Each faucet program is a crate of
+its own, and `tools/hsm/faucet` is the library they share: the gooseneck, the display's frame at
+its tip, `shell`, the shell's stock and the cutters the industrial faucet also cuts its own round
+stock with, `display`, the lips and the relaxed print both display covers are cut with, and
+`counter`, the plate and gasket under each base. The two assemblies are the programs of
+`tools/hsm/faucet-assembly`: the faucet and its umbilical as the bench bags them.
 
 `part::write_part` and `part::write_shown` include optional `face_sources` in each
 payload mesh: one contributor array per displayed `fac` range, emitted by
@@ -441,11 +438,9 @@ carries the toolchain and CMake.
 A generator on meshcad seats the part off its STEP, whose solids an import takes from the model
 file. `import_step` refuses that STEP on OCCT, so an OCCT generator that seats the part calls a
 CadQuery `build()` in its module instead: the fuse clamp keeps one for `enclosure_assembly`, and
-the faucet shell keeps its builders for `faucet_assembly.build_assembly`, the CadQuery assembly
-the guide art stands, and for the industrial faucet's geometry and cover checks, and its display
-cover keeps its own for that assembly, the display snap trial and `check_faucet_geometry.py`. A program on the
-kernel reads the STEP with `import::step`, as the faucet assemblies read the shell's two pieces
-off `faucet-shell.step`.
+the faucet's modules keep their builders for the hand-run checks and reviews that stand them. A
+program on the kernel reads the STEP with `import::step`, as the faucet assemblies read the
+shell's two pieces off `faucet-shell-base.step` and `faucet-shell-tip.step`.
 
 ```sh
 tools/cad-venv/bin/python hardware/printed-parts/refrigeration/fuse-clamp/fuse_clamp.py

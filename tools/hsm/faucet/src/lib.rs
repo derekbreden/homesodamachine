@@ -2,20 +2,13 @@
 //! its display cover and the Industrial faucet follow, the display's frame at the tip, `shell`'s
 //! stock and cutters, `display` what the display covers share, and `counter` the above-counter
 //! plate and gasket under each base, all from the faucet's numbers crate.
-//!
-//! `assembly` and `metrics` build the faucet and its umbilical as the bench bags them, from the
-//! numbers file the assembly's Python writes, and the JSON readers here serve them and the lever
-//! and collar programs.
-pub mod assembly;
 pub mod counter;
 pub mod display;
-pub mod metrics;
 pub mod shell;
 
-use anyhow::{Result, anyhow, ensure};
+use anyhow::{Result, ensure};
 use hsm_faucet_numbers::shell as numbers;
-use hsm_kernel::{Loop, Plane, Profile, Solid, V2, V3, Wrapped, hull_loop, v2, v3};
-use serde_json::Value;
+use hsm_kernel::{Loop, Plane, Profile, Solid, V3, Wrapped, hull_loop, v2, v3};
 
 /// Circles `[x, y, r]` as hull entities.
 pub fn wrapped(circles: &[[f64; 3]]) -> Vec<Wrapped> {
@@ -25,54 +18,6 @@ pub fn wrapped(circles: &[[f64; 3]]) -> Vec<Wrapped> {
 /// A point `[x, y, z]`.
 pub fn p3(p: [f64; 3]) -> V3 {
     v3(p[0], p[1], p[2])
-}
-
-/// The numbers in a JSON list, if it is one of numbers only.
-pub fn floats(v: &Value) -> Option<Vec<f64>> {
-    v.as_array()?.iter().map(Value::as_f64).collect()
-}
-
-/// A JSON point `[x, y, z]`.
-pub fn point(v: &Value) -> Result<V3> {
-    match floats(v).as_deref() {
-        Some([x, y, z]) => Ok(v3(*x, *y, *z)),
-        _ => Err(anyhow!("{v} is not a point")),
-    }
-}
-
-/// JSON points in a plane, `[[x, y], ...]`.
-pub fn points2(v: &Value) -> Result<Vec<V2>> {
-    rows(v)?
-        .iter()
-        .map(|p| match floats(p).as_deref() {
-            Some([x, y]) => Ok(v2(*x, *y)),
-            _ => Err(anyhow!("{p} is not a point in a plane")),
-        })
-        .collect()
-}
-
-/// A pair `[a, b]` in a list of them.
-pub fn pair(v: &Value) -> Result<(f64, f64)> {
-    match floats(v).as_deref() {
-        Some([a, b]) => Ok((*a, *b)),
-        _ => Err(anyhow!("{v} is not a pair")),
-    }
-}
-
-/// A JSON list.
-pub fn rows(v: &Value) -> Result<&Vec<Value>> {
-    v.as_array().ok_or_else(|| anyhow!("{v} is not a list"))
-}
-
-/// Circles `[[x, y, r], ...]` as hull entities.
-pub fn circles(v: &Value) -> Result<Vec<Wrapped>> {
-    rows(v)?
-        .iter()
-        .map(|c| match floats(c).as_deref() {
-            Some([x, y, r]) => Ok(Wrapped::Circle { c: v2(*x, *y), r: *r }),
-            _ => Err(anyhow!("{c} is not a circle")),
-        })
-        .collect()
 }
 
 /// The hull round `circles` as a profile, CadQuery's `Sketch.hull`.

@@ -1,0 +1,32 @@
+[package]
+name = "hsm-faucet-assembly"
+version = "0.1.0"
+edition.workspace = true
+license.workspace = true
+rust-version.workspace = true
+publish = false
+
+[lib]
+path = "../../../hardware/faucet-layout/assembly/lib.rs"
+
+[[bin]]
+name = "faucet-assembly"
+path = "../../../hardware/faucet-layout/faucet_assembly.rs"
+
+[[bin]]
+name = "faucet-industrial-assembly"
+path = "../../../hardware/faucet-layout/faucet_industrial_assembly.rs"
+
+[dependencies]
+anyhow.workspace = true
+hsm-build-data = { path = "../build-data" }
+hsm-faucet = { path = "../faucet" }
+hsm-faucet-assembly-numbers = { path = "../faucet-assembly-numbers" }
+hsm-faucet-numbers = { path = "../faucet-numbers" }
+hsm-kernel = { path = "../kernel" }
+hsm-print-payload = { path = "../print-payload" }
+hsm-shared-data = { path = "../shared-data" }
+hsm-tpu-o-ring-numbers = { path = "../tpu-o-ring-numbers" }
+hsm-tube-collar-numbers = { path = "../tube-collar-numbers" }
+hsm-umbilical-organizer-numbers = { path = "../umbilical-organizer-numbers" }
+serde_json.workspace = true

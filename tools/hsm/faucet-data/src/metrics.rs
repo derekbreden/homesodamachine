@@ -1,11 +1,38 @@
-//! The faucet's scalar dimensions measured on the same paths and circle hulls it cuts.
-//! A separate small program keeps its peak distinct from an assembly build's peak
-//! in the shared run budget.
-use anyhow::{Result, anyhow};
+//! The faucet's scalar dimensions, measured on the paths and circle hulls the assembly's readers
+//! name in JSON: each path's length and each hull's area, centroid and perimeter.
+use anyhow::{Context, Result, anyhow, bail, ensure};
 use hsm_kernel::part::Numbers;
 use hsm_kernel::*;
 use serde_json::{Map, Value, json};
-use crate::{assembly, circles};
+
+/// The numbers in a JSON list, if it is one of numbers only.
+fn floats(v: &Value) -> Option<Vec<f64>> {
+    v.as_array()?.iter().map(Value::as_f64).collect()
+}
+
+/// A JSON point `[x, y, z]`.
+fn point(v: &Value) -> Result<V3> {
+    match floats(v).as_deref() {
+        Some([x, y, z]) => Ok(v3(*x, *y, *z)),
+        _ => Err(anyhow!("{v} is not a point")),
+    }
+}
+
+/// A JSON list.
+fn rows(v: &Value) -> Result<&Vec<Value>> {
+    v.as_array().ok_or_else(|| anyhow!("{v} is not a list"))
+}
+
+/// Circles `[[x, y, r], ...]` as hull entities.
+fn circles(v: &Value) -> Result<Vec<Wrapped>> {
+    rows(v)?
+        .iter()
+        .map(|c| match floats(c).as_deref() {
+            Some([x, y, r]) => Ok(Wrapped::Circle { c: v2(*x, *y), r: *r }),
+            _ => Err(anyhow!("{c} is not a circle")),
+        })
+        .collect()
+}
 
 fn simpson(f: &impl Fn(f64) -> f64, a: f64, b: f64, fa: f64, fm: f64, fb: f64,
            whole: f64, tolerance: f64, depth: usize) -> f64 {
@@ -74,10 +101,31 @@ fn hull_metrics(entities: &[Wrapped]) -> Result<Value> {
     Ok(json!({"area":area, "center":[mx/area, my/area], "perimeter":perimeter}))
 }
 
+/// A centreline from JSON legs — `{"line": [a, b]}`, `{"arc": [a, mid, b]}`, `{"spline": points}`
+/// and `{"hermite": [a, b, ta, tb]}` — each leg from where the last one ends.
+fn path(legs: &Value) -> Result<Path> {
+    let mut path: Option<Path> = None;
+    for leg in rows(legs)? {
+        let (kind, pts) = leg.as_object().and_then(|o| o.iter().next()).ok_or_else(|| anyhow!("{leg} is not a leg"))?;
+        let pts = rows(pts)?.iter().map(point).collect::<Result<Vec<_>>>()?;
+        let start = *pts.first().ok_or_else(|| anyhow!("{leg} has no points"))?;
+        let p = path.take().unwrap_or_else(|| Path::new(start));
+        ensure!((p.at() - start).norm() < 1e-7, "a {kind} leg from {start:?}, where the path ends at {:?}", p.at());
+        path = Some(match (kind.as_str(), &pts[..]) {
+            ("line", [_, b]) => p.line_to(*b),
+            ("arc", [_, mid, b]) => p.arc_through(*mid, *b)?,
+            ("spline", _) => p.spline_through(&pts)?,
+            ("hermite", [_, b, ta, tb]) => p.spline_to(*b, *ta, *tb)?,
+            _ => bail!("{leg} is not a leg"),
+        });
+    }
+    path.context("a path of no legs")
+}
+
 pub fn measure(n: &Numbers) -> Result<Value> {
     let mut lengths = Map::new();
     for (name, legs) in n.get("paths")?.as_object().ok_or_else(|| anyhow!("paths is an object"))? {
-        lengths.insert(name.clone(), json!(path_length(&assembly::path(legs)?)));
+        lengths.insert(name.clone(), json!(path_length(&path(legs)?)));
     }
     let mut hulls = Map::new();
     for (name, rows) in n.get("hulls")?.as_object().ok_or_else(|| anyhow!("hulls is an object"))? {
