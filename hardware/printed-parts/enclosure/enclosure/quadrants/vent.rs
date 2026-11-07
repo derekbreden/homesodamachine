@@ -13,6 +13,7 @@ pub fn vent_chase(
     mut solid: Shape,
     inner: &Bounds,
     outer: &Bounds,
+    exterior: &Bounds,
     stations: &[[f64; 3]],
     [y0, y1, z0, z1]: [f64; 4],
     up: f64,
@@ -128,6 +129,7 @@ pub fn vent_chase(
             share = g.cut(share, &[gable]);
         }
         solid = g.union(solid, &[share]);
+        let exit = exterior[0] - 1.0;
         let duct = g.xz_prism(
             sy - VENT_CHANNEL_W / 2.0,
             sy + VENT_CHANNEL_W / 2.0,
@@ -136,8 +138,8 @@ pub fn vent_chase(
                 [rib_x + 1.0, mouth_bot],
                 [floor_x, mouth_bot],
                 [floor_x, ramp_top],
-                [outer[0] - 1.0, ramp_bot - over],
-                [outer[0] - 1.0, groove_top - groove_rise],
+                [exit, ramp_bot - over * (outer[0] - exit)],
+                [exit, groove_top + groove_rise * (exit - outer[0])],
                 [inner[0], groove_top + groove_rise * (inner[0] - outer[0])],
                 [inner[0], rim + slide_slip()],
                 [liner_x, rim + slide_slip()],
