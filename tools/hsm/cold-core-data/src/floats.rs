@@ -1,63 +1,27 @@
 //! Shared ASA Aero float sizing and guide/reed clearances.
 
 use serde_json::{Value, json};
-use std::f64::consts::PI;
 
 pub fn aero_datums() -> Value {
-    let diameter: f64 = hsm_aero_float_numbers::DIAMETER;
-    let bore_diameter: f64 = 4.8;
-    let guide_diameter = 3.175;
-    let magnet_od = 19.05;
-    let magnet_id = 9.525;
-    let magnet_thickness = 3.175;
-    let magnet_tolerance = 0.1;
-    let magnet_mass = 5.09;
-    let pocket_od: f64 = 19.35;
-    let pocket_id: f64 = 9.225;
-    let pocket_depth = 3.6;
-    let water_density = 0.9997;
-    let design_foam_density = 0.65;
-    let minimum_reserve_lift_g = 5.;
-    let height_increment = 1.;
-    let layer_height = 0.2;
-    let xy_contour_compensation = 0.05;
-    let xy_hole_compensation = -0.05;
-    let annular_area = PI * ((diameter / 2.).powi(2) - (bore_diameter / 2.).powi(2));
-    let pocket_volume = PI * ((pocket_od / 2.).powi(2) - (pocket_id / 2.).powi(2)) * pocket_depth;
-    let minimum_height = (minimum_reserve_lift_g + magnet_mass
-        - design_foam_density * pocket_volume / 1000.)
-        / ((water_density - design_foam_density) * annular_area / 1000.);
-    let height = (minimum_height / height_increment).ceil() * height_increment;
-    let magnet_midplane = height / 2.;
-    let magnet_seat = magnet_midplane - magnet_thickness / 2.;
-    let pocket_roof = magnet_seat + pocket_depth;
-    let pause_before_z = (pocket_roof / layer_height - 1e-9).ceil() * layer_height;
-    let displacement_cc = annular_area * height / 1000.;
-    let foam_cc = displacement_cc - pocket_volume / 1000.;
-    let design_mass_g = foam_cc * design_foam_density + magnet_mass;
-    let wall_clearance = hsm_aero_float_numbers::WALL_CLEARANCE;
-    let rod_axis_from_inner_wall = hsm_aero_float_numbers::ROD_AXIS_FROM_INNER_WALL;
-    let guide_radial_clearance = (bore_diameter - guide_diameter) / 2.;
-    assert!(wall_clearance - guide_radial_clearance > 1.0);
-    assert!(height == 28.0 && magnet_midplane == 14.0);
+    use hsm_aero_float_numbers as f;
     json!({
-        "diameter": diameter, "bore_diameter": bore_diameter, "guide_diameter": guide_diameter,
-        "magnet_od": magnet_od, "magnet_id": magnet_id, "magnet_thickness": magnet_thickness,
-        "magnet_tolerance": magnet_tolerance, "magnet_mass": magnet_mass,
-        "pocket_od": pocket_od, "pocket_id": pocket_id, "pocket_depth": pocket_depth,
-        "water_density": water_density, "design_foam_density": design_foam_density,
-        "minimum_reserve_lift_g": minimum_reserve_lift_g, "height_increment": height_increment,
-        "layer_height": layer_height, "xy_contour_compensation": xy_contour_compensation,
-        "xy_hole_compensation": xy_hole_compensation, "annular_area": annular_area,
-        "pocket_volume": pocket_volume, "minimum_height": minimum_height, "height": height,
-        "magnet_midplane": magnet_midplane, "magnet_seat": magnet_seat, "pocket_roof": pocket_roof,
-        "pause_before_z": pause_before_z, "displacement_cc": displacement_cc, "foam_cc": foam_cc,
-        "design_mass_g": design_mass_g, "wall_clearance": wall_clearance,
-        "rod_axis_from_inner_wall": rod_axis_from_inner_wall,
-        "guide_radial_clearance": guide_radial_clearance,
-        "minimum_wall_clearance": wall_clearance - guide_radial_clearance,
-        "maximum_wall_clearance": wall_clearance + guide_radial_clearance,
-        "magnet_edge_inset": (diameter - magnet_od) / 2.,
+        "diameter": f::DIAMETER, "bore_diameter": f::BORE_DIAMETER, "guide_diameter": f::GUIDE_DIAMETER,
+        "magnet_od": f::MAGNET_OD, "magnet_id": f::MAGNET_ID, "magnet_thickness": f::MAGNET_THICKNESS,
+        "magnet_tolerance": f::MAGNET_TOLERANCE, "magnet_mass": f::MAGNET_MASS,
+        "pocket_od": f::POCKET_OD, "pocket_id": f::POCKET_ID, "pocket_depth": f::POCKET_DEPTH,
+        "water_density": f::WATER_DENSITY, "design_foam_density": f::DESIGN_FOAM_DENSITY,
+        "minimum_reserve_lift_g": f::MINIMUM_RESERVE_LIFT_G, "height_increment": f::HEIGHT_INCREMENT,
+        "layer_height": f::LAYER_HEIGHT, "xy_contour_compensation": f::XY_CONTOUR_COMPENSATION,
+        "xy_hole_compensation": f::XY_HOLE_COMPENSATION, "annular_area": f::annular_area(),
+        "pocket_volume": f::pocket_volume(), "minimum_height": f::minimum_height(), "height": f::height(),
+        "magnet_midplane": f::magnet_midplane(), "magnet_seat": f::magnet_seat(), "pocket_roof": f::pocket_roof(),
+        "pause_before_z": f::pause_before_z(), "displacement_cc": f::displacement_cc(), "foam_cc": f::foam_cc(),
+        "design_mass_g": f::design_mass_g(), "wall_clearance": f::WALL_CLEARANCE,
+        "rod_axis_from_inner_wall": f::ROD_AXIS_FROM_INNER_WALL,
+        "guide_radial_clearance": f::GUIDE_RADIAL_CLEARANCE,
+        "minimum_wall_clearance": f::MINIMUM_WALL_CLEARANCE,
+        "maximum_wall_clearance": f::MAXIMUM_WALL_CLEARANCE,
+        "magnet_edge_inset": f::MAGNET_EDGE_INSET,
         "reed_model": "Littelfuse MDSR-7-10-15", "reed_mount_length": 14.,
         "reed_mount_diameter": 2.5, "bench_edge_distance": 30., "bench_stable_travel": 30.,
         "bench_scope": "One bare RC62 and one MDSR-7-10-15, axial reed; nearest magnet edge datum; no installed-wall calibration",
@@ -68,20 +32,12 @@ pub fn aero_datums() -> Value {
 
 /// Guided dry upright float; measured mass and liquid density can replace the design seeds.
 pub fn waterline(mass_g: Option<f64>, liquid_density: Option<f64>) -> f64 {
-    let d = aero_datums();
-    let n = |key: &str| d[key].as_f64().unwrap();
-    n("magnet_midplane")
-        - mass_g.unwrap_or_else(|| n("design_mass_g"))
-            / (liquid_density.unwrap_or_else(|| n("water_density")) * n("annular_area") / 1000.)
+    use hsm_aero_float_numbers as f;
+    f::magnet_above_waterline(mass_g.unwrap_or_else(f::design_mass_g), liquid_density.unwrap_or(f::WATER_DENSITY))
 }
 
 pub fn edge_distance(rod_axis: f64, reed_axis: f64, float_edge: bool) -> f64 {
-    let d = aero_datums();
-    (reed_axis - rod_axis).abs() + d["guide_radial_clearance"].as_f64().unwrap()
-        - d[if float_edge { "diameter" } else { "magnet_od" }]
-            .as_f64()
-            .unwrap()
-            / 2.
+    hsm_aero_float_numbers::edge_distance(rod_axis, reed_axis, float_edge)
 }
 
 pub fn aero_numbers(colors: &Value) -> Value {
