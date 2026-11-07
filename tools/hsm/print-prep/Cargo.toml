@@ -29,3 +29,7 @@ path = "../../../hardware/printed-parts/faucet/faucet_print_project.rs"
 [[bin]]
 name = "enclosure-print-prep"
 path = "../../../hardware/printed-parts/enclosure/trial-preparation/prepare.rs"
+
+[[bin]]
+name = "enclosure-labels"
+path = "../../../hardware/printed-parts/enclosure/trial-preparation/labels.rs"

@@ -60,7 +60,7 @@ nominal clearance to the core. The [nameplate acceptance](/hardware/printed-part
 keeps its recorded material, orientation and artifact scope; the surrounding
 host and its physical clearance remain subject to qualification.
 
-The [rear identification generator](../rear-identification/rear_identification.py)
+The [rear identification generator](../rear-identification/rear_identification.rs)
 owns the compact chips, their matching wall pockets and the nameplate field.
 None of these changes the fluid flange or nut seating planes.
 

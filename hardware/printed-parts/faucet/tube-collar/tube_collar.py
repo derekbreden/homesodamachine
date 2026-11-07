@@ -157,7 +157,7 @@ def word_band(face="top"):
 def _face_word(which: str, face: str):
     """One station's word on one of its flats, standing in the recess it fills.
 
-    THE LETTERS ARE LOOSE, one solid each, as `rear_identification.word` sets them. The part opens as
+    THE LETTERS ARE LOOSE, one solid each, as the rear tiles' generator sets them. The part opens as
     one file carrying both bodies and the lettering is assigned the second filament.
 
     `text` sets flat in XY with its advance on +X, its cap on +Y and its extrusion on +Z, and each
@@ -211,7 +211,7 @@ def build_blank(which="water"):
     """The outline run along the tube and its bore, with no lettering taken out of it — what a
     station's own word is cut from, and what `letters_lie_in_it` weighs the cut against.
 
-    Struck from primitives the way `rear_identification.chip` strikes a rear tile — a cylinder with
+    Struck from primitives the way the rear tiles' generator strikes a tile — a cylinder with
     everything above the axis taken off it, and a box standing on that same axis — so no plane's own
     chirality reaches the shape."""
     r = OD / 2.0

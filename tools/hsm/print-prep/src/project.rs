@@ -84,6 +84,10 @@ pub struct Plate {
     pub build_name: Option<String>,
     /// How each object's mesh member is written.
     pub mesh_style: MeshStyle,
+    /// How Bambu Studio assigns filaments to nozzles: its own choice for flushing, or the
+    /// project's map.
+    pub filament_map_mode: String,
+    pub filament_volume_maps: String,
     next_id: usize,
 }
 
@@ -106,6 +110,8 @@ impl Plate {
             filament_maps: None,
             build_name: None,
             mesh_style: MeshStyle::Streamed,
+            filament_map_mode: "Auto For Flush".into(),
+            filament_volume_maps: "0".into(),
             next_id: 1,
         }
     }
@@ -177,8 +183,8 @@ impl Plate {
         });
         let bed = self.settings.get("curr_bed_type").and_then(Json::text).unwrap_or("").to_string();
         for (key, value) in [("plater_id", "1".to_string()), ("plater_name", self.title.clone()), ("locked", "false".into()),
-                             ("filament_map_mode", "Auto For Flush".into()), ("filament_maps", maps),
-                             ("filament_volume_maps", "0".into()), ("bed_type", bed)] {
+                             ("filament_map_mode", self.filament_map_mode.clone()), ("filament_maps", maps),
+                             ("filament_volume_maps", self.filament_volume_maps.clone()), ("bed_type", bed)] {
             metadata(&mut plate, key, &value);
         }
         let mut assemble = String::from("<assemble>");
@@ -195,8 +201,10 @@ impl Plate {
             let _ = write!(build, "<item objectid=\"{}\" transform=\"{transform}\" printable=\"1\" p:UUID=\"{}\" />", obj.object_id, self.identifier(&format!("{name}/item")));
             let _ = write!(config, "<object id=\"{}\">", obj.object_id);
             metadata(&mut config, "name", name);
-            metadata(&mut config, "extruder", "1");
-            for (k, v) in &obj.settings {
+            // The object's own extruder, when its settings name one, else the first.
+            let extruder = obj.settings.iter().find(|(k, _)| k == "extruder").map_or("1", |(_, v)| v.as_str());
+            metadata(&mut config, "extruder", extruder);
+            for (k, v) in obj.settings.iter().filter(|(k, _)| k != "extruder") {
                 metadata(&mut config, k, v);
             }
             let _ = write!(config, "<metadata face_count=\"{}\" /><part id=\"{}\" subtype=\"normal_part\" uuid=\"{}\">", obj.faces.len(), obj.part_id, self.identifier(&format!("{name}/part")));

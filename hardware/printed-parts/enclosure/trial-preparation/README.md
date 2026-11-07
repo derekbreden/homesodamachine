@@ -13,11 +13,11 @@ to ship. This preparation records manufacturing inputs and emitted paths; it doe
 reduce that objective to fit or qualify the assembled machine by itself.
 
 ```sh
-python3 tools/run.py -- cargo build --release --locked --manifest-path tools/hsm/Cargo.toml -p hsm-print-prep --bin enclosure-print-prep
+python3 tools/run.py -- cargo build --release --locked --manifest-path tools/hsm/Cargo.toml -p hsm-print-prep
 tools/hsm/target/release/enclosure-print-prep list
 tools/hsm/target/release/enclosure-print-prep back-top --slice --review
 tools/hsm/target/release/enclosure-print-prep all --slice --review
-tools/cad-venv/bin/python hardware/printed-parts/enclosure/trial-preparation/labels.py --slice
+tools/hsm/target/release/enclosure-labels --slice
 tools/cad-venv/bin/python hardware/printed-parts/enclosure/trial-preparation/step_meshes.py hardware/printed-parts/cold-core/prv-shroud/prv-shroud.step
 tools/cad-venv/bin/python hardware/printed-parts/enclosure/trial-preparation/step_meshes.py --check
 ```
@@ -44,9 +44,10 @@ part's lettering into it, and writes `<part>.stl` beside the STEP with
 [`step-meshes.json`](step-meshes.json), and preparation refuses an STL whose STEP has moved
 since.
 
-[`labels.py`](labels.py) prepares the identification plates under the CAD lock, one plate per
-chip colour: the six rear chips, the six tube collars and nameplate 0001. Each
-part's body and lettering come from its published STEP, posed face up. The chips and the
+The `enclosure-labels` program ([`labels.rs`](labels.rs)) prepares the identification plates,
+one plate per chip colour: the six rear chips, the six tube collars and nameplate 0001. Each
+part's body and lettering are the two solids its generator writes into `<part>.step.npz`,
+posed face up. The chips and the
 nameplate lie on their flat backs; the collars lie on their flat faces. Each
 plate uses `petgf.3mf` on both 0.4 mm nozzles, with white on the left and the plate's colour on
 the right, at Mark2's +0.04 mm trim. The right nozzle takes its measured registration offset.
@@ -111,7 +112,7 @@ for fixed-width brim types.
 | `foam-shell`, `foam-cap-top`, `foam-cap-lid-bottom` | Mark2, left 0.4 Standard | PET-GF black | As exported, each on its flat face | Classic, three loops, 15% gyroid; 0.24 mm layers and 0.20 mm first layer; support-free |
 | `foam-cap-lid-top` | Mark1, left 0.4 Standard | PET-GF black | As exported, on its flat face | Classic, three loops, 15% gyroid; 0.24 mm layers and 0.20 mm first layer; Tree(auto)/Default |
 | `foam-cap-bottom` | Mark2, left 0.4 Standard | PET-GF black | Half a turn about X, onto its flat face | As the other cold-core pieces |
-| `labels` | Mark2, both 0.4 | PET-GF, two colours | [`labels.py`](labels.py) | — |
+| `labels` | Mark2, both 0.4 | PET-GF, two colours | [`labels.rs`](labels.rs) | — |
 | `funnel-cover` | Mark1, left 0.4 | PETG Basic black | [`zone-c/funnel-cover/prepare_print.py`](../../zone-c/funnel-cover/prepare_print.py) | — |
 | `funnel-mold` | Mark1, right 0.4 | PETG Translucent | [`tools/funnel-mold-print/prepare_print.py`](../../../../tools/funnel-mold-print/prepare_print.py) | — |
 | `pump-elbows` | Mark2, right 0.6 | Siraya TPU 85A | Retained processed archive with its deposited links | — |
