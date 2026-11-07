@@ -140,6 +140,12 @@ mod wire_components;
 
 fn main() -> Result<()> {
     let (numbers, output) = part::args()?;
+    println!("{}", run(&numbers, &output)?);
+    Ok(())
+}
+
+/// The installed conductors cut into `output`, and what it wrote there.
+pub fn run(numbers: &part::Numbers, output: &std::path::Path) -> Result<Value> {
     let routes = numbers
         .get("routes")?
         .as_array()
@@ -200,8 +206,7 @@ fn main() -> Result<()> {
                    "faces":s.faces().len()})
             })
             .collect();
-        println!("{}", json!({"files":[],"bodies":rows}));
-        return Ok(());
+        return Ok(json!({"files":[],"bodies":rows}));
     }
     let first = fine.first().context("wire assembly is empty")?.bounds();
     let (mut lower, mut upper) = (first.min, first.max);
@@ -268,6 +273,5 @@ fn main() -> Result<()> {
     let said = part::write_assembly_with_root(
         &output, file_stem, root_name, &bodies, Some(&document),
     )?;
-    println!("{said}");
-    Ok(())
+    Ok(said)
 }

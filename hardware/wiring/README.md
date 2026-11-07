@@ -7,7 +7,8 @@ is an explicit electrical interface.
 
 - [Populated enclosure](../manifold-layout/enclosure-assembly.step): hardware,
   printed pieces, wiring, connector housings and fuse-splice insulation together.
-- [Wiring assembly](enclosure-wiring.step): the same installed wiring on its own.
+- The wiring assembly on its own, `enclosure-wiring.step`, written with the resolved
+  model when the wiring is materialized by hand.
 - The resolved model, `enclosure-wiring.json`: terminal positions and directions,
   sources, nominal dimensions, connections, routes, lengths and service boundaries.
   The conductor worksheet, `enclosure-wiring.csv`: one row per physical conductor.
@@ -178,10 +179,9 @@ The editable source is under [`installed/`](installed/):
 | `terminations.py` | Removable housings, dressed fuse leads and joint insulation |
 | `build.py` | Native wiring assembly, manifest, worksheet and enclosure integration |
 
-The assembly build (`enclosure_assembly.py`) resolves the wiring from its placed
-hardware, exports the physical fine model, then builds the Rust wiring and installs
-its paired STEP and viewer payload. It writes the wiring model and nothing else of
-the wiring's.
+The installed machine ([`installed-machine`](../manifold-layout/installed_machine.rs))
+resolves the wiring from its placed hardware, cuts the conductors and joins them into
+the machine's STEP and viewer payload. It publishes nothing else of the wiring's.
 
 The resolved model, the worksheet and `enclosure-wiring.numbers.json`, the bound
 conductor and component recipes, are written by materializing the wiring against

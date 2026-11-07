@@ -13,6 +13,8 @@ pub const WALL: f64 = 3.0;
 /// The rear wall's interior datum, and what a part behind the rear seam keeps clear of it.
 pub const REAR_PLANE_Y: f64 = 468.3;
 pub const REAR_SEAM_CLEAR: f64 = 3.0;
+/// The air the enclosure's condenser fin keeps off the block.
+pub const COND_MOUNT_CLEAR: f64 = 1.0;
 /// How deep the upper Y stacks reach into the side band, which the funnel pocket shares.
 pub const Y_STACK_HIGH_DEPTH: f64 = 13.0;
 /// The M3 insert's bore, and the long insert's length everywhere a station can take it.

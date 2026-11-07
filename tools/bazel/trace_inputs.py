@@ -255,8 +255,8 @@ def _filtered(seen: dict, files: set) -> dict:
 
 
 #: HOW LONG ONE READING MAY TAKE. The runner stands the appliance in 36-45 minutes where this
-#: Mac takes a few, and a generator that stands it in-process — `enclosure_assembly.py`,
-#: `render_scenes.py` — needs the hour there. A run that outlives this comes back the way a
+#: Mac takes a few, and a step that stands it in-process — the installed machine — needs the
+#: hour there. A run that outlives this comes back the way a
 #: killed one does, with no reading, and the sweep keeps the entry it had; it never stops
 #: the sweep. `derive.yml`'s `trace=all` dispatch budgets for these on top of the build.
 DEADLINE = 3600
@@ -359,6 +359,7 @@ ELSEWHERE = ("tools/", "hardware/pcb/pcba/",
              "hardware/install-guide/_cad_art.py",  # scene library kit_art.py and opening_scene.py import
              "hardware/install-guide/_install_art.py",  # scene library kit_art.py and opening_scene.py import
              "hardware/assembly/scenes/render_scenes.py",
+             "hardware/manifold-layout/enclosure_assembly.py",  # the machine's clash checks, run by hand
              "hardware/scripts/check_faucet_geometry.py",
              "hardware/printed-parts/enclosure/pump-dock/print-preparation/",
              "hardware/printed-parts/enclosure/enclosure/heat-set-review/print_regions.py",
@@ -366,7 +367,8 @@ ELSEWHERE = ("tools/", "hardware/pcb/pcba/",
 
 
 #: THE RUST STEPS, by the source of each program's `main`: the crate under `tools/hsm` whose
-#: `[[bin]]` it is, the program's name, and the directory it writes into when given none.
+#: `[[bin]]` it is, the program's name, and the directory it writes into when given none. A
+#: program that writes into several directories writes each file at its path from the root, "".
 RUST_STEPS = {
     "hardware/printed-parts/enclosure/enclosure/enclosure.rs":
         ("enclosure", "enclosure", "hardware/printed-parts/enclosure/enclosure"),
@@ -384,6 +386,8 @@ RUST_STEPS = {
         ("enclosure-pump-tube-setting-jig", "enclosure-pump-tube-setting-jig", "hardware/printed-parts/enclosure/enclosure"),
     "hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_step.rs":
         ("endcap-circular", "endcap-circular-step", "hardware/cut-parts/carbonation/endcaps-circular"),
+    "hardware/manifold-layout/installed_machine.rs":
+        ("installed-machine", "installed-machine", ""),
 }
 
 
@@ -492,7 +496,8 @@ def trace_rust(gen: str, files: set) -> dict:
             path = Path(line.split("\t")[0])
             if path.is_relative_to(_ROOT):
                 read.add(path.relative_to(_ROOT).as_posix())
-    writes = sorted(f"{output}/{rel}" for rel in wrote if not build_inert(f"{output}/{rel}"))
+    at = lambda rel: f"{output}/{rel}" if output else rel
+    writes = sorted(at(rel) for rel in wrote if not build_inert(at(rel)))
     reads = (({p for p in read if p in files and not build_inert(p)} | set(sources)) - set(writes))
     return {"reads": sorted(reads), "writes": writes, "rewritten": [],
             "program": {"crate": krate, "name": name, "sources": sources}}

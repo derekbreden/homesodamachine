@@ -13,7 +13,9 @@ pub fn digest(path: &Path) -> Result<String> {
         }
         hash.update(&buffer[..read]);
     }
-    Ok(format!("{:x}", hash.finalize()))
+    let hex = format!("{:x}", hash.finalize());
+    hsm_kernel::reads::digest(path, &hex);
+    Ok(hex)
 }
 fn components(vertices: &Value, triangles: &Value) -> Result<Value> {
     let vertices = model::points(vertices)?;
@@ -182,10 +184,14 @@ fn measurements(path: &Path, names: &Value) -> Result<Value> {
 fn reference(path: &Path, rotation: &Value) -> Result<Value> {
     let queries = path.with_file_name("native-queries.json");
     if queries.is_file() {
-        let data: Value = serde_json::from_str(&std::fs::read_to_string(&queries)?)?;
+        let raw = std::fs::read(&queries)?;
+        hsm_kernel::reads::read(&queries, &raw);
+        let data: Value = serde_json::from_slice(&raw)?;
         let row = &data["references"][path.file_name().unwrap().to_string_lossy().as_ref()];
         let manifest = path.with_file_name("frozen-asset.json");
-        let identity: Value = serde_json::from_str(&std::fs::read_to_string(&manifest)?)?;
+        let raw = std::fs::read(&manifest)?;
+        hsm_kernel::reads::read(&manifest, &raw);
+        let identity: Value = serde_json::from_slice(&raw)?;
         ensure!(
             identity["members"][path.file_name().unwrap().to_string_lossy().as_ref()]
                 == row["step_sha256"],

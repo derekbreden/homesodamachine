@@ -197,6 +197,12 @@ fn equipment(n: &Numbers) -> Result<BTreeMap<String, Vec<Solid>>> {
 
 fn main() -> Result<()> {
     let (n, output) = part::args()?;
+    println!("{}", run(&n, &output)?);
+    Ok(())
+}
+
+/// The routed tubes cut into `output`, and what it wrote there.
+pub fn run(n: &Numbers, output: &std::path::Path) -> Result<Value> {
     let mut placed: Vec<(String, Option<[f64; 3]>, Solid)> = vec![];
     let mut groups = serde_json::Map::new();
     let mut order = vec![];
@@ -245,8 +251,7 @@ fn main() -> Result<()> {
         "insulation":insulation_request, "components":n.get("components")?,
         "component_order":order, "groups":groups, "instances":instances, "bodies":reports});
     std::fs::write(output.join(&document_name), serde_json::to_vec_pretty(&document)?)?;
-    println!("{}", json!({"files":[model_name, document_name], "bodies":reports,
+    Ok(json!({"files":[model_name, document_name], "bodies":reports,
         "groups":groups, "instances":instances, "lengths":lengths,
-        "body_order":order, "routes":routes, "route_order":n.get("route_order")?}));
-    Ok(())
+        "body_order":order, "routes":routes, "route_order":n.get("route_order")?}))
 }

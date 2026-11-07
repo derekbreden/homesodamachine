@@ -1,0 +1,29 @@
+[package]
+name = "hsm-installed-machine"
+version = "0.1.0"
+edition.workspace = true
+license.workspace = true
+rust-version.workspace = true
+publish = false
+
+[[bin]]
+name = "installed-machine"
+path = "../../../hardware/manifold-layout/installed_machine.rs"
+
+[dependencies]
+anyhow.workspace = true
+serde = { workspace = true, features = ["derive"] }
+serde_json = { workspace = true, features = ["float_roundtrip"] }
+sha2.workspace = true
+regex = "1"
+zip = { version = "9.1.2", default-features = false, features = ["deflate-flate2-zlib-rs"] }
+hsm-kernel = { path = "../kernel" }
+hsm-geometry = { path = "../geometry" }
+hsm-model-export = { path = "../model-export" }
+hsm-layout-data = { path = "../layout-data" }
+hsm-documents = { path = "../documents" }
+hsm-enclosure-numbers = { path = "../enclosure-numbers" }
+hsm-enclosure-dock-numbers = { path = "../enclosure-dock-numbers" }
+hsm-enclosure-interface = { path = "../enclosure-interface" }
+hsm-print-payload = { path = "../print-payload" }
+hsm-cold-core-interface = { path = "../cold-core-interface" }

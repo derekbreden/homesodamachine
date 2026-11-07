@@ -105,12 +105,18 @@ pub fn render(name: &str, declaration: &Value, made: &[String], copy_files: &[St
     );
     text += &format!("copy_file target/release/{} \"$$O0\"\n\"\"\",\n)\n\n", program.name);
 
-    // The step: the program, run where only what it declared stands at its repository path.
+    // The step: the program, run where only what it declared stands at its repository path. The
+    // code it was compiled from stays out; data it was compiled with stays in, since it may also
+    // read that data where it runs.
+    let code = |source: &str| {
+        source.ends_with(".rs") || ["Cargo.toml", "Cargo.lock", "cargo-config.json"].iter().any(|m| source.ends_with(m))
+    };
+    let compiled = |source: &str| program.sources.contains(source) && code(source);
     let sources: BTreeSet<&str> = srcs
         .iter()
         .copied()
-        .filter(|source| !program.sources.contains(*source))
-        .filter(|source| path_of(source).is_none_or(|path| !program.sources.contains(&path)))
+        .filter(|source| !compiled(source))
+        .filter(|source| path_of(source).is_none_or(|path| !compiled(&path)))
         .collect();
     text += &format!("genrule(\n    name = \"{name}\",\n    srcs = [\n        \":{built}\",\n");
     for source in &sources {

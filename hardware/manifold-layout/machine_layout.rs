@@ -1528,7 +1528,7 @@ fn placed_equipment(v: &Value) -> (Value, Vec<String>) {
     (plan, aliases)
 }
 
-fn run(v: &Value, out: &Path) -> Result<Value> {
+pub fn run(v: &Value, out: &Path) -> Result<Value> {
     let generated = out.with_extension("parts.npz");
     let mut layout = Layout::new(&generated);
     if v["stage"] == "dock" {

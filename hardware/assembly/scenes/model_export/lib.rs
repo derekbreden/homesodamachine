@@ -6,6 +6,8 @@ use sha2::{Digest, Sha256};
 use std::path::Path;
 
 pub mod component_order;
+pub mod gltf;
+pub mod merge;
 pub mod model;
 pub mod payload;
 

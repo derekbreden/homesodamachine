@@ -1133,6 +1133,28 @@ dependencies = [
 ]
 
 [[package]]
+name = "hsm-installed-machine"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "hsm-cold-core-interface",
+ "hsm-documents",
+ "hsm-enclosure-dock-numbers",
+ "hsm-enclosure-interface",
+ "hsm-enclosure-numbers",
+ "hsm-geometry",
+ "hsm-kernel",
+ "hsm-layout-data",
+ "hsm-model-export",
+ "hsm-print-payload",
+ "regex",
+ "serde",
+ "serde_json",
+ "sha2",
+ "zip",
+]
+
+[[package]]
 name = "hsm-kernel"
 version = "0.1.0"
 dependencies = [

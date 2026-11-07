@@ -288,6 +288,12 @@ fn vent_adapter(v: &Value) -> Result<Solid> {
 }
 fn main() -> Result<()> {
     let (n, output) = part::args()?;
+    println!("{}", run(&n, &output)?);
+    Ok(())
+}
+
+/// The placed equipment cut into `output`, and what it wrote there.
+pub fn run(n: &part::Numbers, output: &std::path::Path) -> Result<Value> {
     let mut sources = BTreeMap::new();
     let mut placed: Vec<(String,Option<[f64;3]>,Solid)> = vec![];
     let mut groups = serde_json::Map::new();
@@ -417,7 +423,6 @@ fn main() -> Result<()> {
             "vertices":solid.verts().len(),"triangles":solid.tris().len()})
     }).collect::<Vec<_>>());
     std::fs::write(output.join(format!("{name}.json")),serde_json::to_vec_pretty(&document)?)?;
-    println!("{}",json!({"files":[format!("{name}.step.npz"),format!("{name}.json")],
-        "bodies":document["bodies"],"groups":groups}));
-    Ok(())
+    Ok(json!({"files":[format!("{name}.step.npz"),format!("{name}.json")],
+        "bodies":document["bodies"],"groups":groups}))
 }

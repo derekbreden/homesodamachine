@@ -17,7 +17,7 @@ on X, `FACE_A` on Y, `FACE_B` on Z:
 | Station | Face | Location | Stands on |
 |---|---|---|---|
 | `refrig-inlet` | intake, −X | (0, 87, 66) | the compressor's discharge stub, on its shell's +X tangent |
-| `refrig-outlet` | aft, +Y | (39, 154, 38.75) | the cold core's evaporator-inlet column and plane |
+| `refrig-outlet` | aft, +Y | (33, 154, 38.75) | the cold core's evaporator-inlet column and plane |
 | `fan-power` | exhaust, +X | (56, 30, 68.5) | — |
 
 **Both refrigerant legs arrive where the neighbour puts them**, which is what a

@@ -17,7 +17,10 @@ full build ([Speed work](#speed-work)).
 
 The enclosure's steps are Rust programs Bazel runs directly: one for each printed piece, compiled
 from its own recipe and the numbers it takes, and one for the enclosure model, built from the
-pieces' files. Every other step still starts Python:
+pieces' files. So is the installed machine: one program places the pack, the equipment, its
+tubes and the installed parts from the written-down design and the parts' own files, and writes
+the machine's STEP, the model the site draws, its facts and its scene views. Every other step
+still starts Python:
 its entry script imports thin modules that send each call to Rust over a JSON pipe, and runs the
 Rust part programs through the `hsm` engine's socket. The build planner
 (`tools/bazel/trace_inputs.py`) knows those steps by their Python entry scripts, and a Rust step
@@ -83,8 +86,7 @@ read there, with each Python file replaced by the Rust that took its place.
   modules it reaches from the stubs it calls, so an edit to one recipe module reruns the steps
   that reach it. A hand-written crate is taken whole, and an edit to the kernel or the
   bookkeeping reruns every step that uses them.
-- **One step at a time, biggest first:** the whole-machine assembly (`enclosure_assembly.py`),
-  then the graph's other entries by CPU. Steps whose files are
+- **One step at a time, biggest first:** the graph's entries by CPU. Steps whose files are
   separate run in parallel.
 - **A step is converted** when Bazel runs its Rust program and no Python. The Python only that
   step used is deleted in the same change, which lands on main on its own with the step's share
@@ -125,8 +127,9 @@ explicit input recipes come from Rust data providers.
 | Enclosure measurements | `enclosure-checks`; piece bounds and Box measurements | `hardware/printed-parts/enclosure/enclosure/enclosure_checks.rs` |
 | Print surfaces | `print-payload`, for the payloads `flute_payload.py` cuts, and the library the enclosure piece programs link; reduction, shading and source records | `tools/hsm/print-payload/` |
 | End cap | `endcap-circular-step`; the machined cap's files from the numbers crates of the tube, the float and the cap | `hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_step.rs` |
-| Machine checks | `machine-checks`; fit, clearance and scalar reports, in every build | `hardware/manifold-layout/machine_checks.rs` |
-| Model exports | `machine-export`; physical models, display surfaces, wiring append and eleven scene GLBs | `hardware/assembly/scenes/machine_export.rs` |
+| Installed machine | `installed-machine`; the placements, equipment, tubes, installed parts and wiring in one process, written as the machine's STEP, viewer payload, facts and scene GLBs | `hardware/manifold-layout/installed_machine.rs` |
+| Machine checks | `machine-checks`; fit, clearance and scalar reports, run when asked through `enclosure_assembly.py` | `hardware/manifold-layout/machine_checks.rs` |
+| Model exports | the `hsm-model-export` library; physical models, display surfaces, wiring append and scene GLBs | `hardware/assembly/scenes/model_export/` |
 | Model context | `machine-data`; facts, scene documents and numerical wiring context | `tools/hsm/machine-data/` |
 | Document readers | Rust ledger and procedure programs, with explicit source dependencies and remaining raw provider inputs | `tools/hsm/ledger/`, `tools/hsm/assembly-docs/` |
 

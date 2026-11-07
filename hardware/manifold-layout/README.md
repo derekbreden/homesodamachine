@@ -3,9 +3,12 @@
 The production assembly combines eight fixed front valves, two KPHM600 pumps,
 six purchased PP0208E tees and the above-core equipment. Its native placements
 and physical tube paths are defined in [above-core.md](above-core.md) and
-[above-core.json](above-core.json). [enclosure_assembly.py](enclosure_assembly.py)
+[above-core.json](above-core.json). [The installed machine](installed_machine.rs)
 composes those parts with the refrigeration base, cold core, printed enclosure
-and installed wiring.
+and installed wiring, and writes the machine's STEP, the model the site draws, its
+facts and its scene views. The clash checks run when asked:
+`python3 tools/run.py -- tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py`
+writes the machine's files and `enclosure-assembly.scorecard.json` into the checkout.
 
 The connections follow [fluid-topology.md](/hardware/topology/fluid-topology.md).
 Each reservoir has separate fill and draw mouths; segments 14/24 fill them and
