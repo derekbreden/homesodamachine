@@ -27,7 +27,7 @@ use hsm_enclosure_solid::pieces::{keep, payload, shown, solids};
 use hsm_enclosure_solid::plan::{Graph, Op, Shape};
 use hsm_enclosure_solid::structure::Silhouette;
 use hsm_enclosure_solid::{ops, skin};
-use hsm_kernel::{Solid, v3};
+use hsm_kernel::Solid;
 use std::path::Path;
 
 /// The back-bottom print's raised warning field: the wall it relieves and how far the letters
@@ -151,10 +151,7 @@ fn write(
         &core,
         &serde_json::json!({"field":field,"rails":rails,"land":land,"raise":print.warning_raise}),
         || {
-            let smooth = core.cut(&Solid::cuboid(
-                v3(land[0], o[3], land[4]),
-                v3(land[1], o[3] + print.warning_raise + 1.0, land[5]),
-            ))?;
+            let smooth = core.intersect(silhouette.get()?)?;
             let fluted = skin::flute_solid(&smooth.simplified()?, field, rails, &[land])?;
             let joined = fluted.union(&ops::manifold(&relief)?);
             ops::print_solid(&ops::quantized(&joined)?)
