@@ -16,16 +16,63 @@ pub struct Build<'a> {
 }
 
 impl Build<'_> {
+    /// The band's stock belongs to this quadrant before its seats, openings and fits are cut.
+    pub fn exterior(&self, g: &mut Graph, piece: Shape) -> Shape {
+        let Some(exterior) = self.b.exterior else {
+            return piece;
+        };
+        let piece = g.checkpoint("wall before seam band", piece);
+        let centre = self.q.zj(self.b) + crate::catalog::running() / 2.0;
+        let mut bounds = self.b.exterior_bounds();
+        bounds[4] = centre - exterior.band_height / 2.0;
+        bounds[5] = centre + exterior.band_height / 2.0;
+        let stock = g.add(
+            crate::plan::Op::SeamBand {
+                outer: self.b.outer,
+                centre,
+                exterior,
+            },
+            vec![],
+            Some(bounds),
+        );
+        let mut clipped = bounds;
+        if self.q.y == crate::quadrant::Y::Front {
+            clipped[3] = self.b.y_joint;
+        } else {
+            clipped[2] = self.b.y_joint;
+        }
+        if self.q.z == crate::quadrant::Z::Top {
+            clipped[4] = self.q.zj(self.b);
+        } else {
+            clipped[5] = self.q.zj(self.b);
+        }
+        let limit = g.box_(clipped);
+        let stock = g.intersect(stock, &[limit]);
+        g.additive(piece, stock)
+    }
+
     fn relief_split(&self, sy: f64) -> f64 {
-        if sy < 0.0 { self.b.splits[0] } else { self.b.splits[1] }
+        if sy < 0.0 {
+            self.b.splits[0]
+        } else {
+            self.b.splits[1]
+        }
     }
 
     /// The piece with each column relief's rise cut.
     pub fn rises(&self, g: &mut Graph, mut piece: Shape) -> Shape {
         let (b, up) = (self.b, self.q.up());
         for relief in &b.column_reliefs {
-            let rise = column_relief_rise(g, &b.inner, relief.0, relief.1, &relief.3, self.relief_split(relief.1), up,
-                                          &b.pack.cond_cradle);
+            let rise = column_relief_rise(
+                g,
+                &b.inner,
+                relief.0,
+                relief.1,
+                &relief.3,
+                self.relief_split(relief.1),
+                up,
+                &b.pack.cond_cradle,
+            );
             piece = g.cut(piece, &[rise]);
         }
         piece
@@ -49,9 +96,26 @@ impl Build<'_> {
         let (b, up) = (self.b, self.q.up());
         for relief in &b.column_reliefs {
             let split = self.relief_split(relief.1);
-            let cut = column_relief(g, &b.inner, relief.0, relief.1, &relief.3, split, &b.pack.cond_cradle);
+            let cut = column_relief(
+                g,
+                &b.inner,
+                relief.0,
+                relief.1,
+                &relief.3,
+                split,
+                &b.pack.cond_cradle,
+            );
             piece = g.cut(piece, &[cut]);
-            let rise = column_relief_rise(g, &b.inner, relief.0, relief.1, &relief.3, split, up, &b.pack.cond_cradle);
+            let rise = column_relief_rise(
+                g,
+                &b.inner,
+                relief.0,
+                relief.1,
+                &relief.3,
+                split,
+                up,
+                &b.pack.cond_cradle,
+            );
             piece = g.cut(piece, &[rise]);
         }
         piece

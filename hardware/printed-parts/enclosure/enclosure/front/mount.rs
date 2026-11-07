@@ -223,7 +223,7 @@ pub fn fixed_cuts(g: &mut Graph, b: &Box) -> Vec<Shape> {
 /// hook's pocket, the pry port under it and a corbel over the port.
 pub fn snap_receivers(g: &mut Graph, b: &Box, mut piece: Shape) -> Shape {
     let d = snap_datums(b);
-    let silhouette = g.silhouette(b.outer);
+    let silhouette = g.silhouette(b.exterior_bounds());
     for side in [-1.0, 1.0] {
         let (x0, x1) = crate::quadrant::sorted(side * d.receiver_inner_x, side * (d.receiver_outer_x + 0.5));
         let band = g.box_([x0, x1, d.receiver_y0, d.receiver_y1, d.receiver_z0, d.receiver_z1]);

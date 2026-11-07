@@ -1,20 +1,17 @@
 //! Front-top's own construction: its grown flanks, the bulkhead and display backing over the pump
 //! bay, the bay floor and the dock's cuts, the funnel's seat ledges, the valve coils' flank
-//! pockets, the integral pump mount's cuts and receivers, and the analytic front corner its
-//! evaluator draws.
+//! pockets, and the integral pump mount's cuts and receivers.
 use crate::catalog::running;
 use crate::dock;
-use crate::walls::{CEILING_LIP_DROP, flank_bedding_cut};
 use crate::funnel::{self, BODY_WIDTH};
 use crate::mount;
 use crate::plan::{Bounds, Graph, Shape};
 use crate::quadrant::sorted;
 use crate::shell::*;
 use crate::spec::Box;
-use crate::structure::{ANGLE, FLAT, FRONT_RADIUS, FUNNEL_SEAT, SIDE_RADIUS, TOP_RADIUS, profile};
+use crate::structure::FUNNEL_SEAT;
 use crate::walls::front_top_flank_face;
-use serde::{Deserialize, Serialize};
-use std::sync::OnceLock;
+use crate::walls::{CEILING_LIP_DROP, flank_bedding_cut};
 
 /// The flanks grown inward over the rail rim, from the front wall to the end of the Y lip, on
 /// their bedding.
@@ -34,7 +31,14 @@ pub fn flanks(g: &mut Graph, inner: &Bounds, outer: &Bounds, y_joint: f64, zj: f
 pub fn bulkhead_and_ridge(g: &mut Graph, piece: Shape, b: &Box) -> Shape {
     let (inner, outer, plate) = (&b.inner, &b.outer, &b.pack.collet_plate);
     let bay_top = b.pump_bay[2];
-    let bulkhead = g.box_([inner[0], inner[1], shell().bay_back_y(plate), plate.wall_aft_y, Z_SEAM, bay_top]);
+    let bulkhead = g.box_([
+        inner[0],
+        inner[1],
+        shell().bay_back_y(plate),
+        plate.wall_aft_y,
+        Z_SEAM,
+        bay_top,
+    ]);
     let piece = g.union(piece, &[bulkhead]);
     let (fore, root) = (plate.aft_y, plate.wall_aft_y);
     let face = funnel::housing_back_y(b.pack.funnel[1]);
@@ -45,11 +49,17 @@ pub fn bulkhead_and_ridge(g: &mut Graph, piece: Shape, b: &Box) -> Shape {
     }
     section.extend([[face, outer[5]], [fore, outer[5]]]);
     let slab = g.yz_prism(inner[0], inner[1], section);
-    let silhouette = g.silhouette(*outer);
+    let silhouette = g.silhouette(b.exterior_bounds());
     let mut backing = g.intersect(slab, &[silhouette]);
     if !b.pack.pump_trays.is_empty() {
-        let keep = g.box_([inner[0], inner[1], outer[2] - 1.0, funnel::housing_back_y(funnel::CENTER_Y), outer[4] - 1.0,
-                           outer[5] + 1.0]);
+        let keep = g.box_([
+            inner[0],
+            inner[1],
+            outer[2] - 1.0,
+            funnel::housing_back_y(funnel::CENTER_Y),
+            outer[4] - 1.0,
+            outer[5] + 1.0,
+        ]);
         backing = g.intersect(backing, &[keep]);
     }
     g.union(piece, &[backing])
@@ -80,12 +90,16 @@ pub fn seat_ledge_corbels(g: &mut Graph, mut piece: Shape, b: &Box) -> Shape {
     let front = funnel::housing_back_y(funnel::CENTER_Y);
     for (wall_x, sx) in [(inner[1], 1.0), (inner[0], -1.0)] {
         for (ya, yb, x_in) in [(front, cy, reach), (cy, b.y_joint, plumb)] {
-            let corbel = g.xz_prism(ya, yb, vec![
-                [sx * x_in, floor],
-                [wall_x, floor],
-                [wall_x, shoulder + plumb - wall_x.abs()],
-                [sx * x_in, shoulder + plumb - x_in],
-            ]);
+            let corbel = g.xz_prism(
+                ya,
+                yb,
+                vec![
+                    [sx * x_in, floor],
+                    [wall_x, floor],
+                    [wall_x, shoulder + plumb - wall_x.abs()],
+                    [sx * x_in, shoulder + plumb - x_in],
+                ],
+            );
             piece = g.union(piece, &[corbel]);
         }
     }
@@ -104,19 +118,30 @@ pub fn loading_and_dock_cuts(g: &mut Graph, mut piece: Shape, b: &Box) -> Shape 
 
 /// Each valve coil's pocket into the flank it stands against: from the flank's face to the
 /// pocket's floor, its roof rising as far as it runs into the wall.
-pub fn flank_pockets(g: &mut Graph, mut piece: Shape, pockets: &[(String, f64, f64, f64, f64, f64, f64)]) -> Shape {
+pub fn flank_pockets(
+    g: &mut Graph,
+    mut piece: Shape,
+    pockets: &[(String, f64, f64, f64, f64, f64, f64)],
+) -> Shape {
     for (name, x0, x1, y0, y1, z0, z1) in pockets {
         let side = if x0 + x1 > 0.0 { 1.0 } else { -1.0 };
         let (face, floor) = sorted(x0.abs(), x1.abs());
         let depth = floor - face;
         let remaining = APPLIANCE_WIDTH / 2.0 - floor - FLUTE_DEPTH;
-        assert!(remaining >= WALL - STATED_BOUND_TOL, "{name} flank pocket leaves only {remaining} mm behind fluting");
-        let pocket = g.xz_prism(*y0, *y1, vec![
-            [side * (face - 1.0), *z0],
-            [side * floor, *z0],
-            [side * floor, *z1],
-            [side * (face - 1.0), z1 + depth + 1.0],
-        ]);
+        assert!(
+            remaining >= WALL - STATED_BOUND_TOL,
+            "{name} flank pocket leaves only {remaining} mm behind fluting"
+        );
+        let pocket = g.xz_prism(
+            *y0,
+            *y1,
+            vec![
+                [side * (face - 1.0), *z0],
+                [side * floor, *z0],
+                [side * floor, *z1],
+                [side * (face - 1.0), z1 + depth + 1.0],
+            ],
+        );
         piece = g.cut(piece, &[pocket]);
     }
     piece
@@ -128,76 +153,4 @@ pub fn pump_mount_cuts(g: &mut Graph, mut piece: Shape, b: &Box) -> Shape {
         piece = g.cut(piece, &[cut]);
     }
     mount::snap_receivers(g, b, piece)
-}
-
-#[derive(Deserialize, PartialEq)]
-struct Domain {
-    front_radius_mm: f64,
-    side_radius_mm: f64,
-    top_radius_mm: f64,
-    angle_deg: f64,
-    display_flat_mm: f64,
-}
-
-#[derive(Deserialize)]
-struct Controls {
-    domain: Domain,
-    surfaces: Vec<CornerSurface>,
-}
-
-fn controls() -> &'static Controls {
-    static CONTROLS: OnceLock<Controls> = OnceLock::new();
-    CONTROLS.get_or_init(|| {
-        serde_json::from_str(include_str!("../front-corner-controls.json")).expect("the front corner's controls parse")
-    })
-}
-
-/// One front corner's frame: its origin and the hand of its X axis.
-#[derive(Clone, Copy, Debug, Serialize, Deserialize)]
-pub struct CornerFrame {
-    pub origin: [f64; 3],
-    pub x_sign: f64,
-}
-
-/// One rational B-spline patch of the retained front corner, in its unit frame.
-#[derive(Clone, Debug, Serialize, Deserialize)]
-pub struct CornerSurface {
-    pub degree: [usize; 2],
-    pub knots: [Vec<f64>; 2],
-    pub multiplicities: [Vec<usize>; 2],
-    pub poles: Vec<Vec<[f64; 3]>>,
-    pub weights: Vec<Vec<f64>>,
-    pub source_step_entity: u64,
-}
-
-/// The analytic front corner drawn on front-top's rounded body, scaled into each frame.
-#[derive(Clone, Debug, Serialize, Deserialize)]
-pub struct FrontCorners {
-    pub frames: Vec<CornerFrame>,
-    pub scale_mm: f64,
-    pub surfaces: Vec<CornerSurface>,
-}
-
-/// The retained analytic front corner, its unit patches placed on both standing rounds' centres
-/// at the profile's foot, the west one mirrored.
-pub fn front_corners(outer: &Bounds) -> FrontCorners {
-    let c = controls();
-    let live = Domain {
-        front_radius_mm: FRONT_RADIUS,
-        side_radius_mm: SIDE_RADIUS,
-        top_radius_mm: TOP_RADIUS,
-        angle_deg: ANGLE,
-        display_flat_mm: FLAT,
-    };
-    assert!(c.domain == live && outer[1] - outer[0] > 4.0 * FRONT_RADIUS,
-            "the front corner is outside its retained analytic parameter domain");
-    let foot = profile(outer).foot[1];
-    FrontCorners {
-        frames: vec![
-            CornerFrame { origin: [outer[0] + FRONT_RADIUS, outer[2] + FRONT_RADIUS, foot], x_sign: -1.0 },
-            CornerFrame { origin: [outer[1] - FRONT_RADIUS, outer[2] + FRONT_RADIUS, foot], x_sign: 1.0 },
-        ],
-        scale_mm: SIDE_RADIUS,
-        surfaces: c.surfaces.clone(),
-    }
 }
