@@ -10,7 +10,8 @@ use std::collections::{BTreeMap, HashMap};
 
 pub const FIRST_LAYER: f64 = 0.20;
 pub const LAYER: f64 = 0.24;
-/// cadlib/overhang_round.py: 0.5 outward per millimetre of rise.
+/// The normal's Z on an additive chamfer tangent to an expanding round, at the outward run per
+/// millimetre of rise `cadlib/overhang_round.py` gives it.
 pub fn chamfer_nz() -> f64 { -1.0 / 5f64.sqrt() }
 /// The chamfer's rise per radius, and the arc retained above it.
 pub fn rise_per_radius() -> f64 { 1.0 - 0.5 / 1.25f64.sqrt() }
@@ -531,6 +532,62 @@ pub fn layer_ranges(features: &[Feature]) -> Vec<Value> {
         }
         json!({"min_z": lo, "max_z": hi, "options": options, "feature": feature})
     }).collect()
+}
+
+/// Layer ranges that put a layer top exactly on each face height in `tops`, as (low, high,
+/// layer height).
+///
+/// The schedule starts with the first layer and continues in ordinary layers. A face height off
+/// that grid takes equal fine layers from the grid top below it, one step further down when the
+/// remainder is under `finest`. Fine ranges within one ordinary layer of each other join at their
+/// finest height when their joined span divides evenly by it.
+pub fn closing_schedule(tops: &[f64], finest: f64, coarsest_fine: f64) -> Result<Vec<[f64; 3]>> {
+    let r4 = |v: f64| (v * 1e4).round() / 1e4;
+    let mut targets: Vec<f64> = tops.iter().map(|&t| r4(t)).collect();
+    targets.sort_by(|a, b| a.partial_cmp(b).unwrap());
+    targets.dedup();
+    let (mut ranges, mut level): (Vec<[f64; 3]>, f64) = (Vec::new(), FIRST_LAYER);
+    for &top in &targets {
+        if top <= level + 1e-6 {
+            if (top - level).abs() > 1e-6 {
+                bail!("face at {top} mm lies below the scheduled layer top {level} mm");
+            }
+            continue;
+        }
+        let steps = ((top - level) / LAYER + 1e-9).floor();
+        let mut start = level + steps * LAYER;
+        if (top - start).abs() < 1e-6 {
+            level = top;
+            continue;
+        }
+        if top - start < finest - 1e-6 {
+            start -= LAYER;
+        }
+        let count = ((top - start) / coarsest_fine - 1e-9).ceil();
+        let height = (top - start) / count;
+        if height < finest - 1e-6 || start < FIRST_LAYER - 1e-6 {
+            bail!("no layer schedule closes {top} mm");
+        }
+        ranges.push([r4(start), r4(top), r4(height)]);
+        level = top;
+    }
+    let mut joined: Vec<[f64; 3]> = Vec::new();
+    for [low, high, height] in ranges {
+        if let Some(last) = joined.last_mut() {
+            if low - last[1] <= LAYER + 1e-6 {
+                let finest_height = height.min(last[2]);
+                let start = last[0];
+                let even = targets.iter().filter(|&&t| start < t && t <= high + 1e-6)
+                    .all(|&t| ((t - start) / finest_height - ((t - start) / finest_height).round()).abs() < 1e-6);
+                if even {
+                    *last = [start, high, finest_height];
+                    continue;
+                }
+            }
+        }
+        joined.push([low, high, height]);
+    }
+    Ok(joined)
 }
 
 /// Python's `f"{x:g}"` for the layer heights the ranges name.

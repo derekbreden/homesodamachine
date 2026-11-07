@@ -240,3 +240,22 @@ fn stl_corners(bytes: &[u8]) -> Result<Vec<[f64; 3]>> {
     }
     Ok(corners)
 }
+
+/// A binary STL of `faces`, each with its unit normal, in single precision as slicers read it.
+pub fn write_stl(path: &Path, vertices: &[[f64; 3]], faces: &[[usize; 3]]) -> Result<()> {
+    let mut bytes = vec![0u8; 80];
+    bytes.extend_from_slice(&(faces.len() as u32).to_le_bytes());
+    for f in faces {
+        let [a, b, c] = f.map(|i| vertices[i]);
+        let (u, w) = ([b[0] - a[0], b[1] - a[1], b[2] - a[2]], [c[0] - a[0], c[1] - a[1], c[2] - a[2]]);
+        let n = [u[1] * w[2] - u[2] * w[1], u[2] * w[0] - u[0] * w[2], u[0] * w[1] - u[1] * w[0]];
+        let length = (n[0] * n[0] + n[1] * n[1] + n[2] * n[2]).sqrt();
+        let n = if length > 0.0 { n.map(|v| v / length) } else { [0.0; 3] };
+        for v in n.iter().chain(a.iter()).chain(b.iter()).chain(c.iter()) {
+            bytes.extend_from_slice(&(*v as f32).to_le_bytes());
+        }
+        bytes.extend_from_slice(&[0, 0]);
+    }
+    std::fs::write(path, bytes)?;
+    Ok(())
+}
