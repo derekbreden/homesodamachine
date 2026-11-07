@@ -119,17 +119,6 @@ def frozen_assets(root: Path = _ROOT) -> dict:
 IMPLICIT_SOLIDS = {
     # These STL exports are written by OCCT below Python's filesystem audit.
     # Their generators still own them in a clean action.
-    # And its two viewer payloads and the fasteners it cuts beside the first unit, which stand
-    # unwritten when their bytes already do. The machine places those fasteners.
-    "hardware/printed-parts/enclosure/nameplate/nameplate.py": (
-        "hardware/printed-parts/enclosure/nameplate/nameplate-001.stl",
-        "hardware/printed-parts/enclosure/nameplate/nameplate-receiver.stl",
-        "hardware/printed-parts/enclosure/nameplate/nameplate-001.step.mesh",
-        "hardware/printed-parts/enclosure/nameplate/nameplate-receiver.step.mesh",
-        "hardware/printed-parts/enclosure/nameplate/nameplate-fasteners.step",
-        "hardware/printed-parts/enclosure/nameplate/nameplate-fasteners.step.mesh",
-        "hardware/printed-parts/enclosure/nameplate/nameplate-fasteners.step.npz",
-    ),
 }
 
 # Outputs whose bytes cross between build actions without becoming public artifacts.

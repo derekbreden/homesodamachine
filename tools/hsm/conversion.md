@@ -150,6 +150,7 @@ explicit input recipes come from Rust data providers.
 | Display gasket | `display-gasket`; the TPU ring between the display's glass and its cover, from the same numbers | `hardware/printed-parts/enclosure/display-gasket/display_gasket.rs` |
 | DATA trim | `data-ring`; the identification plate round the data jack and its lettering | `hardware/printed-parts/enclosure/data-ring/data_ring.rs` |
 | Rear identification tiles | `rear-identification`; the six port tiles from the above-core layout's rear grid and the bulkhead rings' words, and the numbers the installed machine places them by | `hardware/printed-parts/enclosure/rear-identification/rear_identification.rs` |
+| Nameplate | `nameplate`; the serial plate, its artwork read from the wordmark and brand mark, each unit's QR code, and with the first unit its receiver, fasteners and the receiver's dimensions | `hardware/printed-parts/enclosure/nameplate/nameplate.rs` |
 | Plumbing charts | `fluid-topology`; the manifold and carbonator charts' labels, checked against the installed machine's runs and the manifold's connections | `hardware/topology/fluid_topology.rs` |
 | Bill of materials and labor | `bom`; bom.md's printed-part masses from the fine models, its hardware counts and figures from the machine's facts and the parts' numbers, its totals, and labor.md's runs and totals | `hardware/ledger/bom.rs` |
 | Print-farm time | `machine-time`; machine-time.md's occupancy from bom.md's masses and the native slices | `hardware/ledger/machine_time.rs` |
