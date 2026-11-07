@@ -104,7 +104,7 @@ established by this coupon. No additional fixture or purchase is requested.
 
 ## Manual reproduction
 
-Preserve the submitted files before regenerating them. `prepare.py` writes the
+Preserve the submitted files before regenerating them. [`prepare.py`](https://github.com/derekbreden/homesodamachine/blob/0a648015e0/hardware/print-tests/petgf-fins/under-roof-walls-v8/prepare.py) (in Git at `0a648015e0`) writes the
 editable project, meshes and manifest using the repository CadQuery runtime.
 Slice with Bambu Studio `--arrange 0 --orient 0 --slice 0`, exporting
 `native.gcode.3mf` to the absolute `mark1` output directory. `finish.py` applies

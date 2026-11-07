@@ -82,6 +82,6 @@ fin contributions. Release effort and joint fit are not separately reported.
 The [next single tip candidate](../2026-10-15-edge-supports/README.md) retains
 the fins and adds tree contacts at the seam-side low starting lip.
 
-[`prepare.py`](https://github.com/derekbreden/homesodamachine/blob/306268f870/hardware/printed-parts/faucet/finish-coupons/2026-10-15-tip-fins/prepare.py) (in Git at `306268f870`), `build-fins.mjs` and `review.py` are manual experiment tools.
+[`prepare.py`](https://github.com/derekbreden/homesodamachine/blob/306268f870/hardware/printed-parts/faucet/finish-coupons/2026-10-15-tip-fins/prepare.py) (in Git at `306268f870`), `build-fins.mjs` and [`review.py`](https://github.com/derekbreden/homesodamachine/blob/0a648015e0/hardware/printed-parts/faucet/finish-coupons/2026-10-15-tip-fins/review.py) (in Git at `0a648015e0`) are manual experiment tools.
 They add no build or commit checks. Run the Python tools with the repository's
 `tools/cad-venv/bin/python`; preparation preserves any accepted launch.
