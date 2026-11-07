@@ -1,7 +1,7 @@
 # PET-GF cooling
 
 Ordinary PET-GF paths print with part cooling off. High cooling belongs to the
-bridges and unsupported underside paths that need it. A short layer time does
+bridges, unsupported underside paths and their fresh foundation courses. A short layer time does
 not turn cooling on for an entire part or layer. Auxiliary part cooling is off.
 
 | Bambu setting | Current value |
@@ -16,8 +16,8 @@ not turn cooling on for an entire part or layer. Auxiliary part cooling is off.
 | First three bed layers | Fan off |
 
 Up to 100% cooling is acceptable for a feature whose underside needs it. Apply
-that choice to the qualifying overhang/bridge paths. Ordinary walls, infill and
-support paths retain zero part cooling unless they themselves qualify. Exhaust
+that choice to the qualifying overhang/bridge paths and their foundations. Ordinary walls, infill and
+support paths retain their native cooling outside those foundations. Exhaust
 and hotend heatsink fans serve other purposes and retain their machine settings.
 
 Bambu Studio's **0% overhang threshold means all exterior walls**, even walls
@@ -36,7 +36,26 @@ single cause for every fracture. Polymaker's
 [PET-GF15 printing guidance](https://wiki.polymaker.com/polymaker-products/polymaker-filaments/fiberon-tm/fiberon-tm-pet-gf15)
 specifies fan off and suggests slower printing for layer-adhesion trouble.
 The faucet's existing bridge flow and bridge/overhang speeds remain selected
-for underside finish; ordinary process speeds and temperatures are unchanged.
+for underside finish. Recovery courses use their filament's bridge speed limit;
+ordinary process speeds and temperatures retain their selected values.
+
+## Recovery foundations
+
+The shared output stage follows the model footprint of native-cooled bridge
+and overhang paths into the immediately following courses. Within that
+footprint it retains underside cooling and limits deposition to the selected
+bridge speed. The depth and footprint resolution belong to the shared
+[cooling catalog](../../../tools/hsm/shared-data/catalog/scalars.json).
+The rule follows each object's actual paths, including curved paths and
+filament changes. A floating-shell label alone does not request cooling.
+Travel speeds, extrusion amounts, supports and other device commands retain
+their native settings.
+
+The [rail command reading](../enclosure/enclosure/prints/2026-11-05-back-top-smooth-corners-mark2/rail-cooling.json)
+records the photographed print's native cooling and the foundation correction.
+The [prepared-output reading](recovery-preparation.json) records the current
+enclosure and pump outputs, command preservation and scope exercises. Finish
+and strength remain physical observations.
 
 ## Current projects
 
@@ -45,8 +64,11 @@ settings and embedded filament preset. [petgf_cooling.py](../cadlib/petgf_coolin
 applies them when the shared project writer prepares PET-GF from a source
 profile, including a retained historical profile. It leaves other materials
 alone. The Industrial and Sculpted faucet preparers also apply the selected
-localized recipe explicitly. This is configuration preparation, not an
-additional build or commit check.
+localized recipe explicitly. Editable projects register the same output stage
+as a Bambu Studio post-processing script. The enclosure and faucet command-line
+preparers also package the processed native paths, checksum and preparation
+record. Repeated preparation retains the already processed paths. This output
+stage runs during print preparation.
 
 The [editable-template inventory](current-projects.json) identifies the updated
 enclosure, label, tool, lever, vent-tool and organizer projects and their

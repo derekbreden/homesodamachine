@@ -1,10 +1,10 @@
 {
   "print_job": "print-job.json",
-  "result": "Support cleanup requires revision",
+  "result": "Rail underside finish and inaccessible supports require revision",
   "source_stl_sha256": "afef480e17bbad94f5b12c38e2f63048e052d9ae5dea3b3c5b403ace658ceca0",
   "source_archive_sha256": "9bf7e28a4573503f8e9954b7ffa82076b03b9b0bd201cbde67b22c763f0d7e3c",
   "observations": {
-    "rails": "Rectangular supports cannot be removed from the sliding cavities.",
+    "rails": "The rectangular rail supports are removable once a screwdriver reaches them at the appropriate angle. The first model course above them is stringy and loose; subsequent courses show local narrowing and glossy/color variation.",
     "prv_vent": "A tall tree reaches the flat mouth lip; a self-supporting chamfer is requested.",
     "pisco_and_asse_receivers": "Full-size enclosure walls block screwdriver access to the tiny supports. These interiors must print without supports.",
     "rear_bulkhead_bores": "Color plates cover the wall bores, allowing teardrop roofs instead of supported circular crowns.",
@@ -13,11 +13,22 @@
   "photos": [
     "/tmp/codex-remote-attachments/01a19503-4047-7cf0-ad82-9e42d010912e/B4896754-D589-4FFD-B029-465465CB0624/1-Photo-1.jpg",
     "/tmp/codex-remote-attachments/01a19503-4047-7cf0-ad82-9e42d010912e/B4896754-D589-4FFD-B029-465465CB0624/2-Photo-2.jpg",
-    "/tmp/codex-remote-attachments/01a19503-4047-7cf0-ad82-9e42d010912e/B4896754-D589-4FFD-B029-465465CB0624/3-Photo-3.jpg"
+    "/tmp/codex-remote-attachments/01a19503-4047-7cf0-ad82-9e42d010912e/B4896754-D589-4FFD-B029-465465CB0624/3-Photo-3.jpg",
+    "/tmp/codex-remote-attachments/01a19503-4047-7cf0-ad82-9e42d010912e/E3ECCF35-4194-4B6C-AE0F-175998F7E455/1-Photo-1.jpg",
+    "/tmp/codex-remote-attachments/01a19503-4047-7cf0-ad82-9e42d010912e/E3ECCF35-4194-4B6C-AE0F-175998F7E455/2-Photo-2.jpg",
+    "/tmp/codex-remote-attachments/01a19503-4047-7cf0-ad82-9e42d010912e/E3ECCF35-4194-4B6C-AE0F-175998F7E455/3-Photo-3.jpg"
   ],
   "user_words": [
     "The normal supports aren't removable.",
     "I can't reach in that far to remove those tiny little supports.",
-    "The bulkhead holes on the back, why aren't those teardrop shaped?"
-  ]
+    "The bulkhead holes on the back, why aren't those teardrop shaped?",
+    "I did get those normal supports out.",
+    "the first layer on top of the supports is stringy and loose and basically falling off"
+  ],
+  "rail_cooling_review": {
+    "reported_temperature": null,
+    "inference": "The photographs and reported texture motivate checking cooling and deposition on the newly bridged foundation; gloss alone does not measure temperature.",
+    "archive_sha256": "9bf7e28a4573503f8e9954b7ffa82076b03b9b0bd201cbde67b22c763f0d7e3c",
+    "record": "rail-cooling.json"
+  }
 }
