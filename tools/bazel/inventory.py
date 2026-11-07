@@ -126,10 +126,6 @@ IMPLICIT_SOLIDS = {
         for station in ("water", "co2", "drain", "carb", "flavor-a", "flavor-b")
         for suffix in ("step", "stl", "step.mesh")
     ),
-    "hardware/printed-parts/diaphragm-pump-sleeve/diaphragm_pump_sleeve.py": (
-        "hardware/printed-parts/diaphragm-pump-sleeve/diaphragm-pump-sleeve.stl",
-        "hardware/printed-parts/diaphragm-pump-sleeve/diaphragm-pump-sleeve.step.mesh",
-    ),
     "hardware/printed-parts/zone-c/funnel-cover/funnel_cover.py": (
         "hardware/printed-parts/zone-c/funnel-cover/funnel-cover.stl",
         "hardware/printed-parts/zone-c/funnel-cover/funnel-cover-print.stl",
