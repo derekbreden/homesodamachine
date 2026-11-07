@@ -88,15 +88,7 @@ Scan the installed QR and compare the unit number with the build record.
 The four-screw attachment has Derek's 3D approval. Its physical mounting and
 support cleanup are unqualified; printing is held for the enclosure corner review.
 
-## Website review and generation
-
-[`attachment_view.py`](attachment_view.py) exports the complete appliance,
-seated detail and separated attachment views from production meshes. Review
-models turn 180° about Z to open on the rear with the website’s default camera;
-production models keep the machine coordinates. The
-separated view exposes the flat plate back, inserts and screw stations.
-The [complete enclosure review](https://homesodamachine.com/3d#glb:assembly%2Fscenes%2Fglb%2Fnameplate-shallow-full-context.glb)
-opens directly on the rear of the appliance.
+## Generation
 
 ```sh
 tools/cad-venv/bin/python hardware/printed-parts/enclosure/nameplate/nameplate.py 1
