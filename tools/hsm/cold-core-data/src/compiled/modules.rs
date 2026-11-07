@@ -1,6 +1,4 @@
 use super::*;
-#[path = "all_aero_float.rs"]
-mod m_all_aero_float;
 #[path = "carbonator_tube_step.rs"]
 mod m_carbonator_tube_step;
 #[path = "carbonator_vessel_drawing.rs"]
@@ -11,8 +9,6 @@ mod m_coil_mandrel;
 mod m_cold_core_assembly;
 #[path = "core_numbers.rs"]
 mod m_core_numbers;
-#[path = "core_reference.rs"]
-mod m_core_reference;
 #[path = "endcap_circular_drawing.rs"]
 mod m_endcap_circular_drawing;
 #[path = "endcap_circular_dxf.rs"]
@@ -23,12 +19,8 @@ mod m_evaporator_coil_drawing;
 mod m_float_rod_drawing;
 #[path = "foam_assembly.rs"]
 mod m_foam_assembly;
-#[path = "foam_cap.rs"]
-mod m_foam_cap;
 #[path = "foam_numbers.rs"]
 mod m_foam_numbers;
-#[path = "foam_shell.rs"]
-mod m_foam_shell;
 #[path = "integration.rs"]
 mod m_integration;
 #[path = "magnetic_float.rs"]
@@ -85,8 +77,6 @@ mod m_private_show_skin;
 mod m_private_support_ring;
 #[path = "_water_inlet_jet.rs"]
 mod m_private_water_inlet_jet;
-#[path = "_water_pressure_regulator.rs"]
-mod m_private_water_pressure_regulator;
 #[path = "prv_shroud.rs"]
 mod m_prv_shroud;
 #[path = "reed_bridge.rs"]
@@ -116,7 +106,6 @@ pub fn source(name: &str) -> Option<&'static str> {
         }
         "cold_core_assembly" => Some("hardware/cold-core-layout/cold_core_assembly.py"),
         "core_numbers" => Some("hardware/cold-core-layout/core_numbers.py"),
-        "core_reference" => Some("hardware/cold-core-layout/core_reference.py"),
         "evaporator_coil_drawing" => Some("hardware/cold-core-layout/evaporator_coil_drawing.py"),
         "water_inlet_jet_cap_drawing" => {
             Some("hardware/cold-core-layout/water_inlet_jet_cap_drawing.py")
@@ -158,16 +147,8 @@ pub fn source(name: &str) -> Option<&'static str> {
         "_reservoir_ports" => Some("hardware/printed-parts/cold-core/_reservoir_ports.py"),
         "_show_skin" => Some("hardware/printed-parts/cold-core/_show_skin.py"),
         "_support_ring" => Some("hardware/printed-parts/cold-core/_support_ring.py"),
-        "_water_pressure_regulator" => {
-            Some("hardware/printed-parts/cold-core/_water_pressure_regulator.py")
-        }
         "foam_assembly" => Some("hardware/printed-parts/cold-core/foam-assembly/foam_assembly.py"),
         "foam_numbers" => Some("hardware/printed-parts/cold-core/foam-assembly/foam_numbers.py"),
-        "foam_cap" => Some("hardware/printed-parts/cold-core/foam-cap/foam_cap.py"),
-        "foam_shell" => Some("hardware/printed-parts/cold-core/foam-shell/foam_shell.py"),
-        "all_aero_float" => {
-            Some("hardware/printed-parts/cold-core/magnetic-float/all-aero/all_aero_float.py")
-        }
         "integration" => {
             Some("hardware/printed-parts/cold-core/magnetic-float/all-aero/integration.py")
         }
@@ -219,9 +200,6 @@ pub fn by_path(path: &str) -> Option<&'static str> {
     }
     if path.ends_with("hardware/cold-core-layout/core_numbers.py") {
         return Some("core_numbers");
-    }
-    if path.ends_with("hardware/cold-core-layout/core_reference.py") {
-        return Some("core_reference");
     }
     if path.ends_with("hardware/cold-core-layout/evaporator_coil_drawing.py") {
         return Some("evaporator_coil_drawing");
@@ -301,24 +279,11 @@ pub fn by_path(path: &str) -> Option<&'static str> {
     if path.ends_with("hardware/printed-parts/cold-core/_support_ring.py") {
         return Some("_support_ring");
     }
-    if path.ends_with("hardware/printed-parts/cold-core/_water_pressure_regulator.py") {
-        return Some("_water_pressure_regulator");
-    }
     if path.ends_with("hardware/printed-parts/cold-core/foam-assembly/foam_assembly.py") {
         return Some("foam_assembly");
     }
     if path.ends_with("hardware/printed-parts/cold-core/foam-assembly/foam_numbers.py") {
         return Some("foam_numbers");
-    }
-    if path.ends_with("hardware/printed-parts/cold-core/foam-cap/foam_cap.py") {
-        return Some("foam_cap");
-    }
-    if path.ends_with("hardware/printed-parts/cold-core/foam-shell/foam_shell.py") {
-        return Some("foam_shell");
-    }
-    if path.ends_with("hardware/printed-parts/cold-core/magnetic-float/all-aero/all_aero_float.py")
-    {
-        return Some("all_aero_float");
     }
     if path.ends_with("hardware/printed-parts/cold-core/magnetic-float/all-aero/integration.py") {
         return Some("integration");
@@ -352,7 +317,6 @@ pub fn initialize(rt: Runtime, e: Env, name: &str) -> Result<()> {
         "carbonator_vessel_drawing" => m_carbonator_vessel_drawing::initialize(rt, e),
         "cold_core_assembly" => m_cold_core_assembly::initialize(rt, e),
         "core_numbers" => m_core_numbers::initialize(rt, e),
-        "core_reference" => m_core_reference::initialize(rt, e),
         "evaporator_coil_drawing" => m_evaporator_coil_drawing::initialize(rt, e),
         "water_inlet_jet_cap_drawing" => m_water_inlet_jet_cap_drawing::initialize(rt, e),
         "water_inlet_jet_elbow_drawing" => m_water_inlet_jet_elbow_drawing::initialize(rt, e),
@@ -378,12 +342,8 @@ pub fn initialize(rt: Runtime, e: Env, name: &str) -> Result<()> {
         "_reservoir_ports" => m_private_reservoir_ports::initialize(rt, e),
         "_show_skin" => m_private_show_skin::initialize(rt, e),
         "_support_ring" => m_private_support_ring::initialize(rt, e),
-        "_water_pressure_regulator" => m_private_water_pressure_regulator::initialize(rt, e),
         "foam_assembly" => m_foam_assembly::initialize(rt, e),
         "foam_numbers" => m_foam_numbers::initialize(rt, e),
-        "foam_cap" => m_foam_cap::initialize(rt, e),
-        "foam_shell" => m_foam_shell::initialize(rt, e),
-        "all_aero_float" => m_all_aero_float::initialize(rt, e),
         "integration" => m_integration::initialize(rt, e),
         "magnetic_float" => m_magnetic_float::initialize(rt, e),
         "prv_shroud" => m_prv_shroud::initialize(rt, e),
@@ -407,7 +367,6 @@ pub fn entrypoint(rt: Runtime, e: Env, name: &str) -> Result<()> {
         "carbonator_vessel_drawing" => m_carbonator_vessel_drawing::entrypoint(rt, e).map(|_| ()),
         "cold_core_assembly" => m_cold_core_assembly::entrypoint(rt, e).map(|_| ()),
         "core_numbers" => m_core_numbers::entrypoint(rt, e).map(|_| ()),
-        "core_reference" => m_core_reference::entrypoint(rt, e).map(|_| ()),
         "evaporator_coil_drawing" => m_evaporator_coil_drawing::entrypoint(rt, e).map(|_| ()),
         "water_inlet_jet_cap_drawing" => {
             m_water_inlet_jet_cap_drawing::entrypoint(rt, e).map(|_| ())
@@ -441,14 +400,8 @@ pub fn entrypoint(rt: Runtime, e: Env, name: &str) -> Result<()> {
         "_reservoir_ports" => m_private_reservoir_ports::entrypoint(rt, e).map(|_| ()),
         "_show_skin" => m_private_show_skin::entrypoint(rt, e).map(|_| ()),
         "_support_ring" => m_private_support_ring::entrypoint(rt, e).map(|_| ()),
-        "_water_pressure_regulator" => {
-            m_private_water_pressure_regulator::entrypoint(rt, e).map(|_| ())
-        }
         "foam_assembly" => m_foam_assembly::entrypoint(rt, e).map(|_| ()),
         "foam_numbers" => m_foam_numbers::entrypoint(rt, e).map(|_| ()),
-        "foam_cap" => m_foam_cap::entrypoint(rt, e).map(|_| ()),
-        "foam_shell" => m_foam_shell::entrypoint(rt, e).map(|_| ()),
-        "all_aero_float" => m_all_aero_float::entrypoint(rt, e).map(|_| ()),
         "integration" => m_integration::entrypoint(rt, e).map(|_| ()),
         "magnetic_float" => m_magnetic_float::entrypoint(rt, e).map(|_| ()),
         "prv_shroud" => m_prv_shroud::entrypoint(rt, e).map(|_| ()),
@@ -495,9 +448,6 @@ pub fn documentation(name: &str) -> Option<&'static str> {
         ),
         "core_numbers" => {
             Some("Current cold-core bodies, source-frame placements and routing inputs for Rust.")
-        }
-        "core_reference" => {
-            Some("Cold-core model references and scalar source-frame installation datums.")
         }
         "evaporator_coil_drawing" => Some(
             "EVAP-01: production coil, complete tube outlines and tangent tail forms.\n\nThe installed coil and both tails share _coil's geometry. Views project the\nqualified kernel's fine tube meshes with hidden edges clipped in model space.\nThe local bridge relief is defined separately by a radial section and its dimensions.\nSheet two defines all circular bends and their tangent stations. Dimensions\nand tolerances define the manufactured article rather than a prototype state.\n",
@@ -568,23 +518,11 @@ pub fn documentation(name: &str) -> Option<&'static str> {
         "_support_ring" => Some(
             "Annular ring sitting at the bottom of the foam-shell's central\nzone, holding the carbonator up by its outer rim. The ring's outer face sits\non the carbonator+coil envelope — inboard of the reservoir pockets' centerward\nwall, which stands off from it by the cylinder's foam blanket.",
         ),
-        "_water_pressure_regulator" => {
-            Some("Internal water regulator and its single tied cradle, in the top lid's frame.")
-        }
         "foam_assembly" => Some(
             "Three-piece cold-core casing in its native assembly frame.\n\nThe fixed shell floor is Z0. The bottom cap stands on Z−20 and the uniform top\nlid presents its equipment face at Z233.4. The taller shell rim seats the lid\nwith its dry-face allowance. Vessel, reservoir, coil and port datums are fixed\nindependently of the casing rim. The separate B-fill bend holder belongs to the\npopulated cold-core assembly, not this casing-only assembly.\n",
         ),
         "foam_numbers" => Some(
             "The casing's source-frame placements, without importing its native route builders.",
-        ),
-        "foam_cap" => Some(
-            "Top equipment lid, open-topped bottom cap and internal B-fill bend holder.\nRigid seats retain their printed-face clearances; exterior foil tape seals the\ncold core's dry casing seams.\n",
-        ),
-        "foam_shell" => Some(
-            "Foam shell — the PET-GF enclosure for the cold core's pressure\ncarbonator + copper evaporator coil + flavor reservoir pockets. See\nREADME.md.",
-        ),
-        "all_aero_float" => Some(
-            "One-piece ASA Aero bench float with an RC62 at its axial midplane.\n\nFrame: open guide bore on Z, flat print bottom at Z=0. The enclosed annular\npocket is filled with the magnet during a native layer pause.\n",
         ),
         "integration" => Some(
             "Verify the shared float datums against emitted vessel CAD.\n\nUpright geometry is checked over the whole translation range with bore play.\nPhysical sliding, expansion, immersion and directional reed switching are not\naccepted by this check. Run after the float/reservoir/end-cap generators.\n",
