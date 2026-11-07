@@ -128,24 +128,27 @@ then emits **`G29.1 Z0.02`** on textured PEI with the 0.8 mm nozzle.
 
 ## Z trim
 
-Each printer keeps its own first-layer trim in its printer preset's start G-code. Job
-names carry the requested value (`z004`, `z018`).
+Each first-layer trim belongs to its recorded printer, material, nozzle and plate.
+The printer preset's start G-code carries it. Job names carry the requested value
+(`z004`, `z018`).
 
 | printer | nozzle | requested | emitted on Textured PEI | preset on current jobs |
 | --- | --- | --- | --- | --- |
 | Mark2 | 0.4 mm | +0.04 mm | `G29.1 Z0.02` | `Bambu Lab H2C 0.4 Standard +0.04 Z trim` |
 | Mark2 | 0.8 mm | +0.04 mm | `G29.1 Z0.02` | `Bambu Lab H2C 0.8 Standard +0.04 Z trim` |
-| Mark1 (`H2C` connection key) | 0.4 mm | +0.18 mm | `G29.1 Z0.16` | `Bambu Lab H2C 0.4 Standard +0.18 Z trim` |
+| Mark1 (`H2C`), PET-GF on Textured PEI | 0.4 mm | +0.18 mm | `G29.1 Z0.16` | `Bambu Lab H2C 0.4 Standard +0.18 Z trim` |
 | Mark1, clear PETG reservoir | 0.8 mm | 0.00 mm | `G29.1 Z-0.02` | `Bambu Lab H2C 0.8 Standard PETG zero Z trim` |
 
 The [Engineering Plate clear-PETG reservoir retry](../hardware/printed-parts/cold-core/reservoir/prints/2026-10-25-mark1-right-engineering-flow105-overlap30-temp260-right08-z000/README.md)
 retains zero added user trim and emits **`G29.1 Z0`** for its plate compensation.
 The preceding Textured PEI print emitted **−0.02 mm**, the stock compensation.
 
-Mark1's standard PET-GF user Z trim is +0.18 mm. The clear PETG reservoir uses
-zero added user trim, explicitly authorized by Derek for its first-layer adhesion
-retry. Keep this setting local to that PETG recipe. Other trim changes require
-explicit authorization for their specific print.
+Mark1's PET-GF trim applies only to the textured PEI plate. PETG on the glued
+Engineering Plate uses no Z offset. The
+[identification-set retry](../hardware/printed-parts/enclosure/display-cover/prints/2026-11-06-identification-set-mark1-z000/review.json)
+records the emitted command for its nozzle. The clear PETG reservoir keeps its
+own recorded recipe. Other trim changes require explicit authorization for their
+specific print.
 
 Bambu's Textured PEI compensation subtracts 0.02 mm from the requested trim with
 the 0.4 and 0.8 mm nozzles above; other plates emit the requested value. The shared

@@ -10,3 +10,7 @@ record names each slot, source mesh, filament volume and print setting. The nati
 archive retains the models and toolpaths for the complete plate.
 
 The launch record identifies the printer's accepted job and the dryer-stop result.
+
+The [physical result](physical-result.json) records the stopped print and its
+first-layer photograph. The [retry](../2026-11-06-identification-set-mark1-z000/README.md)
+uses no Z offset on the glued Engineering Plate.
