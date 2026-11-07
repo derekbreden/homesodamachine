@@ -5,8 +5,8 @@ customer-visible outer surface. The inner paddle plane is Z=0. This is a local
 part frame, not an assembled faucet pose. evidence/datums.json maps the scans.
 
 The primary model has parallel lateral faces and a 9 mm cylinder channel.
-`numbers()` supplies the kernel stations; `build()` retains the native body
-for section-art readers.
+`lever_replica.rs` cuts the part from its numbers (`numbers.rs`); `build()` draws
+the native body for the section-art readers that still take it from Python.
 
 The rear portion of each ledge's upper face is occluded: LEDGE_TOP is a
 fit-trial parameter, not a measurement.
@@ -24,22 +24,14 @@ from pathlib import Path
 HERE = Path(__file__).resolve().parent
 HARDWARE = next(p for p in HERE.parents if p.name == "hardware")
 sys.path.insert(0, str(HARDWARE / "scripts"))
-if __name__ == "__main__":
-    import _rust_part
-    _rust_part.start()
-
 import cadquery as cq
 import trimesh
-from flute_payload import cut as export_payload
 
 from _rust_data import request
 
 
 def _data():
-    from _materials import linear
-    return request("faucet-data", "faucet-data", {
-        "op": "lever", "color": list(linear(cq.Color(0.91, 0.91, 0.87))),
-    })
+    return request("faucet-data", "faucet-data", {"op": "lever"})
 
 
 globals().update(_data()["datums"])
@@ -157,11 +149,6 @@ def print_pose(body):
     return turned.translate((0, 0, PRINTED_OUTSIDE_WIDTH / 2))
 
 
-def numbers():
-    """The Rust scalar program supplies measured stations and their PCHIP slopes."""
-    return _data()["numbers"]
-
-
 FRAME_DATA = HERE / "lever-replica.frame.json"
 
 
@@ -181,21 +168,3 @@ def write_frame_data(step):
     text = json.dumps(record, indent=2, sort_keys=True) + "\n"
     _atomic_write(FRAME_DATA, lambda path: Path(path).write_text(text))
     return record
-
-
-def main():
-    import _rust_part
-
-    _rust_part.cut("faucet", "lever-replica", numbers(), HERE)
-    step = HERE / "lever-replica.step"
-    stl = HERE / "lever-replica.stl"
-    print_stl = HERE / "lever-replica-side-down.stl"
-    # The viewer and printer use the same emitted triangles in their own frames.
-    from _cadq_export import note_read, note_write
-    note_read(print_stl)
-    request("faucet-data", "faucet-data", {"op": "lever-repack", "source": str(print_stl), "target": str(stl)})
-    note_write(stl)
-    export_payload(step, stl, preserve_print_triangles=True)
-
-if __name__ == "__main__":
-    main()

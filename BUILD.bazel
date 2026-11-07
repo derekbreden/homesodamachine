@@ -942,160 +942,10 @@ copy_file hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole.
 )
 
 genrule(
-    name = "under-counter-plate",
-    srcs = [
-        "hardware/cut-parts/faucet/under-counter-plate/under_counter_plate.py",
-        "hardware/printed-parts/cadlib/fits.py",
-        "hardware/printed-parts/enclosure/bulkhead-ring/numbers.rs",
-        "hardware/printed-parts/faucet/_faucet_interface.py",
-        "hardware/printed-parts/faucet/faucet_paths.py",
-        "hardware/scripts/_build_data.py",
-        "hardware/scripts/_document_export.py",
-        "hardware/scripts/_realized.py",
-        "hardware/scripts/_rust_data.py",
-        "hardware/scripts/_rust_part.py",
-        "tools/docgen/__init__.py",
-        "tools/hsm/build-data/Cargo.toml",
-        "tools/hsm/build-data/src/artifact_cache.rs",
-        "tools/hsm/build-data/src/artifacts.rs",
-        "tools/hsm/build-data/src/assets.rs",
-        "tools/hsm/build-data/src/inventory.rs",
-        "tools/hsm/build-data/src/lib.rs",
-        "tools/hsm/build-data/src/main.rs",
-        "tools/hsm/build-data/src/payload.rs",
-        "tools/hsm/build-data/src/projection.rs",
-        "tools/hsm/build-data/src/publication.rs",
-        "tools/hsm/build-data/src/publication_archive.rs",
-        "tools/hsm/build-data/src/publication_state.rs",
-        "tools/hsm/build-data/src/publication_zlib.rs",
-        "tools/hsm/build-data/src/sources.rs",
-        "tools/hsm/build-data/src/support.rs",
-        "tools/hsm/build-data/src/surfaces.rs",
-        ":out/cargo-config/tools/hsm/cargo-config.json",
-        "tools/hsm/documents/Cargo.toml",
-        "tools/hsm/documents/src/interop.rs",
-        "tools/hsm/documents/src/interop/standard.rs",
-        "tools/hsm/documents/src/lib.rs",
-        "tools/hsm/documents/src/main.rs",
-        "tools/hsm/documents/src/python_checked.rs",
-        "tools/hsm/faucet-data/Cargo.toml",
-        "tools/hsm/faucet-data/src/assembly.rs",
-        "tools/hsm/faucet-data/src/assembly_dimensions.rs",
-        "tools/hsm/faucet-data/src/collar.rs",
-        "tools/hsm/faucet-data/src/counter_plate.rs",
-        "tools/hsm/faucet-data/src/covers.rs",
-        "tools/hsm/faucet-data/src/geos.rs",
-        "tools/hsm/faucet-data/src/lever.rs",
-        "tools/hsm/faucet-data/src/lib.rs",
-        "tools/hsm/faucet-data/src/main.rs",
-        "tools/hsm/faucet-data/src/plumbing.rs",
-        "tools/hsm/faucet-data/src/plumbing_catalog.json",
-        "tools/hsm/faucet-data/src/r2010-template.dxf.in",
-        "tools/hsm/faucet-data/src/shell.rs",
-        "tools/hsm/faucet-data/src/shell_dimensions.rs",
-        "tools/hsm/faucet-data/src/vent.rs",
-        "tools/hsm/faucet/Cargo.toml",
-        "tools/hsm/faucet/src/assembly.rs",
-        "tools/hsm/faucet/src/counter.rs",
-        "tools/hsm/faucet/src/display.rs",
-        "tools/hsm/faucet/src/lib.rs",
-        "tools/hsm/faucet/src/metrics.rs",
-        "tools/hsm/faucet/src/shell.rs",
-        "tools/hsm/geometry/Cargo.toml",
-        "tools/hsm/geometry/src/lib.rs",
-        "tools/hsm/geometry/src/payload.rs",
-        "tools/hsm/geometry/src/queries.rs",
-        "tools/hsm/kernel/Cargo.toml",
-        "tools/hsm/kernel/src/boolean.rs",
-        "tools/hsm/kernel/src/build.rs",
-        "tools/hsm/kernel/src/dxf.rs",
-        "tools/hsm/kernel/src/edge.rs",
-        "tools/hsm/kernel/src/face.rs",
-        "tools/hsm/kernel/src/import.rs",
-        "tools/hsm/kernel/src/lib.rs",
-        "tools/hsm/kernel/src/mapped.rs",
-        "tools/hsm/kernel/src/mass.rs",
-        "tools/hsm/kernel/src/math.rs",
-        "tools/hsm/kernel/src/part.rs",
-        "tools/hsm/kernel/src/plane.rs",
-        "tools/hsm/kernel/src/profile.rs",
-        "tools/hsm/kernel/src/reads.rs",
-        "tools/hsm/kernel/src/round.rs",
-        "tools/hsm/kernel/src/round/rolled.rs",
-        "tools/hsm/kernel/src/rule.rs",
-        "tools/hsm/kernel/src/screw.rs",
-        "tools/hsm/kernel/src/sketch_hull.rs",
-        "tools/hsm/kernel/src/solid.rs",
-        "tools/hsm/kernel/src/spline.rs",
-        "tools/hsm/kernel/src/step.rs",
-        "tools/hsm/kernel/src/step/analytic.rs",
-        "tools/hsm/kernel/src/sweep.rs",
-        "tools/hsm/kernel/src/text.rs",
-        "tools/hsm/kernel/src/thru.rs",
-        "tools/hsm/kernel/src/topo.rs",
-        "tools/hsm/kernel/src/triangulate.rs",
-        "tools/hsm/kernel/src/write.rs",
-        "tools/hsm/shared-data/Cargo.toml",
-        "tools/hsm/shared-data/catalog/materials.json",
-        "tools/hsm/shared-data/src/color.rs",
-        "tools/hsm/shared-data/src/common.rs",
-        "tools/hsm/shared-data/src/lib.rs",
-    ],
-    outs = [
-        "out/under-counter-plate/hardware/cut-parts/faucet/under-counter-plate/under-counter-plate.dxf",
-    ],
-    tags = ["no-sandbox"],
-    cmd = """
-set -e
-case "$$(uname -s)" in
-  Darwin)
-    copy_mask=$$((8#$$(umask)))
-    copy_bits=("" x w wx r rx rw rwx)
-    copy_mode="u-$${copy_bits[$$((copy_mask >> 6 & 7))]},g-$${copy_bits[$$((copy_mask >> 3 & 7))]},o-$${copy_bits[$$((copy_mask & 7))]}"
-    copy_file() {
-      local copy_dest="$${!#}" copy_target copy_permissions="$$copy_mode"
-      if [ -e "$$copy_dest" ] || [ -L "$$copy_dest" ]; then
-        if [ ! -f "$$copy_dest" ] || [ -L "$$copy_dest" ]; then cp "$$@"; return; fi
-        copy_permissions=$$(stat -f %Lp "$$copy_dest")
-        copy_target=$$(mktemp "$$copy_dest.hsm-copy.XXXXXX")
-      else copy_target="$$copy_dest"; fi
-      if cp -c "$${@:1:$$(( $$# - 1 ))}" "$$copy_target" 2>/dev/null; then
-        chmod "$$copy_permissions" "$$copy_target"
-        touch "$$copy_target"
-        if [ "$$copy_target" != "$$copy_dest" ]; then mv -f "$$copy_target" "$$copy_dest"; fi
-      else rm -f "$$copy_target"; cp "$$@"; fi
-    };;
-  *) copy_file() { cp "$$@"; };;
-esac
-O0=$$PWD/$(location out/under-counter-plate/hardware/cut-parts/faucet/under-counter-plate/under-counter-plate.dxf)
-rm -rf work-under-counter-plate
-for f in $(SRCS); do
-  case $$f in
-    */node_modules/*) continue;;
-    */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
-    *) t=$$f;;
-  esac
-  mkdir -p "work-under-counter-plate/$$(dirname "$$t")"; copy_file -L "$$f" "work-under-counter-plate/$$t"
-done
-for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
-  if [ -d $$d ]; then mkdir -p work-under-counter-plate/$$(dirname $$d); ln -sfn $$PWD/$$d work-under-counter-plate/$$d; fi
-done
-for f in hardware/scripts/_run_lock.py hardware/scripts/_run_native.py hardware/scripts/_run_slots.py tools/hsm/run-slots.defaults.json tools/run-slots.mjs tools/run.py; do
-  mkdir -p work-under-counter-plate/$$(dirname $$f); cp $$HSM_WORKSPACE/$$f work-under-counter-plate/$$f
-done
-cd work-under-counter-plate
-ln -sfn $$HSM_WORKSPACE/.cache .cache
-D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/cut-parts/faucet/under-counter-plate/under_counter_plate.py > /dev/null
-copy_file hardware/cut-parts/faucet/under-counter-plate/under-counter-plate.dxf "$$O0"
-cd .. && rm -rf work-under-counter-plate
-""",
-)
-
-genrule(
     name = "faucet-assembly",
     srcs = [
-        ":out/under-counter-plate/hardware/cut-parts/faucet/under-counter-plate/under-counter-plate.dxf",
+        "hardware/cut-parts/faucet/under-counter-plate/numbers.rs",
+        "hardware/cut-parts/faucet/under-counter-plate/under-counter-plate.dxf",
         "hardware/faucet-layout/faucet_assembly.py",
         "hardware/faucet-layout/faucet_assembly.rs",
         "hardware/printed-parts/cadlib/_scalar_provider.py",
@@ -1145,9 +995,19 @@ genrule(
         ":out/lever-replica/hardware/printed-parts/faucet/lever-replica/lever-replica.step",
         ":out/lever-replica/hardware/printed-parts/faucet/lever-replica/lever-replica.step.mesh",
         ":out/lever-replica/hardware/printed-parts/faucet/lever-replica/lever-replica.stl",
+        "hardware/printed-parts/faucet/lever-replica/numbers.rs",
+        "hardware/printed-parts/faucet/numbers/catalog.rs",
+        "hardware/printed-parts/faucet/numbers/interface.rs",
+        "hardware/printed-parts/faucet/numbers/lib.rs",
+        "hardware/printed-parts/faucet/numbers/paths.rs",
+        "hardware/printed-parts/faucet/numbers/shell.rs",
+        "hardware/printed-parts/faucet/numbers/snap.rs",
+        "hardware/printed-parts/faucet/numbers/stack.rs",
+        "hardware/printed-parts/faucet/tpu-o-ring/numbers.rs",
         ":out/tpu-o-ring/hardware/printed-parts/faucet/tpu-o-ring/tpu-o-ring.step",
         ":out/tpu-o-ring/hardware/printed-parts/faucet/tpu-o-ring/tpu-o-ring.step.mesh",
         "hardware/printed-parts/faucet/tpu-o-ring/tpu_o_ring.py",
+        "hardware/printed-parts/faucet/tube-collar/numbers.rs",
         ":out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-carb.step",
         ":out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-carb.step.mesh",
         ":out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-drain.step",
@@ -1157,6 +1017,7 @@ genrule(
         ":out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-flavor-b.step",
         ":out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-flavor-b.step.mesh",
         "hardware/printed-parts/faucet/tube-collar/tube_collar.py",
+        "hardware/printed-parts/faucet/umbilical-organizer/numbers.rs",
         ":out/umbilical-organizer/hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer.step",
         ":out/umbilical-organizer/hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer.step.mesh",
         ":out/umbilical-organizer/hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer.stl",
@@ -1198,6 +1059,7 @@ genrule(
         "tools/hsm/build-data/src/sources.rs",
         "tools/hsm/build-data/src/support.rs",
         "tools/hsm/build-data/src/surfaces.rs",
+        "tools/hsm/bulkhead-ring-numbers/Cargo.toml",
         ":out/cargo-config/tools/hsm/cargo-config.json",
         "tools/hsm/documents/Cargo.toml",
         "tools/hsm/documents/src/interop.rs",
@@ -1216,10 +1078,10 @@ genrule(
         "tools/hsm/faucet-data/src/main.rs",
         "tools/hsm/faucet-data/src/plumbing.rs",
         "tools/hsm/faucet-data/src/plumbing_catalog.json",
-        "tools/hsm/faucet-data/src/r2010-template.dxf.in",
         "tools/hsm/faucet-data/src/shell.rs",
         "tools/hsm/faucet-data/src/shell_dimensions.rs",
         "tools/hsm/faucet-data/src/vent.rs",
+        "tools/hsm/faucet-numbers/Cargo.toml",
         "tools/hsm/faucet/Cargo.toml",
         "tools/hsm/faucet/src/assembly.rs",
         "tools/hsm/faucet/src/counter.rs",
@@ -1267,6 +1129,7 @@ genrule(
         "tools/hsm/layout-data/src/rear.rs",
         "tools/hsm/layout-data/src/routes.rs",
         "tools/hsm/layout-data/src/soda.rs",
+        "tools/hsm/lever-replica-numbers/Cargo.toml",
         "tools/hsm/shared-data/Cargo.toml",
         "tools/hsm/shared-data/catalog/materials.json",
         "tools/hsm/shared-data/catalog/routing.json",
@@ -1278,6 +1141,32 @@ genrule(
         "tools/hsm/shared-data/src/main.rs",
         "tools/hsm/shared-data/src/routing.rs",
         "tools/hsm/shared-data/src/scalars.rs",
+        "tools/hsm/tpu-o-ring-numbers/Cargo.toml",
+        "tools/hsm/tube-collar-numbers/Cargo.toml",
+        "tools/hsm/umbilical-organizer-numbers/Cargo.toml",
+        "tools/hsm/under-counter-plate-numbers/Cargo.toml",
+        "tools/hsm/vendor/manifold-csg-sys/.cargo_vcs_info.json",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.lock",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.toml",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.toml.orig",
+        "tools/hsm/vendor/manifold-csg-sys/LICENSE-APACHE",
+        "tools/hsm/vendor/manifold-csg-sys/LICENSE-MIT",
+        "tools/hsm/vendor/manifold-csg-sys/README.md",
+        "tools/hsm/vendor/manifold-csg-sys/build.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/build.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/fetch.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/patch.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/wasm.rs",
+        "tools/hsm/vendor/manifold-csg-sys/cache-version",
+        "tools/hsm/vendor/manifold-csg-sys/patches/README.md",
+        "tools/hsm/vendor/manifold-csg-sys/src/lib.rs",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/CMakeLists.txt",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/diagnose.sh",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/__assertion_handler",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/__config_site",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/memory",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/mutex",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/libcxx-extras.cpp",
     ],
     outs = [
         "out/faucet-assembly/hardware/faucet-layout/faucet-assembly.numbers.json",
@@ -1342,7 +1231,8 @@ cd .. && rm -rf work-faucet-assembly
 genrule(
     name = "faucet-industrial-assembly",
     srcs = [
-        ":out/under-counter-plate/hardware/cut-parts/faucet/under-counter-plate/under-counter-plate.dxf",
+        "hardware/cut-parts/faucet/under-counter-plate/numbers.rs",
+        "hardware/cut-parts/faucet/under-counter-plate/under-counter-plate.dxf",
         "hardware/faucet-layout/faucet_assembly.py",
         "hardware/faucet-layout/faucet_industrial_assembly.py",
         "hardware/faucet-layout/faucet_industrial_assembly.rs",
@@ -1394,9 +1284,19 @@ genrule(
         ":out/lever-replica/hardware/printed-parts/faucet/lever-replica/lever-replica.step",
         ":out/lever-replica/hardware/printed-parts/faucet/lever-replica/lever-replica.step.mesh",
         ":out/lever-replica/hardware/printed-parts/faucet/lever-replica/lever-replica.stl",
+        "hardware/printed-parts/faucet/lever-replica/numbers.rs",
+        "hardware/printed-parts/faucet/numbers/catalog.rs",
+        "hardware/printed-parts/faucet/numbers/interface.rs",
+        "hardware/printed-parts/faucet/numbers/lib.rs",
+        "hardware/printed-parts/faucet/numbers/paths.rs",
+        "hardware/printed-parts/faucet/numbers/shell.rs",
+        "hardware/printed-parts/faucet/numbers/snap.rs",
+        "hardware/printed-parts/faucet/numbers/stack.rs",
+        "hardware/printed-parts/faucet/tpu-o-ring/numbers.rs",
         ":out/tpu-o-ring/hardware/printed-parts/faucet/tpu-o-ring/tpu-o-ring.step",
         ":out/tpu-o-ring/hardware/printed-parts/faucet/tpu-o-ring/tpu-o-ring.step.mesh",
         "hardware/printed-parts/faucet/tpu-o-ring/tpu_o_ring.py",
+        "hardware/printed-parts/faucet/tube-collar/numbers.rs",
         ":out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-carb.step",
         ":out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-carb.step.mesh",
         ":out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-drain.step",
@@ -1406,6 +1306,7 @@ genrule(
         ":out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-flavor-b.step",
         ":out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-flavor-b.step.mesh",
         "hardware/printed-parts/faucet/tube-collar/tube_collar.py",
+        "hardware/printed-parts/faucet/umbilical-organizer/numbers.rs",
         ":out/umbilical-organizer/hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer.step",
         ":out/umbilical-organizer/hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer.step.mesh",
         ":out/umbilical-organizer/hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer.stl",
@@ -1447,6 +1348,7 @@ genrule(
         "tools/hsm/build-data/src/sources.rs",
         "tools/hsm/build-data/src/support.rs",
         "tools/hsm/build-data/src/surfaces.rs",
+        "tools/hsm/bulkhead-ring-numbers/Cargo.toml",
         ":out/cargo-config/tools/hsm/cargo-config.json",
         "tools/hsm/documents/Cargo.toml",
         "tools/hsm/documents/src/interop.rs",
@@ -1465,10 +1367,10 @@ genrule(
         "tools/hsm/faucet-data/src/main.rs",
         "tools/hsm/faucet-data/src/plumbing.rs",
         "tools/hsm/faucet-data/src/plumbing_catalog.json",
-        "tools/hsm/faucet-data/src/r2010-template.dxf.in",
         "tools/hsm/faucet-data/src/shell.rs",
         "tools/hsm/faucet-data/src/shell_dimensions.rs",
         "tools/hsm/faucet-data/src/vent.rs",
+        "tools/hsm/faucet-numbers/Cargo.toml",
         "tools/hsm/faucet/Cargo.toml",
         "tools/hsm/faucet/src/assembly.rs",
         "tools/hsm/faucet/src/counter.rs",
@@ -1516,6 +1418,7 @@ genrule(
         "tools/hsm/layout-data/src/rear.rs",
         "tools/hsm/layout-data/src/routes.rs",
         "tools/hsm/layout-data/src/soda.rs",
+        "tools/hsm/lever-replica-numbers/Cargo.toml",
         "tools/hsm/shared-data/Cargo.toml",
         "tools/hsm/shared-data/catalog/materials.json",
         "tools/hsm/shared-data/catalog/routing.json",
@@ -1527,6 +1430,32 @@ genrule(
         "tools/hsm/shared-data/src/main.rs",
         "tools/hsm/shared-data/src/routing.rs",
         "tools/hsm/shared-data/src/scalars.rs",
+        "tools/hsm/tpu-o-ring-numbers/Cargo.toml",
+        "tools/hsm/tube-collar-numbers/Cargo.toml",
+        "tools/hsm/umbilical-organizer-numbers/Cargo.toml",
+        "tools/hsm/under-counter-plate-numbers/Cargo.toml",
+        "tools/hsm/vendor/manifold-csg-sys/.cargo_vcs_info.json",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.lock",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.toml",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.toml.orig",
+        "tools/hsm/vendor/manifold-csg-sys/LICENSE-APACHE",
+        "tools/hsm/vendor/manifold-csg-sys/LICENSE-MIT",
+        "tools/hsm/vendor/manifold-csg-sys/README.md",
+        "tools/hsm/vendor/manifold-csg-sys/build.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/build.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/fetch.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/patch.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/wasm.rs",
+        "tools/hsm/vendor/manifold-csg-sys/cache-version",
+        "tools/hsm/vendor/manifold-csg-sys/patches/README.md",
+        "tools/hsm/vendor/manifold-csg-sys/src/lib.rs",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/CMakeLists.txt",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/diagnose.sh",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/__assertion_handler",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/__config_site",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/memory",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/mutex",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/libcxx-extras.cpp",
     ],
     outs = [
         "out/faucet-industrial-assembly/hardware/faucet-layout/faucet-industrial-assembly.numbers.json",
@@ -1675,7 +1604,7 @@ genrule(
         ":out/kit-art/hardware/install-guide/assets/kit/water-tees.svg",
         ":out/opening-scene/hardware/install-guide/assets/opening-faucet-outline.svg",
         ":out/opening-scene/hardware/install-guide/assets/opening.png",
-        ":out/under-counter-plate/hardware/cut-parts/faucet/under-counter-plate/under-counter-plate.dxf",
+        "hardware/cut-parts/faucet/under-counter-plate/under-counter-plate.dxf",
         "hardware/install-guide/assets/brand/mark-1024.png",
         "hardware/install-guide/assets/fill-scene-inputs.json",
         "hardware/install-guide/assets/fill-screen-framed.png",
@@ -4016,7 +3945,7 @@ genrule(
         "tools/hsm/assembly-docs/src/wiring/manifold-bank.json",
         "tools/hsm/assembly-docs/src/wiring/rear-level-hook.json",
         "tools/hsm/carbonator-tube-numbers/Cargo.toml",
-        "tools/hsm/cargo-config.json",
+        ":out/cargo-config/tools/hsm/cargo-config.json",
         "tools/hsm/cold-core-catalog/Cargo.toml",
         "tools/hsm/cold-core-interface/Cargo.toml",
         "tools/hsm/cold-core-layout/Cargo.toml",
@@ -10548,69 +10477,19 @@ copy_file hardware/printed-parts/faucet/industrial/industrial-shell-base.stl "$$
 )
 
 genrule(
-    name = "lever-replica",
+    name = "lever-replica-program",
     srcs = [
-        "hardware/printed-parts/enclosure/bulkhead-ring/numbers.rs",
-        "hardware/printed-parts/faucet/lever-replica/lever_replica.py",
         "hardware/printed-parts/faucet/lever-replica/lever_replica.rs",
-        "hardware/printed-parts/faucet/lever-replica/physical-acceptance.json",
-        "hardware/scripts/_build_data.py",
-        "hardware/scripts/_cadq_export.py",
-        "hardware/scripts/_document_export.py",
-        "hardware/scripts/_material_base.py",
-        "hardware/scripts/_materials.py",
-        "hardware/scripts/_mesh_payload.py",
-        "hardware/scripts/_payload_rules.py",
-        "hardware/scripts/_rust_data.py",
-        "hardware/scripts/_rust_part.py",
-        "hardware/scripts/_rust_print_payload.py",
-        "hardware/scripts/_shared_data.py",
-        "hardware/scripts/flute_payload.py",
-        "tools/hsm/build-data/Cargo.toml",
-        "tools/hsm/build-data/src/artifact_cache.rs",
-        "tools/hsm/build-data/src/artifacts.rs",
-        "tools/hsm/build-data/src/assets.rs",
-        "tools/hsm/build-data/src/inventory.rs",
-        "tools/hsm/build-data/src/lib.rs",
-        "tools/hsm/build-data/src/main.rs",
-        "tools/hsm/build-data/src/payload.rs",
-        "tools/hsm/build-data/src/projection.rs",
-        "tools/hsm/build-data/src/publication.rs",
-        "tools/hsm/build-data/src/publication_archive.rs",
-        "tools/hsm/build-data/src/publication_state.rs",
-        "tools/hsm/build-data/src/publication_zlib.rs",
-        "tools/hsm/build-data/src/sources.rs",
-        "tools/hsm/build-data/src/support.rs",
-        "tools/hsm/build-data/src/surfaces.rs",
+        "hardware/printed-parts/faucet/lever-replica/numbers.rs",
+        "hardware/printed-parts/faucet/numbers/catalog.rs",
+        "hardware/printed-parts/faucet/numbers/interface.rs",
+        "hardware/printed-parts/faucet/numbers/lib.rs",
+        "hardware/printed-parts/faucet/numbers/paths.rs",
+        "hardware/printed-parts/faucet/numbers/shell.rs",
+        "hardware/printed-parts/faucet/numbers/snap.rs",
+        "hardware/printed-parts/faucet/numbers/stack.rs",
         ":out/cargo-config/tools/hsm/cargo-config.json",
-        "tools/hsm/documents/Cargo.toml",
-        "tools/hsm/documents/src/interop.rs",
-        "tools/hsm/documents/src/interop/standard.rs",
-        "tools/hsm/documents/src/lib.rs",
-        "tools/hsm/documents/src/python_checked.rs",
-        "tools/hsm/faucet-data/Cargo.toml",
-        "tools/hsm/faucet-data/src/assembly.rs",
-        "tools/hsm/faucet-data/src/assembly_dimensions.rs",
-        "tools/hsm/faucet-data/src/collar.rs",
-        "tools/hsm/faucet-data/src/counter_plate.rs",
-        "tools/hsm/faucet-data/src/covers.rs",
-        "tools/hsm/faucet-data/src/geos.rs",
-        "tools/hsm/faucet-data/src/lever.rs",
-        "tools/hsm/faucet-data/src/lib.rs",
-        "tools/hsm/faucet-data/src/main.rs",
-        "tools/hsm/faucet-data/src/plumbing.rs",
-        "tools/hsm/faucet-data/src/plumbing_catalog.json",
-        "tools/hsm/faucet-data/src/r2010-template.dxf.in",
-        "tools/hsm/faucet-data/src/shell.rs",
-        "tools/hsm/faucet-data/src/shell_dimensions.rs",
-        "tools/hsm/faucet-data/src/vent.rs",
-        "tools/hsm/faucet/Cargo.toml",
-        "tools/hsm/faucet/src/assembly.rs",
-        "tools/hsm/faucet/src/counter.rs",
-        "tools/hsm/faucet/src/display.rs",
-        "tools/hsm/faucet/src/lib.rs",
-        "tools/hsm/faucet/src/metrics.rs",
-        "tools/hsm/faucet/src/shell.rs",
+        "tools/hsm/faucet-numbers/Cargo.toml",
         "tools/hsm/geometry/Cargo.toml",
         "tools/hsm/geometry/src/lib.rs",
         "tools/hsm/geometry/src/payload.rs",
@@ -10645,30 +10524,50 @@ genrule(
         "tools/hsm/kernel/src/topo.rs",
         "tools/hsm/kernel/src/triangulate.rs",
         "tools/hsm/kernel/src/write.rs",
+        "tools/hsm/lever-replica-numbers/Cargo.toml",
+        "tools/hsm/lever-replica/Cargo.toml",
         "tools/hsm/print-payload/Cargo.toml",
         "tools/hsm/print-payload/src/lib.rs",
-        "tools/hsm/print-payload/src/main.rs",
+        "tools/hsm/print-payload/src/printed.rs",
         "tools/hsm/print-payload/src/quadric.rs",
-        "tools/hsm/shared-data/Cargo.toml",
+        "tools/hsm/run-native/Cargo.toml",
+        "tools/hsm/run-native/src/lib.rs",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/hsm/run-slots/Cargo.toml",
+        "tools/hsm/run-slots/src/ipc.rs",
+        "tools/hsm/run-slots/src/lib.rs",
+        "tools/hsm/run-slots/src/main.rs",
+        "tools/hsm/run-slots/src/runtime.rs",
+        "tools/hsm/run-slots/src/runtime/cad.rs",
+        "tools/hsm/run-slots/src/runtime/install.rs",
+        "tools/hsm/run-slots/src/runtime/runner.rs",
+        "tools/hsm/run-slots/src/runtime/slots.rs",
         "tools/hsm/shared-data/catalog/materials.json",
-        "tools/hsm/shared-data/catalog/routing.json",
         "tools/hsm/shared-data/catalog/scalars.json",
-        "tools/hsm/shared-data/src/color.rs",
-        "tools/hsm/shared-data/src/common.rs",
-        "tools/hsm/shared-data/src/cooling.rs",
-        "tools/hsm/shared-data/src/lib.rs",
-        "tools/hsm/shared-data/src/main.rs",
-        "tools/hsm/shared-data/src/routing.rs",
-        "tools/hsm/shared-data/src/scalars.rs",
+        "tools/hsm/vendor/manifold-csg-sys/.cargo_vcs_info.json",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.lock",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.toml",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.toml.orig",
+        "tools/hsm/vendor/manifold-csg-sys/LICENSE-APACHE",
+        "tools/hsm/vendor/manifold-csg-sys/LICENSE-MIT",
+        "tools/hsm/vendor/manifold-csg-sys/README.md",
+        "tools/hsm/vendor/manifold-csg-sys/build.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/build.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/fetch.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/patch.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/wasm.rs",
+        "tools/hsm/vendor/manifold-csg-sys/cache-version",
+        "tools/hsm/vendor/manifold-csg-sys/patches/README.md",
+        "tools/hsm/vendor/manifold-csg-sys/src/lib.rs",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/CMakeLists.txt",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/diagnose.sh",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/__assertion_handler",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/__config_site",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/memory",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/mutex",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/libcxx-extras.cpp",
     ],
-    outs = [
-        "out/lever-replica/hardware/printed-parts/faucet/lever-replica/lever-replica-side-down.stl",
-        "out/lever-replica/hardware/printed-parts/faucet/lever-replica/lever-replica.numbers.json",
-        "out/lever-replica/hardware/printed-parts/faucet/lever-replica/lever-replica.step",
-        "out/lever-replica/hardware/printed-parts/faucet/lever-replica/lever-replica.step.mesh",
-        "out/lever-replica/hardware/printed-parts/faucet/lever-replica/lever-replica.step.npz",
-        "out/lever-replica/hardware/printed-parts/faucet/lever-replica/lever-replica.stl",
-    ],
+    outs = ["out/lever-replica-program/lever-replica"],
     tags = ["no-sandbox"],
     cmd = """
 set -e
@@ -10692,38 +10591,98 @@ case "$$(uname -s)" in
     };;
   *) copy_file() { cp "$$@"; };;
 esac
+hsm_run=
+for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
+  if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
+done
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+cargo=$$(command -v cargo || true)
+for c in "$$cargo" /opt/homebrew/opt/rustup/bin/cargo ~/.cargo/bin/cargo; do if [ -x "$$c" ]; then cargo=$$c; break; fi; done
+if [ ! -x "$$cargo" ]; then echo "cargo is not installed (https://rustup.rs)" >&2; exit 1; fi
+export HOME=~ PATH="$$(dirname "$$cargo"):$$PATH"
+O0=$$PWD/$(location out/lever-replica-program/lever-replica)
+cd "$$HSM_WORKSPACE/tools/hsm"
+CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet --manifest-path lever-replica/Cargo.toml --bin lever-replica
+copy_file target/release/lever-replica "$$O0"
+""",
+)
+
+genrule(
+    name = "lever-replica",
+    srcs = [
+        ":out/lever-replica-program/lever-replica",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/hsm/shared-data/catalog/materials.json",
+        "tools/hsm/shared-data/catalog/scalars.json",
+        "tools/hsm/vendor/manifold-csg-sys/.cargo_vcs_info.json",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.toml.orig",
+        "tools/hsm/vendor/manifold-csg-sys/LICENSE-APACHE",
+        "tools/hsm/vendor/manifold-csg-sys/LICENSE-MIT",
+        "tools/hsm/vendor/manifold-csg-sys/README.md",
+        "tools/hsm/vendor/manifold-csg-sys/cache-version",
+        "tools/hsm/vendor/manifold-csg-sys/patches/README.md",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/CMakeLists.txt",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/diagnose.sh",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/__assertion_handler",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/__config_site",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/memory",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/mutex",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/libcxx-extras.cpp",
+    ],
+    outs = [
+        "out/lever-replica/hardware/printed-parts/faucet/lever-replica/lever-replica-side-down.stl",
+        "out/lever-replica/hardware/printed-parts/faucet/lever-replica/lever-replica.step",
+        "out/lever-replica/hardware/printed-parts/faucet/lever-replica/lever-replica.step.mesh",
+        "out/lever-replica/hardware/printed-parts/faucet/lever-replica/lever-replica.step.npz",
+        "out/lever-replica/hardware/printed-parts/faucet/lever-replica/lever-replica.stl",
+    ],
+    cmd = """
+set -e
+case "$$(uname -s)" in
+  Darwin)
+    copy_mask=$$((8#$$(umask)))
+    copy_bits=("" x w wx r rx rw rwx)
+    copy_mode="u-$${copy_bits[$$((copy_mask >> 6 & 7))]},g-$${copy_bits[$$((copy_mask >> 3 & 7))]},o-$${copy_bits[$$((copy_mask & 7))]}"
+    copy_file() {
+      local copy_dest="$${!#}" copy_target copy_permissions="$$copy_mode"
+      if [ -e "$$copy_dest" ] || [ -L "$$copy_dest" ]; then
+        if [ ! -f "$$copy_dest" ] || [ -L "$$copy_dest" ]; then cp "$$@"; return; fi
+        copy_permissions=$$(stat -f %Lp "$$copy_dest")
+        copy_target=$$(mktemp "$$copy_dest.hsm-copy.XXXXXX")
+      else copy_target="$$copy_dest"; fi
+      if cp -c "$${@:1:$$(( $$# - 1 ))}" "$$copy_target" 2>/dev/null; then
+        chmod "$$copy_permissions" "$$copy_target"
+        touch "$$copy_target"
+        if [ "$$copy_target" != "$$copy_dest" ]; then mv -f "$$copy_target" "$$copy_dest"; fi
+      else rm -f "$$copy_target"; cp "$$@"; fi
+    };;
+  *) copy_file() { cp "$$@"; };;
+esac
+hsm_run=
+for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
+  if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
+done
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
 O0=$$PWD/$(location out/lever-replica/hardware/printed-parts/faucet/lever-replica/lever-replica-side-down.stl)
-O1=$$PWD/$(location out/lever-replica/hardware/printed-parts/faucet/lever-replica/lever-replica.numbers.json)
-O2=$$PWD/$(location out/lever-replica/hardware/printed-parts/faucet/lever-replica/lever-replica.step)
-O3=$$PWD/$(location out/lever-replica/hardware/printed-parts/faucet/lever-replica/lever-replica.step.mesh)
-O4=$$PWD/$(location out/lever-replica/hardware/printed-parts/faucet/lever-replica/lever-replica.step.npz)
-O5=$$PWD/$(location out/lever-replica/hardware/printed-parts/faucet/lever-replica/lever-replica.stl)
-rm -rf work-lever-replica
+O1=$$PWD/$(location out/lever-replica/hardware/printed-parts/faucet/lever-replica/lever-replica.step)
+O2=$$PWD/$(location out/lever-replica/hardware/printed-parts/faucet/lever-replica/lever-replica.step.mesh)
+O3=$$PWD/$(location out/lever-replica/hardware/printed-parts/faucet/lever-replica/lever-replica.step.npz)
+O4=$$PWD/$(location out/lever-replica/hardware/printed-parts/faucet/lever-replica/lever-replica.stl)
+rm -rf work
 for f in $(SRCS); do
   case $$f in
-    */node_modules/*) continue;;
     */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
     *) t=$$f;;
   esac
-  mkdir -p "work-lever-replica/$$(dirname "$$t")"; copy_file -L "$$f" "work-lever-replica/$$t"
+  mkdir -p "work/$$(dirname "$$t")"; copy_file -L "$$f" "work/$$t"
 done
-for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
-  if [ -d $$d ]; then mkdir -p work-lever-replica/$$(dirname $$d); ln -sfn $$PWD/$$d work-lever-replica/$$d; fi
-done
-for f in hardware/scripts/_run_lock.py hardware/scripts/_run_native.py hardware/scripts/_run_slots.py tools/hsm/run-slots.defaults.json tools/run-slots.mjs tools/run.py; do
-  mkdir -p work-lever-replica/$$(dirname $$f); cp $$HSM_WORKSPACE/$$f work-lever-replica/$$f
-done
-cd work-lever-replica
-ln -sfn $$HSM_WORKSPACE/.cache .cache
-D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/faucet/lever-replica/lever_replica.py > /dev/null
+cd work
+"$$hsm_run" -- ./lever-replica > /dev/null
 copy_file hardware/printed-parts/faucet/lever-replica/lever-replica-side-down.stl "$$O0"
-copy_file hardware/printed-parts/faucet/lever-replica/lever-replica.numbers.json "$$O1"
-copy_file hardware/printed-parts/faucet/lever-replica/lever-replica.step "$$O2"
-copy_file hardware/printed-parts/faucet/lever-replica/lever-replica.step.mesh "$$O3"
-copy_file hardware/printed-parts/faucet/lever-replica/lever-replica.step.npz "$$O4"
-copy_file hardware/printed-parts/faucet/lever-replica/lever-replica.stl "$$O5"
-cd .. && rm -rf work-lever-replica
+copy_file hardware/printed-parts/faucet/lever-replica/lever-replica.step "$$O1"
+copy_file hardware/printed-parts/faucet/lever-replica/lever-replica.step.mesh "$$O2"
+copy_file hardware/printed-parts/faucet/lever-replica/lever-replica.step.npz "$$O3"
+copy_file hardware/printed-parts/faucet/lever-replica/lever-replica.stl "$$O4"
 """,
 )
 
@@ -10926,65 +10885,18 @@ copy_file hardware/printed-parts/faucet/tpu-o-ring/tpu-o-ring.stl "$$O3"
 )
 
 genrule(
-    name = "tube-collar",
+    name = "tube-collar-program",
     srcs = [
         "hardware/printed-parts/enclosure/bulkhead-ring/numbers.rs",
-        "hardware/printed-parts/enclosure/rear-identification/label-words.json",
-        "hardware/printed-parts/faucet/tube-collar/tube_collar.py",
+        "hardware/printed-parts/faucet/tube-collar/numbers.rs",
         "hardware/printed-parts/faucet/tube-collar/tube_collar.rs",
-        "hardware/scripts/_build_data.py",
-        "hardware/scripts/_cadq_export.py",
-        "hardware/scripts/_document_export.py",
-        "hardware/scripts/_material_base.py",
-        "hardware/scripts/_materials.py",
-        "hardware/scripts/_rust_data.py",
-        "hardware/scripts/_rust_part.py",
-        "hardware/scripts/_shared_data.py",
-        "tools/hsm/build-data/Cargo.toml",
-        "tools/hsm/build-data/src/artifact_cache.rs",
-        "tools/hsm/build-data/src/artifacts.rs",
-        "tools/hsm/build-data/src/assets.rs",
-        "tools/hsm/build-data/src/inventory.rs",
-        "tools/hsm/build-data/src/lib.rs",
-        "tools/hsm/build-data/src/main.rs",
-        "tools/hsm/build-data/src/payload.rs",
-        "tools/hsm/build-data/src/projection.rs",
-        "tools/hsm/build-data/src/publication.rs",
-        "tools/hsm/build-data/src/publication_archive.rs",
-        "tools/hsm/build-data/src/publication_state.rs",
-        "tools/hsm/build-data/src/publication_zlib.rs",
-        "tools/hsm/build-data/src/sources.rs",
-        "tools/hsm/build-data/src/support.rs",
-        "tools/hsm/build-data/src/surfaces.rs",
+        "tools/hsm/bulkhead-ring-numbers/Cargo.toml",
         ":out/cargo-config/tools/hsm/cargo-config.json",
         "tools/hsm/documents/Cargo.toml",
         "tools/hsm/documents/src/interop.rs",
         "tools/hsm/documents/src/interop/standard.rs",
         "tools/hsm/documents/src/lib.rs",
         "tools/hsm/documents/src/python_checked.rs",
-        "tools/hsm/faucet-data/Cargo.toml",
-        "tools/hsm/faucet-data/src/assembly.rs",
-        "tools/hsm/faucet-data/src/assembly_dimensions.rs",
-        "tools/hsm/faucet-data/src/collar.rs",
-        "tools/hsm/faucet-data/src/counter_plate.rs",
-        "tools/hsm/faucet-data/src/covers.rs",
-        "tools/hsm/faucet-data/src/geos.rs",
-        "tools/hsm/faucet-data/src/lever.rs",
-        "tools/hsm/faucet-data/src/lib.rs",
-        "tools/hsm/faucet-data/src/main.rs",
-        "tools/hsm/faucet-data/src/plumbing.rs",
-        "tools/hsm/faucet-data/src/plumbing_catalog.json",
-        "tools/hsm/faucet-data/src/r2010-template.dxf.in",
-        "tools/hsm/faucet-data/src/shell.rs",
-        "tools/hsm/faucet-data/src/shell_dimensions.rs",
-        "tools/hsm/faucet-data/src/vent.rs",
-        "tools/hsm/faucet/Cargo.toml",
-        "tools/hsm/faucet/src/assembly.rs",
-        "tools/hsm/faucet/src/counter.rs",
-        "tools/hsm/faucet/src/display.rs",
-        "tools/hsm/faucet/src/lib.rs",
-        "tools/hsm/faucet/src/metrics.rs",
-        "tools/hsm/faucet/src/shell.rs",
         "tools/hsm/geometry/Cargo.toml",
         "tools/hsm/geometry/src/lib.rs",
         "tools/hsm/geometry/src/payload.rs",
@@ -11019,17 +10931,113 @@ genrule(
         "tools/hsm/kernel/src/topo.rs",
         "tools/hsm/kernel/src/triangulate.rs",
         "tools/hsm/kernel/src/write.rs",
+        "tools/hsm/print-payload/Cargo.toml",
+        "tools/hsm/print-payload/src/lib.rs",
+        "tools/hsm/print-payload/src/printed.rs",
+        "tools/hsm/print-payload/src/quadric.rs",
+        "tools/hsm/run-native/Cargo.toml",
+        "tools/hsm/run-native/src/lib.rs",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/hsm/run-slots/Cargo.toml",
+        "tools/hsm/run-slots/src/ipc.rs",
+        "tools/hsm/run-slots/src/lib.rs",
+        "tools/hsm/run-slots/src/main.rs",
+        "tools/hsm/run-slots/src/runtime.rs",
+        "tools/hsm/run-slots/src/runtime/cad.rs",
+        "tools/hsm/run-slots/src/runtime/install.rs",
+        "tools/hsm/run-slots/src/runtime/runner.rs",
+        "tools/hsm/run-slots/src/runtime/slots.rs",
         "tools/hsm/shared-data/Cargo.toml",
         "tools/hsm/shared-data/catalog/materials.json",
-        "tools/hsm/shared-data/catalog/routing.json",
-        "tools/hsm/shared-data/catalog/scalars.json",
         "tools/hsm/shared-data/src/color.rs",
         "tools/hsm/shared-data/src/common.rs",
-        "tools/hsm/shared-data/src/cooling.rs",
         "tools/hsm/shared-data/src/lib.rs",
-        "tools/hsm/shared-data/src/main.rs",
-        "tools/hsm/shared-data/src/routing.rs",
-        "tools/hsm/shared-data/src/scalars.rs",
+        "tools/hsm/tube-collar-numbers/Cargo.toml",
+        "tools/hsm/tube-collar/Cargo.toml",
+        "tools/hsm/vendor/manifold-csg-sys/.cargo_vcs_info.json",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.lock",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.toml",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.toml.orig",
+        "tools/hsm/vendor/manifold-csg-sys/LICENSE-APACHE",
+        "tools/hsm/vendor/manifold-csg-sys/LICENSE-MIT",
+        "tools/hsm/vendor/manifold-csg-sys/README.md",
+        "tools/hsm/vendor/manifold-csg-sys/build.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/build.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/fetch.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/patch.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/wasm.rs",
+        "tools/hsm/vendor/manifold-csg-sys/cache-version",
+        "tools/hsm/vendor/manifold-csg-sys/patches/README.md",
+        "tools/hsm/vendor/manifold-csg-sys/src/lib.rs",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/CMakeLists.txt",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/diagnose.sh",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/__assertion_handler",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/__config_site",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/memory",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/mutex",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/libcxx-extras.cpp",
+    ],
+    outs = ["out/tube-collar-program/tube-collar"],
+    tags = ["no-sandbox"],
+    cmd = """
+set -e
+case "$$(uname -s)" in
+  Darwin)
+    copy_mask=$$((8#$$(umask)))
+    copy_bits=("" x w wx r rx rw rwx)
+    copy_mode="u-$${copy_bits[$$((copy_mask >> 6 & 7))]},g-$${copy_bits[$$((copy_mask >> 3 & 7))]},o-$${copy_bits[$$((copy_mask & 7))]}"
+    copy_file() {
+      local copy_dest="$${!#}" copy_target copy_permissions="$$copy_mode"
+      if [ -e "$$copy_dest" ] || [ -L "$$copy_dest" ]; then
+        if [ ! -f "$$copy_dest" ] || [ -L "$$copy_dest" ]; then cp "$$@"; return; fi
+        copy_permissions=$$(stat -f %Lp "$$copy_dest")
+        copy_target=$$(mktemp "$$copy_dest.hsm-copy.XXXXXX")
+      else copy_target="$$copy_dest"; fi
+      if cp -c "$${@:1:$$(( $$# - 1 ))}" "$$copy_target" 2>/dev/null; then
+        chmod "$$copy_permissions" "$$copy_target"
+        touch "$$copy_target"
+        if [ "$$copy_target" != "$$copy_dest" ]; then mv -f "$$copy_target" "$$copy_dest"; fi
+      else rm -f "$$copy_target"; cp "$$@"; fi
+    };;
+  *) copy_file() { cp "$$@"; };;
+esac
+hsm_run=
+for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
+  if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
+done
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+cargo=$$(command -v cargo || true)
+for c in "$$cargo" /opt/homebrew/opt/rustup/bin/cargo ~/.cargo/bin/cargo; do if [ -x "$$c" ]; then cargo=$$c; break; fi; done
+if [ ! -x "$$cargo" ]; then echo "cargo is not installed (https://rustup.rs)" >&2; exit 1; fi
+export HOME=~ PATH="$$(dirname "$$cargo"):$$PATH"
+O0=$$PWD/$(location out/tube-collar-program/tube-collar)
+cd "$$HSM_WORKSPACE/tools/hsm"
+CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet --manifest-path tube-collar/Cargo.toml --bin tube-collar
+copy_file target/release/tube-collar "$$O0"
+""",
+)
+
+genrule(
+    name = "tube-collar",
+    srcs = [
+        ":out/tube-collar-program/tube-collar",
+        "hardware/printed-parts/enclosure/rear-identification/label-words.json",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/hsm/shared-data/catalog/materials.json",
+        "tools/hsm/vendor/manifold-csg-sys/.cargo_vcs_info.json",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.toml.orig",
+        "tools/hsm/vendor/manifold-csg-sys/LICENSE-APACHE",
+        "tools/hsm/vendor/manifold-csg-sys/LICENSE-MIT",
+        "tools/hsm/vendor/manifold-csg-sys/README.md",
+        "tools/hsm/vendor/manifold-csg-sys/cache-version",
+        "tools/hsm/vendor/manifold-csg-sys/patches/README.md",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/CMakeLists.txt",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/diagnose.sh",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/__assertion_handler",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/__config_site",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/memory",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/mutex",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/libcxx-extras.cpp",
     ],
     outs = [
         "out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-carb.step",
@@ -11056,9 +11064,7 @@ genrule(
         "out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-water.step.mesh",
         "out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-water.step.npz",
         "out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-water.stl",
-        "out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar.numbers.json",
     ],
-    tags = ["no-sandbox"],
     cmd = """
 set -e
 case "$$(uname -s)" in
@@ -11081,6 +11087,11 @@ case "$$(uname -s)" in
     };;
   *) copy_file() { cp "$$@"; };;
 esac
+hsm_run=
+for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
+  if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
+done
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
 O0=$$PWD/$(location out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-carb.step)
 O1=$$PWD/$(location out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-carb.step.mesh)
 O2=$$PWD/$(location out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-carb.step.npz)
@@ -11105,26 +11116,16 @@ O20=$$PWD/$(location out/tube-collar/hardware/printed-parts/faucet/tube-collar/t
 O21=$$PWD/$(location out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-water.step.mesh)
 O22=$$PWD/$(location out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-water.step.npz)
 O23=$$PWD/$(location out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-water.stl)
-O24=$$PWD/$(location out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar.numbers.json)
-rm -rf work-tube-collar
+rm -rf work
 for f in $(SRCS); do
   case $$f in
-    */node_modules/*) continue;;
     */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
     *) t=$$f;;
   esac
-  mkdir -p "work-tube-collar/$$(dirname "$$t")"; copy_file -L "$$f" "work-tube-collar/$$t"
+  mkdir -p "work/$$(dirname "$$t")"; copy_file -L "$$f" "work/$$t"
 done
-for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
-  if [ -d $$d ]; then mkdir -p work-tube-collar/$$(dirname $$d); ln -sfn $$PWD/$$d work-tube-collar/$$d; fi
-done
-for f in hardware/scripts/_run_lock.py hardware/scripts/_run_native.py hardware/scripts/_run_slots.py tools/hsm/run-slots.defaults.json tools/run-slots.mjs tools/run.py; do
-  mkdir -p work-tube-collar/$$(dirname $$f); cp $$HSM_WORKSPACE/$$f work-tube-collar/$$f
-done
-cd work-tube-collar
-ln -sfn $$HSM_WORKSPACE/.cache .cache
-D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/faucet/tube-collar/tube_collar.py > /dev/null
+cd work
+"$$hsm_run" -- ./tube-collar > /dev/null
 copy_file hardware/printed-parts/faucet/tube-collar/tube-collar-carb.step "$$O0"
 copy_file hardware/printed-parts/faucet/tube-collar/tube-collar-carb.step.mesh "$$O1"
 copy_file hardware/printed-parts/faucet/tube-collar/tube-collar-carb.step.npz "$$O2"
@@ -11149,8 +11150,6 @@ copy_file hardware/printed-parts/faucet/tube-collar/tube-collar-water.step "$$O2
 copy_file hardware/printed-parts/faucet/tube-collar/tube-collar-water.step.mesh "$$O21"
 copy_file hardware/printed-parts/faucet/tube-collar/tube-collar-water.step.npz "$$O22"
 copy_file hardware/printed-parts/faucet/tube-collar/tube-collar-water.stl "$$O23"
-copy_file hardware/printed-parts/faucet/tube-collar/tube-collar.numbers.json "$$O24"
-cd .. && rm -rf work-tube-collar
 """,
 )
 
@@ -13622,7 +13621,8 @@ genrule(
         "hardware/cold-core-layout/_cold_core_data.py",
         "hardware/cut-parts/carbonation/carbonator-tube/numbers.rs",
         "hardware/cut-parts/carbonation/endcaps-circular/numbers.rs",
-        ":out/under-counter-plate/hardware/cut-parts/faucet/under-counter-plate/under-counter-plate.dxf",
+        "hardware/cut-parts/faucet/under-counter-plate/numbers.rs",
+        "hardware/cut-parts/faucet/under-counter-plate/under-counter-plate.dxf",
         "hardware/faucet-layout/faucet_assembly.py",
         "hardware/ledger/bom.md",
         "hardware/ledger/labor.md",
@@ -13769,7 +13769,17 @@ genrule(
         "hardware/printed-parts/faucet/lever-replica/lever-replica.frame.json",
         ":out/lever-replica/hardware/printed-parts/faucet/lever-replica/lever-replica.step",
         ":out/lever-replica/hardware/printed-parts/faucet/lever-replica/lever-replica.step.npz",
+        "hardware/printed-parts/faucet/lever-replica/numbers.rs",
+        "hardware/printed-parts/faucet/numbers/catalog.rs",
+        "hardware/printed-parts/faucet/numbers/interface.rs",
+        "hardware/printed-parts/faucet/numbers/lib.rs",
+        "hardware/printed-parts/faucet/numbers/paths.rs",
+        "hardware/printed-parts/faucet/numbers/shell.rs",
+        "hardware/printed-parts/faucet/numbers/snap.rs",
+        "hardware/printed-parts/faucet/numbers/stack.rs",
+        "hardware/printed-parts/faucet/tpu-o-ring/numbers.rs",
         "hardware/printed-parts/faucet/tpu-o-ring/tpu_o_ring.py",
+        "hardware/printed-parts/faucet/tube-collar/numbers.rs",
         ":out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-carb.step",
         ":out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-carb.step.npz",
         ":out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-co2.step",
@@ -13783,6 +13793,7 @@ genrule(
         ":out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-water.step",
         ":out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-water.step.npz",
         "hardware/printed-parts/faucet/tube-collar/tube_collar.py",
+        "hardware/printed-parts/faucet/umbilical-organizer/numbers.rs",
         ":out/umbilical-organizer/hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer.step",
         ":out/umbilical-organizer/hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer.step.npz",
         "hardware/printed-parts/faucet/umbilical-organizer/umbilical_organizer.py",
@@ -13871,6 +13882,7 @@ genrule(
         "tools/hsm/build-data/src/sources.rs",
         "tools/hsm/build-data/src/support.rs",
         "tools/hsm/build-data/src/surfaces.rs",
+        "tools/hsm/bulkhead-ring-numbers/Cargo.toml",
         ":out/cargo-config/tools/hsm/cargo-config.json",
         "tools/hsm/cold-core-data/Cargo.toml",
         "tools/hsm/cold-core-data/src/coil.rs",
@@ -13950,10 +13962,10 @@ genrule(
         "tools/hsm/faucet-data/src/main.rs",
         "tools/hsm/faucet-data/src/plumbing.rs",
         "tools/hsm/faucet-data/src/plumbing_catalog.json",
-        "tools/hsm/faucet-data/src/r2010-template.dxf.in",
         "tools/hsm/faucet-data/src/shell.rs",
         "tools/hsm/faucet-data/src/shell_dimensions.rs",
         "tools/hsm/faucet-data/src/vent.rs",
+        "tools/hsm/faucet-numbers/Cargo.toml",
         "tools/hsm/faucet/Cargo.toml",
         "tools/hsm/faucet/src/assembly.rs",
         "tools/hsm/faucet/src/counter.rs",
@@ -14014,6 +14026,7 @@ genrule(
         "tools/hsm/ledger/src/printing.rs",
         "tools/hsm/ledger/src/shared.rs",
         "tools/hsm/ledger/src/tools.rs",
+        "tools/hsm/lever-replica-numbers/Cargo.toml",
         "tools/hsm/machine-data/Cargo.toml",
         "tools/hsm/machine-data/src/archive.rs",
         "tools/hsm/machine-data/src/box_spec.rs",
@@ -14065,6 +14078,10 @@ genrule(
         "tools/hsm/shared-data/src/main.rs",
         "tools/hsm/shared-data/src/routing.rs",
         "tools/hsm/shared-data/src/scalars.rs",
+        "tools/hsm/tpu-o-ring-numbers/Cargo.toml",
+        "tools/hsm/tube-collar-numbers/Cargo.toml",
+        "tools/hsm/umbilical-organizer-numbers/Cargo.toml",
+        "tools/hsm/under-counter-plate-numbers/Cargo.toml",
         "tools/hsm/vendor/manifold-csg-sys/.cargo_vcs_info.json",
         "tools/hsm/vendor/manifold-csg-sys/Cargo.lock",
         "tools/hsm/vendor/manifold-csg-sys/Cargo.toml",
@@ -14682,7 +14699,6 @@ filegroup(
         ":carbonator-tube-step",
         ":endcap-circular-drawing",
         ":endcap-circular-step",
-        ":under-counter-plate",
         ":faucet-assembly",
         ":faucet-industrial-assembly",
         ":install-guide",

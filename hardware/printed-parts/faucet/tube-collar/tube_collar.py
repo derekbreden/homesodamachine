@@ -17,8 +17,7 @@ made up in the install kit, and their collars go on at `assembly/finish-pack-shi
 THE LENGTH IS THE BORE'S. `rock()` is the angle a collar can cock on its loosest tube — a bore of
 length L with diametral play c binds at two diagonal corners, leaving atan(c/L) — and `flag_sway()`
 carries that angle out to the word's face, the furthest anything on the collar stands from the line
-it would turn about. `selftest` reads both against the bulkhead ring's `THICK`, which is the same
-identification carried on a chip.
+it would turn about.
 
 Coordinate frame — THE TUBE'S, the same one the bulkhead ring gives the fitting:
   Y = the tube's axis. +Y = outboard, toward the free end and the customer.
@@ -27,9 +26,8 @@ Coordinate frame — THE TUBE'S, the same one the bulkhead ring gives the fittin
 
 It prints flat-face down, many to a bed, two colours to a plate.
 
-Run:
-    tools/cad-venv/bin/python hardware/printed-parts/faucet/tube-collar/tube_collar.py
-    tools/cad-venv/bin/python hardware/printed-parts/faucet/tube-collar/tube_collar.py selftest
+`tube_collar.rs` cuts the six collars from their numbers (`numbers.rs`). This module is for the
+readers that still take them from Python: `build_collar` and `build_word` draw them in CadQuery.
 """
 
 from __future__ import annotations
@@ -46,10 +44,6 @@ _hw = next(p for p in _here.parents if p.name == "hardware")
 sys.path.insert(0, str(_hw / "scripts"))
 sys.path.insert(0, str(next(p for p in _here.parents
                             if (p / "tools" / "docgen").is_dir()) / "tools"))
-if __name__ == "__main__":
-    import _rust_part
-    _rust_part.start()
-
 import cadquery as cq
 
 from _cadq_export import export_assembly, import_step  # noqa: E402
@@ -62,11 +56,6 @@ from _rust_data import request as _data_request
 
 
 def _collar_data(fn="datums", **values):
-    if fn == "numbers":
-        values["palette"] = {fluid: {
-            "color": chip_color(fluid),
-            "word_color": word_color(fluid),
-        } for fluid in set(_ring.FLUIDS.values())}
     return _data_request("faucet-data", "faucet-data", {"op": "collar", "fn": fn, **values})
 
 
@@ -107,7 +96,7 @@ FACES = tuple(FACES)
 # the bulkhead ring's `RING_W`, the band a port's identification is lettered in.
 
 # THE RUN ALONG THE TUBE. It is the longest station word plus its margins, set at
-# the bulkhead ring's `WORD_SIZE`, and `selftest` holds this to it.
+# the bulkhead ring's `WORD_SIZE`.
 
 # How deep the word's recess is cut into the flat, and what the flat keeps clear of it. Both are
 # the bulkhead ring's.
@@ -276,138 +265,3 @@ def split(shape) -> tuple:
             f"{len(solids)} {'body' if len(solids) == 1 else 'bodies'}, {len(full)} of them "
             f"running the whole {LENGTH:g} mm")
     return (full[0], cq.Compound.makeCompound([s for s in solids if s is not full[0]]))
-
-
-def words_hold():
-    """Hold the emitted fine-model lettering to the bulkhead ring's figures.
-
-    THE FACE IS THE SYSTEM'S. The bulkhead ring's `WORD_FONT` names one this repo does not ship, so a machine
-    that resolves it elsewhere letters a collar with a different word on it — same colour, same
-    outline — and nothing about that shows up in a bore or an extent. The word is set at
-    the bulkhead ring's own em, so the widths it carries are the widths these come out at."""
-    import numpy as np
-
-    for which, step in STEPS.items():
-        word = STATIONS[which].word
-        with np.load(step.with_suffix(".step.npz"), allow_pickle=False) as model:
-            names = json.loads(bytes(model["names"]))
-            index = names.index(f"tube-collar-{which}-word")
-            along = float(np.ptp(model[f"V{index}"][:, 1]))
-        if abs(along - _ring.WORD_WIDTHS[word]) > 1e-3:
-            raise ValueError(
-                f"'{word}' is declared {_ring.WORD_WIDTHS[word]:.3f} mm along the tube and "
-                f"{step.name} carries {along:.3f} — `{_ring.WORD_FONT}` did not resolve to the "
-                f"face the wall's own chips were struck on, and the collar is lettered in "
-                f"something else.")
-
-
-def letters_lie_in_it():
-    """Hold every face's lettering INSIDE the collar it is cut from.
-
-    A word is placed by turning a block onto a face's own outward normal, and a face whose normal
-    came out reversed puts its letters just off the flat instead of just inside it. Nothing about
-    that shows in a width, a depth or a count — the solids are all there and all the right size —
-    and the collar it is cut from comes back whole.
-
-    So it is weighed. What the cut takes off the blank is the volume of the lettering when every
-    letter is inside it, and less by exactly the strays when any are not.
-
-    The margin is a thousandth of the word. What this is here to catch is a whole face standing off
-    the collar, which is a THIRD of it, or one letter, which is a twelfth of the shortest of these
-    words — both of them three orders above the noise two booleans leave in a volume."""
-    for which in STATIONS:
-        blank, word = build_blank(which), build_word(which)
-        took = blank.Volume() - blank.cut(word).Volume()
-        if abs(took - word.Volume()) > word.Volume() / 1000.0:
-            outside = word.Volume() - took
-            raise ValueError(
-                f"the {which} collar's lettering runs to {word.Volume():.3f} mm³ and cutting it "
-                f"off the blank takes {took:.3f} — {outside:.3f} mm³ of it stands outside the "
-                f"collar rather than in a recess in one of its flats.")
-
-
-def selftest() -> int:
-    """Each collar against the tube it threads onto, the word it carries, and the chip on the wall."""
-    fails = []
-    # THE TUBE THE BORE IS ANSWERED AGAINST IS THE BIGGEST ONE A SPOOL RUNS, not the nominal. A
-    # bore sized on the nominal meets a tube `LLDPE_TOL` over it and does not go on, and the sag
-    # takes `BORE_SHRINK` more off before it ever meets one.
-    if bore_printed() < TUBE_OD + LLDPE_TOL:
-        fails.append(
-            f"a collar prints Ø{bore_printed():g} and a spool running high hands the bench "
-            f"Ø{TUBE_OD + LLDPE_TOL:g} of tube — {LENGTH:g} mm of bore on that is a part that goes "
-            f"on with a mallet or not at all")
-    if backing() < WORD_DEPTH - 1e-9:
-        fails.append(
-            f"the word's recess is {WORD_DEPTH:g} deep and leaves {backing():.3f} mm of colour "
-            f"between its floor and the bore's crown")
-    for which, collar in STATIONS.items():
-        width = _ring.WORD_WIDTHS[collar.word]
-        for face in FACES:
-            along, across = word_band(face)
-            if width > along + 1e-9:
-                fails.append(
-                    f"'{collar.word}' runs {width:.3f} mm along a collar {LENGTH:g} mm long that "
-                    f"leaves {along:.3f} mm between its own margins")
-            if _ring.WORD_CAP > across + 1e-9:
-                fails.append(
-                    f"the {which} collar letters a {_ring.WORD_CAP:g} mm cap across its {face} "
-                    f"flat, which leaves {across:.3f} mm between its margins")
-        if collar.word != _ring.STATIONS[which]:
-            fails.append(
-                f"the {which} collar says '{collar.word}' and the chip on the wall at that same "
-                f"station says '{_ring.STATIONS[which]}' — a tube and the ring it goes "
-                f"through are read by one word or by neither")
-    needed = max(_ring.WORD_WIDTHS[c.word] for c in STATIONS.values()) + 2.0 * WORD_MARGIN
-    if LENGTH < needed - 1e-9:
-        fails.append(
-            f"the longest of these words asks {needed:.3f} mm along the tube and `LENGTH` is "
-            f"{LENGTH:g}")
-    # The bulkhead ring's `THICK` is the same identification carried on a chip, on the same tube's play.
-    chip_rock = math.degrees(math.atan2(clearance(), _ring.THICK))
-    if rock() >= chip_rock:
-        fails.append(
-            f"a collar {LENGTH:g} mm long cocks {rock():.3f}° on its loosest tube and a chip's own "
-            f"{_ring.THICK:g} mm cocks {chip_rock:.3f}°")
-    if wall() <= 0.0:
-        fails.append(f"a Ø{OD:g} collar bored Ø{BORE:g} leaves no wall around the tube")
-    # THE FACES ARE WHAT A ROLL CANNOT HIDE. Two of them leave a collar that can turn a blank flat
-    # square to a reader; three cannot.
-    if len(FACES) < 3:
-        fails.append(
-            f"{len(FACES)} lettered flat(s) leave a roll that shows a reader colour and no word")
-    for what, fn in (("words_hold", words_hold), ("letters_lie_in_it", letters_lie_in_it)):
-        try:
-            fn()
-        except Exception as exc:                                 # noqa: BLE001
-            fails.append(str(exc))
-    for line in fails:
-        print(f"FAIL {line}")
-    if not fails:
-        print("ok  tube-collar  " + ", ".join(
-            f"{w} {STATIONS[w].word}" for w in STATIONS)
-            + f" — Ø{OD:g} × {LENGTH:g} on Ø{TUBE_OD:g} tube, bore Ø{BORE:g} modelled and "
-              f"Ø{bore_printed():g} printed, cocks {rock():.3f}° "
-              f"({flag_sway() * 1000:.0f} µm at the flag)")
-    return 1 if fails else 0
-
-
-def numbers():
-    artwork = _hw / "printed-parts/enclosure/rear-identification/label-words.json"
-    from _cadq_export import note_read
-    note_read(artwork)
-    return _collar_data("numbers", artwork=str(artwork))
-
-
-def main():
-    import _rust_part
-    said = _rust_part.cut("faucet", "tube-collar", numbers(), _here.parent)
-    report = _collar_data("report", bodies=said["bodies"])
-    for line in report["lines"]:
-        print(line)
-
-
-if __name__ == "__main__":
-    if len(sys.argv) > 1 and sys.argv[1] == "selftest":
-        sys.exit(selftest())
-    main()
