@@ -3,12 +3,11 @@
 //! the rear slot. The washer and nut are left out so both slots show.
 use super::book::*;
 use anyhow::{Context, Result, bail, ensure};
+use hsm_faucet_assembly_numbers::SHANK_OD;
 use hsm_faucet_numbers::paths as faucet;
 use hsm_pages::{Pen, Rgb, reads};
 
 const DXF: &str = "hardware/cut-parts/faucet/under-counter-plate/under-counter-plate.dxf";
-/// The Westbrass R2031-NL's shank, as measured on the part the faucet is built around.
-const SHANK_OD: f64 = 11.0;
 /// The DXF's `$INSUNITS` for millimetres.
 const MILLIMETRES: i64 = 4;
 
