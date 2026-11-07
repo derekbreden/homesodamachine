@@ -22,9 +22,6 @@ hsm-run-slots = { path = "../run-slots" }
 name = "petgf-cooling"
 path = "../../../hardware/printed-parts/cadlib/petgf_cooling.rs"
 
-[[bin]]
-name = "faucet-print-project"
-path = "../../../hardware/printed-parts/faucet/faucet_print_project.rs"
 
 [[bin]]
 name = "enclosure-print-prep"
@@ -41,3 +38,19 @@ path = "../../../hardware/printed-parts/enclosure/trial-preparation/review.rs"
 [[bin]]
 name = "support-audit"
 path = "../../../hardware/printed-parts/cadlib/support_audit.rs"
+
+[[bin]]
+name = "industrial-faucet-print-project"
+path = "../../../hardware/printed-parts/faucet/industrial/prepare_print_project.rs"
+
+[[bin]]
+name = "faucet-cover-print-project"
+path = "../../../hardware/printed-parts/faucet/faucet-display-cover/prepare_print_project.rs"
+
+[[bin]]
+name = "lever-print-project"
+path = "../../../hardware/printed-parts/faucet/lever-replica/prepare_print.rs"
+
+[[bin]]
+name = "sculpted-faucet-print-project"
+path = "../../../hardware/printed-parts/faucet/sculpted/prepare_print_project.rs"

@@ -59,7 +59,8 @@ including normal sections, are retained elsewhere.
 
 ## Preparation and evidence
 
-[prepare_print_project.py](prepare_print_project.py) rebuilds the five parts
+[prepare_print_project.rs](prepare_print_project.rs), the `sculpted-faucet-print-project`
+program, rebuilds the five parts
 from current STLs, transfers settings by part role, fits the base rim aids
 and applies the right-nozzle filament mapping. It runs manually and never
 starts a printer.

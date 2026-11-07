@@ -76,7 +76,7 @@ including its automatically generated normal sections.
 ## Prepare the next print
 
 ```sh
-tools/cad-venv/bin/python hardware/printed-parts/faucet/industrial/prepare_print_project.py
+tools/hsm/target/release/industrial-faucet-print-project
 ```
 
 The preparer uses the approved frozen meshes and print profile. Optional

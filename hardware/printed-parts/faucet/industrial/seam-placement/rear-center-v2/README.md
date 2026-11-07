@@ -8,7 +8,7 @@ seams. The mounting plate's exposed rim starts at X=0. The cover and lever
 retain Aligned, 15% seam gap and scarf off.
 
 The [selection](../../finish-selection.json) and
-[preparer](../../prepare_print_project.py) select facets using their intersection
+[preparer](../../prepare_print_project.rs) select facets using their intersection
 with the center strip and the rear boundary at each **build Z**. This follows
 the contour's translation in plate Y. The base strip crosses X ±0.25 mm;
 the curved tip facets intersect X=0. Selected base facets include CAD Z0–237.33,

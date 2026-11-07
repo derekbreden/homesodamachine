@@ -39,6 +39,25 @@ pub fn apply_members(members: &mut BTreeMap<String, Vec<u8>>, hook: &str) -> Res
     Ok(Value::Object(changes))
 }
 
+/// Apply the cooling values to one settings document; `hook` is the post-process command a
+/// project's own settings take. Returns the changes.
+pub fn apply(settings: &mut Json, hook: Option<&str>) -> Result<Value> {
+    let reply = policy::dispatch("apply", &json!({"settings": settings.to_value(), "post_process_command": hook}))?;
+    let mut changed = serde_json::Map::new();
+    for update in reply["updates"].as_array().cloned().unwrap_or_default() {
+        let key = update[0].as_str().context("update key")?.to_string();
+        settings.set(&key, Json::from_value(&update[1]["to"]));
+        changed.insert(key, update[1].clone());
+    }
+    Ok(Value::Object(changed))
+}
+
+/// The settings the policy sets on a PET-GF slot.
+pub fn value_names() -> Result<Vec<String>> {
+    let values = policy::dispatch("values", &json!({}))?;
+    Ok(values.as_array().into_iter().flatten().filter_map(|pair| pair[0].as_str().map(String::from)).collect())
+}
+
 /// The foundation stage on one G-code file: writes `output` when it changes anything.
 pub fn foundation(input: &Path, output: &Path, settings: &Value) -> Result<Value> {
     let policy_values = policy::dispatch("foundation_policy", &json!({}))?;

@@ -112,7 +112,7 @@ pose, localized cooling, supports and Mark2 trim.
 Prepare it with:
 
 ```sh
-tools/cad-venv/bin/python hardware/printed-parts/faucet/faucet-display-cover/prepare_print_project.py
+tools/hsm/target/release/faucet-cover-print-project
 ```
 
 The preparer uses the exact approved STL in the production source set. It does

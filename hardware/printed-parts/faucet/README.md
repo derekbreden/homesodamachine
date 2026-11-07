@@ -88,7 +88,8 @@ display fit, snap retention and surface finish.
 ## Prepare the approved Industrial print
 
 ```
-tools/cad-venv/bin/python hardware/printed-parts/faucet/industrial/prepare_print_project.py
+python3 tools/run.py -- cargo build --release --locked --manifest-path tools/hsm/Cargo.toml -p hsm-print-prep
+tools/hsm/target/release/industrial-faucet-print-project
 ```
 
 The production preparer reads the preserved approved print meshes and retains

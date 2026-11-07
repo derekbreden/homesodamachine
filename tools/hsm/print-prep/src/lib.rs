@@ -5,6 +5,7 @@
 pub mod audit;
 pub mod cooling;
 pub mod derive;
+pub mod faucet;
 pub mod gcode;
 pub mod ids;
 pub mod json;
@@ -12,6 +13,7 @@ pub mod mesh;
 pub mod npz;
 pub mod profile;
 pub mod project;
+pub mod refresh;
 pub mod review;
 pub mod seam;
 pub mod slice;
