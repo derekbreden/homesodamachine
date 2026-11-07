@@ -148,12 +148,10 @@ file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=-66.492 y=462.467 z=283.320
 click: x=-66.492 y=462.033 z=283.320
 
-[slope] Wrong slope classification for the C14 inlet's body opening: its two lower corner chamfers are the 45° roof faces of a through-opening in back-top's ceiling-down print (Y462.3-468.05), each grown off the opening's vertical side through the profile's corner round and carried by the stock beside it at every layer. The lint takes a level foot only from a plane wall, and the one plane wall either chamfer meets is the flange pocket's floor, along the chamfer's own rising edge.
-alternatives: Read hole roofs separately from sideways corbels. Squaring the opening's corners puts a flat roof over the inlet's chamfered body.
+[ceiling] Wrong build-pose classification for the inlet cord passage floor: the ceiling finder uses the source-Z flip, while the native rear-top preparation leans rear-face-down. The floor becomes a steep wall in that pose and grows from preceding layers. The native preparation excludes supports from the passage and retains its flat cord clearance. Reported to Derek.
+alternatives: Classify ceilings in the native build rotation. Chamfering this floor changes the cord passage to solve a ceiling that the production pose does not present.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=-57.698 y=465.175 z=323.248
-click: x=-79.302 y=465.175 z=323.248
-click: x=-57.777 y=465.175 z=323.327
+click: x=-68.500 y=467.175 z=320.100
 
 [ceiling] Required valve seat plates: the V-A and V-K solenoids stand on these faces, the shared `valve_seat` V69 plate with its four blind sockets and open port channel, rooted in the side walls (`_above_core_shell.valve_seats`). Back-top prints ceiling-down, so each plate's top looks at the bed 28 mm up; Tree(auto)/Default support stands in the valve's own room (slice 257a5648, interfaces 16 and 17) and leaves before the valve goes in. Physical cleanup remains unqualified.
 alternatives: A 45-degree corbel over the plate occupies the solenoid; a seat printed separately is a second part to hold the valve.

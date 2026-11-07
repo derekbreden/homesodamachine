@@ -36,10 +36,13 @@
     "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl": "a8125c23949355845f4236bd0e59345298f864dccbbadea449c7bdbf6f6380c6"
   },
   "geometry_review": "native-fit.json",
-  "print_status": "awaiting_native_slice",
+  "print_status": "native_slice_review_passed",
   "smooth_wall_pilot_backing_mm": 3.0,
   "minimum_pilot_backing_after_flutes_mm": 1.8,
   "minimum_insert_backing_after_flutes_mm": 3.05,
   "minimum_screw_tip_backing_after_flutes_mm": 2.64,
-  "wiring_geometry_review": "wiring.json"
+  "wiring_geometry_review": "wiring.json",
+  "native_print_review": "../support-removal-review/native-print.json",
+  "support_paths_in_mount_and_cord_passage": 0,
+  "publication_review": "publication.json"
 }
