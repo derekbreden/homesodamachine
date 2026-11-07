@@ -1,0 +1,21 @@
+[package]
+name = "hsm-cold-core-assembly-numbers"
+version = "0.1.0"
+edition.workspace = true
+license.workspace = true
+rust-version.workspace = true
+publish = false
+
+[lib]
+path = "../../../hardware/cold-core-layout/assembly/numbers.rs"
+
+[dependencies]
+hsm-carbonator-numbers = { path = "../carbonator-numbers" }
+hsm-coil-numbers = { path = "../coil-numbers" }
+hsm-cold-core-catalog = { path = "../cold-core-catalog" }
+hsm-cold-core-interface = { path = "../cold-core-interface" }
+hsm-cold-core-layout = { path = "../cold-core-layout" }
+hsm-foam-cap-numbers = { path = "../foam-cap-numbers" }
+hsm-prv-shroud-numbers = { path = "../prv-shroud-numbers" }
+hsm-reed-bridge-numbers = { path = "../reed-bridge-numbers" }
+hsm-reservoir-numbers = { path = "../reservoir-numbers" }
