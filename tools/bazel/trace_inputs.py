@@ -395,6 +395,8 @@ RUST_STEPS = {
         ("tpu-o-ring", "tpu-o-ring", "hardware/printed-parts/faucet/tpu-o-ring"),
     "hardware/printed-parts/faucet/umbilical-organizer/umbilical_organizer.rs":
         ("umbilical-organizer", "umbilical-organizer", "hardware/printed-parts/faucet/umbilical-organizer"),
+    "hardware/printed-parts/cold-core/reservoir/reservoir.rs":
+        ("reservoir", "reservoir", "hardware/printed-parts/cold-core/reservoir"),
 }
 
 #: The media a Rust step can rewrite in place: documents with authored text round the figures it
