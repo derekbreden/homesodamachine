@@ -233,7 +233,7 @@ def insert_regions(part: str) -> tuple[dict, ...]:
 
 def rigid() -> dict:
     return prepare("faucet-black-z018-h2c", HERE / "faucet-petgf.3mf",
-                   ROOT / "hardware/printed-parts/petgf.3mf", writer.PARTS, writer.PART_OFFSETS,
+                   ROOT / "hardware/printed-parts/petgf.3mf", writer.faucet_parts(), writer.PART_OFFSETS,
                    "Centered ASSE vent faucet; PET-GF; H2C", z_trim=.18,
                    solid_regions=insert_regions("faucet-shell-base"))
 
@@ -274,9 +274,10 @@ def tool() -> dict:
 
 def industrial() -> dict:
     directory = HERE / "industrial"
-    rotations = {name: angle for name, _, angle in writer.PARTS}
+    faucet = writer.faucet_parts()
+    rotations = {name: angle for name, _, angle in faucet}
     parts = (("industrial-shell-base", directory / "industrial-shell-base.stl", rotations["faucet-shell-base"]),
-             writer.PARTS[1],
+             faucet[1],
              ("industrial-display-cover", directory / "industrial-display-cover.stl", rotations["faucet-display-cover"]),
              ("industrial-above-counter-plate", directory / "industrial-above-counter-plate.stl", 0.0))
     return prepare("faucet-industrial-black-z018-h2c", directory / "faucet-industrial-petgf.3mf",

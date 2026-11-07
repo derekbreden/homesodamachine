@@ -49,7 +49,7 @@ def relative(path):
 
 def prepare(project):
     selection = json.loads(FINISH.read_text())
-    parts = (*writer.PARTS, ('lever-replica', FAUCET / 'lever-replica/lever-replica-side-down.stl', 0.))
+    parts = (*writer.faucet_parts(), ('lever-replica', FAUCET / 'lever-replica/lever-replica-side-down.stl', 0.))
     report = writer.refresh(PROFILE, project, parts=parts, offsets=OFFSETS,
         title='Complete Sculpted white faucet PET-GF right Mark2', z_trim=.04, plate_border=40.)
     parent_report = json.loads(PARENT.with_suffix('.print.json').read_text())
