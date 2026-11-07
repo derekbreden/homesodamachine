@@ -356,7 +356,6 @@ ELSEWHERE = ("tools/", "hardware/pcb/pcba/",
              'hardware/printed-parts/fixtures/faucet-display-snap/',  # retained historical study geometry
              'hardware/printed-parts/fixtures/valve-socket-fit/',  # retained historical study geometry
              'hardware/printed-parts/zone-c/funnel/cradle-trial/',  # retained historical study geometry
-             "hardware/install-guide/_install_art.py",  # scene library the guide's art tools import, run by hand
              "hardware/assembly/scenes/render_scenes.py",
              "hardware/manifold-layout/enclosure_assembly.py",  # the old machine pipeline; the BOM and topology syncs import it
              "hardware/scripts/check_faucet_geometry.py",
