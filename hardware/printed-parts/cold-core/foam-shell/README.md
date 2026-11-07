@@ -137,5 +137,5 @@ Top and bottom details: [closure reference](../foam-cap/README.md).
 
 ## Sources
 
-[Python datums](foam_shell.py), [kernel geometry](foam_shell.rs), and
-[native construction builder](../_foam_shell.py).
+[Numbers](numbers.rs), and the [build step](foam_shell.rs) that cuts the shell and its
+viewer payload from them.
