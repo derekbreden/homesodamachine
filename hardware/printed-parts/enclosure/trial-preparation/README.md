@@ -18,8 +18,6 @@ tools/hsm/target/release/enclosure-print-prep list
 tools/hsm/target/release/enclosure-print-prep back-top --slice --review
 tools/hsm/target/release/enclosure-print-prep all --slice --review
 tools/hsm/target/release/enclosure-labels --slice
-tools/cad-venv/bin/python hardware/printed-parts/enclosure/trial-preparation/step_meshes.py hardware/printed-parts/cold-core/prv-shroud/prv-shroud.step
-tools/cad-venv/bin/python hardware/printed-parts/enclosure/trial-preparation/step_meshes.py --check
 ```
 
 `list` prints each piece's printer, hotend and material, its meshes and their digests, and
@@ -35,14 +33,10 @@ installed Bambu Studio command line on the project and keeps its archive beside 
 `--review` reads the project and archive back with [`review.py`](review.py). No printer is
 contacted. Preparing and slicing take one of the Mac's run slots.
 
-Three kinds of piece are not prepared here. A piece with `external` names its own preparer,
-which `--slice` runs. A piece with `archive` prints from a retained archive, and `list` checks
-its bytes against the recorded digest. A part whose generator writes only a STEP gets its print
-mesh from [`step_meshes.py`](step_meshes.py). That script reads the STEP's bodies, fuses a
-part's lettering into it, and writes `<part>.stl` beside the STEP with
-[`cadlib/print_mesh.py`](../../cadlib/print_mesh.py). It binds each STL to the STEP digest in
-[`step-meshes.json`](step-meshes.json), and preparation refuses an STL whose STEP has moved
-since.
+Some pieces are not prepared here. A piece with `external` names its own preparer, which
+`--slice` runs. A piece with `archive` prints from a retained archive, and `list` checks its
+bytes against the recorded digest. Every other piece prints the STL its part's generator
+writes beside the STEP.
 
 The `enclosure-labels` program ([`labels.rs`](labels.rs)) prepares the identification plates,
 one plate per chip colour: the six rear chips, the six tube collars and nameplate 0001. Each

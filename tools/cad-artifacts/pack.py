@@ -160,8 +160,8 @@ BUNDLED_MESH_DIRS = (
     "hardware/printed-parts/fixtures/gun-positioner",
     "hardware/printed-parts/fixtures/gun-positioner-observation",
     "hardware/gun-positioner/mounting",
-    # The STEP-only parts whose printable meshes trial preparation exports beside their STEPs
-    # (`trial-preparation/step-meshes.json`), and the rear chips, R14 holder and ASSE cuffs.
+    # Parts whose printable meshes sit beside their STEPs, and the rear chips, R14 holder and ASSE
+    # cuffs.
     "hardware/printed-parts/cold-core/copper-plugs",
     "hardware/printed-parts/cold-core/prv-shroud",
     "hardware/printed-parts/cold-core/reed-bridge",
