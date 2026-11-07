@@ -128,10 +128,11 @@ measured extent leaves its range, stops the preparation and reports what was fou
   above it, so the span's top lies inside a fine layer. Its faces are painted support-blocked.
   `allow_support` retains accessible external contacts on a supported show surface.
 - **`transition_band`** — an expanding print-down round with the 0.5:1 additive chamfer of
-  [`overhang_round.py`](../../cadlib/overhang_round.py). The foot is the flat face most
-  chamfer area starts from; the measured chamfer rise matches the declared radius within
-  10%. The band runs from the lowest chamfer face through the retained arc at 0.24 mm with
-  six walls, and its downward exterior faces are painted support-blocked.
+  [`overhang_round.py`](../../cadlib/overhang_round.py). The foot is where the straight run
+  starts, the lowest point of the chamfer faces that reach its top; the rise from it matches
+  the declared radius within 10%. A corner return follows its arc lower, so the band runs from
+  the lowest chamfer face through the retained arc at 0.24 mm with six walls, and its downward
+  exterior faces are painted support-blocked.
 - **`ceiling_inset`** — the flat ceiling at a transition's foot keeps tree contacts the
   declared distance inside its boundary, painted on subdivided facets.
 - **`native_support_free`** — reads support exclusions emitted by the native part
