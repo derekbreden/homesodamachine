@@ -91,6 +91,8 @@ they are not endurance or load-capacity criteria.
 
 ## Preparation
 
+The scripts these commands run are in Git at [`306268f870`](https://github.com/derekbreden/homesodamachine/tree/306268f870).
+
 ```sh
 tools/cad-venv/bin/python future/umbilical-plug-and-socket-exploration/assessment/prepare_tactile_trial.py
 ```

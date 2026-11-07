@@ -5,8 +5,8 @@ inner corner returns retain the saved automatic Tree/Default support decisions.
 The exterior R6 transition uses the additive 0.24 mm treatment with six local walls and
 its existing show-surface support exclusion. The first layer is 0.20 mm.
 
-`prepare.py` builds a fresh immutable project from the production bottom STL and invokes
-Bambu Studio's slicer. `verify.py` reads the exact archive, source hashes, layer/wall bands,
+[`prepare.py`](https://github.com/derekbreden/homesodamachine/blob/306268f870/hardware/printed-parts/enclosure/bottom-grip-print/prepare.py) (in Git at `306268f870`) builds a fresh immutable project from the production bottom STL and invokes
+Bambu Studio's slicer. [`verify.py`](https://github.com/derekbreden/homesodamachine/blob/306268f870/hardware/printed-parts/enclosure/bottom-grip-print/verify.py) (in Git at `306268f870`) reads the exact archive, source hashes, layer/wall bands,
 bead overlap, exterior support clearance and plate margins. Preparation does not establish
 support cleanup, finger comfort or load capacity. The current integral handholds have no
 physical acceptance for those properties.

@@ -49,7 +49,7 @@ tip** retains native cooling and feed on Floating vertical shell and therefore
 does not test an all-model fixed-fan recipe. Other model feeds, supports and brim
 retain their native values.
 The local treatment preserves every native XYZ, arc and E word. The editable
-project contains the flow treatment; `finish.py` applies the local fan/feed
+project contains the flow treatment; [`finish.py`](https://github.com/derekbreden/homesodamachine/blob/306268f870/hardware/printed-parts/faucet/finish-coupons/2026-10-14-bridge-transfer/finish.py) (in Git at `306268f870`) applies the local fan/feed
 treatment to its native slice and refreshes the checksum.
 
 The actual references receive 0–62% model fan on the foot and 22–64% on the tip
@@ -115,9 +115,9 @@ and lifetime are unmeasured. Physical observations remain pending.
 ## Manual reproduction
 
 From the repository root, use `tools/cad-venv/bin/python` to run this directory's
-`prepare.py Mark1` or `prepare.py Mark2`, then its `finish.py` for that printer.
+`prepare.py Mark1` or `prepare.py Mark2`, then its [`finish.py`](https://github.com/derekbreden/homesodamachine/blob/306268f870/hardware/printed-parts/faucet/finish-coupons/2026-10-14-bridge-transfer/finish.py) (in Git at `306268f870`) for that printer.
 Preparation refuses to overwrite a
 launched experiment. The saved slice command calls the installed Bambu Studio
-with arrange/orient disabled. `finish.py` packages a print-only copy with the
+with arrange/orient disabled. [`finish.py`](https://github.com/derekbreden/homesodamachine/blob/306268f870/hardware/printed-parts/faucet/finish-coupons/2026-10-14-bridge-transfer/finish.py) (in Git at `306268f870`) packages a print-only copy with the
 reviewed G-code unchanged by packaging. Open that copy without reslicing.
 These tools are manual experiment tools; they add no build or commit checks.

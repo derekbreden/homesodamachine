@@ -29,6 +29,8 @@ The import copy has the same hash.
 
 Run the preparation from the repository root; [`verify.py`](https://github.com/derekbreden/homesodamachine/blob/9884d0e7f4/hardware/printed-parts/enclosure/grip-cover/h2c-trial-v5/verify.py) is in Git at `9884d0e7f4`:
 
+The scripts these commands run are in Git at [`306268f870`](https://github.com/derekbreden/homesodamachine/tree/306268f870).
+
 ```sh
 HSM_NO_BUILD_LOCK=1 tools/cad-venv/bin/python hardware/printed-parts/enclosure/grip-cover/h2c-trial-v5/prepare.py
 ```

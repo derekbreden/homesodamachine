@@ -18,7 +18,7 @@ infill-only reinforcement are retained.
 
 ## Native motor paths
 
-The [manual reader](review.py) follows every emitted exterior-wall run in the
+The [manual reader](https://github.com/derekbreden/homesodamachine/blob/306268f870/hardware/printed-parts/faucet/industrial/seam-placement/rear-center-v2/review.py) (in Git at `306268f870`) follows every emitted exterior-wall run in the
 base, tip and plate, including G2/G3 arcs, zero-flow E-word moves and numerical
 E-less hops within 0.02 mm in XY and 0.002 mm in Z. Each run is compared with
 the source STL's actual external footprint in its build pose. Hole walls, disconnected shoulder

@@ -98,6 +98,8 @@ no measurement-tool purchase is requested.
 
 Run these only when preparing or reviewing this particular test:
 
+The scripts these commands run are in Git at [`306268f870`](https://github.com/derekbreden/homesodamachine/tree/306268f870).
+
 ```sh
 tools/cad-venv/bin/python future/umbilical-plug-and-socket-exploration/assessment/prepare_guided_boot_trial.py
 tools/cad-venv/bin/python future/umbilical-plug-and-socket-exploration/assessment/review_guided_boot_print.py

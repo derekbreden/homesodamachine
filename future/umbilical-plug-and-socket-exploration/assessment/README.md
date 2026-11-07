@@ -227,6 +227,8 @@ machine-build check, hook or recurring verification requirement.
 
 Run only when revisiting the questions answered here:
 
+The scripts these commands run are in Git at [`306268f870`](https://github.com/derekbreden/homesodamachine/tree/306268f870).
+
 ```sh
 tools/cad-venv/bin/python future/umbilical-plug-and-socket-exploration/assessment/geometry_review.py
 tools/cad-venv/bin/python future/umbilical-plug-and-socket-exploration/assessment/review_guided_boot.py

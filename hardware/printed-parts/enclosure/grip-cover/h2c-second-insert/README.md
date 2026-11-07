@@ -29,11 +29,13 @@ Leveling On, Flow Dynamic Calibration Auto, and Nozzle Offset Calibration Auto.
 
 To prepare another reviewed slice:
 
+The scripts these commands run are in Git at [`306268f870`](https://github.com/derekbreden/homesodamachine/tree/306268f870).
+
 ```sh
 HSM_NO_BUILD_LOCK=1 tools/cad-venv/bin/python hardware/printed-parts/enclosure/grip-cover/h2c-second-insert/prepare.py --revision 3
 ```
 
-[prepare.py](prepare.py) checks the accepted source hash, preserves its print
+[prepare.py](https://github.com/derekbreden/homesodamachine/blob/306268f870/hardware/printed-parts/enclosure/grip-cover/h2c-second-insert/prepare.py) (in Git at `306268f870`) checks the accepted source hash, preserves its print
 settings and layer schedule, applies H2C's Z trim, slices with Bambu Studio's
 native slicer, and writes the verification record. Each revision uses a separate
 directory under `.cache/prints/`.

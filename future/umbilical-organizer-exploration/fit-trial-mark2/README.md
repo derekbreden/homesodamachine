@@ -30,7 +30,7 @@ The editable project is
 The submitted native archive is
 [`2026-10-09-organizer-three-fits-petgf-left04-z004-mark2.gcode.3mf`](https://github.com/derekbreden/homesodamachine/blob/33d50d2ecd2a0fb6b518483a44c8031e3a0c1617/future/umbilical-organizer-exploration/fit-trial-mark2/2026-10-09-organizer-three-fits-petgf-left04-z004-mark2.gcode.3mf).
 Source meshes are in [`parts/`](parts/). Manual preparation is
-[`../prepare_print.py`](../prepare_print.py); it does not submit a print.
+[`../prepare_print.py`](https://github.com/derekbreden/homesodamachine/blob/306268f870/future/umbilical-organizer-exploration/prepare_print.py) (in Git at `306268f870`); it does not submit a print.
 
 - Printer: **Mark2**, fixed **left 0.4 mm hardened nozzle**, left external
   slot 254, physical PET-GF. The printer reports PET-CF/GFT01, color `161616`.

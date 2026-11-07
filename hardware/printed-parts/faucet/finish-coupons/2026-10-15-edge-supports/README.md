@@ -122,7 +122,7 @@ ordinary support removal. Preserve the adjacent finish and mating faces.
 The relevant result is a clean, intact edge and a joint that closes cleanly,
 using the existing parts and cleanup tools.
 
-`prepare.py` and `review.py` are manual experiment tools with no build or
+[`prepare.py`](https://github.com/derekbreden/homesodamachine/blob/306268f870/hardware/printed-parts/faucet/finish-coupons/2026-10-15-edge-supports/prepare.py) (in Git at `306268f870`) and `review.py` are manual experiment tools with no build or
 commit integration. Preparation refuses to replace an accepted launch.
 The print-only packages preserve the reviewed native G-code byte for byte;
 launch records bind the exact submitted files and resolved printer mappings.

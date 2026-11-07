@@ -44,7 +44,6 @@ def source_paths() -> tuple[Path, ...]:
             FAUCET / "faucet_paths.py",
             FAUCET / "vent_seals.py",
             FAUCET / "_display_snap.py",
-            FAUCET / "refresh_print_project.py",
             ROOT / "hardware/reference/touch-flo-faucet/display-reference/component-envelopes.json",
             SHELL / "faucet_shell.py",
             FAUCET / "above-counter-plate/above_counter_plate.py",

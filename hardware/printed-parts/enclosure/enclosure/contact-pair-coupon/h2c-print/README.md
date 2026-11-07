@@ -59,6 +59,8 @@ coupons are removed enables that next print.
 
 To prepare fresh automatic and unsupported slices, then review them:
 
+The scripts these commands run are in Git at [`306268f870`](https://github.com/derekbreden/homesodamachine/tree/306268f870).
+
 ```sh
 HSM_NO_BUILD_LOCK=1 tools/cad-venv/bin/python hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/prepare.py --revision 3
 HSM_NO_BUILD_LOCK=1 tools/cad-venv/bin/python hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/h2c-print/prepare.py --revision 4 --unsupported

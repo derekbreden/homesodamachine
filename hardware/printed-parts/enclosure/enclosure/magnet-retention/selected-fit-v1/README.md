@@ -24,6 +24,8 @@ color `161616` with +0.04 mm requested / +0.02 mm emitted trim; H2C uses
 
 Prepare or slice one part at a time after the geometry records match:
 
+The scripts these commands run are in Git at [`306268f870`](https://github.com/derekbreden/homesodamachine/tree/306268f870).
+
 ```sh
 HSM_NO_BUILD_LOCK=1 tools/cad-venv/bin/python hardware/printed-parts/enclosure/enclosure/magnet-retention/selected-fit-v1/prepare.py pump-cartridge --slice
 HSM_NO_BUILD_LOCK=1 tools/cad-venv/bin/python hardware/printed-parts/enclosure/enclosure/magnet-retention/selected-fit-v1/prepare.py front-top --slice
@@ -52,6 +54,8 @@ total prediction, rounds the elapsed time to minutes, and compares it with the
 initial emitted `M73 C` countdown. Both inputs are estimates. Heating,
 calibration and physical printing can shift the actual pause. An insertion
 instruction requires an observed matching programmed pause.
+
+The scripts these commands run are in Git at [`306268f870`](https://github.com/derekbreden/homesodamachine/tree/306268f870).
 
 ```sh
 tools/cad-venv/bin/python hardware/printed-parts/enclosure/enclosure/magnet-retention/selected-fit-v1/review_timing.py pump-cartridge --retention

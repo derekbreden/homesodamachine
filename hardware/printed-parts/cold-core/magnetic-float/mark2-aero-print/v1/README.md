@@ -86,7 +86,7 @@ results and are not established by these slice checks.
 - [Insert preflight and frozen archive/G-code hashes](insert-preflight.json)
 - [Core launch and printer acceptance](core-mark2-launch.json)
 - [Queue and removal gate](queue.json)
-- [Preparation and emitted-path checks](prepare.py)
+- [Preparation and emitted-path checks](https://github.com/derekbreden/homesodamachine/blob/306268f870/hardware/printed-parts/cold-core/magnetic-float/mark2-aero-print/v1/prepare.py) (in Git at `306268f870`)
 
 ![Core native preview](core-preview.png)
 

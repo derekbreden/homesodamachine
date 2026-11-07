@@ -65,7 +65,7 @@ from current STLs, transfers settings by part role, fits the base rim aids
 and applies the right-nozzle filament mapping. It runs manually and never
 starts a printer.
 
-[review_print.py](review_print.py) reads the native G-code's nominal courses,
+[review_print.py](https://github.com/derekbreden/homesodamachine/blob/306268f870/hardware/printed-parts/faucet/sculpted/review_print.py) (in Git at `306268f870`) reads the native G-code's nominal courses,
 filament assignment, cooling, speed commands, complete bead footprint and
 whole-height seam paths. It packages a separate print-only archive with
 unchanged G-code bytes. It is a manual reader, not a build step.

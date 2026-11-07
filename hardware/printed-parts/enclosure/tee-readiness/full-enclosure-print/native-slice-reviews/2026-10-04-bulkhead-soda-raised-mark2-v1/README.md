@@ -24,10 +24,10 @@ object/tool/layer against the [uncorrected slice](uncorrected-preparation.json).
 The requested Z trim is +0.04 mm, emitted as `G29.1 Z0.02` on Textured PEI.
 Timelapse and bed leveling are On, and flow and nozzle-offset calibration are Auto.
 
-[`prepare.py`](prepare.py) takes the geometry from `raised_rings.build('carb')`.
+[`prepare.py`](https://github.com/derekbreden/homesodamachine/blob/306268f870/hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-10-04-bulkhead-soda-raised-mark2-v1/prepare.py) (in Git at `306268f870`) takes the geometry from `raised_rings.build('carb')`.
 It snapshots the meshes and their source commit into
 [`geometry-snapshot.json`](geometry-snapshot.json) and builds the plate from that
-snapshot. [`verify.py`](verify.py) checks the archive, layers, letter nozzle,
+snapshot. [`verify.py`](https://github.com/derekbreden/homesodamachine/blob/306268f870/hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-10-04-bulkhead-soda-raised-mark2-v1/verify.py) (in Git at `306268f870`) checks the archive, layers, letter nozzle,
 filament colours, trim, support absence and the correction
 ([verification](verification.json)). [Preflight](preflight.json) records both
 printers before the send, and [launch](launch.json) records the acceptance.

@@ -88,10 +88,12 @@ before the single transaction. Further Send is disabled for this job.
 ## Reproduce preparation
 
 `prepare.py` binds its v1 input hash and changes only the requested trim and
-preset name. `review.py` reads native meshes, deposited paths, supports,
+preset name. [`review.py`](https://github.com/derekbreden/homesodamachine/blob/306268f870/hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-06-mark1-retry-z004-v2/review.py) (in Git at `306268f870`) reads native meshes, deposited paths, supports,
 first-layer speeds, trim and probing state. `package.py` extracts one cavity
 plate without changing native G-code. Preparation and packaging require absent
 outputs and do not submit a print.
+
+The scripts these commands run are in Git at [`306268f870`](https://github.com/derekbreden/homesodamachine/tree/306268f870).
 
 ```sh
 tools/cad-venv/bin/python hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-06-mark1-retry-z004-v2/prepare.py

@@ -39,7 +39,7 @@ The [Touch-Flo sleeve](../../../tpu-o-ring/prints/2026-10-23-black-tpu85a-right0
 applies the same approach to its cap and has a qualitative general print-quality
 report. This gasket applies deposited tours to every layer.
 
-[`continuous_layers.py`](continuous_layers.py) reorders or reverses the native
+[`continuous_layers.py`](https://github.com/derekbreden/homesodamachine/blob/306268f870/hardware/printed-parts/faucet/industrial/prints/2026-10-23-mounting-gasket-tpu85a-right06-mark2/continuous_layers.py) (in Git at `306268f870`) reorders or reverses the native
 beads. Visible straight links connect deposited paths; a minimum-distance
 perfect pairing joins their odd endpoints without duplicating deposition.
 The nozzle follows existing deposition through turns, and free transfers are
@@ -79,6 +79,8 @@ remain unreported.
 ## Reproduce offline
 
 These manual commands do not send a print or run on commits/builds:
+
+The scripts these commands run are in Git at [`306268f870`](https://github.com/derekbreden/homesodamachine/tree/306268f870).
 
 ```sh
 tools/cad-venv/bin/python hardware/printed-parts/faucet/industrial/prints/2026-10-23-mounting-gasket-tpu85a-right06-mark2/prepare_mark2.py
