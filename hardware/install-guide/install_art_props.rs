@@ -4,7 +4,6 @@ use hsm_kernel::part::args;
 use hsm_kernel::*;
 use serde_json::Value;
 
-mod cad_art_props;
 
 type Shown = Vec<(String, Solid, [f64; 3])>;
 
@@ -201,9 +200,6 @@ fn c13(n: &hsm_kernel::part::Numbers, out: &mut Shown) -> Result<()> {
 
 fn main() -> Result<()> {
     let (n, directory) = args()?;
-    if n.get("cad_art").is_ok() {
-        return cad_art_props::write(&n, &directory);
-    }
     for name in n.get("scenes")?.as_array().unwrap() {
         let name = name.as_str().unwrap();
         let mut props = vec![];
