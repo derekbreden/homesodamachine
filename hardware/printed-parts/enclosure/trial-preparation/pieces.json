@@ -125,7 +125,8 @@
               "name": "Handhold lifting-edge transition",
               "kind": "transition_band",
               "select": {
-                "exterior_x_mm": 3.0
+                "wall_x_mm": 3.0,
+                "half": "lower"
               },
               "radius_mm": 6.0,
               "expect": {
@@ -140,7 +141,8 @@
               "name": "Handhold lifting ceiling boundary strip",
               "kind": "ceiling_inset",
               "select": {
-                "exterior_x_mm": 15
+                "wall_x_mm": 15,
+                "half": "lower"
               },
               "inset_mm": 0.8,
               "expect": {
@@ -312,7 +314,8 @@
               "name": "Handhold lifting-edge transition",
               "kind": "transition_band",
               "select": {
-                "exterior_x_mm": 3.0
+                "wall_x_mm": 3.0,
+                "half": "lower"
               },
               "radius_mm": 6.0,
               "expect": {
@@ -327,7 +330,8 @@
               "name": "Handhold lifting ceiling boundary strip",
               "kind": "ceiling_inset",
               "select": {
-                "exterior_x_mm": 15
+                "wall_x_mm": 15,
+                "half": "lower"
               },
               "inset_mm": 0.8,
               "expect": {
@@ -1279,6 +1283,40 @@
           "stl": "hardware/printed-parts/enclosure/rear-equipment-caps/entry-study/regulator-snap-cap-entry.stl"
         },
         {
+          "name": "regulator-receiver-standard",
+          "stl": "hardware/printed-parts/enclosure/rear-equipment-caps/entry-study/regulator-receiver-standard.stl",
+          "pose": {
+            "turns": [
+              [
+                "x",
+                -107
+              ],
+              [
+                "z",
+                90
+              ]
+            ]
+          },
+          "object_settings": {
+            "wall_loops": {
+              "value": "2",
+              "reason": "Match the enclosing back-top receiver process."
+            },
+            "sparse_infill_density": {
+              "value": "15%",
+              "reason": "Match back-top bulk deposition."
+            },
+            "sparse_infill_pattern": {
+              "value": "gyroid",
+              "reason": "Match back-top bulk deposition."
+            },
+            "enable_support": {
+              "value": "0",
+              "reason": "Print the receiver in its production pose with clear catch pockets."
+            }
+          }
+        },
+        {
           "name": "regulator-receiver-entry",
           "stl": "hardware/printed-parts/enclosure/rear-equipment-caps/entry-study/regulator-receiver-entry.stl",
           "pose": {
@@ -1286,6 +1324,10 @@
               [
                 "x",
                 -107
+              ],
+              [
+                "z",
+                90
               ]
             ]
           },
@@ -1309,7 +1351,7 @@
           }
         }
       ],
-      "pose_reason": "The approved axial-end cap poses and the full back-top receiver print pose retain their production layer directions.",
+      "pose_reason": "The standard and taller lead-in covers stand on their production axial ends. Their complete receivers retain the production back-top layer direction, rotated only within the bed plane.",
       "settings": {
         "wall_loops": {
           "value": "3",
@@ -1361,16 +1403,17 @@
         },
         "layer_height": {
           "value": "0.08",
-          "reason": "The tilted receiver and both covers share the fine layer schedule required by the native tower."
+          "reason": "The receivers and covers share the fine layer schedule required by the native tower."
         }
       },
       "plate_offset_mm": {
         "value": [
-          -8.5,
-          20
+          2.65,
+          30
         ],
-        "reason": "Center the combined cap and tower envelope with separate brim footprints."
-      }
+        "reason": "Center the complete receiver and cover comparison with a separate cooling tower footprint."
+      },
+      "plate_border_mm": 80.0
     }
   }
 }
