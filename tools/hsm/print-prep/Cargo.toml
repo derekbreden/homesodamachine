@@ -75,3 +75,7 @@ path = "../../../hardware/printed-parts/fixtures/tube-insertion/donor-hold-down/
 [[bin]]
 name = "funnel-cover-print-project"
 path = "../../../hardware/printed-parts/zone-c/funnel-cover/prepare_print.rs"
+
+[[bin]]
+name = "funnel-mold-print-project"
+path = "../../funnel-mold-print/prepare_print.rs"
