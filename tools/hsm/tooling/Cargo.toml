@@ -51,10 +51,6 @@ name = "asse-straight-cuffs"
 path = "../../../hardware/printed-parts/asse-straight-cuffs/asse_straight_cuffs.rs"
 
 [[bin]]
-name = "tee-valve-bow-trial"
-path = "../../../hardware/printed-parts/fixtures/tee-valve-bow-trial/tee_valve_bow_trial.rs"
-
-[[bin]]
 name = "valve-socket-fit"
 path = "../../../hardware/printed-parts/fixtures/valve-socket-fit/valve_socket_fit.rs"
 

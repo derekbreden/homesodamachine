@@ -110,14 +110,6 @@
       "change": "Distinct extended run 21.25 mm and nominal branch 22.35 mm stations consume the shared solid. Seat release room uses the 1.65 mm run stroke, independently of the 1.5 mm branch stroke."
     },
     {
-      "path": "hardware/printed-parts/fixtures/tee-valve-bow-trial/tee_valve_bow_trial.py",
-      "symbols": [
-        "tee reference",
-        "tee stations"
-      ],
-      "change": "The experimental fixture consumes the shared source. Its generated native outputs require refresh; retained experimental10/12/3.15/4.62 operating dimensions are not production qualification."
-    },
-    {
       "path": "hardware/assembly/scenes/_scenes.py",
       "symbols": [
         "hardware/reference/tee-connector/tee-connector.step"
