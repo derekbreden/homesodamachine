@@ -7,13 +7,13 @@
     {
       "project": "hardware/printed-parts/petgf.3mf",
       "input_sha256": "45c16e8c8517e0a205107d7b9f7412d013f51a8de7ecf86125cc940079d37ed0",
-      "project_sha256": "5fdee5c278a5736f10edca073b0d5677780394eee11864388bea83560cbcc643",
+      "project_sha256": "1cc426e99a771a24249f97bf0e7659d2c5b5f656a0f2f3abb4814925ec1ff6b7",
       "changes": {
         "Metadata/project_settings.config": {
           "post_process": {
             "from": [],
             "to": [
-              "/Users/derekbredensteiner/.platformio/penv/bin/python3 /Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/cadlib/petgf_cooling.py"
+              "/Users/derekbredensteiner/Developer/homesodamachine/tools/hsm/target/release/petgf-cooling"
             ]
           }
         }
@@ -24,13 +24,13 @@
     {
       "project": "hardware/printed-parts/enclosure/nameplate/nameplate-001-petgf.3mf",
       "input_sha256": "582a8733e4e6b324b587afc3566446ac796bef1bddd7379a4644d92eebc992ef",
-      "project_sha256": "e0d2ae9ddc3207041450e33ac5fe9d93c68b676e47fdb7a0b1a355f44d0151b0",
+      "project_sha256": "77d6e06c0c0368b22f8050e759ac6390d16807e1b51ba14a05f3a3f641aabf92",
       "changes": {
         "Metadata/project_settings.config": {
           "post_process": {
             "from": [],
             "to": [
-              "/Users/derekbredensteiner/.platformio/penv/bin/python3 /Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/cadlib/petgf_cooling.py"
+              "/Users/derekbredensteiner/Developer/homesodamachine/tools/hsm/target/release/petgf-cooling"
             ]
           }
         }
@@ -41,13 +41,13 @@
     {
       "project": "hardware/printed-parts/faucet/asse-vent-seals/vent-seal-tool-petgf.3mf",
       "input_sha256": "5f60588859f2fbed292a08599d01be8667157f0a5d10f4a34841d87499ab75e6",
-      "project_sha256": "348482c726702e65521b2cf05ec1c548a4af95cf4b82961454355f40162c6c09",
+      "project_sha256": "109208865048d5870fc39e5912a3477c5f075ee75f1d208f76759739247937f7",
       "changes": {
         "Metadata/project_settings.config": {
           "post_process": {
             "from": [],
             "to": [
-              "/Users/derekbredensteiner/.platformio/penv/bin/python3 /Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/cadlib/petgf_cooling.py"
+              "/Users/derekbredensteiner/Developer/homesodamachine/tools/hsm/target/release/petgf-cooling"
             ]
           }
         }
@@ -58,13 +58,13 @@
     {
       "project": "hardware/printed-parts/faucet/lever-replica/lever-replica-petgf.3mf",
       "input_sha256": "5e672edc6a405c10c1e1b6cfb5a25a272dbc4308ecdf8e874fc31ea800e421df",
-      "project_sha256": "f9a0a49898fa874d555858abfa01a2ca1c00516db8cf15eb60f251c4fa209a12",
+      "project_sha256": "43d2d92f76c7b46ea7be340deaab79a4456f4ff5c37c952f0f6fa10b02e73014",
       "changes": {
         "Metadata/project_settings.config": {
           "post_process": {
             "from": [],
             "to": [
-              "/Users/derekbredensteiner/.platformio/penv/bin/python3 /Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/cadlib/petgf_cooling.py"
+              "/Users/derekbredensteiner/Developer/homesodamachine/tools/hsm/target/release/petgf-cooling"
             ]
           }
         }
@@ -75,13 +75,13 @@
     {
       "project": "hardware/printed-parts/faucet/lever-replica/lever-replica-petgf-white.3mf",
       "input_sha256": "17b77ae11542557832a808ea36569099909606ad33a09904d39741eeaa5d9b18",
-      "project_sha256": "ce73a2d7462e3321c69dffc8b3ebd6bb1514be2315bbe3fabfaf0e45d27f1a0c",
+      "project_sha256": "dcf46eebd27e5c46afa09f755407f6cd8a8e722e7f4e9d166056a819f6cd4a30",
       "changes": {
         "Metadata/project_settings.config": {
           "post_process": {
             "from": [],
             "to": [
-              "/Users/derekbredensteiner/.platformio/penv/bin/python3 /Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/cadlib/petgf_cooling.py"
+              "/Users/derekbredensteiner/Developer/homesodamachine/tools/hsm/target/release/petgf-cooling"
             ]
           }
         }
@@ -92,13 +92,13 @@
     {
       "project": "hardware/printed-parts/fixtures/fake-countertop/fake-countertop-petgf.3mf",
       "input_sha256": "86853b7cd77bb08a637584ee6c4190463a24ad20478aef5206346004f792969f",
-      "project_sha256": "f14a808ca4736cb99fe784020796adec1d64dc362542e0aa5d9244a5cb6161f5",
+      "project_sha256": "c9552211c119f735a9b793d09a421d10e9fb24d0fc0e1740ae7cc38e693a3286",
       "changes": {
         "Metadata/project_settings.config": {
           "post_process": {
             "from": [],
             "to": [
-              "/Users/derekbredensteiner/.platformio/penv/bin/python3 /Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/cadlib/petgf_cooling.py"
+              "/Users/derekbredensteiner/Developer/homesodamachine/tools/hsm/target/release/petgf-cooling"
             ]
           }
         }
@@ -109,13 +109,13 @@
     {
       "project": "hardware/printed-parts/fixtures/fake-countertop/fake-countertop-petgf-mark2.3mf",
       "input_sha256": "3e722796709e52a65000f6ae97de2e6fdd7a5f5bfd4c8cc91c172077d3d87bc9",
-      "project_sha256": "0f6a03529f4a095e6d4ef1ea2dea5a7eea0e56b915663281efcb44a62a657bd7",
+      "project_sha256": "2146fca3645d0b732e8f6d2976f9f7510b45ede7453aaca05faf91aa7f9a0df8",
       "changes": {
         "Metadata/project_settings.config": {
           "post_process": {
             "from": [],
             "to": [
-              "/Users/derekbredensteiner/.platformio/penv/bin/python3 /Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/cadlib/petgf_cooling.py"
+              "/Users/derekbredensteiner/Developer/homesodamachine/tools/hsm/target/release/petgf-cooling"
             ]
           }
         }
@@ -126,13 +126,13 @@
     {
       "project": "hardware/printed-parts/fixtures/fake-countertop/fake-countertop-petgf-mark2-stock.3mf",
       "input_sha256": "a79edade93aff1e33da7df8ca2e8be1f87487ebc9e70e8f1d25fa96b0ee81e4e",
-      "project_sha256": "55ed4b44d2570fb55e79f023cadb16829cd71148858ce0bbada7a7d3d29ec69c",
+      "project_sha256": "f14a3ededca833172807ed12a276537d9071bce7c4b28afac25198b063fd4956",
       "changes": {
         "Metadata/project_settings.config": {
           "post_process": {
             "from": [],
             "to": [
-              "/Users/derekbredensteiner/.platformio/penv/bin/python3 /Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/cadlib/petgf_cooling.py"
+              "/Users/derekbredensteiner/Developer/homesodamachine/tools/hsm/target/release/petgf-cooling"
             ]
           }
         }
@@ -143,13 +143,13 @@
     {
       "project": "hardware/printed-parts/fixtures/tube-miter-box/tube-miter-box-petgf.3mf",
       "input_sha256": "ac42fba7fc890b9b7e6a65a291c04eb53b98d599491f2951be5fd811d4e602bc",
-      "project_sha256": "71f30961c9f29215286892f8cb6141d5d1d7627d5845d14641f4986006413a50",
+      "project_sha256": "185352b0708980b293a77082b376c84b03f2f2a183c5f5620e6642076401a6f0",
       "changes": {
         "Metadata/project_settings.config": {
           "post_process": {
             "from": [],
             "to": [
-              "/Users/derekbredensteiner/.platformio/penv/bin/python3 /Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/cadlib/petgf_cooling.py"
+              "/Users/derekbredensteiner/Developer/homesodamachine/tools/hsm/target/release/petgf-cooling"
             ]
           }
         }
@@ -160,13 +160,13 @@
     {
       "project": "hardware/printed-parts/fixtures/tube-miter-box/tube-miter-box-petgf-mark2.3mf",
       "input_sha256": "f5d55fcae3f5466488be8fd2b68613a2a2496ba3250eb45bf079139c623c6d76",
-      "project_sha256": "66db9e395afeb3da697bb26672c9cf6240ba6cd45bb46789ca59036e91a0e495",
+      "project_sha256": "d7de90e0c0f32b43033fe35c304d08a7e1e8d58bb44f5be8ba0178ab09abc4d9",
       "changes": {
         "Metadata/project_settings.config": {
           "post_process": {
             "from": [],
             "to": [
-              "/Users/derekbredensteiner/.platformio/penv/bin/python3 /Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/cadlib/petgf_cooling.py"
+              "/Users/derekbredensteiner/Developer/homesodamachine/tools/hsm/target/release/petgf-cooling"
             ]
           }
         }
@@ -177,13 +177,13 @@
     {
       "project": "hardware/printed-parts/drain-readiness/projects/labels-black-z004-mark2.3mf",
       "input_sha256": "a02d3c02f985f4010d734119aa6fe1b21e114ffa5bcbd51bd1cf0ef068706ee4",
-      "project_sha256": "4978c96dece4addd007b1f8a8bebd5adfd9bfe640f259383976afe4b0c993b56",
+      "project_sha256": "326ea8f0ae50d873d520c3436b865c948fcb3629d9201ae5daac35503facbd66",
       "changes": {
         "Metadata/project_settings.config": {
           "post_process": {
             "from": [],
             "to": [
-              "/Users/derekbredensteiner/.platformio/penv/bin/python3 /Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/cadlib/petgf_cooling.py"
+              "/Users/derekbredensteiner/Developer/homesodamachine/tools/hsm/target/release/petgf-cooling"
             ]
           }
         }
@@ -194,13 +194,13 @@
     {
       "project": "hardware/printed-parts/drain-readiness/projects/labels-blue-z004-mark2.3mf",
       "input_sha256": "2c77319875067e2237f19267cc0bb0622a6a34cb73b07ce676e02ab9e7a3b3f9",
-      "project_sha256": "31a22333fd4914f34dcee7901f1ca3cf9154479eb5049f49bb84a9c680c20def",
+      "project_sha256": "6459df6d2bb8339e9634a36ebe3d7ca52f6afa2e227510e077ee543ed12b330e",
       "changes": {
         "Metadata/project_settings.config": {
           "post_process": {
             "from": [],
             "to": [
-              "/Users/derekbredensteiner/.platformio/penv/bin/python3 /Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/cadlib/petgf_cooling.py"
+              "/Users/derekbredensteiner/Developer/homesodamachine/tools/hsm/target/release/petgf-cooling"
             ]
           }
         }
@@ -211,13 +211,13 @@
     {
       "project": "hardware/printed-parts/drain-readiness/projects/labels-red-z004-mark2.3mf",
       "input_sha256": "b3b08c34928ca73465f4f46a1c200323d7f0f41b040df5c277ba59348e98c482",
-      "project_sha256": "7afe607831e7f7c19b7b7ce39c182a48f8a1d338571e618f7f8eafd9e934177c",
+      "project_sha256": "58615777066d8d8d651d532940ad94fba73d829a082e7c47fd1ab26a0967b3a7",
       "changes": {
         "Metadata/project_settings.config": {
           "post_process": {
             "from": [],
             "to": [
-              "/Users/derekbredensteiner/.platformio/penv/bin/python3 /Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/cadlib/petgf_cooling.py"
+              "/Users/derekbredensteiner/Developer/homesodamachine/tools/hsm/target/release/petgf-cooling"
             ]
           }
         }
@@ -228,13 +228,13 @@
     {
       "project": "hardware/printed-parts/drain-readiness/projects/labels-white-z004-mark2.3mf",
       "input_sha256": "8ca4abaa6ed7dbd41de259ab1160728fecd275a72717b96e6ee7d26cd4147702",
-      "project_sha256": "115a5b261b28e194b5b52417a1d17f069d340ae6139f612ff099a441f6e9662b",
+      "project_sha256": "e2a957b275e46fdef25550588793d9b35c01de54f8eb02255fc807729197617b",
       "changes": {
         "Metadata/project_settings.config": {
           "post_process": {
             "from": [],
             "to": [
-              "/Users/derekbredensteiner/.platformio/penv/bin/python3 /Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/cadlib/petgf_cooling.py"
+              "/Users/derekbredensteiner/Developer/homesodamachine/tools/hsm/target/release/petgf-cooling"
             ]
           }
         }
@@ -245,13 +245,13 @@
     {
       "project": "hardware/printed-parts/fixtures/tube-insertion/ready/tube-insertion-centered-grip-petgf-left04-z004-mark2.3mf",
       "input_sha256": "7aa4bb0acfdcce53c75b826436189c5dbf4e68467ae1bc422fd19e6565018384",
-      "project_sha256": "620fa7236595faeeb113e4e0657e83f6b9093b0f2bd1b821dd7ab9876ba16388",
+      "project_sha256": "ec8d538a61dc7c0020a19ede1ba9f190d3563f87c9faa076a56bef930fd14164",
       "changes": {
         "Metadata/project_settings.config": {
           "post_process": {
             "from": [],
             "to": [
-              "/Users/derekbredensteiner/.platformio/penv/bin/python3 /Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/cadlib/petgf_cooling.py"
+              "/Users/derekbredensteiner/Developer/homesodamachine/tools/hsm/target/release/petgf-cooling"
             ]
           }
         }
@@ -262,13 +262,13 @@
     {
       "project": "hardware/printed-parts/fixtures/tube-insertion/ready/tube-insertion-centered-grip-petgf-left04-z018-mark1.3mf",
       "input_sha256": "1fed4f2de9cb4156c8e23cb700e180efbcfcf4eb1db72e9e31a1aaed52323d5c",
-      "project_sha256": "8cd9dd06269b936f831845800597d0e781a40c718f7940aa1104d3db3b406504",
+      "project_sha256": "a31ba7b6cdd433e8b3e57dff3d34c8e2bfb518ace450647cca2d03e77b27b62b",
       "changes": {
         "Metadata/project_settings.config": {
           "post_process": {
             "from": [],
             "to": [
-              "/Users/derekbredensteiner/.platformio/penv/bin/python3 /Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/cadlib/petgf_cooling.py"
+              "/Users/derekbredensteiner/Developer/homesodamachine/tools/hsm/target/release/petgf-cooling"
             ]
           }
         }
@@ -279,13 +279,13 @@
     {
       "project": "hardware/printed-parts/fixtures/tube-insertion/ready/tube-insertion-rigid-base-h2c.3mf",
       "input_sha256": "5271e328b564b6b52422862769b2434720d2732a9250ee1575d3d576ff5ec9fc",
-      "project_sha256": "3ac5add076e4179abad596fa0f939280682bfc1b9a1c0b343c6a9eb5fe85b009",
+      "project_sha256": "7bcd6e1150c2b36e9edda8a1369b61f974f4664a076f6be0ce680429d923d928",
       "changes": {
         "Metadata/project_settings.config": {
           "post_process": {
             "from": [],
             "to": [
-              "/Users/derekbredensteiner/.platformio/penv/bin/python3 /Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/cadlib/petgf_cooling.py"
+              "/Users/derekbredensteiner/Developer/homesodamachine/tools/hsm/target/release/petgf-cooling"
             ]
           }
         }
@@ -296,13 +296,13 @@
     {
       "project": "hardware/printed-parts/fixtures/tube-insertion/ready/tube-insertion-rigid-parts-h2c.3mf",
       "input_sha256": "d8a1263bcb2a6d92f571385ed1d41dc9d47bd2301553e7a4b3a4f2bccf5a8e15",
-      "project_sha256": "4f199bfb0aaa2337bfc9c3657dcbbb79cab806bd6d3b2848d0e9fcc517e06f69",
+      "project_sha256": "79d40be7bb59fd5010f51292e46a49920b42d9bac3925ca6502264f2def99380",
       "changes": {
         "Metadata/project_settings.config": {
           "post_process": {
             "from": [],
             "to": [
-              "/Users/derekbredensteiner/.platformio/penv/bin/python3 /Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/cadlib/petgf_cooling.py"
+              "/Users/derekbredensteiner/Developer/homesodamachine/tools/hsm/target/release/petgf-cooling"
             ]
           }
         }
@@ -313,13 +313,13 @@
     {
       "project": "hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer-petgf.3mf",
       "input_sha256": "32ab20b87103dc1248939cf9598a7fa67bc3e019a7de37dcb9b1c7230dadaf83",
-      "project_sha256": "a7fda0cda652697b8627c78d8ba9897991c90d72cc633ec92399e6b7deead1e7",
+      "project_sha256": "dbc970ee557a5848ddce6b2fed6ddb7180c53385f6cb5f19bcd7c3b1a5707448",
       "changes": {
         "Metadata/project_settings.config": {
           "post_process": {
             "from": [],
             "to": [
-              "/Users/derekbredensteiner/.platformio/penv/bin/python3 /Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/cadlib/petgf_cooling.py"
+              "/Users/derekbredensteiner/Developer/homesodamachine/tools/hsm/target/release/petgf-cooling"
             ]
           }
         }
