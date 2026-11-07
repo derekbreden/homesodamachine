@@ -1,8 +1,10 @@
 # Rear equipment caps
 
-Four PET-GF caps close the integral seats on back-top. Their geometry and the
-seats share [rear_snaps.py](../../../manifold-layout/rear_snaps.py) and
-[rear_plumbing.py](../../../manifold-layout/rear_plumbing.py).
+Four PET-GF caps close the integral seats on back-top. Each cap is drawn from
+the station of the receiver it snaps into: [stations.rs](stations.rs) figures
+the stations as back-top's [supports.rs](../enclosure/back-top/supports.rs)
+figures its receivers, and [rear_equipment_caps.rs](rear_equipment_caps.rs)
+cuts the caps.
 
 The ASSE cap holds the lower halves of both ASSE hexes and captures both
 axial shoulders of the inlet adapter's hex. Its solid lower body extends to
@@ -119,5 +121,6 @@ its recorded envelope has 65 mm of reach and a short handle. These are
 modeled tool envelopes; removal effort remains a physical print check.
 
 ```sh
-tools/cad-venv/bin/python hardware/printed-parts/enclosure/rear-equipment-caps/rear_equipment_caps.py
+python3 tools/run.py -- cargo build --release -j 2 --manifest-path tools/hsm/Cargo.toml -p hsm-rear-equipment-caps
+python3 tools/run.py -- tools/hsm/target/release/rear-equipment-caps
 ```

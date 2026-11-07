@@ -27,10 +27,6 @@ name = "installed-wires"
 path = "../../../hardware/wiring/installed/wire_geometry.rs"
 
 [[bin]]
-name = "manifold-layout"
-path = "../../../hardware/manifold-layout/manifold_layout.rs"
-
-[[bin]]
 name = "machine-export"
 path = "../../../hardware/assembly/scenes/machine_export.rs"
 

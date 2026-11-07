@@ -4,9 +4,9 @@ flowchart LR
   %% only, sources, pumps, reservoirs and the faucet omitted. The complete chart, every endpoint
   %% present and every edge labelled with its route ID, is fluid-topology-manifold.mmd.
 
-  %% Source of truth: the enclosure assembly's placed pack. Every box below is one LIMB of
-  %% `manifold_layout.LIMBS` and holds exactly the bodies that limb chains;
-  %% `_fluid_topology_sync.py` gates it against that table.
+  %% Source of truth: the manifold's numbers. Every box below is one LIMB of their `LIMBS`
+  %% (`manifold-layout/manifold/lib.rs`) and holds exactly the bodies that limb chains; the
+  %% fluid-topology program gates it against that table.
 
   %% limbs carry the valves and junctions,
   %% all purchased PP0208E tees and of them on the
