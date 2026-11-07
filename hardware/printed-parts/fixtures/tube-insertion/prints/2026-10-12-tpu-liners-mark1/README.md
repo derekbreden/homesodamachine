@@ -27,7 +27,7 @@ and [native review](2026-10-12-tube-insertion-liners-tpu85a-right06-z018-mark1.r
 bind the source mesh, settings and source project. All 34,580 commands
 from the first deposited layer through print end match the reviewed liner
 slice, including the first and second layers. Native preparation can be
-reproduced with [prepare_mark1.py](prepare_mark1.py) and an empty named
+reproduced with [prepare_mark1.py](https://github.com/derekbreden/homesodamachine/blob/306268f870/hardware/printed-parts/fixtures/tube-insertion/prints/2026-10-12-tpu-liners-mark1/prepare_mark1.py) (in Git at `306268f870`) and an empty named
 scratch directory; it does not submit a print.
 
 Task/job **1333827786** is accepted, first observed at **4:30:07 pm CDT on

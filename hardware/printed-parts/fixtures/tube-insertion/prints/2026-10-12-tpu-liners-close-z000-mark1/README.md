@@ -26,7 +26,7 @@ bind the mesh, recipe, placement and archive hashes. The
 object envelopes. Normalized extrusion amounts, widths, feature order and
 arc offsets match the source slice; one translated arc endpoint has a
 0.001 mm rounding difference. These readings do not establish physical
-bed adhesion. [prepare_mark1.py](prepare_mark1.py) reproduces the native
+bed adhesion. [prepare_mark1.py](https://github.com/derekbreden/homesodamachine/blob/306268f870/hardware/printed-parts/fixtures/tube-insertion/prints/2026-10-12-tpu-liners-close-z000-mark1/prepare_mark1.py) (in Git at `306268f870`) reproduces the native
 project and slice using an empty named scratch directory; it submits no print.
 
 Mark1 accepted task/job **1333964128**, first observed RUNNING at

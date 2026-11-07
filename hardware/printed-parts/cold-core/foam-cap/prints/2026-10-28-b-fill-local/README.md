@@ -31,7 +31,7 @@ Mark1 uses its +0.18 mm user trim (Textured PEI emission +0.16 mm); Mark2 uses
 
 `generate.py` reads the production STEP files and writes local test files under
 `.cache/prints/2026-10-28-b-fill-local/`. `geometry.json` binds those files to their
-source. `prepare.py` makes and manually reviews each native slice; the two
+source. [`prepare.py`](https://github.com/derekbreden/homesodamachine/blob/306268f870/hardware/printed-parts/cold-core/foam-cap/prints/2026-10-28-b-fill-local/prepare.py) (in Git at `306268f870`) makes and manually reviews each native slice; the two
 `*-preflight.json` records bind the archives, settings and bead bounds. The
 `*-launch.json` records hold the accepted printer task IDs: Mark1 **1385666436**
 and Mark2 **1385672893**. Both acceptance readings report RUNNING with no print

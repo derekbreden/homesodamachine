@@ -91,7 +91,7 @@ paths, identical source triangles, zero support deposition and first/second-laye
 wall overlap. Probing clump detection is disabled. Timelapse and bed leveling
 remain intended launch options; they have not been sent to a printer for this study.
 
-`prepare.py` generates the geometry and project and saves a local slicing command
-under `.cache/printer-control/faucet-scarf-swatches-v1/`. `review.py` inspects its
+[`prepare.py`](https://github.com/derekbreden/homesodamachine/blob/306268f870/hardware/printed-parts/faucet/finish-coupons/scarf-swatches-v1/prepare.py) (in Git at `306268f870`) generates the geometry and project and saves a local slicing command
+under `.cache/printer-control/faucet-scarf-swatches-v1/`. [`review.py`](https://github.com/derekbreden/homesodamachine/blob/306268f870/hardware/printed-parts/faucet/finish-coupons/scarf-swatches-v1/review.py) (in Git at `306268f870`) inspects its
 native output manually. Neither script launches a print, and neither is added
 to a recurring check or build gate.

@@ -198,8 +198,7 @@ PRINT_UP = {"enclosure-back-top": -1.0, "funnel-mold/core": -1.0,
 
 #: Degrees about the box's X a piece leans on the bed, after `PRINT_UP`'s flip. The faucet bases
 #: bed on their foot with the -Y edge lifted by the faucet's `shell::PRINT_BASE_BUILD_ROT`, which
-#: refresh_print_project.py and prepare_vent_prints.py apply as a negative turn about X; these
-#: entries mirror it. The nameplate and the rear labels bed on their backs, the
+#: the faucets' print preparers apply as a negative turn about X; these entries mirror it. The nameplate and the rear labels bed on their backs, the
 #: Y0 plane, so their print's up is the box's +Y. `ledge` reads it. These follow the poses
 #: `trial-preparation/pieces.json` and
 #: `trial-preparation/labels.rs` print them in.

@@ -70,7 +70,7 @@ was inspected. Printed dimensions, density and fit remain unreported.
 - [Preflight and frozen archive/G-code hashes](pair-preflight.json)
 - [Launch, one-Send guard and printer acceptance](pair-mark2-launch.json)
 - [Queue](queue.json)
-- [Preparation and per-object emitted-path review](prepare.py)
+- [Preparation and per-object emitted-path review](https://github.com/derekbreden/homesodamachine/blob/306268f870/hardware/printed-parts/cold-core/magnetic-float/mark2-aero-print/v2/prepare.py) (in Git at `306268f870`)
 - [First trial's physical adhesion and release report](../v1/physical-observations.json)
 - [Material recipe and density assumptions](../../asa-aero-research.md)
 

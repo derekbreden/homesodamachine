@@ -231,6 +231,8 @@ be tried without a back-top.
 
 ## Rebuild
 
+The scripts these commands run are in Git at [`306268f870`](https://github.com/derekbreden/homesodamachine/tree/306268f870).
+
 ```sh
 tools/cad-venv/bin/python future/umbilical-plug-and-socket-exploration/scene.py
 tools/cad-venv/bin/python future/umbilical-plug-and-socket-exploration/assessment/review_guided_boot.py
@@ -242,6 +244,6 @@ python3 tools/viz/build.py future/umbilical-plug-and-socket-exploration/viz-spec
 [`umbilical.py`](umbilical.py) draws the saved print parts; [`boot_concept.py`](boot_concept.py)
 draws the guided boot, key, tube paths and soft-material envelopes. `scene.py` writes the scene STEPs and viewer
 payloads to `out/`, which git ignores, and prints its clearance check.
-`prepare_prints.py` writes the two projects from the shared profile, slices them with the
+[`prepare_prints.py`](https://github.com/derekbreden/homesodamachine/blob/306268f870/future/umbilical-plug-and-socket-exploration/prepare_prints.py) (in Git at `306268f870`) writes the two projects from the shared profile, slices them with the
 installed Bambu Studio, checks the pause in the emitted G-code and sends nothing to a printer;
 `--printer H2C` writes the same jobs with H2C's trim.

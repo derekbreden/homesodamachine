@@ -46,7 +46,7 @@ that reading does not establish physical adhesion.
 - [Preparation, source hashes and native checks](2026-10-09-organizer-saved-plus010-plus020-petgf-left04-z004-mark2.print.json)
 - [Native preview](plate_1.png) and [first/second-layer contact review](first-second-layer-review.json)
 - [Fresh both-printer preflight](preflight.json), [launch plan](launch-plan.json) and [launch receipt](launch.json)
-- [Manual preparation script](../prepare_increment_trial.py), which never submits a print
+- [Manual preparation script](https://github.com/derekbreden/homesodamachine/blob/306268f870/future/umbilical-organizer-exploration/prepare_increment_trial.py) (in Git at `306268f870`), which never submits a print
 
 Foreground options are Timelapse On, Auto bed leveling On, Flow dynamic
 calibration Auto and Nozzle Offset Calibration Auto. No scheduled monitor or

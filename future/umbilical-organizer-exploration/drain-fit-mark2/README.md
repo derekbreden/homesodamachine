@@ -25,7 +25,7 @@ holds both reports on the L article. This print has not been submitted.
   [`2026-10-09-organizer-d430-petgf-left04-z004-mark2.gcode.3mf`](https://github.com/derekbreden/homesodamachine/blob/33d50d2ecd2a0fb6b518483a44c8031e3a0c1617/future/umbilical-organizer-exploration/drain-fit-mark2/2026-10-09-organizer-d430-petgf-left04-z004-mark2.gcode.3mf).
 - Source mesh: [`parts/umbilical-organizer-q6.65-d4.30.stl`](parts/umbilical-organizer-q6.65-d4.30.stl),
   byte-identical to the production STL.
-- Manual preparation: [`../prepare_drain_fit.py`](../prepare_drain_fit.py). It
+- Manual preparation: [`../prepare_drain_fit.py`](https://github.com/derekbreden/homesodamachine/blob/306268f870/future/umbilical-organizer-exploration/prepare_drain_fit.py) (in Git at `306268f870`). It
   does not submit a print. The
   [preparation report](2026-10-09-organizer-d430-petgf-left04-z004-mark2.print.json)
   binds the mesh to its native object and records the settings, archive and

@@ -39,7 +39,7 @@ unqualified. Branch routing changes with the roof geometry; the
 monotonic guarantee. A local branch exclusion or different tree style would
 be a separate support trial if the remaining residue matters.
 
-[`prepare_prints.py`](prepare_prints.py) is the preparation of the v18 front-top and
+[`prepare_prints.py`](https://github.com/derekbreden/homesodamachine/blob/306268f870/hardware/printed-parts/enclosure/enclosure/support-bottom-gap/prepare_prints.py) (in Git at `306268f870`) is the preparation of the v18 front-top and
 Mark2 v2 projects from their bound sources. The v18 front-top retains its functional
 ceilings, its bound solid-host density boxes, the complete fine show-round band, a
 nominal RC62 pocket and one insertion pause. Its 0.50 mm XY correction is separate from the
@@ -66,7 +66,7 @@ contain nine RC62 pockets and three valve panels on each printer, with
 86.7 mm minimum edge clearance, ordinary layers, no supports and no pauses.
 C0 and V70 repeat on both printers. Physical preferred fit is pending.
 
-[Picked-root reader](check_picked_roots.py) and
-[combined native reader](review_combined.py) read archives without printer
+[Picked-root reader](https://github.com/derekbreden/homesodamachine/blob/306268f870/hardware/printed-parts/enclosure/enclosure/support-bottom-gap/check_picked_roots.py) (in Git at `306268f870`) and
+[combined native reader](https://github.com/derekbreden/homesodamachine/blob/306268f870/hardware/printed-parts/enclosure/enclosure/support-bottom-gap/review_combined.py) (in Git at `306268f870`) read archives without printer
 communication. Emitted overlap, supports, removal lanes and density settings
 do not qualify physical adhesion, cleanup, fit, magnetic retention or strength.
