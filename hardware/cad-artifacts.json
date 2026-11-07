@@ -39,10 +39,10 @@
     "hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole.step.mesh": "2dc1966be1e6db9c3aa054602e00e6c96408eac7a9f0bfdfcff943b2fbb00e9f",
     "hardware/cut-parts/faucet/under-counter-plate/under-counter-plate.dxf": "8b1196fa7451cc7b3af804dffbbecbdf1ed217db43a6e1ec0f00741b580eca5b",
     "hardware/cut-parts/faucet/under-counter-plate/under-counter-plate.dxf.json": "d0104c2e8a994dc859257b9361c9f0a12ed026b5339c1c3f54165c65cd039675",
-    "hardware/faucet-layout/faucet-assembly.step": "eb5dcc61829d1dfd9504a2c12d53e9362a47752159e44a77c348e05a534afa26",
-    "hardware/faucet-layout/faucet-assembly.step.mesh": "bb01cb828bc16bdb37cce9b3a31e5c4fc00de633200f35fbb1f49b7ee206d9fd",
-    "hardware/faucet-layout/faucet-industrial-assembly.step": "1f160d382fcbd2a502652a336b94dd51d2890fb6ffb6d85558e13a9e47a61c9d",
-    "hardware/faucet-layout/faucet-industrial-assembly.step.mesh": "cd9f507168b7befca4ca51429535c6dd5608dfcfeb0ecaabb0e0099af4ac7249",
+    "hardware/faucet-layout/faucet-assembly.step": "dd2208ec02c85b7edf719fb92947da836480cce220b9e38dd6e8a826223ea2c8",
+    "hardware/faucet-layout/faucet-assembly.step.mesh": "5f2a133895726dd2a60787a7990f505fae730c9bb72c2de522633314fc5d243e",
+    "hardware/faucet-layout/faucet-industrial-assembly.step": "dab99ebc933e9d182955406892cdad3dc5c5276aea5fb1fe3c5905c36fe3ac10",
+    "hardware/faucet-layout/faucet-industrial-assembly.step.mesh": "fe28e3401330a3abd8e7ceba118ee10d1a9c6e17631737d47942864f3a7b2074",
     "hardware/gun-positioner/mounting/controller-backplane.stl": "903cf6432048f4435a33bc69869c9327c7e3827a98dc2f94328c1e89d55a70f7",
     "hardware/gun-positioner/mounting/fan-stand-80mm.stl": "e745cb9e043154a89c1658d7888f85df51050a734b987e454af175077f1fe789",
     "hardware/gun-positioner/mounting/m3-insulating-spacer-6mm.stl": "1e327389bc3b9da45449d0263bafb22abb27fbc2733eb01a6875ea8a352d8718",
@@ -1640,10 +1640,10 @@
       "hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole.step.mesh": "2dc1966be1e6db9c3aa054602e00e6c96408eac7a9f0bfdfcff943b2fbb00e9f",
       "hardware/cut-parts/faucet/under-counter-plate/under-counter-plate.dxf": "8b1196fa7451cc7b3af804dffbbecbdf1ed217db43a6e1ec0f00741b580eca5b",
       "hardware/cut-parts/faucet/under-counter-plate/under-counter-plate.dxf.json": "d0104c2e8a994dc859257b9361c9f0a12ed026b5339c1c3f54165c65cd039675",
-      "hardware/faucet-layout/faucet-assembly.step": "eb5dcc61829d1dfd9504a2c12d53e9362a47752159e44a77c348e05a534afa26",
-      "hardware/faucet-layout/faucet-assembly.step.mesh": "bb01cb828bc16bdb37cce9b3a31e5c4fc00de633200f35fbb1f49b7ee206d9fd",
-      "hardware/faucet-layout/faucet-industrial-assembly.step": "1f160d382fcbd2a502652a336b94dd51d2890fb6ffb6d85558e13a9e47a61c9d",
-      "hardware/faucet-layout/faucet-industrial-assembly.step.mesh": "cd9f507168b7befca4ca51429535c6dd5608dfcfeb0ecaabb0e0099af4ac7249",
+      "hardware/faucet-layout/faucet-assembly.step": "dd2208ec02c85b7edf719fb92947da836480cce220b9e38dd6e8a826223ea2c8",
+      "hardware/faucet-layout/faucet-assembly.step.mesh": "5f2a133895726dd2a60787a7990f505fae730c9bb72c2de522633314fc5d243e",
+      "hardware/faucet-layout/faucet-industrial-assembly.step": "dab99ebc933e9d182955406892cdad3dc5c5276aea5fb1fe3c5905c36fe3ac10",
+      "hardware/faucet-layout/faucet-industrial-assembly.step.mesh": "fe28e3401330a3abd8e7ceba118ee10d1a9c6e17631737d47942864f3a7b2074",
       "hardware/manifold-layout/enclosure-assembly.facts.json": "503942fe4a5ef0864dff77fbd408793465ef115029b47a5815aaed4fe8fd9283",
       "hardware/manifold-layout/enclosure-assembly.scorecard.json": "bbb83bf0ca1b03c3333ad349a8557993881234547d4e797c04b5f31e4c56803e",
       "hardware/manifold-layout/enclosure-assembly.step": "de8e71afd4720dc806c9259384db5a13145c7657db2922348817198929ac6a15",
@@ -2213,10 +2213,10 @@
     "hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole.step.mesh": 1793943432,
     "hardware/cut-parts/faucet/under-counter-plate/under-counter-plate.dxf": 1793811159,
     "hardware/cut-parts/faucet/under-counter-plate/under-counter-plate.dxf.json": 1793750338,
-    "hardware/faucet-layout/faucet-assembly.step": 1793949279,
-    "hardware/faucet-layout/faucet-assembly.step.mesh": 1793949279,
-    "hardware/faucet-layout/faucet-industrial-assembly.step": 1793949279,
-    "hardware/faucet-layout/faucet-industrial-assembly.step.mesh": 1793949279,
+    "hardware/faucet-layout/faucet-assembly.step": 1794024858,
+    "hardware/faucet-layout/faucet-assembly.step.mesh": 1794024858,
+    "hardware/faucet-layout/faucet-industrial-assembly.step": 1794024858,
+    "hardware/faucet-layout/faucet-industrial-assembly.step.mesh": 1794024858,
     "hardware/gun-positioner/mounting/controller-backplane.stl": 1791160706,
     "hardware/gun-positioner/mounting/fan-stand-80mm.stl": 1791160706,
     "hardware/gun-positioner/mounting/m3-insulating-spacer-6mm.stl": 1791160706,
@@ -3882,23 +3882,19 @@
       "unproven": true
     },
     "hardware/faucet-layout/faucet-assembly.step": {
-      "inputs": "592273226c843f202060880949b44a630a2b75830c8385588eeda080787af7a6",
-      "commit": "33e6ac3e861cf1e467f63bed62c621861f7530af",
+      "commit": "d704dab3005059971ab61aaefe806de87ed07e15",
       "unproven": true
     },
     "hardware/faucet-layout/faucet-assembly.step.mesh": {
-      "inputs": "592273226c843f202060880949b44a630a2b75830c8385588eeda080787af7a6",
-      "commit": "33e6ac3e861cf1e467f63bed62c621861f7530af",
+      "commit": "d704dab3005059971ab61aaefe806de87ed07e15",
       "unproven": true
     },
     "hardware/faucet-layout/faucet-industrial-assembly.step": {
-      "inputs": "d75b6223617da9b72cd647f3ff0ffadea5515cadf20129eb50d01fd9671e35c4",
-      "commit": "33e6ac3e861cf1e467f63bed62c621861f7530af",
+      "commit": "d704dab3005059971ab61aaefe806de87ed07e15",
       "unproven": true
     },
     "hardware/faucet-layout/faucet-industrial-assembly.step.mesh": {
-      "inputs": "d75b6223617da9b72cd647f3ff0ffadea5515cadf20129eb50d01fd9671e35c4",
-      "commit": "33e6ac3e861cf1e467f63bed62c621861f7530af",
+      "commit": "d704dab3005059971ab61aaefe806de87ed07e15",
       "unproven": true
     },
     "hardware/install-guide/art/bottle-in-funnel.png": {
