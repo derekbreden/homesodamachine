@@ -1690,6 +1690,9 @@ name = "hsm-print-prep"
 version = "0.1.0"
 dependencies = [
  "anyhow",
+ "hsm-enclosure-numbers",
+ "hsm-enclosure-quadrants",
+ "hsm-enclosure-retainer-numbers",
  "hsm-fake-countertop-numbers",
  "hsm-faucet-numbers",
  "hsm-run-slots",

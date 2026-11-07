@@ -361,7 +361,6 @@ ELSEWHERE = ("tools/", "hardware/pcb/pcba/",
              "hardware/scripts/flute_payload.py",  # payload cutting for hand-run tools; each piece's program cuts its own
              "hardware/scripts/check_faucet_geometry.py",
              "hardware/printed-parts/enclosure/pump-dock/print-preparation/",
-             "hardware/printed-parts/enclosure/enclosure/heat-set-review/print_regions.py",
              "hardware/printed-parts/faucet/lever-replica/check_replica.py")
 
 

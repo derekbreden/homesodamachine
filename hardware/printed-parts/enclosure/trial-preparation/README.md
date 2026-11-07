@@ -82,7 +82,7 @@ slots. Black PET-GF on the left 0.4 mm nozzle prints model, support and interfac
 enclosure pieces. The solid-host modifiers come from
 [`print-regions.json`](../enclosure/heat-set-review/print-regions.json) and set 100% zig-zag
 infill only. A piece with regions stops when that record binds other STL/STEP digests;
-`heat-set-review/print_regions.py` writes it from the current geometry under the CAD lock.
+`enclosure-print-regions` ([`print_regions.rs`](../enclosure/heat-set-review/print_regions.rs)) writes it from the current geometry.
 The model, support and brim beads keep the plate border (20 mm on unseasoned plates,
 [`tools/bambu-printers.md`](../../../../tools/bambu-printers.md)); a single part takes the
 yaw that leaves it the most room and sits centered, or at its declared `plate_offset_mm`

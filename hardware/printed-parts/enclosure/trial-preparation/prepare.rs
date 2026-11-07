@@ -505,7 +505,7 @@ fn prepare(root: &Path, name: &str, printer: Option<&str>, parts: Option<Vec<(Va
                 let bound = record["native_artifact_sha256"].get(key).with_context(|| format!("{} has no regions for {key}", relative(&path, root)))?;
                 if bound[".stl"].as_str() != Some(&mesh.sha256) || (mesh.step_sha256.is_some() && bound[".step"].as_str() != mesh.step_sha256.as_deref()) {
                     bail!("{} binds {key} to other exports; regenerate it with {} from the current geometry", relative(&path, root),
-                          record.get("producer").and_then(Value::as_str).unwrap_or("heat-set-review/print_regions.py"));
+                          record.get("producer").and_then(Value::as_str).unwrap_or("enclosure-print-regions"));
                 }
                 Some(json!({"record": relative(&path, root), "record_sha256": file_sha(&path)?, "rows": record["pieces"][key],
                             "part_process_overrides": record.get("part_process_overrides").and_then(|o| o.get(key)).cloned().unwrap_or(Value::Null)}))
