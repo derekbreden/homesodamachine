@@ -3007,6 +3007,25 @@
           "quantity": 1
         }
       ]
+    },
+    "114-4948607-3372207": {
+      "ordered": "2026-11-06",
+      "subtotal": 6.99,
+      "shipping": 0.0,
+      "tax": 0.51,
+      "tax_estimated": true,
+      "total": 7.5,
+      "status": "Ordered; arriving 2026-11-07",
+      "project": true,
+      "verified": "2026-11-06",
+      "expected_delivery": "2026-11-07",
+      "items": [
+        {
+          "asin": "B08G4Z6KPV",
+          "title": "CHANZON prewired clear-lens blue LED, 12 V, 5 mm, 20 pack",
+          "quantity": 1
+        }
+      ]
     }
   }
 }

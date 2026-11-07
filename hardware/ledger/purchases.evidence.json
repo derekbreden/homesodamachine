@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "as_of": "2026-11-05",
+  "as_of": "2026-11-06",
   "reporting_period": {
     "start": "2026-01-01",
     "end": "2026-12-31"
@@ -8675,6 +8675,18 @@
       "source_ids": [
         "src-0e5230e241814fb2a9d81a1b0ade8fa4"
       ]
+    },
+    "pur-9a08e76abb825705aff0991b6c1bf389": {
+      "vendor": "Amazon",
+      "purpose": "components",
+      "amount_evidence": "estimate",
+      "order_ids": [
+        "amazon:114-4948607-3372207"
+      ],
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-57d7a55650e950b4bd37fd8b57f1ae54"
+      ]
     }
   },
   "orders": {
@@ -14642,6 +14654,18 @@
       "allocation_status": "all_project",
       "source_ids": [
         "src-0e5230e241814fb2a9d81a1b0ade8fa4"
+      ]
+    },
+    "amazon:114-4948607-3372207": {
+      "vendor": "Amazon",
+      "reference": "114-4948607-3372207",
+      "order_date": {
+        "precision": "day",
+        "value": "2026-11-06"
+      },
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-57d7a55650e950b4bd37fd8b57f1ae54"
       ]
     }
   },
@@ -30212,6 +30236,21 @@
       ],
       "verified_at": "2026-11-05",
       "note": "Signed-in Amazon order details: ordered 2026-11-05; Zulkit IP65 Waterproof ABS Plastic Electrical Box - Hinged Shell, 2 Cable Glands, 5.9 x 3.9 x 2.8 inch (B08KY7VK8W) × 1 at USD 9.99, sold by VeSumly, arriving 2026-11-07. USD 9.99 item subtotal, USD 0.00 shipping, USD 0.72 estimated tax and USD 10.71 grand total."
+    },
+    "src-57d7a55650e950b4bd37fd8b57f1ae54": {
+      "vendor": "Amazon",
+      "document_type": "order_details",
+      "reference": "114-4948607-3372207",
+      "document_date": {
+        "precision": "day",
+        "value": "2026-11-06"
+      },
+      "proves": [
+        "order_date",
+        "price"
+      ],
+      "verified_at": "2026-11-06",
+      "note": "Signed-in Amazon order details show the CHANZON LED pack sold by Chanzon, free shipping and estimated tax. Delivery is expected the following day; delivery and completed payment are not established. The purchased blue variant displays the Prime logo. Its clear lens and inline resistor suit the printed status diffuser. The product drawing supplies the LED body and flange dimensions."
     }
   },
   "coverage": [

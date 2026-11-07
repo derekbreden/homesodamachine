@@ -485,6 +485,7 @@ DigiKey salesorder **101910359**, web order **377210254**: the 2026-09-29 confir
 | <!--purchase:pur-3b72c994b94b43c29f76326060b40799--> KRAUS garbage-disposal air-switch kit, matte black | [B096319GMV](https://www.amazon.com/dp/B096319GMV) | 3 | $42.85 ea | 112-0545074-9805025 | 2026-02-23 | — | ACQUIRED |
 | <!--purchase:pur-dde3fb13bc1848948e853aa0cf358c04--> 7 mm 12 V prewired momentary micro pushbutton, 12 pc | [B0F43GYWJ6](https://www.amazon.com/dp/B0F43GYWJ6) | 1 pk | $7.71 | 114-8283262-7030641 | 2026-02-06 | — | ACQUIRED |
 | <!--purchase:pur-0a7108124fd74a8293262293affbcc14--> EDGELEC 120 pc 12 V prewired LED assortment, 5 mm | [B07PVVL2S6](https://www.amazon.com/dp/B07PVVL2S6) | 1 pk | $13.93 | 114-8283262-7030641 | 2026-02-06 | — | ACQUIRED |
+| <!--purchase:pur-9a08e76abb825705aff0991b6c1bf389--> CHANZON prewired clear-lens blue LED, status-plate light; inline resistor and blue positive/black negative leads. Amazon Prime, sold by Chanzon; item plus estimated tax, free shipping | [B08G4Z6KPV](https://www.amazon.com/dp/B08G4Z6KPV) | 1 pk (20) | $7.50 | 114-4948607-3372207 | 2026-11-06 | — | ON-ORDER (arriving 2026-11-07) |
 | <!--purchase:pur-d20e2be8ae4745c6a0cb6e908e3638fe--> DIYables Passive Piezo Buzzer Module, 5 V, 2-pack | [B0DYDN31PV](https://www.amazon.com/dp/B0DYDN31PV) | 1 pk (2) | $6.42 | 112-8061650-4642611 | 2026-05-11 | 2026-05-14 | ACQUIRED |
 
 ## 11. Enclosure hardware
@@ -838,17 +839,17 @@ Printed copies of the [install guide](/hardware/install-guide/README.md). Lulu o
 | Acquired hardware valuation — includes replaced/returned originals | [$40,350.44](LEDGER_ACQUIRED_HW) |
 | Engineering services (§18) | [$6,519.51](LEDGER_LABOR) |
 | Acquired procurement valuation (combined) | [$46,869.95](LEDGER_ACQUIRED_COMBINED) |
-| ON-ORDER | [$2,371.35](LEDGER_ON_ORDER) |
+| ON-ORDER | [$2,378.85](LEDGER_ON_ORDER) |
 | MISSING — not in hand | [$53.07](LEDGER_MISSING) |
 | LIKELY-TO-BUY | $0.00 |
-| **Recorded procurement valuation — includes commitments** | [$49,294.37](LEDGER_GRAND_TOTAL) |
+| **Recorded procurement valuation — includes commitments** | [$49,301.87](LEDGER_GRAND_TOTAL) |
 
 Price evidence within the procurement valuation:
 
 | Amount basis | USD |
 |---|---|
 | Final vendor amounts | [$21,019.46](LEDGER_FINAL_VENDOR) |
-| Estimated amounts | [$4,285.23](LEDGER_ESTIMATES) |
+| Estimated amounts | [$4,292.73](LEDGER_ESTIMATES) |
 | Legacy / unverified amounts | [$23,989.68](LEDGER_LEGACY_UNVERIFIED) |
 
 Merchant-evidenced payments (project shares; includes the undated bucket):

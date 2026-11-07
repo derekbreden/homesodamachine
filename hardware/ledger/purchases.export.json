@@ -1409,7 +1409,7 @@
       "purchase_id": "pur-e09e5d28db894792aef087da03caea51"
     }
   ],
-  "as_of": "2026-11-05",
+  "as_of": "2026-11-06",
   "coverage": [
     {
       "checked_at": "2026-10-04",
@@ -7891,7 +7891,7 @@
       ]
     }
   ],
-  "input_fingerprint": "sha256:d150f0feead539314b85793eb14971f6a8b7702caa7e4ccf17741dbb36542547",
+  "input_fingerprint": "sha256:348f51c6e2ce6727ac15d876231b45d8311b82289742a46e29005d7325f7a13a",
   "orders": [
     {
       "allocation_status": "all_project",
@@ -13267,6 +13267,23 @@
       "reference": "114-4838401-4353060",
       "source_ids": [
         "saved-amazon:114-4838401-4353060"
+      ],
+      "vendor": "Amazon"
+    },
+    {
+      "allocation_status": "all_project",
+      "event_ids": [],
+      "order_date": {
+        "precision": "day",
+        "value": "2026-11-06"
+      },
+      "order_id": "amazon:114-4948607-3372207",
+      "purchase_ids": [
+        "pur-9a08e76abb825705aff0991b6c1bf389"
+      ],
+      "reference": "114-4948607-3372207",
+      "source_ids": [
+        "src-57d7a55650e950b4bd37fd8b57f1ae54"
       ],
       "vendor": "Amazon"
     },
@@ -37587,6 +37604,50 @@
     },
     {
       "allocation_status": "all_project",
+      "amount_evidence": "estimate",
+      "amount_minor": 750,
+      "contributes": true,
+      "currency": "USD",
+      "delivery_date": null,
+      "description": "CHANZON prewired clear-lens blue LED, status-plate light; inline resistor and blue positive/black negative leads. Amazon Prime, sold by Chanzon; item plus estimated tax, free shipping",
+      "event_ids": [],
+      "fulfillment": "ON-ORDER",
+      "invoice_date": null,
+      "ledger_purchase_id": "pur-9a08e76abb825705aff0991b6c1bf389",
+      "merchant_charge_allocated_minor": 0,
+      "merchant_refund_allocated_minor": 0,
+      "order_date": {
+        "precision": "day",
+        "value": "2026-11-06"
+      },
+      "order_ids": [
+        "amazon:114-4948607-3372207"
+      ],
+      "payment_evidence": "unknown",
+      "price_basis": "row_total",
+      "purchase_id": "pur-9a08e76abb825705aff0991b6c1bf389",
+      "purpose": "components",
+      "quantity": 1,
+      "quantity_text": "1 pk (20)",
+      "receipt_date": null,
+      "record_role": "purchase",
+      "row_date": {
+        "precision": "day",
+        "value": "2026-11-06"
+      },
+      "row_date_basis": "order_date",
+      "section": "10. User interface — buttons, LEDs, air switch",
+      "service_period": null,
+      "source_ids": [
+        "src-57d7a55650e950b4bd37fd8b57f1ae54"
+      ],
+      "split_charge": false,
+      "stream": "purchase",
+      "unit_amount_minor": null,
+      "vendor": "Amazon"
+    },
+    {
+      "allocation_status": "all_project",
       "amount_evidence": "legacy_unverified",
       "amount_minor": 2786,
       "contributes": true,
@@ -58577,6 +58638,22 @@
     {
       "document_date": {
         "precision": "day",
+        "value": "2026-11-06"
+      },
+      "document_type": "order_details",
+      "note": "Signed-in Amazon order details show the CHANZON LED pack sold by Chanzon, free shipping and estimated tax. Delivery is expected the following day; delivery and completed payment are not established. The purchased blue variant displays the Prime logo. Its clear lens and inline resistor suit the printed status diffuser. The product drawing supplies the LED body and flange dimensions.",
+      "proves": [
+        "order_date",
+        "price"
+      ],
+      "reference": "114-4948607-3372207",
+      "source_id": "src-57d7a55650e950b4bd37fd8b57f1ae54",
+      "vendor": "Amazon",
+      "verified_at": "2026-11-06"
+    },
+    {
+      "document_date": {
+        "precision": "day",
         "value": "2026-10-13"
       },
       "document_type": "merchant_order_page",
@@ -62645,7 +62722,7 @@
           "unknown_amount_ids": []
         },
         {
-          "amount_minor": 237135,
+          "amount_minor": 237885,
           "currency": "USD",
           "fulfillment": "ON-ORDER",
           "purchase_ids": [
@@ -62665,6 +62742,7 @@
             "pur-7ebe706384b34c718af7af886e0988d7",
             "pur-7f5e5ae2f85e4d74bca9edb78b7332f0",
             "pur-8b3d0e7a5c9f4e2b4a7d1c3e5f6a8b07",
+            "pur-9a08e76abb825705aff0991b6c1bf389",
             "pur-9d9726d27ea04842b803208c17fd1b37",
             "pur-9fe3b15945c3487da36214f92b80f9ee",
             "pur-a326599d5b464456b43259262c4808ba",
@@ -62705,6 +62783,7 @@
         "pur-7ebe706384b34c718af7af886e0988d7",
         "pur-7f5e5ae2f85e4d74bca9edb78b7332f0",
         "pur-8b3d0e7a5c9f4e2b4a7d1c3e5f6a8b07",
+        "pur-9a08e76abb825705aff0991b6c1bf389",
         "pur-9d9726d27ea04842b803208c17fd1b37",
         "pur-9fe3b15945c3487da36214f92b80f9ee",
         "pur-a326599d5b464456b43259262c4808ba",
@@ -63794,7 +63873,7 @@
         },
         {
           "currency": "USD",
-          "estimate_minor": 29978,
+          "estimate_minor": 30728,
           "evidence_scope": "retrieved_records_only",
           "final_vendor_amount_minor": 0,
           "legacy_unverified_minor": 0,
@@ -63805,10 +63884,11 @@
             "pur-3fca793e96a64c20b79ac0831efc3b50",
             "pur-5f9b203a9810468f8bab74284d78f44d",
             "pur-7ebe706384b34c718af7af886e0988d7",
+            "pur-9a08e76abb825705aff0991b6c1bf389",
             "pur-9fe3b15945c3487da36214f92b80f9ee",
             "pur-a9aeeb7107e24ef68654ee86aa1fbe14"
           ],
-          "total_minor": 29978,
+          "total_minor": 30728,
           "unknown_amount_ids": []
         },
         {
@@ -63825,7 +63905,7 @@
       ],
       "purpose_totals": [
         {
-          "amount_minor": 1142763,
+          "amount_minor": 1143513,
           "currency": "USD",
           "purpose": "components"
         },
@@ -63863,10 +63943,10 @@
       "totals": [
         {
           "currency": "USD",
-          "estimate_minor": 428523,
+          "estimate_minor": 429273,
           "final_vendor_amount_minor": 2101946,
           "legacy_unverified_minor": 2398968,
-          "total_minor": 4929437
+          "total_minor": 4930187
         }
       ],
       "undated_unallocated": [
@@ -64020,11 +64100,11 @@
       "by_currency": [
         {
           "currency": "USD",
-          "estimated_purchase_minor": 428523,
+          "estimated_purchase_minor": 429273,
           "legacy_unverified_purchase_minor": 2398968,
           "order_only_charge_allocation_minor": 6561,
           "partial_charge_purchase_minor": 0,
-          "purchases_without_merchant_charge_minor": 3148038,
+          "purchases_without_merchant_charge_minor": 3148788,
           "undated_charge_minor": 57998,
           "undated_refund_minor": 0,
           "undated_unallocated_purchase_minor": 922346,
@@ -64067,6 +64147,7 @@
         "pur-8d0598d87bd8438496d8a9fbf38dcf9a",
         "pur-8fb96099b6b34dbfa04c2e6d93c55a42",
         "pur-91bd3b099e80493ab591655550b439ca",
+        "pur-9a08e76abb825705aff0991b6c1bf389",
         "pur-9c025ba9576044b38a4745d084361ea5",
         "pur-9fe3b15945c3487da36214f92b80f9ee",
         "pur-a02ce33a2d984d9fbea615cbad793ab3",
@@ -65001,6 +65082,7 @@
         "pur-99a0644333ed4c5a8e5d5514098319fa",
         "pur-99b84bc072db41edb0e37a59ce8488a1",
         "pur-99ef85cbd1d5444ca7cc4989a9f2a593",
+        "pur-9a08e76abb825705aff0991b6c1bf389",
         "pur-9b0861ed2dcb409799dda9bb58e6a7e1",
         "pur-9b5e0854dbed4bdeac2c81202699d965",
         "pur-9c025ba9576044b38a4745d084361ea5",

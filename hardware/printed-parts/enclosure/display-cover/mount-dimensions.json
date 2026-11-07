@@ -17,10 +17,21 @@
   "insert": "ruthex RX-M3S x 4 short heat-set insert",
   "insert_diameter_mm": 4.6,
   "insert_length_mm": 4.0,
+  "led": {
+    "asin": "B08G4Z6KPV",
+    "body_diameter_mm": 5.0,
+    "flange_diameter_mm": 5.8,
+    "length_mm": 8.7
+  },
   "led_bore_diameter_mm": 6.4,
   "led_set_back_mm": 1.0,
-  "light_aperture_diameter_mm": 1.5,
   "light_centre_local_y_mm": -7.4,
+  "light_diffuser_diameter_mm": 6.4,
+  "light_diffuser_thickness_mm": 3.0,
+  "light_ring_radii_mm": [
+    3.8000000000000003,
+    4.220000000000001
+  ],
   "pilot_depth_mm": 4.4,
   "pilot_diameter_mm": 4.0,
   "required_backing_mm": 3.0,

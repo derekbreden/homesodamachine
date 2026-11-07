@@ -11,8 +11,8 @@ use serde_json::{Value, json};
 const PLATE_BLACK: [f64; 3] = [0.019382361322641373, 0.019382361322641373, 0.022173885256052017];
 /// Its white artwork, the rear nameplate's.
 const INK_WHITE: [f64; 3] = [0.8307698965072632, 0.838798999786377, 0.8227857351303101];
-/// The LED's blue lens.
-const LED_BLUE: [f64; 3] = [0.013702083379030228, 0.15896083414554596, 0.8307698965072632];
+/// The material catalog's translucent PETG, shared with the reservoirs.
+const LIGHT_CLEAR: [f64; 3] = [0.7484140992164612, 0.7484140992164612, 0.6920710802078247];
 
 fn cylinder(x: f64, y: f64, radius: f64, lo: f64, hi: f64) -> Result<Solid> {
     Plane::XY.at(v3(0., 0., lo)).extrude(&Profile::new(Loop::circle(v2(x, y), radius)), hi - lo)
@@ -197,9 +197,9 @@ fn lettering(text: &str, c: V2) -> Result<Vec<Profile>> {
 }
 
 /// The status plate in the nameplate's style: black PETG, its white frame inside the screw heads,
-/// the brand mark over a rule, the light's aperture in a ring and its word below. The black is
-/// cut where the white stands, so the two colours are disjoint volumes.
-fn status_plate() -> Result<(Solid, Solid)> {
+/// the brand mark over a rule, the translucent window in a ring and its word below. Each
+/// filament occupies its own volume; the window fills the plate from its back to its face.
+fn status_plate() -> Result<(Solid, Solid, Solid)> {
     let c = v2(m::STATUS_CX, 0.);
     let light = v2(m::STATUS_CX, m::LIGHT_Y);
     let mut outline = Profile::new(Loop::rounded_rect(c, m::STATUS_WIDTH, m::STATUS_HEIGHT, m::CORNER)?)
@@ -225,10 +225,11 @@ fn status_plate() -> Result<(Solid, Solid)> {
     for p in &ink[1..] {
         white = white.union(&slab(p, -m::INK_DEPTH, m::INK_RISE)?)?;
     }
-    Ok((plate.cut(&white)?, white))
+    let clear = cylinder(light.x, light.y, m::LIGHT_DIA / 2., -m::THICK, 0.)?;
+    Ok((plate.cut(&white)?, white, clear))
 }
 
-/// The light's LED, set back in its bore behind the aperture: the dome, the body and the flange.
+/// The clear-lens blue LED, set back in its bore behind the diffuser.
 fn status_led() -> Result<Solid> {
     let (x, y) = (m::STATUS_CX, m::LIGHT_Y);
     let top = -m::THICK - m::LED_SET_BACK;
@@ -259,15 +260,16 @@ fn main() -> Result<()> {
     }).collect::<Vec<_>>();
     println!("{}", write_part(&out, "display-cover-fasteners", &parts)?);
 
-    // Both colour volumes stand in the STEP, the model and the payload; the STL is their combined
+    // The filament volumes stand in the STEP, the model and the payload; the STL is their combined
     // exterior, as the nameplate's is.
-    let (plate, white) = status_plate()?;
+    let (plate, white, clear) = status_plate()?;
     println!("{}", hsm_enclosure_components::write_colored_part(&out, "status-plate", &[
         Body { name: "status-plate", color: Some(PLATE_BLACK), solid: &plate },
         Body { name: "status-plate-ink", color: Some(INK_WHITE), solid: &white },
-    ], &plate.union(&white)?)?);
+        Body { name: "status-plate-diffuser", color: Some(LIGHT_CLEAR), solid: &clear },
+    ], &plate.union(&white)?.union(&clear)?)?);
     let mut status_hardware = hardware("status", &m::STATUS_STATIONS)?;
-    status_hardware.push(("status-led".into(), status_led()?, LED_BLUE));
+    status_hardware.push(("status-led".into(), status_led()?, LIGHT_CLEAR));
     let parts = status_hardware.iter().map(|(name, solid, color)| Body {
         name: name.as_str(), solid, color: Some(*color),
     }).collect::<Vec<_>>();
@@ -292,10 +294,14 @@ fn main() -> Result<()> {
         "status_plate_mm": [m::STATUS_WIDTH, m::STATUS_HEIGHT, m::THICK],
         "status_plate_centre_local_x_mm": m::STATUS_CX,
         "status_stations_local_xy_mm": m::STATUS_STATIONS,
-        "light_aperture_diameter_mm": m::LIGHT_DIA,
+        "light_diffuser_diameter_mm": m::LIGHT_DIA,
+        "light_diffuser_thickness_mm": m::THICK,
+        "light_ring_radii_mm": m::LIGHT_RING,
         "light_centre_local_y_mm": m::LIGHT_Y,
         "led_set_back_mm": m::LED_SET_BACK,
         "led_bore_diameter_mm": m::LED_BORE_DIA,
+        "led": { "asin": "B08G4Z6KPV", "body_diameter_mm": m::LED_DIA,
+                 "flange_diameter_mm": m::LED_FLANGE_DIA, "length_mm": m::LED_LENGTH },
     }))?)?;
     Ok(())
 }
