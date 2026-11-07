@@ -156,8 +156,6 @@ pub fn request(input: &Value) -> Result<Value> {
             number(input, "reed_axis")?,
             input["float_edge"].as_bool().unwrap_or(false)
         ))),
-        "aero-measurements" => Ok(floats::aero_measurements()),
-        "aero-numbers" => Ok(floats::aero_numbers(&input["colors"])),
         "rod" => Ok(rod()),
         "rod-fit" => Ok(rod_fit(
             number(input, "rod_diameter")?,
