@@ -400,6 +400,7 @@ fn main() -> Result<()> {
         let at = plate.add_object(&format!("{label} {name}"), local, mesh.faces.clone(), &format!("{name}.stl"), center, rotation, translation,
                                   None, Vec::new());
         plate.objects[at].identify_id = 1800 + index;
+        plate.objects[at].plate = i;
         for band in recipe.get("layer_ranges_mm").and_then(|r| r.get(name)).map(Json::list).unwrap_or(&[]) {
             let (Some(bottom), Some(top)) = (float(band.list().first()), float(band.list().get(1))) else { bail!("a layer range needs a bottom and a top") };
             plate.objects[at].ranges.push(Range { min_z: bottom, max_z: top, options: vec![("layer_height".into(), "0.16".into())] });
