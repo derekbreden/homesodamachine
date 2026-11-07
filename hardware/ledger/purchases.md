@@ -892,4 +892,4 @@ Notes:
 
 ## Sources
 [value](NAME) texts are updated by:
-- `/hardware/scripts/_ledger_totals.py`
+- `/hardware/ledger/purchases.rs`

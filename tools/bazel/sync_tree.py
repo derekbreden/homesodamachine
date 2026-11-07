@@ -105,7 +105,7 @@ def stage_derived():
 #: a sentence somebody wrote. A rewritten medium in neither list is named and left alone.
 #:
 #: `_WHOLE_FILES` names individual outputs generated whole in an otherwise authored medium.
-#: `_ledger_totals.py` derives every byte of the purchase export from the ledger and its
+#: The purchases program derives every byte of the purchase export from the ledger and its
 #: evidence; other rewritten CSVs still have no whole-file carry here.
 _SPLICE = (".md", ".mmd", ".py")
 _WHOLE = (".json", ".png")

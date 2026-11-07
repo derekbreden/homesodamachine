@@ -390,7 +390,12 @@ RUST_STEPS = {
         ("installed-machine", "installed-machine", ""),
     "hardware/printed-parts/cold-core/prv-shroud/prv_shroud.rs":
         ("prv-shroud", "prv-shroud", "hardware/printed-parts/cold-core/prv-shroud"),
+    "hardware/ledger/purchases.rs": ("ledger", "purchases", ""),
 }
+
+#: The media a Rust step can rewrite in place: documents with authored text round the figures it
+#: maintains. A solid it reads back is never one.
+DOCUMENT_MEDIA = (".md", ".mmd", ".csv", ".json")
 
 
 _METADATA = []
@@ -500,8 +505,12 @@ def trace_rust(gen: str, files: set) -> dict:
                 read.add(path.relative_to(_ROOT).as_posix())
     at = lambda rel: f"{output}/{rel}" if output else rel
     writes = sorted(at(rel) for rel in wrote if not build_inert(at(rel)))
-    reads = (({p for p in read if p in files and not build_inert(p)} | set(sources)) - set(writes))
-    return {"reads": sorted(reads), "writes": writes, "rewritten": [],
+    # A document the program reads and writes back is rewritten in place, as a Python step's
+    # docgen rewrites are: one of the step's inputs as well as one of its outputs.
+    rewritten = sorted(w for w in writes if w in read and w.endswith(DOCUMENT_MEDIA))
+    reads = (({p for p in read if p in files and not build_inert(p)} | set(sources))
+             - (set(writes) - set(rewritten)))
+    return {"reads": sorted(reads), "writes": writes, "rewritten": rewritten,
             "program": {"crate": krate, "name": name, "sources": sources}}
 
 
