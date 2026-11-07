@@ -12,9 +12,6 @@
     -6.0,
     355.0
   ],
-  "review_rotation_about_z_degrees": 180,
-  "view": "assembly/scenes/glb/enclosure-smooth-corners-full-context.glb",
-  "review_sha256": "bf103cc2f5c9ec21654cf37e932156d5be1e6d785f894cda4d3dc06501e3a462",
   "source_sha256": {
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.mesh": "146461ed19f2ebcafa40e32a41e083175a57fa94af71c9f713328ddfc987e15b",
     "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.mesh": "d95b8afc831403c8285f9e3063fb2c4402dbb68f0d41db3f31a42c0d37665a04",
@@ -252,7 +249,7 @@
     }
   ],
   "maximum_printed_radius_error_mm": 0.0033177995009481265,
-  "review_status": "Approved by Derek: Looks good. Let’s start a print.",
+  "review_status": "Approved by Derek: Looks good. Let\u2019s start a print.",
   "visible_implications": [
     "Full-depth smooth corner bands meet the straight-wall flutes at their tips.",
     "Grooves fade over 5 mm before the corner bands.",
@@ -260,12 +257,6 @@
     "The existing rear connection-card rail occupies part of the upper rear corner band.",
     "Interior seats and joint clearances are unchanged by the flute mask."
   ],
-  "browser_review": {
-    "mesh_count": 63,
-    "mobile_width_px": 390,
-    "mobile_overflow": false,
-    "errors": []
-  },
   "manual_mesh_review": {
     "front_top_corner_seams": {
       "result": "The folded cylinder-seam strips are absent. Remaining thin readings describe the retained display housing sections.",
@@ -282,10 +273,5 @@
   },
   "print_release_status": "HSM-0081 rear top running on Mark2, job 1410263719, with no reported errors.",
   "source_revision": "bee47bcd7",
-  "print_record": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-05-back-top-smooth-corners-mark2/print-job.json",
-  "public_model_verified": {
-    "url": "https://homesodamachine.com/models/assembly/scenes/glb/enclosure-smooth-corners-full-context.glb",
-    "sha256": "bf103cc2f5c9ec21654cf37e932156d5be1e6d785f894cda4d3dc06501e3a462",
-    "bytes": 12599032
-  }
+  "print_record": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-05-back-top-smooth-corners-mark2/print-job.json"
 }

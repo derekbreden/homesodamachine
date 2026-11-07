@@ -11,11 +11,5 @@
   "display_cover": {
     "findings": "Intentional shallow head seats and their agreed bearing floors.",
     "answers": "hardware/printed-parts/lint-answers/enclosure/display-cover/display-cover.lint-answers"
-  },
-  "website_verified": {
-    "display_full_context": "assembly/scenes/glb/display-side-screws-full-context.glb",
-    "display_separated": "assembly/scenes/glb/display-side-screws-separated.glb",
-    "pump_wall_study": "assembly/scenes/glb/pump-port-space.glb",
-    "method": "Downloaded each published GLB and matched its SHA-256 to the local artifact."
   }
 }

@@ -1,5 +1,5 @@
 {
-  "geometry": "Current production front-top, display bezel, gasket and hardware. Orange marks the flange-to-wall span, including existing retainer stock. Blue marks a proposed wall position; both are layout annotations.",
+  "geometry": "Production front-top, display bezel, gasket and hardware.",
   "display_frame_world": [
     [
       1.0,
@@ -183,12 +183,6 @@
     "study_shift_mm": 6.015000000000001,
     "study_flange_gap_mm": 0.5309982299804688,
     "scope": "Wall-position study only. The retainer aft edge, wing Y span, tee stack and fore valve supports require a coordinated revision before moving this wall."
-  },
-  "views": {
-    "pump_space": "assembly/scenes/glb/pump-port-space.glb",
-    "display": "assembly/scenes/glb/display-side-screws.glb",
-    "separated": "assembly/scenes/glb/display-side-screws-separated.glb",
-    "full_context": "assembly/scenes/glb/display-side-screws-full-context.glb"
   },
   "source_sha256": {
     "hardware/manifold-layout/enclosure-assembly.step.mesh": "9f4c24dbec342cf8d907c5014052b384281d00015f2f49af88ddaa78e517d9aa",
