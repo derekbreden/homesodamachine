@@ -1,0 +1,92 @@
+{
+  "views": [
+    {
+      "name": "receiver-section",
+      "caption": "The pointed lead-in and its matching receiver pocket.",
+      "before": "receiver-section-before.webp",
+      "after": "receiver-section-after.webp",
+      "width": 1200,
+      "height": 900,
+      "marks": [
+        {
+          "x": 500.6,
+          "y": 368.3,
+          "r": 22.5,
+          "label": "Point",
+          "at": [
+            -37.324,
+            328.71,
+            344.815
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "orthographic",
+        "position": [
+          -640.9336963984941,
+          326.5,
+          343
+        ],
+        "target": [
+          -37.324,
+          326.5,
+          343
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "half": 10,
+        "near": 395.1842110803935,
+        "far": 1049.0947155120955,
+        "aspect": 1.3333333333333333,
+        "section": {
+          "at": [
+            -37.324,
+            327,
+            343
+          ],
+          "normal": [
+            -1,
+            0,
+            0
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [
+        "regulator-snap-cap"
+      ],
+      "ghost": [],
+      "only": [
+        "regulator-snap-cap",
+        "enclosure-back-top"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "3a917981401ec3bdb088a032d72422f41ae60e3fd8f2c13cbc78e1c3315c9c98",
+          "commit": "6ee462a4302862134f5449b6fd97b02d0eed5167",
+          "taken": "2026-11-07T21:41:42.256Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "c21c5313b0157be9788ad66b254802da73cb2a0f40fcbc77dc9c65f14a0b69cc",
+          "commit": "94b9cceea9536b6d0893b1bfb24d771f50ac49f0",
+          "published": true
+        }
+      },
+      "changed": [
+        "enclosure-back-top",
+        "regulator-snap-cap"
+      ],
+      "withinMeshing": []
+    }
+  ]
+}

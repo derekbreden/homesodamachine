@@ -112,5 +112,19 @@
     "purpose": "Measure the single snap's native tower time and time between model layers.",
     "scope": "Commanded path length divided by feed plus explicit waits; acceleration, firmware motion and camera delays add time. Native smooth timelapse is enabled at launch.",
     "gcode_sha256": "70d359f24cbb0732df406919db4a07ef29909d3cf589b66c3320e8afd402ec98"
-  }
+  },
+  "published_models": [
+    {
+      "file": "hardware/printed-parts/enclosure/rear-equipment-caps/entry-study/regulator-snap-cap-entry.step.mesh",
+      "site_bytes": 169660,
+      "sha256": "c7bbc59973395db2ffb8fdb7a7d46565797dd768dc2bb27eb8554efe296b46d5",
+      "matches": true
+    },
+    {
+      "file": "hardware/printed-parts/enclosure/rear-equipment-caps/entry-study/regulator-receiver-entry.step.mesh",
+      "site_bytes": 215088,
+      "sha256": "b5c4190a0201ac065b1b81b655f9954f3bbebdb10df6eaee178fa433d204f3f8",
+      "matches": true
+    }
+  ]
 }
