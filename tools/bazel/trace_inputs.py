@@ -390,6 +390,7 @@ RUST_STEPS = {
     "hardware/install-guide/kit_art.rs": ("kit-art", "kit-art", ""),
     "hardware/install-guide/opening_scene.rs": ("opening-scene", "opening-scene", ""),
     "hardware/install-guide/install_guide.rs": ("install-guide", "install-guide", ""),
+    "hardware/printed-parts/asse-drain-adapter/asse_drain_adapter.rs": ("asse-drain-adapter", "asse-drain-adapter", "hardware/printed-parts/asse-drain-adapter"),
     "hardware/printed-parts/cold-core/prv-shroud/prv_shroud.rs":
         ("prv-shroud", "prv-shroud", "hardware/printed-parts/cold-core/prv-shroud"),
     "hardware/ledger/purchases.rs": ("ledger", "purchases", ""),

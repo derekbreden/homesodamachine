@@ -812,6 +812,20 @@ dependencies = [
 ]
 
 [[package]]
+name = "hsm-asse-drain-adapter"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "hsm-asse-drain-adapter-numbers",
+ "hsm-catalog",
+ "hsm-kernel",
+]
+
+[[package]]
+name = "hsm-asse-drain-adapter-numbers"
+version = "0.1.0"
+
+[[package]]
 name = "hsm-assembly-docs"
 version = "0.1.0"
 dependencies = [
@@ -904,6 +918,14 @@ dependencies = [
 [[package]]
 name = "hsm-carbonator-tube-numbers"
 version = "0.1.0"
+
+[[package]]
+name = "hsm-catalog"
+version = "0.1.0"
+dependencies = [
+ "serde",
+ "serde_json",
+]
 
 [[package]]
 name = "hsm-coil-mandrel"
