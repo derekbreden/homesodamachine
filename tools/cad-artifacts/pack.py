@@ -445,9 +445,12 @@ def object_url(held: dict, digest: str):
 
 
 def download_object(url: str) -> bytes:
+    """A release object, gunzipped. Its bytes stay bytes: a list of them sent to the store worker
+    takes many times a large member's size in memory, which this Mac does not have."""
+    import gzip
     from urllib.request import Request, urlopen
     with urlopen(Request(url, headers={"User-Agent": "pack.py"}), timeout=120) as resp:
-        return bytes(_native("decompress", bytes=list(resp.read())))
+        return gzip.decompress(resp.read())
 
 
 def adopt(root: Path, held: dict, rels: list) -> list:
@@ -469,9 +472,13 @@ def adopt(root: Path, held: dict, rels: list) -> list:
         except Exception as exc:
             print(f"  {rel}: main's bytes did not come ({exc}); left as it is")
             continue
-        if not _native("adopt-bytes", root=root, path=rel, digest=digest, bytes=list(data)):
+        if hashlib.sha256(data).hexdigest() != digest:
             print(f"  {rel}: the release's object does not hash to main's line; left as it is")
             continue
+        target = root / rel
+        temporary = target.with_name(target.name + ".adopt")
+        temporary.write_bytes(data)
+        os.replace(temporary, target)
         taken.append(rel)
     return taken
 
