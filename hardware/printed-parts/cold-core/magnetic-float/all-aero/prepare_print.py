@@ -23,8 +23,8 @@ from shapely.ops import unary_union
 
 HERE = Path(__file__).resolve().parent
 ROOT = next(p for p in HERE.parents if (p / "tools/bambu_printer.py").is_file())
-sys.path.insert(0, str(HERE))
-import all_aero_float as geometry
+sys.path.insert(0, str(HERE.parents[1]))
+import _float_interface as geometry
 
 HELPER = HERE.parent / "mark2-aero-print/v7/prepare.py"
 spec = importlib.util.spec_from_file_location("nested_wall_review", HELPER)
@@ -312,9 +312,8 @@ def main():
     (RECORDS / "native-preview.png").write_bytes(output["Metadata/plate_1.png"])
     render(roads, pause)
     mass = sum(r["extrusion_mm"] for r in roads) * math.pi * (1.75 / 2) ** 2 * 0.99 / 1000
-    design = json.loads((HERE / "design.json").read_text())
-    source_paths = [HERE / "all_aero_float.py", HERE / "design.json", HERE / "prepare_print.py",
-                    HERE.parents[1] / "_float_interface.py", HELPER]
+    source_paths = [HERE / "all_aero_float.rs", HERE / "numbers.rs", HERE / "design.json",
+                    HERE / "prepare_print.py", HERE.parents[1] / "_float_interface.py", HELPER]
     record = {"article": "All-ASA Aero magnetic float with RC62 insertion pause", "printer": "Mark2",
               "status": "prepared_not_submitted", "send_attempts": 0, "preview_inspected": False,
               "source_commit": None, "source_snapshot": {str(p.relative_to(ROOT)): sha(p) for p in source_paths},
@@ -343,7 +342,7 @@ def main():
               "native_slice_summary": {"estimated_time_s": summary["total_predication"],
                                        "filament_mass_g": summary["filaments"][0]["total_used_g"],
                                        "object_feed_mass_g": mass,
-                                       "feed_mass_per_cad_foam_volume_g_cc": mass / design["volumes_cc"]["asa_aero"],
+                                       "feed_mass_per_cad_foam_volume_g_cc": mass / geometry.foam_cc,
                                        "scope": "Slicer/feed accounting excludes magnet, startup waste and firmware extrusion; it is not measured foam density.",
                                        "object_count": 1, "warnings": []},
               "path_features": dict(features), "layers": len({r["layer"] for r in roads}),

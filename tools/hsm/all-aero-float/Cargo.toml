@@ -1,0 +1,19 @@
+[package]
+name = "hsm-all-aero-float"
+version = "0.1.0"
+edition.workspace = true
+license.workspace = true
+rust-version.workspace = true
+publish = false
+
+[dependencies]
+anyhow.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+hsm-aero-float-numbers = { path = "../aero-float-numbers" }
+hsm-cold-core-catalog = { path = "../cold-core-catalog" }
+hsm-kernel = { path = "../kernel" }
+
+[[bin]]
+name = "all-aero-float"
+path = "../../../hardware/printed-parts/cold-core/magnetic-float/all-aero/all_aero_float.rs"

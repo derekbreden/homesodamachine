@@ -184,15 +184,6 @@ IMPLICIT_SOLIDS = {
         "hardware/printed-parts/faucet/lever-replica/lever-replica.stl",
         "hardware/printed-parts/faucet/lever-replica/lever-replica-side-down.stl",
     ),
-    "hardware/printed-parts/cold-core/magnetic-float/magnetic_float.py": tuple(
-        f"hardware/printed-parts/cold-core/magnetic-float/{name}.step.mesh"
-        for name in ("body-petg", "body-aero", "insert-aero",
-                     "magnet", "magnetic-float", "section", "exploded")
-    ),
-    "hardware/printed-parts/cold-core/magnetic-float/all-aero/all_aero_float.py": tuple(
-        f"hardware/printed-parts/cold-core/magnetic-float/all-aero/{name}.step.mesh"
-        for name in ("float-aero", "assembly", "section", "insertion")
-    ),
     # Current payloads need no rewrite; a clean run still owes every view.
     "hardware/printed-parts/zone-c/funnel-mold/funnel_mold.py": tuple(
         f"hardware/printed-parts/zone-c/funnel-mold/{name}.step.mesh"

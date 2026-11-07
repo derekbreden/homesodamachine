@@ -1,0 +1,14 @@
+[package]
+name = "hsm-magnetic-float-numbers"
+version = "0.1.0"
+edition.workspace = true
+license.workspace = true
+rust-version.workspace = true
+publish = false
+
+[lib]
+path = "../../../hardware/printed-parts/cold-core/magnetic-float/numbers.rs"
+
+[dependencies]
+hsm-aero-float-numbers = { path = "../aero-float-numbers" }
+hsm-cold-core-catalog = { path = "../cold-core-catalog" }

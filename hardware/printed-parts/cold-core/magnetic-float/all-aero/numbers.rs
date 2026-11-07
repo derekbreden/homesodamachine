@@ -1,7 +1,8 @@
 //! The ASA Aero float's numbers, in millimetres, grams and g/cc: the one-piece guided float with a
 //! K&J RC62 ring magnet sealed into it during printing, which the carbonator and the reservoirs
 //! guide on a rod. The float's own files, the reservoirs, the reed bridge, the carbonator's end
-//! cap and the cold core's assembly take them by name.
+//! cap and the cold core's assembly take them by name, and the PETG-shell bench float takes the
+//! RC62's.
 use std::f64::consts::PI;
 
 /// The float's diameter.
@@ -28,6 +29,8 @@ pub const MAGNET_TOLERANCE: f64 = 0.1;
 pub const MAGNET_MASS: f64 = 5.09;
 /// How far the magnet's rim stands in from the float's.
 pub const MAGNET_EDGE_INSET: f64 = (DIAMETER - MAGNET_OD) / 2.;
+/// The magnet's colour in the float's files, as sRGB hex. The body takes the catalog's ASA Aero.
+pub const MAGNET_COLOUR: &str = "#737D88";
 
 /// The pocket the magnet is dropped into at the print's pause.
 pub const POCKET_OD: f64 = 19.35;

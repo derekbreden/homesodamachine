@@ -76,7 +76,7 @@
     }
   ],
   "neutral_aero_density_g_cc": 0.6944148353193792,
-  "nominal_unfilled_volume_cc": 0.12404012860584857,
+  "nominal_unfilled_volume_cc": 0.12404012860585567,
   "aero_material": "Bambu ASA Aero White 46100",
   "core_print_fit_allowance_radial_mm": 0.05,
   "insert_print_fit_allowance_radial_mm": 0.05,

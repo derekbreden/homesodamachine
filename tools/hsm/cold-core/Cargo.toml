@@ -8,24 +8,8 @@ publish = false
 
 # Each part's program sits beside the Python module that holds its numbers.
 [[bin]]
-name = "coil-mandrel"
-path = "../../../hardware/printed-parts/cold-core/coil-mandrel/coil_mandrel.rs"
-
-[[bin]]
-name = "magnetic-float"
-path = "../../../hardware/printed-parts/cold-core/magnetic-float/magnetic_float.rs"
-
-[[bin]]
 name = "foam-cap"
 path = "../../../hardware/printed-parts/cold-core/foam-cap/foam_cap.rs"
-
-[[bin]]
-name = "reed-bridge"
-path = "../../../hardware/printed-parts/cold-core/reed-bridge/reed_bridge.rs"
-
-[[bin]]
-name = "all-aero-float"
-path = "../../../hardware/printed-parts/cold-core/magnetic-float/all-aero/all_aero_float.rs"
 
 [[bin]]
 name = "carbonator-tube"

@@ -165,23 +165,10 @@ pub fn request(input: &Value) -> Result<Value> {
         )),
         "bond-constants" => Ok(bond_constants()),
         "bond" => Ok(bond(number(input, "top_plate_outer_z")?)),
-        "mandrel" => Ok(mandrel::datums(
-            number(input, "evap_tail_low_z")?,
-            number(input, "evap_tail_high_z")?,
-        )),
-        "mandrel-numbers" => Ok(mandrel::numbers(
-            number(input, "evap_tail_low_z")?,
-            number(input, "evap_tail_high_z")?,
-            &input["color"],
-        )),
-        "mandrel-report" => Ok(json!(mandrel::report(
-            number(input, "evap_tail_low_z")?,
-            number(input, "evap_tail_high_z")?
-        ))),
-        "mandrel-variables" => Ok(mandrel::variables(
-            number(input, "evap_tail_low_z")?,
-            number(input, "evap_tail_high_z")?,
-        )),
+        "mandrel" => Ok(mandrel::datums()),
+        "mandrel-numbers" => Ok(mandrel::numbers(&input["color"])),
+        "mandrel-report" => Ok(json!(mandrel::report())),
+        "mandrel-variables" => Ok(mandrel::variables()),
         "coil" => coil::request(input),
         op => bail!("unknown cold-core data operation {op}"),
     }

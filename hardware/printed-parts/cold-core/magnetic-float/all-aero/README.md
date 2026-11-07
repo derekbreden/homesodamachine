@@ -3,15 +3,14 @@
 One connected ASA Aero body encloses an RC62 ring magnet at its axial midplane.
 The guide and reed interface serves the carbonator and both flavor reservoirs.
 
-[`all_aero_float.py`](all_aero_float.py) supplies the dimensions and nominal lift
-calculations to [`all_aero_float.rs`](all_aero_float.rs). The Rust program writes
-the article and three views as STEP, f64 models and viewer payloads, plus the
-article's STL.
+[`numbers.rs`](numbers.rs) holds the float's dimensions and nominal lift, which the
+reservoirs, the reed bridge, the end cap and the cold core take by name.
+[`all_aero_float.rs`](all_aero_float.rs), the build step, writes the float's STEP,
+f64 model and STL, the assembly with its magnet as STEP, model and viewer payload,
+and the [calculations](design.json).
 
 [Assembly](/3d?file=printed-parts/cold-core/magnetic-float/all-aero/assembly.step) ·
-[Section](/3d?file=printed-parts/cold-core/magnetic-float/all-aero/section.step) ·
-[Insertion view](/3d?file=printed-parts/cold-core/magnetic-float/all-aero/insertion.step) ·
-[CAD source](all_aero_float.py) · [Calculations](design.json) ·
+[CAD source](all_aero_float.rs) · [Calculations](design.json) ·
 [Installation and reed calibration](installation.md)
 
 ## Geometry and lift
@@ -121,7 +120,7 @@ submission.
 ## Rebuild
 
 ```sh
-tools/cad-venv/bin/python hardware/printed-parts/cold-core/magnetic-float/all-aero/all_aero_float.py
+python3 tools/run.py -- bazel build //:all-aero-float
 ```
 
 A future print preparation uses `prepare_print.py` and requires review of the
