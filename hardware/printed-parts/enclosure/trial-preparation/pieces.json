@@ -828,7 +828,7 @@
       "material": "Bambu PETG Translucent, clear",
       "external": {
         "command": [
-          "tools/funnel-mold-print/prepare_print.py",
+          "tools/hsm/target/release/funnel-mold-print-project",
           "--models",
           "hardware/printed-parts/zone-c/funnel-mold",
           "--output",

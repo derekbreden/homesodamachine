@@ -157,6 +157,19 @@ fn trim_block(z: f64) -> String {
     .join("\n")
 }
 
+/// `start` with its plate compensation, stock or already trimmed, replaced by the block that
+/// adds the user's Z trim `z`.
+pub fn trimmed_start_gcode(start: &str, z: f64) -> Result<String> {
+    let at = ["\n;===== for Textured PEI Plate", "\n;===== plate compensation plus user-calibrated"]
+        .iter()
+        .filter_map(|m| start.find(m).map(|i| i + 1))
+        .min()
+        .or_else(|| (start.starts_with(";===== for Textured PEI Plate") || start.starts_with(";===== plate compensation plus user-calibrated")).then_some(0))
+        .context("The profile has no recognized plate-compensation block")?;
+    let end = at + start[at..].find("\nG150.1").context("no G150.1 after the plate compensation")?;
+    Ok(format!("{}{}{}", &start[..at], trim_block(z), &start[end..]))
+}
+
 fn points(text: &str) -> Result<Vec<[f64; 2]>> {
     text.split(',')
         .map(|p| {
@@ -187,14 +200,7 @@ pub fn load(settings_from: &Path, z_trim: Option<f64>, filament_from: Option<&Pa
             bail!("Z trim must be a finite millimetre value");
         }
         let start = settings.get("machine_start_gcode").and_then(Json::text).context("no start G-code")?.to_string();
-        let at = ["\n;===== for Textured PEI Plate", "\n;===== plate compensation plus user-calibrated"]
-            .iter()
-            .filter_map(|m| start.find(m).map(|i| i + 1))
-            .min()
-            .or_else(|| (start.starts_with(";===== for Textured PEI Plate") || start.starts_with(";===== plate compensation plus user-calibrated")).then_some(0))
-            .context("The profile has no recognized plate-compensation block")?;
-        let end = at + start[at..].find("\nG150.1").context("no G150.1 after the plate compensation")?;
-        let trimmed = format!("{}{}{}", &start[..at], trim_block(z), &start[end..]);
+        let trimmed = trimmed_start_gcode(&start, z)?;
         let nozzle: f64 = settings.first_text("nozzle_diameter").context("no nozzle diameter")?.parse()?;
         let identity = format!("Bambu Lab H2C {} Standard +{:.2} Z trim", crate::json::python_number(nozzle).trim_end_matches(".0"), z);
         changes.insert("machine_start_gcode".into(), json!({
