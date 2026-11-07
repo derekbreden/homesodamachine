@@ -5,10 +5,9 @@ pressure-relief valve on Port 4 of the carbonator
 during the cold-core body foam pour. The shroud preserves the air
 cavity the open-port pop-off PRV needs to function.
 
-[`prv_shroud.py`](prv_shroud.py) supplies the dimensions to
-[`prv_shroud.rs`](prv_shroud.rs), which writes the STEP, f64 model, STL and
-viewer payload. The documented volume integrates the two supported vent
-bores through the analytic cup wall.
+[`numbers.rs`](numbers.rs) holds the dimensions, and
+[`prv_shroud.rs`](prv_shroud.rs), the build step, writes the STEP, f64 model,
+STL and viewer payload from them.
 
 The SV-125 (per [`assembly/pressure-vessel.md`](/hardware/assembly/pressure-vessel.md)
 step 9) is installed via a TAISHER 316L 90° street elbow on Port 4
@@ -115,9 +114,8 @@ is the serviceable boundary.
 
 ## Regression baseline
 
-Geometry is parametric on five scalars (inner_diameter,
-wall_thickness, cap_thickness, cavity_length, vent_hole_diameter)
-in `prv_shroud.py`. Any change to those is a deliberate
+Geometry is parametric on five scalars (the bore, wall, cap, cavity
+length and vent socket) in [`numbers.rs`](numbers.rs). Any change to those is a deliberate
 geometry shift and should land with a measured rationale.
 
 | metric | value |
