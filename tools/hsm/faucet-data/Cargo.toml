@@ -17,7 +17,6 @@ serde_json = { workspace = true, features = ["float_roundtrip"] }
 hsm-documents = { path = "../documents" }
 hsm-bulkhead-ring-numbers = { path = "../bulkhead-ring-numbers" }
 hsm-kernel = { path = "../kernel" }
-hsm-faucet = { path = "../faucet" }
 hsm-lever-replica-numbers = { path = "../lever-replica-numbers" }
 hsm-tpu-o-ring-numbers = { path = "../tpu-o-ring-numbers" }
 hsm-tube-collar-numbers = { path = "../tube-collar-numbers" }

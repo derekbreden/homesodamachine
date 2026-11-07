@@ -14,6 +14,7 @@ pub mod counter_plate;
 pub mod covers;
 pub mod geos;
 pub mod lever;
+pub mod metrics;
 pub mod plumbing;
 pub mod shell;
 pub mod shell_dimensions;

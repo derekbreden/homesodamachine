@@ -429,6 +429,10 @@ RUST_STEPS = {
         ("lever-replica", "lever-replica", "hardware/printed-parts/faucet/lever-replica"),
     "hardware/printed-parts/faucet/tube-collar/tube_collar.rs":
         ("tube-collar", "tube-collar", "hardware/printed-parts/faucet/tube-collar"),
+    "hardware/faucet-layout/faucet_assembly.rs":
+        ("faucet-assembly", "faucet-assembly", "hardware/faucet-layout"),
+    "hardware/faucet-layout/faucet_industrial_assembly.rs":
+        ("faucet-assembly", "faucet-industrial-assembly", "hardware/faucet-layout"),
 }
 
 #: The media a Rust step can rewrite in place: documents with authored text round the figures it
