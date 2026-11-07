@@ -40,6 +40,8 @@ are unmeasured. The [production routing review](../../hardware/printed-parts/enc
 records its installed application; the scaled 4 mm tube sections retain their
 own provisional fit scope.
 
+The scripts these commands run are in Git at [`306268f870`](https://github.com/derekbreden/homesodamachine/tree/306268f870).
+
 ```sh
 tools/cad-venv/bin/python future/tube-snap-exploration/c2_bore_trial.py
 tools/cad-venv/bin/python future/tube-snap-exploration/prints/2026-10-26-mark2-c2-three-bores/prepare.py

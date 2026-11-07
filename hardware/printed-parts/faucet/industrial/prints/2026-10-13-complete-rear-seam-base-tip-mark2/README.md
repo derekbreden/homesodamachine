@@ -63,4 +63,4 @@ the 180-second startup interval.
 - [Launch receipt](launch.json)
 - [Preflight observations](preflight.json)
 - [Fresh startup observation](startup.json)
-- [Manual evaluation preparer](prepare.py)
+- [Manual evaluation preparer](https://github.com/derekbreden/homesodamachine/blob/306268f870/hardware/printed-parts/faucet/industrial/prints/2026-10-13-complete-rear-seam-base-tip-mark2/prepare.py) (in Git at `306268f870`)

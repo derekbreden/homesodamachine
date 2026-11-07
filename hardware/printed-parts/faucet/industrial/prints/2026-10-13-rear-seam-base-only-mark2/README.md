@@ -50,4 +50,4 @@ includes the stage shoulders and a matching tip rear meridian.
 - [Launch receipt](launch.json)
 - [Preflight printer observations](preflight.json)
 - [Fresh startup observation](startup.json)
-- [Manual preparation script](prepare.py)
+- [Manual preparation script](https://github.com/derekbreden/homesodamachine/blob/306268f870/hardware/printed-parts/faucet/industrial/prints/2026-10-13-rear-seam-base-only-mark2/prepare.py) (in Git at `306268f870`)

@@ -26,6 +26,8 @@ the [physical log](../../print-log.md).
 
 To repeat the native review from the repository root:
 
+The scripts these commands run are in Git at [`306268f870`](https://github.com/derekbreden/homesodamachine/tree/306268f870).
+
 ```sh
 mkdir -p .cache/funnel-h2c-right-2026-10-06/slice-v3
 /Applications/BambuStudio.app/Contents/MacOS/BambuStudio --slice 0 --arrange 0 --orient 0 --outputdir "$PWD/.cache/funnel-h2c-right-2026-10-06/slice-v3" --export-3mf 2026-10-06-funnel-cavity-h2c-right-z018-v3.gcode.3mf "$PWD/hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-06-h2c-right-gyroid15/funnel-mold-h2c-right.3mf"

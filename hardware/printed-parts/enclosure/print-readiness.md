@@ -106,8 +106,9 @@ uses 0.24 mm through the front-bottom/back-bottom flute runouts. Their shallow
 decorative fade does not require fine layers. Each new native revision binds the
 frozen mesh, local wall bands, required support paths and complete dense fastener hosts.
 
-Measure each retained inward/top curve's print-Z span on the STEP, then run
-`hardware/scripts/verify_round_layer_band.py` on the exported `.gcode.3mf` for that object and
+Each retained inward/top curve is a fine band of its piece in the
+[preparation](trial-preparation/pieces.json), and `enclosure-print-prep <piece> --slice --review`
+reads the emitted wall layers across every band's print-Z
 span. The emitted wall layers must cover the full span at 0.08 mm; the range setting in the
 project alone does not establish this. The first bed layer stays 0.20 mm; verify
 the emitted overlap into the next layer. New meshes require fresh slices and

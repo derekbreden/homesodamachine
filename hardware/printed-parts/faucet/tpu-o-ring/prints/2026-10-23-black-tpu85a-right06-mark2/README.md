@@ -39,7 +39,7 @@ The sleeve's native wall already rises as one uninterrupted spiral. Its native
 cap has five potential free attachment chords across its hole, even with
 wall-crossing avoidance enabled.
 
-[`continuous_cap.py`](continuous_cap.py) splices only the three planar cap layers
+[`continuous_cap.py`](https://github.com/derekbreden/homesodamachine/blob/306268f870/hardware/printed-parts/faucet/tpu-o-ring/prints/2026-10-23-black-tpu85a-right06-mark2/continuous_cap.py) (in Git at `306268f870`) splices only the three planar cap layers
 into deposited tours using the elbow's graph helpers. The nozzle prints through
 the turns and takes straight contained transfers between deposited paths.
 The native spiral and shutdown bytes are retained verbatim, starting from the
@@ -78,6 +78,8 @@ has no printed article or physical acceptance.
 ## Reproduce
 
 These manual steps do not send a print or run on commits/builds:
+
+The scripts these commands run are in Git at [`306268f870`](https://github.com/derekbreden/homesodamachine/tree/306268f870).
 
 ```sh
 tools/cad-venv/bin/python hardware/printed-parts/faucet/tpu-o-ring/prints/2026-10-23-black-tpu85a-right06-mark2/prepare_mark2.py

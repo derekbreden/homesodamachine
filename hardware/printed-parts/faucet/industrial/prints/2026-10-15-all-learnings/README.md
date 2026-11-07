@@ -84,5 +84,5 @@ physical acceptance records retain their identified scope. The
 [complete black result](physical-result.json) records direct user appearance
 acceptance and the requested process transfer to the white Sculpted faucet.
 
-`prepare.py` and `review.py` are manual preparation/review tools and do not send
+[`prepare.py`](https://github.com/derekbreden/homesodamachine/blob/306268f870/hardware/printed-parts/faucet/industrial/prints/2026-10-15-all-learnings/prepare.py) and [`review.py`](https://github.com/derekbreden/homesodamachine/blob/306268f870/hardware/printed-parts/faucet/industrial/prints/2026-10-15-all-learnings/review.py) (in Git at `306268f870`) are manual preparation/review tools and do not send
 prints. Submitted projects and archives are preserved.

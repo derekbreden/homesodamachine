@@ -18,7 +18,7 @@ The selected displacement is the correction to apply to white;
 the measured relative error has the opposite sign. Do not extrapolate beyond
 the coupon. A photograph perpendicular to the surface can document the reading.
 
-`registration.py` builds the two-colour reference. `prepare_print.py` packages
+`registration.py` builds the two-colour reference. [`prepare_print.py`](https://github.com/derekbreden/homesodamachine/blob/306268f870/hardware/printed-parts/calibration/dual-nozzle-registration/prepare_print.py) (in Git at `306268f870`) packages
 it with the saved PET-GF profiles. [`verify_print.py`](https://github.com/derekbreden/homesodamachine/blob/9884d0e7f4/hardware/printed-parts/calibration/dual-nozzle-registration/verify_print.py) (in Git at `9884d0e7f4`) checks all 60 emitted
 candidate displacements across both rows and both raised layers. It also checks
 the native checksum, source hashes, filament mapping, layer planes and no support.
@@ -40,7 +40,7 @@ The correction belongs to Mark2's current nozzle pair. The nominal CAD artwork
 and black cavity meshes remain aligned. Bambu Studio's native `extruder_offset`
 is `0x0` for left/black and `0.5x-0.7` for right/white. Its
 [`point_to_gcode` implementation](https://github.com/bambulab/BambuStudio/blob/master/src/libslic3r/GCode.cpp)
-subtracts that configured offset from model coordinates. `verify_correction.py`
+subtracts that configured offset from model coordinates. [`verify_correction.py`](https://github.com/derekbreden/homesodamachine/blob/306268f870/hardware/printed-parts/calibration/dual-nozzle-registration/verify_correction.py) (in Git at `306268f870`)
 checks the actual emitted model paths against the uncorrected native slice;
 the maximum normalized path difference is 0.000691 mm, within export rounding.
 The native purge-tower entry movements are checked separately.

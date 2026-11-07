@@ -73,4 +73,4 @@ the approved printed project. The five-part Mark2 candidate estimates
 - [Complete editable Mark2 candidate](2026-10-13-industrial-faucet-rear-seam-petgf-left04-z004-mark2.3mf)
 - [Complete sliced Mark2 candidate](https://github.com/derekbreden/homesodamachine/blob/33d50d2ecd2a0fb6b518483a44c8031e3a0c1617/hardware/printed-parts/faucet/industrial/seam-placement/rear-center-v1/2026-10-13-industrial-faucet-rear-seam-petgf-left04-z004-mark2.gcode.3mf)
 - [Source and preparation record](2026-10-13-industrial-faucet-rear-seam-petgf-left04-z004-mark2.print.json)
-- [Manual trace reader](review.py)
+- [Manual trace reader](https://github.com/derekbreden/homesodamachine/blob/306268f870/hardware/printed-parts/faucet/industrial/seam-placement/rear-center-v1/review.py) (in Git at `306268f870`)

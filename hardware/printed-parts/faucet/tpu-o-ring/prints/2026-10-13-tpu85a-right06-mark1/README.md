@@ -31,7 +31,7 @@ Mark2 task 1335906696 was accepted more than five hours before this start.
 - [Launch receipt and shared-circuit spacing](launch.json)
 - [Preflight observation](preflight.json)
 - [Fresh startup observation](startup.json)
-- [Manual preparation script](prepare_mark1.py)
+- [Manual preparation script](https://github.com/derekbreden/homesodamachine/blob/306268f870/hardware/printed-parts/faucet/tpu-o-ring/prints/2026-10-13-tpu85a-right06-mark1/prepare_mark1.py) (in Git at `306268f870`)
 
 The first acceptance receipt includes the preceding job's layer counter
 (155); the fresh startup observation records this new job at layer 0 of 87.

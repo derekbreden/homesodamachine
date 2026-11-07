@@ -4,7 +4,7 @@
 //! the legs, Y along the front edge, +Z up from the bed, the show face at Z = 0.
 
 /// The H2C plate the left nozzle reaches, and the border the print project keeps inside it
-/// (`faucet/refresh_print_project.py`, `plate_border`).
+/// (`prepare_print.rs`, `PLATE_BORDER`).
 pub const LEFT_REACH_X: f64 = 325.;
 pub const LEFT_REACH_Y: f64 = 320.;
 pub const PLATE_BORDER: f64 = 5.;

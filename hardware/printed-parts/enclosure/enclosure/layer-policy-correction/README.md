@@ -17,7 +17,7 @@ hashes and saved band declarations. The [archived native layer readings](existin
 are evidence of the inherited settings, with each archive identified by its
 digest. Geometry exports remain frozen.
 
-`prepare.py` is the preparation of the v5 cartridge/cap and v6 bottom projects. The
+[`prepare.py`](https://github.com/derekbreden/homesodamachine/blob/306268f870/hardware/printed-parts/enclosure/enclosure/layer-policy-correction/prepare.py) (in Git at `306268f870`) is the preparation of the v5 cartridge/cap and v6 bottom projects. The
 cartridge project retains the reviewed RC62 pause, mesh members, solid hosts, support
 paint, layout and printer settings. Its upper transition uses 0.24 mm. Each bottom project
 uses its bound mesh, its complete insert-host modifiers and the production support policy

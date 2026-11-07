@@ -33,7 +33,7 @@ insertion, recovery, retention and finger contact on this full-size handhold.
 The companion [geometry check](geometry-check.json), [native print check](print-check.json),
 [preparation](preparation.json) and [support audit](support-audit.json) are snapshots
 for this exact trial. The native archive is retained at the repository-relative
-cache path in the launch receipt. Its source recipe is `../prepare_print.py`.
+cache path in the launch receipt. Its source recipe is [`../prepare_print.py`](https://github.com/derekbreden/homesodamachine/blob/306268f870/hardware/printed-parts/enclosure/grip-cover/prepare_print.py) (in Git at `306268f870`).
 The launch receipt governs submission status; the copied preparation checks
 describe their pre-send state.
 

@@ -36,7 +36,7 @@ wall-first order and 15% overlap are retained. Native verification checks first-
 overlap, the complete bottom transition, and emitted wall count. No other parts
 share the plate.
 
-`low_force_trial.py` generates the geometry; `prepare_print.py` prepares and natively
+`low_force_trial.py` generates the geometry; [`prepare_print.py`](https://github.com/derekbreden/homesodamachine/blob/306268f870/hardware/printed-parts/enclosure/tee-carrier/low-force-trial/prepare_print.py) (in Git at `306268f870`) prepares and natively
 slices the Mark2 job. The chamfer/taper profile has a physically accepted surface reference;
 the 1.00 mm roof-gap geometry is physically accepted as Mark2 task 1297480230. Its
 [verified native slice](../../tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-30-tee-low-force050-mark2-v16/README.md)
