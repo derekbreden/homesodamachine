@@ -1,56 +1,41 @@
-# PCBA tray (the main board's bench mount)
+# Main board
 
-**This tray does not ship.** In the appliance the main board bolts straight
-to four printed bosses on the +X wall of back-top — the same mount, one part
-earlier, with no floor between the board and the wall. The stations are struck off
-the board's own MH1–MH4 pattern and carried through its placement
-([`enclosure_assembly.wall_mounts`](/hardware/manifold-layout/enclosure_assembly.py)), and
-`pcba-board.step` is the body the machine carries. What lives here is the board
-datum every one of those mounts is derived from — the outline, the MH1–MH4
-rectangle, the thickness, the **2 mm THT-tail envelope below the PCB underside**,
-and the component heights read off the fab model — plus
-the tray itself as bench geometry, which stands in `pcba-assembly.step` rather than
-as a solid of its own.
+The main board bolts straight to four printed bosses on the +X wall of back-top, with no
+floor between the board and the wall. The stations are struck off the board's own MH1–MH4
+pattern and carried through its placement, and `pcba-board.step` is the body the machine
+carries. What lives here is the board datum every one of those mounts is derived from — the
+outline, the MH1–MH4 rectangle, the thickness, the **2 mm THT-tail envelope below the PCB
+underside**, and the component heights read off the fab model.
 
-Built by the shared
-[`module_tray`](/hardware/printed-parts/electronics/module_tray.py) engine:
-a **single convex-outline floor**, **no walls**, **heat-set M3 bosses**.
-
-## What mounts here
+## The board
 
 - **[Main board](/hardware/pcb/pcba/)** — the one board: ESP32-WROOM-32E,
   both MCP23017s, DS3231, both TBD62083 sink drivers, both DRV8870 pump
   H-bridges, RS485, the 5 V buck + 3.3 V LDO, and every field connector
   (J1–J14).
 
-Off this tray: AC lives across the strip aft of the main board — the PSU and relay #1
+Beside it: AC lives across the strip aft of the main board — the PSU and relay #1
 each on their own cap columns, the Wago AC distribution and its PE block in
 the wall's own Wago wells; the looms land on the
 board's edge connectors per [`/hardware/wiring/ac-wiring-schedule.md`](/hardware/wiring/ac-wiring-schedule.md).
 
-## Layout & retention
+## Mounting
 
-Four M3 heat-set standoff bosses (⌀7.2, ruthex RX-M3Sx4 insert, 5 mm standoff) under the
-board's four **electrically isolated plated mounting holes** — MH1–MH4 in
+The board's four **electrically isolated plated mounting holes** — MH1–MH4 in
 [`pcba.tsx`](/hardware/pcb/pcba/pcba.tsx), 3.2 mm hole / 4.0 mm pad on a
-**78.0 × 66.3 mm** rectangle, each hole ~3.5 mm inside its board corner. M3
-SHCS drive down through the board into the inserts; the board's bottom face
-seats on the boss tops (5 mm clears the THT tails — XH wafers, the J10 screw
-block, U10, BT1, J14's shield legs), and the screw head + washer seat on the
-top-face pad, which the board's pours keep clear (`fastenerAnnulus`). Each Ø4.0
-pilot is 5.0 mm deep, with 1.6 mm surrounding stock and 1.0 mm relief below
-the 4.0 mm insert, following the
-[ruthex RX-series drawing](https://www.igo3d.com/mediafiles/Sonstiges/Ruthex/ruthex_Datenblatt_RX-Serie.pdf).
+**78.0 × 66.3 mm** rectangle, each hole ~3.5 mm inside its board corner — take M3
+SHCS down through the board into heat-set inserts; the screw head + washer seat on the
+top-face pad, which the board's pours keep clear (`fastenerAnnulus`).
 
 The PCB underside and every mounting hole are at Z = 0 in `pcba-board.step`.
 Every part on the board is top-side, so the underside presents only through-hole
 solder joints and flush copper. The through-hole component footprints continue to
 Z = −2 as a conservative tail envelope, except within 8 mm of each mounting hole,
-where the model carries the board's own joints instead (`_hole_joints`): J1 pin 1
-stands 6.2 mm from MH2 to its pad edge, J7 pin 1 6.3 mm from MH3 and J11 pin 1
-5.5 mm from MH4, and MH1's nearest, a J14 shield leg, is 11.3 mm off. In the
-appliance that envelope is seated nearest the +X wall, so the four wall bosses
-reach 2 mm farther inboard to the actual board underside; the wall is not allowed
+where the model carries the board's own joints instead (`JOINTS` in
+[`numbers.rs`](numbers.rs)): J1 pin 1 stands 6.2 mm from MH2 to its pad edge, J7 pin 1
+6.3 mm from MH3 and J11 pin 1 5.5 mm from MH4, and MH1's nearest, a J14 shield leg, is
+11.3 mm off. In the appliance that envelope is seated nearest the +X wall, so the four wall
+bosses reach 2 mm farther inboard to the actual board underside; the wall is not allowed
 to occupy the solder-tail clearance simply because the fab visualization omits
 detailed clipped leads.
 
@@ -68,20 +53,32 @@ at least 0.85 mm reserve before the blind end. The
 [enclosure audit](../../enclosure/enclosure/heat-set-review/geometry-check.json)
 checks those complete native seats and installed screw stacks.
 
-The tray frame **is the board's pcb frame** (pcbX/pcbY as in `pcba.tsx`), so
-every boss centre is its MH coordinate verbatim. Board footprint
-**85 × 72.8 mm** as fabbed; the floor is that outline grown 0.6 mm on the
-south edge, where MH3/MH4 sit 3.0 mm from the edge against the M3 boss's
-3.6 mm radius (MH1/MH2, 3.5 mm from the north edge, need 0.1 mm growth).
+The board's frame **is its pcb frame** (pcbX/pcbY as in `pcba.tsx`), so every mounting
+station is its MH coordinate verbatim. Board footprint **85 × 72.8 mm** as fabbed.
 Keep the west and east edges unobstructed on the wall: the USB-C
 programming port (J14) is flush on the west edge, and the J10 12 V screw
 throats face east.
 
-`pcba_tray.py` carries the datum and the mount stations and writes no solid;
-`pcba_assembly.py` → `pcba-assembly.step` (tray + board) and `pcba-board.step`
-(the board as a simplified populated model — the outline slab + one box per
-component at its placed footprint and height, including the clipped 2 mm
-wall-facing part of each through-hole box, read from
-`hardware/pcb/pcba/out/pcba.glb`; the full component 3D is
-[`/hardware/pcb/pcba/out/pcba.glb`](/hardware/pcb/pcba/)). Regenerate with
-`tools/cad-venv/bin/python <script>`.
+## Files
+
+[`numbers.rs`](numbers.rs) holds the board datum. [`pcba_assembly.rs`](pcba_assembly.rs)
+cuts `pcba-board.step` and its payload and model — the board as a simplified populated
+model: the outline slab with MH1–MH4, one box per component at its placed footprint and
+height, and the clipped 2 mm wall-facing part of each through-hole box — from
+[`board-stock.json`](board-stock.json), the component boxes read off the
+[PCB build's](/hardware/pcb/pcba/) fab model `hardware/pcb/pcba/out/pcba.glb`, which holds
+the full component 3D. It also writes `pcba-assembly.numbers.json`, the board's slab and
+outline centre that the installed machine's wiring reads.
+
+Regenerate from the repository root:
+
+```sh
+python3 tools/run.py -- cargo run --release --manifest-path tools/hsm/pcba-assembly/Cargo.toml
+```
+
+When the board's design changes, export the fab model again and then write its component
+stock down:
+
+```sh
+python3 tools/run.py -- cargo run --release --manifest-path tools/hsm/pcba-assembly/Cargo.toml -- --read-fab-model
+```
