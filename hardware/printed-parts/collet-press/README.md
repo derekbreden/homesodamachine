@@ -67,9 +67,9 @@ foam, and the atmospheric PRV vent because this jaw does not fit them.
 ## Regenerate
 
 ```sh
-tools/cad-venv/bin/python hardware/printed-parts/collet-press/collet_press.py
+python3 tools/run.py -- cargo run --release --manifest-path tools/hsm/collet-press/Cargo.toml
 ```
 
-This writes `collet-press.step`, `collet-press.stl`, and the generated figure
-values in this README. The measured release geometry comes from
-[`reference/jg-pp0408w`](/hardware/reference/jg-pp0408w/jg_pp0408w.py).
+This writes `collet-press.step`, its payload and model, and `collet-press.stl`.
+[`numbers.rs`](numbers.rs) holds the press's dimensions and the PP0408W figures it is shaped
+round, measured off the part in hand ([`reference/jg-pp0408w`](/hardware/reference/jg-pp0408w/)).

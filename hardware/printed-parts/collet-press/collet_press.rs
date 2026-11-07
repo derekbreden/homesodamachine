@@ -1,64 +1,81 @@
-//! The one-piece angled collet press, in its original supportless print pose.
-use anyhow::{ensure, Result};
-use hsm_kernel::part::{args, write_part, Numbers};
-use hsm_kernel::{v2, v3, Affine, Body, Loop, Pen, Plane, Profile, Solid, V3};
+//! The collet press's files: the one-piece PET-GF hand tool in its supportless print pose, the
+//! handle flat on the bed and the forked head rising from it.
+//!
+//!     collet-press [<output directory>]
+use anyhow::{Result, bail, ensure};
+use hsm_collet_press_numbers as press;
+use hsm_kernel::part::write_part;
+use hsm_kernel::{Affine, Body, Loop, Pen, Plane, Profile, Solid, V3, v2, v3};
+use std::path::PathBuf;
 
-fn posed(n: &Numbers, solid: &Solid) -> Result<Solid> {
-    Ok(solid.transformed(&Affine::rotation(V3::ZERO, V3::Y, -n.f("head_angle")?))
-        .transformed(&Affine::translation(v3(0.0, 0.0, n.f("head_z_shift")?))))
-}
-
-fn build(n: &Numbers) -> Result<Solid> {
-    let back = n.f("head_back")?;
-    let front = n.f("head_front")?;
-    let half = n.f("head_width")? / 2.0;
-    let gap = n.f("jaw_gap")? / 2.0;
-    let radius = n.f("tip_radius")?;
-    let root = n.f("jaw_root")?;
-    // Four nose quarters preserve the original straight bearing lands. The
-    // clockwise half-circle is the constant-width U-slot's closed root.
-    let head = Profile::new(Pen::new(v2(back, -half))
-        .line_to(v2(front - radius, -half))
-        .arc_center(v2(front - radius, -half + radius), v2(front, -half + radius), true)
-        .line_to(v2(front, -gap - radius))
-        .arc_center(v2(front - radius, -gap - radius), v2(front - radius, -gap), true)
-        .line_to(v2(root, -gap))
-        .arc_center(v2(root, 0.0), v2(root, gap), false)
-        .line_to(v2(front - radius, gap))
-        .arc_center(v2(front - radius, gap + radius), v2(front, gap + radius), true)
-        .line_to(v2(front, half - radius))
-        .arc_center(v2(front - radius, half - radius), v2(front - radius, half), true)
-        .line_to(v2(back, half)).close()?);
-    let head = posed(n, &Plane::XY.extrude(&head, n.f("head_thickness")?)?)?;
-
-    let (rear, raw_front) = n.pair("handle_x")?;
-    let width = n.f("handle_width")?;
-    let handle = Plane::XY.extrude(&Profile::new(Loop::rounded_rect(
-        v2((rear + raw_front) / 2.0, 0.0), raw_front - rear, width,
-        n.f("handle_corner_radius")?,
-    )?), n.f("handle_thickness")?)?;
-    let points = n.list("handle_clip")?;
-    let polygon = points.chunks_exact(2).map(|p| v2(p[0], p[1])).collect::<Vec<_>>();
-    let clip = Plane::XZ.at(v3(0.0, width, 0.0))
-        .extrude(&Profile::new(Loop::polygon(&polygon)), 2.0 * width)?;
-    let tool = handle.intersect(&clip)?.union(&head)?;
-    tool.check()?;
-    ensure!(tool.components().len() == 1, "collet press must be one closed printable body");
-    let tube_d = n.f("tube_diameter")?;
-    ensure!(tube_d < 2.0 * gap && 2.0 * gap < n.f("collet_bore")?,
-            "jaw must pass the tube and remain inside the collet bore");
-    let tube = Solid::cylinder(v3(root, 0.0, -2.0), V3::Z,
-                               tube_d / 2.0, n.f("head_thickness")? + 4.0)?;
-    let interference = tool.shared_volume(&posed(n, &tube)?)?;
-    ensure!(interference <= 1e-6, "tube path interference {interference} mm3");
-    Ok(tool)
-}
+const NAME: &str = "collet-press";
+const OUTPUT: &str = "hardware/printed-parts/collet-press";
 
 fn main() -> Result<()> {
-    let (n, out) = args()?;
-    let solid = build(&n)?;
-    println!("{}", write_part(&out, "collet-press", &[Body {
-        name: "collet-press", color: Some(n.color("color")?), solid: &solid,
-    }])?);
+    let mut args = std::env::args_os().skip(1);
+    let out = args.next().map(PathBuf::from).unwrap_or_else(|| PathBuf::from(OUTPUT));
+    if args.next().is_some() {
+        bail!("usage: collet-press [<output directory>]");
+    }
+    hsm_kernel::reads::begin();
+    std::fs::create_dir_all(&out)?;
+    let solid = build()?;
+    let bodies = [Body { name: NAME, color: Some(hsm_catalog::petgf_black()), solid: &solid }];
+    println!("{}", write_part(&out, NAME, &bodies)?);
     Ok(())
+}
+
+/// A solid in the head's frame, tilted up and lifted into the print pose.
+fn posed(solid: &Solid) -> Solid {
+    solid
+        .transformed(&Affine::rotation(V3::ZERO, V3::Y, -press::HEAD_ANGLE))
+        .transformed(&Affine::translation(v3(0., 0., press::head_z_shift())))
+}
+
+fn build() -> Result<Solid> {
+    let (back, front) = (press::head_back(), press::head_front());
+    let half = press::HEAD_WIDTH / 2.;
+    let gap = press::JAW_GAP / 2.;
+    let radius = press::TIP_RADIUS;
+    let root = press::JAW_ROOT;
+    // The nose's four quarter rounds keep the straight bearing lands either side of the slot;
+    // the half circle closes the constant-width slot's root.
+    let head = Profile::new(
+        Pen::new(v2(back, -half))
+            .line_to(v2(front - radius, -half))
+            .arc_center(v2(front - radius, -half + radius), v2(front, -half + radius), true)
+            .line_to(v2(front, -gap - radius))
+            .arc_center(v2(front - radius, -gap - radius), v2(front - radius, -gap), true)
+            .line_to(v2(root, -gap))
+            .arc_center(v2(root, 0.), v2(root, gap), false)
+            .line_to(v2(front - radius, gap))
+            .arc_center(v2(front - radius, gap + radius), v2(front, gap + radius), true)
+            .line_to(v2(front, half - radius))
+            .arc_center(v2(front - radius, half - radius), v2(front - radius, half), true)
+            .line_to(v2(back, half))
+            .close()?,
+    );
+    let head = posed(&Plane::XY.extrude(&head, press::HEAD_THICKNESS)?);
+
+    let [rear, reach] = press::handle_x();
+    let width = press::HEAD_WIDTH;
+    let handle = Plane::XY.extrude(
+        &Profile::new(Loop::rounded_rect(v2((rear + reach) / 2., 0.), reach - rear, width, radius)?),
+        press::HEAD_THICKNESS,
+    )?;
+    let clip: Vec<_> = press::handle_clip().iter().map(|&[x, z]| v2(x, z)).collect();
+    let clip = Plane::XZ.at(v3(0., width, 0.)).extrude(&Profile::new(Loop::polygon(&clip)), 2. * width)?;
+    let tool = handle.intersect(&clip)?.union(&head)?;
+    tool.check()?;
+    ensure!(tool.components().len() == 1, "the collet press is one closed printable body");
+
+    let tube = press::PORT_DIAMETER;
+    ensure!(
+        tube < press::JAW_GAP && press::JAW_GAP < press::collet_bore(),
+        "the jaw passes the tube and stays inside the release sleeve's bore"
+    );
+    let path = Solid::cylinder(v3(root, 0., -2.), V3::Z, tube / 2., press::HEAD_THICKNESS + 4.)?;
+    let interference = tool.shared_volume(&posed(&path))?;
+    ensure!(interference <= 1e-6, "the tube's path through the slot is clear");
+    Ok(tool)
 }
