@@ -130,8 +130,10 @@ explicit input recipes come from Rust data providers.
 | Enclosure pieces | `enclosure-front-bottom`, `enclosure-front-top`, `enclosure-back-bottom`, `enclosure-back-top`, `enclosure-pump-retainer`, `enclosure-pump-tube-setting-jig`; each printed piece's files from the declared Box through its typed recipe | `hardware/printed-parts/enclosure/enclosure/enclosure_*.rs` |
 | Enclosure model | `enclosure`; the shown pieces in place from their fine models, with the dock's tees and stem elbows | `hardware/printed-parts/enclosure/enclosure/enclosure.rs` |
 | Enclosure measurements | `enclosure-checks`; piece bounds and Box measurements | `hardware/printed-parts/enclosure/enclosure/enclosure_checks.rs` |
-| Print surfaces | `print-payload`, for the payloads `flute_payload.py` cuts, and the library the enclosure piece programs link; reduction, shading and source records | `tools/hsm/print-payload/` |
+| Print surfaces | `print-payload`, for the payloads `flute_payload.py` cuts, and the library the enclosure and faucet piece programs link; reduction, shading and source records | `tools/hsm/print-payload/` |
 | End cap | `endcap-circular-step`; the machined cap's files from the numbers crates of the tube, the float and the cap | `hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_step.rs` |
+| Faucet parts | `tpu-o-ring`, `umbilical-organizer`, `faucet-shell`, `above-counter-plate`, `above-counter-gasket`, `faucet-display-cover`, `industrial-faucet`, `lever-replica`, `tube-collar`; each part's files from its own numbers crate and the faucet's, each printed piece's payload cut from its STL | `hardware/printed-parts/faucet/*/*.rs` |
+| Faucet assemblies | `faucet-assembly`, `faucet-industrial-assembly`; the faucet and its umbilical as the bench bags them, from the assembly's numbers crate, each printed piece drawn with its own surface | `hardware/faucet-layout/faucet_assembly.rs`, `hardware/faucet-layout/faucet_industrial_assembly.rs` |
 | Installed machine | `installed-machine`; the placements, equipment, tubes, installed parts and wiring in one process, written as the machine's STEP, viewer payload, facts and scene GLBs | `hardware/manifold-layout/installed_machine.rs` |
 | Machine checks | `machine-checks`; fit, clearance and scalar readings, off during the conversion | `hardware/manifold-layout/machine_checks.rs` |
 | Install guide | `install-guide`; the booklet's pages from its artwork, kit drawings and the faucet plate's DXF, written as the reading copy, cover picture and sidecar, and with `HSM_PRESS` the Lulu interior, cover and order bundle | `hardware/install-guide/install_guide.rs` |
@@ -182,7 +184,7 @@ with the existing build trace registries.
 | `ledger-data`, `ledger-analysis` | BOM arithmetic, mass/timing/cost readers, purchase evidence, exact decimal reconciliation, validation, CSV/JSON and reports |
 | `assembly-docs` | Assembly constants, electrical budgets, schedules, fluid-topology diagrams and the installed wiring model, routing and readers |
 | `cold-core-data` | Complete cold-core dimensions, recipes, assembly, reservoir/foam/float/mandrel providers and maintained fabrication drawings |
-| `faucet-data` | Complete faucet shell and assembly recipes, scalar interfaces, tube paths, seals, collars, lever, plumbing scenes and DXF |
+| `faucet-data` | The faucet's recipes for the Python readers that remain: the shell's and the assembly's CadQuery builders and the tubes' cut lengths, scalar interfaces, tube paths, seals and plumbing scenes, read from the parts' typed numbers crates |
 | `enclosure-data` | Complete enclosure sizing, interface/datums, panel/dock/tray/cap/nameplate recipes, measurement graph and document providers |
 | `machine-data` | Manifold and assembly placement recipes, equipment/routes/check inputs, mounting ledgers, facts, Boxes, fine archives, reports and scene composition |
 | `part-data` | Purchased reference providers, storage catalogues, refrigeration/printing fixtures, drain adapters, cuffs, press, sleeve, trays and zone-C recipes |

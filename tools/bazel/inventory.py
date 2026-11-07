@@ -177,12 +177,6 @@ IMPLICIT_SOLIDS = {
     "hardware/cold-core-layout/cold_core_assembly.py": (
         "hardware/cold-core-layout/cold-core-assembly.step.mesh",
     ),
-    "hardware/faucet-layout/faucet_assembly.py": (
-        "hardware/faucet-layout/faucet-assembly.step.mesh",
-    ),
-    "hardware/faucet-layout/faucet_industrial_assembly.py": (
-        "hardware/faucet-layout/faucet-industrial-assembly.step.mesh",
-    ),
 }
 
 # Outputs whose bytes cross between build actions without becoming public artifacts.

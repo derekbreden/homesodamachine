@@ -46,14 +46,10 @@ Its run is drawn to `umbilical_drawn` rather than to the factory cut: the metre 
 the gather and the wall is one straight, and what a picture of it is worth is the end that has
 features on it.
 
-THE KERNEL CUTS THE FILES. `main` writes `numbers()` — every tube's centreline as `faucet_paths`
-legs, the cable's sections, the display's boxes and seat, the umbilical's outlines, the colours,
-and the parts and vendor bodies it stands in place — and `faucet_assembly.rs`, beside this
-module, cuts `faucet-assembly.step` and the payload `/3d` draws from them. The CadQuery builders
-here are for this module's readers: the install guide's art and the display snap trial.
-
-Regenerate:
-    tools/cad-venv/bin/python hardware/faucet-layout/faucet_assembly.py
+THE KERNEL CUTS THE FILES. `faucet_assembly.rs`, beside this module, cuts `faucet-assembly.step`
+and the payload `/3d` draws; `assembly/` holds its bodies and `numbers.rs` its numbers. This
+module answers its readers: the BOM's sync takes the tubes' cut lengths, `tools/model` the
+umbilical's, and the vent and seal checks stand its CadQuery builders.
 """
 
 from __future__ import annotations
@@ -73,10 +69,6 @@ sys.path.insert(
     0,
     str(next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"),
 )
-if __name__ == "__main__":
-    import _rust_part
-    _rust_part.start()
-
 import cadquery as cq
 from _cadq_export import import_step
 import _materials as _mat
@@ -1167,26 +1159,3 @@ def flavor_run_legs(x_sign):
 
 def flavor_umbilical_legs(x_sign):
     return _assembly_data('flavor_umbilical_legs', args=[x_sign])
-
-
-def numbers():
-    return _assembly_data("numbers")
-
-
-def main():
-    import _rust_part
-    out = _assembly_dir / "faucet-assembly.step"
-    said = _rust_part.cut("faucet", "faucet-assembly", numbers(), _assembly_dir)
-    print("-> " + ", ".join(said["files"]))
-    import flute_payload
-    grafted = flute_payload.graft(
-        Path(str(out) + ".mesh"), flute_payload.surfaces(flute_payload.FAUCET_DIRS))
-    if grafted:
-        print(f"-> {out.name}.mesh  ({grafted} printable piece(s))")
-    report = _assembly_data("report")
-    for line in report["lines"]:
-        print(line)
-
-
-if __name__ == "__main__":
-    main()

@@ -1162,7 +1162,34 @@ dependencies = [
  "clipper2-rust",
  "hsm-faucet-numbers",
  "hsm-kernel",
+]
+
+[[package]]
+name = "hsm-faucet-assembly"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "hsm-build-data",
+ "hsm-faucet",
+ "hsm-faucet-assembly-numbers",
+ "hsm-faucet-numbers",
+ "hsm-kernel",
+ "hsm-print-payload",
+ "hsm-shared-data",
+ "hsm-tpu-o-ring-numbers",
+ "hsm-tube-collar-numbers",
+ "hsm-umbilical-organizer-numbers",
  "serde_json",
+]
+
+[[package]]
+name = "hsm-faucet-assembly-numbers"
+version = "0.1.0"
+dependencies = [
+ "hsm-faucet-numbers",
+ "hsm-tube-collar-numbers",
+ "hsm-umbilical-organizer-numbers",
+ "hsm-under-counter-plate-numbers",
 ]
 
 [[package]]
@@ -1172,7 +1199,6 @@ dependencies = [
  "anyhow",
  "hsm-bulkhead-ring-numbers",
  "hsm-documents",
- "hsm-faucet",
  "hsm-kernel",
  "hsm-lever-replica-numbers",
  "hsm-shared-data",

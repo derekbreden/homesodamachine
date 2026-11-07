@@ -9,7 +9,7 @@ use hsm_faucet_numbers::paths::LOWER_Y;
 pub type P2 = [f64; 2];
 
 /// The sheet: 0.060" 316 stainless.
-pub const THICKNESS: f64 = 0.060 * 25.4;
+pub const THICKNESS: f64 = 1.524;
 /// The shank's pocket.
 pub const SHANK_CX: f64 = 0.0;
 pub const SHANK_CY: f64 = 0.0;

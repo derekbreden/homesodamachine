@@ -34,7 +34,7 @@ fn point2(v: &Value) -> [f64; 2] {
     [v[0].as_f64().unwrap(), v[1].as_f64().unwrap()]
 }
 fn measure(paths: Value, hulls: Value) -> Result<Value> {
-    hsm_faucet::metrics::measure(&Numbers::from_value(json!({"paths":paths,"hulls":hulls})))
+    crate::metrics::measure(&Numbers::from_value(json!({"paths":paths,"hulls":hulls})))
 }
 #[derive(Clone)]
 pub enum Leg {

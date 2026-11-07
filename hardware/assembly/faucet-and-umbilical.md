@@ -208,7 +208,7 @@ Inboard, these sockets connect to V-G through `fluid-18` and V-J through
 `fluid-28` respectively. Both tails use the same black 4 mm stock; their
 collars identify the circuits.
 
-The organizer, the bundle, the sleeve over it and four collars on the bare tails are drawn in [`/hardware/faucet-layout/faucet_assembly.py`](/hardware/faucet-layout/faucet_assembly.py), which carries the terminated end at full size and the metre and a half of straight between it and the faucet as a figure rather than a length.
+The organizer, the bundle, the sleeve over it and four collars on the bare tails are drawn in [`/hardware/faucet-layout/assembly/bodies.rs`](/hardware/faucet-layout/assembly/bodies.rs), which carries the terminated end at full size and the metre and a half of straight between it and the faucet as a figure rather than a length.
 
 ### 5. Bag the sub-assembly with the under-counter plate
 

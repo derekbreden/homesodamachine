@@ -6,22 +6,8 @@ license.workspace = true
 rust-version.workspace = true
 publish = false
 
-# Each part's program sits beside the Python module that holds its numbers.
-[[bin]]
-name = "faucet-assembly"
-path = "../../../hardware/faucet-layout/faucet_assembly.rs"
-
-[[bin]]
-name = "faucet-industrial-assembly"
-path = "../../../hardware/faucet-layout/faucet_industrial_assembly.rs"
-
-[[bin]]
-name = "faucet-metrics"
-path = "../../../hardware/faucet-layout/faucet_metrics.rs"
-
 [dependencies]
 anyhow.workspace = true
 clipper2-rust = "1.2.0"
 hsm-faucet-numbers = { path = "../faucet-numbers" }
 hsm-kernel = { path = "../kernel" }
-serde_json.workspace = true
