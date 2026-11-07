@@ -233,7 +233,7 @@
     "hardware/printed-parts/calibration/soda-studies/the-pour.step.mesh": "b6ecee2c0d5dfccb655bb99d073975b82920f13443b9e376f1037e5a44c30ab3",
     "hardware/printed-parts/calibration/soda-studies/the-pour.step.png": "b68fa8a321f26b798bae5478713403399b0501db0e50c2eec896c65e84780816",
     "hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.step": "e256dd652f0b91612a556c2c54ac70cb349e9ad6857df19da989c96e9a6676ec",
-    "hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.step.mesh": "33020e9d825251717a86ef783c9ba720de5fa76984153c53c239e3f20517f07c",
+    "hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.step.mesh": "aaa7535949e94a34e92caff0b2bf2db8e8e822752411b436abf4e87bc6b09771",
     "hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.stl": "88ce9688c63c6614811545febac096fbed1c2096a9c699d1818af29e6f0c007f",
     "hardware/printed-parts/cold-core/copper-plugs/copper-plug-port.step": "bd45e743447c9bcc0d5346fd19de77c0987f4fd2e9d778f8f471f9c6bc6af45e",
     "hardware/printed-parts/cold-core/copper-plugs/copper-plug-port.stl": "3add087b416cbbe6d110311bf9c6bb0e93703a4c92230acee5a3cee0e8450be1",
@@ -266,7 +266,7 @@
     "hardware/printed-parts/cold-core/foam-shell/foam-shell.step.mesh": "aba1c73a68e68716456405b5626ac67611ca78ba703c6bba5a2db152eb7a4827",
     "hardware/printed-parts/cold-core/foam-shell/foam-shell.stl": "132c06ecc887624ae36c98c168f97efaa533deb278a4b93a3d2f725455d93164",
     "hardware/printed-parts/cold-core/magnetic-float/all-aero/assembly.step": "a79901bdb093a8b59feb85690c7a3f79c58cf592f250e0b2b8310aeb01ef8fe8",
-    "hardware/printed-parts/cold-core/magnetic-float/all-aero/assembly.step.mesh": "39f3958f57d7e5055eba0f4d97fad93b58327c2a491f89ecbdc315dd108d4a67",
+    "hardware/printed-parts/cold-core/magnetic-float/all-aero/assembly.step.mesh": "7ad9d83aa6c6ae3219236f2f0054d7d325e140da9cd640dd6c1497a12a280bee",
     "hardware/printed-parts/cold-core/magnetic-float/all-aero/float-aero.step": "1a6227a4c258807fe39b4f7e0e435ea2bbf5a27a8f58a23450f996116efacbde",
     "hardware/printed-parts/cold-core/magnetic-float/all-aero/float-aero.step.mesh": "1e4c81b9a102fcb508aa40d5a68880c5ef25df515d9c1b352acb929ffbeae831",
     "hardware/printed-parts/cold-core/magnetic-float/all-aero/float-aero.stl": "2228d0933e0a2a7bdd9dd8d6fce4d003a48ac61db1c69f402e5fa5047ae1cef5",
@@ -278,18 +278,18 @@
     "hardware/printed-parts/cold-core/magnetic-float/all-aero/section.step": "6921026bf516a2d879b92e1117edf0e409202398ab35af5f2c6c23f70aa144c3",
     "hardware/printed-parts/cold-core/magnetic-float/all-aero/section.step.mesh": "225cd57598be05431b3d957357a765f3d722779c9d7acecdeeb553d2668f6629",
     "hardware/printed-parts/cold-core/magnetic-float/body-aero.step": "1e9e1a4624bf24828c107dce96f22901e7fd0adba6036ad90349ce1d6e3db86d",
-    "hardware/printed-parts/cold-core/magnetic-float/body-aero.step.mesh": "4040555c894661795824457ee62f8f8d8aba5d1665179a12e6f76899700211fb",
+    "hardware/printed-parts/cold-core/magnetic-float/body-aero.step.mesh": "813c6152660b89224f61348476eaf8026751cfbef5775983c9e9386f4d074c4c",
     "hardware/printed-parts/cold-core/magnetic-float/body-aero.stl": "404d68abd9ea96fd53b77ec03ff403544a0c59bb59cafe8dc7f6a23c9c1e368c",
     "hardware/printed-parts/cold-core/magnetic-float/body-petg.step": "55e065e526dd5f3d97623908f646c586ebb9227c319d2b8cb1cd899f9188748f",
     "hardware/printed-parts/cold-core/magnetic-float/body-petg.step.mesh": "c44112acc02b8d33b361074c7f8e1a42c82910e4f0c0b4a8974cfefd42be2fc2",
-    "hardware/printed-parts/cold-core/magnetic-float/body-petg.stl": "b31378bc31b0a8936e65f94d25bfece54062c28eca3c23c5bec42851cd43a867",
+    "hardware/printed-parts/cold-core/magnetic-float/body-petg.stl": "c7a94f946d45024b98223e1606fc462d138d6341d5352d9518d14763f4910f46",
     "hardware/printed-parts/cold-core/magnetic-float/exploded.step": "a66ac3bf025fb51703034d54ed300553d1f643519eabf00d4022273dfc950503",
     "hardware/printed-parts/cold-core/magnetic-float/exploded.step.mesh": "0023b5e8d33e4b89501ffea958d690f66ee344b2393b9b855608991d21bfefc3",
     "hardware/printed-parts/cold-core/magnetic-float/insert-aero.step": "d54b8c4d27fea89e317d669ae41e0739bab388a7aa7a800463ea6b6d1d05c179",
     "hardware/printed-parts/cold-core/magnetic-float/insert-aero.step.mesh": "0ee55d197bfd0cf46a57b6325367a192393e66e1b7382f99e10e9f0438cce089",
     "hardware/printed-parts/cold-core/magnetic-float/insert-aero.stl": "7d346e39e3b26ef5b294ec715c2e4f9b9f7535a13e1abc6ce01ee09405bffaf0",
     "hardware/printed-parts/cold-core/magnetic-float/magnet.step": "0464ee25aa2a6e53fd11d3eded3b8a8997de9c24075cf0348a338fe4cf3da843",
-    "hardware/printed-parts/cold-core/magnetic-float/magnet.step.mesh": "78ffc433e211a846d4737ac9554d183b07043449b9db594bd6420e0f54083bb7",
+    "hardware/printed-parts/cold-core/magnetic-float/magnet.step.mesh": "b16c62746a1fa886d5ad7f8e4884aa833167672312a10dad6695fdbfdbdf8c73",
     "hardware/printed-parts/cold-core/magnetic-float/magnetic-float.step": "ed3d25043ab2a370a526ba221b2b107639b5b0f4804bddd9f438ab0f482680e0",
     "hardware/printed-parts/cold-core/magnetic-float/magnetic-float.step.mesh": "d46d26e17e370671054e6cee35d3d81314c4d447fc81dd6a246da3dd924fffa5",
     "hardware/printed-parts/cold-core/magnetic-float/section.step": "fe8233ef3a3aeedf454a4deaa4e2890766ca884763420ce7e80a863af1c9dc63",
@@ -298,10 +298,10 @@
     "hardware/printed-parts/cold-core/prv-shroud/prv-shroud.step.mesh": "27524482961f63b6104e0d5cc5cc10205043a7d97e0f400ab55cbc7d35803ec6",
     "hardware/printed-parts/cold-core/prv-shroud/prv-shroud.stl": "b2553b37c6e6f3299ee5d6cef88e36bd5948b154b652fdc184aec7761906f14f",
     "hardware/printed-parts/cold-core/reed-bridge/reed-bridge-setting-gauge.step": "d54d8f0a513723770e0a48aaa9a7e9d6cc47ad1b53f927477cd149ebbbc9c6d7",
-    "hardware/printed-parts/cold-core/reed-bridge/reed-bridge-setting-gauge.step.mesh": "c0ab3d6fb36760d4c0ed5008cdb0cb531c7337a724599121e8ca1e9a8c603796",
+    "hardware/printed-parts/cold-core/reed-bridge/reed-bridge-setting-gauge.step.mesh": "2f5c9f672b88b5a91ed62661c163072cafa6092926143395031d56179392b7de",
     "hardware/printed-parts/cold-core/reed-bridge/reed-bridge-setting-gauge.stl": "54b2c72d9c34022e322332c7f98a882a62300c28098cf37cd416404bb77bb5f0",
     "hardware/printed-parts/cold-core/reed-bridge/reed-bridge.step": "900be5da900ac8f80121b5e8cead397018ad183bb176bd54c3e4ec1cdaa5e5ba",
-    "hardware/printed-parts/cold-core/reed-bridge/reed-bridge.step.mesh": "34b63adc2f6f489c12e97a33e39214b4ea9d7e876d2b712ab8a0807cb4727d9c",
+    "hardware/printed-parts/cold-core/reed-bridge/reed-bridge.step.mesh": "c2b9f63f3302d1bf86c8d27320892d4c3ec216dcb7947bb51f4559e9cf06af23",
     "hardware/printed-parts/cold-core/reed-bridge/reed-bridge.stl": "8f943b4f02d81f009a3a6fd2d8c1511ae6e02d8f19030ae0c44bec8968e89654",
     "hardware/printed-parts/cold-core/reservoir/reservoir-air-grip.step": "69d2c85d3ca7efba77c634964bf99e6ad2014a984b7d3ec2f98ed7d51e82cb82",
     "hardware/printed-parts/cold-core/reservoir/reservoir-air-grip.step.mesh": "f915a307b080299b06141e9a88028c3c9c8ca6ae91b0527af4107f6bd3882940",
@@ -616,22 +616,22 @@
     "hardware/printed-parts/faucet/tpu-o-ring/tpu-o-ring.step.mesh": "fb9549e28f27122c3cbb50c9a29c21699d7b8570dad12a47b45bad134aec3faa",
     "hardware/printed-parts/faucet/tpu-o-ring/tpu-o-ring.stl": "48d4c54b05741faaf3ede29bde6b7abe4280a61d4b2a253d2d4449969c012d19",
     "hardware/printed-parts/faucet/tube-collar/tube-collar-carb.step": "753a62d6bcd22349e7b00ba24dbfc6e1048aa19f24e86feb2c96fcb7fd4ab40e",
-    "hardware/printed-parts/faucet/tube-collar/tube-collar-carb.step.mesh": "a2e941227f9897ec29b3c1d48744d9a5580adcff8a5be2113804c662331928c3",
+    "hardware/printed-parts/faucet/tube-collar/tube-collar-carb.step.mesh": "878213a5aa8e60fe431660a5336bd1e998c73ed7d00272d4ebeed31a493da539",
     "hardware/printed-parts/faucet/tube-collar/tube-collar-carb.stl": "82c141b07191c15e78f138d30ba45b42aa55f3769b47f543c3a3d89ad2688d0a",
     "hardware/printed-parts/faucet/tube-collar/tube-collar-co2.step": "99098ba24fab48f6a793dd05b22bf805e7431ad2a5a611159d19c5bc62aff717",
-    "hardware/printed-parts/faucet/tube-collar/tube-collar-co2.step.mesh": "019a1092eea84294e6e796f88795a70300b58799f14eb1307e37283b2655a3e6",
+    "hardware/printed-parts/faucet/tube-collar/tube-collar-co2.step.mesh": "8bfbdf49817b5ac6db6b103f01975b6b549d1877521389f42ae3b73babdf9b9d",
     "hardware/printed-parts/faucet/tube-collar/tube-collar-co2.stl": "82c141b07191c15e78f138d30ba45b42aa55f3769b47f543c3a3d89ad2688d0a",
     "hardware/printed-parts/faucet/tube-collar/tube-collar-drain.step": "ea4c27167f5273ee1ec4e565c7b76d197c02f6d57306ba2913c8f9fe3c169bf0",
-    "hardware/printed-parts/faucet/tube-collar/tube-collar-drain.step.mesh": "b8f5810226226882c9a63920d165d259af4633c0914fb72e1e970f3aec6c4261",
+    "hardware/printed-parts/faucet/tube-collar/tube-collar-drain.step.mesh": "a588bc164e3c42286e2d4eec72e8ba6f2817e637c9177a01444d23f73482d349",
     "hardware/printed-parts/faucet/tube-collar/tube-collar-drain.stl": "0d7140b8d1c8888b4e1fb7669cf53b37ee9b524b99ce6bb4020afb6856180aa7",
     "hardware/printed-parts/faucet/tube-collar/tube-collar-flavor-a.step": "42cbc931b6b3cd83b948f53dddcb56bc5bdad1de1cbc38f43fada6f13166774d",
-    "hardware/printed-parts/faucet/tube-collar/tube-collar-flavor-a.step.mesh": "c78adea49ce05e22a9a9fa58082df1fb23b9931ff38d6d4550be9cefb61a6cc9",
+    "hardware/printed-parts/faucet/tube-collar/tube-collar-flavor-a.step.mesh": "7f3e5ceccd9e426345f7f118fb19d595c3134e8cc33c289d9b8b5ab62bbdf42d",
     "hardware/printed-parts/faucet/tube-collar/tube-collar-flavor-a.stl": "0d7140b8d1c8888b4e1fb7669cf53b37ee9b524b99ce6bb4020afb6856180aa7",
     "hardware/printed-parts/faucet/tube-collar/tube-collar-flavor-b.step": "f17d50240b336f3784094e08112b83d69b2996b9681a688cf190bb44acc8d807",
-    "hardware/printed-parts/faucet/tube-collar/tube-collar-flavor-b.step.mesh": "b88e69d09f677a796fdd92d02400772fc45407b07a6871f0012dee35e23ff5a0",
+    "hardware/printed-parts/faucet/tube-collar/tube-collar-flavor-b.step.mesh": "df7ec68bc2f8cc49823089261c1462b349bcceea824a6d1018fc0856f5eaf803",
     "hardware/printed-parts/faucet/tube-collar/tube-collar-flavor-b.stl": "0d7140b8d1c8888b4e1fb7669cf53b37ee9b524b99ce6bb4020afb6856180aa7",
     "hardware/printed-parts/faucet/tube-collar/tube-collar-water.step": "78aa9619b0741e8b2e190ae611fe5d6b3233cd3e8e5b869b5147d882fad66b69",
-    "hardware/printed-parts/faucet/tube-collar/tube-collar-water.step.mesh": "29d1cab2f8b57edec27cd911d8ab72c9fa76599fefdacbd960dcead00239b4a8",
+    "hardware/printed-parts/faucet/tube-collar/tube-collar-water.step.mesh": "8a379f38e98ec1335d2f1bc87bf8e370bd920f3431b77a91fd1bbe3bb828d195",
     "hardware/printed-parts/faucet/tube-collar/tube-collar-water.stl": "82c141b07191c15e78f138d30ba45b42aa55f3769b47f543c3a3d89ad2688d0a",
     "hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer-petgf.3mf": "32ab20b87103dc1248939cf9598a7fa67bc3e019a7de37dcb9b1c7230dadaf83",
     "hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer.step": "977d3c6199c918813d11497c9d7b88ec0ea84fa9a729e27a2dda1c633ca1ecad",
@@ -1669,7 +1669,7 @@
       "hardware/printed-parts/calibration/soda-studies/the-pour.step.mesh": "b6ecee2c0d5dfccb655bb99d073975b82920f13443b9e376f1037e5a44c30ab3",
       "hardware/printed-parts/calibration/soda-studies/the-pour.step.png": "b68fa8a321f26b798bae5478713403399b0501db0e50c2eec896c65e84780816",
       "hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.step": "e256dd652f0b91612a556c2c54ac70cb349e9ad6857df19da989c96e9a6676ec",
-      "hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.step.mesh": "33020e9d825251717a86ef783c9ba720de5fa76984153c53c239e3f20517f07c",
+      "hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.step.mesh": "aaa7535949e94a34e92caff0b2bf2db8e8e822752411b436abf4e87bc6b09771",
       "hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.stl": "88ce9688c63c6614811545febac096fbed1c2096a9c699d1818af29e6f0c007f",
       "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step": "91ddfea3e9ca8cf046cb385a8d7e653b0b2deb3a343d6b1c9170ead4ed7c5929",
       "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step.mesh": "0a3305dfd2a6b75dc88e0b758ac4cf434b70d22496bdcee4230332e22fe053d8",
@@ -1694,20 +1694,20 @@
       "hardware/printed-parts/cold-core/foam-shell/foam-shell.step.mesh": "aba1c73a68e68716456405b5626ac67611ca78ba703c6bba5a2db152eb7a4827",
       "hardware/printed-parts/cold-core/foam-shell/foam-shell.stl": "132c06ecc887624ae36c98c168f97efaa533deb278a4b93a3d2f725455d93164",
       "hardware/printed-parts/cold-core/magnetic-float/all-aero/assembly.step": "a79901bdb093a8b59feb85690c7a3f79c58cf592f250e0b2b8310aeb01ef8fe8",
-      "hardware/printed-parts/cold-core/magnetic-float/all-aero/assembly.step.mesh": "39f3958f57d7e5055eba0f4d97fad93b58327c2a491f89ecbdc315dd108d4a67",
+      "hardware/printed-parts/cold-core/magnetic-float/all-aero/assembly.step.mesh": "7ad9d83aa6c6ae3219236f2f0054d7d325e140da9cd640dd6c1497a12a280bee",
       "hardware/printed-parts/cold-core/magnetic-float/body-aero.step": "1e9e1a4624bf24828c107dce96f22901e7fd0adba6036ad90349ce1d6e3db86d",
-      "hardware/printed-parts/cold-core/magnetic-float/body-aero.step.mesh": "4040555c894661795824457ee62f8f8d8aba5d1665179a12e6f76899700211fb",
+      "hardware/printed-parts/cold-core/magnetic-float/body-aero.step.mesh": "813c6152660b89224f61348476eaf8026751cfbef5775983c9e9386f4d074c4c",
       "hardware/printed-parts/cold-core/magnetic-float/body-aero.stl": "404d68abd9ea96fd53b77ec03ff403544a0c59bb59cafe8dc7f6a23c9c1e368c",
       "hardware/printed-parts/cold-core/magnetic-float/magnet.step": "0464ee25aa2a6e53fd11d3eded3b8a8997de9c24075cf0348a338fe4cf3da843",
-      "hardware/printed-parts/cold-core/magnetic-float/magnet.step.mesh": "78ffc433e211a846d4737ac9554d183b07043449b9db594bd6420e0f54083bb7",
+      "hardware/printed-parts/cold-core/magnetic-float/magnet.step.mesh": "b16c62746a1fa886d5ad7f8e4884aa833167672312a10dad6695fdbfdbdf8c73",
       "hardware/printed-parts/cold-core/prv-shroud/prv-shroud.step": "2b9d90cb5d776c130733e99ae7b6df002bfb349a6dfae1bd018ae9bb721f36b4",
       "hardware/printed-parts/cold-core/prv-shroud/prv-shroud.step.mesh": "27524482961f63b6104e0d5cc5cc10205043a7d97e0f400ab55cbc7d35803ec6",
       "hardware/printed-parts/cold-core/prv-shroud/prv-shroud.stl": "b2553b37c6e6f3299ee5d6cef88e36bd5948b154b652fdc184aec7761906f14f",
       "hardware/printed-parts/cold-core/reed-bridge/reed-bridge-setting-gauge.step": "d54d8f0a513723770e0a48aaa9a7e9d6cc47ad1b53f927477cd149ebbbc9c6d7",
-      "hardware/printed-parts/cold-core/reed-bridge/reed-bridge-setting-gauge.step.mesh": "c0ab3d6fb36760d4c0ed5008cdb0cb531c7337a724599121e8ca1e9a8c603796",
+      "hardware/printed-parts/cold-core/reed-bridge/reed-bridge-setting-gauge.step.mesh": "2f5c9f672b88b5a91ed62661c163072cafa6092926143395031d56179392b7de",
       "hardware/printed-parts/cold-core/reed-bridge/reed-bridge-setting-gauge.stl": "54b2c72d9c34022e322332c7f98a882a62300c28098cf37cd416404bb77bb5f0",
       "hardware/printed-parts/cold-core/reed-bridge/reed-bridge.step": "900be5da900ac8f80121b5e8cead397018ad183bb176bd54c3e4ec1cdaa5e5ba",
-      "hardware/printed-parts/cold-core/reed-bridge/reed-bridge.step.mesh": "34b63adc2f6f489c12e97a33e39214b4ea9d7e876d2b712ab8a0807cb4727d9c",
+      "hardware/printed-parts/cold-core/reed-bridge/reed-bridge.step.mesh": "c2b9f63f3302d1bf86c8d27320892d4c3ec216dcb7947bb51f4559e9cf06af23",
       "hardware/printed-parts/cold-core/reed-bridge/reed-bridge.stl": "8f943b4f02d81f009a3a6fd2d8c1511ae6e02d8f19030ae0c44bec8968e89654",
       "hardware/printed-parts/cold-core/reservoir/reservoir-air-grip.step": "69d2c85d3ca7efba77c634964bf99e6ad2014a984b7d3ec2f98ed7d51e82cb82",
       "hardware/printed-parts/cold-core/reservoir/reservoir-air-grip.step.mesh": "f915a307b080299b06141e9a88028c3c9c8ca6ae91b0527af4107f6bd3882940",
@@ -1842,22 +1842,22 @@
       "hardware/printed-parts/faucet/tpu-o-ring/tpu-o-ring.step.mesh": "fb9549e28f27122c3cbb50c9a29c21699d7b8570dad12a47b45bad134aec3faa",
       "hardware/printed-parts/faucet/tpu-o-ring/tpu-o-ring.stl": "48d4c54b05741faaf3ede29bde6b7abe4280a61d4b2a253d2d4449969c012d19",
       "hardware/printed-parts/faucet/tube-collar/tube-collar-carb.step": "753a62d6bcd22349e7b00ba24dbfc6e1048aa19f24e86feb2c96fcb7fd4ab40e",
-      "hardware/printed-parts/faucet/tube-collar/tube-collar-carb.step.mesh": "a2e941227f9897ec29b3c1d48744d9a5580adcff8a5be2113804c662331928c3",
+      "hardware/printed-parts/faucet/tube-collar/tube-collar-carb.step.mesh": "878213a5aa8e60fe431660a5336bd1e998c73ed7d00272d4ebeed31a493da539",
       "hardware/printed-parts/faucet/tube-collar/tube-collar-carb.stl": "82c141b07191c15e78f138d30ba45b42aa55f3769b47f543c3a3d89ad2688d0a",
       "hardware/printed-parts/faucet/tube-collar/tube-collar-co2.step": "99098ba24fab48f6a793dd05b22bf805e7431ad2a5a611159d19c5bc62aff717",
-      "hardware/printed-parts/faucet/tube-collar/tube-collar-co2.step.mesh": "019a1092eea84294e6e796f88795a70300b58799f14eb1307e37283b2655a3e6",
+      "hardware/printed-parts/faucet/tube-collar/tube-collar-co2.step.mesh": "8bfbdf49817b5ac6db6b103f01975b6b549d1877521389f42ae3b73babdf9b9d",
       "hardware/printed-parts/faucet/tube-collar/tube-collar-co2.stl": "82c141b07191c15e78f138d30ba45b42aa55f3769b47f543c3a3d89ad2688d0a",
       "hardware/printed-parts/faucet/tube-collar/tube-collar-drain.step": "ea4c27167f5273ee1ec4e565c7b76d197c02f6d57306ba2913c8f9fe3c169bf0",
-      "hardware/printed-parts/faucet/tube-collar/tube-collar-drain.step.mesh": "b8f5810226226882c9a63920d165d259af4633c0914fb72e1e970f3aec6c4261",
+      "hardware/printed-parts/faucet/tube-collar/tube-collar-drain.step.mesh": "a588bc164e3c42286e2d4eec72e8ba6f2817e637c9177a01444d23f73482d349",
       "hardware/printed-parts/faucet/tube-collar/tube-collar-drain.stl": "0d7140b8d1c8888b4e1fb7669cf53b37ee9b524b99ce6bb4020afb6856180aa7",
       "hardware/printed-parts/faucet/tube-collar/tube-collar-flavor-a.step": "42cbc931b6b3cd83b948f53dddcb56bc5bdad1de1cbc38f43fada6f13166774d",
-      "hardware/printed-parts/faucet/tube-collar/tube-collar-flavor-a.step.mesh": "c78adea49ce05e22a9a9fa58082df1fb23b9931ff38d6d4550be9cefb61a6cc9",
+      "hardware/printed-parts/faucet/tube-collar/tube-collar-flavor-a.step.mesh": "7f3e5ceccd9e426345f7f118fb19d595c3134e8cc33c289d9b8b5ab62bbdf42d",
       "hardware/printed-parts/faucet/tube-collar/tube-collar-flavor-a.stl": "0d7140b8d1c8888b4e1fb7669cf53b37ee9b524b99ce6bb4020afb6856180aa7",
       "hardware/printed-parts/faucet/tube-collar/tube-collar-flavor-b.step": "f17d50240b336f3784094e08112b83d69b2996b9681a688cf190bb44acc8d807",
-      "hardware/printed-parts/faucet/tube-collar/tube-collar-flavor-b.step.mesh": "b88e69d09f677a796fdd92d02400772fc45407b07a6871f0012dee35e23ff5a0",
+      "hardware/printed-parts/faucet/tube-collar/tube-collar-flavor-b.step.mesh": "df7ec68bc2f8cc49823089261c1462b349bcceea824a6d1018fc0856f5eaf803",
       "hardware/printed-parts/faucet/tube-collar/tube-collar-flavor-b.stl": "0d7140b8d1c8888b4e1fb7669cf53b37ee9b524b99ce6bb4020afb6856180aa7",
       "hardware/printed-parts/faucet/tube-collar/tube-collar-water.step": "78aa9619b0741e8b2e190ae611fe5d6b3233cd3e8e5b869b5147d882fad66b69",
-      "hardware/printed-parts/faucet/tube-collar/tube-collar-water.step.mesh": "29d1cab2f8b57edec27cd911d8ab72c9fa76599fefdacbd960dcead00239b4a8",
+      "hardware/printed-parts/faucet/tube-collar/tube-collar-water.step.mesh": "8a379f38e98ec1335d2f1bc87bf8e370bd920f3431b77a91fd1bbe3bb828d195",
       "hardware/printed-parts/faucet/tube-collar/tube-collar-water.stl": "82c141b07191c15e78f138d30ba45b42aa55f3769b47f543c3a3d89ad2688d0a",
       "hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer-petgf.3mf": "32ab20b87103dc1248939cf9598a7fa67bc3e019a7de37dcb9b1c7230dadaf83",
       "hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer.step": "977d3c6199c918813d11497c9d7b88ec0ea84fa9a729e27a2dda1c633ca1ecad",
@@ -2407,7 +2407,7 @@
     "hardware/printed-parts/calibration/soda-studies/the-pour.step.mesh": 1791782119,
     "hardware/printed-parts/calibration/soda-studies/the-pour.step.png": 1793750338,
     "hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.step": 1793934190,
-    "hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.step.mesh": 1793934190,
+    "hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.step.mesh": 1794020573,
     "hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.stl": 1793934190,
     "hardware/printed-parts/cold-core/copper-plugs/copper-plug-port.step": 1789519123,
     "hardware/printed-parts/cold-core/copper-plugs/copper-plug-port.stl": 1792922058,
@@ -2440,7 +2440,7 @@
     "hardware/printed-parts/cold-core/foam-shell/foam-shell.step.mesh": 1793712586,
     "hardware/printed-parts/cold-core/foam-shell/foam-shell.stl": 1793543574,
     "hardware/printed-parts/cold-core/magnetic-float/all-aero/assembly.step": 1793568839,
-    "hardware/printed-parts/cold-core/magnetic-float/all-aero/assembly.step.mesh": 1793568839,
+    "hardware/printed-parts/cold-core/magnetic-float/all-aero/assembly.step.mesh": 1794020573,
     "hardware/printed-parts/cold-core/magnetic-float/all-aero/float-aero.step": 1793568839,
     "hardware/printed-parts/cold-core/magnetic-float/all-aero/float-aero.step.mesh": 1793712586,
     "hardware/printed-parts/cold-core/magnetic-float/all-aero/float-aero.stl": 1793568839,
@@ -2452,18 +2452,18 @@
     "hardware/printed-parts/cold-core/magnetic-float/all-aero/section.step": 1793568839,
     "hardware/printed-parts/cold-core/magnetic-float/all-aero/section.step.mesh": 1793568839,
     "hardware/printed-parts/cold-core/magnetic-float/body-aero.step": 1793712586,
-    "hardware/printed-parts/cold-core/magnetic-float/body-aero.step.mesh": 1793712586,
+    "hardware/printed-parts/cold-core/magnetic-float/body-aero.step.mesh": 1794020573,
     "hardware/printed-parts/cold-core/magnetic-float/body-aero.stl": 1793508101,
     "hardware/printed-parts/cold-core/magnetic-float/body-petg.step": 1793712586,
     "hardware/printed-parts/cold-core/magnetic-float/body-petg.step.mesh": 1793712586,
-    "hardware/printed-parts/cold-core/magnetic-float/body-petg.stl": 1793508101,
+    "hardware/printed-parts/cold-core/magnetic-float/body-petg.stl": 1794020573,
     "hardware/printed-parts/cold-core/magnetic-float/exploded.step": 1793712586,
     "hardware/printed-parts/cold-core/magnetic-float/exploded.step.mesh": 1793938190,
     "hardware/printed-parts/cold-core/magnetic-float/insert-aero.step": 1793712586,
     "hardware/printed-parts/cold-core/magnetic-float/insert-aero.step.mesh": 1793712586,
     "hardware/printed-parts/cold-core/magnetic-float/insert-aero.stl": 1793508101,
     "hardware/printed-parts/cold-core/magnetic-float/magnet.step": 1793712586,
-    "hardware/printed-parts/cold-core/magnetic-float/magnet.step.mesh": 1793938190,
+    "hardware/printed-parts/cold-core/magnetic-float/magnet.step.mesh": 1794020573,
     "hardware/printed-parts/cold-core/magnetic-float/magnetic-float.step": 1793712586,
     "hardware/printed-parts/cold-core/magnetic-float/magnetic-float.step.mesh": 1793938190,
     "hardware/printed-parts/cold-core/magnetic-float/section.step": 1793712586,
@@ -2472,10 +2472,10 @@
     "hardware/printed-parts/cold-core/prv-shroud/prv-shroud.step.mesh": 1794015966,
     "hardware/printed-parts/cold-core/prv-shroud/prv-shroud.stl": 1793568839,
     "hardware/printed-parts/cold-core/reed-bridge/reed-bridge-setting-gauge.step": 1793568839,
-    "hardware/printed-parts/cold-core/reed-bridge/reed-bridge-setting-gauge.step.mesh": 1793568839,
+    "hardware/printed-parts/cold-core/reed-bridge/reed-bridge-setting-gauge.step.mesh": 1794020573,
     "hardware/printed-parts/cold-core/reed-bridge/reed-bridge-setting-gauge.stl": 1793568839,
     "hardware/printed-parts/cold-core/reed-bridge/reed-bridge.step": 1793568839,
-    "hardware/printed-parts/cold-core/reed-bridge/reed-bridge.step.mesh": 1793568839,
+    "hardware/printed-parts/cold-core/reed-bridge/reed-bridge.step.mesh": 1794020573,
     "hardware/printed-parts/cold-core/reed-bridge/reed-bridge.stl": 1793568839,
     "hardware/printed-parts/cold-core/reservoir/reservoir-air-grip.step": 1793568839,
     "hardware/printed-parts/cold-core/reservoir/reservoir-air-grip.step.mesh": 1793712586,
@@ -2790,22 +2790,22 @@
     "hardware/printed-parts/faucet/tpu-o-ring/tpu-o-ring.step.mesh": 1794017515,
     "hardware/printed-parts/faucet/tpu-o-ring/tpu-o-ring.stl": 1793712586,
     "hardware/printed-parts/faucet/tube-collar/tube-collar-carb.step": 1793626644,
-    "hardware/printed-parts/faucet/tube-collar/tube-collar-carb.step.mesh": 1793712586,
+    "hardware/printed-parts/faucet/tube-collar/tube-collar-carb.step.mesh": 1794020573,
     "hardware/printed-parts/faucet/tube-collar/tube-collar-carb.stl": 1793626644,
     "hardware/printed-parts/faucet/tube-collar/tube-collar-co2.step": 1793626644,
-    "hardware/printed-parts/faucet/tube-collar/tube-collar-co2.step.mesh": 1793712586,
+    "hardware/printed-parts/faucet/tube-collar/tube-collar-co2.step.mesh": 1794020573,
     "hardware/printed-parts/faucet/tube-collar/tube-collar-co2.stl": 1793626644,
     "hardware/printed-parts/faucet/tube-collar/tube-collar-drain.step": 1793811159,
-    "hardware/printed-parts/faucet/tube-collar/tube-collar-drain.step.mesh": 1793811159,
+    "hardware/printed-parts/faucet/tube-collar/tube-collar-drain.step.mesh": 1794020573,
     "hardware/printed-parts/faucet/tube-collar/tube-collar-drain.stl": 1793626644,
     "hardware/printed-parts/faucet/tube-collar/tube-collar-flavor-a.step": 1793626644,
-    "hardware/printed-parts/faucet/tube-collar/tube-collar-flavor-a.step.mesh": 1793712586,
+    "hardware/printed-parts/faucet/tube-collar/tube-collar-flavor-a.step.mesh": 1794020573,
     "hardware/printed-parts/faucet/tube-collar/tube-collar-flavor-a.stl": 1793626644,
     "hardware/printed-parts/faucet/tube-collar/tube-collar-flavor-b.step": 1793626644,
-    "hardware/printed-parts/faucet/tube-collar/tube-collar-flavor-b.step.mesh": 1793712586,
+    "hardware/printed-parts/faucet/tube-collar/tube-collar-flavor-b.step.mesh": 1794020573,
     "hardware/printed-parts/faucet/tube-collar/tube-collar-flavor-b.stl": 1793626644,
     "hardware/printed-parts/faucet/tube-collar/tube-collar-water.step": 1793626644,
-    "hardware/printed-parts/faucet/tube-collar/tube-collar-water.step.mesh": 1793712586,
+    "hardware/printed-parts/faucet/tube-collar/tube-collar-water.step.mesh": 1794020573,
     "hardware/printed-parts/faucet/tube-collar/tube-collar-water.stl": 1793626644,
     "hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer-petgf.3mf": 1793750338,
     "hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer.step": 1793626644,
@@ -4207,7 +4207,8 @@
       "unproven": true
     },
     "hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.step.mesh": {
-      "commit": "164c8f9e0cb07eab6075a14cde0adf29fda29596",
+      "inputs": "0c01f1fa8d63330d6ee9830c6989ccad2d16a45a4207e3b05dffd637bfad503f",
+      "commit": "df7625e834599bec270275679a9a1f4b4358e0c6",
       "unproven": true
     },
     "hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.stl": {
@@ -4340,8 +4341,8 @@
       "unproven": true
     },
     "hardware/printed-parts/cold-core/magnetic-float/all-aero/assembly.step.mesh": {
-      "inputs": "faa34a583b9e7202582fa6ba78f8cf9a1be036035ec632346589f363f8586d3c",
-      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2",
+      "inputs": "2b974f47c73c962c16d8520efcf59d28973f88cb6a0d469a1cc08f3271ad7bc9",
+      "commit": "df7625e834599bec270275679a9a1f4b4358e0c6",
       "unproven": true
     },
     "hardware/printed-parts/cold-core/magnetic-float/all-aero/float-aero.step": {
@@ -4385,8 +4386,8 @@
       "unproven": true
     },
     "hardware/printed-parts/cold-core/magnetic-float/body-aero.step.mesh": {
-      "inputs": "841f6a8319f4b319e106d638b13d41ac3d129a917d9bcc0af8826fe0860fac66",
-      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2",
+      "inputs": "a7840961c6ca20d1f00f7799c15b9c5498f91f4db9513e3fc2a6b23cde9a9c12",
+      "commit": "df7625e834599bec270275679a9a1f4b4358e0c6",
       "unproven": true
     },
     "hardware/printed-parts/cold-core/magnetic-float/body-aero.stl": {
@@ -4405,8 +4406,8 @@
       "unproven": true
     },
     "hardware/printed-parts/cold-core/magnetic-float/body-petg.stl": {
-      "inputs": "841f6a8319f4b319e106d638b13d41ac3d129a917d9bcc0af8826fe0860fac66",
-      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2",
+      "inputs": "a7840961c6ca20d1f00f7799c15b9c5498f91f4db9513e3fc2a6b23cde9a9c12",
+      "commit": "df7625e834599bec270275679a9a1f4b4358e0c6",
       "unproven": true
     },
     "hardware/printed-parts/cold-core/magnetic-float/exploded.step": {
@@ -4440,8 +4441,8 @@
       "unproven": true
     },
     "hardware/printed-parts/cold-core/magnetic-float/magnet.step.mesh": {
-      "inputs": "6bac6a449e8741de727adf1f7673812ee4755b2049d7aae2f4eea6bf0a642c18",
-      "commit": "e1207cfaf4440daff1e9b61e77e8f033feb49d58",
+      "inputs": "a7840961c6ca20d1f00f7799c15b9c5498f91f4db9513e3fc2a6b23cde9a9c12",
+      "commit": "df7625e834599bec270275679a9a1f4b4358e0c6",
       "unproven": true
     },
     "hardware/printed-parts/cold-core/magnetic-float/magnetic-float.step": {
@@ -4485,8 +4486,8 @@
       "unproven": true
     },
     "hardware/printed-parts/cold-core/reed-bridge/reed-bridge-setting-gauge.step.mesh": {
-      "inputs": "ba8910af3d8b2b185a80b4dad4a8fa3a564eb786443588f9d72f260c85c00c75",
-      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2",
+      "inputs": "d8ea2a4a5387bb8dc3a7ae0266bedcef4a6e666977cef9d8f802154dc800e8cf",
+      "commit": "df7625e834599bec270275679a9a1f4b4358e0c6",
       "unproven": true
     },
     "hardware/printed-parts/cold-core/reed-bridge/reed-bridge-setting-gauge.stl": {
@@ -4500,8 +4501,8 @@
       "unproven": true
     },
     "hardware/printed-parts/cold-core/reed-bridge/reed-bridge.step.mesh": {
-      "inputs": "ba8910af3d8b2b185a80b4dad4a8fa3a564eb786443588f9d72f260c85c00c75",
-      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2",
+      "inputs": "d8ea2a4a5387bb8dc3a7ae0266bedcef4a6e666977cef9d8f802154dc800e8cf",
+      "commit": "df7625e834599bec270275679a9a1f4b4358e0c6",
       "unproven": true
     },
     "hardware/printed-parts/cold-core/reed-bridge/reed-bridge.stl": {
@@ -5421,8 +5422,8 @@
       "unproven": true
     },
     "hardware/printed-parts/faucet/tube-collar/tube-collar-carb.step.mesh": {
-      "inputs": "835c56581c51b4fbce3d6e72c44d052202994a41f841030567cc72f9c5a3e056",
-      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2",
+      "inputs": "ff3eca85ea0a99ddacf0b64673c0c44d2d0225bb9c482076ccc2f818db1bdb94",
+      "commit": "df7625e834599bec270275679a9a1f4b4358e0c6",
       "unproven": true
     },
     "hardware/printed-parts/faucet/tube-collar/tube-collar-carb.stl": {
@@ -5436,8 +5437,8 @@
       "unproven": true
     },
     "hardware/printed-parts/faucet/tube-collar/tube-collar-co2.step.mesh": {
-      "inputs": "835c56581c51b4fbce3d6e72c44d052202994a41f841030567cc72f9c5a3e056",
-      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2",
+      "inputs": "ff3eca85ea0a99ddacf0b64673c0c44d2d0225bb9c482076ccc2f818db1bdb94",
+      "commit": "df7625e834599bec270275679a9a1f4b4358e0c6",
       "unproven": true
     },
     "hardware/printed-parts/faucet/tube-collar/tube-collar-co2.stl": {
@@ -5450,7 +5451,8 @@
       "unproven": true
     },
     "hardware/printed-parts/faucet/tube-collar/tube-collar-drain.step.mesh": {
-      "commit": "fedeef18c245ebd8b1dba711c1e5cf29b7d9109e",
+      "inputs": "ff3eca85ea0a99ddacf0b64673c0c44d2d0225bb9c482076ccc2f818db1bdb94",
+      "commit": "df7625e834599bec270275679a9a1f4b4358e0c6",
       "unproven": true
     },
     "hardware/printed-parts/faucet/tube-collar/tube-collar-drain.stl": {
@@ -5464,8 +5466,8 @@
       "unproven": true
     },
     "hardware/printed-parts/faucet/tube-collar/tube-collar-flavor-a.step.mesh": {
-      "inputs": "835c56581c51b4fbce3d6e72c44d052202994a41f841030567cc72f9c5a3e056",
-      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2",
+      "inputs": "ff3eca85ea0a99ddacf0b64673c0c44d2d0225bb9c482076ccc2f818db1bdb94",
+      "commit": "df7625e834599bec270275679a9a1f4b4358e0c6",
       "unproven": true
     },
     "hardware/printed-parts/faucet/tube-collar/tube-collar-flavor-a.stl": {
@@ -5479,8 +5481,8 @@
       "unproven": true
     },
     "hardware/printed-parts/faucet/tube-collar/tube-collar-flavor-b.step.mesh": {
-      "inputs": "835c56581c51b4fbce3d6e72c44d052202994a41f841030567cc72f9c5a3e056",
-      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2",
+      "inputs": "ff3eca85ea0a99ddacf0b64673c0c44d2d0225bb9c482076ccc2f818db1bdb94",
+      "commit": "df7625e834599bec270275679a9a1f4b4358e0c6",
       "unproven": true
     },
     "hardware/printed-parts/faucet/tube-collar/tube-collar-flavor-b.stl": {
@@ -5494,8 +5496,8 @@
       "unproven": true
     },
     "hardware/printed-parts/faucet/tube-collar/tube-collar-water.step.mesh": {
-      "inputs": "835c56581c51b4fbce3d6e72c44d052202994a41f841030567cc72f9c5a3e056",
-      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2",
+      "inputs": "ff3eca85ea0a99ddacf0b64673c0c44d2d0225bb9c482076ccc2f818db1bdb94",
+      "commit": "df7625e834599bec270275679a9a1f4b4358e0c6",
       "unproven": true
     },
     "hardware/printed-parts/faucet/tube-collar/tube-collar-water.stl": {
