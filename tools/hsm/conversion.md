@@ -213,6 +213,7 @@ with the existing build trace registries.
 | `build-data`, `bookkeeping-data` | Mesh payloads, projection, source hashes, fine-asset adoption, print/graft planning, artifact identity/caches, inventory, source stripping, carry/selection/pointers and publication archives |
 | `build-plan` | Generator action planning, dependency rules, graph projections and BUILD rendering |
 | `hsm-run`, `hsm-run-slots`, `hsm-run-native` | Host admission, inherited run/CAD/compiler leases, process execution, viewer notifications and runtime installation |
+| `hsm-print-prep` | Print preparation: each printed part's Bambu project from its meshes and a saved or system printer recipe, the localized PET-GF cooling stage, offline slices, and the print review and support audit that read them. The enclosure's heat-set print regions are still Python |
 
 The recipe, reader and document modules of `enclosure-data`, `machine-data`, `cold-core-data`
 and `guides` are Rust generated from their Python modules. Each
