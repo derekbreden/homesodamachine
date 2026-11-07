@@ -10,11 +10,17 @@ publish = false
 path = "../../../hardware/printed-parts/cold-core/foam-cap/numbers/lib.rs"
 
 [dependencies]
+anyhow.workspace = true
 serde = { workspace = true, features = ["derive"] }
 serde_json.workspace = true
+sha2.workspace = true
 hsm-cold-core-catalog = { path = "../cold-core-catalog" }
 hsm-cold-core-interface = { path = "../cold-core-interface" }
 hsm-cold-core-layout = { path = "../cold-core-layout" }
 hsm-enclosure-numbers = { path = "../enclosure-numbers" }
 hsm-reservoir-numbers = { path = "../reservoir-numbers" }
 hsm-valve-seat-numbers = { path = "../valve-seat-numbers" }
+
+[[bin]]
+name = "foam-cap-print-regions"
+path = "../../../hardware/printed-parts/cold-core/foam-cap/print_regions.rs"

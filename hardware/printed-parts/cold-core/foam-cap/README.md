@@ -118,8 +118,9 @@ The [native M5 driver reading](m5-lid-driver-review.json) retains the native ref
 
 The [local solid regions](fore-snap-print-regions.json) fill the M5 head bearings,
 PCB insert posts and their plate/floor roots at 100%. The same record carries
-the fore C2 root and shell M5 hosts. Regenerate it from the current exported
-pieces before preparing their native print projects.
+the fore C2 root and shell M5 hosts. The `foam-cap-print-regions` program
+([`print_regions.rs`](print_regions.rs)) regenerates it from the cap's numbers and the current
+exported pieces; run it before preparing their native print projects.
 
 Assembly order and foam work: [cold-core assembly](../../../assembly/cold-core.md).
 
