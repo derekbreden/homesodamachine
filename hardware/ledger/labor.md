@@ -2,7 +2,7 @@
 
 Attended human minutes to build one finished appliance, grouped into the ten kinds of work the build asks for. Each wiring bench row is one finished harness, including its full sequence of hand operations. Companion to [bom.md](/hardware/ledger/bom.md): that file is what a unit costs in parts, this one is what it costs in time.
 
-**Attended, not elapsed.** A row counts only the minutes a person is *on* the operation. The 30-minute hydro hold, the 15-minute vacuum hold, the silicone cure, the 8-hour burn-in, and the [189.8](LAB_PRINT_H) estimated printer-hours are equipment time. What is counted here is setup, the hands-on pass, the check, the tear-down, and the walk to the next stage. The hours a *machine* is busy are their own ledger: [machine-time.md](/hardware/ledger/machine-time.md), which is what turnaround and throughput are read off.
+**Attended, not elapsed.** A row counts only the minutes a person is *on* the operation. The 30-minute hydro hold, the 15-minute vacuum hold, the silicone cure, the 8-hour burn-in, and the [189.7](LAB_PRINT_H) estimated printer-hours are equipment time. What is counted here is setup, the hands-on pass, the check, the tear-down, and the walk to the next stage. The hours a *machine* is busy are their own ledger: [machine-time.md](/hardware/ledger/machine-time.md), which is what turnaround and throughput are read off.
 
 **Deliberately the ideal, not Derek's actual time.** Derek builds each unit himself, one at a time. These estimates assume practiced hands, the fixture built and the jig loaded, and a batch of [10](BATCH_SIZE) machines built together, the quantity the ledger buys in: endcap plates 20 at a time (two per carbonator), tube 10 at a time, PCBAs at the qty-10 price. Costs, and the price set from them, rest on this ideal picture of labor; paying for Derek's actual hours would take a price of $8,000 or more, which is not the plan.
 
@@ -22,7 +22,7 @@ These are the steps a person actually estimates in. "40 minutes" claims a precis
 
 `5 s · 10 s · 15 s · 30 s · 45 s · 1 m · 2 m · 3 m`
 
-`_labor_totals.py --check` rejects an estimate that lands anywhere else, so the convention holds as rows get added. A run row's minutes, the subtotals and the grand total are arithmetic and land where it puts them.
+`bom --check` rejects an estimate that lands anywhere else, so the convention holds as rows get added. A run row's minutes, the subtotals and the grand total are arithmetic and land where it puts them.
 
 The linked fabrication procedures define each operation. [Letter shop guides](/hardware/assembly/guides/README.md) illustrate drilling and cutting, molds, refrigeration and the carbonator weld operation.
 
@@ -174,11 +174,11 @@ Every wetted and gas joint in the unit: the carbonator's four port elbows, the s
 
 ## 8. Assembly
 
-Everything that is taking the printed parts off the printers and putting parts together with fasteners and hands. Assembly includes the [63](TOTAL_INSERTS) M3/M5 heat-set inserts and [63](TOTAL_SCREWS) matching screws.
+Everything that is taking the printed parts off the printers and putting parts together with fasteners and hands. Assembly includes the [75](TOTAL_INSERTS) M3/M5 heat-set inserts and [71](TOTAL_SCREWS) matching screws.
 
 ### Printed parts
 
-The print model allocates [7.183](LAB_PRINT_KG) kg of filament and [189.8](LAB_PRINT_H) printer-hours per unit, including the three ASA Aero floats ([machine-time.md](/hardware/ledger/machine-time.md)); those hours are the printers'. A plate's setup is its turn: the finished plate pulled and its parts released, the plate cleaned, glued and seated, the next job started, the spool changed when it runs out. A piece's own time is its brim and supports off and a look over it, and for a float the RC62 seated at its pause. A large part fills a plate by itself; the small ones go a batch's worth to a plate. Plate capacities follow the recorded slicer layouts where there is one and are provisional elsewhere, as are the times. The small TPU seals' printing is unmeasured and not counted. On the ledger's batch the printed parts take [1 h 18 m](LAB_HM_PRINTED) a machine.
+The print model allocates [7.179](LAB_PRINT_KG) kg of filament and [189.7](LAB_PRINT_H) printer-hours per unit, including the three ASA Aero floats ([machine-time.md](/hardware/ledger/machine-time.md)); those hours are the printers'. A plate's setup is its turn: the finished plate pulled and its parts released, the plate cleaned, glued and seated, the next job started, the spool changed when it runs out. A piece's own time is its brim and supports off and a look over it, and for a float the RC62 seated at its pause. A large part fills a plate by itself; the small ones go a batch's worth to a plate. Plate capacities follow the recorded slicer layouts where there is one and are provisional elsewhere, as are the times. The small TPU seals' printing is unmeasured and not counted. On the ledger's batch the printed parts take [1 h 18 m](LAB_HM_PRINTED) a machine.
 
 | Operation | Procedure | Notes | Run | Minutes |
 |---|---|---|---|---:|
@@ -198,8 +198,8 @@ The print model allocates [7.183](LAB_PRINT_KG) kg of filament and [189.8](LAB_P
 
 | Operation | Procedure | Notes | Minutes |
 |---|---|---|---:|
-| Press the [63](TOTAL_INSERTS) M3/M5 heat-set inserts | [cold-core](/hardware/assembly/cold-core.md), [enclosure-mechanical](/hardware/assembly/enclosure-mechanical.md) | Shell faces, cap columns, reservoir caps, touch-flo pods, wall bosses, condenser fingers, the integral front-top pump mount, funnel-frame ledges, [4](SEAM_INSERTS) enclosure Y-seam anchors and floor posts. FX-888D + T18 tips for [35](TOTAL_M3_INSERTS) M3 and [28](TOTAL_M5_INSERTS) M5 | 10 <!--parts HSM-0003:41 HSM-0001:23 HSM-0002:3 HSM-0007:3--> |
-| Drive the [63](TOTAL_SCREWS) M3/M5 build screws | — | [20](FOAM_SCREWS) foam-cap, [12](RES_SCREWS) reservoir-cap, [3](TOUCHFLO_SCREWS) faucet base, [12](SHELF_SCREWS) electronics, [2](COND_SCREWS) condenser, [4](ROOF_CLOSURE_SCREWS) funnel-frame, [0](DISPLAY_COVER_SCREWS) display plate, [0](NAMEPLATE_SCREWS) nameplate, [4](SEAM_RODS) M5 enclosure Y-seam screws, two upward through the handholds and two downward through the roof, each with one flat washer, [4](FLOOR_SCREWS) floor, [2](C14_SCREWS) C14 inlet | 5 <!--parts HSM-0003:32 HSM-0001:32 HSM-0002:3 HSM-0007:3--> |
+| Press the [75](TOTAL_INSERTS) M3/M5 heat-set inserts | [cold-core](/hardware/assembly/cold-core.md), [enclosure-mechanical](/hardware/assembly/enclosure-mechanical.md) | Shell faces, cap columns, reservoir caps, touch-flo pods, wall bosses, condenser fingers, the integral front-top pump mount, funnel-frame ledges, [4](SEAM_INSERTS) enclosure Y-seam anchors and floor posts. FX-888D + T18 tips for [47](TOTAL_M3_INSERTS) M3 and [28](TOTAL_M5_INSERTS) M5 | 10 <!--parts HSM-0003:41 HSM-0001:23 HSM-0002:3 HSM-0007:3--> |
+| Drive the [71](TOTAL_SCREWS) M3/M5 build screws | — | [20](FOAM_SCREWS) foam-cap, [12](RES_SCREWS) reservoir-cap, [3](TOUCHFLO_SCREWS) faucet base, [12](SHELF_SCREWS) electronics, [2](COND_SCREWS) condenser, [4](ROOF_CLOSURE_SCREWS) funnel-frame, [4](DISPLAY_COVER_SCREWS) display plate, [4](NAMEPLATE_SCREWS) nameplate, [4](SEAM_RODS) M5 enclosure Y-seam screws, two upward through the handholds and two downward through the roof, each with one flat washer, [4](FLOOR_SCREWS) floor, [2](C14_SCREWS) C14 inlet | 5 <!--parts HSM-0003:32 HSM-0001:32 HSM-0002:3 HSM-0007:3--> |
 | Wind the evaporator coil on the mandrel; transfer it, set the band | [cold-core](/hardware/assembly/cold-core.md) | | 10 <!--parts HSM-0015--> |
 | Dress the carbonator wall — reeds, probe, foil; bond the coil probe | [cold-core](/hardware/assembly/cold-core.md) | | 10 <!--parts HSM-0003--> |
 | Fit the finished reed columns; seat rods and floats; close the reservoirs | [cold-core](/hardware/assembly/cold-core.md) | Two reservoirs, gaskets, caps, vent filters; J6/J7 soldering and insulation are counted in Wiring | 15 <!--parts HSM-0003--> |
@@ -273,7 +273,6 @@ The target is 10 hours attended per unit. The current estimate is [12 h](LAB_HM)
 
 ## Sources
 [value](NAME) texts are updated by:
-- `/hardware/scripts/_bom_sync.py`
-- `/hardware/scripts/_labor_totals.py`
+- `/hardware/ledger/bom.rs`
 
 Every operation also carries a hidden `<!--parts …-->` tag after its minutes, naming the part numbers the work makes or puts together; [`materials.md`](/hardware/ledger/materials.md#costs) says how its minutes are divided among them.

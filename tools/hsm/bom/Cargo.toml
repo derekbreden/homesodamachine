@@ -1,0 +1,29 @@
+[package]
+name = "hsm-bom"
+version = "0.1.0"
+edition.workspace = true
+license.workspace = true
+rust-version.workspace = true
+publish = false
+
+[[bin]]
+name = "bom"
+path = "../../../hardware/ledger/bom.rs"
+
+[dependencies]
+anyhow.workspace = true
+hsm-ac-harness-numbers = { path = "../ac-harness-numbers" }
+hsm-coil-numbers = { path = "../coil-numbers" }
+hsm-cold-core-interface = { path = "../cold-core-interface" }
+hsm-cold-core-layout = { path = "../cold-core-layout" }
+hsm-enclosure-numbers = { path = "../enclosure-numbers" }
+hsm-faucet-assembly = { path = "../faucet-assembly" }
+hsm-faucet-numbers = { path = "../faucet-numbers" }
+hsm-foam-cap-numbers = { path = "../foam-cap-numbers" }
+hsm-kernel = { path = "../kernel" }
+hsm-layout-data = { path = "../layout-data" }
+hsm-ledger = { path = "../ledger" }
+hsm-manifold-numbers = { path = "../manifold-numbers" }
+hsm-reservoir-numbers = { path = "../reservoir-numbers" }
+serde = { workspace = true, features = ["derive"] }
+serde_json.workspace = true

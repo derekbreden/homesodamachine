@@ -51,7 +51,7 @@ fn group_of(label: &str) -> Result<String> {
     let hits = group_hits(label);
     ensure!(
         hits.len() == 1,
-        "_bom_masses: §7 row {label:?} matches {} print configurations. Give it exactly one entry in GROUP_OF — a printed part cannot be priced without the plate it comes off.",
+        "bom: §7 row {label:?} matches {} print configurations. Give it exactly one entry in printing.json's group_of — a printed part cannot be priced without the plate it comes off.",
         hits.len()
     );
     Ok(hits[0].clone())
@@ -60,7 +60,7 @@ fn material_of(cell: &str) -> Result<String> {
     let name = cell.split('(').next().unwrap_or("").trim();
     ensure!(
         !definitions()["materials"][name].is_null(),
-        "_bom_masses: no density for material {cell:?}"
+        "bom: no density for material {cell:?}"
     );
     Ok(name.to_owned())
 }
@@ -92,13 +92,12 @@ fn measure(
     if let Some(value) = cache.get(rel) {
         return Ok(*value);
     }
-    let path = parts_dir.join(rel);
+    let path = parts_dir.join(format!("{rel}.npz"));
     ensure!(
         path.exists(),
-        "_bom_masses: {rel} has no STEP at {}",
+        "bom: {rel} has no fine model at {}",
         path.display()
     );
-    ctx.reads.insert(path.to_string_lossy().into_owned());
     let defs = definitions();
     ensure!(
         defs["parts"].as_object().unwrap().values().any(|rows| rows
@@ -106,9 +105,9 @@ fn measure(
             .unwrap()
             .iter()
             .any(|r| r.as_str() == Some(rel))),
-        "_bom_masses: {rel} names no owned fine model"
+        "bom: {rel} names no owned fine model"
     );
-    let (volume, area) = drawn(&parts_dir.join(format!("{rel}.npz")), ctx)?;
+    let (volume, area) = drawn(&path, ctx)?;
     let value = (volume / 1000., area / 100.);
     cache.insert(rel.to_owned(), value);
     Ok(value)
@@ -136,7 +135,7 @@ fn mass_kg(
     ctx: &mut Context,
 ) -> Result<f64> {
     let defs = definitions();
-    let paths=defs["parts"][label].as_array().with_context(||format!("_bom_masses: §7 row {label:?} names no geometry. Add it to PARTS (or drop the row) — a printed part with no solid has no mass."))?;
+    let paths=defs["parts"][label].as_array().with_context(||format!("bom: §7 row {label:?} names no geometry. Add it to printing.json's parts (or drop the row) — a printed part with no solid has no mass."))?;
     let group = group_of(label)?;
     let mut sum = 0.;
     for path in paths {
@@ -441,13 +440,13 @@ fn machine_main(request: &Value, ctx: &mut Context) -> Result<Value> {
             main_result(
                 1,
                 format!(
-                    "machine-time.md markers are stale — run _machine_time.py:\n{}\n",
+                    "machine-time.md markers are stale — run the machine-time program:\n{}\n",
                     stale.join("\n")
                 ),
             )
         });
     }
-    ctx.substitute(&path, &vars, "/hardware/scripts/_machine_time.py")?;
+    ctx.substitute(&path, &vars, MACHINE_TIME_PROGRAM)?;
     let mut out = String::new();
     for (g, _) in GROUPS {
         let rate = num(&rates[g])?;
@@ -538,7 +537,7 @@ fn mass_main(request: &Value, ctx: &mut Context) -> Result<Value> {
         .collect();
     ensure!(
         missing.is_empty(),
-        "_bom_masses: PARTS names rows §7 does not have: {}",
+        "bom: printing.json's parts names rows §7 does not have: {}",
         missing.join(", ")
     );
     let grand: f64 = totals.values().sum();
@@ -567,12 +566,12 @@ fn mass_main(request: &Value, ctx: &mut Context) -> Result<Value> {
     }
     if request["check"].as_bool().unwrap_or(false) {
         return Ok(if drift.is_empty() {
-            main_result(0, "_bom_masses: §7 matches the solids ✓\n".into())
+            main_result(0, "bom: §7 matches the solids ✓\n".into())
         } else {
             main_result(
                 1,
                 format!(
-                    "_bom_masses: §7 disagrees with the solids it is derived from:\n{}\n\n  fix: tools/cad-venv/bin/python hardware/scripts/_bom_masses.py\n  then: tools/cad-venv/bin/python hardware/scripts/_bom_totals.py  (carries the new line costs into the section + grand totals)\n",
+                    "bom: §7 disagrees with the solids it is derived from:\n{}\n\n  fix: run the bom program, which carries the new line costs into the section and grand totals\n",
                     drift.join("\n")
                 ),
             )

@@ -345,6 +345,48 @@ pub fn reservoir_routes(data: &Value) -> Result<Value> {
     Ok(Value::Object(out))
 }
 
+/// The above-core fittings that are NeoFit stem elbows, among those the layout places: every
+/// candidate the layout's `snapshots` stand, unless it stands as a John Guest union elbow.
+pub fn stem_elbow_names(snapshots: &Value) -> Vec<&'static str> {
+    const CANDIDATES: [&str; 23] = [
+        "tee-fold",
+        "lower-valve-elbow",
+        "lower-pump-elbow",
+        "reg-va-elbow",
+        "va-outlet-elbow",
+        "va-south-elbow",
+        "carbonator-fold",
+        "gas-inlet-elbow",
+        "gas-lower-a",
+        "gas-lower-b",
+        "gas-upper-a",
+        "gas-upper-b",
+        "soda-stem-elbow",
+        "soda-outlet-return-stem",
+        "ya-stem-elbow",
+        "drain-outlet-stem",
+        "vb-inlet-turn",
+        "vb-outlet-stem",
+        "vb-outlet-return",
+        "yb-stem-elbow",
+        "reservoir-a-fill-turn",
+        "reservoir-a-draw-turn",
+        "reservoir-b-fill-turn",
+    ];
+    CANDIDATES
+        .into_iter()
+        .filter(|n| !snapshots[n].is_null() && snapshots[n]["geometry"] != "jg-turn-elbow")
+        .collect()
+}
+
+/// The above-core fittings that stand as John Guest union elbows.
+pub fn union_elbow_names(snapshots: &Value) -> Vec<&'static str> {
+    ["va-east-turn", "ya-fold-inner", "vb-inlet-turn", "vb-outlet-return"]
+        .into_iter()
+        .filter(|n| snapshots[n]["geometry"] == "jg-turn-elbow")
+        .collect()
+}
+
 fn gates() -> Value {
     json!({"reservoir-a-fill-turn":["valve-v-f","outlet"],"reservoir-a-draw-turn":["valve-v-e","inlet"],"reservoir-b-fill-turn":["valve-v-i","outlet"]})
 }
@@ -390,53 +432,8 @@ pub fn request(v: Value) -> Result<Value> {
         }
         "valve-names" => json!(["valve-v-a", "valve-v-b", "vk-solenoid"]),
         "reservoir-gates" => gates(),
-        "stem-elbow-names" => {
-            let mut names = vec![
-                "tee-fold",
-                "lower-valve-elbow",
-                "lower-pump-elbow",
-                "reg-va-elbow",
-                "va-outlet-elbow",
-                "va-south-elbow",
-                "carbonator-fold",
-                "gas-inlet-elbow",
-                "gas-lower-a",
-                "gas-lower-b",
-                "gas-upper-a",
-                "gas-upper-b",
-                "soda-stem-elbow",
-                "soda-outlet-return-stem",
-                "ya-stem-elbow",
-                "drain-outlet-stem",
-                "vb-inlet-turn",
-                "vb-outlet-stem",
-                "vb-outlet-return",
-                "yb-stem-elbow",
-            ];
-            names.extend([
-                "reservoir-a-fill-turn",
-                "reservoir-a-draw-turn",
-                "reservoir-b-fill-turn",
-            ]);
-            json!(
-                names
-                    .into_iter()
-                    .filter(|n| !v["spec"]["snapshots"][n].is_null()
-                        && v["spec"]["snapshots"][n]["geometry"] != "jg-turn-elbow")
-                    .collect::<Vec<_>>()
-            )
-        }
-        "union-elbow-names" => json!(
-            [
-                "va-east-turn",
-                "ya-fold-inner",
-                "vb-inlet-turn",
-                "vb-outlet-return"
-            ]
-            .into_iter()
-            .filter(|n| v["spec"]["snapshots"][n]["geometry"] == "jg-turn-elbow")
-            .collect::<Vec<_>>()
-        ),
+        "stem-elbow-names" => json!(stem_elbow_names(&v["spec"]["snapshots"])),
+        "union-elbow-names" => json!(union_elbow_names(&v["spec"]["snapshots"])),
         "grid" => {
             let spec = &v["spec"];
             let g = &spec["fluid_grid"];

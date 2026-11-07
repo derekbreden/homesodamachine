@@ -10,12 +10,12 @@ publish = false
 path = "src/lib.rs"
 
 [[bin]]
-name = "ledger-data"
-path = "src/main.rs"
-
-[[bin]]
 name = "purchases"
 path = "../../../hardware/ledger/purchases.rs"
+
+[[bin]]
+name = "machine-time"
+path = "../../../hardware/ledger/machine_time.rs"
 
 [[bin]]
 name = "ledger-analysis"

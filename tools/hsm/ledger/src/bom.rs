@@ -117,14 +117,14 @@ pub fn dispatch(op: &str, request: &Value, context: &mut Context) -> Result<Valu
                     (
                         1,
                         format!(
-                            "bom.md totals are stale — run _bom_totals.py:\n{}\n",
+                            "bom.md totals are stale — run the bom program:\n{}\n",
                             stale.join("\n")
                         ),
                     )
                 };
                 main_result(status, out)
             } else {
-                context.substitute(&path, &vars, "/hardware/scripts/_bom_totals.py")?;
+                context.substitute(&path, &vars, BOM_PROGRAM)?;
                 let mut out = String::new();
                 for (n, v) in sums {
                     out += &format!("  §{n:<2} {:>10}\n", money(v))

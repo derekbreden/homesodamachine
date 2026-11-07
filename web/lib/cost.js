@@ -6,8 +6,8 @@
 //     _bom_categories.py owns and checks).
 //   * LABOR — hardware/ledger/labor.md, keyed by section, carrying an
 //     attended-minute estimate per operation and the hourly rate they're priced
-//     at. Section subtotals there are written by hardware/scripts/
-//     _labor_totals.py; this view sums the operation rows itself rather than
+//     at. Section subtotals there are written by the BOM program
+//     (hardware/ledger/bom.rs); this view sums the operation rows itself rather than
 //     reading those, so the page can't inherit a stale total.
 // purchases.md supplies the recorded investment. The shared cost-recovery.js
 // model defines the planned price and recovery arithmetic for server and browser.
@@ -116,7 +116,7 @@ export function readCostRollup(hardwareDir) {
 
 // Parse labor.md → { minutes, rate, batchSize, opCount, cats: [{ n, name,
 // minutes, ops: [{ name, cards, minutes, run }] }] }, sorted by minutes
-// descending. A row's estimate is its last cell, matching _labor_totals.py's
+// descending. A row's estimate is its last cell, matching the BOM program's
 // parse; a row with a Run cell carries its run, which prices it at any batch.
 // The bold inline subtotal row is skipped along with headers and separators, so
 // what the page shows is always the sum of the operations under it. The hourly
@@ -190,7 +190,7 @@ export function readInvestmentRollup(hardwareDir) {
 // is not costed and never reaches the topline — it answers turnaround and
 // throughput, not price. The numbered sections carry the process rows (hours in
 // the last cell); the derived figures come off the ledger's own docgen markers,
-// which hardware/scripts/_machine_time.py writes from bom.md §7's masses.
+// which the machine-time program (hardware/ledger/machine_time.rs) writes from bom.md §7's masses.
 export function readMachineRollup(hardwareDir) {
   const text = fs.readFileSync(path.join(hardwareDir, "ledger", "machine-time.md"), "utf-8");
   const marker = (name) => {
@@ -230,7 +230,7 @@ export function readMachineRollup(hardwareDir) {
 }
 
 // Minutes → "h m" the way a person says it: 45 m, 2 h, 1 h 15 m. Mirrors
-// _labor_totals.py's hm(). The ledger's estimates land on a coarse increment
+// the BOM program's hm(). The ledger's estimates land on a coarse increment
 // ladder on purpose; a decimal hour would put back exactly the false precision
 // the ladder exists to keep out.
 // A whole-dollar rate shows no cents — "$100/h", not "$100.00/h".

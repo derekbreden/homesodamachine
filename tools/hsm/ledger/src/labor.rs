@@ -322,7 +322,7 @@ fn main(request: &Value, ctx: &mut Context) -> Result<Value> {
             main_result(
                 1,
                 format!(
-                    "labor.md markers are stale — run _labor_totals.py:\n{}\n",
+                    "labor.md markers are stale — run the bom program:\n{}\n",
                     stale.join("\n")
                 ),
             )
@@ -331,7 +331,7 @@ fn main(request: &Value, ctx: &mut Context) -> Result<Value> {
     if written != lines {
         ctx.write(&path, (written.join("\n") + "\n").as_bytes())?;
     }
-    ctx.substitute(&path, &vars, "/hardware/scripts/_labor_totals.py")?;
+    ctx.substitute(&path, &vars, BOM_PROGRAM)?;
     let mut out = String::new();
     for (n, v) in &sums {
         out += &format!("  §{n:<2} {:>10}   {:>10}\n", hm(*v), usd(*v));

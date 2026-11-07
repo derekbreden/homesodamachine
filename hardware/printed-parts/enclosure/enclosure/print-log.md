@@ -132,7 +132,7 @@ the 661.09 g Bambu Studio prints for this plate is PET-CF's number and not this 
 
 Two ledgers stand on it. [bom.md §7](/hardware/ledger/bom.md) bills the piece at 456 cm³ —
 shell plus 15 % grid off the solid's own volume and area
-([`_bom_masses.py`](/hardware/scripts/_bom_masses.py) `PROFILES`) — and the 56 cm³ between
+(the `profiles` of [`printing.json`](/tools/hsm/ledger/catalog/printing.json)) — and the 56 cm³ between
 that and the plate is the supports and the brim, which §7 does not bill.
 [machine-time.md](/hardware/ledger/machine-time.md) §1 carries the 20 h 23 m against §7's
 0.653 kg as the exterior's measured **31.2 h/kg**, so the supports are back in the hours even

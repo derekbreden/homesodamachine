@@ -43,7 +43,7 @@ tree needs no edit here.
   material, supplies and labor (`costs.direct`, allocated by `web/lib/part-costs.js` from bom.md
   and labor.md and served beside the catalog at `/api/materials`) plus every child's cost times
   its quantity. A labor operation's run (its labor.md Run cell, read the way
-  `hardware/scripts/_labor_totals.py` reads it) prices it at any batch, and a purchase carries the
+  the BOM program reads it) prices it at any batch, and a purchase carries the
   smallest lot batch-forecast.json buys it in. Read by
   `web/public/js/viewer/{material-panel,parts}.js`, `web/lib/{part-cost-view,cost,batch-forecast}.js`.
 - **faucet-options.js** — the Sculpted and Industrial faucet assemblies and their part paths,

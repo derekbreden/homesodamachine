@@ -50,11 +50,11 @@ fn ac_wiring_schedule(request: &Request) -> Result<Output> {
     let compressor_wires_wall_relay: f64 = 3.0;
     let compressor_wires_local_relay: f64 = 5.0;
     let solenoid_count: f64 = 10.0;
-    let len_short_mm: f64 = 150.0;
-    let len_short_2_mm: f64 = 200.0;
-    let len_dc1_mm: f64 = 550.0;
-    let len_dc2_mm: f64 = 350.0;
-    let len_mid_mm: f64 = 150.0;
+    let len_short_mm: f64 = hsm_ac_harness_numbers::SHORT;
+    let len_short_2_mm: f64 = hsm_ac_harness_numbers::SHORT_2;
+    let len_dc1_mm: f64 = hsm_ac_harness_numbers::DC1;
+    let len_dc2_mm: f64 = hsm_ac_harness_numbers::DC2;
+    let len_mid_mm: f64 = hsm_ac_harness_numbers::MID;
     let len_pump_mm: f64 = 350.0;
     let len_earth_carbonator_mm: f64 = 500.0;
     let len_relays_mm: f64 = 350.0;
@@ -79,7 +79,7 @@ fn ac_wiring_schedule(request: &Request) -> Result<Output> {
     let len_reeds_a_mm: f64 = 650.0;
     let len_gas_mm: f64 = 600.0;
     let len_compressor_mm: f64 = 700.0;
-    let len_opening_join_mm: f64 = 300.0;
+    let len_opening_join_mm: f64 = hsm_ac_harness_numbers::OPENING_JOIN;
     let len_umbilical_m: f64 = 2.0;
     let jst_pitch_mm: f64 = 2.5;
     let mut variables = Variables::new();
