@@ -1,0 +1,118 @@
+{
+  "purpose": "Record the spare-white-hotend identification-set print result and the follow-up AMS readings.",
+  "job_id": "1417611469",
+  "submitted_name": "HSM-identification-Mark1-white-spare-z000.gcode.3mf",
+  "status": "Failed after extrusion-motor overload reported by Derek",
+  "z_offset_mm": 0.0,
+  "white_hotend_serial": "20D06A611023831",
+  "observations": {
+    "derek_report": "The extrusion-motor overload recurs with the spare white hotend. Derek reports that the AMS Pro humidity has risen and plans another drying cycle with the filament withdrawn to allow spool rotation.",
+    "photographs": "White first-layer deposition is uneven and rough with loose strands and accumulated material. Black first-layer regions appear more consistent.",
+    "cause": "Moisture remains plausible, but neither the air humidity nor the photographs establish it as the sole cause of the repeated overload."
+  },
+  "telemetry": [
+    {
+      "observed_at": "2026-11-07T18:27:51.246373+00:00",
+      "printer_state": "FAILED",
+      "job_id": "1417611469",
+      "print_error": 0,
+      "hms": [],
+      "units": [
+        {
+          "id": "0",
+          "name": "AMS 2 Pro",
+          "temperature_c": 33.0,
+          "humidity_raw": 24,
+          "dry_time": 0
+        },
+        {
+          "id": "128",
+          "name": "AMS HT",
+          "temperature_c": 26.6,
+          "humidity_raw": 17,
+          "dry_time": 0
+        }
+      ]
+    },
+    {
+      "observed_at": "2026-11-07T18:34:00.431841+00:00",
+      "printer_state": "FAILED",
+      "job_id": "1417611469",
+      "print_error": 0,
+      "hms": [],
+      "units": [
+        {
+          "id": "0",
+          "name": "AMS 2 Pro",
+          "temperature_c": 41.0,
+          "humidity_raw": 23,
+          "dry_time": 719,
+          "dry_setting": {
+            "dry_duration": 12,
+            "dry_filament": "PETG",
+            "dry_temperature": 65
+          }
+        },
+        {
+          "id": "128",
+          "name": "AMS HT",
+          "temperature_c": 26.6,
+          "humidity_raw": 19,
+          "dry_time": 719,
+          "dry_setting": {
+            "dry_duration": 12,
+            "dry_filament": "PETG",
+            "dry_temperature": 65
+          }
+        }
+      ]
+    }
+  ],
+  "humidity_interpretation": {
+    "prior_readings": "../2026-11-06-identification-set-mark1-z000/drying/readings.jsonl",
+    "assessment": "The Pro air cools between the earlier low-RH observations and this result. Cooling can raise relative humidity without adding water. Compare air readings at similar temperatures; air RH does not measure filament moisture directly.",
+    "drying_plan": "Derek starts a further PETG drying cycle and intends to withdraw and secure filament ends for automatic spool rotation.",
+    "manufacturer_guidance": {
+      "ams_temperature_c": 65,
+      "ams_duration_h": 8,
+      "printing_and_storage_rh_percent_max_exclusive": 20,
+      "source": "https://store.bblcdn.com/s1/default/cb94589bf7994fdcbfa833badefae9cd/Bambu_PETG_Basic_Technical_Data_Sheet.pdf"
+    },
+    "rotation_source": "https://us.store.bambulab.com/products/ams-2-pro",
+    "rh_temperature_source": "https://www.vaisala.com/en/expert-article/understanding-humidity-part-1-fundamental-concepts-every-engineer-should-know"
+  },
+  "replacement_filament_links": [
+    {
+      "material": "Bambu PETG Basic",
+      "color": "Red",
+      "color_code": "30201",
+      "weight_kg": 1,
+      "format": "Filament with spool",
+      "url": "https://us.store.bambulab.com/products/petg-basic?id=703099511296864311"
+    },
+    {
+      "material": "Bambu PETG Basic",
+      "color": "Navy Blue",
+      "color_code": "30604",
+      "weight_kg": 1,
+      "format": "Filament with spool",
+      "url": "https://us.store.bambulab.com/products/petg-basic?id=738167451007287326"
+    },
+    {
+      "material": "Bambu PETG Basic",
+      "color": "White",
+      "color_code": "30106",
+      "weight_kg": 1,
+      "format": "Filament with spool",
+      "url": "https://us.store.bambulab.com/products/petg-basic?id=703099511296864287"
+    }
+  ],
+  "photos": [
+    "physical-result/photo-1.jpg",
+    "physical-result/photo-2.jpg",
+    "physical-result/photo-3.jpg",
+    "physical-result/photo-4.jpg",
+    "physical-result/photo-5.jpg"
+  ],
+  "derek_quote": "Well, it broke the same way again."
+}
