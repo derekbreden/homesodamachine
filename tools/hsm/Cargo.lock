@@ -1965,6 +1965,23 @@ dependencies = [
 ]
 
 [[package]]
+name = "hsm-tube-miter-box"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "hsm-catalog",
+ "hsm-kernel",
+ "hsm-tube-miter-box-numbers",
+]
+
+[[package]]
+name = "hsm-tube-miter-box-numbers"
+version = "0.1.0"
+dependencies = [
+ "hsm-catalog",
+]
+
+[[package]]
 name = "hsm-umbilical-organizer"
 version = "0.1.0"
 dependencies = [
