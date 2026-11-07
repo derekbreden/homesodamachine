@@ -239,8 +239,10 @@ pub fn run(numbers: &part::Numbers, output: &std::path::Path) -> Result<Value> {
     let presentation: Vec<Solid> = fine
         .iter_mut()
         .zip(&tolerances)
-        .map(|(solid, tolerance)| {
-            let shown = presentation(solid, *tolerance)?;
+        .zip(&names)
+        .map(|((solid, tolerance), name)| {
+            let shown = presentation(solid, *tolerance)
+                .with_context(|| format!("presenting {name}"))?;
             solid.forget_backend();
             Ok(shown)
         })

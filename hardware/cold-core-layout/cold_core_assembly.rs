@@ -322,7 +322,8 @@ fn printed_surfaces() -> Result<Vec<(&'static str, &'static str, Placement)>> {
 
 /// What the machine's wiring lands the carbonator's earth lead by: the body the bond is screwed
 /// into, where the ring's tongue meets the rim and the way out of the wall there, where the lead
-/// leaves the ring's barrel and the way it leaves, and the top plate the bond is struck off.
+/// leaves the ring's barrel and the way it leaves, the terminal's envelope, and the top plate
+/// the bond is struck off.
 fn earth_datums() -> Value {
     let d = carbonator::bond();
     json!({
@@ -332,6 +333,10 @@ fn earth_datums() -> Value {
             "contact_outward": d.contact_outward,
             "wire_exit_mm": d.wire_exit,
             "wire_outward": d.wire_outward,
+            "ring_tongue_thickness_mm": carbonator::bond::RING_TONGUE_THICKNESS,
+            "ring_eye_diameter_mm": carbonator::bond::RING_EYE_DIAMETER,
+            "ring_barrel_diameter_mm": carbonator::bond::RING_BARREL_DIAMETER,
+            "ring_barrel_length_mm": carbonator::bond::RING_BARREL_LENGTH,
         },
         "carbonator": {"top_plate_z": carbonator::TOP_PLATE_Z},
     })

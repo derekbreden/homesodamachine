@@ -40,5 +40,6 @@
   "smooth_wall_pilot_backing_mm": 3.0,
   "minimum_pilot_backing_after_flutes_mm": 1.8,
   "minimum_insert_backing_after_flutes_mm": 3.05,
-  "minimum_screw_tip_backing_after_flutes_mm": 2.64
+  "minimum_screw_tip_backing_after_flutes_mm": 2.64,
+  "wiring_geometry_review": "wiring.json"
 }

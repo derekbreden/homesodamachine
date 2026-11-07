@@ -3860,34 +3860,62 @@
   "AC1-PE": {
     "stations": [
       {
-        "point_mm": [
-          -68.15,
-          430.6,
-          327.4
+        "terminal": "c14.PE",
+        "offset": [
+          0.0,
+          -15.7,
+          0.0
         ]
       },
       {
-        "point_mm": [
-          -68.15,
-          430.6,
-          300.7
+        "terminal": "c14.PE",
+        "offset": [
+          0.0,
+          -15.7,
+          -26.7
         ]
       },
       {
-        "point_mm": [
-          -78.73333333333333,
-          430.6,
-          300.7
+        "terminal": "c14.PE",
+        "offset": [
+          -6.25,
+          -15.7,
+          -26.7
+        ]
+      },
+      {
+        "terminal": "wago-g.1",
+        "offset": [
+          12.0,
+          -2.75,
+          11.46666666666665
+        ]
+      },
+      {
+        "terminal": "wago-g.1",
+        "offset": [
+          12.0,
+          -2.75,
+          0.0
+        ]
+      },
+      {
+        "terminal": "wago-g.1",
+        "offset": [
+          0.0,
+          -2.75,
+          0.0
         ]
       }
     ],
     "preserve_stations": true,
-    "bend_radius_mm": 3.0,
+    "bend_radius_mm": 2.75,
+    "endpoint_tangent_fraction": 1.0,
     "route_status": "selected_layout",
-    "note": "Dressed through the fixed cable seats and open aisles around the completed equipment. Only larger installed bodies constrain the insulated conductors.",
+    "note": "The earth lead follows the inlet's native terminal, passes between the relay and data jack, then turns behind the relay into its WAGO.",
     "end_lands_mm": [
       8,
-      8
+      0
     ]
   },
   "relay-bus-GND": {

@@ -65,8 +65,7 @@ fn write_json(path: &Path, value: &Value) -> Result<()> {
     let mut writer = serde_json::Serializer::with_formatter(&mut out, serde_json::ser::PrettyFormatter::with_indent(b" "));
     serde::Serialize::serialize(&sorted(value), &mut writer)?;
     out.push(b'\n');
-    std::fs::write(path, out)?;
-    Ok(())
+    hsm_model_export::put(path, &out)
 }
 
 /// `value` with every object's keys in sorted order.
