@@ -6,7 +6,8 @@ divider, matching Helvetica Neue Medium identification lines and QR share one
 vertical centreline. A 0.42 mm rounded white frame surrounds the artwork,
 inset 4.79 mm from each edge of the black face.
 
-[`nameplate.py`](nameplate.py) generates the two-colour part. [`wordmark.svg`](wordmark.svg)
+[`nameplate.rs`](nameplate.rs) cuts the two-colour part: [`artwork.rs`](artwork.rs) reads the
+outlines and [`qr.rs`](qr.rs) encodes each unit's code. [`wordmark.svg`](wordmark.svg)
 holds the outlined title, edition and frame; [`identification-glyphs.json`](identification-glyphs.json)
 holds the matching unit-number letterforms. The faucet comes from [`brand/mark.svg`](/brand/mark.svg).
 The black face is 3.36 mm thick. White artwork has a 0.72 mm embedded base and rises
@@ -91,10 +92,10 @@ support cleanup are unqualified; printing is held for the enclosure corner revie
 ## Generation
 
 ```sh
-tools/cad-venv/bin/python hardware/printed-parts/enclosure/nameplate/nameplate.py 1
-tools/cad-venv/bin/python hardware/printed-parts/enclosure/nameplate/nameplate.py selftest
+python3 tools/run.py -- cargo build --release --locked --manifest-path tools/hsm/Cargo.toml -p hsm-enclosure-components --bin nameplate
+python3 tools/run.py -- tools/hsm/target/release/nameplate --unit 1
 ```
 
-First Edition plates are numbered 0001–0010. Every QR remains version 1. The
-manual self-test checks solid validity, disjoint inks, the QR quiet zone,
-fastener/artwork clearance, seating, bearing, insert stock and screw engagement.
+The first unit also writes the receiver, its fasteners and the receiver's dimensions that the
+enclosure's print regions read. A unit outside the First Edition, or a code too long for
+version 1, stops the program.

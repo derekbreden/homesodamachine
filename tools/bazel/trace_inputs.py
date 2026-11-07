@@ -409,6 +409,8 @@ RUST_STEPS = {
         ("enclosure-components", "data-ring", "hardware/printed-parts/enclosure/data-ring"),
     "hardware/printed-parts/enclosure/rear-identification/rear_identification.rs":
         ("enclosure-components", "rear-identification", "hardware/printed-parts/enclosure/rear-identification"),
+    "hardware/printed-parts/enclosure/nameplate/nameplate.rs":
+        ("enclosure-components", "nameplate", "hardware/printed-parts/enclosure/nameplate"),
     "hardware/ledger/bom.rs": ("bom", "bom", ""),
     "hardware/ledger/machine_time.rs": ("ledger", "machine-time", ""),
     "hardware/manifold-layout/manifold_layout.rs":

@@ -94,6 +94,7 @@ square within a 31.9 mm quiet-zone square. White modules are flush in the black 
 The artwork prints face-down in two colours through the first 0.72 mm. The QR has 0.02 mm
 joins at diagonal-only white contacts to keep the CAD colour interface manifold.
 
-`nameplate.py` explicitly selects version 1, error correction M and alphanumeric mode;
-serials outside 0001–9999 are rejected. Its self-test checks the code size and clear field.
+[`qr.rs`](/hardware/printed-parts/enclosure/nameplate/qr.rs) encodes version 1, error correction M
+and alphanumeric mode, and refuses a payload too long for that version; the nameplate's program
+refuses a unit outside the edition.
 A finished physical plate must scan to its own unit before and after installation.
