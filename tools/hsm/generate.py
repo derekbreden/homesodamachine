@@ -25,7 +25,7 @@ from sync_tree import _SPLICE, _whole_rewritten, carried
 SUPPORT = ("tools/hsm/generate.py", "tools/bazel/gen_build.py", "tools/bazel/inventory.py",
            "tools/bazel/sync_tree.py", "tools/_artifact_inputs.py",
            "tools/cad-artifacts/pack.py", "tools/cad-requirements.txt")
-ENROLLED = frozenset(("water-inlet-jet-fixture", "elbow-cradle", "funnel-mold"))
+ENROLLED = frozenset(("elbow-cradle", "funnel-mold"))
 
 
 def sha(path):

@@ -458,6 +458,8 @@ RUST_STEPS = {
         ("cold-core-assembly", "cold-core-assembly", "hardware/cold-core-layout"),
     "hardware/cut-parts/carbonation/carbonator-tube/carbonator_tube_step.rs":
         ("carbonator-tube", "carbonator-tube-step", "hardware/cut-parts/carbonation/carbonator-tube"),
+    "hardware/printed-parts/fixtures/water-inlet-jet/water_inlet_jet_fixture.rs":
+        ("water-inlet-jet-fixture", "water-inlet-jet-fixture", "hardware/printed-parts/fixtures/water-inlet-jet"),
     "hardware/printed-parts/zone-c/funnel/funnel.rs":
         ("funnel", "funnel", "hardware/printed-parts/zone-c/funnel"),
     "hardware/printed-parts/zone-c/funnel/funnel_frame.rs":
