@@ -1,0 +1,44 @@
+{
+  "purpose": "The internal mains inlet mounting geometry, retained access clearances and assembly order.",
+  "station_mm": [
+    -68.5,
+    461.21,
+    330.0
+  ],
+  "flange_origin_y_mm": 461.21,
+  "pocket_floor_y_mm": 463.05,
+  "mounting_stock_minimum_y_mm": 458.05,
+  "blind_pilot_depth_mm": 5.25,
+  "screw_projection_mm": 4.41,
+  "insert_length_mm": 4.0,
+  "screw_tip_air_mm": 0.84,
+  "cord_access_nominal_xz_mm": [
+    28.3,
+    19.3
+  ],
+  "retained_supported_clearance_zminus_mm": 0.25,
+  "pocket_profile_height_mm": 22.17,
+  "pocket_profile_clearance_mm": 0.65,
+  "screw_pitch_mm": 40.0,
+  "nominal_web_below_ceiling_mm": 4.265,
+  "ceiling_slab_mm": 9.0,
+  "assembly_order": [
+    "Install inserts and inlet in the accessible rear quadrant.",
+    "Tighten the inlet flange screws from inside.",
+    "Fit the power supply and relays."
+  ],
+  "service_access": "Remove the power supply for straight tool access to the inner flange screw.",
+  "source_sha256": {
+    "hardware/manifold-layout/above-core.json": "980dd3db697caecbee72277a361146b72c49096bb40650b8391265f984a713f4",
+    "hardware/printed-parts/enclosure/enclosure/back-top/rear.rs": "07e9b27f7049a13805be82f48a9025894a9ae65fd4ff6423171afd0eaee8e85c",
+    "hardware/printed-parts/enclosure/enclosure/numbers/rear_wall.rs": "c1d271485f0d29b343775c8db2e90e5f1439e6ed026f09094963fd7618983ef9",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step": "38343bbaee273193bd79468a1c8430a544d7a87169f19a3d282b20c13b9ff42f",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl": "a8125c23949355845f4236bd0e59345298f864dccbbadea449c7bdbf6f6380c6"
+  },
+  "geometry_review": "native-fit.json",
+  "print_status": "awaiting_native_slice",
+  "smooth_wall_pilot_backing_mm": 3.0,
+  "minimum_pilot_backing_after_flutes_mm": 1.8,
+  "minimum_insert_backing_after_flutes_mm": 3.05,
+  "minimum_screw_tip_backing_after_flutes_mm": 2.64
+}

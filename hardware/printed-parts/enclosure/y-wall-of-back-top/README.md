@@ -40,12 +40,13 @@ and [ASSE drain assembly](/hardware/assembly/asse-drain.md).
 
 ## Dry connections and nameplate
 
-C14 is at X−68.5/Z330. Its native flange seats in a shallow outside pocket;
-the body passes through the wall. Two short RX-M3S×4 inserts receive M3 × 10
-socket-head screws through Ø7 × 0.5 mm washers. Each washer spans the native
-flange countersink. The 3.25 mm flange/washer stack leaves 6.25 mm screw
-projection; the 7.25 mm pilot retains 1 mm nominal tip air and 3 mm backing.
-The C13 cord mates directly to the inlet's native rim and cavity.
+The mains inlet loads from inside the enclosure. Its flange sits in an internal
+pocket, with the raised rim bearing on the pocket floor. Washer-backed screws
+enter the short inserts from inside; the washers spread the load on the moulded ears. The mounting stock joins the rear wall, west flank and ceiling.
+Only the rounded cord passage opens on the outside. Its clearance includes the
+cord plug's retention ribs, and the ceiling remains continuous above the pocket.
+The [rear-wall recipe](../enclosure/back-top/rear.rs) owns the geometry and the
+[hardware ledger](/hardware/ledger/bom.md) lists the screws, washers and inserts.
 
 The RiteAV RJ11 6P4C receptacle is at X−64/Z291.5. Its native tang and latch
 engage the printed catches; the internal SIG-6 loom connects to its IDC

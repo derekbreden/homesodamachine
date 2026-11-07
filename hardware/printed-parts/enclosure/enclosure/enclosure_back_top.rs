@@ -79,6 +79,13 @@ fn print_features(dir: &Path, b: &spec::Box) -> Result<()> {
     }
     let wall = &layout::layout().rear_wall;
     let panel = &wall.interior_panel_relief;
+    let mut inlet = rear::c14_stock_bounds();
+    inlet[2] -= shell::WALL;
+    let mut inlet_blocking = inlet;
+    inlet_blocking[3] = b.outer[3]+1.0;
+    regions.push(json!({"name":"Internal C14 mount and cord passage",
+        "bounds_source_mm":inlet,"blocking_bounds_source_mm":inlet_blocking,
+        "reason":"The internal flange pocket, blind pilots and cord passage grow through the tilted fine layers without interior trees."}));
     regions.push(json!({"name":"Wet-column rear face",
         "bounds_source_mm":[panel.xmin-shell::WALL,panel.xmax+shell::WALL,
                             wall.rear_wall.ymin,b.outer[3]+shell::WALL,panel.zmin,b.outer[5]+1.0],

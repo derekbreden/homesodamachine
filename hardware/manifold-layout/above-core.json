@@ -159,7 +159,7 @@
       ],
       "translation_mm": [
         -68.5,
-        471.29999999999995,
+        461.21,
         330.0
       ],
       "reference": "hardware/reference/iec-c14-inlet/iec-c14-inlet.step"
@@ -1032,7 +1032,7 @@
       ],
       "translation_mm": [
         -135.4,
-        10.09,
+        0.0,
         -6.21058083755679
       ],
       "geometry": "c14-inlet"
@@ -4012,7 +4012,7 @@
       "c14": {
         "flange_center_mm": [
           -68.5,
-          471.29999999999995,
+          461.21,
           330.0
         ],
         "rotation": [
@@ -4032,12 +4032,14 @@
             1
           ]
         ],
-        "profile_clearance_mm": 0.25,
-        "flange_pocket_ymin_mm": 468.05,
-        "body_opening_ymin_mm": 462.29,
-        "body_opening_basis": "Measured IEC C14 wiring-side body profile with 0.25 mm clearance; distinct from the outboard flange recess and generic panel-cutout recommendation.",
-        "mount_pitch_mm": 40.21,
-        "mount_hole_radius_mm": 1.7
+        "profile_clearance_mm": 0.65,
+        "mount_pitch_mm": 40.0,
+        "mount_hole_radius_mm": 1.7,
+        "flange_pocket_depth_mm": 5.0,
+        "cord_access_width_mm": 28.3,
+        "cord_access_height_mm": 19.3,
+        "cord_access_radius_mm": 1.5,
+        "mounting": "Internal flange pocket with rim-bearing floor and inward screw access; the outer face exposes only the cord passage."
       },
       "keystone": {
         "face_center_mm": [

@@ -1,0 +1,121 @@
+{
+  "blind_pilot_mm": 5.25,
+  "ceiling_below_slab_mm": 4.264999999999999,
+  "checks": [
+    {
+      "name": "Inlet insertion before fitting adjacent electronics",
+      "offset_y_mm": -12.0,
+      "overlap_mm3": 0.0
+    },
+    {
+      "name": "Inlet insertion before fitting adjacent electronics",
+      "offset_y_mm": -8.0,
+      "overlap_mm3": 0.0
+    },
+    {
+      "name": "Inlet insertion before fitting adjacent electronics",
+      "offset_y_mm": -4.0,
+      "overlap_mm3": 0.0
+    },
+    {
+      "name": "Inlet insertion before fitting adjacent electronics",
+      "offset_y_mm": -2.0,
+      "overlap_mm3": 0.0
+    },
+    {
+      "name": "Inlet insertion before fitting adjacent electronics",
+      "offset_y_mm": -1.0,
+      "overlap_mm3": 0.0
+    },
+    {
+      "name": "Inlet insertion before fitting adjacent electronics",
+      "offset_y_mm": 0.0,
+      "overlap_mm3": 0.0
+    },
+    {
+      "name": "Nominal cord passage gauge through exterior wall",
+      "overlap_mm3": 0.0
+    },
+    {
+      "name": "Blind insert pilot",
+      "overlap_mm3": 0.0,
+      "x_mm": -88.5
+    },
+    {
+      "name": "Internal screw access before fitting the PSU",
+      "overlap_mm3": 0.0,
+      "x_mm": -88.5
+    },
+    {
+      "name": "Blind insert pilot",
+      "overlap_mm3": 0.0,
+      "x_mm": -48.5
+    },
+    {
+      "name": "Internal screw access before fitting the PSU",
+      "overlap_mm3": 0.0,
+      "x_mm": -48.5
+    }
+  ],
+  "cord_access_nominal_mm": [
+    28.3,
+    19.3,
+    1.5
+  ],
+  "flange_origin_mm": [
+    -68.5,
+    461.21,
+    330.0
+  ],
+  "insert_length_mm": 4.0,
+  "minimum_bore_to_pilot_ligament_mm": 3.8499999999999996,
+  "mount_pitch_mm": 40.0,
+  "neighbors": [
+    {
+      "fastener_head_overlap_mm3": [
+        0.0,
+        0.0
+      ],
+      "inlet_overlap_mm3": 0.0,
+      "mount_stock_overlap_mm3": 0.0,
+      "name": "psu",
+      "straight_driver_overlap_with_installed_part_mm3": [
+        0.0,
+        11.540717001950352
+      ]
+    },
+    {
+      "fastener_head_overlap_mm3": [
+        0.0,
+        0.0
+      ],
+      "inlet_overlap_mm3": 0.0,
+      "mount_stock_overlap_mm3": 0.0,
+      "name": "relay-1",
+      "straight_driver_overlap_with_installed_part_mm3": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "fastener_head_overlap_mm3": [
+        0.0,
+        0.0
+      ],
+      "inlet_overlap_mm3": 0.0,
+      "mount_stock_overlap_mm3": 0.0,
+      "name": "relay-2",
+      "straight_driver_overlap_with_installed_part_mm3": [
+        0.0,
+        0.0
+      ]
+    }
+  ],
+  "outer_backing_mm": 3.000000000000057,
+  "passed": true,
+  "pocket_clearance_per_edge_mm": 0.65,
+  "pocket_floor_y_mm": 463.04999999999995,
+  "purpose": "Native geometry of the internal inlet, its passage and hardware access at the relocated station.",
+  "scope": "Nominal mesh seating and sampled insertion into the accessible rear quadrant before installing adjacent electronics; physical cord fit and insertion force remain observations of the actual parts.",
+  "screw_projection_mm": 4.41
+}

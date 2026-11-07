@@ -20,8 +20,8 @@ records hashes and settings. The scan uses millimetres without scale adjustment.
 
 Y is the mating axis and +Y points out of the enclosure toward the cord. X runs
 along the flange, centred between the two screw holes. Z is up, with the earth
-blade below the line and neutral pair. Y = 0 is the outboard face of the flange's
-ears, the plane the wall's seating face carries.
+blade below the line and neutral pair. The native mounting datum is the outboard
+face of the flange's ears; the rim stands proud of it toward the cord.
 
 | Interface | Model dimension |
 |---|---|
@@ -42,9 +42,9 @@ reach either side of the seating plane.
 
 ## In the enclosure
 
-Back-top's inlet tunnel pockets the part with the rim bearing on the pocket
-floor around a 25.3 × 19.3 mm bore, the ears 1.84 mm off that floor and the two
-screws through them. The pocket outline, bore and screw pitch are the print's
+Back-top's internal inlet tunnel pockets the part with its rim bearing on the
+pocket floor around the cord passage. Its ears stand inboard of that floor,
+and washer-backed screws enter from inside. The pocket outline, bore and screw pitch are the print's
 own figures in the [rear wall's recipe](../../printed-parts/enclosure/enclosure/back-top/rear.rs); this model is what stands in them, and the C13
 cord mates through that bore.
 
