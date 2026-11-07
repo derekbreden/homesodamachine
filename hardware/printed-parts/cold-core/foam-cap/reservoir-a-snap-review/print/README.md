@@ -26,7 +26,7 @@ and cleanup before fitting the tubes and cap. Other lid supports retain their
 automatic recipe. This records access and emitted paths, not printed surface
 finish or removal effort.
 
-The manual [`review.py`](review.py) additionally samples actual model beads
+The manual [`review.py`](https://github.com/derekbreden/homesodamachine/blob/f5e8bed091/hardware/printed-parts/cold-core/foam-cap/reservoir-a-snap-review/print/review.py) (in Git at `f5e8bed091`) additionally samples actual model beads
 through the cap roof, both spring leaves and both hooks using the existing
 native print reader. Its sampling boxes are analysis only. No build or commit
 invokes this reader.

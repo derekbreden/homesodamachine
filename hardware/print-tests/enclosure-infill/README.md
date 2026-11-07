@@ -67,6 +67,8 @@ hashes and printer readings. The launch receipt records submission separately.
 
 Preparation is manual and sends nothing:
 
+The scripts these commands run are in Git at [`f5e8bed091`](https://github.com/derekbreden/homesodamachine/tree/f5e8bed091).
+
 ```sh
 tools/cad-venv/bin/python hardware/print-tests/enclosure-infill/prepare.py --slice
 ```
