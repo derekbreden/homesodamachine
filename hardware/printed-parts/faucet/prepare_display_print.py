@@ -557,8 +557,9 @@ def native_slice(project: Path, report: dict, directory: Path, slicer: Path) -> 
     members[writer.SETTINGS_MEMBER] = (json.dumps(settings, indent=2) + "\n").encode()
     staged = directory / "faucet-display-mark2-input.3mf"
     writer.archive_write(staged, members)
+    cli_project = writer.petgf_cooling.cli_project(staged, ready)
     command = [str(slicer), "--slice", "0", "--arrange", "0", "--orient", "0",
-               "--outputdir", str(ready), "--export-3mf", NATIVE_NAME, str(staged)]
+               "--outputdir", str(ready), "--export-3mf", NATIVE_NAME, str(cli_project)]
     (directory / "native-command.json").write_text(json.dumps({"argv": command,
         "environment": {"OMP_NUM_THREADS": "1", "OPENBLAS_NUM_THREADS": "1"},
         "settings_override": EXTERNAL_SPOOL, "submitted": False}, indent=2) + "\n")

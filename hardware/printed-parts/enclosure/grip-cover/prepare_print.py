@@ -62,9 +62,10 @@ def main():
                       (PROFILE,Path(__file__),*(g.HERE/f"{n}.stl" for n in names))})
     (JOB/"preparation.json").write_text(json.dumps(report,indent=2)+"\n")
     ready=JOB/"ready";ready.mkdir()
+    cli_project=writer.petgf_cooling.cli_project(project,ready)
     command=["/Applications/BambuStudio.app/Contents/MacOS/BambuStudio","--slice","0",
              "--arrange","0","--orient","0","--outputdir",str(ready),
-             "--export-3mf",f"{STEM}.gcode.3mf",str(project)]
+             "--export-3mf",f"{STEM}.gcode.3mf",str(cli_project)]
     (JOB/"slice-command.json").write_text(json.dumps(command,indent=2)+"\n")
     with (ready/"slice.log").open("w") as log:
         result=subprocess.run(command,cwd=ready,stdout=log,stderr=subprocess.STDOUT)

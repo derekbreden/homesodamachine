@@ -585,8 +585,9 @@ def prepare(name: str, printer: str | None = None, parts: list[dict] | None = No
 
 def _studio(project: Path, native: Path, archive_name: str) -> tuple[list, dict]:
     native.mkdir()
+    cli_project = _native.petgf_cooling.cli_project(project, native)
     command = [str(STUDIO), "--slice", "0", "--arrange", "0", "--orient", "0", "--outputdir", str(native),
-               "--export-3mf", archive_name, str(project)]
+               "--export-3mf", archive_name, str(cli_project)]
     with (native / "slice.log").open("w") as log:
         result = subprocess.run(_run_slots.command(command, key='BambuStudio:slice'), cwd=native,
                                 stdout=log, stderr=subprocess.STDOUT,

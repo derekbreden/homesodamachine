@@ -181,8 +181,9 @@ def prepare(name: str, project: Path, settings_source: Path, parts: tuple,
                   requested_z_trim_mm=z_trim, printer="H2C", submitted=False)
     save(project.with_suffix(".print.json"), report)
     verify_sources(report)
+    cli_project = writer.petgf_cooling.cli_project(project, directory)
     command = [str(SLICER), "--slice", "0", "--arrange", "0", "--orient", "0",
-               "--outputdir", str(directory), "--export-3mf", native.name, str(project)]
+               "--outputdir", str(directory), "--export-3mf", native.name, str(cli_project)]
     save(directory / "slice-command.json", {"argv": command, "printer_connection": False})
     # Old outputs cannot serve as evidence for the next run.
     for old in (directory / "result.json", directory / "plate_1.gcode", native):

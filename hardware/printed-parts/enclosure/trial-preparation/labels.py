@@ -311,10 +311,11 @@ def slice_and_review(directory: Path) -> dict:
         raise ValueError("the project changed after preparation")
     native = directory / "native"
     native.mkdir()
+    cli_project = _native.petgf_cooling.cli_project(project, native)
     archive_name = project.name.replace(".3mf", ".gcode.3mf")
     with (native / "slice.log").open("w") as log:
         result = subprocess.run([STUDIO, "--slice", "0", "--arrange", "0", "--orient", "0", "--outputdir", str(native),
-                                 "--export-3mf", archive_name, str(project)], cwd=native, stdout=log,
+                                 "--export-3mf", archive_name, str(cli_project)], cwd=native, stdout=log,
                                 stderr=subprocess.STDOUT)
     if result.returncode:
         raise RuntimeError(f"Bambu Studio exited {result.returncode}; see {relative(native / 'slice.log')}")

@@ -47,6 +47,36 @@ def _digest(path, algorithm='sha256'):
         return hashlib.file_digest(stream, algorithm).hexdigest()
 
 
+def cli_project(project, directory):
+    """Keep the GUI project intact and omit its cooling hook from the CLI input copy.
+
+    CLI callers apply the same cooling stage to the emitted archive themselves.
+    """
+    project = Path(project)
+    with zipfile.ZipFile(project) as source:
+        member = 'Metadata/project_settings.config'
+        settings = json.loads(source.read(member))
+        scripts = settings.get('post_process', [])
+        if not scripts:
+            return project
+        for script in scripts:
+            if not script:
+                continue
+            args = shlex.split(script)
+            if len(args) != 2 or Path(args[1]).resolve() != Path(__file__).resolve():
+                raise ValueError('The native CLI cannot execute this project\'s additional post-processing scripts')
+        settings['post_process'] = []
+        output = Path(directory) / (project.stem + '.cli.3mf')
+        with zipfile.ZipFile(output, 'w') as target:
+            for item in source.infolist():
+                if item.filename == member:
+                    target.writestr(copy.copy(item), json.dumps(settings, indent=2) + '\n')
+                else:
+                    with source.open(item) as src, target.open(copy.copy(item), 'w', force_zip64=True) as dest:
+                        shutil.copyfileobj(src, dest)
+    return output
+
+
 def foundation_file(source, output, settings):
     """Emit scoped bridge-foundation cooling through the shared Rust provider."""
     return _rust_shared('cooling.foundation', input=str(Path(source).resolve()),
