@@ -1,0 +1,141 @@
+{
+  "printer": "Mark1",
+  "connection_key": "H2C",
+  "archive": "hardware/printed-parts/enclosure/display-cover/prints/2026-11-06-identification-set-mark1/HSM-identification-Mark1.gcode.3mf",
+  "archive_sha256": "253d7dc59386341a92dc82e6a0d7af5ca7616c8cb239233366e39ac83ce57a98",
+  "before": {
+    "H2C": {
+      "job_id": "",
+      "gcode_state": "IDLE",
+      "subtask_name": "",
+      "print_error": 0,
+      "hms": [],
+      "nozzle_target_temper": 0.0,
+      "bed_target_temper": 0.0,
+      "layer_num": 0,
+      "dryers": [
+        {
+          "id": "0",
+          "dry_time": 0,
+          "temp": "45.7"
+        },
+        {
+          "id": "128",
+          "dry_time": 0,
+          "temp": "53.0"
+        }
+      ]
+    },
+    "Mark2": {
+      "job_id": "",
+      "gcode_state": "IDLE",
+      "subtask_name": "",
+      "print_error": 0,
+      "hms": [],
+      "nozzle_target_temper": 0.0,
+      "bed_target_temper": 0.0,
+      "layer_num": 0
+    }
+  },
+  "checked_at": "2026-11-07T02:59:52.044171+00:00",
+  "mapping": {
+    "black": {
+      "side": "left",
+      "ams": "HT-A"
+    },
+    "white": {
+      "side": "right",
+      "ams": "A3",
+      "rack": 2
+    },
+    "blue": {
+      "side": "right",
+      "ams": "A2",
+      "rack": 1
+    },
+    "red": {
+      "side": "right",
+      "ams": "A1",
+      "rack": 3
+    },
+    "clear": {
+      "side": "right",
+      "ams": "A4",
+      "rack": 4
+    }
+  },
+  "options": {
+    "Timelapse": "On",
+    "Auto bed leveling": "On",
+    "Flow dynamic calibration": "Auto",
+    "Nozzle Offset Calibration": "Auto"
+  },
+  "accepted": {
+    "observed_at": "2026-11-07T03:00:41.150814+00:00",
+    "job_id": "1415627539",
+    "gcode_state": "RUNNING",
+    "subtask_name": "HSM-identification-Mark1.gcode.3mf",
+    "print_error": 0,
+    "hms": [],
+    "layer_num": 0,
+    "total_layer_num": 32,
+    "mc_remaining_time": 0,
+    "nozzle_target_temper": 0.0,
+    "bed_target_temper": 0.0,
+    "upload": {
+      "file_size": 0,
+      "finish_size": 0,
+      "message": "Good",
+      "oss_url": "",
+      "progress": 0,
+      "sequence_id": "0903",
+      "speed": 0,
+      "status": "idle",
+      "task_id": "",
+      "time_remaining": 0,
+      "trouble_id": ""
+    }
+  },
+  "submitted": true,
+  "latest": {
+    "observed_at": "2026-11-07T03:09:52.769489+00:00",
+    "job_id": "1415627539",
+    "gcode_state": "RUNNING",
+    "subtask_name": "HSM-identification-Mark1.gcode.3mf",
+    "print_error": 0,
+    "hms": [],
+    "layer_num": 0,
+    "total_layer_num": 32,
+    "mc_remaining_time": 1128,
+    "nozzle_target_temper": 0.0,
+    "bed_target_temper": 26.0,
+    "stg_cur": 4,
+    "gcode_file_prepare_percent": "100",
+    "dryers": [
+      {
+        "id": "0",
+        "dry_time": 0,
+        "temp": "39.7"
+      },
+      {
+        "id": "128",
+        "dry_time": 0,
+        "temp": "45.5"
+      }
+    ],
+    "ui": {
+      "stage": "Changing filament",
+      "left_nozzle_celsius": 270,
+      "left_nozzle_target_celsius": 270,
+      "right_nozzle_celsius": 37,
+      "right_nozzle_target_celsius": 0,
+      "errors_visible": false
+    }
+  },
+  "viewer_url": "https://homesodamachine.com/3d#step:manifold-layout%2Fenclosure-assembly.step?find=solid%3A%20status-plate%0Aview%3A%20az%3D-90%20el%3D60",
+  "publication": {
+    "pointer_commit": "393786f4d946e0614e242a852f0535a83037b5a8",
+    "model_payload_sha256": "71c3d6867f9915512ad57f631790fe13c75f22b4ccfce1e2db860f13d21c26f7",
+    "verified_in_live_viewer": true
+  }
+}

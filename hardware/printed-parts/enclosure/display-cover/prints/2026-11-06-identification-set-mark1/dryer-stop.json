@@ -1,0 +1,86 @@
+{
+  "observed_at": "2026-11-07T02:47:10.343587+00:00",
+  "command": "auto_stop_ams_dry",
+  "source": "https://github.com/bambulab/BambuStudio/blob/v02.08.02.61/src/slic3r/GUI/DeviceManager.cpp",
+  "before": [
+    {
+      "id": "0",
+      "dry_time": 672,
+      "temp": "57.0",
+      "dry_setting": {
+        "dry_duration": 12,
+        "dry_filament": "PETG",
+        "dry_temperature": 65
+      }
+    },
+    {
+      "id": "128",
+      "dry_time": 681,
+      "temp": "65.5",
+      "dry_setting": {
+        "dry_duration": 12,
+        "dry_filament": "PETG",
+        "dry_temperature": 65
+      }
+    }
+  ],
+  "reply": {
+    "print": {
+      "command": "auto_stop_ams_dry",
+      "err_code": 84033543,
+      "is_from_mqtt": true,
+      "reason": "mqtt message verify failed",
+      "result": "failed",
+      "sequence_id": "295405000"
+    }
+  },
+  "after": [
+    {
+      "id": "0",
+      "dry_time": 672,
+      "temp": "57.0",
+      "dry_setting": {
+        "dry_duration": 12,
+        "dry_filament": "PETG",
+        "dry_temperature": 65
+      }
+    },
+    {
+      "id": "128",
+      "dry_time": 681,
+      "temp": "65.5",
+      "dry_setting": {
+        "dry_duration": 12,
+        "dry_filament": "PETG",
+        "dry_temperature": 65
+      }
+    }
+  ],
+  "studio_stop": {
+    "observed_at": "2026-11-07T02:53:16.402119+00:00",
+    "method": "Bambu Studio AMS Dryness Control Stop buttons",
+    "reported_after": [
+      {
+        "id": "0",
+        "dry_time": 0,
+        "temp": "55.2",
+        "dry_setting": {
+          "dry_duration": -1,
+          "dry_filament": "",
+          "dry_temperature": -1
+        }
+      },
+      {
+        "id": "128",
+        "dry_time": 0,
+        "temp": "62.0",
+        "dry_setting": {
+          "dry_duration": -1,
+          "dry_filament": "",
+          "dry_temperature": -1
+        }
+      }
+    ],
+    "both_stopped": true
+  }
+}
