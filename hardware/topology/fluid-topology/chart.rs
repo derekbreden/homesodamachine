@@ -1,4 +1,5 @@
-//! Fluid chart readers, inventory checks and derived labels.
+//! The plumbing charts' readers, their checks against the machine, and the labels and figures
+//! the program writes into them.
 use super::*;
 use regex::Regex;
 use std::collections::BTreeSet;
@@ -992,7 +993,7 @@ pub fn run(request: &Request) -> Result<Output> {
     let classes = class_members(input)?;
     let mut texts = BTreeMap::new();
     for path in [MANIFOLD, LIMBS, CARBONATOR, TOPOLOGY] {
-        texts.insert(path, std::fs::read_to_string(request.root.join(path))?);
+        texts.insert(path, read_text(&request.root.join(path))?);
     }
     let owed = owed(&texts[TOPOLOGY], &p);
     let mf_vars = manifold_variables(input, &segments)?;
@@ -1114,20 +1115,19 @@ pub fn run(request: &Request) -> Result<Output> {
         if !stale.is_empty() {
             return Ok(failure(
                 stale,
-                "fluid-topology charts are stale — run _fluid_topology_sync.py:",
+                "fluid-topology charts are stale — run the fluid-topology program:",
             ));
         }
         output.stdout = "fluid-topology ✓\n".into();
         return Ok(output);
     }
     if request.write {
-        for (path, was, now) in [
-            (MANIFOLD, &before, &lines),
-            (CARBONATOR, &carb_before, &carb_lines),
-        ] {
-            if was != now {
-                std::fs::write(request.root.join(path), now.join("\n") + "\n")?;
+        for (path, now) in [(MANIFOLD, &lines), (CARBONATOR, &carb_lines)] {
+            let target = request.out.join(path);
+            if let Some(parent) = target.parent() {
+                std::fs::create_dir_all(parent)?;
             }
+            hsm_documents::write_if_changed(&target, (now.join("\n") + "\n").as_bytes())?;
             output.maintained.push(path.into());
         }
     }

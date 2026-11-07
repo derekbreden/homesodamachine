@@ -61,8 +61,6 @@ mod nameplate;
 mod pump_case;
 #[path = "pump_tray.rs"]
 mod pump_tray;
-#[path = "rear_equipment_caps.rs"]
-mod rear_equipment_caps;
 #[path = "rear_identification.rs"]
 mod rear_identification;
 #[path = "valve_tray.rs"]
@@ -138,9 +136,6 @@ pub fn source(name: &str) -> Option<&'static str> {
         "nameplate" => Some("hardware/printed-parts/enclosure/nameplate/nameplate.py"),
         "pump_case" => Some("hardware/printed-parts/enclosure/pump-tray/pump_case.py"),
         "pump_tray" => Some("hardware/printed-parts/enclosure/pump-tray/pump_tray.py"),
-        "rear_equipment_caps" => {
-            Some("hardware/printed-parts/enclosure/rear-equipment-caps/rear_equipment_caps.py")
-        }
         "rear_identification" => {
             Some("hardware/printed-parts/enclosure/rear-identification/rear_identification.py")
         }
@@ -181,7 +176,6 @@ pub fn initialize(rt: Runtime, e: Env, name: &str) -> Result<()> {
         "nameplate" => nameplate::initialize(rt, e),
         "pump_case" => pump_case::initialize(rt, e),
         "pump_tray" => pump_tray::initialize(rt, e),
-        "rear_equipment_caps" => rear_equipment_caps::initialize(rt, e),
         "rear_identification" => rear_identification::initialize(rt, e),
         "valve_tray" => valve_tray::initialize(rt, e),
         _ => anyhow::bail!("unknown enclosure module {name}"),
@@ -220,7 +214,6 @@ pub fn entrypoint(rt: Runtime, e: Env, name: &str) -> Result<Val> {
         "nameplate" => nameplate::entrypoint(rt, e),
         "pump_case" => pump_case::entrypoint(rt, e),
         "pump_tray" => pump_tray::entrypoint(rt, e),
-        "rear_equipment_caps" => rear_equipment_caps::entrypoint(rt, e),
         "rear_identification" => rear_identification::entrypoint(rt, e),
         "valve_tray" => valve_tray::entrypoint(rt, e),
         _ => anyhow::bail!("unknown enclosure entrypoint {name}"),
@@ -332,12 +325,6 @@ pub fn by_path(path: &str) -> Option<&'static str> {
         }
         p if p.ends_with("hardware/printed-parts/enclosure/pump-tray/pump_tray.py") => {
             Some("pump_tray")
-        }
-        p if p.ends_with(
-            "hardware/printed-parts/enclosure/rear-equipment-caps/rear_equipment_caps.py",
-        ) =>
-        {
-            Some("rear_equipment_caps")
         }
         p if p.ends_with(
             "hardware/printed-parts/enclosure/rear-identification/rear_identification.py",

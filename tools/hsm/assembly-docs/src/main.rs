@@ -11,7 +11,6 @@ use std::{
 };
 mod marketing;
 mod procedures;
-mod topology;
 
 #[derive(Deserialize)]
 struct Request {
@@ -127,13 +126,10 @@ fn fraction(value: f64, max_den: u64) -> String {
 fn dispatch(request: &Request) -> Result<Output> {
     let mut output = match request.driver.as_str() {
         "install-envelope" | "target-market" => marketing::run(request)?,
-        "fluid-topology" => topology::run(request)?,
         _ => procedures::run(request)?,
     };
     if request.write {
-        let caller = if request.driver == "fluid-topology" {
-            "/hardware/topology/_fluid_topology_sync.py".to_owned()
-        } else if request.driver == "ac-wiring-schedule" {
+        let caller = if request.driver == "ac-wiring-schedule" {
             "/hardware/wiring/_ac_wiring_schedule_sync.py".to_owned()
         } else if matches!(
             request.driver.as_str(),
