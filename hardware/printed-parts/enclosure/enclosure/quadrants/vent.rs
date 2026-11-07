@@ -104,7 +104,7 @@ pub fn mouth_blocking_bounds(inner: &Bounds, [x, y, z]: [f64; 3]) -> Bounds {
     let liner = inner[0] + slide_slip() + VENT_RIB_WALL;
     let half = VENT_CHANNEL_W / 2.0 + VENT_RIB_WALL;
     let top = z + VENT_CHANNEL_W / 2.0 + root - liner + 2.0 * VENT_RIB_WALL + 2.0 * (rib-root);
-    [root-WALL, rib+1.0, y-half, y+half+rib-root, Z_SEAM-1.0, top]
+    [inner[0]-WALL, rib+1.0, y-half, y+half+rib-root, Z_SEAM-1.0, top]
 }
 
 /// The mouth's open passage, used to distinguish a branch inside it from an exterior tree.

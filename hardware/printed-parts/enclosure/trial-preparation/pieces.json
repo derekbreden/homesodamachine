@@ -190,8 +190,8 @@
           "reason": "Support in back-top's zip-tie cavities is impossible to remove (2026-10-09 Mark1 article). With a 50 mm bridge limit the native 2026-10-10 slice has no support in the tie windows and its article drew no tie-cavity report. drain-readiness/prints/2026-10-09-current-back-top-tree-mark1/physical-result.json; drain-readiness/prints/2026-10-10-current-back-top-bridge50-mark1/README.md. Back-top only."
         },
         "tree_support_branch_diameter_angle": {
-          "value": "0.5",
-          "reason": "The branching trunks widen toward their roots."
+          "value": "0",
+          "reason": "Lower tree trunks retain their base diameter."
         },
         "tree_support_branch_diameter": {
           "value": "3",
@@ -234,6 +234,14 @@
             "Normal Lift"
           ],
           "reason": "Use the saved lift height as a fixed vertical hop before travel."
+        },
+        "support_threshold_angle": {
+          "value": "15",
+          "reason": "The fine-layer rear face grows with overlap at its retained tilt; trees serve only the shallower exterior overhangs."
+        },
+        "support_type": {
+          "value": "tree(manual)",
+          "reason": "The native exterior support field keeps every branch outside the protected receiver and vent interiors."
         }
       },
       "parts": [
@@ -272,7 +280,11 @@
             }
           ]
         }
-      ]
+      ],
+      "cap_finish_lifts": {
+        "value": true,
+        "reason": "Finish clearance stays inside the saved printer's vertical travel."
+      }
     },
     "back-bottom": {
       "printer": "Mark2",

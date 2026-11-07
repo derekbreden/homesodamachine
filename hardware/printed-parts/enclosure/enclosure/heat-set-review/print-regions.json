@@ -202,7 +202,7 @@
     "hardware/printed-parts/petgf.3mf": "45c16e8c8517e0a205107d7b9f7412d013f51a8de7ecf86125cc940079d37ed0",
     "hardware/printed-parts/enclosure/display-cover/mount-dimensions.json": "252088731c6f82ec6213b8ad411f12badbb67f75b1b09719cc4e35e31abd5e6d",
     "hardware/manifold-layout/machine-export-physical.numbers.json": "90f9a464b95d19a4de7a9a51a3fd7d6d6bd7b01abe99d64dc01eb0f24b39c0dd",
-    "hardware/printed-parts/enclosure/trial-preparation/pieces.json": "3347fe103aa1fc8a232485af2c0440ecd759688cd5d62fb01eb49491f9317594",
+    "hardware/printed-parts/enclosure/trial-preparation/pieces.json": "b44377b47985b2fdb876481568970cc023d8e8c692e420f85276018d44af6587",
     "hardware/printed-parts/enclosure/trial-preparation/_mesh.py": "7ab22db36e370608f52df3709c4af1994c8e804ee06e101dcbf79210db99eead"
   },
   "native_artifact_sha256": {

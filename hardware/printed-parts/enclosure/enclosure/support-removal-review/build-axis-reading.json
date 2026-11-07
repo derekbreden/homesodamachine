@@ -1,0 +1,61 @@
+{
+  "purpose": "Read how the rails and receiver catches grow through the native rear-face-down layers.",
+  "source_stl_sha256": "9dffa9196a42bda63057411ad19dfb10a2e7ae98818851dbac9494d34fe6556b",
+  "project_sha256": "33915bdfe3ee01dd4d4de6f44f03fd60e235bb6e7eddfa5ffa76f739a9f3e891",
+  "archive_sha256": "403a0bd04dc4ae908807e52a3245c0dcd198efe8e7e10f44d2649e85e5fb6d9a",
+  "print_up_source": [
+    0.0,
+    -0.9563047559630355,
+    -0.29237170472273666
+  ],
+  "rows": {
+    "ASSE receiver": {
+      "model_roads": 114952,
+      "longest_commanded_y_mm": 4.3747578177662945,
+      "source_y_span_mm": [
+        394.039802498896,
+        438.6566499694358
+      ],
+      "support_roads": 0,
+      "support_y_span_mm": null,
+      "interface_roads": 0,
+      "interface_y_span_mm": null
+    },
+    "Pisco receiver": {
+      "model_roads": 66563,
+      "longest_commanded_y_mm": 2.25506295852648,
+      "source_y_span_mm": [
+        419.81426729537804,
+        462.6171274649723
+      ],
+      "support_roads": 0,
+      "support_y_span_mm": null,
+      "interface_roads": 0,
+      "interface_y_span_mm": null
+    },
+    "East sliding groove": {
+      "model_roads": 5889,
+      "longest_commanded_y_mm": 2.064144235342553,
+      "source_y_span_mm": [
+        223.03808806110982,
+        457.37419676706406
+      ],
+      "support_roads": 0,
+      "support_y_span_mm": null,
+      "interface_roads": 0,
+      "interface_y_span_mm": null
+    },
+    "West sliding groove": {
+      "model_roads": 6182,
+      "longest_commanded_y_mm": 2.064144235342553,
+      "source_y_span_mm": [
+        223.0556303633932,
+        457.3741954138403
+      ],
+      "support_roads": 0,
+      "support_y_span_mm": null,
+      "interface_roads": 0,
+      "interface_y_span_mm": null
+    }
+  }
+}
