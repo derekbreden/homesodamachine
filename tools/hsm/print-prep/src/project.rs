@@ -56,6 +56,8 @@ pub struct Object {
     pub settings: Vec<(String, String)>,
     pub parts: Vec<Part>,
     pub ranges: Vec<Range>,
+    /// The plate the object prints on, an index into the project's plates.
+    pub plate: usize,
 }
 
 impl Object {
@@ -91,8 +93,8 @@ pub struct Plate {
     /// The model's own metadata beyond its application and title, such as the seam painting's
     /// version.
     pub model_metadata: Vec<(String, String)>,
-    /// Each object's own plate, named, in object order; empty puts every object on one plate
-    /// named as the project.
+    /// The project's plates, named, each object on the one its `plate` names; empty puts every
+    /// object on one plate named as the project.
     pub plates: Vec<String>,
     /// The application the model names as its writer.
     pub application: String,
@@ -154,7 +156,7 @@ impl Plate {
             name: name.to_string(), object_id, part_id, identify_id: 1900 + index,
             source_file: source_file.to_string(), source_center, rotation, translation,
             member: format!("3D/Objects/object_{index}.model"), vertices, faces, paint, settings,
-            parts: Vec::new(), ranges: Vec::new(),
+            parts: Vec::new(), ranges: Vec::new(), plate: 0,
         });
         self.objects.len() - 1
     }
@@ -201,10 +203,10 @@ impl Plate {
             }
         });
         let bed = self.settings.get("curr_bed_type").and_then(Json::text).unwrap_or("").to_string();
-        if !self.plates.is_empty() && self.plates.len() != self.objects.len() {
-            bail!("{} plate names for {} objects", self.plates.len(), self.objects.len());
-        }
         let names = if self.plates.is_empty() { vec![self.title.clone()] } else { self.plates.clone() };
+        if let Some(obj) = self.objects.iter().find(|o| o.plate >= names.len()) {
+            bail!("{} prints on plate {} of {}", obj.name, obj.plate + 1, names.len());
+        }
         let mut plates: Vec<String> = names.iter().enumerate().map(|(i, name)| {
             let mut plate = String::from("<plate>");
             for (key, value) in [("plater_id", (i + 1).to_string()), ("plater_name", name.clone()), ("locked", "false".into()),
@@ -263,7 +265,7 @@ impl Plate {
             }
             model.push_str("</components></object>");
             config.push_str("</object>");
-            let plate = &mut plates[if self.plates.is_empty() { 0 } else { index - 1 }];
+            let plate = &mut plates[obj.plate];
             plate.push_str("<model_instance>");
             for (k, v) in [("object_id", obj.object_id), ("instance_id", 0), ("identify_id", obj.identify_id)] {
                 metadata(plate, k, &v.to_string());

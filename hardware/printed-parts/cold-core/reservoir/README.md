@@ -162,12 +162,18 @@ taking the float's from the [Aero float's numbers](../magnetic-float/all-aero/nu
 and the casing's from the [cold core's interface](../interface/lib.rs).
 [`reservoir.rs`](reservoir.rs), the build step, writes the two bodies, both caps,
 gasket and liquid/air grips as STEP files, f64 models, print meshes and payloads.
-[prepare_print.py](prepare_print.py) builds the one current project from the emitted
-STLs bound to the full-precision models and the complete frozen recipe. Run it with `tools/cad-venv/bin/python`;
-it checks source hashes against the
+[`prepare_print.rs`](prepare_print.rs), the `reservoir-print-project` program, builds the one
+current project from the emitted STLs bound to the full-precision models and the complete frozen
+recipe. It checks source hashes against the
 [integration record](../magnetic-float/all-aero/integration-check.json), closed
 meshes, centered bed placement and preservation of the frozen native base
 with the declared May adaptation, ironing and assignment settings.
+
+```sh
+python3 tools/run.py -- cargo build --release --locked -j 2 --manifest-path tools/hsm/Cargo.toml -p hsm-print-prep --bin reservoir-print-project
+tools/hsm/target/release/reservoir-print-project
+```
+
 [review_slice.py](review_slice.py) checks the native recipe, absence of ironing,
 right-nozzle assignment, Mark1 Z trim, full bead inset and bed-rooted supports.
 

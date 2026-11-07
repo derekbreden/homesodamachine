@@ -79,3 +79,7 @@ path = "../../../hardware/printed-parts/zone-c/funnel-cover/prepare_print.rs"
 [[bin]]
 name = "funnel-mold-print-project"
 path = "../../funnel-mold-print/prepare_print.rs"
+
+[[bin]]
+name = "reservoir-print-project"
+path = "../../../hardware/printed-parts/cold-core/reservoir/prepare_print.rs"
