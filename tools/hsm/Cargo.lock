@@ -826,6 +826,20 @@ name = "hsm-asse-drain-adapter-numbers"
 version = "0.1.0"
 
 [[package]]
+name = "hsm-asse-straight-cuffs"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "hsm-asse-straight-cuffs-numbers",
+ "hsm-catalog",
+ "hsm-kernel",
+]
+
+[[package]]
+name = "hsm-asse-straight-cuffs-numbers"
+version = "0.1.0"
+
+[[package]]
 name = "hsm-assembly-docs"
 version = "0.1.0"
 dependencies = [

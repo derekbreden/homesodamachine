@@ -46,12 +46,10 @@ seal or pressure acceptance to this geometry.
 
 The two independent files are `asse-inlet-cuff` and `asse-outlet-cuff`, each
 with STEP, STL, viewer payload and material sidecar. The exported solid has
-the metal socket mouth at Z=0; the print turns it over. Use `assembly_shape(side)` for
-installation; it returns the exact selected shape in the ASSE flow-axis
-frame, whose origin is native ASSE `(0, 0, 27)`.
+the metal socket mouth at Z=0; the print turns it over.
 
 Regenerate from the repository root:
 
 ```sh
-tools/cad-venv/bin/python hardware/printed-parts/asse-straight-cuffs/asse_straight_cuffs.py
+python3 tools/run.py -- cargo run --release --manifest-path tools/hsm/asse-straight-cuffs/Cargo.toml
 ```
