@@ -567,6 +567,7 @@ def native_slice(project: Path, report: dict, directory: Path, slicer: Path) -> 
                                 env={**os.environ, "OMP_NUM_THREADS": "1", "OPENBLAS_NUM_THREADS": "1"})
     if result.returncode:
         raise RuntimeError(f"Native Bambu slice exited {result.returncode}; see {ready / 'bambu-cli.log'}")
+    writer.petgf_cooling.apply_directory(ready, staged)
     return review_native(project, report, directory)
 
 

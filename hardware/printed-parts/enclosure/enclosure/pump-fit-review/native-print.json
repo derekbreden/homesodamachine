@@ -12,15 +12,15 @@
     "sliced_volume_type": "Standard"
   },
   "material": "Polymaker Fiberon PET-GF15, black",
-  "project": "/Users/derekbredensteiner/Downloads/HSM-pump-fit-2026-11-06-final/2026-11-06-pump-retainer-mark1-331ac1a6/2026-11-06-pump-retainer-mark1-331ac1a6.3mf",
-  "project_sha256": "890e036c5cd2f53aede719403ca0913394557ba6628ed2fec135fea8d5d17840",
-  "archive": "/Users/derekbredensteiner/Downloads/HSM-pump-fit-2026-11-06-final/2026-11-06-pump-retainer-mark1-331ac1a6/2026-11-06-pump-retainer-mark1-331ac1a6.gcode.3mf",
-  "archive_sha256": "d701c094e8d983cbd6b8245a2020f5652ad9c74429d25abeef7d9a09ff001e6d",
-  "gcode_sha256": "8548ee893ba53d76c02eff89f769b77cdfdd9a0ab0e5a7916b8c7968e54c8620",
-  "estimated_seconds": 20004.822265625,
+  "project": "/Users/derekbredensteiner/Downloads/HSM-cooling-recovery-2026-11-07/pump-retainer-mark1/pump-retainer-mark1.3mf",
+  "project_sha256": "75dde7a9306bcd9076bd8bf70a6223d2d8e8099ea2fcc173af1392bcc49b1331",
+  "archive": "/Users/derekbredensteiner/Downloads/HSM-cooling-recovery-2026-11-07/pump-retainer-mark1/pump-retainer-mark1.gcode.3mf",
+  "archive_sha256": "1b98de679469b1745903ba5c2e07691d486f5aca0f783b56587a9ba97d70fd8f",
+  "gcode_sha256": "85159b790e3c3867dc67f0be22fec4b5b8bdaf022112a0b3f3988d2263f3bea0",
+  "estimated_seconds": 24238.20012189644,
   "prepared_utc": "2026-11-06T19:52:36+00:00",
   "status": "prepared_not_submitted",
-  "preparation": "/Users/derekbredensteiner/Downloads/HSM-pump-fit-2026-11-06-final/2026-11-06-pump-retainer-mark1-331ac1a6/preparation.json",
+  "preparation": "/Users/derekbredensteiner/Downloads/HSM-cooling-recovery-2026-11-07/pump-retainer-mark1/preparation.json",
   "review": "/Users/derekbredensteiner/Downloads/HSM-pump-fit-2026-11-06-final/2026-11-06-pump-retainer-mark1-331ac1a6/review.json",
   "review_sha256": "33c24ae053d08a1cef821d5936a14916927edf3217a18c73b969cc0af6d6c723",
   "minimum_bed_margin_mm": 61.210033,
@@ -58,5 +58,16 @@
     "image": "/Users/derekbredensteiner/Downloads/HSM-pump-fit-2026-11-06-final/2026-11-06-pump-retainer-mark1-331ac1a6/support-access.png",
     "image_sha256": "f2d8af10f132d98ab842f8c4ca54bdd1032b5fe98107d22e5dcf9aa3278a67d9",
     "inspection": "The emitted branches are exposed through the pump openings and open underside. The aft-wall and skirt-edge interface paths can be reached from those openings. Physical removal effort remains unverified."
-  }
+  },
+  "native_slice_before_cooling": {
+    "archive": "/Users/derekbredensteiner/Downloads/HSM-pump-fit-2026-11-06-final/2026-11-06-pump-retainer-mark1-331ac1a6/2026-11-06-pump-retainer-mark1-331ac1a6.gcode.3mf",
+    "archive_sha256": "d701c094e8d983cbd6b8245a2020f5652ad9c74429d25abeef7d9a09ff001e6d",
+    "project": "/Users/derekbredensteiner/Downloads/HSM-pump-fit-2026-11-06-final/2026-11-06-pump-retainer-mark1-331ac1a6/2026-11-06-pump-retainer-mark1-331ac1a6.3mf",
+    "project_sha256": "890e036c5cd2f53aede719403ca0913394557ba6628ed2fec135fea8d5d17840",
+    "review": "/Users/derekbredensteiner/Downloads/HSM-pump-fit-2026-11-06-final/2026-11-06-pump-retainer-mark1-331ac1a6/review.json",
+    "review_sha256": "33c24ae053d08a1cef821d5936a14916927edf3217a18c73b969cc0af6d6c723"
+  },
+  "cooling_recovery": "hardware/printed-parts/cooling/recovery-preparation.json",
+  "command_preservation": "/Users/derekbredensteiner/Downloads/HSM-cooling-recovery-2026-11-07/pump-retainer-mark1/command-preservation.json",
+  "estimated_seconds_scope": "Native estimate plus the added constant-feed motion time; acceleration and fan spin-up are not simulated."
 }

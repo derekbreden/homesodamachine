@@ -61,6 +61,7 @@ def slice_project(project, archive, spec, directory):
         completed = subprocess.run(command, stdout=log, stderr=subprocess.STDOUT)
     if completed.returncode:
         raise RuntimeError(f"Offline slice failed; {directory / 'bambu-cli.log'}")
+    writer.petgf_cooling.apply_directory(directory, project)
     result = json.loads((directory / "result.json").read_text())
     if result.get("return_code") != 0:
         raise RuntimeError(result.get("error_string"))

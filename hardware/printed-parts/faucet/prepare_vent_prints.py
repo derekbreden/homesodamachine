@@ -192,6 +192,7 @@ def prepare(name: str, project: Path, settings_source: Path, parts: tuple,
     if sliced.returncode:
         raise RuntimeError(f"Native slice failed ({sliced.returncode}): {directory / 'slice.log'}")
     verify_sources(report)
+    writer.petgf_cooling.apply_directory(directory, project)
     validation = native_validation(native, project, report, directory)
     save(project.with_suffix(".native-validation.json"), validation)
     audit = writer.slice_review(project, report, directory)

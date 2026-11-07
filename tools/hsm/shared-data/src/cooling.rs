@@ -2,13 +2,17 @@
 use anyhow::{Context,Result,bail};
 use hsm_shared_data::common::*;
 use serde_json::{Value,json};
+#[path="cooling_foundation.rs"]
+mod foundation;
 
 const ORDER:[&str;10]=["fan_min_speed","fan_max_speed","additional_cooling_fan_speed","first_x_layer_fan_speed","first_x_layer_part_fan_speed","enable_overhang_bridge_fan","overhang_fan_speed","overhang_fan_threshold","reduce_fan_stop_start_freq","pre_start_fan_time"];
 fn values()->Value{let data:Value=serde_json::from_str(include_str!("../catalog/scalars.json")).unwrap();data["petgf_cooling"]["VALUES"].clone()}
 fn truthy(v:&Value)->bool{match v{Value::Null=>false,Value::Bool(v)=>*v,Value::String(s)=>!s.is_empty(),Value::Number(n)=>n.as_f64()!=Some(0.),Value::Array(a)=>!a.is_empty(),Value::Object(m)=>!m.is_empty()}}
 fn string(v:&Value)->String{match v{Value::Null=>"None".into(),Value::Bool(b)=>if *b{"True"}else{"False"}.into(),Value::String(s)=>s.clone(),v=>v.to_string()}}
 pub fn dispatch(op:&str,r:&Value)->Result<Value>{Ok(match op{
+    "foundation"=>foundation::process(r)?,
     "values"=>{let values=values();json!(ORDER.map(|name|json!([name,values[name]])))},
+    "foundation_policy"=>{let data:Value=serde_json::from_str(include_str!("../catalog/scalars.json"))?;data["petgf_cooling"]["FOUNDATION"].clone()},
     "member_names"=>json!(array(&r["names"]).iter().filter(|name|{let s=text(name);s=="Metadata/project_settings.config"||(s.starts_with("Metadata/filament_settings_")&&s.ends_with(".config"))}).collect::<Vec<_>>()),
     "apply"=>{
         let mut settings=r["settings"].clone();let map=settings.as_object_mut().context("filament settings must be an object")?;
@@ -25,6 +29,16 @@ pub fn dispatch(op:&str,r:&Value)->Result<Value>{Ok(match op{
             for i in &indices{while *i>=new.len(){new.push(new.last().cloned().unwrap_or(json!("0")));}new[*i]=values[key].clone();}
             let new=json!(new);if new!=old{let change=json!({"from":old,"to":new});changes.insert(key.into(),change.clone());updates.push(json!([key,change]));map.insert(key.into(),new);}
         }}
+        if !indices.is_empty() {
+            if let Some(command)=r["post_process_command"].as_str() {
+                let old=map.get("post_process").cloned().unwrap_or(json!([]));
+                let mut scripts=old.as_array().cloned().unwrap_or_default();
+                scripts.retain(|s|!text(s).contains("/cadlib/petgf_cooling.py"));
+                scripts.push(json!(command));
+                let new=json!(scripts);
+                if new!=old {let change=json!({"from":old,"to":new});changes.insert("post_process".into(),change.clone());updates.push(json!(["post_process",change]));map.insert("post_process".into(),new);}
+            }
+        }
         json!({"settings":settings,"changes":changes,"updates":updates})
     },
     _=>bail!("unknown cooling operation {op}")

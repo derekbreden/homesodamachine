@@ -68,6 +68,8 @@ def main():
     (JOB/"slice-command.json").write_text(json.dumps(command,indent=2)+"\n")
     with (ready/"slice.log").open("w") as log:
         result=subprocess.run(command,cwd=ready,stdout=log,stderr=subprocess.STDOUT)
+    if not result.returncode:
+        writer.petgf_cooling.apply_directory(ready, project)
     print("SLICE_EXIT",result.returncode,flush=True)
     return result.returncode
 

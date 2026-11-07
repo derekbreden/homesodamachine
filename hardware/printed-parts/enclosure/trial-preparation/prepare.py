@@ -596,6 +596,8 @@ def _studio(project: Path, native: Path, archive_name: str) -> tuple[list, dict]
     sliced = json.loads((native / "result.json").read_text())
     if sliced.get("return_code") != 0:
         raise RuntimeError(f"Bambu Studio reported {sliced.get('error_string')}")
+    _native.petgf_cooling.apply_directory(native, project)
+    sliced = json.loads((native / "result.json").read_text())
     return command, sliced
 
 
@@ -672,6 +674,9 @@ def slice_project(directory: Path) -> Path:
         if hashlib.md5(gcode).hexdigest() != z.read("Metadata/plate_1.gcode.md5").decode().strip().lower():
             raise ValueError("the embedded G-code does not match its MD5")
     save(directory / "slice-result.json", sliced)
+    cooling = native / Path(archive_name).with_suffix('.cooling.json')
+    if cooling.is_file():
+        preparation['cooling_recovery'] = json.loads(cooling.read_text())
     preparation.update(sliced=True, archive=relative(archive), archive_sha256=_mesh.sha256(archive),
                        gcode_sha256=hashlib.sha256(gcode).hexdigest(),
                        estimated_seconds=sum(p.get("total_predication", 0) for p in sliced.get("sliced_plates", [])),

@@ -130,13 +130,15 @@ surface check before claiming the tee result transfers to them.
 
 PET-GF uses the [localized cooling policy](cooling/README.md): ordinary part
 cooling and auxiliary part cooling are off. High cooling is for the bridges
-and substantially unsupported wall paths that need it, not whole layers,
+and substantially unsupported wall paths and their fresh foundation courses, not whole layers,
 short layer times or ordinary walls. The shared `petgf.3mf` and current
 preparers select 70% bridge/overhang cooling at the 50% unsupported-width
 threshold. A 0% threshold cools every exterior wall in Bambu Studio and does
 not express this policy. Keep fan-always-on and fan pre-start off. A feature
 may use up to 100% cooling when its underside needs it; scope that choice to
-the actual paths. Historical G-code is evidence, not the current recipe.
+the actual paths. The shared output stage retains cooling and bridge-limited
+deposition speed in those recent underside footprints. Ordinary structural
+paths retain their selected recipe. Historical G-code is evidence, not the current recipe.
 
 Derek wants every spool used fully, with reloading during a print as needed. Remaining
 spool quantity is not a launch condition: do not ask for its weight or an estimate, or

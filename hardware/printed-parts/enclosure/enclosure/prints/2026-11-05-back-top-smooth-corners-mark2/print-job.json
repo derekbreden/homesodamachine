@@ -17,7 +17,7 @@
   "source_stl": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl",
   "source_stl_sha256": "afef480e17bbad94f5b12c38e2f63048e052d9ae5dea3b3c5b403ace658ceca0",
   "source_step_sha256": "b47d0f8fad3f7db0050c6274a16c3c37ee4f33a051e511374b20cc7955b063d9",
-  "archive": "/Users/derekbredensteiner/Downloads/HSM-smooth-corners-2026-11-05/HSM-0081-back-top-Mark2.gcode.3mf",
+  "archive": "/Users/derekbredensteiner/Downloads/HSM-smooth-corners-2026-11-05/HSM-000081-back-top-Mark2.gcode.3mf",
   "archive_sha256": "9bf7e28a4573503f8e9954b7ffa82076b03b9b0bd201cbde67b22c763f0d7e3c",
   "gcode_sha256": {
     "Metadata/plate_1.gcode": "2420344466cd59636e9b513e5661f733230b06b1719fdb1d58c66bf13f455833"

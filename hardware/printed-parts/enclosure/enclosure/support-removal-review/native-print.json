@@ -13,12 +13,12 @@
     "sliced_volume_type": "Standard"
   },
   "material": "Polymaker Fiberon PET-GF15, black",
-  "project": "/Users/derekbredensteiner/Downloads/HSM-rear-enclosure-2026-11-06-final/2026-11-06-back-top-mark2-d175b51e/2026-11-06-back-top-mark2-d175b51e.3mf",
-  "project_sha256": "33915bdfe3ee01dd4d4de6f44f03fd60e235bb6e7eddfa5ffa76f739a9f3e891",
-  "archive": "/Users/derekbredensteiner/Downloads/HSM-rear-enclosure-2026-11-06-final/2026-11-06-back-top-mark2-d175b51e/2026-11-06-back-top-mark2-d175b51e.gcode.3mf",
-  "archive_sha256": "403a0bd04dc4ae908807e52a3245c0dcd198efe8e7e10f44d2649e85e5fb6d9a",
-  "gcode_sha256": "6030ac52c54c5fcaf8e199b0ceecdd0ddb02384deb4438f6498cb797a0a74721",
-  "estimated_seconds": 294326.90625,
+  "project": "/Users/derekbredensteiner/Downloads/HSM-cooling-recovery-2026-11-07/rear-top-mark2/rear-top-mark2.3mf",
+  "project_sha256": "5bd3d37ebc9e39b0b62e310d5d00a2fc8d7477e0788e5867b630141ce83b4a1b",
+  "archive": "/Users/derekbredensteiner/Downloads/HSM-cooling-recovery-2026-11-07/rear-top-mark2/rear-top-mark2.gcode.3mf",
+  "archive_sha256": "3e802773edf8a71694cd9dd0405e758a4488ea02e83dee2676880da3226c5c20",
+  "gcode_sha256": "f83ca5b8d5ad49c395972af9795ceda1c6256e7fbf63ded34a169ab97477228e",
+  "estimated_seconds": 304317.8668792696,
   "estimated_material_g": 853.28,
   "prepared_utc": "2026-11-07T00:31:18+00:00",
   "status": "prepared_not_submitted",
@@ -51,5 +51,17 @@
   "functional_passages": "passage-reading.json",
   "vertical_travel": "height-reading.json",
   "native_input_equivalence": "native-input-equivalence.json",
-  "scope": "Native checks establish emitted clearances and paths. Fit, strength, surface finish and support-removal effort remain physical observations."
+  "scope": "Native checks establish emitted clearances and paths. Fit, strength, surface finish and support-removal effort remain physical observations.",
+  "native_slice_before_cooling": {
+    "archive": "/Users/derekbredensteiner/Downloads/HSM-rear-enclosure-2026-11-06-final/2026-11-06-back-top-mark2-d175b51e/2026-11-06-back-top-mark2-d175b51e.gcode.3mf",
+    "archive_sha256": "403a0bd04dc4ae908807e52a3245c0dcd198efe8e7e10f44d2649e85e5fb6d9a",
+    "project": "/Users/derekbredensteiner/Downloads/HSM-rear-enclosure-2026-11-06-final/2026-11-06-back-top-mark2-d175b51e/2026-11-06-back-top-mark2-d175b51e.3mf",
+    "project_sha256": "33915bdfe3ee01dd4d4de6f44f03fd60e235bb6e7eddfa5ffa76f739a9f3e891",
+    "review": "/Users/derekbredensteiner/Downloads/HSM-rear-enclosure-2026-11-06-final/2026-11-06-back-top-mark2-d175b51e/review.json",
+    "review_sha256": "7f2f8af7783d82612112ee44e2b0fcf8d66be8f20b28e2b7be9157bd5d83afde"
+  },
+  "preparation": "/Users/derekbredensteiner/Downloads/HSM-cooling-recovery-2026-11-07/rear-top-mark2/preparation.json",
+  "cooling_recovery": "hardware/printed-parts/cooling/recovery-preparation.json",
+  "command_preservation": "/Users/derekbredensteiner/Downloads/HSM-cooling-recovery-2026-11-07/rear-top-mark2/command-preservation.json",
+  "estimated_seconds_scope": "Native estimate plus the added constant-feed motion time; acceleration and fan spin-up are not simulated."
 }
