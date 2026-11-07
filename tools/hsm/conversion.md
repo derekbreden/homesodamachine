@@ -91,6 +91,9 @@ read there, with each Python file replaced by the Rust that took its place.
 - **A step is converted** when Bazel runs its Rust program and no Python. The Python only that
   step used is deleted in the same change, which lands on main on its own with the step's share
   of the full build before and after.
+- **The machine's clash checks are off until the parts they read are in Rust.** A conversion
+  keeps every solid within the kernel's rule, so nothing it does changes the fit. The checks
+  then come back in Rust, written from what the `/3d` checks panel shows.
 - **Typed recipes are written from what the website shows and what prints.** The current code
   shows how a step makes those; it is not the specification, and it is not translated line by
   line. No Python interface, `Val` value or name looked up at run time stays inside the Rust.
@@ -128,7 +131,7 @@ explicit input recipes come from Rust data providers.
 | Print surfaces | `print-payload`, for the payloads `flute_payload.py` cuts, and the library the enclosure piece programs link; reduction, shading and source records | `tools/hsm/print-payload/` |
 | End cap | `endcap-circular-step`; the machined cap's files from the numbers crates of the tube, the float and the cap | `hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_step.rs` |
 | Installed machine | `installed-machine`; the placements, equipment, tubes, installed parts and wiring in one process, written as the machine's STEP, viewer payload, facts and scene GLBs | `hardware/manifold-layout/installed_machine.rs` |
-| Machine checks | `machine-checks`; fit, clearance and scalar reports, run when asked through `enclosure_assembly.py` | `hardware/manifold-layout/machine_checks.rs` |
+| Machine checks | `machine-checks`; fit, clearance and scalar readings, off during the conversion | `hardware/manifold-layout/machine_checks.rs` |
 | Model exports | the `hsm-model-export` library; physical models, display surfaces, wiring append and scene GLBs | `hardware/assembly/scenes/model_export/` |
 | Model context | `machine-data`; facts, scene documents and numerical wiring context | `tools/hsm/machine-data/` |
 | Document readers | Rust ledger and procedure programs, with explicit source dependencies and remaining raw provider inputs | `tools/hsm/ledger/`, `tools/hsm/assembly-docs/` |
@@ -143,7 +146,7 @@ ledgers and Rust measurements, including handhold sections and supported sloping
 The equipment fixture preserves a documented limitation for two PVC cuff joining caps:
 the authored construction, dimensions, bounds and material colours agree, while the internal
 Boolean-cap triangulations differ. The retained comparison records those differences; it does
-not state that every raw surface matches. The combined build retains its existing fit questions.
+not state that every raw surface matches.
 
 ## Current coverage
 
@@ -155,7 +158,7 @@ CadQuery, OCP or meshcad.
 
 The source graph and shared runtime inputs cover 101 entrypoints, 341 Python source and adapter
 files, and 426 Rust sources, alongside Cargo manifests and raw files. The retained comparisons cover complete pieces on fixed inputs;
-the combined normal build exercises their integration and runs the fit checks.
+the combined normal build exercises their integration.
 This is evidence for the maintained build, not dynamic coverage of every optional command.
 
 Historical print records, dated studies and optional native CAD probes retain their recorded
@@ -244,7 +247,6 @@ main. Independent pieces run in parallel.
 
 | Piece | Scope |
 | --- | --- |
-| Machine checks | Bounded future-use search reuse preserves fit and drain answers |
 | Enclosure construction | Identical panel construction expressions share their result |
 | Equipment | Repeated fittings share construction and imported models release after final use |
 | Fluid routes | Insulation reads only its referenced equipment bodies |

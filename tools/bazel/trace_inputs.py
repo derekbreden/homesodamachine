@@ -359,7 +359,7 @@ ELSEWHERE = ("tools/", "hardware/pcb/pcba/",
              "hardware/install-guide/_cad_art.py",  # scene library kit_art.py and opening_scene.py import
              "hardware/install-guide/_install_art.py",  # scene library kit_art.py and opening_scene.py import
              "hardware/assembly/scenes/render_scenes.py",
-             "hardware/manifold-layout/enclosure_assembly.py",  # the machine's clash checks, run by hand
+             "hardware/manifold-layout/enclosure_assembly.py",  # the old machine pipeline; the BOM and topology syncs import it
              "hardware/scripts/check_faucet_geometry.py",
              "hardware/printed-parts/enclosure/pump-dock/print-preparation/",
              "hardware/printed-parts/enclosure/enclosure/heat-set-review/print_regions.py",
