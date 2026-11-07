@@ -1,12 +1,9 @@
 //! Surface and pixel calculations used by the guide artwork.
 use anyhow::{Context, Result, ensure};
-use hsm_build_data::payload::{self, Mesh};
+use hsm_build_data::payload;
 use hsm_documents::interop::{self, Val, callback, note_io};
 use serde_json::json;
-use std::{
-    collections::{HashMap, VecDeque},
-    path::{Path, PathBuf},
-};
+use std::path::{Path, PathBuf};
 
 fn arg(args: &[Val], n: usize) -> Result<Val> {
     args.get(n).cloned().context("guide primitive argument")
@@ -27,37 +24,6 @@ fn numbers(value: &Val) -> Result<Vec<f64>> {
 fn values(values: impl IntoIterator<Item = f64>) -> Val {
     Val::list(values.into_iter().map(Val::Float).collect())
 }
-fn mesh_value(mesh: Mesh) -> Result<Val> {
-    let mut fields = vec![
-        ("name".into(), Val::Str(mesh.name)),
-        ("color".into(), Val::decode(mesh.color)?),
-    ];
-    if let Some(sources) = mesh.face_sources {
-        fields.push((
-            "face_sources".into(),
-            Val::decode(serde_json::from_str(sources.get())?)?,
-        ));
-    }
-    fields.extend([
-        ("pos".into(), values(mesh.pos)),
-        ("nrm".into(), values(mesh.nrm)),
-        (
-            "idx".into(),
-            Val::list(mesh.idx.into_iter().map(|v| Val::Int(v as i64)).collect()),
-        ),
-        (
-            "fac".into(),
-            Val::list(mesh.fac.into_iter().map(|v| Val::Int(v as i64)).collect()),
-        ),
-    ]);
-    if let Some(uv) = mesh.uv {
-        fields.push(("uv".into(), values(uv)));
-    }
-    if let Some(col) = mesh.col {
-        fields.push(("col".into(), values(col)));
-    }
-    Ok(Val::dict(fields))
-}
 fn json_text(value: Val) -> Result<String> {
     interop::builtin_module("json")
         .unwrap()
@@ -70,16 +36,6 @@ fn json_text(value: Val) -> Result<String> {
             )],
         )?
         .str()
-}
-fn read_meshes(path: &Path) -> Result<Val> {
-    note_io(path, false);
-    Ok(Val::list(
-        payload::read(path)?
-            .meshes
-            .into_iter()
-            .map(mesh_value)
-            .collect::<Result<_>>()?,
-    ))
 }
 fn mesh_bounds(path: &Path) -> Result<Val> {
     note_io(path, false);
@@ -239,137 +195,8 @@ fn drink_front(drink: &Val) -> Result<Val> {
     drink.set("fac".into(), Val::list(faces))?;
     Ok(Val::None)
 }
-fn exterior(mut mask: Vec<bool>, width: usize, height: usize) -> Result<Val> {
-    ensure!(mask.len() == width * height, "silhouette raster size");
-    if width == 0 || height == 0 {
-        return Ok(Val::list(vec![]));
-    }
-    let mut outside = vec![false; mask.len()];
-    let mut queue = VecDeque::new();
-    for y in 0..height {
-        for x in 0..width {
-            let i = y * width + x;
-            if (x == 0 || y == 0 || x == width - 1 || y == height - 1) && !mask[i] && !outside[i] {
-                outside[i] = true;
-                queue.push_back((x, y));
-            }
-        }
-    }
-    while let Some((x, y)) = queue.pop_front() {
-        for (dx, dy) in [(-1, 0), (1, 0), (0, -1), (0, 1)] {
-            let a = x as isize + dx;
-            let b = y as isize + dy;
-            if a >= 0 && b >= 0 && (a as usize) < width && (b as usize) < height {
-                let i = b as usize * width + a as usize;
-                if !mask[i] && !outside[i] {
-                    outside[i] = true;
-                    queue.push_back((a as usize, b as usize));
-                }
-            }
-        }
-    }
-    for (v, external) in mask.iter_mut().zip(outside) {
-        *v = !external;
-    }
-    type Point = (usize, usize);
-    let mut edges: HashMap<Point, Vec<Point>> = HashMap::new();
-    let mut order = vec![];
-    for side in 0..4 {
-        for y in 0..height {
-            for x in 0..width {
-                if !mask[y * width + x] {
-                    continue;
-                }
-                let neighbour = match side {
-                    0 => y > 0 && mask[(y - 1) * width + x],
-                    1 => x + 1 < width && mask[y * width + x + 1],
-                    2 => y + 1 < height && mask[(y + 1) * width + x],
-                    _ => x > 0 && mask[y * width + x - 1],
-                };
-                if !neighbour {
-                    let (a, b) = [
-                        ((x, y), (x + 1, y)),
-                        ((x + 1, y), (x + 1, y + 1)),
-                        ((x + 1, y + 1), (x, y + 1)),
-                        ((x, y + 1), (x, y)),
-                    ][side];
-                    if !edges.contains_key(&a) {
-                        order.push(a);
-                    }
-                    edges.entry(a).or_default().push(b);
-                }
-            }
-        }
-    }
-    let mut loops = vec![];
-    let mut first = 0;
-    while !edges.is_empty() {
-        while !edges.contains_key(&order[first]) {
-            first += 1;
-        }
-        let start = order[first];
-        let mut point = start;
-        let mut line = vec![point];
-        loop {
-            let options = edges
-                .get_mut(&point)
-                .context("silhouette edge continuation")?;
-            let following = options.pop().unwrap();
-            if options.is_empty() {
-                edges.remove(&point);
-            }
-            line.push(following);
-            point = following;
-            if point == start {
-                break;
-            }
-        }
-        let mut keep = vec![line[0]];
-        for i in 1..line.len() - 1 {
-            let (a, b, c) = (line[i - 1], line[i], line[i + 1]);
-            if (b.0 as i64 - a.0 as i64) * (c.1 as i64 - b.1 as i64)
-                != (b.1 as i64 - a.1 as i64) * (c.0 as i64 - b.0 as i64)
-            {
-                keep.push(b);
-            }
-        }
-        if keep.len() >= 3 {
-            loops.push(Val::list(
-                keep.into_iter()
-                    .map(|(x, y)| Val::tuple(vec![Val::Int(x as i64), Val::Int(y as i64)]))
-                    .collect(),
-            ));
-        }
-    }
-    Ok(Val::list(loops))
-}
-fn outlines(input: Val) -> Result<Val> {
-    let rows = if matches!(input, Val::Ref(_)) {
-        concrete(&input.attr("tolist")?.call(vec![], vec![])?)?
-    } else {
-        input
-    };
-    let rows = rows.iter()?;
-    let height = rows.len();
-    let width = rows.first().map(Val::len).transpose()?.unwrap_or(0);
-    let mut pixels = vec![];
-    for row in rows {
-        ensure!(row.len()? == width, "ragged mask");
-        pixels.extend(
-            row.iter()?
-                .iter()
-                .map(Val::truthy)
-                .collect::<Result<Vec<_>>>()?,
-        );
-    }
-    exterior(pixels, width, height)
-}
 pub fn module() -> Result<Val> {
     let mut fields = vec![];
-    fields.push((
-        "read_meshes".into(),
-        Val::function(|a, _| read_meshes(&PathBuf::from(arg(&a, 0)?.str()?))),
-    ));
     fields.push((
         "mesh_bounds".into(),
         Val::function(|a, _| mesh_bounds(&PathBuf::from(arg(&a, 0)?.str()?))),
@@ -396,29 +223,6 @@ pub fn module() -> Result<Val> {
     fields.push((
         "drink_front".into(),
         Val::function(|a, _| drink_front(&arg(&a, 0)?)),
-    ));
-    fields.push((
-        "outlines".into(),
-        Val::function(|a, _| outlines(arg(&a, 0)?)),
-    ));
-    fields.push((
-        "alpha_outlines".into(),
-        Val::function(|a, _| {
-            let image = arg(&a, 0)?;
-            let size = image.attr("size")?.iter()?;
-            let width = size[0].integer()? as usize;
-            let height = size[1].integer()? as usize;
-            let threshold = arg(&a, 1)?.integer()? as u8;
-            let data = image.attr("tobytes")?.call(vec![], vec![])?;
-            let Val::Bytes(bytes) = data else {
-                anyhow::bail!("alpha image bytes")
-            };
-            exterior(
-                bytes.into_iter().map(|v| v >= threshold).collect(),
-                width,
-                height,
-            )
-        }),
     ));
     Ok(Val::namespace(fields))
 }

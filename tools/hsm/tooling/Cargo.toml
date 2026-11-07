@@ -27,10 +27,6 @@ name = "soda-bend-holder"
 path = "../../../hardware/printed-parts/soda-bend-holder/soda_bend_holder.rs"
 
 [[bin]]
-name = "install-art-props"
-path = "../../../hardware/install-guide/install_art_props.rs"
-
-[[bin]]
 name = "faucet-display-snap"
 path = "../../../hardware/printed-parts/fixtures/faucet-display-snap/faucet_display_snap_trial.rs"
 

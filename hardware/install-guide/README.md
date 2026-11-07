@@ -97,7 +97,6 @@ tails and display cable, and traces the parts' silhouette from the same pose.
 [`install-guide/pages.rs`](install-guide/pages.rs) states one by one, and writes the reading copy
 and an order's print files. [`tools/hsm/pages`](../../tools/hsm/pages/) is its drawing code: the
 PDF, the type, the outlined pictures and the pixels the covers are drawn to.
-`_install_art.py` supplies shared CAD scene builders used by the hand-run illustration tools.
 
 ## Compose and review
 
