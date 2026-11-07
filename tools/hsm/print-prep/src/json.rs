@@ -60,6 +60,14 @@ impl Json {
         }
     }
 
+    /// A map's keys, in their order.
+    pub fn keys(&self) -> Vec<String> {
+        match self {
+            Json::Map(entries) => entries.iter().map(|(k, _)| k.clone()).collect(),
+            _ => Vec::new(),
+        }
+    }
+
     /// The text of a key, or of a list's first item.
     pub fn first_text(&self, key: &str) -> Option<&str> {
         match self.get(key)? {

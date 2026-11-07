@@ -1,7 +1,8 @@
 # Print preparation
 
-[`prepare.py`](prepare.py) writes a fresh native Bambu Studio project for each piece of the
-print set from its current STL, and [`pieces.json`](pieces.json) declares the pieces. The set
+The `enclosure-print-prep` program ([`prepare.rs`](prepare.rs)) writes a fresh native Bambu
+Studio project for each piece of the print set from its current STL, and
+[`pieces.json`](pieces.json) declares the pieces. The set
 covers the enclosure quadrants, the pump bay, the funnel family, the cold-core stack, the small
 PETG parts and the TPU joints and seals. Each piece names its printer, the hotend it is sliced
 for (side, diameter, flow, and whether the stock needs a hardened one) and its material. Every
@@ -12,9 +13,10 @@ to ship. This preparation records manufacturing inputs and emitted paths; it doe
 reduce that objective to fit or qualify the assembled machine by itself.
 
 ```sh
-tools/cad-venv/bin/python hardware/printed-parts/enclosure/trial-preparation/prepare.py list
-tools/cad-venv/bin/python hardware/printed-parts/enclosure/trial-preparation/prepare.py back-top --slice --review
-tools/cad-venv/bin/python hardware/printed-parts/enclosure/trial-preparation/prepare.py all --slice --review
+python3 tools/run.py -- cargo build --release --locked --manifest-path tools/hsm/Cargo.toml -p hsm-print-prep --bin enclosure-print-prep
+tools/hsm/target/release/enclosure-print-prep list
+tools/hsm/target/release/enclosure-print-prep back-top --slice --review
+tools/hsm/target/release/enclosure-print-prep all --slice --review
 tools/cad-venv/bin/python hardware/printed-parts/enclosure/trial-preparation/labels.py --slice
 tools/cad-venv/bin/python hardware/printed-parts/enclosure/trial-preparation/step_meshes.py hardware/printed-parts/cold-core/prv-shroud/prv-shroud.step
 tools/cad-venv/bin/python hardware/printed-parts/enclosure/trial-preparation/step_meshes.py --check
@@ -28,9 +30,10 @@ the input digests, the hotend and material, pose, yaw and plate placement, each 
 and its measured span, the painted face counts, the ribbon, window and modifier boxes, and each
 recipe change with its reason. `--printer` selects Mark1 (connection key `H2C`) or Mark2;
 `--part` replaces a plate's declared parts, with per-part quantity, axis turns, walls and
-infill. Preparation imports no CAD kernel. `--slice` runs the installed Bambu Studio command
-line on the project and keeps its archive beside it. No printer is contacted. Run it through
-`tmp/takeover/cadq` while the swarm shares the machine.
+infill. Preparation reads the exported meshes and builds no geometry. `--slice` runs the
+installed Bambu Studio command line on the project and keeps its archive beside it, and
+`--review` reads the project and archive back with [`review.py`](review.py). No printer is
+contacted. Preparing and slicing take one of the Mac's run slots.
 
 Three kinds of piece are not prepared here. A piece with `external` names its own preparer,
 which `--slice` runs. A piece with `archive` prints from a retained archive, and `list` checks
@@ -38,7 +41,7 @@ its bytes against the recorded digest. A part whose generator writes only a STEP
 mesh from [`step_meshes.py`](step_meshes.py). That script reads the STEP's bodies, fuses a
 part's lettering into it, and writes `<part>.stl` beside the STEP with
 [`cadlib/print_mesh.py`](../../cadlib/print_mesh.py). It binds each STL to the STEP digest in
-[`step-meshes.json`](step-meshes.json), and `prepare.py` refuses an STL whose STEP has moved
+[`step-meshes.json`](step-meshes.json), and preparation refuses an STL whose STEP has moved
 since.
 
 [`labels.py`](labels.py) prepares the identification plates under the CAD lock, one plate per
@@ -77,9 +80,9 @@ the model section. Solid-host coverage measures the interior beyond the local
 bead radius; the outline coverage remains in the reading. Layer-height coverage
 uses the project's declared bed layer and preserves feature tags across layers.
 
-The requested Z trim is Mark1 +0.18 mm and Mark2 +0.04 mm, written as
-`faucet/refresh_print_project.py` writes it, unless a piece states its own.
-[`petgf_cooling.py`](../../cadlib/petgf_cooling.py) applies the localized cooling to PET-GF
+Each printer's Z trim in `pieces.json` goes into the start G-code's plate compensation,
+unless a piece states its own. The `petgf-cooling` program
+([`petgf_cooling.rs`](../../cadlib/petgf_cooling.rs)) applies the localized cooling to PET-GF
 slots. Black PET-GF on the left 0.4 mm nozzle prints model, support and interface on the
 enclosure pieces. The solid-host modifiers come from
 [`print-regions.json`](../enclosure/heat-set-review/print-regions.json) and set 100% zig-zag

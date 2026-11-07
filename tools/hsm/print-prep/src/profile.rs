@@ -137,22 +137,24 @@ pub fn relative(path: &Path, root: &Path) -> String {
 
 /// The plate-compensation block with the user's Z trim, as the Python preparers wrote it.
 fn trim_block(z: f64) -> String {
-    format!(
-        ";===== plate compensation plus user-calibrated +{z:.2} mm Z trim =====\n\
-{{if curr_bed_type==\"Textured PEI Plate\"}}\n\
-    {{if nozzle_diameter_at_nozzle_id[initial_nozzle_id] == 0.2}}\n\
-        G29.1 Z{{{z:.2} - 0.01}}\n\
-    {{else}}\n\
-        G29.1 Z{{{z:.2} - 0.02}}\n\
-    {{endif}}\n\
-{{else}}\n\
-    {{if nozzle_diameter_at_nozzle_id[initial_nozzle_id] == 0.2}}\n\
-        G29.1 Z{{{z:.2} + 0.01}}\n\
-    {{else}}\n\
-        G29.1 Z{{{z:.2}}}\n\
-    {{endif}}\n\
-{{endif}}"
-    )
+    let z = format!("{z:.2}");
+    [
+        format!(";===== plate compensation plus user-calibrated +{z} mm Z trim ====="),
+        "{if curr_bed_type==\"Textured PEI Plate\"}".to_string(),
+        "    {if nozzle_diameter_at_nozzle_id[initial_nozzle_id] == 0.2}".to_string(),
+        format!("        G29.1 Z{{{z} - 0.01}}"),
+        "    {else}".to_string(),
+        format!("        G29.1 Z{{{z} - 0.02}}"),
+        "    {endif}".to_string(),
+        "{else}".to_string(),
+        "    {if nozzle_diameter_at_nozzle_id[initial_nozzle_id] == 0.2}".to_string(),
+        format!("        G29.1 Z{{{z} + 0.01}}"),
+        "    {else}".to_string(),
+        format!("        G29.1 Z{{{z}}}"),
+        "    {endif}".to_string(),
+        "{endif}".to_string(),
+    ]
+    .join("\n")
 }
 
 fn points(text: &str) -> Result<Vec<[f64; 2]>> {
