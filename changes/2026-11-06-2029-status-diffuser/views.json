@@ -1,0 +1,79 @@
+{
+  "views": [
+    {
+      "name": "status-plate",
+      "caption": "The translucent window fills the plate over the LED bore; its white ring matches the frame.",
+      "before": "status-plate-before.webp",
+      "after": "status-plate-after.webp",
+      "width": 1200,
+      "height": 900,
+      "marks": [
+        {
+          "x": 600,
+          "y": 516.6,
+          "r": 48.6,
+          "label": "Translucent PETG",
+          "at": [
+            70.75,
+            42.2635,
+            327.1385
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "orthographic",
+        "position": [
+          70.75,
+          -26.25421384389641,
+          460.6146818343718
+        ],
+        "target": [
+          70.75,
+          48.6721,
+          330.8385
+        ],
+        "up": [
+          0,
+          0.8660254,
+          0.5
+        ],
+        "half": 50,
+        "near": 89.5671157133739,
+        "far": 251.90746184309194,
+        "aspect": 1.3333333333333333
+      },
+      "highlight": [],
+      "ghost": [],
+      "only": [
+        "status-plate",
+        "status-plate-fasteners"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "338f1b51b84512b5b305960f137685c166a3688822abad5c1915490d5668764d",
+          "commit": "30569d8e933aa23c8b518186c19f4999b623cfdd",
+          "taken": "2026-11-07T02:15:55.631Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "71c3d6867f9915512ad57f631790fe13c75f22b4ccfce1e2db860f13d21c26f7",
+          "commit": "51dc980052b1a550950fc512c9b6c4fbcac926c4",
+          "published": true
+        }
+      },
+      "changed": [
+        "status-plate"
+      ],
+      "withinMeshing": [
+        "enclosure-front-top",
+        "status-plate-fasteners"
+      ]
+    }
+  ]
+}
