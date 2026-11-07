@@ -20,7 +20,7 @@ assembly and its BOM.
 | [`fake-countertop.stl`](fake-countertop.stl) | The print, show face down |
 | [`fake-countertop.step`](fake-countertop.step) | Material-coloured model in the print frame |
 | [`fake-countertop.step.npz`](fake-countertop.step.npz) | Full fine model for measurement |
-| [`prepare_print.py`](prepare_print.py) | The project and slice for either machine, from the shared PET-GF settings |
+| [`prepare_print.rs`](prepare_print.rs) | `fake-countertop-print-project`: the project and slice for either machine, from the shared PET-GF settings |
 
 ## Print
 
@@ -28,7 +28,7 @@ Print in the owned PET-GF15 at 15% infill, show face on the textured plate, legs
 nothing needs support, and the plate's texture is the counter's surface. No brim. The Mark2
 project carries that machine's +0.04 and the H2C project its +0.18. A plate that has never
 printed out to 5 mm from its front and back edges holds this first layer only after one layer
-there at Bambu's own offset, the stock project (`prepare_print.py --variant black-mark2-stock`),
+there at Bambu's own offset, the stock project (`fake-countertop-print-project --variant black-mark2-stock`),
 stopped once that layer is down. The slab's edges
 on the plate are sharp. The four outer corners are rounded at, the
 legs meet the slab on a root, and the legs' inner edges and feet are

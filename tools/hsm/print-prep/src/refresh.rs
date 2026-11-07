@@ -412,3 +412,104 @@ pub fn slice_and_review(root: &Path, project: &Path, report: &Value, directory: 
 pub fn cooling_keys() -> Result<Vec<String>> {
     cooling::value_names()
 }
+
+/// One project's command-line slice into an empty `directory`, through the cooling stage: the
+/// slicer's result and the plate's G-code, its digest checked.
+pub fn slice_cli(project: &Path, directory: &Path, archive_name: &str) -> Result<(Value, Vec<u8>, PathBuf)> {
+    if directory.exists() && std::fs::read_dir(directory)?.next().is_some() {
+        bail!("use an empty slice directory: {}", directory.display());
+    }
+    std::fs::create_dir_all(directory)?;
+    let directory = directory.canonicalize()?;
+    let cli = crate::slice::cli_project(&project.canonicalize()?, &directory)?;
+    let log = std::fs::File::create(directory.join("bambu-cli.log"))?;
+    let status = std::process::Command::new(crate::slice::SLICER)
+        .args(["--slice", "0", "--arrange", "0", "--orient", "0", "--export-3mf", archive_name, "--outputdir"]).arg(&directory).arg(&cli)
+        .env("OMP_NUM_THREADS", "1").env("OPENBLAS_NUM_THREADS", "1")
+        .stdout(log.try_clone()?).stderr(log).status()?;
+    if !status.success() {
+        bail!("offline slice failed; {}", directory.join("bambu-cli.log").display());
+    }
+    crate::slice::apply_directory(&directory, project)?;
+    let result: Value = serde_json::from_slice(&std::fs::read(directory.join("result.json"))?)?;
+    if result["return_code"].as_i64() != Some(0) {
+        bail!("{}", result["error_string"]);
+    }
+    let sliced = directory.join(archive_name);
+    let gcode = gcode::plate_gcode(&sliced)?;
+    let mut zip = zip::ZipArchive::new(std::fs::File::open(&sliced)?)?;
+    let mut md5 = String::new();
+    std::io::Read::read_to_string(&mut zip.by_name("Metadata/plate_1.gcode.md5")?, &mut md5)?;
+    if crate::ids::md5_hex(&gcode) != md5.trim().to_lowercase() {
+        bail!("the embedded G-code digest differs");
+    }
+    Ok((result, gcode, sliced))
+}
+
+/// Every plate-compensation command's Z the G-code emits, in order.
+pub fn trim_commands(gcode: &[u8]) -> Vec<f64> {
+    String::from_utf8_lossy(gcode).lines().filter_map(|l| l.trim_start().strip_prefix("G29.1 Z"))
+        .filter_map(|v| v.split(|c: char| !(c.is_ascii_digit() || c == '.' || c == '-' || c == '+')).next()?.parse().ok()).collect()
+}
+
+/// The plate compensation a +`z_trim` request emits on a textured plate: the stock command, then
+/// the trimmed one.
+pub fn expected_trims(z_trim: f64) -> Vec<f64> {
+    vec![0.0, ((z_trim - 0.02) * 100.0).round() / 100.0]
+}
+
+/// The features the G-code labels, each once, sorted.
+pub fn features(gcode: &[u8]) -> Vec<String> {
+    let mut out: Vec<String> = String::from_utf8_lossy(gcode).lines().filter_map(|l| l.strip_prefix("; FEATURE: ")).map(|s| s.trim().to_string()).collect();
+    out.sort();
+    out.dedup();
+    out
+}
+
+/// The layer count the G-code states.
+pub fn total_layers(gcode: &[u8]) -> Option<i64> {
+    String::from_utf8_lossy(&gcode[..gcode.len().min(1 << 20)]).lines()
+        .find_map(|l| l.strip_prefix("; total layer number: ")).and_then(|v| v.trim().parse().ok())
+}
+
+/// A bench plate's slice, read back: the emitted trim is the requested one, every bead clears
+/// `border` inside the plate, and the archive lands in `ready` or beside the project. `spec`
+/// names the plate's Z trim, printer and nozzle mapping.
+pub fn slice_bench_plate(project: &Path, report: &Value, spec: &Value, directory: &Path, ready: Option<&Path>, border: f64) -> Result<Value> {
+    let name = format!("{}.gcode.3mf", project.file_stem().unwrap().to_string_lossy());
+    let (result, gcode, sliced) = slice_cli(project, directory, &name)?;
+    let trims = trim_commands(&gcode);
+    let expected = expected_trims(spec["z_trim_mm"].as_f64().unwrap_or(0.0));
+    if trims != expected {
+        bail!("plate trims {trims:?} differ from {expected:?}");
+    }
+    let labels = features(&gcode);
+    std::fs::write(directory.join("plate_1.gcode"), &gcode)?;
+    let envelope = object_toolpaths(&gcode, None)?;
+    let b = &envelope["extrusion_bounds_xy_mm"];
+    let area = &report["shared_printable_area_mm"];
+    let f = |v: &Value| v.as_f64().unwrap_or(0.0);
+    let margins = [f(&b[0][0]) - f(&area[0][0]), f(&b[0][1]) - f(&area[0][1]), f(&area[1][0]) - f(&b[1][0]), f(&area[1][1]) - f(&b[1][1])];
+    let least = margins.iter().copied().fold(f64::INFINITY, f64::min);
+    if least < border {
+        bail!("emitted bead margin {least:.2} mm is inside the plate border");
+    }
+    let target = ready.unwrap_or(project.parent().unwrap()).join(&name);
+    std::fs::copy(&sliced, &target)?;
+    let plate = &result["sliced_plates"][0];
+    let record = json!({
+        "status": "offline slice reviewed; no physical print or force qualification", "printer_submission": false,
+        "project": project.file_name().unwrap().to_string_lossy(), "project_sha256": sha256_hex(&std::fs::read(project)?),
+        "archive": name, "archive_sha256": sha256_hex(&std::fs::read(&target)?), "gcode_sha256": sha256_hex(&gcode),
+        "source_stls": report["parts"].as_array().into_iter().flatten().map(|p| (p["source"].as_str().unwrap_or("").to_string(), p["stl_sha256"].clone())).collect::<Map<_, _>>(),
+        "printer": spec["printer"], "nozzle_mapping": spec["nozzle_mapping"], "plate_trim_commands_mm": trims, "features": labels,
+        "support_generated": features(&gcode).iter().any(|v| v.contains("Support")), "bead_envelope": envelope, "bead_margin_mm": margins,
+        "layers": total_layers(&gcode), "estimated_seconds": plate["total_predication"],
+        "estimated_filament_g": plate["filaments"].as_array().into_iter().flatten().filter_map(|x| x["total_used_g"].as_f64()).sum::<f64>(),
+        "slicer_warning": plate["warning_message"],
+        "native_process": {"layer_height": result["layer_height"], "wall_loops": result["wall_loops"], "sparse_infill_density": result["sparse_infill_density"]},
+    });
+    std::fs::write(project.with_extension("readiness.json"), serde_json::to_string_pretty(&record)? + "\n")?;
+    Ok(record)
+}
+

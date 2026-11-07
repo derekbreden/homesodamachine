@@ -17,6 +17,7 @@ hsm-shared-data = { path = "../shared-data" }
 zip = { version = "9.1.2", default-features = false, features = ["deflate-flate2-zlib-rs"] }
 hsm-faucet-numbers = { path = "../faucet-numbers" }
 hsm-run-slots = { path = "../run-slots" }
+hsm-fake-countertop-numbers = { path = "../fake-countertop-numbers" }
 
 [[bin]]
 name = "petgf-cooling"
@@ -54,3 +55,19 @@ path = "../../../hardware/printed-parts/faucet/lever-replica/prepare_print.rs"
 [[bin]]
 name = "sculpted-faucet-print-project"
 path = "../../../hardware/printed-parts/faucet/sculpted/prepare_print_project.rs"
+
+[[bin]]
+name = "fake-countertop-print-project"
+path = "../../../hardware/printed-parts/fixtures/fake-countertop/prepare_print.rs"
+
+[[bin]]
+name = "tube-miter-box-print-project"
+path = "../../../hardware/printed-parts/fixtures/tube-miter-box/prepare_print.rs"
+
+[[bin]]
+name = "tube-insertion-print-project"
+path = "../../../hardware/printed-parts/fixtures/tube-insertion/prepare_print.rs"
+
+[[bin]]
+name = "donor-hold-down-print-project"
+path = "../../../hardware/printed-parts/fixtures/tube-insertion/donor-hold-down/prepare_print.rs"
