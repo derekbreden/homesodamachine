@@ -842,14 +842,14 @@ the four shell quadrants.
 Each piece's retained slice reading is `<piece>.support-audit.json` beside its STL, and it
 identifies its model, profile and G-code by digest. The readings are bench references outside
 the normal build and publish path.
-[`enclosure_support_audit.py`](/hardware/scripts/enclosure_support_audit.py) reads an exported
-Bambu G-code directly, or refreshes only the mesh in a temporary copy of the named production
-project before slicing it:
+The `support-audit` program ([`support_audit.rs`](/hardware/printed-parts/cadlib/support_audit.rs))
+reads an exported Bambu G-code or sliced archive directly, or refreshes only the mesh in a
+temporary copy of the named production project before slicing it:
 
 ```sh
 git show 366d54ba040ecc7f1465c200e63e52410ffc0d4c:hardware/printed-parts/enclosure/enclosure/enclosure-back-top-petgf.3mf \
   > /tmp/enclosure-back-top-petgf.3mf
-python3 hardware/scripts/enclosure_support_audit.py \
+tools/hsm/target/release/support-audit \
   --piece enclosure-back-top --slice-current \
   --model hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl \
   --profile /tmp/enclosure-back-top-petgf.3mf \

@@ -207,7 +207,7 @@ pub fn bounds(points: &[[f64; 3]]) -> ([f64; 3], [f64; 3]) {
 }
 
 /// Every triangle's three corners in file order, binary or ASCII.
-fn stl_corners(bytes: &[u8]) -> Result<Vec<[f64; 3]>> {
+pub fn stl_corners(bytes: &[u8]) -> Result<Vec<[f64; 3]>> {
     if bytes.len() >= 84 {
         let count = u32::from_le_bytes([bytes[80], bytes[81], bytes[82], bytes[83]]) as usize;
         if bytes.len() == 84 + count * 50 {
