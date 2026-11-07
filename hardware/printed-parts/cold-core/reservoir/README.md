@@ -174,8 +174,15 @@ python3 tools/run.py -- cargo build --release --locked -j 2 --manifest-path tool
 tools/hsm/target/release/reservoir-print-project
 ```
 
-[review_slice.py](review_slice.py) checks the native recipe, absence of ironing,
-right-nozzle assignment, Mark1 Z trim, full bead inset and bed-rooted supports.
+[`review_slice.rs`](review_slice.rs), the `reservoir-slice-review` program, slices the project and
+audits its supports when its folder holds no slice of it, then checks the native recipe, absence
+of ironing, right-nozzle assignment, Mark1 Z trim, full bead inset and bed-rooted supports into
+[`slice-review.json`](slice-review.json):
+
+```sh
+python3 tools/run.py -- cargo build --release --locked -j 2 --manifest-path tools/hsm/Cargo.toml -p hsm-print-prep --bin reservoir-slice-review
+python3 tools/run.py -- tools/hsm/target/release/reservoir-slice-review
+```
 
 Past settings, reported outcomes and source commits are in the
 [print log](print-log.md) and [September inspection record](history/seal-trial.md).
