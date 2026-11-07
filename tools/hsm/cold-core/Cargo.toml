@@ -11,14 +11,6 @@ publish = false
 name = "carbonator-tube"
 path = "../../../hardware/cut-parts/carbonation/carbonator-tube/carbonator_tube_step.rs"
 
-[[bin]]
-name = "foam-assembly"
-path = "../../../hardware/printed-parts/cold-core/foam-assembly/foam_assembly.rs"
-
-[[bin]]
-name = "cold-core-assembly"
-path = "../../../hardware/cold-core-layout/cold_core_assembly.rs"
-
 [dependencies]
 anyhow.workspace = true
 hsm-kernel = { path = "../kernel" }

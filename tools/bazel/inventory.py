@@ -174,9 +174,6 @@ IMPLICIT_SOLIDS = {
         f"hardware/printed-parts/zone-c/funnel-mold/{name}.step.mesh"
         for name in ("assembly", "backs", "cavity", "core", "funnel", "overview", "rod", "section")
     ),
-    "hardware/cold-core-layout/cold_core_assembly.py": (
-        "hardware/cold-core-layout/cold-core-assembly.step.mesh",
-    ),
 }
 
 # Outputs whose bytes cross between build actions without becoming public artifacts.

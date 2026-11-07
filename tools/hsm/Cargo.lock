@@ -879,6 +879,19 @@ name = "hsm-bulkhead-ring-numbers"
 version = "0.1.0"
 
 [[package]]
+name = "hsm-carbonator-numbers"
+version = "0.1.0"
+dependencies = [
+ "hsm-aero-float-numbers",
+ "hsm-carbonator-tube-numbers",
+ "hsm-cold-core-catalog",
+ "hsm-cold-core-interface",
+ "hsm-cold-core-layout",
+ "hsm-endcap-circular-numbers",
+ "hsm-foam-shell-numbers",
+]
+
+[[package]]
 name = "hsm-carbonator-tube-numbers"
 version = "0.1.0"
 
@@ -920,6 +933,46 @@ dependencies = [
 ]
 
 [[package]]
+name = "hsm-cold-core-assembly"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "hsm-aero-float-numbers",
+ "hsm-carbonator-numbers",
+ "hsm-carbonator-tube-numbers",
+ "hsm-coil-numbers",
+ "hsm-cold-core-assembly-numbers",
+ "hsm-cold-core-catalog",
+ "hsm-cold-core-layout",
+ "hsm-foam-assembly-numbers",
+ "hsm-foam-cap-numbers",
+ "hsm-kernel",
+ "hsm-model-export",
+ "hsm-print-payload",
+ "hsm-prv-shroud-numbers",
+ "hsm-reed-bridge-numbers",
+ "hsm-reservoir-numbers",
+ "hsm-shared-data",
+ "serde",
+ "serde_json",
+]
+
+[[package]]
+name = "hsm-cold-core-assembly-numbers"
+version = "0.1.0"
+dependencies = [
+ "hsm-carbonator-numbers",
+ "hsm-coil-numbers",
+ "hsm-cold-core-catalog",
+ "hsm-cold-core-interface",
+ "hsm-cold-core-layout",
+ "hsm-foam-cap-numbers",
+ "hsm-prv-shroud-numbers",
+ "hsm-reed-bridge-numbers",
+ "hsm-reservoir-numbers",
+]
+
+[[package]]
 name = "hsm-cold-core-catalog"
 version = "0.1.0"
 dependencies = [
@@ -934,6 +987,7 @@ version = "0.1.0"
 dependencies = [
  "anyhow",
  "hsm-aero-float-numbers",
+ "hsm-carbonator-numbers",
  "hsm-carbonator-tube-numbers",
  "hsm-coil-mandrel-numbers",
  "hsm-coil-numbers",
@@ -957,7 +1011,9 @@ version = "0.1.0"
 dependencies = [
  "hsm-cold-core-catalog",
  "hsm-cold-core-interface",
+ "hsm-foam-shell-numbers",
  "hsm-prv-shroud-numbers",
+ "hsm-reservoir-numbers",
  "serde",
  "serde_json",
 ]
@@ -1288,6 +1344,29 @@ dependencies = [
  "regex",
  "serde",
  "serde_json",
+]
+
+[[package]]
+name = "hsm-foam-assembly"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "hsm-cold-core-layout",
+ "hsm-foam-assembly-numbers",
+ "hsm-foam-cap-numbers",
+ "hsm-kernel",
+ "serde_json",
+]
+
+[[package]]
+name = "hsm-foam-assembly-numbers"
+version = "0.1.0"
+dependencies = [
+ "hsm-cold-core-catalog",
+ "hsm-cold-core-interface",
+ "hsm-cold-core-layout",
+ "hsm-foam-cap-numbers",
+ "hsm-foam-shell-numbers",
 ]
 
 [[package]]

@@ -342,76 +342,6 @@ pub fn initialize(rt: Runtime, e: Env) -> Result<()> {
             let rt = runtime.clone();
             let e = bind(&outer, &params, args, kwargs, None, None)?;
             let _frame = rt.frame(&outer);
-            e.set("core_numbers", rt.import_module("core_numbers")?)?;
-            let assigned73 = {
-                let fun76 = e.get("core_numbers")?.attr("numbers")?;
-                let mut args74 = Vec::new();
-                let mut kw75 = Vec::new();
-                fun76.call(args74, kw75)?
-            };
-            e.set("numbers", assigned73.clone())?;
-            let assigned77 = {
-                let e = e.child();
-                let out78 = Val::list(vec![]);
-                for item79 in e.get("numbers")?.get(Val::Str("bodies".into()))?.iter()? {
-                    e.set("row", item79)?;
-                    if {
-                        let v80 = e.get("row")?.get(Val::Str("kind".into()))?;
-                        let v81 = {
-                            let mut s = Vec::new();
-                            s.push(Val::Str("coil".into()));
-                            s.push(Val::Str("coil-tail".into()));
-                            Val::tuple(s)
-                        };
-                        Val::Bool(compare("in", v80.clone(), v81.clone())?.truthy()?)
-                    }
-                    .truthy()?
-                    {
-                        out78.attr("append")?.call(vec![e.get("row")?], vec![])?;
-                    }
-                }
-                out78
-            };
-            e.get("numbers")?
-                .set(Val::Str("bodies".into()), assigned77.clone())?;
-            let assigned82 = {
-                let mut s = Vec::new();
-                Val::list(s)
-            };
-            e.get("numbers")?
-                .set(Val::Str("routes".into()), assigned82.clone())?;
-            for item83 in e.get("numbers")?.get(Val::Str("bodies".into()))?.iter()? {
-                e.set("row", item83)?;
-                if {
-                    let v84 = e.get("row")?.get(Val::Str("kind".into()))?;
-                    let v85 = Val::Str("coil-tail".into());
-                    Val::Bool(compare("eq", v84.clone(), v85.clone())?.truthy()?)
-                }
-                .truthy()?
-                {
-                    let assigned86 = {
-                        let fun89 = e
-                            .get("row")?
-                            .get(Val::Str("name".into()))?
-                            .attr("removeprefix")?;
-                        let mut args87 = Vec::new();
-                        let mut kw88 = Vec::new();
-                        args87.push(Val::Str("evap-tail-".into()));
-                        fun89.call(args87, kw88)?
-                    };
-                    e.set("end", assigned86.clone())?;
-                    let assigned90 = {
-                        let fun93 = e.get("source")?.attr("tail_layout")?;
-                        let mut args91 = Vec::new();
-                        let mut kw92 = Vec::new();
-                        args91.push(e.get("end")?);
-                        kw92.push(("working_tail".into(), Val::Bool(true)));
-                        fun93.call(args91, kw92)?
-                    };
-                    e.get("row")?
-                        .set(Val::Str("segments".into()), assigned90.clone())?;
-                }
-            }
             let assigned94 = binary(
                 "truediv",
                 binary(
@@ -435,19 +365,18 @@ pub fn initialize(rt: Runtime, e: Env) -> Result<()> {
                 fun97.call(args95, kw96)?
             };
             {
-                let fun100 = e.get("_rust_part")?.attr("cut")?;
+                let fun100 = e.get("_rust_part")?.attr("run")?;
                 let mut args98 = Vec::new();
                 let mut kw99 = Vec::new();
-                args98.push(Val::Str("cold-core".into()));
                 args98.push(Val::Str("cold-core-assembly".into()));
-                args98.push(e.get("numbers")?);
+                args98.push(Val::Str("evaporator-coil-model".into()));
                 args98.push(e.get("directory")?);
                 fun100.call(args98, kw99)?
             };
             return Ok(binary(
                 "truediv",
                 e.get("directory")?,
-                Val::Str("cold-core-assembly.step.npz".into()),
+                Val::Str("evaporator-coil.step.npz".into()),
             )?);
             Ok(Val::None)
         })

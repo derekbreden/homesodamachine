@@ -219,6 +219,11 @@ pub fn top_cap_height(fits: &Fits) -> f64 {
     FOAM_CAP_HEIGHT - head_pad_height(fits)
 }
 
+/// The lid's top face in the shell's frame, where the cap's conduits open.
+pub fn cap_face_z(fits: &Fits) -> f64 {
+    FOAM_SHELL_OUTER_HEIGHT + top_cap_height(fits) + foam_cap_lid_height(fits)
+}
+
 pub fn bottom_cap_height(fits: &Fits) -> f64 {
     FOAM_CAP_HEIGHT + WALL_AND_FLOOR_THICKNESS - cap_shell_clearance(fits)
 }

@@ -435,6 +435,10 @@ RUST_STEPS = {
         ("faucet-assembly", "faucet-assembly", "hardware/faucet-layout"),
     "hardware/faucet-layout/faucet_industrial_assembly.rs":
         ("faucet-assembly", "faucet-industrial-assembly", "hardware/faucet-layout"),
+    "hardware/printed-parts/cold-core/foam-assembly/foam_assembly.rs":
+        ("foam-assembly", "foam-assembly", "hardware/printed-parts/cold-core/foam-assembly"),
+    "hardware/cold-core-layout/cold_core_assembly.rs":
+        ("cold-core-assembly", "cold-core-assembly", "hardware/cold-core-layout"),
 }
 
 #: The media a Rust step can rewrite in place: documents with authored text round the figures it
