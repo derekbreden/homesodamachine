@@ -30,7 +30,7 @@ recipe change with its reason. `--printer` selects Mark1 (connection key `H2C`) 
 `--part` replaces a plate's declared parts, with per-part quantity, axis turns, walls and
 infill. Preparation reads the exported meshes and builds no geometry. `--slice` runs the
 installed Bambu Studio command line on the project and keeps its archive beside it, and
-`--review` reads the project and archive back with [`review.py`](review.py). No printer is
+`--review` reads the project and archive back as the review below does. No printer is
 contacted. Preparing and slicing take one of the Mac's run slots.
 
 Some pieces are not prepared here. A piece with `external` names its own preparer, which
@@ -167,22 +167,21 @@ slots' roof, and that layer's bottom must clear the loaded stack's top.
 
 ## Review
 
-`review.py <directory>` reads the written project back against its record and the STLs
-(`--project-only` before slicing), then the sliced archive:
+`tools/hsm/target/release/enclosure-print-review <directory>` ([`review.rs`](review.rs))
+reads the written project back against its record and the STLs (`--project-only` before
+slicing), then the sliced archive:
 
 - archive and G-code integrity and the emitted Z trim;
-- emitted wall layers across each measured fine span
-  ([`verify_round_layer_band.py`](../../../scripts/verify_round_layer_band.py)) and 0.24 mm
-  layers through each six-wall band;
+- emitted wall layers across each measured fine span, and ordinary layers through each
+  six-wall band;
 - the complete model, support and brim bead envelope against the plate border;
-- support beads against the painted show faces, inside tie windows, ribbons and pause
-  slots, and the ribbons' own layers;
-- the one emitted pause opening its planned layer before any of that layer's moves;
+- support beads against the painted show faces, inside tie windows and inside the declared
+  support-free interiors;
 - sampled bead coverage of the model section inside each solid-host modifier;
 - the second layer's beads over the first;
 - each object's support bodies, roots, build-up and interface islands, in plate and CAD
-  coordinates ([`enclosure_support_audit.py`](../../../scripts/enclosure_support_audit.py)),
-  written as `support-audit-<object>.json` for the removal-lane reading.
+  coordinates (the support audit, `support-audit`), written as `support-audit-<object>.json`
+  for the removal-lane reading.
 
 `review.json` records every reading and the checks it passes. Support removal, surface
 finish, fit and strength are observations of the printed part.

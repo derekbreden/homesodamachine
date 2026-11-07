@@ -965,10 +965,12 @@ fn main() -> Result<()> {
                 slice_project(&root, &directory, Path::new(slice::SLICER))?;
             }
             if review {
-                let mut command = vec![root.join(HERE).join("review.py").display().to_string(), directory.display().to_string()];
-                if !do_slice { command.push("--project-only".into()); }
-                let status = std::process::Command::new(root.join("tools/cad-venv/bin/python")).args(&command).current_dir(&root).status()?;
-                if !status.success() { bail!("review exited {}", status.code().unwrap_or(-1)); }
+                if do_slice {
+                    hsm_print_prep::review::review(&root, &directory, true, false)?;
+                } else {
+                    let result = hsm_print_prep::review::check_project(&root, &directory)?;
+                    println!("  project read back: {}", if result["pass"] == json!(true) { "pass".to_string() } else { result["problems"].to_string() });
+                }
             }
             Ok(())
         })();

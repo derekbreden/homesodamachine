@@ -2,6 +2,7 @@
 //! parts' printed meshes and a saved printer recipe, and their offline slices. It never sends a
 //! job to a printer.
 
+pub mod audit;
 pub mod cooling;
 pub mod derive;
 pub mod gcode;
@@ -11,8 +12,10 @@ pub mod mesh;
 pub mod npz;
 pub mod profile;
 pub mod project;
+pub mod review;
 pub mod seam;
 pub mod slice;
+pub mod xml;
 
 use sha2::{Digest, Sha256};
 use std::path::{Path, PathBuf};
