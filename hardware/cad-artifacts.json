@@ -295,7 +295,7 @@
     "hardware/printed-parts/cold-core/magnetic-float/section.step": "fe8233ef3a3aeedf454a4deaa4e2890766ca884763420ce7e80a863af1c9dc63",
     "hardware/printed-parts/cold-core/magnetic-float/section.step.mesh": "f63c3483752f83d1d6eb8e77ad777cd20d70172dcb24becfcc435f2f062bd74b",
     "hardware/printed-parts/cold-core/prv-shroud/prv-shroud.step": "2b9d90cb5d776c130733e99ae7b6df002bfb349a6dfae1bd018ae9bb721f36b4",
-    "hardware/printed-parts/cold-core/prv-shroud/prv-shroud.step.mesh": "3d85143cb4f2a653b49c8620a1a298412e8237e2bf722cd45ed89e64a0fa6f1e",
+    "hardware/printed-parts/cold-core/prv-shroud/prv-shroud.step.mesh": "27524482961f63b6104e0d5cc5cc10205043a7d97e0f400ab55cbc7d35803ec6",
     "hardware/printed-parts/cold-core/prv-shroud/prv-shroud.stl": "b2553b37c6e6f3299ee5d6cef88e36bd5948b154b652fdc184aec7761906f14f",
     "hardware/printed-parts/cold-core/reed-bridge/reed-bridge-setting-gauge.step": "d54d8f0a513723770e0a48aaa9a7e9d6cc47ad1b53f927477cd149ebbbc9c6d7",
     "hardware/printed-parts/cold-core/reed-bridge/reed-bridge-setting-gauge.step.mesh": "c0ab3d6fb36760d4c0ed5008cdb0cb531c7337a724599121e8ca1e9a8c603796",
@@ -1714,7 +1714,7 @@
       "hardware/printed-parts/cold-core/magnetic-float/magnet.step": "0464ee25aa2a6e53fd11d3eded3b8a8997de9c24075cf0348a338fe4cf3da843",
       "hardware/printed-parts/cold-core/magnetic-float/magnet.step.mesh": "78ffc433e211a846d4737ac9554d183b07043449b9db594bd6420e0f54083bb7",
       "hardware/printed-parts/cold-core/prv-shroud/prv-shroud.step": "2b9d90cb5d776c130733e99ae7b6df002bfb349a6dfae1bd018ae9bb721f36b4",
-      "hardware/printed-parts/cold-core/prv-shroud/prv-shroud.step.mesh": "3d85143cb4f2a653b49c8620a1a298412e8237e2bf722cd45ed89e64a0fa6f1e",
+      "hardware/printed-parts/cold-core/prv-shroud/prv-shroud.step.mesh": "27524482961f63b6104e0d5cc5cc10205043a7d97e0f400ab55cbc7d35803ec6",
       "hardware/printed-parts/cold-core/prv-shroud/prv-shroud.stl": "b2553b37c6e6f3299ee5d6cef88e36bd5948b154b652fdc184aec7761906f14f",
       "hardware/printed-parts/cold-core/reed-bridge/reed-bridge-setting-gauge.step": "d54d8f0a513723770e0a48aaa9a7e9d6cc47ad1b53f927477cd149ebbbc9c6d7",
       "hardware/printed-parts/cold-core/reed-bridge/reed-bridge-setting-gauge.step.mesh": "c0ab3d6fb36760d4c0ed5008cdb0cb531c7337a724599121e8ca1e9a8c603796",
@@ -2482,7 +2482,7 @@
     "hardware/printed-parts/cold-core/magnetic-float/section.step": 1793712586,
     "hardware/printed-parts/cold-core/magnetic-float/section.step.mesh": 1793938190,
     "hardware/printed-parts/cold-core/prv-shroud/prv-shroud.step": 1793568839,
-    "hardware/printed-parts/cold-core/prv-shroud/prv-shroud.step.mesh": 1793568839,
+    "hardware/printed-parts/cold-core/prv-shroud/prv-shroud.step.mesh": 1794015966,
     "hardware/printed-parts/cold-core/prv-shroud/prv-shroud.stl": 1793568839,
     "hardware/printed-parts/cold-core/reed-bridge/reed-bridge-setting-gauge.step": 1793568839,
     "hardware/printed-parts/cold-core/reed-bridge/reed-bridge-setting-gauge.step.mesh": 1793568839,
@@ -4485,9 +4485,8 @@
       "unproven": true
     },
     "hardware/printed-parts/cold-core/prv-shroud/prv-shroud.step.mesh": {
-      "inputs": "a695dd9fcd9d97b7ccb85c0aa31c88cca38da371ed5be2fb5a50b9876f44c951",
-      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2",
-      "unproven": true
+      "inputs": "77a06aaa6faa5db51400a5b02a1b030940c8f2486da69e06e715c824dff35c3b",
+      "commit": "b623b0fea074d118cb9a84a1b6a111a1628d1ff1"
     },
     "hardware/printed-parts/cold-core/prv-shroud/prv-shroud.stl": {
       "inputs": "a695dd9fcd9d97b7ccb85c0aa31c88cca38da371ed5be2fb5a50b9876f44c951",
