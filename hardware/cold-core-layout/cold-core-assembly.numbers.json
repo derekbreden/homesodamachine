@@ -11,6 +11,10 @@
       57.172158505463436,
       181.55
     ],
+    "ring_barrel_diameter_mm": 4.2,
+    "ring_barrel_length_mm": 6.0,
+    "ring_eye_diameter_mm": 8.0,
+    "ring_tongue_thickness_mm": 0.8,
     "wire_exit_mm": [
       28.547064131441896,
       59.06289130643151,

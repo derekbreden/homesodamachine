@@ -49,7 +49,7 @@
     }
   ],
   "producer": "enclosure-back-top",
-  "source_stl_sha256": "9dffa9196a42bda63057411ad19dfb10a2e7ae98818851dbac9494d34fe6556b",
+  "source_stl_sha256": "a8125c23949355845f4236bd0e59345298f864dccbbadea449c7bdbf6f6380c6",
   "support_free_regions": [
     {
       "blocking_bounds_source_mm": [
@@ -200,6 +200,26 @@
         0,
         -1
       ]
+    },
+    {
+      "blocking_bounds_source_mm": [
+        -98.5,
+        -39.965,
+        455.04999999999995,
+        472.3,
+        314.1,
+        349.0
+      ],
+      "bounds_source_mm": [
+        -98.5,
+        -39.965,
+        455.04999999999995,
+        468.29999999999995,
+        314.1,
+        349.0
+      ],
+      "name": "Internal C14 mount and cord passage",
+      "reason": "The internal flange pocket, blind pilots and cord passage grow through the tilted fine layers without interior trees."
     },
     {
       "bounds_source_mm": [

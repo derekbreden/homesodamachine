@@ -83,18 +83,11 @@ def above_core_regions(box, region, receivers):
                        [box.outer[0], min(s['insert_face_world_mm'][0] for s in row),
                         y-5., y+5., min(s['position_world_mm'][2] for s in row),
                         max(s['position_world_mm'][2] for s in row)])
-    x, y, z = shell.layout.pose('c14-inlet')['translation_mm']
-    fasteners = shell.c14_fastener_plan()
-    seat = y - fasteners['flange_thickness_mm']
-    depth = fasteners['boss_depth_mm']
-    pitch = shell.layout.specification()['rear_wall']['dry_openings']['c14']['mount_pitch_mm']
-    for side in (-1, 1):
-        # The rear wall's blind boss round each screw, with its complete blind end and
-        # backing carried through the supporting exterior rear wall.
-        cx, radius = x + side*pitch/2, 5.
-        region('back-top', f'C14 blind insert host and rear wall root {side:+g}',
-               [cx-radius, cx+radius, seat-depth, max(seat, box.outer[3]),
-                z-radius, z+radius])
+    inlet_features = json.loads((ENC/'enclosure-back-top.print-features.json').read_text())
+    inlet = next(row for row in inlet_features['support_free_regions']
+                 if row['name'] == 'Internal C14 mount and cord passage')
+    region('back-top', 'C14 internal insert tunnel and wall roots',
+           inlet['bounds_source_mm'])
     nameplate_path = ENC.parent/'nameplate/nameplate.numbers.json'
     mount = json.loads(nameplate_path.read_text())['snap']
     plate = json.loads((ROOT/'hardware/manifold-layout/above-core.json').read_text())['rear_identification']['nameplate']
@@ -199,6 +192,7 @@ def write_regions(box, _bounds, box_path):
            Path(fixed_mount.__file__),box_path,
            Path(e._above_core_shell.__file__),
            Path(e._above_core_shell.layout.__file__),
+           ENC/'enclosure-back-top.print-features.json',
            ROOT/'hardware/manifold-layout/above-core.json',
            ENC.parent/'nameplate/nameplate.numbers.json',
            ENC.parent/'nameplate/snap_dimensions.rs',
