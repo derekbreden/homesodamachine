@@ -104,12 +104,13 @@
   "physical_scope": "The baseline and flared cover are compared in the same printing process and complete receiver. Fit approvals attach to their retained hardware-bearing geometry; insertion force remains a physical comparison.",
   "layer_time": {
     "every_model_layer_has_tower": true,
-    "minimum_return_lower_bound_s": 24.433735068792885,
+    "minimum_return_lower_bound_s": 24.428924196479784,
     "minimum_return_target_s": 20.0,
     "minimum_tower_deposition_after_first_layer_s": 24.191999999999997,
     "model_layers": 574,
     "passed": true,
     "purpose": "Measure the single snap's native tower time and time between model layers.",
-    "scope": "Commanded path length divided by feed plus explicit waits; acceleration, firmware motion and camera delays add time. Native smooth timelapse is enabled at launch. The final plate keeps the same tower geometry and speeds; its layout shifts only the model placements."
+    "scope": "Commanded path length divided by feed plus explicit waits; acceleration, firmware motion and camera delays add time. Native smooth timelapse is enabled at launch.",
+    "gcode_sha256": "70d359f24cbb0732df406919db4a07ef29909d3cf589b66c3320e8afd402ec98"
   }
 }
