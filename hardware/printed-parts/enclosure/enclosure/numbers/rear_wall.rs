@@ -27,6 +27,14 @@ pub mod c14 {
     pub const PILOT_DEPTH: f64 = 7.25;
 }
 
+/// The insert bosses back-top's wall carries for the parts it hosts: each relay insert's face
+/// stands back behind its board's hole, and each threaded insert's pilot runs this deep. The
+/// BOM bills the relay screws by them.
+pub mod hosts {
+    pub const RELAY_SETBACK: f64 = 2.5;
+    pub const PILOT_DEPTH: f64 = 5.0;
+}
+
 /// The keystone jack: its face, the lip it latches behind, the pocket its body swings into and
 /// that pocket's rise off the face's centre, its depth to the catches, the ease over the
 /// aperture and the face it leaves over the aperture's top edge, each catch's height and how

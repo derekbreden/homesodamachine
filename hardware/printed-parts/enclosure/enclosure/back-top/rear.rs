@@ -282,12 +282,11 @@ fn axial_cylinder(g: &mut Graph, radius: f64, root: P3, axis: P3, length: f64) -
 /// The PSU's ceiling bosses and the two relays' west-flank bosses, each relay row's edge bar, and
 /// every threaded hole's pilot.
 fn hosts(g: &mut Graph, mut piece: Shape) -> Shape {
-    /// The PSU's and the relays' native hole half-spacings, the relays' insert faces' setback
-    /// behind their holes, and the pilot each insert takes.
+    use crate::rear_wall::hosts::{PILOT_DEPTH, RELAY_SETBACK};
+    /// The PSU's and the relays' native hole half-spacings, and each relay row's edge bar's
+    /// half-width.
     const PSU_HOLES: P2 = [16.5, 49.0];
     const RELAY_HOLES: P2 = [33.0, 6.5];
-    const RELAY_SETBACK: f64 = 2.5;
-    const PILOT_DEPTH: f64 = 5.0;
     const RELAY_BAR_HALF: f64 = 5.0;
     let parts = &layout().parts;
     let psu = mounts(&parts.psu, PSU_HOLES, 0.0, |p| [p[0], p[1], PSU_ROOT_Z], |_| true);
