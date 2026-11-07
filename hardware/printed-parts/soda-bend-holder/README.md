@@ -10,9 +10,10 @@ The 2 mm wall is a named functional exception supported by the
 The report covers this wall/leg combination qualitatively. Threading force,
 tube roundness, flow, pressure and retention over time are unmeasured.
 
-The [production inlet plan](../../manifold-layout/soda_inlet.py) supplies the
-live dimensions, native reader builder and installed frame. The normal producer
-exports the part through [the kernel program](soda_bend_holder.rs). The holder is outside the wet
+The inlet plan writes the holder's figures down in
+[`above-core.json`](../../manifold-layout/above-core.json) (`soda_inlet.holder`);
+[`numbers.rs`](numbers.rs) states what the holder makes of them, and
+[its program](soda_bend_holder.rs) cuts the part. The holder is outside the wet
 path, supported by the tube it encloses, and has no separate bracket.
 
 One approximately 63 mm square-cut piece of the owned 6.35 mm ID/25.4 mm OD foam
@@ -38,5 +39,5 @@ metal outlet and its receiving allowance remain part of the continuous tube.
 Regenerate from the repository root:
 
 ```sh
-python3 tools/run.py -- tools/cad-venv/bin/python hardware/printed-parts/soda-bend-holder/soda_bend_holder.py
+python3 tools/run.py -- cargo run --release --manifest-path tools/hsm/soda-bend-holder/Cargo.toml
 ```

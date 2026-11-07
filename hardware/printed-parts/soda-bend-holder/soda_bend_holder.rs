@@ -1,7 +1,44 @@
-//! The accepted D-backed soda bend holder, in its original flat-back print frame.
-use anyhow::Result;
-use hsm_kernel::part::{args, write_part, Numbers};
-use hsm_kernel::{v2, v3, Body, Curve, Pen, Plane, Profile, Region, Solid, V3};
+//! The soda bend holder's files: the D-backed teardrop holder round the soda tube's quarter turn,
+//! on its flat back as it prints, from the inlet plan's holder figures.
+//!
+//!     soda-bend-holder [<output directory>]
+use anyhow::{Context, Result, bail};
+use hsm_kernel::part::write_part;
+use hsm_kernel::{Body, Curve, Pen, Plane, Profile, Region, Solid, V3, v2, v3};
+use hsm_soda_bend_holder_numbers::{Holder, MOUTH_STATIONS};
+use serde::Deserialize;
+use std::path::{Path, PathBuf};
+
+const NAME: &str = "soda-bend-holder";
+const OUTPUT: &str = "hardware/printed-parts/soda-bend-holder";
+const DESIGN: &str = "hardware/manifold-layout/above-core.json";
+
+#[derive(Deserialize)]
+struct Inlet {
+    holder: Holder,
+}
+
+#[derive(Deserialize)]
+struct Design {
+    soda_inlet: Inlet,
+}
+
+fn main() -> Result<()> {
+    let mut args = std::env::args_os().skip(1);
+    let out = args.next().map(PathBuf::from).unwrap_or_else(|| PathBuf::from(OUTPUT));
+    if args.next().is_some() {
+        bail!("usage: soda-bend-holder [<output directory>]");
+    }
+    hsm_kernel::reads::begin();
+    let bytes = std::fs::read(DESIGN).context("the inlet plan's design")?;
+    hsm_kernel::reads::read(Path::new(DESIGN), &bytes);
+    let holder = serde_json::from_slice::<Design>(&bytes).context("the inlet plan's holder")?.soda_inlet.holder;
+    std::fs::create_dir_all(&out)?;
+    let solid = build(&holder)?;
+    let bodies = [Body { name: NAME, color: Some(hsm_catalog::petgf_black()), solid: &solid }];
+    println!("{}", write_part(&out, NAME, &bodies)?);
+    Ok(())
+}
 
 fn sections(profile: &Profile, plane: &Plane) -> Region {
     // The torus has two curved directions. Quarter the profile's existing arc
@@ -39,29 +76,27 @@ fn teardrop(x: f64, z: f64, radius: f64) -> Result<Profile> {
         .close()?))
 }
 
-fn build(n: &Numbers) -> Result<Solid> {
-    let bend = n.f("bend_radius")?;
-    let outer = n.f("outer_radius")?;
-    let z = n.f("stock_arc_z")?;
+fn build(h: &Holder) -> Result<Solid> {
+    let bend = h.centreline_bend_r_mm;
+    let outer = h.outer_radius();
+    let z = h.stock_arc_z();
     let section = Profile::new(Pen::new(v2(bend - outer, 0.0))
         .line_to(v2(bend + outer, 0.0))
         .line_to(v2(bend + outer, z))
         .arc_center(v2(bend, z), v2(bend - outer, z), true)
         .close()?);
-    let channel = teardrop(bend, n.f("channel_z")?, n.f("channel_radius")?)?;
-    let turn = n.f("turn_degrees")?;
+    let channel = teardrop(bend, h.channel_z(), h.channel_radius())?;
+    let turn = h.turn_degrees;
     let ring = section.with_hole(channel.outer);
     let region = sections(&ring, &Plane::XZ);
     let arc = Solid::revolve(&region, V3::ZERO, V3::Z, turn)?;
-    let normal = n.list("mirror_normal")?;
-    let normal = v3(normal[0], normal[1], normal[2]);
-    let y = n.list("mouth_y")?;
-    let radii = n.list("mouth_radii")?;
-    let mouths = y.iter().zip(radii).map(|(&y, radius)| {
-        Ok(sections(&teardrop(bend, n.f("channel_z")?, radius)?, &Plane::XZ.at(v3(0.0, y, 0.0))))
+    let [nx, ny, nz] = h.mirror_normal();
+    let normal = v3(nx, ny, nz);
+    let mouths = MOUTH_STATIONS.iter().zip(h.mouth_radii()).map(|(&y, radius)| {
+        Ok(sections(&teardrop(bend, h.channel_z(), radius)?, &Plane::XZ.at(v3(0.0, y, 0.0))))
     }).collect::<Result<Vec<_>>>()?;
     let mut mouth = Solid::loft(&mouths)?;
-    let leg = n.f("leg")?;
+    let leg = h.leg_mm;
     if leg > 0.0 {
         mouth = mouth.translate(v3(0.0, -leg, 0.0));
     }
@@ -82,14 +117,4 @@ fn build(n: &Numbers) -> Result<Solid> {
         pieces.push(entries(straight.mirror(V3::ZERO, normal))?);
     }
     Solid::union_all(&pieces)
-}
-
-fn main() -> Result<()> {
-    let (numbers, out) = args()?;
-    let solid = build(&numbers)?;
-    let name = "soda-bend-holder";
-    println!("{}", write_part(&out, name, &[Body {
-        name, color: Some(numbers.color("color")?), solid: &solid,
-    }])?);
-    Ok(())
 }

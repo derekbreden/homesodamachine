@@ -13188,52 +13188,13 @@ cd .. && rm -rf work-fuse-clamp
 )
 
 genrule(
-    name = "soda-bend-holder",
+    name = "soda-bend-holder-program",
     srcs = [
-        "hardware/manifold-layout/_layout_data.py",
-        "hardware/manifold-layout/above-core.json",
-        "hardware/manifold-layout/above_core.py",
-        "hardware/manifold-layout/soda_inlet.py",
-        "hardware/printed-parts/enclosure/enclosure/interface/anchor_cap.rs",
-        "hardware/printed-parts/enclosure/enclosure/interface/fits.rs",
-        "hardware/printed-parts/enclosure/enclosure/interface/lib.rs",
-        "hardware/printed-parts/enclosure/enclosure/interface/swept.rs",
-        "hardware/printed-parts/soda-bend-holder/soda_bend_holder.py",
+        "hardware/printed-parts/soda-bend-holder/numbers.rs",
         "hardware/printed-parts/soda-bend-holder/soda_bend_holder.rs",
-        "hardware/printed-parts/valve-seat/numbers.rs",
-        "hardware/scripts/_build_data.py",
-        "hardware/scripts/_material_base.py",
-        "hardware/scripts/_materials.py",
-        "hardware/scripts/_part_output.py",
-        "hardware/scripts/_rust_data.py",
-        "hardware/scripts/_rust_part.py",
-        "hardware/scripts/_shared_data.py",
-        "tools/hsm/build-data/Cargo.toml",
-        "tools/hsm/build-data/src/artifact_cache.rs",
-        "tools/hsm/build-data/src/artifacts.rs",
-        "tools/hsm/build-data/src/assets.rs",
-        "tools/hsm/build-data/src/inventory.rs",
-        "tools/hsm/build-data/src/lib.rs",
-        "tools/hsm/build-data/src/main.rs",
-        "tools/hsm/build-data/src/payload.rs",
-        "tools/hsm/build-data/src/projection.rs",
-        "tools/hsm/build-data/src/publication.rs",
-        "tools/hsm/build-data/src/publication_archive.rs",
-        "tools/hsm/build-data/src/publication_state.rs",
-        "tools/hsm/build-data/src/publication_zlib.rs",
-        "tools/hsm/build-data/src/sources.rs",
-        "tools/hsm/build-data/src/support.rs",
-        "tools/hsm/build-data/src/surfaces.rs",
         ":out/cargo-config/tools/hsm/cargo-config.json",
-        "tools/hsm/documents/Cargo.toml",
-        "tools/hsm/documents/src/interop.rs",
-        "tools/hsm/documents/src/interop/standard.rs",
-        "tools/hsm/documents/src/lib.rs",
-        "tools/hsm/documents/src/python_checked.rs",
-        "tools/hsm/geometry/Cargo.toml",
-        "tools/hsm/geometry/src/lib.rs",
-        "tools/hsm/geometry/src/payload.rs",
-        "tools/hsm/geometry/src/queries.rs",
+        "tools/hsm/catalog/Cargo.toml",
+        "tools/hsm/catalog/src/lib.rs",
         "tools/hsm/kernel/Cargo.toml",
         "tools/hsm/kernel/src/boolean.rs",
         "tools/hsm/kernel/src/build.rs",
@@ -13264,42 +13225,46 @@ genrule(
         "tools/hsm/kernel/src/topo.rs",
         "tools/hsm/kernel/src/triangulate.rs",
         "tools/hsm/kernel/src/write.rs",
-        "tools/hsm/layout-data/Cargo.toml",
-        "tools/hsm/layout-data/src/fore.rs",
-        "tools/hsm/layout-data/src/lib.rs",
-        "tools/hsm/layout-data/src/main.rs",
-        "tools/hsm/layout-data/src/rear.rs",
-        "tools/hsm/layout-data/src/routes.rs",
-        "tools/hsm/layout-data/src/soda.rs",
-        "tools/hsm/part-data/Cargo.toml",
-        "tools/hsm/part-data/src/electronics.rs",
-        "tools/hsm/part-data/src/main.rs",
-        "tools/hsm/part-data/src/output.rs",
-        "tools/hsm/part-data/src/reference.rs",
-        "tools/hsm/part-data/src/reference_catalog.rs",
-        "tools/hsm/part-data/src/sleeve.rs",
-        "tools/hsm/part-data/src/storage.rs",
-        "tools/hsm/part-data/src/zone.rs",
-        "tools/hsm/shared-data/Cargo.toml",
+        "tools/hsm/run-native/Cargo.toml",
+        "tools/hsm/run-native/src/lib.rs",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/hsm/run-slots/Cargo.toml",
+        "tools/hsm/run-slots/src/ipc.rs",
+        "tools/hsm/run-slots/src/lib.rs",
+        "tools/hsm/run-slots/src/main.rs",
+        "tools/hsm/run-slots/src/runtime.rs",
+        "tools/hsm/run-slots/src/runtime/cad.rs",
+        "tools/hsm/run-slots/src/runtime/install.rs",
+        "tools/hsm/run-slots/src/runtime/runner.rs",
+        "tools/hsm/run-slots/src/runtime/slots.rs",
         "tools/hsm/shared-data/catalog/materials.json",
-        "tools/hsm/shared-data/catalog/routing.json",
         "tools/hsm/shared-data/catalog/scalars.json",
-        "tools/hsm/shared-data/src/color.rs",
-        "tools/hsm/shared-data/src/common.rs",
-        "tools/hsm/shared-data/src/cooling.rs",
-        "tools/hsm/shared-data/src/lib.rs",
-        "tools/hsm/shared-data/src/main.rs",
-        "tools/hsm/shared-data/src/routing.rs",
-        "tools/hsm/shared-data/src/scalars.rs",
-        "tools/hsm/tooling/Cargo.toml",
+        "tools/hsm/soda-bend-holder-numbers/Cargo.toml",
+        "tools/hsm/soda-bend-holder/Cargo.toml",
+        "tools/hsm/vendor/manifold-csg-sys/.cargo_vcs_info.json",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.lock",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.toml",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.toml.orig",
+        "tools/hsm/vendor/manifold-csg-sys/LICENSE-APACHE",
+        "tools/hsm/vendor/manifold-csg-sys/LICENSE-MIT",
+        "tools/hsm/vendor/manifold-csg-sys/README.md",
+        "tools/hsm/vendor/manifold-csg-sys/build.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/build.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/fetch.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/patch.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/wasm.rs",
+        "tools/hsm/vendor/manifold-csg-sys/cache-version",
+        "tools/hsm/vendor/manifold-csg-sys/patches/README.md",
+        "tools/hsm/vendor/manifold-csg-sys/src/lib.rs",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/CMakeLists.txt",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/diagnose.sh",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/__assertion_handler",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/__config_site",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/memory",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/mutex",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/libcxx-extras.cpp",
     ],
-    outs = [
-        "out/soda-bend-holder/hardware/printed-parts/soda-bend-holder/soda-bend-holder.numbers.json",
-        "out/soda-bend-holder/hardware/printed-parts/soda-bend-holder/soda-bend-holder.step",
-        "out/soda-bend-holder/hardware/printed-parts/soda-bend-holder/soda-bend-holder.step.mesh",
-        "out/soda-bend-holder/hardware/printed-parts/soda-bend-holder/soda-bend-holder.step.npz",
-        "out/soda-bend-holder/hardware/printed-parts/soda-bend-holder/soda-bend-holder.stl",
-    ],
+    outs = ["out/soda-bend-holder-program/soda-bend-holder"],
     tags = ["no-sandbox"],
     cmd = """
 set -e
@@ -13323,36 +13288,96 @@ case "$$(uname -s)" in
     };;
   *) copy_file() { cp "$$@"; };;
 esac
-O0=$$PWD/$(location out/soda-bend-holder/hardware/printed-parts/soda-bend-holder/soda-bend-holder.numbers.json)
-O1=$$PWD/$(location out/soda-bend-holder/hardware/printed-parts/soda-bend-holder/soda-bend-holder.step)
-O2=$$PWD/$(location out/soda-bend-holder/hardware/printed-parts/soda-bend-holder/soda-bend-holder.step.mesh)
-O3=$$PWD/$(location out/soda-bend-holder/hardware/printed-parts/soda-bend-holder/soda-bend-holder.step.npz)
-O4=$$PWD/$(location out/soda-bend-holder/hardware/printed-parts/soda-bend-holder/soda-bend-holder.stl)
-rm -rf work-soda-bend-holder
+hsm_run=
+for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
+  if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
+done
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+cargo=$$(command -v cargo || true)
+for c in "$$cargo" /opt/homebrew/opt/rustup/bin/cargo ~/.cargo/bin/cargo; do if [ -x "$$c" ]; then cargo=$$c; break; fi; done
+if [ ! -x "$$cargo" ]; then echo "cargo is not installed (https://rustup.rs)" >&2; exit 1; fi
+export HOME=~ PATH="$$(dirname "$$cargo"):$$PATH"
+O0=$$PWD/$(location out/soda-bend-holder-program/soda-bend-holder)
+cd "$$HSM_WORKSPACE/tools/hsm"
+CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet --manifest-path soda-bend-holder/Cargo.toml --bin soda-bend-holder
+copy_file target/release/soda-bend-holder "$$O0"
+""",
+)
+
+genrule(
+    name = "soda-bend-holder",
+    srcs = [
+        ":out/soda-bend-holder-program/soda-bend-holder",
+        "hardware/manifold-layout/above-core.json",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/hsm/shared-data/catalog/materials.json",
+        "tools/hsm/shared-data/catalog/scalars.json",
+        "tools/hsm/vendor/manifold-csg-sys/.cargo_vcs_info.json",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.toml.orig",
+        "tools/hsm/vendor/manifold-csg-sys/LICENSE-APACHE",
+        "tools/hsm/vendor/manifold-csg-sys/LICENSE-MIT",
+        "tools/hsm/vendor/manifold-csg-sys/README.md",
+        "tools/hsm/vendor/manifold-csg-sys/cache-version",
+        "tools/hsm/vendor/manifold-csg-sys/patches/README.md",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/CMakeLists.txt",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/diagnose.sh",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/__assertion_handler",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/__config_site",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/memory",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/mutex",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/libcxx-extras.cpp",
+    ],
+    outs = [
+        "out/soda-bend-holder/hardware/printed-parts/soda-bend-holder/soda-bend-holder.step",
+        "out/soda-bend-holder/hardware/printed-parts/soda-bend-holder/soda-bend-holder.step.mesh",
+        "out/soda-bend-holder/hardware/printed-parts/soda-bend-holder/soda-bend-holder.step.npz",
+        "out/soda-bend-holder/hardware/printed-parts/soda-bend-holder/soda-bend-holder.stl",
+    ],
+    cmd = """
+set -e
+case "$$(uname -s)" in
+  Darwin)
+    copy_mask=$$((8#$$(umask)))
+    copy_bits=("" x w wx r rx rw rwx)
+    copy_mode="u-$${copy_bits[$$((copy_mask >> 6 & 7))]},g-$${copy_bits[$$((copy_mask >> 3 & 7))]},o-$${copy_bits[$$((copy_mask & 7))]}"
+    copy_file() {
+      local copy_dest="$${!#}" copy_target copy_permissions="$$copy_mode"
+      if [ -e "$$copy_dest" ] || [ -L "$$copy_dest" ]; then
+        if [ ! -f "$$copy_dest" ] || [ -L "$$copy_dest" ]; then cp "$$@"; return; fi
+        copy_permissions=$$(stat -f %Lp "$$copy_dest")
+        copy_target=$$(mktemp "$$copy_dest.hsm-copy.XXXXXX")
+      else copy_target="$$copy_dest"; fi
+      if cp -c "$${@:1:$$(( $$# - 1 ))}" "$$copy_target" 2>/dev/null; then
+        chmod "$$copy_permissions" "$$copy_target"
+        touch "$$copy_target"
+        if [ "$$copy_target" != "$$copy_dest" ]; then mv -f "$$copy_target" "$$copy_dest"; fi
+      else rm -f "$$copy_target"; cp "$$@"; fi
+    };;
+  *) copy_file() { cp "$$@"; };;
+esac
+hsm_run=
+for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
+  if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
+done
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+O0=$$PWD/$(location out/soda-bend-holder/hardware/printed-parts/soda-bend-holder/soda-bend-holder.step)
+O1=$$PWD/$(location out/soda-bend-holder/hardware/printed-parts/soda-bend-holder/soda-bend-holder.step.mesh)
+O2=$$PWD/$(location out/soda-bend-holder/hardware/printed-parts/soda-bend-holder/soda-bend-holder.step.npz)
+O3=$$PWD/$(location out/soda-bend-holder/hardware/printed-parts/soda-bend-holder/soda-bend-holder.stl)
+rm -rf work
 for f in $(SRCS); do
   case $$f in
-    */node_modules/*) continue;;
     */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
     *) t=$$f;;
   esac
-  mkdir -p "work-soda-bend-holder/$$(dirname "$$t")"; copy_file -L "$$f" "work-soda-bend-holder/$$t"
+  mkdir -p "work/$$(dirname "$$t")"; copy_file -L "$$f" "work/$$t"
 done
-for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
-  if [ -d $$d ]; then mkdir -p work-soda-bend-holder/$$(dirname $$d); ln -sfn $$PWD/$$d work-soda-bend-holder/$$d; fi
-done
-for f in hardware/scripts/_run_lock.py hardware/scripts/_run_native.py hardware/scripts/_run_slots.py tools/hsm/run-slots.defaults.json tools/run-slots.mjs tools/run.py; do
-  mkdir -p work-soda-bend-holder/$$(dirname $$f); cp $$HSM_WORKSPACE/$$f work-soda-bend-holder/$$f
-done
-cd work-soda-bend-holder
-ln -sfn $$HSM_WORKSPACE/.cache .cache
-D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/soda-bend-holder/soda_bend_holder.py > /dev/null
-copy_file hardware/printed-parts/soda-bend-holder/soda-bend-holder.numbers.json "$$O0"
-copy_file hardware/printed-parts/soda-bend-holder/soda-bend-holder.step "$$O1"
-copy_file hardware/printed-parts/soda-bend-holder/soda-bend-holder.step.mesh "$$O2"
-copy_file hardware/printed-parts/soda-bend-holder/soda-bend-holder.step.npz "$$O3"
-copy_file hardware/printed-parts/soda-bend-holder/soda-bend-holder.stl "$$O4"
-cd .. && rm -rf work-soda-bend-holder
+cd work
+"$$hsm_run" -- ./soda-bend-holder > /dev/null
+copy_file hardware/printed-parts/soda-bend-holder/soda-bend-holder.step "$$O0"
+copy_file hardware/printed-parts/soda-bend-holder/soda-bend-holder.step.mesh "$$O1"
+copy_file hardware/printed-parts/soda-bend-holder/soda-bend-holder.step.npz "$$O2"
+copy_file hardware/printed-parts/soda-bend-holder/soda-bend-holder.stl "$$O3"
 """,
 )
 
