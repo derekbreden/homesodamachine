@@ -1,11 +1,15 @@
 {
   "below_lead_in_added_mm3": 0.0,
   "below_lead_in_removed_mm3": 0.0,
-  "entry_lead_in_rise_mm": 3.6,
+  "entry_in_standard_receiver_overlap_mm3": 110.46600004533468,
+  "entry_lead_in_rise_mm": 6.0,
+  "entry_ramp_angle_from_insertion_degrees": 40.36453657309736,
+  "entry_receiver_ceiling_mm": 348.3151460774243,
   "entry_receiver_overlap_mm3": 0.0,
-  "entry_tip_air_mm": 0.5000000000443947,
-  "entry_tip_outset_per_side_mm": 0.5,
-  "purpose": "The actual regulator receiver and outward-flared entry cap for the comparison plate.",
+  "entry_roof_stock_mm": 6.684853922575712,
+  "entry_tip_air_mm": 0.5,
+  "entry_tip_outset_per_side_mm": 0.0,
+  "purpose": "Compare standard and taller regulator lead-ins in their complete matching receivers.",
   "receiver_bounds_mm": [
     [
       -58.57391030388001,
@@ -18,8 +22,11 @@
       355.0
     ]
   ],
-  "roof_stock_mm": 9.084853922903847,
+  "receiver_source": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.npz",
   "scope": "Fitted solids and retained lower profiles; insertion force and directional tolerance await physical comparison.",
   "standard_lead_in_rise_mm": 3.0,
-  "standard_receiver_overlap_mm3": 0.0
+  "standard_ramp_angle_from_insertion_degrees": 59.53445508054013,
+  "standard_receiver_ceiling_mm": 345.91514607709615,
+  "standard_receiver_overlap_mm3": 0.0,
+  "standard_roof_stock_mm": 9.084853922903847
 }

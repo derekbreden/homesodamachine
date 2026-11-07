@@ -1,17 +1,16 @@
 {
-  "purpose": "Hold the concrete regulator receiver and cover comparison plate for visual review before printing.",
+  "purpose": "Retain the standard and taller regulator receiver-and-cover pairs and their authorized native Mark2 print.",
   "recipe": "regulator-entry-comparison",
-  "status": "prepared; awaiting Derek's geometry review; not submitted",
-  "archive": "/Users/derekbredensteiner/Downloads/HSM-regulator-entry-2026-11-07/final/2026-11-07-regulator-entry-comparison-mark2-33e2505e/2026-11-07-regulator-entry-comparison-mark2-33e2505e.gcode.3mf",
-  "archive_sha256": "fcd26d2229ebaa246ca65e48792c73ffb76dd0e434127cbd0e65165e01bd184e",
-  "gcode_sha256": "70d359f24cbb0732df406919db4a07ef29909d3cf589b66c3320e8afd402ec98",
-  "project": "/Users/derekbredensteiner/Downloads/HSM-regulator-entry-2026-11-07/final/2026-11-07-regulator-entry-comparison-mark2-33e2505e/2026-11-07-regulator-entry-comparison-mark2-33e2505e.3mf",
-  "project_sha256": "a9879284d932e95226946b6108db82601006812b39f4d2c0955ee093d33ff93f",
-  "preparation_record": "/Users/derekbredensteiner/Downloads/HSM-regulator-entry-2026-11-07/final/2026-11-07-regulator-entry-comparison-mark2-33e2505e/preparation.json",
-  "native_review_record": "/Users/derekbredensteiner/Downloads/HSM-regulator-entry-2026-11-07/final/2026-11-07-regulator-entry-comparison-mark2-33e2505e/review.json",
-  "estimated_seconds": 32631.066084201408,
-  "estimated_material_g": 67.9,
-  "bed_margin_mm": 83.8105085,
+  "status": "prepared for authorized Mark2 submission; not yet accepted",
+  "archive": "/Users/derekbredensteiner/Downloads/HSM-regulator-tall-2026-11-07/ready/2026-11-07-regulator-entry-comparison-mark2-adf8fe0d/2026-11-07-regulator-entry-comparison-mark2-adf8fe0d.gcode.3mf",
+  "archive_sha256": "75f61aa109807b5fa012f2112f419292f0718e289e4c8d330f986c411ca066aa",
+  "gcode_sha256": "5608f5de009f255569ec655c03ad6bca676986b86055e0716230c6bf56451cf9",
+  "project": "/Users/derekbredensteiner/Downloads/HSM-regulator-tall-2026-11-07/ready/2026-11-07-regulator-entry-comparison-mark2-adf8fe0d/2026-11-07-regulator-entry-comparison-mark2-adf8fe0d.3mf",
+  "project_sha256": "1b3434901882f4468369429d898736e7a3a1f733ac9c3a4aaf053fce978bf6c5",
+  "preparation_record": "/Users/derekbredensteiner/Downloads/HSM-regulator-tall-2026-11-07/ready/2026-11-07-regulator-entry-comparison-mark2-adf8fe0d/preparation.json",
+  "native_review_record": "/Users/derekbredensteiner/Downloads/HSM-regulator-tall-2026-11-07/ready/2026-11-07-regulator-entry-comparison-mark2-adf8fe0d/review.json",
+  "estimated_seconds": 38016.14895130112,
+  "bed_margin_mm": 80.03351,
   "native_checks": {
     "archive": true,
     "bed_border": true,
@@ -30,40 +29,42 @@
       "object_settings": {},
       "plate_bounds_mm": [
         [
-          125.82500046491623,
-          158.94679641723633,
+          172.19581101553948,
+          168.94679641723633,
           0.0
         ],
         [
-          154.71600884199142,
-          201.05320358276367,
+          201.08681939261467,
+          211.05320358276367,
           36.0
         ]
-      ]
+      ],
+      "pose": null
     },
     {
       "name": "regulator-snap-cap-entry",
       "stl": "hardware/printed-parts/enclosure/rear-equipment-caps/entry-study/regulator-snap-cap-entry.stl",
-      "stl_sha256": "4b9fffd4156ce0f73f25b02115d946b69b386a1759ede9909cc9f02bb1e91d6e",
+      "stl_sha256": "926df4c063127b01220678a06d1fb9dca5b37111769684aaefc02d4d79c0541e",
       "identify_id": 1902,
       "object_settings": {},
       "plate_bounds_mm": [
         [
-          84.33399170637131,
-          158.44679641723633,
+          213.08681939261467,
+          168.94679641723633,
           0.0
         ],
         [
-          113.82500046491623,
-          201.55320358276367,
+          244.97782776968987,
+          211.05320358276367,
           36.0
         ]
-      ]
+      ],
+      "pose": null
     },
     {
-      "name": "regulator-receiver-entry",
-      "stl": "hardware/printed-parts/enclosure/rear-equipment-caps/entry-study/regulator-receiver-entry.stl",
-      "stl_sha256": "dec12d06a33356376e44f45798ee0184a4ad60e6f9e41a972eea76f94c7f0cbc",
+      "name": "regulator-receiver-standard",
+      "stl": "hardware/printed-parts/enclosure/rear-equipment-caps/entry-study/regulator-receiver-standard.stl",
+      "stl_sha256": "7b8669e906343b6a78f769347b9018056976d2d741b1ddf148add130f6eb1b72",
       "identify_id": 1903,
       "object_settings": {
         "enable_support": {
@@ -85,46 +86,95 @@
       },
       "plate_bounds_mm": [
         [
-          166.71600884199142,
-          164.28159030369267,
+          85.32217223031014,
+          161.52500027418137,
           0.0
         ],
         [
-          223.6660082936287,
-          195.71840969630733,
+          116.75899162292481,
+          218.47499972581863,
           46.113998819390844
         ]
-      ]
+      ],
+      "pose": {
+        "turns": [
+          [
+            "x",
+            -107
+          ],
+          [
+            "z",
+            90
+          ]
+        ]
+      }
+    },
+    {
+      "name": "regulator-receiver-entry",
+      "stl": "hardware/printed-parts/enclosure/rear-equipment-caps/entry-study/regulator-receiver-entry.stl",
+      "stl_sha256": "8205f7f9712864af203b643b6a80e25655bcf67a524d5475b0aa691d6f69aba7",
+      "identify_id": 1904,
+      "object_settings": {
+        "enable_support": {
+          "reason": "Print the receiver in its production pose with clear catch pockets.",
+          "value": "0"
+        },
+        "sparse_infill_density": {
+          "reason": "Match back-top bulk deposition.",
+          "value": "15%"
+        },
+        "sparse_infill_pattern": {
+          "reason": "Match back-top bulk deposition.",
+          "value": "gyroid"
+        },
+        "wall_loops": {
+          "reason": "Match the enclosing back-top receiver process.",
+          "value": "2"
+        }
+      },
+      "plate_bounds_mm": [
+        [
+          128.7589916229248,
+          161.52500027418137,
+          0.0
+        ],
+        [
+          160.19581101553948,
+          218.47499972581863,
+          46.113998819390844
+        ]
+      ],
+      "pose": {
+        "turns": [
+          [
+            "x",
+            -107
+          ],
+          [
+            "z",
+            90
+          ]
+        ]
+      }
     }
   ],
-  "receiver_support_bodies": 0,
+  "receiver_support_bodies": {
+    "1903": 0,
+    "1904": 0
+  },
   "layer_height_mm": 0.08,
   "first_layer_height_mm": 0.2,
-  "schedule_reason": "Native smooth-timelapse towers require a shared layer schedule. The tilted receiver needs fine layers, which both comparison caps share on this plate.",
-  "physical_scope": "The baseline and flared cover are compared in the same printing process and complete receiver. Fit approvals attach to their retained hardware-bearing geometry; insertion force remains a physical comparison.",
+  "schedule_reason": "The receivers and both covers share fine layers with the native cooling tower.",
+  "physical_scope": "The comparison changes only the lead-in rise and matching pocket height. Fitted bearings, spring roots, retaining noses and lateral positions retain the standard geometry.",
   "layer_time": {
     "every_model_layer_has_tower": true,
-    "minimum_return_lower_bound_s": 24.428924196479784,
+    "minimum_return_lower_bound_s": 24.47758314148814,
     "minimum_return_target_s": 20.0,
     "minimum_tower_deposition_after_first_layer_s": 24.191999999999997,
     "model_layers": 574,
     "passed": true,
     "purpose": "Measure the single snap's native tower time and time between model layers.",
     "scope": "Commanded path length divided by feed plus explicit waits; acceleration, firmware motion and camera delays add time. Native smooth timelapse is enabled at launch.",
-    "gcode_sha256": "70d359f24cbb0732df406919db4a07ef29909d3cf589b66c3320e8afd402ec98"
-  },
-  "published_models": [
-    {
-      "file": "hardware/printed-parts/enclosure/rear-equipment-caps/entry-study/regulator-snap-cap-entry.step.mesh",
-      "site_bytes": 169660,
-      "sha256": "c7bbc59973395db2ffb8fdb7a7d46565797dd768dc2bb27eb8554efe296b46d5",
-      "matches": true
-    },
-    {
-      "file": "hardware/printed-parts/enclosure/rear-equipment-caps/entry-study/regulator-receiver-entry.step.mesh",
-      "site_bytes": 215088,
-      "sha256": "b5c4190a0201ac065b1b81b655f9954f3bbebdb10df6eaee178fa433d204f3f8",
-      "matches": true
-    }
-  ]
+    "gcode_sha256": "5608f5de009f255569ec655c03ad6bca676986b86055e0716230c6bf56451cf9"
+  }
 }

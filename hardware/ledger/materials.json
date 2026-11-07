@@ -3987,6 +3987,10 @@
         {
           "file": "printed-parts/enclosure/rear-equipment-caps/entry-study/regulator-receiver-entry.step",
           "context": true
+        },
+        {
+          "file": "printed-parts/enclosure/rear-equipment-caps/entry-study/regulator-receiver-standard.step",
+          "context": true
         }
       ],
       "documents": [
