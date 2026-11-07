@@ -4486,7 +4486,8 @@
     },
     "hardware/printed-parts/cold-core/prv-shroud/prv-shroud.step.mesh": {
       "inputs": "77a06aaa6faa5db51400a5b02a1b030940c8f2486da69e06e715c824dff35c3b",
-      "commit": "b623b0fea074d118cb9a84a1b6a111a1628d1ff1"
+      "commit": "b623b0fea074d118cb9a84a1b6a111a1628d1ff1",
+      "unproven": true
     },
     "hardware/printed-parts/cold-core/prv-shroud/prv-shroud.stl": {
       "inputs": "a695dd9fcd9d97b7ccb85c0aa31c88cca38da371ed5be2fb5a50b9876f44c951",
