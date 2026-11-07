@@ -1,0 +1,90 @@
+{
+  "views": [
+    {
+      "name": "tip-section",
+      "caption": "The taller lead-in keeps the standard lateral reach and retaining nose.",
+      "before": "tip-section-before.webp",
+      "after": "tip-section-after.webp",
+      "width": 1200,
+      "height": 900,
+      "marks": [
+        {
+          "x": 500.2,
+          "y": 164.2,
+          "r": 32.1,
+          "label": "Taller",
+          "at": [
+            15.9455,
+            21.0532,
+            18
+          ]
+        }
+      ],
+      "model": "printed-parts/enclosure/rear-equipment-caps/entry-study/regulator-snap-cap-entry.step",
+      "camera": {
+        "projection": "orthographic",
+        "position": [
+          11.5,
+          19.5,
+          114.87722744051123
+        ],
+        "target": [
+          11.5,
+          19.5,
+          18
+        ],
+        "up": [
+          1,
+          0,
+          0
+        ],
+        "half": 7,
+        "near": 59.121659581416885,
+        "far": 164.0719893086374,
+        "aspect": 1.3333333333333333,
+        "section": {
+          "at": [
+            0,
+            0,
+            18
+          ],
+          "normal": [
+            0,
+            0,
+            1
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [
+        "regulator-snap-cap-entry"
+      ],
+      "ghost": [],
+      "only": [
+        "regulator-snap-cap-entry"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "printed-parts/enclosure/rear-equipment-caps/entry-study/regulator-snap-cap-entry.step.mesh",
+          "from": "snapshot",
+          "sha256": "c7bbc59973395db2ffb8fdb7a7d46565797dd768dc2bb27eb8554efe296b46d5",
+          "commit": "e077fdaff991107cc78bdbdc0178f87d5b8dda6d",
+          "taken": "2026-11-07T22:29:28.482Z",
+          "published": true
+        },
+        "after": {
+          "payload": "printed-parts/enclosure/rear-equipment-caps/entry-study/regulator-snap-cap-entry.step.mesh",
+          "from": "tree",
+          "sha256": "a0651d4c9666cba016f03401fc5ea4d1cf549c0264152b217b2c7733c56befa8",
+          "commit": "e64b598607703b6ea7b96064a94c8ccd6b44a3dc",
+          "published": true
+        }
+      },
+      "changed": [
+        "regulator-snap-cap-entry"
+      ],
+      "withinMeshing": []
+    }
+  ]
+}

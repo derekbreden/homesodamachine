@@ -1,0 +1,422 @@
+{
+  "purpose": "Retain the tower-free taller-lead-in regulator comparison print and its physical-review state.",
+  "source_revision": "e64b598607703b6ea7b96064a94c8ccd6b44a3dc",
+  "geometry_source_revision": "a48121052",
+  "prepared_spec_sha256": "5d6d759f5ce9f754f8eaa11f26c5f56b81e1f89b2c8289122ffd5840021d69db",
+  "recipe": "regulator-entry-comparison",
+  "printer": "Mark2",
+  "printer_task_id": "1418641750",
+  "launch_utc": "2026-11-07T22:45:45.933388+00:00",
+  "status": "accepted; physical results pending",
+  "archive": {
+    "path": "/Users/derekbredensteiner/Downloads/HSM-regulator-tall-2026-11-07/batch/2026-11-07-regulator-entry-comparison-mark2-adf8fe0d/2026-11-07-regulator-entry-comparison-mark2-adf8fe0d.gcode.3mf",
+    "sha256": "e044db983951e5720c32cd78d9a2d176184309177688ff2426066c37030aaeb9",
+    "gcode_sha256": "bea11f3669ee20af48dcc13c644b4c157c762c5bb9e0766671bc93546102b303"
+  },
+  "project": {
+    "path": "/Users/derekbredensteiner/Downloads/HSM-regulator-tall-2026-11-07/batch/2026-11-07-regulator-entry-comparison-mark2-adf8fe0d/2026-11-07-regulator-entry-comparison-mark2-adf8fe0d.3mf",
+    "sha256": "1bc35e43f41524da7007ef40108c5c21abc8b645ec19abb48f5796a0b5f1ac0e"
+  },
+  "objects": [
+    {
+      "name": "regulator-snap-cap",
+      "stl": "hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.stl",
+      "stl_sha256": "23039efb099d5008eb1c5b96e2a769bb6536fd040945f67a4cf80c937aac7035",
+      "identify_id": 1901,
+      "object_settings": {},
+      "plate_bounds_mm": [
+        [
+          172.19581101553948,
+          138.94679641723633,
+          0.0
+        ],
+        [
+          201.08681939261467,
+          181.05320358276367,
+          36.0
+        ]
+      ],
+      "pose": null
+    },
+    {
+      "name": "regulator-snap-cap-entry",
+      "stl": "hardware/printed-parts/enclosure/rear-equipment-caps/entry-study/regulator-snap-cap-entry.stl",
+      "stl_sha256": "926df4c063127b01220678a06d1fb9dca5b37111769684aaefc02d4d79c0541e",
+      "identify_id": 1902,
+      "object_settings": {},
+      "plate_bounds_mm": [
+        [
+          213.08681939261467,
+          138.94679641723633,
+          0.0
+        ],
+        [
+          244.97782776968987,
+          181.05320358276367,
+          36.0
+        ]
+      ],
+      "pose": null
+    },
+    {
+      "name": "regulator-receiver-standard",
+      "stl": "hardware/printed-parts/enclosure/rear-equipment-caps/entry-study/regulator-receiver-standard.stl",
+      "stl_sha256": "7b8669e906343b6a78f769347b9018056976d2d741b1ddf148add130f6eb1b72",
+      "identify_id": 1903,
+      "object_settings": {
+        "enable_support": {
+          "reason": "Print the receiver in its production pose with clear catch pockets.",
+          "value": "0"
+        },
+        "layer_height": {
+          "reason": "Retain the fine growth of the tilted production receiver pockets.",
+          "value": "0.08"
+        },
+        "sparse_infill_density": {
+          "reason": "Match back-top bulk deposition.",
+          "value": "15%"
+        },
+        "sparse_infill_pattern": {
+          "reason": "Match back-top bulk deposition.",
+          "value": "gyroid"
+        },
+        "wall_loops": {
+          "reason": "Match the enclosing back-top receiver process.",
+          "value": "2"
+        }
+      },
+      "plate_bounds_mm": [
+        [
+          85.32217223031014,
+          131.52500027418137,
+          0.0
+        ],
+        [
+          116.75899162292481,
+          188.47499972581863,
+          46.113998819390844
+        ]
+      ],
+      "pose": {
+        "turns": [
+          [
+            "x",
+            -107
+          ],
+          [
+            "z",
+            90
+          ]
+        ]
+      }
+    },
+    {
+      "name": "regulator-receiver-entry",
+      "stl": "hardware/printed-parts/enclosure/rear-equipment-caps/entry-study/regulator-receiver-entry.stl",
+      "stl_sha256": "8205f7f9712864af203b643b6a80e25655bcf67a524d5475b0aa691d6f69aba7",
+      "identify_id": 1904,
+      "object_settings": {
+        "enable_support": {
+          "reason": "Print the receiver in its production pose with clear catch pockets.",
+          "value": "0"
+        },
+        "layer_height": {
+          "reason": "Retain the fine growth of the tilted production receiver pockets.",
+          "value": "0.08"
+        },
+        "sparse_infill_density": {
+          "reason": "Match back-top bulk deposition.",
+          "value": "15%"
+        },
+        "sparse_infill_pattern": {
+          "reason": "Match back-top bulk deposition.",
+          "value": "gyroid"
+        },
+        "wall_loops": {
+          "reason": "Match the enclosing back-top receiver process.",
+          "value": "2"
+        }
+      },
+      "plate_bounds_mm": [
+        [
+          128.7589916229248,
+          131.52500027418137,
+          0.0
+        ],
+        [
+          160.19581101553948,
+          188.47499972581863,
+          46.113998819390844
+        ]
+      ],
+      "pose": {
+        "turns": [
+          [
+            "x",
+            -107
+          ],
+          [
+            "z",
+            90
+          ]
+        ]
+      }
+    }
+  ],
+  "geometry": {
+    "below_lead_in_added_mm3": 0.0,
+    "below_lead_in_removed_mm3": 0.0,
+    "entry_in_standard_receiver_overlap_mm3": 110.46600004533468,
+    "entry_lead_in_rise_mm": 6.0,
+    "entry_ramp_angle_from_insertion_degrees": 40.36453657309736,
+    "entry_receiver_ceiling_mm": 348.3151460774243,
+    "entry_receiver_overlap_mm3": 0.0,
+    "entry_roof_stock_mm": 6.684853922575712,
+    "entry_tip_air_mm": 0.5,
+    "entry_tip_outset_per_side_mm": 0.0,
+    "purpose": "Compare standard and taller regulator lead-ins in their complete matching receivers.",
+    "receiver_bounds_mm": [
+      [
+        -58.57391030388001,
+        286.603633714998,
+        335.0
+      ],
+      [
+        -1.6239103038800042,
+        328.7100400329926,
+        355.0
+      ]
+    ],
+    "receiver_source": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.npz",
+    "scope": "Fitted solids and retained lower profiles; insertion force and directional tolerance await physical comparison.",
+    "standard_lead_in_rise_mm": 3.0,
+    "standard_ramp_angle_from_insertion_degrees": 59.53445508054013,
+    "standard_receiver_ceiling_mm": 345.91514607709615,
+    "standard_receiver_overlap_mm3": 0.0,
+    "standard_roof_stock_mm": 9.084853922903847
+  },
+  "layer_time": {
+    "gcode_sha256": "bea11f3669ee20af48dcc13c644b4c157c762c5bb9e0766671bc93546102b303",
+    "purpose": "Measure commanded return times separately for each article in the native comparison slice.",
+    "scope": "Commanded motion and explicit waits are lower bounds; acceleration and firmware delays add time. Return is measured from the last model deposition to the next on the same article.",
+    "objects": {
+      "1902": {
+        "model_layers": 150,
+        "min_return_s": 18.94694606594294,
+        "median_return_s": 27.28794777698795,
+        "shortest": [
+          {
+            "after_z_mm": 35.48,
+            "next_z_mm": 35.72,
+            "return_s": 18.94694606594294
+          },
+          {
+            "after_z_mm": 35.24,
+            "next_z_mm": 35.48,
+            "return_s": 19.16769931835097
+          },
+          {
+            "after_z_mm": 25.64,
+            "next_z_mm": 25.88,
+            "return_s": 20.451041525939218
+          },
+          {
+            "after_z_mm": 29.96,
+            "next_z_mm": 30.2,
+            "return_s": 20.5984693121718
+          },
+          {
+            "after_z_mm": 29.72,
+            "next_z_mm": 29.96,
+            "return_s": 20.70098322947706
+          },
+          {
+            "after_z_mm": 25.88,
+            "next_z_mm": 26.12,
+            "return_s": 20.70361932855485
+          },
+          {
+            "after_z_mm": 35.72,
+            "next_z_mm": 35.96,
+            "return_s": 20.846101874444685
+          },
+          {
+            "after_z_mm": 26.12,
+            "next_z_mm": 26.36,
+            "return_s": 20.85328988951278
+          }
+        ],
+        "layer_height_steps_mm": [
+          0.24
+        ]
+      },
+      "1901": {
+        "model_layers": 150,
+        "min_return_s": 18.935918118406335,
+        "median_return_s": 27.494102615461998,
+        "shortest": [
+          {
+            "after_z_mm": 35.0,
+            "next_z_mm": 35.24,
+            "return_s": 18.935918118406335
+          },
+          {
+            "after_z_mm": 35.48,
+            "next_z_mm": 35.72,
+            "return_s": 19.167229001982378
+          },
+          {
+            "after_z_mm": 35.24,
+            "next_z_mm": 35.48,
+            "return_s": 19.389162125778967
+          },
+          {
+            "after_z_mm": 25.64,
+            "next_z_mm": 25.88,
+            "return_s": 20.660068855562713
+          },
+          {
+            "after_z_mm": 29.96,
+            "next_z_mm": 30.2,
+            "return_s": 20.783228244685233
+          },
+          {
+            "after_z_mm": 25.88,
+            "next_z_mm": 26.12,
+            "return_s": 20.872261145573248
+          },
+          {
+            "after_z_mm": 29.72,
+            "next_z_mm": 29.96,
+            "return_s": 20.880592481190433
+          },
+          {
+            "after_z_mm": 25.4,
+            "next_z_mm": 25.64,
+            "return_s": 21.023248598787177
+          }
+        ],
+        "layer_height_steps_mm": [
+          0.24
+        ]
+      },
+      "1904": {
+        "model_layers": 574,
+        "min_return_s": 0.5888815380658343,
+        "median_return_s": 5.308997005633273,
+        "shortest": [
+          {
+            "after_z_mm": 45.96,
+            "next_z_mm": 46.04,
+            "return_s": 0.5888815380658343
+          },
+          {
+            "after_z_mm": 45.8,
+            "next_z_mm": 45.88,
+            "return_s": 0.6823039080009039
+          },
+          {
+            "after_z_mm": 45.88,
+            "next_z_mm": 45.96,
+            "return_s": 0.685864004774885
+          },
+          {
+            "after_z_mm": 45.72,
+            "next_z_mm": 45.8,
+            "return_s": 0.7097965754901452
+          },
+          {
+            "after_z_mm": 0.28,
+            "next_z_mm": 0.36,
+            "return_s": 0.7407417645266037
+          },
+          {
+            "after_z_mm": 45.64,
+            "next_z_mm": 45.72,
+            "return_s": 0.7868040043531437
+          },
+          {
+            "after_z_mm": 45.56,
+            "next_z_mm": 45.64,
+            "return_s": 0.8684157542911635
+          },
+          {
+            "after_z_mm": 45.48,
+            "next_z_mm": 45.56,
+            "return_s": 0.9356935475498176
+          }
+        ],
+        "layer_height_steps_mm": [
+          0.08
+        ]
+      },
+      "1903": {
+        "model_layers": 574,
+        "min_return_s": 0.58583809647007,
+        "median_return_s": 5.00833935692981,
+        "shortest": [
+          {
+            "after_z_mm": 45.88,
+            "next_z_mm": 45.96,
+            "return_s": 0.58583809647007
+          },
+          {
+            "after_z_mm": 45.96,
+            "next_z_mm": 46.04,
+            "return_s": 0.5872989090876217
+          },
+          {
+            "after_z_mm": 45.72,
+            "next_z_mm": 45.8,
+            "return_s": 0.6849182243086034
+          },
+          {
+            "after_z_mm": 45.8,
+            "next_z_mm": 45.88,
+            "return_s": 0.6857549341539197
+          },
+          {
+            "after_z_mm": 45.64,
+            "next_z_mm": 45.72,
+            "return_s": 0.7049587036135563
+          },
+          {
+            "after_z_mm": 0.2,
+            "next_z_mm": 0.28,
+            "return_s": 0.7706755416095916
+          },
+          {
+            "after_z_mm": 45.56,
+            "next_z_mm": 45.64,
+            "return_s": 0.7866873200000555
+          },
+          {
+            "after_z_mm": 45.48,
+            "next_z_mm": 45.56,
+            "return_s": 0.871175469787886
+          }
+        ],
+        "layer_height_steps_mm": [
+          0.08
+        ]
+      }
+    }
+  },
+  "native_checks": {
+    "archive": true,
+    "bed_border": true,
+    "fine_and_transition_bands": true,
+    "show_faces_support_free": true,
+    "solid_hosts_sampled": true,
+    "tie_windows_support_free": true,
+    "z_trim": true
+  },
+  "receiver_support_bodies": {
+    "1903": 0,
+    "1904": 0
+  },
+  "estimated_seconds": 15594.702147224689,
+  "estimated_material_g": 77.6457290649414,
+  "cancelled_attempt": "tower-attempt.json",
+  "physical_result": "Awaiting Derek\u2019s comparison of insertion effort, directional tolerance, fit and repeated release."
+}

@@ -1313,6 +1313,10 @@
             "enable_support": {
               "value": "0",
               "reason": "Print the receiver in its production pose with clear catch pockets."
+            },
+            "layer_height": {
+              "value": "0.08",
+              "reason": "Retain the fine growth of the tilted production receiver pockets."
             }
           }
         },
@@ -1347,6 +1351,10 @@
             "enable_support": {
               "value": "0",
               "reason": "Print the receiver in its production pose with clear catch pockets."
+            },
+            "layer_height": {
+              "value": "0.08",
+              "reason": "Retain the fine growth of the tilted production receiver pockets."
             }
           }
         }
@@ -1370,48 +1378,24 @@
           "reason": "Solid cap deposition."
         },
         "timelapse_type": {
-          "value": "1",
-          "reason": "Smooth timelapse parks away and uses the native tower before returning to the cap."
+          "value": "0",
+          "reason": "Traditional timelapse retains the batch layer schedule without a priming tower."
         },
         "enable_prime_tower": {
-          "value": "1",
-          "reason": "Reprime on the native tower after each timelapse departure."
-        },
-        "prime_tower_width": {
-          "value": "50",
-          "reason": "A constant perimeter provides time away on every cap layer."
-        },
-        "prime_tower_max_speed": {
-          "value": "10",
-          "reason": "Time on the tower cools the cap while retaining the model print recipe."
-        },
-        "wipe_tower_x": {
-          "value": [
-            "137"
-          ],
-          "reason": "Center the tower footprint within the seasoned bed region."
-        },
-        "wipe_tower_y": {
-          "value": [
-            "120"
-          ],
-          "reason": "Separate the tower brim from the cap brim."
-        },
-        "prime_tower_rib_wall": {
           "value": "0",
-          "reason": "Keep the requested tower width in single-colour smooth-timelapse mode."
+          "reason": "The complete receiver and cover pairs provide the return time between layers."
         },
         "layer_height": {
-          "value": "0.08",
-          "reason": "The receivers and covers share the fine layer schedule required by the native tower."
+          "value": "0.24",
+          "reason": "The covers retain their ordinary production layer schedule."
         }
       },
       "plate_offset_mm": {
         "value": [
           2.65,
-          30
+          0
         ],
-        "reason": "Center the complete receiver and cover comparison with a separate cooling tower footprint."
+        "reason": "Center the model, brim and support footprint of the complete comparison."
       },
       "plate_border_mm": 80.0
     }
