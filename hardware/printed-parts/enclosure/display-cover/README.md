@@ -28,15 +28,19 @@ as tall as the cover. Its four screws stand level with the cover's, at the same 
 own edges, so its white frame runs inside the screw heads.
 
 The plate follows the rear nameplate: black PETG with the nameplate's white artwork, sunk into
-the face and standing proud of it. The brand mark stands over a rule. Below them the light's
-small aperture sits in a ring, with ON under it in the nameplate's identification letterforms.
-The black is cut where the white stands, so the two colours are disjoint volumes. It prints face
-up on its flat back, like the cover.
+the face and standing proud of it. The brand mark stands over a rule. Below them a translucent
+PETG window sits in a white ring, with ON under it in the nameplate's identification letterforms.
+The window follows the diameter of the LED's mounting bore and fills the plate's complete
+thickness, flush with both faces. A black margin separates it from the white ring, whose line
+weight matches the frame and rule. Black, white and translucent PETG occupy disjoint volumes.
+The plate prints face up on its flat back, like the cover.
 
-The light is a prewired blue LED from the EDGELEC assortment. It sits set back in a bore behind
-the aperture, so it stays in the aperture's shadow when unlit. Its leads run down a channel from
-the bore's foot into the display's PCB pocket and land on the display's terminal strip: the red
-lead on VIN beside the J9 loom's V12, the black lead on DOUT0. The display firmware lights it as
+The light is the [CHANZON prewired clear-lens blue LED](https://www.amazon.com/dp/B08G4Z6KPV).
+Its clear lens directs light into the printed diffuser. The EDGELEC blue LED in the acquired
+assortment also fits the bore. The LED sits set back behind the window. Its leads run down a
+channel from the bore's foot into the display's PCB pocket and land on the display's terminal
+strip: the blue positive lead on VIN beside the J9 loom's V12, the black lead on DOUT0. The
+EDGELEC's positive lead is red. Both lamps have an inline resistor. The display firmware lights it as
 the board comes up ([`src_front/README.md`](/firmware/src_front/README.md)).
 
 The program that cuts the cover also writes `status-plate` and `status-plate-fasteners` in the
