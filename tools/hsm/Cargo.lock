@@ -1684,6 +1684,18 @@ dependencies = [
 ]
 
 [[package]]
+name = "hsm-print-prep"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "hsm-faucet-numbers",
+ "hsm-shared-data",
+ "serde_json",
+ "sha2",
+ "zip",
+]
+
+[[package]]
 name = "hsm-prv-shroud"
 version = "0.1.0"
 dependencies = [
