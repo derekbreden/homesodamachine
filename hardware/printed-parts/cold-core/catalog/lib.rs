@@ -35,6 +35,35 @@ pub fn fits() -> Fits {
     })
 }
 
+/// A tube stock the routing catalog lists: its outside diameter, its least bend and what it carries.
+#[derive(Clone, Debug, Deserialize)]
+pub struct Stock {
+    pub name: String,
+    pub od: f64,
+    pub min_bend: f64,
+    pub kinds: Vec<String>,
+}
+
+#[derive(Deserialize)]
+struct Routing {
+    stocks: Vec<Stock>,
+}
+
+/// The fluid line stock of outside diameter `od`.
+pub fn fluid_stock(od: f64) -> Stock {
+    static ROUTING: OnceLock<Routing> = OnceLock::new();
+    ROUTING
+        .get_or_init(|| {
+            serde_json::from_str(include_str!("../../../../tools/hsm/shared-data/catalog/routing.json"))
+                .expect("the shared routing catalog parses")
+        })
+        .stocks
+        .iter()
+        .find(|s| s.od == od && s.kinds.iter().any(|k| k == "fluid"))
+        .cloned()
+        .unwrap_or_else(|| panic!("the routing catalog lists no fluid stock of that diameter"))
+}
+
 /// A catalog colour, as the catalog writes it: eight-bit sRGB, sRGB channels with an optional
 /// alpha, or an sRGB hex string.
 #[derive(Deserialize)]

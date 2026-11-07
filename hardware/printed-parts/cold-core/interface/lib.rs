@@ -214,6 +214,11 @@ pub fn foam_shell_rim_z(fits: &Fits) -> f64 {
     top_lid_bottom_z(fits) - cap_lid_clearance(fits)
 }
 
+/// The top cap's cup: from the shell's top to the lid's underside.
+pub fn top_cap_height(fits: &Fits) -> f64 {
+    FOAM_CAP_HEIGHT - head_pad_height(fits)
+}
+
 pub fn bottom_cap_height(fits: &Fits) -> f64 {
     FOAM_CAP_HEIGHT + WALL_AND_FLOOR_THICKNESS - cap_shell_clearance(fits)
 }
