@@ -1,0 +1,15 @@
+[package]
+name = "hsm-coil-mandrel-numbers"
+version = "0.1.0"
+edition.workspace = true
+license.workspace = true
+rust-version.workspace = true
+publish = false
+
+[lib]
+path = "../../../hardware/printed-parts/cold-core/coil-mandrel/numbers.rs"
+
+[dependencies]
+hsm-coil-numbers = { path = "../coil-numbers" }
+hsm-cold-core-catalog = { path = "../cold-core-catalog" }
+hsm-cold-core-interface = { path = "../cold-core-interface" }

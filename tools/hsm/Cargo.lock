@@ -796,6 +796,18 @@ name = "hsm-aero-float-numbers"
 version = "0.1.0"
 
 [[package]]
+name = "hsm-all-aero-float"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "hsm-aero-float-numbers",
+ "hsm-cold-core-catalog",
+ "hsm-kernel",
+ "serde",
+ "serde_json",
+]
+
+[[package]]
 name = "hsm-assembly-docs"
 version = "0.1.0"
 dependencies = [
@@ -844,6 +856,34 @@ name = "hsm-carbonator-tube-numbers"
 version = "0.1.0"
 
 [[package]]
+name = "hsm-coil-mandrel"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "hsm-coil-mandrel-numbers",
+ "hsm-coil-numbers",
+ "hsm-kernel",
+]
+
+[[package]]
+name = "hsm-coil-mandrel-numbers"
+version = "0.1.0"
+dependencies = [
+ "hsm-coil-numbers",
+ "hsm-cold-core-catalog",
+ "hsm-cold-core-interface",
+]
+
+[[package]]
+name = "hsm-coil-numbers"
+version = "0.1.0"
+dependencies = [
+ "hsm-cold-core-catalog",
+ "hsm-cold-core-interface",
+ "hsm-reed-bridge-numbers",
+]
+
+[[package]]
 name = "hsm-cold-core"
 version = "0.1.0"
 dependencies = [
@@ -868,6 +908,8 @@ dependencies = [
  "anyhow",
  "hsm-aero-float-numbers",
  "hsm-carbonator-tube-numbers",
+ "hsm-coil-mandrel-numbers",
+ "hsm-coil-numbers",
  "hsm-cold-core-interface",
  "hsm-documents",
  "hsm-enclosure-interface",
@@ -1357,6 +1399,25 @@ dependencies = [
 ]
 
 [[package]]
+name = "hsm-magnetic-float"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "hsm-kernel",
+ "hsm-magnetic-float-numbers",
+ "serde",
+ "serde_json",
+]
+
+[[package]]
+name = "hsm-magnetic-float-numbers"
+version = "0.1.0"
+dependencies = [
+ "hsm-aero-float-numbers",
+ "hsm-cold-core-catalog",
+]
+
+[[package]]
 name = "hsm-model-export"
 version = "0.1.0"
 dependencies = [
@@ -1409,6 +1470,26 @@ name = "hsm-prv-shroud-numbers"
 version = "0.1.0"
 dependencies = [
  "hsm-cold-core-catalog",
+]
+
+[[package]]
+name = "hsm-reed-bridge"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "hsm-kernel",
+ "hsm-reed-bridge-numbers",
+]
+
+[[package]]
+name = "hsm-reed-bridge-numbers"
+version = "0.1.0"
+dependencies = [
+ "hsm-aero-float-numbers",
+ "hsm-carbonator-tube-numbers",
+ "hsm-cold-core-catalog",
+ "hsm-cold-core-interface",
+ "hsm-endcap-circular-numbers",
 ]
 
 [[package]]

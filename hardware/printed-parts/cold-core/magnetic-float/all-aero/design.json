@@ -1,115 +1,115 @@
 {
-  "article": "One-piece ASA Aero guided bench float; RC62 inserted during printing",
-  "cad_revision": "v2-upper-clearance",
   "accepted_print_reference": "mark2-print/v1/float-preflight.json; immutable v1 source commit and snapshot",
+  "article": "One-piece ASA Aero guided bench float; RC62 inserted during printing",
+  "buoyancy": [
+    {
+      "assembled_mass_g": 17.590874514002547,
+      "foam_density_g_cc": 0.46,
+      "guided_upright_freeboard_mm": 10.399982487124547,
+      "reserve_lift_g": 10.394579820446037
+    },
+    {
+      "assembled_mass_g": 19.493181505263802,
+      "foam_density_g_cc": 0.53,
+      "guided_upright_freeboard_mm": 8.496686756465305,
+      "reserve_lift_g": 8.492272829184781
+    },
+    {
+      "assembled_mass_g": 20.036697788481305,
+      "foam_density_g_cc": 0.55,
+      "guided_upright_freeboard_mm": 7.9528879762769495,
+      "reserve_lift_g": 7.948756545967278
+    },
+    {
+      "assembled_mass_g": 21.395488496525058,
+      "foam_density_g_cc": 0.6,
+      "guided_upright_freeboard_mm": 6.593391025806064,
+      "reserve_lift_g": 6.5899658379235255
+    },
+    {
+      "assembled_mass_g": 22.754279204568814,
+      "foam_density_g_cc": 0.65,
+      "guided_upright_freeboard_mm": 5.233894075335175,
+      "reserve_lift_g": 5.2311751298797695
+    },
+    {
+      "assembled_mass_g": 24.113069912612566,
+      "foam_density_g_cc": 0.7,
+      "guided_upright_freeboard_mm": 3.87439712486429,
+      "reserve_lift_g": 3.872384421836017
+    }
+  ],
+  "cad_revision": "v2-upper-clearance",
   "dimensions_mm": {
-    "diameter": 36.0,
-    "height": 28.0,
-    "guide_bore": 4.8,
     "bench_guide": 3.175,
+    "bore_side_collar": 2.2125,
+    "diameter": 36.0,
+    "foam_above_pocket": 11.9875,
+    "foam_below_magnet": 12.4125,
+    "guide_bore": 4.8,
     "guide_radial_clearance": 0.8125,
+    "height": 28.0,
     "magnet_midplane": 14.0,
     "magnet_seat": 12.4125,
-    "pocket_roof": 16.0125,
-    "pocket_od": 19.35,
-    "pocket_id": 9.225,
-    "pocket_depth": 3.6,
-    "bore_side_collar": 2.2125,
     "outer_band_beside_magnet": 8.325,
-    "foam_below_magnet": 12.4125,
-    "foam_above_pocket": 11.9875
-  },
-  "sizing": {
-    "outcome": "Positive guided lift with a 5 g allowance for density and absorbed-water variation in a bench trial",
-    "water_density_g_cc": 0.9997,
-    "design_foam_density_g_cc": 0.65,
-    "minimum_reserve_lift_g": 5.0,
-    "minimum_calculated_height_mm": 27.338787828332563,
-    "upward_height_rounding_mm": 1.0,
-    "equation": "H = (reserve + magnet_mass - foam_density * pocket_volume) / ((water_density - foam_density) * annular_area)",
-    "scope": "Foam density is an engineering assumption, not a measured tolerance or a water-absorption allowance proven adequate for service."
-  },
-  "volumes_cc": {
-    "external_displacement_excluding_open_bore": 27.993852490195643,
-    "asa_aero": 27.1758141608751,
-    "magnet_pocket": 0.8180383293205423
-  },
-  "magnet": {
-    "model": "K&J RC62",
-    "od_mm": 19.05,
-    "id_mm": 9.525,
-    "thickness_mm": 3.175,
-    "dimensional_tolerance_mm": 0.1,
-    "mass_g": 5.09,
-    "grade": "N42",
-    "continuous_operating_limit_c": 80,
-    "source": "https://www.kjmagnetics.com/rc62-neodymium-ring-magnet"
+    "pocket_depth": 3.6,
+    "pocket_id": 9.225,
+    "pocket_od": 19.35,
+    "pocket_roof": 16.0125
   },
   "installation": {
-    "rod_axis_from_inner_wall_mm": 20.0,
     "body_wall_clearance_range_mm": [
       1.1875,
       2.8125
     ],
     "design_magnet_above_waterline_mm": -8.766105924664824,
+    "rod_axis_from_inner_wall_mm": 20.0,
     "scope": "Upright geometric clearances; liquid switching heights require finished-float and installed-reed calibration"
   },
-  "buoyancy": [
-    {
-      "foam_density_g_cc": 0.46,
-      "assembled_mass_g": 17.590874514002547,
-      "reserve_lift_g": 10.394579820446037,
-      "guided_upright_freeboard_mm": 10.399982487124547
-    },
-    {
-      "foam_density_g_cc": 0.53,
-      "assembled_mass_g": 19.493181505263802,
-      "reserve_lift_g": 8.492272829184781,
-      "guided_upright_freeboard_mm": 8.496686756465305
-    },
-    {
-      "foam_density_g_cc": 0.55,
-      "assembled_mass_g": 20.036697788481305,
-      "reserve_lift_g": 7.948756545967278,
-      "guided_upright_freeboard_mm": 7.9528879762769495
-    },
-    {
-      "foam_density_g_cc": 0.6,
-      "assembled_mass_g": 21.395488496525058,
-      "reserve_lift_g": 6.5899658379235255,
-      "guided_upright_freeboard_mm": 6.593391025806064
-    },
-    {
-      "foam_density_g_cc": 0.65,
-      "assembled_mass_g": 22.754279204568814,
-      "reserve_lift_g": 5.2311751298797695,
-      "guided_upright_freeboard_mm": 5.233894075335175
-    },
-    {
-      "foam_density_g_cc": 0.7,
-      "assembled_mass_g": 24.113069912612566,
-      "reserve_lift_g": 3.872384421836017,
-      "guided_upright_freeboard_mm": 3.87439712486429
-    }
-  ],
+  "magnet": {
+    "continuous_operating_limit_c": 80,
+    "dimensional_tolerance_mm": 0.1,
+    "grade": "N42",
+    "id_mm": 9.525,
+    "mass_g": 5.09,
+    "model": "K&J RC62",
+    "od_mm": 19.05,
+    "source": "https://www.kjmagnetics.com/rc62-neodymium-ring-magnet",
+    "thickness_mm": 3.175
+  },
   "neutral_foam_density_g_cc": 0.8424937776992555,
   "print_intent": {
     "layer_height_mm": 0.2,
-    "wall_loops": 300,
-    "pause_before_layer_z_mm": 16.2,
-    "xy_contour_compensation_mm": 0.05,
-    "xy_hole_compensation_mm": -0.05,
     "minimum_compensated_radial_magnet_clearance_mm": 0.05000000000000035,
     "minimum_nominal_pocket_depth_clearance_mm": 0.3250000000000003,
-    "scope": "Native slicing must verify the printed seat, last open-pocket layer, pause and first covering deposition. CAD midpoint is exact; the physical center depends on layer quantization and actual magnet thickness."
+    "pause_before_layer_z_mm": 16.2,
+    "scope": "Native slicing must verify the printed seat, last open-pocket layer, pause and first covering deposition. CAD midpoint is exact; the physical center depends on layer quantization and actual magnet thickness.",
+    "wall_loops": 300,
+    "xy_contour_compensation_mm": 0.05,
+    "xy_hole_compensation_mm": -0.05
   },
   "qualification": {
-    "density_measured": false,
     "buoyancy_measured": false,
-    "paused_magnet_retention_verified": false,
+    "density_measured": false,
     "magnet_heat_exposure_verified": false,
+    "paused_magnet_retention_verified": false,
     "pressure_rating": "Unqualified bench prototype",
-    "wetted_service": "Not qualified; no water uptake, pressure endurance or material-contact acceptance is recorded",
-    "upright_scope": "Guided on the bench rod; no free-floating upright stability claim"
+    "upright_scope": "Guided on the bench rod; no free-floating upright stability claim",
+    "wetted_service": "Not qualified; no water uptake, pressure endurance or material-contact acceptance is recorded"
+  },
+  "sizing": {
+    "design_foam_density_g_cc": 0.65,
+    "equation": "H = (reserve + magnet_mass - foam_density * pocket_volume) / ((water_density - foam_density) * annular_area)",
+    "minimum_calculated_height_mm": 27.338787828332563,
+    "minimum_reserve_lift_g": 5.0,
+    "outcome": "Positive guided lift with a 5 g allowance for density and absorbed-water variation in a bench trial",
+    "scope": "Foam density is an engineering assumption, not a measured tolerance or a water-absorption allowance proven adequate for service.",
+    "upward_height_rounding_mm": 1.0,
+    "water_density_g_cc": 0.9997
+  },
+  "volumes_cc": {
+    "asa_aero": 27.1758141608751,
+    "external_displacement_excluding_open_bore": 27.993852490195643,
+    "magnet_pocket": 0.8180383293205423
   }
 }

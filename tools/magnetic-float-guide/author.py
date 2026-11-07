@@ -137,7 +137,7 @@ def main():
     guide_pages.append(leaf(5, 'prepare-the-current-slice', 'Current print preparation', 'Slice the current body',
         'Use the current v2 body and review its native slice before any submission.',
         table([
-            ('Current geometry', link(FLOAT / 'float-aero.stl', 'float-aero.stl') + '<br>' + link(FLOAT / 'all_aero_float.py', 'all_aero_float.py')),
+            ('Current geometry', link(FLOAT / 'float-aero.stl', 'float-aero.stl') + '<br>' + link(FLOAT / 'all_aero_float.rs', 'all_aero_float.rs')),
             ('Nozzle / bed / chamber', f'{recipe["nozzle_c"]} / {recipe["bed_c"]} / {recipe["chamber_c"]} &deg;C'),
             ('Flow / layer / line', f'{recipe["flow_ratio"]:g} / {layer} mm / {recipe["line_width_mm"]:g} mm'),
             ('Walls', f'{recipe["wall_loops"]} loops &middot; nested foaming perimeters'),
@@ -228,7 +228,7 @@ def main():
         '<p>The current sizing model assumes 0.65 g/cm&sup3; Aero: about 22.75 g assembled mass and 5.23 g spare lift. These are calculations, not measurements.</p>'))
 
     refs = [
-        ('Current body', FLOAT / 'all_aero_float.py', 'CAD source for the one-piece ASA Aero float.'),
+        ('Current body', FLOAT / 'all_aero_float.rs', 'CAD source for the one-piece ASA Aero float.'),
         ('Current STL', FLOAT / 'float-aero.stl', 'Current v2 geometry; prepare and review a fresh native slice.'),
         ('Design and installation', FLOAT / 'README.md', 'Dimensions, selected process and qualification limits.'),
         ('Rod and reed datums', FLOAT / 'installation.md', 'Drilling, guide motion and directional liquid calibration.'),
@@ -253,7 +253,7 @@ def main():
         if stale.name not in expected:
             stale.unlink()
     inputs = [FLOAT / name for name in [
-        'design.json', 'all_aero_float.py', 'float-aero.stl', 'prepare_print.py',
+        'design.json', 'all_aero_float.rs', 'float-aero.stl', 'prepare_print.py',
         'README.md', 'installation.md',
         'physical-observations.json', 'integration-check.json',
         'all-aero-float.3mf', 'mark2-print/v1/float-preflight.json',

@@ -1,75 +1,50 @@
-//! The undersized rough-forming mandrel and its two individual tie-in allowances.
+//! The coil mandrel's answers for the Python readers that still ask: the undersized
+//! rough-forming mandrel, the winding it gives the copper and the tails' copper allowances,
+//! from the coil's and the mandrel's numbers crates.
 
+use hsm_coil_mandrel_numbers as mandrel;
+use hsm_coil_numbers::{self as coil, Tail};
 use serde_json::{Value, json};
-use std::f64::consts::PI;
 
-pub fn datums(evap_tail_low_z: f64, evap_tail_high_z: f64) -> Value {
-    let tube_od_in = 0.250;
-    let tube_radius = (tube_od_in / 2.) * 25.4;
-    let carbonator_od = 127.;
-    let carbonator_radius = carbonator_od / 2.;
-    let net_undersize = 3.;
-    let groove_depth = 1.;
-    let groove_profile_radius = tube_radius;
-    let groove_offset = groove_profile_radius - groove_depth;
-    let mandrel_radius = carbonator_radius - net_undersize + groove_depth;
-    let mandrel_od = 2. * mandrel_radius;
-    let helix_path_radius = mandrel_radius + groove_offset;
-    let groove_bottom_od = mandrel_od - 2. * groove_depth;
-    let wall = 5.;
-    let mandrel_inner_radius = mandrel_radius - wall;
-    let (tail_inlet_x, tail_inlet_y, tail_inlet_z): (f64, f64, f64) = (-30., evap_tail_low_z, 20.);
-    let (tail_outlet_x, tail_outlet_y, tail_outlet_z): (f64, f64, f64) =
-        (30., evap_tail_high_z, 20.);
-    let wind_length = tail_outlet_y - tail_inlet_y;
-    let tail_inlet_azimuth = tail_inlet_z.atan2(tail_inlet_x).to_degrees();
-    let tail_outlet_azimuth = tail_outlet_z.atan2(tail_outlet_x).to_degrees();
-    let tail_ccw_delta = (tail_outlet_azimuth - tail_inlet_azimuth).rem_euclid(360.);
-    let full_wraps = 9;
-    let total_wraps = full_wraps as f64 + tail_ccw_delta / 360.;
-    let pitch = wind_length / total_wraps;
-    let mandrel_wrap_length = total_wraps * (2. * PI * helix_path_radius).hypot(pitch);
-    let fitted_wrap_radius = carbonator_radius + tube_radius;
-    let fitted_wrap_length = total_wraps * (2. * PI * fitted_wrap_radius).hypot(pitch);
-    let spring_gain = fitted_wrap_length - mandrel_wrap_length;
-    let stub_protrusion = json!({"inlet": 200., "outlet": 175.});
-    let tail_in_shell = json!({"inlet": 154.4, "outlet": 271.9});
-    let allowance = |side: &str| {
-        tail_in_shell[side].as_f64().unwrap() + stub_protrusion[side].as_f64().unwrap()
-    };
-    let stub_allowance = json!({"inlet": allowance("inlet"), "outlet": allowance("outlet")});
-    let stub_total = allowance("inlet") + allowance("outlet");
-    let handle_length_in = 0.75;
-    let handle_length = handle_length_in * 25.4;
-    let total_length = handle_length + wind_length + handle_length;
+pub fn datums() -> Value {
+    let carbonator_od = 2. * hsm_cold_core_interface::CARBONATOR_OUTER_RADIUS;
+    let mandrel_od = 2. * mandrel::RADIUS;
+    let by_tail = |number: fn(Tail) -> f64| json!({"inlet": number(Tail::Inlet), "outlet": number(Tail::Outlet)});
+    let [wind_bottom, wind_top] = mandrel::WIND_Z;
     json!({
-        "evap_tail_low_z": evap_tail_low_z, "evap_tail_high_z": evap_tail_high_z,
-        "tube_od_in": tube_od_in, "tube_radius": tube_radius, "carbonator_od": carbonator_od,
-        "carbonator_radius": carbonator_radius, "net_undersize": net_undersize,
-        "groove_depth": groove_depth, "groove_profile_radius": groove_profile_radius,
-        "groove_offset": groove_offset, "mandrel_radius": mandrel_radius, "mandrel_od": mandrel_od,
-        "helix_path_radius": helix_path_radius, "groove_bottom_od": groove_bottom_od,
-        "wall": wall, "mandrel_inner_radius": mandrel_inner_radius,
-        "mandrel_r_range": [mandrel_inner_radius, mandrel_radius],
-        "tail_inlet_x": tail_inlet_x, "tail_inlet_y": tail_inlet_y, "tail_inlet_z": tail_inlet_z,
-        "tail_outlet_x": tail_outlet_x, "tail_outlet_y": tail_outlet_y, "tail_outlet_z": tail_outlet_z,
-        "wind_length": wind_length, "tail_inlet_azimuth": tail_inlet_azimuth,
-        "tail_outlet_azimuth": tail_outlet_azimuth, "tail_ccw_delta": tail_ccw_delta,
-        "full_wraps": full_wraps, "total_wraps": total_wraps, "pitch": pitch,
-        "mandrel_wrap_length": mandrel_wrap_length, "fitted_wrap_radius": fitted_wrap_radius,
-        "fitted_wrap_length": fitted_wrap_length, "wrap_length": fitted_wrap_length,
-        "spring_gain": spring_gain, "stub_protrusion": stub_protrusion,
-        "tail_in_shell": tail_in_shell, "stub_allowance": stub_allowance, "stub_total": stub_total,
-        "carbonators_per_roll": 3, "roll_length_ft": 50., "handle_length_in": handle_length_in,
-        "handle_length": handle_length, "total_length": total_length,
-        "mandrel_z_range": [0, total_length], "lower_handle_z_range": [0, handle_length],
-        "wind_z_range": [handle_length, handle_length + wind_length],
-        "upper_handle_z_range": [handle_length + wind_length, total_length]
+        "evap_tail_low_z": coil::LOW_Z, "evap_tail_high_z": coil::HIGH_Z,
+        "tube_od_in": coil::TUBE_OD_IN, "tube_radius": coil::TUBE_RADIUS, "carbonator_od": carbonator_od,
+        "carbonator_radius": carbonator_od / 2., "net_undersize": coil::MANDREL_UNDERSIZE,
+        "groove_depth": mandrel::GROOVE_DEPTH, "groove_profile_radius": mandrel::GROOVE_PROFILE_RADIUS,
+        "groove_offset": mandrel::GROOVE_OFFSET, "mandrel_radius": mandrel::RADIUS, "mandrel_od": mandrel_od,
+        "helix_path_radius": coil::MANDREL_WIND_RADIUS,
+        "groove_bottom_od": mandrel_od - 2. * mandrel::GROOVE_DEPTH,
+        "wall": mandrel::WALL, "mandrel_inner_radius": mandrel::INNER_RADIUS,
+        "mandrel_r_range": [mandrel::INNER_RADIUS, mandrel::RADIUS],
+        "tail_inlet_x": coil::MANDREL_INLET_STATION[0], "tail_inlet_y": coil::LOW_Z,
+        "tail_inlet_z": coil::MANDREL_INLET_STATION[1],
+        "tail_outlet_x": coil::MANDREL_OUTLET_STATION[0], "tail_outlet_y": coil::HIGH_Z,
+        "tail_outlet_z": coil::MANDREL_OUTLET_STATION[1],
+        "wind_length": mandrel::WIND_LENGTH, "tail_inlet_azimuth": coil::mandrel_inlet_azimuth(),
+        "tail_outlet_azimuth": coil::mandrel_outlet_azimuth(), "tail_ccw_delta": coil::mandrel_arc(),
+        "full_wraps": coil::MANDREL_FULL_WRAPS, "total_wraps": coil::mandrel_wraps(),
+        "pitch": coil::mandrel_pitch(), "mandrel_wrap_length": coil::mandrel_wrap_length(),
+        "fitted_wrap_radius": coil::WIND_RADIUS, "fitted_wrap_length": coil::fitted_wrap_length(),
+        "wrap_length": coil::fitted_wrap_length(),
+        "spring_gain": coil::fitted_wrap_length() - coil::mandrel_wrap_length(),
+        "stub_protrusion": by_tail(coil::stub_protrusion), "tail_in_shell": by_tail(coil::tail_in_shell),
+        "stub_allowance": by_tail(coil::stub_allowance), "stub_total": coil::stub_total(),
+        "carbonators_per_roll": coil::CARBONATORS_PER_ROLL, "roll_length_ft": coil::ROLL_LENGTH_FT,
+        "handle_length_in": mandrel::HANDLE_LENGTH_IN, "handle_length": mandrel::HANDLE_LENGTH,
+        "total_length": mandrel::LENGTH,
+        "mandrel_z_range": [0, mandrel::LENGTH], "lower_handle_z_range": [0, wind_bottom],
+        "wind_z_range": [wind_bottom, wind_top],
+        "upper_handle_z_range": [wind_top, mandrel::LENGTH]
     })
 }
 
-pub fn numbers(evap_tail_low_z: f64, evap_tail_high_z: f64, color: &Value) -> Value {
-    let d = datums(evap_tail_low_z, evap_tail_high_z);
+pub fn numbers(color: &Value) -> Value {
+    let d = datums();
     let mut out = json!({"name": "coil-mandrel", "color": color});
     for key in [
         "mandrel_r_range",
@@ -87,8 +62,8 @@ pub fn numbers(evap_tail_low_z: f64, evap_tail_high_z: f64, color: &Value) -> Va
     out
 }
 
-pub fn variables(low: f64, high: f64) -> Value {
-    let d = datums(low, high);
+pub fn variables() -> Value {
+    let d = datums();
     let n = |key: &str| d[key].as_f64().unwrap();
     let mut result = serde_json::Map::new();
     for (name, value, spec, unit) in [
@@ -158,9 +133,10 @@ pub fn variables(low: f64, high: f64) -> Value {
     Value::Object(result)
 }
 
-pub fn report(low: f64, high: f64) -> String {
+pub fn report() -> String {
     use std::fmt::Write;
-    let d = datums(low, high);
+    let d = datums();
+    let (low, high) = (coil::LOW_Z, coil::HIGH_Z);
     let n = |key: &str| d[key].as_f64().unwrap();
     let f = |key: &str, spec: &str| super::formatted(n(key), spec);
     let mut out = String::new();
