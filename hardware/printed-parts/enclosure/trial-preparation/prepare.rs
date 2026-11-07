@@ -111,14 +111,6 @@ impl Mesh {
         let sha256 = file_sha(path)?;
         let step = path.with_extension("step");
         let step_sha256 = if step.is_file() { Some(file_sha(&step)?) } else { None };
-        let bindings = root.join(HERE).join("step-meshes.json");
-        if bindings.is_file() {
-            if let Some(bound) = read_json(&bindings)?["meshes"].get(relative(path, root)) {
-                if bound["stl_sha256"].as_str() != Some(&sha256) || bound["step_sha256"].as_str() != step_sha256.as_deref() {
-                    bail!("{} was cut by step_meshes.py from another STEP; cut it again", relative(path, root));
-                }
-            }
-        }
         let raw = RawMesh::read_stl_exact(path)?;
         let (mut vertices, mut faces) = (raw.vertices, raw.faces);
         let mut seam_record = Value::Null;

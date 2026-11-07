@@ -100,8 +100,7 @@ hardware/printed-parts/zone-c/funnel/elbow-cradle.stl
 hardware/printed-parts/zone-c/funnel-cover/funnel-cover.stl
 hardware/printed-parts/zone-c/funnel-cover/funnel-cover-print.stl
 hardware/printed-parts/zone-c/funnel/cradle-trial/test-*.stl
-# Print meshes cut from a STEP-only part's STEP by trial-preparation/step_meshes.py, which
-# binds each to its STEP digest in step-meshes.json.
+# Print meshes beside their parts' STEPs, kept by the artifact store rather than Git.
 hardware/printed-parts/cold-core/copper-plugs/copper-plug-*.stl
 hardware/printed-parts/cold-core/prv-shroud/prv-shroud.stl
 hardware/printed-parts/cold-core/reed-bridge/reed-bridge.stl
