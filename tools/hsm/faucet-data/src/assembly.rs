@@ -130,7 +130,7 @@ impl Dimensions {
     }
     pub fn organizer_flavor_xy(&self, s: f64) -> Vec<f64> {
         axis(
-            &crate::organizer(&Value::Null)["datums"],
+            &crate::organizer()["datums"],
             if s > 0.0 { "F1" } else { "F2" },
         )
     }
@@ -487,7 +487,7 @@ impl Dimensions {
     pub fn drain_lower(&self) -> Result<Vec<Leg>> {
         let mut legs = vec![];
         let mut current = [self.drain_tail_x, self.drain_tail_y, self.umbilical_tail_z];
-        let org = axis(&crate::organizer(&Value::Null)["datums"], "D");
+        let org = axis(&crate::organizer()["datums"], "D");
         for [x, y, z] in [
             [self.drain_tail_x, self.drain_pack_y, self.drain_splay_top_z],
             [self.drain_tail_x, self.drain_bypass_y, self.gather_start_z],
@@ -644,7 +644,7 @@ impl Dimensions {
             self.shell.signal_lower_exit_x,
             self.shell.signal_lower_exit_y,
         ];
-        let og = crate::organizer(&Value::Null);
+        let og = crate::organizer();
         let cable = &og["datums"]["CABLE_XY"];
         let (cx, cy) = (cable[0].as_f64().unwrap(), cable[1].as_f64().unwrap());
         let eased = [cx, cy, self.organizer_top_z + 12.0];
@@ -765,7 +765,7 @@ impl Dimensions {
     }
     pub fn numbers(&self, r: &Value, industrial: bool) -> Result<Value> {
         let shell = &self.shell;
-        let organizer = crate::organizer(&Value::Null);
+        let organizer = crate::organizer();
         let og = &organizer["datums"];
         let centre = point2(&og["CENTRE_XY"]);
         let prefix = "hardware/printed-parts/faucet/";
@@ -1148,7 +1148,7 @@ impl Dimensions {
             [
                 "  TPU o-ring:            in the Ø".to_owned(),
                 hsm_documents::format_number(
-                    crate::o_ring(&Value::Null)["datums"]["westbrass_port_diameter"]
+                    crate::o_ring()["datums"]["westbrass_port_diameter"]
                         .as_f64()
                         .unwrap(),
                     ".1f",
@@ -1156,7 +1156,7 @@ impl Dimensions {
                 " mm top port, Z = ".to_owned(),
                 hsm_documents::format_number(
                     (self.soda_faucet_tube_z_bottom
-                        - crate::o_ring(&Value::Null)["datums"]["cap_thickness"]
+                        - crate::o_ring()["datums"]["cap_thickness"]
                             .as_f64()
                             .unwrap()),
                     ".2f",
@@ -1164,10 +1164,10 @@ impl Dimensions {
                 " → ".to_owned(),
                 hsm_documents::format_number(
                     ((self.soda_faucet_tube_z_bottom
-                        - crate::o_ring(&Value::Null)["datums"]["cap_thickness"]
+                        - crate::o_ring()["datums"]["cap_thickness"]
                             .as_f64()
                             .unwrap())
-                        + crate::o_ring(&Value::Null)["datums"]["total_height"]
+                        + crate::o_ring()["datums"]["total_height"]
                             .as_f64()
                             .unwrap()),
                     ".2f",

@@ -1,4 +1,5 @@
 //! A print's viewer payload, cut from its STL triangles at the viewer's surface policy.
+pub mod printed;
 mod quadric;
 use anyhow::{Result, ensure};
 use hsm_geometry::parry::{math::Point, query::PointQuery, shape::TriMesh};

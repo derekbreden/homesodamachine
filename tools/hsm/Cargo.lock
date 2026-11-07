@@ -1100,8 +1100,18 @@ dependencies = [
  "hsm-faucet",
  "hsm-kernel",
  "hsm-shared-data",
+ "hsm-tpu-o-ring-numbers",
+ "hsm-umbilical-organizer-numbers",
  "libloading",
  "png",
+ "serde",
+ "serde_json",
+]
+
+[[package]]
+name = "hsm-faucet-numbers"
+version = "0.1.0"
+dependencies = [
  "serde",
  "serde_json",
 ]
@@ -1370,6 +1380,38 @@ dependencies = [
  "anyhow",
  "hsm-kernel",
  "serde_json",
+]
+
+[[package]]
+name = "hsm-tpu-o-ring"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "hsm-faucet-numbers",
+ "hsm-kernel",
+ "hsm-tpu-o-ring-numbers",
+]
+
+[[package]]
+name = "hsm-tpu-o-ring-numbers"
+version = "0.1.0"
+
+[[package]]
+name = "hsm-umbilical-organizer"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "hsm-faucet-numbers",
+ "hsm-kernel",
+ "hsm-print-payload",
+ "hsm-umbilical-organizer-numbers",
+]
+
+[[package]]
+name = "hsm-umbilical-organizer-numbers"
+version = "0.1.0"
+dependencies = [
+ "hsm-faucet-numbers",
 ]
 
 [[package]]

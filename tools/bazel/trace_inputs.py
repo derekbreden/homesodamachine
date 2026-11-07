@@ -391,6 +391,10 @@ RUST_STEPS = {
     "hardware/printed-parts/cold-core/prv-shroud/prv_shroud.rs":
         ("prv-shroud", "prv-shroud", "hardware/printed-parts/cold-core/prv-shroud"),
     "hardware/ledger/purchases.rs": ("ledger", "purchases", ""),
+    "hardware/printed-parts/faucet/tpu-o-ring/tpu_o_ring.rs":
+        ("tpu-o-ring", "tpu-o-ring", "hardware/printed-parts/faucet/tpu-o-ring"),
+    "hardware/printed-parts/faucet/umbilical-organizer/umbilical_organizer.rs":
+        ("umbilical-organizer", "umbilical-organizer", "hardware/printed-parts/faucet/umbilical-organizer"),
 }
 
 #: The media a Rust step can rewrite in place: documents with authored text round the figures it
