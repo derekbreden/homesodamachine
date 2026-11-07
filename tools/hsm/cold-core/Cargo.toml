@@ -8,10 +8,6 @@ publish = false
 
 # Each part's program sits beside the Python module that holds its numbers.
 [[bin]]
-name = "foam-cap"
-path = "../../../hardware/printed-parts/cold-core/foam-cap/foam_cap.rs"
-
-[[bin]]
 name = "carbonator-tube"
 path = "../../../hardware/cut-parts/carbonation/carbonator-tube/carbonator_tube_step.rs"
 
