@@ -697,6 +697,7 @@ A confirmation carries no order date. The number after `us` is a snowflake ID: `
 | <!--purchase:pur-27bb6c07598243e390e2ca407e908695--> 2026-10-05 | us783865986561351681 | PETG Translucent Clear 32101 refill ×10 (1 kg each, bulk; $159.90, Filament Bulk Sale −$47.97) + NE tax $8.12; shipping waived | $120.05 | ACQUIRED (delivered Oct 8) |
 | <!--purchase:pur-25f35741f88e40729bec555987f79640--> 2026-10-08 | us784775952755326977 | ASA Aero filament with spool, White 46100, 1 kg ×2 ($99.98) + NE tax $7.25; shipping waived — the magnetic-float material | $107.23 | ACQUIRED (delivered Oct 13; Bambu delivery confirmation in Gmail) |
 | <!--purchase:pur-8b3d0e7a5c9f4e2b4a7d1c3e5f6a8b07--> 2026-10-26 | us791135084148191233 | H2C Induction Hotend (Right), standard flow, hardened steel: 0.8 mm ×2 ($79.98) + 0.6 mm ×2 ($79.98) + NE tax $11.60; shipping waived | $171.56 | ON-ORDER (Gmail order confirmation verified 2026-10-26) |
+| <!--purchase:pur-6655f4a0c1c747bc8ce06a69596eb432--> 2026-11-07 | us795729195777990656 | PETG Basic filament with spool ×3 — Red 30201, White 30106, Navy Blue 30604 (1 kg each, one of each color; $15.29 each after bulk discount, $45.87 subtotal) + shipping $6.99 + NE tax $3.83 | $56.69 | ON-ORDER (preparing shipment; Gmail order confirmation verified) |
 | **§15 acquired valuation — 22 orders** | | | **[$9,456.59](LEDGER_SEC15)** | |
 
 ## 16. Laser welding / cleaning / cutting
@@ -839,16 +840,16 @@ Printed copies of the [install guide](/hardware/install-guide/README.md). Lulu o
 | Acquired hardware valuation — includes replaced/returned originals | [$40,350.44](LEDGER_ACQUIRED_HW) |
 | Engineering services (§18) | [$6,519.51](LEDGER_LABOR) |
 | Acquired procurement valuation (combined) | [$46,869.95](LEDGER_ACQUIRED_COMBINED) |
-| ON-ORDER | [$2,378.85](LEDGER_ON_ORDER) |
+| ON-ORDER | [$2,435.54](LEDGER_ON_ORDER) |
 | MISSING — not in hand | [$53.07](LEDGER_MISSING) |
 | LIKELY-TO-BUY | $0.00 |
-| **Recorded procurement valuation — includes commitments** | [$49,301.87](LEDGER_GRAND_TOTAL) |
+| **Recorded procurement valuation — includes commitments** | [$49,358.56](LEDGER_GRAND_TOTAL) |
 
 Price evidence within the procurement valuation:
 
 | Amount basis | USD |
 |---|---|
-| Final vendor amounts | [$21,019.46](LEDGER_FINAL_VENDOR) |
+| Final vendor amounts | [$21,076.15](LEDGER_FINAL_VENDOR) |
 | Estimated amounts | [$4,292.73](LEDGER_ESTIMATES) |
 | Legacy / unverified amounts | [$23,989.68](LEDGER_LEGACY_UNVERIFIED) |
 

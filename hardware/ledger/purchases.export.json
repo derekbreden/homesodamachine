@@ -1409,7 +1409,7 @@
       "purchase_id": "pur-e09e5d28db894792aef087da03caea51"
     }
   ],
-  "as_of": "2026-11-06",
+  "as_of": "2026-11-07",
   "coverage": [
     {
       "checked_at": "2026-10-04",
@@ -7891,7 +7891,7 @@
       ]
     }
   ],
-  "input_fingerprint": "sha256:348f51c6e2ce6727ac15d876231b45d8311b82289742a46e29005d7325f7a13a",
+  "input_fingerprint": "sha256:0c9e3bfa05a1b738fea8cc326844f89a3e5f9fde1c44d6cd05a791ebae2365b1",
   "orders": [
     {
       "allocation_status": "all_project",
@@ -15967,6 +15967,23 @@
       "reference": "us791135084148191233",
       "source_ids": [
         "src-8732dad07bf84f9492eca983fb4accb6"
+      ],
+      "vendor": "Bambu Lab"
+    },
+    {
+      "allocation_status": "all_project",
+      "event_ids": [],
+      "order_date": {
+        "precision": "day",
+        "value": "2026-11-07"
+      },
+      "order_id": "bambu:us795729195777990656",
+      "purchase_ids": [
+        "pur-6655f4a0c1c747bc8ce06a69596eb432"
+      ],
+      "reference": "us795729195777990656",
+      "source_ids": [
+        "src-fc21b89f674c49d8b7beb35eb29aa7e1"
       ],
       "vendor": "Bambu Lab"
     },
@@ -30125,6 +30142,50 @@
       "stream": "purchase",
       "unit_amount_minor": null,
       "vendor": "Amazon"
+    },
+    {
+      "allocation_status": "all_project",
+      "amount_evidence": "final_vendor_amount",
+      "amount_minor": 5669,
+      "contributes": true,
+      "currency": "USD",
+      "delivery_date": null,
+      "description": "PETG Basic filament with spool ×3 — Red 30201, White 30106, Navy Blue 30604 (1 kg each, one of each color; $15.29 each after bulk discount, $45.87 subtotal) + shipping $6.99 + NE tax $3.83",
+      "event_ids": [],
+      "fulfillment": "ON-ORDER",
+      "invoice_date": null,
+      "ledger_purchase_id": "pur-6655f4a0c1c747bc8ce06a69596eb432",
+      "merchant_charge_allocated_minor": 0,
+      "merchant_refund_allocated_minor": 0,
+      "order_date": {
+        "precision": "day",
+        "value": "2026-11-07"
+      },
+      "order_ids": [
+        "bambu:us795729195777990656"
+      ],
+      "payment_evidence": "unknown",
+      "price_basis": "row_total",
+      "purchase_id": "pur-6655f4a0c1c747bc8ce06a69596eb432",
+      "purpose": "consumables_materials",
+      "quantity": null,
+      "quantity_text": "",
+      "receipt_date": null,
+      "record_role": "purchase",
+      "row_date": {
+        "precision": "day",
+        "value": "2026-11-07"
+      },
+      "row_date_basis": "order_date",
+      "section": "15. 3D printing equipment and filaments (Bambu Lab direct)",
+      "service_period": null,
+      "source_ids": [
+        "src-fc21b89f674c49d8b7beb35eb29aa7e1"
+      ],
+      "split_charge": false,
+      "stream": "purchase",
+      "unit_amount_minor": null,
+      "vendor": "Bambu Lab"
     },
     {
       "allocation_status": "mixed_partial",
@@ -61883,6 +61944,22 @@
     {
       "document_date": {
         "precision": "day",
+        "value": "2026-11-07"
+      },
+      "document_type": "email_order_confirmation",
+      "note": "Gmail order confirmation received on the order date: PETG Basic Red 30201, White 30106 and Navy Blue 30604, one filament-with-spool unit per color, 1 kg each. Each spool is USD 15.29 after a USD 1.70 Filament Bulk Sale discount from USD 16.99. USD 45.87 subtotal, USD 0.00 credit, USD 6.99 shipping, USD 3.83 tax (Nebraska USD 2.90 and Lincoln USD 0.93), USD 56.69 grand total and net payment. Preparing for shipment; delivery estimate is 3–6 business days after shipping, without a dispatch or delivery date. The confirmation does not independently establish a completed merchant charge.",
+      "proves": [
+        "price",
+        "order_date"
+      ],
+      "reference": "us795729195777990656",
+      "source_id": "src-fc21b89f674c49d8b7beb35eb29aa7e1",
+      "vendor": "Bambu Lab",
+      "verified_at": "2026-11-07"
+    },
+    {
+      "document_date": {
+        "precision": "day",
         "value": "2026-04-17"
       },
       "document_type": "merchant_monetary_receipt",
@@ -62722,7 +62799,7 @@
           "unknown_amount_ids": []
         },
         {
-          "amount_minor": 237885,
+          "amount_minor": 243554,
           "currency": "USD",
           "fulfillment": "ON-ORDER",
           "purchase_ids": [
@@ -62737,6 +62814,7 @@
             "pur-4fe40749fe864533992cc92b1e791c63",
             "pur-5f404f5035cb425a9a8d90c69010a404",
             "pur-5f9b203a9810468f8bab74284d78f44d",
+            "pur-6655f4a0c1c747bc8ce06a69596eb432",
             "pur-6bc71f4f15b34503ac9bf8beea6ef815",
             "pur-7a2c9d6f4b8e4d1a3f6c0b2d4e5f7a96",
             "pur-7ebe706384b34c718af7af886e0988d7",
@@ -62778,6 +62856,7 @@
         "pur-4fe40749fe864533992cc92b1e791c63",
         "pur-5f404f5035cb425a9a8d90c69010a404",
         "pur-5f9b203a9810468f8bab74284d78f44d",
+        "pur-6655f4a0c1c747bc8ce06a69596eb432",
         "pur-6bc71f4f15b34503ac9bf8beea6ef815",
         "pur-7a2c9d6f4b8e4d1a3f6c0b2d4e5f7a96",
         "pur-7ebe706384b34c718af7af886e0988d7",
@@ -63875,7 +63954,7 @@
           "currency": "USD",
           "estimate_minor": 30728,
           "evidence_scope": "retrieved_records_only",
-          "final_vendor_amount_minor": 0,
+          "final_vendor_amount_minor": 5669,
           "legacy_unverified_minor": 0,
           "month": "2026-11",
           "purchase_ids": [
@@ -63883,12 +63962,13 @@
             "pur-3161c146b8ef40e5817e13af4dc07846",
             "pur-3fca793e96a64c20b79ac0831efc3b50",
             "pur-5f9b203a9810468f8bab74284d78f44d",
+            "pur-6655f4a0c1c747bc8ce06a69596eb432",
             "pur-7ebe706384b34c718af7af886e0988d7",
             "pur-9a08e76abb825705aff0991b6c1bf389",
             "pur-9fe3b15945c3487da36214f92b80f9ee",
             "pur-a9aeeb7107e24ef68654ee86aa1fbe14"
           ],
-          "total_minor": 30728,
+          "total_minor": 36397,
           "unknown_amount_ids": []
         },
         {
@@ -63910,7 +63990,7 @@
           "purpose": "components"
         },
         {
-          "amount_minor": 608076,
+          "amount_minor": 613745,
           "currency": "USD",
           "purpose": "consumables_materials"
         },
@@ -63944,9 +64024,9 @@
         {
           "currency": "USD",
           "estimate_minor": 429273,
-          "final_vendor_amount_minor": 2101946,
+          "final_vendor_amount_minor": 2107615,
           "legacy_unverified_minor": 2398968,
-          "total_minor": 4930187
+          "total_minor": 4935856
         }
       ],
       "undated_unallocated": [
@@ -64104,7 +64184,7 @@
           "legacy_unverified_purchase_minor": 2398968,
           "order_only_charge_allocation_minor": 6561,
           "partial_charge_purchase_minor": 0,
-          "purchases_without_merchant_charge_minor": 3148788,
+          "purchases_without_merchant_charge_minor": 3154457,
           "undated_charge_minor": 57998,
           "undated_refund_minor": 0,
           "undated_unallocated_purchase_minor": 922346,
@@ -64956,6 +65036,7 @@
         "pur-6589f83fde5f4aeeabb9b600cb513c8c",
         "pur-65b004ee31ff47e991a043d3d92847b3",
         "pur-66308bfbd5f94fd99e1e2975197c8ded",
+        "pur-6655f4a0c1c747bc8ce06a69596eb432",
         "pur-668385101ed147b6a915178e21b5d9e9",
         "pur-66c97ae5c6ad4297ae368293a49ce4e2",
         "pur-66e2820d4cc946ba9db3b4a003f6c6a3",
