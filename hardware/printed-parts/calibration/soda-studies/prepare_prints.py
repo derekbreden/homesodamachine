@@ -601,6 +601,7 @@ def native_slice(project, report):
         result = subprocess.run(command, cwd=directory, stdout=log, stderr=subprocess.STDOUT)
     if result.returncode:
         raise RuntimeError(f"Bambu Studio exited {result.returncode}: {directory / 'slice.log'}")
+    writer.petgf_cooling.apply_directory(directory, project)
     report["native"] = native_summary(project, report, directory / archive_name, directory)
     report["preparation_only"] = False
     save(Path(project).with_suffix(".print.json"), report)

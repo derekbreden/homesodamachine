@@ -1,0 +1,1498 @@
+{
+  "purpose": "Read commanded part cooling on the printed rails and on each native feature.",
+  "archive": "/Users/derekbredensteiner/Downloads/HSM-smooth-corners-2026-11-05/HSM-000081-back-top-Mark2.gcode.3mf",
+  "archive_sha256": "9bf7e28a4573503f8e9954b7ffa82076b03b9b0bd201cbde67b22c763f0d7e3c",
+  "read_through_print_z_mm": 189.6,
+  "feature_fan_states": [
+    {
+      "feature": "Bottom surface",
+      "pwm": 0.0,
+      "percent": 0.0,
+      "moves": 1558,
+      "chord_mm": 86903.01665505426
+    },
+    {
+      "feature": "Bridge",
+      "pwm": 178.5,
+      "percent": 70.0,
+      "moves": 15723,
+      "chord_mm": 126124.41628788531
+    },
+    {
+      "feature": "Floating vertical shell",
+      "pwm": 0.0,
+      "percent": 0.0,
+      "moves": 49145,
+      "chord_mm": 100741.96687814452
+    },
+    {
+      "feature": "Gap infill",
+      "pwm": 0.0,
+      "percent": 0.0,
+      "moves": 53242,
+      "chord_mm": 13616.499708087917
+    },
+    {
+      "feature": "Inner wall",
+      "pwm": 0.0,
+      "percent": 0.0,
+      "moves": 1190569,
+      "chord_mm": 1484032.0718837206
+    },
+    {
+      "feature": "Inner wall",
+      "pwm": 178.5,
+      "percent": 70.0,
+      "moves": 242,
+      "chord_mm": 221.520799782423
+    },
+    {
+      "feature": "Internal solid infill",
+      "pwm": 0.0,
+      "percent": 0.0,
+      "moves": 79916,
+      "chord_mm": 599003.5236721162
+    },
+    {
+      "feature": "Outer wall",
+      "pwm": 0.0,
+      "percent": 0.0,
+      "moves": 1267807,
+      "chord_mm": 1371255.8233238538
+    },
+    {
+      "feature": "Outer wall",
+      "pwm": 178.5,
+      "percent": 70.0,
+      "moves": 1210,
+      "chord_mm": 4978.821459277739
+    },
+    {
+      "feature": "Overhang wall",
+      "pwm": 178.5,
+      "percent": 70.0,
+      "moves": 966,
+      "chord_mm": 6160.3081685337
+    },
+    {
+      "feature": "Sparse infill",
+      "pwm": 0.0,
+      "percent": 0.0,
+      "moves": 3156661,
+      "chord_mm": 2482418.6178577538
+    },
+    {
+      "feature": "Support",
+      "pwm": 0.0,
+      "percent": 0.0,
+      "moves": 227093,
+      "chord_mm": 82851.54307170064
+    },
+    {
+      "feature": "Support",
+      "pwm": 178.5,
+      "percent": 70.0,
+      "moves": 141766,
+      "chord_mm": 49934.96549668379
+    },
+    {
+      "feature": "Support interface",
+      "pwm": 0.0,
+      "percent": 0.0,
+      "moves": 1677,
+      "chord_mm": 2290.127382380276
+    },
+    {
+      "feature": "Support interface",
+      "pwm": 178.5,
+      "percent": 70.0,
+      "moves": 2008,
+      "chord_mm": 1451.844904470355
+    },
+    {
+      "feature": "Top surface",
+      "pwm": 0.0,
+      "percent": 0.0,
+      "moves": 10372,
+      "chord_mm": 118089.43836581435
+    }
+  ],
+  "old_roof_down_rail_layers": [
+    {
+      "print_z_mm": 185.96,
+      "feature": "Inner wall",
+      "pwm": 0.0,
+      "percent": 0.0,
+      "moves": 533,
+      "chord_mm": 747.3650101490765,
+      "speed_mm_s": [
+        188.20788333333334,
+        188.20788333333334
+      ]
+    },
+    {
+      "print_z_mm": 185.96,
+      "feature": "Outer wall",
+      "pwm": 0.0,
+      "percent": 0.0,
+      "moves": 10,
+      "chord_mm": 488.038,
+      "speed_mm_s": [
+        200.0,
+        200.0
+      ]
+    },
+    {
+      "print_z_mm": 185.96,
+      "feature": "Sparse infill",
+      "pwm": 0.0,
+      "percent": 0.0,
+      "moves": 1844,
+      "chord_mm": 1582.6674202621525,
+      "speed_mm_s": [
+        188.20788333333334,
+        188.20788333333334
+      ]
+    },
+    {
+      "print_z_mm": 186.2,
+      "feature": "Inner wall",
+      "pwm": 0.0,
+      "percent": 0.0,
+      "moves": 532,
+      "chord_mm": 746.8855684878392,
+      "speed_mm_s": [
+        188.20788333333334,
+        188.20788333333334
+      ]
+    },
+    {
+      "print_z_mm": 186.2,
+      "feature": "Outer wall",
+      "pwm": 0.0,
+      "percent": 0.0,
+      "moves": 10,
+      "chord_mm": 488.038,
+      "speed_mm_s": [
+        200.0,
+        200.0
+      ]
+    },
+    {
+      "print_z_mm": 186.2,
+      "feature": "Sparse infill",
+      "pwm": 0.0,
+      "percent": 0.0,
+      "moves": 1844,
+      "chord_mm": 1584.8910964569213,
+      "speed_mm_s": [
+        188.20788333333334,
+        188.20788333333334
+      ]
+    },
+    {
+      "print_z_mm": 186.44,
+      "feature": "Bridge",
+      "pwm": 178.5,
+      "percent": 70.0,
+      "moves": 81,
+      "chord_mm": 6323.952032893311,
+      "speed_mm_s": [
+        25.0,
+        25.0
+      ]
+    },
+    {
+      "print_z_mm": 186.44,
+      "feature": "Inner wall",
+      "pwm": 0.0,
+      "percent": 0.0,
+      "moves": 567,
+      "chord_mm": 282.23489882445887,
+      "speed_mm_s": [
+        22.34715,
+        188.20788333333334
+      ]
+    },
+    {
+      "print_z_mm": 186.44,
+      "feature": "Inner wall",
+      "pwm": 178.5,
+      "percent": 70.0,
+      "moves": 6,
+      "chord_mm": 2.29200000000003,
+      "speed_mm_s": [
+        15.423516666666666,
+        15.423516666666666
+      ]
+    },
+    {
+      "print_z_mm": 186.44,
+      "feature": "Outer wall",
+      "pwm": 0.0,
+      "percent": 0.0,
+      "moves": 43,
+      "chord_mm": 19.60399999999988,
+      "speed_mm_s": [
+        15.858533333333332,
+        200.0
+      ]
+    },
+    {
+      "print_z_mm": 186.44,
+      "feature": "Outer wall",
+      "pwm": 178.5,
+      "percent": 70.0,
+      "moves": 6,
+      "chord_mm": 2.214000000000027,
+      "speed_mm_s": [
+        15.212166666666667,
+        15.212166666666667
+      ]
+    },
+    {
+      "print_z_mm": 186.44,
+      "feature": "Overhang wall",
+      "pwm": 178.5,
+      "percent": 70.0,
+      "moves": 14,
+      "chord_mm": 939.1760000000002,
+      "speed_mm_s": [
+        10.0,
+        10.0
+      ]
+    },
+    {
+      "print_z_mm": 186.44,
+      "feature": "Sparse infill",
+      "pwm": 0.0,
+      "percent": 0.0,
+      "moves": 1840,
+      "chord_mm": 1499.2642468203783,
+      "speed_mm_s": [
+        188.20788333333334,
+        188.20788333333334
+      ]
+    },
+    {
+      "print_z_mm": 186.68,
+      "feature": "Floating vertical shell",
+      "pwm": 0.0,
+      "percent": 0.0,
+      "moves": 99,
+      "chord_mm": 6323.091895371356,
+      "speed_mm_s": [
+        176.84925,
+        200.0
+      ]
+    },
+    {
+      "print_z_mm": 186.68,
+      "feature": "Inner wall",
+      "pwm": 0.0,
+      "percent": 0.0,
+      "moves": 528,
+      "chord_mm": 748.3378840980987,
+      "speed_mm_s": [
+        188.20788333333334,
+        188.20788333333334
+      ]
+    },
+    {
+      "print_z_mm": 186.68,
+      "feature": "Outer wall",
+      "pwm": 0.0,
+      "percent": 0.0,
+      "moves": 8,
+      "chord_mm": 490.538,
+      "speed_mm_s": [
+        200.0,
+        200.0
+      ]
+    },
+    {
+      "print_z_mm": 186.68,
+      "feature": "Sparse infill",
+      "pwm": 0.0,
+      "percent": 0.0,
+      "moves": 1846,
+      "chord_mm": 1501.525736167052,
+      "speed_mm_s": [
+        188.20788333333334,
+        188.20788333333334
+      ]
+    },
+    {
+      "print_z_mm": 186.92,
+      "feature": "Inner wall",
+      "pwm": 0.0,
+      "percent": 0.0,
+      "moves": 528,
+      "chord_mm": 748.3398860237011,
+      "speed_mm_s": [
+        188.20788333333334,
+        188.20788333333334
+      ]
+    },
+    {
+      "print_z_mm": 186.92,
+      "feature": "Internal solid infill",
+      "pwm": 0.0,
+      "percent": 0.0,
+      "moves": 74,
+      "chord_mm": 5403.105608078829,
+      "speed_mm_s": [
+        172.76330000000002,
+        203.53335
+      ]
+    },
+    {
+      "print_z_mm": 186.92,
+      "feature": "Outer wall",
+      "pwm": 0.0,
+      "percent": 0.0,
+      "moves": 8,
+      "chord_mm": 490.538,
+      "speed_mm_s": [
+        200.0,
+        200.0
+      ]
+    },
+    {
+      "print_z_mm": 186.92,
+      "feature": "Sparse infill",
+      "pwm": 0.0,
+      "percent": 0.0,
+      "moves": 1839,
+      "chord_mm": 2312.6499631042097,
+      "speed_mm_s": [
+        188.20788333333334,
+        188.20788333333334
+      ]
+    },
+    {
+      "print_z_mm": 187.16,
+      "feature": "Floating vertical shell",
+      "pwm": 0.0,
+      "percent": 0.0,
+      "moves": 33,
+      "chord_mm": 25.056112301631913,
+      "speed_mm_s": [
+        113.59908333333333,
+        200.0
+      ]
+    },
+    {
+      "print_z_mm": 187.16,
+      "feature": "Inner wall",
+      "pwm": 0.0,
+      "percent": 0.0,
+      "moves": 529,
+      "chord_mm": 748.905771210655,
+      "speed_mm_s": [
+        188.20788333333334,
+        188.20788333333334
+      ]
+    },
+    {
+      "print_z_mm": 187.16,
+      "feature": "Outer wall",
+      "pwm": 0.0,
+      "percent": 0.0,
+      "moves": 8,
+      "chord_mm": 490.538,
+      "speed_mm_s": [
+        200.0,
+        200.0
+      ]
+    },
+    {
+      "print_z_mm": 187.16,
+      "feature": "Sparse infill",
+      "pwm": 0.0,
+      "percent": 0.0,
+      "moves": 1841,
+      "chord_mm": 7493.483563070756,
+      "speed_mm_s": [
+        188.20788333333334,
+        188.20788333333334
+      ]
+    },
+    {
+      "print_z_mm": 187.4,
+      "feature": "Floating vertical shell",
+      "pwm": 0.0,
+      "percent": 0.0,
+      "moves": 39,
+      "chord_mm": 32.60209859628611,
+      "speed_mm_s": [
+        25.0,
+        200.0
+      ]
+    },
+    {
+      "print_z_mm": 187.4,
+      "feature": "Inner wall",
+      "pwm": 0.0,
+      "percent": 0.0,
+      "moves": 527,
+      "chord_mm": 747.7835785288227,
+      "speed_mm_s": [
+        188.20788333333334,
+        188.20788333333334
+      ]
+    },
+    {
+      "print_z_mm": 187.4,
+      "feature": "Outer wall",
+      "pwm": 0.0,
+      "percent": 0.0,
+      "moves": 8,
+      "chord_mm": 490.538,
+      "speed_mm_s": [
+        200.0,
+        200.0
+      ]
+    },
+    {
+      "print_z_mm": 187.4,
+      "feature": "Sparse infill",
+      "pwm": 0.0,
+      "percent": 0.0,
+      "moves": 1842,
+      "chord_mm": 7441.041019103941,
+      "speed_mm_s": [
+        188.20788333333334,
+        188.20788333333334
+      ]
+    },
+    {
+      "print_z_mm": 187.64,
+      "feature": "Floating vertical shell",
+      "pwm": 0.0,
+      "percent": 0.0,
+      "moves": 30,
+      "chord_mm": 32.613069160808834,
+      "speed_mm_s": [
+        135.97323333333333,
+        200.0
+      ]
+    },
+    {
+      "print_z_mm": 187.64,
+      "feature": "Inner wall",
+      "pwm": 0.0,
+      "percent": 0.0,
+      "moves": 528,
+      "chord_mm": 748.344327392643,
+      "speed_mm_s": [
+        188.20788333333334,
+        188.20788333333334
+      ]
+    },
+    {
+      "print_z_mm": 187.64,
+      "feature": "Outer wall",
+      "pwm": 0.0,
+      "percent": 0.0,
+      "moves": 8,
+      "chord_mm": 490.538,
+      "speed_mm_s": [
+        200.0,
+        200.0
+      ]
+    },
+    {
+      "print_z_mm": 187.64,
+      "feature": "Sparse infill",
+      "pwm": 0.0,
+      "percent": 0.0,
+      "moves": 1838,
+      "chord_mm": 7477.085605637208,
+      "speed_mm_s": [
+        188.20788333333334,
+        188.20788333333334
+      ]
+    },
+    {
+      "print_z_mm": 187.88,
+      "feature": "Floating vertical shell",
+      "pwm": 0.0,
+      "percent": 0.0,
+      "moves": 21,
+      "chord_mm": 33.43499038493404,
+      "speed_mm_s": [
+        151.54578333333333,
+        200.0
+      ]
+    },
+    {
+      "print_z_mm": 187.88,
+      "feature": "Inner wall",
+      "pwm": 0.0,
+      "percent": 0.0,
+      "moves": 529,
+      "chord_mm": 748.9122331083454,
+      "speed_mm_s": [
+        188.20788333333334,
+        188.20788333333334
+      ]
+    },
+    {
+      "print_z_mm": 187.88,
+      "feature": "Outer wall",
+      "pwm": 0.0,
+      "percent": 0.0,
+      "moves": 8,
+      "chord_mm": 490.538,
+      "speed_mm_s": [
+        200.0,
+        200.0
+      ]
+    },
+    {
+      "print_z_mm": 187.88,
+      "feature": "Sparse infill",
+      "pwm": 0.0,
+      "percent": 0.0,
+      "moves": 1843,
+      "chord_mm": 7440.669523870823,
+      "speed_mm_s": [
+        188.20788333333334,
+        188.20788333333334
+      ]
+    },
+    {
+      "print_z_mm": 188.12,
+      "feature": "Gap infill",
+      "pwm": 0.0,
+      "percent": 0.0,
+      "moves": 4,
+      "chord_mm": 0.6479910330040044,
+      "speed_mm_s": [
+        250.0,
+        250.0
+      ]
+    },
+    {
+      "print_z_mm": 188.12,
+      "feature": "Inner wall",
+      "pwm": 0.0,
+      "percent": 0.0,
+      "moves": 532,
+      "chord_mm": 739.1572774541011,
+      "speed_mm_s": [
+        188.20788333333334,
+        188.20788333333334
+      ]
+    },
+    {
+      "print_z_mm": 188.12,
+      "feature": "Outer wall",
+      "pwm": 0.0,
+      "percent": 0.0,
+      "moves": 8,
+      "chord_mm": 490.538,
+      "speed_mm_s": [
+        200.0,
+        200.0
+      ]
+    },
+    {
+      "print_z_mm": 188.12,
+      "feature": "Sparse infill",
+      "pwm": 0.0,
+      "percent": 0.0,
+      "moves": 1819,
+      "chord_mm": 7460.557505142659,
+      "speed_mm_s": [
+        188.20788333333334,
+        188.20788333333334
+      ]
+    },
+    {
+      "print_z_mm": 188.12,
+      "feature": "Top surface",
+      "pwm": 0.0,
+      "percent": 0.0,
+      "moves": 26,
+      "chord_mm": 69.9427606317163,
+      "speed_mm_s": [
+        188.20788333333334,
+        188.20788333333334
+      ]
+    },
+    {
+      "print_z_mm": 188.36,
+      "feature": "Inner wall",
+      "pwm": 0.0,
+      "percent": 0.0,
+      "moves": 524,
+      "chord_mm": 736.7465991779377,
+      "speed_mm_s": [
+        188.20788333333334,
+        188.20788333333334
+      ]
+    },
+    {
+      "print_z_mm": 188.36,
+      "feature": "Outer wall",
+      "pwm": 0.0,
+      "percent": 0.0,
+      "moves": 7,
+      "chord_mm": 483.12399999999997,
+      "speed_mm_s": [
+        200.0,
+        200.0
+      ]
+    },
+    {
+      "print_z_mm": 188.36,
+      "feature": "Sparse infill",
+      "pwm": 0.0,
+      "percent": 0.0,
+      "moves": 1824,
+      "chord_mm": 7478.455241489745,
+      "speed_mm_s": [
+        188.20788333333334,
+        188.20788333333334
+      ]
+    },
+    {
+      "print_z_mm": 188.6,
+      "feature": "Inner wall",
+      "pwm": 0.0,
+      "percent": 0.0,
+      "moves": 524,
+      "chord_mm": 736.7050422533559,
+      "speed_mm_s": [
+        188.20788333333334,
+        188.20788333333334
+      ]
+    },
+    {
+      "print_z_mm": 188.6,
+      "feature": "Outer wall",
+      "pwm": 0.0,
+      "percent": 0.0,
+      "moves": 7,
+      "chord_mm": 483.12499999999994,
+      "speed_mm_s": [
+        200.0,
+        200.0
+      ]
+    },
+    {
+      "print_z_mm": 188.6,
+      "feature": "Sparse infill",
+      "pwm": 0.0,
+      "percent": 0.0,
+      "moves": 1822,
+      "chord_mm": 7479.35929500732,
+      "speed_mm_s": [
+        188.20788333333334,
+        188.20788333333334
+      ]
+    },
+    {
+      "print_z_mm": 188.84,
+      "feature": "Inner wall",
+      "pwm": 0.0,
+      "percent": 0.0,
+      "moves": 522,
+      "chord_mm": 735.546320053762,
+      "speed_mm_s": [
+        188.20788333333334,
+        188.20788333333334
+      ]
+    },
+    {
+      "print_z_mm": 188.84,
+      "feature": "Outer wall",
+      "pwm": 0.0,
+      "percent": 0.0,
+      "moves": 7,
+      "chord_mm": 483.1269999999999,
+      "speed_mm_s": [
+        200.0,
+        200.0
+      ]
+    },
+    {
+      "print_z_mm": 188.84,
+      "feature": "Sparse infill",
+      "pwm": 0.0,
+      "percent": 0.0,
+      "moves": 1825,
+      "chord_mm": 7480.172035899202,
+      "speed_mm_s": [
+        188.20788333333334,
+        188.20788333333334
+      ]
+    },
+    {
+      "print_z_mm": 189.08,
+      "feature": "Inner wall",
+      "pwm": 0.0,
+      "percent": 0.0,
+      "moves": 520,
+      "chord_mm": 734.3901776996452,
+      "speed_mm_s": [
+        188.20788333333334,
+        188.20788333333334
+      ]
+    },
+    {
+      "print_z_mm": 189.08,
+      "feature": "Outer wall",
+      "pwm": 0.0,
+      "percent": 0.0,
+      "moves": 7,
+      "chord_mm": 483.128,
+      "speed_mm_s": [
+        200.0,
+        200.0
+      ]
+    },
+    {
+      "print_z_mm": 189.08,
+      "feature": "Sparse infill",
+      "pwm": 0.0,
+      "percent": 0.0,
+      "moves": 1813,
+      "chord_mm": 7481.6006070930725,
+      "speed_mm_s": [
+        188.20788333333334,
+        188.20788333333334
+      ]
+    },
+    {
+      "print_z_mm": 189.32,
+      "feature": "Inner wall",
+      "pwm": 0.0,
+      "percent": 0.0,
+      "moves": 520,
+      "chord_mm": 734.3394728480271,
+      "speed_mm_s": [
+        188.20788333333334,
+        188.20788333333334
+      ]
+    },
+    {
+      "print_z_mm": 189.32,
+      "feature": "Outer wall",
+      "pwm": 0.0,
+      "percent": 0.0,
+      "moves": 7,
+      "chord_mm": 483.12899999999996,
+      "speed_mm_s": [
+        200.0,
+        200.0
+      ]
+    },
+    {
+      "print_z_mm": 189.32,
+      "feature": "Sparse infill",
+      "pwm": 0.0,
+      "percent": 0.0,
+      "moves": 1829,
+      "chord_mm": 7457.890212825008,
+      "speed_mm_s": [
+        188.20788333333334,
+        188.20788333333334
+      ]
+    }
+  ],
+  "source_gcode_sha256": "2420344466cd59636e9b513e5661f733230b06b1719fdb1d58c66bf13f455833",
+  "faucet_strength_evidence": "hardware/printed-parts/faucet/faucet-display-cover/prints/2026-10-17-cooling-off-prepared-mark2/physical-result.json",
+  "finding": "Native cooling covers the initial rail bridge, then switches off for the rapid floating-shell and solid-infill courses above it.",
+  "corrected_recovery": {
+    "policy": {
+      "grid_mm": 0.2,
+      "height_mm": 0.8
+    },
+    "gcode_sha256": "8848847fe96f6ca6a2eebeec4923cfb82ecc304acfc33e3178031b3bdd109476",
+    "layers": [
+      {
+        "z_mm": 185.96,
+        "feature": "Inner wall",
+        "fan_percent": 0,
+        "moves": 533,
+        "speed_mm_s": [
+          188.20788333333334,
+          188.20788333333334
+        ]
+      },
+      {
+        "z_mm": 185.96,
+        "feature": "Outer wall",
+        "fan_percent": 0,
+        "moves": 10,
+        "speed_mm_s": [
+          200,
+          200
+        ]
+      },
+      {
+        "z_mm": 185.96,
+        "feature": "Sparse infill",
+        "fan_percent": 0,
+        "moves": 1844,
+        "speed_mm_s": [
+          188.20788333333334,
+          188.20788333333334
+        ]
+      },
+      {
+        "z_mm": 186.2,
+        "feature": "Inner wall",
+        "fan_percent": 0,
+        "moves": 532,
+        "speed_mm_s": [
+          188.20788333333334,
+          188.20788333333334
+        ]
+      },
+      {
+        "z_mm": 186.2,
+        "feature": "Outer wall",
+        "fan_percent": 0,
+        "moves": 10,
+        "speed_mm_s": [
+          200,
+          200
+        ]
+      },
+      {
+        "z_mm": 186.2,
+        "feature": "Sparse infill",
+        "fan_percent": 0,
+        "moves": 1844,
+        "speed_mm_s": [
+          188.20788333333334,
+          188.20788333333334
+        ]
+      },
+      {
+        "z_mm": 186.44,
+        "feature": "Bridge",
+        "fan_percent": 70,
+        "moves": 81,
+        "speed_mm_s": [
+          25,
+          25
+        ]
+      },
+      {
+        "z_mm": 186.44,
+        "feature": "Inner wall",
+        "fan_percent": 0,
+        "moves": 567,
+        "speed_mm_s": [
+          22.34715,
+          188.20788333333334
+        ]
+      },
+      {
+        "z_mm": 186.44,
+        "feature": "Inner wall",
+        "fan_percent": 70,
+        "moves": 6,
+        "speed_mm_s": [
+          15.423516666666666,
+          15.423516666666666
+        ]
+      },
+      {
+        "z_mm": 186.44,
+        "feature": "Outer wall",
+        "fan_percent": 0,
+        "moves": 43,
+        "speed_mm_s": [
+          15.858533333333332,
+          200
+        ]
+      },
+      {
+        "z_mm": 186.44,
+        "feature": "Outer wall",
+        "fan_percent": 70,
+        "moves": 6,
+        "speed_mm_s": [
+          15.212166666666667,
+          15.212166666666667
+        ]
+      },
+      {
+        "z_mm": 186.44,
+        "feature": "Overhang wall",
+        "fan_percent": 70,
+        "moves": 14,
+        "speed_mm_s": [
+          10,
+          10
+        ]
+      },
+      {
+        "z_mm": 186.44,
+        "feature": "Sparse infill",
+        "fan_percent": 0,
+        "moves": 1840,
+        "speed_mm_s": [
+          188.20788333333334,
+          188.20788333333334
+        ]
+      },
+      {
+        "z_mm": 186.68,
+        "feature": "Floating vertical shell",
+        "fan_percent": 70,
+        "moves": 99,
+        "speed_mm_s": [
+          25,
+          25
+        ]
+      },
+      {
+        "z_mm": 186.68,
+        "feature": "Inner wall",
+        "fan_percent": 0,
+        "moves": 525,
+        "speed_mm_s": [
+          188.20788333333334,
+          188.20788333333334
+        ]
+      },
+      {
+        "z_mm": 186.68,
+        "feature": "Inner wall",
+        "fan_percent": 70,
+        "moves": 3,
+        "speed_mm_s": [
+          25,
+          25
+        ]
+      },
+      {
+        "z_mm": 186.68,
+        "feature": "Outer wall",
+        "fan_percent": 0,
+        "moves": 5,
+        "speed_mm_s": [
+          200,
+          200
+        ]
+      },
+      {
+        "z_mm": 186.68,
+        "feature": "Outer wall",
+        "fan_percent": 70,
+        "moves": 3,
+        "speed_mm_s": [
+          25,
+          25
+        ]
+      },
+      {
+        "z_mm": 186.68,
+        "feature": "Sparse infill",
+        "fan_percent": 0,
+        "moves": 1445,
+        "speed_mm_s": [
+          188.20788333333334,
+          188.20788333333334
+        ]
+      },
+      {
+        "z_mm": 186.68,
+        "feature": "Sparse infill",
+        "fan_percent": 70,
+        "moves": 401,
+        "speed_mm_s": [
+          25,
+          25
+        ]
+      },
+      {
+        "z_mm": 186.92,
+        "feature": "Inner wall",
+        "fan_percent": 0,
+        "moves": 525,
+        "speed_mm_s": [
+          188.20788333333334,
+          188.20788333333334
+        ]
+      },
+      {
+        "z_mm": 186.92,
+        "feature": "Inner wall",
+        "fan_percent": 70,
+        "moves": 3,
+        "speed_mm_s": [
+          25,
+          25
+        ]
+      },
+      {
+        "z_mm": 186.92,
+        "feature": "Internal solid infill",
+        "fan_percent": 70,
+        "moves": 74,
+        "speed_mm_s": [
+          25,
+          25
+        ]
+      },
+      {
+        "z_mm": 186.92,
+        "feature": "Outer wall",
+        "fan_percent": 0,
+        "moves": 5,
+        "speed_mm_s": [
+          200,
+          200
+        ]
+      },
+      {
+        "z_mm": 186.92,
+        "feature": "Outer wall",
+        "fan_percent": 70,
+        "moves": 3,
+        "speed_mm_s": [
+          25,
+          25
+        ]
+      },
+      {
+        "z_mm": 186.92,
+        "feature": "Sparse infill",
+        "fan_percent": 0,
+        "moves": 1428,
+        "speed_mm_s": [
+          188.20788333333334,
+          188.20788333333334
+        ]
+      },
+      {
+        "z_mm": 186.92,
+        "feature": "Sparse infill",
+        "fan_percent": 70,
+        "moves": 411,
+        "speed_mm_s": [
+          25,
+          25
+        ]
+      },
+      {
+        "z_mm": 187.16,
+        "feature": "Floating vertical shell",
+        "fan_percent": 0,
+        "moves": 33,
+        "speed_mm_s": [
+          113.59908333333333,
+          200
+        ]
+      },
+      {
+        "z_mm": 187.16,
+        "feature": "Inner wall",
+        "fan_percent": 0,
+        "moves": 526,
+        "speed_mm_s": [
+          188.20788333333334,
+          188.20788333333334
+        ]
+      },
+      {
+        "z_mm": 187.16,
+        "feature": "Inner wall",
+        "fan_percent": 70,
+        "moves": 3,
+        "speed_mm_s": [
+          25,
+          25
+        ]
+      },
+      {
+        "z_mm": 187.16,
+        "feature": "Outer wall",
+        "fan_percent": 0,
+        "moves": 5,
+        "speed_mm_s": [
+          200,
+          200
+        ]
+      },
+      {
+        "z_mm": 187.16,
+        "feature": "Outer wall",
+        "fan_percent": 70,
+        "moves": 3,
+        "speed_mm_s": [
+          25,
+          25
+        ]
+      },
+      {
+        "z_mm": 187.16,
+        "feature": "Sparse infill",
+        "fan_percent": 0,
+        "moves": 1401,
+        "speed_mm_s": [
+          188.20788333333334,
+          188.20788333333334
+        ]
+      },
+      {
+        "z_mm": 187.16,
+        "feature": "Sparse infill",
+        "fan_percent": 70,
+        "moves": 440,
+        "speed_mm_s": [
+          25,
+          25
+        ]
+      },
+      {
+        "z_mm": 187.4,
+        "feature": "Floating vertical shell",
+        "fan_percent": 0,
+        "moves": 39,
+        "speed_mm_s": [
+          25,
+          200
+        ]
+      },
+      {
+        "z_mm": 187.4,
+        "feature": "Inner wall",
+        "fan_percent": 0,
+        "moves": 527,
+        "speed_mm_s": [
+          188.20788333333334,
+          188.20788333333334
+        ]
+      },
+      {
+        "z_mm": 187.4,
+        "feature": "Outer wall",
+        "fan_percent": 0,
+        "moves": 8,
+        "speed_mm_s": [
+          200,
+          200
+        ]
+      },
+      {
+        "z_mm": 187.4,
+        "feature": "Sparse infill",
+        "fan_percent": 0,
+        "moves": 1842,
+        "speed_mm_s": [
+          188.20788333333334,
+          188.20788333333334
+        ]
+      },
+      {
+        "z_mm": 187.64,
+        "feature": "Floating vertical shell",
+        "fan_percent": 0,
+        "moves": 30,
+        "speed_mm_s": [
+          135.97323333333333,
+          200
+        ]
+      },
+      {
+        "z_mm": 187.64,
+        "feature": "Inner wall",
+        "fan_percent": 0,
+        "moves": 528,
+        "speed_mm_s": [
+          188.20788333333334,
+          188.20788333333334
+        ]
+      },
+      {
+        "z_mm": 187.64,
+        "feature": "Outer wall",
+        "fan_percent": 0,
+        "moves": 8,
+        "speed_mm_s": [
+          200,
+          200
+        ]
+      },
+      {
+        "z_mm": 187.64,
+        "feature": "Sparse infill",
+        "fan_percent": 0,
+        "moves": 1838,
+        "speed_mm_s": [
+          188.20788333333334,
+          188.20788333333334
+        ]
+      },
+      {
+        "z_mm": 187.88,
+        "feature": "Floating vertical shell",
+        "fan_percent": 0,
+        "moves": 21,
+        "speed_mm_s": [
+          151.54578333333333,
+          200
+        ]
+      },
+      {
+        "z_mm": 187.88,
+        "feature": "Inner wall",
+        "fan_percent": 0,
+        "moves": 529,
+        "speed_mm_s": [
+          188.20788333333334,
+          188.20788333333334
+        ]
+      },
+      {
+        "z_mm": 187.88,
+        "feature": "Outer wall",
+        "fan_percent": 0,
+        "moves": 8,
+        "speed_mm_s": [
+          200,
+          200
+        ]
+      },
+      {
+        "z_mm": 187.88,
+        "feature": "Sparse infill",
+        "fan_percent": 0,
+        "moves": 1843,
+        "speed_mm_s": [
+          188.20788333333334,
+          188.20788333333334
+        ]
+      },
+      {
+        "z_mm": 188.12,
+        "feature": "Gap infill",
+        "fan_percent": 0,
+        "moves": 4,
+        "speed_mm_s": [
+          250,
+          250
+        ]
+      },
+      {
+        "z_mm": 188.12,
+        "feature": "Inner wall",
+        "fan_percent": 0,
+        "moves": 532,
+        "speed_mm_s": [
+          188.20788333333334,
+          188.20788333333334
+        ]
+      },
+      {
+        "z_mm": 188.12,
+        "feature": "Outer wall",
+        "fan_percent": 0,
+        "moves": 8,
+        "speed_mm_s": [
+          200,
+          200
+        ]
+      },
+      {
+        "z_mm": 188.12,
+        "feature": "Sparse infill",
+        "fan_percent": 0,
+        "moves": 1819,
+        "speed_mm_s": [
+          188.20788333333334,
+          188.20788333333334
+        ]
+      },
+      {
+        "z_mm": 188.12,
+        "feature": "Top surface",
+        "fan_percent": 0,
+        "moves": 26,
+        "speed_mm_s": [
+          188.20788333333334,
+          188.20788333333334
+        ]
+      },
+      {
+        "z_mm": 188.36,
+        "feature": "Inner wall",
+        "fan_percent": 0,
+        "moves": 524,
+        "speed_mm_s": [
+          188.20788333333334,
+          188.20788333333334
+        ]
+      },
+      {
+        "z_mm": 188.36,
+        "feature": "Outer wall",
+        "fan_percent": 0,
+        "moves": 7,
+        "speed_mm_s": [
+          200,
+          200
+        ]
+      },
+      {
+        "z_mm": 188.36,
+        "feature": "Sparse infill",
+        "fan_percent": 0,
+        "moves": 1824,
+        "speed_mm_s": [
+          188.20788333333334,
+          188.20788333333334
+        ]
+      },
+      {
+        "z_mm": 188.6,
+        "feature": "Inner wall",
+        "fan_percent": 0,
+        "moves": 524,
+        "speed_mm_s": [
+          188.20788333333334,
+          188.20788333333334
+        ]
+      },
+      {
+        "z_mm": 188.6,
+        "feature": "Outer wall",
+        "fan_percent": 0,
+        "moves": 7,
+        "speed_mm_s": [
+          200,
+          200
+        ]
+      },
+      {
+        "z_mm": 188.6,
+        "feature": "Sparse infill",
+        "fan_percent": 0,
+        "moves": 1822,
+        "speed_mm_s": [
+          188.20788333333334,
+          188.20788333333334
+        ]
+      },
+      {
+        "z_mm": 188.84,
+        "feature": "Inner wall",
+        "fan_percent": 0,
+        "moves": 522,
+        "speed_mm_s": [
+          188.20788333333334,
+          188.20788333333334
+        ]
+      },
+      {
+        "z_mm": 188.84,
+        "feature": "Outer wall",
+        "fan_percent": 0,
+        "moves": 7,
+        "speed_mm_s": [
+          200,
+          200
+        ]
+      },
+      {
+        "z_mm": 188.84,
+        "feature": "Sparse infill",
+        "fan_percent": 0,
+        "moves": 1825,
+        "speed_mm_s": [
+          188.20788333333334,
+          188.20788333333334
+        ]
+      },
+      {
+        "z_mm": 189.08,
+        "feature": "Inner wall",
+        "fan_percent": 0,
+        "moves": 520,
+        "speed_mm_s": [
+          188.20788333333334,
+          188.20788333333334
+        ]
+      },
+      {
+        "z_mm": 189.08,
+        "feature": "Outer wall",
+        "fan_percent": 0,
+        "moves": 7,
+        "speed_mm_s": [
+          200,
+          200
+        ]
+      },
+      {
+        "z_mm": 189.08,
+        "feature": "Sparse infill",
+        "fan_percent": 0,
+        "moves": 1813,
+        "speed_mm_s": [
+          188.20788333333334,
+          188.20788333333334
+        ]
+      },
+      {
+        "z_mm": 189.32,
+        "feature": "Inner wall",
+        "fan_percent": 0,
+        "moves": 520,
+        "speed_mm_s": [
+          188.20788333333334,
+          188.20788333333334
+        ]
+      },
+      {
+        "z_mm": 189.32,
+        "feature": "Outer wall",
+        "fan_percent": 0,
+        "moves": 7,
+        "speed_mm_s": [
+          200,
+          200
+        ]
+      },
+      {
+        "z_mm": 189.32,
+        "feature": "Sparse infill",
+        "fan_percent": 0,
+        "moves": 1829,
+        "speed_mm_s": [
+          188.20788333333334,
+          188.20788333333334
+        ]
+      }
+    ],
+    "command_preservation": {
+      "purpose": "Compare native motion and device commands while measuring actual deposition cooling.",
+      "non_fan_non_feed_commands_identical": true,
+      "model_motion_coordinates_and_extrusion_identical": true,
+      "other_device_commands_identical": true,
+      "travel_and_extrusion_only_speeds_identical": true,
+      "support_and_non_model_deposition_settings_unchanged": true,
+      "commands_compared": 7126885,
+      "changed_model_deposition_moves": 67727,
+      "unchanged_deposition_moves": 6255343,
+      "changed_moves_by_feature": {
+        "Floating vertical shell": 11374,
+        "Gap infill": 51,
+        "Inner wall": 2979,
+        "Internal solid infill": 30820,
+        "Outer wall": 5322,
+        "Sparse infill": 17079,
+        "Top surface": 102
+      }
+    }
+  }
+}

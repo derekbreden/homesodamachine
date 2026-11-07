@@ -318,6 +318,7 @@ def slice_and_review(directory: Path) -> dict:
                                 stderr=subprocess.STDOUT)
     if result.returncode:
         raise RuntimeError(f"Bambu Studio exited {result.returncode}; see {relative(native / 'slice.log')}")
+    _native.petgf_cooling.apply_directory(native, project)
     sliced = json.loads((native / "result.json").read_text())
     if sliced.get("return_code") != 0:
         raise RuntimeError(f"Bambu Studio reported {sliced.get('error_string')}")

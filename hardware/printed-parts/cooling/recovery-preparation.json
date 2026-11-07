@@ -1,0 +1,375 @@
+{
+  "purpose": "The shared bridge-foundation cooling policy and the corrected prepared enclosure outputs.",
+  "policy": {
+    "grid_mm": 0.2,
+    "height_mm": 0.8
+  },
+  "policy_basis": "The recovery depth matches the native internal bridge foundation thickness in the reviewed rear enclosure project.",
+  "processor_sources_sha256": {
+    "hardware/printed-parts/cadlib/petgf_cooling.py": "02396ef3b65d5635eaaec7eda149c51aa6e2df5c38ee276c4301e3871d1af2cd",
+    "tools/hsm/shared-data/src/cooling_foundation.rs": "2760ed9958d16c78609a752a7efee23ff74579406b1d4c1136f660be15545fe2",
+    "tools/hsm/shared-data/src/cooling.rs": "28f34432013b0f4d0836f2b28b3fc74e98bed53735273a371608be5318e17e0d",
+    "tools/hsm/shared-data/catalog/scalars.json": "702035e0f3b70c142502a2758cdcd327217071f5d3568782917207ed31585465"
+  },
+  "processor_binary_sha256": "fc8481620cf334ae5e4ae4b444cc09ec5fcd357620ddeb9a04f90aa2cf1fd001",
+  "photographed_rail_command_preservation": {
+    "purpose": "Compare native motion and device commands while measuring actual deposition cooling.",
+    "non_fan_non_feed_commands_identical": true,
+    "model_motion_coordinates_and_extrusion_identical": true,
+    "other_device_commands_identical": true,
+    "travel_and_extrusion_only_speeds_identical": true,
+    "support_and_non_model_deposition_settings_unchanged": true,
+    "commands_compared": 7126885,
+    "changed_model_deposition_moves": 67727,
+    "unchanged_deposition_moves": 6255343,
+    "changed_moves_by_feature": {
+      "Floating vertical shell": 11374,
+      "Gap infill": 51,
+      "Inner wall": 2979,
+      "Internal solid infill": 30820,
+      "Outer wall": 5322,
+      "Sparse infill": 17079,
+      "Top surface": 102
+    }
+  },
+  "fan_off_cover_regression": {
+    "purpose": "The accepted fan-off cover project stays uncooled when it has no native-cooled underside footprint.",
+    "project": "hardware/printed-parts/faucet/faucet-display-cover/prints/2026-10-17-cooling-off-prepared-mark2/2026-10-17-sculpted-display-cover-white-petgf-fanoff-right04-z004-mark2.3mf",
+    "result": {
+      "added_commanded_motion_seconds": 0.0,
+      "changed": false,
+      "native_cooled_seed_moves": 0,
+      "ordinary_model_moves": 25985,
+      "petgf_slots": [
+        0
+      ],
+      "policy": {
+        "grid_mm": 0.2,
+        "height_mm": 0.8
+      },
+      "recovery_by_feature": {},
+      "recovery_fan_percent": [
+        "0"
+      ],
+      "recovery_moves": 0,
+      "recovery_speed_limit_mm_s": [
+        "15",
+        "15",
+        "15"
+      ],
+      "scope": "The complete centerline lies in a recent native-cooled model footprint. Motion coordinates and extrusion words are retained; only local part cooling and recovery feed rates change.",
+      "speed_limited_moves": 0
+    },
+    "project_sha256": "55e8e674d488e96b4c2424771a0ca89d732df60b369f9752396bc65354496740",
+    "native_reslice_archive_sha256": "3089402fb93b23d15d1e72674a9a979d6320226aa182197b26bbdcea147ca19c",
+    "native_reslice_gcode_sha256": "00074e68b197b11b852eadcf964cd2a5bf947ed685f5d2492d08fe7da59e828a"
+  },
+  "mixed_path_scope": {
+    "purpose": "Compare native commands and actual deposition cooling before and after foundation preparation.",
+    "source": ".cache/runs/rail-cooling-20261107/mixed-paths.gcode",
+    "output": ".cache/runs/rail-cooling-20261107/mixed-paths.processed.gcode",
+    "non_fan_non_feed_commands_identical": true,
+    "command_stream_sha256": "3c6b4504939a5a83a53b2d08924e03474a0b1e9e9b9339e8306dd313bf348ac6",
+    "model_motion_coordinates_and_extrusion_identical": true,
+    "other_device_commands_identical": true,
+    "travel_and_extrusion_only_speeds_identical": true,
+    "support_and_non_model_deposition_settings_unchanged": true,
+    "commands_compared": 14,
+    "unchanged_deposition_moves": 4,
+    "changed_model_deposition_moves": 1,
+    "changed_moves_by_feature": {
+      "Floating vertical shell": 1
+    },
+    "rail_recovery": []
+  },
+  "editable_templates": "current-projects.json",
+  "prepared": [
+    {
+      "purpose": "A localized cooling output prepared from the reviewed native slice.",
+      "piece": "back-top",
+      "printer": "Mark2",
+      "status": "prepared_not_submitted",
+      "native_slice": {
+        "archive": "/Users/derekbredensteiner/Downloads/HSM-rear-enclosure-2026-11-06-final/2026-11-06-back-top-mark2-d175b51e/2026-11-06-back-top-mark2-d175b51e.gcode.3mf",
+        "archive_sha256": "403a0bd04dc4ae908807e52a3245c0dcd198efe8e7e10f44d2649e85e5fb6d9a",
+        "project": "/Users/derekbredensteiner/Downloads/HSM-rear-enclosure-2026-11-06-final/2026-11-06-back-top-mark2-d175b51e/2026-11-06-back-top-mark2-d175b51e.3mf",
+        "project_sha256": "33915bdfe3ee01dd4d4de6f44f03fd60e235bb6e7eddfa5ffa76f739a9f3e891",
+        "review": "/Users/derekbredensteiner/Downloads/HSM-rear-enclosure-2026-11-06-final/2026-11-06-back-top-mark2-d175b51e/review.json",
+        "review_sha256": "7f2f8af7783d82612112ee44e2b0fcf8d66be8f20b28e2b7be9157bd5d83afde"
+      },
+      "project": "/Users/derekbredensteiner/Downloads/HSM-cooling-recovery-2026-11-07/rear-top-mark2/rear-top-mark2.3mf",
+      "project_sha256": "5bd3d37ebc9e39b0b62e310d5d00a2fc8d7477e0788e5867b630141ce83b4a1b",
+      "project_settings_changes": {
+        "Metadata/project_settings.config": {
+          "post_process": {
+            "from": [],
+            "to": [
+              "/Users/derekbredensteiner/.platformio/penv/bin/python3 /Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/cadlib/petgf_cooling.py"
+            ]
+          }
+        }
+      },
+      "archive": "/Users/derekbredensteiner/Downloads/HSM-cooling-recovery-2026-11-07/rear-top-mark2/rear-top-mark2.gcode.3mf",
+      "archive_sha256": "3e802773edf8a71694cd9dd0405e758a4488ea02e83dee2676880da3226c5c20",
+      "gcode_sha256": "f83ca5b8d5ad49c395972af9795ceda1c6256e7fbf63ded34a169ab97477228e",
+      "native_estimated_seconds": 294326.90625,
+      "estimated_seconds": 304317.8668792696,
+      "cooling": {
+        "input_archive_sha256": "403a0bd04dc4ae908807e52a3245c0dcd198efe8e7e10f44d2649e85e5fb6d9a",
+        "changed": true,
+        "members": [
+          {
+            "added_commanded_motion_seconds": 9990.960629269584,
+            "changed": true,
+            "native_cooled_seed_moves": 60363,
+            "ordinary_model_moves": 11430407,
+            "petgf_slots": [
+              0
+            ],
+            "policy": {
+              "grid_mm": 0.2,
+              "height_mm": 0.8
+            },
+            "recovery_by_feature": {
+              "Bridge": [
+                1660.0,
+                1267.4914174835808,
+                0.0
+              ],
+              "Floating vertical shell": [
+                24371.0,
+                47324.80115567402,
+                1654.8887898250416
+              ],
+              "Gap infill": [
+                31035.0,
+                6886.385747752945,
+                247.90988691908004
+              ],
+              "Inner wall": [
+                57947.0,
+                55092.35652515918,
+                2000.9613005825236
+              ],
+              "Internal solid infill": [
+                7082.0,
+                12455.605462691909,
+                448.40179665690766
+              ],
+              "Outer wall": [
+                164998.0,
+                155052.44463848972,
+                1798.8323111889492
+              ],
+              "Overhang wall": [
+                8.0,
+                1.6836661782736544,
+                0.0
+              ],
+              "Sparse infill": [
+                117025.0,
+                103279.34884081129,
+                3836.0900998018487
+              ],
+              "Top surface": [
+                45.0,
+                110.75555124409277,
+                3.8764442935432473
+              ]
+            },
+            "recovery_fan_percent": [
+              "70"
+            ],
+            "recovery_moves": 404171,
+            "recovery_speed_limit_mm_s": [
+              "25",
+              "25",
+              "25"
+            ],
+            "scope": "The complete centerline lies in a recent native-cooled model footprint. Motion coordinates and extrusion words are retained; only local part cooling and recovery feed rates change.",
+            "speed_limited_moves": 399712,
+            "member": "Metadata/plate_1.gcode",
+            "input_gcode_sha256": "6030ac52c54c5fcaf8e199b0ceecdd0ddb02384deb4438f6498cb797a0a74721",
+            "output_gcode_sha256": "f83ca5b8d5ad49c395972af9795ceda1c6256e7fbf63ded34a169ab97477228e"
+          }
+        ],
+        "added_commanded_motion_seconds": 9990.960629269584,
+        "estimate_scope": "Native estimate plus the added constant-feed motion time; acceleration and fan spin-up are not simulated.",
+        "archive_sha256": "3e802773edf8a71694cd9dd0405e758a4488ea02e83dee2676880da3226c5c20"
+      },
+      "source_stl_sha256": "9dffa9196a42bda63057411ad19dfb10a2e7ae98818851dbac9494d34fe6556b",
+      "command_preservation": {
+        "purpose": "Compare native motion and device commands while measuring actual deposition cooling.",
+        "non_fan_non_feed_commands_identical": true,
+        "model_motion_coordinates_and_extrusion_identical": true,
+        "other_device_commands_identical": true,
+        "travel_and_extrusion_only_speeds_identical": true,
+        "support_and_non_model_deposition_settings_unchanged": true,
+        "commands_compared": 17483921,
+        "changed_model_deposition_moves": 400166,
+        "unchanged_deposition_moves": 12607192,
+        "changed_moves_by_feature": {
+          "Floating vertical shell": 24371,
+          "Gap infill": 31035,
+          "Inner wall": 57874,
+          "Internal solid infill": 7082,
+          "Outer wall": 162734,
+          "Sparse infill": 117025,
+          "Top surface": 45
+        },
+        "source_archive_sha256": "403a0bd04dc4ae908807e52a3245c0dcd198efe8e7e10f44d2649e85e5fb6d9a",
+        "output_archive_sha256": "3e802773edf8a71694cd9dd0405e758a4488ea02e83dee2676880da3226c5c20",
+        "input_gcode_sha256": "6030ac52c54c5fcaf8e199b0ceecdd0ddb02384deb4438f6498cb797a0a74721",
+        "output_gcode_sha256": "f83ca5b8d5ad49c395972af9795ceda1c6256e7fbf63ded34a169ab97477228e",
+        "gcode_md5_matches": true,
+        "other_archive_members_unchanged": true,
+        "packaged_prediction_seconds": 304317,
+        "repeated_preparation_byte_identical": true
+      }
+    },
+    {
+      "purpose": "A localized cooling output prepared from the reviewed native slice.",
+      "piece": "pump-retainer",
+      "printer": "Mark1",
+      "status": "prepared_not_submitted",
+      "native_slice": {
+        "archive": "/Users/derekbredensteiner/Downloads/HSM-pump-fit-2026-11-06-final/2026-11-06-pump-retainer-mark1-331ac1a6/2026-11-06-pump-retainer-mark1-331ac1a6.gcode.3mf",
+        "archive_sha256": "d701c094e8d983cbd6b8245a2020f5652ad9c74429d25abeef7d9a09ff001e6d",
+        "project": "/Users/derekbredensteiner/Downloads/HSM-pump-fit-2026-11-06-final/2026-11-06-pump-retainer-mark1-331ac1a6/2026-11-06-pump-retainer-mark1-331ac1a6.3mf",
+        "project_sha256": "890e036c5cd2f53aede719403ca0913394557ba6628ed2fec135fea8d5d17840",
+        "review": "/Users/derekbredensteiner/Downloads/HSM-pump-fit-2026-11-06-final/2026-11-06-pump-retainer-mark1-331ac1a6/review.json",
+        "review_sha256": "33c24ae053d08a1cef821d5936a14916927edf3217a18c73b969cc0af6d6c723"
+      },
+      "project": "/Users/derekbredensteiner/Downloads/HSM-cooling-recovery-2026-11-07/pump-retainer-mark1/pump-retainer-mark1.3mf",
+      "project_sha256": "75dde7a9306bcd9076bd8bf70a6223d2d8e8099ea2fcc173af1392bcc49b1331",
+      "project_settings_changes": {
+        "Metadata/project_settings.config": {
+          "post_process": {
+            "from": [],
+            "to": [
+              "/Users/derekbredensteiner/.platformio/penv/bin/python3 /Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/cadlib/petgf_cooling.py"
+            ]
+          }
+        }
+      },
+      "archive": "/Users/derekbredensteiner/Downloads/HSM-cooling-recovery-2026-11-07/pump-retainer-mark1/pump-retainer-mark1.gcode.3mf",
+      "archive_sha256": "1b98de679469b1745903ba5c2e07691d486f5aca0f783b56587a9ba97d70fd8f",
+      "gcode_sha256": "85159b790e3c3867dc67f0be22fec4b5b8bdaf022112a0b3f3988d2263f3bea0",
+      "native_estimated_seconds": 20004.822265625,
+      "estimated_seconds": 24238.20012189644,
+      "cooling": {
+        "input_archive_sha256": "d701c094e8d983cbd6b8245a2020f5652ad9c74429d25abeef7d9a09ff001e6d",
+        "changed": true,
+        "members": [
+          {
+            "added_commanded_motion_seconds": 4233.377856271441,
+            "changed": true,
+            "native_cooled_seed_moves": 3180,
+            "ordinary_model_moves": 656176,
+            "petgf_slots": [
+              0
+            ],
+            "policy": {
+              "grid_mm": 0.2,
+              "height_mm": 0.8
+            },
+            "recovery_by_feature": {
+              "Bridge": [
+                58.0,
+                1414.5520000000006,
+                0.0
+              ],
+              "Inner wall": [
+                1057.0,
+                1686.0450421849105,
+                57.38512027357853
+              ],
+              "Internal solid infill": [
+                8953.0,
+                115473.25096369219,
+                4049.6669403435258
+              ],
+              "Outer wall": [
+                559.0,
+                859.9139421368818,
+                29.520711571674113
+              ],
+              "Sparse infill": [
+                4152.0,
+                2790.8394495044117,
+                96.80508408249435
+              ]
+            },
+            "recovery_fan_percent": [
+              "70"
+            ],
+            "recovery_moves": 14779,
+            "recovery_speed_limit_mm_s": [
+              "25",
+              "25",
+              "25"
+            ],
+            "scope": "The complete centerline lies in a recent native-cooled model footprint. Motion coordinates and extrusion words are retained; only local part cooling and recovery feed rates change.",
+            "speed_limited_moves": 14685,
+            "member": "Metadata/plate_1.gcode",
+            "input_gcode_sha256": "8548ee893ba53d76c02eff89f769b77cdfdd9a0ab0e5a7916b8c7968e54c8620",
+            "output_gcode_sha256": "85159b790e3c3867dc67f0be22fec4b5b8bdaf022112a0b3f3988d2263f3bea0"
+          }
+        ],
+        "added_commanded_motion_seconds": 4233.377856271441,
+        "estimate_scope": "Native estimate plus the added constant-feed motion time; acceleration and fan spin-up are not simulated.",
+        "archive_sha256": "1b98de679469b1745903ba5c2e07691d486f5aca0f783b56587a9ba97d70fd8f"
+      },
+      "source_stl_sha256": "c88b02141986bdae52b92b8d5af890856ae55de43247525dbec4f64e71b1cb37",
+      "command_preservation": {
+        "purpose": "Compare native motion and device commands while measuring actual deposition cooling.",
+        "non_fan_non_feed_commands_identical": true,
+        "model_motion_coordinates_and_extrusion_identical": true,
+        "other_device_commands_identical": true,
+        "travel_and_extrusion_only_speeds_identical": true,
+        "support_and_non_model_deposition_settings_unchanged": true,
+        "commands_compared": 1185049,
+        "changed_model_deposition_moves": 14709,
+        "unchanged_deposition_moves": 967465,
+        "changed_moves_by_feature": {
+          "Inner wall": 1049,
+          "Internal solid infill": 8953,
+          "Outer wall": 555,
+          "Sparse infill": 4152
+        },
+        "source_archive_sha256": "d701c094e8d983cbd6b8245a2020f5652ad9c74429d25abeef7d9a09ff001e6d",
+        "output_archive_sha256": "1b98de679469b1745903ba5c2e07691d486f5aca0f783b56587a9ba97d70fd8f",
+        "input_gcode_sha256": "8548ee893ba53d76c02eff89f769b77cdfdd9a0ab0e5a7916b8c7968e54c8620",
+        "output_gcode_sha256": "85159b790e3c3867dc67f0be22fec4b5b8bdaf022112a0b3f3988d2263f3bea0",
+        "gcode_md5_matches": true,
+        "other_archive_members_unchanged": true,
+        "packaged_prediction_seconds": 24238,
+        "repeated_preparation_byte_identical": true
+      }
+    }
+  ],
+  "callback_and_packaging": {
+    "purpose": "Exercise the Bambu environment callback and repeat-safe archive packaging.",
+    "serialized_filament_and_numeric_vectors_recognized": true,
+    "callback_recovery_moves": 1,
+    "callback_output_recognized_without_reprocessing": true,
+    "prediction_updated_once": true,
+    "repeated_archive_byte_identical": true
+  },
+  "verification_scope": "The command readings establish output cooling, feeds, motion preservation and packaging. Surface finish and mechanical strength remain physical observations.",
+  "native_output_entrypoints": [
+    "hardware/printed-parts/fixtures/fake-countertop/prepare_print.py",
+    "hardware/printed-parts/fixtures/tube-miter-box/prepare_print.py",
+    "hardware/printed-parts/fixtures/tube-insertion/prepare_print.py",
+    "hardware/printed-parts/faucet/lever-replica/prepare_print.py",
+    "hardware/printed-parts/faucet/prepare_vent_prints.py",
+    "hardware/printed-parts/enclosure/trial-preparation/labels.py",
+    "hardware/printed-parts/enclosure/grip-cover/prepare_print.py",
+    "hardware/printed-parts/calibration/soda-studies/prepare_prints.py",
+    "hardware/printed-parts/enclosure/nameplate/prepare_print.py",
+    "hardware/printed-parts/enclosure/trial-preparation/prepare.py",
+    "hardware/printed-parts/faucet/refresh_print_project.py",
+    "hardware/printed-parts/faucet/prepare_display_print.py"
+  ],
+  "entrypoint_syntax_checked": true
+}

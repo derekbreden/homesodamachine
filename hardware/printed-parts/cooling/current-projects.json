@@ -1,113 +1,19 @@
 {
   "schema": 1,
-  "selected_date": "2026-10-17",
+  "selected_date": "2026-11-07",
   "policy": "hardware/printed-parts/cooling/README.md",
   "scope": "Reusable editable PET-GF templates. Re-slice these projects for the current cooling commands. Completed print archives and their original evidence are retained. Faucet production projects are rebuilt separately from current geometry.",
   "projects": [
     {
       "project": "hardware/printed-parts/petgf.3mf",
-      "previous_sha256": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
-      "project_sha256": "afe8b7d865690b511cfdbf7087393c7e9d29398facf6797323acb0ff9dc6c45c",
+      "input_sha256": "45c16e8c8517e0a205107d7b9f7412d013f51a8de7ecf86125cc940079d37ed0",
+      "project_sha256": "5fdee5c278a5736f10edca073b0d5677780394eee11864388bea83560cbcc643",
       "changes": {
         "Metadata/project_settings.config": {
-          "fan_max_speed": {
-            "from": [
-              "70"
-            ],
+          "post_process": {
+            "from": [],
             "to": [
-              "0"
-            ]
-          },
-          "overhang_fan_speed": {
-            "from": [
-              "0"
-            ],
-            "to": [
-              "70"
-            ]
-          },
-          "overhang_fan_threshold": {
-            "from": [
-              "0%"
-            ],
-            "to": [
-              "50%"
-            ]
-          },
-          "reduce_fan_stop_start_freq": {
-            "from": [
-              "1"
-            ],
-            "to": [
-              "0"
-            ]
-          },
-          "pre_start_fan_time": {
-            "from": [
-              "2"
-            ],
-            "to": [
-              "0"
-            ]
-          }
-        },
-        "Metadata/filament_settings_1.config": {
-          "fan_max_speed": {
-            "from": [
-              "70"
-            ],
-            "to": [
-              "0"
-            ]
-          },
-          "additional_cooling_fan_speed": {
-            "from": null,
-            "to": [
-              "0"
-            ]
-          },
-          "first_x_layer_fan_speed": {
-            "from": null,
-            "to": [
-              "0"
-            ]
-          },
-          "first_x_layer_part_fan_speed": {
-            "from": null,
-            "to": [
-              "0"
-            ]
-          },
-          "enable_overhang_bridge_fan": {
-            "from": null,
-            "to": [
-              "1"
-            ]
-          },
-          "overhang_fan_speed": {
-            "from": [
-              "0"
-            ],
-            "to": [
-              "70"
-            ]
-          },
-          "overhang_fan_threshold": {
-            "from": null,
-            "to": [
-              "50%"
-            ]
-          },
-          "reduce_fan_stop_start_freq": {
-            "from": null,
-            "to": [
-              "0"
-            ]
-          },
-          "pre_start_fan_time": {
-            "from": null,
-            "to": [
-              "0"
+              "/Users/derekbredensteiner/.platformio/penv/bin/python3 /Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/cadlib/petgf_cooling.py"
             ]
           }
         }
@@ -117,178 +23,14 @@
     },
     {
       "project": "hardware/printed-parts/enclosure/nameplate/nameplate-001-petgf.3mf",
-      "previous_sha256": "84c5011c0be15dd9aab41a516abe85bf99b08e2c80d91375b5f2608a96bc0e72",
-      "project_sha256": "582a8733e4e6b324b587afc3566446ac796bef1bddd7379a4644d92eebc992ef",
+      "input_sha256": "582a8733e4e6b324b587afc3566446ac796bef1bddd7379a4644d92eebc992ef",
+      "project_sha256": "e0d2ae9ddc3207041450e33ac5fe9d93c68b676e47fdb7a0b1a355f44d0151b0",
       "changes": {
-        "Metadata/filament_settings_1.config": {
-          "fan_max_speed": {
-            "from": [
-              "70"
-            ],
-            "to": [
-              "0"
-            ]
-          },
-          "additional_cooling_fan_speed": {
-            "from": null,
-            "to": [
-              "0"
-            ]
-          },
-          "first_x_layer_fan_speed": {
-            "from": null,
-            "to": [
-              "0"
-            ]
-          },
-          "first_x_layer_part_fan_speed": {
-            "from": null,
-            "to": [
-              "0"
-            ]
-          },
-          "enable_overhang_bridge_fan": {
-            "from": null,
-            "to": [
-              "1"
-            ]
-          },
-          "overhang_fan_speed": {
-            "from": [
-              "0"
-            ],
-            "to": [
-              "70"
-            ]
-          },
-          "overhang_fan_threshold": {
-            "from": null,
-            "to": [
-              "50%"
-            ]
-          },
-          "reduce_fan_stop_start_freq": {
-            "from": null,
-            "to": [
-              "0"
-            ]
-          },
-          "pre_start_fan_time": {
-            "from": null,
-            "to": [
-              "0"
-            ]
-          }
-        },
-        "Metadata/filament_settings_2.config": {
-          "fan_max_speed": {
-            "from": [
-              "70"
-            ],
-            "to": [
-              "0"
-            ]
-          },
-          "additional_cooling_fan_speed": {
-            "from": null,
-            "to": [
-              "0"
-            ]
-          },
-          "first_x_layer_fan_speed": {
-            "from": null,
-            "to": [
-              "0"
-            ]
-          },
-          "first_x_layer_part_fan_speed": {
-            "from": null,
-            "to": [
-              "0"
-            ]
-          },
-          "enable_overhang_bridge_fan": {
-            "from": null,
-            "to": [
-              "1"
-            ]
-          },
-          "overhang_fan_speed": {
-            "from": [
-              "0"
-            ],
-            "to": [
-              "70"
-            ]
-          },
-          "overhang_fan_threshold": {
-            "from": null,
-            "to": [
-              "50%"
-            ]
-          },
-          "reduce_fan_stop_start_freq": {
-            "from": null,
-            "to": [
-              "0"
-            ]
-          },
-          "pre_start_fan_time": {
-            "from": null,
-            "to": [
-              "0"
-            ]
-          }
-        },
         "Metadata/project_settings.config": {
-          "fan_max_speed": {
-            "from": [
-              "70",
-              "70"
-            ],
+          "post_process": {
+            "from": [],
             "to": [
-              "0",
-              "0"
-            ]
-          },
-          "overhang_fan_speed": {
-            "from": [
-              "0",
-              "0"
-            ],
-            "to": [
-              "70",
-              "70"
-            ]
-          },
-          "overhang_fan_threshold": {
-            "from": [
-              "0%",
-              "0%"
-            ],
-            "to": [
-              "50%",
-              "50%"
-            ]
-          },
-          "reduce_fan_stop_start_freq": {
-            "from": [
-              "1",
-              "1"
-            ],
-            "to": [
-              "0",
-              "0"
-            ]
-          },
-          "pre_start_fan_time": {
-            "from": [
-              "2",
-              "2"
-            ],
-            "to": [
-              "0",
-              "0"
+              "/Users/derekbredensteiner/.platformio/penv/bin/python3 /Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/cadlib/petgf_cooling.py"
             ]
           }
         }
@@ -298,108 +40,14 @@
     },
     {
       "project": "hardware/printed-parts/faucet/asse-vent-seals/vent-seal-tool-petgf.3mf",
-      "previous_sha256": "ca41d92f513b8da9840efac9c9361d34797e011a25f92ee2e0c3a8c406214aec",
-      "project_sha256": "5f60588859f2fbed292a08599d01be8667157f0a5d10f4a34841d87499ab75e6",
+      "input_sha256": "5f60588859f2fbed292a08599d01be8667157f0a5d10f4a34841d87499ab75e6",
+      "project_sha256": "348482c726702e65521b2cf05ec1c548a4af95cf4b82961454355f40162c6c09",
       "changes": {
-        "Metadata/filament_settings_1.config": {
-          "fan_max_speed": {
-            "from": [
-              "70"
-            ],
-            "to": [
-              "0"
-            ]
-          },
-          "additional_cooling_fan_speed": {
-            "from": null,
-            "to": [
-              "0"
-            ]
-          },
-          "first_x_layer_fan_speed": {
-            "from": null,
-            "to": [
-              "0"
-            ]
-          },
-          "first_x_layer_part_fan_speed": {
-            "from": null,
-            "to": [
-              "0"
-            ]
-          },
-          "enable_overhang_bridge_fan": {
-            "from": null,
-            "to": [
-              "1"
-            ]
-          },
-          "overhang_fan_speed": {
-            "from": [
-              "0"
-            ],
-            "to": [
-              "70"
-            ]
-          },
-          "overhang_fan_threshold": {
-            "from": null,
-            "to": [
-              "50%"
-            ]
-          },
-          "reduce_fan_stop_start_freq": {
-            "from": null,
-            "to": [
-              "0"
-            ]
-          },
-          "pre_start_fan_time": {
-            "from": null,
-            "to": [
-              "0"
-            ]
-          }
-        },
         "Metadata/project_settings.config": {
-          "fan_max_speed": {
-            "from": [
-              "70"
-            ],
+          "post_process": {
+            "from": [],
             "to": [
-              "0"
-            ]
-          },
-          "overhang_fan_speed": {
-            "from": [
-              "0"
-            ],
-            "to": [
-              "70"
-            ]
-          },
-          "overhang_fan_threshold": {
-            "from": [
-              "0%"
-            ],
-            "to": [
-              "50%"
-            ]
-          },
-          "reduce_fan_stop_start_freq": {
-            "from": [
-              "1"
-            ],
-            "to": [
-              "0"
-            ]
-          },
-          "pre_start_fan_time": {
-            "from": [
-              "2"
-            ],
-            "to": [
-              "0"
+              "/Users/derekbredensteiner/.platformio/penv/bin/python3 /Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/cadlib/petgf_cooling.py"
             ]
           }
         }
@@ -409,108 +57,14 @@
     },
     {
       "project": "hardware/printed-parts/faucet/lever-replica/lever-replica-petgf.3mf",
-      "previous_sha256": "6683ac5bbb10af32a4972ca3a5e8cfa37978ad16ea63b098d58724dbe30566cf",
-      "project_sha256": "b21f15bd6ddeacc2ffdbf8ae4ef3c6fff224e0ba95c7483c3b5f99de1ba52c3e",
+      "input_sha256": "5e672edc6a405c10c1e1b6cfb5a25a272dbc4308ecdf8e874fc31ea800e421df",
+      "project_sha256": "f9a0a49898fa874d555858abfa01a2ca1c00516db8cf15eb60f251c4fa209a12",
       "changes": {
-        "Metadata/filament_settings_1.config": {
-          "fan_max_speed": {
-            "from": [
-              "70"
-            ],
-            "to": [
-              "0"
-            ]
-          },
-          "additional_cooling_fan_speed": {
-            "from": null,
-            "to": [
-              "0"
-            ]
-          },
-          "first_x_layer_fan_speed": {
-            "from": null,
-            "to": [
-              "0"
-            ]
-          },
-          "first_x_layer_part_fan_speed": {
-            "from": null,
-            "to": [
-              "0"
-            ]
-          },
-          "enable_overhang_bridge_fan": {
-            "from": null,
-            "to": [
-              "1"
-            ]
-          },
-          "overhang_fan_speed": {
-            "from": [
-              "0"
-            ],
-            "to": [
-              "70"
-            ]
-          },
-          "overhang_fan_threshold": {
-            "from": null,
-            "to": [
-              "50%"
-            ]
-          },
-          "reduce_fan_stop_start_freq": {
-            "from": null,
-            "to": [
-              "0"
-            ]
-          },
-          "pre_start_fan_time": {
-            "from": null,
-            "to": [
-              "0"
-            ]
-          }
-        },
         "Metadata/project_settings.config": {
-          "fan_max_speed": {
-            "from": [
-              "70"
-            ],
+          "post_process": {
+            "from": [],
             "to": [
-              "0"
-            ]
-          },
-          "overhang_fan_speed": {
-            "from": [
-              "0"
-            ],
-            "to": [
-              "70"
-            ]
-          },
-          "overhang_fan_threshold": {
-            "from": [
-              "0%"
-            ],
-            "to": [
-              "50%"
-            ]
-          },
-          "reduce_fan_stop_start_freq": {
-            "from": [
-              "1"
-            ],
-            "to": [
-              "0"
-            ]
-          },
-          "pre_start_fan_time": {
-            "from": [
-              "2"
-            ],
-            "to": [
-              "0"
+              "/Users/derekbredensteiner/.platformio/penv/bin/python3 /Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/cadlib/petgf_cooling.py"
             ]
           }
         }
@@ -520,108 +74,14 @@
     },
     {
       "project": "hardware/printed-parts/faucet/lever-replica/lever-replica-petgf-white.3mf",
-      "previous_sha256": "ba523134b4f4b87486c4847c97410c449abc6012aa1f5fbd05b0475432c8acd9",
-      "project_sha256": "9715a23ffeae4934afcf426b8881d077db8767f345a9913960743cd7ed3de2f2",
+      "input_sha256": "17b77ae11542557832a808ea36569099909606ad33a09904d39741eeaa5d9b18",
+      "project_sha256": "ce73a2d7462e3321c69dffc8b3ebd6bb1514be2315bbe3fabfaf0e45d27f1a0c",
       "changes": {
-        "Metadata/filament_settings_1.config": {
-          "fan_max_speed": {
-            "from": [
-              "70"
-            ],
-            "to": [
-              "0"
-            ]
-          },
-          "additional_cooling_fan_speed": {
-            "from": null,
-            "to": [
-              "0"
-            ]
-          },
-          "first_x_layer_fan_speed": {
-            "from": null,
-            "to": [
-              "0"
-            ]
-          },
-          "first_x_layer_part_fan_speed": {
-            "from": null,
-            "to": [
-              "0"
-            ]
-          },
-          "enable_overhang_bridge_fan": {
-            "from": null,
-            "to": [
-              "1"
-            ]
-          },
-          "overhang_fan_speed": {
-            "from": [
-              "0"
-            ],
-            "to": [
-              "70"
-            ]
-          },
-          "overhang_fan_threshold": {
-            "from": null,
-            "to": [
-              "50%"
-            ]
-          },
-          "reduce_fan_stop_start_freq": {
-            "from": null,
-            "to": [
-              "0"
-            ]
-          },
-          "pre_start_fan_time": {
-            "from": null,
-            "to": [
-              "0"
-            ]
-          }
-        },
         "Metadata/project_settings.config": {
-          "fan_max_speed": {
-            "from": [
-              "70"
-            ],
+          "post_process": {
+            "from": [],
             "to": [
-              "0"
-            ]
-          },
-          "overhang_fan_speed": {
-            "from": [
-              "0"
-            ],
-            "to": [
-              "70"
-            ]
-          },
-          "overhang_fan_threshold": {
-            "from": [
-              "0%"
-            ],
-            "to": [
-              "50%"
-            ]
-          },
-          "reduce_fan_stop_start_freq": {
-            "from": [
-              "1"
-            ],
-            "to": [
-              "0"
-            ]
-          },
-          "pre_start_fan_time": {
-            "from": [
-              "2"
-            ],
-            "to": [
-              "0"
+              "/Users/derekbredensteiner/.platformio/penv/bin/python3 /Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/cadlib/petgf_cooling.py"
             ]
           }
         }
@@ -631,108 +91,14 @@
     },
     {
       "project": "hardware/printed-parts/fixtures/fake-countertop/fake-countertop-petgf.3mf",
-      "previous_sha256": "1849694291451d4d0f375c0f777709c2d92a4779ffd55f8bfe2b25f3ff94e2b5",
-      "project_sha256": "86853b7cd77bb08a637584ee6c4190463a24ad20478aef5206346004f792969f",
+      "input_sha256": "86853b7cd77bb08a637584ee6c4190463a24ad20478aef5206346004f792969f",
+      "project_sha256": "f14a808ca4736cb99fe784020796adec1d64dc362542e0aa5d9244a5cb6161f5",
       "changes": {
-        "Metadata/filament_settings_1.config": {
-          "fan_max_speed": {
-            "from": [
-              "70"
-            ],
-            "to": [
-              "0"
-            ]
-          },
-          "additional_cooling_fan_speed": {
-            "from": null,
-            "to": [
-              "0"
-            ]
-          },
-          "first_x_layer_fan_speed": {
-            "from": null,
-            "to": [
-              "0"
-            ]
-          },
-          "first_x_layer_part_fan_speed": {
-            "from": null,
-            "to": [
-              "0"
-            ]
-          },
-          "enable_overhang_bridge_fan": {
-            "from": null,
-            "to": [
-              "1"
-            ]
-          },
-          "overhang_fan_speed": {
-            "from": [
-              "0"
-            ],
-            "to": [
-              "70"
-            ]
-          },
-          "overhang_fan_threshold": {
-            "from": null,
-            "to": [
-              "50%"
-            ]
-          },
-          "reduce_fan_stop_start_freq": {
-            "from": null,
-            "to": [
-              "0"
-            ]
-          },
-          "pre_start_fan_time": {
-            "from": null,
-            "to": [
-              "0"
-            ]
-          }
-        },
         "Metadata/project_settings.config": {
-          "fan_max_speed": {
-            "from": [
-              "70"
-            ],
+          "post_process": {
+            "from": [],
             "to": [
-              "0"
-            ]
-          },
-          "overhang_fan_speed": {
-            "from": [
-              "0"
-            ],
-            "to": [
-              "70"
-            ]
-          },
-          "overhang_fan_threshold": {
-            "from": [
-              "0%"
-            ],
-            "to": [
-              "50%"
-            ]
-          },
-          "reduce_fan_stop_start_freq": {
-            "from": [
-              "1"
-            ],
-            "to": [
-              "0"
-            ]
-          },
-          "pre_start_fan_time": {
-            "from": [
-              "2"
-            ],
-            "to": [
-              "0"
+              "/Users/derekbredensteiner/.platformio/penv/bin/python3 /Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/cadlib/petgf_cooling.py"
             ]
           }
         }
@@ -742,108 +108,14 @@
     },
     {
       "project": "hardware/printed-parts/fixtures/fake-countertop/fake-countertop-petgf-mark2.3mf",
-      "previous_sha256": "a7ae63127addc86434b980d9ff15267ba4bf9f3ef54638704c1cd9146099bcf7",
-      "project_sha256": "3e722796709e52a65000f6ae97de2e6fdd7a5f5bfd4c8cc91c172077d3d87bc9",
+      "input_sha256": "3e722796709e52a65000f6ae97de2e6fdd7a5f5bfd4c8cc91c172077d3d87bc9",
+      "project_sha256": "0f6a03529f4a095e6d4ef1ea2dea5a7eea0e56b915663281efcb44a62a657bd7",
       "changes": {
-        "Metadata/filament_settings_1.config": {
-          "fan_max_speed": {
-            "from": [
-              "70"
-            ],
-            "to": [
-              "0"
-            ]
-          },
-          "additional_cooling_fan_speed": {
-            "from": null,
-            "to": [
-              "0"
-            ]
-          },
-          "first_x_layer_fan_speed": {
-            "from": null,
-            "to": [
-              "0"
-            ]
-          },
-          "first_x_layer_part_fan_speed": {
-            "from": null,
-            "to": [
-              "0"
-            ]
-          },
-          "enable_overhang_bridge_fan": {
-            "from": null,
-            "to": [
-              "1"
-            ]
-          },
-          "overhang_fan_speed": {
-            "from": [
-              "0"
-            ],
-            "to": [
-              "70"
-            ]
-          },
-          "overhang_fan_threshold": {
-            "from": null,
-            "to": [
-              "50%"
-            ]
-          },
-          "reduce_fan_stop_start_freq": {
-            "from": null,
-            "to": [
-              "0"
-            ]
-          },
-          "pre_start_fan_time": {
-            "from": null,
-            "to": [
-              "0"
-            ]
-          }
-        },
         "Metadata/project_settings.config": {
-          "fan_max_speed": {
-            "from": [
-              "70"
-            ],
+          "post_process": {
+            "from": [],
             "to": [
-              "0"
-            ]
-          },
-          "overhang_fan_speed": {
-            "from": [
-              "0"
-            ],
-            "to": [
-              "70"
-            ]
-          },
-          "overhang_fan_threshold": {
-            "from": [
-              "0%"
-            ],
-            "to": [
-              "50%"
-            ]
-          },
-          "reduce_fan_stop_start_freq": {
-            "from": [
-              "1"
-            ],
-            "to": [
-              "0"
-            ]
-          },
-          "pre_start_fan_time": {
-            "from": [
-              "2"
-            ],
-            "to": [
-              "0"
+              "/Users/derekbredensteiner/.platformio/penv/bin/python3 /Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/cadlib/petgf_cooling.py"
             ]
           }
         }
@@ -853,108 +125,14 @@
     },
     {
       "project": "hardware/printed-parts/fixtures/fake-countertop/fake-countertop-petgf-mark2-stock.3mf",
-      "previous_sha256": "893465afd2d283c47574e05fe0e67b93813bbecaba38a26f5c6db74a1efb8bce",
-      "project_sha256": "a79edade93aff1e33da7df8ca2e8be1f87487ebc9e70e8f1d25fa96b0ee81e4e",
+      "input_sha256": "a79edade93aff1e33da7df8ca2e8be1f87487ebc9e70e8f1d25fa96b0ee81e4e",
+      "project_sha256": "55ed4b44d2570fb55e79f023cadb16829cd71148858ce0bbada7a7d3d29ec69c",
       "changes": {
-        "Metadata/filament_settings_1.config": {
-          "fan_max_speed": {
-            "from": [
-              "70"
-            ],
-            "to": [
-              "0"
-            ]
-          },
-          "additional_cooling_fan_speed": {
-            "from": null,
-            "to": [
-              "0"
-            ]
-          },
-          "first_x_layer_fan_speed": {
-            "from": null,
-            "to": [
-              "0"
-            ]
-          },
-          "first_x_layer_part_fan_speed": {
-            "from": null,
-            "to": [
-              "0"
-            ]
-          },
-          "enable_overhang_bridge_fan": {
-            "from": null,
-            "to": [
-              "1"
-            ]
-          },
-          "overhang_fan_speed": {
-            "from": [
-              "0"
-            ],
-            "to": [
-              "70"
-            ]
-          },
-          "overhang_fan_threshold": {
-            "from": null,
-            "to": [
-              "50%"
-            ]
-          },
-          "reduce_fan_stop_start_freq": {
-            "from": null,
-            "to": [
-              "0"
-            ]
-          },
-          "pre_start_fan_time": {
-            "from": null,
-            "to": [
-              "0"
-            ]
-          }
-        },
         "Metadata/project_settings.config": {
-          "fan_max_speed": {
-            "from": [
-              "70"
-            ],
+          "post_process": {
+            "from": [],
             "to": [
-              "0"
-            ]
-          },
-          "overhang_fan_speed": {
-            "from": [
-              "0"
-            ],
-            "to": [
-              "70"
-            ]
-          },
-          "overhang_fan_threshold": {
-            "from": [
-              "0%"
-            ],
-            "to": [
-              "50%"
-            ]
-          },
-          "reduce_fan_stop_start_freq": {
-            "from": [
-              "1"
-            ],
-            "to": [
-              "0"
-            ]
-          },
-          "pre_start_fan_time": {
-            "from": [
-              "2"
-            ],
-            "to": [
-              "0"
+              "/Users/derekbredensteiner/.platformio/penv/bin/python3 /Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/cadlib/petgf_cooling.py"
             ]
           }
         }
@@ -964,108 +142,14 @@
     },
     {
       "project": "hardware/printed-parts/fixtures/tube-miter-box/tube-miter-box-petgf.3mf",
-      "previous_sha256": "b539b42dc225955e46fcaaa6a87061659b439a8ae61dbf7e5fd911d53432eec7",
-      "project_sha256": "ac42fba7fc890b9b7e6a65a291c04eb53b98d599491f2951be5fd811d4e602bc",
+      "input_sha256": "ac42fba7fc890b9b7e6a65a291c04eb53b98d599491f2951be5fd811d4e602bc",
+      "project_sha256": "71f30961c9f29215286892f8cb6141d5d1d7627d5845d14641f4986006413a50",
       "changes": {
-        "Metadata/filament_settings_1.config": {
-          "fan_max_speed": {
-            "from": [
-              "70"
-            ],
-            "to": [
-              "0"
-            ]
-          },
-          "additional_cooling_fan_speed": {
-            "from": null,
-            "to": [
-              "0"
-            ]
-          },
-          "first_x_layer_fan_speed": {
-            "from": null,
-            "to": [
-              "0"
-            ]
-          },
-          "first_x_layer_part_fan_speed": {
-            "from": null,
-            "to": [
-              "0"
-            ]
-          },
-          "enable_overhang_bridge_fan": {
-            "from": null,
-            "to": [
-              "1"
-            ]
-          },
-          "overhang_fan_speed": {
-            "from": [
-              "0"
-            ],
-            "to": [
-              "70"
-            ]
-          },
-          "overhang_fan_threshold": {
-            "from": null,
-            "to": [
-              "50%"
-            ]
-          },
-          "reduce_fan_stop_start_freq": {
-            "from": null,
-            "to": [
-              "0"
-            ]
-          },
-          "pre_start_fan_time": {
-            "from": null,
-            "to": [
-              "0"
-            ]
-          }
-        },
         "Metadata/project_settings.config": {
-          "fan_max_speed": {
-            "from": [
-              "70"
-            ],
+          "post_process": {
+            "from": [],
             "to": [
-              "0"
-            ]
-          },
-          "overhang_fan_speed": {
-            "from": [
-              "0"
-            ],
-            "to": [
-              "70"
-            ]
-          },
-          "overhang_fan_threshold": {
-            "from": [
-              "0%"
-            ],
-            "to": [
-              "50%"
-            ]
-          },
-          "reduce_fan_stop_start_freq": {
-            "from": [
-              "1"
-            ],
-            "to": [
-              "0"
-            ]
-          },
-          "pre_start_fan_time": {
-            "from": [
-              "2"
-            ],
-            "to": [
-              "0"
+              "/Users/derekbredensteiner/.platformio/penv/bin/python3 /Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/cadlib/petgf_cooling.py"
             ]
           }
         }
@@ -1075,108 +159,14 @@
     },
     {
       "project": "hardware/printed-parts/fixtures/tube-miter-box/tube-miter-box-petgf-mark2.3mf",
-      "previous_sha256": "82b4a29759bcb882ca4d94a473271321da2e73723f85ac16d8570a0f6aeb9c33",
-      "project_sha256": "f5d55fcae3f5466488be8fd2b68613a2a2496ba3250eb45bf079139c623c6d76",
+      "input_sha256": "f5d55fcae3f5466488be8fd2b68613a2a2496ba3250eb45bf079139c623c6d76",
+      "project_sha256": "66db9e395afeb3da697bb26672c9cf6240ba6cd45bb46789ca59036e91a0e495",
       "changes": {
-        "Metadata/filament_settings_1.config": {
-          "fan_max_speed": {
-            "from": [
-              "70"
-            ],
-            "to": [
-              "0"
-            ]
-          },
-          "additional_cooling_fan_speed": {
-            "from": null,
-            "to": [
-              "0"
-            ]
-          },
-          "first_x_layer_fan_speed": {
-            "from": null,
-            "to": [
-              "0"
-            ]
-          },
-          "first_x_layer_part_fan_speed": {
-            "from": null,
-            "to": [
-              "0"
-            ]
-          },
-          "enable_overhang_bridge_fan": {
-            "from": null,
-            "to": [
-              "1"
-            ]
-          },
-          "overhang_fan_speed": {
-            "from": [
-              "0"
-            ],
-            "to": [
-              "70"
-            ]
-          },
-          "overhang_fan_threshold": {
-            "from": null,
-            "to": [
-              "50%"
-            ]
-          },
-          "reduce_fan_stop_start_freq": {
-            "from": null,
-            "to": [
-              "0"
-            ]
-          },
-          "pre_start_fan_time": {
-            "from": null,
-            "to": [
-              "0"
-            ]
-          }
-        },
         "Metadata/project_settings.config": {
-          "fan_max_speed": {
-            "from": [
-              "70"
-            ],
+          "post_process": {
+            "from": [],
             "to": [
-              "0"
-            ]
-          },
-          "overhang_fan_speed": {
-            "from": [
-              "0"
-            ],
-            "to": [
-              "70"
-            ]
-          },
-          "overhang_fan_threshold": {
-            "from": [
-              "0%"
-            ],
-            "to": [
-              "50%"
-            ]
-          },
-          "reduce_fan_stop_start_freq": {
-            "from": [
-              "1"
-            ],
-            "to": [
-              "0"
-            ]
-          },
-          "pre_start_fan_time": {
-            "from": [
-              "2"
-            ],
-            "to": [
-              "0"
+              "/Users/derekbredensteiner/.platformio/penv/bin/python3 /Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/cadlib/petgf_cooling.py"
             ]
           }
         }
@@ -1186,178 +176,14 @@
     },
     {
       "project": "hardware/printed-parts/drain-readiness/projects/labels-black-z004-mark2.3mf",
-      "previous_sha256": "3cbe88d0062680add5c0788fd656440afec8db1a142c69cab84086292150ea10",
-      "project_sha256": "a02d3c02f985f4010d734119aa6fe1b21e114ffa5bcbd51bd1cf0ef068706ee4",
+      "input_sha256": "a02d3c02f985f4010d734119aa6fe1b21e114ffa5bcbd51bd1cf0ef068706ee4",
+      "project_sha256": "4978c96dece4addd007b1f8a8bebd5adfd9bfe640f259383976afe4b0c993b56",
       "changes": {
-        "Metadata/filament_settings_1.config": {
-          "fan_max_speed": {
-            "from": [
-              "70"
-            ],
-            "to": [
-              "0"
-            ]
-          },
-          "additional_cooling_fan_speed": {
-            "from": null,
-            "to": [
-              "0"
-            ]
-          },
-          "first_x_layer_fan_speed": {
-            "from": null,
-            "to": [
-              "0"
-            ]
-          },
-          "first_x_layer_part_fan_speed": {
-            "from": null,
-            "to": [
-              "0"
-            ]
-          },
-          "enable_overhang_bridge_fan": {
-            "from": null,
-            "to": [
-              "1"
-            ]
-          },
-          "overhang_fan_speed": {
-            "from": [
-              "0"
-            ],
-            "to": [
-              "70"
-            ]
-          },
-          "overhang_fan_threshold": {
-            "from": null,
-            "to": [
-              "50%"
-            ]
-          },
-          "reduce_fan_stop_start_freq": {
-            "from": null,
-            "to": [
-              "0"
-            ]
-          },
-          "pre_start_fan_time": {
-            "from": null,
-            "to": [
-              "0"
-            ]
-          }
-        },
-        "Metadata/filament_settings_2.config": {
-          "fan_max_speed": {
-            "from": [
-              "70"
-            ],
-            "to": [
-              "0"
-            ]
-          },
-          "additional_cooling_fan_speed": {
-            "from": null,
-            "to": [
-              "0"
-            ]
-          },
-          "first_x_layer_fan_speed": {
-            "from": null,
-            "to": [
-              "0"
-            ]
-          },
-          "first_x_layer_part_fan_speed": {
-            "from": null,
-            "to": [
-              "0"
-            ]
-          },
-          "enable_overhang_bridge_fan": {
-            "from": null,
-            "to": [
-              "1"
-            ]
-          },
-          "overhang_fan_speed": {
-            "from": [
-              "0"
-            ],
-            "to": [
-              "70"
-            ]
-          },
-          "overhang_fan_threshold": {
-            "from": null,
-            "to": [
-              "50%"
-            ]
-          },
-          "reduce_fan_stop_start_freq": {
-            "from": null,
-            "to": [
-              "0"
-            ]
-          },
-          "pre_start_fan_time": {
-            "from": null,
-            "to": [
-              "0"
-            ]
-          }
-        },
         "Metadata/project_settings.config": {
-          "fan_max_speed": {
-            "from": [
-              "70",
-              "70"
-            ],
+          "post_process": {
+            "from": [],
             "to": [
-              "0",
-              "0"
-            ]
-          },
-          "overhang_fan_speed": {
-            "from": [
-              "0",
-              "0"
-            ],
-            "to": [
-              "70",
-              "70"
-            ]
-          },
-          "overhang_fan_threshold": {
-            "from": [
-              "0%",
-              "0%"
-            ],
-            "to": [
-              "50%",
-              "50%"
-            ]
-          },
-          "reduce_fan_stop_start_freq": {
-            "from": [
-              "1",
-              "1"
-            ],
-            "to": [
-              "0",
-              "0"
-            ]
-          },
-          "pre_start_fan_time": {
-            "from": [
-              "2",
-              "2"
-            ],
-            "to": [
-              "0",
-              "0"
+              "/Users/derekbredensteiner/.platformio/penv/bin/python3 /Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/cadlib/petgf_cooling.py"
             ]
           }
         }
@@ -1367,178 +193,14 @@
     },
     {
       "project": "hardware/printed-parts/drain-readiness/projects/labels-blue-z004-mark2.3mf",
-      "previous_sha256": "15dbef8d1b891707829c0f9c624911eb33fb1b6b294addc0fa56fd4aca65640d",
-      "project_sha256": "2c77319875067e2237f19267cc0bb0622a6a34cb73b07ce676e02ab9e7a3b3f9",
+      "input_sha256": "2c77319875067e2237f19267cc0bb0622a6a34cb73b07ce676e02ab9e7a3b3f9",
+      "project_sha256": "31a22333fd4914f34dcee7901f1ca3cf9154479eb5049f49bb84a9c680c20def",
       "changes": {
-        "Metadata/filament_settings_1.config": {
-          "fan_max_speed": {
-            "from": [
-              "70"
-            ],
-            "to": [
-              "0"
-            ]
-          },
-          "additional_cooling_fan_speed": {
-            "from": null,
-            "to": [
-              "0"
-            ]
-          },
-          "first_x_layer_fan_speed": {
-            "from": null,
-            "to": [
-              "0"
-            ]
-          },
-          "first_x_layer_part_fan_speed": {
-            "from": null,
-            "to": [
-              "0"
-            ]
-          },
-          "enable_overhang_bridge_fan": {
-            "from": null,
-            "to": [
-              "1"
-            ]
-          },
-          "overhang_fan_speed": {
-            "from": [
-              "0"
-            ],
-            "to": [
-              "70"
-            ]
-          },
-          "overhang_fan_threshold": {
-            "from": null,
-            "to": [
-              "50%"
-            ]
-          },
-          "reduce_fan_stop_start_freq": {
-            "from": null,
-            "to": [
-              "0"
-            ]
-          },
-          "pre_start_fan_time": {
-            "from": null,
-            "to": [
-              "0"
-            ]
-          }
-        },
-        "Metadata/filament_settings_2.config": {
-          "fan_max_speed": {
-            "from": [
-              "70"
-            ],
-            "to": [
-              "0"
-            ]
-          },
-          "additional_cooling_fan_speed": {
-            "from": null,
-            "to": [
-              "0"
-            ]
-          },
-          "first_x_layer_fan_speed": {
-            "from": null,
-            "to": [
-              "0"
-            ]
-          },
-          "first_x_layer_part_fan_speed": {
-            "from": null,
-            "to": [
-              "0"
-            ]
-          },
-          "enable_overhang_bridge_fan": {
-            "from": null,
-            "to": [
-              "1"
-            ]
-          },
-          "overhang_fan_speed": {
-            "from": [
-              "0"
-            ],
-            "to": [
-              "70"
-            ]
-          },
-          "overhang_fan_threshold": {
-            "from": null,
-            "to": [
-              "50%"
-            ]
-          },
-          "reduce_fan_stop_start_freq": {
-            "from": null,
-            "to": [
-              "0"
-            ]
-          },
-          "pre_start_fan_time": {
-            "from": null,
-            "to": [
-              "0"
-            ]
-          }
-        },
         "Metadata/project_settings.config": {
-          "fan_max_speed": {
-            "from": [
-              "70",
-              "70"
-            ],
+          "post_process": {
+            "from": [],
             "to": [
-              "0",
-              "0"
-            ]
-          },
-          "overhang_fan_speed": {
-            "from": [
-              "0",
-              "0"
-            ],
-            "to": [
-              "70",
-              "70"
-            ]
-          },
-          "overhang_fan_threshold": {
-            "from": [
-              "0%",
-              "0%"
-            ],
-            "to": [
-              "50%",
-              "50%"
-            ]
-          },
-          "reduce_fan_stop_start_freq": {
-            "from": [
-              "1",
-              "1"
-            ],
-            "to": [
-              "0",
-              "0"
-            ]
-          },
-          "pre_start_fan_time": {
-            "from": [
-              "2",
-              "2"
-            ],
-            "to": [
-              "0",
-              "0"
+              "/Users/derekbredensteiner/.platformio/penv/bin/python3 /Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/cadlib/petgf_cooling.py"
             ]
           }
         }
@@ -1548,178 +210,14 @@
     },
     {
       "project": "hardware/printed-parts/drain-readiness/projects/labels-red-z004-mark2.3mf",
-      "previous_sha256": "3febb6810525b387b45b99f8b88b2db321db6e69c7a3c3d17313baefa7005d8f",
-      "project_sha256": "b3b08c34928ca73465f4f46a1c200323d7f0f41b040df5c277ba59348e98c482",
+      "input_sha256": "b3b08c34928ca73465f4f46a1c200323d7f0f41b040df5c277ba59348e98c482",
+      "project_sha256": "7afe607831e7f7c19b7b7ce39c182a48f8a1d338571e618f7f8eafd9e934177c",
       "changes": {
-        "Metadata/filament_settings_1.config": {
-          "fan_max_speed": {
-            "from": [
-              "70"
-            ],
-            "to": [
-              "0"
-            ]
-          },
-          "additional_cooling_fan_speed": {
-            "from": null,
-            "to": [
-              "0"
-            ]
-          },
-          "first_x_layer_fan_speed": {
-            "from": null,
-            "to": [
-              "0"
-            ]
-          },
-          "first_x_layer_part_fan_speed": {
-            "from": null,
-            "to": [
-              "0"
-            ]
-          },
-          "enable_overhang_bridge_fan": {
-            "from": null,
-            "to": [
-              "1"
-            ]
-          },
-          "overhang_fan_speed": {
-            "from": [
-              "0"
-            ],
-            "to": [
-              "70"
-            ]
-          },
-          "overhang_fan_threshold": {
-            "from": null,
-            "to": [
-              "50%"
-            ]
-          },
-          "reduce_fan_stop_start_freq": {
-            "from": null,
-            "to": [
-              "0"
-            ]
-          },
-          "pre_start_fan_time": {
-            "from": null,
-            "to": [
-              "0"
-            ]
-          }
-        },
-        "Metadata/filament_settings_2.config": {
-          "fan_max_speed": {
-            "from": [
-              "70"
-            ],
-            "to": [
-              "0"
-            ]
-          },
-          "additional_cooling_fan_speed": {
-            "from": null,
-            "to": [
-              "0"
-            ]
-          },
-          "first_x_layer_fan_speed": {
-            "from": null,
-            "to": [
-              "0"
-            ]
-          },
-          "first_x_layer_part_fan_speed": {
-            "from": null,
-            "to": [
-              "0"
-            ]
-          },
-          "enable_overhang_bridge_fan": {
-            "from": null,
-            "to": [
-              "1"
-            ]
-          },
-          "overhang_fan_speed": {
-            "from": [
-              "0"
-            ],
-            "to": [
-              "70"
-            ]
-          },
-          "overhang_fan_threshold": {
-            "from": null,
-            "to": [
-              "50%"
-            ]
-          },
-          "reduce_fan_stop_start_freq": {
-            "from": null,
-            "to": [
-              "0"
-            ]
-          },
-          "pre_start_fan_time": {
-            "from": null,
-            "to": [
-              "0"
-            ]
-          }
-        },
         "Metadata/project_settings.config": {
-          "fan_max_speed": {
-            "from": [
-              "70",
-              "70"
-            ],
+          "post_process": {
+            "from": [],
             "to": [
-              "0",
-              "0"
-            ]
-          },
-          "overhang_fan_speed": {
-            "from": [
-              "0",
-              "0"
-            ],
-            "to": [
-              "70",
-              "70"
-            ]
-          },
-          "overhang_fan_threshold": {
-            "from": [
-              "0%",
-              "0%"
-            ],
-            "to": [
-              "50%",
-              "50%"
-            ]
-          },
-          "reduce_fan_stop_start_freq": {
-            "from": [
-              "1",
-              "1"
-            ],
-            "to": [
-              "0",
-              "0"
-            ]
-          },
-          "pre_start_fan_time": {
-            "from": [
-              "2",
-              "2"
-            ],
-            "to": [
-              "0",
-              "0"
+              "/Users/derekbredensteiner/.platformio/penv/bin/python3 /Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/cadlib/petgf_cooling.py"
             ]
           }
         }
@@ -1729,178 +227,14 @@
     },
     {
       "project": "hardware/printed-parts/drain-readiness/projects/labels-white-z004-mark2.3mf",
-      "previous_sha256": "cb274f83fc49044d03b368948c1f5a670dfea6c70b7def4279f4f4054d920dd3",
-      "project_sha256": "8ca4abaa6ed7dbd41de259ab1160728fecd275a72717b96e6ee7d26cd4147702",
+      "input_sha256": "8ca4abaa6ed7dbd41de259ab1160728fecd275a72717b96e6ee7d26cd4147702",
+      "project_sha256": "115a5b261b28e194b5b52417a1d17f069d340ae6139f612ff099a441f6e9662b",
       "changes": {
-        "Metadata/filament_settings_1.config": {
-          "fan_max_speed": {
-            "from": [
-              "70"
-            ],
-            "to": [
-              "0"
-            ]
-          },
-          "additional_cooling_fan_speed": {
-            "from": null,
-            "to": [
-              "0"
-            ]
-          },
-          "first_x_layer_fan_speed": {
-            "from": null,
-            "to": [
-              "0"
-            ]
-          },
-          "first_x_layer_part_fan_speed": {
-            "from": null,
-            "to": [
-              "0"
-            ]
-          },
-          "enable_overhang_bridge_fan": {
-            "from": null,
-            "to": [
-              "1"
-            ]
-          },
-          "overhang_fan_speed": {
-            "from": [
-              "0"
-            ],
-            "to": [
-              "70"
-            ]
-          },
-          "overhang_fan_threshold": {
-            "from": null,
-            "to": [
-              "50%"
-            ]
-          },
-          "reduce_fan_stop_start_freq": {
-            "from": null,
-            "to": [
-              "0"
-            ]
-          },
-          "pre_start_fan_time": {
-            "from": null,
-            "to": [
-              "0"
-            ]
-          }
-        },
-        "Metadata/filament_settings_2.config": {
-          "fan_max_speed": {
-            "from": [
-              "70"
-            ],
-            "to": [
-              "0"
-            ]
-          },
-          "additional_cooling_fan_speed": {
-            "from": null,
-            "to": [
-              "0"
-            ]
-          },
-          "first_x_layer_fan_speed": {
-            "from": null,
-            "to": [
-              "0"
-            ]
-          },
-          "first_x_layer_part_fan_speed": {
-            "from": null,
-            "to": [
-              "0"
-            ]
-          },
-          "enable_overhang_bridge_fan": {
-            "from": null,
-            "to": [
-              "1"
-            ]
-          },
-          "overhang_fan_speed": {
-            "from": [
-              "0"
-            ],
-            "to": [
-              "70"
-            ]
-          },
-          "overhang_fan_threshold": {
-            "from": null,
-            "to": [
-              "50%"
-            ]
-          },
-          "reduce_fan_stop_start_freq": {
-            "from": null,
-            "to": [
-              "0"
-            ]
-          },
-          "pre_start_fan_time": {
-            "from": null,
-            "to": [
-              "0"
-            ]
-          }
-        },
         "Metadata/project_settings.config": {
-          "fan_max_speed": {
-            "from": [
-              "70",
-              "70"
-            ],
+          "post_process": {
+            "from": [],
             "to": [
-              "0",
-              "0"
-            ]
-          },
-          "overhang_fan_speed": {
-            "from": [
-              "0",
-              "0"
-            ],
-            "to": [
-              "70",
-              "70"
-            ]
-          },
-          "overhang_fan_threshold": {
-            "from": [
-              "0%",
-              "0%"
-            ],
-            "to": [
-              "50%",
-              "50%"
-            ]
-          },
-          "reduce_fan_stop_start_freq": {
-            "from": [
-              "1",
-              "1"
-            ],
-            "to": [
-              "0",
-              "0"
-            ]
-          },
-          "pre_start_fan_time": {
-            "from": [
-              "2",
-              "2"
-            ],
-            "to": [
-              "0",
-              "0"
+              "/Users/derekbredensteiner/.platformio/penv/bin/python3 /Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/cadlib/petgf_cooling.py"
             ]
           }
         }
@@ -1910,108 +244,14 @@
     },
     {
       "project": "hardware/printed-parts/fixtures/tube-insertion/ready/tube-insertion-centered-grip-petgf-left04-z004-mark2.3mf",
-      "previous_sha256": "691ec0605c917211eef76704ce2aad50a9788befe89b21d83ebbffa2782ce60e",
-      "project_sha256": "7aa4bb0acfdcce53c75b826436189c5dbf4e68467ae1bc422fd19e6565018384",
+      "input_sha256": "7aa4bb0acfdcce53c75b826436189c5dbf4e68467ae1bc422fd19e6565018384",
+      "project_sha256": "620fa7236595faeeb113e4e0657e83f6b9093b0f2bd1b821dd7ab9876ba16388",
       "changes": {
-        "Metadata/filament_settings_1.config": {
-          "fan_max_speed": {
-            "from": [
-              "70"
-            ],
-            "to": [
-              "0"
-            ]
-          },
-          "additional_cooling_fan_speed": {
-            "from": null,
-            "to": [
-              "0"
-            ]
-          },
-          "first_x_layer_fan_speed": {
-            "from": null,
-            "to": [
-              "0"
-            ]
-          },
-          "first_x_layer_part_fan_speed": {
-            "from": null,
-            "to": [
-              "0"
-            ]
-          },
-          "enable_overhang_bridge_fan": {
-            "from": null,
-            "to": [
-              "1"
-            ]
-          },
-          "overhang_fan_speed": {
-            "from": [
-              "0"
-            ],
-            "to": [
-              "70"
-            ]
-          },
-          "overhang_fan_threshold": {
-            "from": null,
-            "to": [
-              "50%"
-            ]
-          },
-          "reduce_fan_stop_start_freq": {
-            "from": null,
-            "to": [
-              "0"
-            ]
-          },
-          "pre_start_fan_time": {
-            "from": null,
-            "to": [
-              "0"
-            ]
-          }
-        },
         "Metadata/project_settings.config": {
-          "fan_max_speed": {
-            "from": [
-              "70"
-            ],
+          "post_process": {
+            "from": [],
             "to": [
-              "0"
-            ]
-          },
-          "overhang_fan_speed": {
-            "from": [
-              "0"
-            ],
-            "to": [
-              "70"
-            ]
-          },
-          "overhang_fan_threshold": {
-            "from": [
-              "0%"
-            ],
-            "to": [
-              "50%"
-            ]
-          },
-          "reduce_fan_stop_start_freq": {
-            "from": [
-              "1"
-            ],
-            "to": [
-              "0"
-            ]
-          },
-          "pre_start_fan_time": {
-            "from": [
-              "2"
-            ],
-            "to": [
-              "0"
+              "/Users/derekbredensteiner/.platformio/penv/bin/python3 /Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/cadlib/petgf_cooling.py"
             ]
           }
         }
@@ -2021,108 +261,14 @@
     },
     {
       "project": "hardware/printed-parts/fixtures/tube-insertion/ready/tube-insertion-centered-grip-petgf-left04-z018-mark1.3mf",
-      "previous_sha256": "00fd619741e5cc7854d3e7e570172e71d4f05998cbf06d4e9271e47bdd395a15",
-      "project_sha256": "1fed4f2de9cb4156c8e23cb700e180efbcfcf4eb1db72e9e31a1aaed52323d5c",
+      "input_sha256": "1fed4f2de9cb4156c8e23cb700e180efbcfcf4eb1db72e9e31a1aaed52323d5c",
+      "project_sha256": "8cd9dd06269b936f831845800597d0e781a40c718f7940aa1104d3db3b406504",
       "changes": {
-        "Metadata/filament_settings_1.config": {
-          "fan_max_speed": {
-            "from": [
-              "70"
-            ],
-            "to": [
-              "0"
-            ]
-          },
-          "additional_cooling_fan_speed": {
-            "from": null,
-            "to": [
-              "0"
-            ]
-          },
-          "first_x_layer_fan_speed": {
-            "from": null,
-            "to": [
-              "0"
-            ]
-          },
-          "first_x_layer_part_fan_speed": {
-            "from": null,
-            "to": [
-              "0"
-            ]
-          },
-          "enable_overhang_bridge_fan": {
-            "from": null,
-            "to": [
-              "1"
-            ]
-          },
-          "overhang_fan_speed": {
-            "from": [
-              "0"
-            ],
-            "to": [
-              "70"
-            ]
-          },
-          "overhang_fan_threshold": {
-            "from": null,
-            "to": [
-              "50%"
-            ]
-          },
-          "reduce_fan_stop_start_freq": {
-            "from": null,
-            "to": [
-              "0"
-            ]
-          },
-          "pre_start_fan_time": {
-            "from": null,
-            "to": [
-              "0"
-            ]
-          }
-        },
         "Metadata/project_settings.config": {
-          "fan_max_speed": {
-            "from": [
-              "70"
-            ],
+          "post_process": {
+            "from": [],
             "to": [
-              "0"
-            ]
-          },
-          "overhang_fan_speed": {
-            "from": [
-              "0"
-            ],
-            "to": [
-              "70"
-            ]
-          },
-          "overhang_fan_threshold": {
-            "from": [
-              "0%"
-            ],
-            "to": [
-              "50%"
-            ]
-          },
-          "reduce_fan_stop_start_freq": {
-            "from": [
-              "1"
-            ],
-            "to": [
-              "0"
-            ]
-          },
-          "pre_start_fan_time": {
-            "from": [
-              "2"
-            ],
-            "to": [
-              "0"
+              "/Users/derekbredensteiner/.platformio/penv/bin/python3 /Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/cadlib/petgf_cooling.py"
             ]
           }
         }
@@ -2132,108 +278,14 @@
     },
     {
       "project": "hardware/printed-parts/fixtures/tube-insertion/ready/tube-insertion-rigid-base-h2c.3mf",
-      "previous_sha256": "259d5d99428a71fb85ca0c04838ca71f492b699d1196eb901dfe67041e020589",
-      "project_sha256": "5271e328b564b6b52422862769b2434720d2732a9250ee1575d3d576ff5ec9fc",
+      "input_sha256": "5271e328b564b6b52422862769b2434720d2732a9250ee1575d3d576ff5ec9fc",
+      "project_sha256": "3ac5add076e4179abad596fa0f939280682bfc1b9a1c0b343c6a9eb5fe85b009",
       "changes": {
-        "Metadata/filament_settings_1.config": {
-          "fan_max_speed": {
-            "from": [
-              "70"
-            ],
-            "to": [
-              "0"
-            ]
-          },
-          "additional_cooling_fan_speed": {
-            "from": null,
-            "to": [
-              "0"
-            ]
-          },
-          "first_x_layer_fan_speed": {
-            "from": null,
-            "to": [
-              "0"
-            ]
-          },
-          "first_x_layer_part_fan_speed": {
-            "from": null,
-            "to": [
-              "0"
-            ]
-          },
-          "enable_overhang_bridge_fan": {
-            "from": null,
-            "to": [
-              "1"
-            ]
-          },
-          "overhang_fan_speed": {
-            "from": [
-              "0"
-            ],
-            "to": [
-              "70"
-            ]
-          },
-          "overhang_fan_threshold": {
-            "from": null,
-            "to": [
-              "50%"
-            ]
-          },
-          "reduce_fan_stop_start_freq": {
-            "from": null,
-            "to": [
-              "0"
-            ]
-          },
-          "pre_start_fan_time": {
-            "from": null,
-            "to": [
-              "0"
-            ]
-          }
-        },
         "Metadata/project_settings.config": {
-          "fan_max_speed": {
-            "from": [
-              "70"
-            ],
+          "post_process": {
+            "from": [],
             "to": [
-              "0"
-            ]
-          },
-          "overhang_fan_speed": {
-            "from": [
-              "0"
-            ],
-            "to": [
-              "70"
-            ]
-          },
-          "overhang_fan_threshold": {
-            "from": [
-              "0%"
-            ],
-            "to": [
-              "50%"
-            ]
-          },
-          "reduce_fan_stop_start_freq": {
-            "from": [
-              "1"
-            ],
-            "to": [
-              "0"
-            ]
-          },
-          "pre_start_fan_time": {
-            "from": [
-              "2"
-            ],
-            "to": [
-              "0"
+              "/Users/derekbredensteiner/.platformio/penv/bin/python3 /Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/cadlib/petgf_cooling.py"
             ]
           }
         }
@@ -2243,108 +295,14 @@
     },
     {
       "project": "hardware/printed-parts/fixtures/tube-insertion/ready/tube-insertion-rigid-parts-h2c.3mf",
-      "previous_sha256": "ef5a0647c51006fe677f0d03de7b2b6b892f6a12622b3750d13b89289a195b5a",
-      "project_sha256": "d8a1263bcb2a6d92f571385ed1d41dc9d47bd2301553e7a4b3a4f2bccf5a8e15",
+      "input_sha256": "d8a1263bcb2a6d92f571385ed1d41dc9d47bd2301553e7a4b3a4f2bccf5a8e15",
+      "project_sha256": "4f199bfb0aaa2337bfc9c3657dcbbb79cab806bd6d3b2848d0e9fcc517e06f69",
       "changes": {
-        "Metadata/filament_settings_1.config": {
-          "fan_max_speed": {
-            "from": [
-              "70"
-            ],
-            "to": [
-              "0"
-            ]
-          },
-          "additional_cooling_fan_speed": {
-            "from": null,
-            "to": [
-              "0"
-            ]
-          },
-          "first_x_layer_fan_speed": {
-            "from": null,
-            "to": [
-              "0"
-            ]
-          },
-          "first_x_layer_part_fan_speed": {
-            "from": null,
-            "to": [
-              "0"
-            ]
-          },
-          "enable_overhang_bridge_fan": {
-            "from": null,
-            "to": [
-              "1"
-            ]
-          },
-          "overhang_fan_speed": {
-            "from": [
-              "0"
-            ],
-            "to": [
-              "70"
-            ]
-          },
-          "overhang_fan_threshold": {
-            "from": null,
-            "to": [
-              "50%"
-            ]
-          },
-          "reduce_fan_stop_start_freq": {
-            "from": null,
-            "to": [
-              "0"
-            ]
-          },
-          "pre_start_fan_time": {
-            "from": null,
-            "to": [
-              "0"
-            ]
-          }
-        },
         "Metadata/project_settings.config": {
-          "fan_max_speed": {
-            "from": [
-              "70"
-            ],
+          "post_process": {
+            "from": [],
             "to": [
-              "0"
-            ]
-          },
-          "overhang_fan_speed": {
-            "from": [
-              "0"
-            ],
-            "to": [
-              "70"
-            ]
-          },
-          "overhang_fan_threshold": {
-            "from": [
-              "0%"
-            ],
-            "to": [
-              "50%"
-            ]
-          },
-          "reduce_fan_stop_start_freq": {
-            "from": [
-              "1"
-            ],
-            "to": [
-              "0"
-            ]
-          },
-          "pre_start_fan_time": {
-            "from": [
-              "2"
-            ],
-            "to": [
-              "0"
+              "/Users/derekbredensteiner/.platformio/penv/bin/python3 /Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/cadlib/petgf_cooling.py"
             ]
           }
         }
@@ -2354,108 +312,14 @@
     },
     {
       "project": "hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer-petgf.3mf",
-      "previous_sha256": "05780cfef9034519a98d0a86fb83b7ae9c29750d767d00eb2ec2e4e4b0f17814",
-      "project_sha256": "4b01a918054c9dab191055a99bb24866739c747e73bc9e6c4bb3594509251975",
+      "input_sha256": "32ab20b87103dc1248939cf9598a7fa67bc3e019a7de37dcb9b1c7230dadaf83",
+      "project_sha256": "a7fda0cda652697b8627c78d8ba9897991c90d72cc633ec92399e6b7deead1e7",
       "changes": {
-        "Metadata/filament_settings_1.config": {
-          "fan_max_speed": {
-            "from": [
-              "70"
-            ],
-            "to": [
-              "0"
-            ]
-          },
-          "additional_cooling_fan_speed": {
-            "from": null,
-            "to": [
-              "0"
-            ]
-          },
-          "first_x_layer_fan_speed": {
-            "from": null,
-            "to": [
-              "0"
-            ]
-          },
-          "first_x_layer_part_fan_speed": {
-            "from": null,
-            "to": [
-              "0"
-            ]
-          },
-          "enable_overhang_bridge_fan": {
-            "from": null,
-            "to": [
-              "1"
-            ]
-          },
-          "overhang_fan_speed": {
-            "from": [
-              "0"
-            ],
-            "to": [
-              "70"
-            ]
-          },
-          "overhang_fan_threshold": {
-            "from": null,
-            "to": [
-              "50%"
-            ]
-          },
-          "reduce_fan_stop_start_freq": {
-            "from": null,
-            "to": [
-              "0"
-            ]
-          },
-          "pre_start_fan_time": {
-            "from": null,
-            "to": [
-              "0"
-            ]
-          }
-        },
         "Metadata/project_settings.config": {
-          "fan_max_speed": {
-            "from": [
-              "70"
-            ],
+          "post_process": {
+            "from": [],
             "to": [
-              "0"
-            ]
-          },
-          "overhang_fan_speed": {
-            "from": [
-              "0"
-            ],
-            "to": [
-              "70"
-            ]
-          },
-          "overhang_fan_threshold": {
-            "from": [
-              "0%"
-            ],
-            "to": [
-              "50%"
-            ]
-          },
-          "reduce_fan_stop_start_freq": {
-            "from": [
-              "1"
-            ],
-            "to": [
-              "0"
-            ]
-          },
-          "pre_start_fan_time": {
-            "from": [
-              "2"
-            ],
-            "to": [
-              "0"
+              "/Users/derekbredensteiner/.platformio/penv/bin/python3 /Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/cadlib/petgf_cooling.py"
             ]
           }
         }
@@ -2463,5 +327,6 @@
       "mesh_and_build_members_unchanged": true,
       "native_slice_current": false
     }
-  ]
+  ],
+  "purpose": "Reusable editable PET-GF templates with localized bridge and foundation cooling."
 }

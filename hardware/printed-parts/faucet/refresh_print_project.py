@@ -424,6 +424,7 @@ def object_toolpaths(gcode: Path, output: Path, identify_id: int | None) -> dict
 
 def slice_review(project: Path, report: dict, directory: Path) -> dict:
     """Read each plate's toolpaths in its own placement and retain support topology."""
+    petgf_cooling.apply_directory(directory, project)
     sys.path.insert(0, str(ROOT / "hardware/scripts"))
     from enclosure_support_audit import audit
 

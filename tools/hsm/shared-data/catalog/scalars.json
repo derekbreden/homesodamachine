@@ -149,6 +149,10 @@
     "face_tol": 0.25
   },
   "petgf_cooling": {
+    "FOUNDATION": {
+      "height_mm": 0.8,
+      "grid_mm": 0.2
+    },
     "VALUES": {
       "fan_min_speed": "0",
       "fan_max_speed": "0",

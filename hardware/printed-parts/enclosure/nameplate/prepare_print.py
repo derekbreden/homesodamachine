@@ -10,6 +10,7 @@ import json
 import os
 from pathlib import Path
 import subprocess
+import sys
 import xml.etree.ElementTree as ET
 import zipfile
 
@@ -21,6 +22,9 @@ import nameplate as plate
 
 HERE = Path(__file__).resolve().parent
 ROOT = next(p for p in HERE.parents if (p/"tools").is_dir())
+sys.path.insert(0, str(ROOT/"hardware/printed-parts/cadlib"))
+import petgf_cooling
+
 PROFILE = ROOT/"hardware/printed-parts/petgf.3mf"
 CORE = "http://schemas.microsoft.com/3dmanufacturing/core/2015/02"
 ET.register_namespace("", CORE)
@@ -153,6 +157,8 @@ def main():
                                    "--outputdir",str(directory),"--export-3mf",args.export_name,
                                    str(project)],cwd=directory,
                                    stdout=log,stderr=subprocess.STDOUT)
+        if not result.returncode:
+            petgf_cooling.apply_directory(directory, project)
         print(f"Local slice exit {result.returncode}: {directory}",flush=True)
         raise SystemExit(result.returncode)
 
