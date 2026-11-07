@@ -1560,9 +1560,12 @@ name = "hsm-machine-data"
 version = "0.1.0"
 dependencies = [
  "anyhow",
+ "hsm-cold-core-interface",
  "hsm-documents",
  "hsm-enclosure-interface",
+ "hsm-enclosure-numbers",
  "hsm-layout-data",
+ "hsm-pcba-numbers",
  "serde",
  "serde_json",
  "zip",

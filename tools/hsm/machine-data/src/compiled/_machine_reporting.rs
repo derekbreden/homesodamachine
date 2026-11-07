@@ -49,9 +49,9 @@ e.set("scalar_namespace",{let params=vec![("spec".into(),Some(Val::None),false)]
 let imported=rt.import_module("_enclosure_datums")?;e.set("_enclosure_datums",imported)?;
 let assigned99={let fun102=e.get("_enclosure_datums")?.attr("load")?;let mut args100=Vec::new();let mut kw101=Vec::new();fun102.call(args100,kw101)?};e.set("enc",assigned99.clone())?;
 let imported=rt.import_module("_cold_core_interface")?;e.set("cci",imported)?;
-let imported=rt.import_module("foam_assembly")?;e.set("foam",imported)?;
+let imported={use hsm_enclosure_numbers::catalog;let fits=hsm_cold_core_interface::Fits{slip:catalog::slip(),running:catalog::running(),supported_surface:catalog::supported(),m5_thread_pass_dia:catalog::m5_thread_pass_dia()};let fun=e.get("SimpleNamespace")?;let mut kw=Vec::new();kw.push(("lid_total_height".into(),Val::Float(hsm_cold_core_interface::foam_cap_lid_height(&fits))));fun.call(Vec::new(),kw)?};e.set("foam",imported)?;
 let imported=rt.import_module("_carbonator")?;e.set("carbonator",imported)?;
-let imported=rt.import_module("pcba_tray")?;e.set("pcba",imported)?;
+let imported={let centre=hsm_pcba_numbers::centre();let fun=e.get("SimpleNamespace")?;let mut kw=Vec::new();kw.push(("_centre".into(),Val::tuple(vec![Val::Float(centre[0]),Val::Float(centre[1])])));kw.push(("_thickness".into(),Val::Float(hsm_pcba_numbers::THICKNESS)));fun.call(Vec::new(),kw)?};e.set("pcba",imported)?;
 let imported=rt.import_module("sf76e_thermal_fuse")?;e.set("fuse",imported)?;
 let imported=rt.import_module("digiten_flow_sensor")?;e.set("digiten",imported)?;
 let assigned103={let mut s=Vec::new();s.push({let mut s=Vec::new();s.push(Val::Float(1.0f64));s.push(Val::Float(0.0f64));s.push(Val::Float(0.0f64));Val::tuple(s)});s.push({let mut s=Vec::new();s.push(Val::Float(0.0f64));s.push(Val::Float(1.0f64));s.push(Val::Float(0.0f64));Val::tuple(s)});s.push({let mut s=Vec::new();s.push(Val::Float(0.0f64));s.push(Val::Float(0.0f64));s.push(Val::Float(1.0f64));Val::tuple(s)});Val::tuple(s)};let unpack104=unpack(assigned103.clone(),3)?;e.set("x",unpack104[0].clone())?;e.set("y",unpack104[1].clone())?;e.set("z",unpack104[2].clone())?;
