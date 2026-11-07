@@ -11,10 +11,6 @@ name = "faucet-display-snap"
 path = "../../../hardware/printed-parts/fixtures/faucet-display-snap/faucet_display_snap_trial.rs"
 
 [[bin]]
-name = "weld-rotator"
-path = "../../../hardware/printed-parts/fixtures/weld-rotator/weld_rotator.rs"
-
-[[bin]]
 name = "rear-snap-retention"
 path = "../../../hardware/print-tests/rear-snap-retention/rear_snap_retention.rs"
 
