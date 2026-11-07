@@ -10,6 +10,6 @@ Basic and clear PETG Translucent feed the right hotend rack from the AMS Pro. Th
 and launch records name each material slot and the printer's accepted job.
 
 The [physical result](physical-result.json) records the white-filament deposition and
-extrusion-motor overload. The [drying watch](drying/state.json) follows the AMS temperature
-and humidity readings before the next launch. Its readings measure the air inside each
+extrusion-motor overload. The [drying record](drying/state.json) keeps the AMS temperature
+and humidity readings beside the [post-drying launch](drying/launch.json). Its readings measure the air inside each
 unit; elapsed drying time and temperature inform the restart together with that trend.
