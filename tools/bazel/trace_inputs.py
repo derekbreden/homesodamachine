@@ -391,6 +391,11 @@ RUST_STEPS = {
     "hardware/printed-parts/cold-core/prv-shroud/prv_shroud.rs":
         ("prv-shroud", "prv-shroud", "hardware/printed-parts/cold-core/prv-shroud"),
     "hardware/ledger/purchases.rs": ("ledger", "purchases", ""),
+    "hardware/manifold-layout/manifold_layout.rs":
+        ("manifold-layout", "manifold-layout", "hardware/manifold-layout"),
+    "hardware/printed-parts/enclosure/rear-equipment-caps/rear_equipment_caps.rs":
+        ("rear-equipment-caps", "rear-equipment-caps", "hardware/printed-parts/enclosure/rear-equipment-caps"),
+    "hardware/topology/fluid_topology.rs": ("fluid-topology", "fluid-topology", ""),
     "hardware/printed-parts/faucet/tpu-o-ring/tpu_o_ring.rs":
         ("tpu-o-ring", "tpu-o-ring", "hardware/printed-parts/faucet/tpu-o-ring"),
     "hardware/printed-parts/faucet/umbilical-organizer/umbilical_organizer.rs":

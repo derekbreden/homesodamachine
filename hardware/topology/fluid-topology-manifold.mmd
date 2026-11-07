@@ -4,15 +4,15 @@ flowchart LR
   %% is one placed body — a valve, a pump, a junction fitting, the cold core, a panel bulkhead —
   %% and every edge is one connection, carrying what the machine makes it out of.
 
-  %% Source of truth: `manifold-layout/enclosure_assembly.py` places the pack,
-  %% `manifold-layout/_lines.py` authors every run BETWEEN placed bodies and `_routing.Run.length`
-  %% measures it off the built centreline, and `manifold-layout/manifold_layout.py` makes the
-  %% manifold's own interior. `_fluid_topology_sync.py` writes every label below and gates every
-  %% edge against the built segment — an edge whose two ends are not that segment's two ends fails
-  %% the gate.
+  %% Source of truth: the installed machine (`manifold-layout/installed_machine.rs`) places the
+  %% pack and draws every run BETWEEN placed bodies, measuring each off its built centreline, and
+  %% the manifold's numbers (`manifold-layout/manifold/`) stand the manifold's own interior. The
+  %% fluid-topology program (`topology/fluid_topology.rs`) writes every label below and gates
+  %% every edge against the built segment — an edge whose two ends are not that segment's two ends
+  %% fails the gate.
 
-  %% NO LENGTH IS DRAWN HERE. Segment by segment, the cut figures are what a bare run of
-  %% `_fluid_topology_sync.py` prints: every segment with its length, its corners and how it is
+  %% NO LENGTH IS DRAWN HERE. Segment by segment, the cut figures are what a bare run of the
+  %% fluid-topology program prints: every segment with its length, its corners and how it is
   %% made, and the total under them. The aggregates below are `%%` markers, which the renderer
   %% never reaches.
 
@@ -188,7 +188,7 @@ flowchart LR
   BhB -.-> Faucet
 
   %% Circuit colours. Mermaid numbers links by DECLARATION ORDER, so every index below is a count
-  %% of the edges above it and not an authorship — `_fluid_topology_sync.py` writes each list off
+  %% of the edges above it and not an authorship — the fluid-topology program writes each list off
   %% the parsed edge order and each edge's own route id, and the style after it is this chart's.
   %% The `(group:NAME)` in each comment is what tells the driver which line takes which list.
   %% Shared source chain (group:shared) — white.

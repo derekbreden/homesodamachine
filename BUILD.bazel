@@ -2821,112 +2821,18 @@ copy_file hardware/manifold-layout/enclosure-assembly.step.mesh "$$O13"
 )
 
 genrule(
-    name = "manifold-layout",
+    name = "manifold-layout-program",
     srcs = [
-        "hardware/assembly/scenes/model_export/component_order.rs",
-        "hardware/assembly/scenes/model_export/lib.rs",
-        "hardware/assembly/scenes/model_export/model.rs",
-        "hardware/assembly/scenes/model_export/payload.rs",
-        "hardware/cut-parts/carbonation/carbonator-tube/numbers.rs",
-        "hardware/manifold-layout/above-core.json",
-        "hardware/manifold-layout/manifold_layout.py",
+        "hardware/manifold-layout/manifold/lib.rs",
+        "hardware/manifold-layout/manifold/placements.rs",
         "hardware/manifold-layout/manifold_layout.rs",
-        "hardware/printed-parts/cadlib/_scalar_provider.py",
-        "hardware/printed-parts/cadlib/snap.py",
-        "hardware/printed-parts/cadlib/world_workplane.py",
-        "hardware/printed-parts/cold-core/interface/lib.rs",
-        "hardware/printed-parts/enclosure/bulkhead-ring/numbers.rs",
-        "hardware/printed-parts/enclosure/enclosure/_enclosure_compiled.py",
-        "hardware/printed-parts/enclosure/enclosure/_enclosure_data.py",
-        "hardware/printed-parts/enclosure/enclosure/disposal-warning-artwork.json",
-        "hardware/printed-parts/enclosure/enclosure/interface/anchor_cap.rs",
-        "hardware/printed-parts/enclosure/enclosure/interface/fits.rs",
-        "hardware/printed-parts/enclosure/enclosure/interface/lib.rs",
-        "hardware/printed-parts/enclosure/enclosure/interface/swept.rs",
-        "hardware/printed-parts/enclosure/enclosure/numbers/catalog.rs",
-        "hardware/printed-parts/enclosure/enclosure/numbers/display_mount.rs",
-        "hardware/printed-parts/enclosure/enclosure/numbers/disposal.rs",
-        "hardware/printed-parts/enclosure/enclosure/numbers/faces.rs",
-        "hardware/printed-parts/enclosure/enclosure/numbers/field.rs",
-        "hardware/printed-parts/enclosure/enclosure/numbers/layout.rs",
-        "hardware/printed-parts/enclosure/enclosure/numbers/lib.rs",
-        "hardware/printed-parts/enclosure/enclosure/numbers/pump.rs",
-        "hardware/printed-parts/enclosure/enclosure/numbers/quadrant.rs",
-        "hardware/printed-parts/enclosure/enclosure/numbers/rear_wall.rs",
-        "hardware/printed-parts/enclosure/enclosure/numbers/shell.rs",
-        "hardware/printed-parts/enclosure/enclosure/numbers/spec.rs",
-        "hardware/printed-parts/enclosure/enclosure/numbers/structure.rs",
-        "hardware/printed-parts/enclosure/nameplate/snap_dimensions.rs",
-        "hardware/printed-parts/enclosure/pump-dock/fixed_returns.py",
-        "hardware/printed-parts/enclosure/pump-tray/pump_case.py",
-        "hardware/printed-parts/valve-seat/numbers.rs",
-        "hardware/reference/_reference_data.py",
-        "hardware/reference/beduan-solenoid/beduan-solenoid.step",
-        "hardware/reference/beduan-solenoid/beduan-solenoid.step.mesh",
-        "hardware/reference/beduan-solenoid/beduan_solenoid.py",
-        "hardware/reference/beduan-solenoid/frozen-asset.json",
-        "hardware/reference/elbow-connector/elbow-connector.step",
-        "hardware/reference/jg-pp0208e-tee/branch-operating-measurements.json",
-        "hardware/reference/kamoer-kphm400/frozen-asset.json",
-        "hardware/reference/kamoer-kphm400/kamoer-kphm400.step",
-        "hardware/reference/kamoer-kphm400/kamoer-kphm400.step.mesh",
-        "hardware/reference/kamoer-kphm400/kamoer_kphm400.py",
-        "hardware/reference/neofit-stem-elbow/frozen-asset.json",
-        "hardware/reference/neofit-stem-elbow/neofit-stem-elbow.step",
-        "hardware/reference/neofit-stem-elbow/neofit_stem_elbow.py",
-        "hardware/reference/tee-connector/frozen-asset.json",
-        "hardware/reference/tee-connector/tee-connector.step",
-        "hardware/reference/tee-connector/tee-connector.step.mesh",
-        "hardware/reference/tee-connector/tee_connector.py",
-        "hardware/reference/y-divider/y_divider.py",
-        "hardware/scripts/_build_data.py",
-        "hardware/scripts/_cadq_export.py",
-        "hardware/scripts/_document_export.py",
-        "hardware/scripts/_machine_data.py",
-        "hardware/scripts/_material_base.py",
-        "hardware/scripts/_materials.py",
-        "hardware/scripts/_payload_rules.py",
-        "hardware/scripts/_routing.py",
-        "hardware/scripts/_rust_data.py",
-        "hardware/scripts/_rust_objects.py",
-        "hardware/scripts/_rust_part.py",
-        "hardware/scripts/_shared_data.py",
-        "hardware/scripts/_stated_bounds.py",
-        "tools/hsm/build-data/Cargo.toml",
-        "tools/hsm/build-data/src/artifact_cache.rs",
-        "tools/hsm/build-data/src/artifacts.rs",
-        "tools/hsm/build-data/src/assets.rs",
-        "tools/hsm/build-data/src/inventory.rs",
-        "tools/hsm/build-data/src/lib.rs",
-        "tools/hsm/build-data/src/main.rs",
-        "tools/hsm/build-data/src/payload.rs",
-        "tools/hsm/build-data/src/projection.rs",
-        "tools/hsm/build-data/src/publication.rs",
-        "tools/hsm/build-data/src/publication_archive.rs",
-        "tools/hsm/build-data/src/publication_state.rs",
-        "tools/hsm/build-data/src/publication_zlib.rs",
-        "tools/hsm/build-data/src/sources.rs",
-        "tools/hsm/build-data/src/support.rs",
-        "tools/hsm/build-data/src/surfaces.rs",
+        "hardware/reference/neofit-stem-elbow/reference-parameters.json",
         ":out/cargo-config/tools/hsm/cargo-config.json",
         "tools/hsm/documents/Cargo.toml",
         "tools/hsm/documents/src/interop.rs",
         "tools/hsm/documents/src/interop/standard.rs",
         "tools/hsm/documents/src/lib.rs",
         "tools/hsm/documents/src/python_checked.rs",
-        "tools/hsm/enclosure-data/Cargo.toml",
-        "tools/hsm/enclosure-data/src/compiled.rs",
-        "tools/hsm/enclosure-data/src/compiled/fixed_returns.rs",
-        "tools/hsm/enclosure-data/src/compiled/modules.rs",
-        "tools/hsm/enclosure-data/src/compiled/pump_case.rs",
-        "tools/hsm/enclosure-data/src/compiled/rear_equipment_caps.rs",
-        "tools/hsm/enclosure-data/src/core_dimensions.rs",
-        "tools/hsm/enclosure-data/src/core_profiles.rs",
-        "tools/hsm/enclosure-data/src/main.rs",
-        "tools/hsm/enclosure-data/src/nameplate_snap.rs",
-        "tools/hsm/enclosure-data/src/pump_case.rs",
-        "tools/hsm/enclosure-data/src/pump_tray.rs",
-        "tools/hsm/enclosure-data/src/valve_tray.rs",
         "tools/hsm/geometry/Cargo.toml",
         "tools/hsm/geometry/src/lib.rs",
         "tools/hsm/geometry/src/payload.rs",
@@ -2961,54 +2867,54 @@ genrule(
         "tools/hsm/kernel/src/topo.rs",
         "tools/hsm/kernel/src/triangulate.rs",
         "tools/hsm/kernel/src/write.rs",
-        "tools/hsm/layout-data/Cargo.toml",
-        "tools/hsm/layout-data/src/fore.rs",
-        "tools/hsm/layout-data/src/lib.rs",
-        "tools/hsm/layout-data/src/rear.rs",
-        "tools/hsm/layout-data/src/routes.rs",
-        "tools/hsm/layout-data/src/soda.rs",
-        "tools/hsm/machine-data/Cargo.toml",
-        "tools/hsm/machine-data/src/archive.rs",
-        "tools/hsm/machine-data/src/box_spec.rs",
-        "tools/hsm/machine-data/src/compiled.rs",
-        "tools/hsm/machine-data/src/compiled/manifold_layout.rs",
-        "tools/hsm/machine-data/src/compiled/modules.rs",
-        "tools/hsm/machine-data/src/equipment.rs",
-        "tools/hsm/machine-data/src/equipment_ports.rs",
-        "tools/hsm/machine-data/src/io.rs",
-        "tools/hsm/machine-data/src/main.rs",
-        "tools/hsm/machine-data/src/native_profiles.rs",
-        "tools/hsm/machine-data/src/queries.rs",
-        "tools/hsm/machine-data/src/reporting.rs",
-        "tools/hsm/machine-data/src/source.rs",
-        "tools/hsm/machine/Cargo.toml",
-        "tools/hsm/part-data/Cargo.toml",
-        "tools/hsm/part-data/src/electronics.rs",
-        "tools/hsm/part-data/src/main.rs",
-        "tools/hsm/part-data/src/output.rs",
-        "tools/hsm/part-data/src/reference.rs",
-        "tools/hsm/part-data/src/reference_catalog.rs",
-        "tools/hsm/part-data/src/sleeve.rs",
-        "tools/hsm/part-data/src/storage.rs",
-        "tools/hsm/part-data/src/zone.rs",
+        "tools/hsm/manifold-layout/Cargo.toml",
+        "tools/hsm/manifold-numbers/Cargo.toml",
+        "tools/hsm/print-payload/Cargo.toml",
+        "tools/hsm/print-payload/src/lib.rs",
+        "tools/hsm/print-payload/src/printed.rs",
+        "tools/hsm/print-payload/src/quadric.rs",
+        "tools/hsm/run-native/Cargo.toml",
+        "tools/hsm/run-native/src/lib.rs",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/hsm/run-slots/Cargo.toml",
+        "tools/hsm/run-slots/src/ipc.rs",
+        "tools/hsm/run-slots/src/lib.rs",
+        "tools/hsm/run-slots/src/main.rs",
+        "tools/hsm/run-slots/src/runtime.rs",
+        "tools/hsm/run-slots/src/runtime/cad.rs",
+        "tools/hsm/run-slots/src/runtime/install.rs",
+        "tools/hsm/run-slots/src/runtime/runner.rs",
+        "tools/hsm/run-slots/src/runtime/slots.rs",
         "tools/hsm/shared-data/Cargo.toml",
         "tools/hsm/shared-data/catalog/materials.json",
         "tools/hsm/shared-data/catalog/routing.json",
-        "tools/hsm/shared-data/catalog/scalars.json",
         "tools/hsm/shared-data/src/color.rs",
         "tools/hsm/shared-data/src/common.rs",
-        "tools/hsm/shared-data/src/cooling.rs",
         "tools/hsm/shared-data/src/lib.rs",
-        "tools/hsm/shared-data/src/main.rs",
-        "tools/hsm/shared-data/src/routing.rs",
-        "tools/hsm/shared-data/src/scalars.rs",
+        "tools/hsm/vendor/manifold-csg-sys/.cargo_vcs_info.json",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.lock",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.toml",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.toml.orig",
+        "tools/hsm/vendor/manifold-csg-sys/LICENSE-APACHE",
+        "tools/hsm/vendor/manifold-csg-sys/LICENSE-MIT",
+        "tools/hsm/vendor/manifold-csg-sys/README.md",
+        "tools/hsm/vendor/manifold-csg-sys/build.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/build.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/fetch.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/patch.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/wasm.rs",
+        "tools/hsm/vendor/manifold-csg-sys/cache-version",
+        "tools/hsm/vendor/manifold-csg-sys/patches/README.md",
+        "tools/hsm/vendor/manifold-csg-sys/src/lib.rs",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/CMakeLists.txt",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/diagnose.sh",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/__assertion_handler",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/__config_site",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/memory",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/mutex",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/libcxx-extras.cpp",
     ],
-    outs = [
-        "out/manifold-layout/hardware/manifold-layout/manifold-layout.numbers.json",
-        "out/manifold-layout/hardware/manifold-layout/manifold-layout.step",
-        "out/manifold-layout/hardware/manifold-layout/manifold-layout.step.mesh",
-        "out/manifold-layout/hardware/manifold-layout/manifold-layout.step.npz",
-    ],
+    outs = ["out/manifold-layout-program/manifold-layout"],
     tags = ["no-sandbox"],
     cmd = """
 set -e
@@ -3032,34 +2938,100 @@ case "$$(uname -s)" in
     };;
   *) copy_file() { cp "$$@"; };;
 esac
+hsm_run=
+for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
+  if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
+done
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+cargo=$$(command -v cargo || true)
+for c in "$$cargo" /opt/homebrew/opt/rustup/bin/cargo ~/.cargo/bin/cargo; do if [ -x "$$c" ]; then cargo=$$c; break; fi; done
+if [ ! -x "$$cargo" ]; then echo "cargo is not installed (https://rustup.rs)" >&2; exit 1; fi
+export HOME=~ PATH="$$(dirname "$$cargo"):$$PATH"
+O0=$$PWD/$(location out/manifold-layout-program/manifold-layout)
+cd "$$HSM_WORKSPACE/tools/hsm"
+CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet --manifest-path manifold-layout/Cargo.toml --bin manifold-layout
+copy_file target/release/manifold-layout "$$O0"
+""",
+)
+
+genrule(
+    name = "manifold-layout",
+    srcs = [
+        ":out/manifold-layout-program/manifold-layout",
+        "hardware/reference/beduan-solenoid/beduan-solenoid.step",
+        "hardware/reference/kamoer-kphm400/kamoer-kphm400.step",
+        "hardware/reference/neofit-stem-elbow/neofit-stem-elbow.step",
+        "hardware/reference/neofit-stem-elbow/reference-parameters.json",
+        "hardware/reference/tee-connector/tee-connector.step",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/hsm/shared-data/catalog/materials.json",
+        "tools/hsm/shared-data/catalog/routing.json",
+        "tools/hsm/vendor/manifold-csg-sys/.cargo_vcs_info.json",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.toml.orig",
+        "tools/hsm/vendor/manifold-csg-sys/LICENSE-APACHE",
+        "tools/hsm/vendor/manifold-csg-sys/LICENSE-MIT",
+        "tools/hsm/vendor/manifold-csg-sys/README.md",
+        "tools/hsm/vendor/manifold-csg-sys/cache-version",
+        "tools/hsm/vendor/manifold-csg-sys/patches/README.md",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/CMakeLists.txt",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/diagnose.sh",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/__assertion_handler",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/__config_site",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/memory",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/mutex",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/libcxx-extras.cpp",
+    ],
+    outs = [
+        "out/manifold-layout/hardware/manifold-layout/manifold-layout.numbers.json",
+        "out/manifold-layout/hardware/manifold-layout/manifold-layout.step",
+        "out/manifold-layout/hardware/manifold-layout/manifold-layout.step.mesh",
+        "out/manifold-layout/hardware/manifold-layout/manifold-layout.step.npz",
+    ],
+    cmd = """
+set -e
+case "$$(uname -s)" in
+  Darwin)
+    copy_mask=$$((8#$$(umask)))
+    copy_bits=("" x w wx r rx rw rwx)
+    copy_mode="u-$${copy_bits[$$((copy_mask >> 6 & 7))]},g-$${copy_bits[$$((copy_mask >> 3 & 7))]},o-$${copy_bits[$$((copy_mask & 7))]}"
+    copy_file() {
+      local copy_dest="$${!#}" copy_target copy_permissions="$$copy_mode"
+      if [ -e "$$copy_dest" ] || [ -L "$$copy_dest" ]; then
+        if [ ! -f "$$copy_dest" ] || [ -L "$$copy_dest" ]; then cp "$$@"; return; fi
+        copy_permissions=$$(stat -f %Lp "$$copy_dest")
+        copy_target=$$(mktemp "$$copy_dest.hsm-copy.XXXXXX")
+      else copy_target="$$copy_dest"; fi
+      if cp -c "$${@:1:$$(( $$# - 1 ))}" "$$copy_target" 2>/dev/null; then
+        chmod "$$copy_permissions" "$$copy_target"
+        touch "$$copy_target"
+        if [ "$$copy_target" != "$$copy_dest" ]; then mv -f "$$copy_target" "$$copy_dest"; fi
+      else rm -f "$$copy_target"; cp "$$@"; fi
+    };;
+  *) copy_file() { cp "$$@"; };;
+esac
+hsm_run=
+for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
+  if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
+done
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
 O0=$$PWD/$(location out/manifold-layout/hardware/manifold-layout/manifold-layout.numbers.json)
 O1=$$PWD/$(location out/manifold-layout/hardware/manifold-layout/manifold-layout.step)
 O2=$$PWD/$(location out/manifold-layout/hardware/manifold-layout/manifold-layout.step.mesh)
 O3=$$PWD/$(location out/manifold-layout/hardware/manifold-layout/manifold-layout.step.npz)
-rm -rf work-manifold-layout
+rm -rf work
 for f in $(SRCS); do
   case $$f in
-    */node_modules/*) continue;;
     */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
     *) t=$$f;;
   esac
-  mkdir -p "work-manifold-layout/$$(dirname "$$t")"; copy_file -L "$$f" "work-manifold-layout/$$t"
+  mkdir -p "work/$$(dirname "$$t")"; copy_file -L "$$f" "work/$$t"
 done
-for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
-  if [ -d $$d ]; then mkdir -p work-manifold-layout/$$(dirname $$d); ln -sfn $$PWD/$$d work-manifold-layout/$$d; fi
-done
-for f in hardware/scripts/_run_lock.py hardware/scripts/_run_native.py hardware/scripts/_run_slots.py tools/hsm/run-slots.defaults.json tools/run-slots.mjs tools/run.py; do
-  mkdir -p work-manifold-layout/$$(dirname $$f); cp $$HSM_WORKSPACE/$$f work-manifold-layout/$$f
-done
-cd work-manifold-layout
-ln -sfn $$HSM_WORKSPACE/.cache .cache
-D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/manifold-layout/manifold_layout.py > /dev/null
+cd work
+"$$hsm_run" -- ./manifold-layout > /dev/null
 copy_file hardware/manifold-layout/manifold-layout.numbers.json "$$O0"
 copy_file hardware/manifold-layout/manifold-layout.step "$$O1"
 copy_file hardware/manifold-layout/manifold-layout.step.mesh "$$O2"
 copy_file hardware/manifold-layout/manifold-layout.step.npz "$$O3"
-cd .. && rm -rf work-manifold-layout
 """,
 )
 
@@ -6117,7 +6089,6 @@ genrule(
         "tools/hsm/enclosure-data/src/compiled/bulkhead_ring.rs",
         "tools/hsm/enclosure-data/src/compiled/data_ring.rs",
         "tools/hsm/enclosure-data/src/compiled/modules.rs",
-        "tools/hsm/enclosure-data/src/compiled/rear_equipment_caps.rs",
         "tools/hsm/enclosure-data/src/core_dimensions.rs",
         "tools/hsm/enclosure-data/src/core_profiles.rs",
         "tools/hsm/enclosure-data/src/main.rs",
@@ -6357,7 +6328,6 @@ genrule(
         "tools/hsm/enclosure-data/src/compiled/_y_wall_dimensions.rs",
         "tools/hsm/enclosure-data/src/compiled/display_cover.rs",
         "tools/hsm/enclosure-data/src/compiled/modules.rs",
-        "tools/hsm/enclosure-data/src/compiled/rear_equipment_caps.rs",
         "tools/hsm/enclosure-data/src/core_dimensions.rs",
         "tools/hsm/enclosure-data/src/core_profiles.rs",
         "tools/hsm/enclosure-data/src/main.rs",
@@ -6585,7 +6555,6 @@ genrule(
         "tools/hsm/enclosure-data/src/compiled/_y_wall_dimensions.rs",
         "tools/hsm/enclosure-data/src/compiled/display_gasket.rs",
         "tools/hsm/enclosure-data/src/compiled/modules.rs",
-        "tools/hsm/enclosure-data/src/compiled/rear_equipment_caps.rs",
         "tools/hsm/enclosure-data/src/core_dimensions.rs",
         "tools/hsm/enclosure-data/src/core_profiles.rs",
         "tools/hsm/enclosure-data/src/main.rs",
@@ -8592,7 +8561,6 @@ genrule(
         "tools/hsm/enclosure-data/src/compiled/_y_wall_dimensions.rs",
         "tools/hsm/enclosure-data/src/compiled/modules.rs",
         "tools/hsm/enclosure-data/src/compiled/nameplate.rs",
-        "tools/hsm/enclosure-data/src/compiled/rear_equipment_caps.rs",
         "tools/hsm/enclosure-data/src/core_dimensions.rs",
         "tools/hsm/enclosure-data/src/core_profiles.rs",
         "tools/hsm/enclosure-data/src/main.rs",
@@ -8753,26 +8721,9 @@ cd .. && rm -rf work-nameplate
 )
 
 genrule(
-    name = "rear-equipment-caps",
+    name = "rear-equipment-caps-program",
     srcs = [
-        "hardware/cut-parts/carbonation/carbonator-tube/numbers.rs",
-        "hardware/manifold-layout/_layout_data.py",
         "hardware/manifold-layout/above-core.json",
-        "hardware/manifold-layout/above_core.py",
-        "hardware/manifold-layout/above_core_bom.py",
-        "hardware/manifold-layout/above_core_parts.py",
-        "hardware/manifold-layout/above_core_routes.py",
-        "hardware/manifold-layout/rear_plumbing.py",
-        "hardware/manifold-layout/rear_snaps.py",
-        "hardware/printed-parts/asse-drain-adapter/asse_drain_adapter.py",
-        "hardware/printed-parts/asse-drain-adapter/asse_drain_adapter.rs",
-        "hardware/printed-parts/cadlib/_scalar_provider.py",
-        "hardware/printed-parts/cadlib/fits.py",
-        "hardware/printed-parts/cadlib/port_chip.py",
-        "hardware/printed-parts/cold-core/interface/lib.rs",
-        "hardware/printed-parts/enclosure/bulkhead-ring/numbers.rs",
-        "hardware/printed-parts/enclosure/enclosure/_enclosure_compiled.py",
-        "hardware/printed-parts/enclosure/enclosure/_enclosure_data.py",
         "hardware/printed-parts/enclosure/enclosure/disposal-warning-artwork.json",
         "hardware/printed-parts/enclosure/enclosure/interface/anchor_cap.rs",
         "hardware/printed-parts/enclosure/enclosure/interface/fits.rs",
@@ -8783,6 +8734,7 @@ genrule(
         "hardware/printed-parts/enclosure/enclosure/numbers/disposal.rs",
         "hardware/printed-parts/enclosure/enclosure/numbers/faces.rs",
         "hardware/printed-parts/enclosure/enclosure/numbers/field.rs",
+        "hardware/printed-parts/enclosure/enclosure/numbers/junctions.rs",
         "hardware/printed-parts/enclosure/enclosure/numbers/layout.rs",
         "hardware/printed-parts/enclosure/enclosure/numbers/lib.rs",
         "hardware/printed-parts/enclosure/enclosure/numbers/pump.rs",
@@ -8792,74 +8744,15 @@ genrule(
         "hardware/printed-parts/enclosure/enclosure/numbers/spec.rs",
         "hardware/printed-parts/enclosure/enclosure/numbers/structure.rs",
         "hardware/printed-parts/enclosure/enclosure/rear-seat-profiles.json",
-        "hardware/printed-parts/enclosure/nameplate/snap_dimensions.rs",
         "hardware/printed-parts/enclosure/rear-equipment-caps/rear-cap-profiles.json",
-        "hardware/printed-parts/enclosure/rear-equipment-caps/rear_equipment_caps.py",
         "hardware/printed-parts/enclosure/rear-equipment-caps/rear_equipment_caps.rs",
-        "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
-        "hardware/printed-parts/valve-seat/numbers.rs",
-        "hardware/printed-parts/zone-c/funnel/_zone_data.py",
-        "hardware/reference/_reference_data.py",
-        "hardware/reference/asse1022-threaded-chain/asse1022_threaded_chain.py",
+        "hardware/printed-parts/enclosure/rear-equipment-caps/stations.rs",
         "hardware/reference/asse1022-threaded-chain/reference-parameters.json",
         "hardware/reference/compact-inline-candidates/dimensions.json",
-        "hardware/reference/digiten-flow-sensor/digiten_flow_sensor.py",
-        "hardware/reference/multiplex-asse1022/multiplex_asse1022.py",
-        "hardware/reference/neofit-drain-bulkhead/neofit_drain_bulkhead.py",
         "hardware/reference/yzmsz-water-regulator/reference-parameters.json",
-        "hardware/scripts/_build_data.py",
-        "hardware/scripts/_cadq_export.py",
-        "hardware/scripts/_document_export.py",
-        "hardware/scripts/_machine_data.py",
-        "hardware/scripts/_material_base.py",
-        "hardware/scripts/_materials.py",
-        "hardware/scripts/_occt_color.py",
-        "hardware/scripts/_rust_data.py",
-        "hardware/scripts/_rust_objects.py",
-        "hardware/scripts/_rust_part.py",
-        "hardware/scripts/_shared_data.py",
-        "tools/docgen/__init__.py",
-        "tools/hsm/build-data/Cargo.toml",
-        "tools/hsm/build-data/src/artifact_cache.rs",
-        "tools/hsm/build-data/src/artifacts.rs",
-        "tools/hsm/build-data/src/assets.rs",
-        "tools/hsm/build-data/src/inventory.rs",
-        "tools/hsm/build-data/src/lib.rs",
-        "tools/hsm/build-data/src/main.rs",
-        "tools/hsm/build-data/src/payload.rs",
-        "tools/hsm/build-data/src/projection.rs",
-        "tools/hsm/build-data/src/publication.rs",
-        "tools/hsm/build-data/src/publication_archive.rs",
-        "tools/hsm/build-data/src/publication_state.rs",
-        "tools/hsm/build-data/src/publication_zlib.rs",
-        "tools/hsm/build-data/src/sources.rs",
-        "tools/hsm/build-data/src/support.rs",
-        "tools/hsm/build-data/src/surfaces.rs",
         ":out/cargo-config/tools/hsm/cargo-config.json",
-        "tools/hsm/documents/Cargo.toml",
-        "tools/hsm/documents/src/interop.rs",
-        "tools/hsm/documents/src/interop/standard.rs",
-        "tools/hsm/documents/src/lib.rs",
-        "tools/hsm/documents/src/main.rs",
-        "tools/hsm/documents/src/python_checked.rs",
-        "tools/hsm/enclosure-components/Cargo.toml",
-        "tools/hsm/enclosure-components/src/lib.rs",
-        "tools/hsm/enclosure-data/Cargo.toml",
-        "tools/hsm/enclosure-data/src/compiled.rs",
-        "tools/hsm/enclosure-data/src/compiled/_y_wall_dimensions.rs",
-        "tools/hsm/enclosure-data/src/compiled/modules.rs",
-        "tools/hsm/enclosure-data/src/compiled/rear_equipment_caps.rs",
-        "tools/hsm/enclosure-data/src/core_dimensions.rs",
-        "tools/hsm/enclosure-data/src/core_profiles.rs",
-        "tools/hsm/enclosure-data/src/main.rs",
-        "tools/hsm/enclosure-data/src/nameplate_snap.rs",
-        "tools/hsm/enclosure-data/src/pump_case.rs",
-        "tools/hsm/enclosure-data/src/pump_tray.rs",
-        "tools/hsm/enclosure-data/src/valve_tray.rs",
-        "tools/hsm/geometry/Cargo.toml",
-        "tools/hsm/geometry/src/lib.rs",
-        "tools/hsm/geometry/src/payload.rs",
-        "tools/hsm/geometry/src/queries.rs",
+        "tools/hsm/enclosure-interface/Cargo.toml",
+        "tools/hsm/enclosure-numbers/Cargo.toml",
         "tools/hsm/kernel/Cargo.toml",
         "tools/hsm/kernel/src/boolean.rs",
         "tools/hsm/kernel/src/build.rs",
@@ -8890,51 +8783,21 @@ genrule(
         "tools/hsm/kernel/src/topo.rs",
         "tools/hsm/kernel/src/triangulate.rs",
         "tools/hsm/kernel/src/write.rs",
-        "tools/hsm/layout-data/Cargo.toml",
-        "tools/hsm/layout-data/src/fore.rs",
-        "tools/hsm/layout-data/src/lib.rs",
-        "tools/hsm/layout-data/src/main.rs",
-        "tools/hsm/layout-data/src/rear.rs",
-        "tools/hsm/layout-data/src/routes.rs",
-        "tools/hsm/layout-data/src/soda.rs",
-        "tools/hsm/machine-data/Cargo.toml",
-        "tools/hsm/machine-data/src/archive.rs",
-        "tools/hsm/machine-data/src/box_spec.rs",
-        "tools/hsm/machine-data/src/compiled.rs",
-        "tools/hsm/machine-data/src/compiled/above_core_bom.rs",
-        "tools/hsm/machine-data/src/compiled/above_core_parts.rs",
-        "tools/hsm/machine-data/src/compiled/modules.rs",
-        "tools/hsm/machine-data/src/compiled/rear_plumbing.rs",
-        "tools/hsm/machine-data/src/compiled/rear_snaps.rs",
-        "tools/hsm/machine-data/src/equipment.rs",
-        "tools/hsm/machine-data/src/equipment_ports.rs",
-        "tools/hsm/machine-data/src/io.rs",
-        "tools/hsm/machine-data/src/main.rs",
-        "tools/hsm/machine-data/src/native_profiles.rs",
-        "tools/hsm/machine-data/src/queries.rs",
-        "tools/hsm/machine-data/src/reporting.rs",
-        "tools/hsm/machine-data/src/source.rs",
-        "tools/hsm/part-data/Cargo.toml",
-        "tools/hsm/part-data/src/electronics.rs",
-        "tools/hsm/part-data/src/main.rs",
-        "tools/hsm/part-data/src/output.rs",
-        "tools/hsm/part-data/src/reference.rs",
-        "tools/hsm/part-data/src/reference_catalog.rs",
-        "tools/hsm/part-data/src/sleeve.rs",
-        "tools/hsm/part-data/src/storage.rs",
-        "tools/hsm/part-data/src/zone.rs",
-        "tools/hsm/shared-data/Cargo.toml",
+        "tools/hsm/rear-equipment-caps/Cargo.toml",
+        "tools/hsm/run-native/Cargo.toml",
+        "tools/hsm/run-native/src/lib.rs",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/hsm/run-slots/Cargo.toml",
+        "tools/hsm/run-slots/src/ipc.rs",
+        "tools/hsm/run-slots/src/lib.rs",
+        "tools/hsm/run-slots/src/main.rs",
+        "tools/hsm/run-slots/src/runtime.rs",
+        "tools/hsm/run-slots/src/runtime/cad.rs",
+        "tools/hsm/run-slots/src/runtime/install.rs",
+        "tools/hsm/run-slots/src/runtime/runner.rs",
+        "tools/hsm/run-slots/src/runtime/slots.rs",
         "tools/hsm/shared-data/catalog/materials.json",
-        "tools/hsm/shared-data/catalog/routing.json",
         "tools/hsm/shared-data/catalog/scalars.json",
-        "tools/hsm/shared-data/src/color.rs",
-        "tools/hsm/shared-data/src/common.rs",
-        "tools/hsm/shared-data/src/cooling.rs",
-        "tools/hsm/shared-data/src/lib.rs",
-        "tools/hsm/shared-data/src/main.rs",
-        "tools/hsm/shared-data/src/routing.rs",
-        "tools/hsm/shared-data/src/scalars.rs",
-        "tools/hsm/tooling/Cargo.toml",
         "tools/hsm/vendor/manifold-csg-sys/.cargo_vcs_info.json",
         "tools/hsm/vendor/manifold-csg-sys/Cargo.lock",
         "tools/hsm/vendor/manifold-csg-sys/Cargo.toml",
@@ -8950,6 +8813,75 @@ genrule(
         "tools/hsm/vendor/manifold-csg-sys/cache-version",
         "tools/hsm/vendor/manifold-csg-sys/patches/README.md",
         "tools/hsm/vendor/manifold-csg-sys/src/lib.rs",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/CMakeLists.txt",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/diagnose.sh",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/__assertion_handler",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/__config_site",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/memory",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/mutex",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/libcxx-extras.cpp",
+    ],
+    outs = ["out/rear-equipment-caps-program/rear-equipment-caps"],
+    tags = ["no-sandbox"],
+    cmd = """
+set -e
+case "$$(uname -s)" in
+  Darwin)
+    copy_mask=$$((8#$$(umask)))
+    copy_bits=("" x w wx r rx rw rwx)
+    copy_mode="u-$${copy_bits[$$((copy_mask >> 6 & 7))]},g-$${copy_bits[$$((copy_mask >> 3 & 7))]},o-$${copy_bits[$$((copy_mask & 7))]}"
+    copy_file() {
+      local copy_dest="$${!#}" copy_target copy_permissions="$$copy_mode"
+      if [ -e "$$copy_dest" ] || [ -L "$$copy_dest" ]; then
+        if [ ! -f "$$copy_dest" ] || [ -L "$$copy_dest" ]; then cp "$$@"; return; fi
+        copy_permissions=$$(stat -f %Lp "$$copy_dest")
+        copy_target=$$(mktemp "$$copy_dest.hsm-copy.XXXXXX")
+      else copy_target="$$copy_dest"; fi
+      if cp -c "$${@:1:$$(( $$# - 1 ))}" "$$copy_target" 2>/dev/null; then
+        chmod "$$copy_permissions" "$$copy_target"
+        touch "$$copy_target"
+        if [ "$$copy_target" != "$$copy_dest" ]; then mv -f "$$copy_target" "$$copy_dest"; fi
+      else rm -f "$$copy_target"; cp "$$@"; fi
+    };;
+  *) copy_file() { cp "$$@"; };;
+esac
+hsm_run=
+for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
+  if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
+done
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+cargo=$$(command -v cargo || true)
+for c in "$$cargo" /opt/homebrew/opt/rustup/bin/cargo ~/.cargo/bin/cargo; do if [ -x "$$c" ]; then cargo=$$c; break; fi; done
+if [ ! -x "$$cargo" ]; then echo "cargo is not installed (https://rustup.rs)" >&2; exit 1; fi
+export HOME=~ PATH="$$(dirname "$$cargo"):$$PATH"
+O0=$$PWD/$(location out/rear-equipment-caps-program/rear-equipment-caps)
+cd "$$HSM_WORKSPACE/tools/hsm"
+CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet --manifest-path rear-equipment-caps/Cargo.toml --bin rear-equipment-caps
+copy_file target/release/rear-equipment-caps "$$O0"
+""",
+)
+
+genrule(
+    name = "rear-equipment-caps",
+    srcs = [
+        ":out/rear-equipment-caps-program/rear-equipment-caps",
+        "hardware/manifold-layout/above-core.json",
+        "hardware/printed-parts/enclosure/enclosure/disposal-warning-artwork.json",
+        "hardware/printed-parts/enclosure/enclosure/rear-seat-profiles.json",
+        "hardware/printed-parts/enclosure/rear-equipment-caps/rear-cap-profiles.json",
+        "hardware/reference/asse1022-threaded-chain/reference-parameters.json",
+        "hardware/reference/compact-inline-candidates/dimensions.json",
+        "hardware/reference/yzmsz-water-regulator/reference-parameters.json",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/hsm/shared-data/catalog/materials.json",
+        "tools/hsm/shared-data/catalog/scalars.json",
+        "tools/hsm/vendor/manifold-csg-sys/.cargo_vcs_info.json",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.toml.orig",
+        "tools/hsm/vendor/manifold-csg-sys/LICENSE-APACHE",
+        "tools/hsm/vendor/manifold-csg-sys/LICENSE-MIT",
+        "tools/hsm/vendor/manifold-csg-sys/README.md",
+        "tools/hsm/vendor/manifold-csg-sys/cache-version",
+        "tools/hsm/vendor/manifold-csg-sys/patches/README.md",
         "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/CMakeLists.txt",
         "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/diagnose.sh",
         "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/__assertion_handler",
@@ -8974,13 +8906,11 @@ genrule(
         "out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/rear-equipment-caps-installed.step",
         "out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/rear-equipment-caps-installed.step.mesh",
         "out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/rear-equipment-caps-installed.step.npz",
-        "out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/rear-equipment-caps.numbers.json",
         "out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.step",
         "out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.step.mesh",
         "out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.step.npz",
         "out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.stl",
     ],
-    tags = ["no-sandbox"],
     cmd = """
 set -e
 case "$$(uname -s)" in
@@ -9003,6 +8933,11 @@ case "$$(uname -s)" in
     };;
   *) copy_file() { cp "$$@"; };;
 esac
+hsm_run=
+for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
+  if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
+done
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
 O0=$$PWD/$(location out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step)
 O1=$$PWD/$(location out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step.mesh)
 O2=$$PWD/$(location out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step.npz)
@@ -9018,30 +8953,20 @@ O11=$$PWD/$(location out/rear-equipment-caps/hardware/printed-parts/enclosure/re
 O12=$$PWD/$(location out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/rear-equipment-caps-installed.step)
 O13=$$PWD/$(location out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/rear-equipment-caps-installed.step.mesh)
 O14=$$PWD/$(location out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/rear-equipment-caps-installed.step.npz)
-O15=$$PWD/$(location out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/rear-equipment-caps.numbers.json)
-O16=$$PWD/$(location out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.step)
-O17=$$PWD/$(location out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.step.mesh)
-O18=$$PWD/$(location out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.step.npz)
-O19=$$PWD/$(location out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.stl)
-rm -rf work-rear-equipment-caps
+O15=$$PWD/$(location out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.step)
+O16=$$PWD/$(location out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.step.mesh)
+O17=$$PWD/$(location out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.step.npz)
+O18=$$PWD/$(location out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.stl)
+rm -rf work
 for f in $(SRCS); do
   case $$f in
-    */node_modules/*) continue;;
     */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
     *) t=$$f;;
   esac
-  mkdir -p "work-rear-equipment-caps/$$(dirname "$$t")"; copy_file -L "$$f" "work-rear-equipment-caps/$$t"
+  mkdir -p "work/$$(dirname "$$t")"; copy_file -L "$$f" "work/$$t"
 done
-for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
-  if [ -d $$d ]; then mkdir -p work-rear-equipment-caps/$$(dirname $$d); ln -sfn $$PWD/$$d work-rear-equipment-caps/$$d; fi
-done
-for f in hardware/scripts/_run_lock.py hardware/scripts/_run_native.py hardware/scripts/_run_slots.py tools/hsm/run-slots.defaults.json tools/run-slots.mjs tools/run.py; do
-  mkdir -p work-rear-equipment-caps/$$(dirname $$f); cp $$HSM_WORKSPACE/$$f work-rear-equipment-caps/$$f
-done
-cd work-rear-equipment-caps
-ln -sfn $$HSM_WORKSPACE/.cache .cache
-D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/enclosure/rear-equipment-caps/rear_equipment_caps.py > /dev/null
+cd work
+"$$hsm_run" -- ./rear-equipment-caps > /dev/null
 copy_file hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step "$$O0"
 copy_file hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step.mesh "$$O1"
 copy_file hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step.npz "$$O2"
@@ -9057,12 +8982,10 @@ copy_file hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.st
 copy_file hardware/printed-parts/enclosure/rear-equipment-caps/rear-equipment-caps-installed.step "$$O12"
 copy_file hardware/printed-parts/enclosure/rear-equipment-caps/rear-equipment-caps-installed.step.mesh "$$O13"
 copy_file hardware/printed-parts/enclosure/rear-equipment-caps/rear-equipment-caps-installed.step.npz "$$O14"
-copy_file hardware/printed-parts/enclosure/rear-equipment-caps/rear-equipment-caps.numbers.json "$$O15"
-copy_file hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.step "$$O16"
-copy_file hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.step.mesh "$$O17"
-copy_file hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.step.npz "$$O18"
-copy_file hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.stl "$$O19"
-cd .. && rm -rf work-rear-equipment-caps
+copy_file hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.step "$$O15"
+copy_file hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.step.mesh "$$O16"
+copy_file hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.step.npz "$$O17"
+copy_file hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.stl "$$O18"
 """,
 )
 
@@ -9162,7 +9085,6 @@ genrule(
         "tools/hsm/enclosure-data/src/compiled/bulkhead_ring.rs",
         "tools/hsm/enclosure-data/src/compiled/modules.rs",
         "tools/hsm/enclosure-data/src/compiled/nameplate.rs",
-        "tools/hsm/enclosure-data/src/compiled/rear_equipment_caps.rs",
         "tools/hsm/enclosure-data/src/compiled/rear_identification.rs",
         "tools/hsm/enclosure-data/src/core_dimensions.rs",
         "tools/hsm/enclosure-data/src/core_profiles.rs",
@@ -13817,7 +13739,6 @@ genrule(
         "tools/hsm/assembly-docs/src/marketing.rs",
         "tools/hsm/assembly-docs/src/procedures.rs",
         "tools/hsm/assembly-docs/src/procedures/specialized.rs",
-        "tools/hsm/assembly-docs/src/topology.rs",
         "tools/hsm/build-data/Cargo.toml",
         "tools/hsm/build-data/src/artifact_cache.rs",
         "tools/hsm/build-data/src/artifacts.rs",
@@ -13892,7 +13813,6 @@ genrule(
         "tools/hsm/enclosure-data/src/compiled/nameplate.rs",
         "tools/hsm/enclosure-data/src/compiled/pump_case.rs",
         "tools/hsm/enclosure-data/src/compiled/pump_tray.rs",
-        "tools/hsm/enclosure-data/src/compiled/rear_equipment_caps.rs",
         "tools/hsm/enclosure-data/src/compiled/rear_identification.rs",
         "tools/hsm/enclosure-data/src/compiled/valve_tray.rs",
         "tools/hsm/enclosure-data/src/core_dimensions.rs",
@@ -14277,173 +14197,20 @@ cd .. && rm -rf work-machine-time
 )
 
 genrule(
-    name = "fluid-topology-sync",
+    name = "fluid-topology-program",
     srcs = [
-        "hardware/assembly/_rust_docs.py",
-        "hardware/cold-core-layout/_carbonator_stock.py",
-        "hardware/cold-core-layout/_cold_core_data.py",
-        "hardware/cut-parts/carbonation/carbonator-tube/numbers.rs",
-        "hardware/cut-parts/carbonation/endcaps-circular/numbers.rs",
-        "hardware/manifold-layout/_layout_data.py",
-        "hardware/manifold-layout/_lines.py",
-        "hardware/manifold-layout/_scorecard.py",
-        "hardware/manifold-layout/above-core.json",
-        "hardware/manifold-layout/above_core.py",
-        ":out/installed-machine/hardware/manifold-layout/enclosure-assembly.facts.json",
-        "hardware/manifold-layout/enclosure_assembly.py",
-        "hardware/manifold-layout/machine_check_rules.json",
-        "hardware/manifold-layout/manifold_layout.py",
-        "hardware/printed-parts/cadlib/_scalar_provider.py",
-        "hardware/printed-parts/cadlib/fits.py",
-        "hardware/printed-parts/cadlib/snap.py",
-        "hardware/printed-parts/cadlib/world_workplane.py",
-        "hardware/printed-parts/cold-core/_cold_core_interface.py",
-        "hardware/printed-parts/cold-core/_copper_ports.py",
-        "hardware/printed-parts/cold-core/interface/lib.rs",
-        "hardware/printed-parts/cold-core/magnetic-float/all-aero/numbers.rs",
-        "hardware/printed-parts/diaphragm-pump-sleeve/diaphragm_pump_sleeve.py",
-        "hardware/printed-parts/electronics/module_tray.py",
-        "hardware/printed-parts/electronics/pcba-tray/pcba_tray.py",
-        "hardware/printed-parts/enclosure/bulkhead-ring/numbers.rs",
-        "hardware/printed-parts/enclosure/enclosure/_enclosure_compiled.py",
-        "hardware/printed-parts/enclosure/enclosure/_enclosure_data.py",
-        "hardware/printed-parts/enclosure/enclosure/_enclosure_datums.py",
-        "hardware/printed-parts/enclosure/enclosure/disposal-warning-artwork.json",
-        "hardware/printed-parts/enclosure/enclosure/interface/anchor_cap.rs",
-        "hardware/printed-parts/enclosure/enclosure/interface/fits.rs",
-        "hardware/printed-parts/enclosure/enclosure/interface/lib.rs",
-        "hardware/printed-parts/enclosure/enclosure/interface/swept.rs",
-        "hardware/printed-parts/enclosure/enclosure/numbers/catalog.rs",
-        "hardware/printed-parts/enclosure/enclosure/numbers/display_mount.rs",
-        "hardware/printed-parts/enclosure/enclosure/numbers/disposal.rs",
-        "hardware/printed-parts/enclosure/enclosure/numbers/faces.rs",
-        "hardware/printed-parts/enclosure/enclosure/numbers/field.rs",
-        "hardware/printed-parts/enclosure/enclosure/numbers/junctions.rs",
-        "hardware/printed-parts/enclosure/enclosure/numbers/layout.rs",
-        "hardware/printed-parts/enclosure/enclosure/numbers/lib.rs",
-        "hardware/printed-parts/enclosure/enclosure/numbers/pump.rs",
-        "hardware/printed-parts/enclosure/enclosure/numbers/quadrant.rs",
-        "hardware/printed-parts/enclosure/enclosure/numbers/rear_wall.rs",
-        "hardware/printed-parts/enclosure/enclosure/numbers/shell.rs",
-        "hardware/printed-parts/enclosure/enclosure/numbers/spec.rs",
-        "hardware/printed-parts/enclosure/enclosure/numbers/structure.rs",
-        "hardware/printed-parts/enclosure/nameplate/snap_dimensions.rs",
-        "hardware/printed-parts/enclosure/pump-dock/fixed_returns.py",
-        "hardware/printed-parts/enclosure/pump-tray/pump_case.py",
-        "hardware/printed-parts/valve-seat/numbers.rs",
-        "hardware/printed-parts/valve-seat/valve_seat.py",
-        "hardware/printed-parts/zone-c/funnel/_zone_data.py",
-        "hardware/printed-parts/zone-c/funnel/funnel.py",
-        "hardware/reference/_reference_data.py",
-        "hardware/reference/asse1022-assembly/asse1022_assembly.py",
-        "hardware/reference/beduan-solenoid/beduan_solenoid.py",
-        "hardware/reference/compressor/compressor.py",
-        "hardware/reference/condenser-block/condenser_block.py",
-        "hardware/reference/digiten-flow-sensor/digiten_flow_sensor.py",
-        "hardware/reference/flare38-14ptc/flare38_14ptc.py",
-        "hardware/reference/g-ganen-pump/common-foot/g_ganen_foot.py",
-        "hardware/reference/g-ganen-pump/g_ganen_pump.py",
-        "hardware/reference/g-ganen-pump/installation/g_ganen_installation.py",
-        "hardware/reference/g-ganen-pump/integration-envelope/g_ganen_integration.py",
-        "hardware/reference/g-ganen-pump/integration-envelope/native_queries.py",
-        "hardware/reference/g-ganen-pump/reference-parameters.json",
-        "hardware/reference/gagira-reducing-coupling/gagira_reducing_coupling.py",
-        "hardware/reference/gasher-check-valve/gasher_check_valve.py",
-        "hardware/reference/jg-bulkhead-union/jg_bulkhead_union.py",
-        "hardware/reference/jg-pp010822e/jg_pp010822e.py",
-        "hardware/reference/jg-pp0208e-tee/branch-operating-measurements.json",
-        "hardware/reference/kamoer-kphm400/kamoer_kphm400.py",
-        "hardware/reference/multiplex-asse1022/multiplex_asse1022.py",
-        "hardware/reference/neofit-achv44-check/neofit_achv44_check.py",
-        "hardware/reference/neofit-bulkhead/neofit_bulkhead.py",
-        "hardware/reference/neofit-drain-bulkhead/neofit_drain_bulkhead.py",
-        "hardware/reference/neofit-flavor-reducer/neofit_flavor_reducer.py",
-        "hardware/reference/neofit-stem-elbow/neofit_stem_elbow.py",
-        "hardware/reference/seaflo-discharge-chain/seaflo_discharge_chain.py",
-        "hardware/reference/shok-blok-regulator/shok_blok_regulator.py",
-        "hardware/reference/tee-connector/tee_connector.py",
-        "hardware/reference/water-split/water_split.py",
-        "hardware/reference/wr1110-regulator/wr1110_regulator.py",
-        "hardware/reference/y-divider/y_divider.py",
-        "hardware/scripts/_build_data.py",
-        "hardware/scripts/_cadq_export.py",
-        "hardware/scripts/_card.py",
-        "hardware/scripts/_document_export.py",
-        "hardware/scripts/_facts.py",
-        "hardware/scripts/_machine_data.py",
-        "hardware/scripts/_material_base.py",
-        "hardware/scripts/_materials.py",
-        "hardware/scripts/_routing.py",
-        "hardware/scripts/_rust_data.py",
-        "hardware/scripts/_rust_objects.py",
-        "hardware/scripts/_rust_part.py",
-        "hardware/scripts/_shared_data.py",
-        "hardware/scripts/_stated_bounds.py",
-        "hardware/topology/_fluid_topology_sync.py",
-        "hardware/topology/fluid-topology-carbonator.mmd",
-        "hardware/topology/fluid-topology-limbs.mmd",
-        "hardware/topology/fluid-topology-manifold.mmd",
-        "hardware/topology/fluid-topology.md",
-        ":support/enclosure-assembly-graph.json",
-        "tools/docgen/__init__.py",
-        "tools/hsm/assembly-docs/Cargo.toml",
-        "tools/hsm/assembly-docs/src/main.rs",
-        "tools/hsm/assembly-docs/src/marketing.rs",
-        "tools/hsm/assembly-docs/src/procedures.rs",
-        "tools/hsm/assembly-docs/src/procedures/specialized.rs",
-        "tools/hsm/assembly-docs/src/topology.rs",
-        "tools/hsm/build-data/Cargo.toml",
-        "tools/hsm/build-data/src/artifact_cache.rs",
-        "tools/hsm/build-data/src/artifacts.rs",
-        "tools/hsm/build-data/src/assets.rs",
-        "tools/hsm/build-data/src/inventory.rs",
-        "tools/hsm/build-data/src/lib.rs",
-        "tools/hsm/build-data/src/main.rs",
-        "tools/hsm/build-data/src/payload.rs",
-        "tools/hsm/build-data/src/projection.rs",
-        "tools/hsm/build-data/src/publication.rs",
-        "tools/hsm/build-data/src/publication_archive.rs",
-        "tools/hsm/build-data/src/publication_state.rs",
-        "tools/hsm/build-data/src/publication_zlib.rs",
-        "tools/hsm/build-data/src/sources.rs",
-        "tools/hsm/build-data/src/support.rs",
-        "tools/hsm/build-data/src/surfaces.rs",
+        "hardware/manifold-layout/manifold/lib.rs",
+        "hardware/manifold-layout/manifold/placements.rs",
+        "hardware/reference/neofit-stem-elbow/reference-parameters.json",
+        "hardware/topology/fluid-topology/chart.rs",
+        "hardware/topology/fluid_topology.rs",
         ":out/cargo-config/tools/hsm/cargo-config.json",
-        "tools/hsm/cold-core-data/Cargo.toml",
-        "tools/hsm/cold-core-data/src/coil.rs",
-        "tools/hsm/cold-core-data/src/compiled.rs",
-        "tools/hsm/cold-core-data/src/compiled/_above_core_mounts.rs",
-        "tools/hsm/cold-core-data/src/compiled/_cold_core_interface.rs",
-        "tools/hsm/cold-core-data/src/compiled/_copper_ports.rs",
-        "tools/hsm/cold-core-data/src/compiled/modules.rs",
-        "tools/hsm/cold-core-data/src/floats.rs",
-        "tools/hsm/cold-core-data/src/interface.rs",
-        "tools/hsm/cold-core-data/src/lib.rs",
-        "tools/hsm/cold-core-data/src/main.rs",
-        "tools/hsm/cold-core-data/src/mandrel.rs",
         "tools/hsm/documents/Cargo.toml",
         "tools/hsm/documents/src/interop.rs",
         "tools/hsm/documents/src/interop/standard.rs",
         "tools/hsm/documents/src/lib.rs",
         "tools/hsm/documents/src/python_checked.rs",
-        "tools/hsm/enclosure-data/Cargo.toml",
-        "tools/hsm/enclosure-data/src/compiled.rs",
-        "tools/hsm/enclosure-data/src/compiled/_enclosure_datums.rs",
-        "tools/hsm/enclosure-data/src/compiled/fixed_returns.rs",
-        "tools/hsm/enclosure-data/src/compiled/modules.rs",
-        "tools/hsm/enclosure-data/src/compiled/pump_case.rs",
-        "tools/hsm/enclosure-data/src/compiled/rear_equipment_caps.rs",
-        "tools/hsm/enclosure-data/src/core_dimensions.rs",
-        "tools/hsm/enclosure-data/src/core_profiles.rs",
-        "tools/hsm/enclosure-data/src/main.rs",
-        "tools/hsm/enclosure-data/src/nameplate_snap.rs",
-        "tools/hsm/enclosure-data/src/pump_case.rs",
-        "tools/hsm/enclosure-data/src/pump_tray.rs",
-        "tools/hsm/enclosure-data/src/valve_tray.rs",
-        "tools/hsm/geometry/Cargo.toml",
-        "tools/hsm/geometry/src/lib.rs",
-        "tools/hsm/geometry/src/payload.rs",
-        "tools/hsm/geometry/src/queries.rs",
+        "tools/hsm/fluid-topology/Cargo.toml",
         "tools/hsm/kernel/Cargo.toml",
         "tools/hsm/kernel/src/boolean.rs",
         "tools/hsm/kernel/src/build.rs",
@@ -14474,64 +14241,19 @@ genrule(
         "tools/hsm/kernel/src/topo.rs",
         "tools/hsm/kernel/src/triangulate.rs",
         "tools/hsm/kernel/src/write.rs",
-        "tools/hsm/layout-data/Cargo.toml",
-        "tools/hsm/layout-data/src/fore.rs",
-        "tools/hsm/layout-data/src/lib.rs",
-        "tools/hsm/layout-data/src/main.rs",
-        "tools/hsm/layout-data/src/rear.rs",
-        "tools/hsm/layout-data/src/routes.rs",
-        "tools/hsm/layout-data/src/soda.rs",
-        "tools/hsm/machine-data/Cargo.toml",
-        "tools/hsm/machine-data/src/archive.rs",
-        "tools/hsm/machine-data/src/box_spec.rs",
-        "tools/hsm/machine-data/src/compiled.rs",
-        "tools/hsm/machine-data/src/compiled/_assembly_questions.rs",
-        "tools/hsm/machine-data/src/compiled/_facts.rs",
-        "tools/hsm/machine-data/src/compiled/_gas_chain.rs",
-        "tools/hsm/machine-data/src/compiled/_lines.rs",
-        "tools/hsm/machine-data/src/compiled/_machine.rs",
-        "tools/hsm/machine-data/src/compiled/_machine_checks.rs",
-        "tools/hsm/machine-data/src/compiled/_machine_equipment.rs",
-        "tools/hsm/machine-data/src/compiled/_machine_export.rs",
-        "tools/hsm/machine-data/src/compiled/_machine_layout.rs",
-        "tools/hsm/machine-data/src/compiled/_machine_reporting.rs",
-        "tools/hsm/machine-data/src/compiled/_machine_routes.rs",
-        "tools/hsm/machine-data/src/compiled/_scorecard.rs",
-        "tools/hsm/machine-data/src/compiled/above_core_bom.rs",
-        "tools/hsm/machine-data/src/compiled/above_core_parts.rs",
-        "tools/hsm/machine-data/src/compiled/above_core_wiring.rs",
-        "tools/hsm/machine-data/src/compiled/enclosure_assembly.rs",
-        "tools/hsm/machine-data/src/compiled/manifold_layout.rs",
-        "tools/hsm/machine-data/src/compiled/modules.rs",
-        "tools/hsm/machine-data/src/compiled/rear_plumbing.rs",
-        "tools/hsm/machine-data/src/equipment.rs",
-        "tools/hsm/machine-data/src/equipment_ports.rs",
-        "tools/hsm/machine-data/src/io.rs",
-        "tools/hsm/machine-data/src/main.rs",
-        "tools/hsm/machine-data/src/native_profiles.rs",
-        "tools/hsm/machine-data/src/queries.rs",
-        "tools/hsm/machine-data/src/reporting.rs",
-        "tools/hsm/machine-data/src/source.rs",
-        "tools/hsm/part-data/Cargo.toml",
-        "tools/hsm/part-data/src/electronics.rs",
-        "tools/hsm/part-data/src/main.rs",
-        "tools/hsm/part-data/src/output.rs",
-        "tools/hsm/part-data/src/reference.rs",
-        "tools/hsm/part-data/src/reference_catalog.rs",
-        "tools/hsm/part-data/src/sleeve.rs",
-        "tools/hsm/part-data/src/storage.rs",
-        "tools/hsm/part-data/src/zone.rs",
-        "tools/hsm/shared-data/Cargo.toml",
-        "tools/hsm/shared-data/catalog/materials.json",
-        "tools/hsm/shared-data/catalog/routing.json",
-        "tools/hsm/shared-data/catalog/scalars.json",
-        "tools/hsm/shared-data/src/color.rs",
-        "tools/hsm/shared-data/src/common.rs",
-        "tools/hsm/shared-data/src/cooling.rs",
-        "tools/hsm/shared-data/src/lib.rs",
-        "tools/hsm/shared-data/src/main.rs",
-        "tools/hsm/shared-data/src/routing.rs",
-        "tools/hsm/shared-data/src/scalars.rs",
+        "tools/hsm/manifold-numbers/Cargo.toml",
+        "tools/hsm/run-native/Cargo.toml",
+        "tools/hsm/run-native/src/lib.rs",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/hsm/run-slots/Cargo.toml",
+        "tools/hsm/run-slots/src/ipc.rs",
+        "tools/hsm/run-slots/src/lib.rs",
+        "tools/hsm/run-slots/src/main.rs",
+        "tools/hsm/run-slots/src/runtime.rs",
+        "tools/hsm/run-slots/src/runtime/cad.rs",
+        "tools/hsm/run-slots/src/runtime/install.rs",
+        "tools/hsm/run-slots/src/runtime/runner.rs",
+        "tools/hsm/run-slots/src/runtime/slots.rs",
         "tools/hsm/vendor/manifold-csg-sys/.cargo_vcs_info.json",
         "tools/hsm/vendor/manifold-csg-sys/Cargo.lock",
         "tools/hsm/vendor/manifold-csg-sys/Cargo.toml",
@@ -14555,10 +14277,7 @@ genrule(
         "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/mutex",
         "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/libcxx-extras.cpp",
     ],
-    outs = [
-        "out/fluid-topology-sync/hardware/topology/fluid-topology-carbonator.mmd",
-        "out/fluid-topology-sync/hardware/topology/fluid-topology-manifold.mmd",
-    ],
+    outs = ["out/fluid-topology-program/fluid-topology"],
     tags = ["no-sandbox"],
     cmd = """
 set -e
@@ -14582,31 +14301,93 @@ case "$$(uname -s)" in
     };;
   *) copy_file() { cp "$$@"; };;
 esac
-O0=$$PWD/$(location out/fluid-topology-sync/hardware/topology/fluid-topology-carbonator.mmd)
-O1=$$PWD/$(location out/fluid-topology-sync/hardware/topology/fluid-topology-manifold.mmd)
-rm -rf work-fluid-topology-sync
+hsm_run=
+for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
+  if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
+done
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+cargo=$$(command -v cargo || true)
+for c in "$$cargo" /opt/homebrew/opt/rustup/bin/cargo ~/.cargo/bin/cargo; do if [ -x "$$c" ]; then cargo=$$c; break; fi; done
+if [ ! -x "$$cargo" ]; then echo "cargo is not installed (https://rustup.rs)" >&2; exit 1; fi
+export HOME=~ PATH="$$(dirname "$$cargo"):$$PATH"
+O0=$$PWD/$(location out/fluid-topology-program/fluid-topology)
+cd "$$HSM_WORKSPACE/tools/hsm"
+CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet --manifest-path fluid-topology/Cargo.toml --bin fluid-topology
+copy_file target/release/fluid-topology "$$O0"
+""",
+)
+
+genrule(
+    name = "fluid-topology",
+    srcs = [
+        ":out/fluid-topology-program/fluid-topology",
+        ":out/installed-machine/hardware/manifold-layout/enclosure-assembly.facts.json",
+        "hardware/reference/neofit-stem-elbow/reference-parameters.json",
+        "hardware/topology/fluid-topology-carbonator.mmd",
+        "hardware/topology/fluid-topology-limbs.mmd",
+        "hardware/topology/fluid-topology-manifold.mmd",
+        "hardware/topology/fluid-topology.md",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/hsm/vendor/manifold-csg-sys/.cargo_vcs_info.json",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.toml.orig",
+        "tools/hsm/vendor/manifold-csg-sys/LICENSE-APACHE",
+        "tools/hsm/vendor/manifold-csg-sys/LICENSE-MIT",
+        "tools/hsm/vendor/manifold-csg-sys/README.md",
+        "tools/hsm/vendor/manifold-csg-sys/cache-version",
+        "tools/hsm/vendor/manifold-csg-sys/patches/README.md",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/CMakeLists.txt",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/diagnose.sh",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/__assertion_handler",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/__config_site",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/memory",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/mutex",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/libcxx-extras.cpp",
+    ],
+    outs = [
+        "out/fluid-topology/hardware/topology/fluid-topology-carbonator.mmd",
+        "out/fluid-topology/hardware/topology/fluid-topology-manifold.mmd",
+    ],
+    cmd = """
+set -e
+case "$$(uname -s)" in
+  Darwin)
+    copy_mask=$$((8#$$(umask)))
+    copy_bits=("" x w wx r rx rw rwx)
+    copy_mode="u-$${copy_bits[$$((copy_mask >> 6 & 7))]},g-$${copy_bits[$$((copy_mask >> 3 & 7))]},o-$${copy_bits[$$((copy_mask & 7))]}"
+    copy_file() {
+      local copy_dest="$${!#}" copy_target copy_permissions="$$copy_mode"
+      if [ -e "$$copy_dest" ] || [ -L "$$copy_dest" ]; then
+        if [ ! -f "$$copy_dest" ] || [ -L "$$copy_dest" ]; then cp "$$@"; return; fi
+        copy_permissions=$$(stat -f %Lp "$$copy_dest")
+        copy_target=$$(mktemp "$$copy_dest.hsm-copy.XXXXXX")
+      else copy_target="$$copy_dest"; fi
+      if cp -c "$${@:1:$$(( $$# - 1 ))}" "$$copy_target" 2>/dev/null; then
+        chmod "$$copy_permissions" "$$copy_target"
+        touch "$$copy_target"
+        if [ "$$copy_target" != "$$copy_dest" ]; then mv -f "$$copy_target" "$$copy_dest"; fi
+      else rm -f "$$copy_target"; cp "$$@"; fi
+    };;
+  *) copy_file() { cp "$$@"; };;
+esac
+hsm_run=
+for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
+  if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
+done
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+O0=$$PWD/$(location out/fluid-topology/hardware/topology/fluid-topology-carbonator.mmd)
+O1=$$PWD/$(location out/fluid-topology/hardware/topology/fluid-topology-manifold.mmd)
+rm -rf work
 for f in $(SRCS); do
   case $$f in
-    */node_modules/*) continue;;
-    */bin/support/enclosure-assembly-graph.json) t=tools/bazel/graph.json;;
     */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
     *) t=$$f;;
   esac
-  mkdir -p "work-fluid-topology-sync/$$(dirname "$$t")"; copy_file -L "$$f" "work-fluid-topology-sync/$$t"
+  mkdir -p "work/$$(dirname "$$t")"; copy_file -L "$$f" "work/$$t"
 done
-for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
-  if [ -d $$d ]; then mkdir -p work-fluid-topology-sync/$$(dirname $$d); ln -sfn $$PWD/$$d work-fluid-topology-sync/$$d; fi
-done
-for f in hardware/scripts/_run_lock.py hardware/scripts/_run_native.py hardware/scripts/_run_slots.py tools/hsm/run-slots.defaults.json tools/run-slots.mjs tools/run.py; do
-  mkdir -p work-fluid-topology-sync/$$(dirname $$f); cp $$HSM_WORKSPACE/$$f work-fluid-topology-sync/$$f
-done
-cd work-fluid-topology-sync
-ln -sfn $$HSM_WORKSPACE/.cache .cache
-D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/topology/_fluid_topology_sync.py > /dev/null
+cd work
+"$$hsm_run" -- ./fluid-topology > /dev/null
 copy_file hardware/topology/fluid-topology-carbonator.mmd "$$O0"
 copy_file hardware/topology/fluid-topology-manifold.mmd "$$O1"
-cd .. && rm -rf work-fluid-topology-sync
 """,
 )
 
@@ -15639,7 +15420,7 @@ filegroup(
         ":funnel-frame",
         ":bom-masses",
         ":machine-time",
-        ":fluid-topology-sync",
+        ":fluid-topology",
         ":cargo-config",
         ":install-guide-build",
         ":kit-art",

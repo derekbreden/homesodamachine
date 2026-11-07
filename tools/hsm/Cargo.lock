@@ -1222,6 +1222,19 @@ dependencies = [
 ]
 
 [[package]]
+name = "hsm-fluid-topology"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "hsm-documents",
+ "hsm-kernel",
+ "hsm-manifold-numbers",
+ "regex",
+ "serde",
+ "serde_json",
+]
+
+[[package]]
 name = "hsm-foam-shell"
 version = "0.1.0"
 dependencies = [
@@ -1418,6 +1431,27 @@ dependencies = [
 ]
 
 [[package]]
+name = "hsm-manifold-layout"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "hsm-kernel",
+ "hsm-manifold-numbers",
+ "hsm-print-payload",
+ "hsm-shared-data",
+ "serde",
+ "serde_json",
+]
+
+[[package]]
+name = "hsm-manifold-numbers"
+version = "0.1.0"
+dependencies = [
+ "serde",
+ "serde_json",
+]
+
+[[package]]
 name = "hsm-model-export"
 version = "0.1.0"
 dependencies = [
@@ -1470,6 +1504,17 @@ name = "hsm-prv-shroud-numbers"
 version = "0.1.0"
 dependencies = [
  "hsm-cold-core-catalog",
+]
+
+[[package]]
+name = "hsm-rear-equipment-caps"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "hsm-enclosure-numbers",
+ "hsm-kernel",
+ "serde",
+ "serde_json",
 ]
 
 [[package]]

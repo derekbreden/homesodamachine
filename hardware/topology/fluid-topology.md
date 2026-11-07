@@ -78,8 +78,8 @@ Y-A's and Y-B's run ports are numbered from the source end down the limb. The pu
 ## Tube Segments
 
 Each segment is one labelled edge in [fluid-topology-manifold.mmd](/hardware/topology/fluid-topology-manifold.mmd).
-[`_scorecard.py`](/hardware/manifold-layout/_scorecard.py) reads these tables as the flavor
-connection inventory. A segment is a face-to-face `butt`, a known `straight`, a
+The [fluid-topology program](/hardware/topology/fluid_topology.rs) reads these tables as the
+flavor connection inventory. A segment is a face-to-face `butt`, a known `straight`, a
 set of two stem `elbows` and a straight tube from a pump tee to its rear valve, a `pump-dock`
 connection, or a `drawn` connection made from its ordered native tubes and physical fittings. Reported lengths sum the actual tube centrelines; fitting flow paths add no connecting tube.
 Of manifold segments, carry no exposed tube,
@@ -92,9 +92,9 @@ insertions when making finished blanks. A butt
 joint still needs tube through both fittings despite its zero exposed length. The
 factory marks each actual fully seated insertion in the purchased collets before
 cutting.
-The pump tubes come fitted in the prepared pumps and are not counted here. A bare run of
-[`_fluid_topology_sync.py`](/hardware/topology/_fluid_topology_sync.py) prints every
-construction, known stock length and exposed path.
+The pump tubes come fitted in the prepared pumps and are not counted here. A bare run of the
+[fluid-topology program](/hardware/topology/fluid_topology.rs) prints every construction,
+known stock length and exposed path.
 
 Each reservoir also has an independent, bidirectional air path: headspace →
 flush TPU grommet → 4 mm OD / 2.5 mm ID tube → equipment-space air

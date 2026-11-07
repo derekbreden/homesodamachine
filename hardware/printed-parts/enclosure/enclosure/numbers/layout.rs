@@ -112,6 +112,8 @@ pub struct Parts {
     pub valve_v_a: Pose,
     #[serde(rename = "vk-solenoid")]
     pub vk_solenoid: Pose,
+    #[serde(rename = "asse1022-assembly")]
+    pub asse1022_assembly: Pose,
     #[serde(rename = "digiten-flow")]
     pub digiten_flow: Pose,
 }
@@ -141,6 +143,7 @@ pub struct Station {
 #[derive(Deserialize)]
 pub struct CavityFit {
     pub receiver_radial_mm: f64,
+    pub cap_radial_mm: f64,
     pub axial_mm: f64,
 }
 
@@ -149,6 +152,8 @@ pub struct RegulatorMount {
     pub station: Station,
     pub axis: P2,
     pub seat_y: P2,
+    /// The height of the regulator cap's underside.
+    pub cap_bottom: f64,
     pub cavity_fit: CavityFit,
 }
 
@@ -163,6 +168,8 @@ pub struct RearPlumbing {
     pub joint: Joint,
     pub chain_frame: Pose,
     pub gas_frame: Pose,
+    /// How far the inlet adapter's fitted room stands above the captured chain's pose.
+    pub asse_adapter_rise_mm: f64,
     pub snap_ceiling_z_mm: f64,
     pub regulator_mount: RegulatorMount,
 }

@@ -1,0 +1,20 @@
+[package]
+name = "hsm-fluid-topology"
+version = "0.1.0"
+edition.workspace = true
+license.workspace = true
+rust-version.workspace = true
+publish = false
+
+[[bin]]
+name = "fluid-topology"
+path = "../../../hardware/topology/fluid_topology.rs"
+
+[dependencies]
+anyhow.workspace = true
+hsm-documents = { path = "../documents" }
+hsm-kernel = { path = "../kernel" }
+hsm-manifold-numbers = { path = "../manifold-numbers" }
+regex = "1"
+serde = { workspace = true, features = ["derive"] }
+serde_json.workspace = true

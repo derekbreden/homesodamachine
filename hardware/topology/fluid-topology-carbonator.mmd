@@ -4,9 +4,9 @@ flowchart LR
   %% through, on the bodies the enclosure assembly places. The flavor manifold hanging off the
   %% water split is fluid-topology-manifold.mmd.
 
-  %% Source of truth: `manifold-layout/enclosure_assembly.py` places the pack and
-  %% `manifold-layout/_lines.py` authors each run port to port. `_fluid_topology_sync.py` names
-  %% every labelled edge below and gates each one against the built run. An edge with NO label
+  %% Source of truth: the installed machine (`manifold-layout/installed_machine.rs`) places the
+  %% pack and draws each run port to port. The fluid-topology program (`topology/fluid_topology.rs`)
+  %% names every labelled edge below and gates each one against the built run. An edge with NO label
   %% is a joint that carries no line: a made-up NPT thread, two collets face to face, a path
   %% inside the carbonator, or a sensor link.
 
