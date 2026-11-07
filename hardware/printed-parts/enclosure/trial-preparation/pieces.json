@@ -806,12 +806,12 @@
         "diameter_mm": 0.4,
         "flow": "Standard",
         "hardened": false,
-        "reason": "Black PETG on the left 0.4 mm (zone-c/funnel-cover/prepare_print.py; hardware/ledger/machine-time.md)."
+        "reason": "Black PETG on the left 0.4 mm (zone-c/funnel-cover/prepare_print.rs; hardware/ledger/machine-time.md)."
       },
       "material": "Bambu PETG Basic, black",
       "external": {
         "command": [
-          "hardware/printed-parts/zone-c/funnel-cover/prepare_print.py"
+          "tools/hsm/target/release/funnel-cover-print-project"
         ],
         "reason": "The cover's own preparer: solid PETG, three walls, no supports, from funnel-cover-print.stl."
       }

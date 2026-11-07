@@ -20,6 +20,8 @@ pub struct Road {
     pub width: f64,
     pub feature: Rc<str>,
     pub object: Option<i64>,
+    /// The extruder laying the road, as the last `T0` or `T1` chose it.
+    pub tool: u8,
 }
 
 impl Road {
@@ -64,6 +66,7 @@ struct Reader {
     height: f64,
     feature: Rc<str>,
     object: Option<i64>,
+    tool: u8,
     z: Option<f64>,
     roads: Vec<Road>,
     absolute: bool,
@@ -72,7 +75,7 @@ struct Reader {
 
 impl Default for Reader {
     fn default() -> Reader {
-        Reader { x: 0.0, y: 0.0, e: 0.0, width: 0.42, height: 0.24, feature: Rc::from(""), object: None, z: None,
+        Reader { x: 0.0, y: 0.0, e: 0.0, width: 0.42, height: 0.24, feature: Rc::from(""), object: None, tool: 0, z: None,
                  roads: Vec::new(), absolute: true, relative_e: true }
     }
 }
@@ -179,6 +182,10 @@ impl Reader {
         }
         let code = line.split(';').next().unwrap_or("").trim();
         let Some(command) = code.split_whitespace().next() else { return None };
+        if command == "T0" || command == "T1" {
+            self.tool = command.as_bytes()[1] - b'0';
+            return None;
+        }
         match command {
             "G90" | "G91" => {
                 self.absolute = command == "G90";
@@ -213,10 +220,11 @@ impl Reader {
                 let points = arc(self.x, self.y, nx, ny, &words, command == "G2");
                 for pair in points.windows(2) {
                     self.roads.push(Road { x0: pair[0].0, y0: pair[0].1, x1: pair[1].0, y1: pair[1].1, width: self.width,
-                                           feature: self.feature.clone(), object: self.object });
+                                           feature: self.feature.clone(), object: self.object, tool: self.tool });
                 }
             } else {
-                self.roads.push(Road { x0: self.x, y0: self.y, x1: nx, y1: ny, width: self.width, feature: self.feature.clone(), object: self.object });
+                self.roads.push(Road { x0: self.x, y0: self.y, x1: nx, y1: ny, width: self.width, feature: self.feature.clone(),
+                                       object: self.object, tool: self.tool });
             }
         }
         self.x = nx;

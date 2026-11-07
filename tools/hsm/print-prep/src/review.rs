@@ -530,6 +530,27 @@ fn overlap(a: &[(f64, f64)], b: &[(f64, f64)]) -> f64 {
 /// Scanline spacing for bead areas.
 const SCAN: f64 = 0.02;
 
+/// The bead area of `second` and the fraction of it lying over `first`'s beads, read on
+/// scanlines; none when `second` lays no bead.
+fn stack_over(first: &Beads, second: &Beads) -> Option<(f64, f64)> {
+    let (lo, hi) = second.extent()?;
+    let (mut area, mut shared) = (0.0, 0.0);
+    let mut y = lo[1] + SCAN / 2.0;
+    while y < hi[1] {
+        let runs = second.runs(y, lo[0] - 1.0, hi[0] + 1.0);
+        area += run_length(&runs) * SCAN;
+        shared += overlap(&runs, &first.runs(y, lo[0] - 1.0, hi[0] + 1.0)) * SCAN;
+        y += SCAN;
+    }
+    Some((area, if area > 0.0 { shared / area } else { 0.0 }))
+}
+
+/// How much of one layer's roads lie over the layer below: the upper layer's bead area and the
+/// fraction of it over the lower layer's beads.
+pub fn bead_stack(lower: &[Road], upper: &[Road]) -> Option<(f64, f64)> {
+    stack_over(&Beads::new(lower.iter().map(Capsule::of).collect()), &Beads::new(upper.iter().map(Capsule::of).collect()))
+}
+
 /// A cross-section at height `z`: its boundary segments, read by even-odd crossings. A plane
 /// through mesh vertices is read just above them, where the count cannot take a hole's loop for
 /// the section.
@@ -1058,19 +1079,11 @@ pub fn review(root: &Path, directory: &Path, audit_supports: bool, unbacked: boo
             continue;
         }
         let (first, second) = (&rows[0].0, Beads::new(rows[1].1.clone()));
-        let Some((lo, hi)) = second.extent() else { continue };
-        let (mut second_area, mut shared) = (0.0, 0.0);
-        let mut y = lo[1] + SCAN / 2.0;
-        while y < hi[1] {
-            let runs = second.runs(y, lo[0] - 1.0, hi[0] + 1.0);
-            second_area += run_length(&runs) * SCAN;
-            shared += overlap(&runs, &first.runs(y, lo[0] - 1.0, hi[0] + 1.0)) * SCAN;
-            y += SCAN;
-        }
+        let Some((second_area, fraction)) = stack_over(first, &second) else { continue };
         // + 0.0: an empty sum is -0.0.
         let outside: f64 = rows[1].1.iter().map(|c| first.uncovered(c.a, c.b).iter().sum::<f64>()).sum::<f64>() + 0.0;
         stack.insert(oid.to_string(), json!({"second_layer_model_bead_area_mm2": second_area,
-            "fraction_over_first_layer": if second_area > 0.0 { shared / second_area } else { 0.0 },
+            "fraction_over_first_layer": fraction,
             "second_layer_centerline_outside_first_mm": outside}));
     }
     let mut band_results = Vec::new();

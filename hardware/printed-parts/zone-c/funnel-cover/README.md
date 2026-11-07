@@ -55,6 +55,15 @@ review identifies the material preset, source hashes, solid infill and
 toolpaths for its identified artifact. The expanded plate needs a production
 reslice; physical fit and drip exclusion remain unqualified.
 
+[`prepare_print.rs`](prepare_print.rs) writes the project and slices it offline,
+never contacting a printer. The slice must lay only the cover's roads, from the
+left hotend, with no supports and its second layer standing on its first:
+
+```sh
+python3 tools/run.py -- cargo build --release --locked -j 2 --manifest-path tools/hsm/Cargo.toml -p hsm-print-prep --bin funnel-cover-print-project
+python3 tools/run.py -- tools/hsm/target/release/funnel-cover-print-project
+```
+
 The [native check](geometry-check.json) identifies the cover, funnel and
 assembly exports it measures. It checks the solid plate, silicone clearance,
 surrounding hardware clearance and vertical removal within that artifact scope. It does not measure
