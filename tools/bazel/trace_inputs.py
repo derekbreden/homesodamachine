@@ -425,6 +425,8 @@ RUST_STEPS = {
         ("coil-mandrel", "coil-mandrel", "hardware/printed-parts/cold-core/coil-mandrel"),
     "hardware/printed-parts/cold-core/reed-bridge/reed_bridge.rs":
         ("reed-bridge", "reed-bridge", "hardware/printed-parts/cold-core/reed-bridge"),
+    "hardware/printed-parts/cold-core/foam-cap/foam_cap.rs":
+        ("foam-cap", "foam-cap", "hardware/printed-parts/cold-core/foam-cap"),
 }
 
 #: The media a Rust step can rewrite in place: documents with authored text round the figures it
