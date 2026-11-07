@@ -526,7 +526,7 @@ program itself.
 ### Declared generator actions
 
 `hsm generate TARGET` runs an enrolled Python generator through the same part store.
-The enrolled targets are `water-inlet-jet-fixture`, `elbow-cradle` and `funnel-mold`.
+The enrolled targets are `elbow-cradle` and `funnel-mold`.
 `--root` selects its checkout; `--python /path/to/cad-venv/bin/python` supplies
 the interpreter when that worktree has no `tools/cad-venv`. `--output DIRECTORY` places
 the target's declared outputs under that directory's repository-relative paths; its default

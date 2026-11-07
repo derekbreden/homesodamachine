@@ -15,10 +15,6 @@ name = "weld-rotator"
 path = "../../../hardware/printed-parts/fixtures/weld-rotator/weld_rotator.rs"
 
 [[bin]]
-name = "water-inlet-jet-fixture"
-path = "../../../hardware/printed-parts/fixtures/water-inlet-jet/water_inlet_jet_fixture.rs"
-
-[[bin]]
 name = "rear-snap-retention"
 path = "../../../hardware/print-tests/rear-snap-retention/rear_snap_retention.rs"
 

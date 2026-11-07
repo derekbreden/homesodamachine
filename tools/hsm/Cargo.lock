@@ -1899,6 +1899,23 @@ name = "hsm-valve-seat-numbers"
 version = "0.1.0"
 
 [[package]]
+name = "hsm-water-inlet-jet-fixture"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "hsm-kernel",
+ "hsm-water-inlet-jet-fixture-numbers",
+ "serde_json",
+]
+
+[[package]]
+name = "hsm-water-inlet-jet-fixture-numbers"
+version = "0.1.0"
+dependencies = [
+ "hsm-carbonator-numbers",
+]
+
+[[package]]
 name = "hsm-zone-c-numbers"
 version = "0.1.0"
 dependencies = [
