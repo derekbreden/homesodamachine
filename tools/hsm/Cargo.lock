@@ -1689,6 +1689,7 @@ version = "0.1.0"
 dependencies = [
  "anyhow",
  "hsm-faucet-numbers",
+ "hsm-run-slots",
  "hsm-shared-data",
  "serde_json",
  "sha2",

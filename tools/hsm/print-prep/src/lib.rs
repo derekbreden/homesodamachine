@@ -3,11 +3,14 @@
 //! job to a printer.
 
 pub mod cooling;
+pub mod derive;
 pub mod ids;
 pub mod json;
 pub mod mesh;
+pub mod npz;
 pub mod profile;
 pub mod project;
+pub mod seam;
 pub mod slice;
 
 use sha2::{Digest, Sha256};

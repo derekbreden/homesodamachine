@@ -149,6 +149,8 @@ fn main() -> Result<()> {
     std::fs::write(project.with_extension("print.json"), report.dumps() + "\n")?;
     println!("{}: four parts on one plate; exact settings {}", project.display(), sha256_hex(settings_payload.as_bytes()));
     if let Some(directory) = slice_output {
+        // Bambu Studio's slice is one of the Mac's heavy runs.
+        hsm_run_slots::process_enter(&hsm_run_slots::native_key())?;
         slice::run(&slicer, &project, &directory)?;
         slice::apply_directory(&directory.canonicalize()?, &project.canonicalize()?)?;
     }
