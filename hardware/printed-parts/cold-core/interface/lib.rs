@@ -71,6 +71,26 @@ pub const BAG_POCKET_WALLS_TOP_Z: f64 = FOAM_SHELL_OUTER_HEIGHT;
 pub const REED_CHANNEL_INNER_X: f64 = 131.5;
 pub const REED_COLUMN_AXIS_X: f64 = REED_CHANNEL_INNER_X + REED_X_DEPTH / 2.;
 
+// --- The reed channels -------------------------------------------------------------------------
+
+/// The reeds each reservoir's channel holds, one above another.
+pub const REEDS_PER_RESERVOIR: usize = 4;
+/// The channel's axis across Y: the float rod's station.
+pub const REED_Y_CENTER: f64 = LEVEL_ROD_Y;
+/// The reed cavity across Y, and the envelope its walls make round it.
+pub const REED_CAVITY_Y_RANGE: [f64; 2] = [REED_Y_CENTER - REED_Y_HALF_W, REED_Y_CENTER + REED_Y_HALF_W];
+pub const REED_ENVELOPE_Y_RANGE: [f64; 2] =
+    [REED_CAVITY_Y_RANGE[0] - WALL_THICKNESS, REED_CAVITY_Y_RANGE[1] + WALL_THICKNESS];
+
+/// Up the shell: the cavity from the floor's top to the rim, the envelope from the base.
+pub fn reed_cavity_z_range(fits: &Fits) -> [f64; 2] {
+    [WALL_AND_FLOOR_THICKNESS, foam_shell_rim_z(fits)]
+}
+
+pub fn reed_envelope_z_range(fits: &Fits) -> [f64; 2] {
+    [0., foam_shell_rim_z(fits)]
+}
+
 /// The reservoir slides into its pocket on the running fit.
 pub fn reservoir_clearance(fits: &Fits) -> f64 {
     fits.running
