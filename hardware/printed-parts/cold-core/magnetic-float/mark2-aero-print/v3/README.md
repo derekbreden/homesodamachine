@@ -72,7 +72,7 @@ establish physical adhesion, density or fit.
 - [Preflight, parent archive binding and frozen hashes](pair-preflight.json)
 - [One-Send guard and printer acceptance](pair-mark2-launch.json)
 - [Queue](queue.json)
-- [Preparation and exact command comparison](prepare.py)
+- [Preparation and exact command comparison](https://github.com/derekbreden/homesodamachine/blob/0a648015e0/hardware/printed-parts/cold-core/magnetic-float/mark2-aero-print/v3/prepare.py) (in Git at `0a648015e0`)
 - [Derek's stop report for the preceding combined trial](../v2/pair-mark2-launch.json)
 
 ![Combined plate native preview](pair-preview.png)

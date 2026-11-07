@@ -64,7 +64,7 @@ The next submission requires a new start request or clear-bed report after
 removing the completed print.
 
 - [Preflight and native comparison](pair-preflight.json)
-- [Native preparation](prepare.py)
+- [Native preparation](https://github.com/derekbreden/homesodamachine/blob/0a648015e0/hardware/printed-parts/cold-core/magnetic-float/mark2-aero-print/v6/prepare.py) (in Git at `0a648015e0`)
 - [Queue](queue.json)
 - [Prior physical plate report](../v5/physical-observations.json)
 

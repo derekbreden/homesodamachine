@@ -68,7 +68,7 @@ repeated bridge specimens is [Prusa's bridge guidance](https://help.prusa3d.com/
 The selected 100–125% range comes from this PET-GF physical result. More cooling
 is a candidate to test, not an established improvement in line joining.
 
-The editable project and meshes come from `prepare.py`, using the v4 geometry
+The editable project and meshes come from [`prepare.py`](https://github.com/derekbreden/homesodamachine/blob/0a648015e0/hardware/print-tests/petgf-fins/normal-flow-cooling-v5/prepare.py) (in Git at `0a648015e0`), using the v4 geometry
 helper with an explicit destination. Slice with the installed Bambu Studio CLI:
 `--arrange 0 --orient 0 --slice 0 --outputdir <absolute mark1 directory>
 --export-3mf native.gcode.3mf <absolute source project>`. Then run `finish.py`
