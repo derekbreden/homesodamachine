@@ -1,0 +1,20 @@
+[package]
+name = "hsm-foam-cap-numbers"
+version = "0.1.0"
+edition.workspace = true
+license.workspace = true
+rust-version.workspace = true
+publish = false
+
+[lib]
+path = "../../../hardware/printed-parts/cold-core/foam-cap/numbers/lib.rs"
+
+[dependencies]
+serde = { workspace = true, features = ["derive"] }
+serde_json.workspace = true
+hsm-cold-core-catalog = { path = "../cold-core-catalog" }
+hsm-cold-core-interface = { path = "../cold-core-interface" }
+hsm-cold-core-layout = { path = "../cold-core-layout" }
+hsm-enclosure-numbers = { path = "../enclosure-numbers" }
+hsm-reservoir-numbers = { path = "../reservoir-numbers" }
+hsm-valve-seat-numbers = { path = "../valve-seat-numbers" }
