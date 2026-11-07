@@ -3,22 +3,15 @@ mod _cad_art;
 mod _cad_art_mesh;
 mod _install_art;
 mod _install_art_mesh;
-mod _plumbing_art_mesh;
 mod common;
-mod contours;
 mod cylinder_actions;
 mod faucet_book;
 mod fill_scene;
 mod hold_scene;
 mod ice_scene;
 mod insertion_actions;
-mod kit_art;
-mod landscape;
-mod opening_scene;
-mod plumbing_scenes;
 mod preflight;
 mod press;
-mod render_modern_tee;
 mod scenes;
 mod startup;
 pub fn documentation(name: &str) -> Option<&'static str> {
@@ -35,16 +28,6 @@ pub fn documentation(name: &str) -> Option<&'static str> {
         "_install_art_mesh" => Some(
             "The installation pictures' producer surfaces and illustration props.\n\nProducer meshes keep their normals, face ranges and material colours. Only the\ntwo faucet detail crops pass through the solid kernel, to close their cut ends.\nThese scene payloads serve pictures; they are not measurement models.",
         ),
-        "_plumbing_art_mesh" => {
-            Some("The under-sink instruction scenes as Rust-kernel illustration geometry.")
-        }
-        "render_modern_tee" => Some(
-            "Render a modern-home, all-push-connect cold-water installation sequence.\n\nThe household line is 1/4-inch OD LLDPE already seated in an existing John\nGuest PP0408W-style push-to-connect union.  The installation shown here never\nopens a threaded or compression joint:\n\n1. turn the household quarter-turn shutoff from ON to OFF while the LLDPE and\n   its PTC union remain connected;\n2. press the union's release collet and withdraw the existing LLDPE;\n3. push the supplied stub/tee/appliance-tube assembly into that union;\n4. push the original household line into the tee's open run port.\n\nEvery visible fitting, tube, valve, and handle is literal CAD geometry.\nThe wide shutoff pair, release trio, and cumulative tee sequence each retain a\nregistered orthographic camera so motion is the only visual change within a\nstep. Motion arrows stay out of the renders: the guide page places one fixed\nflat glyph at each projected action anchor. The final PNGs have transparent\ncanvases so the guide page is their only background.\n\nRegenerate from the repository root with::\n\n    tools/cad-venv/bin/python       hardware/install-guide/plumbing/modern/render_modern_tee.py",
-        ),
-        "plumbing_scenes" => Some(
-            "Registered under-sink cold-water hookup scenes for the Install guide.\n\nThe four scenes use one literal coordinate frame and one camera.  They show the\ncommon older-home installation: a copper wall stub, quarter-turn angle stop,\nexisting braided 3/8-inch faucet supply, the John Guest Speedfit ASVPP1LF angle\nstop adapter valve interposed in that 3/8-inch run, and the appliance's white\n1/4-inch branch tube pushed into the adapter's collet.  Every instructional\nobject is CAD geometry; there are no labels, arrows, or raster additions.\n\nFrame:\n    +X = installer right\n    +Y = out from the wall and into the cabinet\n    +Z = up\n    Y=0 = finished wall face\n\nRun from the repository root:\n    tools/cad-venv/bin/python hardware/install-guide/plumbing/plumbing_scenes.py\n    tools/cad-venv/bin/python hardware/install-guide/plumbing/plumbing_scenes.py --render",
-        ),
-        "contours" => Some("Fixed-width page silhouettes for the installation illustrations."),
         "cylinder_actions" => Some(
             "The cylinder connection and startup controls, in the regulator's world frame.\n\n+Y faces the customer, +Z is up, and the cylinder stands at -X. The red tether is\npushed into the regulator's PI010822S at the factory, so the customer's one joint here is\nthe big nut onto the cylinder valve.",
         ),
@@ -57,11 +40,6 @@ pub fn documentation(name: &str) -> Option<&'static str> {
         "ice_scene" => Some("Model and render ice in the owner guides' frozen first-pour scene."),
         "insertion_actions" => {
             Some("Render the cord and bottle insertion poses from the frozen installation meshes.")
-        }
-        "kit_art" => Some("Draw the supplied kit as consistent vector hidden-line views."),
-        "landscape" => Some("Compose the 32-interior-page, 9 x 7 inch owner install guide."),
-        "opening_scene" => {
-            Some("Render the current counter opening and its registered component silhouette.")
         }
         "preflight" => {
             Some("Check the 9 x 7 inch landscape PDFs, navigation, bleed and print artwork.")
@@ -88,18 +66,11 @@ pub fn source(name: &str) -> Option<&'static str> {
         "_cad_art_mesh" => Some("hardware/install-guide/_cad_art_mesh.py"),
         "_install_art" => Some("hardware/install-guide/_install_art.py"),
         "_install_art_mesh" => Some("hardware/install-guide/_install_art_mesh.py"),
-        "_plumbing_art_mesh" => Some("hardware/install-guide/_plumbing_art_mesh.py"),
-        "render_modern_tee" => Some("hardware/install-guide/plumbing/modern/render_modern_tee.py"),
-        "plumbing_scenes" => Some("hardware/install-guide/plumbing/plumbing_scenes.py"),
-        "contours" => Some("tools/install-guide/contours.py"),
         "cylinder_actions" => Some("tools/install-guide/cylinder_actions.py"),
         "fill_scene" => Some("tools/install-guide/fill_scene.py"),
         "hold_scene" => Some("tools/install-guide/hold_scene.py"),
         "ice_scene" => Some("tools/install-guide/ice_scene.py"),
         "insertion_actions" => Some("tools/install-guide/insertion_actions.py"),
-        "kit_art" => Some("tools/install-guide/kit_art.py"),
-        "landscape" => Some("tools/install-guide/landscape.py"),
-        "opening_scene" => Some("tools/install-guide/opening_scene.py"),
         "preflight" => Some("tools/install-guide/preflight.py"),
         "press" => Some("tools/install-guide/press.py"),
         "scenes" => Some("tools/install-guide/scenes.py"),
@@ -122,18 +93,6 @@ pub fn by_path(path: &str) -> Option<&'static str> {
     if path.ends_with("hardware/install-guide/_install_art_mesh.py") {
         return Some("_install_art_mesh");
     }
-    if path.ends_with("hardware/install-guide/_plumbing_art_mesh.py") {
-        return Some("_plumbing_art_mesh");
-    }
-    if path.ends_with("hardware/install-guide/plumbing/modern/render_modern_tee.py") {
-        return Some("render_modern_tee");
-    }
-    if path.ends_with("hardware/install-guide/plumbing/plumbing_scenes.py") {
-        return Some("plumbing_scenes");
-    }
-    if path.ends_with("tools/install-guide/contours.py") {
-        return Some("contours");
-    }
     if path.ends_with("tools/install-guide/cylinder_actions.py") {
         return Some("cylinder_actions");
     }
@@ -148,15 +107,6 @@ pub fn by_path(path: &str) -> Option<&'static str> {
     }
     if path.ends_with("tools/install-guide/insertion_actions.py") {
         return Some("insertion_actions");
-    }
-    if path.ends_with("tools/install-guide/kit_art.py") {
-        return Some("kit_art");
-    }
-    if path.ends_with("tools/install-guide/landscape.py") {
-        return Some("landscape");
-    }
-    if path.ends_with("tools/install-guide/opening_scene.py") {
-        return Some("opening_scene");
     }
     if path.ends_with("tools/install-guide/preflight.py") {
         return Some("preflight");
@@ -184,18 +134,11 @@ pub fn initialize(rt: Runtime, e: Env, name: &str) -> Result<()> {
         "_cad_art_mesh" => _cad_art_mesh::initialize(rt, e),
         "_install_art" => _install_art::initialize(rt, e),
         "_install_art_mesh" => _install_art_mesh::initialize(rt, e),
-        "_plumbing_art_mesh" => _plumbing_art_mesh::initialize(rt, e),
-        "render_modern_tee" => render_modern_tee::initialize(rt, e),
-        "plumbing_scenes" => plumbing_scenes::initialize(rt, e),
-        "contours" => contours::initialize(rt, e),
         "cylinder_actions" => cylinder_actions::initialize(rt, e),
         "fill_scene" => fill_scene::initialize(rt, e),
         "hold_scene" => hold_scene::initialize(rt, e),
         "ice_scene" => ice_scene::initialize(rt, e),
         "insertion_actions" => insertion_actions::initialize(rt, e),
-        "kit_art" => kit_art::initialize(rt, e),
-        "landscape" => landscape::initialize(rt, e),
-        "opening_scene" => opening_scene::initialize(rt, e),
         "preflight" => preflight::initialize(rt, e),
         "press" => press::initialize(rt, e),
         "scenes" => scenes::initialize(rt, e),
@@ -211,18 +154,11 @@ pub fn entrypoint(rt: Runtime, e: Env, name: &str) -> Result<Val> {
         "_cad_art_mesh" => _cad_art_mesh::entrypoint(rt, e),
         "_install_art" => _install_art::entrypoint(rt, e),
         "_install_art_mesh" => _install_art_mesh::entrypoint(rt, e),
-        "_plumbing_art_mesh" => _plumbing_art_mesh::entrypoint(rt, e),
-        "render_modern_tee" => render_modern_tee::entrypoint(rt, e),
-        "plumbing_scenes" => plumbing_scenes::entrypoint(rt, e),
-        "contours" => contours::entrypoint(rt, e),
         "cylinder_actions" => cylinder_actions::entrypoint(rt, e),
         "fill_scene" => fill_scene::entrypoint(rt, e),
         "hold_scene" => hold_scene::entrypoint(rt, e),
         "ice_scene" => ice_scene::entrypoint(rt, e),
         "insertion_actions" => insertion_actions::entrypoint(rt, e),
-        "kit_art" => kit_art::entrypoint(rt, e),
-        "landscape" => landscape::entrypoint(rt, e),
-        "opening_scene" => opening_scene::entrypoint(rt, e),
         "preflight" => preflight::entrypoint(rt, e),
         "press" => press::entrypoint(rt, e),
         "scenes" => scenes::entrypoint(rt, e),

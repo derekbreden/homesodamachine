@@ -1,0 +1,20 @@
+[package]
+name = "hsm-install-guide"
+version = "0.1.0"
+edition.workspace = true
+license.workspace = true
+rust-version.workspace = true
+publish = false
+
+[[bin]]
+name = "install-guide"
+path = "../../../hardware/install-guide/install_guide.rs"
+
+[dependencies]
+anyhow.workspace = true
+serde_json.workspace = true
+sha2.workspace = true
+tiny-skia = "0.12.0"
+zip = { version = "9.1.2", default-features = false, features = ["deflate-flate2-zlib-rs"] }
+hsm-pages = { path = "../pages" }
+hsm-faucet-numbers = { path = "../faucet-numbers" }
