@@ -104,6 +104,11 @@ The [regulator tip reading](regulator-tip-review.json) binds the full lead-in,
 matching receiver pocket, retained bearing geometry and enclosure roof stock
 to their generated solids and prepared print.
 
+The [entry comparison](entry-study/README.md) pairs that standard cover with
+an outward-flared, longer lead-in. The complete common receiver clears both
+covers. The spring walls, roots and retaining faces keep their fitted geometry;
+the entry study records the comparison's scope and review state.
+
 The standalone STEP and STL files use the print frame, with one axial end
 on Z0 and spring bending within the layer plane. The appliance uses their installed frames.
 Use the shared PET-GF Tree(auto)/Default support policy. These fits describe
