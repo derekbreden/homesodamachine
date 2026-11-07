@@ -1,0 +1,456 @@
+{
+  "project": "hardware/printed-parts/enclosure/display-cover/prints/2026-11-06-identification-set-mark1/HSM-identification-set-Mark1.3mf",
+  "printer": "Mark1",
+  "plate": "Glued Engineering Plate",
+  "nozzle_mm": 0.2,
+  "layer_mm": 0.12,
+  "requested_z_trim_mm": 0.0,
+  "parts": [
+    {
+      "name": "Nameplate unit 0001",
+      "source": "hardware/printed-parts/enclosure/nameplate/nameplate-001.step.npz",
+      "sha256": "a097f7bfbd51427f9fb8dab8cf3ed1d24c17ca0345952296b44875fdaeb536ce",
+      "parts": [
+        {
+          "name": "nameplate-001",
+          "filament": 1,
+          "volume_mm3": 28665.480684290033,
+          "bounds_mm": [
+            [
+              176.0,
+              155.0,
+              0.0
+            ],
+            [
+              264.0,
+              255.0,
+              3.360000000335276
+            ]
+          ],
+          "triangles": 35406
+        },
+        {
+          "name": "nameplate-001-ink",
+          "filament": 2,
+          "volume_mm3": 1039.8659119837428,
+          "bounds_mm": [
+            [
+              180.79000000003725,
+              159.79000000003725,
+              2.639999999664724
+            ],
+            [
+              259.20999999996275,
+              250.20999999996275,
+              3.8399999998509884
+            ]
+          ],
+          "triangles": 30632
+        }
+      ]
+    },
+    {
+      "name": "Status plate",
+      "source": "hardware/printed-parts/enclosure/display-cover/status-plate.step.npz",
+      "sha256": "ed3b687d565b162cfa1a1386634d2818777f433822efe354cc8f3c156b336afd",
+      "parts": [
+        {
+          "name": "status-plate",
+          "filament": 1,
+          "volume_mm3": 11849.118372889301,
+          "bounds_mm": [
+            [
+              195.25,
+              60.5,
+              0.0
+            ],
+            [
+              244.75,
+              143.5,
+              3.0
+            ]
+          ],
+          "triangles": 9940
+        },
+        {
+          "name": "status-plate-ink",
+          "filament": 2,
+          "volume_mm3": 203.52784132531406,
+          "bounds_mm": [
+            [
+              204.75,
+              70.0,
+              2.2800000002607703
+            ],
+            [
+              235.25,
+              134.0,
+              3.480000000447035
+            ]
+          ],
+          "triangles": 4760
+        },
+        {
+          "name": "status-plate-diffuser",
+          "filament": 5,
+          "volume_mm3": 96.4709731406377,
+          "bounds_mm": [
+            [
+              216.79999999981374,
+              91.40000000037253,
+              0.0
+            ],
+            [
+              223.20000000018626,
+              97.79999999981374,
+              3.0
+            ]
+          ],
+          "triangles": 508
+        }
+      ]
+    },
+    {
+      "name": "TAP chip",
+      "source": "hardware/printed-parts/enclosure/rear-identification/rear-label-water.step.npz",
+      "sha256": "69293e1d70a0daed66a2df1516ce106c8975dbba87097c0f4dd37e58e043465e",
+      "parts": [
+        {
+          "name": "bulkhead-ring-water",
+          "filament": 2,
+          "volume_mm3": 2332.162176591226,
+          "bounds_mm": [
+            [
+              69.0,
+              157.0,
+              0.0
+            ],
+            [
+              111.0,
+              195.0,
+              1.7999999998137355
+            ]
+          ],
+          "triangles": 1152
+        },
+        {
+          "name": "bulkhead-ring-water-word",
+          "filament": 1,
+          "volume_mm3": 23.03216220557859,
+          "bounds_mm": [
+            [
+              85.1318359375,
+              185.8161471885066,
+              0.8
+            ],
+            [
+              94.8681640625,
+              189.4147800010066,
+              2.2800000004470364
+            ]
+          ],
+          "triangles": 620
+        }
+      ]
+    },
+    {
+      "name": "CO2 chip",
+      "source": "hardware/printed-parts/enclosure/rear-identification/rear-label-co2.step.npz",
+      "sha256": "8611ff140bde0e1f4b22f516ec09924dc0775df0b6cb94ab3defba8482386602",
+      "parts": [
+        {
+          "name": "bulkhead-ring-co2",
+          "filament": 4,
+          "volume_mm3": 2584.2624018194497,
+          "bounds_mm": [
+            [
+              119.0,
+              157.0,
+              0.0
+            ],
+            [
+              161.0,
+              195.0,
+              1.7999999998137355
+            ]
+          ],
+          "triangles": 3396
+        },
+        {
+          "name": "bulkhead-ring-co2-word",
+          "filament": 2,
+          "volume_mm3": 25.440816787459635,
+          "bounds_mm": [
+            [
+              135.072021484375,
+              185.7111667197566,
+              0.8
+            ],
+            [
+              144.927978515625,
+              189.5197604697566,
+              2.2800000004470364
+            ]
+          ],
+          "triangles": 2860
+        }
+      ]
+    },
+    {
+      "name": "SODA chip",
+      "source": "hardware/printed-parts/enclosure/rear-identification/rear-label-carb.step.npz",
+      "sha256": "4bac2b6c5b8f80ec2f942bc149424e27a2a3030a0701874d46901b9226f7e82d",
+      "parts": [
+        {
+          "name": "bulkhead-ring-carb",
+          "filament": 3,
+          "volume_mm3": 2417.551531661181,
+          "bounds_mm": [
+            [
+              69.0,
+              114.0,
+              0.0
+            ],
+            [
+              111.0,
+              152.0,
+              1.7999999998137355
+            ]
+          ],
+          "triangles": 3644
+        },
+        {
+          "name": "bulkhead-ring-carb-word",
+          "filament": 2,
+          "volume_mm3": 37.64247707046636,
+          "bounds_mm": [
+            [
+              82.918701171875,
+              144.6315795902163,
+              0.8
+            ],
+            [
+              97.081298828125,
+              148.4401733402163,
+              2.280000000447037
+            ]
+          ],
+          "triangles": 3112
+        }
+      ]
+    },
+    {
+      "name": "FLAVOR A chip",
+      "source": "hardware/printed-parts/enclosure/rear-identification/rear-label-flavor-a.step.npz",
+      "sha256": "fc76f4df59345f357cba6a7cee4a7b4a651e5a43b5e2765e77e2d619c15d49e7",
+      "parts": [
+        {
+          "name": "bulkhead-ring-flavor-a",
+          "filament": 1,
+          "volume_mm3": 2509.125046727758,
+          "bounds_mm": [
+            [
+              119.0,
+              114.0,
+              0.0
+            ],
+            [
+              161.0,
+              152.0,
+              1.7999999998137355
+            ]
+          ],
+          "triangles": 2604
+        },
+        {
+          "name": "bulkhead-ring-flavor-a-word",
+          "filament": 2,
+          "volume_mm3": 48.648930196356936,
+          "bounds_mm": [
+            [
+              130.018310546875,
+              144.6315795902163,
+              0.8
+            ],
+            [
+              149.981689453125,
+              148.4401733402163,
+              2.2800000004470373
+            ]
+          ],
+          "triangles": 2064
+        }
+      ]
+    },
+    {
+      "name": "DRAIN chip",
+      "source": "hardware/printed-parts/enclosure/rear-identification/rear-label-drain.step.npz",
+      "sha256": "b29968574898be02c9c269f8ec1bbd924959147873c47dbf3d262d98072262b2",
+      "parts": [
+        {
+          "name": "bulkhead-ring-drain",
+          "filament": 2,
+          "volume_mm3": 2513.1313375145082,
+          "bounds_mm": [
+            [
+              69.0,
+              71.0,
+              0.0
+            ],
+            [
+              111.0,
+              109.0,
+              1.7999999998137355
+            ]
+          ],
+          "triangles": 2050
+        },
+        {
+          "name": "bulkhead-ring-drain-word",
+          "filament": 1,
+          "volume_mm3": 42.71961982906882,
+          "bounds_mm": [
+            [
+              82.43408203125,
+              75.78592224158348,
+              0.8
+            ],
+            [
+              97.56591796875,
+              79.38455505408348,
+              2.2800000004470373
+            ]
+          ],
+          "triangles": 1512
+        }
+      ]
+    },
+    {
+      "name": "FLAVOR B chip",
+      "source": "hardware/printed-parts/enclosure/rear-identification/rear-label-flavor-b.step.npz",
+      "sha256": "b0a00daca8e386072f5735700f2f0db0706e157e998c1df2f22145720bbe8964",
+      "parts": [
+        {
+          "name": "bulkhead-ring-flavor-b",
+          "filament": 1,
+          "volume_mm3": 2509.125046727758,
+          "bounds_mm": [
+            [
+              119.0,
+              71.0,
+              0.0
+            ],
+            [
+              161.0,
+              109.0,
+              1.7999999998137355
+            ]
+          ],
+          "triangles": 2604
+        },
+        {
+          "name": "bulkhead-ring-flavor-b-word",
+          "filament": 2,
+          "volume_mm3": 48.648930196356936,
+          "bounds_mm": [
+            [
+              130.018310546875,
+              75.68094177283348,
+              0.8
+            ],
+            [
+              149.981689453125,
+              79.48953552283348,
+              2.2800000004470373
+            ]
+          ],
+          "triangles": 2064
+        }
+      ]
+    }
+  ],
+  "filaments": [
+    {
+      "id": 1,
+      "color": "#000000",
+      "profile": "Bambu PETG Basic @BBL H2C 0.2 nozzle",
+      "side": "left",
+      "ams_slot": "HT-A"
+    },
+    {
+      "id": 2,
+      "color": "#FFFFFF",
+      "profile": "Bambu PETG Basic @BBL H2C 0.2 nozzle",
+      "side": "right",
+      "ams_slot": "A3"
+    },
+    {
+      "id": 3,
+      "color": "#0086D6",
+      "profile": "Bambu PETG Basic @BBL H2C 0.2 nozzle",
+      "side": "right",
+      "ams_slot": "A2"
+    },
+    {
+      "id": 4,
+      "color": "#D6001C",
+      "profile": "Bambu PETG Basic @BBL H2C 0.2 nozzle",
+      "side": "right",
+      "ams_slot": "A1"
+    },
+    {
+      "id": 5,
+      "color": "#00000000",
+      "profile": "Bambu PETG Translucent @BBL H2C 0.2 nozzle",
+      "side": "right",
+      "ams_slot": "A4"
+    }
+  ],
+  "solid_infill": true,
+  "face_up": true,
+  "supports": false,
+  "project_sha256": "31d573447cf312697f36a8d535bcdabc657e3105e4ee73723d3c746083367de3",
+  "model_commit": "8e5d31284f71d48994af33268b24656039b7b9ef",
+  "slicer_version": "BambuStudio-02.08.02.61",
+  "native_cli_settings": {
+    "filament_map": [
+      1,
+      2,
+      2,
+      2,
+      2
+    ],
+    "filament_volume_map": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "filament_nozzle_map": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "extruder_nozzle_count": [
+      1,
+      4
+    ],
+    "extruder_nozzle_volume_type": [
+      "Standard",
+      "Standard",
+      "Standard",
+      "Standard",
+      "Standard"
+    ]
+  },
+  "launch_archive": "HSM-identification-Mark1-z000.gcode.3mf",
+  "diffuser_mm": {
+    "diameter": 6.4,
+    "thickness": 3.0
+  },
+  "emitted_z_offset_mm": 0.0,
+  "source_preparation": "hardware/printed-parts/enclosure/display-cover/prints/2026-11-06-identification-set-mark1/preparation.json"
+}
