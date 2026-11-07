@@ -24,3 +24,8 @@ pub const REGISTER_DRILL_IN: f64 = 0.140625;
 pub const REGISTER_DEPTH_IN: f64 = 0.1;
 /// The register's distance from the cap's centre: under the float rod's axis.
 pub const REGISTER_RADIUS_IN: f64 = TUBE_ID_IN / 2. - float::ROD_AXIS_FROM_INNER_WALL / INCH;
+/// The register drill's point angle, in degrees. The register's depth is to the point's tip.
+pub const REGISTER_POINT_ANGLE_DEG: f64 = 135.;
+/// The drill the top cap's register may be opened to, at the same tip depth, when the cap won't
+/// seat over the rod's tip.
+pub const REGISTER_OPEN_DRILL_IN: f64 = 0.15625;

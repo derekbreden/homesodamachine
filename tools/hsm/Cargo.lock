@@ -1125,6 +1125,25 @@ dependencies = [
 ]
 
 [[package]]
+name = "hsm-endcap-circular-drawing"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "hsm-documents",
+ "hsm-endcap-circular-numbers",
+ "hsm-pages",
+]
+
+[[package]]
+name = "hsm-endcap-circular-dxf"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "hsm-documents",
+ "hsm-endcap-circular-numbers",
+]
+
+[[package]]
 name = "hsm-endcap-circular-numbers"
 version = "0.1.0"
 dependencies = [

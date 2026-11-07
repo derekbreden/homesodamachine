@@ -1,4 +1,4 @@
-'Finished carbonator end cap, on one ANSI B landscape engineering sheet.\n\nThe face view and location table describe the two tapped ports and the blind\nrod register. Section A-A identifies the plate faces and NPT entry direction;\nlocal section B-B shows the actual 135-degree drill point and tip-depth datum.\nAll part dimensions come from the laser-blank/register source module. Thread\nlines are a conventional representation, not a model of the helical surfaces.\n\nRun with tools/cad-venv/bin/python. No CAD or cut-file geometry is changed.\n'
+'Finished carbonator end cap, on one ANSI B landscape engineering sheet.\n\nThe face view and location table describe the two tapped ports and the blind\nrod register. Section A-A identifies the plate faces and NPT entry direction;\nlocal section B-B shows the actual 135-degree drill point and tip-depth datum.\nAll part dimensions come from the laser-blank/register source module. Thread\nlines are a conventional representation, not a model of the helical surfaces.\n\nendcap_circular_drawing.rs draws the sheet, when an order needs it; this module keeps the\nhelpers the other fabrication drawings import.\n'
 from __future__ import annotations
 
 import sys as _sys
@@ -15,8 +15,3 @@ def __getattr__(name):
         return _member('endcap_circular_drawing', name)
     except ValueError as error:
         raise AttributeError(name) from error
-
-if __name__ == "__main__":
-    import _rust_part
-    _rust_part.start()
-    _compiled('endcap_circular_drawing', action="main")
