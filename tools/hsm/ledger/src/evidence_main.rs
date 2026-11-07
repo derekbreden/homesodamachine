@@ -1,8 +1,4 @@
-mod analysis;
-mod ledger_money;
-mod ledger_totals;
-#[allow(dead_code)]
-mod shared;
+use hsm_ledger::{analysis, ledger_totals, shared};
 use anyhow::{Context as _,Result,bail};
 use serde_json::{Value,json};
 use std::io::{self,BufRead,Write};

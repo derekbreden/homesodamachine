@@ -1,24 +1,43 @@
 use anyhow::{Context as _, Result};
-use hsm_documents::{Kind, Variables};
+use hsm_documents::Variables;
 use regex::Regex;
 use serde_json::{Value, json};
 use std::{
-    collections::BTreeSet,
+    collections::{BTreeMap, BTreeSet},
     path::{Path, PathBuf},
 };
 
+/// The programs that write the ledgers' figures, as each document's Sources names them.
+pub const BOM_PROGRAM: &str = "/hardware/ledger/bom.rs";
+pub const PURCHASES_PROGRAM: &str = "/hardware/ledger/purchases.rs";
+pub const MACHINE_TIME_PROGRAM: &str = "/hardware/ledger/machine_time.rs";
+
+/// What a ledger run reads and writes. Inputs are read under `root`; a program given an output
+/// directory writes its documents there, at their paths under `root`, and every later read of
+/// a document this run wrote sees what it wrote. The build's trace is told each file read.
 pub struct Context {
     pub root: PathBuf,
+    pub out: Option<PathBuf>,
     pub reads: BTreeSet<String>,
     pub rewritten: BTreeSet<String>,
+    written: BTreeMap<PathBuf, Vec<u8>>,
+    /// The figures this run has written into each Markdown document, by the document.
+    figures: BTreeMap<PathBuf, Variables>,
 }
 
 impl Context {
     pub fn new(request: &Value) -> Self {
+        Self::at(PathBuf::from(request["root"].as_str().unwrap_or(".")), None)
+    }
+    /// A run reading under `root` and writing under `out`, or in place when there is none.
+    pub fn at(root: PathBuf, out: Option<PathBuf>) -> Self {
         Self {
-            root: PathBuf::from(request["root"].as_str().unwrap_or(".")),
+            root,
+            out,
             reads: BTreeSet::new(),
             rewritten: BTreeSet::new(),
+            written: BTreeMap::new(),
+            figures: BTreeMap::new(),
         }
     }
     pub fn path(&self, request: &Value, key: &str, default: &str) -> PathBuf {
@@ -27,34 +46,82 @@ impl Context {
             .map(PathBuf::from)
             .unwrap_or_else(|| self.root.join(default))
     }
+    fn bytes(&mut self, path: &Path) -> Result<Vec<u8>> {
+        self.reads.insert(path.to_string_lossy().into_owned());
+        if let Some(bytes) = self.written.get(path) {
+            return Ok(bytes.clone());
+        }
+        let bytes = std::fs::read(path).with_context(|| format!("reading {}", path.display()))?;
+        hsm_kernel::reads::read(path, &bytes);
+        Ok(bytes)
+    }
     pub fn read(&mut self, path: impl AsRef<Path>) -> Result<String> {
         let path = path.as_ref();
-        self.reads.insert(path.to_string_lossy().into_owned());
-        std::fs::read_to_string(path).with_context(|| format!("reading {}", path.display()))
+        let bytes = self.bytes(path)?;
+        String::from_utf8(bytes).with_context(|| format!("reading {}", path.display()))
     }
     pub fn json(&mut self, path: impl AsRef<Path>) -> Result<Value> {
         let path = path.as_ref();
         serde_json::from_str(&self.read(path)?)
             .with_context(|| format!("parsing {}", path.display()))
     }
+    /// Whether `path` is there to read, this run's own writes included.
+    pub fn exists(&self, path: &Path) -> bool {
+        self.written.contains_key(path) || path.is_file()
+    }
+    /// Where a document read at `path` is written: the same path, or its place under `out`.
+    fn target(&self, path: &Path) -> PathBuf {
+        match &self.out {
+            Some(out) => out.join(path.strip_prefix(&self.root).unwrap_or(path)),
+            None => path.to_owned(),
+        }
+    }
     pub fn write(&mut self, path: &Path, bytes: &[u8]) -> Result<()> {
         self.rewritten.insert(path.to_string_lossy().into_owned());
-        hsm_documents::write_if_changed(path, bytes)?;
+        let target = self.target(path);
+        if let Some(parent) = target.parent() {
+            std::fs::create_dir_all(parent)?;
+        }
+        hsm_documents::write_if_changed(&target, bytes)?;
+        self.written.insert(path.to_owned(), bytes.to_vec());
         Ok(())
     }
+    /// Writes `variables` into the `[value](NAME)` markers of the Markdown at `path`, names
+    /// `caller` in its Sources, and records in its figures sidecar every figure this run has
+    /// written into it.
     pub fn substitute(&mut self, path: &Path, variables: &Variables, caller: &str) -> Result<()> {
-        self.reads.insert(path.to_string_lossy().into_owned());
+        let text = self.read(path)?.replace("\r\n", "\n").replace('\r', "\n");
+        let (text, carried) = hsm_documents::markdown(&text, variables, Some(caller));
+        self.write(path, text.as_bytes())?;
+        let figures = self.figures.entry(path.to_owned()).or_default();
+        figures.extend(carried);
+        let figures = figures.clone();
         let sidecar = path.with_extension("figures.json");
-        if sidecar.is_file() {
-            self.reads.insert(sidecar.to_string_lossy().into_owned());
-        }
-        let result =
-            hsm_documents::substitute(path, Kind::Markdown, variables, Some(caller), true)?;
-        for path in result.maintained {
-            self.rewritten.insert(path.to_string_lossy().into_owned());
-        }
-        Ok(())
+        let mut held: BTreeMap<String, Variables> = if self.exists(&sidecar) {
+            serde_json::from_str(&self.read(&sidecar)?).unwrap_or_default()
+        } else {
+            BTreeMap::new()
+        };
+        held.insert(caller.to_owned(), figures);
+        let json = ascii_json(&serde_json::to_string_pretty(&held)?) + "\n";
+        self.write(&sidecar, json.as_bytes())
     }
+}
+
+/// JSON with every character past ASCII escaped, as the sidecars have always been written.
+fn ascii_json(text: &str) -> String {
+    let mut out = String::with_capacity(text.len());
+    for c in text.chars() {
+        if (c as u32) < 0x7f {
+            out.push(c);
+        } else {
+            let mut buf = [0_u16; 2];
+            for value in c.encode_utf16(&mut buf) {
+                out.push_str(&format!("\\u{value:04x}"));
+            }
+        }
+    }
+    out
 }
 
 pub fn re(pattern: &str) -> Regex {
