@@ -18,6 +18,9 @@ zip = { version = "9.1.2", default-features = false, features = ["deflate-flate2
 hsm-faucet-numbers = { path = "../faucet-numbers" }
 hsm-run-slots = { path = "../run-slots" }
 hsm-fake-countertop-numbers = { path = "../fake-countertop-numbers" }
+hsm-enclosure-numbers = { path = "../enclosure-numbers" }
+hsm-enclosure-quadrants = { path = "../enclosure-quadrants" }
+hsm-enclosure-retainer-numbers = { path = "../enclosure-retainer-numbers" }
 
 [[bin]]
 name = "petgf-cooling"
@@ -83,3 +86,7 @@ path = "../../funnel-mold-print/prepare_print.rs"
 [[bin]]
 name = "reservoir-print-project"
 path = "../../../hardware/printed-parts/cold-core/reservoir/prepare_print.rs"
+
+[[bin]]
+name = "enclosure-print-regions"
+path = "../../../hardware/printed-parts/enclosure/enclosure/heat-set-review/print_regions.rs"

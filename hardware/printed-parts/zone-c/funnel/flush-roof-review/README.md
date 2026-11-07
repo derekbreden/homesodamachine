@@ -101,7 +101,7 @@ tools/cad-venv/bin/python hardware/printed-parts/zone-c/funnel/flush-roof-review
 tools/cad-venv/bin/python hardware/printed-parts/zone-c/funnel/flush-roof-review/refresh_aggregate.py
 tools/cad-venv/bin/python hardware/printed-parts/zone-c/funnel/flush-roof-review/check_geometry.py
 tools/cad-venv/bin/python hardware/printed-parts/zone-c/funnel/integration-review/check_fit.py
-tools/cad-venv/bin/python hardware/printed-parts/enclosure/enclosure/heat-set-review/print_regions.py
+tools/hsm/target/release/enclosure-print-regions
 tools/cad-venv/bin/python tools/publish_now.py
 ```
 
