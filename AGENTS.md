@@ -79,6 +79,13 @@ A script you write because nothing in the repo answers your question is a tool t
 
 Every change to the enclosure's geometry has an entry in [`changes/`](changes/README.md), shown at [homesodamachine.com/changes](https://homesodamachine.com/changes): a before and an after picture of what changed, from one camera, with a short lede. The before is the snapshot taken ahead of the rebuild, `node tools/changes/change.mjs snapshot`; nothing else keeps it. [`changes/README.md`](changes/README.md) has the rest. Recording follows the change and never holds it up.
 
+## Showing the Machine
+
+To show me a part or a spot in the machine, link the published model on the site. A link that
+closes on `?find=` lights and labels what it points at and turns the camera to it; `link()` in
+[`hardware/scripts/pick_text.py`](hardware/scripts/pick_text.py) writes one. No agent publishes a
+3D scene of its own to show something.
+
 ## What Counts
 
 Two things count: what I see on the website and what I print. Everything else is a means to
