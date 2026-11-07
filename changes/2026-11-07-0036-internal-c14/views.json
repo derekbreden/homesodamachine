@@ -1,0 +1,134 @@
+{
+  "views": [
+    {
+      "name": "outside",
+      "caption": "The recessed cord passage opens on the rear face; the inlet flange mounts inside.",
+      "before": "outside-before.webp",
+      "after": "outside-after.webp",
+      "width": 1200,
+      "height": 900,
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          -68,
+          546.4985687942025,
+          339.77982825530427
+        ],
+        "target": [
+          -68,
+          465,
+          330
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "fov": 45,
+        "near": 0.4697590442674672,
+        "far": 634.0389335028875,
+        "aspect": 1.3333333333333333
+      },
+      "highlight": [
+        "enclosure-back-top"
+      ],
+      "ghost": [],
+      "only": [
+        "enclosure-back-top",
+        "c14-inlet"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "71c3d6867f9915512ad57f631790fe13c75f22b4ccfce1e2db860f13d21c26f7",
+          "commit": "1b9f9a2282d69a3f9b78e1ef1328d539f91fb384",
+          "taken": "2026-11-07T05:41:38.893Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "f5072523f4c2393b90ec169cd84a2186f31ce387c851618c1c82a04a9112a587",
+          "commit": "df0b9119f8880376223371a4dbb0481be272238e",
+          "published": false
+        }
+      },
+      "changed": [
+        "wire-AC1-PE",
+        "wire-AC1-N",
+        "c14-inlet",
+        "wire-AC1-L",
+        "enclosure-back-top"
+      ],
+      "withinMeshing": []
+    },
+    {
+      "name": "inside",
+      "caption": "The internal tunnel carries the blind inserts and joins the intact ceiling and side wall.",
+      "before": "inside-before.webp",
+      "after": "inside-after.webp",
+      "width": 1200,
+      "height": 900,
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          -51.47943637553617,
+          378.39718187768085,
+          323.39177455021445
+        ],
+        "target": [
+          -68,
+          461,
+          330
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "fov": 45,
+        "near": 0.18622787033056895,
+        "far": 492.2733465344384,
+        "aspect": 1.3333333333333333
+      },
+      "highlight": [
+        "enclosure-back-top"
+      ],
+      "ghost": [],
+      "only": [
+        "enclosure-back-top",
+        "c14-inlet"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "71c3d6867f9915512ad57f631790fe13c75f22b4ccfce1e2db860f13d21c26f7",
+          "commit": "1b9f9a2282d69a3f9b78e1ef1328d539f91fb384",
+          "taken": "2026-11-07T05:41:38.893Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "f5072523f4c2393b90ec169cd84a2186f31ce387c851618c1c82a04a9112a587",
+          "commit": "df0b9119f8880376223371a4dbb0481be272238e",
+          "published": false
+        }
+      },
+      "changed": [
+        "wire-AC1-PE",
+        "wire-AC1-N",
+        "c14-inlet",
+        "wire-AC1-L",
+        "enclosure-back-top"
+      ],
+      "withinMeshing": []
+    }
+  ]
+}
