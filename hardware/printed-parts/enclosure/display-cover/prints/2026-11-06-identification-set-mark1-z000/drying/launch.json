@@ -1,0 +1,279 @@
+{
+  "printer": "Mark1",
+  "archive": "../HSM-identification-Mark1-z000.gcode.3mf",
+  "archive_sha256": "c41c0ee97b0d47869a71335bdcf0e09b1c48ce0c11deae2666303dc3038428b4",
+  "z_offset_commands": [
+    "G29.1 Z0 ; clear z-trim value first",
+    "G29.1 Z0"
+  ],
+  "before": {
+    "Mark2": {
+      "observed_at": "2026-11-07T15:27:53.960871+00:00",
+      "job_id": "",
+      "gcode_state": "IDLE",
+      "subtask_name": "",
+      "print_error": 0,
+      "hms": [],
+      "nozzle_target_temper": 0.0,
+      "bed_target_temper": 0.0,
+      "layer_num": 0,
+      "ams": [],
+      "nozzles": [
+        {
+          "id": 17,
+          "type": "HS01",
+          "diameter": 0.4,
+          "color_m": "FFFFFFFF",
+          "fila_id": "GFT01"
+        },
+        {
+          "id": 1,
+          "type": "HS01",
+          "diameter": 0.4,
+          "color_m": "00000000",
+          "fila_id": ""
+        },
+        {
+          "id": 0,
+          "type": "HS01",
+          "diameter": 0.6,
+          "color_m": "161616FF",
+          "fila_id": "GFU04"
+        },
+        {
+          "id": 18,
+          "type": "HS00",
+          "diameter": 0.2,
+          "color_m": "000000FF",
+          "fila_id": "GFU04"
+        },
+        {
+          "id": 20,
+          "type": "HH01",
+          "diameter": 0.8,
+          "color_m": "000000FF",
+          "fila_id": "GFU04"
+        }
+      ]
+    },
+    "H2C": {
+      "observed_at": "2026-11-07T15:27:54.829079+00:00",
+      "job_id": "1415736258",
+      "gcode_state": "FAILED",
+      "subtask_name": "HSM-identification-Mark1-z000.gcode.3mf",
+      "print_error": 0,
+      "hms": [],
+      "nozzle_target_temper": 0.0,
+      "bed_target_temper": 0.0,
+      "layer_num": 0,
+      "ams": [
+        {
+          "id": "0",
+          "dry_time": 0,
+          "temperature_c": "49.0",
+          "humidity_raw": "18",
+          "trays": [
+            {
+              "id": "0",
+              "tray_type": "PETG",
+              "tray_color": "D6001CFF",
+              "tray_info_idx": "GFG00"
+            },
+            {
+              "id": "1",
+              "tray_type": "PETG",
+              "tray_color": "0086D6FF",
+              "tray_info_idx": "GFG00"
+            },
+            {
+              "id": "2",
+              "tray_type": "PETG",
+              "tray_color": "FFFFFFFF",
+              "tray_info_idx": "GFG00"
+            },
+            {
+              "id": "3",
+              "tray_type": "PETG",
+              "tray_color": "00000000",
+              "tray_info_idx": "GFG01"
+            }
+          ]
+        },
+        {
+          "id": "128",
+          "dry_time": 0,
+          "temperature_c": "51.5",
+          "humidity_raw": "14",
+          "trays": [
+            {
+              "id": "0",
+              "tray_type": "PETG",
+              "tray_color": "000000FF",
+              "tray_info_idx": "GFG00"
+            }
+          ]
+        }
+      ],
+      "nozzles": [
+        {
+          "id": 16,
+          "type": "HS00",
+          "diameter": 0.2,
+          "color_m": "00000000",
+          "fila_id": ""
+        },
+        {
+          "id": 1,
+          "type": "HS00",
+          "diameter": 0.2,
+          "color_m": "00000000",
+          "fila_id": ""
+        },
+        {
+          "id": 0,
+          "type": "HS00",
+          "diameter": 0.2,
+          "color_m": "FFFFFFFF",
+          "fila_id": "GFG00"
+        },
+        {
+          "id": 18,
+          "type": "HS00",
+          "diameter": 0.2,
+          "color_m": "000000FF",
+          "fila_id": "GFG00"
+        },
+        {
+          "id": 21,
+          "type": "HS00",
+          "diameter": 0.2,
+          "color_m": "000000FF",
+          "fila_id": "GFG00"
+        },
+        {
+          "id": 19,
+          "type": "HS00",
+          "diameter": 0.2,
+          "color_m": "00000000",
+          "fila_id": ""
+        }
+      ]
+    }
+  },
+  "submitted": true,
+  "immediately_before": {
+    "Mark2": {
+      "observed_at": "2026-11-07T15:31:12.226043+00:00",
+      "job_id": "",
+      "gcode_state": "IDLE",
+      "subtask_name": "",
+      "print_error": 0,
+      "hms": [],
+      "nozzle_target_temper": 0.0,
+      "bed_target_temper": 0.0,
+      "dryers": []
+    },
+    "H2C": {
+      "observed_at": "2026-11-07T15:31:12.820684+00:00",
+      "job_id": "1415736258",
+      "gcode_state": "FAILED",
+      "subtask_name": "HSM-identification-Mark1-z000.gcode.3mf",
+      "print_error": 0,
+      "hms": [],
+      "nozzle_target_temper": 0.0,
+      "bed_target_temper": 0.0,
+      "dryers": [
+        {
+          "id": "0",
+          "dry_time": 0,
+          "temperature_c": "46.5",
+          "humidity_raw": "19"
+        },
+        {
+          "id": "128",
+          "dry_time": 0,
+          "temperature_c": "49.5",
+          "humidity_raw": "15"
+        }
+      ]
+    }
+  },
+  "mapping": {
+    "black": {
+      "side": "left",
+      "ams": "HT-A"
+    },
+    "white": {
+      "side": "right",
+      "ams": "A3",
+      "hotend": "R"
+    },
+    "blue": {
+      "side": "right",
+      "ams": "A2",
+      "hotend": "1"
+    },
+    "red": {
+      "side": "right",
+      "ams": "A1",
+      "hotend": "3"
+    },
+    "clear": {
+      "side": "right",
+      "ams": "A4",
+      "hotend": "4"
+    }
+  },
+  "options": {
+    "Timelapse": "On",
+    "Auto bed leveling": "On",
+    "Flow dynamic calibration": "Auto",
+    "Nozzle Offset Calibration": "Auto"
+  },
+  "ui_control": "Repository foreground Bambu Connect UI control; cua_repl unavailable in this run.",
+  "import_copy_sha256": "c41c0ee97b0d47869a71335bdcf0e09b1c48ce0c11deae2666303dc3038428b4",
+  "latest": {
+    "observed_at": "2026-11-07T15:34:18.734255+00:00",
+    "job_id": "1417288998",
+    "gcode_state": "RUNNING",
+    "subtask_name": "HSM-identification-Mark1-z000.gcode.3mf",
+    "print_error": 0,
+    "hms": [],
+    "layer_num": 0,
+    "total_layer_num": 32,
+    "mc_remaining_time": 1128,
+    "stg_cur": 74
+  },
+  "accepted": {
+    "observed_at": "2026-11-07T15:32:25.975818+00:00",
+    "job_id": "1417288998",
+    "gcode_state": "RUNNING",
+    "subtask_name": "HSM-identification-Mark1-z000.gcode.3mf",
+    "print_error": 0,
+    "hms": [],
+    "layer_num": 0,
+    "total_layer_num": 32,
+    "mc_remaining_time": 1128,
+    "stg_cur": 79,
+    "nozzle_target_temper": 170.0,
+    "bed_target_temper": 30.0,
+    "upload": {
+      "file_size": 0,
+      "finish_size": 0,
+      "message": "Good",
+      "oss_url": "",
+      "progress": 0,
+      "sequence_id": "0903",
+      "speed": 0,
+      "status": "idle",
+      "task_id": "",
+      "time_remaining": 0,
+      "trouble_id": ""
+    }
+  },
+  "verified_in_application": {
+    "printer": "Mark1",
+    "file": "HSM-identification-Mark1-z000.gcode.3mf",
+    "stage": "Homing toolhead"
+  }
+}
