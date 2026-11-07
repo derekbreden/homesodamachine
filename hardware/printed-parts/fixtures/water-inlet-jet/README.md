@@ -20,7 +20,7 @@ The following pages use that fixture to make the jet cap and assemble the jet.
 
 | File | Use |
 |---|---|
-| [`water_inlet_jet_fixture.py`](water_inlet_jet_fixture.py) | Generator, dimensions and geometric checks |
+| [`numbers.rs`](numbers.rs), [`water_inlet_jet_fixture.rs`](water_inlet_jet_fixture.rs) | Dimensions; the build step, with its geometric checks |
 | [`water-inlet-jet-fixture-fixed.stl`](water-inlet-jet-fixture-fixed.stl) | Fixed jaw and base, print orientation |
 | [`water-inlet-jet-fixture-loose.stl`](water-inlet-jet-fixture-loose.stl) | Loose jaw, print orientation |
 | [`water-inlet-jet-fixture-fixed.step`](water-inlet-jet-fixture-fixed.step), [`water-inlet-jet-fixture-loose.step`](water-inlet-jet-fixture-loose.step) | Exact, material-coloured solids |
