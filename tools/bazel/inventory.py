@@ -117,10 +117,6 @@ def frozen_assets(root: Path = _ROOT) -> dict:
 #: write, even though a clean action must produce them. Each normal producer owns its complete
 #: payload set, including files its Rust writer leaves unchanged when their bytes are current.
 IMPLICIT_SOLIDS = {
-    "hardware/printed-parts/soda-bend-holder/soda_bend_holder.py": tuple(
-        f"hardware/printed-parts/soda-bend-holder/soda-bend-holder.{suffix}"
-        for suffix in ("step", "stl", "step.mesh")
-    ),
     "hardware/printed-parts/enclosure/rear-identification/rear_identification.py": tuple(
         f"hardware/printed-parts/enclosure/rear-identification/rear-label-{station}.{suffix}"
         for station in ("water", "co2", "drain", "carb", "flavor-a", "flavor-b")

@@ -1937,6 +1937,25 @@ dependencies = [
 ]
 
 [[package]]
+name = "hsm-soda-bend-holder"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "hsm-catalog",
+ "hsm-kernel",
+ "hsm-soda-bend-holder-numbers",
+ "serde",
+ "serde_json",
+]
+
+[[package]]
+name = "hsm-soda-bend-holder-numbers"
+version = "0.1.0"
+dependencies = [
+ "serde",
+]
+
+[[package]]
 name = "hsm-tooling"
 version = "0.1.0"
 dependencies = [
