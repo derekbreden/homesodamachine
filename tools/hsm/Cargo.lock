@@ -1323,6 +1323,19 @@ dependencies = [
 ]
 
 [[package]]
+name = "hsm-install-guide"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "hsm-faucet-numbers",
+ "hsm-pages",
+ "serde_json",
+ "sha2",
+ "tiny-skia",
+ "zip",
+]
+
+[[package]]
 name = "hsm-installed-machine"
 version = "0.1.0"
 dependencies = [
@@ -1360,6 +1373,18 @@ dependencies = [
  "spade",
  "ttf-parser",
  "zip",
+]
+
+[[package]]
+name = "hsm-kit-art"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "hsm-enclosure-interface",
+ "hsm-faucet-numbers",
+ "hsm-kernel",
+ "hsm-pages",
+ "serde_json",
 ]
 
 [[package]]
@@ -1461,6 +1486,30 @@ dependencies = [
  "serde_json",
  "sha2",
  "zip",
+]
+
+[[package]]
+name = "hsm-opening-scene"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "hsm-kernel",
+ "hsm-pages",
+ "hsm-render",
+ "serde_json",
+ "sha2",
+]
+
+[[package]]
+name = "hsm-pages"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "flate2",
+ "png",
+ "sha2",
+ "tiny-skia",
+ "ttf-parser",
 ]
 
 [[package]]

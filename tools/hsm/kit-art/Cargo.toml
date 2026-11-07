@@ -1,0 +1,19 @@
+[package]
+name = "hsm-kit-art"
+version = "0.1.0"
+edition.workspace = true
+license.workspace = true
+rust-version.workspace = true
+publish = false
+
+[[bin]]
+name = "kit-art"
+path = "../../../hardware/install-guide/kit_art.rs"
+
+[dependencies]
+anyhow.workspace = true
+serde_json.workspace = true
+hsm-kernel = { path = "../kernel" }
+hsm-pages = { path = "../pages" }
+hsm-enclosure-interface = { path = "../enclosure-interface" }
+hsm-faucet-numbers = { path = "../faucet-numbers" }

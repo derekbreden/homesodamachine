@@ -86,17 +86,18 @@ booklet's artwork, including its Fill-screen illustration and hose-removal scene
 dimensions. The back face, rear connections and bottle scene use higher-resolution snapshots
 from their registered cameras; each entry identifies its native coordinate reference by hash.
 `assets/reference/` retains the native Fill views, and `assets/kit/` holds the kit SVGs.
-[`kit_art.py`](../../tools/install-guide/kit_art.py) exports hidden-line views of the component
-models with a common 0.68 pt pen at page size. Small machine surface details and dial lettering
-are suppressed; the cord, washer, bag and booklet are illustration props.
+[`kit_art.rs`](kit_art.rs) draws each supplied item as a hidden-line view of its current model
+in one slate pen at page size. Small machine surface details and dial lettering are left out;
+the cord, washer, bag and booklet are illustration props.
 `assets/opening-faucet-outline.svg` supplies the faucet shank and tube silhouette in the
-counter-opening scene. Its dimensions and source hash register it to `opening.png`; the contour
-compositor adds the component boundary where it meets the counter.
-[`opening_scene.py`](../../tools/install-guide/opening_scene.py) renders the current opening,
-four tube tails and display cable, then registers the component silhouette from the same pose.
-Manual page composition lives in [`landscape.py`](../../tools/install-guide/landscape.py),
-with the build entry point and print exporter in [`tools/install-guide/`](../../tools/install-guide/).
-`_install_art.py` supplies shared CAD scene builders used by illustration tools.
+counter-opening scene, in `opening.png`'s own pixels; the booklet draws it where the parts
+cross the counter. [`opening_scene.rs`](opening_scene.rs) renders the current opening, four tube
+tails and display cable, and traces the parts' silhouette from the same pose.
+[`install_guide.rs`](install_guide.rs) composes the pages, which
+[`install-guide/pages.rs`](install-guide/pages.rs) states one by one, and writes the reading copy
+and an order's print files. [`tools/hsm/pages`](../../tools/hsm/pages/) is its drawing code: the
+PDF, the type, the outlined pictures and the pixels the covers are drawn to.
+`_install_art.py` supplies shared CAD scene builders used by the hand-run illustration tools.
 
 ## Compose and review
 
@@ -105,24 +106,23 @@ From the repository root:
 ```sh
 tools/cad-venv/bin/python tools/install-guide/fill_scene.py --publish
 tools/cad-venv/bin/python tools/install-guide/fill_scene.py --scale 2 --publish
-tools/cad-venv/bin/python tools/install-guide/kit_art.py
-tools/cad-venv/bin/python tools/install-guide/opening_scene.py
-tools/cad-venv/bin/python tools/install-guide/build.py
+python3 tools/run.py -- cargo run --release --manifest-path tools/hsm/kit-art/Cargo.toml
+python3 tools/run.py -- cargo run --release --manifest-path tools/hsm/opening-scene/Cargo.toml
+python3 tools/run.py -- cargo run --release --manifest-path tools/hsm/install-guide/Cargo.toml
 tools/cad-venv/bin/python tools/install-guide/preflight.py --json hardware/install-guide/out/landscape/preflight.json
 pdftoppm -scale-to 1000 -png hardware/install-guide/install-guide.pdf hardware/install-guide/out/landscape/page
 ```
 
 The composer writes the reading PDF, thumbnail and document metadata. With `HSM_PRESS=1` it
 also writes the print PDFs and the order bundle in `output/pdf/`, which an order needs and the
-normal build does not. It checks text boxes against the footer and generates page-space
-contours from the saved artwork. Native illustration resolution must be at least 300 PPI at
-the placed size. The preflight checks the finished PDFs' dimensions, page order,
-fonts, images and reading links. `out/` holds local renders and layout measurements. Review every
-rendered page at reading size before publishing.
+normal build does not. It refuses text that leaves the safe area or runs into the footer, and
+draws each picture with its outline at print resolution from the saved artwork. Native
+illustration resolution must be at least 300 PPI at the placed size. The preflight checks the
+finished PDFs' dimensions, page order, fonts, images and reading links. `out/` holds local
+renders and layout measurements. Review every rendered page at reading size before publishing.
 
-The composer and preflight use the CAD Python environment with ReportLab, Pillow, pypdf and
-pdfplumber, Node.js, librsvg's `rsvg-convert`, and Poppler's `pdftoppm` and `pdfimages` commands.
-Contour images are rasterized at 432 PPI.
+The preflight uses the CAD Python environment with pypdf and pdfplumber, and Poppler's
+`pdftoppm` and `pdfimages` commands.
 
 ## Print
 
@@ -131,7 +131,7 @@ all trimmed to 9 × 7 inches without bleed. PDF page labels match the printed in
 bookmarks and the route page link to each installation step.
 
 `press/` holds the two Lulu upload files. An order writes them with
-`HSM_PRESS=1 tools/cad-venv/bin/python tools/install-guide/build.py`:
+`HSM_PRESS=1 python3 tools/run.py -- cargo run --release --manifest-path tools/hsm/install-guide/Cargo.toml`:
 
 | File | Size including bleed | Holds |
 | --- | --- | --- |

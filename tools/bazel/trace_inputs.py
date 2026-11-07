@@ -356,8 +356,8 @@ ELSEWHERE = ("tools/", "hardware/pcb/pcba/",
              'hardware/printed-parts/fixtures/faucet-display-snap/',  # retained historical study geometry
              'hardware/printed-parts/fixtures/valve-socket-fit/',  # retained historical study geometry
              'hardware/printed-parts/zone-c/funnel/cradle-trial/',  # retained historical study geometry
-             "hardware/install-guide/_cad_art.py",  # scene library kit_art.py and opening_scene.py import
-             "hardware/install-guide/_install_art.py",  # scene library kit_art.py and opening_scene.py import
+             "hardware/install-guide/_cad_art.py",  # scene library the guide's art tools import, run by hand
+             "hardware/install-guide/_install_art.py",  # scene library the guide's art tools import, run by hand
              "hardware/assembly/scenes/render_scenes.py",
              "hardware/manifold-layout/enclosure_assembly.py",  # the old machine pipeline; the BOM and topology syncs import it
              "hardware/scripts/check_faucet_geometry.py",
@@ -388,6 +388,9 @@ RUST_STEPS = {
         ("endcap-circular", "endcap-circular-step", "hardware/cut-parts/carbonation/endcaps-circular"),
     "hardware/manifold-layout/installed_machine.rs":
         ("installed-machine", "installed-machine", ""),
+    "hardware/install-guide/kit_art.rs": ("kit-art", "kit-art", ""),
+    "hardware/install-guide/opening_scene.rs": ("opening-scene", "opening-scene", ""),
+    "hardware/install-guide/install_guide.rs": ("install-guide", "install-guide", ""),
     "hardware/printed-parts/cold-core/prv-shroud/prv_shroud.rs":
         ("prv-shroud", "prv-shroud", "hardware/printed-parts/cold-core/prv-shroud"),
     "hardware/ledger/purchases.rs": ("ledger", "purchases", ""),

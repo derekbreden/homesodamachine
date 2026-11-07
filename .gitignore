@@ -165,7 +165,6 @@ hardware/quickstart/art/*.png
 # The committed booklet uses snapshots under hardware/install-guide/assets/.
 hardware/install-guide/art/*.png
 hardware/install-guide/art/colors.css
-hardware/install-guide/plumbing/modern/out/
 hardware/quickstart/art/colors.css
 hardware/quickstart/quick-start.cover.png
 hardware/quickstart/quick-start.pdf

@@ -1,0 +1,15 @@
+[package]
+name = "hsm-pages"
+version = "0.1.0"
+edition.workspace = true
+license.workspace = true
+rust-version.workspace = true
+publish = false
+
+[dependencies]
+anyhow.workspace = true
+flate2 = { version = "1.1.10", default-features = false, features = ["zlib-rs"] }
+png = "0.18.1"
+tiny-skia = "0.12.0"
+ttf-parser = "0.25"
+sha2.workspace = true
