@@ -4,7 +4,7 @@ A part's Python module holds its numbers: it derives each one from the parts it 
 states its bounds and fills its README, as any generator does. Its program, beside it, cuts the
 part's files from those numbers:
 
-    said = _rust_part.cut("refrigeration", "fuse-clamp", numbers, part_dir)
+    said = _rust_part.cut(crate, name, numbers, part_dir)
 
 writes `<name>.numbers.json` into `part_dir`, builds the program with cargo from the checkout's
 `tools/hsm` workspace (the crate `tools/hsm/<crate>` names it), and runs it. The program writes

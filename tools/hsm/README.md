@@ -404,7 +404,7 @@ loaded.
 
 The generator runs the program through
 [`hardware/scripts/_rust_part.py`](../../hardware/scripts/_rust_part.py).
-`_rust_part.cut("refrigeration", "fuse-clamp", numbers(), part_dir)` writes the numbers, has the
+`_rust_part.cut(crate, name, numbers(), part_dir)` writes the numbers, has the
 part engine run the program from the checkout's workspace (`HSM_WORKSPACE` in a Bazel action;
 "Part runs" below), and returns the files and bodies it printed.
 `_rust_part.check(crate, name, numbers)` runs
@@ -470,7 +470,7 @@ endpoint. Without `hsm`, or with `HSM_NO_ENGINE=1`, the generator runs cargo and
 its own process.
 
 ```json
-{"op":"run","workspace":"/checkout","root":"/checkout","crate":"refrigeration","name":"fuse-clamp","args":["/checkout/hardware/printed-parts/refrigeration/fuse-clamp/fuse-clamp.numbers.json","/checkout/hardware/printed-parts/refrigeration/fuse-clamp"]}
+{"op":"run","workspace":"/checkout","root":"/checkout","crate":"<crate>","name":"<name>","args":["/checkout/<part dir>/<name>.numbers.json","/checkout/<part dir>"]}
 ```
 
 `workspace` is the checkout whose `tools/hsm` holds the program, and `root` is where it runs from,

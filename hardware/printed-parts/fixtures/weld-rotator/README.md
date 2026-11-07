@@ -359,11 +359,10 @@ setpoint without changing any mechanical part, and `direction cw` or
 `direction ccw` the stored direction viewed from above. The driver holds the
 motor only while the table turns and for ten seconds after a release.
 
-## Regenerate and verify
+## Regenerate
 
 ```bash
-tools/cad-venv/bin/python hardware/printed-parts/fixtures/weld-rotator/weld_rotator.py
-tools/cad-venv/bin/python hardware/printed-parts/fixtures/weld-rotator/weld_rotator.py selftest
+python3 tools/run.py -- cargo run --release --manifest-path tools/hsm/weld-rotator/Cargo.toml
 ```
 
 ## Reference data

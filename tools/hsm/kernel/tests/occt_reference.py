@@ -1,7 +1,6 @@
 """OCCT's volume, area and bounds for every case the kernel's tests build, written to
-`occt_reference.json` beside this file. Plain CadQuery, but for one generator: the fuse clamp's
-module, whose `build()` is recorded under `fuse_clamp_module` as the B-rep the part the kernel
-cuts from its numbers is held to. Importing it takes the CAD lock.
+`occt_reference.json` beside this file, in plain CadQuery. `fuse_clamp_module` is the B-rep of
+the fixture fuse clamp the kernel's tests cut, drawn from the fixture's figures.
 
     tools/cad-venv/bin/python tools/hsm/kernel/tests/occt_reference.py
 """
@@ -98,10 +97,22 @@ CASES = {
 
 
 def fuse_clamp_module():
-    """The fuse clamp's own `build()`, the body `enclosure_assembly` seats."""
-    sys.path.insert(0, str(ROOT / "hardware/printed-parts/refrigeration/fuse-clamp"))
-    import fuse_clamp as module
-    return module.build()
+    """The fixture fuse clamp: its silhouette in the Y-Z plane swept its one width across X, with
+    the channel cut through it, from `fixtures/fuse-clamp.numbers.json`."""
+    n = json.loads((HERE / "fixtures/fuse-clamp.numbers.json").read_text())
+    head_y, head_z, neck_z = n["head_y"], n["head_z"], n["neck_z"]
+    floor, plate = n["box_floor"], n["plate_top"]
+    leaf, reach, lead_in = n["leaf_y"], n["leaf_reach"], n["leaf_lead_in"]
+    section = [(head_y, head_z), (-head_y, head_z), (-head_y, neck_z), (plate, neck_z),
+               (plate, -reach + lead_in), (plate + lead_in, -reach), (plate + leaf, -reach),
+               (plate + leaf, 0.0), (floor - leaf, 0.0), (floor - leaf, -reach),
+               (floor - lead_in, -reach), (floor, -reach + lead_in), (floor, 0.0), (head_y, 0.0)]
+    width = n["part_x"]
+    part = (cq.Workplane("YZ", origin=(-width / 2.0, 0.0, 0.0))
+            .polyline(section + section[:1]).wire().extrude(width))
+    channel = cq.Workplane("XY", origin=(0.0, 0.0, n["channel_z"] / 2.0)).box(
+        width + 2.0, n["channel_h"], n["channel_z"])
+    return part.cut(channel).val()
 
 
 def main():

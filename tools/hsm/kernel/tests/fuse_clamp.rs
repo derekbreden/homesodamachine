@@ -1,15 +1,15 @@
-//! The fuse clamp the kernel cuts, from the numbers its module writes, against the B-rep the
-//! module's `build()` draws: volume within 0.01 % of OCCT's, surface within 0.005 mm of OCCT's mesh
+//! The fixture fuse clamp the kernel cuts, against the B-rep CadQuery draws from the same figures
+//! (`occt_reference.py`): volume within 0.01 % of OCCT's, surface within 0.005 mm of OCCT's mesh
 //! of it both ways, and a payload hsm-geometry reads back as the kernel wrote it.
 #[allow(dead_code)]
-#[path = "../../../../hardware/printed-parts/refrigeration/fuse-clamp/fuse_clamp.rs"]
+#[path = "fixtures/fuse_clamp.rs"]
 mod fuse_clamp;
 mod common;
 use common::{hausdorff, occt, read_stl};
 use hsm_kernel::*;
 
 fn clamp() -> anyhow::Result<Solid> {
-    fuse_clamp::build(&part::Numbers::read(concat!(env!("CARGO_MANIFEST_DIR"), "/../../../hardware/printed-parts/refrigeration/fuse-clamp/fuse-clamp.numbers.json"))?)
+    fuse_clamp::build(&part::Numbers::read(concat!(env!("CARGO_MANIFEST_DIR"), "/tests/fixtures/fuse-clamp.numbers.json"))?)
 }
 
 #[test]
@@ -51,6 +51,6 @@ fn payload_reads_back() -> anyhow::Result<()> {
     {
         assert!((got - want).abs() < 1e-5, "payload bounds {got} against the solid's {want}");
     }
-    assert!(clamp.faces().iter().all(|f| src_line(f.src).starts_with("hardware/printed-parts/refrigeration/fuse-clamp/fuse_clamp.rs:")));
+    assert!(clamp.faces().iter().all(|f| src_line(f.src).starts_with("tools/hsm/kernel/tests/fixtures/fuse_clamp.rs:")));
     Ok(())
 }

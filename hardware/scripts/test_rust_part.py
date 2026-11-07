@@ -1,8 +1,7 @@
 #!/usr/bin/env python3
 """What `_rust_part.start` promises a Rust part's run, each case in an interpreter of its own:
 
-- the mandrel's and the fuse clamp's numbers load neither CadQuery nor OCP, and the clamp's
-  selftest, which asks its program, loads neither;
+- the mandrel's numbers load neither CadQuery nor OCP;
 - a colour made while CadQuery is deferred answers `linear`, `toTuple` and `hash` with OCCT's
   bits, and the colours and planes the shared modules made become the real ones once it loads;
 - OCP's loops end in Python, once, however OCP comes to load;
@@ -23,12 +22,11 @@ from pathlib import Path
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[1]
 MANDREL = ROOT / "hardware/printed-parts/cold-core/coil-mandrel"
-CLAMP = ROOT / "hardware/printed-parts/refrigeration/fuse-clamp"
 CADLIB = ROOT / "hardware/printed-parts/cadlib"
 
 PRELUDE = f"""
 import json, sys
-sys.path[:0] = [{str(HERE)!r}, {str(CADLIB)!r}, {str(MANDREL)!r}, {str(CLAMP)!r}]
+sys.path[:0] = [{str(HERE)!r}, {str(CADLIB)!r}, {str(MANDREL)!r}]
 
 def patched(cls):
     # Whether `_cadq_export._end_ocp_loops_in_python` has wrapped `cls.__iter__`, and how often.
@@ -114,8 +112,7 @@ class APartsRun(unittest.TestCase):
         self.assertFalse(said["ocp"])
 
     def test_numbers_load_neither_cadquery_nor_ocp(self):
-        for part, module, name in ((MANDREL, "coil_mandrel", "coil-mandrel"),
-                                   (CLAMP, "fuse_clamp", "fuse-clamp")):
+        for part, module, name in ((MANDREL, "coil_mandrel", "coil-mandrel"),):
             with self.subTest(module):
                 said = probe(f"""
                     import _rust_part
@@ -129,21 +126,6 @@ class APartsRun(unittest.TestCase):
                 self.assertEqual(said["ocp"], [])
                 held = committed(part, name)
                 self.assertEqual({k: said["numbers"][k] for k in held}, held)
-
-    def test_the_clamps_selftest_asks_its_program_without_either(self):
-        # A selftest builds nothing, so it takes no CAD lock here.
-        said = probe(f"""
-            import runpy
-            sys.argv = [{str(CLAMP / "fuse_clamp.py")!r}, "selftest"]
-            try:
-                runpy.run_path(sys.argv[0], run_name="__main__")
-                code = None
-            except SystemExit as stop:
-                code = stop.code
-            print(json.dumps({{"code": code, "cadquery": type(sys.modules["cadquery"]).__name__,
-                              "ocp": "OCP.OCP" in sys.modules}}))
-        """, env={"HSM_NO_BUILD_LOCK": "1"})
-        self.assertEqual(said, {"code": 0, "cadquery": "_Deferred", "ocp": False})
 
 
 class AColourMadeWhileDeferred(unittest.TestCase):
@@ -194,14 +176,14 @@ class OCPsLoops(unittest.TestCase):
     """
 
     def test_an_occt_generator_importing_a_rust_part_gets_the_patch(self):
-        for module in ("coil_mandrel", "fuse_clamp"):
+        for module in ("coil_mandrel",):
             with self.subTest(module):
                 said = probe(f"import cadquery\nimport {module}\n", self.CHECK)
                 self.assertEqual(said, {"wraps": 1, "export": True})
 
     def test_ocp_loaded_after_the_deferral_gets_it_once(self):
         # A part's chain imports `_cadq_export` before OCP loads; with no part, OCP's load does.
-        for module in ("coil_mandrel", "fuse_clamp", None):
+        for module in ("coil_mandrel", None):
             with self.subTest(module):
                 said = probe(f"""
                     import _rust_part

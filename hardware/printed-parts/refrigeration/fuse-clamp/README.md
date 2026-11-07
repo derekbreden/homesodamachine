@@ -118,16 +118,10 @@ rather than bridging, and nothing needs support.
 ## Regenerate
 
 ```
-tools/cad-venv/bin/python hardware/printed-parts/refrigeration/fuse-clamp/fuse_clamp.py
+python3 tools/run.py -- cargo run --release --manifest-path tools/hsm/fuse-clamp/Cargo.toml
 ```
 
-The module writes the numbers the part's geometry takes to `fuse-clamp.numbers.json`, and
-[`fuse_clamp.rs`](fuse_clamp.rs) beside it cuts `fuse-clamp.step`, its payload and
-`fuse-clamp.stl` from them on the [kernel](/tools/hsm/README.md#parts-the-kernel-cuts), which
-needs cargo and CMake.
-
-Controls only, including the two bounds this part states about the donor:
-
-```
-tools/cad-venv/bin/python hardware/printed-parts/refrigeration/fuse-clamp/fuse_clamp.py selftest
-```
+[`numbers.rs`](numbers.rs) holds the clamp's numbers and the donor's figures it closes on, and
+[`fuse_clamp.rs`](fuse_clamp.rs) cuts `fuse-clamp.step`, its payload and model, and
+`fuse-clamp.stl` from them. It also writes `fuse-clamp.numbers.json`, the case the installed
+machine lays the fuse's leads by.

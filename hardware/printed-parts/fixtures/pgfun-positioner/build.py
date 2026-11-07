@@ -672,7 +672,7 @@ def exports():
     motion=dict(D)
     sources=[HERE/'build.py',ROOT/'hardware/reference/xlaserlab-sup29f-xh/source/reconstructed-surfaces.npz',
              ROOT/'hardware/reference/xlaserlab-sup29f-xh/xlaserlab_sup29f_xh.py',
-             ROOT/'hardware/printed-parts/fixtures/weld-rotator/weld_rotator.py',
+             ROOT/'hardware/printed-parts/fixtures/weld-rotator/numbers.rs',
              ROOT/'hardware/printed-parts/fixtures/weld-rotator/_rotator_interface.py']
     motion['mechanical_sources']={str(p.relative_to(ROOT)):hashlib.sha256(p.read_bytes()).hexdigest() for p in sources}
     encoded=json.dumps(motion,sort_keys=True,separators=(',',':')).encode()

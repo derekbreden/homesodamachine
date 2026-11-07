@@ -1,78 +1,82 @@
-//! The fuse clamp on the kernel: the part's silhouette in the Y-Z plane swept its one width
-//! across X, the channel cut through it, in the cutoff's own frame. `fuse_clamp.py` holds the
-//! numbers, reads the donor's off the compressor and the cutoff, and writes them for this
-//! program; its docstring says what each feature is for. The program holds the part to its pinch
-//! before it writes anything, and `--check` says what the pinch measured and writes nothing.
+//! The fuse clamp's files: the PETG bracket that pinches the SF76E's case on the compressor's power
+//! box, one silhouette swept across its width with the case's channel cut through it, in the
+//! cutoff's own frame; and its numbers file, the case it holds.
 //!
-//!     cargo run --release --manifest-path tools/hsm/refrigeration/Cargo.toml --bin fuse-clamp -- \
-//!         <fuse-clamp.numbers.json> <out dir>
-//!     ... --bin fuse-clamp -- <fuse-clamp.numbers.json> --check
-use anyhow::{Result, ensure};
-use hsm_kernel::part::{Numbers, args, write_part};
+//!     fuse-clamp [<output directory>]
+use anyhow::{Result, bail, ensure};
+use hsm_fuse_clamp_numbers as clamp;
+use hsm_kernel::part::write_part;
 use hsm_kernel::{Body, Plane, Profile, Solid, V2, V3, v2, v3};
+use serde::Serialize;
+use std::path::PathBuf;
+
+const NAME: &str = "fuse-clamp";
+const OUTPUT: &str = "hardware/printed-parts/refrigeration/fuse-clamp";
+
+/// The clamp's numbers file: the case it holds, which the installed machine's wiring lays the
+/// fuse's leads by.
+#[derive(Serialize)]
+struct Figures {
+    /// The case's length along X.
+    case_l: f64,
+    /// The case's diameter.
+    case_d: f64,
+}
+
+fn main() -> Result<()> {
+    let mut args = std::env::args_os().skip(1);
+    let out = args.next().map(PathBuf::from).unwrap_or_else(|| PathBuf::from(OUTPUT));
+    if args.next().is_some() {
+        bail!("usage: fuse-clamp [<output directory>]");
+    }
+    hsm_kernel::reads::begin();
+    std::fs::create_dir_all(&out)?;
+    let solid = build()?;
+    let bodies = [Body { name: NAME, color: Some(hsm_catalog::petg_black()), solid: &solid }];
+    println!("{}", write_part(&out, NAME, &bodies)?);
+    let figures = Figures { case_l: clamp::CASE_L, case_d: clamp::CASE_D };
+    std::fs::write(out.join(format!("{NAME}.numbers.json")), serde_json::to_string_pretty(&figures)? + "\n")?;
+    Ok(())
+}
 
 /// The part's whole silhouette in the Y-Z plane, from the head's outboard top corner: the head,
 /// the neck down the cover's flank to the plate's crown, and the two leaves reaching inboard into
 /// the gap, each with its lead-in at the tip.
-pub fn profile(n: &Numbers) -> Result<Vec<V2>> {
-    let (head_y, head_z, neck_z) = (n.f("head_y")?, n.f("head_z")?, n.f("neck_z")?);
-    let (box_floor, plate_top) = (n.f("box_floor")?, n.f("plate_top")?);
-    let (leaf_y, leaf_reach, lead_in) = (n.f("leaf_y")?, n.f("leaf_reach")?, n.f("leaf_lead_in")?);
-    Ok(vec![
+fn profile() -> Vec<V2> {
+    let (head_y, head_z, neck_z) = (clamp::head_y(), clamp::head_z(), clamp::NECK_Z);
+    let (floor, plate) = (clamp::box_floor(), clamp::plate_top());
+    let (leaf, reach, lead_in) = (clamp::LEAF_Y, clamp::LEAF_REACH, clamp::LEAF_LEAD_IN);
+    vec![
         v2(head_y, head_z),
         v2(-head_y, head_z),
         v2(-head_y, neck_z),
-        v2(plate_top, neck_z),
-        v2(plate_top, -leaf_reach + lead_in),
-        v2(plate_top + lead_in, -leaf_reach),
-        v2(plate_top + leaf_y, -leaf_reach),
-        v2(plate_top + leaf_y, 0.0),
-        v2(box_floor - leaf_y, 0.0),
-        v2(box_floor - leaf_y, -leaf_reach),
-        v2(box_floor - lead_in, -leaf_reach),
-        v2(box_floor, -leaf_reach + lead_in),
-        v2(box_floor, 0.0),
-        v2(head_y, 0.0),
-    ])
+        v2(plate, neck_z),
+        v2(plate, -reach + lead_in),
+        v2(plate + lead_in, -reach),
+        v2(plate + leaf, -reach),
+        v2(plate + leaf, 0.),
+        v2(floor - leaf, 0.),
+        v2(floor - leaf, -reach),
+        v2(floor - lead_in, -reach),
+        v2(floor, -reach + lead_in),
+        v2(floor, 0.),
+        v2(head_y, 0.),
+    ]
 }
 
-/// The profile swept the part's one width, with the channel cut through it.
-pub fn build(n: &Numbers) -> Result<Solid> {
-    let part_x = n.f("part_x")?;
-    let (channel_h, channel_z) = (n.f("channel_h")?, n.f("channel_z")?);
-    let part = Plane::YZ.at(v3(-part_x / 2.0, 0.0, 0.0)).extrude(&Profile::polygon(&profile(n)?), part_x)?;
-    let channel = Plane::XY.at(v3(0.0, 0.0, channel_z / 2.0)).cuboid(part_x + 2.0, channel_h, channel_z);
-    part.cut(&channel)
-}
+/// The profile swept the part's one width, with the channel cut through it, held to its pinch:
+/// grown by the contact tolerance, the case seated in the channel meets the crown.
+fn build() -> Result<Solid> {
+    let width = clamp::part_x();
+    let part = Plane::YZ.at(v3(-width / 2., 0., 0.)).extrude(&Profile::polygon(&profile()), width)?;
+    let depth = clamp::channel_z();
+    let channel = Plane::XY.at(v3(0., 0., depth / 2.)).cuboid(width + 2., clamp::channel_h(), depth);
+    let body = part.cut(&channel)?;
+    body.check()?;
+    ensure!(body.components().len() == 1, "the fuse clamp is one closed printable body");
 
-/// The crown lands ON the case: grown by `contact_tol`, the case meets the clamp, and a clamp
-/// standing off is a case lying loose on a face. Returns how much of the grown case the clamp
-/// holds, in mm³.
-pub fn pinch(n: &Numbers, clamp: &Solid) -> Result<f64> {
-    let (case_d, case_l, tol) = (n.f("case_d")?, n.f("case_l")?, n.f("contact_tol")?);
-    let grown = Solid::cylinder(v3(-case_l / 2.0, 0.0, case_d / 2.0), V3::X, case_d / 2.0 + tol, case_l)?;
-    let touch = clamp.intersect(&grown)?.volume();
-    ensure!(
-        touch > 0.0,
-        "a case grown {tol} mm proud of its own Ø{case_d} still misses the clamp — the crown stands off \
-         the generatrix it is meant to bear on, so nothing presses the case onto the cover and a {} °C \
-         cutoff is reading cabinet air.",
-        n.f("tf_c")?
-    );
-    Ok(touch)
-}
-
-fn main() -> Result<()> {
-    if std::env::args().nth(2).as_deref() == Some("--check") {
-        let n = Numbers::read(std::env::args().nth(1).unwrap_or_default())?;
-        println!("{}", serde_json::json!({ "pinch": pinch(&n, &build(&n)?)? }));
-        return Ok(());
-    }
-    let (n, out) = args()?;
-    let clamp = build(&n)?;
-    pinch(&n, &clamp)?;
-    let name = n.text("name")?;
-    let body = Body { name, color: Some(n.color("color")?), solid: &clamp };
-    println!("{}", write_part(&out, name, &[body])?);
-    Ok(())
+    let radius = clamp::CASE_D / 2.;
+    let case = Solid::cylinder(v3(-clamp::CASE_L / 2., 0., radius), V3::X, radius + clamp::CONTACT_TOL, clamp::CASE_L)?;
+    ensure!(body.shared_volume(&case)? > 0., "the crown bears on the case");
+    Ok(body)
 }
