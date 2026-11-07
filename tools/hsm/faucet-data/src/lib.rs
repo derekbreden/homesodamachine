@@ -425,149 +425,42 @@ pub fn path_legs(kind: &str, bottom_z: f64, sign: f64, end_s: Option<f64>) -> Ve
     legs
 }
 
-/// TPU thimble dimensions, cap down. The cap bore continues into its open sleeve.
-pub fn o_ring(color: &Value) -> Value {
-    let inner_diameter = 9.2;
-    let outer_diameter = 10.44;
-    let cap_hole_diameter = 6.50;
-    let cap_thickness = 2.1;
-    let cylinder_length = 13.5;
-    let total_height = cap_thickness + cylinder_length;
-    let wall_thickness = (outer_diameter - inner_diameter) / 2.0;
-    let lldpe_od = 9.525;
-    let lldpe_id = 6.35;
-    let westbrass_port_diameter = 10.0;
-    let port_depth_min = 20.0;
-    let westbrass_squeeze = (outer_diameter - westbrass_port_diameter) / 2.0;
-    let lldpe_interference = (lldpe_od - inner_diameter) / 2.0;
-    let variables = formatted(&[
-        ("ORING_INNER_D", inner_diameter, ".4g", " mm"),
-        ("ORING_OUTER_D", outer_diameter, ".4g", " mm"),
-        ("CAP_HOLE_D", cap_hole_diameter, ".4g", " mm"),
-        ("ORING_CAP_T", cap_thickness, ".4g", " mm"),
-        ("CYL_L", cylinder_length, ".4g", " mm"),
-        ("TOTAL_H", total_height, ".4g", " mm"),
-        ("ORING_WALL_T", wall_thickness, ".4g", " mm"),
-        ("LLDPE_OD", lldpe_od, ".4g", " mm"),
-        ("LLDPE_ID", lldpe_id, ".4g", " mm"),
-        ("WESTBRASS_PORT_D", westbrass_port_diameter, ".4g", " mm"),
-        ("PORT_DEPTH_MIN", port_depth_min, ".4g", " mm"),
-        ("WESTBRASS_SQUEEZE", westbrass_squeeze, ".4g", " mm"),
-        ("LLDPE_INTERFERENCE", lldpe_interference, ".4g", " mm"),
-    ]);
-    json!({
-        "variables": variables,
-        "datums": {
-            "inner_diameter": inner_diameter, "outer_diameter": outer_diameter,
-            "cap_hole_diameter": cap_hole_diameter, "cap_thickness": cap_thickness,
-            "cylinder_length": cylinder_length, "total_height": total_height,
-            "wall_thickness": wall_thickness, "lldpe_od": lldpe_od, "lldpe_id": lldpe_id,
-            "westbrass_port_diameter": westbrass_port_diameter, "port_depth_min": port_depth_min,
-            "westbrass_squeeze": westbrass_squeeze, "lldpe_interference": lldpe_interference,
-        },
-        "numbers": {
-            "name": "tpu-o-ring", "color": color,
-            "outer_radius": outer_diameter / 2.0, "inner_radius": inner_diameter / 2.0,
-            "cap_hole_radius": cap_hole_diameter / 2.0,
-            "cap_thickness": cap_thickness, "total_height": total_height,
-        },
-    })
+/// The TPU thimble's datums, from its numbers crate, for the Python readers that still draw it.
+pub fn o_ring() -> Value {
+    use hsm_tpu_o_ring_numbers as n;
+    json!({"datums": {
+        "inner_diameter": n::INNER_DIAMETER, "outer_diameter": n::OUTER_DIAMETER,
+        "cap_hole_diameter": n::CAP_HOLE_DIAMETER, "cap_thickness": n::CAP_THICKNESS,
+        "cylinder_length": n::CYLINDER_LENGTH, "total_height": n::TOTAL_HEIGHT,
+        "wall_thickness": n::WALL_THICKNESS, "lldpe_od": n::LLDPE_OD, "lldpe_id": n::LLDPE_ID,
+        "westbrass_port_diameter": n::WESTBRASS_PORT_DIAMETER, "port_depth_min": n::PORT_DEPTH_MIN,
+        "westbrass_squeeze": n::WESTBRASS_SQUEEZE, "lldpe_interference": n::LLDPE_INTERFERENCE,
+    }})
 }
 
-/// Round organizer stock, five passages and their axes in the faucet's mounting frame.
-pub fn organizer(color: &Value) -> Value {
-    let od = 32.0;
-    let length = 10.0;
-    let tube_bore = 6.65;
-    let drain_bore = 4.40;
-    let flavor_bore = drain_bore;
-    let cable_slot_length = 5.4;
-    let cable_slot_depth = 1.8;
-    let min_material = 1.50;
-    let entry = 0.40;
-    let cable_entry = 0.20;
-    let outside_ease = 0.20;
-    let flavor_spread = 2.40;
-    let flavor_forward = 1.80;
-    let drain_forward = 2.30;
-    let cable_xy = [LOWER_BUNDLE_X, LOWER_RIBBON_Y];
-    let flavor_x = LOWER_FLAVOR_X + flavor_spread;
-    let flavor_y = LOWER_Y - flavor_forward;
-    let center_xy = [
-        LOWER_BUNDLE_X,
-        (flavor_x.powi(2) + flavor_y.powi(2) - LOWER_BUNDLE_X.powi(2)) / (2.0 * flavor_y),
-    ];
-    let bores = [
-        ("S", [0.0, 0.0], tube_bore),
-        (
-            "F1",
-            [LOWER_BUNDLE_X + LOWER_FLAVOR_X + flavor_spread, flavor_y],
-            flavor_bore,
-        ),
-        (
-            "F2",
-            [LOWER_BUNDLE_X - LOWER_FLAVOR_X - flavor_spread, flavor_y],
-            flavor_bore,
-        ),
-        (
-            "D",
-            [LOWER_BUNDLE_X, LOWER_DRAIN_Y - drain_forward],
-            drain_bore,
-        ),
-        ("SIG", cable_xy, cable_slot_length),
-    ];
-    let datum_bores: Vec<_> = bores
+/// The organizer's datums, from its numbers crate, for the Python readers that still place it.
+pub fn organizer() -> Value {
+    use hsm_umbilical_organizer_numbers::{self as n, Passage};
+    let bores: Vec<_> = n::BORES
         .iter()
-        .map(|(name, xy, diameter)| json!([name, xy, diameter]))
-        .collect();
-    let number_bores: Vec<_> = bores
-        .iter()
-        .map(|(name, xy, diameter)| {
-            json!({
-                "name": name, "center": [xy[0] - center_xy[0], xy[1] - center_xy[1]],
-                "radius": diameter / 2.0, "entry": if *name == "SIG" {cable_entry} else {entry},
-            })
+        .map(|(name, xy, passage)| {
+            let diameter = match passage {
+                Passage::Bore(d) => *d,
+                Passage::Slot => n::CABLE_SLOT_LENGTH,
+            };
+            json!([name, xy, diameter])
         })
         .collect();
-    let mut variables = formatted(&[
-        ("ORGANIZER_OD", od, "g", " mm"),
-        ("ORGANIZER_LENGTH", length, "g", " mm"),
-        ("ORGANIZER_TUBE_BORE", tube_bore, ".2f", " mm"),
-        ("ORGANIZER_DRAIN_BORE", drain_bore, ".2f", " mm"),
-        ("ORGANIZER_FLAVOR_BORE", flavor_bore, ".2f", " mm"),
-        ("ORGANIZER_ENTRY", entry, "g", " mm"),
-        ("ORGANIZER_CONTACT", length - 2.0 * entry, "g", " mm"),
-        ("ORGANIZER_CABLE_ENTRY", cable_entry, "g", " mm"),
-        ("ORGANIZER_RIM_EASE", outside_ease, "g", " mm"),
-        ("ORGANIZER_MIN_MATERIAL", min_material, "g", " mm"),
-        ("ORGANIZER_FLAVOR_SPREAD", flavor_spread, "g", " mm"),
-        ("ORGANIZER_FLAVOR_FORWARD", flavor_forward, "g", " mm"),
-        ("ORGANIZER_DRAIN_FORWARD", drain_forward, "g", " mm"),
-    ]);
-    variables["ORGANIZER_CABLE_SLOT"] = Value::String(format!(
-        "{} × {} mm",
-        hsm_documents::format_number(cable_slot_length, "g").expect("literal number format"),
-        hsm_documents::format_number(cable_slot_depth, "g").expect("literal number format")
-    ));
-    json!({
-        "variables": variables,
-        "datums": {
-            "OD": od, "LENGTH": length, "TUBE_BORE": tube_bore,
-            "DRAIN_BORE": drain_bore, "FLAVOR_BORE": flavor_bore,
-            "CABLE_SLOT_LENGTH": cable_slot_length, "CABLE_SLOT_DEPTH": cable_slot_depth,
-            "MIN_MATERIAL": min_material, "ENTRY": entry, "CABLE_ENTRY": cable_entry,
-            "OUTSIDE_EASE": outside_ease, "FLAVOR_SPREAD": flavor_spread,
-            "FLAVOR_FORWARD": flavor_forward, "DRAIN_FORWARD": drain_forward,
-            "CABLE_XY": cable_xy, "_flavor_x": flavor_x, "_flavor_y": flavor_y,
-            "CENTRE_XY": center_xy, "BORES": datum_bores,
-        },
-        "numbers": {
-            "name": "umbilical-organizer", "color": color,
-            "stock_radius": od / 2.0, "length": length, "outside_ease": outside_ease,
-            "bore_overrun": 1.0, "slot_length": cable_slot_length,
-            "slot_depth": cable_slot_depth, "bores": number_bores,
-        },
-    })
+    json!({"datums": {
+        "OD": n::OD, "LENGTH": n::LENGTH, "TUBE_BORE": n::TUBE_BORE,
+        "DRAIN_BORE": n::DRAIN_BORE, "FLAVOR_BORE": n::FLAVOR_BORE,
+        "CABLE_SLOT_LENGTH": n::CABLE_SLOT_LENGTH, "CABLE_SLOT_DEPTH": n::CABLE_SLOT_DEPTH,
+        "MIN_MATERIAL": n::MIN_MATERIAL, "ENTRY": n::ENTRY, "CABLE_ENTRY": n::CABLE_ENTRY,
+        "OUTSIDE_EASE": n::OUTSIDE_EASE, "FLAVOR_SPREAD": n::FLAVOR_SPREAD,
+        "FLAVOR_FORWARD": n::FLAVOR_FORWARD, "DRAIN_FORWARD": n::DRAIN_FORWARD,
+        "CABLE_XY": n::CABLE_XY, "_flavor_x": n::FLAVOR_X, "_flavor_y": n::FLAVOR_Y,
+        "CENTRE_XY": n::CENTRE_XY, "BORES": bores,
+    }})
 }
 
 /// Countertop stack recipes. The shell supplies its authored foot and screw-seat
@@ -709,8 +602,8 @@ pub fn dispatch(request: &Value) -> Result<Value> {
         "assembly" => assembly::dispatch(request)?,
         "vent" => vent::dispatch(request)?,
         "plumbing" => plumbing::dispatch(request)?,
-        "o-ring" => o_ring(&request["color"]),
-        "organizer" => organizer(&request["color"]),
+        "o-ring" => o_ring(),
+        "organizer" => organizer(),
         "above-counter-plate" | "above-counter-gasket" => countertop_stack(
             op,
             &request["shell"],

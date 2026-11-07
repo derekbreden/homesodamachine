@@ -6,6 +6,9 @@ bores use the tested B drain-bore dimension; black flavor-stock fit is unmeasure
 The print origin is the centre of the round stock; Z=0 is the bottom face.
 Tube-axis XY values below use the faucet assembly's coordinates. Placement
 adds CENTRE_XY and sets the bottom face below the chosen installed top face.
+
+`umbilical_organizer.rs` cuts the part from its numbers (`numbers.rs`). This module is for readers
+that still take the puck from Python; its datums are the numbers crate's.
 """
 
 from pathlib import Path
@@ -14,10 +17,6 @@ import sys
 HERE = Path(__file__).resolve().parent
 HARDWARE = HERE.parents[2]
 sys.path.insert(0, str(HARDWARE / "scripts"))
-if __name__ == "__main__":
-    import _rust_part
-    _rust_part.start()
-
 import cadquery as cq
 from _materials import C_FAUCET_BLACK, linear
 sys.path.insert(0, str(HARDWARE / "printed-parts/faucet"))
@@ -71,23 +70,3 @@ def build_organizer():
 
 def placed(top_z):
     return build_organizer().translate((*CENTRE_XY, top_z - LENGTH))
-
-
-def numbers():
-    """The Rust scalar program supplies the organizer's upright-print recipe."""
-    return _data()["numbers"]
-
-
-def main():
-    import _rust_part
-
-    said = _rust_part.cut("faucet", "umbilical-organizer", numbers(), HERE)
-    stl = HERE / "umbilical-organizer.stl"
-    step = HERE / "umbilical-organizer.step"
-    import flute_payload
-    flute_payload.cut(step, stl, preserve_print_triangles=True)
-    print(f"-> {step.name}, {stl.name}, {step.name}.mesh")
-
-
-if __name__ == "__main__":
-    main()

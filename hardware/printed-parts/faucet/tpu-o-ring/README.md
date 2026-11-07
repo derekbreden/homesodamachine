@@ -107,5 +107,8 @@ replace on re-assembly and fit its replacement to the tube outside the donor.
 ## Regenerate
 
 ```
-tools/cad-venv/bin/python tpu_o_ring.py
+python3 tools/run.py -- cargo run --release -j 2 --manifest-path tools/hsm/Cargo.toml -p hsm-tpu-o-ring
 ```
+
+The program, [`tpu_o_ring.rs`](tpu_o_ring.rs), cuts the part from [`numbers.rs`](numbers.rs) and
+writes into this folder.

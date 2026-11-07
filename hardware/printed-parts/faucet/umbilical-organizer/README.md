@@ -37,8 +37,8 @@ about 0.13 mm minimum clearance to the measured rectangular envelope. These
 are modeled clearances; the slot's printed threading fit is unmeasured.
 It has no teeth, fasteners, liner, opening seam or identification embossing.
 The canonical print frame has the stock centred at XY=0 and the bottom face at
-Z=0. [`umbilical_organizer.py`](umbilical_organizer.py) defines its tube axes in
-the faucet frame and supplies the placement transform.
+Z=0. [`numbers.rs`](numbers.rs) defines its tube axes in the faucet frame and
+the centre the placement moves it by.
 
 ## Installation
 
@@ -94,5 +94,6 @@ slot. The fit evidence applies to the selected round-bore profiles; complete
 organizer layout and signal-slot fit remain unassessed.
 The separate frozen [Ø4.30 mm drain-fit archive](../../../../future/umbilical-organizer-exploration/drain-fit-mark2/README.md)
 is an unsubmitted trial, outside the current production selection.
-Regenerate the production geometry manually with
-`tools/cad-venv/bin/python hardware/printed-parts/faucet/umbilical-organizer/umbilical_organizer.py`.
+Regenerate the production geometry with
+`python3 tools/run.py -- cargo run --release -j 2 --manifest-path tools/hsm/Cargo.toml -p hsm-umbilical-organizer`,
+which writes into this folder.
