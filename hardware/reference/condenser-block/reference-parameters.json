@@ -1,0 +1,39 @@
+{
+  "units": "mm",
+  "airflow_mm": 56.0,
+  "face_a_mm": 154.0,
+  "face_b_mm": 137.0,
+  "plate_t_mm": 0.4,
+  "recess_y_mm": 20.0,
+  "mount_xy_mm": [
+    29.0,
+    139.0
+  ],
+  "mount_d_mm": 5.0,
+  "stations": {
+    "refrig-inlet": {
+      "point_mm": [
+        0.0,
+        87.0,
+        66.0
+      ],
+      "axis": [
+        -1.0,
+        0.0,
+        0.0
+      ]
+    },
+    "refrig-outlet": {
+      "point_mm": [
+        33.0,
+        154.0,
+        38.75
+      ],
+      "axis": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    }
+  }
+}

@@ -1,61 +1,18 @@
 //! What the above-core layout puts on the top pieces: the wiring's Wago wells on both, and on
 //! back-top the rear wall's openings and identification, its wall hosts, valve seats and fluid
 //! supports.
-use crate::plan::{Bounds, Graph, P3, Shape};
+use crate::plan::{Bounds, Graph, Shape};
 use crate::quadrant::Y;
 use crate::shapes::place;
 use crate::shell::{WAGO_WELL_WALL, back_top_wall_face};
 use crate::spec::Box;
-
-/// A Wago 221 lever connector, by its body: across its poles, along its wire axis, and its height.
-#[derive(Clone, Copy)]
-struct Wago {
-    width: f64,
-    depth: f64,
-    height: f64,
-}
-
-const WAGO_413: Wago = Wago { width: 18.8, depth: 18.6, height: 8.4 };
-const WAGO_415: Wago = Wago { width: 30.0, depth: 18.6, height: 8.4 };
-const WAGO_420: Wago = Wago { width: 29.8, depth: 18.3, height: 15.8 };
+use crate::junctions::{JUNCTIONS, Junction, Wago};
 
 /// The connector's fit in its well's pocket; the well's stock round it is the shell's.
 const WELL_FIT: f64 = 0.15;
 
 /// The plane back-top's wells reach back to inside the rear wall.
 const REAR_WELL_BACK_Y: f64 = 466.95;
-
-/// The wiring model's frames, by rotation rows: lever ports fore, the same stood on end, and
-/// lying on the east flank.
-const PORTS_FORE: [P3; 3] = [[-1.0, 0.0, 0.0], [0.0, -1.0, 0.0], [0.0, 0.0, 1.0]];
-const UPRIGHT_PORTS_FORE: [P3; 3] = [[0.0, 0.0, 1.0], [0.0, -1.0, 0.0], [1.0, 0.0, 0.0]];
-const EAST_FLANK: [P3; 3] = [[0.0, -1.0, 0.0], [0.0, 0.0, -1.0], [1.0, 0.0, 0.0]];
-
-/// One junction the wiring model mounts on a top piece: its connector, where it stands, and how
-/// far its well's mouth stands back of the lever face.
-struct Junction {
-    name: &'static str,
-    wago: Wago,
-    host: Y,
-    rotation: [P3; 3],
-    translation: P3,
-    mouth: f64,
-}
-
-/// The wiring model's junctions on the two top pieces, in its placement order: the mains live,
-/// earth and neutral buses under the ceiling PSU, and the two valve-manifold commons.
-const JUNCTIONS: [Junction; 5] = [
-    Junction { name: "wago-h", wago: WAGO_413, host: Y::Back, rotation: PORTS_FORE,
-               translation: [-81.0, 456.5, 264.0], mouth: 0.0 },
-    Junction { name: "wago-g", wago: WAGO_413, host: Y::Back, rotation: UPRIGHT_PORTS_FORE,
-               translation: [-90.6, 457.5, 295.5], mouth: 0.0 },
-    Junction { name: "wago-n", wago: WAGO_413, host: Y::Back, rotation: UPRIGHT_PORTS_FORE,
-               translation: [-65.4, 456.5, 267.5], mouth: 0.0 },
-    Junction { name: "wago-mana", wago: WAGO_420, host: Y::Front, rotation: EAST_FLANK,
-               translation: [95.20, 185.05, 277.0], mouth: -0.75 },
-    Junction { name: "wago-manb", wago: WAGO_415, host: Y::Front, rotation: EAST_FLANK,
-               translation: [95.05, 177.65, 243.0], mouth: -0.75 },
-];
 
 fn junction(name: &str) -> &'static Junction {
     JUNCTIONS.iter().find(|j| j.name == name).expect("the wiring model places this junction")
@@ -93,7 +50,7 @@ fn wells(g: &mut Graph, host: Y) -> (Vec<Shape>, Vec<Shape>) {
     let mut stocks = Vec::new();
     let mut pockets = Vec::new();
     for j in JUNCTIONS.iter().filter(|j| j.host == host) {
-        let Wago { width: w, depth: d, height: h } = j.wago;
+        let Wago { width: w, depth: d, height: h, .. } = j.wago;
         let mut rear = -d / 2.0 - fit - wall;
         if host == Y::Back {
             rear = rear.min(j.translation[1] - REAR_WELL_BACK_Y);

@@ -169,13 +169,16 @@ IMPLICIT_SOLIDS = {
     "hardware/printed-parts/enclosure/display-cover/display_cover.py": (
         "hardware/printed-parts/enclosure/display-cover/display-cover.stl",
     ),
-    # And its two viewer payloads, which `_write_mesh_payload` leaves unwritten when the bytes
-    # already stand.
+    # And its two viewer payloads and the fasteners it cuts beside the first unit, which stand
+    # unwritten when their bytes already do. The machine places those fasteners.
     "hardware/printed-parts/enclosure/nameplate/nameplate.py": (
         "hardware/printed-parts/enclosure/nameplate/nameplate-001.stl",
         "hardware/printed-parts/enclosure/nameplate/nameplate-receiver.stl",
         "hardware/printed-parts/enclosure/nameplate/nameplate-001.step.mesh",
         "hardware/printed-parts/enclosure/nameplate/nameplate-receiver.step.mesh",
+        "hardware/printed-parts/enclosure/nameplate/nameplate-fasteners.step",
+        "hardware/printed-parts/enclosure/nameplate/nameplate-fasteners.step.mesh",
+        "hardware/printed-parts/enclosure/nameplate/nameplate-fasteners.step.npz",
     ),
     "hardware/printed-parts/faucet/lever-replica/lever_replica.py": (
         "hardware/printed-parts/faucet/lever-replica/lever-replica.stl",
@@ -205,10 +208,6 @@ IMPLICIT_SOLIDS = {
     "hardware/printed-parts/enclosure/rear-equipment-caps/rear_equipment_caps.py": tuple(
         f"hardware/printed-parts/enclosure/rear-equipment-caps/{name}.stl"
         for name in ("asse-snap-cap", "pisco-snap-cap", "meter-snap-cap", "regulator-snap-cap")
-    ),
-    "hardware/manifold-layout/enclosure_assembly.py": (
-        "hardware/manifold-layout/enclosure-assembly.step.mesh",
-        "hardware/wiring/enclosure-wiring.step.mesh",
     ),
     "hardware/manifold-layout/manifold_layout.py": (
         "hardware/manifold-layout/manifold-layout.step.mesh",

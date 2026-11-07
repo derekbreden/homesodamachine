@@ -1,14 +1,9 @@
 //! Physical model, presentation and scene output from explicit file references and frames.
 use anyhow::{Result, bail};
 use hsm_kernel::part;
-use hsm_model_export::{digest, model, output_name, payload, put, read, text};
+use hsm_model_export::{gltf, merge, model, output_name, payload, text};
 use serde_json::{Value, json};
 use std::path::{Path, PathBuf};
-
-#[path = "model_export/gltf.rs"]
-mod gltf;
-#[path = "model_export/merge.rs"]
-mod merge;
 
 fn main() -> Result<()> {
     let (numbers, output) = part::args()?;

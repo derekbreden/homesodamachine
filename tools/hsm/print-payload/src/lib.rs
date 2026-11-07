@@ -438,6 +438,13 @@ pub struct Cut {
     pub non_manifold_edges: usize,
 }
 
+/// The viewer's crease angle, in degrees: wider dihedral angles shade as separate regions.
+pub const CREASE_DEG: f64 = 30.0;
+/// The payload's distance budget per millimetre of the model's mean extent.
+pub const LINEAR_DEFLECTION_RATIO: f64 = 0.001;
+/// The angular deflection, in radians, the viewer's STEP reader takes when it is given none.
+pub const ANGULAR_DEFLECTION: f64 = 0.5;
+
 /// What a payload is cut from, besides the print's triangles: the body it names, the digest
 /// of the file it answers to, and the surface policy.
 pub struct Request<'a> {

@@ -7,6 +7,7 @@ pub mod disposal;
 pub mod display_mount;
 pub mod faces;
 pub mod field;
+pub mod junctions;
 pub mod layout;
 pub mod pump;
 pub mod quadrant;
