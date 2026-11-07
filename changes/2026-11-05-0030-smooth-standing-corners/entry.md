@@ -9,6 +9,6 @@ The four production quadrants retain their smooth R12 standing-corner surfaces t
 
 The surface follows the outer flute-tip envelope. It fills up to 1.2 mm of groove depth at each corner and keeps the case's structural envelope, internal seats and joints. The horizontal enclosure seams cross the smooth bands. The fitted connection-card rail meets part of the upper rear corner at its existing seat.
 
-[Inspect the complete appliance in 3D](https://homesodamachine.com/3d#glb:assembly%2Fscenes%2Fglb%2Fenclosure-smooth-corners-full-context.glb), with the front display, rear fittings, funnel and approved nameplate. All four production printed meshes have been rebuilt. Printing remains held for this geometry review.
+All four production printed meshes have been rebuilt. Printing remains held for this geometry review.
 
 Derek: “Ideally, at the full depth, which I think makes it flush with the outermost tips of the flutes, right?”

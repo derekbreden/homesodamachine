@@ -13,10 +13,3 @@ outline, balanced screw insets and visible heads follow the rear nameplate.
 The tee-wall tube bores retain their supporting lands. Flexible pump stubs feed
 through the bores during loading, with the fitted pump seats and retainer intact.
 The native print recipe selects branching supports in the pump cavities.
-
-The [assembled display](https://homesodamachine.com/3d#glb:assembly%2Fscenes%2Fglb%2Fdisplay-side-screws-full-context.glb)
-and [separated mounting view](https://homesodamachine.com/3d#glb:assembly%2Fscenes%2Fglb%2Fdisplay-side-screws-separated.glb)
-show the production geometry. The
-[pump wall study](https://homesodamachine.com/3d#glb:assembly%2Fscenes%2Fglb%2Fpump-port-space.glb)
-marks the flange-to-wall span in orange and a proposed wall plane in blue; moving
-that wall requires a coordinated retainer and plumbing revision.

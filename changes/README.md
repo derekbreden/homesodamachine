@@ -96,6 +96,9 @@ changes when something reads better.
 - `model` is the path under `hardware/` that "Open in 3D" opens.
 - The body is the detail the entry opens to, in the subset `/updates` reads: `## ` headings,
   paragraphs, `- ` bullets, `**bold**`, `[text](href)`.
+- A link into the 3D viewer opens the published machine or part, and `?find=` lights and labels
+  what it points at; `link()` in [`hardware/scripts/pick_text.py`](../hardware/scripts/pick_text.py)
+  writes one.
 
 `views.json` and the images are the render tool's. Each view is a before and an after of one
 size from one camera, WebP, named by `before` and `after`, with its `width`, `height`, an
@@ -103,7 +106,8 @@ optional `caption`, and optional `marks` (`x`, `y`, `r`, `label` in image pixels
 left) drawn over both. The rest of each view records what was drawn: the camera, the section,
 the parts shown and highlighted, and the geometry each picture came from.
 
-Nothing else is kept: no meshes, STEPs or payloads.
+Nothing else is kept for an entry, here or anywhere else: no meshes, STEPs, payloads or 3D
+scenes.
 
 ## On the site
 
