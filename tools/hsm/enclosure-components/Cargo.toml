@@ -11,10 +11,6 @@ name = "nameplate"
 path = "../../../hardware/printed-parts/enclosure/nameplate/nameplate.rs"
 
 [[bin]]
-name = "nameplate-attachment-options"
-path = "../../../hardware/printed-parts/enclosure/nameplate/attachment-options/review.rs"
-
-[[bin]]
 name = "rear-identification"
 path = "../../../hardware/printed-parts/enclosure/rear-identification/rear_identification.rs"
 
