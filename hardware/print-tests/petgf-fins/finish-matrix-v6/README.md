@@ -174,7 +174,7 @@ bridge variable. The treatment range here follows this PET-GF physical evidence;
 it is not a manufacturer's qualified PET-GF recipe. The shared production
 material profile is unchanged.
 
-Run `prepare.py` with `tools/cad-venv/bin/python`, slice the saved source with
+Run [`prepare.py`](https://github.com/derekbreden/homesodamachine/blob/0a648015e0/hardware/print-tests/petgf-fins/finish-matrix-v6/prepare.py) (in Git at `0a648015e0`) with `tools/cad-venv/bin/python`, slice the saved source with
 Bambu Studio `--arrange 0 --orient 0 --slice 0 --outputdir <absolute mark2 folder>
 --export-3mf native.gcode.3mf <absolute project>`, then run `finish.py` with the
 same Python runtime. The latter applies the named local E/fan treatments and

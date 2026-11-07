@@ -173,6 +173,8 @@ remain separate service qualifications.
 
 From the repository root:
 
+The scripts these commands run are in Git at [`0a648015e0`](https://github.com/derekbreden/homesodamachine/tree/0a648015e0).
+
 ```sh
 tools/cad-venv/bin/python hardware/printed-parts/cold-core/magnetic-float/magnetic_float.py
 tools/cad-venv/bin/python hardware/printed-parts/cold-core/magnetic-float/pressure_analysis.py
@@ -181,6 +183,8 @@ tools/cad-venv/bin/python hardware/printed-parts/cold-core/magnetic-float/prepar
 
 The last command slices both projects, verifies them, and saves the projects
 and their evidence here. Verification of an existing slice:
+
+The scripts these commands run are in Git at [`0a648015e0`](https://github.com/derekbreden/homesodamachine/tree/0a648015e0).
 
 ```sh
 tools/cad-venv/bin/python hardware/printed-parts/cold-core/magnetic-float/verify.py --directory .cache/magnetic-float-print

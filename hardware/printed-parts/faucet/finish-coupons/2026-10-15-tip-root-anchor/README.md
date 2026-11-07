@@ -72,7 +72,7 @@ The completed article and disc removal have physical acceptance at the hidden
 insertion end. This does not establish removal without a scuff, dimensional
 mating fit, strength or lifetime.
 
-`prepare.py --slice`, `review.py`, and
+`prepare.py --slice`, [`review.py`](https://github.com/derekbreden/homesodamachine/blob/0a648015e0/hardware/printed-parts/faucet/finish-coupons/2026-10-15-tip-root-anchor/review.py) (in Git at `0a648015e0`), and
 `../2026-10-15-edge-supports/review.py tip --folder <this-directory>/mark1`
 are manual experiment tools, outside build and commit paths. Accepted launches
 are preserved rather than overwritten.

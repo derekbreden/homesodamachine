@@ -64,7 +64,7 @@ preserved. Their retained bridge surface looks and feels loose.
 
 ## Files
 
-`prepare.py` builds the labeled specimens and editable `interface-patterns.3mf`.
+[`prepare.py`](https://github.com/derekbreden/homesodamachine/blob/0a648015e0/hardware/print-tests/petgf-interface-patterns/prepare.py) (in Git at `0a648015e0`) builds the labeled specimens and editable `interface-patterns.3mf`.
 A, B and D use native slicer settings. C additionally uses `finish.py` after
 slicing: it removes only E extrusion words from the 26 end connections in its
 upper contact layer. XYZ motions, speeds, retractions, lower branch transitions

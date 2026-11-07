@@ -70,7 +70,7 @@ All 16 gaps and interface-layer counts are verified in `verification.json`.
 
 ## Files
 
-- `prepare.py` builds the labeled specimens and single-plate project with per-object settings.
+- [`prepare.py`](https://github.com/derekbreden/homesodamachine/blob/0a648015e0/hardware/print-tests/petgf-support-interface/prepare.py) (in Git at `0a648015e0`) builds the labeled specimens and single-plate project with per-object settings.
 - `experiment.json` records dimensions, arrangement, recipe and source hashes.
 - `support-interface.3mf` is the editable project.
 - `verification.json` records the sliced settings, support paths and file hashes.
