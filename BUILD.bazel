@@ -3392,81 +3392,25 @@ cd .. && rm -rf work-asse-straight-cuffs
 )
 
 genrule(
-    name = "coil-mandrel",
+    name = "coil-mandrel-program",
     srcs = [
-        "hardware/cold-core-layout/_carbonator_stock.py",
-        "hardware/cold-core-layout/_cold_core_data.py",
+        "hardware/cold-core-layout/coil/numbers.rs",
         "hardware/cut-parts/carbonation/carbonator-tube/numbers.rs",
         "hardware/cut-parts/carbonation/endcaps-circular/numbers.rs",
-        "hardware/manifold-layout/_layout_data.py",
-        "hardware/manifold-layout/above-core.json",
-        "hardware/manifold-layout/above_core.py",
-        "hardware/printed-parts/cadlib/_scalar_provider.py",
-        "hardware/printed-parts/cadlib/fits.py",
-        "hardware/printed-parts/cold-core/_cold_core_interface.py",
-        "hardware/printed-parts/cold-core/coil-mandrel/coil_mandrel.py",
+        "hardware/printed-parts/cold-core/catalog/lib.rs",
         "hardware/printed-parts/cold-core/coil-mandrel/coil_mandrel.rs",
+        "hardware/printed-parts/cold-core/coil-mandrel/numbers.rs",
         "hardware/printed-parts/cold-core/interface/lib.rs",
         "hardware/printed-parts/cold-core/magnetic-float/all-aero/numbers.rs",
-        "hardware/printed-parts/electronics/module_tray.py",
-        "hardware/printed-parts/electronics/pcba-tray/pcba_tray.py",
-        "hardware/printed-parts/enclosure/enclosure/interface/anchor_cap.rs",
-        "hardware/printed-parts/enclosure/enclosure/interface/fits.rs",
-        "hardware/printed-parts/enclosure/enclosure/interface/lib.rs",
-        "hardware/printed-parts/enclosure/enclosure/interface/swept.rs",
-        "hardware/printed-parts/valve-seat/numbers.rs",
-        "hardware/printed-parts/valve-seat/valve_seat.py",
-        "hardware/reference/_reference_data.py",
-        "hardware/reference/beduan-solenoid/beduan_solenoid.py",
-        "hardware/reference/g-ganen-pump/reference-parameters.json",
-        "hardware/scripts/_build_data.py",
-        "hardware/scripts/_machine_data.py",
-        "hardware/scripts/_material_base.py",
-        "hardware/scripts/_materials.py",
-        "hardware/scripts/_rust_data.py",
-        "hardware/scripts/_rust_objects.py",
-        "hardware/scripts/_rust_part.py",
-        "hardware/scripts/_shared_data.py",
-        "hardware/scripts/_stated_bounds.py",
-        "tools/hsm/build-data/Cargo.toml",
-        "tools/hsm/build-data/src/artifact_cache.rs",
-        "tools/hsm/build-data/src/artifacts.rs",
-        "tools/hsm/build-data/src/assets.rs",
-        "tools/hsm/build-data/src/inventory.rs",
-        "tools/hsm/build-data/src/lib.rs",
-        "tools/hsm/build-data/src/main.rs",
-        "tools/hsm/build-data/src/payload.rs",
-        "tools/hsm/build-data/src/projection.rs",
-        "tools/hsm/build-data/src/publication.rs",
-        "tools/hsm/build-data/src/publication_archive.rs",
-        "tools/hsm/build-data/src/publication_state.rs",
-        "tools/hsm/build-data/src/publication_zlib.rs",
-        "tools/hsm/build-data/src/sources.rs",
-        "tools/hsm/build-data/src/support.rs",
-        "tools/hsm/build-data/src/surfaces.rs",
+        "hardware/printed-parts/cold-core/reed-bridge/numbers.rs",
+        "tools/hsm/aero-float-numbers/Cargo.toml",
+        "tools/hsm/carbonator-tube-numbers/Cargo.toml",
         ":out/cargo-config/tools/hsm/cargo-config.json",
-        "tools/hsm/cold-core-data/Cargo.toml",
-        "tools/hsm/cold-core-data/src/coil.rs",
-        "tools/hsm/cold-core-data/src/compiled.rs",
-        "tools/hsm/cold-core-data/src/compiled/_above_core_mounts.rs",
-        "tools/hsm/cold-core-data/src/compiled/_cold_core_interface.rs",
-        "tools/hsm/cold-core-data/src/compiled/coil_mandrel.rs",
-        "tools/hsm/cold-core-data/src/compiled/modules.rs",
-        "tools/hsm/cold-core-data/src/floats.rs",
-        "tools/hsm/cold-core-data/src/interface.rs",
-        "tools/hsm/cold-core-data/src/lib.rs",
-        "tools/hsm/cold-core-data/src/main.rs",
-        "tools/hsm/cold-core-data/src/mandrel.rs",
-        "tools/hsm/cold-core/Cargo.toml",
-        "tools/hsm/documents/Cargo.toml",
-        "tools/hsm/documents/src/interop.rs",
-        "tools/hsm/documents/src/interop/standard.rs",
-        "tools/hsm/documents/src/lib.rs",
-        "tools/hsm/documents/src/python_checked.rs",
-        "tools/hsm/geometry/Cargo.toml",
-        "tools/hsm/geometry/src/lib.rs",
-        "tools/hsm/geometry/src/payload.rs",
-        "tools/hsm/geometry/src/queries.rs",
+        "tools/hsm/coil-mandrel-numbers/Cargo.toml",
+        "tools/hsm/coil-numbers/Cargo.toml",
+        "tools/hsm/cold-core-catalog/Cargo.toml",
+        "tools/hsm/cold-core-interface/Cargo.toml",
+        "tools/hsm/endcap-circular-numbers/Cargo.toml",
         "tools/hsm/kernel/Cargo.toml",
         "tools/hsm/kernel/src/boolean.rs",
         "tools/hsm/kernel/src/build.rs",
@@ -3497,41 +3441,46 @@ genrule(
         "tools/hsm/kernel/src/topo.rs",
         "tools/hsm/kernel/src/triangulate.rs",
         "tools/hsm/kernel/src/write.rs",
-        "tools/hsm/layout-data/Cargo.toml",
-        "tools/hsm/layout-data/src/fore.rs",
-        "tools/hsm/layout-data/src/lib.rs",
-        "tools/hsm/layout-data/src/main.rs",
-        "tools/hsm/layout-data/src/rear.rs",
-        "tools/hsm/layout-data/src/routes.rs",
-        "tools/hsm/layout-data/src/soda.rs",
-        "tools/hsm/part-data/Cargo.toml",
-        "tools/hsm/part-data/src/electronics.rs",
-        "tools/hsm/part-data/src/main.rs",
-        "tools/hsm/part-data/src/output.rs",
-        "tools/hsm/part-data/src/reference.rs",
-        "tools/hsm/part-data/src/reference_catalog.rs",
-        "tools/hsm/part-data/src/sleeve.rs",
-        "tools/hsm/part-data/src/storage.rs",
-        "tools/hsm/part-data/src/zone.rs",
-        "tools/hsm/shared-data/Cargo.toml",
+        "tools/hsm/reed-bridge-numbers/Cargo.toml",
+        "tools/hsm/run-native/Cargo.toml",
+        "tools/hsm/run-native/src/lib.rs",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/hsm/run-slots/Cargo.toml",
+        "tools/hsm/run-slots/src/ipc.rs",
+        "tools/hsm/run-slots/src/lib.rs",
+        "tools/hsm/run-slots/src/main.rs",
+        "tools/hsm/run-slots/src/runtime.rs",
+        "tools/hsm/run-slots/src/runtime/cad.rs",
+        "tools/hsm/run-slots/src/runtime/install.rs",
+        "tools/hsm/run-slots/src/runtime/runner.rs",
+        "tools/hsm/run-slots/src/runtime/slots.rs",
         "tools/hsm/shared-data/catalog/materials.json",
         "tools/hsm/shared-data/catalog/routing.json",
         "tools/hsm/shared-data/catalog/scalars.json",
-        "tools/hsm/shared-data/src/color.rs",
-        "tools/hsm/shared-data/src/common.rs",
-        "tools/hsm/shared-data/src/cooling.rs",
-        "tools/hsm/shared-data/src/lib.rs",
-        "tools/hsm/shared-data/src/main.rs",
-        "tools/hsm/shared-data/src/routing.rs",
-        "tools/hsm/shared-data/src/scalars.rs",
+        "tools/hsm/vendor/manifold-csg-sys/.cargo_vcs_info.json",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.lock",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.toml",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.toml.orig",
+        "tools/hsm/vendor/manifold-csg-sys/LICENSE-APACHE",
+        "tools/hsm/vendor/manifold-csg-sys/LICENSE-MIT",
+        "tools/hsm/vendor/manifold-csg-sys/README.md",
+        "tools/hsm/vendor/manifold-csg-sys/build.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/build.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/fetch.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/patch.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/wasm.rs",
+        "tools/hsm/vendor/manifold-csg-sys/cache-version",
+        "tools/hsm/vendor/manifold-csg-sys/patches/README.md",
+        "tools/hsm/vendor/manifold-csg-sys/src/lib.rs",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/CMakeLists.txt",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/diagnose.sh",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/__assertion_handler",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/__config_site",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/memory",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/mutex",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/libcxx-extras.cpp",
     ],
-    outs = [
-        "out/coil-mandrel/hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.numbers.json",
-        "out/coil-mandrel/hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.step",
-        "out/coil-mandrel/hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.step.mesh",
-        "out/coil-mandrel/hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.step.npz",
-        "out/coil-mandrel/hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.stl",
-    ],
+    outs = ["out/coil-mandrel-program/coil-mandrel"],
     tags = ["no-sandbox"],
     cmd = """
 set -e
@@ -3555,36 +3504,96 @@ case "$$(uname -s)" in
     };;
   *) copy_file() { cp "$$@"; };;
 esac
-O0=$$PWD/$(location out/coil-mandrel/hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.numbers.json)
-O1=$$PWD/$(location out/coil-mandrel/hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.step)
-O2=$$PWD/$(location out/coil-mandrel/hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.step.mesh)
-O3=$$PWD/$(location out/coil-mandrel/hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.step.npz)
-O4=$$PWD/$(location out/coil-mandrel/hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.stl)
-rm -rf work-coil-mandrel
+hsm_run=
+for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
+  if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
+done
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+cargo=$$(command -v cargo || true)
+for c in "$$cargo" /opt/homebrew/opt/rustup/bin/cargo ~/.cargo/bin/cargo; do if [ -x "$$c" ]; then cargo=$$c; break; fi; done
+if [ ! -x "$$cargo" ]; then echo "cargo is not installed (https://rustup.rs)" >&2; exit 1; fi
+export HOME=~ PATH="$$(dirname "$$cargo"):$$PATH"
+O0=$$PWD/$(location out/coil-mandrel-program/coil-mandrel)
+cd "$$HSM_WORKSPACE/tools/hsm"
+CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet --manifest-path coil-mandrel/Cargo.toml --bin coil-mandrel
+copy_file target/release/coil-mandrel "$$O0"
+""",
+)
+
+genrule(
+    name = "coil-mandrel",
+    srcs = [
+        ":out/coil-mandrel-program/coil-mandrel",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/hsm/shared-data/catalog/materials.json",
+        "tools/hsm/shared-data/catalog/routing.json",
+        "tools/hsm/shared-data/catalog/scalars.json",
+        "tools/hsm/vendor/manifold-csg-sys/.cargo_vcs_info.json",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.toml.orig",
+        "tools/hsm/vendor/manifold-csg-sys/LICENSE-APACHE",
+        "tools/hsm/vendor/manifold-csg-sys/LICENSE-MIT",
+        "tools/hsm/vendor/manifold-csg-sys/README.md",
+        "tools/hsm/vendor/manifold-csg-sys/cache-version",
+        "tools/hsm/vendor/manifold-csg-sys/patches/README.md",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/CMakeLists.txt",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/diagnose.sh",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/__assertion_handler",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/__config_site",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/memory",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/mutex",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/libcxx-extras.cpp",
+    ],
+    outs = [
+        "out/coil-mandrel/hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.step",
+        "out/coil-mandrel/hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.step.mesh",
+        "out/coil-mandrel/hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.step.npz",
+        "out/coil-mandrel/hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.stl",
+    ],
+    cmd = """
+set -e
+case "$$(uname -s)" in
+  Darwin)
+    copy_mask=$$((8#$$(umask)))
+    copy_bits=("" x w wx r rx rw rwx)
+    copy_mode="u-$${copy_bits[$$((copy_mask >> 6 & 7))]},g-$${copy_bits[$$((copy_mask >> 3 & 7))]},o-$${copy_bits[$$((copy_mask & 7))]}"
+    copy_file() {
+      local copy_dest="$${!#}" copy_target copy_permissions="$$copy_mode"
+      if [ -e "$$copy_dest" ] || [ -L "$$copy_dest" ]; then
+        if [ ! -f "$$copy_dest" ] || [ -L "$$copy_dest" ]; then cp "$$@"; return; fi
+        copy_permissions=$$(stat -f %Lp "$$copy_dest")
+        copy_target=$$(mktemp "$$copy_dest.hsm-copy.XXXXXX")
+      else copy_target="$$copy_dest"; fi
+      if cp -c "$${@:1:$$(( $$# - 1 ))}" "$$copy_target" 2>/dev/null; then
+        chmod "$$copy_permissions" "$$copy_target"
+        touch "$$copy_target"
+        if [ "$$copy_target" != "$$copy_dest" ]; then mv -f "$$copy_target" "$$copy_dest"; fi
+      else rm -f "$$copy_target"; cp "$$@"; fi
+    };;
+  *) copy_file() { cp "$$@"; };;
+esac
+hsm_run=
+for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
+  if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
+done
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+O0=$$PWD/$(location out/coil-mandrel/hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.step)
+O1=$$PWD/$(location out/coil-mandrel/hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.step.mesh)
+O2=$$PWD/$(location out/coil-mandrel/hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.step.npz)
+O3=$$PWD/$(location out/coil-mandrel/hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.stl)
+rm -rf work
 for f in $(SRCS); do
   case $$f in
-    */node_modules/*) continue;;
     */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
     *) t=$$f;;
   esac
-  mkdir -p "work-coil-mandrel/$$(dirname "$$t")"; copy_file -L "$$f" "work-coil-mandrel/$$t"
+  mkdir -p "work/$$(dirname "$$t")"; copy_file -L "$$f" "work/$$t"
 done
-for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
-  if [ -d $$d ]; then mkdir -p work-coil-mandrel/$$(dirname $$d); ln -sfn $$PWD/$$d work-coil-mandrel/$$d; fi
-done
-for f in hardware/scripts/_run_lock.py hardware/scripts/_run_native.py hardware/scripts/_run_slots.py tools/hsm/run-slots.defaults.json tools/run-slots.mjs tools/run.py; do
-  mkdir -p work-coil-mandrel/$$(dirname $$f); cp $$HSM_WORKSPACE/$$f work-coil-mandrel/$$f
-done
-cd work-coil-mandrel
-ln -sfn $$HSM_WORKSPACE/.cache .cache
-D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/cold-core/coil-mandrel/coil_mandrel.py > /dev/null
-copy_file hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.numbers.json "$$O0"
-copy_file hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.step "$$O1"
-copy_file hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.step.mesh "$$O2"
-copy_file hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.step.npz "$$O3"
-copy_file hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.stl "$$O4"
-cd .. && rm -rf work-coil-mandrel
+cd work
+"$$hsm_run" -- ./coil-mandrel > /dev/null
+copy_file hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.step "$$O0"
+copy_file hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.step.mesh "$$O1"
+copy_file hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.step.npz "$$O2"
+copy_file hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.stl "$$O3"
 """,
 )
 
@@ -4387,70 +4396,19 @@ copy_file hardware/printed-parts/cold-core/foam-shell/foam-shell.stl "$$O4"
 )
 
 genrule(
-    name = "all-aero-float",
+    name = "all-aero-float-program",
     srcs = [
-        "hardware/cold-core-layout/_cold_core_data.py",
         "hardware/cut-parts/carbonation/carbonator-tube/numbers.rs",
-        "hardware/cut-parts/carbonation/endcaps-circular/numbers.rs",
-        "hardware/printed-parts/cold-core/_float_interface.py",
+        "hardware/printed-parts/cold-core/catalog/lib.rs",
         "hardware/printed-parts/cold-core/interface/lib.rs",
-        "hardware/printed-parts/cold-core/magnetic-float/all-aero/all_aero_float.py",
         "hardware/printed-parts/cold-core/magnetic-float/all-aero/all_aero_float.rs",
+        "hardware/printed-parts/cold-core/magnetic-float/all-aero/design.rs",
         "hardware/printed-parts/cold-core/magnetic-float/all-aero/numbers.rs",
-        "hardware/printed-parts/enclosure/enclosure/interface/anchor_cap.rs",
-        "hardware/printed-parts/enclosure/enclosure/interface/fits.rs",
-        "hardware/printed-parts/enclosure/enclosure/interface/lib.rs",
-        "hardware/printed-parts/enclosure/enclosure/interface/swept.rs",
-        "hardware/scripts/_build_data.py",
-        "hardware/scripts/_cadq_export.py",
-        "hardware/scripts/_document_export.py",
-        "hardware/scripts/_material_base.py",
-        "hardware/scripts/_materials.py",
-        "hardware/scripts/_mesh_payload.py",
-        "hardware/scripts/_payload_rules.py",
-        "hardware/scripts/_rust_data.py",
-        "hardware/scripts/_rust_objects.py",
-        "hardware/scripts/_rust_part.py",
-        "hardware/scripts/_rust_print_payload.py",
-        "hardware/scripts/_shared_data.py",
-        "hardware/scripts/flute_payload.py",
-        "tools/hsm/build-data/Cargo.toml",
-        "tools/hsm/build-data/src/artifact_cache.rs",
-        "tools/hsm/build-data/src/artifacts.rs",
-        "tools/hsm/build-data/src/assets.rs",
-        "tools/hsm/build-data/src/inventory.rs",
-        "tools/hsm/build-data/src/lib.rs",
-        "tools/hsm/build-data/src/main.rs",
-        "tools/hsm/build-data/src/payload.rs",
-        "tools/hsm/build-data/src/projection.rs",
-        "tools/hsm/build-data/src/publication.rs",
-        "tools/hsm/build-data/src/publication_archive.rs",
-        "tools/hsm/build-data/src/publication_state.rs",
-        "tools/hsm/build-data/src/publication_zlib.rs",
-        "tools/hsm/build-data/src/sources.rs",
-        "tools/hsm/build-data/src/support.rs",
-        "tools/hsm/build-data/src/surfaces.rs",
+        "tools/hsm/aero-float-numbers/Cargo.toml",
+        "tools/hsm/carbonator-tube-numbers/Cargo.toml",
         ":out/cargo-config/tools/hsm/cargo-config.json",
-        "tools/hsm/cold-core-data/Cargo.toml",
-        "tools/hsm/cold-core-data/src/coil.rs",
-        "tools/hsm/cold-core-data/src/compiled.rs",
-        "tools/hsm/cold-core-data/src/compiled/all_aero_float.rs",
-        "tools/hsm/cold-core-data/src/compiled/modules.rs",
-        "tools/hsm/cold-core-data/src/floats.rs",
-        "tools/hsm/cold-core-data/src/interface.rs",
-        "tools/hsm/cold-core-data/src/lib.rs",
-        "tools/hsm/cold-core-data/src/main.rs",
-        "tools/hsm/cold-core-data/src/mandrel.rs",
-        "tools/hsm/cold-core/Cargo.toml",
-        "tools/hsm/documents/Cargo.toml",
-        "tools/hsm/documents/src/interop.rs",
-        "tools/hsm/documents/src/interop/standard.rs",
-        "tools/hsm/documents/src/lib.rs",
-        "tools/hsm/documents/src/python_checked.rs",
-        "tools/hsm/geometry/Cargo.toml",
-        "tools/hsm/geometry/src/lib.rs",
-        "tools/hsm/geometry/src/payload.rs",
-        "tools/hsm/geometry/src/queries.rs",
+        "tools/hsm/cold-core-catalog/Cargo.toml",
+        "tools/hsm/cold-core-interface/Cargo.toml",
         "tools/hsm/kernel/Cargo.toml",
         "tools/hsm/kernel/src/boolean.rs",
         "tools/hsm/kernel/src/build.rs",
@@ -4481,39 +4439,45 @@ genrule(
         "tools/hsm/kernel/src/topo.rs",
         "tools/hsm/kernel/src/triangulate.rs",
         "tools/hsm/kernel/src/write.rs",
-        "tools/hsm/print-payload/Cargo.toml",
-        "tools/hsm/print-payload/src/lib.rs",
-        "tools/hsm/print-payload/src/main.rs",
-        "tools/hsm/print-payload/src/quadric.rs",
-        "tools/hsm/shared-data/Cargo.toml",
+        "tools/hsm/run-native/Cargo.toml",
+        "tools/hsm/run-native/src/lib.rs",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/hsm/run-slots/Cargo.toml",
+        "tools/hsm/run-slots/src/ipc.rs",
+        "tools/hsm/run-slots/src/lib.rs",
+        "tools/hsm/run-slots/src/main.rs",
+        "tools/hsm/run-slots/src/runtime.rs",
+        "tools/hsm/run-slots/src/runtime/cad.rs",
+        "tools/hsm/run-slots/src/runtime/install.rs",
+        "tools/hsm/run-slots/src/runtime/runner.rs",
+        "tools/hsm/run-slots/src/runtime/slots.rs",
         "tools/hsm/shared-data/catalog/materials.json",
         "tools/hsm/shared-data/catalog/routing.json",
         "tools/hsm/shared-data/catalog/scalars.json",
-        "tools/hsm/shared-data/src/color.rs",
-        "tools/hsm/shared-data/src/common.rs",
-        "tools/hsm/shared-data/src/cooling.rs",
-        "tools/hsm/shared-data/src/lib.rs",
-        "tools/hsm/shared-data/src/main.rs",
-        "tools/hsm/shared-data/src/routing.rs",
-        "tools/hsm/shared-data/src/scalars.rs",
+        "tools/hsm/vendor/manifold-csg-sys/.cargo_vcs_info.json",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.lock",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.toml",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.toml.orig",
+        "tools/hsm/vendor/manifold-csg-sys/LICENSE-APACHE",
+        "tools/hsm/vendor/manifold-csg-sys/LICENSE-MIT",
+        "tools/hsm/vendor/manifold-csg-sys/README.md",
+        "tools/hsm/vendor/manifold-csg-sys/build.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/build.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/fetch.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/patch.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/wasm.rs",
+        "tools/hsm/vendor/manifold-csg-sys/cache-version",
+        "tools/hsm/vendor/manifold-csg-sys/patches/README.md",
+        "tools/hsm/vendor/manifold-csg-sys/src/lib.rs",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/CMakeLists.txt",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/diagnose.sh",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/__assertion_handler",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/__config_site",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/memory",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/mutex",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/libcxx-extras.cpp",
     ],
-    outs = [
-        "out/all-aero-float/hardware/printed-parts/cold-core/magnetic-float/all-aero/all-aero-float.numbers.json",
-        "out/all-aero-float/hardware/printed-parts/cold-core/magnetic-float/all-aero/assembly.step",
-        "out/all-aero-float/hardware/printed-parts/cold-core/magnetic-float/all-aero/assembly.step.mesh",
-        "out/all-aero-float/hardware/printed-parts/cold-core/magnetic-float/all-aero/assembly.step.npz",
-        "out/all-aero-float/hardware/printed-parts/cold-core/magnetic-float/all-aero/design.json",
-        "out/all-aero-float/hardware/printed-parts/cold-core/magnetic-float/all-aero/float-aero.step",
-        "out/all-aero-float/hardware/printed-parts/cold-core/magnetic-float/all-aero/float-aero.step.mesh",
-        "out/all-aero-float/hardware/printed-parts/cold-core/magnetic-float/all-aero/float-aero.step.npz",
-        "out/all-aero-float/hardware/printed-parts/cold-core/magnetic-float/all-aero/float-aero.stl",
-        "out/all-aero-float/hardware/printed-parts/cold-core/magnetic-float/all-aero/insertion.step",
-        "out/all-aero-float/hardware/printed-parts/cold-core/magnetic-float/all-aero/insertion.step.mesh",
-        "out/all-aero-float/hardware/printed-parts/cold-core/magnetic-float/all-aero/insertion.step.npz",
-        "out/all-aero-float/hardware/printed-parts/cold-core/magnetic-float/all-aero/section.step",
-        "out/all-aero-float/hardware/printed-parts/cold-core/magnetic-float/all-aero/section.step.mesh",
-        "out/all-aero-float/hardware/printed-parts/cold-core/magnetic-float/all-aero/section.step.npz",
-    ],
+    outs = ["out/all-aero-float-program/all-aero-float"],
     tags = ["no-sandbox"],
     cmd = """
 set -e
@@ -4537,188 +4501,267 @@ case "$$(uname -s)" in
     };;
   *) copy_file() { cp "$$@"; };;
 esac
-O0=$$PWD/$(location out/all-aero-float/hardware/printed-parts/cold-core/magnetic-float/all-aero/all-aero-float.numbers.json)
-O1=$$PWD/$(location out/all-aero-float/hardware/printed-parts/cold-core/magnetic-float/all-aero/assembly.step)
-O2=$$PWD/$(location out/all-aero-float/hardware/printed-parts/cold-core/magnetic-float/all-aero/assembly.step.mesh)
-O3=$$PWD/$(location out/all-aero-float/hardware/printed-parts/cold-core/magnetic-float/all-aero/assembly.step.npz)
-O4=$$PWD/$(location out/all-aero-float/hardware/printed-parts/cold-core/magnetic-float/all-aero/design.json)
-O5=$$PWD/$(location out/all-aero-float/hardware/printed-parts/cold-core/magnetic-float/all-aero/float-aero.step)
-O6=$$PWD/$(location out/all-aero-float/hardware/printed-parts/cold-core/magnetic-float/all-aero/float-aero.step.mesh)
-O7=$$PWD/$(location out/all-aero-float/hardware/printed-parts/cold-core/magnetic-float/all-aero/float-aero.step.npz)
-O8=$$PWD/$(location out/all-aero-float/hardware/printed-parts/cold-core/magnetic-float/all-aero/float-aero.stl)
-O9=$$PWD/$(location out/all-aero-float/hardware/printed-parts/cold-core/magnetic-float/all-aero/insertion.step)
-O10=$$PWD/$(location out/all-aero-float/hardware/printed-parts/cold-core/magnetic-float/all-aero/insertion.step.mesh)
-O11=$$PWD/$(location out/all-aero-float/hardware/printed-parts/cold-core/magnetic-float/all-aero/insertion.step.npz)
-O12=$$PWD/$(location out/all-aero-float/hardware/printed-parts/cold-core/magnetic-float/all-aero/section.step)
-O13=$$PWD/$(location out/all-aero-float/hardware/printed-parts/cold-core/magnetic-float/all-aero/section.step.mesh)
-O14=$$PWD/$(location out/all-aero-float/hardware/printed-parts/cold-core/magnetic-float/all-aero/section.step.npz)
-rm -rf work-all-aero-float
+hsm_run=
+for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
+  if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
+done
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+cargo=$$(command -v cargo || true)
+for c in "$$cargo" /opt/homebrew/opt/rustup/bin/cargo ~/.cargo/bin/cargo; do if [ -x "$$c" ]; then cargo=$$c; break; fi; done
+if [ ! -x "$$cargo" ]; then echo "cargo is not installed (https://rustup.rs)" >&2; exit 1; fi
+export HOME=~ PATH="$$(dirname "$$cargo"):$$PATH"
+O0=$$PWD/$(location out/all-aero-float-program/all-aero-float)
+cd "$$HSM_WORKSPACE/tools/hsm"
+CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet --manifest-path all-aero-float/Cargo.toml --bin all-aero-float
+copy_file target/release/all-aero-float "$$O0"
+""",
+)
+
+genrule(
+    name = "all-aero-float",
+    srcs = [
+        ":out/all-aero-float-program/all-aero-float",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/hsm/shared-data/catalog/materials.json",
+        "tools/hsm/shared-data/catalog/routing.json",
+        "tools/hsm/shared-data/catalog/scalars.json",
+        "tools/hsm/vendor/manifold-csg-sys/.cargo_vcs_info.json",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.toml.orig",
+        "tools/hsm/vendor/manifold-csg-sys/LICENSE-APACHE",
+        "tools/hsm/vendor/manifold-csg-sys/LICENSE-MIT",
+        "tools/hsm/vendor/manifold-csg-sys/README.md",
+        "tools/hsm/vendor/manifold-csg-sys/cache-version",
+        "tools/hsm/vendor/manifold-csg-sys/patches/README.md",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/CMakeLists.txt",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/diagnose.sh",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/__assertion_handler",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/__config_site",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/memory",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/mutex",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/libcxx-extras.cpp",
+    ],
+    outs = [
+        "out/all-aero-float/hardware/printed-parts/cold-core/magnetic-float/all-aero/assembly.step",
+        "out/all-aero-float/hardware/printed-parts/cold-core/magnetic-float/all-aero/assembly.step.mesh",
+        "out/all-aero-float/hardware/printed-parts/cold-core/magnetic-float/all-aero/assembly.step.npz",
+        "out/all-aero-float/hardware/printed-parts/cold-core/magnetic-float/all-aero/design.json",
+        "out/all-aero-float/hardware/printed-parts/cold-core/magnetic-float/all-aero/float-aero.step",
+        "out/all-aero-float/hardware/printed-parts/cold-core/magnetic-float/all-aero/float-aero.step.npz",
+        "out/all-aero-float/hardware/printed-parts/cold-core/magnetic-float/all-aero/float-aero.stl",
+    ],
+    cmd = """
+set -e
+case "$$(uname -s)" in
+  Darwin)
+    copy_mask=$$((8#$$(umask)))
+    copy_bits=("" x w wx r rx rw rwx)
+    copy_mode="u-$${copy_bits[$$((copy_mask >> 6 & 7))]},g-$${copy_bits[$$((copy_mask >> 3 & 7))]},o-$${copy_bits[$$((copy_mask & 7))]}"
+    copy_file() {
+      local copy_dest="$${!#}" copy_target copy_permissions="$$copy_mode"
+      if [ -e "$$copy_dest" ] || [ -L "$$copy_dest" ]; then
+        if [ ! -f "$$copy_dest" ] || [ -L "$$copy_dest" ]; then cp "$$@"; return; fi
+        copy_permissions=$$(stat -f %Lp "$$copy_dest")
+        copy_target=$$(mktemp "$$copy_dest.hsm-copy.XXXXXX")
+      else copy_target="$$copy_dest"; fi
+      if cp -c "$${@:1:$$(( $$# - 1 ))}" "$$copy_target" 2>/dev/null; then
+        chmod "$$copy_permissions" "$$copy_target"
+        touch "$$copy_target"
+        if [ "$$copy_target" != "$$copy_dest" ]; then mv -f "$$copy_target" "$$copy_dest"; fi
+      else rm -f "$$copy_target"; cp "$$@"; fi
+    };;
+  *) copy_file() { cp "$$@"; };;
+esac
+hsm_run=
+for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
+  if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
+done
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+O0=$$PWD/$(location out/all-aero-float/hardware/printed-parts/cold-core/magnetic-float/all-aero/assembly.step)
+O1=$$PWD/$(location out/all-aero-float/hardware/printed-parts/cold-core/magnetic-float/all-aero/assembly.step.mesh)
+O2=$$PWD/$(location out/all-aero-float/hardware/printed-parts/cold-core/magnetic-float/all-aero/assembly.step.npz)
+O3=$$PWD/$(location out/all-aero-float/hardware/printed-parts/cold-core/magnetic-float/all-aero/design.json)
+O4=$$PWD/$(location out/all-aero-float/hardware/printed-parts/cold-core/magnetic-float/all-aero/float-aero.step)
+O5=$$PWD/$(location out/all-aero-float/hardware/printed-parts/cold-core/magnetic-float/all-aero/float-aero.step.npz)
+O6=$$PWD/$(location out/all-aero-float/hardware/printed-parts/cold-core/magnetic-float/all-aero/float-aero.stl)
+rm -rf work
 for f in $(SRCS); do
   case $$f in
-    */node_modules/*) continue;;
     */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
     *) t=$$f;;
   esac
-  mkdir -p "work-all-aero-float/$$(dirname "$$t")"; copy_file -L "$$f" "work-all-aero-float/$$t"
+  mkdir -p "work/$$(dirname "$$t")"; copy_file -L "$$f" "work/$$t"
 done
-for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
-  if [ -d $$d ]; then mkdir -p work-all-aero-float/$$(dirname $$d); ln -sfn $$PWD/$$d work-all-aero-float/$$d; fi
+cd work
+"$$hsm_run" -- ./all-aero-float > /dev/null
+copy_file hardware/printed-parts/cold-core/magnetic-float/all-aero/assembly.step "$$O0"
+copy_file hardware/printed-parts/cold-core/magnetic-float/all-aero/assembly.step.mesh "$$O1"
+copy_file hardware/printed-parts/cold-core/magnetic-float/all-aero/assembly.step.npz "$$O2"
+copy_file hardware/printed-parts/cold-core/magnetic-float/all-aero/design.json "$$O3"
+copy_file hardware/printed-parts/cold-core/magnetic-float/all-aero/float-aero.step "$$O4"
+copy_file hardware/printed-parts/cold-core/magnetic-float/all-aero/float-aero.step.npz "$$O5"
+copy_file hardware/printed-parts/cold-core/magnetic-float/all-aero/float-aero.stl "$$O6"
+""",
+)
+
+genrule(
+    name = "magnetic-float-program",
+    srcs = [
+        "hardware/cut-parts/carbonation/carbonator-tube/numbers.rs",
+        "hardware/printed-parts/cold-core/catalog/lib.rs",
+        "hardware/printed-parts/cold-core/interface/lib.rs",
+        "hardware/printed-parts/cold-core/magnetic-float/all-aero/numbers.rs",
+        "hardware/printed-parts/cold-core/magnetic-float/design.rs",
+        "hardware/printed-parts/cold-core/magnetic-float/magnetic_float.rs",
+        "hardware/printed-parts/cold-core/magnetic-float/numbers.rs",
+        "tools/hsm/aero-float-numbers/Cargo.toml",
+        "tools/hsm/carbonator-tube-numbers/Cargo.toml",
+        ":out/cargo-config/tools/hsm/cargo-config.json",
+        "tools/hsm/cold-core-catalog/Cargo.toml",
+        "tools/hsm/cold-core-interface/Cargo.toml",
+        "tools/hsm/kernel/Cargo.toml",
+        "tools/hsm/kernel/src/boolean.rs",
+        "tools/hsm/kernel/src/build.rs",
+        "tools/hsm/kernel/src/dxf.rs",
+        "tools/hsm/kernel/src/edge.rs",
+        "tools/hsm/kernel/src/face.rs",
+        "tools/hsm/kernel/src/import.rs",
+        "tools/hsm/kernel/src/lib.rs",
+        "tools/hsm/kernel/src/mapped.rs",
+        "tools/hsm/kernel/src/mass.rs",
+        "tools/hsm/kernel/src/math.rs",
+        "tools/hsm/kernel/src/part.rs",
+        "tools/hsm/kernel/src/plane.rs",
+        "tools/hsm/kernel/src/profile.rs",
+        "tools/hsm/kernel/src/reads.rs",
+        "tools/hsm/kernel/src/round.rs",
+        "tools/hsm/kernel/src/round/rolled.rs",
+        "tools/hsm/kernel/src/rule.rs",
+        "tools/hsm/kernel/src/screw.rs",
+        "tools/hsm/kernel/src/sketch_hull.rs",
+        "tools/hsm/kernel/src/solid.rs",
+        "tools/hsm/kernel/src/spline.rs",
+        "tools/hsm/kernel/src/step.rs",
+        "tools/hsm/kernel/src/step/analytic.rs",
+        "tools/hsm/kernel/src/sweep.rs",
+        "tools/hsm/kernel/src/text.rs",
+        "tools/hsm/kernel/src/thru.rs",
+        "tools/hsm/kernel/src/topo.rs",
+        "tools/hsm/kernel/src/triangulate.rs",
+        "tools/hsm/kernel/src/write.rs",
+        "tools/hsm/magnetic-float-numbers/Cargo.toml",
+        "tools/hsm/run-native/Cargo.toml",
+        "tools/hsm/run-native/src/lib.rs",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/hsm/run-slots/Cargo.toml",
+        "tools/hsm/run-slots/src/ipc.rs",
+        "tools/hsm/run-slots/src/lib.rs",
+        "tools/hsm/run-slots/src/main.rs",
+        "tools/hsm/run-slots/src/runtime.rs",
+        "tools/hsm/run-slots/src/runtime/cad.rs",
+        "tools/hsm/run-slots/src/runtime/install.rs",
+        "tools/hsm/run-slots/src/runtime/runner.rs",
+        "tools/hsm/run-slots/src/runtime/slots.rs",
+        "tools/hsm/shared-data/catalog/materials.json",
+        "tools/hsm/shared-data/catalog/routing.json",
+        "tools/hsm/shared-data/catalog/scalars.json",
+        "tools/hsm/vendor/manifold-csg-sys/.cargo_vcs_info.json",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.lock",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.toml",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.toml.orig",
+        "tools/hsm/vendor/manifold-csg-sys/LICENSE-APACHE",
+        "tools/hsm/vendor/manifold-csg-sys/LICENSE-MIT",
+        "tools/hsm/vendor/manifold-csg-sys/README.md",
+        "tools/hsm/vendor/manifold-csg-sys/build.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/build.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/fetch.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/patch.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/wasm.rs",
+        "tools/hsm/vendor/manifold-csg-sys/cache-version",
+        "tools/hsm/vendor/manifold-csg-sys/patches/README.md",
+        "tools/hsm/vendor/manifold-csg-sys/src/lib.rs",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/CMakeLists.txt",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/diagnose.sh",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/__assertion_handler",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/__config_site",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/memory",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/mutex",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/libcxx-extras.cpp",
+    ],
+    outs = ["out/magnetic-float-program/magnetic-float"],
+    tags = ["no-sandbox"],
+    cmd = """
+set -e
+case "$$(uname -s)" in
+  Darwin)
+    copy_mask=$$((8#$$(umask)))
+    copy_bits=("" x w wx r rx rw rwx)
+    copy_mode="u-$${copy_bits[$$((copy_mask >> 6 & 7))]},g-$${copy_bits[$$((copy_mask >> 3 & 7))]},o-$${copy_bits[$$((copy_mask & 7))]}"
+    copy_file() {
+      local copy_dest="$${!#}" copy_target copy_permissions="$$copy_mode"
+      if [ -e "$$copy_dest" ] || [ -L "$$copy_dest" ]; then
+        if [ ! -f "$$copy_dest" ] || [ -L "$$copy_dest" ]; then cp "$$@"; return; fi
+        copy_permissions=$$(stat -f %Lp "$$copy_dest")
+        copy_target=$$(mktemp "$$copy_dest.hsm-copy.XXXXXX")
+      else copy_target="$$copy_dest"; fi
+      if cp -c "$${@:1:$$(( $$# - 1 ))}" "$$copy_target" 2>/dev/null; then
+        chmod "$$copy_permissions" "$$copy_target"
+        touch "$$copy_target"
+        if [ "$$copy_target" != "$$copy_dest" ]; then mv -f "$$copy_target" "$$copy_dest"; fi
+      else rm -f "$$copy_target"; cp "$$@"; fi
+    };;
+  *) copy_file() { cp "$$@"; };;
+esac
+hsm_run=
+for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
+  if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
 done
-for f in hardware/scripts/_run_lock.py hardware/scripts/_run_native.py hardware/scripts/_run_slots.py tools/hsm/run-slots.defaults.json tools/run-slots.mjs tools/run.py; do
-  mkdir -p work-all-aero-float/$$(dirname $$f); cp $$HSM_WORKSPACE/$$f work-all-aero-float/$$f
-done
-cd work-all-aero-float
-ln -sfn $$HSM_WORKSPACE/.cache .cache
-D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/cold-core/magnetic-float/all-aero/all_aero_float.py > /dev/null
-copy_file hardware/printed-parts/cold-core/magnetic-float/all-aero/all-aero-float.numbers.json "$$O0"
-copy_file hardware/printed-parts/cold-core/magnetic-float/all-aero/assembly.step "$$O1"
-copy_file hardware/printed-parts/cold-core/magnetic-float/all-aero/assembly.step.mesh "$$O2"
-copy_file hardware/printed-parts/cold-core/magnetic-float/all-aero/assembly.step.npz "$$O3"
-copy_file hardware/printed-parts/cold-core/magnetic-float/all-aero/design.json "$$O4"
-copy_file hardware/printed-parts/cold-core/magnetic-float/all-aero/float-aero.step "$$O5"
-copy_file hardware/printed-parts/cold-core/magnetic-float/all-aero/float-aero.step.mesh "$$O6"
-copy_file hardware/printed-parts/cold-core/magnetic-float/all-aero/float-aero.step.npz "$$O7"
-copy_file hardware/printed-parts/cold-core/magnetic-float/all-aero/float-aero.stl "$$O8"
-copy_file hardware/printed-parts/cold-core/magnetic-float/all-aero/insertion.step "$$O9"
-copy_file hardware/printed-parts/cold-core/magnetic-float/all-aero/insertion.step.mesh "$$O10"
-copy_file hardware/printed-parts/cold-core/magnetic-float/all-aero/insertion.step.npz "$$O11"
-copy_file hardware/printed-parts/cold-core/magnetic-float/all-aero/section.step "$$O12"
-copy_file hardware/printed-parts/cold-core/magnetic-float/all-aero/section.step.mesh "$$O13"
-copy_file hardware/printed-parts/cold-core/magnetic-float/all-aero/section.step.npz "$$O14"
-cd .. && rm -rf work-all-aero-float
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+cargo=$$(command -v cargo || true)
+for c in "$$cargo" /opt/homebrew/opt/rustup/bin/cargo ~/.cargo/bin/cargo; do if [ -x "$$c" ]; then cargo=$$c; break; fi; done
+if [ ! -x "$$cargo" ]; then echo "cargo is not installed (https://rustup.rs)" >&2; exit 1; fi
+export HOME=~ PATH="$$(dirname "$$cargo"):$$PATH"
+O0=$$PWD/$(location out/magnetic-float-program/magnetic-float)
+cd "$$HSM_WORKSPACE/tools/hsm"
+CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet --manifest-path magnetic-float/Cargo.toml --bin magnetic-float
+copy_file target/release/magnetic-float "$$O0"
 """,
 )
 
 genrule(
     name = "magnetic-float",
     srcs = [
-        "hardware/cold-core-layout/_cold_core_data.py",
-        "hardware/cut-parts/carbonation/carbonator-tube/numbers.rs",
-        "hardware/cut-parts/carbonation/endcaps-circular/numbers.rs",
-        "hardware/printed-parts/cold-core/interface/lib.rs",
-        "hardware/printed-parts/cold-core/magnetic-float/all-aero/numbers.rs",
-        "hardware/printed-parts/cold-core/magnetic-float/magnetic_float.py",
-        "hardware/printed-parts/cold-core/magnetic-float/magnetic_float.rs",
-        "hardware/printed-parts/enclosure/enclosure/interface/anchor_cap.rs",
-        "hardware/printed-parts/enclosure/enclosure/interface/fits.rs",
-        "hardware/printed-parts/enclosure/enclosure/interface/lib.rs",
-        "hardware/printed-parts/enclosure/enclosure/interface/swept.rs",
-        "hardware/scripts/_build_data.py",
-        "hardware/scripts/_material_base.py",
-        "hardware/scripts/_materials.py",
-        "hardware/scripts/_rust_data.py",
-        "hardware/scripts/_rust_objects.py",
-        "hardware/scripts/_rust_part.py",
-        "hardware/scripts/_shared_data.py",
-        "tools/hsm/build-data/Cargo.toml",
-        "tools/hsm/build-data/src/artifact_cache.rs",
-        "tools/hsm/build-data/src/artifacts.rs",
-        "tools/hsm/build-data/src/assets.rs",
-        "tools/hsm/build-data/src/inventory.rs",
-        "tools/hsm/build-data/src/lib.rs",
-        "tools/hsm/build-data/src/main.rs",
-        "tools/hsm/build-data/src/payload.rs",
-        "tools/hsm/build-data/src/projection.rs",
-        "tools/hsm/build-data/src/publication.rs",
-        "tools/hsm/build-data/src/publication_archive.rs",
-        "tools/hsm/build-data/src/publication_state.rs",
-        "tools/hsm/build-data/src/publication_zlib.rs",
-        "tools/hsm/build-data/src/sources.rs",
-        "tools/hsm/build-data/src/support.rs",
-        "tools/hsm/build-data/src/surfaces.rs",
-        ":out/cargo-config/tools/hsm/cargo-config.json",
-        "tools/hsm/cold-core-data/Cargo.toml",
-        "tools/hsm/cold-core-data/src/coil.rs",
-        "tools/hsm/cold-core-data/src/compiled.rs",
-        "tools/hsm/cold-core-data/src/compiled/magnetic_float.rs",
-        "tools/hsm/cold-core-data/src/compiled/modules.rs",
-        "tools/hsm/cold-core-data/src/floats.rs",
-        "tools/hsm/cold-core-data/src/interface.rs",
-        "tools/hsm/cold-core-data/src/lib.rs",
-        "tools/hsm/cold-core-data/src/main.rs",
-        "tools/hsm/cold-core-data/src/mandrel.rs",
-        "tools/hsm/cold-core/Cargo.toml",
-        "tools/hsm/documents/Cargo.toml",
-        "tools/hsm/documents/src/interop.rs",
-        "tools/hsm/documents/src/interop/standard.rs",
-        "tools/hsm/documents/src/lib.rs",
-        "tools/hsm/documents/src/python_checked.rs",
-        "tools/hsm/geometry/Cargo.toml",
-        "tools/hsm/geometry/src/lib.rs",
-        "tools/hsm/geometry/src/payload.rs",
-        "tools/hsm/geometry/src/queries.rs",
-        "tools/hsm/kernel/Cargo.toml",
-        "tools/hsm/kernel/src/boolean.rs",
-        "tools/hsm/kernel/src/build.rs",
-        "tools/hsm/kernel/src/dxf.rs",
-        "tools/hsm/kernel/src/edge.rs",
-        "tools/hsm/kernel/src/face.rs",
-        "tools/hsm/kernel/src/import.rs",
-        "tools/hsm/kernel/src/lib.rs",
-        "tools/hsm/kernel/src/mapped.rs",
-        "tools/hsm/kernel/src/mass.rs",
-        "tools/hsm/kernel/src/math.rs",
-        "tools/hsm/kernel/src/part.rs",
-        "tools/hsm/kernel/src/plane.rs",
-        "tools/hsm/kernel/src/profile.rs",
-        "tools/hsm/kernel/src/reads.rs",
-        "tools/hsm/kernel/src/round.rs",
-        "tools/hsm/kernel/src/round/rolled.rs",
-        "tools/hsm/kernel/src/rule.rs",
-        "tools/hsm/kernel/src/screw.rs",
-        "tools/hsm/kernel/src/sketch_hull.rs",
-        "tools/hsm/kernel/src/solid.rs",
-        "tools/hsm/kernel/src/spline.rs",
-        "tools/hsm/kernel/src/step.rs",
-        "tools/hsm/kernel/src/step/analytic.rs",
-        "tools/hsm/kernel/src/sweep.rs",
-        "tools/hsm/kernel/src/text.rs",
-        "tools/hsm/kernel/src/thru.rs",
-        "tools/hsm/kernel/src/topo.rs",
-        "tools/hsm/kernel/src/triangulate.rs",
-        "tools/hsm/kernel/src/write.rs",
-        "tools/hsm/shared-data/Cargo.toml",
+        ":out/magnetic-float-program/magnetic-float",
+        "tools/hsm/run-slots.defaults.json",
         "tools/hsm/shared-data/catalog/materials.json",
         "tools/hsm/shared-data/catalog/routing.json",
         "tools/hsm/shared-data/catalog/scalars.json",
-        "tools/hsm/shared-data/src/color.rs",
-        "tools/hsm/shared-data/src/common.rs",
-        "tools/hsm/shared-data/src/cooling.rs",
-        "tools/hsm/shared-data/src/lib.rs",
-        "tools/hsm/shared-data/src/main.rs",
-        "tools/hsm/shared-data/src/routing.rs",
-        "tools/hsm/shared-data/src/scalars.rs",
+        "tools/hsm/vendor/manifold-csg-sys/.cargo_vcs_info.json",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.toml.orig",
+        "tools/hsm/vendor/manifold-csg-sys/LICENSE-APACHE",
+        "tools/hsm/vendor/manifold-csg-sys/LICENSE-MIT",
+        "tools/hsm/vendor/manifold-csg-sys/README.md",
+        "tools/hsm/vendor/manifold-csg-sys/cache-version",
+        "tools/hsm/vendor/manifold-csg-sys/patches/README.md",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/CMakeLists.txt",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/diagnose.sh",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/__assertion_handler",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/__config_site",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/memory",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/mutex",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/libcxx-extras.cpp",
     ],
     outs = [
         "out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/body-aero.step",
         "out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/body-aero.step.mesh",
         "out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/body-aero.step.npz",
         "out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/body-aero.stl",
-        "out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/body-petg.step",
-        "out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/body-petg.step.mesh",
-        "out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/body-petg.step.npz",
         "out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/body-petg.stl",
         "out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/design.json",
-        "out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/exploded.step",
-        "out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/exploded.step.mesh",
-        "out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/exploded.step.npz",
-        "out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/insert-aero.step",
-        "out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/insert-aero.step.mesh",
-        "out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/insert-aero.step.npz",
         "out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/insert-aero.stl",
         "out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/magnet.step",
         "out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/magnet.step.mesh",
         "out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/magnet.step.npz",
-        "out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/magnetic-float.numbers.json",
-        "out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/magnetic-float.step",
-        "out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/magnetic-float.step.mesh",
-        "out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/magnetic-float.step.npz",
-        "out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/section.step",
-        "out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/section.step.mesh",
-        "out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/section.step.npz",
     ],
-    tags = ["no-sandbox"],
     cmd = """
 set -e
 case "$$(uname -s)" in
@@ -4741,78 +4784,41 @@ case "$$(uname -s)" in
     };;
   *) copy_file() { cp "$$@"; };;
 esac
+hsm_run=
+for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
+  if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
+done
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
 O0=$$PWD/$(location out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/body-aero.step)
 O1=$$PWD/$(location out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/body-aero.step.mesh)
 O2=$$PWD/$(location out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/body-aero.step.npz)
 O3=$$PWD/$(location out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/body-aero.stl)
-O4=$$PWD/$(location out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/body-petg.step)
-O5=$$PWD/$(location out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/body-petg.step.mesh)
-O6=$$PWD/$(location out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/body-petg.step.npz)
-O7=$$PWD/$(location out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/body-petg.stl)
-O8=$$PWD/$(location out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/design.json)
-O9=$$PWD/$(location out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/exploded.step)
-O10=$$PWD/$(location out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/exploded.step.mesh)
-O11=$$PWD/$(location out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/exploded.step.npz)
-O12=$$PWD/$(location out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/insert-aero.step)
-O13=$$PWD/$(location out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/insert-aero.step.mesh)
-O14=$$PWD/$(location out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/insert-aero.step.npz)
-O15=$$PWD/$(location out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/insert-aero.stl)
-O16=$$PWD/$(location out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/magnet.step)
-O17=$$PWD/$(location out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/magnet.step.mesh)
-O18=$$PWD/$(location out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/magnet.step.npz)
-O19=$$PWD/$(location out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/magnetic-float.numbers.json)
-O20=$$PWD/$(location out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/magnetic-float.step)
-O21=$$PWD/$(location out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/magnetic-float.step.mesh)
-O22=$$PWD/$(location out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/magnetic-float.step.npz)
-O23=$$PWD/$(location out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/section.step)
-O24=$$PWD/$(location out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/section.step.mesh)
-O25=$$PWD/$(location out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/section.step.npz)
-rm -rf work-magnetic-float
+O4=$$PWD/$(location out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/body-petg.stl)
+O5=$$PWD/$(location out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/design.json)
+O6=$$PWD/$(location out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/insert-aero.stl)
+O7=$$PWD/$(location out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/magnet.step)
+O8=$$PWD/$(location out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/magnet.step.mesh)
+O9=$$PWD/$(location out/magnetic-float/hardware/printed-parts/cold-core/magnetic-float/magnet.step.npz)
+rm -rf work
 for f in $(SRCS); do
   case $$f in
-    */node_modules/*) continue;;
     */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
     *) t=$$f;;
   esac
-  mkdir -p "work-magnetic-float/$$(dirname "$$t")"; copy_file -L "$$f" "work-magnetic-float/$$t"
+  mkdir -p "work/$$(dirname "$$t")"; copy_file -L "$$f" "work/$$t"
 done
-for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
-  if [ -d $$d ]; then mkdir -p work-magnetic-float/$$(dirname $$d); ln -sfn $$PWD/$$d work-magnetic-float/$$d; fi
-done
-for f in hardware/scripts/_run_lock.py hardware/scripts/_run_native.py hardware/scripts/_run_slots.py tools/hsm/run-slots.defaults.json tools/run-slots.mjs tools/run.py; do
-  mkdir -p work-magnetic-float/$$(dirname $$f); cp $$HSM_WORKSPACE/$$f work-magnetic-float/$$f
-done
-cd work-magnetic-float
-ln -sfn $$HSM_WORKSPACE/.cache .cache
-D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/cold-core/magnetic-float/magnetic_float.py > /dev/null
+cd work
+"$$hsm_run" -- ./magnetic-float > /dev/null
 copy_file hardware/printed-parts/cold-core/magnetic-float/body-aero.step "$$O0"
 copy_file hardware/printed-parts/cold-core/magnetic-float/body-aero.step.mesh "$$O1"
 copy_file hardware/printed-parts/cold-core/magnetic-float/body-aero.step.npz "$$O2"
 copy_file hardware/printed-parts/cold-core/magnetic-float/body-aero.stl "$$O3"
-copy_file hardware/printed-parts/cold-core/magnetic-float/body-petg.step "$$O4"
-copy_file hardware/printed-parts/cold-core/magnetic-float/body-petg.step.mesh "$$O5"
-copy_file hardware/printed-parts/cold-core/magnetic-float/body-petg.step.npz "$$O6"
-copy_file hardware/printed-parts/cold-core/magnetic-float/body-petg.stl "$$O7"
-copy_file hardware/printed-parts/cold-core/magnetic-float/design.json "$$O8"
-copy_file hardware/printed-parts/cold-core/magnetic-float/exploded.step "$$O9"
-copy_file hardware/printed-parts/cold-core/magnetic-float/exploded.step.mesh "$$O10"
-copy_file hardware/printed-parts/cold-core/magnetic-float/exploded.step.npz "$$O11"
-copy_file hardware/printed-parts/cold-core/magnetic-float/insert-aero.step "$$O12"
-copy_file hardware/printed-parts/cold-core/magnetic-float/insert-aero.step.mesh "$$O13"
-copy_file hardware/printed-parts/cold-core/magnetic-float/insert-aero.step.npz "$$O14"
-copy_file hardware/printed-parts/cold-core/magnetic-float/insert-aero.stl "$$O15"
-copy_file hardware/printed-parts/cold-core/magnetic-float/magnet.step "$$O16"
-copy_file hardware/printed-parts/cold-core/magnetic-float/magnet.step.mesh "$$O17"
-copy_file hardware/printed-parts/cold-core/magnetic-float/magnet.step.npz "$$O18"
-copy_file hardware/printed-parts/cold-core/magnetic-float/magnetic-float.numbers.json "$$O19"
-copy_file hardware/printed-parts/cold-core/magnetic-float/magnetic-float.step "$$O20"
-copy_file hardware/printed-parts/cold-core/magnetic-float/magnetic-float.step.mesh "$$O21"
-copy_file hardware/printed-parts/cold-core/magnetic-float/magnetic-float.step.npz "$$O22"
-copy_file hardware/printed-parts/cold-core/magnetic-float/section.step "$$O23"
-copy_file hardware/printed-parts/cold-core/magnetic-float/section.step.mesh "$$O24"
-copy_file hardware/printed-parts/cold-core/magnetic-float/section.step.npz "$$O25"
-cd .. && rm -rf work-magnetic-float
+copy_file hardware/printed-parts/cold-core/magnetic-float/body-petg.stl "$$O4"
+copy_file hardware/printed-parts/cold-core/magnetic-float/design.json "$$O5"
+copy_file hardware/printed-parts/cold-core/magnetic-float/insert-aero.stl "$$O6"
+copy_file hardware/printed-parts/cold-core/magnetic-float/magnet.step "$$O7"
+copy_file hardware/printed-parts/cold-core/magnetic-float/magnet.step.mesh "$$O8"
+copy_file hardware/printed-parts/cold-core/magnetic-float/magnet.step.npz "$$O9"
 """,
 )
 
@@ -5014,83 +5020,21 @@ copy_file hardware/printed-parts/cold-core/prv-shroud/prv-shroud.stl "$$O3"
 )
 
 genrule(
-    name = "reed-bridge",
+    name = "reed-bridge-program",
     srcs = [
-        "hardware/cold-core-layout/_carbonator_stock.py",
-        "hardware/cold-core-layout/_cold_core_data.py",
         "hardware/cut-parts/carbonation/carbonator-tube/numbers.rs",
         "hardware/cut-parts/carbonation/endcaps-circular/numbers.rs",
-        "hardware/manifold-layout/_layout_data.py",
-        "hardware/manifold-layout/above-core.json",
-        "hardware/manifold-layout/above_core.py",
-        "hardware/printed-parts/cadlib/_scalar_provider.py",
-        "hardware/printed-parts/cadlib/fits.py",
-        "hardware/printed-parts/cold-core/_cold_core_interface.py",
-        "hardware/printed-parts/cold-core/_float_interface.py",
+        "hardware/printed-parts/cold-core/catalog/lib.rs",
         "hardware/printed-parts/cold-core/interface/lib.rs",
         "hardware/printed-parts/cold-core/magnetic-float/all-aero/numbers.rs",
-        "hardware/printed-parts/cold-core/reed-bridge/reed_bridge.py",
+        "hardware/printed-parts/cold-core/reed-bridge/numbers.rs",
         "hardware/printed-parts/cold-core/reed-bridge/reed_bridge.rs",
-        "hardware/printed-parts/electronics/module_tray.py",
-        "hardware/printed-parts/electronics/pcba-tray/pcba_tray.py",
-        "hardware/printed-parts/enclosure/enclosure/interface/anchor_cap.rs",
-        "hardware/printed-parts/enclosure/enclosure/interface/fits.rs",
-        "hardware/printed-parts/enclosure/enclosure/interface/lib.rs",
-        "hardware/printed-parts/enclosure/enclosure/interface/swept.rs",
-        "hardware/printed-parts/valve-seat/numbers.rs",
-        "hardware/printed-parts/valve-seat/valve_seat.py",
-        "hardware/reference/_reference_data.py",
-        "hardware/reference/beduan-solenoid/beduan_solenoid.py",
-        "hardware/scripts/_build_data.py",
-        "hardware/scripts/_machine_data.py",
-        "hardware/scripts/_material_base.py",
-        "hardware/scripts/_materials.py",
-        "hardware/scripts/_rust_data.py",
-        "hardware/scripts/_rust_objects.py",
-        "hardware/scripts/_rust_part.py",
-        "hardware/scripts/_shared_data.py",
-        "hardware/scripts/_stated_bounds.py",
-        "tools/hsm/build-data/Cargo.toml",
-        "tools/hsm/build-data/src/artifact_cache.rs",
-        "tools/hsm/build-data/src/artifacts.rs",
-        "tools/hsm/build-data/src/assets.rs",
-        "tools/hsm/build-data/src/inventory.rs",
-        "tools/hsm/build-data/src/lib.rs",
-        "tools/hsm/build-data/src/main.rs",
-        "tools/hsm/build-data/src/payload.rs",
-        "tools/hsm/build-data/src/projection.rs",
-        "tools/hsm/build-data/src/publication.rs",
-        "tools/hsm/build-data/src/publication_archive.rs",
-        "tools/hsm/build-data/src/publication_state.rs",
-        "tools/hsm/build-data/src/publication_zlib.rs",
-        "tools/hsm/build-data/src/sources.rs",
-        "tools/hsm/build-data/src/support.rs",
-        "tools/hsm/build-data/src/surfaces.rs",
+        "tools/hsm/aero-float-numbers/Cargo.toml",
+        "tools/hsm/carbonator-tube-numbers/Cargo.toml",
         ":out/cargo-config/tools/hsm/cargo-config.json",
-        "tools/hsm/cold-core-data/Cargo.toml",
-        "tools/hsm/cold-core-data/src/coil.rs",
-        "tools/hsm/cold-core-data/src/compiled.rs",
-        "tools/hsm/cold-core-data/src/compiled/_above_core_mounts.rs",
-        "tools/hsm/cold-core-data/src/compiled/_cold_core_interface.rs",
-        "tools/hsm/cold-core-data/src/compiled/coil_mandrel.rs",
-        "tools/hsm/cold-core-data/src/compiled/endcap_circular_dxf.rs",
-        "tools/hsm/cold-core-data/src/compiled/modules.rs",
-        "tools/hsm/cold-core-data/src/compiled/reed_bridge.rs",
-        "tools/hsm/cold-core-data/src/floats.rs",
-        "tools/hsm/cold-core-data/src/interface.rs",
-        "tools/hsm/cold-core-data/src/lib.rs",
-        "tools/hsm/cold-core-data/src/main.rs",
-        "tools/hsm/cold-core-data/src/mandrel.rs",
-        "tools/hsm/cold-core/Cargo.toml",
-        "tools/hsm/documents/Cargo.toml",
-        "tools/hsm/documents/src/interop.rs",
-        "tools/hsm/documents/src/interop/standard.rs",
-        "tools/hsm/documents/src/lib.rs",
-        "tools/hsm/documents/src/python_checked.rs",
-        "tools/hsm/geometry/Cargo.toml",
-        "tools/hsm/geometry/src/lib.rs",
-        "tools/hsm/geometry/src/payload.rs",
-        "tools/hsm/geometry/src/queries.rs",
+        "tools/hsm/cold-core-catalog/Cargo.toml",
+        "tools/hsm/cold-core-interface/Cargo.toml",
+        "tools/hsm/endcap-circular-numbers/Cargo.toml",
         "tools/hsm/kernel/Cargo.toml",
         "tools/hsm/kernel/src/boolean.rs",
         "tools/hsm/kernel/src/build.rs",
@@ -5121,45 +5065,46 @@ genrule(
         "tools/hsm/kernel/src/topo.rs",
         "tools/hsm/kernel/src/triangulate.rs",
         "tools/hsm/kernel/src/write.rs",
-        "tools/hsm/layout-data/Cargo.toml",
-        "tools/hsm/layout-data/src/fore.rs",
-        "tools/hsm/layout-data/src/lib.rs",
-        "tools/hsm/layout-data/src/main.rs",
-        "tools/hsm/layout-data/src/rear.rs",
-        "tools/hsm/layout-data/src/routes.rs",
-        "tools/hsm/layout-data/src/soda.rs",
-        "tools/hsm/part-data/Cargo.toml",
-        "tools/hsm/part-data/src/electronics.rs",
-        "tools/hsm/part-data/src/main.rs",
-        "tools/hsm/part-data/src/output.rs",
-        "tools/hsm/part-data/src/reference.rs",
-        "tools/hsm/part-data/src/reference_catalog.rs",
-        "tools/hsm/part-data/src/sleeve.rs",
-        "tools/hsm/part-data/src/storage.rs",
-        "tools/hsm/part-data/src/zone.rs",
-        "tools/hsm/shared-data/Cargo.toml",
+        "tools/hsm/reed-bridge-numbers/Cargo.toml",
+        "tools/hsm/run-native/Cargo.toml",
+        "tools/hsm/run-native/src/lib.rs",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/hsm/run-slots/Cargo.toml",
+        "tools/hsm/run-slots/src/ipc.rs",
+        "tools/hsm/run-slots/src/lib.rs",
+        "tools/hsm/run-slots/src/main.rs",
+        "tools/hsm/run-slots/src/runtime.rs",
+        "tools/hsm/run-slots/src/runtime/cad.rs",
+        "tools/hsm/run-slots/src/runtime/install.rs",
+        "tools/hsm/run-slots/src/runtime/runner.rs",
+        "tools/hsm/run-slots/src/runtime/slots.rs",
         "tools/hsm/shared-data/catalog/materials.json",
         "tools/hsm/shared-data/catalog/routing.json",
         "tools/hsm/shared-data/catalog/scalars.json",
-        "tools/hsm/shared-data/src/color.rs",
-        "tools/hsm/shared-data/src/common.rs",
-        "tools/hsm/shared-data/src/cooling.rs",
-        "tools/hsm/shared-data/src/lib.rs",
-        "tools/hsm/shared-data/src/main.rs",
-        "tools/hsm/shared-data/src/routing.rs",
-        "tools/hsm/shared-data/src/scalars.rs",
+        "tools/hsm/vendor/manifold-csg-sys/.cargo_vcs_info.json",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.lock",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.toml",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.toml.orig",
+        "tools/hsm/vendor/manifold-csg-sys/LICENSE-APACHE",
+        "tools/hsm/vendor/manifold-csg-sys/LICENSE-MIT",
+        "tools/hsm/vendor/manifold-csg-sys/README.md",
+        "tools/hsm/vendor/manifold-csg-sys/build.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/build.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/fetch.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/patch.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/wasm.rs",
+        "tools/hsm/vendor/manifold-csg-sys/cache-version",
+        "tools/hsm/vendor/manifold-csg-sys/patches/README.md",
+        "tools/hsm/vendor/manifold-csg-sys/src/lib.rs",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/CMakeLists.txt",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/diagnose.sh",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/__assertion_handler",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/__config_site",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/memory",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/mutex",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/libcxx-extras.cpp",
     ],
-    outs = [
-        "out/reed-bridge/hardware/printed-parts/cold-core/reed-bridge/reed-bridge-setting-gauge.step",
-        "out/reed-bridge/hardware/printed-parts/cold-core/reed-bridge/reed-bridge-setting-gauge.step.mesh",
-        "out/reed-bridge/hardware/printed-parts/cold-core/reed-bridge/reed-bridge-setting-gauge.step.npz",
-        "out/reed-bridge/hardware/printed-parts/cold-core/reed-bridge/reed-bridge-setting-gauge.stl",
-        "out/reed-bridge/hardware/printed-parts/cold-core/reed-bridge/reed-bridge.numbers.json",
-        "out/reed-bridge/hardware/printed-parts/cold-core/reed-bridge/reed-bridge.step",
-        "out/reed-bridge/hardware/printed-parts/cold-core/reed-bridge/reed-bridge.step.mesh",
-        "out/reed-bridge/hardware/printed-parts/cold-core/reed-bridge/reed-bridge.step.npz",
-        "out/reed-bridge/hardware/printed-parts/cold-core/reed-bridge/reed-bridge.stl",
-    ],
+    outs = ["out/reed-bridge-program/reed-bridge"],
     tags = ["no-sandbox"],
     cmd = """
 set -e
@@ -5183,44 +5128,108 @@ case "$$(uname -s)" in
     };;
   *) copy_file() { cp "$$@"; };;
 esac
+hsm_run=
+for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
+  if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
+done
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+cargo=$$(command -v cargo || true)
+for c in "$$cargo" /opt/homebrew/opt/rustup/bin/cargo ~/.cargo/bin/cargo; do if [ -x "$$c" ]; then cargo=$$c; break; fi; done
+if [ ! -x "$$cargo" ]; then echo "cargo is not installed (https://rustup.rs)" >&2; exit 1; fi
+export HOME=~ PATH="$$(dirname "$$cargo"):$$PATH"
+O0=$$PWD/$(location out/reed-bridge-program/reed-bridge)
+cd "$$HSM_WORKSPACE/tools/hsm"
+CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet --manifest-path reed-bridge/Cargo.toml --bin reed-bridge
+copy_file target/release/reed-bridge "$$O0"
+""",
+)
+
+genrule(
+    name = "reed-bridge",
+    srcs = [
+        ":out/reed-bridge-program/reed-bridge",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/hsm/shared-data/catalog/materials.json",
+        "tools/hsm/shared-data/catalog/routing.json",
+        "tools/hsm/shared-data/catalog/scalars.json",
+        "tools/hsm/vendor/manifold-csg-sys/.cargo_vcs_info.json",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.toml.orig",
+        "tools/hsm/vendor/manifold-csg-sys/LICENSE-APACHE",
+        "tools/hsm/vendor/manifold-csg-sys/LICENSE-MIT",
+        "tools/hsm/vendor/manifold-csg-sys/README.md",
+        "tools/hsm/vendor/manifold-csg-sys/cache-version",
+        "tools/hsm/vendor/manifold-csg-sys/patches/README.md",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/CMakeLists.txt",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/diagnose.sh",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/__assertion_handler",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/__config_site",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/memory",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/mutex",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/libcxx-extras.cpp",
+    ],
+    outs = [
+        "out/reed-bridge/hardware/printed-parts/cold-core/reed-bridge/reed-bridge-setting-gauge.step",
+        "out/reed-bridge/hardware/printed-parts/cold-core/reed-bridge/reed-bridge-setting-gauge.step.mesh",
+        "out/reed-bridge/hardware/printed-parts/cold-core/reed-bridge/reed-bridge-setting-gauge.step.npz",
+        "out/reed-bridge/hardware/printed-parts/cold-core/reed-bridge/reed-bridge-setting-gauge.stl",
+        "out/reed-bridge/hardware/printed-parts/cold-core/reed-bridge/reed-bridge.step",
+        "out/reed-bridge/hardware/printed-parts/cold-core/reed-bridge/reed-bridge.step.mesh",
+        "out/reed-bridge/hardware/printed-parts/cold-core/reed-bridge/reed-bridge.step.npz",
+        "out/reed-bridge/hardware/printed-parts/cold-core/reed-bridge/reed-bridge.stl",
+    ],
+    cmd = """
+set -e
+case "$$(uname -s)" in
+  Darwin)
+    copy_mask=$$((8#$$(umask)))
+    copy_bits=("" x w wx r rx rw rwx)
+    copy_mode="u-$${copy_bits[$$((copy_mask >> 6 & 7))]},g-$${copy_bits[$$((copy_mask >> 3 & 7))]},o-$${copy_bits[$$((copy_mask & 7))]}"
+    copy_file() {
+      local copy_dest="$${!#}" copy_target copy_permissions="$$copy_mode"
+      if [ -e "$$copy_dest" ] || [ -L "$$copy_dest" ]; then
+        if [ ! -f "$$copy_dest" ] || [ -L "$$copy_dest" ]; then cp "$$@"; return; fi
+        copy_permissions=$$(stat -f %Lp "$$copy_dest")
+        copy_target=$$(mktemp "$$copy_dest.hsm-copy.XXXXXX")
+      else copy_target="$$copy_dest"; fi
+      if cp -c "$${@:1:$$(( $$# - 1 ))}" "$$copy_target" 2>/dev/null; then
+        chmod "$$copy_permissions" "$$copy_target"
+        touch "$$copy_target"
+        if [ "$$copy_target" != "$$copy_dest" ]; then mv -f "$$copy_target" "$$copy_dest"; fi
+      else rm -f "$$copy_target"; cp "$$@"; fi
+    };;
+  *) copy_file() { cp "$$@"; };;
+esac
+hsm_run=
+for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
+  if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
+done
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
 O0=$$PWD/$(location out/reed-bridge/hardware/printed-parts/cold-core/reed-bridge/reed-bridge-setting-gauge.step)
 O1=$$PWD/$(location out/reed-bridge/hardware/printed-parts/cold-core/reed-bridge/reed-bridge-setting-gauge.step.mesh)
 O2=$$PWD/$(location out/reed-bridge/hardware/printed-parts/cold-core/reed-bridge/reed-bridge-setting-gauge.step.npz)
 O3=$$PWD/$(location out/reed-bridge/hardware/printed-parts/cold-core/reed-bridge/reed-bridge-setting-gauge.stl)
-O4=$$PWD/$(location out/reed-bridge/hardware/printed-parts/cold-core/reed-bridge/reed-bridge.numbers.json)
-O5=$$PWD/$(location out/reed-bridge/hardware/printed-parts/cold-core/reed-bridge/reed-bridge.step)
-O6=$$PWD/$(location out/reed-bridge/hardware/printed-parts/cold-core/reed-bridge/reed-bridge.step.mesh)
-O7=$$PWD/$(location out/reed-bridge/hardware/printed-parts/cold-core/reed-bridge/reed-bridge.step.npz)
-O8=$$PWD/$(location out/reed-bridge/hardware/printed-parts/cold-core/reed-bridge/reed-bridge.stl)
-rm -rf work-reed-bridge
+O4=$$PWD/$(location out/reed-bridge/hardware/printed-parts/cold-core/reed-bridge/reed-bridge.step)
+O5=$$PWD/$(location out/reed-bridge/hardware/printed-parts/cold-core/reed-bridge/reed-bridge.step.mesh)
+O6=$$PWD/$(location out/reed-bridge/hardware/printed-parts/cold-core/reed-bridge/reed-bridge.step.npz)
+O7=$$PWD/$(location out/reed-bridge/hardware/printed-parts/cold-core/reed-bridge/reed-bridge.stl)
+rm -rf work
 for f in $(SRCS); do
   case $$f in
-    */node_modules/*) continue;;
     */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
     *) t=$$f;;
   esac
-  mkdir -p "work-reed-bridge/$$(dirname "$$t")"; copy_file -L "$$f" "work-reed-bridge/$$t"
+  mkdir -p "work/$$(dirname "$$t")"; copy_file -L "$$f" "work/$$t"
 done
-for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
-  if [ -d $$d ]; then mkdir -p work-reed-bridge/$$(dirname $$d); ln -sfn $$PWD/$$d work-reed-bridge/$$d; fi
-done
-for f in hardware/scripts/_run_lock.py hardware/scripts/_run_native.py hardware/scripts/_run_slots.py tools/hsm/run-slots.defaults.json tools/run-slots.mjs tools/run.py; do
-  mkdir -p work-reed-bridge/$$(dirname $$f); cp $$HSM_WORKSPACE/$$f work-reed-bridge/$$f
-done
-cd work-reed-bridge
-ln -sfn $$HSM_WORKSPACE/.cache .cache
-D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/cold-core/reed-bridge/reed_bridge.py > /dev/null
+cd work
+"$$hsm_run" -- ./reed-bridge > /dev/null
 copy_file hardware/printed-parts/cold-core/reed-bridge/reed-bridge-setting-gauge.step "$$O0"
 copy_file hardware/printed-parts/cold-core/reed-bridge/reed-bridge-setting-gauge.step.mesh "$$O1"
 copy_file hardware/printed-parts/cold-core/reed-bridge/reed-bridge-setting-gauge.step.npz "$$O2"
 copy_file hardware/printed-parts/cold-core/reed-bridge/reed-bridge-setting-gauge.stl "$$O3"
-copy_file hardware/printed-parts/cold-core/reed-bridge/reed-bridge.numbers.json "$$O4"
-copy_file hardware/printed-parts/cold-core/reed-bridge/reed-bridge.step "$$O5"
-copy_file hardware/printed-parts/cold-core/reed-bridge/reed-bridge.step.mesh "$$O6"
-copy_file hardware/printed-parts/cold-core/reed-bridge/reed-bridge.step.npz "$$O7"
-copy_file hardware/printed-parts/cold-core/reed-bridge/reed-bridge.stl "$$O8"
-cd .. && rm -rf work-reed-bridge
+copy_file hardware/printed-parts/cold-core/reed-bridge/reed-bridge.step "$$O4"
+copy_file hardware/printed-parts/cold-core/reed-bridge/reed-bridge.step.mesh "$$O5"
+copy_file hardware/printed-parts/cold-core/reed-bridge/reed-bridge.step.npz "$$O6"
+copy_file hardware/printed-parts/cold-core/reed-bridge/reed-bridge.stl "$$O7"
 """,
 )
 

@@ -51,6 +51,15 @@ struct Routing {
 
 /// The fluid line stock of outside diameter `od`.
 pub fn fluid_stock(od: f64) -> Stock {
+    stock("fluid", od)
+}
+
+/// The refrigerant line stock of outside diameter `od`: the evaporator's copper.
+pub fn refrigerant_stock(od: f64) -> Stock {
+    stock("refrigerant", od)
+}
+
+fn stock(kind: &str, od: f64) -> Stock {
     static ROUTING: OnceLock<Routing> = OnceLock::new();
     ROUTING
         .get_or_init(|| {
@@ -59,9 +68,9 @@ pub fn fluid_stock(od: f64) -> Stock {
         })
         .stocks
         .iter()
-        .find(|s| s.od == od && s.kinds.iter().any(|k| k == "fluid"))
+        .find(|s| s.od == od && s.kinds.iter().any(|k| k == kind))
         .cloned()
-        .unwrap_or_else(|| panic!("the routing catalog lists no fluid stock of that diameter"))
+        .unwrap_or_else(|| panic!("the routing catalog lists no {kind} stock of that diameter"))
 }
 
 /// A catalog colour, as the catalog writes it: eight-bit sRGB, sRGB channels with an optional
@@ -72,23 +81,6 @@ enum Swatch {
     Bytes { bytes: [u8; 3] },
     Channels { args: Vec<f64> },
     Hex { args: (String,) },
-}
-
-impl Swatch {
-    /// The colour's sRGB channels, and its alpha where the stock is see-through.
-    fn srgb(&self) -> ([f64; 3], f64) {
-        match self {
-            Swatch::Bytes { bytes } => (bytes.map(|b| f64::from(b) / 255.), 1.),
-            Swatch::Channels { args } => ([args[0], args[1], args[2]], args.get(3).copied().unwrap_or(1.)),
-            Swatch::Hex { args: (hex,) } => {
-                let hex = hex.trim_start_matches('#');
-                let byte = |i: usize| {
-                    f64::from(u8::from_str_radix(&hex[i..i + 2], 16).expect("a catalog hex colour")) / 255.
-                };
-                ([byte(0), byte(2), byte(4)], 1.)
-            }
-        }
-    }
 }
 
 /// The catalog materials the cold core is made of.
@@ -138,9 +130,27 @@ pub struct Colour {
     pub alpha: f64,
 }
 
+/// A swatch's colour: eight-bit and channel swatches turned linear at double precision and kept at
+/// single, a hex swatch as `hex` turns it.
 fn colour(swatch: &Swatch) -> Colour {
-    let (srgb, alpha) = swatch.srgb();
+    let (srgb, alpha) = match swatch {
+        Swatch::Bytes { bytes } => (bytes.map(|b| f64::from(b) / 255.), 1.),
+        Swatch::Channels { args } => ([args[0], args[1], args[2]], args.get(3).copied().unwrap_or(1.)),
+        Swatch::Hex { args: (code,) } => return hex(code),
+    };
     Colour { linear: srgb.map(|c| curve(c) as f32 as f64), alpha }
+}
+
+/// An sRGB `#RRGGBB` colour as the viewer's files carry it. A hex colour takes OCCT's arithmetic
+/// for one: each byte over 255 and the curve, both at single precision, which can land a bit off
+/// the same channels worked at double precision.
+pub fn hex(code: &str) -> Colour {
+    let code = code.trim_start_matches('#');
+    let channel = |i: usize| {
+        let v = f32::from(u8::from_str_radix(&code[i..i + 2], 16).expect("an sRGB hex colour")) / 255.;
+        f64::from(if v <= 0.04045 { v / 12.92 } else { ((v + 0.055) / 1.055).powf(2.4) })
+    };
+    Colour { linear: [channel(0), channel(2), channel(4)], alpha: 1. }
 }
 
 /// Black PETG: the shroud, the mandrel, the reed bridge and the printed plugs.

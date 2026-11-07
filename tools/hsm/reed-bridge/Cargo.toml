@@ -1,0 +1,16 @@
+[package]
+name = "hsm-reed-bridge"
+version = "0.1.0"
+edition.workspace = true
+license.workspace = true
+rust-version.workspace = true
+publish = false
+
+[dependencies]
+anyhow.workspace = true
+hsm-kernel = { path = "../kernel" }
+hsm-reed-bridge-numbers = { path = "../reed-bridge-numbers" }
+
+[[bin]]
+name = "reed-bridge"
+path = "../../../hardware/printed-parts/cold-core/reed-bridge/reed_bridge.rs"

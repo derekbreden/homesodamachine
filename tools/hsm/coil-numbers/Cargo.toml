@@ -1,0 +1,15 @@
+[package]
+name = "hsm-coil-numbers"
+version = "0.1.0"
+edition.workspace = true
+license.workspace = true
+rust-version.workspace = true
+publish = false
+
+[lib]
+path = "../../../hardware/cold-core-layout/coil/numbers.rs"
+
+[dependencies]
+hsm-cold-core-catalog = { path = "../cold-core-catalog" }
+hsm-cold-core-interface = { path = "../cold-core-interface" }
+hsm-reed-bridge-numbers = { path = "../reed-bridge-numbers" }

@@ -409,6 +409,14 @@ RUST_STEPS = {
         ("faucet-display-cover", "faucet-display-cover", "hardware/printed-parts/faucet/faucet-display-cover"),
     "hardware/printed-parts/faucet/industrial/industrial_faucet.rs":
         ("industrial-faucet", "industrial-faucet", "hardware/printed-parts/faucet/industrial"),
+    "hardware/printed-parts/cold-core/magnetic-float/magnetic_float.rs":
+        ("magnetic-float", "magnetic-float", "hardware/printed-parts/cold-core/magnetic-float"),
+    "hardware/printed-parts/cold-core/magnetic-float/all-aero/all_aero_float.rs":
+        ("all-aero-float", "all-aero-float", "hardware/printed-parts/cold-core/magnetic-float/all-aero"),
+    "hardware/printed-parts/cold-core/coil-mandrel/coil_mandrel.rs":
+        ("coil-mandrel", "coil-mandrel", "hardware/printed-parts/cold-core/coil-mandrel"),
+    "hardware/printed-parts/cold-core/reed-bridge/reed_bridge.rs":
+        ("reed-bridge", "reed-bridge", "hardware/printed-parts/cold-core/reed-bridge"),
 }
 
 #: The media a Rust step can rewrite in place: documents with authored text round the figures it

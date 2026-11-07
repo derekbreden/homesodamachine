@@ -19,3 +19,5 @@ hsm-aero-float-numbers = { path = "../aero-float-numbers" }
 hsm-carbonator-tube-numbers = { path = "../carbonator-tube-numbers" }
 hsm-endcap-circular-numbers = { path = "../endcap-circular-numbers" }
 hsm-cold-core-interface = { path = "../cold-core-interface" }
+hsm-coil-numbers = { path = "../coil-numbers" }
+hsm-coil-mandrel-numbers = { path = "../coil-mandrel-numbers" }

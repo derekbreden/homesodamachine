@@ -15,8 +15,3 @@ def __getattr__(name):
         return _member('reed_bridge', name)
     except ValueError as error:
         raise AttributeError(name) from error
-
-if __name__ == "__main__":
-    import _rust_part
-    _rust_part.start()
-    _compiled('reed_bridge', action="main")
