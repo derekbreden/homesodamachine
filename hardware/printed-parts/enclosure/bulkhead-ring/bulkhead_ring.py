@@ -5,7 +5,7 @@ are read from.
 Nothing here builds a part. `rear_identification` cuts the six installed tiles and `tube_collar`
 the collars that name the same lines, and both take each station's word, the key its two filaments
 are read under and the lettering from here, so a word changed for a port is changed on the wall
-and on the tube by one edit. `data_ring` letters in the same face.
+and on the tube by one edit.
 
     STATIONS, FLUIDS    each station's word, and the key shared-data's `color.chips` names its
                         chip and word filaments under
