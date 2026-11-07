@@ -279,8 +279,8 @@
     "cavity.stl": "a5ae1b39b716e956d030fab9c10843968383bad95f15a89171f23c4574ba4ae5",
     "core.step": "da393b351e70b7f4c9937610b3badcf865c90bf524d7f7afecb5452ba507dea0",
     "core.step.mesh": "fa58585345d490b88b20712f87a4cd4c2a04d9769bf8f08e83284f81ff30ef23",
-    "core.step.npz": "a9173d7f5c5bee0c64a50f32e2133fbdc92b4798cfc8f6c72bd20ea3dc1dec8c",
-    "core.stl": "9939f10c4d2c0e78c26b7e3203819dda078bd3a32b2f6a75bc497b4ac2c9c2af"
+    "core.step.npz": "8634f0a9c3a9e4ae724816a3e98815a31502186f84035912bd2532701f577fed",
+    "core.stl": "078f9385bc7d0d28b789a19f510dba548ff79dc152e7869497137fb8f7cf0182"
   },
   "shell_thickness_mm": 5.0,
   "status": "Complete two-body tooling with flat print bases and straight stock steel rod; authored fine geometry verified",

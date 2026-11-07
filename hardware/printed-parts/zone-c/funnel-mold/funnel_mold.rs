@@ -336,7 +336,8 @@ fn main() -> Result<()> {
     }
     let cavity_print = funnel_geometry::fabrication_copy(&p.cavity, "FUNNEL cavity fabrication copy")?;
     println!("{}", printed(&out, "cavity", m.cavity_color, &p.cavity, &cavity_print)?);
-    println!("{}", printed(&out, "core", m.core_color, &p.core, &p.core.simplified()?)?);
+    let core_print = funnel_geometry::fabrication_copy(&p.core, "FUNNEL core fabrication copy")?;
+    println!("{}", printed(&out, "core", m.core_color, &p.core, &core_print)?);
     let body = |name, color, solid| Body { name, color: Some(color), solid };
     println!("{}", shown(&out, "rod", &[body("rod", m.rod_color, &p.rod)])?);
     let bodies = [body("cavity", m.cavity_color, &p.cavity), body("core", m.core_color, &p.core), body("funnel", m.funnel_color, &p.funnel), body("rod", m.rod_color, &p.rod)];
