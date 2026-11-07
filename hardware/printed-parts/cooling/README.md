@@ -60,12 +60,14 @@ and strength remain physical observations.
 ## Current projects
 
 [petgf.3mf](../petgf.3mf) contains the selected values in both the project
-settings and embedded filament preset. [petgf_cooling.py](../cadlib/petgf_cooling.py)
-applies them when the shared project writer prepares PET-GF from a source
-profile, including a retained historical profile. It leaves other materials
-alone. The Industrial and Sculpted faucet preparers also apply the selected
-localized recipe explicitly. Editable projects register the same output stage
-as a Bambu Studio post-processing script. Native command-line preparation uses
+settings and embedded filament preset. The `petgf-cooling` program
+([`petgf_cooling.rs`](../cadlib/petgf_cooling.rs)) applies them when a print preparer
+lays PET-GF out from a source profile, including a retained historical profile. It
+leaves other materials alone. The Industrial and Sculpted faucet preparers also apply
+the selected localized recipe explicitly. A prepared project registers the program as
+its Bambu Studio post-processing script. The editable projects in the inventory below
+name [`petgf_cooling.py`](../cadlib/petgf_cooling.py), the same stage, until they are
+prepared again. Native command-line preparation uses
 an input copy without the GUI hook and applies the shared output stage after
 slicing. The editable source project retains its hook. The preparers package
 the processed native paths, checksum and preparation

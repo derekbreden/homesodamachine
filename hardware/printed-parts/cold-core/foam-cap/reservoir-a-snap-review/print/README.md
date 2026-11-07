@@ -31,11 +31,8 @@ through the cap roof, both spring leaves and both hooks using the existing
 native print reader. Its sampling boxes are analysis only. No build or commit
 invokes this reader.
 
-```sh
-tools/cad-venv/bin/python hardware/printed-parts/cold-core/foam-cap/prepare_fore_snap_regions.py
-tools/cad-venv/bin/python hardware/printed-parts/enclosure/trial-preparation/prepare.py reservoir-a-fore-snap-cap --slice --review --output .cache/prints/reservoir-a-fore-snap-2026-10-26
-tools/cad-venv/bin/python hardware/printed-parts/enclosure/trial-preparation/prepare.py foam-cap-lid-top --slice --review --output .cache/prints/reservoir-a-fore-snap-2026-10-26
-```
-
-These commands prepare and slice without contacting a printer. Physical fit,
+The preparation ran [`prepare_fore_snap_regions.py`](https://github.com/derekbreden/homesodamachine/blob/1775218fc9/hardware/printed-parts/cold-core/foam-cap/prepare_fore_snap_regions.py)
+and [`prepare.py`](https://github.com/derekbreden/homesodamachine/blob/1775218fc9/hardware/printed-parts/enclosure/trial-preparation/prepare.py)
+(in Git at `1775218fc9`) for `reservoir-a-fore-snap-cap` and `foam-cap-lid-top`, with `--slice --review`.
+They prepare and slice without contacting a printer. Physical fit,
 retention, release, load capacity and repeated-use performance remain unmeasured.
