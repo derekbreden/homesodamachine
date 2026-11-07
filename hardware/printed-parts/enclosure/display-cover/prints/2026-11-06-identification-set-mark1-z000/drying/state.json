@@ -1,6 +1,6 @@
 {
   "automation_id": "dry-mark-one-petg-and-restart-plate",
-  "status": "Drying",
+  "status": "Print accepted",
   "first_observed_at": "2026-11-07T05:22:58.900528+00:00",
   "target_review_at": "2026-11-07T17:30:00+00:00",
   "timezone": "America/Chicago",
@@ -19,36 +19,49 @@
   "prior_job_id": "1415736258",
   "launch_record": "launch.json",
   "latest": {
-    "observed_at": "2026-11-07T05:32:34.471726+00:00",
-    "printer_state": "FAILED",
-    "job_id": "1415736258",
+    "observed_at": "2026-11-07T15:34:18.734255+00:00",
+    "printer_state": "RUNNING",
+    "job_id": "1417288998",
     "print_error": 0,
     "hms": [],
     "units": [
       {
         "id": "0",
         "name": "AMS 2 Pro",
-        "temperature_c": 52.7,
-        "humidity_raw": 43,
-        "dry_time": 705,
+        "temperature_c": 45.0,
+        "humidity_raw": 20,
+        "dry_time": 0,
         "dry_setting": {
-          "dry_duration": 12,
-          "dry_filament": "PETG",
-          "dry_temperature": 65
+          "dry_duration": -1,
+          "dry_filament": "",
+          "dry_temperature": -1
         }
       },
       {
         "id": "128",
         "name": "AMS HT",
-        "temperature_c": 65.0,
-        "humidity_raw": 13,
-        "dry_time": 707,
+        "temperature_c": 47.0,
+        "humidity_raw": 16,
+        "dry_time": 0,
         "dry_setting": {
-          "dry_duration": 12,
-          "dry_filament": "PETG",
-          "dry_temperature": 65
+          "dry_duration": -1,
+          "dry_filament": "",
+          "dry_temperature": -1
         }
       }
     ]
+  },
+  "automation_status": "Deleted after print acceptance",
+  "accepted_job_id": "1417288998",
+  "drying_assessment": {
+    "observed_elapsed_hours": 10.137200043333333,
+    "dryers_observed_off_at": "2026-11-07T15:22:40.699904+00:00",
+    "exact_dryer_stop_time_known": false,
+    "continuous_heating_not_observed": true,
+    "basis": "The elapsed drying window, reduced air humidity during cooldown and absence of active printer errors support the authorized retry.",
+    "pro_humidity_initial": 50,
+    "pro_humidity_at_launch": 19,
+    "ht_humidity_initial": 24,
+    "ht_humidity_at_launch": 15
   }
 }
