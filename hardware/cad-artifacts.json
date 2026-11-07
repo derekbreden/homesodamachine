@@ -431,8 +431,8 @@
     "hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step": "048b064adf4bcb8a9fccd82406b3b75d84e721a6163d232e61380e840f69cce1",
     "hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step.mesh": "861b43a0a29fac2304e9286c65fa184362b2edf310d21d7f4aae689b0fe22353",
     "hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.stl": "cfedb813ad4f4e8f609ae3ec724a5d4de918c175fbfcafc1a44b3a69d4a62e3e",
-    "hardware/printed-parts/enclosure/enclosure/enclosure.step": "dfc84f25804cbc38cc90ff2037dcfc2127b4519f58c657223b868f3b4cef8d99",
-    "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh": "8a5f823299ea21d7cddbd9a4d79410806d4ea7db7f6fa157f8073d18511bacaa",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.step": "46032cdedf627a7b60abaa6d7848e3d52e9ba9b7192bde704715427194e3365b",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh": "ef12c8f737b6b7e4025fdbf702bc7848d83c646da1f4e72ca9b2356b6f5116dd",
     "hardware/printed-parts/enclosure/enclosure/magnet-retention/section.step": "2efdc50cbb438c930dd2ded0c90d45b1f64dac06c187b08181357866e4620e4c",
     "hardware/printed-parts/enclosure/enclosure/magnet-retention/section.step.mesh": "d4a852d3ee87e8dbd134c7f859a727d29d5a492f744dc6b5fd4fd1a6834c8103",
     "hardware/printed-parts/enclosure/grip-cover/grip-candidate-back-bottom.step": "ab8b5181f30c8e8fcb2ac29b541075065067cb5eb60636604840c13fd707ed94",
@@ -2610,8 +2610,8 @@
     "hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step": 1793712586,
     "hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step.mesh": 1793992414,
     "hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.stl": 1793712586,
-    "hardware/printed-parts/enclosure/enclosure/enclosure.step": 1794020197,
-    "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh": 1794089747,
+    "hardware/printed-parts/enclosure/enclosure/enclosure.step": 1794090143,
+    "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh": 1794090143,
     "hardware/printed-parts/enclosure/enclosure/magnet-retention/section.step": 1791257167,
     "hardware/printed-parts/enclosure/enclosure/magnet-retention/section.step.mesh": 1791257167,
     "hardware/printed-parts/enclosure/grip-cover/grip-candidate-back-bottom.step": 1791257167,
@@ -5028,11 +5028,13 @@
       "unproven": true
     },
     "hardware/printed-parts/enclosure/enclosure/enclosure.step": {
-      "commit": "05d517cc09d27f40298daae79f3dce954ed65c1e",
+      "inputs": "67ff5cb1282c1e4c79b26106543a8e31dcd40a05f75e90c31cfc30c677190233",
+      "commit": "7dbd3f1f2064ee7e855e5515d1b45e9728e8d8d1",
       "unproven": true
     },
     "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh": {
-      "commit": "3e979e5949071439062c1a8313c311d64948b9f5",
+      "inputs": "67ff5cb1282c1e4c79b26106543a8e31dcd40a05f75e90c31cfc30c677190233",
+      "commit": "7dbd3f1f2064ee7e855e5515d1b45e9728e8d8d1",
       "unproven": true
     },
     "hardware/printed-parts/enclosure/nameplate/nameplate-001.step": {
