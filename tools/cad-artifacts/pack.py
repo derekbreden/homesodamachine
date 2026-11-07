@@ -270,7 +270,6 @@ BUNDLED_PAYLOAD_FILES = (
     "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-drain.step.mesh",
     "hardware/printed-parts/enclosure/display-gasket/display-gasket.step.mesh",
     "hardware/reference/seaflo-discharge-chain/seaflo-discharge-chain.step.mesh",
-    "hardware/printed-parts/electronics/pcba-tray/pcba-assembly.step.mesh",
     "hardware/printed-parts/electronics/pcba-tray/pcba-board.step.mesh",
     "hardware/printed-parts/cold-core/reed-bridge/reed-bridge.step.mesh",
     "hardware/printed-parts/cold-core/reed-bridge/reed-bridge-setting-gauge.step.mesh",

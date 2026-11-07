@@ -15,10 +15,6 @@ name = "rear-identification"
 path = "../../../hardware/printed-parts/enclosure/rear-identification/rear_identification.rs"
 
 [[bin]]
-name = "pcba-assembly"
-path = "../../../hardware/printed-parts/electronics/pcba-tray/pcba_assembly.rs"
-
-[[bin]]
 name = "display-cover"
 path = "../../../hardware/printed-parts/enclosure/display-cover/display_cover.rs"
 

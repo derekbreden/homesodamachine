@@ -390,6 +390,7 @@ RUST_STEPS = {
     "hardware/install-guide/kit_art.rs": ("kit-art", "kit-art", ""),
     "hardware/install-guide/opening_scene.rs": ("opening-scene", "opening-scene", ""),
     "hardware/install-guide/install_guide.rs": ("install-guide", "install-guide", ""),
+    "hardware/printed-parts/electronics/pcba-tray/pcba_assembly.rs": ("pcba-assembly", "pcba-assembly", "hardware/printed-parts/electronics/pcba-tray"),
     "hardware/printed-parts/soda-bend-holder/soda_bend_holder.rs": ("soda-bend-holder", "soda-bend-holder", "hardware/printed-parts/soda-bend-holder"),
     "hardware/printed-parts/diaphragm-pump-sleeve/diaphragm_pump_sleeve.rs": ("diaphragm-pump-sleeve", "diaphragm-pump-sleeve", "hardware/printed-parts/diaphragm-pump-sleeve"),
     "hardware/printed-parts/fixtures/tube-miter-box/tube_miter_box.rs": ("tube-miter-box", "tube-miter-box", "hardware/printed-parts/fixtures/tube-miter-box"),

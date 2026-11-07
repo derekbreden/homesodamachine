@@ -1,0 +1,10 @@
+[package]
+name = "hsm-pcba-numbers"
+version = "0.1.0"
+edition.workspace = true
+license.workspace = true
+rust-version.workspace = true
+publish = false
+
+[lib]
+path = "../../../hardware/printed-parts/electronics/pcba-tray/numbers.rs"

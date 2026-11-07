@@ -1787,6 +1787,22 @@ dependencies = [
 ]
 
 [[package]]
+name = "hsm-pcba-assembly"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "hsm-catalog",
+ "hsm-kernel",
+ "hsm-pcba-numbers",
+ "serde",
+ "serde_json",
+]
+
+[[package]]
+name = "hsm-pcba-numbers"
+version = "0.1.0"
+
+[[package]]
 name = "hsm-print-payload"
 version = "0.1.0"
 dependencies = [
