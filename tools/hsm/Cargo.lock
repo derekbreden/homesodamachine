@@ -822,6 +822,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "hsm-cold-core-catalog"
+version = "0.1.0"
+dependencies = [
+ "hsm-cold-core-interface",
+ "serde",
+ "serde_json",
+]
+
+[[package]]
 name = "hsm-cold-core-data"
 version = "0.1.0"
 dependencies = [
@@ -1257,6 +1266,23 @@ dependencies = [
  "serde_json",
  "sha2",
  "zip",
+]
+
+[[package]]
+name = "hsm-prv-shroud"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "hsm-cold-core-catalog",
+ "hsm-kernel",
+ "hsm-prv-shroud-numbers",
+]
+
+[[package]]
+name = "hsm-prv-shroud-numbers"
+version = "0.1.0"
+dependencies = [
+ "hsm-cold-core-catalog",
 ]
 
 [[package]]
