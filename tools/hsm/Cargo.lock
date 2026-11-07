@@ -852,6 +852,17 @@ dependencies = [
 ]
 
 [[package]]
+name = "hsm-cold-core-layout"
+version = "0.1.0"
+dependencies = [
+ "hsm-cold-core-catalog",
+ "hsm-cold-core-interface",
+ "hsm-prv-shroud-numbers",
+ "serde",
+ "serde_json",
+]
+
+[[package]]
 name = "hsm-documents"
 version = "0.1.0"
 dependencies = [
