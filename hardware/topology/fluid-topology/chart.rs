@@ -2,7 +2,6 @@
 //! the program writes into them.
 use super::*;
 use regex::Regex;
-use std::collections::BTreeSet;
 
 const MANIFOLD: &str = "hardware/topology/fluid-topology-manifold.mmd";
 const LIMBS: &str = "hardware/topology/fluid-topology-limbs.mmd";
@@ -26,7 +25,6 @@ const UNPLACED: [&str; 15] = [
     "Water",
     "Float",
 ];
-type Sets = BTreeMap<String, BTreeSet<String>>;
 
 #[derive(Serialize, Deserialize, Clone)]
 struct Seg {
@@ -90,160 +88,60 @@ impl Patterns {
         })
     }
 }
-fn object<'a>(input: &'a Value, key: &str) -> Result<&'a serde_json::Map<String, Value>> {
-    input[key]
-        .as_object()
-        .with_context(|| format!("topology provider {key}"))
-}
-fn strings(value: &Value) -> Result<Vec<String>> {
-    value
-        .as_array()
-        .context("string list")?
-        .iter()
-        .map(|v| v.as_str().map(str::to_owned).context("string list entry"))
-        .collect()
-}
-fn number(value: &Value) -> Result<f64> {
-    value.as_f64().context("topology number")
-}
 fn segment_no(id: &str) -> Result<u64> {
     Ok(id.rsplit('-').next().context("segment id")?.parse()?)
 }
-fn distance(points: &Value) -> Result<f64> {
-    let points = points.as_array().context("line endpoints")?;
-    ensure!(points.len() == 2, "two endpoints required");
-    let a = points[0].as_array().context("line start")?;
-    let b = points[1].as_array().context("line end")?;
-    ensure!(a.len() == b.len(), "line endpoint dimensions");
-    Ok(a.iter()
-        .zip(b)
-        .map(|(a, b)| Ok((number(a)? - number(b)?).powi(2)))
-        .collect::<Result<Vec<_>>>()?
-        .into_iter()
-        .sum::<f64>()
-        .sqrt())
+fn made_as(made: &str) -> bool {
+    MADE_AS.iter().any(|(name, _)| *name == made)
 }
-fn interior(input: &Value, cid: &str, how: &str) -> Result<(String, f64, u64)> {
-    let barb = strings(&input["barb_of"])?;
-    if barb.iter().any(|v| v == how) {
-        return Ok(("pump-dock".into(), 0.0, 0));
-    }
-    if how == "spine" {
-        let corners = input["lower_links"][cid]
-            .as_array()
-            .context("lower return links")?
-            .iter()
-            .filter(|segment| segment["kind"] == "arc")
-            .count() as u64;
-        return Ok((
-            "elbows".into(),
-            number(&input["lower_lengths"][cid])?,
-            corners,
-        ));
-    }
-    if object(input, "fore_stubs")?.contains_key(how) {
-        return Ok((
-            "straight".into(),
-            number(&input["fore_stub_lengths"][how])?,
-            0,
-        ));
-    }
-    if how == "turn" {
-        return Ok((
-            "turn".into(),
-            n(input, "quarter_length")? + number(&input["source_steps"][cid][2])?,
-            3,
-        ));
-    }
-    if how == "butt" {
-        return Ok(("butt".into(), 0.0, 0));
-    }
-    let length = distance(&input["runs"][how])?;
-    Ok((
-        if length > 1e-9 { "straight" } else { "butt" }.into(),
-        length,
-        0,
-    ))
-}
-fn segments(input: &Value) -> Result<Vec<Seg>> {
-    let mut segments = Vec::new();
+/// Every segment the charts label: the machine's own runs, then the manifold's connections it
+/// does not draw itself, then the manifold's open mouths.
+fn segments(machine: &Machine) -> Result<Vec<Seg>> {
+    let mut segments: Vec<Seg> = Vec::new();
     let mut seen = BTreeSet::new();
-    let vocabulary = object(input, "made_as")?;
-    for row in list(input, "facts_runs")? {
-        let id = row["id"].as_str().context("fact run id")?.to_owned();
-        let made = row
-            .get("made")
-            .and_then(Value::as_str)
-            .unwrap_or("drawn")
-            .to_owned();
-        ensure!(
-            vocabulary.contains_key(&made),
-            "{id} is made {made:?}, which is no name in _scorecard.MADE_AS"
-        );
-        let mut missing = Vec::new();
-        for field in ["missing_native_routes", "missing_fittings"] {
-            if let Some(value) = row.get(field) {
-                missing.extend(strings(value)?);
-            }
-        }
+    for run in &machine.runs {
+        ensure!(made_as(&run.made), "{} is made {:?}, which is no way the charts name", run.id, run.made);
         let seg = Seg {
-            id: id.clone(),
-            ends: vec![
-                row["frm"].as_str().context("run from")?.into(),
-                row["to"].as_str().context("run to")?.into(),
-            ],
-            made,
-            length: row.get("length").and_then(Value::as_f64),
-            corners: row["corners"].as_u64().context("run corners")?,
+            id: run.id.clone(),
+            ends: vec![run.frm.clone(), run.to.clone()],
+            made: run.made.clone(),
+            length: run.length,
+            corners: run.corners,
             developed: None,
-            status: row
-                .get("status")
-                .and_then(Value::as_str)
-                .unwrap_or("complete")
-                .into(),
-            missing,
+            status: run.status.clone(),
+            missing: run.missing_native_routes.iter().chain(&run.missing_fittings).cloned().collect(),
         };
-        if let Some(index) = segments.iter().position(|s: &Seg| s.id == id) {
+        if let Some(index) = segments.iter().position(|s| s.id == run.id) {
             segments[index] = seg;
         } else {
             segments.push(seg);
         }
-        seen.insert(id);
+        seen.insert(run.id.clone());
     }
-    for row in list(input, "segment_recipes")? {
-        let cid = number(&row[0])? as u64;
-        let id = format!("fluid-{cid}");
+    for c in &machine.interior {
+        let id = format!("fluid-{}", c.run);
         if seen.contains(&id) {
             continue;
         }
-        let (made, length, corners) = interior(
-            input,
-            &cid.to_string(),
-            row[3].as_str().context("segment construction")?,
-        )?;
         segments.push(Seg {
             id: id.clone(),
-            ends: vec![
-                row[1].as_str().context("interior from")?.into(),
-                row[2].as_str().context("interior to")?.into(),
-            ],
-            made,
-            length: Some(length),
-            corners,
+            ends: vec![c.from.clone(), c.to.clone()],
+            made: c.made.to_owned(),
+            length: Some(c.length),
+            corners: c.corners,
             developed: None,
             status: "complete".into(),
             missing: vec![],
         });
         seen.insert(id);
     }
-    for row in list(input, "mouths")? {
-        let id = row[0].as_str().context("mouth id")?;
+    for (id, port) in &machine.mouths {
         if seen.contains(id) {
             continue;
         }
         segments.push(Seg {
-            id: id.into(),
-            ends: vec![row[1].as_str().context("mouth port")?.into()],
+            id: id.clone(),
+            ends: vec![port.clone()],
             made: "not drawn".into(),
             length: None,
             corners: 0,
@@ -251,19 +149,14 @@ fn segments(input: &Value) -> Result<Vec<Seg>> {
             status: "complete".into(),
             missing: vec![],
         });
-        seen.insert(id.into());
+        seen.insert(id.clone());
     }
     for segment in &segments {
-        ensure!(
-            vocabulary.contains_key(&segment.made),
-            "{} is made {:?}, which is no name in _scorecard.MADE_AS",
-            segment.id,
-            segment.made
-        );
+        ensure!(made_as(&segment.made), "{} is made {:?}, which is no way the charts name", segment.id, segment.made);
     }
     Ok(segments)
 }
-fn nodes(input: &Value) -> Result<Sets> {
+fn nodes(machine: &Machine) -> Result<Sets> {
     let mut nodes = Sets::new();
     for (name, body, ports) in [
         ("Funnel", "funnel", vec!["drain"]),
@@ -315,7 +208,7 @@ fn nodes(input: &Value) -> Result<Sets> {
         .get_mut("BFP")
         .unwrap()
         .extend(["asse-inlet-tpu.tube".into(), "asse-outlet-tpu.tube".into()]);
-    for valve in strings(&input["valves"])? {
+    for valve in &machine.valves {
         nodes.insert(
             format!("V{}", valve.chars().last().context("valve name")?),
             [
@@ -328,16 +221,13 @@ fn nodes(input: &Value) -> Result<Sets> {
             .collect(),
         );
     }
-    for station in object(input, "stations")?
-        .keys()
-        .filter(|n| n.starts_with("Y-"))
-    {
+    for station in machine.stations.iter().map(|(name, _)| name).filter(|n| n.starts_with("Y-")) {
         nodes.insert(
             format!("Y{}", station.chars().last().unwrap()),
             (1..4).map(|i| format!("{station}-{i}")).collect(),
         );
     }
-    for pump in strings(&input["pumps"])? {
+    for pump in &machine.pumps {
         let suffix = pump.chars().last().context("pump name")?.to_uppercase();
         let suffix = suffix.to_string();
         nodes.insert(
@@ -349,42 +239,12 @@ fn nodes(input: &Value) -> Result<Sets> {
     }
     Ok(nodes)
 }
-fn limb_members(input: &Value) -> Result<Sets> {
-    object(input, "limbs")?
-        .iter()
-        .map(|(name, limb)| {
-            Ok((
-                name.clone(),
-                limb["chain"]
-                    .as_array()
-                    .context("limb chain")?
-                    .iter()
-                    .map(|row| row[0].as_str().map(str::to_owned).context("limb body"))
-                    .collect::<Result<BTreeSet<_>>>()?,
-            ))
-        })
-        .collect()
-}
-fn class_members(input: &Value) -> Result<Sets> {
-    let stations = object(input, "stations")?;
-    Ok(BTreeMap::from([
-        (
-            "tee".into(),
-            stations
-                .keys()
-                .filter(|n| n.starts_with("Y-"))
-                .map(|n| format!("Y{}", n.chars().last().unwrap()))
-                .collect(),
-        ),
-        (
-            "upper".into(),
-            stations
-                .iter()
-                .filter(|(_, p)| p["fold"].as_bool().unwrap_or(false))
-                .map(|(n, _)| format!("{}{}", &n[..1], &n[2..]))
-                .collect(),
-        ),
-    ]))
+fn class_members(machine: &Machine) -> Sets {
+    let short = |n: &str| format!("{}{}", &n[..1], &n[2..]);
+    BTreeMap::from([
+        ("tee".into(), machine.stations.iter().filter(|(n, _)| n.starts_with("Y-")).map(|(n, _)| short(n)).collect()),
+        ("upper".into(), machine.stations.iter().filter(|(_, fold)| *fold).map(|(n, _)| short(n)).collect()),
+    ])
 }
 fn read_edges(path: &str, text: &str, p: &Patterns) -> Result<(Vec<String>, Vec<Edge>)> {
     let lines = text.lines().map(str::to_owned).collect::<Vec<_>>();
@@ -424,7 +284,6 @@ fn check_graph(
     edges: &[Edge],
     segments: &[Seg],
     nodes: &Sets,
-    made_up: &Value,
     owes_ids: bool,
 ) -> Result<Vec<String>> {
     let mut bad = Vec::new();
@@ -449,12 +308,9 @@ fn check_graph(
             if !owes_ids || UNPLACED.contains(&e.a.as_str()) || UNPLACED.contains(&e.b.as_str()) {
                 continue;
             }
-            let made_up = made_up.as_array().context("made-up joints")?;
-            if made_up.iter().any(|pair| {
-                let a = pair[0].as_str().unwrap_or("");
-                let b = pair[1].as_str().unwrap_or("");
-                (held[0].contains(a) && held[1].contains(b))
-                    || (held[0].contains(b) && held[1].contains(a))
+            if MADE_UP.iter().any(|[a, b]| {
+                (held[0].contains(*a) && held[1].contains(*b))
+                    || (held[0].contains(*b) && held[1].contains(*a))
             }) {
                 continue;
             }
@@ -818,86 +674,11 @@ fn rewrite_linkstyles(lines: &mut [String], edges: &[Edge], p: &Patterns) -> Res
     }
     Ok(problems)
 }
-fn manifold_variables(input: &Value, segments: &[Seg]) -> Result<Variables> {
-    let fluid = segments
-        .iter()
-        .filter(|s| s.id.starts_with("fluid-"))
-        .collect::<Vec<_>>();
-    let cut = fluid
-        .iter()
-        .copied()
-        .filter(|s| s.length.is_some_and(|v| v != 0.0))
-        .collect::<Vec<_>>();
-    let longest = cut
-        .iter()
-        .copied()
-        .fold(None, |best: Option<&Seg>, s| {
-            if best.is_none_or(|b| s.length.unwrap() > b.length.unwrap()) {
-                Some(s)
-            } else {
-                best
-            }
-        })
-        .context("no measured fluid segments")?;
-    Ok(BTreeMap::from([
-        ("SEGMENT_COUNT".into(), fluid.len().to_string()),
-        (
-            "DRAWN_COUNT".into(),
-            fluid
-                .iter()
-                .filter(|s| s.made == "drawn")
-                .count()
-                .to_string(),
-        ),
-        (
-            "BUTT_COUNT".into(),
-            fluid
-                .iter()
-                .filter(|s| s.made == "butt")
-                .count()
-                .to_string(),
-        ),
-        (
-            "UPPER_LINK_COUNT".into(),
-            object(input, "fore_stubs")?.len().to_string(),
-        ),
-        (
-            "UPPER_LINK_EXPOSED".into(),
-            fmt(n(input, "fore_stub_exposed")?, ".6g")? + " mm",
-        ),
-        (
-            "LOWER_RETURN_COUNT".into(),
-            object(input, "lower_connections")?.len().to_string(),
-        ),
-        (
-            "OPEN_COUNT".into(),
-            fluid
-                .iter()
-                .filter(|s| s.made == "not drawn")
-                .count()
-                .to_string(),
-        ),
-        (
-            "FLUID_TOTAL".into(),
-            fmt(cut.iter().map(|s| s.length.unwrap()).sum(), ".1f")? + " mm",
-        ),
-        (
-            "FLUID_BENDS".into(),
-            fluid.iter().map(|s| s.corners).sum::<u64>().to_string(),
-        ),
-        ("LONGEST_ID".into(), longest.id.clone()),
-        (
-            "LONGEST_LEN".into(),
-            fmt(longest.length.unwrap(), ".1f")? + " mm",
-        ),
-    ]))
-}
-fn limb_variables(input: &Value, limbs: &Sets) -> Result<Variables> {
+fn limb_variables(machine: &Machine, limbs: &Sets) -> Result<Variables> {
     let members = limbs
         .values()
         .flat_map(|set| set.iter())
         .collect::<BTreeSet<_>>();
-    let stations = object(input, "stations")?;
     Ok(BTreeMap::from([
         ("LIMB_COUNT".into(), limbs.len().to_string()),
         (
@@ -918,116 +699,43 @@ fn limb_variables(input: &Value, limbs: &Sets) -> Result<Variables> {
         ),
         (
             "PURCHASED_TEE_COUNT".into(),
-            list(input, "purchased_tees")?.len().to_string(),
+            machine.purchased_tees.to_string(),
         ),
         (
             "PUMP_TEE_COUNT".into(),
-            list(input, "pump_junctions")?.len().to_string(),
+            machine.pump_tees.to_string(),
         ),
         (
             "UPPER_COUNT".into(),
-            stations
-                .values()
-                .filter(|p| p["fold"].as_bool().unwrap_or(false))
-                .count()
-                .to_string(),
+            machine.stations.iter().filter(|(_, fold)| *fold).count().to_string(),
         ),
         (
             "LOWER_COUNT".into(),
-            stations
-                .values()
-                .filter(|p| !p["fold"].as_bool().unwrap_or(false))
-                .count()
-                .to_string(),
+            machine.stations.iter().filter(|(_, fold)| !*fold).count().to_string(),
         ),
-        ("PUMP_COUNT".into(), list(input, "pumps")?.len().to_string()),
+        ("PUMP_COUNT".into(), machine.pumps.len().to_string()),
     ]))
 }
 fn name(path: &str) -> &str {
     path.rsplit('/').next().unwrap()
 }
 fn failure(problems: Vec<String>, heading: &str) -> Output {
-    Output {
-        exports: BTreeMap::from([("status".into(), json!(1))]),
-        stdout: format!("{heading}\n{}\n", problems.join("\n")),
-        data_reads: vec![
-            MANIFOLD.into(),
-            LIMBS.into(),
-            CARBONATOR.into(),
-            TOPOLOGY.into(),
-        ],
-        ..Output::default()
-    }
+    Output { status: 1, stdout: format!("{heading}\n{}\n", problems.join("\n")), ..Output::default() }
 }
 pub fn run(request: &Request) -> Result<Output> {
-    let input = &request.input;
+    let machine = &request.machine;
     let p = Patterns::new()?;
-    if request.operation == "segment_label" {
-        let segment: Seg = serde_json::from_value(input["segment"].clone())?;
-        return Ok(Output {
-            exports: BTreeMap::from([("label".into(), json!(segment.label()))]),
-            ..Output::default()
-        });
-    }
-    if request.operation == "interior" {
-        let (kind, length, corners) = interior(
-            input,
-            &(number(&input["cid"])? as u64).to_string(),
-            input["how"].as_str().context("interior construction")?,
-        )?;
-        return Ok(Output {
-            exports: BTreeMap::from([(
-                "interior".into(),
-                json!([json!(kind), json!(length), json!(corners), Value::Null]),
-            )]),
-            ..Output::default()
-        });
-    }
-    let segments = if let Some(value) = input.get("segments_override") {
-        serde_json::from_value::<Vec<Seg>>(value.clone())?
-    } else {
-        segments(input)?
-    };
-    let nodes = nodes(input)?;
-    let limbs = limb_members(input)?;
-    let classes = class_members(input)?;
+    let segments = segments(machine)?;
+    let nodes = nodes(machine)?;
+    let limbs = &machine.limbs;
+    let classes = class_members(machine);
     let mut texts = BTreeMap::new();
     for path in [MANIFOLD, LIMBS, CARBONATOR, TOPOLOGY] {
         texts.insert(path, read_text(&request.root.join(path))?);
     }
     let owed = owed(&texts[TOPOLOGY], &p);
-    let mf_vars = manifold_variables(input, &segments)?;
-    let limb_vars = limb_variables(input, &limbs)?;
-    let mut output = Output {
-        exports: BTreeMap::from([
-            ("status".into(), json!(0)),
-            (
-                "segments".into(),
-                json!(
-                    segments
-                        .iter()
-                        .map(|s| (s.id.clone(), s))
-                        .collect::<BTreeMap<_, _>>()
-                ),
-            ),
-            ("nodes".into(), json!(nodes)),
-            ("owed".into(), json!(owed)),
-            ("limb_members".into(), json!(limbs)),
-            ("class_members".into(), json!(classes)),
-            ("manifold_variables".into(), json!(mf_vars)),
-            ("limb_variables".into(), json!(limb_vars)),
-        ]),
-        data_reads: vec![
-            MANIFOLD.into(),
-            LIMBS.into(),
-            CARBONATOR.into(),
-            TOPOLOGY.into(),
-        ],
-        ..Output::default()
-    };
-    if request.operation == "values" {
-        return Ok(output);
-    }
+    let limb_vars = limb_variables(machine, limbs)?;
+    let mut output = Output::default();
     let (mut lines, mut edges) = read_edges(name(MANIFOLD), &texts[MANIFOLD], &p)?;
     let (mut carb_lines, mut carb_edges) = read_edges(name(CARBONATOR), &texts[CARBONATOR], &p)?;
     let (limb_lines, limb_edges) = read_edges(name(LIMBS), &texts[LIMBS], &p)?;
@@ -1035,27 +743,15 @@ pub fn run(request: &Request) -> Result<Output> {
     for chart in [MANIFOLD, LIMBS, CARBONATOR] {
         problems.extend(check_comments(name(chart), &texts[chart]));
     }
-    problems.extend(check_graph(
-        &edges,
-        &segments,
-        &nodes,
-        &input["made_up"],
-        true,
-    )?);
-    problems.extend(check_graph(
-        &carb_edges,
-        &segments,
-        &nodes,
-        &input["made_up"],
-        false,
-    )?);
+    problems.extend(check_graph(&edges, &segments, &nodes, true)?);
+    problems.extend(check_graph(&carb_edges, &segments, &nodes, false)?);
     problems.extend(check_inventory(&edges, &segments, &owed)?);
     problems.extend(check_boxes(
         name(MANIFOLD),
         &texts[MANIFOLD],
         false,
         &nodes,
-        &limbs,
+        limbs,
         &p,
     ));
     problems.extend(check_boxes(
@@ -1063,7 +759,7 @@ pub fn run(request: &Request) -> Result<Output> {
         &texts[LIMBS],
         true,
         &nodes,
-        &limbs,
+        limbs,
         &p,
     ));
     problems.extend(check_classes(
