@@ -127,7 +127,7 @@ fn write(
 ) -> Result<()> {
     let name = "enclosure-front-bottom";
     let (solid, core, band) = hsm_enclosure_solid::pieces::separated(g, result, silhouette)?;
-    let (_, model) = shown(dir, name, &solid, color)?;
+    let (step, _) = shown(dir, name, &solid, color)?;
     let printed_core = hsm_enclosure_solid::cache::retained(
         "front-bottom print surface",
         include_bytes!("enclosure_front_bottom.rs"),
@@ -138,5 +138,5 @@ fn write(
     let printed = hsm_enclosure_solid::pieces::join_band(&ops::manifold(&printed_core)?, &band)?;
     let stl = ops::print_stl_bytes(&printed);
     keep(&dir.join(format!("{name}.stl")), &stl)?;
-    payload(dir, name, color, &stl, &model, None)
+    payload(dir, name, color, &stl, &step, None)
 }

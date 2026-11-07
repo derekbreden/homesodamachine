@@ -133,7 +133,7 @@ fn write(
         let [solid, relief] = solids(g, [result, letters], Some(silhouette))?;
         (solid.clone(), solid, Solid::empty(), relief)
     };
-    let (_, model) = shown(dir, name, &solid, color)?;
+    let (step, _) = shown(dir, name, &solid, color)?;
     let o = silhouette.structure.outer;
     let b = relief.bounds();
     let margin = print.warning_margin;
@@ -163,5 +163,5 @@ fn write(
     let joined = hsm_enclosure_solid::pieces::join_band(&ops::manifold(&printed_core)?, &band)?;
     let stl = ops::print_stl_bytes(&joined);
     keep(&dir.join(format!("{name}.stl")), &stl)?;
-    payload(dir, name, color, &stl, &model, None)
+    payload(dir, name, color, &stl, &step, None)
 }
