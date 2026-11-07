@@ -15,7 +15,8 @@ assembly and its BOM.
 
 | File | Use |
 |---|---|
-| [`fake_countertop.py`](fake_countertop.py) | Generator, dimensions and geometric checks |
+| [`fake_countertop.rs`](fake_countertop.rs) | The program: the print, its model and their geometric checks |
+| [`numbers.rs`](numbers.rs) | Dimensions |
 | [`fake-countertop.stl`](fake-countertop.stl) | The print, show face down |
 | [`fake-countertop.step`](fake-countertop.step) | Material-coloured model in the print frame |
 | [`fake-countertop.step.npz`](fake-countertop.step.npz) | Full fine model for measurement |

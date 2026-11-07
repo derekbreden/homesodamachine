@@ -1289,6 +1289,20 @@ dependencies = [
 ]
 
 [[package]]
+name = "hsm-fake-countertop"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "hsm-catalog",
+ "hsm-fake-countertop-numbers",
+ "hsm-kernel",
+]
+
+[[package]]
+name = "hsm-fake-countertop-numbers"
+version = "0.1.0"
+
+[[package]]
 name = "hsm-faucet"
 version = "0.1.0"
 dependencies = [
