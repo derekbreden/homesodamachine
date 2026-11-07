@@ -14,11 +14,8 @@ pub fn presentation(
     hsm_enclosure_numbers::field::Field,
     hsm_enclosure_numbers::field::Rail,
 ) {
-    use hsm_enclosure_numbers::{
-        field::{self, Rail},
-        shell::FLUTE_COUNT,
-    };
-    let mut field = field::field(&b.outer);
+    use hsm_enclosure_numbers::field::{self, Rail};
+    let field = field::field(&b.outer);
     let Some(exterior) = b.exterior else {
         return (field, field::perimeter_rail(&b.outer, plain));
     };
@@ -32,7 +29,6 @@ pub fn presentation(
         offsets.push(offsets[i] + (plan[(i + 1) % plan.len()].point - plan[i].point).norm());
     }
     let length = *offsets.last().unwrap();
-    field.pitch = length / FLUTE_COUNT;
     let count = (length / field.across).ceil() as usize;
     let mut points = vec![];
     let mut normals = vec![];
@@ -43,13 +39,13 @@ pub fn presentation(
         while edge + 1 < plan.len() && offsets[edge + 1] < distance {
             edge += 1;
         }
-        let (a, b) = (plan[edge], plan[(edge + 1) % plan.len()]);
+        let (a, next) = (plan[edge], plan[(edge + 1) % plan.len()]);
         let t = (distance - offsets[edge]) / (offsets[edge + 1] - offsets[edge]);
-        let point = a.point + (b.point - a.point) * t;
-        let normal = (a.normal + (b.normal - a.normal) * t).unit();
+        let point = a.point + (next.point - a.point) * t;
+        let normal = (a.normal + (next.normal - a.normal) * t).unit();
         points.push([point.x, point.y]);
         normals.push([normal.x, normal.y]);
-        distances.push(distance);
+        distances.push(wall_phase(&b.outer, point, normal, distance));
     }
     let mut band = b.exterior_bounds();
     let centre = b.splits[0] + hsm_enclosure_numbers::catalog::running() / 2.0;
@@ -67,6 +63,29 @@ pub fn presentation(
             plain,
         },
     )
+}
+
+/// Straight-wall flutes keep the perimeter phase that places their vent grooves.
+fn wall_phase(outer: &Bounds, point: V3, normal: V3, fallback: f64) -> f64 {
+    use hsm_enclosure_numbers::{field::plan_perimeter, shell::CORNER_ROUND};
+    let length = plan_perimeter(outer);
+    if normal.x.abs() < 1e-6 {
+        if normal.y < 0.0 {
+            point.x.rem_euclid(length)
+        } else {
+            length / 2.0 - point.x
+        }
+    } else if normal.y.abs() < 1e-6 {
+        let right = (outer[1] - CORNER_ROUND) + FRAC_PI_2 * CORNER_ROUND + point.y
+            - (outer[2] + CORNER_ROUND);
+        if normal.x > 0.0 {
+            right
+        } else {
+            length - right
+        }
+    } else {
+        fallback
+    }
 }
 
 #[derive(Clone, Copy)]
@@ -429,4 +448,21 @@ pub fn band(outer: Bounds, centre: f64, exterior: Exterior) -> Result<Solid> {
         std::panic::Location::caller(),
     );
     Solid::from_mesh(&vertices, &triangles, &vec![0; triangles.len()], &[record])
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    #[test]
+    fn straight_wall_flutes_retain_the_vent_groove_positions() {
+        let outer=[-107.5,107.5,5.0,471.3,-6.0,355.0];
+        for (point,normal) in [(v3(40.0,5.0,0.0),-V3::Y),(v3(-40.0,5.0,0.0),-V3::Y),
+            (v3(107.5,80.0,0.0),V3::X),(v3(-107.5,80.0,0.0),-V3::X),
+            (v3(40.0,471.3,0.0),V3::Y),(v3(-40.0,471.3,0.0),V3::Y)] {
+            let phase=wall_phase(&outer,point,normal,0.0);
+            let (p,n)=hsm_enclosure_numbers::field::plan_at(phase,&outer);
+            assert!((v3(p[0],p[1],0.0)-point).norm()<1e-9);
+            assert!((v3(n[0],n[1],0.0)-normal).norm()<1e-9);
+        }
+    }
 }
