@@ -19,3 +19,6 @@ manifold-csg = { version = "0.4.1", default-features = false, features = ["paral
 serde = { workspace = true, features = ["derive"] }
 serde_json = { workspace = true, features = ["float_roundtrip"] }
 sha2.workspace = true
+
+[build-dependencies]
+sha2.workspace = true

@@ -254,6 +254,14 @@ a completed conversion does not by itself establish that this Mac is free of mem
 
 ## Speed work
 
+The [enclosure edit record](conversion-results/enclosure-edit-2026-11-07.json) measures an
+authored band dimension change with fresh construction and retained stages. The enclosure
+evaluator retains exact intermediate solids; the band and mechanical body receive their
+openings and joint limits separately. Back-top and the bottom quadrants retain the body's
+completed print surface. The part payload keeps the printed triangles, and publication
+grafts the finished part into the existing viewers. These are part-edit measurements;
+compilation, publication, print preparation and the full build have separate costs.
+
 The number that matters most is the full build: `//:everything` with every step rerun, as an
 edit that reaches the enclosure causes, on the compiled workspace and the caches a normal build
 keeps. Most edits reach the enclosure, which nearly every step reads, so most builds come close

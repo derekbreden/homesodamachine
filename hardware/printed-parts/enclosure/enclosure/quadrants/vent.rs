@@ -42,48 +42,118 @@ pub fn vent_chase(
         let root_x = back_top_flank_face()[0];
         let roof_root = mouth_top + (root_x - liner_x);
         let roof_run = rib_x - root_x;
-        assert!(roof_run > 0.0, "the PRV chase lip at x={rib_x} does not stand inboard of its wall root x={root_x}");
+        assert!(
+            roof_run > 0.0,
+            "the PRV chase lip at x={rib_x} does not stand inboard of its wall root x={root_x}"
+        );
         let under = VENT_RIB_WALL * (2f64.sqrt() - 1.0);
-        let rib = g.xz_prism(sy - half, sy + half, vec![[inner[0], sz + half], [rib_x, sz + half],
-                                                         [rib_x, ramp_top - under], [inner[0], rib_end - under]]);
+        let rib = g.xz_prism(
+            sy - half,
+            sy + half,
+            vec![
+                [inner[0], sz + half],
+                [rib_x, sz + half],
+                [rib_x, ramp_top - under],
+                [inner[0], rib_end - under],
+            ],
+        );
         let cap_root = roof_root + 2.0 * VENT_RIB_WALL;
         let cap_lip = cap_root + roof_run;
-        let cap_wall = if up < 0.0 { cap_lip + roof_run } else { cap_root };
-        let cap = g.xz_prism(sy - half, sy + half, vec![[root_x, sz + half], [rib_x, sz + half], [rib_x, cap_lip],
-                                                         [root_x, cap_wall]]);
+        let cap_wall = if up < 0.0 {
+            cap_lip + roof_run
+        } else {
+            cap_root
+        };
+        let cap = g.xz_prism(
+            sy - half,
+            sy + half,
+            vec![
+                [root_x, sz + half],
+                [rib_x, sz + half],
+                [rib_x, cap_lip],
+                [root_x, cap_wall],
+            ],
+        );
         let mut rib = g.union(rib, &[cap]);
         if up < 0.0 {
             let rear = sy + half;
-            let backing = g.xy_prism(rim + WALL, cap_lip, vec![
-                [root_x, rear], [rib_x, rear], [root_x, rear + roof_run]]);
+            let backing = g.xy_prism(
+                rim + WALL,
+                cap_lip,
+                vec![[root_x, rear], [rib_x, rear], [root_x, rear + roof_run]],
+            );
             rib = g.union(rib, &[backing]);
         }
         let arm_end = rail_x(1.0, Y::Back).arm_end;
-        let lane = g.box_([inner[0] - 1.0, arm_end + if owns { 0.0 } else { slide_slip() }, sy - half - 1.0,
-                           sy + half + 1.0, Z_SEAM, rim]);
+        let lane = g.box_([
+            inner[0] - 1.0,
+            arm_end + if owns { 0.0 } else { slide_slip() },
+            sy - half - 1.0,
+            sy + half + 1.0,
+            Z_SEAM,
+            rim,
+        ]);
         let rib = g.cut(rib, &[lane]);
-        let band = if owns { (outer[4] - 1.0, rim) } else { (rim + slide_slip(), outer[5] + 1.0) };
+        let band = if owns {
+            (outer[4] - 1.0, rim)
+        } else {
+            (rim + slide_slip(), outer[5] + 1.0)
+        };
         let rear_reach = if up < 0.0 { roof_run } else { 0.0 };
-        let keep = g.box_([outer[0] - 1.0, outer[1] + 1.0, sy - half - 1.0, sy + half + rear_reach + 1.0, band.0, band.1]);
+        let keep = g.box_([
+            outer[0] - 1.0,
+            outer[1] + 1.0,
+            sy - half - 1.0,
+            sy + half + rear_reach + 1.0,
+            band.0,
+            band.1,
+        ]);
         let mut share = g.intersect(rib, &[keep]);
         if !owns && up > 0.0 {
             let [_, _, far] = rail_channel_span(1.0, Y::Back);
             let gable_bed = (slide_slip() + far + inner[0]) / 2.0;
             let gable_lip = (slide_slip() + far + root_x) / 2.0;
-            let gable = g.xz_prism(sy - half - 1.0, sy + half + 1.0, vec![
-                [inner[0], rim - 1.0], [rib_x + 1.0, rim - 1.0], [rib_x + 1.0, rim + (rib_x + 1.0 - root_x)],
-                [gable_lip, rim + (gable_lip - root_x)], [gable_bed, rim + (gable_bed - inner[0])], [inner[0], rim]]);
+            let gable = g.xz_prism(
+                sy - half - 1.0,
+                sy + half + 1.0,
+                vec![
+                    [inner[0], rim - 1.0],
+                    [rib_x + 1.0, rim - 1.0],
+                    [rib_x + 1.0, rim + (rib_x + 1.0 - root_x)],
+                    [gable_lip, rim + (gable_lip - root_x)],
+                    [gable_bed, rim + (gable_bed - inner[0])],
+                    [inner[0], rim],
+                ],
+            );
             share = g.cut(share, &[gable]);
         }
         solid = g.union(solid, &[share]);
-        let duct = g.xz_prism(sy - VENT_CHANNEL_W / 2.0, sy + VENT_CHANNEL_W / 2.0, vec![
-            [rib_x + 1.0, mouth_top], [rib_x + 1.0, mouth_bot], [floor_x, mouth_bot], [floor_x, ramp_top],
-            [outer[0] - 1.0, ramp_bot - over], [outer[0] - 1.0, groove_top - groove_rise],
-            [inner[0], groove_top + groove_rise * (inner[0] - outer[0])], [inner[0], rim + slide_slip()],
-            [liner_x, rim + slide_slip()], [liner_x, mouth_top]]);
+        let duct = g.xz_prism(
+            sy - VENT_CHANNEL_W / 2.0,
+            sy + VENT_CHANNEL_W / 2.0,
+            vec![
+                [rib_x + 1.0, mouth_top],
+                [rib_x + 1.0, mouth_bot],
+                [floor_x, mouth_bot],
+                [floor_x, ramp_top],
+                [outer[0] - 1.0, ramp_bot - over],
+                [outer[0] - 1.0, groove_top - groove_rise],
+                [inner[0], groove_top + groove_rise * (inner[0] - outer[0])],
+                [inner[0], rim + slide_slip()],
+                [liner_x, rim + slide_slip()],
+                [liner_x, mouth_top],
+            ],
+        );
         solid = g.cut(solid, &[duct]);
-        let passage = g.xz_prism(sy - passage_half, sy + passage_half, vec![
-            [liner_x, mouth_top], [rib_x + 1.0, mouth_top], [rib_x + 1.0, mouth_top + (rib_x + 1.0 - liner_x)]]);
+        let passage = g.xz_prism(
+            sy - passage_half,
+            sy + passage_half,
+            vec![
+                [liner_x, mouth_top],
+                [rib_x + 1.0, mouth_top],
+                [rib_x + 1.0, mouth_top + (rib_x + 1.0 - liner_x)],
+            ],
+        );
         solid = g.cut(solid, &[passage]);
     }
     solid
@@ -94,7 +164,14 @@ pub fn mouth_support_bounds(inner: &Bounds, [x, y, z]: [f64; 3]) -> Bounds {
     let rib = x - running();
     let half = VENT_CHANNEL_W / 2.0;
     let liner = inner[0] + slide_slip() + VENT_RIB_WALL;
-    [liner, rib, y-half, y+half, Z_SEAM-1.0, z+half+rib-liner]
+    [
+        liner,
+        rib,
+        y - half,
+        y + half,
+        Z_SEAM - 1.0,
+        z + half + rib - liner,
+    ]
 }
 
 /// The mouth's end walls and their backing grow without supports through the passage.
@@ -103,19 +180,26 @@ pub fn mouth_blocking_bounds(inner: &Bounds, [x, y, z]: [f64; 3]) -> Bounds {
     let root = back_top_flank_face()[0];
     let liner = inner[0] + slide_slip() + VENT_RIB_WALL;
     let half = VENT_CHANNEL_W / 2.0 + VENT_RIB_WALL;
-    let top = z + VENT_CHANNEL_W / 2.0 + root - liner + 2.0 * VENT_RIB_WALL + 2.0 * (rib-root);
-    [inner[0]-WALL, rib+1.0, y-half, y+half+rib-root, Z_SEAM-1.0, top]
+    let top = z + VENT_CHANNEL_W / 2.0 + root - liner + 2.0 * VENT_RIB_WALL + 2.0 * (rib - root);
+    [
+        inner[0] - WALL,
+        rib + 1.0,
+        y - half,
+        y + half + rib - root,
+        Z_SEAM - 1.0,
+        top,
+    ]
 }
 
 /// The mouth's open passage, used to distinguish a branch inside it from an exterior tree.
 pub fn mouth_void(inner: &Bounds, [x, y, z]: [f64; 3]) -> serde_json::Value {
-    let rib = x-running();
-    let floor = rib-VENT_RIB_WALL;
-    let liner = inner[0]+slide_slip()+VENT_RIB_WALL;
-    let half = VENT_CHANNEL_W/2.0;
-    let top = z+half;
-    let bottom = z-half-supported();
-    let shaft = z-VENT_DUCT_DROP-VENT_GROOVE_DROP;
+    let rib = x - running();
+    let floor = rib - VENT_RIB_WALL;
+    let liner = inner[0] + slide_slip() + VENT_RIB_WALL;
+    let half = VENT_CHANNEL_W / 2.0;
+    let top = z + half;
+    let bottom = z - half - supported();
+    let shaft = z - VENT_DUCT_DROP - VENT_GROOVE_DROP;
     serde_json::json!({"kind":"prism_y","span_y_mm":[y-half,y+half],
         "profile_xz_mm":[[liner,top],[liner,shaft],[floor,shaft],[floor,bottom],
                          [rib,bottom],[rib,top+rib-liner]]})
@@ -175,8 +259,18 @@ fn vent_cutter(g: &mut Graph, outer: &Bounds, sx: f64, y: f64, z0: f64, z1: f64)
     let skin = if sx > 0.0 { outer[1] } else { outer[0] };
     let half = pierce_width() / 2.0;
     let hip = half * RELIEF_CHAMFER.to_radians().tan();
-    g.yz_prism(face - sx * 1.0, skin + sx * 1.0, vec![[y, z0], [y + half, z0 + hip], [y + half, z1 - hip], [y, z1],
-                                                      [y - half, z1 - hip], [y - half, z0 + hip]])
+    g.yz_prism(
+        face - sx * 1.0,
+        skin + sx * 1.0,
+        vec![
+            [y, z0],
+            [y + half, z0 + hip],
+            [y + half, z1 - hip],
+            [y, z1],
+            [y - half, z1 - hip],
+            [y - half, z0 + hip],
+        ],
+    )
 }
 
 /// The condenser's intake and exhaust: every course of every groove over the airway, each
@@ -189,7 +283,10 @@ pub fn flank_vents(g: &mut Graph, solid: Shape, outer: &Bounds, airway: &[f64; 4
     let (mut columns, mut cutters) = (Vec::new(), Vec::new());
     for (side, y) in vent_grooves(outer, airway) {
         let face = vent_flank_face(side);
-        let (xa, xb) = sorted(face - side * COND_VENT_PROBE, face - side * STATED_BOUND_TOL);
+        let (xa, xb) = sorted(
+            face - side * COND_VENT_PROBE,
+            face - side * STATED_BOUND_TOL,
+        );
         let mut indices = Vec::new();
         for &[lo, hi] in &courses {
             indices.push(cutters.len());
@@ -197,12 +294,41 @@ pub fn flank_vents(g: &mut Graph, solid: Shape, outer: &Bounds, airway: &[f64; 4
         }
         columns.push(VentColumn {
             cutters: indices,
-            probe: [xa, xb, y - half - clear, y + half + clear, band[0] - clear, band[1] + clear],
+            probe: [
+                xa,
+                xb,
+                y - half - clear,
+                y + half + clear,
+                band[0] - clear,
+                band[1] + clear,
+            ],
             side,
         });
     }
-    let inputs = std::iter::once(solid.index).chain(cutters.iter().map(|c: &Shape| c.index)).collect();
-    let vents = FlankVents { columns, courses, clearance: clear, tolerance: STATED_BOUND_TOL,
-                             island_min: COND_VENT_ISLAND_MIN };
-    g.add(Op::FlankVents(vents), inputs, solid.bounds)
+    // A band outside every probe cannot change which courses are clear.
+    let stock = if let Some((core, band)) = g.additive_parts(solid) {
+        let b = band.bounds();
+        if columns.iter().all(|column| {
+            (0..3)
+                .any(|k| b[2 * k + 1] <= column.probe[2 * k] || b[2 * k] >= column.probe[2 * k + 1])
+        }) {
+            core
+        } else {
+            solid
+        }
+    } else {
+        solid
+    };
+    let inputs = std::iter::once(stock.index)
+        .chain(cutters.iter().map(|c: &Shape| c.index))
+        .collect();
+    let vents = FlankVents {
+        columns,
+        courses,
+        clearance: clear,
+        tolerance: STATED_BOUND_TOL,
+        island_min: COND_VENT_ISLAND_MIN,
+    };
+    let tools = g.add(Op::FlankVentCuts(vents), inputs, None);
+    g.cut(solid, &[tools])
 }

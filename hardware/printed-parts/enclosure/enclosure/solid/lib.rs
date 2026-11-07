@@ -1,6 +1,8 @@
 //! The enclosure's construction plans and what evaluates them: the typed operations a recipe
 //! records, the kernel calls that make its solids, and the steps every piece's files share.
 pub mod eval;
+pub mod cache;
+pub mod exterior;
 pub mod letters;
 pub mod ops;
 pub mod pieces;

@@ -7295,8 +7295,10 @@ genrule(
         "hardware/printed-parts/enclosure/enclosure/numbers/catalog.rs",
         "hardware/printed-parts/enclosure/enclosure/numbers/display_mount.rs",
         "hardware/printed-parts/enclosure/enclosure/numbers/disposal.rs",
+        "hardware/printed-parts/enclosure/enclosure/numbers/exterior.rs",
         "hardware/printed-parts/enclosure/enclosure/numbers/faces.rs",
         "hardware/printed-parts/enclosure/enclosure/numbers/field.rs",
+        "hardware/printed-parts/enclosure/enclosure/numbers/junctions.rs",
         "hardware/printed-parts/enclosure/enclosure/numbers/layout.rs",
         "hardware/printed-parts/enclosure/enclosure/numbers/lib.rs",
         "hardware/printed-parts/enclosure/enclosure/numbers/pump.rs",
@@ -7322,7 +7324,9 @@ genrule(
         "hardware/printed-parts/enclosure/enclosure/quadrants/vent.rs",
         "hardware/printed-parts/enclosure/enclosure/quadrants/walls.rs",
         "hardware/printed-parts/enclosure/enclosure/quadrants/ystacks.rs",
+        "hardware/printed-parts/enclosure/enclosure/solid/cache.rs",
         "hardware/printed-parts/enclosure/enclosure/solid/eval.rs",
+        "hardware/printed-parts/enclosure/enclosure/solid/exterior.rs",
         "hardware/printed-parts/enclosure/enclosure/solid/letters.rs",
         "hardware/printed-parts/enclosure/enclosure/solid/lib.rs",
         "hardware/printed-parts/enclosure/enclosure/solid/ops.rs",
@@ -7335,6 +7339,7 @@ genrule(
         "hardware/printed-parts/enclosure/enclosure/solid/text.rs",
         "hardware/printed-parts/enclosure/nameplate/snap_geometry.rs",
         "hardware/printed-parts/valve-seat/numbers.rs",
+        "tools/hsm/Cargo.lock",
         "tools/hsm/assembly-docs/src/wiring/cable-sites.json",
         ":out/cargo-config/tools/hsm/cargo-config.json",
         "tools/hsm/enclosure-back-bottom/Cargo.toml",
@@ -7342,11 +7347,13 @@ genrule(
         "tools/hsm/enclosure-numbers/Cargo.toml",
         "tools/hsm/enclosure-quadrants/Cargo.toml",
         "tools/hsm/enclosure-solid/Cargo.toml",
+        "tools/hsm/enclosure-solid/build.rs",
         "tools/hsm/geometry/Cargo.toml",
         "tools/hsm/geometry/src/lib.rs",
         "tools/hsm/geometry/src/payload.rs",
         "tools/hsm/geometry/src/queries.rs",
         "tools/hsm/kernel/Cargo.toml",
+        "tools/hsm/kernel/src/bin/route-preview.rs",
         "tools/hsm/kernel/src/boolean.rs",
         "tools/hsm/kernel/src/build.rs",
         "tools/hsm/kernel/src/dxf.rs",
@@ -7378,6 +7385,7 @@ genrule(
         "tools/hsm/kernel/src/write.rs",
         "tools/hsm/print-payload/Cargo.toml",
         "tools/hsm/print-payload/src/lib.rs",
+        "tools/hsm/print-payload/src/printed.rs",
         "tools/hsm/print-payload/src/quadric.rs",
         "tools/hsm/run-native/Cargo.toml",
         "tools/hsm/run-native/src/lib.rs",
@@ -7464,6 +7472,7 @@ genrule(
         "hardware/manifold-layout/above-core.json",
         "hardware/manifold-layout/enclosure-box.json",
         "hardware/printed-parts/enclosure/enclosure/disposal-warning-artwork.json",
+        "hardware/printed-parts/enclosure/enclosure/exterior.json",
         "tools/hsm/assembly-docs/src/wiring/cable-sites.json",
         "tools/hsm/run-slots.defaults.json",
         "tools/hsm/shared-data/catalog/materials.json",
@@ -7553,8 +7562,10 @@ genrule(
         "hardware/printed-parts/enclosure/enclosure/numbers/catalog.rs",
         "hardware/printed-parts/enclosure/enclosure/numbers/display_mount.rs",
         "hardware/printed-parts/enclosure/enclosure/numbers/disposal.rs",
+        "hardware/printed-parts/enclosure/enclosure/numbers/exterior.rs",
         "hardware/printed-parts/enclosure/enclosure/numbers/faces.rs",
         "hardware/printed-parts/enclosure/enclosure/numbers/field.rs",
+        "hardware/printed-parts/enclosure/enclosure/numbers/junctions.rs",
         "hardware/printed-parts/enclosure/enclosure/numbers/layout.rs",
         "hardware/printed-parts/enclosure/enclosure/numbers/lib.rs",
         "hardware/printed-parts/enclosure/enclosure/numbers/pump.rs",
@@ -7581,7 +7592,9 @@ genrule(
         "hardware/printed-parts/enclosure/enclosure/quadrants/walls.rs",
         "hardware/printed-parts/enclosure/enclosure/quadrants/ystacks.rs",
         "hardware/printed-parts/enclosure/enclosure/rear-seat-profiles.json",
+        "hardware/printed-parts/enclosure/enclosure/solid/cache.rs",
         "hardware/printed-parts/enclosure/enclosure/solid/eval.rs",
+        "hardware/printed-parts/enclosure/enclosure/solid/exterior.rs",
         "hardware/printed-parts/enclosure/enclosure/solid/letters.rs",
         "hardware/printed-parts/enclosure/enclosure/solid/lib.rs",
         "hardware/printed-parts/enclosure/enclosure/solid/ops.rs",
@@ -7597,6 +7610,7 @@ genrule(
         "hardware/printed-parts/valve-seat/numbers.rs",
         "hardware/reference/compact-inline-candidates/dimensions.json",
         "hardware/reference/yzmsz-water-regulator/reference-parameters.json",
+        "tools/hsm/Cargo.lock",
         "tools/hsm/assembly-docs/src/wiring/cable-sites.json",
         ":out/cargo-config/tools/hsm/cargo-config.json",
         "tools/hsm/enclosure-back-top/Cargo.toml",
@@ -7604,11 +7618,13 @@ genrule(
         "tools/hsm/enclosure-numbers/Cargo.toml",
         "tools/hsm/enclosure-quadrants/Cargo.toml",
         "tools/hsm/enclosure-solid/Cargo.toml",
+        "tools/hsm/enclosure-solid/build.rs",
         "tools/hsm/geometry/Cargo.toml",
         "tools/hsm/geometry/src/lib.rs",
         "tools/hsm/geometry/src/payload.rs",
         "tools/hsm/geometry/src/queries.rs",
         "tools/hsm/kernel/Cargo.toml",
+        "tools/hsm/kernel/src/bin/route-preview.rs",
         "tools/hsm/kernel/src/boolean.rs",
         "tools/hsm/kernel/src/build.rs",
         "tools/hsm/kernel/src/dxf.rs",
@@ -7640,6 +7656,7 @@ genrule(
         "tools/hsm/kernel/src/write.rs",
         "tools/hsm/print-payload/Cargo.toml",
         "tools/hsm/print-payload/src/lib.rs",
+        "tools/hsm/print-payload/src/printed.rs",
         "tools/hsm/print-payload/src/quadric.rs",
         "tools/hsm/run-native/Cargo.toml",
         "tools/hsm/run-native/src/lib.rs",
@@ -7726,6 +7743,7 @@ genrule(
         "hardware/manifold-layout/above-core.json",
         "hardware/manifold-layout/enclosure-box.json",
         "hardware/printed-parts/enclosure/enclosure/disposal-warning-artwork.json",
+        "hardware/printed-parts/enclosure/enclosure/exterior.json",
         "hardware/printed-parts/enclosure/enclosure/rear-seat-profiles.json",
         "hardware/reference/compact-inline-candidates/dimensions.json",
         "hardware/reference/yzmsz-water-regulator/reference-parameters.json",
@@ -7749,6 +7767,7 @@ genrule(
         "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/libcxx-extras.cpp",
     ],
     outs = [
+        "out/enclosure-back-top/hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
         "out/enclosure-back-top/hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step",
         "out/enclosure-back-top/hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh",
         "out/enclosure-back-top/hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.npz",
@@ -7781,10 +7800,11 @@ for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.js
   if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
 done
 if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
-O0=$$PWD/$(location out/enclosure-back-top/hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step)
-O1=$$PWD/$(location out/enclosure-back-top/hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh)
-O2=$$PWD/$(location out/enclosure-back-top/hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.npz)
-O3=$$PWD/$(location out/enclosure-back-top/hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl)
+O0=$$PWD/$(location out/enclosure-back-top/hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json)
+O1=$$PWD/$(location out/enclosure-back-top/hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step)
+O2=$$PWD/$(location out/enclosure-back-top/hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh)
+O3=$$PWD/$(location out/enclosure-back-top/hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.npz)
+O4=$$PWD/$(location out/enclosure-back-top/hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl)
 rm -rf work
 for f in $(SRCS); do
   case $$f in
@@ -7795,10 +7815,11 @@ for f in $(SRCS); do
 done
 cd work
 "$$hsm_run" -- ./enclosure-back-top > /dev/null
-copy_file hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step "$$O0"
-copy_file hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh "$$O1"
-copy_file hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.npz "$$O2"
-copy_file hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl "$$O3"
+copy_file hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json "$$O0"
+copy_file hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step "$$O1"
+copy_file hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh "$$O2"
+copy_file hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.npz "$$O3"
+copy_file hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl "$$O4"
 """,
 )
 
@@ -7819,8 +7840,10 @@ genrule(
         "hardware/printed-parts/enclosure/enclosure/numbers/catalog.rs",
         "hardware/printed-parts/enclosure/enclosure/numbers/display_mount.rs",
         "hardware/printed-parts/enclosure/enclosure/numbers/disposal.rs",
+        "hardware/printed-parts/enclosure/enclosure/numbers/exterior.rs",
         "hardware/printed-parts/enclosure/enclosure/numbers/faces.rs",
         "hardware/printed-parts/enclosure/enclosure/numbers/field.rs",
+        "hardware/printed-parts/enclosure/enclosure/numbers/junctions.rs",
         "hardware/printed-parts/enclosure/enclosure/numbers/layout.rs",
         "hardware/printed-parts/enclosure/enclosure/numbers/lib.rs",
         "hardware/printed-parts/enclosure/enclosure/numbers/pump.rs",
@@ -7847,7 +7870,9 @@ genrule(
         "hardware/printed-parts/enclosure/enclosure/quadrants/walls.rs",
         "hardware/printed-parts/enclosure/enclosure/quadrants/ystacks.rs",
         "hardware/printed-parts/enclosure/enclosure/retainer-numbers/lib.rs",
+        "hardware/printed-parts/enclosure/enclosure/solid/cache.rs",
         "hardware/printed-parts/enclosure/enclosure/solid/eval.rs",
+        "hardware/printed-parts/enclosure/enclosure/solid/exterior.rs",
         "hardware/printed-parts/enclosure/enclosure/solid/letters.rs",
         "hardware/printed-parts/enclosure/enclosure/solid/lib.rs",
         "hardware/printed-parts/enclosure/enclosure/solid/ops.rs",
@@ -7860,6 +7885,7 @@ genrule(
         "hardware/printed-parts/enclosure/enclosure/solid/text.rs",
         "hardware/printed-parts/enclosure/nameplate/snap_geometry.rs",
         "hardware/printed-parts/valve-seat/numbers.rs",
+        "tools/hsm/Cargo.lock",
         "tools/hsm/assembly-docs/src/wiring/cable-sites.json",
         ":out/cargo-config/tools/hsm/cargo-config.json",
         "tools/hsm/enclosure-front-bottom/Cargo.toml",
@@ -7869,11 +7895,13 @@ genrule(
         "tools/hsm/enclosure-quadrants/Cargo.toml",
         "tools/hsm/enclosure-retainer-numbers/Cargo.toml",
         "tools/hsm/enclosure-solid/Cargo.toml",
+        "tools/hsm/enclosure-solid/build.rs",
         "tools/hsm/geometry/Cargo.toml",
         "tools/hsm/geometry/src/lib.rs",
         "tools/hsm/geometry/src/payload.rs",
         "tools/hsm/geometry/src/queries.rs",
         "tools/hsm/kernel/Cargo.toml",
+        "tools/hsm/kernel/src/bin/route-preview.rs",
         "tools/hsm/kernel/src/boolean.rs",
         "tools/hsm/kernel/src/build.rs",
         "tools/hsm/kernel/src/dxf.rs",
@@ -7905,6 +7933,7 @@ genrule(
         "tools/hsm/kernel/src/write.rs",
         "tools/hsm/print-payload/Cargo.toml",
         "tools/hsm/print-payload/src/lib.rs",
+        "tools/hsm/print-payload/src/printed.rs",
         "tools/hsm/print-payload/src/quadric.rs",
         "tools/hsm/run-native/Cargo.toml",
         "tools/hsm/run-native/src/lib.rs",
@@ -7991,6 +8020,7 @@ genrule(
         "hardware/manifold-layout/above-core.json",
         "hardware/manifold-layout/enclosure-box.json",
         "hardware/printed-parts/enclosure/enclosure/disposal-warning-artwork.json",
+        "hardware/printed-parts/enclosure/enclosure/exterior.json",
         "tools/hsm/assembly-docs/src/wiring/cable-sites.json",
         "tools/hsm/run-slots.defaults.json",
         "tools/hsm/shared-data/catalog/materials.json",
@@ -8071,8 +8101,6 @@ genrule(
         "hardware/printed-parts/enclosure/enclosure/disposal-warning-artwork.json",
         "hardware/printed-parts/enclosure/enclosure/dock-numbers/lib.rs",
         "hardware/printed-parts/enclosure/enclosure/enclosure_front_top.rs",
-        "hardware/printed-parts/enclosure/enclosure/front-corner-controls.json",
-        "hardware/printed-parts/enclosure/enclosure/front-top/corner.rs",
         "hardware/printed-parts/enclosure/enclosure/front-top/dock.rs",
         "hardware/printed-parts/enclosure/enclosure/front-top/fronttop.rs",
         "hardware/printed-parts/enclosure/enclosure/front/front.rs",
@@ -8085,8 +8113,10 @@ genrule(
         "hardware/printed-parts/enclosure/enclosure/numbers/catalog.rs",
         "hardware/printed-parts/enclosure/enclosure/numbers/display_mount.rs",
         "hardware/printed-parts/enclosure/enclosure/numbers/disposal.rs",
+        "hardware/printed-parts/enclosure/enclosure/numbers/exterior.rs",
         "hardware/printed-parts/enclosure/enclosure/numbers/faces.rs",
         "hardware/printed-parts/enclosure/enclosure/numbers/field.rs",
+        "hardware/printed-parts/enclosure/enclosure/numbers/junctions.rs",
         "hardware/printed-parts/enclosure/enclosure/numbers/layout.rs",
         "hardware/printed-parts/enclosure/enclosure/numbers/lib.rs",
         "hardware/printed-parts/enclosure/enclosure/numbers/pump.rs",
@@ -8113,7 +8143,9 @@ genrule(
         "hardware/printed-parts/enclosure/enclosure/quadrants/walls.rs",
         "hardware/printed-parts/enclosure/enclosure/quadrants/ystacks.rs",
         "hardware/printed-parts/enclosure/enclosure/retainer-numbers/lib.rs",
+        "hardware/printed-parts/enclosure/enclosure/solid/cache.rs",
         "hardware/printed-parts/enclosure/enclosure/solid/eval.rs",
+        "hardware/printed-parts/enclosure/enclosure/solid/exterior.rs",
         "hardware/printed-parts/enclosure/enclosure/solid/letters.rs",
         "hardware/printed-parts/enclosure/enclosure/solid/lib.rs",
         "hardware/printed-parts/enclosure/enclosure/solid/ops.rs",
@@ -8128,6 +8160,7 @@ genrule(
         "hardware/printed-parts/valve-seat/numbers.rs",
         "hardware/reference/jg-pp0208e-tee/branch-operating-measurements.json",
         "hardware/reference/neofit-stem-elbow/reference-parameters.json",
+        "tools/hsm/Cargo.lock",
         "tools/hsm/assembly-docs/src/wiring/cable-sites.json",
         ":out/cargo-config/tools/hsm/cargo-config.json",
         "tools/hsm/enclosure-dock-numbers/Cargo.toml",
@@ -8138,11 +8171,13 @@ genrule(
         "tools/hsm/enclosure-quadrants/Cargo.toml",
         "tools/hsm/enclosure-retainer-numbers/Cargo.toml",
         "tools/hsm/enclosure-solid/Cargo.toml",
+        "tools/hsm/enclosure-solid/build.rs",
         "tools/hsm/geometry/Cargo.toml",
         "tools/hsm/geometry/src/lib.rs",
         "tools/hsm/geometry/src/payload.rs",
         "tools/hsm/geometry/src/queries.rs",
         "tools/hsm/kernel/Cargo.toml",
+        "tools/hsm/kernel/src/bin/route-preview.rs",
         "tools/hsm/kernel/src/boolean.rs",
         "tools/hsm/kernel/src/build.rs",
         "tools/hsm/kernel/src/dxf.rs",
@@ -8174,6 +8209,7 @@ genrule(
         "tools/hsm/kernel/src/write.rs",
         "tools/hsm/print-payload/Cargo.toml",
         "tools/hsm/print-payload/src/lib.rs",
+        "tools/hsm/print-payload/src/printed.rs",
         "tools/hsm/print-payload/src/quadric.rs",
         "tools/hsm/run-native/Cargo.toml",
         "tools/hsm/run-native/src/lib.rs",
@@ -8260,7 +8296,7 @@ genrule(
         "hardware/manifold-layout/above-core.json",
         "hardware/manifold-layout/enclosure-box.json",
         "hardware/printed-parts/enclosure/enclosure/disposal-warning-artwork.json",
-        "hardware/printed-parts/enclosure/enclosure/front-corner-controls.json",
+        "hardware/printed-parts/enclosure/enclosure/exterior.json",
         "hardware/reference/jg-pp0208e-tee/branch-operating-measurements.json",
         "hardware/reference/neofit-stem-elbow/reference-parameters.json",
         "tools/hsm/assembly-docs/src/wiring/cable-sites.json",

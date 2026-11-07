@@ -3,8 +3,9 @@
 //! their bands, the exterior's structure, the flute field, and the rear wall's layout and plain
 //! lands.
 pub mod catalog;
-pub mod disposal;
 pub mod display_mount;
+pub mod disposal;
+pub mod exterior;
 pub mod faces;
 pub mod field;
 pub mod junctions;

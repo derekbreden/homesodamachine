@@ -1,12 +1,15 @@
 //! Back-top: the back half over the seam, the section its flanks, rear wall and ceiling carry
 //! beyond `WALL`, then the quadrant's features, and the lands its fluted print keeps plain.
-use crate::field::{Rail, perimeter_rail};
+use crate::field::Rail;
 use crate::funnel::{cut_plan, funnel_cut, housing_back_y};
 use crate::piece::Build;
 use crate::plan::{Graph, Shape};
 use crate::quadrant::Quadrant;
 use crate::rear::{self, BackTopPrint};
-use crate::shell::{BACK_TOP_FLANK_T, BACK_TOP_WALL_T, HOOK_FOOT, STATED_BOUND_TOL, WALL, Z_RISE, back_top_ceiling_face, back_top_wall_face};
+use crate::shell::{
+    BACK_TOP_FLANK_T, BACK_TOP_WALL_T, HOOK_FOOT, STATED_BOUND_TOL, WALL, Z_RISE,
+    back_top_ceiling_face, back_top_wall_face,
+};
 use crate::spec::Box;
 use crate::walls::{back_flank_start, back_top_flank_face, cavity};
 
@@ -23,20 +26,45 @@ pub struct BackTop {
 /// Back-top's construction: the shell's back half over the seam, less the funnel's air, then
 /// the quadrant's features.
 pub fn construction(b: &Box) -> BackTop {
-    assert!(housing_back_y(b.pack.funnel[1]) < b.y_joint, "the display housing reaches into back-top");
+    assert!(
+        housing_back_y(b.pack.funnel[1]) < b.y_joint,
+        "the display housing reaches into back-top"
+    );
     let mut g = Graph::new();
     let o = b.outer;
-    let silhouette = g.silhouette(o);
+    let silhouette = g.silhouette(b.exterior_bounds());
     let air = cavity(&mut g, &b.inner, 0.0, None);
     let shell = g.cut(silhouette, &[air]);
-    let band = g.box_([o[0], o[1], b.y_joint, o[3], b.splits[1], o[5]]);
+    let exterior = b.exterior_bounds();
+    let band = g.box_([
+        exterior[0],
+        exterior[1],
+        b.y_joint,
+        exterior[3],
+        b.splits[1],
+        o[5],
+    ]);
     let half = g.intersect(shell, &[band]);
     let funnel = funnel_cut(&mut g, &b.inner, &o, b.pack.funnel);
     let half = g.cut(half, &[funnel]);
-    let result = crate::pipeline(&mut g, &Build { b, q: Quadrant::BACK_TOP, silhouette, half });
+    let result = crate::pipeline(
+        &mut g,
+        &Build {
+            b,
+            q: Quadrant::BACK_TOP,
+            silhouette,
+            half,
+        },
+    );
     let receiver_field = rear::receiver_field(&mut g);
-    let rails = vec![perimeter_rail(&o, rear::back_top_plain(&o))];
-    BackTop { graph: g, result, receiver_field, rails, print: rear::print() }
+    let rails = vec![hsm_enclosure_solid::exterior::presentation(b, rear::back_top_plain(&o)).1];
+    BackTop {
+        graph: g,
+        result,
+        receiver_field,
+        rails,
+        print: rear::print(),
+    }
 }
 
 /// The section the ±X flanks carry beyond `WALL`, from past the Y telescope to the lane. With
@@ -47,14 +75,22 @@ pub fn flanks(g: &mut Graph, b: &Box, zj: f64, up: f64) -> Shape {
     let [ix0, ix1, _, iy1, _, iz1] = b.inner;
     let [fx0, fx1] = back_top_flank_face();
     let y0 = back_flank_start(b.y_joint);
-    let rim = if up > 0.0 { zj + Z_RISE } else { zj + HOOK_FOOT };
+    let rim = if up > 0.0 {
+        zj + Z_RISE
+    } else {
+        zj + HOOK_FOOT
+    };
     let depth = BACK_TOP_FLANK_T - WALL;
     let sides: Vec<Shape> = [(ix0, fx0), (ix1, fx1)]
         .into_iter()
         .map(|(x_in, x_face)| {
             let side = g.box_([x_in.min(x_face), x_in.max(x_face), y0, iy1, rim, iz1]);
             if up > 0.0 {
-                let rise = g.xz_prism(y0 - 1.0, iy1 + 1.0, vec![[x_in, rim], [x_face, rim], [x_face, rim + depth]]);
+                let rise = g.xz_prism(
+                    y0 - 1.0,
+                    iy1 + 1.0,
+                    vec![[x_in, rim], [x_face, rim], [x_face, rim + depth]],
+                );
                 g.cut(side, &[rise])
             } else {
                 side
@@ -73,7 +109,15 @@ pub fn wall(g: &mut Graph, b: &Box, zj: f64, up: f64) -> Shape {
     let rim = zj + Z_RISE;
     let band = g.box_([ix0, ix1, face, iy1, if up < 0.0 { zj } else { rim }, iz1]);
     if up > 0.0 {
-        let rise = g.yz_prism(ix0 - 1.0, ix1 + 1.0, vec![[iy1, rim], [face, rim], [face, rim + (BACK_TOP_WALL_T - WALL)]]);
+        let rise = g.yz_prism(
+            ix0 - 1.0,
+            ix1 + 1.0,
+            vec![
+                [iy1, rim],
+                [face, rim],
+                [face, rim + (BACK_TOP_WALL_T - WALL)],
+            ],
+        );
         g.cut(band, &[rise])
     } else {
         band
@@ -86,7 +130,14 @@ pub fn ceiling(g: &mut Graph, piece: Shape, b: &Box) -> Shape {
     let lane = b.inner[5];
     let face = back_top_ceiling_face();
     let [fx0, fx1] = back_top_flank_face();
-    let mut stock = g.box_([fx0, fx1, back_flank_start(b.y_joint), back_top_wall_face(), face, lane + 1.0]);
+    let mut stock = g.box_([
+        fx0,
+        fx1,
+        back_flank_start(b.y_joint),
+        back_top_wall_face(),
+        face,
+        lane + 1.0,
+    ]);
     let [x0, x1, y0, y1] = cut_plan(b.pack.funnel);
     let funnel = g.box_([x0, x1, y0 - 1.0, y1, face - 1.0, lane + 2.0]);
     stock = g.cut(stock, &[funnel]);
@@ -107,7 +158,10 @@ fn pockets(reliefs: &[(String, f64, f64, f64, f64, f64)]) -> Vec<[f64; 5]> {
     reliefs
         .iter()
         .map(|(who, x0, x1, y0, y1, top)| {
-            assert!(who != "c14-inlet", "the C14 inlet's ceiling pocket has no construction");
+            assert!(
+                who != "c14-inlet",
+                "the C14 inlet's ceiling pocket has no construction"
+            );
             let mut plan = [*x0, *x1, *y0, *y1, *top];
             for (name, x0, x1, y0, y1, top) in reliefs {
                 let other = [*x0, *x1, *y0, *y1, *top];

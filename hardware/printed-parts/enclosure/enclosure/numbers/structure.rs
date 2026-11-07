@@ -28,6 +28,8 @@ pub struct FillSection {
 /// The structure numbers every quadrant's evaluator reads beside its graph.
 #[derive(Clone, Debug, Serialize, Deserialize)]
 pub struct Structure {
+    #[serde(default)]
+    pub contour: Option<crate::exterior::Contour>,
     pub outer: Bounds,
     pub profile: Profile,
     pub standing_radius: f64,
@@ -78,7 +80,10 @@ pub fn roof_fill_sections(outer: &Bounds) -> [Vec<FillSection>; 2] {
         depths
             .iter()
             .map(|&depth| {
-                let side = radius - (radius * radius - (radius - depth) * (radius - depth)).max(0.0).sqrt();
+                let side = radius
+                    - (radius * radius - (radius - depth) * (radius - depth))
+                        .max(0.0)
+                        .sqrt();
                 let roof = side.min(((foot - depth) / outward_per_height()).max(0.0));
                 let side = side + 0.01;
                 let (k, b) = (rt - side, rt - roof);
@@ -93,7 +98,10 @@ pub fn roof_fill_sections(outer: &Bounds) -> [Vec<FillSection>; 2] {
                     start: [p.end[0] + sa * side - ca, p.end[1] - ca * side - sa],
                     top_tangent: [cy - a * a * sa / k, cz + b * b * ca / k],
                     inner_end,
-                    inner_mid: [cy - inner_r * (angle / 2.0).sin(), cz + inner_r * (angle / 2.0).cos()],
+                    inner_mid: [
+                        cy - inner_r * (angle / 2.0).sin(),
+                        cz + inner_r * (angle / 2.0).cos(),
+                    ],
                     inner_start: [inner_end[0] - ca, inner_end[1] - sa],
                     upper_roof: [cy, cz + b],
                     lower_roof: [cy, cz + inner_r],
@@ -108,12 +116,24 @@ pub fn roof_fill_sections(outer: &Bounds) -> [Vec<FillSection>; 2] {
 pub fn structure(outer: &Bounds) -> Structure {
     let (height, foot) = transition(SIDE_RADIUS);
     Structure {
+        contour: None,
         outer: *outer,
         profile: profile(outer),
         standing_radius: FRONT_RADIUS,
         side_radius: SIDE_RADIUS,
         angle: ANGLE,
         roof_fill_sections: roof_fill_sections(outer),
-        roof_transition: RoofTransition { height, foot, outward_per_height: outward_per_height() },
+        roof_transition: RoofTransition {
+            height,
+            foot,
+            outward_per_height: outward_per_height(),
+        },
     }
+}
+
+/// The structural exterior from the Box's authored surface design and retained display plane.
+pub fn for_box(b: &crate::spec::Box) -> Structure {
+    let mut structure = structure(&b.outer);
+    structure.contour = b.exterior.map(|exterior| exterior.contour());
+    structure
 }

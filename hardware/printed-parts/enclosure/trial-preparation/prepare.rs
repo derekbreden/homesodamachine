@@ -148,7 +148,15 @@ impl Mesh {
 }
 
 fn derive_features(root: &Path, mesh: &Mesh, declared: &[Value]) -> Result<Vec<Feature>> {
-    let geo = mesh.geometry();
+    let mut geo = mesh.geometry();
+    if declared.iter().any(|feature| feature["select"]["wall_x_mm"].is_number()) {
+        let document = read_json(&root.join("hardware/manifold-layout/enclosure-box.json"))?;
+        let b = hsm_enclosure_numbers::spec::Box::from_document(document)?;
+        geo.wall_x = mesh.faces.iter().map(|f| {
+            let x=f.iter().map(|&i| mesh.vertices[i][0]).sum::<f64>() / 3.0;
+            (x-b.outer[0]).min(b.outer[1]-x)
+        }).collect();
+    }
     let mut found: Vec<Feature> = Vec::new();
     let mut foot: Option<f64> = None;
     for feature in declared {

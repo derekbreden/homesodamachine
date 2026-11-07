@@ -60,6 +60,8 @@ pub struct Pack {
 
 #[derive(Clone, Debug, Deserialize)]
 pub struct Box {
+    #[serde(skip)]
+    pub exterior: Option<crate::exterior::Exterior>,
     pub pack: Pack,
     pub inner: Bounds,
     pub outer: Bounds,
@@ -113,16 +115,45 @@ fn plain(v: Value) -> Value {
 /// Pack features this recipe set has no construction for. The layout declares none of them;
 /// one that appears is a recipe to write, not something to drop.
 const UNBUILT: [&str; 17] = [
-    "placed", "front_ports", "back_ports", "east_ports", "west_ports", "c14", "east_bosses",
-    "east_mount_fills", "side_wells", "asse_cradle", "flow_meter_anchors", "tube_anchors",
-    "flank_reliefs", "port_field", "nameplate", "keystone", "ports",
+    "placed",
+    "front_ports",
+    "back_ports",
+    "east_ports",
+    "west_ports",
+    "c14",
+    "east_bosses",
+    "east_mount_fills",
+    "side_wells",
+    "asse_cradle",
+    "flow_meter_anchors",
+    "tube_anchors",
+    "flank_reliefs",
+    "port_field",
+    "nameplate",
+    "keystone",
+    "ports",
 ];
 
 impl Box {
+    /// The exterior stock's bounds; the inner faces and mechanical stations keep their datums.
+    pub fn exterior_bounds(&self) -> Bounds {
+        let mut bounds = self.outer;
+        if let Some(exterior) = self.exterior {
+            for k in [0, 2] {
+                bounds[k] -= exterior.column_projection;
+                bounds[k + 1] += exterior.column_projection;
+            }
+        }
+        bounds
+    }
+
     pub fn read(path: &Path) -> Result<Box> {
-        let text = std::fs::read_to_string(path).with_context(|| format!("reading {}", path.display()))?;
-        let document: Value = serde_json::from_str(&text).with_context(|| format!("parsing {}", path.display()))?;
-        Self::from_document(document).with_context(|| format!("reading the Box in {}", path.display()))
+        let text =
+            std::fs::read_to_string(path).with_context(|| format!("reading {}", path.display()))?;
+        let document: Value =
+            serde_json::from_str(&text).with_context(|| format!("parsing {}", path.display()))?;
+        Self::from_document(document)
+            .with_context(|| format!("reading the Box in {}", path.display()))
     }
 
     pub fn from_document(document: Value) -> Result<Box> {
@@ -135,7 +166,10 @@ impl Box {
                 Value::Object(m) => !m.is_empty(),
                 _ => true,
             };
-            ensure!(!declared, "the Box declares `{name}`, which no enclosure recipe builds");
+            ensure!(
+                !declared,
+                "the Box declares `{name}`, which no enclosure recipe builds"
+            );
         }
         Ok(serde_json::from_value(document["box"].clone())?)
     }

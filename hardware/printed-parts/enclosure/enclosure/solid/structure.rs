@@ -1,7 +1,7 @@
 //! The structural enclosure exterior, swept from the display and roof stations.
-use hsm_enclosure_numbers::structure::Structure;
 use crate::plan::P2;
 use anyhow::Result;
+use hsm_enclosure_numbers::structure::Structure;
 use hsm_kernel::*;
 use std::cell::OnceCell;
 
@@ -124,8 +124,10 @@ fn aft_cap(s: &Structure) -> Result<Solid> {
     let centre_z = z - radius;
     let tangent_z = z - height;
     let theta = (radius - height).atan2(radius - foot + slope * height);
-    let right_mid = v2(right - radius + radius * math::cos(theta / 2.),
-                       centre_z + radius * math::sin(theta / 2.));
+    let right_mid = v2(
+        right - radius + radius * math::cos(theta / 2.),
+        centre_z + radius * math::sin(theta / 2.),
+    );
     let left_mid = v2(left + radius - radius * math::cos(theta / 2.), right_mid.y);
     let outline = Pen::new(v2(left, bottom))
         .line_to(v2(right, bottom))
@@ -136,12 +138,16 @@ fn aft_cap(s: &Structure) -> Result<Solid> {
         .line_to(v2(left + foot - slope * height, tangent_z))
         .arc_through(left_mid, v2(left, centre_z))?
         .close()?;
-    Plane::XZ.at(v3(0., y0, 0.))
+    Plane::XZ
+        .at(v3(0., y0, 0.))
         .extrude(&Profile::new(outline), -(y1 - y0))
 }
 
 /// The swept exterior every quadrant is trimmed to.
 pub fn silhouette(s: &Structure) -> Result<Solid> {
+    if let Some(contour) = s.contour {
+        return crate::exterior::envelope(s, contour);
+    }
     let o = s.outer;
     let (body, rounded_box) = preblend(s)?;
     let standing = s.standing_radius;
@@ -165,8 +171,10 @@ pub fn silhouette(s: &Structure) -> Result<Solid> {
     let aft = aft_cap(s)?.intersect(&rounded_box)?;
     let fore = roof_fill(s)?.intersect(&body)?.intersect(&rounded_box)?;
     let roof_y = s.profile.roof[0];
-    let fore_limit = Solid::cuboid(v3(o[0] - 1., o[2] - 1., o[4] - 1.),
-                                   v3(o[1] + 1., roof_y, o[5] + 1.));
+    let fore_limit = Solid::cuboid(
+        v3(o[0] - 1., o[2] - 1., o[4] - 1.),
+        v3(o[1] + 1., roof_y, o[5] + 1.),
+    );
     rounded.union(&fore)?.intersect(&fore_limit)?.union(&aft)
 }
 
@@ -179,7 +187,10 @@ pub struct Silhouette<'a> {
 
 impl<'a> Silhouette<'a> {
     pub fn new(structure: &'a Structure) -> Self {
-        Self { structure, solid: OnceCell::new() }
+        Self {
+            structure,
+            solid: OnceCell::new(),
+        }
     }
 
     pub fn get(&self) -> Result<&Solid> {

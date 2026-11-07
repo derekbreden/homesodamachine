@@ -1,0 +1,187 @@
+{
+  "purpose": "This record measures an authored band edit with fresh and retained native construction.",
+  "scope": "enclosure-back-top generator, STEP, fine model, STL, viewer payload and print features",
+  "baseline_revision": "e64b598607703b6ea7b96064a94c8ccd6b44a3dc",
+  "base_exterior": {
+    "band_height": 16.0,
+    "band_projection": 3.0,
+    "column_projection": 3.0,
+    "root_radius": 6.0,
+    "edge_radius": 6.0
+  },
+  "edited_exterior": {
+    "band_height": 16.0,
+    "band_projection": 2.5,
+    "column_projection": 3.0,
+    "root_radius": 6.0,
+    "edge_radius": 6.0
+  },
+  "parameter_requires_compilation": false,
+  "protocol": "Prime the base once; before each retained edit discard only entries created after priming. Fresh runs disable stage reuse. Each pair exports the same edited design.",
+  "implementation": "cbd46bf376a6c0a76714146b4a0324b86722b98399ce46813b077b9966fac383",
+  "source_sha256": {
+    "hardware/printed-parts/enclosure/enclosure/enclosure.rs": "4ee35af969b87938e9d126c6a69b06feca9fd84d4975c5c5e138857f677cf51d",
+    "hardware/printed-parts/enclosure/enclosure/enclosure_back_bottom.rs": "71b0f68a995e19ad7f624caa4691c5b1387c23e084033a24e6f19b14d2893477",
+    "hardware/printed-parts/enclosure/enclosure/enclosure_checks.rs": "33833df5f5dd2f3adaffeaa531807579c5e3486af7e86f40d9cfae57892d5110",
+    "hardware/printed-parts/enclosure/enclosure/enclosure_front_bottom.rs": "be05a877bae80e001fd7175bdeaf6c658eeb4ecc1cadac3f848234ac83766df8",
+    "hardware/printed-parts/enclosure/enclosure/enclosure_pump_retainer.rs": "a7f3942a051e0ae098352d65e7a1c67d038c12af9176583276d316cad988afb1",
+    "hardware/printed-parts/enclosure/enclosure/enclosure_front_top.rs": "57feca98174dc1fcbe53c6040be1ce956d15b59a7626c1bd2b277f1ea517755f",
+    "hardware/printed-parts/enclosure/enclosure/enclosure_pump_tube_setting_jig.rs": "e060963e0dd55f7b56593785e78823f2bbd57ee3631cee150caf4558456c28b5",
+    "hardware/printed-parts/enclosure/enclosure/enclosure_back_top.rs": "1bdd70a2c0fc3a3ea47f227b4584c6ca2264d60cef441712a273ccbdea1f9c92",
+    "hardware/printed-parts/enclosure/enclosure/front-bottom/flanks.rs": "db5f1769ae9924b3c7acc45ab37b0d630b93f61037be0ef60959979f998fd7f5",
+    "hardware/printed-parts/enclosure/enclosure/interface/fits.rs": "101954fcd5673dd41ed95d4d8757b4f1fb12d3c92e4c119e29f458c0394c47fa",
+    "hardware/printed-parts/enclosure/enclosure/interface/lib.rs": "c9d0305477da6589c0ba093a91f24a94ec3b24faf9eee54da705e4a781baebf7",
+    "hardware/printed-parts/enclosure/enclosure/interface/anchor_cap.rs": "0037dc871a5a5c0b916e4443db51e7789deef6d1c23d60ef8ef6e2a795ea2e34",
+    "hardware/printed-parts/enclosure/enclosure/interface/swept.rs": "55c2d7d428f196c3d9be59969d651e28241e791e75a5a1d1cd79740d492fdad3",
+    "hardware/printed-parts/enclosure/enclosure/numbers/rear_wall.rs": "c1d271485f0d29b343775c8db2e90e5f1439e6ed026f09094963fd7618983ef9",
+    "hardware/printed-parts/enclosure/enclosure/numbers/spec.rs": "4cae7a456b79f2200bc7b1173943f90b51b8d3749382d0ef1ddd7c49c3bc12bf",
+    "hardware/printed-parts/enclosure/enclosure/numbers/quadrant.rs": "32ccb9fd785aa7611e70711d65a8267f674c4b911b3508f01fe1b8a8aea4e472",
+    "hardware/printed-parts/enclosure/enclosure/numbers/layout.rs": "99f42d71f4aaaa565646904e09a2d8d402972acde123990b476e80d02cc535ff",
+    "hardware/printed-parts/enclosure/enclosure/numbers/shell.rs": "95ddbe827f215a7f3d8c024ea15258d9cf0f43e1c2bd7468b5505490f7a73b05",
+    "hardware/printed-parts/enclosure/enclosure/numbers/lib.rs": "ed36691b847177d6cf0633af8600792738885bebbbaac0d86f195cfcdb605a2c",
+    "hardware/printed-parts/enclosure/enclosure/numbers/faces.rs": "5bf958ec1b78adc348e6274915e69667cd4a9c45cd381881e980547420322069",
+    "hardware/printed-parts/enclosure/enclosure/numbers/pump.rs": "86009021bdcbacc44c3bc5e188c759de380cbde54ed6d28e2f7d5121e90e7bdd",
+    "hardware/printed-parts/enclosure/enclosure/numbers/field.rs": "ca3cce80e17c2001e04508ee9e3e62d03ab15f9465201a41f307f4d2d9b5501e",
+    "hardware/printed-parts/enclosure/enclosure/numbers/display_mount.rs": "fedf65276ce065a4f5c79da2283aed49a053d46de175855db26cc507d11cdaed",
+    "hardware/printed-parts/enclosure/enclosure/numbers/catalog.rs": "a1602b952bd911e321e1c86a77d023c5a39f45d56b4147cbf159b0392fa3fa50",
+    "hardware/printed-parts/enclosure/enclosure/numbers/disposal.rs": "83bce5e40c4bde3260c9c2ef1be73f3930fd0fbebc47a94c00480d8318a24e0c",
+    "hardware/printed-parts/enclosure/enclosure/numbers/junctions.rs": "dfcf3b9ffb28edb604439ee2cad30288fbf2a290907e069ce7a781a3a193b69d",
+    "hardware/printed-parts/enclosure/enclosure/numbers/structure.rs": "37ea06097555a230aa1f16633dc85f7bbbcc4d8dc937b3e034d5affa57a12cab",
+    "hardware/printed-parts/enclosure/enclosure/numbers/exterior.rs": "a4047e700a9a0e6b62b3d79d0f2469206cb821ee5714cbc8fa57de9cef6ae2d2",
+    "hardware/printed-parts/enclosure/enclosure/back-bottom/panel.rs": "4dd7fd98633e7d6a7d6dba10b482ceca6958b73723784ef5d485f9c98a5db1e7",
+    "hardware/printed-parts/enclosure/enclosure/back-bottom/flanks.rs": "fdfd915afafcff4d2b5fab24b27eed16649bf8c54eb32e7bb7fb3dcdb70158aa",
+    "hardware/printed-parts/enclosure/enclosure/back-bottom/text.rs": "ecbf7cc44ea49edc772ea98c0364232224453d94973f7d2e48b35b086302226f",
+    "hardware/printed-parts/enclosure/enclosure/dock-numbers/lib.rs": "95aa0b595bb0c02f9fcabfcd2a2de4073af45996937dfce7fc4a487fc36cdfd0",
+    "hardware/printed-parts/enclosure/enclosure/front-top/dock.rs": "e6dc81bf22b785f13ad8079941b0d398e33fe4b21d409fc7f76e13b5e6bc35e2",
+    "hardware/printed-parts/enclosure/enclosure/front-top/fronttop.rs": "ba783e4dfc9319528579e3faaa9589354769258ee9a7e03bfc72e3c98ac92f47",
+    "hardware/printed-parts/enclosure/enclosure/solid/cache.rs": "ae80937f2aa56996ae5fcf7cfffe546912054623525c496be44183e125e8179e",
+    "hardware/printed-parts/enclosure/enclosure/solid/lib.rs": "2f81ee01ac2543946e6e99f4287edc1fd7c394d95def265069f94d8d8f746624",
+    "hardware/printed-parts/enclosure/enclosure/solid/letters.rs": "2a7d3faff7ee1ba76eb2e2daaf036ca70bf25c592c34403b65f1ab8bdac8c435",
+    "hardware/printed-parts/enclosure/enclosure/solid/run.rs": "c7a2ce2d05456750fdca1ed47c3696148b2cfbb3759b7547e16587adc09b15c8",
+    "hardware/printed-parts/enclosure/enclosure/solid/plan.rs": "8d60c7e298ab5bdc6b82fde11dad7f1fcd6f2692d401a48895a754e495c879aa",
+    "hardware/printed-parts/enclosure/enclosure/solid/skin.rs": "28058edfc73d3d2df662e037b3e313e9ff0319793df1c114e1d505d5e2dddaf8",
+    "hardware/printed-parts/enclosure/enclosure/solid/eval.rs": "30fe6aba0dea7439a211864418bef5ae4cd4e40b3ba4992c6ee8cefc99d2cebc",
+    "hardware/printed-parts/enclosure/enclosure/solid/text.rs": "4ffa1523cd3946873312db3aa568c4720429e5f3f267d3e183f20ab8a8a7fded",
+    "hardware/printed-parts/enclosure/enclosure/solid/structure.rs": "792a95ac7fa6624c2be736bc972a63f46f9ec73fb74e7eff60eb1faa26e893d6",
+    "hardware/printed-parts/enclosure/enclosure/solid/pieces.rs": "31da2bdcf575a970067820c113b0d9fe98bbcbb550cabff271b3c661d3f62a49",
+    "hardware/printed-parts/enclosure/enclosure/solid/ops.rs": "b9f2aedaede39064dccb9fecce56ae2e95871defe82ccddafb9bdb07a8db4bd1",
+    "hardware/printed-parts/enclosure/enclosure/solid/exterior.rs": "5c30a2e8c0d8bebd7a0369a4e15e14ed7e09ef858b18e5b5f2ac565ac4ccb80d",
+    "hardware/printed-parts/enclosure/enclosure/solid/sources.rs": "9ea75c46ca8d545e87f0b81bb81b3f1d4ef80652a4acb757147e9ebdba351bf4",
+    "hardware/printed-parts/enclosure/enclosure/back-top/supports.rs": "a051831b15058f8c58c4fad41dde340bf7a76d70b324773583e1c2d22417d85c",
+    "hardware/printed-parts/enclosure/enclosure/back-top/backtop.rs": "3174e0c87a5af828b378f7a5120b727986db233615b678092d96f60f90978d14",
+    "hardware/printed-parts/enclosure/enclosure/back-top/rear.rs": "50d7934d0857b764f36190137cede33e61732b5e0275980beb2b9bc5b37ed181",
+    "hardware/printed-parts/enclosure/enclosure/retainer/retainer.rs": "f303b4af303ee03bb0d8c77cbb4588ece8077eb6612415f3f03c8cb959fa4994",
+    "hardware/printed-parts/enclosure/enclosure/heat-set-review/print_regions.rs": "e8371fdfa11c7ffbe13b952407a5470d4c7b08baa369f8ad4604671c4b5c19e4",
+    "hardware/printed-parts/enclosure/enclosure/retainer-numbers/lib.rs": "727ca907b11d458ef1ccd2f6f5afe322121a50e6fd88d02ded546f9359969879",
+    "hardware/printed-parts/enclosure/enclosure/quadrants/floor.rs": "7594c58b4a6ad7c34bd89d79016d76643046744ec9f08ba05b54569fe4ec61b6",
+    "hardware/printed-parts/enclosure/enclosure/quadrants/display.rs": "2d9e1f7352001997baac3d59c49cbd56731fb186a842df9be13d088955d4b0ea",
+    "hardware/printed-parts/enclosure/enclosure/quadrants/handholds.rs": "920d92aad3cffd9631092aa54d032a589576ca6523942155f3210ed008d8a6b3",
+    "hardware/printed-parts/enclosure/enclosure/quadrants/ystacks.rs": "42202691c000339599e0b2ca3605c8294affd0a7ca8ea68962becc87cd722a4d",
+    "hardware/printed-parts/enclosure/enclosure/quadrants/shapes.rs": "85244af68cd482e28741321de111f479f72d686f6598712959446c6b0554a27f",
+    "hardware/printed-parts/enclosure/enclosure/quadrants/lib.rs": "9d0ccd91f89519d3c2dc56bdf96a88d8ec80c82ec3a5b297fdcb48914d90d708",
+    "hardware/printed-parts/enclosure/enclosure/quadrants/seat.rs": "c9ed59a427c957ebccaec367691d04e38ef6641c43b1221ea8dac9f5041515e2",
+    "hardware/printed-parts/enclosure/enclosure/quadrants/seam.rs": "a82860930051969cdc3c02caf83c47b875663c88739da04ccd5022ce4a695dba",
+    "hardware/printed-parts/enclosure/enclosure/quadrants/walls.rs": "03d7c7e463d84a7fd217ae653c40300284226364349c258fc0d776eadfbbfd2f",
+    "hardware/printed-parts/enclosure/enclosure/quadrants/piece.rs": "5aeecb14adfe98564b1c004e084e6274a565225247fe8ce022f09fb92295e0c9",
+    "hardware/printed-parts/enclosure/enclosure/quadrants/funnel.rs": "a1553f857e197f0749d815f61300a8e4de751d042dd6d07230d1f590a145d255",
+    "hardware/printed-parts/enclosure/enclosure/quadrants/routes.rs": "97d47583068ee55e2b3038f670d96b79ed926248fd00a5a0d9dad793c0de6adb",
+    "hardware/printed-parts/enclosure/enclosure/quadrants/above.rs": "1d2896e40894e010c77de0944f21f93acee2ca3436067bc07bb15ad48ca75b75",
+    "hardware/printed-parts/enclosure/enclosure/quadrants/valves.rs": "0daf5421387c420fd4ba9dfc24b7782549fff35256e72b7efe116ffaff0f1a99",
+    "hardware/printed-parts/enclosure/enclosure/quadrants/rails.rs": "cdee55935ae85d3511969e199f7af292968ac12469d58b23c3c30d020632b787",
+    "hardware/printed-parts/enclosure/enclosure/quadrants/vent.rs": "4a0ae661f494ee3d4e7e6518a153933fea834344a2a0d7a2db6fcd8853734774",
+    "hardware/printed-parts/enclosure/enclosure/quadrants/columns.rs": "61fbb62d753992288c7059c78e9c8c7a0bcc19da5d06109dc0aeec5dc7d71233",
+    "hardware/printed-parts/enclosure/enclosure/front/lib.rs": "4015aba2fa1687553df7fc1933ab946184cf736d4aad0965f30fb6b622e2e8cb",
+    "hardware/printed-parts/enclosure/enclosure/front/front.rs": "83801fa107eb1a1663c0b7d41e8af17f17f298c7c7bc99d9bf81252f5bbab668",
+    "hardware/printed-parts/enclosure/enclosure/front/mount.rs": "6aba4883f20e53a89a44f70982ccab773eda3d1e3038fa86798b3e5161e6cc1c",
+    "hardware/printed-parts/enclosure/enclosure/exterior.json": "d8e661026498932059c3401cbab275ee710d6d94aac2af31b0c67e44b3b67ca7",
+    "tools/hsm/enclosure-solid/build.rs": "6dd25b714bf18e4fc99196a299ab5aab3a9f694d75671acc895934a6f0cc0b66",
+    "tools/hsm/enclosure-solid/Cargo.toml": "74ec8f8da491c53ff6abc600a3546be186c44b7f7a7b7a9fe26159413095dffd"
+  },
+  "timings": {
+    "fresh": {
+      "wall_seconds": [
+        6.094551540998509,
+        6.022809750000306,
+        6.056023249999271
+      ],
+      "cpu_seconds": [
+        18.580000000000002,
+        18.470000000000002,
+        18.53
+      ],
+      "rss_bytes": [
+        1187020800,
+        1181597696,
+        1111932928
+      ],
+      "median_wall_seconds": 6.056023249999271,
+      "median_cpu_seconds": 18.53,
+      "median_rss_bytes": 1181597696,
+      "construction_seconds": [
+        1.807325458,
+        1.799995875,
+        1.7964885000000002
+      ],
+      "built_nodes": [
+        483,
+        483,
+        483
+      ],
+      "reused_stages": [
+        0,
+        0,
+        0
+      ]
+    },
+    "retained": {
+      "wall_seconds": [
+        0.9866359160005231,
+        0.980393665999145,
+        1.0233133749970875
+      ],
+      "cpu_seconds": [
+        2.83,
+        2.83,
+        2.84
+      ],
+      "rss_bytes": [
+        712671232,
+        714866688,
+        712687616
+      ],
+      "median_wall_seconds": 0.9866359160005231,
+      "median_cpu_seconds": 2.83,
+      "median_rss_bytes": 712687616,
+      "construction_seconds": [
+        0.204480208,
+        0.199847083,
+        0.200773375
+      ],
+      "built_nodes": [
+        44,
+        44,
+        44
+      ],
+      "reused_stages": [
+        2,
+        2,
+        2
+      ]
+    }
+  },
+  "cache_bytes": 26311898,
+  "byte_identical_pairs": 3,
+  "edited_artifacts_sha256": {
+    "enclosure-back-top.step.mesh": "3cddd9964673810f65b5e898738086483704f96a728a2ee6addb7803238cfc1e",
+    "enclosure-back-top.step": "1fc1c363234105561f610539510266dc26159d0baab8680e82c1c0b804dccdeb",
+    "enclosure-back-top.print-features.json": "47f30382730b21b476939f07e4a5ea1fc557e6674e8a4fb29fb7ab8ec28b71ac",
+    "enclosure-back-top.stl": "a2ad55c39214e7f0b111abb3b5898e9118cafea8655721c1b8ead76632142b6e",
+    "enclosure-back-top.step.npz": "638673920a9077a8db8db293e5c0fac049c61d483cf8f0fdccb97f41c3032865"
+  },
+  "manual_checks": [
+    "edited feature reuses an unchanged prefix",
+    "damaged entries rebuild to the fresh result",
+    "authored addition receives the same openings and joint limits"
+  ],
+  "limits": "The timing covers the part generator; compilation, publication, print preparation, slicing and whole-machine builds are separate work."
+}

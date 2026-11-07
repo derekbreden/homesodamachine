@@ -195,24 +195,24 @@ The production slice adds no support contacts beneath the lettering.
 
 ## Exterior form
 
-The top shoulders and lower handhold rims use the
-same R6 roll from a fluted wall into a smooth surface. The roll continues around
-each opening's complete perimeter. R6 inside corners make R12 outside corners
-at the hand openings, matching the enclosure's R12 standing corners. The top's
-front roll is R12 and its longer turn onto the roof is R18.
+[`exterior.json`](exterior.json) owns the circular seam band, standing columns,
+their concave roots and the continuous upper edge. The band grows out of the
+straight walls and meets the columns tangentially. The columns retain the same
+circle through the band's height. The upper round and its print-down bevel
+continue around the display sides, front lip and rear edge. The display plane
+and its blend into the roof retain their construction datums.
 
 The flutes use the same pitch, depth and 5 mm runout on these surfaces. Their
 ends taper into the rounded shoulder; the smooth shoulder continues through
-the corner and onto the lifting ceiling. The four standing corners retain their
-complete smooth R12 quarter-rounds at the flute-tip envelope. Straight-wall
-grooves fade into these corners over 5 mm. The smooth bands follow each quadrant
-through its height and meet across the retained enclosure seams.
+the corner and onto the lifting ceiling. The band, standing columns and their
+roots remain smooth. The handhold rims retain their lifting rounds and ceilings.
+The wall, component, aperture and joint datums stay fixed.
 
 The display cover and its matching seat follow the rear nameplate's rounded
 outline style. Its optical opening follows the glass. The funnel's mouth, collar and brim
 are concentric rounded rectangles with constant-width bands; the supporting
 recess follows the brim. The rear First Edition nameplate uses an R5 outline.
-Hardware openings follow their mating parts. The rear top edge remains square.
+Hardware openings follow their mating parts.
 
 ## Handholds
 
@@ -1254,15 +1254,11 @@ exports and does not qualify this passage or actual harness dressing.
 
 ## Display housing
 
-The machine display sits on a 30° plane within the enclosure's
-outside dimensions. An R12 tangent curve joins that plane to the front wall, and
-an R18 tangent curve joins it to the roof. The long side edges are R6. The rear
-top edge remains square. The flat display plane is 87 mm long along its slope;
-the front curve joins the continuous front skin above the pumps. Front-top prints its
-top 2.6 mm in 0.08 mm layers, a third of its 0.24, where the R18 and the R6 roof edges
-roll level into the roof.
-The side rounds blend through the junction with the R12 standing front corners,
-forming one continuous surface around each top-front corner.
+The machine display sits on its declared inclined plane within the enclosure's
+outside dimensions. Its tangent blend into the roof follows the shared swept
+profile. The upper edge in [`exterior.json`](exterior.json) follows the display
+sides and front lip continuously through the standing columns. Front-top's fine
+layers follow the inward upper rounds and the display-to-roof blend.
 The print-down roof fill follows the curved display junction at both side edges;
 it joins the retained rounds without an exposed horizontal underside.
 
@@ -1375,3 +1371,19 @@ shares, all typed Rust:
   [`back-bottom/`](back-bottom/), [`back-top/`](back-top/) and [`retainer/`](retainer/), the jig's
   in its program;
 - [`solid/`](solid/): the plan, its evaluator, and the steps every piece's files share.
+
+[`solid/cache.rs`](solid/cache.rs) retains exact intermediate solids under
+`.cache/realized/rust-stages`. An entry names its operation, input identities and
+compiled geometry implementation. The evaluator loads reusable stages before
+constructing their ancestors. Missing or unreadable entries are rebuilt; storage
+is bounded and disposable. `HSM_STAGE_CACHE_OFF` requests fresh construction.
+
+The seam band is an authored addition before the openings and joint limits.
+Those operations apply to both it and the mechanical body. Back-top retains the
+body's completed print surface independently, so a band-only dimension edit
+reuses it. Editing [`exterior.json`](exterior.json) needs no recompilation.
+
+The piece payload shows the printed triangles directly. `publish_now.py` grafts
+completed piece payloads into the existing enclosure and appliance viewers;
+print preparation and slicing consume the exports separately. Optional
+`HSM_STAGE_PROFILE` and `HSM_PHASE_PROFILE` paths record requested timing data.
