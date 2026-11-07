@@ -1,4 +1,46 @@
 {
+  "backing_join_allowance_mm": 0.01,
+  "casting_scope": "whole finished funnel with flat-bottomed integral roof apron, rectangular block, flat bearing face and straight 6 mm outlet",
+  "cavity_backing_scope": "Analytic continuous-envelope design minimum: shell thickness plus forming-join allowance",
+  "chamber_radial_clearance_mm": 1.0391551266515364,
+  "clamping": {
+    "centres_xy_mm": [
+      [
+        -117.5,
+        -50.0
+      ],
+      [
+        -117.5,
+        50.0
+      ],
+      [
+        117.5,
+        -50.0
+      ],
+      [
+        117.5,
+        50.0
+      ],
+      [
+        -50.0,
+        -108.19575792328128
+      ],
+      [
+        50.0,
+        -108.19575792328128
+      ],
+      [
+        -50.0,
+        108.19575792328128
+      ],
+      [
+        50.0,
+        108.19575792328128
+      ]
+    ],
+    "fastener": "M4 x 20 with 9 mm OD washers and nuts; or small clamps on flange",
+    "hole_diameter_mm": 5.0
+  },
   "dimensions_mm": {
     "cavity": [
       247.0,
@@ -21,17 +63,20 @@
       25.0
     ]
   },
-  "volume_ml": {
-    "cavity": 1573.3935344437746,
-    "core": 928.4742000614262,
-    "funnel": 330.976186215295,
-    "rod": 0.7065745103156015
-  },
-  "shell_thickness_mm": 5.0,
+  "dry_opening_depth_mm": 44.08517935471506,
+  "dry_opening_mm": 44.08517935471506,
+  "dry_opening_shape": "circular conical access to straight rod guide",
+  "enclosing_diameter_mm": 297.64168974669695,
+  "finish_allowance_mm": 0.3,
+  "finished_funnel_step_sha256": "6353f25fbb61dfda34a6d537d1ba51e1c458f1a273aa19f88c37ff5a099603d5",
+  "flange_corner_radius_mm": 47.0,
+  "flange_margin_mm": 16.0,
+  "flange_plan_mm": [
+    247.0,
+    228.39151584656256
+  ],
   "flange_thickness_mm": 5.0,
-  "minimum_cavity_backing_mm": 5.01,
-  "backing_join_allowance_mm": 0.01,
-  "minimum_core_backing_mm": 7.501516889518539,
+  "funnel_to_mould_z_translation_mm": 50.150000000000006,
   "liquid_containment": {
     "assembled": {
       "casting_outside_retained_mm3": 0.0,
@@ -42,57 +87,19 @@
       "retained_volume_ml": 1046.996787967769
     }
   },
-  "parting_z_mm": 59.150000000000006,
-  "finish_allowance_mm": 0.3,
-  "casting_scope": "whole finished funnel with flat-bottomed integral roof apron, rectangular block, flat bearing face and straight 6 mm outlet",
-  "flange_plan_mm": [
-    247.0,
-    228.39151584656256
-  ],
-  "flange_corner_radius_mm": 47.0,
-  "flange_margin_mm": 16.0,
-  "plug_blank_mm": [
-    36.0,
-    41.02478
-  ],
-  "rod_support": {
-    "engagement_mm": 7.7,
-    "guide_diameter_mm": 6.4,
-    "dry_shank_diameter_mm": 6.0,
-    "guide_diametral_clearance_mm": 0.4,
-    "guide_length_mm": 7.7,
-    "guide_top_mm": 26.464820645284945,
-    "guide_open": true,
-    "rod_projection_above_guide_mm": 4.235179354715058,
-    "straight_dry_wall_mm": 5.0,
-    "registration": "open upper guide and lower blind floor seat",
-    "retention": "gravity; rod rests on lower floor and lifts out from the dry back",
-    "air_path": "open annular passage to dry back",
-    "flash": "trim guide overflow at bowl throat and lower-seat collar flush with block bottom"
+  "load_screen": {
+    "condition": "complete mold inside chamber; fill, vents, rod guide and drilled dry-side infill breathers open to chamber air",
+    "head_pressure_kpa": 0.6313078350000001,
+    "maximum_silicone_head_mm": 56.95,
+    "model": "silicone hydrostatic head and conservative uniform process-load screen",
+    "pressure_force_n": 27.225,
+    "pressure_kpa": 1.0,
+    "process": "six walls, six top/bottom layers and 15% gyroid; slow evacuation and venting while silicone is fluid",
+    "scope": "Applied liquid load only. No stiffness, lifetime or pressure rating is inferred from infill percentage.",
+    "silicone_density_assumption_kg_m3": 1130,
+    "span_mm": 165.0
   },
-  "rod_socket": {
-    "diameter_mm": 6.4,
-    "depth_mm": 1.5,
-    "rod_end_depth_mm": 1.5,
-    "floor_backing_mm": 5.0,
-    "reference": "blind pilot seat below block bottom; bare floor establishes axial datum"
-  },
-  "rod": {
-    "material": "304 stainless steel",
-    "diameter_mm": 6.0,
-    "length_mm": 25.0,
-    "profile": "straight stock cylinder",
-    "supplier": "uxcell 25-piece pack",
-    "url": "https://www.amazon.com/dp/B07Z18CKCY",
-    "finishing": "clean and apply release"
-  },
-  "funnel_to_mould_z_translation_mm": 50.150000000000006,
-  "finished_funnel_step_sha256": "6353f25fbb61dfda34a6d537d1ba51e1c458f1a273aa19f88c37ff5a099603d5",
   "locators": {
-    "diameter_mm": 8.0,
-    "height_mm": 3.0,
-    "radial_clearance_mm": 0.6,
-    "slot_travel_each_way_mm": 1.5,
     "centres_xy_mm": [
       [
         25.0,
@@ -102,53 +109,27 @@
         -25.0,
         -103.19575792328128
       ]
-    ]
-  },
-  "clamping": {
-    "hole_diameter_mm": 5.0,
-    "centres_xy_mm": [
-      [
-        -117.5,
-        -50.0
-      ],
-      [
-        -117.5,
-        50.0
-      ],
-      [
-        117.5,
-        -50.0
-      ],
-      [
-        117.5,
-        50.0
-      ],
-      [
-        -50.0,
-        -108.19575792328128
-      ],
-      [
-        50.0,
-        -108.19575792328128
-      ],
-      [
-        -50.0,
-        108.19575792328128
-      ],
-      [
-        50.0,
-        108.19575792328128
-      ]
     ],
-    "fastener": "M4 x 20 with 9 mm OD washers and nuts; or small clamps on flange"
+    "diameter_mm": 8.0,
+    "height_mm": 3.0,
+    "radial_clearance_mm": 0.6,
+    "slot_travel_each_way_mm": 1.5
   },
+  "minimum_cavity_backing_mm": 5.01,
+  "minimum_core_backing_mm": 7.501516889518539,
+  "nominal_chamber_diameter_mm": 299.72,
+  "parting_z_mm": 59.150000000000006,
+  "plug_blank_mm": [
+    36.0,
+    41.02478
+  ],
   "ports": {
     "fill_diameter_mm": 11.0,
-    "vent_diameter_mm": 4.0,
     "fill_xy_mm": [
       -93.0,
       -82.19575792328128
     ],
+    "vent_diameter_mm": 4.0,
     "vent_xy_mm": [
       [
         93.0,
@@ -164,50 +145,17 @@
       ],
       [
         -100.5,
-        0
+        0.0
       ],
       [
         100.5,
-        0
+        0.0
       ]
     ]
   },
-  "print_bases": {
-    "cavity_plan_mm": [
-      197.85,
-      179.24151584656255
-    ],
-    "cavity_corner_radius_mm": 22.424999999999997,
-    "base_thickness_mm": 5.0,
-    "corbel_run_per_rise": 0.5,
-    "corbel_angle_from_bed_deg": 63.43494882292202,
-    "corbel_print_z_mm": [
-      5.0,
-      54.150000000000006
-    ],
-    "bolt_access_pocket_width_mm": 12.0,
-    "bolt_access_open_downward": true,
-    "bolt_access_inner_wall_height_mm": 21.2,
-    "core": "flat dry back with one circular tapered access hole"
-  },
-  "dry_opening_mm": 44.08517935471506,
-  "dry_opening_depth_mm": 44.08517935471506,
-  "dry_opening_shape": "circular conical access to straight rod guide",
   "postprint_breathers": {
-    "diameter_mm": 1.5,
     "cavity": {
-      "entry_xyz_mm": [
-        [
-          -98.925,
-          -30,
-          2.5
-        ],
-        [
-          98.925,
-          30,
-          2.5
-        ]
-      ],
+      "depth_mm": 3.2,
       "drill_axes": [
         [
           1,
@@ -220,22 +168,22 @@
           0
         ]
       ],
-      "depth_mm": 3.2,
+      "entry_xyz_mm": [
+        [
+          -98.925,
+          -30.0,
+          2.5
+        ],
+        [
+          98.925,
+          30.0,
+          2.5
+        ]
+      ],
       "face": "vertical sides of the flat base, clear of the catch tray"
     },
     "core": {
-      "entry_xyz_mm": [
-        [
-          -40,
-          -30,
-          64.15
-        ],
-        [
-          40,
-          30,
-          64.15
-        ]
-      ],
+      "depth_mm": 1.8,
       "drill_axes": [
         [
           0,
@@ -248,10 +196,40 @@
           -1
         ]
       ],
-      "depth_mm": 1.8,
+      "entry_xyz_mm": [
+        [
+          -40.0,
+          -30.0,
+          64.15
+        ],
+        [
+          40.0,
+          30.0,
+          64.15
+        ]
+      ],
       "face": "flat outer dry back"
     },
+    "diameter_mm": 1.5,
     "method": "Drill through the printed skins into sparse infill after printing with a depth stop; keep dry faces and holes uncoated. CAD blind holes would receive sealed slicer walls."
+  },
+  "print_bases": {
+    "base_thickness_mm": 5.0,
+    "bolt_access_inner_wall_height_mm": 21.2,
+    "bolt_access_open_downward": true,
+    "bolt_access_pocket_width_mm": 12.0,
+    "cavity_corner_radius_mm": 22.424999999999997,
+    "cavity_plan_mm": [
+      197.85,
+      179.24151584656255
+    ],
+    "corbel_angle_from_bed_deg": 63.43494882292202,
+    "corbel_print_z_mm": [
+      5.0,
+      54.150000000000006
+    ],
+    "corbel_run_per_rise": 0.5,
+    "core": "flat dry back with one circular tapered access hole"
   },
   "ramp_print_z_mm": {
     "cavity": [
@@ -263,32 +241,54 @@
       45.68517935471506
     ]
   },
-  "nominal_chamber_diameter_mm": 299.72,
-  "load_screen": {
-    "model": "silicone hydrostatic head and conservative uniform process-load screen",
-    "span_mm": 165.0,
-    "pressure_kpa": 1.0,
-    "silicone_density_assumption_kg_m3": 1130,
-    "maximum_silicone_head_mm": 56.95,
-    "head_pressure_kpa": 0.6313078350000001,
-    "pressure_force_n": 27.225,
-    "condition": "complete mold inside chamber; fill, vents, rod guide and drilled dry-side infill breathers open to chamber air",
-    "process": "six walls, six top/bottom layers and 15% gyroid; slow evacuation and venting while silicone is fluid",
-    "scope": "Applied liquid load only. No stiffness, lifetime or pressure rating is inferred from infill percentage."
+  "rod": {
+    "diameter_mm": 6.0,
+    "finishing": "clean and apply release",
+    "length_mm": 25.0,
+    "material": "304 stainless steel",
+    "profile": "straight stock cylinder",
+    "supplier": "uxcell 25-piece pack",
+    "url": "https://www.amazon.com/dp/B07Z18CKCY"
   },
-  "status": "Complete two-body tooling with flat print bases and straight stock steel rod; authored fine geometry verified",
-  "cavity_backing_scope": "Analytic continuous-envelope design minimum: shell thickness plus forming-join allowance",
-  "enclosing_diameter_mm": 297.64168974669695,
-  "chamber_radial_clearance_mm": 1.0391551266515364,
-  "volume_measurement_scope": "Numerical integration of the fine f64 models; printed facets have their own bound records.",
+  "rod_socket": {
+    "depth_mm": 1.5,
+    "diameter_mm": 6.4,
+    "floor_backing_mm": 5.0,
+    "reference": "blind pilot seat below block bottom; bare floor establishes axial datum",
+    "rod_end_depth_mm": 1.5
+  },
+  "rod_support": {
+    "air_path": "open annular passage to dry back",
+    "dry_shank_diameter_mm": 6.0,
+    "engagement_mm": 7.7,
+    "flash": "trim guide overflow at bowl throat and lower-seat collar flush with block bottom",
+    "guide_diameter_mm": 6.4,
+    "guide_diametral_clearance_mm": 0.4,
+    "guide_length_mm": 7.7,
+    "guide_open": true,
+    "guide_top_mm": 26.464820645284945,
+    "registration": "open upper guide and lower blind floor seat",
+    "retention": "gravity; rod rests on lower floor and lifts out from the dry back",
+    "rod_projection_above_guide_mm": 4.235179354715058,
+    "straight_dry_wall_mm": 5.0
+  },
   "shell_sha256": {
     "cavity.step": "722aebc15bd9f92422a64caf6ef017ce0bc95263f31de8c233cab57e92403d17",
+    "cavity.step.mesh": "3d2d6ccd933af11a842e6a034a972fa1943dcd94522f3953bbf9a74f1486fd72",
+    "cavity.step.npz": "af775bebb0c24c1c2e301d669c14ea6b3891ad4a5c55cb87fe04b3a80ade75f8",
     "cavity.stl": "a5ae1b39b716e956d030fab9c10843968383bad95f15a89171f23c4574ba4ae5",
-    "cavity.step.mesh": "a7746571ddba9753b5e92b71f174156c5d1c55c8423c95808cd3143e4b75ff1d",
-    "cavity.step.npz": "7f18ac7a0762d0837acda71f09f765ae869e66040bef7f3a0025d86207a7febc",
     "core.step": "da393b351e70b7f4c9937610b3badcf865c90bf524d7f7afecb5452ba507dea0",
-    "core.stl": "9939f10c4d2c0e78c26b7e3203819dda078bd3a32b2f6a75bc497b4ac2c9c2af",
-    "core.step.mesh": "d8796374f5192030060aad04349bfdd115d7b32c54346687f1030e722d6b30b1",
-    "core.step.npz": "4ad4d4bd1fce62c956a89ae7c74a911c95c324226e8f5b0481b62d9d99ab5b6b"
+    "core.step.mesh": "fa58585345d490b88b20712f87a4cd4c2a04d9769bf8f08e83284f81ff30ef23",
+    "core.step.npz": "a9173d7f5c5bee0c64a50f32e2133fbdc92b4798cfc8f6c72bd20ea3dc1dec8c",
+    "core.stl": "9939f10c4d2c0e78c26b7e3203819dda078bd3a32b2f6a75bc497b4ac2c9c2af"
+  },
+  "shell_thickness_mm": 5.0,
+  "status": "Complete two-body tooling with flat print bases and straight stock steel rod; authored fine geometry verified",
+  "volume_measurement_scope": "Numerical integration of the fine f64 models; printed facets have their own bound records.",
+  "volume_ml": {
+    "cavity": 1573.3935344437746,
+    "core": 928.4742000614262,
+    "funnel": 330.976186215295,
+    "rod": 0.7065745103156015
   }
 }

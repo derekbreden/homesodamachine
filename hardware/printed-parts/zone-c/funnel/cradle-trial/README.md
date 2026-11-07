@@ -14,7 +14,7 @@ loaded retention or lifetime.
 - `test-receiver.stl`: the production funnel frame cut down to the block round its plug
   socket: the web with the drain hole and both wing slots, and the socket's walls
   to above the frame's underside..
-- `test-cradle.stl`: the production [elbow cradle](../elbow_cradle.py), on its bottom.
+- `test-cradle.stl`: the production [elbow cradle](../elbow_cradle.rs), on its bottom.
 
 The [authored source snapshot](https://github.com/derekbreden/homesodamachine/blob/521b9f02cb13815c02b83d08df0d6a9f71c3a60d/hardware/printed-parts/zone-c/funnel/cradle-trial/cradle_trial.py) is retained in Git at `521b9f02cb13815c02b83d08df0d6a9f71c3a60d`. This directory retains its geometry and evidence.
 [`geometry-check.json`](geometry-check.json) records the nominal clearances and the wing-bend estimate.

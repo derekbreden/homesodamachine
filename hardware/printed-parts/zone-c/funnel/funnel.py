@@ -9,7 +9,6 @@ the bowl's underside, so none of its top shows. A straight 6 mm bore grips the
 hole passes the stem through the rigid frame.
 """
 
-import argparse
 import sys
 from pathlib import Path
 
@@ -45,24 +44,3 @@ def _data(**payload):
 
 globals().update(_data()['values'])
 drain_local = tuple(drain_local)
-
-
-def numbers():
-    return _data(method='numbers')['numbers']
-
-
-def main(output=None):
-    import _rust_part
-    out = Path(output) if output is not None else _here.parent
-    out.mkdir(parents=True, exist_ok=True)
-    said = _rust_part.cut('funnel', 'funnel', numbers(), out)
-    print(f"-> funnel STEP, fine model and payload; {said['bodies'][0]['volume']:.1f} mm3")
-
-
-if __name__ == "__main__":
-    import _rust_part
-    _rust_part.start()
-    parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--output', type=Path)
-    options = parser.parse_args()
-    main(options.output)

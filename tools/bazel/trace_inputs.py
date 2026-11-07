@@ -458,6 +458,16 @@ RUST_STEPS = {
         ("cold-core-assembly", "cold-core-assembly", "hardware/cold-core-layout"),
     "hardware/cut-parts/carbonation/carbonator-tube/carbonator_tube_step.rs":
         ("carbonator-tube", "carbonator-tube-step", "hardware/cut-parts/carbonation/carbonator-tube"),
+    "hardware/printed-parts/zone-c/funnel/funnel.rs":
+        ("funnel", "funnel", "hardware/printed-parts/zone-c/funnel"),
+    "hardware/printed-parts/zone-c/funnel/funnel_frame.rs":
+        ("funnel", "funnel-frame", "hardware/printed-parts/zone-c/funnel"),
+    "hardware/printed-parts/zone-c/funnel/elbow_cradle.rs":
+        ("funnel", "elbow-cradle", "hardware/printed-parts/zone-c/funnel"),
+    "hardware/printed-parts/zone-c/funnel-cover/funnel_cover.rs":
+        ("funnel", "funnel-cover", "hardware/printed-parts/zone-c/funnel-cover"),
+    "hardware/printed-parts/zone-c/funnel-mold/funnel_mold.rs":
+        ("funnel", "funnel-mold", "hardware/printed-parts/zone-c/funnel-mold"),
 }
 
 #: The media a Rust step can rewrite in place: documents with authored text round the figures it

@@ -117,22 +117,8 @@ def frozen_assets(root: Path = _ROOT) -> dict:
 #: write, even though a clean action must produce them. Each normal producer owns its complete
 #: payload set, including files its Rust writer leaves unchanged when their bytes are current.
 IMPLICIT_SOLIDS = {
-    "hardware/printed-parts/zone-c/funnel-cover/funnel_cover.py": (
-        "hardware/printed-parts/zone-c/funnel-cover/funnel-cover.stl",
-        "hardware/printed-parts/zone-c/funnel-cover/funnel-cover-print.stl",
-        "hardware/printed-parts/zone-c/funnel-cover/funnel-cover.step.mesh",
-        "hardware/printed-parts/zone-c/funnel-cover/funnel-cover-print.step.mesh",
-    ),
     # These STL exports are written by OCCT below Python's filesystem audit.
     # Their generators still own them in a clean action.
-    "hardware/printed-parts/zone-c/funnel/funnel_frame.py": (
-        "hardware/printed-parts/zone-c/funnel/funnel-frame.stl",
-        "hardware/printed-parts/zone-c/funnel/funnel-frame.step.mesh",
-    ),
-    "hardware/printed-parts/zone-c/funnel/elbow_cradle.py": (
-        "hardware/printed-parts/zone-c/funnel/elbow-cradle.stl",
-        "hardware/printed-parts/zone-c/funnel/elbow-cradle.step.mesh",
-    ),
     # And its two viewer payloads and the fasteners it cuts beside the first unit, which stand
     # unwritten when their bytes already do. The machine places those fasteners.
     "hardware/printed-parts/enclosure/nameplate/nameplate.py": (
@@ -143,11 +129,6 @@ IMPLICIT_SOLIDS = {
         "hardware/printed-parts/enclosure/nameplate/nameplate-fasteners.step",
         "hardware/printed-parts/enclosure/nameplate/nameplate-fasteners.step.mesh",
         "hardware/printed-parts/enclosure/nameplate/nameplate-fasteners.step.npz",
-    ),
-    # Current payloads need no rewrite; a clean run still owes every view.
-    "hardware/printed-parts/zone-c/funnel-mold/funnel_mold.py": tuple(
-        f"hardware/printed-parts/zone-c/funnel-mold/{name}.step.mesh"
-        for name in ("assembly", "backs", "cavity", "core", "funnel", "overview", "rod", "section")
     ),
 }
 

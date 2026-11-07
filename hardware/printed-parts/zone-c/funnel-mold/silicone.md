@@ -4,7 +4,7 @@ BBDINO 40A platinum-cure mold-making silicone, 2.42 lb kit
 ([B0FHHBGSQK](https://www.amazon.com/dp/B0FHHBGSQK)), cast in
 [the funnel mold](README.md) to make the Zone C [funnel](../funnel/README.md). The figures
 below are the maker's own, read from the product listing on **2026-09-09**; the mold's geometry
-is [`funnel_mold.py`](funnel_mold.py)'s and is not repeated here.
+is [`funnel_mold.rs`](funnel_mold.rs)'s and is not repeated here.
 
 ## What the maker states
 

@@ -1,44 +1,12 @@
-//! The authored funnel's ruled ramp, normal skins and rounded joins.
-//! Numbers and native construction remain in funnel.py.
+//! The authored funnel's ruled ramp, normal skins and rounded joins, which the funnel, the frame's
+//! forming air and the mold's cavity and core are all cut from.
 use anyhow::{Result, ensure};
 use hsm_kernel::{Face, Surface, LoftEdge, LoftSection, Loop, Pen, Plane, Profile, Solid, V3, compatible, v2, v3};
-use hsm_kernel::part::Numbers;
+pub use hsm_zone_c_numbers::funnel::Dimensions;
 use std::f64::consts::{PI, FRAC_PI_2};
 use std::panic::Location;
 
 const FINE:f64=0.00125;
-
-#[derive(serde::Deserialize)]
-pub struct Dimensions {
-    pub bore_size:(f64,f64),
-    pub mouth_radius:f64,
-    pub ramp_z:(f64,f64),
-    pub bore_radius:f64,
-    pub drain_xy:(f64,f64),
-    pub collar_wall:f64,
-    pub end_z:f64,
-    pub top_z:f64,
-    pub spout_radius:f64,
-    pub brim_size:(f64,f64),
-    pub brim_radius:f64,
-    pub brim_height:f64,
-    pub apron_size:(f64,f64),
-    pub apron_z:(f64,f64),
-    pub apron_radius:f64,
-    pub apron_y:f64,
-    pub plug_size:(f64,f64),
-    pub plug_height:f64,
-}
-impl Dimensions {
-    pub fn from_value(value:&serde_json::Value)->Result<Self> {Ok(serde_json::from_value(value.clone())?)}
-    pub fn from_numbers(n:&Numbers)->Result<Self> {
-        let mut object=serde_json::Map::new();
-        for key in ["bore_size", "mouth_radius", "ramp_z", "bore_radius", "drain_xy", "collar_wall", "end_z", "top_z", "spout_radius", "brim_size", "brim_radius", "brim_height", "apron_size", "apron_z", "apron_radius", "apron_y", "plug_size", "plug_height"] {object.insert(key.into(),n.get(key)?.clone());}
-        Self::from_value(&serde_json::Value::Object(object))
-    }
-}
-
-
 
 pub fn section(w:f64,d:f64,front:f64,back:f64,z:f64,g:f64,cy:f64)->LoftSection {
     let (x,y)=(w/2.0,d/2.0);
