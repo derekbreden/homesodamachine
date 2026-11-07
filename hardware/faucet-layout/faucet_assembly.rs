@@ -1,5 +1,4 @@
-//! The Sculpted faucet's assembly: its STEP, model file and payload, and the countertop the
-//! install guide's opening scene holds the faucet's tails over.
+//! The Sculpted faucet's assembly: its STEP, model file and payload.
 //!
 //!     faucet-assembly [<output directory>]
 fn main() -> anyhow::Result<()> {

@@ -90,19 +90,6 @@ fn graft(mesh: &Path, variant: Variant) -> Result<()> {
     Ok(())
 }
 
-/// The countertop the install guide's opening scene holds the faucet's tails over: its height
-/// band and the hole the stack clamps through, `[x, y, r]`.
-fn countertop(out: &Path) -> Result<()> {
-    use hsm_faucet_numbers::countertop::*;
-    let numbers = serde_json::json!({"countertop": {
-        "z": [BOTTOM_Z, TOP_Z],
-        "hole": [0.0, hole_center_y(), HOLE_RADIUS],
-        "size": SLAB,
-    }});
-    let path = out.join("faucet-assembly.numbers.json");
-    std::fs::write(&path, serde_json::to_string_pretty(&numbers)? + "\n").with_context(|| format!("writing {}", path.display()))
-}
-
 /// Write the assembly's STEP, model file and payload, each printed piece drawn with its own
 /// surface.
 pub fn run(variant: Variant) -> Result<()> {
@@ -111,9 +98,5 @@ pub fn run(variant: Variant) -> Result<()> {
     let rows: Vec<Body> = shown.iter().map(|s| Body { name: &s.name, color: Some(s.color), solid: &s.solid }).collect();
     let name = variant.name();
     println!("{}", write_shown(&out, name, &rows)?);
-    graft(&out.join(format!("{name}.step.mesh")), variant)?;
-    if variant == Variant::Sculpted {
-        countertop(&out)?;
-    }
-    Ok(())
+    graft(&out.join(format!("{name}.step.mesh")), variant)
 }

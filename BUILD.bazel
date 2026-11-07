@@ -1189,7 +1189,6 @@ genrule(
         "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/libcxx-extras.cpp",
     ],
     outs = [
-        "out/faucet-assembly/hardware/faucet-layout/faucet-assembly.numbers.json",
         "out/faucet-assembly/hardware/faucet-layout/faucet-assembly.step",
         "out/faucet-assembly/hardware/faucet-layout/faucet-assembly.step.mesh",
         "out/faucet-assembly/hardware/faucet-layout/faucet-assembly.step.npz",
@@ -1221,10 +1220,9 @@ for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.js
   if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
 done
 if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
-O0=$$PWD/$(location out/faucet-assembly/hardware/faucet-layout/faucet-assembly.numbers.json)
-O1=$$PWD/$(location out/faucet-assembly/hardware/faucet-layout/faucet-assembly.step)
-O2=$$PWD/$(location out/faucet-assembly/hardware/faucet-layout/faucet-assembly.step.mesh)
-O3=$$PWD/$(location out/faucet-assembly/hardware/faucet-layout/faucet-assembly.step.npz)
+O0=$$PWD/$(location out/faucet-assembly/hardware/faucet-layout/faucet-assembly.step)
+O1=$$PWD/$(location out/faucet-assembly/hardware/faucet-layout/faucet-assembly.step.mesh)
+O2=$$PWD/$(location out/faucet-assembly/hardware/faucet-layout/faucet-assembly.step.npz)
 rm -rf work
 for f in $(SRCS); do
   case $$f in
@@ -1235,10 +1233,9 @@ for f in $(SRCS); do
 done
 cd work
 "$$hsm_run" -- ./faucet-assembly > /dev/null
-copy_file hardware/faucet-layout/faucet-assembly.numbers.json "$$O0"
-copy_file hardware/faucet-layout/faucet-assembly.step "$$O1"
-copy_file hardware/faucet-layout/faucet-assembly.step.mesh "$$O2"
-copy_file hardware/faucet-layout/faucet-assembly.step.npz "$$O3"
+copy_file hardware/faucet-layout/faucet-assembly.step "$$O0"
+copy_file hardware/faucet-layout/faucet-assembly.step.mesh "$$O1"
+copy_file hardware/faucet-layout/faucet-assembly.step.npz "$$O2"
 """,
 )
 
