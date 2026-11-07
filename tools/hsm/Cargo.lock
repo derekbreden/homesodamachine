@@ -1117,6 +1117,29 @@ dependencies = [
 ]
 
 [[package]]
+name = "hsm-foam-shell"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "hsm-cold-core-catalog",
+ "hsm-cold-core-interface",
+ "hsm-cold-core-layout",
+ "hsm-foam-shell-numbers",
+ "hsm-kernel",
+ "hsm-print-payload",
+ "serde_json",
+ "sha2",
+]
+
+[[package]]
+name = "hsm-foam-shell-numbers"
+version = "0.1.0"
+dependencies = [
+ "hsm-cold-core-catalog",
+ "hsm-cold-core-interface",
+]
+
+[[package]]
 name = "hsm-funnel"
 version = "0.1.0"
 dependencies = [

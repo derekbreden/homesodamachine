@@ -1,0 +1,22 @@
+[package]
+name = "hsm-foam-shell"
+version = "0.1.0"
+edition.workspace = true
+license.workspace = true
+rust-version.workspace = true
+publish = false
+
+[dependencies]
+anyhow.workspace = true
+hsm-cold-core-catalog = { path = "../cold-core-catalog" }
+hsm-cold-core-interface = { path = "../cold-core-interface" }
+hsm-cold-core-layout = { path = "../cold-core-layout" }
+hsm-foam-shell-numbers = { path = "../foam-shell-numbers" }
+hsm-kernel = { path = "../kernel" }
+hsm-print-payload = { path = "../print-payload" }
+serde_json.workspace = true
+sha2.workspace = true
+
+[[bin]]
+name = "foam-shell"
+path = "../../../hardware/printed-parts/cold-core/foam-shell/foam_shell.rs"

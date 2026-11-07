@@ -247,6 +247,9 @@ pub const EVAP_TAIL_HIGH_Z: f64 = FOAM_SHELL_OUTER_HEIGHT
     - ABOVE_CARBONATOR_ELBOWS_HEIGHT;
 /// The casing's corner round.
 pub const CORNER_ROUND_RADIUS: f64 = 11.7;
+/// The height the evaporator's copper crosses the front wall at, in both lanes: the refrigeration
+/// base's two entries set it, whatever the wall's stock.
+pub const EVAP_CROSS_Z: f64 = 28.425;
 
 // --- The attachment stations -------------------------------------------------------------------
 

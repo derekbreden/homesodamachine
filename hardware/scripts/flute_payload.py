@@ -37,7 +37,6 @@ every other part through. A picture drawn from this payload is the picture the S
 drawn, with the surface it actually has.
 
     tools/cad-venv/bin/python hardware/scripts/flute_payload_enclosure.py
-    tools/cad-venv/bin/python hardware/scripts/flute_payload_cold_core.py
     tools/cad-venv/bin/python hardware/scripts/flute_payload_faucet.py
     tools/cad-venv/bin/python hardware/scripts/flute_payload.py            # every tree
     tools/cad-venv/bin/python hardware/scripts/flute_payload.py selftest
@@ -90,9 +89,9 @@ _ROOT = Path(__file__).resolve().parent.parent.parent
 #: mesh-only field from `cadlib/flute_skin.py`; the faucet carries smooth CAD-native surfaces.
 #:
 #: NOTHING PASSES BETWEEN THEM. A run over one tree opens that tree's directories and writes
-#: the payloads standing in them, and reads nothing of the others — which is what lets the build
-#: flute them as three rules, `flute_payload_enclosure.py`, `flute_payload_cold_core.py` and
-#: `flute_payload_faucet.py`.
+#: the payloads standing in them, and reads nothing of the others — which is what lets each tree
+#: be fluted on its own: the enclosure's and the cold core's pieces in their own programs, the
+#: faucet's by `flute_payload_faucet.py`.
 #:
 #: AN ASSEMBLY ASKS FOR THE TREE ITS BODIES CAME OUT OF. `foam_assembly` and `cold_core_assembly`
 #: hold the core and nothing else, so they ask for `COLD_CORE_DIRS`; `enclosure_assembly` holds
