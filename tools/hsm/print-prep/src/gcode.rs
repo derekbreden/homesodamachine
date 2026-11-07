@@ -100,7 +100,7 @@ fn number(text: &[u8]) -> Option<(f64, usize)> {
 }
 
 /// The letter words of a command, later ones replacing earlier.
-fn words(text: &str) -> Vec<(u8, f64)> {
+pub fn words(text: &str) -> Vec<(u8, f64)> {
     let bytes = text.as_bytes();
     let mut out: Vec<(u8, f64)> = Vec::new();
     let mut at = 0;
