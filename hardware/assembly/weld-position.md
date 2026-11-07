@@ -35,7 +35,7 @@ are schematic.
 The tube dimensions come from
 [`_rotator_interface.py`](../printed-parts/fixtures/weld-rotator/_rotator_interface.py).
 The disc and port dimensions come from
-[`endcap_circular_dxf.py`](../cut-parts/carbonation/endcaps-circular/endcap_circular_dxf.py).
+[`numbers.rs`](../cut-parts/carbonation/endcaps-circular/numbers.rs).
 The scene's dimension check holds those values against the fabrication sources.
 
 The gun is a geometric proxy based on the X1 Pro manual's section 3.4 drawing

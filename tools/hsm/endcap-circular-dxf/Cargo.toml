@@ -1,0 +1,16 @@
+[package]
+name = "hsm-endcap-circular-dxf"
+version = "0.1.0"
+edition.workspace = true
+license.workspace = true
+rust-version.workspace = true
+publish = false
+
+[[bin]]
+name = "endcap-circular-dxf"
+path = "../../../hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_dxf.rs"
+
+[dependencies]
+anyhow.workspace = true
+hsm-documents = { path = "../documents" }
+hsm-endcap-circular-numbers = { path = "../endcap-circular-numbers" }

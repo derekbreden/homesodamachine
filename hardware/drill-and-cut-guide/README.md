@@ -17,7 +17,7 @@ committed. Source hashes and the selected small numeric inputs are recorded in
 | 1-2 | Picture key, operation map and powered-cut setup | WEN manuals linked below |
 | 3 | Chamfer both faces of all four endcap pilots | [`pressure-vessel.md` step 1](/hardware/assembly/pressure-vessel.md) |
 | 4 | Spring-guided hand 1/4-18 NPT tapping from outside | Same |
-| 5-6 | Locate and drill both blind rod registers; prove tip depth | Same; [`endcap_circular_dxf.py`](/hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_dxf.py) |
+| 5-6 | Locate and drill both blind rod registers; prove tip depth | Same; [`endcap_circular_dxf.rs`](/hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_dxf.rs) |
 | 7 | Inside lead-in / outside burr-only perimeter treatment | `pressure-vessel.md` steps 1, 3 |
 | 8 | Deburr both vessel tube ends, ID and OD; check seating | `pressure-vessel.md` step 3 |
 | 9-10 | Cut three float rods, deburr, hand-fit the carbonator rod | [`handwork.md`](/hardware/assembly/handwork.md), `pressure-vessel.md` steps 2, 5 |

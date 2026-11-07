@@ -130,7 +130,7 @@ Those crops illustrate the command; a complete new-sheet review also covers the
 other inventory items, including tables, notes, and section markers.
 
 For the Home Soda Machine part family, use
-`hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_drawing.py`
+`hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_drawing.rs`
 and its current PDF as a worked example of the finish and source linkage.
 Reuse its drafting patterns, not its dimensions, tolerances, material, sheet
 size, or approval status. Keep a new drawing beside its part source and retain
