@@ -1,0 +1,17 @@
+[package]
+name = "hsm-collet-press"
+version = "0.1.0"
+edition.workspace = true
+license.workspace = true
+rust-version.workspace = true
+publish = false
+
+[dependencies]
+anyhow.workspace = true
+hsm-catalog = { path = "../catalog" }
+hsm-collet-press-numbers = { path = "../collet-press-numbers" }
+hsm-kernel = { path = "../kernel" }
+
+[[bin]]
+name = "collet-press"
+path = "../../../hardware/printed-parts/collet-press/collet_press.rs"
