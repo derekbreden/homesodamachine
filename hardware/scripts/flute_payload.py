@@ -93,10 +93,9 @@ _ROOT = Path(__file__).resolve().parent.parent.parent
 #: be fluted on its own: the enclosure's and the cold core's pieces in their own programs, the
 #: faucet's by `flute_payload_faucet.py`.
 #:
-#: AN ASSEMBLY ASKS FOR THE TREE ITS BODIES CAME OUT OF. `foam_assembly` and `cold_core_assembly`
-#: hold the core and nothing else, so they ask for `COLD_CORE_DIRS`; `enclosure_assembly` holds
-#: the machine and takes the default, because "which surfaces on this disk are fluted" is one
-#: question and a scene spanning several trees knows no better answer.
+#: A SCENE SPANNING SEVERAL TREES TAKES THEM ALL: "which surfaces on this disk are fluted" is one
+#: question, and the default answers it. The cold core's assemblies graft their pieces' payloads
+#: in their own programs.
 ENCLOSURE_DIRS = (
     _ROOT / "hardware/printed-parts/enclosure/enclosure",
 )

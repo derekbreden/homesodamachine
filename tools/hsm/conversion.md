@@ -24,7 +24,9 @@ guide: one program draws the kit page's items from their models, one renders the
 opening, and one composes the booklet from its artwork and writes the reading copy the site
 shows and, for an order, the print files. So are the flavor manifold, the rear equipment caps,
 the plumbing charts and the ledgers: the bill of materials with the attended labor, the print
-farm's time and the purchases. Every other step still starts Python:
+farm's time and the purchases. So are the cold core's: one program for each printed part, from its
+own numbers crate and the numbers it takes by name, and one for each of its two assemblies,
+built from the parts' files. Every other step still starts Python:
 its entry script imports thin modules that send each call to Rust over a JSON pipe, and runs the
 Rust part programs through the `hsm` engine's socket. The build planner
 (`tools/bazel/trace_inputs.py`) knows those steps by their Python entry scripts, and a Rust step
@@ -132,8 +134,11 @@ explicit input recipes come from Rust data providers.
 | Enclosure pieces | `enclosure-front-bottom`, `enclosure-front-top`, `enclosure-back-bottom`, `enclosure-back-top`, `enclosure-pump-retainer`, `enclosure-pump-tube-setting-jig`; each printed piece's files from the declared Box through its typed recipe | `hardware/printed-parts/enclosure/enclosure/enclosure_*.rs` |
 | Enclosure model | `enclosure`; the shown pieces in place from their fine models, with the dock's tees and stem elbows | `hardware/printed-parts/enclosure/enclosure/enclosure.rs` |
 | Enclosure measurements | `enclosure-checks`; piece bounds and Box measurements | `hardware/printed-parts/enclosure/enclosure/enclosure_checks.rs` |
-| Print surfaces | `print-payload`, for the payloads `flute_payload.py` cuts, and the library the enclosure and faucet piece programs link; reduction, shading and source records | `tools/hsm/print-payload/` |
+| Print surfaces | `print-payload`, for the payloads `flute_payload.py` cuts, and the library the enclosure, cold-core and faucet piece programs link; reduction, shading and source records | `tools/hsm/print-payload/` |
 | End cap | `endcap-circular-step`; the machined cap's files from the numbers crates of the tube, the float and the cap | `hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_step.rs` |
+| Cold-core parts | `prv-shroud`, `reservoir`, `foam-shell`, `foam-cap`, `magnetic-float`, `all-aero-float`, `coil-mandrel`, `reed-bridge`; each printed part's files from its numbers crate, its payloads cut in process | `hardware/printed-parts/cold-core/*/` |
+| Cold-core assemblies | `foam-assembly`, `cold-core-assembly`; the casing and the core in place from the parts' files, with the carbonator, its fittings, the coil and the lines inside the casing from their numbers crates | `hardware/printed-parts/cold-core/foam-assembly/foam_assembly.rs`, `hardware/cold-core-layout/cold_core_assembly.rs` |
+| Cold-core numbers | `hsm-cold-core-interface`, `hsm-cold-core-catalog`, `hsm-cold-core-layout`, `hsm-coil-numbers`, `hsm-carbonator-numbers` and each part's numbers crate; the casing's interface, the fits and colours, the cap's frame and the inside lines, the coil and the vessel | `hardware/printed-parts/cold-core/`, `hardware/cold-core-layout/` |
 | Faucet parts | `tpu-o-ring`, `umbilical-organizer`, `faucet-shell`, `above-counter-plate`, `above-counter-gasket`, `faucet-display-cover`, `industrial-faucet`, `lever-replica`, `tube-collar`; each part's files from its own numbers crate and the faucet's, each printed piece's payload cut from its STL | `hardware/printed-parts/faucet/*/*.rs` |
 | Faucet assemblies | `faucet-assembly`, `faucet-industrial-assembly`; the faucet and its umbilical as the bench bags them, from the assembly's numbers crate, each printed piece drawn with its own surface | `hardware/faucet-layout/faucet_assembly.rs`, `hardware/faucet-layout/faucet_industrial_assembly.rs` |
 | Installed machine | `installed-machine`; the placements, equipment, tubes, installed parts and wiring in one process, written as the machine's STEP, viewer payload, facts and scene GLBs | `hardware/manifold-layout/installed_machine.rs` |
@@ -191,7 +196,7 @@ with the existing build trace registries.
 | `hsm-documents` | The ledger's managed markers, Sources blocks and figure sidecars, tables, formatting, placement, PDF/DXF normalization and native value/library interoperation |
 | `ledger-analysis` | Purchase evidence, exact decimal reconciliation, validation, CSV/JSON and reports, for the synthetic ledger tests |
 | `assembly-docs` | Assembly constants, electrical budgets, schedules, fluid-topology diagrams and the installed wiring model, routing and readers |
-| `cold-core-data` | Complete cold-core dimensions, recipes, assembly, reservoir/foam/float/mandrel providers and maintained fabrication drawings |
+| `cold-core-data` | The cold-core recipes the fabrication drawings, the docs and the review tools still import, and the float, coil, mandrel and bond providers they call, which answer from the typed crates |
 | `faucet-data` | The faucet's recipes for the Python readers that remain: the shell's and the assembly's CadQuery builders and the tubes' cut lengths, scalar interfaces, tube paths, seals and plumbing scenes, read from the parts' typed numbers crates |
 | `enclosure-data` | Complete enclosure sizing, interface/datums, panel/dock/tray/cap/nameplate recipes, measurement graph and document providers |
 | `machine-data` | Manifold and assembly placement recipes, equipment/routes/check inputs, mounting ledgers, facts, Boxes, fine archives, reports and scene composition |
