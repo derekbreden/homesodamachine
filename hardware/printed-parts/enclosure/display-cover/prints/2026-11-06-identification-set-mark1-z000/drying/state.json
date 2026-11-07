@@ -1,0 +1,88 @@
+{
+  "automation_id": "dry-mark-one-petg-and-restart-plate",
+  "status": "Drying",
+  "first_observed_at": "2026-11-07T05:22:58.900528+00:00",
+  "target_review_at": "2026-11-07T17:30:00+00:00",
+  "timezone": "America/Chicago",
+  "target_drying_hours": 12,
+  "manufacturer_reference": {
+    "url": "https://store.bblcdn.com/s1/default/cb94589bf7994fdcbfa833badefae9cd/Bambu_PETG_Basic_Technical_Data_Sheet.pdf",
+    "ams_temperature_c": 65,
+    "ams_duration_hours": 8
+  },
+  "humidity_interpretation": "The readings measure air relative humidity, not filament moisture content. Use the elapsed drying period, temperature and trend together.",
+  "restart_authorized": true,
+  "ready_bed": "Glued Engineering Plate, cleared and prepared by Derek",
+  "archive": "../HSM-identification-Mark1-z000.gcode.3mf",
+  "archive_sha256": "c41c0ee97b0d47869a71335bdcf0e09b1c48ce0c11deae2666303dc3038428b4",
+  "z_offset_mm": 0.0,
+  "prior_job_id": "1415736258",
+  "launch_record": "launch.json",
+  "latest": {
+    "observed_at": "2026-11-07T05:26:23.764656+00:00",
+    "printer_state": "FAILED",
+    "job_id": "1415736258",
+    "print_error": 0,
+    "hms": [],
+    "units": [
+      {
+        "id": "0",
+        "name": "AMS 2 Pro",
+        "temperature_c": 49.7,
+        "humidity_raw": 46,
+        "dry_time": 711,
+        "dry_setting": {
+          "dry_duration": 12,
+          "dry_filament": "PETG",
+          "dry_temperature": 65
+        },
+        "slots": [
+          {
+            "id": "0",
+            "tray_type": "PETG",
+            "tray_color": "D6001CFF",
+            "tray_info_idx": "GFG00"
+          },
+          {
+            "id": "1",
+            "tray_type": "PETG",
+            "tray_color": "0086D6FF",
+            "tray_info_idx": "GFG00"
+          },
+          {
+            "id": "2",
+            "tray_type": "PETG",
+            "tray_color": "FFFFFFFF",
+            "tray_info_idx": "GFG00"
+          },
+          {
+            "id": "3",
+            "tray_type": "PETG",
+            "tray_color": "00000000",
+            "tray_info_idx": "GFG01"
+          }
+        ]
+      },
+      {
+        "id": "128",
+        "name": "AMS HT",
+        "temperature_c": 65.0,
+        "humidity_raw": 16,
+        "dry_time": 713,
+        "dry_setting": {
+          "dry_duration": 12,
+          "dry_filament": "PETG",
+          "dry_temperature": 65
+        },
+        "slots": [
+          {
+            "id": "0",
+            "tray_type": "PETG",
+            "tray_color": "000000FF",
+            "tray_info_idx": "GFG00"
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "job_id": "1415736258",
+  "status": "Stopped by Derek",
+  "plate": "Glued Engineering Plate",
+  "z_offset_mm": 0.0,
+  "observations": {
+    "black": "Derek reports acceptable printing.",
+    "white": "Rough, irregular deposition visible in the photographs.",
+    "printer_alert": "The extrusion motor is overloaded, please check...",
+    "moisture": "Suspected by Derek; not established as the sole cause of motor overload."
+  },
+  "photos": [
+    "physical-result/photo-1.jpg",
+    "physical-result/photo-2.jpg",
+    "physical-result/photo-3.jpg",
+    "physical-result/photo-4.jpg"
+  ],
+  "derek_quote": "So I've stopped the print now. I've got both AMS printers drying, AMS units drying now, and the bed is glued and ready for the next print there."
+}
