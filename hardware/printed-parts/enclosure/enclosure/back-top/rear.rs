@@ -23,8 +23,13 @@ mod snap_dimensions;
 pub const WET_PORT_Y: P2 = [458.0, 472.3];
 
 /// The wall's hosted insert bosses and their pilots.
-const BOSS_RADIUS: f64 = 5.0;
+pub const BOSS_RADIUS: f64 = 5.0;
 const PILOT_RADIUS: f64 = 2.0;
+/// The PSU's and the relays' native hole half-spacings, and each relay row's edge bar's
+/// half-width.
+const PSU_HOLES: P2 = [16.5, 49.0];
+const RELAY_HOLES: P2 = [33.0, 6.5];
+pub const RELAY_BAR_HALF: f64 = 5.0;
 
 /// The PSU's ceiling bosses root at this plane, the relays' bosses and bars this far into the
 /// west flank, and the valve seats this far into their flanks.
@@ -254,12 +259,12 @@ fn identify(g: &mut Graph, mut piece: Shape) -> Shape {
 
 /// One mounting hole the wall carries an insert boss for: the hole, the insert's face behind
 /// it, the boss's root in the wall, the hole's axis, and whether a screw goes in.
-struct Mount {
-    point: P3,
-    face: P3,
-    root: P3,
-    axis: P3,
-    threaded: bool,
+pub struct Mount {
+    pub point: P3,
+    pub face: P3,
+    pub root: P3,
+    pub axis: P3,
+    pub threaded: bool,
 }
 
 /// A hosted part's mounting holes, its native hole pattern placed by its pose.
@@ -284,22 +289,25 @@ fn axial_cylinder(g: &mut Graph, radius: f64, root: P3, axis: P3, length: f64) -
     g.cylinder(k, radius, a, b, root[k], root[k] + axis[k] * length)
 }
 
+/// The parts the wall hosts, each with its mounting holes: the PSU on ceiling bosses, then each
+/// relay on west-flank bosses.
+pub fn wall_mounts() -> Vec<(&'static str, Vec<Mount>)> {
+    use crate::rear_wall::hosts::RELAY_SETBACK;
+    let parts = &layout().parts;
+    let relay = |pose| mounts(pose, RELAY_HOLES, RELAY_SETBACK, |p| [RELAY_ROOT_X, p[1], p[2]], |i| i < 2);
+    vec![("psu", mounts(&parts.psu, PSU_HOLES, 0.0, |p| [p[0], p[1], PSU_ROOT_Z], |_| true)),
+         ("relay-1", relay(&parts.relay_1)), ("relay-2", relay(&parts.relay_2))]
+}
+
 /// The PSU's ceiling bosses and the two relays' west-flank bosses, each relay row's edge bar, and
 /// every threaded hole's pilot.
 fn hosts(g: &mut Graph, mut piece: Shape) -> Shape {
-    use crate::rear_wall::hosts::{PILOT_DEPTH, RELAY_SETBACK};
-    /// The PSU's and the relays' native hole half-spacings, and each relay row's edge bar's
-    /// half-width.
-    const PSU_HOLES: P2 = [16.5, 49.0];
-    const RELAY_HOLES: P2 = [33.0, 6.5];
-    const RELAY_BAR_HALF: f64 = 5.0;
-    let parts = &layout().parts;
-    let psu = mounts(&parts.psu, PSU_HOLES, 0.0, |p| [p[0], p[1], PSU_ROOT_Z], |_| true);
-    let relay = |pose| mounts(pose, RELAY_HOLES, RELAY_SETBACK, |p| [RELAY_ROOT_X, p[1], p[2]], |i| i < 2);
-    let relays: Vec<Mount> = relay(&parts.relay_1).into_iter().chain(relay(&parts.relay_2)).collect();
+    use crate::rear_wall::hosts::PILOT_DEPTH;
+    let hosted = wall_mounts();
+    let relays: Vec<&Mount> = hosted[1..].iter().flat_map(|(_, m)| m).collect();
     let mut bosses = Vec::new();
     let mut pilots = Vec::new();
-    for m in psu.iter().chain(&relays) {
+    for m in hosted.iter().flat_map(|(_, m)| m) {
         let length: f64 = (0..3).map(|k| (m.face[k] - m.root[k]) * m.axis[k]).sum();
         bosses.push(axial_cylinder(g, BOSS_RADIUS, m.root, m.axis, length));
         if m.threaded {
@@ -311,7 +319,7 @@ fn hosts(g: &mut Graph, mut piece: Shape) -> Shape {
     rows.sort_by(f64::total_cmp);
     rows.dedup();
     for y in rows {
-        let row: Vec<&Mount> = relays.iter().filter(|m| (m.point[1] - y).abs() < 1e-5).collect();
+        let row: Vec<&&Mount> = relays.iter().filter(|m| (m.point[1] - y).abs() < 1e-5).collect();
         let z0 = row.iter().map(|m| m.point[2]).fold(f64::INFINITY, f64::min);
         let z1 = row.iter().map(|m| m.point[2]).fold(f64::NEG_INFINITY, f64::max);
         let x = row.iter().map(|m| m.face[0]).fold(f64::INFINITY, f64::min);

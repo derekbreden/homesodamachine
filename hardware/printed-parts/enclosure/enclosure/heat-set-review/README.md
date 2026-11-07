@@ -106,5 +106,6 @@ orientation and actual stopping distance determine the relevant drop result.
 
 ```sh
 HSM_BUILD_SUPERSEDE=0 tools/cad-venv/bin/python hardware/printed-parts/enclosure/enclosure/heat-set-review/audit.py
-HSM_BUILD_SUPERSEDE=0 tools/cad-venv/bin/python hardware/printed-parts/enclosure/enclosure/heat-set-review/print_regions.py
+python3 tools/run.py -- cargo build --release --locked -j 2 --manifest-path tools/hsm/Cargo.toml -p hsm-print-prep --bin enclosure-print-regions
+tools/hsm/target/release/enclosure-print-regions
 ```

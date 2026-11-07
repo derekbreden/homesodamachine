@@ -144,9 +144,14 @@ fn print_features(dir: &Path, b: &spec::Box) -> Result<()> {
         "bounds_source_mm":[b.outer[0],panel.xmin-shell::WALL,wall.rear_wall.ymax,b.outer[3]+shell::WALL,
                             b.outer[4],b.outer[5]],
         "reason":"Trees remain outside the rear wall where their branches and contacts are accessible."})];
+    // The hosted parts' bosses, for the print regions that fill them solid.
+    let hosts: Vec<_> = rear::wall_mounts().into_iter().map(|(part, mounts)| json!({"part": part,
+        "stations": mounts.iter().map(|m| json!({"point_mm": m.point, "insert_face_mm": m.face, "root_mm": m.root,
+                                                  "axis": m.axis, "threaded": m.threaded})).collect::<Vec<_>>()})).collect();
     let record = json!({"source_stl_sha256": digest(&std::fs::read(dir.join("enclosure-back-top.stl"))?),
         "producer": "enclosure-back-top", "boundary_overlap_mm": catalog::running(), "support_free_regions": regions,
-        "bridge_regions":bridges,"support_regions":targets});
+        "bridge_regions":bridges,"support_regions":targets,
+        "wall_hosts": {"boss_radius_mm": rear::BOSS_RADIUS, "row_bar_half_width_mm": rear::RELAY_BAR_HALF, "parts": hosts}});
     keep(&dir.join("enclosure-back-top.print-features.json"), &serde_json::to_vec_pretty(&record)?)
 }
 

@@ -27,7 +27,7 @@ flat underside.
 - [Accepted launch receipt](launch.json), [launch context](launch-context.json) and [preflight](preflight.json)
 - [Offline preparation and native review](offline-review.json)
 - [Pocket, entry, wall footprint and corbel path reading](path-review.json)
-- [Manual preparer](prepare.py), [path reader](path_review.py) and [local declaration](job.json)
+- [Manual preparer](prepare.py), [path reader](https://github.com/derekbreden/homesodamachine/blob/6ec709018e/future/cable-clip-exploration/prints/2026-10-26-mark2-relay-ribbon/path_review.py) (in Git at `6ec709018e`) and [local declaration](job.json)
 
 The shared PET-GF profile retains **Tree(auto)/Default supports**. This coupon
 requests **no brim** and uses its larger wall footprint for bed attachment.

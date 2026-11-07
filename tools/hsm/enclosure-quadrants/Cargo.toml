@@ -17,7 +17,3 @@ hsm-kernel = { path = "../kernel" }
 hsm-valve-seat-numbers = { path = "../valve-seat-numbers" }
 serde = { workspace = true, features = ["derive"] }
 serde_json = { workspace = true, features = ["float_roundtrip"] }
-
-[[bin]]
-name = "enclosure-region-bounds"
-path = "../../../hardware/printed-parts/enclosure/enclosure/heat-set-review/region_bounds.rs"
