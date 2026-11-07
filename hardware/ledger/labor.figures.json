@@ -55,10 +55,11 @@
     "SHELF_INSERTS": "4",
     "SHELF_SCREWS": "12",
     "SOLENOIDS": "10",
+    "STATUS_PLATE_SCREWS": "4",
     "TOTAL_INSERTS": "75",
     "TOTAL_M3_INSERTS": "47",
     "TOTAL_M5_INSERTS": "28",
-    "TOTAL_SCREWS": "71",
+    "TOTAL_SCREWS": "75",
     "TOUCHFLO_SCREWS": "3"
   }
 }

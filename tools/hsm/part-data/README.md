@@ -8,7 +8,7 @@ analytical measurements and document figures for these printed parts:
 - PCBA datums, populated-board GLB bounds and the shared electronics-tray recipe.
 - Valve-seat socket and plinth figures.
 - Funnel, drain-elbow cradle, removable frame, cover and casting mold.
-- Refrigeration fuse clamp, weld rotator and soda-bend holder reports.
+- Refrigeration fuse clamp, weld rotator, tee/valve bow trial and soda-bend holder reports.
 - Dimension and port providers used from `hardware/reference` by the normal build.
 
 The shop-storage providers left in `reference_catalog.rs`, their value types in

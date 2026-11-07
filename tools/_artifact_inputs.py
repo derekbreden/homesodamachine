@@ -32,9 +32,7 @@ class Graph:
         sys.path.insert(0, str(_TOOLS / "bazel"))
         import inventory
         record = request("artifact-graph", graph=graph, config=dict(
-            generator_order=list(graph), flute_roots=inventory._FLUTE_ROOTS,
-            flute_trees=inventory._FLUTE_TREES, flute_shared=list(inventory._FLUTE_SHARED_SOURCES),
-            implicit_solids=inventory.IMPLICIT_SOLIDS, inert_suffixes=inventory.BUILD_INERT_SUFFIXES,
+            generator_order=list(graph), implicit_solids=inventory.IMPLICIT_SOLIDS, inert_suffixes=inventory.BUILD_INERT_SUFFIXES,
             inert_basenames=list(inventory.BUILD_INERT_BASENAMES)))
         self.writers = record["writers"]
         self.reads = {name: frozenset(paths) for name, paths in record["reads"].items()}
