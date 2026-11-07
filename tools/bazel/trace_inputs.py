@@ -388,6 +388,8 @@ RUST_STEPS = {
         ("endcap-circular", "endcap-circular-step", "hardware/cut-parts/carbonation/endcaps-circular"),
     "hardware/manifold-layout/installed_machine.rs":
         ("installed-machine", "installed-machine", ""),
+    "hardware/printed-parts/cold-core/prv-shroud/prv_shroud.rs":
+        ("prv-shroud", "prv-shroud", "hardware/printed-parts/cold-core/prv-shroud"),
 }
 
 
