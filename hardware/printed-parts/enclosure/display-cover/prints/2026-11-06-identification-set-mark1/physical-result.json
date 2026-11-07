@@ -1,0 +1,11 @@
+{
+  "job_id": "1415627539",
+  "status": "Stopped by Derek",
+  "result": "First-layer adhesion failed; print lifted off the plate.",
+  "z_offset_mm": 0.19,
+  "user_z_trim_mm": 0.18,
+  "plate": "Glued Engineering Plate",
+  "photo": "first-layer.jpg",
+  "derek_quote": "lol, okay, print stopped, it lifted right off.",
+  "retry": "../2026-11-06-identification-set-mark1-z000/"
+}
