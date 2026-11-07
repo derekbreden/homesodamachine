@@ -1,0 +1,54 @@
+{
+  "purpose": "The vent backing stays outside the cold-core shell, lid and inlet valve in the assembled viewer frame.",
+  "source_stl_sha256": "9dffa9196a42bda63057411ad19dfb10a2e7ae98818851dbac9494d34fe6556b",
+  "assembly_payload_sha256": "501cf3043725953ca6f1c78345aed9295f13eaf251b37fa3a647c7a846938802",
+  "diagonal_backing_face_bounds_mm": [
+    [
+      -98.5,
+      332.79998779296875,
+      177.8000030517578
+    ],
+    [
+      -90.75,
+      340.54998779296875,
+      214.35000610351562
+    ]
+  ],
+  "backing_face_triangles": 3,
+  "cold_core_shell": {
+    "name": "cold-core/foam-shell",
+    "bounds_mm": [
+      [
+        -90.19999694824219,
+        182.59814453125,
+        20.0
+      ],
+      [
+        90.19999694824219,
+        465.0,
+        245.85000610351562
+      ]
+    ]
+  },
+  "cold_core_lid": {
+    "name": "cold-core/foam-cap-lid-top",
+    "bounds_mm": [
+      [
+        -90.19999694824219,
+        182.60000610351562,
+        246.0
+      ],
+      [
+        90.19999694824219,
+        465.0,
+        299.6499938964844
+      ]
+    ]
+  },
+  "axis_separation_lower_bounds_mm": {
+    "cold_core_shell_X": 0.5500030517578125,
+    "cold_core_lid_Z": 31.649993896484375,
+    "inlet_valve_Z": 71.369384765625
+  },
+  "scope": "Axis-aligned bounds of the added backing and selected assembled meshes. This establishes separation; it does not qualify physical clearance under load."
+}

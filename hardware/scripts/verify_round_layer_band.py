@@ -52,18 +52,17 @@ def wall_layers(path: Path, object_id: int) -> list[tuple[float, float]]:
             if line.startswith("; Z_HEIGHT:"):
                 z = float(line.split(":", 1)[1])
                 height = None
-                feature = None
                 current_object = None
             elif line.startswith("; LAYER_HEIGHT:"):
                 height = float(line.split(":", 1)[1])
             elif line.startswith("; OBJECT_ID:"):
                 current_object = int(line.split(":", 1)[1])
-                feature = None
             elif line.startswith("; FEATURE:"):
                 feature = line.split(":", 1)[1].strip()
             elif (line.startswith(("G1 ", "G2 ", "G3 ")) and z is not None
                   and height is not None and current_object == object_id
-                  and feature in WALL_FEATURES):
+                  and feature in WALL_FEATURES
+                  and re.search(r"(?:^|\s)[XY][-+.\d]", line)):
                 extrusion = EXTRUSION.search(line)
                 if extrusion and float(extrusion.group(1)) > 0:
                     layers.add((round(z, 6), round(height, 6)))
@@ -71,13 +70,19 @@ def wall_layers(path: Path, object_id: int) -> list[tuple[float, float]]:
 
 
 def check_span(layers: list[tuple[float, float]], name: str, low: float,
-               high: float, target: float, tolerance: float) -> dict:
+               high: float, target: float, tolerance: float,
+               bed_layer_height: float | None = None) -> dict:
     hits = [(z, height) for z, height in layers
             if z > low and z - height < high]
+    def accepted(z, height):
+        return (abs(height - target) <= tolerance
+                or bed_layer_height is not None
+                and abs(z - height) <= tolerance
+                and abs(height - bed_layer_height) <= tolerance)
     bad = [{"z_mm": z, "height_mm": height} for z, height in hits
-           if abs(height - target) > tolerance]
+           if not accepted(z, height)]
     coverage = sorted((max(low, z - height), min(high, z))
-                      for z, height in hits if abs(height - target) <= tolerance)
+                      for z, height in hits if accepted(z, height))
     cursor = low
     gaps = []
     for start, end in coverage:
@@ -92,6 +97,7 @@ def check_span(layers: list[tuple[float, float]], name: str, low: float,
         "wall_layer_count": len(hits),
         "first_wall_layer": list(hits[0]) if hits else None,
         "last_wall_layer": list(hits[-1]) if hits else None,
+        "declared_bed_layer_height_mm": bed_layer_height,
         "wrong_height_layers": bad,
         "uncovered_intervals_mm": gaps,
         "pass": bool(hits) and not bad and not gaps,

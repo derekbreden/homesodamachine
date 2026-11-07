@@ -1,0 +1,67 @@
+{
+  "purpose": "Read candidate support passages and the bed envelope before the full native review.",
+  "archive_sha256": "403a0bd04dc4ae908807e52a3245c0dcd198efe8e7e10f44d2649e85e5fb6d9a",
+  "bead_envelope_plate_mm": [
+    [
+      32.362,
+      49.656
+    ],
+    [
+      294.652,
+      267.5
+    ]
+  ],
+  "margins_lf_rb_mm": [
+    32.362,
+    49.656,
+    30.348000000000013,
+    52.5
+  ],
+  "excluded_support_counts_by_region": {
+    "ASSE receiver": 0,
+    "Pisco receiver": 0,
+    "Flow meter receiver": 0,
+    "Water regulator receiver": 0,
+    "Covered bulkhead at X29.025858982281964 Z330.8647148810266": 0,
+    "Covered bulkhead at X76.5 Z331.2": 0,
+    "Covered bulkhead at X76.5 Z264": 0,
+    "Covered bulkhead at X76.5 Z294.2": 0,
+    "Covered bulkhead at X28.7999988712316 Z294.2": 0,
+    "Covered bulkhead at X28.7999988712316 Z264": 0,
+    "Inlet valve post socket -1/-1": 0,
+    "Inlet valve post socket -1/1": 0,
+    "Inlet valve post socket 1/-1": 0,
+    "Inlet valve post socket 1/1": 0,
+    "Soda valve post socket -1/-1": 0,
+    "Soda valve post socket -1/1": 0,
+    "Soda valve post socket 1/-1": 0,
+    "Soda valve post socket 1/1": 0,
+    "PRV vent mouth": 0
+  },
+  "examples": {},
+  "support_bead_bounds_source_mm": [
+    [
+      -110.34400000000001,
+      470.7300609093001,
+      158.50835379670664
+    ],
+    [
+      21.663000000000025,
+      524.0617968414098,
+      365.6431979721759
+    ]
+  ],
+  "exterior_request_box": {
+    "name": "Wet-column rear face",
+    "overlapping_paths": 193,
+    "example": {
+      "source_mm": [
+        17.894999999999982,
+        473.79530309309234,
+        355.9666885481331
+      ],
+      "feature": "Support"
+    },
+    "scope": "Exterior support-request blocker; its box is not a functional-void profile."
+  }
+}

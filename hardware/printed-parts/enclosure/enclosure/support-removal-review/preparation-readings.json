@@ -1,0 +1,1911 @@
+{
+  "purpose": "Retain concise readings of superseded digital preparations without their large native archives.",
+  "preparations": [
+    {
+      "project_sha256": "a331ba45acc858b96125b28ed7d0fc208c1fc72f3fc11850f0d8e8f194668580",
+      "archive_sha256": "ae5eb9321356faf863fe610c603c61fbf3fb1678e083a14575e6afc2c644930a",
+      "gcode_sha256": "89acf135bcd258dae0c2c21c9a0e8d01c3fa4a03c804cb84f4b2cfea5535acbf",
+      "prepared_utc": "2026-11-06T19:18:46+00:00",
+      "estimated_seconds": 100996.7734375,
+      "plate_offset_mm": {
+        "value": [
+          -4.25,
+          0.0
+        ],
+        "reason": "The rear-face tree support envelope extends farther than the seam-end beads. This X offset centers that asymmetric envelope to retain the 20 mm bed border; the native slice review reads the complete emitted bead envelope. Back-top only."
+      },
+      "source_stl_sha256": "aa82e1c62f7cec29473e3372d6d6357a673e1a46f1e9efe543b0c2e0f110a85b",
+      "settings": {
+        "extruder_ams_count": [
+          "1#0|4#0",
+          "1#0|4#0"
+        ],
+        "support_filament": "1",
+        "support_interface_filament": "1",
+        "flush_into_support": "0",
+        "filament_colour": [
+          "#161616"
+        ],
+        "max_bridge_length": "50",
+        "tree_support_branch_diameter_angle": "0.5",
+        "tree_support_branch_diameter": "3",
+        "elefant_foot_compensation": "0",
+        "support_style": "tree_slim",
+        "support_on_build_plate_only": "1",
+        "tree_support_brim_width": "3"
+      },
+      "status": "not_submitted",
+      "finding": "Automatic root brim exceeded the bed border; tree transit entered covered bores.",
+      "checks": {
+        "archive": true,
+        "z_trim": true,
+        "bed_border": false,
+        "fine_and_transition_bands": true,
+        "show_faces_support_free": true,
+        "tie_windows_support_free": true,
+        "ribbons_support_free_and_printed": true,
+        "solid_hosts_sampled": true,
+        "declared_interiors_support_free": false
+      },
+      "minimum_bed_margin_mm": 7.579734999999971,
+      "bed_margins_mm": {
+        "left": 20.966093,
+        "front": 52.291093000000004,
+        "right": 7.579734999999971,
+        "back": 52.29109299999999
+      },
+      "excluded_support_counts_by_region": null,
+      "support_topology": {
+        "1901": {
+          "support_bodies": 7,
+          "interface_islands": 117,
+          "bed_rooted_bodies": 7,
+          "model_rooted_bodies": 0,
+          "shortest_build_up_mm": 8.158,
+          "bodies_without_interface_labels": 0,
+          "explicit_interface_islands": 117,
+          "shortest_labelled_build_up_mm": 8.158
+        }
+      }
+    },
+    {
+      "project_sha256": "c4df66e63969c658c1052138c98af570ca252efa5d0205044515de30bd820ca3",
+      "archive_sha256": "27081922937f7bbdde24cb2a18f07b75af2dd503dc9810c209e0621fd1963061",
+      "gcode_sha256": "c3785fb6d4ae68a8286623947e61fc0eacac702c049c81748c93705b36b1d652",
+      "prepared_utc": "2026-11-06T19:52:43+00:00",
+      "estimated_seconds": 101640.21875,
+      "plate_offset_mm": {
+        "value": [
+          -4.25,
+          0.0
+        ],
+        "reason": "The rear-face tree support envelope extends farther than the seam-end beads. This X offset centers that asymmetric envelope to retain the 20 mm bed border; the native slice review reads the complete emitted bead envelope. Back-top only."
+      },
+      "source_stl_sha256": "aa82e1c62f7cec29473e3372d6d6357a673e1a46f1e9efe543b0c2e0f110a85b",
+      "settings": {
+        "extruder_ams_count": [
+          "1#0|4#0",
+          "1#0|4#0"
+        ],
+        "support_filament": "1",
+        "support_interface_filament": "1",
+        "flush_into_support": "0",
+        "filament_colour": [
+          "#161616"
+        ],
+        "max_bridge_length": "50",
+        "tree_support_branch_diameter_angle": "0.5",
+        "tree_support_branch_diameter": "3",
+        "elefant_foot_compensation": "0",
+        "support_style": "tree_slim",
+        "support_on_build_plate_only": "1",
+        "tree_support_branch_angle": "20",
+        "raft_first_layer_expansion": "3"
+      },
+      "status": "not_submitted",
+      "finding": "Tree transit entered covered bores.",
+      "checks": {
+        "archive": true,
+        "z_trim": true,
+        "bed_border": false,
+        "fine_and_transition_bands": true,
+        "show_faces_support_free": true,
+        "tie_windows_support_free": true,
+        "ribbons_support_free_and_printed": true,
+        "solid_hosts_sampled": true,
+        "declared_interiors_support_free": false
+      },
+      "minimum_bed_margin_mm": 15.960735,
+      "bed_margins_mm": {
+        "left": 20.966093,
+        "front": 52.291093000000004,
+        "right": 15.960735,
+        "back": 52.29109299999999
+      },
+      "excluded_support_counts_by_region": null,
+      "support_topology": {
+        "1901": {
+          "support_bodies": 8,
+          "interface_islands": 89,
+          "bed_rooted_bodies": 8,
+          "model_rooted_bodies": 0,
+          "shortest_build_up_mm": 8.158,
+          "bodies_without_interface_labels": 0,
+          "explicit_interface_islands": 89,
+          "shortest_labelled_build_up_mm": 8.158
+        }
+      }
+    },
+    {
+      "project_sha256": "a6f72e5ba54c590f1a9c1f183c45adce64ec9bf14448579f7b8bcaa4cb61e52a",
+      "archive_sha256": "f71517a352f39d2e2a36837aaf459db295e5ed6823028a170a5adbb9cc5d1433",
+      "gcode_sha256": "8adaec16b2ac932e53dcf4bca7cf5db8dbeed9e549fbe929b9548b2099b4df22",
+      "prepared_utc": "2026-11-06T20:04:50+00:00",
+      "estimated_seconds": 96719.90625,
+      "plate_offset_mm": {
+        "value": [
+          -4.25,
+          0.0
+        ],
+        "reason": "The rear-face tree support envelope extends farther than the seam-end beads. This X offset centers that asymmetric envelope to retain the 20 mm bed border; the native slice review reads the complete emitted bead envelope. Back-top only."
+      },
+      "source_stl_sha256": "aa82e1c62f7cec29473e3372d6d6357a673e1a46f1e9efe543b0c2e0f110a85b",
+      "settings": {
+        "extruder_ams_count": [
+          "1#0|4#0",
+          "1#0|4#0"
+        ],
+        "support_filament": "1",
+        "support_interface_filament": "1",
+        "flush_into_support": "0",
+        "filament_colour": [
+          "#161616"
+        ],
+        "max_bridge_length": "50",
+        "tree_support_branch_diameter_angle": "0.5",
+        "tree_support_branch_diameter": "3",
+        "elefant_foot_compensation": "0",
+        "support_style": "tree_slim",
+        "support_on_build_plate_only": "1",
+        "tree_support_branch_angle": "0",
+        "raft_first_layer_expansion": "3"
+      },
+      "status": "not_submitted",
+      "finding": "Identification-channel trees entered covered bores; rail deposition ran lengthwise.",
+      "checks": {
+        "archive": true,
+        "z_trim": true,
+        "bed_border": false,
+        "fine_and_transition_bands": true,
+        "show_faces_support_free": true,
+        "tie_windows_support_free": true,
+        "ribbons_support_free_and_printed": true,
+        "solid_hosts_sampled": true,
+        "declared_interiors_support_free": false
+      },
+      "minimum_bed_margin_mm": 19.848735,
+      "bed_margins_mm": {
+        "left": 19.848735,
+        "front": 49.038735,
+        "right": 25.491735000000006,
+        "back": 49.038734999999974
+      },
+      "excluded_support_counts_by_region": null,
+      "support_topology": {
+        "1901": {
+          "support_bodies": 8,
+          "interface_islands": null,
+          "bed_rooted_bodies": 8,
+          "model_rooted_bodies": 0,
+          "shortest_build_up_mm": null,
+          "bodies_without_interface_labels": 2,
+          "explicit_interface_islands": 24,
+          "shortest_labelled_build_up_mm": 8.158
+        }
+      }
+    },
+    {
+      "project_sha256": "75137285da030bee69fb32690d00920e626f757496313f2fe0e383968c45129e",
+      "archive_sha256": "32bdf8172a29ad0d73e6432e39dd485613c8f2db449c3e83f3e58e067f3edc79",
+      "gcode_sha256": "045eed00d304f52a1351fea3e221e479a95b0f44b1c80dcdb74e57941de70a89",
+      "prepared_utc": "2026-11-06T20:18:08+00:00",
+      "estimated_seconds": 93398.484375,
+      "plate_offset_mm": null,
+      "source_stl_sha256": "f94e92373793415ea6259c254bae0ee402b1a8ec5eea2874e1d486eb5de99d16",
+      "settings": {
+        "extruder_ams_count": [
+          "1#0|4#0",
+          "1#0|4#0"
+        ],
+        "support_filament": "1",
+        "support_interface_filament": "1",
+        "flush_into_support": "0",
+        "filament_colour": [
+          "#161616"
+        ],
+        "max_bridge_length": "50",
+        "tree_support_branch_diameter_angle": "0.5",
+        "tree_support_branch_diameter": "3",
+        "elefant_foot_compensation": "0",
+        "support_style": "tree_slim",
+        "support_on_build_plate_only": "1",
+        "tree_support_branch_angle": "0",
+        "raft_first_layer_expansion": "3"
+      },
+      "status": "not_submitted",
+      "finding": "Rail deposition ran lengthwise and lacked continuous backing.",
+      "checks": {
+        "archive": true,
+        "z_trim": true,
+        "bed_border": true,
+        "fine_and_transition_bands": true,
+        "show_faces_support_free": true,
+        "tie_windows_support_free": true,
+        "ribbons_support_free_and_printed": true,
+        "solid_hosts_sampled": true,
+        "declared_interiors_support_free": true
+      },
+      "minimum_bed_margin_mm": 21.645735000000002,
+      "bed_margins_mm": {
+        "left": 24.098735,
+        "front": 49.038735,
+        "right": 21.645735000000002,
+        "back": 49.038734999999974
+      },
+      "excluded_support_counts_by_region": {
+        "ASSE receiver": 0,
+        "Pisco receiver": 0,
+        "Identification channel 1": 0,
+        "Identification channel 2": 0,
+        "Covered bulkhead at X29.025858982281964 Z330.8647148810266": 0,
+        "Covered bulkhead at X76.5 Z331.2": 0,
+        "Covered bulkhead at X76.5 Z264": 0,
+        "Covered bulkhead at X76.5 Z294.2": 0,
+        "Covered bulkhead at X28.7999988712316 Z294.2": 0,
+        "Covered bulkhead at X28.7999988712316 Z264": 0,
+        "Inlet valve post socket -1/-1": 0,
+        "Inlet valve post socket -1/1": 0,
+        "Inlet valve post socket 1/-1": 0,
+        "Inlet valve post socket 1/1": 0,
+        "Soda valve post socket -1/-1": 0,
+        "Soda valve post socket -1/1": 0,
+        "Soda valve post socket 1/-1": 0,
+        "Soda valve post socket 1/1": 0,
+        "PRV vent mouth": 0
+      },
+      "support_topology": {
+        "1901": {
+          "support_bodies": 6,
+          "interface_islands": null,
+          "bed_rooted_bodies": 6,
+          "model_rooted_bodies": 0,
+          "shortest_build_up_mm": null,
+          "bodies_without_interface_labels": 2,
+          "explicit_interface_islands": 8,
+          "shortest_labelled_build_up_mm": 8.158
+        }
+      }
+    },
+    {
+      "project_sha256": "0f41955070b0ce80b0c630345a204fa6e7893dc345cd5a6679652aeb7a609358",
+      "archive_sha256": "6547985ccd0d812ee600f604d8a4d5b47e65e495f4624be93a5629652328171d",
+      "gcode_sha256": "5976d6eceebe33b0f244b8af2651316180b6c999b9b9257ffc7c3918711fbf7a",
+      "prepared_utc": "2026-11-06T20:27:23+00:00",
+      "estimated_seconds": 93521.265625,
+      "plate_offset_mm": null,
+      "source_stl_sha256": "f94e92373793415ea6259c254bae0ee402b1a8ec5eea2874e1d486eb5de99d16",
+      "settings": {
+        "extruder_ams_count": [
+          "1#0|4#0",
+          "1#0|4#0"
+        ],
+        "support_filament": "1",
+        "support_interface_filament": "1",
+        "flush_into_support": "0",
+        "filament_colour": [
+          "#161616"
+        ],
+        "max_bridge_length": "50",
+        "tree_support_branch_diameter_angle": "0.5",
+        "tree_support_branch_diameter": "3",
+        "elefant_foot_compensation": "0",
+        "support_style": "tree_slim",
+        "support_on_build_plate_only": "1",
+        "tree_support_branch_angle": "0",
+        "raft_first_layer_expansion": "3"
+      },
+      "status": "not_submitted",
+      "finding": "Rail closing floors lacked backing where their requests were blocked.",
+      "checks": {
+        "archive": true,
+        "z_trim": true,
+        "bed_border": true,
+        "fine_and_transition_bands": true,
+        "show_faces_support_free": true,
+        "tie_windows_support_free": true,
+        "ribbons_support_free_and_printed": true,
+        "solid_hosts_sampled": true,
+        "declared_interiors_support_free": true
+      },
+      "minimum_bed_margin_mm": 21.645735000000002,
+      "bed_margins_mm": {
+        "left": 24.098735,
+        "front": 49.038735,
+        "right": 21.645735000000002,
+        "back": 49.038734999999974
+      },
+      "excluded_support_counts_by_region": {
+        "ASSE receiver": 0,
+        "Pisco receiver": 0,
+        "Identification channel 1": 0,
+        "Identification channel 2": 0,
+        "Sliding rail 1": 0,
+        "Sliding rail -1": 0,
+        "Covered bulkhead at X29.025858982281964 Z330.8647148810266": 0,
+        "Covered bulkhead at X76.5 Z331.2": 0,
+        "Covered bulkhead at X76.5 Z264": 0,
+        "Covered bulkhead at X76.5 Z294.2": 0,
+        "Covered bulkhead at X28.7999988712316 Z294.2": 0,
+        "Covered bulkhead at X28.7999988712316 Z264": 0,
+        "Inlet valve post socket -1/-1": 0,
+        "Inlet valve post socket -1/1": 0,
+        "Inlet valve post socket 1/-1": 0,
+        "Inlet valve post socket 1/1": 0,
+        "Soda valve post socket -1/-1": 0,
+        "Soda valve post socket -1/1": 0,
+        "Soda valve post socket 1/-1": 0,
+        "Soda valve post socket 1/1": 0,
+        "PRV vent mouth": 0
+      },
+      "support_topology": {
+        "1901": {
+          "support_bodies": 6,
+          "interface_islands": null,
+          "bed_rooted_bodies": 6,
+          "model_rooted_bodies": 0,
+          "shortest_build_up_mm": null,
+          "bodies_without_interface_labels": 2,
+          "explicit_interface_islands": 8,
+          "shortest_labelled_build_up_mm": 8.158
+        }
+      }
+    },
+    {
+      "project_sha256": "70ed455ddf983c79f9fa16208f398f2ae8ff8b74c5181e3fb2214f1127b470f6",
+      "archive_sha256": "3f0437acd50d4b631be8d5ee36d41b88e753ff9a37856ef0e1e357557ae7fe22",
+      "gcode_sha256": "affc4a6f86f100ee47c4ba1de418971b500650d8431e6133b458581e7f6d4eda",
+      "prepared_utc": "2026-11-06T20:37:54+00:00",
+      "estimated_seconds": 104719.078125,
+      "plate_offset_mm": {
+        "value": [
+          -2.5,
+          0.0
+        ],
+        "reason": "Center the complete rear enclosure and compact tree-root envelope inside the usable bed border."
+      },
+      "source_stl_sha256": "f94e92373793415ea6259c254bae0ee402b1a8ec5eea2874e1d486eb5de99d16",
+      "settings": {
+        "extruder_ams_count": [
+          "1#0|4#0",
+          "1#0|4#0"
+        ],
+        "support_filament": "1",
+        "support_interface_filament": "1",
+        "flush_into_support": "0",
+        "filament_colour": [
+          "#161616"
+        ],
+        "max_bridge_length": "50",
+        "tree_support_branch_diameter_angle": "0.5",
+        "tree_support_branch_diameter": "3",
+        "elefant_foot_compensation": "0",
+        "support_style": "tree_slim",
+        "support_on_build_plate_only": "1",
+        "tree_support_branch_angle": "5",
+        "raft_first_layer_expansion": "3"
+      },
+      "status": "not_submitted",
+      "finding": "Bed-only short-angle routing could not reach the aft rail edges; bead border also insufficient.",
+      "checks": {
+        "archive": true,
+        "z_trim": true,
+        "bed_border": false,
+        "fine_and_transition_bands": true,
+        "show_faces_support_free": true,
+        "tie_windows_support_free": true,
+        "ribbons_support_free_and_printed": true,
+        "solid_hosts_sampled": true,
+        "declared_interiors_support_free": true
+      },
+      "minimum_bed_margin_mm": 14.315734999999961,
+      "bed_margins_mm": {
+        "left": 22.716093,
+        "front": 49.038735,
+        "right": 14.315734999999961,
+        "back": 50.207735000000014
+      },
+      "excluded_support_counts_by_region": {
+        "ASSE receiver": 0,
+        "Pisco receiver": 0,
+        "Identification channel 1": 0,
+        "Identification channel 2": 0,
+        "Covered bulkhead at X29.025858982281964 Z330.8647148810266": 0,
+        "Covered bulkhead at X76.5 Z331.2": 0,
+        "Covered bulkhead at X76.5 Z264": 0,
+        "Covered bulkhead at X76.5 Z294.2": 0,
+        "Covered bulkhead at X28.7999988712316 Z294.2": 0,
+        "Covered bulkhead at X28.7999988712316 Z264": 0,
+        "Inlet valve post socket -1/-1": 0,
+        "Inlet valve post socket -1/1": 0,
+        "Inlet valve post socket 1/-1": 0,
+        "Inlet valve post socket 1/1": 0,
+        "Soda valve post socket -1/-1": 0,
+        "Soda valve post socket -1/1": 0,
+        "Soda valve post socket 1/-1": 0,
+        "Soda valve post socket 1/1": 0,
+        "PRV vent mouth": 0
+      },
+      "support_topology": {
+        "1901": {
+          "support_bodies": 4,
+          "interface_islands": 56,
+          "bed_rooted_bodies": 4,
+          "model_rooted_bodies": 0,
+          "shortest_build_up_mm": 8.158,
+          "bodies_without_interface_labels": 0,
+          "explicit_interface_islands": 56,
+          "shortest_labelled_build_up_mm": 8.158
+        }
+      }
+    },
+    {
+      "project_sha256": "61a3a6f6ffb50a20c2ef163ee8f6b0971d66d17d5f061b43fb093498f0cc4b1f",
+      "archive_sha256": "8ba521c5fa2af5f0180fd0bc711d75169a9c7438659c56f4ca5ff904edd2e277",
+      "prepared_utc": "2026-11-06T20:52:58+00:00",
+      "estimated_seconds": 110484.6875,
+      "source_stl_sha256": "f94e92373793415ea6259c254bae0ee402b1a8ec5eea2874e1d486eb5de99d16",
+      "pose": {
+        "turns": [
+          [
+            "x",
+            180
+          ]
+        ]
+      },
+      "settings": {
+        "extruder_ams_count": [
+          "1#0|4#0",
+          "1#0|4#0"
+        ],
+        "support_filament": "1",
+        "support_interface_filament": "1",
+        "flush_into_support": "0",
+        "filament_colour": [
+          "#161616"
+        ],
+        "max_bridge_length": "50",
+        "tree_support_branch_diameter_angle": "0.5",
+        "tree_support_branch_diameter": "3",
+        "elefant_foot_compensation": "0",
+        "support_style": "tree_slim",
+        "support_on_build_plate_only": "0",
+        "tree_support_branch_angle": "5",
+        "raft_first_layer_expansion": "3"
+      },
+      "finding": "Local roots backed the rails but trees crossed the Pisco receiver, vent and covered bores.",
+      "status": "not_submitted",
+      "checks": {
+        "archive": true,
+        "z_trim": true,
+        "bed_border": false,
+        "fine_and_transition_bands": true,
+        "show_faces_support_free": false,
+        "tie_windows_support_free": true,
+        "ribbons_support_free_and_printed": true,
+        "solid_hosts_sampled": true,
+        "declared_interiors_support_free": false
+      },
+      "minimum_bed_margin_mm": 14.149734999999964,
+      "excluded_support_counts_by_region": {
+        "ASSE receiver": 0,
+        "Pisco receiver": 1177,
+        "Identification channel 1": 0,
+        "Identification channel 2": 0,
+        "Covered bulkhead at X29.025858982281964 Z330.8647148810266": 0,
+        "Covered bulkhead at X76.5 Z331.2": 0,
+        "Covered bulkhead at X76.5 Z264": 550,
+        "Covered bulkhead at X76.5 Z294.2": 316,
+        "Covered bulkhead at X28.7999988712316 Z294.2": 0,
+        "Covered bulkhead at X28.7999988712316 Z264": 0,
+        "Inlet valve post socket -1/-1": 0,
+        "Inlet valve post socket -1/1": 0,
+        "Inlet valve post socket 1/-1": 0,
+        "Inlet valve post socket 1/1": 0,
+        "Soda valve post socket -1/-1": 0,
+        "Soda valve post socket -1/1": 0,
+        "Soda valve post socket 1/-1": 0,
+        "Soda valve post socket 1/1": 0,
+        "PRV vent mouth": 209
+      },
+      "support_topology": {
+        "1901": {
+          "support_bodies": 10,
+          "interface_islands": 23,
+          "bed_rooted_bodies": 3,
+          "model_rooted_bodies": 7,
+          "shortest_build_up_mm": 8.158,
+          "bodies_without_interface_labels": 0,
+          "explicit_interface_islands": 23,
+          "shortest_labelled_build_up_mm": 8.158
+        }
+      },
+      "longest_unbacked_rail_edge_mm": 2.780000000000001
+    },
+    {
+      "project_sha256": "2cd65fa93e55b4256de5cb582319c8ed7941c4ab22459f977cf6cd65c1591453",
+      "archive_sha256": "e97707117934c2c346b775283c1637f263e43bcdc28d26ef4367bb65c575eac7",
+      "prepared_utc": "2026-11-06T21:05:01+00:00",
+      "estimated_seconds": 98337.5625,
+      "source_stl_sha256": "f94e92373793415ea6259c254bae0ee402b1a8ec5eea2874e1d486eb5de99d16",
+      "pose": {
+        "turns": [
+          [
+            "x",
+            180
+          ]
+        ]
+      },
+      "settings": {
+        "extruder_ams_count": [
+          "1#0|4#0",
+          "1#0|4#0"
+        ],
+        "support_filament": "1",
+        "support_interface_filament": "1",
+        "flush_into_support": "0",
+        "filament_colour": [
+          "#161616"
+        ],
+        "max_bridge_length": "50",
+        "tree_support_branch_diameter_angle": "0",
+        "tree_support_branch_diameter": "3",
+        "elefant_foot_compensation": "0",
+        "support_style": "tree_slim",
+        "support_on_build_plate_only": "1",
+        "tree_support_branch_angle": "60",
+        "raft_first_layer_expansion": "1.5"
+      },
+      "finding": "Bed-only branches left long aft rail spans without backing.",
+      "status": "not_submitted",
+      "margins_lf_rb_mm": [
+        20.66,
+        52.5,
+        21.031999999999982,
+        52.5
+      ],
+      "excluded_support_counts_by_region": {
+        "ASSE receiver": 0,
+        "Pisco receiver": 0,
+        "Identification channel 1": 0,
+        "Identification channel 2": 0,
+        "Covered bulkhead at X29.025858982281964 Z330.8647148810266": 0,
+        "Covered bulkhead at X76.5 Z331.2": 0,
+        "Covered bulkhead at X76.5 Z264": 0,
+        "Covered bulkhead at X76.5 Z294.2": 0,
+        "Covered bulkhead at X28.7999988712316 Z294.2": 0,
+        "Covered bulkhead at X28.7999988712316 Z264": 0,
+        "Inlet valve post socket -1/-1": 0,
+        "Inlet valve post socket -1/1": 0,
+        "Inlet valve post socket 1/-1": 0,
+        "Inlet valve post socket 1/1": 0,
+        "Soda valve post socket -1/-1": 0,
+        "Soda valve post socket -1/1": 0,
+        "Soda valve post socket 1/-1": 0,
+        "Soda valve post socket 1/1": 0,
+        "PRV vent mouth": 72
+      },
+      "longest_unbacked_rail_edge_mm": 102.95890072492912
+    },
+    {
+      "project_sha256": "5b74e663941f544814fd922639489e33e0906ccea607d866abf210acc575f392",
+      "archive_sha256": "4ea259d48dfc9996c2c15ffe6a5da3c09f9e7850a559b7f7becbab7c55d74aee",
+      "prepared_utc": "2026-11-06T21:13:42+00:00",
+      "estimated_seconds": 106387.40625,
+      "source_stl_sha256": "f94e92373793415ea6259c254bae0ee402b1a8ec5eea2874e1d486eb5de99d16",
+      "pose": {
+        "turns": [
+          [
+            "x",
+            180
+          ]
+        ]
+      },
+      "settings": {
+        "extruder_ams_count": [
+          "1#0|4#0",
+          "1#0|4#0"
+        ],
+        "support_filament": "1",
+        "support_interface_filament": "1",
+        "flush_into_support": "0",
+        "filament_colour": [
+          "#161616"
+        ],
+        "max_bridge_length": "50",
+        "tree_support_branch_diameter_angle": "0",
+        "tree_support_branch_diameter": "6",
+        "elefant_foot_compensation": "0",
+        "support_style": "tree_slim",
+        "support_on_build_plate_only": "0",
+        "tree_support_branch_angle": "5",
+        "raft_first_layer_expansion": "1.5"
+      },
+      "finding": "Wider local-root trunks still crossed receiver and passage volumes.",
+      "status": "not_submitted",
+      "margins_lf_rb_mm": [
+        20.66,
+        49.172,
+        17.074000000000012,
+        49.172000000000025
+      ],
+      "excluded_support_counts_by_region": {
+        "ASSE receiver": 0,
+        "Pisco receiver": 425,
+        "Identification channel 1": 0,
+        "Identification channel 2": 0,
+        "Covered bulkhead at X29.025858982281964 Z330.8647148810266": 0,
+        "Covered bulkhead at X76.5 Z331.2": 88,
+        "Covered bulkhead at X76.5 Z264": 1136,
+        "Covered bulkhead at X76.5 Z294.2": 664,
+        "Covered bulkhead at X28.7999988712316 Z294.2": 0,
+        "Covered bulkhead at X28.7999988712316 Z264": 0,
+        "Inlet valve post socket -1/-1": 0,
+        "Inlet valve post socket -1/1": 0,
+        "Inlet valve post socket 1/-1": 0,
+        "Inlet valve post socket 1/1": 0,
+        "Soda valve post socket -1/-1": 0,
+        "Soda valve post socket -1/1": 0,
+        "Soda valve post socket 1/-1": 0,
+        "Soda valve post socket 1/1": 0,
+        "PRV vent mouth": 397
+      },
+      "longest_unbacked_rail_edge_mm": 2.780000000000001
+    },
+    {
+      "project_sha256": "c7faf4b695be66f93ee7678f676b7afe56afda6b9b43b704542e960a92175a27",
+      "archive_sha256": null,
+      "prepared_utc": "2026-11-06T21:24:10+00:00",
+      "estimated_seconds": null,
+      "source_stl_sha256": "f94e92373793415ea6259c254bae0ee402b1a8ec5eea2874e1d486eb5de99d16",
+      "pose": {
+        "turns": [
+          [
+            "x",
+            -90
+          ]
+        ]
+      },
+      "settings": {
+        "extruder_ams_count": [
+          "1#0|4#0",
+          "1#0|4#0"
+        ],
+        "support_filament": "1",
+        "support_interface_filament": "1",
+        "flush_into_support": "0",
+        "filament_colour": [
+          "#161616"
+        ],
+        "max_bridge_length": "50",
+        "tree_support_branch_diameter_angle": "0.5",
+        "tree_support_branch_diameter": "3",
+        "elefant_foot_compensation": "0",
+        "support_style": "tree_slim",
+        "support_on_build_plate_only": "0",
+        "tree_support_branch_angle": "30",
+        "raft_first_layer_expansion": "3"
+      },
+      "finding": "Cancelled during native tree-polygon merging; no sliced archive was produced.",
+      "status": "not_submitted"
+    },
+    {
+      "project_sha256": "ab021ef566b96033075731c255a8eadeebf8779e2e3dc6c9c680aeeec61b5443",
+      "archive_sha256": null,
+      "prepared_utc": "2026-11-06T21:41:48+00:00",
+      "estimated_seconds": null,
+      "source_stl_sha256": "f94e92373793415ea6259c254bae0ee402b1a8ec5eea2874e1d486eb5de99d16",
+      "pose": {
+        "turns": [
+          [
+            "x",
+            -90
+          ]
+        ]
+      },
+      "settings": {
+        "extruder_ams_count": [
+          "1#0|4#0",
+          "1#0|4#0"
+        ],
+        "support_filament": "1",
+        "support_interface_filament": "1",
+        "flush_into_support": "0",
+        "filament_colour": [
+          "#161616"
+        ],
+        "max_bridge_length": "50",
+        "tree_support_branch_diameter_angle": "0.5",
+        "tree_support_branch_diameter": "3",
+        "elefant_foot_compensation": "0",
+        "support_style": "tree_slim",
+        "support_on_build_plate_only": "0",
+        "tree_support_branch_angle": "30",
+        "raft_first_layer_expansion": "3",
+        "tree_support_branch_distance": "8",
+        "resolution": "0.05"
+      },
+      "finding": "Cancelled during native tree-polygon merging; no sliced archive was produced.",
+      "status": "not_submitted"
+    },
+    {
+      "project_sha256": "9bd97864c580c960cf625e9738f05515fb9f86f9d5c530fd9f12c7482497d819",
+      "archive_sha256": null,
+      "prepared_utc": "2026-11-06T21:52:40+00:00",
+      "estimated_seconds": null,
+      "source_stl_sha256": "f94e92373793415ea6259c254bae0ee402b1a8ec5eea2874e1d486eb5de99d16",
+      "pose": {
+        "turns": [
+          [
+            "x",
+            -85
+          ]
+        ]
+      },
+      "settings": {
+        "extruder_ams_count": [
+          "1#0|4#0",
+          "1#0|4#0"
+        ],
+        "support_filament": "1",
+        "support_interface_filament": "1",
+        "flush_into_support": "0",
+        "filament_colour": [
+          "#161616"
+        ],
+        "max_bridge_length": "50",
+        "tree_support_branch_diameter_angle": "0.5",
+        "tree_support_branch_diameter": "3",
+        "elefant_foot_compensation": "0",
+        "support_style": "tree_slim",
+        "support_on_build_plate_only": "0",
+        "tree_support_branch_angle": "30",
+        "raft_first_layer_expansion": "3",
+        "tree_support_branch_distance": "8",
+        "resolution": "0.05"
+      },
+      "finding": "Cancelled during native automatic-lift travel clipping; no complete sliced archive was produced.",
+      "status": "not_submitted"
+    },
+    {
+      "project_sha256": "a47be9161059cb46eab4704421c3528cf68962b83e2c9436962d50b069a1cc0b",
+      "archive_sha256": "9c69b01d73583ea4d31657952251e0c5a4d241635ab011c861896cfc943c8f9b",
+      "prepared_utc": "2026-11-06T22:15:19+00:00",
+      "estimated_seconds": 237038.15625,
+      "source_stl_sha256": "f94e92373793415ea6259c254bae0ee402b1a8ec5eea2874e1d486eb5de99d16",
+      "pose": {
+        "turns": [
+          [
+            "x",
+            -85
+          ]
+        ]
+      },
+      "settings": {
+        "extruder_ams_count": [
+          "1#0|4#0",
+          "1#0|4#0"
+        ],
+        "support_filament": "1",
+        "support_interface_filament": "1",
+        "flush_into_support": "0",
+        "filament_colour": [
+          "#161616"
+        ],
+        "max_bridge_length": "50",
+        "tree_support_branch_diameter_angle": "0.5",
+        "tree_support_branch_diameter": "3",
+        "elefant_foot_compensation": "0",
+        "support_style": "tree_slim",
+        "support_on_build_plate_only": "0",
+        "tree_support_branch_angle": "30",
+        "raft_first_layer_expansion": "3",
+        "tree_support_branch_distance": "8",
+        "resolution": "0.05",
+        "z_hop_types": [
+          "Normal Lift",
+          "Normal Lift",
+          "Normal Lift",
+          "Normal Lift",
+          "Normal Lift"
+        ]
+      },
+      "finding": "Receiver interiors were clear, but trees passed through covered bores and the vent.",
+      "status": "not_submitted",
+      "passages": {
+        "purpose": "Read candidate support passages and the bed envelope before the full native review.",
+        "archive_sha256": "9c69b01d73583ea4d31657952251e0c5a4d241635ab011c861896cfc943c8f9b",
+        "bead_envelope_plate_mm": [
+          [
+            42.246,
+            36.486
+          ],
+          [
+            274.082,
+            274.14
+          ]
+        ],
+        "margins_lf_rb_mm": [
+          42.246,
+          36.486,
+          50.918000000000006,
+          45.860000000000014
+        ],
+        "excluded_support_counts_by_region": {
+          "ASSE receiver": 0,
+          "Pisco receiver": 0,
+          "Covered bulkhead at X29.025858982281964 Z330.8647148810266": 1102,
+          "Covered bulkhead at X76.5 Z331.2": 4923,
+          "Covered bulkhead at X76.5 Z264": 10321,
+          "Covered bulkhead at X76.5 Z294.2": 11048,
+          "Covered bulkhead at X28.7999988712316 Z294.2": 1273,
+          "Covered bulkhead at X28.7999988712316 Z264": 1240,
+          "Inlet valve post socket -1/-1": 0,
+          "Inlet valve post socket -1/1": 0,
+          "Inlet valve post socket 1/-1": 0,
+          "Inlet valve post socket 1/1": 0,
+          "Soda valve post socket -1/-1": 35,
+          "Soda valve post socket -1/1": 39,
+          "Soda valve post socket 1/-1": 24,
+          "Soda valve post socket 1/1": 17,
+          "PRV vent mouth": 438
+        },
+        "examples": {
+          "Covered bulkhead at X76.5 Z264": {
+            "source_mm": [
+              75.762,
+              472.21364468436246,
+              254.79067816180054
+            ],
+            "feature": "Support"
+          },
+          "Covered bulkhead at X28.7999988712316 Z264": {
+            "source_mm": [
+              28.062000000000012,
+              472.21355752861973,
+              254.7896819671024
+            ],
+            "feature": "Support"
+          },
+          "Covered bulkhead at X76.5 Z294.2": {
+            "source_mm": [
+              81.07299999999998,
+              472.28263239277715,
+              289.5414024844112
+            ],
+            "feature": "Support"
+          },
+          "Covered bulkhead at X28.7999988712316 Z294.2": {
+            "source_mm": [
+              36.20800000000003,
+              472.24975615257614,
+              291.91931651835574
+            ],
+            "feature": "Support"
+          },
+          "Covered bulkhead at X76.5 Z331.2": {
+            "source_mm": [
+              74.57749999999999,
+              472.24987412242945,
+              324.04706200782454
+            ],
+            "feature": "Support"
+          },
+          "Covered bulkhead at X29.025858982281964 Z330.8647148810266": {
+            "source_mm": [
+              19.25999999999999,
+              472.23180418420566,
+              330.26580108639445
+            ],
+            "feature": "Support"
+          },
+          "PRV vent mouth": {
+            "source_mm": [
+              -101.365,
+              329.6636867540502,
+              169.9137432615215
+            ],
+            "feature": "Support"
+          },
+          "Soda valve post socket -1/1": {
+            "source_mm": [
+              66.22050000000002,
+              302.8887882618253,
+              282.3215751638452
+            ],
+            "feature": "Support"
+          },
+          "Soda valve post socket 1/1": {
+            "source_mm": [
+              86.9555,
+              302.7531377874368,
+              283.9837228554773
+            ],
+            "feature": "Support"
+          },
+          "Soda valve post socket -1/-1": {
+            "source_mm": [
+              62.52350000000001,
+              302.8202902932229,
+              309.19028872215114
+            ],
+            "feature": "Support"
+          },
+          "Soda valve post socket 1/-1": {
+            "source_mm": [
+              86.8255,
+              302.83471456864766,
+              309.35515894468534
+            ],
+            "feature": "Support"
+          }
+        }
+      },
+      "physical_passages": {
+        "purpose": "Read candidate support passages and the bed envelope before the full native review.",
+        "archive_sha256": "9c69b01d73583ea4d31657952251e0c5a4d241635ab011c861896cfc943c8f9b",
+        "bead_envelope_plate_mm": [
+          [
+            42.246,
+            36.486
+          ],
+          [
+            274.082,
+            274.14
+          ]
+        ],
+        "margins_lf_rb_mm": [
+          42.246,
+          36.486,
+          50.918000000000006,
+          45.860000000000014
+        ],
+        "excluded_support_counts_by_region": {
+          "ASSE receiver": 0,
+          "Pisco receiver": 0,
+          "Covered bulkhead at X29.025858982281964 Z330.8647148810266": 719,
+          "Covered bulkhead at X76.5 Z331.2": 3251,
+          "Covered bulkhead at X76.5 Z264": 5153,
+          "Covered bulkhead at X76.5 Z294.2": 6547,
+          "Covered bulkhead at X28.7999988712316 Z294.2": 823,
+          "Covered bulkhead at X28.7999988712316 Z264": 813,
+          "Inlet valve post socket -1/-1": 0,
+          "Inlet valve post socket -1/1": 0,
+          "Inlet valve post socket 1/-1": 0,
+          "Inlet valve post socket 1/1": 0,
+          "Soda valve post socket -1/-1": 0,
+          "Soda valve post socket -1/1": 0,
+          "Soda valve post socket 1/-1": 0,
+          "Soda valve post socket 1/1": 0,
+          "PRV vent mouth": 438
+        },
+        "examples": {
+          "Covered bulkhead at X76.5 Z264": {
+            "source_mm": [
+              76.279,
+              471.24156616262843,
+              254.6945345318327
+            ],
+            "feature": "Support"
+          },
+          "Covered bulkhead at X28.7999988712316 Z264": {
+            "source_mm": [
+              28.579000000000008,
+              471.24156616262843,
+              254.6945345318327
+            ],
+            "feature": "Support"
+          },
+          "Covered bulkhead at X76.5 Z294.2": {
+            "source_mm": [
+              80.05450000000002,
+              471.297480509631,
+              289.2958296497296
+            ],
+            "feature": "Support"
+          },
+          "Covered bulkhead at X28.7999988712316 Z294.2": {
+            "source_mm": [
+              36.1095,
+              471.2914046603249,
+              291.9800735533374
+            ],
+            "feature": "Support"
+          },
+          "Covered bulkhead at X76.5 Z331.2": {
+            "source_mm": [
+              75.082,
+              471.28434063229685,
+              324.94362549103835
+            ],
+            "feature": "Support"
+          },
+          "Covered bulkhead at X29.025858982281964 Z330.8647148810266": {
+            "source_mm": [
+              19.740499999999997,
+              471.20885358478756,
+              327.7523928284407
+            ],
+            "feature": "Support"
+          },
+          "PRV vent mouth": {
+            "source_mm": [
+              -101.365,
+              329.6636867540502,
+              169.9137432615215
+            ],
+            "feature": "Support"
+          }
+        }
+      },
+      "build_axis": {
+        "purpose": "Read how the rails and receiver catches grow through the native rear-face-down layers.",
+        "source_stl_sha256": "f94e92373793415ea6259c254bae0ee402b1a8ec5eea2874e1d486eb5de99d16",
+        "project_sha256": "a47be9161059cb46eab4704421c3528cf68962b83e2c9436962d50b069a1cc0b",
+        "archive_sha256": "9c69b01d73583ea4d31657952251e0c5a4d241635ab011c861896cfc943c8f9b",
+        "print_up_source": [
+          0.0,
+          -0.9961946980917455,
+          0.08715574274765814
+        ],
+        "rows": {
+          "ASSE receiver": {
+            "model_roads": 39144,
+            "longest_commanded_y_mm": 1.218698750840531,
+            "source_y_span_mm": [
+              395.6126243491268,
+              438.580628560322
+            ],
+            "support_roads": 0,
+            "support_y_span_mm": null,
+            "interface_roads": 0,
+            "interface_y_span_mm": null
+          },
+          "Pisco receiver": {
+            "model_roads": 31336,
+            "longest_commanded_y_mm": 0.6520992672379862,
+            "source_y_span_mm": [
+              419.99641463723333,
+              462.43625869416655
+            ],
+            "support_roads": 0,
+            "support_y_span_mm": null,
+            "interface_roads": 0,
+            "interface_y_span_mm": null
+          },
+          "East sliding groove": {
+            "model_roads": 2540,
+            "longest_commanded_y_mm": 2.313723502722098,
+            "source_y_span_mm": [
+              223.77766846111118,
+              457.8751976722099
+            ],
+            "support_roads": 0,
+            "support_y_span_mm": null,
+            "interface_roads": 0,
+            "interface_y_span_mm": null
+          },
+          "West sliding groove": {
+            "model_roads": 2505,
+            "longest_commanded_y_mm": 2.313723502722098,
+            "source_y_span_mm": [
+              223.77766846111118,
+              457.8756872030848
+            ],
+            "support_roads": 6269,
+            "support_y_span_mm": [
+              318.2606409726976,
+              448.00390826099203
+            ],
+            "interface_roads": 2,
+            "interface_y_span_mm": [
+              333.20041115587776,
+              333.4391492604488
+            ]
+          }
+        }
+      }
+    },
+    {
+      "project_sha256": "fffed6e692cbf25f5552cce687fa64bf3c76572a7fb2ac492d3dcb7971fa4c16",
+      "archive_sha256": null,
+      "prepared_utc": "2026-11-06T22:53:52+00:00",
+      "source_stl_sha256": "dec8d72d24d9048005f28b1a379a0af5517c564a76d88030a5efe92cc4b2d71e",
+      "pose": {
+        "turns": [
+          [
+            "x",
+            -107
+          ]
+        ]
+      },
+      "settings": {
+        "extruder_ams_count": [
+          "1#0|4#0",
+          "1#0|4#0"
+        ],
+        "support_filament": "1",
+        "support_interface_filament": "1",
+        "flush_into_support": "0",
+        "filament_colour": [
+          "#161616"
+        ],
+        "max_bridge_length": "50",
+        "tree_support_branch_diameter_angle": "0.5",
+        "tree_support_branch_diameter": "3",
+        "elefant_foot_compensation": "0",
+        "support_style": "tree_slim",
+        "support_on_build_plate_only": "0",
+        "tree_support_branch_angle": "60",
+        "raft_first_layer_expansion": "3",
+        "tree_support_branch_distance": "8",
+        "resolution": "0.05",
+        "z_hop_types": [
+          "Normal Lift",
+          "Normal Lift",
+          "Normal Lift",
+          "Normal Lift",
+          "Normal Lift"
+        ]
+      },
+      "finding": "Cancelled after mesh lint found the vent backing clipped to a narrow strip.",
+      "status": "not_submitted"
+    },
+    {
+      "project_sha256": "d024dbb8f0d6754889072e4c917cb4437e86d77936a5e69af86d5c3c120f2aeb",
+      "archive_sha256": null,
+      "prepared_utc": "2026-11-06T23:09:22+00:00",
+      "source_stl_sha256": "9dffa9196a42bda63057411ad19dfb10a2e7ae98818851dbac9494d34fe6556b",
+      "pose": {
+        "turns": [
+          [
+            "x",
+            -107
+          ]
+        ]
+      },
+      "settings": {
+        "extruder_ams_count": [
+          "1#0|4#0",
+          "1#0|4#0"
+        ],
+        "support_filament": "1",
+        "support_interface_filament": "1",
+        "flush_into_support": "0",
+        "filament_colour": [
+          "#161616"
+        ],
+        "max_bridge_length": "50",
+        "tree_support_branch_diameter_angle": "0.5",
+        "tree_support_branch_diameter": "3",
+        "elefant_foot_compensation": "0",
+        "support_style": "tree_slim",
+        "support_on_build_plate_only": "0",
+        "tree_support_branch_angle": "60",
+        "raft_first_layer_expansion": "3",
+        "tree_support_branch_distance": "8",
+        "resolution": "0.05",
+        "z_hop_types": [
+          "Normal Lift",
+          "Normal Lift",
+          "Normal Lift",
+          "Normal Lift",
+          "Normal Lift"
+        ]
+      },
+      "finding": "Stopped native tree routing after a large memory peak; no archive was produced.",
+      "footprint_peak_reported": "15 GB",
+      "status": "not_submitted"
+    },
+    {
+      "project_sha256": "8afd3ce67338cdb674976b5df1f4cf24cb2922eb32a655b5493d7523e1a9ea12",
+      "archive_sha256": "32c6a1aa8b2b1d954967288df6f3d9edef60242a5321e93684bb93a785d482bd",
+      "gcode_sha256": "7dd50e5e94b346add1d15c34ee8e8480935128602350e7f3349e0bf50e640872",
+      "source_stl_sha256": "9dffa9196a42bda63057411ad19dfb10a2e7ae98818851dbac9494d34fe6556b",
+      "prepared_utc": "2026-11-06T23:28:49+00:00",
+      "estimated_seconds": 362842.15625,
+      "settings": {
+        "extruder_ams_count": [
+          "1#0|4#0",
+          "1#0|4#0"
+        ],
+        "support_filament": "1",
+        "support_interface_filament": "1",
+        "flush_into_support": "0",
+        "filament_colour": [
+          "#161616"
+        ],
+        "max_bridge_length": "50",
+        "tree_support_branch_diameter_angle": "0",
+        "tree_support_branch_diameter": "3",
+        "elefant_foot_compensation": "0",
+        "support_style": "tree_slim",
+        "support_on_build_plate_only": "0",
+        "tree_support_branch_angle": "60",
+        "raft_first_layer_expansion": "3",
+        "tree_support_branch_distance": "8",
+        "resolution": "0.05",
+        "z_hop_types": [
+          "Normal Lift",
+          "Normal Lift",
+          "Normal Lift",
+          "Normal Lift",
+          "Normal Lift"
+        ]
+      },
+      "status": "not_submitted",
+      "finding": "Tree branches transit the protected receiver, covered bores and vent despite blocked support requests.",
+      "cavity_reading": {
+        "purpose": "Read candidate support passages and the bed envelope before the full native review.",
+        "archive_sha256": "32c6a1aa8b2b1d954967288df6f3d9edef60242a5321e93684bb93a785d482bd",
+        "bead_envelope_plate_mm": [
+          [
+            32.362,
+            47.143
+          ],
+          [
+            294.069,
+            274.487
+          ]
+        ],
+        "margins_lf_rb_mm": [
+          32.362,
+          47.143,
+          30.930999999999983,
+          45.51299999999998
+        ],
+        "excluded_support_counts_by_region": {
+          "ASSE receiver": 0,
+          "Pisco receiver": 6030,
+          "Wet-column rear face": 22066,
+          "Covered bulkhead at X29.025858982281964 Z330.8647148810266": 0,
+          "Covered bulkhead at X76.5 Z331.2": 1428,
+          "Covered bulkhead at X76.5 Z264": 0,
+          "Covered bulkhead at X76.5 Z294.2": 1764,
+          "Covered bulkhead at X28.7999988712316 Z294.2": 0,
+          "Covered bulkhead at X28.7999988712316 Z264": 0,
+          "Inlet valve post socket -1/-1": 0,
+          "Inlet valve post socket -1/1": 0,
+          "Inlet valve post socket 1/-1": 0,
+          "Inlet valve post socket 1/1": 0,
+          "Soda valve post socket -1/-1": 0,
+          "Soda valve post socket -1/1": 0,
+          "Soda valve post socket 1/-1": 0,
+          "Soda valve post socket 1/1": 0,
+          "PRV vent mouth": 1553
+        },
+        "examples": {
+          "Wet-column rear face": {
+            "source_mm": [
+              23.269499999999994,
+              473.98782986065225,
+              355.3369618663315
+            ],
+            "feature": "Support"
+          },
+          "Covered bulkhead at X76.5 Z331.2": {
+            "source_mm": [
+              80.8895,
+              471.3138562969907,
+              332.78735717731666
+            ],
+            "feature": "Support"
+          },
+          "Covered bulkhead at X76.5 Z294.2": {
+            "source_mm": [
+              81.57850000000002,
+              471.3184801153151,
+              299.9373185986436
+            ],
+            "feature": "Support"
+          },
+          "Pisco receiver": {
+            "source_mm": [
+              81.113,
+              452.51192333724015,
+              337.6454808868412
+            ],
+            "feature": "Support"
+          },
+          "PRV vent mouth": {
+            "source_mm": [
+              -100.711,
+              329.82972652954635,
+              172.24496182269712
+            ],
+            "feature": "Support"
+          }
+        }
+      },
+      "build_axis_reading": {
+        "purpose": "Read how the rails and receiver catches grow through the native rear-face-down layers.",
+        "source_stl_sha256": "9dffa9196a42bda63057411ad19dfb10a2e7ae98818851dbac9494d34fe6556b",
+        "project_sha256": "8afd3ce67338cdb674976b5df1f4cf24cb2922eb32a655b5493d7523e1a9ea12",
+        "archive_sha256": "32c6a1aa8b2b1d954967288df6f3d9edef60242a5321e93684bb93a785d482bd",
+        "print_up_source": [
+          0.0,
+          -0.9563047559630355,
+          -0.29237170472273666
+        ],
+        "rows": {
+          "ASSE receiver": {
+            "model_roads": 114951,
+            "longest_commanded_y_mm": 4.3747578177662945,
+            "source_y_span_mm": [
+              394.039802498896,
+              438.6566499694358
+            ],
+            "support_roads": 0,
+            "support_y_span_mm": null,
+            "interface_roads": 0,
+            "interface_y_span_mm": null
+          },
+          "Pisco receiver": {
+            "model_roads": 66563,
+            "longest_commanded_y_mm": 2.25506295852648,
+            "source_y_span_mm": [
+              419.81426729537804,
+              462.6171274649723
+            ],
+            "support_roads": 5651,
+            "support_y_span_mm": [
+              420.0358320932565,
+              442.2233567455641
+            ],
+            "interface_roads": 0,
+            "interface_y_span_mm": null
+          },
+          "East sliding groove": {
+            "model_roads": 5889,
+            "longest_commanded_y_mm": 2.064144235342553,
+            "source_y_span_mm": [
+              223.03808806110982,
+              457.37419676706406
+            ],
+            "support_roads": 0,
+            "support_y_span_mm": null,
+            "interface_roads": 0,
+            "interface_y_span_mm": null
+          },
+          "West sliding groove": {
+            "model_roads": 6182,
+            "longest_commanded_y_mm": 2.064144235342553,
+            "source_y_span_mm": [
+              223.0556303633932,
+              457.3741954138403
+            ],
+            "support_roads": 29782,
+            "support_y_span_mm": [
+              318.1180271328946,
+              457.0394833363581
+            ],
+            "interface_roads": 2,
+            "interface_y_span_mm": [
+              318.1180271328946,
+              318.2838018894724
+            ]
+          }
+        }
+      }
+    },
+    {
+      "project_sha256": "da44f56f6de497bd988a5defb44ca9d1b0367f6b7e865e053f3e31e8d3c2a03b",
+      "archive_sha256": "69bc93e63dbccb4ae6d8aae338f01d89c6260860a7d96c9584b9953888434540",
+      "source_stl_sha256": "9dffa9196a42bda63057411ad19dfb10a2e7ae98818851dbac9494d34fe6556b",
+      "prepared_utc": "2026-11-06T23:48:53+00:00",
+      "reported_estimated_seconds": 279348,
+      "reported_filament_grams": 846.41,
+      "settings": {
+        "extruder_ams_count": [
+          "1#0|4#0",
+          "1#0|4#0"
+        ],
+        "support_filament": "1",
+        "support_interface_filament": "1",
+        "flush_into_support": "0",
+        "filament_colour": [
+          "#161616"
+        ],
+        "max_bridge_length": "50",
+        "tree_support_branch_diameter_angle": "0",
+        "tree_support_branch_diameter": "3",
+        "elefant_foot_compensation": "0",
+        "support_style": "tree_slim",
+        "support_on_build_plate_only": "0",
+        "tree_support_branch_angle": "60",
+        "raft_first_layer_expansion": "3",
+        "tree_support_branch_distance": "8",
+        "resolution": "0.05",
+        "z_hop_types": [
+          "Normal Lift",
+          "Normal Lift",
+          "Normal Lift",
+          "Normal Lift",
+          "Normal Lift"
+        ],
+        "support_threshold_angle": "15"
+      },
+      "status": "not_submitted",
+      "finding": "Receiver interiors clear; a tree serving the meter crosses a covered bore. An exterior vent-wall target roots an unlabelled tree across the outlet edge. The saved end routine exceeds its configured vertical travel.",
+      "cavity_reading": {
+        "purpose": "Read candidate support passages and the bed envelope before the full native review.",
+        "archive_sha256": "69bc93e63dbccb4ae6d8aae338f01d89c6260860a7d96c9584b9953888434540",
+        "bead_envelope_plate_mm": [
+          [
+            31.198,
+            52.5
+          ],
+          [
+            300.226,
+            267.5
+          ]
+        ],
+        "margins_lf_rb_mm": [
+          31.198,
+          52.5,
+          24.774,
+          52.5
+        ],
+        "excluded_support_counts_by_region": {
+          "ASSE receiver": 0,
+          "Pisco receiver": 0,
+          "Wet-column rear face": 542,
+          "Covered bulkhead at X29.025858982281964 Z330.8647148810266": 0,
+          "Covered bulkhead at X76.5 Z331.2": 5,
+          "Covered bulkhead at X76.5 Z264": 0,
+          "Covered bulkhead at X76.5 Z294.2": 0,
+          "Covered bulkhead at X28.7999988712316 Z294.2": 0,
+          "Covered bulkhead at X28.7999988712316 Z264": 0,
+          "Inlet valve post socket -1/-1": 0,
+          "Inlet valve post socket -1/1": 0,
+          "Inlet valve post socket 1/-1": 0,
+          "Inlet valve post socket 1/1": 0,
+          "Soda valve post socket -1/-1": 0,
+          "Soda valve post socket -1/1": 0,
+          "Soda valve post socket 1/-1": 0,
+          "Soda valve post socket 1/1": 0,
+          "PRV vent mouth": 170
+        },
+        "examples": {
+          "Wet-column rear face": {
+            "source_mm": [
+              82.38650000000001,
+              465.38530575679675,
+              332.7514476748727
+            ],
+            "feature": "Support"
+          },
+          "Covered bulkhead at X76.5 Z331.2": {
+            "source_mm": [
+              82.38650000000001,
+              465.38530575679675,
+              332.7514476748727
+            ],
+            "feature": "Support"
+          },
+          "PRV vent mouth": {
+            "source_mm": [
+              -101.07,
+              329.8578798378631,
+              172.3649353249
+            ],
+            "feature": "Support"
+          }
+        }
+      },
+      "build_axis_reading": {
+        "purpose": "Read how the rails and receiver catches grow through the native rear-face-down layers.",
+        "source_stl_sha256": "9dffa9196a42bda63057411ad19dfb10a2e7ae98818851dbac9494d34fe6556b",
+        "project_sha256": "da44f56f6de497bd988a5defb44ca9d1b0367f6b7e865e053f3e31e8d3c2a03b",
+        "archive_sha256": "69bc93e63dbccb4ae6d8aae338f01d89c6260860a7d96c9584b9953888434540",
+        "print_up_source": [
+          0.0,
+          -0.9563047559630355,
+          -0.29237170472273666
+        ],
+        "rows": {
+          "ASSE receiver": {
+            "model_roads": 114951,
+            "longest_commanded_y_mm": 4.3747578177662945,
+            "source_y_span_mm": [
+              394.039802498896,
+              438.6566499694358
+            ],
+            "support_roads": 0,
+            "support_y_span_mm": null,
+            "interface_roads": 0,
+            "interface_y_span_mm": null
+          },
+          "Pisco receiver": {
+            "model_roads": 66563,
+            "longest_commanded_y_mm": 2.25506295852648,
+            "source_y_span_mm": [
+              419.81426729537804,
+              462.6171274649723
+            ],
+            "support_roads": 0,
+            "support_y_span_mm": null,
+            "interface_roads": 0,
+            "interface_y_span_mm": null
+          },
+          "East sliding groove": {
+            "model_roads": 5889,
+            "longest_commanded_y_mm": 2.064144235342553,
+            "source_y_span_mm": [
+              223.03808806110982,
+              457.37419676706406
+            ],
+            "support_roads": 0,
+            "support_y_span_mm": null,
+            "interface_roads": 0,
+            "interface_y_span_mm": null
+          },
+          "West sliding groove": {
+            "model_roads": 6182,
+            "longest_commanded_y_mm": 2.064144235342553,
+            "source_y_span_mm": [
+              223.0556303633932,
+              457.3741954138403
+            ],
+            "support_roads": 4294,
+            "support_y_span_mm": [
+              318.1246546759429,
+              457.03418474199134
+            ],
+            "interface_roads": 0,
+            "interface_y_span_mm": null
+          }
+        }
+      },
+      "height_reading": {
+        "purpose": "Read the commanded vertical motion envelope of the prepared native file.",
+        "archive_sha256": "69bc93e63dbccb4ae6d8aae338f01d89c6260860a7d96c9584b9953888434540",
+        "gcode_sha256": "59ed2a8da484ad8ff3a6a781bb177f3633f5eeb93b9446a722f747366ac99eee",
+        "printer_printable_height_mm": 325.0,
+        "highest_commanded_motion": {
+          "z_mm": 329.08,
+          "line": 18036603,
+          "command": "G1 Z329.08 F900"
+        },
+        "highest_xy_extruding_motion": {
+          "z_mm": 319.08,
+          "line": 18036516,
+          "command": "G1 X213.221 Y267.304 E.08175"
+        },
+        "highest_layer_mm": 319.08,
+        "expected_textured_trim_mm": 0.02
+      },
+      "support_summary": {
+        "support_bodies": 13,
+        "interface_islands": null,
+        "bed_rooted_bodies": 7,
+        "model_rooted_bodies": 6,
+        "shortest_build_up_mm": null,
+        "bodies_without_interface_labels": 3,
+        "explicit_interface_islands": 82,
+        "shortest_labelled_build_up_mm": 0.522
+      },
+      "meter_target_contacts": [
+        {
+          "id": "interface-65",
+          "first_z_mm": 40.114,
+          "last_z_mm": 40.39,
+          "bbox_xy_mm": [
+            139.2,
+            242.8,
+            140.0,
+            257.6
+          ],
+          "tree": "tree-2",
+          "build_up_mm": 25.084,
+          "bbox_cad_xyz_mm": [
+            82.8,
+            445.008,
+            311.899,
+            97.6,
+            445.506,
+            312.745
+          ]
+        },
+        {
+          "id": "interface-72",
+          "first_z_mm": 87.15,
+          "last_z_mm": 87.43,
+          "bbox_xy_mm": [
+            124.8,
+            242.8,
+            125.6,
+            252.8
+          ],
+          "tree": "tree-2",
+          "build_up_mm": 72.12,
+          "bbox_cad_xyz_mm": [
+            82.8,
+            395.813,
+            311.917,
+            92.8,
+            396.315,
+            312.764
+          ]
+        },
+        {
+          "id": "interface-74",
+          "first_z_mm": 101.231,
+          "last_z_mm": 101.51,
+          "bbox_xy_mm": [
+            167.2,
+            242.8,
+            168.0,
+            252.8
+          ],
+          "tree": "tree-8",
+          "build_up_mm": 40.391,
+          "bbox_cad_xyz_mm": [
+            82.8,
+            394.745,
+            267.253,
+            92.8,
+            395.246,
+            268.1
+          ]
+        },
+        {
+          "id": "interface-75",
+          "first_z_mm": 101.67,
+          "last_z_mm": 101.75,
+          "bbox_xy_mm": [
+            171.6,
+            248.8,
+            172.4,
+            252.8
+          ],
+          "tree": "tree-8",
+          "build_up_mm": 40.83,
+          "bbox_cad_xyz_mm": [
+            88.8,
+            395.802,
+            262.975,
+            92.8,
+            396.112,
+            263.764
+          ]
+        }
+      ],
+      "vent_tree": {
+        "id": "tree-12",
+        "root": "model",
+        "base_z_mm": 65.878,
+        "first_interface_z_mm": null,
+        "shortest_build_up_mm": null,
+        "top_z_mm": 203.67,
+        "bbox_xy_mm": [
+          239.2,
+          56.8,
+          281.6,
+          68.4
+        ],
+        "interfaces": [],
+        "interface_reading": "unlabelled",
+        "bbox_cad_xyz_mm": [
+          -103.2,
+          318.1,
+          128.748,
+          -91.6,
+          462.267,
+          209.582
+        ]
+      }
+    },
+    {
+      "project_sha256": "782931b5be880f20d5fca0aad9238f182f52507b440a0d30847deb5fb7c60db6",
+      "archive_sha256": "c3e2d83fdad3484c1e59a204718df56f71aad5bbdcc3037517f3ca8eea5470cf",
+      "source_stl_sha256": "9dffa9196a42bda63057411ad19dfb10a2e7ae98818851dbac9494d34fe6556b",
+      "prepared_utc": "2026-11-07T00:05:32+00:00",
+      "reported_estimated_seconds": 279519,
+      "reported_filament_grams": 854.28,
+      "settings": {
+        "extruder_ams_count": [
+          "1#0|4#0",
+          "1#0|4#0"
+        ],
+        "support_filament": "1",
+        "support_interface_filament": "1",
+        "flush_into_support": "0",
+        "filament_colour": [
+          "#161616"
+        ],
+        "max_bridge_length": "50",
+        "tree_support_branch_diameter_angle": "0",
+        "tree_support_branch_diameter": "3",
+        "elefant_foot_compensation": "0",
+        "support_style": "tree_slim",
+        "support_on_build_plate_only": "0",
+        "tree_support_branch_angle": "60",
+        "raft_first_layer_expansion": "3",
+        "tree_support_branch_distance": "8",
+        "resolution": "0.05",
+        "z_hop_types": [
+          "Normal Lift",
+          "Normal Lift",
+          "Normal Lift",
+          "Normal Lift",
+          "Normal Lift"
+        ],
+        "support_threshold_angle": "15"
+      },
+      "status": "not_submitted",
+      "finding": "The complete vent passage and both grooves are clear. Automatic routing re-roots the other exterior trees through the Pisco and its bore.",
+      "cavity_reading": {
+        "purpose": "Read candidate support passages and the bed envelope before the full native review.",
+        "archive_sha256": "c3e2d83fdad3484c1e59a204718df56f71aad5bbdcc3037517f3ca8eea5470cf",
+        "bead_envelope_plate_mm": [
+          [
+            31.207,
+            52.5
+          ],
+          [
+            300.434,
+            267.5
+          ]
+        ],
+        "margins_lf_rb_mm": [
+          31.207,
+          52.5,
+          24.565999999999974,
+          52.5
+        ],
+        "excluded_support_counts_by_region": {
+          "ASSE receiver": 0,
+          "Pisco receiver": 4347,
+          "Flow meter receiver": 0,
+          "Water regulator receiver": 0,
+          "Wet-column rear face": 5868,
+          "Covered bulkhead at X29.025858982281964 Z330.8647148810266": 0,
+          "Covered bulkhead at X76.5 Z331.2": 2365,
+          "Covered bulkhead at X76.5 Z264": 0,
+          "Covered bulkhead at X76.5 Z294.2": 0,
+          "Covered bulkhead at X28.7999988712316 Z294.2": 0,
+          "Covered bulkhead at X28.7999988712316 Z264": 0,
+          "Inlet valve post socket -1/-1": 0,
+          "Inlet valve post socket -1/1": 0,
+          "Inlet valve post socket 1/-1": 0,
+          "Inlet valve post socket 1/1": 0,
+          "Soda valve post socket -1/-1": 0,
+          "Soda valve post socket -1/1": 0,
+          "Soda valve post socket 1/-1": 0,
+          "Soda valve post socket 1/1": 0,
+          "PRV vent mouth": 0
+        },
+        "examples": {
+          "Wet-column rear face": {
+            "source_mm": [
+              82.096,
+              474.4042119970045,
+              348.6165501932696
+            ],
+            "feature": "Support"
+          },
+          "Covered bulkhead at X76.5 Z331.2": {
+            "source_mm": [
+              79.0025,
+              470.0180184284151,
+              338.3939733108116
+            ],
+            "feature": "Support"
+          },
+          "Pisco receiver": {
+            "source_mm": [
+              77.451,
+              462.3699274736913,
+              340.9725598903686
+            ],
+            "feature": "Support"
+          }
+        }
+      },
+      "build_axis_reading": {
+        "purpose": "Read how the rails and receiver catches grow through the native rear-face-down layers.",
+        "source_stl_sha256": "9dffa9196a42bda63057411ad19dfb10a2e7ae98818851dbac9494d34fe6556b",
+        "project_sha256": "782931b5be880f20d5fca0aad9238f182f52507b440a0d30847deb5fb7c60db6",
+        "archive_sha256": "c3e2d83fdad3484c1e59a204718df56f71aad5bbdcc3037517f3ca8eea5470cf",
+        "print_up_source": [
+          0.0,
+          -0.9563047559630355,
+          -0.29237170472273666
+        ],
+        "rows": {
+          "ASSE receiver": {
+            "model_roads": 114951,
+            "longest_commanded_y_mm": 4.3747578177662945,
+            "source_y_span_mm": [
+              394.039802498896,
+              438.6566499694358
+            ],
+            "support_roads": 0,
+            "support_y_span_mm": null,
+            "interface_roads": 0,
+            "interface_y_span_mm": null
+          },
+          "Pisco receiver": {
+            "model_roads": 66563,
+            "longest_commanded_y_mm": 2.25506295852648,
+            "source_y_span_mm": [
+              419.81426729537804,
+              462.6171274649723
+            ],
+            "support_roads": 3636,
+            "support_y_span_mm": [
+              419.7101340738667,
+              462.69570085626134
+            ],
+            "interface_roads": 0,
+            "interface_y_span_mm": null
+          },
+          "East sliding groove": {
+            "model_roads": 5889,
+            "longest_commanded_y_mm": 2.064144235342553,
+            "source_y_span_mm": [
+              223.03808806110982,
+              457.37419676706406
+            ],
+            "support_roads": 0,
+            "support_y_span_mm": null,
+            "interface_roads": 0,
+            "interface_y_span_mm": null
+          },
+          "West sliding groove": {
+            "model_roads": 6182,
+            "longest_commanded_y_mm": 2.064144235342553,
+            "source_y_span_mm": [
+              223.0556303633932,
+              457.3741954138403
+            ],
+            "support_roads": 0,
+            "support_y_span_mm": null,
+            "interface_roads": 0,
+            "interface_y_span_mm": null
+          }
+        }
+      },
+      "height_reading": {
+        "purpose": "Read the commanded vertical motion envelope of the prepared native file.",
+        "archive_sha256": "c3e2d83fdad3484c1e59a204718df56f71aad5bbdcc3037517f3ca8eea5470cf",
+        "gcode_sha256": "7a107ebcfdfa4e5da4d1acf307eb1d13f299e8ff98f3e584dbae14abca41d343",
+        "printer_printable_height_mm": 325.0,
+        "highest_commanded_motion": {
+          "z_mm": 324.96,
+          "line": 18002971,
+          "command": "G1 Z324.96 F900"
+        },
+        "highest_xy_extruding_motion": {
+          "z_mm": 319.08,
+          "line": 18002884,
+          "command": "G1 X213.221 Y267.304 E.08175"
+        },
+        "highest_layer_mm": 319.08,
+        "expected_textured_trim_mm": 0.02
+      }
+    }
+  ],
+  "removed_bytes": 3912323089,
+  "removed_superseded_bytes": 2372615160
+}

@@ -44,7 +44,10 @@ fn print_features(dir: &Path, b: &spec::Box) -> Result<()> {
     use serde_json::json;
     use hsm_enclosure_solid::pieces::digest;
     let mut regions = vec![];
-    for (name, bounds, span) in supports::bridge_regions() {
+    let receivers = supports::bridge_regions().into_iter()
+        .map(|(name,bounds,span)| (name,bounds,span,[0.0,1.0,0.0]))
+        .chain(supports::side_support_regions());
+    for (name, bounds, span, axis) in receivers {
         let mut blocking = bounds;
         for k in 0..3 {
             blocking[2*k] -= shell::WALL + catalog::running();
@@ -53,7 +56,7 @@ fn print_features(dir: &Path, b: &spec::Box) -> Result<()> {
         blocking[5] = b.outer[5];
         regions.push(json!({"name": name, "bounds_source_mm": bounds, "bridge_span_mm": span,
             "blocking_bounds_source_mm": blocking,
-            "bridge_axis_source": [0, 1, 0],
+            "bridge_axis_source": axis,
             "reason": "The fitted catches and end shoulders grow through fine layers without interior supports."}));
     }
     for (index, bounds) in rear_wall::label_channels().into_iter().enumerate() {
@@ -79,7 +82,7 @@ fn print_features(dir: &Path, b: &spec::Box) -> Result<()> {
     regions.push(json!({"name":"Wet-column rear face",
         "bounds_source_mm":[panel.xmin-shell::WALL,panel.xmax+shell::WALL,
                             wall.rear_wall.ymin,b.outer[3]+shell::WALL,panel.zmin,b.outer[5]+1.0],
-        "support_print_up_source":[0,-1,0],"support_direction_cosine_min":0.95,
+        "support_print_up_source":[0,-1,0],"support_direction_cosine_min":0.95,"review_interior":false,
         "reason":"The tilted rear face grows through fine layers without trees through its covered bores."}));
     let roof_angle = shell::shell().teardrop_roof_angle.to_radians();
     for port in &wall.wet_ports {
@@ -130,9 +133,13 @@ fn print_features(dir: &Path, b: &spec::Box) -> Result<()> {
             "void_source": hsm_enclosure_quadrants::vent::mouth_void(&b.inner, *station),
             "reason": "The cap root and end-wall backing keep supports out of the clear passage."}));
     }
+    let targets = vec![json!({"name":"Exposed rear exterior",
+        "bounds_source_mm":[b.outer[0],panel.xmin-shell::WALL,wall.rear_wall.ymax,b.outer[3]+shell::WALL,
+                            b.outer[4],b.outer[5]],
+        "reason":"Trees remain outside the rear wall where their branches and contacts are accessible."})];
     let record = json!({"source_stl_sha256": digest(&std::fs::read(dir.join("enclosure-back-top.stl"))?),
         "producer": "enclosure-back-top", "boundary_overlap_mm": catalog::running(), "support_free_regions": regions,
-        "bridge_regions":bridges});
+        "bridge_regions":bridges,"support_regions":targets});
     keep(&dir.join("enclosure-back-top.print-features.json"), &serde_json::to_vec_pretty(&record)?)
 }
 

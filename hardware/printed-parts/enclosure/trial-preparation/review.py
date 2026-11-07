@@ -10,7 +10,7 @@ G-code: archive integrity and Z trim, fine-layer coverage of each measured round
 (`hardware/scripts/verify_round_layer_band.py`), layer heights through each transition
 band, the complete bead envelope against the bed border, support beads near the painted
 show faces, support inside tie-channel windows and groove ribbons, ribbon deposition,
-sampled deposition in the solid-host modifiers, unbacked roads in the fine bands, the
+sampled deposition in the solid-host modifiers, optional unbacked-road statistics, the
 first-to-second layer bead stack, and each object's support topology
 (`hardware/scripts/enclosure_support_audit.py`). Removal lanes for the reported support
 bodies remain a reading of their positions against the part.
@@ -350,13 +350,16 @@ def support_in_void(road, z, height, region, record) -> bool:
     raise ValueError(f"unknown support-free passage: {shape['kind']}")
 
 
-def review(directory: Path, audit: bool = True) -> dict:
+def review(directory: Path, audit: bool = True, unbacked: bool = False) -> dict:
     directory = Path(directory)
     preparation = json.loads((directory / "preparation.json").read_text())
     archive = ROOT / preparation["archive"]
     if _mesh.sha256(archive) != preparation["archive_sha256"]:
         raise ValueError("the sliced archive changed after slicing")
     project_check = check_project(directory)
+    with zipfile.ZipFile(ROOT / preparation["project"]) as project:
+        settings = json.loads(project.read(_native.SETTINGS_MEMBER))
+    bed_layer_height = float(settings["initial_layer_print_height"])
     with zipfile.ZipFile(archive) as z:
         gcode = z.read("Metadata/plate_1.gcode")
         integrity = hashlib.md5(gcode).hexdigest() == z.read("Metadata/plate_1.gcode.md5").decode().strip().lower()
@@ -395,7 +398,7 @@ def review(directory: Path, audit: bool = True) -> dict:
 
     def needs_beads(z, height, count):
         mid = z - height / 2
-        return count <= 2 or any(s["print_z_mm"][0] - 0.5 <= mid <= s["print_z_mm"][1] + 0.08 for _, s in fine)
+        return count <= 2 or unbacked and any(s["print_z_mm"][0] - 0.5 <= mid <= s["print_z_mm"][1] + 0.08 for _, s in fine)
 
     handle, stream = gcode_lines(archive)
     with stream:
@@ -478,7 +481,7 @@ def review(directory: Path, audit: bool = True) -> dict:
                     own = np.array([o == oid for o in owners])
                     first_two.setdefault(oid, []).append((union_all(beads[own]) if own.any() else None,
                                                           lines[own & model], r[own & model, 4]))
-            for oid, span in fine:
+            for oid, span in (fine if unbacked else []):
                 if previous is None or not (span["print_z_mm"][0] <= z - height / 2 <= span["print_z_mm"][1] + 0.08):
                     continue
                 own = np.array([o == oid for o in owners]) & model
@@ -515,7 +518,7 @@ def review(directory: Path, audit: bool = True) -> dict:
         walls = bands.wall_layers(archive, oid)
         for span in record["verify_spans"]:
             band_results.append({"object": oid, **bands.check_span(walls, span["name"], span["print_z_mm"][0], span["print_z_mm"][1],
-                                                                   span["layer_height_mm"], 0.001)})
+                                                                   span["layer_height_mm"], 0.001, bed_layer_height)})
         for rng in record["ranges"]:
             if "wall_loops" in rng["options"]:
                 heights = sorted({h for zz, h in walls if rng["min_z"] < zz <= rng["max_z"]})
@@ -542,6 +545,8 @@ def review(directory: Path, audit: bool = True) -> dict:
                             "first_z_mm": seen[0] if seen else None, "last_z_mm": seen[-1] if seen else None})
     result = {
         "archive": preparation["archive"], "archive_sha256": preparation["archive_sha256"],
+        "reader_sha256": hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
+        "fine_band_unbacked_statistics_requested": unbacked,
         "gcode_md5_matches": integrity, "emitted_z_trim_mm": trims,
         "expected_emitted_textured_trim_mm": preparation["emitted_textured_trim_mm"],
         "layers": stats["layers"], "project_check": project_check["pass"],
@@ -593,12 +598,17 @@ def review(directory: Path, audit: bool = True) -> dict:
 
 
 def dense_regions(directory: Path, preparation: dict, archive: Path) -> list[dict]:
-    """Sampled bead coverage of the model's own section inside each solid-host modifier."""
+    """Read solid-host infill inside each posed modifier, retaining its outline coverage.
+
+    A bead-radius inset keeps section-edge stair steps out of the infill reading.
+    Sections narrower than a bead have no separately measurable infill core.
+    """
     from shapely import STRtree, buffer, union_all
-    from shapely.geometry import LineString, box as shapely_box
+    from shapely.geometry import LineString
     wanted = defaultdict(list)
     rows = []
     meshes = {}
+    modifier_meshes = {}
     for record in preparation["objects"]:
         if not record["modifiers"]:
             continue
@@ -609,8 +619,13 @@ def dense_regions(directory: Path, preparation: dict, archive: Path) -> list[dic
             (x0, y0, z0), (x1, y1, z1) = modifier["plate_bounds_mm"]
             samples = sorted({round(z0 + 0.36, 3), round((z0 + z1) / 2, 3), round(z1 - 0.36, 3)})
             row = {"object": record["identify_id"], "name": modifier["name"], "plate_bounds_mm": modifier["plate_bounds_mm"],
-                   "samples": [], "minimum_coverage": None}
+                   "source_bounds_mm": modifier["source_bounds_mm"],
+                   "samples": [], "minimum_coverage": None, "minimum_outline_coverage": None}
             rows.append(row)
+            vertices, faces = _mesh.box_mesh(*modifier["source_bounds_mm"])
+            placed_modifier = ((vertices - record["source_center_mm"])
+                               @ np.array(record["build_rotation"]).T + record["translation_mm"])
+            modifier_meshes[id(row)] = placed_modifier[faces]
             for z in samples:
                 if z0 < z < z1:
                     wanted[round(z, 3)].append(row)
@@ -634,10 +649,10 @@ def dense_regions(directory: Path, preparation: dict, archive: Path) -> list[dic
                     if oid not in printed:
                         waiting.append(row)
                         continue
-                    (x0, y0, _), (x1, y1, _) = row["plate_bounds_mm"]
                     if oid not in sections:
                         sections[oid] = _mesh.section_polygons(meshes[oid], mid)
-                    stock = sections[oid].intersection(shapely_box(x0, y0, x1, y1))
+                    section = _mesh.section_polygons(modifier_meshes[id(row)], mid)
+                    stock = sections[oid].intersection(section)
                     if stock.area <= 0.05:
                         continue
                     own = [(a, b, c, d, w) for a, b, c, d, w, f, o in roads if o == oid and f in MODEL]
@@ -646,8 +661,14 @@ def dense_regions(directory: Path, preparation: dict, archive: Path) -> list[dic
                     tree = STRtree(lines)
                     index = tree.query(stock, predicate="dwithin", distance=float(widths.max() / 2))
                     beads = union_all(buffer(lines[index], widths[index] / 2, quad_segs=4)) if len(index) else None
-                    coverage = stock.intersection(beads).area / stock.area if beads is not None else 0.0
-                    row["samples"].append({"print_z_mm": z, "coverage": coverage, "stock_mm2": stock.area})
+                    radius = float(widths[index].max() / 2 if len(index) else widths.max() / 2)
+                    core = stock.buffer(-radius)
+                    outline_coverage = stock.intersection(beads).area / stock.area if beads is not None else 0.0
+                    coverage = ((core.intersection(beads).area / core.area if beads is not None else 0.0)
+                                if core.area > 0.05 else None)
+                    row["samples"].append({"print_z_mm": z, "coverage": coverage,
+                        "outline_coverage": outline_coverage, "stock_mm2": stock.area,
+                        "infill_core_mm2": core.area, "bead_radius_inset_mm": radius})
                 if waiting:
                     wanted[target] = waiting
             if not wanted:
@@ -655,7 +676,9 @@ def dense_regions(directory: Path, preparation: dict, archive: Path) -> list[dic
     handle.close()
     for row in rows:
         if row["samples"]:
-            row["minimum_coverage"] = min(s["coverage"] for s in row["samples"])
+            coverage = [s["coverage"] for s in row["samples"] if s["coverage"] is not None]
+            row["minimum_coverage"] = min(coverage) if coverage else None
+            row["minimum_outline_coverage"] = min(s["outline_coverage"] for s in row["samples"])
     return rows
 
 
@@ -664,12 +687,13 @@ def main() -> None:
     parser.add_argument("directory", type=Path)
     parser.add_argument("--project-only", action="store_true", help="read the written project back; no archive needed")
     parser.add_argument("--no-audit", action="store_true", help="skip the support topology reading")
+    parser.add_argument("--unbacked", action="store_true", help="read adjacent-layer road shadows throughout every fine band")
     args = parser.parse_args()
     if args.project_only:
         result = check_project(args.directory)
         print(json.dumps(result, indent=2, default=str), flush=True)
         raise SystemExit(0 if result["pass"] else 1)
-    result = review(args.directory, audit=not args.no_audit)
+    result = review(args.directory, audit=not args.no_audit, unbacked=args.unbacked)
     raise SystemExit(0 if result["pass"] else 1)
 
 

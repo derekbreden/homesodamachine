@@ -743,20 +743,24 @@ Enclosure parts and receiver test coupons use the tree support settings from
 `../../petgf.3mf` in each part's production print orientation. The screw-mounted
 nameplate prints with its flat back on the bed and its screw seats facing upward.
 
-Use Tree (auto) for accessible exterior features. Enclosed cavities require
-branching trees; normal rectangular supports are not removable there. The rear
+Use Tree (auto) for accessible exterior features. Supports inside enclosed cavities
+must be branching trees; normal rectangular supports are not removable there. The rear
 enclosure, front pump cavities and lower pump retainer select Tree Slim. Inspect
 the actual branches and removal openings in the emitted native slice. A smaller
 footprint or an open-looking lane alone does not establish easy cleanup.
 
-The rear Pisco and ASSE receiver interiors print without supports. Their flat
-catches bridge between their complete end shoulders; the approved component
+Back-top uses manual trees selected by its native exterior target field. Their
+branches grow outside the rear wall; the protected interior features grow through
+fine layers and transverse bridges.
+
+The rear receiver interiors print without supports. Their flat
+catches grow through fine layers between their complete end shoulders; the approved component
 seats and catch planes remain intact. Native construction emits the exclusion
 regions beside the STL, bound to its digest. Preparation carries them through
 orientation and placement as support blockers and painted surfaces. The covered
 bulkhead bores and horizontal valve sockets use teardrop roofs; build-axis valve
-sockets remain circular and open. The PRV cap rises from its root
-in the roof-down print; the short mouth lip bridges between its side walls. The native review reads support beads inside these named
+sockets remain circular and open. The PRV cap has a rooted chamfer and end-wall
+backing; the short mouth lip bridges between its side walls. The native review reads support beads inside these named
 regions, including ordinary support paths without interface labels. Exclusions
 specific to a print direction carry that direction in the native record. The
 rear-face-down preparation supports the identification frames from their exposed
@@ -786,11 +790,9 @@ records trapped rail supports and inaccessible receiver supports. Inspect the
 complete part, rather than applying a coupon's cleanup result to walls that
 block the tool.
 
-What a root means depends on the face the piece prints on. On a piece whose cavity opens toward
-the bed — the bottoms on their floors, front-top on its mouth — the bed and the model are two
-different places to start. On back-top the cavity opens away from the bed: the ceiling slab's
-interior face is the root every interior support has, a hidden flat the piece lays down in its
-own first layers. The audit records that root as model material.
+What a root means depends on the face the piece prints on. The tilted rear-face pose permits
+exterior trees rooted on the bed and interior trees rooted on exposed model stock. The audit
+records each actual root; its position and contact determine the removal lane.
 
 **Expanding print-down show rounds use an additive chamfer/taper at 0.24 mm.**
 The shared construction in `../../cadlib/overhang_round.py` fills the lower corner
@@ -904,30 +906,23 @@ sliding face out past the exterior plane, so each of the four stands on the outs
 with a face exposed down the whole run. Front-bottom's pair is printed and pulled — the easiest
 support on the piece, off cleanly in one piece, reachable without going near the cavity.
 
-Back-top prints on its ceiling, so its supports reach separate functional faces:
-nameplate receiver rims and catch pockets,
-C14 and keystone pockets, tie-band and anchor ceilings, Z-seam feet, rear port
-lips, and the PRV chase crown and mouth. The
-[current native review](../tee-readiness/full-enclosure-print/native-slice-reviews/2026-10-03-enclosure-back-top-current-mark2-v9/README.md)
-records 13 support bodies and 34 labelled contact regions: three bed-rooted and
-ten model-rooted. Six short local bodies have 1.68 mm build-up. The slot-floor
-interface runs through the 9 mm wall and stays exposed at both ends before the
-pan is inserted. Each actual body and contact has a removal route through the
-empty shell; release contacts and break sacrificial branches before installing
-hardware. Native access and protected-face sweeps establish geometric lanes;
-physical cleanup effort and finish remain observations of the print.
+Back-top's [support-removal packet](support-removal-review/README.md) binds the native
+paths to their source geometry and printer recipe. It reads the receiver interiors,
+covered bores, valve sockets and vent passage, together with the support bodies and
+their contact islands. Release exposed contacts and remove branches before installing
+hardware. Native access establishes geometric lanes; physical cleanup effort and
+finish remain observations of the print.
 Back-bottom's two slide-head bodies carry the broad flat undersides: the west run from the bed through the PRV passage and the east from the arm's under-flare 8.16 mm below.
 
 ## Print orientation + corner relief
 
-Three pieces print on their **Z− face** — the bottom pieces floor-down on the
-floor slab, front-top mouth-down on its seam rim — and back-top prints on its
-**Z+ face**, its ceiling on the bed. The build axis is the box's own Z on every
-piece and the sign is the piece's (`enclosure.print_up`): where it is +Z the face
-that hangs is the one looking **down**, where it is −Z the one looking **up**.
+The bottom pieces print floor-down and front-top prints mouth-down on its seam rim.
+Back-top prints with its rear face toward the bed and a gentle tilt. The native
+preparation owns the manufacturing pose. Construction retains the piece's own
+Z sign for its roof, foot and relief geometry (`enclosure.print_up`).
 The mounting forms are described in [Support-removal strategy](#support-removal-strategy).
 The anti-warp relief goes on the arrises
-that run along the build axis: the box's four **standing verticals**, rounded to match the foam
+that run along the box's Z axis: the box's **standing verticals**, rounded to match the foam
 shell's 12 mm outer radius — concentric inner one wall in, so the wall is
 preserved.
 
