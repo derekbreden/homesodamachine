@@ -118,8 +118,8 @@ def _by_write_machinery():
 
 def _hook(event, args):
     # `open` is most of it, and its mode says which side of the edge it is. `import` is the
-    # rest of the reading: a module loaded by path through importlib — `_bom_sync` takes a
-    # dozen generators that way — is read by the loader, not by open().
+    # rest of the reading: a module loaded by path through importlib is read by the loader,
+    # not by open().
     if event == "open" and args and isinstance(args[0], (str, bytes, os.PathLike)):
         mode = args[1] if len(args) > 1 and isinstance(args[1], str) else "r"
         if set(mode) & set("wxa+"):
@@ -392,6 +392,8 @@ RUST_STEPS = {
     "hardware/printed-parts/cold-core/prv-shroud/prv_shroud.rs":
         ("prv-shroud", "prv-shroud", "hardware/printed-parts/cold-core/prv-shroud"),
     "hardware/ledger/purchases.rs": ("ledger", "purchases", ""),
+    "hardware/ledger/bom.rs": ("bom", "bom", ""),
+    "hardware/ledger/machine_time.rs": ("ledger", "machine-time", ""),
     "hardware/manifold-layout/manifold_layout.rs":
         ("manifold-layout", "manifold-layout", "hardware/manifold-layout"),
     "hardware/printed-parts/enclosure/rear-equipment-caps/rear_equipment_caps.rs":

@@ -24,7 +24,7 @@ def _json(value):
     return value
 
 
-def call(op, *, _program="ledger-data", **payload):
+def call(op, *, _program="ledger-analysis", **payload):
     response = _rust_data.request("ledger", _program, _json({"root": ROOT, "op": op, **payload}))
     for name in response.get("reads", ()):
         try:
@@ -40,8 +40,3 @@ def call(op, *, _program="ledger-data", **payload):
         note_rewritten(name)
     return response["result"]
 
-
-def main(op, **payload):
-    result = call(op, **payload)
-    print(result["output"], end="")
-    return result["status"]

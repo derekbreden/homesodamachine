@@ -18,7 +18,7 @@ supplies the bare fixed pump and independent ports. The scene key is
 | `enclosure_assembly.pump_mount_rows` | Empty: no pump screws or internal cup columns |
 | `rear_plumbing` | Clamped PVC/reducer joints, discharge check and continuous water-in bend |
 | `_scorecard.pump_cap_contact` | Complete bare rigid pump against installed core material |
-| `_bom_sync` and assembly instructions | Four owned wide ties and the bare-casing mounting sequence |
+| The BOM program and assembly instructions | Four owned wide ties and the bare-casing mounting sequence |
 
 The [installation procedure](../g-ganen-pump/installation/README.md) gives the
 native datum, bearing height, strap routing and replacement sequence. The

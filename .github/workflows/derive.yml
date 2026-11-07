@@ -449,13 +449,12 @@ jobs:
           tools/cad-venv/bin/python tools/bazel/sync_tree.py --write --derived-only \
             --failed "${{ steps.cut.outputs.failed }}"
 
-      # The declared bom-masses action carries its fine-model masses in bom.md.
+      # The BOM step carries its fine-model masses in bom.md.
       # Keep the arithmetic ledger updates after the carry.
       - name: The ledger
         run: |
-          tools/cad-venv/bin/python hardware/scripts/_bom_totals.py
-          tools/cad-venv/bin/python hardware/scripts/_labor_totals.py
-          tools/cad-venv/bin/python hardware/scripts/_machine_time.py
+          tools/hsm/target/release/bom --totals
+          tools/hsm/target/release/machine-time
 
       # `publish_now.py` moves the pointer file from the machine that cut the solids. This full
       # derive verifies that its carried tree is complete and reports a behind pointer file

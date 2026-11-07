@@ -114,7 +114,7 @@ The appliance ships with the water filter included, mounted **external to the en
 
 ## 7. Printed mechanical parts
 
-Per-unit filament for every printed part shipped with one finished appliance, one row per part. **The enclosure and faucet exterior parts are PET-GF** (Polymaker Fiberon PET-GF15): the four enclosure quadrants, the integral pump mount and its lower retainer, the display cover plate, the funnel frame, the two-piece faucet shell, its lever and the above-counter plate. The loose collet press in the install kit is PET-GF too, and so is the drain-elbow cradle under the funnel frame's web, which prints on the exterior's 0.4 mm settings. **So is the cold core's own stack** — the smooth 2.38 mm shell, top lid and bottom cap, using the left 0.4 mm Standard nozzle with three Classic loops and 15% gyroid ([foam-shell/README.md](/hardware/printed-parts/cold-core/foam-shell/README.md#print-settings)). The [funnel cover](/hardware/printed-parts/zone-c/funnel-cover/README.md) is plain black PETG with a solid plate and mouth-contacting skirt. The small parts inside are PETG: the PRV shroud, the reed bridge and the fuse clamp. The four syrup-wetted reservoir parts print in **PETG Translucent Clear** so the customer reads fill state through the wall; the rest print black. The nameplate prints in black and white PET-GF, and so do the six bulkhead chips and their tube collars, each in the colour its station names — blue for carbonated water, white for tap water and the separate DRAIN return, red for CO2, and the two flavour rings in the same black as the wall, naming nothing ([`tools/hsm/shared-data/src/color.rs`](/tools/hsm/shared-data/src/color.rs) `chips`). All PETG here is Bambu PETG Basic at one price, so colour changes what a part looks like, not what it costs. `Mass (kg)` and `$` are per-line totals (quantity included). **Mass is filament, not geometry** — a print is wall loops around a sparse grid, so the front-top's 1379 cm³ of solid comes off the plate as 456. The unsliced casing and other rows estimate the shell plus infill their own plate lays, taken off that part's CAD volume and surface area at the settings its print record states ([`_bom_masses.py`](/hardware/scripts/_bom_masses.py) `PROFILES`; measured plates name their committed `.3mf`, while unsliced groups remain explicit estimates), times density (PETG 1.27 g/cm³, PET-GF 1.43 g/cm³, Polymaker's own `filament_density` in `Fiberon PET-GF15 @BBL H2C`). The four reservoir parts, the collet press and the funnel cover use 100 % infill, so those rows are their geometry. The faucet's four PET-GF pieces share the saved H2C 0.4 mm profile: two wall loops, 0.24 mm layers and 15 % grid infill ([faucet-petgf.md](/hardware/printed-parts/faucet/faucet-petgf.md)). Against the two plates that have been sliced and measured the model reads −1.5 % (cold-core shell) and −11 % (front-top); the second gap is the tree supports, which are filament off the same spool and are not billed here. `hardware/scripts/_bom_masses.py` is what derives it all: it reads the current STEP solids, writes this Mass column and the `$` that follows from it, and the mass reader runs when this allocation is updated. PETG $11.20/kg (Bambu PETG Basic Black + Translucent Clear, $224.04 ÷ 20 kg); PET-GF $25.02/kg (Polymaker Fiberon PET-GF15, $225.18 ÷ 9 kg).
+Per-unit filament for every printed part shipped with one finished appliance, one row per part. **The enclosure and faucet exterior parts are PET-GF** (Polymaker Fiberon PET-GF15): the four enclosure quadrants, the integral pump mount and its lower retainer, the display cover plate, the funnel frame, the two-piece faucet shell, its lever and the above-counter plate. The loose collet press in the install kit is PET-GF too, and so is the drain-elbow cradle under the funnel frame's web, which prints on the exterior's 0.4 mm settings. **So is the cold core's own stack** — the smooth 2.38 mm shell, top lid and bottom cap, using the left 0.4 mm Standard nozzle with three Classic loops and 15% gyroid ([foam-shell/README.md](/hardware/printed-parts/cold-core/foam-shell/README.md#print-settings)). The [funnel cover](/hardware/printed-parts/zone-c/funnel-cover/README.md) is plain black PETG with a solid plate and mouth-contacting skirt. The small parts inside are PETG: the PRV shroud, the reed bridge and the fuse clamp. The four syrup-wetted reservoir parts print in **PETG Translucent Clear** so the customer reads fill state through the wall; the rest print black. The nameplate prints in black and white PET-GF, and so do the six bulkhead chips and their tube collars, each in the colour its station names — blue for carbonated water, white for tap water and the separate DRAIN return, red for CO2, and the two flavour rings in the same black as the wall, naming nothing ([`tools/hsm/shared-data/src/color.rs`](/tools/hsm/shared-data/src/color.rs) `chips`). All PETG here is Bambu PETG Basic at one price, so colour changes what a part looks like, not what it costs. `Mass (kg)` and `$` are per-line totals (quantity included). **Mass is filament, not geometry** — a print is wall loops around a sparse grid, so the front-top's 1379 cm³ of solid comes off the plate as 456. The unsliced casing and other rows estimate the shell plus infill their own plate lays, taken off that part's CAD volume and surface area at the settings its print record states (the `profiles` of [`printing.json`](/tools/hsm/ledger/catalog/printing.json); measured plates name their committed `.3mf`, while unsliced groups remain explicit estimates), times density (PETG 1.27 g/cm³, PET-GF 1.43 g/cm³, Polymaker's own `filament_density` in `Fiberon PET-GF15 @BBL H2C`). The four reservoir parts, the collet press and the funnel cover use 100 % infill, so those rows are their geometry. The faucet's four PET-GF pieces share the saved H2C 0.4 mm profile: two wall loops, 0.24 mm layers and 15 % grid infill ([faucet-petgf.md](/hardware/printed-parts/faucet/faucet-petgf.md)). Against the two plates that have been sliced and measured the model reads −1.5 % (cold-core shell) and −11 % (front-top); the second gap is the tree supports, which are filament off the same spool and are not billed here. The BOM program, [`hardware/ledger/bom.rs`](/hardware/ledger/bom.rs), is what derives it all: it reads the parts' fine models and writes this Mass column and the `$` that follows from it. PETG $11.20/kg (Bambu PETG Basic Black + Translucent Clear, $224.04 ÷ 20 kg); PET-GF $25.02/kg (Polymaker Fiberon PET-GF15, $225.18 ÷ 9 kg).
 
 The wetted surface is the print itself, qualified by [`wetted-surface-test.md`](/hardware/printed-parts/cold-core/reservoir/wetted-surface-test.md)'s screen against the actual syrup — no spool's resin compliance stands in for it.
 
@@ -123,7 +123,7 @@ The soda inlet bend holder is PET-GF with the accepted 2 mm wall, 3 mm legs and 
 | Part | Qty | Material | Mass (kg) | $ |
 |---|---:|---|---:|---:|
 | Cold-core inner shell (foam-shell) | 1 | PET-GF | 1.798 | $44.98 <!--@printed--><!--parts HSM-0018--> |
-| Cold-core foam cap lid — top | 1 | PET-GF | 0.320 | $7.99 <!--@printed--><!--parts HSM-0020--> |
+| Cold-core foam cap lid — top | 1 | PET-GF | 0.319 | $7.99 <!--@printed--><!--parts HSM-0020--> |
 | Cold-core foam cap — bottom | 1 | PET-GF | 0.191 | $4.77 <!--@printed--><!--parts HSM-0021--> |
 | Reservoir B fill bend holder | 1 | PET-GF | 0.002 | $0.05 <!--@printed--><!--parts HSM-0454--> |
 | PRV shroud | 1 | PETG | 0.008 | $0.09 <!--@printed--><!--parts HSM-0024--> |
@@ -131,30 +131,30 @@ The soda inlet bend holder is PET-GF with the accepted 2 mm wall, 3 mm legs and 
 | Flavor reservoir body — right | 1 | PETG (translucent) | 0.378 | $4.24 <!--@printed--><!--parts HSM-0026--> |
 | Flavor reservoir cap — left | 1 | PETG (translucent) | 0.058 | $0.65 <!--@printed--><!--parts HSM-0027--> |
 | Flavor reservoir cap — right | 1 | PETG (translucent) | 0.058 | $0.65 <!--@printed--><!--parts HSM-0028--> |
-| Enclosure — front bottom + front top (two quadrants) | 1 set | PET-GF | 1.542 | $38.57 <!--@printed--><!--parts HSM-0078:630 HSM-0079:956--> |
-| Enclosure — pump retainer | 1 | PET-GF | 0.133 | $3.32 <!--@printed--><!--parts HSM-0082--> |
+| Enclosure — front bottom + front top (two quadrants) | 1 set | PET-GF | 1.540 | $38.54 <!--@printed--><!--parts HSM-0078:630 HSM-0079:956--> |
+| Enclosure — pump retainer | 1 | PET-GF | 0.132 | $3.30 <!--@printed--><!--parts HSM-0082--> |
 | Carbonator reed bridge | 1 | PETG | 0.008 | $0.09 <!--@printed--><!--parts HSM-0029--> |
-| Enclosure — back bottom + back top (two quadrants) | 1 set | PET-GF | 1.474 | $36.88 <!--@printed--><!--parts HSM-0080:688.8 HSM-0081:766.1--> |
+| Enclosure — back bottom + back top (two quadrants) | 1 set | PET-GF | 1.469 | $36.76 <!--@printed--><!--parts HSM-0080:688.8 HSM-0081:766.1--> |
 | Display cover plate | 1 | PET-GF | 0.012 | $0.31 <!--@printed--><!--parts HSM-0076--> |
-| Bulkhead ring — one per +Y-wall crossing | 6 | PET-GF (blue, white ×2, red, black ×2) | 0.013 | $0.33 <!--@printed--><!--parts HSM-0062:1.27 HSM-0063:1.29 HSM-0064:1.38 HSM-0065:1.38 HSM-0066:1.25 HSM-0067:1.36--> |
+| Bulkhead ring — one per +Y-wall crossing | 6 | PET-GF (blue, white ×2, red, black ×2) | 0.021 | $0.52 <!--@printed--><!--parts HSM-0062:1.27 HSM-0063:1.29 HSM-0064:1.38 HSM-0065:1.38 HSM-0066:1.25 HSM-0067:1.36--> |
 | Tube collar — one per +Y-wall crossing | 6 | PET-GF (blue, white ×2, red, black ×2) | 0.023 | $0.58 <!--@printed--><!--parts HSM-0272:2.48 HSM-0099:2.72 HSM-0100:2.87 HSM-0101:2.87 HSM-0273:2.53 HSM-0102:2.67--> |
 | Collet press — install-kit customer tool | 1 | PET-GF | 0.017 | $0.44 <!--@printed--><!--parts HSM-0372--> |
-| Nameplate — one per unit, serialized | 1 | PET-GF (black + white) | 0.017 | $0.42 <!--@printed--><!--parts HSM-0069--> |
+| Nameplate — one per unit, serialized | 1 | PET-GF (black + white) | 0.033 | $0.82 <!--@printed--><!--parts HSM-0069--> |
 | Fuse clamp | 1 | PETG | 0.005 | $0.06 <!--@printed--><!--parts HSM-0041--> |
 | Faucet shell (2-piece: base + tip) | 1 | PET-GF | 0.105 | $2.63 <!--@printed--><!--parts HSM-0094:76.1 HSM-0095:29.2 HSM-0113:80.3--> |
 | Faucet display cover plate | 1 | PET-GF | 0.006 | $0.14 <!--@printed--><!--parts HSM-0096 HSM-0114--> |
 | Above-counter plate | 1 | PET-GF | 0.009 | $0.22 <!--@printed--><!--parts HSM-0092 HSM-0111--> |
 | Faucet lever | 1 | PET-GF | 0.004 | $0.09 <!--@printed--><!--parts HSM-0268--> |
 | Umbilical organizer — below faucet mount | 1 | PET-GF | 0.005 | $0.12 <!--@printed--><!--parts HSM-0098--> |
-| Rear equipment snap caps | 4 | PET-GF | 0.055 | $1.38 <!--@printed--><!--parts HSM-0448:22.44 HSM-0450:16.66 HSM-0449:11.52 HSM-0451:13.62--> |
-| G Ganen pump snap cap | 1 | PET-GF | 0.090 | $2.25 <!--@printed--><!--parts HSM-0455--> |
+| Rear equipment snap caps | 4 | PET-GF | 0.064 | $1.61 <!--@printed--><!--parts HSM-0448:22.44 HSM-0450:16.66 HSM-0449:11.52 HSM-0451:13.62--> |
+| G Ganen pump snap cap | 1 | PET-GF | 0.090 | $2.26 <!--@printed--><!--parts HSM-0455--> |
 | Soda inlet bend holder | 1 | PET-GF | 0.003 | $0.06 <!--@printed--><!--parts HSM-0358--> |
 | Funnel frame | 1 | PET-GF | 0.259 | $6.49 <!--@printed--><!--parts HSM-0072--> |
 | Funnel cover | 1 | PETG | 0.134 | $1.50 <!--@printed--><!--parts HSM-0071--> |
 | Funnel drain-elbow cradle | 1 | PET-GF | 0.008 | $0.20 <!--@printed--><!--parts HSM-0073--> |
-| **Printed parts total** | | | **~7.11** | **[$164.49](BOM_SEC7)** |
+| **Printed parts total** | | | **~7.14** | **[$164.40](BOM_SEC7)** |
 
-By material: PETG ≈ 1.03 kg / $11.50 — of which the four translucent reservoir parts are ≈ 0.87 kg / $9.76 — and PET-GF ≈ 6.08 kg / $152.22.
+By material: PETG ≈ 1.03 kg / $11.50 — of which the four translucent reservoir parts are ≈ 0.87 kg / $9.76 — and PET-GF ≈ 6.11 kg / $152.88.
 
 These geometry-based estimates use the shared wall and sparse-infill recipes.
 They exclude the additional material in the enclosure's
@@ -274,7 +274,7 @@ trial articles have no pressure-life or wetted-service acceptance record.
 RX-M3x5.7 and RX-M3Sx4.0 are the same insert but for length — same ⌀4.6 knurl over the same
 ⌀4.0 recommended hole — so which one a station takes is a question about the depth of the bore
 it already cuts and never about its section. [22](M3_LONG_INSERTS) stations have that depth and
-take the full-length body; the [21](M3_SHORT_INSERTS) that do not are each paying for something
+take the full-length body; the [25](M3_SHORT_INSERTS) that do not are each paying for something
 else, named at the SKU rows below. Both bodies press with the same T18 tip into the same pocket.
 
 1. **Cold-core casing** uses [20](FOAM_CLAMP_INSERTS) RX-M5×9.5 inserts and [20](FOAM_SCREWS) M5 × 100 screws. Four full-length M3 inserts belong to the PCB posts in the top lid. The separate B-fill holder takes no fastener. See [`assembly/cold-core.md`](/hardware/assembly/cold-core.md).
@@ -299,9 +299,9 @@ The T18 heat-set tip kit ([B0CS662NVK](https://www.amazon.com/dp/B0CS662NVK)) an
 | Part | Notes | Qty | Unit $ | Line $ |
 |---|---|---:|---:|---:|
 | [ruthex RX-M3 × 5.7 full-length heat-set inserts, 100 pc](https://www.amazon.com/dp/B08BCRZZS3) | Ø4 recommended pilot. [4](FOAM_INSERTS) in the top-lid PCB posts, [12](RES_INSERTS) reservoir caps, [2](COND_INSERTS) condenser fingers and [4](ROOF_CLOSURE_INSERTS) funnel-frame ledges. Stock and blind relief follow each named host. Amazon 112-6100127: $10.71/100. | [22](M3_LONG_INSERTS) (of 100 pk) | $0.11 | [$2.36](M3_LONG_INSERTS_COST) <!--@fasteners--><!--parts HSM-0164--> |
-| [ruthex RX-M3S × 4 short heat-set inserts, 100 pc](https://www.amazon.com/dp/B09ZHSGHXD) | Ø4 recommended pilot. [3](TOUCHFLO_INSERTS) faucet base, [4](SHELF_INSERTS) PSU, [4](SHELF_SCREWS_RELAY) relay header ends and [2](C14_INSERTS) C14, with short inserts also retaining the nameplate and display cover. The PCB mounts use full-length inserts. Amazon 112-4234665: $10.71/100. | [21](M3_SHORT_INSERTS) (of 100 pk) | $0.11 | [$2.25](M3_SHORT_INSERTS_COST) <!--@fasteners--><!--parts HSM-0104 HSM-0136--> |
+| [ruthex RX-M3S × 4 short heat-set inserts, 100 pc](https://www.amazon.com/dp/B09ZHSGHXD) | Ø4 recommended pilot. [3](TOUCHFLO_INSERTS) faucet base, [4](SHELF_INSERTS) PSU, [4](SHELF_SCREWS_RELAY) relay header ends and [2](C14_INSERTS) C14, with short inserts also retaining the nameplate and display cover. The PCB mounts use full-length inserts. Amazon 112-4234665: $10.71/100. | [25](M3_SHORT_INSERTS) (of 100 pk) | $0.11 | [$2.68](M3_SHORT_INSERTS_COST) <!--@fasteners--><!--parts HSM-0104 HSM-0136--> |
 | [ruthex M5 Threaded Inserts, 50 pc, RX-M5x9.5 brass heat-set](https://www.amazon.com/dp/B07YSVXWS8) | M5 × 9.5 mm L × 7.1 mm OD knurled brass, Ø6.4 recommended pilot with at least 2.6 mm surrounding wall. [28](TOTAL_M5_INSERTS) per build: [4](FLOOR_SCREWS) compressor floor posts, [4](SEAM_INSERTS) Y-seam anchors and [20](FOAM_CLAMP_INSERTS) cold-core closure stations. Blind relief and screw-tip clearance are checked on the complete printed hosts. Amazon 112-6038990-5011450 Aug 11: $9.99 + $0.72 tax = $10.71 ÷ 50 = $0.2142/ea | [28](TOTAL_M5_INSERTS) (of 50 pk) | $0.21 | [$6.00](M5_INSERTS_COST) <!--@fasteners--><!--parts HSM-0132--> |
-| [BNUOK M3 × 6 mm socket head cap, 12.9 alloy steel, black oxide, 120 pc](https://www.amazon.com/dp/B0DJQH3WSX) | Rear nameplate and machine display cover screws, with visible socket heads in shallow seats. Acquired. | [8](M3X6_TOTAL) (of 120 pk) | $0.06 | [$0.51](M3X6_COST) <!--@fasteners--> |
+| [BNUOK M3 × 6 mm socket head cap, 12.9 alloy steel, black oxide, 120 pc](https://www.amazon.com/dp/B0DJQH3WSX) | Rear nameplate and machine display cover screws, with visible socket heads in shallow seats. Acquired. | [12](M3X6_TOTAL) (of 120 pk) | $0.06 | [$0.76](M3X6_COST) <!--@fasteners--> |
 | [BNUOK M3 × 8 mm socket head cap, 12.9 alloy steel, black oxide, 120 pc](https://www.amazon.com/dp/B0DJQGPRPV) | [13](M3X8_TOTAL) per build: [3](TOUCHFLO_SCREWS) faucet base, [4](SHELF_SCREWS_PCBA) PCB, [4](SHELF_SCREWS_RELAY) relay header ends and [2](COND_SCREWS) condenser. PCB screws cross the [1.6](PCBA_BOARD_T) mm board into full-length cap inserts, with [6.4](PCBA_SCREW_REACH) mm projection and [1](PCBA_SCREW_TIP) mm pilot tip air. Each relay screw crosses its [1.5](RELAY_BOARD_T) mm board and a [2.5](RELAY_INSERT_SETBACK) mm setback to its short insert: [4](RELAY_SCREW_REACH) mm receiving projection, full [4](RELAY_INSERT_LEN) mm insert engagement and [1](RELAY_SCREW_TIP) mm tip air in the [5](RELAY_BORE) mm pilot. Blind backing is [5.51](RELAY_BACKING) mm at the nominal outer wall and at least [4.31](RELAY_FLUTED_BACKING) mm beneath its flute envelope. Amazon 112-6198023: $7.71/120. | [13](M3X8_TOTAL) (of 120 pk) | $0.06 | [$0.84](M3X8_COST) <!--@fasteners--><!--parts HSM-0103 HSM-0138--> |
 | [BNUOK M3 × 12 mm socket head cap, 12.9 alloy steel, black oxide, 120 pc](https://www.amazon.com/dp/B0DJQGVK8S) | Four funnel-frame screws per build. Amazon 112-0144900: $8.57/120, acquired. | [4](M3X12_TOTAL) (of 120 pk) | $0.07 | [$0.29](M3X12_COST) <!--@fasteners--><!--parts HSM-0140--> |
 | [BNUOK M3 × 12 mm socket head cap, 304 stainless steel, 120 pc](https://www.amazon.com/dp/B0DJQGMQZM) | [12](RES_SCREWS) per build, the reservoir-cap screws: [6](RES_INSERTS_PER_CAP) through each cap and its TPU gasket into the cap's full-length inserts (item 2 above). Amazon 112-3709957-5726619 Jun 2: $8.66/120, ACQUIRED. | [12](RES_SCREWS) (of 120 pk) | $0.07 | [$0.87](RES_SCREWS_COST) <!--@fasteners--><!--parts HSM-0363--> |
@@ -337,16 +337,16 @@ The papers packed with each machine ([`assembly/finish-pack-ship.md`](/hardware/
 | 4. CO2 subsystem | [$133.11](BOM_SEC4) |
 | 5. Refrigeration | [$143.06](BOM_SEC5) |
 | 6. Cold core insulation | [$20.76](BOM_SEC6) |
-| 7. Printed parts (PETG + PET-GF) | [$164.49](BOM_SEC7) |
+| 7. Printed parts (PETG + PET-GF) | [$164.40](BOM_SEC7) |
 | 8. Flavor subsystem | [$259.45](BOM_SEC8) |
 | 9. Dispensing | [$78.57](BOM_SEC9) |
 | 10. UI | [$0.00](BOM_SEC10) |
 | 11. Wiring | [$34.53](BOM_SEC11) |
 | 12. Level sensing | [$29.78](BOM_SEC12) |
-| 13. Mechanical attach hardware | [$22.48](BOM_SEC13) |
+| 13. Mechanical attach hardware | [$24.53](BOM_SEC13) |
 | 14. Cold kit | [$4.29](BOM_SEC14) |
 | 15. Customer documentation | [$25.14](BOM_SEC15) |
-| **Total** | **[$1,440.25](BOM_GRAND)** |
+| **Total** | **[$1,442.21](BOM_GRAND)** |
 
 ## External / user-supplied (not shipped)
 
@@ -357,8 +357,7 @@ The papers packed with each machine ([`assembly/finish-pack-ship.md`](/hardware/
 
 ## Sources
 [value](NAME) texts are updated by:
-- `/hardware/scripts/_bom_sync.py`
-- `/hardware/scripts/_bom_totals.py`
+- `/hardware/ledger/bom.rs`
 
 Every data row also carries a hidden **part-type category tag** `<!--@TAG-->` in its last cell (it renders invisibly). This is the cost view orthogonal to the subsystem sections — what *kind* of thing each line is. The taxonomy, the roll-up of per-unit cost by category, and a coverage check live in `/hardware/scripts/_bom_categories.py`. `python3 hardware/scripts/_bom_categories.py` lists the categories and their subtotals; `--check` reports an untagged or unknown row.
 
