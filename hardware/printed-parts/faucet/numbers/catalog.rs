@@ -37,7 +37,12 @@ pub fn srgb(name: &str) -> Vec<f64> {
 /// The catalog colour `name` as the files carry it: linear RGB at single precision.
 pub fn color(name: &str) -> Color {
     let srgb = srgb(name);
-    [0, 1, 2].map(|i| curve(srgb[i]) as f32 as f64)
+    linear([srgb[0], srgb[1], srgb[2]])
+}
+
+/// An sRGB colour as the files carry it: linear RGB at single precision.
+pub fn linear(srgb: [f64; 3]) -> Color {
+    srgb.map(|c| curve(c) as f32 as f64)
 }
 
 #[derive(Deserialize)]

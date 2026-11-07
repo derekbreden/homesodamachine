@@ -169,10 +169,6 @@ IMPLICIT_SOLIDS = {
         "hardware/printed-parts/enclosure/nameplate/nameplate-fasteners.step.mesh",
         "hardware/printed-parts/enclosure/nameplate/nameplate-fasteners.step.npz",
     ),
-    "hardware/printed-parts/faucet/lever-replica/lever_replica.py": (
-        "hardware/printed-parts/faucet/lever-replica/lever-replica.stl",
-        "hardware/printed-parts/faucet/lever-replica/lever-replica-side-down.stl",
-    ),
     # Current payloads need no rewrite; a clean run still owes every view.
     "hardware/printed-parts/zone-c/funnel-mold/funnel_mold.py": tuple(
         f"hardware/printed-parts/zone-c/funnel-mold/{name}.step.mesh"

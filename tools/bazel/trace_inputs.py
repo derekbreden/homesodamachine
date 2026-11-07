@@ -427,6 +427,10 @@ RUST_STEPS = {
         ("reed-bridge", "reed-bridge", "hardware/printed-parts/cold-core/reed-bridge"),
     "hardware/printed-parts/cold-core/foam-cap/foam_cap.rs":
         ("foam-cap", "foam-cap", "hardware/printed-parts/cold-core/foam-cap"),
+    "hardware/printed-parts/faucet/lever-replica/lever_replica.rs":
+        ("lever-replica", "lever-replica", "hardware/printed-parts/faucet/lever-replica"),
+    "hardware/printed-parts/faucet/tube-collar/tube_collar.rs":
+        ("tube-collar", "tube-collar", "hardware/printed-parts/faucet/tube-collar"),
 }
 
 #: The media a Rust step can rewrite in place: documents with authored text round the figures it

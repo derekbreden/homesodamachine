@@ -7,8 +7,14 @@ the underside of the countertop. Its two rounded channels open toward world
 
 [under-counter-plate.dxf](under-counter-plate.dxf) is the production ordering
 file: one closed outline, native lines/arcs, millimetres (`$INSUNITS=4`).
-[under_counter_plate.py](under_counter_plate.py) derives the rear opening
-from the same interface used by the faucet, rigid plate and TPU gasket.
+[numbers.rs](numbers.rs) derives the rear opening from the same interface used
+by the faucet, rigid plate and TPU gasket, and
+[under_counter_plate.rs](under_counter_plate.rs) writes the file from it. It is
+not part of the normal build; rerun it when the plate's numbers change:
+
+```
+python3 tools/run.py -- cargo run --release -j 2 --manifest-path tools/hsm/Cargo.toml -p hsm-under-counter-plate
+```
 
 [Finished plate engineering drawing](under-counter-plate-drawing.pdf)
 (FCT-PLT-01, Rev A) defines the production profile in the DXF coordinate frame,

@@ -62,7 +62,6 @@ from pathlib import Path
 _here = Path(__file__).resolve()
 _hardware_dir = next(p for p in _here.parents if p.name == "hardware")
 sys.path[:0] = [str(_hardware_dir.parent / "tools"), str(_hardware_dir / "scripts")]
-from _document_export import _WRITE_TARGETS
 from _rust_data import request
 
 
@@ -87,25 +86,3 @@ def ccw_arc(msp, center, radius, start_pt, end_pt):
     """Compatibility for a native drawing caller's modelspace."""
     arc = _data(arc={"center": center, "radius": radius, "start": start_pt, "end": end_pt})
     msp.add_arc(center, radius, start_angle=arc["start_angle"], end_angle=arc["end_angle"])
-
-
-def make_dxf():
-    """Write the Rust program's analytic R2010 outline in millimetres."""
-    out = _here.parent / "under-counter-plate.dxf"
-    _data(output=str(out))
-    _WRITE_TARGETS.add(out.relative_to(_hardware_dir.parent).as_posix())
-    return out
-
-
-if __name__ == "__main__":
-    out = make_dxf()
-    print("Under-counter plate")
-    print(f"  Outline:        Ø {disc_diameter} mm disc, centered at ({disc_cx}, {disc_cy})")
-    print(f"  Shank pocket:   Ø {shank_diameter} mm at ({shank_cx}, {shank_cy})")
-    print(f"  Shank channel:  {shank_diameter} mm wide in X, -Y to the rim")
-    print(f"  Pill pocket:    {pill_long_y} × {pill_short_x} mm Y-oriented stadium "
-          f"at ({pill_cx}, {pill_cy})")
-    print(f"  Pill channel:   {pill_short_x} mm wide in X, -Y to the rim")
-    print(f"  Units in DXF:   mm (DXF $INSUNITS = 4)")
-    print(f"  Material spec:  0.060\" (1.524 mm) 316 stainless, laser-cut, qty 1 per appliance")
-    print(f"-> {out.name}")

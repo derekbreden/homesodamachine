@@ -1,0 +1,16 @@
+[package]
+name = "hsm-under-counter-plate"
+version = "0.1.0"
+edition.workspace = true
+license.workspace = true
+rust-version.workspace = true
+publish = false
+
+[[bin]]
+name = "under-counter-plate"
+path = "../../../hardware/cut-parts/faucet/under-counter-plate/under_counter_plate.rs"
+
+[dependencies]
+anyhow.workspace = true
+hsm-documents = { path = "../documents" }
+hsm-under-counter-plate-numbers = { path = "../under-counter-plate-numbers" }

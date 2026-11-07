@@ -1174,9 +1174,12 @@ dependencies = [
  "hsm-documents",
  "hsm-faucet",
  "hsm-kernel",
+ "hsm-lever-replica-numbers",
  "hsm-shared-data",
  "hsm-tpu-o-ring-numbers",
+ "hsm-tube-collar-numbers",
  "hsm-umbilical-organizer-numbers",
+ "hsm-under-counter-plate-numbers",
  "libloading",
  "png",
  "serde",
@@ -1439,6 +1442,22 @@ dependencies = [
  "serde_json",
  "sha2",
 ]
+
+[[package]]
+name = "hsm-lever-replica"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "hsm-faucet-numbers",
+ "hsm-kernel",
+ "hsm-lever-replica-numbers",
+ "hsm-print-payload",
+ "serde_json",
+]
+
+[[package]]
+name = "hsm-lever-replica-numbers"
+version = "0.1.0"
 
 [[package]]
 name = "hsm-machine"
@@ -1729,6 +1748,25 @@ name = "hsm-tpu-o-ring-numbers"
 version = "0.1.0"
 
 [[package]]
+name = "hsm-tube-collar"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "hsm-kernel",
+ "hsm-print-payload",
+ "hsm-shared-data",
+ "hsm-tube-collar-numbers",
+ "serde_json",
+]
+
+[[package]]
+name = "hsm-tube-collar-numbers"
+version = "0.1.0"
+dependencies = [
+ "hsm-bulkhead-ring-numbers",
+]
+
+[[package]]
 name = "hsm-umbilical-organizer"
 version = "0.1.0"
 dependencies = [
@@ -1741,6 +1779,22 @@ dependencies = [
 
 [[package]]
 name = "hsm-umbilical-organizer-numbers"
+version = "0.1.0"
+dependencies = [
+ "hsm-faucet-numbers",
+]
+
+[[package]]
+name = "hsm-under-counter-plate"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "hsm-documents",
+ "hsm-under-counter-plate-numbers",
+]
+
+[[package]]
+name = "hsm-under-counter-plate-numbers"
 version = "0.1.0"
 dependencies = [
  "hsm-faucet-numbers",

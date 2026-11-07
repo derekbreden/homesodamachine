@@ -19,7 +19,9 @@ the faucet's finish; [faucet shell assembly](../faucet-shell/ASSEMBLY.md) fits i
 
 | File | Use |
 |---|---|
-| [lever_replica.py](lever_replica.py) | Editable CadQuery construction; `build()` returns the accepted shape |
+| [numbers.rs](numbers.rs) | The measured stations and the construction's numbers |
+| [lever_replica.rs](lever_replica.rs) | The construction; writes the STEP, both STLs and the payload |
+| [lever_replica.py](lever_replica.py) | The same construction in CadQuery, for the section-art readers |
 | [lever-replica.step](lever-replica.step) | Accepted analytic solid in the local part frame |
 | [lever-replica.stl](lever-replica.stl) | Accepted mesh in that same frame; source of the viewer payload |
 | [lever-replica-side-down.stl](lever-replica-side-down.stl) | Accepted shape with its right side on the print bed |
@@ -175,7 +177,7 @@ fit changes belong to named contact parameters rather than global scan scaling.
 ## Rebuild
 
 ```sh
-tools/cad-venv/bin/python hardware/printed-parts/faucet/lever-replica/lever_replica.py
+python3 tools/run.py -- cargo run --release -j 2 --manifest-path tools/hsm/Cargo.toml -p hsm-lever-replica
 tools/cad-venv/bin/python hardware/printed-parts/faucet/lever-replica/check_replica.py
 tools/cad-venv/bin/python hardware/printed-parts/faucet/lever-replica/prepare_print.py
 ```

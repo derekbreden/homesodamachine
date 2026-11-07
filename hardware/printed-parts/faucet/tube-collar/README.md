@@ -83,5 +83,7 @@ the enclosure's own stock ([`bom.md`](/hardware/ledger/bom.md) §7).
 
 | | |
 |---|---|
-| `tube_collar.py` | the part, its six stations and its selftest |
+| `numbers.rs` | the part's numbers and its six stations |
+| `tube_collar.rs` | the part: each station's STEP, model, payload and blank STL |
+| `tube_collar.py` | the same part in CadQuery, for the readers that still draw it |
 | `tube-collar-<station>.step` | one per station, both bodies in the frame `seat()` places them by |
