@@ -1,6 +1,4 @@
 use super::*;
-mod _cad_art;
-mod _cad_art_mesh;
 mod _install_art;
 mod _install_art_mesh;
 mod common;
@@ -16,12 +14,6 @@ mod scenes;
 mod startup;
 pub fn documentation(name: &str) -> Option<&'static str> {
     match name {
-        "_cad_art" => Some(
-            "Render the install guide's focused, customer-facing CAD pictures.\n\nThe production models carry more geometry than an instruction frame needs. This module keeps the\nexact touched parts and makes four deliberate presentation cuts:\n\n- the faucet's source lever is a union of rest + pressed states for collision checking, so the\n  customer views reconstruct one physical state at a time from the same dimensions;\n- invisible tube tails are clipped at the countertop for the user-side faucet views;\n- the mount sequence keeps the recognizable full faucet for the lowering event, then changes once\n  to a fixed, literal below-counter camera for the plate and retained-nut actions;\n- the retained donor washer and nut are plain visual stand-ins because the purchased hardware has\n  no source CAD. Their family installation geometry is shown without using them as dimensional\n  authority.\n\nThe scene payload intermediates live in a temporary directory under ``hardware/``.\nOnly the final PNGs land in ``art/``.\n\n``--mount-studies`` renders only the registered mount frames into ``out/mount-studies/`` for fast\nvisual review without touching the checked-in artwork.",
-        ),
-        "_cad_art_mesh" => {
-            Some("Producer surfaces and authored illustration props for the customer pictures.")
-        }
         "_install_art" => Some(
             "Shared installation scene builders and presentation props.\n\nThe cabinet, countertop, CO2 cylinder, filter and power cord are illustration geometry.\nRendered scenes are written to art/; owner documents keep their own print snapshots.\n\n    tools/cad-venv/bin/python hardware/install-guide/_install_art.py\n    tools/cad-venv/bin/python hardware/install-guide/_install_art.py --list\n    tools/cad-venv/bin/python hardware/install-guide/_install_art.py opening cabinet-plan",
         ),
@@ -62,8 +54,6 @@ pub fn documentation(name: &str) -> Option<&'static str> {
 }
 pub fn source(name: &str) -> Option<&'static str> {
     match name {
-        "_cad_art" => Some("hardware/install-guide/_cad_art.py"),
-        "_cad_art_mesh" => Some("hardware/install-guide/_cad_art_mesh.py"),
         "_install_art" => Some("hardware/install-guide/_install_art.py"),
         "_install_art_mesh" => Some("hardware/install-guide/_install_art_mesh.py"),
         "cylinder_actions" => Some("tools/install-guide/cylinder_actions.py"),
@@ -81,12 +71,6 @@ pub fn source(name: &str) -> Option<&'static str> {
     }
 }
 pub fn by_path(path: &str) -> Option<&'static str> {
-    if path.ends_with("hardware/install-guide/_cad_art.py") {
-        return Some("_cad_art");
-    }
-    if path.ends_with("hardware/install-guide/_cad_art_mesh.py") {
-        return Some("_cad_art_mesh");
-    }
     if path.ends_with("hardware/install-guide/_install_art.py") {
         return Some("_install_art");
     }
@@ -130,8 +114,6 @@ pub fn by_path(path: &str) -> Option<&'static str> {
 }
 pub fn initialize(rt: Runtime, e: Env, name: &str) -> Result<()> {
     match name {
-        "_cad_art" => _cad_art::initialize(rt, e),
-        "_cad_art_mesh" => _cad_art_mesh::initialize(rt, e),
         "_install_art" => _install_art::initialize(rt, e),
         "_install_art_mesh" => _install_art_mesh::initialize(rt, e),
         "cylinder_actions" => cylinder_actions::initialize(rt, e),
@@ -150,8 +132,6 @@ pub fn initialize(rt: Runtime, e: Env, name: &str) -> Result<()> {
 }
 pub fn entrypoint(rt: Runtime, e: Env, name: &str) -> Result<Val> {
     match name {
-        "_cad_art" => _cad_art::entrypoint(rt, e),
-        "_cad_art_mesh" => _cad_art_mesh::entrypoint(rt, e),
         "_install_art" => _install_art::entrypoint(rt, e),
         "_install_art_mesh" => _install_art_mesh::entrypoint(rt, e),
         "cylinder_actions" => cylinder_actions::entrypoint(rt, e),
