@@ -6,9 +6,8 @@ and physical tube paths are defined in [above-core.md](above-core.md) and
 [above-core.json](above-core.json). [The installed machine](installed_machine.rs)
 composes those parts with the refrigeration base, cold core, printed enclosure
 and installed wiring, and writes the machine's STEP, the model the site draws, its
-facts and its scene views. The clash checks run when asked:
-`python3 tools/run.py -- tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py`
-writes the machine's files and `enclosure-assembly.scorecard.json` into the checkout.
+facts and its scene views. The machine's clash checks are off during the Rust conversion;
+they come back written in Rust once the parts they read have moved.
 
 The connections follow [fluid-topology.md](/hardware/topology/fluid-topology.md).
 Each reservoir has separate fill and draw mouths; segments 14/24 fill them and
@@ -105,6 +104,3 @@ current arrangement and rewrites the file, and the new file is committed with th
 ```sh
 python3 tools/run.py -- tools/cad-venv/bin/python hardware/manifold-layout/enclosure_box.py
 ```
-
-The whole-machine fit checks run in every build, so a part that moved without the file
-changing shows up in them.
