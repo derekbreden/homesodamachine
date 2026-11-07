@@ -12,8 +12,8 @@ click: x=10.448 y=-19.053 z=30.884
 click: x=-8.553 y=21.053 z=32.631
 click: x=-8.553 y=19.053 z=32.631
 
-[thin] The selected water-regulator cap has 2 mm spring leaves and a 1.6 mm solid retaining nose with its 1 mm pointed lead-in. The reported 1.774 mm diagonal crosses the transition between these specified flexure and catch surfaces. Derek has physically approved this fitted section. The point and flexible catch are required features, rather than a bulk receiver wall.
-alternatives: Increasing the spring thickness changes its accepted bending section. Blunting the nose removes the selected pointed lead-in. Increasing the hook height changes its mating roof pocket.
+[thin] The water-regulator cap's spring leaves and solid retaining nose define its fitted flexure and catch surfaces. Derek has physically approved that fitted section. The free point has its own lead-in above the retaining nose; thin readings at that taper's mathematical edge are inherent in the requested pointed profile. The point and flexible catch are required features, rather than bulk receiver walls.
+alternatives: Increasing the spring thickness changes its accepted bending section. Blunting the nose removes the requested pointed lead-in. Increasing the retaining nose changes its fitted catch plane.
 file: hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.step
 click: x=10.846 y=-17.011 z=24.668
 click: x=12.586 y=-16.670 z=24.668
