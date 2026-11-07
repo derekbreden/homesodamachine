@@ -1,8 +1,9 @@
 """TPU o-ring — printed-TPU thimble that seals the 3/8" soda faucet tube
 into the harvested Westbrass's top water port. See README.md.
 
-The scalar recipe in `tools/hsm/faucet-data` drives `tpu_o_ring.rs`; `build_o_ring` also supplies the
-CadQuery body used by the insertion guide and native assembly readers.
+`tpu_o_ring.rs` cuts the part from its numbers (`numbers.rs`). This module is for readers that
+still take the thimble from Python: `build_o_ring` draws the CadQuery body the insertion guide and
+the native assembly readers use, and its datums are the numbers crate's.
 """
 
 from __future__ import annotations
@@ -14,10 +15,6 @@ _here = Path(__file__).resolve().parent
 sys.path.insert(0, str(next(p for p in _here.parents if p.name == "hardware") / "scripts"))
 sys.path.insert(0, str(next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"))
 sys.path.insert(0, str(next(p for p in _here.parents if p.name == "printed-parts") / "cadlib"))
-
-if __name__ == "__main__":
-    import _rust_part
-    _rust_part.start()
 
 import cadquery as cq
 from _materials import M_TPU_BLACK, linear
@@ -57,19 +54,3 @@ def build_o_ring() -> cq.Workplane:
     )
     body = body.cut(sleeve_bore)
     return body
-
-
-def numbers():
-    """The Rust scalar program supplies the stepped sleeve and cap recipe."""
-    return _data()["numbers"]
-
-
-def main():
-    import _rust_part
-
-    said = _rust_part.cut("faucet", "tpu-o-ring", numbers(), _here)
-    print("-> " + ", ".join(said["files"]))
-
-
-if __name__ == "__main__":
-    main()

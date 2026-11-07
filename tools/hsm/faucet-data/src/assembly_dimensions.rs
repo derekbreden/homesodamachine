@@ -154,7 +154,7 @@ impl Dimensions {
         let shell = crate::shell_dimensions::Dimensions::new(slip);
         let interface = crate::interface(slip);
         let paths = crate::constants();
-        let organizer = crate::organizer(&Value::Null)["datums"].clone();
+        let organizer = crate::organizer()["datums"].clone();
         let display_housing_width: f64 = interface["display_housing_width"].as_f64().unwrap();
         let display_housing_length: f64 = interface["display_housing_length"].as_f64().unwrap();
         let display_pcb_width: f64 = interface["display_pcb_width"].as_f64().unwrap();
