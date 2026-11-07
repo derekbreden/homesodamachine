@@ -11,6 +11,7 @@ pub mod ids;
 pub mod json;
 pub mod mesh;
 pub mod npz;
+pub mod preset;
 pub mod profile;
 pub mod project;
 pub mod refresh;
