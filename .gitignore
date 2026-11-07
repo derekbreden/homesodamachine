@@ -116,7 +116,6 @@ hardware/printed-parts/cold-core/reservoir/reservoir-right.stl
 hardware/printed-parts/cold-core/reservoir/reservoir-cap-left.stl
 hardware/printed-parts/cold-core/reservoir/reservoir-cap-right.stl
 hardware/printed-parts/enclosure/display-gasket/display-gasket.stl
-hardware/printed-parts/enclosure/data-ring/data-ring.stl
 hardware/printed-parts/enclosure/nameplate/nameplate-*.stl
 hardware/printed-parts/refrigeration/fuse-clamp/fuse-clamp.stl
 # Except the harvested solids, which have no builder here — y_divider.py:3 says it of its own,

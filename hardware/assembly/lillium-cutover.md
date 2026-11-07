@@ -88,7 +88,7 @@ every part used in the working assembly.
 - **Printing:** three ASA Aero floats, two of them this build's, with their RC62s going in at the
   print's pause.
 - **Not printed:** the rear wall's chips at its current width, for TAP, SODA and both FLAVOR
-  fittings, plus the tube collars and the DATA plate
+  fittings, plus the tube collars
   ([label plates](/hardware/printed-parts/drain-readiness/README.md#identification-plates): White,
   Blue and Black). Each chip sits under its bulkhead's flange, so print them before the rear wall
   goes together. The earlier chips are narrower than this back-top's pockets.

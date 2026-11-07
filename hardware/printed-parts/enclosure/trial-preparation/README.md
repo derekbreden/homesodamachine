@@ -42,9 +42,9 @@ part's lettering into it, and writes `<part>.stl` beside the STEP with
 since.
 
 [`labels.py`](labels.py) prepares the identification plates under the CAD lock, one plate per
-chip colour: the six rear chips, the six tube collars, the DATA plate and nameplate 0001. Each
-part's body and lettering come from its published STEP, posed face up. The chips, the DATA
-plate and the nameplate lie on their flat backs; the collars lie on their flat faces. Each
+chip colour: the six rear chips, the six tube collars and nameplate 0001. Each
+part's body and lettering come from its published STEP, posed face up. The chips and the
+nameplate lie on their flat backs; the collars lie on their flat faces. Each
 plate uses `petgf.3mf` on both 0.4 mm nozzles, with white on the left and the plate's colour on
 the right, at Mark2's +0.04 mm trim. The right nozzle takes its measured registration offset.
 There are no supports or brim. One closing layer schedule puts a layer top on every face-up
