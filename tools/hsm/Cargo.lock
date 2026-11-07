@@ -1694,6 +1694,7 @@ name = "hsm-print-prep"
 version = "0.1.0"
 dependencies = [
  "anyhow",
+ "hsm-aero-float-numbers",
  "hsm-enclosure-numbers",
  "hsm-enclosure-quadrants",
  "hsm-enclosure-retainer-numbers",

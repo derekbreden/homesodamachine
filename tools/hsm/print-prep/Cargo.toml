@@ -21,6 +21,7 @@ hsm-fake-countertop-numbers = { path = "../fake-countertop-numbers" }
 hsm-enclosure-numbers = { path = "../enclosure-numbers" }
 hsm-enclosure-quadrants = { path = "../enclosure-quadrants" }
 hsm-enclosure-retainer-numbers = { path = "../enclosure-retainer-numbers" }
+hsm-aero-float-numbers = { path = "../aero-float-numbers" }
 
 [[bin]]
 name = "petgf-cooling"
@@ -90,3 +91,7 @@ path = "../../../hardware/printed-parts/cold-core/reservoir/prepare_print.rs"
 [[bin]]
 name = "enclosure-print-regions"
 path = "../../../hardware/printed-parts/enclosure/enclosure/heat-set-review/print_regions.rs"
+
+[[bin]]
+name = "aero-float-print-project"
+path = "../../../hardware/printed-parts/cold-core/magnetic-float/all-aero/prepare_print.rs"

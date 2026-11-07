@@ -20,7 +20,7 @@ a fresh native slice review before its expected insertion layers can be used.
 
 - [Current float STL](../printed-parts/cold-core/magnetic-float/all-aero/float-aero.stl).
 - [Design and process record](../printed-parts/cold-core/magnetic-float/all-aero/design.json).
-- [Native slice preparation](../printed-parts/cold-core/magnetic-float/all-aero/prepare_print.py).
+- [Native slice preparation](../printed-parts/cold-core/magnetic-float/all-aero/prepare_print.rs).
 
 The preparation script writes a separate current-revision project. It does not
 submit a print. The retained `all-aero-float.3mf` is identified v1 print evidence;

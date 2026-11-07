@@ -551,6 +551,75 @@ pub fn bead_stack(lower: &[Road], upper: &[Road]) -> Option<(f64, f64)> {
     stack_over(&Beads::new(lower.iter().map(Capsule::of).collect()), &Beads::new(upper.iter().map(Capsule::of).collect()))
 }
 
+fn merged(mut spans: Vec<(f64, f64)>) -> Vec<(f64, f64)> {
+    spans.sort_by(|a, b| a.0.total_cmp(&b.0));
+    let mut out: Vec<(f64, f64)> = Vec::new();
+    for (a, b) in spans {
+        match out.last_mut() {
+            Some(last) if a <= last.1 => last.1 = last.1.max(b),
+            _ => out.push((a, b)),
+        }
+    }
+    out
+}
+
+/// How much of a region the beads of `roads` cover, read on rows `SCAN` apart across the
+/// region's bounds `lo..hi`; `region(y)` gives the spans the region holds on the row at `y`.
+/// Returns the covered area and the region's own area.
+pub fn bead_cover(roads: &[Road], lo: [f64; 2], hi: [f64; 2], region: impl Fn(f64) -> Vec<(f64, f64)>) -> (f64, f64) {
+    let beads = Beads::new(roads.iter().map(Capsule::of).collect());
+    let (mut covered, mut area) = (0.0, 0.0);
+    let mut y = lo[1] + SCAN / 2.0;
+    while y < hi[1] {
+        let spans = merged(region(y));
+        if !spans.is_empty() {
+            area += run_length(&spans) * SCAN;
+            covered += overlap(&beads.runs(y, lo[0] - 1.0, hi[0] + 1.0), &spans) * SCAN;
+        }
+        y += SCAN;
+    }
+    (covered, area)
+}
+
+/// The spans of the annulus about `centre` between radii `inner` and `outer` on the row at `y`.
+pub fn ring_spans(centre: [f64; 2], inner: f64, outer: f64, y: f64) -> Vec<(f64, f64)> {
+    let dy = y - centre[1];
+    if dy.abs() >= outer {
+        return Vec::new();
+    }
+    let xo = (outer * outer - dy * dy).sqrt();
+    if dy.abs() < inner {
+        let xi = (inner * inner - dy * dy).sqrt();
+        vec![(centre[0] - xo, centre[0] - xi), (centre[0] + xi, centre[0] + xo)]
+    } else {
+        vec![(centre[0] - xo, centre[0] + xo)]
+    }
+}
+
+/// The cross-section of `triangles` at height `z`, moved by `offset` and grown by `pad` (the
+/// points inside it or within `pad` of its boundary), as its bounds and its spans row by row;
+/// none when the plane misses the solid.
+pub fn section_spans(triangles: &[[[f64; 3]; 3]], z: f64, offset: [f64; 2], pad: f64)
+                     -> Option<(([f64; 2], [f64; 2]), impl Fn(f64) -> Vec<(f64, f64)>)> {
+    let section = Section::new(triangles, z);
+    let (lo, hi) = section.bounds()?;
+    let moved: Vec<[[f64; 2]; 2]> = section.segments.iter()
+        .map(|s| [[s[0][0] + offset[0], s[0][1] + offset[1]], [s[1][0] + offset[0], s[1][1] + offset[1]]]).collect();
+    let edges = Beads::new(moved.iter().map(|s| Capsule { a: s[0], b: s[1], r: pad }).collect());
+    let (lo, hi) = ([lo[0] + offset[0] - pad, lo[1] + offset[1] - pad], [hi[0] + offset[0] + pad, hi[1] + offset[1] + pad]);
+    let spans = move |y: f64| {
+        let mut xs: Vec<f64> = moved.iter().filter(|[a, b]| (a[1] > y) != (b[1] > y))
+            .map(|[a, b]| a[0] + (y - a[1]) * (b[0] - a[0]) / (b[1] - a[1])).collect();
+        xs.sort_by(f64::total_cmp);
+        let mut runs: Vec<(f64, f64)> = xs.chunks_exact(2).map(|c| (c[0], c[1])).collect();
+        if pad > 0.0 {
+            runs.extend(edges.runs(y, lo[0] - 1.0, hi[0] + 1.0));
+        }
+        merged(runs)
+    };
+    Some(((lo, hi), spans))
+}
+
 /// A cross-section at height `z`: its boundary segments, read by even-odd crossings. A plane
 /// through mesh vertices is read just above them, where the count cannot take a hole's loop for
 /// the section.
