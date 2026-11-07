@@ -59,5 +59,8 @@ factory joint.
 ## Regenerate
 
 ```
-tools/cad-venv/bin/python hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.py
+python3 tools/run.py -- cargo run --release -j 2 --manifest-path tools/hsm/Cargo.toml -p hsm-above-counter-plate
 ```
+
+The program, [`above_counter_plate.rs`](above_counter_plate.rs), cuts the plate from the faucet's
+numbers crate and writes into this folder.

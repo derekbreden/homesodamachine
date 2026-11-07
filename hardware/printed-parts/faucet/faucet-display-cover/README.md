@@ -129,8 +129,7 @@ across the two flat lower lands and confirms their bed-facing normals and
 height in that print pose. The named cosmetic and lower-land slope findings
 are answered beside the published mesh.
 
-`faucet_display_cover.py selftest` checks one valid solid, the planar bezel,
-the cosmetic minimum and the lip thickness. The current [display-clearance reading](../sculpted/prints/2026-10-17-localized-cooling-display-clearance-mark2/display-clearance.json)
+The current [display-clearance reading](../sculpted/prints/2026-10-17-localized-cooling-display-clearance-mark2/display-clearance.json)
 and [retention reading](../sculpted/prints/2026-10-17-localized-cooling-display-clearance-mark2/display-retention.json)
 bind the raised seat, hardware clearance, display loading, axial approach and
 snap geometry. The [rear-opening reading](../sculpted/prints/2026-10-17-localized-cooling-display-clearance-mark2/rear-opening-rim.json)
@@ -142,5 +141,8 @@ The [physical trial log](https://github.com/derekbreden/homesodamachine/blob/arc
 records the reported print and retention observations.
 
 ```
-tools/cad-venv/bin/python hardware/printed-parts/faucet/faucet-display-cover/faucet_display_cover.py
+python3 tools/run.py -- cargo run --release -j 2 --manifest-path tools/hsm/Cargo.toml -p hsm-faucet-display-cover
 ```
+
+The program, [`faucet_display_cover.rs`](faucet_display_cover.rs), cuts the cover from
+[`numbers.rs`](numbers.rs) and writes into this folder.

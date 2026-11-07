@@ -10,10 +10,10 @@ Footprint and hole pattern match the oval above-counter plate, including
 the signal-ribbon branch beside the flavor passage. The rigid plate
 locates the parts; the gasket seals around them.
 
-The kernel cuts the gasket (`above_counter_gasket.rs`, beside this module)
-from the numbers `numbers()` writes for it (`hardware/scripts/_rust_part.py`).
+`above_counter_gasket.rs` cuts the gasket from the faucet's numbers crate.
+This module is for the readers that still take it from Python:
 `build_above_counter_gasket` draws it in CadQuery for the faucet assembly's
-CadQuery assembly, which reads it.
+CadQuery assembly.
 """
 
 import sys
@@ -31,10 +31,6 @@ sys.path.insert(
 sys.path.insert(0, str(_here.parent.parent))  # for _faucet_interface
 sys.path.insert(0, str(_here.parent.parent / "faucet-shell"))  # for the shared footprint
 sys.path.insert(0, str(next(p for p in _here.parents if p.name == "printed-parts") / "cadlib"))
-if __name__ == "__main__":
-    import _rust_part
-    _rust_part.start()
-
 import cadquery as cq  # noqa: E402
 from _materials import M_TPU_BLACK, linear
 from _faucet_interface import (
@@ -108,21 +104,3 @@ def build_above_counter_gasket():
         .unwrap()
     )
     return gasket.cut(shank_hole).cut(pill_slot).cut(build_lower_signal_lane())
-
-
-def numbers() -> dict:
-    """The Rust scalar program supplies the countertop stack recipe."""
-    return _data()["numbers"]
-
-
-def main():
-    # A run cuts the gasket; an import of this module is a reader of its builder and numbers.
-    import _rust_part
-
-    said = _rust_part.cut("faucet", "above-counter-gasket", numbers(),
-                          Path(__file__).resolve().parent)
-    print("-> " + ", ".join(said["files"]))
-
-
-if __name__ == "__main__":
-    main()

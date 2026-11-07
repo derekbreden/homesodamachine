@@ -16,7 +16,7 @@ gasket + bulkhead seals were in the 2026-05-30 watertight test — see
 | Part (STEP) | Source | × | Footprint | CAD material |
 | --- | --- | --- | --- | --- |
 | `reservoir-gasket` | [`cold-core/reservoir/reservoir.py`](/hardware/printed-parts/cold-core/reservoir/reservoir.py) | 2 | 2323 mm² | TPU 85A |
-| `above-counter-gasket` | [`faucet/above-counter-gasket/above_counter_gasket.py`](/hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.py) | 2 | 2065 mm² | TPU 90A |
+| `above-counter-gasket` | [`faucet/above-counter-gasket/above_counter_gasket.rs`](/hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.rs) | 2 | 2065 mm² | TPU 90A |
 | `reservoir-bulkhead-seal-dry` | [`cold-core/reservoir/reservoir.py`](/hardware/printed-parts/cold-core/reservoir/reservoir.py) | 2 | 67.7 mm² | TPU washer |
 | `reservoir-retaining-ring` | [`cold-core/reservoir/reservoir.py`](/hardware/printed-parts/cold-core/reservoir/reservoir.py) | 2 | 77.4 mm² | TPU 90A |
 
