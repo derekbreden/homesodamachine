@@ -1056,6 +1056,20 @@ dependencies = [
 ]
 
 [[package]]
+name = "hsm-collet-press"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "hsm-catalog",
+ "hsm-collet-press-numbers",
+ "hsm-kernel",
+]
+
+[[package]]
+name = "hsm-collet-press-numbers"
+version = "0.1.0"
+
+[[package]]
 name = "hsm-documents"
 version = "0.1.0"
 dependencies = [
