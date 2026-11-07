@@ -444,7 +444,7 @@ genrule(
         print(f"affected selftest {holds}/{holds} (of the holds this run can take)")
         return 0 if holds == 17 else 1
 
-    src = ["hardware/printed-parts/cold-core/foam-cap/foam_cap.py"]
+    src = ["hardware/printed-parts/cold-core/foam-cap/foam_cap.rs"]
     hit, miss = known(src)
     hold("a tracked source is a label bazel knows", hit == src, f"{hit!r} {miss!r}")
     t = targets(src)
