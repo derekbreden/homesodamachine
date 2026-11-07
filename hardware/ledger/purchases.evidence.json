@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "as_of": "2026-11-06",
+  "as_of": "2026-11-07",
   "reporting_period": {
     "start": "2026-01-01",
     "end": "2026-12-31"
@@ -8687,6 +8687,18 @@
       "source_ids": [
         "src-57d7a55650e950b4bd37fd8b57f1ae54"
       ]
+    },
+    "pur-6655f4a0c1c747bc8ce06a69596eb432": {
+      "vendor": "Bambu Lab",
+      "purpose": "consumables_materials",
+      "amount_evidence": "final_vendor_amount",
+      "order_ids": [
+        "bambu:us795729195777990656"
+      ],
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-fc21b89f674c49d8b7beb35eb29aa7e1"
+      ]
     }
   },
   "orders": {
@@ -14666,6 +14678,18 @@
       "allocation_status": "all_project",
       "source_ids": [
         "src-57d7a55650e950b4bd37fd8b57f1ae54"
+      ]
+    },
+    "bambu:us795729195777990656": {
+      "vendor": "Bambu Lab",
+      "reference": "us795729195777990656",
+      "order_date": {
+        "precision": "day",
+        "value": "2026-11-07"
+      },
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-fc21b89f674c49d8b7beb35eb29aa7e1"
       ]
     }
   },
@@ -30251,6 +30275,21 @@
       ],
       "verified_at": "2026-11-06",
       "note": "Signed-in Amazon order details show the CHANZON LED pack sold by Chanzon, free shipping and estimated tax. Delivery is expected the following day; delivery and completed payment are not established. The purchased blue variant displays the Prime logo. Its clear lens and inline resistor suit the printed status diffuser. The product drawing supplies the LED body and flange dimensions."
+    },
+    "src-fc21b89f674c49d8b7beb35eb29aa7e1": {
+      "vendor": "Bambu Lab",
+      "document_type": "email_order_confirmation",
+      "reference": "us795729195777990656",
+      "document_date": {
+        "precision": "day",
+        "value": "2026-11-07"
+      },
+      "proves": [
+        "price",
+        "order_date"
+      ],
+      "verified_at": "2026-11-07",
+      "note": "Gmail order confirmation received on the order date: PETG Basic Red 30201, White 30106 and Navy Blue 30604, one filament-with-spool unit per color, 1 kg each. Each spool is USD 15.29 after a USD 1.70 Filament Bulk Sale discount from USD 16.99. USD 45.87 subtotal, USD 0.00 credit, USD 6.99 shipping, USD 3.83 tax (Nebraska USD 2.90 and Lincoln USD 0.93), USD 56.69 grand total and net payment. Preparing for shipment; delivery estimate is 3–6 business days after shipping, without a dispatch or delivery date. The confirmation does not independently establish a completed merchant charge."
     }
   },
   "coverage": [
