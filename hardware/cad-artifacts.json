@@ -361,6 +361,9 @@
     "hardware/printed-parts/enclosure/data-ring/data-ring.step": "62269718df81afb30e57187d2573971f18b513dc4b8f9e0f35e53f8608d5243d",
     "hardware/printed-parts/enclosure/data-ring/data-ring.step.mesh": "d54048f9ddceb8d83473007c064f437b9fbae9bbe222bac656471ad8ad489301",
     "hardware/printed-parts/enclosure/data-ring/data-ring.stl": "09bf5340b87b42166228c4559ff658dc1ab4e5b96ea890a5ab7f442ccc563e69",
+    "hardware/printed-parts/enclosure/display-cover/display-cover-fasteners.step": "9fcb6cbdffc89c75d6fefa36cd30d68fe41f3b27f60e09d05131559d8422bbd8",
+    "hardware/printed-parts/enclosure/display-cover/display-cover-fasteners.step.mesh": "19bdcf779d75646ada2158667b7472329f402657a58cf0cdcee414706f3ffdbf",
+    "hardware/printed-parts/enclosure/display-cover/display-cover-fasteners.stl": "44a17deeebd511cd607216cc71944618e5ce37179438c5e3a0d6dc677aaa3608",
     "hardware/printed-parts/enclosure/display-cover/display-cover.step": "fc9c7d1d36910bc54d8ad1df9b9050f841e6de9f78a27e8f7010b444b9d0db76",
     "hardware/printed-parts/enclosure/display-cover/display-cover.step.mesh": "bc5a8ae32ba86712cbedba19bcd58106fb47d5998e659b571e304bdf09deb2d8",
     "hardware/printed-parts/enclosure/display-cover/display-cover.stl": "3594ee4fb113b440326981b1e5cef4bba11f439d2fa586544a5fae44e4dc5f34",
@@ -391,6 +394,12 @@
     "hardware/printed-parts/enclosure/display-cover/retention-trial/display-receiver-retention-v2.step": "e880b414b9be1f09cda5a25770137b7a152fb1db910c3da4c03f2669e94b82f6",
     "hardware/printed-parts/enclosure/display-cover/retention-trial/display-receiver-retention-v2.step.mesh": "8f47ea12a8b3bb8b1a7ffa954811c3fdd8aa93aa522900f658b993d446444b49",
     "hardware/printed-parts/enclosure/display-cover/retention-trial/display-receiver-retention-v2.stl": "a182f8e070a5c1e9aeb1c40693034ada7c1787d422f5bba1c484b7d80baa054d",
+    "hardware/printed-parts/enclosure/display-cover/status-plate-fasteners.step": "613db0d1f5ef92be85d93273369c02348b861ef2d30c4f163185fe153bd94138",
+    "hardware/printed-parts/enclosure/display-cover/status-plate-fasteners.step.mesh": "c87c4ad1fecc3c959e487cbf349dec518ec4a030a25e9c15dff885a079178a22",
+    "hardware/printed-parts/enclosure/display-cover/status-plate-fasteners.stl": "cd511b9a7a7fd8fb48f316821209b0ebf3bc5c6685a5d88f83c87a3b0a9cf753",
+    "hardware/printed-parts/enclosure/display-cover/status-plate.step": "23b4d22595ca873c895dd45590bd3edb6901c9914a52e889cfe4de1a7e3fc394",
+    "hardware/printed-parts/enclosure/display-cover/status-plate.step.mesh": "b46ea662bdde98c44d4099e84d2d99d97b3e43011e16463c8a0e68e969b9251c",
+    "hardware/printed-parts/enclosure/display-cover/status-plate.stl": "33ac2a5347fb7a49618d87461e89233e7ad79c878c9db106f82f7fa7be3ba901",
     "hardware/printed-parts/enclosure/display-gasket/display-gasket.step": "5b32f55a1beae8d40ce7577cb7adf30f1dc884220bda13c99717463ecddf1e34",
     "hardware/printed-parts/enclosure/display-gasket/display-gasket.step.mesh": "74d9f97b3c3fdeaa64519c6e40016621b597cca7c19d7a0f765ac965a5fe5460",
     "hardware/printed-parts/enclosure/display-gasket/display-gasket.stl": "5bfe020725eb9f1cb4bb741c207454b1e64550e63fa443aadbc61398c7ea4c2a",
@@ -453,12 +462,12 @@
     "hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/nameplate-horizontal-wings-receiver.step": "0ae19c97cc7e526ed4d1405564dec24d280e8e2a2541f17875fb1809ab8581a8",
     "hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/nameplate-horizontal-wings-receiver.step.mesh": "3abff76b4dc43689210db6404c9d0d3011faffcfb4aad614434eef75ef07c9db",
     "hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/nameplate-horizontal-wings-receiver.stl": "1bf777f5941dc3031fb1ea476686454c5aef39d2f28e3f0edac39380c7e69cc6",
-    "hardware/printed-parts/enclosure/nameplate/nameplate-001.step": "8f46a12651b7221e4a2a9081c2b034236ebe877eb8055435643a53354368db40",
-    "hardware/printed-parts/enclosure/nameplate/nameplate-001.step.mesh": "2e362e82e69cfd2033e31385e1623a0bbc63a90102439e052f5c7c9c4b637eec",
-    "hardware/printed-parts/enclosure/nameplate/nameplate-001.stl": "b4307d30289d980f582006a184dc9206d717d5ccd0fd906276f377250d976d8b",
+    "hardware/printed-parts/enclosure/nameplate/nameplate-001.step": "98706a06f03e02a631636171adda21f7291230a210d424ccd366108d6c829c69",
+    "hardware/printed-parts/enclosure/nameplate/nameplate-001.step.mesh": "9a20e8b111059d1a633bf0a3cb18313ae150156a8dd84c2cb140d7f296820a76",
+    "hardware/printed-parts/enclosure/nameplate/nameplate-001.stl": "2cc0aad2303169fd592b54ecacb74ced1f4cc87fe3156b28186b0447eb9bf7ee",
     "hardware/printed-parts/enclosure/nameplate/nameplate-fasteners.step": "6cf653b97f91e464e98ac34b87e46d0bdc0f013f0ab311c0633a38dd236fee29",
     "hardware/printed-parts/enclosure/nameplate/nameplate-receiver.step": "7e17dffb5239d1b83f929b61bfc9aaba38acc44d836a65dc50911f6e48760f8d",
-    "hardware/printed-parts/enclosure/nameplate/nameplate-receiver.step.mesh": "493344ef01e8caa8586731222a023d50210ecc5d64aa8f365c43058de701bcb9",
+    "hardware/printed-parts/enclosure/nameplate/nameplate-receiver.step.mesh": "f0d22fec807292a38b0deac78940f0c447ff9f01a88f0772b47876442e244929",
     "hardware/printed-parts/enclosure/nameplate/nameplate-receiver.stl": "55930bc4acf95ab3d61582c4e403fd4d1fe9081a00287369d4c1e6818ca74cfd",
     "hardware/printed-parts/enclosure/nameplate/retention-trial/nameplate-broad-leaf-001.step": "80bcb9dad4fba54a2c93f51b5300b16a6548b44b90a6d88c3cc112cc9ae5e441",
     "hardware/printed-parts/enclosure/nameplate/retention-trial/nameplate-broad-leaf-001.stl": "0defbaa1b34b467de70a47dedab2eec45f4e3dbf783a69134f2c488e208a8f30",
@@ -503,22 +512,22 @@
     "hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.step.mesh": "2cde40a5a1f7d3c41a18bfaf342d41e2b3573789fa5736bf8878ce96db4363a4",
     "hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.stl": "087eb03675c32c610cf01d181f5a5ebf6a9dfe235ddeb0c61bc5da1fb2702b44",
     "hardware/printed-parts/enclosure/rear-identification/rear-label-carb.step": "132f4476a0453cf69c29636cbb78940a40b119ca3dd3cb6062417268c7bcba95",
-    "hardware/printed-parts/enclosure/rear-identification/rear-label-carb.step.mesh": "3072b3c9e9875392cf1a01324d19ef7c43bfe1c272bcf8063a2cc62aa9140a6b",
+    "hardware/printed-parts/enclosure/rear-identification/rear-label-carb.step.mesh": "13873dee7b156de9e000431deef7f9358dac3a4f45e23d1f05034db788bdcdee",
     "hardware/printed-parts/enclosure/rear-identification/rear-label-carb.stl": "97ea6112ff81d10ad4d96b5a832a423b187ae1f2011bf920eb845d9823ec2c02",
     "hardware/printed-parts/enclosure/rear-identification/rear-label-co2.step": "b527a00d29737382fc6fae29ba4c43bf28cbabbecacbddc21a2bc6ccb077f0ad",
-    "hardware/printed-parts/enclosure/rear-identification/rear-label-co2.step.mesh": "3bd8244fcb8bcd1ffc31be06917c8243560f61783d9c7102a861ae8b8f3d5f6d",
+    "hardware/printed-parts/enclosure/rear-identification/rear-label-co2.step.mesh": "0d12db990506401e7f8ba9c8b6548ff9b45e1ae8387ea14f70cfaa3054172229",
     "hardware/printed-parts/enclosure/rear-identification/rear-label-co2.stl": "24462415ddefe082df68701a50e45eee43f6adeb3f8b3a38f9b5538586f7f1fc",
     "hardware/printed-parts/enclosure/rear-identification/rear-label-drain.step": "56e926522e3bfd2adcd556becd182d6ec44246bb17437e671e2012b623e13946",
-    "hardware/printed-parts/enclosure/rear-identification/rear-label-drain.step.mesh": "58e2947ec303f25b022c4f75fc74e390a82c18c969815924402ab29c3259a518",
+    "hardware/printed-parts/enclosure/rear-identification/rear-label-drain.step.mesh": "391685db18356af6b6d6684d030b02bb8ca894ac5e1f09be6af258c6570a16b6",
     "hardware/printed-parts/enclosure/rear-identification/rear-label-drain.stl": "49bf5876af3707de8eebee7df2273e3c4385d83c3e796aa5e609b7224d693534",
     "hardware/printed-parts/enclosure/rear-identification/rear-label-flavor-a.step": "58a8555f8ba98e609b121681072b364e9aee4b0ab1324e79120b6dd2993a0456",
-    "hardware/printed-parts/enclosure/rear-identification/rear-label-flavor-a.step.mesh": "44a39a4d02521a17208a7533442c24770825925742e289f679299ac487bb23e7",
+    "hardware/printed-parts/enclosure/rear-identification/rear-label-flavor-a.step.mesh": "9d0dc99ddf4db5a3e6ee4a69ead8e8141a43640b10b22dd6fa0d311008a86389",
     "hardware/printed-parts/enclosure/rear-identification/rear-label-flavor-a.stl": "103a04c0d7d57c5b3fd2739005d1d122dcc0eefb5b6bd8479b4cd4d2bf49a4a1",
     "hardware/printed-parts/enclosure/rear-identification/rear-label-flavor-b.step": "2be5454f923b02b21a672b9f8d8fed6c224ead633885ffdeba3778666d76dbf8",
-    "hardware/printed-parts/enclosure/rear-identification/rear-label-flavor-b.step.mesh": "95a6efc02588062be0b7f2f475840ce98da8b8644225923140eb45db409215cf",
+    "hardware/printed-parts/enclosure/rear-identification/rear-label-flavor-b.step.mesh": "37d0b102270b51e54252a94dde7ffcc70523f04d84fa89f44a5daec8260a8108",
     "hardware/printed-parts/enclosure/rear-identification/rear-label-flavor-b.stl": "14c79ec5799d2b503cc56d9b01e24ccbab23a2230e4e8470e7863f25b05d45ce",
     "hardware/printed-parts/enclosure/rear-identification/rear-label-water.step": "b719013d945827b354e7b1cfe33029dc91e5074becf0dce581aaa5edf87b93ed",
-    "hardware/printed-parts/enclosure/rear-identification/rear-label-water.step.mesh": "a09c9d9baa0f0919197fddff9cacb6767ea03d97edbfdd32082c5201c2099a6c",
+    "hardware/printed-parts/enclosure/rear-identification/rear-label-water.step.mesh": "2debfc2ddf0ab274c702d9602895fd06f261d0e07d694e93bd2274e9dd6deae5",
     "hardware/printed-parts/enclosure/rear-identification/rear-label-water.stl": "801253026fe4c4399c75f8442cca4c29389272d47095e583398886b7c62d6820",
     "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step": "0d1ac670e6424c768b8d7784188ef1464efa0326a3e9036b9822700fb931ef6c",
     "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step.json": "d96ac37a5fb1c7713b573f012c75f1a6dcd0e5ae80d8d205016da08f69c4b772",
@@ -1355,47 +1364,47 @@
     "hardware/printed-parts/fixtures/water-inlet-jet/water-inlet-jet-fixture-loose.step.mesh": "96f7458c618c6748ff6ad4fc7762f3e4606bce53a889a07fab6fbe903411a6a2",
     "hardware/printed-parts/fixtures/water-inlet-jet/water-inlet-jet-fixture-loose.stl": "cb72908a0c3588a4b27f30969928007aa7758bd8e0aa79cf43bb8b64b2f614ed",
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-assembly.step": "173b1ca5965e403394847821baa161b97f93fa0250cb4e6361a30970c85b90fd",
-    "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-assembly.step.mesh": "0dc4802734393825e43a8fd2e23cc693ba9097fd5eae37b51ea589e25e0ad58c",
+    "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-assembly.step.mesh": "d02136d1c6a0a41e180a0c1612d304da8997981f714a842bcd1ef1c28931d97b",
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ball-cage.step": "5ac3b058b8a4b99002702c3d5e3e25c8f00f9750a97e7de89470918d16c6c861",
-    "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ball-cage.step.mesh": "4dca2269e970d7081ed5711798cf5762a5407a997758e8f5b369533f2a54223f",
+    "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ball-cage.step.mesh": "c312a273318c0d5791f34782957d56a0c93e5083cab21dcb561685e67282b8d9",
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ball-cage.stl": "7eb0ddf0087b5c556ad5d9e9432b037bc967b08ca83e6ab092a0a44ef67836ac",
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-base-foot.step": "628357bdfee8dd6ae18c3a82f42b23dab940cc4f66f4abe7c5ded08fa0a5f19e",
-    "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-base-foot.step.mesh": "59506774b2b0c8f7839d1ca5417b0eb45c58859d06f0bc16cbae37a992480cc9",
+    "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-base-foot.step.mesh": "112b442f732764ad001677545402a285ee14ca613307f91cc4b5cb6f4e693ae5",
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-base-foot.stl": "d0013ed7dfd8d3a359227521b36953f23b4c27e76806609217728e4da9f01117",
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-base.step": "97fb803f0172d45be3b39fd536c9ed668f010b1ba1acfef7ac24fc38a436e74c",
-    "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-base.step.mesh": "e351c6f06e3ea9fd52facba76708bde8b21c16b43ecd84638f0b4d1e692b5245",
+    "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-base.step.mesh": "c8f8464150509856fea1f7c19461be08477247c0db1f675717c91bdd87e76558",
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-base.stl": "9af41dc6390bd81e9c95582c54d94d6044171791d94356f92a728b45997787f1",
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ground-arm.step": "9a935ce582d6df13ce8230e1f90494571b7576266b8f04ccc537c4d1a56511a2",
-    "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ground-arm.step.mesh": "3cb45f8ac5c4038bdbfa899b8a7b257f0fab0b6b00efa9b0608b6a3399bb7f4f",
+    "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ground-arm.step.mesh": "704602d60e75efbffd624670fc8949b81e07028c2430b92caa1af064e5553e9a",
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ground-arm.stl": "2830d1fa3fc6d95490c663de906b180b6373907b0fdd42355984c86e30bae00a",
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ground-shoe.step": "3e06a690d66383ffd1da0f3cfb8726c99cad519d359f1e49e363decf26031b4e",
-    "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ground-shoe.step.mesh": "05f0e485a31d93bf9ad27f4c2717a080d4d0685589d2376e79182c0201a65386",
+    "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ground-shoe.step.mesh": "c49bfe6481f1f79da6e739535fbf83344cd395afec7d24a2ec24ff26ae8bed9e",
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ground-tower.step": "35ecc41dbd9c17a51eb7b0bf291338f995f44b808167ab247d440bea0074ad47",
-    "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ground-tower.step.mesh": "add8535eb08944604fdeff818f4f039ce2c186f52449d0041c017fd4aae87eb7",
+    "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ground-tower.step.mesh": "8b02048a697bfd8eeaec370352376aaa27b7b4dcf25179014607ae5dc08dffd9",
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ground-tower.stl": "a2a2a1bfd1aa81b4ef77d40999738522ce61b652ca2ef6bec0c80d3ef8b49aa5",
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-carriage.step": "e3b1c6857686225a0224fc041a4c4c6cfdd68fb2983b66894a42be071f73d708",
-    "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-carriage.step.mesh": "6c47e107315e1e58482bbb7295d58285eff302f80d0b65555b66a7f52199cd04",
+    "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-carriage.step.mesh": "5cf8732ec07f2bf6da8c04d34fc8886e772f25d1417ce55369590438164eb5ac",
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-carriage.stl": "bcd6d4d6043e569c2e24478708e8e81c9f1cf79917a64130df7d43c6f432cc63",
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-clamp-pad.step": "c60dfd88e91d330393154715ced3118df3f76d5115e8a1844919a55615126433",
-    "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-clamp-pad.step.mesh": "0e751ea3be54eb6ec01484ac6ce45551cbaeee35b7f69b52f8a6f73ee9caf17c",
+    "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-clamp-pad.step.mesh": "c3c4ac92d74fc9475f2013c3a6e2d868f64625732fe94223d1073481ec42a3fa",
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-clamp-pad.stl": "aea6517a3d8c0810e132af0748770f95ab39b0a9dcc76865db5974c0391bcb49",
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-tower.step": "cc0746354044de9c18b45c20216d8987a32df8fc095a5459acc4ba5cd4ec5cd5",
-    "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-tower.step.mesh": "aba5f2ec7841a906ca19b2307ac0be561ee0da55f3b584559ecd583ededdf077",
+    "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-tower.step.mesh": "31797539d9ad147e2cfc83a799924ee8f8099fed0017bd60399cdd2aff98a506",
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-tower.stl": "e9bed81b9be26dbc260bb3239b703259a1cb58a0b07c60b083a6e27fc8cce40a",
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-pulley-coupon.step": "e70164f9e0775834137a9a335d3a49e8c479488ee69b8e4daeaab1a42e9b3028",
-    "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-pulley-coupon.step.mesh": "9df6b91093dd6788c05cff85f7b2af34836fa25a54322ac9f0fdeefa645ff9f4",
+    "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-pulley-coupon.step.mesh": "e83382a1cbe51438562295329e323fdca353a486178ab076697a1e4cf438bc14",
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-pulley-coupon.stl": "171cd801dc1d996fb2e5d0fbe1105432b6795e8a531400d79a7e49e55d2c8257",
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-race-ring.step": "0f76217373f690461d96cdf07af435872b218f8fc0fc7a759a78d79545f699a0",
-    "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-race-ring.step.mesh": "49ad42566fc15cd329d6756992bdb71c71fa027bc62fb0e1caf338e564364949",
+    "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-race-ring.step.mesh": "a59055317a8239b27949fd590d3e5dc02a32d3a737bcfc205fbe81e4a8828f3e",
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-race-ring.stl": "d26434f89b0cb08162230b3b81130c2a680bace66e0dde8379063b2a6115a54b",
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-spool.step": "ee8bcde6f6c1a266f1a0117346cb84eda7b89a4866371c569a407bc95c3404e3",
-    "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-spool.step.mesh": "27ff5d41554f7e28d7dd80426991e7133a38b2bb64e09be9697f1b0b1d82c728",
+    "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-spool.step.mesh": "91affece46dd8951e35dcfbbf32e572601ecb2594b2a029e3298b406ae916852",
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-spool.stl": "27a7c297e3c66bfba7335db59596c716d49ed41e98c2fff5374cc8975ab232bd",
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-tube-nest.step": "a2492ebf4406edb53e400d57d71e37036842f193b91b64beb3ac137e47e9e663",
-    "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-tube-nest.step.mesh": "da8601d9334370545c85f3dd070a1ab17ec85cfd734b524d5611ad432b9113a7",
+    "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-tube-nest.step.mesh": "a7ba68a95e8580a5e2375bcebc6cd317c04fe71f0829fb947846dc9f79f862bb",
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-tube-nest.stl": "56fcc133a2d4a1a69c78274632d700b91a417684589a8be121e473a8f2d70367",
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-turntable-90t.step": "d3512a8d7944eb6a95a1d4e246478b26e0529ff7f6176982948a25547d5dd6b2",
-    "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-turntable-90t.step.mesh": "0783aac1700e19b97774961a1faa376b3f9ca05aa2382f3bb81398e0e10f86b1",
+    "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-turntable-90t.step.mesh": "ad90ec86392960d53000b8eb22ca6ba887eb95f02f5b4d7c671c8e0652da8399",
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-turntable-90t.stl": "648c2de7cd6e7bbec76add2586aef9b93b6fd6c409a31296890e12879dab7fdd",
     "hardware/printed-parts/prototype-gaskets-2026-10-08/sources/display-gasket.step": "bd424f634be59e8b22ba6918382d40d3c0a0392d64b4d11addb7050996ec5c3d",
     "hardware/printed-parts/prototype-gaskets-2026-10-08/sources/faucet-counter-gasket-printed-white.step": "d36bf13df6842066b23f8986e5e71d9a07e26410be36a62688c4f19f23e80913",
@@ -1405,7 +1414,7 @@
     "hardware/printed-parts/prototype-gaskets-2026-10-08/sources/reservoir-vent-filter-ring.step": "022cb0b12e12e86ec3555b607c4e0f40245ea4938f3b8af4724f308b9407de03",
     "hardware/printed-parts/refrigeration/fuse-clamp/fuse-clamp.step": "80c8efc09a488cf75805ef2ae75e75a895d0d3f822d512e35af042e4dd713540",
     "hardware/printed-parts/refrigeration/fuse-clamp/fuse-clamp.step.json": "6758f888773c086baa1d8d1806ff15e3d02bff67c6deeff8b4ece2b574bd729e",
-    "hardware/printed-parts/refrigeration/fuse-clamp/fuse-clamp.step.mesh": "236841e40cf0d756bcd0d1f2d59bdcfe0ef82221246fbf01d67d6d184273e1be",
+    "hardware/printed-parts/refrigeration/fuse-clamp/fuse-clamp.step.mesh": "cba2f594fc8b6de6632ed0c7a20821a60f16afbf760b8f74cb9e29d1cf0de874",
     "hardware/printed-parts/refrigeration/fuse-clamp/fuse-clamp.stl": "fb4db7bf16cab5a6206f4d055fc0f1f7f41469559c431096b1dc2a1a9cd55528",
     "hardware/printed-parts/soda-bend-holder/soda-bend-holder.step": "d6cac70239b625a770ea64b987835e18b285f5851cbc494b74bc577f27c49171",
     "hardware/printed-parts/soda-bend-holder/soda-bend-holder.step.json": "f193a83d4d787eea44142880cc436150ac72eb44152e5ced50be751222f783ee",
@@ -1731,9 +1740,6 @@
       "hardware/printed-parts/diaphragm-pump-sleeve/diaphragm-pump-sleeve.stl": "0ebe7cbc53bf9abdc17ca9391438432b33010b1537f22608a00358023efbe79a",
       "hardware/printed-parts/electronics/pcba-tray/pcba-board.step": "24d6357cae73a727fa3870f60b7630649f80e772a10bdce673632f6bfcd0e99e",
       "hardware/printed-parts/electronics/pcba-tray/pcba-board.step.mesh": "4ffc48d3849da295ad068f32cf1c8f11f559da08fd2ede2bf4f9655623211453",
-      "hardware/printed-parts/enclosure/data-ring/data-ring.step": "62269718df81afb30e57187d2573971f18b513dc4b8f9e0f35e53f8608d5243d",
-      "hardware/printed-parts/enclosure/data-ring/data-ring.step.mesh": "d54048f9ddceb8d83473007c064f437b9fbae9bbe222bac656471ad8ad489301",
-      "hardware/printed-parts/enclosure/data-ring/data-ring.stl": "09bf5340b87b42166228c4559ff658dc1ab4e5b96ea890a5ab7f442ccc563e69",
       "hardware/printed-parts/enclosure/display-cover/display-cover.step": "fc9c7d1d36910bc54d8ad1df9b9050f841e6de9f78a27e8f7010b444b9d0db76",
       "hardware/printed-parts/enclosure/display-cover/display-cover.step.mesh": "bc5a8ae32ba86712cbedba19bcd58106fb47d5998e659b571e304bdf09deb2d8",
       "hardware/printed-parts/enclosure/display-cover/display-cover.stl": "3594ee4fb113b440326981b1e5cef4bba11f439d2fa586544a5fae44e4dc5f34",
@@ -1761,9 +1767,9 @@
       "hardware/printed-parts/enclosure/grip-cover/grip-cover.step": "418a4ac58a6905d61a812e4a08ec7f4603f8f68e4c394f2c6ff5dc5ad2c98ea1",
       "hardware/printed-parts/enclosure/grip-cover/grip-cover.step.mesh": "7f9d622d4607f9b93fe0020aa21495c76b81ebd0561ad32bb986e84f9d79b129",
       "hardware/printed-parts/enclosure/grip-cover/grip-cover.stl": "acbb8f8cd3e50792a258670bf31c7574de6a435fbbce2629ede73c070378dc03",
-      "hardware/printed-parts/enclosure/nameplate/nameplate-001.step": "8f46a12651b7221e4a2a9081c2b034236ebe877eb8055435643a53354368db40",
-      "hardware/printed-parts/enclosure/nameplate/nameplate-001.step.mesh": "2e362e82e69cfd2033e31385e1623a0bbc63a90102439e052f5c7c9c4b637eec",
-      "hardware/printed-parts/enclosure/nameplate/nameplate-001.stl": "b4307d30289d980f582006a184dc9206d717d5ccd0fd906276f377250d976d8b",
+      "hardware/printed-parts/enclosure/nameplate/nameplate-001.step": "98706a06f03e02a631636171adda21f7291230a210d424ccd366108d6c829c69",
+      "hardware/printed-parts/enclosure/nameplate/nameplate-001.step.mesh": "9a20e8b111059d1a633bf0a3cb18313ae150156a8dd84c2cb140d7f296820a76",
+      "hardware/printed-parts/enclosure/nameplate/nameplate-001.stl": "2cc0aad2303169fd592b54ecacb74ced1f4cc87fe3156b28186b0447eb9bf7ee",
       "hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step": "e54ae5ddc061384909270a584b07e1a6966ccf80317c2fe13ee15ddba2e88c7b",
       "hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step.mesh": "97581697d7475cc36c486c6f2b57101426be4f6c0a003738defabd502a80de8e",
       "hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.stl": "48abcbbde369ad6c222102a6d0ca5d829729bf915add2f43aea99fe18f7209f8",
@@ -1777,22 +1783,22 @@
       "hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.step.mesh": "2cde40a5a1f7d3c41a18bfaf342d41e2b3573789fa5736bf8878ce96db4363a4",
       "hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.stl": "087eb03675c32c610cf01d181f5a5ebf6a9dfe235ddeb0c61bc5da1fb2702b44",
       "hardware/printed-parts/enclosure/rear-identification/rear-label-carb.step": "132f4476a0453cf69c29636cbb78940a40b119ca3dd3cb6062417268c7bcba95",
-      "hardware/printed-parts/enclosure/rear-identification/rear-label-carb.step.mesh": "3072b3c9e9875392cf1a01324d19ef7c43bfe1c272bcf8063a2cc62aa9140a6b",
+      "hardware/printed-parts/enclosure/rear-identification/rear-label-carb.step.mesh": "13873dee7b156de9e000431deef7f9358dac3a4f45e23d1f05034db788bdcdee",
       "hardware/printed-parts/enclosure/rear-identification/rear-label-carb.stl": "97ea6112ff81d10ad4d96b5a832a423b187ae1f2011bf920eb845d9823ec2c02",
       "hardware/printed-parts/enclosure/rear-identification/rear-label-co2.step": "b527a00d29737382fc6fae29ba4c43bf28cbabbecacbddc21a2bc6ccb077f0ad",
-      "hardware/printed-parts/enclosure/rear-identification/rear-label-co2.step.mesh": "3bd8244fcb8bcd1ffc31be06917c8243560f61783d9c7102a861ae8b8f3d5f6d",
+      "hardware/printed-parts/enclosure/rear-identification/rear-label-co2.step.mesh": "0d12db990506401e7f8ba9c8b6548ff9b45e1ae8387ea14f70cfaa3054172229",
       "hardware/printed-parts/enclosure/rear-identification/rear-label-co2.stl": "24462415ddefe082df68701a50e45eee43f6adeb3f8b3a38f9b5538586f7f1fc",
       "hardware/printed-parts/enclosure/rear-identification/rear-label-drain.step": "56e926522e3bfd2adcd556becd182d6ec44246bb17437e671e2012b623e13946",
-      "hardware/printed-parts/enclosure/rear-identification/rear-label-drain.step.mesh": "58e2947ec303f25b022c4f75fc74e390a82c18c969815924402ab29c3259a518",
+      "hardware/printed-parts/enclosure/rear-identification/rear-label-drain.step.mesh": "391685db18356af6b6d6684d030b02bb8ca894ac5e1f09be6af258c6570a16b6",
       "hardware/printed-parts/enclosure/rear-identification/rear-label-drain.stl": "49bf5876af3707de8eebee7df2273e3c4385d83c3e796aa5e609b7224d693534",
       "hardware/printed-parts/enclosure/rear-identification/rear-label-flavor-a.step": "58a8555f8ba98e609b121681072b364e9aee4b0ab1324e79120b6dd2993a0456",
-      "hardware/printed-parts/enclosure/rear-identification/rear-label-flavor-a.step.mesh": "44a39a4d02521a17208a7533442c24770825925742e289f679299ac487bb23e7",
+      "hardware/printed-parts/enclosure/rear-identification/rear-label-flavor-a.step.mesh": "9d0dc99ddf4db5a3e6ee4a69ead8e8141a43640b10b22dd6fa0d311008a86389",
       "hardware/printed-parts/enclosure/rear-identification/rear-label-flavor-a.stl": "103a04c0d7d57c5b3fd2739005d1d122dcc0eefb5b6bd8479b4cd4d2bf49a4a1",
       "hardware/printed-parts/enclosure/rear-identification/rear-label-flavor-b.step": "2be5454f923b02b21a672b9f8d8fed6c224ead633885ffdeba3778666d76dbf8",
-      "hardware/printed-parts/enclosure/rear-identification/rear-label-flavor-b.step.mesh": "95a6efc02588062be0b7f2f475840ce98da8b8644225923140eb45db409215cf",
+      "hardware/printed-parts/enclosure/rear-identification/rear-label-flavor-b.step.mesh": "37d0b102270b51e54252a94dde7ffcc70523f04d84fa89f44a5daec8260a8108",
       "hardware/printed-parts/enclosure/rear-identification/rear-label-flavor-b.stl": "14c79ec5799d2b503cc56d9b01e24ccbab23a2230e4e8470e7863f25b05d45ce",
       "hardware/printed-parts/enclosure/rear-identification/rear-label-water.step": "b719013d945827b354e7b1cfe33029dc91e5074becf0dce581aaa5edf87b93ed",
-      "hardware/printed-parts/enclosure/rear-identification/rear-label-water.step.mesh": "a09c9d9baa0f0919197fddff9cacb6767ea03d97edbfdd32082c5201c2099a6c",
+      "hardware/printed-parts/enclosure/rear-identification/rear-label-water.step.mesh": "2debfc2ddf0ab274c702d9602895fd06f261d0e07d694e93bd2274e9dd6deae5",
       "hardware/printed-parts/enclosure/rear-identification/rear-label-water.stl": "801253026fe4c4399c75f8442cca4c29389272d47095e583398886b7c62d6820",
       "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step": "0d1ac670e6424c768b8d7784188ef1464efa0326a3e9036b9822700fb931ef6c",
       "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step.json": "d96ac37a5fb1c7713b573f012c75f1a6dcd0e5ae80d8d205016da08f69c4b772",
@@ -2038,51 +2044,51 @@
       "hardware/printed-parts/fixtures/water-inlet-jet/water-inlet-jet-fixture-loose.step.mesh": "96f7458c618c6748ff6ad4fc7762f3e4606bce53a889a07fab6fbe903411a6a2",
       "hardware/printed-parts/fixtures/water-inlet-jet/water-inlet-jet-fixture-loose.stl": "cb72908a0c3588a4b27f30969928007aa7758bd8e0aa79cf43bb8b64b2f614ed",
       "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-assembly.step": "173b1ca5965e403394847821baa161b97f93fa0250cb4e6361a30970c85b90fd",
-      "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-assembly.step.mesh": "0dc4802734393825e43a8fd2e23cc693ba9097fd5eae37b51ea589e25e0ad58c",
+      "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-assembly.step.mesh": "d02136d1c6a0a41e180a0c1612d304da8997981f714a842bcd1ef1c28931d97b",
       "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ball-cage.step": "5ac3b058b8a4b99002702c3d5e3e25c8f00f9750a97e7de89470918d16c6c861",
-      "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ball-cage.step.mesh": "4dca2269e970d7081ed5711798cf5762a5407a997758e8f5b369533f2a54223f",
+      "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ball-cage.step.mesh": "c312a273318c0d5791f34782957d56a0c93e5083cab21dcb561685e67282b8d9",
       "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ball-cage.stl": "7eb0ddf0087b5c556ad5d9e9432b037bc967b08ca83e6ab092a0a44ef67836ac",
       "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-base-foot.step": "628357bdfee8dd6ae18c3a82f42b23dab940cc4f66f4abe7c5ded08fa0a5f19e",
-      "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-base-foot.step.mesh": "59506774b2b0c8f7839d1ca5417b0eb45c58859d06f0bc16cbae37a992480cc9",
+      "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-base-foot.step.mesh": "112b442f732764ad001677545402a285ee14ca613307f91cc4b5cb6f4e693ae5",
       "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-base-foot.stl": "d0013ed7dfd8d3a359227521b36953f23b4c27e76806609217728e4da9f01117",
       "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-base.step": "97fb803f0172d45be3b39fd536c9ed668f010b1ba1acfef7ac24fc38a436e74c",
-      "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-base.step.mesh": "e351c6f06e3ea9fd52facba76708bde8b21c16b43ecd84638f0b4d1e692b5245",
+      "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-base.step.mesh": "c8f8464150509856fea1f7c19461be08477247c0db1f675717c91bdd87e76558",
       "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-base.stl": "9af41dc6390bd81e9c95582c54d94d6044171791d94356f92a728b45997787f1",
       "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ground-arm.step": "9a935ce582d6df13ce8230e1f90494571b7576266b8f04ccc537c4d1a56511a2",
-      "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ground-arm.step.mesh": "3cb45f8ac5c4038bdbfa899b8a7b257f0fab0b6b00efa9b0608b6a3399bb7f4f",
+      "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ground-arm.step.mesh": "704602d60e75efbffd624670fc8949b81e07028c2430b92caa1af064e5553e9a",
       "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ground-arm.stl": "2830d1fa3fc6d95490c663de906b180b6373907b0fdd42355984c86e30bae00a",
       "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ground-shoe.step": "3e06a690d66383ffd1da0f3cfb8726c99cad519d359f1e49e363decf26031b4e",
-      "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ground-shoe.step.mesh": "05f0e485a31d93bf9ad27f4c2717a080d4d0685589d2376e79182c0201a65386",
+      "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ground-shoe.step.mesh": "c49bfe6481f1f79da6e739535fbf83344cd395afec7d24a2ec24ff26ae8bed9e",
       "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ground-tower.step": "35ecc41dbd9c17a51eb7b0bf291338f995f44b808167ab247d440bea0074ad47",
-      "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ground-tower.step.mesh": "add8535eb08944604fdeff818f4f039ce2c186f52449d0041c017fd4aae87eb7",
+      "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ground-tower.step.mesh": "8b02048a697bfd8eeaec370352376aaa27b7b4dcf25179014607ae5dc08dffd9",
       "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ground-tower.stl": "a2a2a1bfd1aa81b4ef77d40999738522ce61b652ca2ef6bec0c80d3ef8b49aa5",
       "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-carriage.step": "e3b1c6857686225a0224fc041a4c4c6cfdd68fb2983b66894a42be071f73d708",
-      "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-carriage.step.mesh": "6c47e107315e1e58482bbb7295d58285eff302f80d0b65555b66a7f52199cd04",
+      "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-carriage.step.mesh": "5cf8732ec07f2bf6da8c04d34fc8886e772f25d1417ce55369590438164eb5ac",
       "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-carriage.stl": "bcd6d4d6043e569c2e24478708e8e81c9f1cf79917a64130df7d43c6f432cc63",
       "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-clamp-pad.step": "c60dfd88e91d330393154715ced3118df3f76d5115e8a1844919a55615126433",
-      "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-clamp-pad.step.mesh": "0e751ea3be54eb6ec01484ac6ce45551cbaeee35b7f69b52f8a6f73ee9caf17c",
+      "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-clamp-pad.step.mesh": "c3c4ac92d74fc9475f2013c3a6e2d868f64625732fe94223d1073481ec42a3fa",
       "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-clamp-pad.stl": "aea6517a3d8c0810e132af0748770f95ab39b0a9dcc76865db5974c0391bcb49",
       "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-tower.step": "cc0746354044de9c18b45c20216d8987a32df8fc095a5459acc4ba5cd4ec5cd5",
-      "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-tower.step.mesh": "aba5f2ec7841a906ca19b2307ac0be561ee0da55f3b584559ecd583ededdf077",
+      "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-tower.step.mesh": "31797539d9ad147e2cfc83a799924ee8f8099fed0017bd60399cdd2aff98a506",
       "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-tower.stl": "e9bed81b9be26dbc260bb3239b703259a1cb58a0b07c60b083a6e27fc8cce40a",
       "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-pulley-coupon.step": "e70164f9e0775834137a9a335d3a49e8c479488ee69b8e4daeaab1a42e9b3028",
-      "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-pulley-coupon.step.mesh": "9df6b91093dd6788c05cff85f7b2af34836fa25a54322ac9f0fdeefa645ff9f4",
+      "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-pulley-coupon.step.mesh": "e83382a1cbe51438562295329e323fdca353a486178ab076697a1e4cf438bc14",
       "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-pulley-coupon.stl": "171cd801dc1d996fb2e5d0fbe1105432b6795e8a531400d79a7e49e55d2c8257",
       "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-race-ring.step": "0f76217373f690461d96cdf07af435872b218f8fc0fc7a759a78d79545f699a0",
-      "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-race-ring.step.mesh": "49ad42566fc15cd329d6756992bdb71c71fa027bc62fb0e1caf338e564364949",
+      "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-race-ring.step.mesh": "a59055317a8239b27949fd590d3e5dc02a32d3a737bcfc205fbe81e4a8828f3e",
       "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-race-ring.stl": "d26434f89b0cb08162230b3b81130c2a680bace66e0dde8379063b2a6115a54b",
       "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-spool.step": "ee8bcde6f6c1a266f1a0117346cb84eda7b89a4866371c569a407bc95c3404e3",
-      "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-spool.step.mesh": "27ff5d41554f7e28d7dd80426991e7133a38b2bb64e09be9697f1b0b1d82c728",
+      "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-spool.step.mesh": "91affece46dd8951e35dcfbbf32e572601ecb2594b2a029e3298b406ae916852",
       "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-spool.stl": "27a7c297e3c66bfba7335db59596c716d49ed41e98c2fff5374cc8975ab232bd",
       "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-tube-nest.step": "a2492ebf4406edb53e400d57d71e37036842f193b91b64beb3ac137e47e9e663",
-      "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-tube-nest.step.mesh": "da8601d9334370545c85f3dd070a1ab17ec85cfd734b524d5611ad432b9113a7",
+      "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-tube-nest.step.mesh": "a7ba68a95e8580a5e2375bcebc6cd317c04fe71f0829fb947846dc9f79f862bb",
       "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-tube-nest.stl": "56fcc133a2d4a1a69c78274632d700b91a417684589a8be121e473a8f2d70367",
       "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-turntable-90t.step": "d3512a8d7944eb6a95a1d4e246478b26e0529ff7f6176982948a25547d5dd6b2",
-      "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-turntable-90t.step.mesh": "0783aac1700e19b97774961a1faa376b3f9ca05aa2382f3bb81398e0e10f86b1",
+      "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-turntable-90t.step.mesh": "ad90ec86392960d53000b8eb22ca6ba887eb95f02f5b4d7c671c8e0652da8399",
       "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-turntable-90t.stl": "648c2de7cd6e7bbec76add2586aef9b93b6fd6c409a31296890e12879dab7fdd",
       "hardware/printed-parts/refrigeration/fuse-clamp/fuse-clamp.step": "80c8efc09a488cf75805ef2ae75e75a895d0d3f822d512e35af042e4dd713540",
       "hardware/printed-parts/refrigeration/fuse-clamp/fuse-clamp.step.json": "6758f888773c086baa1d8d1806ff15e3d02bff67c6deeff8b4ece2b574bd729e",
-      "hardware/printed-parts/refrigeration/fuse-clamp/fuse-clamp.step.mesh": "236841e40cf0d756bcd0d1f2d59bdcfe0ef82221246fbf01d67d6d184273e1be",
+      "hardware/printed-parts/refrigeration/fuse-clamp/fuse-clamp.step.mesh": "cba2f594fc8b6de6632ed0c7a20821a60f16afbf760b8f74cb9e29d1cf0de874",
       "hardware/printed-parts/refrigeration/fuse-clamp/fuse-clamp.stl": "fb4db7bf16cab5a6206f4d055fc0f1f7f41469559c431096b1dc2a1a9cd55528",
       "hardware/printed-parts/soda-bend-holder/soda-bend-holder.step": "d6cac70239b625a770ea64b987835e18b285f5851cbc494b74bc577f27c49171",
       "hardware/printed-parts/soda-bend-holder/soda-bend-holder.step.json": "f193a83d4d787eea44142880cc436150ac72eb44152e5ced50be751222f783ee",
@@ -2524,6 +2530,9 @@
     "hardware/printed-parts/enclosure/data-ring/data-ring.step": 1793626644,
     "hardware/printed-parts/enclosure/data-ring/data-ring.step.mesh": 1793626644,
     "hardware/printed-parts/enclosure/data-ring/data-ring.stl": 1793626644,
+    "hardware/printed-parts/enclosure/display-cover/display-cover-fasteners.step": 1794074754,
+    "hardware/printed-parts/enclosure/display-cover/display-cover-fasteners.step.mesh": 1794074754,
+    "hardware/printed-parts/enclosure/display-cover/display-cover-fasteners.stl": 1794074754,
     "hardware/printed-parts/enclosure/display-cover/display-cover.step": 1793948374,
     "hardware/printed-parts/enclosure/display-cover/display-cover.step.mesh": 1794037810,
     "hardware/printed-parts/enclosure/display-cover/display-cover.stl": 1793948374,
@@ -2554,6 +2563,12 @@
     "hardware/printed-parts/enclosure/display-cover/retention-trial/display-receiver-retention-v2.step": 1791507604,
     "hardware/printed-parts/enclosure/display-cover/retention-trial/display-receiver-retention-v2.step.mesh": 1791507604,
     "hardware/printed-parts/enclosure/display-cover/retention-trial/display-receiver-retention-v2.stl": 1791507604,
+    "hardware/printed-parts/enclosure/display-cover/status-plate-fasteners.step": 1794074754,
+    "hardware/printed-parts/enclosure/display-cover/status-plate-fasteners.step.mesh": 1794074754,
+    "hardware/printed-parts/enclosure/display-cover/status-plate-fasteners.stl": 1794074754,
+    "hardware/printed-parts/enclosure/display-cover/status-plate.step": 1794074754,
+    "hardware/printed-parts/enclosure/display-cover/status-plate.step.mesh": 1794074754,
+    "hardware/printed-parts/enclosure/display-cover/status-plate.stl": 1794074754,
     "hardware/printed-parts/enclosure/display-gasket/display-gasket.step": 1793948374,
     "hardware/printed-parts/enclosure/display-gasket/display-gasket.step.mesh": 1794037810,
     "hardware/printed-parts/enclosure/display-gasket/display-gasket.stl": 1793948374,
@@ -2616,12 +2631,12 @@
     "hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/nameplate-horizontal-wings-receiver.step": 1791257167,
     "hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/nameplate-horizontal-wings-receiver.step.mesh": 1791257167,
     "hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/nameplate-horizontal-wings-receiver.stl": 1790801436,
-    "hardware/printed-parts/enclosure/nameplate/nameplate-001.step": 1793858653,
-    "hardware/printed-parts/enclosure/nameplate/nameplate-001.step.mesh": 1793858653,
-    "hardware/printed-parts/enclosure/nameplate/nameplate-001.stl": 1793858653,
+    "hardware/printed-parts/enclosure/nameplate/nameplate-001.step": 1794074754,
+    "hardware/printed-parts/enclosure/nameplate/nameplate-001.step.mesh": 1794074754,
+    "hardware/printed-parts/enclosure/nameplate/nameplate-001.stl": 1794074754,
     "hardware/printed-parts/enclosure/nameplate/nameplate-fasteners.step": 1794012200,
     "hardware/printed-parts/enclosure/nameplate/nameplate-receiver.step": 1793887225,
-    "hardware/printed-parts/enclosure/nameplate/nameplate-receiver.step.mesh": 1793889242,
+    "hardware/printed-parts/enclosure/nameplate/nameplate-receiver.step.mesh": 1794074754,
     "hardware/printed-parts/enclosure/nameplate/nameplate-receiver.stl": 1793887225,
     "hardware/printed-parts/enclosure/nameplate/retention-trial/nameplate-broad-leaf-001.step": 1790625228,
     "hardware/printed-parts/enclosure/nameplate/retention-trial/nameplate-broad-leaf-001.stl": 1790625228,
@@ -2666,22 +2681,22 @@
     "hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.step.mesh": 1794020197,
     "hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.stl": 1793743855,
     "hardware/printed-parts/enclosure/rear-identification/rear-label-carb.step": 1793779825,
-    "hardware/printed-parts/enclosure/rear-identification/rear-label-carb.step.mesh": 1793779825,
+    "hardware/printed-parts/enclosure/rear-identification/rear-label-carb.step.mesh": 1794074754,
     "hardware/printed-parts/enclosure/rear-identification/rear-label-carb.stl": 1793779825,
     "hardware/printed-parts/enclosure/rear-identification/rear-label-co2.step": 1793779825,
-    "hardware/printed-parts/enclosure/rear-identification/rear-label-co2.step.mesh": 1793779825,
+    "hardware/printed-parts/enclosure/rear-identification/rear-label-co2.step.mesh": 1794074754,
     "hardware/printed-parts/enclosure/rear-identification/rear-label-co2.stl": 1793779825,
     "hardware/printed-parts/enclosure/rear-identification/rear-label-drain.step": 1793811159,
-    "hardware/printed-parts/enclosure/rear-identification/rear-label-drain.step.mesh": 1793811159,
+    "hardware/printed-parts/enclosure/rear-identification/rear-label-drain.step.mesh": 1794074754,
     "hardware/printed-parts/enclosure/rear-identification/rear-label-drain.stl": 1793811159,
     "hardware/printed-parts/enclosure/rear-identification/rear-label-flavor-a.step": 1793787235,
-    "hardware/printed-parts/enclosure/rear-identification/rear-label-flavor-a.step.mesh": 1793787235,
+    "hardware/printed-parts/enclosure/rear-identification/rear-label-flavor-a.step.mesh": 1794074754,
     "hardware/printed-parts/enclosure/rear-identification/rear-label-flavor-a.stl": 1793787235,
     "hardware/printed-parts/enclosure/rear-identification/rear-label-flavor-b.step": 1793787235,
-    "hardware/printed-parts/enclosure/rear-identification/rear-label-flavor-b.step.mesh": 1793787235,
+    "hardware/printed-parts/enclosure/rear-identification/rear-label-flavor-b.step.mesh": 1794074754,
     "hardware/printed-parts/enclosure/rear-identification/rear-label-flavor-b.stl": 1793787235,
     "hardware/printed-parts/enclosure/rear-identification/rear-label-water.step": 1793779825,
-    "hardware/printed-parts/enclosure/rear-identification/rear-label-water.step.mesh": 1793779825,
+    "hardware/printed-parts/enclosure/rear-identification/rear-label-water.step.mesh": 1794074754,
     "hardware/printed-parts/enclosure/rear-identification/rear-label-water.stl": 1793779825,
     "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step": 1793568839,
     "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step.json": 1793750338,
@@ -3518,47 +3533,47 @@
     "hardware/printed-parts/fixtures/water-inlet-jet/water-inlet-jet-fixture-loose.step.mesh": 1794037810,
     "hardware/printed-parts/fixtures/water-inlet-jet/water-inlet-jet-fixture-loose.stl": 1793652093,
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-assembly.step": 1793934190,
-    "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-assembly.step.mesh": 1793934190,
+    "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-assembly.step.mesh": 1794074754,
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ball-cage.step": 1793652093,
-    "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ball-cage.step.mesh": 1793652093,
+    "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ball-cage.step.mesh": 1794074754,
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ball-cage.stl": 1793652093,
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-base-foot.step": 1793652093,
-    "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-base-foot.step.mesh": 1793652093,
+    "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-base-foot.step.mesh": 1794074754,
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-base-foot.stl": 1793652093,
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-base.step": 1793652093,
-    "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-base.step.mesh": 1793652093,
+    "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-base.step.mesh": 1794074754,
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-base.stl": 1793652093,
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ground-arm.step": 1793652093,
-    "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ground-arm.step.mesh": 1793652093,
+    "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ground-arm.step.mesh": 1794074754,
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ground-arm.stl": 1793652093,
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ground-shoe.step": 1793652093,
-    "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ground-shoe.step.mesh": 1793652093,
+    "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ground-shoe.step.mesh": 1794074754,
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ground-tower.step": 1793652093,
-    "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ground-tower.step.mesh": 1793652093,
+    "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ground-tower.step.mesh": 1794074754,
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ground-tower.stl": 1793652093,
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-carriage.step": 1793934190,
-    "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-carriage.step.mesh": 1793934190,
+    "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-carriage.step.mesh": 1794074754,
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-carriage.stl": 1793934190,
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-clamp-pad.step": 1793652093,
-    "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-clamp-pad.step.mesh": 1793652093,
+    "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-clamp-pad.step.mesh": 1794074754,
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-clamp-pad.stl": 1793652093,
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-tower.step": 1793652093,
-    "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-tower.step.mesh": 1793652093,
+    "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-tower.step.mesh": 1794074754,
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-tower.stl": 1793652093,
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-pulley-coupon.step": 1793652093,
-    "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-pulley-coupon.step.mesh": 1793652093,
+    "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-pulley-coupon.step.mesh": 1794074754,
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-pulley-coupon.stl": 1793652093,
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-race-ring.step": 1793652093,
-    "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-race-ring.step.mesh": 1793652093,
+    "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-race-ring.step.mesh": 1794074754,
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-race-ring.stl": 1793652093,
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-spool.step": 1793652093,
-    "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-spool.step.mesh": 1793652093,
+    "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-spool.step.mesh": 1794074754,
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-spool.stl": 1793652093,
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-tube-nest.step": 1793652093,
-    "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-tube-nest.step.mesh": 1793652093,
+    "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-tube-nest.step.mesh": 1794074754,
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-tube-nest.stl": 1793652093,
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-turntable-90t.step": 1793652093,
-    "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-turntable-90t.step.mesh": 1793652093,
+    "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-turntable-90t.step.mesh": 1794074754,
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-turntable-90t.stl": 1793652093,
     "hardware/printed-parts/prototype-gaskets-2026-10-08/sources/display-gasket.step": 1791488936,
     "hardware/printed-parts/prototype-gaskets-2026-10-08/sources/faucet-counter-gasket-printed-white.step": 1791488936,
@@ -3568,7 +3583,7 @@
     "hardware/printed-parts/prototype-gaskets-2026-10-08/sources/reservoir-vent-filter-ring.step": 1791488936,
     "hardware/printed-parts/refrigeration/fuse-clamp/fuse-clamp.step": 1793568839,
     "hardware/printed-parts/refrigeration/fuse-clamp/fuse-clamp.step.json": 1793750338,
-    "hardware/printed-parts/refrigeration/fuse-clamp/fuse-clamp.step.mesh": 1793568839,
+    "hardware/printed-parts/refrigeration/fuse-clamp/fuse-clamp.step.mesh": 1794074754,
     "hardware/printed-parts/refrigeration/fuse-clamp/fuse-clamp.stl": 1793568839,
     "hardware/printed-parts/soda-bend-holder/soda-bend-holder.step": 1793626644,
     "hardware/printed-parts/soda-bend-holder/soda-bend-holder.step.json": 1793750338,
@@ -4743,6 +4758,18 @@
       "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2",
       "unproven": true
     },
+    "hardware/printed-parts/enclosure/display-cover/display-cover-fasteners.step": {
+      "commit": "f33c1023b5fef8c4a1915d12ca2a43a1c8e6e561",
+      "unproven": true
+    },
+    "hardware/printed-parts/enclosure/display-cover/display-cover-fasteners.step.mesh": {
+      "commit": "f33c1023b5fef8c4a1915d12ca2a43a1c8e6e561",
+      "unproven": true
+    },
+    "hardware/printed-parts/enclosure/display-cover/display-cover-fasteners.stl": {
+      "commit": "f33c1023b5fef8c4a1915d12ca2a43a1c8e6e561",
+      "unproven": true
+    },
     "hardware/printed-parts/enclosure/display-cover/display-cover.step": {
       "commit": "01119b116d2a30fd17f8f3dbc41e823c21871237",
       "unproven": true
@@ -4838,6 +4865,30 @@
     },
     "hardware/printed-parts/enclosure/display-cover/retention-trial/display-receiver-retention-v2.stl": {
       "commit": "d2c7e36f5c616919c8be5d1ccb8205b0fbac8540",
+      "unproven": true
+    },
+    "hardware/printed-parts/enclosure/display-cover/status-plate-fasteners.step": {
+      "commit": "f33c1023b5fef8c4a1915d12ca2a43a1c8e6e561",
+      "unproven": true
+    },
+    "hardware/printed-parts/enclosure/display-cover/status-plate-fasteners.step.mesh": {
+      "commit": "f33c1023b5fef8c4a1915d12ca2a43a1c8e6e561",
+      "unproven": true
+    },
+    "hardware/printed-parts/enclosure/display-cover/status-plate-fasteners.stl": {
+      "commit": "f33c1023b5fef8c4a1915d12ca2a43a1c8e6e561",
+      "unproven": true
+    },
+    "hardware/printed-parts/enclosure/display-cover/status-plate.step": {
+      "commit": "f33c1023b5fef8c4a1915d12ca2a43a1c8e6e561",
+      "unproven": true
+    },
+    "hardware/printed-parts/enclosure/display-cover/status-plate.step.mesh": {
+      "commit": "f33c1023b5fef8c4a1915d12ca2a43a1c8e6e561",
+      "unproven": true
+    },
+    "hardware/printed-parts/enclosure/display-cover/status-plate.stl": {
+      "commit": "f33c1023b5fef8c4a1915d12ca2a43a1c8e6e561",
       "unproven": true
     },
     "hardware/printed-parts/enclosure/display-gasket/display-gasket.step": {
@@ -4966,15 +5017,15 @@
       "unproven": true
     },
     "hardware/printed-parts/enclosure/nameplate/nameplate-001.step": {
-      "commit": "b4c9b2b3660aba4c8376649417f0dc029e89dcf0",
+      "commit": "f33c1023b5fef8c4a1915d12ca2a43a1c8e6e561",
       "unproven": true
     },
     "hardware/printed-parts/enclosure/nameplate/nameplate-001.step.mesh": {
-      "commit": "b4c9b2b3660aba4c8376649417f0dc029e89dcf0",
+      "commit": "f33c1023b5fef8c4a1915d12ca2a43a1c8e6e561",
       "unproven": true
     },
     "hardware/printed-parts/enclosure/nameplate/nameplate-001.stl": {
-      "commit": "b4c9b2b3660aba4c8376649417f0dc029e89dcf0",
+      "commit": "f33c1023b5fef8c4a1915d12ca2a43a1c8e6e561",
       "unproven": true
     },
     "hardware/printed-parts/enclosure/nameplate/nameplate-fasteners.step": {
@@ -4987,8 +5038,7 @@
       "unproven": true
     },
     "hardware/printed-parts/enclosure/nameplate/nameplate-receiver.step.mesh": {
-      "inputs": "ac739f1347dc879b85967f6bfdeb6b4c6ff15661b25167699bb1cbdc9fe166a6",
-      "commit": "3c57e1f4141255f0044dd74b4fe71043a894460b",
+      "commit": "f33c1023b5fef8c4a1915d12ca2a43a1c8e6e561",
       "unproven": true
     },
     "hardware/printed-parts/enclosure/nameplate/nameplate-receiver.stl": {
@@ -5071,8 +5121,7 @@
       "unproven": true
     },
     "hardware/printed-parts/enclosure/rear-identification/rear-label-carb.step.mesh": {
-      "inputs": "0e97259284d814b1a36a66f48c13c89595f85b96015c7da10ad123c8b754843f",
-      "commit": "35b0c175664c4c8bab6e6dc9a4c4db988317fb18",
+      "commit": "f33c1023b5fef8c4a1915d12ca2a43a1c8e6e561",
       "unproven": true
     },
     "hardware/printed-parts/enclosure/rear-identification/rear-label-carb.stl": {
@@ -5086,8 +5135,7 @@
       "unproven": true
     },
     "hardware/printed-parts/enclosure/rear-identification/rear-label-co2.step.mesh": {
-      "inputs": "0e97259284d814b1a36a66f48c13c89595f85b96015c7da10ad123c8b754843f",
-      "commit": "35b0c175664c4c8bab6e6dc9a4c4db988317fb18",
+      "commit": "f33c1023b5fef8c4a1915d12ca2a43a1c8e6e561",
       "unproven": true
     },
     "hardware/printed-parts/enclosure/rear-identification/rear-label-co2.stl": {
@@ -5100,7 +5148,7 @@
       "unproven": true
     },
     "hardware/printed-parts/enclosure/rear-identification/rear-label-drain.step.mesh": {
-      "commit": "fedeef18c245ebd8b1dba711c1e5cf29b7d9109e",
+      "commit": "f33c1023b5fef8c4a1915d12ca2a43a1c8e6e561",
       "unproven": true
     },
     "hardware/printed-parts/enclosure/rear-identification/rear-label-drain.stl": {
@@ -5112,7 +5160,7 @@
       "unproven": true
     },
     "hardware/printed-parts/enclosure/rear-identification/rear-label-flavor-a.step.mesh": {
-      "commit": "127dcc73585fea0564506c270344befce2d97c5b",
+      "commit": "f33c1023b5fef8c4a1915d12ca2a43a1c8e6e561",
       "unproven": true
     },
     "hardware/printed-parts/enclosure/rear-identification/rear-label-flavor-a.stl": {
@@ -5124,7 +5172,7 @@
       "unproven": true
     },
     "hardware/printed-parts/enclosure/rear-identification/rear-label-flavor-b.step.mesh": {
-      "commit": "127dcc73585fea0564506c270344befce2d97c5b",
+      "commit": "f33c1023b5fef8c4a1915d12ca2a43a1c8e6e561",
       "unproven": true
     },
     "hardware/printed-parts/enclosure/rear-identification/rear-label-flavor-b.stl": {
@@ -5137,8 +5185,7 @@
       "unproven": true
     },
     "hardware/printed-parts/enclosure/rear-identification/rear-label-water.step.mesh": {
-      "inputs": "0e97259284d814b1a36a66f48c13c89595f85b96015c7da10ad123c8b754843f",
-      "commit": "35b0c175664c4c8bab6e6dc9a4c4db988317fb18",
+      "commit": "f33c1023b5fef8c4a1915d12ca2a43a1c8e6e561",
       "unproven": true
     },
     "hardware/printed-parts/enclosure/rear-identification/rear-label-water.stl": {
@@ -5700,8 +5747,8 @@
       "unproven": true
     },
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-assembly.step.mesh": {
-      "inputs": "b548204ee2a0d9d31aef7b56ddb796f5dbc9235faf3425bd945874dfe3222fc5",
-      "commit": "e1207cfaf4440daff1e9b61e77e8f033feb49d58",
+      "inputs": "0d5ce2382e245dd5dd775f80e658c8c88754622ac89bc352dbd7d6d7d3db35b7",
+      "commit": "f33c1023b5fef8c4a1915d12ca2a43a1c8e6e561",
       "unproven": true
     },
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ball-cage.step": {
@@ -5710,8 +5757,8 @@
       "unproven": true
     },
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ball-cage.step.mesh": {
-      "inputs": "75c6ba01c5633b248b304bb770c02f8b8958d9175ee0faffd0ba3ce802750a9a",
-      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2",
+      "inputs": "0d5ce2382e245dd5dd775f80e658c8c88754622ac89bc352dbd7d6d7d3db35b7",
+      "commit": "f33c1023b5fef8c4a1915d12ca2a43a1c8e6e561",
       "unproven": true
     },
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ball-cage.stl": {
@@ -5725,8 +5772,8 @@
       "unproven": true
     },
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-base-foot.step.mesh": {
-      "inputs": "75c6ba01c5633b248b304bb770c02f8b8958d9175ee0faffd0ba3ce802750a9a",
-      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2",
+      "inputs": "0d5ce2382e245dd5dd775f80e658c8c88754622ac89bc352dbd7d6d7d3db35b7",
+      "commit": "f33c1023b5fef8c4a1915d12ca2a43a1c8e6e561",
       "unproven": true
     },
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-base-foot.stl": {
@@ -5740,8 +5787,8 @@
       "unproven": true
     },
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-base.step.mesh": {
-      "inputs": "75c6ba01c5633b248b304bb770c02f8b8958d9175ee0faffd0ba3ce802750a9a",
-      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2",
+      "inputs": "0d5ce2382e245dd5dd775f80e658c8c88754622ac89bc352dbd7d6d7d3db35b7",
+      "commit": "f33c1023b5fef8c4a1915d12ca2a43a1c8e6e561",
       "unproven": true
     },
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-base.stl": {
@@ -5755,8 +5802,8 @@
       "unproven": true
     },
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ground-arm.step.mesh": {
-      "inputs": "75c6ba01c5633b248b304bb770c02f8b8958d9175ee0faffd0ba3ce802750a9a",
-      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2",
+      "inputs": "0d5ce2382e245dd5dd775f80e658c8c88754622ac89bc352dbd7d6d7d3db35b7",
+      "commit": "f33c1023b5fef8c4a1915d12ca2a43a1c8e6e561",
       "unproven": true
     },
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ground-arm.stl": {
@@ -5770,8 +5817,8 @@
       "unproven": true
     },
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ground-shoe.step.mesh": {
-      "inputs": "75c6ba01c5633b248b304bb770c02f8b8958d9175ee0faffd0ba3ce802750a9a",
-      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2",
+      "inputs": "0d5ce2382e245dd5dd775f80e658c8c88754622ac89bc352dbd7d6d7d3db35b7",
+      "commit": "f33c1023b5fef8c4a1915d12ca2a43a1c8e6e561",
       "unproven": true
     },
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ground-tower.step": {
@@ -5780,8 +5827,8 @@
       "unproven": true
     },
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ground-tower.step.mesh": {
-      "inputs": "75c6ba01c5633b248b304bb770c02f8b8958d9175ee0faffd0ba3ce802750a9a",
-      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2",
+      "inputs": "0d5ce2382e245dd5dd775f80e658c8c88754622ac89bc352dbd7d6d7d3db35b7",
+      "commit": "f33c1023b5fef8c4a1915d12ca2a43a1c8e6e561",
       "unproven": true
     },
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-ground-tower.stl": {
@@ -5795,8 +5842,8 @@
       "unproven": true
     },
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-carriage.step.mesh": {
-      "inputs": "b548204ee2a0d9d31aef7b56ddb796f5dbc9235faf3425bd945874dfe3222fc5",
-      "commit": "e1207cfaf4440daff1e9b61e77e8f033feb49d58",
+      "inputs": "0d5ce2382e245dd5dd775f80e658c8c88754622ac89bc352dbd7d6d7d3db35b7",
+      "commit": "f33c1023b5fef8c4a1915d12ca2a43a1c8e6e561",
       "unproven": true
     },
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-carriage.stl": {
@@ -5810,8 +5857,8 @@
       "unproven": true
     },
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-clamp-pad.step.mesh": {
-      "inputs": "75c6ba01c5633b248b304bb770c02f8b8958d9175ee0faffd0ba3ce802750a9a",
-      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2",
+      "inputs": "0d5ce2382e245dd5dd775f80e658c8c88754622ac89bc352dbd7d6d7d3db35b7",
+      "commit": "f33c1023b5fef8c4a1915d12ca2a43a1c8e6e561",
       "unproven": true
     },
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-clamp-pad.stl": {
@@ -5825,8 +5872,8 @@
       "unproven": true
     },
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-tower.step.mesh": {
-      "inputs": "75c6ba01c5633b248b304bb770c02f8b8958d9175ee0faffd0ba3ce802750a9a",
-      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2",
+      "inputs": "0d5ce2382e245dd5dd775f80e658c8c88754622ac89bc352dbd7d6d7d3db35b7",
+      "commit": "f33c1023b5fef8c4a1915d12ca2a43a1c8e6e561",
       "unproven": true
     },
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-tower.stl": {
@@ -5840,8 +5887,8 @@
       "unproven": true
     },
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-pulley-coupon.step.mesh": {
-      "inputs": "75c6ba01c5633b248b304bb770c02f8b8958d9175ee0faffd0ba3ce802750a9a",
-      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2",
+      "inputs": "0d5ce2382e245dd5dd775f80e658c8c88754622ac89bc352dbd7d6d7d3db35b7",
+      "commit": "f33c1023b5fef8c4a1915d12ca2a43a1c8e6e561",
       "unproven": true
     },
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-pulley-coupon.stl": {
@@ -5855,8 +5902,8 @@
       "unproven": true
     },
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-race-ring.step.mesh": {
-      "inputs": "75c6ba01c5633b248b304bb770c02f8b8958d9175ee0faffd0ba3ce802750a9a",
-      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2",
+      "inputs": "0d5ce2382e245dd5dd775f80e658c8c88754622ac89bc352dbd7d6d7d3db35b7",
+      "commit": "f33c1023b5fef8c4a1915d12ca2a43a1c8e6e561",
       "unproven": true
     },
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-race-ring.stl": {
@@ -5870,8 +5917,8 @@
       "unproven": true
     },
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-spool.step.mesh": {
-      "inputs": "75c6ba01c5633b248b304bb770c02f8b8958d9175ee0faffd0ba3ce802750a9a",
-      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2",
+      "inputs": "0d5ce2382e245dd5dd775f80e658c8c88754622ac89bc352dbd7d6d7d3db35b7",
+      "commit": "f33c1023b5fef8c4a1915d12ca2a43a1c8e6e561",
       "unproven": true
     },
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-spool.stl": {
@@ -5885,8 +5932,8 @@
       "unproven": true
     },
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-tube-nest.step.mesh": {
-      "inputs": "75c6ba01c5633b248b304bb770c02f8b8958d9175ee0faffd0ba3ce802750a9a",
-      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2",
+      "inputs": "0d5ce2382e245dd5dd775f80e658c8c88754622ac89bc352dbd7d6d7d3db35b7",
+      "commit": "f33c1023b5fef8c4a1915d12ca2a43a1c8e6e561",
       "unproven": true
     },
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-tube-nest.stl": {
@@ -5900,8 +5947,8 @@
       "unproven": true
     },
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-turntable-90t.step.mesh": {
-      "inputs": "75c6ba01c5633b248b304bb770c02f8b8958d9175ee0faffd0ba3ce802750a9a",
-      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2",
+      "inputs": "0d5ce2382e245dd5dd775f80e658c8c88754622ac89bc352dbd7d6d7d3db35b7",
+      "commit": "f33c1023b5fef8c4a1915d12ca2a43a1c8e6e561",
       "unproven": true
     },
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-turntable-90t.stl": {
@@ -5915,8 +5962,8 @@
       "unproven": true
     },
     "hardware/printed-parts/refrigeration/fuse-clamp/fuse-clamp.step.mesh": {
-      "inputs": "5ef79a1b3bf0c9cbfed05a64b519c2cc996b06dff6c78e454c21d380bac33a85",
-      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2",
+      "inputs": "358fe01a698c211a5d4567121d14795702a4ca902fbc65370632bd133ca4e110",
+      "commit": "f33c1023b5fef8c4a1915d12ca2a43a1c8e6e561",
       "unproven": true
     },
     "hardware/printed-parts/refrigeration/fuse-clamp/fuse-clamp.stl": {
