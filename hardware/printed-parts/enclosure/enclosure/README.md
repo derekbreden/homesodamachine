@@ -442,8 +442,9 @@ has a straight cover channel, fixed rail-end stops, a filled 6.2 mm cap and
 one 4 mm chamfer clearing the rear flavor bulkhead. Junction wells follow
 their branch points on the rear wall, core lid and front manifold.
 
-The rear six-port field has a 6 mm clamping land within the 9 mm wall. C14 uses
-two short-insert hosts around its shallow flange pocket; RJ11 uses its keyed
+The rear fluid field retains its relieved clamping land. The mains inlet uses
+an internal flange pocket and inward screw access in a broad wall-rooted tunnel;
+only its cord passage opens on the outside. RJ11 uses its keyed
 receptacle. Their stations and the two-column fluid grid are defined in the
 shared arrangement. The rear ceiling is continuous. No wiring or device
 mount attaches to the removable funnel frame.
@@ -1030,11 +1031,12 @@ the bulkhead; its motor rooms close with 36° conical roofs. The cross passage h
 floor and a 45° roof. The display receiver carries the glass seat, PCB opening and blind side-screw pilots. The exact native slice supplies the support/contact reading for those
 functional faces; no earlier slice establishes cleanup of this geometry.
 
-The six rear fluid bores pass through the named 6 mm clamping land. Their
-circular pass envelopes and the C14/RJ11 openings receive accessible automatic
-supports as required by the current production slice. The C14 has a shallow
-flange pocket and two short-insert bosses within the rear wall. Both openings
-and insert entries remain clear for cleanup before fitting the hardware.
+The rear fluid bores retain their circular hardware envelopes inside teardrop
+roofs. Their covered interiors and the mains inlet's internal flange pocket,
+cord passage and blind insert pilots remain free of supports in the tilted
+rear-quadrant print. The inlet's broad stock joins the west flank and ceiling;
+its rim bears on the pocket floor and its screws enter from inside. Exterior
+trees remain on accessible surfaces selected by the native feature record.
 
 The **PRV chase's closed roof leans from the −X wall too**. Where its open exterior groove
 becomes the closed fall, the groove's roof is level across the

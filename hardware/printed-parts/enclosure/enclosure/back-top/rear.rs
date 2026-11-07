@@ -6,7 +6,8 @@ use crate::layout::{Pose, layout};
 use crate::plan::{Bounds, Flange, Graph, Op, P2, P3, Shape, Snap};
 use crate::quadrant::{Quadrant, sorted};
 use crate::shapes::{place, rounded};
-use crate::shell::{DISPOSAL_EMBED, WALL, shell};
+use crate::shell::{DISPOSAL_EMBED, WALL, back_top_ceiling_face, shell};
+use crate::walls::back_top_flank_face;
 use crate::spec::Box;
 use crate::supports::supports;
 use crate::disposal::disposal_field;
@@ -21,7 +22,7 @@ mod snap_dimensions;
 /// The wet ports' bores run through the rear wall from inside its relief to past its face.
 pub const WET_PORT_Y: P2 = [458.0, 472.3];
 
-/// The wall's insert bosses and their pilots, for the C14 inlet's screws and the parts it hosts.
+/// The wall's hosted insert bosses and their pilots.
 const BOSS_RADIUS: f64 = 5.0;
 const PILOT_RADIUS: f64 = 2.0;
 
@@ -41,9 +42,12 @@ pub fn apply(g: &mut Graph, mut piece: Shape, b: &Box, keep_clear: Option<Shape>
                                 port.center_x_mm, port.center_z_mm, WET_PORT_Y[0], WET_PORT_Y[1], -1.0);
         piece = g.cut(piece, &[bore]);
     }
-    let inlet = c14_cutters(g);
+    let stock = g.box_(c14_stock_bounds());
+    let outline = g.silhouette(b.outer);
+    let stock = g.intersect(stock, &[outline]);
+    piece = g.union(piece, &[stock]);
+    let inlet = c14_cutters(g, b.outer[3]);
     piece = g.cut(piece, &inlet);
-    piece = c14_bosses(g, piece);
     piece = keystone(g, piece, &b.pack.core_holds, keep_clear);
     piece = identify(g, piece);
     piece = hosts(g, piece);
@@ -55,24 +59,39 @@ pub fn apply(g: &mut Graph, mut piece: Shape, b: &Box, keep_clear: Option<Shape>
     g.cut(piece, &inlet)
 }
 
-/// The inlet's flange pocket and body opening through the wall, each one clearance outside the
-/// measured outline.
-fn c14_cutters(g: &mut Graph) -> [Shape; 2] {
+/// The internal inlet tunnel joins the rear wall, west flank and ceiling as plain stock.
+pub fn c14_stock_bounds() -> Bounds {
     let plan = &layout().rear_wall.dry_openings.c14;
     let [x, y, z] = layout().parts.c14_inlet.translation_mm;
-    let clearance = plan.profile_clearance_mm;
-    let flange = g.add(Op::InletFlange(flange(clearance, [plan.flange_pocket_ymin_mm, y + 1.0])), vec![], None);
-    let (hw, hh, k) = (c14::BODY_W / 2.0, c14::BODY_H / 2.0, c14::BODY_CHAMFER_LEG);
-    let section = vec![[-hw, hh], [hw, hh], [hw, -(hh - k)], [hw - k, -hh], [-(hw - k), -hh], [-hw, -(hh - k)]];
-    let span = [plan.body_opening_ymin_mm, plan.flange_pocket_ymin_mm + 0.01];
-    let mut bounds = Graph::prism_bounds(1, span, &section);
-    for k in [0, 2] {
-        bounds[2 * k] -= clearance;
-        bounds[2 * k + 1] += clearance;
+    let floor = y + c14::RIM_PROUD;
+    let half_x = (c14::FLANGE_W / 2.0 + plan.profile_clearance_mm + WALL)
+        .max(plan.cord_access_width_mm / 2.0 + c14::TUNNEL_WALL);
+    let half_z = (c14::POCKET_H / 2.0 + plan.profile_clearance_mm + WALL)
+        .max(plan.cord_access_height_mm / 2.0 + c14::TUNNEL_WALL);
+    [(x-half_x).min(back_top_flank_face()[0]), x+half_x,
+     floor-plan.flange_pocket_depth_mm, floor+c14::PILOT_DEPTH,
+     z-half_z-supported(), (z+half_z).max(back_top_ceiling_face()+WALL)]
+}
+
+/// The inlet loads from inside; its rim seats on the pocket floor around the cord passage.
+/// The blind insert pilots open into that same internal pocket and leave the rear face plain.
+fn c14_cutters(g: &mut Graph, rear_face: f64) -> Vec<Shape> {
+    let plan = &layout().rear_wall.dry_openings.c14;
+    let [x, y, z] = layout().parts.c14_inlet.translation_mm;
+    let floor = y + c14::RIM_PROUD;
+    let flange = g.add(Op::InletFlange(flange(plan.profile_clearance_mm,
+        [floor-plan.flange_pocket_depth_mm-1.0, floor])), vec![], None);
+    let flange = g.translate(flange, [x, 0.0, z]);
+    let flange = supported_cut(g, flange, -1.0);
+    let (hw, hh) = (plan.cord_access_width_mm / 2.0, plan.cord_access_height_mm / 2.0);
+    let cord = rounded(g, 1, [x-hw,x+hw,floor-0.01,rear_face+1.0,z-hh,z+hh],
+                       plan.cord_access_radius_mm, &[0,1,2,3]);
+    let cord = supported_cut(g, cord, -1.0);
+    let mut cuts = vec![flange, cord];
+    for dx in [-plan.mount_pitch_mm/2.0, plan.mount_pitch_mm/2.0] {
+        cuts.push(g.ycyl(PILOT_RADIUS, x+dx, z, floor-0.01, floor+c14::PILOT_DEPTH));
     }
-    let body = g.add(Op::CornerPrism { axis: 1, span, section, corners: vec![0, 1], radius: c14::BODY_TOP_R,
-                                       offset: Some(clearance) }, vec![], Some(bounds));
-    [g.translate(flange, [x, 0.0, z]), g.translate(body, [x, 0.0, z])]
+    cuts
 }
 
 /// The flange outline's right-top landmarks: a long flat, the knuckle round at its end, the
@@ -80,7 +99,7 @@ fn c14_cutters(g: &mut Graph) -> [Shape; 2] {
 fn flange(clearance: f64, span: P2) -> Flange {
     use c14::*;
     let ear_r = FLANGE_W / 2.0 - EAR_CX;
-    let h = FLANGE_H / 2.0;
+    let h = POCKET_H / 2.0;
     let a = FLANGE_W / 2.0 - (FLANGE_END_CHORD * FLANGE_END_CHORD - h * h).sqrt();
     let kr = KNUCKLE_R;
     let shoulder = [a, h - kr];
@@ -104,20 +123,6 @@ fn flange(clearance: f64, span: P2) -> Flange {
         nose: [FLANGE_W / 2.0, 0.0],
         taper_angle_deg: (q[1] - t[1]).atan2(t[0] - q[0]).to_degrees(),
     }
-}
-
-/// The flange's two insert bosses behind its seat on the wall, each with its blind pilot.
-fn c14_bosses(g: &mut Graph, mut piece: Shape) -> Shape {
-    let pitch = layout().rear_wall.dry_openings.c14.mount_pitch_mm;
-    let [x, y, z] = layout().parts.c14_inlet.translation_mm;
-    let seat_y = y - c14::FLANGE_T;
-    for dx in [-pitch / 2.0, pitch / 2.0] {
-        let boss = g.ycyl(BOSS_RADIUS, x + dx, z, seat_y - c14::BOSS_DEPTH, seat_y);
-        piece = g.union(piece, &[boss]);
-        let pilot = g.ycyl(PILOT_RADIUS, x + dx, z, seat_y - c14::PILOT_DEPTH, seat_y + 0.01);
-        piece = g.cut(piece, &[pilot]);
-    }
-    piece
 }
 
 /// A cavity with extra room at its supported face, along the piece's build direction.

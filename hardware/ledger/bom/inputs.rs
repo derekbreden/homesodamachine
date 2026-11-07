@@ -197,7 +197,7 @@ pub fn inputs(root: &Path) -> Result<Inputs> {
             screws: bought::C14_SCREWS,
             flange: c14::FLANGE_T,
             bore: c14::PILOT_DEPTH,
-            reach: bought::C14_SCREW_LENGTH - c14::FLANGE_T - bought::C14_WASHER,
+            reach: bought::C14_SCREW_LENGTH - c14::FLANGE_T - c14::RIM_PROUD - bought::C14_WASHER,
         },
         seam_rods: bought::SEAM_RODS,
         funnel_screws: bought::FUNNEL_SCREWS,

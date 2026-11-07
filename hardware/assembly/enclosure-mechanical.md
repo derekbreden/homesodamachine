@@ -79,7 +79,7 @@ identifies those branches; it does not establish physical cleanup effort.
 **This step is the one place in the build that presses both M3 bodies, and they are indistinguishable in the hand but for length.** RX-M3x5.7 and RX-M3Sx4.0 carry the same ⌀4.6 knurl into the same ⌀4 hole; a short one pressed where the long one belongs is a weaker joint that looks finished, and a long one pressed where it does not fit will not seat flush. Work from two labelled troughs, not one dish:
 
 - **Full-length RX-M3×5.7.** The condenser fingers and the four funnel-frame ledges take full-length inserts. The core's PCB columns use the [cold-core mount schedule](/hardware/printed-parts/cold-core/_above_core_mounts.py), with the lid removed for insert installation.
-- **Short RX-M3S×4.0.** The C14's two rear-wall bosses, four PSU hosts and two diagonal hosts per relay take short inserts. Install them before the purchased bodies. Use M3 × 10 with Ø7 × 0.5 mm washers at C14, M3 × 10 through the PSU ears and M3 × 8 through each relay's two active diagonal holes. All four corners of each relay board bear on pads; the other two pads have no insert or screw. The [wall-host schedule](/hardware/printed-parts/enclosure/enclosure/_above_core_shell.py) defines the bearing tips and insert-face datums.
+- **Short RX-M3S×4.0.** The mains inlet's internal mounting block, four PSU hosts and two diagonal hosts per relay take short inserts. Install them before the purchased bodies. Use M3 × 10 with Ø7 × 0.5 mm washers at C14, M3 × 10 through the PSU ears and M3 × 8 through each relay's two active diagonal holes. All four corners of each relay board bear on pads; the other two pads have no insert or screw. The [wall-host schedule](/hardware/printed-parts/enclosure/enclosure/back-top/rear.rs) defines the bearing tips and insert-face datums.
 - **M5 — eight.** The four posts standing off the floor slab under the compressor's feet, and the Y seam's four corner-stack stations: back-bottom's two knuckles under the Z seam and front-top's two knuckles under the funnel frame, each pressed in from above. Use the M5 tip from the T18 heat-set insert tip kit.
 
 The [native heat-set audit](/hardware/printed-parts/enclosure/enclosure/heat-set-review/README.md)
@@ -137,13 +137,15 @@ outside and its panel nut on the relieved inside land. Keep moving release
 collets free. Actual fitting make-up and insertion witnesses determine physical
 assembly; the reference envelopes do not establish those dimensions.
 
-Fit C14 at X−68.5/Z330, flange in its shallow rear pocket and solder tabs inboard.
-The inboard aperture follows the measured chamfered wiring-body profile with
-0.25 mm clearance; the separate outboard recess follows the flange's rounded,
-tapered outline. This fit basis retains the neighboring WAGO wall and full
-3 mm pilot surrounds. Confirm actual seating before tightening; the native
-reference does not qualify the physical fit.
-Two M3 × 10 screws and Ø7 × 0.5 mm washers engage the short inserts in the wall's integral bosses; the washers bridge the flange countersinks. Fit
+Install the mains inlet from inside, with its solder tabs facing into the bay.
+Seat the raised rim against the internal pocket floor; the flange and its screws
+stay behind the exterior wall. Fit the washer-backed screws from inside into
+the short inserts, using the hardware listed in the ledger. The washers bear
+on the flat inboard ear faces. Check that the inlet is seated before tightening and
+that the unmodified cord plug reaches it through the rounded exterior passage.
+Fit and tighten the inlet before installing the power supply and relays; the
+supply occupies the straight tool approach to the inner screw after assembly.
+Remove the supply for later access to that screw. Fit
 RJ11 at X−64/Z291.5 from inside, tang first, and seat its snap latch on the printed
 catch. Its receptacle retains the fitted 1 mm shoulder above the swing ease,
 3 mm pocket surround and broad wall-rooted corbel. Complete solder/IDC
