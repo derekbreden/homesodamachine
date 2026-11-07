@@ -146,8 +146,7 @@ struct AddOutcome: View {
 
 /// A phone held to the faucet display the way people hold one at a card
 /// reader, its top corner over the display and the rest toward the hand. It is
-/// an outline drawing of the current faucet head, from
-/// tools/install-guide/hold_scene.py, in the page's ice. The words beside it
+/// an outline drawing of the faucet head, in the page's ice. The words beside it
 /// say the same, so VoiceOver reads them instead.
 struct HoldAtFaucet: View {
     var body: some View {
