@@ -126,11 +126,6 @@ IMPLICIT_SOLIDS = {
         for station in ("water", "co2", "drain", "carb", "flavor-a", "flavor-b")
         for suffix in ("step", "stl", "step.mesh")
     ),
-    "hardware/printed-parts/asse-straight-cuffs/asse_straight_cuffs.py": tuple(
-        f"hardware/printed-parts/asse-straight-cuffs/asse-{side}-cuff.{suffix}"
-        for side in ("inlet", "outlet")
-        for suffix in ("step", "stl", "step.mesh")
-    ),
     "hardware/printed-parts/diaphragm-pump-sleeve/diaphragm_pump_sleeve.py": (
         "hardware/printed-parts/diaphragm-pump-sleeve/diaphragm-pump-sleeve.stl",
         "hardware/printed-parts/diaphragm-pump-sleeve/diaphragm-pump-sleeve.step.mesh",

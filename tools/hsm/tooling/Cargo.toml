@@ -43,10 +43,6 @@ name = "rear-snap-retention"
 path = "../../../hardware/print-tests/rear-snap-retention/rear_snap_retention.rs"
 
 [[bin]]
-name = "asse-straight-cuffs"
-path = "../../../hardware/printed-parts/asse-straight-cuffs/asse_straight_cuffs.rs"
-
-[[bin]]
 name = "valve-socket-fit"
 path = "../../../hardware/printed-parts/fixtures/valve-socket-fit/valve_socket_fit.rs"
 
