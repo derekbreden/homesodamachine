@@ -1,0 +1,400 @@
+//! The faucet's finishing steps on a refreshed plate, as its production selection names them:
+//! the overhang and bridge recipe over the localized cooling, rear seams painted on the build
+//! pose's silhouette, and the accepted support parts carried in from the projects that proved
+//! them.
+
+use crate::json::{python_number, Json};
+use crate::project::Paint;
+use crate::refresh::Refreshed;
+use crate::{cooling, sha256_hex, xml};
+use anyhow::{Context, Result};
+use hsm_faucet_numbers::paths as faucet_paths;
+use serde_json::{json, Map, Value};
+use std::collections::BTreeMap;
+use std::io::Read;
+use std::path::Path;
+
+pub fn read_json(path: &Path) -> Result<Value> {
+    Ok(serde_json::from_slice(&std::fs::read(path).with_context(|| format!("reading {}", path.display()))?)?)
+}
+
+pub fn file_sha(path: &Path) -> Result<String> {
+    Ok(sha256_hex(&std::fs::read(path).with_context(|| format!("reading {}", path.display()))?))
+}
+
+/// Every member of a project.
+pub fn members(path: &Path) -> Result<BTreeMap<String, Vec<u8>>> {
+    let mut archive = zip::ZipArchive::new(std::fs::File::open(path).with_context(|| format!("opening {}", path.display()))?)?;
+    let mut out = BTreeMap::new();
+    for i in 0..archive.len() {
+        let mut entry = archive.by_index(i)?;
+        let name = entry.name()?.to_string();
+        let mut bytes = Vec::new();
+        entry.read_to_end(&mut bytes)?;
+        out.insert(name, bytes);
+    }
+    Ok(out)
+}
+
+/// A JSON value as Python's `str` writes it into a setting.
+pub fn text(v: &Value) -> String {
+    match v {
+        Value::String(s) => s.clone(),
+        Value::Number(n) if n.is_i64() || n.is_u64() => n.to_string(),
+        Value::Number(n) => python_number(n.as_f64().unwrap_or(0.0)),
+        Value::Bool(b) => if *b { "True".into() } else { "False".into() },
+        other => other.to_string(),
+    }
+}
+
+pub fn as_texts(v: &Json) -> Vec<String> {
+    v.list().iter().filter_map(Json::text).map(String::from).collect()
+}
+
+pub fn texts(items: &[String]) -> Json {
+    Json::List(items.iter().map(|s| Json::Text(s.clone())).collect())
+}
+
+/// Keep ordinary PET-GF paths uncooled; cool bridges and qualifying overhangs.
+pub fn apply_overhang_recipe(settings: &mut Json, selected: &Value, hook: &str) -> Result<Map<String, Value>> {
+    let mut changes = cooling::apply(settings, Some(hook))?.as_object().cloned().unwrap_or_default();
+    let mut put = |settings: &mut Json, key: &str, value: &Value| -> Result<()> {
+        let old = settings.get(key).cloned().with_context(|| format!("the profile has no {key}"))?;
+        let new = match &old {
+            Json::List(items) => texts(&vec![text(value); items.len()]),
+            _ => Json::Text(text(value)),
+        };
+        if old != new {
+            changes.insert(key.into(), json!({"from": old.to_value(), "to": new.to_value()}));
+            settings.set(key, new);
+        }
+        Ok(())
+    };
+    put(settings, "overhang_fan_speed", &selected["fan_percent"])?;
+    put(settings, "overhang_fan_threshold", &selected["fan_threshold"])?;
+    for key in ["close_fan_the_first_x_layers", "close_additional_fan_first_x_layers"] {
+        put(settings, key, &selected["fan_off_bed_layers"])?;
+    }
+    for key in ["first_x_layer_fan_speed", "first_x_layer_part_fan_speed"] {
+        put(settings, key, &json!(0))?;
+    }
+    for key in ["bridge_speed", "filament_bridge_speed"] {
+        put(settings, key, &selected["bridge_speed_mm_s"])?;
+    }
+    put(settings, "bridge_flow", &selected["bridge_flow"])?;
+    let maximum = &selected["maximum_overhang_speed_mm_s"];
+    let limit = maximum.as_f64().context("maximum overhang speed")?;
+    for prefix in ["", "filament_"] {
+        for kind in ["1_4", "2_4", "3_4", "4_4", "totally"] {
+            let key = format!("{prefix}overhang_{kind}_speed");
+            let old = settings.get(&key).cloned().with_context(|| format!("the profile has no {key}"))?;
+            // A slower saved limit stays; a faster or unset one takes the recipe's.
+            let new: Vec<String> = as_texts(&old).iter().map(|v| {
+                let speed: f64 = v.parse().unwrap_or(0.0);
+                if speed > 0.0 && speed <= limit { python_number(speed) } else { text(maximum) }
+            }).collect();
+            if as_texts(&old) != new {
+                changes.insert(key.clone(), json!({"from": old.to_value(), "to": new}));
+                settings.set(&key, texts(&new));
+            }
+        }
+    }
+    Ok(changes)
+}
+
+pub fn mat(build: &[f64; 12]) -> [[f64; 3]; 3] {
+    [[build[0], build[1], build[2]], [build[3], build[4], build[5]], [build[6], build[7], build[8]]]
+}
+
+/// Row vector times matrix.
+pub fn times(p: [f64; 3], m: &[[f64; 3]; 3]) -> [f64; 3] {
+    [0, 1, 2].map(|c| p[0] * m[0][c] + p[1] * m[1][c] + p[2] * m[2][c])
+}
+
+pub fn sub(a: [f64; 3], b: [f64; 3]) -> [f64; 3] {
+    [a[0] - b[0], a[1] - b[1], a[2] - b[2]]
+}
+
+pub fn cross(a: [f64; 3], b: [f64; 3]) -> [f64; 3] {
+    [a[1] * b[2] - a[2] * b[1], a[2] * b[0] - a[0] * b[2], a[0] * b[1] - a[1] * b[0]]
+}
+
+pub fn unit(v: [f64; 3]) -> [f64; 3] {
+    let l = (v[0] * v[0] + v[1] * v[1] + v[2] * v[2]).sqrt().max(1e-12);
+    v.map(|c| c / l)
+}
+
+/// The project's copy of a part's vertices, back in its source frame: what the member holds, to
+/// its nine decimals, plus the source centre.
+pub fn source_vertices(r: &Refreshed, index: usize) -> Vec<[f64; 3]> {
+    let obj = &r.plate.objects[index];
+    obj.vertices.iter().map(|v| [0, 1, 2].map(|k| format!("{:.9}", v[k]).parse::<f64>().unwrap() + obj.source_center[k])).collect()
+}
+
+pub fn set_paint(paint: &mut Paint, key: &str, value: &str) {
+    match paint.iter_mut().find(|(k, _)| k == key) {
+        Some(slot) => slot.1 = value.to_string(),
+        None => paint.push((key.to_string(), value.to_string())),
+    }
+}
+
+pub fn paint_of(r: &mut Refreshed, index: usize) -> &mut Vec<Paint> {
+    let obj = &mut r.plate.objects[index];
+    let faces = obj.faces.len();
+    obj.paint.get_or_insert_with(|| vec![Vec::new(); faces])
+}
+
+/// Paint the part's complete rear silhouette, in the actual build pose, as a seam: the facets
+/// crossing CAD X = 0 within the declared half-width whose crossing lies on the section's rear
+/// boundary at its build height, including tilted stage shoulders. The mesh is unchanged.
+pub fn enforce_rear_seam(r: &mut Refreshed, target: &Value) -> Result<Value> {
+    let name = target["part"].as_str().context("seam part")?;
+    let index = r.row(name)?.index;
+    let vertices = source_vertices(r, index);
+    let faces = r.plate.objects[index].faces.clone();
+    let rotation = mat(&r.plate.objects[index].transform_values());
+    let build: Vec<[f64; 3]> = vertices.iter().map(|v| times(*v, &rotation)).collect();
+    let half = target["half_width_mm"].as_f64().unwrap_or(0.0);
+    let curved = target["surface"].as_str() == Some("curved_outer_arc");
+    let arc_center = [faucet_paths::WATER_Y - faucet_paths::water_radius(), faucet_paths::arc_start_z()];
+    let arc_radius = faucet_paths::water_radius() + faucet_paths::SHELL_CENTER_N + faucet_paths::SHELL_RADIUS;
+    // The mesh's section by the plane CAD X = 0, in the build frame. A vertex within merging
+    // distance of the plane lies on it: an edge on the plane is a segment, and so is a vertex on
+    // it with the opposite edge crossing it.
+    const ON_PLANE: f64 = 1e-8;
+    let side = |x: f64| if x.abs() < ON_PLANE { 0 } else if x > 0.0 { 1 } else { -1 };
+    let mut segments: Vec<[[f64; 3]; 2]> = Vec::new();
+    for f in &faces {
+        let p = f.map(|i| build[i]);
+        let sides = p.map(|q| side(q[0]));
+        if sides.iter().all(|s| *s == 0) {
+            continue;
+        }
+        let mut points: Vec<[f64; 3]> = Vec::new();
+        for k in 0..3 {
+            if sides[k] == 0 {
+                points.push(p[k]);
+            }
+        }
+        for k in 0..3 {
+            let (a, b) = (p[k], p[(k + 1) % 3]);
+            if sides[k] * sides[(k + 1) % 3] < 0 {
+                let t = a[0] / (a[0] - b[0]);
+                points.push([0.0, a[1] + t * (b[1] - a[1]), a[2] + t * (b[2] - a[2])]);
+            }
+        }
+        if points.len() == 2 {
+            segments.push([points[0], points[1]]);
+        }
+    }
+    let mut selected = 0usize;
+    let (mut lo, mut hi) = ([f64::INFINITY; 3], [f64::NEG_INFINITY; 3]);
+    let mut picked = Vec::new();
+    for (fi, f) in faces.iter().enumerate() {
+        let source = f.map(|i| vertices[i]);
+        let triangle = f.map(|i| build[i]);
+        let normal = unit(cross(sub(triangle[1], triangle[0]), sub(triangle[2], triangle[0])));
+        let xs = source.map(|p| p[0]);
+        if !(normal[1] > 1e-5 && normal[0].abs() < 0.35 && xs.iter().copied().fold(f64::INFINITY, f64::min) <= half
+             && xs.iter().copied().fold(f64::NEG_INFINITY, f64::max) >= -half) {
+            continue;
+        }
+        let (xmin, xmax) = (triangle.iter().map(|p| p[0]).fold(f64::INFINITY, f64::min), triangle.iter().map(|p| p[0]).fold(f64::NEG_INFINITY, f64::max));
+        let x = (0.0f64.max(xmin + 1e-9)).min(xmax - 1e-9);
+        let mut cuts = Vec::new();
+        for k in 0..3 {
+            let (a, b) = (triangle[k], triangle[(k + 1) % 3]);
+            if (a[0] - x) * (b[0] - x) <= 0.0 && (a[0] - b[0]).abs() > 1e-10 {
+                let t = (x - a[0]) / (b[0] - a[0]);
+                cuts.push([a[0] + t * (b[0] - a[0]), a[1] + t * (b[1] - a[1]), a[2] + t * (b[2] - a[2])]);
+            }
+        }
+        if cuts.len() < 2 {
+            continue;
+        }
+        let n = cuts.len() as f64;
+        let midpoint = [0, 1, 2].map(|k| cuts.iter().map(|c| c[k]).sum::<f64>() / n);
+        if curved {
+            // Back into CAD: the transpose of the build turn.
+            let cad = [0, 1, 2].map(|i| (0..3).map(|j| midpoint[j] * rotation[i][j]).sum::<f64>());
+            if ((cad[1] - arc_center[0]).hypot(cad[2] - arc_center[1]) - arc_radius).abs() > 0.15 {
+                continue;
+            }
+        }
+        let z = midpoint[2];
+        let ys: Vec<f64> = segments.iter().filter(|s| s[0][2].min(s[1][2]) <= z && s[0][2].max(s[1][2]) >= z && (s[1][2] - s[0][2]).abs() > 1e-8)
+            .map(|s| s[0][1] + (z - s[0][2]) / (s[1][2] - s[0][2]) * (s[1][1] - s[0][1])).collect();
+        let top = ys.iter().copied().fold(f64::NEG_INFINITY, f64::max);
+        if ys.is_empty() || (midpoint[1] - top).abs() > 0.15 {
+            continue;
+        }
+        selected += 1;
+        picked.push(fi);
+        for p in source {
+            for k in 0..3 {
+                lo[k] = lo[k].min(p[k]);
+                hi[k] = hi[k].max(p[k]);
+            }
+        }
+    }
+    let paint = paint_of(r, index);
+    for fi in picked {
+        set_paint(&mut paint[fi], "paint_seam", "4");
+    }
+    if !r.plate.model_metadata.iter().any(|(k, _)| k == "BambuStudio:SeamPaintingVersion") {
+        r.plate.model_metadata.push(("BambuStudio:SeamPaintingVersion".into(), "0".into()));
+    }
+    let mut record = target.as_object().cloned().unwrap_or_default();
+    record.insert("enforced_triangles".into(), json!(selected));
+    record.insert("painted_facet_bounds_cad_mm".into(), json!([lo, hi]));
+    record.insert("mesh_vertices_and_triangle_indices_unchanged".into(), json!(true));
+    Ok(Value::Object(record))
+}
+
+/// One part of a proving project, carried into a part of this plate: its mesh shifted from its
+/// source object's frame into the target's, its settings and its facets' paint.
+struct Carried {
+    name: String,
+    subtype: String,
+    vertices: Vec<[f64; 3]>,
+    faces: Vec<[usize; 3]>,
+    paint: Vec<Paint>,
+    settings: Vec<(String, String)>,
+    source_member: String,
+    source_member_sha256: String,
+}
+
+fn carry(source: &BTreeMap<String, Vec<u8>>, origin_object: &str, component: i64, shift: [f64; 3]) -> Result<Carried> {
+    let model = xml::parse(std::str::from_utf8(&source["3D/3dmodel.model"])?)?;
+    let resources = model.child("resources").context("no resources")?;
+    let owner = resources.children_named("object").find(|o| o.attribute("id") == Some(origin_object)).context("no source object")?;
+    let id = component.to_string();
+    let entry = owner.child("components").into_iter().flat_map(|c| c.children_named("component")).find(|c| c.attribute("objectid") == Some(&id))
+        .with_context(|| format!("no source component {id}"))?;
+    let member = entry.attribute("p:path").context("component path")?.trim_start_matches('/').to_string();
+    let raw = source.get(&member).with_context(|| format!("no member {member}"))?;
+    let doc = xml::parse(std::str::from_utf8(raw)?)?;
+    let mesh = doc.descendants().into_iter().find(|e| e.local() == "mesh").context("no mesh")?;
+    let vertices: Vec<[f64; 3]> = mesh.child("vertices").into_iter().flat_map(|v| v.children_named("vertex"))
+        .map(|v| [0, 1, 2].map(|k| v.attribute(["x", "y", "z"][k]).and_then(|s| s.parse::<f64>().ok()).unwrap_or(0.0) + shift[k])).collect();
+    let mut faces = Vec::new();
+    let mut paint = Vec::new();
+    for t in mesh.child("triangles").into_iter().flat_map(|t| t.children_named("triangle")) {
+        faces.push([0, 1, 2].map(|k| t.attribute(["v1", "v2", "v3"][k]).and_then(|s| s.parse::<usize>().ok()).unwrap_or(0)));
+        paint.push(t.attributes.iter().filter(|(k, _)| k.starts_with("paint_")).cloned().collect());
+    }
+    let config = xml::parse(std::str::from_utf8(&source["Metadata/model_settings.config"])?)?;
+    let object = config.children_named("object").find(|o| o.attribute("id") == Some(origin_object)).context("no source object settings")?;
+    let part = object.children_named("part").find(|p| p.attribute("id") == Some(&id)).with_context(|| format!("no source part {id}"))?;
+    let settings: Vec<(String, String)> = part.children_named("metadata")
+        .filter_map(|m| Some((m.attribute("key")?.to_string(), m.attribute("value")?.to_string())))
+        .filter(|(k, _)| k != "name" && k != "matrix").collect();
+    Ok(Carried { name: String::new(), subtype: part.attribute("subtype").unwrap_or("normal_part").to_string(), vertices, faces, paint, settings,
+                 source_member: member, source_member_sha256: sha256_hex(raw) })
+}
+
+fn add_carried(r: &mut Refreshed, index: usize, carried: Carried) -> usize {
+    let id = r.plate.add_part(index, &carried.name, carried.vertices, carried.faces, &carried.subtype, carried.settings, None);
+    if carried.paint.iter().any(|p| !p.is_empty()) {
+        if let Some(part) = r.plate.objects[index].parts.last_mut() {
+            part.paint = Some(carried.paint);
+        }
+    }
+    id
+}
+
+fn origin_shift(root: &Path, r: &Refreshed, selected: &Value) -> Result<(Value, Value, [f64; 3], usize)> {
+    let preparation = read_json(&root.join(selected["source_preparation"].as_str().context("source preparation")?))?;
+    let origin = preparation["parts"][0].clone();
+    let target = r.row(selected["part"].as_str().context("part")?)?;
+    let c = [0, 1, 2].map(|k| origin["source_center_mm"][k].as_f64().unwrap_or(0.0));
+    Ok((preparation, origin, [c[0] - target.center[0], c[1] - target.center[1], c[2] - target.center[2]], target.index))
+}
+
+/// The accepted curved rim walls and their narrow blocker strips, on the base only.
+pub fn add_selected_base_rim(root: &Path, r: &mut Refreshed, selected: &Value) -> Result<Value> {
+    let source_path = root.join(selected["source_project"].as_str().context("source project")?);
+    let source = members(&source_path)?;
+    let (preparation, origin, shift, index) = origin_shift(root, r, selected)?;
+    let origin_object = origin["object_id"].as_str().map(String::from).unwrap_or_else(|| origin["object_id"].to_string());
+    let mut transferred = Vec::new();
+    for arc in preparation["rim_arcs"].as_array().into_iter().flatten() {
+        for (key, kind) in [("component_id", "arc"), ("blocker_component_id", "contact-blocker")] {
+            let original = arc[key].as_i64().context("rim component")?;
+            let mut carried = carry(&source, &origin_object, original, shift)?;
+            carried.name = format!("base-rim-{kind}-{original}");
+            let (member, sha, subtype) = (carried.source_member.clone(), carried.source_member_sha256.clone(), carried.subtype.clone());
+            let id = add_carried(r, index, carried);
+            transferred.push(json!({"kind": kind, "source_component_id": original, "component_id": id, "source_member": member,
+                                    "source_member_sha256": sha, "subtype": subtype}));
+        }
+    }
+    Ok(json!({"part": selected["part"], "source_project": selected["source_project"], "source_project_sha256": file_sha(&source_path)?,
+              "source_preparation": selected["source_preparation"], "physical_result": selected["physical_result"],
+              "source_local_to_target_local_translation_mm": shift, "arc_count": preparation["rim_arcs"].as_array().map_or(0, Vec::len),
+              "components": transferred,
+              "scope": "Exact accepted curved rim walls and their narrow blocker strips on the base only. Tree(auto)/Default remains elsewhere. The part meshes, poses, seams and layer bands are retained."}))
+}
+
+/// The accepted tip fins and hidden-root disc, and the accepted lip support selection on the
+/// full tip's downward joint-plane facets; the tip's seams stay.
+pub fn add_selected_tip_supports(root: &Path, r: &mut Refreshed, selected: &Value) -> Result<Value> {
+    let source_path = root.join(selected["source_project"].as_str().context("source project")?);
+    let source = members(&source_path)?;
+    let (_, origin, shift, index) = origin_shift(root, r, selected)?;
+    let origin_object = origin["object_id"].as_str().map(String::from).unwrap_or_else(|| origin["object_id"].to_string());
+    let mut copied = Vec::new();
+    for (key, name) in [("fin_component_id", "tip-eight-fin-walls"), ("root_anchor_component_id", "tip-hidden-root-disc")] {
+        let old = selected[key].as_i64().context("tip component")?;
+        let mut carried = carry(&source, &origin_object, old, shift)?;
+        carried.name = name.into();
+        let (member, sha) = (carried.source_member.clone(), carried.source_member_sha256.clone());
+        let id = add_carried(r, index, carried);
+        copied.push(json!({"source_component_id": old, "component_id": id, "source_member": member, "source_member_sha256": sha}));
+    }
+    let vertices = source_vertices(r, index);
+    let faces = r.plate.objects[index].faces.clone();
+    let center = r.plate.objects[index].source_center;
+    let build = r.plate.objects[index].transform_values();
+    let rotation = mat(&build);
+    let point = [0, 1, 2].map(|k| selected["joint_plane"]["point"][k].as_f64().unwrap_or(0.0));
+    let normal = [0, 1, 2].map(|k| selected["joint_plane"]["normal"][k].as_f64().unwrap_or(0.0));
+    let selection = &selected["lip_enforcer_selection"];
+    let (max_z, max_x) = (selection["maximum_build_z_mm"].as_f64().unwrap_or(0.0), selection["maximum_abs_cad_x_mm"].as_f64().unwrap_or(0.0));
+    let (mut plane_faces, mut plane_area, mut enforced_faces, mut enforced_area) = (0usize, 0.0, 0usize, 0.0);
+    let mut marks = Vec::new();
+    for (fi, f) in faces.iter().enumerate() {
+        let p = f.map(|i| vertices[i]);
+        let c = cross(sub(p[1], p[0]), sub(p[2], p[0]));
+        let length = (c[0] * c[0] + c[1] * c[1] + c[2] * c[2]).sqrt();
+        let n = c.map(|v| v / length.max(1e-20));
+        let off = p.iter().map(|q| { let d = sub(*q, point); (d[0] * normal[0] + d[1] * normal[1] + d[2] * normal[2]).abs() }).fold(0.0, f64::max);
+        let facing = -(n[0] * normal[0] + n[1] * normal[1] + n[2] * normal[2]);
+        if !(off < 0.02 && facing > 0.999) {
+            continue;
+        }
+        let centroid = [0, 1, 2].map(|k| (p[0][k] + p[1][k] + p[2][k]) / 3.0);
+        let placed = times(sub(centroid, center), &rotation);
+        let placed_z = placed[2] + build[11];
+        let enforced = placed_z < max_z && centroid[0].abs() < max_x;
+        plane_faces += 1;
+        plane_area += length / 2.0;
+        if enforced {
+            enforced_faces += 1;
+            enforced_area += length / 2.0;
+        }
+        marks.push((fi, if enforced { "4" } else { "8" }));
+    }
+    let paint = paint_of(r, index);
+    for (fi, code) in marks {
+        set_paint(&mut paint[fi], "paint_supports", code);
+    }
+    Ok(json!({"part": selected["part"], "source_project": selected["source_project"], "source_project_sha256": file_sha(&source_path)?,
+              "source_preparation": selected["source_preparation"], "physical_result": selected["physical_result"], "components": copied,
+              "fin_count": selected["fin_count"], "source_local_to_target_local_translation_mm": shift, "joint_plane": selected["joint_plane"],
+              "joint_plane_faces": plane_faces, "joint_plane_area_mm2": plane_area, "enforced_lip_faces": enforced_faces,
+              "enforced_lip_area_mm2": enforced_area, "lip_enforcer_selection": selection, "vertices_and_triangle_indices_unchanged": true,
+              "seam_paint_preserved": true, "root_contact_scope": selected["root_contact_scope"],
+              "scope": "Exact accepted fin and hidden-root-disc meshes; accepted lip support-selection geometry on the full tip tessellation. Tree(auto)/Default elsewhere. Bonded disc contact stays on the hidden male insertion end."}))
+}
+

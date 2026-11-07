@@ -179,10 +179,10 @@ fit changes belong to named contact parameters rather than global scan scaling.
 ```sh
 python3 tools/run.py -- cargo run --release -j 2 --manifest-path tools/hsm/Cargo.toml -p hsm-lever-replica
 tools/cad-venv/bin/python hardware/printed-parts/faucet/lever-replica/check_replica.py
-tools/cad-venv/bin/python hardware/printed-parts/faucet/lever-replica/prepare_print.py
+tools/hsm/target/release/lever-print-project
 ```
 
-`prepare_print.py --slice-output /tmp/lever-comparison-slice` also runs an offline
+`lever-print-project --slice-output /tmp/lever-comparison-slice` also runs an offline
 Bambu Studio slice into an empty directory and writes the submittable archive beside
 the project. `--variant` picks the machine: `black-h2c` takes Derek's +0.18 mm Z trim,
 `white-mark2` takes +0.04 mm. Both take their process and filament settings from the
