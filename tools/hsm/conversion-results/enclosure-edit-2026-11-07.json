@@ -1,7 +1,7 @@
 {
   "purpose": "This record measures an authored band edit with fresh and retained native construction.",
   "scope": "enclosure-back-top generator, STEP, fine model, STL, viewer payload and print features",
-  "baseline_revision": "e64b598607703b6ea7b96064a94c8ccd6b44a3dc",
+  "baseline_revision": "57d76b0ee5b636a80528c4bbf4b6ea794b1f3bfa",
   "base_exterior": {
     "band_height": 16.0,
     "band_projection": 3.0,
@@ -18,12 +18,12 @@
   },
   "parameter_requires_compilation": false,
   "protocol": "Prime the base once; before each retained edit discard only entries created after priming. Fresh runs disable stage reuse. Each pair exports the same edited design.",
-  "implementation": "cbd46bf376a6c0a76714146b4a0324b86722b98399ce46813b077b9966fac383",
+  "implementation": "ee68bf85a8afbf9922e430c9534f1728e6455485b5d86b19cb9b98d543768628",
   "source_sha256": {
     "hardware/printed-parts/enclosure/enclosure/enclosure.rs": "4ee35af969b87938e9d126c6a69b06feca9fd84d4975c5c5e138857f677cf51d",
-    "hardware/printed-parts/enclosure/enclosure/enclosure_back_bottom.rs": "71b0f68a995e19ad7f624caa4691c5b1387c23e084033a24e6f19b14d2893477",
+    "hardware/printed-parts/enclosure/enclosure/enclosure_back_bottom.rs": "9941396d472e0b7fc452b688c5d6881589716d2168834e7d04979a6975cd43e4",
     "hardware/printed-parts/enclosure/enclosure/enclosure_checks.rs": "33833df5f5dd2f3adaffeaa531807579c5e3486af7e86f40d9cfae57892d5110",
-    "hardware/printed-parts/enclosure/enclosure/enclosure_front_bottom.rs": "be05a877bae80e001fd7175bdeaf6c658eeb4ecc1cadac3f848234ac83766df8",
+    "hardware/printed-parts/enclosure/enclosure/enclosure_front_bottom.rs": "53af3114139c5abc2f317ad07eade0f77fffc4e32034ec78ed7297b4464d0c16",
     "hardware/printed-parts/enclosure/enclosure/enclosure_pump_retainer.rs": "a7f3942a051e0ae098352d65e7a1c67d038c12af9176583276d316cad988afb1",
     "hardware/printed-parts/enclosure/enclosure/enclosure_front_top.rs": "57feca98174dc1fcbe53c6040be1ce956d15b59a7626c1bd2b277f1ea517755f",
     "hardware/printed-parts/enclosure/enclosure/enclosure_pump_tube_setting_jig.rs": "e060963e0dd55f7b56593785e78823f2bbd57ee3631cee150caf4558456c28b5",
@@ -65,7 +65,7 @@
     "hardware/printed-parts/enclosure/enclosure/solid/structure.rs": "792a95ac7fa6624c2be736bc972a63f46f9ec73fb74e7eff60eb1faa26e893d6",
     "hardware/printed-parts/enclosure/enclosure/solid/pieces.rs": "31da2bdcf575a970067820c113b0d9fe98bbcbb550cabff271b3c661d3f62a49",
     "hardware/printed-parts/enclosure/enclosure/solid/ops.rs": "b9f2aedaede39064dccb9fecce56ae2e95871defe82ccddafb9bdb07a8db4bd1",
-    "hardware/printed-parts/enclosure/enclosure/solid/exterior.rs": "5c30a2e8c0d8bebd7a0369a4e15e14ed7e09ef858b18e5b5f2ac565ac4ccb80d",
+    "hardware/printed-parts/enclosure/enclosure/solid/exterior.rs": "f7b904b11940deb185410fe57397ee5e373b9ef7448c43bb0d4122f07035ea25",
     "hardware/printed-parts/enclosure/enclosure/solid/sources.rs": "9ea75c46ca8d545e87f0b81bb81b3f1d4ef80652a4acb757147e9ebdba351bf4",
     "hardware/printed-parts/enclosure/enclosure/back-top/supports.rs": "a051831b15058f8c58c4fad41dde340bf7a76d70b324773583e1c2d22417d85c",
     "hardware/printed-parts/enclosure/enclosure/back-top/backtop.rs": "3174e0c87a5af828b378f7a5120b727986db233615b678092d96f60f90978d14",
@@ -100,27 +100,27 @@
   "timings": {
     "fresh": {
       "wall_seconds": [
-        6.094551540998509,
-        6.022809750000306,
-        6.056023249999271
+        6.2987180829986755,
+        6.292015540999273,
+        6.160666167001182
       ],
       "cpu_seconds": [
-        18.580000000000002,
-        18.470000000000002,
-        18.53
+        18.73,
+        18.91,
+        18.78
       ],
       "rss_bytes": [
-        1187020800,
-        1181597696,
-        1111932928
+        1233993728,
+        1151926272,
+        1242005504
       ],
-      "median_wall_seconds": 6.056023249999271,
-      "median_cpu_seconds": 18.53,
-      "median_rss_bytes": 1181597696,
+      "median_wall_seconds": 6.292015540999273,
+      "median_cpu_seconds": 18.78,
+      "median_rss_bytes": 1233993728,
       "construction_seconds": [
-        1.807325458,
-        1.799995875,
-        1.7964885000000002
+        1.794891666,
+        1.8898713329999999,
+        1.827779166
       ],
       "built_nodes": [
         483,
@@ -135,27 +135,27 @@
     },
     "retained": {
       "wall_seconds": [
-        0.9866359160005231,
-        0.980393665999145,
-        1.0233133749970875
+        1.0453274589999637,
+        1.03306820799844,
+        1.0397769580013119
       ],
       "cpu_seconds": [
-        2.83,
-        2.83,
-        2.84
+        2.9,
+        2.87,
+        2.9
       ],
       "rss_bytes": [
-        712671232,
-        714866688,
-        712687616
+        730382336,
+        723009536,
+        727400448
       ],
-      "median_wall_seconds": 0.9866359160005231,
-      "median_cpu_seconds": 2.83,
-      "median_rss_bytes": 712687616,
+      "median_wall_seconds": 1.0397769580013119,
+      "median_cpu_seconds": 2.9,
+      "median_rss_bytes": 727400448,
       "construction_seconds": [
-        0.204480208,
-        0.199847083,
-        0.200773375
+        0.199231041,
+        0.200261,
+        0.200216875
       ],
       "built_nodes": [
         44,
@@ -169,19 +169,27 @@
       ]
     }
   },
-  "cache_bytes": 26311898,
+  "cache_bytes": 26637426,
   "byte_identical_pairs": 3,
   "edited_artifacts_sha256": {
-    "enclosure-back-top.step.mesh": "3cddd9964673810f65b5e898738086483704f96a728a2ee6addb7803238cfc1e",
+    "enclosure-back-top.step.mesh": "37299ac516f313c89c37224f8a0a451365e34d575dc543343d982e5db0b300e2",
     "enclosure-back-top.step": "1fc1c363234105561f610539510266dc26159d0baab8680e82c1c0b804dccdeb",
-    "enclosure-back-top.print-features.json": "47f30382730b21b476939f07e4a5ea1fc557e6674e8a4fb29fb7ab8ec28b71ac",
-    "enclosure-back-top.stl": "a2ad55c39214e7f0b111abb3b5898e9118cafea8655721c1b8ead76632142b6e",
-    "enclosure-back-top.step.npz": "638673920a9077a8db8db293e5c0fac049c61d483cf8f0fdccb97f41c3032865"
+    "enclosure-back-top.print-features.json": "20195b5e8c53f93a8bf1bba60ef442efcfb8acb2d4b8135dc69ae036492a76a6",
+    "enclosure-back-top.stl": "ca1ca0f35e9e50a10897a1bdc1d44515ca0bc7dd19d4cba3927c895b3460e0ad",
+    "enclosure-back-top.step.npz": "b3e69c6ce4c57a12d7bcb809f1af6e962be110ea6f9c7a4b1fdc63cc1c02c41b"
   },
   "manual_checks": [
     "edited feature reuses an unchanged prefix",
     "damaged entries rebuild to the fresh result",
-    "authored addition receives the same openings and joint limits"
+    "authored addition receives the same openings and joint limits",
+    "straight-wall flute positions retain the vent-groove datums"
   ],
-  "limits": "The timing covers the part generator; compilation, publication, print preparation, slicing and whole-machine builds are separate work."
+  "limits": "The timing covers the part generator; compilation, publication, print preparation, slicing and whole-machine builds are separate work.",
+  "normal_build": {
+    "success": true,
+    "wall_seconds": 93.756,
+    "executed_actions": 15,
+    "action_cache_hits": 107,
+    "scope": "committed build definitions with current shared source and restored reference import cache"
+  }
 }

@@ -207,6 +207,7 @@ ends taper into the rounded shoulder; the smooth shoulder continues through
 the corner and onto the lifting ceiling. The band, standing columns and their
 roots remain smooth. The handhold rims retain their lifting rounds and ceilings.
 The wall, component, aperture and joint datums stay fixed.
+Straight-wall groove coordinates also locate the condenser vents.
 
 The display cover and its matching seat follow the rear nameplate's rounded
 outline style. Its optical opening follows the glass. The funnel's mouth, collar and brim
