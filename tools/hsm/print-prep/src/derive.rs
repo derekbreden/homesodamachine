@@ -197,14 +197,18 @@ pub fn transition_band(geo: &Geometry, feature: &Value) -> Result<Feature> {
     check(feature, "chamfer area", area, "chamfer_area_mm2")?;
     // The chamfer starts at its lowest geometric edge; interior splits do not give it a foot.
     let significant: Vec<usize> = (0..zone.len()).filter(|&i| chamfer[i] && geo.a[i] >= 0.05).collect();
-    let foot = significant.iter().map(|&i| geo.zlo[i]).fold(f64::INFINITY, f64::min);
+    let lowest = significant.iter().map(|&i| geo.zlo[i]).fold(f64::INFINITY, f64::min);
     let top = significant.iter().map(|&i| geo.zhi[i]).fold(f64::NEG_INFINITY, f64::max);
+    // The straight run reaches the top, and its faces reach down to the run's foot, where the
+    // round meets its ceiling. A corner return follows its arc lower; the band covers it, but
+    // the run alone measures the round.
+    let foot = significant.iter().filter(|&&i| geo.zhi[i] >= top - 1e-3).map(|&i| geo.zlo[i]).fold(f64::INFINITY, f64::min);
     let radius = num(feature, "radius_mm").unwrap_or(0.0);
     let measured = (top - foot) / rise_per_radius();
     if (measured / radius - 1.0).abs() > num(feature, "radius_tolerance").unwrap_or(0.1) {
         bail!("{name}: the chamfer rises {:.3} mm above its foot at print Z{foot:.3}, an R{measured:.2} transition against the declared R{radius}", top - foot);
     }
-    let (low, high) = (foot, top + arc_per_radius() * radius);
+    let (low, high) = (lowest, top + arc_per_radius() * radius);
     let paint: Vec<usize> = (0..zone.len()).filter(|&i| zone[i] && geo.n[i][2] < -0.02 && geo.n[i][2] > -0.999
         && geo.zhi[i] >= low - 0.01 && geo.zlo[i] <= high + 0.01).collect();
     let mut m = base(feature, "transition_band");
