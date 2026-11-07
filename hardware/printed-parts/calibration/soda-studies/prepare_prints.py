@@ -593,8 +593,9 @@ def native_slice(project, report):
     directory = WORK / Path(project).stem / "native"
     directory.mkdir(parents=True, exist_ok=True)
     archive_name = Path(project).stem+".gcode.3mf"
+    cli_project = writer.petgf_cooling.cli_project(project, directory)
     command = [str(SLICER), "--slice", "0", "--arrange", "0", "--orient", "0",
-               "--outputdir", str(directory), "--export-3mf", archive_name, str(project)]
+               "--outputdir", str(directory), "--export-3mf", archive_name, str(cli_project)]
     save(directory / "slice-command.json", dict(argv=command, printer_connection=False))
     print(f"Native slicing {report['plate_id']}: {len(report['print_objects'])} print objects", flush=True)
     with (directory / "slice.log").open("w") as log:

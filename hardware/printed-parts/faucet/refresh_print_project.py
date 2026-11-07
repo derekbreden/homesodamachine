@@ -540,8 +540,9 @@ def main():
         print(f"  plate {row['plate']} {row['name']}: Rx {row['rotation_x_degrees']:g}°, {size.round(2).tolist()} mm")
     if args.slice_output:
         args.slice_output.mkdir(parents=True, exist_ok=True)
+        cli_project = petgf_cooling.cli_project(args.project.resolve(), args.slice_output.resolve())
         command = [str(args.slicer.resolve()), "--slice", "0", "--arrange", "0", "--orient", "0", "--outputdir",
-                   str(args.slice_output.resolve()), str(args.project.resolve())]
+                   str(args.slice_output.resolve()), "--export-3mf", args.project.stem + ".gcode.3mf", str(cli_project)]
         log = args.slice_output / "bambu-cli.log"
         with log.open("w") as stream:
             result = subprocess.run(command, cwd=args.slice_output, stdout=stream, stderr=subprocess.STDOUT)
