@@ -33,7 +33,7 @@ pub fn dispatch(op:&str,r:&Value)->Result<Value>{Ok(match op{
             if let Some(command)=r["post_process_command"].as_str() {
                 let old=map.get("post_process").cloned().unwrap_or(json!([]));
                 let mut scripts=old.as_array().cloned().unwrap_or_default();
-                scripts.retain(|s|!text(s).contains("/cadlib/petgf_cooling.py"));
+                scripts.retain(|s|{let s=text(s);!s.contains("/cadlib/petgf_cooling.py")&&!s.ends_with("/petgf-cooling")});
                 scripts.push(json!(command));
                 let new=json!(scripts);
                 if new!=old {let change=json!({"from":old,"to":new});changes.insert("post_process".into(),change.clone());updates.push(json!(["post_process",change]));map.insert("post_process".into(),new);}
