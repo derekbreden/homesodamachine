@@ -73,7 +73,7 @@ fn mark_line(cells: &mut HashSet<Cell>, a: (f64, f64), b: (f64, f64)) {
 }
 
 /// End points along one XY arc; an arc without centre offsets falls back to its chord.
-fn arc_points(start: (f64, f64), end: (f64, f64), words: &[(u8, f64)], clockwise: bool) -> Vec<(f64, f64)> {
+pub fn arc_points(start: (f64, f64), end: (f64, f64), words: &[(u8, f64)], clockwise: bool) -> Vec<(f64, f64)> {
     let get = |k: u8| words.iter().find(|(c, _)| *c == k).map(|(_, v)| *v);
     let (Some(i), Some(j)) = (get(b'I'), get(b'J')) else { return vec![end] };
     let (cx, cy) = (start.0 + i, start.1 + j);

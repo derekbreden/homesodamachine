@@ -88,6 +88,9 @@ pub struct Plate {
     /// project's map.
     pub filament_map_mode: String,
     pub filament_volume_maps: String,
+    /// The model's own metadata beyond its application and title, such as the seam painting's
+    /// version.
+    pub model_metadata: Vec<(String, String)>,
     next_id: usize,
 }
 
@@ -112,6 +115,7 @@ impl Plate {
             mesh_style: MeshStyle::Streamed,
             filament_map_mode: "Auto For Flush".into(),
             filament_volume_maps: "0".into(),
+            model_metadata: Vec::new(),
             next_id: 1,
         }
     }
@@ -170,7 +174,11 @@ impl Plate {
     pub fn write(&self, path: &Path) -> Result<()> {
         let mut model = String::new();
         let _ = write!(model, "<?xml version='1.0' encoding='UTF-8'?>\n<model xmlns=\"{CORE}\" xmlns:p=\"{PROD}\" unit=\"millimeter\" requiredextensions=\"p\" xmlns:BambuStudio=\"http://schemas.bambulab.com/package/2021\">");
-        let _ = write!(model, "<metadata name=\"Application\">BambuStudio-02.08.02.61</metadata><metadata name=\"BambuStudio:3mfVersion\">1</metadata><metadata name=\"Title\">{}</metadata><resources>", text(&self.title));
+        let _ = write!(model, "<metadata name=\"Application\">BambuStudio-02.08.02.61</metadata><metadata name=\"BambuStudio:3mfVersion\">1</metadata><metadata name=\"Title\">{}</metadata>", text(&self.title));
+        for (k, v) in &self.model_metadata {
+            let _ = write!(model, "<metadata name=\"{}\">{}</metadata>", attr(k), text(v));
+        }
+        model.push_str("<resources>");
         let build_name = self.build_name.clone().unwrap_or_else(|| format!("{}/build", self.title));
         let mut build = format!("<build p:UUID=\"{}\">", self.identifier(&build_name));
         let mut config = String::from("<?xml version='1.0' encoding='UTF-8'?>\n<config>");

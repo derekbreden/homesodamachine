@@ -15,8 +15,7 @@ The [selected Sculpted process](sculpted/README.md) uses Mark2's right hardened 
 Rebuild the editable project manually with:
 
 ```sh
-tools/cad-venv/bin/python hardware/printed-parts/faucet/sculpted/prepare_print_project.py \
-  hardware/printed-parts/faucet/faucet-petgf.3mf
+tools/hsm/target/release/sculpted-faucet-print-project hardware/printed-parts/faucet/faucet-petgf.3mf
 ```
 
 The [readiness record](faucet-petgf.readiness.json) distinguishes the current preparation from its retained native archive. Dated native and physical records keep their identified source geometry and acceptance scope. They establish no black 4 mm tube fit or current support-removal result. Use the [assembly guide](../../faucet-assembly-guide/faucet-assembly-guide.pdf) and [flavor-line specification](flavor-lines/README.md) for the current tubing and interfaces.
