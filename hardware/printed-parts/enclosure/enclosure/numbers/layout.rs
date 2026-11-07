@@ -56,8 +56,10 @@ pub struct WetPort {
 #[derive(Deserialize)]
 pub struct C14Opening {
     pub profile_clearance_mm: f64,
-    pub flange_pocket_ymin_mm: f64,
-    pub body_opening_ymin_mm: f64,
+    pub flange_pocket_depth_mm: f64,
+    pub cord_access_width_mm: f64,
+    pub cord_access_height_mm: f64,
+    pub cord_access_radius_mm: f64,
     pub mount_pitch_mm: f64,
 }
 
