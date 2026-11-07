@@ -70,7 +70,7 @@ shared localized cooling policy. Full-bead margins are 79.961 mm and
 [print-jobs.json](print-jobs.json) binds the reviewed native archives and
 launch records. Mark1 accepted task **1398257516**; Mark2 accepted task
 **1398266343**, 215 seconds later. The [progress](prints/progress.json) records
-both task IDs running without print errors or HMS alerts. `build.py` exports the samples; `prepare.py` prepares and
+both task IDs running without print errors or HMS alerts. `build.py` exports the samples; [`prepare.py`](https://github.com/derekbreden/homesodamachine/blob/f5e8bed091/hardware/print-tests/rear-snap-retention/prepare.py) (in Git at `f5e8bed091`) prepares and
 reviews the two plates. Both run through `python3 tools/run.py`; the native
 export also takes `--cad`.
 

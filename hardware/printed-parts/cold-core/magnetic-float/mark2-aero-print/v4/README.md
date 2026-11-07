@@ -65,7 +65,7 @@ address startup adhesion; they do not establish printed density, fit or buoyancy
 The parts and plate retain the 35 °C cooling threshold before release.
 
 - [Preflight and priming-strip coordinate review](pair-preflight.json)
-- [Preparation and exact part-program comparison](prepare.py)
+- [Preparation and exact part-program comparison](https://github.com/derekbreden/homesodamachine/blob/f5e8bed091/hardware/printed-parts/cold-core/magnetic-float/mark2-aero-print/v4/prepare.py) (in Git at `f5e8bed091`)
 - [Queue](queue.json)
 - [Derek's physical startup report](../v3/physical-observations.json)
 
