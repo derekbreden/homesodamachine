@@ -57,6 +57,37 @@ The [prepared-output reading](recovery-preparation.json) records the current
 enclosure and pump outputs, command preservation and scope exercises. Finish
 and strength remain physical observations.
 
+## Small individual parts
+
+Time spent printing the rest of a batch is part of the PET-GF recipe. Derek
+identifies that interval as necessary for the complete faucet and batches of
+snap covers, and expects an isolated small cover to overheat without it. This
+is a printing constraint; it does not call for general part cooling or a
+change to the approved snap geometry.
+
+The `single-regulator-cap` recipe in
+[`pieces.json`](../enclosure/trial-preparation/pieces.json) uses native smooth
+timelapse and a prime tower to keep the hot nozzle away between cap layers,
+then reprime before returning. Its cap pose, deposition recipe, temperatures
+and localized cooling follow production. Select Timelapse On when sending.
+The declared tower width is retained with rib-wall mode disabled: the
+[installed slicer's tower planner](https://github.com/bambulab/BambuStudio/blob/v02.08.02.61/src/libslic3r/GCode/WipeTower.cpp)
+otherwise resizes a single-colour smooth-timelapse tower. Enabling a tower
+alone does not establish a useful interval.
+
+The [individual-regulator print record](../enclosure/rear-equipment-caps/prints/2026-11-07-single-regulator-mark2/job.json)
+holds the selected settings, emitted timing, archive identity and launch. Its
+timing is commanded motion time; finish and strength await physical review.
+It is a starting recipe for that print, not a qualified thermal limit for
+every small part. Read the actual emitted tower paths when preparing another
+shape or height.
+
+[Cura's minimum-layer-time and Lift Head settings](https://support.ultimaker.com/articles/Knowledge/1667417947135)
+provide slowdown and an away-from-part wait. A
+[Bambu user's cooling approach](https://forum.bambulab.com/t/park-hotend-for-minimum-layer-time/70222/2)
+uses smooth timelapse for the same purpose. These describe ways to schedule
+cooling time, rather than transferable PET-GF temperatures or fan settings.
+
 ## Current projects
 
 [petgf.3mf](../petgf.3mf) contains the selected values in both the project

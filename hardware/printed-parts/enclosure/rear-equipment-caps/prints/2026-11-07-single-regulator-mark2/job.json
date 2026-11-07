@@ -1,0 +1,267 @@
+{
+  "purpose": "Retain the individual regulator-cover print recipe, layer-return timing and launch identity.",
+  "recorded_utc": "2026-11-07T19:40:08.524778+00:00",
+  "source_revision": "3e770b79c7d827f1c42a2918c3486a17d6a70aa1",
+  "recipe": "single-regulator-cap",
+  "spec": "hardware/printed-parts/enclosure/trial-preparation/pieces.json",
+  "prepared_spec_sha256": "f4721be014240e4598ef4f0c7e72925d4e9f922fcd9a93da6f84aa29c6fd1600",
+  "current_spec_sha256": "1d74d33500e0e50dd08ec09f85379aac3f9aaa1d19993b4079e719ac0d9bb6bd",
+  "printer": "Mark2",
+  "material": "Polymaker Fiberon PET-GF15, black",
+  "nozzle": {
+    "diameter_mm": 0.4,
+    "flow": "Standard",
+    "hardened": true,
+    "side": "left",
+    "sliced_diameter_mm": 0.4,
+    "sliced_volume_type": "Standard"
+  },
+  "objects": [
+    {
+      "name": "regulator-snap-cap",
+      "plate_bounds_mm": [
+        [
+          141.44679641723633,
+          171.5544958114624,
+          0.0
+        ],
+        [
+          183.55320358276367,
+          198.4455041885376,
+          36.0
+        ]
+      ],
+      "step_sha256": "4467a285e808b904ecab8787748487e385bd06a809dfd6def78064323289bd89",
+      "stl": "hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.stl",
+      "stl_sha256": "087eb03675c32c610cf01d181f5a5ebf6a9dfe235ddeb0c61bc5da1fb2702b44",
+      "yaw_degrees": 90.0
+    }
+  ],
+  "archive": {
+    "path": "/Users/derekbredensteiner/Downloads/HSM-single-regulator-2026-11-07/ready/2026-11-07-single-regulator-cap-mark2-192f916b/2026-11-07-single-regulator-cap-mark2-192f916b.gcode.3mf",
+    "sha256": "20528fdcab40a4c487d525e5a2b5b0d6665471f7c1c7e9453d9614693340337d",
+    "gcode_sha256": "681daca96e541dd7fd1bdfdad307d6ca0a2f2207f32de93e04dd06fadbeb6e14"
+  },
+  "editable_project": {
+    "path": "/Users/derekbredensteiner/Downloads/HSM-single-regulator-2026-11-07/ready/2026-11-07-single-regulator-cap-mark2-192f916b/2026-11-07-single-regulator-cap-mark2-192f916b.3mf",
+    "sha256": "06cffc3f7ba23dee9b6dfbef6c579e9717038d1113f2c97b7a3adcbd0b6be4ce"
+  },
+  "preparation_record": "/Users/derekbredensteiner/Downloads/HSM-single-regulator-2026-11-07/ready/2026-11-07-single-regulator-cap-mark2-192f916b/preparation.json",
+  "native_review_record": "/Users/derekbredensteiner/Downloads/HSM-single-regulator-2026-11-07/ready/2026-11-07-single-regulator-cap-mark2-192f916b/review.json",
+  "estimated_seconds": 6456.422914510809,
+  "estimated_material_g": 26.39,
+  "settings": {
+    "wall_loops": "3",
+    "wall_generator": "classic",
+    "sparse_infill_density": "100%",
+    "sparse_infill_pattern": "zig-zag",
+    "layer_height": "0.24",
+    "initial_layer_print_height": "0.2",
+    "timelapse_type": "1",
+    "enable_prime_tower": "1",
+    "prime_tower_width": "50",
+    "prime_tower_rib_wall": "0",
+    "prime_tower_max_speed": "10",
+    "wipe_tower_x": [
+      "137"
+    ],
+    "wipe_tower_y": [
+      "120"
+    ],
+    "nozzle_temperature": [
+      "280",
+      "265",
+      "270"
+    ],
+    "nozzle_temperature_initial_layer": [
+      "265",
+      "265",
+      "270"
+    ],
+    "fan_min_speed": [
+      "0"
+    ],
+    "fan_max_speed": [
+      "0"
+    ],
+    "additional_cooling_fan_speed": [
+      "0"
+    ],
+    "overhang_fan_speed": [
+      "70"
+    ],
+    "overhang_fan_threshold": [
+      "50%"
+    ],
+    "support_type": "tree(auto)",
+    "support_style": "default"
+  },
+  "cooling_recovery": {
+    "added_commanded_motion_seconds": 38.78717232330889,
+    "archive_sha256": "20528fdcab40a4c487d525e5a2b5b0d6665471f7c1c7e9453d9614693340337d",
+    "changed": true,
+    "estimate_scope": "Native estimate plus the added constant-feed motion time; acceleration and fan spin-up are not simulated.",
+    "input_archive_sha256": "c57f06b0537a507058bc86d40ff7f8b4c529488f7546eca73d7a4ea4362755a2",
+    "members": [
+      {
+        "added_commanded_motion_seconds": 38.78717232330889,
+        "changed": true,
+        "input_gcode_sha256": "a97da492c8b21b2ffde8b80c41c99f078d23767c8d70c7797e058f12953f8388",
+        "member": "Metadata/plate_1.gcode",
+        "native_cooled_seed_moves": 446,
+        "ordinary_model_moves": 74247,
+        "output_gcode_sha256": "681daca96e541dd7fd1bdfdad307d6ca0a2f2207f32de93e04dd06fadbeb6e14",
+        "petgf_slots": [
+          0
+        ],
+        "policy": {
+          "grid_mm": 0.2,
+          "height_mm": 0.8
+        },
+        "recovery_by_feature": {
+          "Bridge": [
+            23.0,
+            11.133423882135586,
+            0.0
+          ],
+          "Floating vertical shell": [
+            152.0,
+            83.85739618027408,
+            2.8708588971919564
+          ],
+          "Inner wall": [
+            249.0,
+            163.0971160406893,
+            5.464659306470333
+          ],
+          "Internal solid infill": [
+            1020.0,
+            648.6724664418749,
+            22.6635214431952
+          ],
+          "Outer wall": [
+            170.0,
+            84.78154562004433,
+            2.314377929566713
+          ],
+          "Sparse infill": [
+            199.0,
+            157.80545855938706,
+            5.473754746884644
+          ]
+        },
+        "recovery_fan_percent": [
+          "70"
+        ],
+        "recovery_moves": 1813,
+        "recovery_speed_limit_mm_s": [
+          "25",
+          "25",
+          "25"
+        ],
+        "scope": "The complete centerline lies in a recent native-cooled model footprint. Motion coordinates and extrusion words are retained; only local part cooling and recovery feed rates change.",
+        "speed_limited_moves": 1780
+      }
+    ]
+  },
+  "path_review": {
+    "passed": true,
+    "checks": {
+      "archive": true,
+      "bed_border": true,
+      "fine_and_transition_bands": true,
+      "show_faces_support_free": true,
+      "solid_hosts_sampled": true,
+      "tie_windows_support_free": true,
+      "z_trim": true
+    },
+    "minimum_bed_margin_mm": 116.97251,
+    "bead_envelope_plate_mm": [
+      [
+        133.97251,
+        116.97251
+      ],
+      [
+        190.02749,
+        198.5212245
+      ]
+    ],
+    "emitted_z_trim_mm": [
+      0.0,
+      0.02
+    ],
+    "slicer_warnings": []
+  },
+  "layer_time": {
+    "every_model_layer_has_tower": true,
+    "minimum_return_lower_bound_s": 23.81549078680655,
+    "minimum_return_target_s": 20.0,
+    "minimum_tower_deposition_after_first_layer_s": 23.555200000000003,
+    "model_layers": 150,
+    "passed": true,
+    "purpose": "Measure the single snap's native tower time and time between model layers.",
+    "scope": "Commanded path length divided by feed plus explicit waits; acceleration, firmware motion and camera delays add time. Native smooth timelapse is enabled at launch.",
+    "gcode_archive_member": "Metadata/plate_1.gcode",
+    "gcode_sha256": "681daca96e541dd7fd1bdfdad307d6ca0a2f2207f32de93e04dd06fadbeb6e14",
+    "maximum_return_lower_bound_s": 89.87861513860219,
+    "median_return_lower_bound_s": 24.18766627716184,
+    "minimum_model_deposition_s": 3.0375686852033095,
+    "maximum_model_deposition_s": 32.11133452635373,
+    "reader_source_sha256": "38583653cea1f628ea61ea634f633e1c32857ece8587de38f117ede2974c1707",
+    "reader_disposition": "Temporary manual reading; no added build or commit check."
+  },
+  "launch": {
+    "receipt": "launch.json",
+    "options": {
+      "Timelapse": "On",
+      "Auto bed leveling": "On",
+      "Flow dynamic calibration": "Auto",
+      "Nozzle Offset Calibration": "Auto"
+    },
+    "new_job_confirmed": true
+  },
+  "other_printer_preflight": {
+    "printer": "H2C",
+    "observed_utc": "2026-11-07T19:36:34.989373+00:00",
+    "state": "FAILED",
+    "subtask_name": "HSM-identification-Mark1-white-spare-z000.gcode.3mf",
+    "nozzle_target_c": 0,
+    "bed_target_c": 0,
+    "print_error": 0,
+    "earlier_observed_idle_utc": "2026-11-07T19:19:12+00:00"
+  },
+  "physical_result": {
+    "status": "awaiting physical review",
+    "user_constraint": "Batch time between layers is necessary for the established PET-GF recipe.",
+    "prior_single_cap_failure_observed": false,
+    "selected_interval_status": "First physical attempt; no claimed qualified minimum cooling time."
+  },
+  "research": [
+    {
+      "url": "https://support.ultimaker.com/articles/Knowledge/1667417947135",
+      "supports": "Minimum-layer-time slowdown, minimum-speed floor and Lift Head away-from-part wait."
+    },
+    {
+      "url": "https://forum.bambulab.com/t/park-hotend-for-minimum-layer-time/70222/2",
+      "supports": "Firsthand use of Bambu smooth timelapse to provide cooling time with a native prime tower."
+    },
+    {
+      "url": "https://github.com/bambulab/BambuStudio/blob/v02.08.02.61/src/libslic3r/GCode/WipeTower.cpp",
+      "supports": "Single-colour tower resizing and the rib-wall switch in the installed slicer."
+    },
+    {
+      "url": "https://wiki.polymaker.com/polymaker-products/polymaker-filaments/fiberon-tm/fiberon-tm-pet-gf15",
+      "supports": "Material-specific fan-off guidance."
+    }
+  ],
+  "after_launch": {
+    "observed_utc": "2026-11-07T19:41:30.479745+00:00",
+    "job_id": "1418102531",
+    "gcode_state": "RUNNING",
+    "subtask_name": "2026-11-07-single-regulator-cap-mark2-192f916b.gcode.3mf",
+    "stg_cur": 4,
+    "print_error": 0,
+    "hms": [],
+    "gcode_file_prepare_percent": "100"
+  }
+}

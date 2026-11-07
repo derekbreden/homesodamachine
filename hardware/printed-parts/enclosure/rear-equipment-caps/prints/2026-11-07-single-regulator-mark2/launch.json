@@ -1,0 +1,26 @@
+{
+  "printer": "Mark2",
+  "observed_at": "2026-11-07T19:38:11.468690+00:00",
+  "archive": {
+    "name": "2026-11-07-single-regulator-cap-mark2-192f916b.gcode.3mf",
+    "sha256": "20528fdcab40a4c487d525e5a2b5b0d6665471f7c1c7e9453d9614693340337d",
+    "gcode_sha256": "681daca96e541dd7fd1bdfdad307d6ca0a2f2207f32de93e04dd06fadbeb6e14",
+    "slots": {
+      "1": {
+        "type": "PET-CF",
+        "colour": "161616"
+      }
+    },
+    "objects": [
+      "regulator-snap-cap"
+    ]
+  },
+  "printer_task_id": "1418102531",
+  "gcode_state": "RUNNING",
+  "subtask_name": "2026-11-07-single-regulator-cap-mark2-192f916b.gcode.3mf",
+  "print_error": 0,
+  "hms": [],
+  "layer_num": 0,
+  "total_layer_num": 150,
+  "mc_remaining_time": 106
+}

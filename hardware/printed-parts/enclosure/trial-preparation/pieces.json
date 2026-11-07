@@ -1064,6 +1064,81 @@
       ],
       "pose_reason": "As exported: the mandrel stands on its end face; the setting gauge on its 362 mm2 Z-4 face."
     },
+    "single-regulator-cap": {
+      "printer": "Mark2",
+      "nozzle": {
+        "side": "left",
+        "diameter_mm": 0.4,
+        "flow": "Standard",
+        "hardened": true,
+        "reason": "Match the installed abrasive-compatible fixed left hotend and the approved cap recipe."
+      },
+      "material": "Polymaker Fiberon PET-GF15, black",
+      "parts": [
+        {
+          "name": "regulator-snap-cap",
+          "stl": "hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.stl"
+        }
+      ],
+      "pose_reason": "The approved cap print pose; the native smooth-timelapse tower provides time away from the cap between layers.",
+      "settings": {
+        "wall_loops": {
+          "value": "3",
+          "reason": "The approved production wall count retains the cap spring section."
+        },
+        "wall_generator": {
+          "value": "classic",
+          "reason": "Fixed-width PET-GF perimeter recipe."
+        },
+        "sparse_infill_density": {
+          "value": "100%",
+          "reason": "Solid stock through the cap bodies, leaves, roots and hooks."
+        },
+        "sparse_infill_pattern": {
+          "value": "zig-zag",
+          "reason": "Solid cap deposition."
+        },
+        "timelapse_type": {
+          "value": "1",
+          "reason": "Smooth timelapse parks away and uses the native tower before returning to the cap."
+        },
+        "enable_prime_tower": {
+          "value": "1",
+          "reason": "Reprime on the native tower after each timelapse departure."
+        },
+        "prime_tower_width": {
+          "value": "50",
+          "reason": "A constant perimeter provides time away on every cap layer."
+        },
+        "prime_tower_max_speed": {
+          "value": "10",
+          "reason": "Time on the tower cools the cap while retaining the model print recipe."
+        },
+        "wipe_tower_x": {
+          "value": [
+            "137"
+          ],
+          "reason": "Center the tower footprint within the seasoned bed region."
+        },
+        "wipe_tower_y": {
+          "value": [
+            "120"
+          ],
+          "reason": "Separate the tower brim from the cap brim."
+        },
+        "prime_tower_rib_wall": {
+          "value": "0",
+          "reason": "Keep the requested tower width in single-colour smooth-timelapse mode."
+        }
+      },
+      "plate_offset_mm": {
+        "value": [
+          0,
+          25
+        ],
+        "reason": "Center the combined cap and tower envelope with separate brim footprints."
+      }
+    },
     "rear-equipment-caps": {
       "printer": "Mark2",
       "nozzle": {

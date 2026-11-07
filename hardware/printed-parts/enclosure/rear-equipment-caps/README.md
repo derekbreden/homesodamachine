@@ -107,6 +107,15 @@ on Z0 and spring bending within the layer plane. The appliance uses their instal
 Use the shared PET-GF Tree(auto)/Default support policy. These fits describe
 the modeled assembly; snap force and fatigue remain physical properties.
 
+For an individual water-regulator cover, use the `single-regulator-cap`
+[preparation recipe](../trial-preparation/pieces.json). Its native smooth-timelapse
+tower provides time away from the cap between layers while retaining the
+approved cap geometry and production deposition recipe. The
+[print record](prints/2026-11-07-single-regulator-mark2/README.md) identifies the
+emitted timing and physical-review state. The
+[cooling policy](../../cooling/README.md#small-individual-parts) describes the
+batch-time requirement.
+
 Remove the small cavity supports with a tiny flathead screwdriver that fits
 inside the opening. Derek reports that the original trial's small automatic
 cavity supports removed easily with that tool. Preserve the flat catch
