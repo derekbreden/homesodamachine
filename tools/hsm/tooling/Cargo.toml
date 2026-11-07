@@ -11,10 +11,6 @@ name = "diaphragm-pump-sleeve"
 path = "../../../hardware/printed-parts/diaphragm-pump-sleeve/diaphragm_pump_sleeve.rs"
 
 [[bin]]
-name = "tube-miter-box"
-path = "../../../hardware/printed-parts/fixtures/tube-miter-box/tube_miter_box.rs"
-
-[[bin]]
 name = "soda-bend-holder"
 path = "../../../hardware/printed-parts/soda-bend-holder/soda_bend_holder.rs"
 

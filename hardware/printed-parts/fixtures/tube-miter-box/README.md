@@ -13,7 +13,8 @@ from the machine assembly and its BOM.
 
 | File | Use |
 |---|---|
-| [`tube_miter_box.py`](tube_miter_box.py) | Generator, dimensions and geometric checks |
+| [`tube_miter_box.rs`](tube_miter_box.rs) | The program: the print, its model and their geometric checks |
+| [`numbers.rs`](numbers.rs) | Dimensions |
 | [`tube-miter-box.stl`](tube-miter-box.stl) | The print, on its bottom face |
 | [`tube-miter-box.step`](tube-miter-box.step) | Exact, material-coloured solid |
 
