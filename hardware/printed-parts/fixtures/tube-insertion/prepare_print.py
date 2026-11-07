@@ -92,8 +92,9 @@ def slice_project(project: Path, report: dict, spec: dict, directory: Path,
         raise ValueError(f"Use an empty slice directory: {directory}")
     directory.mkdir(parents=True, exist_ok=True)
     archive_name = project.stem + ".gcode.3mf"
+    cli_project = writer.petgf_cooling.cli_project(project, directory)
     command = [BAMBU_STUDIO, "--slice", "0", "--arrange", "0", "--orient", "0",
-               "--export-3mf", archive_name, "--outputdir", str(directory), str(project)]
+               "--export-3mf", archive_name, "--outputdir", str(directory), str(cli_project)]
     env = dict(os.environ, OMP_NUM_THREADS="1", OPENBLAS_NUM_THREADS="1")
     with (directory / "bambu-cli.log").open("w") as log:
         completed = subprocess.run(command, stdout=log, stderr=subprocess.STDOUT, env=env)

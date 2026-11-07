@@ -65,8 +65,10 @@ applies them when the shared project writer prepares PET-GF from a source
 profile, including a retained historical profile. It leaves other materials
 alone. The Industrial and Sculpted faucet preparers also apply the selected
 localized recipe explicitly. Editable projects register the same output stage
-as a Bambu Studio post-processing script. The enclosure and faucet command-line
-preparers also package the processed native paths, checksum and preparation
+as a Bambu Studio post-processing script. Native command-line preparation uses
+an input copy without the GUI hook and applies the shared output stage after
+slicing. The editable source project retains its hook. The preparers package
+the processed native paths, checksum and preparation
 record. Repeated preparation retains the already processed paths. This output
 stage runs during print preparation.
 

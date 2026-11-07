@@ -52,9 +52,10 @@ def main():
         if directory.exists() and any(directory.iterdir()):
             raise ValueError("Use an empty slice directory")
         directory.mkdir(parents=True, exist_ok=True)
+        cli_project = writer.petgf_cooling.cli_project(PROJECT, directory)
         command = ["/Applications/BambuStudio.app/Contents/MacOS/BambuStudio", "--slice", "0",
                    "--arrange", "0", "--orient", "0", "--export-3mf", ARCHIVE.name,
-                   "--outputdir", str(directory), str(PROJECT)]
+                   "--outputdir", str(directory), str(cli_project)]
         with (directory / "bambu-cli.log").open("w") as log:
             completed = subprocess.run(command, stdout=log, stderr=subprocess.STDOUT)
         if completed.returncode:
