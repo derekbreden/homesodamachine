@@ -19,8 +19,10 @@ The enclosure's steps are Rust programs Bazel runs directly: one for each printe
 from its own recipe and the numbers it takes, and one for the enclosure model, built from the
 pieces' files. So is the installed machine: one program places the pack, the equipment, its
 tubes and the installed parts from the written-down design and the parts' own files, and writes
-the machine's STEP, the model the site draws, its facts and its scene views. Every other step
-still starts Python:
+the machine's STEP, the model the site draws, its facts and its scene views. So is the install
+guide: one program draws the kit page's items from their models, one renders the counter
+opening, and one composes the booklet from its artwork and writes the reading copy the site
+shows and, for an order, the print files. Every other step still starts Python:
 its entry script imports thin modules that send each call to Rust over a JSON pipe, and runs the
 Rust part programs through the `hsm` engine's socket. The build planner
 (`tools/bazel/trace_inputs.py`) knows those steps by their Python entry scripts, and a Rust step
@@ -132,13 +134,13 @@ explicit input recipes come from Rust data providers.
 | End cap | `endcap-circular-step`; the machined cap's files from the numbers crates of the tube, the float and the cap | `hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_step.rs` |
 | Installed machine | `installed-machine`; the placements, equipment, tubes, installed parts and wiring in one process, written as the machine's STEP, viewer payload, facts and scene GLBs | `hardware/manifold-layout/installed_machine.rs` |
 | Machine checks | `machine-checks`; fit, clearance and scalar readings, off during the conversion | `hardware/manifold-layout/machine_checks.rs` |
+| Install guide | `install-guide`; the booklet's pages from its artwork, kit drawings and the faucet plate's DXF, written as the reading copy, cover picture and sidecar, and with `HSM_PRESS` the Lulu interior, cover and order bundle | `hardware/install-guide/install_guide.rs` |
+| Kit drawings | `kit-art`; each supplied item's hidden-line view from its model and the faucet's numbers | `hardware/install-guide/kit_art.rs` |
+| Counter opening | `opening-scene`; the faucet's tails over the counter's hole, rendered, and the parts' outline in the same frame | `hardware/install-guide/opening_scene.rs` |
+| Page drawing | the `hsm-pages` library; PDF, type and line breaking, outlined pictures, pixels and line drawings of models | `tools/hsm/pages/` |
 | Model exports | the `hsm-model-export` library; physical models, display surfaces, wiring append and scene GLBs | `hardware/assembly/scenes/model_export/` |
 | Model context | `machine-data`; facts, scene documents and numerical wiring context | `tools/hsm/machine-data/` |
 | Document readers | Rust ledger and procedure programs, with explicit source dependencies and remaining raw provider inputs | `tools/hsm/ledger/`, `tools/hsm/assembly-docs/` |
-
-The install guide's twelve plumbing scenes use Rust geometry, dimensions, colours and
-render-job providers. Native guide composition calls the existing ReportLab, Pillow and
-pypdf library primitives through opaque object handles.
 
 The final machine report carries its existing construction questions from current scalar source
 ledgers and Rust measurements, including handhold sections and supported sloping faces.
@@ -186,13 +188,13 @@ with the existing build trace registries.
 | `part-data` | Purchased reference providers, storage catalogues, refrigeration/printing fixtures, drain adapters, cuffs, press, sleeve, trays and zone-C recipes |
 | `shared-data` | Materials, finishes, colour arithmetic, stock routing and shared fit/snap/reeding/cooling helpers |
 | `layout-data` | Appliance frames, fitting names, native tube construction and sampling, reservoir routes and soda inlet/holder recipes |
-| `guides`, `guide-native` | Install and faucet guide layout, artwork, camera/mask/shading calculations, plumbing render plans and document composition |
+| `guides`, `guide-native` | The faucet guide and the install guide's hand-run art tools and print preflight: layout, artwork and mask/shading calculations through ReportLab, Pillow and pypdf handles; no build step runs them |
 | `build-data`, `bookkeeping-data` | Mesh payloads, projection, source hashes, fine-asset adoption, print/graft planning, artifact identity/caches, inventory, source stripping, carry/selection/pointers and publication archives |
 | `build-plan` | Generator action planning, dependency rules, graph projections and BUILD rendering |
 | `hsm-run`, `hsm-run-slots`, `hsm-run-native` | Host admission, inherited run/CAD/compiler leases, process execution, viewer notifications and runtime installation |
 
 The recipe, reader and document modules of `enclosure-data`, `machine-data`, `cold-core-data`
-and `guides` are Rust generated from their Python modules, about 37,700 authored lines. Each
+and `guides` are Rust generated from their Python modules. Each
 generated module is one `initialize` function over `hsm_documents::interop::Val`: Python
 names resolve at run time through `Env` scopes, and a module outside the compiled set is
 imported through the Python adapter's callback. No generator is retained, so edits go into

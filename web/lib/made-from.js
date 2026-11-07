@@ -24,6 +24,7 @@ const CODE_NAMES = {
   render: "Render code",
   guides: "Guide code",
   "guide-native": "Guide code",
+  pages: "Page code",
   "assembly-docs": "Assembly document code",
   ledger: "Ledger",
   "shared-data": "Shared data",

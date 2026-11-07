@@ -73,8 +73,6 @@ NOT_BUNDLED_DIRS = (
     "hardware/printed-parts/enclosure/asse-drip-pan",  # retained retired geometry
     "hardware/quickstart-codex",           # retired owner document and local studies
     "hardware/quickstart-claude",          # retired owner document and local studies
-    "hardware/install-guide/plumbing/out",
-    "hardware/install-guide/plumbing/modern/out",
     "hardware/install-guide/out",            # a leaf's own two renders; no route serves one
     # a hand-run guide's page renders and its art pass's staged STEPs; the walk above reaches
     # every `.step` under `hardware/` (hardware/weld-rotator-guide/README.md)
@@ -294,7 +292,6 @@ BUNDLED_PAYLOAD_FILES = (
 #: install-guide PDF, cover and sidecar reach the site directly in its checkout.
 BUNDLED_ART_DIRS = (
     "hardware/install-guide/art",
-    "hardware/install-guide/plumbing",
 )
 
 #: Scene metadata rides beside the picture it describes.

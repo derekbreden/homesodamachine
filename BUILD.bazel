@@ -1589,188 +1589,38 @@ cd .. && rm -rf work-faucet-industrial-assembly
 )
 
 genrule(
-    name = "render-modern-tee",
+    name = "install-guide-program",
     srcs = [
-        "hardware/install-guide/cad_art_props.rs",
-        "hardware/install-guide/install_art_props.rs",
-        "hardware/install-guide/kit_art_props.rs",
-        "hardware/install-guide/plumbing/modern/render_modern_tee.py",
-        "hardware/install-guide/plumbing_art_props.rs",
-        "hardware/printed-parts/enclosure/bulkhead-ring/numbers.rs",
-        "hardware/printed-parts/enclosure/enclosure/interface/anchor_cap.rs",
-        "hardware/printed-parts/enclosure/enclosure/interface/fits.rs",
-        "hardware/printed-parts/enclosure/enclosure/interface/lib.rs",
-        "hardware/printed-parts/enclosure/enclosure/interface/swept.rs",
-        "hardware/printed-parts/valve-seat/numbers.rs",
-        "hardware/reference/_reference_data.py",
-        "hardware/reference/jg-pp0408w/jg-pp0408w.step.mesh",
-        "hardware/reference/jg-pp0408w/jg_pp0408w.py",
-        "hardware/scripts/_build_data.py",
-        "hardware/scripts/_guides_compiled.py",
-        "hardware/scripts/_hsm_render.py",
-        "hardware/scripts/_rust_data.py",
-        "hardware/scripts/_rust_objects.py",
-        "hardware/scripts/_rust_part.py",
-        "tools/hsm/build-data/Cargo.toml",
-        "tools/hsm/build-data/src/artifact_cache.rs",
-        "tools/hsm/build-data/src/artifacts.rs",
-        "tools/hsm/build-data/src/assets.rs",
-        "tools/hsm/build-data/src/inventory.rs",
-        "tools/hsm/build-data/src/lib.rs",
-        "tools/hsm/build-data/src/main.rs",
-        "tools/hsm/build-data/src/payload.rs",
-        "tools/hsm/build-data/src/projection.rs",
-        "tools/hsm/build-data/src/publication.rs",
-        "tools/hsm/build-data/src/publication_archive.rs",
-        "tools/hsm/build-data/src/publication_state.rs",
-        "tools/hsm/build-data/src/publication_zlib.rs",
-        "tools/hsm/build-data/src/sources.rs",
-        "tools/hsm/build-data/src/support.rs",
-        "tools/hsm/build-data/src/surfaces.rs",
+        "hardware/install-guide/install-guide/book.rs",
+        "hardware/install-guide/install-guide/pages.rs",
+        "hardware/install-guide/install-guide/press.rs",
+        "hardware/install-guide/install-guide/slots.rs",
+        "hardware/install-guide/install_guide.rs",
+        "hardware/printed-parts/faucet/numbers/catalog.rs",
+        "hardware/printed-parts/faucet/numbers/interface.rs",
+        "hardware/printed-parts/faucet/numbers/lib.rs",
+        "hardware/printed-parts/faucet/numbers/paths.rs",
+        "hardware/printed-parts/faucet/numbers/shell.rs",
+        "hardware/printed-parts/faucet/numbers/snap.rs",
+        "hardware/printed-parts/faucet/numbers/stack.rs",
         ":out/cargo-config/tools/hsm/cargo-config.json",
-        "tools/hsm/documents/Cargo.toml",
-        "tools/hsm/documents/src/interop.rs",
-        "tools/hsm/documents/src/interop/standard.rs",
-        "tools/hsm/documents/src/lib.rs",
-        "tools/hsm/documents/src/python_checked.rs",
-        "tools/hsm/faucet-data/Cargo.toml",
-        "tools/hsm/faucet-data/src/assembly.rs",
-        "tools/hsm/faucet-data/src/assembly_dimensions.rs",
-        "tools/hsm/faucet-data/src/collar.rs",
-        "tools/hsm/faucet-data/src/counter_plate.rs",
-        "tools/hsm/faucet-data/src/covers.rs",
-        "tools/hsm/faucet-data/src/geos.rs",
-        "tools/hsm/faucet-data/src/lever.rs",
-        "tools/hsm/faucet-data/src/lib.rs",
-        "tools/hsm/faucet-data/src/main.rs",
-        "tools/hsm/faucet-data/src/plumbing.rs",
-        "tools/hsm/faucet-data/src/plumbing_catalog.json",
-        "tools/hsm/faucet-data/src/r2010-template.dxf.in",
-        "tools/hsm/faucet-data/src/shell.rs",
-        "tools/hsm/faucet-data/src/shell_dimensions.rs",
-        "tools/hsm/faucet-data/src/vent.rs",
-        "tools/hsm/faucet/Cargo.toml",
-        "tools/hsm/faucet/src/assembly.rs",
-        "tools/hsm/faucet/src/counter.rs",
-        "tools/hsm/faucet/src/display.rs",
-        "tools/hsm/faucet/src/lib.rs",
-        "tools/hsm/faucet/src/metrics.rs",
-        "tools/hsm/faucet/src/shell.rs",
-        "tools/hsm/geometry/Cargo.toml",
-        "tools/hsm/geometry/src/lib.rs",
-        "tools/hsm/geometry/src/payload.rs",
-        "tools/hsm/geometry/src/queries.rs",
-        "tools/hsm/guide-native/Cargo.toml",
-        "tools/hsm/guide-native/src/lib.rs",
-        "tools/hsm/guides/Cargo.toml",
-        "tools/hsm/guides/src/compiled.rs",
-        "tools/hsm/guides/src/compiled/modules.rs",
-        "tools/hsm/guides/src/compiled/modules/_cad_art.rs",
-        "tools/hsm/guides/src/compiled/modules/_cad_art_mesh.rs",
-        "tools/hsm/guides/src/compiled/modules/_install_art.rs",
-        "tools/hsm/guides/src/compiled/modules/_install_art_mesh.rs",
-        "tools/hsm/guides/src/compiled/modules/_plumbing_art_mesh.rs",
-        "tools/hsm/guides/src/compiled/modules/common.rs",
-        "tools/hsm/guides/src/compiled/modules/contours.rs",
-        "tools/hsm/guides/src/compiled/modules/cylinder_actions.rs",
-        "tools/hsm/guides/src/compiled/modules/faucet_book.rs",
-        "tools/hsm/guides/src/compiled/modules/fill_scene.rs",
-        "tools/hsm/guides/src/compiled/modules/hold_scene.rs",
-        "tools/hsm/guides/src/compiled/modules/ice_scene.rs",
-        "tools/hsm/guides/src/compiled/modules/insertion_actions.rs",
-        "tools/hsm/guides/src/compiled/modules/kit_art.rs",
-        "tools/hsm/guides/src/compiled/modules/landscape.rs",
-        "tools/hsm/guides/src/compiled/modules/opening_scene.rs",
-        "tools/hsm/guides/src/compiled/modules/plumbing_scenes.rs",
-        "tools/hsm/guides/src/compiled/modules/preflight.rs",
-        "tools/hsm/guides/src/compiled/modules/press.rs",
-        "tools/hsm/guides/src/compiled/modules/render_modern_tee.rs",
-        "tools/hsm/guides/src/compiled/modules/scenes.rs",
-        "tools/hsm/guides/src/compiled/modules/startup.rs",
-        "tools/hsm/guides/src/lib.rs",
-        "tools/hsm/guides/src/main.rs",
-        "tools/hsm/kernel/Cargo.toml",
-        "tools/hsm/kernel/src/boolean.rs",
-        "tools/hsm/kernel/src/build.rs",
-        "tools/hsm/kernel/src/dxf.rs",
-        "tools/hsm/kernel/src/edge.rs",
-        "tools/hsm/kernel/src/face.rs",
-        "tools/hsm/kernel/src/import.rs",
-        "tools/hsm/kernel/src/lib.rs",
-        "tools/hsm/kernel/src/mapped.rs",
-        "tools/hsm/kernel/src/mass.rs",
-        "tools/hsm/kernel/src/math.rs",
-        "tools/hsm/kernel/src/part.rs",
-        "tools/hsm/kernel/src/plane.rs",
-        "tools/hsm/kernel/src/profile.rs",
-        "tools/hsm/kernel/src/reads.rs",
-        "tools/hsm/kernel/src/round.rs",
-        "tools/hsm/kernel/src/round/rolled.rs",
-        "tools/hsm/kernel/src/rule.rs",
-        "tools/hsm/kernel/src/screw.rs",
-        "tools/hsm/kernel/src/sketch_hull.rs",
-        "tools/hsm/kernel/src/solid.rs",
-        "tools/hsm/kernel/src/spline.rs",
-        "tools/hsm/kernel/src/step.rs",
-        "tools/hsm/kernel/src/step/analytic.rs",
-        "tools/hsm/kernel/src/sweep.rs",
-        "tools/hsm/kernel/src/text.rs",
-        "tools/hsm/kernel/src/thru.rs",
-        "tools/hsm/kernel/src/topo.rs",
-        "tools/hsm/kernel/src/triangulate.rs",
-        "tools/hsm/kernel/src/write.rs",
-        "tools/hsm/part-data/Cargo.toml",
-        "tools/hsm/part-data/src/electronics.rs",
-        "tools/hsm/part-data/src/main.rs",
-        "tools/hsm/part-data/src/output.rs",
-        "tools/hsm/part-data/src/reference.rs",
-        "tools/hsm/part-data/src/reference_catalog.rs",
-        "tools/hsm/part-data/src/sleeve.rs",
-        "tools/hsm/part-data/src/storage.rs",
-        "tools/hsm/part-data/src/zone.rs",
-        "tools/hsm/render/Cargo.toml",
-        "tools/hsm/render/src/annotate.rs",
-        "tools/hsm/render/src/bin/hsm-render.rs",
-        "tools/hsm/render/src/camera.rs",
-        "tools/hsm/render/src/env.rs",
-        "tools/hsm/render/src/gpu.rs",
-        "tools/hsm/render/src/image.rs",
-        "tools/hsm/render/src/job.rs",
-        "tools/hsm/render/src/lib.rs",
-        "tools/hsm/render/src/overlay.rs",
-        "tools/hsm/render/src/payload.rs",
-        "tools/hsm/render/src/pick.rs",
-        "tools/hsm/render/src/plan.rs",
-        "tools/hsm/render/src/scene.rs",
-        "tools/hsm/render/src/shaders/common.wgsl",
-        "tools/hsm/render/src/shaders/env.wgsl",
-        "tools/hsm/render/src/shaders/line.wgsl",
-        "tools/hsm/render/src/shaders/shadow.wgsl",
-        "tools/hsm/render/src/shaders/surface.wgsl",
-        "tools/hsm/render/src/shadow.rs",
-        "tools/hsm/shared-data/Cargo.toml",
+        "tools/hsm/faucet-numbers/Cargo.toml",
+        "tools/hsm/install-guide/Cargo.toml",
+        "tools/hsm/pages/Cargo.toml",
+        "tools/hsm/pages/src/font.rs",
+        "tools/hsm/pages/src/lib.rs",
+        "tools/hsm/pages/src/lines.rs",
+        "tools/hsm/pages/src/page.rs",
+        "tools/hsm/pages/src/pdf.rs",
+        "tools/hsm/pages/src/picture.rs",
+        "tools/hsm/pages/src/raster.rs",
+        "tools/hsm/pages/src/reads.rs",
+        "tools/hsm/pages/src/srgb.icc",
+        "tools/hsm/pages/src/text.rs",
         "tools/hsm/shared-data/catalog/materials.json",
-        "tools/hsm/shared-data/catalog/routing.json",
         "tools/hsm/shared-data/catalog/scalars.json",
-        "tools/hsm/shared-data/src/color.rs",
-        "tools/hsm/shared-data/src/common.rs",
-        "tools/hsm/shared-data/src/lib.rs",
-        "tools/hsm/tooling/Cargo.toml",
-        "web/public/finishes.json",
     ],
-    outs = [
-        "out/render-modern-tee/hardware/install-guide/plumbing/modern/art/modern-release-pressed.png",
-        "out/render-modern-tee/hardware/install-guide/plumbing/modern/art/modern-release-ready.png",
-        "out/render-modern-tee/hardware/install-guide/plumbing/modern/art/modern-release-withdrawn.png",
-        "out/render-modern-tee/hardware/install-guide/plumbing/modern/art/modern-tee-assembly-ready.png",
-        "out/render-modern-tee/hardware/install-guide/plumbing/modern/art/modern-tee-complete.png",
-        "out/render-modern-tee/hardware/install-guide/plumbing/modern/art/modern-tee-line-ready.png",
-        "out/render-modern-tee/hardware/install-guide/plumbing/modern/art/modern-water-off.png",
-        "out/render-modern-tee/hardware/install-guide/plumbing/modern/art/modern-water-on.png",
-        "out/render-modern-tee/hardware/install-guide/plumbing/modern/out/modern-water-on.step",
-        "out/render-modern-tee/hardware/install-guide/plumbing/modern/out/modern-water-on.step.mesh",
-        "out/render-modern-tee/hardware/install-guide/plumbing/modern/out/modern-water-on.step.npz",
-    ],
+    outs = ["out/install-guide-program/install-guide"],
     tags = ["no-sandbox"],
     cmd = """
 set -e
@@ -1794,148 +1644,143 @@ case "$$(uname -s)" in
     };;
   *) copy_file() { cp "$$@"; };;
 esac
-O0=$$PWD/$(location out/render-modern-tee/hardware/install-guide/plumbing/modern/art/modern-release-pressed.png)
-O1=$$PWD/$(location out/render-modern-tee/hardware/install-guide/plumbing/modern/art/modern-release-ready.png)
-O2=$$PWD/$(location out/render-modern-tee/hardware/install-guide/plumbing/modern/art/modern-release-withdrawn.png)
-O3=$$PWD/$(location out/render-modern-tee/hardware/install-guide/plumbing/modern/art/modern-tee-assembly-ready.png)
-O4=$$PWD/$(location out/render-modern-tee/hardware/install-guide/plumbing/modern/art/modern-tee-complete.png)
-O5=$$PWD/$(location out/render-modern-tee/hardware/install-guide/plumbing/modern/art/modern-tee-line-ready.png)
-O6=$$PWD/$(location out/render-modern-tee/hardware/install-guide/plumbing/modern/art/modern-water-off.png)
-O7=$$PWD/$(location out/render-modern-tee/hardware/install-guide/plumbing/modern/art/modern-water-on.png)
-O8=$$PWD/$(location out/render-modern-tee/hardware/install-guide/plumbing/modern/out/modern-water-on.step)
-O9=$$PWD/$(location out/render-modern-tee/hardware/install-guide/plumbing/modern/out/modern-water-on.step.mesh)
-O10=$$PWD/$(location out/render-modern-tee/hardware/install-guide/plumbing/modern/out/modern-water-on.step.npz)
-rm -rf work-render-modern-tee
-for f in $(SRCS); do
-  case $$f in
-    */node_modules/*) continue;;
-    */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
-    *) t=$$f;;
-  esac
-  mkdir -p "work-render-modern-tee/$$(dirname "$$t")"; copy_file -L "$$f" "work-render-modern-tee/$$t"
+hsm_run=
+for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
+  if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
 done
-for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
-  if [ -d $$d ]; then mkdir -p work-render-modern-tee/$$(dirname $$d); ln -sfn $$PWD/$$d work-render-modern-tee/$$d; fi
-done
-for f in hardware/scripts/_run_lock.py hardware/scripts/_run_native.py hardware/scripts/_run_slots.py tools/hsm/run-slots.defaults.json tools/run-slots.mjs tools/run.py; do
-  mkdir -p work-render-modern-tee/$$(dirname $$f); cp $$HSM_WORKSPACE/$$f work-render-modern-tee/$$f
-done
-cd work-render-modern-tee
-ln -sfn $$HSM_WORKSPACE/.cache .cache
-D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/install-guide/plumbing/modern/render_modern_tee.py > /dev/null
-copy_file hardware/install-guide/plumbing/modern/art/modern-release-pressed.png "$$O0"
-copy_file hardware/install-guide/plumbing/modern/art/modern-release-ready.png "$$O1"
-copy_file hardware/install-guide/plumbing/modern/art/modern-release-withdrawn.png "$$O2"
-copy_file hardware/install-guide/plumbing/modern/art/modern-tee-assembly-ready.png "$$O3"
-copy_file hardware/install-guide/plumbing/modern/art/modern-tee-complete.png "$$O4"
-copy_file hardware/install-guide/plumbing/modern/art/modern-tee-line-ready.png "$$O5"
-copy_file hardware/install-guide/plumbing/modern/art/modern-water-off.png "$$O6"
-copy_file hardware/install-guide/plumbing/modern/art/modern-water-on.png "$$O7"
-copy_file hardware/install-guide/plumbing/modern/out/modern-water-on.step "$$O8"
-copy_file hardware/install-guide/plumbing/modern/out/modern-water-on.step.mesh "$$O9"
-copy_file hardware/install-guide/plumbing/modern/out/modern-water-on.step.npz "$$O10"
-cd .. && rm -rf work-render-modern-tee
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+cargo=$$(command -v cargo || true)
+for c in "$$cargo" /opt/homebrew/opt/rustup/bin/cargo ~/.cargo/bin/cargo; do if [ -x "$$c" ]; then cargo=$$c; break; fi; done
+if [ ! -x "$$cargo" ]; then echo "cargo is not installed (https://rustup.rs)" >&2; exit 1; fi
+export HOME=~ PATH="$$(dirname "$$cargo"):$$PATH"
+O0=$$PWD/$(location out/install-guide-program/install-guide)
+cd "$$HSM_WORKSPACE/tools/hsm"
+CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet --manifest-path install-guide/Cargo.toml --bin install-guide
+copy_file target/release/install-guide "$$O0"
 """,
 )
 
 genrule(
-    name = "plumbing-scenes",
+    name = "install-guide",
     srcs = [
-        "hardware/install-guide/cad_art_props.rs",
-        "hardware/install-guide/install_art_props.rs",
-        "hardware/install-guide/kit_art_props.rs",
-        "hardware/install-guide/plumbing/plumbing_scenes.py",
-        "hardware/install-guide/plumbing_art_props.rs",
-        "hardware/printed-parts/enclosure/bulkhead-ring/numbers.rs",
+        ":out/install-guide-program/install-guide",
+        ":out/kit-art/hardware/install-guide/assets/kit/cold-kit.svg",
+        ":out/kit-art/hardware/install-guide/assets/kit/collet-press.svg",
+        ":out/kit-art/hardware/install-guide/assets/kit/faucet-and-plate.svg",
+        ":out/kit-art/hardware/install-guide/assets/kit/filtered-line.svg",
+        ":out/kit-art/hardware/install-guide/assets/kit/install-guide.svg",
+        ":out/kit-art/hardware/install-guide/assets/kit/machine.svg",
+        ":out/kit-art/hardware/install-guide/assets/kit/power-cord.svg",
+        ":out/kit-art/hardware/install-guide/assets/kit/regulator-and-tether.svg",
+        ":out/kit-art/hardware/install-guide/assets/kit/water-tees.svg",
+        ":out/opening-scene/hardware/install-guide/assets/opening-faucet-outline.svg",
+        ":out/opening-scene/hardware/install-guide/assets/opening.png",
+        ":out/under-counter-plate/hardware/cut-parts/faucet/under-counter-plate/under-counter-plate.dxf",
+        "hardware/install-guide/assets/brand/mark-1024.png",
+        "hardware/install-guide/assets/fill-scene-inputs.json",
+        "hardware/install-guide/assets/fill-screen-framed.png",
+        "hardware/install-guide/assets/filter-in-cabinet.png",
+        "hardware/install-guide/assets/hose-attached.png",
+        "hardware/install-guide/assets/hose-removed.png",
+        "hardware/install-guide/assets/kitchen-hose.png",
+        "hardware/install-guide/assets/kitchen-push.png",
+        "hardware/install-guide/assets/print-resolution.json",
+        "hardware/install-guide/assets/steps/co2-ready.png",
+        "hardware/install-guide/assets/steps/connect-rear-open.png",
+        "hardware/install-guide/assets/steps/fill-closed.png",
+        "hardware/install-guide/assets/steps/fill-ready.png",
+        "hardware/install-guide/assets/steps/modern-tee-assembly-ready.png",
+        "hardware/install-guide/assets/steps/modern-tee-complete.png",
+        "hardware/install-guide/assets/steps/modern-water-off.png",
+        "hardware/install-guide/assets/steps/modern-water-on.png",
+        "hardware/install-guide/assets/steps/mount-drop.png",
+        "hardware/install-guide/assets/steps/mount-under-slide-clean.png",
+        "hardware/install-guide/assets/steps/mount-under-tighten-clean.png",
+        "hardware/install-guide/assets/steps/pour-base.png",
+        "hardware/install-guide/assets/steps/pour-glass-mask.png",
+        "hardware/install-guide/assets/steps/power-ready.png",
+        "hardware/install-guide/assets/steps/release-with-press.png",
+        "hardware/install-guide/assets/steps/startup-gas.png",
+        "hardware/install-guide/assets/steps/the-back-face.png",
+        "hardware/install-guide/assets/tee-after.png",
+        "hardware/install-guide/assets/two-tees.png",
+        "hardware/install-guide/fonts/Plex-Bold.ttf",
+        "hardware/install-guide/fonts/Plex-Regular.ttf",
+        "hardware/install-guide/fonts/Plex-Semibold.ttf",
+        "tools/hsm/pages/src/srgb.icc",
+        "tools/hsm/shared-data/catalog/materials.json",
+        "tools/hsm/shared-data/catalog/scalars.json",
+    ],
+    outs = [
+        "out/install-guide/hardware/install-guide/install-guide.cover.png",
+        "out/install-guide/hardware/install-guide/install-guide.pdf",
+        "out/install-guide/hardware/install-guide/install-guide.pdf.json",
+    ],
+    cmd = """
+set -e
+case "$$(uname -s)" in
+  Darwin)
+    copy_mask=$$((8#$$(umask)))
+    copy_bits=("" x w wx r rx rw rwx)
+    copy_mode="u-$${copy_bits[$$((copy_mask >> 6 & 7))]},g-$${copy_bits[$$((copy_mask >> 3 & 7))]},o-$${copy_bits[$$((copy_mask & 7))]}"
+    copy_file() {
+      local copy_dest="$${!#}" copy_target copy_permissions="$$copy_mode"
+      if [ -e "$$copy_dest" ] || [ -L "$$copy_dest" ]; then
+        if [ ! -f "$$copy_dest" ] || [ -L "$$copy_dest" ]; then cp "$$@"; return; fi
+        copy_permissions=$$(stat -f %Lp "$$copy_dest")
+        copy_target=$$(mktemp "$$copy_dest.hsm-copy.XXXXXX")
+      else copy_target="$$copy_dest"; fi
+      if cp -c "$${@:1:$$(( $$# - 1 ))}" "$$copy_target" 2>/dev/null; then
+        chmod "$$copy_permissions" "$$copy_target"
+        touch "$$copy_target"
+        if [ "$$copy_target" != "$$copy_dest" ]; then mv -f "$$copy_target" "$$copy_dest"; fi
+      else rm -f "$$copy_target"; cp "$$@"; fi
+    };;
+  *) copy_file() { cp "$$@"; };;
+esac
+hsm_run=
+for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
+  if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
+done
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+O0=$$PWD/$(location out/install-guide/hardware/install-guide/install-guide.cover.png)
+O1=$$PWD/$(location out/install-guide/hardware/install-guide/install-guide.pdf)
+O2=$$PWD/$(location out/install-guide/hardware/install-guide/install-guide.pdf.json)
+rm -rf work
+for f in $(SRCS); do
+  case $$f in
+    */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
+    *) t=$$f;;
+  esac
+  mkdir -p "work/$$(dirname "$$t")"; copy_file -L "$$f" "work/$$t"
+done
+cd work
+"$$hsm_run" -- ./install-guide > /dev/null
+copy_file hardware/install-guide/install-guide.cover.png "$$O0"
+copy_file hardware/install-guide/install-guide.pdf "$$O1"
+copy_file hardware/install-guide/install-guide.pdf.json "$$O2"
+""",
+)
+
+genrule(
+    name = "kit-art-program",
+    srcs = [
+        "hardware/install-guide/kit-art/props.rs",
+        "hardware/install-guide/kit_art.rs",
         "hardware/printed-parts/enclosure/enclosure/interface/anchor_cap.rs",
         "hardware/printed-parts/enclosure/enclosure/interface/fits.rs",
         "hardware/printed-parts/enclosure/enclosure/interface/lib.rs",
         "hardware/printed-parts/enclosure/enclosure/interface/swept.rs",
-        "hardware/scripts/_build_data.py",
-        "hardware/scripts/_guides_compiled.py",
-        "hardware/scripts/_hsm_render.py",
-        "hardware/scripts/_rust_data.py",
-        "hardware/scripts/_rust_objects.py",
-        "hardware/scripts/_rust_part.py",
-        "tools/hsm/build-data/Cargo.toml",
-        "tools/hsm/build-data/src/artifact_cache.rs",
-        "tools/hsm/build-data/src/artifacts.rs",
-        "tools/hsm/build-data/src/assets.rs",
-        "tools/hsm/build-data/src/inventory.rs",
-        "tools/hsm/build-data/src/lib.rs",
-        "tools/hsm/build-data/src/main.rs",
-        "tools/hsm/build-data/src/payload.rs",
-        "tools/hsm/build-data/src/projection.rs",
-        "tools/hsm/build-data/src/publication.rs",
-        "tools/hsm/build-data/src/publication_archive.rs",
-        "tools/hsm/build-data/src/publication_state.rs",
-        "tools/hsm/build-data/src/publication_zlib.rs",
-        "tools/hsm/build-data/src/sources.rs",
-        "tools/hsm/build-data/src/support.rs",
-        "tools/hsm/build-data/src/surfaces.rs",
+        "hardware/printed-parts/faucet/numbers/catalog.rs",
+        "hardware/printed-parts/faucet/numbers/interface.rs",
+        "hardware/printed-parts/faucet/numbers/lib.rs",
+        "hardware/printed-parts/faucet/numbers/paths.rs",
+        "hardware/printed-parts/faucet/numbers/shell.rs",
+        "hardware/printed-parts/faucet/numbers/snap.rs",
+        "hardware/printed-parts/faucet/numbers/stack.rs",
         ":out/cargo-config/tools/hsm/cargo-config.json",
-        "tools/hsm/documents/Cargo.toml",
-        "tools/hsm/documents/src/interop.rs",
-        "tools/hsm/documents/src/interop/standard.rs",
-        "tools/hsm/documents/src/lib.rs",
-        "tools/hsm/documents/src/python_checked.rs",
-        "tools/hsm/faucet-data/Cargo.toml",
-        "tools/hsm/faucet-data/src/assembly.rs",
-        "tools/hsm/faucet-data/src/assembly_dimensions.rs",
-        "tools/hsm/faucet-data/src/collar.rs",
-        "tools/hsm/faucet-data/src/counter_plate.rs",
-        "tools/hsm/faucet-data/src/covers.rs",
-        "tools/hsm/faucet-data/src/geos.rs",
-        "tools/hsm/faucet-data/src/lever.rs",
-        "tools/hsm/faucet-data/src/lib.rs",
-        "tools/hsm/faucet-data/src/main.rs",
-        "tools/hsm/faucet-data/src/plumbing.rs",
-        "tools/hsm/faucet-data/src/plumbing_catalog.json",
-        "tools/hsm/faucet-data/src/r2010-template.dxf.in",
-        "tools/hsm/faucet-data/src/shell.rs",
-        "tools/hsm/faucet-data/src/shell_dimensions.rs",
-        "tools/hsm/faucet-data/src/vent.rs",
-        "tools/hsm/faucet/Cargo.toml",
-        "tools/hsm/faucet/src/assembly.rs",
-        "tools/hsm/faucet/src/counter.rs",
-        "tools/hsm/faucet/src/display.rs",
-        "tools/hsm/faucet/src/lib.rs",
-        "tools/hsm/faucet/src/metrics.rs",
-        "tools/hsm/faucet/src/shell.rs",
-        "tools/hsm/geometry/Cargo.toml",
-        "tools/hsm/geometry/src/lib.rs",
-        "tools/hsm/geometry/src/payload.rs",
-        "tools/hsm/geometry/src/queries.rs",
-        "tools/hsm/guide-native/Cargo.toml",
-        "tools/hsm/guide-native/src/lib.rs",
-        "tools/hsm/guides/Cargo.toml",
-        "tools/hsm/guides/src/compiled.rs",
-        "tools/hsm/guides/src/compiled/modules.rs",
-        "tools/hsm/guides/src/compiled/modules/_cad_art.rs",
-        "tools/hsm/guides/src/compiled/modules/_cad_art_mesh.rs",
-        "tools/hsm/guides/src/compiled/modules/_install_art.rs",
-        "tools/hsm/guides/src/compiled/modules/_install_art_mesh.rs",
-        "tools/hsm/guides/src/compiled/modules/_plumbing_art_mesh.rs",
-        "tools/hsm/guides/src/compiled/modules/common.rs",
-        "tools/hsm/guides/src/compiled/modules/contours.rs",
-        "tools/hsm/guides/src/compiled/modules/cylinder_actions.rs",
-        "tools/hsm/guides/src/compiled/modules/faucet_book.rs",
-        "tools/hsm/guides/src/compiled/modules/fill_scene.rs",
-        "tools/hsm/guides/src/compiled/modules/hold_scene.rs",
-        "tools/hsm/guides/src/compiled/modules/ice_scene.rs",
-        "tools/hsm/guides/src/compiled/modules/insertion_actions.rs",
-        "tools/hsm/guides/src/compiled/modules/kit_art.rs",
-        "tools/hsm/guides/src/compiled/modules/landscape.rs",
-        "tools/hsm/guides/src/compiled/modules/opening_scene.rs",
-        "tools/hsm/guides/src/compiled/modules/plumbing_scenes.rs",
-        "tools/hsm/guides/src/compiled/modules/preflight.rs",
-        "tools/hsm/guides/src/compiled/modules/press.rs",
-        "tools/hsm/guides/src/compiled/modules/render_modern_tee.rs",
-        "tools/hsm/guides/src/compiled/modules/scenes.rs",
-        "tools/hsm/guides/src/compiled/modules/startup.rs",
-        "tools/hsm/guides/src/lib.rs",
-        "tools/hsm/guides/src/main.rs",
+        "tools/hsm/enclosure-interface/Cargo.toml",
+        "tools/hsm/faucet-numbers/Cargo.toml",
         "tools/hsm/kernel/Cargo.toml",
         "tools/hsm/kernel/src/boolean.rs",
         "tools/hsm/kernel/src/build.rs",
@@ -1966,54 +1811,56 @@ genrule(
         "tools/hsm/kernel/src/topo.rs",
         "tools/hsm/kernel/src/triangulate.rs",
         "tools/hsm/kernel/src/write.rs",
-        "tools/hsm/render/Cargo.toml",
-        "tools/hsm/render/src/annotate.rs",
-        "tools/hsm/render/src/bin/hsm-render.rs",
-        "tools/hsm/render/src/camera.rs",
-        "tools/hsm/render/src/env.rs",
-        "tools/hsm/render/src/gpu.rs",
-        "tools/hsm/render/src/image.rs",
-        "tools/hsm/render/src/job.rs",
-        "tools/hsm/render/src/lib.rs",
-        "tools/hsm/render/src/overlay.rs",
-        "tools/hsm/render/src/payload.rs",
-        "tools/hsm/render/src/pick.rs",
-        "tools/hsm/render/src/plan.rs",
-        "tools/hsm/render/src/scene.rs",
-        "tools/hsm/render/src/shaders/common.wgsl",
-        "tools/hsm/render/src/shaders/env.wgsl",
-        "tools/hsm/render/src/shaders/line.wgsl",
-        "tools/hsm/render/src/shaders/shadow.wgsl",
-        "tools/hsm/render/src/shaders/surface.wgsl",
-        "tools/hsm/render/src/shadow.rs",
-        "tools/hsm/shared-data/Cargo.toml",
+        "tools/hsm/kit-art/Cargo.toml",
+        "tools/hsm/pages/Cargo.toml",
+        "tools/hsm/pages/src/font.rs",
+        "tools/hsm/pages/src/lib.rs",
+        "tools/hsm/pages/src/lines.rs",
+        "tools/hsm/pages/src/page.rs",
+        "tools/hsm/pages/src/pdf.rs",
+        "tools/hsm/pages/src/picture.rs",
+        "tools/hsm/pages/src/raster.rs",
+        "tools/hsm/pages/src/reads.rs",
+        "tools/hsm/pages/src/srgb.icc",
+        "tools/hsm/pages/src/text.rs",
+        "tools/hsm/run-native/Cargo.toml",
+        "tools/hsm/run-native/src/lib.rs",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/hsm/run-slots/Cargo.toml",
+        "tools/hsm/run-slots/src/ipc.rs",
+        "tools/hsm/run-slots/src/lib.rs",
+        "tools/hsm/run-slots/src/main.rs",
+        "tools/hsm/run-slots/src/runtime.rs",
+        "tools/hsm/run-slots/src/runtime/cad.rs",
+        "tools/hsm/run-slots/src/runtime/install.rs",
+        "tools/hsm/run-slots/src/runtime/runner.rs",
+        "tools/hsm/run-slots/src/runtime/slots.rs",
         "tools/hsm/shared-data/catalog/materials.json",
-        "tools/hsm/shared-data/catalog/routing.json",
         "tools/hsm/shared-data/catalog/scalars.json",
-        "tools/hsm/shared-data/src/color.rs",
-        "tools/hsm/shared-data/src/common.rs",
-        "tools/hsm/shared-data/src/lib.rs",
-        "tools/hsm/tooling/Cargo.toml",
-        "web/public/finishes.json",
+        "tools/hsm/vendor/manifold-csg-sys/.cargo_vcs_info.json",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.lock",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.toml",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.toml.orig",
+        "tools/hsm/vendor/manifold-csg-sys/LICENSE-APACHE",
+        "tools/hsm/vendor/manifold-csg-sys/LICENSE-MIT",
+        "tools/hsm/vendor/manifold-csg-sys/README.md",
+        "tools/hsm/vendor/manifold-csg-sys/build.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/build.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/fetch.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/patch.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/wasm.rs",
+        "tools/hsm/vendor/manifold-csg-sys/cache-version",
+        "tools/hsm/vendor/manifold-csg-sys/patches/README.md",
+        "tools/hsm/vendor/manifold-csg-sys/src/lib.rs",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/CMakeLists.txt",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/diagnose.sh",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/__assertion_handler",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/__config_site",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/memory",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/mutex",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/libcxx-extras.cpp",
     ],
-    outs = [
-        "out/plumbing-scenes/hardware/install-guide/plumbing/art/plumbing-pre-tee.png",
-        "out/plumbing-scenes/hardware/install-guide/plumbing/art/plumbing-tee-installed.png",
-        "out/plumbing-scenes/hardware/install-guide/plumbing/art/plumbing-valve-off.png",
-        "out/plumbing-scenes/hardware/install-guide/plumbing/art/plumbing-valve-on.png",
-        "out/plumbing-scenes/hardware/install-guide/plumbing/out/plumbing-pre-tee.step",
-        "out/plumbing-scenes/hardware/install-guide/plumbing/out/plumbing-pre-tee.step.mesh",
-        "out/plumbing-scenes/hardware/install-guide/plumbing/out/plumbing-pre-tee.step.npz",
-        "out/plumbing-scenes/hardware/install-guide/plumbing/out/plumbing-tee-installed.step",
-        "out/plumbing-scenes/hardware/install-guide/plumbing/out/plumbing-tee-installed.step.mesh",
-        "out/plumbing-scenes/hardware/install-guide/plumbing/out/plumbing-tee-installed.step.npz",
-        "out/plumbing-scenes/hardware/install-guide/plumbing/out/plumbing-valve-off.step",
-        "out/plumbing-scenes/hardware/install-guide/plumbing/out/plumbing-valve-off.step.mesh",
-        "out/plumbing-scenes/hardware/install-guide/plumbing/out/plumbing-valve-off.step.npz",
-        "out/plumbing-scenes/hardware/install-guide/plumbing/out/plumbing-valve-on.step",
-        "out/plumbing-scenes/hardware/install-guide/plumbing/out/plumbing-valve-on.step.mesh",
-        "out/plumbing-scenes/hardware/install-guide/plumbing/out/plumbing-valve-on.step.npz",
-    ],
+    outs = ["out/kit-art-program/kit-art"],
     tags = ["no-sandbox"],
     cmd = """
 set -e
@@ -2037,58 +1884,334 @@ case "$$(uname -s)" in
     };;
   *) copy_file() { cp "$$@"; };;
 esac
-O0=$$PWD/$(location out/plumbing-scenes/hardware/install-guide/plumbing/art/plumbing-pre-tee.png)
-O1=$$PWD/$(location out/plumbing-scenes/hardware/install-guide/plumbing/art/plumbing-tee-installed.png)
-O2=$$PWD/$(location out/plumbing-scenes/hardware/install-guide/plumbing/art/plumbing-valve-off.png)
-O3=$$PWD/$(location out/plumbing-scenes/hardware/install-guide/plumbing/art/plumbing-valve-on.png)
-O4=$$PWD/$(location out/plumbing-scenes/hardware/install-guide/plumbing/out/plumbing-pre-tee.step)
-O5=$$PWD/$(location out/plumbing-scenes/hardware/install-guide/plumbing/out/plumbing-pre-tee.step.mesh)
-O6=$$PWD/$(location out/plumbing-scenes/hardware/install-guide/plumbing/out/plumbing-pre-tee.step.npz)
-O7=$$PWD/$(location out/plumbing-scenes/hardware/install-guide/plumbing/out/plumbing-tee-installed.step)
-O8=$$PWD/$(location out/plumbing-scenes/hardware/install-guide/plumbing/out/plumbing-tee-installed.step.mesh)
-O9=$$PWD/$(location out/plumbing-scenes/hardware/install-guide/plumbing/out/plumbing-tee-installed.step.npz)
-O10=$$PWD/$(location out/plumbing-scenes/hardware/install-guide/plumbing/out/plumbing-valve-off.step)
-O11=$$PWD/$(location out/plumbing-scenes/hardware/install-guide/plumbing/out/plumbing-valve-off.step.mesh)
-O12=$$PWD/$(location out/plumbing-scenes/hardware/install-guide/plumbing/out/plumbing-valve-off.step.npz)
-O13=$$PWD/$(location out/plumbing-scenes/hardware/install-guide/plumbing/out/plumbing-valve-on.step)
-O14=$$PWD/$(location out/plumbing-scenes/hardware/install-guide/plumbing/out/plumbing-valve-on.step.mesh)
-O15=$$PWD/$(location out/plumbing-scenes/hardware/install-guide/plumbing/out/plumbing-valve-on.step.npz)
-rm -rf work-plumbing-scenes
+hsm_run=
+for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
+  if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
+done
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+cargo=$$(command -v cargo || true)
+for c in "$$cargo" /opt/homebrew/opt/rustup/bin/cargo ~/.cargo/bin/cargo; do if [ -x "$$c" ]; then cargo=$$c; break; fi; done
+if [ ! -x "$$cargo" ]; then echo "cargo is not installed (https://rustup.rs)" >&2; exit 1; fi
+export HOME=~ PATH="$$(dirname "$$cargo"):$$PATH"
+O0=$$PWD/$(location out/kit-art-program/kit-art)
+cd "$$HSM_WORKSPACE/tools/hsm"
+CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet --manifest-path kit-art/Cargo.toml --bin kit-art
+copy_file target/release/kit-art "$$O0"
+""",
+)
+
+genrule(
+    name = "kit-art",
+    srcs = [
+        ":out/kit-art-program/kit-art",
+        ":out/collet-press/hardware/printed-parts/collet-press/collet-press.step.npz",
+        ":out/faucet-assembly/hardware/faucet-layout/faucet-assembly.step.npz",
+        ":out/installed-machine/hardware/manifold-layout/enclosure-assembly.facts.json",
+        "hardware/reference/jg-pp0208e-tee/jg-pp0208e-tee.step.mesh",
+        "hardware/reference/taprite-3741-regulator/taprite-3741-regulator.step.mesh",
+        "tools/hsm/pages/src/srgb.icc",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/hsm/shared-data/catalog/materials.json",
+        "tools/hsm/shared-data/catalog/scalars.json",
+        "tools/hsm/vendor/manifold-csg-sys/.cargo_vcs_info.json",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.toml.orig",
+        "tools/hsm/vendor/manifold-csg-sys/LICENSE-APACHE",
+        "tools/hsm/vendor/manifold-csg-sys/LICENSE-MIT",
+        "tools/hsm/vendor/manifold-csg-sys/README.md",
+        "tools/hsm/vendor/manifold-csg-sys/cache-version",
+        "tools/hsm/vendor/manifold-csg-sys/patches/README.md",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/CMakeLists.txt",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/diagnose.sh",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/__assertion_handler",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/__config_site",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/memory",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/mutex",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/libcxx-extras.cpp",
+    ],
+    outs = [
+        "out/kit-art/hardware/install-guide/assets/kit/cold-kit.svg",
+        "out/kit-art/hardware/install-guide/assets/kit/collet-press.svg",
+        "out/kit-art/hardware/install-guide/assets/kit/faucet-and-plate.svg",
+        "out/kit-art/hardware/install-guide/assets/kit/filtered-line.svg",
+        "out/kit-art/hardware/install-guide/assets/kit/install-guide.svg",
+        "out/kit-art/hardware/install-guide/assets/kit/machine.svg",
+        "out/kit-art/hardware/install-guide/assets/kit/power-cord.svg",
+        "out/kit-art/hardware/install-guide/assets/kit/regulator-and-tether.svg",
+        "out/kit-art/hardware/install-guide/assets/kit/water-tees.svg",
+    ],
+    cmd = """
+set -e
+case "$$(uname -s)" in
+  Darwin)
+    copy_mask=$$((8#$$(umask)))
+    copy_bits=("" x w wx r rx rw rwx)
+    copy_mode="u-$${copy_bits[$$((copy_mask >> 6 & 7))]},g-$${copy_bits[$$((copy_mask >> 3 & 7))]},o-$${copy_bits[$$((copy_mask & 7))]}"
+    copy_file() {
+      local copy_dest="$${!#}" copy_target copy_permissions="$$copy_mode"
+      if [ -e "$$copy_dest" ] || [ -L "$$copy_dest" ]; then
+        if [ ! -f "$$copy_dest" ] || [ -L "$$copy_dest" ]; then cp "$$@"; return; fi
+        copy_permissions=$$(stat -f %Lp "$$copy_dest")
+        copy_target=$$(mktemp "$$copy_dest.hsm-copy.XXXXXX")
+      else copy_target="$$copy_dest"; fi
+      if cp -c "$${@:1:$$(( $$# - 1 ))}" "$$copy_target" 2>/dev/null; then
+        chmod "$$copy_permissions" "$$copy_target"
+        touch "$$copy_target"
+        if [ "$$copy_target" != "$$copy_dest" ]; then mv -f "$$copy_target" "$$copy_dest"; fi
+      else rm -f "$$copy_target"; cp "$$@"; fi
+    };;
+  *) copy_file() { cp "$$@"; };;
+esac
+hsm_run=
+for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
+  if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
+done
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+O0=$$PWD/$(location out/kit-art/hardware/install-guide/assets/kit/cold-kit.svg)
+O1=$$PWD/$(location out/kit-art/hardware/install-guide/assets/kit/collet-press.svg)
+O2=$$PWD/$(location out/kit-art/hardware/install-guide/assets/kit/faucet-and-plate.svg)
+O3=$$PWD/$(location out/kit-art/hardware/install-guide/assets/kit/filtered-line.svg)
+O4=$$PWD/$(location out/kit-art/hardware/install-guide/assets/kit/install-guide.svg)
+O5=$$PWD/$(location out/kit-art/hardware/install-guide/assets/kit/machine.svg)
+O6=$$PWD/$(location out/kit-art/hardware/install-guide/assets/kit/power-cord.svg)
+O7=$$PWD/$(location out/kit-art/hardware/install-guide/assets/kit/regulator-and-tether.svg)
+O8=$$PWD/$(location out/kit-art/hardware/install-guide/assets/kit/water-tees.svg)
+rm -rf work
 for f in $(SRCS); do
   case $$f in
-    */node_modules/*) continue;;
     */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
     *) t=$$f;;
   esac
-  mkdir -p "work-plumbing-scenes/$$(dirname "$$t")"; copy_file -L "$$f" "work-plumbing-scenes/$$t"
+  mkdir -p "work/$$(dirname "$$t")"; copy_file -L "$$f" "work/$$t"
 done
-for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
-  if [ -d $$d ]; then mkdir -p work-plumbing-scenes/$$(dirname $$d); ln -sfn $$PWD/$$d work-plumbing-scenes/$$d; fi
+cd work
+"$$hsm_run" -- ./kit-art > /dev/null
+copy_file hardware/install-guide/assets/kit/cold-kit.svg "$$O0"
+copy_file hardware/install-guide/assets/kit/collet-press.svg "$$O1"
+copy_file hardware/install-guide/assets/kit/faucet-and-plate.svg "$$O2"
+copy_file hardware/install-guide/assets/kit/filtered-line.svg "$$O3"
+copy_file hardware/install-guide/assets/kit/install-guide.svg "$$O4"
+copy_file hardware/install-guide/assets/kit/machine.svg "$$O5"
+copy_file hardware/install-guide/assets/kit/power-cord.svg "$$O6"
+copy_file hardware/install-guide/assets/kit/regulator-and-tether.svg "$$O7"
+copy_file hardware/install-guide/assets/kit/water-tees.svg "$$O8"
+""",
+)
+
+genrule(
+    name = "opening-scene-program",
+    srcs = [
+        "hardware/install-guide/opening_scene.rs",
+        ":out/cargo-config/tools/hsm/cargo-config.json",
+        "tools/hsm/kernel/Cargo.toml",
+        "tools/hsm/kernel/src/boolean.rs",
+        "tools/hsm/kernel/src/build.rs",
+        "tools/hsm/kernel/src/dxf.rs",
+        "tools/hsm/kernel/src/edge.rs",
+        "tools/hsm/kernel/src/face.rs",
+        "tools/hsm/kernel/src/import.rs",
+        "tools/hsm/kernel/src/lib.rs",
+        "tools/hsm/kernel/src/mapped.rs",
+        "tools/hsm/kernel/src/mass.rs",
+        "tools/hsm/kernel/src/math.rs",
+        "tools/hsm/kernel/src/part.rs",
+        "tools/hsm/kernel/src/plane.rs",
+        "tools/hsm/kernel/src/profile.rs",
+        "tools/hsm/kernel/src/reads.rs",
+        "tools/hsm/kernel/src/round.rs",
+        "tools/hsm/kernel/src/round/rolled.rs",
+        "tools/hsm/kernel/src/rule.rs",
+        "tools/hsm/kernel/src/screw.rs",
+        "tools/hsm/kernel/src/sketch_hull.rs",
+        "tools/hsm/kernel/src/solid.rs",
+        "tools/hsm/kernel/src/spline.rs",
+        "tools/hsm/kernel/src/step.rs",
+        "tools/hsm/kernel/src/step/analytic.rs",
+        "tools/hsm/kernel/src/sweep.rs",
+        "tools/hsm/kernel/src/text.rs",
+        "tools/hsm/kernel/src/thru.rs",
+        "tools/hsm/kernel/src/topo.rs",
+        "tools/hsm/kernel/src/triangulate.rs",
+        "tools/hsm/kernel/src/write.rs",
+        "tools/hsm/opening-scene/Cargo.toml",
+        "tools/hsm/pages/Cargo.toml",
+        "tools/hsm/pages/src/font.rs",
+        "tools/hsm/pages/src/lib.rs",
+        "tools/hsm/pages/src/lines.rs",
+        "tools/hsm/pages/src/page.rs",
+        "tools/hsm/pages/src/pdf.rs",
+        "tools/hsm/pages/src/picture.rs",
+        "tools/hsm/pages/src/raster.rs",
+        "tools/hsm/pages/src/reads.rs",
+        "tools/hsm/pages/src/srgb.icc",
+        "tools/hsm/pages/src/text.rs",
+        "tools/hsm/render/Cargo.toml",
+        "tools/hsm/render/src/annotate.rs",
+        "tools/hsm/render/src/camera.rs",
+        "tools/hsm/render/src/env.rs",
+        "tools/hsm/render/src/gpu.rs",
+        "tools/hsm/render/src/image.rs",
+        "tools/hsm/render/src/job.rs",
+        "tools/hsm/render/src/lib.rs",
+        "tools/hsm/render/src/overlay.rs",
+        "tools/hsm/render/src/payload.rs",
+        "tools/hsm/render/src/pick.rs",
+        "tools/hsm/render/src/plan.rs",
+        "tools/hsm/render/src/scene.rs",
+        "tools/hsm/render/src/shaders/common.wgsl",
+        "tools/hsm/render/src/shaders/env.wgsl",
+        "tools/hsm/render/src/shaders/line.wgsl",
+        "tools/hsm/render/src/shaders/shadow.wgsl",
+        "tools/hsm/render/src/shaders/surface.wgsl",
+        "tools/hsm/render/src/shadow.rs",
+        "tools/hsm/run-native/Cargo.toml",
+        "tools/hsm/run-native/src/lib.rs",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/hsm/run-slots/Cargo.toml",
+        "tools/hsm/run-slots/src/ipc.rs",
+        "tools/hsm/run-slots/src/lib.rs",
+        "tools/hsm/run-slots/src/main.rs",
+        "tools/hsm/run-slots/src/runtime.rs",
+        "tools/hsm/run-slots/src/runtime/cad.rs",
+        "tools/hsm/run-slots/src/runtime/install.rs",
+        "tools/hsm/run-slots/src/runtime/runner.rs",
+        "tools/hsm/run-slots/src/runtime/slots.rs",
+        "tools/hsm/vendor/manifold-csg-sys/.cargo_vcs_info.json",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.lock",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.toml",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.toml.orig",
+        "tools/hsm/vendor/manifold-csg-sys/LICENSE-APACHE",
+        "tools/hsm/vendor/manifold-csg-sys/LICENSE-MIT",
+        "tools/hsm/vendor/manifold-csg-sys/README.md",
+        "tools/hsm/vendor/manifold-csg-sys/build.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/build.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/fetch.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/patch.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/wasm.rs",
+        "tools/hsm/vendor/manifold-csg-sys/cache-version",
+        "tools/hsm/vendor/manifold-csg-sys/patches/README.md",
+        "tools/hsm/vendor/manifold-csg-sys/src/lib.rs",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/CMakeLists.txt",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/diagnose.sh",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/__assertion_handler",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/__config_site",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/memory",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/mutex",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/libcxx-extras.cpp",
+    ],
+    outs = ["out/opening-scene-program/opening-scene"],
+    tags = ["no-sandbox"],
+    cmd = """
+set -e
+case "$$(uname -s)" in
+  Darwin)
+    copy_mask=$$((8#$$(umask)))
+    copy_bits=("" x w wx r rx rw rwx)
+    copy_mode="u-$${copy_bits[$$((copy_mask >> 6 & 7))]},g-$${copy_bits[$$((copy_mask >> 3 & 7))]},o-$${copy_bits[$$((copy_mask & 7))]}"
+    copy_file() {
+      local copy_dest="$${!#}" copy_target copy_permissions="$$copy_mode"
+      if [ -e "$$copy_dest" ] || [ -L "$$copy_dest" ]; then
+        if [ ! -f "$$copy_dest" ] || [ -L "$$copy_dest" ]; then cp "$$@"; return; fi
+        copy_permissions=$$(stat -f %Lp "$$copy_dest")
+        copy_target=$$(mktemp "$$copy_dest.hsm-copy.XXXXXX")
+      else copy_target="$$copy_dest"; fi
+      if cp -c "$${@:1:$$(( $$# - 1 ))}" "$$copy_target" 2>/dev/null; then
+        chmod "$$copy_permissions" "$$copy_target"
+        touch "$$copy_target"
+        if [ "$$copy_target" != "$$copy_dest" ]; then mv -f "$$copy_target" "$$copy_dest"; fi
+      else rm -f "$$copy_target"; cp "$$@"; fi
+    };;
+  *) copy_file() { cp "$$@"; };;
+esac
+hsm_run=
+for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
+  if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
 done
-for f in hardware/scripts/_run_lock.py hardware/scripts/_run_native.py hardware/scripts/_run_slots.py tools/hsm/run-slots.defaults.json tools/run-slots.mjs tools/run.py; do
-  mkdir -p work-plumbing-scenes/$$(dirname $$f); cp $$HSM_WORKSPACE/$$f work-plumbing-scenes/$$f
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+cargo=$$(command -v cargo || true)
+for c in "$$cargo" /opt/homebrew/opt/rustup/bin/cargo ~/.cargo/bin/cargo; do if [ -x "$$c" ]; then cargo=$$c; break; fi; done
+if [ ! -x "$$cargo" ]; then echo "cargo is not installed (https://rustup.rs)" >&2; exit 1; fi
+export HOME=~ PATH="$$(dirname "$$cargo"):$$PATH"
+O0=$$PWD/$(location out/opening-scene-program/opening-scene)
+cd "$$HSM_WORKSPACE/tools/hsm"
+CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet --manifest-path opening-scene/Cargo.toml --bin opening-scene
+copy_file target/release/opening-scene "$$O0"
+""",
+)
+
+genrule(
+    name = "opening-scene",
+    srcs = [
+        ":out/opening-scene-program/opening-scene",
+        ":out/faucet-assembly/hardware/faucet-layout/faucet-assembly.numbers.json",
+        ":out/faucet-assembly/hardware/faucet-layout/faucet-assembly.step.mesh",
+        "tools/hsm/pages/src/srgb.icc",
+        "tools/hsm/render/src/shaders/common.wgsl",
+        "tools/hsm/render/src/shaders/env.wgsl",
+        "tools/hsm/render/src/shaders/line.wgsl",
+        "tools/hsm/render/src/shaders/shadow.wgsl",
+        "tools/hsm/render/src/shaders/surface.wgsl",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/hsm/vendor/manifold-csg-sys/.cargo_vcs_info.json",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.toml.orig",
+        "tools/hsm/vendor/manifold-csg-sys/LICENSE-APACHE",
+        "tools/hsm/vendor/manifold-csg-sys/LICENSE-MIT",
+        "tools/hsm/vendor/manifold-csg-sys/README.md",
+        "tools/hsm/vendor/manifold-csg-sys/cache-version",
+        "tools/hsm/vendor/manifold-csg-sys/patches/README.md",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/CMakeLists.txt",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/diagnose.sh",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/__assertion_handler",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/__config_site",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/memory",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/mutex",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/libcxx-extras.cpp",
+        "web/public/finishes.json",
+    ],
+    outs = [
+        "out/opening-scene/hardware/install-guide/assets/opening-faucet-outline.svg",
+        "out/opening-scene/hardware/install-guide/assets/opening.png",
+    ],
+    cmd = """
+set -e
+case "$$(uname -s)" in
+  Darwin)
+    copy_mask=$$((8#$$(umask)))
+    copy_bits=("" x w wx r rx rw rwx)
+    copy_mode="u-$${copy_bits[$$((copy_mask >> 6 & 7))]},g-$${copy_bits[$$((copy_mask >> 3 & 7))]},o-$${copy_bits[$$((copy_mask & 7))]}"
+    copy_file() {
+      local copy_dest="$${!#}" copy_target copy_permissions="$$copy_mode"
+      if [ -e "$$copy_dest" ] || [ -L "$$copy_dest" ]; then
+        if [ ! -f "$$copy_dest" ] || [ -L "$$copy_dest" ]; then cp "$$@"; return; fi
+        copy_permissions=$$(stat -f %Lp "$$copy_dest")
+        copy_target=$$(mktemp "$$copy_dest.hsm-copy.XXXXXX")
+      else copy_target="$$copy_dest"; fi
+      if cp -c "$${@:1:$$(( $$# - 1 ))}" "$$copy_target" 2>/dev/null; then
+        chmod "$$copy_permissions" "$$copy_target"
+        touch "$$copy_target"
+        if [ "$$copy_target" != "$$copy_dest" ]; then mv -f "$$copy_target" "$$copy_dest"; fi
+      else rm -f "$$copy_target"; cp "$$@"; fi
+    };;
+  *) copy_file() { cp "$$@"; };;
+esac
+hsm_run=
+for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
+  if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
 done
-cd work-plumbing-scenes
-ln -sfn $$HSM_WORKSPACE/.cache .cache
-D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/install-guide/plumbing/plumbing_scenes.py > /dev/null
-copy_file hardware/install-guide/plumbing/art/plumbing-pre-tee.png "$$O0"
-copy_file hardware/install-guide/plumbing/art/plumbing-tee-installed.png "$$O1"
-copy_file hardware/install-guide/plumbing/art/plumbing-valve-off.png "$$O2"
-copy_file hardware/install-guide/plumbing/art/plumbing-valve-on.png "$$O3"
-copy_file hardware/install-guide/plumbing/out/plumbing-pre-tee.step "$$O4"
-copy_file hardware/install-guide/plumbing/out/plumbing-pre-tee.step.mesh "$$O5"
-copy_file hardware/install-guide/plumbing/out/plumbing-pre-tee.step.npz "$$O6"
-copy_file hardware/install-guide/plumbing/out/plumbing-tee-installed.step "$$O7"
-copy_file hardware/install-guide/plumbing/out/plumbing-tee-installed.step.mesh "$$O8"
-copy_file hardware/install-guide/plumbing/out/plumbing-tee-installed.step.npz "$$O9"
-copy_file hardware/install-guide/plumbing/out/plumbing-valve-off.step "$$O10"
-copy_file hardware/install-guide/plumbing/out/plumbing-valve-off.step.mesh "$$O11"
-copy_file hardware/install-guide/plumbing/out/plumbing-valve-off.step.npz "$$O12"
-copy_file hardware/install-guide/plumbing/out/plumbing-valve-on.step "$$O13"
-copy_file hardware/install-guide/plumbing/out/plumbing-valve-on.step.mesh "$$O14"
-copy_file hardware/install-guide/plumbing/out/plumbing-valve-on.step.npz "$$O15"
-cd .. && rm -rf work-plumbing-scenes
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+O0=$$PWD/$(location out/opening-scene/hardware/install-guide/assets/opening-faucet-outline.svg)
+O1=$$PWD/$(location out/opening-scene/hardware/install-guide/assets/opening.png)
+rm -rf work
+for f in $(SRCS); do
+  case $$f in
+    */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
+    *) t=$$f;;
+  esac
+  mkdir -p "work/$$(dirname "$$t")"; copy_file -L "$$f" "work/$$t"
+done
+cd work
+"$$hsm_run" -- ./opening-scene > /dev/null
+copy_file hardware/install-guide/assets/opening-faucet-outline.svg "$$O0"
+copy_file hardware/install-guide/assets/opening.png "$$O1"
 """,
 )
 
@@ -14450,802 +14573,6 @@ cd .. && rm -rf work-cargo-config
 )
 
 genrule(
-    name = "install-guide-build",
-    srcs = [
-        "hardware/cut-parts/faucet/under-counter-plate/stock-profile.json",
-        ":out/under-counter-plate/hardware/cut-parts/faucet/under-counter-plate/under-counter-plate.dxf",
-        "hardware/cut-parts/faucet/under-counter-plate/under_counter_plate.py",
-        "hardware/faucet-layout/faucet_assembly.py",
-        "hardware/install-guide/assets/brand/mark-1024.png",
-        "hardware/install-guide/assets/fill-scene-inputs.json",
-        "hardware/install-guide/assets/fill-screen-framed.png",
-        "hardware/install-guide/assets/filter-in-cabinet.png",
-        "hardware/install-guide/assets/hose-attached.png",
-        "hardware/install-guide/assets/hose-removed.png",
-        ":out/kit-art/hardware/install-guide/assets/kit/cold-kit.svg",
-        ":out/kit-art/hardware/install-guide/assets/kit/collet-press.svg",
-        ":out/kit-art/hardware/install-guide/assets/kit/faucet-and-plate.svg",
-        ":out/kit-art/hardware/install-guide/assets/kit/filtered-line.svg",
-        ":out/kit-art/hardware/install-guide/assets/kit/install-guide.svg",
-        ":out/kit-art/hardware/install-guide/assets/kit/machine.svg",
-        ":out/kit-art/hardware/install-guide/assets/kit/power-cord.svg",
-        ":out/kit-art/hardware/install-guide/assets/kit/regulator-and-tether.svg",
-        ":out/kit-art/hardware/install-guide/assets/kit/water-tees.svg",
-        "hardware/install-guide/assets/kitchen-hose.png",
-        "hardware/install-guide/assets/kitchen-push.png",
-        ":out/opening-scene/hardware/install-guide/assets/opening-faucet-outline.svg",
-        ":out/opening-scene/hardware/install-guide/assets/opening.png",
-        ":out/opening-scene/hardware/install-guide/assets/print-resolution.json",
-        "hardware/install-guide/assets/steps/co2-ready.png",
-        "hardware/install-guide/assets/steps/connect-rear-open.png",
-        "hardware/install-guide/assets/steps/fill-closed.png",
-        "hardware/install-guide/assets/steps/fill-ready.png",
-        "hardware/install-guide/assets/steps/modern-tee-assembly-ready.png",
-        "hardware/install-guide/assets/steps/modern-tee-complete.png",
-        "hardware/install-guide/assets/steps/modern-water-off.png",
-        "hardware/install-guide/assets/steps/modern-water-on.png",
-        "hardware/install-guide/assets/steps/mount-drop.png",
-        "hardware/install-guide/assets/steps/mount-under-slide-clean.png",
-        "hardware/install-guide/assets/steps/mount-under-tighten-clean.png",
-        "hardware/install-guide/assets/steps/pour-base.png",
-        "hardware/install-guide/assets/steps/pour-glass-mask.png",
-        "hardware/install-guide/assets/steps/power-ready.png",
-        "hardware/install-guide/assets/steps/release-with-press.png",
-        "hardware/install-guide/assets/steps/startup-gas.png",
-        "hardware/install-guide/assets/steps/the-back-face.png",
-        "hardware/install-guide/assets/tee-after.png",
-        "hardware/install-guide/assets/two-tees.png",
-        "hardware/install-guide/fonts/Plex-Bold.ttf",
-        "hardware/install-guide/fonts/Plex-Regular.ttf",
-        "hardware/install-guide/fonts/Plex-Semibold.ttf",
-        "hardware/printed-parts/cadlib/_scalar_provider.py",
-        "hardware/printed-parts/cadlib/fits.py",
-        "hardware/printed-parts/cadlib/flute_skin.py",
-        "hardware/printed-parts/cadlib/reeding.py",
-        "hardware/printed-parts/cadlib/world_workplane.py",
-        "hardware/printed-parts/enclosure/bulkhead-ring/numbers.rs",
-        "hardware/printed-parts/enclosure/enclosure/interface/anchor_cap.rs",
-        "hardware/printed-parts/enclosure/enclosure/interface/fits.rs",
-        "hardware/printed-parts/enclosure/enclosure/interface/lib.rs",
-        "hardware/printed-parts/enclosure/enclosure/interface/swept.rs",
-        "hardware/printed-parts/faucet/_display_snap.py",
-        "hardware/printed-parts/faucet/_faucet_interface.py",
-        "hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.py",
-        "hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.py",
-        "hardware/printed-parts/faucet/faucet-display-cover/faucet_display_cover.py",
-        "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py",
-        "hardware/printed-parts/faucet/faucet_paths.py",
-        "hardware/printed-parts/faucet/lever-replica/lever-replica.frame.json",
-        "hardware/printed-parts/faucet/tpu-o-ring/tpu_o_ring.py",
-        "hardware/printed-parts/faucet/tube-collar/tube_collar.py",
-        "hardware/printed-parts/faucet/umbilical-organizer/umbilical_organizer.py",
-        "hardware/reference/touch-flo-faucet/display-reference/buttons.json",
-        "hardware/reference/touch-flo-faucet/display-reference/component-envelopes.json",
-        "hardware/scripts/_build_data.py",
-        "hardware/scripts/_cadq_export.py",
-        "hardware/scripts/_document_export.py",
-        "hardware/scripts/_guides_compiled.py",
-        "hardware/scripts/_machine_data.py",
-        "hardware/scripts/_material_base.py",
-        "hardware/scripts/_materials.py",
-        "hardware/scripts/_rust_data.py",
-        "hardware/scripts/_rust_objects.py",
-        "hardware/scripts/_rust_part.py",
-        "hardware/scripts/_shared_data.py",
-        "hardware/scripts/_stated_bounds.py",
-        "tools/docgen/__init__.py",
-        "tools/hsm/build-data/Cargo.toml",
-        "tools/hsm/build-data/src/artifact_cache.rs",
-        "tools/hsm/build-data/src/artifacts.rs",
-        "tools/hsm/build-data/src/assets.rs",
-        "tools/hsm/build-data/src/inventory.rs",
-        "tools/hsm/build-data/src/lib.rs",
-        "tools/hsm/build-data/src/main.rs",
-        "tools/hsm/build-data/src/payload.rs",
-        "tools/hsm/build-data/src/projection.rs",
-        "tools/hsm/build-data/src/publication.rs",
-        "tools/hsm/build-data/src/publication_archive.rs",
-        "tools/hsm/build-data/src/publication_state.rs",
-        "tools/hsm/build-data/src/publication_zlib.rs",
-        "tools/hsm/build-data/src/sources.rs",
-        "tools/hsm/build-data/src/support.rs",
-        "tools/hsm/build-data/src/surfaces.rs",
-        ":out/cargo-config/tools/hsm/cargo-config.json",
-        "tools/hsm/documents/Cargo.toml",
-        "tools/hsm/documents/src/interop.rs",
-        "tools/hsm/documents/src/interop/standard.rs",
-        "tools/hsm/documents/src/lib.rs",
-        "tools/hsm/documents/src/python_checked.rs",
-        "tools/hsm/faucet-data/Cargo.toml",
-        "tools/hsm/faucet-data/src/assembly.rs",
-        "tools/hsm/faucet-data/src/assembly_dimensions.rs",
-        "tools/hsm/faucet-data/src/collar.rs",
-        "tools/hsm/faucet-data/src/counter_plate.rs",
-        "tools/hsm/faucet-data/src/covers.rs",
-        "tools/hsm/faucet-data/src/geos.rs",
-        "tools/hsm/faucet-data/src/lever.rs",
-        "tools/hsm/faucet-data/src/lib.rs",
-        "tools/hsm/faucet-data/src/main.rs",
-        "tools/hsm/faucet-data/src/plumbing.rs",
-        "tools/hsm/faucet-data/src/plumbing_catalog.json",
-        "tools/hsm/faucet-data/src/r2010-template.dxf.in",
-        "tools/hsm/faucet-data/src/shell.rs",
-        "tools/hsm/faucet-data/src/shell_dimensions.rs",
-        "tools/hsm/faucet-data/src/vent.rs",
-        "tools/hsm/faucet/Cargo.toml",
-        "tools/hsm/faucet/src/assembly.rs",
-        "tools/hsm/faucet/src/counter.rs",
-        "tools/hsm/faucet/src/display.rs",
-        "tools/hsm/faucet/src/lib.rs",
-        "tools/hsm/faucet/src/metrics.rs",
-        "tools/hsm/faucet/src/shell.rs",
-        "tools/hsm/geometry/Cargo.toml",
-        "tools/hsm/geometry/src/lib.rs",
-        "tools/hsm/geometry/src/payload.rs",
-        "tools/hsm/geometry/src/queries.rs",
-        "tools/hsm/guide-native/Cargo.toml",
-        "tools/hsm/guide-native/src/lib.rs",
-        "tools/hsm/guides/Cargo.toml",
-        "tools/hsm/guides/src/compiled.rs",
-        "tools/hsm/guides/src/compiled/modules.rs",
-        "tools/hsm/guides/src/compiled/modules/_plumbing_art_mesh.rs",
-        "tools/hsm/guides/src/compiled/modules/contours.rs",
-        "tools/hsm/guides/src/compiled/modules/kit_art.rs",
-        "tools/hsm/guides/src/compiled/modules/landscape.rs",
-        "tools/hsm/guides/src/compiled/modules/opening_scene.rs",
-        "tools/hsm/guides/src/compiled/modules/plumbing_scenes.rs",
-        "tools/hsm/guides/src/compiled/modules/press.rs",
-        "tools/hsm/guides/src/compiled/modules/render_modern_tee.rs",
-        "tools/hsm/guides/src/lib.rs",
-        "tools/hsm/guides/src/main.rs",
-        "tools/hsm/kernel/Cargo.toml",
-        "tools/hsm/kernel/src/boolean.rs",
-        "tools/hsm/kernel/src/build.rs",
-        "tools/hsm/kernel/src/dxf.rs",
-        "tools/hsm/kernel/src/edge.rs",
-        "tools/hsm/kernel/src/face.rs",
-        "tools/hsm/kernel/src/import.rs",
-        "tools/hsm/kernel/src/lib.rs",
-        "tools/hsm/kernel/src/mapped.rs",
-        "tools/hsm/kernel/src/mass.rs",
-        "tools/hsm/kernel/src/math.rs",
-        "tools/hsm/kernel/src/part.rs",
-        "tools/hsm/kernel/src/plane.rs",
-        "tools/hsm/kernel/src/profile.rs",
-        "tools/hsm/kernel/src/reads.rs",
-        "tools/hsm/kernel/src/round.rs",
-        "tools/hsm/kernel/src/round/rolled.rs",
-        "tools/hsm/kernel/src/rule.rs",
-        "tools/hsm/kernel/src/screw.rs",
-        "tools/hsm/kernel/src/sketch_hull.rs",
-        "tools/hsm/kernel/src/solid.rs",
-        "tools/hsm/kernel/src/spline.rs",
-        "tools/hsm/kernel/src/step.rs",
-        "tools/hsm/kernel/src/step/analytic.rs",
-        "tools/hsm/kernel/src/sweep.rs",
-        "tools/hsm/kernel/src/text.rs",
-        "tools/hsm/kernel/src/thru.rs",
-        "tools/hsm/kernel/src/topo.rs",
-        "tools/hsm/kernel/src/triangulate.rs",
-        "tools/hsm/kernel/src/write.rs",
-        "tools/hsm/layout-data/Cargo.toml",
-        "tools/hsm/layout-data/src/fore.rs",
-        "tools/hsm/layout-data/src/lib.rs",
-        "tools/hsm/layout-data/src/rear.rs",
-        "tools/hsm/layout-data/src/routes.rs",
-        "tools/hsm/layout-data/src/soda.rs",
-        "tools/hsm/shared-data/Cargo.toml",
-        "tools/hsm/shared-data/catalog/materials.json",
-        "tools/hsm/shared-data/catalog/routing.json",
-        "tools/hsm/shared-data/catalog/scalars.json",
-        "tools/hsm/shared-data/src/color.rs",
-        "tools/hsm/shared-data/src/common.rs",
-        "tools/hsm/shared-data/src/cooling.rs",
-        "tools/hsm/shared-data/src/lib.rs",
-        "tools/hsm/shared-data/src/main.rs",
-        "tools/hsm/shared-data/src/routing.rs",
-        "tools/hsm/shared-data/src/scalars.rs",
-        "tools/install-guide/build.py",
-        "tools/install-guide/contours.py",
-        "tools/install-guide/landscape.py",
-        "tools/install-guide/press.py",
-        "tools/install-guide/render-contours.mjs",
-    ],
-    outs = [
-        "out/install-guide-build/hardware/install-guide/install-guide.cover.png",
-        "out/install-guide-build/hardware/install-guide/install-guide.pdf",
-        "out/install-guide-build/hardware/install-guide/install-guide.pdf.json",
-    ],
-    tags = ["no-sandbox"],
-    cmd = """
-set -e
-case "$$(uname -s)" in
-  Darwin)
-    copy_mask=$$((8#$$(umask)))
-    copy_bits=("" x w wx r rx rw rwx)
-    copy_mode="u-$${copy_bits[$$((copy_mask >> 6 & 7))]},g-$${copy_bits[$$((copy_mask >> 3 & 7))]},o-$${copy_bits[$$((copy_mask & 7))]}"
-    copy_file() {
-      local copy_dest="$${!#}" copy_target copy_permissions="$$copy_mode"
-      if [ -e "$$copy_dest" ] || [ -L "$$copy_dest" ]; then
-        if [ ! -f "$$copy_dest" ] || [ -L "$$copy_dest" ]; then cp "$$@"; return; fi
-        copy_permissions=$$(stat -f %Lp "$$copy_dest")
-        copy_target=$$(mktemp "$$copy_dest.hsm-copy.XXXXXX")
-      else copy_target="$$copy_dest"; fi
-      if cp -c "$${@:1:$$(( $$# - 1 ))}" "$$copy_target" 2>/dev/null; then
-        chmod "$$copy_permissions" "$$copy_target"
-        touch "$$copy_target"
-        if [ "$$copy_target" != "$$copy_dest" ]; then mv -f "$$copy_target" "$$copy_dest"; fi
-      else rm -f "$$copy_target"; cp "$$@"; fi
-    };;
-  *) copy_file() { cp "$$@"; };;
-esac
-O0=$$PWD/$(location out/install-guide-build/hardware/install-guide/install-guide.cover.png)
-O1=$$PWD/$(location out/install-guide-build/hardware/install-guide/install-guide.pdf)
-O2=$$PWD/$(location out/install-guide-build/hardware/install-guide/install-guide.pdf.json)
-rm -rf work-install-guide-build
-for f in $(SRCS); do
-  case $$f in
-    */node_modules/*) continue;;
-    */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
-    *) t=$$f;;
-  esac
-  mkdir -p "work-install-guide-build/$$(dirname "$$t")"; copy_file -L "$$f" "work-install-guide-build/$$t"
-done
-for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
-  if [ -d $$d ]; then mkdir -p work-install-guide-build/$$(dirname $$d); ln -sfn $$PWD/$$d work-install-guide-build/$$d; fi
-done
-for f in hardware/scripts/_run_lock.py hardware/scripts/_run_native.py hardware/scripts/_run_slots.py tools/hsm/run-slots.defaults.json tools/run-slots.mjs tools/run.py; do
-  mkdir -p work-install-guide-build/$$(dirname $$f); cp $$HSM_WORKSPACE/$$f work-install-guide-build/$$f
-done
-cd work-install-guide-build
-ln -sfn $$HSM_WORKSPACE/.cache .cache
-D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/install-guide/build.py > /dev/null
-copy_file hardware/install-guide/install-guide.cover.png "$$O0"
-copy_file hardware/install-guide/install-guide.pdf "$$O1"
-copy_file hardware/install-guide/install-guide.pdf.json "$$O2"
-cd .. && rm -rf work-install-guide-build
-""",
-)
-
-genrule(
-    name = "kit-art",
-    srcs = [
-        ":out/under-counter-plate/hardware/cut-parts/faucet/under-counter-plate/under-counter-plate.dxf",
-        ":out/faucet-assembly/hardware/faucet-layout/faucet-assembly.step.npz",
-        "hardware/faucet-layout/faucet_assembly.py",
-        "hardware/install-guide/cad_art_props.rs",
-        "hardware/install-guide/install_art_props.rs",
-        "hardware/install-guide/kit_art_props.rs",
-        ":out/plumbing-scenes/hardware/install-guide/plumbing/out/plumbing-pre-tee.step.npz",
-        "hardware/install-guide/plumbing_art_props.rs",
-        ":out/installed-machine/hardware/manifold-layout/enclosure-assembly.facts.json",
-        "hardware/printed-parts/cadlib/_scalar_provider.py",
-        "hardware/printed-parts/cadlib/fits.py",
-        "hardware/printed-parts/cadlib/flute_skin.py",
-        "hardware/printed-parts/cadlib/reeding.py",
-        "hardware/printed-parts/cadlib/world_workplane.py",
-        ":out/collet-press/hardware/printed-parts/collet-press/collet-press.step.npz",
-        "hardware/printed-parts/enclosure/bulkhead-ring/numbers.rs",
-        "hardware/printed-parts/enclosure/enclosure/interface/anchor_cap.rs",
-        "hardware/printed-parts/enclosure/enclosure/interface/fits.rs",
-        "hardware/printed-parts/enclosure/enclosure/interface/lib.rs",
-        "hardware/printed-parts/enclosure/enclosure/interface/swept.rs",
-        "hardware/printed-parts/faucet/_display_snap.py",
-        "hardware/printed-parts/faucet/_faucet_interface.py",
-        "hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.py",
-        "hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.py",
-        "hardware/printed-parts/faucet/faucet-display-cover/faucet_display_cover.py",
-        "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py",
-        "hardware/printed-parts/faucet/faucet_paths.py",
-        "hardware/printed-parts/faucet/lever-replica/lever-replica.frame.json",
-        "hardware/printed-parts/faucet/tpu-o-ring/tpu_o_ring.py",
-        "hardware/printed-parts/faucet/tube-collar/tube_collar.py",
-        "hardware/printed-parts/faucet/umbilical-organizer/umbilical_organizer.py",
-        "hardware/printed-parts/valve-seat/numbers.rs",
-        "hardware/reference/_reference_data.py",
-        "hardware/reference/iec-c14-inlet/iec_c14_inlet.py",
-        "hardware/reference/jg-pp0208e-tee/jg-pp0208e-tee.step.mesh",
-        "hardware/reference/taprite-3741-regulator/taprite-3741-regulator.step.mesh",
-        "hardware/reference/taprite-3741-regulator/taprite_3741_regulator.py",
-        "hardware/reference/touch-flo-faucet/display-reference/buttons.json",
-        "hardware/reference/touch-flo-faucet/display-reference/component-envelopes.json",
-        "hardware/scripts/_build_data.py",
-        "hardware/scripts/_cadq_export.py",
-        "hardware/scripts/_document_export.py",
-        "hardware/scripts/_guides_compiled.py",
-        "hardware/scripts/_hsm_render.py",
-        "hardware/scripts/_machine_data.py",
-        "hardware/scripts/_material_base.py",
-        "hardware/scripts/_materials.py",
-        "hardware/scripts/_mesh_projection.py",
-        "hardware/scripts/_rust_data.py",
-        "hardware/scripts/_rust_objects.py",
-        "hardware/scripts/_rust_part.py",
-        "hardware/scripts/_shared_data.py",
-        "hardware/scripts/_stated_bounds.py",
-        "tools/hsm/build-data/Cargo.toml",
-        "tools/hsm/build-data/src/artifact_cache.rs",
-        "tools/hsm/build-data/src/artifacts.rs",
-        "tools/hsm/build-data/src/assets.rs",
-        "tools/hsm/build-data/src/inventory.rs",
-        "tools/hsm/build-data/src/lib.rs",
-        "tools/hsm/build-data/src/main.rs",
-        "tools/hsm/build-data/src/payload.rs",
-        "tools/hsm/build-data/src/projection.rs",
-        "tools/hsm/build-data/src/publication.rs",
-        "tools/hsm/build-data/src/publication_archive.rs",
-        "tools/hsm/build-data/src/publication_state.rs",
-        "tools/hsm/build-data/src/publication_zlib.rs",
-        "tools/hsm/build-data/src/sources.rs",
-        "tools/hsm/build-data/src/support.rs",
-        "tools/hsm/build-data/src/surfaces.rs",
-        ":out/cargo-config/tools/hsm/cargo-config.json",
-        "tools/hsm/documents/Cargo.toml",
-        "tools/hsm/documents/src/interop.rs",
-        "tools/hsm/documents/src/interop/standard.rs",
-        "tools/hsm/documents/src/lib.rs",
-        "tools/hsm/documents/src/python_checked.rs",
-        "tools/hsm/faucet-data/Cargo.toml",
-        "tools/hsm/faucet-data/src/assembly.rs",
-        "tools/hsm/faucet-data/src/assembly_dimensions.rs",
-        "tools/hsm/faucet-data/src/collar.rs",
-        "tools/hsm/faucet-data/src/counter_plate.rs",
-        "tools/hsm/faucet-data/src/covers.rs",
-        "tools/hsm/faucet-data/src/geos.rs",
-        "tools/hsm/faucet-data/src/lever.rs",
-        "tools/hsm/faucet-data/src/lib.rs",
-        "tools/hsm/faucet-data/src/main.rs",
-        "tools/hsm/faucet-data/src/plumbing.rs",
-        "tools/hsm/faucet-data/src/plumbing_catalog.json",
-        "tools/hsm/faucet-data/src/r2010-template.dxf.in",
-        "tools/hsm/faucet-data/src/shell.rs",
-        "tools/hsm/faucet-data/src/shell_dimensions.rs",
-        "tools/hsm/faucet-data/src/vent.rs",
-        "tools/hsm/faucet/Cargo.toml",
-        "tools/hsm/faucet/src/assembly.rs",
-        "tools/hsm/faucet/src/counter.rs",
-        "tools/hsm/faucet/src/display.rs",
-        "tools/hsm/faucet/src/lib.rs",
-        "tools/hsm/faucet/src/metrics.rs",
-        "tools/hsm/faucet/src/shell.rs",
-        "tools/hsm/geometry/Cargo.toml",
-        "tools/hsm/geometry/src/lib.rs",
-        "tools/hsm/geometry/src/payload.rs",
-        "tools/hsm/geometry/src/queries.rs",
-        "tools/hsm/guide-native/Cargo.toml",
-        "tools/hsm/guide-native/src/lib.rs",
-        "tools/hsm/guides/Cargo.toml",
-        "tools/hsm/guides/src/compiled.rs",
-        "tools/hsm/guides/src/compiled/modules.rs",
-        "tools/hsm/guides/src/compiled/modules/_cad_art.rs",
-        "tools/hsm/guides/src/compiled/modules/_cad_art_mesh.rs",
-        "tools/hsm/guides/src/compiled/modules/_install_art.rs",
-        "tools/hsm/guides/src/compiled/modules/_install_art_mesh.rs",
-        "tools/hsm/guides/src/compiled/modules/_plumbing_art_mesh.rs",
-        "tools/hsm/guides/src/compiled/modules/common.rs",
-        "tools/hsm/guides/src/compiled/modules/contours.rs",
-        "tools/hsm/guides/src/compiled/modules/cylinder_actions.rs",
-        "tools/hsm/guides/src/compiled/modules/faucet_book.rs",
-        "tools/hsm/guides/src/compiled/modules/fill_scene.rs",
-        "tools/hsm/guides/src/compiled/modules/hold_scene.rs",
-        "tools/hsm/guides/src/compiled/modules/ice_scene.rs",
-        "tools/hsm/guides/src/compiled/modules/insertion_actions.rs",
-        "tools/hsm/guides/src/compiled/modules/kit_art.rs",
-        "tools/hsm/guides/src/compiled/modules/landscape.rs",
-        "tools/hsm/guides/src/compiled/modules/opening_scene.rs",
-        "tools/hsm/guides/src/compiled/modules/plumbing_scenes.rs",
-        "tools/hsm/guides/src/compiled/modules/preflight.rs",
-        "tools/hsm/guides/src/compiled/modules/press.rs",
-        "tools/hsm/guides/src/compiled/modules/render_modern_tee.rs",
-        "tools/hsm/guides/src/compiled/modules/scenes.rs",
-        "tools/hsm/guides/src/compiled/modules/startup.rs",
-        "tools/hsm/guides/src/lib.rs",
-        "tools/hsm/guides/src/main.rs",
-        "tools/hsm/kernel/Cargo.toml",
-        "tools/hsm/kernel/src/boolean.rs",
-        "tools/hsm/kernel/src/build.rs",
-        "tools/hsm/kernel/src/dxf.rs",
-        "tools/hsm/kernel/src/edge.rs",
-        "tools/hsm/kernel/src/face.rs",
-        "tools/hsm/kernel/src/import.rs",
-        "tools/hsm/kernel/src/lib.rs",
-        "tools/hsm/kernel/src/mapped.rs",
-        "tools/hsm/kernel/src/mass.rs",
-        "tools/hsm/kernel/src/math.rs",
-        "tools/hsm/kernel/src/part.rs",
-        "tools/hsm/kernel/src/plane.rs",
-        "tools/hsm/kernel/src/profile.rs",
-        "tools/hsm/kernel/src/reads.rs",
-        "tools/hsm/kernel/src/round.rs",
-        "tools/hsm/kernel/src/round/rolled.rs",
-        "tools/hsm/kernel/src/rule.rs",
-        "tools/hsm/kernel/src/screw.rs",
-        "tools/hsm/kernel/src/sketch_hull.rs",
-        "tools/hsm/kernel/src/solid.rs",
-        "tools/hsm/kernel/src/spline.rs",
-        "tools/hsm/kernel/src/step.rs",
-        "tools/hsm/kernel/src/step/analytic.rs",
-        "tools/hsm/kernel/src/sweep.rs",
-        "tools/hsm/kernel/src/text.rs",
-        "tools/hsm/kernel/src/thru.rs",
-        "tools/hsm/kernel/src/topo.rs",
-        "tools/hsm/kernel/src/triangulate.rs",
-        "tools/hsm/kernel/src/write.rs",
-        "tools/hsm/layout-data/Cargo.toml",
-        "tools/hsm/layout-data/src/fore.rs",
-        "tools/hsm/layout-data/src/lib.rs",
-        "tools/hsm/layout-data/src/rear.rs",
-        "tools/hsm/layout-data/src/routes.rs",
-        "tools/hsm/layout-data/src/soda.rs",
-        "tools/hsm/part-data/Cargo.toml",
-        "tools/hsm/part-data/src/electronics.rs",
-        "tools/hsm/part-data/src/main.rs",
-        "tools/hsm/part-data/src/output.rs",
-        "tools/hsm/part-data/src/reference.rs",
-        "tools/hsm/part-data/src/reference_catalog.rs",
-        "tools/hsm/part-data/src/sleeve.rs",
-        "tools/hsm/part-data/src/storage.rs",
-        "tools/hsm/part-data/src/zone.rs",
-        "tools/hsm/render/src/shaders/common.wgsl",
-        "tools/hsm/render/src/shaders/env.wgsl",
-        "tools/hsm/render/src/shaders/line.wgsl",
-        "tools/hsm/render/src/shaders/shadow.wgsl",
-        "tools/hsm/render/src/shaders/surface.wgsl",
-        "tools/hsm/shared-data/Cargo.toml",
-        "tools/hsm/shared-data/catalog/materials.json",
-        "tools/hsm/shared-data/catalog/routing.json",
-        "tools/hsm/shared-data/catalog/scalars.json",
-        "tools/hsm/shared-data/src/color.rs",
-        "tools/hsm/shared-data/src/common.rs",
-        "tools/hsm/shared-data/src/cooling.rs",
-        "tools/hsm/shared-data/src/lib.rs",
-        "tools/hsm/shared-data/src/main.rs",
-        "tools/hsm/shared-data/src/routing.rs",
-        "tools/hsm/shared-data/src/scalars.rs",
-        "tools/hsm/tooling/Cargo.toml",
-        "tools/install-guide/kit_art.py",
-    ],
-    outs = [
-        "out/kit-art/hardware/install-guide/assets/kit/cold-kit.svg",
-        "out/kit-art/hardware/install-guide/assets/kit/collet-press.svg",
-        "out/kit-art/hardware/install-guide/assets/kit/faucet-and-plate.svg",
-        "out/kit-art/hardware/install-guide/assets/kit/filtered-line.svg",
-        "out/kit-art/hardware/install-guide/assets/kit/install-guide.svg",
-        "out/kit-art/hardware/install-guide/assets/kit/machine.svg",
-        "out/kit-art/hardware/install-guide/assets/kit/power-cord.svg",
-        "out/kit-art/hardware/install-guide/assets/kit/regulator-and-tether.svg",
-        "out/kit-art/hardware/install-guide/assets/kit/water-tees.svg",
-    ],
-    tags = ["no-sandbox"],
-    cmd = """
-set -e
-case "$$(uname -s)" in
-  Darwin)
-    copy_mask=$$((8#$$(umask)))
-    copy_bits=("" x w wx r rx rw rwx)
-    copy_mode="u-$${copy_bits[$$((copy_mask >> 6 & 7))]},g-$${copy_bits[$$((copy_mask >> 3 & 7))]},o-$${copy_bits[$$((copy_mask & 7))]}"
-    copy_file() {
-      local copy_dest="$${!#}" copy_target copy_permissions="$$copy_mode"
-      if [ -e "$$copy_dest" ] || [ -L "$$copy_dest" ]; then
-        if [ ! -f "$$copy_dest" ] || [ -L "$$copy_dest" ]; then cp "$$@"; return; fi
-        copy_permissions=$$(stat -f %Lp "$$copy_dest")
-        copy_target=$$(mktemp "$$copy_dest.hsm-copy.XXXXXX")
-      else copy_target="$$copy_dest"; fi
-      if cp -c "$${@:1:$$(( $$# - 1 ))}" "$$copy_target" 2>/dev/null; then
-        chmod "$$copy_permissions" "$$copy_target"
-        touch "$$copy_target"
-        if [ "$$copy_target" != "$$copy_dest" ]; then mv -f "$$copy_target" "$$copy_dest"; fi
-      else rm -f "$$copy_target"; cp "$$@"; fi
-    };;
-  *) copy_file() { cp "$$@"; };;
-esac
-O0=$$PWD/$(location out/kit-art/hardware/install-guide/assets/kit/cold-kit.svg)
-O1=$$PWD/$(location out/kit-art/hardware/install-guide/assets/kit/collet-press.svg)
-O2=$$PWD/$(location out/kit-art/hardware/install-guide/assets/kit/faucet-and-plate.svg)
-O3=$$PWD/$(location out/kit-art/hardware/install-guide/assets/kit/filtered-line.svg)
-O4=$$PWD/$(location out/kit-art/hardware/install-guide/assets/kit/install-guide.svg)
-O5=$$PWD/$(location out/kit-art/hardware/install-guide/assets/kit/machine.svg)
-O6=$$PWD/$(location out/kit-art/hardware/install-guide/assets/kit/power-cord.svg)
-O7=$$PWD/$(location out/kit-art/hardware/install-guide/assets/kit/regulator-and-tether.svg)
-O8=$$PWD/$(location out/kit-art/hardware/install-guide/assets/kit/water-tees.svg)
-rm -rf work-kit-art
-for f in $(SRCS); do
-  case $$f in
-    */node_modules/*) continue;;
-    */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
-    *) t=$$f;;
-  esac
-  mkdir -p "work-kit-art/$$(dirname "$$t")"; copy_file -L "$$f" "work-kit-art/$$t"
-done
-for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
-  if [ -d $$d ]; then mkdir -p work-kit-art/$$(dirname $$d); ln -sfn $$PWD/$$d work-kit-art/$$d; fi
-done
-for f in hardware/scripts/_run_lock.py hardware/scripts/_run_native.py hardware/scripts/_run_slots.py tools/hsm/run-slots.defaults.json tools/run-slots.mjs tools/run.py; do
-  mkdir -p work-kit-art/$$(dirname $$f); cp $$HSM_WORKSPACE/$$f work-kit-art/$$f
-done
-cd work-kit-art
-ln -sfn $$HSM_WORKSPACE/.cache .cache
-D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/install-guide/kit_art.py > /dev/null
-copy_file hardware/install-guide/assets/kit/cold-kit.svg "$$O0"
-copy_file hardware/install-guide/assets/kit/collet-press.svg "$$O1"
-copy_file hardware/install-guide/assets/kit/faucet-and-plate.svg "$$O2"
-copy_file hardware/install-guide/assets/kit/filtered-line.svg "$$O3"
-copy_file hardware/install-guide/assets/kit/install-guide.svg "$$O4"
-copy_file hardware/install-guide/assets/kit/machine.svg "$$O5"
-copy_file hardware/install-guide/assets/kit/power-cord.svg "$$O6"
-copy_file hardware/install-guide/assets/kit/regulator-and-tether.svg "$$O7"
-copy_file hardware/install-guide/assets/kit/water-tees.svg "$$O8"
-cd .. && rm -rf work-kit-art
-""",
-)
-
-genrule(
-    name = "opening-scene",
-    srcs = [
-        ":out/under-counter-plate/hardware/cut-parts/faucet/under-counter-plate/under-counter-plate.dxf",
-        ":out/faucet-assembly/hardware/faucet-layout/faucet-assembly.step.mesh",
-        "hardware/faucet-layout/faucet_assembly.py",
-        "hardware/install-guide/_install_art.py",
-        "hardware/install-guide/_install_art_mesh.py",
-        "hardware/install-guide/cad_art_props.rs",
-        "hardware/install-guide/install_art_props.rs",
-        "hardware/install-guide/kit_art_props.rs",
-        "hardware/install-guide/plumbing_art_props.rs",
-        ":out/installed-machine/hardware/manifold-layout/enclosure-assembly.facts.json",
-        "hardware/printed-parts/cadlib/_scalar_provider.py",
-        "hardware/printed-parts/cadlib/fits.py",
-        "hardware/printed-parts/cadlib/flute_skin.py",
-        "hardware/printed-parts/cadlib/reeding.py",
-        "hardware/printed-parts/cadlib/world_workplane.py",
-        "hardware/printed-parts/enclosure/bulkhead-ring/numbers.rs",
-        "hardware/printed-parts/enclosure/enclosure/interface/anchor_cap.rs",
-        "hardware/printed-parts/enclosure/enclosure/interface/fits.rs",
-        "hardware/printed-parts/enclosure/enclosure/interface/lib.rs",
-        "hardware/printed-parts/enclosure/enclosure/interface/swept.rs",
-        "hardware/printed-parts/faucet/_display_snap.py",
-        "hardware/printed-parts/faucet/_faucet_interface.py",
-        "hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.py",
-        "hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.py",
-        "hardware/printed-parts/faucet/faucet-display-cover/faucet_display_cover.py",
-        "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py",
-        "hardware/printed-parts/faucet/faucet_paths.py",
-        "hardware/printed-parts/faucet/lever-replica/lever-replica.frame.json",
-        "hardware/printed-parts/faucet/tpu-o-ring/tpu_o_ring.py",
-        "hardware/printed-parts/faucet/tube-collar/tube_collar.py",
-        "hardware/printed-parts/faucet/umbilical-organizer/umbilical_organizer.py",
-        "hardware/printed-parts/valve-seat/numbers.rs",
-        "hardware/reference/_reference_data.py",
-        "hardware/reference/iec-c14-inlet/iec_c14_inlet.py",
-        "hardware/reference/touch-flo-faucet/display-reference/buttons.json",
-        "hardware/reference/touch-flo-faucet/display-reference/component-envelopes.json",
-        "hardware/scripts/_build_data.py",
-        "hardware/scripts/_cadq_export.py",
-        "hardware/scripts/_document_export.py",
-        "hardware/scripts/_guides_compiled.py",
-        "hardware/scripts/_hsm_render.py",
-        "hardware/scripts/_machine_data.py",
-        "hardware/scripts/_material_base.py",
-        "hardware/scripts/_materials.py",
-        "hardware/scripts/_mesh_payload.py",
-        "hardware/scripts/_payload_rules.py",
-        "hardware/scripts/_rust_data.py",
-        "hardware/scripts/_rust_objects.py",
-        "hardware/scripts/_rust_part.py",
-        "hardware/scripts/_shared_data.py",
-        "hardware/scripts/_stated_bounds.py",
-        "tools/docgen/__init__.py",
-        "tools/hsm/build-data/Cargo.toml",
-        "tools/hsm/build-data/src/artifact_cache.rs",
-        "tools/hsm/build-data/src/artifacts.rs",
-        "tools/hsm/build-data/src/assets.rs",
-        "tools/hsm/build-data/src/inventory.rs",
-        "tools/hsm/build-data/src/lib.rs",
-        "tools/hsm/build-data/src/main.rs",
-        "tools/hsm/build-data/src/payload.rs",
-        "tools/hsm/build-data/src/projection.rs",
-        "tools/hsm/build-data/src/publication.rs",
-        "tools/hsm/build-data/src/publication_archive.rs",
-        "tools/hsm/build-data/src/publication_state.rs",
-        "tools/hsm/build-data/src/publication_zlib.rs",
-        "tools/hsm/build-data/src/sources.rs",
-        "tools/hsm/build-data/src/support.rs",
-        "tools/hsm/build-data/src/surfaces.rs",
-        ":out/cargo-config/tools/hsm/cargo-config.json",
-        "tools/hsm/documents/Cargo.toml",
-        "tools/hsm/documents/src/interop.rs",
-        "tools/hsm/documents/src/interop/standard.rs",
-        "tools/hsm/documents/src/lib.rs",
-        "tools/hsm/documents/src/python_checked.rs",
-        "tools/hsm/faucet-data/Cargo.toml",
-        "tools/hsm/faucet-data/src/assembly.rs",
-        "tools/hsm/faucet-data/src/assembly_dimensions.rs",
-        "tools/hsm/faucet-data/src/collar.rs",
-        "tools/hsm/faucet-data/src/counter_plate.rs",
-        "tools/hsm/faucet-data/src/covers.rs",
-        "tools/hsm/faucet-data/src/geos.rs",
-        "tools/hsm/faucet-data/src/lever.rs",
-        "tools/hsm/faucet-data/src/lib.rs",
-        "tools/hsm/faucet-data/src/main.rs",
-        "tools/hsm/faucet-data/src/plumbing.rs",
-        "tools/hsm/faucet-data/src/plumbing_catalog.json",
-        "tools/hsm/faucet-data/src/r2010-template.dxf.in",
-        "tools/hsm/faucet-data/src/shell.rs",
-        "tools/hsm/faucet-data/src/shell_dimensions.rs",
-        "tools/hsm/faucet-data/src/vent.rs",
-        "tools/hsm/faucet/Cargo.toml",
-        "tools/hsm/faucet/src/assembly.rs",
-        "tools/hsm/faucet/src/counter.rs",
-        "tools/hsm/faucet/src/display.rs",
-        "tools/hsm/faucet/src/lib.rs",
-        "tools/hsm/faucet/src/metrics.rs",
-        "tools/hsm/faucet/src/shell.rs",
-        "tools/hsm/geometry/Cargo.toml",
-        "tools/hsm/geometry/src/lib.rs",
-        "tools/hsm/geometry/src/payload.rs",
-        "tools/hsm/geometry/src/queries.rs",
-        "tools/hsm/guide-native/Cargo.toml",
-        "tools/hsm/guide-native/src/lib.rs",
-        "tools/hsm/guides/Cargo.toml",
-        "tools/hsm/guides/src/compiled.rs",
-        "tools/hsm/guides/src/compiled/modules.rs",
-        "tools/hsm/guides/src/compiled/modules/_cad_art.rs",
-        "tools/hsm/guides/src/compiled/modules/_cad_art_mesh.rs",
-        "tools/hsm/guides/src/compiled/modules/_install_art.rs",
-        "tools/hsm/guides/src/compiled/modules/_install_art_mesh.rs",
-        "tools/hsm/guides/src/compiled/modules/_plumbing_art_mesh.rs",
-        "tools/hsm/guides/src/compiled/modules/contours.rs",
-        "tools/hsm/guides/src/compiled/modules/kit_art.rs",
-        "tools/hsm/guides/src/compiled/modules/landscape.rs",
-        "tools/hsm/guides/src/compiled/modules/opening_scene.rs",
-        "tools/hsm/guides/src/compiled/modules/plumbing_scenes.rs",
-        "tools/hsm/guides/src/compiled/modules/render_modern_tee.rs",
-        "tools/hsm/guides/src/lib.rs",
-        "tools/hsm/guides/src/main.rs",
-        "tools/hsm/kernel/Cargo.toml",
-        "tools/hsm/kernel/src/boolean.rs",
-        "tools/hsm/kernel/src/build.rs",
-        "tools/hsm/kernel/src/dxf.rs",
-        "tools/hsm/kernel/src/edge.rs",
-        "tools/hsm/kernel/src/face.rs",
-        "tools/hsm/kernel/src/import.rs",
-        "tools/hsm/kernel/src/lib.rs",
-        "tools/hsm/kernel/src/mapped.rs",
-        "tools/hsm/kernel/src/mass.rs",
-        "tools/hsm/kernel/src/math.rs",
-        "tools/hsm/kernel/src/part.rs",
-        "tools/hsm/kernel/src/plane.rs",
-        "tools/hsm/kernel/src/profile.rs",
-        "tools/hsm/kernel/src/reads.rs",
-        "tools/hsm/kernel/src/round.rs",
-        "tools/hsm/kernel/src/round/rolled.rs",
-        "tools/hsm/kernel/src/rule.rs",
-        "tools/hsm/kernel/src/screw.rs",
-        "tools/hsm/kernel/src/sketch_hull.rs",
-        "tools/hsm/kernel/src/solid.rs",
-        "tools/hsm/kernel/src/spline.rs",
-        "tools/hsm/kernel/src/step.rs",
-        "tools/hsm/kernel/src/step/analytic.rs",
-        "tools/hsm/kernel/src/sweep.rs",
-        "tools/hsm/kernel/src/text.rs",
-        "tools/hsm/kernel/src/thru.rs",
-        "tools/hsm/kernel/src/topo.rs",
-        "tools/hsm/kernel/src/triangulate.rs",
-        "tools/hsm/kernel/src/write.rs",
-        "tools/hsm/layout-data/Cargo.toml",
-        "tools/hsm/layout-data/src/fore.rs",
-        "tools/hsm/layout-data/src/lib.rs",
-        "tools/hsm/layout-data/src/rear.rs",
-        "tools/hsm/layout-data/src/routes.rs",
-        "tools/hsm/layout-data/src/soda.rs",
-        "tools/hsm/part-data/Cargo.toml",
-        "tools/hsm/part-data/src/electronics.rs",
-        "tools/hsm/part-data/src/main.rs",
-        "tools/hsm/part-data/src/output.rs",
-        "tools/hsm/part-data/src/reference.rs",
-        "tools/hsm/part-data/src/reference_catalog.rs",
-        "tools/hsm/part-data/src/sleeve.rs",
-        "tools/hsm/part-data/src/storage.rs",
-        "tools/hsm/part-data/src/zone.rs",
-        "tools/hsm/render/Cargo.toml",
-        "tools/hsm/render/src/annotate.rs",
-        "tools/hsm/render/src/bin/hsm-render.rs",
-        "tools/hsm/render/src/camera.rs",
-        "tools/hsm/render/src/env.rs",
-        "tools/hsm/render/src/gpu.rs",
-        "tools/hsm/render/src/image.rs",
-        "tools/hsm/render/src/job.rs",
-        "tools/hsm/render/src/lib.rs",
-        "tools/hsm/render/src/overlay.rs",
-        "tools/hsm/render/src/payload.rs",
-        "tools/hsm/render/src/pick.rs",
-        "tools/hsm/render/src/plan.rs",
-        "tools/hsm/render/src/scene.rs",
-        "tools/hsm/render/src/shaders/common.wgsl",
-        "tools/hsm/render/src/shaders/env.wgsl",
-        "tools/hsm/render/src/shaders/line.wgsl",
-        "tools/hsm/render/src/shaders/shadow.wgsl",
-        "tools/hsm/render/src/shaders/surface.wgsl",
-        "tools/hsm/render/src/shadow.rs",
-        "tools/hsm/shared-data/Cargo.toml",
-        "tools/hsm/shared-data/catalog/materials.json",
-        "tools/hsm/shared-data/catalog/routing.json",
-        "tools/hsm/shared-data/catalog/scalars.json",
-        "tools/hsm/shared-data/src/color.rs",
-        "tools/hsm/shared-data/src/common.rs",
-        "tools/hsm/shared-data/src/cooling.rs",
-        "tools/hsm/shared-data/src/lib.rs",
-        "tools/hsm/shared-data/src/main.rs",
-        "tools/hsm/shared-data/src/routing.rs",
-        "tools/hsm/shared-data/src/scalars.rs",
-        "tools/hsm/tooling/Cargo.toml",
-        "tools/install-guide/opening_scene.py",
-        "web/public/finishes.json",
-    ] + glob(
-        [
-            "hardware/install-guide/assets/print-resolution.json",
-        ],
-        allow_empty = True,
-    ),
-    outs = [
-        "out/opening-scene/hardware/install-guide/assets/opening-faucet-outline.svg",
-        "out/opening-scene/hardware/install-guide/assets/opening.png",
-        "out/opening-scene/hardware/install-guide/assets/print-resolution.json",
-    ],
-    tags = ["no-sandbox"],
-    cmd = """
-set -e
-case "$$(uname -s)" in
-  Darwin)
-    copy_mask=$$((8#$$(umask)))
-    copy_bits=("" x w wx r rx rw rwx)
-    copy_mode="u-$${copy_bits[$$((copy_mask >> 6 & 7))]},g-$${copy_bits[$$((copy_mask >> 3 & 7))]},o-$${copy_bits[$$((copy_mask & 7))]}"
-    copy_file() {
-      local copy_dest="$${!#}" copy_target copy_permissions="$$copy_mode"
-      if [ -e "$$copy_dest" ] || [ -L "$$copy_dest" ]; then
-        if [ ! -f "$$copy_dest" ] || [ -L "$$copy_dest" ]; then cp "$$@"; return; fi
-        copy_permissions=$$(stat -f %Lp "$$copy_dest")
-        copy_target=$$(mktemp "$$copy_dest.hsm-copy.XXXXXX")
-      else copy_target="$$copy_dest"; fi
-      if cp -c "$${@:1:$$(( $$# - 1 ))}" "$$copy_target" 2>/dev/null; then
-        chmod "$$copy_permissions" "$$copy_target"
-        touch "$$copy_target"
-        if [ "$$copy_target" != "$$copy_dest" ]; then mv -f "$$copy_target" "$$copy_dest"; fi
-      else rm -f "$$copy_target"; cp "$$@"; fi
-    };;
-  *) copy_file() { cp "$$@"; };;
-esac
-O0=$$PWD/$(location out/opening-scene/hardware/install-guide/assets/opening-faucet-outline.svg)
-O1=$$PWD/$(location out/opening-scene/hardware/install-guide/assets/opening.png)
-O2=$$PWD/$(location out/opening-scene/hardware/install-guide/assets/print-resolution.json)
-rm -rf work-opening-scene
-for f in $(SRCS); do
-  case $$f in
-    */node_modules/*) continue;;
-    */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
-    *) t=$$f;;
-  esac
-  mkdir -p "work-opening-scene/$$(dirname "$$t")"; copy_file -L "$$f" "work-opening-scene/$$t"
-done
-for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
-  if [ -d $$d ]; then mkdir -p work-opening-scene/$$(dirname $$d); ln -sfn $$PWD/$$d work-opening-scene/$$d; fi
-done
-for f in hardware/scripts/_run_lock.py hardware/scripts/_run_native.py hardware/scripts/_run_slots.py tools/hsm/run-slots.defaults.json tools/run-slots.mjs tools/run.py; do
-  mkdir -p work-opening-scene/$$(dirname $$f); cp $$HSM_WORKSPACE/$$f work-opening-scene/$$f
-done
-cd work-opening-scene
-ln -sfn $$HSM_WORKSPACE/.cache .cache
-D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/install-guide/opening_scene.py > /dev/null
-copy_file hardware/install-guide/assets/opening-faucet-outline.svg "$$O0"
-copy_file hardware/install-guide/assets/opening.png "$$O1"
-copy_file hardware/install-guide/assets/print-resolution.json "$$O2"
-cd .. && rm -rf work-opening-scene
-""",
-)
-
-genrule(
     name = "support-enclosure-assembly-graph",
     srcs = ["tools/bazel/graph.json"],
     outs = ["support/enclosure-assembly-graph.json"],
@@ -15365,8 +14692,9 @@ filegroup(
         ":under-counter-plate",
         ":faucet-assembly",
         ":faucet-industrial-assembly",
-        ":render-modern-tee",
-        ":plumbing-scenes",
+        ":install-guide",
+        ":kit-art",
+        ":opening-scene",
         ":purchases",
         ":installed-machine",
         ":manifold-layout",
@@ -15422,8 +14750,5 @@ filegroup(
         ":machine-time",
         ":fluid-topology",
         ":cargo-config",
-        ":install-guide-build",
-        ":kit-art",
-        ":opening-scene",
     ],
 )

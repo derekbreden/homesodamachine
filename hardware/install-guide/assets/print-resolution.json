@@ -452,30 +452,6 @@
         ]
       }
     },
-    "opening.png": {
-      "reference_size": [
-        3800,
-        3129
-      ],
-      "render_size": [
-        3800,
-        3129
-      ],
-      "scale": [
-        1.0,
-        1.0
-      ],
-      "render_sha256": "e7cd2b1f7f6bf03217543c742b30aac86901335f54f365d8f0a0c15cb09b4b33",
-      "source_sha256": "f7a33ab30545a0d71912aabe09b56b0d298526ec82255234cae6a4a5ec50001a",
-      "scene_step_sha256": "2097e512d4d20d73912b7b40b1a4d230f52eeacf99b15805e7f8c8df157a3c34",
-      "fixed_native_crop": [
-        0,
-        71,
-        3800,
-        3200
-      ],
-      "silhouette": "opening-faucet-outline.svg"
-    },
     "steps/power-ready.png": {
       "reference_size": [
         1800,
