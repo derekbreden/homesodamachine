@@ -1,8 +1,8 @@
 """PET-GF15 above-counter plate with three recessed M3 seats and locating pedestals.
 
-The kernel cuts the plate (`above_counter_plate.rs`, beside this module) from the numbers
-`numbers()` writes for it (`hardware/scripts/_rust_part.py`). `build_above_counter_plate` draws it
-in CadQuery for the faucet assembly's CadQuery assembly, which reads it.
+`above_counter_plate.rs` cuts the plate from the faucet's numbers crate. This module is for the
+readers that still take it from Python: `build_above_counter_plate` draws it in CadQuery for the
+faucet assembly's CadQuery assembly.
 """
 
 from __future__ import annotations
@@ -16,10 +16,6 @@ sys.path.insert(0, str(next(p for p in _here.parents if (p / "tools" / "docgen")
 sys.path.insert(0, str(_here.parent))
 sys.path.insert(0, str(_here.parent / "faucet-shell"))
 sys.path.insert(0, str(next(p for p in _here.parents if p.name == "printed-parts") / "cadlib"))
-if __name__ == "__main__":
-    import _rust_part
-    _rust_part.start()
-
 import cadquery as cq  # noqa: E402
 from _materials import C_FAUCET_BLACK, linear
 from _faucet_interface import (
@@ -114,20 +110,3 @@ def build_above_counter_plate() -> cq.Workplane:
     plate = plate.cut(vertical_cylinder(shank_hole_center, shank_hole_radius, plate_z_range))
     return (plate.cut(vertical_x_slot(pill_slot_center, bundle_slot_length_x, pill_width_y, plate_z_range))
             .cut(build_lower_signal_lane()))
-
-
-def numbers() -> dict:
-    """The Rust scalar program supplies the countertop stack recipe."""
-    return _data()["numbers"]
-
-
-def main():
-    # A run cuts the plate; an import of this module is a reader of its builder and numbers.
-    import _rust_part
-
-    said = _rust_part.cut("faucet", "above-counter-plate", numbers(), _here)
-    print("-> " + ", ".join(said["files"]))
-
-
-if __name__ == "__main__":
-    main()

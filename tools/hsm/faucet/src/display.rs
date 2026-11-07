@@ -5,7 +5,9 @@
 use crate::Gooseneck;
 use crate::shell::PAST;
 use anyhow::{Result, anyhow, ensure};
-use hsm_kernel::part::Numbers;
+use hsm_faucet_numbers::shell::{
+    DISPLAY_CLIP_BOTTOM_N, DISPLAY_CLIP_TOP_N, TUBE_SHELL_CENTER_Y, display_clip_s_bottom, display_clip_s_top,
+};
 use hsm_kernel::*;
 
 /// The tip frame as a plane: a point (x, s, n) of the frame is the plane's (x, y, z).
@@ -18,8 +20,8 @@ pub fn tip_plane(neck: &Gooseneck) -> Result<Plane> {
 /// the gooseneck's whole length and on past the tube exit, so it cuts clean through a cover's
 /// face that stands at the exit.
 #[track_caller]
-pub fn neck_round(n: &Numbers, neck: &Gooseneck, r: f64) -> Result<Solid> {
-    neck.sweep(&Profile::circle(v2(0.0, n.f("tube_shell_center_y")?), r), 0.0, neck.length() + PAST)
+pub fn neck_round(neck: &Gooseneck, r: f64) -> Result<Solid> {
+    neck.sweep(&Profile::circle(v2(0.0, TUBE_SHELL_CENTER_Y), r), 0.0, neck.length() + PAST)
 }
 
 /// How far a relief cutter stands out past the faces it cuts between, into the air.
@@ -32,11 +34,11 @@ const STEP: f64 = 0.5;
 /// clip's two planes chamfered `d` along both faces, as OCCT's chamfer of that distance cuts it.
 /// Its section square to the edge is the triangle from the edge to the point `d` out along the
 /// plane and the point on the round `d` from the edge.
-pub fn lips(band: &Solid, n: &Numbers, neck: &Gooseneck, r: f64, d: f64) -> Result<Solid> {
-    let lips = band.cut(&neck_round(n, neck, r)?)?;
-    let s = (n.f("display_clip_s_bottom")?, n.f("display_clip_s_top")?);
-    let (bottom, top) = (n.f("display_clip_bottom_n")?, n.f("display_clip_top_n")?);
-    let round = Round { c: n.f("tube_shell_center_y")?, bend: neck.radius, tip: neck.tip, r };
+pub fn lips(band: &Solid, neck: &Gooseneck, r: f64, d: f64) -> Result<Solid> {
+    let lips = band.cut(&neck_round(neck, r)?)?;
+    let s = (display_clip_s_bottom(), display_clip_s_top());
+    let (bottom, top) = (DISPLAY_CLIP_BOTTOM_N, DISPLAY_CLIP_TOP_N);
+    let round = Round { c: TUBE_SHELL_CENTER_Y, bend: neck.radius, tip: neck.tip, r };
     let frame = tip_plane(neck)?;
     let mut cutters = vec![];
     for side in [-1.0, 1.0] {

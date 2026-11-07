@@ -8,12 +8,10 @@ the X=0 plane), world -Y is forward (dispense direction — the gooseneck
 arcs toward -Y, where the user's glass sits). The Westbrass's threaded shank
 runs along world Z at world (X, Y) = (0, 0).
 
-THE KERNEL CUTS THE FILES. This module holds the numbers and writes the ones the
-geometry takes (`numbers()`) to `faucet-shell.numbers.json`; `faucet_shell.rs`,
-beside it, cuts `faucet-shell.step` and its payload, and each piece's STEP and
-STL, from them (`hardware/scripts/_rust_part.py`). The builders below draw the
-same shell in CadQuery, which is the body `faucet_assembly` and the industrial
-faucet seat."""
+`faucet_shell.rs` cuts the two printed pieces from the faucet's numbers crate
+(`../numbers/shell.rs`). This module is for the readers that still take the shell from
+Python: the builders below draw the same shell in CadQuery, and its datums are the
+recipe `tools/hsm/faucet-data` serves."""
 
 from __future__ import annotations
 
@@ -38,10 +36,6 @@ sys.path.insert(
 )
 sys.path.insert(0, str(_here.parent.parent))  # for _faucet_interface
 sys.path.insert(0, str(next(p for p in _here.parents if p.name == "printed-parts") / "cadlib"))
-if __name__ == "__main__":
-    import _rust_part
-    _rust_part.start()
-
 import cadquery as cq
 import trimesh
 
@@ -1553,25 +1547,3 @@ def write_bed_file(solid, path):
 
 def lower_bundle_numbers():
     return _shell_data("lower_bundle_numbers")
-
-
-def numbers():
-    return _shell_data("numbers", color=list(linear(C_FAUCET_BLACK)))
-
-
-def main():
-    # A run cuts the shell; an import of this module is a reader of its builders and numbers.
-    import _rust_part
-
-    out_dir = Path(__file__).resolve().parent
-    said = _rust_part.cut("faucet", "faucet-shell", numbers(), out_dir)
-    print("-> " + ", ".join(said["files"]))
-
-    # The bounds this file states about its own constants, read at import. `check_show_faces.py`
-    # is where they are held for the board; this is the reading the run itself leaves.
-    print()
-    _bounds.report()
-
-
-if __name__ == "__main__":
-    main()

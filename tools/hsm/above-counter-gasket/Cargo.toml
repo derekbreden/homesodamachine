@@ -1,0 +1,19 @@
+[package]
+name = "hsm-above-counter-gasket"
+version = "0.1.0"
+edition.workspace = true
+license.workspace = true
+rust-version.workspace = true
+publish = false
+
+[[bin]]
+name = "above-counter-gasket"
+path = "../../../hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.rs"
+
+[dependencies]
+anyhow.workspace = true
+hsm-faucet = { path = "../faucet" }
+hsm-faucet-numbers = { path = "../faucet-numbers" }
+hsm-kernel = { path = "../kernel" }
+hsm-print-payload = { path = "../print-payload" }
+

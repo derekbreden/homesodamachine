@@ -5,10 +5,9 @@ The cosmetic skin follows the glass closely. Its preformed walls remain spread
 against the seated groove roots.
 The PET-GF snap's force and durability require the representative print trial.
 
-The kernel cuts the cover (`faucet_display_cover.rs`, beside this module) from the numbers
-`numbers()` writes for it (`hardware/scripts/_rust_part.py`). The builders here draw it in
-CadQuery for the faucet assembly's CadQuery assembly, the display snap trial and the geometry
-check, which read them.
+`faucet_display_cover.rs` cuts the cover from its numbers crate (`numbers.rs`). This module is
+for the readers that still take it from Python: the builders here draw it in CadQuery for the
+faucet assembly's CadQuery assembly, the display snap trial and the geometry check.
 """
 
 from __future__ import annotations
@@ -24,10 +23,6 @@ for path in (
     next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools",
 ):
     sys.path.insert(0, str(path))
-if __name__ == "__main__":
-    import _rust_part
-    _rust_part.start()
-
 import cadquery as cq
 from _faucet_interface import (
     display_corner_r, display_cover_lap, display_cover_over_face,
@@ -73,11 +68,9 @@ _SHELL_FIELDS = (
 )
 
 
-def _data(*, include_recipe=False, preload_n=None):
+def _data(*, preload_n=None):
     payload = {"op": "consumer-cover", "shell": {key: getattr(shell, key) for key in _SHELL_FIELDS},
                "preload_n": preload_n}
-    if include_recipe:
-        payload["shell_numbers"] = shell.numbers()
     return request("faucet-data", "faucet-data", payload)
 
 
@@ -216,41 +209,3 @@ def show_face(cover: cq.Workplane) -> tuple:
 def bed_face(cover: cq.Workplane) -> tuple:
     # The broad, planar bezel is the candidate's face-down bed surface.
     return show_face(cover)
-
-
-def selftest() -> int:
-    cover = build_display_cover()
-    failures = []
-    if not cover.val().isValid() or len(cover.val().Solids()) != 1:
-        failures.append("cover must be one valid solid")
-    if bezel_thickness < 1.0 - 1e-8:
-        failures.append("cosmetic bezel is thinner than 1 mm")
-    if _display_snap.LIP_HEIGHT < 1.0 - 1e-8:
-        failures.append("cover lip is thinner than 1 mm")
-    if show_face(cover)[0] != 1:
-        failures.append("bezel must have one planar show face")
-    for failure in failures:
-        print("FAIL", failure)
-    if not failures:
-        print("ok faucet-display-cover: one solid; planar 1.3 mm bezel and 3 mm preloaded lips; physical retention requires print trial")
-    return int(bool(failures))
-
-
-def numbers() -> dict:
-    """The Rust scalar program supplies the cover's tip-frame recipe."""
-    return _data(include_recipe=True)["numbers"]
-
-
-def main():
-    # A run cuts the cover; an import of this module is a reader of its builders and numbers.
-    import _rust_part
-
-    said = _rust_part.cut("faucet", "faucet-display-cover", numbers(), _here.parent)
-    print("-> " + ", ".join(said["files"]))
-    out = _here.parent / "faucet-display-cover.step"
-    cover = next(body for body in said["bodies"] if body["name"] == out.stem)
-    print(f"-> {out.name}; {cover['volume']:.0f} mm³")
-
-
-if __name__ == "__main__":
-    sys.exit(selftest()) if len(sys.argv) > 1 and sys.argv[1] == "selftest" else main()

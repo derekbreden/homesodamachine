@@ -399,6 +399,16 @@ RUST_STEPS = {
         ("reservoir", "reservoir", "hardware/printed-parts/cold-core/reservoir"),
     "hardware/printed-parts/cold-core/foam-shell/foam_shell.rs":
         ("foam-shell", "foam-shell", "hardware/printed-parts/cold-core/foam-shell"),
+    "hardware/printed-parts/faucet/faucet-shell/faucet_shell.rs":
+        ("faucet-shell", "faucet-shell", "hardware/printed-parts/faucet/faucet-shell"),
+    "hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.rs":
+        ("above-counter-plate", "above-counter-plate", "hardware/printed-parts/faucet/above-counter-plate"),
+    "hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.rs":
+        ("above-counter-gasket", "above-counter-gasket", "hardware/printed-parts/faucet/above-counter-gasket"),
+    "hardware/printed-parts/faucet/faucet-display-cover/faucet_display_cover.rs":
+        ("faucet-display-cover", "faucet-display-cover", "hardware/printed-parts/faucet/faucet-display-cover"),
+    "hardware/printed-parts/faucet/industrial/industrial_faucet.rs":
+        ("industrial-faucet", "industrial-faucet", "hardware/printed-parts/faucet/industrial"),
 }
 
 #: The media a Rust step can rewrite in place: documents with authored text round the figures it
