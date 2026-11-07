@@ -217,7 +217,7 @@ fn pipeline(g: &mut Graph, k: &Build) -> Shape {
     piece = k.rises(g, piece);
     let bands = q.bands(b);
     piece = k.floor(g, piece, Some(back_top_wall_face()));
-    piece = vent_chase(g, piece, inner, outer, &pack.vent_chase, bands, up);
+    piece = vent_chase(g, piece, inner, outer, &b.exterior_bounds(), &pack.vent_chase, bands, up);
     piece = valves::valve_trays(g, piece, b, q, bands);
     piece = k.reliefs(g, piece);
     let (wells, pockets) = above::apply(g, piece, b, q.y);

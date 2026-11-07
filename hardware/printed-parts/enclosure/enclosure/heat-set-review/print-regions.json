@@ -2,12 +2,12 @@
   "coordinate_frame": "Source STEP/STL coordinates in the appliance frame",
   "native_artifact_sha256": {
     "back-bottom": {
-      ".step": "4997601b1a25b7531aa0115bc0599808b7110966bf2f6f1278bb17cab81746a3",
-      ".stl": "ddbd30a11ab6e86099028cf993101124d36bc5d820f2646aa26ff2202e337947"
+      ".step": "f6b1ecda41553f2f80ba69c2c727156a5485c4845d2d85bb744097b2b6e1f54f",
+      ".stl": "8e5a30ea3706b9f32de9bfdbb79c824e52a06f15f9356861b0179ea110e70781"
     },
     "back-top": {
-      ".step": "4d47493def5df7cd894b9c99b66c1ae60b1faa3c290d7f9622a2f84ed9444085",
-      ".stl": "a52f922276ba3c7e7707fe4b90b39a9df6ad63cc5848f2002e9daec600a58f1b"
+      ".step": "017d8a7541a4d3e1bcaa9fba9973f9f5241f9e95b28ffd4c5d8e45d1236fd921",
+      ".stl": "a64ce5aa9859d7bc9fd898ece6443fcc95a910a03a1d8952704afd142b1c5b17"
     },
     "front-bottom": {
       ".step": "4655b07a5898627787993931a83a31901d856c2128dfa1d47b0cb84c39239f31",
@@ -1239,7 +1239,7 @@
     "hardware/manifold-layout/enclosure-box.json": "1f6bb8fee7d04a10b5c1b39ce87ee6112cdd4ceae2b88e4f586f59e415a54cdc",
     "hardware/manifold-layout/machine-export-physical.numbers.json": "90f9a464b95d19a4de7a9a51a3fd7d6d6bd7b01abe99d64dc01eb0f24b39c0dd",
     "hardware/printed-parts/enclosure/display-cover/mount-dimensions.json": "d6f21b14bb98bfe7eb6a1280109400bdb1e1ca9f483d3451d40d8902de208543",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json": "715360c23fc3e9d6f7ab9b2a0da4e17fa84d04ba1f2b6d3e1cc8481e2aedbf05",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json": "82323ce9faf65b739b11b65c53788cc20bf9454e85a924a36f6ab1217337d1e2",
     "hardware/printed-parts/enclosure/enclosure/heat-set-review/print_regions.rs": "e8371fdfa11c7ffbe13b952407a5470d4c7b08baa369f8ad4604671c4b5c19e4",
     "hardware/printed-parts/enclosure/nameplate/nameplate.numbers.json": "71f493d741a59ce7293607e5929a2f6f5fe3b9759e7507c0db5db481f19e7689"
   },
