@@ -110,7 +110,7 @@ Generate and slice explicitly from the repository root:
 
 ```sh
 HSM_NO_BUILD_LOCK=1 tools/cad-venv/bin/python hardware/printed-parts/fixtures/tube-insertion/donor-hold-down/donor_hold_down.py
-tools/cad-venv/bin/python hardware/printed-parts/fixtures/tube-insertion/donor-hold-down/prepare_print.py --slice-output .cache/donor-hold-down-half-body-native-next
+tools/hsm/target/release/donor-hold-down-print-project --slice-output .cache/donor-hold-down-half-body-native-next
 ```
 
 The slice directory must be empty. These manual operations submit no
