@@ -613,7 +613,7 @@
     "hardware/printed-parts/faucet/lever-replica/lever-replica.step.mesh": "d3f6dd56fa2bb5d230b1c5207436840126a5b56ddd0146aa45f05010173c20c5",
     "hardware/printed-parts/faucet/lever-replica/lever-replica.stl": "ee18c91f4891228a6a76ae1381414d2fb31e17694e746bb298a5f2c524e512ee",
     "hardware/printed-parts/faucet/tpu-o-ring/tpu-o-ring.step": "5275fe3c7f38852a067156749cf0308538fab7a18ef19ccf6de4ef35b09c5e67",
-    "hardware/printed-parts/faucet/tpu-o-ring/tpu-o-ring.step.mesh": "46a476b9be345563ed7b8520236f0728ad8216df82a24231a78c00fb08830e19",
+    "hardware/printed-parts/faucet/tpu-o-ring/tpu-o-ring.step.mesh": "fb9549e28f27122c3cbb50c9a29c21699d7b8570dad12a47b45bad134aec3faa",
     "hardware/printed-parts/faucet/tpu-o-ring/tpu-o-ring.stl": "48d4c54b05741faaf3ede29bde6b7abe4280a61d4b2a253d2d4449969c012d19",
     "hardware/printed-parts/faucet/tube-collar/tube-collar-carb.step": "753a62d6bcd22349e7b00ba24dbfc6e1048aa19f24e86feb2c96fcb7fd4ab40e",
     "hardware/printed-parts/faucet/tube-collar/tube-collar-carb.step.mesh": "a2e941227f9897ec29b3c1d48744d9a5580adcff8a5be2113804c662331928c3",
@@ -1852,7 +1852,7 @@
       "hardware/printed-parts/faucet/lever-replica/lever-replica.step.mesh": "d3f6dd56fa2bb5d230b1c5207436840126a5b56ddd0146aa45f05010173c20c5",
       "hardware/printed-parts/faucet/lever-replica/lever-replica.stl": "ee18c91f4891228a6a76ae1381414d2fb31e17694e746bb298a5f2c524e512ee",
       "hardware/printed-parts/faucet/tpu-o-ring/tpu-o-ring.step": "5275fe3c7f38852a067156749cf0308538fab7a18ef19ccf6de4ef35b09c5e67",
-      "hardware/printed-parts/faucet/tpu-o-ring/tpu-o-ring.step.mesh": "46a476b9be345563ed7b8520236f0728ad8216df82a24231a78c00fb08830e19",
+      "hardware/printed-parts/faucet/tpu-o-ring/tpu-o-ring.step.mesh": "fb9549e28f27122c3cbb50c9a29c21699d7b8570dad12a47b45bad134aec3faa",
       "hardware/printed-parts/faucet/tpu-o-ring/tpu-o-ring.stl": "48d4c54b05741faaf3ede29bde6b7abe4280a61d4b2a253d2d4449969c012d19",
       "hardware/printed-parts/faucet/tube-collar/tube-collar-carb.step": "753a62d6bcd22349e7b00ba24dbfc6e1048aa19f24e86feb2c96fcb7fd4ab40e",
       "hardware/printed-parts/faucet/tube-collar/tube-collar-carb.step.mesh": "a2e941227f9897ec29b3c1d48744d9a5580adcff8a5be2113804c662331928c3",
@@ -2800,7 +2800,7 @@
     "hardware/printed-parts/faucet/lever-replica/lever-replica.step.mesh": 1793712586,
     "hardware/printed-parts/faucet/lever-replica/lever-replica.stl": 1793626644,
     "hardware/printed-parts/faucet/tpu-o-ring/tpu-o-ring.step": 1793626644,
-    "hardware/printed-parts/faucet/tpu-o-ring/tpu-o-ring.step.mesh": 1793626644,
+    "hardware/printed-parts/faucet/tpu-o-ring/tpu-o-ring.step.mesh": 1794017515,
     "hardware/printed-parts/faucet/tpu-o-ring/tpu-o-ring.stl": 1793712586,
     "hardware/printed-parts/faucet/tube-collar/tube-collar-carb.step": 1793626644,
     "hardware/printed-parts/faucet/tube-collar/tube-collar-carb.step.mesh": 1793712586,
@@ -5421,8 +5421,8 @@
       "unproven": true
     },
     "hardware/printed-parts/faucet/tpu-o-ring/tpu-o-ring.step.mesh": {
-      "inputs": "daa1373ccbb5a0115530e72d30fe2dee8dc54e771edb08d2b87ea091185f2afa",
-      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2",
+      "inputs": "375656b4db662c150baaef258bb14386f02286b023d4848f4708e481d2478765",
+      "commit": "b8a60a3dc506039d6e509726640927fc007f61b6",
       "unproven": true
     },
     "hardware/printed-parts/faucet/tpu-o-ring/tpu-o-ring.stl": {
