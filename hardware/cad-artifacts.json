@@ -17,8 +17,8 @@
     "behind": true
   },
   "solids": {
-    "hardware/assembly/scenes/glb/back-half.glb": "6565c40a705450590b788b6fa20dd4c704fdeb4bb6cb1edf54ac86376a21d799",
-    "hardware/assembly/scenes/glb/back-top.glb": "99934504d1d9a0a8011e77b371b1830ad183425c67f52cc25b674658fe54c807",
+    "hardware/assembly/scenes/glb/back-half.glb": "2e6be44a1a1e38c6c880f7514a025e3c9e2dbe26ec5d7fabccf7de2cf9ba5b70",
+    "hardware/assembly/scenes/glb/back-top.glb": "c368de8e2f92a3777f46d9399a88392f6dfb2c5f3ba2c538112ddb9e417965f9",
     "hardware/assembly/scenes/glb/cap-lid-fill.glb": "d471d788bdd698b215772ba1e5812628f74228a204309a3fc2e1dcc74bce1a88",
     "hardware/assembly/scenes/glb/cap-lid.glb": "7dcfe9bac20dd4e01e47cefd5be56fb6d53121c978754ca9ccae04085f243087",
     "hardware/assembly/scenes/glb/cold-core-open.glb": "e6892cf7f8c0ac59fc4655056792668e7f04f5ab7c5b886275d405d17558af95",
@@ -101,10 +101,10 @@
     "hardware/install-guide/plumbing/modern/art/modern-tee-tug-check.png": "8f062e9ef1cee06b9cb01395c324d0e82806504b257a2049057ac6a7098d120f",
     "hardware/install-guide/plumbing/modern/art/modern-water-off.png": "208d30cfa3bad79f7173b338a3fe1f6f9fd42f8c2d7aae402fa4720906752e9d",
     "hardware/install-guide/plumbing/modern/art/modern-water-on.png": "28ae8937a70f7a55571a37a303b38477bef45d5c4c9d2aef2c22fe58da4c34f8",
-    "hardware/manifold-layout/enclosure-assembly.facts.json": "503942fe4a5ef0864dff77fbd408793465ef115029b47a5815aaed4fe8fd9283",
+    "hardware/manifold-layout/enclosure-assembly.facts.json": "289dd0ca517fdde26b33aaf10dfb56a80e5be7bf840926aa5ee0481aaf336f2f",
     "hardware/manifold-layout/enclosure-assembly.physical.step.mesh": "96be0d51a69a4bfce5f3984d9f08a82c5a97fa6c220bf7d72d389c15af217370",
-    "hardware/manifold-layout/enclosure-assembly.step": "de8e71afd4720dc806c9259384db5a13145c7657db2922348817198929ac6a15",
-    "hardware/manifold-layout/enclosure-assembly.step.mesh": "6db7a411b75464fb276f2c8bc88c4841d31f763224714ebedc01ff94ac433f23",
+    "hardware/manifold-layout/enclosure-assembly.step": "4626bd0f19044ebb73ef0f41ecb40397a913334eeb90b9917794fb87a0c3f38d",
+    "hardware/manifold-layout/enclosure-assembly.step.mesh": "f5072523f4c2393b90ec169cd84a2186f31ce387c851618c1c82a04a9112a587",
     "hardware/manifold-layout/manifold-layout.step": "271622e26ecef38f7d20c561ff7ea3dd29af67e749958f1a2f220a5495227ad7",
     "hardware/manifold-layout/manifold-layout.step.mesh": "f1b4190ad025622f298695284dab5339e4ec949b89906e3bd20c800e8e416610",
     "hardware/manifold-layout/studies/ceiling-fit/parts/back-wall.step": "8569f20e91df06d2e3e7e8e3175c1c5fdef3d803d3aee809fd2182a4d9517fcd",
@@ -208,15 +208,15 @@
     "hardware/print-tests/m5-seam-bearing/parts/m5-d56-h12.step": "e211edcab441fe2866c8afcab14c605e0ae7d812cae0b06f05291046a6994adb",
     "hardware/print-tests/m5-seam-bearing/parts/m5-d56-h40.step": "62d175274eaad1557222dcfe0a3ef4bedbb60599d8faeb6134d97d050ff0dbd5",
     "hardware/printed-parts/asse-drain-adapter/asse-drain-adapter.step": "4730c636dd33e1431fa4fa3c6df0b4a3a41942efa40f451ce04e4f41e661a92d",
-    "hardware/printed-parts/asse-drain-adapter/asse-drain-adapter.step.mesh": "0176e2a0de1ca681ff070194086880c7c1a96002b9063f9c30a96321a6c38f9c",
+    "hardware/printed-parts/asse-drain-adapter/asse-drain-adapter.step.mesh": "192cb511c9bd723d16f931037c741fb143fa7000b522a574d13fc47f50854806",
     "hardware/printed-parts/asse-drain-adapter/asse-drain-adapter.stl": "ee0584ceb98ba367aaf8ea1508a060946f8e357a0f8e77cc33de567066437d2e",
     "hardware/printed-parts/asse-straight-cuffs/asse-inlet-cuff.step": "497993beffe16a8a44dc16b30c90a398421f1feda23259d071cad705e8a68c10",
     "hardware/printed-parts/asse-straight-cuffs/asse-inlet-cuff.step.json": "da4317af62970098f06ba9653b97fde9523bbfc014cc12ad2a2e772d1fffad41",
-    "hardware/printed-parts/asse-straight-cuffs/asse-inlet-cuff.step.mesh": "83d7b63d79f86a4a226b376256b5f6a6ea2bdcb4b7b4049b8e05f539c9a403af",
+    "hardware/printed-parts/asse-straight-cuffs/asse-inlet-cuff.step.mesh": "e174167261c21c0454629c054c648350d73bd89149d41c7634d7f8a1f445b4dc",
     "hardware/printed-parts/asse-straight-cuffs/asse-inlet-cuff.stl": "05476e57b5513d349b5e799a7a4576de2a689cb934c2b48d0903b63337a64173",
     "hardware/printed-parts/asse-straight-cuffs/asse-outlet-cuff.step": "c8ff212d3388a9239bf1b4a8041e1618953a28d287dfc228ea61b556848a9160",
     "hardware/printed-parts/asse-straight-cuffs/asse-outlet-cuff.step.json": "da4317af62970098f06ba9653b97fde9523bbfc014cc12ad2a2e772d1fffad41",
-    "hardware/printed-parts/asse-straight-cuffs/asse-outlet-cuff.step.mesh": "da200fff5048eafbb573f3169bcab91af37e5dc93dde50aa36f300a88335bf5b",
+    "hardware/printed-parts/asse-straight-cuffs/asse-outlet-cuff.step.mesh": "6856373c12a4622863347011524e7428a5da8d9f220461c960177e16d5e61f36",
     "hardware/printed-parts/asse-straight-cuffs/asse-outlet-cuff.stl": "8412a13f173f666288fc00a34d4272afa076e35dffc6bc95bf91d0d61e2a809b",
     "hardware/printed-parts/calibration/dual-nozzle-registration/dual-nozzle-registration.step": "70ea1bb64fffc023ca458f8a2089de35c63a596b0d298f8c3768a45000e249d9",
     "hardware/printed-parts/calibration/dual-nozzle-registration/dual-nozzle-registration.step.mesh": "4910d0f4767b28812b683a1631fcf5385335bdf8eed1176e79b76509ab0c1e6c",
@@ -326,15 +326,15 @@
     "hardware/printed-parts/cold-core/reservoir/reservoir-tube-grip.stl": "0b7af9247334655bb4129277ad30d1b92f6e9f029f69dcb98700615befcb0cfb",
     "hardware/printed-parts/cold-core/reservoir/reservoir.3mf": "82fd2e65ff3a6e427f1522dbbe5c295303a5d70f153ddcd08e0be480342c7541",
     "hardware/printed-parts/collet-press/collet-press.step": "d8dff38e519a01885464430d031d5b0df35f3c368adde3e4b13464aa0b9da52b",
-    "hardware/printed-parts/collet-press/collet-press.step.mesh": "022763847c71afe7c3439b783e00de4c6ad9df9fdf2c04b6424721c0239af30f",
+    "hardware/printed-parts/collet-press/collet-press.step.mesh": "ac07ea11318e6256e475072327ea048773739d95e67a6a82c4bbd494f665f623",
     "hardware/printed-parts/collet-press/collet-press.stl": "c7844502e96123f02d6653b0a793f2dcd74964f7022f125d3b3929ebbd0c9141",
     "hardware/printed-parts/diaphragm-pump-sleeve/diaphragm-pump-sleeve.step": "dc732268af4cd0948b812e588d061739e109a31216747cee68a8d96d7eede79f",
-    "hardware/printed-parts/diaphragm-pump-sleeve/diaphragm-pump-sleeve.step.mesh": "7b0885b1f799860f8438da735b92ecc5fa262cbf0fa946fb53f131a55a1f3952",
+    "hardware/printed-parts/diaphragm-pump-sleeve/diaphragm-pump-sleeve.step.mesh": "17954bcbe6a9bec9ac7bfacd6215514d53a9227a226c738e8dfb72313cb21620",
     "hardware/printed-parts/diaphragm-pump-sleeve/diaphragm-pump-sleeve.stl": "0ebe7cbc53bf9abdc17ca9391438432b33010b1537f22608a00358023efbe79a",
     "hardware/printed-parts/electronics/pcba-tray/pcba-assembly.step": "a2959a35d0327f54ab5a4181037bb43b6bbe6d4959be2c307188c1c1ed870e08",
     "hardware/printed-parts/electronics/pcba-tray/pcba-assembly.step.mesh": "226f10b48056513eb4ad56696b2990d1488bf8b5976305af699c63df25728386",
     "hardware/printed-parts/electronics/pcba-tray/pcba-board.step": "24d6357cae73a727fa3870f60b7630649f80e772a10bdce673632f6bfcd0e99e",
-    "hardware/printed-parts/electronics/pcba-tray/pcba-board.step.mesh": "6fe1dd8dc11aafea6ce30ec2af6f5d78dc50075e5ac323db58d762637a11b6f7",
+    "hardware/printed-parts/electronics/pcba-tray/pcba-board.step.mesh": "4ffc48d3849da295ad068f32cf1c8f11f559da08fd2ede2bf4f9655623211453",
     "hardware/printed-parts/enclosure/asse-drip-pan/asse-drip-pan.step": "48921de1f09871d7fa66a107f9b0f98156358d365d33d3af653ad206e73a0403",
     "hardware/printed-parts/enclosure/asse-drip-pan/asse-drip-pan.stl": "a1ee250b1ef918a7b172e44736c186addc07a6c0db7c06d65464d90ff841e256",
     "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-carb.step": "5d37fa5fb00078626f2cd4f33b46e5c14fbf783cafd9f3fd5ba5ad22c39ab4ee",
@@ -362,7 +362,7 @@
     "hardware/printed-parts/enclosure/data-ring/data-ring.step.mesh": "d54048f9ddceb8d83473007c064f437b9fbae9bbe222bac656471ad8ad489301",
     "hardware/printed-parts/enclosure/data-ring/data-ring.stl": "09bf5340b87b42166228c4559ff658dc1ab4e5b96ea890a5ab7f442ccc563e69",
     "hardware/printed-parts/enclosure/display-cover/display-cover.step": "fc9c7d1d36910bc54d8ad1df9b9050f841e6de9f78a27e8f7010b444b9d0db76",
-    "hardware/printed-parts/enclosure/display-cover/display-cover.step.mesh": "d1db124860a630bd89069e92e80e68bf4b26790e1f24e22266ab649fbd16435a",
+    "hardware/printed-parts/enclosure/display-cover/display-cover.step.mesh": "bc5a8ae32ba86712cbedba19bcd58106fb47d5998e659b571e304bdf09deb2d8",
     "hardware/printed-parts/enclosure/display-cover/display-cover.stl": "3594ee4fb113b440326981b1e5cef4bba11f439d2fa586544a5fae44e4dc5f34",
     "hardware/printed-parts/enclosure/display-cover/face-up-trial/display-cover-flat-wings.step": "2ef12c8034de1b401fa10fe9f3157b797da236a9d55be915435f129082226d52",
     "hardware/printed-parts/enclosure/display-cover/face-up-trial/display-cover-flat-wings.step.mesh": "77c5d076a4abb649555664d09bd69239c9588fc78ef30e1fd1991e74f3e8bc53",
@@ -392,7 +392,7 @@
     "hardware/printed-parts/enclosure/display-cover/retention-trial/display-receiver-retention-v2.step.mesh": "8f47ea12a8b3bb8b1a7ffa954811c3fdd8aa93aa522900f658b993d446444b49",
     "hardware/printed-parts/enclosure/display-cover/retention-trial/display-receiver-retention-v2.stl": "a182f8e070a5c1e9aeb1c40693034ada7c1787d422f5bba1c484b7d80baa054d",
     "hardware/printed-parts/enclosure/display-gasket/display-gasket.step": "5b32f55a1beae8d40ce7577cb7adf30f1dc884220bda13c99717463ecddf1e34",
-    "hardware/printed-parts/enclosure/display-gasket/display-gasket.step.mesh": "5be84e829917b7062ab5917d678c2074a3aa81b7107d84c26b24afce322c592d",
+    "hardware/printed-parts/enclosure/display-gasket/display-gasket.step.mesh": "74d9f97b3c3fdeaa64519c6e40016621b597cca7c19d7a0f765ac965a5fe5460",
     "hardware/printed-parts/enclosure/display-gasket/display-gasket.stl": "5bfe020725eb9f1cb4bb741c207454b1e64550e63fa443aadbc61398c7ea4c2a",
     "hardware/printed-parts/enclosure/enclosure/accepted-fit-integration/back-top-backing-proposal.step": "ddf19e78f59b078a6ef957bbbf557144c6f0a0dab87314081efb83999710c13f",
     "hardware/printed-parts/enclosure/enclosure/accepted-fit-integration/placed-psu.step": "20b5ca3a7c11e0bedc16b5d01629096866ba36e5289e124ef8b236348da5039e",
@@ -639,7 +639,7 @@
     "hardware/printed-parts/fixtures/fake-countertop/fake-countertop-petgf-mark2.3mf": "0f6a03529f4a095e6d4ef1ea2dea5a7eea0e56b915663281efcb44a62a657bd7",
     "hardware/printed-parts/fixtures/fake-countertop/fake-countertop-petgf.3mf": "f14a808ca4736cb99fe784020796adec1d64dc362542e0aa5d9244a5cb6161f5",
     "hardware/printed-parts/fixtures/fake-countertop/fake-countertop.step": "61fe53df73f8ce6f81fc04b9806ec86f286176939d20a811df140bf1b1c03564",
-    "hardware/printed-parts/fixtures/fake-countertop/fake-countertop.step.mesh": "56ff374bf67e335668ac54f226635a8814ee8b34a30c4f300b7c9dc208196fa1",
+    "hardware/printed-parts/fixtures/fake-countertop/fake-countertop.step.mesh": "127f9c792fb257e9b56a317cd17e9bae05aaaf847cb38b831ce9680c1173b732",
     "hardware/printed-parts/fixtures/fake-countertop/fake-countertop.stl": "9e51861af0d4d93e33a418f8d6cc24f5e792f963abeb2ca57704c45665ce39d2",
     "hardware/printed-parts/fixtures/faucet-cover-retention/cover-retention-a.step": "36457193f29176850b8de4d2e3148933a8fc333b0d96ea3e8f264dda6570bddd",
     "hardware/printed-parts/fixtures/faucet-cover-retention/cover-retention-a.step.mesh": "4c6fe8101a4dc1ec2f03e0b005369d33f93012f2d71ac24c1d0be7008f89e7c1",
@@ -1328,7 +1328,7 @@
     "hardware/printed-parts/fixtures/tube-miter-box/tube-miter-box-petgf-mark2.3mf": "66db9e395afeb3da697bb26672c9cf6240ba6cd45bb46789ca59036e91a0e495",
     "hardware/printed-parts/fixtures/tube-miter-box/tube-miter-box-petgf.3mf": "71f30961c9f29215286892f8cb6141d5d1d7627d5845d14641f4986006413a50",
     "hardware/printed-parts/fixtures/tube-miter-box/tube-miter-box.step": "92ce4d3de42c55aa86f63dc1a857592a978233e9cd6f6ebea75330ff83ebd649",
-    "hardware/printed-parts/fixtures/tube-miter-box/tube-miter-box.step.mesh": "71781219cd958ea9c7a02a8da66fb709fa458fc1ed16bdb8c0e4d4f9a02378d4",
+    "hardware/printed-parts/fixtures/tube-miter-box/tube-miter-box.step.mesh": "0ccebcb3ab70d5a50ec9ded27d6325d8bdfb2495004539ab9973619d39bdeb3f",
     "hardware/printed-parts/fixtures/tube-miter-box/tube-miter-box.stl": "3fe5a1fdf2df47768bcc2d1395ccd3dddb5499e68e304452793c4a429de8515e",
     "hardware/printed-parts/fixtures/valve-socket-fit/tighter-trial-v2/beduan-socket-v68.step": "6ad1aa5994f9747424b5698ab648288d506121ee26c4e44ce2d1acc18761ebde",
     "hardware/printed-parts/fixtures/valve-socket-fit/tighter-trial-v2/beduan-socket-v68.step.mesh": "cbd8317be704af9927852b00585a5a920cae1c4c9620fa539357a7695349cde3",
@@ -1349,10 +1349,10 @@
     "hardware/printed-parts/fixtures/valve-socket-fit/valve-socket-fit.step.mesh": "53bbc4404838bd1ac81fe4a8371484110090fa8794782794ea9dd0b12d75dff7",
     "hardware/printed-parts/fixtures/valve-socket-fit/valve-socket-fit.stl": "925862176fb59205aee0b8824c59fcccdfcc89be4a1aeef40d8aeb1662297fe1",
     "hardware/printed-parts/fixtures/water-inlet-jet/water-inlet-jet-fixture-fixed.step": "219c3ec136e3af79218f399141eb5e5de7d0a4501bb03b8d1841d4f72007691c",
-    "hardware/printed-parts/fixtures/water-inlet-jet/water-inlet-jet-fixture-fixed.step.mesh": "b1f0a8f9f628dca925a5cc78e64e553d30e6e90f8533efd9368973343e3d5d36",
+    "hardware/printed-parts/fixtures/water-inlet-jet/water-inlet-jet-fixture-fixed.step.mesh": "3fce687914e81df967afe732eba98a62577d2be611157f178ef5e71e316cff61",
     "hardware/printed-parts/fixtures/water-inlet-jet/water-inlet-jet-fixture-fixed.stl": "3da5f4d3fb203ce55222ea330acb72963ca692138ba56bd008acc95c48686105",
     "hardware/printed-parts/fixtures/water-inlet-jet/water-inlet-jet-fixture-loose.step": "08a7d22ff6e635309e5dfecc990566412e24d7db60b860b0d5c9b6d396baa57f",
-    "hardware/printed-parts/fixtures/water-inlet-jet/water-inlet-jet-fixture-loose.step.mesh": "35d767144421b06a3106ed6cc46ad51c41f161254205872c68d8218f8270a3f7",
+    "hardware/printed-parts/fixtures/water-inlet-jet/water-inlet-jet-fixture-loose.step.mesh": "96f7458c618c6748ff6ad4fc7762f3e4606bce53a889a07fab6fbe903411a6a2",
     "hardware/printed-parts/fixtures/water-inlet-jet/water-inlet-jet-fixture-loose.stl": "cb72908a0c3588a4b27f30969928007aa7758bd8e0aa79cf43bb8b64b2f614ed",
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-assembly.step": "173b1ca5965e403394847821baa161b97f93fa0250cb4e6361a30970c85b90fd",
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-assembly.step.mesh": "0dc4802734393825e43a8fd2e23cc693ba9097fd5eae37b51ea589e25e0ad58c",
@@ -1409,31 +1409,31 @@
     "hardware/printed-parts/refrigeration/fuse-clamp/fuse-clamp.stl": "fb4db7bf16cab5a6206f4d055fc0f1f7f41469559c431096b1dc2a1a9cd55528",
     "hardware/printed-parts/soda-bend-holder/soda-bend-holder.step": "d6cac70239b625a770ea64b987835e18b285f5851cbc494b74bc577f27c49171",
     "hardware/printed-parts/soda-bend-holder/soda-bend-holder.step.json": "f193a83d4d787eea44142880cc436150ac72eb44152e5ced50be751222f783ee",
-    "hardware/printed-parts/soda-bend-holder/soda-bend-holder.step.mesh": "e3d234596091535ecea0e9e64e8e20c357ac900db03e4209d3ddd0ac18904f61",
+    "hardware/printed-parts/soda-bend-holder/soda-bend-holder.step.mesh": "49412654bc3f306644a8aa48453e9ffccf2f16aa07409fc8b7870abb60839489",
     "hardware/printed-parts/soda-bend-holder/soda-bend-holder.stl": "37c31f1c8b8efcc812134ac9765e9cfdbe898791565156b37ea2c358b3484766",
     "hardware/printed-parts/zone-c/funnel-cover/funnel-cover-petg.3mf": "7eba727a069be9cc8880c57ea2fd74bac0ace1cc1514a93080dea0fb9b97973e",
     "hardware/printed-parts/zone-c/funnel-cover/funnel-cover-print.step": "3946ccf74a61a809375ed70d2675e8bce5943d80c0f171bb84d1fb223a38a6e6",
-    "hardware/printed-parts/zone-c/funnel-cover/funnel-cover-print.step.mesh": "223025a19339265917b3becd8cb364a9af1e391a389e3017f778207bae0a0efd",
+    "hardware/printed-parts/zone-c/funnel-cover/funnel-cover-print.step.mesh": "81dddfeb903546257f79ecc26521008dab5ff283a7d14a807ff9955f3ecc9960",
     "hardware/printed-parts/zone-c/funnel-cover/funnel-cover-print.stl": "6dfd3b318040dae6ac3053d06e607f4b2a6d8f8793128de0774e978454d24a09",
     "hardware/printed-parts/zone-c/funnel-cover/funnel-cover.step": "7569c3b352aa9977ad054017a3e0afb1d08fb822cc4db72aedade53f294b5d26",
-    "hardware/printed-parts/zone-c/funnel-cover/funnel-cover.step.mesh": "d4ae60d332ac14010f8705ff7a665bbdb0d88141dc588fa4b80ebe43c5ec7ffa",
+    "hardware/printed-parts/zone-c/funnel-cover/funnel-cover.step.mesh": "f6320bafee88b98c0d575dbfd4e635a1e03667af4f2a3b28a26f54382206ebe7",
     "hardware/printed-parts/zone-c/funnel-cover/funnel-cover.stl": "8d6011183082a8df09dce32dc1d2955c0fbe5ba07e27b61b072fff7e166971c2",
     "hardware/printed-parts/zone-c/funnel-mold/assembly.step": "762cd3ecb68990d8958815b5fd0a70339b72234052b9fd2502bcb39d2cca0ef3",
-    "hardware/printed-parts/zone-c/funnel-mold/assembly.step.mesh": "adea9759f718bffe9d45419c8808315d0d0c8a515f88b08c447c3c9dbb737dc2",
+    "hardware/printed-parts/zone-c/funnel-mold/assembly.step.mesh": "a039353368645819a63e28ea39b82987ee8ad6dd8fd9cc4d805c4ed3eb56dae6",
     "hardware/printed-parts/zone-c/funnel-mold/backs.step": "b002e3f842c926da58dbe072afb2c1205bc0ccf6983d905a3c9719c70e4af319",
     "hardware/printed-parts/zone-c/funnel-mold/backs.step.mesh": "1bf422db845d3076dc5c63e4c2715589a16dcf9c5cbcae53d125f82636b7ff96",
     "hardware/printed-parts/zone-c/funnel-mold/cavity.step": "722aebc15bd9f92422a64caf6ef017ce0bc95263f31de8c233cab57e92403d17",
-    "hardware/printed-parts/zone-c/funnel-mold/cavity.step.mesh": "a7746571ddba9753b5e92b71f174156c5d1c55c8423c95808cd3143e4b75ff1d",
+    "hardware/printed-parts/zone-c/funnel-mold/cavity.step.mesh": "3d2d6ccd933af11a842e6a034a972fa1943dcd94522f3953bbf9a74f1486fd72",
     "hardware/printed-parts/zone-c/funnel-mold/cavity.stl": "a5ae1b39b716e956d030fab9c10843968383bad95f15a89171f23c4574ba4ae5",
     "hardware/printed-parts/zone-c/funnel-mold/core.step": "da393b351e70b7f4c9937610b3badcf865c90bf524d7f7afecb5452ba507dea0",
-    "hardware/printed-parts/zone-c/funnel-mold/core.step.mesh": "d8796374f5192030060aad04349bfdd115d7b32c54346687f1030e722d6b30b1",
+    "hardware/printed-parts/zone-c/funnel-mold/core.step.mesh": "fa58585345d490b88b20712f87a4cd4c2a04d9769bf8f08e83284f81ff30ef23",
     "hardware/printed-parts/zone-c/funnel-mold/core.stl": "9939f10c4d2c0e78c26b7e3203819dda078bd3a32b2f6a75bc497b4ac2c9c2af",
     "hardware/printed-parts/zone-c/funnel-mold/funnel.step": "0bb99e964b680453fc75a03ed199e151bc07bb19a3bb4ce0d69b82e4c69865b0",
     "hardware/printed-parts/zone-c/funnel-mold/funnel.step.mesh": "29ac0470d965afeeae1cd1a75c7b0b7be31a6aff1445c56392a00b7a513d0e4a",
     "hardware/printed-parts/zone-c/funnel-mold/overview.step": "e5c3fdb83b6b4d87aaa372fd9e32ca281b0b1ded5b32a546dbb505bb926ab37a",
     "hardware/printed-parts/zone-c/funnel-mold/overview.step.mesh": "a6a47eb0cadcdd78636365875257504ed821613467c57ba55c9353ebc48c0598",
     "hardware/printed-parts/zone-c/funnel-mold/rod.step": "6d03f09648448baf833c60ad301638a1506d9268a44045fc8442bd7c3299040e",
-    "hardware/printed-parts/zone-c/funnel-mold/rod.step.mesh": "7c7c51ffa8cb5c0044d1af9fd208fcbf96880222079107d818bf0eef1c25e89e",
+    "hardware/printed-parts/zone-c/funnel-mold/rod.step.mesh": "a1e098f3968db7ddc6bfa2d8507e99c2b7326e23a4b26331e804f2e390955501",
     "hardware/printed-parts/zone-c/funnel-mold/section.step": "35ddac7b012d7fb89b5da2efb651c54943edb4935340e9321ae9ec878e970492",
     "hardware/printed-parts/zone-c/funnel-mold/section.step.mesh": "a91f7c05006479bf33c78cffd0da9f7a97918cef99d8161b4c1b1a066bad764f",
     "hardware/printed-parts/zone-c/funnel/cradle-trial/test-cradle.step": "df19a7a2720d133eade484005a914c4ade3f7c53d38f7049d6b59d933e70f7b5",
@@ -1612,8 +1612,8 @@
   "sidecars": {},
   "website": {
     "solids": {
-      "hardware/assembly/scenes/glb/back-half.glb": "6565c40a705450590b788b6fa20dd4c704fdeb4bb6cb1edf54ac86376a21d799",
-      "hardware/assembly/scenes/glb/back-top.glb": "99934504d1d9a0a8011e77b371b1830ad183425c67f52cc25b674658fe54c807",
+      "hardware/assembly/scenes/glb/back-half.glb": "2e6be44a1a1e38c6c880f7514a025e3c9e2dbe26ec5d7fabccf7de2cf9ba5b70",
+      "hardware/assembly/scenes/glb/back-top.glb": "c368de8e2f92a3777f46d9399a88392f6dfb2c5f3ba2c538112ddb9e417965f9",
       "hardware/assembly/scenes/glb/cap-lid-fill.glb": "d471d788bdd698b215772ba1e5812628f74228a204309a3fc2e1dcc74bce1a88",
       "hardware/assembly/scenes/glb/cap-lid.glb": "7dcfe9bac20dd4e01e47cefd5be56fb6d53121c978754ca9ccae04085f243087",
       "hardware/assembly/scenes/glb/cold-core-open.glb": "e6892cf7f8c0ac59fc4655056792668e7f04f5ab7c5b886275d405d17558af95",
@@ -1637,19 +1637,19 @@
       "hardware/faucet-layout/faucet-assembly.step.mesh": "5f2a133895726dd2a60787a7990f505fae730c9bb72c2de522633314fc5d243e",
       "hardware/faucet-layout/faucet-industrial-assembly.step": "dab99ebc933e9d182955406892cdad3dc5c5276aea5fb1fe3c5905c36fe3ac10",
       "hardware/faucet-layout/faucet-industrial-assembly.step.mesh": "fe28e3401330a3abd8e7ceba118ee10d1a9c6e17631737d47942864f3a7b2074",
-      "hardware/manifold-layout/enclosure-assembly.facts.json": "503942fe4a5ef0864dff77fbd408793465ef115029b47a5815aaed4fe8fd9283",
-      "hardware/manifold-layout/enclosure-assembly.step": "de8e71afd4720dc806c9259384db5a13145c7657db2922348817198929ac6a15",
-      "hardware/manifold-layout/enclosure-assembly.step.mesh": "6db7a411b75464fb276f2c8bc88c4841d31f763224714ebedc01ff94ac433f23",
+      "hardware/manifold-layout/enclosure-assembly.facts.json": "289dd0ca517fdde26b33aaf10dfb56a80e5be7bf840926aa5ee0481aaf336f2f",
+      "hardware/manifold-layout/enclosure-assembly.step": "4626bd0f19044ebb73ef0f41ecb40397a913334eeb90b9917794fb87a0c3f38d",
+      "hardware/manifold-layout/enclosure-assembly.step.mesh": "f5072523f4c2393b90ec169cd84a2186f31ce387c851618c1c82a04a9112a587",
       "hardware/printed-parts/asse-drain-adapter/asse-drain-adapter.step": "4730c636dd33e1431fa4fa3c6df0b4a3a41942efa40f451ce04e4f41e661a92d",
-      "hardware/printed-parts/asse-drain-adapter/asse-drain-adapter.step.mesh": "0176e2a0de1ca681ff070194086880c7c1a96002b9063f9c30a96321a6c38f9c",
+      "hardware/printed-parts/asse-drain-adapter/asse-drain-adapter.step.mesh": "192cb511c9bd723d16f931037c741fb143fa7000b522a574d13fc47f50854806",
       "hardware/printed-parts/asse-drain-adapter/asse-drain-adapter.stl": "ee0584ceb98ba367aaf8ea1508a060946f8e357a0f8e77cc33de567066437d2e",
       "hardware/printed-parts/asse-straight-cuffs/asse-inlet-cuff.step": "497993beffe16a8a44dc16b30c90a398421f1feda23259d071cad705e8a68c10",
       "hardware/printed-parts/asse-straight-cuffs/asse-inlet-cuff.step.json": "da4317af62970098f06ba9653b97fde9523bbfc014cc12ad2a2e772d1fffad41",
-      "hardware/printed-parts/asse-straight-cuffs/asse-inlet-cuff.step.mesh": "83d7b63d79f86a4a226b376256b5f6a6ea2bdcb4b7b4049b8e05f539c9a403af",
+      "hardware/printed-parts/asse-straight-cuffs/asse-inlet-cuff.step.mesh": "e174167261c21c0454629c054c648350d73bd89149d41c7634d7f8a1f445b4dc",
       "hardware/printed-parts/asse-straight-cuffs/asse-inlet-cuff.stl": "05476e57b5513d349b5e799a7a4576de2a689cb934c2b48d0903b63337a64173",
       "hardware/printed-parts/asse-straight-cuffs/asse-outlet-cuff.step": "c8ff212d3388a9239bf1b4a8041e1618953a28d287dfc228ea61b556848a9160",
       "hardware/printed-parts/asse-straight-cuffs/asse-outlet-cuff.step.json": "da4317af62970098f06ba9653b97fde9523bbfc014cc12ad2a2e772d1fffad41",
-      "hardware/printed-parts/asse-straight-cuffs/asse-outlet-cuff.step.mesh": "da200fff5048eafbb573f3169bcab91af37e5dc93dde50aa36f300a88335bf5b",
+      "hardware/printed-parts/asse-straight-cuffs/asse-outlet-cuff.step.mesh": "6856373c12a4622863347011524e7428a5da8d9f220461c960177e16d5e61f36",
       "hardware/printed-parts/asse-straight-cuffs/asse-outlet-cuff.stl": "8412a13f173f666288fc00a34d4272afa076e35dffc6bc95bf91d0d61e2a809b",
       "hardware/printed-parts/calibration/soda-studies/arch-body.step": "cc1bbf56b0f803afc2246294b8a6be46c2a909a283b089f0e45fde9f3ba3fa6f",
       "hardware/printed-parts/calibration/soda-studies/arch-body.step.mesh": "01eebc908da19c05cb396cb6c28939d17340afe2ff5a45021a91fa8807f55ddc",
@@ -1724,21 +1724,21 @@
       "hardware/printed-parts/cold-core/reservoir/reservoir-tube-grip.stl": "0b7af9247334655bb4129277ad30d1b92f6e9f029f69dcb98700615befcb0cfb",
       "hardware/printed-parts/cold-core/reservoir/reservoir.3mf": "82fd2e65ff3a6e427f1522dbbe5c295303a5d70f153ddcd08e0be480342c7541",
       "hardware/printed-parts/collet-press/collet-press.step": "d8dff38e519a01885464430d031d5b0df35f3c368adde3e4b13464aa0b9da52b",
-      "hardware/printed-parts/collet-press/collet-press.step.mesh": "022763847c71afe7c3439b783e00de4c6ad9df9fdf2c04b6424721c0239af30f",
+      "hardware/printed-parts/collet-press/collet-press.step.mesh": "ac07ea11318e6256e475072327ea048773739d95e67a6a82c4bbd494f665f623",
       "hardware/printed-parts/collet-press/collet-press.stl": "c7844502e96123f02d6653b0a793f2dcd74964f7022f125d3b3929ebbd0c9141",
       "hardware/printed-parts/diaphragm-pump-sleeve/diaphragm-pump-sleeve.step": "dc732268af4cd0948b812e588d061739e109a31216747cee68a8d96d7eede79f",
-      "hardware/printed-parts/diaphragm-pump-sleeve/diaphragm-pump-sleeve.step.mesh": "7b0885b1f799860f8438da735b92ecc5fa262cbf0fa946fb53f131a55a1f3952",
+      "hardware/printed-parts/diaphragm-pump-sleeve/diaphragm-pump-sleeve.step.mesh": "17954bcbe6a9bec9ac7bfacd6215514d53a9227a226c738e8dfb72313cb21620",
       "hardware/printed-parts/diaphragm-pump-sleeve/diaphragm-pump-sleeve.stl": "0ebe7cbc53bf9abdc17ca9391438432b33010b1537f22608a00358023efbe79a",
       "hardware/printed-parts/electronics/pcba-tray/pcba-board.step": "24d6357cae73a727fa3870f60b7630649f80e772a10bdce673632f6bfcd0e99e",
-      "hardware/printed-parts/electronics/pcba-tray/pcba-board.step.mesh": "6fe1dd8dc11aafea6ce30ec2af6f5d78dc50075e5ac323db58d762637a11b6f7",
+      "hardware/printed-parts/electronics/pcba-tray/pcba-board.step.mesh": "4ffc48d3849da295ad068f32cf1c8f11f559da08fd2ede2bf4f9655623211453",
       "hardware/printed-parts/enclosure/data-ring/data-ring.step": "62269718df81afb30e57187d2573971f18b513dc4b8f9e0f35e53f8608d5243d",
       "hardware/printed-parts/enclosure/data-ring/data-ring.step.mesh": "d54048f9ddceb8d83473007c064f437b9fbae9bbe222bac656471ad8ad489301",
       "hardware/printed-parts/enclosure/data-ring/data-ring.stl": "09bf5340b87b42166228c4559ff658dc1ab4e5b96ea890a5ab7f442ccc563e69",
       "hardware/printed-parts/enclosure/display-cover/display-cover.step": "fc9c7d1d36910bc54d8ad1df9b9050f841e6de9f78a27e8f7010b444b9d0db76",
-      "hardware/printed-parts/enclosure/display-cover/display-cover.step.mesh": "d1db124860a630bd89069e92e80e68bf4b26790e1f24e22266ab649fbd16435a",
+      "hardware/printed-parts/enclosure/display-cover/display-cover.step.mesh": "bc5a8ae32ba86712cbedba19bcd58106fb47d5998e659b571e304bdf09deb2d8",
       "hardware/printed-parts/enclosure/display-cover/display-cover.stl": "3594ee4fb113b440326981b1e5cef4bba11f439d2fa586544a5fae44e4dc5f34",
       "hardware/printed-parts/enclosure/display-gasket/display-gasket.step": "5b32f55a1beae8d40ce7577cb7adf30f1dc884220bda13c99717463ecddf1e34",
-      "hardware/printed-parts/enclosure/display-gasket/display-gasket.step.mesh": "5be84e829917b7062ab5917d678c2074a3aa81b7107d84c26b24afce322c592d",
+      "hardware/printed-parts/enclosure/display-gasket/display-gasket.step.mesh": "74d9f97b3c3fdeaa64519c6e40016621b597cca7c19d7a0f765ac965a5fe5460",
       "hardware/printed-parts/enclosure/display-gasket/display-gasket.stl": "5bfe020725eb9f1cb4bb741c207454b1e64550e63fa443aadbc61398c7ea4c2a",
       "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step": "f5508720030a8a8a5a37d5a508b6f4fb905e0f45cda2f1a8014f7f8dc2284107",
       "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.mesh": "d95b8afc831403c8285f9e3063fb2c4402dbb68f0d41db3f31a42c0d37665a04",
@@ -1859,7 +1859,7 @@
       "hardware/printed-parts/fixtures/fake-countertop/fake-countertop-petgf-mark2.3mf": "0f6a03529f4a095e6d4ef1ea2dea5a7eea0e56b915663281efcb44a62a657bd7",
       "hardware/printed-parts/fixtures/fake-countertop/fake-countertop-petgf.3mf": "f14a808ca4736cb99fe784020796adec1d64dc362542e0aa5d9244a5cb6161f5",
       "hardware/printed-parts/fixtures/fake-countertop/fake-countertop.step": "61fe53df73f8ce6f81fc04b9806ec86f286176939d20a811df140bf1b1c03564",
-      "hardware/printed-parts/fixtures/fake-countertop/fake-countertop.step.mesh": "56ff374bf67e335668ac54f226635a8814ee8b34a30c4f300b7c9dc208196fa1",
+      "hardware/printed-parts/fixtures/fake-countertop/fake-countertop.step.mesh": "127f9c792fb257e9b56a317cd17e9bae05aaaf847cb38b831ce9680c1173b732",
       "hardware/printed-parts/fixtures/fake-countertop/fake-countertop.stl": "9e51861af0d4d93e33a418f8d6cc24f5e792f963abeb2ca57704c45665ce39d2",
       "hardware/printed-parts/fixtures/pgfun-positioner/assembly.step": "086168b1b0839e18bc128ceaa895df5d1dc89d03345c9790b4f5c2d90b498289",
       "hardware/printed-parts/fixtures/pgfun-positioner/assembly.step.mesh": "1735eeac93c29bfcfa59c8aaf4c7e03953a37eaa1ba80d167a45cb98a16e4afb",
@@ -2029,13 +2029,13 @@
       "hardware/printed-parts/fixtures/tube-miter-box/tube-miter-box-petgf-mark2.3mf": "66db9e395afeb3da697bb26672c9cf6240ba6cd45bb46789ca59036e91a0e495",
       "hardware/printed-parts/fixtures/tube-miter-box/tube-miter-box-petgf.3mf": "71f30961c9f29215286892f8cb6141d5d1d7627d5845d14641f4986006413a50",
       "hardware/printed-parts/fixtures/tube-miter-box/tube-miter-box.step": "92ce4d3de42c55aa86f63dc1a857592a978233e9cd6f6ebea75330ff83ebd649",
-      "hardware/printed-parts/fixtures/tube-miter-box/tube-miter-box.step.mesh": "71781219cd958ea9c7a02a8da66fb709fa458fc1ed16bdb8c0e4d4f9a02378d4",
+      "hardware/printed-parts/fixtures/tube-miter-box/tube-miter-box.step.mesh": "0ccebcb3ab70d5a50ec9ded27d6325d8bdfb2495004539ab9973619d39bdeb3f",
       "hardware/printed-parts/fixtures/tube-miter-box/tube-miter-box.stl": "3fe5a1fdf2df47768bcc2d1395ccd3dddb5499e68e304452793c4a429de8515e",
       "hardware/printed-parts/fixtures/water-inlet-jet/water-inlet-jet-fixture-fixed.step": "219c3ec136e3af79218f399141eb5e5de7d0a4501bb03b8d1841d4f72007691c",
-      "hardware/printed-parts/fixtures/water-inlet-jet/water-inlet-jet-fixture-fixed.step.mesh": "b1f0a8f9f628dca925a5cc78e64e553d30e6e90f8533efd9368973343e3d5d36",
+      "hardware/printed-parts/fixtures/water-inlet-jet/water-inlet-jet-fixture-fixed.step.mesh": "3fce687914e81df967afe732eba98a62577d2be611157f178ef5e71e316cff61",
       "hardware/printed-parts/fixtures/water-inlet-jet/water-inlet-jet-fixture-fixed.stl": "3da5f4d3fb203ce55222ea330acb72963ca692138ba56bd008acc95c48686105",
       "hardware/printed-parts/fixtures/water-inlet-jet/water-inlet-jet-fixture-loose.step": "08a7d22ff6e635309e5dfecc990566412e24d7db60b860b0d5c9b6d396baa57f",
-      "hardware/printed-parts/fixtures/water-inlet-jet/water-inlet-jet-fixture-loose.step.mesh": "35d767144421b06a3106ed6cc46ad51c41f161254205872c68d8218f8270a3f7",
+      "hardware/printed-parts/fixtures/water-inlet-jet/water-inlet-jet-fixture-loose.step.mesh": "96f7458c618c6748ff6ad4fc7762f3e4606bce53a889a07fab6fbe903411a6a2",
       "hardware/printed-parts/fixtures/water-inlet-jet/water-inlet-jet-fixture-loose.stl": "cb72908a0c3588a4b27f30969928007aa7758bd8e0aa79cf43bb8b64b2f614ed",
       "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-assembly.step": "173b1ca5965e403394847821baa161b97f93fa0250cb4e6361a30970c85b90fd",
       "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-assembly.step.mesh": "0dc4802734393825e43a8fd2e23cc693ba9097fd5eae37b51ea589e25e0ad58c",
@@ -2086,23 +2086,23 @@
       "hardware/printed-parts/refrigeration/fuse-clamp/fuse-clamp.stl": "fb4db7bf16cab5a6206f4d055fc0f1f7f41469559c431096b1dc2a1a9cd55528",
       "hardware/printed-parts/soda-bend-holder/soda-bend-holder.step": "d6cac70239b625a770ea64b987835e18b285f5851cbc494b74bc577f27c49171",
       "hardware/printed-parts/soda-bend-holder/soda-bend-holder.step.json": "f193a83d4d787eea44142880cc436150ac72eb44152e5ced50be751222f783ee",
-      "hardware/printed-parts/soda-bend-holder/soda-bend-holder.step.mesh": "e3d234596091535ecea0e9e64e8e20c357ac900db03e4209d3ddd0ac18904f61",
+      "hardware/printed-parts/soda-bend-holder/soda-bend-holder.step.mesh": "49412654bc3f306644a8aa48453e9ffccf2f16aa07409fc8b7870abb60839489",
       "hardware/printed-parts/soda-bend-holder/soda-bend-holder.stl": "37c31f1c8b8efcc812134ac9765e9cfdbe898791565156b37ea2c358b3484766",
       "hardware/printed-parts/zone-c/funnel-cover/funnel-cover-petg.3mf": "7eba727a069be9cc8880c57ea2fd74bac0ace1cc1514a93080dea0fb9b97973e",
       "hardware/printed-parts/zone-c/funnel-cover/funnel-cover-print.stl": "6dfd3b318040dae6ac3053d06e607f4b2a6d8f8793128de0774e978454d24a09",
       "hardware/printed-parts/zone-c/funnel-cover/funnel-cover.step": "7569c3b352aa9977ad054017a3e0afb1d08fb822cc4db72aedade53f294b5d26",
-      "hardware/printed-parts/zone-c/funnel-cover/funnel-cover.step.mesh": "d4ae60d332ac14010f8705ff7a665bbdb0d88141dc588fa4b80ebe43c5ec7ffa",
+      "hardware/printed-parts/zone-c/funnel-cover/funnel-cover.step.mesh": "f6320bafee88b98c0d575dbfd4e635a1e03667af4f2a3b28a26f54382206ebe7",
       "hardware/printed-parts/zone-c/funnel-cover/funnel-cover.stl": "8d6011183082a8df09dce32dc1d2955c0fbe5ba07e27b61b072fff7e166971c2",
       "hardware/printed-parts/zone-c/funnel-mold/assembly.step": "762cd3ecb68990d8958815b5fd0a70339b72234052b9fd2502bcb39d2cca0ef3",
-      "hardware/printed-parts/zone-c/funnel-mold/assembly.step.mesh": "adea9759f718bffe9d45419c8808315d0d0c8a515f88b08c447c3c9dbb737dc2",
+      "hardware/printed-parts/zone-c/funnel-mold/assembly.step.mesh": "a039353368645819a63e28ea39b82987ee8ad6dd8fd9cc4d805c4ed3eb56dae6",
       "hardware/printed-parts/zone-c/funnel-mold/cavity.step": "722aebc15bd9f92422a64caf6ef017ce0bc95263f31de8c233cab57e92403d17",
-      "hardware/printed-parts/zone-c/funnel-mold/cavity.step.mesh": "a7746571ddba9753b5e92b71f174156c5d1c55c8423c95808cd3143e4b75ff1d",
+      "hardware/printed-parts/zone-c/funnel-mold/cavity.step.mesh": "3d2d6ccd933af11a842e6a034a972fa1943dcd94522f3953bbf9a74f1486fd72",
       "hardware/printed-parts/zone-c/funnel-mold/cavity.stl": "a5ae1b39b716e956d030fab9c10843968383bad95f15a89171f23c4574ba4ae5",
       "hardware/printed-parts/zone-c/funnel-mold/core.step": "da393b351e70b7f4c9937610b3badcf865c90bf524d7f7afecb5452ba507dea0",
-      "hardware/printed-parts/zone-c/funnel-mold/core.step.mesh": "d8796374f5192030060aad04349bfdd115d7b32c54346687f1030e722d6b30b1",
+      "hardware/printed-parts/zone-c/funnel-mold/core.step.mesh": "fa58585345d490b88b20712f87a4cd4c2a04d9769bf8f08e83284f81ff30ef23",
       "hardware/printed-parts/zone-c/funnel-mold/core.stl": "9939f10c4d2c0e78c26b7e3203819dda078bd3a32b2f6a75bc497b4ac2c9c2af",
       "hardware/printed-parts/zone-c/funnel-mold/rod.step": "6d03f09648448baf833c60ad301638a1506d9268a44045fc8442bd7c3299040e",
-      "hardware/printed-parts/zone-c/funnel-mold/rod.step.mesh": "7c7c51ffa8cb5c0044d1af9fd208fcbf96880222079107d818bf0eef1c25e89e",
+      "hardware/printed-parts/zone-c/funnel-mold/rod.step.mesh": "a1e098f3968db7ddc6bfa2d8507e99c2b7326e23a4b26331e804f2e390955501",
       "hardware/printed-parts/zone-c/funnel/elbow-cradle.step": "4d1eac2b83e2cab19e34ab1e52bbecffcfddd2b684ed94dd17ccba614ebb63bb",
       "hardware/printed-parts/zone-c/funnel/elbow-cradle.step.mesh": "bfa80274f4c56711d9f8f4303dc68db0a0d36ac73453feed2dc3b52970bcf126",
       "hardware/printed-parts/zone-c/funnel/elbow-cradle.stl": "59ac96f327ffa74e41fbff08a954fcd51d29a8aa5684978047146be15a42f52b",
@@ -2180,8 +2180,8 @@
     "sidecars": {}
   },
   "moved": {
-    "hardware/assembly/scenes/glb/back-half.glb": 1794020197,
-    "hardware/assembly/scenes/glb/back-top.glb": 1794020197,
+    "hardware/assembly/scenes/glb/back-half.glb": 1794037810,
+    "hardware/assembly/scenes/glb/back-top.glb": 1794037810,
     "hardware/assembly/scenes/glb/cap-lid-fill.glb": 1794012200,
     "hardware/assembly/scenes/glb/cap-lid.glb": 1794012200,
     "hardware/assembly/scenes/glb/cold-core-open.glb": 1794020197,
@@ -2264,10 +2264,10 @@
     "hardware/install-guide/plumbing/modern/art/modern-tee-tug-check.png": 1793690801,
     "hardware/install-guide/plumbing/modern/art/modern-water-off.png": 1793830497,
     "hardware/install-guide/plumbing/modern/art/modern-water-on.png": 1793830497,
-    "hardware/manifold-layout/enclosure-assembly.facts.json": 1794012200,
+    "hardware/manifold-layout/enclosure-assembly.facts.json": 1794037810,
     "hardware/manifold-layout/enclosure-assembly.physical.step.mesh": 1793858653,
-    "hardware/manifold-layout/enclosure-assembly.step": 1794020197,
-    "hardware/manifold-layout/enclosure-assembly.step.mesh": 1794034860,
+    "hardware/manifold-layout/enclosure-assembly.step": 1794037810,
+    "hardware/manifold-layout/enclosure-assembly.step.mesh": 1794037810,
     "hardware/manifold-layout/manifold-layout.step": 1794020197,
     "hardware/manifold-layout/manifold-layout.step.mesh": 1794020197,
     "hardware/manifold-layout/studies/ceiling-fit/parts/back-wall.step": 1792743994,
@@ -2371,15 +2371,15 @@
     "hardware/print-tests/m5-seam-bearing/parts/m5-d56-h12.step": 1792992509,
     "hardware/print-tests/m5-seam-bearing/parts/m5-d56-h40.step": 1792992509,
     "hardware/printed-parts/asse-drain-adapter/asse-drain-adapter.step": 1793652093,
-    "hardware/printed-parts/asse-drain-adapter/asse-drain-adapter.step.mesh": 1793652093,
+    "hardware/printed-parts/asse-drain-adapter/asse-drain-adapter.step.mesh": 1794037810,
     "hardware/printed-parts/asse-drain-adapter/asse-drain-adapter.stl": 1793652093,
     "hardware/printed-parts/asse-straight-cuffs/asse-inlet-cuff.step": 1793652093,
     "hardware/printed-parts/asse-straight-cuffs/asse-inlet-cuff.step.json": 1793750338,
-    "hardware/printed-parts/asse-straight-cuffs/asse-inlet-cuff.step.mesh": 1793652093,
+    "hardware/printed-parts/asse-straight-cuffs/asse-inlet-cuff.step.mesh": 1794037810,
     "hardware/printed-parts/asse-straight-cuffs/asse-inlet-cuff.stl": 1793652093,
     "hardware/printed-parts/asse-straight-cuffs/asse-outlet-cuff.step": 1793652093,
     "hardware/printed-parts/asse-straight-cuffs/asse-outlet-cuff.step.json": 1793750338,
-    "hardware/printed-parts/asse-straight-cuffs/asse-outlet-cuff.step.mesh": 1793652093,
+    "hardware/printed-parts/asse-straight-cuffs/asse-outlet-cuff.step.mesh": 1794037810,
     "hardware/printed-parts/asse-straight-cuffs/asse-outlet-cuff.stl": 1793652093,
     "hardware/printed-parts/calibration/dual-nozzle-registration/dual-nozzle-registration.step": 1790719427,
     "hardware/printed-parts/calibration/dual-nozzle-registration/dual-nozzle-registration.step.mesh": 1790719427,
@@ -2489,15 +2489,15 @@
     "hardware/printed-parts/cold-core/reservoir/reservoir-tube-grip.stl": 1793568839,
     "hardware/printed-parts/cold-core/reservoir/reservoir.3mf": 1793750338,
     "hardware/printed-parts/collet-press/collet-press.step": 1793626644,
-    "hardware/printed-parts/collet-press/collet-press.step.mesh": 1793712586,
+    "hardware/printed-parts/collet-press/collet-press.step.mesh": 1794037810,
     "hardware/printed-parts/collet-press/collet-press.stl": 1793712586,
     "hardware/printed-parts/diaphragm-pump-sleeve/diaphragm-pump-sleeve.step": 1793712586,
-    "hardware/printed-parts/diaphragm-pump-sleeve/diaphragm-pump-sleeve.step.mesh": 1793712586,
+    "hardware/printed-parts/diaphragm-pump-sleeve/diaphragm-pump-sleeve.step.mesh": 1794037810,
     "hardware/printed-parts/diaphragm-pump-sleeve/diaphragm-pump-sleeve.stl": 1793712586,
     "hardware/printed-parts/electronics/pcba-tray/pcba-assembly.step": 1793938190,
     "hardware/printed-parts/electronics/pcba-tray/pcba-assembly.step.mesh": 1793938190,
     "hardware/printed-parts/electronics/pcba-tray/pcba-board.step": 1793938190,
-    "hardware/printed-parts/electronics/pcba-tray/pcba-board.step.mesh": 1793938190,
+    "hardware/printed-parts/electronics/pcba-tray/pcba-board.step.mesh": 1794037810,
     "hardware/printed-parts/enclosure/asse-drip-pan/asse-drip-pan.step": 1790713276,
     "hardware/printed-parts/enclosure/asse-drip-pan/asse-drip-pan.stl": 1790713276,
     "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-carb.step": 1793568839,
@@ -2525,7 +2525,7 @@
     "hardware/printed-parts/enclosure/data-ring/data-ring.step.mesh": 1793626644,
     "hardware/printed-parts/enclosure/data-ring/data-ring.stl": 1793626644,
     "hardware/printed-parts/enclosure/display-cover/display-cover.step": 1793948374,
-    "hardware/printed-parts/enclosure/display-cover/display-cover.step.mesh": 1794018703,
+    "hardware/printed-parts/enclosure/display-cover/display-cover.step.mesh": 1794037810,
     "hardware/printed-parts/enclosure/display-cover/display-cover.stl": 1793948374,
     "hardware/printed-parts/enclosure/display-cover/face-up-trial/display-cover-flat-wings.step": 1791257167,
     "hardware/printed-parts/enclosure/display-cover/face-up-trial/display-cover-flat-wings.step.mesh": 1791257167,
@@ -2555,7 +2555,7 @@
     "hardware/printed-parts/enclosure/display-cover/retention-trial/display-receiver-retention-v2.step.mesh": 1791507604,
     "hardware/printed-parts/enclosure/display-cover/retention-trial/display-receiver-retention-v2.stl": 1791507604,
     "hardware/printed-parts/enclosure/display-gasket/display-gasket.step": 1793948374,
-    "hardware/printed-parts/enclosure/display-gasket/display-gasket.step.mesh": 1793948374,
+    "hardware/printed-parts/enclosure/display-gasket/display-gasket.step.mesh": 1794037810,
     "hardware/printed-parts/enclosure/display-gasket/display-gasket.stl": 1793948374,
     "hardware/printed-parts/enclosure/enclosure/accepted-fit-integration/back-top-backing-proposal.step": 1790818809,
     "hardware/printed-parts/enclosure/enclosure/accepted-fit-integration/placed-psu.step": 1790817978,
@@ -2802,7 +2802,7 @@
     "hardware/printed-parts/fixtures/fake-countertop/fake-countertop-petgf-mark2.3mf": 1794025520,
     "hardware/printed-parts/fixtures/fake-countertop/fake-countertop-petgf.3mf": 1794025520,
     "hardware/printed-parts/fixtures/fake-countertop/fake-countertop.step": 1793626644,
-    "hardware/printed-parts/fixtures/fake-countertop/fake-countertop.step.mesh": 1793750338,
+    "hardware/printed-parts/fixtures/fake-countertop/fake-countertop.step.mesh": 1794037810,
     "hardware/printed-parts/fixtures/fake-countertop/fake-countertop.stl": 1793712586,
     "hardware/printed-parts/fixtures/faucet-cover-retention/cover-retention-a.step": 1791257167,
     "hardware/printed-parts/fixtures/faucet-cover-retention/cover-retention-a.step.mesh": 1791257167,
@@ -3491,7 +3491,7 @@
     "hardware/printed-parts/fixtures/tube-miter-box/tube-miter-box-petgf-mark2.3mf": 1794025520,
     "hardware/printed-parts/fixtures/tube-miter-box/tube-miter-box-petgf.3mf": 1794025520,
     "hardware/printed-parts/fixtures/tube-miter-box/tube-miter-box.step": 1793626644,
-    "hardware/printed-parts/fixtures/tube-miter-box/tube-miter-box.step.mesh": 1793750338,
+    "hardware/printed-parts/fixtures/tube-miter-box/tube-miter-box.step.mesh": 1794037810,
     "hardware/printed-parts/fixtures/tube-miter-box/tube-miter-box.stl": 1793712586,
     "hardware/printed-parts/fixtures/valve-socket-fit/tighter-trial-v2/beduan-socket-v68.step": 1791257167,
     "hardware/printed-parts/fixtures/valve-socket-fit/tighter-trial-v2/beduan-socket-v68.step.mesh": 1791257167,
@@ -3512,10 +3512,10 @@
     "hardware/printed-parts/fixtures/valve-socket-fit/valve-socket-fit.step.mesh": 1793661631,
     "hardware/printed-parts/fixtures/valve-socket-fit/valve-socket-fit.stl": 1793661631,
     "hardware/printed-parts/fixtures/water-inlet-jet/water-inlet-jet-fixture-fixed.step": 1793652093,
-    "hardware/printed-parts/fixtures/water-inlet-jet/water-inlet-jet-fixture-fixed.step.mesh": 1793652093,
+    "hardware/printed-parts/fixtures/water-inlet-jet/water-inlet-jet-fixture-fixed.step.mesh": 1794037810,
     "hardware/printed-parts/fixtures/water-inlet-jet/water-inlet-jet-fixture-fixed.stl": 1793652093,
     "hardware/printed-parts/fixtures/water-inlet-jet/water-inlet-jet-fixture-loose.step": 1793652093,
-    "hardware/printed-parts/fixtures/water-inlet-jet/water-inlet-jet-fixture-loose.step.mesh": 1793652093,
+    "hardware/printed-parts/fixtures/water-inlet-jet/water-inlet-jet-fixture-loose.step.mesh": 1794037810,
     "hardware/printed-parts/fixtures/water-inlet-jet/water-inlet-jet-fixture-loose.stl": 1793652093,
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-assembly.step": 1793934190,
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-assembly.step.mesh": 1793934190,
@@ -3572,31 +3572,31 @@
     "hardware/printed-parts/refrigeration/fuse-clamp/fuse-clamp.stl": 1793568839,
     "hardware/printed-parts/soda-bend-holder/soda-bend-holder.step": 1793626644,
     "hardware/printed-parts/soda-bend-holder/soda-bend-holder.step.json": 1793750338,
-    "hardware/printed-parts/soda-bend-holder/soda-bend-holder.step.mesh": 1793712586,
+    "hardware/printed-parts/soda-bend-holder/soda-bend-holder.step.mesh": 1794037810,
     "hardware/printed-parts/soda-bend-holder/soda-bend-holder.stl": 1793626644,
     "hardware/printed-parts/zone-c/funnel-cover/funnel-cover-petg.3mf": 1793750338,
     "hardware/printed-parts/zone-c/funnel-cover/funnel-cover-print.step": 1793525739,
-    "hardware/printed-parts/zone-c/funnel-cover/funnel-cover-print.step.mesh": 1793626644,
+    "hardware/printed-parts/zone-c/funnel-cover/funnel-cover-print.step.mesh": 1794037810,
     "hardware/printed-parts/zone-c/funnel-cover/funnel-cover-print.stl": 1793525739,
     "hardware/printed-parts/zone-c/funnel-cover/funnel-cover.step": 1793525739,
-    "hardware/printed-parts/zone-c/funnel-cover/funnel-cover.step.mesh": 1793626644,
+    "hardware/printed-parts/zone-c/funnel-cover/funnel-cover.step.mesh": 1794037810,
     "hardware/printed-parts/zone-c/funnel-cover/funnel-cover.stl": 1793525739,
     "hardware/printed-parts/zone-c/funnel-mold/assembly.step": 1793712586,
-    "hardware/printed-parts/zone-c/funnel-mold/assembly.step.mesh": 1793934190,
+    "hardware/printed-parts/zone-c/funnel-mold/assembly.step.mesh": 1794037810,
     "hardware/printed-parts/zone-c/funnel-mold/backs.step": 1793712586,
     "hardware/printed-parts/zone-c/funnel-mold/backs.step.mesh": 1793712586,
     "hardware/printed-parts/zone-c/funnel-mold/cavity.step": 1793712586,
-    "hardware/printed-parts/zone-c/funnel-mold/cavity.step.mesh": 1793712586,
+    "hardware/printed-parts/zone-c/funnel-mold/cavity.step.mesh": 1794037810,
     "hardware/printed-parts/zone-c/funnel-mold/cavity.stl": 1793712586,
     "hardware/printed-parts/zone-c/funnel-mold/core.step": 1793712586,
-    "hardware/printed-parts/zone-c/funnel-mold/core.step.mesh": 1793712586,
+    "hardware/printed-parts/zone-c/funnel-mold/core.step.mesh": 1794037810,
     "hardware/printed-parts/zone-c/funnel-mold/core.stl": 1793712586,
     "hardware/printed-parts/zone-c/funnel-mold/funnel.step": 1793712586,
     "hardware/printed-parts/zone-c/funnel-mold/funnel.step.mesh": 1793712586,
     "hardware/printed-parts/zone-c/funnel-mold/overview.step": 1793712586,
     "hardware/printed-parts/zone-c/funnel-mold/overview.step.mesh": 1793712586,
     "hardware/printed-parts/zone-c/funnel-mold/rod.step": 1793712586,
-    "hardware/printed-parts/zone-c/funnel-mold/rod.step.mesh": 1793934190,
+    "hardware/printed-parts/zone-c/funnel-mold/rod.step.mesh": 1794037810,
     "hardware/printed-parts/zone-c/funnel-mold/section.step": 1793712586,
     "hardware/printed-parts/zone-c/funnel-mold/section.step.mesh": 1793934190,
     "hardware/printed-parts/zone-c/funnel/cradle-trial/test-cradle.step": 1793495877,
@@ -3774,13 +3774,11 @@
   },
   "made": {
     "hardware/assembly/scenes/glb/back-half.glb": {
-      "inputs": "1959c3e4fc7c0e026f5398adfd4b5d375774ad62099232b5561b33eb59787255",
-      "commit": "05d517cc09d27f40298daae79f3dce954ed65c1e",
+      "commit": "df0b9119f8880376223371a4dbb0481be272238e",
       "unproven": true
     },
     "hardware/assembly/scenes/glb/back-top.glb": {
-      "inputs": "1959c3e4fc7c0e026f5398adfd4b5d375774ad62099232b5561b33eb59787255",
-      "commit": "05d517cc09d27f40298daae79f3dce954ed65c1e",
+      "commit": "df0b9119f8880376223371a4dbb0481be272238e",
       "unproven": true
     },
     "hardware/assembly/scenes/glb/cap-lid-fill.glb": {
@@ -4104,8 +4102,7 @@
       "unproven": true
     },
     "hardware/manifold-layout/enclosure-assembly.facts.json": {
-      "inputs": "ebd9659eb693f33a03b4cc893b0b3b16275dfc891f7313ba45536bfa674cbcfc",
-      "commit": "b827540ebfa76463abefe14c50105eb9dbe08a91",
+      "commit": "df0b9119f8880376223371a4dbb0481be272238e",
       "unproven": true
     },
     "hardware/manifold-layout/enclosure-assembly.physical.step.mesh": {
@@ -4113,11 +4110,11 @@
       "unproven": true
     },
     "hardware/manifold-layout/enclosure-assembly.step": {
-      "commit": "05d517cc09d27f40298daae79f3dce954ed65c1e",
+      "commit": "df0b9119f8880376223371a4dbb0481be272238e",
       "unproven": true
     },
     "hardware/manifold-layout/enclosure-assembly.step.mesh": {
-      "commit": "647dbd4d59d9843563cc165db20706c0c9c2eb6a",
+      "commit": "df0b9119f8880376223371a4dbb0481be272238e",
       "unproven": true
     },
     "hardware/manifold-layout/manifold-layout.step": {
@@ -4136,8 +4133,8 @@
       "unproven": true
     },
     "hardware/printed-parts/asse-drain-adapter/asse-drain-adapter.step.mesh": {
-      "inputs": "d73e387ac6a629ca5bdbf56e48153631f06599c5741fcc6cf523e6d684c0c4a5",
-      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2",
+      "inputs": "ad35a68060342bad5493e71d429e38dff51600a5073c359b7e4f6e7f8d55f991",
+      "commit": "df0b9119f8880376223371a4dbb0481be272238e",
       "unproven": true
     },
     "hardware/printed-parts/asse-drain-adapter/asse-drain-adapter.stl": {
@@ -4151,8 +4148,8 @@
       "unproven": true
     },
     "hardware/printed-parts/asse-straight-cuffs/asse-inlet-cuff.step.mesh": {
-      "inputs": "277839c2bd71ba3cc222be13cc7c1432453e2a91517962acd0257ab729854196",
-      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2",
+      "inputs": "16b0fd10f6a485b48b2c829bd88ca2f7d32b3259b6dbd97ddac0944672e9e220",
+      "commit": "df0b9119f8880376223371a4dbb0481be272238e",
       "unproven": true
     },
     "hardware/printed-parts/asse-straight-cuffs/asse-inlet-cuff.stl": {
@@ -4166,8 +4163,8 @@
       "unproven": true
     },
     "hardware/printed-parts/asse-straight-cuffs/asse-outlet-cuff.step.mesh": {
-      "inputs": "277839c2bd71ba3cc222be13cc7c1432453e2a91517962acd0257ab729854196",
-      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2",
+      "inputs": "16b0fd10f6a485b48b2c829bd88ca2f7d32b3259b6dbd97ddac0944672e9e220",
+      "commit": "df0b9119f8880376223371a4dbb0481be272238e",
       "unproven": true
     },
     "hardware/printed-parts/asse-straight-cuffs/asse-outlet-cuff.stl": {
@@ -4589,8 +4586,8 @@
       "unproven": true
     },
     "hardware/printed-parts/collet-press/collet-press.step.mesh": {
-      "inputs": "9f1dabe00576ed22b78a9b0d17533e7cb557ac87fa97f395adca8e5746182d15",
-      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2",
+      "inputs": "d0201578673abd2183b3c44ae99ffc17fbf24f45d39a90fc4afec1958ef8b253",
+      "commit": "df0b9119f8880376223371a4dbb0481be272238e",
       "unproven": true
     },
     "hardware/printed-parts/collet-press/collet-press.stl": {
@@ -4604,8 +4601,8 @@
       "unproven": true
     },
     "hardware/printed-parts/diaphragm-pump-sleeve/diaphragm-pump-sleeve.step.mesh": {
-      "inputs": "74271afcf2f543ad4a8967ca94237df2bb5ce26e700c18324a1fe26cfdd8983b",
-      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2",
+      "inputs": "da57f0f03ce73fb9ba7fa589f30617c5fc14106582abb8c3d38e77aeb370a125",
+      "commit": "df0b9119f8880376223371a4dbb0481be272238e",
       "unproven": true
     },
     "hardware/printed-parts/diaphragm-pump-sleeve/diaphragm-pump-sleeve.stl": {
@@ -4629,8 +4626,8 @@
       "unproven": true
     },
     "hardware/printed-parts/electronics/pcba-tray/pcba-board.step.mesh": {
-      "inputs": "3418bc868c4570ac57c2816025282e373999bfc8ffddd8f71b620300033853a8",
-      "commit": "e1207cfaf4440daff1e9b61e77e8f033feb49d58",
+      "inputs": "a4fa55e13776ecf08ae1dd11f41dd664452e489bafc038b4969f31775de9f40b",
+      "commit": "df0b9119f8880376223371a4dbb0481be272238e",
       "unproven": true
     },
     "hardware/printed-parts/enclosure/asse-drip-pan/asse-drip-pan.step": {
@@ -4751,8 +4748,8 @@
       "unproven": true
     },
     "hardware/printed-parts/enclosure/display-cover/display-cover.step.mesh": {
-      "inputs": "3654f864b054a1b17d5cda1c21210a1e6266f79b1f66b78223aaafc7b9204882",
-      "commit": "8e5d31284f71d48994af33268b24656039b7b9ef",
+      "inputs": "982477ac3045a009c199a968d4c090d47516aa35f7ef3b588a069f022e726b55",
+      "commit": "df0b9119f8880376223371a4dbb0481be272238e",
       "unproven": true
     },
     "hardware/printed-parts/enclosure/display-cover/display-cover.stl": {
@@ -4848,7 +4845,8 @@
       "unproven": true
     },
     "hardware/printed-parts/enclosure/display-gasket/display-gasket.step.mesh": {
-      "commit": "01119b116d2a30fd17f8f3dbc41e823c21871237",
+      "inputs": "9c7550a455cc2bb985e316e590795b5e98770decba759400012ddeacebfcb6fc",
+      "commit": "df0b9119f8880376223371a4dbb0481be272238e",
       "unproven": true
     },
     "hardware/printed-parts/enclosure/display-gasket/display-gasket.stl": {
@@ -5493,6 +5491,11 @@
       "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2",
       "unproven": true
     },
+    "hardware/printed-parts/fixtures/fake-countertop/fake-countertop.step.mesh": {
+      "inputs": "22f82c771f6776f6496e586acc3c8155699678050d8a08a7ae33480b82967381",
+      "commit": "df0b9119f8880376223371a4dbb0481be272238e",
+      "unproven": true
+    },
     "hardware/printed-parts/fixtures/fake-countertop/fake-countertop.stl": {
       "inputs": "9f04259e4c3279cd2f95c5b1fed2fcf34987977eecf9a017b8ce7d403e4e6e1b",
       "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2",
@@ -5639,6 +5642,11 @@
       "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2",
       "unproven": true
     },
+    "hardware/printed-parts/fixtures/tube-miter-box/tube-miter-box.step.mesh": {
+      "inputs": "5a501c994d732a92931cdd426b7f0ecb6979f473fc645ff4e1a11a1de9a35071",
+      "commit": "df0b9119f8880376223371a4dbb0481be272238e",
+      "unproven": true
+    },
     "hardware/printed-parts/fixtures/tube-miter-box/tube-miter-box.stl": {
       "inputs": "c34d11bf65be7978ff8c28074d9611806f1cab4e1b44c5020b158fe8f59c989a",
       "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2",
@@ -5662,8 +5670,8 @@
       "unproven": true
     },
     "hardware/printed-parts/fixtures/water-inlet-jet/water-inlet-jet-fixture-fixed.step.mesh": {
-      "inputs": "89f3c994f7e8283e9c1be7d30aa1d35edca0a656cd118e1d4e4d3149f7091a09",
-      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2",
+      "inputs": "ca34e250792ea045b6000c8bd54f14a53267d4f6f54868b01e93ba501f21aabb",
+      "commit": "df0b9119f8880376223371a4dbb0481be272238e",
       "unproven": true
     },
     "hardware/printed-parts/fixtures/water-inlet-jet/water-inlet-jet-fixture-fixed.stl": {
@@ -5677,8 +5685,8 @@
       "unproven": true
     },
     "hardware/printed-parts/fixtures/water-inlet-jet/water-inlet-jet-fixture-loose.step.mesh": {
-      "inputs": "89f3c994f7e8283e9c1be7d30aa1d35edca0a656cd118e1d4e4d3149f7091a09",
-      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2",
+      "inputs": "ca34e250792ea045b6000c8bd54f14a53267d4f6f54868b01e93ba501f21aabb",
+      "commit": "df0b9119f8880376223371a4dbb0481be272238e",
       "unproven": true
     },
     "hardware/printed-parts/fixtures/water-inlet-jet/water-inlet-jet-fixture-loose.stl": {
@@ -5922,8 +5930,8 @@
       "unproven": true
     },
     "hardware/printed-parts/soda-bend-holder/soda-bend-holder.step.mesh": {
-      "inputs": "23e386323534e20d63bfeab93729329bdaa8acb21713097be89e5943dff5d927",
-      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2",
+      "inputs": "20daf3859b9da73e738ddb6a3aeb419ed2ea5d654d868f0facc3bab0492f364f",
+      "commit": "df0b9119f8880376223371a4dbb0481be272238e",
       "unproven": true
     },
     "hardware/printed-parts/soda-bend-holder/soda-bend-holder.stl": {
@@ -5937,8 +5945,8 @@
       "unproven": true
     },
     "hardware/printed-parts/zone-c/funnel-cover/funnel-cover-print.step.mesh": {
-      "inputs": "bde89e551d56851804f4b31ebf25d025e14805787e67c100b49a7b63ddbde35e",
-      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2",
+      "inputs": "faf7e807ccc3a30bf65e895379891811cb7277445422ffc7d75e631702c93778",
+      "commit": "df0b9119f8880376223371a4dbb0481be272238e",
       "unproven": true
     },
     "hardware/printed-parts/zone-c/funnel-cover/funnel-cover-print.stl": {
@@ -5952,8 +5960,8 @@
       "unproven": true
     },
     "hardware/printed-parts/zone-c/funnel-cover/funnel-cover.step.mesh": {
-      "inputs": "bde89e551d56851804f4b31ebf25d025e14805787e67c100b49a7b63ddbde35e",
-      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2",
+      "inputs": "faf7e807ccc3a30bf65e895379891811cb7277445422ffc7d75e631702c93778",
+      "commit": "df0b9119f8880376223371a4dbb0481be272238e",
       "unproven": true
     },
     "hardware/printed-parts/zone-c/funnel-cover/funnel-cover.stl": {
@@ -5967,8 +5975,8 @@
       "unproven": true
     },
     "hardware/printed-parts/zone-c/funnel-mold/assembly.step.mesh": {
-      "inputs": "cb668822d25a396ae6a3029737ca0c64842995e535274ec277f5d9acd7a19400",
-      "commit": "e1207cfaf4440daff1e9b61e77e8f033feb49d58",
+      "inputs": "1c94866f4d4d0c01aaa5f60c7c79c45b91d30540c2392f5a037df7251832ba63",
+      "commit": "df0b9119f8880376223371a4dbb0481be272238e",
       "unproven": true
     },
     "hardware/printed-parts/zone-c/funnel-mold/backs.step": {
@@ -5987,8 +5995,8 @@
       "unproven": true
     },
     "hardware/printed-parts/zone-c/funnel-mold/cavity.step.mesh": {
-      "inputs": "ec28451abaa491ea14abca3ef361eb295d6dc23d6972124394e6b391705e324b",
-      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2",
+      "inputs": "1c94866f4d4d0c01aaa5f60c7c79c45b91d30540c2392f5a037df7251832ba63",
+      "commit": "df0b9119f8880376223371a4dbb0481be272238e",
       "unproven": true
     },
     "hardware/printed-parts/zone-c/funnel-mold/cavity.stl": {
@@ -6002,8 +6010,8 @@
       "unproven": true
     },
     "hardware/printed-parts/zone-c/funnel-mold/core.step.mesh": {
-      "inputs": "ec28451abaa491ea14abca3ef361eb295d6dc23d6972124394e6b391705e324b",
-      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2",
+      "inputs": "1c94866f4d4d0c01aaa5f60c7c79c45b91d30540c2392f5a037df7251832ba63",
+      "commit": "df0b9119f8880376223371a4dbb0481be272238e",
       "unproven": true
     },
     "hardware/printed-parts/zone-c/funnel-mold/core.stl": {
@@ -6037,8 +6045,8 @@
       "unproven": true
     },
     "hardware/printed-parts/zone-c/funnel-mold/rod.step.mesh": {
-      "inputs": "cb668822d25a396ae6a3029737ca0c64842995e535274ec277f5d9acd7a19400",
-      "commit": "e1207cfaf4440daff1e9b61e77e8f033feb49d58",
+      "inputs": "1c94866f4d4d0c01aaa5f60c7c79c45b91d30540c2392f5a037df7251832ba63",
+      "commit": "df0b9119f8880376223371a4dbb0481be272238e",
       "unproven": true
     },
     "hardware/printed-parts/zone-c/funnel-mold/section.step": {
