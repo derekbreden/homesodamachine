@@ -1317,6 +1317,7 @@ dependencies = [
 name = "hsm-foam-cap-numbers"
 version = "0.1.0"
 dependencies = [
+ "anyhow",
  "hsm-cold-core-catalog",
  "hsm-cold-core-interface",
  "hsm-cold-core-layout",
@@ -1325,6 +1326,7 @@ dependencies = [
  "hsm-valve-seat-numbers",
  "serde",
  "serde_json",
+ "sha2",
 ]
 
 [[package]]

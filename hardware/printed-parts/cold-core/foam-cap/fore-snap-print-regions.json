@@ -1,31 +1,17 @@
 {
-  "scope": "Finite infill-only modifiers through the fore C2 shared base, all M5 casing hosts/head bearings and PCB insert posts, each with its supporting plate/wall root. No load capacity or lifetime qualification.",
-  "use": "Manual print preparation for the equipment lid, shell and bottom cap. Each box intersects existing material and adds no geometry. All other lid walls, infill, pose, features and support settings retain their current recipe.",
-  "producer": "hardware/printed-parts/cold-core/foam-cap/prepare_fore_snap_regions.py",
   "coordinate_frames": {
-    "foam-cap-lid-top": "Source STEP/STL coordinates before installed placement; world_bounds_mm, where present, uses appliance coordinates.",
     "foam-cap-bottom": "Source STEP/STL coordinates before installed placement; world_bounds_mm, where present, uses appliance coordinates.",
+    "foam-cap-lid-top": "Source STEP/STL coordinates before installed placement; world_bounds_mm, where present, uses appliance coordinates.",
     "foam-shell": "Source STEP/STL coordinates before installed placement; world_bounds_mm, where present, uses appliance coordinates."
   },
-  "source_sha256": {
-    "hardware/printed-parts/cold-core/foam-cap/prepare_fore_snap_regions.py": "3e551ca46d108f22fffb0e0bc8eae9a6eee72af76cec4a51403a411d434372b0",
-    "hardware/printed-parts/cold-core/_reservoir_a_c2.py": "073f314bf227dee8d5326b077fb4d2a050a70cc9164e2688dcb307393aea466e",
-    "hardware/manifold-layout/above_core.py": "4ae1006309cfc55676c11ac286d0506a77d8fecd1b107818b2d6a665b787654e",
-    "hardware/manifold-layout/above-core.json": "57e7208ad228b4068f64084545e2dde2464d510a33e71a3c9f541378695dac3b",
-    "hardware/printed-parts/cold-core/_reservoir_a_anchors.py": "247573e7043dd0e8e06ad6e61d27116015b9b32d6e00641a7e8e1ca335812ad5",
-    "hardware/printed-parts/cold-core/foam-cap/foam_cap.py": "7432f98f87c08e6fb3463a38d79deb860025d1ba74cc4d86355307ffbbb1f919",
-    "hardware/printed-parts/cold-core/_cold_core_interface.py": "365a8d7bb582b2570d9d107a2fe3e7dad9bc29112ef090bfa22a85c15306c2a0",
-    "hardware/printed-parts/cold-core/_above_core_mounts.py": "8290a45534a5332a04b375c96af90b86b4632e7cd0fb04d2615af9b2a4f2c07d",
-    "hardware/printed-parts/cold-core/_foam_cap.py": "1a60d110a06b51c83bf245e365cd3436508e6c3e317a8ef353da93b9b662aa07"
-  },
   "native_artifact_sha256": {
-    "foam-cap-lid-top": {
-      ".step": "5334cae33f824fc35e29ca6e4e5ced33c7d691c9142492a76ddcefa6d74cf869",
-      ".stl": "2408a3edeeca8f60c1aa8b1e32a190695d1776cdfc45b70f6ec3686a73232f07"
-    },
     "foam-cap-bottom": {
       ".step": "91ddfea3e9ca8cf046cb385a8d7e653b0b2deb3a343d6b1c9170ead4ed7c5929",
       ".stl": "acdcff8c0842d7158aa15ed797dc22ef6173eb27f662f7e19d505000f4c84e0a"
+    },
+    "foam-cap-lid-top": {
+      ".step": "1c73a22a5b1ecbae3a6716ae0b18b3d54b3ed9497cf40da7abf59faa69ac99be",
+      ".stl": "2e2fc38be045dfe93ffc5a8cdf55869b61844c8094789246935379800c21c5b8"
     },
     "foam-shell": {
       ".step": "a716b44ef657e0355fbceae6c2dcba6a4de45feefad6417245149f26abef5ad7",
@@ -34,17 +20,220 @@
   },
   "part_process_overrides": {},
   "pieces": {
+    "foam-cap-bottom": [
+      {
+        "applied_source_bounds_mm": [
+          -141.1999969482422,
+          -125.52000000000001,
+          -69.88,
+          -50.120000000000005,
+          0.0,
+          19.850000381469727
+        ],
+        "machine_bounds_mm": [
+          -145.28,
+          -125.52000000000001,
+          -69.88,
+          -50.120000000000005,
+          0.0,
+          19.850000381469727
+        ],
+        "name": "M5 head pad 1 and floor/wall root",
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag"
+      },
+      {
+        "applied_source_bounds_mm": [
+          -141.1999969482422,
+          -125.52000000000001,
+          -9.879999999999999,
+          9.879999999999999,
+          0.0,
+          19.850000381469727
+        ],
+        "machine_bounds_mm": [
+          -145.28,
+          -125.52000000000001,
+          -9.879999999999999,
+          9.879999999999999,
+          0.0,
+          19.850000381469727
+        ],
+        "name": "M5 head pad 2 and floor/wall root",
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag"
+      },
+      {
+        "applied_source_bounds_mm": [
+          -141.1999969482422,
+          -125.52000000000001,
+          50.120000000000005,
+          69.88,
+          0.0,
+          19.850000381469727
+        ],
+        "machine_bounds_mm": [
+          -145.28,
+          -125.52000000000001,
+          50.120000000000005,
+          69.88,
+          0.0,
+          19.850000381469727
+        ],
+        "name": "M5 head pad 3 and floor/wall root",
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag"
+      },
+      {
+        "applied_source_bounds_mm": [
+          125.52000000000001,
+          141.1999969482422,
+          -69.88,
+          -50.120000000000005,
+          0.0,
+          19.850000381469727
+        ],
+        "machine_bounds_mm": [
+          125.52000000000001,
+          145.28,
+          -69.88,
+          -50.120000000000005,
+          0.0,
+          19.850000381469727
+        ],
+        "name": "M5 head pad 4 and floor/wall root",
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag"
+      },
+      {
+        "applied_source_bounds_mm": [
+          125.52000000000001,
+          141.1999969482422,
+          -9.879999999999999,
+          9.879999999999999,
+          0.0,
+          19.850000381469727
+        ],
+        "machine_bounds_mm": [
+          125.52000000000001,
+          145.28,
+          -9.879999999999999,
+          9.879999999999999,
+          0.0,
+          19.850000381469727
+        ],
+        "name": "M5 head pad 5 and floor/wall root",
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag"
+      },
+      {
+        "applied_source_bounds_mm": [
+          125.52000000000001,
+          141.1999969482422,
+          50.120000000000005,
+          69.88,
+          0.0,
+          19.850000381469727
+        ],
+        "machine_bounds_mm": [
+          125.52000000000001,
+          145.28,
+          50.120000000000005,
+          69.88,
+          0.0,
+          19.850000381469727
+        ],
+        "name": "M5 head pad 6 and floor/wall root",
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag"
+      },
+      {
+        "applied_source_bounds_mm": [
+          35.120000000000005,
+          54.879999999999995,
+          -90.19999694824219,
+          -74.52000000000001,
+          0.0,
+          19.850000381469727
+        ],
+        "machine_bounds_mm": [
+          35.120000000000005,
+          54.879999999999995,
+          -94.28,
+          -74.52000000000001,
+          0.0,
+          19.850000381469727
+        ],
+        "name": "M5 head pad 7 and floor/wall root",
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag"
+      },
+      {
+        "applied_source_bounds_mm": [
+          35.120000000000005,
+          54.879999999999995,
+          74.52000000000001,
+          90.19999694824219,
+          0.0,
+          19.850000381469727
+        ],
+        "machine_bounds_mm": [
+          35.120000000000005,
+          54.879999999999995,
+          74.52000000000001,
+          94.28,
+          0.0,
+          19.850000381469727
+        ],
+        "name": "M5 head pad 8 and floor/wall root",
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag"
+      },
+      {
+        "applied_source_bounds_mm": [
+          100.12,
+          119.88,
+          -90.19999694824219,
+          -74.52000000000001,
+          0.0,
+          19.850000381469727
+        ],
+        "machine_bounds_mm": [
+          100.12,
+          119.88,
+          -94.28,
+          -74.52000000000001,
+          0.0,
+          19.850000381469727
+        ],
+        "name": "M5 head pad 9 and floor/wall root",
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag"
+      },
+      {
+        "applied_source_bounds_mm": [
+          100.12,
+          119.88,
+          74.52000000000001,
+          90.19999694824219,
+          0.0,
+          19.850000381469727
+        ],
+        "machine_bounds_mm": [
+          100.12,
+          119.88,
+          74.52000000000001,
+          94.28,
+          0.0,
+          19.850000381469727
+        ],
+        "name": "M5 head pad 10 and floor/wall root",
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag"
+      }
+    ],
     "foam-cap-lid-top": [
       {
-        "name": "Reservoir A fore direct C2 pair and lid root",
-        "machine_bounds_mm": [
-          110.05000000000001,
-          118.05000000000001,
-          44.925,
-          69.575,
-          4.400000000000006,
-          12.5
-        ],
         "applied_source_bounds_mm": [
           110.05000000000001,
           118.05000000000001,
@@ -53,6 +242,17 @@
           4.400000000000006,
           12.5
         ],
+        "machine_bounds_mm": [
+          110.05000000000001,
+          118.05000000000001,
+          44.925,
+          69.575,
+          4.400000000000006,
+          12.5
+        ],
+        "name": "Reservoir A fore direct C2 pair and lid root",
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag",
         "world_bounds_mm": [
           44.925,
           69.575,
@@ -60,180 +260,185 @@
           213.75,
           250.4,
           258.5
-        ],
-        "sparse_infill_density": "100%",
-        "sparse_infill_pattern": "zig-zag"
+        ]
       },
       {
+        "applied_source_bounds_mm": [
+          127.9,
+          141.1999969482422,
+          52.5,
+          67.5,
+          0.0,
+          7.4
+        ],
+        "machine_bounds_mm": [
+          127.9,
+          142.9,
+          52.5,
+          67.5,
+          0.0,
+          7.4
+        ],
         "name": "M5 head bearing 1 and plate root",
-        "machine_bounds_mm": [
-          127.9,
-          142.9,
-          52.5,
-          67.5,
-          0.0,
-          7.4
-        ],
-        "applied_source_bounds_mm": [
-          127.9,
-          141.1999969482422,
-          52.5,
-          67.5,
-          0.0,
-          7.4
-        ],
         "sparse_infill_density": "100%",
         "sparse_infill_pattern": "zig-zag"
       },
       {
+        "applied_source_bounds_mm": [
+          127.9,
+          141.1999969482422,
+          -7.5,
+          7.5,
+          0.0,
+          7.4
+        ],
+        "machine_bounds_mm": [
+          127.9,
+          142.9,
+          -7.5,
+          7.5,
+          0.0,
+          7.4
+        ],
         "name": "M5 head bearing 2 and plate root",
-        "machine_bounds_mm": [
-          127.9,
-          142.9,
-          -7.5,
-          7.5,
-          0.0,
-          7.4
-        ],
-        "applied_source_bounds_mm": [
-          127.9,
-          141.1999969482422,
-          -7.5,
-          7.5,
-          0.0,
-          7.4
-        ],
         "sparse_infill_density": "100%",
         "sparse_infill_pattern": "zig-zag"
       },
       {
+        "applied_source_bounds_mm": [
+          127.9,
+          141.1999969482422,
+          -67.5,
+          -52.5,
+          0.0,
+          7.4
+        ],
+        "machine_bounds_mm": [
+          127.9,
+          142.9,
+          -67.5,
+          -52.5,
+          0.0,
+          7.4
+        ],
         "name": "M5 head bearing 3 and plate root",
-        "machine_bounds_mm": [
-          127.9,
-          142.9,
-          -67.5,
-          -52.5,
-          0.0,
-          7.4
-        ],
-        "applied_source_bounds_mm": [
-          127.9,
-          141.1999969482422,
-          -67.5,
-          -52.5,
-          0.0,
-          7.4
-        ],
         "sparse_infill_density": "100%",
         "sparse_infill_pattern": "zig-zag"
       },
       {
+        "applied_source_bounds_mm": [
+          -141.1999969482422,
+          -127.9,
+          52.5,
+          67.5,
+          0.0,
+          7.4
+        ],
+        "machine_bounds_mm": [
+          -142.9,
+          -127.9,
+          52.5,
+          67.5,
+          0.0,
+          7.4
+        ],
         "name": "M5 head bearing 4 and plate root",
-        "machine_bounds_mm": [
-          -142.9,
-          -127.9,
-          52.5,
-          67.5,
-          0.0,
-          7.4
-        ],
-        "applied_source_bounds_mm": [
-          -141.1999969482422,
-          -127.9,
-          52.5,
-          67.5,
-          0.0,
-          7.4
-        ],
         "sparse_infill_density": "100%",
         "sparse_infill_pattern": "zig-zag"
       },
       {
+        "applied_source_bounds_mm": [
+          -141.1999969482422,
+          -127.9,
+          -7.5,
+          7.5,
+          0.0,
+          7.4
+        ],
+        "machine_bounds_mm": [
+          -142.9,
+          -127.9,
+          -7.5,
+          7.5,
+          0.0,
+          7.4
+        ],
         "name": "M5 head bearing 5 and plate root",
-        "machine_bounds_mm": [
-          -142.9,
-          -127.9,
-          -7.5,
-          7.5,
-          0.0,
-          7.4
-        ],
-        "applied_source_bounds_mm": [
-          -141.1999969482422,
-          -127.9,
-          -7.5,
-          7.5,
-          0.0,
-          7.4
-        ],
         "sparse_infill_density": "100%",
         "sparse_infill_pattern": "zig-zag"
       },
       {
+        "applied_source_bounds_mm": [
+          -141.1999969482422,
+          -127.9,
+          -67.5,
+          -52.5,
+          0.0,
+          7.4
+        ],
+        "machine_bounds_mm": [
+          -142.9,
+          -127.9,
+          -67.5,
+          -52.5,
+          0.0,
+          7.4
+        ],
         "name": "M5 head bearing 6 and plate root",
-        "machine_bounds_mm": [
-          -142.9,
-          -127.9,
-          -67.5,
-          -52.5,
-          0.0,
-          7.4
-        ],
-        "applied_source_bounds_mm": [
-          -141.1999969482422,
-          -127.9,
-          -67.5,
-          -52.5,
-          0.0,
-          7.4
-        ],
         "sparse_infill_density": "100%",
         "sparse_infill_pattern": "zig-zag"
       },
       {
+        "applied_source_bounds_mm": [
+          -52.5,
+          -37.5,
+          76.9,
+          90.19999694824219,
+          0.0,
+          7.4
+        ],
+        "machine_bounds_mm": [
+          -52.5,
+          -37.5,
+          76.9,
+          91.9,
+          0.0,
+          7.4
+        ],
         "name": "M5 head bearing 7 and plate root",
-        "machine_bounds_mm": [
-          -52.5,
-          -37.5,
-          76.9,
-          91.9,
-          0.0,
-          7.4
-        ],
-        "applied_source_bounds_mm": [
-          -52.5,
-          -37.5,
-          76.9,
-          90.19999694824219,
-          0.0,
-          7.4
-        ],
         "sparse_infill_density": "100%",
         "sparse_infill_pattern": "zig-zag"
       },
       {
+        "applied_source_bounds_mm": [
+          -52.5,
+          -37.5,
+          -90.19999694824219,
+          -76.9,
+          0.0,
+          7.4
+        ],
+        "machine_bounds_mm": [
+          -52.5,
+          -37.5,
+          -91.9,
+          -76.9,
+          0.0,
+          7.4
+        ],
         "name": "M5 head bearing 8 and plate root",
-        "machine_bounds_mm": [
-          -52.5,
-          -37.5,
-          -91.9,
-          -76.9,
-          0.0,
-          7.4
-        ],
-        "applied_source_bounds_mm": [
-          -52.5,
-          -37.5,
-          -90.19999694824219,
-          -76.9,
-          0.0,
-          7.4
-        ],
         "sparse_infill_density": "100%",
         "sparse_infill_pattern": "zig-zag"
       },
       {
-        "name": "M5 head bearing 9 and plate root",
+        "applied_source_bounds_mm": [
+          -117.5,
+          -102.5,
+          76.9,
+          90.19999694824219,
+          0.0,
+          7.4
+        ],
         "machine_bounds_mm": [
           -117.5,
           -102.5,
@@ -242,19 +447,19 @@
           0.0,
           7.4
         ],
-        "applied_source_bounds_mm": [
-          -117.5,
-          -102.5,
-          76.9,
-          90.19999694824219,
-          0.0,
-          7.4
-        ],
+        "name": "M5 head bearing 9 and plate root",
         "sparse_infill_density": "100%",
         "sparse_infill_pattern": "zig-zag"
       },
       {
-        "name": "M5 head bearing 10 and plate root",
+        "applied_source_bounds_mm": [
+          -117.5,
+          -102.5,
+          -90.19999694824219,
+          -76.9,
+          0.0,
+          7.4
+        ],
         "machine_bounds_mm": [
           -117.5,
           -102.5,
@@ -263,493 +468,265 @@
           0.0,
           7.4
         ],
-        "applied_source_bounds_mm": [
-          -117.5,
-          -102.5,
-          -90.19999694824219,
-          -76.9,
-          0.0,
-          7.4
-        ],
+        "name": "M5 head bearing 10 and plate root",
         "sparse_infill_density": "100%",
         "sparse_infill_pattern": "zig-zag"
       },
       {
+        "applied_source_bounds_mm": [
+          42.097079979949626,
+          58.097079979949626,
+          -87.49999389648437,
+          -71.49999389648437,
+          0.0,
+          11.0
+        ],
+        "machine_bounds_mm": [
+          42.097079979949626,
+          58.097079979949626,
+          -87.49999389648437,
+          -71.49999389648437,
+          0.0,
+          11.0
+        ],
         "name": "pcba insert post 1 and plate root",
-        "machine_bounds_mm": [
-          42.097079979949626,
-          58.097079979949626,
-          -87.49999389648437,
-          -71.49999389648437,
-          0.0,
-          11.0
-        ],
-        "applied_source_bounds_mm": [
-          42.097079979949626,
-          58.097079979949626,
-          -87.49999389648437,
-          -71.49999389648437,
-          0.0,
-          11.0
-        ],
         "sparse_infill_density": "100%",
         "sparse_infill_pattern": "zig-zag"
       },
       {
+        "applied_source_bounds_mm": [
+          42.097079979949626,
+          58.097079979949626,
+          -21.199993896484365,
+          -5.199993896484365,
+          0.0,
+          11.0
+        ],
+        "machine_bounds_mm": [
+          42.097079979949626,
+          58.097079979949626,
+          -21.199993896484365,
+          -5.199993896484365,
+          0.0,
+          11.0
+        ],
         "name": "pcba insert post 2 and plate root",
-        "machine_bounds_mm": [
-          42.097079979949626,
-          58.097079979949626,
-          -21.199993896484365,
-          -5.199993896484365,
-          0.0,
-          11.0
-        ],
-        "applied_source_bounds_mm": [
-          42.097079979949626,
-          58.097079979949626,
-          -21.199993896484365,
-          -5.199993896484365,
-          0.0,
-          11.0
-        ],
         "sparse_infill_density": "100%",
         "sparse_infill_pattern": "zig-zag"
       },
       {
+        "applied_source_bounds_mm": [
+          120.09707997994963,
+          136.09707997994963,
+          -87.49999389648437,
+          -71.49999389648437,
+          0.0,
+          11.0
+        ],
+        "machine_bounds_mm": [
+          120.09707997994963,
+          136.09707997994963,
+          -87.49999389648437,
+          -71.49999389648437,
+          0.0,
+          11.0
+        ],
         "name": "pcba insert post 3 and plate root",
-        "machine_bounds_mm": [
-          120.09707997994963,
-          136.09707997994963,
-          -87.49999389648437,
-          -71.49999389648437,
-          0.0,
-          11.0
-        ],
-        "applied_source_bounds_mm": [
-          120.09707997994963,
-          136.09707997994963,
-          -87.49999389648437,
-          -71.49999389648437,
-          0.0,
-          11.0
-        ],
         "sparse_infill_density": "100%",
         "sparse_infill_pattern": "zig-zag"
       },
       {
+        "applied_source_bounds_mm": [
+          120.09707997994963,
+          136.09707997994963,
+          -21.199993896484365,
+          -5.199993896484365,
+          0.0,
+          11.0
+        ],
+        "machine_bounds_mm": [
+          120.09707997994963,
+          136.09707997994963,
+          -21.199993896484365,
+          -5.199993896484365,
+          0.0,
+          11.0
+        ],
         "name": "pcba insert post 4 and plate root",
-        "machine_bounds_mm": [
-          120.09707997994963,
-          136.09707997994963,
-          -21.199993896484365,
-          -5.199993896484365,
-          0.0,
-          11.0
-        ],
-        "applied_source_bounds_mm": [
-          120.09707997994963,
-          136.09707997994963,
-          -21.199993896484365,
-          -5.199993896484365,
-          0.0,
-          11.0
-        ],
-        "sparse_infill_density": "100%",
-        "sparse_infill_pattern": "zig-zag"
-      }
-    ],
-    "foam-cap-bottom": [
-      {
-        "name": "M5 head pad 1 and floor/wall root",
-        "machine_bounds_mm": [
-          -145.28,
-          -125.52000000000001,
-          -69.88,
-          -50.120000000000005,
-          0.0,
-          19.850000381469727
-        ],
-        "applied_source_bounds_mm": [
-          -141.1999969482422,
-          -125.52000000000001,
-          -69.88,
-          -50.120000000000005,
-          0.0,
-          19.850000381469727
-        ],
-        "sparse_infill_density": "100%",
-        "sparse_infill_pattern": "zig-zag"
-      },
-      {
-        "name": "M5 head pad 2 and floor/wall root",
-        "machine_bounds_mm": [
-          -145.28,
-          -125.52000000000001,
-          -9.879999999999999,
-          9.879999999999999,
-          0.0,
-          19.850000381469727
-        ],
-        "applied_source_bounds_mm": [
-          -141.1999969482422,
-          -125.52000000000001,
-          -9.879999999999999,
-          9.879999999999999,
-          0.0,
-          19.850000381469727
-        ],
-        "sparse_infill_density": "100%",
-        "sparse_infill_pattern": "zig-zag"
-      },
-      {
-        "name": "M5 head pad 3 and floor/wall root",
-        "machine_bounds_mm": [
-          -145.28,
-          -125.52000000000001,
-          50.120000000000005,
-          69.88,
-          0.0,
-          19.850000381469727
-        ],
-        "applied_source_bounds_mm": [
-          -141.1999969482422,
-          -125.52000000000001,
-          50.120000000000005,
-          69.88,
-          0.0,
-          19.850000381469727
-        ],
-        "sparse_infill_density": "100%",
-        "sparse_infill_pattern": "zig-zag"
-      },
-      {
-        "name": "M5 head pad 4 and floor/wall root",
-        "machine_bounds_mm": [
-          125.52000000000001,
-          145.28,
-          -69.88,
-          -50.120000000000005,
-          0.0,
-          19.850000381469727
-        ],
-        "applied_source_bounds_mm": [
-          125.52000000000001,
-          141.1999969482422,
-          -69.88,
-          -50.120000000000005,
-          0.0,
-          19.850000381469727
-        ],
-        "sparse_infill_density": "100%",
-        "sparse_infill_pattern": "zig-zag"
-      },
-      {
-        "name": "M5 head pad 5 and floor/wall root",
-        "machine_bounds_mm": [
-          125.52000000000001,
-          145.28,
-          -9.879999999999999,
-          9.879999999999999,
-          0.0,
-          19.850000381469727
-        ],
-        "applied_source_bounds_mm": [
-          125.52000000000001,
-          141.1999969482422,
-          -9.879999999999999,
-          9.879999999999999,
-          0.0,
-          19.850000381469727
-        ],
-        "sparse_infill_density": "100%",
-        "sparse_infill_pattern": "zig-zag"
-      },
-      {
-        "name": "M5 head pad 6 and floor/wall root",
-        "machine_bounds_mm": [
-          125.52000000000001,
-          145.28,
-          50.120000000000005,
-          69.88,
-          0.0,
-          19.850000381469727
-        ],
-        "applied_source_bounds_mm": [
-          125.52000000000001,
-          141.1999969482422,
-          50.120000000000005,
-          69.88,
-          0.0,
-          19.850000381469727
-        ],
-        "sparse_infill_density": "100%",
-        "sparse_infill_pattern": "zig-zag"
-      },
-      {
-        "name": "M5 head pad 7 and floor/wall root",
-        "machine_bounds_mm": [
-          35.120000000000005,
-          54.879999999999995,
-          -94.28,
-          -74.52000000000001,
-          0.0,
-          19.850000381469727
-        ],
-        "applied_source_bounds_mm": [
-          35.120000000000005,
-          54.879999999999995,
-          -90.19999694824219,
-          -74.52000000000001,
-          0.0,
-          19.850000381469727
-        ],
-        "sparse_infill_density": "100%",
-        "sparse_infill_pattern": "zig-zag"
-      },
-      {
-        "name": "M5 head pad 8 and floor/wall root",
-        "machine_bounds_mm": [
-          35.120000000000005,
-          54.879999999999995,
-          74.52000000000001,
-          94.28,
-          0.0,
-          19.850000381469727
-        ],
-        "applied_source_bounds_mm": [
-          35.120000000000005,
-          54.879999999999995,
-          74.52000000000001,
-          90.19999694824219,
-          0.0,
-          19.850000381469727
-        ],
-        "sparse_infill_density": "100%",
-        "sparse_infill_pattern": "zig-zag"
-      },
-      {
-        "name": "M5 head pad 9 and floor/wall root",
-        "machine_bounds_mm": [
-          100.12,
-          119.88,
-          -94.28,
-          -74.52000000000001,
-          0.0,
-          19.850000381469727
-        ],
-        "applied_source_bounds_mm": [
-          100.12,
-          119.88,
-          -90.19999694824219,
-          -74.52000000000001,
-          0.0,
-          19.850000381469727
-        ],
-        "sparse_infill_density": "100%",
-        "sparse_infill_pattern": "zig-zag"
-      },
-      {
-        "name": "M5 head pad 10 and floor/wall root",
-        "machine_bounds_mm": [
-          100.12,
-          119.88,
-          74.52000000000001,
-          94.28,
-          0.0,
-          19.850000381469727
-        ],
-        "applied_source_bounds_mm": [
-          100.12,
-          119.88,
-          74.52000000000001,
-          90.19999694824219,
-          0.0,
-          19.850000381469727
-        ],
         "sparse_infill_density": "100%",
         "sparse_infill_pattern": "zig-zag"
       }
     ],
     "foam-shell": [
       {
+        "applied_source_bounds_mm": [
+          -141.1999969482422,
+          -126.60000000000001,
+          -68.8,
+          -51.2,
+          0.0,
+          225.85
+        ],
+        "machine_bounds_mm": [
+          -144.20000000000002,
+          -126.60000000000001,
+          -68.8,
+          -51.2,
+          0.0,
+          225.85
+        ],
         "name": "M5 host 1, both inserts, tail and wall root",
-        "machine_bounds_mm": [
-          -144.20000000000002,
-          -126.60000000000001,
-          -68.8,
-          -51.2,
-          0.0,
-          225.85
-        ],
-        "applied_source_bounds_mm": [
-          -141.1999969482422,
-          -126.60000000000001,
-          -68.8,
-          -51.2,
-          0.0,
-          225.85
-        ],
         "sparse_infill_density": "100%",
         "sparse_infill_pattern": "zig-zag"
       },
       {
+        "applied_source_bounds_mm": [
+          -141.1999969482422,
+          -126.60000000000001,
+          -8.8,
+          8.8,
+          0.0,
+          225.85
+        ],
+        "machine_bounds_mm": [
+          -144.20000000000002,
+          -126.60000000000001,
+          -8.8,
+          8.8,
+          0.0,
+          225.85
+        ],
         "name": "M5 host 2, both inserts, tail and wall root",
-        "machine_bounds_mm": [
-          -144.20000000000002,
-          -126.60000000000001,
-          -8.8,
-          8.8,
-          0.0,
-          225.85
-        ],
-        "applied_source_bounds_mm": [
-          -141.1999969482422,
-          -126.60000000000001,
-          -8.8,
-          8.8,
-          0.0,
-          225.85
-        ],
         "sparse_infill_density": "100%",
         "sparse_infill_pattern": "zig-zag"
       },
       {
+        "applied_source_bounds_mm": [
+          -141.1999969482422,
+          -126.60000000000001,
+          51.2,
+          68.8,
+          0.0,
+          225.85
+        ],
+        "machine_bounds_mm": [
+          -144.20000000000002,
+          -126.60000000000001,
+          51.2,
+          68.8,
+          0.0,
+          225.85
+        ],
         "name": "M5 host 3, both inserts, tail and wall root",
-        "machine_bounds_mm": [
-          -144.20000000000002,
-          -126.60000000000001,
-          51.2,
-          68.8,
-          0.0,
-          225.85
-        ],
-        "applied_source_bounds_mm": [
-          -141.1999969482422,
-          -126.60000000000001,
-          51.2,
-          68.8,
-          0.0,
-          225.85
-        ],
         "sparse_infill_density": "100%",
         "sparse_infill_pattern": "zig-zag"
       },
       {
+        "applied_source_bounds_mm": [
+          126.60000000000001,
+          141.1999969482422,
+          -68.8,
+          -51.2,
+          0.0,
+          225.85
+        ],
+        "machine_bounds_mm": [
+          126.60000000000001,
+          144.20000000000002,
+          -68.8,
+          -51.2,
+          0.0,
+          225.85
+        ],
         "name": "M5 host 4, both inserts, tail and wall root",
-        "machine_bounds_mm": [
-          126.60000000000001,
-          144.20000000000002,
-          -68.8,
-          -51.2,
-          0.0,
-          225.85
-        ],
-        "applied_source_bounds_mm": [
-          126.60000000000001,
-          141.1999969482422,
-          -68.8,
-          -51.2,
-          0.0,
-          225.85
-        ],
         "sparse_infill_density": "100%",
         "sparse_infill_pattern": "zig-zag"
       },
       {
+        "applied_source_bounds_mm": [
+          126.60000000000001,
+          141.1999969482422,
+          -8.8,
+          8.8,
+          0.0,
+          225.85
+        ],
+        "machine_bounds_mm": [
+          126.60000000000001,
+          144.20000000000002,
+          -8.8,
+          8.8,
+          0.0,
+          225.85
+        ],
         "name": "M5 host 5, both inserts, tail and wall root",
-        "machine_bounds_mm": [
-          126.60000000000001,
-          144.20000000000002,
-          -8.8,
-          8.8,
-          0.0,
-          225.85
-        ],
-        "applied_source_bounds_mm": [
-          126.60000000000001,
-          141.1999969482422,
-          -8.8,
-          8.8,
-          0.0,
-          225.85
-        ],
         "sparse_infill_density": "100%",
         "sparse_infill_pattern": "zig-zag"
       },
       {
+        "applied_source_bounds_mm": [
+          126.60000000000001,
+          141.1999969482422,
+          51.2,
+          68.8,
+          0.0,
+          225.85
+        ],
+        "machine_bounds_mm": [
+          126.60000000000001,
+          144.20000000000002,
+          51.2,
+          68.8,
+          0.0,
+          225.85
+        ],
         "name": "M5 host 6, both inserts, tail and wall root",
-        "machine_bounds_mm": [
-          126.60000000000001,
-          144.20000000000002,
-          51.2,
-          68.8,
-          0.0,
-          225.85
-        ],
-        "applied_source_bounds_mm": [
-          126.60000000000001,
-          141.1999969482422,
-          51.2,
-          68.8,
-          0.0,
-          225.85
-        ],
         "sparse_infill_density": "100%",
         "sparse_infill_pattern": "zig-zag"
       },
       {
+        "applied_source_bounds_mm": [
+          36.2,
+          53.8,
+          -90.19999694824219,
+          -75.60000000000001,
+          0.0,
+          225.85
+        ],
+        "machine_bounds_mm": [
+          36.2,
+          53.8,
+          -93.2,
+          -75.60000000000001,
+          0.0,
+          225.85
+        ],
         "name": "M5 host 7, both inserts, tail and wall root",
-        "machine_bounds_mm": [
-          36.2,
-          53.8,
-          -93.2,
-          -75.60000000000001,
-          0.0,
-          225.85
-        ],
-        "applied_source_bounds_mm": [
-          36.2,
-          53.8,
-          -90.19999694824219,
-          -75.60000000000001,
-          0.0,
-          225.85
-        ],
         "sparse_infill_density": "100%",
         "sparse_infill_pattern": "zig-zag"
       },
       {
+        "applied_source_bounds_mm": [
+          36.2,
+          53.8,
+          75.60000000000001,
+          90.19999694824219,
+          0.0,
+          225.85
+        ],
+        "machine_bounds_mm": [
+          36.2,
+          53.8,
+          75.60000000000001,
+          93.2,
+          0.0,
+          225.85
+        ],
         "name": "M5 host 8, both inserts, tail and wall root",
-        "machine_bounds_mm": [
-          36.2,
-          53.8,
-          75.60000000000001,
-          93.2,
-          0.0,
-          225.85
-        ],
-        "applied_source_bounds_mm": [
-          36.2,
-          53.8,
-          75.60000000000001,
-          90.19999694824219,
-          0.0,
-          225.85
-        ],
         "sparse_infill_density": "100%",
         "sparse_infill_pattern": "zig-zag"
       },
       {
-        "name": "M5 host 9, both inserts, tail and wall root",
-        "machine_bounds_mm": [
-          101.2,
-          118.8,
-          -93.2,
-          -75.60000000000001,
-          0.0,
-          225.85
-        ],
         "applied_source_bounds_mm": [
           101.2,
           118.8,
@@ -758,19 +735,19 @@
           0.0,
           225.85
         ],
+        "machine_bounds_mm": [
+          101.2,
+          118.8,
+          -93.2,
+          -75.60000000000001,
+          0.0,
+          225.85
+        ],
+        "name": "M5 host 9, both inserts, tail and wall root",
         "sparse_infill_density": "100%",
         "sparse_infill_pattern": "zig-zag"
       },
       {
-        "name": "M5 host 10, both inserts, tail and wall root",
-        "machine_bounds_mm": [
-          101.2,
-          118.8,
-          75.60000000000001,
-          93.2,
-          0.0,
-          225.85
-        ],
         "applied_source_bounds_mm": [
           101.2,
           118.8,
@@ -779,9 +756,30 @@
           0.0,
           225.85
         ],
+        "machine_bounds_mm": [
+          101.2,
+          118.8,
+          75.60000000000001,
+          93.2,
+          0.0,
+          225.85
+        ],
+        "name": "M5 host 10, both inserts, tail and wall root",
         "sparse_infill_density": "100%",
         "sparse_infill_pattern": "zig-zag"
       }
     ]
-  }
+  },
+  "producer": "hardware/printed-parts/cold-core/foam-cap/print_regions.rs",
+  "scope": "Finite infill-only modifiers through the fore C2 shared base, all M5 casing hosts/head bearings and PCB insert posts, each with its supporting plate/wall root. No load capacity or lifetime qualification.",
+  "source_sha256": {
+    "hardware/cold-core-layout/layout/cap.rs": "d095bb82bd1bdc5163b87127323b8dcd1b8676cbc58abc91498d86a0919790a4",
+    "hardware/manifold-layout/above-core.json": "980dd3db697caecbee72277a361146b72c49096bb40650b8391265f984a713f4",
+    "hardware/printed-parts/cold-core/foam-cap/numbers/deck.rs": "85110044b2737cc62fdb4f96f7229372b2e45e68feb1b56663c2fa5547ff124d",
+    "hardware/printed-parts/cold-core/foam-cap/numbers/lib.rs": "3b8fb0538d8c909b8a6c963173f39da5199700513746251be749369a8e7d6e6d",
+    "hardware/printed-parts/cold-core/foam-cap/numbers/reservoir_a.rs": "0d169aecaf038c88d1cd5f5116541e6a8f541f66ee5e9e2b95479a8e5f839219",
+    "hardware/printed-parts/cold-core/foam-cap/print_regions.rs": "7f4db18d5a70487e5480e37d35da4a839ad66df8de6b1aa638eb5d50c2c80e10",
+    "hardware/printed-parts/cold-core/interface/lib.rs": "489c6b8e3cf4f60909d39219af8c2806144411d4f24720a2e33d7161beae30b3"
+  },
+  "use": "Manual print preparation for the equipment lid, shell and bottom cap. Each box intersects existing material and adds no geometry. All other lid walls, infill, pose, features and support settings retain their current recipe."
 }
