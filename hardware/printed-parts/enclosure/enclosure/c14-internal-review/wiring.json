@@ -1,0 +1,47 @@
+{
+  "bounds_mm": [
+    [
+      -87.90000000037253,
+      419.0099999997765,
+      287.7333333333954
+    ],
+    [
+      -66.65000000037253,
+      448.20000000018626,
+      328.90000000037253
+    ]
+  ],
+  "lead": "AC1-PE",
+  "neighbors": [
+    {
+      "gap_mm": 14.251860046759248,
+      "name": "psu",
+      "overlap_mm3": 0.0
+    },
+    {
+      "gap_mm": 4.59986092093078,
+      "name": "relay-1",
+      "overlap_mm3": 0.0
+    },
+    {
+      "gap_mm": 7.846898094611172,
+      "name": "relay-2",
+      "overlap_mm3": 0.0
+    },
+    {
+      "gap_mm": 1.5750001911073923,
+      "name": "keystone-jack complete bounding envelope",
+      "overlap_mm3": 0.0
+    }
+  ],
+  "passed": true,
+  "purpose": "The inlet-following earth lead's clearance to the neighboring electrical bodies.",
+  "source_fine_model": "tmp/installed-machine/wiring/enclosure-wiring.step.npz",
+  "scope": "The inlet earth lead against the neighboring purchased bodies and the complete data-jack envelope. Wire dressing and bend behavior remain physical assembly observations.",
+  "source_sha256": {
+    "hardware/wiring/installed/route-overrides.json": "ed1346faadcdedc36289dc0ec76cec28f9614a1d6d245cbba23f59fd07a80a7f",
+    "tmp/installed-machine/wiring/enclosure-wiring.step.npz": "d0e5b6231b9efe53d2bf44a5cef329414c08dfd0bff30d7f3d0305ae7d88de0a",
+    "hardware/reference/teyleten-relay/teyleten-relay.step.mesh": "0377ce0d5de5853a4bf9f3ad27912a37fc498557495029336b13a1bad7eac017",
+    "hardware/reference/meanwell-irm90/meanwell-irm90.step.mesh": "5daca63d8261f4dd722024eee72dee2359c0d9f65dd54ae7ef37012f891ce4a4"
+  }
+}
