@@ -1,8 +1,8 @@
-"""88 × 100 mm First Edition nameplate with four M3 screws.
+"""The nameplate's recipe as its print preparation, the trial preparers and the old enclosure
+pipeline's rear tiles import it. The plate itself is cut by `nameplate.rs`.
 
 The origin is the back of the rigid plate; +Y points out of the enclosure, +Z up,
-and text reads along -X from outside. Print flat, face up, with counterbores facing up.
-Run with a unit number (1..10), or selftest for fit and artwork checks.
+and text reads along -X from outside.
 """
 from __future__ import annotations
 
@@ -79,6 +79,3 @@ def __getattr__(name):
 
 from _enclosure_compiled import install as _install
 _install(_sys.modules[__name__])
-
-if __name__ == "__main__":
-    _compiled('nameplate', action="main")
