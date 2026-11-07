@@ -2,29 +2,28 @@
 
 The cold core with everything inside it, in one frame: the carbonator, the coil wound on
 it, both flavour reservoirs, every fitting made up on every port, and the lines drawn among
-them. Built by [`cold_core_assembly.py`](cold_core_assembly.py) →
-`cold-core-assembly.step`, with the `.scorecard.json` beside it that the 3D viewer's bottom bar
-reads at [`/3d`](https://homesodamachine.com/3d).
+them. Built by [`cold_core_assembly.rs`](cold_core_assembly.rs) →
+`cold-core-assembly.step`, shown at [`/3d`](https://homesodamachine.com/3d).
 
 [`printed-parts/cold-core/foam-assembly`](/hardware/printed-parts/cold-core/foam-assembly/) is
 the same stack one frame out — three casing pieces, the faces the enclosure loads and stands
-its own bodies off. `enclosure_assembly` places THAT, as one solid with a port table. Neither
-model supersedes the other, so **the card below is written beside both STEPs**: open either at
-`/3d` and the bottom bar reads the same verdict.
+its own bodies off. The whole machine places THAT, as one solid with a port table. Neither
+model supersedes the other.
 
 
 ## Generated geometry
 
-Python supplies the live part dimensions, placements, materials and route stations to the
-Rust assembly producer. Its files share the foam assembly's source frame:
+The assembly's numbers are typed crates: the carbonator's ([`carbonator/`](carbonator/numbers.rs)),
+the coil's ([`coil/`](coil/numbers.rs)), the core's placements and presentation
+([`assembly/`](assembly/numbers.rs)) and the lines inside the casing
+([`layout/`](layout/routes.rs)); the printed parts come from their own files. Its files share the
+foam assembly's source frame:
 
 | File | Use |
 |---|---|
-| `cold-core-assembly.step.npz` | authoritative fine float64 geometry, ordered component names, colors and face records |
-| `cold-core-assembly.scene.npz` | byte-identical fine-model handoff to the machine assembly |
+| `cold-core-assembly.scene.npz` | the fine float64 model the machine assembly takes: ordered component names, colors and face records |
 | `cold-core-assembly.step` | reduced drawing geometry |
 | `cold-core-assembly.step.mesh` | viewer presentation, including the accepted printed surfaces in their authored placements |
-| `cold-core-assembly.scorecard.json` | the existing assembly readings and qualification status |
 
 The fine model's document records its frame, schema, component opacity and the final
 presentation's relative path and SHA-256. Printed presentation arrays retain their facet

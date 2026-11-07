@@ -60,8 +60,7 @@ pub fn stack_floor_z() -> f64 {
 /// The lid's top face in the shell's frame: the plane the crown's parts are placed off and the
 /// conduits open on. The stack rises past it where V-B's wall and the pump cradle stand.
 pub fn face_z() -> f64 {
-    let fits = fits();
-    core::FOAM_SHELL_OUTER_HEIGHT + core::top_cap_height(&fits) + core::foam_cap_lid_height(&fits)
+    core::cap_face_z(&fits())
 }
 
 /// The bottom closure's two vent holes, in the −X corners mirrored across Y, clear of the pour

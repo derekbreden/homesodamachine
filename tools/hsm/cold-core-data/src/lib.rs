@@ -66,55 +66,53 @@ pub fn rod_fit(diameter: f64, depth: f64) -> Value {
     })
 }
 
+/// The carbonator's earth bond's own numbers, from the carbonator's crate.
 pub fn bond_constants() -> Value {
-    json!({"RIM_AZIMUTH_XY": [23.2, 48.0], "TUBE_OUTER_RADIUS": 63.5,
-           "TUBE_WALL": 0.065 * 25.4, "RIM_HEIGHT": 0.25 * 25.4,
-           "HOLE_HEIGHT": 3.5, "TAP_DRILL_DIAMETER": 2.5,
-           "THREAD_DIAMETER": 3.0, "THREAD_PITCH": 0.5,
-           "SCREW_LENGTH": 4.0, "SCREW_DIAMETER": 3.0,
-           "SCREW_HEAD_DIAMETER": 5.5, "SCREW_HEAD_HEIGHT": 3.0,
-           "RING_TONGUE_THICKNESS": 0.8, "RING_EYE_DIAMETER": 8.0,
-           "RING_BARREL_DIAMETER": 4.2, "RING_BARREL_LENGTH": 6.0,
-           "WASHER_DIAMETER": 6.0, "WASHER_BORE": 3.2, "WASHER_THICKNESS": 0.4,
-           "WASHER_PART": "M3 DIN 6797 A external-tooth lockwasher, A2 stainless",
-           "WASHER_SOURCE": "https://damesa.com/en/products/fasteners/washers/din-6797-external-tooth-lock-washer-form-a"})
+    use hsm_carbonator_numbers::bond as b;
+    json!({"RIM_AZIMUTH_XY": b::RIM_AZIMUTH_XY, "TUBE_OUTER_RADIUS": b::TUBE_OUTER_RADIUS,
+           "TUBE_WALL": b::TUBE_WALL, "RIM_HEIGHT": b::RIM_HEIGHT,
+           "HOLE_HEIGHT": b::HOLE_HEIGHT, "TAP_DRILL_DIAMETER": b::TAP_DRILL_DIAMETER,
+           "THREAD_DIAMETER": b::THREAD_DIAMETER, "THREAD_PITCH": b::THREAD_PITCH,
+           "SCREW_LENGTH": b::SCREW_LENGTH, "SCREW_DIAMETER": b::SCREW_DIAMETER,
+           "SCREW_HEAD_DIAMETER": b::SCREW_HEAD_DIAMETER, "SCREW_HEAD_HEIGHT": b::SCREW_HEAD_HEIGHT,
+           "RING_TONGUE_THICKNESS": b::RING_TONGUE_THICKNESS, "RING_EYE_DIAMETER": b::RING_EYE_DIAMETER,
+           "RING_BARREL_DIAMETER": b::RING_BARREL_DIAMETER, "RING_BARREL_LENGTH": b::RING_BARREL_LENGTH,
+           "WASHER_DIAMETER": b::WASHER_DIAMETER, "WASHER_BORE": b::WASHER_BORE,
+           "WASHER_THICKNESS": b::WASHER_THICKNESS,
+           "WASHER_PART": b::WASHER_PART, "WASHER_SOURCE": b::WASHER_SOURCE})
 }
 
+/// The earth bond's datums for a top plate whose outer face is at `top_plate_outer_z`, from the
+/// carbonator's crate, with what the BOM and the docs say of its hardware.
 pub fn bond(top_plate_outer_z: f64) -> Value {
-    let constants = bond_constants();
-    let n = |key: &str| constants[key].as_f64().unwrap();
-    let scale = 23.2_f64.hypot(48.);
-    let (ux, uy) = (23.2 / scale, 48. / scale);
-    let z = top_plate_outer_z + n("HOLE_HEIGHT");
-    let radial = |radius: f64, height: f64| [ux * radius, uy * radius, height];
-    let head_radius = n("TUBE_OUTER_RADIUS") + n("RING_TONGUE_THICKNESS") + n("WASHER_THICKNESS");
-    let tip_radius = head_radius - n("SCREW_LENGTH");
+    use hsm_carbonator_numbers::{BOND_BODY, bond as b};
+    let d = b::datums(top_plate_outer_z);
     json!({
-        "body": "carbonator-tube",
-        "base_center_mm": radial(n("TUBE_OUTER_RADIUS"), top_plate_outer_z),
-        "hole_center_mm": radial(n("TUBE_OUTER_RADIUS") - n("TUBE_WALL") / 2., z),
-        "hole_axis": [-ux, -uy, 0.], "tap_drill_diameter_mm": n("TAP_DRILL_DIAMETER"),
-        "thread": "M3 x 0.5 through", "thread_diameter_mm": n("THREAD_DIAMETER"),
-        "thread_pitch_mm": n("THREAD_PITCH"), "thread_engagement_mm": n("TUBE_WALL"),
-        "nominal_engaged_threads": n("TUBE_WALL") / n("THREAD_PITCH"),
-        "rim_top_z_mm": top_plate_outer_z + n("RIM_HEIGHT"),
-        "hole_height_above_plate_mm": n("HOLE_HEIGHT"),
-        "hole_height_below_rim_mm": n("RIM_HEIGHT") - n("HOLE_HEIGHT"),
-        "contact_point_mm": radial(n("TUBE_OUTER_RADIUS"), z),
-        "contact_outward": [ux, uy, 0.],
-        "wire_exit_mm": radial(n("TUBE_OUTER_RADIUS") + n("RING_BARREL_DIAMETER") / 2., z + 9.),
-        "wire_outward": [0., 0., 1.], "screw_axis": [-ux, -uy, 0.],
-        "screw_underhead_mm": radial(head_radius, z), "screw_length_mm": n("SCREW_LENGTH"),
-        "screw_tip_mm": radial(tip_radius, z),
-        "screw_projection_inside_tube_mm": n("TUBE_OUTER_RADIUS") - n("TUBE_WALL") - tip_radius,
-        "screw_source": "304 stainless M3x12 stock shortened and end-finished to M3x4",
-        "ring_tongue_thickness_mm": n("RING_TONGUE_THICKNESS"),
-        "ring_eye_diameter_mm": n("RING_EYE_DIAMETER"),
-        "ring_barrel_diameter_mm": n("RING_BARREL_DIAMETER"),
-        "ring_barrel_length_mm": n("RING_BARREL_LENGTH"),
-        "lockwasher_part": constants["WASHER_PART"], "lockwasher_source": constants["WASHER_SOURCE"],
+        "body": BOND_BODY,
+        "base_center_mm": d.base_center,
+        "hole_center_mm": d.hole_center,
+        "hole_axis": d.hole_axis, "tap_drill_diameter_mm": b::TAP_DRILL_DIAMETER,
+        "thread": "M3 x 0.5 through", "thread_diameter_mm": b::THREAD_DIAMETER,
+        "thread_pitch_mm": b::THREAD_PITCH, "thread_engagement_mm": b::TUBE_WALL,
+        "nominal_engaged_threads": b::TUBE_WALL / b::THREAD_PITCH,
+        "rim_top_z_mm": d.rim_top_z,
+        "hole_height_above_plate_mm": b::HOLE_HEIGHT,
+        "hole_height_below_rim_mm": b::RIM_HEIGHT - b::HOLE_HEIGHT,
+        "contact_point_mm": d.contact_point,
+        "contact_outward": d.contact_outward,
+        "wire_exit_mm": d.wire_exit,
+        "wire_outward": d.wire_outward, "screw_axis": d.screw_axis,
+        "screw_underhead_mm": d.screw_underhead, "screw_length_mm": b::SCREW_LENGTH,
+        "screw_tip_mm": d.screw_tip,
+        "screw_projection_inside_tube_mm": d.screw_projection_inside_tube,
+        "screw_source": b::SCREW_SOURCE,
+        "ring_tongue_thickness_mm": b::RING_TONGUE_THICKNESS,
+        "ring_eye_diameter_mm": b::RING_EYE_DIAMETER,
+        "ring_barrel_diameter_mm": b::RING_BARREL_DIAMETER,
+        "ring_barrel_length_mm": b::RING_BARREL_LENGTH,
+        "lockwasher_part": b::WASHER_PART, "lockwasher_source": b::WASHER_SOURCE,
         "hardware_bodies": ["carbonator-earth-screw", "carbonator-earth-lockwasher"],
-        "clamp_order_from_head": ["M3x4 stainless screw", constants["WASHER_PART"],
+        "clamp_order_from_head": ["M3x4 stainless screw", b::WASHER_PART,
             "M3 closed ring tongue", "bare upper tube rim tapped M3x0.5"]
     })
 }

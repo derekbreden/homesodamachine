@@ -1,0 +1,36 @@
+[package]
+name = "hsm-cold-core-assembly"
+version = "0.1.0"
+edition.workspace = true
+license.workspace = true
+rust-version.workspace = true
+publish = false
+
+[dependencies]
+anyhow.workspace = true
+serde = { workspace = true, features = ["derive"] }
+serde_json.workspace = true
+hsm-aero-float-numbers = { path = "../aero-float-numbers" }
+hsm-carbonator-numbers = { path = "../carbonator-numbers" }
+hsm-carbonator-tube-numbers = { path = "../carbonator-tube-numbers" }
+hsm-coil-numbers = { path = "../coil-numbers" }
+hsm-cold-core-assembly-numbers = { path = "../cold-core-assembly-numbers" }
+hsm-cold-core-catalog = { path = "../cold-core-catalog" }
+hsm-cold-core-layout = { path = "../cold-core-layout" }
+hsm-foam-assembly-numbers = { path = "../foam-assembly-numbers" }
+hsm-foam-cap-numbers = { path = "../foam-cap-numbers" }
+hsm-kernel = { path = "../kernel" }
+hsm-model-export = { path = "../model-export" }
+hsm-print-payload = { path = "../print-payload" }
+hsm-prv-shroud-numbers = { path = "../prv-shroud-numbers" }
+hsm-reed-bridge-numbers = { path = "../reed-bridge-numbers" }
+hsm-reservoir-numbers = { path = "../reservoir-numbers" }
+hsm-shared-data = { path = "../shared-data" }
+
+[[bin]]
+name = "cold-core-assembly"
+path = "../../../hardware/cold-core-layout/cold_core_assembly.rs"
+
+[[bin]]
+name = "evaporator-coil-model"
+path = "../../../hardware/cold-core-layout/evaporator_coil_model.rs"
