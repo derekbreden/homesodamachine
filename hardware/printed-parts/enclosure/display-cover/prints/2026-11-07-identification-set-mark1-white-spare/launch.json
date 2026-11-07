@@ -279,5 +279,15 @@
     "diameter_mm": 0.2,
     "flow": "Standard",
     "confirmed_in_application": true
+  },
+  "startup_verification": {
+    "job_id": "1417611469",
+    "gcode_state": "RUNNING",
+    "print_error": 0,
+    "hms": [],
+    "stg_cur": 74,
+    "mounted_right_hotend_serial": "20D06A611023831",
+    "mounted_right_nozzle_diameter_mm": 0.2,
+    "replacement_serial_matches_selected_head": true
   }
 }
