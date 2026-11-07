@@ -968,14 +968,10 @@ pub fn initialize(rt: Runtime, e: Env) -> Result<()> {
             let rt = runtime.clone();
             let e = bind(&outer, &params, args, kwargs, None, None)?;
             let _frame = rt.frame(&outer);
-            let assigned214 = {
-                let fun217 = e.get("importlib")?.attr("import_module")?;
-                let mut args215 = Vec::new();
-                let mut kw216 = Vec::new();
-                args215.push(Val::Str("pcba_tray".into()));
-                fun217.call(args215, kw216)?
-            };
-            e.set("pcb", assigned214.clone())?;
+            // The main board's mounting holes about its centre, and its thickness, from its numbers.
+            let centre = hsm_pcba_numbers::centre();
+            let holes = Val::tuple(hsm_pcba_numbers::HOLES.iter()
+                .map(|p| Val::tuple(vec![Val::Float(p[0] - centre[0]), Val::Float(p[1] - centre[1])])).collect());
             return Ok({
                 let d = Val::dict(vec![]);
                 d.set(Val::Str("pcba".into()), {
@@ -987,7 +983,7 @@ pub fn initialize(rt: Runtime, e: Env) -> Result<()> {
                         let mut args221 = Vec::new();
                         let mut kw222 = Vec::new();
                         args221.push(Val::Str("pcba".into()));
-                        args221.push(e.get("pcb")?.attr("board")?.attr("holes")?);
+                        args221.push(holes.clone());
                         fun223.call(args221, kw222)?
                     });
                     args218.push({
@@ -997,9 +993,9 @@ pub fn initialize(rt: Runtime, e: Env) -> Result<()> {
                         args224.push(Val::Str("pcba".into()));
                         fun226.call(args224, kw225)?
                     });
-                    args218.push(e.get("pcb")?.attr("_thickness")?);
+                    args218.push(Val::Float(hsm_pcba_numbers::THICKNESS));
                     args218.push(Val::Float(8.0f64));
-                    args218.push(e.get("pcb")?.attr("_thickness")?);
+                    args218.push(Val::Float(hsm_pcba_numbers::THICKNESS));
                     fun220.call(args218, kw219)?
                 })?;
                 d
