@@ -1690,6 +1690,7 @@ name = "hsm-print-prep"
 version = "0.1.0"
 dependencies = [
  "anyhow",
+ "hsm-fake-countertop-numbers",
  "hsm-faucet-numbers",
  "hsm-run-slots",
  "hsm-shared-data",
