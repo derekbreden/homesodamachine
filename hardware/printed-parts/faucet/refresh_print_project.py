@@ -29,17 +29,22 @@ REL = "http://schemas.openxmlformats.org/package/2006/relationships"
 SETTINGS_MEMBER = "Metadata/project_settings.config"
 ET.register_namespace("", CORE)
 ET.register_namespace("p", PROD)
-sys.path.insert(0, str(HERE / "faucet-shell"))
-import faucet_shell as shell
 sys.path.insert(0, str(HERE.parent / "cadlib"))
 import petgf_cooling
 
-PARTS = (
-    ("faucet-shell-base", HERE / "faucet-shell/faucet-shell-base.stl", -math.degrees(shell.print_base_build_rot)),
-    ("faucet-shell-tip", HERE / "faucet-shell/faucet-shell-tip.stl", -math.degrees(shell.print_tip_build_rot)),
-    ("faucet-display-cover", HERE / "faucet-display-cover/faucet-display-cover.stl", -50.0),
-    ("above-counter-plate", HERE / "above-counter-plate/above-counter-plate.stl", 0.0),
-)
+
+def faucet_parts() -> tuple:
+    """The faucet's four meshes and the turn about X, in degrees, that lays each on the bed. The
+    shell's two turns are its Rust numbers, from `faucet-shell-print-rotations`."""
+    program = _rust_part.program("faucet-shell", "faucet-shell-print-rotations")
+    turns = json.loads(subprocess.run([str(program)], capture_output=True, text=True, check=True).stdout)
+    return (
+        ("faucet-shell-base", HERE / "faucet-shell/faucet-shell-base.stl", -math.degrees(turns["faucet-shell-base"])),
+        ("faucet-shell-tip", HERE / "faucet-shell/faucet-shell-tip.stl", -math.degrees(turns["faucet-shell-tip"])),
+        ("faucet-display-cover", HERE / "faucet-display-cover/faucet-display-cover.stl", -50.0),
+        ("above-counter-plate", HERE / "above-counter-plate/above-counter-plate.stl", 0.0),
+    )
+
 # Millimetres from the centre of the shared printable area. The base occupies
 # the left column; the other three parts have separate support/brim spaces.
 PART_OFFSETS = ((-80.0, 0.0), (20.0, 47.0), (89.0, 106.0), (43.0, -52.0))
@@ -152,7 +157,7 @@ def add_local_solid_regions(project: Path, report: dict, regions: tuple[dict, ..
 def refresh(settings_from: Path, output: Path, *, parts: tuple | None = None,
             offsets: tuple | None = None, title: str = "Faucet PET-GF",
             z_trim: float | None = None, plate_border: float = 20.0) -> dict:
-    parts = PARTS if parts is None else parts
+    parts = faucet_parts() if parts is None else parts
     offsets = PART_OFFSETS if offsets is None else offsets
     if len(parts) != len(offsets):
         raise ValueError("Each print-project part needs one bed-position offset")
