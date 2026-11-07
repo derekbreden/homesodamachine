@@ -390,6 +390,7 @@ RUST_STEPS = {
     "hardware/install-guide/kit_art.rs": ("kit-art", "kit-art", ""),
     "hardware/install-guide/opening_scene.rs": ("opening-scene", "opening-scene", ""),
     "hardware/install-guide/install_guide.rs": ("install-guide", "install-guide", ""),
+    "hardware/printed-parts/fixtures/fake-countertop/fake_countertop.rs": ("fake-countertop", "fake-countertop", "hardware/printed-parts/fixtures/fake-countertop"),
     "hardware/printed-parts/collet-press/collet_press.rs": ("collet-press", "collet-press", "hardware/printed-parts/collet-press"),
     "hardware/printed-parts/asse-straight-cuffs/asse_straight_cuffs.rs": ("asse-straight-cuffs", "asse-straight-cuffs", "hardware/printed-parts/asse-straight-cuffs"),
     "hardware/printed-parts/asse-drain-adapter/asse_drain_adapter.rs": ("asse-drain-adapter", "asse-drain-adapter", "hardware/printed-parts/asse-drain-adapter"),
