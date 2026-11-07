@@ -13410,49 +13410,25 @@ copy_file hardware/printed-parts/soda-bend-holder/soda-bend-holder.stl "$$O3"
 )
 
 genrule(
-    name = "funnel-cover",
+    name = "funnel-cover-program",
     srcs = [
-        "hardware/printed-parts/cadlib/_scalar_provider.py",
-        "hardware/printed-parts/cadlib/fits.py",
+        "hardware/manifold-layout/above-core.json",
         "hardware/printed-parts/enclosure/enclosure/interface/anchor_cap.rs",
         "hardware/printed-parts/enclosure/enclosure/interface/fits.rs",
         "hardware/printed-parts/enclosure/enclosure/interface/lib.rs",
         "hardware/printed-parts/enclosure/enclosure/interface/swept.rs",
-        "hardware/printed-parts/valve-seat/numbers.rs",
-        "hardware/printed-parts/zone-c/funnel-cover/funnel_cover.py",
         "hardware/printed-parts/zone-c/funnel-cover/funnel_cover.rs",
-        "hardware/printed-parts/zone-c/funnel/_zone_data.py",
-        "hardware/printed-parts/zone-c/funnel/funnel.py",
+        "hardware/printed-parts/zone-c/funnel/zone_files.rs",
+        "hardware/printed-parts/zone-c/numbers/catalog.rs",
+        "hardware/printed-parts/zone-c/numbers/cover.rs",
+        "hardware/printed-parts/zone-c/numbers/cradle.rs",
+        "hardware/printed-parts/zone-c/numbers/frame.rs",
+        "hardware/printed-parts/zone-c/numbers/funnel.rs",
+        "hardware/printed-parts/zone-c/numbers/lib.rs",
+        "hardware/printed-parts/zone-c/numbers/mold.rs",
         "hardware/reference/neofit-stem-elbow/reference-parameters.json",
-        "hardware/scripts/_build_data.py",
-        "hardware/scripts/_material_base.py",
-        "hardware/scripts/_materials.py",
-        "hardware/scripts/_payload_rules.py",
-        "hardware/scripts/_rust_data.py",
-        "hardware/scripts/_rust_part.py",
-        "hardware/scripts/_shared_data.py",
-        "tools/hsm/build-data/Cargo.toml",
-        "tools/hsm/build-data/src/artifact_cache.rs",
-        "tools/hsm/build-data/src/artifacts.rs",
-        "tools/hsm/build-data/src/assets.rs",
-        "tools/hsm/build-data/src/inventory.rs",
-        "tools/hsm/build-data/src/lib.rs",
-        "tools/hsm/build-data/src/main.rs",
-        "tools/hsm/build-data/src/payload.rs",
-        "tools/hsm/build-data/src/projection.rs",
-        "tools/hsm/build-data/src/publication.rs",
-        "tools/hsm/build-data/src/publication_archive.rs",
-        "tools/hsm/build-data/src/publication_state.rs",
-        "tools/hsm/build-data/src/publication_zlib.rs",
-        "tools/hsm/build-data/src/sources.rs",
-        "tools/hsm/build-data/src/support.rs",
-        "tools/hsm/build-data/src/surfaces.rs",
         ":out/cargo-config/tools/hsm/cargo-config.json",
-        "tools/hsm/documents/Cargo.toml",
-        "tools/hsm/documents/src/interop.rs",
-        "tools/hsm/documents/src/interop/standard.rs",
-        "tools/hsm/documents/src/lib.rs",
-        "tools/hsm/documents/src/python_checked.rs",
+        "tools/hsm/enclosure-interface/Cargo.toml",
         "tools/hsm/funnel/Cargo.toml",
         "tools/hsm/geometry/Cargo.toml",
         "tools/hsm/geometry/src/lib.rs",
@@ -13488,38 +13464,45 @@ genrule(
         "tools/hsm/kernel/src/topo.rs",
         "tools/hsm/kernel/src/triangulate.rs",
         "tools/hsm/kernel/src/write.rs",
-        "tools/hsm/part-data/Cargo.toml",
-        "tools/hsm/part-data/src/electronics.rs",
-        "tools/hsm/part-data/src/main.rs",
-        "tools/hsm/part-data/src/output.rs",
-        "tools/hsm/part-data/src/reference.rs",
-        "tools/hsm/part-data/src/reference_catalog.rs",
-        "tools/hsm/part-data/src/sleeve.rs",
-        "tools/hsm/part-data/src/storage.rs",
-        "tools/hsm/part-data/src/zone.rs",
-        "tools/hsm/shared-data/Cargo.toml",
+        "tools/hsm/run-native/Cargo.toml",
+        "tools/hsm/run-native/src/lib.rs",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/hsm/run-slots/Cargo.toml",
+        "tools/hsm/run-slots/src/ipc.rs",
+        "tools/hsm/run-slots/src/lib.rs",
+        "tools/hsm/run-slots/src/main.rs",
+        "tools/hsm/run-slots/src/runtime.rs",
+        "tools/hsm/run-slots/src/runtime/cad.rs",
+        "tools/hsm/run-slots/src/runtime/install.rs",
+        "tools/hsm/run-slots/src/runtime/runner.rs",
+        "tools/hsm/run-slots/src/runtime/slots.rs",
         "tools/hsm/shared-data/catalog/materials.json",
-        "tools/hsm/shared-data/catalog/routing.json",
         "tools/hsm/shared-data/catalog/scalars.json",
-        "tools/hsm/shared-data/src/color.rs",
-        "tools/hsm/shared-data/src/common.rs",
-        "tools/hsm/shared-data/src/cooling.rs",
-        "tools/hsm/shared-data/src/lib.rs",
-        "tools/hsm/shared-data/src/main.rs",
-        "tools/hsm/shared-data/src/routing.rs",
-        "tools/hsm/shared-data/src/scalars.rs",
+        "tools/hsm/vendor/manifold-csg-sys/.cargo_vcs_info.json",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.lock",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.toml",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.toml.orig",
+        "tools/hsm/vendor/manifold-csg-sys/LICENSE-APACHE",
+        "tools/hsm/vendor/manifold-csg-sys/LICENSE-MIT",
+        "tools/hsm/vendor/manifold-csg-sys/README.md",
+        "tools/hsm/vendor/manifold-csg-sys/build.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/build.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/fetch.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/patch.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/wasm.rs",
+        "tools/hsm/vendor/manifold-csg-sys/cache-version",
+        "tools/hsm/vendor/manifold-csg-sys/patches/README.md",
+        "tools/hsm/vendor/manifold-csg-sys/src/lib.rs",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/CMakeLists.txt",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/diagnose.sh",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/__assertion_handler",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/__config_site",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/memory",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/mutex",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/libcxx-extras.cpp",
+        "tools/hsm/zone-c-numbers/Cargo.toml",
     ],
-    outs = [
-        "out/funnel-cover/hardware/printed-parts/zone-c/funnel-cover/funnel-cover-print.step",
-        "out/funnel-cover/hardware/printed-parts/zone-c/funnel-cover/funnel-cover-print.step.mesh",
-        "out/funnel-cover/hardware/printed-parts/zone-c/funnel-cover/funnel-cover-print.step.npz",
-        "out/funnel-cover/hardware/printed-parts/zone-c/funnel-cover/funnel-cover-print.stl",
-        "out/funnel-cover/hardware/printed-parts/zone-c/funnel-cover/funnel-cover.numbers.json",
-        "out/funnel-cover/hardware/printed-parts/zone-c/funnel-cover/funnel-cover.step",
-        "out/funnel-cover/hardware/printed-parts/zone-c/funnel-cover/funnel-cover.step.mesh",
-        "out/funnel-cover/hardware/printed-parts/zone-c/funnel-cover/funnel-cover.step.npz",
-        "out/funnel-cover/hardware/printed-parts/zone-c/funnel-cover/funnel-cover.stl",
-    ],
+    outs = ["out/funnel-cover-program/funnel-cover"],
     tags = ["no-sandbox"],
     cmd = """
 set -e
@@ -13543,93 +13526,133 @@ case "$$(uname -s)" in
     };;
   *) copy_file() { cp "$$@"; };;
 esac
-O0=$$PWD/$(location out/funnel-cover/hardware/printed-parts/zone-c/funnel-cover/funnel-cover-print.step)
-O1=$$PWD/$(location out/funnel-cover/hardware/printed-parts/zone-c/funnel-cover/funnel-cover-print.step.mesh)
-O2=$$PWD/$(location out/funnel-cover/hardware/printed-parts/zone-c/funnel-cover/funnel-cover-print.step.npz)
-O3=$$PWD/$(location out/funnel-cover/hardware/printed-parts/zone-c/funnel-cover/funnel-cover-print.stl)
-O4=$$PWD/$(location out/funnel-cover/hardware/printed-parts/zone-c/funnel-cover/funnel-cover.numbers.json)
-O5=$$PWD/$(location out/funnel-cover/hardware/printed-parts/zone-c/funnel-cover/funnel-cover.step)
-O6=$$PWD/$(location out/funnel-cover/hardware/printed-parts/zone-c/funnel-cover/funnel-cover.step.mesh)
-O7=$$PWD/$(location out/funnel-cover/hardware/printed-parts/zone-c/funnel-cover/funnel-cover.step.npz)
-O8=$$PWD/$(location out/funnel-cover/hardware/printed-parts/zone-c/funnel-cover/funnel-cover.stl)
-rm -rf work-funnel-cover
-for f in $(SRCS); do
-  case $$f in
-    */node_modules/*) continue;;
-    */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
-    *) t=$$f;;
-  esac
-  mkdir -p "work-funnel-cover/$$(dirname "$$t")"; copy_file -L "$$f" "work-funnel-cover/$$t"
+hsm_run=
+for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
+  if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
 done
-for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
-  if [ -d $$d ]; then mkdir -p work-funnel-cover/$$(dirname $$d); ln -sfn $$PWD/$$d work-funnel-cover/$$d; fi
-done
-for f in hardware/scripts/_run_lock.py hardware/scripts/_run_native.py hardware/scripts/_run_slots.py tools/hsm/run-slots.defaults.json tools/run-slots.mjs tools/run.py; do
-  mkdir -p work-funnel-cover/$$(dirname $$f); cp $$HSM_WORKSPACE/$$f work-funnel-cover/$$f
-done
-cd work-funnel-cover
-ln -sfn $$HSM_WORKSPACE/.cache .cache
-D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/zone-c/funnel-cover/funnel_cover.py > /dev/null
-copy_file hardware/printed-parts/zone-c/funnel-cover/funnel-cover-print.step "$$O0"
-copy_file hardware/printed-parts/zone-c/funnel-cover/funnel-cover-print.step.mesh "$$O1"
-copy_file hardware/printed-parts/zone-c/funnel-cover/funnel-cover-print.step.npz "$$O2"
-copy_file hardware/printed-parts/zone-c/funnel-cover/funnel-cover-print.stl "$$O3"
-copy_file hardware/printed-parts/zone-c/funnel-cover/funnel-cover.numbers.json "$$O4"
-copy_file hardware/printed-parts/zone-c/funnel-cover/funnel-cover.step "$$O5"
-copy_file hardware/printed-parts/zone-c/funnel-cover/funnel-cover.step.mesh "$$O6"
-copy_file hardware/printed-parts/zone-c/funnel-cover/funnel-cover.step.npz "$$O7"
-copy_file hardware/printed-parts/zone-c/funnel-cover/funnel-cover.stl "$$O8"
-cd .. && rm -rf work-funnel-cover
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+cargo=$$(command -v cargo || true)
+for c in "$$cargo" /opt/homebrew/opt/rustup/bin/cargo ~/.cargo/bin/cargo; do if [ -x "$$c" ]; then cargo=$$c; break; fi; done
+if [ ! -x "$$cargo" ]; then echo "cargo is not installed (https://rustup.rs)" >&2; exit 1; fi
+export HOME=~ PATH="$$(dirname "$$cargo"):$$PATH"
+O0=$$PWD/$(location out/funnel-cover-program/funnel-cover)
+cd "$$HSM_WORKSPACE/tools/hsm"
+CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet --manifest-path funnel/Cargo.toml --bin funnel-cover
+copy_file target/release/funnel-cover "$$O0"
 """,
 )
 
 genrule(
-    name = "funnel-mold",
+    name = "funnel-cover",
     srcs = [
-        "hardware/printed-parts/cadlib/_scalar_provider.py",
-        "hardware/printed-parts/cadlib/fits.py",
+        ":out/funnel-cover-program/funnel-cover",
+        "hardware/manifold-layout/above-core.json",
+        "hardware/reference/neofit-stem-elbow/reference-parameters.json",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/hsm/shared-data/catalog/materials.json",
+        "tools/hsm/shared-data/catalog/scalars.json",
+        "tools/hsm/vendor/manifold-csg-sys/.cargo_vcs_info.json",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.toml.orig",
+        "tools/hsm/vendor/manifold-csg-sys/LICENSE-APACHE",
+        "tools/hsm/vendor/manifold-csg-sys/LICENSE-MIT",
+        "tools/hsm/vendor/manifold-csg-sys/README.md",
+        "tools/hsm/vendor/manifold-csg-sys/cache-version",
+        "tools/hsm/vendor/manifold-csg-sys/patches/README.md",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/CMakeLists.txt",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/diagnose.sh",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/__assertion_handler",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/__config_site",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/memory",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/mutex",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/libcxx-extras.cpp",
+    ],
+    outs = [
+        "out/funnel-cover/hardware/printed-parts/zone-c/funnel-cover/funnel-cover-print.step",
+        "out/funnel-cover/hardware/printed-parts/zone-c/funnel-cover/funnel-cover-print.step.mesh",
+        "out/funnel-cover/hardware/printed-parts/zone-c/funnel-cover/funnel-cover-print.step.npz",
+        "out/funnel-cover/hardware/printed-parts/zone-c/funnel-cover/funnel-cover-print.stl",
+        "out/funnel-cover/hardware/printed-parts/zone-c/funnel-cover/funnel-cover.step",
+        "out/funnel-cover/hardware/printed-parts/zone-c/funnel-cover/funnel-cover.step.mesh",
+        "out/funnel-cover/hardware/printed-parts/zone-c/funnel-cover/funnel-cover.step.npz",
+        "out/funnel-cover/hardware/printed-parts/zone-c/funnel-cover/funnel-cover.stl",
+    ],
+    cmd = """
+set -e
+case "$$(uname -s)" in
+  Darwin)
+    copy_mask=$$((8#$$(umask)))
+    copy_bits=("" x w wx r rx rw rwx)
+    copy_mode="u-$${copy_bits[$$((copy_mask >> 6 & 7))]},g-$${copy_bits[$$((copy_mask >> 3 & 7))]},o-$${copy_bits[$$((copy_mask & 7))]}"
+    copy_file() {
+      local copy_dest="$${!#}" copy_target copy_permissions="$$copy_mode"
+      if [ -e "$$copy_dest" ] || [ -L "$$copy_dest" ]; then
+        if [ ! -f "$$copy_dest" ] || [ -L "$$copy_dest" ]; then cp "$$@"; return; fi
+        copy_permissions=$$(stat -f %Lp "$$copy_dest")
+        copy_target=$$(mktemp "$$copy_dest.hsm-copy.XXXXXX")
+      else copy_target="$$copy_dest"; fi
+      if cp -c "$${@:1:$$(( $$# - 1 ))}" "$$copy_target" 2>/dev/null; then
+        chmod "$$copy_permissions" "$$copy_target"
+        touch "$$copy_target"
+        if [ "$$copy_target" != "$$copy_dest" ]; then mv -f "$$copy_target" "$$copy_dest"; fi
+      else rm -f "$$copy_target"; cp "$$@"; fi
+    };;
+  *) copy_file() { cp "$$@"; };;
+esac
+hsm_run=
+for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
+  if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
+done
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+O0=$$PWD/$(location out/funnel-cover/hardware/printed-parts/zone-c/funnel-cover/funnel-cover-print.step)
+O1=$$PWD/$(location out/funnel-cover/hardware/printed-parts/zone-c/funnel-cover/funnel-cover-print.step.mesh)
+O2=$$PWD/$(location out/funnel-cover/hardware/printed-parts/zone-c/funnel-cover/funnel-cover-print.step.npz)
+O3=$$PWD/$(location out/funnel-cover/hardware/printed-parts/zone-c/funnel-cover/funnel-cover-print.stl)
+O4=$$PWD/$(location out/funnel-cover/hardware/printed-parts/zone-c/funnel-cover/funnel-cover.step)
+O5=$$PWD/$(location out/funnel-cover/hardware/printed-parts/zone-c/funnel-cover/funnel-cover.step.mesh)
+O6=$$PWD/$(location out/funnel-cover/hardware/printed-parts/zone-c/funnel-cover/funnel-cover.step.npz)
+O7=$$PWD/$(location out/funnel-cover/hardware/printed-parts/zone-c/funnel-cover/funnel-cover.stl)
+rm -rf work
+for f in $(SRCS); do
+  case $$f in
+    */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
+    *) t=$$f;;
+  esac
+  mkdir -p "work/$$(dirname "$$t")"; copy_file -L "$$f" "work/$$t"
+done
+cd work
+"$$hsm_run" -- ./funnel-cover > /dev/null
+copy_file hardware/printed-parts/zone-c/funnel-cover/funnel-cover-print.step "$$O0"
+copy_file hardware/printed-parts/zone-c/funnel-cover/funnel-cover-print.step.mesh "$$O1"
+copy_file hardware/printed-parts/zone-c/funnel-cover/funnel-cover-print.step.npz "$$O2"
+copy_file hardware/printed-parts/zone-c/funnel-cover/funnel-cover-print.stl "$$O3"
+copy_file hardware/printed-parts/zone-c/funnel-cover/funnel-cover.step "$$O4"
+copy_file hardware/printed-parts/zone-c/funnel-cover/funnel-cover.step.mesh "$$O5"
+copy_file hardware/printed-parts/zone-c/funnel-cover/funnel-cover.step.npz "$$O6"
+copy_file hardware/printed-parts/zone-c/funnel-cover/funnel-cover.stl "$$O7"
+""",
+)
+
+genrule(
+    name = "funnel-mold-program",
+    srcs = [
+        "hardware/manifold-layout/above-core.json",
         "hardware/printed-parts/enclosure/enclosure/interface/anchor_cap.rs",
         "hardware/printed-parts/enclosure/enclosure/interface/fits.rs",
         "hardware/printed-parts/enclosure/enclosure/interface/lib.rs",
         "hardware/printed-parts/enclosure/enclosure/interface/swept.rs",
-        "hardware/printed-parts/valve-seat/numbers.rs",
-        "hardware/printed-parts/zone-c/funnel-mold/funnel_mold.py",
         "hardware/printed-parts/zone-c/funnel-mold/funnel_mold.rs",
-        "hardware/printed-parts/zone-c/funnel/_zone_data.py",
-        "hardware/printed-parts/zone-c/funnel/funnel.py",
-        ":out/funnel/hardware/printed-parts/zone-c/funnel/funnel.step",
         "hardware/printed-parts/zone-c/funnel/funnel_geometry.rs",
+        "hardware/printed-parts/zone-c/funnel/zone_files.rs",
+        "hardware/printed-parts/zone-c/numbers/catalog.rs",
+        "hardware/printed-parts/zone-c/numbers/cover.rs",
+        "hardware/printed-parts/zone-c/numbers/cradle.rs",
+        "hardware/printed-parts/zone-c/numbers/frame.rs",
+        "hardware/printed-parts/zone-c/numbers/funnel.rs",
+        "hardware/printed-parts/zone-c/numbers/lib.rs",
+        "hardware/printed-parts/zone-c/numbers/mold.rs",
         "hardware/reference/neofit-stem-elbow/reference-parameters.json",
-        "hardware/scripts/_build_data.py",
-        "hardware/scripts/_material_base.py",
-        "hardware/scripts/_materials.py",
-        "hardware/scripts/_payload_rules.py",
-        "hardware/scripts/_rust_data.py",
-        "hardware/scripts/_rust_part.py",
-        "hardware/scripts/_shared_data.py",
-        "tools/hsm/build-data/Cargo.toml",
-        "tools/hsm/build-data/src/artifact_cache.rs",
-        "tools/hsm/build-data/src/artifacts.rs",
-        "tools/hsm/build-data/src/assets.rs",
-        "tools/hsm/build-data/src/inventory.rs",
-        "tools/hsm/build-data/src/lib.rs",
-        "tools/hsm/build-data/src/main.rs",
-        "tools/hsm/build-data/src/payload.rs",
-        "tools/hsm/build-data/src/projection.rs",
-        "tools/hsm/build-data/src/publication.rs",
-        "tools/hsm/build-data/src/publication_archive.rs",
-        "tools/hsm/build-data/src/publication_state.rs",
-        "tools/hsm/build-data/src/publication_zlib.rs",
-        "tools/hsm/build-data/src/sources.rs",
-        "tools/hsm/build-data/src/support.rs",
-        "tools/hsm/build-data/src/surfaces.rs",
         ":out/cargo-config/tools/hsm/cargo-config.json",
-        "tools/hsm/documents/Cargo.toml",
-        "tools/hsm/documents/src/interop.rs",
-        "tools/hsm/documents/src/interop/standard.rs",
-        "tools/hsm/documents/src/lib.rs",
-        "tools/hsm/documents/src/python_checked.rs",
+        "tools/hsm/enclosure-interface/Cargo.toml",
         "tools/hsm/funnel/Cargo.toml",
         "tools/hsm/geometry/Cargo.toml",
         "tools/hsm/geometry/src/lib.rs",
@@ -13665,34 +13688,113 @@ genrule(
         "tools/hsm/kernel/src/topo.rs",
         "tools/hsm/kernel/src/triangulate.rs",
         "tools/hsm/kernel/src/write.rs",
-        "tools/hsm/part-data/Cargo.toml",
-        "tools/hsm/part-data/src/electronics.rs",
-        "tools/hsm/part-data/src/main.rs",
-        "tools/hsm/part-data/src/output.rs",
-        "tools/hsm/part-data/src/reference.rs",
-        "tools/hsm/part-data/src/reference_catalog.rs",
-        "tools/hsm/part-data/src/sleeve.rs",
-        "tools/hsm/part-data/src/storage.rs",
-        "tools/hsm/part-data/src/zone.rs",
-        "tools/hsm/shared-data/Cargo.toml",
+        "tools/hsm/run-native/Cargo.toml",
+        "tools/hsm/run-native/src/lib.rs",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/hsm/run-slots/Cargo.toml",
+        "tools/hsm/run-slots/src/ipc.rs",
+        "tools/hsm/run-slots/src/lib.rs",
+        "tools/hsm/run-slots/src/main.rs",
+        "tools/hsm/run-slots/src/runtime.rs",
+        "tools/hsm/run-slots/src/runtime/cad.rs",
+        "tools/hsm/run-slots/src/runtime/install.rs",
+        "tools/hsm/run-slots/src/runtime/runner.rs",
+        "tools/hsm/run-slots/src/runtime/slots.rs",
         "tools/hsm/shared-data/catalog/materials.json",
-        "tools/hsm/shared-data/catalog/routing.json",
         "tools/hsm/shared-data/catalog/scalars.json",
-        "tools/hsm/shared-data/src/color.rs",
-        "tools/hsm/shared-data/src/common.rs",
-        "tools/hsm/shared-data/src/cooling.rs",
-        "tools/hsm/shared-data/src/lib.rs",
-        "tools/hsm/shared-data/src/main.rs",
-        "tools/hsm/shared-data/src/routing.rs",
-        "tools/hsm/shared-data/src/scalars.rs",
+        "tools/hsm/vendor/manifold-csg-sys/.cargo_vcs_info.json",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.lock",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.toml",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.toml.orig",
+        "tools/hsm/vendor/manifold-csg-sys/LICENSE-APACHE",
+        "tools/hsm/vendor/manifold-csg-sys/LICENSE-MIT",
+        "tools/hsm/vendor/manifold-csg-sys/README.md",
+        "tools/hsm/vendor/manifold-csg-sys/build.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/build.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/fetch.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/patch.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/wasm.rs",
+        "tools/hsm/vendor/manifold-csg-sys/cache-version",
+        "tools/hsm/vendor/manifold-csg-sys/patches/README.md",
+        "tools/hsm/vendor/manifold-csg-sys/src/lib.rs",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/CMakeLists.txt",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/diagnose.sh",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/__assertion_handler",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/__config_site",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/memory",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/mutex",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/libcxx-extras.cpp",
+        "tools/hsm/zone-c-numbers/Cargo.toml",
+    ],
+    outs = ["out/funnel-mold-program/funnel-mold"],
+    tags = ["no-sandbox"],
+    cmd = """
+set -e
+case "$$(uname -s)" in
+  Darwin)
+    copy_mask=$$((8#$$(umask)))
+    copy_bits=("" x w wx r rx rw rwx)
+    copy_mode="u-$${copy_bits[$$((copy_mask >> 6 & 7))]},g-$${copy_bits[$$((copy_mask >> 3 & 7))]},o-$${copy_bits[$$((copy_mask & 7))]}"
+    copy_file() {
+      local copy_dest="$${!#}" copy_target copy_permissions="$$copy_mode"
+      if [ -e "$$copy_dest" ] || [ -L "$$copy_dest" ]; then
+        if [ ! -f "$$copy_dest" ] || [ -L "$$copy_dest" ]; then cp "$$@"; return; fi
+        copy_permissions=$$(stat -f %Lp "$$copy_dest")
+        copy_target=$$(mktemp "$$copy_dest.hsm-copy.XXXXXX")
+      else copy_target="$$copy_dest"; fi
+      if cp -c "$${@:1:$$(( $$# - 1 ))}" "$$copy_target" 2>/dev/null; then
+        chmod "$$copy_permissions" "$$copy_target"
+        touch "$$copy_target"
+        if [ "$$copy_target" != "$$copy_dest" ]; then mv -f "$$copy_target" "$$copy_dest"; fi
+      else rm -f "$$copy_target"; cp "$$@"; fi
+    };;
+  *) copy_file() { cp "$$@"; };;
+esac
+hsm_run=
+for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
+  if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
+done
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+cargo=$$(command -v cargo || true)
+for c in "$$cargo" /opt/homebrew/opt/rustup/bin/cargo ~/.cargo/bin/cargo; do if [ -x "$$c" ]; then cargo=$$c; break; fi; done
+if [ ! -x "$$cargo" ]; then echo "cargo is not installed (https://rustup.rs)" >&2; exit 1; fi
+export HOME=~ PATH="$$(dirname "$$cargo"):$$PATH"
+O0=$$PWD/$(location out/funnel-mold-program/funnel-mold)
+cd "$$HSM_WORKSPACE/tools/hsm"
+CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet --manifest-path funnel/Cargo.toml --bin funnel-mold
+copy_file target/release/funnel-mold "$$O0"
+""",
+)
+
+genrule(
+    name = "funnel-mold",
+    srcs = [
+        ":out/funnel-mold-program/funnel-mold",
+        ":out/funnel/hardware/printed-parts/zone-c/funnel/funnel.step",
+        "hardware/manifold-layout/above-core.json",
+        "hardware/reference/neofit-stem-elbow/reference-parameters.json",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/hsm/shared-data/catalog/materials.json",
+        "tools/hsm/shared-data/catalog/scalars.json",
+        "tools/hsm/vendor/manifold-csg-sys/.cargo_vcs_info.json",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.toml.orig",
+        "tools/hsm/vendor/manifold-csg-sys/LICENSE-APACHE",
+        "tools/hsm/vendor/manifold-csg-sys/LICENSE-MIT",
+        "tools/hsm/vendor/manifold-csg-sys/README.md",
+        "tools/hsm/vendor/manifold-csg-sys/cache-version",
+        "tools/hsm/vendor/manifold-csg-sys/patches/README.md",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/CMakeLists.txt",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/diagnose.sh",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/__assertion_handler",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/__config_site",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/memory",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/mutex",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/libcxx-extras.cpp",
     ],
     outs = [
         "out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/assembly.step",
         "out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/assembly.step.mesh",
         "out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/assembly.step.npz",
-        "out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/backs.step",
-        "out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/backs.step.mesh",
-        "out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/backs.step.npz",
         "out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/cavity.step",
         "out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/cavity.step.mesh",
         "out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/cavity.step.npz",
@@ -13702,21 +13804,10 @@ genrule(
         "out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/core.step.npz",
         "out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/core.stl",
         "out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/design.json",
-        "out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/funnel-mold.numbers.json",
-        "out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/funnel.step",
-        "out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/funnel.step.mesh",
-        "out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/funnel.step.npz",
-        "out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/overview.step",
-        "out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/overview.step.mesh",
-        "out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/overview.step.npz",
         "out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/rod.step",
         "out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/rod.step.mesh",
         "out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/rod.step.npz",
-        "out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/section.step",
-        "out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/section.step.mesh",
-        "out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/section.step.npz",
     ],
-    tags = ["no-sandbox"],
     cmd = """
 set -e
 case "$$(uname -s)" in
@@ -13739,133 +13830,75 @@ case "$$(uname -s)" in
     };;
   *) copy_file() { cp "$$@"; };;
 esac
+hsm_run=
+for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
+  if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
+done
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
 O0=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/assembly.step)
 O1=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/assembly.step.mesh)
 O2=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/assembly.step.npz)
-O3=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/backs.step)
-O4=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/backs.step.mesh)
-O5=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/backs.step.npz)
-O6=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/cavity.step)
-O7=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/cavity.step.mesh)
-O8=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/cavity.step.npz)
-O9=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/cavity.stl)
-O10=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/core.step)
-O11=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/core.step.mesh)
-O12=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/core.step.npz)
-O13=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/core.stl)
-O14=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/design.json)
-O15=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/funnel-mold.numbers.json)
-O16=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/funnel.step)
-O17=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/funnel.step.mesh)
-O18=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/funnel.step.npz)
-O19=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/overview.step)
-O20=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/overview.step.mesh)
-O21=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/overview.step.npz)
-O22=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/rod.step)
-O23=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/rod.step.mesh)
-O24=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/rod.step.npz)
-O25=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/section.step)
-O26=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/section.step.mesh)
-O27=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/section.step.npz)
-rm -rf work-funnel-mold
+O3=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/cavity.step)
+O4=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/cavity.step.mesh)
+O5=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/cavity.step.npz)
+O6=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/cavity.stl)
+O7=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/core.step)
+O8=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/core.step.mesh)
+O9=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/core.step.npz)
+O10=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/core.stl)
+O11=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/design.json)
+O12=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/rod.step)
+O13=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/rod.step.mesh)
+O14=$$PWD/$(location out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/rod.step.npz)
+rm -rf work
 for f in $(SRCS); do
   case $$f in
-    */node_modules/*) continue;;
     */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
     *) t=$$f;;
   esac
-  mkdir -p "work-funnel-mold/$$(dirname "$$t")"; copy_file -L "$$f" "work-funnel-mold/$$t"
+  mkdir -p "work/$$(dirname "$$t")"; copy_file -L "$$f" "work/$$t"
 done
-for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
-  if [ -d $$d ]; then mkdir -p work-funnel-mold/$$(dirname $$d); ln -sfn $$PWD/$$d work-funnel-mold/$$d; fi
-done
-for f in hardware/scripts/_run_lock.py hardware/scripts/_run_native.py hardware/scripts/_run_slots.py tools/hsm/run-slots.defaults.json tools/run-slots.mjs tools/run.py; do
-  mkdir -p work-funnel-mold/$$(dirname $$f); cp $$HSM_WORKSPACE/$$f work-funnel-mold/$$f
-done
-cd work-funnel-mold
-ln -sfn $$HSM_WORKSPACE/.cache .cache
-D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/zone-c/funnel-mold/funnel_mold.py > /dev/null
+cd work
+"$$hsm_run" -- ./funnel-mold > /dev/null
 copy_file hardware/printed-parts/zone-c/funnel-mold/assembly.step "$$O0"
 copy_file hardware/printed-parts/zone-c/funnel-mold/assembly.step.mesh "$$O1"
 copy_file hardware/printed-parts/zone-c/funnel-mold/assembly.step.npz "$$O2"
-copy_file hardware/printed-parts/zone-c/funnel-mold/backs.step "$$O3"
-copy_file hardware/printed-parts/zone-c/funnel-mold/backs.step.mesh "$$O4"
-copy_file hardware/printed-parts/zone-c/funnel-mold/backs.step.npz "$$O5"
-copy_file hardware/printed-parts/zone-c/funnel-mold/cavity.step "$$O6"
-copy_file hardware/printed-parts/zone-c/funnel-mold/cavity.step.mesh "$$O7"
-copy_file hardware/printed-parts/zone-c/funnel-mold/cavity.step.npz "$$O8"
-copy_file hardware/printed-parts/zone-c/funnel-mold/cavity.stl "$$O9"
-copy_file hardware/printed-parts/zone-c/funnel-mold/core.step "$$O10"
-copy_file hardware/printed-parts/zone-c/funnel-mold/core.step.mesh "$$O11"
-copy_file hardware/printed-parts/zone-c/funnel-mold/core.step.npz "$$O12"
-copy_file hardware/printed-parts/zone-c/funnel-mold/core.stl "$$O13"
-copy_file hardware/printed-parts/zone-c/funnel-mold/design.json "$$O14"
-copy_file hardware/printed-parts/zone-c/funnel-mold/funnel-mold.numbers.json "$$O15"
-copy_file hardware/printed-parts/zone-c/funnel-mold/funnel.step "$$O16"
-copy_file hardware/printed-parts/zone-c/funnel-mold/funnel.step.mesh "$$O17"
-copy_file hardware/printed-parts/zone-c/funnel-mold/funnel.step.npz "$$O18"
-copy_file hardware/printed-parts/zone-c/funnel-mold/overview.step "$$O19"
-copy_file hardware/printed-parts/zone-c/funnel-mold/overview.step.mesh "$$O20"
-copy_file hardware/printed-parts/zone-c/funnel-mold/overview.step.npz "$$O21"
-copy_file hardware/printed-parts/zone-c/funnel-mold/rod.step "$$O22"
-copy_file hardware/printed-parts/zone-c/funnel-mold/rod.step.mesh "$$O23"
-copy_file hardware/printed-parts/zone-c/funnel-mold/rod.step.npz "$$O24"
-copy_file hardware/printed-parts/zone-c/funnel-mold/section.step "$$O25"
-copy_file hardware/printed-parts/zone-c/funnel-mold/section.step.mesh "$$O26"
-copy_file hardware/printed-parts/zone-c/funnel-mold/section.step.npz "$$O27"
-cd .. && rm -rf work-funnel-mold
+copy_file hardware/printed-parts/zone-c/funnel-mold/cavity.step "$$O3"
+copy_file hardware/printed-parts/zone-c/funnel-mold/cavity.step.mesh "$$O4"
+copy_file hardware/printed-parts/zone-c/funnel-mold/cavity.step.npz "$$O5"
+copy_file hardware/printed-parts/zone-c/funnel-mold/cavity.stl "$$O6"
+copy_file hardware/printed-parts/zone-c/funnel-mold/core.step "$$O7"
+copy_file hardware/printed-parts/zone-c/funnel-mold/core.step.mesh "$$O8"
+copy_file hardware/printed-parts/zone-c/funnel-mold/core.step.npz "$$O9"
+copy_file hardware/printed-parts/zone-c/funnel-mold/core.stl "$$O10"
+copy_file hardware/printed-parts/zone-c/funnel-mold/design.json "$$O11"
+copy_file hardware/printed-parts/zone-c/funnel-mold/rod.step "$$O12"
+copy_file hardware/printed-parts/zone-c/funnel-mold/rod.step.mesh "$$O13"
+copy_file hardware/printed-parts/zone-c/funnel-mold/rod.step.npz "$$O14"
 """,
 )
 
 genrule(
-    name = "elbow-cradle",
+    name = "elbow-cradle-program",
     srcs = [
-        "hardware/manifold-layout/_layout_data.py",
         "hardware/manifold-layout/above-core.json",
-        "hardware/manifold-layout/above_core.py",
-        "hardware/printed-parts/cadlib/_scalar_provider.py",
-        "hardware/printed-parts/cadlib/fits.py",
         "hardware/printed-parts/enclosure/enclosure/interface/anchor_cap.rs",
         "hardware/printed-parts/enclosure/enclosure/interface/fits.rs",
         "hardware/printed-parts/enclosure/enclosure/interface/lib.rs",
         "hardware/printed-parts/enclosure/enclosure/interface/swept.rs",
-        "hardware/printed-parts/valve-seat/numbers.rs",
-        "hardware/printed-parts/zone-c/funnel/_zone_data.py",
         "hardware/printed-parts/zone-c/funnel/cradle_geometry.rs",
-        "hardware/printed-parts/zone-c/funnel/elbow_cradle.py",
         "hardware/printed-parts/zone-c/funnel/elbow_cradle.rs",
-        "hardware/reference/neofit-stem-elbow/neofit-stem-elbow.fine.step.mesh",
+        "hardware/printed-parts/zone-c/funnel/zone_files.rs",
+        "hardware/printed-parts/zone-c/numbers/catalog.rs",
+        "hardware/printed-parts/zone-c/numbers/cover.rs",
+        "hardware/printed-parts/zone-c/numbers/cradle.rs",
+        "hardware/printed-parts/zone-c/numbers/frame.rs",
+        "hardware/printed-parts/zone-c/numbers/funnel.rs",
+        "hardware/printed-parts/zone-c/numbers/lib.rs",
+        "hardware/printed-parts/zone-c/numbers/mold.rs",
         "hardware/reference/neofit-stem-elbow/reference-parameters.json",
-        "hardware/scripts/_build_data.py",
-        "hardware/scripts/_material_base.py",
-        "hardware/scripts/_materials.py",
-        "hardware/scripts/_payload_rules.py",
-        "hardware/scripts/_rust_data.py",
-        "hardware/scripts/_rust_part.py",
-        "hardware/scripts/_shared_data.py",
-        "tools/hsm/build-data/Cargo.toml",
-        "tools/hsm/build-data/src/artifact_cache.rs",
-        "tools/hsm/build-data/src/artifacts.rs",
-        "tools/hsm/build-data/src/assets.rs",
-        "tools/hsm/build-data/src/inventory.rs",
-        "tools/hsm/build-data/src/lib.rs",
-        "tools/hsm/build-data/src/main.rs",
-        "tools/hsm/build-data/src/payload.rs",
-        "tools/hsm/build-data/src/projection.rs",
-        "tools/hsm/build-data/src/publication.rs",
-        "tools/hsm/build-data/src/publication_archive.rs",
-        "tools/hsm/build-data/src/publication_state.rs",
-        "tools/hsm/build-data/src/publication_zlib.rs",
-        "tools/hsm/build-data/src/sources.rs",
-        "tools/hsm/build-data/src/support.rs",
-        "tools/hsm/build-data/src/surfaces.rs",
         ":out/cargo-config/tools/hsm/cargo-config.json",
-        "tools/hsm/documents/Cargo.toml",
-        "tools/hsm/documents/src/interop.rs",
-        "tools/hsm/documents/src/interop/standard.rs",
-        "tools/hsm/documents/src/lib.rs",
-        "tools/hsm/documents/src/python_checked.rs",
+        "tools/hsm/enclosure-interface/Cargo.toml",
         "tools/hsm/funnel/Cargo.toml",
         "tools/hsm/geometry/Cargo.toml",
         "tools/hsm/geometry/src/lib.rs",
@@ -13901,26 +13934,107 @@ genrule(
         "tools/hsm/kernel/src/topo.rs",
         "tools/hsm/kernel/src/triangulate.rs",
         "tools/hsm/kernel/src/write.rs",
-        "tools/hsm/part-data/Cargo.toml",
-        "tools/hsm/part-data/src/electronics.rs",
-        "tools/hsm/part-data/src/main.rs",
-        "tools/hsm/part-data/src/output.rs",
-        "tools/hsm/part-data/src/reference.rs",
-        "tools/hsm/part-data/src/reference_catalog.rs",
-        "tools/hsm/part-data/src/sleeve.rs",
-        "tools/hsm/part-data/src/storage.rs",
-        "tools/hsm/part-data/src/zone.rs",
-        "tools/hsm/shared-data/Cargo.toml",
+        "tools/hsm/run-native/Cargo.toml",
+        "tools/hsm/run-native/src/lib.rs",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/hsm/run-slots/Cargo.toml",
+        "tools/hsm/run-slots/src/ipc.rs",
+        "tools/hsm/run-slots/src/lib.rs",
+        "tools/hsm/run-slots/src/main.rs",
+        "tools/hsm/run-slots/src/runtime.rs",
+        "tools/hsm/run-slots/src/runtime/cad.rs",
+        "tools/hsm/run-slots/src/runtime/install.rs",
+        "tools/hsm/run-slots/src/runtime/runner.rs",
+        "tools/hsm/run-slots/src/runtime/slots.rs",
         "tools/hsm/shared-data/catalog/materials.json",
-        "tools/hsm/shared-data/catalog/routing.json",
         "tools/hsm/shared-data/catalog/scalars.json",
-        "tools/hsm/shared-data/src/color.rs",
-        "tools/hsm/shared-data/src/common.rs",
-        "tools/hsm/shared-data/src/cooling.rs",
-        "tools/hsm/shared-data/src/lib.rs",
-        "tools/hsm/shared-data/src/main.rs",
-        "tools/hsm/shared-data/src/routing.rs",
-        "tools/hsm/shared-data/src/scalars.rs",
+        "tools/hsm/vendor/manifold-csg-sys/.cargo_vcs_info.json",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.lock",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.toml",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.toml.orig",
+        "tools/hsm/vendor/manifold-csg-sys/LICENSE-APACHE",
+        "tools/hsm/vendor/manifold-csg-sys/LICENSE-MIT",
+        "tools/hsm/vendor/manifold-csg-sys/README.md",
+        "tools/hsm/vendor/manifold-csg-sys/build.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/build.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/fetch.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/patch.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/wasm.rs",
+        "tools/hsm/vendor/manifold-csg-sys/cache-version",
+        "tools/hsm/vendor/manifold-csg-sys/patches/README.md",
+        "tools/hsm/vendor/manifold-csg-sys/src/lib.rs",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/CMakeLists.txt",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/diagnose.sh",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/__assertion_handler",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/__config_site",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/memory",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/mutex",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/libcxx-extras.cpp",
+        "tools/hsm/zone-c-numbers/Cargo.toml",
+    ],
+    outs = ["out/elbow-cradle-program/elbow-cradle"],
+    tags = ["no-sandbox"],
+    cmd = """
+set -e
+case "$$(uname -s)" in
+  Darwin)
+    copy_mask=$$((8#$$(umask)))
+    copy_bits=("" x w wx r rx rw rwx)
+    copy_mode="u-$${copy_bits[$$((copy_mask >> 6 & 7))]},g-$${copy_bits[$$((copy_mask >> 3 & 7))]},o-$${copy_bits[$$((copy_mask & 7))]}"
+    copy_file() {
+      local copy_dest="$${!#}" copy_target copy_permissions="$$copy_mode"
+      if [ -e "$$copy_dest" ] || [ -L "$$copy_dest" ]; then
+        if [ ! -f "$$copy_dest" ] || [ -L "$$copy_dest" ]; then cp "$$@"; return; fi
+        copy_permissions=$$(stat -f %Lp "$$copy_dest")
+        copy_target=$$(mktemp "$$copy_dest.hsm-copy.XXXXXX")
+      else copy_target="$$copy_dest"; fi
+      if cp -c "$${@:1:$$(( $$# - 1 ))}" "$$copy_target" 2>/dev/null; then
+        chmod "$$copy_permissions" "$$copy_target"
+        touch "$$copy_target"
+        if [ "$$copy_target" != "$$copy_dest" ]; then mv -f "$$copy_target" "$$copy_dest"; fi
+      else rm -f "$$copy_target"; cp "$$@"; fi
+    };;
+  *) copy_file() { cp "$$@"; };;
+esac
+hsm_run=
+for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
+  if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
+done
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+cargo=$$(command -v cargo || true)
+for c in "$$cargo" /opt/homebrew/opt/rustup/bin/cargo ~/.cargo/bin/cargo; do if [ -x "$$c" ]; then cargo=$$c; break; fi; done
+if [ ! -x "$$cargo" ]; then echo "cargo is not installed (https://rustup.rs)" >&2; exit 1; fi
+export HOME=~ PATH="$$(dirname "$$cargo"):$$PATH"
+O0=$$PWD/$(location out/elbow-cradle-program/elbow-cradle)
+cd "$$HSM_WORKSPACE/tools/hsm"
+CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet --manifest-path funnel/Cargo.toml --bin elbow-cradle
+copy_file target/release/elbow-cradle "$$O0"
+""",
+)
+
+genrule(
+    name = "elbow-cradle",
+    srcs = [
+        ":out/elbow-cradle-program/elbow-cradle",
+        "hardware/manifold-layout/above-core.json",
+        "hardware/reference/neofit-stem-elbow/reference-parameters.json",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/hsm/shared-data/catalog/materials.json",
+        "tools/hsm/shared-data/catalog/scalars.json",
+        "tools/hsm/vendor/manifold-csg-sys/.cargo_vcs_info.json",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.toml.orig",
+        "tools/hsm/vendor/manifold-csg-sys/LICENSE-APACHE",
+        "tools/hsm/vendor/manifold-csg-sys/LICENSE-MIT",
+        "tools/hsm/vendor/manifold-csg-sys/README.md",
+        "tools/hsm/vendor/manifold-csg-sys/cache-version",
+        "tools/hsm/vendor/manifold-csg-sys/patches/README.md",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/CMakeLists.txt",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/diagnose.sh",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/__assertion_handler",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/__config_site",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/memory",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/mutex",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/libcxx-extras.cpp",
     ],
     outs = [
         "out/elbow-cradle/hardware/printed-parts/zone-c/funnel/elbow-cradle.numbers.json",
@@ -13929,7 +14043,6 @@ genrule(
         "out/elbow-cradle/hardware/printed-parts/zone-c/funnel/elbow-cradle.step.npz",
         "out/elbow-cradle/hardware/printed-parts/zone-c/funnel/elbow-cradle.stl",
     ],
-    tags = ["no-sandbox"],
     cmd = """
 set -e
 case "$$(uname -s)" in
@@ -13952,83 +14065,55 @@ case "$$(uname -s)" in
     };;
   *) copy_file() { cp "$$@"; };;
 esac
+hsm_run=
+for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
+  if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
+done
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
 O0=$$PWD/$(location out/elbow-cradle/hardware/printed-parts/zone-c/funnel/elbow-cradle.numbers.json)
 O1=$$PWD/$(location out/elbow-cradle/hardware/printed-parts/zone-c/funnel/elbow-cradle.step)
 O2=$$PWD/$(location out/elbow-cradle/hardware/printed-parts/zone-c/funnel/elbow-cradle.step.mesh)
 O3=$$PWD/$(location out/elbow-cradle/hardware/printed-parts/zone-c/funnel/elbow-cradle.step.npz)
 O4=$$PWD/$(location out/elbow-cradle/hardware/printed-parts/zone-c/funnel/elbow-cradle.stl)
-rm -rf work-elbow-cradle
+rm -rf work
 for f in $(SRCS); do
   case $$f in
-    */node_modules/*) continue;;
     */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
     *) t=$$f;;
   esac
-  mkdir -p "work-elbow-cradle/$$(dirname "$$t")"; copy_file -L "$$f" "work-elbow-cradle/$$t"
+  mkdir -p "work/$$(dirname "$$t")"; copy_file -L "$$f" "work/$$t"
 done
-for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
-  if [ -d $$d ]; then mkdir -p work-elbow-cradle/$$(dirname $$d); ln -sfn $$PWD/$$d work-elbow-cradle/$$d; fi
-done
-for f in hardware/scripts/_run_lock.py hardware/scripts/_run_native.py hardware/scripts/_run_slots.py tools/hsm/run-slots.defaults.json tools/run-slots.mjs tools/run.py; do
-  mkdir -p work-elbow-cradle/$$(dirname $$f); cp $$HSM_WORKSPACE/$$f work-elbow-cradle/$$f
-done
-cd work-elbow-cradle
-ln -sfn $$HSM_WORKSPACE/.cache .cache
-D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/zone-c/funnel/elbow_cradle.py > /dev/null
+cd work
+"$$hsm_run" -- ./elbow-cradle > /dev/null
 copy_file hardware/printed-parts/zone-c/funnel/elbow-cradle.numbers.json "$$O0"
 copy_file hardware/printed-parts/zone-c/funnel/elbow-cradle.step "$$O1"
 copy_file hardware/printed-parts/zone-c/funnel/elbow-cradle.step.mesh "$$O2"
 copy_file hardware/printed-parts/zone-c/funnel/elbow-cradle.step.npz "$$O3"
 copy_file hardware/printed-parts/zone-c/funnel/elbow-cradle.stl "$$O4"
-cd .. && rm -rf work-elbow-cradle
 """,
 )
 
 genrule(
-    name = "funnel",
+    name = "funnel-program",
     srcs = [
-        "hardware/printed-parts/cadlib/_scalar_provider.py",
-        "hardware/printed-parts/cadlib/fits.py",
+        "hardware/manifold-layout/above-core.json",
         "hardware/printed-parts/enclosure/enclosure/interface/anchor_cap.rs",
         "hardware/printed-parts/enclosure/enclosure/interface/fits.rs",
         "hardware/printed-parts/enclosure/enclosure/interface/lib.rs",
         "hardware/printed-parts/enclosure/enclosure/interface/swept.rs",
-        "hardware/printed-parts/valve-seat/numbers.rs",
-        "hardware/printed-parts/zone-c/funnel/_zone_data.py",
-        "hardware/printed-parts/zone-c/funnel/funnel.py",
         "hardware/printed-parts/zone-c/funnel/funnel.rs",
         "hardware/printed-parts/zone-c/funnel/funnel_geometry.rs",
+        "hardware/printed-parts/zone-c/funnel/zone_files.rs",
+        "hardware/printed-parts/zone-c/numbers/catalog.rs",
+        "hardware/printed-parts/zone-c/numbers/cover.rs",
+        "hardware/printed-parts/zone-c/numbers/cradle.rs",
+        "hardware/printed-parts/zone-c/numbers/frame.rs",
+        "hardware/printed-parts/zone-c/numbers/funnel.rs",
+        "hardware/printed-parts/zone-c/numbers/lib.rs",
+        "hardware/printed-parts/zone-c/numbers/mold.rs",
         "hardware/reference/neofit-stem-elbow/reference-parameters.json",
-        "hardware/scripts/_build_data.py",
-        "hardware/scripts/_material_base.py",
-        "hardware/scripts/_materials.py",
-        "hardware/scripts/_payload_rules.py",
-        "hardware/scripts/_rust_data.py",
-        "hardware/scripts/_rust_part.py",
-        "hardware/scripts/_shared_data.py",
-        "tools/hsm/build-data/Cargo.toml",
-        "tools/hsm/build-data/src/artifact_cache.rs",
-        "tools/hsm/build-data/src/artifacts.rs",
-        "tools/hsm/build-data/src/assets.rs",
-        "tools/hsm/build-data/src/inventory.rs",
-        "tools/hsm/build-data/src/lib.rs",
-        "tools/hsm/build-data/src/main.rs",
-        "tools/hsm/build-data/src/payload.rs",
-        "tools/hsm/build-data/src/projection.rs",
-        "tools/hsm/build-data/src/publication.rs",
-        "tools/hsm/build-data/src/publication_archive.rs",
-        "tools/hsm/build-data/src/publication_state.rs",
-        "tools/hsm/build-data/src/publication_zlib.rs",
-        "tools/hsm/build-data/src/sources.rs",
-        "tools/hsm/build-data/src/support.rs",
-        "tools/hsm/build-data/src/surfaces.rs",
         ":out/cargo-config/tools/hsm/cargo-config.json",
-        "tools/hsm/documents/Cargo.toml",
-        "tools/hsm/documents/src/interop.rs",
-        "tools/hsm/documents/src/interop/standard.rs",
-        "tools/hsm/documents/src/lib.rs",
-        "tools/hsm/documents/src/python_checked.rs",
+        "tools/hsm/enclosure-interface/Cargo.toml",
         "tools/hsm/funnel/Cargo.toml",
         "tools/hsm/geometry/Cargo.toml",
         "tools/hsm/geometry/src/lib.rs",
@@ -14064,26 +14149,107 @@ genrule(
         "tools/hsm/kernel/src/topo.rs",
         "tools/hsm/kernel/src/triangulate.rs",
         "tools/hsm/kernel/src/write.rs",
-        "tools/hsm/part-data/Cargo.toml",
-        "tools/hsm/part-data/src/electronics.rs",
-        "tools/hsm/part-data/src/main.rs",
-        "tools/hsm/part-data/src/output.rs",
-        "tools/hsm/part-data/src/reference.rs",
-        "tools/hsm/part-data/src/reference_catalog.rs",
-        "tools/hsm/part-data/src/sleeve.rs",
-        "tools/hsm/part-data/src/storage.rs",
-        "tools/hsm/part-data/src/zone.rs",
-        "tools/hsm/shared-data/Cargo.toml",
+        "tools/hsm/run-native/Cargo.toml",
+        "tools/hsm/run-native/src/lib.rs",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/hsm/run-slots/Cargo.toml",
+        "tools/hsm/run-slots/src/ipc.rs",
+        "tools/hsm/run-slots/src/lib.rs",
+        "tools/hsm/run-slots/src/main.rs",
+        "tools/hsm/run-slots/src/runtime.rs",
+        "tools/hsm/run-slots/src/runtime/cad.rs",
+        "tools/hsm/run-slots/src/runtime/install.rs",
+        "tools/hsm/run-slots/src/runtime/runner.rs",
+        "tools/hsm/run-slots/src/runtime/slots.rs",
         "tools/hsm/shared-data/catalog/materials.json",
-        "tools/hsm/shared-data/catalog/routing.json",
         "tools/hsm/shared-data/catalog/scalars.json",
-        "tools/hsm/shared-data/src/color.rs",
-        "tools/hsm/shared-data/src/common.rs",
-        "tools/hsm/shared-data/src/cooling.rs",
-        "tools/hsm/shared-data/src/lib.rs",
-        "tools/hsm/shared-data/src/main.rs",
-        "tools/hsm/shared-data/src/routing.rs",
-        "tools/hsm/shared-data/src/scalars.rs",
+        "tools/hsm/vendor/manifold-csg-sys/.cargo_vcs_info.json",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.lock",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.toml",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.toml.orig",
+        "tools/hsm/vendor/manifold-csg-sys/LICENSE-APACHE",
+        "tools/hsm/vendor/manifold-csg-sys/LICENSE-MIT",
+        "tools/hsm/vendor/manifold-csg-sys/README.md",
+        "tools/hsm/vendor/manifold-csg-sys/build.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/build.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/fetch.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/patch.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/wasm.rs",
+        "tools/hsm/vendor/manifold-csg-sys/cache-version",
+        "tools/hsm/vendor/manifold-csg-sys/patches/README.md",
+        "tools/hsm/vendor/manifold-csg-sys/src/lib.rs",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/CMakeLists.txt",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/diagnose.sh",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/__assertion_handler",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/__config_site",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/memory",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/mutex",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/libcxx-extras.cpp",
+        "tools/hsm/zone-c-numbers/Cargo.toml",
+    ],
+    outs = ["out/funnel-program/funnel"],
+    tags = ["no-sandbox"],
+    cmd = """
+set -e
+case "$$(uname -s)" in
+  Darwin)
+    copy_mask=$$((8#$$(umask)))
+    copy_bits=("" x w wx r rx rw rwx)
+    copy_mode="u-$${copy_bits[$$((copy_mask >> 6 & 7))]},g-$${copy_bits[$$((copy_mask >> 3 & 7))]},o-$${copy_bits[$$((copy_mask & 7))]}"
+    copy_file() {
+      local copy_dest="$${!#}" copy_target copy_permissions="$$copy_mode"
+      if [ -e "$$copy_dest" ] || [ -L "$$copy_dest" ]; then
+        if [ ! -f "$$copy_dest" ] || [ -L "$$copy_dest" ]; then cp "$$@"; return; fi
+        copy_permissions=$$(stat -f %Lp "$$copy_dest")
+        copy_target=$$(mktemp "$$copy_dest.hsm-copy.XXXXXX")
+      else copy_target="$$copy_dest"; fi
+      if cp -c "$${@:1:$$(( $$# - 1 ))}" "$$copy_target" 2>/dev/null; then
+        chmod "$$copy_permissions" "$$copy_target"
+        touch "$$copy_target"
+        if [ "$$copy_target" != "$$copy_dest" ]; then mv -f "$$copy_target" "$$copy_dest"; fi
+      else rm -f "$$copy_target"; cp "$$@"; fi
+    };;
+  *) copy_file() { cp "$$@"; };;
+esac
+hsm_run=
+for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
+  if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
+done
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+cargo=$$(command -v cargo || true)
+for c in "$$cargo" /opt/homebrew/opt/rustup/bin/cargo ~/.cargo/bin/cargo; do if [ -x "$$c" ]; then cargo=$$c; break; fi; done
+if [ ! -x "$$cargo" ]; then echo "cargo is not installed (https://rustup.rs)" >&2; exit 1; fi
+export HOME=~ PATH="$$(dirname "$$cargo"):$$PATH"
+O0=$$PWD/$(location out/funnel-program/funnel)
+cd "$$HSM_WORKSPACE/tools/hsm"
+CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet --manifest-path funnel/Cargo.toml --bin funnel
+copy_file target/release/funnel "$$O0"
+""",
+)
+
+genrule(
+    name = "funnel",
+    srcs = [
+        ":out/funnel-program/funnel",
+        "hardware/manifold-layout/above-core.json",
+        "hardware/reference/neofit-stem-elbow/reference-parameters.json",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/hsm/shared-data/catalog/materials.json",
+        "tools/hsm/shared-data/catalog/scalars.json",
+        "tools/hsm/vendor/manifold-csg-sys/.cargo_vcs_info.json",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.toml.orig",
+        "tools/hsm/vendor/manifold-csg-sys/LICENSE-APACHE",
+        "tools/hsm/vendor/manifold-csg-sys/LICENSE-MIT",
+        "tools/hsm/vendor/manifold-csg-sys/README.md",
+        "tools/hsm/vendor/manifold-csg-sys/cache-version",
+        "tools/hsm/vendor/manifold-csg-sys/patches/README.md",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/CMakeLists.txt",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/diagnose.sh",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/__assertion_handler",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/__config_site",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/memory",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/mutex",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/libcxx-extras.cpp",
     ],
     outs = [
         "out/funnel/hardware/printed-parts/zone-c/funnel/funnel.numbers.json",
@@ -14091,7 +14257,6 @@ genrule(
         "out/funnel/hardware/printed-parts/zone-c/funnel/funnel.step.mesh",
         "out/funnel/hardware/printed-parts/zone-c/funnel/funnel.step.npz",
     ],
-    tags = ["no-sandbox"],
     cmd = """
 set -e
 case "$$(uname -s)" in
@@ -14114,86 +14279,53 @@ case "$$(uname -s)" in
     };;
   *) copy_file() { cp "$$@"; };;
 esac
+hsm_run=
+for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
+  if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
+done
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
 O0=$$PWD/$(location out/funnel/hardware/printed-parts/zone-c/funnel/funnel.numbers.json)
 O1=$$PWD/$(location out/funnel/hardware/printed-parts/zone-c/funnel/funnel.step)
 O2=$$PWD/$(location out/funnel/hardware/printed-parts/zone-c/funnel/funnel.step.mesh)
 O3=$$PWD/$(location out/funnel/hardware/printed-parts/zone-c/funnel/funnel.step.npz)
-rm -rf work-funnel
+rm -rf work
 for f in $(SRCS); do
   case $$f in
-    */node_modules/*) continue;;
     */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
     *) t=$$f;;
   esac
-  mkdir -p "work-funnel/$$(dirname "$$t")"; copy_file -L "$$f" "work-funnel/$$t"
+  mkdir -p "work/$$(dirname "$$t")"; copy_file -L "$$f" "work/$$t"
 done
-for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
-  if [ -d $$d ]; then mkdir -p work-funnel/$$(dirname $$d); ln -sfn $$PWD/$$d work-funnel/$$d; fi
-done
-for f in hardware/scripts/_run_lock.py hardware/scripts/_run_native.py hardware/scripts/_run_slots.py tools/hsm/run-slots.defaults.json tools/run-slots.mjs tools/run.py; do
-  mkdir -p work-funnel/$$(dirname $$f); cp $$HSM_WORKSPACE/$$f work-funnel/$$f
-done
-cd work-funnel
-ln -sfn $$HSM_WORKSPACE/.cache .cache
-D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/zone-c/funnel/funnel.py > /dev/null
+cd work
+"$$hsm_run" -- ./funnel > /dev/null
 copy_file hardware/printed-parts/zone-c/funnel/funnel.numbers.json "$$O0"
 copy_file hardware/printed-parts/zone-c/funnel/funnel.step "$$O1"
 copy_file hardware/printed-parts/zone-c/funnel/funnel.step.mesh "$$O2"
 copy_file hardware/printed-parts/zone-c/funnel/funnel.step.npz "$$O3"
-cd .. && rm -rf work-funnel
 """,
 )
 
 genrule(
-    name = "funnel-frame",
+    name = "funnel-frame-program",
     srcs = [
-        "hardware/manifold-layout/_layout_data.py",
         "hardware/manifold-layout/above-core.json",
-        "hardware/manifold-layout/above_core.py",
-        "hardware/printed-parts/cadlib/_scalar_provider.py",
-        "hardware/printed-parts/cadlib/fits.py",
         "hardware/printed-parts/enclosure/enclosure/interface/anchor_cap.rs",
         "hardware/printed-parts/enclosure/enclosure/interface/fits.rs",
         "hardware/printed-parts/enclosure/enclosure/interface/lib.rs",
         "hardware/printed-parts/enclosure/enclosure/interface/swept.rs",
-        "hardware/printed-parts/valve-seat/numbers.rs",
-        "hardware/printed-parts/zone-c/funnel/_zone_data.py",
-        "hardware/printed-parts/zone-c/funnel/elbow_cradle.py",
-        "hardware/printed-parts/zone-c/funnel/funnel.py",
-        "hardware/printed-parts/zone-c/funnel/funnel_frame.py",
         "hardware/printed-parts/zone-c/funnel/funnel_frame.rs",
         "hardware/printed-parts/zone-c/funnel/funnel_geometry.rs",
+        "hardware/printed-parts/zone-c/funnel/zone_files.rs",
+        "hardware/printed-parts/zone-c/numbers/catalog.rs",
+        "hardware/printed-parts/zone-c/numbers/cover.rs",
+        "hardware/printed-parts/zone-c/numbers/cradle.rs",
+        "hardware/printed-parts/zone-c/numbers/frame.rs",
+        "hardware/printed-parts/zone-c/numbers/funnel.rs",
+        "hardware/printed-parts/zone-c/numbers/lib.rs",
+        "hardware/printed-parts/zone-c/numbers/mold.rs",
         "hardware/reference/neofit-stem-elbow/reference-parameters.json",
-        "hardware/scripts/_build_data.py",
-        "hardware/scripts/_material_base.py",
-        "hardware/scripts/_materials.py",
-        "hardware/scripts/_payload_rules.py",
-        "hardware/scripts/_rust_data.py",
-        "hardware/scripts/_rust_part.py",
-        "hardware/scripts/_shared_data.py",
-        "tools/hsm/build-data/Cargo.toml",
-        "tools/hsm/build-data/src/artifact_cache.rs",
-        "tools/hsm/build-data/src/artifacts.rs",
-        "tools/hsm/build-data/src/assets.rs",
-        "tools/hsm/build-data/src/inventory.rs",
-        "tools/hsm/build-data/src/lib.rs",
-        "tools/hsm/build-data/src/main.rs",
-        "tools/hsm/build-data/src/payload.rs",
-        "tools/hsm/build-data/src/projection.rs",
-        "tools/hsm/build-data/src/publication.rs",
-        "tools/hsm/build-data/src/publication_archive.rs",
-        "tools/hsm/build-data/src/publication_state.rs",
-        "tools/hsm/build-data/src/publication_zlib.rs",
-        "tools/hsm/build-data/src/sources.rs",
-        "tools/hsm/build-data/src/support.rs",
-        "tools/hsm/build-data/src/surfaces.rs",
         ":out/cargo-config/tools/hsm/cargo-config.json",
-        "tools/hsm/documents/Cargo.toml",
-        "tools/hsm/documents/src/interop.rs",
-        "tools/hsm/documents/src/interop/standard.rs",
-        "tools/hsm/documents/src/lib.rs",
-        "tools/hsm/documents/src/python_checked.rs",
+        "tools/hsm/enclosure-interface/Cargo.toml",
         "tools/hsm/funnel/Cargo.toml",
         "tools/hsm/geometry/Cargo.toml",
         "tools/hsm/geometry/src/lib.rs",
@@ -14229,26 +14361,107 @@ genrule(
         "tools/hsm/kernel/src/topo.rs",
         "tools/hsm/kernel/src/triangulate.rs",
         "tools/hsm/kernel/src/write.rs",
-        "tools/hsm/part-data/Cargo.toml",
-        "tools/hsm/part-data/src/electronics.rs",
-        "tools/hsm/part-data/src/main.rs",
-        "tools/hsm/part-data/src/output.rs",
-        "tools/hsm/part-data/src/reference.rs",
-        "tools/hsm/part-data/src/reference_catalog.rs",
-        "tools/hsm/part-data/src/sleeve.rs",
-        "tools/hsm/part-data/src/storage.rs",
-        "tools/hsm/part-data/src/zone.rs",
-        "tools/hsm/shared-data/Cargo.toml",
+        "tools/hsm/run-native/Cargo.toml",
+        "tools/hsm/run-native/src/lib.rs",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/hsm/run-slots/Cargo.toml",
+        "tools/hsm/run-slots/src/ipc.rs",
+        "tools/hsm/run-slots/src/lib.rs",
+        "tools/hsm/run-slots/src/main.rs",
+        "tools/hsm/run-slots/src/runtime.rs",
+        "tools/hsm/run-slots/src/runtime/cad.rs",
+        "tools/hsm/run-slots/src/runtime/install.rs",
+        "tools/hsm/run-slots/src/runtime/runner.rs",
+        "tools/hsm/run-slots/src/runtime/slots.rs",
         "tools/hsm/shared-data/catalog/materials.json",
-        "tools/hsm/shared-data/catalog/routing.json",
         "tools/hsm/shared-data/catalog/scalars.json",
-        "tools/hsm/shared-data/src/color.rs",
-        "tools/hsm/shared-data/src/common.rs",
-        "tools/hsm/shared-data/src/cooling.rs",
-        "tools/hsm/shared-data/src/lib.rs",
-        "tools/hsm/shared-data/src/main.rs",
-        "tools/hsm/shared-data/src/routing.rs",
-        "tools/hsm/shared-data/src/scalars.rs",
+        "tools/hsm/vendor/manifold-csg-sys/.cargo_vcs_info.json",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.lock",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.toml",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.toml.orig",
+        "tools/hsm/vendor/manifold-csg-sys/LICENSE-APACHE",
+        "tools/hsm/vendor/manifold-csg-sys/LICENSE-MIT",
+        "tools/hsm/vendor/manifold-csg-sys/README.md",
+        "tools/hsm/vendor/manifold-csg-sys/build.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/build.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/fetch.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/patch.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/wasm.rs",
+        "tools/hsm/vendor/manifold-csg-sys/cache-version",
+        "tools/hsm/vendor/manifold-csg-sys/patches/README.md",
+        "tools/hsm/vendor/manifold-csg-sys/src/lib.rs",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/CMakeLists.txt",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/diagnose.sh",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/__assertion_handler",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/__config_site",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/memory",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/mutex",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/libcxx-extras.cpp",
+        "tools/hsm/zone-c-numbers/Cargo.toml",
+    ],
+    outs = ["out/funnel-frame-program/funnel-frame"],
+    tags = ["no-sandbox"],
+    cmd = """
+set -e
+case "$$(uname -s)" in
+  Darwin)
+    copy_mask=$$((8#$$(umask)))
+    copy_bits=("" x w wx r rx rw rwx)
+    copy_mode="u-$${copy_bits[$$((copy_mask >> 6 & 7))]},g-$${copy_bits[$$((copy_mask >> 3 & 7))]},o-$${copy_bits[$$((copy_mask & 7))]}"
+    copy_file() {
+      local copy_dest="$${!#}" copy_target copy_permissions="$$copy_mode"
+      if [ -e "$$copy_dest" ] || [ -L "$$copy_dest" ]; then
+        if [ ! -f "$$copy_dest" ] || [ -L "$$copy_dest" ]; then cp "$$@"; return; fi
+        copy_permissions=$$(stat -f %Lp "$$copy_dest")
+        copy_target=$$(mktemp "$$copy_dest.hsm-copy.XXXXXX")
+      else copy_target="$$copy_dest"; fi
+      if cp -c "$${@:1:$$(( $$# - 1 ))}" "$$copy_target" 2>/dev/null; then
+        chmod "$$copy_permissions" "$$copy_target"
+        touch "$$copy_target"
+        if [ "$$copy_target" != "$$copy_dest" ]; then mv -f "$$copy_target" "$$copy_dest"; fi
+      else rm -f "$$copy_target"; cp "$$@"; fi
+    };;
+  *) copy_file() { cp "$$@"; };;
+esac
+hsm_run=
+for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
+  if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
+done
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+cargo=$$(command -v cargo || true)
+for c in "$$cargo" /opt/homebrew/opt/rustup/bin/cargo ~/.cargo/bin/cargo; do if [ -x "$$c" ]; then cargo=$$c; break; fi; done
+if [ ! -x "$$cargo" ]; then echo "cargo is not installed (https://rustup.rs)" >&2; exit 1; fi
+export HOME=~ PATH="$$(dirname "$$cargo"):$$PATH"
+O0=$$PWD/$(location out/funnel-frame-program/funnel-frame)
+cd "$$HSM_WORKSPACE/tools/hsm"
+CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet --manifest-path funnel/Cargo.toml --bin funnel-frame
+copy_file target/release/funnel-frame "$$O0"
+""",
+)
+
+genrule(
+    name = "funnel-frame",
+    srcs = [
+        ":out/funnel-frame-program/funnel-frame",
+        "hardware/manifold-layout/above-core.json",
+        "hardware/reference/neofit-stem-elbow/reference-parameters.json",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/hsm/shared-data/catalog/materials.json",
+        "tools/hsm/shared-data/catalog/scalars.json",
+        "tools/hsm/vendor/manifold-csg-sys/.cargo_vcs_info.json",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.toml.orig",
+        "tools/hsm/vendor/manifold-csg-sys/LICENSE-APACHE",
+        "tools/hsm/vendor/manifold-csg-sys/LICENSE-MIT",
+        "tools/hsm/vendor/manifold-csg-sys/README.md",
+        "tools/hsm/vendor/manifold-csg-sys/cache-version",
+        "tools/hsm/vendor/manifold-csg-sys/patches/README.md",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/CMakeLists.txt",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/diagnose.sh",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/__assertion_handler",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/__config_site",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/memory",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/mutex",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/libcxx-extras.cpp",
     ],
     outs = [
         "out/funnel-frame/hardware/printed-parts/zone-c/funnel/funnel-frame.numbers.json",
@@ -14257,7 +14470,6 @@ genrule(
         "out/funnel-frame/hardware/printed-parts/zone-c/funnel/funnel-frame.step.npz",
         "out/funnel-frame/hardware/printed-parts/zone-c/funnel/funnel-frame.stl",
     ],
-    tags = ["no-sandbox"],
     cmd = """
 set -e
 case "$$(uname -s)" in
@@ -14280,36 +14492,31 @@ case "$$(uname -s)" in
     };;
   *) copy_file() { cp "$$@"; };;
 esac
+hsm_run=
+for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
+  if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
+done
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
 O0=$$PWD/$(location out/funnel-frame/hardware/printed-parts/zone-c/funnel/funnel-frame.numbers.json)
 O1=$$PWD/$(location out/funnel-frame/hardware/printed-parts/zone-c/funnel/funnel-frame.step)
 O2=$$PWD/$(location out/funnel-frame/hardware/printed-parts/zone-c/funnel/funnel-frame.step.mesh)
 O3=$$PWD/$(location out/funnel-frame/hardware/printed-parts/zone-c/funnel/funnel-frame.step.npz)
 O4=$$PWD/$(location out/funnel-frame/hardware/printed-parts/zone-c/funnel/funnel-frame.stl)
-rm -rf work-funnel-frame
+rm -rf work
 for f in $(SRCS); do
   case $$f in
-    */node_modules/*) continue;;
     */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
     *) t=$$f;;
   esac
-  mkdir -p "work-funnel-frame/$$(dirname "$$t")"; copy_file -L "$$f" "work-funnel-frame/$$t"
+  mkdir -p "work/$$(dirname "$$t")"; copy_file -L "$$f" "work/$$t"
 done
-for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
-  if [ -d $$d ]; then mkdir -p work-funnel-frame/$$(dirname $$d); ln -sfn $$PWD/$$d work-funnel-frame/$$d; fi
-done
-for f in hardware/scripts/_run_lock.py hardware/scripts/_run_native.py hardware/scripts/_run_slots.py tools/hsm/run-slots.defaults.json tools/run-slots.mjs tools/run.py; do
-  mkdir -p work-funnel-frame/$$(dirname $$f); cp $$HSM_WORKSPACE/$$f work-funnel-frame/$$f
-done
-cd work-funnel-frame
-ln -sfn $$HSM_WORKSPACE/.cache .cache
-D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/zone-c/funnel/funnel_frame.py > /dev/null
+cd work
+"$$hsm_run" -- ./funnel-frame > /dev/null
 copy_file hardware/printed-parts/zone-c/funnel/funnel-frame.numbers.json "$$O0"
 copy_file hardware/printed-parts/zone-c/funnel/funnel-frame.step "$$O1"
 copy_file hardware/printed-parts/zone-c/funnel/funnel-frame.step.mesh "$$O2"
 copy_file hardware/printed-parts/zone-c/funnel/funnel-frame.step.npz "$$O3"
 copy_file hardware/printed-parts/zone-c/funnel/funnel-frame.stl "$$O4"
-cd .. && rm -rf work-funnel-frame
 """,
 )
 

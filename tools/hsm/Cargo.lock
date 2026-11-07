@@ -1338,8 +1338,8 @@ dependencies = [
  "anyhow",
  "hsm-geometry",
  "hsm-kernel",
+ "hsm-zone-c-numbers",
  "manifold-csg",
- "serde",
  "serde_json",
  "sha2",
 ]
@@ -1897,6 +1897,15 @@ dependencies = [
 [[package]]
 name = "hsm-valve-seat-numbers"
 version = "0.1.0"
+
+[[package]]
+name = "hsm-zone-c-numbers"
+version = "0.1.0"
+dependencies = [
+ "hsm-enclosure-interface",
+ "serde",
+ "serde_json",
+]
 
 [[package]]
 name = "indexmap"

@@ -67,8 +67,8 @@ thickness ranking's cutoff. The
 record these locations and their functions. The recess stays outside the mouth.
 
 ```sh
-tools/cad-venv/bin/python hardware/printed-parts/zone-c/funnel-cover/funnel_cover.py
-tools/cad-venv/bin/python hardware/printed-parts/zone-c/funnel-cover/check_cover.py
+python3 tools/run.py -- cargo build --release --locked -j 2 --manifest-path tools/hsm/Cargo.toml -p hsm-funnel
+python3 tools/run.py -- tools/hsm/target/release/funnel-cover
 ```
 
 `funnel-cover.step` and `funnel-cover.stl` use the assembled seating datum.

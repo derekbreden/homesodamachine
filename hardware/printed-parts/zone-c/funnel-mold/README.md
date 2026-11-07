@@ -136,8 +136,9 @@ The [physical print log](print-log.md), [October 6 slice and cavity retry](nativ
 their identified artifact scope.
 
 ```sh
-tools/cad-venv/bin/python hardware/printed-parts/zone-c/funnel/funnel.py
-tools/cad-venv/bin/python hardware/printed-parts/zone-c/funnel-mold/funnel_mold.py
+python3 tools/run.py -- cargo build --release --locked -j 2 --manifest-path tools/hsm/Cargo.toml -p hsm-funnel
+python3 tools/run.py -- tools/hsm/target/release/funnel
+python3 tools/run.py -- tools/hsm/target/release/funnel-mold
 tools/cad-venv/bin/python tools/funnel-mold-print/review_rod.py
 tools/cad-venv/bin/python tools/funnel-mold-print/review_containment.py \
   --output hardware/printed-parts/zone-c/funnel-mold/containment-review.json

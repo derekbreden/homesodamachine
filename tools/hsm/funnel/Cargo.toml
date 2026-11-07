@@ -7,8 +7,8 @@ rust-version.workspace = true
 publish = false
 
 [[bin]]
-name = "funnel-cover"
-path = "../../../hardware/printed-parts/zone-c/funnel-cover/funnel_cover.rs"
+name = "funnel"
+path = "../../../hardware/printed-parts/zone-c/funnel/funnel.rs"
 
 [[bin]]
 name = "funnel-frame"
@@ -19,22 +19,18 @@ name = "elbow-cradle"
 path = "../../../hardware/printed-parts/zone-c/funnel/elbow_cradle.rs"
 
 [[bin]]
-name = "cradle-trial"
-path = "../../../hardware/printed-parts/zone-c/funnel/cradle-trial/cradle_trial.rs"
+name = "funnel-cover"
+path = "../../../hardware/printed-parts/zone-c/funnel-cover/funnel_cover.rs"
 
 [[bin]]
 name = "funnel-mold"
 path = "../../../hardware/printed-parts/zone-c/funnel-mold/funnel_mold.rs"
 
-[[bin]]
-name = "funnel"
-path = "../../../hardware/printed-parts/zone-c/funnel/funnel.rs"
-
 [dependencies]
 anyhow.workspace = true
-hsm-kernel = { path = "../kernel" }
 hsm-geometry = { path = "../geometry" }
-serde.workspace = true
+hsm-kernel = { path = "../kernel" }
+hsm-zone-c-numbers = { path = "../zone-c-numbers" }
+manifold-csg = { version = "0.4.1", default-features = false, features = ["parallel"] }
 serde_json.workspace = true
 sha2.workspace = true
-manifold-csg = { version = "0.4.1", default-features = false, features = ["parallel"] }
