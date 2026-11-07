@@ -397,6 +397,8 @@ RUST_STEPS = {
         ("umbilical-organizer", "umbilical-organizer", "hardware/printed-parts/faucet/umbilical-organizer"),
     "hardware/printed-parts/cold-core/reservoir/reservoir.rs":
         ("reservoir", "reservoir", "hardware/printed-parts/cold-core/reservoir"),
+    "hardware/printed-parts/cold-core/foam-shell/foam_shell.rs":
+        ("foam-shell", "foam-shell", "hardware/printed-parts/cold-core/foam-shell"),
 }
 
 #: The media a Rust step can rewrite in place: documents with authored text round the figures it

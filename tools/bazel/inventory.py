@@ -237,12 +237,10 @@ ACTION_INTERMEDIATE = frozenset()
 # card wrapper retains only the browser-driven PNG/JSON outputs from the shared trace, and every
 # read that run took.
 #
-# The shared presentation writer supplies independent cold-core and faucet rules. The
-# enclosure's Rust producer owns all its presentations without a separate normal co-writer.
+# The shared presentation writer supplies the faucet's rule. The enclosure's and the cold core's
+# Rust producers own their presentations without a separate normal co-writer.
 # Each shared rule takes only its tree's payloads and inputs, plus common helper modules.
 _FLUTE_ROOTS = {
-    "hardware/scripts/flute_payload_cold_core.py": (
-        "hardware/printed-parts/cold-core/foam-shell/",),
     "hardware/scripts/flute_payload_faucet.py": (
         "hardware/printed-parts/faucet/faucet-shell/",
         "hardware/printed-parts/faucet/faucet-display-cover/",
@@ -253,6 +251,7 @@ _FLUTE_ROOTS = {
 # Generator-owned enclosure and cap surfaces remain outside every wrapper's shared inputs.
 _FLUTE_TREES = tuple(sorted({r for roots in _FLUTE_ROOTS.values() for r in roots}
                            | {"hardware/printed-parts/enclosure/enclosure/",
+                              "hardware/printed-parts/cold-core/foam-shell/",
                               "hardware/printed-parts/cold-core/foam-cap/",
                               "hardware/printed-parts/faucet/asse-vent-seals/"}))
 # Sources inside the trees above that every wrapper reads besides its own tree's. The print
