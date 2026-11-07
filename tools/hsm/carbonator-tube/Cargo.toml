@@ -1,0 +1,17 @@
+[package]
+name = "hsm-carbonator-tube"
+version = "0.1.0"
+edition.workspace = true
+license.workspace = true
+rust-version.workspace = true
+publish = false
+
+[dependencies]
+anyhow.workspace = true
+serde_json.workspace = true
+hsm-carbonator-tube-numbers = { path = "../carbonator-tube-numbers" }
+hsm-kernel = { path = "../kernel" }
+
+[[bin]]
+name = "carbonator-tube-step"
+path = "../../../hardware/cut-parts/carbonation/carbonator-tube/carbonator_tube_step.rs"
