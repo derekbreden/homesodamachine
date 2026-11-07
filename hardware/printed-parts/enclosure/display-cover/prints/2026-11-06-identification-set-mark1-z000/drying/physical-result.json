@@ -1,0 +1,21 @@
+{
+  "job_id": "1417288998",
+  "status": "Stopped after repeated extrusion-motor overload",
+  "z_offset_mm": 0.0,
+  "observations": {
+    "derek_report": "The overload repeated near the previous stop location after filament drying. White deposition remains fuzzy.",
+    "removed_hotend": "Derek removed the white hotend; the photographs show white material accumulated around its nozzle.",
+    "cause": "The photographs and repeated stop do not establish the sole cause."
+  },
+  "removed_hotend_serial": "20D06A5C1907799",
+  "removed_hotend_absent_in_current_telemetry": true,
+  "photos": [
+    "physical-result/photo-1.jpg",
+    "physical-result/photo-2.jpg",
+    "physical-result/photo-3.jpg",
+    "physical-result/photo-4.jpg",
+    "physical-result/photo-5.jpg"
+  ],
+  "retry": "../../2026-11-07-identification-set-mark1-white-spare/",
+  "derek_quote": "I can see that the hot end that we were using does not look great, and so I've removed that hot end."
+}

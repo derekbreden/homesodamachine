@@ -1,0 +1,13 @@
+{
+  "source_archive": "hardware/printed-parts/enclosure/display-cover/prints/2026-11-06-identification-set-mark1-z000/HSM-identification-Mark1-z000.gcode.3mf",
+  "source_sha256": "c41c0ee97b0d47869a71335bdcf0e09b1c48ce0c11deae2666303dc3038428b4",
+  "submitted_name": "HSM-identification-Mark1-white-spare-z000.gcode.3mf",
+  "gcode_sha256": "0d5ec185a13b596213091a24b64700dbb0ef353c24798eadedd9fae0ecb9788c",
+  "z_offset_commands": [
+    "G29.1 Z0 ; clear z-trim value first",
+    "G29.1 Z0"
+  ],
+  "geometry_and_toolpaths_unchanged": true,
+  "excluded_hotend_serial": "20D06A5C1907799",
+  "requested_change": "Use an available replacement right hotend for white PETG."
+}
