@@ -328,15 +328,6 @@
             ]
           },
           {
-            "material": "HSM-0068",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "data-ring",
-              "data-ring-word"
-            ]
-          },
-          {
             "material": "HSM-0069",
             "quantity": 1,
             "unit": "ea",
@@ -3768,25 +3759,6 @@
       ],
       "aliases": [
         "Bulkhead ring drain"
-      ]
-    },
-    {
-      "id": "HSM-0068",
-      "description": "Enclosure data-port identification plate",
-      "kind": "manufactured",
-      "models": [
-        {
-          "file": "printed-parts/enclosure/data-ring/data-ring.step"
-        }
-      ],
-      "documents": [
-        {
-          "title": "Part details",
-          "path": "printed-parts/enclosure/data-ring/README.md"
-        }
-      ],
-      "aliases": [
-        "DATA plate"
       ]
     },
     {

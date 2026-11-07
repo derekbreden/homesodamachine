@@ -796,7 +796,7 @@
           "hardware/printed-parts/enclosure/trial-preparation/labels.py",
           "--slice"
         ],
-        "reason": "Six rear chips, six tube collars, the DATA plate and nameplate 0001 on four two-colour plates; each part's body and lettering come from its published STEP."
+        "reason": "Six rear chips, six tube collars and nameplate 0001 on four two-colour plates; each part's body and lettering come from its published STEP."
       }
     },
     "funnel-cover": {

@@ -405,8 +405,6 @@ RUST_STEPS = {
         ("enclosure-components", "display-cover", "hardware/printed-parts/enclosure/display-cover"),
     "hardware/printed-parts/enclosure/display-gasket/display_gasket.rs":
         ("enclosure-components", "display-gasket", "hardware/printed-parts/enclosure/display-gasket"),
-    "hardware/printed-parts/enclosure/data-ring/data_ring.rs":
-        ("enclosure-components", "data-ring", "hardware/printed-parts/enclosure/data-ring"),
     "hardware/printed-parts/enclosure/rear-identification/rear_identification.rs":
         ("enclosure-components", "rear-identification", "hardware/printed-parts/enclosure/rear-identification"),
     "hardware/printed-parts/enclosure/nameplate/nameplate.rs":

@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
-"""Prepare and natively slice the identification plates: rear chips, tube collars, DATA, nameplate.
+"""Prepare and natively slice the identification plates: rear chips, tube collars, nameplate.
 
     tools/cad-venv/bin/python hardware/printed-parts/enclosure/trial-preparation/labels.py [--colour white] [--slice]
 
 Four two-colour PET-GF plates on Mark2, one per chip colour. They carry the six compact rear
-chips (`enclosure/rear-identification/`), the six tube collars (`faucet/tube-collar/`), the
-DATA plate (`enclosure/data-ring/`) and the serial nameplate (`enclosure/nameplate/`). Each
+chips (`enclosure/rear-identification/`), the six tube collars (`faucet/tube-collar/`) and the
+serial nameplate (`enclosure/nameplate/`). Each
 part is read from its published STEP, split into its body and its lettering, and posed face
-up. The chips, the DATA plate and the nameplate lie on their flat backs (`nameplate.print_pose`).
+up. The chips and the nameplate lie on their flat backs (`nameplate.print_pose`).
 The collars lie on their flat faces.
 
 The recipe is `petgf.3mf` on both 0.4 mm nozzles with Mark2's +0.04 mm Z trim. White PET-GF is
@@ -65,7 +65,7 @@ GROUPS = {
     "blue": {"colours": ["#FFFFFF", "#46A8F9"], "body": 2, "word": 1, "parts": ["chip:carb", "collar:carb"]},
     "red": {"colours": ["#FFFFFF", "#F54749"], "body": 2, "word": 1, "parts": ["chip:co2", "collar:co2"]},
     "black": {"colours": ["#FFFFFF", "#000000"], "body": 2, "word": 1,
-              "parts": ["chip:flavor-a", "chip:flavor-b", "collar:flavor-a", "collar:flavor-b", "data", "nameplate"]},
+              "parts": ["chip:flavor-a", "chip:flavor-b", "collar:flavor-a", "collar:flavor-b", "nameplate"]},
 }
 
 
@@ -81,7 +81,6 @@ def source(part: str) -> tuple[Path, str]:
     kind, _, which = part.partition(":")
     return {"chip": (HP / f"enclosure/rear-identification/rear-label-{which}.step", "back"),
             "collar": (HP / f"faucet/tube-collar/tube-collar-{which}.step", "face"),
-            "data": (HP / "enclosure/data-ring/data-ring.step", "back"),
             "nameplate": (HP / "enclosure/nameplate/nameplate-001.step", "back")}[kind]
 
 
