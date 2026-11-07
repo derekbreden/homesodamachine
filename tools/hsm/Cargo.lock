@@ -1492,6 +1492,7 @@ name = "hsm-install-guide"
 version = "0.1.0"
 dependencies = [
  "anyhow",
+ "hsm-faucet-assembly-numbers",
  "hsm-faucet-numbers",
  "hsm-pages",
  "serde_json",
@@ -1674,10 +1675,10 @@ name = "hsm-opening-scene"
 version = "0.1.0"
 dependencies = [
  "anyhow",
+ "hsm-faucet-numbers",
  "hsm-kernel",
  "hsm-pages",
  "hsm-render",
- "serde_json",
  "sha2",
 ]
 

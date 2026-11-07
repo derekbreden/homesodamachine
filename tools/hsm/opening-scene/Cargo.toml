@@ -16,4 +16,4 @@ sha2.workspace = true
 hsm-kernel = { path = "../kernel" }
 hsm-pages = { path = "../pages" }
 hsm-render = { path = "../render" }
-serde_json.workspace = true
+hsm-faucet-numbers = { path = "../faucet-numbers" }

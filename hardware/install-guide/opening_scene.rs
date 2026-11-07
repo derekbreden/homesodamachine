@@ -3,6 +3,7 @@
 //! Beside it, the outline of the faucet's parts in the same frame, which the booklet draws where
 //! the parts cross the counter.
 use anyhow::{Context, Result, ensure};
+use hsm_faucet_numbers::countertop;
 use hsm_kernel::write::{Body, payload_bytes};
 use hsm_kernel::*;
 use hsm_pages::RgbaImage;
@@ -43,13 +44,8 @@ const LIFT: f64 = 128.0;
 /// The counter with its hole, as the faucet assembly clamps through it, and the faucet's tails
 /// held over it.
 fn scene() -> Result<Vec<(String, Solid, [f64; 3])>> {
-    let path = FilePath::new("hardware/faucet-layout/faucet-assembly.numbers.json");
-    let bytes = std::fs::read(path).context("the faucet assembly's numbers")?;
-    hsm_kernel::reads::read(path, &bytes);
-    let counter = &serde_json::from_slice::<serde_json::Value>(&bytes)?["countertop"];
-    let number = |v: &serde_json::Value| v.as_f64().context("a countertop number");
-    let (bottom, top) = (number(&counter["z"][0])?, number(&counter["z"][1])?);
-    let (hole_y, hole_r) = (number(&counter["hole"][1])?, number(&counter["hole"][2])?);
+    let (bottom, top) = (countertop::BOTTOM_Z, countertop::TOP_Z);
+    let (hole_y, hole_r) = (countertop::hole_center_y(), countertop::HOLE_RADIUS);
     let slab = Solid::cuboid(v3(-160., -105., bottom), v3(160., 105., top));
     let hole = Solid::cylinder(v3(0., hole_y, bottom - 1.), V3::Z, hole_r, top - bottom + 2.)?;
     let mut out = vec![("countertop".to_owned(), slab.cut(&hole)?, linear(STONE))];
