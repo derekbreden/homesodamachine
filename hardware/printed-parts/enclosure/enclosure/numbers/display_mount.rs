@@ -65,19 +65,18 @@ pub const MARK_Y: f64 = 10.1;
 /// The rule under the mark, in the frame's weight.
 pub const RULE_LENGTH: f64 = 20.0;
 pub const RULE_Y: f64 = 0.1;
-/// The light: an aperture through the plate, a ring around it, and its word below.
-pub const LIGHT_DIA: f64 = 1.5;
+/// The full-thickness translucent light window follows the LED's mounting bore.
+pub const LIGHT_DIA: f64 = LED_BORE_DIA;
 pub const LIGHT_Y: f64 = -7.4;
-pub const LIGHT_RING: [f64; 2] = [2.0, 2.42];
+pub const LIGHT_RING: [f64; 2] = [LIGHT_DIA / 2.0 + 0.6, LIGHT_DIA / 2.0 + 0.6 + FRAME_LINE];
 pub const LABEL: &str = "ON";
 pub const LABEL_Y: f64 = -14.9;
 
-/// The light's LED, a domed five-millimetre lamp, set back behind the plate so it sits in the
-/// aperture's shadow when unlit.
+/// The CHANZON clear-lens blue LED stands behind the printed diffuser.
 pub const LED_DIA: f64 = 5.0;
 pub const LED_FLANGE_DIA: f64 = 5.8;
 pub const LED_FLANGE: f64 = 1.0;
-pub const LED_LENGTH: f64 = 8.6;
+pub const LED_LENGTH: f64 = 8.7;
 pub const LED_SET_BACK: f64 = 1.0;
 /// Its bore below the plate's seat: the flange and a slip.
 pub const LED_BORE_DIA: f64 = 6.4;
