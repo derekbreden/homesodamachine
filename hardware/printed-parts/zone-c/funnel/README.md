@@ -186,16 +186,16 @@ retain their stated qualification limits.
 ## Regenerate
 
 ```sh
-tools/cad-venv/bin/python hardware/printed-parts/zone-c/funnel/funnel.py
-tools/cad-venv/bin/python hardware/printed-parts/zone-c/funnel/funnel_frame.py
-tools/cad-venv/bin/python hardware/printed-parts/zone-c/funnel/elbow_cradle.py
+python3 tools/run.py -- cargo build --release --locked -j 2 --manifest-path tools/hsm/Cargo.toml -p hsm-funnel
+python3 tools/run.py -- tools/hsm/target/release/funnel
+python3 tools/run.py -- tools/hsm/target/release/funnel-frame
+python3 tools/run.py -- tools/hsm/target/release/elbow-cradle
 ```
 
-The assembly places all three parts through
-[`enclosure_assembly.py`](/hardware/manifold-layout/enclosure_assembly.py).
-The shell uses `funnel_frame.receivers`, `funnel_frame.shell_clearance` and
-`funnel_frame.front_roof_clearance` for both upper shells. It opens the insert
-pilots with `funnel_frame.shell_screw_cuts` after furniture is joined.
+Their numbers are in [`../numbers/`](../numbers/lib.rs). The
+[installed machine](/hardware/manifold-layout/installed_machine.rs) places all three parts, the
+funnel by `funnel.numbers.json`, the frame by `funnel-frame.numbers.json` and the cradle by
+`elbow-cradle.numbers.json`.
 
 ## Integration checks
 

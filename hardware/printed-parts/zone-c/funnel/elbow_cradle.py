@@ -87,29 +87,3 @@ def hook_corner_clearance(half_width):
 
 def _turn_profile(points):
     return [tuple(p) for p in _data(method='turn_profile', points=points)]
-
-
-def numbers():
-    result = _data(method='numbers')
-    for key in ('block', 'mouth_tangent', 'wing_x'):
-        result[key] = tuple(result[key])
-    return result
-
-
-def main():
-    import _rust_part
-    said = _rust_part.cut('funnel', 'elbow-cradle', numbers(), _here.parent)
-    print(f"-> elbow-cradle STEP, model, payload and STL; {said['bodies'][0]['volume']:.1f} mm3")
-
-
-if __name__ == "__main__":
-    import _rust_part
-    _rust_part.start()
-    if sys.argv[1:] == ["selftest"]:
-        _rust_part.check('funnel', 'elbow-cradle', numbers())
-        s = stations()
-        print(f"  the elbow drops straight in and both wings stand on the body; the hook bends "
-              f"{s['bend']['hook_deflection']:.2f} mm into a {s['lane']:.2f} mm lane")
-        print("elbow_cradle selftest OK")
-    else:
-        main()

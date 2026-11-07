@@ -1,4 +1,5 @@
-"""Compatibility transport for the Rust funnel and casting-tool scalar graph."""
+"""Transport to the funnel, cradle and frame datums in part-data, for the hand-run tools that read
+them through `funnel.py`, `elbow_cradle.py` and `funnel_frame.py`."""
 from pathlib import Path
 import sys
 
@@ -27,22 +28,7 @@ def data(part, *, method='state', **payload):
             note_read(ROOT / 'hardware/manifold-layout/above-core.json')
         if part == 'elbow-cradle' and method == 'numbers':
             note_read(ROOT / 'hardware/reference/neofit-stem-elbow/neofit-stem-elbow.fine.step.mesh')
-    if part == 'funnel-mold' and method in ('design', 'report'):
-        note_read(ROOT / 'hardware/printed-parts/zone-c/funnel/funnel.step')
     values = {'part': part, 'method': method, 'root': str(ROOT),
               'slip': fits.slip, 'running': fits.running,
               'supported_surface': fits.supported_surface}
-    if method == 'numbers':
-        from _materials import M_PETGF_BLACK, M_PETG_BLACK, M_SILICONE_BLACK, linear
-        from _payload_rules import LINEAR_DEFLECTION_RATIO
-        values.update(silicone_color=list(linear(M_SILICONE_BLACK)),
-                      viewer_deflection_ratio=LINEAR_DEFLECTION_RATIO)
-        if part in ('elbow-cradle', 'funnel-frame'):
-            values['color'] = list(linear(M_PETGF_BLACK))
-        elif part == 'funnel-cover':
-            values['color'] = list(linear(M_PETG_BLACK))
-        elif part == 'funnel-mold':
-            for name, color in {'cavity': '#3D9998', 'core': '#D8A751',
-                                'funnel': '#555C68', 'rod': '#AAB9C8'}.items():
-                values[name + '_color'] = list(linear(color))
     return request('part-data', 'part-data', {**values, **payload})
