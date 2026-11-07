@@ -313,15 +313,15 @@
     "hardware/printed-parts/cold-core/reservoir/reservoir-cap-right.step.mesh": "40ae67c0db26aaa85fcc68ae7c01cc5072f7f18038c7a4c35ffe047ded9e8a92",
     "hardware/printed-parts/cold-core/reservoir/reservoir-cap-right.stl": "f88fb33c8e3af9b131bd02fd26636a14f5eb399d7e606c5950c8051f5e53d75b",
     "hardware/printed-parts/cold-core/reservoir/reservoir-gasket.step": "a69a85d3bc8776a784bb88fa5eb9b6fad88ff8e3c9e60c31618fd42302a3d755",
-    "hardware/printed-parts/cold-core/reservoir/reservoir-gasket.step.mesh": "03493905122d476381473590e862f3c51cdf5669a1636aaa4da7ae96cc90394d",
+    "hardware/printed-parts/cold-core/reservoir/reservoir-gasket.step.mesh": "74fda3165ca9a5582d09d9e4d7ccdb5faf410a16da88ccefedccf1cab6cdf196",
     "hardware/printed-parts/cold-core/reservoir/reservoir-gasket.stl": "07cd9bf1c8a47dc4b907efa2f9ffe611a53a750e2d56f66c95d11451eb74222e",
     "hardware/printed-parts/cold-core/reservoir/reservoir-left.step": "c263b216fbdf4d8d7eeb22bbdbb2f5469a598aec267048d31a58b4425f83aca7",
-    "hardware/printed-parts/cold-core/reservoir/reservoir-left.step.mesh": "6c421b521d7a56968c971a613a97b3de9e2241c8f29849538258fb7aeb63894a",
+    "hardware/printed-parts/cold-core/reservoir/reservoir-left.step.mesh": "92392af65f6375221a108d52e5eb651df24081ec65ce7202a6d7a595d8c35726",
     "hardware/printed-parts/cold-core/reservoir/reservoir-left.stl": "58489e732352dc57132485cc98a15cf033a40d52c929b83d81cfb634fd7ea101",
     "hardware/printed-parts/cold-core/reservoir/reservoir-retaining-ring.step": "1efcd78fbab531576c7c412ed2aef0320f02453f7b4d32876258d984e5475b48",
     "hardware/printed-parts/cold-core/reservoir/reservoir-retaining-ring.stl": "ba87234750a972b86ecccf31cbf341e71f60ed0f1d23ef7262eae65e87d64ecc",
     "hardware/printed-parts/cold-core/reservoir/reservoir-right.step": "92d7f3157a5dea02205cf031178bf3dade7005075d78914e66afccef39cd35b6",
-    "hardware/printed-parts/cold-core/reservoir/reservoir-right.step.mesh": "30f5a1ad1cb83c236f7579b8c272fea095360b198ce425a2b846b170591879e9",
+    "hardware/printed-parts/cold-core/reservoir/reservoir-right.step.mesh": "f1ca5066311f6ce52323249bcfa20031061e09c68422ac631f49d54d23f55b46",
     "hardware/printed-parts/cold-core/reservoir/reservoir-right.stl": "cffce729a02e9fcdd72a1ec1ff984eb69e57f3a05a0943e1b520a8ed98138be1",
     "hardware/printed-parts/cold-core/reservoir/reservoir-tube-grip.step": "638d0b193d3b76041e6eb1b790efd32d81cb5ae9ce46f920e469db1a678a4d83",
     "hardware/printed-parts/cold-core/reservoir/reservoir-tube-grip.step.mesh": "4785d06f73eaefb79fbf74a32411f7d965b007fdee2f603a84230c1ae1959004",
@@ -364,7 +364,7 @@
     "hardware/printed-parts/enclosure/data-ring/data-ring.step.mesh": "d54048f9ddceb8d83473007c064f437b9fbae9bbe222bac656471ad8ad489301",
     "hardware/printed-parts/enclosure/data-ring/data-ring.stl": "09bf5340b87b42166228c4559ff658dc1ab4e5b96ea890a5ab7f442ccc563e69",
     "hardware/printed-parts/enclosure/display-cover/display-cover.step": "fc9c7d1d36910bc54d8ad1df9b9050f841e6de9f78a27e8f7010b444b9d0db76",
-    "hardware/printed-parts/enclosure/display-cover/display-cover.step.mesh": "0bd68e5a278ea8ea935c70b044f62a63026cd62e7e2ca38e0756de3d5c111174",
+    "hardware/printed-parts/enclosure/display-cover/display-cover.step.mesh": "d1db124860a630bd89069e92e80e68bf4b26790e1f24e22266ab649fbd16435a",
     "hardware/printed-parts/enclosure/display-cover/display-cover.stl": "3594ee4fb113b440326981b1e5cef4bba11f439d2fa586544a5fae44e4dc5f34",
     "hardware/printed-parts/enclosure/display-cover/face-up-trial/display-cover-flat-wings.step": "2ef12c8034de1b401fa10fe9f3157b797da236a9d55be915435f129082226d52",
     "hardware/printed-parts/enclosure/display-cover/face-up-trial/display-cover-flat-wings.step.mesh": "77c5d076a4abb649555664d09bd69239c9588fc78ef30e1fd1991e74f3e8bc53",
@@ -1732,13 +1732,13 @@
       "hardware/printed-parts/cold-core/reservoir/reservoir-cap-right.step.mesh": "40ae67c0db26aaa85fcc68ae7c01cc5072f7f18038c7a4c35ffe047ded9e8a92",
       "hardware/printed-parts/cold-core/reservoir/reservoir-cap-right.stl": "f88fb33c8e3af9b131bd02fd26636a14f5eb399d7e606c5950c8051f5e53d75b",
       "hardware/printed-parts/cold-core/reservoir/reservoir-gasket.step": "a69a85d3bc8776a784bb88fa5eb9b6fad88ff8e3c9e60c31618fd42302a3d755",
-      "hardware/printed-parts/cold-core/reservoir/reservoir-gasket.step.mesh": "03493905122d476381473590e862f3c51cdf5669a1636aaa4da7ae96cc90394d",
+      "hardware/printed-parts/cold-core/reservoir/reservoir-gasket.step.mesh": "74fda3165ca9a5582d09d9e4d7ccdb5faf410a16da88ccefedccf1cab6cdf196",
       "hardware/printed-parts/cold-core/reservoir/reservoir-gasket.stl": "07cd9bf1c8a47dc4b907efa2f9ffe611a53a750e2d56f66c95d11451eb74222e",
       "hardware/printed-parts/cold-core/reservoir/reservoir-left.step": "c263b216fbdf4d8d7eeb22bbdbb2f5469a598aec267048d31a58b4425f83aca7",
-      "hardware/printed-parts/cold-core/reservoir/reservoir-left.step.mesh": "6c421b521d7a56968c971a613a97b3de9e2241c8f29849538258fb7aeb63894a",
+      "hardware/printed-parts/cold-core/reservoir/reservoir-left.step.mesh": "92392af65f6375221a108d52e5eb651df24081ec65ce7202a6d7a595d8c35726",
       "hardware/printed-parts/cold-core/reservoir/reservoir-left.stl": "58489e732352dc57132485cc98a15cf033a40d52c929b83d81cfb634fd7ea101",
       "hardware/printed-parts/cold-core/reservoir/reservoir-right.step": "92d7f3157a5dea02205cf031178bf3dade7005075d78914e66afccef39cd35b6",
-      "hardware/printed-parts/cold-core/reservoir/reservoir-right.step.mesh": "30f5a1ad1cb83c236f7579b8c272fea095360b198ce425a2b846b170591879e9",
+      "hardware/printed-parts/cold-core/reservoir/reservoir-right.step.mesh": "f1ca5066311f6ce52323249bcfa20031061e09c68422ac631f49d54d23f55b46",
       "hardware/printed-parts/cold-core/reservoir/reservoir-right.stl": "cffce729a02e9fcdd72a1ec1ff984eb69e57f3a05a0943e1b520a8ed98138be1",
       "hardware/printed-parts/cold-core/reservoir/reservoir-tube-grip.step": "638d0b193d3b76041e6eb1b790efd32d81cb5ae9ce46f920e469db1a678a4d83",
       "hardware/printed-parts/cold-core/reservoir/reservoir-tube-grip.step.mesh": "4785d06f73eaefb79fbf74a32411f7d965b007fdee2f603a84230c1ae1959004",
@@ -1756,7 +1756,7 @@
       "hardware/printed-parts/enclosure/data-ring/data-ring.step.mesh": "d54048f9ddceb8d83473007c064f437b9fbae9bbe222bac656471ad8ad489301",
       "hardware/printed-parts/enclosure/data-ring/data-ring.stl": "09bf5340b87b42166228c4559ff658dc1ab4e5b96ea890a5ab7f442ccc563e69",
       "hardware/printed-parts/enclosure/display-cover/display-cover.step": "fc9c7d1d36910bc54d8ad1df9b9050f841e6de9f78a27e8f7010b444b9d0db76",
-      "hardware/printed-parts/enclosure/display-cover/display-cover.step.mesh": "0bd68e5a278ea8ea935c70b044f62a63026cd62e7e2ca38e0756de3d5c111174",
+      "hardware/printed-parts/enclosure/display-cover/display-cover.step.mesh": "d1db124860a630bd89069e92e80e68bf4b26790e1f24e22266ab649fbd16435a",
       "hardware/printed-parts/enclosure/display-cover/display-cover.stl": "3594ee4fb113b440326981b1e5cef4bba11f439d2fa586544a5fae44e4dc5f34",
       "hardware/printed-parts/enclosure/display-gasket/display-gasket.step": "5b32f55a1beae8d40ce7577cb7adf30f1dc884220bda13c99717463ecddf1e34",
       "hardware/printed-parts/enclosure/display-gasket/display-gasket.step.mesh": "5be84e829917b7062ab5917d678c2074a3aa81b7107d84c26b24afce322c592d",
@@ -2500,15 +2500,15 @@
     "hardware/printed-parts/cold-core/reservoir/reservoir-cap-right.step.mesh": 1793712586,
     "hardware/printed-parts/cold-core/reservoir/reservoir-cap-right.stl": 1793568839,
     "hardware/printed-parts/cold-core/reservoir/reservoir-gasket.step": 1793568839,
-    "hardware/printed-parts/cold-core/reservoir/reservoir-gasket.step.mesh": 1793712586,
+    "hardware/printed-parts/cold-core/reservoir/reservoir-gasket.step.mesh": 1794018703,
     "hardware/printed-parts/cold-core/reservoir/reservoir-gasket.stl": 1793568839,
     "hardware/printed-parts/cold-core/reservoir/reservoir-left.step": 1793938190,
-    "hardware/printed-parts/cold-core/reservoir/reservoir-left.step.mesh": 1793938190,
+    "hardware/printed-parts/cold-core/reservoir/reservoir-left.step.mesh": 1794018703,
     "hardware/printed-parts/cold-core/reservoir/reservoir-left.stl": 1793938190,
     "hardware/printed-parts/cold-core/reservoir/reservoir-retaining-ring.step": 1792460868,
     "hardware/printed-parts/cold-core/reservoir/reservoir-retaining-ring.stl": 1792922058,
     "hardware/printed-parts/cold-core/reservoir/reservoir-right.step": 1793938190,
-    "hardware/printed-parts/cold-core/reservoir/reservoir-right.step.mesh": 1793938190,
+    "hardware/printed-parts/cold-core/reservoir/reservoir-right.step.mesh": 1794018703,
     "hardware/printed-parts/cold-core/reservoir/reservoir-right.stl": 1793938190,
     "hardware/printed-parts/cold-core/reservoir/reservoir-tube-grip.step": 1793568839,
     "hardware/printed-parts/cold-core/reservoir/reservoir-tube-grip.step.mesh": 1793712586,
@@ -2551,7 +2551,7 @@
     "hardware/printed-parts/enclosure/data-ring/data-ring.step.mesh": 1793626644,
     "hardware/printed-parts/enclosure/data-ring/data-ring.stl": 1793626644,
     "hardware/printed-parts/enclosure/display-cover/display-cover.step": 1793948374,
-    "hardware/printed-parts/enclosure/display-cover/display-cover.step.mesh": 1793958841,
+    "hardware/printed-parts/enclosure/display-cover/display-cover.step.mesh": 1794018703,
     "hardware/printed-parts/enclosure/display-cover/display-cover.stl": 1793948374,
     "hardware/printed-parts/enclosure/display-cover/face-up-trial/display-cover-flat-wings.step": 1791257167,
     "hardware/printed-parts/enclosure/display-cover/face-up-trial/display-cover-flat-wings.step.mesh": 1791257167,
@@ -4575,8 +4575,8 @@
       "unproven": true
     },
     "hardware/printed-parts/cold-core/reservoir/reservoir-gasket.step.mesh": {
-      "inputs": "edc43742227a8f7c38f06a0b94a2a964fd334edd0ae4c09c594653e196219895",
-      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2",
+      "inputs": "354d7dd7e442c299a61996a4b05165ebcb71b1aefc619d6d5148d21664d03fda",
+      "commit": "8e5d31284f71d48994af33268b24656039b7b9ef",
       "unproven": true
     },
     "hardware/printed-parts/cold-core/reservoir/reservoir-gasket.stl": {
@@ -4590,8 +4590,8 @@
       "unproven": true
     },
     "hardware/printed-parts/cold-core/reservoir/reservoir-left.step.mesh": {
-      "inputs": "cdba7a33d31de1db6c3a25abbb769567a5180d792eb64213e38520f2b6ce9289",
-      "commit": "e1207cfaf4440daff1e9b61e77e8f033feb49d58",
+      "inputs": "354d7dd7e442c299a61996a4b05165ebcb71b1aefc619d6d5148d21664d03fda",
+      "commit": "8e5d31284f71d48994af33268b24656039b7b9ef",
       "unproven": true
     },
     "hardware/printed-parts/cold-core/reservoir/reservoir-left.stl": {
@@ -4605,8 +4605,8 @@
       "unproven": true
     },
     "hardware/printed-parts/cold-core/reservoir/reservoir-right.step.mesh": {
-      "inputs": "cdba7a33d31de1db6c3a25abbb769567a5180d792eb64213e38520f2b6ce9289",
-      "commit": "e1207cfaf4440daff1e9b61e77e8f033feb49d58",
+      "inputs": "354d7dd7e442c299a61996a4b05165ebcb71b1aefc619d6d5148d21664d03fda",
+      "commit": "8e5d31284f71d48994af33268b24656039b7b9ef",
       "unproven": true
     },
     "hardware/printed-parts/cold-core/reservoir/reservoir-right.stl": {
@@ -4797,8 +4797,8 @@
       "unproven": true
     },
     "hardware/printed-parts/enclosure/display-cover/display-cover.step.mesh": {
-      "inputs": "5c7e6e5b59266c9e4ab22b730bc04758ddd642e0707ed6c262587def20b1b889",
-      "commit": "f67b46c3a0d0a8c67875ae6766f27d287317cd5b",
+      "inputs": "3654f864b054a1b17d5cda1c21210a1e6266f79b1f66b78223aaafc7b9204882",
+      "commit": "8e5d31284f71d48994af33268b24656039b7b9ef",
       "unproven": true
     },
     "hardware/printed-parts/enclosure/display-cover/display-cover.stl": {
