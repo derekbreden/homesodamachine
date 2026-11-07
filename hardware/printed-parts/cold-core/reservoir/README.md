@@ -157,11 +157,11 @@ in [water-hold-acceptance.json](water-hold-acceptance.json).
 | Left | [STEP](reservoir-left.step) | [STEP](reservoir-cap-left.step) |
 | Right | [STEP](reservoir-right.step) | [STEP](reservoir-cap-right.step) |
 
-[`reservoir.py`](reservoir.py) derives the current dimensions from the shared
-[float interface](../_float_interface.py) for [`reservoir.rs`](reservoir.rs).
-The Rust program writes the two bodies, both caps, gasket and liquid/air grips
-as STEP files, f64 models and print meshes. The generator measures capacity
-and the reed window from those solids.
+[`numbers.rs`](numbers.rs) holds the reservoir's dimensions and its tube ports,
+taking the float's from the [Aero float's numbers](../magnetic-float/all-aero/numbers.rs)
+and the casing's from the [cold core's interface](../interface/lib.rs).
+[`reservoir.rs`](reservoir.rs), the build step, writes the two bodies, both caps,
+gasket and liquid/air grips as STEP files, f64 models, print meshes and payloads.
 [prepare_print.py](prepare_print.py) builds the one current project from the emitted
 STLs bound to the full-precision models and the complete frozen recipe. Run it with `tools/cad-venv/bin/python`;
 it checks source hashes against the

@@ -24,10 +24,6 @@ name = "foam-cap"
 path = "../../../hardware/printed-parts/cold-core/foam-cap/foam_cap.rs"
 
 [[bin]]
-name = "reservoir"
-path = "../../../hardware/printed-parts/cold-core/reservoir/reservoir.rs"
-
-[[bin]]
 name = "reed-bridge"
 path = "../../../hardware/printed-parts/cold-core/reed-bridge/reed_bridge.rs"
 
