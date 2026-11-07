@@ -40,7 +40,7 @@ plate trim, 101 mm bed-edge inset, zero support extrusions, fan-off paths and
 25 mm/s axial roof fill. Some native ramp bridge features retain the slicer's
 0.40 mm extrusion-height treatment within the fixed 0.24 mm Z schedule.
 
-Run `make_plate.py` manually with `tools/cad-venv/bin/python`; it calls the
+Run [`make_plate.py`](https://github.com/derekbreden/homesodamachine/blob/f5e8bed091/hardware/print-tests/petgf-fins/dense-landing-v3/make_plate.py) (in Git at `f5e8bed091`) manually with `tools/cad-venv/bin/python`; it calls the
 parameterized short-span generator and writes only this directory. Slice with
 Bambu Studio `--arrange 0 --orient 0 --slice 0`, an absolute output directory,
 and `--export-3mf`. The short-span `inspect_slice.py` and `trace_landing.py`

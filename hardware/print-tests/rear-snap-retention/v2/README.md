@@ -71,6 +71,8 @@ with all four removable rubber foot assemblies removed.
 
 The scoped exporters and slicer preparer are:
 
+The scripts these commands run are in Git at [`f5e8bed091`](https://github.com/derekbreden/homesodamachine/tree/f5e8bed091).
+
 ```sh
 python3 tools/run.py --cad -- tools/cad-venv/bin/python hardware/print-tests/rear-snap-retention/build.py --output hardware/print-tests/rear-snap-retention/v2 --check-fit
 python3 tools/run.py -- tools/cad-venv/bin/python hardware/print-tests/rear-snap-retention/prepare.py --trial hardware/print-tests/rear-snap-retention/v2 --plate all
