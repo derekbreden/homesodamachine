@@ -439,6 +439,8 @@ RUST_STEPS = {
         ("foam-assembly", "foam-assembly", "hardware/printed-parts/cold-core/foam-assembly"),
     "hardware/cold-core-layout/cold_core_assembly.rs":
         ("cold-core-assembly", "cold-core-assembly", "hardware/cold-core-layout"),
+    "hardware/cut-parts/carbonation/carbonator-tube/carbonator_tube_step.rs":
+        ("carbonator-tube", "carbonator-tube-step", "hardware/cut-parts/carbonation/carbonator-tube"),
 }
 
 #: The media a Rust step can rewrite in place: documents with authored text round the figures it

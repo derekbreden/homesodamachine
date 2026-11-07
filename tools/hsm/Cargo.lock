@@ -892,6 +892,16 @@ dependencies = [
 ]
 
 [[package]]
+name = "hsm-carbonator-tube"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "hsm-carbonator-tube-numbers",
+ "hsm-kernel",
+ "serde_json",
+]
+
+[[package]]
 name = "hsm-carbonator-tube-numbers"
 version = "0.1.0"
 
@@ -921,15 +931,6 @@ dependencies = [
  "hsm-cold-core-catalog",
  "hsm-cold-core-interface",
  "hsm-reed-bridge-numbers",
-]
-
-[[package]]
-name = "hsm-cold-core"
-version = "0.1.0"
-dependencies = [
- "anyhow",
- "hsm-kernel",
- "serde_json",
 ]
 
 [[package]]
