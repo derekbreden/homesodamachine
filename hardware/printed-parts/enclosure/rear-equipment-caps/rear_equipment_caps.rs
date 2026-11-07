@@ -6,6 +6,7 @@
 //! keeps the four where they go.
 //!
 //!     rear-equipment-caps [<output directory>]
+//!     rear-equipment-caps --regulator-entry-study [<output directory>]
 mod stations;
 
 use anyhow::{Result, anyhow, bail};
@@ -16,7 +17,7 @@ use hsm_kernel::part::{write_part, write_shown};
 use hsm_kernel::rule::ring_count;
 use hsm_kernel::{Affine, Body, Loop, Plane, Profile, Seg, Solid, V2, V3, v2, v3};
 use serde::Deserialize;
-use stations::{Meter, NOSE_LAND, REACH, ROOT_RADIUS, WALL, asse, catch_air, clearance_profile, interpolate, meter};
+use stations::{Meter, NOSE_LAND, REACH, ROOT_RADIUS, TIP_RISE, WALL, asse, catch_air, clearance_profile, interpolate, meter};
 use std::f64::consts::{PI, TAU};
 use std::path::PathBuf;
 use std::sync::OnceLock;
@@ -59,6 +60,9 @@ const BEVEL_ENDS: f64 = 0.1;
 /// The water regulator's central bearing ends this far short of the spring ends beside the
 /// outlet's release collet.
 const REGULATOR_OUTLET_SETBACK: f64 = 1.0;
+/// The entry-study lead-in grows outward at its free point and has a longer rise.
+const ENTRY_TIP_OUTSET: f64 = 0.5;
+const ENTRY_TIP_RISE: f64 = 3.6;
 /// A turned profile's axis laid fore, along the machine's −Y.
 const FORE: [P3; 3] = [[0.0, 1.0, 0.0], [-1.0, 0.0, 0.0], [0.0, 0.0, 1.0]];
 
@@ -173,12 +177,21 @@ impl Cap {
 
 fn main() -> Result<()> {
     let mut args = std::env::args_os().skip(1);
-    let out = args.next().map(PathBuf::from).unwrap_or_else(|| PathBuf::from(OUTPUT));
+    let first = args.next();
+    let entry = first.as_deref() == Some(std::ffi::OsStr::new("--regulator-entry-study"));
+    let out = if entry {
+        args.next().map(PathBuf::from).unwrap_or_else(|| PathBuf::from(OUTPUT).join("entry-study"))
+    } else {
+        first.map(PathBuf::from).unwrap_or_else(|| PathBuf::from(OUTPUT))
+    };
     if args.next().is_some() {
         bail!("usage: rear-equipment-caps [<output directory>]");
     }
     hsm_kernel::reads::begin();
     std::fs::create_dir_all(&out)?;
+    if entry {
+        return regulator_entry_study(&out);
+    }
     let color = Some(catalog::wall_color());
     let caps = [asse_cap()?, pisco_cap()?, meter_cap()?, regulator_cap()?];
     for cap in &caps {
@@ -375,6 +388,10 @@ fn corner_bevel(west: f64, axis_z: f64) -> Loop {
 /// bearing short of the spring ends beside the outlet, bored to the measured profile on the
 /// regulator's installed axis, then turned a quarter about Z onto it.
 fn regulator_cap() -> Result<Cap> {
+    regulator_cap_with_tip(TIP_RISE, 0.0, "regulator-snap-cap")
+}
+
+fn regulator_cap_with_tip(rise: f64, outset: f64, name: &'static str) -> Result<Cap> {
     let l = layout();
     let mount = &l.rear_plumbing.regulator_mount;
     let st = &mount.station;
@@ -385,11 +402,49 @@ fn regulator_cap() -> Result<Cap> {
     let [t0, t1, t2] = l.snapshots.reg.translation_mm;
     let frame = Pose { rotation: [r1, r0.map(|v| -v), r2], translation_mm: [t1, -t0, t2] };
     let half = st.inner - ROOT_RADIUS - LEAF_GAP;
-    let cap = along_y(section(st, Underside::Flat(mount.cap_bottom))?, [st.y0, st.y1])?
+    let cap = along_y(section_with_tip(st, Underside::Flat(mount.cap_bottom), rise, outset)?, [st.y0, st.y1])?
         .union(&cuboid([st.axis_x - half, st.axis_x + half, st.y0, st.y1 - REGULATOR_OUTLET_SETBACK, mount.cap_bottom,
                         mount.axis[1]]))?
         .cut(&turned(&profile)?.transformed(&affine(&frame)))?;
-    Ok(Cap { name: "regulator-snap-cap", installed: cap.rotate(V3::ZERO, V3::Z, 90.0), print: V3::Y })
+    Ok(Cap { name, installed: cap.rotate(V3::ZERO, V3::Z, 90.0), print: V3::Y })
+}
+
+/// Actual fit articles: the complete regulator receiver cropped from back-top and a cap whose
+/// lead-in flares outward, retaining the production bearing surfaces, spring walls and catches.
+fn regulator_entry_study(out: &std::path::Path) -> Result<()> {
+    use serde_json::json;
+    let l = layout();
+    let mount = &l.rear_plumbing.regulator_mount;
+    let st = &mount.station;
+    let color = Some(catalog::wall_color());
+    let standard = regulator_cap()?;
+    let entry = regulator_cap_with_tip(ENTRY_TIP_RISE, ENTRY_TIP_OUTSET, "regulator-snap-cap-entry")?;
+    let solid = entry.printed();
+    println!("{}", write_part(out, entry.name, &[Body { name: entry.name, color, solid: &solid }])?);
+    let source = hsm_kernel::import::model("hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.npz")?;
+    let rear = &source[0].solid;
+    let low = v3(-mount.seat_y[1].max(st.y1 + running() + WALL), st.axis_x - st.outer, st.split);
+    let high = v3(-mount.seat_y[0], st.axis_x + st.outer, l.enclosure.roof_z_mm);
+    let receiver = rear.intersect(&Solid::cuboid(low, high))?;
+    println!("{}", write_part(out, "regulator-receiver-entry", &[Body { name: "regulator-receiver-entry", color, solid: &receiver }])?);
+    let floor = st.bearing + catch_air() + NOSE_LAND;
+    let below = Solid::cuboid(v3(low.x - WALL, low.y - WALL, mount.cap_bottom - WALL), v3(high.x + WALL, high.y + WALL, floor - 0.00001));
+    let a = standard.installed.intersect(&below)?;
+    let b = entry.installed.intersect(&below)?;
+    let record = json!({
+        "purpose":"The actual regulator receiver and outward-flared entry cap for the comparison plate.",
+        "standard_lead_in_rise_mm":TIP_RISE,"entry_lead_in_rise_mm":ENTRY_TIP_RISE,
+        "entry_tip_outset_per_side_mm":ENTRY_TIP_OUTSET,
+        "entry_tip_air_mm":st.ceiling-entry.installed.bounds().max.z,
+        "roof_stock_mm":l.enclosure.roof_z_mm-st.ceiling,
+        "receiver_bounds_mm":[low.to_array(),high.to_array()],
+        "standard_receiver_overlap_mm3":standard.installed.intersect(&receiver)?.volume(),
+        "entry_receiver_overlap_mm3":entry.installed.intersect(&receiver)?.volume(),
+        "below_lead_in_added_mm3":b.cut(&a)?.volume(),"below_lead_in_removed_mm3":a.cut(&b)?.volume(),
+        "scope":"Fitted solids and retained lower profiles; insertion force and directional tolerance await physical comparison."
+    });
+    std::fs::write(out.join("geometry.json"),serde_json::to_string_pretty(&record)?+"\n")?;
+    Ok(())
 }
 
 /// What a cap's body closes under: a flat at a height, or the lower half of a hexagon about the
@@ -403,26 +458,34 @@ enum Underside {
 /// the root to its tip, falls along its pointed lead-in to the solid nose and the catch, steps out
 /// to the inner face and turns at the root round into the floor between the walls; the underside
 /// closes it. The hook stands its reach inside the receiver's ledge, the catch its air over the
-/// receiver's bearing plane and the tip twice running air under the receiver's ceiling.
+/// receiver's bearing plane. Its lead-in is independent of the receiver ceiling's spare room.
 fn section(st: &Station, under: Underside) -> Result<Loop> {
+    section_with_tip(st, under, TIP_RISE, 0.0)
+}
+
+fn section_with_tip(st: &Station, under: Underside, rise: f64, outset: f64) -> Result<Loop> {
     let (c, outer, inner, root, r) = (st.axis_x, st.outer, st.inner, st.root, st.root_radius);
     let hook = st.ledge - REACH;
     let catch = st.bearing + catch_air();
-    let tip = st.ceiling - 2.0 * running();
-    let west = [v2(c - outer, root), v2(c - outer, tip), v2(c - hook, catch + NOSE_LAND), v2(c - hook, catch),
-                v2(c - inner, catch), v2(c - inner, root + r)];
+    let tip = catch + NOSE_LAND + rise;
+    let mut west = vec![v2(c - outer, root)];
+    if outset > 0.0 {
+        west.push(v2(c - outer, catch + NOSE_LAND));
+    }
+    west.extend([v2(c - outer - outset, tip), v2(c - hook, catch + NOSE_LAND), v2(c - hook, catch),
+                 v2(c - inner, catch), v2(c - inner, root + r)]);
     let east: Vec<V2> = west.iter().rev().map(|p| v2(2.0 * c - p.x, p.y)).collect();
     let (a, b) = (v2(c - inner + r, root), v2(c + inner - r, root));
     let mut segs = lines(&west);
-    segs.push(Seg::Arc { a: west[5], b: a, c: v2(c - inner + r, root + r), ccw: true });
+    segs.push(Seg::Arc { a: *west.last().unwrap(), b: a, c: v2(c - inner + r, root + r), ccw: true });
     segs.push(Seg::Line { a, b });
     segs.push(Seg::Arc { a: b, b: east[0], c: v2(c + inner - r, root + r), ccw: true });
     segs.extend(lines(&east));
     let close = match under {
-        Underside::Flat(z) => [east[5], v2(c + outer, z), v2(c - outer, z), west[0]],
+        Underside::Flat(z) => [*east.last().unwrap(), v2(c + outer, z), v2(c - outer, z), west[0]],
         Underside::Hex(z) => {
             let low = z - outer * 3f64.sqrt() / 2.0;
-            [east[5], v2(c + outer / 2.0, low), v2(c - outer / 2.0, low), west[0]]
+            [*east.last().unwrap(), v2(c + outer / 2.0, low), v2(c - outer / 2.0, low), west[0]]
         }
     };
     segs.extend(lines(&close));

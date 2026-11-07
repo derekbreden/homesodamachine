@@ -1,0 +1,115 @@
+{
+  "purpose": "Hold the concrete regulator receiver and cover comparison plate for visual review before printing.",
+  "recipe": "regulator-entry-comparison",
+  "status": "prepared; awaiting Derek's geometry review; not submitted",
+  "archive": "/Users/derekbredensteiner/Downloads/HSM-regulator-entry-2026-11-07/final/2026-11-07-regulator-entry-comparison-mark2-33e2505e/2026-11-07-regulator-entry-comparison-mark2-33e2505e.gcode.3mf",
+  "archive_sha256": "fcd26d2229ebaa246ca65e48792c73ffb76dd0e434127cbd0e65165e01bd184e",
+  "gcode_sha256": "70d359f24cbb0732df406919db4a07ef29909d3cf589b66c3320e8afd402ec98",
+  "project": "/Users/derekbredensteiner/Downloads/HSM-regulator-entry-2026-11-07/final/2026-11-07-regulator-entry-comparison-mark2-33e2505e/2026-11-07-regulator-entry-comparison-mark2-33e2505e.3mf",
+  "project_sha256": "a9879284d932e95226946b6108db82601006812b39f4d2c0955ee093d33ff93f",
+  "preparation_record": "/Users/derekbredensteiner/Downloads/HSM-regulator-entry-2026-11-07/final/2026-11-07-regulator-entry-comparison-mark2-33e2505e/preparation.json",
+  "native_review_record": "/Users/derekbredensteiner/Downloads/HSM-regulator-entry-2026-11-07/final/2026-11-07-regulator-entry-comparison-mark2-33e2505e/review.json",
+  "estimated_seconds": 32631.066084201408,
+  "estimated_material_g": 67.9,
+  "bed_margin_mm": 83.8105085,
+  "native_checks": {
+    "archive": true,
+    "bed_border": true,
+    "fine_and_transition_bands": true,
+    "show_faces_support_free": true,
+    "solid_hosts_sampled": true,
+    "tie_windows_support_free": true,
+    "z_trim": true
+  },
+  "objects": [
+    {
+      "name": "regulator-snap-cap",
+      "stl": "hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.stl",
+      "stl_sha256": "23039efb099d5008eb1c5b96e2a769bb6536fd040945f67a4cf80c937aac7035",
+      "identify_id": 1901,
+      "object_settings": {},
+      "plate_bounds_mm": [
+        [
+          125.82500046491623,
+          158.94679641723633,
+          0.0
+        ],
+        [
+          154.71600884199142,
+          201.05320358276367,
+          36.0
+        ]
+      ]
+    },
+    {
+      "name": "regulator-snap-cap-entry",
+      "stl": "hardware/printed-parts/enclosure/rear-equipment-caps/entry-study/regulator-snap-cap-entry.stl",
+      "stl_sha256": "4b9fffd4156ce0f73f25b02115d946b69b386a1759ede9909cc9f02bb1e91d6e",
+      "identify_id": 1902,
+      "object_settings": {},
+      "plate_bounds_mm": [
+        [
+          84.33399170637131,
+          158.44679641723633,
+          0.0
+        ],
+        [
+          113.82500046491623,
+          201.55320358276367,
+          36.0
+        ]
+      ]
+    },
+    {
+      "name": "regulator-receiver-entry",
+      "stl": "hardware/printed-parts/enclosure/rear-equipment-caps/entry-study/regulator-receiver-entry.stl",
+      "stl_sha256": "dec12d06a33356376e44f45798ee0184a4ad60e6f9e41a972eea76f94c7f0cbc",
+      "identify_id": 1903,
+      "object_settings": {
+        "enable_support": {
+          "reason": "Print the receiver in its production pose with clear catch pockets.",
+          "value": "0"
+        },
+        "sparse_infill_density": {
+          "reason": "Match back-top bulk deposition.",
+          "value": "15%"
+        },
+        "sparse_infill_pattern": {
+          "reason": "Match back-top bulk deposition.",
+          "value": "gyroid"
+        },
+        "wall_loops": {
+          "reason": "Match the enclosing back-top receiver process.",
+          "value": "2"
+        }
+      },
+      "plate_bounds_mm": [
+        [
+          166.71600884199142,
+          164.28159030369267,
+          0.0
+        ],
+        [
+          223.6660082936287,
+          195.71840969630733,
+          46.113998819390844
+        ]
+      ]
+    }
+  ],
+  "receiver_support_bodies": 0,
+  "layer_height_mm": 0.08,
+  "first_layer_height_mm": 0.2,
+  "schedule_reason": "Native smooth-timelapse towers require a shared layer schedule. The tilted receiver needs fine layers, which both comparison caps share on this plate.",
+  "physical_scope": "The baseline and flared cover are compared in the same printing process and complete receiver. Fit approvals attach to their retained hardware-bearing geometry; insertion force remains a physical comparison.",
+  "layer_time": {
+    "every_model_layer_has_tower": true,
+    "minimum_return_lower_bound_s": 24.433735068792885,
+    "minimum_return_target_s": 20.0,
+    "minimum_tower_deposition_after_first_layer_s": 24.191999999999997,
+    "model_layers": 574,
+    "passed": true,
+    "purpose": "Measure the single snap's native tower time and time between model layers.",
+    "scope": "Commanded path length divided by feed plus explicit waits; acceleration, firmware motion and camera delays add time. Native smooth timelapse is enabled at launch. The final plate keeps the same tower geometry and speeds; its layout shifts only the model placements."
+  }
+}

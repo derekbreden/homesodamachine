@@ -23,7 +23,7 @@ const REAR_ROOT_DROP: f64 = 10.0;
 /// The ledge's height off the split, and the hook's solid nose and pointed lead-in above it.
 const LEDGE: f64 = 3.0;
 pub const NOSE_LAND: f64 = 1.6;
-const TIP_RISE: f64 = 3.0;
+pub const TIP_RISE: f64 = 3.0;
 /// How far past a cap's ends a turned run still counts toward the widest the cap clears.
 const CAP_OVERLAP: f64 = 0.25;
 /// The Pisco's seat splits this far above its axis, and its runs take this radial relief past
