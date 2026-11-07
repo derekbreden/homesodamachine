@@ -1364,6 +1364,25 @@ dependencies = [
 ]
 
 [[package]]
+name = "hsm-fuse-clamp"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "hsm-catalog",
+ "hsm-fuse-clamp-numbers",
+ "hsm-kernel",
+ "serde",
+ "serde_json",
+]
+
+[[package]]
+name = "hsm-fuse-clamp-numbers"
+version = "0.1.0"
+dependencies = [
+ "hsm-catalog",
+]
+
+[[package]]
 name = "hsm-geometry"
 version = "0.1.0"
 dependencies = [
@@ -1713,15 +1732,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "hsm-refrigeration"
-version = "0.1.0"
-dependencies = [
- "anyhow",
- "hsm-kernel",
- "serde_json",
-]
-
-[[package]]
 name = "hsm-render"
 version = "0.1.0"
 dependencies = [
@@ -1932,6 +1942,25 @@ name = "hsm-water-inlet-jet-fixture-numbers"
 version = "0.1.0"
 dependencies = [
  "hsm-carbonator-numbers",
+]
+
+[[package]]
+name = "hsm-weld-rotator"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "hsm-catalog",
+ "hsm-kernel",
+ "hsm-print-payload",
+ "hsm-weld-rotator-numbers",
+ "serde_json",
+]
+
+[[package]]
+name = "hsm-weld-rotator-numbers"
+version = "0.1.0"
+dependencies = [
+ "hsm-catalog",
 ]
 
 [[package]]
