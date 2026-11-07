@@ -1070,6 +1070,20 @@ name = "hsm-collet-press-numbers"
 version = "0.1.0"
 
 [[package]]
+name = "hsm-diaphragm-pump-sleeve"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "hsm-catalog",
+ "hsm-diaphragm-pump-sleeve-numbers",
+ "hsm-kernel",
+]
+
+[[package]]
+name = "hsm-diaphragm-pump-sleeve-numbers"
+version = "0.1.0"
+
+[[package]]
 name = "hsm-documents"
 version = "0.1.0"
 dependencies = [

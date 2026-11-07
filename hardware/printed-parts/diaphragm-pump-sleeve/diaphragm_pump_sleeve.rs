@@ -1,8 +1,32 @@
-//! The relaxed TPU pump elbow. Its Python module owns dimensions and the print pose.
-use anyhow::Result;
-use hsm_kernel::part::{Numbers, args, write_part};
+//! The diaphragm pump sleeve's files: the relaxed TPU elbow, posed to stand on its foot with both
+//! mouths up, as it prints.
+//!
+//!     diaphragm-pump-sleeve [<output directory>]
+use anyhow::{Result, bail};
+use hsm_diaphragm_pump_sleeve_numbers as sleeve;
+use hsm_kernel::part::write_part;
 use hsm_kernel::profile::RLoop;
 use hsm_kernel::*;
+use std::path::PathBuf;
+
+const NAME: &str = "diaphragm-pump-sleeve";
+const OUTPUT: &str = "hardware/printed-parts/diaphragm-pump-sleeve";
+
+fn main() -> Result<()> {
+    let mut args = std::env::args_os().skip(1);
+    let out = args.next().map(PathBuf::from).unwrap_or_else(|| PathBuf::from(OUTPUT));
+    if args.next().is_some() {
+        bail!("usage: diaphragm-pump-sleeve [<output directory>]");
+    }
+    hsm_kernel::reads::begin();
+    std::fs::create_dir_all(&out)?;
+    // The model and payload start from the same simplified print surface as the STL.
+    let solid = build()?.simplified()?;
+    let colour = hsm_catalog::linear(sleeve::COLOUR_SRGB);
+    let bodies = [Body { name: NAME, color: Some(colour), solid: &solid }];
+    println!("{}", write_part(&out, NAME, &bodies)?);
+    Ok(())
+}
 
 fn neck(radius_b: f64, radius_t: f64, length: f64) -> Result<Solid> {
     let control = [
@@ -35,13 +59,13 @@ fn neck(radius_b: f64, radius_t: f64, length: f64) -> Result<Solid> {
     Solid::revolve(&region, V3::ZERO, V3::Y, 360.0)
 }
 
-fn build(n: &Numbers) -> Result<Solid> {
-    let rb = n.f("barb_radius")?;
-    let rt = n.f("tube_radius")?;
-    let axis = n.f("tube_axis")?;
-    let depth = n.f("barb_depth")?;
-    let length = n.f("neck_length")?;
-    let mouth = n.f("tube_mouth")?;
+fn build() -> Result<Solid> {
+    let rb = sleeve::barb_od() / 2.0;
+    let rt = sleeve::tube_od() / 2.0;
+    let axis = sleeve::tube_axis();
+    let depth = sleeve::BARB_DEPTH;
+    let length = sleeve::neck_length();
+    let mouth = sleeve::tube_mouth();
     let x = |r, lo, hi| Solid::cylinder(v3(lo, 0.0, 0.0), V3::X, r, hi - lo);
     let y = |r, lo, hi| Solid::cylinder(v3(axis, lo, 0.0), V3::Y, r, hi - lo);
     let reduction = neck(rb, rt, length)?.transformed(&Affine::translation(v3(axis, 0.0, 0.0)));
@@ -49,19 +73,19 @@ fn build(n: &Numbers) -> Result<Solid> {
         .union(&Solid::sphere(v3(axis, 0.0, 0.0), rb)?)?
         .union(&reduction)?
         .union(&y(rt, length, mouth)?)?;
-    let span = n.f("foot_span")?;
-    let s = n.f("print_s")?;
+    let span = sleeve::foot_span();
+    let s = sleeve::print_s();
     let foot = Solid::cuboid(v3(0.0, -span / 2.0, -span / 2.0),
                              v3(span, span / 2.0, span / 2.0))
         .transformed(&Affine::rotation(V3::ZERO, V3::Z, -45.0))
-        .transformed(&Affine::translation(v3(n.f("foot")? * s, -n.f("foot")? * s, 0.0)));
+        .transformed(&Affine::translation(v3(sleeve::foot() * s, -sleeve::foot() * s, 0.0)));
     let outer = outer.cut(&foot)?;
-    let bore_b = n.f("barb_bore")?;
-    let bore_t = n.f("tube_bore")?;
-    let passage = n.f("passage_radius")?;
-    let stop = n.f("tube_stop")?;
-    let entry = n.f("entry")?;
-    let entry_height = n.f("entry_height")?;
+    let bore_b = sleeve::BARB_BORE / 2.0;
+    let bore_t = sleeve::TUBE_BORE / 2.0;
+    let passage = sleeve::PASSAGE / 2.0;
+    let stop = sleeve::TUBE_STOP;
+    let entry = sleeve::ENTRY;
+    let entry_height = sleeve::entry_height();
     let cavity = x(bore_b, -depth - 0.01, 0.0)?
         .union(&Solid::cone(v3(-depth, 0.0, 0.0), V3::X,
                             bore_b + entry, bore_b, entry_height)?)?
@@ -72,18 +96,7 @@ fn build(n: &Numbers) -> Result<Solid> {
                             bore_t, bore_t + entry, entry_height)?)?;
     let body = outer.cut(&cavity)?;
     let pose = Plane::new(V3::ZERO, v3(s, 0.0, -s), v3(0.0, -1.0, 0.0))?;
-    let shift = n.list("print_shift")?;
+    let shift = sleeve::print_shift();
     Ok(body.transformed(&pose.to_world())
         .transformed(&Affine::translation(v3(shift[0], shift[1], shift[2]))))
-}
-
-fn main() -> Result<()> {
-    let (numbers, out) = args()?;
-    // The display and saved model start from the same simplified print surface as the STL.
-    let solid = build(&numbers)?.simplified()?;
-    let name = "diaphragm-pump-sleeve";
-    println!("{}", write_part(&out, name, &[Body {
-        name, color: Some(numbers.color("color")?), solid: &solid,
-    }])?);
-    Ok(())
 }

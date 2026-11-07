@@ -128,5 +128,5 @@ print trials and the fixture detail.
 Regenerate from the repository root:
 
 ```sh
-tools/cad-venv/bin/python hardware/printed-parts/diaphragm-pump-sleeve/diaphragm_pump_sleeve.py
+python3 tools/run.py -- cargo run --release --manifest-path tools/hsm/diaphragm-pump-sleeve/Cargo.toml
 ```

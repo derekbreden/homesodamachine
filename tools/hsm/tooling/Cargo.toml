@@ -7,10 +7,6 @@ rust-version.workspace = true
 publish = false
 
 [[bin]]
-name = "diaphragm-pump-sleeve"
-path = "../../../hardware/printed-parts/diaphragm-pump-sleeve/diaphragm_pump_sleeve.rs"
-
-[[bin]]
 name = "soda-bend-holder"
 path = "../../../hardware/printed-parts/soda-bend-holder/soda_bend_holder.rs"
 
