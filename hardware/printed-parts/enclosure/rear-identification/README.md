@@ -25,10 +25,9 @@ Its field stands 3.0 mm above the rear wall, with 3.6 mm of receiver backing
 and complete retaining lips. The plate takes no screws. The
 [nameplate fit review](../nameplate/production-fit.json) records its production geometry.
 
-[`rear_identification.py`](rear_identification.py) provides installed parts,
-shell recesses/receiver and print smooth lands from one source. Its main
-emits the six compact two-colour chip STEP/STL pairs. The nameplate uses the
-existing unit-0001 part. The [native review](native-review.json) records zero
+[`rear_identification.rs`](rear_identification.rs) cuts the six compact two-colour tiles from the
+above-core layout's rear grid and the bulkhead rings' words, and writes the numbers the installed
+machine places and colours them by. The nameplate uses the existing unit-0001 part. The [native review](native-review.json) records zero
 contact with C14, RJ11, all six bulkheads and their nuts. It also records
 the cap profiles, roof stock, meter loading clearance and rear tube routes.
 These are CAD clearances. The installed wire review checks the current conductors against the receiver region. The accepted receiver-coupon fit retains its own scope, and

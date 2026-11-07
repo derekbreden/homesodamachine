@@ -117,11 +117,6 @@ def frozen_assets(root: Path = _ROOT) -> dict:
 #: write, even though a clean action must produce them. Each normal producer owns its complete
 #: payload set, including files its Rust writer leaves unchanged when their bytes are current.
 IMPLICIT_SOLIDS = {
-    "hardware/printed-parts/enclosure/rear-identification/rear_identification.py": tuple(
-        f"hardware/printed-parts/enclosure/rear-identification/rear-label-{station}.{suffix}"
-        for station in ("water", "co2", "drain", "carb", "flavor-a", "flavor-b")
-        for suffix in ("step", "stl", "step.mesh")
-    ),
     "hardware/printed-parts/zone-c/funnel-cover/funnel_cover.py": (
         "hardware/printed-parts/zone-c/funnel-cover/funnel-cover.stl",
         "hardware/printed-parts/zone-c/funnel-cover/funnel-cover-print.stl",
@@ -137,9 +132,6 @@ IMPLICIT_SOLIDS = {
     "hardware/printed-parts/zone-c/funnel/elbow_cradle.py": (
         "hardware/printed-parts/zone-c/funnel/elbow-cradle.stl",
         "hardware/printed-parts/zone-c/funnel/elbow-cradle.step.mesh",
-    ),
-    "hardware/printed-parts/enclosure/display-cover/display_cover.py": (
-        "hardware/printed-parts/enclosure/display-cover/display-cover.stl",
     ),
     # And its two viewer payloads and the fasteners it cuts beside the first unit, which stand
     # unwritten when their bytes already do. The machine places those fasteners.

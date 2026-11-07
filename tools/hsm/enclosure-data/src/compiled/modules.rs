@@ -7,8 +7,6 @@ mod _anchor_cap_interface;
 mod _back_top_meter;
 #[path = "_data_wing_interface.rs"]
 mod _data_wing_interface;
-#[path = "_display_retention.rs"]
-mod _display_retention;
 #[path = "_display_wing_interface.rs"]
 mod _display_wing_interface;
 #[path = "_disposal_artwork.rs"]
@@ -43,12 +41,6 @@ mod _swept_top;
 mod _y_wall_dimensions;
 #[path = "bulkhead_ring.rs"]
 mod bulkhead_ring;
-#[path = "data_ring.rs"]
-mod data_ring;
-#[path = "display_cover.rs"]
-mod display_cover;
-#[path = "display_gasket.rs"]
-mod display_gasket;
 #[path = "dock_structure.rs"]
 mod dock_structure;
 #[path = "enclosure.rs"]
@@ -76,9 +68,6 @@ pub fn source(name: &str) -> Option<&'static str> {
         "_back_top_meter" => Some("hardware/printed-parts/enclosure/enclosure/_back_top_meter.py"),
         "_data_wing_interface" => {
             Some("hardware/printed-parts/enclosure/enclosure/_data_wing_interface.py")
-        }
-        "_display_retention" => {
-            Some("hardware/printed-parts/enclosure/enclosure/_display_retention.py")
         }
         "_display_wing_interface" => {
             Some("hardware/printed-parts/enclosure/enclosure/_display_wing_interface.py")
@@ -125,11 +114,6 @@ pub fn source(name: &str) -> Option<&'static str> {
             Some("hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py")
         }
         "bulkhead_ring" => Some("hardware/printed-parts/enclosure/bulkhead-ring/bulkhead_ring.py"),
-        "data_ring" => Some("hardware/printed-parts/enclosure/data-ring/data_ring.py"),
-        "display_cover" => Some("hardware/printed-parts/enclosure/display-cover/display_cover.py"),
-        "display_gasket" => {
-            Some("hardware/printed-parts/enclosure/display-gasket/display_gasket.py")
-        }
         "dock_structure" => Some("hardware/printed-parts/enclosure/pump-dock/dock_structure.py"),
         "enclosure" => Some("hardware/printed-parts/enclosure/enclosure/enclosure.py"),
         "fixed_returns" => Some("hardware/printed-parts/enclosure/pump-dock/fixed_returns.py"),
@@ -149,7 +133,6 @@ pub fn initialize(rt: Runtime, e: Env, name: &str) -> Result<()> {
         "_anchor_cap_interface" => _anchor_cap_interface::initialize(rt, e),
         "_back_top_meter" => _back_top_meter::initialize(rt, e),
         "_data_wing_interface" => _data_wing_interface::initialize(rt, e),
-        "_display_retention" => _display_retention::initialize(rt, e),
         "_display_wing_interface" => _display_wing_interface::initialize(rt, e),
         "_disposal_artwork" => _disposal_artwork::initialize(rt, e),
         "_enclosure_datums" => _enclosure_datums::initialize(rt, e),
@@ -167,9 +150,6 @@ pub fn initialize(rt: Runtime, e: Env, name: &str) -> Result<()> {
         "_swept_top" => _swept_top::initialize(rt, e),
         "_y_wall_dimensions" => _y_wall_dimensions::initialize(rt, e),
         "bulkhead_ring" => bulkhead_ring::initialize(rt, e),
-        "data_ring" => data_ring::initialize(rt, e),
-        "display_cover" => display_cover::initialize(rt, e),
-        "display_gasket" => display_gasket::initialize(rt, e),
         "dock_structure" => dock_structure::initialize(rt, e),
         "enclosure" => enclosure::initialize(rt, e),
         "fixed_returns" => fixed_returns::initialize(rt, e),
@@ -187,7 +167,6 @@ pub fn entrypoint(rt: Runtime, e: Env, name: &str) -> Result<Val> {
         "_anchor_cap_interface" => _anchor_cap_interface::entrypoint(rt, e),
         "_back_top_meter" => _back_top_meter::entrypoint(rt, e),
         "_data_wing_interface" => _data_wing_interface::entrypoint(rt, e),
-        "_display_retention" => _display_retention::entrypoint(rt, e),
         "_display_wing_interface" => _display_wing_interface::entrypoint(rt, e),
         "_disposal_artwork" => _disposal_artwork::entrypoint(rt, e),
         "_enclosure_datums" => _enclosure_datums::entrypoint(rt, e),
@@ -205,9 +184,6 @@ pub fn entrypoint(rt: Runtime, e: Env, name: &str) -> Result<Val> {
         "_swept_top" => _swept_top::entrypoint(rt, e),
         "_y_wall_dimensions" => _y_wall_dimensions::entrypoint(rt, e),
         "bulkhead_ring" => bulkhead_ring::entrypoint(rt, e),
-        "data_ring" => data_ring::entrypoint(rt, e),
-        "display_cover" => display_cover::entrypoint(rt, e),
-        "display_gasket" => display_gasket::entrypoint(rt, e),
         "dock_structure" => dock_structure::entrypoint(rt, e),
         "enclosure" => enclosure::entrypoint(rt, e),
         "fixed_returns" => fixed_returns::entrypoint(rt, e),
@@ -232,9 +208,6 @@ pub fn by_path(path: &str) -> Option<&'static str> {
         }
         p if p.ends_with("hardware/printed-parts/enclosure/enclosure/_data_wing_interface.py") => {
             Some("_data_wing_interface")
-        }
-        p if p.ends_with("hardware/printed-parts/enclosure/enclosure/_display_retention.py") => {
-            Some("_display_retention")
         }
         p if p
             .ends_with("hardware/printed-parts/enclosure/enclosure/_display_wing_interface.py") =>
@@ -298,15 +271,6 @@ pub fn by_path(path: &str) -> Option<&'static str> {
         }
         p if p.ends_with("hardware/printed-parts/enclosure/bulkhead-ring/bulkhead_ring.py") => {
             Some("bulkhead_ring")
-        }
-        p if p.ends_with("hardware/printed-parts/enclosure/data-ring/data_ring.py") => {
-            Some("data_ring")
-        }
-        p if p.ends_with("hardware/printed-parts/enclosure/display-cover/display_cover.py") => {
-            Some("display_cover")
-        }
-        p if p.ends_with("hardware/printed-parts/enclosure/display-gasket/display_gasket.py") => {
-            Some("display_gasket")
         }
         p if p.ends_with("hardware/printed-parts/enclosure/pump-dock/dock_structure.py") => {
             Some("dock_structure")
