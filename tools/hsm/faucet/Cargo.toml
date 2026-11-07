@@ -8,32 +8,12 @@ publish = false
 
 # Each part's program sits beside the Python module that holds its numbers.
 [[bin]]
-name = "faucet-shell"
-path = "../../../hardware/printed-parts/faucet/faucet-shell/faucet_shell.rs"
-
-[[bin]]
 name = "faucet-assembly"
 path = "../../../hardware/faucet-layout/faucet_assembly.rs"
 
 [[bin]]
 name = "faucet-industrial-assembly"
 path = "../../../hardware/faucet-layout/faucet_industrial_assembly.rs"
-
-[[bin]]
-name = "industrial-faucet"
-path = "../../../hardware/printed-parts/faucet/industrial/industrial_faucet.rs"
-
-[[bin]]
-name = "faucet-display-cover"
-path = "../../../hardware/printed-parts/faucet/faucet-display-cover/faucet_display_cover.rs"
-
-[[bin]]
-name = "above-counter-plate"
-path = "../../../hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.rs"
-
-[[bin]]
-name = "above-counter-gasket"
-path = "../../../hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.rs"
 
 [[bin]]
 name = "faucet-metrics"
@@ -49,5 +29,7 @@ path = "../../../hardware/printed-parts/faucet/tube-collar/tube_collar.rs"
 
 [dependencies]
 anyhow.workspace = true
+clipper2-rust = "1.2.0"
+hsm-faucet-numbers = { path = "../faucet-numbers" }
 hsm-kernel = { path = "../kernel" }
 serde_json.workspace = true

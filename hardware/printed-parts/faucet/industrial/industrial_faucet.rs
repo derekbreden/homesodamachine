@@ -1,95 +1,89 @@
-//! The Industrial faucet on the kernel: the shell's gooseneck and cutters on round stock of its own
-//! below the zone-5 seam — a foot disc, a body over the Westbrass and the neck standing on it —
-//! its round above-counter plate and gasket, and its rectangular display cover, cut as it sits on
-//! the tip and printed with its wings leaned in. `industrial_faucet.py` holds the numbers and
-//! writes them for this program.
+//! The Industrial faucet: the shell's gooseneck and cutters on round stock of its own below the
+//! zone-5 seam (a foot disc, a body over the Westbrass and the neck standing on it), its round
+//! above-counter plate and gasket, and its rectangular display cover, cut as it sits on the tip,
+//! which the Industrial assembly stands in place, and printed with its wings leaned in.
 //!
-//!     cargo run --release --manifest-path tools/hsm/faucet/Cargo.toml --bin industrial-faucet -- \
-//!         <industrial-faucet.numbers.json> <out dir>
-use anyhow::{Result, anyhow, bail, ensure};
+//!     industrial-faucet [<output directory>]
+use anyhow::{Result, ensure};
 use hsm_faucet::shell::{PAST, level, pieces, shell_from};
-use hsm_faucet::{Gooseneck, counter, display, pair, rows};
-use hsm_kernel::part::{Numbers, args, write_printed, write_shown};
+use hsm_faucet::{Gooseneck, counter, display};
+use hsm_faucet_numbers::catalog;
+use hsm_faucet_numbers::shell::*;
+use hsm_industrial_faucet_numbers as industrial;
+use hsm_kernel::part::write_shown;
 use hsm_kernel::*;
+use hsm_print_payload::printed;
 
 fn main() -> Result<()> {
-    let (n, out) = args()?;
-    let neck = Gooseneck::read(&n)?;
-    let name = |key: &str| n.get("names")?[key].as_str().ok_or_else(|| anyhow!("no name for the {key}"));
-    let black = Some(n.color("color")?);
-    let seated = seated_cover(&n, &neck, false)?;
-    let open = seated_cover(&n, &neck, true)?;
-    let cover = display::relaxed(&neck, &seated, &open, n.f("cover_bezel_n")?, n.f("cover_wing_slope")?)?;
+    let out = printed::out_dir("hardware/printed-parts/faucet/industrial")?;
+    let neck = Gooseneck::shell();
+    let black = Some(catalog::faucet_black());
+    let seated = seated_cover(&neck, false)?;
+    let open = seated_cover(&neck, true)?;
+    let cover = display::relaxed(&neck, &seated, &open, industrial::BEZEL_N_BOTTOM, industrial::wing_slope())?;
     // The round foot the plate and gasket share.
-    let disc = |z0: f64, z1: f64| Solid::cylinder(v3(0.0, 0.0, z0), V3::Z, n.f("foot_radius")?, z1 - z0);
-    let printed = [
-        ("base", shell_base(&n, &neck)?, black),
-        ("cover", cover, black),
-        ("plate", counter::plate(&n, disc)?, black),
-        ("gasket", counter::gasket(&n, disc)?, Some(n.color("gasket_color")?)),
+    let disc = |z0: f64, z1: f64| Solid::cylinder(v3(0.0, 0.0, z0), V3::Z, industrial::FOOT_RADIUS, z1 - z0);
+    let printed_pieces = [
+        ("industrial-shell-base", shell_base(&neck)?, black),
+        ("industrial-display-cover", cover, black),
+        ("industrial-above-counter-plate", counter::plate(disc)?, black),
+        ("industrial-above-counter-gasket", counter::gasket(disc)?, Some(catalog::tpu_black())),
     ];
-    for (piece, solid, color) in &printed {
-        ensure!(solid.components().len() == 1, "the Industrial {piece} is not one solid");
-        let name = name(piece)?;
-        println!("{}", write_printed(&out, name, &[Body { name, color: *color, solid }])?);
+    for (name, solid, color) in &printed_pieces {
+        ensure!(solid.components().len() == 1, "{name} is not one solid");
+        println!("{}", printed::write(&out, name, Body { name, color: *color, solid })?);
     }
-    // The cover as it sits on the tip, which the Industrial assembly stands in place.
-    let name = name("seated")?;
-    println!("{}", write_shown(&out, name, &[Body { name, color: black, solid: &seated }])?);
+    let seated_name = "industrial-display-cover-seated";
+    println!("{}", write_shown(&out, seated_name, &[Body { name: seated_name, color: black, solid: &seated }])?);
     Ok(())
 }
 
 /// The base: the shell's gooseneck and cutters on the Industrial's own stock below the seam, its
 /// lever corridor carried up to the top of the body, split from the tip as the shell is.
-fn shell_base(n: &Numbers, neck: &Gooseneck) -> Result<Solid> {
-    let (foot_top, body_top, seam) = (n.f("foot_top")?, n.f("body_top")?, n.f("zone5_z_top")?);
-    let foot = Solid::cylinder(V3::ZERO, V3::Z, n.f("foot_radius")?, foot_top)?;
-    let body = Solid::cylinder(v3(0.0, n.f("body_center_y")?, foot_top), V3::Z, n.f("body_radius")?, body_top - foot_top)?;
-    let ring = Profile::circle(v2(0.0, n.f("neck_center_y")?), n.f("neck_radius")?);
-    let stem = level(body_top).extrude(&ring, seam + n.f("neck_join_overlap")? - body_top)?;
+fn shell_base(neck: &Gooseneck) -> Result<Solid> {
+    let (foot_top, body_top, seam) = (industrial::FOOT_TOP, industrial::BODY_TOP, ZONE5_Z_TOP);
+    let foot = Solid::cylinder(V3::ZERO, V3::Z, industrial::FOOT_RADIUS, foot_top)?;
+    let body = Solid::cylinder(v3(0.0, industrial::BODY_CENTER_Y, foot_top), V3::Z, industrial::BODY_RADIUS, body_top - foot_top)?;
+    let ring = Profile::circle(v2(0.0, industrial::NECK_CENTER_Y), industrial::NECK_RADIUS);
+    let stem = level(body_top).extrude(&ring, seam + industrial::NECK_JOIN_OVERLAP - body_top)?;
     let stock = Solid::union_all(&[foot, body, stem])?;
-    let xh = n.f("lever_clearance_x_half")?;
-    let lever = Solid::cuboid(
-        v3(-xh, n.f("lever_insertion_front_y")?, n.f("lever_rest_top_z")?),
-        v3(xh, n.f("fill_y_min")?, body_top),
-    );
-    let full = shell_from(n, neck, stock, &ring.place(&level(seam)), &[lever])?;
-    Ok(pieces(n, neck, &full)?.0)
+    let xh = LEVER_CLEARANCE_X_HALF;
+    let lever = Solid::cuboid(v3(-xh, LEVER_INSERTION_FRONT_Y, LEVER_REST_TOP_Z), v3(xh, FILL_Y_MIN, body_top));
+    let full = shell_from(neck, stock, &ring.place(&level(seam)), &[lever])?;
+    Ok(pieces(neck, &full)?.0)
 }
 
 /// The cover as it sits on the tip: its plate hollowed for the display, opened for the glass and
 /// round the neck, with its lips. `open` runs the cavity on up through the bezel.
-fn seated_cover(n: &Numbers, neck: &Gooseneck, open: bool) -> Result<Solid> {
-    let half_x = n.f("cover_half_x")?;
-    let outer = neck.cradle_prism(half_x, (0.0, n.f("cover_length")?), n.pair("cover_n")?, 0.0)?;
-    let window = neck.cradle_prism(
-        n.f("cover_window_half_x")?,
-        n.pair("cover_window_s")?,
-        n.pair("cover_window_n")?,
-        n.f("cover_window_corner_r")?,
-    )?;
+fn seated_cover(neck: &Gooseneck, open: bool) -> Result<Solid> {
+    let half_x = industrial::COVER_WIDTH / 2.0;
+    let outer = neck.cradle_prism(half_x, (0.0, industrial::COVER_LENGTH), (industrial::COVER_N_BOTTOM, industrial::COVER_N_TOP), 0.0)?;
+    let [s0, s1] = industrial::window_s();
+    let [n0, n1] = industrial::window_n();
+    let window = neck.cradle_prism(industrial::WINDOW_HALF_X, (s0, s1), (n0, n1), industrial::WINDOW_CORNER_R)?;
     let (_, _, normal) = neck.tip_frame();
-    let arch = display::neck_round(n, neck, n.f("cover_neck_clearance_r")?)?.translate(normal * n.f("cover_arch_lift")?);
+    let arch = display::neck_round(neck, industrial::neck_clearance_r())?.translate(normal * industrial::WING_EXTENSION);
     let band = neck.cradle_prism(
         half_x,
-        (n.f("display_clip_s_bottom")?, n.f("display_clip_s_top")?),
-        (n.f("display_clip_bottom_n")?, n.f("display_clip_top_n")?),
+        (display_clip_s_bottom(), display_clip_s_top()),
+        (DISPLAY_CLIP_BOTTOM_N, DISPLAY_CLIP_TOP_N),
         0.0,
     )?;
-    let lips = display::lips(&band, n, neck, n.f("cover_lip_r")?, n.f("cover_lip_relief")?)?;
-    outer.cut_all(&[cavity(n, neck, open)?, window, arch])?.union(&lips)
+    let lips = display::lips(&band, neck, industrial::LIP_R, industrial::LIP_RELIEF)?;
+    outer.cut_all(&[cavity(neck, open)?, window, arch])?.union(&lips)
 }
 
 /// The display's cavity under the bezel, from the front wall to the rear: its sides stand
 /// straight from under the cover to the display's feet and lean in from there to the bezel.
 /// `open` runs them on along their lean, up through the bezel.
-fn cavity(n: &Numbers, neck: &Gooseneck, open: bool) -> Result<Solid> {
-    let mut sections: Vec<(f64, f64)> = rows(n.get("cover_cavity_sections")?)?.iter().map(pair).collect::<Result<_>>()?;
+fn cavity(neck: &Gooseneck, open: bool) -> Result<Solid> {
+    let mut sections: Vec<(f64, f64)> = industrial::cavity_sections().iter().map(|&[x, n]| (x, n)).collect();
     if open {
-        let &[.., (x1, n1), (x2, n2)] = &sections[..] else { bail!("a cavity of fewer than two sections") };
+        let (x1, n1) = sections[sections.len() - 2];
+        let (x2, n2) = sections[sections.len() - 1];
         sections.push((x2 + (x2 - x1) / (n2 - n1) * PAST, n2 + PAST));
     }
-    let (s0, s1) = n.pair("cover_cavity_s")?;
+    let [s0, s1] = industrial::COVER_CAVITY_S;
     let (tip, up, normal) = neck.tip_frame();
     let at = |x: f64, nn: f64| tip + V3::X * x + up * s0 + normal * nn;
     let mut outline: Vec<V3> = sections.iter().map(|&(hx, nn)| at(hx, nn)).collect();

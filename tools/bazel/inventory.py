@@ -218,11 +218,6 @@ IMPLICIT_SOLIDS = {
     "hardware/faucet-layout/faucet_industrial_assembly.py": (
         "hardware/faucet-layout/faucet-industrial-assembly.step.mesh",
     ),
-    # The assembled shell starts as a CAD payload; the faucet payload action
-    # replaces both piece surfaces with their checked printable meshes.
-    "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py": (
-        "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step.mesh",
-    ),
 }
 
 # Outputs whose bytes cross between build actions without becoming public artifacts.
@@ -241,16 +236,14 @@ ACTION_INTERMEDIATE = frozenset()
 # Rust producers own their presentations without a separate normal co-writer.
 # Each shared rule takes only its tree's payloads and inputs, plus common helper modules.
 _FLUTE_ROOTS = {
-    "hardware/scripts/flute_payload_faucet.py": (
-        "hardware/printed-parts/faucet/faucet-shell/",
-        "hardware/printed-parts/faucet/faucet-display-cover/",
-        "hardware/printed-parts/faucet/above-counter-plate/",
-        "hardware/printed-parts/faucet/above-counter-gasket/",
-    ),
 }
 # Generator-owned enclosure and cap surfaces remain outside every wrapper's shared inputs.
 _FLUTE_TREES = tuple(sorted({r for roots in _FLUTE_ROOTS.values() for r in roots}
                            | {"hardware/printed-parts/enclosure/enclosure/",
+                              "hardware/printed-parts/faucet/faucet-shell/",
+                              "hardware/printed-parts/faucet/faucet-display-cover/",
+                              "hardware/printed-parts/faucet/above-counter-plate/",
+                              "hardware/printed-parts/faucet/above-counter-gasket/",
                               "hardware/printed-parts/cold-core/foam-shell/",
                               "hardware/printed-parts/cold-core/foam-cap/",
                               "hardware/printed-parts/faucet/asse-vent-seals/"}))

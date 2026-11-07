@@ -283,6 +283,15 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "1c133bc6a41be0d194c306b5506d15e6feeea7b1d6604bd3f8310dfb2ca96486"
 
 [[package]]
+name = "clipper2-rust"
+version = "1.2.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "210e9ea90a5f6c731c23bf642383ad7c006d8b24803c5c33afd5aaeae5a33f66"
+dependencies = [
+ "num-traits",
+]
+
+[[package]]
 name = "cmake"
 version = "0.1.58"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -761,6 +770,28 @@ dependencies = [
 ]
 
 [[package]]
+name = "hsm-above-counter-gasket"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "hsm-faucet",
+ "hsm-faucet-numbers",
+ "hsm-kernel",
+ "hsm-print-payload",
+]
+
+[[package]]
+name = "hsm-above-counter-plate"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "hsm-faucet",
+ "hsm-faucet-numbers",
+ "hsm-kernel",
+ "hsm-print-payload",
+]
+
+[[package]]
 name = "hsm-aero-float-numbers"
 version = "0.1.0"
 
@@ -1086,6 +1117,8 @@ name = "hsm-faucet"
 version = "0.1.0"
 dependencies = [
  "anyhow",
+ "clipper2-rust",
+ "hsm-faucet-numbers",
  "hsm-kernel",
  "serde_json",
 ]
@@ -1109,11 +1142,41 @@ dependencies = [
 ]
 
 [[package]]
+name = "hsm-faucet-display-cover"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "hsm-faucet",
+ "hsm-faucet-display-cover-numbers",
+ "hsm-faucet-numbers",
+ "hsm-kernel",
+ "hsm-print-payload",
+]
+
+[[package]]
+name = "hsm-faucet-display-cover-numbers"
+version = "0.1.0"
+dependencies = [
+ "hsm-faucet-numbers",
+]
+
+[[package]]
 name = "hsm-faucet-numbers"
 version = "0.1.0"
 dependencies = [
  "serde",
  "serde_json",
+]
+
+[[package]]
+name = "hsm-faucet-shell"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "hsm-faucet",
+ "hsm-faucet-numbers",
+ "hsm-kernel",
+ "hsm-print-payload",
 ]
 
 [[package]]
@@ -1183,6 +1246,25 @@ dependencies = [
  "hsm-enclosure-interface",
  "hsm-guide-native",
  "serde_json",
+]
+
+[[package]]
+name = "hsm-industrial-faucet"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "hsm-faucet",
+ "hsm-faucet-numbers",
+ "hsm-industrial-faucet-numbers",
+ "hsm-kernel",
+ "hsm-print-payload",
+]
+
+[[package]]
+name = "hsm-industrial-faucet-numbers"
+version = "0.1.0"
+dependencies = [
+ "hsm-faucet-numbers",
 ]
 
 [[package]]

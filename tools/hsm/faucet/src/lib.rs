@@ -1,11 +1,11 @@
-//! The faucet's printed parts on the kernel.
+//! The faucet's printed parts on the kernel: what their programs share. The gooseneck the shell,
+//! its display cover and the Industrial faucet follow, the display's frame at the tip, `shell`'s
+//! stock and cutters, `display` what the display covers share, and `counter` the above-counter
+//! plate and gasket under each base, all from the faucet's numbers crate.
 //!
-//! Each part's program sits beside the Python module that holds its numbers, and reads them with
-//! `hsm_kernel::part`. What the parts share is here: the gooseneck the shell, its display cover
-//! and the industrial faucet follow, the display's frame at the tip, and the shapes their numbers
-//! come in. `shell` holds the shell's stock and cutters, `display` what the display covers share,
-//! `counter` the above-counter plate and gasket under each base, and `assembly` builds the faucet
-//! and its umbilical as the bench bags them.
+//! `assembly` and `metrics` build the faucet and its umbilical as the bench bags them, from the
+//! numbers file the assembly's Python writes, and the JSON readers here serve them and the lever
+//! and collar programs.
 pub mod assembly;
 pub mod counter;
 pub mod display;
@@ -13,9 +13,19 @@ pub mod metrics;
 pub mod shell;
 
 use anyhow::{Result, anyhow, ensure};
-use hsm_kernel::part::Numbers;
+use hsm_faucet_numbers::shell as numbers;
 use hsm_kernel::{Loop, Plane, Profile, Solid, V2, V3, Wrapped, hull_loop, v2, v3};
 use serde_json::Value;
+
+/// Circles `[x, y, r]` as hull entities.
+pub fn wrapped(circles: &[[f64; 3]]) -> Vec<Wrapped> {
+    circles.iter().map(|&[x, y, r]| Wrapped::Circle { c: v2(x, y), r }).collect()
+}
+
+/// A point `[x, y, z]`.
+pub fn p3(p: [f64; 3]) -> V3 {
+    v3(p[0], p[1], p[2])
+}
 
 /// The numbers in a JSON list, if it is one of numbers only.
 pub fn floats(v: &Value) -> Option<Vec<f64>> {
@@ -84,16 +94,16 @@ pub struct Gooseneck {
 }
 
 impl Gooseneck {
-    /// The shell's own gooseneck, from its numbers.
-    pub fn read(n: &Numbers) -> Result<Gooseneck> {
-        let z5 = n.f("zone5_z_top")?;
-        Ok(Gooseneck {
-            base: v3(0.0, n.f("soda_faucet_tube_y")?, z5),
-            lift: n.f("gn_bend1_z_start")? - z5,
-            radius: n.f("gn_bend1_r")?,
-            turn: n.f("path_total_rot")?,
-            tip: n.f("gn_tip_straight_len")?,
-        })
+    /// The shell's own gooseneck.
+    pub fn shell() -> Gooseneck {
+        let z5 = numbers::ZONE5_Z_TOP;
+        Gooseneck {
+            base: v3(0.0, numbers::SODA_FAUCET_TUBE_Y, z5),
+            lift: numbers::gn_bend1_z_start() - z5,
+            radius: numbers::gn_bend1_r(),
+            turn: numbers::PATH_TOTAL_ROT,
+            tip: numbers::GN_TIP_STRAIGHT_LEN,
+        }
     }
 
     pub fn length(&self) -> f64 {
