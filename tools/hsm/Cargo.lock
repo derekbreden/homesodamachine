@@ -859,6 +859,7 @@ dependencies = [
  "hsm-documents",
  "hsm-enclosure-interface",
  "hsm-endcap-circular-numbers",
+ "hsm-pcba-numbers",
  "serde_json",
 ]
 
