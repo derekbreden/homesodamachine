@@ -92,9 +92,16 @@ Two things count: what I see on the website and what I print. Everything else is
 those two. An output, check or report that feeds neither can go, and so can an expensive detail
 of the website that isn't needed, such as a check in the `/3d` checks modal.
 
-Some outputs feed neither and are still needed: the files a part is ordered from, such as the
-DXFs for SendCutSend and the PCB's Gerbers. They stay generatable, outside the normal build, and
-are generated when an order needs them.
+Every part has a manufacturing process, and its process names its build:
+
+- The **print build** makes what the H2C and Mark2 print here. It is the normal build, because
+  printing is what we iterate on.
+- The **cut build** makes the DXFs and drawings SendCutSend cuts parts from.
+- The **PCB build** makes the Gerbers, parts list and placement file JLCPCB makes the boards from.
+
+The cut and PCB builds feed neither the website nor a print here, and they are still needed: they
+stay generatable, outside the normal build, and run when an order needs them. Bought parts have
+no build. The website's 3D model shows every part, whatever its process.
 
 A change keeps the machine the same when the website shows the same things and the same solids
 print, within the kernel's rule. Nothing else has to match: intermediate files, report wording,
