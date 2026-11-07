@@ -4,7 +4,7 @@
 //! the tops' above-core wells and funnel seat, the bottoms' handholds, and the stages each
 //! quadrant's pipeline takes in turn. The numbers crate's modules and the plan stand here under
 //! their own names, as the recipes name them.
-pub use hsm_enclosure_numbers::{catalog, disposal, faces, field, layout, pump, quadrant, rear_wall, shell, spec, structure};
+pub use hsm_enclosure_numbers::{catalog, disposal, faces, field, junctions, layout, pump, quadrant, rear_wall, shell, spec, structure};
 pub use hsm_enclosure_solid::plan;
 
 pub mod above;

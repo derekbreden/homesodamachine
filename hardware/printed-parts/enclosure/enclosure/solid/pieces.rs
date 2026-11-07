@@ -3,7 +3,7 @@
 //! slicer reads.
 use crate::eval::evaluate;
 use crate::plan::{Graph, Shape};
-use crate::presentation::{self, Request};
+use crate::presentation::{self, CREASE_DEG, LINEAR_DEFLECTION_RATIO, Request};
 use crate::sources::Sources;
 use crate::structure::Silhouette;
 use anyhow::{Context, Result, anyhow};
@@ -13,12 +13,6 @@ use serde_json::{Value, json};
 use sha2::{Digest, Sha256};
 use std::path::Path;
 
-/// The viewer's crease angle, in degrees, as `hardware/scripts/_payload_rules.py` states it:
-/// wider dihedral angles shade as separate regions.
-const CREASE_DEG: f64 = 30.0;
-/// The payload's distance budget per millimetre of the print's mean extent, as the same rules
-/// state it.
-const LINEAR_DEFLECTION_RATIO: f64 = 0.001;
 
 /// `bytes` at `path`, unless the file holds them already; any other lands whole, by a rename.
 pub fn keep(path: &Path, bytes: &[u8]) -> Result<()> {

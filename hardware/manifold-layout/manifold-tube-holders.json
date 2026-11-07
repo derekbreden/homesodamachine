@@ -1,0 +1,17 @@
+{
+ "schema": 1,
+ "holders": {
+  "tube-fluid-10": "enclosure-front-top",
+  "tube-fluid-11": "pump-a-head",
+  "tube-fluid-12": "pump-a-head",
+  "tube-fluid-13": "enclosure-front-top",
+  "tube-fluid-17": "enclosure-front-top",
+  "tube-fluid-19": "enclosure-front-top",
+  "tube-fluid-20": "enclosure-front-top",
+  "tube-fluid-21": "pump-b-head",
+  "tube-fluid-22": "pump-b-head",
+  "tube-fluid-23": "enclosure-front-top",
+  "tube-fluid-27": "enclosure-front-top",
+  "tube-fluid-9": "enclosure-front-top"
+ }
+}
