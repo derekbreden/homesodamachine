@@ -112,9 +112,10 @@ recipe uses **+0.04 mm requested trim** (`G29.1 Z0.02`). First-layer
 walls/infill run at 20/30 mm/s with an 8 mm outer brim. Probing clump checks
 remain Off.
 
-`tools/funnel-mold-print/prepare_print.py --slice` composes this recipe from the
-installed Bambu presets and lays each piece on its own plate, centred on the right
-hotend's bed. The cavity's full bead envelope stands 27.0 mm from the X edges and
+[`funnel-mold-print-project`](../../../../tools/funnel-mold-print/prepare_print.rs) composes this
+recipe, [`recipes.json`](../../../../tools/funnel-mold-print/recipes.json), from the installed
+Bambu presets and lays each piece on its own plate, centred on the right hotend's bed; `--slice`
+slices both plates offline. The cavity's full bead envelope stands 27.0 mm from the X edges and
 43.8 mm from the Y edges; the core's stands 21.6 and 38.4 mm. Bambu Studio
 02.08.02.61 estimates the cavity at **29.3 h and 600 g** and the core at
 **18.4 h and 368 g**. The cavity's supports are eight bed-rooted Snug columns, one
@@ -139,6 +140,9 @@ their identified artifact scope.
 python3 tools/run.py -- cargo build --release --locked -j 2 --manifest-path tools/hsm/Cargo.toml -p hsm-funnel
 python3 tools/run.py -- tools/hsm/target/release/funnel
 python3 tools/run.py -- tools/hsm/target/release/funnel-mold
+python3 tools/run.py -- cargo build --release --locked -j 2 --manifest-path tools/hsm/Cargo.toml -p hsm-print-prep --bin funnel-mold-print-project
+python3 tools/run.py -- tools/hsm/target/release/funnel-mold-print-project --models hardware/printed-parts/zone-c/funnel-mold \
+  --output .cache/prints/funnel-mold/funnel-mold.3mf --label "Funnel mold" --slice
 tools/cad-venv/bin/python tools/funnel-mold-print/review_rod.py
 tools/cad-venv/bin/python tools/funnel-mold-print/review_containment.py \
   --output hardware/printed-parts/zone-c/funnel-mold/containment-review.json

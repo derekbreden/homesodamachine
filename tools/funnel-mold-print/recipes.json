@@ -1,0 +1,396 @@
+{
+  "0.4": {
+    "description": "The README's recipe: stock 0.24 mm H2C process and PETG Translucent on the right 0.4 mm Standard hotend, with the October 6 Mark1 cavity retry's changes (task 1315124888, whose cavity completed; print-log.md).",
+    "nozzle_mm": 0.4,
+    "nozzle_type": "Standard",
+    "side": "right",
+    "system_presets": {
+      "machine": "Bambu Lab H2C 0.4 nozzle",
+      "process": "0.24mm Standard @BBL H2C",
+      "filament": "Bambu PETG Translucent @BBL H2C 0.4 nozzle"
+    },
+    "process_name": "Funnel mold - six walls - 15% gyroid - PETG088",
+    "filament_name": "Funnel mold PETG Translucent - 0.4 Standard - flow 0.88",
+    "z_trim": {
+      "default_mm": 0.04,
+      "available_mm": [
+        0.04,
+        0.18
+      ],
+      "reason": "Derek's +0.04 mm for the October 6 Mark1 cavity retry (native-slice-reviews/2026-10-06-mark1-retry-z004-v2); the October 7 core used the same (zone-c/funnel-mold/print-log.md)."
+    },
+    "process_settings": {
+      "wall_loops": {
+        "value": "6",
+        "reason": "Six walls: continuous forming and dry-back perimeters (README)."
+      },
+      "top_shell_layers": {
+        "value": "6",
+        "reason": "Six top layers (README)."
+      },
+      "bottom_shell_layers": {
+        "value": "6",
+        "reason": "Six bottom layers; dry-side breathers are drilled after printing (README)."
+      },
+      "sparse_infill_density": {
+        "value": "15%",
+        "reason": "15% gyroid; the September 16 15% cavity worked well (zone-c/funnel-mold/print-log.md)."
+      },
+      "sparse_infill_pattern": {
+        "value": "gyroid",
+        "reason": "Three-dimensional infill without crossings within a layer (README)."
+      },
+      "skeleton_infill_density": {
+        "value": "100%",
+        "reason": "As the October 6 Mark1 cavity retry (native-slice-reviews/2026-10-06-mark1-retry-z004-v2)."
+      },
+      "skin_infill_density": {
+        "value": "100%",
+        "reason": "As the October 6 Mark1 cavity retry (native-slice-reviews/2026-10-06-mark1-retry-z004-v2)."
+      },
+      "initial_layer_speed": {
+        "value": [
+          "20",
+          "20",
+          "20",
+          "20",
+          "20"
+        ],
+        "reason": "20 mm/s first-layer walls (README)."
+      },
+      "initial_layer_infill_speed": {
+        "value": [
+          "30",
+          "30",
+          "30",
+          "30",
+          "30"
+        ],
+        "reason": "30 mm/s first-layer solid infill (README)."
+      },
+      "brim_type": {
+        "value": "outer_only",
+        "reason": "Outer brim (README)."
+      },
+      "brim_width": {
+        "value": "8",
+        "reason": "8 mm outer brim (README)."
+      },
+      "brim_object_gap": {
+        "value": "0.1",
+        "reason": "0.10 mm brim gap, as the October 6 Mark1 cavity retry (native-slice-reviews/2026-10-06-mark1-retry-z004-v2)."
+      },
+      "enable_support": {
+        "value": "1",
+        "reason": "Removable support under the eight bolt pockets' flat washer-bearing ceilings (README)."
+      },
+      "support_type": {
+        "value": "normal(auto)",
+        "reason": "Snug normal supports for the bolt pockets (README): tall tree supports detached or were knocked over on September 14, and Snug columns stood on September 16 and on October 6 (zone-c/funnel-mold/print-log.md)."
+      },
+      "support_style": {
+        "value": "snug",
+        "reason": "Snug normal supports for the bolt pockets (README)."
+      },
+      "support_object_xy_distance": {
+        "value": "0.48",
+        "reason": "0.48 mm XY gap, as the October 6 Mark1 cavity retry (native-slice-reviews/2026-10-06-mark1-retry-z004-v2)."
+      },
+      "support_object_first_layer_gap": {
+        "value": "0.48",
+        "reason": "As the October 6 Mark1 cavity retry (native-slice-reviews/2026-10-06-mark1-retry-z004-v2)."
+      },
+      "enable_prime_tower": {
+        "value": "0",
+        "reason": "One filament per plate."
+      }
+    },
+    "filament_settings": {
+      "filament_flow_ratio": {
+        "value": [
+          "0.88",
+          "0.97",
+          "0.97"
+        ],
+        "reason": "0.88 flow on the Standard nozzle; the September 18 cavity at 0.88 reduced the overflow defect (zone-c/funnel-mold/print-log.md)."
+      },
+      "filament_max_volumetric_speed": {
+        "value": [
+          "5.61702",
+          "6",
+          "6"
+        ],
+        "reason": "5.61702 mm3/s on the Standard nozzle with the 0.88 flow (zone-c/funnel-mold/print-log.md, September 18)."
+      },
+      "filament_cost": {
+        "value": [
+          "11.20"
+        ],
+        "reason": "Ledger cost per kilogram."
+      }
+    },
+    "layer_ranges_mm": {
+      "cavity": [],
+      "core": []
+    }
+  },
+  "0.8": {
+    "description": "The September 14 left 0.8 mm High Flow trial recipe (print-log.md, 0.40 mm support trial).",
+    "nozzle_mm": 0.8,
+    "nozzle_type": "High Flow",
+    "side": "left",
+    "system_presets": {
+      "machine": "Bambu Lab H2C 0.8 nozzle",
+      "process": "0.40mm Standard @BBL H2C 0.8 nozzle",
+      "filament": "Bambu PETG Translucent @BBL H2C 0.8 nozzle"
+    },
+    "process_name": "Funnel mold shell - 0.8 nozzle - 0.40 mm gentle supports",
+    "filament_name": "Funnel mold PETG Translucent - 0.8 nozzle - Bambu defaults",
+    "z_trim": {
+      "default_mm": 0.18,
+      "available_mm": [
+        0.04,
+        0.18
+      ],
+      "reason": "User-established PET-GF plate corrections; transfer to PETG is not established."
+    },
+    "process_settings": {
+      "enable_arc_fitting": {
+        "value": "0",
+        "reason": "Connected H2C firmware uses curve planning."
+      },
+      "layer_height": {
+        "value": "0.4",
+        "reason": "Stock 0.8 mm nozzle layer height; finish the forming slopes before casting."
+      },
+      "initial_layer_print_height": {
+        "value": "0.4",
+        "reason": "Stock nozzle first-layer height."
+      },
+      "wall_generator": {
+        "value": "arachne",
+        "reason": "Variable-width paths around sockets and shell transitions."
+      },
+      "wall_loops": {
+        "value": "6",
+        "reason": "Continuous forming and dry-back perimeters."
+      },
+      "sparse_infill_density": {
+        "value": "15%",
+        "reason": "Sparse interior with continuous forming skins."
+      },
+      "sparse_infill_pattern": {
+        "value": "gyroid",
+        "reason": "Three-dimensional infill without crossings within a layer."
+      },
+      "top_shell_layers": {
+        "value": "6",
+        "reason": "Closed forming skins."
+      },
+      "bottom_shell_layers": {
+        "value": "6",
+        "reason": "Closed bed skins; dry-side breathers are drilled after printing."
+      },
+      "top_shell_thickness": {
+        "value": "0.8",
+        "reason": "Solid top face."
+      },
+      "bottom_shell_thickness": {
+        "value": "0.8",
+        "reason": "Solid bottom face."
+      },
+      "top_one_wall_type": {
+        "value": "not apply",
+        "reason": "Full perimeter count at forming edges."
+      },
+      "outer_wall_speed": {
+        "value": [
+          "40",
+          "40",
+          "40",
+          "40"
+        ],
+        "reason": "Nominal outer-wall speed; stock overhang overrides also apply."
+      },
+      "outer_wall_acceleration": {
+        "value": [
+          "2000",
+          "2000",
+          "2000",
+          "2000"
+        ],
+        "reason": "Controlled forming-wall acceleration."
+      },
+      "top_surface_speed": {
+        "value": [
+          "60",
+          "60",
+          "60",
+          "60"
+        ],
+        "reason": "Flat forming faces capped at 60 mm/s."
+      },
+      "seam_position": {
+        "value": "back",
+        "reason": "Aligned seams for local finishing."
+      },
+      "seam_placement_away_from_overhangs": {
+        "value": "1",
+        "reason": "Account for adjacent overhangs."
+      },
+      "reduce_crossing_wall": {
+        "value": "1",
+        "reason": "Detour around forming faces when possible."
+      },
+      "seam_gap": {
+        "value": "0%",
+        "reason": "Closed seam paths."
+      },
+      "brim_type": {
+        "value": "outer_only",
+        "reason": "Removable adhesion brim around the model feet and flange."
+      },
+      "brim_width": {
+        "value": "6",
+        "reason": "Broad temporary bed grip."
+      },
+      "brim_object_gap": {
+        "value": "0.15",
+        "reason": "Breakaway brim gap."
+      },
+      "skirt_loops": {
+        "value": "0",
+        "reason": "Stock machine sequence primes the nozzle."
+      },
+      "enable_support": {
+        "value": "1",
+        "reason": "Automatic breakaway tree supports on the open dry backs."
+      },
+      "support_type": {
+        "value": "tree(auto)",
+        "reason": "The project uses automatic tree supports."
+      },
+      "support_style": {
+        "value": "default",
+        "reason": "Stock tree branching."
+      },
+      "support_threshold_angle": {
+        "value": "35",
+        "reason": "Project tree-support threshold."
+      },
+      "support_on_build_plate_only": {
+        "value": "0",
+        "reason": "Supports may root on accessible dry faces."
+      },
+      "support_top_z_distance": {
+        "value": "0.3",
+        "reason": "Project breakaway interface gap."
+      },
+      "support_bottom_z_distance": {
+        "value": "0.3",
+        "reason": "Project breakaway interface gap."
+      },
+      "support_object_xy_distance": {
+        "value": "0.4",
+        "reason": "Project lateral removal clearance."
+      },
+      "support_interface_top_layers": {
+        "value": "2",
+        "reason": "Two removable interface layers."
+      },
+      "support_interface_bottom_layers": {
+        "value": "2",
+        "reason": "Two removable interface layers."
+      },
+      "support_interface_spacing": {
+        "value": "0.5",
+        "reason": "Project sparse interface spacing."
+      },
+      "support_filament": {
+        "value": "0",
+        "reason": "Same PETG as model."
+      },
+      "support_interface_filament": {
+        "value": "0",
+        "reason": "Same PETG as model."
+      },
+      "enable_prime_tower": {
+        "value": "0",
+        "reason": "One filament per plate."
+      },
+      "raft_first_layer_expansion": {
+        "value": "8",
+        "reason": "Broad connected support feet on the build plate."
+      },
+      "support_speed": {
+        "value": [
+          "40",
+          "40",
+          "40",
+          "40"
+        ],
+        "reason": "Tall tree extrusion capped at 40 mm/s."
+      },
+      "support_interface_speed": {
+        "value": [
+          "30",
+          "30",
+          "30",
+          "30"
+        ],
+        "reason": "Support interfaces capped at 30 mm/s."
+      },
+      "travel_speed": {
+        "value": [
+          "150",
+          "150",
+          "150",
+          "150"
+        ],
+        "reason": "Travel moves capped at 150 mm/s."
+      },
+      "default_acceleration": {
+        "value": [
+          "1500",
+          "1500",
+          "1500",
+          "1500"
+        ],
+        "reason": "Normal printing, including tree walls, at 1500 mm/s2."
+      },
+      "travel_acceleration": {
+        "value": [
+          "1500",
+          "1500",
+          "1500",
+          "1500"
+        ],
+        "reason": "Travel acceleration at 1500 mm/s2."
+      },
+      "avoid_crossing_wall_includes_support": {
+        "value": "1",
+        "reason": "Support walls participate in travel detours."
+      },
+      "tree_support_wall_count": {
+        "value": "2",
+        "reason": "Two perimeter loops around tree branches."
+      },
+      "tree_support_branch_diameter": {
+        "value": "4",
+        "reason": "Tree nodes start at 4 mm diameter."
+      }
+    },
+    "filament_settings": {
+      "filament_cost": {
+        "value": [
+          "11.20"
+        ],
+        "reason": "Ledger cost per kilogram."
+      }
+    },
+    "layer_ranges_mm": {
+      "cavity": [],
+      "core": []
+    }
+  }
+}

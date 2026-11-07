@@ -5,7 +5,7 @@
 use crate::ids::uuid5;
 use crate::json::{python_number, Json};
 use crate::profile::{Profile, SETTINGS_MEMBER};
-use anyhow::Result;
+use anyhow::{bail, Result};
 use std::collections::BTreeMap;
 use std::fmt::Write as _;
 use std::io::Write as _;
@@ -91,6 +91,11 @@ pub struct Plate {
     /// The model's own metadata beyond its application and title, such as the seam painting's
     /// version.
     pub model_metadata: Vec<(String, String)>,
+    /// Each object's own plate, named, in object order; empty puts every object on one plate
+    /// named as the project.
+    pub plates: Vec<String>,
+    /// The application the model names as its writer.
+    pub application: String,
     next_id: usize,
 }
 
@@ -104,10 +109,15 @@ pub enum MeshStyle {
 
 impl Plate {
     pub fn new(title: &str, profile: &Profile, id_prefix: &str) -> Plate {
+        Plate::with_settings(title, profile.settings.clone(), profile.members.clone(), id_prefix)
+    }
+
+    /// A project of `settings` alone, `members` carried as they are.
+    pub fn with_settings(title: &str, settings: Json, members: BTreeMap<String, Vec<u8>>, id_prefix: &str) -> Plate {
         Plate {
             title: title.to_string(),
-            settings: profile.settings.clone(),
-            members: profile.members.clone(),
+            settings,
+            members,
             objects: Vec::new(),
             id_prefix: id_prefix.to_string(),
             filament_maps: None,
@@ -116,6 +126,8 @@ impl Plate {
             filament_map_mode: "Auto For Flush".into(),
             filament_volume_maps: "0".into(),
             model_metadata: Vec::new(),
+            plates: Vec::new(),
+            application: "BambuStudio-02.08.02.61".into(),
             next_id: 1,
         }
     }
@@ -174,7 +186,7 @@ impl Plate {
     pub fn write(&self, path: &Path) -> Result<()> {
         let mut model = String::new();
         let _ = write!(model, "<?xml version='1.0' encoding='UTF-8'?>\n<model xmlns=\"{CORE}\" xmlns:p=\"{PROD}\" unit=\"millimeter\" requiredextensions=\"p\" xmlns:BambuStudio=\"http://schemas.bambulab.com/package/2021\">");
-        let _ = write!(model, "<metadata name=\"Application\">BambuStudio-02.08.02.61</metadata><metadata name=\"BambuStudio:3mfVersion\">1</metadata><metadata name=\"Title\">{}</metadata>", text(&self.title));
+        let _ = write!(model, "<metadata name=\"Application\">{}</metadata><metadata name=\"BambuStudio:3mfVersion\">1</metadata><metadata name=\"Title\">{}</metadata>", text(&self.application), text(&self.title));
         for (k, v) in &self.model_metadata {
             let _ = write!(model, "<metadata name=\"{}\">{}</metadata>", attr(k), text(v));
         }
@@ -182,7 +194,6 @@ impl Plate {
         let build_name = self.build_name.clone().unwrap_or_else(|| format!("{}/build", self.title));
         let mut build = format!("<build p:UUID=\"{}\">", self.identifier(&build_name));
         let mut config = String::from("<?xml version='1.0' encoding='UTF-8'?>\n<config>");
-        let mut plate = String::from("<plate>");
         let maps = self.filament_maps.clone().unwrap_or_else(|| {
             match self.settings.get("filament_map") {
                 Some(m) => m.list().iter().filter_map(Json::text).collect::<Vec<_>>().join(" "),
@@ -190,11 +201,19 @@ impl Plate {
             }
         });
         let bed = self.settings.get("curr_bed_type").and_then(Json::text).unwrap_or("").to_string();
-        for (key, value) in [("plater_id", "1".to_string()), ("plater_name", self.title.clone()), ("locked", "false".into()),
-                             ("filament_map_mode", self.filament_map_mode.clone()), ("filament_maps", maps),
-                             ("filament_volume_maps", self.filament_volume_maps.clone()), ("bed_type", bed)] {
-            metadata(&mut plate, key, &value);
+        if !self.plates.is_empty() && self.plates.len() != self.objects.len() {
+            bail!("{} plate names for {} objects", self.plates.len(), self.objects.len());
         }
+        let names = if self.plates.is_empty() { vec![self.title.clone()] } else { self.plates.clone() };
+        let mut plates: Vec<String> = names.iter().enumerate().map(|(i, name)| {
+            let mut plate = String::from("<plate>");
+            for (key, value) in [("plater_id", (i + 1).to_string()), ("plater_name", name.clone()), ("locked", "false".into()),
+                                 ("filament_map_mode", self.filament_map_mode.clone()), ("filament_maps", maps.clone()),
+                                 ("filament_volume_maps", self.filament_volume_maps.clone()), ("bed_type", bed.clone())] {
+                metadata(&mut plate, key, &value);
+            }
+            plate
+        }).collect();
         let mut assemble = String::from("<assemble>");
         let mut rels = format!("<?xml version='1.0' encoding='UTF-8'?>\n<Relationships xmlns=\"{REL}\">");
         let mut ranges = String::from("<?xml version='1.0' encoding='UTF-8'?>\n<objects>");
@@ -244,9 +263,10 @@ impl Plate {
             }
             model.push_str("</components></object>");
             config.push_str("</object>");
+            let plate = &mut plates[if self.plates.is_empty() { 0 } else { index - 1 }];
             plate.push_str("<model_instance>");
             for (k, v) in [("object_id", obj.object_id), ("instance_id", 0), ("identify_id", obj.identify_id)] {
-                metadata(&mut plate, k, &v.to_string());
+                metadata(plate, k, &v.to_string());
             }
             plate.push_str("</model_instance>");
             let _ = write!(assemble, "<assemble_item object_id=\"{}\" instance_id=\"0\" transform=\"{transform}\" offset=\"0 0 0\" /><assemble_item object_id=\"{}\" volume_id=\"0\" transform=\"{IDENTITY}\" />", obj.object_id, obj.object_id);
@@ -268,9 +288,11 @@ impl Plate {
         build.push_str("</build>");
         model.push_str(&build);
         model.push_str("</model>");
-        plate.push_str("</plate>");
         assemble.push_str("</assemble>");
-        config.push_str(&plate);
+        for plate in &plates {
+            config.push_str(plate);
+            config.push_str("</plate>");
+        }
         config.push_str(&assemble);
         config.push_str("</config>");
         rels.push_str("</Relationships>");
