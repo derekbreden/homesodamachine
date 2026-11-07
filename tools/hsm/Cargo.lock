@@ -792,6 +792,10 @@ dependencies = [
 ]
 
 [[package]]
+name = "hsm-ac-harness-numbers"
+version = "0.1.0"
+
+[[package]]
 name = "hsm-aero-float-numbers"
 version = "0.1.0"
 
@@ -812,12 +816,35 @@ name = "hsm-assembly-docs"
 version = "0.1.0"
 dependencies = [
  "anyhow",
+ "hsm-ac-harness-numbers",
  "hsm-documents",
  "hsm-kernel",
  "regex",
  "serde",
  "serde_json",
  "sha2",
+]
+
+[[package]]
+name = "hsm-bom"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "hsm-ac-harness-numbers",
+ "hsm-coil-numbers",
+ "hsm-cold-core-interface",
+ "hsm-cold-core-layout",
+ "hsm-enclosure-numbers",
+ "hsm-faucet-assembly",
+ "hsm-faucet-numbers",
+ "hsm-foam-cap-numbers",
+ "hsm-kernel",
+ "hsm-layout-data",
+ "hsm-ledger",
+ "hsm-manifold-numbers",
+ "hsm-reservoir-numbers",
+ "serde",
+ "serde_json",
 ]
 
 [[package]]

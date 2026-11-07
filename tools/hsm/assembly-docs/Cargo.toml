@@ -18,6 +18,7 @@ path = "src/wiring/main.rs"
 anyhow.workspace = true
 serde = { workspace = true, features = ["derive"] }
 serde_json.workspace = true
+hsm-ac-harness-numbers = { path = "../ac-harness-numbers" }
 hsm-documents = { path = "../documents" }
 regex = "1"
 hsm-kernel = { path = "../kernel" }

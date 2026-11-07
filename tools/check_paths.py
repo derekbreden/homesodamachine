@@ -5,7 +5,7 @@
     python3 tools/check_paths.py selftest   (the rules below, held against fixtures)
 
 Every other check here guards a NUMBER or a RECORD: `check_pinmap` the pin assignments,
-`_bom_totals` the sums, `check_step_colours`
+the BOM program the sums, `check_step_colours`
 the material. This one guards the PATH — the other half of what a doc says, and the half that
 a rename breaks silently. A figure that drifts is caught by the script that derives it. A link
 that rots is caught by nobody, because nothing derives a link.

@@ -22,7 +22,9 @@ tubes and the installed parts from the written-down design and the parts' own fi
 the machine's STEP, the model the site draws, its facts and its scene views. So is the install
 guide: one program draws the kit page's items from their models, one renders the counter
 opening, and one composes the booklet from its artwork and writes the reading copy the site
-shows and, for an order, the print files. Every other step still starts Python:
+shows and, for an order, the print files. So are the flavor manifold, the rear equipment caps,
+the plumbing charts and the ledgers: the bill of materials with the attended labor, the print
+farm's time and the purchases. Every other step still starts Python:
 its entry script imports thin modules that send each call to Rust over a JSON pipe, and runs the
 Rust part programs through the `hsm` engine's socket. The build planner
 (`tools/bazel/trace_inputs.py`) knows those steps by their Python entry scripts, and a Rust step
@@ -136,6 +138,12 @@ explicit input recipes come from Rust data providers.
 | Faucet assemblies | `faucet-assembly`, `faucet-industrial-assembly`; the faucet and its umbilical as the bench bags them, from the assembly's numbers crate, each printed piece drawn with its own surface | `hardware/faucet-layout/faucet_assembly.rs`, `hardware/faucet-layout/faucet_industrial_assembly.rs` |
 | Installed machine | `installed-machine`; the placements, equipment, tubes, installed parts and wiring in one process, written as the machine's STEP, viewer payload, facts and scene GLBs | `hardware/manifold-layout/installed_machine.rs` |
 | Machine checks | `machine-checks`; fit, clearance and scalar readings, off during the conversion | `hardware/manifold-layout/machine_checks.rs` |
+| Flavor manifold | `manifold-layout`; the manifold's valves, tees, pumps and stem elbows from their reference models and its tubes swept, written as the model and the construction the installed machine seats it by; its arrangement is written down in `hsm-manifold-numbers` | `hardware/manifold-layout/manifold_layout.rs`, `hardware/manifold-layout/manifold/` |
+| Rear equipment caps | `rear-equipment-caps`; the snap caps and their installed set from the receivers' stations and the parts' measured profiles | `hardware/printed-parts/enclosure/rear-equipment-caps/rear_equipment_caps.rs` |
+| Plumbing charts | `fluid-topology`; the manifold and carbonator charts' labels, checked against the installed machine's runs and the manifold's connections | `hardware/topology/fluid_topology.rs` |
+| Bill of materials and labor | `bom`; bom.md's printed-part masses from the fine models, its hardware counts and figures from the machine's facts and the parts' numbers, its totals, and labor.md's runs and totals | `hardware/ledger/bom.rs` |
+| Print-farm time | `machine-time`; machine-time.md's occupancy from bom.md's masses and the native slices | `hardware/ledger/machine_time.rs` |
+| Purchases | `purchases`; purchases.md's totals and sidecar, and its JSON and CSV views | `hardware/ledger/purchases.rs` |
 | Install guide | `install-guide`; the booklet's pages from its artwork, kit drawings and the faucet plate's DXF, written as the reading copy, cover picture and sidecar, and with `HSM_PRESS` the Lulu interior, cover and order bundle | `hardware/install-guide/install_guide.rs` |
 | Kit drawings | `kit-art`; each supplied item's hidden-line view from its model and the faucet's numbers | `hardware/install-guide/kit_art.rs` |
 | Counter opening | `opening-scene`; the faucet's tails over the counter's hole, rendered, and the parts' outline in the same frame | `hardware/install-guide/opening_scene.rs` |
@@ -181,7 +189,7 @@ with the existing build trace registries.
 | Program | Converted work |
 | --- | --- |
 | `hsm-documents` | The ledger's managed markers, Sources blocks and figure sidecars, tables, formatting, placement, PDF/DXF normalization and native value/library interoperation |
-| `ledger-data`, `ledger-analysis` | BOM arithmetic, mass/timing/cost readers, purchase evidence, exact decimal reconciliation, validation, CSV/JSON and reports |
+| `ledger-analysis` | Purchase evidence, exact decimal reconciliation, validation, CSV/JSON and reports, for the synthetic ledger tests |
 | `assembly-docs` | Assembly constants, electrical budgets, schedules, fluid-topology diagrams and the installed wiring model, routing and readers |
 | `cold-core-data` | Complete cold-core dimensions, recipes, assembly, reservoir/foam/float/mandrel providers and maintained fabrication drawings |
 | `faucet-data` | The faucet's recipes for the Python readers that remain: the shell's and the assembly's CadQuery builders and the tubes' cut lengths, scalar interfaces, tube paths, seals and plumbing scenes, read from the parts' typed numbers crates |

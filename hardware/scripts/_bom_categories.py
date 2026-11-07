@@ -62,7 +62,7 @@ def _money(cell):
 
 def data_rows():
     """Yield (section, name, line_cost, [tags]) for every per-unit BOM data row —
-    the same row set _bom_totals.py sums (numbered sections only; header /
+    the same row set the BOM program sums (numbered sections only; header /
     separator / totals rows skipped)."""
     section = None
     for ln in open(BOM, encoding="utf-8").read().splitlines():

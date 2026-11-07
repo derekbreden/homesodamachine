@@ -2134,6 +2134,625 @@ copy_file hardware/install-guide/assets/opening.png "$$O1"
 )
 
 genrule(
+    name = "bom-program",
+    srcs = [
+        "hardware/cold-core-layout/coil/numbers.rs",
+        "hardware/cold-core-layout/layout/b_fill.rs",
+        "hardware/cold-core-layout/layout/cap.rs",
+        "hardware/cold-core-layout/layout/lib.rs",
+        "hardware/cold-core-layout/layout/routes.rs",
+        "hardware/cut-parts/carbonation/carbonator-tube/numbers.rs",
+        "hardware/cut-parts/carbonation/endcaps-circular/numbers.rs",
+        "hardware/cut-parts/faucet/under-counter-plate/numbers.rs",
+        "hardware/faucet-layout/assembly/bodies.rs",
+        "hardware/faucet-layout/assembly/cuts.rs",
+        "hardware/faucet-layout/assembly/legs.rs",
+        "hardware/faucet-layout/assembly/lib.rs",
+        "hardware/faucet-layout/assembly/metrics.rs",
+        "hardware/faucet-layout/assembly/ribbon.rs",
+        "hardware/faucet-layout/numbers.rs",
+        "hardware/manifold-layout/above-core.json",
+        "hardware/manifold-layout/manifold/lib.rs",
+        "hardware/manifold-layout/manifold/placements.rs",
+        "hardware/manifold-layout/reservoir-a-routes.json",
+        "hardware/printed-parts/cold-core/catalog/lib.rs",
+        "hardware/printed-parts/cold-core/foam-cap/numbers/b_fill.rs",
+        "hardware/printed-parts/cold-core/foam-cap/numbers/cables.rs",
+        "hardware/printed-parts/cold-core/foam-cap/numbers/clips.rs",
+        "hardware/printed-parts/cold-core/foam-cap/numbers/conduits.rs",
+        "hardware/printed-parts/cold-core/foam-cap/numbers/deck.rs",
+        "hardware/printed-parts/cold-core/foam-cap/numbers/design.rs",
+        "hardware/printed-parts/cold-core/foam-cap/numbers/lib.rs",
+        "hardware/printed-parts/cold-core/foam-cap/numbers/pump.rs",
+        "hardware/printed-parts/cold-core/foam-cap/numbers/reservoir_a.rs",
+        "hardware/printed-parts/cold-core/foam-cap/numbers/unions.rs",
+        "hardware/printed-parts/cold-core/foam-cap/numbers/valve.rs",
+        "hardware/printed-parts/cold-core/foam-cap/numbers/vector.rs",
+        "hardware/printed-parts/cold-core/foam-cap/numbers/wells.rs",
+        "hardware/printed-parts/cold-core/foam-shell/numbers.rs",
+        "hardware/printed-parts/cold-core/interface/lib.rs",
+        "hardware/printed-parts/cold-core/magnetic-float/all-aero/numbers.rs",
+        "hardware/printed-parts/cold-core/prv-shroud/numbers.rs",
+        "hardware/printed-parts/cold-core/reed-bridge/numbers.rs",
+        "hardware/printed-parts/cold-core/reservoir/numbers.rs",
+        "hardware/printed-parts/enclosure/bulkhead-ring/numbers.rs",
+        "hardware/printed-parts/enclosure/enclosure/disposal-warning-artwork.json",
+        "hardware/printed-parts/enclosure/enclosure/interface/anchor_cap.rs",
+        "hardware/printed-parts/enclosure/enclosure/interface/fits.rs",
+        "hardware/printed-parts/enclosure/enclosure/interface/lib.rs",
+        "hardware/printed-parts/enclosure/enclosure/interface/swept.rs",
+        "hardware/printed-parts/enclosure/enclosure/numbers/catalog.rs",
+        "hardware/printed-parts/enclosure/enclosure/numbers/display_mount.rs",
+        "hardware/printed-parts/enclosure/enclosure/numbers/disposal.rs",
+        "hardware/printed-parts/enclosure/enclosure/numbers/faces.rs",
+        "hardware/printed-parts/enclosure/enclosure/numbers/field.rs",
+        "hardware/printed-parts/enclosure/enclosure/numbers/junctions.rs",
+        "hardware/printed-parts/enclosure/enclosure/numbers/layout.rs",
+        "hardware/printed-parts/enclosure/enclosure/numbers/lib.rs",
+        "hardware/printed-parts/enclosure/enclosure/numbers/pump.rs",
+        "hardware/printed-parts/enclosure/enclosure/numbers/quadrant.rs",
+        "hardware/printed-parts/enclosure/enclosure/numbers/rear_wall.rs",
+        "hardware/printed-parts/enclosure/enclosure/numbers/shell.rs",
+        "hardware/printed-parts/enclosure/enclosure/numbers/spec.rs",
+        "hardware/printed-parts/enclosure/enclosure/numbers/structure.rs",
+        "hardware/printed-parts/faucet/numbers/catalog.rs",
+        "hardware/printed-parts/faucet/numbers/countertop.rs",
+        "hardware/printed-parts/faucet/numbers/interface.rs",
+        "hardware/printed-parts/faucet/numbers/lib.rs",
+        "hardware/printed-parts/faucet/numbers/paths.rs",
+        "hardware/printed-parts/faucet/numbers/shell.rs",
+        "hardware/printed-parts/faucet/numbers/snap.rs",
+        "hardware/printed-parts/faucet/numbers/stack.rs",
+        "hardware/printed-parts/faucet/tpu-o-ring/numbers.rs",
+        "hardware/printed-parts/faucet/tube-collar/numbers.rs",
+        "hardware/printed-parts/faucet/umbilical-organizer/numbers.rs",
+        "hardware/printed-parts/valve-seat/numbers.rs",
+        "hardware/reference/g-ganen-pump/reference-parameters.json",
+        "hardware/reference/jg-pp0308e-elbow/scan-measurements.json",
+        "hardware/reference/neofit-stem-elbow/reference-parameters.json",
+        "tools/hsm/aero-float-numbers/Cargo.toml",
+        "tools/hsm/assembly-docs/src/wiring/manifold-bank.json",
+        "tools/hsm/assembly-docs/src/wiring/rear-level-hook.json",
+        "tools/hsm/build-data/Cargo.toml",
+        "tools/hsm/build-data/src/artifact_cache.rs",
+        "tools/hsm/build-data/src/artifacts.rs",
+        "tools/hsm/build-data/src/assets.rs",
+        "tools/hsm/build-data/src/inventory.rs",
+        "tools/hsm/build-data/src/lib.rs",
+        "tools/hsm/build-data/src/payload.rs",
+        "tools/hsm/build-data/src/projection.rs",
+        "tools/hsm/build-data/src/publication.rs",
+        "tools/hsm/build-data/src/publication_archive.rs",
+        "tools/hsm/build-data/src/publication_state.rs",
+        "tools/hsm/build-data/src/publication_zlib.rs",
+        "tools/hsm/build-data/src/sources.rs",
+        "tools/hsm/build-data/src/support.rs",
+        "tools/hsm/build-data/src/surfaces.rs",
+        "tools/hsm/bulkhead-ring-numbers/Cargo.toml",
+        "tools/hsm/carbonator-tube-numbers/Cargo.toml",
+        ":out/cargo-config/tools/hsm/cargo-config.json",
+        "tools/hsm/coil-numbers/Cargo.toml",
+        "tools/hsm/cold-core-catalog/Cargo.toml",
+        "tools/hsm/cold-core-interface/Cargo.toml",
+        "tools/hsm/cold-core-layout/Cargo.toml",
+        "tools/hsm/documents/Cargo.toml",
+        "tools/hsm/documents/src/interop.rs",
+        "tools/hsm/documents/src/interop/standard.rs",
+        "tools/hsm/documents/src/lib.rs",
+        "tools/hsm/documents/src/python_checked.rs",
+        "tools/hsm/enclosure-interface/Cargo.toml",
+        "tools/hsm/enclosure-numbers/Cargo.toml",
+        "tools/hsm/endcap-circular-numbers/Cargo.toml",
+        "tools/hsm/faucet-assembly-numbers/Cargo.toml",
+        "tools/hsm/faucet-assembly/Cargo.toml",
+        "tools/hsm/faucet-numbers/Cargo.toml",
+        "tools/hsm/faucet/Cargo.toml",
+        "tools/hsm/faucet/src/counter.rs",
+        "tools/hsm/faucet/src/display.rs",
+        "tools/hsm/faucet/src/lib.rs",
+        "tools/hsm/faucet/src/shell.rs",
+        "tools/hsm/foam-cap-numbers/Cargo.toml",
+        "tools/hsm/foam-shell-numbers/Cargo.toml",
+        "tools/hsm/geometry/Cargo.toml",
+        "tools/hsm/geometry/src/lib.rs",
+        "tools/hsm/geometry/src/payload.rs",
+        "tools/hsm/geometry/src/queries.rs",
+        "tools/hsm/kernel/Cargo.toml",
+        "tools/hsm/kernel/src/boolean.rs",
+        "tools/hsm/kernel/src/build.rs",
+        "tools/hsm/kernel/src/dxf.rs",
+        "tools/hsm/kernel/src/edge.rs",
+        "tools/hsm/kernel/src/face.rs",
+        "tools/hsm/kernel/src/import.rs",
+        "tools/hsm/kernel/src/lib.rs",
+        "tools/hsm/kernel/src/mapped.rs",
+        "tools/hsm/kernel/src/mass.rs",
+        "tools/hsm/kernel/src/math.rs",
+        "tools/hsm/kernel/src/part.rs",
+        "tools/hsm/kernel/src/plane.rs",
+        "tools/hsm/kernel/src/profile.rs",
+        "tools/hsm/kernel/src/reads.rs",
+        "tools/hsm/kernel/src/round.rs",
+        "tools/hsm/kernel/src/round/rolled.rs",
+        "tools/hsm/kernel/src/rule.rs",
+        "tools/hsm/kernel/src/screw.rs",
+        "tools/hsm/kernel/src/sketch_hull.rs",
+        "tools/hsm/kernel/src/solid.rs",
+        "tools/hsm/kernel/src/spline.rs",
+        "tools/hsm/kernel/src/step.rs",
+        "tools/hsm/kernel/src/step/analytic.rs",
+        "tools/hsm/kernel/src/sweep.rs",
+        "tools/hsm/kernel/src/text.rs",
+        "tools/hsm/kernel/src/thru.rs",
+        "tools/hsm/kernel/src/topo.rs",
+        "tools/hsm/kernel/src/triangulate.rs",
+        "tools/hsm/kernel/src/write.rs",
+        "tools/hsm/layout-data/Cargo.toml",
+        "tools/hsm/layout-data/src/fore.rs",
+        "tools/hsm/layout-data/src/lib.rs",
+        "tools/hsm/layout-data/src/rear.rs",
+        "tools/hsm/layout-data/src/routes.rs",
+        "tools/hsm/layout-data/src/soda.rs",
+        "tools/hsm/ledger/Cargo.toml",
+        "tools/hsm/ledger/catalog/evidence.json",
+        "tools/hsm/ledger/catalog/printing.json",
+        "tools/hsm/ledger/src/analysis.rs",
+        "tools/hsm/ledger/src/analysis_export.rs",
+        "tools/hsm/ledger/src/analysis_summary.rs",
+        "tools/hsm/ledger/src/analysis_validate.rs",
+        "tools/hsm/ledger/src/bom.rs",
+        "tools/hsm/ledger/src/bom_sync.rs",
+        "tools/hsm/ledger/src/labor.rs",
+        "tools/hsm/ledger/src/ledger_money.rs",
+        "tools/hsm/ledger/src/ledger_totals.rs",
+        "tools/hsm/ledger/src/lib.rs",
+        "tools/hsm/ledger/src/printing.rs",
+        "tools/hsm/ledger/src/shared.rs",
+        "tools/hsm/manifold-numbers/Cargo.toml",
+        "tools/hsm/print-payload/Cargo.toml",
+        "tools/hsm/print-payload/src/lib.rs",
+        "tools/hsm/print-payload/src/printed.rs",
+        "tools/hsm/print-payload/src/quadric.rs",
+        "tools/hsm/prv-shroud-numbers/Cargo.toml",
+        "tools/hsm/reed-bridge-numbers/Cargo.toml",
+        "tools/hsm/reservoir-numbers/Cargo.toml",
+        "tools/hsm/run-native/Cargo.toml",
+        "tools/hsm/run-native/src/lib.rs",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/hsm/run-slots/Cargo.toml",
+        "tools/hsm/run-slots/src/ipc.rs",
+        "tools/hsm/run-slots/src/lib.rs",
+        "tools/hsm/run-slots/src/main.rs",
+        "tools/hsm/run-slots/src/runtime.rs",
+        "tools/hsm/run-slots/src/runtime/cad.rs",
+        "tools/hsm/run-slots/src/runtime/install.rs",
+        "tools/hsm/run-slots/src/runtime/runner.rs",
+        "tools/hsm/run-slots/src/runtime/slots.rs",
+        "tools/hsm/shared-data/Cargo.toml",
+        "tools/hsm/shared-data/catalog/materials.json",
+        "tools/hsm/shared-data/catalog/routing.json",
+        "tools/hsm/shared-data/catalog/scalars.json",
+        "tools/hsm/shared-data/src/color.rs",
+        "tools/hsm/shared-data/src/common.rs",
+        "tools/hsm/shared-data/src/lib.rs",
+        "tools/hsm/tpu-o-ring-numbers/Cargo.toml",
+        "tools/hsm/tube-collar-numbers/Cargo.toml",
+        "tools/hsm/umbilical-organizer-numbers/Cargo.toml",
+        "tools/hsm/under-counter-plate-numbers/Cargo.toml",
+        "tools/hsm/valve-seat-numbers/Cargo.toml",
+        "tools/hsm/vendor/manifold-csg-sys/.cargo_vcs_info.json",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.lock",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.toml",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.toml.orig",
+        "tools/hsm/vendor/manifold-csg-sys/LICENSE-APACHE",
+        "tools/hsm/vendor/manifold-csg-sys/LICENSE-MIT",
+        "tools/hsm/vendor/manifold-csg-sys/README.md",
+        "tools/hsm/vendor/manifold-csg-sys/build.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/build.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/fetch.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/patch.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/wasm.rs",
+        "tools/hsm/vendor/manifold-csg-sys/cache-version",
+        "tools/hsm/vendor/manifold-csg-sys/patches/README.md",
+        "tools/hsm/vendor/manifold-csg-sys/src/lib.rs",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/CMakeLists.txt",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/diagnose.sh",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/__assertion_handler",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/__config_site",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/memory",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/mutex",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/libcxx-extras.cpp",
+    ],
+    outs = ["out/bom-program/bom"],
+    tags = ["no-sandbox"],
+    cmd = """
+set -e
+case "$$(uname -s)" in
+  Darwin)
+    copy_mask=$$((8#$$(umask)))
+    copy_bits=("" x w wx r rx rw rwx)
+    copy_mode="u-$${copy_bits[$$((copy_mask >> 6 & 7))]},g-$${copy_bits[$$((copy_mask >> 3 & 7))]},o-$${copy_bits[$$((copy_mask & 7))]}"
+    copy_file() {
+      local copy_dest="$${!#}" copy_target copy_permissions="$$copy_mode"
+      if [ -e "$$copy_dest" ] || [ -L "$$copy_dest" ]; then
+        if [ ! -f "$$copy_dest" ] || [ -L "$$copy_dest" ]; then cp "$$@"; return; fi
+        copy_permissions=$$(stat -f %Lp "$$copy_dest")
+        copy_target=$$(mktemp "$$copy_dest.hsm-copy.XXXXXX")
+      else copy_target="$$copy_dest"; fi
+      if cp -c "$${@:1:$$(( $$# - 1 ))}" "$$copy_target" 2>/dev/null; then
+        chmod "$$copy_permissions" "$$copy_target"
+        touch "$$copy_target"
+        if [ "$$copy_target" != "$$copy_dest" ]; then mv -f "$$copy_target" "$$copy_dest"; fi
+      else rm -f "$$copy_target"; cp "$$@"; fi
+    };;
+  *) copy_file() { cp "$$@"; };;
+esac
+hsm_run=
+for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
+  if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
+done
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+cargo=$$(command -v cargo || true)
+for c in "$$cargo" /opt/homebrew/opt/rustup/bin/cargo ~/.cargo/bin/cargo; do if [ -x "$$c" ]; then cargo=$$c; break; fi; done
+if [ ! -x "$$cargo" ]; then echo "cargo is not installed (https://rustup.rs)" >&2; exit 1; fi
+export HOME=~ PATH="$$(dirname "$$cargo"):$$PATH"
+O0=$$PWD/$(location out/bom-program/bom)
+cd "$$HSM_WORKSPACE/tools/hsm"
+CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet --manifest-path bom/Cargo.toml --bin bom
+copy_file target/release/bom "$$O0"
+""",
+)
+
+genrule(
+    name = "bom",
+    srcs = [
+        ":out/bom-program/bom",
+        ":out/above-counter-plate/hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step.npz",
+        ":out/collet-press/hardware/printed-parts/collet-press/collet-press.step.npz",
+        ":out/display-cover/hardware/printed-parts/enclosure/display-cover/display-cover.step.npz",
+        ":out/elbow-cradle/hardware/printed-parts/zone-c/funnel/elbow-cradle.step.npz",
+        ":out/enclosure-back-bottom/hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.npz",
+        ":out/enclosure-back-top/hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.npz",
+        ":out/enclosure-front-bottom/hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.npz",
+        ":out/enclosure-front-top/hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.npz",
+        ":out/enclosure-pump-retainer/hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step.npz",
+        ":out/faucet-display-cover/hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step.npz",
+        ":out/faucet-shell/hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step.npz",
+        ":out/faucet-shell/hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step.npz",
+        ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step.npz",
+        ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.npz",
+        ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.step.npz",
+        ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/reservoir-b-fill-guide.step.npz",
+        ":out/foam-shell/hardware/printed-parts/cold-core/foam-shell/foam-shell.step.npz",
+        ":out/funnel-cover/hardware/printed-parts/zone-c/funnel-cover/funnel-cover.step.npz",
+        ":out/funnel-frame/hardware/printed-parts/zone-c/funnel/funnel-frame.step.npz",
+        ":out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/design.json",
+        ":out/fuse-clamp/hardware/printed-parts/refrigeration/fuse-clamp/fuse-clamp.step.npz",
+        ":out/installed-machine/hardware/manifold-layout/enclosure-assembly.facts.json",
+        ":out/lever-replica/hardware/printed-parts/faucet/lever-replica/lever-replica.step.npz",
+        ":out/nameplate/hardware/printed-parts/enclosure/nameplate/nameplate-001.step.npz",
+        ":out/prv-shroud/hardware/printed-parts/cold-core/prv-shroud/prv-shroud.step.npz",
+        ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step.npz",
+        ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.step.npz",
+        ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.step.npz",
+        ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.step.npz",
+        ":out/rear-identification/hardware/printed-parts/enclosure/rear-identification/rear-label-carb.step.npz",
+        ":out/rear-identification/hardware/printed-parts/enclosure/rear-identification/rear-label-co2.step.npz",
+        ":out/rear-identification/hardware/printed-parts/enclosure/rear-identification/rear-label-drain.step.npz",
+        ":out/rear-identification/hardware/printed-parts/enclosure/rear-identification/rear-label-flavor-a.step.npz",
+        ":out/rear-identification/hardware/printed-parts/enclosure/rear-identification/rear-label-flavor-b.step.npz",
+        ":out/rear-identification/hardware/printed-parts/enclosure/rear-identification/rear-label-water.step.npz",
+        ":out/reed-bridge/hardware/printed-parts/cold-core/reed-bridge/reed-bridge.step.npz",
+        ":out/reservoir/hardware/printed-parts/cold-core/reservoir/reservoir-cap-left.step.npz",
+        ":out/reservoir/hardware/printed-parts/cold-core/reservoir/reservoir-cap-right.step.npz",
+        ":out/reservoir/hardware/printed-parts/cold-core/reservoir/reservoir-left.step.npz",
+        ":out/reservoir/hardware/printed-parts/cold-core/reservoir/reservoir-right.step.npz",
+        ":out/soda-bend-holder/hardware/printed-parts/soda-bend-holder/soda-bend-holder.step.npz",
+        ":out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-carb.step.npz",
+        ":out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-co2.step.npz",
+        ":out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-drain.step.npz",
+        ":out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-flavor-a.step.npz",
+        ":out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-flavor-b.step.npz",
+        ":out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-water.step.npz",
+        ":out/umbilical-organizer/hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer.step.npz",
+        "hardware/ledger/bom.md",
+        "hardware/ledger/bom.rs",
+        "hardware/ledger/labor.md",
+        "hardware/manifold-layout/above-core.json",
+        "hardware/manifold-layout/reservoir-a-routes.json",
+        "hardware/printed-parts/cold-core/foam-shell/prints/2026-10-26-mark2-round-ports-a2/preparation.json",
+        "hardware/printed-parts/cold-core/magnetic-float/all-aero/mark2-print/v1/float-preflight.json",
+        "hardware/printed-parts/enclosure/enclosure/disposal-warning-artwork.json",
+        "hardware/printed-parts/faucet/faucet-petgf.support-audit.json",
+        "hardware/printed-parts/zone-c/funnel-cover/native-slice-review.json",
+        "hardware/reference/compressor/reference-parameters.json",
+        "hardware/reference/g-ganen-pump/reference-parameters.json",
+        "hardware/reference/jg-pp0308e-elbow/scan-measurements.json",
+        "hardware/reference/neofit-stem-elbow/reference-parameters.json",
+        "tools/hsm/assembly-docs/src/wiring/manifold-bank.json",
+        "tools/hsm/assembly-docs/src/wiring/rear-level-hook.json",
+        "tools/hsm/ledger/catalog/evidence.json",
+        "tools/hsm/ledger/catalog/printing.json",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/hsm/shared-data/catalog/materials.json",
+        "tools/hsm/shared-data/catalog/routing.json",
+        "tools/hsm/shared-data/catalog/scalars.json",
+        "tools/hsm/vendor/manifold-csg-sys/.cargo_vcs_info.json",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.toml.orig",
+        "tools/hsm/vendor/manifold-csg-sys/LICENSE-APACHE",
+        "tools/hsm/vendor/manifold-csg-sys/LICENSE-MIT",
+        "tools/hsm/vendor/manifold-csg-sys/README.md",
+        "tools/hsm/vendor/manifold-csg-sys/cache-version",
+        "tools/hsm/vendor/manifold-csg-sys/patches/README.md",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/CMakeLists.txt",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/diagnose.sh",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/__assertion_handler",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/__config_site",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/memory",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/mutex",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/libcxx-extras.cpp",
+    ],
+    outs = [
+        "out/bom/hardware/ledger/bom.figures.json",
+        "out/bom/hardware/ledger/bom.md",
+        "out/bom/hardware/ledger/labor.figures.json",
+        "out/bom/hardware/ledger/labor.md",
+    ],
+    cmd = """
+set -e
+case "$$(uname -s)" in
+  Darwin)
+    copy_mask=$$((8#$$(umask)))
+    copy_bits=("" x w wx r rx rw rwx)
+    copy_mode="u-$${copy_bits[$$((copy_mask >> 6 & 7))]},g-$${copy_bits[$$((copy_mask >> 3 & 7))]},o-$${copy_bits[$$((copy_mask & 7))]}"
+    copy_file() {
+      local copy_dest="$${!#}" copy_target copy_permissions="$$copy_mode"
+      if [ -e "$$copy_dest" ] || [ -L "$$copy_dest" ]; then
+        if [ ! -f "$$copy_dest" ] || [ -L "$$copy_dest" ]; then cp "$$@"; return; fi
+        copy_permissions=$$(stat -f %Lp "$$copy_dest")
+        copy_target=$$(mktemp "$$copy_dest.hsm-copy.XXXXXX")
+      else copy_target="$$copy_dest"; fi
+      if cp -c "$${@:1:$$(( $$# - 1 ))}" "$$copy_target" 2>/dev/null; then
+        chmod "$$copy_permissions" "$$copy_target"
+        touch "$$copy_target"
+        if [ "$$copy_target" != "$$copy_dest" ]; then mv -f "$$copy_target" "$$copy_dest"; fi
+      else rm -f "$$copy_target"; cp "$$@"; fi
+    };;
+  *) copy_file() { cp "$$@"; };;
+esac
+hsm_run=
+for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
+  if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
+done
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+O0=$$PWD/$(location out/bom/hardware/ledger/bom.figures.json)
+O1=$$PWD/$(location out/bom/hardware/ledger/bom.md)
+O2=$$PWD/$(location out/bom/hardware/ledger/labor.figures.json)
+O3=$$PWD/$(location out/bom/hardware/ledger/labor.md)
+rm -rf work
+for f in $(SRCS); do
+  case $$f in
+    */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
+    *) t=$$f;;
+  esac
+  mkdir -p "work/$$(dirname "$$t")"; copy_file -L "$$f" "work/$$t"
+done
+cd work
+"$$hsm_run" -- ./bom > /dev/null
+copy_file hardware/ledger/bom.figures.json "$$O0"
+copy_file hardware/ledger/bom.md "$$O1"
+copy_file hardware/ledger/labor.figures.json "$$O2"
+copy_file hardware/ledger/labor.md "$$O3"
+""",
+)
+
+genrule(
+    name = "machine-time-program",
+    srcs = [
+        ":out/cargo-config/tools/hsm/cargo-config.json",
+        "tools/hsm/documents/Cargo.toml",
+        "tools/hsm/documents/src/interop.rs",
+        "tools/hsm/documents/src/interop/standard.rs",
+        "tools/hsm/documents/src/lib.rs",
+        "tools/hsm/documents/src/python_checked.rs",
+        "tools/hsm/kernel/Cargo.toml",
+        "tools/hsm/kernel/src/boolean.rs",
+        "tools/hsm/kernel/src/build.rs",
+        "tools/hsm/kernel/src/dxf.rs",
+        "tools/hsm/kernel/src/edge.rs",
+        "tools/hsm/kernel/src/face.rs",
+        "tools/hsm/kernel/src/import.rs",
+        "tools/hsm/kernel/src/lib.rs",
+        "tools/hsm/kernel/src/mapped.rs",
+        "tools/hsm/kernel/src/mass.rs",
+        "tools/hsm/kernel/src/math.rs",
+        "tools/hsm/kernel/src/part.rs",
+        "tools/hsm/kernel/src/plane.rs",
+        "tools/hsm/kernel/src/profile.rs",
+        "tools/hsm/kernel/src/reads.rs",
+        "tools/hsm/kernel/src/round.rs",
+        "tools/hsm/kernel/src/round/rolled.rs",
+        "tools/hsm/kernel/src/rule.rs",
+        "tools/hsm/kernel/src/screw.rs",
+        "tools/hsm/kernel/src/sketch_hull.rs",
+        "tools/hsm/kernel/src/solid.rs",
+        "tools/hsm/kernel/src/spline.rs",
+        "tools/hsm/kernel/src/step.rs",
+        "tools/hsm/kernel/src/step/analytic.rs",
+        "tools/hsm/kernel/src/sweep.rs",
+        "tools/hsm/kernel/src/text.rs",
+        "tools/hsm/kernel/src/thru.rs",
+        "tools/hsm/kernel/src/topo.rs",
+        "tools/hsm/kernel/src/triangulate.rs",
+        "tools/hsm/kernel/src/write.rs",
+        "tools/hsm/ledger/Cargo.toml",
+        "tools/hsm/ledger/catalog/evidence.json",
+        "tools/hsm/ledger/catalog/printing.json",
+        "tools/hsm/ledger/src/analysis.rs",
+        "tools/hsm/ledger/src/analysis_export.rs",
+        "tools/hsm/ledger/src/analysis_summary.rs",
+        "tools/hsm/ledger/src/analysis_validate.rs",
+        "tools/hsm/ledger/src/bom.rs",
+        "tools/hsm/ledger/src/bom_sync.rs",
+        "tools/hsm/ledger/src/labor.rs",
+        "tools/hsm/ledger/src/ledger_money.rs",
+        "tools/hsm/ledger/src/ledger_totals.rs",
+        "tools/hsm/ledger/src/lib.rs",
+        "tools/hsm/ledger/src/printing.rs",
+        "tools/hsm/ledger/src/shared.rs",
+        "tools/hsm/run-native/Cargo.toml",
+        "tools/hsm/run-native/src/lib.rs",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/hsm/run-slots/Cargo.toml",
+        "tools/hsm/run-slots/src/ipc.rs",
+        "tools/hsm/run-slots/src/lib.rs",
+        "tools/hsm/run-slots/src/main.rs",
+        "tools/hsm/run-slots/src/runtime.rs",
+        "tools/hsm/run-slots/src/runtime/cad.rs",
+        "tools/hsm/run-slots/src/runtime/install.rs",
+        "tools/hsm/run-slots/src/runtime/runner.rs",
+        "tools/hsm/run-slots/src/runtime/slots.rs",
+        "tools/hsm/vendor/manifold-csg-sys/.cargo_vcs_info.json",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.lock",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.toml",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.toml.orig",
+        "tools/hsm/vendor/manifold-csg-sys/LICENSE-APACHE",
+        "tools/hsm/vendor/manifold-csg-sys/LICENSE-MIT",
+        "tools/hsm/vendor/manifold-csg-sys/README.md",
+        "tools/hsm/vendor/manifold-csg-sys/build.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/build.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/fetch.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/patch.rs",
+        "tools/hsm/vendor/manifold-csg-sys/build/wasm.rs",
+        "tools/hsm/vendor/manifold-csg-sys/cache-version",
+        "tools/hsm/vendor/manifold-csg-sys/patches/README.md",
+        "tools/hsm/vendor/manifold-csg-sys/src/lib.rs",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/CMakeLists.txt",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/diagnose.sh",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/__assertion_handler",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/__config_site",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/memory",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/mutex",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/libcxx-extras.cpp",
+    ],
+    outs = ["out/machine-time-program/machine-time"],
+    tags = ["no-sandbox"],
+    cmd = """
+set -e
+case "$$(uname -s)" in
+  Darwin)
+    copy_mask=$$((8#$$(umask)))
+    copy_bits=("" x w wx r rx rw rwx)
+    copy_mode="u-$${copy_bits[$$((copy_mask >> 6 & 7))]},g-$${copy_bits[$$((copy_mask >> 3 & 7))]},o-$${copy_bits[$$((copy_mask & 7))]}"
+    copy_file() {
+      local copy_dest="$${!#}" copy_target copy_permissions="$$copy_mode"
+      if [ -e "$$copy_dest" ] || [ -L "$$copy_dest" ]; then
+        if [ ! -f "$$copy_dest" ] || [ -L "$$copy_dest" ]; then cp "$$@"; return; fi
+        copy_permissions=$$(stat -f %Lp "$$copy_dest")
+        copy_target=$$(mktemp "$$copy_dest.hsm-copy.XXXXXX")
+      else copy_target="$$copy_dest"; fi
+      if cp -c "$${@:1:$$(( $$# - 1 ))}" "$$copy_target" 2>/dev/null; then
+        chmod "$$copy_permissions" "$$copy_target"
+        touch "$$copy_target"
+        if [ "$$copy_target" != "$$copy_dest" ]; then mv -f "$$copy_target" "$$copy_dest"; fi
+      else rm -f "$$copy_target"; cp "$$@"; fi
+    };;
+  *) copy_file() { cp "$$@"; };;
+esac
+hsm_run=
+for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
+  if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
+done
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+cargo=$$(command -v cargo || true)
+for c in "$$cargo" /opt/homebrew/opt/rustup/bin/cargo ~/.cargo/bin/cargo; do if [ -x "$$c" ]; then cargo=$$c; break; fi; done
+if [ ! -x "$$cargo" ]; then echo "cargo is not installed (https://rustup.rs)" >&2; exit 1; fi
+export HOME=~ PATH="$$(dirname "$$cargo"):$$PATH"
+O0=$$PWD/$(location out/machine-time-program/machine-time)
+cd "$$HSM_WORKSPACE/tools/hsm"
+CARGO_TARGET_DIR="$$PWD/target" "$$hsm_run" -- "$$cargo" build --release --locked --quiet --manifest-path ledger/Cargo.toml --bin machine-time
+copy_file target/release/machine-time "$$O0"
+""",
+)
+
+genrule(
+    name = "machine-time",
+    srcs = [
+        ":out/machine-time-program/machine-time",
+        "hardware/ledger/bom.md",
+        "hardware/ledger/machine-time.md",
+        "hardware/ledger/machine_time.rs",
+        "hardware/printed-parts/cold-core/foam-shell/prints/2026-10-26-mark2-round-ports-a2/preparation.json",
+        "hardware/printed-parts/cold-core/magnetic-float/all-aero/mark2-print/v1/float-preflight.json",
+        "hardware/printed-parts/faucet/faucet-petgf.support-audit.json",
+        "hardware/printed-parts/zone-c/funnel-cover/native-slice-review.json",
+        "tools/hsm/ledger/catalog/evidence.json",
+        "tools/hsm/ledger/catalog/printing.json",
+        "tools/hsm/run-slots.defaults.json",
+        "tools/hsm/vendor/manifold-csg-sys/.cargo_vcs_info.json",
+        "tools/hsm/vendor/manifold-csg-sys/Cargo.toml.orig",
+        "tools/hsm/vendor/manifold-csg-sys/LICENSE-APACHE",
+        "tools/hsm/vendor/manifold-csg-sys/LICENSE-MIT",
+        "tools/hsm/vendor/manifold-csg-sys/README.md",
+        "tools/hsm/vendor/manifold-csg-sys/cache-version",
+        "tools/hsm/vendor/manifold-csg-sys/patches/README.md",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/CMakeLists.txt",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/diagnose.sh",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/__assertion_handler",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/__config_site",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/memory",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/mutex",
+        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/libcxx-extras.cpp",
+    ],
+    outs = [
+        "out/machine-time/hardware/ledger/machine-time.figures.json",
+        "out/machine-time/hardware/ledger/machine-time.md",
+    ],
+    cmd = """
+set -e
+case "$$(uname -s)" in
+  Darwin)
+    copy_mask=$$((8#$$(umask)))
+    copy_bits=("" x w wx r rx rw rwx)
+    copy_mode="u-$${copy_bits[$$((copy_mask >> 6 & 7))]},g-$${copy_bits[$$((copy_mask >> 3 & 7))]},o-$${copy_bits[$$((copy_mask & 7))]}"
+    copy_file() {
+      local copy_dest="$${!#}" copy_target copy_permissions="$$copy_mode"
+      if [ -e "$$copy_dest" ] || [ -L "$$copy_dest" ]; then
+        if [ ! -f "$$copy_dest" ] || [ -L "$$copy_dest" ]; then cp "$$@"; return; fi
+        copy_permissions=$$(stat -f %Lp "$$copy_dest")
+        copy_target=$$(mktemp "$$copy_dest.hsm-copy.XXXXXX")
+      else copy_target="$$copy_dest"; fi
+      if cp -c "$${@:1:$$(( $$# - 1 ))}" "$$copy_target" 2>/dev/null; then
+        chmod "$$copy_permissions" "$$copy_target"
+        touch "$$copy_target"
+        if [ "$$copy_target" != "$$copy_dest" ]; then mv -f "$$copy_target" "$$copy_dest"; fi
+      else rm -f "$$copy_target"; cp "$$@"; fi
+    };;
+  *) copy_file() { cp "$$@"; };;
+esac
+hsm_run=
+for r in "$$(awk -F'"' '$$2 == "runner" {print $$4}' ~/.local/lib/hsm/runtime.json 2>/dev/null)" "$$HSM_WORKSPACE/tools/hsm/target/release/hsm-run"; do
+  if [ -x "$$r" ] && "$$r" --runtime-info "$$HSM_WORKSPACE" 2>/dev/null | grep -q '"source_match":true'; then hsm_run=$$r; break; fi
+done
+if [ -z "$$hsm_run" ]; then echo "no runner matches $$HSM_WORKSPACE; run the build through tools/run.py" >&2; exit 1; fi
+O0=$$PWD/$(location out/machine-time/hardware/ledger/machine-time.figures.json)
+O1=$$PWD/$(location out/machine-time/hardware/ledger/machine-time.md)
+rm -rf work
+for f in $(SRCS); do
+  case $$f in
+    */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
+    *) t=$$f;;
+  esac
+  mkdir -p "work/$$(dirname "$$t")"; copy_file -L "$$f" "work/$$t"
+done
+cd work
+"$$hsm_run" -- ./machine-time > /dev/null
+copy_file hardware/ledger/machine-time.figures.json "$$O0"
+copy_file hardware/ledger/machine-time.md "$$O1"
+""",
+)
+
+genrule(
     name = "purchases-program",
     srcs = [
         "hardware/ledger/purchases.rs",
@@ -2176,22 +2795,18 @@ genrule(
         "tools/hsm/ledger/Cargo.toml",
         "tools/hsm/ledger/catalog/evidence.json",
         "tools/hsm/ledger/catalog/printing.json",
-        "tools/hsm/ledger/catalog/tools.json",
         "tools/hsm/ledger/src/analysis.rs",
         "tools/hsm/ledger/src/analysis_export.rs",
         "tools/hsm/ledger/src/analysis_summary.rs",
         "tools/hsm/ledger/src/analysis_validate.rs",
         "tools/hsm/ledger/src/bom.rs",
         "tools/hsm/ledger/src/bom_sync.rs",
-        "tools/hsm/ledger/src/bom_sync_figures.rs",
-        "tools/hsm/ledger/src/build_time.rs",
         "tools/hsm/ledger/src/labor.rs",
         "tools/hsm/ledger/src/ledger_money.rs",
         "tools/hsm/ledger/src/ledger_totals.rs",
         "tools/hsm/ledger/src/lib.rs",
         "tools/hsm/ledger/src/printing.rs",
         "tools/hsm/ledger/src/shared.rs",
-        "tools/hsm/ledger/src/tools.rs",
         "tools/hsm/run-native/Cargo.toml",
         "tools/hsm/run-native/src/lib.rs",
         "tools/hsm/run-slots.defaults.json",
@@ -2276,7 +2891,6 @@ genrule(
         "hardware/ledger/purchases.orders.json",
         "tools/hsm/ledger/catalog/evidence.json",
         "tools/hsm/ledger/catalog/printing.json",
-        "tools/hsm/ledger/catalog/tools.json",
         "tools/hsm/run-slots.defaults.json",
         "tools/hsm/vendor/manifold-csg-sys/.cargo_vcs_info.json",
         "tools/hsm/vendor/manifold-csg-sys/Cargo.toml.orig",
@@ -13597,718 +14211,6 @@ cd .. && rm -rf work-funnel-frame
 )
 
 genrule(
-    name = "bom-masses",
-    srcs = [
-        "hardware/assembly/_rust_docs.py",
-        "hardware/cold-core-layout/_carbonator_stock.py",
-        "hardware/cold-core-layout/_coil.py",
-        "hardware/cold-core-layout/_cold_core_data.py",
-        "hardware/cut-parts/carbonation/carbonator-tube/numbers.rs",
-        "hardware/cut-parts/carbonation/endcaps-circular/numbers.rs",
-        "hardware/cut-parts/faucet/under-counter-plate/numbers.rs",
-        "hardware/cut-parts/faucet/under-counter-plate/under-counter-plate.dxf",
-        "hardware/faucet-layout/faucet_assembly.py",
-        "hardware/ledger/bom.md",
-        "hardware/ledger/labor.md",
-        "hardware/manifold-layout/_layout_data.py",
-        "hardware/manifold-layout/above-core.json",
-        "hardware/manifold-layout/above_core.py",
-        "hardware/manifold-layout/above_core_bom.py",
-        "hardware/manifold-layout/above_core_routes.py",
-        ":out/installed-machine/hardware/manifold-layout/enclosure-assembly.facts.json",
-        "hardware/manifold-layout/enclosure-box.json",
-        "hardware/manifold-layout/enclosure_assembly.py",
-        "hardware/manifold-layout/manifold_layout.py",
-        "hardware/manifold-layout/reservoir-a-routes.json",
-        "hardware/printed-parts/cadlib/_scalar_provider.py",
-        "hardware/printed-parts/cadlib/fits.py",
-        "hardware/printed-parts/cadlib/flute_skin.py",
-        "hardware/printed-parts/cadlib/overhang_round.py",
-        "hardware/printed-parts/cadlib/port_chip.py",
-        "hardware/printed-parts/cadlib/reeding.py",
-        "hardware/printed-parts/cadlib/snap.py",
-        "hardware/printed-parts/cadlib/world_workplane.py",
-        "hardware/printed-parts/cold-core/_above_core_mounts.py",
-        "hardware/printed-parts/cold-core/_cold_core_interface.py",
-        "hardware/printed-parts/cold-core/_copper_ports.py",
-        "hardware/printed-parts/cold-core/_float_interface.py",
-        "hardware/printed-parts/cold-core/_internal_routes.py",
-        "hardware/printed-parts/cold-core/_reed_channels.py",
-        "hardware/printed-parts/cold-core/_reservoir_a_anchors.py",
-        "hardware/printed-parts/cold-core/_reservoir_b_fill.py",
-        "hardware/printed-parts/cold-core/coil-mandrel/coil_mandrel.py",
-        ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step",
-        ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step.npz",
-        ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step",
-        ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.npz",
-        ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.step",
-        ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.step.npz",
-        ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/reservoir-b-fill-guide.step",
-        ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/reservoir-b-fill-guide.step.npz",
-        ":out/foam-shell/hardware/printed-parts/cold-core/foam-shell/foam-shell.step",
-        ":out/foam-shell/hardware/printed-parts/cold-core/foam-shell/foam-shell.step.npz",
-        "hardware/printed-parts/cold-core/foam-shell/prints/2026-10-26-mark2-round-ports-a2/preparation.json",
-        "hardware/printed-parts/cold-core/interface/lib.rs",
-        "hardware/printed-parts/cold-core/magnetic-float/all-aero/mark2-print/v1/float-preflight.json",
-        "hardware/printed-parts/cold-core/magnetic-float/all-aero/numbers.rs",
-        ":out/prv-shroud/hardware/printed-parts/cold-core/prv-shroud/prv-shroud.step",
-        ":out/prv-shroud/hardware/printed-parts/cold-core/prv-shroud/prv-shroud.step.npz",
-        ":out/reed-bridge/hardware/printed-parts/cold-core/reed-bridge/reed-bridge.step",
-        ":out/reed-bridge/hardware/printed-parts/cold-core/reed-bridge/reed-bridge.step.npz",
-        "hardware/printed-parts/cold-core/reed-bridge/reed_bridge.py",
-        ":out/reservoir/hardware/printed-parts/cold-core/reservoir/reservoir-cap-left.step",
-        ":out/reservoir/hardware/printed-parts/cold-core/reservoir/reservoir-cap-left.step.npz",
-        ":out/reservoir/hardware/printed-parts/cold-core/reservoir/reservoir-cap-right.step",
-        ":out/reservoir/hardware/printed-parts/cold-core/reservoir/reservoir-cap-right.step.npz",
-        ":out/reservoir/hardware/printed-parts/cold-core/reservoir/reservoir-left.step",
-        ":out/reservoir/hardware/printed-parts/cold-core/reservoir/reservoir-left.step.npz",
-        ":out/reservoir/hardware/printed-parts/cold-core/reservoir/reservoir-right.step",
-        ":out/reservoir/hardware/printed-parts/cold-core/reservoir/reservoir-right.step.npz",
-        "hardware/printed-parts/cold-core/reservoir/reservoir.py",
-        ":out/collet-press/hardware/printed-parts/collet-press/collet-press.step",
-        ":out/collet-press/hardware/printed-parts/collet-press/collet-press.step.npz",
-        "hardware/printed-parts/electronics/module_tray.py",
-        "hardware/printed-parts/electronics/pcba-tray/pcba_tray.py",
-        "hardware/printed-parts/enclosure/bulkhead-ring/numbers.rs",
-        ":out/display-cover/hardware/printed-parts/enclosure/display-cover/display-cover.step",
-        ":out/display-cover/hardware/printed-parts/enclosure/display-cover/display-cover.step.npz",
-        "hardware/printed-parts/enclosure/enclosure/_above_core_shell.py",
-        "hardware/printed-parts/enclosure/enclosure/_anchor_cap_interface.py",
-        "hardware/printed-parts/enclosure/enclosure/_enclosure_compiled.py",
-        "hardware/printed-parts/enclosure/enclosure/_enclosure_core_data.py",
-        "hardware/printed-parts/enclosure/enclosure/_enclosure_data.py",
-        "hardware/printed-parts/enclosure/enclosure/_enclosure_datums.py",
-        "hardware/printed-parts/enclosure/enclosure/_fixed_pump_mount.py",
-        "hardware/printed-parts/enclosure/enclosure/_grip_interface.py",
-        "hardware/printed-parts/enclosure/enclosure/disposal-warning-artwork.json",
-        ":out/enclosure-back-bottom/hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step",
-        ":out/enclosure-back-bottom/hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.npz",
-        ":out/enclosure-back-top/hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step",
-        ":out/enclosure-back-top/hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.npz",
-        ":out/enclosure-front-bottom/hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step",
-        ":out/enclosure-front-bottom/hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.npz",
-        ":out/enclosure-front-top/hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step",
-        ":out/enclosure-front-top/hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.npz",
-        ":out/enclosure-pump-retainer/hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step",
-        ":out/enclosure-pump-retainer/hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step.npz",
-        "hardware/printed-parts/enclosure/enclosure/interface/anchor_cap.rs",
-        "hardware/printed-parts/enclosure/enclosure/interface/fits.rs",
-        "hardware/printed-parts/enclosure/enclosure/interface/lib.rs",
-        "hardware/printed-parts/enclosure/enclosure/interface/swept.rs",
-        "hardware/printed-parts/enclosure/enclosure/numbers/catalog.rs",
-        "hardware/printed-parts/enclosure/enclosure/numbers/display_mount.rs",
-        "hardware/printed-parts/enclosure/enclosure/numbers/disposal.rs",
-        "hardware/printed-parts/enclosure/enclosure/numbers/faces.rs",
-        "hardware/printed-parts/enclosure/enclosure/numbers/field.rs",
-        "hardware/printed-parts/enclosure/enclosure/numbers/junctions.rs",
-        "hardware/printed-parts/enclosure/enclosure/numbers/layout.rs",
-        "hardware/printed-parts/enclosure/enclosure/numbers/lib.rs",
-        "hardware/printed-parts/enclosure/enclosure/numbers/pump.rs",
-        "hardware/printed-parts/enclosure/enclosure/numbers/quadrant.rs",
-        "hardware/printed-parts/enclosure/enclosure/numbers/rear_wall.rs",
-        "hardware/printed-parts/enclosure/enclosure/numbers/shell.rs",
-        "hardware/printed-parts/enclosure/enclosure/numbers/spec.rs",
-        "hardware/printed-parts/enclosure/enclosure/numbers/structure.rs",
-        ":out/nameplate/hardware/printed-parts/enclosure/nameplate/nameplate-001.step",
-        ":out/nameplate/hardware/printed-parts/enclosure/nameplate/nameplate-001.step.npz",
-        "hardware/printed-parts/enclosure/nameplate/snap_dimensions.rs",
-        "hardware/printed-parts/enclosure/pump-dock/fixed_returns.py",
-        "hardware/printed-parts/enclosure/pump-tray/pump_case.py",
-        ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step",
-        ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step.npz",
-        ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.step",
-        ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.step.npz",
-        ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.step",
-        ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.step.npz",
-        ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.step",
-        ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.step.npz",
-        ":out/rear-identification/hardware/printed-parts/enclosure/rear-identification/rear-label-carb.step",
-        ":out/rear-identification/hardware/printed-parts/enclosure/rear-identification/rear-label-carb.step.npz",
-        ":out/rear-identification/hardware/printed-parts/enclosure/rear-identification/rear-label-co2.step",
-        ":out/rear-identification/hardware/printed-parts/enclosure/rear-identification/rear-label-co2.step.npz",
-        ":out/rear-identification/hardware/printed-parts/enclosure/rear-identification/rear-label-drain.step",
-        ":out/rear-identification/hardware/printed-parts/enclosure/rear-identification/rear-label-drain.step.npz",
-        ":out/rear-identification/hardware/printed-parts/enclosure/rear-identification/rear-label-flavor-a.step",
-        ":out/rear-identification/hardware/printed-parts/enclosure/rear-identification/rear-label-flavor-a.step.npz",
-        ":out/rear-identification/hardware/printed-parts/enclosure/rear-identification/rear-label-flavor-b.step",
-        ":out/rear-identification/hardware/printed-parts/enclosure/rear-identification/rear-label-flavor-b.step.npz",
-        ":out/rear-identification/hardware/printed-parts/enclosure/rear-identification/rear-label-water.step",
-        ":out/rear-identification/hardware/printed-parts/enclosure/rear-identification/rear-label-water.step.npz",
-        "hardware/printed-parts/faucet/_display_snap.py",
-        "hardware/printed-parts/faucet/_faucet_interface.py",
-        "hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.py",
-        ":out/above-counter-plate/hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step",
-        ":out/above-counter-plate/hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step.npz",
-        "hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.py",
-        ":out/faucet-display-cover/hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step",
-        ":out/faucet-display-cover/hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step.npz",
-        "hardware/printed-parts/faucet/faucet-display-cover/faucet_display_cover.py",
-        "hardware/printed-parts/faucet/faucet-petgf.support-audit.json",
-        ":out/faucet-shell/hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step",
-        ":out/faucet-shell/hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step.npz",
-        ":out/faucet-shell/hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step",
-        ":out/faucet-shell/hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step.npz",
-        "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py",
-        "hardware/printed-parts/faucet/faucet_paths.py",
-        "hardware/printed-parts/faucet/lever-replica/lever-replica.frame.json",
-        ":out/lever-replica/hardware/printed-parts/faucet/lever-replica/lever-replica.step",
-        ":out/lever-replica/hardware/printed-parts/faucet/lever-replica/lever-replica.step.npz",
-        "hardware/printed-parts/faucet/lever-replica/numbers.rs",
-        "hardware/printed-parts/faucet/numbers/catalog.rs",
-        "hardware/printed-parts/faucet/numbers/countertop.rs",
-        "hardware/printed-parts/faucet/numbers/interface.rs",
-        "hardware/printed-parts/faucet/numbers/lib.rs",
-        "hardware/printed-parts/faucet/numbers/paths.rs",
-        "hardware/printed-parts/faucet/numbers/shell.rs",
-        "hardware/printed-parts/faucet/numbers/snap.rs",
-        "hardware/printed-parts/faucet/numbers/stack.rs",
-        "hardware/printed-parts/faucet/tpu-o-ring/numbers.rs",
-        "hardware/printed-parts/faucet/tpu-o-ring/tpu_o_ring.py",
-        "hardware/printed-parts/faucet/tube-collar/numbers.rs",
-        ":out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-carb.step",
-        ":out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-carb.step.npz",
-        ":out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-co2.step",
-        ":out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-co2.step.npz",
-        ":out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-drain.step",
-        ":out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-drain.step.npz",
-        ":out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-flavor-a.step",
-        ":out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-flavor-a.step.npz",
-        ":out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-flavor-b.step",
-        ":out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-flavor-b.step.npz",
-        ":out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-water.step",
-        ":out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-water.step.npz",
-        "hardware/printed-parts/faucet/tube-collar/tube_collar.py",
-        "hardware/printed-parts/faucet/umbilical-organizer/numbers.rs",
-        ":out/umbilical-organizer/hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer.step",
-        ":out/umbilical-organizer/hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer.step.npz",
-        "hardware/printed-parts/faucet/umbilical-organizer/umbilical_organizer.py",
-        ":out/fuse-clamp/hardware/printed-parts/refrigeration/fuse-clamp/fuse-clamp.step",
-        ":out/fuse-clamp/hardware/printed-parts/refrigeration/fuse-clamp/fuse-clamp.step.npz",
-        ":out/soda-bend-holder/hardware/printed-parts/soda-bend-holder/soda-bend-holder.step",
-        ":out/soda-bend-holder/hardware/printed-parts/soda-bend-holder/soda-bend-holder.step.npz",
-        "hardware/printed-parts/valve-seat/numbers.rs",
-        "hardware/printed-parts/valve-seat/valve_seat.py",
-        ":out/funnel-cover/hardware/printed-parts/zone-c/funnel-cover/funnel-cover.step",
-        ":out/funnel-cover/hardware/printed-parts/zone-c/funnel-cover/funnel-cover.step.npz",
-        "hardware/printed-parts/zone-c/funnel-cover/native-slice-review.json",
-        ":out/funnel-mold/hardware/printed-parts/zone-c/funnel-mold/design.json",
-        "hardware/printed-parts/zone-c/funnel/_zone_data.py",
-        ":out/elbow-cradle/hardware/printed-parts/zone-c/funnel/elbow-cradle.step",
-        ":out/elbow-cradle/hardware/printed-parts/zone-c/funnel/elbow-cradle.step.npz",
-        "hardware/printed-parts/zone-c/funnel/elbow_cradle.py",
-        ":out/funnel-frame/hardware/printed-parts/zone-c/funnel/funnel-frame.step",
-        ":out/funnel-frame/hardware/printed-parts/zone-c/funnel/funnel-frame.step.npz",
-        "hardware/printed-parts/zone-c/funnel/funnel.py",
-        "hardware/printed-parts/zone-c/funnel/funnel_frame.py",
-        "hardware/reference/_reference_data.py",
-        "hardware/reference/beduan-solenoid/beduan_solenoid.py",
-        "hardware/reference/compressor/compressor.py",
-        "hardware/reference/digiten-flow-sensor/digiten_flow_sensor.py",
-        "hardware/reference/iec-c14-inlet/iec_c14_inlet.py",
-        "hardware/reference/jg-bulkhead-union/jg_bulkhead_union.py",
-        "hardware/reference/jg-pp0208e-tee/branch-operating-measurements.json",
-        "hardware/reference/jg-pp0308e-elbow/scan-measurements.json",
-        "hardware/reference/kamoer-kphm400/kamoer_kphm400.py",
-        "hardware/reference/meanwell-irm90/meanwell_irm90.py",
-        "hardware/reference/mq6-gas-sensor/mq6_gas_sensor.py",
-        "hardware/reference/neofit-stem-elbow/neofit_stem_elbow.py",
-        "hardware/reference/neofit-stem-elbow/reference-parameters.json",
-        "hardware/reference/riteav-keystone/riteav_keystone.py",
-        "hardware/reference/tee-connector/tee_connector.py",
-        "hardware/reference/teyleten-relay/teyleten_relay.py",
-        "hardware/reference/touch-flo-faucet/display-reference/buttons.json",
-        "hardware/reference/touch-flo-faucet/display-reference/component-envelopes.json",
-        "hardware/reference/wago-221/wago_221.py",
-        "hardware/reference/y-divider/y_divider.py",
-        "hardware/scripts/_bom_masses.py",
-        "hardware/scripts/_bom_sync.py",
-        "hardware/scripts/_bom_totals.py",
-        "hardware/scripts/_box_spec.py",
-        "hardware/scripts/_build_data.py",
-        "hardware/scripts/_cadq_export.py",
-        "hardware/scripts/_document_export.py",
-        "hardware/scripts/_facts.py",
-        "hardware/scripts/_funnel_casting.py",
-        "hardware/scripts/_labor_totals.py",
-        "hardware/scripts/_ledger_rust.py",
-        "hardware/scripts/_machine_data.py",
-        "hardware/scripts/_machine_time.py",
-        "hardware/scripts/_material_base.py",
-        "hardware/scripts/_materials.py",
-        "hardware/scripts/_realized.py",
-        "hardware/scripts/_routing.py",
-        "hardware/scripts/_rust_data.py",
-        "hardware/scripts/_rust_objects.py",
-        "hardware/scripts/_rust_part.py",
-        "hardware/scripts/_shared_data.py",
-        "hardware/scripts/_stated_bounds.py",
-        "hardware/scripts/materialize_pump_cartridge.py",
-        "hardware/wiring/_ac_wiring_schedule_sync.py",
-        ":support/enclosure-assembly-graph.json",
-        "tools/docgen/__init__.py",
-        "tools/hsm/assembly-docs/Cargo.toml",
-        "tools/hsm/assembly-docs/src/main.rs",
-        "tools/hsm/assembly-docs/src/marketing.rs",
-        "tools/hsm/assembly-docs/src/procedures.rs",
-        "tools/hsm/assembly-docs/src/procedures/specialized.rs",
-        "tools/hsm/build-data/Cargo.toml",
-        "tools/hsm/build-data/src/artifact_cache.rs",
-        "tools/hsm/build-data/src/artifacts.rs",
-        "tools/hsm/build-data/src/assets.rs",
-        "tools/hsm/build-data/src/inventory.rs",
-        "tools/hsm/build-data/src/lib.rs",
-        "tools/hsm/build-data/src/main.rs",
-        "tools/hsm/build-data/src/payload.rs",
-        "tools/hsm/build-data/src/projection.rs",
-        "tools/hsm/build-data/src/publication.rs",
-        "tools/hsm/build-data/src/publication_archive.rs",
-        "tools/hsm/build-data/src/publication_state.rs",
-        "tools/hsm/build-data/src/publication_zlib.rs",
-        "tools/hsm/build-data/src/sources.rs",
-        "tools/hsm/build-data/src/support.rs",
-        "tools/hsm/build-data/src/surfaces.rs",
-        "tools/hsm/bulkhead-ring-numbers/Cargo.toml",
-        ":out/cargo-config/tools/hsm/cargo-config.json",
-        "tools/hsm/cold-core-data/Cargo.toml",
-        "tools/hsm/cold-core-data/src/coil.rs",
-        "tools/hsm/cold-core-data/src/compiled.rs",
-        "tools/hsm/cold-core-data/src/compiled/_above_core_mounts.rs",
-        "tools/hsm/cold-core-data/src/compiled/_cold_core_interface.rs",
-        "tools/hsm/cold-core-data/src/compiled/_copper_ports.rs",
-        "tools/hsm/cold-core-data/src/compiled/_foam_cap.rs",
-        "tools/hsm/cold-core-data/src/compiled/_internal_routes.rs",
-        "tools/hsm/cold-core-data/src/compiled/_outer_shell.rs",
-        "tools/hsm/cold-core-data/src/compiled/_port_cuts.rs",
-        "tools/hsm/cold-core-data/src/compiled/_reed_channels.rs",
-        "tools/hsm/cold-core-data/src/compiled/_reservoir_a_anchors.rs",
-        "tools/hsm/cold-core-data/src/compiled/_reservoir_a_c2.rs",
-        "tools/hsm/cold-core-data/src/compiled/_reservoir_b_fill.rs",
-        "tools/hsm/cold-core-data/src/compiled/_reservoir_ports.rs",
-        "tools/hsm/cold-core-data/src/compiled/_support_ring.rs",
-        "tools/hsm/cold-core-data/src/compiled/coil_mandrel.rs",
-        "tools/hsm/cold-core-data/src/compiled/endcap_circular_dxf.rs",
-        "tools/hsm/cold-core-data/src/compiled/modules.rs",
-        "tools/hsm/cold-core-data/src/compiled/prv_shroud.rs",
-        "tools/hsm/cold-core-data/src/compiled/reed_bridge.rs",
-        "tools/hsm/cold-core-data/src/compiled/reservoir.rs",
-        "tools/hsm/cold-core-data/src/floats.rs",
-        "tools/hsm/cold-core-data/src/interface.rs",
-        "tools/hsm/cold-core-data/src/lib.rs",
-        "tools/hsm/cold-core-data/src/main.rs",
-        "tools/hsm/cold-core-data/src/mandrel.rs",
-        "tools/hsm/documents/Cargo.toml",
-        "tools/hsm/documents/src/interop.rs",
-        "tools/hsm/documents/src/interop/standard.rs",
-        "tools/hsm/documents/src/lib.rs",
-        "tools/hsm/documents/src/main.rs",
-        "tools/hsm/documents/src/python_checked.rs",
-        "tools/hsm/enclosure-data/Cargo.toml",
-        "tools/hsm/enclosure-data/src/compiled.rs",
-        "tools/hsm/enclosure-data/src/compiled/_above_core_shell.rs",
-        "tools/hsm/enclosure-data/src/compiled/_anchor_cap_interface.rs",
-        "tools/hsm/enclosure-data/src/compiled/_data_wing_interface.rs",
-        "tools/hsm/enclosure-data/src/compiled/_display_wing_interface.rs",
-        "tools/hsm/enclosure-data/src/compiled/_disposal_artwork.rs",
-        "tools/hsm/enclosure-data/src/compiled/_enclosure_datums.rs",
-        "tools/hsm/enclosure-data/src/compiled/_enclosure_interface.rs",
-        "tools/hsm/enclosure-data/src/compiled/_fixed_pump_mount.rs",
-        "tools/hsm/enclosure-data/src/compiled/_grip_interface.rs",
-        "tools/hsm/enclosure-data/src/compiled/_nameplate_dimensions.rs",
-        "tools/hsm/enclosure-data/src/compiled/_nameplate_interface.rs",
-        "tools/hsm/enclosure-data/src/compiled/_nameplate_wing_interface.rs",
-        "tools/hsm/enclosure-data/src/compiled/_swept_top.rs",
-        "tools/hsm/enclosure-data/src/compiled/_y_wall_dimensions.rs",
-        "tools/hsm/enclosure-data/src/compiled/bulkhead_ring.rs",
-        "tools/hsm/enclosure-data/src/compiled/dock_structure.rs",
-        "tools/hsm/enclosure-data/src/compiled/enclosure.rs",
-        "tools/hsm/enclosure-data/src/compiled/fixed_returns.rs",
-        "tools/hsm/enclosure-data/src/compiled/modules.rs",
-        "tools/hsm/enclosure-data/src/compiled/nameplate.rs",
-        "tools/hsm/enclosure-data/src/compiled/pump_case.rs",
-        "tools/hsm/enclosure-data/src/compiled/pump_tray.rs",
-        "tools/hsm/enclosure-data/src/compiled/rear_identification.rs",
-        "tools/hsm/enclosure-data/src/compiled/valve_tray.rs",
-        "tools/hsm/enclosure-data/src/core_dimensions.rs",
-        "tools/hsm/enclosure-data/src/core_profiles.rs",
-        "tools/hsm/enclosure-data/src/main.rs",
-        "tools/hsm/enclosure-data/src/nameplate_snap.rs",
-        "tools/hsm/enclosure-data/src/pump_case.rs",
-        "tools/hsm/enclosure-data/src/pump_tray.rs",
-        "tools/hsm/enclosure-data/src/valve_tray.rs",
-        "tools/hsm/faucet-data/Cargo.toml",
-        "tools/hsm/faucet-data/src/assembly.rs",
-        "tools/hsm/faucet-data/src/assembly_dimensions.rs",
-        "tools/hsm/faucet-data/src/collar.rs",
-        "tools/hsm/faucet-data/src/counter_plate.rs",
-        "tools/hsm/faucet-data/src/covers.rs",
-        "tools/hsm/faucet-data/src/geos.rs",
-        "tools/hsm/faucet-data/src/lever.rs",
-        "tools/hsm/faucet-data/src/lib.rs",
-        "tools/hsm/faucet-data/src/main.rs",
-        "tools/hsm/faucet-data/src/metrics.rs",
-        "tools/hsm/faucet-data/src/plumbing.rs",
-        "tools/hsm/faucet-data/src/plumbing_catalog.json",
-        "tools/hsm/faucet-data/src/shell.rs",
-        "tools/hsm/faucet-data/src/shell_dimensions.rs",
-        "tools/hsm/faucet-data/src/vent.rs",
-        "tools/hsm/faucet-numbers/Cargo.toml",
-        "tools/hsm/geometry/Cargo.toml",
-        "tools/hsm/geometry/src/lib.rs",
-        "tools/hsm/geometry/src/payload.rs",
-        "tools/hsm/geometry/src/queries.rs",
-        "tools/hsm/kernel/Cargo.toml",
-        "tools/hsm/kernel/src/boolean.rs",
-        "tools/hsm/kernel/src/build.rs",
-        "tools/hsm/kernel/src/dxf.rs",
-        "tools/hsm/kernel/src/edge.rs",
-        "tools/hsm/kernel/src/face.rs",
-        "tools/hsm/kernel/src/import.rs",
-        "tools/hsm/kernel/src/lib.rs",
-        "tools/hsm/kernel/src/mapped.rs",
-        "tools/hsm/kernel/src/mass.rs",
-        "tools/hsm/kernel/src/math.rs",
-        "tools/hsm/kernel/src/part.rs",
-        "tools/hsm/kernel/src/plane.rs",
-        "tools/hsm/kernel/src/profile.rs",
-        "tools/hsm/kernel/src/reads.rs",
-        "tools/hsm/kernel/src/round.rs",
-        "tools/hsm/kernel/src/round/rolled.rs",
-        "tools/hsm/kernel/src/rule.rs",
-        "tools/hsm/kernel/src/screw.rs",
-        "tools/hsm/kernel/src/sketch_hull.rs",
-        "tools/hsm/kernel/src/solid.rs",
-        "tools/hsm/kernel/src/spline.rs",
-        "tools/hsm/kernel/src/step.rs",
-        "tools/hsm/kernel/src/step/analytic.rs",
-        "tools/hsm/kernel/src/sweep.rs",
-        "tools/hsm/kernel/src/text.rs",
-        "tools/hsm/kernel/src/thru.rs",
-        "tools/hsm/kernel/src/topo.rs",
-        "tools/hsm/kernel/src/triangulate.rs",
-        "tools/hsm/kernel/src/write.rs",
-        "tools/hsm/layout-data/Cargo.toml",
-        "tools/hsm/layout-data/src/fore.rs",
-        "tools/hsm/layout-data/src/lib.rs",
-        "tools/hsm/layout-data/src/main.rs",
-        "tools/hsm/layout-data/src/rear.rs",
-        "tools/hsm/layout-data/src/routes.rs",
-        "tools/hsm/layout-data/src/soda.rs",
-        "tools/hsm/ledger/Cargo.toml",
-        "tools/hsm/ledger/catalog/printing.json",
-        "tools/hsm/ledger/catalog/tools.json",
-        "tools/hsm/ledger/src/bom.rs",
-        "tools/hsm/ledger/src/bom_sync.rs",
-        "tools/hsm/ledger/src/bom_sync_figures.rs",
-        "tools/hsm/ledger/src/build_time.rs",
-        "tools/hsm/ledger/src/labor.rs",
-        "tools/hsm/ledger/src/main.rs",
-        "tools/hsm/ledger/src/printing.rs",
-        "tools/hsm/ledger/src/shared.rs",
-        "tools/hsm/ledger/src/tools.rs",
-        "tools/hsm/lever-replica-numbers/Cargo.toml",
-        "tools/hsm/machine-data/Cargo.toml",
-        "tools/hsm/machine-data/src/archive.rs",
-        "tools/hsm/machine-data/src/box_spec.rs",
-        "tools/hsm/machine-data/src/compiled.rs",
-        "tools/hsm/machine-data/src/compiled/_assembly_questions.rs",
-        "tools/hsm/machine-data/src/compiled/_facts.rs",
-        "tools/hsm/machine-data/src/compiled/_gas_chain.rs",
-        "tools/hsm/machine-data/src/compiled/_lines.rs",
-        "tools/hsm/machine-data/src/compiled/_machine.rs",
-        "tools/hsm/machine-data/src/compiled/_machine_checks.rs",
-        "tools/hsm/machine-data/src/compiled/_machine_equipment.rs",
-        "tools/hsm/machine-data/src/compiled/_machine_export.rs",
-        "tools/hsm/machine-data/src/compiled/_machine_layout.rs",
-        "tools/hsm/machine-data/src/compiled/_machine_reporting.rs",
-        "tools/hsm/machine-data/src/compiled/_machine_routes.rs",
-        "tools/hsm/machine-data/src/compiled/_scorecard.rs",
-        "tools/hsm/machine-data/src/compiled/above_core_bom.rs",
-        "tools/hsm/machine-data/src/compiled/above_core_parts.rs",
-        "tools/hsm/machine-data/src/compiled/above_core_wiring.rs",
-        "tools/hsm/machine-data/src/compiled/enclosure_assembly.rs",
-        "tools/hsm/machine-data/src/compiled/manifold_layout.rs",
-        "tools/hsm/machine-data/src/compiled/modules.rs",
-        "tools/hsm/machine-data/src/compiled/rear_plumbing.rs",
-        "tools/hsm/machine-data/src/equipment.rs",
-        "tools/hsm/machine-data/src/equipment_ports.rs",
-        "tools/hsm/machine-data/src/io.rs",
-        "tools/hsm/machine-data/src/main.rs",
-        "tools/hsm/machine-data/src/native_profiles.rs",
-        "tools/hsm/machine-data/src/queries.rs",
-        "tools/hsm/machine-data/src/reporting.rs",
-        "tools/hsm/machine-data/src/source.rs",
-        "tools/hsm/part-data/Cargo.toml",
-        "tools/hsm/part-data/src/electronics.rs",
-        "tools/hsm/part-data/src/main.rs",
-        "tools/hsm/part-data/src/output.rs",
-        "tools/hsm/part-data/src/reference.rs",
-        "tools/hsm/part-data/src/reference_catalog.rs",
-        "tools/hsm/part-data/src/sleeve.rs",
-        "tools/hsm/part-data/src/storage.rs",
-        "tools/hsm/part-data/src/zone.rs",
-        "tools/hsm/shared-data/Cargo.toml",
-        "tools/hsm/shared-data/catalog/materials.json",
-        "tools/hsm/shared-data/catalog/routing.json",
-        "tools/hsm/shared-data/catalog/scalars.json",
-        "tools/hsm/shared-data/src/color.rs",
-        "tools/hsm/shared-data/src/common.rs",
-        "tools/hsm/shared-data/src/cooling.rs",
-        "tools/hsm/shared-data/src/lib.rs",
-        "tools/hsm/shared-data/src/main.rs",
-        "tools/hsm/shared-data/src/routing.rs",
-        "tools/hsm/shared-data/src/scalars.rs",
-        "tools/hsm/tpu-o-ring-numbers/Cargo.toml",
-        "tools/hsm/tube-collar-numbers/Cargo.toml",
-        "tools/hsm/umbilical-organizer-numbers/Cargo.toml",
-        "tools/hsm/under-counter-plate-numbers/Cargo.toml",
-        "tools/hsm/vendor/manifold-csg-sys/.cargo_vcs_info.json",
-        "tools/hsm/vendor/manifold-csg-sys/Cargo.lock",
-        "tools/hsm/vendor/manifold-csg-sys/Cargo.toml",
-        "tools/hsm/vendor/manifold-csg-sys/Cargo.toml.orig",
-        "tools/hsm/vendor/manifold-csg-sys/LICENSE-APACHE",
-        "tools/hsm/vendor/manifold-csg-sys/LICENSE-MIT",
-        "tools/hsm/vendor/manifold-csg-sys/README.md",
-        "tools/hsm/vendor/manifold-csg-sys/build.rs",
-        "tools/hsm/vendor/manifold-csg-sys/build/build.rs",
-        "tools/hsm/vendor/manifold-csg-sys/build/fetch.rs",
-        "tools/hsm/vendor/manifold-csg-sys/build/patch.rs",
-        "tools/hsm/vendor/manifold-csg-sys/build/wasm.rs",
-        "tools/hsm/vendor/manifold-csg-sys/cache-version",
-        "tools/hsm/vendor/manifold-csg-sys/patches/README.md",
-        "tools/hsm/vendor/manifold-csg-sys/src/lib.rs",
-        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/CMakeLists.txt",
-        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/diagnose.sh",
-        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/__assertion_handler",
-        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/__config_site",
-        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/memory",
-        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/include/mutex",
-        "tools/hsm/vendor/manifold-csg-sys/wasm32-uu/libcxx-extras.cpp",
-    ] + glob(
-        [
-            "hardware/ledger/bom.figures.json",
-            "hardware/ledger/labor.figures.json",
-        ],
-        allow_empty = True,
-    ),
-    outs = [
-        "out/bom-masses/hardware/ledger/bom.figures.json",
-        "out/bom-masses/hardware/ledger/bom.md",
-        "out/bom-masses/hardware/ledger/labor.figures.json",
-        "out/bom-masses/hardware/ledger/labor.md",
-    ],
-    tags = ["no-sandbox"],
-    cmd = """
-set -e
-case "$$(uname -s)" in
-  Darwin)
-    copy_mask=$$((8#$$(umask)))
-    copy_bits=("" x w wx r rx rw rwx)
-    copy_mode="u-$${copy_bits[$$((copy_mask >> 6 & 7))]},g-$${copy_bits[$$((copy_mask >> 3 & 7))]},o-$${copy_bits[$$((copy_mask & 7))]}"
-    copy_file() {
-      local copy_dest="$${!#}" copy_target copy_permissions="$$copy_mode"
-      if [ -e "$$copy_dest" ] || [ -L "$$copy_dest" ]; then
-        if [ ! -f "$$copy_dest" ] || [ -L "$$copy_dest" ]; then cp "$$@"; return; fi
-        copy_permissions=$$(stat -f %Lp "$$copy_dest")
-        copy_target=$$(mktemp "$$copy_dest.hsm-copy.XXXXXX")
-      else copy_target="$$copy_dest"; fi
-      if cp -c "$${@:1:$$(( $$# - 1 ))}" "$$copy_target" 2>/dev/null; then
-        chmod "$$copy_permissions" "$$copy_target"
-        touch "$$copy_target"
-        if [ "$$copy_target" != "$$copy_dest" ]; then mv -f "$$copy_target" "$$copy_dest"; fi
-      else rm -f "$$copy_target"; cp "$$@"; fi
-    };;
-  *) copy_file() { cp "$$@"; };;
-esac
-O0=$$PWD/$(location out/bom-masses/hardware/ledger/bom.figures.json)
-O1=$$PWD/$(location out/bom-masses/hardware/ledger/bom.md)
-O2=$$PWD/$(location out/bom-masses/hardware/ledger/labor.figures.json)
-O3=$$PWD/$(location out/bom-masses/hardware/ledger/labor.md)
-rm -rf work-bom-masses
-for f in $(SRCS); do
-  case $$f in
-    */node_modules/*) continue;;
-    */bin/support/enclosure-assembly-graph.json) t=tools/bazel/graph.json;;
-    */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
-    *) t=$$f;;
-  esac
-  mkdir -p "work-bom-masses/$$(dirname "$$t")"; copy_file -L "$$f" "work-bom-masses/$$t"
-done
-for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
-  if [ -d $$d ]; then mkdir -p work-bom-masses/$$(dirname $$d); ln -sfn $$PWD/$$d work-bom-masses/$$d; fi
-done
-for f in hardware/scripts/_run_lock.py hardware/scripts/_run_native.py hardware/scripts/_run_slots.py tools/hsm/run-slots.defaults.json tools/run-slots.mjs tools/run.py; do
-  mkdir -p work-bom-masses/$$(dirname $$f); cp $$HSM_WORKSPACE/$$f work-bom-masses/$$f
-done
-cd work-bom-masses
-ln -sfn $$HSM_WORKSPACE/.cache .cache
-D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/scripts/_bom_masses.py > /dev/null
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/scripts/_bom_sync.py > /dev/null
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/scripts/_bom_totals.py > /dev/null
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/scripts/_labor_totals.py > /dev/null
-copy_file hardware/ledger/bom.figures.json "$$O0"
-copy_file hardware/ledger/bom.md "$$O1"
-copy_file hardware/ledger/labor.figures.json "$$O2"
-copy_file hardware/ledger/labor.md "$$O3"
-cd .. && rm -rf work-bom-masses
-""",
-)
-
-genrule(
-    name = "machine-time",
-    srcs = [
-        "hardware/ledger/bom.md",
-        "hardware/ledger/machine-time.md",
-        "hardware/printed-parts/cold-core/foam-shell/prints/2026-10-26-mark2-round-ports-a2/preparation.json",
-        "hardware/printed-parts/cold-core/magnetic-float/all-aero/mark2-print/v1/float-preflight.json",
-        ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step",
-        ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step.npz",
-        ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.step",
-        ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.step.npz",
-        ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.step",
-        ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.step.npz",
-        ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.step",
-        ":out/rear-equipment-caps/hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.step.npz",
-        "hardware/printed-parts/faucet/faucet-petgf.support-audit.json",
-        "hardware/printed-parts/zone-c/funnel-cover/native-slice-review.json",
-        "hardware/scripts/_bom_masses.py",
-        "hardware/scripts/_build_data.py",
-        "hardware/scripts/_ledger_rust.py",
-        "hardware/scripts/_machine_time.py",
-        "hardware/scripts/_realized.py",
-        "hardware/scripts/_rust_data.py",
-        "hardware/scripts/_rust_part.py",
-        "tools/docgen/__init__.py",
-        "tools/hsm/build-data/Cargo.toml",
-        "tools/hsm/build-data/src/artifact_cache.rs",
-        "tools/hsm/build-data/src/artifacts.rs",
-        "tools/hsm/build-data/src/assets.rs",
-        "tools/hsm/build-data/src/inventory.rs",
-        "tools/hsm/build-data/src/lib.rs",
-        "tools/hsm/build-data/src/main.rs",
-        "tools/hsm/build-data/src/payload.rs",
-        "tools/hsm/build-data/src/projection.rs",
-        "tools/hsm/build-data/src/publication.rs",
-        "tools/hsm/build-data/src/publication_archive.rs",
-        "tools/hsm/build-data/src/publication_state.rs",
-        "tools/hsm/build-data/src/publication_zlib.rs",
-        "tools/hsm/build-data/src/sources.rs",
-        "tools/hsm/build-data/src/support.rs",
-        "tools/hsm/build-data/src/surfaces.rs",
-        ":out/cargo-config/tools/hsm/cargo-config.json",
-        "tools/hsm/documents/Cargo.toml",
-        "tools/hsm/documents/src/interop.rs",
-        "tools/hsm/documents/src/interop/standard.rs",
-        "tools/hsm/documents/src/lib.rs",
-        "tools/hsm/documents/src/main.rs",
-        "tools/hsm/documents/src/python_checked.rs",
-        "tools/hsm/geometry/Cargo.toml",
-        "tools/hsm/geometry/src/lib.rs",
-        "tools/hsm/geometry/src/payload.rs",
-        "tools/hsm/geometry/src/queries.rs",
-        "tools/hsm/kernel/Cargo.toml",
-        "tools/hsm/kernel/src/boolean.rs",
-        "tools/hsm/kernel/src/build.rs",
-        "tools/hsm/kernel/src/dxf.rs",
-        "tools/hsm/kernel/src/edge.rs",
-        "tools/hsm/kernel/src/face.rs",
-        "tools/hsm/kernel/src/import.rs",
-        "tools/hsm/kernel/src/lib.rs",
-        "tools/hsm/kernel/src/mapped.rs",
-        "tools/hsm/kernel/src/mass.rs",
-        "tools/hsm/kernel/src/math.rs",
-        "tools/hsm/kernel/src/part.rs",
-        "tools/hsm/kernel/src/plane.rs",
-        "tools/hsm/kernel/src/profile.rs",
-        "tools/hsm/kernel/src/reads.rs",
-        "tools/hsm/kernel/src/round.rs",
-        "tools/hsm/kernel/src/round/rolled.rs",
-        "tools/hsm/kernel/src/rule.rs",
-        "tools/hsm/kernel/src/screw.rs",
-        "tools/hsm/kernel/src/sketch_hull.rs",
-        "tools/hsm/kernel/src/solid.rs",
-        "tools/hsm/kernel/src/spline.rs",
-        "tools/hsm/kernel/src/step.rs",
-        "tools/hsm/kernel/src/step/analytic.rs",
-        "tools/hsm/kernel/src/sweep.rs",
-        "tools/hsm/kernel/src/text.rs",
-        "tools/hsm/kernel/src/thru.rs",
-        "tools/hsm/kernel/src/topo.rs",
-        "tools/hsm/kernel/src/triangulate.rs",
-        "tools/hsm/kernel/src/write.rs",
-        "tools/hsm/ledger/Cargo.toml",
-        "tools/hsm/ledger/catalog/printing.json",
-        "tools/hsm/ledger/catalog/tools.json",
-        "tools/hsm/ledger/src/bom.rs",
-        "tools/hsm/ledger/src/bom_sync.rs",
-        "tools/hsm/ledger/src/bom_sync_figures.rs",
-        "tools/hsm/ledger/src/build_time.rs",
-        "tools/hsm/ledger/src/labor.rs",
-        "tools/hsm/ledger/src/main.rs",
-        "tools/hsm/ledger/src/printing.rs",
-        "tools/hsm/ledger/src/shared.rs",
-        "tools/hsm/ledger/src/tools.rs",
-    ] + glob(
-        [
-            "hardware/ledger/machine-time.figures.json",
-        ],
-        allow_empty = True,
-    ),
-    outs = [
-        "out/machine-time/hardware/ledger/machine-time.figures.json",
-        "out/machine-time/hardware/ledger/machine-time.md",
-    ],
-    tags = ["no-sandbox"],
-    cmd = """
-set -e
-case "$$(uname -s)" in
-  Darwin)
-    copy_mask=$$((8#$$(umask)))
-    copy_bits=("" x w wx r rx rw rwx)
-    copy_mode="u-$${copy_bits[$$((copy_mask >> 6 & 7))]},g-$${copy_bits[$$((copy_mask >> 3 & 7))]},o-$${copy_bits[$$((copy_mask & 7))]}"
-    copy_file() {
-      local copy_dest="$${!#}" copy_target copy_permissions="$$copy_mode"
-      if [ -e "$$copy_dest" ] || [ -L "$$copy_dest" ]; then
-        if [ ! -f "$$copy_dest" ] || [ -L "$$copy_dest" ]; then cp "$$@"; return; fi
-        copy_permissions=$$(stat -f %Lp "$$copy_dest")
-        copy_target=$$(mktemp "$$copy_dest.hsm-copy.XXXXXX")
-      else copy_target="$$copy_dest"; fi
-      if cp -c "$${@:1:$$(( $$# - 1 ))}" "$$copy_target" 2>/dev/null; then
-        chmod "$$copy_permissions" "$$copy_target"
-        touch "$$copy_target"
-        if [ "$$copy_target" != "$$copy_dest" ]; then mv -f "$$copy_target" "$$copy_dest"; fi
-      else rm -f "$$copy_target"; cp "$$@"; fi
-    };;
-  *) copy_file() { cp "$$@"; };;
-esac
-O0=$$PWD/$(location out/machine-time/hardware/ledger/machine-time.figures.json)
-O1=$$PWD/$(location out/machine-time/hardware/ledger/machine-time.md)
-rm -rf work-machine-time
-for f in $(SRCS); do
-  case $$f in
-    */node_modules/*) continue;;
-    */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
-    *) t=$$f;;
-  esac
-  mkdir -p "work-machine-time/$$(dirname "$$t")"; copy_file -L "$$f" "work-machine-time/$$t"
-done
-for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
-  if [ -d $$d ]; then mkdir -p work-machine-time/$$(dirname $$d); ln -sfn $$PWD/$$d work-machine-time/$$d; fi
-done
-for f in hardware/scripts/_run_lock.py hardware/scripts/_run_native.py hardware/scripts/_run_slots.py tools/hsm/run-slots.defaults.json tools/run-slots.mjs tools/run.py; do
-  mkdir -p work-machine-time/$$(dirname $$f); cp $$HSM_WORKSPACE/$$f work-machine-time/$$f
-done
-cd work-machine-time
-ln -sfn $$HSM_WORKSPACE/.cache .cache
-D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python tools/run.py -- $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/scripts/_machine_time.py > /dev/null
-copy_file hardware/ledger/machine-time.figures.json "$$O0"
-copy_file hardware/ledger/machine-time.md "$$O1"
-cd .. && rm -rf work-machine-time
-""",
-)
-
-genrule(
     name = "fluid-topology-program",
     srcs = [
         "hardware/manifold-layout/manifold/lib.rs",
@@ -14561,15 +14463,6 @@ cd .. && rm -rf work-cargo-config
 """,
 )
 
-genrule(
-    name = "support-enclosure-assembly-graph",
-    srcs = ["tools/bazel/graph.json"],
-    outs = ["support/enclosure-assembly-graph.json"],
-    tools = ["tools/bazel/gen_build.py", ":build-data-runtime"],
-    tags = ["no-sandbox"],
-    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/gen_build.py) --project-graph hardware/manifold-layout/enclosure_assembly.py $(location tools/bazel/graph.json) $@",
-)
-
 filegroup(
     name = "build-data-runtime",
     srcs = [
@@ -14683,6 +14576,8 @@ filegroup(
         ":install-guide",
         ":kit-art",
         ":opening-scene",
+        ":bom",
+        ":machine-time",
         ":purchases",
         ":installed-machine",
         ":manifold-layout",
@@ -14734,8 +14629,6 @@ filegroup(
         ":elbow-cradle",
         ":funnel",
         ":funnel-frame",
-        ":bom-masses",
-        ":machine-time",
         ":fluid-topology",
         ":cargo-config",
     ],

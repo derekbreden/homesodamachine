@@ -67,8 +67,8 @@ export function duration(minutes) {
   return !h ? `${m} m` : m ? `${h} h ${m} m` : `${h} h`;
 }
 
-// A labor operation's run, read off its labor.md Run cell the way
-// hardware/scripts/_labor_totals.py reads it:
+// A labor operation's run, read off its labor.md Run cell the way the BOM program
+// (hardware/ledger/bom.rs) reads it:
 // `15 m setup a plate of 30 · 30 s a float · 3 a machine`. `a batch` is one
 // setup for every machine built together.
 const RUN_RE = /^([0-9][0-9 hms]*?) setup an? ([a-z][a-z-]*)(?: of ([0-9]+))? · ([0-9][0-9 hms]*?) an? ([a-z][a-z -]*?) · ([0-9]+) an? machine$/;

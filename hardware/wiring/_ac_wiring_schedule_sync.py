@@ -1,5 +1,5 @@
 """The AC wiring schedule (gauges and runs), computed by the Rust `assembly-docs` program.
-`hardware/scripts/_bom_sync.py` and `hardware/wiring/_run_lengths.py` read it."""
+`hardware/wiring/_run_lengths.py` reads it."""
 import sys
 from pathlib import Path
 _here = Path(__file__).resolve().parent
